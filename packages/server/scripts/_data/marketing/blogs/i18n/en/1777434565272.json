@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777434565272",
+  "seo_title": "Tiger Traits & the Secret of Its Stripes — A Nature Picture Book",
+  "meta_description": "Amazing facts like how a tiger's stripes are all different like fingerprints and its remarkable hunting skills, plus what's inside Tangobook's animal picture book and how to observe them. A nature-observation guide for ages 4-7.",
+  "primary_keyword": "tiger",
+  "secondary_keywords": [
+    "tiger traits",
+    "tiger stripes",
+    "tiger ecology",
+    "animal books for kids",
+    "animal picture book"
+  ],
+  "url_slug": "tiger-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "Tiger - What's so amazing about tigers?",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%ED%98%B8%EB%9E%91%EC%9D%B4-cover-misc-1780028371172.webp",
+        "text": "<h2>What's so amazing about tigers?</h2><p>The <strong>tiger</strong>, the largest of the cat family, is a splendid yet familiar animal that often appears in old Korean folk tales. And there's an amazing secret hidden in its stripes.</p>",
+        "caption": "A tiger in the forest",
+        "image_style": "",
+        "image_prompt": "A majestic tiger with orange and black stripes in tall grass, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "Tiger - Nature and science facts about tigers",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page1-1777436215651.webp",
+        "text": "<h2>Nature and science facts about tigers</h2><p>A tiger's black stripes on an orange background work as <strong>camouflage</strong> that hides its body in the tall grass. Amazingly, <strong>the stripes are all different from one tiger to the next, just like fingerprints</strong>. With excellent night vision, soft padded paws, and retractable claws, it <strong>hunts without a sound</strong>. Unlike most of the cat family, it <strong>loves water and swims well</strong>, and it's a solitary animal that lives alone. In the wild, it's an endangered species.</p>",
+        "caption": "Stripes as unique as fingerprints",
+        "image_style": "",
+        "image_prompt": "A close-up of tiger stripes, each pattern unique, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "Tiger - What Tangobook's «Tiger» covers",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page5-1777434701236.webp",
+        "text": "<h2>What Tangobook's «Tiger» covers</h2><p>Tangobook's «Tiger» vividly shows the tiger's charm, including its splendid stripes, silent hunting, swimming, and the way it marks its territory.</p>",
+        "caption": "A tiger that loves water",
+        "image_style": "",
+        "image_prompt": "A tiger swimming in water, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "Tiger - Great points to observe together",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page10-1777436300048.webp",
+        "text": "<h2>Great points to observe together</h2><p>Point out things like the stripes (camouflage and fingerprints), night vision, retractable claws, and swimming. It's great to talk together about, \"Isn't it amazing that every tiger's stripes are different?\"</p>",
+        "caption": "Points to observe",
+        "image_style": "",
+        "image_prompt": "A tiger stalking silently with soft paws, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "Tiger - Parent guide — how to grow curiosity",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page14-1777436356921.webp",
+        "text": "<h2>Parent guide — how to grow curiosity</h2><p>Compare the stripes in tiger photos and find out how \"they're all different!\" Compare the ways it resembles a cat (claws and whiskers), and use the story of its being endangered to nurture a caring heart for living things.</p>",
+        "caption": "Comparing with a cat",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing tiger and cat features, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Frequently Asked Questions (FAQ)</h2><p><strong>Q. Are all tiger stripes the same?</strong><br>A. No. Just like a person's fingerprints, they're all different from one tiger to the next. You can tell tigers apart by their stripes.</p><p><strong>Q. Do tigers like water?</strong><br>A. Yes. Unlike most of the cat family, they love water and swim well.</p><p><strong>Q. How can we observe them at home?</strong><br>A. Comparing stripes in photos, finding what resembles a cat, and the story of its being endangered all work well.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Classic fairy tales to read together</h2><p>If your child enjoyed this story, try reading these <strong>classic fairy tales</strong> too.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">Puppy</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">Foxtail Grass</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">Frog</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">Ant</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "Tiger picture book illustration",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page18-1777436388768.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">Curious about \"Tiger\"?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">Meet it for yourself on Tangobook, with beautiful illustrations and Korean and English audio.</p><a href=\"https://tangobook.co.kr/library/1777434565272\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 Go read the storybook →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

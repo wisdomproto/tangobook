@@ -64,6 +64,13 @@
       '.ht-batch-btn{background:var(--leaf,#3f8f52);color:#fff;border:none;border-radius:999px;padding:9px 20px;font-weight:800;font-size:13px;cursor:pointer;}',
       '.ht-batch-btn:hover{background:var(--leaf-dark,#2f6b3d);}',
       '.ht-batch-btn.done{background:var(--apple,#e0533b);}',
+      '.ref-strip{display:flex;align-items:center;gap:7px;flex-wrap:wrap;background:#fff;border:1.5px solid var(--line,#e6dccb);border-radius:12px;padding:8px 12px;margin:0 0 22px;}',
+      '.ref-strip .ref-lab{font-size:11.5px;font-weight:800;color:var(--ink-soft,#6b5b4a);flex:0 0 auto;margin-right:2px;}',
+      '.ref-chip{display:flex;align-items:center;gap:6px;background:var(--cream,#fbf7ef);border:1px solid var(--line,#e6dccb);border-radius:999px;padding:3px 11px 3px 3px;}',
+      '.ref-chip img{width:30px;height:30px;border-radius:50%;object-fit:cover;background:#fff;flex:0 0 auto;}',
+      '.ref-chip .ph{width:30px;height:30px;border-radius:50%;background:var(--peach,#ffe9d6);display:flex;align-items:center;justify-content:center;font-size:16px;flex:0 0 auto;}',
+      '.ref-chip b{font-size:11.5px;font-weight:800;color:var(--ink,#2c2015);white-space:nowrap;}',
+      '.ref-chip .im{color:var(--leaf-dark,#2f6b3d);font-weight:900;}',
     ].join('');
     var s = document.createElement('style');
     s.id = 'ht-core-style';
@@ -271,6 +278,33 @@
       anchor.parentNode.insertBefore(bar, anchor.nextSibling);
       document.getElementById('ht-copy-all').addEventListener('click', function () { copyText(compose(pages), this); });
     }
+
+    // ── 🎬 이 화 등장 캐릭터 레퍼런스 한 줄 스트립 (고정 캐스트 = 기획서 saenghwal-plan 저장분 재사용) ──
+    (function () {
+      var NAME2KEY = { '호리': 'hori', '토토': 'toto', '보리': 'bori', '콩이': 'kongi', '두부': 'dubu', '호야': 'hoya', '엄마': 'mom', '아빠': 'dad' };
+      var FACE = { hori: '🐯', toto: '🐰', bori: '🐻', kongi: '🐿️', dubu: '🐶', hoya: '🍼', mom: '🐯', dad: '🐯' };
+      if (!cast.length) return;
+      cast.forEach(function (c) { c.refKey = NAME2KEY[c.name] || NAME2KEY[c.token]; });
+      var strip = document.createElement('div');
+      strip.className = 'ref-strip';
+      strip.innerHTML = '<span class="ref-lab">🎬 이 화 등장</span>' +
+        cast.map(function (c) {
+          return '<div class="ref-chip" data-ref="' + (c.refKey || '') + '" title="' + (c.desc || '').replace(/"/g, '') + '">' +
+            '<span class="ph">' + (FACE[c.refKey] || '🎭') + '</span>' +
+            '<b><span class="im">@image' + c.img + '</span> ' + c.name + '</b></div>';
+        }).join('');
+      var firstPageEl = pages[0] && pages[0].card;
+      if (firstPageEl && firstPageEl.parentNode) firstPageEl.parentNode.insertBefore(strip, firstPageEl);
+      // 고정 캐스트 이미지는 기획서(saenghwal-plan) 저장분을 비동기로 채워 넣는다
+      fetch('/api/comic-assets/saenghwal-plan').then(function (r) { return r.json(); }).then(function (j) {
+        var plan = (j && j.data) || {};
+        cast.forEach(function (c) {
+          if (!c.refKey || !plan[c.refKey]) return;
+          var box = strip.querySelector('.ref-chip[data-ref="' + c.refKey + '"] .ph');
+          if (box) box.outerHTML = '<img src="' + plan[c.refKey] + '?t=' + Date.now() + '" alt="" />';
+        });
+      }).catch(function () {});
+    })();
 
     // 쪽별 복사 버튼
     pages.forEach(function (p) {

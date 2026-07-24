@@ -1,0 +1,106 @@
+{
+  "storybookId": "1777613050117",
+  "seo_title": "章鱼的特征与伪装的秘密——自然观察绘本",
+  "meta_description": "章鱼的八条触手和吸盘、瞬间变色的伪装与墨水等神奇事实，以及《Tango Book》自然观察绘本的内容和观察方法。4-7岁自然观察指南。",
+  "primary_keyword": "章鱼",
+  "secondary_keywords": ["章鱼的特点", "章鱼的伪装", "章鱼吸盘", "幼儿自然观察书", "海洋动物绘本"],
+  "url_slug": "octopus-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "章鱼——章鱼，有什么神奇的地方呢？",
+        "url": "https://assets.tangobook.co.kr/1777613050117-%EB%AC%B8%EC%96%B4-cover-misc-1780025981149.webp",
+        "text": "<h2>章鱼，哪些地方会让人觉得神奇呢？</h2><p>是海洋中最聪明的动物之一， <strong>章鱼</strong>它用八条触手可以抓住东西，也能尝到味道，真是个神奇的好朋友。</p>",
+        "caption": "聪明的海洋朋友",
+        "image_style": "",
+        "image_prompt": "An octopus with eight arms in the sea, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "章鱼 - 章鱼的自然与科学事实",
+        "url": "https://assets.tangobook.co.kr/1777613050117-%EB%B3%80%EC%8B%A0%EC%9D%98%EC%B2%9C%EC%9E%AC%EB%B0%94%EB%8B%A4%EC%9D%98%EC%A7%80%EB%9E%B5%EA%B0%80%EB%AC%B8%EC%96%B4-illustration-page1-1773390728323.webp",
+        "text": "<h2>章鱼的自然与科学知识</h2><p>章鱼的八条手臂上有无数个 <strong>吸盘</strong>这样可以抓住东西，感受味道。为了与周围环境融合， <strong>瞬间改变身体的颜色和花纹来隐藏自己（伪装），</strong>如果遇到危险， <strong>会喷出墨水，</strong> 遮住敌人的视线后逃跑。由于没有硬骨头的柔软身体，它甚至可以钻进比自己还窄的缝隙里。它是一位用解决问题的智慧让科学家都感到惊讶的海底朋友。</p>",
+        "caption": "变色的伪装",
+        "image_style": "",
+        "image_prompt": "An octopus changing color to camouflage, fascinating children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "章鱼 - 探戈书《章鱼》所讲述的内容",
+        "url": "https://assets.tangobook.co.kr/1777613050117-%EB%B3%80%EC%8B%A0%EC%9D%98%EC%B2%9C%EC%9E%AC%EB%B0%94%EB%8B%A4%EC%9D%98%EC%A7%80%EB%9E%B5%EA%B0%80%EB%AC%B8%EC%96%B4-illustration-page5-1773390761944.webp",
+        "text": "<h2>探戈书《章鱼》讲了什么内容</h2><p>《章鱼》这本书生动地展示了八条触手和吸盘、变色的伪装、喷墨水的样子，以及藏在狭小缝隙里的聪明章鱼。</p>",
+        "caption": "用墨水逃跑",
+        "image_style": "",
+        "image_prompt": "An octopus releasing ink to escape, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "章鱼 - 共同观察的重点",
+        "url": "https://assets.tangobook.co.kr/1777613050117-%EB%B3%80%EC%8B%A0%EC%9D%98%EC%B2%9C%EC%9E%AC%EB%B0%94%EB%8B%A4%EC%9D%98%EC%A7%80%EB%9E%B5%EA%B0%80%EB%AC%B8%EC%96%B4-illustration-page10-1773404655905.webp",
+        "text": "<h2>一起观察时可以关注的重点</h2><p>请指出吸盘（抓取·品尝）、变色伪装（改变颜色）、墨水（逃跑）和柔软的身体等细节。一起聊聊“章鱼如何隐藏自己？”会很好。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "A close-up of octopus suckers, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "章鱼 - 家长指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1777613050117-%EB%B3%80%EC%8B%A0%EC%9D%98%EC%B2%9C%EC%9E%AC%EB%B0%94%EB%8B%A4%EC%9D%98%EC%A7%80%EB%9E%B5%EA%B0%80%EB%AC%B8%EC%96%B4-illustration-page14-1773404091665.webp",
+        "text": "<h2>父母指南 — 如何培养好奇心</h2><p>将“改变颜色躲藏，用墨水逃跑”与变色龙的变色进行比较。如果将吸盘数量与手指进行比较，会更吸引人。</p>",
+        "caption": "章鱼探索",
+        "image_style": "",
+        "image_prompt": "A parent and child looking at an octopus picture, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>问：章鱼如何隐藏身体？</strong><br>答：它能瞬间改变身体的颜色和花纹，与周围环境融合伪装。如果感到危险，还会喷墨水。</p><p><strong>问：章鱼的吸盘是做什么用的？</strong><br>答：它用来抓住东西，还能感受味道。它的八条手臂上吸盘非常多。</p><p><strong>问：在家里如何观察比较好呢？</strong><br>答：可以和变色龙的颜色变化进行比较，也可以用手指来数吸盘的数量。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "章鱼绘本插画",
+        "url": "https://assets.tangobook.co.kr/1777613050117-%EB%B3%80%EC%8B%A0%EC%9D%98%EC%B2%9C%EC%9E%AC%EB%B0%94%EB%8B%A4%EC%9D%98%EC%A7%80%EB%9E%B5%EA%B0%80%EB%AC%B8%EC%96%B4-illustration-page18-1773404115512.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">“章鱼”让您感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book中，通过精美的图画和韩语·英语音频亲身体验吧。</p><a href=\"https://tangobook.co.kr/library/1777613050117\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773714531390",
+  "seo_title": "暴龙王特征——恐龙之王自然观察绘本",
+  "meta_description": "关于恐龙之王霸王龙（Tyrannosaurus Rex）的巨大身躯、骇人牙齿、小前肢等奇妙事实，以及《Tango Book》恐龙绘本的内容和阅读乐趣。4-7岁恐龙指南。",
+  "primary_keyword": "暴龙",
+  "secondary_keywords": ["暴龙", "暴龙（T-Rex）", "恐龙之王", "幼儿恐龙书", "恐龙绘本"],
+  "url_slug": "tyrannosaurus-rex-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "暴龙王——霸王龙，有什么地方让人感到新奇呢？",
+        "url": "https://assets.tangobook.co.kr/1773714531390-%ED%8B%B0%EB%9D%BC%EB%85%B8%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4%EB%A0%89%EC%8A%A4-cover-misc-1780044365036.webp",
+        "text": "<h2>霸王龙，哪些地方会让人感到新奇呢？</h2><p>被称为“恐龙之王”的 <strong>霸王龙（T. rex）</strong>是孩子们最喜欢的恐龙。它巨大的身躯和强有力的下颚真的太酷了，对吗？</p>",
+        "caption": "恐龙之王",
+        "image_style": "",
+        "image_prompt": "A mighty Tyrannosaurus rex roaring in a prehistoric landscape, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "暴龙（T-Rex）——关于霸王龙的自然与科学事实",
+        "url": "https://assets.tangobook.co.kr/1773714531390-%EB%B0%B1%EC%95%85%EA%B8%B0%EC%9D%98%EC%A0%9C%EC%99%95%ED%8B%B0%EB%9D%BC%EB%85%B8%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4%EB%A0%89%EC%8A%A4-illustration-page1-1773714588783.webp",
+        "text": "<h2>T-Rex的自然和科学事实</h2><p>T. rex生活在大约6600万年前的白垩纪晚期北美。身体长度大约 <strong>12米，体重6~9吨</strong>是巨大的生物。大约 <strong>60颗牙齿</strong>长达20厘米，咬合力非常强大。前爪虽然只有两个手指小，但力量很大，并且用朝前的眼睛能很好地估算距离。如今的 <strong>是恐龙的后代，也就是鸟类</strong>的。</p>",
+        "caption": "可怕的下巴",
+        "image_style": "",
+        "image_prompt": "A close-up of T. rex giant teeth and jaw, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "霸王龙 - Tango Book《霸王龙》所涵盖的内容",
+        "url": "https://assets.tangobook.co.kr/1773714531390-%EB%B0%B1%EC%95%85%EA%B8%B0%EC%9D%98%EC%A0%9C%EC%99%95%ED%8B%B0%EB%9D%BC%EB%85%B8%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4%EB%A0%89%EC%8A%A4-illustration-page6-1773714610777.webp",
+        "text": "<h2>《Tango Book》关于“霸王龙”的内容</h2><p>《Tango Book》“霸王龙”生动地展示了恐龙之王的巨大身躯、可怕的牙齿和下颚、小小的前爪，以及捕猎的样子。</p>",
+        "caption": "小但强壮的前爪",
+        "image_style": "",
+        "image_prompt": "A T. rex with its small front arms shown, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "暴龙（T-Rex）——值得一起了解的知识点",
+        "url": "https://assets.tangobook.co.kr/1773714531390-%EB%B0%B1%EC%95%85%EA%B8%B0%EC%9D%98%EC%A0%9C%EC%99%95%ED%8B%B0%EB%9D%BC%EB%85%B8%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4%EB%A0%89%EC%8A%A4-illustration-page10-1773714637165.webp",
+        "text": "<h2>可以一起了解的重点</h2><p>请指出像巨大的身躯（12米）、强壮的牙齿和下颚、小的前爪、立体视觉等重点。一起聊聊“为什么前爪会这么小？”是很好的。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "A T. rex hunting in a Cretaceous forest, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "暴龙（T-Rex）——家长指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1773714531390-%EB%B0%B1%EC%95%85%EA%B8%B0%EC%9D%98%EC%A0%9C%EC%99%95%ED%8B%B0%EB%9D%BC%EB%85%B8%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4%EB%A0%89%EC%8A%A4-illustration-page15-1773714665167.webp",
+        "text": "<h2>家长指南 — 如何培养好奇心</h2><p>测量身高时，让孩子用身体感受“T. rex原来这么大！”。一起看恐龙模型和图鉴，告诉他们“鸟类是恐龙的后代”，兴趣就会更浓厚。</p>",
+        "caption": "恐龙探索",
+        "image_style": "",
+        "image_prompt": "A parent and child looking at a dinosaur model together, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>问：霸王龙有多大？</strong><br>答：它是一只巨大的恐龙，身长约12米，体重6~9吨。它的牙齿长约20厘米。</p><p><strong>问：为什么前腿这么小？</strong><br>答：虽然小，但肌肉力量很强。因为它用巨大的头和下颚捕猎，所以前腿可以小一些。</p><p><strong>问：家里怎样玩才好呢？</strong><br>答：可以测量身高感受尺寸，看恐龙模型和图鉴，或者讲“鸟类是恐龙的后代”的故事。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>适合一起阅读的经典童话</h2><p>如果喜欢读这个故事，还可以看看这些 <strong>经典童话</strong>也一起来阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">小狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "暴龙图画书插画",
+        "url": "https://assets.tangobook.co.kr/1773714531390-%EB%B0%B1%EC%95%85%EA%B8%B0%EC%9D%98%EC%A0%9C%EC%99%95%ED%8B%B0%EB%9D%BC%EB%85%B8%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4%EB%A0%89%EC%8A%A4-illustration-page19-1774349571016.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“霸王龙”（T-Rex）感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用精美的图画和韩语·英语语音亲自体验吧。</p><a href=\"https://tangobook.co.kr/library/1773714531390\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

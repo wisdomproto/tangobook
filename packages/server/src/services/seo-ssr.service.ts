@@ -11,6 +11,7 @@ import type { Storybook, StorybookSummary, ReadingLevel, ParentGuide } from '@ta
 import {
   SUPPORTED_LANGUAGES,
   seoStrings,
+  blogStrings,
   fill,
   HUB_STRINGS,
   LANDING_STRINGS,
@@ -329,8 +330,28 @@ function renderCardsHtml(cards: BlogPostDetail['cards']): string {
   return parts.join('');
 }
 
-export function renderBlogSeo(post: BlogPostDetail): AboutSeo {
-  const canonical = `${SITE_URL}/blog/${encodeURIComponent(post.slug)}`;
+/** 블로그 hreflang 상호링크 — 존재 언어 상호 + x-default(ko). langs.length<2면 빈 문자열. */
+function blogAlternatesHtml(pathSuffix: string, langs: string[]): string {
+  if (langs.length < 2) return '';
+  return (
+    langs
+      .map(
+        (l) =>
+          `<link rel="alternate" hreflang="${l}" href="${SITE_URL}${langPrefix(l)}/blog${pathSuffix}" />`
+      )
+      .join('') +
+    `\n    <link rel="alternate" hreflang="x-default" href="${SITE_URL}/blog${pathSuffix}" />`
+  );
+}
+
+export function renderBlogSeo(
+  post: BlogPostDetail,
+  lang: string = 'ko',
+  langs: string[] = ['ko']
+): AboutSeo {
+  const pre = langPrefix(lang);
+  const slugPath = `/${encodeURIComponent(post.slug)}`;
+  const canonical = `${SITE_URL}${pre}/blog${slugPath}`;
   const firstImage = post.cards
     .map((c) => str(c.content?.url) || str(c.content?.image_url))
     .find(Boolean);
@@ -346,7 +367,7 @@ export function renderBlogSeo(post: BlogPostDetail): AboutSeo {
       url: canonical,
       image: ogImage,
       datePublished: post.publishedAt || undefined,
-      inLanguage: ['ko'],
+      inLanguage: [lang],
       keywords: post.primaryKeyword || undefined,
       publisher: { '@type': 'Organization', name: '탱고북', url: SITE_URL },
       mainEntityOfPage: canonical,
@@ -355,23 +376,29 @@ export function renderBlogSeo(post: BlogPostDetail): AboutSeo {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: '블로그', item: `${SITE_URL}/blog` },
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: blogStrings(lang).breadcrumb,
+          item: `${SITE_URL}${pre}/blog`,
+        },
         { '@type': 'ListItem', position: 2, name: post.title, item: canonical },
       ],
     },
   ];
 
+  const B = blogStrings(lang);
   const bodyParts = [
     `<article><h1>${escapeHtml(post.title)}</h1>`,
     renderCardsHtml(post.cards),
     post.storybookId
-      ? `<p><a href="/library/${post.storybookId}/about">이 이야기를 그림책으로 — 탱고북에서 읽기</a></p>`
+      ? `<p><a href="${pre}/library/${post.storybookId}/about">${escapeHtml(B.readBookLink)}</a></p>`
       : '',
-    `<p><a href="/blog">탱고북 블로그 전체 보기</a></p></article>`,
+    `<p><a href="${pre}/blog">${escapeHtml(B.allPostsLink)}</a></p></article>`,
   ];
 
   return {
-    title: escapeHtml(`${post.title} | 탱고북 블로그`),
+    title: escapeHtml(`${post.title} | ${B.titleSuffix}`),
     description: escapeHtml(description),
     canonical,
     ogImage,
@@ -379,17 +406,25 @@ export function renderBlogSeo(post: BlogPostDetail): AboutSeo {
       .map((s) => `<script type="application/ld+json">${JSON.stringify(s)}</script>`)
       .join('\n    '),
     bodyHtml: bodyParts.join(''),
-    alternatesHtml: '', // 블로그는 ko 전용
+    alternatesHtml: blogAlternatesHtml(slugPath, langs),
   };
 }
 
-export function renderBlogListSeo(posts: BlogPostSummary[]): AboutSeo {
-  const canonical = `${SITE_URL}/blog`;
-  const title = '탱고북 블로그 — 유아 동화·자연관찰 그림책 가이드';
-  const description =
-    '세계 명작 동화 줄거리와 교훈, 동물·곤충·공룡·식물 자연관찰 이야기까지 — 4~7세 아이와 함께 읽는 그림책 가이드.';
+export function renderBlogListSeo(
+  posts: BlogPostSummary[],
+  lang: string = 'ko',
+  langs: string[] = ['ko']
+): AboutSeo {
+  const pre = langPrefix(lang);
+  const canonical = `${SITE_URL}${pre}/blog`;
+  const B = blogStrings(lang);
+  const title = B.listTitle;
+  const description = B.listDescription;
   const items = posts
-    .map((p) => `<li><a href="/blog/${encodeURIComponent(p.slug)}">${escapeHtml(p.title)}</a></li>`)
+    .map(
+      (p) =>
+        `<li><a href="${pre}/blog/${encodeURIComponent(p.slug)}">${escapeHtml(p.title)}</a></li>`
+    )
     .join('');
   return {
     title: escapeHtml(`${title}`),
@@ -404,7 +439,7 @@ export function renderBlogListSeo(posts: BlogPostSummary[]): AboutSeo {
       publisher: { '@type': 'Organization', name: '탱고북', url: SITE_URL },
     })}</script>`,
     bodyHtml: `<article><h1>${escapeHtml(title)}</h1><p>${escapeHtml(description)}</p><ul>${items}</ul></article>`,
-    alternatesHtml: '',
+    alternatesHtml: blogAlternatesHtml('', langs),
   };
 }
 

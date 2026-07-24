@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777612659016",
+  "seo_title": "ลักษณะของเพนกวินและความลับของการบินใต้น้ำ — หนังสือภาพสังเกตธรรมชาติ",
+  "meta_description": "เหตุผลที่เพนกวินอาศัยอยู่แค่ในแอนตาร์กติกา ความลับของการว่ายน้ำเหมือนบินใต้น้ำแม้ว่าจะบินไม่ได้ รวมถึงข้อเท็จจริงมหัศจรรย์ต่างๆ เนื้อหาจากหนังสือภาพสังเกตธรรมชาติของ Tango Book และวิธีการสังเกตด้วย คู่มือการสังเกตธรรมชาติสำหรับเด็กวัย 4-7 ปี",
+  "primary_keyword": "เพนกวิน",
+  "secondary_keywords": [
+    "ลักษณะเด่นของเพนกวิน",
+    "เพนกวินขั้วโลกใต้",
+    "นกเพนกวินจักรพรรดิ",
+    "หนังสือสำหรับเด็กเล็กเกี่ยวกับการสังเกตธรรมชาติ",
+    "หนังสือนิทานสัตว์ทะเล"
+  ],
+  "url_slug": "penguin-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "เพนกวิน – เพนกวิน มีอะไรที่น่าสนใจบ้างคะ?",
+        "url": "https://assets.tangobook.co.kr/1777612659016-%ED%8E%AD%EA%B7%84-cover-misc-1780025469043.webp",
+        "text": "<h2>เพนกวิน มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>การเดินแบบเตาะแตะ <strong>เพนกวิน</strong>ถึงแม้ว่ามันจะเป็นนกที่ไม่สามารถบินได้ แต่ก็เป็นสัตว์ที่มหัศจรรย์มาก เพราะมันว่ายน้ำในทะเลเหมือนกำลังโบยบินเลยค่ะ</p>",
+        "caption": "นกขั้วโลกใต้",
+        "image_style": "",
+        "image_prompt": "A penguin waddling on ice in Antarctica, cute children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "เพนกวิน - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของเพนกวิน",
+        "url": "https://assets.tangobook.co.kr/1777612659016-%ED%8E%AD%EA%B7%84-illustration-page1-1784177673766.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของเพนกวิน</h2><p>เพนกวินนั้น <strong>อาศัยอยู่เฉพาะในซีกโลกใต้เท่านั้น (ทางขั้วแอนตาร์กติก)</strong> — พวกมันอยู่คนละขั้วโลกกับหมีขั้วโลก จึงไม่เคยได้เจอกันจริง ๆ เพนกวินเป็นนก แต่ปีกของพวกมัน <strong>ถูกออกแบบมาเพื่อการว่ายน้ำ ไม่ใช่การบิน</strong>พวกมันแข็งและแบนเหมือนครีบเท้า ทำหน้าที่คล้ายกับพังผืด และ <strong>ว่ายน้ำในน้ำด้วยความเร็ว 25 ถึง 35 กิโลเมตรต่อชั่วโมง</strong>ว่ายน้ำได้ เพนกวินจักรพรรดิสามารถดำลงไปลึกถึง 535 เมตร และทนอยู่ได้นานกว่า 20 นาที</p>",
+        "caption": "การบินใต้น้ำ",
+        "image_style": "",
+        "image_prompt": "A penguin swimming fast underwater like flying, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "เพนกวิน - เนื้อหาที่หนังสือแทงโกบุ๊กเรื่อง «เพนกวิน» นำเสนอ",
+        "url": "https://assets.tangobook.co.kr/1777612659016-%ED%8E%AD%EA%B7%84-illustration-page5-1784177684601.webp",
+        "text": "<h2>เนื้อหาที่หนังสือทังโกบุ๊กเรื่อง \"เพนกวิน\" นำเสนอ</h2><p>หนังสือทังโกบุ๊กเรื่อง \"เพนกวิน\" แสดงให้เห็นถึงภาพการเดินเตาะแตะ การว่ายน้ำในทะเลราวกับกำลังบิน การรวมกลุ่มกันเพื่อต้านความหนาว และภาพของเพนกวินที่ดูแลลูกน้อยอย่างอบอุ่น</p>",
+        "caption": "ความหนาวที่เราเผชิญร่วมกัน",
+        "image_style": "",
+        "image_prompt": "Emperor penguins huddling together in the cold, heartwarming children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "เพนกวิน – จุดที่น่าสนใจให้สังเกตไปด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1777612659016-%ED%8E%AD%EA%B7%84-illustration-page10-1784177699783.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>ให้ชี้จุดต่างๆ เช่น เป็นของขวัญเฉพาะแอนตาร์กติกา (ไม่เจอกับหมีขั้วโลก), นกที่ไม่สามารถบินได้, ปีกสำหรับว่ายน้ำ, การดำน้ำลึก และพูดคุยกันเรื่อง \"ทำไมเพนกวินถึงบินไม่ได้\" จะดีมากค่ะ/ครับ</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A close-up of a penguin flipper-like wing, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "เพนกวิน – คู่มือสำหรับผู้ปกครอง – วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777612659016-%ED%8E%AD%EA%B7%84-illustration-page14-1784177711296.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ลองดูแผนที่เพื่อตรวจสอบว่า \"เพนกวินอยู่ขั้วโลกใต้ ส่วนหมีขั้วโลกอยู่ขั้วโลกเหนือ (ฝั่งตรงข้าม)\" จากนั้น ดูวิดีโอเรื่อง \"บินในน้ำด้วยปีก\" และสนุกกับการเลียนแบบการเดินย่องๆ</p>",
+        "caption": "ขั้วโลกใต้และขั้วโลกเหนือ",
+        "image_style": "",
+        "image_prompt": "A parent and child checking a map of penguins and polar bears, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: เพนกวินกับหมีขั้วโลกอยู่ด้วยกันไหมคะ/ครับ?</strong><br>ตอบ: ไม่ค่ะ/ครับ เพนกวินอยู่ทางขั้วโลกใต้ ส่วนหมีขั้วโลกอยู่ทางขั้วโลกเหนือ เพราะอยู่คนละฝั่งของโลกเลยไม่มีโอกาสได้เจอกันจริง ๆ ค่ะ/ครับ</p><p><strong>ถาม: ทำไมเพนกวินถึงบินไม่ได้ก็ยังโอเคคะ/ครับ?</strong><br>ตอบ: เพราะปีกของพวกมันถูกออกแบบมาให้เหมาะกับการว่ายน้ำ ทำให้พวกมันว่ายน้ำได้เหมือนกำลังบินอยู่ในน้ำ แถมยังดำน้ำลึกเก่งด้วยนะคะ/ครับ</p><p><strong>ถาม: ที่บ้านเราจะสังเกตพวกมันได้อย่างไรดีคะ/ครับ?</strong><br>ตอบ: ลองดูได้โดยการดูแผนที่เพื่อหาขั้วโลกใต้และขั้วโลกเหนือ ดูวิดีโอว่ายน้ำ และลองทำท่าเดินเตาะแตะตามก็ได้ค่ะ/ครับ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณอ่านนิทานเรื่องนี้แล้วสนุกแบบนี้ ลองดู <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือภาพเพนกวิน",
+        "url": "https://assets.tangobook.co.kr/1777612659016-%ED%8E%AD%EA%B7%84-illustration-page18-1784177724516.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"เพนกวิน\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้ด้วยภาพสวย ๆ และเสียงภาษาเกาหลี/อังกฤษที่ Tango Book เลยค่ะ</p><a href=\"https://tangobook.co.kr/library/1777612659016\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

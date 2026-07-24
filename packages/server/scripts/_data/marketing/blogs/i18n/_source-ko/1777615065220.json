@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777615065220",
+  "seo_title": "원숭이 특징과 손·꼬리의 비밀 — 자연관찰 그림책",
+  "meta_description": "원숭이가 사람과 닮은 손발과 물건을 쥐는 꼬리, 무리 생활 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "primary_keyword": "원숭이",
+  "secondary_keywords": [
+    "원숭이 특징",
+    "원숭이 꼬리",
+    "원숭이 생태",
+    "유아 자연관찰 책",
+    "동물 그림책"
+  ],
+  "url_slug": "monkey-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "원숭이 - 원숭이, 어떤 점이 신기할까요?",
+        "url": "https://assets.tangobook.co.kr/1777615065220-%EC%9B%90%EC%88%AD%EC%9D%B4-cover-misc-1780033841905.webp",
+        "text": "<h2>원숭이, 어떤 점이 신기할까요?</h2><p>사람과 닮은 점이 많은 <strong>원숭이</strong>는 나무를 잘 타는 똑똑한 동물이에요. 손과 꼬리를 쓰는 모습이 정말 재미있답니다.</p><p data-seo-boost=\"1\">원숭이 특징, 원숭이 꼬리, 원숭이 생태 등 원숭이에 대한 다양한 이야기를 함께 담았습니다.</p>",
+        "caption": "나무를 타는 원숭이",
+        "image_style": "",
+        "image_prompt": "A monkey climbing a tree, lively children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "원숭이 - 원숭이의 자연·과학 사실",
+        "url": "https://assets.tangobook.co.kr/1777615065220-%EC%9B%90%EC%88%AD%EC%9D%B4-illustration-page1-1784177236038.webp",
+        "text": "<h2>원숭이의 자연·과학 사실</h2><p>원숭이는 사람처럼 <strong>물건을 쥘 수 있는 손과 발</strong>을 가져 나무를 잘 타고 먹이를 집어 먹어요. 일부 원숭이는 <strong>손처럼 물건을 감아 쥐는 꼬리(쥘꼬리)</strong>로 나뭇가지에 매달리기도 하지요. 무리를 이루어 함께 살며 다양한 표정과 소리로 마음을 전하는 사회성 높은 동물이에요. 과일·잎·곤충을 먹고, <strong>서로 털을 골라 주며</strong> 우정을 다집니다.</p>",
+        "caption": "사람 닮은 손",
+        "image_style": "",
+        "image_prompt": "A monkey gripping food with its hand, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "원숭이 - 탱고북 «원숭이»이 다루는 내용",
+        "url": "https://assets.tangobook.co.kr/1777615065220-%EC%9B%90%EC%88%AD%EC%9D%B4-illustration-page5-1784177247026.webp",
+        "text": "<h2>탱고북 «원숭이»이 다루는 내용</h2><p>탱고북 «원숭이»는 손발로 나무를 타는 모습, 꼬리로 매달리는 모습, 무리 생활, 서로 털을 골라 주는 원숭이를 정겹게 보여 줍니다.</p>",
+        "caption": "물건을 쥐는 꼬리",
+        "image_style": "",
+        "image_prompt": "A monkey hanging from a branch by its tail, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "원숭이 - 함께 관찰하면 좋은 포인트",
+        "url": "https://assets.tangobook.co.kr/1777615065220-%EC%9B%90%EC%88%AD%EC%9D%B4-illustration-page10-1784177265201.webp",
+        "text": "<h2>함께 관찰하면 좋은 포인트</h2><p>쥐는 손발, 쥘꼬리, 무리·표정, 털 고르기 같은 포인트를 짚어 주세요. \"원숭이는 사람과 어떤 점이 닮았을까?\"를 함께 이야기하면 좋습니다.</p>",
+        "caption": "관찰 포인트",
+        "image_style": "",
+        "image_prompt": "Monkeys grooming each other, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "원숭이 - 부모 가이드 — 호기심을 키우는 법",
+        "url": "https://assets.tangobook.co.kr/1777615065220-%EC%9B%90%EC%88%AD%EC%9D%B4-illustration-page14-1784177286269.webp",
+        "text": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"손으로 물건을 쥐는 점이 우리와 닮았어\"를 비교해 보세요. 꼬리로 매달리는 영상을 보고, 서로 털을 골라 주는 모습을 \"친구끼리 챙기는 것\"과 연결하면 좋습니다.</p>",
+        "caption": "손 비교",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing hands with a monkey, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 원숭이는 사람과 어떤 점이 닮았나요?</strong><br>A. 물건을 쥘 수 있는 손과 발을 가졌고, 무리 지어 표정·소리로 소통하는 점이 닮았습니다.</p><p><strong>Q. 꼬리로 무엇을 하나요?</strong><br>A. 일부 원숭이는 손처럼 물건을 감아 쥐는 꼬리(쥘꼬리)로 나뭇가지에 매달리기도 합니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 손 비교, 꼬리 매달리기 영상 보기, 털 고르기를 \"친구 챙기기\"와 연결이 좋습니다.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>함께 읽으면 좋은 명작 동화</h2><p>이 동화를 재미있게 읽었다면 이런 <strong>명작 동화</strong>도 함께 읽어 보세요.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">강아지</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">강아지풀</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">개구리</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">개미</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "원숭이 그림책 삽화",
+        "url": "https://assets.tangobook.co.kr/1777615065220-%EC%9B%90%EC%88%AD%EC%9D%B4-illustration-page18-1784177298881.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">「원숭이」가 궁금하신가요?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">아름다운 그림과 한국어·영어 음성으로 탱고북에서 직접 만나보세요.</p><a href=\"https://tangobook.co.kr/library/1777615065220\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 동화책 보러가기 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777605651238",
+  "seo_title": "ลักษณะของมดและความลับของการร่วมมือ — หนังสือภาพสังเกตธรรมชาติ",
+  "meta_description": "ความลับที่ว่าทำไมมดถึงแข็งแรง วิธีการสื่อสารด้วยร่องรอยกลิ่น (ฟีโรโมน) การทำงานร่วมกันโดยแบ่งบทบาท และข้อเท็จจริงน่าทึ่งอื่น ๆ รวมถึงเนื้อหาจากหนังสือนิทานสังเกตธรรมชาติของ Tango Book พร้อมวิธีการสังเกตการณ์สำหรับคู่มือการเรียนรู้ธรรมชาติสำหรับเด็กวัย 4-7 ปี",
+  "primary_keyword": "มด",
+  "secondary_keywords": [
+    "ลักษณะของมด",
+    "ฟีโรโมนมด",
+    "รังมด",
+    "หนังสือสำหรับเด็กเล็กเกี่ยวกับการสังเกตธรรมชาติ",
+    "หนังสือนิทานแมลง"
+  ],
+  "url_slug": "ant-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "มด - มีอะไรที่น่าทึ่งเกี่ยวกับมดบ้างคะ?",
+        "url": "https://assets.tangobook.co.kr/1777605651238-%EA%B0%9C%EB%AF%B8-cover-misc-1780025787942.webp",
+        "text": "<h2>มด มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>ตัวเล็กแต่แข็งแรง <strong>มด</strong>เป็นแมลงสังคมที่อาศัยอยู่ร่วมกันโดยมีราชินีมดเป็นศูนย์กลาง พวกมันคือตัวแทนของความสามัคคี ที่ช่วยกันทำสิ่งใหญ่ๆ ให้สำเร็จได้</p>",
+        "caption": "แมลงแห่งการร่วมมือ",
+        "image_style": "",
+        "image_prompt": "Ants carrying food in a line, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "มด - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์เกี่ยวกับมด",
+        "url": "https://assets.tangobook.co.kr/1777605651238-%EC%9E%91%EC%A7%80%EB%A7%8C%ED%9E%98%EC%84%BC%EC%88%B2%EC%86%8D%EC%9D%98%EC%9D%BC%EA%BE%BC%EA%B0%9C%EB%AF%B8-illustration-page1-1773447009655.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของมด</h2><p>มดงานพวกมัน <strong>สามารถแบกภาระที่หนักกว่าน้ำหนักตัวหลายเท่าได้อย่างง่ายดาย</strong> มีพละกำลังมากพอเลยค่ะ ด้วยหนวดที่หัว <strong>ตามร่องรอยกลิ่น (ฟีโรโมน)</strong> พวกมันจะบอกเพื่อนๆ ว่าอาหารอยู่ที่ไหน และรังมดที่ประกอบด้วยห้องและทางเดินมากมายใต้ดิน <strong>รังของมด</strong>การสร้าง การดูแลไข่ การหาอาหาร และการปกป้องรัง <strong>แบ่งหน้าที่กันทำ</strong> ค่ะ</p>",
+        "caption": "มดงานผู้แข็งแกร่ง",
+        "image_style": "",
+        "image_prompt": "An ant carrying a load much bigger than itself, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "มด - หนังสือทังโกบุ๊ก: เนื้อหาที่นำเสนอเกี่ยวกับมด",
+        "url": "https://assets.tangobook.co.kr/1777605651238-%EC%9E%91%EC%A7%80%EB%A7%8C%ED%9E%98%EC%84%BC%EC%88%B2%EC%86%8D%EC%9D%98%EC%9D%BC%EA%BE%BC%EA%B0%9C%EB%AF%B8-illustration-page5-1773447743027.webp",
+        "text": "<h2>เนื้อหาที่หนังสือ \"มด\" จาก Tango Book นำเสนอ</h2><p>หนังสือ \"มด\" จาก Tango Book แสดงให้เห็นภาพการแบกหามของหนัก การเดินตามรอยกลิ่นเป็นแถว รังมดใต้ดิน และเหล่ามดที่ทำงานโดยแบ่งหน้าที่อย่างอบอุ่น</p>",
+        "caption": "บ้านระหว่างทางกลับจากโรงเรียน",
+        "image_style": "",
+        "image_prompt": "A cross-section of an underground ant nest with rooms, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "มด - จุดที่น่าสนใจเมื่อได้สังเกตการณ์ด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1777605651238-%EC%9E%91%EC%A7%80%EB%A7%8C%ED%9E%98%EC%84%BC%EC%88%B2%EC%86%8D%EC%9D%98%EC%9D%BC%EA%BE%BC%EA%B0%9C%EB%AF%B8-illustration-page9-1773447050451.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>โปรดชี้ให้เห็นจุดต่างๆ เช่น พละกำลัง (หลายเท่าของน้ำหนักตัว), เส้นทางฟีโรโมน (การสื่อสาร), รังมด (ห้อง/เส้นทาง), และการแบ่งบทบาท การพูดคุยด้วยกันว่า \"มดหาทางได้อย่างไร?\" จะเป็นเรื่องที่ดีมาก</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "Ants following a pheromone trail, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "มด - คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777605651238-%EC%9E%91%EC%A7%80%EB%A7%8C%ED%9E%98%EC%84%BC%EC%88%B2%EC%86%8D%EC%9D%98%EC%9D%BC%EA%BE%BC%EA%B0%9C%EB%AF%B8-illustration-page14-1773447086177.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ลองสังเกตมดที่เดินเป็นแถวบนพื้น แล้วพูดคุยว่าพวกมันกำลัง \"ตามรอยกลิ่น\" ดูสิคะ/ครับ การเฝ้าดูขั้นตอนที่มดมารวมตัวกันรอบอาหารชิ้นเล็กๆ จะทำให้คุณเห็นการทำงานร่วมกันได้ด้วยตาตัวเองเลยค่ะ/ครับ</p>",
+        "caption": "การสังเกตพื้นดิน",
+        "image_style": "",
+        "image_prompt": "A parent and child watching ants on the ground, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: มดรู้ได้อย่างไรว่าอาหารอยู่ที่ไหนคะ/ครับ?</strong><br>ตอบ: พวกมันจะตามกลิ่น (ฟีโรโมน) ด้วยหนวดที่หัว และยังบอกเส้นทางนั้นให้เพื่อนๆ ตัวอื่นด้วยค่ะ/ครับ</p><p><strong>ถาม: มดมีพละกำลังมากแค่ไหนคะ/ครับ?</strong><br>ตอบ: พวกมันแข็งแรงพอที่จะแบกของที่หนักกว่าน้ำหนักตัวหลายเท่าได้อย่างง่ายดายเลยค่ะ/ครับ</p><p><strong>ถาม: เราจะสังเกตพวกมันที่บ้านได้อย่างไรดีคะ/ครับ?</strong><br>ตอบ: การสังเกตมดที่เดินเป็นแถว หรือการดูพวกมันรวมตัวกันรอบอาหารชิ้นเล็กๆ จะดีมากเลยค่ะ/ครับ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณสนุกกับการอ่านนิทานเรื่องนี้แล้ว ลองดูแบบนี้ <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/spider-nature-for-kids\">แมงมุม</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือภาพเรื่องมด",
+        "url": "https://assets.tangobook.co.kr/1777605651238-%EC%9E%91%EC%A7%80%EB%A7%8C%ED%9E%98%EC%84%BC%EC%88%B2%EC%86%8D%EC%9D%98%EC%9D%BC%EA%BE%BC%EA%B0%9C%EB%AF%B8-illustration-page18-1773447099770.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"มด\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้โดยตรงที่แทงโกบุ๊ก ด้วยภาพสวยงามและเสียงภาษาเกาหลี/อังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1777605651238\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

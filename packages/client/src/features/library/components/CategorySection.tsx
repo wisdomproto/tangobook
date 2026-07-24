@@ -14,6 +14,11 @@ interface CategorySectionProps {
   headerExtra?: ReactNode;
 }
 
+/** 카테고리 행 — 넷플릭스식 가로 캐러셀.
+ *  세로 그리드 시절엔 카테고리당 ~900px 라 12개 = 약 14화면 스크롤이었고, 하위 카테고리
+ *  (우주 6권·우리 몸 3권)는 사실상 도달 불가였다. 가로 행으로 카테고리당 ~240px 로 줄여
+ *  전 카테고리를 3~4화면 안에 노출한다. 우측 카드가 살짝 잘려 보이는 peek 이 "더 있다"는
+ *  신호라, 카드 폭은 뷰포트 폭에 딱 나눠떨어지지 않게 잡는다. */
 export function CategorySection({
   icon,
   title,
@@ -26,32 +31,42 @@ export function CategorySection({
   const visible = books.slice(0, limit);
   const hasMore = books.length > limit;
   return (
-    <section className="mb-8 sm:mb-14">
-      <header className="flex items-center justify-between mb-3 sm:mb-4 px-1 gap-2">
+    <section className="mb-6 sm:mb-10">
+      <header className="flex flex-wrap items-center justify-between mb-3 sm:mb-4 px-1 gap-2">
         <h2 className="text-xl sm:text-3xl font-black text-ink-900 font-display flex items-center gap-2 sm:gap-3 min-w-0 truncate">
           <span className="shrink-0">{icon}</span>
           <span className="truncate">{title}</span>
         </h2>
-        <div className="flex items-center gap-2 shrink-0 flex-wrap justify-end">
+        <div className="flex min-w-0 max-w-full items-center gap-2 flex-wrap justify-end">
           {headerExtra}
           <span className="shrink-0 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white shadow-soft text-xs sm:text-base text-ink-700 font-black">
             {t('section.bookCount', { count: books.length })}
           </span>
+          {hasMore && onShowMore && (
+            <button
+              onClick={onShowMore}
+              className="shrink-0 min-h-[44px] px-3 sm:px-4 rounded-full text-coral-600 font-black text-sm sm:text-base hover:bg-coral-100 transition-colors"
+            >
+              {t('section.showMore', { count: books.length - limit })} →
+            </button>
+          )}
         </div>
       </header>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-6">
+      {/* 가로 스크롤 행. 스크롤바만 숨기고 스크롤 자체는 네이티브(터치·트랙패드·키보드) 유지.
+          🔴 음수 마진으로 페이지 패딩(px-4/6/8)을 상쇄해 행만 화면 끝까지 흘린다 — 그래야
+          좁은 화면에서 표지를 줄이지 않고도 다음 카드 peek 을 확보한다(패딩 안에 가두면
+          343px 라 160px 카드 2장에 gap 만 넣어도 3번째가 1px 차로 밖으로 밀려 peek 이 0). */}
+      <div
+        role="region"
+        aria-label={title}
+        className="flex gap-2 sm:gap-5 overflow-x-auto pb-2 -mx-4 px-4 sm:-mx-6 sm:px-6 md:-mx-8 md:px-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
         {visible.map((b) => (
-          <BookCard key={b.id} book={b} />
+          <div key={b.id} className="shrink-0 w-40 sm:w-56 lg:w-64">
+            <BookCard book={b} />
+          </div>
         ))}
       </div>
-      {hasMore && onShowMore && (
-        <button
-          onClick={onShowMore}
-          className="mt-3 sm:mt-4 w-full py-3 sm:py-4 bg-coral-100 rounded-xl sm:rounded-2xl shadow-soft text-coral-600 font-black text-sm sm:text-lg hover:bg-coral-200 transition-colors"
-        >
-          {t('section.showMore', { count: books.length - limit })}
-        </button>
-      )}
     </section>
   );
 }

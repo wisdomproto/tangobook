@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773624474088",
+  "seo_title": "益生菌与病毒 — 看不见的微生物自然观察绘本",
+  "meta_description": "关于对身体有益的益生菌和需要警惕的病毒的区别、洗手的重要性等微生物科学知识，以及《Tango Book》绘本内容和生活习惯。5至7岁科学自然观察指南。",
+  "primary_keyword": "益生菌",
+  "secondary_keywords": ["益生菌和病毒", "益生菌功效", "病毒预防", "幼儿科学书", "微生物绘本"],
+  "url_slug": "probiotics-virus-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "益生菌和病毒——益生菌和病毒，有什么神奇的地方呢？",
+        "url": "https://assets.tangobook.co.kr/1773624474088-%EC%9C%A0%EC%82%B0%EA%B7%A0%EA%B3%BC%EB%B0%94%EC%9D%B4%EB%9F%AC%EC%8A%A4-cover-misc-1780099550053.webp",
+        "text": "<h2>益生菌和病毒，哪些地方会很神奇呢？</h2><p>肉眼看不见的微小 <strong>微生物</strong> 中有些对身体有益的 <strong>益生菌</strong>也，需要小心注意的 <strong>病毒</strong>也存在。看不见的这个世界真是太神奇了。</p>",
+        "caption": "看不见的微生物",
+        "image_style": "",
+        "image_prompt": "Friendly probiotic microbes and a virus shown as cartoon characters, bright children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "益生菌和病毒——关于益生菌和病毒的自然科学事实",
+        "url": "https://assets.tangobook.co.kr/1773624474088-%EB%B3%B4%EC%9D%B4%EC%A7%80%EC%95%8A%EB%8A%94%EC%9E%91%EC%9D%80%EC%84%B8%EC%83%81%EC%9C%A0%EC%82%B0%EA%B7%A0%EA%B3%BC%EB%B0%94%EC%9D%B4%EB%9F%AC%EC%8A%A4-illustration-page1-1773624596182.webp",
+        "text": "<h2>关于益生菌和病毒的自然科学事实</h2><p><strong>益生菌</strong>它们生活在我们的肠道里，帮助消化并抑制有害细菌，是很好的微生物。我们身体 <strong>大约70%的免疫细胞聚集在肠道</strong> 所以，肠道健康对免疫力也有帮助哦。 <strong>病毒</strong>它比益生菌小得多，不能单独生存，必须进入其他细胞才能繁殖。最好的预防方法是接种疫苗和 <strong>用肥皂洗手超过30秒</strong>。</p>",
+        "caption": "有益于身体的好细菌/好菌",
+        "image_style": "",
+        "image_prompt": "Good probiotic bacteria helping inside a healthy gut, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "益生菌与病毒 - 《探戈书》所涵盖的内容",
+        "url": "https://assets.tangobook.co.kr/1773624474088-%EB%B3%B4%EC%9D%B4%EC%A7%80%EC%95%8A%EB%8A%94%EC%9E%91%EC%9D%80%EC%84%B8%EC%83%81%EC%9C%A0%EC%82%B0%EA%B7%A0%EA%B3%BC%EB%B0%94%EC%9D%B4%EB%9F%AC%EC%8A%A4-illustration-page5-1773624811529.webp",
+        "text": "<h2>《探戈书》“益生菌与病毒”涵盖的内容</h2><p>《探戈书》“益生菌与病毒”以孩子能理解的科学方式，展示了帮助身体的益生菌、需要警惕的病毒，以及洗手和接种疫苗的重要性。</p>",
+        "caption": "病毒预防",
+        "image_style": "",
+        "image_prompt": "A child washing hands with soap and bubbles, cheerful children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "益生菌和病毒：值得一起了解的小知识点",
+        "url": "https://assets.tangobook.co.kr/1773624474088-%EB%B3%B4%EC%9D%B4%EC%A7%80%EC%95%8A%EB%8A%94%EC%9E%91%EC%9D%80%EC%84%B8%EC%83%81%EC%9C%A0%EC%82%B0%EA%B7%A0%EA%B3%BC%EB%B0%94%EC%9D%B4%EB%9F%AC%EC%8A%A4-illustration-page10-1773624664253.webp",
+        "text": "<h2>值得一起了解的重点</h2><p>请指出像益生菌（有益菌·肠道健康）、病毒（小·小心）、免疫力（70%来自肠道）、洗手（预防）这样的知识点。和孩子一起聊聊“为什么要洗干净手？”会很好。</p>",
+        "caption": "观察点",
+        "image_style": "",
+        "image_prompt": "A tiny virus shown much smaller than bacteria, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "益生菌与病毒——家长指南——如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1773624474088-%EB%B3%B4%EC%9D%B4%EC%A7%80%EC%95%8A%EB%8A%94%EC%9E%91%EC%9D%80%EC%84%B8%EC%83%81%EC%9C%A0%EC%82%B0%EA%B7%A0%EA%B3%BC%EB%B0%94%EC%9D%B4%EB%9F%AC%EC%8A%A4-illustration-page14-1773624677648.webp",
+        "text": "<h2>家长指南 — 如何培养好奇心</h2><p>一起吃酸奶、泡菜等益生菌食物时，可以聊聊“好细菌”。如果能用儿歌让洗手流程变成习惯，那对健康非常有帮助。</p>",
+        "caption": "摄取益生菌",
+        "image_style": "",
+        "image_prompt": "A parent and child eating yogurt together, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>问：益生菌为什么对身体有好处呢？</strong><br>答：它们生活在肠道，帮助消化并抑制有害细菌。因为大约70%的免疫细胞都在肠道里，所以对免疫力也有帮助哦。</p><p><strong>问：如何预防病毒呢？</strong><br>答：接种疫苗和用肥皂洗手超过30秒是最有效的。</p><p><strong>问：在家里怎样教孩子呢？</strong><br>答：可以利用酸奶和泡菜讲“好细菌”的故事，并配合歌曲养成30秒洗手习惯。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "益生菌和病毒绘本插画",
+        "url": "https://assets.tangobook.co.kr/1773624474088-%EB%B3%B4%EC%9D%B4%EC%A7%80%EC%95%8A%EB%8A%94%EC%9E%91%EC%9D%80%EC%84%B8%EC%83%81%EC%9C%A0%EC%82%B0%EA%B7%A0%EA%B3%BC%EB%B0%94%EC%9D%B4%EB%9F%AC%EC%8A%A4-illustration-page18-1773624688617.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“益生菌和病毒”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book，用美丽的图画和韩语·英语语音亲自体验吧。</p><a href=\"https://tangobook.co.kr/library/1773624474088\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

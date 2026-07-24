@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777615068642",
+  "seo_title": "ลักษณะเด่นและความลับของเขาแรด — หนังสือนิทานสำรวจธรรมชาติ",
+  "meta_description": "ความจริงที่ว่าเขาแรดไม่ใช่กระดูกแต่เป็นเคราติน ผิวหนา สถานะใกล้สูญพันธุ์ และข้อเท็จจริงน่าทึ่งอื่นๆ เนื้อหาจากหนังสือภาพสังเกตธรรมชาติของ Tango Book รวมถึงวิธีการสังเกตด้วย คู่มือการสังเกตธรรมชาติสำหรับอายุ 4-7 ปี",
+  "primary_keyword": "แรด",
+  "secondary_keywords": [
+    "ลักษณะเด่นของแรด",
+    "เขาแรด",
+    "การอนุรักษ์แรด",
+    "หนังสือสำหรับเด็กเล็กเกี่ยวกับการสังเกตธรรมชาติ",
+    "หนังสือนิทานภาพสัตว์"
+  ],
+  "url_slug": "rhino-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "แรด - แรด มีอะไรน่าทึ่งบ้างนะ?",
+        "url": "https://assets.tangobook.co.kr/1777615068642-%EC%BD%94%EB%BF%94%EC%86%8C-cover-misc-1780033808129.webp",
+        "text": "<h2>แรด มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>ใหญ่ <strong>เขา</strong>และมีผิวหนังที่หนา <strong>แรด</strong>เป็นสัตว์กินพืชที่ดูเหมือนสวมเกราะเลยล่ะ เขาของมันมีความลับที่ไม่คาดคิดนะ</p>",
+        "caption": "สัตว์ที่เหมือนมีเกราะ",
+        "image_style": "",
+        "image_prompt": "A rhino with a big horn on the savanna, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "แรด - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์เกี่ยวกับแรด",
+        "url": "https://assets.tangobook.co.kr/1777615068642-%EC%BD%94%EB%BF%94%EC%86%8C-illustration-page1-1784173718286.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของแรด</h2><p>เขาขนาดใหญ่ของแรดไม่ใช่กระดูก แต่ <strong>เป็นโปรตีนเคราตินเหมือนเส้นผมและเล็บของเรา</strong>เพราะทำจาก [เคราติน] มันจึงงอกและสึกได้ ผิวที่หนาและแข็งเหมือนเกราะเลยล่ะ เป็นสัตว์กินพืชที่กินหญ้าและใบไม้ และแทนที่จะมีดวงตาที่สว่างมาก <strong>มันสามารถรับรู้กลิ่นและเสียงได้ดีมาก</strong> เมื่ออากาศร้อน มันจะปกป้องผิวด้วยการอาบโคลน แต่น่าเสียดายที่ <strong>แรดกำลังใกล้สูญพันธุ์เนื่องจากการล่าสัตว์ที่เล็งเขา</strong>และต้องการการปกป้องค่ะ/ครับ</p>",
+        "caption": "เคราตินเขา",
+        "image_style": "",
+        "image_prompt": "A close-up of a rhino horn made of keratin, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "แรด - หนังสือทังโกบุ๊ก \"แรด\" ว่าด้วยเนื้อหาอะไร",
+        "url": "https://assets.tangobook.co.kr/1777615068642-%EC%BD%94%EB%BF%94%EC%86%8C-illustration-page5-1784174269667.webp",
+        "text": "<h2>เนื้อหาที่หนังสือแทงโกบุ๊กเรื่อง “แรด” นำเสนอ</h2><p>หนังสือแทงโกบุ๊กเรื่อง “แรด” แสดงเสน่ห์ของแรดอย่างอบอุ่น ไม่ว่าจะเป็นเขาขนาดใหญ่ ผิวหนังเหมือนเกราะ การอาบโคลน และภาพการเล็มหญ้า</p>",
+        "caption": "การปกป้องผิว",
+        "image_style": "",
+        "image_prompt": "A rhino taking a mud bath, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "แรด - จุดที่น่าสนใจให้สังเกตการณ์ด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1777615068642-%EC%BD%94%EB%BF%94%EC%86%8C-illustration-page9-1784173753777.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>โปรดชี้ให้ดูจุดต่างๆ เช่น เขา (เคราติน) ผิวหนา การรับกลิ่นและการได้ยินที่ยอดเยี่ยม และภาวะใกล้สูญพันธุ์ จะดีมากถ้าเราได้พูดคุยกันว่า \"เขาของแรดทำมาจากอะไรนะ?\"</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A close-up of rhino thick armored skin, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "แรด - คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777615068642-%EC%BD%94%EB%BF%94%EC%86%8C-illustration-page14-1784173819826.webp",
+        "text": "<h2>คู่มือผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ลองเปรียบเทียบว่า \"เขามีส่วนประกอบเหมือนเล็บมือ\" กับเล็บมือจริง ๆ เปรียบเทียบการอาบโคลนกับฮิปโป แล้วถ้าคุณพูดถึงเรื่องที่ว่า \"เขาตกอยู่ในอันตรายเพราะเขา (ต้องได้รับการปกป้อง)\" หัวใจที่รักชีวิตก็จะเติบโตขึ้น</p>",
+        "caption": "การเปรียบเทียบส่วนผสมจากเขา",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing a fingernail and a rhino horn, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>คำถาม: เขาของแรดทำมาจากอะไรคะ?</strong><br>คำตอบ: มันไม่ใช่กระดูก แต่เป็นโปรตีนเคราตินเหมือนเส้นผมและเล็บของเราค่ะ มันก็งอกและสึกได้ด้วยนะคะ</p><p><strong>คำถาม: ทำไมแรดถึงต้องการการปกป้องคะ?</strong><br>คำตอบ: เพราะมันกำลังเสี่ยงต่อการสูญพันธุ์จากการล่าสัตว์ที่เล็งเขาของพวกมันค่ะ</p><p><strong>คำถาม: เราจะสังเกตมันที่บ้านได้อย่างไรดีคะ?</strong><br>คำตอบ: ลองเปรียบเทียบส่วนประกอบของเล็บกับเขา หรือลองเปรียบเทียบกับการอาบโคลนของฮิปโปช่วยให้เข้าใจได้ดีเลยค่ะ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณอ่านนิทานเรื่องนี้แล้วสนุกแบบนี้ ลองดู <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือนิทานแรด",
+        "url": "https://assets.tangobook.co.kr/1777615068642-%EC%BD%94%EB%BF%94%EC%86%8C-illustration-page18-1784173829845.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"แรด\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้โดยตรงที่แทงโกบุ๊ก ด้วยภาพสวย ๆ และเสียงอ่านภาษาเกาหลีและภาษาอังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1777615068642\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

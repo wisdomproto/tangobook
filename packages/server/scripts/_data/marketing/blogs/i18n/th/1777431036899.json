@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777431036899",
+  "seo_title": "ลักษณะของแมวน้ำและความลับของการใช้ชีวิตในทะเล — หนังสือนิทานสังเกตธรรมชาติ",
+  "meta_description": "ความลับของสิงโตทะเลที่อาศัยอยู่ในมหาสมุทรอันหนาวเย็น (ชั้นไขมัน/หนวด) และเหตุผลที่พวกมันเดินบนบก รวมถึงข้อความจากหนังสือภาพสัตว์เรื่อง Tango Book และวิธีการสังเกตการณ์ด้วย คู่มือการสังเกตธรรมชาติสำหรับเด็กวัย 4-7 ปี",
+  "primary_keyword": "นากทะเล",
+  "secondary_keywords": [
+    "ลักษณะของสิงโตทะเล",
+    "นากทะเล เสือทะเล",
+    "สัตว์เลี้ยงลูกด้วยนมในทะเล",
+    "หนังสือภาพสัตว์สำหรับเด็ก",
+    "หนังสือนิทานภาพสัตว์"
+  ],
+  "url_slug": "fur-seal-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "สิงโตทะเล - สิงโตทะเล มีอะไรที่น่าทึ่งบ้างไหมคะ?",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%AC%BC%EA%B0%9C-cover-misc-1780028534881.webp",
+        "text": "<h2>สิงโตทะเล มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>ที่เคลื่อนที่ระหว่างทะเลและแผ่นดิน <strong>สิงโตทะเล</strong>เป็นสัตว์เลี้ยงลูกด้วยนมในทะเลที่น่าทึ่ง เพราะว่ามันทั้งว่ายน้ำด้วยเท้าครีบและเดินบนบกได้ด้วย</p>",
+        "caption": "สัตว์เลี้ยงลูกด้วยนมในทะเล",
+        "image_style": "",
+        "image_prompt": "A fur seal swimming and resting on rocks by the sea, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "แมวน้ำ - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของแมวน้ำ",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EB%82%A0%EB%A0%B5%ED%95%9C%EB%AC%BC%EA%B0%9C-illustration-page1-1777431481602.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของสิงโตทะเล</h2><p>สิงโตทะเลมีเท้าที่เป็นครีบ <strong>กลุ่มสัตว์เลี้ยงลูกด้วยนมในวงศ์แมวน้ำ</strong> เป็นสัตว์เลี้ยงลูกด้วยนมในทะเล และ <strong>พวกมันงอครีบหลังไปข้างหน้าและเดินบนบกได้ด้วย</strong>(แตกต่างจากแมวน้ำที่ไม่มีหู) มีชั้นไขมันหนา <strong>ชั้นไขมันใต้ผิวหนัง (Blubber)</strong>ช่วยรักษาอุณหภูมิร่างกายในน้ำทะเลที่เย็นนี้ และหนวดที่ยาวและไวต่อสิ่งเร้า <strong>ใช้หนวดตรวจจับการเคลื่อนไหวของปลา</strong>พวกมันล่าเหยื่อในทะเล ลูกสัตว์จะเติบโตจากการกินน้ำนมแม่ และสามารถได้ยินเสียงร้องของแม่แล้วตามหาได้</p>",
+        "caption": "การเดินด้วยครีบ",
+        "image_style": "",
+        "image_prompt": "A fur seal walking on land with flippers, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "แมวน้ำ - หนังสือแทงโกบุ๊ก \"แมวน้ำ\" เนื้อหาที่นำเสนอ",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EB%82%A0%EB%A0%B5%ED%95%9C%EB%AC%BC%EA%B0%9C-illustration-page5-1777431565301.webp",
+        "text": "<h2>เนื้อหาที่หนังสือแทงโก \"แมวน้ำ\" นำเสนอ</h2><p>หนังสือแทงโก \"แมวน้ำ\" แสดงให้เห็นอย่างอบอุ่น ทั้งภาพการว่ายน้ำด้วยครีบ การเดินบนบก ภาพการล่าเหยื่อด้วยหนวด และแม่ที่ดูแลลูกน้อย</p>",
+        "caption": "แม่กับลูก",
+        "image_style": "",
+        "image_prompt": "A fur seal mother with her pup, heartwarming children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "แมวน้ำ - จุดน่าสนใจที่ควรสังเกตเมื่อได้ชมพร้อมกัน",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EB%82%A0%EB%A0%B5%ED%95%9C%EB%AC%BC%EA%B0%9C-illustration-page10-1777431667008.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>ชี้ให้ดูจุดต่างๆ เช่น เท้าครีบ (การว่ายน้ำ/การเดิน), ไขมันหนา (อุณหภูมิร่างกาย), หนวด (สัมผัส), หรือแม้แต่จุดที่เป็นแม่กับลูก การพูดคุยถึงคำถามที่ว่า \"แมวน้ำจะอยู่รอดในทะเลที่หนาวได้อย่างไร?\" ด้วยกัน จะเป็นเรื่องที่ดีค่ะ</p>",
+        "caption": "สิ่งที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A close-up of fur seal whiskers, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "แมวน้ำ - คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EB%82%A0%EB%A0%B5%ED%95%9C%EB%AC%BC%EA%B0%9C-illustration-page14-1777431736450.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ลองสังเกตดูว่าสิงโตทะเลว่ายน้ำและเดินที่พิพิธภัณฑ์สัตว์น้ำหรือสวนสัตว์ การพูดถึง \"ไขมันหนาๆ ช่วยให้ร่างกายอบอุ่นเหมือนเสื้อผ้าตัวหนา (blubber)\" จะช่วยให้เด็กเข้าใจได้ง่ายขึ้น</p>",
+        "caption": "การชมและสังเกตในพิพิธภัณฑ์สัตว์น้ำ",
+        "image_style": "",
+        "image_prompt": "A parent and child watching seals at an aquarium, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย</h2><p><strong>ถาม: แมวน้ำสามารถเดินบนบกได้ไหมคะ?</strong><br>ตอบ: ค่ะ พวกมันเดินบนบกได้โดยการงอครีบหลังไปข้างหน้าค่ะ นี่คือจุดที่แตกต่างจากแมวน้ำชนิดอื่นที่ไม่มีหูเลยค่ะ</p><p><strong>ถาม: พวกมันทนความหนาวในทะเลได้อย่างไรคะ?</strong><br>ตอบ: ชั้นไขมันหนาๆ (บลูเบอร์) จะช่วยรักษาอุณหภูมิร่างกายให้พวกมัน ส่วนหนวดจะใช้ในการตรวจจับปลาค่ะ</p><p><strong>ถาม: เราจะสังเกตพวกมันที่บ้านได้อย่างไรดีคะ?</strong><br>ตอบ: การสังเกตการว่ายน้ำและการเดินที่พิพิธภัณฑ์สัตว์น้ำหรือสวนสัตว์ และเรื่องเล่าที่ว่า \"บลูเบอร์ = เสื้อผ้าหนาๆ\" จะดีมากเลยค่ะ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกที่เหมาะสำหรับอ่านให้ลูกฟังด้วยกัน</h2><p>ถ้าคุณชอบอ่านนิทานเรื่องนี้... <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกหมา</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือนิทานเรื่องแมวน้ำ",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EB%82%A0%EB%A0%B5%ED%95%9C%EB%AC%BC%EA%B0%9C-illustration-page18-1777431813120.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"แมวน้ำ\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้โดยตรงที่แทงโกบุ๊ก ด้วยภาพสวยงามและเสียงภาษาเกาหลี/อังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1777431036899\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

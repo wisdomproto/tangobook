@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 세상 탐험 — 하늘을 나는 새</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 세상 탐험 · 시즌1 탈것 #T10</div>
+  <h1>✈️ 하늘을 나는 새</h1>
+  <div class="sub">하늘을 붕 나는 커다란 비행기가 궁금한 호리가 공항에 찾아가 날개·엔진·바퀴를 살펴보고 조종석까지 앉아 봐요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 비행기 발견 — 실제 부품·작동을 정확히 (핵심단어: 날개·엔진·활주로·바퀴(랜딩기어)) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(호기심·질문쟁이)·엄마(동행 가이드)·콩이(동행 친구, 먹보라 엉뚱한 비유)·조종사 아저씨(현장 안내자, 단역) &nbsp;·&nbsp;
+  <b>구조</b> 발견 5단계 (궁금→찾아감→살펴봄→해봄→정리) &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">✈️ 반복 후렴 — "위이잉— 비행기, 하늘로 붕!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>궁금(목격)</b> <span class="tag">궁금 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">위이잉— 위이잉! 저 높은 하늘에 커다란 새 같은 게 하얀 줄을 그으며 붕— 날아가요. 호리는 고개를 한껏 젖히고 손을 이마에 얹었어요. "우아, 저렇게 큰 게 어떻게 하늘을 날지?" 위이잉— 비행기, 하늘로 붕!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글로 하늘을 올려다봄. 저 높이 나는 비행기와 그것을 올려다보는 호리를 함께 담은 컷.<br/><b>장소·시간</b> 동네 놀이터 잔디밭, 맑은 낮. 새파란 하늘에 흰 구름 몇 점, 상쾌하고 탁 트인 공기.<br/><b>인물</b> Hori(아기 호랑이)는 화면 앞쪽 잔디에 서서 고개를 한껏 뒤로 젖히고 한 손을 이마에 차양처럼 얹은 채, 입을 동그랗게 벌리고 눈을 반짝이며 하늘을 올려다봄.<br/><b>배경·소품</b> 저 높은 하늘을 가로지르는 하얀 여객기 한 대, 그 뒤로 길게 뻗은 하얀 비행운(구름 줄), 파란 하늘과 뭉게구름, 놀이터 미끄럼틀과 잔디.<br/><b>톤</b> 환한 대낮 자연광, 높고 시원한 하늘의 개방감, 두근거리는 호기심의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>궁금(질문)</b> <span class="tag">궁금</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"엄마, 비행기는 날개도 안 파닥거리는데 어떻게 날아요?" 호리가 엄마 소매를 잡고 폴짝폴짝 물어봐요. 엄마가 빙긋 웃었어요. "궁금하면 비행기가 사는 곳, 공항에 가 볼까? 콩이도 같이 가자!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 호리가 엄마를 올려다보며 묻고 콩이가 곁에 있는 삼자 컷.<br/><b>장소·시간</b> 같은 놀이터, 낮. 비행기는 이미 멀어져 하늘 끝에 작은 점으로 보임.<br/><b>인물</b> Hori는 화면 왼쪽에서 Mom tiger(엄마 호랑이)의 소매를 두 손으로 잡고 발을 살짝 든 채 고개를 젖혀 엄마를 올려다보며 궁금한 미소로 질문. Mom tiger는 가운데서 허리를 살짝 굽혀 호리와 눈을 맞추며 한 손으로 하늘 저편을 가리키고 다정하게 웃음. Kongi(다람쥐)는 오른쪽에서 도토리를 한 손에 쥔 채 볼을 빵빵하게 부풀리고 눈을 반짝이며 신난 표정.<br/><b>배경·소품</b> 하늘 끝의 작은 비행기 점과 옅어지는 비행운, 놀이터 미끄럼틀, 잔디밭, 맑은 하늘.<br/><b>톤</b> 밝은 낮 자연광, 궁금증이 모험으로 바뀌는 설레는 정서, 따뜻하고 활기찬 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>찾아감(공항 도착)</b> <span class="tag">찾아감</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">넓디넓은 공항에 커다란 비행기가 떡— 하니 서 있어요. 집채보다도, 아니 그보다 훨씬 커요! "안녕! 비행기가 궁금해서 왔구나?" 감청색 제복에 금빛 모자를 쓴 조종사 아저씨가 손을 흔들어요. 호리는 심장이 콩닥콩닥!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글. 공항 유리창 너머 세워진 커다란 여객기를 앞에서 올려다보는 컷.<br/><b>장소·시간</b> 공항 탑승구 앞 큰 유리창 안쪽, 낮. 천장이 높고 환한 실내, 밖은 활주로가 보임.<br/><b>인물</b> Hori는 화면 앞쪽 가운데서 목을 뒤로 젖혀 커다란 비행기를 입 벌리고 올려다보며 두 손을 유리창에 대고 놀라움 가득한 표정. Mom tiger는 호리 뒤에서 어깨에 손을 얹고 함께 올려다봄. Kongi는 왼쪽에서 까치발로 유리창에 코를 붙이고 기웃거림. pilot(조종사 아저씨)은 감청색 제복 재킷에 금줄 견장, 금빛 장식 챙모자 차림으로 오른쪽에 서서 한 손을 번쩍 들어 반갑게 인사하며 환하게 웃음.<br/><b>배경·소품</b> 유리창 밖 은색 대형 여객기 전체(둥근 코, 긴 날개, 꼬리날개), 활주로와 관제탑, 실내의 탑승구 표지판과 안내 화면, 바닥의 노란 안내선.<br/><b>톤</b> 환한 공항 실내광과 창밖 햇살, 어마어마하게 큰 비행기의 위풍, 두근거리는 설렘의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>살펴봄(날개)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"비행기 옆에 쭉 뻗은 이 넓적한 게 날개야." 아저씨가 길고 넓은 날개를 가리켰어요. "비행기가 아주 빠르게 달리면, 이 날개 위로 바람이 쓩— 지나가면서 비행기를 위로 번쩍 떠받쳐 준단다." 새가 날개를 쫙 편 것처럼요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 측면. 비행기 옆에 길게 뻗은 날개 전체를 올려다보며 손짓하는 컷.<br/><b>장소·시간</b> 공항 계류장(비행기 바로 옆), 낮. 밝은 햇살, 탁 트인 공기.<br/><b>인물</b> pilot은 화면 오른쪽에서 한 팔을 쭉 뻗어 길고 넓은 날개를 가리키며 설명하는 다정한 표정. Hori는 가운데서 두 팔을 옆으로 활짝 펴 날개 흉내를 내며 눈을 반짝이는 감탄. Kongi는 왼쪽에서 고개를 갸웃하며 날개 끝을 올려다봄. Mom tiger는 뒤에서 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 비행기 동체에서 옆으로 길고 넓게 뻗은 날개(끝이 살짝 위로 꺾인 윙렛), 날개 아래 매달린 엔진의 앞부분, 활주로 바닥, 파란 하늘.<br/><b>톤</b> 환한 야외 자연광, 크고 시원하게 뻗은 날개의 개방감, 신기함에 눈이 커지는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>살펴봄(엔진)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">날개 아래에는 커다란 통이 대롱대롱 매달려 있어요. "이건 엔진이야. 안에서 커다란 날개바퀴가 위이잉— 빙글빙글 돌면서 공기를 뒤로 힘껏 뿜어. 그러면 비행기가 앞으로 쭉— 밀려 나간단다." 콩이가 눈을 동그랗게 떴어요. "우아, 도토리 백만 개 힘이겠다!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨 정면. 날개 밑 엔진의 둥근 입구를 가까이 들여다보는 컷.<br/><b>장소·시간</b> 공항 계류장 날개 아래, 낮. 밝은 햇살에 엔진 그늘.<br/><b>인물</b> pilot은 오른쪽에서 엔진 앞쪽 둥근 입구 안의 팬을 한 손으로 가리키며 설명. Hori는 가운데서 두 손을 무릎에 짚고 허리를 굽혀 엔진 속을 들여다보며 입을 딱 벌린 놀란 표정. Kongi는 왼쪽에서 두 앞발을 번쩍 들어 올리고 볼을 부풀린 채 과장되게 감탄하는 익살스러운 포즈. Mom tiger는 뒤에서 미소.<br/><b>배경·소품</b> 날개 아래 매달린 원통형 제트엔진, 그 둥근 입구 안쪽에 보이는 여러 갈래의 팬(날개바퀴) 날, 은색 동체, 활주로 바닥.<br/><b>톤</b> 밝은 자연광에 엔진 안쪽은 살짝 어둑, 힘차고 든든한 기계의 존재감, 신기함과 코믹함이 섞인 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>살펴봄(바퀴·랜딩기어)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"이렇게 큰 비행기는 무슨 바퀴로 다녀요?" 호리가 묻자 아저씨가 비행기 배 아래를 가리켰어요. "여기, 크고 튼튼한 바퀴가 여러 개 있지? 땅에서 달릴 때랑 내려올 때 써. 그리고 하늘에 뜨면 이 바퀴를 쏙— 몸속으로 접어 넣는단다." "우아, 다리를 접는 거네요!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 로우앵글. 비행기 배 아래 커다란 바퀴 다리를 올려다보는 컷.<br/><b>장소·시간</b> 공항 계류장 비행기 아래, 낮. 동체 그늘과 바깥 햇살.<br/><b>인물</b> pilot은 오른쪽에서 무릎을 살짝 굽혀 비행기 배 아래 바퀴 다리를 한 손으로 가리키며 설명. Hori는 가운데서 바퀴 옆에 서서 자기 키와 견주듯 손을 머리 위로 들어 크기에 감탄하며 눈이 휘둥그레짐. Kongi는 왼쪽에서 커다란 바퀴에 두 앞발을 대고 올려다봄. Mom tiger는 뒤에서 호리 어깨에 손을 얹고 지켜봄.<br/><b>배경·소품</b> 비행기 배 아래로 내려온 튼튼한 바퀴 다리(랜딩기어)에 굵고 검은 타이어 여러 개가 짝지어 달림, 은색 동체, 활주로 바닥, 접혀 들어갈 바퀴 수납칸 자리.<br/><b>톤</b> 동체 아래 시원한 그늘, 어른 키보다 큰 바퀴의 든든함, 크기에 놀라는 밝은 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>살펴봄(활주로)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아저씨가 저 멀리 곧게 뻗은 넓고 긴 길을 가리켰어요. "저건 활주로야. 비행기가 저 긴 길을 아주 빠르게 달리다가, 날개가 바람을 타면 붕— 하늘로 떠오르는 거지." 마침 저편에서 비행기 한 대가 활주로를 쌩— 달려 하늘로 솟구쳤어요. 위이잉— 비행기, 하늘로 붕!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨로 멀리 뻗은 활주로를 바라봄. 저편에서 이륙하는 비행기를 함께 담은 컷.<br/><b>장소·시간</b> 공항 계류장 가장자리 유리창 앞, 낮. 활주로 너머 넓은 하늘.<br/><b>인물</b> pilot은 오른쪽에서 한 팔을 쭉 뻗어 저 멀리 뻗은 활주로를 가리키며 설명. Hori는 가운데서 두 손을 창에 대고 발끝을 세워 저편에서 떠오르는 비행기를 눈을 반짝이며 바라봄. Kongi는 왼쪽에서 폴짝 뛰어오르며 손가락으로 이륙하는 비행기를 가리킴. Mom tiger는 뒤에서 함께 바라봄.<br/><b>배경·소품</b> 곧게 뻗은 넓고 긴 회색 활주로에 그려진 하얀 중앙선과 숫자 표시, 저편에서 앞머리를 든 채 막 떠오르는 비행기, 활주로 옆 유도등, 파란 하늘.<br/><b>톤</b> 환한 낮 자연광, 길게 뻗은 활주로의 시원함과 이륙 순간의 통쾌함, 두근거리는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>해봄(조종석 앉기)</b> <span class="tag">해봄</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"호리도 조종사가 돼 볼까?" 조종석에 앉으니 반짝이는 버튼이 잔뜩! 호리가 조종간을 두 손으로 꼭 잡자, 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉! "제가 하늘로 붕— 날릴게요!" 콩이는 옆자리에서 기장 모자를 삐뚜름하게 쓰고 까르르 웃었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 앵글. 조종석에 앉아 조종간을 잡은 호리를 뒤에서 비스듬히 담은 결정적 컷.<br/><b>장소·시간</b> 비행기 조종석(콕핏) 안, 낮. 앞 유리로 밝은 활주로가 보이고 계기판 불빛이 반짝임.<br/><b>인물</b> Hori는 화면 가운데 조종석 의자에 앉아 두 손으로 조종간을 꼭 잡고 가슴을 편 채 앞 유리를 바라보며 씩씩하고 뿌듯한 미소, 꼬리 줄무늬가 무지개빛으로 반짝이는 시그니처 순간(부릉꼬리). Kongi는 오른쪽 옆자리에서 큰 금빛 기장 모자를 눈까지 삐뚜름하게 눌러쓰고 까르르 웃으며 앞발을 흔듦. pilot은 왼쪽 뒤에서 호리 의자에 한 손을 얹고 흐뭇하게 지켜봄. Mom tiger는 뒤쪽에서 손뼉 치며 즐거워함.<br/><b>배경·소품</b> 조종석 계기판에 빼곡한 반짝이는 버튼과 동그란 계기, 가운데 조종간, 앞 유리 밖으로 보이는 활주로와 하늘, 무지개빛 꼬리 반짝임.<br/><b>톤</b> 계기판 불빛과 창밖 햇살, 해냈다는 성취감과 설렘이 가득한 신나는 정서, 따뜻하고 밝은 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>해봄(이륙 배웅)</b> <span class="tag">해봄</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">구경을 마치고 조종석에서 살살 내려오니, 이제 진짜 비행기가 떠날 시간! 조종사 아저씨가 손을 흔들며 비행기에 올라탔어요. 비행기가 활주로를 쌩— 달리더니, 앞머리를 번쩍 들고 붕— 하늘로 떠올랐어요! 바퀴가 쏙 접혀 들어가요. 호리와 콩이는 손을 힘차게 흔들었어요. "잘 다녀오세요!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 측면. 비행기가 앞머리를 들고 떠오르고 아이들이 유리창 안에서 배웅하는 컷.<br/><b>장소·시간</b> 공항 유리창 안쪽, 낮. 창밖 활주로 위로 막 떠오른 비행기, 밝고 시원한 공기.<br/><b>인물</b> Hori는 화면 앞쪽에서 유리창에 붙어 두 손을 힘차게 흔들며 발을 동동 구르는 배웅 표정. Kongi는 호리 옆에서 함께 두 앞발을 흔들며 입을 크게 벌려 외침. Mom tiger는 뒤에서 두 아이의 어깨를 감싸 안고 함께 창밖을 바라봄.<br/><b>배경·소품</b> 창밖 활주로 위로 앞머리를 든 채 떠오르는 은색 비행기(배 아래 바퀴가 반쯤 접혀 들어가는 중), 뒤로 뻗은 활주로와 유도등, 파란 하늘과 흰 구름, 유리창에 비친 아이들.<br/><b>톤</b> 환한 낮 자연광, 떠오르는 비행기의 통쾌함과 아쉬운 배웅이 섞인 정서, 응원의 따뜻한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>정리(감탄·감사)</b> <span class="tag">정리 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집으로 가는 길, 호리는 엄마 손을 꼭 잡고 조잘조잘. "넓은 날개가 바람을 타고, 엔진이 힘껏 밀어 주고, 활주로를 쌩 달리면 붕! 바퀴는 쏙 접혀요. 조종사 아저씨는 우리를 먼 곳까지 데려다줘요." 호리는 하늘을 보며 씩 웃었어요. 위이잉— 비행기, 하늘로 붕!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 뒷모습 살짝 측면. 노을 진 길을 걸으며 이야기하는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 공항에서 집으로 가는 길, 해 질 녘. 주황빛 노을이 물든 포근하고 뿌듯한 공기.<br/><b>인물</b> Hori는 화면 가운데서 Mom tiger의 손을 잡고 걸으며 고개를 들어 엄마에게 손짓 섞어 조잘조잘 신나게 이야기하는 뿌듯한 표정. Mom tiger는 호리를 내려다보며 다정하게 고개를 끄덕이며 미소. Kongi는 왼쪽에서 도토리를 쥔 채 폴짝폴짝 뛰며 아직도 신이 난 표정.<br/><b>배경·소품</b> 손을 잡고 걷는 실루엣, 노을빛 하늘 저 멀리 작게 날아가는 비행기 한 대와 옅은 비행운, 가로수와 길가 벤치, 하늘 한켠에 작은 별 반짝임.<br/><b>톤</b> 따뜻한 주황 노을 조명, 하루의 발견을 곱씹는 뭉클하고 흐뭇한 정서, 존중과 감탄으로 마무리되는 포근한 분위기.</pre></details>
+</div>
+
+<footer>호리네 세상 탐험 · T10 하늘을 나는 새 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>window.SH_GUESTS=[{"key":"pilot","name":"조종사 아저씨","aliases":["pilot","captain pilot"],"desc":"감청색(짙은 남색) 조종사 제복 재킷에 흰 셔츠와 넥타이를 갖춰 입고, 소매와 어깨 견장에 금색 줄무늬가 있는 단정하고 든든한 인상의 어른. 챙에 금색 장식이 달린 감청색 기장 모자를 씀. 둥글고 다정한 눈에 환한 미소, 짧고 단정한 콧수염. 아이들을 다정하게 안내하는 현장 가이드"}]</script>
+<script src="/tamheom-core.js"></script>
+</body>
+</html>

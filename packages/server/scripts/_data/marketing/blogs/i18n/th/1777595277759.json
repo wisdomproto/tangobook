@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777595277759",
+  "seo_title": "ลักษณะเด่นและความลับของการสลัดหางของจิ้งจก — หนังสือภาพสำรวจธรรมชาติ",
+  "meta_description": "ความลับที่ว่าทำไมกิ้งก่าถึงตัดหางตัวเองเมื่อตกอยู่ในอันตราย ข้อเท็จจริงน่าทึ่งต่างๆ เช่น เหตุผลที่พวกมันอาบแดด เนื้อหาจากหนังสือนิทานสังเกตธรรมชาติของ Tango Book และวิธีการสังเกตการณ์สำหรับเด็กวัย 4-7 ขวบ",
+  "primary_keyword": "จิ้งจก",
+  "secondary_keywords": [
+    "ลักษณะของจิ้งจก",
+    "หางจิ้งจก",
+    "สัตว์เลื้อยคลาน",
+    "หนังสือสังเกตธรรมชาติสำหรับเด็กเล็ก",
+    "หนังสือนิทานภาพสัตว์"
+  ],
+  "url_slug": "lizard-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "จิ้งจก – จิ้งจก มีอะไรที่น่าสนใจบ้างคะ?",
+        "url": "https://assets.tangobook.co.kr/1777595277759-%EB%8F%84%EB%A7%88%EB%B1%80-cover-misc-1780026711232.webp",
+        "text": "<h2>จิ้งจก มีอะไรน่าทึ่งบ้างนะ?</h2><p>ว่องไว <strong>จิ้งจก</strong>มันเป็นสัตว์เลื้อยคลานที่น่าทึ่ง เพราะเมื่อตกอยู่ในอันตรายมันจะตัดหางตัวเองเพื่อหนี นอกจากนี้ ภาพที่มันอาบแดดทุกเช้าก็ดูน่าสนใจมากเช่นกัน</p>",
+        "caption": "สัตว์เลื้อยคลานที่ว่องไว",
+        "image_style": "",
+        "image_prompt": "A lizard basking in the sun on a rock, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "จิ้งจก - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของจิ้งจก",
+        "url": "https://assets.tangobook.co.kr/1777595277759-%EB%B3%80%EC%8B%A0%EC%9D%98%EC%B2%9C%EC%9E%AC%EC%9D%B4%EC%9E%90%EC%88%B2%EC%86%8D%EC%9D%98%EB%B9%A0%EB%A5%B8%EB%8B%AC%EB%A6%AC%EA%B8%B0%EC%84%A0%EC%88%98%EB%8F%84%EB%A7%88%EB%B1%80-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page1-1777595512557.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของกิ้งก่า</h2><p>กิ้งก่าพวกนี้ <strong>ไม่สามารถควบคุมอุณหภูมิร่างกายได้ด้วยตัวเอง (สัตว์เลือดเย็น)</strong>พวกมันจะอาบแดดเพื่อทำให้ร่างกายอุ่นในตอนเช้าทุกวันก่อนที่จะเริ่มทำกิจกรรม และถ้าถูกผู้ล่าจับได้ <strong>มันจะตัดหางของตัวเอง (การตัดหาง)</strong> แล้ววิ่งหนี ส่วนหางที่งอกใหม่จะมีกระดูกอ่อนแทนกระดูก พวกมันใช้ลิ้นในการรับรู้กลิ่น และบางสายพันธุ์ก็ <strong>เปลี่ยนสีผิวเพื่อซ่อนตัว</strong>วางไข่และลอกคราบเป็นระยะๆ</p>",
+        "caption": "ความลับของจาชอล",
+        "image_style": "",
+        "image_prompt": "A lizard dropping its tail to escape a predator, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "จิ้งจก - เนื้อหาจากหนังสือ Tango Book ตอน \"จิ้งจก\"",
+        "url": "https://assets.tangobook.co.kr/1777595277759-%EB%B3%80%EC%8B%A0%EC%9D%98%EC%B2%9C%EC%9E%AC%EC%9D%B4%EC%9E%90%EC%88%B2%EC%86%8D%EC%9D%98%EB%B9%A0%EB%A5%B8%EB%8B%AC%EB%A6%AC%EA%B8%B0%EC%84%A0%EC%88%98%EB%8F%84%EB%A7%88%EB%B1%80-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page5-1777595521645.webp",
+        "text": "<h2>เนื้อหาที่หนังสือทังโกเรื่อง «จิ้งจก» นำเสนอ</h2><p>หนังสือทังโกเรื่อง «จิ้งจก» จะแสดงให้เห็นถึงภาพของจิ้งจกที่อาบแดด การหนีโดยการตัดหาง การลอกคราบ และการซ่อนตัวด้วยสีพรางตาได้อย่างน่าสนใจ</p>",
+        "caption": "สีพรางตัว",
+        "image_style": "",
+        "image_prompt": "A lizard changing skin color to camouflage, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "จิ้งจก – จุดที่ควรสังเกตด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1777595277759-%EB%B3%80%EC%8B%A0%EC%9D%98%EC%B2%9C%EC%9E%AC%EC%9D%B4%EC%9E%90%EC%88%B2%EC%86%8D%EC%9D%98%EB%B9%A0%EB%A5%B8%EB%8B%AC%EB%A6%AC%EA%B8%B0%EC%84%A0%EC%88%98%EB%8F%84%EB%A7%88%EB%B1%80-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page10-1777595530829.webp",
+        "text": "<h2>จุดที่ควรสังเกตการณ์ร่วมกัน</h2><p>ให้ชี้ให้ดูจุดต่างๆ เช่น การอาบแดด (เปลือกนอก), การตัดหาง (การตัดตัวเอง), การลอกคราบ, หรือสีพรางตัว นอกจากนี้ การพูดคุยกันว่า \"ทำไมกิ้งก่าถึงต้องตัดหาง?\" ก็เป็นเรื่องที่ดีค่ะ</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A lizard shedding its skin, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "จิ้งจก - คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777595277759-%EB%B3%80%EC%8B%A0%EC%9D%98%EC%B2%9C%EC%9E%AC%EC%9D%B4%EC%9E%90%EC%88%B2%EC%86%8D%EC%9D%98%EB%B9%A0%EB%A5%B8%EB%8B%AC%EB%A6%AC%EA%B8%B0%EC%84%A0%EC%88%98%EB%8F%84%EB%A7%88%EB%B1%80-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page14-1777595540254.webp",
+        "text": "<h2>คู่มือผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ลองเล่าเรื่อง \"ถ้าอันตรายให้หนีไปโดยทิ้งหางไว้ (แล้วเติบโตใหม่)\" และเปรียบเทียบกับการลอกคราบของงูดูสิ การเปรียบเทียบเหตุผลที่ต้องอาบแดด (สัตว์เลือดเย็น) กับมนุษย์จะช่วยเพิ่มความสนใจได้มาก</p>",
+        "caption": "การสำรวจโลกของสัตว์เลื้อยคลาน",
+        "image_style": "",
+        "image_prompt": "A parent and child reading about reptiles, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ทำไมกิ้งก่าถึงตัดหางคะ/ครับ?</strong><br>ตอบ: เมื่อถูกผู้ล่าจับได้ พวกมันจะตัดหางเองเพื่อหนีค่ะ/ครับ หางก็จะงอกกลับมาใหม่ด้วยกระดูกอ่อน</p><p><strong>ถาม: ทำไมกิ้งก่าถึงอาบแดดคะ/ครับ?</strong><br>ตอบ: เพราะพวกมันเป็นสัตว์เลือดเย็นที่ไม่สามารถควบคุมอุณหภูมิร่างกายได้ จึงต้องอาบแดดในตอนเช้าเพื่อทำให้ตัวอุ่นก่อนที่จะเริ่มทำกิจกรรมค่ะ/ครับ</p><p><strong>ถาม: เราจะสังเกตพวกมันที่บ้านได้อย่างไรดีคะ/ครับ?</strong><br>ตอบ: ควรเปรียบเทียบกับการลอกคราบของงู และเปรียบเทียบเหตุผลที่อาบแดดกับมนุษย์จะดีมากเลยค่ะ/ครับ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณอ่านนิทานเรื่องนี้แล้วสนุกแบบนี้ ลองดู <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือภาพเรื่องจิ้งจก",
+        "url": "https://assets.tangobook.co.kr/1777595277759-%EB%B3%80%EC%8B%A0%EC%9D%98%EC%B2%9C%EC%9E%AC%EC%9D%B4%EC%9E%90%EC%88%B2%EC%86%8D%EC%9D%98%EB%B9%A0%EB%A5%B8%EB%8B%AC%EB%A6%AC%EA%B8%B0%EC%84%A0%EC%88%98%EB%8F%84%EB%A7%88%EB%B1%80-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page18-1777595843245.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"จิ้งจก\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้ด้วยภาพสวย ๆ และเสียงภาษาเกาหลี/อังกฤษที่ Tango Book เลยค่ะ</p><a href=\"https://tangobook.co.kr/library/1777595277759\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

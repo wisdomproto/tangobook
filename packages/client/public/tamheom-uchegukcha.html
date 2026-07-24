@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 세상 탐험 — 편지 배달 왔어요</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 세상 탐험 · 시즌1 탈것 #T15</div>
+  <h1>📮 편지 배달 왔어요</h1>
+  <div class="sub">부릉부릉 우편 오토바이를 따라간 호리가 우체국에서 편지가 우표·분류함·택배차를 거쳐 배달되는 길을 살펴보고 직접 편지도 넣어 봐요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 우체국 택배차·집배 오토바이 발견 — 실제 부품·작동을 정확히 (핵심단어: 우편함·우표·분류함·소포·택배차·오토바이) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(호기심·질문쟁이)·엄마(동행 가이드)·콩이(동행 친구, 엉뚱 비유·소포를 간식으로 오해)·집배원 아저씨(현장 안내자, 단역) &nbsp;·&nbsp;
+  <b>구조</b> 발견 5단계 (궁금→찾아감→살펴봄→해봄→정리) &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">📮 반복 후렴 — "부릉부릉, 편지 배달 왔어요!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>궁금(목격)</b> <span class="tag">궁금 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">부릉부릉! 빨간 오토바이가 우리 집 앞에 멈췄어요. 아저씨가 우편함에 쏙— 편지를 넣고 다시 부릉— 달려가요. 호리는 두 눈이 동그래졌어요. "우아, 저 편지는 어디서 왔지?" 부릉부릉, 편지 배달 왔어요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 우편 오토바이를 탄 집배원이 집 앞 우편함에 편지를 넣고 호리가 이를 바라보는 컷.<br/><b>장소·시간</b> 호리네 집 대문 앞 골목, 맑은 아침. 부드러운 햇살, 상쾌하고 조용한 공기.<br/><b>인물</b> Hori(아기 호랑이)는 화면 왼쪽 대문 안쪽에 서서 두 손을 대문 창살에 얹고 까치발을 든 채, 입을 동그랗게 벌리고 눈을 반짝이며 오토바이 쪽을 바라봄. mailcarrier(집배원 아저씨)는 화면 오른쪽 빨간 오토바이에 앉은 채 한 손으로 담벼락의 우편함에 하얀 편지를 넣으며 다정하게 웃음.<br/><b>배경·소품</b> 담벼락에 달린 우편함(편지 넣는 작은 통), 뒤쪽에 빨간 우편 오토바이(뒷자리에 큼직한 노란 배달 짐칸), 낮은 대문과 화분, 아침 하늘.<br/><b>톤</b> 환한 아침 자연광, 빨간 오토바이가 포인트, 두근거리는 호기심의 산뜻한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>궁금(질문)</b> <span class="tag">궁금</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">우편함을 열자 할머니가 보낸 편지가 들어 있어요. "엄마, 이 편지는 어떻게 여기까지 왔어요?" 호리가 편지를 흔들며 물어봐요. 엄마가 빙긋 웃었어요. "궁금하면 편지가 모이는 우체국에 가 볼까? 콩이도 같이!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 우편함에서 꺼낸 편지를 들고 엄마에게 묻는 호리와 곁의 콩이 삼자 컷.<br/><b>장소·시간</b> 집 앞 우편함 곁, 아침. 오토바이는 골목 끝으로 작게 멀어짐.<br/><b>인물</b> Hori는 화면 가운데서 두 손으로 하얀 편지를 들고 고개를 뒤로 젖혀 엄마를 올려다보며 궁금한 미소로 질문. Mom tiger(엄마 호랑이)는 왼쪽에서 허리를 살짝 굽혀 호리와 눈을 맞추고 한 손으로 골목 저편을 가리키며 다정하게 웃음. Kongi(아기 다람쥐)는 오른쪽에서 볼을 부풀린 채 편지를 코앞까지 가져와 냄새를 킁킁 맡는 엉뚱한 표정.<br/><b>배경·소품</b> 열린 우편함 뚜껑, 손에 든 하얀 편지(모서리에 작은 우표), 골목 끝으로 멀어지는 작은 빨간 오토바이, 대문과 화분.<br/><b>톤</b> 밝은 아침 자연광, 궁금증이 나들이로 바뀌는 설레는 정서, 따뜻하고 활기찬 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>찾아감(우체국 도착)</b> <span class="tag">찾아감</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">빨간 간판이 걸린 우체국 앞. 마당에는 커다란 택배차와 빨간 오토바이들이 나란히 줄지어 있어요. "어서 와! 편지가 궁금해서 왔구나?" 빨간 우체국 모자를 쓴 집배원 아저씨가 손을 흔들어요. 호리는 가슴이 콩닥콩닥!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 우체국 마당에 늘어선 택배차와 오토바이를 앞에서 올려다보는 컷.<br/><b>장소·시간</b> 우체국 건물 앞마당, 낮. 빨간 간판이 걸린 건물, 환한 햇살.<br/><b>인물</b> Hori는 화면 앞쪽 가운데서 목을 젖혀 커다란 택배차를 입 벌리고 올려다보며 두 손을 가슴에 모음, 놀라움 가득한 표정. Mom tiger는 호리 뒤에서 어깨에 손을 얹고 함께 봄. Kongi는 왼쪽에서 발끝을 세워 오토바이를 기웃거림. mailcarrier(빨간 우체국 재킷·빨간 모자)는 오른쪽 택배차 옆에 서서 한 손을 번쩍 들어 반갑게 인사하며 환하게 웃음.<br/><b>배경·소품</b> 빨간 우체국 간판이 걸린 건물, 마당에 나란히 선 커다란 하얀 택배차와 빨간 우편 오토바이들, 노란 배달 짐칸, 바닥의 노란 주차선.<br/><b>톤</b> 환한 대낮 자연광, 빨간 우체국 색이 포인트, 두근거리는 설렘의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>살펴봄(우표)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리는 할머니께 보내는 그림편지를 써 왔어요. "편지를 부치려면 여기 우표를 꼭 붙여야 해. 우표는 편지가 타는 '차표' 같은 거란다." 아저씨가 호리 편지 모서리에 작은 우표를 톡— 붙여요. 콩이가 우표를 보고 눈을 반짝. "사탕인 줄!" "핥지 말고 눈으로 보자, 콩이!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 편지 모서리에 우표를 붙이는 손과 이를 들여다보는 얼굴들의 컷.<br/><b>장소·시간</b> 우체국 안 접수 창구 앞, 낮. 실내 밝은 조명.<br/><b>인물</b> mailcarrier는 화면 오른쪽에서 호리가 써 온 하얀 편지 봉투 모서리에 작은 우표를 손가락으로 꾹 눌러 붙이며 설명하는 다정한 표정. Hori는 가운데서 두 손을 창구에 얹고 얼굴을 바짝 대어 우표를 눈이 커진 채 들여다봄. Kongi는 왼쪽에서 혀를 살짝 내밀고 우표 쪽으로 손을 뻗다가 멈칫, 아저씨를 힐끗 보며 겸연쩍게 볼을 긁음.<br/><b>배경·소품</b> 호리가 크레용으로 그린 그림편지가 담긴 하얀 편지 봉투와 그 모서리의 작은 알록달록 우표, 창구 위 우표 시트, 도장(우체국 소인), 스탬프 패드.<br/><b>톤</b> 밝은 실내 조명, 작고 알록달록한 우표가 포인트, 신기함과 콩이의 살짝 코믹한 멋쩍음.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>살펴봄(분류함)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">우체국 안에는 칸이 잔뜩 나뉜 커다란 분류함이 있어요. "편지마다 가는 동네가 다르지? 그래서 여기 칸칸이 나눠 꽂는 거야." 아저씨가 편지를 착착— 알맞은 칸에 꽂아요. 호리도 눈으로 주소를 따라 읽었어요. "우리 동네는 여기구나!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 측면. 벽 한 면을 채운 칸칸이 나뉜 분류함에 편지를 꽂는 장면.<br/><b>장소·시간</b> 우체국 안 분류실, 낮. 실내 밝은 조명.<br/><b>인물</b> mailcarrier는 화면 오른쪽에서 한 손에 편지 여러 통을 쥐고 다른 손으로 분류함의 한 칸에 편지를 착 꽂으며 호리 쪽을 돌아보고 설명. Hori는 가운데서 두 손을 등 뒤로 모으고 고개를 위아래로 움직이며 여러 칸을 하나하나 살펴보는 진지한 표정. Kongi는 왼쪽에서 까치발을 들고 맨 위 칸을 궁금하게 올려다봄. Mom tiger는 뒤에서 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 벽면 가득 칸칸이 나뉜 나무·철제 분류함(칸마다 동네 이름표), 각 칸에 꽂힌 편지 다발, 옆의 편지 바구니.<br/><b>톤</b> 밝은 실내 조명, 질서정연한 칸의 리듬감, 하나씩 알아가는 차분한 신기함의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>살펴봄(소포·택배차)</b> <span class="tag">살펴봄 · 후렴 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"편지보다 큰 물건은 상자에 담아 부치는데, 그걸 소포라고 해." 마당에서 아저씨들이 커다란 소포 상자들을 택배차에 척척 실어요. 콩이가 상자를 보고 침을 꼴깍. "저 안에 도토리 간식 들었나?" 모두 까르르 웃었어요. 부릉부릉, 편지 배달 왔어요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 열린 택배차 뒤칸에 소포 상자를 싣는 장면을 앞에서 보는 컷.<br/><b>장소·시간</b> 우체국 앞마당, 낮. 환한 햇살.<br/><b>인물</b> mailcarrier는 화면 오른쪽에서 두 손으로 커다란 소포 상자를 안아 택배차 뒤칸에 실으며 힘쓰는 밝은 표정. Hori는 가운데 앞쪽에서 두 손을 모으고 눈을 크게 뜬 채 상자들을 신기하게 바라봄. Kongi는 왼쪽에서 상자를 향해 손을 뻗고 침을 꼴깍 삼키며 군침 도는 엉뚱한 표정. Mom tiger는 호리 뒤에서 웃으며 지켜봄.<br/><b>배경·소품</b> 뒷문이 활짝 열린 하얀 택배차(안에 차곡차곡 쌓인 갈색 소포 상자들), 마당에 놓인 여러 크기의 소포 상자, 상자에 붙은 주소 종이, 노란 주차선.<br/><b>톤</b> 환한 대낮 자연광, 크고 든든한 택배차의 위풍, 콩이의 침 삼키는 코믹함이 섞인 즐거운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>해봄(집배원 되어 보기)</b> <span class="tag">해봄</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"호리도 집배원이 돼 볼까?" 빨간 우체국 모자는 커다랗고, 어깨에 멘 편지 가방은 묵직해요. 콩이가 가방을 급하게 메자 무게에 기우뚱— "우와아!" 넘어질 뻔했어요. 호리는 모자를 꾹 눌러쓰고 오토바이에 조심조심 앉아 봤어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 우체국 모자와 편지 가방을 착용하고 오토바이에 앉아 보는 호리와 콩이의 코믹한 컷.<br/><b>장소·시간</b> 우체국 앞마당의 오토바이 곁, 낮. 밝은 햇살.<br/><b>인물</b> Hori는 화면 가운데 빨간 우편 오토바이 안장에 두 손으로 손잡이를 잡고 조심스레 걸터앉아, 커다란 빨간 모자를 눌러쓴 채 씩씩하고 뿌듯한 미소. Kongi는 왼쪽에서 어깨에 멘 커다란 편지 가방의 무게에 몸이 옆으로 기우뚱 기울어 두 팔을 허우적거리는 당황한 표정. mailcarrier는 오른쪽에서 무릎을 굽혀 호리가 안장에 앉도록 손을 받쳐 주며 껄껄 웃음. Mom tiger는 뒤에서 손뼉 치며 즐겁게 웃음.<br/><b>배경·소품</b> 빨간 우편 오토바이(뒤 노란 짐칸), 빨간 우체국 모자, 어깨끈이 긴 편지 가방(편지 몇 통이 삐죽), 마당의 노란 주차선.<br/><b>톤</b> 따뜻한 대낮 조명, 장비가 커서 벌어지는 귀엽고 코믹한 정서, 웃음이 번지는 즐거운 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>해봄(편지 넣어 보기)</b> <span class="tag">해봄 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 할머니께 편지를 부칠 차례! 호리가 아저씨와 함께 빨간 우체통 앞에 섰어요. 우표 붙인 할머니 편지를 쏙— 넣자 안으로 톡 떨어졌어요. 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉! "할머니께 편지를 부쳤어요!" 부릉부릉, 편지 배달 왔어요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 빨간 우체통 투입구에 편지를 넣는 결정적 순간.<br/><b>장소·시간</b> 우체국 앞 빨간 우체통 곁, 낮. 밝은 햇살.<br/><b>인물</b> Hori는 화면 앞쪽에서 까치발을 들고 두 손으로 할머니께 보내는 우표 붙인 편지를 우체통 투입구에 밀어 넣으며, 해냈다는 반짝이는 눈과 활짝 웃는 씩씩한 표정. mailcarrier는 호리 바로 뒤에서 한 손을 호리 등에 살짝 받쳐 주며 흐뭇하게 웃음. Kongi는 왼쪽에서 폴짝 뛰어오르며 손뼉을 침. Mom tiger는 오른쪽에서 두 손을 모으고 대견하게 바라봄.<br/><b>배경·소품</b> 빨간 우체통(투입구에 들어가는 하얀 편지), 특히 호리 꼬리 줄무늬가 무지개빛으로 반짝이는 시그니처 순간(부릉꼬리), 뒤로 우체국 건물과 마당.<br/><b>톤</b> 환한 대낮 자연광, 편지를 부친 성취감의 신나고 반짝이는 정서, 대견한 따뜻함의 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>해봄(배달 출발 목격)</b> <span class="tag">해봄</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">편지 가방을 가득 멘 아저씨가 오토바이에 훌쩍 올라타요. 큰 소포를 실은 택배차도 부릉— 시동을 걸어요. "이 편지들, 집집마다 잘 배달하고 올게!" 부릉부릉, 오토바이가 씩씩하게 달려 나가요. 호리와 콩이는 손을 흔들었어요. "안녕히 다녀오세요!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 측면. 오토바이와 택배차가 우체국 마당을 빠져나가고 아이들이 배웅하는 출발 컷.<br/><b>장소·시간</b> 우체국 앞마당 출입구, 낮. 환한 햇살, 활기찬 공기.<br/><b>인물</b> mailcarrier는 화면 왼쪽 빨간 오토바이에 올라타 한 손으로 손잡이를 잡고 다른 손을 들어 인사하며 출발하는 밝은 표정. Hori는 화면 오른쪽 앞에서 두 손을 힘차게 흔들며 배웅하는 신난 표정. Kongi는 호리 옆에서 함께 손을 흔들며 입을 크게 벌려 외침. Mom tiger는 뒤에서 두 아이의 어깨를 감싸 안전하게 지켜 줌.<br/><b>배경·소품</b> 마당을 빠져나가는 빨간 우편 오토바이(뒤 노란 짐칸에 편지 가득)와 그 뒤로 시동 건 하얀 택배차, 살짝 뻗은 배기 연기, 우체국 간판과 마당의 노란 주차선.<br/><b>톤</b> 밝은 대낮 자연광, 씩씩하게 출발하는 활기찬 정서, 응원의 따뜻한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>정리(감탄·감사)</b> <span class="tag">정리 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집으로 가는 길, 호리는 엄마 손을 꼭 잡고 조잘조잘. "편지에 우표를 붙이고, 분류함에서 동네끼리 나누고, 소포는 택배차에 싣고, 오토바이가 집집마다 배달해요!" 호리는 할머니 편지를 꼭 안았어요. "집배원 아저씨 덕분에 마음이 오가는구나!" 부릉부릉, 편지 배달 왔어요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 뒷모습 살짝 측면. 노을 진 길을 걸으며 이야기하는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 우체국에서 집으로 가는 동네 길, 해 질 녘. 주황빛 노을이 물든 포근하고 뿌듯한 공기.<br/><b>인물</b> Hori는 화면 가운데서 Mom tiger의 손을 잡고 걸으며, 다른 팔로는 할머니의 하얀 편지를 가슴에 꼭 안은 채 고개를 들어 엄마에게 손짓 섞어 조잘조잘 신나게 이야기하는 뿌듯한 표정. Mom tiger는 호리를 내려다보며 다정하게 고개를 끄덕이며 미소. Kongi는 왼쪽에서 폴짝폴짝 뛰며 아직도 신이 난 표정.<br/><b>배경·소품</b> 손을 잡고 걷는 실루엣, 호리 품에 안긴 하얀 편지, 뒤로 저 멀리 작아진 우체국 건물과 빨간 간판, 노을빛 하늘에 작은 구름, 가로수와 길가 우편함, 하늘 한켠에 작은 별 반짝임.<br/><b>톤</b> 따뜻한 주황 노을 조명, 하루의 발견을 곱씹는 뭉클하고 흐뭇한 정서, 존중과 감탄으로 마무리되는 포근한 분위기.</pre></details>
+</div>
+
+<footer>호리네 세상 탐험 · T15 편지 배달 왔어요 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>window.SH_GUESTS=[{"key":"mailcarrier","name":"집배원 아저씨","aliases":["mail carrier","postman","mailman"],"desc":"빨간 우체국 제복(빨간 재킷과 빨간 우체국 모자, 가슴에 작은 우체국 로고)을 입은 친절하고 성실한 인상의 어른. 둥글고 다정한 눈에 환한 미소, 짧고 단정한 콧수염. 어깨에 긴 끈이 달린 편지 가방을 메고, 빨간 우편 오토바이(뒷자리 노란 배달 짐칸)와 함께. 아이들을 다정하게 안내하는 현장 가이드"}]</script>
+<script src="/tamheom-core.js"></script>
+</body>
+</html>

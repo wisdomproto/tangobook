@@ -1,0 +1,112 @@
+{
+  "storybookId": "1773554053356",
+  "seo_title": "ลักษณะของต้นแอปเปิลและความลับของแอปเปิล — หนังสือนิทานภาพสังเกตธรรมชาติ",
+  "meta_description": "เรื่องราวที่น่าทึ่ง เช่น ดอกแอปเปิลและการผสมเกสรของผึ้ง ความจริงที่ว่าแอปเปิลเป็นผลเทียม (accessory fruit) รวมถึงเนื้อหาจากหนังสือนิทานสังเกตธรรมชาติของ Tango Book และวิธีการสังเกตด้วย คู่มือการสังเกตธรรมชาติสำหรับเด็กวัย 4-7 ปี",
+  "primary_keyword": "ต้นแอปเปิล",
+  "secondary_keywords": [
+    "ลักษณะเด่นของต้นแอปเปิล",
+    "แอปเปิล วิกวา",
+    "ระบบนิเวศของต้นแอปเปิล",
+    "หนังสือสังเกตธรรมชาติสำหรับเด็กเล็ก",
+    "หนังสือนิทานภาพเกี่ยวกับต้นไม้"
+  ],
+  "url_slug": "apple-tree-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "ต้นแอปเปิล - ต้นแอปเปิลมีส่วนไหนที่น่าทึ่งบ้างนะ?",
+        "url": "https://assets.tangobook.co.kr/1773554053356-%EC%82%AC%EA%B3%BC%EB%82%98%EB%AC%B4-cover-misc-1780099450320.webp",
+        "text": "<h2>ต้นแอปเปิล มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>ที่ออกดอกสีขาวในฤดูใบไม้ผลิ และติดผลสีแดงในฤดูใบไม้ร่วง <strong>ต้นแอปเปิล</strong>เป็นต้นไม้ที่เป็นมิตรที่แสดงให้เห็นถึงการเปลี่ยนแปลงของสี่ฤดู ความลับที่ซ่อนอยู่ในแอปเปิลก็เป็นเรื่องน่าสนใจเช่นกัน</p><p data-seo-boost=\"1\">เราได้รวบรวมเรื่องราวที่หลากหลายเกี่ยวกับต้นแอปเปิล ไม่ว่าจะเป็นลักษณะของต้นแอปเปิล โครงสร้างผลแอปเปิล นิเวศวิทยาของต้นแอปเปิล และอื่น ๆ</p>",
+        "caption": "ต้นไม้ที่มีแอปเปิลสีแดง",
+        "image_style": "",
+        "image_prompt": "An apple tree with red apples in autumn, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "ต้นแอปเปิล - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของต้นแอปเปิล",
+        "url": "https://assets.tangobook.co.kr/1773554053356-%EC%83%88%EC%BD%A4%EB%8B%AC%EC%BD%A4%ED%95%9C%EC%84%A0%EB%AC%BC%EC%A3%BC%EB%A0%81%EC%A3%BC%EB%A0%81%EC%97%B4%EB%A7%A4%EB%A7%BA%EB%8A%94%EC%82%AC%EA%B3%BC%EB%82%98%EB%AC%B4-illustration-page1-1773554153730.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของต้นแอปเปิล</h2><p>ต้นแอปเปิลส่วนใหญ่จะไม่ติดผลด้วยละอองเกสรของตัวเอง <strong>ต้องให้ผึ้งช่วยนำละอองเกสรจากสายพันธุ์อื่นมาผสมให้</strong> และแอปเปิลที่เรากินนั้น จริง ๆ แล้วไม่ใช่รังไข่ <strong>แต่เป็น \"ผลปลอม (accessory fruit)\" ที่เติบโตจากฐานรองดอก</strong>นะคะ เมล็ดแอปเปิลมีอะมิกดาลินในปริมาณเล็กน้อย ดังนั้นระวังอย่าเคี้ยวมากเกินไป ต้นแอปเปิลสามารถมีชีวิตอยู่ได้ถึง 70-100 ปีค่ะ</p>",
+        "caption": "ความช่วยเหลือจากผึ้ง",
+        "image_style": "",
+        "image_prompt": "A bee pollinating white apple blossoms in spring, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "ต้นแอปเปิล - เนื้อหาที่หนังสือแทงโกบุ๊กเรื่อง \"ต้นแอปเปิล\" นำเสนอ",
+        "url": "https://assets.tangobook.co.kr/1773554053356-%EC%83%88%EC%BD%A4%EB%8B%AC%EC%BD%A4%ED%95%9C%EC%84%A0%EB%AC%BC%EC%A3%BC%EB%A0%81%EC%A3%BC%EB%A0%81%EC%97%B4%EB%A7%A4%EB%A7%BA%EB%8A%94%EC%82%AC%EA%B3%BC%EB%82%98%EB%AC%B4-illustration-page5-1773554164212.webp",
+        "text": "<h2>เนื้อหาที่หนังสือทังโก \"ต้นแอปเปิล\" นำเสนอ</h2><p>หนังสือทังโก \"ต้นแอปเปิล\" แสดงให้เห็นถึงหนึ่งปีของต้นแอปเปิลอย่างอบอุ่น ตั้งแต่ดอกไม้ฤดูใบไม้ผลิ → การมาเยือนของผึ้งน้ำผึ้ง → กระบวนการที่ผลเริ่มขยายตัว → จนถึงการเก็บเกี่ยวในฤดูใบไม้ร่วง</p>",
+        "caption": "รูปดาวถุงอัณฑะ",
+        "image_style": "",
+        "image_prompt": "An apple sliced to show the star-shaped core and seeds, close-up children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "ต้นแอปเปิล – จุดที่ควรสังเกตพร้อมกัน",
+        "url": "https://assets.tangobook.co.kr/1773554053356-%EC%83%88%EC%BD%A4%EB%8B%AC%EC%BD%A4%ED%95%9C%EC%84%A0%EB%AC%BC%EC%A3%BC%EB%A0%81%EC%A3%BC%EB%A0%81%EC%97%B4%EB%A7%A4%EB%A7%BA%EB%8A%94%EC%82%AC%EA%B3%BC%EB%82%98%EB%AC%B4-illustration-page10-1773554185143.webp",
+        "text": "<h2>จุดที่ควรสังเกตด้วยกัน</h2><p>โปรดชี้ให้ดูจุดต่างๆ เช่น ดอกไม้ฤดูใบไม้ผลิ (มี 5 กลีบ), ผึ้ง (การผสมเกสร), ผลปลอม, และเมล็ด (แกน/ไส้) การพูดคุยด้วยกันว่า \"แอปเปิลเติบโตมาจากส่วนไหนนะ?\" จะเป็นเรื่องที่ดีมากค่ะ</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "White apple blossoms with five petals, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "ต้นแอปเปิล - คู่มือสำหรับผู้ปกครอง — ขยายกิจกรรมผ่านการสังเกตและประสบการณ์",
+        "url": "https://assets.tangobook.co.kr/1773554053356-%EC%83%88%EC%BD%A4%EB%8B%AC%EC%BD%A4%ED%95%9C%EC%84%A0%EB%AC%BC%EC%A3%BC%EB%A0%81%EC%A3%BC%EB%A0%81%EC%97%B4%EB%A7%A4%EB%A7%BA%EB%8A%94%EC%82%AC%EA%B3%BC%EB%82%98%EB%AC%B4-illustration-page14-1773554202515.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — การขยายจากการสังเกตและการเรียนรู้จากประสบการณ์</h2><p>ให้ตัดแอปเปิลตามขวางเพื่อสังเกตรังไข่รูปดาว และบอกพวกเขาว่า \"ส่วนที่ดอกไม้เติบโต = ส่วนที่เรากิน\" หากได้สังเกตดอกแอปเปิลและผึ้งในฤดูใบไม้ผลิ จะช่วยให้เข้าใจกระบวนการผสมเกสรได้</p>",
+        "caption": "การสังเกตหน้าตัดของแอปเปิล",
+        "image_style": "",
+        "image_prompt": "A parent and child slicing an apple to look at the seeds, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย</h2><p><strong>ถาม: แอปเปิลเป็นผลไม้จริง ๆ หรือเปล่าคะ?</strong><br>ตอบ: ตามหลักการแล้ว มันคือ \"ผลปลอม (accessory fruit)\" ที่เติบโตจากฐานดอก ส่วนรังไข่จริง ๆ คือส่วนแกนตรงกลางค่ะ</p><p><strong>ถาม: ต้นแอปเปิลสามารถออกผลได้ด้วยตัวเองไหมคะ?</strong><br>ตอบ: ส่วนใหญ่แล้วมันต้องมีละอองเรณูจากสายพันธุ์อื่นถึงจะออกผลได้ดีค่ะ ผึ้งคือตัวช่วยที่สำคัญที่สุดเลยค่ะ</p><p><strong>ถาม: เราจะสังเกตที่บ้านได้อย่างไรดีคะ?</strong><br>ตอบ: แนะนำให้ลองผ่าแอปเปิลตามขวางเพื่อดูรังไข่รูปดาว หรือสังเกตดอกแอปเปิลและผึ้งในฤดูใบไม้ผลิค่ะ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณอ่านนิทานเรื่องนี้แล้วสนุกแบบนี้ ลองดู <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือภาพต้นแอปเปิล",
+        "url": "https://assets.tangobook.co.kr/1773554053356-%EC%83%88%EC%BD%A4%EB%8B%AC%EC%BD%A4%ED%95%9C%EC%84%A0%EB%AC%BC%EC%A3%BC%EB%A0%81%EC%A3%BC%EB%A0%81%EC%97%B4%EB%A7%A4%EB%A7%BA%EB%8A%94%EC%82%AC%EA%B3%BC%EB%82%98%EB%AC%B4-illustration-page18-1773554434977.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"ต้นแอปเปิล\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้ที่ Tango Book ด้วยภาพสวย ๆ และเสียงอ่านภาษาเกาหลีและภาษาอังกฤษเลยค่ะ</p><a href=\"https://tangobook.co.kr/library/1773554053356\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

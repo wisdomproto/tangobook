@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773320745960",
+  "seo_title": "蜘蛛的特征与生态 — 蛛网科学自然观察绘本",
+  "meta_description": "关于蜘蛛网惊人的强度、八条腿、气球漂浮等奇妙事实，以及《Tango Book》自然观察绘本的内容和与孩子一起观察的方法。4-7岁自然观察指南。",
+  "primary_keyword": "蜘蛛",
+  "secondary_keywords": ["蜘蛛特点", "蜘蛛网", "蜘蛛生态", "幼儿自然观察书", "昆虫图画书"],
+  "url_slug": "spider-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "蜘蛛 - 蜘蛛，哪些地方很神奇呢？",
+        "url": "https://assets.tangobook.co.kr/1773320745960-%EA%B1%B0%EB%AF%B8-cover-misc-1780029520090.webp",
+        "text": "<h2>蜘蛛，哪些地方会让人感到神奇呢？</h2><p>织着精巧蜘蛛网的 <strong>蜘蛛</strong>是大自然的优秀建筑师。从它有八条腿，属于与昆虫不同的群体这一点开始就很有趣了。</p>",
+        "caption": "大自然的建筑师",
+        "image_style": "",
+        "image_prompt": "A spider on an intricate dew-covered web in morning light, beautiful children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "蜘蛛 - 蜘蛛的自然与科学事实",
+        "url": "https://assets.tangobook.co.kr/1773320745960-%EC%88%B2%EC%86%8D%EC%9D%98%EB%A9%8B%EC%A7%84%EA%B7%B8%EB%AC%BC%EA%B8%B0%EC%88%A0%EC%9E%90%EA%B1%B0%EB%AF%B8-illustration-page1-1773444750542.webp",
+        "text": "<h2>蜘蛛的自然和科学知识</h2><p>蜘蛛的腿是 <strong>八条</strong>它们是八足节肢动物，与有六条腿的昆虫属于不同的分类。蜘蛛丝是一种比相同粗细的 <strong>比钢铁更强的蛋白质纤维</strong>物质。它们分为织网等待的定居性和游荡的徘徊性，捕到猎物后会用毒液麻痹它并吸食其体液。 <strong>小蜘蛛会发射丝线，乘着风移动的</strong>行动。</p>",
+        "caption": "昆虫和其他八条腿",
+        "image_style": "",
+        "image_prompt": "A close-up of a spider showing its eight legs clearly, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "蜘蛛 - 《探戈书》中关于“蜘蛛”的内容",
+        "url": "https://assets.tangobook.co.kr/1773320745960-%EC%88%B2%EC%86%8D%EC%9D%98%EB%A9%8B%EC%A7%84%EA%B7%B8%EB%AC%BC%EA%B8%B0%EC%88%A0%EC%9E%90%EA%B1%B0%EB%AF%B8-illustration-page5-1773444762914.webp",
+        "text": "<h2>《探戈书》中的《蜘蛛》讲述了什么内容</h2><p>《探戈书》中的《蜘蛛》生动地展示了蜘蛛的身体结构、用网捕猎、用丝线包裹和储存食物的行为、将卵挂在腹部移动的母蜘蛛，以及正在漂浮的小蜘蛛。它还传达了蜘蛛作为捕食害虫、守护森林的可爱朋友的生态作用。</p>",
+        "caption": "乘风移动",
+        "image_style": "",
+        "image_prompt": "Baby spiders releasing silk to float on the wind (ballooning), whimsical children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "蜘蛛 - 可以一起观察的重点",
+        "url": "https://assets.tangobook.co.kr/1773320745960-%EC%88%B2%EC%86%8D%EC%9D%98%EB%A9%8B%EC%A7%84%EA%B7%B8%EB%AC%BC%EA%B8%B0%EC%88%A0%EC%9E%90%EA%B1%B0%EB%AF%B8-illustration-page10-1773444800455.webp",
+        "text": "<h2>一起观察时可以关注的重点</h2><p>请指出一些重点，比如八条腿（与昆虫区分）、蜘蛛网（坚固的纤维和几何图案）、捕猎方式、以及气球状行为等。如果能一起讨论“蜘蛛是昆虫吗？”、“蜘蛛网有多结实？”会更好。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "Geometric spider web pattern glistening, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "蜘蛛：家长指南——从观察到体验的拓展",
+        "url": "https://assets.tangobook.co.kr/1773320745960-%EC%88%B2%EC%86%8D%EC%9D%98%EB%A9%8B%EC%A7%84%EA%B7%B8%EB%AC%BC%EA%B8%B0%EC%88%A0%EC%9E%90%EA%B1%B0%EB%AF%B8-illustration-page14-1773444820521.webp",
+        "text": "<h2>父母指南 — 通过观察和体验进行拓展</h2><p>在散步时寻找挂着晨露的蜘蛛网，观察它的花纹。尝试用线/毛线制作蜘蛛网形状，画出八条腿的蜘蛛并与昆虫（六条腿）进行比较，有助于培养分类概念。（请观察蜘蛛，不要触摸它）</p>",
+        "caption": "蜘蛛网制作游戏",
+        "image_style": "",
+        "image_prompt": "A parent and child making a web shape with yarn together, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答</h2><p><strong>问：蜘蛛是昆虫吗？</strong><br>答：不。它们是拥有八条腿的节肢动物，与只有六条腿的昆虫属于不同的类群。</p><p><strong>问：蜘蛛网有多结实？</strong><br>答：它是一种蛋白质纤维，强度超过了相同粗细的钢材。它非常轻盈且坚韧。</p><p><strong>问：家里怎样观察比较好呢？</strong><br>答：可以观察早晨的蜘蛛网纹路，用线串出蜘蛛网，并比较腿的数量（请避免直接接触）。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "蜘蛛绘本插图",
+        "url": "https://assets.tangobook.co.kr/1773320745960-%EC%88%B2%EC%86%8D%EC%9D%98%EB%A9%8B%EC%A7%84%EA%B7%B8%EB%AC%BC%EA%B8%B0%EC%88%A0%EC%9E%90%EA%B1%B0%EB%AF%B8-illustration-page18-1773444856432.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“蜘蛛”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用美丽的图画和韩语·英语语音亲自体验一下吧。</p><a href=\"https://tangobook.co.kr/library/1773320745960\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "storybookId": "1777434565272",
+  "seo_title": "虎的特征和条纹的秘密 — 自然观察绘本",
+  "meta_description": "关于老虎的条纹像指纹一样都不同这个事实，以及卓越的捕猎能力等奇妙故事；《Tango Book》动物绘本的内容和观察方法。4至7岁自然观察指南。",
+  "primary_keyword": "老虎",
+  "secondary_keywords": ["老虎特点", "虎纹", "老虎生态", "幼儿动物书", "动物图画书"],
+  "url_slug": "tiger-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "老虎 - 老虎，有哪些地方是神奇的呢？",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%ED%98%B8%EB%9E%91%EC%9D%B4-cover-misc-1780028371172.webp",
+        "text": "<h2>老虎，哪些地方会很神奇呢？</h2><p>猫科动物中最大的 <strong>老虎</strong>它是一种在我们古老故事中经常出现的，既亲切又威武的动物。它的条纹里藏着惊人的秘密哦。</p>",
+        "caption": "森林里的老虎",
+        "image_style": "",
+        "image_prompt": "A majestic tiger with orange and black stripes in tall grass, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "老虎 - 老虎的自然与科学事实",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page1-1777436215651.webp",
+        "text": "<h2>关于老虎的自然和科学知识</h2><p>老虎的橙色底黑色条纹，可以帮助它在草丛中隐藏自己。 <strong>伪装。</strong> 起到了作用。令人惊讶的是， <strong>条纹就像指纹一样，每一只都是不同的。</strong>。凭借出色的夜视能力、柔软的脚垫和可以收藏的利爪， <strong>无声地捕猎。</strong>是的。与大多数猫科动物不同， <strong>它喜欢水，并且会游泳，</strong>游泳也很厉害，而且是独居的动物。在野外，它处于濒危状态哦。</p>",
+        "caption": "像指纹一样的不同条纹",
+        "image_style": "",
+        "image_prompt": "A close-up of tiger stripes, each pattern unique, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "老虎 - 坦哥书《老虎》所涵盖的内容",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page5-1777434701236.webp",
+        "text": "<h2>《Tango Book》关于“老虎”的内容</h2><p>《Tango Book》中的“老虎”生动地展示了老虎的魅力，包括漂亮的条纹、无声的狩猎、游泳的样子以及标记领地的行为等。</p>",
+        "caption": "喜欢水的老虎",
+        "image_style": "",
+        "image_prompt": "A tiger swimming in water, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "老虎 - 共同观察时值得关注的重点",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page10-1777436300048.webp",
+        "text": "<h2>一起观察时可以注意的重点</h2><p>可以指点一些重点，比如条纹（伪装/指纹）、夜视能力、藏爪和游泳等。可以一起聊聊“你看，这些条纹都不同，真神奇吧？”</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "A tiger stalking silently with soft paws, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "老虎 - 父母指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page14-1777436356921.webp",
+        "text": "<h2>家长指南 — 如何培养好奇心</h2><p>比较老虎照片的条纹，找出“大家都不一样！”。可以比较与猫相似的地方（爪子、胡须），并通过濒危物种的故事来培养爱惜生命的意识。</p>",
+        "caption": "与猫咪的比较",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing tiger and cat features, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常问问题解答 (FAQ)</h2><p><strong>问：老虎的条纹都一样吗？</strong><br>答：不。就像人类的指纹一样，每一只都是不同的。我们可以通过条纹来区分老虎。</p><p><strong>问：老虎喜欢水吗？</strong><br>答：是的。与大多数猫科动物不同，它们喜欢水，而且游泳也很好。</p><p><strong>问：在家里怎样观察比较好呢？</strong><br>答：可以用照片比较条纹，寻找与猫相似的地方，以及了解濒危物种的故事是很好的。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>适合一起阅读的经典童话</h2><p>如果喜欢读这个故事，还可以看看这些 <strong>经典童话</strong>也一起来阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">小狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "老虎绘本插画",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page18-1777436388768.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">您对“老虎”感兴趣吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book中，通过精美的图画和韩语·英语音频亲身体验吧。</p><a href=\"https://tangobook.co.kr/library/1777434565272\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

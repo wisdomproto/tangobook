@@ -1,0 +1,112 @@
+{
+  "storybookId": "1773365203383",
+  "seo_title": "Sách tranh hoa hướng dương — Bí mật xoay theo mặt trời (4~7 tuổi)",
+  "meta_description": "Lý do thật sự khiến hoa hướng dương xoay theo mặt trời (tính hướng sáng), bí mật của hạt cùng nhiều điều kỳ thú, nội dung sách tranh quan sát thiên nhiên Tango Book và cách quan sát. Cẩm nang quan sát thiên nhiên cho trẻ 4~7 tuổi.",
+  "primary_keyword": "sách tranh hoa hướng dương",
+  "secondary_keywords": [
+    "đặc điểm hoa hướng dương",
+    "tính hướng sáng của hoa hướng dương",
+    "sinh thái hoa hướng dương",
+    "sách quan sát thiên nhiên cho trẻ",
+    "sách tranh về thực vật"
+  ],
+  "url_slug": "sunflower-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "hoa hướng dương - Hoa hướng dương có điều gì kỳ thú?",
+        "url": "https://assets.tangobook.co.kr/1773365203383-%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0-cover-misc-1780046250884.webp",
+        "text": "<h2>Hoa hướng dương có điều gì kỳ thú?</h2><p><strong>Hoa hướng dương</strong> cao lớn và rực rỡ là loài hoa tiêu biểu của mùa hè, nổi tiếng vì xoay đầu theo mặt trời. Hãy cùng khám phá khoa học thật sự ẩn sau chuyển động ấy nhé.</p><p data-seo-boost=\"1\">Chúng tôi đã gói ghém nhiều câu chuyện đa dạng về hoa hướng dương như đặc điểm, tính hướng sáng và sinh thái của loài hoa này.</p>",
+        "caption": "Hoa hướng dương quay về phía mặt trời",
+        "image_style": "",
+        "image_prompt": "A tall bright sunflower facing the morning sun in a summer field, cheerful children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "hoa hướng dương - Sự thật khoa học và thiên nhiên về hoa hướng dương",
+        "url": "https://assets.tangobook.co.kr/1773365203383-%ED%83%9C%EC%96%91%EC%9D%84%EB%8B%AE%EC%9D%80%EC%BB%A4%EB%8B%A4%EB%9E%80%EA%BD%83%ED%99%A9%EA%B8%88%EB%B9%9B%EB%AF%B8%EC%86%8C%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0-illustration-page1-1773531635427.webp",
+        "text": "<h2>Sự thật khoa học và thiên nhiên về hoa hướng dương</h2><p>Chuyện \"xoay theo mặt trời\" chỉ đúng với <strong>hoa hướng dương còn non</strong>. Khi thân chưa cứng, ban ngày cây đi theo mặt trời từ đông sang tây rồi ban đêm quay lại phía đông; điều này là do sự sinh trưởng theo hướng ánh sáng (tính hướng sáng) và nhịp sinh học ngày đêm (nghiên cứu trên tạp chí Science năm 2016). Khi cây trưởng thành và ra hoa, thân cứng lại nên phần lớn <strong>cố định quay về hướng đông</strong>, đón nắng sớm để hấp thụ nhiều năng lượng ánh sáng hơn.</p>",
+        "caption": "Bí mật của tính hướng sáng",
+        "image_style": "",
+        "image_prompt": "Young sunflowers turning from east to west following the sun, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "hoa hướng dương - Nội dung cuốn «Hoa hướng dương» của Tango Book",
+        "url": "https://assets.tangobook.co.kr/1773365203383-%ED%83%9C%EC%96%91%EC%9D%84%EB%8B%AE%EC%9D%80%EC%BB%A4%EB%8B%A4%EB%9E%80%EA%BD%83%ED%99%A9%EA%B8%88%EB%B9%9B%EB%AF%B8%EC%86%8C%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0-illustration-page5-1773531645829.webp",
+        "text": "<h2>Nội dung cuốn «Hoa hướng dương» của Tango Book</h2><p>Cuốn «Hoa hướng dương» của Tango Book khắc họa rực rỡ vòng đời từ khi hạt nảy mầm, lớn lên vun vút hướng về mặt trời, đến khi nở hoa và kết thành vô số hạt.</p>",
+        "caption": "Những hạt xếp theo hình xoắn ốc",
+        "image_style": "",
+        "image_prompt": "A sunflower full of seeds in a spiral pattern, close-up children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "hoa hướng dương - Những điểm nên cùng nhau quan sát",
+        "url": "https://assets.tangobook.co.kr/1773365203383-%ED%83%9C%EC%96%91%EC%9D%84%EB%8B%AE%EC%9D%80%EC%BB%A4%EB%8B%A4%EB%9E%80%EA%BD%83%ED%99%A9%EA%B8%88%EB%B9%9B%EB%AF%B8%EC%86%8C%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0-illustration-page10-1773531667650.webp",
+        "text": "<h2>Những điểm nên cùng nhau quan sát</h2><p>Hãy chỉ cho bé những điểm như hoa non (đi theo mặt trời), hoa trưởng thành (cố định về hướng đông), hạt (xếp dày đặc) và chiều cao lớn. Cùng trò chuyện \"Vì sao hoa hướng dương lớn chỉ nhìn về một hướng?\" sẽ rất thú vị.</p>",
+        "caption": "Điểm quan sát",
+        "image_style": "",
+        "image_prompt": "A sunflower seed sprouting and growing tall, life cycle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "hoa hướng dương - Cẩm nang cho cha mẹ — Mở rộng bằng quan sát và trải nghiệm",
+        "url": "https://assets.tangobook.co.kr/1773365203383-%ED%83%9C%EC%96%91%EC%9D%84%EB%8B%AE%EC%9D%80%EC%BB%A4%EB%8B%A4%EB%9E%80%EA%BD%83%ED%99%A9%EA%B8%88%EB%B9%9B%EB%AF%B8%EC%86%8C%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0-illustration-page14-1773531684773.webp",
+        "text": "<h2>Cẩm nang cho cha mẹ — Mở rộng bằng quan sát và trải nghiệm</h2><p>Hãy gieo trồng hoa hướng dương để quan sát quá trình cây lớn lên và cách đầu hoa xoay lúc còn non. Dùng kính lúp xem cách hạt xếp (hình xoắn ốc), tách hạt ăn thử và cùng đếm \"một bông hoa có bao nhiêu hạt?\" sẽ rất thú vị.</p>",
+        "caption": "Quan sát bằng cách đo chiều cao",
+        "image_style": "",
+        "image_prompt": "A parent and child measuring a growing sunflower together, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Câu hỏi thường gặp (FAQ)</h2><p><strong>Q. Hoa hướng dương có thật sự xoay theo mặt trời không?</strong><br>A. Chỉ hoa còn non mới như vậy. Khi trưởng thành và ra hoa thì phần lớn cố định quay về hướng đông.</p><p><strong>Q. Vì sao lại quay về hướng đông?</strong><br>A. Để đón trọn nắng sớm, hấp thụ nhiều năng lượng ánh sáng hơn và làm khô sương nhanh hơn.</p><p><strong>Q. Ở nhà nên quan sát như thế nào?</strong><br>A. Tự gieo trồng để quan sát cây lớn lên và đầu hoa xoay, dùng kính lúp xem cách hạt xếp hình xoắn ốc.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Những truyện hay nên đọc cùng</h2><p>Nếu bé đã đọc thích thú câu chuyện này, hãy cùng đọc thêm những <strong>truyện hay</strong> sau đây nhé.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">Chú chó</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">Cỏ đuôi chó</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">Chú ếch</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">Chú kiến</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "Tranh minh họa sách hoa hướng dương",
+        "url": "https://assets.tangobook.co.kr/1773365203383-%ED%83%9C%EC%96%91%EC%9D%84%EB%8B%AE%EC%9D%80%EC%BB%A4%EB%8B%A4%EB%9E%80%EA%BD%83%ED%99%A9%EA%B8%88%EB%B9%9B%EB%AF%B8%EC%86%8C%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0-illustration-page18-1773531707104.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">Bạn muốn tìm hiểu về 「Hoa hướng dương」?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">Hãy trải nghiệm ngay trên Tango Book với tranh vẽ tuyệt đẹp cùng giọng đọc tiếng Hàn và tiếng Anh.</p><a href=\"https://tangobook.co.kr/library/1773365203383\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 Xem sách tranh →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

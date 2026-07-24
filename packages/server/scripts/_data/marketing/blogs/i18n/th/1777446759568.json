@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777446759568",
+  "seo_title": "ความลับของลักษณะหมาป่าและการใช้ชีวิตเป็นฝูง — หนังสือนิทานภาพสังเกตธรรมชาติ",
+  "meta_description": "ความลับของหมาป่าที่รวมกลุ่มเป็นฝูง การร่วมมือกัน และการสื่อสารด้วยเสียงหอน รวมถึงข้อเท็จจริงที่ว่าพวกมันคือบรรพบุรุษของสุนัข เนื้อหาจากหนังสือนิทานสัตว์ Tango Book ไปจนถึงวิธีการสังเกตการณ์ คู่มือการสังเกตธรรมชาติสำหรับอายุ 4-7 ปี",
+  "primary_keyword": "หมาป่า",
+  "secondary_keywords": [
+    "ลักษณะของหมาป่า",
+    "ฝูงหมาป่า",
+    "การหอน",
+    "หนังสือนิทานสัตว์สำหรับเด็กเล็ก",
+    "หนังสือนิทานภาพสัตว์"
+  ],
+  "url_slug": "wolf-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "หมาป่า - หมาป่า มีส่วนไหนที่น่าสนใจบ้างคะ?",
+        "url": "https://assets.tangobook.co.kr/1777446759568-%EB%8A%91%EB%8C%80-cover-misc-1780027954902.webp",
+        "text": "<h2>หมาป่า มีอะไรที่น่าสนใจบ้างนะ?</h2><p>ที่อาศัยอยู่เป็นฝูง <strong>หมาป่า</strong>เป็นสัตว์สังคมที่มีความรักในครอบครัวลึกซึ้งค่ะ พวกมันจะเรียกเพื่อนๆ ด้วยเสียงหอนที่ดังมาจากไกล ๆ</p>",
+        "caption": "กลุ่มที่เหมือนครอบครัว",
+        "image_style": "",
+        "image_prompt": "A wolf pack standing together in a forest, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "หมาป่า - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของหมาป่า",
+        "url": "https://assets.tangobook.co.kr/1777446759568-%EB%8A%91%EB%8C%80-illustration-page1-1777446798985.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของหมาป่า</h2><p>หมาป่าพวกมัน... <strong>ฝูง (หรือ 'แพ็ค')</strong>พวกมันอาศัยอยู่รวมกันเป็นฝูง และมักจะใช้ชีวิตแบบครอบครัว โดยมีแม่หมาป่าและพ่อหมาป่าเป็นศูนย์กลาง เมื่อพวกมันร่วมมือกัน <strong>ล่าเหยื่อที่ตัวใหญ่กว่าตัวเองได้ด้วย</strong>เลยค่ะ/เลยนะคะ <strong>การหอน</strong>พวกมันใช้การหอนเรียกเพื่อนที่อยู่ไกลออกไป และบอกตำแหน่งของฝูง รวมถึงสื่อสารกันด้วยประสาทสัมผัสที่ดีเยี่ยมทั้งการดมและการได้ยิน หมาป่าเป็น <strong>บรรพบุรุษของสุนัขหลายตัว</strong>เพราะพวกมันดูแลกันและเลี้ยงลูกด้วยกัน ทำให้ดูอบอุ่นใจมากเลยค่ะ</p>",
+        "caption": "เสียงหอนที่แผ่ไปไกล",
+        "image_style": "",
+        "image_prompt": "A wolf howling at the sky, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "หมาป่า - เนื้อหาจากหนังสือทังโกบุ๊กเรื่อง \"หมาป่า\"",
+        "url": "https://assets.tangobook.co.kr/1777446759568-%EB%8A%91%EB%8C%80-illustration-page5-1777446810702.webp",
+        "text": "<h2>เนื้อหาที่หนังสือแทงโกบุ๊กเรื่อง \"หมาป่า\" นำเสนอ</h2><p>หนังสือแทงโกบุ๊กเรื่อง \"หมาป่า\" แสดงให้เห็นถึงความร่วมมือและความรักในครอบครัวของฝูงหมาป่า ไม่ว่าจะเป็นภาพการล่าเหยื่อแบบร่วมกัน การสื่อสารด้วยเสียงหอน หรือภาพครอบครัวที่ดูแลลูกๆ ด้วยกันอย่างอบอุ่น</p>",
+        "caption": "เจ้าตัวเล็กที่เราช่วยกันเลี้ยง",
+        "image_style": "",
+        "image_prompt": "A wolf pack caring for cubs together, heartwarming children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "หมาป่า – จุดที่ควรสังเกตเมื่อดูด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1777446759568-%EB%8A%91%EB%8C%80-illustration-page10-1777446821581.webp",
+        "text": "<h2>จุดที่ควรสังเกตการณ์ร่วมกัน</h2><p>โปรดชี้ให้เห็นจุดต่างๆ เช่น การรวมกลุ่ม (แพ็ค), การล่าแบบร่วมมือ, เสียงหอน (การสื่อสาร), หรือเรื่องบรรพบุรุษของสุนัข นอกจากนี้ การพูดคุยกันว่า \"ทำไมหมาป่าถึงส่งเสียงร้องด้วยกัน?\" ก็เป็นสิ่งที่ดีค่ะ</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A wolf pack hunting together, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "หมาป่า - คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777446759568-%EB%8A%91%EB%8C%80-illustration-page14-1777446829570.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ลองให้ฟังเสียงหอน และพูดถึงมันว่าเป็น \"สัญญาณเรียกเพื่อนฝูง\" การเปรียบเทียบสิ่งที่คล้ายกับสุนัข (หู จมูก สัญชาตญาณฝูง) จะช่วยให้พวกเขาเข้าใจว่า \"หมาป่า = บรรพบุรุษของสุนัข\" ได้อย่างน่าสนใจ</p>",
+        "caption": "การเปรียบเทียบกับสุนัข",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing a wolf and a dog, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ทำไมหมาป่าถึงอยู่รวมกันเป็นฝูงคะ?</strong><br>ตอบ: เพื่อที่พวกมันจะได้ช่วยกันล่าเหยื่อขนาดใหญ่ และเลี้ยงลูกด้วยกันค่ะ พวกมันมีความรักในครอบครัวที่ลึกซึ้งมากเลยค่ะ</p><p><strong>ถาม: แล้วทำไมถึงหอนล่ะคะ?</strong><br>ตอบ: เป็นวิธีการสื่อสารเพื่อเรียกเพื่อนๆ ที่อยู่ไกลออกไป และบอกตำแหน่งของฝูงให้รู้ค่ะ</p><p><strong>ถาม: แล้วที่บ้านเราจะสังเกตพวกมันได้อย่างไรดีคะ?</strong><br>ตอบ: การฟังเสียงหอน เปรียบเทียบสิ่งที่คล้ายกับลูกสุนัข และนิทานเรื่องที่ว่า \"หมาป่าคือบรรพบุรุษของสุนัข\" เป็นกิจกรรมที่ดีเลยค่ะ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณสนุกกับการอ่านนิทานเรื่องนี้แล้ว ลองดูแบบนี้ <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือภาพหมาป่า",
+        "url": "https://assets.tangobook.co.kr/1777446759568-%EB%8A%91%EB%8C%80-illustration-page18-1777446839419.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเรื่อง \"หมาป่า\" ใช่ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">มาพบกันได้ที่แทงโกบุ๊ก ด้วยภาพสวย ๆ และเสียงอ่านภาษาเกาหลีและภาษาอังกฤษเลยค่ะ</p><a href=\"https://tangobook.co.kr/library/1777446759568\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

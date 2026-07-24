@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773899014599",
+  "seo_title": "普泰拉诺龙特征——飞翔在天空的翼龙自然观察绘本",
+  "meta_description": "关于曾飞翔的翼龙普特拉诺龙（Pteranodon）并非恐龙的事实，以及它长长的冠羽、捕鱼等奇妙故事；还有《Tango Book》恐龙绘本的内容和阅读方法。4-7岁家长指南。",
+  "primary_keyword": "普泰拉诺龙",
+  "secondary_keywords": ["普泰拉诺龙", "翼龙", "会飞的恐龙", "儿童恐龙书", "恐龙绘本"],
+  "url_slug": "pteranodon-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "普泰拉诺龙——普泰拉诺龙，有什么地方让人觉得神奇呢？",
+        "url": "https://assets.tangobook.co.kr/1773899014599-%ED%94%84%ED%85%8C%EB%9D%BC%EB%85%B8%EB%8F%88-cover-misc-1780037609061.webp",
+        "text": "<h2>翼龙，哪些地方会让人感到神奇呢？</h2><p>有大翅膀和漂亮的冠羽的 <strong>翼龙</strong>它是一种飞在天空的动物。其实它不是恐龙， <strong>翼龙（有翅膀的爬行动物）</strong>啦。</p>",
+        "caption": "飞翔在天空的翼龙",
+        "image_style": "",
+        "image_prompt": "A Pteranodon soaring over the sea with large wings, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "普泰拉诺龙——关于普泰拉诺龙的自然与科学事实",
+        "url": "https://assets.tangobook.co.kr/1773899014599-%EC%9D%B4%EB%B9%A8%EC%97%86%EB%8A%94%EB%B6%80%EB%A6%AC%EC%99%80%EA%B1%B0%EB%8C%80%ED%95%9C%EB%82%A0%EA%B0%9C%EB%A5%BC%EA%B0%80%EC%A7%84%ED%95%98%EB%8A%98%EC%9D%98%EC%A3%BC%EC%9D%B8%ED%94%84%ED%85%8C%EB%9D%BC%EB%85%B8%EB%8F%88-illustration-page1-1773899330733.webp",
+        "text": "<h2>普泰罗龙的自然和科学事实</h2><p>普泰罗龙的翼展大约 <strong>5.6~7m</strong>……，是发现了超过1,200个化石研究最透彻的翼龙。顾名思义 <strong>没有牙齿</strong> 用长喙和喉囊抓住鱼，一口吞下。雄性的 <strong>冠羽更大、更华丽</strong> 用来吸引配偶，身体有像绒毛的结构来维持体温。</p>",
+        "caption": "没有牙齿的喙",
+        "image_style": "",
+        "image_prompt": "A Pteranodon catching a fish with its toothless beak, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "普特拉诺龙 - Tango Book 《普特拉诺龙》所涵盖的内容",
+        "url": "https://assets.tangobook.co.kr/1773899014599-%EC%9D%B4%EB%B9%A8%EC%97%86%EB%8A%94%EB%B6%80%EB%A6%AC%EC%99%80%EA%B1%B0%EB%8C%80%ED%95%9C%EB%82%A0%EA%B0%9C%EB%A5%BC%EA%B0%80%EC%A7%84%ED%95%98%EB%8A%98%EC%9D%98%EC%A3%BC%EC%9D%B8%ED%94%84%ED%85%8C%EB%9D%BC%EB%85%B8%EB%8F%88-illustration-page6-1773899343848.webp",
+        "text": "<h2>《探戈书》讲述的“翼龙”内容</h2><p>《探戈书》“翼龙”生动地展示了翼龙的飞行，包括它用大翅膀飞翔的景象、华丽的头冠以及捕鱼的长喙等。</p>",
+        "caption": "华丽的冠羽",
+        "image_style": "",
+        "image_prompt": "A male Pteranodon with a large showy crest, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "普泰拉诺龙——值得一起了解的知识点",
+        "url": "https://assets.tangobook.co.kr/1773899014599-%EC%9D%B4%EB%B9%A8%EC%97%86%EB%8A%94%EB%B6%80%EB%A6%AC%EC%99%80%EA%B1%B0%EB%8C%80%ED%95%9C%EB%82%A0%EA%B0%9C%EB%A5%BC%EA%B0%80%EC%A7%84%ED%95%98%EB%8A%98%EC%9D%98%EC%A3%BC%EC%9D%B8%ED%94%84%ED%85%8C%EB%9D%BC%EB%85%B8%EB%8F%88-illustration-page10-1773899367524.webp",
+        "text": "<h2>一起了解的好点</h2><p>请指出像翼龙（不是恐龙）、大翅膀、没有牙齿的喙、华丽的冠羽等细节。一起讨论“普泰罗多纳是否是恐龙？”会很好。</p>",
+        "caption": "观察点",
+        "image_style": "",
+        "image_prompt": "A Pteranodon spreading its wings, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "普泰拉诺龙——家长指南——如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1773899014599-%EC%9D%B4%EB%B9%A8%EC%97%86%EB%8A%94%EB%B6%80%EB%A6%AC%EC%99%80%EA%B1%B0%EB%8C%80%ED%95%9C%EB%82%A0%EA%B0%9C%EB%A5%BC%EA%B0%80%EC%A7%84%ED%95%98%EB%8A%98%EC%9D%98%EC%A3%BC%EC%9D%B8%ED%94%84%ED%85%8C%EB%9D%BC%EB%85%B8%EB%8F%88-illustration-page15-1773899383127.webp",
+        "text": "<h2>父母指南 — 如何培养好奇心</h2><p>区分“恐龙在地上，翼龙在天上”，并飞纸飞机时谈论一下翅膀的原理。与鸟类和蝙蝠的翅膀进行比较，能让孩子更有兴趣。</p>",
+        "caption": "飞行原理游戏",
+        "image_style": "",
+        "image_prompt": "A parent and child flying paper airplanes, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>问：普泰罗龙是恐龙吗？</strong><br>答：不。它不是恐龙，而是翼龙（有翅膀的爬行动物）。它是能在天空中飞行的动物。</p><p><strong>问：它没有牙齿，那它是怎么进食的呢？</strong><br>答：它用长喙和喉囊抓住鱼，然后将它们整个吞下去了。</p><p><strong>问：在家里怎样玩才好呢？</strong><br>答：可以进行“恐龙在地上，翼龙在天上”的区分游戏、玩纸飞机，以及比较鸟类和蝙蝠的翅膀。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "普泰拉诺龙绘本插画",
+        "url": "https://assets.tangobook.co.kr/1773899014599-%EC%9D%B4%EB%B9%A8%EC%97%86%EB%8A%94%EB%B6%80%EB%A6%AC%EC%99%80%EA%B1%B0%EB%8C%80%ED%95%9C%EB%82%A0%EA%B0%9C%EB%A5%BC%EA%B0%80%EC%A7%84%ED%95%98%EB%8A%98%EC%9D%98%EC%A3%BC%EC%9D%B8%ED%94%84%ED%85%8C%EB%9D%BC%EB%85%B8%EB%8F%88-illustration-page19-1774334121476.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“翼龙”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book中，通过精美的图画和韩语·英语语音，亲眼了解它吧。</p><a href=\"https://tangobook.co.kr/library/1773899014599\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

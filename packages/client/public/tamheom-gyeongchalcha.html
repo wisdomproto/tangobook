@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 세상 탐험 — 도둑 잡는 순찰차</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 세상 탐험 · 시즌1 탈것 #T03</div>
+  <h1>🚓 도둑 잡는 순찰차</h1>
+  <div class="sub">위잉위잉 경광등을 따라간 호리가 경찰서에서 순찰차를 하나하나 살펴보고 직접 운전석에 앉아 무전기로 말도 해 봐요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 순찰차(경찰차) 발견 — 실제 부품·작동을 정확히 (핵심단어: 경광등·무전기·핸들·순찰) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(호기심·질문쟁이)·엄마(동행 가이드, 데려다줌)·보리(동행 친구, 조심스럽고 디테일을 잘 찾음)·경찰관 아저씨(현장 안내자, 단역) &nbsp;·&nbsp;
+  <b>구조</b> 발견 5단계 (궁금→찾아감→살펴봄→해봄→정리) &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🚓 반복 후렴 — "위잉위잉, 순찰차 출동!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>궁금(목격)</b> <span class="tag">궁금 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">위잉위잉! 위잉위잉! 지붕 위에서 빨강 파랑 불빛이 번쩍번쩍! 하얗고 파란 자동차가 쌩— 달려가요. 호리는 두 귀가 쫑긋! "우아, 저 반짝반짝 자동차는 뭐지?" 위잉위잉, 순찰차 출동!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 순찰차가 화면을 가로질러 달려가고 호리가 이를 바라보는 컷.<br/><b>장소·시간</b> 동네 큰길가 인도, 맑은 낮. 파란 하늘에 구름 몇 점, 활기차고 상쾌한 공기.<br/><b>인물</b> Hori(아기 호랑이)는 화면 앞쪽 인도에 서서 두 귀를 쫑긋 세우고 입을 동그랗게 벌린 채, 두 손을 볼 옆에 대고 지나가는 자동차를 눈이 반짝반짝 놀라 바라봄.<br/><b>배경·소품</b> 화면 중앙을 가로지르는 흰색 바탕에 파란 띠를 두른 순찰차(옆면에 '경찰' 글자, 지붕 위 가로로 긴 경광등 바에서 빨강·파랑 불빛이 번쩍임), 인도의 가로수와 신호등, 뒤로 낮은 건물들.<br/><b>톤</b> 환한 대낮 자연광, 빨강·파랑 경광등의 번쩍임이 포인트, 신나고 두근거리는 호기심의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>궁금(질문)</b> <span class="tag">궁금</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"엄마, 저 순찰차는 어디로 바쁘게 가요?" 호리가 엄마 손을 잡고 폴짝폴짝 물어봐요. 엄마가 빙긋 웃었어요. "궁금하면 순찰차가 사는 곳에 가 볼까? 보리도 같이!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 호리가 엄마를 올려다보며 묻고 보리가 곁에 있는 삼자 컷.<br/><b>장소·시간</b> 같은 길가, 낮. 순찰차는 이미 멀어져 저 끝에 작게 보임.<br/><b>인물</b> Hori는 화면 왼쪽에서 Mom tiger(엄마 호랑이)의 손을 두 손으로 잡고 발을 살짝 든 채 고개를 뒤로 젖혀 엄마를 올려다보며 궁금한 미소로 질문. Mom tiger는 가운데서 허리를 살짝 굽혀 호리에게 눈을 맞추며 한 손으로 저 멀리 순찰차 쪽을 가리키고 다정하게 웃음. Bori(갈색 아기 곰)는 오른쪽에서 두 손을 앞으로 모으고 조심스럽게 고개를 끄덕이며 차분한 미소.<br/><b>배경·소품</b> 멀어지는 작은 순찰차, 가로수와 신호등, 인도 블록, 맑은 하늘.<br/><b>톤</b> 밝은 낮 자연광, 궁금증이 모험으로 바뀌는 설레는 정서, 따뜻하고 활기찬 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>찾아감(경찰서 도착)</b> <span class="tag">찾아감</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">경찰서 앞마당에 하얗고 파란 순찰차가 나란히 서 있어요. "안녕! 순찰차가 궁금해서 왔구나?" 파란 경찰 제복을 입고 멋진 모자를 쓴 경찰관 아저씨가 손을 흔들어요. 호리는 심장이 콩닥콩닥!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 경찰서 앞마당의 순찰차를 앞에서 올려다보는 컷.<br/><b>장소·시간</b> 경찰서 건물 앞 주차 공간, 낮. 환한 햇살, 씩씩하고 든든한 공기.<br/><b>인물</b> Hori는 화면 앞쪽 가운데서 목을 뒤로 젖혀 커다란 순찰차를 입 벌리고 올려다보며 두 손을 가슴에 모음, 놀라움 가득한 표정. Mom tiger는 호리 뒤에서 어깨에 손을 얹고 함께 바라봄. Bori는 왼쪽에서 순찰차 옆면의 '경찰' 글자를 손가락으로 가리키며 조용히 신기해함. police(경찰관 아저씨)는 파란 제복에 경찰 모자 차림으로 오른쪽 순찰차 옆에 서서 한 손을 번쩍 들어 반갑게 인사하며 환하게 웃음.<br/><b>배경·소품</b> 나란히 선 흰색·파란 띠 순찰차들(지붕 경광등 바, 옆면 '경찰'·POLICE 글자), 경찰서 건물 벽의 방패 모양 표지, 국기 게양대, 바닥의 주차선.<br/><b>톤</b> 환한 대낮 자연광, 크고 든든한 순찰차의 위풍, 두근거리는 설렘의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>살펴봄(경광등)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"지붕 위에서 빨강 파랑 번쩍이는 건 경광등이야. 급하게 도와주러 갈 때 켜서 '길 좀 비켜 주세요!' 하고 알려 주는 거란다." 위잉위잉 사이렌 소리도 함께 나요. 멀리서도 잘 보이고 잘 들리라고요. 호리 눈이 반짝반짝!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글로 순찰차 지붕을 비스듬히 내려다봄. 지붕의 경광등 바가 잘 보이는 컷.<br/><b>장소·시간</b> 경찰서 앞마당 순찰차 곁, 낮. 밝은 햇살.<br/><b>인물</b> police(파란 제복·경찰 모자)는 화면 왼쪽에서 순찰차 지붕의 경광등을 한 손으로 가리키며 설명하는 다정한 표정. Hori는 앞쪽에서 눈을 크게 뜨고 손가락으로 번쩍이는 경광등을 가리키며 "우와" 하는 감탄. Bori는 오른쪽에서 두 손을 등 뒤로 모은 채 고개를 들어 조심스레 관찰하며 감탄. Mom tiger는 뒤에서 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 순찰차 지붕에 가로로 길게 달린 경광등 바(빨강·파랑 램프가 번쩍임), 앞유리와 사이드미러, 불빛의 잔상선, 옆면 '경찰' 글자.<br/><b>톤</b> 밝은 자연광에 빨강·파랑 빛이 반사되어 반짝, 신기하고 활기찬 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>살펴봄(무전기)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아저씨가 어깨에 달린 작은 상자를 톡톡 쳤어요. "이건 무전기란다. 치직— 여기 대고 말하면 멀리 있는 다른 경찰 아저씨한테 곧바로 들려." 도움이 필요한 곳을 서로서로 알려 주는 거예요. 보리가 조용히 물었어요. "그럼 도둑이 어디 있는지도 알 수 있어요?" "그럼! 다 같이 힘을 모으지."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업에 가까운 중형, 아이레벨. 경찰관 어깨의 무전기와 아이들의 얼굴이 함께 담긴 컷.<br/><b>장소·시간</b> 순찰차 옆, 낮. 밝은 햇살.<br/><b>인물</b> police는 화면 오른쪽에서 한쪽 무릎을 굽혀 아이들 눈높이로 내려와, 제복 어깨에 달린 작은 검은 무전기를 한 손으로 가리키며 입가에 대는 시늉을 하며 설명. Hori는 가운데서 두 손으로 무릎을 짚고 허리를 굽혀 무전기에 얼굴을 가까이 대고 입을 딱 벌린 놀란 표정. Bori는 왼쪽에서 두 손을 앞에 모으고 진지하게 고개를 갸웃하며 질문하는 표정. Mom tiger는 뒤에서 미소로 지켜봄.<br/><b>배경·소품</b> 경찰관 제복 어깨에 클립으로 달린 검은 무전기(안테나와 통화 버튼), 순찰차 문과 창문, 옆면 '경찰' 글자.<br/><b>톤</b> 밝은 자연광, 서로 연락하는 든든함, 진지하면서도 따뜻한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>살펴봄(핸들·순찰)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아저씨가 운전석 문을 스르륵 열었어요. 동그란 핸들이 딱— 보여요. "이 핸들을 요리조리 돌리며 순찰을 다녀. 순찰은 동네를 빙 돌면서 '다들 안전한가?' 하고 살펴보는 거란다." 위잉위잉, 순찰차 출동! 호리 마음이 두근두근.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 앵글로 열린 운전석 안을 들여다봄. 핸들이 화면 가운데 잘 보이는 컷.<br/><b>장소·시간</b> 순찰차 운전석 문 앞, 낮. 문이 활짝 열려 안이 환히 보임.<br/><b>인물</b> police는 화면 오른쪽에서 열린 운전석 문을 한 손으로 잡고 다른 손으로 핸들을 가리키며 설명하는 미소. Hori는 가운데 앞쪽에서 까치발을 하고 운전석 안을 들여다보며 두 눈을 반짝, 핸들을 향해 손을 살짝 뻗음. Bori는 왼쪽에서 운전석 옆 작은 버튼들과 계기판을 조심조심 손가락으로 세며 관찰. Mom tiger는 뒤에서 호리가 넘어지지 않게 어깨를 살짝 받쳐 줌.<br/><b>배경·소품</b> 운전석의 동그란 핸들, 계기판, 무전기 거치대와 마이크, 옆면 '경찰' 글자, 열린 문.<br/><b>톤</b> 밝은 자연광이 운전석 안으로 들어옴, 신기함으로 눈이 커지는 정서, 두근거리는 기대감.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>해봄(운전석에 앉아 핸들 잡기)</b> <span class="tag">해봄</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"호리도 경찰관처럼 앉아 볼까?" 호리가 운전석에 폴짝 앉아 핸들을 두 손으로 꼭 잡았어요. 부릉부릉— 동네를 지키러 가는 상상! 무전기에 대고 또박또박 말해 봐요. "치직— 여기는 호리 순찰차, 도와줄게요!" 보리도 조수석에서 배시시 웃었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 정면 아이레벨. 운전석 창 너머로 핸들을 잡은 호리를 앞에서 보는 컷.<br/><b>장소·시간</b> 순찰차 운전석 안, 낮. 열린 창으로 햇살이 듦.<br/><b>인물</b> Hori는 화면 가운데 운전석에 앉아 동그란 핸들을 두 손으로 꼭 잡고 정면을 씩씩하게 바라보며 활짝 웃는 뿌듯한 표정. Bori는 오른쪽 조수석에서 두 손을 무릎에 얌전히 올리고 호리를 보며 배시시 웃음. police는 열린 운전석 창 밖 왼쪽에서 몸을 살짝 숙여 안을 들여다보며 흐뭇하게 웃음. Mom tiger는 창밖 뒤에서 손뼉 치며 즐거워함.<br/><b>배경·소품</b> 운전석 핸들과 계기판, 거치대의 무전기 마이크(호리가 입에 가까이 댐), 앞유리 너머 경찰서 마당, 옆유리로 든 햇살.<br/><b>톤</b> 따뜻한 실내 햇살, 씩씩하고 뿌듯한 정서, 대리만족의 신나는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>해봄(경광등 켜 보기)</b> <span class="tag">해봄 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"이 버튼을 눌러 볼래?" 호리가 아저씨와 함께 버튼을 꾹— 누르자, 지붕 위 경광등이 번쩍번쩍 빨강 파랑으로 돌아가요! 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉! "우아, 내가 켰어요!" 위잉위잉, 순찰차 출동!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 지붕 경광등이 번쩍 켜지는 결정적 순간을 옆에서 잡음.<br/><b>장소·시간</b> 경찰서 앞마당 순찰차 곁, 낮. 밝은 햇살에 빨강·파랑 빛이 번쩍이는 상쾌한 공기.<br/><b>인물</b> Hori는 화면 앞쪽에서 운전석 옆에 서서 계기판의 버튼을 검지로 꾹 누른 채, 켜진 경광등을 올려다보며 눈을 반짝이고 입을 크게 벌린 환희의 표정. police는 호리 뒤에서 함께 버튼 쪽에 손을 얹어 거들며 흐뭇하게 웃음. Bori는 왼쪽에서 두 손을 볼에 대고 번쩍이는 불빛을 올려다보며 감탄. Mom tiger는 오른쪽에서 두 손을 번쩍 들어 응원.<br/><b>배경·소품</b> 순찰차 지붕의 경광등 바에서 빨강·파랑 램프가 환하게 켜져 사방으로 번지는 빛, 계기판의 버튼, 특히 호리 꼬리 줄무늬가 무지개빛으로 반짝이는 시그니처 순간(부릉꼬리), 뒤로 경찰서 벽.<br/><b>톤</b> 밝은 자연광에 빨강·파랑 경광등 빛이 어우러진 역동적인 정서, 해냈다는 성취감의 신나는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>해봄(진짜 순찰 출동 목격)</b> <span class="tag">해봄</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 무전기가 치직— 울렸어요! "길 잃은 아이를 찾아 주세요." 경찰관 아저씨가 척척 순찰차에 올라타 핸들을 잡아요. 위잉위잉! 경광등을 켜고 순찰차가 씩씩하게 달려 나가요. 호리와 보리는 손을 흔들었어요. "조심히 다녀오세요!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 측면. 순찰차가 마당을 빠져나가고 아이들이 배웅하는 출동 컷.<br/><b>장소·시간</b> 경찰서 앞마당 출입구, 낮. 경광등 불빛이 번쩍이는 씩씩한 공기.<br/><b>인물</b> police는 순찰차 운전석에 올라타 한 손으로 핸들을 잡고 다른 손으로 아이들에게 짧게 인사하는 민첩한 동작, 진지하지만 다정한 표정. Hori는 화면 오른쪽 앞에서 발을 동동 구르며 두 손을 힘차게 흔들어 배웅하는 응원의 표정. Bori는 호리 옆에서 두 손을 모아 입가에 대고 크게 외치며 배웅. Mom tiger는 뒤에서 두 아이의 어깨를 감싸 안전하게 지켜 줌.<br/><b>배경·소품</b> 마당을 빠져나가는 흰색·파란 순찰차(지붕 경광등이 빨강·파랑으로 번쩍), 바닥 주차선, 경찰서 건물, 살짝 뻗은 불빛 선.<br/><b>톤</b> 밝은 낮 자연광에 경광등 반짝임, 긴박하지만 무섭지 않고 씩씩하고 든든한 정서, 응원의 따뜻한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>정리(감탄·감사)</b> <span class="tag">정리 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집으로 가는 길, 호리는 엄마 손을 꼭 잡고 조잘조잘. "경광등으로 알려 주고, 무전기로 서로 연락하고, 핸들을 돌리며 순찰을 다녀요! 경찰관 아저씨는 동네를 지켜 줘요." 호리는 하늘 보며 씩 웃었어요. 위잉위잉, 순찰차 출동!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 뒷모습 살짝 측면. 노을 진 길을 걸으며 이야기하는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 경찰서에서 집으로 가는 동네 길, 해 질 녘. 주황빛 노을이 물든 포근하고 뿌듯한 공기.<br/><b>인물</b> Hori는 화면 가운데서 Mom tiger의 손을 잡고 걸으며 고개를 들어 엄마에게 손짓 섞어 조잘조잘 신나게 이야기하는 뿌듯한 표정. Mom tiger는 호리를 내려다보며 다정하게 고개를 끄덕이며 미소. Bori는 왼쪽에서 두 손을 뒤로 모으고 차분히 걸으며 아직도 신기해하는 미소.<br/><b>배경·소품</b> 세 사람이 손잡고 걷는 실루엣, 뒤로 저 멀리 작아진 경찰서 건물과 순찰차, 노을빛 하늘에 작은 구름, 가로수와 길가 벤치, 하늘 한켠에 작은 별 반짝임.<br/><b>톤</b> 따뜻한 주황 노을 조명, 하루의 발견을 곱씹는 뭉클하고 흐뭇한 정서, 존중과 감탄으로 마무리되는 포근한 분위기.</pre></details>
+</div>
+
+<footer>호리네 세상 탐험 · T03 도둑 잡는 순찰차 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>window.SH_GUESTS=[{"key":"police","name":"경찰관 아저씨","aliases":["police officer","policeman","cop","police"],"desc":"짙은 파란색(네이비) 경찰 제복을 입은 튼튼하고 친절한 인상의 어른. 챙이 달린 파란 경찰 모자에 금색 경찰 엠블럼, 가슴에 방패 모양 배지, 허리의 검은 벨트. 어깨에는 작은 검은 무전기가 클립으로 달림. 둥글고 다정한 눈에 환한 미소, 짧고 단정한 콧수염, 든든한 어깨. 아이들을 다정하게 안내하는 현장 가이드"}]</script>
+<script src="/tamheom-core.js"></script>
+</body>
+</html>

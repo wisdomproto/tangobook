@@ -1,0 +1,112 @@
+{
+  "storybookId": "1772201758726",
+  "seo_title": "เนื้อเรื่องและข้อคิดจากนัตต์แครกเกอร์ — ผลงานบัลเลต์ระดับมาสเตอร์พีซสำหรับอ่านในฤดูหนาว",
+  "meta_description": "เรื่องย่อและข้อคิดจากหนูทากระท่อม (The Nutcracker), ต้นฉบับของฮอฟมันกับบัลเลต์ของไชคอฟสกี, และวิธีการอ่านให้ลูกฟังด้วย คู่มือหนังสือนิทานคลาสสิกฤดูหนาวที่สอนความกล้าหาญและจินตนาการ",
+  "primary_keyword": "ตุ๊กตาถั่วเกาลัด",
+  "secondary_keywords": [
+    "เนื้อเรื่องย่อของนัตต์แครกเกอร์",
+    "ข้อคิดจากนัตส์แครกเกอร์",
+    "บัลเลต์ไชคอฟสกี",
+    "นิทานคริสต์มาส",
+    "นิทานคลาสสิกสำหรับเด็กปฐมวัย"
+  ],
+  "url_slug": "nutcracker-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "ตุ๊กตาถั่วเกาลัด - ตุ๊กตาถั่วเกาลัด เป็นนิทานแบบไหนคะ?",
+        "url": "https://assets.tangobook.co.kr/1772201758726-%ED%98%B8%EB%91%90%EA%B9%8C%EA%B8%B0%EC%9D%B8%ED%98%95-cover-misc-1780389100091.webp",
+        "text": "<h2>ตุ๊กตาถั่วลันเตา เป็นนิทานแบบไหนคะ?</h2><p><strong>ตุ๊กตาถั่วลันเตา</strong>ในคืนคริสต์มาส ตุ๊กตาถั่วลันเตาที่ได้รับเป็นของขวัญได้มีชีวิตขึ้น และออกเดินทางไปยังดินแดนมหัศจรรย์กับเด็กสาวคลาร่า นี่คือเรื่องราวชิ้นเอกที่ได้รับความนิยมในฤดูหนาว พร้อมด้วยดนตรีบัลเลต์ของไชคอฟสกี</p>",
+        "caption": "ค่ำคืนที่เวทมนตร์เริ่มต้น",
+        "image_style": "",
+        "image_prompt": "A nutcracker soldier doll under a glowing Christmas tree at night, magical festive children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "ตุ๊กตาถั่ว - เรื่องราวต้นฉบับของตุ๊กตาถั่ว",
+        "url": "https://assets.tangobook.co.kr/1772201758726-%ED%98%B8%EB%91%90%EA%B9%8C%EA%B8%B0%EC%9D%B8%ED%98%95-illustration-page1-1780388953755.webp",
+        "text": "<h2>เรื่องราวต้นฉบับของตุ๊กตาถั่ว</h2><p>นักเขียนชาวเยอรมัน <strong>อี.ที.เอ. อา. ฮอฟมันน์</strong>โดยอิงจากนวนิยายปี ค.ศ. 1816 <strong>ชัยโกสกี</strong>ได้ถูกประพันธ์เป็นบัลเลต์ในปี ค.ศ. 1892 และกลายเป็นผลงานชิ้นเอกระดับโลก เต็มไปด้วยฉากมหัศจรรย์มากมาย เช่น การต่อสู้กับราชาหนู การเดินทางในดินแดนลูกกวาด และ \"วอลทซ์แห่งดอกไม้\"</p>",
+        "caption": "สู่ดินแดนแห่งจินตนาการ",
+        "image_style": "",
+        "image_prompt": "A girl and a nutcracker prince traveling through a magical land of sweets, whimsical festive children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "หุ่นกระบอกถั่วเกาลัด - สรุปเนื้อเรื่อง",
+        "url": "https://assets.tangobook.co.kr/1772201758726-%ED%98%B8%EB%91%90%EA%B9%8C%EA%B8%B0%EC%9D%B8%ED%98%95-illustration-page5-1780388253583.webp",
+        "text": "<h2>สรุปเนื้อเรื่องตุ๊กตานัทแครกเกอร์</h2><p>คืนคริสต์มาส ตุ๊กตานัทแครกเกอร์ที่คลาร่าได้รับได้มีชีวิตขึ้นและต่อสู้กับราชาหนู ตุ๊กตาตัวนี้ซึ่งชนะด้วยความช่วยเหลือของคลาร่า ได้แปลงร่างเป็นเจ้าชายรูปงาม พาคลาร่าไปยังดินแดนลูกกวาด และได้รับการต้อนรับอันงดงาม ค่ำคืนที่สวยงามราวกับความฝันก็เปิดฉากขึ้น</p>",
+        "caption": "คริสต์มาสที่เหมือนฝัน",
+        "image_style": "",
+        "image_prompt": "A nutcracker prince and a girl watching dancing sweets and a flower waltz, dreamy festive children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "ตุ๊กตาถั่ว - บทเรียนจากตุ๊กตาถั่ว",
+        "url": "https://assets.tangobook.co.kr/1772201758726-%ED%98%B8%EB%91%90%EA%B9%8C%EA%B8%B0%EC%9D%B8%ED%98%95-illustration-page8-1780388297222.webp",
+        "text": "<h2>บทเรียนที่ตุ๊กตาถั่วลันเตาให้</h2><p>หัวใจสำคัญคือ <strong>ความกล้าหาญในการช่วยเหลือเพื่อน และความสุขที่โลกแห่งจินตนาการมอบให้</strong>ค่ะ/ครับ ลองกระตุ้นจินตนาการด้วยคำถามว่า \"ถ้าของขวัญมีชีวิตขึ้นมา หนูอยากผจญภัยแบบไหนคะ/ครับ?\"</p>",
+        "caption": "เวทมนตร์ที่เกิดจากความกล้าหาญ",
+        "image_style": "",
+        "image_prompt": "A girl bravely helping the nutcracker during the mouse battle, courageous warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "ตุ๊กตาถั่ว - วิธีเล่านิทานเรื่องนี้ให้ลูกฟัง",
+        "url": "https://assets.tangobook.co.kr/1772201758726-%ED%98%B8%EB%91%90%EA%B9%8C%EA%B8%B0%EC%9D%B8%ED%98%95-illustration-page12-1780388327910.webp",
+        "text": "<h2>วิธีการอ่านให้ลูกฟัง</h2><p>หากคุณอ่านโดยมีเพลงบัลเลต์ของไชคอฟสกีเป็นพื้นหลัง บรรยากาศจะดูมีชีวิตชีวาขึ้น ฉากต่อสู้ให้อ่านอย่างเร้าใจ ส่วนดินแดนขนมหวานก็ให้อ่านอย่างน่าหลงใหล! ลองให้ลูกจินตนาการไปด้วยกันว่า \"หนูอยากไปดินแดนขนมหวานที่ไหนคะ/ครับ?\" เหมาะสำหรับเด็กอายุ 4-7 ปี</p>",
+        "caption": "ผลงานชิ้นเอกสำหรับฤดูหนาว",
+        "image_style": "",
+        "image_prompt": "A parent and child enjoying a festive picture book with holiday music, cozy warm mood, children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ตุ๊กตาหนูครากเกอร์เหมาะกับเด็กอายุเท่าไหร่คะ?</strong><br>ตอบ: เหมาะสำหรับเด็กอายุ 4-7 ปีค่ะ สามารถเพลิดเพลินกับดนตรีและบัลเลต์ในช่วงเทศกาลคริสต์มาสได้เป็นอย่างดีเลยค่ะ</p><p><strong>ถาม: เป็นเรื่องราวเดียวกับบัลเลต์เลยไหมคะ?</strong><br>ตอบ: ใช่ค่ะ เป็นการร้อยเรียงเนื้อเรื่องของบัลเลต์ของไชคอฟสกีที่อิงจากนวนิยายของฮอฟมันให้เป็นนิทานเลยค่ะ</p><p><strong>ถาม: ควรเชื่อมโยงกับกิจกรรมอะไรดีคะ?</strong><br>ตอบ: แนะนำให้ฟังดนตรีบัลเลต์ วาดภาพจินตนาการถึงดินแดนลูกกวาด และตกแต่งตุ๊กตาหนูครากเกอร์ค่ะ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณสนุกกับการอ่านนิทานเรื่องนี้แล้ว ลองดูพวกนี้สิ <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/frog-prince-fairy-tale-for-kids\">เจ้าชายกบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-and-grasshopper-for-kids\">มดกับตั๊กแตน</a></li><li><a href=\"https://tangobook.co.kr/blog/selfish-giant-garden-for-kids\">สวนของยักษ์</a></li><li><a href=\"https://tangobook.co.kr/blog/gullivers-travels-for-kids\">การเดินทางของกัลลิเวอร์</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือนิทานเรื่องนัทแครกเกอร์",
+        "url": "https://assets.tangobook.co.kr/1772201758726-%ED%98%B8%EB%91%90%EA%B9%8C%EA%B8%B0%EC%9D%B8%ED%98%95-illustration-page15-1780388356811.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สนใจเรื่อง \"ตุ๊กตาถั่ว\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกันได้ที่ Tango Book ด้วยภาพสวย ๆ และเสียงอ่านภาษาเกาหลีและภาษาอังกฤษเลยค่ะ</p><a href=\"https://tangobook.co.kr/library/1772201758726\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

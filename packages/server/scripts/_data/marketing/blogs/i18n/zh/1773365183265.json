@@ -1,0 +1,112 @@
+{
+  "storybookId": "1773365183265",
+  "seo_title": "《蒲公英绘本》：降落伞种子的秘密（4~7岁自然观察）",
+  "meta_description": "关于蒲公英花朵的结构、降落伞状的种子、坚韧的根系等奇妙事实，以及《Tango Book》自然观察绘本的内容和观察方法。4~7岁自然观察指南。",
+  "primary_keyword": "蒲公英绘本",
+  "secondary_keywords": [
+    "蒲公英的特点",
+    "蒲公英种子",
+    "蒲公英的绒毛",
+    "幼儿自然观察书籍",
+    "植物绘本"
+  ],
+  "url_slug": "dandelion-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "蒲公英 - 蒲公英，有什么地方让你觉得神奇呢？",
+        "url": "https://assets.tangobook.co.kr/1773365183265-%EB%AF%BC%EB%93%A4%EB%A0%88-cover-misc-1780046370186.webp",
+        "text": "<h2>蒲公英，哪些地方会让人感到神奇呢？</h2><p>黄色的花朵变成白色绒球，随风飘走的 <strong>蒲公英</strong>是孩子们最喜欢的春季植物。在吹散的种子里，藏着科学知识。</p><p data-seo-boost=\"1\">对蒲公英绘本的故事线感到好奇吗？让我们和图片一起了解蒲公英绘本的寓意。也来看看蒲公英绘本故事的核心场景吧。试着和孩子一起阅读蒲公英绘本，聊聊天。</p>",
+        "caption": "春天的蒲公英",
+        "image_style": "",
+        "image_prompt": "A yellow dandelion next to a white fluffy dandelion seed head in a meadow, bright children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "蒲公英 - 蒲公英的自然与科学知识",
+        "url": "https://assets.tangobook.co.kr/1773365183265-%EB%85%B8%EB%9E%80%EA%BD%83%EC%97%90%EC%84%9C%ED%95%98%EC%96%80%EC%86%9C%ED%84%B8%EA%B9%8C%EC%A7%80%EB%B0%94%EB%9E%8C%EC%9D%84%ED%83%80%EB%8A%94%EC%97%AC%ED%96%89%EC%9E%90%EB%AF%BC%EB%93%A4%EB%A0%88-illustration-page1-1773535735658.webp",
+        "text": "<h2>蒲公英的自然和科学知识</h2><p>其实，一朵蒲公英花 <strong>是由数百朵小花聚集而成的</strong>就是这样。种子上带着像羽毛一样的降落伞（冠毛），能乘着风远方飞去，并在种子之间形成气柱... <strong>非常稳定地飞翔</strong> 是一个精巧的结构。而且它的根能深入地下，即使被踩踏或上部被切断了 <strong>也能重新发芽</strong> 拥有强大的生命力。</p>",
+        "caption": "降落伞种子",
+        "image_style": "",
+        "image_prompt": "Dandelion seeds with feathery parachutes floating in the wind, whimsical children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "蒲公英 - Tango Book《蒲公英》所讲述的内容",
+        "url": "https://assets.tangobook.co.kr/1773365183265-%EB%85%B8%EB%9E%80%EA%BD%83%EC%97%90%EC%84%9C%ED%95%98%EC%96%80%EC%86%9C%ED%84%B8%EA%B9%8C%EC%A7%80%EB%B0%94%EB%9E%8C%EC%9D%84%ED%83%80%EB%8A%94%EC%97%AC%ED%96%89%EC%9E%90%EB%AF%BC%EB%93%A4%EB%A0%88-illustration-page5-1773535756091.webp",
+        "text": "<h2>《探戈书》《蒲公英》讲述的内容</h2><p>《探戈书》《蒲公英》温暖地展示了黄色花朵变成绒球，种子随风飘散到新土地扎根的整个生命周期。它重新绽放的坚韧景象令人印象深刻。</p>",
+        "caption": "坚实的根基",
+        "image_style": "",
+        "image_prompt": "A dandelion with a deep strong taproot underground, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "蒲公英 - 共同观察的重点",
+        "url": "https://assets.tangobook.co.kr/1773365183265-%EB%85%B8%EB%9E%80%EA%BD%83%EC%97%90%EC%84%9C%ED%95%98%EC%96%80%EC%86%9C%ED%84%B8%EA%B9%8C%EC%A7%80%EB%B0%94%EB%9E%8C%EC%9D%84%ED%83%80%EB%8A%94%EC%97%AC%ED%96%89%EC%9E%90%EB%AF%BC%EB%93%A4%EB%A0%88-illustration-page10-1773535775144.webp",
+        "text": "<h2>共同观察时可以注意的重点</h2><p>请指出现象如花朵（数百朵小花）、种子（降落伞）、根部（坚韧），以及随风传播等重点。“如果我吹气，种子会怎么飞走呢？”和孩子一起聊聊这个话题很好。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "Close-up of a single dandelion seed parachute, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "蒲公英 - 家长指南 — 如何从观察与体验中延伸学习",
+        "url": "https://assets.tangobook.co.kr/1773365183265-%EB%85%B8%EB%9E%80%EA%BD%83%EC%97%90%EC%84%9C%ED%95%98%EC%96%80%EC%86%9C%ED%84%B8%EA%B9%8C%EC%A7%80%EB%B0%94%EB%9E%8C%EC%9D%84%ED%83%80%EB%8A%94%EC%97%AC%ED%96%89%EC%9E%90%EB%AF%BC%EB%93%A4%EB%A0%88-illustration-page14-1773552092541.webp",
+        "text": "<h2>家长指南 — 从观察与体验中延伸</h2><p>在春秋的散步路上，亲自“呼”着吹飞蒲公英的绒球。用放大镜观察种子的降落伞，并画出它从黄色花朵→棉球→种子变化的整个生命周期图会很好。</p>",
+        "caption": "吹散绒毛（或：飘落的种子）",
+        "image_style": "",
+        "image_prompt": "A parent and child blowing a dandelion seed head together, joyful children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>问：蒲公英花是不是一朵？</strong><br>答：不。虽然看起来像一朵，但实际上是数百朵小花聚集在一起的。</p><p><strong>问：蒲公英的种子是怎么飞得这么远的呢？</strong><br>答：它长着像羽毛的降落伞（冠毛），乘着风，形成气柱，稳定地飞得很远。</p><p><strong>问：在家里怎样观察比较好呢？</strong><br>答：可以尝试吹蒲公英种子、用降落伞放大镜观察，或者画出从黄色花朵到绒毛球的整个生命周期。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "蒲公英绘本插画",
+        "url": "https://assets.tangobook.co.kr/1773365183265-%EB%85%B8%EB%9E%80%EA%BD%83%EC%97%90%EC%84%9C%ED%95%98%EC%96%80%EC%86%9C%ED%84%B8%EA%B9%8C%EC%A7%80%EB%B0%94%EB%9E%8C%EC%9D%84%ED%83%80%EB%8A%94%EC%97%AC%ED%96%89%EC%9E%90%EB%AF%BC%EB%93%A4%EB%A0%88-illustration-page18-1773552112967.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“蒲公英”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango书里，用美丽的图画和韩语·英语语音亲自体验一下吧。</p><a href=\"https://tangobook.co.kr/library/1773365183265\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 去看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

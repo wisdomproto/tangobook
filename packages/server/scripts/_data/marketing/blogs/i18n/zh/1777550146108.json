@@ -1,0 +1,106 @@
+{
+  "storybookId": "1777550146108",
+  "seo_title": "青蛙的特征和生命周期的秘密 — 自然观察绘本",
+  "meta_description": "青蛙的生命周期（卵→蝌蚪→青蛙）和皮肤呼吸、鸣囊等奇妙知识，以及《Tango Book》自然观察绘本的内容，还有如何观察的方法。4-7岁自然观察指南。",
+  "primary_keyword": "青蛙",
+  "secondary_keywords": ["青蛙的特点", "青蛙的生命周期", "蝌蚪", "幼儿自然观察书", "动物图画书"],
+  "url_slug": "frog-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "青蛙 - 青蛙，有什么特别的地方呢？",
+        "url": "https://assets.tangobook.co.kr/1777550146108-%EA%B0%9C%EA%B5%AC%EB%A6%AC-cover-misc-1780026770994.webp",
+        "text": "<h2>青蛙，哪些地方会让人觉得神奇呢？</h2><p>池塘的歌者 <strong>青蛙</strong>它是一种展示着从卵到蝌蚪，再到青蛙的奇妙生命周期的动物。</p>",
+        "caption": "池塘的歌者",
+        "image_style": "",
+        "image_prompt": "A frog sitting on a lotus leaf in a pond, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "青蛙 - 关于青蛙的自然与科学知识",
+        "url": "https://assets.tangobook.co.kr/1777550146108-%EB%AC%BC%EA%B3%BC%EC%9C%A1%EC%A7%80%EB%A5%BC%EC%98%A4%EA%B0%80%EB%8A%94%ED%8F%B4%EC%A7%9D%ED%8F%B4%EC%A7%9D%EC%A0%90%ED%94%84%EB%8C%80%EC%9E%A5%EA%B0%9C%EA%B5%AC%EB%A6%AC-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page1-1777552007889.webp",
+        "text": "<h2>青蛙的自然和科学事实</h2><p>青蛙是 <strong>也能通过皮肤吸收氧气（皮肤呼吸）</strong>皮肤必须总是湿润的。一个生命周期 <strong>卵 → 蝌蚪（植物性食物）→变态（后腿→前腿→尾巴吸收）→青蛙（昆虫食物）</strong> 分为四个阶段，变化真是太惊人了。雄性的 <strong>鸣囊</strong>会放大声音，用从头上突出的眼睛在水下也能观察到水面。树蛙会用脚趾吸盘粘附在湿滑的地方。</p>",
+        "caption": "从蛋到青蛙",
+        "image_style": "",
+        "image_prompt": "The frog life cycle from egg to tadpole to frog, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "青蛙 - 探戈书《青蛙》所涵盖的内容",
+        "url": "https://assets.tangobook.co.kr/1777550146108-%EB%AC%BC%EA%B3%BC%EC%9C%A1%EC%A7%80%EB%A5%BC%EC%98%A4%EA%B0%80%EB%8A%94%ED%8F%B4%EC%A7%9D%ED%8F%B4%EC%A7%9D%EC%A0%90%ED%94%84%EB%8C%80%EC%9E%A5%EA%B0%9C%EA%B5%AC%EB%A6%AC-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page5-1777552048623.webp",
+        "text": "<h2>《青蛙》这本书讲述的内容</h2><p>《青蛙》这本书温馨地展示了从蛋→蝌蚪→长出腿的变态→变成青蛙的一生，以及用鸣囊唱歌的样子。</p>",
+        "caption": "放大声音的口袋",
+        "image_style": "",
+        "image_prompt": "A male frog with an inflated vocal sac singing, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "青蛙 - 共同观察时值得注意的重点",
+        "url": "https://assets.tangobook.co.kr/1777550146108-%EB%AC%BC%EA%B3%BC%EC%9C%A1%EC%A7%80%EB%A5%BC%EC%98%A4%EA%B0%80%EB%8A%94%ED%8F%B4%EC%A7%9D%ED%8F%B4%EC%A7%9D%EC%A0%90%ED%94%84%EB%8C%80%EC%9E%A5%EA%B0%9C%EA%B5%AC%EB%A6%AC-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page10-1777552116966.webp",
+        "text": "<h2>共同观察时可以注意的重点</h2><p>指出一些重点，比如四阶段的生命周期、皮肤呼吸（湿润感）、气囊和突出的眼睛。一起聊聊“蝌蚪是如何变成青蛙的？”会很好。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "A tadpole growing legs, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "青蛙 - 家长指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1777550146108-%EB%AC%BC%EA%B3%BC%EC%9C%A1%EC%A7%80%EB%A5%BC%EC%98%A4%EA%B0%80%EB%8A%94%ED%8F%B4%EC%A7%9D%ED%8F%B4%EC%A7%9D%EC%A0%90%ED%94%84%EB%8C%80%EC%9E%A5%EA%B0%9C%EA%B5%AC%EB%A6%AC-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page14-1777552129913.webp",
+        "text": "<h2>父母指南 — 如何培养好奇心</h2><p>春天观察蝌蚪，留意它们长出腿的变态过程几天（观察后回到原位）。听着青蛙叫声，聊聊“雄性唱的歌”会很好。</p>",
+        "caption": "蝌蚪观察",
+        "image_style": "",
+        "image_prompt": "A parent and child observing tadpoles in a pond, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答</h2><p><strong>问：蝌蚪如何变成青蛙？</strong><br>答：它会经历一个“变态”过程，后腿变成前腿，尾巴被吸收，最终成为青蛙。</p><p><strong>问：青蛙的皮肤为什么总是湿漉漉的？</strong><br>答：因为它不仅能通过皮肤吸收氧气（皮肤呼吸）。所以它必须一直保持湿润。</p><p><strong>问：家里怎样观察比较好呢？</strong><br>答：春天观察蝌蚪变态过程（在原地），或者听青蛙的叫声，都是很好的。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>适合一起阅读的经典童话</h2><p>如果您喜欢读这个故事，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗尾草</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li><li><a href=\"https://tangobook.co.kr/blog/spider-nature-for-kids\">蜘蛛</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "青蛙绘本插图",
+        "url": "https://assets.tangobook.co.kr/1777550146108-%EB%AC%BC%EA%B3%BC%EC%9C%A1%EC%A7%80%EB%A5%BC%EC%98%A4%EA%B0%80%EB%8A%94%ED%8F%B4%EC%A7%9D%ED%8F%B4%EC%A7%9D%EC%A0%90%ED%94%84%EB%8C%80%EC%9E%A5%EA%B0%9C%EA%B5%AC%EB%A6%AC-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page18-1777552138543.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“青蛙”感兴趣吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用美丽的图画和韩语·英语语音亲自体验一下吧。</p><a href=\"https://tangobook.co.kr/library/1777550146108\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

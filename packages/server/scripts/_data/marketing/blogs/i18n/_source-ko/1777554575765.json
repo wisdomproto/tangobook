@@ -1,0 +1,106 @@
+{
+  "storybookId": "1777554575765",
+  "seo_title": "참새 특징과 깡총 뛰기의 비밀 — 자연관찰 그림책",
+  "meta_description": "참새가 걷지 않고 깡총 뛰는 이유와 흙목욕, 계절별 먹이 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "primary_keyword": "참새",
+  "secondary_keywords": ["참새 특징", "참새 생태", "참새 관찰", "유아 자연관찰 책", "새 그림책"],
+  "url_slug": "sparrow-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "참새 - 참새, 어떤 점이 신기할까요?",
+        "url": "https://assets.tangobook.co.kr/1777554575765-%EC%B0%B8%EC%83%88-cover-misc-1780026677967.webp",
+        "text": "<h2>참새, 어떤 점이 신기할까요?</h2><p>우리 주변에서 가장 흔히 보는 <strong>참새</strong>는 작지만 씩씩한 새예요. 걷지 않고 깡총깡총 뛰는 모습이 정말 귀엽지요.</p><p data-seo-boost=\"1\">참새 특징, 참새 생태, 참새 관찰 등 참새에 대한 다양한 이야기를 함께 담았습니다.</p>",
+        "caption": "깡총 뛰는 참새",
+        "image_style": "",
+        "image_prompt": "A small sparrow hopping on the ground, cute children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "참새 - 참새의 자연·과학 사실",
+        "url": "https://assets.tangobook.co.kr/1777554575765-%EC%9E%91%EA%B3%A0%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EC%9A%B0%EB%A6%AC%EC%9D%B4%EC%9B%83%EC%B0%B8%EC%83%88-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page1-1777554679881.webp",
+        "text": "<h2>참새의 자연·과학 사실</h2><p>참새는 몸길이 13~15cm의 작은 새로, 밤색 머리와 뺨의 검은 점이 특징이에요. 재미있게도 <strong>두 발을 모아 깡총 뛰며(hopping) 걷지 않아요</strong>. 계절에 따라 먹이가 달라(봄·여름 곤충 / 가을·겨울 곡식·풀씨), 물목욕과 <strong>흙목욕(dust bath)</strong>으로 기생충을 없애지요. 한 번에 4~6개의 알을 낳고, 겨울엔 무리를 지어 체온을 지킵니다.</p>",
+        "caption": "기생충 없애기",
+        "image_style": "",
+        "image_prompt": "A sparrow taking a dust bath, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "참새 - 탱고북 «참새»이 다루는 내용",
+        "url": "https://assets.tangobook.co.kr/1777554575765-%EC%9E%91%EA%B3%A0%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EC%9A%B0%EB%A6%AC%EC%9D%B4%EC%9B%83%EC%B0%B8%EC%83%88-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page5-1777554689753.webp",
+        "text": "<h2>탱고북 «참새»이 다루는 내용</h2><p>탱고북 «참새»는 깡총 뛰는 모습, 흙목욕하는 모습, 계절마다 다른 먹이, 무리 지어 겨울을 나는 참새를 정겹게 보여 줍니다.</p>",
+        "caption": "함께 견디는 겨울",
+        "image_style": "",
+        "image_prompt": "A flock of sparrows huddling in winter, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "참새 - 함께 관찰하면 좋은 포인트",
+        "url": "https://assets.tangobook.co.kr/1777554575765-%EC%9E%91%EA%B3%A0%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EC%9A%B0%EB%A6%AC%EC%9D%B4%EC%9B%83%EC%B0%B8%EC%83%88-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page10-1777554704285.webp",
+        "text": "<h2>함께 관찰하면 좋은 포인트</h2><p>깡총 뛰기(hopping), 흙목욕, 계절 먹이, 겨울 무리 같은 포인트를 짚어 주세요. \"참새는 왜 깡총깡총 뛸까?\"를 함께 이야기하면 좋습니다.</p>",
+        "caption": "관찰 포인트",
+        "image_style": "",
+        "image_prompt": "A close-up of a sparrow with brown head and cheek spot, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "참새 - 부모 가이드 — 호기심을 키우는 법",
+        "url": "https://assets.tangobook.co.kr/1777554575765-%EC%9E%91%EA%B3%A0%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EC%9A%B0%EB%A6%AC%EC%9D%B4%EC%9B%83%EC%B0%B8%EC%83%88-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page14-1777554714327.webp",
+        "text": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>공원·창밖에서 참새가 깡총 뛰는 모습을 관찰해 보세요. 흙에서 파닥이는 흙목욕을 발견하면 \"기생충을 없애는 거야\"를 이야기하면 흥미가 커집니다.</p>",
+        "caption": "창밖 관찰",
+        "image_style": "",
+        "image_prompt": "A parent and child watching sparrows outside a window, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 참새는 왜 걷지 않고 뛰나요?</strong><br>A. 두 발을 모아 깡총 뛰는 방식(hopping)으로 이동합니다. 작은 새들이 흔히 그래요.</p><p><strong>Q. 흙목욕은 왜 하나요?</strong><br>A. 물목욕과 함께 깃털 사이의 기생충을 없애기 위해서입니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 깡총 뛰기·흙목욕 관찰, 계절마다 먹이 달라지는 점 이야기가 좋습니다.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>함께 읽으면 좋은 명작 동화</h2><p>이 동화를 재미있게 읽었다면 이런 <strong>명작 동화</strong>도 함께 읽어 보세요.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">강아지</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">강아지풀</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">개구리</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">개미</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "참새 그림책 삽화",
+        "url": "https://assets.tangobook.co.kr/1777554575765-%EC%9E%91%EA%B3%A0%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EC%9A%B0%EB%A6%AC%EC%9D%B4%EC%9B%83%EC%B0%B8%EC%83%88-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page18-1777554725615.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">「참새」가 궁금하신가요?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">아름다운 그림과 한국어·영어 음성으로 탱고북에서 직접 만나보세요.</p><a href=\"https://tangobook.co.kr/library/1777554575765\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 동화책 보러가기 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

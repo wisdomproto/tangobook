@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 세상 탐험 — 바다 위 큰 집</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 세상 탐험 · 시즌1 탈것 #T12</div>
+  <h1>🚢 바다 위 큰 집</h1>
+  <div class="sub">뿌우웅— 소리를 따라 항구에 간 호리가 커다란 여객선의 갑판·조타실·닻을 살펴보고 직접 뱃고동까지 울려 봐요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 여객선 발견 — 실제 부품·작동을 정확히 (핵심단어: 갑판·닻·조타실·구명조끼) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(호기심·질문쟁이)·엄마(동행 가이드)·콩이(동행 친구, 먹보라 엉뚱한 비유·살짝 실수)·선장 아저씨(항구·배 안내자, 단역) &nbsp;·&nbsp;
+  <b>구조</b> 발견 5단계 (궁금→찾아감→살펴봄→해봄→정리) &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🚢 반복 후렴 — "뿌우웅— 큰 배가 출발해요!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>궁금(목격)</b> <span class="tag">궁금 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">뿌우웅—! 낮고 커다란 소리가 바다에서 울려요. 항구에 집채만큼 커다란 하얀 배가 둥둥 떠 있어요! 호리는 두 귀가 쫑긋. "우아, 저렇게 큰 배가 어떻게 물에 안 가라앉고 둥둥 떠 있지?" 뿌우웅— 큰 배가 출발해요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 부두에 정박한 거대한 여객선을 호리가 올려다보는 컷.<br/><b>장소·시간</b> 바닷가 항구 부두, 맑은 아침. 잔잔한 파란 바다에 햇살이 반짝이고 시원한 바닷바람이 부는 상쾌한 공기.<br/><b>인물</b> Hori(아기 호랑이)는 화면 앞쪽 부두에 서서 두 귀를 쫑긋 세우고 입을 동그랗게 벌린 채 두 손을 볼 옆에 대고, 눈이 반짝반짝 놀라 커다란 배를 올려다봄.<br/><b>배경·소품</b> 화면을 가득 채운 하얀 여객선(옆면에 둥근 창문 여러 개, 위쪽에 파란 줄무늬와 굴뚝), 배와 부두를 잇는 밧줄, 물 위에 뜬 배 아래로 잔물결, 부두의 빨간 등대와 갈매기 몇 마리.<br/><b>톤</b> 환한 아침 자연광, 흰 배와 파란 바다의 시원한 대비, 두근거리는 호기심의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>궁금(질문)</b> <span class="tag">궁금</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"엄마, 저 큰 배는 어디로 가요? 우리도 타 볼 수 있어요?" 호리가 엄마 손을 잡고 폴짝폴짝 물어봐요. 엄마가 빙긋 웃었어요. "궁금하면 배 위에 직접 올라가 볼까? 콩이도 같이 가자!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 호리가 엄마를 올려다보며 묻고 콩이가 곁에 있는 삼자 컷.<br/><b>장소·시간</b> 같은 항구 부두, 아침. 뒤로 커다란 하얀 배가 보임.<br/><b>인물</b> Hori는 화면 왼쪽에서 Mom tiger(엄마 호랑이)의 손을 두 손으로 잡고 발을 살짝 든 채 고개를 젖혀 엄마를 올려다보며 궁금한 미소로 질문. Mom tiger는 가운데서 허리를 살짝 굽혀 호리와 눈을 맞추며 한 손으로 배 쪽을 가리키고 다정하게 웃음. Kongi(아기 다람쥐)는 오른쪽에서 볼주머니를 불룩하게 하고 도토리를 손에 쥔 채 배를 보며 "저건 꼭 커다란 빵 같아!" 하듯 눈을 반짝이는 엉뚱한 표정.<br/><b>배경·소품</b> 뒤편 부두에 정박한 하얀 여객선, 밧줄로 묶인 계선주, 바닥의 나무 데크, 갈매기와 잔물결.<br/><b>톤</b> 밝은 아침 자연광, 궁금증이 모험으로 바뀌는 설레는 정서, 따뜻하고 활기찬 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>찾아감(배에 올라)</b> <span class="tag">찾아감</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">부두와 배를 이어 주는 기다란 다리를 또각또각 걸어 올라가요. 배 위에 하얀 제복을 입은 선장 아저씨가 손을 흔들어요. "어서 와! 배가 궁금해서 왔구나?" 호리는 심장이 콩닥콩닥!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 배로 이어진 통로(배다리)를 걸어 올라 갑판 입구에서 선장을 만나는 컷.<br/><b>장소·시간</b> 여객선 승선 통로와 갑판 입구, 아침. 발밑으로 바닷물이 찰랑이고 환한 햇살.<br/><b>인물</b> Hori는 화면 앞쪽 가운데서 기울어진 통로를 조심조심 걸어 올라가며 위쪽 선장을 반갑게 올려다보는 설레는 표정. Mom tiger는 호리 바로 뒤에서 호리의 등에 손을 얹어 받쳐 주며 함께 오름. Kongi는 왼쪽에서 통로 손잡이를 꼭 쥐고 아래 바닷물을 힐끔 보며 살짝 긴장한 표정. captain(하얀 선장 제복·선장 모자)은 오른쪽 갑판 입구에 서서 한 손을 번쩍 들어 반갑게 인사하며 환하게 웃음.<br/><b>배경·소품</b> 부두와 배를 잇는 튼튼한 승선 통로(양쪽 손잡이 난간), 발밑 찰랑이는 바닷물, 배 옆면의 둥근 창문과 하얀 선체, 걸린 밧줄.<br/><b>톤</b> 환한 아침 자연광, 크고 든든한 배 위에 오르는 설렘, 두근거리는 기대의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>살펴봄(갑판)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">배 위에 올라서니 넓고 평평한 마당 같아요. "여기 우리가 서 있는 넓은 바닥을 갑판이라고 해. 사람들이 갑판에서 바다를 구경하지." 호리가 난간을 잡고 보니 사방이 온통 파란 바다예요. "우아, 바다 한가운데 마당이다! 그런데 이렇게 크고 무거운 배가 왜 안 가라앉아요?" "배 속이 텅— 비어서 공기가 가득하거든. 그래서 무거워도 물보다 가벼워 둥둥 뜬단다."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 하이앵글로 넓은 갑판 바닥과 그 위 인물들을 비스듬히 내려다봄. 갑판의 넓이가 강조되는 컷.<br/><b>장소·시간</b> 여객선 야외 갑판, 아침. 사방이 파란 바다로 트인 시원한 공간.<br/><b>인물</b> Hori는 화면 앞쪽에서 갑판 가장자리 하얀 난간을 두 손으로 잡고 발끝을 세워 바다를 내다보며 입을 딱 벌린 감탄. captain은 왼쪽에서 한 손으로 넓은 갑판 바닥을 가리키며 다정하게 설명하는 미소. Mom tiger는 가운데서 호리 곁에 서서 함께 바다를 바라봄. Kongi는 오른쪽에서 넓은 갑판을 폴짝폴짝 뛰어다니며 신난 표정.<br/><b>배경·소품</b> 넓고 평평한 나무·철제 갑판 바닥, 가장자리를 두른 하얀 안전 난간, 갑판에 놓인 벤치와 둥근 구명튜브, 저 멀리 수평선과 파란 바다, 갈매기.<br/><b>톤</b> 환한 아침 자연광, 탁 트인 바다의 시원하고 상쾌한 정서, 넓은 공간의 개방감.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>살펴봄(구명조끼)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"배를 탈 때는 제일 먼저 이걸 입어야 해." 선장 아저씨가 주황색 구명조끼를 나눠 줘요. "물에 빠져도 몸이 둥둥 뜨게 도와주는 조끼란다." 콩이가 구명조끼를 거꾸로 뒤집어쓰며 "이거 낮잠 방석 아니에요?" 하자 모두 까르르 웃었어요. 선장 아저씨가 콩이 것도 바로 입혀 주자 콩이도 씩— 웃었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 구명조끼를 입어 보는 호리와 거꾸로 쓴 콩이의 코믹한 컷.<br/><b>장소·시간</b> 갑판 위 구명조끼 걸이 앞, 아침. 밝은 햇살.<br/><b>인물</b> Hori는 화면 가운데서 주황색 구명조끼를 입고 가슴 앞 버클을 두 손으로 꼭 잠그며 뿌듯하게 아래를 내려다보는 미소. captain은 오른쪽에서 무릎을 굽혀 호리의 어깨끈을 매만져 주며 다정하게 웃음. Kongi는 왼쪽에서 구명조끼를 거꾸로 뒤집어써 머리가 조끼 구멍에 끼어 두 팔을 허우적거리며 당황한 표정. Mom tiger는 뒤에서 손으로 입을 가리고 웃음.<br/><b>배경·소품</b> 벽걸이에 걸린 주황색 구명조끼 여러 벌(가슴 버클과 어깨끈, 반사띠), 갑판 난간, 둥근 주황 구명튜브, 파란 바다 배경.<br/><b>톤</b> 밝은 아침 자연광, 주황 조끼가 화면의 포인트 색, 안전을 챙기는 든든함과 콩이의 코믹함이 어우러진 즐거운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>살펴봄(조타실)</b> <span class="tag">살펴봄 · 핵심단어 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">배 꼭대기 층, 창문이 빙 둘러진 방으로 올라갔어요. "여기는 조타실이야. 선장이 이 커다란 둥근 키를 돌려서 배가 갈 방향을 정한단다." 창밖으로 바다가 멀리멀리 보여요. 호리는 눈이 동그래졌어요. 뿌우웅— 큰 배가 출발해요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 조타실 안에서 은빛 금속 조타 휠(타륜)과 앞쪽 계기판·모니터, 창밖 바다를 함께 보는 컷.<br/><b>장소·시간</b> 여객선 맨 위층 조타실(조종실) 내부, 아침. 사방 유리창으로 환한 빛이 들어옴.<br/><b>인물</b> captain은 화면 오른쪽에서 은빛 금속 조타 휠(타륜) 앞에 서서 한 손으로 휠을 잡고 다른 손으로 창밖 바다를 가리키며 설명. Hori는 가운데서 휠을 올려다보며 두 손을 가슴에 모으고 눈이 동그래진 감탄. Mom tiger는 왼쪽에서 호리 곁에 서서 함께 창밖을 바라봄. Kongi는 앞쪽에서 창문에 코를 대고 멀리 수평선을 구경함.<br/><b>배경·소품</b> 은빛 금속 조타 휠(타륜)과 그 앞을 채운 넓은 계기판·화면 모니터·여러 버튼과 레버, 사방을 둘러싼 큰 유리창, 창밖으로 넓게 펼쳐진 바다와 수평선, 천장의 작은 나침반.<br/><b>톤</b> 환한 실내 자연광, 높은 곳에서 바다를 내려다보는 시원하고 신기한 정서, 든든하고 설레는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>살펴봄(닻)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">배 앞쪽으로 가 보니 굵은 쇠사슬에 매달린 커다란 쇠갈고리가 있어요. "이건 닻이야. 배를 세워 둘 때 이 무거운 닻을 바닷속으로 내리면, 배가 물살에 떠내려가지 않고 딱 붙잡혀 있단다." 호리가 닻을 톡톡 두드리니 "댕—" 묵직한 소리가 났어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글로 뱃머리에 매달린 커다란 닻을 올려다봄. 닻의 무게감이 강조되는 컷.<br/><b>장소·시간</b> 여객선 앞쪽 뱃머리 갑판, 아침. 파란 바다와 밝은 햇살.<br/><b>인물</b> captain은 화면 오른쪽에서 뱃머리의 큰 닻을 한 손으로 가리키며 다정하게 설명하는 미소. Hori는 가운데 앞쪽에서 손가락 하나를 뻗어 무거운 쇠 닻을 조심스레 톡톡 두드리며 신기해하는 표정, 반대 손은 코를 찡긋. Kongi는 왼쪽에서 굵은 쇠사슬 고리를 두 팔로 안아 보려다 무거워 낑낑대는 코믹한 표정. Mom tiger는 뒤에서 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 뱃머리에 걸린 커다란 검은 쇠 닻(양쪽으로 굽은 갈고리 팔), 그 위로 이어진 굵은 쇠사슬과 감아 올리는 도르래(양묘기), 하얀 난간, 저 아래 파란 바닷물, 갈매기.<br/><b>톤</b> 환한 아침 자연광, 크고 묵직한 쇠 닻의 든든함, 신기함으로 눈이 커지는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>해봄(뱃고동·키)</b> <span class="tag">해봄 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"이제 호리가 선장이 돼 볼까?" 아저씨와 호리가 함께 커다란 키를 잡고, 빨간 줄을 힘껏 당기자— 뿌우웅—! 온 항구가 울리는 뱃고동 소리! 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉! "제가 뱃고동을 울렸어요!" 뿌우웅— 큰 배가 출발해요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 호리가 뱃고동 줄을 당기고 키를 잡는 결정적 순간.<br/><b>장소·시간</b> 조타실 안, 아침. 유리창으로 든 환한 빛과 울려 퍼지는 소리의 두근거림.<br/><b>인물</b> Hori는 화면 앞쪽에서 한 손으로 은빛 금속 조타 휠을 잡고 다른 손으로 위에서 늘어진 빨간 뱃고동 줄을 두 눈 꼭 감고 힘껏 잡아당기는 씩씩한 결의의 표정, 입은 활짝. captain은 호리 바로 뒤에서 함께 휠에 손을 얹어 힘을 보태며 흐뭇하게 웃음. Kongi는 왼쪽에서 큰 소리에 두 귀를 손으로 막고 깜짝 놀라 폴짝 뛰며 까르르 웃음. Mom tiger는 오른쪽에서 두 손을 번쩍 들어 응원.<br/><b>배경·소품</b> 은빛 금속 조타 휠, 천장에서 늘어진 빨간 뱃고동 줄, 소리가 퍼지는 만화적 파동선, 특히 호리 꼬리 줄무늬가 무지개빛으로 반짝이는 시그니처 순간(부릉꼬리), 창밖 항구와 바다.<br/><b>톤</b> 환한 실내광, 소리가 온 배에 퍼지는 역동적이고 신나는 정서, 해냈다는 성취감의 밝은 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>해봄(출항·항해)</b> <span class="tag">해봄</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">쇠사슬이 드르륵— 닻을 감아 올리자, 커다란 배가 천천히 바다로 나아가요. 갑판에 선 호리 볼에 시원한 바닷바람이 스쳐요. 배 뒤로 하얀 물길이 쭉— 그려지고, 파도가 출렁출렁. 호리와 콩이는 부두를 향해 손을 흔들었어요. "안녕, 바다야!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 측면. 갑판 난간에 선 아이들과 바다로 나아가는 배를 함께 담은 항해 컷.<br/><b>장소·시간</b> 움직이는 여객선 갑판, 아침. 배가 부두를 떠나 바다로 미끄러지는 시원하고 상쾌한 공기.<br/><b>인물</b> Hori는 화면 오른쪽 갑판 난간에서 한 손으로 난간을 잡고 다른 손을 힘차게 흔들며 바람에 눈을 가늘게 뜨고 활짝 웃는 신난 표정, 꼬리와 귀가 바람에 나부낌. Kongi는 호리 옆에서 함께 손을 흔들며 볼주머니를 부풀린 채 입을 크게 벌려 외침. Mom tiger는 왼쪽에서 두 아이의 어깨를 감싸 안고 함께 바다를 바라보며 미소. captain은 저 위층 조타실 창가에서 손을 흔들어 줌.<br/><b>배경·소품</b> 갑판 하얀 난간, 배 뒤로 길게 그려지는 하얀 물길과 출렁이는 파도, 멀어지는 부두와 빨간 등대, 파란 바다와 하늘, 따라오는 갈매기.<br/><b>톤</b> 환한 아침 자연광에 물보라가 반짝이는 시원하고 역동적인 정서, 진짜 항해를 하는 벅찬 기쁨의 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>정리(감탄·감사)</b> <span class="tag">정리 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">배에서 내리는 길, 호리는 엄마 손을 꼭 잡고 조잘조잘. "넓은 갑판에서 바다를 보고, 구명조끼로 안전하게, 조타실에서 키를 돌려 방향을 정하고, 닻으로 배를 딱 세워요! 선장 아저씨는 우리를 바다 건너로 안전하게 데려다줘요." 호리는 바다를 보며 씩 웃었어요. 뿌우웅— 큰 배가 출발해요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 뒷모습 살짝 측면. 노을 진 부두를 걸으며 이야기하는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 다시 돌아온 항구 부두, 해 질 녘. 주황빛 노을이 바다에 물든 포근하고 뿌듯한 공기.<br/><b>인물</b> Hori는 화면 가운데서 Mom tiger의 손을 잡고 걸으며 고개를 들어 손짓 섞어 조잘조잘 신나게 이야기하는 뿌듯한 표정. Mom tiger는 호리를 내려다보며 다정하게 고개를 끄덕이며 미소. Kongi는 왼쪽에서 아직도 신이 나 폴짝폴짝 뛰며 저 멀리 배 쪽을 돌아봄.<br/><b>배경·소품</b> 두 사람 손을 잡은 실루엣, 뒤로 저 멀리 정박한 하얀 여객선, 노을빛 하늘에 물든 바다와 잔물결, 부두의 빨간 등대와 계선주, 하늘 한켠에 작은 별 반짝임과 갈매기.<br/><b>톤</b> 따뜻한 주황 노을 조명, 하루의 발견을 곱씹는 뭉클하고 흐뭇한 정서, 존중과 감탄으로 마무리되는 포근한 분위기.</pre></details>
+</div>
+
+<footer>호리네 세상 탐험 · T12 바다 위 큰 집 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>window.SH_GUESTS=[{"key":"captain","name":"선장 아저씨","aliases":["ship captain","sea captain","captain"],"desc":"하얀 선장 제복(금단추가 달린 흰 재킷, 어깨에 금색 견장, 소매에 금색 줄무늬)을 입고 검은 챙과 닻 모양 금색 배지가 달린 하얀 선장 모자를 쓴 든든하고 인자한 인상의 어른. 둥글고 다정한 눈에 환한 미소, 희끗한 짧은 턱수염, 볕에 그은 편안한 얼굴. 아이들을 다정하게 안내하는 항구·배의 현장 가이드"}]</script>
+<script src="/tamheom-core.js"></script>
+</body>
+</html>

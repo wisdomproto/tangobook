@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777613396046",
+  "seo_title": "ลักษณะของปูและความลับของการเดินด้านข้าง — หนังสือนิทานสังเกตธรรมชาติ",
+  "meta_description": "สาเหตุที่ปูเดินด้านข้าง ข้อเท็จจริงมหัศจรรย์ เช่น เปลือกแข็งและการลอกคราบ เนื้อหาจากหนังสือนิทานสังเกตธรรมชาติของแทงโกบุ๊ก รวมถึงวิธีการสังเกตด้วย คู่มือการสังเกตธรรมชาติสำหรับเด็กอายุ 4-7 ปี",
+  "primary_keyword": "ปู",
+  "secondary_keywords": [
+    "ลักษณะเด่นของปู",
+    "การเดินแบบปู",
+    "ปูลอกคราบ",
+    "หนังสือสังเกตธรรมชาติสำหรับเด็กเล็ก",
+    "หนังสือนิทานภาพสัตว์ทะเล"
+  ],
+  "url_slug": "crab-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "ปู - ปู มีอะไรที่น่าสนใจบ้างคะ?",
+        "url": "https://assets.tangobook.co.kr/1777613396046-%EA%B2%8C-cover-misc-1780025213557.webp",
+        "text": "<h2>ปู มีอะไรที่น่าสนใจบ้างนะ?</h2><p>การเดินไปด้านข้างของ <strong>ปู</strong>เป็นเพื่อนตัวโปรดตามชายหาด ที่มีเปลือกแข็งและก้ามใหญ่ และการเดินด้านข้างของมันก็มีเหตุผลที่สนุกสนานด้วยล่ะค่ะ/ครับ</p><p data-seo-boost=\"1\">เราได้รวบรวมเรื่องราวต่างๆ เกี่ยวกับปู ไม่ว่าจะเป็นลักษณะเด่น การเดินด้านข้าง หรือการลอกคราบ มาให้คุณพ่อคุณแม่แล้วนะคะ/ครับ</p>",
+        "caption": "การเดินไปด้านข้าง",
+        "image_style": "",
+        "image_prompt": "A crab on the beach with big claws, cute children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "ปู - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของปู",
+        "url": "https://assets.tangobook.co.kr/1777613396046-%EC%98%86%EC%9C%BC%EB%A1%9C%EC%98%81%EC%B0%A8%EB%8B%A8%EB%8B%A8%ED%95%9C%EA%B0%91%EC%98%B7%EC%9D%84%EC%9E%85%EC%9D%80%EA%B2%8C-illustration-page1-1773405573916.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของปู</h2><p>ตัวของปูแข็ง <strong>เปลือก (โครงกระดูกภายนอก)</strong>ปกคลุมเหมือนชุดเกราะ เพราะโครงสร้างข้อต่อขา <strong>การเดินด้านข้างเร็วกว่าและสบายกว่าการเดินไปข้างหน้า</strong> พวกมันจะเดินแบบย่องข้าง ใหญ่ <strong>ก้าม</strong>ใช้ได้ทั้งการจับอาหาร การปกป้องร่างกาย และการส่งสัญญาณ พวกมันจะลอกเปลือกที่เล็กลงเมื่อโตขึ้นและเปลี่ยนเป็นอันใหม่ <strong>การลอกคราบ</strong>พวกมันทำเช่นนี้ แต่ตอนที่เพิ่งลอกออกมาจะนิ่มและซ่อนตัวอยู่</p>",
+        "caption": "ความลับของการเดินด้านข้าง",
+        "image_style": "",
+        "image_prompt": "A crab walking sideways on sand, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "ปู - เนื้อหาที่ครอบคลุมในหนังสือทังโกบุ๊กเรื่อง \"ปู\"",
+        "url": "https://assets.tangobook.co.kr/1777613396046-%EC%98%86%EC%9C%BC%EB%A1%9C%EC%98%81%EC%B0%A8%EB%8B%A8%EB%8B%A8%ED%95%9C%EA%B0%91%EC%98%B7%EC%9D%84%EC%9E%85%EC%9D%80%EA%B2%8C-illustration-page5-1773405588106.webp",
+        "text": "<h2>เนื้อหาที่หนังสือ \"ปู\" ของแทงโกบุ๊กนำเสนอ</h2><p>หนังสือ \"ปู\" ของแทงโกบุ๊กได้แสดงภาพการเดินด้านข้าง เปลือกที่แข็งแกร่ง ก้ามใหญ่ การลอกคราบ และบ้านรูในโคลนและทรายอย่างน่ารัก</p>",
+        "caption": "การเปลี่ยนเปลือกสู่สิ่งใหม่",
+        "image_style": "",
+        "image_prompt": "A crab shedding its old shell (molting), fascinating children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "ปู - จุดที่ควรสังเกตเมื่อได้ดูด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1777613396046-%EC%98%86%EC%9C%BC%EB%A1%9C%EC%98%81%EC%B0%A8%EB%8B%A8%EB%8B%A8%ED%95%9C%EA%B0%91%EC%98%B7%EC%9D%84%EC%9E%85%EC%9D%80%EA%B2%8C-illustration-page10-1773405828939.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>ให้ชี้จุดต่างๆ เช่น โครงกระดูกภายนอก (เปลือก), การเดินด้านข้าง, ก้าม (อเนกประสงค์), และการลอกคราบ นอกจากนี้ การพูดคุยด้วยกันว่า \"ทำไมปูถึงเดินด้านข้าง?\" จะเป็นเรื่องที่ดีมาก</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A close-up of crab big claw, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "ปู - คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777613396046-%EC%98%86%EC%9C%BC%EB%A1%9C%EC%98%81%EC%B0%A8%EB%8B%A8%EB%8B%A8%ED%95%9C%EA%B0%91%EC%98%B7%EC%9D%84%EC%9E%85%EC%9D%80%EA%B2%8C-illustration-page14-1773407581628.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ลองให้เล่นทำท่าเดินด้านข้างเหมือนปู บอกพวกเขาว่า \"เมื่อเปลือกมันเล็กลงก็จะลอกออกและเปลี่ยนเป็นอันใหม่ (การลอกคราบ)\" และถ้าได้หาโพรงปูในโคลนตม ความสนใจของพวกเขาก็จะเพิ่มขึ้น</p>",
+        "caption": "การเล่นเดินแบบปู",
+        "image_style": "",
+        "image_prompt": "A parent and child walking sideways like crabs, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ทำไมปูถึงเดินด้านข้างคะ/ครับ?</strong><br>ตอบ: เป็นเพราะโครงสร้างข้อต่อขา ทำให้การเดินด้านข้างนั้นเร็วกว่าและสบายกว่าการเดินไปข้างหน้าค่ะ/ครับ</p><p><strong>ถาม: ปูเติบโตได้อย่างไรคะ/ครับ?</strong><br>ตอบ: พวกมันจะทำการ \"ลอกคราบ\" คือการทิ้งเปลือกเก่าที่เล็กลง แล้วเปลี่ยนเป็นเปลือกใหม่ค่ะ/ครับ ตอนที่เพิ่งลอกคราบ ตัวของพวกมันจะนิ่มๆ ค่ะ</p><p><strong>ถาม: เราจะสังเกตที่บ้านได้อย่างไรดีคะ/ครับ?</strong><br>ตอบ: การเล่นเดินด้านข้าง หรือการหาโพรงปูในบริเวณโคลนเลนก็เป็นกิจกรรมที่ดีค่ะ/ครับ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณอ่านนิทานเรื่องนี้แล้วสนุกแบบนี้ ลองดู <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือภาพปู",
+        "url": "https://assets.tangobook.co.kr/1777613396046-%EC%98%86%EC%9C%BC%EB%A1%9C%EC%98%81%EC%B0%A8%EB%8B%A8%EB%8B%A8%ED%95%9C%EA%B0%91%EC%98%B7%EC%9D%84%EC%9E%85%EC%9D%80%EA%B2%8C-illustration-page18-1773407592961.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับคำว่า \"ปู\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้โดยตรงที่ Tango Book ด้วยภาพสวย ๆ และเสียงอ่านภาษาเกาหลีและภาษาอังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1777613396046\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

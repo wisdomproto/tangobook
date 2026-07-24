@@ -1,0 +1,106 @@
+{
+  "storybookId": "1777603036535",
+  "seo_title": "꿀벌 특징과 8자 춤의 비밀 — 자연관찰 그림책",
+  "meta_description": "꿀벌이 꿀을 만들고 8자 춤으로 소통하는 비밀, 꽃가루받이의 중요성 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "primary_keyword": "꿀벌",
+  "secondary_keywords": ["꿀벌 특징", "꿀벌 춤", "꿀벌 수분", "유아 자연관찰 책", "곤충 그림책"],
+  "url_slug": "honeybee-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "꿀벌 - 꿀벌, 어떤 점이 신기할까요?",
+        "url": "https://assets.tangobook.co.kr/1777603036535-%EA%BF%80%EB%B2%8C-cover-misc-1780025915595.webp",
+        "text": "<h2>꿀벌, 어떤 점이 신기할까요?</h2><p>부지런한 <strong>꿀벌</strong>은 여왕벌을 중심으로 함께 사는 사회성 곤충이에요. 꿀을 만들고 춤으로 소통하는 모습이 정말 신기하답니다.</p><p data-seo-boost=\"1\">꿀벌 특징, 꿀벌 춤, 꿀벌 수분 등 꿀벌에 대한 다양한 이야기를 함께 담았습니다.</p>",
+        "caption": "부지런한 꿀벌",
+        "image_style": "",
+        "image_prompt": "A honeybee collecting nectar from a flower, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "꿀벌 - 꿀벌의 자연·과학 사실",
+        "url": "https://assets.tangobook.co.kr/1777603036535-%EB%B6%95%EB%B6%95%EB%B6%95%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EC%9D%BC%EA%BE%BC%EA%BF%80%EB%B2%8C-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page1-1777603090654.webp",
+        "text": "<h2>꿀벌의 자연·과학 사실</h2><p>일벌은 꽃에서 <strong>꽃꿀을 빨아 모아 벌집에서 꿀로 만들고</strong>, 뒷다리의 \"꽃가루 바구니\"에 꽃가루를 담아 옮겨요. 이렇게 꽃과 꽃을 오가며 <strong>꽃가루받이(수분)를 도와</strong>, 우리가 먹는 많은 열매·채소가 열리게 하는 아주 중요한 곤충이지요. 좋은 꽃밭을 찾으면 <strong>\"8자 춤\"으로 동료에게 위치를 알려 주는</strong> 신기한 소통도 합니다.</p>",
+        "caption": "꽃가루 바구니",
+        "image_style": "",
+        "image_prompt": "A honeybee with pollen baskets on its legs, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "꿀벌 - 탱고북 «꿀벌»이 다루는 내용",
+        "url": "https://assets.tangobook.co.kr/1777603036535-%EB%B6%95%EB%B6%95%EB%B6%95%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EC%9D%BC%EA%BE%BC%EA%BF%80%EB%B2%8C-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page5-1777603099491.webp",
+        "text": "<h2>탱고북 «꿀벌»이 다루는 내용</h2><p>탱고북 «꿀벌»은 꽃꿀을 모으는 모습, 꿀을 만드는 벌집, 꽃가루받이를 돕는 모습, 8자 춤으로 소통하는 꿀벌을 정겹게 보여 줍니다.</p>",
+        "caption": "춤으로 소통",
+        "image_style": "",
+        "image_prompt": "A honeybee doing a waggle dance in the hive, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "꿀벌 - 함께 관찰하면 좋은 포인트",
+        "url": "https://assets.tangobook.co.kr/1777603036535-%EB%B6%95%EB%B6%95%EB%B6%95%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EC%9D%BC%EA%BE%BC%EA%BF%80%EB%B2%8C-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page10-1777603109738.webp",
+        "text": "<h2>함께 관찰하면 좋은 포인트</h2><p>꿀 만들기, 꽃가루 바구니, 꽃가루받이(중요), 8자 춤 같은 포인트를 짚어 주세요. \"꿀벌이 없으면 어떻게 될까?\"를 함께 이야기하면 좋습니다.</p>",
+        "caption": "관찰 포인트",
+        "image_style": "",
+        "image_prompt": "A close-up of a honeycomb with honey, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "꿀벌 - 부모 가이드 — 호기심을 키우는 법",
+        "url": "https://assets.tangobook.co.kr/1777603036535-%EB%B6%95%EB%B6%95%EB%B6%95%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EC%9D%BC%EA%BE%BC%EA%BF%80%EB%B2%8C-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page14-1777603117723.webp",
+        "text": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"꿀벌이 꽃을 도와 열매가 열려\"를 우리가 먹는 과일과 연결해 보세요. 8자 춤을 몸으로 흉내 내고, 꽃밭에서 꿀벌을 멀리서 관찰하면 흥미가 커집니다(쏘이지 않게 주의).</p>",
+        "caption": "꽃밭 관찰",
+        "image_style": "",
+        "image_prompt": "A parent and child watching bees in a flower garden, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 꿀벌은 왜 중요한가요?</strong><br>A. 꽃과 꽃을 오가며 꽃가루받이를 도와, 우리가 먹는 많은 열매·채소가 열리게 합니다.</p><p><strong>Q. 8자 춤은 무엇인가요?</strong><br>A. 좋은 꽃밭을 찾으면 동료에게 위치를 알려 주는 소통 방법입니다. 8자 모양으로 춤춰요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 우리가 먹는 과일과 연결, 8자 춤 흉내, 꽃밭에서 멀리 관찰(쏘이지 않게)이 좋습니다.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>함께 읽으면 좋은 명작 동화</h2><p>이 동화를 재미있게 읽었다면 이런 <strong>명작 동화</strong>도 함께 읽어 보세요.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">강아지</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">강아지풀</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">개구리</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">개미</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "꿀벌 그림책 삽화",
+        "url": "https://assets.tangobook.co.kr/1777603036535-%EB%B6%95%EB%B6%95%EB%B6%95%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EC%9D%BC%EA%BE%BC%EA%BF%80%EB%B2%8C-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page18-1777603125366.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">「꿀벌」가 궁금하신가요?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">아름다운 그림과 한국어·영어 음성으로 탱고북에서 직접 만나보세요.</p><a href=\"https://tangobook.co.kr/library/1777603036535\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 동화책 보러가기 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

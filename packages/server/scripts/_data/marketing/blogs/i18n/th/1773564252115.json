@@ -1,0 +1,112 @@
+{
+  "storybookId": "1773564252115",
+  "seo_title": "ลักษณะและปริศนาของลายทางแตงโม — หนังสือภาพสังเกตธรรมชาติ",
+  "meta_description": "เหตุผลที่แตงโมถูกเรียกว่าผลไม้แห่งน้ำ ความลับของลายทาง ข้อเท็จจริงมหัศจรรย์ เช่น การขยายพันธุ์แบบเถาวัลย์ เนื้อหาจากหนังสือนิทานสังเกตธรรมชาติ Tango Book และวิธีการสังเกตการณ์สำหรับเด็กวัย 4-7 ขวบ",
+  "primary_keyword": "แตงโม",
+  "secondary_keywords": [
+    "ลักษณะเด่นของแตงโม",
+    "ลายทางแตงโม",
+    "ระบบนิเวศของแตงโม",
+    "หนังสือสังเกตธรรมชาติสำหรับเด็กเล็ก",
+    "หนังสือนิทานภาพเกี่ยวกับพืช"
+  ],
+  "url_slug": "watermelon-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "แตงโม - แตงโมมีส่วนไหนที่น่าสนใจบ้างนะ?",
+        "url": "https://assets.tangobook.co.kr/1773564252115-%EC%88%98%EB%B0%95-cover-misc-1780098794038.webp",
+        "text": "<h2>แตงโม มีอะไรที่น่าสนใจไหมนะ?</h2><p>ผู้รับผิดชอบความสดชื่นในฤดูร้อน <strong>แตงโม</strong>มันคือผลไม้แห่งน้ำที่กรอบและหวาน มีความลับสนุกๆ ซ่อนอยู่ในลายเส้นสีเขียวและขนาดใหญ่</p>",
+        "caption": "แตงโม ผลไม้ที่เต็มไปด้วยน้ำ",
+        "image_style": "",
+        "image_prompt": "A big striped watermelon on a vine in a summer field, bright children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "แตงโม - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของแตงโม",
+        "url": "https://assets.tangobook.co.kr/1773564252115-%EC%A4%84%EB%AC%B4%EB%8A%AC%EC%86%8D%EC%97%90%EC%88%A8%EA%B2%A8%EC%A7%84%EC%8B%9C%EC%9B%90%ED%95%9C%EC%97%AC%EB%A6%84%EC%9D%98%EB%A7%9B%EC%88%98%EB%B0%95-illustration-page1-1773564303011.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของแตงโม</h2><p>แตงโมมีน้ำหนัก <strong>มากกว่า 91% เป็นน้ำ</strong>จึงเหมาะอย่างยิ่งสำหรับการดับกระหายในฤดูร้อนที่ร้อนระอุ <strong>ไม้เลื้อย</strong>ลำต้นจะเลื้อยไปตามพื้นดิน และดอกตัวเมียกับดอกตัวผู้จะบานแยกกัน ต้องให้แมลงช่วยถ่ายละอองเรณูจึงจะติดผลได้ สีเขียว <strong>ลายทางคือลายพรางที่ได้รับมาจากบรรพบุรุษป่า</strong>และถ้าปลายเถาเลื้อยม้วนตัวแน่น นั่นคือสัญญาณว่าสุกแล้ว</p>",
+        "caption": "ข้างในแตงโมที่เย็นชื่นใจ",
+        "image_style": "",
+        "image_prompt": "A watermelon sliced open showing red flesh and black seeds, fresh children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "แตงโม - เนื้อหาจากหนังสือทังโกบุ๊กเรื่อง «แตงโม»",
+        "url": "https://assets.tangobook.co.kr/1773564252115-%EC%A4%84%EB%AC%B4%EB%8A%AC%EC%86%8D%EC%97%90%EC%88%A8%EA%B2%A8%EC%A7%84%EC%8B%9C%EC%9B%90%ED%95%9C%EC%97%AC%EB%A6%84%EC%9D%98%EB%A7%9B%EC%88%98%EB%B0%95-illustration-page5-1773564313594.webp",
+        "text": "<h2>เนื้อหาที่หนังสือทังโกบุ๊กเรื่อง \"แตงโม\" นำเสนอ</h2><p>หนังสือทังโกบุ๊กเรื่อง \"แตงโม\" แสดงให้เห็นถึงกระบวนการของดอกไม้สีเหลือง → การผสมเกสรโดยแมลง → แตงโมลูกเล็กที่ค่อยๆ เติบโตขึ้น → และฤดูร้อนที่เราได้มาฉีกกินอย่างสดชื่นด้วยความอบอุ่น</p>",
+        "caption": "เถาวัลย์ที่เลื้อย",
+        "image_style": "",
+        "image_prompt": "A watermelon vine creeping along the ground with yellow flowers, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "แตงโม - จุดที่น่าสนใจให้สังเกตด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1773564252115-%EC%A4%84%EB%AC%B4%EB%8A%AC%EC%86%8D%EC%97%90%EC%88%A8%EA%B2%A8%EC%A7%84%EC%8B%9C%EC%9B%90%ED%95%9C%EC%97%AC%EB%A6%84%EC%9D%98%EB%A7%9B%EC%88%98%EB%B0%95-illustration-page10-1773564333847.webp",
+        "text": "<h2>จุดที่ควรสังเกตด้วยกัน</h2><p>ชี้ให้ดูจุดต่างๆ เช่น ลายทาง (เพื่อพรางตัว), ขนาดใหญ่/ปริมาณน้ำ (91%), เถาวัลย์ (การเติบโตแบบเลื้อย), หรือหาง (สัญญาณความสมบูรณ์) การพูดคุยด้วยกันว่า \"ทำไมแตงโมถึงมีน้ำเยอะขนาดนี้ล่ะคะ/ครับ\" จะเป็นเรื่องที่ดีมากค่ะ/ครับ</p>",
+        "caption": "สิ่งที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "Close-up of watermelon green stripes pattern, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "แตงโม - คู่มือสำหรับผู้ปกครอง — การขยายความรู้ผ่านการสังเกตและประสบการณ์",
+        "url": "https://assets.tangobook.co.kr/1773564252115-%EC%A4%84%EB%AC%B4%EB%8A%AC%EC%86%8D%EC%97%90%EC%88%A8%EA%B2%A8%EC%A7%84%EC%8B%9C%EC%9B%90%ED%95%9C%EC%97%AC%EB%A6%84%EC%9D%98%EB%A7%9B%EC%88%98%EB%B0%95-illustration-page14-1773564355326.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — การขยายจากการสังเกตและประสบการณ์</h2><p>ให้ตัดแตงโมเพื่อสังเกตหน้าตัด (การจัดเรียงของเมล็ด) และให้พวกเขาได้สัมผัสด้วยตัวเองว่า \"มันมีน้ำเยอะมาก!\" ลองวาดลายทางดู และบอกพวกเขาทราบว่าเมื่อปลายเถาวัลย์แห้งลง นั่นเป็นสัญญาณว่าสุกแล้วจะดีมาก</p>",
+        "caption": "ความสนุกของฤดูร้อน",
+        "image_style": "",
+        "image_prompt": "A parent and child sharing watermelon slices in summer, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ทำไมแตงโมถึงมีน้ำเยอะจังเลยคะ/ครับ?</strong><br>ตอบ: เพราะน้ำหนักกว่า 91% เป็นส่วนของน้ำค่ะ/ครับ เหมาะมากสำหรับการดับกระหายในฤดูร้อนที่อากาศร้อนจัดเลยล่ะ</p><p><strong>ถาม: แล้วลายทางบนแตงโมมาจากไหนคะ/ครับ?</strong><br>ตอบ: มันเป็นลายพรางที่สืบทอดมาจากบรรพบุรุษป่าค่ะ/ครับ ช่วยให้มันซ่อนตัวในธรรมชาติได้ดีเลยล่ะ</p><p><strong>ถาม: ที่บ้านเราจะสังเกตมันยังไงให้สนุกดีคะ/ครับ?</strong><br>ตอบ: ลองให้ลูกดูการจัดเรียงเมล็ดในเนื้อแตงโม, วาดลายทาง, หรือลองสัมผัสว่ามัน \"เกือบจะเป็นน้ำ\" ดูสิคะ/ครับ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณสนุกกับการอ่านนิทานเรื่องนี้แล้ว ลองดูแบบนี้ <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือภาพแตงโม",
+        "url": "https://assets.tangobook.co.kr/1773564252115-%EC%A4%84%EB%AC%B4%EB%8A%AC%EC%86%8D%EC%97%90%EC%88%A8%EA%B2%A8%EC%A7%84%EC%8B%9C%EC%9B%90%ED%95%9C%EC%97%AC%EB%A6%84%EC%9D%98%EB%A7%9B%EC%88%98%EB%B0%95-illustration-page18-1773564371857.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"แตงโม\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้โดยตรงที่แทงโกบุ๊ก ด้วยภาพสวย ๆ และเสียงภาษาเกาหลี/อังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1773564252115\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

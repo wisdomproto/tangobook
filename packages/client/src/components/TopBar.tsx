@@ -26,6 +26,12 @@ const RESOURCES: ResourceItem[] = [
     desc: '무지개반 + 양 선생님 · 유치원 적응·사회정서 20편 (대발이 유치원동화 역설계) + 회차별 대본(☰ 회차)',
   },
   {
+    href: '/tamheom-plan.html',
+    icon: '🚒',
+    label: '호리네 세상 탐험 기획서',
+    desc: '논픽션 발견형 · 탈것·직업·세상 · 시즌1 탈것 15편(소방차~로켓) + 회차별 대본·프롬프트(☰ 회차)',
+  },
+  {
     href: '/jeonrae-plan.html',
     icon: '🏮',
     label: '탱고북 전래동화 기획서',

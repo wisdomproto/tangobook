@@ -201,6 +201,7 @@
   .paste-box:focus { border-color: var(--leaf); color: var(--leaf-dark); }
   .paste-box.has-img { padding: 0; min-height: 0; border-style: solid; border-color: var(--leaf); }
   .paste-box img { width: 100%; border-radius: 8px; display: block; }
+  .paste-src { position: absolute; top: 6px; right: 6px; background: rgba(63,143,82,.92); color: #fff; font-size: 10.5px; font-weight: 800; padding: 3px 8px; border-radius: 999px; }
   .paste-box.busy { opacity: .5; }
   .grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
   @media (max-width: 720px) { .grid2 { grid-template-columns: 1fr; } }
@@ -491,24 +492,35 @@
 })();
 
 // ── 레퍼런스 이미지 붙여넣기 (R2: comic-assets/hangeul-tree-plan) ──
+// 캐스트는 생활동화(saenghwal-plan)와 동일 → 자체 이미지 없으면 그 저장분을 자동 폴백 표시.
 (async function () {
   var ASSET_API = '/api/comic-assets/hangeul-tree-plan';
-  var assets = {};
+  var assets = {}, saeng = {};
   try { var r = await fetch(ASSET_API); var j = await r.json(); assets = (j && j.data) || {}; } catch (e) {}
+  try { var rs = await fetch('/api/comic-assets/saenghwal-plan'); var js = await rs.json(); saeng = (js && js.data) || {}; } catch (e) {}
   function createPasteBox(key) {
     var box = document.createElement('div');
     box.className = 'paste-box'; box.tabIndex = 0;
     var hint = '🖼️ 클릭 후 Ctrl+V — 확정 레퍼런스 시트 붙여넣기';
-    function reset() { box.classList.remove('has-img'); box.innerHTML = ''; box.textContent = hint; }
-    function setImg(url) {
+    var fallback = saeng[key.replace(/^cast-/, '')]; // cast-hori → hori 등
+    function reset() {
+      box.classList.remove('has-img'); box.innerHTML = '';
+      if (fallback) setImg(fallback + '?t=' + Date.now(), true); else box.textContent = hint;
+    }
+    function setImg(url, isFallback) {
       box.classList.add('has-img');
-      box.innerHTML = '<img src="' + url + '" alt="" /><button type="button" class="paste-del">✕</button>';
-      box.querySelector('.paste-del').addEventListener('click', async function (e) {
+      box.innerHTML = '<img src="' + url + '" alt="" />' +
+        (isFallback ? '<span class="paste-src" title="생활동화 저장분 재사용">🧶 생활동화</span>'
+                    : '<button type="button" class="paste-del">✕</button>');
+      var del = box.querySelector('.paste-del');
+      if (del) del.addEventListener('click', async function (e) {
         e.stopPropagation(); if (!confirm('이 이미지를 삭제할까요?')) return;
         try { await fetch(ASSET_API + '/' + key, { method: 'DELETE' }); reset(); } catch (err) { alert('삭제 실패 — 서버(3500) 확인'); }
       });
     }
-    if (assets[key]) setImg(assets[key] + '?t=' + Date.now()); else box.textContent = hint;
+    if (assets[key]) setImg(assets[key] + '?t=' + Date.now());
+    else if (fallback) setImg(fallback + '?t=' + Date.now(), true);
+    else box.textContent = hint;
     async function upload(file) {
       if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type)) return;
       box.classList.add('busy');

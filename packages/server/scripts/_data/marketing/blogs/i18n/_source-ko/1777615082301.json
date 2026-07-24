@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777615082301",
+  "seo_title": "캥거루 특징과 주머니 육아의 비밀 — 자연관찰 그림책",
+  "meta_description": "캥거루가 배의 주머니에서 새끼를 키우는 유대류라는 사실과 강한 뒷다리 점프 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "primary_keyword": "캥거루",
+  "secondary_keywords": [
+    "캥거루 특징",
+    "캥거루 주머니",
+    "유대류",
+    "유아 자연관찰 책",
+    "동물 그림책"
+  ],
+  "url_slug": "kangaroo-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "캥거루 - 캥거루, 어떤 점이 신기할까요?",
+        "url": "https://assets.tangobook.co.kr/1777615082301-%EC%BA%A5%EA%B1%B0%EB%A3%A8-cover-misc-1780033772059.webp",
+        "text": "<h2>캥거루, 어떤 점이 신기할까요?</h2><p>배에 <strong>주머니</strong>를 단 <strong>캥거루</strong>는 새끼를 주머니에서 키우는 신기한 동물이에요. 폴짝폴짝 뛰는 모습도 정말 재미있지요.</p>",
+        "caption": "주머니 동물",
+        "image_style": "",
+        "image_prompt": "A kangaroo with a joey in its pouch, cute children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "캥거루 - 캥거루의 자연·과학 사실",
+        "url": "https://assets.tangobook.co.kr/1777615082301-%EC%BA%A5%EA%B1%B0%EB%A3%A8-illustration-page1-1784171099982.webp",
+        "text": "<h2>캥거루의 자연·과학 사실</h2><p>캥거루는 배의 주머니에서 새끼를 키우는 <strong>유대류</strong>예요. 새끼(조이)는 아주 작게 태어나 <strong>엄마 주머니 속에서 젖을 먹으며</strong> 안전하게 자라지요. 걷는 대신 <strong>강한 뒷다리로 폴짝폴짝 뛰어</strong> 빠르게 멀리 이동하고, 굵고 긴 꼬리로 균형을 잡아요. 풀을 먹는 초식 동물로 무리 지어 살며, <strong>오스트레일리아(호주)를 대표하는 동물</strong>입니다.</p>",
+        "caption": "주머니 육아",
+        "image_style": "",
+        "image_prompt": "A baby joey peeking out from the pouch, heartwarming children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "캥거루 - 탱고북 «캥거루»이 다루는 내용",
+        "url": "https://assets.tangobook.co.kr/1777615082301-%EC%BA%A5%EA%B1%B0%EB%A3%A8-illustration-page5-1784171117688.webp",
+        "text": "<h2>탱고북 «캥거루»이 다루는 내용</h2><p>탱고북 «캥거루»는 주머니 속 새끼, 강한 뒷다리로 뛰는 모습, 균형을 잡는 긴 꼬리, 무리 지어 사는 캥거루를 정겹게 보여 줍니다.</p>",
+        "caption": "강한 뒷다리 점프",
+        "image_style": "",
+        "image_prompt": "A kangaroo hopping with strong hind legs, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "캥거루 - 함께 관찰하면 좋은 포인트",
+        "url": "https://assets.tangobook.co.kr/1777615082301-%EC%BA%A5%EA%B1%B0%EB%A3%A8-illustration-page10-1784171475691.webp",
+        "text": "<h2>함께 관찰하면 좋은 포인트</h2><p>주머니 육아(유대류), 점프(뒷다리), 긴 꼬리(균형), 호주 같은 포인트를 짚어 주세요. \"캥거루는 왜 뛰어다닐까?\"를 함께 이야기하면 좋습니다.</p>",
+        "caption": "관찰 포인트",
+        "image_style": "",
+        "image_prompt": "A close-up of a kangaroo strong tail, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "캥거루 - 부모 가이드 — 호기심을 키우는 법",
+        "url": "https://assets.tangobook.co.kr/1777615082301-%EC%BA%A5%EA%B1%B0%EB%A3%A8-illustration-page14-1784171928814.webp",
+        "text": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>폴짝폴짝 점프 놀이를 하며 \"캥거루처럼!\"을 흉내 내 보세요. \"주머니에서 새끼를 키워(유대류)\"를 알려 주고, 지도에서 호주를 찾으면 흥미가 커집니다.</p>",
+        "caption": "점프 놀이",
+        "image_style": "",
+        "image_prompt": "A parent and child hopping like kangaroos, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 캥거루는 새끼를 어떻게 키우나요?</strong><br>A. 배의 주머니에서 키웁니다. 아주 작게 태어난 새끼(조이)가 주머니 속에서 젖을 먹으며 자라요.</p><p><strong>Q. 캥거루는 왜 뛰어다니나요?</strong><br>A. 강한 뒷다리로 폴짝폴짝 뛰어 빠르게 멀리 이동합니다. 긴 꼬리로 균형을 잡아요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 점프 놀이 흉내, \"주머니 육아=유대류\" 알기, 지도에서 호주 찾기가 좋습니다.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>함께 읽으면 좋은 명작 동화</h2><p>이 동화를 재미있게 읽었다면 이런 <strong>명작 동화</strong>도 함께 읽어 보세요.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">강아지</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">강아지풀</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">개구리</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">개미</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "캥거루 그림책 삽화",
+        "url": "https://assets.tangobook.co.kr/1777615082301-%EC%BA%A5%EA%B1%B0%EB%A3%A8-illustration-page18-1784171514098.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">「캥거루」가 궁금하신가요?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">아름다운 그림과 한국어·영어 음성으로 탱고북에서 직접 만나보세요.</p><a href=\"https://tangobook.co.kr/library/1777615082301\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 동화책 보러가기 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

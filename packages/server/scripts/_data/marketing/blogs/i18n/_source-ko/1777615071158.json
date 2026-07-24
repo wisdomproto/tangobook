@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777615071158",
+  "seo_title": "판다 특징과 대나무·가짜 엄지의 비밀 — 자연관찰 그림책",
+  "meta_description": "판다가 곰인데 거의 대나무만 먹는 이유와 가짜 엄지, 멸종 위기 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "primary_keyword": "판다",
+  "secondary_keywords": [
+    "판다 특징",
+    "판다 대나무",
+    "판다 보호",
+    "유아 자연관찰 책",
+    "동물 그림책"
+  ],
+  "url_slug": "panda-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "판다 - 판다, 어떤 점이 신기할까요?",
+        "url": "https://assets.tangobook.co.kr/1777615071158-%ED%8C%90%EB%8B%A4-cover-misc-1780033784696.webp",
+        "text": "<h2>판다, 어떤 점이 신기할까요?</h2><p>검고 흰 무늬가 귀여운 <strong>판다</strong>는 곰의 한 종류이지만 거의 <strong>대나무만</strong> 먹고 사는 신기한 동물이에요.</p><p data-seo-boost=\"1\">판다 특징, 판다 대나무, 판다 보호 등 판다에 대한 다양한 이야기를 함께 담았습니다.</p>",
+        "caption": "대나무를 먹는 곰",
+        "image_style": "",
+        "image_prompt": "A panda eating bamboo, cute children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "판다 - 판다의 자연·과학 사실",
+        "url": "https://assets.tangobook.co.kr/1777615071158-%ED%8C%90%EB%8B%A4-illustration-page1-1784173069189.webp",
+        "text": "<h2>판다의 자연·과학 사실</h2><p>판다(대왕판다)는 곰이지만 거의 대나무만 먹어요. 대나무는 영양이 적어 <strong>하루 중 아주 많은 시간을 먹는 데</strong> 쓰지요. 앞발엔 손목뼈가 변한 <strong>\"가짜 엄지\"</strong>가 있어 대나무를 손으로 쥐듯 잡고 먹어요. 검고 흰 무늬는 눈 덮인 산과 그늘에서 몸을 숨기는 데 도움이 된다고 알려져 있어요. 새끼는 아주 작게 태어나 엄마의 보살핌으로 자라고, <strong>수가 적어 보호받는 멸종 위기 동물</strong>이자 자연 보호의 상징입니다.</p>",
+        "caption": "대나무를 쥐는 비밀",
+        "image_style": "",
+        "image_prompt": "A close-up of panda paw holding bamboo with a fake thumb, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "판다 - 탱고북 «판다»이 다루는 내용",
+        "url": "https://assets.tangobook.co.kr/1777615071158-%ED%8C%90%EB%8B%A4-illustration-page5-1784173080391.webp",
+        "text": "<h2>탱고북 «판다»이 다루는 내용</h2><p>탱고북 «판다»는 대나무를 쥐고 먹는 모습, 가짜 엄지, 검고 흰 무늬, 새끼를 돌보는 엄마 판다를 정겹게 보여 줍니다.</p>",
+        "caption": "작게 태어나는 새끼",
+        "image_style": "",
+        "image_prompt": "A mother panda with a tiny cub, heartwarming children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "판다 - 함께 관찰하면 좋은 포인트",
+        "url": "https://assets.tangobook.co.kr/1777615071158-%ED%8C%90%EB%8B%A4-illustration-page10-1784173250378.webp",
+        "text": "<h2>함께 관찰하면 좋은 포인트</h2><p>곰인데 대나무, 가짜 엄지, 흑백 무늬, 멸종 위기 같은 포인트를 짚어 주세요. \"곰인데 왜 대나무만 먹을까?\"를 함께 이야기하면 좋습니다.</p>",
+        "caption": "관찰 포인트",
+        "image_style": "",
+        "image_prompt": "A close-up of panda black and white pattern, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "판다 - 부모 가이드 — 호기심을 키우는 법",
+        "url": "https://assets.tangobook.co.kr/1777615071158-%ED%8C%90%EB%8B%A4-illustration-page14-1784173265789.webp",
+        "text": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"손목뼈가 변한 가짜 엄지로 대나무를 잡아\"를 우리 엄지와 비교해 보세요. \"자연 보호의 상징\"이라는 점을 이야기하면 생명을 아끼는 마음이 자랍니다.</p>",
+        "caption": "엄지 비교",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing thumbs while looking at a panda, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 판다는 곰인데 왜 대나무만 먹나요?</strong><br>A. 곰의 한 종류이지만 거의 대나무만 먹습니다. 영양이 적어 하루 대부분을 먹는 데 써요.</p><p><strong>Q. 가짜 엄지가 뭔가요?</strong><br>A. 손목뼈가 변한 부분으로, 대나무를 손으로 쥐듯 잡고 먹는 데 씁니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 우리 엄지와 가짜 엄지 비교, \"자연 보호의 상징\" 이야기가 좋습니다.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>함께 읽으면 좋은 명작 동화</h2><p>이 동화를 재미있게 읽었다면 이런 <strong>명작 동화</strong>도 함께 읽어 보세요.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">강아지</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">강아지풀</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">개구리</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">개미</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "판다 그림책 삽화",
+        "url": "https://assets.tangobook.co.kr/1777615071158-%ED%8C%90%EB%8B%A4-illustration-page18-1784173537838.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">「판다」가 궁금하신가요?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">아름다운 그림과 한국어·영어 음성으로 탱고북에서 직접 만나보세요.</p><a href=\"https://tangobook.co.kr/library/1777615071158\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 동화책 보러가기 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

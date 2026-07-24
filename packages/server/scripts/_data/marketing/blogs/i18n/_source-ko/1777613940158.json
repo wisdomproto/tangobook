@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777613940158",
+  "seo_title": "흰동가리 특징과 말미잘 공생의 비밀 — 자연관찰 그림책",
+  "meta_description": "흰동가리가 독을 가진 말미잘 속에서 안전하게 사는 공생의 비밀 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "primary_keyword": "흰동가리",
+  "secondary_keywords": [
+    "흰동가리 특징",
+    "흰동가리 말미잘",
+    "바다 공생",
+    "유아 자연관찰 책",
+    "바다 동물 그림책"
+  ],
+  "url_slug": "clownfish-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "흰동가리 - 흰동가리, 어떤 점이 신기할까요?",
+        "url": "https://assets.tangobook.co.kr/1777613940158-%ED%9D%B0%EB%8F%99%EA%B0%80%EB%A6%AC-cover-misc-1779418418792.webp",
+        "text": "<h2>흰동가리, 어떤 점이 신기할까요?</h2><p>주황 바탕에 하얀 줄무늬가 멋진 <strong>흰동가리</strong>는 애니메이션 주인공으로도 유명한 작은 바닷물고기예요. 사는 곳이 정말 신기하답니다.</p><p data-seo-boost=\"1\">흰동가리 특징, 흰동가리 말미잘, 바다 공생 등 흰동가리에 대한 다양한 이야기를 함께 담았습니다.</p>",
+        "caption": "말미잘 속 친구",
+        "image_style": "",
+        "image_prompt": "A clownfish among sea anemone tentacles, vivid children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "흰동가리 - 흰동가리의 자연·과학 사실",
+        "url": "https://assets.tangobook.co.kr/1777613940158-%EB%A7%90%EB%AF%B8%EC%9E%98%EC%9D%98%EC%B9%9C%EA%B5%AC%EC%9A%A9%EA%B0%90%ED%95%9C%ED%9D%B0%EB%8F%99%EA%B0%80%EB%A6%AC-illustration-page1-1773408259152.webp",
+        "text": "<h2>흰동가리의 자연·과학 사실</h2><p>흰동가리의 가장 신기한 점은 따끔한 독을 가진 <strong>말미잘 속에서 산다</strong>는 거예요. 다른 물고기는 말미잘 촉수에 쏘이지만, 흰동가리는 <strong>몸을 덮은 특별한 점액 덕분에 쏘이지 않아</strong> 그 안에서 천적을 피하지요. 대신 흰동가리는 말미잘 주변을 깨끗이 하고 먹이를 나눠, <strong>서로 돕는 공생 관계</strong>를 맺어요. \"함께 살며 서로 돕는\" 자연의 지혜를 보여 주는 친구입니다.</p>",
+        "caption": "쏘이지 않는 비밀",
+        "image_style": "",
+        "image_prompt": "A clownfish safe inside a stinging anemone, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "흰동가리 - 탱고북 «흰동가리»이 다루는 내용",
+        "url": "https://assets.tangobook.co.kr/1777613940158-%EB%A7%90%EB%AF%B8%EC%9E%98%EC%9D%98%EC%B9%9C%EA%B5%AC%EC%9A%A9%EA%B0%90%ED%95%9C%ED%9D%B0%EB%8F%99%EA%B0%80%EB%A6%AC-illustration-page5-1773408270990.webp",
+        "text": "<h2>탱고북 «흰동가리»이 다루는 내용</h2><p>탱고북 «흰동가리»는 말미잘 속에서 노는 모습, 쏘이지 않는 비밀, 서로 돕는 공생, 알록달록한 줄무늬를 정겹게 보여 줍니다.</p>",
+        "caption": "공생 관계",
+        "image_style": "",
+        "image_prompt": "A clownfish cleaning around its anemone home, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "흰동가리 - 함께 관찰하면 좋은 포인트",
+        "url": "https://assets.tangobook.co.kr/1777613940158-%EB%A7%90%EB%AF%B8%EC%9E%98%EC%9D%98%EC%B9%9C%EA%B5%AC%EC%9A%A9%EA%B0%90%ED%95%9C%ED%9D%B0%EB%8F%99%EA%B0%80%EB%A6%AC-illustration-page10-1773408376137.webp",
+        "text": "<h2>함께 관찰하면 좋은 포인트</h2><p>말미잘 공생, 특별한 점액(안 쏘임), 서로 돕기, 줄무늬 같은 포인트를 짚어 주세요. \"흰동가리는 왜 말미잘 속에 살까?\"를 함께 이야기하면 좋습니다.</p>",
+        "caption": "관찰 포인트",
+        "image_style": "",
+        "image_prompt": "A close-up of clownfish orange and white stripes, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "흰동가리 - 부모 가이드 — 호기심을 키우는 법",
+        "url": "https://assets.tangobook.co.kr/1777613940158-%EB%A7%90%EB%AF%B8%EC%9E%98%EC%9D%98%EC%B9%9C%EA%B5%AC%EC%9A%A9%EA%B0%90%ED%95%9C%ED%9D%B0%EB%8F%99%EA%B0%80%EB%A6%AC-illustration-page14-1773408521406.webp",
+        "text": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"서로 도우며 함께 사는 것=공생\"을 [[꿀벌]]과 꽃의 관계처럼 이야기해 보세요. 수족관에서 말미잘 속 흰동가리를 관찰하면 흥미가 커집니다.</p>",
+        "caption": "수족관 관찰",
+        "image_style": "",
+        "image_prompt": "A parent and child watching clownfish at an aquarium, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 흰동가리는 왜 말미잘에 안 쏘이나요?</strong><br>A. 몸을 덮은 특별한 점액 덕분입니다. 그래서 독을 가진 말미잘 속에서도 안전하게 지내요.</p><p><strong>Q. 공생이 뭔가요?</strong><br>A. 서로 도움을 주고받으며 함께 사는 것입니다. 흰동가리와 말미잘이 대표적인 예예요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 꿀벌과 꽃의 관계로 공생 설명, 수족관에서 말미잘 속 관찰이 좋습니다.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>함께 읽으면 좋은 명작 동화</h2><p>이 동화를 재미있게 읽었다면 이런 <strong>명작 동화</strong>도 함께 읽어 보세요.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">강아지</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">강아지풀</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">개구리</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">개미</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "흰동가리 그림책 삽화",
+        "url": "https://assets.tangobook.co.kr/1777613940158-%EB%A7%90%EB%AF%B8%EC%9E%98%EC%9D%98%EC%B9%9C%EA%B5%AC%EC%9A%A9%EA%B0%90%ED%95%9C%ED%9D%B0%EB%8F%99%EA%B0%80%EB%A6%AC-illustration-page18-1773408530701.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">「흰동가리」가 궁금하신가요?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">아름다운 그림과 한국어·영어 음성으로 탱고북에서 직접 만나보세요.</p><a href=\"https://tangobook.co.kr/library/1777613940158\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 동화책 보러가기 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

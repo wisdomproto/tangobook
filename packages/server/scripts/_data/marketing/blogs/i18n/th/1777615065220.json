@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777615065220",
+  "seo_title": "ลักษณะเด่นของลิงและความลับของมือและหาง — หนังสือนิทานสำรวจธรรมชาติ",
+  "meta_description": "ข้อเท็จจริงน่าทึ่งเกี่ยวกับลิง เช่น มือเท้าที่คล้ายมนุษย์ หางที่ใช้จับสิ่งของ และการอยู่รวมกันเป็นฝูง เนื้อหาจากหนังสือนิทานสังเกตธรรมชาติ Tango Book รวมถึงวิธีการสังเกตด้วย เหมาะสำหรับไกด์นำเที่ยวธรรมชาติสำหรับเด็กวัย 4-7 ปี",
+  "primary_keyword": "ลิง",
+  "secondary_keywords": [
+    "ลักษณะของลิง",
+    "หางลิง",
+    "ระบบนิเวศของลิง",
+    "หนังสือสังเกตธรรมชาติสำหรับเด็กเล็ก",
+    "หนังสือนิทานภาพสัตว์"
+  ],
+  "url_slug": "monkey-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "ลิง - ลิง มีอะไรที่น่าสนใจบ้างนะ?",
+        "url": "https://assets.tangobook.co.kr/1777615065220-%EC%9B%90%EC%88%AD%EC%9D%B4-cover-misc-1780033841905.webp",
+        "text": "<h2>ลิง มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>ที่มีลักษณะคล้ายมนุษย์มากมาย <strong>ลิง</strong>เป็นสัตว์ที่ฉลาดและปีนต้นไม้เก่ง การใช้มือและหางของพวกมันดูสนุกมากเลยค่ะ</p><p data-seo-boost=\"1\">เราได้รวบรวมเรื่องราวที่หลากหลายเกี่ยวกับลิง ไม่ว่าจะเป็นลักษณะของลิง หางลิง หรือนิเวศวิทยาของลิงมาให้คุณพ่อคุณแม่แล้วค่ะ</p>",
+        "caption": "ลิงที่กำลังปีนต้นไม้",
+        "image_style": "",
+        "image_prompt": "A monkey climbing a tree, lively children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "ลิง - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของลิง",
+        "url": "https://assets.tangobook.co.kr/1777615065220-%EC%9B%90%EC%88%AD%EC%9D%B4-illustration-page1-1784177236038.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของลิง</h2><p>ลิงเหมือนกับมนุษย์ <strong>มือและเท้าที่สามารถจับสิ่งของได้</strong>ใช้ปีนป่ายต้นไม้เก่งและหยิบอาหารกิน ลิงบางตัว <strong>หางที่สามารถพันรอบสิ่งของได้เหมือนมือ (หางจับ)</strong>สามารถห้อยตัวจากกิ่งไม้ได้ด้วยนะ พวกมันเป็นสัตว์ที่มีสังคมสูง อาศัยอยู่รวมกันเป็นกลุ่ม และสื่อสารความรู้สึกด้วยสีหน้าและเสียงที่หลากหลาย กินผลไม้ ใบไม้ และแมลง และ <strong>ช่วยกันเล็มขนให้กันและกัน</strong> สร้างมิตรภาพให้แก่กัน</p>",
+        "caption": "มือที่เหมือนมนุษย์",
+        "image_style": "",
+        "image_prompt": "A monkey gripping food with its hand, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "ลิง - หนังสือแทงโกบุ๊ก เนื้อหาเกี่ยวกับ \"ลิง\"",
+        "url": "https://assets.tangobook.co.kr/1777615065220-%EC%9B%90%EC%88%AD%EC%9D%B4-illustration-page5-1784177247026.webp",
+        "text": "<h2>เนื้อหาที่หนังสือทังโกบุ๊ก \"ลิง\" นำเสนอ</h2><p>หนังสือทังโกบุ๊ก \"ลิง\" แสดงให้เห็นภาพการปีนต้นไม้ด้วยมือและเท้า การห้อยตัวด้วยหาง ชีวิตในฝูง และลิงที่กำลังเล็มขนซึ่งกันและกันอย่างอบอุ่น</p>",
+        "caption": "หางที่จับสิ่งของ",
+        "image_style": "",
+        "image_prompt": "A monkey hanging from a branch by its tail, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "ลิง - จุดที่ควรสังเกตพร้อมกัน",
+        "url": "https://assets.tangobook.co.kr/1777615065220-%EC%9B%90%EC%88%AD%EC%9D%B4-illustration-page10-1784177265201.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>ให้ชี้จุดต่างๆ เช่น มือเท้าที่จับได้ หางที่เกาะ กลุ่มสัตว์และสีหน้า การดูแลขน เป็นต้น และการพูดคุยกันว่า \"ลิงมีอะไรคล้ายกับมนุษย์บ้างนะ?\" จะเป็นเรื่องที่ดีค่ะ/ครับ</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "Monkeys grooming each other, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "ลิง - คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777615065220-%EC%9B%90%EC%88%AD%EC%9D%B4-illustration-page14-1784177286269.webp",
+        "text": "<h2>คู่มือผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ลองเปรียบเทียบประโยคที่ว่า \"การจับสิ่งของด้วยมือเหมือนกับเรานะ\" เมื่อดูวิดีโอสัตว์ห้อยตัวด้วยหาง และภาพที่พวกมันเล็มขนให้กัน ควรเชื่อมโยงกับการ \"ดูแลเพื่อน\" จะเป็นประโยชน์มาก</p>",
+        "caption": "การเปรียบเทียบมือ",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing hands with a monkey, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ลิงมีความคล้ายกับมนุษย์ในด้านใดบ้างคะ?</strong><br>ตอบ: พวกมันมีมือและเท้าที่สามารถจับสิ่งของได้ และยังคล้ายกันในการสื่อสารด้วยสีหน้าและเสียงเมื่ออยู่รวมกลุ่มค่ะ</p><p><strong>ถาม: พวกมันใช้หางทำอะไรคะ?</strong><br>ตอบ: ลิงบางชนิดสามารถห้อยตัวจากกิ่งไม้ได้ด้วยหางที่พันรอบสิ่งของเหมือนมือ (หางจับ) ค่ะ</p><p><strong>ถาม: เราจะสังเกตที่บ้านได้อย่างไรดีคะ?</strong><br>ตอบ: การเปรียบเทียบมือ การดูวิดีโอห้อยตัวด้วยหาง และการแปรงขน สามารถเชื่อมโยงกับการ \"ดูแลเพื่อน\" ได้ดีค่ะ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณอ่านนิทานเรื่องนี้แล้วสนุกแบบนี้ ลองดู <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบนิทานเรื่องลิง",
+        "url": "https://assets.tangobook.co.kr/1777615065220-%EC%9B%90%EC%88%AD%EC%9D%B4-illustration-page18-1784177298881.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"ลิง\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้ด้วยตัวคุณเองที่แทงโกบุ๊ก ด้วยภาพสวย ๆ และเสียงภาษาเกาหลี/อังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1777615065220\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

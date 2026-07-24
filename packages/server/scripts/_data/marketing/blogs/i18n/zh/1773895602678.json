@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773895602678",
+  "seo_title": "帕基开颅龙特征 — 冲撞恐龙自然观察绘本",
+  "meta_description": "关于拥有厚度25厘米坚硬穹顶头骨的鸭齿龙（Pachycephalosaurus）等奇妙特征和令人惊叹的事实，以及《Tango Book》恐龙绘本的内容、如何享受阅读。4-7岁恐龙指南。",
+  "primary_keyword": "包头龙",
+  "secondary_keywords": ["钝头龙", "冲撞的恐龙", "厚头的恐龙", "儿童恐龙书", "恐龙绘本"],
+  "url_slug": "pachycephalosaurus-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "帕基开颅龙 - 帕基开颅龙，哪些地方会让人感到新奇呢？",
+        "url": "https://assets.tangobook.co.kr/1773895602678-%ED%8C%8C%ED%82%A4%EC%BC%80%ED%8C%94%EB%A1%9C%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-cover-misc-1780038213492.webp",
+        "text": "<h2>鸭齿龙，哪些地方会让人感到神奇呢？</h2><p>有着厚实而圆润的头部 <strong>鸭齿龙</strong>是一个意思是“厚头蜥蜴”的恐龙。它可能曾经用头部炫耀过自己的力量哦。</p>",
+        "caption": "撞头恐龙",
+        "image_style": "",
+        "image_prompt": "A Pachycephalosaurus with a thick domed head, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "帕基开颅龙 - 关于帕基开颅龙的自然和科学事实",
+        "url": "https://assets.tangobook.co.kr/1773895602678-%EB%A8%B8%EB%A6%AC%EC%97%90%EB%8B%A8%EB%8B%A8%ED%95%9C%EB%8F%94%EC%9D%84%EA%B0%80%EC%A7%84%EA%B3%B5%EB%A3%A1%ED%8C%8C%ED%82%A4%EC%BC%80%ED%8C%94%EB%A1%9C%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page1-1773895713012.webp",
+        "text": "<h2>パキ基龙的自然和科学事实</h2><p>パキ基龙大约生活在6600万年前的北美。头骨 <strong>穹顶厚度最大可达25厘米</strong>虽然变大了，但大脑的尺寸 <strong>只有鸡蛋那么大</strong> 就是这样。以前人们认为它们是直接用头撞击的，但是 <strong>最近的研究认为，它们可能是用身体或肩膀推搡来炫耀力量</strong>的可能性更大。头围周围的小突起也是它们的特征哦。</p>",
+        "caption": "厚度 25cm 的圆顶",
+        "image_style": "",
+        "image_prompt": "A close-up of the thick skull dome, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "帕基克头骨龙 - 探戈书《帕基克头骨龙》所涵盖的内容",
+        "url": "https://assets.tangobook.co.kr/1773895602678-%EB%A8%B8%EB%A6%AC%EC%97%90%EB%8B%A8%EB%8B%A8%ED%95%9C%EB%8F%94%EC%9D%84%EA%B0%80%EC%A7%84%EA%B3%B5%EB%A3%A1%ED%8C%8C%ED%82%A4%EC%BC%80%ED%8C%94%EB%A1%9C%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page6-1774425686121.webp",
+        "text": "<h2>《Tango Book》讲述的“厚头龙”的内容</h2><p>《Tango Book》生动地展示了厚头龙，包括其厚实圆润的头部、头部的环状突起，以及它们互相推搡和比拼力量的场景等冲撞恐龙。</p>",
+        "caption": "推搡并逞强",
+        "image_style": "",
+        "image_prompt": "Two Pachycephalosaurus shoving each other with their bodies, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "帕基克角龙——值得一起了解的知识点",
+        "url": "https://assets.tangobook.co.kr/1773895602678-%EB%A8%B8%EB%A6%AC%EC%97%90%EB%8B%A8%EB%8B%A8%ED%95%9C%EB%8F%94%EC%9D%84%EA%B0%80%EC%A7%84%EA%B3%B5%EB%A3%A1%ED%8C%8C%ED%82%A4%EC%BC%80%ED%8C%94%EB%A1%9C%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page10-1773896142183.webp",
+        "text": "<h2>可以一起了解的重点</h2><p>请指出像厚穹顶头（25厘米）、小脑（鸡蛋状）、推搡（炫耀力量）或头部突起这样的重点。一起聊聊“他/她是不是真的撞到头了？”会很好。</p>",
+        "caption": "观察点",
+        "image_style": "",
+        "image_prompt": "A close-up of the small bumps around the head, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "帕基开颅龙 - 家长指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1773895602678-%EB%A8%B8%EB%A6%AC%EC%97%90%EB%8B%A8%EB%8B%A8%ED%95%9C%EB%8F%94%EC%9D%84%EA%B0%80%EC%A7%84%EA%B3%B5%EB%A3%A1%ED%8C%8C%ED%82%A4%EC%BC%80%ED%8C%94%EB%A1%9C%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page15-1773896168411.webp",
+        "text": "<h2>父母指南 — 如何培养好奇心</h2><p>引导孩子推理“他们是如何用坚硬的头颅战斗的？”并将其与山羊冲撞的视频进行比较。将厚实的头部比作头盔的坚固程度来解释，能让孩子更容易理解。</p>",
+        "caption": "硬度比较",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing a helmet and a domed dinosaur head, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>Q. パキケファロサウルス的头有多厚？</strong><br>A. 头骨穹顶的厚度最大可达25厘米。但大脑却只有鸡蛋那么大。</p><p><strong>Q. 它真的会用头撞击吗？</strong><br>A. 最近的研究认为，它展示力量的方式可能更多是通过用身体和肩膀推搡，而不是直接用头撞击。</p><p><strong>Q. 在家里怎样才能玩得开心呢？</strong><br>A. 可以将它厚实的头骨与山羊的撞击视频或头盔进行比较来解释。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "帕基开颅龙绘本插图",
+        "url": "https://assets.tangobook.co.kr/1773895602678-%EB%A8%B8%EB%A6%AC%EC%97%90%EB%8B%A8%EB%8B%A8%ED%95%9C%EB%8F%94%EC%9D%84%EA%B0%80%EC%A7%84%EA%B3%B5%EB%A3%A1%ED%8C%8C%ED%82%A4%EC%BC%80%ED%8C%94%EB%A1%9C%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page19-1774358701066.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“厚顶龙”感兴趣吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用精美的图画和韩语·英语语音亲自了解它吧。</p><a href=\"https://tangobook.co.kr/library/1773895602678\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777601011770",
+  "seo_title": "หนังสือนิทานนกแก้ว — ความลับของการเลียนแบบคำพูด (การสังเกตธรรมชาติสำหรับเด็กวัย 4-7 ขวบ)",
+  "meta_description": "เหตุผลที่นกแก้วเลียนแบบเสียงมนุษย์และความฉลาดของมัน ข้อเท็จจริงมหัศจรรย์ เช่น เท้าที่ใช้เหมือนมือ เนื้อหาจากหนังสือนิทานสังเกตธรรมชาติของ Tango Book รวมถึงวิธีการสังเกตด้วย คู่มือการสังเกตธรรมชาติสำหรับเด็กอายุ 4-7 ปี",
+  "primary_keyword": "นกแก้วหนังสือนิทาน",
+  "secondary_keywords": [
+    "ลักษณะเด่นของนกแก้ว",
+    "นกแก้วพูด",
+    "นิเวศของนกแก้ว",
+    "หนังสือสำหรับเด็กเล็กเกี่ยวกับการสังเกตธรรมชาติ",
+    "หนังสือภาพเรื่องนก"
+  ],
+  "url_slug": "parrot-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "นกแก้ว - มีอะไรที่น่าทึ่งเกี่ยวกับนกแก้วบ้างนะ?",
+        "url": "https://assets.tangobook.co.kr/1777601011770-%EC%95%B5%EB%AC%B4%EC%83%88-cover-misc-1780026625859.webp",
+        "text": "<h2>นกแก้ว มีอะไรน่าทึ่งบ้างนะ?</h2><p>สีสันสวยงามน่ารัก <strong>นกแก้ว</strong>เป็นนกที่ฉลาดและเข้าสังคมเก่ง ที่สามารถเลียนแบบคำพูดของมนุษย์ได้ คุณสงสัยไหมว่ามันทำได้อย่างไร</p><p data-seo-boost=\"1\">เราได้รวบรวมเรื่องราวต่างๆ เกี่ยวกับนกแก้ว ทั้งลักษณะเด่น คำพูด และระบบนิเวศของมันไว้ด้วยกัน</p>",
+        "caption": "นกที่ฉลาด",
+        "image_style": "",
+        "image_prompt": "A colorful parrot perched on a branch, vivid children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "นกแก้ว - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของนกแก้ว",
+        "url": "https://assets.tangobook.co.kr/1777601011770-%EC%95%8C%EB%A1%9D%EB%8B%AC%EB%A1%9D%EB%A7%90%ED%95%98%EB%8A%94%EC%9E%AC%EC%A3%BC%EA%BE%BC%EC%95%B5%EB%AC%B4%EC%83%88-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page1-1777601133275.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของนกแก้ว</h2><p>การที่นกแก้วเลียนแบบคำพูดของมนุษย์นั้น <strong>ไม่ใช่เพราะเข้าใจความหมาย แต่เป็นนิสัยที่ต้องการสื่อสารกับฝูงด้วยเสียง</strong>มันมาจาก... โดยการใช้จะงอยปากที่โค้งและแข็งเพื่อทุบเมล็ดพืชที่แข็ง และ <strong>นิ้วเท้าที่แยกออกเป็นสองข้างหน้าและสองข้างหลัง จับอาหารได้เหมือนมือเลยค่ะ</strong>เป็นนกที่อ่อนโยน สามารถจดจำกันได้ด้วยขนนกหลากสี และอยู่ร่วมกับคู่ของหลายสายพันธุ์ได้อย่างมีความสุขในระยะยาวค่ะ</p>",
+        "caption": "เท้าที่ใช้งานได้เหมือนมือ",
+        "image_style": "",
+        "image_prompt": "A parrot using its foot to hold food, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "นกแก้ว - ทังโกบุ๊ก เรื่องราวของ «นกแก้ว»",
+        "url": "https://assets.tangobook.co.kr/1777601011770-%EC%95%8C%EB%A1%9D%EB%8B%AC%EB%A1%9D%EB%A7%90%ED%95%98%EB%8A%94%EC%9E%AC%EC%A3%BC%EA%BE%BC%EC%95%B5%EB%AC%B4%EC%83%88-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page5-1777601143455.webp",
+        "text": "<h2>เนื้อหาที่หนังสือ \"นกแก้ว\" ของแทงโกบุ๊กนำเสนอ</h2><p>หนังสือ \"นกแก้ว\" ของแทงโกบุ๊กแสดงให้เห็นถึงขนนกหลากสีสัน, การเลียนแบบคำพูดของมนุษย์, การจับอาหารด้วยเท้า, และภาพนกแก้วที่รักใคร่คู่ของมันอย่างอบอุ่น</p>",
+        "caption": "คู่ที่เข้ากันได้ดี",
+        "image_style": "",
+        "image_prompt": "A pair of parrots sitting close together, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "นกแก้ว - จุดที่ควรสังเกตด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1777601011770-%EC%95%8C%EB%A1%9D%EB%8B%AC%EB%A1%9D%EB%A7%90%ED%95%98%EB%8A%94%EC%9E%AC%EC%A3%BC%EA%BE%BC%EC%95%B5%EB%AC%B4%EC%83%88-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page10-1777601256151.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>ชี้ให้ดูจุดต่างๆ เช่น การเลียนแบบคำพูด (พฤติกรรมการสื่อสาร), จะงอยปากที่แข็งแรง, เท้าที่เหมือนมือ, หรือขนสีสันสวยงาม นอกจากนี้ การพูดคุยกันว่า \"ทำไมนกแก้วถึงชอบเลียนเสียงคน?\" ก็เป็นเรื่องที่ดีค่ะ/ครับ</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A close-up of a parrot curved strong beak, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "นกแก้ว – คู่มือสำหรับผู้ปกครอง – วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777601011770-%EC%95%8C%EB%A1%9D%EB%8B%AC%EB%A1%9D%EB%A7%90%ED%95%98%EB%8A%94%EC%9E%AC%EC%A3%BC%EA%BE%BC%EC%95%B5%EB%AC%B4%EC%83%88-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page14-1777601263842.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>หลังจากดูวิดีโอที่เลียนแบบคำง่ายๆ ให้พูดคุยว่า \"หนูกำลังพยายามเข้ากับเสียงเหมือนเพื่อนเลยนะ\" การเปรียบเทียบการจับอาหารด้วยเท้ากับการใช้มือจะช่วยเพิ่มความสนใจได้</p>",
+        "caption": "การสังเกตการเลียนเสียงพูด",
+        "image_style": "",
+        "image_prompt": "A parent and child talking to a parrot, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ทำไมนกแก้วถึงเลียนแบบคำพูดของมนุษย์ได้คะ?</strong><br>ตอบ: ไม่ใช่เพราะเข้าใจความหมาย แต่เป็นสัญชาตญาณที่ต้องการสื่อสารกับฝูงและด้วยเสียงมากกว่าค่ะ</p><p><strong>ถาม: นกแก้วใช้เท้าทำอะไรได้บ้างคะ?</strong><br>ตอบ: เพราะนิ้วเท้าของมันแยกออกเป็นสองคู่ด้านหน้าและด้านหลัง ทำให้สามารถจับอาหารได้เหมือนมือเลยค่ะ</p><p><strong>ถาม: เราจะสังเกตพวกมันที่บ้านได้อย่างไรดีคะ?</strong><br>ตอบ: แนะนำให้ดูวิดีโอที่นกเลียนแบบคำพูด และเปรียบเทียบการจับอาหารด้วยเท้ากับมือค่ะ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณสนุกกับการอ่านนิทานเรื่องนี้แล้ว ลองดูแบบนี้ <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือภาพนกแก้ว",
+        "url": "https://assets.tangobook.co.kr/1777601011770-%EC%95%8C%EB%A1%9D%EB%8B%AC%EB%A1%9D%EB%A7%90%ED%95%98%EB%8A%94%EC%9E%AC%EC%A3%BC%EA%BE%BC%EC%95%B5%EB%AC%B4%EC%83%88-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page18-1777601284129.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"นกแก้ว\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้ด้วยตัวคุณเองที่ Tango Book ด้วยภาพสวย ๆ และเสียงภาษาเกาหลี/อังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1777601011770\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 세상 탐험 — 우주로 슝</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 세상 탐험 · 시즌1 탈것 #T13</div>
+  <h1>🚀 우주로 슝</h1>
+  <div class="sub">우르릉 소리를 낸 로켓이 궁금한 호리가 우주 센터 발사대에서 엔진·연료·캡슐을 살펴보고 직접 카운트다운까지 외쳐 봐요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 로켓 발견 — 실제 부품·작동을 정확히 (핵심단어: 엔진·연료·캡슐(우주선)·카운트다운) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(호기심·질문쟁이)·아빠(동행 가이드)·콩이(동행 친구, 먹보·엉뚱 비유)·우주비행사 누나(현장 안내자, 단역) &nbsp;·&nbsp;
+  <b>구조</b> 발견 5단계 (궁금→찾아감→살펴봄→해봄→정리) &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🚀 반복 후렴 — "우르릉— 로켓, 우주로 슝!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>궁금(목격)</b> <span class="tag">궁금 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">우르릉— 우르릉! 텔레비전 속에서 새하얗고 커다란 로켓이 꼬리에 불을 뿜으며 하늘 위로 쑥— 올라가요. 호리는 두 눈이 커다래졌어요. "우아, 저 뾰족한 게 하늘을 뚫고 올라가!" 우르릉— 로켓, 우주로 슝!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 거실 텔레비전 속 로켓 발사 장면과 그것을 올려다보는 호리를 함께 담은 컷.<br/><b>장소·시간</b> 호리네 집 거실, 저녁. 아늑한 실내 조명, 텔레비전 화면 빛이 방을 파랗게 물들임.<br/><b>인물</b> Hori(아기 호랑이)는 화면 앞쪽 바닥에 두 무릎을 꿇고 앉아 상체를 화면 쪽으로 바짝 기울인 채, 두 손을 바닥에 짚고 입을 동그랗게 벌려 텔레비전을 올려다봄, 눈이 반짝반짝 놀란 표정.<br/><b>배경·소품</b> 텔레비전 화면 속 새하얀 로켓이 아래로 주황빛 불꽃을 길게 뿜으며 위로 솟구치는 발사 장면, 화면 아래 연기구름, 거실 소파와 쿠션, 바닥 러그.<br/><b>톤</b> 아늑한 실내 조명에 텔레비전의 파란 화면빛이 대비, 처음 보는 광경에 두근거리는 호기심의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>궁금(질문)</b> <span class="tag">궁금</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"아빠, 로켓은 어떻게 저렇게 높이높이 우주까지 올라가요?" 호리가 아빠 무릎을 톡톡 두드리며 물어요. 아빠가 빙긋 웃었어요. "궁금하면 로켓이 사는 우주 센터에 가 볼까? 콩이도 같이!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 소파에 앉은 아빠에게 호리가 다가가 묻는 삼자 컷.<br/><b>장소·시간</b> 호리네 집 거실, 저녁. 실내 조명, 텔레비전은 이제 작은 별 화면.<br/><b>인물</b> Hori는 화면 왼쪽에서 소파에 앉은 Dad tiger의 무릎에 두 손을 얹고 고개를 들어 궁금한 미소로 질문. Dad tiger는 가운데 소파에 앉아 호리에게 눈을 맞추며 한 손으로 창밖 밤하늘을 가리키고 다정하게 웃음. Kongi(아기 다람쥐)는 오른쪽에서 도토리 하나를 손에 쥔 채 볼을 빵빵하게 하고 눈을 반짝이며 신난 표정.<br/><b>배경·소품</b> 소파와 쿠션, 창밖에 뜬 작은 별과 초승달, 텔레비전, 콩이가 든 도토리, 바닥 러그.<br/><b>톤</b> 포근한 실내 조명, 궁금증이 모험 계획으로 바뀌는 설레는 정서, 따뜻한 가족 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>찾아감(발사대 도착)</b> <span class="tag">찾아감</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">넓은 우주 센터 발사대에, 하늘까지 닿을 듯한 새하얀 로켓이 우뚝— 서 있어요. "안녕! 로켓이 궁금해서 왔구나?" 반짝이는 흰색 우주복을 입은 우주비행사 누나가 손을 흔들어요. 호리는 고개를 한껏 젖혀도 로켓 꼭대기가 까마득했어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글. 발사대에 우뚝 선 거대한 로켓을 아래에서 올려다보는 컷.<br/><b>장소·시간</b> 우주 센터 야외 발사대, 맑은 낮. 파란 하늘에 구름 몇 점, 탁 트이고 웅장한 공기.<br/><b>인물</b> Hori는 화면 앞쪽 가운데서 목을 한껏 뒤로 젖혀 로켓 꼭대기를 올려다보며 두 손을 이마에 대고 입을 딱 벌린 놀란 표정. Dad tiger는 호리 뒤에서 어깨에 손을 얹고 함께 올려다봄. Kongi는 왼쪽에서 폴짝 뛰며 로켓을 가리킴. astronaut(우주비행사 누나, 흰 우주복)는 오른쪽 로켓 아래 서서 한 손을 번쩍 들어 반갑게 인사하며 환하게 웃음.<br/><b>배경·소품</b> 발사대에 곧게 선 거대한 새하얀 로켓(맨 아래 엔진 노즐, 몸통, 뾰족한 꼭대기 캡슐), 로켓을 감싼 회색 발사탑 구조물, 바닥의 넓은 콘크리트 발사대, 파란 하늘.<br/><b>톤</b> 환한 대낮 자연광, 하늘을 찌르는 로켓의 웅장하고 든든한 위풍, 까마득한 크기에 압도되는 두근거리는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>살펴봄(엔진)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"로켓이 어떻게 올라가는지 볼까? 여기 맨 아래가 엔진이야." 누나가 로켓 밑동을 가리켜요. "엔진이 불을 아래로 세게 뿜으면, 그 힘으로 로켓이 위로 쑥— 밀려 올라간단다." 호리는 두 손을 아래로 뻗으며 "슝!" 하고 흉내 냈어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 로우앵글. 로켓 맨 아래 엔진 노즐 부분을 올려다보며 살펴보는 컷.<br/><b>장소·시간</b> 발사대 아래, 낮. 밝은 햇살이 로켓 밑동을 비춤.<br/><b>인물</b> astronaut(흰 우주복)는 화면 오른쪽에서 로켓 맨 아래 커다란 엔진 노즐을 한 손으로 가리키며 다정하게 설명. Hori는 가운데서 두 손을 아래로 쭉 뻗고 무릎을 살짝 굽혀 로켓처럼 "위로 밀려 오르는" 흉내를 내며 신난 표정. Kongi는 왼쪽에서 고개를 갸웃하며 엔진을 올려다봄. Dad tiger는 뒤에서 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 로켓 맨 아래의 커다란 종 모양 엔진 노즐 여러 개, 그 위로 이어지는 흰 로켓 몸통, 발사대의 회색 철제 구조물, 바닥 콘크리트.<br/><b>톤</b> 밝은 야외 자연광, 크고 힘센 엔진의 든든함, 원리를 몸으로 따라 하는 즐겁고 신기한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>살펴봄(연료)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"그런데 불은 뭘로 뿜어요?" 호리가 물어요. "로켓 몸통에 커다란 통이 있어. 그 안에 연료가 가득 차 있단다. 엔진이 이 연료를 태워서 불을 뿜는 거야. 로켓은 우주까지 가는 데 필요한 걸 다 싣고 간단다." 콩이가 눈을 동그랗게 떴어요. "우아, 로켓은 밥을 엄청 많이 먹네!" 모두 까르르 웃었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 측면. 로켓 몸통의 커다란 연료 탱크 부분을 올려다보며 설명 듣는 컷.<br/><b>장소·시간</b> 발사대 옆, 낮. 밝은 햇살.<br/><b>인물</b> astronaut는 화면 오른쪽에서 로켓 몸통의 커다란 원통형 연료 탱크를 두 손을 벌려 가리키며 설명하는 미소. Hori는 가운데서 두 손으로 무릎을 짚고 허리를 굽혀 연료 탱크를 올려다보며 "우와" 하는 놀란 표정. Kongi는 왼쪽에서 볼을 빵빵하게 부풀린 채 자기 배를 두 손으로 감싸며 로켓이 밥 먹는다는 엉뚱한 비유에 신난 표정. Dad tiger는 뒤에서 즐겁게 웃음.<br/><b>배경·소품</b> 로켓 몸통을 이루는 커다란 흰색 원통 연료 탱크, 탱크 옆면의 연료 주입 호스와 관, 발사탑 구조물, 파란 하늘.<br/><b>톤</b> 밝은 야외 자연광, 어마어마한 연료 통의 든든함, 콩이의 먹보 비유로 번지는 웃음의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>살펴봄(캡슐·우주선)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"그럼 사람은 어디에 타요?" 누나가 로켓 맨 꼭대기 뾰족한 방을 가리켜요. "저 위 캡슐이 우리가 타는 우주선이야. 우주에는 숨 쉴 공기가 없어서, 우주복을 입고 캡슐 안에서 안전하게 지낸단다." 호리는 저 높은 캡슐을 올려다보며 침을 꼴깍 삼켰어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글. 로켓 맨 꼭대기의 뾰족한 캡슐(우주선)을 까마득히 올려다보는 컷.<br/><b>장소·시간</b> 발사대 아래, 낮. 파란 하늘을 배경으로 로켓 꼭대기가 높이 솟음.<br/><b>인물</b> astronaut는 화면 오른쪽에서 한 팔을 하늘 쪽 캡슐로 쭉 뻗어 가리키며 설명하는 다정한 표정, 다른 손은 자기 우주복 가슴을 톡톡. Hori는 앞쪽 가운데서 목을 한껏 젖혀 캡슐을 올려다보며 두 손을 가슴에 모으고 침을 삼키는 설레는 표정. Kongi는 왼쪽에서 함께 위를 올려다보며 입을 벌림. Dad tiger는 호리 뒤에서 어깨를 감싸 줌.<br/><b>배경·소품</b> 로켓 맨 꼭대기의 뾰족한 원뿔 캡슐(작은 창문이 보임), 그 아래로 이어지는 흰 로켓 몸통, 발사탑, 넓은 파란 하늘과 흰 구름.<br/><b>톤</b> 환한 야외 자연광, 높고 아득한 캡슐의 신비로운 정서, 설렘과 약간의 경외가 섞인 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>해봄(우주복·좌석)</b> <span class="tag">해봄</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"호리도 우주비행사가 돼 볼까?" 폭신한 흰 우주복은 묵직하고, 둥근 헬멧은 유리창이 반짝반짝. 콩이가 헬멧을 급하게 쓰자 도토리 볼이 걸려서 "안 벗겨져!" 모두 까르르 웃었어요. 호리는 체험 캡슐 좌석에 폭 앉아 안전벨트를 딸깍 채웠어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 우주복을 입고 체험 캡슐 좌석에 앉아 보는 호리와 헬멧에 낀 콩이의 코믹한 컷.<br/><b>장소·시간</b> 우주 센터 체험관 안, 낮. 실내 조명.<br/><b>인물</b> Hori는 화면 가운데서 폭신한 흰 우주복을 입고 둥근 헬멧을 들어 옆에 낀 채 체험 캡슐의 폭신한 좌석에 폭 앉아 두 손으로 안전벨트 버클을 딸깍 채우며 뿌듯한 미소. Kongi는 왼쪽에서 둥근 헬멧을 뒤집어썼는데 빵빵한 볼이 걸려 두 손으로 헬멧을 잡고 당황해 버둥거림. astronaut는 오른쪽에서 무릎을 굽혀 호리의 우주복 어깨끈을 매만져 주며 껄껄 웃음. Dad tiger는 뒤에서 손뼉 치며 즐거워함.<br/><b>배경·소품</b> 체험용 캡슐 좌석과 안전벨트, 벽에 걸린 흰 우주복과 둥근 헬멧들, 좌석 앞 조작 버튼판, 실내 조명.<br/><b>톤</b> 따뜻한 실내 조명, 우주복이 커서 벌어지는 귀엽고 코믹한 정서, 웃음이 번지는 즐거운 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>해봄(카운트다운)</b> <span class="tag">해봄 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"자, 발사하려면 카운트다운을 외쳐야 해. 호리가 세어 볼래?" 호리는 숨을 크게 들이쉬고 씩씩하게 외쳤어요. "오! 사! 삼! 이! 일! 발사—!" 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉! "내가 로켓을 쏘아 올렸어요!" 우르릉— 로켓, 우주로 슝!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글. 좌석에서 카운트다운을 힘차게 외치는 호리의 결정적 순간.<br/><b>장소·시간</b> 우주 센터 체험관 캡슐 좌석, 낮. 실내 조명에 앞쪽 화면빛.<br/><b>인물</b> Hori는 화면 가운데서 우주복을 입고 좌석에 앉아 한 손으로 발사 버튼을 꾹 누르고 다른 손 주먹을 불끈 쥔 채 입을 크게 벌려 씩씩하게 카운트다운을 외치는 결의에 찬 표정. astronaut는 오른쪽에서 엄지를 척 들어 응원하며 흐뭇하게 웃음. Kongi는 왼쪽에서 두 손을 번쩍 들고 함께 외치며 신남. Dad tiger는 뒤에서 흐뭇하게 손뼉.<br/><b>배경·소품</b> 좌석 앞 조작판의 빨간 발사 버튼과 큰 카운트다운 화면(숫자 표시), 특히 호리 꼬리 줄무늬가 무지개빛으로 반짝이는 시그니처 순간(부릉꼬리), 캡슐 좌석과 안전벨트, 실내 조명.<br/><b>톤</b> 실내 조명에 화면빛이 어우러진 역동적인 정서, 해냈다는 성취감이 터지는 신나는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>해봄(진짜 발사 목격)</b> <span class="tag">해봄</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 저 멀리 발사대에서 진짜 발사 시간이 됐어요! 로켓 엔진이 우르릉— 주황빛 불을 뿜자, 하얀 연기가 뭉게뭉게 피어올라요. 로켓이 천천히, 그리고 점점 빠르게 하늘 위로 쑥— 올라가요! 호리와 콩이는 두 손을 흔들었어요. "잘 다녀와요, 로켓!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글. 발사대에서 불꽃과 연기를 뿜으며 하늘로 솟구치는 로켓과 배웅하는 아이들의 출동 컷.<br/><b>장소·시간</b> 우주 센터 관람 구역(발사대에서 멀찍이 떨어진 곳), 낮. 파란 하늘, 우르릉 소리가 울리는 웅장한 공기.<br/><b>인물</b> Hori는 화면 오른쪽 앞에서 발끝을 세우고 두 손을 힘차게 흔들며 하늘로 오르는 로켓을 올려다보는 벅찬 표정. Kongi는 호리 옆에서 함께 손을 흔들며 입을 크게 벌려 외침. astronaut는 왼쪽에서 한 손을 이마에 대고 로켓을 올려다보며 뿌듯하게 미소. Dad tiger는 뒤에서 두 아이의 어깨를 감싸 안전하게 지켜 줌.<br/><b>배경·소품</b> 저 멀리 발사대에서 맨 아래로 길게 주황빛 불꽃을 뿜으며 위로 솟구치는 흰 로켓, 발사대 바닥에서 뭉게뭉게 피어오르는 흰 연기구름, 파란 하늘과 로켓이 남긴 흰 연기 꼬리.<br/><b>톤</b> 환한 대낮 자연광에 주황 불꽃과 흰 연기의 대비, 우렁차지만 무섭지 않고 벅차고 씩씩한 정서, 배웅의 따뜻한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>정리(감탄·감사)</b> <span class="tag">정리 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집으로 가는 길, 호리는 아빠 손을 꼭 잡고 조잘조잘. "엔진이 불을 아래로 뿜어서 위로 올라가고, 연료를 잔뜩 태우고, 맨 위 캡슐에는 우주비행사가 타요! 카운트다운하면 우주로 슝!" 호리는 밤하늘 별을 보며 씩 웃었어요. 우르릉— 로켓, 우주로 슝!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 뒷모습 살짝 측면. 별 뜬 밤길을 걸으며 이야기하는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 우주 센터에서 집으로 가는 길, 저녁. 짙어지는 남색 하늘에 별이 총총, 포근하고 뿌듯한 공기.<br/><b>인물</b> Hori는 화면 가운데서 Dad tiger의 손을 잡고 걸으며 고개를 들어 밤하늘을 손짓하며 조잘조잘 신나게 이야기하는 뿌듯한 표정. Dad tiger는 호리를 내려다보며 다정하게 고개를 끄덕이며 미소. Kongi는 왼쪽에서 도토리를 안고 폴짝폴짝 뛰며 아직도 신이 난 표정, 이따금 하늘을 올려다봄.<br/><b>배경·소품</b> 손잡고 걷는 실루엣, 뒤로 저 멀리 작아진 우주 센터와 발사탑, 남색 밤하늘에 총총한 별과 초승달, 하늘 한켠에 로켓이 남긴 희미한 흰 연기 꼬리, 가로수.<br/><b>톤</b> 별빛과 가로등의 포근한 조명, 하루의 발견을 곱씹는 뭉클하고 흐뭇한 정서, 존중과 감탄으로 마무리되는 포근한 분위기.</pre></details>
+</div>
+
+<footer>호리네 세상 탐험 · T13 우주로 슝 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>window.SH_GUESTS=[{"key":"astronaut","name":"우주비행사 누나","aliases":["astronaut","spacewoman","spaceman"],"desc":"새하얀 우주복(가슴에 조작판과 미션 패치, 어깨와 팔에 파란 줄무늬, 옆구리에 산소 호스 연결부)을 입은 밝고 씩씩한 인상의 젊은 어른. 둥글고 다정한 눈에 환한 미소, 한 손엔 유리 바이저가 반짝이는 둥근 흰색 헬멧을 낌. 튼튼한 흰 우주 장화와 장갑. 아이들을 신나게 안내하는 현장 가이드"}]</script>
+<script src="/tamheom-core.js"></script>
+</body>
+</html>

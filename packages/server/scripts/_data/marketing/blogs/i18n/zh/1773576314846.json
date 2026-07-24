@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773576314846",
+  "seo_title": "蘑菇的特征与分解者的秘密——自然观察绘本",
+  "meta_description": "探讨蘑菇为何既非植物也非动物的菌类特性、森林分解者的作用等奇妙知识，以及《Tango Book》自然观察绘本的内容和安全的观察方法。4-7岁自然观察指南。",
+  "primary_keyword": "蘑菇",
+  "secondary_keywords": ["蘑菇的特点", "蘑菇生态", "菌类", "幼儿自然观察书", "植物绘本"],
+  "url_slug": "mushroom-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "蘑菇 - 蘑菇，有什么神奇的地方呢？",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EB%B2%84%EC%84%AF-cover-misc-1780274370065.webp",
+        "text": "<h2>蘑菇，哪些地方会让人感到神奇呢？</h2><p>雨后在森林里悄然冒出的 <strong>蘑菇</strong>它既不是植物也不是动物，是一种神奇的生物。伞盖下隐藏的秘密真的非常有趣。</p><p data-seo-boost=\"1\">我们一起收录了关于蘑菇的各种故事，包括蘑菇的特征、蘑菇生态和真菌等。</p>",
+        "caption": "雨后的蘑菇",
+        "image_style": "",
+        "image_prompt": "Colorful mushrooms growing on a forest floor after rain, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "蘑菇 - 关于蘑菇的自然与科学事实",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EC%88%B2%EC%86%8D%EC%97%90%ED%95%80%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%9A%B0%EC%82%B0%EA%B2%B9%EA%B2%B9%EC%9D%B4%EB%B9%84%EB%B0%80%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EB%B2%84%EC%84%AF-illustration-page1-1773576462568.webp",
+        "text": "<h2>关于蘑菇的自然和科学事实</h2><p>蘑菇是 <strong>子囊菌群（真菌群体）</strong>属于[该群体]，它们既不进行光合作用，也不吞食食物。相反地， <strong>将消化酶释放到外部，分解有机物后吸收营养物质</strong>它们由菌盖、褶皱、菌柄和地下的菌丝体组成，负责分解森林中死木和落叶的 <strong>“分解者”</strong> 这个作用是最重要的。辨认毒蘑菇连专家都很困难，所以绝对不能触摸或食用野生蘑菇。</p>",
+        "caption": "菌盖·褶肉·菌丝体",
+        "image_style": "",
+        "image_prompt": "A cross-section of a mushroom showing cap, gills, and stem with mycelium underground, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "蘑菇 - 《探戈书》中关于“蘑菇”的内容",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EC%88%B2%EC%86%8D%EC%97%90%ED%95%80%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%9A%B0%EC%82%B0%EA%B2%B9%EA%B2%B9%EC%9D%B4%EB%B9%84%EB%B0%80%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EB%B2%84%EC%84%AF-illustration-page5-1773576532875.webp",
+        "text": "<h2>探戈书《蘑菇》讲述的内容</h2><p>探戈书《蘑菇》以儿童的视角，展示了雨后生长的蘑菇、菌盖下的褶皱、地下的菌丝体以及循环森林养分的分解者作用。</p>",
+        "caption": "森林的分解者",
+        "image_style": "",
+        "image_prompt": "Mushrooms decomposing a fallen log in a forest, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "蘑菇 - 可以一起了解的知识点",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EC%88%B2%EC%86%8D%EC%97%90%ED%95%80%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%9A%B0%EC%82%B0%EA%B2%B9%EA%B2%B9%EC%9D%B4%EB%B9%84%EB%B0%80%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EB%B2%84%EC%84%AF-illustration-page10-1773576547668.webp",
+        "text": "<h2>值得一起了解的重点</h2><p>请指出菌盖、褶子、柄、菌丝体（地下）、分解者的作用，以及各种颜色和形状等重点。可以一起聊聊“蘑菇吃什么才能长大？”（不要触摸野生蘑菇）。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "Close-up of mushroom gills under the cap, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "蘑菇 - 家长指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EC%88%B2%EC%86%8D%EC%97%90%ED%95%80%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%9A%B0%EC%82%B0%EA%B2%B9%EA%B2%B9%EC%9D%B4%EB%B9%84%EB%B0%80%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EB%B2%84%EC%84%AF-illustration-page14-1773576566741.webp",
+        "text": "<h2>父母指南 — 如何培养好奇心</h2><p>可以用超市里的香菇和平菇观察蘑菇的菌盖、褶皱和菌柄。一定要告诉孩子“野生蘑菇只能看！” 最好是在森林里，从远处观察生长在枯树上的蘑菇。</p>",
+        "caption": "安全地观察",
+        "image_style": "",
+        "image_prompt": "A parent and child looking at edible mushrooms on a table, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>Q. 蘑菇是植物吗？</strong><br>A. 不对。蘑菇是真菌（霉菌群）。它们不会进行光合作用，而是通过分解有机物来获取营养的。</p><p><strong>Q. 蘑菇在森林中扮演什么角色呢？</strong><br>A. 它们充当“分解者”的角色，分解枯木和落叶来循环营养。这对森林来说非常重要哦。</p><p><strong>Q. 我可以观察野生蘑菇吗？</strong><br>A. 只能看。即使是专家也很难分辨有毒蘑菇，所以绝对不能触摸或食用它们哦。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "蘑菇绘本插画",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EC%88%B2%EC%86%8D%EC%97%90%ED%95%80%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%9A%B0%EC%82%B0%EA%B2%B9%EA%B2%B9%EC%9D%B4%EB%B9%84%EB%B0%80%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EB%B2%84%EC%84%AF-illustration-page18-1773576596216.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“蘑菇”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用美丽的图画和韩语·英语语音亲自体验吧。</p><a href=\"https://tangobook.co.kr/library/1773576314846\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

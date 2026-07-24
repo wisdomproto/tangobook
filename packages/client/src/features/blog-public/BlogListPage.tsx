@@ -4,16 +4,17 @@ import { Link } from 'react-router-dom';
 import { useSeo } from '@/lib/useSeo';
 import { SiteFooter } from '@/components/SiteFooter';
 import { useBlogPosts, type BlogPostSummary } from './api';
+import { useBlogLang } from './useBlogLang';
 
-const CAT_META: Record<string, { label: string; emoji: string; badge: string; grad: string }> = {
+const CAT_META: Record<string, { tKey: string; emoji: string; badge: string; grad: string }> = {
   classic: {
-    label: '세계명작',
+    tKey: 'catClassic',
     emoji: '📖',
     badge: 'bg-coral-100 text-coral-600',
     grad: 'from-coral-100 to-peach-200',
   },
   nature: {
-    label: '자연관찰',
+    tKey: 'catNature',
     emoji: '🌿',
     badge: 'bg-mint-100 text-mint-600',
     grad: 'from-mint-200 to-mint-50',
@@ -28,14 +29,6 @@ function safeSrc(u: string): string {
     return u;
   }
   return encodeURI(u);
-}
-
-function fmtDate(iso: string | null): string {
-  if (!iso) return '';
-  const d = new Date(iso);
-  return Number.isNaN(d.getTime())
-    ? ''
-    : d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
 function Cover({ post, className }: { post: BlogPostSummary; className?: string }) {
@@ -60,6 +53,7 @@ function Cover({ post, className }: { post: BlogPostSummary; className?: string 
 }
 
 function CatBadge({ category }: { category: string | null }) {
+  const { t } = useBlogLang();
   const cat = category ? CAT_META[category] : undefined;
   if (!cat) return null;
   return (
@@ -67,20 +61,20 @@ function CatBadge({ category }: { category: string | null }) {
       className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-bold ${cat.badge}`}
     >
       <span>{cat.emoji}</span>
-      {cat.label}
+      {t(cat.tKey)}
     </span>
   );
 }
 
 export default function BlogListPage() {
-  const { data: posts = [], isLoading } = useBlogPosts();
+  const { lang, pre, t, brand, fmtDate } = useBlogLang();
+  const { data: posts = [], isLoading } = useBlogPosts(lang);
   const [filter, setFilter] = useState<'all' | 'classic' | 'nature'>('all');
 
   useSeo({
-    title: '탱고북 블로그 — 동화·자연관찰 이야기',
-    description:
-      '세계명작 동화와 자연관찰 이야기를 부모와 아이가 함께 읽는 탱고북 블로그. 작품 소개, 원작 이야기, 읽어주는 법, 함께 나눌 질문까지.',
-    path: '/blog',
+    title: t('seoListTitle'),
+    description: t('seoListDesc'),
+    path: `${pre}/blog`,
   });
 
   const counts = useMemo(() => {
@@ -100,9 +94,9 @@ export default function BlogListPage() {
   const [featured, ...rest] = filtered;
 
   const TABS: Array<{ key: 'all' | 'classic' | 'nature'; label: string }> = [
-    { key: 'all', label: `전체 ${counts.all}` },
-    { key: 'classic', label: `📖 세계명작 ${counts.classic}` },
-    { key: 'nature', label: `🌿 자연관찰 ${counts.nature}` },
+    { key: 'all', label: t('tabAll', { count: counts.all }) },
+    { key: 'classic', label: t('tabClassic', { count: counts.classic }) },
+    { key: 'nature', label: t('tabNature', { count: counts.nature }) },
   ];
 
   return (
@@ -119,10 +113,10 @@ export default function BlogListPage() {
         <header className="sticky top-0 z-20 border-b border-ink-100 bg-cream-50/85 backdrop-blur-md">
           <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
             <Link to="/library" className="font-display text-lg font-bold text-ink-900">
-              🐯 탱고북
+              🐯 {brand}
             </Link>
             <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-ink-500 shadow-sm">
-              블로그
+              {t('nav')}
             </span>
           </div>
         </header>
@@ -131,34 +125,33 @@ export default function BlogListPage() {
           {/* Hero */}
           <div className="text-center">
             <span className="inline-block rounded-full bg-coral-100 px-3 py-1 text-xs font-bold text-coral-600">
-              탱고북 이야기
+              {t('badge')}
             </span>
             <h1 className="mt-4 font-display text-3xl font-extrabold leading-tight text-ink-900 break-keep sm:text-[42px]">
-              동화 <span className="text-coral-500">·</span> 자연관찰 이야기
+              {t('heroTitleA')} <span className="text-coral-500">·</span> {t('heroTitleB')}
             </h1>
             <p className="mx-auto mt-3 max-w-xl text-sm text-ink-500 break-keep sm:text-base">
-              세계명작 동화와 자연관찰을 부모와 아이가 함께 읽어요. 작품 이야기부터 읽어주는 법,
-              함께 나눌 질문까지.
+              {t('heroDesc')}
             </p>
           </div>
 
           {/* 필터 탭 */}
           {posts.length > 0 && (
             <div className="mt-8 flex flex-wrap justify-center gap-2">
-              {TABS.map((t) => {
-                const active = filter === t.key;
+              {TABS.map((tab) => {
+                const active = filter === tab.key;
                 return (
                   <button
-                    key={t.key}
+                    key={tab.key}
                     type="button"
-                    onClick={() => setFilter(t.key)}
+                    onClick={() => setFilter(tab.key)}
                     className={`min-h-[40px] rounded-full px-4 text-sm font-bold transition ${
                       active
                         ? 'bg-ink-900 text-white shadow-sm'
                         : 'bg-white text-ink-500 shadow-sm hover:bg-peach-50'
                     }`}
                   >
-                    {t.label}
+                    {tab.label}
                   </button>
                 );
               })}
@@ -185,16 +178,14 @@ export default function BlogListPage() {
           ) : filtered.length === 0 ? (
             <div className="mt-16 text-center">
               <div className="text-5xl">🌱</div>
-              <p className="mt-4 text-sm text-ink-500 break-keep">
-                곧 새 글이 하나씩 올라옵니다. 조금만 기다려 주세요.
-              </p>
+              <p className="mt-4 text-sm text-ink-500 break-keep">{t('empty')}</p>
             </div>
           ) : (
             <div className="mt-10 space-y-10">
               {/* Featured — 최신 글 크게 */}
               {featured && (
                 <Link
-                  to={`/blog/${encodeURIComponent(featured.slug)}`}
+                  to={`${pre}/blog/${encodeURIComponent(featured.slug)}`}
                   className="group grid overflow-hidden rounded-[2rem] border border-ink-100 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-xl md:grid-cols-2"
                 >
                   <div className="relative aspect-[16/10] overflow-hidden md:aspect-auto md:h-full">
@@ -203,7 +194,7 @@ export default function BlogListPage() {
                       className="transition duration-500 group-hover:scale-[1.04]"
                     />
                     <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[11px] font-bold text-coral-600 shadow-sm">
-                      최신 글
+                      {t('latest')}
                     </span>
                   </div>
                   <div className="flex flex-col justify-center gap-3 p-6 sm:p-8">
@@ -220,7 +211,7 @@ export default function BlogListPage() {
                       </p>
                     )}
                     <span className="mt-1 inline-flex items-center gap-1 text-sm font-bold text-coral-500">
-                      이야기 읽기
+                      {t('readStory')}
                       <span className="transition group-hover:translate-x-0.5">→</span>
                     </span>
                   </div>
@@ -233,7 +224,7 @@ export default function BlogListPage() {
                   {rest.map((p) => (
                     <Link
                       key={p.slug}
-                      to={`/blog/${encodeURIComponent(p.slug)}`}
+                      to={`${pre}/blog/${encodeURIComponent(p.slug)}`}
                       className="group flex flex-col overflow-hidden rounded-3xl border border-ink-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
                     >
                       <div className="relative aspect-[4/3] overflow-hidden">
@@ -264,7 +255,7 @@ export default function BlogListPage() {
           )}
         </main>
 
-        <SiteFooter />
+        <SiteFooter minimal lang={lang} />
       </div>
     </div>
   );

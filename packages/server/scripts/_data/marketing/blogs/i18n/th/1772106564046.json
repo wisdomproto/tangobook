@@ -1,0 +1,112 @@
+{
+  "storybookId": "1772106564046",
+  "seo_title": "เรื่องราวของขนมปังขิง: เนื้อเรื่องและข้อคิด — นิทานพื้นบ้านสนุกๆ สำหรับอ่านกับลูก",
+  "meta_description": "เรื่องย่อและข้อคิดของเจ้าเด็กขนมปังขิง (Gingerbread Man), นิทานต้นฉบับ และวิธีการเล่านิทานให้ลูกฟังด้วย คู่มือหนังสือนิทานพื้นบ้านสนุกๆ ที่สอนเกี่ยวกับความหยิ่งและการหลอกลวง",
+  "primary_keyword": "น้องขนมปังขิง",
+  "secondary_keywords": [
+    "เรื่องย่อขนมปังขิงและเด็ก",
+    "บทเรียนจากขนมขิงสำหรับลูกๆ",
+    "มนุษย์ขนมปังขิง",
+    "นิทานคลาสสิกสำหรับเด็กปฐมวัย",
+    "นิทานเรื่องเด็กกับขนมปังขิง"
+  ],
+  "url_slug": "gingerbread-man-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "เจ้าเด็กขนมปังขิง - เจ้าเด็กขนมปังขิง เป็นนิทานแนวไหนคะ?",
+        "url": "https://assets.tangobook.co.kr/1772106564046-%EC%83%9D%EA%B0%95%EB%B9%B5%EC%95%84%EC%9D%B4-cover-misc-1780299335462.webp",
+        "text": "<h2>เด็กขนมปังขิง เป็นนิทานแนวไหนคะ?</h2><p><strong>เด็กขนมปังขิง</strong>เป็นนิทานพื้นบ้านที่สนุกสนาน เกี่ยวกับขนมปังขิงที่เพิ่งออกมาจากเตาอบและมีชีวิตขึ้นมา ตะโกนว่า \"จับฉันให้ได้สิ!\" แล้ววิ่งหนี ด้วยท่อนฮุกที่ซ้ำๆ และโครงเรื่องแบบไล่ล่า ทำให้เด็ก ๆ สามารถร้องตามและสนุกไปด้วยกันได้ค่ะ</p>",
+        "caption": "มาจับฉันสิ!",
+        "image_style": "",
+        "image_prompt": "A cheerful gingerbread man cookie running away from a kitchen with a happy grin, playful children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "ขนมปังขิงเด็ก - เรื่องราวต้นฉบับของหนูน้อยขนมปังขิง",
+        "url": "https://assets.tangobook.co.kr/1772106564046-%EC%83%9D%EA%B0%95%EB%B9%B5%EC%95%84%EC%9D%B4-illustration-page1-1780298782634.webp",
+        "text": "<h2>เรื่องราวต้นฉบับของเจ้าขนมปังขิง</h2><p>ที่แพร่หลายในโลกภาษาอังกฤษและอเมริกา <strong>นิทานพื้นบ้าน (The Gingerbread Man)</strong>โดยเรื่องนี้ถูกตีพิมพ์ครั้งแรกในนิตยสารอเมริกันในปี 1875 หัวใจสำคัญคือท่อนร้องซ้ำๆ ที่ว่า \"วิ่งสิ วิ่งไป ไม่มีทางจับฉันได้ เพราะฉันคือเจ้าขนมปังขิง!\" และมันเตือนถึงความเย่อหยิ่งและการหลอกลวงด้วยตอนจบที่เขาถูกสุนัขจิ้งจอกเจ้าเล่ห์หลอกจนกินเข้าไป</p>",
+        "caption": "จุดสิ้นสุดของการไล่ล่า",
+        "image_style": "",
+        "image_prompt": "A clever fox watching a running gingerbread man near a river, sly but gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "เด็กขนมปังขิง - เรื่องย่อของเด็กขนมปังขิง",
+        "url": "https://assets.tangobook.co.kr/1772106564046-%EC%83%9D%EA%B0%95%EB%B9%B5%EC%95%84%EC%9D%B4-illustration-page5-1780298798873.webp",
+        "text": "<h2>สรุปเรื่องราวของขนมปังขิงเด็ก</h2><p>เมื่อขนมปังขิงที่คุณย่าอบมีชีวิตและหนีไป คุณย่า, คุณปู่, และสัตว์หลายตัวต่างไล่ตามแต่ก็ไม่มีใครจับได้ ขนมปังขิงเด็กที่เคยมั่นใจตัว พยายามจะข้ามแม่น้ำ แต่กลับตกหลุมพรางของสุนัขจิ้งจอกที่แสร้งทำเป็นใจดี และสุดท้ายก็ถูกสุนัขจิ้งจอกจับไปในที่สุด</p>",
+        "caption": "การวิ่งที่ไม่มีใครจับได้",
+        "image_style": "",
+        "image_prompt": "Many characters chasing a fast gingerbread man across a countryside path, lively energetic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "เด็กขนมปังขิง - บทเรียนที่ได้จากเด็กขนมปังขิง",
+        "url": "https://assets.tangobook.co.kr/1772106564046-%EC%83%9D%EA%B0%95%EB%B9%B5%EC%95%84%EC%9D%B4-illustration-page8-1780298906216.webp",
+        "text": "<h2>บทเรียนที่ได้จากเรื่องขนมขิง</h2><p>หัวใจสำคัญคือ <strong>ว่าถ้าเราหยิ่งยโสก็จะประมาท และต้องระวังคนแปลกหน้าที่เข้ามาด้วยคำพูดหวาน ๆ</strong>ค่ะ/ครับ คือการให้ลูกได้พูดคุยกับเราถึง \"เวลาที่แม้จะดูใจดีก็ยังต้องระวัง\" เพื่อสร้างความตระหนักด้านความปลอดภัย</p>",
+        "caption": "ระวังกลอุบายนะ",
+        "image_style": "",
+        "image_prompt": "A friendly fox speaking sweetly to a gingerbread man by the water, cautionary gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "เด็กขนมปังขิง – วิธีเล่านิทานให้ลูกฟัง",
+        "url": "https://assets.tangobook.co.kr/1772106564046-%EC%83%9D%EA%B0%95%EB%B9%B5%EC%95%84%EC%9D%B4-illustration-page12-1780298930566.webp",
+        "text": "<h2>วิธีการอ่านให้ลูกฟัง</h2><p>ให้คุณพ่อคุณแม่ร้องท่อนฮุก \"วิ่งสิ วิ่งสิ จับเธอไม่ได้หรอก!\" พร้อมกับลูก โดยค่อยๆ เพิ่มความเร็วขึ้นเรื่อย ๆ ในฉากที่หมาจิ้งจอกกำลังเข้ามาใกล้ ให้ถามว่า \"เราควรเชื่อคำพูดของหมาจิ้งจอกได้ไหม?\" เพื่อฝึกการแยกแยะและวิจารณญาณ เหมาะสำหรับเด็กอายุ 3-6 ปี</p>",
+        "caption": "การอ่านอย่างสนุกด้วยจังหวะ",
+        "image_style": "",
+        "image_prompt": "A parent and child clapping and chanting along to a story together, joyful playful mood, children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: เรื่องราวของขนมปังขิงเหมาะกับเด็กอายุเท่าไหร่คะ/ครับ?</strong><br>ตอบ: เหมาะสำหรับเด็กอายุ 3-6 ปีค่ะ/ครับ โครงสร้างการร้องท่อนฮุกซ้ำๆ และการไล่ล่าจะสนุกเป็นพิเศษสำหรับวัยเยาว์</p><p><strong>ถาม: ฉากจบมันเศร้าไปไหมคะ/ครับ?</strong><br>ตอบ: แม้ว่าฉากจบจะเกี่ยวกับการถูกกิน แต่ก็วาดออกมาในแนวตลกขบขัน ไม่หนักจนเกินไป และยังเชื่อมโยงกับบทเรียนเรื่องการระวังความหยิ่งยโสและการหลอกลวงได้อย่างเป็นธรรมชาติค่ะ/ครับ</p><p><strong>ถาม: ควรนำไปเชื่อมโยงกับกิจกรรมอะไรดีคะ/ครับ?</strong><br>ตอบ: แนะนำให้ทำกิจกรรมร้องท่อนฮุกพร้อมกัน, การทำและตกแต่งคุกกี้ขนมปังขิง, และเรื่องเล่าเพื่อความปลอดภัยในหัวข้อว่า \"ถ้าคนแปลกหน้าพูดจาดีกับเราล่ะ?\"</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณสนุกกับการอ่านนิทานเรื่องนี้แล้ว ลองดูพวกนี้สิ <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/frog-prince-fairy-tale-for-kids\">เจ้าชายกบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-and-grasshopper-for-kids\">มดกับตั๊กแตน</a></li><li><a href=\"https://tangobook.co.kr/blog/selfish-giant-garden-for-kids\">สวนของยักษ์</a></li><li><a href=\"https://tangobook.co.kr/blog/gullivers-travels-for-kids\">การเดินทางของกัลลิเวอร์</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือนิทานสำหรับเด็กเรื่องขนมปังขิง",
+        "url": "https://assets.tangobook.co.kr/1772106564046-%EC%83%9D%EA%B0%95%EB%B9%B5%EC%95%84%EC%9D%B4-illustration-page15-1780299067617.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"เด็กขนมปังขิง\" ไหมคะ/ครับ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้ที่ Tango Book ด้วยภาพสวย ๆ และเสียงภาษาเกาหลี/อังกฤษเลยค่ะ/ครับ</p><a href=\"https://tangobook.co.kr/library/1772106564046\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777431036899",
+  "seo_title": "Bí mật về đặc điểm và cuộc sống đại dương của hải cẩu — Sách tranh quan sát thiên nhiên",
+  "meta_description": "Những điều kỳ diệu về hải cẩu sống ở biển lạnh (như lỗ thở và lớp mỡ), lý do chúng đi trên cạn, các sự thật thú vị khác, nội dung từ sách tranh động vật Tango Book, và cả cách quan sát. Hướng dẫn quan sát thiên nhiên cho lứa tuổi 4-7.",
+  "primary_keyword": "Hải cẩu",
+  "secondary_keywords": [
+    "Đặc điểm của hải sư tử",
+    "Hải cẩu và sư tử biển",
+    "Động vật có vú biển",
+    "Sách động vật cho trẻ nhỏ",
+    "Sách tranh về động vật"
+  ],
+  "url_slug": "fur-seal-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "Hải cẩu - Hải cẩu, điểm nào khiến bạn thấy kỳ diệu nhỉ?",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%AC%BC%EA%B0%9C-cover-misc-1780028534881.webp",
+        "text": "<h2>Hải sư tử, điểm gì thú vị nhỉ?</h2><p>Loài <strong>sư tử biển</strong> di chuyển giữa biển và đất liền là loài động vật có vú biển kỳ lạ, vừa bơi bằng chân vây lại vừa đi trên cạn.</p>",
+        "caption": "Động vật có vú biển",
+        "image_style": "",
+        "image_prompt": "A fur seal swimming and resting on rocks by the sea, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "Hải cẩu - Sự thật tự nhiên và khoa học về hải cẩu",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EB%82%A0%EB%A0%B5%ED%95%9C%EB%AC%BC%EA%B0%9C-illustration-page1-1777431481602.webp",
+        "text": "<h2>Sự thật tự nhiên và khoa học về hải cẩu</h2><p>Hải cẩu là loài động vật có vú biển với bàn chân vây, thuộc <strong class=\"phocidae\">Bộ Phoca</strong>, chúng còn <strong class=\"bends-flippers\">gập vây sau về phía trước và đi trên cạn</strong> (khác với các loài hải cẩu không có tai). Lớp <strong class=\"blubber\">mỡ dày (blubber)</strong> giúp giữ ấm cơ thể trong làn nước biển lạnh giá, và chúng săn mồi bằng cách phát hiện chuyển động của cá nhờ bộ ria mép dài và nhạy bén. Những chú hải cẩu con lớn lên nhờ sữa mẹ, đồng thời biết lắng nghe tiếng kêu của mẹ để tìm về bên mẹ.</p>",
+        "caption": "Đi bộ bằng vây cá",
+        "image_style": "",
+        "image_prompt": "A fur seal walking on land with flippers, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "Hải cẩu - Nội dung về «Hải cẩu» trong sách Tango Book",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EB%82%A0%EB%A0%B5%ED%95%9C%EB%AC%BC%EA%B0%9C-illustration-page5-1777431565301.webp",
+        "text": "<h2>Nội dung về «Hải cẩu» của Tango Book</h2><p>«Hải cẩu» của Tango Book thể hiện một cách ấm áp cảnh bơi bằng vây, cảnh đi trên đất liền, cảnh săn mồi bằng ria mép, và hình ảnh người mẹ chăm sóc con non.</p>",
+        "caption": "Mẹ và con",
+        "image_style": "",
+        "image_prompt": "A fur seal mother with her pup, heartwarming children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "Hải cẩu - Những điểm đáng quan sát khi cùng nhau xem",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EB%82%A0%EB%A0%B5%ED%95%9C%EB%AC%BC%EA%B0%9C-illustration-page10-1777431667008.webp",
+        "text": "<h2>Những điểm quan sát tốt khi cùng con</h2\n><p>Hãy chỉ ra những điểm như bàn chân vây (bơi lội/đi bộ), lớp mỡ (giữ ấm cơ thể), ria mép (cảm giác), hay mối quan hệ mẹ con. Việc cùng nhau trò chuyện về câu hỏi \"Làm thế nào hải cẩu chịu được biển lạnh?\" sẽ rất tốt.</p>",
+        "caption": "Các điểm cần quan sát",
+        "image_style": "",
+        "image_prompt": "A close-up of fur seal whiskers, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "Hải cẩu - Hướng dẫn dành cho phụ huynh — Cách nuôi dưỡng sự tò mò",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EB%82%A0%EB%A0%B5%ED%95%9C%EB%AC%BC%EA%B0%9C-illustration-page14-1777431736450.webp",
+        "text": "<h2>Hướng dẫn dành cho phụ huynh — Cách nuôi dưỡng sự tò mò</h2><p>Hãy quan sát hải cẩu bơi và đi lại ở thủy cung hoặc sở thú. Việc kể rằng \"Lớp mỡ dày giữ ấm như chiếc áo khoác dày (blubber)\" sẽ giúp bé dễ hiểu hơn.</p>",
+        "caption": "Quan sát thủy cung",
+        "image_style": "",
+        "image_prompt": "A parent and child watching seals at an aquarium, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Các câu hỏi thường gặp (FAQ)</h2><p><strong>Hỏi. Liệu hải cẩu có thể đi trên đất liền không?</strong><br>Đáp. Vâng. Chúng uốn vây sau về phía trước và đi trên đất liền. Đây là điểm khác biệt so với các loài hải cẩu không có tai.</p><p><strong>Hỏi. Chúng chịu đựng cái lạnh của biển như thế nào?</strong><br>Đáp. Lớp mỡ dày (blubber) giúp giữ ấm cơ thể cho chúng. Chúng dùng ria mép để cảm nhận cá.</p><p><strong>Hỏi. Chúng ta có thể quan sát chúng ở nhà bằng cách nào?</strong><br>Đáp. Quan sát việc bơi lội và đi bộ tại thủy cung hoặc sở thú, và kể câu chuyện \"blubber = quần áo dày\" là rất tốt.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Những truyện cổ tích kinh điển nên đọc cùng</h2><p>Nếu bạn đã thích thú với câu chuyện này, hãy thử đọc thêm những <strong>truyện cổ tích kinh điển</strong> khác nhé.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">Chú chó</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">Cỏ đuôi cáo</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">Con ếch</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">Con kiến</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "Hình minh họa sách truyện hải cẩu",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EB%82%A0%EB%A0%B5%ED%95%9C%EB%AC%BC%EA%B0%9C-illustration-page18-1777431813120.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">Bạn có tò mò về \"Hải cẩu\" không?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">Hãy tự mình khám phá tại Tango Book với những hình ảnh đẹp mắt và âm thanh tiếng Hàn/tiếng Anh nhé.</p><a href=\"https://tangobook.co.kr/library/1777431036899\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 Xem sách truyện cổ tích →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

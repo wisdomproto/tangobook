@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773625335362",
+  "seo_title": "맛있는 음식의 몸속 여행 — 소화 과정 자연관찰 그림책",
+  "meta_description": "음식이 입에서 대장까지 여행하는 소화 과정과 각 기관의 역할 등 신체 과학과, 탱고북 그림책 내용, 아이와 알아보는 법까지. 4~7세 신체 자연관찰 가이드.",
+  "primary_keyword": "소화",
+  "secondary_keywords": ["음식의 몸속 여행", "소화 과정", "소화 기관", "유아 신체 책", "몸 그림책"],
+  "url_slug": "digestion-journey-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "맛있는 음식의 몸속 여행 - 음식의 몸속 여행, 어떤 점이 신기할까요?",
+        "url": "https://assets.tangobook.co.kr/1773625335362-%EB%A7%9B%EC%9E%88%EB%8A%94%EC%9D%8C%EC%8B%9D%EC%9D%98%EB%AA%B8%EC%86%8D%EC%97%AC%ED%96%89-cover-misc-1780103444536.webp",
+        "text": "<h2>음식의 몸속 여행, 어떤 점이 신기할까요?</h2><p>맛있게 먹은 음식은 우리 몸속에서 긴 <strong>여행</strong>을 떠나요. 입에서 시작해 어디로 가는지 따라가 보면 정말 신기합니다.</p><p data-seo-boost=\"1\">소화 줄거리가 궁금하신가요?</p>",
+        "caption": "소화의 여행",
+        "image_style": "",
+        "image_prompt": "A friendly diagram of food traveling through a child digestive system, bright children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "맛있는 음식의 몸속 여행 - 음식의 몸속 여행의 자연·과학 사실",
+        "url": "https://assets.tangobook.co.kr/1773625335362-%EA%BE%B8%EB%A5%B4%EB%A5%B5%EC%91%A5%EC%91%A5%EB%A7%9B%EC%9E%88%EB%8A%94%EC%9D%8C%EC%8B%9D%EC%9D%98%EB%AA%B8%EC%86%8D%EC%97%AC%ED%96%89-illustration-page1-1773625458459.webp",
+        "text": "<h2>음식의 몸속 여행의 자연·과학 사실</h2><p>음식은 <strong>입</strong>에서 침(아밀라아제)으로 소화가 시작되고, <strong>식도</strong>는 근육의 연동 운동으로 음식을 밀어 내려요(거꾸로 서도 내려가요!). <strong>위</strong>는 위산으로 죽처럼 만들고, 약 <strong>6~7m의 소장</strong>이 영양분을 흡수하지요. <strong>대장</strong>은 수분을 흡수하고 남은 찌꺼기가 대변이 돼요. 장내 세균이 찌꺼기를 분해할 때 가스(방귀)가 생깁니다.</p>",
+        "caption": "꼭꼭 씹기",
+        "image_style": "",
+        "image_prompt": "Food being chewed in the mouth with saliva, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "맛있는 음식의 몸속 여행 - 탱고북 «맛있는 음식의 몸속 여행»이 다루는 내용",
+        "url": "https://assets.tangobook.co.kr/1773625335362-%EA%BE%B8%EB%A5%B4%EB%A5%B5%EC%91%A5%EC%91%A5%EB%A7%9B%EC%9E%88%EB%8A%94%EC%9D%8C%EC%8B%9D%EC%9D%98%EB%AA%B8%EC%86%8D%EC%97%AC%ED%96%89-illustration-page5-1773625471586.webp",
+        "text": "<h2>탱고북 «맛있는 음식의 몸속 여행»이 다루는 내용</h2><p>탱고북 «맛있는 음식의 몸속 여행»은 입 → 식도 → 위 → 소장 → 대장으로 이어지는 음식의 여행과 각 기관의 역할을 아이 눈높이로 보여 줍니다.</p>",
+        "caption": "6~7m의 소장",
+        "image_style": "",
+        "image_prompt": "A long small intestine absorbing nutrients, friendly children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "맛있는 음식의 몸속 여행 - 함께 알아보면 좋은 포인트",
+        "url": "https://assets.tangobook.co.kr/1773625335362-%EA%BE%B8%EB%A5%B4%EB%A5%B5%EC%91%A5%EC%91%A5%EB%A7%9B%EC%9E%88%EB%8A%94%EC%9D%8C%EC%8B%9D%EC%9D%98%EB%AA%B8%EC%86%8D%EC%97%AC%ED%96%89-illustration-page10-1773625492993.webp",
+        "text": "<h2>함께 알아보면 좋은 포인트</h2><p>입(침), 식도(밀어 내림), 위(죽), 소장(흡수), 대장(대변) 같은 포인트를 짚어 주세요. \"음식은 어디로 갈까?\"를 함께 따라가며 이야기하면 좋습니다.</p>",
+        "caption": "관찰 포인트",
+        "image_style": "",
+        "image_prompt": "A cartoon stomach turning food into liquid, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "맛있는 음식의 몸속 여행 - 부모 가이드 — 호기심을 키우는 법",
+        "url": "https://assets.tangobook.co.kr/1773625335362-%EA%BE%B8%EB%A5%B4%EB%A5%B5%EC%91%A5%EC%91%A5%EB%A7%9B%EC%9E%88%EB%8A%94%EC%9D%8C%EC%8B%9D%EC%9D%98%EB%AA%B8%EC%86%8D%EC%97%AC%ED%96%89-illustration-page14-1773625507801.webp",
+        "text": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>식사하며 \"꼭꼭 씹으면 소화가 잘 돼\"를 알려 주세요. 긴 끈으로 소장 길이(6~7m)를 펼쳐 보고, 음식의 여행 순서를 그림으로 그리면 즐겁게 이해합니다.</p>",
+        "caption": "소장 길이 놀이",
+        "image_style": "",
+        "image_prompt": "A parent and child stretching a long rope to show intestine length, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 음식은 몸속에서 어떤 순서로 여행하나요?</strong><br>A. 입 → 식도 → 위 → 소장 → 대장 순서입니다. 각 기관이 소화·흡수를 나눠 맡아요.</p><p><strong>Q. 거꾸로 서서 먹어도 음식이 내려가나요?</strong><br>A. 네. 식도의 근육이 음식을 밀어 내리기 때문에 중력과 상관없이 내려갑니다.</p><p><strong>Q. 집에서 어떻게 알아보면 좋을까요?</strong><br>A. \"꼭꼭 씹기\" 알려 주기, 끈으로 소장 길이(6~7m) 펼치기, 여행 순서 그리기가 좋습니다.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>함께 읽으면 좋은 명작 동화</h2><p>이 동화를 재미있게 읽었다면 이런 <strong>명작 동화</strong>도 함께 읽어 보세요.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">강아지</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">강아지풀</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">개구리</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">개미</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "맛있는 음식의 몸속 여행 그림책 삽화",
+        "url": "https://assets.tangobook.co.kr/1773625335362-%EA%BE%B8%EB%A5%B4%EB%A5%B5%EC%91%A5%EC%91%A5%EB%A7%9B%EC%9E%88%EB%8A%94%EC%9D%8C%EC%8B%9D%EC%9D%98%EB%AA%B8%EC%86%8D%EC%97%AC%ED%96%89-illustration-page18-1773625521568.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">「맛있는 음식의 몸속 여행」가 궁금하신가요?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">아름다운 그림과 한국어·영어 음성으로 탱고북에서 직접 만나보세요.</p><a href=\"https://tangobook.co.kr/library/1773625335362\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 동화책 보러가기 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

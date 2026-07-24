@@ -1,0 +1,112 @@
+{
+  "storybookId": "1773149047331",
+  "seo_title": "Đặc điểm và sinh thái của Nhím — Sách tranh quan sát thiên nhiên về khoa học ẩn trong bộ gai",
+  "meta_description": "Bí mật của bộ gai nhím và giấc ngủ đông, tập tính ăn đêm cùng những sự thật thú vị, nội dung sách tranh quan sát thiên nhiên Tangobook, và cách quan sát cùng con. Hướng dẫn quan sát thiên nhiên cho bé 4~7 tuổi.",
+  "primary_keyword": "Nhím",
+  "secondary_keywords": [
+    "Đặc điểm của nhím",
+    "Gai nhím",
+    "Sách quan sát thiên nhiên cho bé",
+    "Sách tranh động vật",
+    "Sinh thái của nhím"
+  ],
+  "url_slug": "hedgehog-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "Nhím - Nhím có điều gì thú vị?",
+        "url": "https://assets.tangobook.co.kr/1773149047331-%EA%B3%A0%EC%8A%B4%EB%8F%84%EC%B9%98-cover-misc-1780029278771.webp",
+        "text": "<h2>Nhím có điều gì thú vị?</h2><p><strong>Nhím</strong>, với gương mặt đáng yêu ẩn sau bộ gai nhọn, là người bạn quan sát thiên nhiên khơi gợi tò mò. Hình ảnh cuộn tròn thành quả bóng khi gặp nguy hiểm thật ấn tượng.</p>",
+        "caption": "Chú nhím khoác bộ gai",
+        "image_style": "",
+        "image_prompt": "A cute hedgehog with quills walking in autumn leaves at dusk, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "Nhím - Sự thật tự nhiên·khoa học về nhím",
+        "url": "https://assets.tangobook.co.kr/1773149047331-%EA%B0%80%EC%8B%9C%EA%B0%80%EB%BE%B0%EC%A1%B1%EB%BE%B0%EC%A1%B1%EA%B2%81%EC%9F%81%EC%9D%B4%EA%B3%A0%EC%8A%B4%EB%8F%84%EC%B9%98-illustration-page1-1773303894796.webp",
+        "text": "<h2>Sự thật tự nhiên·khoa học về nhím</h2><p>Gai của nhím thực ra là <strong>lông biến đổi</strong>, rỗng bên trong nên nhẹ và đàn hồi. Một con nhím trưởng thành có khoảng <strong>5.000~7.000 chiếc</strong>. Nhím là động vật ăn tạp hoạt động về đêm, và vào mùa đông chúng ngủ đông trong tổ lá rụng, khi đó thân nhiệt giảm từ 35 độ xuống còn 5 độ. Nhím còn có hành vi tự bôi kỳ lạ: tạo bọt với mùi lạ rồi bôi lên gai của mình.</p>",
+        "caption": "Phòng thủ bằng cách cuộn tròn",
+        "image_style": "",
+        "image_prompt": "A hedgehog curled into a defensive ball, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "Nhím - Nội dung sách «Nhím» của Tangobook",
+        "url": "https://assets.tangobook.co.kr/1773149047331-%EA%B0%80%EC%8B%9C%EA%B0%80%EB%BE%B0%EC%A1%B1%EB%BE%B0%EC%A1%B1%EA%B2%81%EC%9F%81%EC%9D%B4%EA%B3%A0%EC%8A%B4%EB%8F%84%EC%B9%98-illustration-page5-1773303927004.webp",
+        "text": "<h2>Nội dung sách «Nhím» của Tangobook</h2><p>Sách «Nhím» của Tangobook cho bé thấy sống động hành vi phòng thủ bằng cách dựng gai bảo vệ cơ thể, việc tìm mồi về đêm, giấc ngủ đông và quá trình lớn lên của nhím con. Truyện khép lại bằng cái nhìn ấm áp \"cục cưng đáng yêu ẩn sau bộ gai nhọn\".</p>",
+        "caption": "Chú nhím ngủ đông",
+        "image_style": "",
+        "image_prompt": "A hedgehog sleeping in a cozy nest of leaves in winter, children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "Nhím - Những điểm nên quan sát cùng nhau",
+        "url": "https://assets.tangobook.co.kr/1773149047331-%EA%B0%80%EC%8B%9C%EA%B0%80%EB%BE%B0%EC%A1%B1%EB%BE%B0%EC%A1%B1%EA%B2%81%EC%9F%81%EC%9D%B4%EA%B3%A0%EC%8A%B4%EB%8F%84%EC%B9%98-illustration-page10-1773304056266.webp",
+        "text": "<h2>Những điểm nên quan sát cùng nhau</h2><p>Hãy chỉ cho con những điểm như gai (lông biến đổi, hàng nghìn chiếc), cuộn tròn người (phòng thủ), ngủ đông (thay đổi thân nhiệt), hoạt động về đêm (kiếm ăn ban đêm). Cùng trò chuyện về \"Vì sao nhím lại cuộn tròn thành quả bóng?\", \"Nhím có bao nhiêu cái gai?\" sẽ rất hay.</p>",
+        "caption": "Điểm quan sát",
+        "image_style": "",
+        "image_prompt": "Close-up of hedgehog quills showing texture, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "Nhím - Hướng dẫn cho phụ huynh — mở rộng bằng quan sát·trải nghiệm",
+        "url": "https://assets.tangobook.co.kr/1773149047331-%EA%B0%80%EC%8B%9C%EA%B0%80%EB%BE%B0%EC%A1%B1%EB%BE%B0%EC%A1%B1%EA%B2%81%EC%9F%81%EC%9D%B4%EA%B3%A0%EC%8A%B4%EB%8F%84%EC%B9%98-illustration-page14-1773304089979.webp",
+        "text": "<h2>Hướng dẫn cho phụ huynh — mở rộng bằng quan sát·trải nghiệm</h2><p>Hãy so sánh độ nhọn của quả thông·vỏ hạt dẻ với gai nhím. Cùng con bắt chước hành động cuộn tròn người để phòng thủ, và trải nghiệm khái niệm ngủ đông qua trò chơi chui vào trong chăn. (Cẩn thận khi chạm thật)</p>",
+        "caption": "Trò chơi so sánh độ nhọn",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing a pinecone and a hedgehog picture, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Câu hỏi thường gặp (FAQ)</h2><p><strong>Q. Nhím có bao nhiêu cái gai?</strong><br>A. Một con nhím trưởng thành có khoảng 5.000~7.000 chiếc. Đó là lông biến đổi, rỗng bên trong nên nhẹ và đàn hồi.</p><p><strong>Q. Mùa đông nhím làm gì?</strong><br>A. Nhím ngủ đông trong tổ lá rụng. Lúc này thân nhiệt giảm mạnh để tiết kiệm năng lượng.</p><p><strong>Q. Ở nhà nên quan sát như thế nào?</strong><br>A. Hãy so sánh độ nhọn với quả thông·vỏ hạt dẻ, và cùng con bắt chước hành động cuộn tròn phòng thủ (cẩn thận khi tiếp xúc thật).</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Truyện kinh điển nên đọc cùng</h2><p>Nếu bé thích câu chuyện này, hãy cùng đọc thêm những <strong>truyện kinh điển</strong> sau nhé.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">Chó con</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">Cỏ đuôi chó</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">Ếch</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">Kiến</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "Tranh minh họa sách về nhím",
+        "url": "https://assets.tangobook.co.kr/1773149047331-%EA%B0%80%EC%8B%9C%EA%B0%80%EB%BE%B0%EC%A1%B1%EB%BE%B0%EC%A1%B1%EA%B2%81%EC%9F%81%EC%9D%B4%EA%B3%A0%EC%8A%B4%EB%8F%84%EC%B9%98-illustration-page18-1773304109015.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">Bạn tò mò về 「Nhím」?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">Hãy trải nghiệm ngay tại Tangobook với những bức tranh tuyệt đẹp và giọng đọc tiếng Hàn·tiếng Anh.</p><a href=\"https://tangobook.co.kr/library/1773149047331\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 Xem sách truyện →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

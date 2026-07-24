@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777598658063",
+  "seo_title": "딱따구리 특징과 나무 두드리기의 비밀 — 자연관찰 그림책",
+  "meta_description": "딱따구리가 나무를 두드려도 머리가 안 다치는 비밀과 긴 혀, 숲의 목수 역할 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "primary_keyword": "딱따구리",
+  "secondary_keywords": [
+    "딱따구리 특징",
+    "딱따구리 부리",
+    "숲의 목수",
+    "유아 자연관찰 책",
+    "새 그림책"
+  ],
+  "url_slug": "woodpecker-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "딱따구리 - 딱따구리, 어떤 점이 신기할까요?",
+        "url": "https://assets.tangobook.co.kr/1777598658063-%EB%94%B1%EB%94%B0%EA%B5%AC%EB%A6%AC-cover-misc-1780026435656.webp",
+        "text": "<h2>딱따구리, 어떤 점이 신기할까요?</h2><p>나무를 두드리는 소리의 주인공 <strong>딱따구리</strong>는 단단한 부리로 나무 속 벌레를 잡는 \"숲의 목수\"예요.</p>",
+        "caption": "숲의 목수",
+        "image_style": "",
+        "image_prompt": "A woodpecker pecking a tree trunk, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "딱따구리 - 딱따구리의 자연·과학 사실",
+        "url": "https://assets.tangobook.co.kr/1777598658063-%EC%88%B2%EC%86%8D%EC%9D%98%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EB%AA%A9%EC%88%98%EB%94%B1%EB%94%B0%EA%B5%AC%EB%A6%AC-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page1-1777599652318.webp",
+        "text": "<h2>딱따구리의 자연·과학 사실</h2><p>딱따구리는 단단한 부리로 나무를 두드려(드러밍) 속에 숨은 애벌레를 찾아요. 빠르게 쪼아도 <strong>머리가 안 다치는 건 충격을 흡수하는 특별한 머리 구조</strong> 덕분이지요. 구멍을 낸 뒤엔 <strong>아주 길고 끈끈하며 가시 돋은 혀</strong>로 벌레를 끌어내요. 꼿꼿한 꽁지깃으로 몸을 받치고, 발가락이 앞뒤로 둘씩 향해 나무를 꽉 잡지요. 딱따구리가 판 구멍은 다른 동물의 보금자리가 돼 <strong>\"숲의 목수\"</strong>라 불립니다.</p>",
+        "caption": "길고 끈끈한 혀",
+        "image_style": "",
+        "image_prompt": "A woodpecker using its long sticky tongue to catch a larva, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "딱따구리 - 탱고북 «딱따구리»이 다루는 내용",
+        "url": "https://assets.tangobook.co.kr/1777598658063-%EC%88%B2%EC%86%8D%EC%9D%98%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EB%AA%A9%EC%88%98%EB%94%B1%EB%94%B0%EA%B5%AC%EB%A6%AC-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page5-1777599662477.webp",
+        "text": "<h2>탱고북 «딱따구리»이 다루는 내용</h2><p>탱고북 «딱따구리»는 나무를 두드리는 모습, 긴 혀로 벌레를 잡는 모습, 나무를 단단히 붙잡는 발, 다른 동물에게 집이 되는 구멍을 정겹게 보여 줍니다.</p>",
+        "caption": "다른 동물의 집",
+        "image_style": "",
+        "image_prompt": "A woodpecker hole becoming a home for other animals, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "딱따구리 - 함께 관찰하면 좋은 포인트",
+        "url": "https://assets.tangobook.co.kr/1777598658063-%EC%88%B2%EC%86%8D%EC%9D%98%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EB%AA%A9%EC%88%98%EB%94%B1%EB%94%B0%EA%B5%AC%EB%A6%AC-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page10-1777599672315.webp",
+        "text": "<h2>함께 관찰하면 좋은 포인트</h2><p>드러밍(나무 두드리기), 충격 흡수 머리, 긴 혀, 숲의 목수 같은 포인트를 짚어 주세요. \"왜 머리가 안 아플까?\"를 함께 이야기하면 좋습니다.</p>",
+        "caption": "관찰 포인트",
+        "image_style": "",
+        "image_prompt": "A close-up of woodpecker feet gripping a trunk, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "딱따구리 - 부모 가이드 — 호기심을 키우는 법",
+        "url": "https://assets.tangobook.co.kr/1777598658063-%EC%88%B2%EC%86%8D%EC%9D%98%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EB%AA%A9%EC%88%98%EB%94%B1%EB%94%B0%EA%B5%AC%EB%A6%AC-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page14-1777599681744.webp",
+        "text": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"빠르게 두드려도 안 다치는 머리 구조\"를 헬멧·쿠션에 비유해 보세요. 산책 중 딱따구리 소리를 들으면 \"벌레를 찾는 거야\"를 이야기하면 흥미가 커집니다.</p>",
+        "caption": "숲 소리 듣기",
+        "image_style": "",
+        "image_prompt": "A parent and child listening to woodpecker sounds in a forest, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 딱따구리는 왜 머리가 안 다치나요?</strong><br>A. 빠르게 쪼아도 충격을 흡수하는 특별한 머리 구조 덕분입니다.</p><p><strong>Q. 왜 \"숲의 목수\"라고 하나요?</strong><br>A. 딱따구리가 판 나무 구멍이 다른 새나 동물의 보금자리가 되어 주기 때문입니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 헬멧·쿠션에 빗대 머리 구조 설명, 산책 중 두드리는 소리 듣기가 좋습니다.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>함께 읽으면 좋은 명작 동화</h2><p>이 동화를 재미있게 읽었다면 이런 <strong>명작 동화</strong>도 함께 읽어 보세요.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">강아지</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">강아지풀</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">개구리</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">개미</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "딱따구리 그림책 삽화",
+        "url": "https://assets.tangobook.co.kr/1777598658063-%EC%88%B2%EC%86%8D%EC%9D%98%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EB%AA%A9%EC%88%98%EB%94%B1%EB%94%B0%EA%B5%AC%EB%A6%AC-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page18-1777599690826.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">「딱따구리」가 궁금하신가요?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">아름다운 그림과 한국어·영어 음성으로 탱고북에서 직접 만나보세요.</p><a href=\"https://tangobook.co.kr/library/1777598658063\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 동화책 보러가기 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

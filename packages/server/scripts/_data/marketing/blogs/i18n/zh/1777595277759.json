@@ -1,0 +1,106 @@
+{
+  "storybookId": "1777595277759",
+  "seo_title": "蜥蜴的特征和断尾的秘密 — 自然观察绘本",
+  "meta_description": "关于蜥蜴在危险时会自行断尾的秘密，以及它们晒太阳的原因等奇妙知识；还有《Tango Book》自然观察绘本的内容和观察方法。4-7岁自然观察指南。",
+  "primary_keyword": "蜥蜴",
+  "secondary_keywords": ["蜥蜴特点", "蜥蜴的尾巴", "爬行动物", "幼儿自然观察书籍", "动物图画书"],
+  "url_slug": "lizard-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "蜥蜴 - 蜥蜴，哪些地方最神奇呢？",
+        "url": "https://assets.tangobook.co.kr/1777595277759-%EB%8F%84%EB%A7%88%EB%B1%80-cover-misc-1780026711232.webp",
+        "text": "<h2>蜥蜴，哪些地方会让人觉得神奇呢？</h2><p>敏捷的 <strong>蜥蜴</strong>它是一种危险时会自己切断尾巴逃跑的奇妙爬行动物。它每天早上晒太阳的样子也很有趣。</p>",
+        "caption": "敏捷的爬行动物",
+        "image_style": "",
+        "image_prompt": "A lizard basking in the sun on a rock, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "蜥蜴 - 关于蜥蜴的自然与科学事实",
+        "url": "https://assets.tangobook.co.kr/1777595277759-%EB%B3%80%EC%8B%A0%EC%9D%98%EC%B2%9C%EC%9E%AC%EC%9D%B4%EC%9E%90%EC%88%B2%EC%86%8D%EC%9D%98%EB%B9%A0%EB%A5%B8%EB%8B%AC%EB%A6%AC%EA%B8%B0%EC%84%A0%EC%88%98%EB%8F%84%EB%A7%88%EB%B1%80-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page1-1777595512557.webp",
+        "text": "<h2>关于蜥蜴的自然和科学知识</h2><p>蜥蜴是 <strong>不能自我调节体温（变温动物）</strong>它们每天早上晒太阳，让身体暖和起来后再活动。如果被天敌抓住的话， <strong>会自己切掉尾巴（自截）</strong> 然后逃跑，重新长出来的尾巴里是软骨而不是骨头。它们用舌头感知气味颗粒，有些种类还会 <strong>改变皮肤颜色来隐藏身体</strong>，产卵并定期蜕皮。</p>",
+        "caption": "自节的秘密",
+        "image_style": "",
+        "image_prompt": "A lizard dropping its tail to escape a predator, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "蜥蜴 - 探戈书《蜥蜴》所讲述的内容",
+        "url": "https://assets.tangobook.co.kr/1777595277759-%EB%B3%80%EC%8B%A0%EC%9D%98%EC%B2%9C%EC%9E%AC%EC%9D%B4%EC%9E%90%EC%88%B2%EC%86%8D%EC%9D%98%EB%B9%A0%EB%A5%B8%EB%8B%AC%EB%A6%AC%EA%B8%B0%EC%84%A0%EC%88%98%EB%8F%84%EB%A7%88%EB%B1%80-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page5-1777595521645.webp",
+        "text": "<h2>探戈书《蜥蜴》讲述的内容</h2><p>探戈书《蜥蜴》生动地展示了蜥蜴晒太阳的样子、切断尾巴逃跑的样子、脱皮的样子，以及用伪装色躲藏的场景。</p>",
+        "caption": "伪装色",
+        "image_style": "",
+        "image_prompt": "A lizard changing skin color to camouflage, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "蜥蜴 - 与孩子一同观察的好点子/注意事项",
+        "url": "https://assets.tangobook.co.kr/1777595277759-%EB%B3%80%EC%8B%A0%EC%9D%98%EC%B2%9C%EC%9E%AC%EC%9D%B4%EC%9E%90%EC%88%B2%EC%86%8D%EC%9D%98%EB%B9%A0%EB%A5%B8%EB%8B%AC%EB%A6%AC%EA%B8%B0%EC%84%A0%EC%88%98%EB%8F%84%EB%A7%88%EB%B1%80-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page10-1777595530829.webp",
+        "text": "<h2>一起观察时可以注意的重点</h2><p>请指出一些重点，比如晒太阳（外热）、断尾（自截）、蜕皮、伪装色等。和孩子一起聊聊“为什么蜥蜴会剪掉尾巴？”会很好。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "A lizard shedding its skin, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "蜥蜴 - 家长指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1777595277759-%EB%B3%80%EC%8B%A0%EC%9D%98%EC%B2%9C%EC%9E%AC%EC%9D%B4%EC%9E%90%EC%88%B2%EC%86%8D%EC%9D%98%EB%B9%A0%EB%A5%B8%EB%8B%AC%EB%A6%AC%EA%B8%B0%EC%84%A0%EC%88%98%EB%8F%84%EB%A7%88%EB%B1%80-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page14-1777595540254.webp",
+        "text": "<h2>家长指南 — 如何培养好奇心</h2><p>讲述“遇到危险就逃跑（然后重新长大）”，并将其与蛇蜕皮进行比较。将晒太阳的原因（变温动物）与人类进行比较，能增加孩子的兴趣。</p>",
+        "caption": "爬行动物探索",
+        "image_style": "",
+        "image_prompt": "A parent and child reading about reptiles, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>Q. 为什么蜥蜴会断尾？</strong><br>A. 当被天敌抓住时，它们会自己断尾（自截），然后逃跑。尾巴会重新长出来（由软骨）。</p><p><strong>Q. 为什么蜥蜴要晒太阳？</strong><br>A. 因为它们是无法自我调节体温的变温动物，所以早上用阳光给身体暖暖之后才会活动。</p><p><strong>Q. 在家里怎样观察比较好呢？</strong><br>A. 可以和蛇蜕皮进行比较，再将晒太阳的原因与人类的行为做对比会更好。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>适合一起阅读的经典童话</h2><p>如果喜欢读这个故事，还可以看看这些 <strong>经典童话</strong>也一起来阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">小狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "蜥蜴图画书插画",
+        "url": "https://assets.tangobook.co.kr/1777595277759-%EB%B3%80%EC%8B%A0%EC%9D%98%EC%B2%9C%EC%9E%AC%EC%9D%B4%EC%9E%90%EC%88%B2%EC%86%8D%EC%9D%98%EB%B9%A0%EB%A5%B8%EB%8B%AC%EB%A6%AC%EA%B8%B0%EC%84%A0%EC%88%98%EB%8F%84%EB%A7%88%EB%B1%80-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page18-1777595843245.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“蜥蜴”感兴趣吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用美丽的图画和韩语·英语语音亲自了解它吧。</p><a href=\"https://tangobook.co.kr/library/1777595277759\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

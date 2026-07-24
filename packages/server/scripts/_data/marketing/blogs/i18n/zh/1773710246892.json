@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773710246892",
+  "seo_title": "大脑与心脏的故事 — 我们身体的科学自然观察绘本",
+  "meta_description": "关于负责思考的大脑和永不停歇的心脏的秘密等身体科学事实，以及《Tango Book》身体绘本的内容、与孩子一起了解的方法。4-7岁身体自然观察指南。",
+  "primary_keyword": "大脑和心脏",
+  "secondary_keywords": ["大脑和心脏", "心跳", "大脑的作用", "幼儿身体书", "身体图画书"],
+  "url_slug": "brain-heart-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "大脑和心脏的故事 - 大脑和心脏，有哪些神奇的地方呢？",
+        "url": "https://assets.tangobook.co.kr/1773710246892-%EB%87%8C%EC%99%80%EC%8B%AC%EC%9E%A5%EC%9D%B4%EC%95%BC%EA%B8%B0-cover-misc-1780103253865.webp",
+        "text": "<h2>大脑和心脏，哪些地方会让人感到神奇呢？</h2><p>让我们可以思考和感受的 <strong>大脑</strong>和不停跳动的 <strong>心脏</strong>是我们身体最重要的两个器官。它们现在也正在努力工作哦。</p>",
+        "caption": "最重要的两个机构",
+        "image_style": "",
+        "image_prompt": "A friendly cartoon brain and heart working together in a child body, bright children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "大脑与心脏的故事 - 大脑和心脏的自然科学事实",
+        "url": "https://assets.tangobook.co.kr/1773710246892-%EB%82%B4%EB%AA%B8%EC%9D%98%EB%98%91%EB%98%91%ED%95%9C%EB%8C%80%EC%9E%A5%EB%8B%98%EB%87%8C%EC%99%80%EC%8B%AC%EC%9E%A5%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page1-1773710499273.webp",
+        "text": "<h2>大脑和心脏的自然科学知识</h2><p><strong>大脑</strong>重约1.4公斤，大约 <strong>860亿个神经细胞</strong>通过电信号交换信息。它非常忙碌，消耗了身体约25%的氧气，并且在睡觉时整理记忆哦。 <strong>心脏</strong>每分钟跳动60~100次，一天 <strong>超过10万次</strong> 为全身输送血液。如果把我们身体所有的血管连接起来，超过了地球两圈哦。</p>",
+        "caption": "一天十万次",
+        "image_style": "",
+        "image_prompt": "A cartoon heart pumping blood through the body, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "大脑与心脏的故事 - 坦戈书《大脑与心脏的故事》所涵盖的内容",
+        "url": "https://assets.tangobook.co.kr/1773710246892-%EB%82%B4%EB%AA%B8%EC%9D%98%EB%98%91%EB%98%91%ED%95%9C%EB%8C%80%EC%9E%A5%EB%8B%98%EB%87%8C%EC%99%80%EC%8B%AC%EC%9E%A5%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page5-1773710644807.webp",
+        "text": "<h2>《探戈书》“大脑与心脏的故事”涵盖的内容</h2><p>《探戈书》“大脑与心脏的故事”以孩子能理解的视角，展示了负责思考和记忆的大脑、永不停歇的心脏，它们是如何协同工作的。</p>",
+        "caption": "整理记忆的大脑",
+        "image_style": "",
+        "image_prompt": "A friendly brain resting and organizing memories during sleep, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "大脑与心脏的故事 - 值得一起了解的知识点",
+        "url": "https://assets.tangobook.co.kr/1773710246892-%EB%82%B4%EB%AA%B8%EC%9D%98%EB%98%91%EB%98%91%ED%95%9C%EB%8C%80%EC%9E%A5%EB%8B%98%EB%87%8C%EC%99%80%EC%8B%AC%EC%9E%A5%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page10-1773710694415.webp",
+        "text": "<h2>一起了解的好点</h2><p>请指出像大脑（思考、记忆、睡眠）、心脏（跳动、输送血液）、跳动次数（一天十万次）和血管（非常长）这样的知识点。“心为什么不会停歇地跳动呢？”一起聊聊这个话题会很好。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "A child feeling a heartbeat with a hand on the chest, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "大脑与心脏的故事 - 家长指南 - 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1773710246892-%EB%82%B4%EB%AA%B8%EC%9D%98%EB%98%91%EB%98%91%ED%95%9C%EB%8C%80%EC%9E%A5%EB%8B%98%EB%87%8C%EC%99%80%EC%8B%AC%EC%9E%A5%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page14-1773710707521.webp",
+        "text": "<h2>家长指南 — 如何培养好奇心</h2><p>让孩子把手放在胸口感受心跳，观察它在原地跳跃后是否会加速。“睡得好能让大脑整理记忆”这样的说法也能帮助建立良好的睡眠习惯。</p>",
+        "caption": "脉搏观察",
+        "image_style": "",
+        "image_prompt": "A parent and child checking heartbeat after jumping, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>问：心脏一天跳几次？</strong><br>答：一天跳超过十万次。它不间断地将富含氧气的血液输送到全身。</p><p><strong>问：睡觉时，大脑会做什么？</strong><br>答：它会整理和强化记忆，并清除代谢废物。所以睡眠非常重要。</p><p><strong>问：在家如何检查比较好呢？</strong><br>答：可以感受胸口的心跳，观察心跳加速的情况，以及聊聊良好的睡眠习惯都是很好的方法。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "大脑与心脏的故事绘本插图",
+        "url": "https://assets.tangobook.co.kr/1773710246892-%EB%82%B4%EB%AA%B8%EC%9D%98%EB%98%91%EB%98%91%ED%95%9C%EB%8C%80%EC%9E%A5%EB%8B%98%EB%87%8C%EC%99%80%EC%8B%AC%EC%9E%A5%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page18-1773710735358.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“大脑与心脏的故事”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用美丽的图画和韩语·英语语音亲自体验吧。</p><a href=\"https://tangobook.co.kr/library/1773710246892\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "storybookId": "1778476961082",
+  "seo_title": "หนูน้อยหมวกแดง เนื้อเรื่องและข้อคิด — นิทานที่สอนให้ระวังคนแปลกหน้า",
+  "meta_description": "เรื่องย่อและข้อคิดจากหนูน้อยหมวกแดง ต้นฉบับโดยเปแอร์โรต์และกริมม์ พร้อมเคล็ดลับการเล่านิทานเพื่อสอนขอบเขตกับคนแปลกหน้าสำหรับลูกน้อย คู่มือหนังสือนิทานคลาสสิกสำหรับวัย 4-7 ปี",
+  "primary_keyword": "หนูน้อยหมวกแดง",
+  "secondary_keywords": [
+    "หนูน้อยหมวกแดงเรื่องย่อ",
+    "บทเรียนจากหนูน้อยหมวกแดง",
+    "ผ้าโพกหัวสีแดง",
+    "นิทานพี่น้องกริมม์",
+    "นิทานคลาสสิกสำหรับเด็กปฐมวัย"
+  ],
+  "url_slug": "little-red-riding-hood-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "หนูน้อยหมวกแดง – นิทานเรื่องนี้เกี่ยวกับอะไรคะ",
+        "url": "https://assets.tangobook.co.kr/1778476961082-%EB%B9%A8%EA%B0%84%EB%AA%A8%EC%9E%90new-cover-misc-1778494478564.webp",
+        "text": "<h2>เจ้าหนูน้อยหมวกแดง เป็นนิทานแบบไหนคะ?</h2><p><strong>เจ้าหนูน้อยหมวกแดง</strong>เป็นเรื่องราวของเด็กสาวที่กำลังจะนำอาหารไปให้คุณย่าที่ป่วย และได้พบกับหมาป่าเจ้าเล่ห์ค่ะ นิทานเรื่องนี้เป็นนิทานสอนใจที่สำคัญ ที่สอนถึงสติในการระวังคนแปลกหน้าและไม่เปิดเผยความลับตามท้องถนนอย่างไม่คิดค่ะ</p>",
+        "caption": "ทางไปบ้านคุณย่า",
+        "image_style": "",
+        "image_prompt": "A little girl in a red hood walking through a forest path with a basket, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "หนูน้อยหมวกแดง - นิทานต้นฉบับ",
+        "url": "https://assets.tangobook.co.kr/1778476961082-%EB%B9%A8%EA%B0%84%EB%AA%A8%EC%9E%90new-illustration-page1-1778491652727.webp",
+        "text": "<h2>นิทานต้นฉบับเรื่องหนูน้อยหมวกแดง</h2><p>ในฐานะนิทานพื้นบ้านยุโรป <strong>ชาร์ลส์ แปโรลต์ (Charles Perrault) (ค.ศ. 1697)</strong>ว้าว <strong>พี่น้องกริมม์ (Brothers Grimm) (ค.ศ. 1812)</strong> ฉบับต่างๆ มีชื่อเสียงมากค่ะ ต้นฉบับของแปโรลต์มีตอนจบที่โศกนาฏกรรมที่หมาป่ากินหนูน้อยหมวกแดง แต่ฉบับของพี่น้องกริมม์ได้เพิ่มตอนจบที่นายพรานช่วยเธอไว้ ทำให้เป็นเรื่องที่ถูกอ่านอย่างแพร่หลายจนถึงทุกวันนี้ค่ะ</p>",
+        "caption": "กลอุบายที่แนบเนียน",
+        "image_style": "",
+        "image_prompt": "A wolf disguised in grandmother's cap lying in bed, lighthearted children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "หนูน้อยหมวกแดง - สรุปเรื่องย่อ",
+        "url": "https://assets.tangobook.co.kr/1778476961082-%EB%B9%A8%EA%B0%84%EB%AA%A8%EC%9E%90new-illustration-page5-1778491843580.webp",
+        "text": "<h2>สรุปเรื่องราวของหนูน้อยหมวกแดง</h2><p>เด็กสาวที่สวมหมวกแดงเดินทางไปตามทางในป่าเพื่อนำอาหารให้คุณย่าที่ป่วย ระหว่างทางเธอได้พบหมาป่าตัวหนึ่งซึ่งรู้ว่าเธอกำลังจะไปที่ไหน จึงรีบไปยังบ้านของคุณย่าและปลอมตัวเป็นคนอื่น หนูน้อยหมวกแดงสังเกตเห็นกลลวงของหมาป่า ทำให้ตกอยู่ในอันตราย แต่ก็ได้รับการช่วยเหลืออย่างปลอดภัยจากนายพราน</p>",
+        "caption": "ผ่านพ้นวิกฤต",
+        "image_style": "",
+        "image_prompt": "A kind huntsman rescuing the girl and grandmother, relieved warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "หนูน้อยหมวกแดง - ข้อคิดจากเรื่องหนูน้อยหมวกแดง",
+        "url": "https://assets.tangobook.co.kr/1778476961082-%EB%B9%A8%EA%B0%84%EB%AA%A8%EC%9E%90-illustration-page8-1780997522969.webp",
+        "text": "<h2>บทเรียนจากหนูน้อยหมวกแดง</h2><p>หัวใจสำคัญคือ <strong>ไม่พูดข้อมูลหรือตามคนแปลกหน้าที่เจอระหว่างทางโดยพลการ</strong>ค่ะ นอกจากนี้ยังเรียนรู้ถึงความสำคัญของการมีสติและขอความช่วยเหลือจากผู้ใหญ่เมื่อตระหนักถึงอันตรายด้วยค่ะ</p>",
+        "caption": "เรียนรู้เรื่องความปลอดภัย",
+        "image_style": "",
+        "image_prompt": "A child learning to be cautious with a stranger, safety-themed gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "หนูน้อยหมวกแดง - วิธีเล่านิทานให้ลูกฟัง",
+        "url": "https://assets.tangobook.co.kr/1778476961082-%EB%B9%A8%EA%B0%84%EB%AA%A8%EC%9E%90new-illustration-page12-1778493029224.webp",
+        "text": "<h2>วิธีการอ่านให้ลูกฟัง</h2><p>ในฉากที่หมาป่าถามว่าไปไหน ให้คุณถามว่า \"สิ่งแบบนี้บอกคนแปลกหน้าได้ไหม?\" อ่านบทสนทนาที่ว่า \"ทำไมหูถึงใหญ่ขนาดนั้น?\" ด้วยจังหวะ หลังจากอ่านแล้ว ให้ฝึกสถานการณ์ต่างๆ ร่วมกัน เช่น \"ถ้าคนแปลกหน้าถามทางล่ะ?\" เหมาะสำหรับเด็กอายุ 4-7 ปี</p>",
+        "caption": "การเชื่อมโยงนิสัยความปลอดภัย",
+        "image_style": "",
+        "image_prompt": "A parent and child practicing what to do with a stranger, safe warm mood, children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>คำถาม: เรื่องหนูน้อยหมวกแดงเหมาะกับวัยไหนคะ?</strong><br>คำตอบ: เหมาะสำหรับอายุ 4-7 ปีค่ะ เพราะความตึงเครียดและการคลายเครียดชัดเจน และข้อความด้านความปลอดภัยก็เด่นชัดดีค่ะ</p><p><strong>คำถาม: ตอนจบในต้นฉบับแตกต่างจากนี้ไหมคะ?</strong><br>คำตอบ: ต้นฉบับของเปโรเป็นโศกนาฏกรรม ส่วนฉบับพี่น้องกริมม์คือตอนที่นายพรานมาช่วยค่ะ สำหรับเด็กเล็ก มักจะเลือกจบแบบการช่วยเหลือมากกว่าค่ะ</p><p><strong>คำถาม: ควรเชื่อมโยงกับกิจกรรมอะไรดีคะ?</strong><br>คำตอบ: การฝึก \"วิธีรับมือกับคนแปลกหน้า\" การกำหนดข้อตกลงด้านความปลอดภัย และเรื่องราวเกี่ยวกับการขอความช่วยเหลือเป็นสิ่งที่ดีค่ะ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณสนุกกับการอ่านนิทานเรื่องนี้แล้ว ลองดูพวกนี้สิ <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/frog-prince-fairy-tale-for-kids\">เจ้าชายกบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-and-grasshopper-for-kids\">มดกับตั๊กแตน</a></li><li><a href=\"https://tangobook.co.kr/blog/selfish-giant-garden-for-kids\">สวนของยักษ์</a></li><li><a href=\"https://tangobook.co.kr/blog/gullivers-travels-for-kids\">การเดินทางของกัลลิเวอร์</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือหนูน้อยหมวกแดง",
+        "url": "https://assets.tangobook.co.kr/1778476961082-%EB%B9%A8%EA%B0%84%EB%AA%A8%EC%9E%90new-illustration-page15-1778493054286.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเรื่อง \"หนูน้อยหมวกแดง\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกันได้ที่แทงโกบุ๊ก ด้วยภาพสวยงามและเสียงประกอบภาษาเกาหลี/อังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1778476961082\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

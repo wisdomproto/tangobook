@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773615989178",
+  "seo_title": "洞穴和潮滩 — 神秘的自然空间 自然观察绘本",
+  "meta_description": "关于洞穴钟乳石和石笋的形成过程、潮滩丰富的生命等奇妙事实，以及《Tango Book》自然观察绘本的内容和体验方法。适合5-7岁儿童的自然观察指南。",
+  "primary_keyword": "滩涂",
+  "secondary_keywords": ["洞穴和滩涂", "钟乳石 石笋", "潮间带生物", "幼儿自然观察书", "自然绘本"],
+  "url_slug": "cave-tidal-flat-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "洞穴和潮滩 - 洞穴和潮滩，有哪些神奇之处呢？",
+        "url": "https://assets.tangobook.co.kr/1773615989178-%EB%8F%99%EA%B5%B4%EA%B3%BC%EA%B0%AF%EB%B2%8C-cover-misc-1780275273836.webp",
+        "text": "<h2>洞穴和潮滩，哪些地方会让人感到神奇呢？</h2><p>漆黑的 <strong>洞穴</strong>和水涨潮落的地方 <strong>潮滩</strong>是一个神秘的自然空间。在黑暗和泥土中，隐藏着令人惊奇的生命和形状。</p>",
+        "caption": "神秘的自然空间",
+        "image_style": "",
+        "image_prompt": "A limestone cave with stalactites and a tidal flat side by side, beautiful children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "洞穴和滩涂——关于洞穴和滩涂的自然与科学事实",
+        "url": "https://assets.tangobook.co.kr/1773615989178-%EC%A7%80%ED%95%98%EC%9D%98%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EA%B6%81%EC%A0%84%EB%8F%99%EA%B5%B4%EA%B3%BC%EB%B0%94%EB%8B%A4%EA%B0%80%EC%88%A8%EA%B2%A8%EB%91%94%EB%B3%B4%EB%AC%BC%EC%B0%BD%EA%B3%A0%EA%B0%AF%EB%B2%8C-illustration-page1-1773616215205.webp",
+        "text": "<h2>洞穴和滩涂的自然科学知识</h2><p>石灰岩洞穴是 <strong>雨水慢慢溶解了石灰岩</strong> 形成了。从天花板上生长的的是 <strong>钟乳石</strong>，从地面上生长的的是 <strong>石笋</strong>，两者相遇就会成为石柱，要长到1米需要数千年。 <strong>滩涂</strong>是潮水每天进出两次的地方，大约有500种生物生活在这里，被称为“地球的肾脏”。一个蛤蜊每小时可以过滤约1升海水。</p>",
+        "caption": "慢慢生长的洞穴",
+        "image_style": "",
+        "image_prompt": "Stalactites hanging from a cave ceiling and stalagmites rising, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "洞穴和潮滩 - 坦戈书《洞穴与潮滩》所讲述的内容",
+        "url": "https://assets.tangobook.co.kr/1773615989178-%EC%A7%80%ED%95%98%EC%9D%98%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EA%B6%81%EC%A0%84%EB%8F%99%EA%B5%B4%EA%B3%BC%EB%B0%94%EB%8B%A4%EA%B0%80%EC%88%A8%EA%B2%A8%EB%91%94%EB%B3%B4%EB%AC%BC%EC%B0%BD%EA%B3%A0%EA%B0%AF%EB%B2%8C-illustration-page5-1773616226668.webp",
+        "text": "<h2>《Tango Book》《洞穴与潮滩》讲述的内容</h2><p>《Tango Book》《洞穴与潮滩》展示了两个神秘空间——生长着钟乳石和石笋的洞穴、像蝙蝠一样的黑暗中的生物，以及潮滩上的螃蟹、蛤蜊、候鸟等生命。</p>",
+        "caption": "地球的身长",
+        "image_style": "",
+        "image_prompt": "A tidal flat full of crabs and shellfish at low tide, lively children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "洞穴与潮滩——可以一同了解的重点（或：知识点）",
+        "url": "https://assets.tangobook.co.kr/1773615989178-%EC%A7%80%ED%95%98%EC%9D%98%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EA%B6%81%EC%A0%84%EB%8F%99%EA%B5%B4%EA%B3%BC%EB%B0%94%EB%8B%A4%EA%B0%80%EC%88%A8%EA%B2%A8%EB%91%94%EB%B3%B4%EB%AC%BC%EC%B0%BD%EA%B3%A0%EA%B0%AF%EB%B2%8C-illustration-page10-1773616405615.webp",
+        "text": "<h2>值得一起了解的重点</h2><p>请指出像钟乳石/石笋（上下生长）、洞穴生物（蝙蝠）、潮滩（退水后留下的）、潮滩生物（螃蟹·贝类）这样的重点。一起讨论“钟乳石长了多久？”会很好。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "A bat hanging in a dark cave, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "洞穴与潮滩——家长指南：如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1773615989178-%EC%A7%80%ED%95%98%EC%9D%98%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EA%B6%81%EC%A0%84%EB%8F%99%EA%B5%B4%EA%B3%BC%EB%B0%94%EB%8B%A4%EA%B0%80%EC%88%A8%EA%B2%A8%EB%91%94%EB%B3%B4%EB%AC%BC%EC%B0%BD%EA%B3%A0%EA%B0%AF%EB%B2%8C-illustration-page14-1773616682636.webp",
+        "text": "<h2>父母指南 — 如何培养好奇心</h2><p>在潮间带体验区，亲自观察螃蟹和蛤蜊（观察后放回原处）。通过洞穴照片和视频看钟乳石和石笋，并将其比喻为冰挂的生长过程，能更容易理解。</p>",
+        "caption": "潮滩体验",
+        "image_style": "",
+        "image_prompt": "A parent and child exploring a tidal flat with small crabs, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题</h2><p><strong>问：钟乳石和石笋有什么不同呢？</strong><br>答：从洞顶向下生长的是钟乳石，从地面向上生长的是石笋。如果它们相遇，就会形成石柱。</p><p><strong>问：潮间带为什么这么重要呢？</strong><br>答：大约有500种生物生活在那里，能过滤海水，所以被称为“地球的肾脏”。它也是候鸟的觅食地。</p><p><strong>问：在家里怎样了解呢？</strong><br>答：可以进行潮间带体验，观察螃蟹和贝壳（原地），看看洞穴照片，或者将其比作冰挂。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>适合一起阅读的经典童话</h2><p>如果喜欢读这个故事，还可以看看这些 <strong>经典童话</strong>也一起来阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">小狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "洞穴和潮滩绘本插图",
+        "url": "https://assets.tangobook.co.kr/1773615989178-%EC%A7%80%ED%95%98%EC%9D%98%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EA%B6%81%EC%A0%84%EB%8F%99%EA%B5%B4%EA%B3%BC%EB%B0%94%EB%8B%A4%EA%B0%80%EC%88%A8%EA%B2%A8%EB%91%94%EB%B3%B4%EB%AC%BC%EC%B0%BD%EA%B3%A0%EA%B0%AF%EB%B2%8C-illustration-page18-1773616695215.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“洞穴和潮滩”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book上，用美丽的图画和韩语·英语语音亲自体验吧。</p><a href=\"https://tangobook.co.kr/library/1773615989178\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

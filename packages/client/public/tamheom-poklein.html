@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 세상 탐험 — 힘센 땅 파는 친구</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 세상 탐험 · 시즌1 탈것 #T04</div>
+  <h1>🚜 힘센 땅 파는 친구</h1>
+  <div class="sub">우르릉 소리를 따라간 호리가 공사장에서 포클레인의 무한궤도·팔·버킷을 살펴보고 직접 흙까지 퍼 봐요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 포클레인(굴착기) 발견 — 실제 부품·작동을 정확히 (핵심단어: 버킷·무한궤도·팔(붐)·이빨) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(호기심·질문쟁이)·아빠(동행 가이드)·보리(동행 친구, 조심·관찰·디테일 발견)·굴착기 기사 아저씨(현장 안내자, 단역) &nbsp;·&nbsp;
+  <b>구조</b> 발견 5단계 (궁금→찾아감→살펴봄→해봄→정리) &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🚜 반복 후렴 — "우르릉 쿵! 땅 파는 포클레인!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>궁금(목격)</b> <span class="tag">궁금 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">우르릉— 우르릉— 공사장에서 커다란 노란 기계가 기다란 팔로 땅을 쿵! 파고 있어요. 호리는 두 눈이 휘둥그레! "우아, 저 힘센 노란 친구는 뭐지?" 우르릉 쿵, 땅 파는 포클레인!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 노란 포클레인이 긴 팔을 뻗어 땅을 파는 모습을 울타리 너머로 올려다보는 컷.<br/><b>장소·시간</b> 동네 공사장 옆 인도, 맑은 낮. 파란 하늘에 흙먼지가 살짝 이는 활기찬 공기.<br/><b>인물</b> Hori(아기 호랑이)는 화면 앞쪽 인도에 서서 두 귀를 쫑긋 세우고 입을 동그랗게 벌린 채, 두 손을 안전 울타리 위에 얹고 눈을 반짝이며 노란 기계를 올려다봄.<br/><b>배경·소품</b> 화면 가운데 커다란 노란 포클레인(기다란 팔이 아래로 뻗어 버킷이 땅에 박힌 상태), 바퀴 대신 검은 무한궤도, 파헤쳐진 갈색 흙더미, 주황·흰 줄무늬 안전 울타리, 뒤로 짓다 만 회색 건물 골조.<br/><b>톤</b> 환한 대낮 자연광, 노란 기계와 갈색 흙의 대비, 신나고 두근거리는 호기심의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>궁금(질문)</b> <span class="tag">궁금</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"아빠, 저건 손도 없는데 어떻게 땅을 파요?" 호리가 울타리를 붙잡고 물어봐요. 보리도 옆에서 까치발로 기웃기웃. 아빠가 빙긋 웃었어요. "궁금하면 가까이 가서 볼까? 대신 안전모 꼭 쓰고!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 호리가 아빠를 올려다보며 묻고 보리가 곁에서 기웃거리는 삼자 컷.<br/><b>장소·시간</b> 같은 공사장 울타리 앞, 낮. 포클레인은 뒤편에서 계속 흙을 파고 있음.<br/><b>인물</b> Hori는 화면 왼쪽에서 두 손으로 안전 울타리를 붙잡고 고개를 뒤로 젖혀 아빠를 올려다보며 궁금한 미소로 질문. Dad tiger(아빠 호랑이)는 가운데서 허리를 살짝 굽혀 호리에게 눈을 맞추며 한 손으로 공사장 입구 쪽을 가리키고 다정하게 웃음. Bori(아기 곰)는 오른쪽에서 까치발을 들고 울타리 너머로 목을 쭉 빼 포클레인을 조심스레 관찰하는 진지한 표정.<br/><b>배경·소품</b> 주황·흰 줄무늬 안전 울타리, 뒤편에서 팔을 움직이는 노란 포클레인, 갈색 흙더미, 맑은 하늘.<br/><b>톤</b> 밝은 낮 자연광, 궁금증이 모험으로 바뀌는 설레는 정서, 따뜻하고 활기찬 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>찾아감(공사장 도착)</b> <span class="tag">찾아감</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">노란 안전모를 눌러쓰고 저벅저벅 공사장 안으로 들어가요. "안녕! 포클레인이 궁금해서 왔구나?" 파란 작업복에 노란 조끼를 입은 기사 아저씨가 손을 흔들어요. 가까이서 본 포클레인은 집채만큼 커다래요! 호리는 심장이 콩닥콩닥.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글. 공사장 안에서 커다란 포클레인을 앞에서 올려다보는 컷.<br/><b>장소·시간</b> 공사장 안 작업 구역, 낮. 밝은 햇살에 흙바닥이 드러난 넓은 공터.<br/><b>인물</b> Hori는 화면 앞쪽 가운데서 커다란 노란 안전모를 눌러쓰고 목을 뒤로 젖혀 거대한 포클레인을 입 벌리고 올려다보며 두 손을 가슴에 모음, 놀라움 가득한 표정. Dad tiger는 호리 뒤에서 어깨에 손을 얹고 함께 올려다봄, 역시 노란 안전모 착용. Bori는 왼쪽에서 안전모를 쓰고 포클레인 발치를 조심스레 살핌. excavator operator(굴착기 기사 아저씨)는 파란 작업복에 노란 안전조끼·흰 안전모 차림으로 오른쪽 포클레인 옆에 서서 한 손을 번쩍 들어 반갑게 인사하며 환하게 웃음.<br/><b>배경·소품</b> 집채만 한 노란 포클레인 전체(둥근 운전실, 긴 팔, 검은 무한궤도), 흙바닥, 쌓인 흙더미, 주황 안전 콘, 뒤로 회색 건물 골조.<br/><b>톤</b> 환한 야외 자연광, 크고 든든한 포클레인의 위풍, 두근거리는 설렘의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>살펴봄(무한궤도)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"어? 바퀴가 없네요?" 보리가 고개를 갸웃해요. "바퀴 대신 무한궤도가 있단다. 벨트처럼 쭉 이어져서, 울퉁불퉁한 흙땅이나 진흙에서도 미끄러지지 않고 척척 다니지." 드르륵— 무한궤도가 천천히 돌아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 측면 클로즈업. 포클레인 아래쪽 무한궤도를 셋이 들여다보는 컷.<br/><b>장소·시간</b> 포클레인 옆 흙바닥, 낮. 밝은 햇살.<br/><b>인물</b> excavator operator는 화면 오른쪽에서 무릎을 굽혀 검은 무한궤도를 한 손으로 가리키며 설명하는 다정한 표정. Bori는 가운데서 두 손으로 무릎을 짚고 허리를 굽혀 무한궤도에 얼굴을 가까이 대고 고개를 갸웃하며 신기해하는 표정. Hori는 왼쪽에서 손가락으로 궤도의 이음새를 가리키며 "우와" 하는 감탄. Dad tiger는 뒤에서 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 벨트처럼 이어진 굵은 검은 무한궤도(탱크 궤도 모양)와 그 위 노란 차체, 궤도가 지나간 흙바닥의 무늬 자국, 살짝 인 흙먼지.<br/><b>톤</b> 밝은 자연광, 크고 튼튼한 궤도의 든든함, 신기함으로 눈이 커지는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>살펴봄(팔·붐)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">포클레인의 기다란 팔이 우리 팔꿈치처럼 접혔다 쫙— 펴져요. "이 팔은 쭉 밀어 주는 기름의 힘으로 움직여. 그래서 무거운 흙도 번쩍 들 수 있단다." 팔이 위이잉 움직이자, 호리도 자기 팔을 따라 쭉 뻗어 봤어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글. 하늘을 배경으로 접혔다 펴지는 포클레인의 긴 팔을 올려다보는 컷.<br/><b>장소·시간</b> 공사장 작업 구역, 낮. 파란 하늘과 밝은 햇살.<br/><b>인물</b> Hori는 화면 앞쪽 가운데서 포클레인 팔을 흉내 내어 자기 팔을 어깨부터 쭉 뻗어 올리며 눈을 반짝이는 신난 표정. Bori는 옆에서 팔이 움직이는 걸 조심스레 올려다보며 감탄. Dad tiger는 뒤에서 호리를 안전선 안쪽으로 살짝 잡아 주며 미소. excavator operator(파란 작업복·노란 조끼·흰 안전모)는 오른쪽에서 한 손으로 팔의 팔꿈치 관절을 가리키며 자랑스레 설명.<br/><b>배경·소품</b> 팔꿈치처럼 관절이 꺾인 노란 포클레인의 긴 팔(붐과 암), 관절 옆 굵은 은색 유압 실린더(기름의 힘을 나타내는 반질반질한 원통), 팔 끝의 버킷, 파란 하늘과 흰 구름.<br/><b>톤</b> 환한 자연광, 팔이 움직이는 힘찬 정서, 감탄이 터지는 밝은 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>살펴봄(버킷·이빨)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">팔 끝에는 커다란 삽이 달렸어요. "이건 버킷이야. 큰 삽처럼 흙을 퍼담지." 버킷 끝에는 뾰족한 이빨이 나란히! "이 이빨로 딱딱한 땅을 콱— 긁어서 흙을 파낸단다." 보리가 이빨을 세어 봐요. "하나, 둘, 셋…"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 클로즈업. 땅에 내려온 버킷과 그 이빨을 셋이 가까이 들여다보는 컷.<br/><b>장소·시간</b> 포클레인 앞 흙바닥, 낮. 밝은 햇살.<br/><b>인물</b> excavator operator는 화면 오른쪽에서 손바닥을 펼쳐 버킷 안쪽을 가리키며 "삽처럼 퍼담는다"고 설명하는 다정한 표정. Hori는 가운데서 버킷 이빨에 얼굴을 바짝 대고 손가락으로 이빨을 하나 짚으며 입을 딱 벌린 놀란 표정. Bori는 왼쪽에서 검지로 이빨을 하나씩 짚어 세며 진지하게 집중. Dad tiger는 뒤에서 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 땅에 내려앉은 커다란 노란 버킷(삽 모양의 큰 통), 앞날에 나란히 박힌 뾰족한 은색 이빨 여러 개, 버킷 안에 남은 갈색 흙, 바닥의 흙 자국.<br/><b>톤</b> 밝은 자연광, 크고 힘센 삽의 든든함, 하나씩 세어 보는 집중과 신기함의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>살펴봄(빙글 돌아 흙 옮기기)</b> <span class="tag">살펴봄(작동)</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">우르릉— 기사 아저씨가 운전실에 앉자 윗부분이 빙그르르 돌아요! 버킷이 흙을 한가득 퍼서 쓱 돌아, 옆에 선 덤프트럭 짐칸에 와르르— 쏟아요. "우와, 빙글 돌아서 흙을 옮겨요!" 호리가 손뼉을 짝짝 쳤어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 하이앵글. 포클레인 윗부분이 돌아 버킷이 덤프트럭에 흙을 쏟는 순간을 비스듬히 내려다보는 컷.<br/><b>장소·시간</b> 공사장 작업 구역, 낮. 흙먼지가 살짝 이는 밝은 공기.<br/><b>인물</b> excavator operator는 왼쪽 포클레인 둥근 운전실 안에 앉아 두 손으로 조종 레버를 잡고 집중한 표정(유리창 너머 상반신). Hori는 화면 앞쪽 안전선 안에서 두 손뼉을 짝 마주치며 폴짝 뛰는 신난 표정. Bori는 옆에서 흙이 쏟아지는 걸 조심스레 올려다보며 감탄. Dad tiger는 뒤에서 두 아이 어깨를 감싸 안전선 안쪽으로 지켜 줌.<br/><b>배경·소품</b> 윗부분(운전실+팔)이 옆으로 돌아간 노란 포클레인, 흙을 가득 담은 버킷에서 노란 덤프트럭 짐칸으로 와르르 쏟아지는 갈색 흙, 튀는 흙덩이, 회전 방향을 나타내는 흙먼지.<br/><b>톤</b> 밝은 자연광, 빙글 도는 힘찬 움직임의 역동적 정서, 신나서 손뼉 치는 즐거운 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>해봄(직접 조종)</b> <span class="tag">해봄 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"호리도 한번 해 볼래?" 호리가 운전실에 쏙 올라앉아, 아저씨와 함께 레버를 살짝 밀자 우르릉 쿵— 버킷이 흙을 한 삽 퍼 올렸어요! 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉! "내가 땅을 팠어요!" 우르릉 쿵, 땅 파는 포클레인!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 어깨너머 앵글. 운전실 안에서 레버를 미는 호리와 버킷이 흙을 퍼 올리는 결정적 순간.<br/><b>장소·시간</b> 포클레인 운전실 안과 창밖, 낮. 밝은 햇살이 유리로 드는 상쾌한 공기.<br/><b>인물</b> Hori는 화면 가운데 운전실 의자에 앉아 두 손으로 조종 레버를 꼭 잡고 앞으로 살짝 밀며, 창밖 버킷을 향해 눈을 반짝이며 활짝 웃는 씩씩한 결의의 표정. excavator operator는 호리 바로 뒤에서 한 손을 레버에 살짝 겹쳐 함께 잡아 주며 흐뭇하게 웃음. 창밖으로 Bori와 Dad tiger가 아래에서 두 손을 번쩍 들어 응원하는 모습이 보임.<br/><b>배경·소품</b> 포클레인 운전실 안(조종 레버 두 개, 계기판, 넓은 유리창), 창밖에서 흙을 한가득 퍼 올린 노란 버킷, 특히 호리 꼬리 줄무늬가 무지개빛으로 반짝이는 시그니처 순간(부릉꼬리), 흩날리는 흙알갱이.<br/><b>톤</b> 환한 자연광, 직접 해냈다는 성취감의 신나고 뿌듯한 정서, 응원이 어우러진 밝은 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>해봄(진짜 작업 목격)</b> <span class="tag">해봄</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 진짜 일할 시간! 포클레인이 우르릉 쿵, 우르릉 쿵— 땅을 깊게 파 내려가요. 파낸 흙은 버킷으로 퍼서 덤프트럭에 척척 담아요. 호리와 보리는 안전선 밖에서 눈을 못 떼요. "정말 힘이 세다!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 측면. 포클레인이 땅을 파고 아이들이 안전선 밖에서 지켜보는 작업 컷.<br/><b>장소·시간</b> 공사장 작업 구역, 낮. 흙먼지가 이는 활기찬 공기.<br/><b>인물</b> Hori는 화면 오른쪽 앞 안전선 밖에서 두 손을 턱에 괴고 눈을 크게 뜬 채 넋을 놓고 포클레인을 바라보는 감탄 표정. Bori는 호리 옆에서 두 손을 모으고 조심스레 집중하며 지켜봄. Dad tiger는 뒤에서 두 아이의 어깨를 감싸 안전선 안쪽으로 지켜 줌. excavator operator는 왼쪽 운전실 안에서 레버를 잡고 능숙하게 작업하는 상반신(유리 너머).<br/><b>배경·소품</b> 팔을 깊게 뻗어 흙을 파내는 노란 포클레인, 파여 깊어진 갈색 구덩이, 버킷에서 노란 덤프트럭 짐칸으로 옮겨지는 흙더미, 검은 무한궤도, 주황·흰 안전선, 살짝 인 흙먼지.<br/><b>톤</b> 밝은 자연광, 힘차게 일하는 든든하고 역동적인 정서, 넋을 놓고 바라보는 감탄의 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>정리(감탄·감사)</b> <span class="tag">정리 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집으로 가는 길, 호리는 아빠 손을 꼭 잡고 조잘조잘. "무한궤도로 흙땅을 척척 다니고, 긴 팔로 버킷을 움직여서, 이빨 달린 삽으로 땅을 파요! 포클레인은 우리 대신 힘든 땅을 파 줘요." 호리는 하늘 보며 씩 웃었어요. 우르릉 쿵, 땅 파는 포클레인!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 뒷모습 살짝 측면. 노을 진 길을 걸으며 이야기하는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 공사장에서 집으로 가는 동네 길, 해 질 녘. 주황빛 노을이 물든 포근하고 뿌듯한 공기.<br/><b>인물</b> Hori는 화면 가운데서 Dad tiger의 손을 잡고 걸으며 고개를 들어 아빠에게 손짓 섞어 조잘조잘 신나게 이야기하는 뿌듯한 표정. Dad tiger는 호리를 내려다보며 다정하게 고개를 끄덕이며 미소. Bori는 왼쪽에서 아직도 신이 나 팔로 포클레인 팔을 흉내 내며 걸음.<br/><b>배경·소품</b> 세 사람의 손잡은 실루엣, 뒤로 저 멀리 작아진 공사장과 노란 포클레인, 노을빛 하늘에 작은 구름, 가로수, 하늘 한켠에 작은 별 반짝임.<br/><b>톤</b> 따뜻한 주황 노을 조명, 하루의 발견을 곱씹는 뭉클하고 흐뭇한 정서, 존중과 감탄으로 마무리되는 포근한 분위기.</pre></details>
+</div>
+
+<footer>호리네 세상 탐험 · T04 힘센 땅 파는 친구 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>window.SH_GUESTS=[{"key":"operator","name":"굴착기 기사 아저씨","aliases":["excavator operator","digger driver"],"desc":"파란 작업복 위에 노란 형광 안전조끼(가슴과 어깨에 은색 반사띠)를 입고 흰 안전모를 쓴 튼튼하고 친절한 인상의 어른. 둥글고 다정한 눈에 환한 미소, 짧고 단정한 콧수염, 굵은 팔에 목장갑과 작업 장화. 포클레인을 능숙하게 다루며 아이들을 다정하게 안내하는 현장 가이드"}]</script>
+<script src="/tamheom-core.js"></script>
+</body>
+</html>

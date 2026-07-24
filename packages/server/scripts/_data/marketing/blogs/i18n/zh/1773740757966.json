@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773740757966",
+  "seo_title": "普罗托龙科拉托普斯特点 — 守护了蛋的恐龙自然观察绘本",
+  "meta_description": "关于角龙的祖先——早角龙（Protoceratops）和蛋化石的故事等奇妙知识，以及《Tango Book》恐龙绘本的内容、如何享受阅读。4-7岁恐龙指南。",
+  "primary_keyword": "始齿龙",
+  "secondary_keywords": ["始齿龙", "恐龙蛋", "食草恐龙", "儿童恐龙书", "恐龙绘本"],
+  "url_slug": "protoceratops-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "始科龙 - 始科龙，哪些地方让人感到神奇呢？",
+        "url": "https://assets.tangobook.co.kr/1773740757966-%ED%94%84%EB%A1%9C%ED%86%A0%EC%BC%80%EB%9D%BC%ED%86%B1%EC%8A%A4-cover-misc-1780039163321.webp",
+        "text": "<h2>普罗托角龙，哪些地方很神奇呢？</h2><p>和鸡蛋一样大的 <strong>普罗托角龙</strong>它是一种小型的食草恐龙，是像三角龙这样的角龙的祖先。它在蛋化石方面也非常出名哦。</p>",
+        "caption": "守护蛋的恐龙",
+        "image_style": "",
+        "image_prompt": "A small Protoceratops in a desert landscape, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "始科角龙 - 始科角龙的自然与科学知识",
+        "url": "https://assets.tangobook.co.kr/1773740757966-%EB%BF%94%EC%9D%80%EC%97%86%EC%A7%80%EB%A7%8C%EC%9A%A9%EA%B0%90%ED%95%9C%EC%82%AC%EB%A7%89%EC%9D%98%EA%B1%B0%EB%B6%81%EC%9D%B4%ED%94%84%EB%A1%9C%ED%86%A0%EC%BC%80%EB%9D%BC%ED%86%B1%EC%8A%A4-illustration-page1-1773890959818.webp",
+        "text": "<h2>关于普罗托龙科棘兽的自然和科学事实</h2><p>普罗托龙科棘兽生活在大约7500万年前 <strong>在蒙古和中国的沙漠里</strong>它生活在那里。蛋的孵化期大约是 <strong>83天</strong>，一个蛋的长度大约是20厘米。眼球直径大约有5厘米， <strong>是人类眼睛的两倍大。</strong>它很大。多亏了这么大的眼睛，它一定能在黑暗的地方也看得清楚。发现巢穴和蛋的化石在一起，对了解恐龙的繁殖非常有帮助。</p>",
+        "caption": "20厘米的蛋",
+        "image_style": "",
+        "image_prompt": "A Protoceratops nest with eggs in the sand, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "原型龙 - Tango Book《原型龙》的内容介绍",
+        "url": "https://assets.tangobook.co.kr/1773740757966-%EB%BF%94%EC%9D%80%EC%97%86%EC%A7%80%EB%A7%8C%EC%9A%A9%EA%B0%90%ED%95%9C%EC%82%AC%EB%A7%89%EC%9D%98%EA%B1%B0%EB%B6%81%EC%9D%B4%ED%94%84%EB%A1%9C%ED%86%A0%EC%BC%80%EB%9D%BC%ED%86%B1%EC%8A%A4-illustration-page6-1773890972236.webp",
+        "text": "<h2>《Tango Book》关于《Protoceratops》的内容</h2><p>《Tango Book》温馨地展现了沙漠中的小恐龙，包括它小而结实的身体、大大的眼睛、巢穴的蛋以及照顾幼崽的样子等。</p>",
+        "caption": "人眼的两倍",
+        "image_style": "",
+        "image_prompt": "A Protoceratops with large eyes, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "原角龙 - 还可以了解的重点",
+        "url": "https://assets.tangobook.co.kr/1773740757966-%EB%BF%94%EC%9D%80%EC%97%86%EC%A7%80%EB%A7%8C%EC%9A%A9%EA%B0%90%ED%95%9C%EC%82%AC%EB%A7%89%EC%9D%98%EA%B1%B0%EB%B6%81%EC%9D%B4%ED%94%84%EB%A1%9C%ED%86%A0%EC%BC%80%EB%9D%BC%ED%86%B1%EC%8A%A4-illustration-page10-1773890985726.webp",
+        "text": "<h2>我们可以一起关注的重点</h2><p>请指出像体型小（只用于羊）、大眼睛、蛋/巢穴、沙漠生活这样的重点。一起讨论“蛋孵化需要几天时间呢？”会更好。</p>",
+        "caption": "观察点",
+        "image_style": "",
+        "image_prompt": "A Protoceratops caring for hatchlings, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "普罗托龙科拉托普斯 - 家长指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1773740757966-%EB%BF%94%EC%9D%80%EC%97%86%EC%A7%80%EB%A7%8C%EC%9A%A9%EA%B0%90%ED%95%9C%EC%82%AC%EB%A7%89%EC%9D%98%EA%B1%B0%EB%B6%81%EC%9D%B4%ED%94%84%EB%A1%9C%ED%86%A0%EC%BC%80%EB%9D%BC%ED%86%B1%EC%8A%A4-illustration-page15-1773891013800.webp",
+        "text": "<h2>家长指南 — 如何培养好奇心</h2><p>用手估测一下20厘米的蛋的大小，并与鸡的蛋进行比较。在地图上找到蒙古，将“用大眼睛看到了”与猫头鹰进行比较，兴趣会更浓厚。</p>",
+        "caption": "蛋大小对比",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing a dinosaur egg and a chicken egg, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答</h2><p><strong>Q. 普罗托龙棘兽的蛋有多大？</strong><br>A. 大约有20厘米长，孵化需要大约83天。还一起发现了巢穴化石。</p><p><strong>Q. 它的眼睛大吗？</strong><br>A. 是的。眼球直径约5厘米，是人类眼睛的两倍。它一定能在黑暗的地方也看得很清楚。</p><p><strong>Q. 在家可以怎么玩得开心呢？</strong><br>A. 可以尝试估算20厘米的蛋的大小，与鸡蛋进行比较，或者在地图上寻找蒙古。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "始齿龙绘本插画",
+        "url": "https://assets.tangobook.co.kr/1773740757966-%EB%BF%94%EC%9D%80%EC%97%86%EC%A7%80%EB%A7%8C%EC%9A%A9%EA%B0%90%ED%95%9C%EC%82%AC%EB%A7%89%EC%9D%98%EA%B1%B0%EB%B6%81%EC%9D%B4%ED%94%84%EB%A1%9C%ED%86%A0%EC%BC%80%EB%9D%BC%ED%86%B1%EC%8A%A4-illustration-page19-1774356752876.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“原角龙”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用美丽的图画和韩语·英语语音亲自了解它吧。</p><a href=\"https://tangobook.co.kr/library/1773740757966\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

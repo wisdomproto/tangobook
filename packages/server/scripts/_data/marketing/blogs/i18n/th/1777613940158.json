@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777613940158",
+  "seo_title": "ลักษณะเด่นของปลาการงและความลับของการอยู่ร่วมกับดอกไม้ทะเล — หนังสือภาพสังเกตธรรมชาติ",
+  "meta_description": "ความลับของการอยู่ร่วมกันแบบพึ่งพาอาศัยของปลาการ์ตูนที่อาศัยอย่างปลอดภัยในดอกไม้ทะเลที่มีพิษ, ข้อเท็จจริงน่าทึ่งต่างๆ รวมถึงเนื้อหาจากหนังสือภาพสังเกตธรรมชาติของ Tango Book และวิธีการสังเกตด้วย คู่มือสังเกตธรรมชาติสำหรับอายุ 4-7 ปี",
+  "primary_keyword": "ขาวดงกา-รี",
+  "secondary_keywords": [
+    "ลักษณะเด่นของฮินดงคารี",
+    "ปะการังดอกไม้ทะเลสีขาว",
+    "ภาวะพึ่งพาอาศัยในทะเล",
+    "หนังสือสำหรับเด็กเล็กเกี่ยวกับการสังเกตธรรมชาติ",
+    "หนังสือนิทานสัตว์ทะเล"
+  ],
+  "url_slug": "clownfish-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "หวีนดงการี - หวีนดงการี มีอะไรน่าสนใจบ้างนะ?",
+        "url": "https://assets.tangobook.co.kr/1777613940158-%ED%9D%B0%EB%8F%99%EA%B0%80%EB%A6%AC-cover-misc-1779418418792.webp",
+        "text": "<h2>ปลาการ์ตูนขาว มีอะไรน่าสนใจบ้างนะ?</h2><p>ที่มีลายสีขาวบนพื้นหลังสีส้มที่สวยงาม <strong>ปลาการ์ตูนขาว</strong>เป็นปลาทะเลตัวเล็กที่โด่งดังในฐานะตัวละครหลักของแอนิเมชันเลยค่ะ ที่อยู่ของมันน่าทึ่งมาก ๆ เลยนะคะ</p><p data-seo-boost=\"1\">เราได้รวบรวมเรื่องราวต่างๆ เกี่ยวกับปลาการ์ตูนขาว ไม่ว่าจะเป็นลักษณะเด่น การอยู่ร่วมกันระหว่างปลาการ์ตูนและดอกไม้ทะเล หรือแม้แต่ภาวะพึ่งพาอาศัยในทะเลค่ะ</p>",
+        "caption": "เพื่อนในดอกไม้ทะเล",
+        "image_style": "",
+        "image_prompt": "A clownfish among sea anemone tentacles, vivid children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "ฮวินดงการี - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของฮวินดงการี",
+        "url": "https://assets.tangobook.co.kr/1777613940158-%EB%A7%90%EB%AF%B8%EC%9E%98%EC%9D%98%EC%B9%9C%EA%B5%AC%EC%9A%A9%EA%B0%90%ED%95%9C%ED%9D%B0%EB%8F%99%EA%B0%80%EB%A6%AC-illustration-page1-1773408259152.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของปลาการ์ตูน</h2><p>สิ่งที่น่าทึ่งที่สุดของปลาการ์ตูนคือมันมีพิษที่แสบ <strong>มันอาศัยอยู่ในดอกไม้ทะเล</strong>คืออย่างงี้ค่ะ ปลาตัวอื่นจะถูกหนวดของดอกไม้ทะเลต่อย แต่ปลาการ์ตูน <strong>ไม่ถูกต่อยเพราะเมือกพิเศษที่ปกคลุมตัวมัน</strong> มันจึงหลบหนีผู้ล่าได้ในบริเวณนั้น และแทนที่ปลาการ์ตูนจะทำความสะอาดรอบดอกไม้ทะเลและแบ่งอาหาร <strong>ความสัมพันธ์แบบพึ่งพาอาศัยกันที่ช่วยเหลือซึ่งกันและกัน</strong>ค่ะ มันเป็นเพื่อนที่แสดงให้เห็นถึงภูมิปัญญาของธรรมชาติที่ \"อยู่ร่วมกันและช่วยเหลือซึ่งกันและกัน\"</p>",
+        "caption": "ความลับที่ไม่ถูกเปิดเผย",
+        "image_style": "",
+        "image_prompt": "A clownfish safe inside a stinging anemone, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "หวินดงการี - ทังโกบุ๊ก เนื้อหาที่กล่าวถึงในเรื่อง \"หวินดงการี\"",
+        "url": "https://assets.tangobook.co.kr/1777613940158-%EB%A7%90%EB%AF%B8%EC%9E%98%EC%9D%98%EC%B9%9C%EA%B5%AC%EC%9A%A9%EA%B0%90%ED%95%9C%ED%9D%B0%EB%8F%99%EA%B0%80%EB%A6%AC-illustration-page5-1773408270990.webp",
+        "text": "<h2>เนื้อหาที่หนังสือ \"ปลาเขี้ยวดาวขาว\" เล่าถึง</h2><p>หนังสือ \"ปลาเขี้ยวดาวขาว\" ของ Tango Book แสดงให้เห็นภาพการเล่นในดอกไม้ทะเล ความลับที่ไม่ถูกต่อย การอยู่ร่วมกันแบบพึ่งพาอาศัย และลายเส้นหลากสีสันอย่างอบอุ่น</p>",
+        "caption": "การพึ่งพาอาศัยกัน",
+        "image_style": "",
+        "image_prompt": "A clownfish cleaning around its anemone home, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "ปลาการ์ตูน - จุดที่น่าสนใจเมื่อได้สังเกตการณ์ด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1777613940158-%EB%A7%90%EB%AF%B8%EC%9E%98%EC%9D%98%EC%B9%9C%EA%B5%AC%EC%9A%A9%EA%B0%90%ED%95%9C%ED%9D%B0%EB%8F%99%EA%B0%80%EB%A6%AC-illustration-page10-1773408376137.webp",
+        "text": "<h2>จุดที่ควรสังเกตการณ์ร่วมกัน</h2><p>โปรดชี้ให้ดูจุดต่างๆ เช่น การอยู่ร่วมกันแบบพึ่งพาอาศัยของดอกไม้ทะเล, เมือกพิเศษที่ไม่แสบ, การช่วยเหลือซึ่งกันและกัน, หรือลวดลายที่เป็นริ้วๆ นอกจากนี้ การพูดคุยด้วยกันว่า \"ทำไมปลาน้ำเต้าถึงอาศัยอยู่ในดอกไม้ทะเล?\" ก็เป็นเรื่องที่ดีค่ะ/ครับ</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A close-up of clownfish orange and white stripes, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "ฮวินดงการี - คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777613940158-%EB%A7%90%EB%AF%B8%EC%9E%98%EC%9D%98%EC%B9%9C%EA%B5%AC%EC%9A%A9%EA%B0%90%ED%95%9C%ED%9D%B0%EB%8F%99%EA%B0%80%EB%A6%AC-illustration-page14-1773408521406.webp",
+        "text": "<h2>คู่มือผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ลองเล่าให้ลูกฟังว่า \"การอยู่ร่วมกันและช่วยเหลือซึ่งกันและกัน = ภาวะพึ่งพาอาศัย\" เหมือนกับความสัมพันธ์ระหว่าง [ผึ้ง] กับดอกไม้ การสังเกตปลาขาวในดอกไม้ทะเลที่พิพิธภัณฑ์สัตว์น้ำจะช่วยเพิ่มความสนใจได้มากเลยค่ะ</p>",
+        "caption": "การชมและสังเกตในพิพิธภัณฑ์สัตว์น้ำ",
+        "image_style": "",
+        "image_prompt": "A parent and child watching clownfish at an aquarium, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ทำไมปลาการ์ตูนถึงไม่ถูกดอกไม้ทะเลต่อยคะ/ครับ?</strong><br>ตอบ: เป็นเพราะเมือกพิเศษที่เคลือบตัวมันค่ะ/ครับ ทำให้มันสามารถอยู่ได้อย่างปลอดภัยแม้ในดอกไม้ทะเลที่มีพิษก็ตาม</p><p><strong>ถาม: ภาวะพึ่งพาอาศัยกันคืออะไรคะ/ครับ?</strong><br>ตอบ: คือการที่สิ่งมีชีวิตอยู่ร่วมกันและแลกเปลี่ยนความช่วยเหลือซึ่งกันและกันค่ะ/ครับ ปลาการ์ตูนกับดอกไม้ทะเลเป็นตัวอย่างที่ชัดเจนเลยค่ะ/ครับ</p><p><strong>ถาม: เราจะสังเกตการณ์ที่บ้านได้อย่างไรดีคะ/ครับ?</strong><br>ตอบ: สามารถอธิบายภาวะพึ่งพาอาศัยกันโดยใช้ความสัมพันธ์ระหว่างผึ้งกับดอกไม้ และการสังเกตการณ์ในดอกไม้ทะเลที่ตู้ปลาจะดีมากเลยค่ะ/ครับ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณอ่านนิทานเรื่องนี้แล้วสนุกแบบนี้ ลองดู <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบจากหนังสือนิทานฮวินดงการี",
+        "url": "https://assets.tangobook.co.kr/1777613940158-%EB%A7%90%EB%AF%B8%EC%9E%98%EC%9D%98%EC%B9%9C%EA%B5%AC%EC%9A%A9%EA%B0%90%ED%95%9C%ED%9D%B0%EB%8F%99%EA%B0%80%EB%A6%AC-illustration-page18-1773408530701.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"หมีดงกะรี\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้โดยตรงที่แทงโกบุ๊ก ด้วยภาพสวยงามและเสียงภาษาเกาหลี/อังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1777613940158\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

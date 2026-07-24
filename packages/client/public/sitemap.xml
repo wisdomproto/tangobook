@@ -6,91 +6,91 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.tangobook.co.kr/</loc>
-    <lastmod>2026-07-17</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library</loc>
-    <lastmod>2026-07-17</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/phonics/korean</loc>
-    <lastmod>2026-07-17</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vocabulary</loc>
-    <lastmod>2026-07-17</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/blog</loc>
-    <lastmod>2026-07-17</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/guide/classics</loc>
-    <lastmod>2026-07-17</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/guide/nature</loc>
-    <lastmod>2026-07-17</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/en/guide/classics</loc>
-    <lastmod>2026-07-17</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/en/guide/nature</loc>
-    <lastmod>2026-07-17</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vi/guide/classics</loc>
-    <lastmod>2026-07-17</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vi/guide/nature</loc>
-    <lastmod>2026-07-17</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/zh/guide/classics</loc>
-    <lastmod>2026-07-17</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/zh/guide/nature</loc>
-    <lastmod>2026-07-17</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/th/guide/classics</loc>
-    <lastmod>2026-07-17</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/th/guide/nature</loc>
-    <lastmod>2026-07-17</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2287,35 +2287,35 @@
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1773146946025</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://assets.tangobook.co.kr/1773146946025-토끼-cover-misc-1780033722914.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1773146946025/about</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://assets.tangobook.co.kr/1773146946025-토끼-cover-misc-1780033722914.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vi/library/1773146946025/about</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://assets.tangobook.co.kr/1773146946025-토끼-cover-misc-1780033722914.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/zh/library/1773146946025/about</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://assets.tangobook.co.kr/1773146946025-토끼-cover-misc-1780033722914.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/th/library/1773146946025/about</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://assets.tangobook.co.kr/1773146946025-토끼-cover-misc-1780033722914.webp</image:loc></image:image>
@@ -3379,73 +3379,38 @@
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1773616999841</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773616999841-극지방의신비-cover-misc-1780275250123.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1773616999841-극지방의신비-cover-misc-1780275250123.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1773616999841/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773616999841-극지방의신비-cover-misc-1780275250123.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1773616999841-극지방의신비-cover-misc-1780275250123.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vi/library/1773616999841/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773616999841-극지방의신비-cover-misc-1780275250123.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1773616999841-극지방의신비-cover-misc-1780275250123.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/zh/library/1773616999841/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773616999841-극지방의신비-cover-misc-1780275250123.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1773616999841-극지방의신비-cover-misc-1780275250123.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/th/library/1773616999841/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773616999841-극지방의신비-cover-misc-1780275250123.webp</image:loc></image:image>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/1773618909980</loc>
-    <lastmod>2026-07-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-cover-misc-1780103470014.webp</image:loc></image:image>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/1773618909980/about</loc>
-    <lastmod>2026-07-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-cover-misc-1780103470014.webp</image:loc></image:image>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/vi/library/1773618909980/about</loc>
-    <lastmod>2026-07-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-cover-misc-1780103470014.webp</image:loc></image:image>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/zh/library/1773618909980/about</loc>
-    <lastmod>2026-07-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-cover-misc-1780103470014.webp</image:loc></image:image>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/th/library/1773618909980/about</loc>
-    <lastmod>2026-07-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-cover-misc-1780103470014.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1773616999841-극지방의신비-cover-misc-1780275250123.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1773624474088</loc>
@@ -3484,73 +3449,73 @@
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1773625335362</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773625335362-맛있는음식의몸속여행-cover-misc-1780103444536.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1773625335362-맛있는음식의몸속여행-cover-misc-1780103444536.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1773625335362/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773625335362-맛있는음식의몸속여행-cover-misc-1780103444536.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1773625335362-맛있는음식의몸속여행-cover-misc-1780103444536.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vi/library/1773625335362/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773625335362-맛있는음식의몸속여행-cover-misc-1780103444536.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1773625335362-맛있는음식의몸속여행-cover-misc-1780103444536.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/zh/library/1773625335362/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773625335362-맛있는음식의몸속여행-cover-misc-1780103444536.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1773625335362-맛있는음식의몸속여행-cover-misc-1780103444536.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/th/library/1773625335362/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773625335362-맛있는음식의몸속여행-cover-misc-1780103444536.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1773625335362-맛있는음식의몸속여행-cover-misc-1780103444536.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1773710246892</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773710246892-뇌와심장이야기-cover-misc-1780103253865.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1773710246892-뇌와심장이야기-cover-misc-1780103253865.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1773710246892/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773710246892-뇌와심장이야기-cover-misc-1780103253865.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1773710246892-뇌와심장이야기-cover-misc-1780103253865.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vi/library/1773710246892/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773710246892-뇌와심장이야기-cover-misc-1780103253865.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1773710246892-뇌와심장이야기-cover-misc-1780103253865.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/zh/library/1773710246892/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773710246892-뇌와심장이야기-cover-misc-1780103253865.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1773710246892-뇌와심장이야기-cover-misc-1780103253865.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/th/library/1773710246892/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773710246892-뇌와심장이야기-cover-misc-1780103253865.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1773710246892-뇌와심장이야기-cover-misc-1780103253865.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1773711154702</loc>
@@ -4464,38 +4429,38 @@
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1777274769616</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1777274769616-성냥갑병정-cover-misc-1782104864229.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1777274769616-성냥갑병정-cover-misc-1782104864229.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1777274769616/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1777274769616-성냥갑병정-cover-misc-1782104864229.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1777274769616-성냥갑병정-cover-misc-1782104864229.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vi/library/1777274769616/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1777274769616-성냥갑병정-cover-misc-1782104864229.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1777274769616-성냥갑병정-cover-misc-1782104864229.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/zh/library/1777274769616/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1777274769616-성냥갑병정-cover-misc-1782104864229.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1777274769616-성냥갑병정-cover-misc-1782104864229.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/th/library/1777274769616/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1777274769616-성냥갑병정-cover-misc-1782104864229.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1777274769616-성냥갑병정-cover-misc-1782104864229.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1777276044172</loc>
@@ -5829,38 +5794,38 @@
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1777605651238</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1777605651238-개미-cover-misc-1780025787942.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1777605651238-개미-cover-misc-1780025787942.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1777605651238/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1777605651238-개미-cover-misc-1780025787942.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1777605651238-개미-cover-misc-1780025787942.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vi/library/1777605651238/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1777605651238-개미-cover-misc-1780025787942.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1777605651238-개미-cover-misc-1780025787942.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/zh/library/1777605651238/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1777605651238-개미-cover-misc-1780025787942.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1777605651238-개미-cover-misc-1780025787942.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/th/library/1777605651238/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1777605651238-개미-cover-misc-1780025787942.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1777605651238-개미-cover-misc-1780025787942.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1777606613092</loc>
@@ -7964,17 +7929,17 @@
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1783949746731</loc>
-    <lastmod>2026-07-14</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/saenghwal-simsim/p1.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/comic-assets/saenghwal-simsim/p1.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1783949746731/about</loc>
-    <lastmod>2026-07-14</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/saenghwal-simsim/p1.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/comic-assets/saenghwal-simsim/p1.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1783990046124</loc>
@@ -7992,17 +7957,17 @@
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1783990076840</loc>
-    <lastmod>2026-07-14</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/saenghwal-belt/p1.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/comic-assets/saenghwal-belt/p1.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1783990076840/about</loc>
-    <lastmod>2026-07-14</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/saenghwal-belt/p1.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/comic-assets/saenghwal-belt/p1.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1783990105997</loc>
@@ -8090,16 +8055,296 @@
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1783990336946</loc>
-    <lastmod>2026-07-14</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1783990336946-45고마워자연아-cover-misc-1784003007199.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1783990336946-45고마워자연아-cover-misc-1784003011949.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1783990336946/about</loc>
-    <lastmod>2026-07-14</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1783990336946-45고마워자연아-cover-misc-1784003007199.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1783990336946-45고마워자연아-cover-misc-1784003011949.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550866841</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550866841-01다들어디가-cover-misc-1784863150083.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550866841/about</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550866841-01다들어디가-cover-misc-1784863150083.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550867162</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550867162-02나도무지개반갈래-cover-misc-1784862955347.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550867162/about</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550867162-02나도무지개반갈래-cover-misc-1784862955347.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550867604</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550867604-03안녕이한마디-cover-misc-1784862886773.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550867604/about</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550867604-03안녕이한마디-cover-misc-1784862886773.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550867966</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550867966-04배아파집에가고싶어-cover-misc-1784862622936.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550867966/about</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550867966-04배아파집에가고싶어-cover-misc-1784862622936.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550868529</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550868529-05선생님이좋아졌어-cover-misc-1784862475619.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550868529/about</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550868529-05선생님이좋아졌어-cover-misc-1784862475619.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550868854</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550868854-06무지개반의하루-cover-misc-1784863133934.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550868854/about</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550868854-06무지개반의하루-cover-misc-1784863133934.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550869240</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550869240-07아차깜빡했다-cover-misc-1784862355739.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550869240/about</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550869240-07아차깜빡했다-cover-misc-1784862355739.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550869581</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550869581-08밥먹기대장-cover-misc-1784862339631.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550869581/about</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550869581-08밥먹기대장-cover-misc-1784862339631.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550869911</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550869911-09옛날옛적깜빡도깨비-cover-misc-1784862243222.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550869911/about</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550869911-09옛날옛적깜빡도깨비-cover-misc-1784862243222.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550870376</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550870376-10으앙실수했어-cover-misc-1784862133396.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550870376/about</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550870376-10으앙실수했어-cover-misc-1784862133396.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550870792</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550870792-11내가그랬어-cover-misc-1784862004384.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550870792/about</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550870792-11내가그랬어-cover-misc-1784862004384.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550871113</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550871113-12걱정몽글이안녕-cover-misc-1784862030277.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550871113/about</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550871113-12걱정몽글이안녕-cover-misc-1784862030277.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550871504</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550871504-13짝꿍은누구랑-cover-misc-1784861727401.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550871504/about</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550871504-13짝꿍은누구랑-cover-misc-1784861727401.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550871888</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550871888-14너랑안놀아-cover-misc-1784861715360.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550871888/about</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550871888-14너랑안놀아-cover-misc-1784861715360.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550872203</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550872203-15나만미워하는것같아-cover-misc-1784861528103.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550872203/about</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550872203-15나만미워하는것같아-cover-misc-1784861528103.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550872504</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550872504-16범인은누구-cover-misc-1784861515771.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550872504/about</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550872504-16범인은누구-cover-misc-1784861515771.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550872838</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550872838-17나도미안해-cover-misc-1784861367918.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550872838/about</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550872838-17나도미안해-cover-misc-1784861367918.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550873130</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550873130-18이거무슨냄새-cover-misc-1784861355468.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550873130/about</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550873130-18이거무슨냄새-cover-misc-1784861355468.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550873435</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550873435-19안돼위험해-cover-misc-1784858040071.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550873435/about</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550873435-19안돼위험해-cover-misc-1784858040071.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550873799</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550873799-20내일또만나요-cover-misc-1784857557433.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1784550873799/about</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784550873799-20내일또만나요-cover-misc-1784857557433.webp</image:loc></image:image>
   </url>
 </urlset>

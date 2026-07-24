@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useStorybooks } from '@/features/storybook';
 import { useLibraryConfig, makeCategoryComparator } from '@/features/library';
+import { useCategoryLabel } from '@/features/library/lib/category-i18n';
 import { useStyleGenreMap, type StyleGenreSlug } from '@/lib/art-style-genre';
 import { SkeletonBookCard, BookCover } from '@/design-system';
 import { cn } from '@/lib/cn';
@@ -37,6 +38,7 @@ export function BookMultiSelectGrid({
   styleGenre,
 }: BookMultiSelectGridProps) {
   const { t, i18n } = useTranslation('continuous');
+  const catLabel = useCategoryLabel();
   const { data: list, isLoading, isError } = useStorybooks();
   const { data: libConfig } = useLibraryConfig();
   const { map: styleGenreMap } = useStyleGenreMap();
@@ -116,7 +118,7 @@ export function BookMultiSelectGrid({
         <section key={category}>
           <h3 className="mb-2.5 flex items-center gap-1.5 font-display text-lg font-black text-ink-900">
             <span>{CATEGORY_EMOJI[category] ?? '📖'}</span>
-            <span className="break-keep">{category}</span>
+            <span className="break-keep">{catLabel(category)}</span>
             <span className="text-sm font-bold text-ink-400">
               {t('grid.bookCount', { count: catBooks.length })}
             </span>
