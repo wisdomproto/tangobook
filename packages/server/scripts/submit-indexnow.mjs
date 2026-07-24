@@ -114,26 +114,39 @@ async function collectPublicUrls() {
   }
   console.log(`[indexnow] 공개 책: ${publicCount} → URL ${urls.length}개 (정적 3 포함)`);
 
-  // 공개 내부 블로그(self_hosted published) — sitemap 과 동일 소스(/api/blog).
+  // 공개 내부 블로그(self_hosted published) — sitemap 과 동일 소스(/api/blog) · 언어별.
+  // ko 는 bare, 그 외 /:lang 프리픽스. 번역 없는 언어는 빈 목록이라 자동 스킵.
+  let blogLangs = ['ko', 'en', 'vi', 'zh', 'th'];
   try {
-    const res = await fetch(`${SITE_URL}/api/blog`);
-    if (res.ok) {
+    const { HUB_STRINGS } = await import('../../shared/dist/constants/seo-i18n.js');
+    blogLangs = ['ko', ...Object.keys(HUB_STRINGS)];
+  } catch {
+    /* shared 미빌드 시 폴백 */
+  }
+  let blogCount = 0;
+  for (const lang of blogLangs) {
+    const pre = lang === 'ko' ? '' : `/${lang}`;
+    const q = lang === 'ko' ? '' : `?lang=${lang}`;
+    try {
+      const res = await fetch(`${SITE_URL}/api/blog${q}`);
+      if (!res.ok) {
+        console.warn(`[indexnow] 블로그 목록 실패(${lang}, HTTP ${res.status}) — 스킵`);
+        continue;
+      }
       const json = await res.json();
       const posts = json?.data ?? json ?? [];
-      let blogCount = 0;
-      urls.push(`${SITE_URL}/blog`);
-      for (const p of Array.isArray(posts) ? posts : []) {
+      if (!Array.isArray(posts) || posts.length === 0) continue;
+      urls.push(`${SITE_URL}${pre}/blog`);
+      for (const p of posts) {
         if (!p?.slug) continue;
-        urls.push(`${SITE_URL}/blog/${encodeURIComponent(p.slug)}`);
+        urls.push(`${SITE_URL}${pre}/blog/${encodeURIComponent(p.slug)}`);
         blogCount++;
       }
-      console.log(`[indexnow] 공개 블로그: ${blogCount}`);
-    } else {
-      console.warn(`[indexnow] 블로그 목록 조회 실패(HTTP ${res.status}) — 블로그 URL 스킵`);
+    } catch (e) {
+      console.warn(`[indexnow] 블로그 목록 실패(${lang}): ${e.message} — 스킵`);
     }
-  } catch (e) {
-    console.warn(`[indexnow] 블로그 목록 조회 실패: ${e.message} — 블로그 URL 스킵`);
   }
+  console.log(`[indexnow] 공개 블로그(전 언어): ${blogCount}`);
   console.log(`[indexnow] 총 제출 URL: ${urls.length}개`);
   return urls;
 }
