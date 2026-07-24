@@ -67,7 +67,7 @@ function CatBadge({ category }: { category: string | null }) {
 }
 
 export default function BlogListPage() {
-  const { lang, pre, t, fmtDate } = useBlogLang();
+  const { lang, pre, t, brand, fmtDate } = useBlogLang();
   const { data: posts = [], isLoading } = useBlogPosts(lang);
   const [filter, setFilter] = useState<'all' | 'classic' | 'nature'>('all');
 
@@ -113,7 +113,7 @@ export default function BlogListPage() {
         <header className="sticky top-0 z-20 border-b border-ink-100 bg-cream-50/85 backdrop-blur-md">
           <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
             <Link to="/library" className="font-display text-lg font-bold text-ink-900">
-              🐯 탱고북
+              🐯 {brand}
             </Link>
             <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-ink-500 shadow-sm">
               {t('nav')}

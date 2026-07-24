@@ -37,6 +37,8 @@ export function useBlogLang() {
     /** ko 는 bare, 그 외 /:lang — 블로그 내부 링크용 */
     pre: lang === 'ko' ? '' : `/${lang}`,
     t,
+    /** 브랜드 표기 — ko 는 '탱고북', 그 외 'Tangobook' (common.appName) */
+    brand: i18n.getFixedT(lang, 'common')('appName'),
     loaded,
     fmtDate(iso: string | null): string {
       if (!iso) return '';

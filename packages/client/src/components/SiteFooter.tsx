@@ -22,6 +22,8 @@ const mailOrderLabel = B.mailOrderNumber.startsWith('TODO') ? '신고 준비 중
 export function SiteFooter({ minimal = false, lang }: { minimal?: boolean; lang?: string } = {}) {
   const { t: tUi } = useTranslation('payment');
   const t = lang ? i18n.getFixedT(lang, 'payment') : tUi;
+  // 브랜드 표기 — ko '탱고북' / 그 외 'Tangobook'. lang 지정 시 그 언어로 고정.
+  const brand = i18n.getFixedT(lang ?? i18n.language, 'common')('appName') || B.serviceName;
   return (
     <footer className="mt-16 border-t border-ink-100/60 bg-cream-100/50 px-6 py-8 text-xs text-ink-500">
       <div className="mx-auto max-w-5xl space-y-3">
@@ -49,7 +51,7 @@ export function SiteFooter({ minimal = false, lang }: { minimal?: boolean; lang?
           </div>
         )}
         <p className="pt-1 text-ink-400">
-          © {new Date().getFullYear()} {B.serviceName}. All rights reserved.
+          © {new Date().getFullYear()} {brand}. All rights reserved.
         </p>
       </div>
     </footer>

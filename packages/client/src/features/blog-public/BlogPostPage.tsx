@@ -26,7 +26,7 @@ const PROSE_CSS = `
 
 export default function BlogPostPage() {
   const { slug = '' } = useParams();
-  const { lang, pre, t, fmtDate } = useBlogLang();
+  const { lang, pre, t, brand, fmtDate } = useBlogLang();
   const { data: post, isLoading, isError } = useBlogPost(slug, lang);
 
   useSeo({
@@ -51,7 +51,7 @@ export default function BlogPostPage() {
         <header className="sticky top-0 z-20 border-b border-ink-100 bg-cream-50/85 backdrop-blur-md">
           <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-3 sm:px-6">
             <Link to="/library" className="font-display text-lg font-bold text-ink-900">
-              🐯 탱고북
+              🐯 {brand}
             </Link>
             <Link
               to={`${pre}/blog`}
