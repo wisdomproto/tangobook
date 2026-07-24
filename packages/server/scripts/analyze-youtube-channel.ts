@@ -55,7 +55,9 @@ async function main() {
       ...(region ? { regionCode: region } : {}),
       ...(relLang ? { relevanceLanguage: relLang } : {}),
     });
-    const chIds = (sr.data.items ?? []).map((i) => i.snippet?.channelId!).filter(Boolean);
+    const chIds = (sr.data.items ?? [])
+      .map((i) => i.snippet?.channelId)
+      .filter((id): id is string => !!id);
     if (!chIds.length) {
       console.log('검색 결과 없음');
       return;
