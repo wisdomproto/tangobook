@@ -140,20 +140,61 @@ async function replaceBlogCards(sb, { userId, blogContentId, sections }) {
   }
 }
 
+const SITE_URL = 'https://www.tangobook.co.kr';
+const coverCache = new Map();
+
+/**
+ * 그 책의 언어별 표지 URL. 없으면 null.
+ * 🔴 블로그 카드의 표지 이미지는 **제목이 그려진 이미지**라 ko 표지를 그대로 쓰면
+ * 영어/베트남어 블로그에 한글 표지가 뜬다. 책에는 이미 언어별 표지가 구워져 있다
+ * (`primaryCoverByLang`, memory `multilingual-cover-images-2026-07-12`).
+ * 페이지 삽화는 글자가 없어 언어 공유해도 된다 — 표지만 교체한다.
+ */
+async function langCoverUrl(storybookId, lang) {
+  if (lang === 'ko') return null;
+  const key = `${storybookId}:${lang}`;
+  if (coverCache.has(key)) return coverCache.get(key);
+  let url = null;
+  try {
+    const res = await fetch(`${SITE_URL}/api/storybooks/${storybookId}`);
+    if (res.ok) {
+      const book = (await res.json())?.data ?? {};
+      url = book.primaryCoverByLang?.[lang] ?? null;
+      if (!url) {
+        for (const st of Object.values(book.styleAssets ?? {})) {
+          const u = st?.primaryCoverByLang?.[lang];
+          if (u) { url = u; break; }
+        }
+      }
+    }
+  } catch {
+    /* 실패 시 원본(ko) 유지 */
+  }
+  coverCache.set(key, url);
+  return url;
+}
+
+const isCoverUrl = (u) => typeof u === 'string' && /-cover-/.test(decodeURIComponent(u));
+
 /** 번역 소스(i18n) = ko 발행본 카드 전체(본문+FAQ+관련링크+CTA). content 그대로 시드. */
-async function replaceBlogCardsFromSource(sb, { userId, blogContentId, cards }) {
+async function replaceBlogCardsFromSource(sb, { userId, blogContentId, cards, storybookId, lang }) {
   const { error: delErr } = await sb.from('mkt_blog_cards').delete().eq('blog_content_id', blogContentId);
   if (delErr) throw new Error(`카드 삭제 실패: ${delErr.message}`);
   const now = new Date().toISOString();
-  const rows = cards.map((c, i) => ({
-    user_id: userId,
-    blog_content_id: blogContentId,
-    card_type: c.card_type || 'text',
-    content: c.content ?? {}, // url/image_prompt 포함 — 삽화는 언어 공유
-    sort_order: typeof c.sort_order === 'number' ? c.sort_order : i,
-    created_at: now,
-    updated_at: now,
-  }));
+  const cover = await langCoverUrl(storybookId, lang); // 표지만 언어별로 교체
+  const rows = cards.map((c, i) => {
+    const content = { ...(c.content ?? {}) }; // 삽화는 언어 공유(글자 없음)
+    if (cover && isCoverUrl(content.url)) content.url = cover;
+    return {
+      user_id: userId,
+      blog_content_id: blogContentId,
+      card_type: c.card_type || 'text',
+      content,
+      sort_order: typeof c.sort_order === 'number' ? c.sort_order : i,
+      created_at: now,
+      updated_at: now,
+    };
+  });
   if (rows.length) {
     const { error } = await sb.from('mkt_blog_cards').insert(rows);
     if (error) throw new Error(`카드 생성 실패: ${error.message}`);
@@ -190,7 +231,13 @@ async function main() {
       await replaceBlogCards(sb, { userId, blogContentId, sections: blog.sections ?? [] });
     } else {
       // 번역 소스는 ko 발행본 카드 전체(본문+FAQ+관련링크+CTA)
-      await replaceBlogCardsFromSource(sb, { userId, blogContentId, cards: blog.cards ?? [] });
+      await replaceBlogCardsFromSource(sb, {
+        userId,
+        blogContentId,
+        cards: blog.cards ?? [],
+        storybookId: blog.storybookId,
+        lang: args.lang,
+      });
     }
     const n = args.lang === 'ko' ? blog.sections?.length ?? 0 : blog.cards?.length ?? 0;
     console.log(`✓ [${args.lang}] ${blog.seo_title} (${blog.storybookId}) → blog ${blogContentId}, 카드 ${n}`);
