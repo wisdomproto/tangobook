@@ -21,8 +21,9 @@ import { FeedbackDialog } from '@/features/feedback';
  * 모바일 (<md / <768px): 사이드바 hide → 헤더 좌상단 햄버거 → 슬라이드 드로어. 320px 부터 지원.
  */
 /**
- * 사이드바 메인 axis — 3축 모두 동일 정사각 박스 디자인 (정렬 통일).
- * MVP: 동화책만 active (책 상세/뷰어 어디든 alwaysActive). 파닉스/어휘는 comingSoon 음영 (코드/라우트는 보존).
+ * 사이드바 메인 axis — 모두 동일 정사각 박스 디자인 (정렬 통일).
+ * 일반 노출 = 동화책(어디서든 alwaysActive) · 어휘 게임 · 파닉스.
+ * 어휘/학습게임은 devOnly (코드·라우트는 보존, DEV_EMAILS 에게만 노출).
  */
 const PRIMARY_AXES = [
   {
@@ -51,6 +52,8 @@ const PRIMARY_AXES = [
     authOnly: false,
   },
   {
+    // 파닉스 — 한글 32 + 영어 39 유닛 전부 공개 상태라 일반 노출로 복귀(2026-07-23).
+    // 랜딩(/library/phonics)에서 한글/영어를 고른다.
     to: '/library/phonics',
     iconSrc: 'tab/phonics.svg',
     labelKey: 'sidebar.phonics',
@@ -58,7 +61,7 @@ const PRIMARY_AXES = [
     end: false,
     comingSoon: false,
     alwaysActive: false,
-    devOnly: true,
+    devOnly: false,
     authOnly: false,
   },
   {
