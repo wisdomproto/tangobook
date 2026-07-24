@@ -1,7 +1,22 @@
 # 마케팅 블로그 다국어화 (en·vi·zh·th) — 설계 + 실행 런북
 
-> 상태: **준비 완료 / 미실행**. 다른 세션이 이 문서만 보고 처음부터 끝까지 실행할 수 있도록 작성.
-> 작성일: 2026-07-19
+> 상태: **✅ 완료 · 라이브 배포됨 (2026-07-23)**. 784편 번역 · 5언어 시드 · SSR/SPA/sitemap/IndexNow 반영.
+> 작성일: 2026-07-19 / 완료일: 2026-07-23
+>
+> ## 🔴 실행하면서 설계와 달라진 점 (이 문서보다 우선)
+> 1. **번역 소스 교체** — 아래 §2 는 소스 json(`blogs/<id>.json`, 본문 6섹션)을 소스로 잡았지만, ko 는 시드 후
+>    `boost-blog-seo`·`add-blog-cta`·`add-blog-faq` 로 **FAQ·CTA·관련명작링크 카드가 덧붙어** 발행본이 8~9카드다.
+>    소스 json 만 번역하면 발행본보다 짧아진다 → **DB 발행본 카드 전체를 export** 해 정본으로 삼는다
+>    (`export-ko-blogs-for-i18n.mjs` → `i18n/_source-ko/`). 시드도 카드-배열 경로(`replaceBlogCardsFromSource`).
+> 2. **번역 주체 = 로컬 ollama gemma4** (Claude 아님) — Claude 워크플로우는 편당 ~15k 토큰이라 세션 한도에 계속 막혔다.
+>    로컬은 토큰 0·편당 ~2.6분. 🔴 **HTML 을 모델에 주면 인라인 태그를 흘린다**(~17% 실패) → 태그/텍스트로 split 후
+>    **텍스트 조각만** 번역하고 원래 태그 사이에 되꽂는다(`translate-blogs-local.mjs`).
+> 3. **페이지 뼈대(UI·SEO 메타)도 다국어** — 콘텐츠만 번역하니 `/vi/blog` 의 `<title>` 이 한국어였다.
+>    `BLOG_STRINGS`(shared) + 클라 `blog` 네임스페이스 + `useBlogLang`. 푸터는 블로그에서 `minimal`.
+> 4. **한글 잔재** — 로컬 모델이 고유명사·의성어를 흘려 46파일에 한국어가 남았다(en 은 0). Claude 워커로 교정,
+>    verify 기준 강화(한글 1개만 있어도 FAIL · alt/caption/메타까지 검사).
+>
+> 상세 경위·함정은 memory `multilingual-blog-i18n-2026-07-19` 참조.
 
 ## 1. 목표 / 범위
 

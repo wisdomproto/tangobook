@@ -1,0 +1,112 @@
+{
+  "storybookId": "1773576314846",
+  "seo_title": "ลักษณะของเห็ดและความลับของผู้ย่อยสลาย — หนังสือนิทานสังเกตธรรมชาติ",
+  "meta_description": "เหตุผลที่เห็ดเป็นเชื้อรา ไม่ใช่พืชหรือสัตว์ ข้อเท็จจริงน่าทึ่ง เช่น บทบาทในการย่อยสลายในป่า เนื้อหาจากหนังสือภาพสังเกตธรรมชาติ Tango Book รวมถึงวิธีการสังเกตที่ปลอดภัย คู่มือการสำรวจธรรมชาติสำหรับเด็กวัย 4-7 ปี",
+  "primary_keyword": "เห็ด",
+  "secondary_keywords": [
+    "ลักษณะเด่นของเห็ด",
+    "เห็ดกับระบบนิเวศ",
+    "เชื้อรา",
+    "หนังสือสำหรับเด็กเล็กเกี่ยวกับการสังเกตธรรมชาติ",
+    "หนังสือนิทานภาพเกี่ยวกับพืช"
+  ],
+  "url_slug": "mushroom-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "เห็ด - เห็ด มีอะไรที่น่าสนใจบ้างนะ?",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EB%B2%84%EC%84%AF-cover-misc-1780274370065.webp",
+        "text": "<h2>เห็ด มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>ที่ผุดขึ้นในป่าหลังฝนตก <strong>เห็ด</strong>มันเป็นสิ่งมีชีวิตที่แปลกตา ไม่ใช่ทั้งพืชและสัตว์ ความลับที่ซ่อนอยู่ใต้หมวกนั้นน่าสนใจมากเลยค่ะ</p><p data-seo-boost=\"1\">เราได้รวบรวมเรื่องราวต่างๆ เกี่ยวกับเห็ด ทั้งลักษณะของเห็ด นิเวศวิทยาของเห็ด และเชื้อราให้คุณพ่อคุณแม่แล้วค่ะ</p>",
+        "caption": "เห็ดหลังฝนตก",
+        "image_style": "",
+        "image_prompt": "Colorful mushrooms growing on a forest floor after rain, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "เห็ด - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของเห็ด",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EC%88%B2%EC%86%8D%EC%97%90%ED%95%80%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%9A%B0%EC%82%B0%EA%B2%B9%EA%B2%B9%EC%9D%B4%EB%B9%84%EB%B0%80%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EB%B2%84%EC%84%AF-illustration-page1-1773576462568.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของเห็ด</h2><p>เห็ด <strong>กลุ่มเชื้อรา</strong>เป็นส่วนหนึ่งของมัน ไม่ได้สังเคราะห์ด้วยแสงและไม่ได้กลืนอาหารด้วย แต่แทนที่ <strong>ปล่อยเอนไซม์ย่อยอาหารออกไปภายนอกเพื่อย่อยสลายสารอินทรีย์ จากนั้นจึงดูดซึมสารอาหาร</strong>ประกอบด้วยหมวกเห็ด ครีบ ก้าน และเส้นใยราใต้ดิน อีกทั้งยังทำหน้าที่ย่อยสลายไม้ที่ตายแล้วและใบไม้ร่วงในป่า <strong>ผู้ย่อยสลาย</strong> บทบาทสำคัญที่สุดเลยค่ะ การแยกแยะเห็ดพิษนั้นแม้แต่ผู้เชี่ยวชาญก็ยังยาก ห้ามสัมผัสหรือกินเห็ดป่าเด็ดขาดนะคะ</p>",
+        "caption": "หมวกเห็ด·เนื้อมีรอยย่น·เส้นใยรา",
+        "image_style": "",
+        "image_prompt": "A cross-section of a mushroom showing cap, gills, and stem with mycelium underground, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "เห็ด - ทังโกบุ๊ก เนื้อหาที่ว่าด้วยเรื่อง \"เห็ด\"",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EC%88%B2%EC%86%8D%EC%97%90%ED%95%80%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%9A%B0%EC%82%B0%EA%B2%B9%EA%B2%B9%EC%9D%B4%EB%B9%84%EB%B0%80%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EB%B2%84%EC%84%AF-illustration-page5-1773576532875.webp",
+        "text": "<h2>เนื้อหาที่หนังสือ \"เห็ด\" ของ Tango Book นำเสนอ</h2><p>หนังสือ \"เห็ด\" ของ Tango Book แสดงให้เห็นในระดับสายตาของเด็กเกี่ยวกับเห็ดที่งอกหลังฝนตก, รอยย่นใต้หมวก, เส้นใยราใต้ดิน, และบทบาทของตัวย่อยสลายที่ช่วยหมุนเวียนสารอาหารในป่า</p>",
+        "caption": "ผู้ย่อยสลายแห่งผืนป่า",
+        "image_style": "",
+        "image_prompt": "Mushrooms decomposing a fallen log in a forest, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "เห็ด – จุดน่ารู้ที่พ่อแม่ลูกควรเรียนรู้ด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EC%88%B2%EC%86%8D%EC%97%90%ED%95%80%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%9A%B0%EC%82%B0%EA%B2%B9%EA%B2%B9%EC%9D%B4%EB%B9%84%EB%B0%80%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EB%B2%84%EC%84%AF-illustration-page10-1773576547668.webp",
+        "text": "<h2>จุดที่ควรเรียนรู้ด้วยกัน</h2><p>โปรดชี้ให้ดูจุดต่างๆ เช่น หมวก เหงือก ก้าน ไฮเฟลียม (ใต้ดิน) บทบาทของตัวย่อยสลาย และสี/รูปร่างที่หลากหลาย การพูดคุยกันว่า \"เห็ดกินอะไรถึงจะโตได้?\" จะดีมากค่ะ (อย่าสัมผัสเห็ดป่า)</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "Close-up of mushroom gills under the cap, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "เห็ด - คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EC%88%B2%EC%86%8D%EC%97%90%ED%95%80%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%9A%B0%EC%82%B0%EA%B2%B9%EA%B2%B9%EC%9D%B4%EB%B9%84%EB%B0%80%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EB%B2%84%EC%84%AF-illustration-page14-1773576566741.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ให้ลูกสังเกตหมวก เหงือก และก้านของเห็ดหอมและเห็ดนางฟ้าจากในซูเปอร์มาร์เก็ตอย่างปลอดภัย อย่าลืมบอกพวกเขาว่า \"เห็ดป่าดูได้เท่านั้นนะ!\" และการสังเกตเห็ดที่ขึ้นบนต้นไม้ตายในป่าจากระยะไกลก็เป็นสิ่งที่ดี</p>",
+        "caption": "การสังเกตอย่างปลอดภัย",
+        "image_style": "",
+        "image_prompt": "A parent and child looking at edible mushrooms on a table, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: เห็ดเป็นพืชไหมคะ/ครับ?</strong><br>ตอบ: ไม่ใช่ค่ะ/ครับ เห็ดเป็นเชื้อรา (กลุ่มของรา) พวกมันไม่ได้สังเคราะห์ด้วยแสง แต่ได้สารอาหารจากการย่อยสลายอินทรียวัตถุ</p><p><strong>ถาม: เห็ดมีบทบาทอะไรในป่าคะ/ครับ?</strong><br>ตอบ: พวกมันทำหน้าที่เป็น \"ผู้ย่อยสลาย\" โดยการย่อยซากไม้และใบไม้ที่ร่วงหล่น เพื่อหมุนเวียนสารอาหาร ซึ่งจำเป็นอย่างยิ่งต่อป่าเลยค่ะ/ครับ</p><p><strong>ถาม: สามารถสังเกตเห็ดป่าได้ไหมคะ/ครับ?</strong><br>ตอบ: ดูแค่ภายนอกเท่านั้นนะคะ/ครับ เพราะการแยกแยะเห็ดพิษนั้นยากแม้แต่สำหรับผู้เชี่ยวชาญ ห้ามสัมผัสหรือกินเด็ดขาดเลยค่ะ/ครับ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณอ่านนิทานเรื่องนี้แล้วสนุกแบบนี้ ลองดู <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือภาพเห็ด",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EC%88%B2%EC%86%8D%EC%97%90%ED%95%80%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%9A%B0%EC%82%B0%EA%B2%B9%EA%B2%B9%EC%9D%B4%EB%B9%84%EB%B0%80%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EB%B2%84%EC%84%AF-illustration-page18-1773576596216.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"เห็ด\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้ที่ Tango Book ด้วยภาพสวย ๆ และเสียงอ่านภาษาเกาหลีและภาษาอังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1773576314846\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

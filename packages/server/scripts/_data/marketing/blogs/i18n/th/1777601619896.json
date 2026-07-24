@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777601619896",
+  "seo_title": "ลักษณะของนกกระยางและความลับของการล่าด้วยความอดทน — หนังสือภาพสังเกตธรรมชาติ",
+  "meta_description": "ความลับและข้อเท็จจริงที่น่าทึ่งเกี่ยวกับนกกระยางสีขาวที่รอคอยอย่างสงบนิ่งก่อนจะล่าเหยื่อราวสายฟ้า รวมถึงรูปลักษณ์อันสง่างาม เนื้อหาจากหนังสือนิทานสังเกตธรรมชาติของ Tango Book และวิธีการสังเกตการณ์ด้วย สำหรับคู่มือการสังเกตธรรมชาติสำหรับเด็กวัย 4-7 ปี",
+  "primary_keyword": "นกกระยาง",
+  "secondary_keywords": [
+    "ลักษณะของนกกระยาง",
+    "ระบบนิเวศของนกกระยาง",
+    "นกน้ำ",
+    "หนังสือสำหรับเด็กเล็กเกี่ยวกับการสังเกตธรรมชาติ",
+    "หนังสือภาพเรื่องนก"
+  ],
+  "url_slug": "egret-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "นกกระยาง - มีอะไรที่น่าสนใจเกี่ยวกับนกกระยางบ้างคะ?",
+        "url": "https://assets.tangobook.co.kr/1777601619896-%EB%B0%B1%EB%A1%9C-cover-misc-1780026512231.webp",
+        "text": "<h2>นกกระยางสีขาว มีอะไรที่น่าสนใจบ้างคะ?</h2><p>นกที่สง่างามแห่งนาข้าวและริมน้ำ <strong>นกกระยางสีขาว</strong>เป็นนกน้ำที่มองเห็นได้ทันทีจากขนสีขาวราวหิมะและขาที่ยาวค่ะ มันเป็นนักล่าที่มีความอดทนสูงเลยล่ะ</p>",
+        "caption": "นกน้ำที่สง่างาม",
+        "image_style": "",
+        "image_prompt": "A white egret standing in shallow water, elegant children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "นกกระยาง - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของนกกระยาง",
+        "url": "https://assets.tangobook.co.kr/1777601619896-%EC%9A%B0%EC%95%84%ED%95%9C%EB%AC%BC%EA%B0%80%EC%9D%98%EC%8B%A0%EC%82%AC%EB%B0%B1%EB%A1%9C-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page1-1777601671213.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของนกกระยาง</h2><p>นกกระยางจะเดินอย่างสง่างามในน้ำตื้นด้วยขาที่ยาว และใช้คอที่ยาวกับจะงอยปากแหลม <strong>ปลา กบ และแมลง</strong>พวกมันจะจับพวกมัน เมื่อเวลาล่าเหยื่อ <strong>เป็นนักล่าผู้มีความอดทน ที่รอคอยโดยไม่ขยับตัวเป็นเวลานาน และเมื่อเหยื่อเข้ามาใกล้ ก็จะจิกด้วยจะงอยปากเหมือนสายฟ้า</strong>ใช่แล้ว ขนสีขาวบริสุทธิ์ของมันโดดเด่นริมน้ำ และปรากฏในภาพวาดและบทกวีโบราณของเราบ่อยครั้ง ในฤดูใบไม้ผลิและฤดูร้อน พวกมันจะรวมกลุ่มกันสร้างรังบนต้นไม้เพื่อเลี้ยงลูกอ่อน</p>",
+        "caption": "การล่าที่รวดเร็วเหมือนสายฟ้า",
+        "image_style": "",
+        "image_prompt": "An egret striking quickly to catch a fish, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "เรื่องราวที่ปรากฏในหนังสือแทงโก \"กระสา\"",
+        "url": "https://assets.tangobook.co.kr/1777601619896-%EC%9A%B0%EC%95%84%ED%95%9C%EB%AC%BC%EA%B0%80%EC%9D%98%EC%8B%A0%EC%82%AC%EB%B0%B1%EB%A1%9C-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page5-1777601681355.webp",
+        "text": "<h2>เนื้อหาที่หนังสือแทงโกเรื่อง \"นกกระยาง\" นำเสนอ</h2><p>หนังสือแทงโกเรื่อง \"นกกระยาง\" แสดงให้เห็นถึงภาพของนกกระยางที่เดินในน้ำตื้น การล่าเหยื่อโดยไม่ขยับตัว ขนนกสีขาวบริสุทธิ์ และรังบนต้นไม้ได้อย่างสง่างาม</p>",
+        "caption": "รังของฝูง",
+        "image_style": "",
+        "image_prompt": "Egrets nesting in a tree, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "นกกระยาง - จุดที่น่าสังเกตเมื่อดูด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1777601619896-%EC%9A%B0%EC%95%84%ED%95%9C%EB%AC%BC%EA%B0%80%EC%9D%98%EC%8B%A0%EC%82%AC%EB%B0%B1%EB%A1%9C-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page10-1777601692828.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>ช่วยชี้จุดต่างๆ เช่น ขาที่ยาว (ในน้ำตื้น), การล่าด้วยความอดทน, ขนนกสีขาวบริสุทธิ์, หรือรังของฝูง และการพูดคุยกันว่า \"ทำไมนกกระยางถึงรออย่างเงียบๆ?\" ก็เป็นสิ่งที่ดีค่ะ/ครับ</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A close-up of egret long legs and pointed beak, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "นกกระสา - คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777601619896-%EC%9A%B0%EC%95%84%ED%95%9C%EB%AC%BC%EA%B0%80%EC%9D%98%EC%8B%A0%EC%82%AC%EB%B0%B1%EB%A1%9C-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page14-1777601701079.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ลองเชื่อมโยงคำว่า \"ถ้าขยับปลาจะหนีไป ต้องรอหน่อยนะ\" เข้ากับ \"เกมหยุดนิ่ง\" เหมือนการเล่นดอกมูกุงฮวา การสังเกตหงส์ขาวในนาข้าวหรือริมน้ำ จะทำให้คุณได้เห็นการล่าที่ต้องใช้ความอดทนด้วยตาตัวเอง</p>",
+        "caption": "การสังเกตการณ์ที่ริมน้ำ",
+        "image_style": "",
+        "image_prompt": "A parent and child watching an egret by a rice field, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ทำไมนกกระยางถึงรอโดยไม่ขยับเลยคะ/ครับ?</strong><br>ตอบ: เพราะถ้ามันขยับปลาจะหนีไปค่ะ/ครับ พอเข้ามาใกล้ มันก็จะจู่โจมด้วยปากที่รวดเร็วเหมือนสายฟ้าเลยค่ะ/ครับ</p><p><strong>ถาม: นกกระยางอาศัยอยู่ที่ไหนคะ/ครับ?</strong><br>ตอบ: อาศัยอยู่ตามแม่น้ำ นาข้าว และริมน้ำค่ะ/ครับ ฤดูใบไม้ผลิและฤดูร้อน พวกมันจะรวมกลุ่มกันสร้างรังบนต้นไม้เพื่อเลี้ยงลูกๆ ค่ะ/ครับ</p><p><strong>ถาม: ที่บ้านเราจะสังเกตได้อย่างไรดีคะ/ครับ?</strong><br>ตอบ: ลองเชื่อมโยงกับการเล่น \"หยุดนิ่ง\" แล้วไปสังเกตการล่าที่ต้องใช้ความอดทนตามนาข้าวและริมน้ำดูนะคะ/ครับ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณอ่านนิทานเรื่องนี้แล้วสนุกแบบนี้ ลองดู <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือภาพนกกระยาง",
+        "url": "https://assets.tangobook.co.kr/1777601619896-%EC%9A%B0%EC%95%84%ED%95%9C%EB%AC%BC%EA%B0%80%EC%9D%98%EC%8B%A0%EC%82%AC%EB%B0%B1%EB%A1%9C-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page18-1777601710180.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"นกกระยาง\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">มาพบกับมันด้วยภาพที่สวยงามและเสียงภาษาเกาหลี/อังกฤษได้โดยตรงจาก Tango Book เลยค่ะ</p><a href=\"https://tangobook.co.kr/library/1777601619896\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

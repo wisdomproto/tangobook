@@ -1,0 +1,112 @@
+{
+  "storybookId": "1773410319697",
+  "seo_title": "ลักษณะเด่นและความลับการอยู่รอดของกระบองเพชรในทะเลทราย — หนังสือนิทานสำรวจธรรมชาติ",
+  "meta_description": "ความลับของกระบองเพชรที่อาศัยอยู่ในทะเลทรายไร้น้ำ (เช่น การกักเก็บน้ำ, หนาม, และการสังเคราะห์แสงในเวลากลางคืน) พร้อมเนื้อหาจากหนังสือนิทานธรรมชาติของ Tango Book รวมถึงวิธีการสังเกตด้วย คู่มือการสังเกตธรรมชาติสำหรับเด็กวัย 4-7 ปี",
+  "primary_keyword": "กระบองเพชร",
+  "secondary_keywords": [
+    "ลักษณะเด่นของกระบองเพชร",
+    "นิเวศวิทยาของกระบองเพชร",
+    "พืชทะเลทราย",
+    "หนังสือสังเกตธรรมชาติสำหรับเด็กเล็ก",
+    "หนังสือนิทานภาพเกี่ยวกับพืช"
+  ],
+  "url_slug": "cactus-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "กระบองเพชร - กระบองเพชร มีอะไรน่าสนใจบ้างคะ?",
+        "url": "https://assets.tangobook.co.kr/1773410319697-%EC%84%A0%EC%9D%B8%EC%9E%A5-cover-misc-1780274441996.webp",
+        "text": "<h2>กระบองเพชร มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>ที่สามารถอยู่ได้อย่างแข็งแกร่ง แม้ในทะเลทรายที่แทบไม่มีน้ำเลย <strong>กระบองเพชร</strong>มันคือปรมาจารย์แห่งการอยู่รอดเลยล่ะ! เพราะเบื้องหลังหนามแหลมเหล่านั้น มีความลับที่น่าทึ่งซ่อนอยู่</p><p data-seo-boost=\"1\">เราได้รวบรวมเรื่องราวต่างๆ เกี่ยวกับกระบองเพชร ไม่ว่าจะเป็นลักษณะเด่น นิเวศวิทยา หรือพืชทะเลทรายมาให้คุณพ่อคุณแม่ได้อ่านแล้วค่ะ</p>",
+        "caption": "ผู้รอดชีวิตแห่งทะเลทราย",
+        "image_style": "",
+        "image_prompt": "A green cactus with flowers in a desert under the sun, bright children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "กระบองเพชร - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของกระบองเพชร",
+        "url": "https://assets.tangobook.co.kr/1773410319697-%EB%9C%A8%EA%B1%B0%EC%9A%B4%EC%82%AC%EB%A7%89%EC%9D%98%EA%B0%80%EC%8B%9C%ED%88%AC%EC%84%B1%EC%9D%B4%ED%8C%8C%EC%88%98%EA%BE%BC%EB%AC%BC%EC%9D%84%ED%92%88%EC%9D%80%EC%84%A0%EC%9D%B8%EC%9E%A5-illustration-page1-1773574188011.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของกระบองเพชร</h2><p>กระบองเพชรนั้น <strong>เซลล์เก็บน้ำที่อยู่ภายในลำต้น</strong>เมื่อฝนตก มันจะกักเก็บน้ำไว้มากมาย และค่อยๆ ใช้ในช่วงฤดูแล้ง <strong>หนามคือใบที่เปลี่ยนแปลงไป</strong>ช่วยลดการระเหยของน้ำ เก็บหยดน้ำค้าง และป้องกันสัตว์ นอกจากนี้ ในเวลากลางวัน มันจะปิดปากใบ <strong>และเปิดเฉพาะตอนกลางคืนเพื่อสังเคราะห์ด้วยแสง (CAM)</strong>...ช่วยลดการสูญเสียน้ำ ตัวอย่างเช่น กระบองเพชรสามารถมีชีวิตอยู่ได้นาน 150~200 ปี และสูงเกินกว่า 15 เมตร</p>",
+        "caption": "ถังเก็บน้ำภายในลำต้น",
+        "image_style": "",
+        "image_prompt": "A cactus stem cross-section storing water inside, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "กระบองเพชร - ทังโกบุ๊ก: เนื้อหาเกี่ยวกับ \"กระบองเพชร\"",
+        "url": "https://assets.tangobook.co.kr/1773410319697-%EB%9C%A8%EA%B1%B0%EC%9A%B4%EC%82%AC%EB%A7%89%EC%9D%98%EA%B0%80%EC%8B%9C%ED%88%AC%EC%84%B1%EC%9D%B4%ED%8C%8C%EC%88%98%EA%BE%BC%EB%AC%BC%EC%9D%84%ED%92%88%EC%9D%80%EC%84%A0%EC%9D%B8%EC%9E%A5-illustration-page5-1773574544347.webp",
+        "text": "<h2>เนื้อหาที่หนังสือ \"กระบองเพชร\" ของ Tango Book นำเสนอ</h2><p>หนังสือ \"กระบองเพชร\" ของ Tango Book แสดงให้เห็นถึงการอยู่รอดที่แข็งแกร่งของกระบองเพชร ที่เก็บน้ำในทะเลทรายแห้งแล้ง ปกป้องร่างกายด้วยหนาม และออกดอกเมื่อฝนตก</p>",
+        "caption": "ดอกไม้ที่เฝ้ารอสายฝน",
+        "image_style": "",
+        "image_prompt": "A cactus blooming after rain in the desert, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "กระบองเพชร - จุดที่น่าสนใจให้สังเกตด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1773410319697-%EB%9C%A8%EA%B1%B0%EC%9A%B4%EC%82%AC%EB%A7%89%EC%9D%98%EA%B0%80%EC%8B%9C%ED%88%AC%EC%84%B1%EC%9D%B4%ED%8C%8C%EC%88%98%EA%BE%BC%EB%AC%BC%EC%9D%84%ED%92%88%EC%9D%80%EC%84%A0%EC%9D%B8%EC%9E%A5-illustration-page10-1773574566514.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>ช่วยชี้ให้ดูจุดต่างๆ เช่น ลำต้น (ที่เก็บน้ำ) หนาม (การดัดแปลงของใบ) สภาพแวดล้อมในทะเลทราย และดอกไม้หลังฝนตก การพูดคุยกันว่า \"พวกมันจะอยู่รอดได้อย่างไรในทะเลทรายที่ไม่มีน้ำ?\" จะเป็นเรื่องที่ดีค่ะ/ครับ</p>",
+        "caption": "สิ่งที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "Close-up of cactus spines (modified leaves), observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "กระบองเพชร – คู่มือสำหรับผู้ปกครอง – ขยายผลผ่านการสังเกตและประสบการณ์",
+        "url": "https://assets.tangobook.co.kr/1773410319697-%EB%9C%A8%EA%B1%B0%EC%9A%B4%EC%82%AC%EB%A7%89%EC%9D%98%EA%B0%80%EC%8B%9C%ED%88%AC%EC%84%B1%EC%9D%B4%ED%8C%8C%EC%88%98%EA%BE%BC%EB%AC%BC%EC%9D%84%ED%92%88%EC%9D%80%EC%84%A0%EC%9D%B8%EC%9E%A5-illustration-page14-1773574817399.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — การขยายจากการสังเกตและการเรียนรู้จากประสบการณ์</h2><p>ลองปลูกกระถางกระบองเพชรเล็กๆ และสังเกตการณ์ว่ามันสามารถ \"อยู่ได้แม้ได้รับน้ำเพียงเล็กน้อย\" ดูสิคะ ให้ลูกดูโดยไม่สัมผัสหนาม แล้วลองให้เขาค่อยๆ บีบก้านเพื่อรู้สึกถึงความอวบ (การเก็บน้ำ) จะดีมากเลยค่ะ</p>",
+        "caption": "การเลี้ยงดูด้วยตนเอง",
+        "image_style": "",
+        "image_prompt": "A parent and child caring for a small potted cactus, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ต้นกระบองเพชรอยู่รอดได้โดยไม่มีน้ำได้อย่างไรคะ/ครับ?</strong><br>ตอบ: มันจะเก็บน้ำไว้ในลำต้น ใช้ทีละน้อย และสังเคราะห์แสงโดยเปิดปากใบเฉพาะตอนกลางคืนเพื่อลดการสูญเสียความชื้นค่ะ/ครับ</p><p><strong>ถาม: หนามของกระบองเพชรคืออะไรคะ/ครับ?</strong><br>ตอบ: มันคือใบที่เปลี่ยนรูปค่ะ/ครับ มีหน้าที่ลดการระเหยของน้ำ เก็บหยดน้ำค้าง และป้องกันสัตว์ต่างๆ ค่ะ/ครับ</p><p><strong>ถาม: เราจะสังเกตมันที่บ้านได้อย่างไรดีคะ/ครับ?</strong><br>ตอบ: การปลูกกระบองเพชรขนาดเล็กที่บ้าน จะดีมากค่ะ/ครับ เช่น การรดน้ำเป็นครั้งคราว การสัมผัสลำต้นที่อวบอิ่ม และการสังเกตหนาม (โดยไม่จับนะคะ/ครับ)</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณอ่านนิทานเรื่องนี้แล้วสนุกแบบนี้ ลองดู <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือนิทานกระบองเพชร",
+        "url": "https://assets.tangobook.co.kr/1773410319697-%EB%9C%A8%EA%B1%B0%EC%9A%B4%EC%82%AC%EB%A7%89%EC%9D%98%EA%B0%80%EC%8B%9C%ED%88%AC%EC%84%B1%EC%9D%B4%ED%8C%8C%EC%88%98%EA%BE%BC%EB%AC%BC%EC%9D%84%ED%92%88%EC%9D%80%EC%84%A0%EC%9D%B8%EC%9E%A5-illustration-page18-1773574630957.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"กระบองเพชร\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้โดยตรงที่แทงโกบุ๊ก ด้วยภาพสวย ๆ และเสียงภาษาเกาหลี/อังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1773410319697\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

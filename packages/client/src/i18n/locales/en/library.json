@@ -43,8 +43,8 @@
     "free": "Free"
   },
   "playlist": {
-    "title": "My playlists",
-    "subtitle": "A playlist that plays several books in a row at bedtime",
+    "title": "Story bundles",
+    "subtitle": "Ready-made bundles that play several books in a row",
     "newSet": "+ New set",
     "createTitle": "Create a continuous set",
     "createSubtitle": "Pick several books to play in a row at bedtime",
@@ -52,6 +52,7 @@
     "bookCount": "{{count}} books",
     "play": "▶ Play",
     "editAria": "Edit {{name}} set",
-    "deleteAria": "Delete {{name}} set"
+    "deleteAria": "Delete {{name}} set",
+    "mySets": "My sets"
   }
 }

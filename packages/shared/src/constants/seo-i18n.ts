@@ -297,3 +297,74 @@ export const HUB_STRINGS: Record<string, HubStrings> = {
     },
   },
 };
+
+/**
+ * 공개 블로그 SSR 문자열 — 본문·메타는 DB 번역본에서 오고, 여기는 페이지 뼈대만.
+ * HUB_STRINGS 와 동일하게 **콘텐츠가 있는 언어만** 넣는다(없으면 ko 폴백).
+ */
+export interface BlogStrings {
+  /** 목록 페이지 title */
+  listTitle: string;
+  /** 목록 페이지 description */
+  listDescription: string;
+  /** 글 title 접미 — `{글 제목} | {suffix}` */
+  titleSuffix: string;
+  /** 글 하단 "동화책으로 읽기" 링크 */
+  readBookLink: string;
+  /** 글 하단 "블로그 전체 보기" 링크 */
+  allPostsLink: string;
+  /** breadcrumb 라벨 */
+  breadcrumb: string;
+}
+
+export const BLOG_STRINGS: Record<string, BlogStrings> = {
+  ko: {
+    listTitle: '탱고북 블로그 — 유아 동화·자연관찰 그림책 가이드',
+    listDescription:
+      '세계 명작 동화 줄거리와 교훈, 동물·곤충·공룡·식물 자연관찰 이야기까지 — 4~7세 아이와 함께 읽는 그림책 가이드.',
+    titleSuffix: '탱고북 블로그',
+    readBookLink: '이 이야기를 그림책으로 — 탱고북에서 읽기',
+    allPostsLink: '탱고북 블로그 전체 보기',
+    breadcrumb: '블로그',
+  },
+  en: {
+    listTitle: 'Tangobook Blog — Fairy Tale & Nature Picture Book Guides for Ages 4–7',
+    listDescription:
+      'Classic fairy tale summaries and lessons, plus nature stories about animals, insects, dinosaurs and plants — picture book guides to read with your 4–7 year old.',
+    titleSuffix: 'Tangobook Blog',
+    readBookLink: 'Read this story as a picture book on Tangobook',
+    allPostsLink: 'Browse all Tangobook blog posts',
+    breadcrumb: 'Blog',
+  },
+  vi: {
+    listTitle: 'Blog Tangobook — Hướng dẫn truyện cổ tích & sách tranh thiên nhiên cho bé 4–7 tuổi',
+    listDescription:
+      'Tóm tắt và bài học từ truyện cổ tích kinh điển, cùng những câu chuyện thiên nhiên về động vật, côn trùng, khủng long và thực vật — hướng dẫn đọc sách tranh cùng bé 4–7 tuổi.',
+    titleSuffix: 'Blog Tangobook',
+    readBookLink: 'Đọc câu chuyện này dưới dạng sách tranh trên Tangobook',
+    allPostsLink: 'Xem tất cả bài viết trên blog Tangobook',
+    breadcrumb: 'Blog',
+  },
+  zh: {
+    listTitle: 'Tangobook 博客 — 4–7 岁童话与自然观察绘本指南',
+    listDescription:
+      '经典童话的故事梗概与寓意，以及动物、昆虫、恐龙和植物的自然观察故事 — 陪 4–7 岁孩子共读的绘本指南。',
+    titleSuffix: 'Tangobook 博客',
+    readBookLink: '在 Tangobook 上以绘本形式阅读这个故事',
+    allPostsLink: '浏览 Tangobook 博客全部文章',
+    breadcrumb: '博客',
+  },
+  th: {
+    listTitle: 'บล็อก Tangobook — คู่มือนิทานและหนังสือภาพธรรมชาติสำหรับเด็ก 4–7 ปี',
+    listDescription:
+      'เรื่องย่อและข้อคิดจากนิทานคลาสสิก พร้อมเรื่องราวธรรมชาติเกี่ยวกับสัตว์ แมลง ไดโนเสาร์ และพืช — คู่มือหนังสือภาพสำหรับอ่านกับลูกวัย 4–7 ปี',
+    titleSuffix: 'บล็อก Tangobook',
+    readBookLink: 'อ่านเรื่องนี้เป็นหนังสือภาพบน Tangobook',
+    allPostsLink: 'ดูบทความทั้งหมดในบล็อก Tangobook',
+    breadcrumb: 'บล็อก',
+  },
+};
+
+export function blogStrings(lang: string): BlogStrings {
+  return BLOG_STRINGS[lang] ?? BLOG_STRINGS.ko;
+}

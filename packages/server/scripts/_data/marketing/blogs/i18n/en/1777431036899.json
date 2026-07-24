@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777431036899",
+  "seo_title": "Fur Seal Traits & the Secrets of Life at Sea — A Nature Picture Book",
+  "meta_description": "Amazing facts about how fur seals live in the cold sea (blubber, whiskers), why they can also walk on land, plus what's inside Tangobook's animal picture book and how to observe them. A nature-observation guide for ages 4-7.",
+  "primary_keyword": "fur seal",
+  "secondary_keywords": [
+    "fur seal traits",
+    "fur seal vs sea lion",
+    "marine mammals",
+    "animal books for kids",
+    "animal picture book"
+  ],
+  "url_slug": "fur-seal-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "Fur seal - What's so amazing about fur seals?",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%AC%BC%EA%B0%9C-cover-misc-1780028534881.webp",
+        "text": "<h2>What's so amazing about fur seals?</h2><p>The <strong>fur seal</strong>, which moves between sea and land, is an amazing marine mammal that swims with its flipper feet and can also walk on land.</p>",
+        "caption": "A marine mammal",
+        "image_style": "",
+        "image_prompt": "A fur seal swimming and resting on rocks by the sea, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "Fur seal - Nature and science facts about fur seals",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EB%82%A0%EB%A0%B5%ED%95%9C%EB%AC%BC%EA%B0%9C-illustration-page1-1777431481602.webp",
+        "text": "<h2>Nature and science facts about fur seals</h2><p>The fur seal is a <strong>pinniped</strong> marine mammal with flipper feet, and it <strong>can walk on land by bending its hind flippers forward</strong> (which sets it apart from the earless true seal). A thick layer of <strong>blubber (subcutaneous fat)</strong> keeps its body warm in the cold seawater, and it hunts by <strong>sensing the movement of fish with its long, sensitive whiskers</strong>. The pups grow up drinking their mother's milk, and they recognize and find their mother by her call.</p>",
+        "caption": "Walking on flippers",
+        "image_style": "",
+        "image_prompt": "A fur seal walking on land with flippers, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "Fur seal - What Tangobook's «Fur Seal» covers",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EB%82%A0%EB%A0%B5%ED%95%9C%EB%AC%BC%EA%B0%9C-illustration-page5-1777431565301.webp",
+        "text": "<h2>What Tangobook's «Fur Seal» covers</h2><p>Tangobook's «Fur Seal» warmly shows the seal swimming with its flippers, walking on land, hunting with its whiskers, and a mother caring for her pup.</p>",
+        "caption": "Mother and pup",
+        "image_style": "",
+        "image_prompt": "A fur seal mother with her pup, heartwarming children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "Fur seal - Great points to observe together",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EB%82%A0%EB%A0%B5%ED%95%9C%EB%AC%BC%EA%B0%9C-illustration-page10-1777431667008.webp",
+        "text": "<h2>Great points to observe together</h2><p>Point out things like the flipper feet (swimming and walking), the blubber (body warmth), the whiskers (sensing), and the mother and pup. It's great to talk together about, \"How does the fur seal endure the cold sea?\"</p>",
+        "caption": "Points to observe",
+        "image_style": "",
+        "image_prompt": "A close-up of fur seal whiskers, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "Fur seal - Parent guide — how to grow curiosity",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EB%82%A0%EB%A0%B5%ED%95%9C%EB%AC%BC%EA%B0%9C-illustration-page14-1777431736450.webp",
+        "text": "<h2>Parent guide — how to grow curiosity</h2><p>Observe the fur seal swimming and walking at an aquarium or zoo. Explaining, \"The thick fat keeps it warm just like a thick coat (that's blubber),\" makes it easy to understand.</p>",
+        "caption": "Aquarium observation",
+        "image_style": "",
+        "image_prompt": "A parent and child watching seals at an aquarium, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Frequently Asked Questions (FAQ)</h2><p><strong>Q. Can fur seals walk on land too?</strong><br>A. Yes. They walk on land by bending their hind flippers forward. This is what sets them apart from the earless true seal.</p><p><strong>Q. How do they endure the cold sea?</strong><br>A. A thick layer of blubber (subcutaneous fat) keeps them warm. With their whiskers, they sense fish.</p><p><strong>Q. How can we observe them at home?</strong><br>A. Watching them swim and walk at an aquarium or zoo, and talking about \"blubber = a thick coat,\" both work well.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Classic fairy tales to read together</h2><p>If your child enjoyed this story, try reading these <strong>classic fairy tales</strong> too.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">Puppy</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">Foxtail Grass</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">Frog</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">Ant</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "Fur seal picture book illustration",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EB%82%A0%EB%A0%B5%ED%95%9C%EB%AC%BC%EA%B0%9C-illustration-page18-1777431813120.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">Curious about \"Fur Seal\"?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">Meet it for yourself on Tangobook, with beautiful illustrations and Korean and English audio.</p><a href=\"https://tangobook.co.kr/library/1777431036899\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 Go read the storybook →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773616999841",
+  "seo_title": "极地的神秘 — 北极、南极与北极光自然观察绘本",
+  "meta_description": "北极和南极的区别、能忍受寒冷的动物们、极光之谜等奇妙知识，以及《Tango Book》自然观察绘本的内容，甚至还有如何与孩子一起探索。5-7岁自然观察指南。",
+  "primary_keyword": "极地地区",
+  "secondary_keywords": ["极地地区", "北极 南极", "极光", "北极熊 企鹅", "幼儿自然观察书"],
+  "url_slug": "polar-regions-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "极地的神秘 - 极地的神秘，有哪些点是令人好奇的呢？",
+        "url": "https://assets.tangobook.co.kr/1773616999841-%EA%B7%B9%EC%A7%80%EB%B0%A9%EC%9D%98%EC%8B%A0%EB%B9%84-cover-misc-1780275250123.webp",
+        "text": "<h2>极地的神秘，哪些地方会让人感到神奇呢？</h2><p>被冰雪覆盖的 <strong>极地</strong>它是地球上最寒冷的地方。从北极熊、企鹅，到夜空中的极光，到处都充满了神秘感。</p>",
+        "caption": "最冷的地方",
+        "image_style": "",
+        "image_prompt": "A polar bear on ice and penguins in a snowy polar landscape, beautiful children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "极地的神秘——自然与科学事实",
+        "url": "https://assets.tangobook.co.kr/1773616999841-%EB%B6%88%ED%83%80%EB%8A%94%EB%AA%A8%EB%9E%98%EC%9D%98%EB%95%85%EC%82%AC%EB%A7%89%EA%B3%BC%EC%96%BC%EC%9D%8C%EC%9D%98%EB%82%98%EB%9D%BC%EA%B7%B9%EC%A7%80%EB%B0%A9%EC%9D%98%EC%8B%A0%EB%B9%84-illustration-page1-1773617521000.webp",
+        "text": "<h2>极地的神秘自然与科学事实</h2><p><strong>北极</strong>是冰封的海洋， <strong>南极</strong>是被冰雪覆盖的大陆（南极更冷）。 <strong>北极熊</strong>它的毛发是空心的透明管状结构，能将阳光传到皮肤，保持温暖， <strong>帝企鹅</strong>通过形成名为“集群”的密集群体来抵御寒冷。 <strong>极光</strong>它是来自太阳的粒子与极地大气中的氧气和氮气碰撞发光产生的现象，呈现出绿色、红色、紫色等多种颜色。</p>",
+        "caption": "共同抵御的寒意",
+        "image_style": "",
+        "image_prompt": "Emperor penguins huddling together to stay warm, heartwarming children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "极地的神秘 - 《探戈书》讲述的“极地之谜”内容",
+        "url": "https://assets.tangobook.co.kr/1773616999841-%EB%B6%88%ED%83%80%EB%8A%94%EB%AA%A8%EB%9E%98%EC%9D%98%EB%95%85%EC%82%AC%EB%A7%89%EA%B3%BC%EC%96%BC%EC%9D%8C%EC%9D%98%EB%82%98%EB%9D%BC%EA%B7%B9%EC%A7%80%EB%B0%A9%EC%9D%98%EC%8B%A0%EB%B9%84-illustration-page5-1773617534085.webp",
+        "text": "<h2>绘本《极地之谜》所涵盖的内容</h2><p>绘本《极地之谜》以孩子能理解的高度，展现了被冰覆盖的北极和南极、忍受寒冷的北极熊和企鹅，以及装饰夜空的极光。</p>",
+        "caption": "光之窗帘",
+        "image_style": "",
+        "image_prompt": "Colorful aurora lights in a polar night sky, magical children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "极地的神秘——可以和大家一起了解的知识点",
+        "url": "https://assets.tangobook.co.kr/1773616999841-%EB%B6%88%ED%83%80%EB%8A%94%EB%AA%A8%EB%9E%98%EC%9D%98%EB%95%85%EC%82%AC%EB%A7%89%EA%B3%BC%EC%96%BC%EC%9D%8C%EC%9D%98%EB%82%98%EB%9D%BC%EA%B7%B9%EC%A7%80%EB%B0%A9%EC%9D%98%EC%8B%A0%EB%B9%84-illustration-page8-1773617576487.webp",
+        "text": "<h2>值得一起了解的知识点</h2><p>请指出像北极/南极（海洋 vs 大陆）、北极熊（透明毛发）、企鹅（群居），以及极光（光的颜色）这样的知识点。如果能一起聊聊“动物为什么能在这么寒冷的地方生存呢？”会更好。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "A polar bear with translucent fur on ice, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "极地的神秘 - 家长指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1773616999841-%EB%B6%88%ED%83%80%EB%8A%94%EB%AA%A8%EB%9E%98%EC%9D%98%EB%95%85%EC%82%AC%EB%A7%89%EA%B3%BC%EC%96%BC%EC%9D%8C%EC%9D%98%EB%82%98%EB%9D%BC%EA%B7%B9%EC%A7%80%EB%B0%A9%EC%9D%98%EC%8B%A0%EB%B9%84-illustration-page14-1773617654644.webp",
+        "text": "<h2>家长指南 — 如何培养好奇心</h2><p>触摸冰块，想象极地的寒冷；像企鹅一样聚集在一起，模仿“群聚”。观看北极光照片或视频，谈论光的颜色，能让孩子更感兴趣。</p>",
+        "caption": "想象极地",
+        "image_style": "",
+        "image_prompt": "A parent and child looking at aurora pictures together, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>问：北极和南极有什么不同呢？</strong><br>答：北极是冰封的海洋，南极是覆盖着冰层的大陆。南极更冷哦。</p><p><strong>问：北极光为什么会出现呢？</strong><br>答：这是因为来自太阳的粒子与极地大气中的氧气和氮气碰撞，产生了光芒。颜色非常丰富哦。</p><p><strong>问：在家里怎样了解呢？</strong><br>答：可以尝试触摸冰块、模仿企鹅群居的样子，或者看北极光照片聊聊天关于颜色的话题。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>适合一起阅读的经典童话</h2><p>如果喜欢读这个故事，还可以看看这些 <strong>经典童话</strong>也一起来阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">小狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "极地神秘绘本插画",
+        "url": "https://assets.tangobook.co.kr/1773616999841-%EB%B6%88%ED%83%80%EB%8A%94%EB%AA%A8%EB%9E%98%EC%9D%98%EB%95%85%EC%82%AC%EB%A7%89%EA%B3%BC%EC%96%BC%EC%9D%8C%EC%9D%98%EB%82%98%EB%9D%BC%EA%B7%B9%EC%A7%80%EB%B0%A9%EC%9D%98%EC%8B%A0%EB%B9%84-illustration-page18-1773617672254.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“极地之谜”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book中，通过精美的图画和韩语、英语语音，亲身体验吧。</p><a href=\"https://tangobook.co.kr/library/1773616999841\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

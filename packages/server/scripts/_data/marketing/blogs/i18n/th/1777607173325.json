@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777607173325",
+  "seo_title": "ลักษณะของแมลงปอและความลับของการบิน — หนังสือภาพสังเกตธรรมชาติ",
+  "meta_description": "เกี่ยวกับดวงตาแบบหลายส่วนขนาดใหญ่และการบินอย่างอิสระของแมลงปอ ข้อเท็จจริงที่น่าทึ่ง เช่น หนอนผีเสื้อที่อาศัยอยู่ในน้ำ เนื้อหาจากหนังสือนิทานสังเกตธรรมชาติ Tango Book และวิธีการสังเกตการณ์ด้วย เหมาะสำหรับไกด์การสังเกตธรรมชาติสำหรับเด็กวัย 4-7 ปี",
+  "primary_keyword": "ที่นอน",
+  "secondary_keywords": [
+    "ลักษณะเด่นของที่นอน",
+    "ตาประกอบของแมลงปอ",
+    "หนอนแมลงปอ",
+    "หนังสือสังเกตธรรมชาติสำหรับเด็กเล็ก",
+    "หนังสือนิทานแมลง"
+  ],
+  "url_slug": "dragonfly-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "การนอน - การนอน มีอะไรที่น่าสนใจบ้างคะ?",
+        "url": "https://assets.tangobook.co.kr/1777607173325-%EC%9E%A0%EC%9E%90%EB%A6%AC-cover-misc-1780025685659.webp",
+        "text": "<h2>แมลงปอ มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>บินไปในท้องฟ้าได้อย่างอิสระ <strong>แมลงปอ</strong>เป็นแมลงที่บินเก่งมากเลยค่ะ ด้วยดวงตาขนาดใหญ่ มันสามารถมองเห็นได้แทบทุกทิศทางในคราวเดียวเลยนะ</p>",
+        "caption": "แมลงที่บินได้อย่างยอดเยี่ยม",
+        "image_style": "",
+        "image_prompt": "A dragonfly hovering over a pond, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "แมลงปอ – ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์เกี่ยวกับแมลงปอ",
+        "url": "https://assets.tangobook.co.kr/1777607173325-%ED%95%98%EB%8A%98%EC%9D%84%EB%82%98%EB%8A%94%EB%A9%8B%EC%A7%84%EB%B9%84%ED%96%89%EC%82%AC%EC%9E%A0%EC%9E%90%EB%A6%AC-illustration-page1-1773445442837.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของแมลงปอ</h2><p>แมลงปอมีส่วนที่ใหญ่มากจนเกือบเต็มหัว <strong>ดวงตาประกอบ</strong>ทำให้พวกมันมองเห็นได้เกือบทุกทิศทางในคราวเดียว พวกมันขยับปีกสี่ข้างแยกกัน <strong>สามารถหยุดนิ่งกลางอากาศ หรือบินถอยหลังได้ด้วยนะ</strong>พวกมันจับและกินยุงหรือแมลงวันกลางอากาศ ซึ่งเป็นประโยชน์ต่อมนุษย์ ที่น่าทึ่งคือวัยเด็กของแมลงปอ (ตัวอ่อน \"นิมฟ์\") <strong>อาศัยอยู่ในน้ำ</strong>หลังจากโตแล้ว พวกมันจะออกมาจากน้ำ ลอกคราบ กางปีก และกลายเป็นแมลงปอตัวเต็มวัย</p>",
+        "caption": "วิสัยทัศน์รอบด้าน",
+        "image_style": "",
+        "image_prompt": "A close-up of dragonfly large compound eyes, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "เรื่องราวที่หนังสือทังโกบุ๊ก \"จัมจารี\" นำเสนอ",
+        "url": "https://assets.tangobook.co.kr/1777607173325-%ED%95%98%EB%8A%98%EC%9D%84%EB%82%98%EB%8A%94%EB%A9%8B%EC%A7%84%EB%B9%84%ED%96%89%EC%82%AC%EC%9E%A0%EC%9E%90%EB%A6%AC-illustration-page5-1773445455208.webp",
+        "text": "<h2>เนื้อหาที่หนังสือแทงโก \"แมลงปอ\" นำเสนอ</h2><p>หนังสือแทงโก \"แมลงปอ\" แสดงให้เห็นถึงดวงตาแบบหลายส่วนที่ใหญ่โต การบินอย่างอิสระ ตัวหนอนที่อาศัยอยู่ในน้ำ และกระบวนการเติบโตเป็นผู้ใหญ่ด้วยการลอกคราบได้อย่างอบอุ่น</p>",
+        "caption": "วัยเด็กใต้ผืนน้ำ",
+        "image_style": "",
+        "image_prompt": "A dragonfly nymph living underwater, fascinating children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "หิ่งห้อย - จุดที่น่าสนใจให้สังเกตพร้อมกัน",
+        "url": "https://assets.tangobook.co.kr/1777607173325-%ED%95%98%EB%8A%98%EC%9D%84%EB%82%98%EB%8A%94%EB%A9%8B%EC%A7%84%EB%B9%84%ED%96%89%EC%82%AC%EC%9E%A0%EC%9E%90%EB%A6%AC-illustration-page10-1773445480048.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>ให้ชี้จุดต่างๆ เช่น ดวงตาประกอบขนาดใหญ่ (ทัศนวิสัยรอบด้าน), ปีกสี่อัน (การบินแบบลอยตัว/ถอยหลัง), หนอนที่อยู่ในน้ำ, หรือการลอกคราบ การพูดคุยด้วยกันว่า \"หนอนแมลงปออาศัยอยู่ในน้ำได้นี่น่าทึ่งจังเลยใช่ไหม?\" จะดีมาก</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A dragonfly with four separate wings, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "คู่มือผู้ปกครองเรื่องเวลานอน — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777607173325-%ED%95%98%EB%8A%98%EC%9D%84%EB%82%98%EB%8A%94%EB%A9%8B%EC%A7%84%EB%B9%84%ED%96%89%EC%82%AC%EC%9E%A0%EC%9E%90%EB%A6%AC-illustration-page14-1773445504876.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ลองสังเกตแมลงปอที่หยุดนิ่งกลางอากาศบริเวณสระน้ำหรือริมน้ำ เล่าให้พวกเขาฟังว่า \"ตอนเด็กๆ หนูเคยอาศัยอยู่ในน้ำ\" และเมื่อได้ดูดวงตาที่ใหญ่โตด้วยแว่นขยาย ความสนใจก็จะเพิ่มขึ้น</p>",
+        "caption": "การสังเกตบ่อน้ำ",
+        "image_style": "",
+        "image_prompt": "A parent and child watching dragonflies by a pond, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย</h2><p><strong>ถาม: แมลงปอหยุดนิ่งกลางอากาศได้อย่างไรคะ?</strong><br>ตอบ: เพราะมันขยับปีกทั้งสี่แยกกันค่ะ ดังนั้นมันจึงสามารถหยุดนิ่งหรือบินถอยหลังได้ด้วย</p><p><strong>ถาม: ตัวอ่อนของแมลงปออาศัยอยู่ที่ไหนคะ?</strong><br>ตอบ: น่าทึ่งมากเลยค่ะ พวกมันอาศัยอยู่ในน้ำ หลังจากโตเต็มที่พวกมันก็จะออกมาจากน้ำ ลอกคราบ และกลายเป็นแมลงปอตัวเต็มวัย</p><p><strong>ถาม: เราจะสังเกตพวกมันที่บ้านได้อย่างไรดีคะ?</strong><br>ตอบ: แนะนำให้สังเกตการบินนิ่งในสระน้ำ และใช้แว่นขยายดูดวงตาแบบผสมขนาดใหญ่ค่ะ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณอ่านนิทานเรื่องนี้แล้วสนุกแบบนี้ ลองดู <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือนิทานภาพแมลงปอ",
+        "url": "https://assets.tangobook.co.kr/1777607173325-%ED%95%98%EB%8A%98%EC%9D%84%EB%82%98%EB%8A%94%EB%A9%8B%EC%A7%84%EB%B9%84%ED%96%89%EC%82%AC%EC%9E%A0%EC%9E%90%EB%A6%AC-illustration-page18-1773446442603.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">คุณสงสัยเกี่ยวกับ \"จัมจารี\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">มาพบกันได้ที่ Tango Book ด้วยภาพสวยๆ และเสียงอ่านภาษาเกาหลีและภาษาอังกฤษเลยนะคะ</p><a href=\"https://tangobook.co.kr/library/1777607173325\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

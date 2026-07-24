@@ -1,0 +1,112 @@
+{
+  "storybookId": "1773576314846",
+  "seo_title": "Đặc điểm của nấm và bí mật của loài phân hủy — Sách tranh quan sát thiên nhiên",
+  "meta_description": "Vì sao nấm không phải thực vật cũng chẳng phải động vật mà là nấm khuẩn, vai trò phân hủy trong rừng, cùng nội dung sách tranh quan sát thiên nhiên Tangobook và cách quan sát an toàn. Hướng dẫn quan sát thiên nhiên cho bé 4~7 tuổi.",
+  "primary_keyword": "nấm",
+  "secondary_keywords": [
+    "đặc điểm của nấm",
+    "sinh thái của nấm",
+    "nấm khuẩn",
+    "sách quan sát thiên nhiên cho bé",
+    "sách tranh về thực vật"
+  ],
+  "url_slug": "mushroom-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "Nấm - Nấm có điểm gì kỳ diệu?",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EB%B2%84%EC%84%AF-cover-misc-1780274370065.webp",
+        "text": "<h2>Nấm có điểm gì kỳ diệu?</h2><p><strong>Nấm</strong> nhô lên khắp rừng sau cơn mưa là một sinh vật kỳ lạ, không phải thực vật cũng chẳng phải động vật. Bí mật ẩn dưới chiếc mũ nấm thật sự rất hấp dẫn.</p><p data-seo-boost=\"1\">Chúng tôi tổng hợp nhiều câu chuyện thú vị về nấm như đặc điểm của nấm, sinh thái của nấm, nấm khuẩn.</p>",
+        "caption": "Nấm sau cơn mưa",
+        "image_style": "",
+        "image_prompt": "Colorful mushrooms growing on a forest floor after rain, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "Nấm - Sự thật tự nhiên và khoa học về nấm",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EC%88%B2%EC%86%8D%EC%97%90%ED%95%80%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%9A%B0%EC%82%B0%EA%B2%B9%EA%B2%B9%EC%9D%B4%EB%B9%84%EB%B0%80%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EB%B2%84%EC%84%AF-illustration-page1-1773576462568.webp",
+        "text": "<h2>Sự thật tự nhiên và khoa học về nấm</h2><p>Nấm thuộc <strong>giới nấm (họ hàng của mốc meo)</strong>, không quang hợp cũng không nuốt thức ăn. Thay vào đó, nó <strong>tiết enzyme tiêu hóa ra bên ngoài để phân giải chất hữu cơ rồi hấp thụ dinh dưỡng</strong>. Nấm gồm mũ, phiến, cuống và hệ sợi nấm dưới đất, với vai trò quan trọng nhất là <strong>\"loài phân hủy\"</strong> phân giải cây chết và lá rụng trong rừng. Việc phân biệt nấm độc khó cả với chuyên gia, nên tuyệt đối không được chạm hay ăn nấm dại.</p>",
+        "caption": "Mũ, phiến và hệ sợi nấm",
+        "image_style": "",
+        "image_prompt": "A cross-section of a mushroom showing cap, gills, and stem with mycelium underground, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "Nấm - Nội dung cuốn «Nấm» của Tangobook",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EC%88%B2%EC%86%8D%EC%97%90%ED%95%80%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%9A%B0%EC%82%B0%EA%B2%B9%EA%B2%B9%EC%9D%B4%EB%B9%84%EB%B0%80%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EB%B2%84%EC%84%AF-illustration-page5-1773576532875.webp",
+        "text": "<h2>Nội dung cuốn «Nấm» của Tangobook</h2><p>Cuốn «Nấm» của Tangobook cho bé thấy theo tầm mắt của trẻ: những cây nấm nhô lên sau mưa, các phiến nấm dưới mũ, hệ sợi nấm trong lòng đất, và vai trò của loài phân hủy giúp tuần hoàn dinh dưỡng trong rừng.</p>",
+        "caption": "Loài phân hủy của rừng",
+        "image_style": "",
+        "image_prompt": "Mushrooms decomposing a fallen log in a forest, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "Nấm - Những điểm nên tìm hiểu cùng bé",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EC%88%B2%EC%86%8D%EC%97%90%ED%95%80%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%9A%B0%EC%82%B0%EA%B2%B9%EA%B2%B9%EC%9D%B4%EB%B9%84%EB%B0%80%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EB%B2%84%EC%84%AF-illustration-page10-1773576547668.webp",
+        "text": "<h2>Những điểm nên tìm hiểu cùng bé</h2><p>Hãy chỉ cho bé những điểm như mũ - phiến - cuống, hệ sợi nấm (dưới đất), vai trò loài phân hủy, và màu sắc - hình dạng đa dạng. Cùng trò chuyện về câu hỏi \"Nấm ăn gì để lớn lên nhỉ?\" sẽ rất thú vị (nhớ không chạm vào nấm dại).</p>",
+        "caption": "Điểm quan sát",
+        "image_style": "",
+        "image_prompt": "Close-up of mushroom gills under the cap, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "Nấm - Hướng dẫn cho cha mẹ — Cách nuôi dưỡng sự tò mò",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EC%88%B2%EC%86%8D%EC%97%90%ED%95%80%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%9A%B0%EC%82%B0%EA%B2%B9%EA%B2%B9%EC%9D%B4%EB%B9%84%EB%B0%80%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EB%B2%84%EC%84%AF-illustration-page14-1773576566741.webp",
+        "text": "<h2>Hướng dẫn cho cha mẹ — Cách nuôi dưỡng sự tò mò</h2><p>Hãy dùng nấm hương, nấm sò mua ở siêu thị để quan sát mũ - phiến - cuống một cách an toàn. Nhớ dặn bé \"Nấm dại chỉ được nhìn thôi!\", và quan sát từ xa những cây nấm mọc trên cây chết trong rừng sẽ rất thú vị.</p>",
+        "caption": "Quan sát an toàn",
+        "image_style": "",
+        "image_prompt": "A parent and child looking at edible mushrooms on a table, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Câu hỏi thường gặp (FAQ)</h2><p><strong>Q. Nấm có phải là thực vật không?</strong><br>A. Không. Nấm thuộc giới nấm (họ hàng của mốc meo). Nó không quang hợp mà phân giải chất hữu cơ để lấy dinh dưỡng.</p><p><strong>Q. Nấm có vai trò gì trong rừng?</strong><br>A. Nó đóng vai trò \"loài phân hủy\", phân giải cây chết và lá rụng để tuần hoàn dinh dưỡng. Rất cần thiết cho rừng.</p><p><strong>Q. Có được quan sát nấm dại không?</strong><br>A. Chỉ được nhìn thôi. Phân biệt nấm độc khó cả với chuyên gia, nên tuyệt đối không chạm hay ăn.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Truyện kinh điển nên đọc cùng</h2><p>Nếu bé đã đọc câu chuyện này một cách thích thú, hãy cùng đọc thêm những <strong>truyện kinh điển</strong> sau nhé.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">Chú cún</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">Cỏ đuôi chó</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">Chú ếch</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">Chú kiến</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "Tranh minh họa sách Nấm",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EC%88%B2%EC%86%8D%EC%97%90%ED%95%80%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%9A%B0%EC%82%B0%EA%B2%B9%EA%B2%B9%EC%9D%B4%EB%B9%84%EB%B0%80%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EB%B2%84%EC%84%AF-illustration-page18-1773576596216.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">Bạn tò mò về «Nấm»?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">Hãy gặp trực tiếp trên Tangobook với tranh vẽ tuyệt đẹp cùng giọng đọc tiếng Hàn và tiếng Anh.</p><a href=\"https://tangobook.co.kr/library/1773576314846\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 Xem sách tranh →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "storybookId": "1773363971764",
+  "seo_title": "ลักษณะและนิเวศของงู — นักล่าที่ไม่มีขา หนังสือภาพสังเกตธรรมชาติ",
+  "meta_description": "วิธีที่งูเคลื่อนไหวโดยไม่มีขา, การดมกลิ่นด้วยลิ้น, การลอกคราบ และข้อเท็จจริงมหัศจรรย์อื่น ๆ รวมถึงเนื้อหาจากหนังสือนิทานสังเกตธรรมชาติของ Tango Book และวิธีการสังเกตการณ์ เหมาะสำหรับคู่มือการสังเกตธรรมชาติสำหรับเด็กวัย 4-7 ปี",
+  "primary_keyword": "งู",
+  "secondary_keywords": [
+    "ลักษณะของงู",
+    "นิเวศของงู",
+    "หนังงูที่ลอกคราบ",
+    "หนังสือสังเกตธรรมชาติสำหรับเด็กเล็ก",
+    "หนังสือนิทานภาพสัตว์"
+  ],
+  "url_slug": "snake-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "งู – งู มีส่วนไหนที่น่าทึ่งบ้างคะ?",
+        "url": "https://assets.tangobook.co.kr/1773363971764-%EB%B1%80-cover-misc-1780029239954.webp",
+        "text": "<h2>งู มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>เคลื่อนที่ลื่นไหลราวกับไม่มีขา <strong>งู</strong>มันเป็นเพื่อนธรรมชาติที่ลึกลับ แม้จะดูน่ากลัว แต่ถ้าเรารู้จักมัน จะพบว่ามันมีความสามารถที่น่าทึ่งมากมาย</p><p data-seo-boost=\"1\">เราได้รวบรวมเรื่องราวต่างๆ เกี่ยวกับงู ไม่ว่าจะเป็นลักษณะเด่น นิเวศวิทยา หรือแม้แต่การลอกคราบของมันมาให้คุณพ่อคุณแม่แล้วค่ะ</p>",
+        "caption": "นายพรานไร้ขา",
+        "image_style": "",
+        "image_prompt": "A gentle snake gliding in an S-shape through grass, calm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "งู - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของงู",
+        "url": "https://assets.tangobook.co.kr/1773363971764-%EC%86%8C%EB%A6%AC%EC%97%86%EC%9D%B4%EC%8A%A4%EB%A5%B4%EB%A5%B5%EC%88%B2%EC%86%8D%EC%9D%98%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%82%AC%EB%83%A5%EA%BE%BC%EB%B1%80-illustration-page1-1773467377793.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของงู</h2><p>งูไม่มีขา แต่มี <strong>ซี่โครง กล้ามเนื้อ และเกล็ดท้อง</strong>โดยการดันพื้นและเคลื่อนที่ไปข้างหน้าเหมือนเลื้อยเป็นรูปตัว S ส่วน <strong>แลบลิ้น</strong>เพื่อรวบรวมอนุภาคกลิ่นในอากาศและวิเคราะห์ด้วยอวัยวะบนเพดานปากเพื่อหาอาหาร เมื่อร่างกายโตขึ้นก็จะลอกคราบเก่าออกทั้งหมด <strong>การลอกคราบ</strong>และสามารถอ้าปากกว้างเพื่อกลืนเหยื่อที่ใหญ่กว่าตัวเองได้ งูส่วนใหญ่มักจะไม่โจมตีมนุษย์ก่อน</p>",
+        "caption": "การรับรสด้วยลิ้น",
+        "image_style": "",
+        "image_prompt": "A snake flicking its forked tongue to smell the air, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "งู - ทังโกบุ๊ก เนื้อหาเรื่อง \"งู\"",
+        "url": "https://assets.tangobook.co.kr/1773363971764-%EC%86%8C%EB%A6%AC%EC%97%86%EC%9D%B4%EC%8A%A4%EB%A5%B4%EB%A5%B5%EC%88%B2%EC%86%8D%EC%9D%98%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%82%AC%EB%83%A5%EA%BE%BC%EB%B1%80-illustration-page5-1773467381098.webp",
+        "text": "<h2>เนื้อหาที่หนังสือแทงโกเกี่ยวกับ \"งู\"</h2><p>หนังสือแทงโก \"งู\" แสดงให้เห็นอย่างน่าสนใจถึงการเคลื่อนไหวที่ลื่นไหลโดยไม่มีขา การดมกลิ่นด้วยลิ้น ฉากการลอกคราบที่มหัศจรรย์ พฤติกรรมการขดตัว และลูกงูที่ฟักออกจากไข่</p>",
+        "caption": "การลอกคราบ",
+        "image_style": "",
+        "image_prompt": "A snake shedding its old skin, fascinating children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "งู - จุดที่น่าสนใจให้สังเกตการณ์ร่วมกัน",
+        "url": "https://assets.tangobook.co.kr/1773363971764-%EC%86%8C%EB%A6%AC%EC%97%86%EC%9D%B4%EC%8A%A4%EB%A5%B4%EB%A5%B5%EC%88%B2%EC%86%8D%EC%9D%98%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%82%AC%EB%83%A5%EA%BE%BC%EB%B1%80-illustration-page10-1773467433302.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>โปรดชี้ให้เห็นจุดต่างๆ เช่น การเคลื่อนไหว (เกล็ดท้อง/กล้ามเนื้อ), ลิ้น (การดมกลิ่น), การลอกคราบ (การเติบโต), และปากใหญ่ (การกลืน) นอกจากนี้ การพูดคุยด้วยกันว่า \"ถ้าไม่มีขา มันจะไปได้อย่างไรนะ?\" หรือ \"ทำไมมันถึงแลบลิ้นล่ะ?\" จะเป็นเรื่องที่ดีมากค่ะ</p>",
+        "caption": "สิ่งที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "Close-up of a snake's belly scales used for movement, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "งู: คู่มือสำหรับผู้ปกครอง — ขยายความรู้ด้วยการสังเกตและการเรียนรู้จากประสบการณ์",
+        "url": "https://assets.tangobook.co.kr/1773363971764-%EC%86%8C%EB%A6%AC%EC%97%86%EC%9D%B4%EC%8A%A4%EB%A5%B4%EB%A5%B5%EC%88%B2%EC%86%8D%EC%9D%98%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%82%AC%EB%83%A5%EA%BE%BC%EB%B1%80-illustration-page14-1773467608733.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — ขยายการเรียนรู้ผ่านการสังเกตและการทดลอง</h2><p>ลองเลียนแบบการลื่นเป็นรูปตัว S ด้วยเชือกยาวหรือมือดูสิ แทนที่จะทำเสียงดมกลิ่นว่า \"คึ้งๆ\" ให้เล่นด้วยท่าทาง \"แล่น/ยืดลิ้น\" การเปรียบเทียบกับการถอดถุงเท้าจะช่วยให้เข้าใจได้ง่ายขึ้น (ควรสังเกตงูจริงจากระยะไกลและอย่างปลอดภัยเท่านั้น)</p>",
+        "caption": "กิจกรรมเคลื่อนไหวรูปตัว S",
+        "image_style": "",
+        "image_prompt": "A parent and child making an S-shape with a rope to mimic a snake, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: งูเคลื่อนที่อย่างไรโดยไม่มีขาคะ/ครับ?</strong><br>ตอบ: มันจะดันพื้นด้วยซี่โครง กล้ามเนื้อ และเกล็ดท้องจำนวนมาก คล้ายกับการเลื้อยเป็นรูปตัว S ค่ะ/ครับ</p><p><strong>ถาม: งูใช้ลิ้นทำอะไรคะ/ครับ?</strong><br>ตอบ: มันจะใช้ลิ้นแยกเก็บกลิ่นในอากาศ แล้วนำไปวิเคราะห์ด้วยอวัยวะบนเพดานปาก เพื่อหาอาหารและทางเดินค่ะ/ครับ</p><p><strong>ถาม: เราจะสังเกตที่บ้านได้อย่างไรดีคะ/ครับ?</strong><br>ตอบ: ลองให้เด็กๆ เลียนแบบการเคลื่อนไหวเป็นรูปตัว S ด้วยเชือก เล่นทำท่าทางลิ้น \"แลบ ๆ\" หรือเปรียบเทียบการลอกคราบด้วยการถอดถุงเท้าก็ได้ค่ะ/ครับ (แต่ควรสังเกตงูจริงจากระยะไกลเท่านั้นนะคะ/ครับ)</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณอ่านนิทานเรื่องนี้แล้วสนุกแบบนี้ ลองดู <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือหนังสือนิทานเรื่องงู",
+        "url": "https://assets.tangobook.co.kr/1773363971764-%EC%86%8C%EB%A6%AC%EC%97%86%EC%9D%B4%EC%8A%A4%EB%A5%B4%EB%A5%B5%EC%88%B2%EC%86%8D%EC%9D%98%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%82%AC%EB%83%A5%EA%BE%BC%EB%B1%80-illustration-page18-1773467791662.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"งู\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้ด้วยภาพสวย ๆ และเสียงภาษาเกาหลี/อังกฤษที่ Tango Book เลยค่ะ</p><a href=\"https://tangobook.co.kr/library/1773363971764\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

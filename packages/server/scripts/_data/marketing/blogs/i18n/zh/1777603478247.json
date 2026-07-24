@@ -1,0 +1,106 @@
+{
+  "storybookId": "1777603478247",
+  "seo_title": "虎纹蝶的特征与完全变态的秘密 — 自然观察绘本",
+  "meta_description": "虎斑蝶的生命周期（卵→幼虫→蛹→蝴蝶）以及幼虫的气味角等奇妙知识，还有《Tango Book》自然观察绘本的内容和观察方法。4~7岁自然观察指南。",
+  "primary_keyword": "老虎蝴蝶",
+  "secondary_keywords": ["虎蝶的特征", "蝴蝶的生命周期", "彻底变态", "幼儿自然观察书", "昆虫绘本"],
+  "url_slug": "swallowtail-butterfly-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "虎纹蝴蝶 - 虎纹蝴蝶，有哪些特别的地方呢？",
+        "url": "https://assets.tangobook.co.kr/1777603478247-%ED%98%B8%EB%9E%91%EB%82%98%EB%B9%84-cover-misc-1780025822717.webp",
+        "text": "<h2>虎纹蝶，哪些地方会让人觉得神奇呢？</h2><p>五彩斑斓的，漂亮的 <strong>虎纹蝶</strong>它是一种形态会完全改变的神奇昆虫。从一个小小的卵变成一只华丽的蝴蝶，这段旅程真是令人惊叹。</p>",
+        "caption": "华丽的蝴蝶",
+        "image_style": "",
+        "image_prompt": "A colorful swallowtail butterfly on a flower, vivid children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "虎蝶——关于虎蝶的自然与科学知识",
+        "url": "https://assets.tangobook.co.kr/1777603478247-%EC%95%8C%EB%A1%9D%EB%8B%AC%EB%A1%9D%EA%BD%83%EB%B0%AD%EC%9D%98%EC%9A%94%EC%A0%95%ED%98%B8%EB%9E%91%EB%82%98%EB%B9%84-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page1-1777603607623.webp",
+        "text": "<h2>虎蝶的自然与科学知识</h2><p>虎蝶是 <strong>卵 → 毛毛虫 → 蛹 → 蝴蝶</strong> 在四个阶段完全改变形态的 <strong>完全变态</strong> 它是一种昆虫。毛毛虫吃橘树和山菖蒲的叶子长大，如果感到危险，从头上会发出橙色的 <strong>气味角（嗅角）</strong>伸出来吓跑敌人。成虫蝴蝶用像吸管一样收缩的口器吸食花蜜，帮助授粉。翅膀的花纹由非常小的 <strong>鳞片粉</strong>构成。</p>",
+        "caption": "完全变态第四阶段",
+        "image_style": "",
+        "image_prompt": "The butterfly life cycle from egg to caterpillar to chrysalis to butterfly, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "虎蝶 - 《探戈书》讲述的《虎蝶》内容",
+        "url": "https://assets.tangobook.co.kr/1777603478247-%EC%95%8C%EB%A1%9D%EB%8B%AC%EB%A1%9D%EA%BD%83%EB%B0%AD%EC%9D%98%EC%9A%94%EC%A0%95%ED%98%B8%EB%9E%91%EB%82%98%EB%B9%84-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page5-1777603616962.webp",
+        "text": "<h2>《Tango Book》的《虎蝶》讲述的内容</h2><p>《Tango Book》的《虎蝶》温馨地展示了从卵到毛毛虫、再蜕变成蝴蝶的一整个生命周期，以及伸出气味角的毛毛虫和吸食花蜜的蝴蝶。</p>",
+        "caption": "橙色气味角",
+        "image_style": "",
+        "image_prompt": "A swallowtail caterpillar showing its orange osmeterium, fascinating children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "虎纹蝴蝶 - 一起观察的重点（或：可以和孩子一起观察的小细节）",
+        "url": "https://assets.tangobook.co.kr/1777603478247-%EC%95%8C%EB%A1%9D%EB%8B%AC%EB%A1%9D%EA%BD%83%EB%B0%AD%EC%9D%98%EC%9A%94%EC%A0%95%ED%98%B8%EB%9E%91%EB%82%98%EB%B9%84-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page10-1777603626300.webp",
+        "text": "<h2>一起观察时值得注意的重点</h2><p>请指出像完全变态的四个阶段、气味角（防御）、干嘴（蜂蜜）或翅膀鳞片这样的细节。一起聊聊“毛毛虫是怎么变成蝴蝶的？”会很好。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "A close-up of butterfly wing scales, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "虎蝶 - 家长指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1777603478247-%EC%95%8C%EB%A1%9D%EB%8B%AC%EB%A1%9D%EA%BD%83%EB%B0%AD%EC%9D%98%EC%9A%94%EC%A0%95%ED%98%B8%EB%9E%91%EB%82%98%EB%B9%84-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page14-1777603634180.webp",
+        "text": "<h2>家长指南 — 如何培养好奇心</h2><p>尝试按顺序摆放生命周期图卡。在春季和夏季，寻找橘树和山青草上的虎蝶幼虫，观察“气味角”，兴趣会更浓厚。</p>",
+        "caption": "一岁宝宝游戏",
+        "image_style": "",
+        "image_prompt": "A parent and child arranging butterfly life cycle cards, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>问：虎蝶是如何变成蝴蝶的？</strong><br>答：它会经历从卵→幼虫→蛹→蝴蝶的完全变态，从而彻底改变外形。</p><p><strong>问：幼虫的橙色角是什么呢？</strong><br>答：这是它感到危险时从头上伸出的“气味角（化学感受器）”。它用气味来驱赶敌人。</p><p><strong>问：在家里怎样观察比较好呢？</strong><br>答：可以玩“韩沙利”卡片排序游戏，或者在橘子树、山椒树上寻找幼虫比较好。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "《虎蝶》绘本插图",
+        "url": "https://assets.tangobook.co.kr/1777603478247-%EC%95%8C%EB%A1%9D%EB%8B%AC%EB%A1%9D%EA%BD%83%EB%B0%AD%EC%9D%98%EC%9A%94%EC%A0%95%ED%98%B8%EB%9E%91%EB%82%98%EB%B9%84-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page18-1777603641637.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“虎蝶”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book上，用美丽的图画和韩语·英语语音亲自体验吧。</p><a href=\"https://tangobook.co.kr/library/1777603478247\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

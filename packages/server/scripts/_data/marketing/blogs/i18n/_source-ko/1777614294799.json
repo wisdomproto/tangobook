@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777614294799",
+  "seo_title": "바다거북 특징과 모래사장 회귀의 비밀 — 자연관찰 그림책",
+  "meta_description": "바다거북이 태어난 모래사장으로 돌아와 알을 낳는 신비와 지느러미 다리 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "primary_keyword": "바다거북",
+  "secondary_keywords": [
+    "바다거북 특징",
+    "바다거북 산란",
+    "바다 보호",
+    "유아 자연관찰 책",
+    "바다 동물 그림책"
+  ],
+  "url_slug": "sea-turtle-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "바다거북 - 바다거북, 어떤 점이 신기할까요?",
+        "url": "https://assets.tangobook.co.kr/1777614294799-%EB%B0%94%EB%8B%A4%EA%B1%B0%EB%B6%81-cover-misc-1780024909945.webp",
+        "text": "<h2>바다거북, 어떤 점이 신기할까요?</h2><p>넓은 바다를 헤엄치는 <strong>바다거북</strong>은 태어난 모래사장으로 먼 길을 돌아와 알을 낳는 신비로운 동물이에요.</p>",
+        "caption": "바다의 여행자",
+        "image_style": "",
+        "image_prompt": "A sea turtle swimming in the ocean, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "바다거북 - 바다거북의 자연·과학 사실",
+        "url": "https://assets.tangobook.co.kr/1777614294799-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%9C%EB%A1%80%EC%9E%90%EA%B8%B0%EB%82%98%EA%B8%B4%EC%97%AC%ED%96%89%EC%9D%84%EB%96%A0%EB%82%98%EB%8A%94%EB%B0%94%EB%8B%A4%EA%B1%B0%EB%B6%81-illustration-page1-1773408853436.webp",
+        "text": "<h2>바다거북의 자연·과학 사실</h2><p>바다거북은 다리가 <strong>지느러미(노) 모양</strong>이라 넓은 바다를 멀리 헤엄칠 수 있어요(땅거북처럼 머리를 등껍질에 넣지는 못해요). 가장 신비로운 점은 암컷이 알을 낳을 때 <strong>자신이 태어났던 바로 그 모래사장으로 돌아온다</strong>는 거예요. 밤에 모래에 구덩이를 파 알을 낳고, 아기 거북은 스스로 모래를 헤치고 나와 바다로 종종걸음을 치지요. 오래 살지만 <strong>바다 쓰레기 때문에 보호가 필요</strong>합니다.</p>",
+        "caption": "태어난 곳으로",
+        "image_style": "",
+        "image_prompt": "A sea turtle laying eggs on a beach at night, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "바다거북 - 탱고북 «바다거북»이 다루는 내용",
+        "url": "https://assets.tangobook.co.kr/1777614294799-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%9C%EB%A1%80%EC%9E%90%EA%B8%B0%EB%82%98%EA%B8%B4%EC%97%AC%ED%96%89%EC%9D%84%EB%96%A0%EB%82%98%EB%8A%94%EB%B0%94%EB%8B%A4%EA%B1%B0%EB%B6%81-illustration-page5-1773408871381.webp",
+        "text": "<h2>탱고북 «바다거북»이 다루는 내용</h2><p>탱고북 «바다거북»은 지느러미로 헤엄치는 모습, 모래사장으로 돌아오는 산란, 알에서 깨어 바다로 가는 아기 거북을 정겹게 보여 줍니다.</p>",
+        "caption": "스스로 가는 길",
+        "image_style": "",
+        "image_prompt": "Baby sea turtles heading to the sea, heartwarming children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "바다거북 - 함께 관찰하면 좋은 포인트",
+        "url": "https://assets.tangobook.co.kr/1777614294799-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%9C%EB%A1%80%EC%9E%90%EA%B8%B0%EB%82%98%EA%B8%B4%EC%97%AC%ED%96%89%EC%9D%84%EB%96%A0%EB%82%98%EB%8A%94%EB%B0%94%EB%8B%A4%EA%B1%B0%EB%B6%81-illustration-page10-1773408884813.webp",
+        "text": "<h2>함께 관찰하면 좋은 포인트</h2><p>지느러미 다리(헤엄), 모래사장 회귀, 밤 산란, 바다 보호 같은 포인트를 짚어 주세요. \"어떻게 태어난 곳을 찾아올까?\"를 함께 이야기하면 좋습니다.</p>",
+        "caption": "관찰 포인트",
+        "image_style": "",
+        "image_prompt": "A close-up of sea turtle flipper legs, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "바다거북 - 부모 가이드 — 호기심을 키우는 법",
+        "url": "https://assets.tangobook.co.kr/1777614294799-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%9C%EB%A1%80%EC%9E%90%EA%B8%B0%EB%82%98%EA%B8%B4%EC%97%AC%ED%96%89%EC%9D%84%EB%96%A0%EB%82%98%EB%8A%94%EB%B0%94%EB%8B%A4%EA%B1%B0%EB%B6%81-illustration-page14-1773408892581.webp",
+        "text": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"태어난 곳으로 돌아와 알을 낳아\"라는 신비를 연어의 회귀와 비교해 보세요. \"바다 쓰레기를 줄이자\"를 이야기하면 환경을 아끼는 마음이 자랍니다.</p>",
+        "caption": "바다 지키기",
+        "image_style": "",
+        "image_prompt": "A parent and child learning about ocean protection, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 바다거북은 어떻게 태어난 곳을 찾아오나요?</strong><br>A. 암컷은 알을 낳을 때 자신이 태어났던 바로 그 모래사장으로 먼 길을 되돌아옵니다.</p><p><strong>Q. 바다거북은 왜 보호가 필요한가요?</strong><br>A. 아주 오래 사는 동물이지만 바다 쓰레기 때문에 위험에 처해 있기 때문입니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 연어의 회귀와 비교, \"바다 쓰레기 줄이기\" 이야기가 좋습니다.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>함께 읽으면 좋은 명작 동화</h2><p>이 동화를 재미있게 읽었다면 이런 <strong>명작 동화</strong>도 함께 읽어 보세요.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">강아지</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">강아지풀</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">개구리</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">개미</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "바다거북 그림책 삽화",
+        "url": "https://assets.tangobook.co.kr/1777614294799-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%9C%EB%A1%80%EC%9E%90%EA%B8%B0%EB%82%98%EA%B8%B4%EC%97%AC%ED%96%89%EC%9D%84%EB%96%A0%EB%82%98%EB%8A%94%EB%B0%94%EB%8B%A4%EA%B1%B0%EB%B6%81-illustration-page18-1773408902242.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">「바다거북」가 궁금하신가요?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">아름다운 그림과 한국어·영어 음성으로 탱고북에서 직접 만나보세요.</p><a href=\"https://tangobook.co.kr/library/1777614294799\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 동화책 보러가기 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

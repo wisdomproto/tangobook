@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777434565272",
+  "seo_title": "Bí mật về đặc điểm và những vằn của hổ — Sách tranh quan sát thiên nhiên",
+  "meta_description": "Sự thật rằng vằn hổ khác nhau như dấu vân tay, những câu chuyện kỳ thú về khả năng săn mồi tuyệt vời, nội dung sách tranh động vật Tango Book, và cả cách quan sát. Hướng dẫn quan sát thiên nhiên dành cho lứa tuổi 4-7.",
+  "primary_keyword": "Con hổ",
+  "secondary_keywords": [
+    "Đặc điểm của hổ",
+    "Vằn hổ",
+    "Sinh thái hổ",
+    "Sách động vật cho trẻ nhỏ",
+    "Sách tranh về động vật"
+  ],
+  "url_slug": "tiger-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "Hổ - Chú hổ này, điểm nào làm các bé tò mò nhất nhỉ?",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%ED%98%B8%EB%9E%91%EC%9D%B4-cover-misc-1780028371172.webp",
+        "text": "<h2>Hổ, có điểm gì thú vị nhỉ?</h2><p>Con <strong class=\"...\"><hổ< /strong></strong> lớn nhất trong họ mèo là loài vật thân thiện nhưng cũng rất oai vệ, thường xuất hiện trong những câu chuyện cổ tích của chúng ta. Những vằn lông của nó chứa đựng bí mật tuyệt vời đấy.</p>",
+        "caption": "Con hổ trong rừng",
+        "image_style": "",
+        "image_prompt": "A majestic tiger with orange and black stripes in tall grass, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "Hổ - Sự thật tự nhiên và khoa học về hổ",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page1-1777436215651.webp",
+        "text": "<h2>Sự thật tự nhiên và khoa học về hổ</h2><p>Những sọc đen trên nền cam của hổ đóng vai trò <strong class=\"highlight\">ngụy trang</strong> khi chúng ẩn mình trong bụi cỏ. Điều đáng ngạc nhiên là <strong class=\"highlight\">các sọc này khác nhau như dấu vân tay ở mỗi cá thể</strong>. Với thị lực ban đêm tuyệt vời, những bàn chân êm ái và móng vuốt có thể thu vào, hổ có thể <strong class=\"highlight\">săn mồi trong im lặng</strong>. Khác với hầu hết các loài mèo khác, chúng <strong class=\"highlight\">thích nước và bơi lội</strong> giỏi, đồng thời là loài vật sống đơn độc. Trong tự nhiên, chúng đang đối mặt với nguy cơ tuyệt chủng.</p>",
+        "caption": "Những vệt sọc khác nhau như dấu vân tay",
+        "image_style": "",
+        "image_prompt": "A close-up of tiger stripes, each pattern unique, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "Hổ - Tango Book «Hổ» nội dung được đề cập",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page5-1777434701236.webp",
+        "text": "<h2>Nội dung về \"Con hổ\" trong sách Tango Book</h2><p>Cuốn sách \"Con hổ\" của Tango Book thể hiện sự quyến rũ của loài hổ một cách sống động qua những vằn da tuyệt đẹp, hành vi săn mồi thầm lặng, cảnh bơi lội và các cử chỉ đánh dấu lãnh thổ.</p>",
+        "caption": "Con hổ thích nước",
+        "image_style": "",
+        "image_prompt": "A tiger swimming in water, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "Hổ - Những điểm đáng chú ý để cùng bé quan sát",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page10-1777436300048.webp",
+        "text": "<h2>Những điểm cần quan sát cùng nhau</h2><p>Hãy chỉ ra những điểm như vằn (ngụy trang/vân tay), thị lực ban đêm, móng vuốt giấu đi và cách bơi lội. Việc cùng trò chuyện về câu hỏi kiểu \"Sao các vằn lại khác nhau thế nhỉ?\" sẽ rất tốt.</p>",
+        "caption": "Các điểm cần quan sát",
+        "image_style": "",
+        "image_prompt": "A tiger stalking silently with soft paws, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "Hổ - Hướng dẫn dành cho phụ huynh — Cách nuôi dưỡng sự tò mò",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page14-1777436356921.webp",
+        "text": "<h2>Hướng dẫn dành cho phụ huynh — Cách nuôi dưỡng sự tò mò</h2><p>Hãy so sánh các sọc trên ảnh hổ và tìm ra những điểm \"khác nhau!\". So sánh những điểm giống với mèo (móng vuốt·râu), và việc nuôi dưỡng tình yêu quý sự sống qua các câu chuyện về loài vật có nguy cơ tuyệt chủng là rất tốt.</p>",
+        "caption": "So sánh với mèo",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing tiger and cat features, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Câu hỏi thường gặp (FAQ)</h2><p><strong>Q. Sọc của hổ có giống nhau không?</strong><br>A. Không. Giống như dấu vân tay của con người, mỗi con đều khác nhau. Chúng ta có thể phân biệt hổ bằng những vằn sọc này.</p><p><strong>Q. Hổ có thích nước không?</strong><br>A. Vâng. Khác với hầu hết các loài mèo khác, chúng thích nước và bơi rất giỏi.</p><p><strong>Q. Làm thế nào để quan sát chúng tại nhà nhỉ?</strong><br>A. So sánh vằn sọc bằng ảnh, tìm những điểm giống mèo, và kể chuyện về nguy cơ tuyệt chủng là rất tốt ạ.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Những truyện cổ tích kinh điển nên đọc cùng</h2><p>Nếu bạn đã thích thú với câu chuyện này, hãy thử đọc thêm những <strong>truyện cổ tích kinh điển</strong> khác nhé.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">Chú chó</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">Cỏ đuôi cáo</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">Con ếch</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">Con kiến</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "Hình minh họa sách tranh hổ",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page18-1777436388768.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">Bạn có tò mò về \"Hổ\" không?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">Hãy tự mình khám phá với những bức tranh đẹp và âm thanh tiếng Hàn/tiếng Anh tại Tango Book nhé.</p><a href=\"https://tangobook.co.kr/library/1777434565272\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 Xem sách truyện →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

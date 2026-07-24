@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773562222515",
+  "seo_title": "草莓的特征和真正种子的秘密 — 自然观察绘本",
+  "meta_description": "关于草莓的真实种子（表面的小点）、假果、匍匐茎繁殖等奇妙知识，以及《Tango Book》自然观察绘本的内容和观察方法。4~7岁自然观察指南。",
+  "primary_keyword": "草莓",
+  "secondary_keywords": ["草莓特点", "草莓种子", "草莓生态", "幼儿自然观察书籍", "植物绘本"],
+  "url_slug": "strawberry-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "草莓 - 草莓，有哪些特别有趣的地方呢？",
+        "url": "https://assets.tangobook.co.kr/1773562222515-%EB%94%B8%EA%B8%B0-cover-misc-1780098831032.webp",
+        "text": "<h2>草莓，有什么地方会让你感到好奇呢？</h2><p>红红的，甜甜的 <strong>草莓</strong>是孩子们最喜欢的水果。但是，你知道我们吃的红色部分其实并不是真正的果实吗？</p>",
+        "caption": "甜美的红草莓",
+        "image_style": "",
+        "image_prompt": "Ripe red strawberries with tiny seeds on the surface, fresh children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "草莓 - 草莓的自然与科学知识",
+        "url": "https://assets.tangobook.co.kr/1773562222515-%EC%83%88%EC%BD%A4%EB%8B%AC%EC%BD%A4%ED%95%9C%EB%B9%A8%EA%B0%84%EC%9C%A0%ED%98%B9%EB%95%85%EC%9C%84%EC%97%90%EC%84%9C%EC%9E%90%EB%9D%BC%EB%8A%94%EB%94%B8%EA%B8%B0-illustration-page1-1773563202944.webp",
+        "text": "<h2>草莓的自然和科学知识</h2><p>草莓红红甜甜的部分，其实是花萼膨大生长的 <strong>假果（花托）</strong>的。 <strong>真正的果实是表面嵌着的那些小小的黄色点（种果）</strong> 每个点里，都装有种子。草莓不仅有种子，还会向地面上 <strong>匍匐茎（蔓）</strong>来，形成新的植株。只有蜜蜂授粉得好，才能结出又大又漂亮的草莓。</p>",
+        "caption": "真正的果实是点。",
+        "image_style": "",
+        "image_prompt": "Close-up of a strawberry surface showing the tiny seeds (achenes), informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "草莓 - 探戈书《草莓》所讲述的内容",
+        "url": "https://assets.tangobook.co.kr/1773562222515-%EC%83%88%EC%BD%A4%EB%8B%AC%EC%BD%A4%ED%95%9C%EB%B9%A8%EA%B0%84%EC%9C%A0%ED%98%B9%EB%95%85%EC%9C%84%EC%97%90%EC%84%9C%EC%9E%90%EB%9D%BC%EB%8A%94%EB%94%B8%EA%B8%B0-illustration-page5-1773563256040.webp",
+        "text": "<h2>《探戈书》〈草莓〉讲述的内容</h2><p>《探戈书》〈草莓〉温馨地展示了从白色花朵 → 蜜蜂拜访 → 成熟为红色草莓 → 再到通过匍匐茎长出新植株的整个过程。</p>",
+        "caption": "以跑者的方式，新的放弃",
+        "image_style": "",
+        "image_prompt": "A strawberry plant sending out a runner to make a new plant, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "草莓 - 适合一起观察的重点",
+        "url": "https://assets.tangobook.co.kr/1773562222515-%EC%83%88%EC%BD%A4%EB%8B%AC%EC%BD%A4%ED%95%9C%EB%B9%A8%EA%B0%84%EC%9C%A0%ED%98%B9%EB%95%85%EC%9C%84%EC%97%90%EC%84%9C%EC%9E%90%EB%9D%BC%EB%8A%94%EB%94%B8%EA%B8%B0-illustration-page10-1773563343898.webp",
+        "text": "<h2>一起观察时可以注意的重点</h2><p>请指出外面的黄色点（真正的种子）、红色部分（假果实）、匍匐茎（繁殖）以及像白色花朵这样的重点。一起讨论“草莓的种子在哪里？”会很好。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "A white strawberry flower with a bee, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "草莓 - 家长指南 — 如何通过观察与体验进行拓展",
+        "url": "https://assets.tangobook.co.kr/1773562222515-%EC%83%88%EC%BD%A4%EB%8B%AC%EC%BD%A4%ED%95%9C%EB%B9%A8%EA%B0%84%EC%9C%A0%ED%98%B9%EB%95%85%EC%9C%84%EC%97%90%EC%84%9C%EC%9E%90%EB%9D%BC%EB%8A%94%EB%94%B8%EA%B8%B0-illustration-page14-1773563359046.webp",
+        "text": "<h2>父母指南 — 通过观察和体验进行拓展</h2><p>用放大镜数一下草莓表面的黄色点（种子）。告诉孩子“红色是假的，点才是真正的果实”，并观察草莓盆栽的匍匐茎伸展的样子，会很好。</p>",
+        "caption": "寻找种子",
+        "image_style": "",
+        "image_prompt": "A parent and child looking at strawberry seeds with a magnifier, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>问：草莓的种子在哪里？</strong><br>答：表面每个嵌着的黄色小点都是真正的果实（肉质果），种子就藏在里面。</p><p><strong>问：我们吃的红色部分是什么？</strong><br>答：这是花萼膨大生长的假果（花托）。真正的果实是外面的小点。</p><p><strong>问：在家里如何观察比较好呢？</strong><br>答：可以用放大镜数一下草莓表面的小点，观察草莓花盆的匍匐茎比较好。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "草莓绘本插图",
+        "url": "https://assets.tangobook.co.kr/1773562222515-%EC%83%88%EC%BD%A4%EB%8B%AC%EC%BD%A4%ED%95%9C%EB%B9%A8%EA%B0%84%EC%9C%A0%ED%98%B9%EB%95%85%EC%9C%84%EC%97%90%EC%84%9C%EC%9E%90%EB%9D%BC%EB%8A%94%EB%94%B8%EA%B8%B0-illustration-page18-1773563376891.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“草莓”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用美丽的图画和韩语·英语语音亲自体验一下吧。</p><a href=\"https://tangobook.co.kr/library/1773562222515\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 去看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773410319697",
+  "seo_title": "《仙人掌的特征和沙漠生存的秘密——自然观察图画书》",
+  "meta_description": "仙人如何在没有水的沙漠中生存的秘密（如储水、刺和夜间光合作用）等奇妙事实，以及《Tango Book》自然观察绘本的内容和观察方法。4-7岁自然观察指南。",
+  "primary_keyword": "仙人掌",
+  "secondary_keywords": ["仙人掌的特点", "仙人掌生态", "沙漠植物", "幼儿自然观察书籍", "植物绘本"],
+  "url_slug": "cactus-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "仙人掌 - 仙人掌，有什么神奇的地方呢？",
+        "url": "https://assets.tangobook.co.kr/1773410319697-%EC%84%A0%EC%9D%B8%EC%9E%A5-cover-misc-1780274441996.webp",
+        "text": "<h2>仙人掌，哪些地方会让人感到神奇呢？</h2><p>即使在几乎没有水的沙漠中，也能顽强生存的 <strong>仙人掌</strong>它是生存的大师。在尖锐的刺后面，藏着令人惊奇的秘密。</p><p data-seo-boost=\"1\">我们一起收录了关于仙人掌的各种故事，包括其特征、生态以及沙漠植物等。</p>",
+        "caption": "沙漠的幸存者",
+        "image_style": "",
+        "image_prompt": "A green cactus with flowers in a desert under the sun, bright children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "仙人掌 - 仙人掌的自然与科学知识",
+        "url": "https://assets.tangobook.co.kr/1773410319697-%EB%9C%A8%EA%B1%B0%EC%9A%B4%EC%82%AC%EB%A7%89%EC%9D%98%EA%B0%80%EC%8B%9C%ED%88%AC%EC%84%B1%EC%9D%B4%ED%8C%8C%EC%88%98%EA%BE%BC%EB%AC%BC%EC%9D%84%ED%92%88%EC%9D%80%EC%84%A0%EC%9D%B8%EC%9E%A5-illustration-page1-1773574188011.webp",
+        "text": "<h2>仙人掌的自然和科学知识</h2><p>仙人掌是 <strong>茎内的储水细胞</strong>在下雨时储存大量水分，在旱季慢慢使用。 <strong>刺是变异的叶子</strong>通过减少水分蒸发、收集露水和阻挡动物。白天它会关闭气孔， <strong>只在晚上打开进行光合作用（CAM）</strong>从而减少水分流失。沙瓦罗仙人掌可以活150~200年，甚至能长到超过15米。</p>",
+        "caption": "茎内的水箱",
+        "image_style": "",
+        "image_prompt": "A cactus stem cross-section storing water inside, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "仙人掌 - 《Tango Book》所涵盖的《仙人掌》内容",
+        "url": "https://assets.tangobook.co.kr/1773410319697-%EB%9C%A8%EA%B1%B0%EC%9A%B4%EC%82%AC%EB%A7%89%EC%9D%98%EA%B0%80%EC%8B%9C%ED%88%AC%EC%84%B1%EC%9D%B4%ED%8C%8C%EC%88%98%EA%BE%BC%EB%AC%BC%EC%9D%84%ED%92%88%EC%9D%80%EC%84%A0%EC%9D%B8%EC%9E%A5-illustration-page5-1773574544347.webp",
+        "text": "<h2>探戈书《仙人掌》讲述的内容</h2><p>探戈书《仙人掌》展示了仙人掌在干旱的沙漠中储存水、用刺保护自己，并在下雨时开花的顽强生命力。</p>",
+        "caption": "等待雨的花朵",
+        "image_style": "",
+        "image_prompt": "A cactus blooming after rain in the desert, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "仙人掌 - 共同观察的重点",
+        "url": "https://assets.tangobook.co.kr/1773410319697-%EB%9C%A8%EA%B1%B0%EC%9A%B4%EC%82%AC%EB%A7%89%EC%9D%98%EA%B0%80%EC%8B%9C%ED%88%AC%EC%84%B1%EC%9D%B4%ED%8C%8C%EC%88%98%EA%BE%BC%EB%AC%BC%EC%9D%84%ED%92%88%EC%9D%80%EC%84%A0%EC%9D%B8%EC%9E%A5-illustration-page10-1773574566514.webp",
+        "text": "<h2>一起观察时好的重点</h2><p>请指出茎（储水）、刺（叶子变型）、沙漠环境、雨后花朵等重点。一起聊聊“在没有水的沙漠里，它们如何生存呢？”会很好。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "Close-up of cactus spines (modified leaves), observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "仙人掌 - 家长指南 — 通过观察与体验进行拓展",
+        "url": "https://assets.tangobook.co.kr/1773410319697-%EB%9C%A8%EA%B1%B0%EC%9A%B4%EC%82%AC%EB%A7%89%EC%9D%98%EA%B0%80%EC%8B%9C%ED%88%AC%EC%84%B1%EC%9D%B4%ED%8C%8C%EC%88%98%EA%BE%BC%EB%AC%BC%EC%9D%84%ED%92%88%EC%9D%80%EC%84%A0%EC%9D%B8%EC%9E%A5-illustration-page14-1773574817399.webp",
+        "text": "<h2>父母指南 — 通过观察和体验进行拓展</h2><p>养护一盆小仙人掌，观察它“即使很少浇水也能活下来”的样子。不要触摸刺，只是看着它；轻轻按压一下茎部，感受它的饱满（储存水分）会很好。</p>",
+        "caption": "亲手培养",
+        "image_style": "",
+        "image_prompt": "A parent and child caring for a small potted cactus, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>Q. 仙人掌如何在没有水的情况下生存呢？</strong><br>A. 它们在茎部储存水分，一点点使用，只在夜间打开气孔来减少水分流失并进行光合作用。</p><p><strong>Q. 仙人掌的刺是什么呢？</strong><br>A. 它们是叶子变异而成的。可以减少水分蒸发，收集露水，并抵御动物。</p><p><strong>Q. 在家里怎样观察比较好呢？</strong><br>A. 可以养一盆小仙人掌，偶尔给它浇水，感受饱满的茎干，并观察刺（但不要触摸）。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "仙人掌绘本插画",
+        "url": "https://assets.tangobook.co.kr/1773410319697-%EB%9C%A8%EA%B1%B0%EC%9A%B4%EC%82%AC%EB%A7%89%EC%9D%98%EA%B0%80%EC%8B%9C%ED%88%AC%EC%84%B1%EC%9D%B4%ED%8C%8C%EC%88%98%EA%BE%BC%EB%AC%BC%EC%9D%84%ED%92%88%EC%9D%80%EC%84%A0%EC%9D%B8%EC%9E%A5-illustration-page18-1773574630957.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“仙人掌”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用美丽的图画和韩语·英语语音亲自了解它吧。</p><a href=\"https://tangobook.co.kr/library/1773410319697\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

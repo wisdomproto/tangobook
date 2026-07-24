@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777434565511",
+  "seo_title": "Elephant Picture Book — The Secret of the Long Trunk (Ages 4-7, Nature Observation)",
+  "meta_description": "The secret of how an elephant's long trunk works like a hand, plus amazing facts about its big ears and tusks, what's inside Tangobook's animal picture book, and how to observe them. A nature-observation guide for ages 4-7.",
+  "primary_keyword": "elephant picture book",
+  "secondary_keywords": [
+    "elephant traits",
+    "elephant trunk",
+    "elephant ecology",
+    "animal books for kids",
+    "animal picture book"
+  ],
+  "url_slug": "elephant-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "Elephant - What's so amazing about elephants?",
+        "url": "https://assets.tangobook.co.kr/1777434565511-%EC%BD%94%EB%81%BC%EB%A6%AC-cover-misc-1780028157350.webp",
+        "text": "<h2>What's so amazing about elephants?</h2><p>The largest animal on land, the <strong>elephant</strong>, is an amazing animal that grabs objects and drinks water with its long trunk. There are secrets in its big ears and tusks, too.</p><p data-seo-boost=\"1\">Curious about the story of the elephant picture book? Let's look at the lesson of the elephant picture book along with the pictures. Come meet the key scenes of the elephant picture book's story, too. Read the elephant picture book together with your child and talk about the story.</p>",
+        "caption": "The largest land animal",
+        "image_style": "",
+        "image_prompt": "A large elephant using its long trunk in a savanna, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "Elephant - Nature and science facts about elephants",
+        "url": "https://assets.tangobook.co.kr/1777434565511-%EC%BD%94%EA%B0%80%EC%86%90%EC%9D%B4%EB%84%A4%EB%93%AC%EC%A7%81%ED%95%9C%EC%BD%94%EB%81%BC%EB%A6%AC-illustration-page1-1777436649595.webp",
+        "text": "<h2>Nature and science facts about elephants</h2><p>An elephant's <strong>long trunk is an organ that combines the upper lip and the nose</strong>, and thanks to its countless muscles it grabs objects like a hand, draws up water and pours it into its mouth to drink, and even plucks high leaves to eat. Its <strong>big ears act like fans that flap to cool the heat from its body</strong>, and the hard <strong>tusks (ivory) sticking out of its mouth are not horns but teeth that have grown long</strong>.</p>",
+        "caption": "A trunk used like a hand",
+        "image_style": "",
+        "image_prompt": "An elephant picking up an object with its trunk, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "Elephant - What Tangobook's «Elephant» covers",
+        "url": "https://assets.tangobook.co.kr/1777434565511-%EC%BD%94%EA%B0%80%EC%86%90%EC%9D%B4%EB%84%A4%EB%93%AC%EC%A7%81%ED%95%9C%EC%BD%94%EB%81%BC%EB%A6%AC-illustration-page5-1777436665922.webp",
+        "text": "<h2>What Tangobook's «Elephant» covers</h2><p>Tangobook's «Elephant» warmly shows the elephant's charm, including the long trunk used like a hand, the big fan-like ears, the tusks, and the way it lives in a herd.</p>",
+        "caption": "Fan-like ears",
+        "image_style": "",
+        "image_prompt": "An elephant flapping its big ears, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "Elephant - Great points to observe together",
+        "url": "https://assets.tangobook.co.kr/1777434565511-%EC%BD%94%EA%B0%80%EC%86%90%EC%9D%B4%EB%84%A4%EB%93%AC%EC%A7%81%ED%95%9C%EC%BD%94%EB%81%BC%EB%A6%AC-illustration-page10-1777436689966.webp",
+        "text": "<h2>Great points to observe together</h2><p>Point out things like the long trunk (hand, water, food), the big ears (cooling off), the tusks (teeth), and herd life. It's great to talk together about, \"What can you do with a trunk?\"</p>",
+        "caption": "Points to observe",
+        "image_style": "",
+        "image_prompt": "A close-up of elephant tusks, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "Elephant - Parent guide — how to grow curiosity",
+        "url": "https://assets.tangobook.co.kr/1777434565511-%EC%BD%94%EA%B0%80%EC%86%90%EC%9D%B4%EB%84%A4%EB%93%AC%EC%A7%81%ED%95%9C%EC%BD%94%EB%81%BC%EB%A6%AC-illustration-page14-1777436705176.webp",
+        "text": "<h2>Parent guide — how to grow curiosity</h2><p>Swing your arm like a trunk and act out \"grabbing objects and drinking water.\" Experience the role of the big ears (cooling off) by fanning, and telling your child \"the tusks are actually teeth\" will make it even more interesting.</p>",
+        "caption": "Playing at imitating a trunk",
+        "image_style": "",
+        "image_prompt": "A parent and child swinging arms like elephant trunks, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Frequently Asked Questions (FAQ)</h2><p><strong>Q. What does an elephant do with its trunk?</strong><br>A. It grabs objects like a hand, draws up water to drink, and plucks high leaves to eat. It has a great many muscles.</p><p><strong>Q. Are the tusks horns?</strong><br>A. No. They are teeth (ivory) that have grown long. They are not horns.</p><p><strong>Q. How can we observe them at home?</strong><br>A. Imitating a trunk with your arm, experiencing the ears' role by fanning, and talking about \"tusks = teeth\" all work well.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Classic fairy tales to read together</h2><p>If your child enjoyed this story, try reading these <strong>classic fairy tales</strong> too.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">Puppy</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">Foxtail Grass</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">Frog</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">Ant</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "Elephant picture book illustration",
+        "url": "https://assets.tangobook.co.kr/1777434565511-%EC%BD%94%EA%B0%80%EC%86%90%EC%9D%B4%EB%84%A4%EB%93%AC%EC%A7%81%ED%95%9C%EC%BD%94%EB%81%BC%EB%A6%AC-illustration-page18-1777436723082.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">Curious about \"Elephant\"?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">Meet it for yourself on Tangobook, with beautiful illustrations and Korean and English audio.</p><a href=\"https://tangobook.co.kr/library/1777434565511\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 Go read the storybook →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

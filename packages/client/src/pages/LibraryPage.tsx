@@ -548,7 +548,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
           )}
         </div>
 
-        {/* 나의 재생 목록 — 로그인 시 노출(컴포넌트 내부 조건 판단), 헤더 접기/펴기(기본 접힘). */}
+        {/* 묶어 보기 — 카테고리 묶음은 게스트·로그인 동일 노출, 기본 펼침(컴포넌트 내부 판단). */}
         {type === 'storybook' && <PlaylistLibrarySection />}
 
         {/* 콘텐츠 */}

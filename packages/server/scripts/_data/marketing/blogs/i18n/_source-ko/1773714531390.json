@@ -1,0 +1,112 @@
+{
+  "storybookId": "1773714531390",
+  "seo_title": "티라노사우루스 렉스 특징 — 공룡의 왕 자연관찰 그림책",
+  "meta_description": "공룡의 왕 티라노사우루스 렉스의 거대한 몸과 무시무시한 이빨, 작은 앞발 등 신기한 사실과, 탱고북 공룡 그림책 내용, 즐기는 법까지. 4~7세 공룡 가이드.",
+  "primary_keyword": "티라노사우루스",
+  "secondary_keywords": [
+    "티라노사우루스",
+    "티라노사우루스 렉스",
+    "공룡의 왕",
+    "유아 공룡 책",
+    "공룡 그림책"
+  ],
+  "url_slug": "tyrannosaurus-rex-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "티라노사우루스 렉스 - 티라노사우루스, 어떤 점이 신기할까요?",
+        "url": "https://assets.tangobook.co.kr/1773714531390-%ED%8B%B0%EB%9D%BC%EB%85%B8%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4%EB%A0%89%EC%8A%A4-cover-misc-1780044365036.webp",
+        "text": "<h2>티라노사우루스, 어떤 점이 신기할까요?</h2><p>\"공룡의 왕\"이라 불리는 <strong>티라노사우루스 렉스(T. rex)</strong>는 아이들이 가장 좋아하는 공룡이에요. 거대한 몸과 강력한 턱이 정말 멋있지요.</p>",
+        "caption": "공룡의 왕",
+        "image_style": "",
+        "image_prompt": "A mighty Tyrannosaurus rex roaring in a prehistoric landscape, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "티라노사우루스 렉스 - 티라노사우루스의 자연·과학 사실",
+        "url": "https://assets.tangobook.co.kr/1773714531390-%EB%B0%B1%EC%95%85%EA%B8%B0%EC%9D%98%EC%A0%9C%EC%99%95%ED%8B%B0%EB%9D%BC%EB%85%B8%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4%EB%A0%89%EC%8A%A4-illustration-page1-1773714588783.webp",
+        "text": "<h2>티라노사우루스의 자연·과학 사실</h2><p>T. rex는 약 6,600만 년 전 백악기 후기 북아메리카에 살았어요. 몸길이 약 <strong>12m, 몸무게 6~9톤</strong>의 거구였지요. 약 <strong>60개의 이빨</strong>은 길이가 20cm나 되고 무는 힘이 엄청났어요. 앞발은 손가락 2개로 작지만 힘은 셌고, 앞을 향한 눈으로 거리를 잘 가늠했어요. 오늘날의 <strong>새가 공룡의 후손</strong>이랍니다.</p>",
+        "caption": "무시무시한 턱",
+        "image_style": "",
+        "image_prompt": "A close-up of T. rex giant teeth and jaw, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "티라노사우루스 렉스 - 탱고북 «티라노사우루스 렉스»이 다루는 내용",
+        "url": "https://assets.tangobook.co.kr/1773714531390-%EB%B0%B1%EC%95%85%EA%B8%B0%EC%9D%98%EC%A0%9C%EC%99%95%ED%8B%B0%EB%9D%BC%EB%85%B8%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4%EB%A0%89%EC%8A%A4-illustration-page6-1773714610777.webp",
+        "text": "<h2>탱고북 «티라노사우루스 렉스»이 다루는 내용</h2><p>탱고북 «티라노사우루스 렉스»는 거대한 몸집, 무시무시한 이빨과 턱, 작은 앞발, 사냥하는 모습 등 공룡의 왕을 박진감 있게 보여 줍니다.</p>",
+        "caption": "작지만 강한 앞발",
+        "image_style": "",
+        "image_prompt": "A T. rex with its small front arms shown, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "티라노사우루스 렉스 - 함께 알아보면 좋은 포인트",
+        "url": "https://assets.tangobook.co.kr/1773714531390-%EB%B0%B1%EC%95%85%EA%B8%B0%EC%9D%98%EC%A0%9C%EC%99%95%ED%8B%B0%EB%9D%BC%EB%85%B8%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4%EB%A0%89%EC%8A%A4-illustration-page10-1773714637165.webp",
+        "text": "<h2>함께 알아보면 좋은 포인트</h2><p>큰 몸집(12m), 강한 이빨·턱, 작은 앞발, 입체 시각 같은 포인트를 짚어 주세요. \"왜 앞발은 이렇게 작을까?\"를 함께 이야기하면 좋습니다.</p>",
+        "caption": "관찰 포인트",
+        "image_style": "",
+        "image_prompt": "A T. rex hunting in a Cretaceous forest, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "티라노사우루스 렉스 - 부모 가이드 — 호기심을 키우는 법",
+        "url": "https://assets.tangobook.co.kr/1773714531390-%EB%B0%B1%EC%95%85%EA%B8%B0%EC%9D%98%EC%A0%9C%EC%99%95%ED%8B%B0%EB%9D%BC%EB%85%B8%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4%EB%A0%89%EC%8A%A4-illustration-page15-1773714665167.webp",
+        "text": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>키를 재며 \"T. rex는 이만큼 컸어!\"를 몸으로 느껴 보세요. 공룡 모형·도감을 함께 보고, \"새가 공룡의 후손\"이라는 점을 알려 주면 흥미가 커집니다.</p>",
+        "caption": "공룡 탐구",
+        "image_style": "",
+        "image_prompt": "A parent and child looking at a dinosaur model together, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 티라노사우루스는 얼마나 컸나요?</strong><br>A. 몸길이 약 12m, 몸무게 6~9톤의 거대한 공룡이었습니다. 이빨은 길이가 약 20cm였어요.</p><p><strong>Q. 앞발은 왜 그렇게 작나요?</strong><br>A. 작지만 근력은 강했습니다. 큰 머리와 턱으로 사냥했기 때문에 앞발은 작아도 됐어요.</p><p><strong>Q. 집에서 어떻게 즐기면 좋을까요?</strong><br>A. 키 재며 크기 체감, 공룡 모형·도감 보기, \"새는 공룡의 후손\" 이야기가 좋습니다.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>함께 읽으면 좋은 명작 동화</h2><p>이 동화를 재미있게 읽었다면 이런 <strong>명작 동화</strong>도 함께 읽어 보세요.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">강아지</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">강아지풀</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">개구리</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">개미</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "티라노사우루스 렉스 그림책 삽화",
+        "url": "https://assets.tangobook.co.kr/1773714531390-%EB%B0%B1%EC%95%85%EA%B8%B0%EC%9D%98%EC%A0%9C%EC%99%95%ED%8B%B0%EB%9D%BC%EB%85%B8%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4%EB%A0%89%EC%8A%A4-illustration-page19-1774349571016.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">「티라노사우루스 렉스」가 궁금하신가요?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">아름다운 그림과 한국어·영어 음성으로 탱고북에서 직접 만나보세요.</p><a href=\"https://tangobook.co.kr/library/1773714531390\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 동화책 보러가기 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

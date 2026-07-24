@@ -1,0 +1,112 @@
+{
+  "storybookId": "1773365203383",
+  "seo_title": "向日葵绘本 — 跟随太阳转动的秘密 (4~7岁自然观察)",
+  "meta_description": "向日葵真正追随太阳的原因（向日性）、种子秘密等奇妙知识，以及《Tango Book》自然观察绘本的内容和观察方法。4-7岁自然观察指南。",
+  "primary_keyword": "向日葵绘本",
+  "secondary_keywords": [
+    "向日葵的特点",
+    "向日葵，阳光之美",
+    "向日葵生态",
+    "幼儿自然观察书籍",
+    "植物绘本"
+  ],
+  "url_slug": "sunflower-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "向日葵 - 向日葵，哪些地方会让人感到新奇呢？",
+        "url": "https://assets.tangobook.co.kr/1773365203383-%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0-cover-misc-1780046250884.webp",
+        "text": "<h2>向日葵，哪些地方会让人感到神奇呢？</h2><p>高大又灿烂的 <strong>向日葵</strong>是公认的夏季代表花卉，据说它会随着太阳转动头部。让我们来了解一下隐藏在这些动作背后的真正科学知识吧。</p><p data-seo-boost=\"1\">我们将向日葵的特征、向日葵的向日性（追随太阳）、向日葵的生态等关于向日葵的各种故事都收录在了这里。</p>",
+        "caption": "面向太阳的向日葵",
+        "image_style": "",
+        "image_prompt": "A tall bright sunflower facing the morning sun in a summer field, cheerful children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "向日葵 - 关于向日葵的自然与科学事实",
+        "url": "https://assets.tangobook.co.kr/1773365203383-%ED%83%9C%EC%96%91%EC%9D%84%EB%8B%AE%EC%9D%80%EC%BB%A4%EB%8B%A4%EB%9E%80%EA%BD%83%ED%99%A9%EA%B8%88%EB%B9%9B%EB%AF%B8%EC%86%8C%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0-illustration-page1-1773531635427.webp",
+        "text": "<h2>向日葵的自然与科学知识</h2><p>“跟着太阳转”是 <strong>只有幼年向日葵才</strong> 适用。在茎秆尚未硬化的时期，白天它会跟着太阳从东向西移动，晚上又会回到东方，这是因为光照方向引起的生长（向光性）和日周期节奏所致（2016年《科学》研究）。等到完全长大开花时，茎秆就会变硬，大部分 <strong>会固定朝向东方</strong>但是，它能接收到早晨的阳光，吸收更多的光能。</p>",
+        "caption": "东方日出的秘密",
+        "image_style": "",
+        "image_prompt": "Young sunflowers turning from east to west following the sun, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "向日葵 - 探戈书《向日葵》所涵盖的内容",
+        "url": "https://assets.tangobook.co.kr/1773365203383-%ED%83%9C%EC%96%91%EC%9D%84%EB%8B%AE%EC%9D%80%EC%BB%A4%EB%8B%A4%EB%9E%80%EA%BD%83%ED%99%A9%EA%B8%88%EB%B9%9B%EB%AF%B8%EC%86%8C%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0-illustration-page5-1773531645829.webp",
+        "text": "<h2>《探戈书》《向日葵》讲述的内容</h2><p>《探戈书》《向日葵》生动地展现了一个生命周期：从种子发芽，茁壮成长朝向太阳，最终开花并结出无数的种子。</p>",
+        "caption": "螺旋嵌入的种子",
+        "image_style": "",
+        "image_prompt": "A sunflower full of seeds in a spiral pattern, close-up children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "向日葵——一起观察的好点子",
+        "url": "https://assets.tangobook.co.kr/1773365203383-%ED%83%9C%EC%96%91%EC%9D%84%EB%8B%AE%EC%9D%80%EC%BB%A4%EB%8B%A4%EB%9E%80%EA%BD%83%ED%99%A9%EA%B8%88%EB%B9%9B%EB%AF%B8%EC%86%8C%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0-illustration-page10-1773531667650.webp",
+        "text": "<h2>一起观察时可以注意的重点</h2><p>指出像幼年向日葵（追随太阳）、成熟的花朵（固定在东方）、种子（密集的排列）和高大等细节。一起讨论“为什么大型向日葵只看一个方向？”会很好。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "A sunflower seed sprouting and growing tall, life cycle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "向日葵 - 家长指南 — 通过观察与体验进行延伸",
+        "url": "https://assets.tangobook.co.kr/1773365203383-%ED%83%9C%EC%96%91%EC%9D%84%EB%8B%AE%EC%9D%80%EC%BB%A4%EB%8B%A4%EB%9E%80%EA%BD%83%ED%99%A9%EA%B8%88%EB%B9%9B%EB%AF%B8%EC%86%8C%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0-illustration-page14-1773531684773.webp",
+        "text": "<h2>父母指南 — 通过观察和体验进行拓展</h2><p>种下向日葵，观察它生长的过程以及幼年时转动花头的情况。用放大镜看种子排列（螺旋状），并剥开吃种子时，可以数一数“一朵花里有多少个种子？”</p>",
+        "caption": "身高测量观察",
+        "image_style": "",
+        "image_prompt": "A parent and child measuring a growing sunflower together, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>问题：向日葵真的会跟着太阳转吗？</strong><br>回答：只有幼年的向日葵才会那样。等它们长大了开花后，大多数都会固定朝向东方。</p><p><strong>问题：为什么会朝东？</strong><br>回答：是为了正面接收早晨的阳光，吸收更多的光能，并快速蒸发露水。</p><p><strong>问题：我们可以在家如何观察呢？</strong><br>回答：可以自己种下，观察它的生长和转动头部，并用放大镜看看种子螺旋排列。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "向日葵绘本插画",
+        "url": "https://assets.tangobook.co.kr/1773365203383-%ED%83%9C%EC%96%91%EC%9D%84%EB%8B%AE%EC%9D%80%EC%BB%A4%EB%8B%A4%EB%9E%80%EA%BD%83%ED%99%A9%EA%B8%88%EB%B9%9B%EB%AF%B8%EC%86%8C%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0-illustration-page18-1773531707104.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对《向日葵》感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用美丽的图画和韩语·英语语音亲自体验吧。</p><a href=\"https://tangobook.co.kr/library/1773365203383\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

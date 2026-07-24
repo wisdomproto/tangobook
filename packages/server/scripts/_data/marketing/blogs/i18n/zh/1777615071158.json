@@ -1,0 +1,106 @@
+{
+  "storybookId": "1777615071158",
+  "seo_title": "熊猫的特点和竹子·假拇指的秘密 — 自然观察绘本",
+  "meta_description": "关于熊猫为什么是熊却几乎只吃竹子、假拇指、濒危物种等奇妙事实，以及《Tango Book》自然观察绘本的内容和观察方法。4至7岁自然观察指南。",
+  "primary_keyword": "熊猫",
+  "secondary_keywords": ["熊猫的特点", "熊猫竹子", "熊猫保护", "幼儿自然观察书籍", "动物图画书"],
+  "url_slug": "panda-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "熊猫 - 熊猫有什么特别神奇的地方吗？",
+        "url": "https://assets.tangobook.co.kr/1777615071158-%ED%8C%90%EB%8B%A4-cover-misc-1780033784696.webp",
+        "text": "<h2>熊猫，哪些地方会让人觉得神奇呢？</h2><p>黑白花纹很可爱， <strong>熊猫</strong>虽然是熊的一种，但几乎 <strong>只吃竹子</strong> 是一种神奇的动物。</p><p data-seo-boost=\"1\">我们一起收录了关于熊猫的各种故事，包括它们的特征、竹子饮食和保护等。</p>",
+        "caption": "吃竹子的熊",
+        "image_style": "",
+        "image_prompt": "A panda eating bamboo, cute children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "熊猫 - 关于熊猫的自然与科学知识",
+        "url": "https://assets.tangobook.co.kr/1777615071158-%ED%8C%90%EB%8B%A4-illustration-page1-1784173069189.webp",
+        "text": "<h2>熊猫的自然与科学知识</h2><p>熊猫（大熊猫）虽然是熊，但几乎只吃竹子。竹子的营养很少，所以 <strong>一天中大部分时间都在进食。</strong> 它们利用了这一点。前爪的腕骨发生了变化， <strong>“假拇指”</strong>拥有了这样的结构，它们像用手抓住一样吃竹子。黑白相间的花纹据说有助于它们在积雪的山和阴影中隐藏身体。小熊猫出生时非常小，依靠妈妈的照顾成长，并且 <strong>由于数量稀少而受到保护的濒危动物。</strong>它是自然保护的象征。</p>",
+        "caption": "抓住竹子的秘密",
+        "image_style": "",
+        "image_prompt": "A close-up of panda paw holding bamboo with a fake thumb, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "熊猫 - 《探戈书》《熊猫》篇章的内容",
+        "url": "https://assets.tangobook.co.kr/1777615071158-%ED%8C%90%EB%8B%A4-illustration-page5-1784173080391.webp",
+        "text": "<h2>《探戈书》中的《熊猫》讲述的内容</h2><p>《探戈书》的《熊猫》温馨地展示了它抓着竹子吃的样子、假拇指、黑白花纹，以及照顾小宝宝的妈妈熊猫。</p>",
+        "caption": "刚出生的小宝宝",
+        "image_style": "",
+        "image_prompt": "A mother panda with a tiny cub, heartwarming children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "熊猫 - 可以一起观察的重点",
+        "url": "https://assets.tangobook.co.kr/1777615071158-%ED%8C%90%EB%8B%A4-illustration-page10-1784173250378.webp",
+        "text": "<h2>适合一起观察的重点</h2><p>请指出像熊、竹子、假拇指、黑白花纹、濒危物种这样的重点。一起聊聊“为什么熊只吃竹子？”会很好。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "A close-up of panda black and white pattern, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "熊猫 - 家长指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1777615071158-%ED%8C%90%EB%8B%A4-illustration-page14-1784173265789.webp",
+        "text": "<h2>父母指南 — 如何培养好奇心</h2><p>请比较一下“用变了手腕骨的假拇指抓住竹子”和我们自己的拇指。如果告诉他们这是“自然保护的象征”，孩子就会学会爱惜生命的心灵。</p>",
+        "caption": "拇指比较",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing thumbs while looking at a panda, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>Q. 熊猫是熊，为什么只吃竹子呢？</strong><br>A. 它们是熊的一种，但几乎只吃竹子。因为营养很少，所以大部分时间都用来进食。</p><p><strong>Q. 假拇指是什么？</strong><br>A. 这是手腕骨骼变化的部分，用来像用手抓住一样吃竹子。</p><p><strong>Q. 在家可以如何观察呢？</strong><br>A. 比较我们的拇指和假拇指，讲述“自然保护的象征”的故事是很好的。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "熊猫绘本插画",
+        "url": "https://assets.tangobook.co.kr/1777615071158-%ED%8C%90%EB%8B%A4-illustration-page18-1784173537838.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“熊猫”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用美丽的图画和韩语·英语语音亲自体验一下吧。</p><a href=\"https://tangobook.co.kr/library/1777615071158\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

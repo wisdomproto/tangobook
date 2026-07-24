@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773553000636",
+  "seo_title": "소나무 특징과 솔방울의 비밀 — 자연관찰 그림책",
+  "meta_description": "소나무의 바늘잎과 솔방울이 열리고 닫히는 비밀, 송진과 호박 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "primary_keyword": "소나무",
+  "secondary_keywords": ["소나무 특징", "솔방울", "소나무 생태", "유아 자연관찰 책", "나무 그림책"],
+  "url_slug": "pine-tree-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "소나무 - 소나무, 어떤 점이 신기할까요?",
+        "url": "https://assets.tangobook.co.kr/1773553000636-%EC%86%8C%EB%82%98%EB%AC%B4-cover-misc-1780100923693.webp",
+        "text": "<h2>소나무, 어떤 점이 신기할까요?</h2><p>겨울에도 푸른 <strong>소나무</strong>는 우리에게 가장 친숙한 나무예요. 바늘 같은 잎과 솔방울에 신기한 과학이 담겨 있습니다.</p>",
+        "caption": "사철 푸른 소나무",
+        "image_style": "",
+        "image_prompt": "A green pine tree with needle leaves and pinecones in a forest, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "소나무 - 소나무의 자연·과학 사실",
+        "url": "https://assets.tangobook.co.kr/1773553000636-%EC%96%B8%EC%A0%9C%EB%82%98%ED%91%B8%EB%A5%B8%EA%B8%B0%EC%9A%B4%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EC%88%B2%EC%86%8D%EC%9D%98%EC%84%A0%EB%B9%84%EC%86%8C%EB%82%98%EB%AC%B4-illustration-page1-1773553193756.webp",
+        "text": "<h2>소나무의 자연·과학 사실</h2><p>소나무 잎은 바늘처럼 가늘고 <strong>두꺼운 막으로 덮여 겨울에도 광합성</strong>을 합니다. <strong>솔방울 비늘은 습도에 따라 열리고 닫혀요</strong> — 건조하면 활짝 열려 씨앗을 날리고, 비 오면 닫아 씨앗을 보호하지요. 줄기의 <strong>송진</strong>은 항균 성분으로 상처를 봉하고, 땅속에서 굳으면 보석 <strong>호박</strong>이 됩니다. 뿌리는 송이버섯균과 공생해요.</p>",
+        "caption": "습도로 여닫는 솔방울",
+        "image_style": "",
+        "image_prompt": "A pinecone with scales open in dry weather, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "소나무 - 탱고북 «소나무»이 다루는 내용",
+        "url": "https://assets.tangobook.co.kr/1773553000636-%EC%96%B8%EC%A0%9C%EB%82%98%ED%91%B8%EB%A5%B8%EA%B8%B0%EC%9A%B4%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EC%88%B2%EC%86%8D%EC%9D%98%EC%84%A0%EB%B9%84%EC%86%8C%EB%82%98%EB%AC%B4-illustration-page5-1773553204447.webp",
+        "text": "<h2>탱고북 «소나무»이 다루는 내용</h2><p>탱고북 «소나무»는 사계절 푸른 잎, 송홧가루 날리기, 솔방울이 열리고 닫히는 모습, 송진과 솔방울 씨앗, 숲속 생명과의 공생을 보여 줍니다.</p>",
+        "caption": "송진이 만든 보석",
+        "image_style": "",
+        "image_prompt": "Pine resin (amber) glowing golden on a pine trunk, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "소나무 - 함께 관찰하면 좋은 포인트",
+        "url": "https://assets.tangobook.co.kr/1773553000636-%EC%96%B8%EC%A0%9C%EB%82%98%ED%91%B8%EB%A5%B8%EA%B8%B0%EC%9A%B4%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EC%88%B2%EC%86%8D%EC%9D%98%EC%84%A0%EB%B9%84%EC%86%8C%EB%82%98%EB%AC%B4-illustration-page10-1773553216997.webp",
+        "text": "<h2>함께 관찰하면 좋은 포인트</h2><p>바늘잎(겨울 광합성), 솔방울(습도로 열림/닫힘), 송진(천연 약), 호박 같은 포인트를 짚어 주세요. \"솔방울은 왜 열렸다 닫혔다 할까?\"를 함께 이야기하면 좋습니다.</p>",
+        "caption": "관찰 포인트",
+        "image_style": "",
+        "image_prompt": "Close-up of pine needles in pairs, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "소나무 - 부모 가이드 — 관찰·체험으로 확장하기",
+        "url": "https://assets.tangobook.co.kr/1773553000636-%EC%96%B8%EC%A0%9C%EB%82%98%ED%91%B8%EB%A5%B8%EA%B8%B0%EC%9A%B4%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EC%88%B2%EC%86%8D%EC%9D%98%EC%84%A0%EB%B9%84%EC%86%8C%EB%82%98%EB%AC%B4-illustration-page14-1773553227964.webp",
+        "text": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>솔방울을 주워 물에 담갔다 말리며 비늘이 닫혔다 열리는 걸 직접 관찰해 보세요(아주 신기한 실험!). 바늘잎의 촉감을 느끼고, 송진 냄새를 맡아 보면 좋습니다.</p>",
+        "caption": "솔방울 여닫기 실험",
+        "image_style": "",
+        "image_prompt": "A parent and child soaking a pinecone in water to watch it close, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 솔방울은 왜 열렸다 닫혔다 하나요?</strong><br>A. 습도에 반응하기 때문입니다. 건조하면 열려 씨앗을 날리고, 비 오면 닫아 씨앗을 보호해요.</p><p><strong>Q. 소나무는 겨울에도 왜 푸른가요?</strong><br>A. 바늘잎이 두꺼운 막으로 덮여 추운 겨울에도 광합성을 계속할 수 있기 때문입니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 솔방울을 물에 담갔다 말려 여닫힘을 관찰하고, 바늘잎 촉감·송진 냄새를 느껴 보세요.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>함께 읽으면 좋은 명작 동화</h2><p>이 동화를 재미있게 읽었다면 이런 <strong>명작 동화</strong>도 함께 읽어 보세요.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">강아지</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">강아지풀</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">개구리</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">개미</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "소나무 그림책 삽화",
+        "url": "https://assets.tangobook.co.kr/1773553000636-%EC%96%B8%EC%A0%9C%EB%82%98%ED%91%B8%EB%A5%B8%EA%B8%B0%EC%9A%B4%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EC%88%B2%EC%86%8D%EC%9D%98%EC%84%A0%EB%B9%84%EC%86%8C%EB%82%98%EB%AC%B4-illustration-page18-1773553250549.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">「소나무」가 궁금하신가요?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">아름다운 그림과 한국어·영어 음성으로 탱고북에서 직접 만나보세요.</p><a href=\"https://tangobook.co.kr/library/1773553000636\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 동화책 보러가기 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

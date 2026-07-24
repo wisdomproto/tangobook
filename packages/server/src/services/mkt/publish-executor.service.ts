@@ -198,26 +198,60 @@ export function stripLeadingNumber(title: string): string {
   return title.replace(/^\s*\d+\.\s*/, '').trim() || title;
 }
 
-/** 같은 책의 롱폼 메타(줄거리·태그) — 쇼츠 설명/태그 재사용용. 행이 없으면 null.
+/**
+ * 롱폼 제목 → 쇼츠 제목.
+ * 롱폼 제목은 `소재 이모지 | 훅·검색키워드 | 시리즈 오디오북` 3단 구조인데, 마지막 시리즈 구간
+ * ("… 오디오북")은 36초 쇼츠에 안 맞는다. 그렇다고 제목을 통째로 버리면 가운데 **검색 키워드**
+ * ("양치 안 하는 아이를 위한 동화")까지 잃는다 → 접미사만 떼고 `#Shorts` 를 붙인다.
+ *
+ *   "치카치카 쓱쓱! 🪥✨ | 양치 안 하는 아이를 위한 동화 | 호리네 생활동화 오디오북"
+ *   → "치카치카 쓱쓱! 🪥✨ | 양치 안 하는 아이를 위한 동화 #Shorts"
+ */
+export function deriveShortsTitle(longformTitle: string): string {
+  const segs = stripLeadingNumber(longformTitle)
+    .split('|')
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (!segs.length) return longformTitle;
+  // 마지막 구간이 시리즈 접미사면 뗀다 — 단, 떼고도 최소 1구간은 남아야 한다.
+  if (segs.length > 1 && /오디오북/.test(segs[segs.length - 1])) segs.pop();
+  let base = segs.join(' | ');
+  if (/#Shorts/i.test(base)) return base.slice(0, 100);
+  // "#Shorts"(8자) 자리를 남기고 자른다.
+  if (base.length > 92)
+    base = base
+      .slice(0, 92)
+      .replace(/\s+\S*$/, '')
+      .trim();
+  return `${base} #Shorts`;
+}
+
+/** 같은 책의 롱폼 메타(제목·줄거리·태그) — 쇼츠 제목/설명/태그 재사용용. 행이 없으면 null.
  *  🔴 `video_settings` 는 5개 언어 자막 전문이 든 수 MB짜리라 select 하지 않는다 —
  *  언어 매칭은 JSON 연산자로 DB 쪽에서 거른다. */
 async function loadYoutubeMetaForShorts(
   sb: SupabaseClient,
   contentId: string,
   lang: string
-): Promise<{ description: string; tags: string[] } | null> {
-  type Row = { video_description?: string | null; video_tags?: string[] | null };
+): Promise<{ title: string; description: string; tags: string[] } | null> {
+  type Row = {
+    video_title?: string | null;
+    video_description?: string | null;
+    video_tags?: string[] | null;
+  };
   const pick = (rows: Row[] | null) => {
     const r = (rows ?? [])[0];
     if (!r) return null;
     return {
+      title: r.video_title ?? '',
       description: r.video_description ?? '',
       tags: Array.isArray(r.video_tags) ? r.video_tags : [],
     };
   };
+  const COLS = 'video_title, video_description, video_tags';
   const { data } = await sb
     .from('mkt_youtube_contents')
-    .select('video_description, video_tags')
+    .select(COLS)
     .eq('content_id', contentId)
     .eq('video_settings->>language', lang)
     .limit(1);
@@ -225,7 +259,7 @@ async function loadYoutubeMetaForShorts(
   if (pick(data as Row[])) return pick(data as Row[]);
   const { data: any0 } = await sb
     .from('mkt_youtube_contents')
-    .select('video_description, video_tags')
+    .select(COLS)
     .eq('content_id', contentId)
     .limit(1);
   return pick(any0 as Row[]);
@@ -258,13 +292,16 @@ async function publishYouTube(
     .select('title')
     .eq('id', q.content_id as string)
     .single();
-  // 🔴 제목 앞 번호("01. ")는 생활동화 내부 정렬용 — 유튜브에 그대로 나가면 안 된다.
-  const rawTitle = meta.title || (c?.title as string) || '탱고북 동화';
-  const title = stripLeadingNumber(rawTitle).slice(0, 100);
   // 릴스 캡션·해시태그가 비어 있는 시리즈(생활동화)는 설명이 "#Shorts #탱고북 #동화" 뿐이라
-  // 검색에 안 걸린다 → 같은 책의 롱폼 메타(줄거리·태그)를 재사용한다.
-  // 🔴 롱폼 **제목**은 안 쓴다("… | 호리네 생활동화 오디오북" — 36초 쇼츠엔 안 맞는 접미사).
+  // 검색에 안 걸린다 → 같은 책의 롱폼 메타(제목·줄거리·태그)를 재사용한다.
   const yt = await loadYoutubeMetaForShorts(sb, q.content_id as string, lang);
+  // 🔴 제목 = 롱폼 메타에서 시리즈 접미사만 뗀 것 > 레코드/콘텐츠 원본.
+  // 원본(meta.title = mkt_contents.title 복사본)은 검색 키워드가 없다("치카치카 쓱쓱, 반짝반짝!").
+  // 롱폼 제목을 통째로 버리면 가운데 키워드("양치 안 하는 아이를 위한 동화")까지 잃으므로
+  // deriveShortsTitle 로 "… 오디오북" 접미사만 떼서 쓴다.
+  const title = yt?.title
+    ? deriveShortsTitle(yt.title)
+    : stripLeadingNumber(meta.title || (c?.title as string) || '탱고북 동화').slice(0, 100);
   const body = reel.caption?.trim() || yt?.description?.trim();
   const description = [body, '#Shorts #탱고북 #동화'].filter(Boolean).join('\n\n');
   const tags = yt?.tags?.length
@@ -354,7 +391,12 @@ async function publishLongformYouTube(
   if (!row?.video_url)
     return fail(sb, recordId, `발행할 롱폼 영상이 없습니다 (${artStyle}/${lang}).`);
 
-  const title = (meta.title || row.video_title || '탱고북 동화').slice(0, 100);
+  // 🔴 제목 우선순위 = 공들여 만든 롱폼 메타(video_title) > 예약 레코드의 원본 제목(meta.title).
+  // 레코드의 metadata.title 은 발행큐 표시용으로 mkt_contents.title 을 그대로 복사한 값이라
+  // 검색 키워드가 없다("01. 골고루 먹으면 무지개 힘!", "게", "고래"). 이 원본이 video_title
+  // ("… | 편식하는 아이를 위한 동화 | …")을 가려서 조회수가 0~4회에 머물렀다.
+  // 선두 번호 제거는 video_title 이 없는 폴백 경로를 위해 유지한다.
+  const title = stripLeadingNumber(row.video_title || meta.title || '탱고북 동화').slice(0, 100);
   const description = row.video_description || '';
   const tags = Array.isArray(row.video_tags) ? row.video_tags : ['탱고북', '동화', '오디오북'];
 

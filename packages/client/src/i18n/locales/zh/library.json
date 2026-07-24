@@ -43,8 +43,8 @@
     "free": "免费"
   },
   "playlist": {
-    "title": "我的播放列表",
-    "subtitle": "挑选多本书，在睡前连续讲给孩子听的播放列表",
+    "title": "故事合辑",
+    "subtitle": "已经编好的合辑，多本连续播放",
     "newSet": "+ 新建列表",
     "createTitle": "创建连续播放",
     "createSubtitle": "挑选多本书，在睡前连续讲给孩子听",
@@ -52,6 +52,7 @@
     "bookCount": "{{count}} 本书",
     "play": "▶ 播放",
     "editAria": "编辑 {{name}} 列表",
-    "deleteAria": "删除 {{name}} 列表"
+    "deleteAria": "删除 {{name}} 列表",
+    "mySets": "我的列表"
   }
 }

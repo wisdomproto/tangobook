@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777605651238",
+  "seo_title": "Đặc điểm của kiến và bí mật của sự hợp tác — Sách tranh quan sát thiên nhiên",
+  "meta_description": "Bí mật về sức mạnh của kiến, cách chúng giao tiếp bằng đường mùi hương (pheromone), sự hợp tác phân chia vai trò và những điều kỳ diệu khác; nội dung sách tranh quan sát thiên nhiên Tango Book, cùng với phương pháp quan sát. Hướng dẫn quan sát tự nhiên cho lứa tuổi 4-7.",
+  "primary_keyword": "con kiến",
+  "secondary_keywords": [
+    "Đặc điểm của kiến",
+    "Pheromone kiến",
+    "Tổ kiến",
+    "Sách quan sát thiên nhiên cho trẻ nhỏ",
+    "Sách tranh về côn trùng"
+  ],
+  "url_slug": "ant-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "Kiến - Kiến, điểm nào thú vị nhỉ?",
+        "url": "https://assets.tangobook.co.kr/1777605651238-%EA%B0%9C%EB%AF%B8-cover-misc-1780025787942.webp",
+        "text": "<h2>Kiến, có những điểm nào thú vị không nhỉ?</h2><p>Những chú <strong style=\"font-weight:bold;\">kiến</strong> nhỏ nhưng khỏe này là loài côn trùng xã hội sống cùng nhau xoay quanh kiến chúa. Chúng là loại côn trùng tiêu biểu của sự hợp tác, nơi mọi thành viên cùng chung sức để hoàn thành những việc lớn đấy.</p>",
+        "caption": "Côn trùng hợp tác",
+        "image_style": "",
+        "image_prompt": "Ants carrying food in a line, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "Kiến - Những sự thật tự nhiên và khoa học về kiến",
+        "url": "https://assets.tangobook.co.kr/1777605651238-%EC%9E%91%EC%A7%80%EB%A7%8C%ED%9E%98%EC%84%BC%EC%88%B2%EC%86%8D%EC%9D%98%EC%9D%BC%EA%BE%BC%EA%B0%9C%EB%AF%B8-illustration-page1-1773447009655.webp",
+        "text": "<h2>Sự thật tự nhiên và khoa học về kiến</h2><p>Kiến thợ rất khỏe, có thể dễ dàng mang vác những vật nặng gấp nhiều lần trọng lượng cơ thể của nó. Bằng râu trên đầu, chúng sẽ báo cho đồng đội biết nơi có thức ăn bằng cách đi theo <strong style=\"font-weight:bold;\">đường mùi hương (pheromone)</strong>. Chúng xây một <strong style=\"font-weight:bold;\">tổ kiến</strong> gồm nhiều phòng và đường đi dưới lòng đất, và <strong style=\"font-weight:bold;\">phân chia vai trò</strong> cho các công việc như chăm sóc trứng, thu thập thức ăn và bảo vệ tổ.</p>",
+        "caption": "Chú kiến thợ mạnh mẽ",
+        "image_style": "",
+        "image_prompt": "An ant carrying a load much bigger than itself, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "Kiến - Nội dung được đề cập trong cuốn sách «Kiến» của Tango Book",
+        "url": "https://assets.tangobook.co.kr/1777605651238-%EC%9E%91%EC%A7%80%EB%A7%8C%ED%9E%98%EC%84%BC%EC%88%B2%EC%86%8D%EC%9D%98%EC%9D%BC%EA%BE%BC%EA%B0%9C%EB%AF%B8-illustration-page5-1773447743027.webp",
+        "text": "<h2>Nội dung về kiến trong sách Tango Book «Kiến»</h2><p>Sách Tango Book «Kiến» thể hiện một cách ấm áp hình ảnh những chú kiến tha vật nặng, cảnh chúng xếp hàng đi theo mùi hương, tổ kiến dưới lòng đất, và cả việc các chú kiến làm việc bằng cách phân chia vai trò.</p>",
+        "caption": "Ngôi nhà trên con đường tan trường",
+        "image_style": "",
+        "image_prompt": "A cross-section of an underground ant nest with rooms, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "Kiến - Những điểm thú vị để cùng quan sát",
+        "url": "https://assets.tangobook.co.kr/1777605651238-%EC%9E%91%EC%A7%80%EB%A7%8C%ED%9E%98%EC%84%BC%EC%88%B2%EC%86%8D%EC%9D%98%EC%9D%BC%EA%BE%BC%EA%B0%9C%EB%AF%B8-illustration-page9-1773447050451.webp",
+        "text": "<h2>Những điểm thú vị để cùng quan sát</h2><p>Hãy chỉ ra những điểm như sức mạnh (gấp nhiều lần trọng lượng cơ thể), đường feromon (giao tiếp), tổ kiến (phòng/đường đi), phân chia vai trò. Sẽ rất tốt nếu các bạn cùng nhau nói về câu hỏi: \"Làm sao kiến tìm được đường đi?\"</p>",
+        "caption": "Các điểm cần quan sát",
+        "image_style": "",
+        "image_prompt": "Ants following a pheromone trail, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "Kiến - Hướng dẫn dành cho phụ huynh — Cách nuôi dưỡng sự tò mò",
+        "url": "https://assets.tangobook.co.kr/1777605651238-%EC%9E%91%EC%A7%80%EB%A7%8C%ED%9E%98%EC%84%BC%EC%88%B2%EC%86%8D%EC%9D%98%EC%9D%BC%EA%BE%BC%EA%B0%9C%EB%AF%B8-illustration-page14-1773447086177.webp",
+        "text": "<h2>Hướng dẫn dành cho phụ huynh — Cách nuôi dưỡng sự tò mò</h2><p>Hãy quan sát những con kiến đi thành hàng trên mặt đất và trò chuyện rằng chúng đang \"đi theo đường mùi hương.\" Khi quan sát quá trình kiến tập trung quanh một mẩu thức ăn nhỏ, bạn có thể thấy sự hợp tác bằng mắt thường.</p>",
+        "caption": "Quan sát đất",
+        "image_style": "",
+        "image_prompt": "A parent and child watching ants on the ground, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Các câu hỏi thường gặp (FAQ)</h2><p><strong>Q. Kiến tìm đường đến thức ăn bằng cách nào?</strong><br>A. Chúng đi theo mùi hương (pheromones) bằng râu trên đầu, và còn báo cho đồng loại biết con đường đó nữa.</p><p><strong>Q. Kiến khỏe đến mức nào?</strong><br>A. Chúng rất khỏe, có thể dễ dàng mang vác những vật nặng gấp nhiều lần trọng lượng cơ thể của mình.</p><p><strong>Q. Làm sao để quan sát chúng ở nhà nhỉ?</strong><br>A. Bạn có thể quan sát kiến đi thành hàng, hoặc xem quá trình chúng tập trung quanh một mẩu thức ăn nhỏ là rất tốt.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Truyện cổ tích hay nên đọc cùng</h2><p>Nếu bạn thích thú với câu chuyện này, hãy thử đọc thêm những <strong style=\"font-weight:bold;\">truyện cổ tích hay</strong> khác nhé.</p><ul class=\"list-style\"><li ><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">Chú chó con</a></li><li ><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">Cỏ đuôi cáo</a></li><li ><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">Con ếch</a></li><li ><a href=\"https://tangobook.co.kr/blog/spider-nature-for-kids\">Nhện</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "Minh họa sách tranh về kiến",
+        "url": "https://assets.tangobook.co.kr/1777605651238-%EC%9E%91%EC%A7%80%EB%A7%8C%ED%9E%98%EC%84%BC%EC%88%B2%EC%86%8D%EC%9D%98%EC%9D%BC%EA%BE%BC%EA%B0%9C%EB%AF%B8-illustration-page18-1773447099770.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">Bạn có tò mò về \"Kiến\" không?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">Hãy xem trực tiếp tại Tango Book với hình ảnh đẹp và âm thanh tiếng Hàn・tiếng Anh.</p><a href=\"https://tangobook.co.kr/library/1777605651238\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 Xem sách truyện →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

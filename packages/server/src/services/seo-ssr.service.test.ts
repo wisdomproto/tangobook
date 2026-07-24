@@ -257,6 +257,38 @@ describe('renderBlogSeo', () => {
     expect(seo.bodyHtml).toContain('<li>교훈 하나</li>');
     expect(seo.bodyHtml).toContain('<blockquote>인용문</blockquote>');
   });
+
+  it('ko 전용(존재 언어 1개)은 hreflang 없음', () => {
+    expect(seo.alternatesHtml).toBe('');
+  });
+
+  it('다국어: 페이지 뼈대 문구도 그 언어로 (한국어 잔재 없음)', () => {
+    const vi = renderBlogSeo(post, 'vi', ['ko', 'vi']);
+    expect(vi.title).toContain('Blog Tangobook'); // 접미사 번역
+    expect(vi.title).not.toContain('탱고북 블로그');
+    expect(vi.bodyHtml).toContain('Đọc câu chuyện này'); // 동화책 링크 문구
+    expect(vi.bodyHtml).toContain('Xem tất cả bài viết'); // 전체 보기 문구
+    expect(vi.bodyHtml).not.toContain('탱고북 블로그 전체 보기');
+    expect(vi.jsonLdHtml).toContain('"name":"Blog"'); // breadcrumb 라벨
+
+    const th = renderBlogListSeo([], 'th', ['ko', 'th']);
+    expect(th.title).toContain('บล็อก Tangobook');
+    expect(th.description).not.toContain('세계 명작');
+  });
+
+  it('다국어: canonical 에 langPrefix + hreflang 상호링크 + x-default', () => {
+    const vi = renderBlogSeo(post, 'vi', ['ko', 'vi', 'zh']);
+    expect(vi.canonical).toBe('https://www.tangobook.co.kr/vi/blog/cinderella-fairy-tale-for-kids');
+    expect(vi.alternatesHtml).toContain(
+      'hreflang="ko" href="https://www.tangobook.co.kr/blog/cinderella-fairy-tale-for-kids"'
+    );
+    expect(vi.alternatesHtml).toContain(
+      'hreflang="vi" href="https://www.tangobook.co.kr/vi/blog/cinderella-fairy-tale-for-kids"'
+    );
+    expect(vi.alternatesHtml).toContain('hreflang="x-default"');
+    expect(vi.bodyHtml).toContain('href="/vi/blog"'); // 내부 링크도 프리픽스
+    expect(vi.bodyHtml).toContain('href="/vi/library/1772107608499/about"');
+  });
 });
 
 describe('renderBlogListSeo', () => {

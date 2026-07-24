@@ -1,0 +1,106 @@
+{
+  "storybookId": "1777605651238",
+  "seo_title": "蚂蚁的特点和合作的秘密——自然观察绘本",
+  "meta_description": "蚂蚁强壮的秘密、通过气味路径（信息素）进行交流的方法、分工合作等奇妙事实，以及《Tango Book》自然观察绘本的内容和观察方法。4-7岁自然观察指南。",
+  "primary_keyword": "蚂蚁",
+  "secondary_keywords": ["蚂蚁特点", "蚂蚁信息素", "蚂蚁窝", "幼儿自然观察书籍", "昆虫图画书"],
+  "url_slug": "ant-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "蚂蚁 - 蚂蚁，哪些地方让你觉得神奇呢？",
+        "url": "https://assets.tangobook.co.kr/1777605651238-%EA%B0%9C%EB%AF%B8-cover-misc-1780025787942.webp",
+        "text": "<h2>蚂蚁，哪些地方会让你感到神奇呢？</h2><p>小巧而有力 <strong>蚂蚁</strong>它们是围绕着蚁后一起生活的社会性昆虫。它们是代表合作的昆虫，大家齐心协力能完成大事业哦。</p>",
+        "caption": "合作的昆虫",
+        "image_style": "",
+        "image_prompt": "Ants carrying food in a line, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "蚂蚁 - 蚂蚁的自然·科学事实",
+        "url": "https://assets.tangobook.co.kr/1777605651238-%EC%9E%91%EC%A7%80%EB%A7%8C%ED%9E%98%EC%84%BC%EC%88%B2%EC%86%8D%EC%9D%98%EC%9D%BC%EA%BE%BC%EA%B0%9C%EB%AF%B8-illustration-page1-1773447009655.webp",
+        "text": "<h2>蚂蚁的自然科学知识</h2><p>工蚁是 <strong>轻松地搬运比自己体重重好几倍的货物</strong> 它们的力量很强。用头上的触角 <strong>沿着气味（信息素）的路径</strong> 告诉同伴食物的位置。它们在地下建造了由许多房间和通道组成的 <strong>蚁巢</strong>建造它、照顾卵子、收集食物和守护家园的工作 <strong>分工合作</strong> 完成这些工作。</p>",
+        "caption": "强壮的小蚂蚁",
+        "image_style": "",
+        "image_prompt": "An ant carrying a load much bigger than itself, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "蚂蚁 - 《坦戈书》中《蚂蚁》讲述的内容",
+        "url": "https://assets.tangobook.co.kr/1777605651238-%EC%9E%91%EC%A7%80%EB%A7%8C%ED%9E%98%EC%84%BC%EC%88%B2%EC%86%8D%EC%9D%98%EC%9D%BC%EA%BE%BC%EA%B0%9C%EB%AF%B8-illustration-page5-1773447743027.webp",
+        "text": "<h2>《探戈书》〈蚂蚁〉描绘的内容</h2><p>《探戈书》〈蚂蚁〉温馨地展示了搬运重物的场景、排着队沿着气味路径前行的样子、地下的蚂蚁巢穴，以及分工合作的蚂蚁们。</p>",
+        "caption": "放学路上的家",
+        "image_style": "",
+        "image_prompt": "A cross-section of an underground ant nest with rooms, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "蚂蚁：可以一起观察的重点",
+        "url": "https://assets.tangobook.co.kr/1777605651238-%EC%9E%91%EC%A7%80%EB%A7%8C%ED%9E%98%EC%84%BC%EC%88%B2%EC%86%8D%EC%9D%98%EC%9D%BC%EA%BE%BC%EA%B0%9C%EB%AF%B8-illustration-page9-1773447050451.webp",
+        "text": "<h2>一起观察时可以注意的重点</h2><p>请指出像力量（重物好几倍）、信息素路径（交流）、蚂蚁窝（房间·道路）和角色分工这样的重点。一起聊聊“蚂蚁是怎么找到路的？”会很好。</p>",
+        "caption": "观察点",
+        "image_style": "",
+        "image_prompt": "Ants following a pheromone trail, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "蚂蚁 - 家长指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1777605651238-%EC%9E%91%EC%A7%80%EB%A7%8C%ED%9E%98%EC%84%BC%EC%88%B2%EC%86%8D%EC%9D%98%EC%9D%BC%EA%BE%BC%EA%B0%9C%EB%AF%B8-illustration-page14-1773447086177.webp",
+        "text": "<h2>家长指南 — 如何培养好奇心</h2><p>观察地上排成一列的蚂蚁，可以告诉孩子“它们是在沿着气味路径前进哦”。如果观察到蚂蚁聚集在小食物周围的过程，就能亲眼看到合作的行为。</p>",
+        "caption": "地面观察",
+        "image_style": "",
+        "image_prompt": "A parent and child watching ants on the ground, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答</h2><p><strong>问：蚂蚁如何找到食物？</strong><br>答：它们用头上的触角沿着气味（信息素）的路径前进，还会把这条路告诉同伴。</p><p><strong>问：蚂蚁有多强壮？</strong><br>答：它们的力量非常大，能轻松搬运比自己体重重好几倍的货物。</p><p><strong>问：家里怎样观察它们比较好呢？</strong><br>答：可以观察成列行走的蚂蚁，或者看看它们聚集在小食物周围的过程。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>适合一起阅读的经典童话</h2><p>如果喜欢阅读这个故事，还可以看看这些 <strong>经典童话</strong>也一起读读看吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">犬科草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/spider-nature-for-kids\">蜘蛛</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "蚂蚁绘本插图",
+        "url": "https://assets.tangobook.co.kr/1777605651238-%EC%9E%91%EC%A7%80%EB%A7%8C%ED%9E%98%EC%84%BC%EC%88%B2%EC%86%8D%EC%9D%98%EC%9D%BC%EA%BE%BC%EA%B0%9C%EB%AF%B8-illustration-page18-1773447099770.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">好奇“蚂蚁”吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book中，通过精美的图片和韩语·英语音频亲身体验吧。</p><a href=\"https://tangobook.co.kr/library/1777605651238\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

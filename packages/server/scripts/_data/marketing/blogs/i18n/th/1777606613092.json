@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777606613092",
+  "seo_title": "ลักษณะเด่นและเคล็ดลับสีเตือนของเต่าทอง — หนังสือนิทานภาพสังเกตธรรมชาติ",
+  "meta_description": "ประโยชน์ของเต่าทองที่จับเพลี้ยและปกป้องพืชผล ความลับของสีเตือนภัยที่สดใส และข้อเท็จจริงมหัศจรรย์อื่นๆ รวมถึงเนื้อหาจากหนังสือนิทานสังเกตธรรมชาติ Tango Book พร้อมวิธีการสังเกตด้วย คู่มือการสังเกตธรรมชาติสำหรับอายุ 4-7 ปี",
+  "primary_keyword": "เต่าทอง",
+  "secondary_keywords": [
+    "ลักษณะของเต่าทอง",
+    "เต่าทอง เพลี้ยอ่อน",
+    "สีเตือน",
+    "หนังสือสำหรับเด็กเล็กเกี่ยวกับการสังเกตธรรมชาติ",
+    "หนังสือนิทานแมลง"
+  ],
+  "url_slug": "ladybug-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "เต่าทอง - เต่าทองมีอะไรที่น่ามหัศจรรย์บ้างไหมคะ?",
+        "url": "https://assets.tangobook.co.kr/1777606613092-%EB%AC%B4%EB%8B%B9%EB%B2%8C%EB%A0%88-cover-misc-1780024736645.webp",
+        "text": "<h2>ด้วงเต่าทอง มีอะไรน่าสนใจบ้างนะ?</h2><p>น่ารักกลม ๆ <strong>ด้วงเต่าทอง</strong>จริง ๆ แล้วมันเป็นเพื่อนของชาวนาเลยนะ ในลายจุดที่สวยงามนั้นซ่อนความลับที่ฉลาดเอาไว้ด้วยล่ะ</p>",
+        "caption": "เพื่อนของชาวนา",
+        "image_style": "",
+        "image_prompt": "A ladybug on a green leaf, cute children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "เต่าทอง - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของเต่าทอง",
+        "url": "https://assets.tangobook.co.kr/1777606613092-%ED%92%80%EC%9E%8E%EC%9C%84%EC%9D%98%EC%A0%90%EB%B0%95%EC%9D%B4%EC%8B%A0%EC%82%AC%EB%AC%B4%EB%8B%B9%EB%B2%8C%EB%A0%88-illustration-page1-1773445055691.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของเต่าทอง</h2><p>เต่าทองเป็นศัตรูพืช <strong>แมลงที่เป็นประโยชน์ที่กินเพลี้ยและปกป้องผลผลิตทางการเกษตร</strong>ค่ะ/ครับ จุดสีดำบนพื้นหลังสีแดงหรือเหลืองนี้ไม่ใช่แค่ลายธรรมดา แต่เป็น... <strong>สีเตือนที่บอกว่า \"ฉันไม่อร่อยนะ!\"</strong>ดังนั้น ผู้ล่าอย่างนกจึงไม่กล้ามาทำร้ายมันง่ายๆ เหมือนผีเสื้อ... <strong>ไข่ → ตัวหนอน → ดักแด้ → ตัวเต็มวัย</strong>มันจะผ่านการเปลี่ยนแปลงรูปร่างที่สมบูรณ์ และในฤดูหนาวก็จะรวมตัวกันใต้ใบไม้ร่วง และเมื่อตกอยู่ในอันตรายก็จะป้องกันตัวเองด้วยการปล่อยของเหลวสีเหลืองจากขา</p>",
+        "caption": "การล่าที่เป็นประโยชน์",
+        "image_style": "",
+        "image_prompt": "A ladybug eating aphids on a plant, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "ด้วงเต่าทอง - หนังสือทังโกบุ๊ก เนื้อหาเกี่ยวกับ \"ด้วงเต่าทอง\"",
+        "url": "https://assets.tangobook.co.kr/1777606613092-%ED%92%80%EC%9E%8E%EC%9C%84%EC%9D%98%EC%A0%90%EB%B0%95%EC%9D%B4%EC%8B%A0%EC%82%AC%EB%AC%B4%EB%8B%B9%EB%B2%8C%EB%A0%88-illustration-page5-1773445066985.webp",
+        "text": "<h2>หนังสือแทงโก \"เต่าทอง\" เล่าถึงอะไร</h2><p>หนังสือแทงโก \"เต่าทอง\" แสดงให้เห็นอย่างน่ารัก ทั้งภาพการกินเพลี้ยอ่อน สีสันเตือนภัยที่สวยงาม วงจรชีวิตตั้งแต่ไข่จนเป็นตัวเต็มวัย และการจำศีลใต้ใบไม้ร่วง</p>",
+        "caption": "คนวิปริตอย่างสมบูรณ์",
+        "image_style": "",
+        "image_prompt": "The ladybug life cycle from egg to adult, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "ด้วงเต่าทอง - จุดที่ควรสังเกตพร้อมกัน",
+        "url": "https://assets.tangobook.co.kr/1777606613092-%ED%92%80%EC%9E%8E%EC%9C%84%EC%9D%98%EC%A0%90%EB%B0%95%EC%9D%B4%EC%8B%A0%EC%82%AC%EB%AC%B4%EB%8B%B9%EB%B2%8C%EB%A0%88-illustration-page10-1773445085498.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>ช่วยชี้จุดต่างๆ เช่น การล่าเพลี้ย (ประโยชน์), สีเตือนภัย, การเปลี่ยนแปลงรูปร่างแบบสมบูรณ์, หรือการอยู่รอดในฤดูหนาว นอกจากนี้ การพูดคุยกันเรื่อง \"ทำไมถึงมีสีสันสวยงามจังเลยล่ะ?\" ด้วยกันก็เป็นสิ่งที่ดีค่ะ</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A close-up of ladybug warning colors and spots, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "เต่าทอง - คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777606613092-%ED%92%80%EC%9E%8E%EC%9C%84%EC%9D%98%EC%A0%90%EB%B0%95%EC%9D%B4%EC%8B%A0%EC%82%AC%EB%AC%B4%EB%8B%B9%EB%B2%8C%EB%A0%88-illustration-page14-1773445124851.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ลองหาเต่าทองและเพลี้ยอ่อนบนใบไม้ด้วยกัน บอกพวกเขาว่า \"สีสันสดใส = สัญญาณที่ไม่มีรสชาติ (สีเตือน)\" และการนับจำนวนจุดจะช่วยเพิ่มความสนใจได้</p>",
+        "caption": "การสังเกตใบหญ้า",
+        "image_style": "",
+        "image_prompt": "A parent and child finding ladybugs on leaves, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>คำถาม: ทำไมเต่าทองถึงเป็นสิ่งดีต่อเราคะ/ครับ?</strong><br>คำตอบ: เพราะพวกมันจะกินแมลงศัตรูพืชอย่างเพลี้ยอ่อน ช่วยปกป้องพืชผักให้เราค่ะ/ครับ จึงได้รับฉายาว่า \"เพื่อนของชาวนา\"</p><p><strong>คำถาม: สีที่สดใสเหล่านี้คืออะไรเหรอคะ/ครับ?</strong><br>คำตอบ: นี่คือสีเตือนที่ส่งสัญญาณว่า \"ฉันมีรสชาติที่ไม่ดีนะ!\" เพื่อป้องกันไม่ให้ผู้ล่าตัวอื่นมากินโดยพลการค่ะ/ครับ</p><p><strong>คำถาม: ที่บ้านเราควรสังเกตพวกมันอย่างไรดีคะ/ครับ?</strong><br>คำตอบ: ลองหาเต่าทองกับเพลี้ยอ่อนบนใบหญ้า แล้วมาช่วยกันนับจำนวนจุดดูสิคะ/ครับ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณสนุกกับการอ่านนิทานเรื่องนี้แล้ว ลองดูแบบนี้ <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือภาพเต่าทอง",
+        "url": "https://assets.tangobook.co.kr/1777606613092-%ED%92%80%EC%9E%8E%EC%9C%84%EC%9D%98%EC%A0%90%EB%B0%95%EC%9D%B4%EC%8B%A0%EC%82%AC%EB%AC%B4%EB%8B%B9%EB%B2%8C%EB%A0%88-illustration-page18-1773445139560.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"เต่าทอง\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้ที่แทงโกบุ๊ก ด้วยภาพสวย ๆ และเสียงอ่านภาษาเกาหลีและภาษาอังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1777606613092\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

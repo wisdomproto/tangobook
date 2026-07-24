@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777615082301",
+  "seo_title": "ลักษณะของจิงโจ้และความลับของการเลี้ยงดูในถุงหน้า — หนังสือนิทานสังเกตธรรมชาติ",
+  "meta_description": "ข้อเท็จจริงที่ว่าจิงโจ้เป็นสัตว์มีถุงหน้าท้องสำหรับเลี้ยงลูกอ่อน และเรื่องน่าทึ่งอื่น ๆ เช่น การกระโดดด้วยขาหลังที่แข็งแรง เนื้อหาจากหนังสือนิทานสังเกตธรรมชาติของ Tango Book รวมถึงวิธีการสังเกตการณ์ต่าง ๆ คู่มือการสังเกตธรรมชาติสำหรับเด็กวัย 4-7 ปี",
+  "primary_keyword": "จิงโจ้",
+  "secondary_keywords": [
+    "ลักษณะของจิงโจ้",
+    "กระเป๋าจิงโจ้",
+    "กลุ่มผีเสื้อและมอธ",
+    "หนังสือสำหรับเด็กเล็กเกี่ยวกับการสังเกตธรรมชาติ",
+    "หนังสือนิทานภาพสัตว์"
+  ],
+  "url_slug": "kangaroo-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "จิงโจ้ - จิงโจ้มีส่วนไหนที่น่าทึ่งบ้างคะ/ครับ?",
+        "url": "https://assets.tangobook.co.kr/1777615082301-%EC%BA%A5%EA%B1%B0%EB%A3%A8-cover-misc-1780033772059.webp",
+        "text": "<h2>จิงโจ้ มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>ที่ท้อง <strong>กระเป๋า</strong>ที่มี <strong>จิงโจ้</strong>เป็นสัตว์ที่น่าทึ่ง เพราะเลี้ยงลูกอ่อนในกระเป๋า เวลาที่มันกระโดดไปมาก็ดูสนุกมากเลยใช่ไหมล่ะ</p>",
+        "caption": "สัตว์กระเป๋า",
+        "image_style": "",
+        "image_prompt": "A kangaroo with a joey in its pouch, cute children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "จิงโจ้ - ความจริงทางธรรมชาติและวิทยาศาสตร์ของจิงโจ้",
+        "url": "https://assets.tangobook.co.kr/1777615082301-%EC%BA%A5%EA%B1%B0%EB%A3%A8-illustration-page1-1784171099982.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของจิงโจ้</h2><p>จิงโจ้เลี้ยงลูกอ่อนในถุงหน้าท้อง <strong>สัตว์มีถุงหน้าท้อง</strong>ใช่แล้ว ลูกน้อย (จอย) เกิดมาตัวเล็กมาก <strong>กินนมอยู่ในถุงของแม่</strong> เติบโตอย่างปลอดภัย แทนที่จะเดิน <strong>พวกมันจะกระโดดเด้งๆ ด้วยขาหลังที่แข็งแรง</strong> เคลื่อนที่ไปได้ไกลและเร็ว ใช้หางหนาและยาวเพื่อทรงตัว เป็นสัตว์กินพืชที่อยู่รวมกันเป็นฝูง และ <strong>สัตว์ที่เป็นสัญลักษณ์ของออสเตรเลีย (Australia)</strong>ค่ะ/ครับ</p>",
+        "caption": "การเลี้ยงลูกฉบับพกพา",
+        "image_style": "",
+        "image_prompt": "A baby joey peeking out from the pouch, heartwarming children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "จิงโจ้ - หนังสือแทงโก้: เนื้อหาที่นำเสนอเกี่ยวกับ \"จิงโจ้\"",
+        "url": "https://assets.tangobook.co.kr/1777615082301-%EC%BA%A5%EA%B1%B0%EB%A3%A8-illustration-page5-1784171117688.webp",
+        "text": "<h2>เนื้อหาที่หนังสือแทงโกเรื่อง \"จิงโจ้\" นำเสนอ</h2><p>หนังสือแทงโกเรื่อง \"จิงโจ้\" แสดงให้เห็นลูกน้อยในถุงหน้า, การกระโดดด้วยขาหลังที่แข็งแรง, หางยาวที่ช่วยในการทรงตัว, และการใช้ชีวิตเป็นฝูงของจิงโจ้อย่างอบอุ่น</p>",
+        "caption": "การกระโดดด้วยกำลังขาหลังที่แข็งแกร่ง",
+        "image_style": "",
+        "image_prompt": "A kangaroo hopping with strong hind legs, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "จิงโจ้ - จุดที่น่าสนใจเมื่อได้สังเกตการณ์ด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1777615082301-%EC%BA%A5%EA%B1%B0%EB%A3%A8-illustration-page10-1784171475691.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>ช่วยชี้ให้ดูจุดต่างๆ เช่น การเลี้ยงลูกในถุงหน้าท้อง (สัตว์มีถุงหน้า), การกระโดด (ขาหลัง), หางยาว (การทรงตัว) และลักษณะที่เหมือนออสเตรเลีย การพูดคุยกันว่า \"ทำไมจิงโจ้ถึงกระโดดได้ล่ะ?\" จะเป็นเรื่องที่ดีค่ะ/ครับ</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A close-up of a kangaroo strong tail, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "จิงโจ้ – คู่มือสำหรับผู้ปกครอง – วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777615082301-%EC%BA%A5%EA%B1%B0%EB%A3%A8-illustration-page14-1784171928814.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ให้ลูกเล่นกระโดดแบบเด้งๆ แล้วลองเลียนแบบ \"เหมือนจิงโจ้!\" บอกพวกเขาเกี่ยวกับ \"การเลี้ยงลูกในถุงหน้าท้อง (สัตว์มีถุง)\" และเมื่อได้ค้นหาออสเตรเลียจากแผนที่ ความสนใจก็จะเพิ่มขึ้น</p>",
+        "caption": "การเล่นกระโดด",
+        "image_style": "",
+        "image_prompt": "A parent and child hopping like kangaroos, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: จิงโจ้เลี้ยงลูกได้อย่างไรคะ?</strong><br>ตอบ: มันจะเลี้ยงในถุงหน้าท้องค่ะ ลูกที่เกิดมาตัวเล็กมาก (จอย) จะเติบโตและกินนมอยู่ในถุงนั้น</p><p><strong>ถาม: ทำไมจิงโจ้ถึงกระโดดไปมาคะ?</strong><br>ตอบ: มันใช้ขาหลังที่แข็งแรงในการกระโดดอย่างรวดเร็วและเคลื่อนที่ได้ไกล และใช้หางยาวช่วยในการทรงตัวค่ะ</p><p><strong>ถาม: เราจะสังเกตมันที่บ้านได้อย่างไรดีคะ?</strong><br>ตอบ: การเลียนแบบการกระโดดเล่น, การเรียนรู้ว่า \"ถุงหน้าท้องสำหรับเลี้ยงลูก=สัตว์มีถุงหน้าอก\", และการหาประเทศออสเตรเลียจากแผนที่ เป็นกิจกรรมที่ดีค่ะ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณอ่านนิทานเรื่องนี้แล้วสนุกแบบนี้ ลองดู <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบจากหนังสือนิทานจิงโจ้",
+        "url": "https://assets.tangobook.co.kr/1777615082301-%EC%BA%A5%EA%B1%B0%EB%A3%A8-illustration-page18-1784171514098.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"จิงโจ้\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้ด้วยภาพสวย ๆ และเสียงภาษาเกาหลี/อังกฤษที่ Tango Book เลยค่ะ</p><a href=\"https://tangobook.co.kr/library/1777615082301\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

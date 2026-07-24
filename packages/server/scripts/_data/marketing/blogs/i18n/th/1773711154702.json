@@ -1,0 +1,112 @@
+{
+  "storybookId": "1773711154702",
+  "seo_title": "หนังสือนิทานลูกสุนัข — ความลับของลักษณะและประสาทสัมผัส (การสังเกตธรรมชาติสำหรับเด็กวัย 4-7 ปี)",
+  "meta_description": "ข้อเท็จจริงมหัศจรรย์เกี่ยวกับประสาทการดมกลิ่นและการได้ยินที่ยอดเยี่ยมของลูกสุนัข ภาษาหาง และอื่นๆ เนื้อหาจากหนังสือนิทานสัตว์ Tango Book รวมถึงวิธีการสังเกตการณ์ คู่มือการสังเกตธรรมชาติสัตว์สำหรับเด็กวัย 4-7 ปี",
+  "primary_keyword": "หนังสือนิทานเกี่ยวกับลูกสุนัข",
+  "secondary_keywords": [
+    "ลักษณะของลูกสุนัข",
+    "การดมกลิ่นของสุนัข",
+    "นิเวศวิทยาของลูกสุนัข",
+    "หนังสือภาพสัตว์สำหรับเด็ก",
+    "หนังสือนิทานภาพสัตว์"
+  ],
+  "url_slug": "dog-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "ลูกสุนัข - น้องหมา มีอะไรที่น่าสนใจบ้างคะ?",
+        "url": "https://assets.tangobook.co.kr/1773711154702-%EA%B0%95%EC%95%84%EC%A7%80-cover-misc-1780029018781.webp",
+        "text": "<h2>ลูกสุนัข มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>เพื่อนที่เก่าแก่ที่สุดของมนุษย์ <strong>ลูกสุนัข</strong>เป็นสัตว์ที่ฉลาดและอ่อนโยน ซึ่งแตกแขนงมาจากหมาป่า นอกจากนี้ยังมีประสาทสัมผัสที่น่าทึ่งซึ่งแตกต่างจากของมนุษย์ด้วยนะคะ</p><p data-seo-boost=\"1\">เราได้รวบรวมเรื่องราวหลากหลายเกี่ยวกับลูกสุนัข ไม่ว่าจะเป็นลักษณะเฉพาะ การดมกลิ่น หรือนิเวศวิทยาของพวกมันไว้ด้วยกันทั้งหมดเลยค่ะ</p>",
+        "caption": "เพื่อนเก่าของมนุษย์",
+        "image_style": "",
+        "image_prompt": "A happy dog wagging its tail, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "ลูกสุนัข - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของลูกสุนัข",
+        "url": "https://assets.tangobook.co.kr/1773711154702-%EA%BC%AC%EB%A6%AC%EB%A5%BC%EC%82%B4%EB%9E%91%EC%82%B4%EB%9E%91%EC%9A%B0%EB%A6%AC%EC%9D%98%EB%8B%A8%EC%A7%9D%EC%B9%9C%EA%B5%AC%EA%B0%95%EC%95%84%EC%A7%80-illustration-page1-1773711653510.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของสุนัข</h2><p>สุนัขมีอายุย้อนไปถึง 15,000 ถึง 40,000 ปีที่แล้ว <strong>มีการเลี้ยงดูจากหมาป่าสีเทา</strong>และตอนนี้ มีสายพันธุ์ที่ได้รับการรับรองมากกว่า 340 ชนิดเลยค่ะ <strong>การดมกลิ่นของพวกมันแรงกว่ามนุษย์ประมาณ 50 เท่า</strong>(มีตัวรับกลิ่นถึง 300 ล้านตัว) แถมการได้ยินก็เกินสองเท่าของมนุษย์ด้วยนะคะ เพราะว่าต่อมเหงื่อของพวกมันน้อย ทำให้ <strong>พวกมันควบคุมอุณหภูมิร่างกายด้วยการหอบ</strong>และยังนอนหลับวันละ 12-14 ชั่วโมงและฝันได้ด้วยค่ะ พวกมันแสดงอารมณ์ที่หลากหลายผ่านทิศทาง ความเร็ว และความสูงของหาง</p>",
+        "caption": "ประสาทการดมกลิ่นที่แรงกว่ามนุษย์ถึง 50 เท่า",
+        "image_style": "",
+        "image_prompt": "A dog sniffing the ground with its powerful nose, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "น้องหมา - หนังสือทังโกบุ๊ก \"เรื่องราวของลูกสุนัข\"",
+        "url": "https://assets.tangobook.co.kr/1773711154702-%EA%BC%AC%EB%A6%AC%EB%A5%BC%EC%82%B4%EB%9E%91%EC%82%B4%EB%9E%91%EC%9A%B0%EB%A6%AC%EC%9D%98%EB%8B%A8%EC%A7%9D%EC%B9%9C%EA%B5%AC%EA%B0%95%EC%95%84%EC%A7%80-illustration-page5-1773711670117.webp",
+        "text": "<h2>เนื้อหาที่หนังสือทังโกบุ๊ก \"ลูกสุนัข\" นำเสนอ</h2><p>หนังสือทังโกบุ๊ก \"ลูกสุนัข\" แสดงให้เห็นถึงสายพันธุ์สุนัขที่หลากหลาย อารมณ์ที่แสดงออกผ่านจมูก หู และหางที่ยอดเยี่ยม รวมถึงภาพการใช้ชีวิตอยู่ร่วมกับผู้คนอย่างอบอุ่น</p>",
+        "caption": "การควบคุมอุณหภูมิร่างกายด้วยการหอบ",
+        "image_style": "",
+        "image_prompt": "A dog panting to cool down on a warm day, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "ลูกสุนัข - จุดที่น่าสนใจให้สังเกตพร้อมกัน",
+        "url": "https://assets.tangobook.co.kr/1773711154702-%EA%BC%AC%EB%A6%AC%EB%A5%BC%EC%82%B4%EB%9E%91%EC%82%B4%EB%9E%91%EC%9A%B0%EB%A6%AC%EC%9D%98%EB%8B%A8%EC%A7%9D%EC%B9%9C%EA%B5%AC%EA%B0%95%EC%95%84%EC%A7%80-illustration-page10-1773711690751.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>ชี้ให้เห็นจุดต่างๆ เช่น จมูก (ประสาทการดมกลิ่นที่ยอดเยี่ยม), หู (การได้ยินที่ไวต่อความรู้สึก), การหอบ (การควบคุมอุณหภูมิร่างกาย), หรือหาง (อารมณ์). และพูดคุยด้วยกันว่า \"ทำไมลูกสุนัขถึงหอบ?\" จะเป็นเรื่องที่ดีค่ะ/ครับ</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "Different dog tail positions showing emotions, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "ลูกสุนัข – คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1773711154702-%EA%BC%AC%EB%A6%AC%EB%A5%BC%EC%82%B4%EB%9E%91%EC%82%B4%EB%9E%91%EC%9A%B0%EB%A6%AC%EC%9D%98%EB%8B%A8%EC%A7%9D%EC%B9%9C%EA%B5%AC%EA%B0%95%EC%95%84%EC%A7%80-illustration-page14-1773711715827.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>เมื่อเจอสุนัข ให้ค่อยๆ เข้าไปและปล่อยให้มันดมกลิ่น และลองอ่านอารมณ์จากการกระดิกหางดู ถ้าคุณบอกเหตุผลที่มันหอบเมื่อร้อน (การควบคุมอุณหภูมิร่างกาย) หัวใจที่เข้าใจสัตว์ก็จะเติบโตขึ้น</p>",
+        "caption": "การค่อย ๆ เข้าหา",
+        "image_style": "",
+        "image_prompt": "A child gently meeting a friendly dog, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย</h2><p><strong>ถาม: ทำไมลูกสุนัขถึงหอบคะ?</strong><br>ตอบ: เพราะว่าลูกสุนัขมีต่อมเหงื่อน้อย จึงต้องควบคุมอุณหภูมิร่างกายด้วยการหอบค่ะ พวกมันจะทำแบบนี้เมื่ออากาศร้อนหรือหลังออกกำลังกาย</p><p><strong>ถาม: จมูกของลูกสุนัขมีประสิทธิภาพแค่ไหนคะ?</strong><br>ตอบ: เพราะว่าพวกมันมีตัวรับกลิ่นประมาณ 300 ล้านตัว ซึ่งมากกว่าของมนุษย์ถึงประมาณ 50 เท่า พวกมันจึงอ่านโลกด้วยการดมกลิ่นค่ะ</p><p><strong>ถาม: เราควรสังเกตพวกมันที่บ้านอย่างไรดีคะ?</strong><br>ตอบ: ควรค่อยๆ เข้าไปหาและให้พวกมันดมกลิ่น รวมถึงการอ่านอารมณ์จากหางด้วยค่ะ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณสนุกกับการอ่านนิทานเรื่องนี้แล้ว ลองดู <strong>นิทานคลาสสิก</strong>อ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li><li><a href=\"https://tangobook.co.kr/blog/spider-nature-for-kids\">แมงมุม</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือนิทานลูกสุนัข",
+        "url": "https://assets.tangobook.co.kr/1773711154702-%EA%BC%AC%EB%A6%AC%EB%A5%BC%EC%82%B4%EB%9E%91%EC%82%B4%EB%9E%91%EC%9A%B0%EB%A6%AC%EC%9D%98%EB%8B%A8%EC%A7%9D%EC%B9%9C%EA%B5%AC%EA%B0%95%EC%95%84%EC%A7%80-illustration-page18-1773711740506.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับคำว่า \"ลูกสุนัข\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้โดยตรงที่แทงโกบุ๊ก ด้วยภาพสวยงามและเสียงภาษาเกาหลี/อังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1773711154702\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

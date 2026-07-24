@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773720291702",
+  "seo_title": "迅猛龙特点 — 羽毛猎手恐龙自然观察图画书",
+  "meta_description": "关于迅猛龙有羽毛的证据、镰刀状爪子、快速捕食者等奇妙事实，以及《Tango Book》恐龙绘本的内容和阅读方法。4-7岁恐龙指南。",
+  "primary_keyword": "迅猛龙",
+  "secondary_keywords": ["迅猛龙", "羽毛恐龙", "暴龙恐龙", "儿童恐龙书", "恐龙绘本"],
+  "url_slug": "velociraptor-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "迅猛龙——迅猛龙，有哪些特别的地方呢？",
+        "url": "https://assets.tangobook.co.kr/1773720291702-%EB%B2%A8%EB%A1%9C%ED%82%A4%EB%9D%BC%ED%94%84%ED%86%A0%EB%A5%B4-cover-misc-1780044162926.webp",
+        "text": "<h2>迅猛龙，哪些地方会让你感到新奇呢？</h2><p>体型小，但聪明又快速的猎手 <strong>迅猛龙</strong>其实 <strong>羽毛</strong>它其实是一只拥有羽毛的恐龙。和电影里的样子有点不一样哦。</p>",
+        "caption": "快速的猎人",
+        "image_style": "",
+        "image_prompt": "A feathered Velociraptor running fast, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "迅猛龙 - 迅猛龙的自然与科学事实",
+        "url": "https://assets.tangobook.co.kr/1773720291702-%EC%9E%91%EC%A7%80%EB%A7%8C%EB%82%A0%EB%A0%B5%ED%95%9C%EC%82%AC%EB%83%A5%EA%BE%BC%EB%B2%A8%EB%A1%9C%ED%82%A4%EB%9D%BC%ED%94%84%ED%86%A0%EB%A5%B4-illustration-page1-1773720352260.webp",
+        "text": "<h2>迅猛龙的自然与科学事实</h2><p>在2007年的研究中，化石前肢骨骼的 <strong>羽囊（羽毛附着的痕迹）</strong>发现了这一点，证明了迅猛龙拥有羽毛。不过，它不能飞，这些羽毛可能用于调节体温、求偶和孵蛋。 <strong>第二根脚趾的镰刀状爪子</strong>用它紧紧抓住猎物，而且与体型相比，它的大脑很大，夜视能力很强。最高速度估计约为每小时40公里。</p>",
+        "caption": "羽毛的证据",
+        "image_style": "",
+        "image_prompt": "A close-up of Velociraptor feathered arm and sickle claw, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "迅猛龙 - 探戈书《迅猛龙》讲述的内容",
+        "url": "https://assets.tangobook.co.kr/1773720291702-%EC%9E%91%EC%A7%80%EB%A7%8C%EB%82%A0%EB%A0%B5%ED%95%9C%EC%82%AC%EB%83%A5%EA%BE%BC%EB%B2%A8%EB%A1%9C%ED%82%A4%EB%9D%BC%ED%94%84%ED%86%A0%EB%A5%B4-illustration-page6-1773720374203.webp",
+        "text": "<h2>探戈书《迅猛龙》所涵盖的内容</h2><p>探戈书《迅猛龙》生动地展示了真实迅猛龙的样子，例如羽毛覆盖的身体、新月形的利爪、快速而聪明的狩猎和群居行为等。</p>",
+        "caption": "镰刀形的指甲",
+        "image_style": "",
+        "image_prompt": "A Velociraptor using its sickle claw to catch prey, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "迅猛龙：值得一起了解的知识点",
+        "url": "https://assets.tangobook.co.kr/1773720291702-%EC%9E%91%EC%A7%80%EB%A7%8C%EB%82%A0%EB%A0%B5%ED%95%9C%EC%82%AC%EB%83%A5%EA%BE%BC%EB%B2%A8%EB%A1%9C%ED%82%A4%EB%9D%BC%ED%94%84%ED%86%A0%EB%A5%B4-illustration-page10-1773720409405.webp",
+        "text": "<h2>可以一起关注的重点</h2><p>请指出现实中的点，比如羽毛（证据）、镰刀爪（狩猎）、快速速度、大脑（智慧）。和孩子一起讨论“霸王龙竟然有羽毛，是不是很神奇呀？”会更好。</p>",
+        "caption": "观察点",
+        "image_style": "",
+        "image_prompt": "A smart Velociraptor with large eyes at dusk, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "迅猛龙 - 家长指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1773720291702-%EC%9E%91%EC%A7%80%EB%A7%8C%EB%82%A0%EB%A0%B5%ED%95%9C%EC%82%AC%EB%83%A5%EA%BE%BC%EB%B2%A8%EB%A1%9C%ED%82%A4%EB%9D%BC%ED%94%84%ED%86%A0%EB%A5%B4-illustration-page15-1773720450398.webp",
+        "text": "<h2>家长指南 — 如何培养好奇心</h2><p>试着一起比较“电影里的迅猛龙没有羽毛，但真正的它们有”。当找到鸟类的爪子和羽毛的相似之处，并谈论“鸟是恐龙的后代”时，孩子的兴趣会更浓。</p>",
+        "caption": "寻找像鸟儿的地方",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing a bird and a feathered dinosaur, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>问：迅猛龙真的有羽毛吗？</strong><br>答：是的。在化石中发现了羽毛附着的痕迹（羽毛印记）。不过，它不能飞翔。</p><p><strong>问：镰刀状的爪子是用来做什么的？</strong><br>答：它用第二趾的爪子紧紧抓住猎物。这和鹰、老鹰的做法很相似。</p><p><strong>问：我们可以在家怎么玩呢？</strong><br>答：可以比较电影中的迅猛龙和真实的迅猛龙，或者寻找它们与鸟类的爪子、羽毛的相似之处。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "迅猛龙图画书插画",
+        "url": "https://assets.tangobook.co.kr/1773720291702-%EC%9E%91%EC%A7%80%EB%A7%8C%EB%82%A0%EB%A0%B5%ED%95%9C%EC%82%AC%EB%83%A5%EA%BE%BC%EB%B2%A8%EB%A1%9C%ED%82%A4%EB%9D%BC%ED%94%84%ED%86%A0%EB%A5%B4-illustration-page19-1774350597442.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“迅猛龙”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango书里，用精美的图画和韩语·英语语音亲自了解它吧。</p><a href=\"https://tangobook.co.kr/library/1773720291702\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777610290605",
+  "seo_title": "고래 특징과 포유류의 비밀 — 자연관찰 그림책",
+  "meta_description": "고래가 물고기가 아니라 포유류라는 사실과 분수공으로 숨 쉬는 비밀, 노래로 소통하는 모습 등과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "primary_keyword": "고래",
+  "secondary_keywords": [
+    "고래 특징",
+    "고래 포유류",
+    "고래 분수공",
+    "유아 자연관찰 책",
+    "바다 동물 그림책"
+  ],
+  "url_slug": "whale-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "고래 - 고래, 어떤 점이 신기할까요?",
+        "url": "https://assets.tangobook.co.kr/1777610290605-%EA%B3%A0%EB%9E%98-cover-misc-1780025530509.webp",
+        "text": "<h2>고래, 어떤 점이 신기할까요?</h2><p>바닷속 가장 큰 동물 <strong>고래</strong>는 물고기가 아니라 사람과 같은 <strong>포유류</strong>예요. 숨을 쉬러 물 위로 올라오는 모습이 신기하답니다.</p><p data-seo-boost=\"1\">고래 특징, 고래 포유류, 고래 분수공 등 고래에 대한 다양한 이야기를 함께 담았습니다.</p>",
+        "caption": "바다의 거인",
+        "image_style": "",
+        "image_prompt": "A large whale swimming in the ocean, majestic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "고래 - 고래의 자연·과학 사실",
+        "url": "https://assets.tangobook.co.kr/1777610290605-%ED%91%B8%EC%9A%B0%EB%B0%94%EB%8B%A4%EC%9D%98%EA%B1%B0%EC%9D%B8%EA%B3%A0%EB%9E%98-illustration-page1-1773385649849.webp",
+        "text": "<h2>고래의 자연·과학 사실</h2><p>고래는 바닷속에 살지만 <strong>포유류라 숨을 쉬어야 해서</strong>, 가끔 물 위로 올라와 머리 위 <strong>분수공으로 \"푸우!\" 하고 숨</strong>을 내쉬어요(따뜻한 숨이 차가운 공기를 만나 물기둥처럼 보여요). 수염으로 크릴을 걸러 먹는 <strong>수염고래</strong>와 이빨로 사냥하는 <strong>이빨고래</strong>가 있고, 가장 큰 대왕고래는 지구 역사상 가장 큰 동물이에요. 가족을 이루어 노래로 소통하고 새끼에게 젖을 먹입니다.</p>",
+        "caption": "\"푸우!\" 하는 숨",
+        "image_style": "",
+        "image_prompt": "A whale spouting water from its blowhole, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "고래 - 탱고북 «고래»이 다루는 내용",
+        "url": "https://assets.tangobook.co.kr/1777610290605-%ED%91%B8%EC%9A%B0%EB%B0%94%EB%8B%A4%EC%9D%98%EA%B1%B0%EC%9D%B8%EA%B3%A0%EB%9E%98-illustration-page5-1773385661770.webp",
+        "text": "<h2>탱고북 «고래»이 다루는 내용</h2><p>탱고북 «고래»는 분수공으로 숨 쉬는 모습, 수염·이빨고래의 먹이, 가족 무리, 노래로 소통하는 고래를 웅장하게 보여 줍니다.</p>",
+        "caption": "젖을 먹이는 포유류",
+        "image_style": "",
+        "image_prompt": "A whale and its calf swimming together, heartwarming children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "고래 - 함께 관찰하면 좋은 포인트",
+        "url": "https://assets.tangobook.co.kr/1777610290605-%ED%91%B8%EC%9A%B0%EB%B0%94%EB%8B%A4%EC%9D%98%EA%B1%B0%EC%9D%B8%EA%B3%A0%EB%9E%98-illustration-page10-1773385679121.webp",
+        "text": "<h2>함께 관찰하면 좋은 포인트</h2><p>포유류(숨 쉬기), 분수공, 수염/이빨고래, 노래(소통) 같은 포인트를 짚어 주세요. \"고래는 왜 물 위로 올라올까?\"를 함께 이야기하면 좋습니다.</p>",
+        "caption": "관찰 포인트",
+        "image_style": "",
+        "image_prompt": "A baleen whale filtering krill, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "고래 - 부모 가이드 — 호기심을 키우는 법",
+        "url": "https://assets.tangobook.co.kr/1777610290605-%ED%91%B8%EC%9A%B0%EB%B0%94%EB%8B%A4%EC%9D%98%EA%B1%B0%EC%9D%B8%EA%B3%A0%EB%9E%98-illustration-page14-1773385704791.webp",
+        "text": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"고래는 물고기가 아니라 포유류야(젖을 먹여)\"를 강조해 보세요. 고래 노래 소리를 들려주고, 대왕고래의 크기를 버스·교실에 빗대면 흥미가 커집니다.</p>",
+        "caption": "크기 비교",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing a whale size to a bus, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 고래는 물고기인가요?</strong><br>A. 아니요. 사람과 같은 포유류입니다. 그래서 숨을 쉬러 물 위로 올라와요.</p><p><strong>Q. 분수공은 무엇인가요?</strong><br>A. 머리 위의 콧구멍입니다. 따뜻한 숨이 차가운 공기를 만나 물기둥처럼 보여요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 고래 노래 듣기, 대왕고래 크기를 버스·교실에 빗대기가 좋습니다.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>함께 읽으면 좋은 명작 동화</h2><p>이 동화를 재미있게 읽었다면 이런 <strong>명작 동화</strong>도 함께 읽어 보세요.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">강아지</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">강아지풀</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">개구리</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">개미</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "고래 그림책 삽화",
+        "url": "https://assets.tangobook.co.kr/1777610290605-%ED%91%B8%EC%9A%B0%EB%B0%94%EB%8B%A4%EC%9D%98%EA%B1%B0%EC%9D%B8%EA%B3%A0%EB%9E%98-illustration-page18-1773385754453.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">「고래」가 궁금하신가요?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">아름다운 그림과 한국어·영어 음성으로 탱고북에서 직접 만나보세요.</p><a href=\"https://tangobook.co.kr/library/1777610290605\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 동화책 보러가기 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

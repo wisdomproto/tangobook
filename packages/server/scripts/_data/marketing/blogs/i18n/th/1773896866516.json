@@ -1,0 +1,112 @@
+{
+  "storybookId": "1773896866516",
+  "seo_title": "ลักษณะเด่นของมายาซอรัส — หนังสือนิทานภาพไดโนเสาร์ที่ดูแลลูกและสังเกตธรรมชาติ",
+  "meta_description": "เรื่องราวอบอุ่นเกี่ยวกับลักษณะของมายาซอราที่สร้างรังและดูแลลูกอย่างดี เนื้อหาจากหนังสือนิทานไดโนเสาร์ Tango Book และวิธีสนุกกับมัน คู่มือไดโนเสาร์สำหรับเด็กอายุ 4-7 ปี",
+  "primary_keyword": "มายาซอรา",
+  "secondary_keywords": [
+    "มายาซอรา",
+    "ไดโนเสาร์กับการเลี้ยงลูก",
+    "รังไดโนเสาร์",
+    "หนังสือนิทานไดโนเสาร์สำหรับเด็กเล็ก",
+    "หนังสือภาพไดโนเสาร์"
+  ],
+  "url_slug": "maiasaura-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "มายาซอรัส - มีอะไรที่น่าทึ่งเกี่ยวกับมายาซอรัสบ้างคะ?",
+        "url": "https://assets.tangobook.co.kr/1773896866516-%EB%A7%88%EC%9D%B4%EC%95%84%EC%82%AC%EC%9A%B0%EB%9D%BC-cover-misc-1780038184507.webp",
+        "text": "<h2>ไมายาซอรัส มีอะไรน่าสนใจบ้างนะ?</h2><p>แปลว่า \"จิ้งจกแม่ที่ดี\" <strong>ไมายาซอรัส</strong>เป็นไดโนเสาร์กินพืชที่ใจดี สร้างรังและดูแลลูกๆ อย่างเอาใจใส่เลยค่ะ</p>",
+        "caption": "ไดโนเสาร์ที่ดูแลลูก",
+        "image_style": "",
+        "image_prompt": "A Maiasaura caring for its babies in a nest, heartwarming children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "มายาซอรา - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของมายาซอรา",
+        "url": "https://assets.tangobook.co.kr/1773896866516-%EB%91%A5%EC%A7%80%EC%97%90%EC%84%9C%EC%83%88%EB%81%BC%EB%A5%BC%EB%8F%8C%EB%B3%B4%EB%8A%94%EC%A2%8B%EC%9D%80%EC%96%B4%EB%A8%B8%EB%8B%88%EB%A7%88%EC%9D%B4%EC%95%84%EC%82%AC%EC%9A%B0%EB%9D%BC-illustration-page1-1773896916915.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของมายาซอรัส</h2><p>มายาซอรัสเคยอาศัยอยู่ในทวีปอเมริกาเหนือเมื่อประมาณ 77 ล้านปีที่แล้วค่ะ <strong>รังที่มีเส้นผ่านศูนย์กลางประมาณ 2 เมตร</strong>และวางไข่ประมาณ 20 ถึง 25 ฟอง พบกระดูกขาของลูกที่ยังพัฒนาไม่เต็มที่ <strong>แสดงว่าแม่ได้นำอาหารมาให้ลูกน้อย</strong>เราจึงทราบเรื่องนี้ นอกจากนี้ <strong>ฟอสซิลแหล่งเพาะพันธุ์แบบกลุ่ม</strong>ยังมีการค้นพบว่าพวกมันใช้ชีวิตแบบสังคมเป็นฝูงด้วยค่ะ</p>",
+        "caption": "รังขนาด 2 เมตร",
+        "image_style": "",
+        "image_prompt": "A Maiasaura nest with 20 eggs, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "มายาสอรัส - ทังโกบุ๊ก «มายาสอรัส» เนื้อหาที่นำเสนอ",
+        "url": "https://assets.tangobook.co.kr/1773896866516-%EB%91%A5%EC%A7%80%EC%97%90%EC%84%9C%EC%83%88%EB%81%BC%EB%A5%BC%EB%8F%8C%EB%B3%B4%EB%8A%94%EC%A2%8B%EC%9D%80%EC%96%B4%EB%A8%B8%EB%8B%88%EB%A7%88%EC%9D%B4%EC%95%84%EC%82%AC%EC%9A%B0%EB%9D%BC-illustration-page6-1774417406091.webp",
+        "text": "<h2>เนื้อหาที่หนังสือ \"มายาซอรา\" ของ Tango Book นำเสนอ</h2><p>หนังสือ \"มายาซอรา\" ของ Tango Book แสดงให้เห็นอย่างอบอุ่น ทั้งไข่ในรัง ลูกนกที่เพิ่งฟักออกมา แม่ที่นำอาหารมาให้ และภาพการเลี้ยงดูลูกๆ เป็นกลุ่ม</p>",
+        "caption": "การเลี้ยงลูกด้วยความรักและความใส่ใจ",
+        "image_style": "",
+        "image_prompt": "A Maiasaura bringing food to its hatchlings, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "ไมอาซอรัส - ประเด็นน่ารู้ที่ควรเรียนรู้ไปด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1773896866516-%EB%91%A5%EC%A7%80%EC%97%90%EC%84%9C%EC%83%88%EB%81%BC%EB%A5%BC%EB%8F%8C%EB%B3%B4%EB%8A%94%EC%A2%8B%EC%9D%80%EC%96%B4%EB%A8%B8%EB%8B%88%EB%A7%88%EC%9D%B4%EC%95%84%EC%82%AC%EC%9A%B0%EB%9D%BC-illustration-page10-1773898129113.webp",
+        "text": "<h2>จุดที่น่าสนใจให้เรียนรู้ด้วยกัน</h2><p>กรุณาชี้ให้เห็นจุดต่างๆ เช่น รัง (ขนาด 2 เมตร, ไข่ 20-25 ฟอง), การเลี้ยงดู (การให้อาหาร), แหล่งเพาะพันธุ์ของฝูง และแม่ที่อบอุ่น นอกจากนี้ การพูดคุยกันว่า \"ไดโนเสาร์ก็ดูแลลูกได้เหมือนกันนะ\" จะเป็นเรื่องที่ดีมากค่ะ</p>",
+        "caption": "สิ่งที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A nesting colony of Maiasaura, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "Maiasaura - คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1773896866516-%EB%91%A5%EC%A7%80%EC%97%90%EC%84%9C%EC%83%88%EB%81%BC%EB%A5%BC%EB%8F%8C%EB%B3%B4%EB%8A%94%EC%A2%8B%EC%9D%80%EC%96%B4%EB%A8%B8%EB%8B%88%EB%A7%88%EC%9D%B4%EC%95%84%EC%82%AC%EC%9A%B0%EB%9D%BC-illustration-page15-1773898220345.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ลองเล่าให้ฟังดูสิว่า \"ไมอาซาวก็ดูแลลูกของมัน เหมือนที่แม่/พ่อดูแลหนู\" การเปรียบเทียบกับรังนกและการเลี้ยงดูลูกจะช่วยพัฒนาความเห็นอกเห็นใจที่อบอุ่นได้</p>",
+        "caption": "การเปรียบเทียบกับรังนก",
+        "image_style": "",
+        "image_prompt": "A parent and child looking at a bird nest with chicks, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย</h2><p><strong>คำถาม: ไมาอีซอราดูแลลูกอ่อนจริงหรือคะ/ครับ?</strong><br>คำตอบ: ใช่ค่ะ/ครับ พบว่ากระดูกขาของลูกอ่อนยังพัฒนาไม่เต็มที่ ซึ่งแสดงให้เห็นว่าแม่ได้นำอาหารมาป้อนให้</p><p><strong>คำถาม: รังเป็นอย่างไรบ้างคะ/ครับ?</strong><br>คำตอบ: พวกมันวางไข่ประมาณ 20-25 ฟอง ในรังทรงกลมที่มีเส้นผ่านศูนย์กลางประมาณ 2 เมตร และยังพบแหล่งทำรังแบบกลุ่มด้วยค่ะ/ครับ</p><p><strong>คำถาม: เราจะนำเรื่องนี้มาสนุกที่บ้านได้อย่างไรดีคะ/ครับ?</strong><br>คำตอบ: การเล่านิทานแนวที่ว่า \"ครอบครัวดูแลเธอ\" และเปรียบเทียบกับรังนกและการเลี้ยงดูลูก จะเป็นเรื่องที่ดีค่ะ/ครับ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณอ่านนิทานเรื่องนี้แล้วสนุกแบบนี้ ลองดู <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือนิทานมายาซอรา",
+        "url": "https://assets.tangobook.co.kr/1773896866516-%EB%91%A5%EC%A7%80%EC%97%90%EC%84%9C%EC%83%88%EB%81%BC%EB%A5%BC%EB%8F%8C%EB%B3%B4%EB%8A%94%EC%A2%8B%EC%9D%80%EC%96%B4%EB%A8%B8%EB%8B%88%EB%A7%88%EC%9D%B4%EC%95%84%EC%82%AC%EC%9A%B0%EB%9D%BC-illustration-page19-1774358842863.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"มายาซอรา\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้ด้วยภาพสวย ๆ และเสียงภาษาเกาหลี/อังกฤษที่ Tango Book เลยค่ะ</p><a href=\"https://tangobook.co.kr/library/1773896866516\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

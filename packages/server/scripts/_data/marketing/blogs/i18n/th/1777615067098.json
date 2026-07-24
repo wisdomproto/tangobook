@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777615067098",
+  "seo_title": "ความลับของลักษณะและชีวิตใต้น้ำของฮิปโป — หนังสือนิทานสังเกตธรรมชาติ",
+  "meta_description": "เหตุผลที่ฮิปโปใช้เวลาส่วนใหญ่อยู่ในน้ำ ข้อเท็จจริงน่าทึ่ง เช่น ปากขนาดใหญ่ ตำแหน่งของตา จมูก และหู รวมถึงเนื้อหาจากหนังสือนิทานสังเกตธรรมชาติ 'Tango Book' และวิธีการสังเกตด้วย คู่มือการสังเกตธรรมชาติสำหรับเด็กอายุ 4-7 ปี",
+  "primary_keyword": "ฮิปโป",
+  "secondary_keywords": [
+    "ลักษณะเด่นของฮิปโป",
+    "ฮิปโปในน้ำ",
+    "นิเวศของฮิปโป",
+    "หนังสือสังเกตธรรมชาติสำหรับเด็กเล็ก",
+    "หนังสือนิทานภาพสัตว์"
+  ],
+  "url_slug": "hippo-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "ฮิปโป - ฮิปโป ส่วนไหนที่น่าสนใจคะ?",
+        "url": "https://assets.tangobook.co.kr/1777615067098-%ED%95%98%EB%A7%88-cover-misc-1780033825576.webp",
+        "text": "<h2>ฮิปโปมีอะไรที่น่าทึ่งบ้างนะ?</h2><p>ที่มีรูปร่างใหญ่โต <strong>ฮิปโป</strong>เป็นสัตว์ที่น่าทึ่ง เพราะใช้เวลาส่วนใหญ่ในน้ำ การอ้าปากกว้างๆ ของมันดูน่าประทับใจมากเลยใช่ไหมล่ะ</p><p data-seo-boost=\"1\">เราได้รวบรวมเรื่องราวต่างๆ เกี่ยวกับฮิปโปไว้ด้วยกัน ทั้งลักษณะของฮิปโป ฮิปโปในน้ำ และระบบนิเวศของฮิปโป</p>",
+        "caption": "ยักษ์ในน้ำ",
+        "image_style": "",
+        "image_prompt": "A hippo resting in water, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "ฮิปโป - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของฮิปโป",
+        "url": "https://assets.tangobook.co.kr/1777615067098-%ED%95%98%EB%A7%88-illustration-page1-1784175012685.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของฮิปโป</h2><p>แม้ว่าฮิปโปจะมีรูปร่างใหญ่โตก็ตาม <strong>พวกมันจะใช้เวลาส่วนใหญ่อยู่ในน้ำตลอดวัน</strong> เพื่อปกป้องผิวที่บอบบางจากแสงแดดที่ร้อนจัดและเพื่อคลายความร้อน (พวกมันยังขับของเหลวสีแดงออกจากผิวหนังได้ด้วยนะ) <strong>ดวงตา จมูก และหูจะรวมกันอยู่บริเวณส่วนบนของหัว</strong> ทำให้พวกมันสามารถมองเห็นและหายใจได้แม้ในขณะที่ตัวจมอยู่ในน้ำ การอ้าปากกว้าง ๆ นั้นเป็นมากกว่าการกินอาหารเสียอีก <strong>แต่มันคือท่าทางแสดงความแข็งแกร่ง</strong>พวกมันเป็นสัตว์กินพืชที่ชอบเล็มหญ้าออกมาในเวลากลางคืน และยังวิ่งได้เร็วอย่างน่าประหลาดใจแม้กระทั่งบนบกด้วย</p>",
+        "caption": "ดวงตา จมูก และหูที่อยู่รวมกัน",
+        "image_style": "",
+        "image_prompt": "A hippo with eyes ears and nose above the water, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "ฮิปโป - เนื้อหาจากหนังสือแทงโก้เรื่อง \"ฮิปโป\"",
+        "url": "https://assets.tangobook.co.kr/1777615067098-%ED%95%98%EB%A7%88-illustration-page5-1784175021210.webp",
+        "text": "<h2>เนื้อหาที่หนังสือแทงโกเรื่อง «ฮิปโป» นำเสนอ</h2><p>หนังสือแทงโกเรื่อง «ฮิปโป» แสดงให้เห็นภาพของฮิปโปที่อาศัยอยู่ในน้ำ, ดวงตา จมูก และหูที่รวมกันอยู่บนหัว, การอ้าปากกว้างเพื่อแสดงออก, และการกินหญ้าในเวลากลางคืนอย่างน่ารัก</p>",
+        "caption": "การโอ้อวดพละกำลัง",
+        "image_style": "",
+        "image_prompt": "A hippo opening its mouth wide, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "ฮิปโป - จุดที่น่าสังเกตเมื่อได้ดูด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1777615067098-%ED%95%98%EB%A7%88-illustration-page10-1784175223675.webp",
+        "text": "<h2>จุดที่น่าสนใจให้สังเกตพร้อมกัน</h2><p>ให้ชี้จุดต่างๆ เช่น การใช้ชีวิตในน้ำ (เพื่อปกป้องผิว), ตำแหน่งของตา จมูก หู, ปากใหญ่ (เพื่ออวด), หรือลักษณะการกินพืช/ออกหากินตอนกลางคืน นอกจากนี้ การพูดคุยกันว่า \"ทำไมฮิปโปถึงอยู่ในน้ำล่ะ?\" จะดีมากเลยค่ะ</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A hippo grazing grass at night, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "ฮิปโป - คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777615067098-%ED%95%98%EB%A7%88-illustration-page14-1784175237124.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ลองชี้และเปรียบเทียบโดยการพูดว่า \"ตา จมูก และหูอยู่ด้านบน ถึงจะจมน้ำก็ไม่เป็นไร\" นอกจากนี้ การสอนเรื่องที่ว่า \"ปากใหญ่คือการอวดความแข็งแรง (ไม่ใช่ของกิน)\" จะช่วยกระตุ้นความสนใจได้มาก</p>",
+        "caption": "เปรียบเทียบตา จมูก หู",
+        "image_style": "",
+        "image_prompt": "A parent and child pointing to eyes nose ears like a hippo, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ทำไมฮิปโปถึงอาศัยอยู่ในน้ำคะ?</strong><br>ตอบ: เพื่อปกป้องผิวที่บอบบางจากแสงแดดที่ร้อน และเพื่อคลายความร้อนค่ะ</p><p><strong>ถาม: ทำไมฮิปโปถึงอ้าปากกว้างคะ?</strong><br>ตอบ: เป็นการแสดงออกเพื่อโอ้อวดความแข็งแรง มากกว่าการกินอาหารค่ะ</p><p><strong>ถาม: เราจะสังเกตที่บ้านได้อย่างไรดีคะ?</strong><br>ตอบ: ให้ชี้ไปที่ใบหน้าเพื่อเปรียบเทียบตำแหน่งของตา จมูก และหู พร้อมเล่าเรื่องราวว่า \"ปากใหญ่คือการโชว์พลัง\" จะดีมากเลยค่ะ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณสนุกกับการอ่านนิทานเรื่องนี้แล้ว ลองดูแบบนี้ <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือนิทานเรื่องฮิปโป",
+        "url": "https://assets.tangobook.co.kr/1777615067098-%ED%95%98%EB%A7%88-illustration-page18-1784175245390.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"ฮิปโป\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้ด้วยภาพสวย ๆ และเสียงภาษาเกาหลี/อังกฤษที่ Tango Book เลยค่ะ</p><a href=\"https://tangobook.co.kr/library/1777615067098\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

@@ -15,7 +15,7 @@ for (const id of IDS) {
   try {
     await yt.videos.update({
       part: ['status'],
-      requestBody: { id, status: { privacyStatus: 'public', selfDeclaredMadeForKids: false } },
+      requestBody: { id, status: { privacyStatus: 'public', selfDeclaredMadeForKids: true } },
     });
     console.log(`🌐 공개: ${id}`);
   } catch (e) {
