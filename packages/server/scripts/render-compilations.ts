@@ -11,7 +11,9 @@
 // 실행:
 //   pnpm --filter @tangobook/server exec tsx scripts/render-compilations.ts --category=life        # dry-run
 //   pnpm --filter @tangobook/server exec tsx scripts/render-compilations.ts --category=life --apply
-//   옵션: --style=animation --lang=ko --min=360 --max=720 --max-parts=6 --limit=1 --keep
+//   옵션: --style=animation --lang=ko --limit=1 --keep
+//   유튜브 예약 업로드(R2 대신):
+//     ... --category=life --apply --youtube --start=2026-07-28 --every=4 --hour=10
 import 'dotenv/config';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -19,6 +21,7 @@ import path from 'node:path';
 import { spawn } from 'node:child_process';
 import { getSupabaseAdmin } from '../src/providers/supabase-admin.provider.js';
 import { uploadBufferToR2 } from '../src/providers/r2.provider.js';
+import { YouTubeProvider } from '../src/providers/youtube.provider.js';
 import {
   LIFE_TRACKS,
   groupByTrack,
@@ -43,6 +46,17 @@ const MAX = Number(val('max', '720'));
 const MAX_PARTS = Number(val('max-parts', '6'));
 const LIMIT = Number(val('limit', '0')) || Infinity;
 const KEEP = has('keep');
+// --youtube: R2 대신 유튜브로 바로 올리고 publishAt 으로 예약한다.
+const YOUTUBE = has('youtube');
+const YT_CHANNEL = val('yt-channel', '탱고북스');
+const PUBLISH_HOUR = Number(val('hour', '10')); // UTC. 롱폼 10:00 UTC 슬롯과 동일
+const EVERY_DAYS = Number(val('every', '4')); // 며칠 간격 — 하루 1개 원칙을 깨지 않게
+const START = val('start', ''); // YYYY-MM-DD (기본: 내일)
+
+/** 시작일 + index*every 일 뒤 hour 시(UTC) ISO. */
+function slotIso(startMs: number, index: number, hour: number, everyDays: number): string {
+  return new Date(startMs + index * everyDays * 86400_000 + hour * 3600_000).toISOString();
+}
 
 const SERIES_LABEL: Record<string, string> = {
   life: '호리네 생활동화',
@@ -180,6 +194,28 @@ async function main() {
   }
 
   const projectId = (usable[0] as any).projectId;
+
+  // 유튜브 모드: 대상 채널 해석 + 예약 시작일 계산
+  let ytChannelId: string | undefined;
+  let startMs = 0;
+  if (YOUTUBE) {
+    const chans = await YouTubeProvider.listChannels();
+    const target = chans.find((c) => c.channelTitle === YT_CHANNEL || c.name === YT_CHANNEL);
+    if (!target) {
+      console.log(
+        `채널 '${YT_CHANNEL}' 미연동. 연동됨: ${chans.map((c) => c.channelTitle).join(', ') || '없음'}`
+      );
+      return;
+    }
+    ytChannelId = target.id;
+    const now = new Date();
+    startMs = START
+      ? Date.parse(`${START}T00:00:00Z`)
+      : Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1);
+    console.log(
+      `\n▶ 유튜브 예약 업로드 — 채널 ${target.channelTitle} · ${EVERY_DAYS}일 간격 · ${PUBLISH_HOUR}:00 UTC\n`
+    );
+  }
   for (let i = 0; i < targets.length; i++) {
     const b = targets[i];
     const meta = buildTrackCompilationMeta({
@@ -216,14 +252,43 @@ async function main() {
         out,
       ]);
 
-      const buf = fs.readFileSync(out);
-      const key = `mkt/${projectId}/compilations/${CATEGORY}-${LANG}-${i + 1}-${Date.now()}.mp4`;
-      console.log(`  업로드 ${(buf.length / 1e6).toFixed(0)}MB → ${key}`);
-      const videoUrl = await uploadBufferToR2(buf, key, 'video/mp4');
+      const sizeMb = fs.statSync(out).size / 1e6;
 
-      console.log(`  ✅ ${meta.title}`);
-      console.log(`     ${videoUrl}`);
-      console.log(`     🔴 유튜브 발행은 아직 자동 연결 안 됨 — 아래 "남은 배선" 참조`);
+      if (YOUTUBE) {
+        // 🔴 유튜브 자체 예약 발행을 쓴다(우리 스케줄러 X).
+        // 스케줄러 경로는 mkt_contents/youtube_contents/publish_records 3중 배관이 필요한데
+        // 컴필레이션은 책 1권에 대응하지 않아 맞지 않고, 발행 시점에 Railway 가 2GB 를
+        // 다시 받아야 한다. publishAt 으로 올려두면 업로드 1회로 끝나고 유튜브가 알아서 공개한다.
+        const publishAt = slotIso(startMs, i, PUBLISH_HOUR, EVERY_DAYS);
+        console.log(`  유튜브 업로드 ${sizeMb.toFixed(0)}MB (예약 ${publishAt})…`);
+        // 파일 스트림 — 2GB 를 메모리에 올리지 않는다.
+        const up = await YouTubeProvider.uploadVideo(
+          fs.createReadStream(out),
+          {
+            title: meta.title,
+            description: meta.description,
+            tags: meta.tags,
+            categoryId: '27', // Education
+            privacy: 'private', // publishAt 이 있으면 provider 가 private 로 강제
+            language: LANG,
+            publishAt,
+          },
+          (p) => process.stdout.write(`\r    진행 ${p}%   `),
+          ytChannelId,
+          fs.statSync(out).size
+        );
+        process.stdout.write('\n');
+        console.log(`  ✅ ${meta.title}`);
+        console.log(`     ${up.videoUrl} · 공개 예정 ${publishAt}`);
+      } else {
+        const buf = fs.readFileSync(out);
+        const key = `mkt/${projectId}/compilations/${CATEGORY}-${LANG}-${i + 1}-${Date.now()}.mp4`;
+        console.log(`  R2 업로드 ${sizeMb.toFixed(0)}MB → ${key}`);
+        const videoUrl = await uploadBufferToR2(buf, key, 'video/mp4');
+        console.log(`  ✅ ${meta.title}`);
+        console.log(`     ${videoUrl}`);
+        console.log(`     (유튜브로 바로 올리려면 --youtube)`);
+      }
     } finally {
       if (!KEEP) fs.rmSync(tmp, { recursive: true, force: true });
       else console.log(`  (작업 폴더 유지: ${tmp})`);
