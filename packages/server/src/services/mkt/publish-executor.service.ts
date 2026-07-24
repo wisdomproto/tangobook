@@ -2,6 +2,7 @@
 // dflo(ai-server/services/publishExecutor.ts)에서 이식 — tangobook 스키마(mkt_publish_records +
 // mkt_instagram_contents/cards)에 맞춰 적응. self_hosted(website)는 기존 스케줄러가 담당하므로 여기선
 // meta 채널만 처리한다. 타겟 id/콘텐츠 종류는 레코드 metadata 에 담겨 온다(별도 채널 테이블 없음).
+import { Readable } from 'node:stream';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { getSupabaseAdmin } from '../../providers/supabase-admin.provider.js';
 import { validatePublish, type Platform } from './meta-publish-prep.js';
@@ -199,6 +200,20 @@ export function stripLeadingNumber(title: string): string {
 }
 
 /**
+ * fetch 응답 본문을 Node 스트림으로 — 영상을 메모리에 통째로 올리지 않기 위해서다.
+ * 🔴 컴필레이션(트랙 묶음)은 편당 ~190MB × 8편 = 2GB 라 arrayBuffer() 로 받으면
+ * Railway 스케줄러가 OOM 난다. 스트림이면 메모리가 파일 크기와 무관해진다.
+ * bytes = Content-Length(진행률 계산용). 헤더가 없으면 undefined — 업로드는 정상, 진행률만 생략.
+ */
+function streamFromResponse(res: Response): { body: Readable; bytes?: number } {
+  const len = Number(res.headers.get('content-length'));
+  return {
+    body: Readable.fromWeb(res.body as Parameters<typeof Readable.fromWeb>[0]),
+    bytes: Number.isFinite(len) && len > 0 ? len : undefined,
+  };
+}
+
+/**
  * 롱폼 제목 → 쇼츠 제목.
  * 롱폼 제목은 `소재 이모지 | 훅·검색키워드 | 시리즈 오디오북` 3단 구조인데, 마지막 시리즈 구간
  * ("… 오디오북")은 36초 쇼츠에 안 맞는다. 그렇다고 제목을 통째로 버리면 가운데 **검색 키워드**
@@ -310,10 +325,10 @@ async function publishYouTube(
 
   try {
     const res = await fetch(encodeURI(reel.videoUrl));
-    if (!res.ok) return fail(sb, recordId, `영상 다운로드 실패 (${res.status})`);
-    const buf = Buffer.from(await res.arrayBuffer());
+    if (!res.ok || !res.body) return fail(sb, recordId, `영상 다운로드 실패 (${res.status})`);
+    const { body: videoStream, bytes: videoBytes } = streamFromResponse(res);
     const up = await YouTubeProvider.uploadVideo(
-      buf,
+      videoStream,
       {
         title,
         description,
@@ -323,7 +338,8 @@ async function publishYouTube(
         language: lang,
       },
       undefined,
-      meta.target_id || undefined
+      meta.target_id || undefined,
+      videoBytes
     );
 
     // 썸네일(릴스 표지) — best-effort. 🔴 쇼츠 **피드**는 유튜브가 영상 프레임을 쓰므로 여기서
@@ -402,10 +418,12 @@ async function publishLongformYouTube(
 
   try {
     const res = await fetch(encodeURI(row.video_url));
-    if (!res.ok) return fail(sb, recordId, `영상 다운로드 실패 (${res.status})`);
-    const buf = Buffer.from(await res.arrayBuffer());
+    if (!res.ok || !res.body) return fail(sb, recordId, `영상 다운로드 실패 (${res.status})`);
+    // 🔴 R2 → YouTube 를 스트림으로 흘린다(버퍼 X). 컴필레이션 묶음은 2GB 를 넘어서
+    // arrayBuffer() 로 받으면 Railway 스케줄러가 OOM 난다.
+    const { body: videoStream, bytes: videoBytes } = streamFromResponse(res);
     const up = await YouTubeProvider.uploadVideo(
-      buf,
+      videoStream,
       {
         title,
         description,
@@ -415,7 +433,8 @@ async function publishLongformYouTube(
         language: lang,
       },
       undefined,
-      meta.target_id || undefined
+      meta.target_id || undefined,
+      videoBytes
     );
 
     // 썸네일(언어별 표지) 세팅 — best-effort. 맞춤 썸네일은 인증 채널만 허용되므로 실패해도 무시.

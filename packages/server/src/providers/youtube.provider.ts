@@ -195,16 +195,25 @@ export const YouTubeProvider = {
     return google.youtube({ version: 'v3', auth: oauth2 });
   },
 
-  /** Upload a video to YouTube */
+  /**
+   * Upload a video to YouTube.
+   *
+   * 🔴 Buffer 대신 Readable 을 넘길 수 있다 — 컴필레이션(여러 편 묶음)은 2GB 를 넘어서
+   * 통째로 메모리에 올리면 Railway 스케줄러가 OOM 난다. 스트림으로 넘기면 메모리 사용량이
+   * 파일 크기와 무관해진다. 진행률(%)은 총 바이트를 알아야 계산되므로 스트림일 땐
+   * totalBytes(Content-Length)를 같이 넘긴다. 없으면 진행률만 생략되고 업로드는 정상.
+   */
   async uploadVideo(
-    videoBuffer: Buffer,
+    video: Buffer | Readable,
     meta: YouTubeUploadMeta,
     onProgress?: (percent: number) => void,
-    channelId?: string
+    channelId?: string,
+    totalBytes?: number
   ): Promise<{ videoId: string; videoUrl: string; channelId: string }> {
     const resolvedChannelId = await this.resolveChannelId(channelId);
     const youtube = await this.getAuthenticatedClient(resolvedChannelId);
-    const totalBytes = videoBuffer.length;
+    const body = Buffer.isBuffer(video) ? Readable.from(video) : video;
+    const knownBytes = Buffer.isBuffer(video) ? video.length : totalBytes;
 
     const res = await youtube.videos.insert(
       {
@@ -225,14 +234,12 @@ export const YouTubeProvider = {
             ...(meta.publishAt ? { publishAt: meta.publishAt } : {}),
           },
         },
-        media: {
-          body: Readable.from(videoBuffer),
-        },
+        media: { body },
       },
       {
         onUploadProgress: (evt) => {
-          if (onProgress && evt.bytesRead) {
-            const percent = Math.round((evt.bytesRead / totalBytes) * 100);
+          if (onProgress && evt.bytesRead && knownBytes) {
+            const percent = Math.round((evt.bytesRead / knownBytes) * 100);
             onProgress(percent);
           }
         },
