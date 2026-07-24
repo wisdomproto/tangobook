@@ -1,6 +1,6 @@
 // 공개 블로그 목록 — /blog. 발행된 자체 내부 블로그(동화책 SEO 글)를 카드 그리드로.
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useSeo } from '@/lib/useSeo';
 import { SiteFooter } from '@/components/SiteFooter';
 import { useBlogPosts, type BlogPostSummary } from './api';
@@ -73,14 +73,16 @@ function CatBadge({ category }: { category: string | null }) {
 }
 
 export default function BlogListPage() {
-  const { data: posts = [], isLoading } = useBlogPosts();
+  const { lang } = useParams();
+  const pre = lang && lang !== 'ko' ? `/${lang}` : '';
+  const { data: posts = [], isLoading } = useBlogPosts(lang || 'ko');
   const [filter, setFilter] = useState<'all' | 'classic' | 'nature'>('all');
 
   useSeo({
     title: '탱고북 블로그 — 동화·자연관찰 이야기',
     description:
       '세계명작 동화와 자연관찰 이야기를 부모와 아이가 함께 읽는 탱고북 블로그. 작품 소개, 원작 이야기, 읽어주는 법, 함께 나눌 질문까지.',
-    path: '/blog',
+    path: `${pre}/blog`,
   });
 
   const counts = useMemo(() => {
@@ -194,7 +196,7 @@ export default function BlogListPage() {
               {/* Featured — 최신 글 크게 */}
               {featured && (
                 <Link
-                  to={`/blog/${encodeURIComponent(featured.slug)}`}
+                  to={`${pre}/blog/${encodeURIComponent(featured.slug)}`}
                   className="group grid overflow-hidden rounded-[2rem] border border-ink-100 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-xl md:grid-cols-2"
                 >
                   <div className="relative aspect-[16/10] overflow-hidden md:aspect-auto md:h-full">
@@ -233,7 +235,7 @@ export default function BlogListPage() {
                   {rest.map((p) => (
                     <Link
                       key={p.slug}
-                      to={`/blog/${encodeURIComponent(p.slug)}`}
+                      to={`${pre}/blog/${encodeURIComponent(p.slug)}`}
                       className="group flex flex-col overflow-hidden rounded-3xl border border-ink-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
                     >
                       <div className="relative aspect-[4/3] overflow-hidden">

@@ -1,0 +1,106 @@
+{
+  "storybookId": "1777446759568",
+  "seo_title": "狼的特征和群体生活的秘密 — 自然观察绘本",
+  "meta_description": "关于狼如何组成群体（狼群）合作、通过嚎叫交流的秘密，以及它们是狗祖先的事实等内容；还有《Tango Book》动物绘本的内容和观察方法。4-7岁自然观察指南。",
+  "primary_keyword": "狼",
+  "secondary_keywords": ["狼的特点", "狼群", "嚎叫", "幼儿动物书", "动物绘本"],
+  "url_slug": "wolf-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "狼——狼，你觉得它有什么特别的地方吗？",
+        "url": "https://assets.tangobook.co.kr/1777446759568-%EB%8A%91%EB%8C%80-cover-misc-1780027954902.webp",
+        "text": "<h2>狼，哪些地方会让你感到好奇呢？</h2><p>成群结队生活的 <strong>狼</strong>是一种家庭情感深厚的社会性动物。它们会发出远方的嚎叫声来呼唤同伴的。</p>",
+        "caption": "像家人的团体",
+        "image_style": "",
+        "image_prompt": "A wolf pack standing together in a forest, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "狼 - 狼的自然与科学事实",
+        "url": "https://assets.tangobook.co.kr/1777446759568-%EB%8A%91%EB%8C%80-illustration-page1-1777446798985.webp",
+        "text": "<h2>狼的自然与科学知识</h2><p>狼是 <strong>群体（狼群）</strong>它们组成群体生活，通常以妈妈和爸爸狼为中心，以家庭单位生活。一起合作 <strong>捕猎比自己还大的食物</strong>它们会这样做哦。 <strong>嚎叫</strong>用嚎叫呼唤远处的同伴，并告知狼群的位置，它们用出色的嗅觉和听觉进行交流。狼是我们养育的 <strong>许多狗的远古祖先</strong>因此，它们互相照顾、共同抚养幼崽的样子非常温柔。</p>",
+        "caption": "远方回荡的嚎叫",
+        "image_style": "",
+        "image_prompt": "A wolf howling at the sky, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "狼 - 《Tango Book》中“狼”的内容",
+        "url": "https://assets.tangobook.co.kr/1777446759568-%EB%8A%91%EB%8C%80-illustration-page5-1777446810702.webp",
+        "text": "<h2>探戈书《狼》讲述的内容</h2><p>探戈书《狼》温馨地展示了狼群的合作与家庭之爱，例如群体协作捕猎、通过嚎叫进行交流，以及共同照顾幼崽的场景等。</p>",
+        "caption": "一起养的宝宝",
+        "image_style": "",
+        "image_prompt": "A wolf pack caring for cubs together, heartwarming children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "狼 — 与孩子一同观察的重点",
+        "url": "https://assets.tangobook.co.kr/1777446759568-%EB%8A%91%EB%8C%80-illustration-page10-1777446821581.webp",
+        "text": "<h2>一起观察时可以关注的重点</h2><p>请指出关于狼群（Pack）、合作狩猎、嚎叫（交流）以及犬科祖先等重点。一起讨论“为什么狼会一起嚎叫？”会很好。</p>",
+        "caption": "观察点",
+        "image_style": "",
+        "image_prompt": "A wolf pack hunting together, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "狼 - 家长指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1777446759568-%EB%8A%91%EB%8C%80-illustration-page14-1777446829570.webp",
+        "text": "<h2>家长指南 — 如何培养好奇心</h2><p>播放嚎叫声，并告诉孩子这是“呼唤同伴的信号”。如果将它与小狗（耳朵、鼻子、群体本能）的相似之处进行比较，他们就能有趣地理解“狼=犬类的祖先”。</p>",
+        "caption": "与狗的比较",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing a wolf and a dog, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>问：狼为什么成群生活呢？</strong><br>答：是为了集体重力捕猎大型猎物，并一起抚养幼崽。它们有很深的家庭情感。</p><p><strong>问：为什么会嚎叫呢？</strong><br>答：这是一种呼唤远方同伴、告知狼群位置的交流方式。</p><p><strong>问：在家里怎样观察比较好呢？</strong><br>答：可以听狼嚎的声音，比较它们和小狗的相似之处，或者讲“狼=狗的祖先”的故事。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>适合一起阅读的经典童话</h2><p>如果喜欢读这个故事，还可以看看这些 <strong>经典童话</strong>也一起来阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">小狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "狼的绘本插画",
+        "url": "https://assets.tangobook.co.kr/1777446759568-%EB%8A%91%EB%8C%80-illustration-page18-1777446839419.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">您对“狼”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book中，通过精美的插画以及韩语和英语的音频，亲身感受它吧。</p><a href=\"https://tangobook.co.kr/library/1777446759568\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

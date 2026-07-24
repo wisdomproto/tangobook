@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777550146108",
+  "seo_title": "ลักษณะของกบและความลับวงจรชีวิต — หนังสือนิทานภาพสังเกตธรรมชาติ",
+  "meta_description": "วงจรชีวิตของกบ (ไข่→ลูกอ๊อด→กบ) ข้อเท็จจริงน่าทึ่ง เช่น การหายใจทางผิวหนัง และถุงเสียง เนื้อหาจากหนังสือภาพสังเกตธรรมชาติ Tango Book รวมถึงวิธีการสังเกต คู่มือการสังเกตธรรมชาติสำหรับเด็กอายุ 4-7 ปี",
+  "primary_keyword": "กบ",
+  "secondary_keywords": [
+    "ลักษณะของกบ",
+    "วงจรชีวิตของกบ",
+    "ลูกอ๊อด",
+    "หนังสือสำหรับเด็กเล็กเกี่ยวกับการสังเกตธรรมชาติ",
+    "หนังสือนิทานภาพสัตว์"
+  ],
+  "url_slug": "frog-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "กบ – มีอะไรที่น่าสนใจเกี่ยวกับกบบ้างคะ?",
+        "url": "https://assets.tangobook.co.kr/1777550146108-%EA%B0%9C%EA%B5%AC%EB%A6%AC-cover-misc-1780026770994.webp",
+        "text": "<h2>กบ มีอะไรที่น่าทึ่งบ้างคะ?</h2><p>นักร้องแห่งสระน้ำ <strong>กบ</strong>เป็นสัตว์ที่แสดงวงจรชีวิตอันน่าอัศจรรย์ โดยเริ่มจากไข่ กลายเป็นลูกอ๊อด และเติบโตเป็นกบ</p>",
+        "caption": "นักร้องแห่งสระน้ำ",
+        "image_style": "",
+        "image_prompt": "A frog sitting on a lotus leaf in a pond, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "กบ - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของกบ",
+        "url": "https://assets.tangobook.co.kr/1777550146108-%EB%AC%BC%EA%B3%BC%EC%9C%A1%EC%A7%80%EB%A5%BC%EC%98%A4%EA%B0%80%EB%8A%94%ED%8F%B4%EC%A7%9D%ED%8F%B4%EC%A7%9D%EC%A0%90%ED%94%84%EB%8C%80%EC%9E%A5%EA%B0%9C%EA%B5%AC%EB%A6%AC-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page1-1777552007889.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของกบ</h2><p>กบนั้น <strong>ดูดซับออกซิเจนทางผิวหนังได้ด้วย (การหายใจทางผิว)</strong>ผิวหนังต้องชุ่มชื้นอยู่เสมอ วงจรชีวิตคือ <strong>ไข่ → ลูกอ๊อด (อาหารจากพืช) → การเปลี่ยนแปลงรูปร่าง (ขาหลัง → ขาหน้า → หางถูกดูดซึม) → กบ (อาหารจากแมลง)</strong> ใน 4 ขั้นตอน เปลี่ยนแปลงอย่างน่าทึ่งมากเลยล่ะ ของตัวผู้ <strong>ถุงเสียงร้อง</strong>จะขยายเสียง และด้วยดวงตาที่ยื่นออกมาจากหัว มันจะมองดูผิวน้ำได้แม้ในน้ำ กบต้นไม้จะเกาะตามที่ลื่น ๆ ด้วยแผ่นรองนิ้วเท้า</p>",
+        "caption": "จากไข่เป็นกบ",
+        "image_style": "",
+        "image_prompt": "The frog life cycle from egg to tadpole to frog, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "กบ - หนังสือแทงโก: เรื่องราวที่เกี่ยวกับ \"กบ\"",
+        "url": "https://assets.tangobook.co.kr/1777550146108-%EB%AC%BC%EA%B3%BC%EC%9C%A1%EC%A7%80%EB%A5%BC%EC%98%A4%EA%B0%80%EB%8A%94%ED%8F%B4%EC%A7%9D%ED%8F%B4%EC%A7%9D%EC%A0%90%ED%94%84%EB%8C%80%EC%9E%A5%EA%B0%9C%EA%B5%AC%EB%A6%AC-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page5-1777552048623.webp",
+        "text": "<h2>เนื้อหาที่หนังสือแทงโกเรื่อง \"กบ\" นำเสนอ</h2><p>หนังสือแทงโกเรื่อง \"กบ\" แสดงวงจรชีวิตตั้งแต่ไข่ → ลูกอ๊อด → การเปลี่ยนแปลงที่มีขา → กลายเป็นกบ และภาพการร้องเพลงด้วยถุงเสียงได้อย่างอบอุ่น</p>",
+        "caption": "กระเป๋าเพิ่มพลังเสียง",
+        "image_style": "",
+        "image_prompt": "A male frog with an inflated vocal sac singing, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "กบ – จุดที่ควรสังเกตด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1777550146108-%EB%AC%BC%EA%B3%BC%EC%9C%A1%EC%A7%80%EB%A5%BC%EC%98%A4%EA%B0%80%EB%8A%94%ED%8F%B4%EC%A7%9D%ED%8F%B4%EC%A7%9D%EC%A0%90%ED%94%84%EB%8C%80%EC%9E%A5%EA%B0%9C%EA%B5%AC%EB%A6%AC-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page10-1777552116966.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>ให้ชี้จุดต่างๆ เช่น 4 ระยะของชีวิต การหายใจทางผิวหนัง (ความชื้น) ถุงน้ำตา และดวงตาที่นูนออกมา เป็นต้น นอกจากนี้ การพูดคุยกันว่า \"ลูกอ๊อดจะกลายเป็นกบได้อย่างไร?\" จะเป็นเรื่องที่ดีมากค่ะ</p>",
+        "caption": "สิ่งที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A tadpole growing legs, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "กบ - คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777550146108-%EB%AC%BC%EA%B3%BC%EC%9C%A1%EC%A7%80%EB%A5%BC%EC%98%A4%EA%B0%80%EB%8A%94%ED%8F%B4%EC%A7%9D%ED%8F%B4%EC%A7%9D%EC%A0%90%ED%94%84%EB%8C%80%EC%9E%A5%EA%B0%9C%EA%B5%AC%EB%A6%AC-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page14-1777552129913.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ในฤดูใบไม้ผลิ ลองสังเกตลูกอ๊อดและเฝ้าดูขั้นตอนการเปลี่ยนแปลงที่ขาเริ่มงอกออกมาเป็นเวลาหลายวัน (หลังจากสังเกตแล้วให้ปล่อยกลับไปตามเดิม) และพูดคุยเกี่ยวกับ \"เพลงที่ตัวผู้ร้อง\" ขณะฟังเสียงกบ จะดีมาก</p>",
+        "caption": "การสังเกตลูกอ๊อด",
+        "image_style": "",
+        "image_prompt": "A parent and child observing tadpoles in a pond, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ลูกอ๊อดกลายเป็นกบได้อย่างไรคะ/ครับ?</strong><br>ตอบ: มันจะกลายเป็นกบผ่านกระบวนการที่เรียกว่า \"การเปลี่ยนแปลงรูปร่าง\" โดยขาหลังจะงอกออกมาและหางจะถูกดูดซึมค่ะ/ครับ</p><p><strong>ถาม: ทำไมผิวของกบถึงต้องเปียกตลอดเวลาคะ/ครับ?</strong><br>ตอบ: เพราะว่ามันต้องดูดซึมออกซิเจนผ่านผิวหนังด้วยค่ะ/ครับ (การหายใจทางผิวหนัง) ดังนั้นจึงต้องชุ่มชื้นอยู่เสมอเลยค่ะ/ครับ</p><p><strong>ถาม: เราจะสังเกตมันที่บ้านได้อย่างไรดีคะ/ครับ?</strong><br>ตอบ: ช่วงฤดูใบไม้ผลิ การสังเกตกระบวนการเปลี่ยนแปลงของลูกอ๊อด (ในบริเวณเดิม) และการฟังเสียงร้องของกบเป็นสิ่งที่ดีมากเลยค่ะ/ครับ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณสนุกกับการอ่านนิทานเรื่องนี้แล้ว ลองดูแบบนี้ <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูสิคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกหมา</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกหมา</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li><li><a href=\"https://tangobook.co.kr/blog/spider-nature-for-kids\">แมงมุม</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือภาพกบ",
+        "url": "https://assets.tangobook.co.kr/1777550146108-%EB%AC%BC%EA%B3%BC%EC%9C%A1%EC%A7%80%EB%A5%BC%EC%98%A4%EA%B0%80%EB%8A%94%ED%8F%B4%EC%A7%9D%ED%8F%B4%EC%A7%9D%EC%A0%90%ED%94%84%EB%8C%80%EC%9E%A5%EA%B0%9C%EA%B5%AC%EB%A6%AC-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page18-1777552138543.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเรื่อง \"กบ\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้ด้วยตัวคุณเองที่ Tango Book ด้วยภาพสวย ๆ และเสียงภาษาเกาหลี/อังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1777550146108\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

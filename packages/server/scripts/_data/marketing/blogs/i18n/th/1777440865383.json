@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777440865383",
+  "seo_title": "หนังสือภาพยีราฟ — ความลับของคอยาว (การสังเกตธรรมชาติสำหรับเด็กวัย 4–7 ขวบ)",
+  "meta_description": "ตั้งแต่คอยาวและลิ้นสีดำของยีราฟ ข้อเท็จจริงมหัศจรรย์ เช่น วิธีการดื่มน้ำ ไปจนถึงเนื้อหาจากหนังสือนิทานสัตว์ 'Tango Book' และวิธีการสังเกตการณ์ คู่มือการสำรวจธรรมชาติสำหรับเด็กวัย 4-7 ปี",
+  "primary_keyword": "หนังสือนิทานยีราฟ",
+  "secondary_keywords": [
+    "ลักษณะเด่นของยีราฟ",
+    "คอยีราฟ",
+    "นิเวศของยีราฟ",
+    "หนังสือนิทานสัตว์สำหรับเด็กเล็ก",
+    "หนังสือนิทานภาพสัตว์"
+  ],
+  "url_slug": "giraffe-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "ยีราฟ - ยีราฟ มีอะไรที่น่าทึ่งบ้างนะ?",
+        "url": "https://assets.tangobook.co.kr/1777440865383-%EA%B8%B0%EB%A6%B0-cover-misc-1780028589118.webp",
+        "text": "<h2>ยีราฟ มีส่วนไหนที่น่าสนใจบ้างนะ?</h2><p>ที่สูงที่สุดบนบก <strong>ยีราฟ</strong>มันกินใบไม้สูงด้วยคอที่ยาว และยังมีความลับสนุก ๆ เกี่ยวกับลิ้นที่ยาวและการดื่มน้ำของมันอีกด้วย</p><p data-seo-boost=\"1\">เราได้รวบรวมเรื่องราวหลากหลายเกี่ยวกับยีราฟ เช่น ลักษณะของยีราฟ คอของยีราฟ และนิเวศวิทยาของยีราฟมาให้แล้ว</p>",
+        "caption": "สัตว์ที่สูงที่สุด",
+        "image_style": "",
+        "image_prompt": "A tall giraffe eating leaves from a high tree, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "ยีราฟ - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของยีราฟ",
+        "url": "https://assets.tangobook.co.kr/1777440865383-%EA%B8%B0%EB%A6%B0-illustration-page1-1777440946689.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของยีราฟ</h2><p>ด้วยคอที่ยาว ยีราฟจึงสามารถเข้าถึงสิ่งที่สัตว์อื่นเอื้อมไม่ถึง <strong>ใบไม้สูงๆ</strong>มันกิน... ใบไม้เหล่านั้น ลิ้นของมันยาวและสีดำ <strong>ลิ้น (ประมาณ 45 ซม.)</strong>มันพันรอบใบไม้มีหนามเพื่อกินด้วย และที่ลิ้นเป็นสีดำก็เพราะว่า <strong>เพื่อไม่ให้ไหม้จากแสงแดด</strong>พวกเขาบอกว่า เพราะตัวมันสูงมาก <strong>เวลาดื่มน้ำ มันต้องกางขาหน้าออกเต็มที่</strong> และเพราะต้องสูบฉีดเลือดขึ้นไปถึงปลายหัว ลำไส้ใจของมันจึงใหญ่และแข็งแรงมาก มันจะนอนหลับในท่ายืนเป็นช่วงเวลาสั้นๆ</p>",
+        "caption": "ลิ้นสีดำ 45 ซม.",
+        "image_style": "",
+        "image_prompt": "A giraffe using its long black tongue to grab leaves, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "ยีราฟ - เนื้อหาที่หนังสือแทงโกเรื่อง \"ยีราฟ\" นำเสนอ",
+        "url": "https://assets.tangobook.co.kr/1777440865383-%EA%B8%B0%EB%A6%B0-illustration-page5-1777440956843.webp",
+        "text": "<h2>เนื้อหาที่หนังสือแทงโก \"ยีราฟ\" นำเสนอ</h2><p>หนังสือแทงโก \"ยีราฟ\" แสดงเสน่ห์ของยีราฟอย่างอบอุ่น ไม่ว่าจะเป็นภาพการกินใบไม้สูงด้วยคอยาว, ลิ้นที่ยาว, การดื่มน้ำโดยกางขาออก, หรือลวดลายคล้ายตาข่าย</p>",
+        "caption": "การดื่มโดยแยกขา",
+        "image_style": "",
+        "image_prompt": "A giraffe spreading its front legs to drink water, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "ยีราฟ - จุดที่ควรสังเกตเมื่อดูด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1777440865383-%EA%B8%B0%EB%A6%B0-illustration-page10-1777440970306.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>ช่วยชี้จุดต่างๆ เช่น คอที่ยาว (ใบไม้สูง) ลิ้นสีดำ (45 ซม.) การดื่มน้ำ (กางขา) และจุดอื่นๆ อย่างลายตาข่าย นอกจากนี้ การพูดคุยกันว่า \"ทำไมยีราฟถึงต้องกางขาเวลาดื่มน้ำ?\" จะเป็นเรื่องที่ดีมากค่ะ</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A close-up of giraffe net pattern coat, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "ยีราฟ - คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777440865383-%EA%B8%B0%EB%A6%B0-illustration-page14-1777440987740.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ลองเปรียบเทียบความสูงและให้ลูกรู้สึกว่า \"ยีราฟตัวนี้สูงขนาดนี้เลย!\" ให้วัดความยาวของลิ้น (45 ซม.) ด้วยไม้บรรทัด และถ้าคุณบอกพวกเขาว่า \"ที่ลิ้นเป็นสีดำเพราะมันไม่อยากไหม้\" ความสนใจก็จะเพิ่มขึ้น</p>",
+        "caption": "การวัดความยาวของลิ้น",
+        "image_style": "",
+        "image_prompt": "A parent and child measuring 45cm tongue length with a ruler, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ทำไมลิ้นของยีราฟถึงมีสีดำคะ/ครับ?</strong><br>ตอบ: เชื่อกันว่าเพื่อป้องกันไม่ให้ไหม้จากแสงแดดค่ะ/ครับ มีความยาวประมาณ 45 ซม. และใช้มันพันรอบหนามเพื่อเด็ดใบไม้กินด้วยค่ะ/ครับ</p><p><strong>ถาม: ทำไมยีราฟถึงต้องกางขาเวลาดื่มน้ำคะ/ครับ?</strong><br>ตอบ: เพราะว่ามันตัวสูงมากค่ะ/ครับ เวลาที่ต้องก้มหัวลง มันจึงต้องกางขาหน้าออกไปด้านข้างให้กว้างเลยค่ะ/ครับ</p><p><strong>ถาม: เราจะสังเกตที่บ้านได้อย่างไรบ้างคะ/ครับ?</strong><br>ตอบ: ลองเปรียบเทียบความสูง วัดความยาวลิ้นด้วยไม้บรรทัด (45 ซม.) และสังเกตลวดลายตาข่ายดูนะคะ/ครับ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณอ่านนิทานเรื่องนี้แล้วสนุกแบบนี้ ลองดู <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือภาพยีราฟ",
+        "url": "https://assets.tangobook.co.kr/1777440865383-%EA%B8%B0%EB%A6%B0-illustration-page18-1777440998077.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"ยีราฟ\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้โดยตรงที่แทงโกบุ๊ก ด้วยภาพสวย ๆ และเสียงภาษาเกาหลี/อังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1777440865383\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

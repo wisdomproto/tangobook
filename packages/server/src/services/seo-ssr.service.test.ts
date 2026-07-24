@@ -257,6 +257,24 @@ describe('renderBlogSeo', () => {
     expect(seo.bodyHtml).toContain('<li>교훈 하나</li>');
     expect(seo.bodyHtml).toContain('<blockquote>인용문</blockquote>');
   });
+
+  it('ko 전용(존재 언어 1개)은 hreflang 없음', () => {
+    expect(seo.alternatesHtml).toBe('');
+  });
+
+  it('다국어: canonical 에 langPrefix + hreflang 상호링크 + x-default', () => {
+    const vi = renderBlogSeo(post, 'vi', ['ko', 'vi', 'zh']);
+    expect(vi.canonical).toBe('https://www.tangobook.co.kr/vi/blog/cinderella-fairy-tale-for-kids');
+    expect(vi.alternatesHtml).toContain(
+      'hreflang="ko" href="https://www.tangobook.co.kr/blog/cinderella-fairy-tale-for-kids"'
+    );
+    expect(vi.alternatesHtml).toContain(
+      'hreflang="vi" href="https://www.tangobook.co.kr/vi/blog/cinderella-fairy-tale-for-kids"'
+    );
+    expect(vi.alternatesHtml).toContain('hreflang="x-default"');
+    expect(vi.bodyHtml).toContain('href="/vi/blog"'); // 내부 링크도 프리픽스
+    expect(vi.bodyHtml).toContain('href="/vi/library/1772107608499/about"');
+  });
 });
 
 describe('renderBlogListSeo', () => {

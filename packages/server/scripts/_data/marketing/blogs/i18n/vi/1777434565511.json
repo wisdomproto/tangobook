@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777434565511",
+  "seo_title": "Sách tranh về voi — Bí mật của chiếc vòi dài (Quan sát thiên nhiên cho bé 4-7 tuổi)",
+  "meta_description": "Bí mật chiếc vòi dài của voi được dùng như bàn tay, những sự thật thú vị về đôi tai lớn và ngà voi, nội dung sách tranh động vật Tango Book, và cả cách quan sát. Hướng dẫn quan sát thiên nhiên dành cho lứa tuổi 4-7.",
+  "primary_keyword": "Sách tranh về voi",
+  "secondary_keywords": [
+    "Đặc điểm của voi",
+    "Vòi voi",
+    "Sinh thái loài voi",
+    "Sách động vật cho trẻ nhỏ",
+    "Sách tranh về động vật"
+  ],
+  "url_slug": "elephant-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "Voi - Voi có điểm gì thú vị nhỉ?",
+        "url": "https://assets.tangobook.co.kr/1777434565511-%EC%BD%94%EB%81%BC%EB%A6%AC-cover-misc-1780028157350.webp",
+        "text": "<h2>Voi, điểm nào khiến bạn thấy kỳ diệu nhỉ?</h2><p>Loài vật lớn nhất trên cạn <strong>Voi</strong>Là loài vật kỳ diệu, dùng vòi dài để nhặt đồ và uống nước. Tai to và ngà voi cũng có những bí mật đấy nhé.</p><p data-seo-boost=\"1\">Bạn có tò mò về cốt truyện sách tranh voi không? Chúng ta cùng xem những bài học từ sách tranh voi qua các bức vẽ nhé. Hãy khám phá cả những cảnh quan trọng trong câu chuyện sách tranh voi nữa nha. Mời bạn đọc và trò chuyện với con bằng cuốn sách tranh voi này nhé.</p>",
+        "caption": "Động vật trên cạn lớn nhất",
+        "image_style": "",
+        "image_prompt": "A large elephant using its long trunk in a savanna, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "Voi - Sự thật tự nhiên và khoa học về voi",
+        "url": "https://assets.tangobook.co.kr/1777434565511-%EC%BD%94%EA%B0%80%EC%86%90%EC%9D%B4%EB%84%A4%EB%93%AC%EC%A7%81%ED%95%9C%EC%BD%94%EB%81%BC%EB%A6%AC-illustration-page1-1777436649595.webp",
+        "text": "<h2>Sự thật tự nhiên và khoa học về voi</h2><p>Của con voi <strong>Vòi dài là cơ quan hợp nhất của môi trên và mũi</strong>Nhờ đó, với vô số cơ bắp, nó có thể cầm đồ vật như bằng tay, hút nước lên và đổ vào miệng uống, cũng như hái những chiếc lá cao. <strong>Chiếc tai lớn vẫy như chiếc quạt để làm mát cơ thể</strong> Đóng vai trò như, thứ cứng rắn nhô ra khỏi miệng <strong>Ngà voi không phải là sừng mà là răng mọc dài ra</strong>Đấy ạ.</p>",
+        "caption": "Cái mũi dùng giống như bàn tay",
+        "image_style": "",
+        "image_prompt": "An elephant picking up an object with its trunk, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "Voi - Nội dung của cuốn sách \"Tango Book: Voi\"",
+        "url": "https://assets.tangobook.co.kr/1777434565511-%EC%BD%94%EA%B0%80%EC%86%90%EC%9D%B4%EB%84%A4%EB%93%AC%EC%A7%81%ED%95%9C%EC%BD%94%EB%81%BC%EB%A6%AC-illustration-page5-1777436665922.webp",
+        "text": "<h2>Nội dung sách \"Voi\" của Tango Book</h2><p>Sách \"Voi\" của Tango Book giới thiệu vẻ đáng yêu của voi một cách thân thuộc, như chiếc vòi dài dùng như tay, đôi tai lớn như quạt, ngà voi, và hình ảnh sống theo đàn.</p>",
+        "caption": "Đôi tai như cánh quạt",
+        "image_style": "",
+        "image_prompt": "An elephant flapping its big ears, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "Voi - Những điểm đáng quan sát khi cùng nhau khám phá",
+        "url": "https://assets.tangobook.co.kr/1777434565511-%EC%BD%94%EA%B0%80%EC%86%90%EC%9D%B4%EB%84%A4%EB%93%AC%EC%A7%81%ED%95%9C%EC%BD%94%EB%81%BC%EB%A6%AC-illustration-page10-1777436689966.webp",
+        "text": "<h2>Các điểm nên cùng bé quan sát</h2><p>Hãy chỉ ra các điểm như mũi dài (tay, nước, thức ăn), tai to (hạ sốt), răng sữa (răng), hay việc sống theo bầy đàn. Việc cùng nhau trò chuyện về \"Bằng mũi chúng ta có thể làm gì?\" là rất tốt.</p>",
+        "caption": "Các điểm cần quan sát",
+        "image_style": "",
+        "image_prompt": "A close-up of elephant tusks, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "Voi - Hướng dẫn dành cho phụ huynh — Cách nuôi dưỡng sự tò mò",
+        "url": "https://assets.tangobook.co.kr/1777434565511-%EC%BD%94%EA%B0%80%EC%86%90%EC%9D%B4%EB%84%A4%EB%93%AC%EC%A7%81%ED%95%9C%EC%BD%94%EB%81%BC%EB%A6%AC-illustration-page14-1777436705176.webp",
+        "text": "<h2>Hướng dẫn dành cho phụ huynh — Cách nuôi dưỡng sự tò mò</h2><p>Hãy thử lắc tay như cái mũi và bắt chước hành động \"nhặt đồ vật·uống nước\". Cho bé trải nghiệm vai trò của đôi tai lớn (làm mát) bằng cách quạt, và nếu bạn nói với bé rằng \"Thực ra mẹ là răng\" thì sự hứng thú sẽ tăng lên.</p>",
+        "caption": "Trò chơi giả vờ làm mũi",
+        "image_style": "",
+        "image_prompt": "A parent and child swinging arms like elephant trunks, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Câu hỏi thường gặp (FAQ)</h2><p><strong>Hỏi: Vòi voi dùng để làm gì ạ?</strong><br>Đáp: Nó dùng để cầm đồ vật như bàn tay, hút nước uống và hái những chiếc lá cao ăn. Vòi voi có rất nhiều cơ bắp đấy ạ.</p><p><strong>Hỏi: Ngà voi có phải là sừng không ạ?</strong><br>Đáp: Không ạ. Đó là những chiếc răng (ngà voi) mọc dài ra thôi. Nó không phải sừng đâu nhé.</p><p><strong>Hỏi: Ở nhà chúng mình có thể quan sát như thế nào ạ?</strong><br>Đáp: Các hoạt động như bắt chước vòi bằng cánh tay, trải nghiệm vai trò tai bằng quạt, và kể chuyện về việc \"ngà voi = răng\" là rất tốt ạ.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Những truyện cổ tích kinh điển nên đọc cùng nhau</h2><p>Nếu bạn thích thú với câu chuyện này, thì những <strong>Truyện cổ tích kinh điển</strong>Cũng hãy cùng nhau đọc nhé.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">Chú chó con</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">Cỏ chó</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">Con ếch</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">Con kiến</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "Hình minh họa sách truyện về voi",
+        "url": "https://assets.tangobook.co.kr/1777434565511-%EC%BD%94%EA%B0%80%EC%86%90%EC%9D%B4%EB%84%A4%EB%93%AC%EC%A7%81%ED%95%9C%EC%BD%94%EB%81%BC%EB%A6%AC-illustration-page18-1777436723082.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">Bạn có tò mò về \"Voi\" không?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">Hãy tự mình khám phá tại sách Tango với những bức tranh đẹp và âm thanh tiếng Hàn·tiếng Anh nhé.</p><a href=\"https://tangobook.co.kr/library/1777434565511\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 Xem sách truyện →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

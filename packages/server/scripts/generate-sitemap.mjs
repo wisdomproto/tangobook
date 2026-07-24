@@ -113,26 +113,31 @@ async function main() {
     entries.push(urlEntry({ loc: `${SITE_URL}${p}/guide/nature`, lastmod: today, changefreq: 'weekly', priority: 0.8 }));
   }
 
-  // 공개 블로그 (발행된 self_hosted 내부 블로그) — 공개 API 에서 목록 fetch
+  // 공개 블로그 (발행된 self_hosted 내부 블로그) — 언어별 공개 API 에서 목록 fetch.
+  // ko 는 bare, 그 외 /:lang 프리픽스 (about·guide 와 동일 규칙). 번역 없는 언어는 빈 목록.
   let blogCount = 0;
-  try {
-    const res = await fetch(`${SITE_URL}/api/blog`);
-    const body = await res.json();
-    const posts = Array.isArray(body?.data) ? body.data : [];
-    for (const p of posts) {
-      if (!p?.slug) continue;
-      entries.push(urlEntry({
-        loc: `${SITE_URL}/blog/${encodeURIComponent(p.slug)}`,
-        lastmod: fmtDate(p.publishedAt),
-        changefreq: 'monthly',
-        priority: 0.7,
-      }));
-      blogCount++;
+  for (const lang of hubLangList) {
+    const p = lang === 'ko' ? '' : `/${lang}`;
+    const q = lang === 'ko' ? '' : `?lang=${lang}`;
+    try {
+      const res = await fetch(`${SITE_URL}/api/blog${q}`);
+      const body = await res.json();
+      const posts = Array.isArray(body?.data) ? body.data : [];
+      for (const post of posts) {
+        if (!post?.slug) continue;
+        entries.push(urlEntry({
+          loc: `${SITE_URL}${p}/blog/${encodeURIComponent(post.slug)}`,
+          lastmod: fmtDate(post.publishedAt),
+          changefreq: 'monthly',
+          priority: 0.7,
+        }));
+        blogCount++;
+      }
+    } catch (e) {
+      console.warn(`[sitemap] 블로그 목록 실패 (${lang}, 스킵): ${e.message}`);
     }
-    console.log(`[sitemap] 공개 블로그: ${blogCount}`);
-  } catch (e) {
-    console.warn(`[sitemap] 블로그 목록 실패 (스킵): ${e.message}`);
   }
+  console.log(`[sitemap] 공개 블로그(전 언어): ${blogCount}`);
 
   // 책별 라우트
   let publicCount = 0;

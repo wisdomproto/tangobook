@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773891332232",
+  "seo_title": "史食龙特征 — 背板恐龙自然观察绘本",
+  "meta_description": "关于背部排列着大骨板、尾巴带有尖刺的食肉龙（或：史前恐龙）的奇特特征等令人惊叹的事实，以及《Tango Book》恐龙绘本的内容和阅读方法。4-7岁儿童恐龙指南。",
+  "primary_keyword": "史前龙（或：三角龙）",
+  "secondary_keywords": ["史前龙（或：三角龙）", "纸板恐龙", "食草恐龙", "儿童恐龙书", "恐龙绘本"],
+  "url_slug": "stegosaurus-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "三角龙 - 三角龙，哪些地方会让人感到新奇呢？",
+        "url": "https://assets.tangobook.co.kr/1773891332232-%EC%8A%A4%ED%85%8C%EA%B3%A0%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-cover-misc-1780038251369.webp",
+        "text": "<h2>史前龙（Stegosaurus），哪些地方会让人觉得神奇呢？</h2><p>背上巨大的 <strong>板片</strong>这些排列成行，并在尾巴上带有尖锐的骨刺 <strong>史前龙（Stegosaurus）</strong>是一种一眼就能认出来的可爱的草食恐龙哦。</p>",
+        "caption": "带背板的恐龙",
+        "image_style": "",
+        "image_prompt": "A Stegosaurus with rows of back plates and tail spikes, majestic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "史前恐龙——史前科学知识",
+        "url": "https://assets.tangobook.co.kr/1773891332232-%EB%93%B1%EC%97%90%EA%B1%B0%EB%8C%80%ED%95%9C%EB%BC%88%ED%8C%90%EC%9D%84%EA%B0%80%EC%A7%84%EC%A7%80%EB%B6%95%EB%8F%84%EB%A7%88%EB%B1%80%EC%8A%A4%ED%85%8C%EA%B3%A0%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page1-1773891643858.webp",
+        "text": "<h2>史前恐龙ステゴサウ鲁斯的自然和科学事实</h2><p>ステゴサウルス生活在约一亿五千万年前的侏罗纪晚期，体长大约有9米。等等 <strong>甲板内部有很多血管，</strong> 可能用于体温调节和炫耀。尾巴末端有尖刺（太古迈尔）， <strong>有发现用这些尖刺刺穿天敌异顶龙骨骼的化石</strong>也被发现。大脑和身体相比非常小。</p>",
+        "caption": "富含血管的骨板",
+        "image_style": "",
+        "image_prompt": "A close-up of Stegosaurus back plates with blood vessels, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "史前龙——《探戈书》中关于“史前龙”的内容",
+        "url": "https://assets.tangobook.co.kr/1773891332232-%EB%93%B1%EC%97%90%EA%B1%B0%EB%8C%80%ED%95%9C%EB%BC%88%ED%8C%90%EC%9D%84%EA%B0%80%EC%A7%84%EC%A7%80%EB%B6%95%EB%8F%84%EB%A7%88%EB%B1%80%EC%8A%A4%ED%85%8C%EA%B3%A0%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page6-1773891657735.webp",
+        "text": "<h2>《Tango Book》讲述了什么内容</h2><p>《Tango Book》“食肉龙”生动地展示了一只可爱的植食恐龙，包括它背上的大骨板、尾巴的尖刺以及与天敌搏斗的场景。</p>",
+        "caption": "尾刺武器",
+        "image_style": "",
+        "image_prompt": "A Stegosaurus defending with its tail spikes, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "史前龙科——值得一起了解的知识点",
+        "url": "https://assets.tangobook.co.kr/1773891332232-%EB%93%B1%EC%97%90%EA%B1%B0%EB%8C%80%ED%95%9C%EB%BC%88%ED%8C%90%EC%9D%84%EA%B0%80%EC%A7%84%EC%A7%80%EB%B6%95%EB%8F%84%EB%A7%88%EB%B1%80%EC%8A%A4%ED%85%8C%EA%B3%A0%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page10-1773891897031.webp",
+        "text": "<h2>适合一起了解的重点</h2><p>请指出一些重点，比如背部的骨板（用于体温或炫耀）、尾巴的尖刺（作为武器）、小脑和侏罗纪生活等。一起讨论“骨板为什么会有呢？”会很好。</p>",
+        "caption": "观察点",
+        "image_style": "",
+        "image_prompt": "A close-up of Stegosaurus tail spikes, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "史前龙——家长指南——如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1773891332232-%EB%93%B1%EC%97%90%EA%B1%B0%EB%8C%80%ED%95%9C%EB%BC%88%ED%8C%90%EC%9D%84%EA%B0%80%EC%A7%84%EC%A7%80%EB%B6%95%EB%8F%84%EB%A7%88%EB%B1%80%EC%8A%A4%ED%85%8C%EA%B3%A0%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page15-1773891914690.webp",
+        "text": "<h2>家长指南 — 如何培养好奇心</h2><p>让孩子数一数瓦楞纸板的数量，并聊聊“受到阳光照射一定变暖了（体温调节）”。画出尾刺，让孩子想象防御武器，兴趣会更浓。</p>",
+        "caption": "瓦楞纸数数",
+        "image_style": "",
+        "image_prompt": "A parent and child counting back plates on a dinosaur picture, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>Q. 角龙背上的骨板是用来做什么的呢？</strong><br>A. 因为内部有很多血管，所以人们认为它用于调节体温和炫耀。</p><p><strong>Q. 尾巴上的尖刺是武器吗？</strong><br>A. 是的。甚至发现了用这些尖刺刺穿了天敌异顶龙骨骼的化石。</p><p><strong>Q. 在家里怎样玩才好呢？</strong><br>A. 可以数骨板，讲“在阳光下变暖的骨板”的故事，或者画画尾巴尖刺。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>适合一起阅读的经典童话</h2><p>如果喜欢读这个故事，还可以看看这些 <strong>经典童话</strong>也一起来阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">小狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "史前龙科恐龙绘本插画",
+        "url": "https://assets.tangobook.co.kr/1773891332232-%EB%93%B1%EC%97%90%EA%B1%B0%EB%8C%80%ED%95%9C%EB%BC%88%ED%8C%90%EC%9D%84%EA%B0%80%EC%A7%84%EC%A7%80%EB%B6%95%EB%8F%84%EB%A7%88%EB%B1%80%EC%8A%A4%ED%85%8C%EA%B3%A0%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page19-1774357735468.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“食肉龙”感兴趣吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用精美的图画和韩语·英语语音亲自了解它吧。</p><a href=\"https://tangobook.co.kr/library/1773891332232\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

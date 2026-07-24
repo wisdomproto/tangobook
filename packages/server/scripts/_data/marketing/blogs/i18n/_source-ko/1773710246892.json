@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773710246892",
+  "seo_title": "뇌와 심장 이야기 — 우리 몸의 과학 자연관찰 그림책",
+  "meta_description": "생각을 담당하는 뇌와 쉬지 않고 뛰는 심장의 비밀 등 신체 과학 사실과, 탱고북 몸 그림책 내용, 아이와 알아보는 법까지. 4~7세 신체 자연관찰 가이드.",
+  "primary_keyword": "뇌와 심장",
+  "secondary_keywords": ["뇌와 심장", "심장 박동", "뇌 역할", "유아 신체 책", "몸 그림책"],
+  "url_slug": "brain-heart-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "뇌와 심장 이야기 - 뇌와 심장, 어떤 점이 신기할까요?",
+        "url": "https://assets.tangobook.co.kr/1773710246892-%EB%87%8C%EC%99%80%EC%8B%AC%EC%9E%A5%EC%9D%B4%EC%95%BC%EA%B8%B0-cover-misc-1780103253865.webp",
+        "text": "<h2>뇌와 심장, 어떤 점이 신기할까요?</h2><p>생각하고 느끼게 하는 <strong>뇌</strong>와 쉬지 않고 뛰는 <strong>심장</strong>은 우리 몸의 가장 중요한 두 기관이에요. 지금도 열심히 일하고 있답니다.</p>",
+        "caption": "가장 중요한 두 기관",
+        "image_style": "",
+        "image_prompt": "A friendly cartoon brain and heart working together in a child body, bright children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "뇌와 심장 이야기 - 뇌와 심장의 자연·과학 사실",
+        "url": "https://assets.tangobook.co.kr/1773710246892-%EB%82%B4%EB%AA%B8%EC%9D%98%EB%98%91%EB%98%91%ED%95%9C%EB%8C%80%EC%9E%A5%EB%8B%98%EB%87%8C%EC%99%80%EC%8B%AC%EC%9E%A5%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page1-1773710499273.webp",
+        "text": "<h2>뇌와 심장의 자연·과학 사실</h2><p><strong>뇌</strong>는 약 1.4kg으로, 약 <strong>860억 개의 신경 세포</strong>가 전기 신호로 정보를 주고받아요. 몸이 쓰는 산소의 약 25%를 쓸 만큼 바쁘고, 잠자는 동안 기억을 정리하지요. <strong>심장</strong>은 1분에 60~100번, 하루 <strong>10만 번 이상</strong> 뛰며 온몸에 피를 보내요. 우리 몸의 혈관을 다 이으면 지구 두 바퀴가 넘는답니다.</p>",
+        "caption": "하루 10만 번",
+        "image_style": "",
+        "image_prompt": "A cartoon heart pumping blood through the body, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "뇌와 심장 이야기 - 탱고북 «뇌와 심장 이야기»이 다루는 내용",
+        "url": "https://assets.tangobook.co.kr/1773710246892-%EB%82%B4%EB%AA%B8%EC%9D%98%EB%98%91%EB%98%91%ED%95%9C%EB%8C%80%EC%9E%A5%EB%8B%98%EB%87%8C%EC%99%80%EC%8B%AC%EC%9E%A5%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page5-1773710644807.webp",
+        "text": "<h2>탱고북 «뇌와 심장 이야기»이 다루는 내용</h2><p>탱고북 «뇌와 심장 이야기»는 생각·기억을 담당하는 뇌, 쉬지 않고 뛰는 심장, 둘이 어떻게 함께 일하는지를 아이 눈높이로 보여 줍니다.</p>",
+        "caption": "기억을 정리하는 뇌",
+        "image_style": "",
+        "image_prompt": "A friendly brain resting and organizing memories during sleep, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "뇌와 심장 이야기 - 함께 알아보면 좋은 포인트",
+        "url": "https://assets.tangobook.co.kr/1773710246892-%EB%82%B4%EB%AA%B8%EC%9D%98%EB%98%91%EB%98%91%ED%95%9C%EB%8C%80%EC%9E%A5%EB%8B%98%EB%87%8C%EC%99%80%EC%8B%AC%EC%9E%A5%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page10-1773710694415.webp",
+        "text": "<h2>함께 알아보면 좋은 포인트</h2><p>뇌(생각·기억·잠), 심장(박동·피 보내기), 박동 수(하루 10만 번), 혈관(아주 김) 같은 포인트를 짚어 주세요. \"심장은 왜 쉬지 않고 뛸까?\"를 함께 이야기하면 좋습니다.</p>",
+        "caption": "관찰 포인트",
+        "image_style": "",
+        "image_prompt": "A child feeling a heartbeat with a hand on the chest, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "뇌와 심장 이야기 - 부모 가이드 — 호기심을 키우는 법",
+        "url": "https://assets.tangobook.co.kr/1773710246892-%EB%82%B4%EB%AA%B8%EC%9D%98%EB%98%91%EB%98%91%ED%95%9C%EB%8C%80%EC%9E%A5%EB%8B%98%EB%87%8C%EC%99%80%EC%8B%AC%EC%9E%A5%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page14-1773710707521.webp",
+        "text": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>가슴에 손을 대고 심장 박동을 느껴 보고, 제자리 뛰기 후 더 빨라지는 걸 관찰해 보세요. \"잠을 잘 자면 뇌가 기억을 정리해\"를 알려 주면 좋은 수면 습관에도 도움이 됩니다.</p>",
+        "caption": "박동 관찰",
+        "image_style": "",
+        "image_prompt": "A parent and child checking heartbeat after jumping, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 심장은 하루에 몇 번 뛰나요?</strong><br>A. 하루 10만 번 이상 뜁니다. 쉬지 않고 온몸에 산소가 풍부한 피를 보내요.</p><p><strong>Q. 잠을 자면 뇌는 무엇을 하나요?</strong><br>A. 기억을 정리·강화하고 노폐물을 청소합니다. 그래서 잠이 아주 중요해요.</p><p><strong>Q. 집에서 어떻게 알아보면 좋을까요?</strong><br>A. 가슴에 손 대고 박동 느끼기, 뛴 뒤 빨라진 박동 관찰, 좋은 수면 습관 이야기가 좋습니다.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>함께 읽으면 좋은 명작 동화</h2><p>이 동화를 재미있게 읽었다면 이런 <strong>명작 동화</strong>도 함께 읽어 보세요.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">강아지</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">강아지풀</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">개구리</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">개미</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "뇌와 심장 이야기 그림책 삽화",
+        "url": "https://assets.tangobook.co.kr/1773710246892-%EB%82%B4%EB%AA%B8%EC%9D%98%EB%98%91%EB%98%91%ED%95%9C%EB%8C%80%EC%9E%A5%EB%8B%98%EB%87%8C%EC%99%80%EC%8B%AC%EC%9E%A5%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page18-1773710735358.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">「뇌와 심장 이야기」가 궁금하신가요?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">아름다운 그림과 한국어·영어 음성으로 탱고북에서 직접 만나보세요.</p><a href=\"https://tangobook.co.kr/library/1773710246892\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 동화책 보러가기 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

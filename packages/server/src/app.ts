@@ -212,22 +212,36 @@ export function createApp() {
     // 존재하지 않는 id 는 null → next() → catch-all(self-canonical) 폴백.
     app.get('/library/:id', aboutHandler(false));
 
-    app.get('/blog', (_req, res, next) =>
-      sendSeo(res, next, async () => {
-        const { renderBlogListSeo } = await import('./services/seo-ssr.service.js');
-        const { listPublishedBlogs } = await import('./services/mkt/blog-public.service.js');
-        return renderBlogListSeo(await listPublishedBlogs());
-      })
-    );
+    // 언어별 블로그 — ko 는 bare, 그 외 /:lang 프리픽스 (about 과 동일 규칙).
+    const blogListHandler =
+      (langFromPath: boolean) =>
+      (req: express.Request, res: express.Response, next: express.NextFunction) =>
+        sendSeo(res, next, async () => {
+          const { renderBlogListSeo } = await import('./services/seo-ssr.service.js');
+          const { listPublishedBlogs, blogListLangs } =
+            await import('./services/mkt/blog-public.service.js');
+          const lang = langFromPath ? String(req.params.lang) : 'ko';
+          const posts = await listPublishedBlogs(lang);
+          if (langFromPath && posts.length === 0) return null; // 번역 없는 언어 → SPA 404
+          return renderBlogListSeo(posts, lang, await blogListLangs());
+        });
+    app.get('/blog', blogListHandler(false));
+    app.get('/:lang/blog', blogListHandler(true));
 
-    app.get('/blog/:slug', (req, res, next) =>
-      sendSeo(res, next, async () => {
-        const { renderBlogSeo } = await import('./services/seo-ssr.service.js');
-        const { getPublishedBlog } = await import('./services/mkt/blog-public.service.js');
-        const post = await getPublishedBlog(String(req.params.slug));
-        return post ? renderBlogSeo(post) : null;
-      })
-    );
+    const blogHandler =
+      (langFromPath: boolean) =>
+      (req: express.Request, res: express.Response, next: express.NextFunction) =>
+        sendSeo(res, next, async () => {
+          const { renderBlogSeo } = await import('./services/seo-ssr.service.js');
+          const { getPublishedBlog, blogLangs } =
+            await import('./services/mkt/blog-public.service.js');
+          const lang = langFromPath ? String(req.params.lang) : 'ko';
+          const post = await getPublishedBlog(String(req.params.slug), lang);
+          if (!post) return null;
+          return renderBlogSeo(post, lang, await blogLangs(post.slug));
+        });
+    app.get('/blog/:slug', blogHandler(false));
+    app.get('/:lang/blog/:slug', blogHandler(true));
 
     const hubHandler =
       (langFromPath: boolean) =>

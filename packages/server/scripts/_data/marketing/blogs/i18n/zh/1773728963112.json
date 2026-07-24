@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773728963112",
+  "seo_title": "迪普洛多库斯特点 — 鞭尾恐龙自然观察绘本",
+  "meta_description": "关于拥有14米鞭尾和梳状牙齿的三角龙（Diplodocus）等奇妙特点及知识，以及《探戈书》恐龙绘本的内容和阅读方法。适合4至7岁儿童的恐龙指南。",
+  "primary_keyword": "歧龙",
+  "secondary_keywords": ["双叶龙", "长颈恐龙", "鞭尾恐龙", "儿童恐龙书", "恐龙绘本"],
+  "url_slug": "diplodocus-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "鸭嘴龙——鸭嘴龙，有哪些神奇之处呢？",
+        "url": "https://assets.tangobook.co.kr/1773728963112-%EB%94%94%ED%94%8C%EB%A1%9C%EB%8F%84%EC%BF%A0%EC%8A%A4-cover-misc-1780039346323.webp",
+        "text": "<h2>描绘迪普洛多孔，哪些地方很神奇呢？</h2><p>脖子和尾巴占据了身体大部分的 <strong>迪普洛多孔</strong>是一种又长又苗条的巨大食草恐龙。它最大的特点是那条长达14米的鞭子尾巴哦。</p>",
+        "caption": "高大而苗条的巨人",
+        "image_style": "",
+        "image_prompt": "A long slender Diplodocus with a very long neck and tail, majestic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "鸭嘴龙 - 鸭嘴龙的自然与科学知识",
+        "url": "https://assets.tangobook.co.kr/1773728963112-%EC%84%B8%EC%83%81%EC%97%90%EC%84%9C%EA%B0%80%EC%9E%A5%EA%B8%B4%EA%BC%AC%EB%A6%AC%EB%A5%BC%EA%B0%80%EC%A7%84%EA%B1%B0%EC%9D%B8%EB%94%94%ED%94%8C%EB%A1%9C%EB%8F%84%EC%BF%A0%EC%8A%A4-illustration-page1-1773729637314.webp",
+        "text": "<h2>描绘翼龙的自然和科学事实</h2><p>描绘翼龙身体长度约为24~27米，它的脖子和尾巴比身体还长。 <strong>由超过80块骨头组成的14米长的尾巴</strong>研究表明它可能像鞭子一样甩动。只集中在前面的 <strong>梳状的牙齿</strong>用它来啃食植物，然后将它们整个吞下，再用胃石消化。它的颈骨内部像气囊一样空心，很轻，孵化出来后 <strong>在10年内长成了成年体型</strong>成长了。</p>",
+        "caption": "14米长的尾巴",
+        "image_style": "",
+        "image_prompt": "A Diplodocus swinging its 14m whip-like tail, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "迪普洛多库斯 - 探戈书《迪普洛多库斯》所涵盖的内容",
+        "url": "https://assets.tangobook.co.kr/1773728963112-%EC%84%B8%EC%83%81%EC%97%90%EC%84%9C%EA%B0%80%EC%9E%A5%EA%B8%B4%EA%BC%AC%EB%A6%AC%EB%A5%BC%EA%B0%80%EC%A7%84%EA%B1%B0%EC%9D%B8%EB%94%94%ED%94%8C%EB%A1%9C%EB%8F%84%EC%BF%A0%EC%8A%A4-illustration-page6-1773729788946.webp",
+        "text": "<h2>《Tango Book》中描绘的《翼龙科》（或译：三角龙）的内容</h2><p>《Tango Book》中的《翼龙科》宏大地展示了长而修长的巨型恐龙，包括其伸长的脖子和尾巴、梳状的牙齿以及群居的样子等。</p>",
+        "caption": "刮叶的牙齿",
+        "image_style": "",
+        "image_prompt": "A Diplodocus combing leaves with its comb-shaped teeth, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "翼龙科（Dipleodocus）—值得和孩子一起了解的知识点",
+        "url": "https://assets.tangobook.co.kr/1773728963112-%EC%84%B8%EC%83%81%EC%97%90%EC%84%9C%EA%B0%80%EC%9E%A5%EA%B8%B4%EA%BC%AC%EB%A6%AC%EB%A5%BC%EA%B0%80%EC%A7%84%EA%B1%B0%EC%9D%B8%EB%94%94%ED%94%8C%EB%A1%9C%EB%8F%84%EC%BF%A0%EC%8A%A4-illustration-page10-1773729802490.webp",
+        "text": "<h2>一起了解的重点</h2><p>请指出长脖子、尾巴（鞭状，14米）、梳齿和快速成长等重点。“描绘双龙和阿波托龙有什么相似之处？”这个问题，一起聊聊会更好。</p>",
+        "caption": "观察点",
+        "image_style": "",
+        "image_prompt": "A herd of Diplodocus walking together, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "迪普洛多库斯 - 家长指南 - 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1773728963112-%EC%84%B8%EC%83%81%EC%97%90%EC%84%9C%EA%B0%80%EC%9E%A5%EA%B8%B4%EA%BC%AC%EB%A6%AC%EB%A5%BC%EA%B0%80%EC%A7%84%EA%B1%B0%EC%9D%B8%EB%94%94%ED%94%8C%EB%A1%9C%EB%8F%84%EC%BF%A0%EC%8A%A4-illustration-page15-1773730116879.webp",
+        "text": "<h2>家长指南 — 如何培养好奇心</h2><p>比较阿帕托龙（Apatosaurus）的照片，找出相似点和不同点。“牙齿像梳子”这样的观察，以及将快速成长（10年）与孩子的成长进行比较，会很有趣。</p>",
+        "caption": "恐龙比较",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing two long-necked dinosaurs, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>Q. 描洛多巨龙的尾巴有多长？</strong><br>A. 大约有14米长，由超过80块骨头组成。研究表明它可能像鞭子一样挥舞。</p><p><strong>Q. 它是如何进食的？</strong><br>A. 它用前方的梳状牙齿刮食植物，将它们整个吞下，然后用胃石（石头）进行消化。</p><p><strong>Q. 在家可以如何学习呢？</strong><br>A. 可以比较它和异特龙，观察梳状牙齿，以及关于快速成长的故事是很好的。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "翼龙绘本插图",
+        "url": "https://assets.tangobook.co.kr/1773728963112-%EC%84%B8%EC%83%81%EC%97%90%EC%84%9C%EA%B0%80%EC%9E%A5%EA%B8%B4%EA%BC%AC%EB%A6%AC%EB%A5%BC%EA%B0%80%EC%A7%84%EA%B1%B0%EC%9D%B8%EB%94%94%ED%94%8C%EB%A1%9C%EB%8F%84%EC%BF%A0%EC%8A%A4-illustration-page19-1774355457607.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“三角龙”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book中，通过精美的图画和韩语·英语语音，亲身体验它吧。</p><a href=\"https://tangobook.co.kr/library/1773728963112\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

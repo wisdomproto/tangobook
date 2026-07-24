@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773320834158",
+  "seo_title": "蜗牛的特征与生态 — 慢行者的秘密 自然观察绘本",
+  "meta_description": "蜗牛的壳和粘液、齿舌等奇妙的事实，以及《Tango Book》自然观察绘本的内容，甚至包括如何和孩子一起观察。4~7岁自然观察指南。",
+  "primary_keyword": "蜗牛",
+  "secondary_keywords": ["蜗牛特点", "蜗牛生态", "观察养蜗牛", "幼儿自然观察书", "动物图画书"],
+  "url_slug": "snail-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "蜗牛——蜗牛，有什么特别的地方呢？",
+        "url": "https://assets.tangobook.co.kr/1773320834158-%EB%8B%AC%ED%8C%BD%EC%9D%B4-cover-misc-1780029801610.webp",
+        "text": "<h2>蜗牛，哪些地方会让人感到神奇呢？</h2><p>背上带着家，慢慢爬行的 <strong>蜗牛</strong>是孩子们在雨天遇到的自然朋友。慢行之中，充满了科学知识。</p><p data-seo-boost=\"1\">我们一起收录了关于蜗牛的各种故事，包括蜗牛的特征、生态习性以及饲养观察等。</p>",
+        "caption": "带着房子的蜗牛",
+        "image_style": "",
+        "image_prompt": "A snail with a spiral shell crawling on a wet leaf after rain, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "蜗牛 - 蜗牛的自然与科学知识",
+        "url": "https://assets.tangobook.co.kr/1773320834158-%EC%A7%91%EC%9D%84%EC%A7%80%EA%B3%A0%EB%8B%A4%EB%8B%88%EB%8A%94%EB%8A%90%EB%A6%BC%EB%B3%B4%EB%8B%AC%ED%8C%BD%EC%9D%B4-illustration-page1-1773444469383.webp",
+        "text": "<h2>蜗牛的自然和科学知识</h2><p>蜗牛分泌粘稠的 <strong>粘液</strong>分泌粘液，即使在粗糙的表面也能像滑一样爬行，并保持身体湿润。嘴里有像小锯子一样的 <strong>齿舌</strong>有齿舌，啃食叶子。如果遇到危险， <strong>外壳</strong> 就会钻进外壳里躲起来，触角末端还长着眼睛。许多蜗牛是雌雄同体（自웅동체），全世界有数万种。</p>",
+        "caption": "触角尖的眼睛",
+        "image_style": "",
+        "image_prompt": "Close-up of a snail's eye stalks (tentacles), informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "蜗牛 - 探戈书《蜗牛》所讲述的内容",
+        "url": "https://assets.tangobook.co.kr/1773320834158-%EC%A7%91%EC%9D%84%EC%A7%80%EA%B3%A0%EB%8B%A4%EB%8B%88%EB%8A%94%EB%8A%90%EB%A6%BC%EB%B3%B4%EB%8B%AC%ED%8C%BD%EC%9D%B4-illustration-page5-1773444493691.webp",
+        "text": "<h2>《探戈书》《蜗牛》所讲述的内容</h2><p>《探戈书》《蜗牛》展示了用粘液爬行的样子、用触角观察周围的行为、躲进壳里的防御，啃食叶子的样子，以及慢慢地跟随从蛋里孵化的小蜗牛。</p>",
+        "caption": "溜回家里",
+        "image_style": "",
+        "image_prompt": "A snail retreating into its shell, defensive behavior, children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "蜗牛——一起观察的好点子",
+        "url": "https://assets.tangobook.co.kr/1773320834158-%EC%A7%91%EC%9D%84%EC%A7%80%EA%B3%A0%EB%8B%A4%EB%8B%88%EB%8A%94%EB%8A%90%EB%A6%BC%EB%B3%B4%EB%8B%AC%ED%8C%BD%EC%9D%B4-illustration-page10-1773444520242.webp",
+        "text": "<h2>可以一起观察的重点</h2><p>请指出像外壳（移动的家/防御）、粘液（打滑/保湿）、触角（眼睛）、齿舌（啃叶子）这样的重点。和孩子一起讨论“蜗牛为什么会留下黏糊的小路？”、“眼睛在哪里呢？”是非常好的。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "A shiny mucus trail left by a snail on a surface, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "蜗牛 - 家长指南：如何通过观察与体验来延伸学习",
+        "url": "https://assets.tangobook.co.kr/1773320834158-%EC%A7%91%EC%9D%84%EC%A7%80%EA%B3%A0%EB%8B%A4%EB%8B%88%EB%8A%94%EB%8A%90%EB%A6%BC%EB%B3%B4%EB%8B%AC%ED%8C%BD%EC%9D%B4-illustration-page14-1773444531717.webp",
+        "text": "<h2>父母指南 — 从观察和体验拓展</h2><p>观察一下雨后花坛里蜗牛留下的闪亮足迹。看到它被轻轻碰一下就缩回去的样子（温柔地），或者啃食生菜叶子的样子，就能感受到它的奇妙。（观察完毕，放回原位）</p>",
+        "caption": "慢慢地观察",
+        "image_style": "",
+        "image_prompt": "A parent and child observing a snail on a leaf with a magnifier, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>问：蜗牛的眼睛在哪里？</strong><br>答：眼睛附着在大的触角末端。它会用触角观察周围环境，慢慢移动。</p><p><strong>问：蜗牛为什么会留下黏糊糊的痕迹？</strong><br>答：这是因为它分泌黏液，以便像滑行一样移动，并保持身体湿润。</p><p><strong>问：家里怎样观察比较好呢？</strong><br>答：雨后，用放大镜观察花坛里的黏液痕迹、触角和啃食的叶子，然后把它放回原处。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "蜗牛绘本插画",
+        "url": "https://assets.tangobook.co.kr/1773320834158-%EC%A7%91%EC%9D%84%EC%A7%80%EA%B3%A0%EB%8B%A4%EB%8B%88%EB%8A%94%EB%8A%90%EB%A6%BC%EB%B3%B4%EB%8B%AC%ED%8C%BD%EC%9D%B4-illustration-page18-1773444543267.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“蜗牛”感兴趣吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用美丽的图画和韩语·英语语音亲自体验一下吧。</p><a href=\"https://tangobook.co.kr/library/1773320834158\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

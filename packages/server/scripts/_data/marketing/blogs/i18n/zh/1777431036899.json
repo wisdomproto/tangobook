@@ -1,0 +1,106 @@
+{
+  "storybookId": "1777431036899",
+  "seo_title": "海豹的特征与海洋生活的秘密——自然观察绘本",
+  "meta_description": "关于海豹在寒冷海洋中生存的秘密（脂肪层、胡须）以及它们能在陆地上行走的原因等奇妙事实，还有《Tango Book》动物绘本的内容和观察方法。4-7岁自然观察指南。",
+  "primary_keyword": "海豹",
+  "secondary_keywords": ["海豹的特征", "海狮，海狮", "海洋哺乳动物", "幼儿动物书", "动物图画书"],
+  "url_slug": "fur-seal-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "海豹——海豹，有什么特别的地方呢？",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%AC%BC%EA%B0%9C-cover-misc-1780028534881.webp",
+        "text": "<h2>海狮，哪些地方会让人觉得神奇呢？</h2><p>在海洋和陆地上穿梭的 <strong>海狮</strong>是用鳍状脚游泳，在陆地上也能行走的神奇海洋哺乳动物哦。</p>",
+        "caption": "海洋哺乳动物",
+        "image_style": "",
+        "image_prompt": "A fur seal swimming and resting on rocks by the sea, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "海豹 - 海豹的自然与科学知识",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EB%82%A0%EB%A0%B5%ED%95%9C%EB%AC%BC%EA%B0%9C-illustration-page1-1777431481602.webp",
+        "text": "<h2>海狮的自然和科学知识</h2><p>海狮拥有鳍状脚 <strong>海豹类动物</strong> 作为海洋哺乳动物， <strong>它们将尾鳍向前弯曲，在陆地上也能行走</strong>（与没有耳朵的海豹不同）。厚厚的 <strong>皮下脂肪层（鲸脂）</strong>这能让它们在寒冷的海水中保持体温，并用长而敏感的 <strong>胡须来感知鱼类的移动</strong>在海里捕食。小宝宝吃着母乳长大，能听懂妈妈的叫声并找到她。</p>",
+        "caption": "用鳍走路",
+        "image_style": "",
+        "image_prompt": "A fur seal walking on land with flippers, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "海豹 - 探戈书《海豹》讲述的内容",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EB%82%A0%EB%A0%B5%ED%95%9C%EB%AC%BC%EA%B0%9C-illustration-page5-1777431565301.webp",
+        "text": "<h2>《探戈书》中的《海豹》讲述的内容</h2><p>《探戈书》中的《海豹》温馨地展示了它用鳍状肢游泳的样子、在陆地上行走的样子、用胡须捕猎的样子，以及照顾小宝宝的母亲。</p>",
+        "caption": "妈妈和宝宝",
+        "image_style": "",
+        "image_prompt": "A fur seal mother with her pup, heartwarming children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "海豹 - 共同观察的好点位",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EB%82%A0%EB%A0%B5%ED%95%9C%EB%AC%BC%EA%B0%9C-illustration-page10-1777431667008.webp",
+        "text": "<h2>一起观察时可以关注的重点</h2><p>请指出鳍脚（游泳/行走）、脂肪层（体温）、胡须（感觉）、母子等重点。一起聊聊“海豹如何在寒冷的海洋中生存？”会很好。</p>",
+        "caption": "观察点",
+        "image_style": "",
+        "image_prompt": "A close-up of fur seal whiskers, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "海豹——父母指南——如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EB%82%A0%EB%A0%B5%ED%95%9C%EB%AC%BC%EA%B0%9C-illustration-page14-1777431736450.webp",
+        "text": "<h2>父母指南 — 如何培养好奇心</h2><p>可以在水族馆或动物园观察海狮游泳和走路的样子。如果说“厚厚的脂肪就像件厚衣服一样保暖（鲸脂）”，孩子会更容易理解。</p>",
+        "caption": "水族馆观察",
+        "image_style": "",
+        "image_prompt": "A parent and child watching seals at an aquarium, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>问：海豹可以在陆地上行走吗？</strong><br>答：是的。它们通过将后鳍肢向前弯曲在陆地上行走。这是与没有耳朵的海豹区分开来的特点。</p><p><strong>问：它们如何在寒冷的海洋中生存呢？</strong><br>答：厚厚的皮下脂肪（Blubber）可以保护它们的体温。它们用胡须来感知鱼类。</p><p><strong>问：我们在家里怎样观察比较好呢？</strong><br>答：可以在水族馆或动物园观察它们游泳和行走，并讲述“鲸脂=厚衣服”的故事是很好的。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>适合一起阅读的经典童话</h2><p>如果喜欢读这个故事，还可以看看这些 <strong>经典童话</strong>也一起来阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">小狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "海豹绘本插画",
+        "url": "https://assets.tangobook.co.kr/1777431036899-%EB%B0%94%EB%8B%A4%EC%9D%98%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EB%82%A0%EB%A0%B5%ED%95%9C%EB%AC%BC%EA%B0%9C-illustration-page18-1777431813120.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">好奇“海狮”吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book中，通过精美的图画和韩语·英语音频亲身体验吧。</p><a href=\"https://tangobook.co.kr/library/1777431036899\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773739068170",
+  "seo_title": "普拉萨乌罗洛福斯特征 — 用冠发出声音的恐龙自然观察绘本",
+  "meta_description": "关于拥有长头冠、能发出像大号喇叭声的异特龙（Parasaurolophus）等奇妙知识，还有《探戈书》恐龙绘本的内容和阅读方法。4-7岁恐龙指南。",
+  "primary_keyword": "鸭背龙",
+  "secondary_keywords": ["鸭背龙", "有冠的恐龙", "会发出声音的恐龙", "儿童恐龙书", "恐龙绘本"],
+  "url_slug": "parasaurolophus-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "普拉萨乌罗洛福斯 - 普拉萨乌罗洛福斯，有哪些神奇之处呢？",
+        "url": "https://assets.tangobook.co.kr/1773739068170-%ED%8C%8C%EB%9D%BC%EC%82%AC%EC%9A%B0%EB%A1%A4%EB%A1%9C%ED%91%B8%EC%8A%A4-cover-misc-1780039524447.webp",
+        "text": "<h2>普拉萨乌罗洛福斯，哪些地方很神奇呢？</h2><p>头上长着又长又酷的 <strong>冠</strong>的 <strong>普拉萨乌罗洛福斯</strong>是一种可能用那个冠发出声音的神奇食草恐龙。</p>",
+        "caption": "长着冠羽的恐龙",
+        "image_style": "",
+        "image_prompt": "A Parasaurolophus with a long head crest in a forest, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "普拉萨乌罗洛福斯 - 关于普拉萨乌罗洛福斯的自然与科学事实",
+        "url": "https://assets.tangobook.co.kr/1773739068170-%EB%A8%B8%EB%A6%AC%EC%9C%84%EC%97%90%EC%95%85%EA%B8%B0%EB%A5%BC%EA%B0%80%EC%A7%84%EA%B3%B5%EB%A3%A1%ED%8C%8C%EB%9D%BC%EC%82%AC%EC%9A%B0%EB%A1%A4%EB%A1%9C%ED%91%B8%EC%8A%A4-illustration-page1-1773739186896.webp",
+        "text": "<h2>普拉萨乌罗洛福斯的自然和科学事实</h2><p>普拉萨乌罗洛福斯的 <strong>这个头饰是一个空管，连接着鼻子。</strong>空气可以穿过它。根据计算机模拟研究，用这个头饰 <strong>像长号一样低沉的声音</strong>它可能会发出这种声音。这个头饰可能用于识别同种，呼唤配偶，以及与群体交流。它的身体长度约为9.5~10米，生活在白垩纪晚期的北美洲。</p>",
+        "caption": "空心管",
+        "image_style": "",
+        "image_prompt": "A cross-section of the hollow tube crest connected to the nose, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "普拉萨乌罗洛福斯 - 探戈书《普拉萨乌罗洛福斯》所涵盖的内容",
+        "url": "https://assets.tangobook.co.kr/1773739068170-%EB%A8%B8%EB%A6%AC%EC%9C%84%EC%97%90%EC%95%85%EA%B8%B0%EB%A5%BC%EA%B0%80%EC%A7%84%EA%B3%B5%EB%A3%A1%ED%8C%8C%EB%9D%BC%EC%82%AC%EC%9A%B0%EB%A1%A4%EB%A1%9C%ED%91%B8%EC%8A%A4-illustration-page6-1773739284347.webp",
+        "text": "<h2>《Tango Book》关于《副羽龙科》的内容</h2><p>《Tango Book》《副羽龙科》温馨地展示了会唱歌的恐龙，包括它长而漂亮的头骨、用头骨发出的声音，以及群体交流的样子。</p>",
+        "caption": "与群体沟通",
+        "image_style": "",
+        "image_prompt": "A Parasaurolophus making a sound with its crest among a herd, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "普拉萨乌罗洛福斯——可以一起了解的知识点",
+        "url": "https://assets.tangobook.co.kr/1773739068170-%EB%A8%B8%EB%A6%AC%EC%9C%84%EC%97%90%EC%95%85%EA%B8%B0%EB%A5%BC%EA%B0%80%EC%A7%84%EA%B3%B5%EB%A3%A1%ED%8C%8C%EB%9D%BC%EC%82%AC%EC%9A%B0%EB%A1%A4%EB%A1%9C%ED%91%B8%EC%8A%A4-illustration-page10-1773739295025.webp",
+        "text": "<h2>一起了解的好点</h2><p>请指出像长冠（空管）、大号音、群体交流、用两只脚和四只脚走路这样的重点。“他们是如何用冠发出声音的？”一起聊聊会很好。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "A close-up of the Parasaurolophus crest, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "普拉萨乌罗洛福斯 - 家长指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1773739068170-%EB%A8%B8%EB%A6%AC%EC%9C%84%EC%97%90%EC%95%85%EA%B8%B0%EB%A5%BC%EA%B0%80%EC%A7%84%EA%B3%B5%EB%A3%A1%ED%8C%8C%EB%9D%BC%EC%82%AC%EC%9A%B0%EB%A1%A4%EB%A1%9C%ED%91%B8%EC%8A%A4-illustration-page15-1773739308440.webp",
+        "text": "<h2>父母指南 — 如何培养好奇心</h2><p>吹气进入空软管或管道，发出“低沉的声音”，模仿簧片的原理。如果让孩子听一些乐器（如大号）的声音，他们就能轻松理解簧片的功能。</p>",
+        "caption": "模仿公鸡叫声",
+        "image_style": "",
+        "image_prompt": "A parent and child blowing into a tube to make low sounds, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>Q. 副羽龙的头冠有什么作用？</strong><br>A. 它可能是一个与鼻孔相连的空管，能发出像大号（圆号）的声音。它们用它来呼唤配偶和与群体交流。</p><p><strong>Q. 它真的能发出声音吗？</strong><br>A. 根据计算机模拟研究，它可能能够发出低音调的声音。</p><p><strong>Q. 在家里怎样玩才好呢？</strong><br>A. 可以尝试对着空管吹气发出声音，或者模仿大号的声音。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>适合一起阅读的经典童话</h2><p>如果喜欢读这个故事，还可以看看这些 <strong>经典童话</strong>也一起来阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">小狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "《普拉萨乌罗洛福斯》图画书插画",
+        "url": "https://assets.tangobook.co.kr/1773739068170-%EB%A8%B8%EB%A6%AC%EC%9C%84%EC%97%90%EC%95%85%EA%B8%B0%EB%A5%BC%EA%B0%80%EC%A7%84%EA%B3%B5%EB%A3%A1%ED%8C%8C%EB%9D%BC%EC%82%AC%EC%9A%B0%EB%A1%A4%EB%A1%9C%ED%91%B8%EC%8A%A4-illustration-page19-1774355184179.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“副羽龙”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用精美的图画和韩语·英语语音亲自了解它吧。</p><a href=\"https://tangobook.co.kr/library/1773739068170\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

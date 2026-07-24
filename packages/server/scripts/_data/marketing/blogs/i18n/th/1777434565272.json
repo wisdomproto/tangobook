@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777434565272",
+  "seo_title": "เสือ ลักษณะ และความลับของลายทาง — หนังสือภาพสังเกตธรรมชาติ",
+  "meta_description": "ความจริงที่ว่าลายเสือแต่ละตัวแตกต่างกันเหมือนลายนิ้วมือ เรื่องราวอันน่าทึ่ง เช่น ความสามารถในการล่าที่ยอดเยี่ยม เนื้อหาจากหนังสือนิทานสัตว์ของ Tango Book ไปจนถึงวิธีการสังเกตการณ์ คู่มือการสังเกตธรรมชาติสำหรับเด็กอายุ 4-7 ปี",
+  "primary_keyword": "เสือ",
+  "secondary_keywords": [
+    "ลักษณะของเสือ",
+    "ลายเสือ",
+    "ระบบนิเวศของเสือ",
+    "หนังสือภาพสัตว์สำหรับเด็ก",
+    "หนังสือนิทานภาพสัตว์"
+  ],
+  "url_slug": "tiger-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "เสือ – เสือมีอะไรที่น่าสนใจบ้างคะ",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%ED%98%B8%EB%9E%91%EC%9D%B4-cover-misc-1780028371172.webp",
+        "text": "<h2>เสือมีอะไรที่น่าทึ่งบ้างนะ?</h2><p>ที่ใหญ่ที่สุดในตระกูลแมว <strong>เสือ</strong>เป็นสัตว์ที่ทั้งเป็นมิตรและดูเท่ ซึ่งปรากฏในนิทานเก่าๆ ของเราบ่อยครั้งเลยค่ะ ลายทางของมันมีเคล็ดลับที่น่าทึ่งซ่อนอยู่ด้วยนะ</p>",
+        "caption": "เสือในป่า",
+        "image_style": "",
+        "image_prompt": "A majestic tiger with orange and black stripes in tall grass, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "เสือ - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของเสือ",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page1-1777436215651.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของเสือ</h2><p>ลายทางสีดำบนพื้นหลังสีส้มของเสือช่วยให้มันซ่อนตัวในพงหญ้า <strong>ทำหน้าที่เป็นลายพราง และที่น่าทึ่งคือ</strong> ลายทางของเสือแต่ละตัวจะแตกต่างกันเหมือนลายนิ้วมือเลยค่ะ <strong>ด้วยสายตาที่มองเห็นในเวลากลางคืนได้ดีเยี่ยม อุ้งเท้าที่นุ่ม และกรงเล็บที่ซ่อนได้</strong>การล่าเหยื่ออย่างเงียบเชียบ <strong>มันทำได้ค่ะ ต่างจากแมวส่วนใหญ่</strong>เสือชอบน้ำและว่ายน้ำเก่ง <strong>และเป็นสัตว์ที่อยู่โดดเดี่ยวในป่า ต้องใช้ชีวิตอยู่คนเดียว</strong>ในธรรมชาติกำลังใกล้สูญพันธุ์แล้วนะคะ</p>",
+        "caption": "ลายเส้นที่แตกต่าง เหมือนลายนิ้วมือ",
+        "image_style": "",
+        "image_prompt": "A close-up of tiger stripes, each pattern unique, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "เสือ - แทงโกบุ๊ก เนื้อหาที่เกี่ยวข้องกับ \"เสือ\"",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page5-1777434701236.webp",
+        "text": "<h2>เนื้อหาที่หนังสือทังโกเรื่อง \"เสือ\" นำเสนอ</h2><p>หนังสือทังโกเรื่อง \"เสือ\" แสดงเสน่ห์ของเสือได้อย่างน่าตื่นเต้น ไม่ว่าจะเป็นลายสวยงาม การล่าที่เงียบเชียบ การว่ายน้ำ และพฤติกรรมการทำเครื่องหมายอาณาเขต</p>",
+        "caption": "เสือที่ชอบน้ำ",
+        "image_style": "",
+        "image_prompt": "A tiger swimming in water, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "เสือ - จุดที่น่าสังเกตและเรียนรู้ด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page10-1777436300048.webp",
+        "text": "<h2>จุดน่าสนใจที่ควรสังเกตพร้อมกัน</h2><p>ให้ชี้จุดต่างๆ เช่น ลาย (การพรางตัว/ลายนิ้วมือ), การมองเห็นในที่มืด, กรงเล็บที่ซ่อนได้, หรือการว่ายน้ำ เป็นต้น จะดีมากถ้าคุณพูดคุยด้วยกันว่า \"ลายพวกนี้ต่างกันจังเลย น่าทึ่งไหม?\"</p>",
+        "caption": "สิ่งที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A tiger stalking silently with soft paws, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "เสือ - คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page14-1777436356921.webp",
+        "text": "<h2>คู่มือผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ให้เปรียบเทียบลายเสือในรูปภาพและหาว่า \"แตกต่างกันไปหมดเลย!\" เปรียบเทียบสิ่งที่คล้ายกับแมว (เช่น กรงเล็บและหนวด) และการปลูกฝังความรักชีวิตผ่านเรื่องราวของสัตว์ใกล้สูญพันธุ์จะดีมาก</p>",
+        "caption": "การเปรียบเทียบกับแมว",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing tiger and cat features, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ลายเสือทุกตัวเหมือนกันไหมคะ?</strong><br>ตอบ: ไม่ค่ะ เหมือนลายนิ้วมือของมนุษย์เลย ทุกตัวไม่เหมือนกัน เราสามารถแยกแยะเสือได้จากลายเหล่านี้ค่ะ</p><p><strong>ถาม: เสือชอบน้ำไหมคะ?</strong><br>ตอบ: ใช่ค่ะ ต่างจากแมวส่วนใหญ่ เสือชอบน้ำและว่ายน้ำเก่งด้วยนะคะ</p><p><strong>ถาม: เราจะสังเกตที่บ้านได้อย่างไรดีคะ?</strong><br>ตอบ: การเปรียบเทียบลายเสือจากรูปภาพ การหาจุดที่คล้ายแมว และเรื่องราวเกี่ยวกับสัตว์ใกล้สูญพันธุ์ เป็นกิจกรรมที่ดีเลยค่ะ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณสนุกกับการอ่านนิทานเรื่องนี้แล้ว ลองดูแบบนี้ <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือภาพเรื่องเสือ",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page18-1777436388768.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเรื่อง \"เสือ\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้ด้วยตัวคุณเองที่ Tango Book ด้วยภาพสวยงามและเสียงภาษาเกาหลี/อังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1777434565272\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

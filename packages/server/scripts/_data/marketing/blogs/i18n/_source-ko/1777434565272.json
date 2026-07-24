@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777434565272",
+  "seo_title": "호랑이 특징과 줄무늬의 비밀 — 자연관찰 그림책",
+  "meta_description": "호랑이의 줄무늬가 지문처럼 모두 다르다는 사실과 뛰어난 사냥 능력 등 신기한 이야기와, 탱고북 동물 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "primary_keyword": "호랑이",
+  "secondary_keywords": [
+    "호랑이 특징",
+    "호랑이 줄무늬",
+    "호랑이 생태",
+    "유아 동물 책",
+    "동물 그림책"
+  ],
+  "url_slug": "tiger-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "호랑이 - 호랑이, 어떤 점이 신기할까요?",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%ED%98%B8%EB%9E%91%EC%9D%B4-cover-misc-1780028371172.webp",
+        "text": "<h2>호랑이, 어떤 점이 신기할까요?</h2><p>고양잇과 중 가장 큰 <strong>호랑이</strong>는 우리 옛이야기에도 자주 나오는 친근하면서도 멋진 동물이에요. 줄무늬에 놀라운 비밀이 있답니다.</p>",
+        "caption": "숲속의 호랑이",
+        "image_style": "",
+        "image_prompt": "A majestic tiger with orange and black stripes in tall grass, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "호랑이 - 호랑이의 자연·과학 사실",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page1-1777436215651.webp",
+        "text": "<h2>호랑이의 자연·과학 사실</h2><p>호랑이의 주황 바탕 검은 줄무늬는 풀숲에 몸을 숨기는 <strong>위장</strong> 역할을 해요. 놀랍게도 <strong>줄무늬는 지문처럼 한 마리 한 마리가 모두 달라요</strong>. 뛰어난 야간 시력과 푹신한 발바닥, 숨길 수 있는 발톱으로 <strong>소리 없이 사냥</strong>하지요. 대부분의 고양잇과와 달리 <strong>물을 좋아하고 헤엄</strong>도 잘 치며, 혼자 사는 단독 생활 동물이에요. 야생에서는 멸종 위기랍니다.</p>",
+        "caption": "지문처럼 다른 줄무늬",
+        "image_style": "",
+        "image_prompt": "A close-up of tiger stripes, each pattern unique, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "호랑이 - 탱고북 «호랑이»이 다루는 내용",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page5-1777434701236.webp",
+        "text": "<h2>탱고북 «호랑이»이 다루는 내용</h2><p>탱고북 «호랑이»는 멋진 줄무늬, 소리 없는 사냥, 헤엄치는 모습, 영역을 표시하는 행동 등 호랑이의 매력을 박진감 있게 보여 줍니다.</p>",
+        "caption": "물을 좋아하는 호랑이",
+        "image_style": "",
+        "image_prompt": "A tiger swimming in water, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "호랑이 - 함께 관찰하면 좋은 포인트",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page10-1777436300048.webp",
+        "text": "<h2>함께 관찰하면 좋은 포인트</h2><p>줄무늬(위장·지문), 야간 시력, 숨는 발톱, 헤엄 같은 포인트를 짚어 주세요. \"줄무늬가 다 다르다니 신기하지?\"를 함께 이야기하면 좋습니다.</p>",
+        "caption": "관찰 포인트",
+        "image_style": "",
+        "image_prompt": "A tiger stalking silently with soft paws, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "호랑이 - 부모 가이드 — 호기심을 키우는 법",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page14-1777436356921.webp",
+        "text": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>호랑이 사진의 줄무늬를 비교하며 \"모두 달라!\"를 찾아보세요. 고양이와 닮은 점(발톱·수염)을 비교하고, 멸종 위기 이야기로 생명을 아끼는 마음을 키우면 좋습니다.</p>",
+        "caption": "고양이와 비교",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing tiger and cat features, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 호랑이 줄무늬는 다 똑같나요?</strong><br>A. 아니요. 사람의 지문처럼 한 마리 한 마리 모두 다릅니다. 줄무늬로 호랑이를 구별할 수 있어요.</p><p><strong>Q. 호랑이는 물을 좋아하나요?</strong><br>A. 네. 대부분의 고양잇과와 달리 물을 좋아하고 헤엄도 잘 칩니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 사진으로 줄무늬 비교, 고양이와 닮은 점 찾기, 멸종 위기 이야기가 좋습니다.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>함께 읽으면 좋은 명작 동화</h2><p>이 동화를 재미있게 읽었다면 이런 <strong>명작 동화</strong>도 함께 읽어 보세요.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">강아지</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">강아지풀</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">개구리</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">개미</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "호랑이 그림책 삽화",
+        "url": "https://assets.tangobook.co.kr/1777434565272-%EC%96%B4%ED%9D%A5%EC%88%B2%EC%86%8D%EC%9D%98%EC%99%95%EB%AC%B4%EC%84%9C%EC%9A%B4%ED%98%B8%EB%9E%91%EC%9D%B4-illustration-page18-1777436388768.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">「호랑이」가 궁금하신가요?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">아름다운 그림과 한국어·영어 음성으로 탱고북에서 직접 만나보세요.</p><a href=\"https://tangobook.co.kr/library/1777434565272\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 동화책 보러가기 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

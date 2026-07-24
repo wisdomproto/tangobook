@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777439576248",
+  "seo_title": "ลักษณะของหมีและความลับของการจำศีล — หนังสือนิทานสังเกตธรรมชาติ",
+  "meta_description": "ความจริงที่ว่าหมีเป็นสัตว์กินทุกอย่าง เรื่องราวที่น่าทึ่ง เช่น การจำศีลในฤดูหนาว และการเลี้ยงลูกอ่อน เนื้อหาจากหนังสือนิทานสัตว์ของ Tango Book รวมถึงวิธีการสังเกตธรรมชาติ คู่มือสำหรับเด็กวัย 4-7 ปี",
+  "primary_keyword": "หมี",
+  "secondary_keywords": [
+    "ลักษณะของหมี",
+    "หมีจำศีล",
+    "ระบบนิเวศของหมี",
+    "หนังสือนิทานสัตว์สำหรับเด็กเล็ก",
+    "หนังสือนิทานภาพสัตว์"
+  ],
+  "url_slug": "bear-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "หมี - หมี มีส่วนไหนที่น่าสนใจบ้างคะ?",
+        "url": "https://assets.tangobook.co.kr/1777439576248-%EA%B3%B0-cover-misc-1780028104762.webp",
+        "text": "<h2>หมี มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>ตัวใหญ่และแข็งแรง <strong>หมี</strong>มันเป็นสัตว์กินไม่เลือกที่กินปลา น้ำผึ้ง และผลไม้จากต้นไม้ได้ค่ะ ในฤดูหนาวที่หนาวเย็น มันยังมีนิสัยแปลกๆ คือการนอนในถ้ำด้วยนะคะ</p><p data-seo-boost=\"1\">เราได้รวบรวมเรื่องราวต่างๆ เกี่ยวกับหมีไว้ด้วยกัน ทั้งลักษณะของหมี การจำศีลของหมี และระบบนิเวศของหมีค่ะ</p>",
+        "caption": "หมีสัตว์กินได้ทุกอย่าง",
+        "image_style": "",
+        "image_prompt": "A bear catching a fish by a river, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "หมี - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของหมี",
+        "url": "https://assets.tangobook.co.kr/1777439576248-%EB%8D%A9%EC%B9%98%EA%B0%80%EC%BB%A4%EB%8B%A4%EB%9E%80%ED%84%B8%EB%B3%B4%EA%B3%B0-illustration-page1-1777440024841.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของหมี</h2><p>หมีกินทั้งเนื้อและพืช <strong>สัตว์ที่กินได้หลากหลาย</strong>พวกมันชอบปลา น้ำผึ้ง และผลไม้ ด้วยจมูกที่ยอดเยี่ยมพวกมันสามารถดมกลิ่นอาหารที่อยู่ไกลออกไป ขุดดินด้วยกรงเล็บขนาดใหญ่และแข็งแรง หรือปีนต้นไม้ ในฤดูหนาวเมื่ออาหารขาดแคลนในโพรง <strong>การจำศีล (การหลับในฤดูหนาว)</strong>เพื่อประหยัดพลังงาน และแม่หมีมักจะ <strong>ให้กำเนิดลูกๆ ในโพรงฤดูหนาว</strong> และเลี้ยงดูพวกมันอย่างดีจนถึงฤดูใบไม้ผลิ</p>",
+        "caption": "อาหารที่หลากหลาย",
+        "image_style": "",
+        "image_prompt": "A bear eating honey and berries, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "หมี - ทังโกบุ๊ก เรื่องราวที่เกี่ยวกับหมี",
+        "url": "https://assets.tangobook.co.kr/1777439576248-%EB%8D%A9%EC%B9%98%EA%B0%80%EC%BB%A4%EB%8B%A4%EB%9E%80%ED%84%B8%EB%B3%B4%EA%B3%B0-illustration-page5-1777440038257.webp",
+        "text": "<h2>เนื้อหาที่หนังสือ \"หมี\" ของ Tango Book นำเสนอ</h2><p>หนังสือ \"หมี\" ของ Tango Book แสดงภาพการจับปลา การกินน้ำผึ้งและผลไม้ ถ้ำสำหรับจำศีลในฤดูหนาว และแม่หมีที่ดูแลลูกน้อยได้อย่างอบอุ่น</p>",
+        "caption": "การจำศีลและลูก",
+        "image_style": "",
+        "image_prompt": "A bear sleeping in a winter den with cubs, heartwarming children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "หมี - จุดที่น่าสนใจให้สังเกตพร้อมกัน",
+        "url": "https://assets.tangobook.co.kr/1777439576248-%EB%8D%A9%EC%B9%98%EA%B0%80%EC%BB%A4%EB%8B%A4%EB%9E%80%ED%84%B8%EB%B3%B4%EA%B3%B0-illustration-page10-1777440059070.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>ให้ชี้ให้ดูจุดต่างๆ เช่น การกินอาหารหลากหลาย (ปลา·น้ำผึ้ง·ผลไม้), การดมกลิ่น·กรงเล็บ, การจำศีล, หรือแม่กับลูก นอกจากนี้ การพูดคุยกันว่า \"ทำไมหมีถึงต้องหลับในฤดูหนาว?\" ด้วยกันก็เป็นเรื่องที่ดีค่ะ</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A close-up of bear strong claws, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "หมี - แนวทางสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777439576248-%EB%8D%A9%EC%B9%98%EA%B0%80%EC%BB%A4%EB%8B%A4%EB%9E%80%ED%84%B8%EB%B3%B4%EA%B3%B0-illustration-page14-1777440071229.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>เล่าเรื่องเกี่ยวกับการ \"อดทนฤดูหนาวที่ไม่มีอาหารด้วยการจำศีล\" และเปรียบเทียบกับสัตว์อื่นที่จำศีล (เช่น กบและกระรอก) นอกจากนี้ยังน่าสนใจว่าประสาทการดมกลิ่นของหมีนั้นดีกว่ามนุษย์มากแค่ไหน</p>",
+        "caption": "การเปรียบเทียบการจำศีล",
+        "image_style": "",
+        "image_prompt": "A parent and child reading about hibernating animals, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ทำไมหมีถึงจำศีลในฤดูหนาวคะ/ครับ?</strong><br>ตอบ: เพราะในฤดูหนาวอาหารจะขาดแคลน พวกมันจึงนอนหลับอยู่ในถ้ำเพื่อประหยัดพลังงานค่ะ/ครับ</p><p><strong>ถาม: หมีกินอะไรเป็นอาหารคะ/ครับ?</strong><br>ตอบ: พวกมันเป็นสัตว์ที่กินได้ทั้งพืชและเนื้อ ชอบกินปลา น้ำผึ้ง และผลไม้มากๆ เลย</p><p><strong>ถาม: เราจะสังเกตเรื่องนี้ที่บ้านได้อย่างไรดีคะ/ครับ?</strong><br>ตอบ: การเปรียบเทียบกับสัตว์ที่จำศีลชนิดอื่น และเล่าเรื่อง \"การผ่านฤดูหนาวด้วยการหลับใหล\" จะเป็นกิจกรรมที่ดีเลยค่ะ/ครับ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณอ่านนิทานเรื่องนี้แล้วสนุกแบบนี้ ลองดู <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือภาพหมี",
+        "url": "https://assets.tangobook.co.kr/1777439576248-%EB%8D%A9%EC%B9%98%EA%B0%80%EC%BB%A4%EB%8B%A4%EB%9E%80%ED%84%B8%EB%B3%B4%EA%B3%B0-illustration-page18-1777440082386.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"หมี\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้ด้วยภาพสวย ๆ และเสียงภาษาเกาหลี/อังกฤษที่ Tango Book เลยค่ะ</p><a href=\"https://tangobook.co.kr/library/1777439576248\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

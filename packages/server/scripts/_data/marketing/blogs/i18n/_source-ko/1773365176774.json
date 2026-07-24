@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773365176774",
+  "seo_title": "연꽃 특징과 연잎 효과 — 깨끗함의 과학 자연관찰 그림책",
+  "meta_description": "연잎이 늘 깨끗한 이유(연잎 효과)와 연꽃 씨앗의 긴 수명 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "primary_keyword": "연꽃",
+  "secondary_keywords": ["연꽃 특징", "연잎 효과", "연꽃 생태", "유아 자연관찰 책", "식물 그림책"],
+  "url_slug": "lotus-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "연꽃 - 연꽃, 어떤 점이 신기할까요?",
+        "url": "https://assets.tangobook.co.kr/1773365176774-%EC%97%B0%EA%BD%83-cover-misc-1780046407582.webp",
+        "text": "<h2>연꽃, 어떤 점이 신기할까요?</h2><p>진흙탕 위에 깨끗하게 피어나는 <strong>연꽃</strong>은 보기만 해도 신기한 식물이에요. 잎에 물방울이 또르르 구르는 비밀이 숨어 있습니다.</p>",
+        "caption": "깨끗하게 피어난 연꽃",
+        "image_style": "",
+        "image_prompt": "A clean pink lotus flower blooming above muddy pond water, serene children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "연꽃 - 연꽃의 자연·과학 사실",
+        "url": "https://assets.tangobook.co.kr/1773365176774-%EC%A7%84%ED%9D%99%EC%86%8D%EC%97%90%EC%84%9C%ED%94%BC%EC%96%B4%EB%82%9C%EC%9A%B0%EC%95%84%ED%95%9C%EB%93%B1%EB%B6%88%EC%97%B0%EA%BD%83-illustration-page1-1773552155825.webp",
+        "text": "<h2>연꽃의 자연·과학 사실</h2><p>연잎이 늘 깨끗한 비밀은 잎 표면의 초미세 돌기 때문이에요. 물방울이 스며들지 못하고 <strong>구슬처럼 굴러가며 먼지까지 씻어 내는</strong> 이 현상을 \"연잎 효과(초소수성)\"라 하며, 방수 옷·코팅 기술에도 응용됩니다. 또 연꽃 씨앗(연자)은 지구에서 가장 오래 사는 씨앗 중 하나로, <strong>1,300년 된 씨앗이 발아한</strong> 사례도 있어요.</p>",
+        "caption": "연잎 효과",
+        "image_style": "",
+        "image_prompt": "Water droplets rolling like beads on a lotus leaf, fascinating children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "연꽃 - 탱고북 «연꽃»이 다루는 내용",
+        "url": "https://assets.tangobook.co.kr/1773365176774-%EC%A7%84%ED%9D%99%EC%86%8D%EC%97%90%EC%84%9C%ED%94%BC%EC%96%B4%EB%82%9C%EC%9A%B0%EC%95%84%ED%95%9C%EB%93%B1%EB%B6%88%EC%97%B0%EA%BD%83-illustration-page5-1773552166267.webp",
+        "text": "<h2>탱고북 «연꽃»이 다루는 내용</h2><p>탱고북 «연꽃»은 진흙 속에서 줄기를 뻗어 물 위로 깨끗한 꽃을 피우는 과정, 물방울이 구르는 잎, 씨앗이 든 연밥, 곤충의 방문을 차분하게 보여 줍니다.</p>",
+        "caption": "오래 사는 씨앗",
+        "image_style": "",
+        "image_prompt": "A lotus seed pod (yeonbap) with seeds on a pond, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "연꽃 - 함께 관찰하면 좋은 포인트",
+        "url": "https://assets.tangobook.co.kr/1773365176774-%EC%A7%84%ED%9D%99%EC%86%8D%EC%97%90%EC%84%9C%ED%94%BC%EC%96%B4%EB%82%9C%EC%9A%B0%EC%95%84%ED%95%9C%EB%93%B1%EB%B6%88%EC%97%B0%EA%BD%83-illustration-page10-1773552254755.webp",
+        "text": "<h2>함께 관찰하면 좋은 포인트</h2><p>연잎 위 물방울(연잎 효과), 진흙 속 깨끗한 꽃, 연밥(씨앗 집), 곤충 방문 같은 포인트를 짚어 주세요. \"왜 연잎에는 물이 안 스며들까?\"를 함께 이야기하면 좋습니다.</p>",
+        "caption": "관찰 포인트",
+        "image_style": "",
+        "image_prompt": "Close-up of a lotus leaf surface texture, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "연꽃 - 부모 가이드 — 관찰·체험으로 확장하기",
+        "url": "https://assets.tangobook.co.kr/1773365176774-%EC%A7%84%ED%9D%99%EC%86%8D%EC%97%90%EC%84%9C%ED%94%BC%EC%96%B4%EB%82%9C%EC%9A%B0%EC%95%84%ED%95%9C%EB%93%B1%EB%B6%88%EC%97%B0%EA%BD%83-illustration-page14-1773552289423.webp",
+        "text": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>연잎 효과는 토란잎·연잎에 물을 떨어뜨려 구르는 모습으로 직접 관찰할 수 있어요. 방수 옷에 물방울이 구르는 것과 연결하고, 연못에서 연밥(씨앗 집)을 찾아보세요.</p>",
+        "caption": "연잎 효과 실험",
+        "image_style": "",
+        "image_prompt": "A parent and child dropping water on a leaf to watch it roll, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 연잎은 왜 물이 안 스며드나요?</strong><br>A. 잎 표면의 초미세 돌기 때문에 물방울이 구슬처럼 굴러가며 먼지까지 씻어 냅니다(연잎 효과).</p><p><strong>Q. 연꽃 씨앗이 오래 산다는 게 사실인가요?</strong><br>A. 네, 1,300년 된 연꽃 씨앗이 발아한 사례가 있을 만큼 매우 오래 삽니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 연잎·토란잎에 물을 떨어뜨려 구르는 모습을 보고, 방수 옷의 물방울과 연결해 보세요.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>함께 읽으면 좋은 명작 동화</h2><p>이 동화를 재미있게 읽었다면 이런 <strong>명작 동화</strong>도 함께 읽어 보세요.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">강아지</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">강아지풀</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">개구리</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">개미</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "연꽃 그림책 삽화",
+        "url": "https://assets.tangobook.co.kr/1773365176774-%EC%A7%84%ED%9D%99%EC%86%8D%EC%97%90%EC%84%9C%ED%94%BC%EC%96%B4%EB%82%9C%EC%9A%B0%EC%95%84%ED%95%9C%EB%93%B1%EB%B6%88%EC%97%B0%EA%BD%83-illustration-page18-1773552327826.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">「연꽃」가 궁금하신가요?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">아름다운 그림과 한국어·영어 음성으로 탱고북에서 직접 만나보세요.</p><a href=\"https://tangobook.co.kr/library/1773365176774\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 동화책 보러가기 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

@@ -32,13 +32,14 @@ const PROSE_CSS = `
 `;
 
 export default function BlogPostPage() {
-  const { slug = '' } = useParams();
-  const { data: post, isLoading, isError } = useBlogPost(slug);
+  const { slug = '', lang } = useParams();
+  const pre = lang && lang !== 'ko' ? `/${lang}` : '';
+  const { data: post, isLoading, isError } = useBlogPost(slug, lang || 'ko');
 
   useSeo({
     title: post ? `${post.title} — 탱고북 블로그` : '탱고북 블로그',
     description: post?.description || undefined,
-    path: `/blog/${slug}`,
+    path: `${pre}/blog/${slug}`,
     type: 'article',
   });
 
@@ -59,7 +60,10 @@ export default function BlogPostPage() {
             <Link to="/library" className="font-display text-lg font-bold text-ink-900">
               🐯 탱고북
             </Link>
-            <Link to="/blog" className="text-sm font-semibold text-ink-500 hover:text-coral-500">
+            <Link
+              to={`${pre}/blog`}
+              className="text-sm font-semibold text-ink-500 hover:text-coral-500"
+            >
               블로그
             </Link>
           </div>
@@ -71,14 +75,17 @@ export default function BlogPostPage() {
           ) : isError || !post ? (
             <div className="py-16 text-center">
               <p className="text-sm text-ink-500 break-keep">글을 찾을 수 없어요.</p>
-              <Link to="/blog" className="mt-3 inline-block text-sm text-coral-500 hover:underline">
+              <Link
+                to={`${pre}/blog`}
+                className="mt-3 inline-block text-sm text-coral-500 hover:underline"
+              >
                 ← 블로그 목록으로
               </Link>
             </div>
           ) : (
             <>
               <Link
-                to="/blog"
+                to={`${pre}/blog`}
                 className="inline-flex items-center gap-1 text-sm font-semibold text-ink-400 transition hover:text-coral-500"
               >
                 ← 목록으로
@@ -135,7 +142,7 @@ export default function BlogPostPage() {
               {/* 하단 목록 링크 */}
               <div className="mt-8 text-center">
                 <Link
-                  to="/blog"
+                  to={`${pre}/blog`}
                   className="inline-block rounded-full bg-white px-5 py-2 text-sm font-bold text-ink-600 shadow-sm transition hover:bg-peach-50"
                 >
                   다른 이야기 더 보기

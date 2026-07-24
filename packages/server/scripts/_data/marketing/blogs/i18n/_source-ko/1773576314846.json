@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773576314846",
+  "seo_title": "버섯 특징과 분해자의 비밀 — 자연관찰 그림책",
+  "meta_description": "버섯이 식물도 동물도 아닌 균류인 이유와 숲의 분해자 역할 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 안전한 관찰법까지. 4~7세 자연관찰 가이드.",
+  "primary_keyword": "버섯",
+  "secondary_keywords": ["버섯 특징", "버섯 생태", "균류", "유아 자연관찰 책", "식물 그림책"],
+  "url_slug": "mushroom-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "버섯 - 버섯, 어떤 점이 신기할까요?",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EB%B2%84%EC%84%AF-cover-misc-1780274370065.webp",
+        "text": "<h2>버섯, 어떤 점이 신기할까요?</h2><p>비 온 뒤 숲에 쏙쏙 돋아나는 <strong>버섯</strong>은 식물도 동물도 아닌 신기한 생물이에요. 갓 아래 숨은 비밀이 정말 흥미롭습니다.</p><p data-seo-boost=\"1\">버섯 특징, 버섯 생태, 균류 등 버섯에 대한 다양한 이야기를 함께 담았습니다.</p>",
+        "caption": "비 온 뒤의 버섯",
+        "image_style": "",
+        "image_prompt": "Colorful mushrooms growing on a forest floor after rain, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "버섯 - 버섯의 자연·과학 사실",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EC%88%B2%EC%86%8D%EC%97%90%ED%95%80%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%9A%B0%EC%82%B0%EA%B2%B9%EA%B2%B9%EC%9D%B4%EB%B9%84%EB%B0%80%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EB%B2%84%EC%84%AF-illustration-page1-1773576462568.webp",
+        "text": "<h2>버섯의 자연·과학 사실</h2><p>버섯은 <strong>균계(곰팡이 무리)</strong>에 속해, 광합성도 안 하고 먹이를 삼키지도 않아요. 대신 <strong>밖으로 소화 효소를 뿜어 유기물을 분해한 뒤 영양분을 흡수</strong>합니다. 갓·주름살·자루와 땅속 균사체로 이루어지며, 숲에서 죽은 나무·낙엽을 분해하는 <strong>\"분해자\"</strong> 역할이 가장 중요해요. 독버섯 감별은 전문가도 어려워, 야생 버섯은 절대 만지거나 먹으면 안 됩니다.</p>",
+        "caption": "갓·주름살·균사체",
+        "image_style": "",
+        "image_prompt": "A cross-section of a mushroom showing cap, gills, and stem with mycelium underground, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "버섯 - 탱고북 «버섯»이 다루는 내용",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EC%88%B2%EC%86%8D%EC%97%90%ED%95%80%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%9A%B0%EC%82%B0%EA%B2%B9%EA%B2%B9%EC%9D%B4%EB%B9%84%EB%B0%80%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EB%B2%84%EC%84%AF-illustration-page5-1773576532875.webp",
+        "text": "<h2>탱고북 «버섯»이 다루는 내용</h2><p>탱고북 «버섯»은 비 온 뒤 돋아나는 버섯, 갓 아래 주름살, 땅속 균사체, 숲의 영양분을 순환시키는 분해자 역할을 아이 눈높이로 보여 줍니다.</p>",
+        "caption": "숲의 분해자",
+        "image_style": "",
+        "image_prompt": "Mushrooms decomposing a fallen log in a forest, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "버섯 - 함께 알아보면 좋은 포인트",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EC%88%B2%EC%86%8D%EC%97%90%ED%95%80%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%9A%B0%EC%82%B0%EA%B2%B9%EA%B2%B9%EC%9D%B4%EB%B9%84%EB%B0%80%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EB%B2%84%EC%84%AF-illustration-page10-1773576547668.webp",
+        "text": "<h2>함께 알아보면 좋은 포인트</h2><p>갓·주름살·자루, 균사체(땅속), 분해자 역할, 다양한 색·모양 같은 포인트를 짚어 주세요. \"버섯은 무엇을 먹고 자랄까?\"를 함께 이야기하면 좋습니다(야생 버섯 만지지 않기).</p>",
+        "caption": "관찰 포인트",
+        "image_style": "",
+        "image_prompt": "Close-up of mushroom gills under the cap, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "버섯 - 부모 가이드 — 호기심을 키우는 법",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EC%88%B2%EC%86%8D%EC%97%90%ED%95%80%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%9A%B0%EC%82%B0%EA%B2%B9%EA%B2%B9%EC%9D%B4%EB%B9%84%EB%B0%80%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EB%B2%84%EC%84%AF-illustration-page14-1773576566741.webp",
+        "text": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>마트의 표고·느타리 버섯으로 갓·주름살·자루를 안전하게 관찰해 보세요. \"야생 버섯은 보기만!\"을 꼭 알려 주고, 숲에서 죽은 나무에 핀 버섯을 멀리서 관찰하면 좋습니다.</p>",
+        "caption": "안전하게 관찰하기",
+        "image_style": "",
+        "image_prompt": "A parent and child looking at edible mushrooms on a table, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 버섯은 식물인가요?</strong><br>A. 아니요. 버섯은 균계(곰팡이 무리)입니다. 광합성을 하지 않고 유기물을 분해해 영양분을 얻어요.</p><p><strong>Q. 버섯은 숲에서 어떤 역할을 하나요?</strong><br>A. 죽은 나무·낙엽을 분해해 영양분을 순환시키는 \"분해자\" 역할을 합니다. 숲에 꼭 필요해요.</p><p><strong>Q. 야생 버섯을 관찰해도 되나요?</strong><br>A. 보기만 하세요. 독버섯 감별은 전문가도 어려워, 만지거나 먹으면 절대 안 됩니다.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>함께 읽으면 좋은 명작 동화</h2><p>이 동화를 재미있게 읽었다면 이런 <strong>명작 동화</strong>도 함께 읽어 보세요.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">강아지</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">강아지풀</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">개구리</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">개미</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "버섯 그림책 삽화",
+        "url": "https://assets.tangobook.co.kr/1773576314846-%EC%88%B2%EC%86%8D%EC%97%90%ED%95%80%EC%8B%A0%EB%B9%84%EB%A1%9C%EC%9A%B4%EC%9A%B0%EC%82%B0%EA%B2%B9%EA%B2%B9%EC%9D%B4%EB%B9%84%EB%B0%80%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EB%B2%84%EC%84%AF-illustration-page18-1773576596216.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">「버섯」가 궁금하신가요?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">아름다운 그림과 한국어·영어 음성으로 탱고북에서 직접 만나보세요.</p><a href=\"https://tangobook.co.kr/library/1773576314846\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 동화책 보러가기 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

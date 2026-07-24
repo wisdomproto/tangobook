@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773739930242",
+  "seo_title": "史蒂拉科龙特征——带刺王冠恐龙自然观察绘本",
+  "meta_description": "关于斯蒂拉科龙（Styracosaurus）颈盾上长出像皇冠一样的尖刺等神奇特征，以及《Tango Book》恐龙绘本的内容和阅读方法。4-7岁恐龙指南。",
+  "primary_keyword": "史蒂拉科-龙",
+  "secondary_keywords": ["史蒂拉科-龙", "独角龙", "食草恐龙", "幼儿恐龙书", "恐龙绘本"],
+  "url_slug": "styracosaurus-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "史提拉科龙 - 史提拉科龙，哪些地方会让你觉得神奇呢？",
+        "url": "https://assets.tangobook.co.kr/1773739930242-%EC%8A%A4%ED%8B%B0%EB%9D%BC%EC%BD%94%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-cover-misc-1780039217058.webp",
+        "text": "<h2>史蒂拉科龙，它有什么特别的地方呢？</h2><p>头后颈部的饰板上，长长的尖刺像皇冠一样竖着 <strong>史蒂拉科龙</strong>是一种像三角龙一样的可爱的植食性恐龙。</p>",
+        "caption": "荆棘王冠恐龙",
+        "image_style": "",
+        "image_prompt": "A Styracosaurus with a crown of frill spikes, majestic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "史蒂拉科-龙——关于史蒂拉科-龙的自然与科学事实",
+        "url": "https://assets.tangobook.co.kr/1773739930242-%EB%A8%B8%EB%A6%AC%EC%9C%84%EC%97%90%ED%99%94%EB%A0%A4%ED%95%9C%EC%99%95%EA%B4%80%EC%9D%84%EC%93%B4%EA%B3%B5%EB%A3%A1%EC%8A%A4%ED%8B%B0%EB%9D%BC%EC%BD%94%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page1-1773740507834.webp",
+        "text": "<h2>史蒂拉科龙的自然和科学知识</h2><p>史蒂拉科龙大约生活在7500万年前的北美，体长最大可达5.5米。它最大的特点是在颈盾边缘生出的 <strong>4到6根长长的尖刺（每根约50-55厘米）</strong>。这些尖刺虽然可以用来威胁天敌，但 <strong>更有可能是用于炫耀的。</strong>。化石可以在加拿大和美国发现。</p>",
+        "caption": "王冠般的刺",
+        "image_style": "",
+        "image_prompt": "A close-up of Styracosaurus long frill spikes, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "史蒂拉科龙 - 《探戈书》讲述的内容",
+        "url": "https://assets.tangobook.co.kr/1773739930242-%EB%A8%B8%EB%A6%AC%EC%9C%84%EC%97%90%ED%99%94%EB%A0%A4%ED%95%9C%EC%99%95%EA%B4%80%EC%9D%84%EC%93%B4%EA%B3%B5%EB%A3%A1%EC%8A%A4%ED%8B%B0%EB%9D%BC%EC%BD%94%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page6-1773740562791.webp",
+        "text": "<h2>《Tango Book》关于“史密斯龙”的内容</h2><p>《Tango Book》生动地展示了这种华丽的植食恐龙，包括王冠状的饰片尖刺、鼻子上巨大的角，以及它们群居的样子。</p>",
+        "caption": "群体生活",
+        "image_style": "",
+        "image_prompt": "A herd of Styracosaurus grazing, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "史蒂拉科-龙：值得一起了解的知识点",
+        "url": "https://assets.tangobook.co.kr/1773739930242-%EB%A8%B8%EB%A6%AC%EC%9C%84%EC%97%90%ED%99%94%EB%A0%A4%ED%95%9C%EC%99%95%EA%B4%80%EC%9D%84%EC%93%B4%EA%B3%B5%EB%A3%A1%EC%8A%A4%ED%8B%B0%EB%9D%BC%EC%BD%94%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page10-1773740571671.webp",
+        "text": "<h2>我们可以一起了解的重点</h2><p>请指出一些重点，比如颈部饰片（王冠）、鼻角、炫耀功能以及与三角龙相似的地方。一起聊聊“这些尖刺是不是是为了看起来很吓人的呢？”会更好。</p>",
+        "caption": "观察点",
+        "image_style": "",
+        "image_prompt": "A close-up of the nose horn and frill, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "史蒂拉科-龙——家长指南——如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1773739930242-%EB%A8%B8%EB%A6%AC%EC%9C%84%EC%97%90%ED%99%94%EB%A0%A4%ED%95%9C%EC%99%95%EA%B4%80%EC%9D%84%EC%93%B4%EA%B3%B5%EB%A3%A1%EC%8A%A4%ED%8B%B0%EB%9D%BC%EC%BD%94%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page15-1773740588959.webp",
+        "text": "<h2>家长指南 — 如何培养好奇心</h2><p>数一数这些饰边的尖刺数量，然后将它们与三角龙的照片进行比较，找出相似点和不同点。用纸制作并戴上尖刺王冠会很有趣的。</p>",
+        "caption": "荆棘王冠制作",
+        "image_style": "",
+        "image_prompt": "A parent and child making a paper spike crown, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>Q. 史蒂拉科龙的颈盾尖刺有多少个？</strong><br>A. 有4到6个，每个大约有50到55厘米长。它们很可能是用来炫耀的。</p><p><strong>Q. 它和三角龙是亲戚吗？</strong><br>A. 是的，它们属于同一个角龙类（长角恐龙）群体。它们在颈盾和角方面有相似之处。</p><p><strong>Q. 在家可以怎么玩得开心呢？</strong><br>A. 可以进行颈盾尖刺计数、与三角龙比较，或者制作纸质尖刺王冠。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "史蒂拉科龙插画绘本",
+        "url": "https://assets.tangobook.co.kr/1773739930242-%EB%A8%B8%EB%A6%AC%EC%9C%84%EC%97%90%ED%99%94%EB%A0%A4%ED%95%9C%EC%99%95%EA%B4%80%EC%9D%84%EC%93%B4%EA%B3%B5%EB%A3%A1%EC%8A%A4%ED%8B%B0%EB%9D%BC%EC%BD%94%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page19-1774355867792.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“史蒂拉科龙”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango书里，用美丽的图画和韩语·英语语音亲自了解它吧。</p><a href=\"https://tangobook.co.kr/library/1773739930242\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

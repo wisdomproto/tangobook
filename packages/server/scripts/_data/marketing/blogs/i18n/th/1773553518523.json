@@ -1,0 +1,112 @@
+{
+  "storybookId": "1773553518523",
+  "seo_title": "ลักษณะเด่นของต้นโอ๊กและความลับของลูกโอ๊ก — หนังสือภาพสังเกตธรรมชาติ",
+  "meta_description": "ข้อเท็จจริงมหัศจรรย์เกี่ยวกับลูกโอ๊กและดักแด้ของแมลง ความสัมพันธ์กับกระรอก และเนื้อหาจากหนังสือนิทานสังเกตธรรมชาติ Tango Book พร้อมวิธีการสังเกตด้วย คู่มือการสังเกตธรรมชาติสำหรับเด็กวัย 4-7 ปี",
+  "primary_keyword": "ต้นโอ๊ก",
+  "secondary_keywords": [
+    "ลักษณะของต้นโอ๊ก",
+    "ลูกโอ๊ก",
+    "ระบบนิเวศของต้นโอ๊ก",
+    "หนังสือสังเกตธรรมชาติสำหรับเด็กเล็ก",
+    "หนังสือนิทานภาพเรื่องต้นไม้"
+  ],
+  "url_slug": "oak-tree-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "ต้นโอ๊ก - ต้นโอ๊ก มีอะไรน่าสนใจบ้างนะ?",
+        "url": "https://assets.tangobook.co.kr/1773553518523-%EC%B0%B8%EB%82%98%EB%AC%B4-cover-misc-1780100906304.webp",
+        "text": "<h2>ต้นโอ๊ก มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>การที่ลูกโอ๊กกำลังผลิออกมา <strong>ต้นโอ๊ก</strong>เป็นตัวเอกของป่าฤดูใบไม้ร่วง มีเรื่องราวที่เชื่อมโยงตั้งแต่กระรอก แมลง ไปจนถึงโต๊ะอาหารของเรา</p>",
+        "caption": "ต้นโอ๊กแห่งป่าฤดูใบไม้ร่วง",
+        "image_style": "",
+        "image_prompt": "A large oak tree with acorns in an autumn forest, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "ต้นโอ๊ก - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของต้นโอ๊ก",
+        "url": "https://assets.tangobook.co.kr/1773553518523-%EC%B0%B8%EB%82%98%EB%AC%B4-illustration-page1-1773553634389.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของต้นโอ๊ก</h2><p>ต้นโอ๊กมีประมาณ 500 สายพันธุ์ทั่วโลก และในประเทศเกาหลีก็มีหลายสายพันธุ์เติบโต เช่น โอ๊กกาล, โอ๊กต็อกกัล, โอ๊กชินกัล, โอ๊กซังสุรี เป็นต้น ผลไม้... <strong>ลูกโอ๊ก</strong>ต้นโอ๊กใหม่จะงอกขึ้นจากสิ่งที่กระรอกฝังแล้วลืม เมื่อแมลงวางไข่บนใบ จะเกิดเป็น... <strong>หนองพยาธิ (충영)</strong>และยางที่หวานก็กลายเป็นอาหารของด้วงแรดและด้วงกวาง เปลือกไม้โอ๊กถ้ำ <strong>จุกคอร์ก</strong>ใช้ทำจุกขวดได้ และยังสามารถนำลูกโอ๊กมาทำเป็นวุ้นลูกโอ๊กได้ด้วย</p>",
+        "caption": "กระรอกที่หว่านเมล็ดพันธุ์",
+        "image_style": "",
+        "image_prompt": "A squirrel burying an acorn that later sprouts into a tree, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "โอ๊ค - เนื้อหาในหนังสือทังโกบุ๊ก เรื่อง «โอ๊ค»",
+        "url": "https://assets.tangobook.co.kr/1773553518523-%EC%B0%B8%EB%82%98%EB%AC%B4-illustration-page5-1773553645712.webp",
+        "text": "<h2>เนื้อหาของหนังสือทังโก \"ต้นโอ๊ก\"</h2><p>หนังสือทังโก \"ต้นโอ๊ก\" เล่าเรื่องราววงจรชีวิตของลูกโอ๊กที่ร่วงหล่นและแตกหน่อจนกลายเป็นต้นไม้ใหญ่ ความสัมพันธ์กับกระรอก น้ำยางที่แมลงมารวมตัวกัน และเรื่องราวของลูกโอ๊กที่เชื่อมโยงกับผู้คน</p>",
+        "caption": "ก้อนแมลงกลม ๆ น่ารัก",
+        "image_style": "",
+        "image_prompt": "A round gall on an oak leaf, fascinating children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "ต้นโอ๊ก - จุดที่น่าสังเกตเมื่อได้เรียนรู้ร่วมกัน",
+        "url": "https://assets.tangobook.co.kr/1773553518523-%EC%B0%B8%EB%82%98%EB%AC%B4-illustration-page10-1773553660651.webp",
+        "text": "<h2>จุดที่ควรสังเกตการณ์ร่วมกัน</h2><p>ให้ชี้จุดต่างๆ เช่น ลูกโอ๊ก (ผลไม้/เมล็ด), กระรอก (การกระจายเมล็ดพันธุ์), ก้อนแมลง, หรือยางไม้ (อาหารของแมลง) การพูดคุยกันว่า \"ลูกโอ๊กที่กระรอกเกาะอยู่จะเป็นอย่างไรนะ?\" จะเป็นเรื่องที่ดีค่ะ</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "Various acorn shapes with caps, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "ต้นโอ๊ก - คู่มือสำหรับผู้ปกครอง — การขยายความรู้ผ่านการสังเกตและประสบการณ์",
+        "url": "https://assets.tangobook.co.kr/1773553518523-%EC%B0%B8%EB%82%98%EB%AC%B4-illustration-page14-1773553706865.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — ขยายผลด้วยการสังเกตและการเรียนรู้จากประสบการณ์</h2><p>ลองเก็บและเปรียบเทียบลูกโอ๊กที่มีรูปทรงต่างกันระหว่างเดินเล่นในฤดูใบไม้ร่วง สังเกตเปลือกหุ้มลูกโอ๊ก (หมวก) และวาดภาพเรื่องราว \"ลูกโอ๊กที่กระรอกลืม = ต้นไม้ใหม่\" จะเป็นสิ่งที่ดีมาก</p>",
+        "caption": "การเก็บลูกโอ๊ก",
+        "image_style": "",
+        "image_prompt": "A parent and child collecting and comparing acorns on a walk, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ถ้ากระรอกฝังลูกโอ๊กไว้ จะเกิดอะไรขึ้นคะ?</strong><br>ตอบ: ลูกโอ๊กที่ถูกลืมหลังจากกินไป จะแตกหน่อและเติบโตเป็นต้นโอ๊กใหม่เลยค่ะ เหมือนกับว่ากระรอกกำลังดูแลป่าอยู่เลย</p><p><strong>ถาม: วงกลมหรือสิ่งต่างๆ บนใบโอ๊กคืออะไรคะ?</strong><br>ตอบ: มันคือ \"ตุ่มแมลง\" ที่เกิดจากแมลงวางไข่บนใบ ทำให้เนื้อเยื่อของใบพองตัวค่ะ ข้างในจะมีหนอนผีเสื้อเติบโตอยู่</p><p><strong>ถาม: เราจะสังเกตสิ่งเหล่านี้ที่บ้านได้อย่างไรดีคะ?</strong><br>ตอบ: การเก็บและเปรียบเทียบลูกโอ๊กหลายรูปทรง การสังเกตเปลือกหุ้ม และการวาดภาพ \"ลูกโอ๊กที่ถูกลืม = ต้นไม้ใหม่\" เป็นกิจกรรมที่ดีค่ะ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณสนุกกับการอ่านนิทานเรื่องนี้แล้ว ลองดูแบบนี้ <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือนิทานต้นโอ๊ก",
+        "url": "https://assets.tangobook.co.kr/1773553518523-%EC%B0%B8%EB%82%98%EB%AC%B4-illustration-page18-1773553758835.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"ต้นโอ๊ก\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้โดยตรงที่แทงโกบุ๊ก ด้วยภาพสวย ๆ และเสียงภาษาเกาหลี/อังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1773553518523\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

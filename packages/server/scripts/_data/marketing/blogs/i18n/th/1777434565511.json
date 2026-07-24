@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777434565511",
+  "seo_title": "หนังสือนิทานช้าง — ความลับของงวงที่ยาว (การสังเกตธรรมชาติสำหรับเด็ก 4-7 ขวบ)",
+  "meta_description": "ความลับของงวงช้างที่ใช้ได้เหมือนมือ ข้อเท็จจริงมหัศจรรย์อื่น ๆ เช่น ใบหูขนาดใหญ่และงา เนื้อหาจากหนังสือนิทานสัตว์ Tango Book และวิธีการสังเกตการณ์ คู่มือการสังเกตธรรมชาติสำหรับเด็กวัย 4-7 ปี",
+  "primary_keyword": "หนังสือภาพช้าง",
+  "secondary_keywords": [
+    "ลักษณะของช้าง",
+    "งวงช้าง",
+    "ระบบนิเวศของช้าง",
+    "หนังสือนิทานสัตว์สำหรับเด็กเล็ก",
+    "หนังสือนิทานภาพสัตว์"
+  ],
+  "url_slug": "elephant-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "ช้าง – ช้าง มีอะไรที่น่าทึ่งบ้างนะ?",
+        "url": "https://assets.tangobook.co.kr/1777434565511-%EC%BD%94%EB%81%BC%EB%A6%AC-cover-misc-1780028157350.webp",
+        "text": "<h2>ช้าง มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>สัตว์ที่ใหญ่ที่สุดบนบก <strong>ช้าง</strong>เป็นสัตว์มหัศจรรย์ที่ใช้งวงยาวจับสิ่งของและดื่มน้ำได้ นอกจากนี้หูใหญ่และงาของมันก็ยังมีเคล็ดลับด้วยนะ</p><p data-seo-boost=\"1\">สงสัยเรื่องเนื้อเรื่องจากหนังสือนิทานช้างไหมคะ? มาดูข้อคิดจากหนังสือนิทานช้างพร้อมภาพประกอบกันเถอะ พบกับฉากสำคัญของเรื่องราวในหนังสือนิทานช้างด้วยนะคะ ลองอ่านและพูดคุยเรื่องราวนิทานช้างกับลูก ๆ ของคุณดูสิคะ</p>",
+        "caption": "สัตว์บกที่ใหญ่ที่สุด",
+        "image_style": "",
+        "image_prompt": "A large elephant using its long trunk in a savanna, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "ช้าง - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของช้าง",
+        "url": "https://assets.tangobook.co.kr/1777434565511-%EC%BD%94%EA%B0%80%EC%86%90%EC%9D%B4%EB%84%A4%EB%93%AC%EC%A7%81%ED%95%9C%EC%BD%94%EB%81%BC%EB%A6%AC-illustration-page1-1777436649595.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของช้าง</h2><p>ของช้าง <strong>งวงที่ยาวคืออวัยวะที่รวมกันระหว่างริมฝีปากบนกับจมูก</strong>ทำให้มันสามารถจับสิ่งของได้เหมือนมือ ดูดน้ำขึ้นมาเทใส่ปากเพื่อดื่ม และเด็ดใบไม้ที่สูงด้วย <strong>ใบหูขนาดใหญ่ทำหน้าที่เป็นพัดลมเพื่อระบายความร้อนของร่างกาย</strong> และทำหน้าที่, สิ่งแข็งที่ยื่นออกมาจากปาก <strong>งา (หรือเขาสัตว์) ไม่ใช่เขา แต่เป็นฟันที่งอกยาวออกมา</strong>ค่ะ/ครับ</p>",
+        "caption": "จมูกที่ใช้เหมือนมือ",
+        "image_style": "",
+        "image_prompt": "An elephant picking up an object with its trunk, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "ช้าง - ทังโกบุ๊ก เนื้อหาที่นำเสนอใน «ช้าง»",
+        "url": "https://assets.tangobook.co.kr/1777434565511-%EC%BD%94%EA%B0%80%EC%86%90%EC%9D%B4%EB%84%A4%EB%93%AC%EC%A7%81%ED%95%9C%EC%BD%94%EB%81%BC%EB%A6%AC-illustration-page5-1777436665922.webp",
+        "text": "<h2>เนื้อหาที่หนังสือแทงโกเรื่อง \"ช้าง\" นำเสนอ</h2><p>หนังสือแทงโกเรื่อง \"ช้าง\" แสดงเสน่ห์ของช้างอย่างอบอุ่น ไม่ว่าจะเป็นงวงยาวที่ใช้เหมือนมือ ใบหูใหญ่เหมือนพัด งา และภาพการอยู่รวมกันเป็นฝูง</p>",
+        "caption": "หูเหมือนพัด",
+        "image_style": "",
+        "image_prompt": "An elephant flapping its big ears, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "ช้าง – จุดที่ควรสังเกตเมื่อดูด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1777434565511-%EC%BD%94%EA%B0%80%EC%86%90%EC%9D%B4%EB%84%A4%EB%93%AC%EC%A7%81%ED%95%9C%EC%BD%94%EB%81%BC%EB%A6%AC-illustration-page10-1777436689966.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>โปรดชี้ให้ดูจุดต่างๆ เช่น จมูกยาว (ใช้มือ/น้ำ/อาหาร), หูใหญ่ (ช่วยลดไข้), เขี้ยว (ฟัน), หรือการอยู่รวมกันเป็นฝูง การพูดคุยถึงคำถามว่า \"จมูกทำอะไรได้บ้าง?\" ด้วยกันจะดีมากค่ะ</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A close-up of elephant tusks, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "ช้าง - คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777434565511-%EC%BD%94%EA%B0%80%EC%86%90%EC%9D%B4%EB%84%A4%EB%93%AC%EC%A7%81%ED%95%9C%EC%BD%94%EB%81%BC%EB%A6%AC-illustration-page14-1777436705176.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ลองทำท่าทางเลียนแบบการ \"หยิบจับสิ่งของและดื่มน้ำ\" โดยแกว่งแขนเหมือนจมูก จากนั้นให้ลูกได้สัมผัสบทบาทของหูใหญ่ (ช่วยระบายความร้อน) ด้วยการพัด และเมื่อคุณบอกว่า \"จริงๆ แล้วแม่คือฟันนะ\" ความสนใจก็จะเพิ่มขึ้น</p>",
+        "caption": "การเล่นเลียนแบบจมูก",
+        "image_style": "",
+        "image_prompt": "A parent and child swinging arms like elephant trunks, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ช้างใช้งวงทำอะไรได้บ้างคะ/ครับ?</strong><br>ตอบ: ใช้จับสิ่งของเหมือนมือ ดูดน้ำขึ้นมาดื่ม และยังใช้เด็ดใบไม้สูงๆ กินได้ด้วยค่ะ/ครับ มันมีกล้ามเนื้อเยอะมากเลยล่ะ</p><p><strong>ถาม: งาเป็นเขาไหมคะ/ครับ?</strong><br>ตอบ: ไม่ใช่ค่ะ/ครับ มันคือฟันที่ยาวขึ้นมา (งา) ไม่ใช่เขาเลยนะ</p><p><strong>ถาม: ที่บ้านเราจะสังเกตได้อย่างไรดีคะ/ครับ?</strong><br>ตอบ: ลองให้ลูกทำท่าทางเลียนแบบงวงด้วยแขน, ให้ลองใช้พัดทำท่าหู, หรือจะเล่านิทานเรื่องที่ว่า \"งา = ฟัน\" ก็ดีค่ะ/ครับ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณสนุกกับการอ่านนิทานเรื่องนี้แล้ว ลองดูแบบนี้ <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือภาพช้าง",
+        "url": "https://assets.tangobook.co.kr/1777434565511-%EC%BD%94%EA%B0%80%EC%86%90%EC%9D%B4%EB%84%A4%EB%93%AC%EC%A7%81%ED%95%9C%EC%BD%94%EB%81%BC%EB%A6%AC-illustration-page18-1777436723082.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"ช้าง\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้ด้วยภาพสวย ๆ และเสียงภาษาเกาหลี/อังกฤษที่ Tango Book เลยค่ะ</p><a href=\"https://tangobook.co.kr/library/1777434565511\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

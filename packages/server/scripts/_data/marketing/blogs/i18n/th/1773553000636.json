@@ -1,0 +1,112 @@
+{
+  "storybookId": "1773553000636",
+  "seo_title": "ลักษณะของต้นสนและความลับของผลสน — หนังสือนิทานสังเกตธรรมชาติ",
+  "meta_description": "ความลับของใบสนและลูกสนที่เปิดปิด ข้อเท็จจริงมหัศจรรย์ เช่น ยางไม้และยางธรรมชาติ เนื้อหาจากหนังสือนิทานสังเกตธรรมชาติของ Tango Book รวมถึงวิธีการสังเกต คู่มือการสังเกตธรรมชาติสำหรับอายุ 4-7 ปี",
+  "primary_keyword": "ต้นสน",
+  "secondary_keywords": [
+    "ลักษณะเด่นของต้นสน",
+    "ลูกสน",
+    "ระบบนิเวศของต้นสน",
+    "หนังสือสำหรับเด็กเล็กเกี่ยวกับการสังเกตธรรมชาติ",
+    "หนังสือนิทานภาพเกี่ยวกับต้นไม้"
+  ],
+  "url_slug": "pine-tree-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "ต้นสน - ต้นสน มีอะไรที่น่าสนใจบ้างนะ?",
+        "url": "https://assets.tangobook.co.kr/1773553000636-%EC%86%8C%EB%82%98%EB%AC%B4-cover-misc-1780100923693.webp",
+        "text": "<h2>ต้นสน มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>เขียวขจีแม้ในฤดูหนาว <strong>ต้นสน</strong>เป็นต้นไม้ที่คุ้นเคยที่สุดสำหรับเราเลยค่ะ ในใบที่เหมือนเข็มและลูกสน มีวิทยาศาสตร์มหัศจรรย์ซ่อนอยู่</p>",
+        "caption": "ต้นสนที่เขียวชอุ่มตลอดปี",
+        "image_style": "",
+        "image_prompt": "A green pine tree with needle leaves and pinecones in a forest, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "ต้นสน - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของต้นสน",
+        "url": "https://assets.tangobook.co.kr/1773553000636-%EC%96%B8%EC%A0%9C%EB%82%98%ED%91%B8%EB%A5%B8%EA%B8%B0%EC%9A%B4%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EC%88%B2%EC%86%8D%EC%9D%98%EC%84%A0%EB%B9%84%EC%86%8C%EB%82%98%EB%AC%B4-illustration-page1-1773553193756.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของต้นสน</h2><p>ใบสนบางเหมือนเข็ม และ <strong>ถูกคลุมด้วยเยื่อหนา ทำให้สังเคราะห์แสงได้แม้ในฤดูหนาว</strong>ค่ะ/ครับ <strong>เกล็ดของลูกสนจะเปิดและปิดตามความชื้น</strong> — ถ้าแห้งจะเปิดกว้างเพื่อปล่อยเมล็ด และถ้าฝนตกก็จะปิดเพื่อปกป้องเมล็ด ส่วนลำต้น <strong>ยางสน</strong>เป็นส่วนประกอบต้านเชื้อแบคทีเรียที่ปิดบาดแผล และถ้าแข็งตัวใต้ดินก็จะกลายเป็นอัญมณี <strong>อำพัน</strong>ค่ะ/ครับ รากอาศัยอยู่ร่วมกับเชื้อเห็ดถั่งเช่า</p>",
+        "caption": "โคนสนที่เปิดและปิดตามความชื้น",
+        "image_style": "",
+        "image_prompt": "A pinecone with scales open in dry weather, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "ต้นสน - เนื้อหาที่หนังสือทังโกบุ๊กเรื่อง \"ต้นสน\" นำเสนอ",
+        "url": "https://assets.tangobook.co.kr/1773553000636-%EC%96%B8%EC%A0%9C%EB%82%98%ED%91%B8%EB%A5%B8%EA%B8%B0%EC%9A%B4%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EC%88%B2%EC%86%8D%EC%9D%98%EC%84%A0%EB%B9%84%EC%86%8C%EB%82%98%EB%AC%B4-illustration-page5-1773553204447.webp",
+        "text": "<h2>เนื้อหาที่หนังสือแทงโก \"ต้นสน\" นำเสนอ</h2><p>หนังสือแทงโก \"ต้นสน\" แสดงให้เห็นถึงใบไม้สีเขียวตลอดสี่ฤดู การปลิวของเกสรสน การเปิดและปิดของลูกสน ยางสน และเมล็ดลูกสน รวมถึงการอยู่ร่วมกันของสิ่งมีชีวิตในป่า</p>",
+        "caption": "อัญมณีที่ซงจินสร้าง",
+        "image_style": "",
+        "image_prompt": "Pine resin (amber) glowing golden on a pine trunk, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "ต้นสน - จุดที่น่าสังเกตเมื่อได้ดูด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1773553000636-%EC%96%B8%EC%A0%9C%EB%82%98%ED%91%B8%EB%A5%B8%EA%B8%B0%EC%9A%B4%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EC%88%B2%EC%86%8D%EC%9D%98%EC%84%A0%EB%B9%84%EC%86%8C%EB%82%98%EB%AC%B4-illustration-page10-1773553216997.webp",
+        "text": "<h2>จุดที่น่าสังเกตพร้อมกัน</h2><p>ชี้ให้ดูจุดต่างๆ เช่น ใบสน (การสังเคราะห์แสงในฤดูหนาว), ผลสน (การเปิด/ปิดตามความชื้น), ยางไม้ (สมุนไพรธรรมชาติ), หรือฟักทอง นอกจากนี้ การพูดคุยด้วยกันว่า \"ทำไมผลสนถึงเปิดและปิดได้นะ?\" ก็เป็นเรื่องที่ดีค่ะ</p>",
+        "caption": "สิ่งที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "Close-up of pine needles in pairs, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "ต้นสน - คู่มือสำหรับผู้ปกครอง — ขยายผลผ่านการสังเกตและประสบการณ์",
+        "url": "https://assets.tangobook.co.kr/1773553000636-%EC%96%B8%EC%A0%9C%EB%82%98%ED%91%B8%EB%A5%B8%EA%B8%B0%EC%9A%B4%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EC%88%B2%EC%86%8D%EC%9D%98%EC%84%A0%EB%B9%84%EC%86%8C%EB%82%98%EB%AC%B4-illustration-page14-1773553227964.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — การขยายจากการสังเกตและการเรียนรู้จากประสบการณ์</h2><p>ลองเก็บลูกสนแช่น้ำและปล่อยให้แห้ง แล้วสังเกตการปิดและการเปิดของเกล็ดด้วยตาตัวเองดูสิคะ (เป็นกิจกรรมทดลองที่น่าทึ่งมาก!) นอกจากนี้ การสัมผัสพื้นผิวของใบสน และดมกลิ่นยางไม้ก็จะดีเช่นกันค่ะ</p>",
+        "caption": "กิจกรรมทดลองเปิดและปิดลูกสน",
+        "image_style": "",
+        "image_prompt": "A parent and child soaking a pinecone in water to watch it close, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ทำไมลูกสนถึงเปิดและปิดได้คะ/ครับ?</strong><br>ตอบ: เพราะมันตอบสนองต่อความชื้นค่ะ/ครับ เวลาแห้งก็จะเปิดเพื่อปล่อยเมล็ด และเวลาฝนตกก็จะปิดเพื่อปกป้องเมล็ดเหล่านั้น</p><p><strong>ถาม: ทำไมต้นสนถึงยังคงสีเขียวแม้ในฤดูหนาวคะ/ครับ?</strong><br>ตอบ: เพราะใบเข็มถูกคลุมด้วยชั้นที่หนา ทำให้มันสามารถสังเคราะห์แสงต่อไปได้แม้ในฤดูหนาวที่หนาวเย็น</p><p><strong>ถาม: เราจะสังเกตที่บ้านได้อย่างไรดีคะ/ครับ?</strong><br>ตอบ: ลองแช่ลูกสนในน้ำแล้วปล่อยให้แห้งเพื่อสังเกตการเปิดปิด และลองสัมผัสเนื้อสัมผัสและดมกลิ่นยางไม้ของใบเข็มดูนะคะ/ครับ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณสนุกกับการอ่านนิทานเรื่องนี้แล้ว ลองดูแบบนี้ <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือนิทานเรื่องต้นสน",
+        "url": "https://assets.tangobook.co.kr/1773553000636-%EC%96%B8%EC%A0%9C%EB%82%98%ED%91%B8%EB%A5%B8%EA%B8%B0%EC%9A%B4%EC%9D%84%EA%B0%84%EC%A7%81%ED%95%9C%EC%88%B2%EC%86%8D%EC%9D%98%EC%84%A0%EB%B9%84%EC%86%8C%EB%82%98%EB%AC%B4-illustration-page18-1773553250549.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"ต้นสน\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้โดยตรงที่แทงโกบุ๊ก ด้วยภาพสวยงามและเสียงภาษาเกาหลี/อังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1773553000636\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

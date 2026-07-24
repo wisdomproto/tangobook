@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773885810321",
+  "seo_title": "食肉龙特征——装甲恐龙自然观察绘本",
+  "meta_description": "关于全身覆盖着盔甲、尾巴上带着锤子的腕龙等奇妙特征的知识，以及《Tango Book》恐龙绘本的内容和阅读方法。4-7岁恐龙指南。",
+  "primary_keyword": "食肉龙（或：角龙）",
+  "secondary_keywords": ["食肉龙（或：角龙）", "盔甲恐龙", "食草恐龙", "儿童恐龙书", "恐龙绘本"],
+  "url_slug": "ankylosaurus-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "安基洛骨龙 - 安基洛骨龙，哪些地方最奇妙呢？",
+        "url": "https://assets.tangobook.co.kr/1773885810321-%EC%95%88%ED%82%AC%EB%A1%9C%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-cover-misc-1780038281028.webp",
+        "text": "<h2>安基洛骨龙，哪些地方会让人觉得神奇呢？</h2><p>全身覆盖着坚硬的 <strong>盔甲</strong>被……覆盖的 <strong>安基洛骨龙</strong>它是一种像活着的坦克一样的植食恐龙。连天敌也无法随便攻击它哦。</p>",
+        "caption": "装甲恐龙",
+        "image_style": "",
+        "image_prompt": "An armored Ankylosaurus with a tail club, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "食肉龙——食肉龙的自然与科学事实",
+        "url": "https://assets.tangobook.co.kr/1773885810321-%EC%98%A8%EB%AA%B8%EC%9D%84%EB%8B%A8%EB%8B%A8%ED%95%9C%EA%B0%91%EC%98%B7%EC%9C%BC%EB%A1%9C%EB%91%90%EB%A5%B8%EC%A0%84%EC%B0%A8%EC%95%88%ED%82%AC%EB%A1%9C%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page1-1773885963762.webp",
+        "text": "<h2>铁甲龙的自然与科学知识</h2><p>铁甲龙大约生活在6600万年前的北美，身体长度为6到11米。它背部覆盖着 <strong>甲板（皮肤下的骨骼）</strong>曾 <strong>直到眼皮都被骨骼覆盖的</strong> 程度。但是 <strong>肚子那边没有甲板</strong>，当敌人出现时，它会把肚子紧贴地面来掩盖弱点。它用尾巴末端坚硬的곤봉（锤子）对抗天敌。</p>",
+        "caption": "坚硬的骨甲",
+        "image_style": "",
+        "image_prompt": "A close-up of Ankylosaurus bony armor plates, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "安基洛骨龙 - 《Tango书》《安基洛骨龙》讲述的内容",
+        "url": "https://assets.tangobook.co.kr/1773885810321-%EC%98%A8%EB%AA%B8%EC%9D%84%EB%8B%A8%EB%8B%A8%ED%95%9C%EA%B0%91%EC%98%B7%EC%9C%BC%EB%A1%9C%EB%91%90%EB%A5%B8%EC%A0%84%EC%B0%A8%EC%95%88%ED%82%AC%EB%A1%9C%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page6-1773885981878.webp",
+        "text": "<h2>《安科龙》主题的《探戈书》内容</h2><p>《安科龙》主题的《探戈书》生动地展示了装甲恐龙，包括坚硬的背甲、尾巴곤봉（或：尾锤）、隐藏腹部的防御姿态，以及与天敌对抗的场景等。</p>",
+        "caption": "尾巴锤子",
+        "image_style": "",
+        "image_prompt": "An Ankylosaurus swinging its tail club at a predator, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "食肉龙科恐龙——值得一起了解的知识点",
+        "url": "https://assets.tangobook.co.kr/1773885810321-%EC%98%A8%EB%AA%B8%EC%9D%84%EB%8B%A8%EB%8B%A8%ED%95%9C%EA%B0%91%EC%98%B7%EC%9C%BC%EB%A1%9C%EB%91%90%EB%A5%B8%EC%A0%84%EC%B0%A8%EC%95%88%ED%82%AC%EB%A1%9C%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page10-1773886251044.webp",
+        "text": "<h2>一起了解的好点</h2><p>请指出像背甲（骨板）、尾巴棍棒（武器）、弱点（肚子）、防御姿势这样的重点。一起聊聊“为什么把肚子贴在地上？”会很好。</p>",
+        "caption": "观察点",
+        "image_style": "",
+        "image_prompt": "An Ankylosaurus pressing its belly to the ground, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "食肉龙科恐龙——家长指南——如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1773885810321-%EC%98%A8%EB%AA%B8%EC%9D%84%EB%8B%A8%EB%8B%A8%ED%95%9C%EA%B0%91%EC%98%B7%EC%9C%BC%EB%A1%9C%EB%91%90%EB%A5%B8%EC%A0%84%EC%B0%A8%EC%95%88%ED%82%AC%EB%A1%9C%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page15-1773886439000.webp",
+        "text": "<h2>家长指南 — 如何培养好奇心</h2><p>比较乌龟和树懒的照片，聊聊“坚硬的盔甲”。一起推理“弱点——肚子是如何保护起来的？”能让孩子更感兴趣。</p>",
+        "caption": "盔甲比较",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing a turtle and an armored dinosaur, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题（FAQ）</h2><p><strong>Q. 角龙是如何保护自己的呢？</strong><br>A. 它用全身的骨甲和尾巴的钝器来防御，并将弱点——肚子——紧贴地面隐藏了起来。</p><p><strong>Q. 它的弱点在哪里呢？</strong><br>A. 是腹部这边。因为这里没有甲片保护，所以当有敌人来临时，它就把它紧贴在地面上掩盖了。</p><p><strong>Q. 在家里可以怎样玩得开心呢？</strong><br>A. 可以比较甲龙与乌龟、刺猬的甲壳，或者一起推测“它是如何保护腹部的”会很有趣哦。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "食肉龙科恐龙绘本插画",
+        "url": "https://assets.tangobook.co.kr/1773885810321-%EC%98%A8%EB%AA%B8%EC%9D%84%EB%8B%A8%EB%8B%A8%ED%95%9C%EA%B0%91%EC%98%B7%EC%9C%BC%EB%A1%9C%EB%91%90%EB%A5%B8%EC%A0%84%EC%B0%A8%EC%95%88%ED%82%AC%EB%A1%9C%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page19-1774356969385.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“腕龙”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用精美的图画和韩语·英语语音亲自了解它吧。</p><a href=\"https://tangobook.co.kr/library/1773885810321\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

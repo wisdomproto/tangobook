@@ -1,0 +1,112 @@
+{
+  "storybookId": "1773365203383",
+  "seo_title": "หนังสือภาพดอกทานตะวัน — ความลับที่หมุนตามดวงอาทิตย์ (การสังเกตธรรมชาติสำหรับเด็ก 4-7 ขวบ)",
+  "meta_description": "เหตุผลที่แท้จริงที่ดอกทานตะวันหมุนตามดวงอาทิตย์ (ปรากฏการณ์การหันหาแสง) และข้อเท็จจริงมหัศจรรย์อื่น ๆ เช่น ความลับของเมล็ดพันธุ์ เนื้อหาจากหนังสือภาพสังเกตธรรมชาติ Tango Book รวมถึงวิธีการสังเกตด้วย คู่มือการสังเกตธรรมชาติสำหรับเด็กวัย 4-7 ปี",
+  "primary_keyword": "หนังสือภาพดอกทานตะวัน",
+  "secondary_keywords": [
+    "ลักษณะเด่นของดอกทานตะวัน",
+    "ดอกทานตะวัน ฮยางอิลซอง",
+    "ระบบนิเวศของดอกทานตะวัน",
+    "หนังสือสำหรับเด็กเล็กเกี่ยวกับการสังเกตธรรมชาติ",
+    "หนังสือนิทานภาพเกี่ยวกับพืช"
+  ],
+  "url_slug": "sunflower-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "ดอกทานตะวัน - ดอกทานตะวันมีส่วนไหนที่น่าสนใจบ้างนะ?",
+        "url": "https://assets.tangobook.co.kr/1773365203383-%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0-cover-misc-1780046250884.webp",
+        "text": "<h2>ดอกทานตะวัน มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>สูงและสดใส <strong>ดอกทานตะวัน</strong>เป็นดอกไม้ประจำฤดูร้อนที่ขึ้นชื่อว่าหันหน้าตามดวงอาทิตย์ มาเรียนรู้หลักวิทยาศาสตร์จริง ๆ ที่ซ่อนอยู่ในการเคลื่อนไหวเหล่านั้นกันเถอะ</p><p data-seo-boost=\"1\">เราได้รวบรวมเรื่องราวที่หลากหลายเกี่ยวกับดอกทานตะวัน ไม่ว่าจะเป็นลักษณะเด่น ทิศทางตามดวงอาทิตย์ และระบบนิเวศของมันค่ะ</p>",
+        "caption": "ดอกทานตะวันที่มุ่งสู่ดวงอาทิตย์",
+        "image_style": "",
+        "image_prompt": "A tall bright sunflower facing the morning sun in a summer field, cheerful children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "ดอกทานตะวัน - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของดอกทานตะวัน",
+        "url": "https://assets.tangobook.co.kr/1773365203383-%ED%83%9C%EC%96%91%EC%9D%84%EB%8B%AE%EC%9D%80%EC%BB%A4%EB%8B%A4%EB%9E%80%EA%BD%83%ED%99%A9%EA%B8%88%EB%B9%9B%EB%AF%B8%EC%86%8C%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0-illustration-page1-1773531635427.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของดอกทานตะวัน</h2><p>การที่มัน \"หมุนตามดวงอาทิตย์\" นั้น <strong>มีเฉพาะดอกทานตะวันอ่อนเท่านั้น</strong> เป็นเช่นนั้นค่ะ ในช่วงที่ลำต้นยังไม่แข็งแรง กลางวันมันจะเคลื่อนตามดวงอาทิตย์จากตะวันออกไปตะวันตก และตอนกลางคืนก็จะกลับมาทางทิศตะวันออก ซึ่งเป็นเพราะการเจริญเติบโตตามทิศทางของแสง (ภาวะโครโทปิซึม) และจังหวะรอบวันค่ะ (งานวิจัย Science ปี 2016) เมื่อมันโตเต็มที่และดอกบาน ลำต้นจะแข็งขึ้น ทำให้ส่วนใหญ่ <strong>จะคงที่หันไปทางทิศตะวันออก</strong>แต่จะดูดซับพลังงานแสงได้มากขึ้นจากการได้รับแสงแดดยามเช้าค่ะ</p>",
+        "caption": "ความลับของฮยางอิลซอง",
+        "image_style": "",
+        "image_prompt": "Young sunflowers turning from east to west following the sun, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "ดอกทานตะวัน - ทังโกบุ๊ก เนื้อหาเกี่ยวกับ \"ดอกทานตะวัน\"",
+        "url": "https://assets.tangobook.co.kr/1773365203383-%ED%83%9C%EC%96%91%EC%9D%84%EB%8B%AE%EC%9D%80%EC%BB%A4%EB%8B%A4%EB%9E%80%EA%BD%83%ED%99%A9%EA%B8%88%EB%B9%9B%EB%AF%B8%EC%86%8C%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0-illustration-page5-1773531645829.webp",
+        "text": "<h2>เนื้อหาที่หนังสือทังโกเรื่อง \"ดอกทานตะวัน\" นำเสนอ</h2><p>หนังสือทังโกเรื่อง \"ดอกทานตะวัน\" แสดงให้เห็นวงจรชีวิตอย่างสดใส ตั้งแต่การงอกของเมล็ด การเติบโตสูงชะลูดเข้าหาดวงอาทิตย์ จนกระทั่งเบ่งบานเป็นดอกไม้และติดเมล็ดจำนวนมากมาย</p>",
+        "caption": "เมล็ดที่ฝังตัวเป็นเกลียว",
+        "image_style": "",
+        "image_prompt": "A sunflower full of seeds in a spiral pattern, close-up children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "ดอกทานตะวัน - จุดที่ควรสังเกตเมื่อได้ดูด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1773365203383-%ED%83%9C%EC%96%91%EC%9D%84%EB%8B%AE%EC%9D%80%EC%BB%A4%EB%8B%A4%EB%9E%80%EA%BD%83%ED%99%A9%EA%B8%88%EB%B9%9B%EB%AF%B8%EC%86%8C%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0-illustration-page10-1773531667650.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>โปรดชี้ให้ดูจุดต่างๆ เช่น ดอกทานตะวันอ่อน (ที่ตามดวงอาทิตย์), ดอกไม้ที่โตเต็มที่ (ที่ยึดติดกับทิศตะวันออก), เมล็ดพันธุ์ (การจัดเรียงอย่างหนาแน่น) หรือความสูงใหญ่ นอกจากนี้ การพูดคุยกันว่า \"ทำไมดอกทานตะวันที่ใหญ่ถึงมองได้แค่ทิศทางเดียว?\" ก็เป็นเรื่องที่ดีค่ะ</p>",
+        "caption": "สิ่งที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A sunflower seed sprouting and growing tall, life cycle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "ดอกทานตะวัน – คู่มือสำหรับผู้ปกครอง – การต่อยอดจากการสังเกตและประสบการณ์",
+        "url": "https://assets.tangobook.co.kr/1773365203383-%ED%83%9C%EC%96%91%EC%9D%84%EB%8B%AE%EC%9D%80%EC%BB%A4%EB%8B%A4%EB%9E%80%EA%BD%83%ED%99%A9%EA%B8%88%EB%B9%9B%EB%AF%B8%EC%86%8C%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0-illustration-page14-1773531684773.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — ขยายผลผ่านการสังเกตและประสบการณ์</h2><p>ลองสังเกตกระบวนการปลูกและเติบโตของดอกทานตะวัน รวมถึงการหันศีรษะในวัยเยาว์ ดูการจัดเรียงเมล็ด (แบบเกลียว) ด้วยแว่นขยาย และดีมากที่จะได้แกะกินเมล็ดพร้อมกับนับว่า \"ดอกไม้หนึ่งดอกมีเมล็ดกี่เม็ดนะ?\"</p>",
+        "caption": "การสังเกตการวัดส่วนสูง",
+        "image_style": "",
+        "image_prompt": "A parent and child measuring a growing sunflower together, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (Q&A)</h2><p><strong>ถาม: ดอกทานตะวันหมุนตามดวงอาทิตย์จริงหรือคะ/ครับ?</strong><br>ตอบ: เฉพาะทานตะวันอ่อนเท่านั้นที่ทำแบบนั้นค่ะ/ครับ พอโตและออกดอกแล้ว ส่วนใหญ่จะหันไปทางทิศตะวันออกแทน</p><p><strong>ถาม: ทำไมถึงหันไปทางทิศตะวันออกคะ/ครับ?</strong><br>ตอบ: เพื่อรับแสงแดดยามเช้าโดยตรง ดูดซับพลังงานแสงได้มากขึ้น และช่วยให้หยดน้ำค้างแห้งเร็วค่ะ/ครับ</p><p><strong>ถาม: เราจะสังเกตที่บ้านได้อย่างไรดีคะ/ครับ?</strong><br>ตอบ: ลองปลูกเอง แล้วสังเกตการเจริญเติบโต การหันศีรษะ และใช้แว่นขยายดูการเรียงตัวแบบเกลียวของเมล็ดดูนะคะ/ครับ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกที่เหมาะสำหรับอ่านให้ลูกฟังด้วยกัน</h2><p>ถ้าคุณอ่านนิทานเรื่องนี้แล้วสนุก... <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกหมา</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือภาพดอกทานตะวัน",
+        "url": "https://assets.tangobook.co.kr/1773365203383-%ED%83%9C%EC%96%91%EC%9D%84%EB%8B%AE%EC%9D%80%EC%BB%A4%EB%8B%A4%EB%9E%80%EA%BD%83%ED%99%A9%EA%B8%88%EB%B9%9B%EB%AF%B8%EC%86%8C%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0-illustration-page18-1773531707104.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"ดอกทานตะวัน\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้ที่ Tango Book ด้วยภาพสวย ๆ และเสียงอ่านภาษาเกาหลีและภาษาอังกฤษเลยค่ะ</p><a href=\"https://tangobook.co.kr/library/1773365203383\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

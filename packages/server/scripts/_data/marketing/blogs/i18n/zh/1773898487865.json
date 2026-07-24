@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773898487865",
+  "seo_title": "鬣牙龙特点 — 拇指刺恐龙自然观察绘本",
+  "meta_description": "关于拥有拇指尖锐刺的角龙（Iguanodon）的特征、化石发现故事等奇妙知识，以及《Tango Book》恐龙绘本的内容和阅读方法。4-7岁恐龙指南。",
+  "primary_keyword": "伊瓜诺龙",
+  "secondary_keywords": ["鬣蜥齿龙", "拇指刺恐龙", "食草恐龙", "儿童恐龙书", "恐龙绘本"],
+  "url_slug": "iguanodon-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "鬣蜥龙——鬣蜥龙，有什么特别的地方呢？",
+        "url": "https://assets.tangobook.co.kr/1773898487865-%EC%9D%B4%EA%B5%AC%EC%95%84%EB%85%B8%EB%8F%88-cover-misc-1780038088176.webp",
+        "text": "<h2>鬣蜥龙，哪些地方会让人觉得神奇呢？</h2><p>指节上尖尖的 <strong>刺</strong>的 <strong>鬣蜥龙</strong>它是最早发现的恐龙之一。它是一种既能用两只脚也能用四只脚的植食性恐龙哦。</p>",
+        "caption": "拇指刺恐龙",
+        "image_style": "",
+        "image_prompt": "An Iguanodon walking on two and four legs, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "鬣蜥龙——关于鬣蜥龙的自然与科学事实",
+        "url": "https://assets.tangobook.co.kr/1773898487865-%EC%97%84%EC%A7%80%EC%86%90%EA%B0%80%EB%9D%BD%EC%97%90%EB%82%A0%EC%B9%B4%EB%A1%9C%EC%9A%B4%EA%B0%80%EC%8B%9C%EB%A5%BC%EA%B0%80%EC%A7%84%EC%A0%84%EC%82%AC%EC%9D%B4%EA%B5%AC%EC%95%84%EB%85%B8%EB%8F%88-illustration-page1-1773898566760.webp",
+        "text": "<h2>关于伊瓜诺龙的自然和科学事实</h2><p>伊瓜诺龙生活在大约一亿二千五百万年前的白垩纪早期 <strong>欧洲</strong>它生活在（那里），身体长度最大可达9~11米。它最显著的特征是 <strong>大拇指上的尖刺</strong>一开始被误认为是角，后来才发现是拇指的尖端。 <strong>成群结队地移动</strong>它用过双足和四足。它可能用大拇指的尖刺来防御天敌或处理食物。</p>",
+        "caption": "尖锐的大拇指刺",
+        "image_style": "",
+        "image_prompt": "A close-up of Iguanodon thumb spike, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "伊瓜诺龙 - 《探戈书》讲述的《伊瓜诺龙》的内容",
+        "url": "https://assets.tangobook.co.kr/1773898487865-%EC%97%84%EC%A7%80%EC%86%90%EA%B0%80%EB%9D%BD%EC%97%90%EB%82%A0%EC%B9%B4%EB%A1%9C%EC%9A%B4%EA%B0%80%EC%8B%9C%EB%A5%BC%EA%B0%80%EC%A7%84%EC%A0%84%EC%82%AC%EC%9D%B4%EA%B5%AC%EC%95%84%EB%85%B8%EB%8F%88-illustration-page6-1774412340322.webp",
+        "text": "<h2>《探戈书》《伊瓜诺龙》讲述的内容</h2><p>《探戈书》《伊瓜诺龙》温馨地展示了这种友好的植食恐龙，包括拇指上的尖刺、双足和四足行走，以及群居移动的场景等。</p>",
+        "caption": "群体移动",
+        "image_style": "",
+        "image_prompt": "A herd of Iguanodon migrating together, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "鬣蜥龙——值得一起了解的知识点",
+        "url": "https://assets.tangobook.co.kr/1773898487865-%EC%97%84%EC%A7%80%EC%86%90%EA%B0%80%EB%9D%BD%EC%97%90%EB%82%A0%EC%B9%B4%EB%A1%9C%EC%9A%B4%EA%B0%80%EC%8B%9C%EB%A5%BC%EA%B0%80%EC%A7%84%EC%A0%84%EC%82%AC%EC%9D%B4%EA%B5%AC%EC%95%84%EB%85%B8%EB%8F%88-illustration-page10-1774413936381.webp",
+        "text": "<h2>一起了解的好点</h2><p>请指出诸如拇指上的刺（一开始会被误认为是犀牛）、两足和四足、群体迁徙、欧洲化石等重点。一起聊聊“拇指上有刺，真神奇吧？”会很好。</p>",
+        "caption": "观察点",
+        "image_style": "",
+        "image_prompt": "An Iguanodon using its thumb spike, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "鬣蜥龙——家长指南——如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1773898487865-%EC%97%84%EC%A7%80%EC%86%90%EA%B0%80%EB%9D%BD%EC%97%90%EB%82%A0%EC%B9%B4%EB%A1%9C%EC%9A%B4%EA%B0%80%EC%8B%9C%EB%A5%BC%EA%B0%80%EC%A7%84%EC%A0%84%EC%82%AC%EC%9D%B4%EA%B5%AC%EC%95%84%EB%85%B8%EB%8F%88-illustration-page15-1773898776471.webp",
+        "text": "<h2>父母指南 — 如何培养好奇心</h2><p>抬起拇指，模仿说出“这里曾经有刺”。讲述“最初人们以为它是犀牛”这样的发现故事，就能让孩子生动地了解科学是如何不断变化的。</p>",
+        "caption": "大拇指扎刺的模仿（或：假装用拇指刺）",
+        "image_style": "",
+        "image_prompt": "A parent and child pointing thumbs up like a thumb spike, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>Q. 伊瓜诺龙的拇指尖刺是用来做什么的？</strong><br>A. 据认为它用于阻止捕食者或处理食物。一开始，它曾被误认为是犀牛。</p><p><strong>Q. 它是用两条腿走路，还是四条腿走路？</strong><br>A. 它既用了两条腿，也用了四条腿。它还曾成群移动。</p><p><strong>Q. 在家可以怎样玩得开心呢？</strong><br>A. 模仿竖起的大拇指尖刺，或是讲述“最初被误认为犀牛”的发现故事，会很好。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>适合一起阅读的经典童话</h2><p>如果喜欢读这个故事，还可以看看这些 <strong>经典童话</strong>也一起来阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">小狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "鬣蜥龙图画书插画",
+        "url": "https://assets.tangobook.co.kr/1773898487865-%EC%97%84%EC%A7%80%EC%86%90%EA%B0%80%EB%9D%BD%EC%97%90%EB%82%A0%EC%B9%B4%EB%A1%9C%EC%9A%B4%EA%B0%80%EC%8B%9C%EB%A5%BC%EA%B0%80%EC%A7%84%EC%A0%84%EC%82%AC%EC%9D%B4%EA%B5%AC%EC%95%84%EB%85%B8%EB%8F%88-illustration-page19-1774358982861.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“鬣蜥龙”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango书里，用美丽的图画和韩语·英语语音亲自了解它吧。</p><a href=\"https://tangobook.co.kr/library/1773898487865\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

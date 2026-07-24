@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777447602938",
+  "seo_title": "Leopard Facts & the Secret of the Rosette Pattern — Nature Picture Book",
+  "meta_description": "Amazing facts about a leopard's flower-shaped spots (rosettes), its secret to climbing trees so well, and its stealthy hunting, plus what Tangobook's animal picture book covers and how to observe them. A nature guide for ages 4-7.",
+  "primary_keyword": "leopard",
+  "secondary_keywords": [
+    "leopard facts",
+    "leopard pattern",
+    "leopard ecology",
+    "animal books for kids",
+    "animal picture book"
+  ],
+  "url_slug": "leopard-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "Leopard - What makes leopards so amazing?",
+        "url": "https://assets.tangobook.co.kr/1777447602938-%ED%91%9C%EB%B2%94-cover-misc-1780027716564.webp",
+        "text": "<h2>What makes leopards so amazing?</h2><p>With its petal-like markings, the <strong>leopard</strong> is a stealthy hunter — the best tree climber of all the cats.</p>",
+        "caption": "A leopard in a tree",
+        "image_style": "",
+        "image_prompt": "A leopard with rosette spots resting on a tree branch, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "Leopard - Nature and science facts about leopards",
+        "url": "https://assets.tangobook.co.kr/1777447602938-%ED%91%9C%EB%B2%94-illustration-page1-1777448356728.webp",
+        "text": "<h2>Nature and science facts about leopards</h2><p>The <strong>flower-shaped markings (rosettes)</strong> all over a leopard's body are perfect for hiding among the shadows of the leaves. It climbs trees so well that it cleverly <strong>hauls its catch up into the branches</strong> so lions and hyenas can't steal it. As a <strong>solitary hunter</strong> that lives alone, it's skilled at a stealthy hunt — creeping up silently and pouncing in an instant — and it has eyes that see well even in the dark, along with strong legs and sharp claws.</p>",
+        "caption": "Flower-shaped markings",
+        "image_style": "",
+        "image_prompt": "A close-up of leopard rosette pattern, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "Leopard - What Tangobook's «Leopard» covers",
+        "url": "https://assets.tangobook.co.kr/1777447602938-%ED%91%9C%EB%B2%94-illustration-page5-1777448379547.webp",
+        "text": "<h2>What Tangobook's «Leopard» covers</h2><p>Tangobook's «Leopard» vividly shows the leopard's cleverness — hiding its body with its rosette markings, hauling prey up a tree, and creeping up silently to hunt.</p>",
+        "caption": "A clever way to store prey",
+        "image_style": "",
+        "image_prompt": "A leopard dragging prey up a tree, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "Leopard - Great points to observe together",
+        "url": "https://assets.tangobook.co.kr/1777447602938-%ED%91%9C%EB%B2%94-illustration-page10-1777448389419.webp",
+        "text": "<h2>Great points to observe together</h2><p>Point out things like the rosette markings (camouflage), tree climbing (storing prey), solitary hunting, and night vision. It's fun to talk together about \"Why does a leopard haul its prey up a tree?\"</p>",
+        "caption": "Observation points",
+        "image_style": "",
+        "image_prompt": "A leopard stalking silently in the grass, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "Leopard - Parent guide — how to spark curiosity",
+        "url": "https://assets.tangobook.co.kr/1777447602938-%ED%91%9C%EB%B2%94-illustration-page14-1777448398299.webp",
+        "text": "<h2>Parent guide — how to spark curiosity</h2><p>Compare photos of leopards, cheetahs, and jaguars and look for the \"flower-shaped rosettes.\" Talking about how \"clever it is to haul prey up a tree so no one steals it\" makes it even more interesting.</p>",
+        "caption": "Comparing patterns",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing spotted big cats, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Frequently Asked Questions (FAQ)</h2><p><strong>Q. Why does a leopard haul its prey up a tree?</strong><br>A. To keep lions and hyenas from stealing it, the leopard drags its catch up into the branches. It's very clever.</p><p><strong>Q. What do a leopard's markings look like?</strong><br>A. They're petal-like \"rosette\" markings. They're great for camouflage, hiding the body among the shadows of the leaves.</p><p><strong>Q. How can we observe them at home?</strong><br>A. Comparing the markings of leopards, cheetahs, and jaguars, and talking about \"how clever it is to store prey up a tree,\" both work well.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Great picture books to read together</h2><p>If you enjoyed this story, try reading these wonderful <strong>picture books</strong> too.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">Dog</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">Foxtail Grass</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">Frog</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">Ant</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "Leopard picture book illustration",
+        "url": "https://assets.tangobook.co.kr/1777447602938-%ED%91%9C%EB%B2%94-illustration-page18-1777448406780.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">Curious about “Leopard”?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">Meet it for yourself on Tangobook, with beautiful illustrations and Korean and English narration.</p><a href=\"https://tangobook.co.kr/library/1777447602938\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 Read the picture book →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

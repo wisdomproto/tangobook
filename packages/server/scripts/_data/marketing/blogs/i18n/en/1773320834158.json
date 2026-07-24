@@ -1,0 +1,112 @@
+{
+  "storybookId": "1773320834158",
+  "seo_title": "Snail Facts & Ecology — The Secrets of the Slowpoke (Nature Study Picture Book)",
+  "meta_description": "The snail's shell, mucus, radula, and other amazing facts, plus what Tangobook's nature-study picture book covers and how to observe them with your child. A nature-study guide for ages 4–7.",
+  "primary_keyword": "snail",
+  "secondary_keywords": [
+    "snail characteristics",
+    "snail ecology",
+    "observing pet snails",
+    "nature study books for kids",
+    "animal picture book"
+  ],
+  "url_slug": "snail-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "Snail - What makes snails so fascinating?",
+        "url": "https://assets.tangobook.co.kr/1773320834158-%EB%8B%AC%ED%8C%BD%EC%9D%B4-cover-misc-1780029801610.webp",
+        "text": "<h2>What makes snails so fascinating?</h2><p>Carrying its home on its back and crawling along slowly, the <strong>snail</strong> is a nature friend children meet on rainy days. There's plenty of science hidden in its slowness.</p><p data-seo-boost=\"1\">We've gathered all kinds of stories about snails, including their characteristics, their ecology, and observing pet snails.</p>",
+        "caption": "A snail carrying its home",
+        "image_style": "",
+        "image_prompt": "A snail with a spiral shell crawling on a wet leaf after rain, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "Snail - Nature and science facts about snails",
+        "url": "https://assets.tangobook.co.kr/1773320834158-%EC%A7%91%EC%9D%84%EC%A7%80%EA%B3%A0%EB%8B%A4%EB%8B%88%EB%8A%94%EB%8A%90%EB%A6%BC%EB%B3%B4%EB%8B%AC%ED%8C%BD%EC%9D%B4-illustration-page1-1773444469383.webp",
+        "text": "<h2>Nature and science facts about snails</h2><p>Snails secrete sticky <strong>mucus</strong> so they can glide smoothly even over rough surfaces while keeping their bodies moist. Inside their mouth is a file-like <strong>radula</strong> for scraping and eating leaves. When threatened, they tuck themselves into their <strong>shell</strong>, and their eyes are at the tips of their tentacles. Many snails are hermaphrodites (both male and female in one body), and there are tens of thousands of species worldwide.</p>",
+        "caption": "Eyes at the tips of the tentacles",
+        "image_style": "",
+        "image_prompt": "Close-up of a snail's eye stalks (tentacles), informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "Snail - What Tangobook's «Snail» covers",
+        "url": "https://assets.tangobook.co.kr/1773320834158-%EC%A7%91%EC%9D%84%EC%A7%80%EA%B3%A0%EB%8B%A4%EB%8B%88%EB%8A%94%EB%8A%90%EB%A6%BC%EB%B3%B4%EB%8B%AC%ED%8C%BD%EC%9D%B4-illustration-page5-1773444493691.webp",
+        "text": "<h2>What Tangobook's «Snail» covers</h2><p>Tangobook's «Snail» slowly follows along, showing how the snail crawls on its mucus, uses its tentacles to check its surroundings, hides in its shell for defense, scrapes and eats leaves, and how baby snails hatch from their eggs.</p>",
+        "caption": "Tucking into the shell",
+        "image_style": "",
+        "image_prompt": "A snail retreating into its shell, defensive behavior, children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "Snail - Great things to observe together",
+        "url": "https://assets.tangobook.co.kr/1773320834158-%EC%A7%91%EC%9D%84%EC%A7%80%EA%B3%A0%EB%8B%A4%EB%8B%88%EB%8A%94%EB%8A%90%EB%A6%BC%EB%B3%B4%EB%8B%AC%ED%8C%BD%EC%9D%B4-illustration-page10-1773444520242.webp",
+        "text": "<h2>Great things to observe together</h2><p>Point out things like the shell (a portable home and defense), the mucus (gliding and moisture), the tentacles (eyes), and the radula (scraping leaves). It's fun to talk together about \"Why does a snail leave a sticky trail?\" and \"Where are its eyes?\"</p>",
+        "caption": "Observation points",
+        "image_style": "",
+        "image_prompt": "A shiny mucus trail left by a snail on a surface, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "Snail - Parent guide: extending into observation and hands-on experience",
+        "url": "https://assets.tangobook.co.kr/1773320834158-%EC%A7%91%EC%9D%84%EC%A7%80%EA%B3%A0%EB%8B%A4%EB%8B%88%EB%8A%94%EB%8A%90%EB%A6%BC%EB%B3%B4%EB%8B%AC%ED%8C%BD%EC%9D%B4-illustration-page14-1773444531717.webp",
+        "text": "<h2>Parent guide: extending into observation and hands-on experience</h2><p>After the rain, observe the shiny trail a snail leaves in the flower bed. Gently touch a tentacle to see it tuck in (softly), and watch it scrape a lettuce leaf to really understand the radula. (Return it to its place after observing.)</p>",
+        "caption": "Observing slowly",
+        "image_style": "",
+        "image_prompt": "A parent and child observing a snail on a leaf with a magnifier, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Frequently Asked Questions (FAQ)</h2><p><strong>Q. Where are a snail's eyes?</strong><br>A. Its eyes are at the tips of its larger tentacles. It uses its tentacles to check its surroundings as it moves slowly.</p><p><strong>Q. Why does a snail leave a sticky trail?</strong><br>A. It secretes mucus so it can glide smoothly and keep its body moist.</p><p><strong>Q. How can we observe them at home?</strong><br>A. After the rain, use a magnifier to observe the mucus trail, tentacles, and leaf-scraping in the flower bed, then return it to its place.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Classic fairy tales to read together</h2><p>If you enjoyed this story, try reading these <strong>classic fairy tales</strong> too.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">Dog</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">Foxtail Grass</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">Frog</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">Ant</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "Snail picture book illustration",
+        "url": "https://assets.tangobook.co.kr/1773320834158-%EC%A7%91%EC%9D%84%EC%A7%80%EA%B3%A0%EB%8B%A4%EB%8B%88%EB%8A%94%EB%8A%90%EB%A6%BC%EB%B3%B4%EB%8B%AC%ED%8C%BD%EC%9D%B4-illustration-page18-1773444543267.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">Curious about \"Snail\"?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">Experience it for yourself on Tangobook, with beautiful illustrations and Korean and English narration.</p><a href=\"https://tangobook.co.kr/library/1773320834158\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 Go to the storybook →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

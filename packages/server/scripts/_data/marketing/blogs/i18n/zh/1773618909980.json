@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773618909980",
+  "seo_title": "骨骼和肌肉的故事 — 我们身体的科学自然观察绘本",
+  "meta_description": "关于我们身体的骨骼数量和肌肉作用，包括做出表情的面部肌肉等人体科学知识；还有《Tango Book》身体绘本的内容，以及如何与孩子一起了解这些知识。4-7岁体能自然观察指南。",
+  "primary_keyword": "骨骼和肌肉",
+  "secondary_keywords": ["骨骼和肌肉", "我们的骨头数量", "肌肉类型", "幼儿身体书", "身体图画书"],
+  "url_slug": "bones-muscles-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "骨骼和肌肉的故事 - 骨骼和肌肉，有哪些神奇之处呢？",
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-cover-misc-1780103470014.webp",
+        "text": "<h2>骨骼和肌肉，哪些地方会让人感到神奇呢？</h2><p>我们能够站立、行走和欢笑，都是... <strong>是它们的力量。你是否对身体内部是如何运作的感到非常好奇呢？</strong> 骨骼和肌肉</p>",
+        "caption": "身体的秘密",
+        "image_style": "",
+        "image_prompt": "A friendly diagram of a child body showing bones and muscles, bright children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "骨骼和肌肉的故事：关于骨骼和肌肉的自然科学事实",
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%82%B4%EB%AA%B8%EC%86%8D%EC%8B%A0%EB%B9%84%ED%95%9C%EC%A7%80%EB%8F%84%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page1-1773619162747.webp",
+        "text": "<h2>关于骨骼和肌肉的自然科学事实</h2><p>成人的身体平均 <strong>206块骨头</strong>有，但刚出生的宝宝大约有270块——这是因为随着成长，小骨头会合并的。骨骼的主要成分是钙，多吃牛奶和小鱼干能让它更强壮。肌肉分为骨骼肌、心肌和内脏肌， <strong>脸上就有大约43块肌肉</strong>这样就能做出数千种表情了。</p>",
+        "caption": "206块骨头",
+        "image_style": "",
+        "image_prompt": "A skeleton showing 206 bones in a friendly cartoon style, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "《骨骼和肌肉的故事》- 坦戈书所涵盖的内容",
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%82%B4%EB%AA%B8%EC%86%8D%EC%8B%A0%EB%B9%84%ED%95%9C%EC%A7%80%EB%8F%84%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page3-1773621133088.webp",
+        "text": "<h2>探戈书《骨骼与肌肉的故事》涵盖的内容</h2><p>探戈书《骨骼与肌肉的故事》以孩子能理解的视角，展示了支撑身体的骨骼、产生运动的肌肉、关节的运作以及形成表情的面部肌肉。</p>",
+        "caption": "数千种表情",
+        "image_style": "",
+        "image_prompt": "A child making different facial expressions using face muscles, lively children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "骨骼和肌肉的故事 - 一起了解的重点",
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%82%B4%EB%AA%B8%EC%86%8D%EC%8B%A0%EB%B9%84%ED%95%9C%EC%A7%80%EB%8F%84%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page5-1773621157977.webp",
+        "text": "<h2>适合一起了解的重点</h2><p>请指出像骨骼数量（206块）、钙质（强壮的骨头）、肌肉（运动）、面部肌肉（表情）等重点。一起聊聊“为什么宝宝的骨头更多呢？”会很好。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "A child flexing an arm muscle, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "骨骼和肌肉的故事 - 家长指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%82%B4%EB%AA%B8%EC%86%8D%EC%8B%A0%EB%B9%84%ED%95%9C%EC%A7%80%EB%8F%84%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page7-1773621164885.webp",
+        "text": "<h2>家长指南 — 如何培养好奇心</h2><p>弯曲手臂，触摸肱二头肌（肌肉），观察关节（肘部·膝盖）是如何弯曲的。在镜子前做出各种表情，感受“面部肌肉”，会很有趣。</p>",
+        "caption": "表情游戏",
+        "image_style": "",
+        "image_prompt": "A parent and child making faces in front of a mirror, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题（FAQ）</h2><p><strong>Q. 我们身体里有多少骨头？</strong><br>A. 成人平均有206块骨头。婴儿大约有270块，但随着成长，这些小骨头会融合变少。</p><p><strong>Q. 表情是怎么形成的呢？</strong><br>A. 脸部本身就有大约43块肌肉，它们通过运动可以做出数千种表情。</p><p><strong>Q. 在家可以怎么了解呢？</strong><br>A. 可以尝试触摸肘关节、观察关节弯曲，并在镜子前玩表情游戏。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "骨骼与肌肉故事绘本插图",
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%82%B4%EB%AA%B8%EC%86%8D%EC%8B%A0%EB%B9%84%ED%95%9C%EC%A7%80%EB%8F%84%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page16-1773619129650.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“骨骼和肌肉的故事”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book中，用美丽的图画和韩语·英语语音亲自体验吧。</p><a href=\"https://tangobook.co.kr/library/1773618909980\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

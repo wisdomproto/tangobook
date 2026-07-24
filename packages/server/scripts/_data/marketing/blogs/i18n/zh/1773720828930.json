@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773720828930",
+  "seo_title": "斯皮诺龙的特点 — 游泳恐龙自然观察绘本",
+  "meta_description": "关于背部长有巨大帆的暴龙（斯皮诺拉）适应水生生活等奇妙故事，还有《Tango Book》恐龙绘本的内容和如何享受它。4-7岁恐龙指南。",
+  "primary_keyword": "棘龙",
+  "secondary_keywords": ["棘龙", "游泳的恐龙", "背帆恐龙", "儿童恐龙书", "恐龙绘本"],
+  "url_slug": "spinosaurus-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "棘龙 - 棘龙有什么特别的地方呢？",
+        "url": "https://assets.tangobook.co.kr/1773720828930-%EC%8A%A4%ED%94%BC%EB%85%B8%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-cover-misc-1780044024274.webp",
+        "text": "<h2>斯皮诺龙，哪些地方会让人感到神奇呢？</h2><p>背上巨大的 <strong>帆</strong>的 <strong>斯皮诺龙</strong>它可能是生活在水中的特别恐龙。它也被认为是已知恐龙中最大的肉食恐龙哦。</p>",
+        "caption": "游泳的恐龙",
+        "image_style": "",
+        "image_prompt": "A Spinosaurus with a huge sail wading in water, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "伶盗龙 - 伶盗龙的自然与科学事实",
+        "url": "https://assets.tangobook.co.kr/1773720828930-%EB%AC%BC%EC%86%8D%EC%9D%84%EB%88%84%EB%B9%84%EB%8A%94%EA%B1%B0%EB%8C%80%ED%95%9C%EA%B0%80%EC%8B%9C%EB%8F%84%EB%A7%88%EB%B1%80%EC%8A%A4%ED%94%BC%EB%85%B8%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page1-1773721144877.webp",
+        "text": "<h2>斯皮诺龙的自然和科学事实</h2><p>根据研究，斯皮诺龙的 <strong>骨骼比其他恐龙更致密、更重。</strong> 它适应了水中的生活，并且， <strong>尾巴像桨一样宽，</strong> 非常适合游泳。它的吻部末端像鳄鱼一样，还有能感知水压的孔洞。背部的 <strong>巨大的帆（高度超过1.5米）</strong>是恐龙中最高的背脊突起，可能更多是用于炫耀，而不是调节体温。</p>",
+        "caption": "长吻的狩猎",
+        "image_style": "",
+        "image_prompt": "A Spinosaurus catching a fish with its long snout, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "斯皮诺龙 - 《Tango Book》讲述的“斯皮诺龙”内容",
+        "url": "https://assets.tangobook.co.kr/1773720828930-%EB%AC%BC%EC%86%8D%EC%9D%84%EB%88%84%EB%B9%84%EB%8A%94%EA%B1%B0%EB%8C%80%ED%95%9C%EA%B0%80%EC%8B%9C%EB%8F%84%EB%A7%88%EB%B1%80%EC%8A%A4%ED%94%BC%EB%85%B8%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page6-1773721165850.webp",
+        "text": "<h2>《探戈书》讲述了“箱龙”的内容</h2><p>《探戈书》“箱龙”生动地展示了它背部的巨大帆、捕鱼的长吻，以及在水边游泳狩猎的场景。</p>",
+        "caption": "金黄色的尾巴",
+        "image_style": "",
+        "image_prompt": "A Spinosaurus swimming with its paddle-like tail, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "斯皮诺龙科——值得一起了解的知识点",
+        "url": "https://assets.tangobook.co.kr/1773720828930-%EB%AC%BC%EC%86%8D%EC%9D%84%EB%88%84%EB%B9%84%EB%8A%94%EA%B1%B0%EB%8C%80%ED%95%9C%EA%B0%80%EC%8B%9C%EB%8F%84%EB%A7%88%EB%B1%80%EC%8A%A4%ED%94%BC%EB%85%B8%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page10-1773721183470.webp",
+        "text": "<h2>一起了解的好点</h2><p>请指出像背鳍（炫耀）、长吻部（捕鱼）、如船桨的尾巴（游泳）和重骨骼（水生适应）这样的特点。一起聊聊“恐龙会游泳，是不是很神奇？”会更好。</p>",
+        "caption": "观察点",
+        "image_style": "",
+        "image_prompt": "A close-up of the tall sail on Spinosaurus back, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "棘龙 - 家长指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1773720828930-%EB%AC%BC%EC%86%8D%EC%9D%84%EB%88%84%EB%B9%84%EB%8A%94%EA%B1%B0%EB%8C%80%ED%95%9C%EA%B0%80%EC%8B%9C%EB%8F%84%EB%A7%88%EB%B1%80%EC%8A%A4%ED%94%BC%EB%85%B8%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page15-1773721218905.webp",
+        "text": "<h2>父母指南 — 如何培养好奇心</h2><p>试着将它的背部形状和吻部与其他的肉食恐龙进行比较。“它为什么会有帆？”地想象一下，如果能找到与鳄鱼吻部相似的地方，兴趣就会更浓。</p>",
+        "caption": "恐龙比较",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing dinosaur pictures, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>Q. 角龙会游泳吗？</strong><br>A. 根据研究，它通过沉重的骨骼和像桨一样的尾巴适应了水下生活。不过，这在学术界仍在争论中哦。</p><p><strong>Q. 背上的帆是用做什么的呢？</strong><br>A. 它很可能是用于视觉展示，而不是调节体温。它是恐龙中最高的脊椎突起哦。</p><p><strong>Q. 在家里怎样玩才好呢？</strong><br>A. 可以和别的肉食恐龙比较它的吻部和背部形状，或者找它像鳄鱼的地方玩。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "斯皮诺龙科绘本插画",
+        "url": "https://assets.tangobook.co.kr/1773720828930-%EB%AC%BC%EC%86%8D%EC%9D%84%EB%88%84%EB%B9%84%EB%8A%94%EA%B1%B0%EB%8C%80%ED%95%9C%EA%B0%80%EC%8B%9C%EB%8F%84%EB%A7%88%EB%B1%80%EC%8A%A4%ED%94%BC%EB%85%B8%EC%82%AC%EC%9A%B0%EB%A3%A8%EC%8A%A4-illustration-page19-1774351383286.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“箱龙”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，通过精美的图画和韩语·英语语音，亲眼看看它吧。</p><a href=\"https://tangobook.co.kr/library/1773720828930\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

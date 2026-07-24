@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773553518523",
+  "seo_title": "참나무 특징과 도토리의 비밀 — 자연관찰 그림책",
+  "meta_description": "참나무의 도토리와 벌레혹, 다람쥐와의 관계 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "primary_keyword": "참나무",
+  "secondary_keywords": ["참나무 특징", "도토리", "참나무 생태", "유아 자연관찰 책", "나무 그림책"],
+  "url_slug": "oak-tree-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "참나무 - 참나무, 어떤 점이 신기할까요?",
+        "url": "https://assets.tangobook.co.kr/1773553518523-%EC%B0%B8%EB%82%98%EB%AC%B4-cover-misc-1780100906304.webp",
+        "text": "<h2>참나무, 어떤 점이 신기할까요?</h2><p>도토리가 열리는 <strong>참나무</strong>는 가을 숲의 주인공이에요. 다람쥐와 곤충, 우리 식탁까지 이어지는 이야기가 담겨 있습니다.</p>",
+        "caption": "가을 숲의 참나무",
+        "image_style": "",
+        "image_prompt": "A large oak tree with acorns in an autumn forest, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "참나무 - 참나무의 자연·과학 사실",
+        "url": "https://assets.tangobook.co.kr/1773553518523-%EC%B0%B8%EB%82%98%EB%AC%B4-illustration-page1-1773553634389.webp",
+        "text": "<h2>참나무의 자연·과학 사실</h2><p>참나무는 전 세계에 약 500종이 있고, 우리나라엔 갈참·떡갈·신갈·상수리나무 등 여러 종이 자라요. 열매 <strong>도토리</strong>는 다람쥐가 묻어 두고 잊은 것에서 새 참나무가 자랍니다. 잎에 곤충이 알을 낳으면 동글동글한 <strong>벌레혹(충영)</strong>이 생기고, 달콤한 수액은 장수풍뎅이·사슴벌레의 먹이가 돼요. 굴참나무 껍질 <strong>코르크</strong>는 병마개로 쓰이고, 도토리로 도토리묵도 만들지요.</p>",
+        "caption": "씨앗을 퍼뜨리는 다람쥐",
+        "image_style": "",
+        "image_prompt": "A squirrel burying an acorn that later sprouts into a tree, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "참나무 - 탱고북 «참나무»이 다루는 내용",
+        "url": "https://assets.tangobook.co.kr/1773553518523-%EC%B0%B8%EB%82%98%EB%AC%B4-illustration-page5-1773553645712.webp",
+        "text": "<h2>탱고북 «참나무»이 다루는 내용</h2><p>탱고북 «참나무»는 도토리가 떨어지고 싹이 터 큰 나무가 되는 한살이, 다람쥐와의 관계, 곤충들이 모이는 수액, 사람과 이어지는 도토리 이야기를 보여 줍니다.</p>",
+        "caption": "동글동글 벌레혹",
+        "image_style": "",
+        "image_prompt": "A round gall on an oak leaf, fascinating children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "참나무 - 함께 관찰하면 좋은 포인트",
+        "url": "https://assets.tangobook.co.kr/1773553518523-%EC%B0%B8%EB%82%98%EB%AC%B4-illustration-page10-1773553660651.webp",
+        "text": "<h2>함께 관찰하면 좋은 포인트</h2><p>도토리(열매·씨앗), 다람쥐(씨앗 퍼뜨리기), 벌레혹, 수액(곤충 먹이) 같은 포인트를 짚어 주세요. \"다람쥐가 묻은 도토리는 어떻게 될까?\"를 함께 이야기하면 좋습니다.</p>",
+        "caption": "관찰 포인트",
+        "image_style": "",
+        "image_prompt": "Various acorn shapes with caps, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "참나무 - 부모 가이드 — 관찰·체험으로 확장하기",
+        "url": "https://assets.tangobook.co.kr/1773553518523-%EC%B0%B8%EB%82%98%EB%AC%B4-illustration-page14-1773553706865.webp",
+        "text": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>가을 산책길에서 여러 모양의 도토리를 주워 비교해 보세요. 도토리 깍정이(모자)를 관찰하고, \"다람쥐가 잊은 도토리 = 새 나무\" 이야기를 그림으로 그리면 좋습니다.</p>",
+        "caption": "도토리 모으기",
+        "image_style": "",
+        "image_prompt": "A parent and child collecting and comparing acorns on a walk, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 다람쥐가 도토리를 묻으면 어떻게 되나요?</strong><br>A. 먹다 잊어버린 도토리에서 싹이 터 새로운 참나무로 자랍니다. 다람쥐는 숲을 가꾸는 셈이에요.</p><p><strong>Q. 참나무 잎의 동그란 혹은 뭔가요?</strong><br>A. 곤충이 잎에 알을 낳아 잎 조직이 부풀어 생긴 \"벌레혹(충영)\"입니다. 안에서 애벌레가 자라요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 여러 모양 도토리 줍기·비교, 깍정이 관찰, \"잊은 도토리=새 나무\" 그리기가 좋습니다.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>함께 읽으면 좋은 명작 동화</h2><p>이 동화를 재미있게 읽었다면 이런 <strong>명작 동화</strong>도 함께 읽어 보세요.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">강아지</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">강아지풀</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">개구리</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">개미</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "참나무 그림책 삽화",
+        "url": "https://assets.tangobook.co.kr/1773553518523-%EC%B0%B8%EB%82%98%EB%AC%B4-illustration-page18-1773553758835.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">「참나무」가 궁금하신가요?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">아름다운 그림과 한국어·영어 음성으로 탱고북에서 직접 만나보세요.</p><a href=\"https://tangobook.co.kr/library/1773553518523\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 동화책 보러가기 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

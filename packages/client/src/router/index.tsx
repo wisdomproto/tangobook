@@ -262,6 +262,22 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: ':lang/blog',
+        element: (
+          <ErrorBoundary>
+            <BlogListPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: ':lang/blog/:slug',
+        element: (
+          <ErrorBoundary>
+            <BlogPostPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
         path: ':lang/guide/:hub',
         element: (
           <ErrorBoundary>

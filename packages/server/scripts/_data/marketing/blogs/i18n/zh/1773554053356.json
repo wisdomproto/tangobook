@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773554053356",
+  "seo_title": "《苹果树的特征与苹果的秘密》—自然观察绘本",
+  "meta_description": "关于苹果花和蜜蜂授粉、苹果是假果（accessory fruit）等奇妙故事，以及《Tango Book》自然观察绘本的内容和观察方法。4-7岁自然观察指南。",
+  "primary_keyword": "苹果树",
+  "secondary_keywords": ["苹果树的特点", "苹果", "苹果树生态", "幼儿自然观察书籍", "树的绘本"],
+  "url_slug": "apple-tree-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "苹果树 - 苹果树，有哪些神奇之处呢？",
+        "url": "https://assets.tangobook.co.kr/1773554053356-%EC%82%AC%EA%B3%BC%EB%82%98%EB%AC%B4-cover-misc-1780099450320.webp",
+        "text": "<h2>苹果树，哪些地方会让人感到神奇呢？</h2><p>春天开着白色花朵，秋天结出红色果实， <strong>苹果树</strong>是一种展现四季变化的亲切树木。苹果里隐藏的秘密也很有趣。</p><p data-seo-boost=\"1\">我们一起收录了关于苹果树的各种故事，包括苹果树的特征、苹果的果实结构和生态等等。</p>",
+        "caption": "一棵长着红苹果的树",
+        "image_style": "",
+        "image_prompt": "An apple tree with red apples in autumn, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "苹果树 - 关于苹果树的自然与科学事实",
+        "url": "https://assets.tangobook.co.kr/1773554053356-%EC%83%88%EC%BD%A4%EB%8B%AC%EC%BD%A4%ED%95%9C%EC%84%A0%EB%AC%BC%EC%A3%BC%EB%A0%81%EC%A3%BC%EB%A0%81%EC%97%B4%EB%A7%A4%EB%A7%BA%EB%8A%94%EC%82%AC%EA%B3%BC%EB%82%98%EB%AC%B4-illustration-page1-1773554153730.webp",
+        "text": "<h2>关于苹果树的自然和科学知识</h2><p>大多数苹果树用自己的花粉很难结出果实， <strong>需要蜜蜂来传递其他品种的花粉，</strong> 这样才能结出果实。而且我们吃的苹果，其实不是子房，而是 <strong>因为花托膨大而生长的“假果（包叶果）”。</strong>的。苹果的种子含有微量的氰苷，要注意不要嚼太多。苹果树可以活到70~100年。</p>",
+        "caption": "蜜蜂的帮助",
+        "image_style": "",
+        "image_prompt": "A bee pollinating white apple blossoms in spring, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "苹果树 - 探戈书《苹果树》所讲述的内容",
+        "url": "https://assets.tangobook.co.kr/1773554053356-%EC%83%88%EC%BD%A4%EB%8B%AC%EC%BD%A4%ED%95%9C%EC%84%A0%EB%AC%BC%EC%A3%BC%EB%A0%81%EC%A3%BC%EB%A0%81%EC%97%B4%EB%A7%A4%EB%A7%BA%EB%8A%94%EC%82%AC%EA%B3%BC%EB%82%98%EB%AC%B4-illustration-page5-1773554164212.webp",
+        "text": "<h2>《苹果树》绘本讲述的内容</h2><p>《苹果树》这本书温暖地展示了苹果树的一年，从春天的花朵 → 蜜蜂的拜访 → 果实膨大的过程 → 直到秋天的收获。</p>",
+        "caption": "星形的阴囊",
+        "image_style": "",
+        "image_prompt": "An apple sliced to show the star-shaped core and seeds, close-up children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "苹果树 - 一起观察的重点（或：值得一起观察的点）",
+        "url": "https://assets.tangobook.co.kr/1773554053356-%EC%83%88%EC%BD%A4%EB%8B%AC%EC%BD%A4%ED%95%9C%EC%84%A0%EB%AC%BC%EC%A3%BC%EB%A0%81%EC%A3%BC%EB%A0%81%EC%97%B4%EB%A7%A4%EB%A7%BA%EB%8A%94%EC%82%AC%EA%B3%BC%EB%82%98%EB%AC%B4-illustration-page10-1773554185143.webp",
+        "text": "<h2>一起观察时可以注意的重点</h2><p>请指出像春花（五片花瓣）、蜜蜂（授粉）、假果（副果）和种子（果核）这样的重点。一起聊聊“苹果是从哪个部分长出来的呢？”会很好。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "White apple blossoms with five petals, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "苹果树 - 家长指南 — 通过观察和体验进行拓展",
+        "url": "https://assets.tangobook.co.kr/1773554053356-%EC%83%88%EC%BD%A4%EB%8B%AC%EC%BD%A4%ED%95%9C%EC%84%A0%EB%AC%BC%EC%A3%BC%EB%A0%81%EC%A3%BC%EB%A0%81%EC%97%B4%EB%A7%A4%EB%A7%BA%EB%8A%94%EC%82%AC%EA%B3%BC%EB%82%98%EB%AC%B4-illustration-page14-1773554202515.webp",
+        "text": "<h2>父母指南 — 通过观察和体验进行拓展</h2><p>将苹果横切，观察星形的子房，并告诉孩子“花托生长的部分 = 我们吃的部分”。春天观察苹果花和蜜蜂，就能了解授粉过程。</p>",
+        "caption": "苹果横截面观察",
+        "image_style": "",
+        "image_prompt": "A parent and child slicing an apple to look at the seeds, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>Q. 苹果是真正的果实吗？</strong><br>A. 严格来说，它是一个从膨大的花托生长的“假果（包心果）”。真正的子房是中间的果核部分。</p><p><strong>Q. 苹果树能自己结果吗？</strong><br>A. 大多数情况下，需要不同品种的花粉才能顺利结果。蜜蜂是最重要的授粉者。</p><p><strong>Q. 在家可以如何观察呢？</strong><br>A. 建议将苹果横切，观察星形的子房；或者观察春天的苹果花和蜜蜂。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "《苹果树》图画书插画",
+        "url": "https://assets.tangobook.co.kr/1773554053356-%EC%83%88%EC%BD%A4%EB%8B%AC%EC%BD%A4%ED%95%9C%EC%84%A0%EB%AC%BC%EC%A3%BC%EB%A0%81%EC%A3%BC%EB%A0%81%EC%97%B4%EB%A7%A4%EB%A7%BA%EB%8A%94%EC%82%AC%EA%B3%BC%EB%82%98%EB%AC%B4-illustration-page18-1773554434977.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“苹果树”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用美丽的图画和韩语·英语语音亲自体验一下吧。</p><a href=\"https://tangobook.co.kr/library/1773554053356\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

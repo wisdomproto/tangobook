@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773615711742",
+  "seo_title": "火山与地震 — 活着的地球科学自然观察绘本",
+  "meta_description": "火山形成的原因、岩浆与熔岩的区别、地震的原理等地球科学知识，以及《Tango Book》科学绘本的内容和如何与孩子一起了解。适用于5-7岁儿童的科学自然观察指南。",
+  "primary_keyword": "火山",
+  "secondary_keywords": ["火山和地震", "火山喷发", "地震原理", "幼儿科学书", "地球绘本"],
+  "url_slug": "volcano-earthquake-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "火山和地震 - 火山和地震，哪些地方会让人觉得神奇呢？",
+        "url": "https://assets.tangobook.co.kr/1773615711742-%ED%99%94%EC%82%B0%EA%B3%BC%EC%A7%80%EC%A7%84-cover-misc-1780275320272.webp",
+        "text": "<h2>火山和地震，哪些地方会让人觉得神奇呢？</h2><p>地面摇晃，山体喷出火焰的 <strong>火山和地震</strong>它是活着的地球的样子。虽然有点可怕，但真的是非常奇妙的自然现象呢。</p>",
+        "caption": "活着的地球",
+        "image_style": "",
+        "image_prompt": "An erupting volcano with flowing lava and a shaking ground, dramatic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "火山和地震 - 火山和地震的自然科学事实",
+        "url": "https://assets.tangobook.co.kr/1773615711742-%EB%B6%88%EC%9D%84%EB%BF%9C%EB%8A%94%EC%82%B0%ED%99%94%EC%82%B0%EA%B3%BC%EA%BF%88%ED%8B%80%EB%8C%80%EB%8A%94%EB%95%85%EC%A7%80%EC%A7%84%EC%9D%98%EB%8C%80%EA%B2%B0-illustration-page1-1773616779877.webp",
+        "text": "<h2>火山和地震的自然科学知识</h2><p>地球的外壳（地壳）由巨大的板块组成 <strong>板块</strong>分成板块，每年移动几厘米。当板块与板块相撞或滑动时，地面晃动就是 <strong>地震</strong>。地下的熔岩是 <strong>岩浆</strong>，当火山爆发并喷出时， <strong>熔岩</strong>（约700~1,200°C）就叫它。冷却的熔岩会变成坚硬的岩石（如玄武岩）。</p>",
+        "caption": "地下的运动",
+        "image_style": "",
+        "image_prompt": "Tectonic plates moving and magma rising under the earth crust, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "火山与地震 - 坦戈书《火山与地震》所涵盖的内容",
+        "url": "https://assets.tangobook.co.kr/1773615711742-%EB%B6%88%EC%9D%84%EB%BF%9C%EB%8A%94%EC%82%B0%ED%99%94%EC%82%B0%EA%B3%BC%EA%BF%88%ED%8B%80%EB%8C%80%EB%8A%94%EB%95%85%EC%A7%80%EC%A7%84%EC%9D%98%EB%8C%80%EA%B2%B0-illustration-page5-1773615828600.webp",
+        "text": "<h2>《探戈书》“火山与地震”涵盖的内容</h2><p>《探戈书》“火山与地震”展示了移动的构造板块、地下的岩浆、火山喷发的样子，以及地面摇晃的地震现象，用孩子能理解的科学方式呈现。</p>",
+        "caption": "熔岩到岩石",
+        "image_style": "",
+        "image_prompt": "Lava cooling into solid rock after a volcano eruption, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "火山和地震——值得一起了解的知识点",
+        "url": "https://assets.tangobook.co.kr/1773615711742-%EB%B6%88%EC%9D%84%EB%BF%9C%EB%8A%94%EC%82%B0%ED%99%94%EC%82%B0%EA%B3%BC%EA%BF%88%ED%8B%80%EB%8C%80%EB%8A%94%EB%95%85%EC%A7%80%EC%A7%84%EC%9D%98%EB%8C%80%EA%B2%B0-illustration-page10-1773615846575.webp",
+        "text": "<h2>一起了解的好点</h2><p>请指出现象如：板块（运动）、岩浆/熔岩（区别）、火山（喷发）、地震（摇晃）等知识点。和孩子一起讨论“地底下为什么这么热？”会很好。</p>",
+        "caption": "观察点",
+        "image_style": "",
+        "image_prompt": "A cross-section of the earth showing crust and mantle, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "火山和地震 - 家长指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1773615711742-%EB%B6%88%EC%9D%84%EB%BF%9C%EB%8A%94%EC%82%B0%ED%99%94%EC%82%B0%EA%B3%BC%EA%BF%88%ED%8B%80%EB%8C%80%EB%8A%94%EB%95%85%EC%A7%80%EC%A7%84%EC%9D%98%EB%8C%80%EA%B2%B0-illustration-page14-1773615863293.webp",
+        "text": "<h2>家长指南 — 如何培养好奇心</h2><p>尝试用小苏打+醋进行“火山爆发实验”（泡沫喷发）。可以摇晃布丁·果冻来比喻地震的震动，同时学习地震时的安全行为（保护头部、躲在桌子下面）也是很好的。</p>",
+        "caption": "火山喷发实验",
+        "image_style": "",
+        "image_prompt": "A parent and child doing a baking soda volcano experiment, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>Q. 岩浆和熔岩有什么不同呢？</strong><br>A. 在地底的时候叫岩浆，火山爆发出来到外面就叫熔岩。它们其实是同一种熔化的岩石哦。</p><p><strong>Q. 地震为什么会发生呢？</strong><br>A. 是因为巨大的地壳板块相互碰撞或滑动时产生的力量，导致了地面晃动。</p><p><strong>Q. 在家里怎样学习比较好呢？</strong><br>A. 可以做小苏打+醋的火山实验，并学习地震时的安全行为（保护头部、躲在桌子下面）比较好。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "火山和地震绘本插图",
+        "url": "https://assets.tangobook.co.kr/1773615711742-%EB%B6%88%EC%9D%84%EB%BF%9C%EB%8A%94%EC%82%B0%ED%99%94%EC%82%B0%EA%B3%BC%EA%BF%88%ED%8B%80%EB%8C%80%EB%8A%94%EB%95%85%EC%A7%80%EC%A7%84%EC%9D%98%EB%8C%80%EA%B2%B0-illustration-page18-1773615913544.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“火山和地震”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用美丽的图画和韩语·英语语音亲自体验吧。</p><a href=\"https://tangobook.co.kr/library/1773615711742\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

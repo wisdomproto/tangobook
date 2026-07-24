@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777613050117",
+  "seo_title": "ปลาหมึก ลักษณะและความลับของการพรางตัว — หนังสือภาพสังเกตธรรมชาติ",
+  "meta_description": "ข้อเท็จจริงมหัศจรรย์เกี่ยวกับหนวดแปดข้างและปุ่มดูดของหมึกยักษ์ การพรางตัวที่เปลี่ยนสีได้ในทันที และน้ำหมึก รวมถึงเนื้อหาจากหนังสือภาพสังเกตธรรมชาติของ Tango Book พร้อมวิธีการสังเกตด้วย คู่มือการสังเกตธรรมชาติสำหรับเด็กวัย 4-7 ปี",
+  "primary_keyword": "ปลาหมึก",
+  "secondary_keywords": [
+    "ลักษณะของปลาหมึกยักษ์",
+    "การพรางตัวของปลาหมึก",
+    "หัวดูดของปลาหมึก",
+    "หนังสือสำหรับเด็กเล็กเกี่ยวกับการสังเกตธรรมชาติ",
+    "หนังสือนิทานสัตว์ทะเล"
+  ],
+  "url_slug": "octopus-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "ปลาหมึก – ปลาหมึก มีอะไรที่น่าทึ่งบ้างนะ?",
+        "url": "https://assets.tangobook.co.kr/1777613050117-%EB%AC%B8%EC%96%B4-cover-misc-1780025981149.webp",
+        "text": "<h2>ปลาหมึก มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>หนึ่งในสัตว์ที่ฉลาดที่สุดในทะเล <strong>ปลาหมึก</strong>เป็นเพื่อนที่มหัศจรรย์ เพราะมีแปดหนวด ทั้งจับสิ่งของและรับรสได้</p>",
+        "caption": "เพื่อนทะเลที่ฉลาด",
+        "image_style": "",
+        "image_prompt": "An octopus with eight arms in the sea, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "ปลาหมึก - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของปลาหมึก",
+        "url": "https://assets.tangobook.co.kr/1777613050117-%EB%B3%80%EC%8B%A0%EC%9D%98%EC%B2%9C%EC%9E%AC%EB%B0%94%EB%8B%A4%EC%9D%98%EC%A7%80%EB%9E%B5%EA%B0%80%EB%AC%B8%EC%96%B4-illustration-page1-1773390728323.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของปลาหมึก</h2><p>แขนทั้งแปดของปลาหมึกมี... <strong>ปลอกดูด</strong>ทำให้พวกมันสามารถจับสิ่งของและรับรสชาติได้ นอกจากนี้ยังปรับตัวให้เข้ากับสภาพแวดล้อมรอบข้าง <strong>เปลี่ยนสีและลวดลายของตัวได้ในพริบตา เพื่อซ่อนตัว (อำพรางตัว)</strong>และเมื่อตกอยู่ในอันตราย <strong>พวกมันจะพ่นหมึกออกมา</strong> หลังจากบดบังสายตาของศัตรูแล้วพวกมันก็จะหนีไป ด้วยร่างกายที่นุ่มนวลไม่มีกระดูกแข็ง ทำให้สามารถยัดตัวเข้าไปในช่องแคบกว่าตัวตัวเองได้ เป็นเพื่อนทะเลที่ฉลาดจนนักวิทยาศาสตร์ยังทึ่งเลยค่ะ</p>",
+        "caption": "การพรางตัวที่เปลี่ยนสี",
+        "image_style": "",
+        "image_prompt": "An octopus changing color to camouflage, fascinating children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "เนื้อหาในหนังสือแทงโกเรื่อง \"ปลาหมึก\"",
+        "url": "https://assets.tangobook.co.kr/1777613050117-%EB%B3%80%EC%8B%A0%EC%9D%98%EC%B2%9C%EC%9E%AC%EB%B0%94%EB%8B%A4%EC%9D%98%EC%A7%80%EB%9E%B5%EA%B0%80%EB%AC%B8%EC%96%B4-illustration-page5-1773390761944.webp",
+        "text": "<h2>เนื้อหาที่หนังสือแทนโกบอก \"ปลาหมึก\" นำเสนอ</h2><p>หนังสือแทนโกบอก \"ปลาหมึก\" แสดงให้เห็นถึงหนวดแปดข้างและแผ่นดูด ตัวพรางสีที่เปลี่ยนได้ การพ่นหมึก และความฉลาดของปลาหมึกที่ซ่อนตัวในช่องแคบได้อย่างน่าตื่นเต้น</p>",
+        "caption": "หนีด้วยหมึก",
+        "image_style": "",
+        "image_prompt": "An octopus releasing ink to escape, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "ปลาหมึก - จุดที่ควรสังเกตเมื่อดูด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1777613050117-%EB%B3%80%EC%8B%A0%EC%9D%98%EC%B2%9C%EC%9E%AC%EB%B0%94%EB%8B%A4%EC%9D%98%EC%A7%80%EB%9E%B5%EA%B0%80%EB%AC%B8%EC%96%B4-illustration-page10-1773404655905.webp",
+        "text": "<h2>จุดที่ควรสังเกตด้วยกัน</h2><p>ชี้ให้ดูจุดต่างๆ เช่น ปลอกดูด (การจับ/การชิม), การพรางตัว (เปลี่ยนสี), หมึก (หนี), หรือร่างกายที่นุ่มนิ่ม นอกจากนี้ การพูดคุยกันว่า \"ปลาหมึกซ่อนตัวได้อย่างไร?\" จะดีมากค่ะ</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A close-up of octopus suckers, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "ปลาหมึก - คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777613050117-%EB%B3%80%EC%8B%A0%EC%9D%98%EC%B2%9C%EC%9E%AC%EB%B0%94%EB%8B%A4%EC%9D%98%EC%A7%80%EB%9E%B5%EA%B0%80%EB%AC%B8%EC%96%B4-illustration-page14-1773404091665.webp",
+        "text": "<h2>คู่มือผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ลองเปรียบเทียบ \"ซ่อนตัวด้วยการเปลี่ยนสีและหนีด้วยหมึก\" กับการเปลี่ยนสีของกิ้งก่าคาเมเลี่ยนดูสิคะ การที่มันมีปุ่มดูดจำนวนมาก ถ้าเอามาเปรียบเทียบกับนิ้วมือจะยิ่งน่าสนใจมากขึ้นค่ะ</p>",
+        "caption": "การสำรวจปลาหมึก",
+        "image_style": "",
+        "image_prompt": "A parent and child looking at an octopus picture, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ปลาหมึกซ่อนตัวได้อย่างไรคะ?</strong><br>ตอบ: มันจะเปลี่ยนสีและลวดลายของตัวได้ในพริบตา เพื่อให้กลมกลืนกับสภาพแวดล้อม และถ้าตกอยู่ในอันตรายก็จะพ่นหมึกด้วยค่ะ</p><p><strong>ถาม: ปลากระดองของปลาหมึกทำอะไรได้บ้างคะ?</strong><br>ตอบ: มันใช้จับสิ่งของและรับรสชาติได้ด้วยค่ะ บนหนวดแปดข้างมีปลากระดองเยอะมากเลย</p><p><strong>ถาม: เราจะสังเกตที่บ้านได้อย่างไรดีคะ?</strong><br>ตอบ: ลองเปรียบเทียบกับการเปลี่ยนสีของกิ้งก่า และนับจำนวนปลากระดองโดยเปรียบกับนิ้วมือจะดีมากเลยค่ะ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณสนุกกับการอ่านนิทานเรื่องนี้แล้ว ลองดูแบบนี้ <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือภาพเรื่องปลาหมึก",
+        "url": "https://assets.tangobook.co.kr/1777613050117-%EB%B3%80%EC%8B%A0%EC%9D%98%EC%B2%9C%EC%9E%AC%EB%B0%94%EB%8B%A4%EC%9D%98%EC%A7%80%EB%9E%B5%EA%B0%80%EB%AC%B8%EC%96%B4-illustration-page18-1773404115512.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"ปลาหมึก\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้ด้วยตัวคุณเองที่แทงโกบุ๊ก ด้วยภาพสวย ๆ และเสียงภาษาเกาหลี/อังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1777613050117\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

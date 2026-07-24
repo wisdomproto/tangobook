@@ -1,0 +1,112 @@
+{
+  "storybookId": "1773365185498",
+  "seo_title": "หนังสือภาพดอกทิวลิป — ความลับของหัว (การสังเกตธรรมชาติสำหรับเด็กวัย 4-7 ขวบ)",
+  "meta_description": "ตั้งแต่ข้อเท็จจริงมหัศจรรย์ เช่น การขยายพันธุ์ด้วยหัวของดอกทิวลิปและความลับของการบานในฤดูใบไม้ผลิ ไปจนถึงเนื้อหาจากหนังสือนิทานสังเกตธรรมชาติของ Tango Book และวิธีการสังเกต สำหรับคู่มือการสังเกตธรรมชาติสำหรับเด็กอายุ 4-7 ปี",
+  "primary_keyword": "หนังสือนิทานภาพทิวลิป",
+  "secondary_keywords": [
+    "ทิวลิป ลักษณะเด่น",
+    "หัวทิวลิป",
+    "หัวทิวลิป",
+    "หนังสือสำหรับเด็กเล็กเกี่ยวกับการสังเกตธรรมชาติ",
+    "หนังสือนิทานภาพเกี่ยวกับพืช"
+  ],
+  "url_slug": "tulip-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "ทิวลิป - ทิวลิป มีอะไรที่น่าสนใจบ้างคะ/ครับ?",
+        "url": "https://assets.tangobook.co.kr/1773365185498-%ED%8A%A4%EB%A6%BD-cover-misc-1780104191506.webp",
+        "text": "<h2>ทิวลิป มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>สีสันสดใสที่ประกาศถึงฤดูใบไม้ผลิ <strong>ทิวลิป</strong>มันคือดอกไม้ลึกลับที่ผลิบานจากหัว เมื่อรู้ว่าภายในหัวเล็กๆ นั้นมีทั้งดอกและใบอยู่แล้วก็รู้สึกน่าทึ่งมากเลยค่ะ</p><p data-seo-boost=\"1\">คุณอยากรู้เรื่องราวในหนังสือนิทานทิวลิปไหมคะ? มาดูข้อคิดจากนิทานทิวลิปพร้อมภาพประกอบกันค่ะ และมาพบกับฉากสำคัญของเรื่องราวทิวลิปด้วยนะคะ ลองอ่านหนังสือทิวลิปให้ลูกฟังและพูดคุยถึงเรื่องราวนั้นด้วยกันสิคะ</p>",
+        "caption": "ดอกไม้ต้อนรับฤดูใบไม้ผลิ",
+        "image_style": "",
+        "image_prompt": "Colorful tulips blooming in a spring garden, bright cheerful children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "ทิวลิป - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของทิวลิป",
+        "url": "https://assets.tangobook.co.kr/1773365185498-%EC%95%8C%EB%A1%9D%EB%8B%AC%EB%A1%9D%EB%B4%84%EC%9D%98%EB%B3%B4%EC%84%9D%EC%9A%B0%EC%95%84%ED%95%9C%EC%99%95%EA%B4%80%EC%9D%84%EB%8B%AE%EC%9D%80%ED%8A%A4%EB%A6%BD-illustration-page1-1773534704905.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของดอกทิวลิป</h2><p>ทิวลิปส่วนใหญ่จะ... <strong>หัว (หรือเกล็ดหัว)</strong>มันขยายพันธุ์ด้วยหัว ซึ่งภายในหัวนั้นมีรูปร่างของทั้งดอกและใบครบถ้วนแล้ว ต้องปลูกในฤดูใบไม้ร่วง ผ่านความหนาวเย็นของฤดูหนาวจึงจะบานในฤดูใบไม้ผลิ แหล่งกำเนิดคือเอเชียกลางและตุรกี และในประเทศเนเธอร์แลนด์เมื่อศตวรรษที่ 17 หัวเพียงหัวเดียวมีราคาทัดเทียมกับราคาบ้านเรือน <strong>\"ภาวะดอกทิวลิปเฟื่องฟู\"</strong>เคยเกิดเหตุการณ์ทางประวัติศาสตร์ที่เรียกว่าเช่นนี้ด้วยค่ะ</p>",
+        "caption": "ดอกไม้ในหัว",
+        "image_style": "",
+        "image_prompt": "A tulip bulb cross-section showing tiny flower inside, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "ทิวลิป - หนังสือแทงโก เนื้อหาที่เกี่ยวกับ \"ทิวลิป\"",
+        "url": "https://assets.tangobook.co.kr/1773365185498-%EC%95%8C%EB%A1%9D%EB%8B%AC%EB%A1%9D%EB%B4%84%EC%9D%98%EB%B3%B4%EC%84%9D%EC%9A%B0%EC%95%84%ED%95%9C%EC%99%95%EA%B4%80%EC%9D%84%EB%8B%AE%EC%9D%80%ED%8A%A4%EB%A6%BD-illustration-page5-1773534714889.webp",
+        "text": "<h2>เนื้อหาที่หนังสือทังโกเรื่อง \"ทิวลิป\" นำเสนอ</h2><p>หนังสือทังโกเรื่อง \"ทิวลิป\" แสดงให้เห็นกระบวนการที่หัวที่ปลูกในฤดูใบไม้ร่วงสามารถผ่านพ้นฤดูหนาวและแตกหน่อออกเป็นดอกไม้สวยงามในฤดูใบไม้ผลิ มีสีสันของดอกไม้หลากสีและความเปลี่ยนแปลงตามฤดูกาลที่ถูกถ่ายทอดออกมาอย่างงดงาม</p>",
+        "caption": "การปลูกในฤดูใบไม้ร่วง การบานในฤดูใบไม้ผลิ",
+        "image_style": "",
+        "image_prompt": "A tulip bulb planted in soil in autumn sprouting in spring, seasonal children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "ทิวลิป - จุดที่ควรสังเกตและเรียนรู้ร่วมกัน",
+        "url": "https://assets.tangobook.co.kr/1773365185498-%EC%95%8C%EB%A1%9D%EB%8B%AC%EB%A1%9D%EB%B4%84%EC%9D%98%EB%B3%B4%EC%84%9D%EC%9A%B0%EC%95%84%ED%95%9C%EC%99%95%EA%B4%80%EC%9D%84%EB%8B%AE%EC%9D%80%ED%8A%A4%EB%A6%BD-illustration-page10-1773534750457.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>ช่วยชี้ให้เห็นจุดต่างๆ เช่น หัวใต้ดิน (แหล่งรวมดอกและใบ), การปลูกในฤดูใบไม้ร่วงแต่บานในฤดูใบไม้ผลิ (ตามฤดูกาล), หรือสีของดอกไม้ที่หลากหลาย การพูดคุยกันว่า \"ทำไมถึงปลูกในฤดูใบไม้ร่วง แต่กลับบานในฤดูใบไม้ผลิล่ะ?\" จะเป็นเรื่องที่ดีมากเลยค่ะ/ครับ</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "Various colorful tulips side by side, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "ทิวลิป - คู่มือสำหรับผู้ปกครอง — ขยายความรู้จากการสังเกตและประสบการณ์",
+        "url": "https://assets.tangobook.co.kr/1773365185498-%EC%95%8C%EB%A1%9D%EB%8B%AC%EB%A1%9D%EB%B4%84%EC%9D%98%EB%B3%B4%EC%84%9D%EC%9A%B0%EC%95%84%ED%95%9C%EC%99%95%EA%B4%80%EC%9D%84%EB%8B%AE%EC%9D%80%ED%8A%A4%EB%A6%BD-illustration-page14-1773534774780.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — การขยายจากการสังเกตและการเรียนรู้จากประสบการณ์</h2><p>สิ่งที่ดีที่สุดคือการได้สังเกตกระบวนการที่ดอกทิวลิปบานเมื่อปลูกหลอดหัวเองในฤดูใบไม้ร่วง (การเรียนรู้ตามฤดูกาล) ลองผ่าหลอดหัวออกครึ่งหนึ่งเพื่อแสดงโครงสร้างภายใน หรือเปรียบเทียบดอกทิวลิปสีต่างๆ ดูสิ</p>",
+        "caption": "การปลูกและดูแลด้วยตัวเอง",
+        "image_style": "",
+        "image_prompt": "A parent and child planting tulip bulbs in a pot, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ทิวลิปปลูกจากเมล็ดได้ไหมคะ?</strong><br>ตอบ: ส่วนใหญ่จะขยายพันธุ์ด้วยหัว (bulb) ค่ะ ภายในหัวมีรูปทรงของดอกและใบอยู่แล้ว</p><p><strong>ถาม: ทำไมถึงปลูกในฤดูใบไม้ร่วง แต่กลับบานในฤดูใบไม้ผลิล่ะคะ?</strong><br>ตอบ: เพราะเป็นพืชที่ต้องผ่านช่วงอุณหภูมิต่ำในฤดูหนาวก่อนถึงจะออกดอกค่ะ ความเย็นคือสัญญาณของการบานเลยล่ะ</p><p><strong>ถาม: ที่บ้านเราจะสังเกตได้อย่างไรดีคะ?</strong><br>ตอบ: ลองปลูกหัวในฤดูใบไม้ร่วงเพื่อสังเกตการบานในฤดูใบไม้ผลิ และลองเปรียบเทียบหน้าตัดของหัวกับสีต่างๆ ดูนะคะ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณอ่านนิทานเรื่องนี้แล้วสนุกแบบนี้ ลองดู <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือนิทานดอกทิวลิป",
+        "url": "https://assets.tangobook.co.kr/1773365185498-%EC%95%8C%EB%A1%9D%EB%8B%AC%EB%A1%9D%EB%B4%84%EC%9D%98%EB%B3%B4%EC%84%9D%EC%9A%B0%EC%95%84%ED%95%9C%EC%99%95%EA%B4%80%EC%9D%84%EB%8B%AE%EC%9D%80%ED%8A%A4%EB%A6%BD-illustration-page18-1773534806075.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">คุณสงสัยเกี่ยวกับ \"ทิวลิป\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้โดยตรงที่แทงโกบุ๊ก ด้วยภาพสวย ๆ และเสียงภาษาเกาหลีและภาษาอังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1773365185498\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

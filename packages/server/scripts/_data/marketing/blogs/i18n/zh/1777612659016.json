@@ -1,0 +1,106 @@
+{
+  "storybookId": "1777612659016",
+  "seo_title": "企鹅的特征和海底飞行的秘密——自然观察绘本",
+  "meta_description": "关于企鹅为什么只生活在南极、它们虽然不会飞，但在海里却能“飞翔”的秘密等奇妙事实，以及《Tango Book自然观察绘本》的内容和如何进行观察。4-7岁自然观察指南。",
+  "primary_keyword": "企鹅",
+  "secondary_keywords": ["企鹅特征", "南极企鹅", "皇帝企鹅", "幼儿自然观察书籍", "海洋动物绘本"],
+  "url_slug": "penguin-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "企鹅 - 企鹅，有什么地方觉得神奇呢？",
+        "url": "https://assets.tangobook.co.kr/1777612659016-%ED%8E%AD%EA%B7%84-cover-misc-1780025469043.webp",
+        "text": "<h2>企鹅，哪些地方会让人觉得神奇呢？</h2><p>摇摇晃晃地走着 <strong>企鹅</strong>虽然它是一只不会飞的鸟，但在海里游起来就像在飞一样，真是神奇的动物啊。</p>",
+        "caption": "南极的鸟",
+        "image_style": "",
+        "image_prompt": "A penguin waddling on ice in Antarctica, cute children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "企鹅 - 企鹅的自然与科学知识",
+        "url": "https://assets.tangobook.co.kr/1777612659016-%ED%8E%AD%EA%B7%84-illustration-page1-1784177673766.webp",
+        "text": "<h2>企鹅的自然和科学知识</h2><p>企鹅是 <strong>只生活在南半球（南极那边）</strong> —— 和北极熊在地球的另一边，所以实际上不会相遇。企鹅虽然是鸟，但它们的翅膀 <strong>不是为了飞行，而是优化了游泳</strong>构造的。翅膀骨骼坚硬而扁平，像鳍状肢一样发挥作用，并且 <strong>在水里以每小时25~35公里游动</strong>。帝企鹅可以潜水到深度535米，并保持超过20分钟。</p>",
+        "caption": "水下飞行",
+        "image_style": "",
+        "image_prompt": "A penguin swimming fast underwater like flying, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "企鹅 - 探戈书《企鹅》讲述的内容",
+        "url": "https://assets.tangobook.co.kr/1777612659016-%ED%8E%AD%EA%B7%84-illustration-page5-1784177684601.webp",
+        "text": "<h2>探戈书《企鹅》讲述的内容</h2><p>《探戈书》中的《企鹅》温馨地展示了它们笨拙的走路姿态、像飞翔一样在海里游动的样子、抵抗寒冷的聚集，以及照顾小企鹅的场景。</p>",
+        "caption": "共同抵御的寒意",
+        "image_style": "",
+        "image_prompt": "Emperor penguins huddling together in the cold, heartwarming children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "企鹅 - 一起观察的重点/值得注意的点",
+        "url": "https://assets.tangobook.co.kr/1777612659016-%ED%8E%AD%EA%B7%84-illustration-page10-1784177699783.webp",
+        "text": "<h2>一起观察时可以注意的重点</h2><p>请指出一些重点，比如“南极专属”（不会遇到北极熊）、无法飞翔的鸟、用于游泳的翅膀、深潜等。和孩子一起聊聊“为什么企鹅不能飞呢？”会很好。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "A close-up of a penguin flipper-like wing, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "企鹅 - 家长指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1777612659016-%ED%8E%AD%EA%B7%84-illustration-page14-1784177711296.webp",
+        "text": "<h2>家长指南 — 如何培养好奇心</h2><p>可以在地图上确认“企鹅在南极，北极熊在北极（相反面）”。观看《用翅膀飞过水里》的视频，模仿摇摆走路也会很有趣。</p>",
+        "caption": "南极和北极",
+        "image_style": "",
+        "image_prompt": "A parent and child checking a map of penguins and polar bears, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>问：企鹅和北极熊一起生活吗？</strong><br>答：不。企鹅生活在南极，北极熊生活在北极。因为它们位于地球的两端，所以实际上不会相遇。</p><p><strong>问：企鹅不会飞，这样可以吗？</strong><br>答：因为它们的翅膀是为游泳优化的，所以它们在水下游起来就像在飞一样。而且它们深潜也很好。</p><p><strong>问：在家如何观察呢？</strong><br>答：可以利用地图确认南极和北极，观看游泳视频，并模仿它们摇摆的走路姿势。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "企鹅绘本插图",
+        "url": "https://assets.tangobook.co.kr/1777612659016-%ED%8E%AD%EA%B7%84-illustration-page18-1784177724516.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">您对“企鹅”感兴趣吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用美丽的图画和韩语·英语语音亲自体验一下吧。</p><a href=\"https://tangobook.co.kr/library/1777612659016\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

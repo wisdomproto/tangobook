@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777603036535",
+  "seo_title": "Honeybee Facts & the Secret of the Waggle Dance — Nature Picture Book",
+  "meta_description": "The secret of how honeybees make honey and talk with a figure-eight dance, why pollination matters, and other amazing facts, plus what Tangobook's nature picture book covers and how to observe. A nature guide for ages 4-7.",
+  "primary_keyword": "honeybee",
+  "secondary_keywords": [
+    "honeybee facts",
+    "honeybee dance",
+    "honeybee pollination",
+    "nature books for toddlers",
+    "insect picture book"
+  ],
+  "url_slug": "honeybee-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "Honeybee - What makes the honeybee so amazing?",
+        "url": "https://assets.tangobook.co.kr/1777603036535-%EA%BF%80%EB%B2%8C-cover-misc-1780025915595.webp",
+        "text": "<h2>What makes the honeybee so amazing?</h2><p>The hardworking <strong>honeybee</strong> is a social insect that lives together around a queen bee. The way it makes honey and talks through dance is truly amazing!</p><p data-seo-boost=\"1\">We've gathered all kinds of stories about honeybees — honeybee facts, the honeybee dance, and honeybee pollination.</p>",
+        "caption": "The hardworking honeybee",
+        "image_style": "",
+        "image_prompt": "A honeybee collecting nectar from a flower, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "Honeybee - Nature and science facts about the honeybee",
+        "url": "https://assets.tangobook.co.kr/1777603036535-%EB%B6%95%EB%B6%95%EB%B6%95%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EC%9D%BC%EA%BE%BC%EA%BF%80%EB%B2%8C-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page1-1777603090654.webp",
+        "text": "<h2>Nature and science facts about the honeybee</h2><p>Worker bees <strong>sip nectar from flowers, gather it, and turn it into honey in the hive</strong>, carrying pollen in the \"pollen baskets\" on their hind legs. As they travel from flower to flower this way, they <strong>help with pollination</strong>, making them a very important insect that lets many of the fruits and vegetables we eat grow. When one finds a good flower patch, it does the amazing thing of <strong>telling its hive-mates where it is with a \"waggle dance\"</strong>.</p>",
+        "caption": "Pollen baskets",
+        "image_style": "",
+        "image_prompt": "A honeybee with pollen baskets on its legs, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "Honeybee - What Tangobook's «Honeybee» covers",
+        "url": "https://assets.tangobook.co.kr/1777603036535-%EB%B6%95%EB%B6%95%EB%B6%95%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EC%9D%BC%EA%BE%BC%EA%BF%80%EB%B2%8C-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page5-1777603099491.webp",
+        "text": "<h2>What Tangobook's «Honeybee» covers</h2><p>Tangobook's «Honeybee» warmly shows it gathering nectar, the hive where honey is made, how it helps with pollination, and the honeybee talking with a waggle dance.</p>",
+        "caption": "Talking through dance",
+        "image_style": "",
+        "image_prompt": "A honeybee doing a waggle dance in the hive, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "Honeybee - Great points to observe together",
+        "url": "https://assets.tangobook.co.kr/1777603036535-%EB%B6%95%EB%B6%95%EB%B6%95%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EC%9D%BC%EA%BE%BC%EA%BF%80%EB%B2%8C-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page10-1777603109738.webp",
+        "text": "<h2>Great points to observe together</h2><p>Point out things like making honey, the pollen baskets, pollination (so important!), and the waggle dance. Talking about \"What would happen without honeybees?\" together is a wonderful idea.</p>",
+        "caption": "Observation points",
+        "image_style": "",
+        "image_prompt": "A close-up of a honeycomb with honey, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "Honeybee - Parent guide — how to spark curiosity",
+        "url": "https://assets.tangobook.co.kr/1777603036535-%EB%B6%95%EB%B6%95%EB%B6%95%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EC%9D%BC%EA%BE%BC%EA%BF%80%EB%B2%8C-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page14-1777603117723.webp",
+        "text": "<h2>Parent guide — how to spark curiosity</h2><p>Connect \"honeybees help flowers so fruit can grow\" to the fruit you eat. Act out the waggle dance with your body, and watch honeybees from a distance in a flower garden to make it even more exciting (be careful not to get stung).</p>",
+        "caption": "Flower garden watching",
+        "image_style": "",
+        "image_prompt": "A parent and child watching bees in a flower garden, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Frequently Asked Questions (FAQ)</h2><p><strong>Q. Why are honeybees so important?</strong><br>A. As they travel from flower to flower they help with pollination, letting many of the fruits and vegetables we eat grow.</p><p><strong>Q. What is the waggle dance?</strong><br>A. It's how a bee tells its hive-mates where it found a good flower patch. It dances in a figure-eight shape.</p><p><strong>Q. How can we observe it at home?</strong><br>A. Connect it to the fruit you eat, act out the waggle dance, and watch from a distance in a flower garden (without getting stung).</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Great stories to read together</h2><p>If you enjoyed this story, try reading these <strong>wonderful stories</strong> together too.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">Dog</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">Foxtail Grass</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">Frog</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">Ant</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "Honeybee picture book illustration",
+        "url": "https://assets.tangobook.co.kr/1777603036535-%EB%B6%95%EB%B6%95%EB%B6%95%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EC%9D%BC%EA%BE%BC%EA%BF%80%EB%B2%8C-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page18-1777603125366.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">Curious about \"Honeybee\"?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">Discover it for yourself on Tangobook, with beautiful illustrations and Korean and English narration.</p><a href=\"https://tangobook.co.kr/library/1777603036535\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 Go to the storybook →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

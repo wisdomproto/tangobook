@@ -1,0 +1,112 @@
+{
+  "storybookId": "1773149152097",
+  "seo_title": "두더지 특징과 생태 — 땅속 세계 자연관찰 그림책",
+  "meta_description": "두더지의 삽 같은 앞발과 땅속 터널, 아이머 기관 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 아이와 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "primary_keyword": "두더지",
+  "secondary_keywords": [
+    "두더지 특징",
+    "두더지 생태",
+    "땅속 동물",
+    "유아 자연관찰 책",
+    "동물 그림책"
+  ],
+  "url_slug": "mole-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "두더지 - 두더지, 어떤 점이 신기할까요?",
+        "url": "https://assets.tangobook.co.kr/1773149152097-%EB%91%90%EB%8D%94%EC%A7%80-cover-misc-1780033756313.webp",
+        "text": "<h2>두더지, 어떤 점이 신기할까요?</h2><p>땅속에서 부지런히 굴을 파는 <strong>두더지</strong>는 보기 힘들어 더 궁금한 동물이에요. 삽처럼 생긴 앞발로 흙을 파며 사는 땅속 세계가 신기합니다.</p><p data-seo-boost=\"1\">두더지 특징, 두더지 생태, 땅속 동물 등 두더지에 대한 다양한 이야기를 함께 담았습니다.</p>",
+        "caption": "땅속에서 나온 두더지",
+        "image_style": "",
+        "image_prompt": "A cute mole with big front paws poking out of a soil mound, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "두더지 - 두더지의 자연·과학 사실",
+        "url": "https://assets.tangobook.co.kr/1773149152097-%EB%95%85%EC%86%8D%EC%9D%98%EA%B5%B4%EC%B0%A9%EA%B8%B0%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EB%91%90%EB%8D%94%EC%A7%80-illustration-page1-1773322704738.webp",
+        "text": "<h2>두더지의 자연·과학 사실</h2><p>두더지의 <strong>앞발은 삽 모양</strong>에 강한 발톱이 달려 흙을 잘 팝니다. 눈은 거의 퇴화해 빛과 어둠만 구별하지만, 코 주변의 <strong>아이머 기관</strong>으로 땅속 진동과 냄새를 아주 예민하게 감지하지요. 주식은 지렁이이고, 터널은 먹이 통로·잠자는 방·새끼 기르는 방으로 나뉩니다. 두더지의 굴 파기는 흙에 공기를 통하게 해 식물 성장을 돕습니다.</p>",
+        "caption": "여러 방이 있는 집",
+        "image_style": "",
+        "image_prompt": "Cross-section of mole tunnels showing rooms underground, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "두더지 - 탱고북 «두더지»이 다루는 내용",
+        "url": "https://assets.tangobook.co.kr/1773149152097-%EB%95%85%EC%86%8D%EC%9D%98%EA%B5%B4%EC%B0%A9%EA%B8%B0%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EB%91%90%EB%8D%94%EC%A7%80-illustration-page5-1773322716416.webp",
+        "text": "<h2>탱고북 «두더지»이 다루는 내용</h2><p>탱고북 «두더지»는 잔디밭 흙더미에서 시작해 삽 같은 앞발로 터널을 파는 모습, 잠자는 방·밥 먹는 방이 따로 있는 집 구조, 흙을 파면 식물이 잘 자란다는 생태적 역할, 아기 두더지의 성장을 따뜻하게 담았어요.</p>",
+        "caption": "삽 같은 앞발",
+        "image_style": "",
+        "image_prompt": "A mole digging soil with shovel-like paws, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "두더지 - 함께 관찰하면 좋은 포인트",
+        "url": "https://assets.tangobook.co.kr/1773149152097-%EB%95%85%EC%86%8D%EC%9D%98%EA%B5%B4%EC%B0%A9%EA%B8%B0%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EB%91%90%EB%8D%94%EC%A7%80-illustration-page10-1773322737818.webp",
+        "text": "<h2>함께 관찰하면 좋은 포인트</h2><p>앞발(삽 모양), 터널(여러 방), 코(아이머 기관), 땅속 생활 같은 포인트를 짚어 주세요. \"눈이 잘 안 보이는데 어떻게 먹이를 찾을까?\", \"흙을 파면 왜 식물이 잘 자랄까?\"를 함께 이야기하면 좋습니다.</p>",
+        "caption": "관찰 포인트",
+        "image_style": "",
+        "image_prompt": "Close-up of a mole's sensitive nose and paws, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "두더지 - 부모 가이드 — 관찰·체험으로 확장하기",
+        "url": "https://assets.tangobook.co.kr/1773149152097-%EB%95%85%EC%86%8D%EC%9D%98%EA%B5%B4%EC%B0%A9%EA%B8%B0%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EB%91%90%EB%8D%94%EC%A7%80-illustration-page14-1773322755134.webp",
+        "text": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>흙더미(두더지 흔적)를 산책길에서 찾아보고, 손으로 흙 파기를 해 보며 앞발의 역할을 체험해 보세요. 종이 상자로 \"여러 방이 있는 터널\"을 만들어 보는 놀이도 좋아요.</p>",
+        "caption": "땅속 세계 체험",
+        "image_style": "",
+        "image_prompt": "A parent and child digging soil and building a tunnel box together, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 두더지는 어떻게 앞을 보나요?</strong><br>A. 눈은 거의 퇴화했지만 코 주변 아이머 기관으로 진동과 냄새를 예민하게 느껴 길을 찾습니다.</p><p><strong>Q. 두더지가 흙을 파면 왜 좋은가요?</strong><br>A. 흙에 공기를 통하게 해 식물 뿌리가 잘 자라도록 돕습니다. 자연의 농부 같은 역할이에요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 산책길 흙더미 찾기, 손으로 흙 파보기, 상자로 터널 만들기 놀이가 좋습니다.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>함께 읽으면 좋은 명작 동화</h2><p>이 동화를 재미있게 읽었다면 이런 <strong>명작 동화</strong>도 함께 읽어 보세요.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">강아지</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">강아지풀</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">개구리</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">개미</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "두더지 그림책 삽화",
+        "url": "https://assets.tangobook.co.kr/1773149152097-%EB%95%85%EC%86%8D%EC%9D%98%EA%B5%B4%EC%B0%A9%EA%B8%B0%EB%B6%80%EC%A7%80%EB%9F%B0%ED%95%9C%EB%91%90%EB%8D%94%EC%A7%80-illustration-page18-1773322775033.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">「두더지」가 궁금하신가요?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">아름다운 그림과 한국어·영어 음성으로 탱고북에서 직접 만나보세요.</p><a href=\"https://tangobook.co.kr/library/1773149152097\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 동화책 보러가기 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

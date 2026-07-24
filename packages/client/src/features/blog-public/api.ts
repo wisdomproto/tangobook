@@ -22,18 +22,20 @@ export interface BlogPostDetail extends BlogPostSummary {
   storybookId: string | null;
 }
 
-export function useBlogPosts() {
+const langQuery = (lang: string) => (lang && lang !== 'ko' ? `?lang=${lang}` : '');
+
+export function useBlogPosts(lang = 'ko') {
   return useQuery({
-    queryKey: ['blog', 'list'],
-    queryFn: () => apiGet<BlogPostSummary[]>('/blog'),
+    queryKey: ['blog', 'list', lang],
+    queryFn: () => apiGet<BlogPostSummary[]>(`/blog${langQuery(lang)}`),
     staleTime: 5 * 60 * 1000,
   });
 }
 
-export function useBlogPost(slug: string) {
+export function useBlogPost(slug: string, lang = 'ko') {
   return useQuery({
-    queryKey: ['blog', 'post', slug],
+    queryKey: ['blog', 'post', slug, lang],
     enabled: !!slug,
-    queryFn: () => apiGet<BlogPostDetail>(`/blog/${encodeURIComponent(slug)}`),
+    queryFn: () => apiGet<BlogPostDetail>(`/blog/${encodeURIComponent(slug)}${langQuery(lang)}`),
   });
 }

@@ -1,0 +1,112 @@
+{
+  "storybookId": "1773320745960",
+  "seo_title": "ลักษณะและระบบนิเวศของแมงมุม — หนังสือภาพวิทยาศาสตร์เพื่อการสังเกตธรรมชาติใยแมงมุม",
+  "meta_description": "ความแข็งแกร่งอันน่าทึ่งของใยแมงมุม, ขา 8 ขา, การล่องบอลลูน และข้อเท็จจริงมหัศจรรย์อื่นๆ, เนื้อหาจากหนังสือภาพสังเกตธรรมชาติ Tango Book, รวมถึงวิธีสังเกตการณ์กับลูกด้วย คู่มือการสังเกตธรรมชาติสำหรับเด็กอายุ 4-7 ปี",
+  "primary_keyword": "แมงมุม",
+  "secondary_keywords": [
+    "ลักษณะของแมงมุม",
+    "ใยแมงมุม",
+    "นิเวศของแมงมุม",
+    "หนังสือสังเกตธรรมชาติสำหรับเด็กเล็ก",
+    "หนังสือนิทานเกี่ยวกับแมลง"
+  ],
+  "url_slug": "spider-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "แมงมุม - แมงมุม มีอะไรที่น่าทึ่งบ้างคะ?",
+        "url": "https://assets.tangobook.co.kr/1773320745960-%EA%B1%B0%EB%AF%B8-cover-misc-1780029520090.webp",
+        "text": "<h2>แมงมุม มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>ที่ทอใยแมงมุมที่ประณีต <strong>แมงมุม</strong>เป็นสถาปนิกที่ยอดเยี่ยมของธรรมชาติเลยค่ะ ตั้งแต่ข้อเท็จจริงที่ว่ามันมีขาถึง 8 ขา ทำให้เป็นกลุ่มที่แตกต่างจากแมลงก็เป็นเรื่องน่าสนใจแล้ว</p>",
+        "caption": "สถาปนิกแห่งธรรมชาติ",
+        "image_style": "",
+        "image_prompt": "A spider on an intricate dew-covered web in morning light, beautiful children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "แมงมุม - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของแมงมุม",
+        "url": "https://assets.tangobook.co.kr/1773320745960-%EC%88%B2%EC%86%8D%EC%9D%98%EB%A9%8B%EC%A7%84%EA%B7%B8%EB%AC%BC%EA%B8%B0%EC%88%A0%EC%9E%90%EA%B1%B0%EB%AF%B8-illustration-page1-1773444750542.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของแมงมุม</h2><p>แมงมุมมีขา <strong>8 ขา</strong>เป็นสัตว์ขาปล้อง และจัดอยู่ในกลุ่มที่แตกต่างจากแมลงที่มี 6 ขา ใยแมงมุมเป็นเส้นใยโปรตีนที่แข็งแรงกว่าเหล็กในขนาดเดียวกัน <strong>เส้นใยโปรตีนที่แข็งแกร่งกว่าเหล็กกล้า</strong>ชนิดหนึ่ง พวกมันแบ่งออกเป็นแบบประจำที่ซึ่งสร้างใยและรอเหยื่อ และแบบเร่ร่อนที่เดินไปมา เมื่อจับอาหารได้ก็จะทำให้เป็นอัมพาตด้วยพิษแล้วดูดของเหลวในตัว อาการแมงมุมน้อยจะเคลื่อนที่โดยปล่อยเส้นไหมให้ลอยตามลม <strong>การบอลลูน (Ballooning)</strong>ค่ะ/ครับ</p>",
+        "caption": "แมลงและขาอีก 8 ขา",
+        "image_style": "",
+        "image_prompt": "A close-up of a spider showing its eight legs clearly, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "แมงมุม - เนื้อหาจากหนังสือแทงโก \"แมงมุม\"",
+        "url": "https://assets.tangobook.co.kr/1773320745960-%EC%88%B2%EC%86%8D%EC%9D%98%EB%A9%8B%EC%A7%84%EA%B7%B8%EB%AC%BC%EA%B8%B0%EC%88%A0%EC%9E%90%EA%B1%B0%EB%AF%B8-illustration-page5-1773444762914.webp",
+        "text": "<h2>เนื้อหาที่หนังสือทังโกเรื่อง \"แมงมุม\" นำเสนอ</h2><p>หนังสือทังโกเรื่อง \"แมงมุม\" แสดงให้เห็นอย่างชัดเจนเกี่ยวกับโครงสร้างร่างกายของแมงมุม การล่าเหยื่อด้วยใย การเก็บอาหารโดยการพันด้วยเส้นไหม แม่ที่อุ้มไข่ติดท้อง และลูกแมงมุมที่กำลังลอยตัว (ballooning) นอกจากนี้ยังถ่ายทอดบทบาททางนิเวศวิทยาของการเป็นเพื่อนผู้มีพระคุณที่จับศัตรูพืชและปกป้องป่าอีกด้วย</p>",
+        "caption": "ล่องไปกับสายลม",
+        "image_style": "",
+        "image_prompt": "Baby spiders releasing silk to float on the wind (ballooning), whimsical children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "แมงมุม: จุดน่าสนใจที่เราจะดูด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1773320745960-%EC%88%B2%EC%86%8D%EC%9D%98%EB%A9%8B%EC%A7%84%EA%B7%B8%EB%AC%BC%EA%B8%B0%EC%88%A0%EC%9E%90%EA%B1%B0%EB%AF%B8-illustration-page10-1773444800455.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>ช่วยชี้ให้เห็นจุดต่างๆ เช่น ขา 8 ขา (เพื่อแยกจากแมลง), ใยแมงมุม (เส้นใยที่แข็งแรงและลวดลายเรขาคณิต), วิธีการล่า, หรือการบอลลูน การพูดคุยด้วยกันว่า \"แมงมุมเป็นแมลงไหม?\" และ \"ใยแมงมุมจะแข็งแกร่งแค่ไหน?\" จะดีมากค่ะ</p>",
+        "caption": "สิ่งที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "Geometric spider web pattern glistening, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "แมงมุม - คู่มือสำหรับผู้ปกครอง — ขยายความรู้ด้วยการสังเกตและประสบการณ์",
+        "url": "https://assets.tangobook.co.kr/1773320745960-%EC%88%B2%EC%86%8D%EC%9D%98%EB%A9%8B%EC%A7%84%EA%B7%B8%EB%AC%BC%EA%B8%B0%EC%88%A0%EC%9E%90%EA%B1%B0%EB%AF%B8-illustration-page14-1773444820521.webp",
+        "text": "<h2>คู่มือผู้ปกครอง — การขยายผลด้วยการสังเกตและประสบการณ์</h2><p>ลองหาใยแมงมุมที่มีหยดน้ำค้างตอนเช้าตามทางเดิน แล้วสังเกตลวดลายดูสิ ลองทำรูปใยแมงมุมด้วยไหมพรมหรือด้าย และเมื่อวาดแมงมุมที่มีขา 8 ขา แล้วนำไปเปรียบเทียบกับแมลง (6 ขา) แนวคิดเรื่องการจำแนกประเภทก็จะเติบโตขึ้น (สังเกตแมงมุมโดยไม่สัมผัส)</p>",
+        "caption": "กิจกรรมทำใยแมงมุม",
+        "image_style": "",
+        "image_prompt": "A parent and child making a web shape with yarn together, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: แมงมุมเป็นแมลงไหมคะ/ครับ?</strong><br>ตอบ: ไม่ใช่ค่ะ/ครับ พวกมันเป็นสัตว์ขาปล้องที่มี 8 ขา ซึ่งแตกต่างจากแมลงที่มี 6 ขาเลยค่ะ/ครับ</p><p><strong>ถาม: ใยแมงมุมแข็งแรงแค่ไหนคะ/ครับ?</strong><br>ตอบ: มันคือเส้นใยโปรตีนที่มีความแข็งแรงเหนือกว่าเหล็กกล้าขนาดเดียวกันค่ะ/ครับ ทั้งยังเบาและเหนียวมากด้วย</p><p><strong>ถาม: เราจะสังเกตพวกมันที่บ้านได้อย่างไรดีคะ/ครับ?</strong><br>ตอบ: ควรสังเกตลวดลายใยแมงมุมในตอนเช้า ทำใยแมงมุมด้วยด้าย และเปรียบเทียบจำนวนขากับแมลงค่ะ/ครับ (โปรดหลีกเลี่ยงการสัมผัสโดยตรง)</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณอ่านนิทานเรื่องนี้แล้วสนุกแบบนี้ ลองดู <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือภาพเรื่องแมงมุม",
+        "url": "https://assets.tangobook.co.kr/1773320745960-%EC%88%B2%EC%86%8D%EC%9D%98%EB%A9%8B%EC%A7%84%EA%B7%B8%EB%AC%BC%EA%B8%B0%EC%88%A0%EC%9E%90%EA%B1%B0%EB%AF%B8-illustration-page18-1773444856432.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"แมงมุม\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้โดยตรงที่แทงโกบุ๊ก ด้วยภาพสวยงามและเสียงภาษาเกาหลี/อังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1773320745960\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

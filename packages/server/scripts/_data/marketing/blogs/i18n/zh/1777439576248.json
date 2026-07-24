@@ -1,0 +1,106 @@
+{
+  "storybookId": "1777439576248",
+  "seo_title": "熊的特征和冬眠的秘密 — 自然观察绘本",
+  "meta_description": "关于熊是杂食动物的事实、冬眠（休眠）、抚养幼崽的奇妙故事，以及《Tango Book》动物绘本的内容和观察方法。4-7岁自然观察指南。",
+  "primary_keyword": "熊",
+  "secondary_keywords": ["熊的特点", "熊冬眠", "熊生态", "幼儿动物书", "动物绘本"],
+  "url_slug": "bear-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "熊 - 熊，哪些地方让你觉得神奇呢？",
+        "url": "https://assets.tangobook.co.kr/1777439576248-%EA%B3%B0-cover-misc-1780028104762.webp",
+        "text": "<h2>熊，哪些地方会让人觉得神奇呢？</h2><p>又大又强壮的 <strong>熊</strong>它是一种吃鱼、吃蜂蜜、吃树果的杂食动物。它还有在寒冷的冬天里，在洞穴里睡觉的神奇习性哦。</p><p data-seo-boost=\"1\">我们将熊的特征、熊的冬眠、熊的生态等关于熊的各种故事都收录了。</p>",
+        "caption": "杂食动物熊",
+        "image_style": "",
+        "image_prompt": "A bear catching a fish by a river, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "熊 - 熊的自然与科学事实",
+        "url": "https://assets.tangobook.co.kr/1777439576248-%EB%8D%A9%EC%B9%98%EA%B0%80%EC%BB%A4%EB%8B%A4%EB%9E%80%ED%84%B8%EB%B3%B4%EA%B3%B0-illustration-page1-1777440024841.webp",
+        "text": "<h2>关于熊的自然和科学知识</h2><p>熊吃肉和植物，都是 <strong>杂食动物</strong>它们喜欢鱼、蜂蜜和水果。用出色的嗅觉，它们能闻到远处食物的气味，并用又大又坚硬的爪子挖地或爬树。在食物匮乏的冬天，在洞穴里 <strong>冬眠</strong>睡觉来节省能量，而母熊通常会 <strong>在冬天的洞穴里生下小宝宝</strong> 一直到春天，悉心照料它们。</p>",
+        "caption": "多样化的食物",
+        "image_style": "",
+        "image_prompt": "A bear eating honey and berries, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "熊 - 探戈书《熊》讲述的内容",
+        "url": "https://assets.tangobook.co.kr/1777439576248-%EB%8D%A9%EC%B9%98%EA%B0%80%EC%BB%A4%EB%8B%A4%EB%9E%80%ED%84%B8%EB%B3%B4%EA%B3%B0-illustration-page5-1777440038257.webp",
+        "text": "<h2>《熊》这本《探戈书》的内容</h2><p>《熊》这本书温馨地展示了捕鱼的场景、吃蜂蜜和水果的样子、冬眠的洞穴，以及照顾小熊崽的母熊。</p>",
+        "caption": "冬眠与幼崽",
+        "image_style": "",
+        "image_prompt": "A bear sleeping in a winter den with cubs, heartwarming children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "熊 - 值得一起观察的重点",
+        "url": "https://assets.tangobook.co.kr/1777439576248-%EB%8D%A9%EC%B9%98%EA%B0%80%EC%BB%A4%EB%8B%A4%EB%9E%80%ED%84%B8%EB%B3%B4%EA%B3%B0-illustration-page10-1777440059070.webp",
+        "text": "<h2>一起观察时可以注意的重点</h2><p>请指出像杂食（鱼、蜂蜜、果实）、嗅觉、爪子、冬眠，以及母子等重点。一起聊聊“熊为什么冬天睡觉？”会很好。</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "A close-up of bear strong claws, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "熊 - 家长指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1777439576248-%EB%8D%A9%EC%B9%98%EA%B0%80%EC%BB%A4%EB%8B%A4%EB%9E%80%ED%84%B8%EB%B3%B4%EA%B3%B0-illustration-page14-1777440071229.webp",
+        "text": "<h2>父母指南 — 如何培养好奇心</h2><p>讲述“在没有食物的冬天通过睡眠度过（冬眠）”，并将其与其它冬眠动物（青蛙、松鼠）进行比较。熊的嗅觉比人类好得多这一点也很有趣。</p>",
+        "caption": "冬眠比较",
+        "image_style": "",
+        "image_prompt": "A parent and child reading about hibernating animals, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>Q. 熊为什么会冬眠呢？</strong><br>A. 因为冬天食物不足，所以它们在洞里睡觉来节省能量。</p><p><strong>Q. 熊吃什么呢？</strong><br>A. 它们是既吃肉又吃植物的杂食动物。喜欢吃鱼、蜂蜜和水果哦。</p><p><strong>Q. 在家里怎样观察比较好呢？</strong><br>A. 可以和别的冬眠动物做比较，讲讲“用睡眠度过冬天”的故事会很好哦。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "熊绘本插图",
+        "url": "https://assets.tangobook.co.kr/1777439576248-%EB%8D%A9%EC%B9%98%EA%B0%80%EC%BB%A4%EB%8B%A4%EB%9E%80%ED%84%B8%EB%B3%B4%EA%B3%B0-illustration-page18-1777440082386.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">好奇“熊”吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book中，通过精美的图片和韩语·英语音频亲身体验吧。</p><a href=\"https://tangobook.co.kr/library/1777439576248\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777600332199",
+  "seo_title": "ลักษณะเด่นของนกกระจอกเทศและความลับของการวิ่งที่รวดเร็ว — หนังสือภาพสำรวจธรรมชาติ",
+  "meta_description": "ความลับของนกกระจอกเทศที่ใหญ่ที่สุดแต่บินไม่ได้และวิ่งเร็วได้อย่างไร ข้อเท็จจริงน่าทึ่ง เช่น ไข่ขนาดใหญ่ เนื้อหาจากหนังสือนิทานสังเกตธรรมชาติ Tango Book และวิธีการสังเกต สำหรับคู่มือการเรียนรู้ธรรมชาติสำหรับเด็กอายุ 4-7 ปี",
+  "primary_keyword": "นกกระจอกเทศ",
+  "secondary_keywords": [
+    "ลักษณะเด่นของนกกระจอกเทศ",
+    "ไข่กระจอกเทศ",
+    "นกที่ไม่สามารถบินได้",
+    "หนังสือสังเกตธรรมชาติสำหรับเด็กเล็ก",
+    "หนังสือภาพเรื่องนก"
+  ],
+  "url_slug": "ostrich-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "นกกระจอกเทศ - นกกระจอกเทศ มีส่วนไหนที่น่าทึ่งบ้างคะ?",
+        "url": "https://assets.tangobook.co.kr/1777600332199-%ED%83%80%EC%A1%B0-cover-misc-1780026363479.webp",
+        "text": "<h2>นกกระจอกเทศ มีอะไรที่น่าทึ่งบ้างคะ/ครับ?</h2><p>นกที่ใหญ่ที่สุดในโลก <strong>นกกระจอกเทศ</strong>เป็นนกมหัศจรรย์ที่วิ่งเหมือนสายลมแทนที่จะบินบนท้องฟ้าเลยค่ะ/ครับ และไข่ของมันก็เป็นใบที่ใหญ่ที่สุดในบรรดานกด้วยนะคะ/ครับ</p>",
+        "caption": "นกตัวที่ใหญ่ที่สุด",
+        "image_style": "",
+        "image_prompt": "A tall ostrich running fast across a savanna, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "นกกระจอกเทศ - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของนกกระจอกเทศ",
+        "url": "https://assets.tangobook.co.kr/1777600332199-%EC%84%B8%EC%83%81%EC%97%90%EC%84%9C%EA%B0%80%EC%9E%A5%ED%81%B0%EC%83%88%EB%8B%AC%EB%A6%AC%EA%B8%B0%EB%8C%80%EC%9E%A5%ED%83%80%EC%A1%B0-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page1-1777600376979.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของนกกระจอกเทศ</h2><p>นกกระจอกเทศมีลำตัวที่ใหญ่มากจน <strong>ถึงแม้ว่าจะบินไม่ได้ แต่ว่า</strong>ด้วยขาที่ยาวและแข็งแรง มันจึงเป็นนกที่วิ่งเร็วที่สุด (ประมาณชั่วโมงละ <strong>70km</strong>) <strong>มีนิ้วเท้าเพียงแค่สองนิ้วเท่านั้น</strong>จึงได้เปรียบในการวิ่ง และเมื่อตกอยู่ในอันตรายก็จะป้องกันตัวเองด้วยการเตะที่รุนแรง ไข่ของนกกระจอกเทศเป็นไข่ที่ใหญ่ที่สุดในบรรดาไข่นก ใหญ่เท่าฝ่ามือผู้ใหญ่ คำกล่าวที่ว่า \"ถ้าตกอยู่ในอันตราย ให้เอาหัวจมลงทราย\"... <strong>เป็นความเข้าใจผิด ไม่ใช่ข้อเท็จจริง</strong>เพราะมันเป็นท่าทางที่ก้มหัวเพื่อดูแลไข่ จนดูเหมือนเช่นนั้นค่ะ</p>",
+        "caption": "ความลับของนิ้วเท้าสองนิ้ว",
+        "image_style": "",
+        "image_prompt": "A close-up of ostrich strong legs with two toes, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "นกกระจอกเทศ - หนังสือแทงโก้ เนื้อหาเกี่ยวกับ «นกกระจอกเทศ»",
+        "url": "https://assets.tangobook.co.kr/1777600332199-%EC%84%B8%EC%83%81%EC%97%90%EC%84%9C%EA%B0%80%EC%9E%A5%ED%81%B0%EC%83%88%EB%8B%AC%EB%A6%AC%EA%B8%B0%EB%8C%80%EC%9E%A5%ED%83%80%EC%A1%B0-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page5-1777600595446.webp",
+        "text": "<h2>เนื้อหาที่หนังสือแทงโกเรื่อง \"นกกระจอกเทศ\" นำเสนอ</h2><p>หนังสือแทงโกเรื่อง \"นกกระจอกเทศ\" แสดงให้เห็นถึงภาพการวิ่งอย่างรวดเร็ว ไข่ที่ใหญ่ที่สุด พ่อแม่ที่ดูแลลูกด้วยกัน และนกกระจอกเทศที่อาศัยอยู่เป็นฝูงได้อย่างอบอุ่น</p>",
+        "caption": "ไข่ใบที่ใหญ่ที่สุด",
+        "image_style": "",
+        "image_prompt": "A giant ostrich egg next to a hand, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "นกกระจอกเทศ - จุดที่ควรสังเกตพร้อมกัน",
+        "url": "https://assets.tangobook.co.kr/1777600332199-%EC%84%B8%EC%83%81%EC%97%90%EC%84%9C%EA%B0%80%EC%9E%A5%ED%81%B0%EC%83%88%EB%8B%AC%EB%A6%AC%EA%B8%B0%EB%8C%80%EC%9E%A5%ED%83%80%EC%A1%B0-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page10-1777600420285.webp",
+        "text": "<h2>จุดที่ควรสังเกตการณ์ร่วมกัน</h2><p>โปรดชี้ให้เห็นจุดต่างๆ เช่น นกที่ไม่สามารถบินได้ การวิ่งเร็ว (ด้วยนิ้วเท้าสองข้าง) ไข่ขนาดใหญ่ หรือความเข้าใจผิดเกี่ยวกับทราย และการพูดคุยถึงคำถามว่า \"ทำไมนกกระจอกเทศถึงบินไม่ได้?\" ร่วมกันก็เป็นสิ่งที่ดีค่ะ</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "An ostrich family caring for chicks, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "นกกระจอกเทศ - คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777600332199-%EC%84%B8%EC%83%81%EC%97%90%EC%84%9C%EA%B0%80%EC%9E%A5%ED%81%B0%EC%83%88%EB%8B%AC%EB%A6%AC%EA%B8%B0%EB%8C%80%EC%9E%A5%ED%83%80%EC%A1%B0-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page14-1777600429339.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ลองเชื่อมโยงคำพูดที่ว่า \"เป็นนกแต่บินไม่ได้เหรอ? งั้นก็วิ่งเร็วๆ แทนสิ!\" เข้ากับการเล่นวิ่งดูสิ เปรียบเทียบขนาดไข่นกกระจอกเทศกับฝ่ามือ และเมื่อคุณบอกพวกเขาว่า \"การเอาหัวจมในทรายเป็นความเข้าใจผิด\" ความสนใจของลูกก็จะเพิ่มขึ้น</p>",
+        "caption": "วิ่งเล่น",
+        "image_style": "",
+        "image_prompt": "A parent and child running together like ostriches, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ทำไมนกกระจอกเทศถึงบินไม่ได้คะ/ครับ?</strong><br>ตอบ: เพราะตัวมันใหญ่เกินกว่าจะบินได้ค่ะ/ครับ แต่แทนที่จะบิน มันวิ่งเร็วที่สุดในบรรดานก ด้วยขาที่ยาวและแข็งแรง (ประมาณ 70 กม./ชม.)</p><p><strong>ถาม: นกกระจอกเทศฝังหัวในทรายไหมคะ/ครับ?</strong><br>ตอบ: จริง ๆ แล้วมันเป็นความเข้าใจผิดค่ะ/ครับ แค่ตอนที่มันก้มหัวเพื่อดูแลไข่ ทำให้ดูเหมือนแบบนั้นน่ะค่ะ/ครับ</p><p><strong>ถาม: เราจะสังเกตมันที่บ้านได้อย่างไรดีคะ/ครับ?</strong><br>ตอบ: การเชื่อมโยงกับการเล่นวิ่งไล่จับ, การเปรียบเทียบขนาดมือกับไข่, และเรื่องเล่าเกี่ยวกับ \"ความเข้าใจผิดเรื่องทราย\" เป็นกิจกรรมที่ดีค่ะ/ครับ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณสนุกกับการอ่านนิทานเรื่องนี้แล้ว ลองดูแบบนี้ <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือนิทานเกี่ยวกับนกกระจอกเทศ",
+        "url": "https://assets.tangobook.co.kr/1777600332199-%EC%84%B8%EC%83%81%EC%97%90%EC%84%9C%EA%B0%80%EC%9E%A5%ED%81%B0%EC%83%88%EB%8B%AC%EB%A6%AC%EA%B8%B0%EB%8C%80%EC%9E%A5%ED%83%80%EC%A1%B0-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page18-1777600438437.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"นกกระจอกเทศ\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้ด้วยภาพสวย ๆ และเสียงภาษาเกาหลี/อังกฤษที่ Tango Book เลยค่ะ</p><a href=\"https://tangobook.co.kr/library/1777600332199\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

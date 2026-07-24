@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777442353908",
+  "seo_title": "Đặc điểm của sóc và bí mật cất giữ hạt dẻ — Sách tranh quan sát thiên nhiên",
+  "meta_description": "Thói quen tích trữ hạt dẻ trong má và túi của sóc, những sự thật thú vị như vai trò nuôi dưỡng khu rừng, nội dung từ sách tranh động vật Tango Book, và cả cách quan sát chúng nữa. Hướng dẫn quan sát thiên nhiên dành cho lứa tuổi 4-7.",
+  "primary_keyword": "Sóc",
+  "secondary_keywords": [
+    "Đặc điểm của sóc",
+    "Sóc hạt dẻ",
+    "Sinh thái sóc",
+    "Sách động vật cho trẻ nhỏ",
+    "Sách tranh về động vật"
+  ],
+  "url_slug": "squirrel-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "Sóc con - Sóc con, điều gì khiến bạn thấy kỳ diệu nhỉ?",
+        "url": "https://assets.tangobook.co.kr/1777442353908-%EB%8B%A4%EB%9E%8C%EC%A5%90-cover-misc-1780028031027.webp",
+        "text": "<h2>Sóc ơi, có gì thú vị nhỉ?</h2><p>Chú sóc nhỏ leo trèo giỏi là loài vật đáng yêu mang đầy hạt dẻ trong má để di chuyển. Thực ra, nó còn là một người làm vườn tí hon chăm sóc khu rừng đấy.</p><p data-seo-boost=\"1\">Chúng tôi đã tổng hợp nhiều câu chuyện đa dạng về sóc, bao gồm đặc điểm của sóc, hạt dẻ của sóc và sinh thái học của sóc.</p>",
+        "caption": "Chú sóc leo cây",
+        "image_style": "",
+        "image_prompt": "A squirrel holding an acorn on a tree branch, cute children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "Sóc - Sự thật tự nhiên và khoa học về sóc",
+        "url": "https://assets.tangobook.co.kr/1777442353908-%EB%8B%A4%EB%9E%8C%EC%A5%90-illustration-page1-1777442462652.webp",
+        "text": "<h2>Những sự thật tự nhiên và khoa học về sóc</h2><p>Sóc mang hạt dẻ trong <strong>má của mình</strong> đi và cất thức ăn dự trữ mùa đông ở khắp nơi dưới lòng đất. Thật thú vị là, vì <strong>quên mất một phần những thứ đã chôn</strong>, nên những hạt dẻ đó nảy mầm và trở thành cây mới. Điều này có nghĩa là sóc chính là \"người làm vườn chăm sóc rừng\". Cái đuôi to và xù giúp nó giữ thăng bằng khi leo trèo trên cây, và còn trở thành chiếc chăn ấm khi trời lạnh. Răng cửa thì mọc suốt đời, chúng gặm những quả cứng để duy trì độ dài của mình.</p>",
+        "caption": "Vận chuyển hạt sồi",
+        "image_style": "",
+        "image_prompt": "A squirrel with cheek pouches full of acorns, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "Sóc - Sách Tango Book «Sóc» nội dung",
+        "url": "https://assets.tangobook.co.kr/1777442353908-%EB%8B%A4%EB%9E%8C%EC%A5%90-illustration-page5-1777442503048.webp",
+        "text": "<h2>Nội dung câu chuyện \"Sóc\" của Taenggobuk</h2><p>Truyện \"Sóc\" của Taenggobuk thể hiện một cách ấm áp những cảnh vật như nhặt hạt dẻ bỏ vào má, chôn giấu và cất giữ dưới đất, leo trèo trên cây, cùng câu chuyện về hạt dẻ bị lãng quên lớn lên thành cái cây mới.</p>",
+        "caption": "Người làm vườn của rừng",
+        "image_style": "",
+        "image_prompt": "A squirrel burying an acorn that sprouts into a tree, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "Sóc - Những điểm đáng quan sát khi cùng nhau tìm hiểu",
+        "url": "https://assets.tangobook.co.kr/1777442353908-%EB%8B%A4%EB%9E%8C%EC%A5%90-illustration-page10-1777442514426.webp",
+        "text": "<h2>Những điểm thú vị nên cùng quan sát</h2><p>Hãy chỉ ra những điểm như má phúng (lưu trữ), chôn hạt dẻ (trồng rừng), đuôi (cân bằng/chăn), hay răng cửa mọc suốt đời. Việc cùng nhau trò chuyện về câu hỏi \"Hạt dẻ bị quên sẽ ra sao?\" là rất tốt.</p>",
+        "caption": "Các điểm cần quan sát",
+        "image_style": "",
+        "image_prompt": "A close-up of a squirrel bushy tail, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "Sóc - Hướng dẫn dành cho phụ huynh — Cách nuôi dưỡng sự tò mò",
+        "url": "https://assets.tangobook.co.kr/1777442353908-%EB%8B%A4%EB%9E%8C%EC%A5%90-illustration-page14-1777442524085.webp",
+        "text": "<h2>Hướng dẫn dành cho phụ huynh — Cách nuôi dưỡng sự tò mò</h2><p>Hãy quan sát chú sóc di chuyển hạt dẻ trong công viên hoặc núi rừng. Nếu kết nối câu chuyện \"Hạt dẻ bị chôn và quên lãng sẽ trở thành cây\" với [[Cây sồi]], các bé sẽ học được về vòng tuần hoàn của tự nhiên.</p>",
+        "caption": "Quan sát công viên",
+        "image_style": "",
+        "image_prompt": "A parent and child watching a squirrel in a park, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Các câu hỏi thường gặp (FAQ)</h2><p><strong>Hỏi. Nếu sóc chôn hạt sồi thì sẽ thế nào ạ?</strong><br>Đáp. Nó quên mất một phần, và những hạt sồi đó nảy mầm thành cây mới. Vì vậy, nó được gọi là \"người làm vườn của rừng\".</p><p><strong>Hỏi. Túi má dùng để làm gì ạ?</strong><br>Đáp. Nó dùng để mang nhiều hạt sồi và quả về. Chúng lưu trữ lương thực mùa đông dưới lòng đất.</p><p><strong>Hỏi. Ở nhà chúng ta nên quan sát như thế nào ạ?</strong><br>Đáp. Tốt nhất là quan sát cảnh sóc di chuyển hạt sồi trong công viên hoặc núi, và kết nối nó với những câu chuyện về cây sồi.</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>Những truyện cổ tích kinh điển nên đọc cùng</h2><p>Nếu bạn đã thích thú với câu chuyện này, hãy thử đọc thêm những <strong>truyện cổ tích kinh điển</strong> khác nhé.</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">Chú chó</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">Cỏ đuôi cáo</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">Con ếch</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">Con kiến</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "Minh họa sách truyện về sóc",
+        "url": "https://assets.tangobook.co.kr/1777442353908-%EB%8B%A4%EB%9E%8C%EC%A5%90-illustration-page18-1777442534555.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">Bạn có tò mò về \"Sóc\" không?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">Hãy gặp nó trực tiếp tại Tango Book với những bức tranh đẹp và âm thanh tiếng Hàn/tiếng Anh.</p><a href=\"https://tangobook.co.kr/library/1777442353908\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 Xem sách truyện →</a></div >",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

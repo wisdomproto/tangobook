@@ -1,0 +1,106 @@
+{
+  "storybookId": "1773411347988",
+  "seo_title": "星系与黑洞 — 宇宙神秘自然观察图画书",
+  "meta_description": "从银河的种类到黑洞的秘密，探索宇宙奥秘；了解《Tango Book》太空绘本的内容，以及如何和孩子一起想象浩瀚宇宙。献给5-7岁儿童的宇宙自然观察指南。",
+  "primary_keyword": "黑洞",
+  "secondary_keywords": ["星系和黑洞", "我们的星系", "黑洞是什么", "幼儿太空书", "宇宙图画书"],
+  "url_slug": "galaxy-black-hole-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "星系和黑洞 - 星系和黑洞，哪些地方会让人感到神奇呢？",
+        "url": "https://assets.tangobook.co.kr/1773411347988-%EC%9D%80%ED%95%98%EC%99%80%EB%B8%94%EB%9E%99%ED%99%80-cover-misc-1780274744454.webp",
+        "text": "<h2>星系和黑洞，哪些地方会让人感到神奇呢？</h2><p>聚集了数千亿颗恒星的 <strong>星系</strong>连光都无法逃脱的 <strong>黑洞</strong>它是宇宙中最神秘的存在。能让孩子的想象力延伸到宇宙尽头。</p>",
+        "caption": "星星们巨大的家",
+        "image_style": "",
+        "image_prompt": "A spiral galaxy full of stars in deep space, awe-inspiring children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "星系和黑洞 - 星系和黑洞的自然与科学事实",
+        "url": "https://assets.tangobook.co.kr/1773411347988-%EC%9D%80%ED%95%98%EC%99%80%EB%B8%94%EB%9E%99%ED%99%80-illustration-page1-1773580341341.webp",
+        "text": "<h2>星系和黑洞的自然科学知识</h2><p><strong>星系</strong>它是一个由重力束缚的、包含数千亿到数万亿颗恒星和气体的巨大集合。宇宙中大约有2万亿个星系，而我们的银河系（天河）就是一个棒旋星系。 <strong>黑洞</strong>它是一种引力太强，连光都无法逃脱的天体。它是当一颗巨大的恒星耗尽生命并爆炸后，其核心被压缩形成的。</p>",
+        "caption": "不发光的天体",
+        "image_style": "",
+        "image_prompt": "A black hole bending light around it in space, dramatic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "星系和黑洞 - 坦戈书《星系和黑洞》所讲述的内容",
+        "url": "https://assets.tangobook.co.kr/1773411347988-%EC%9D%80%ED%95%98%EC%99%80%EB%B8%94%EB%9E%99%ED%99%80-illustration-page5-1773580369735.webp",
+        "text": "<h2>《天鹅书》《银河与黑洞》讲述的内容</h2><p>《天鹅书》《银河与黑洞》以孩子能理解的想象方式，展示了由闪烁恒星组成的银河景象、螺旋形和椭圆形等不同类型的银河，以及神秘的黑洞。</p>",
+        "caption": "我们的银河",
+        "image_style": "",
+        "image_prompt": "The Milky Way galaxy band across a night sky, beautiful children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "星系与黑洞 - 如何更深入地了解宇宙",
+        "url": "https://assets.tangobook.co.kr/1773411347988-%EC%9D%80%ED%95%98%EC%99%80%EB%B8%94%EB%9E%99%ED%99%80-illustration-page10-1773580496143.webp",
+        "text": "<h2>如何更深入地了解宇宙</h2><p>请指点一些重点，比如星系（恒星的家）、我们所在的银河系（银河）、黑洞（连光都无法逃脱）、以及星系的种类（旋涡状·椭圆状）。试着想象一下：“如果进入黑洞会发生什么？”</p>",
+        "caption": "观察重点",
+        "image_style": "",
+        "image_prompt": "Different galaxy shapes spiral and elliptical, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "星系与黑洞 — 家长指南 — 通过观察和体验进行拓展",
+        "url": "https://assets.tangobook.co.kr/1773411347988-%EC%9D%80%ED%95%98%EC%99%80%EB%B8%94%EB%9E%99%ED%99%80-illustration-page14-1773581671211.webp",
+        "text": "<h2>父母指南 — 通过观察和体验进行拓展</h2><p>在黑暗的地方，一起看银河照片和视频，尝试画出漩涡（旋涡星系）。如果把黑洞比作“吞噬光线的吸尘器”，孩子就会更容易理解了。</p>",
+        "caption": "宇宙想象",
+        "image_style": "",
+        "image_prompt": "A parent and child looking at galaxy images and drawing spirals, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答</h2><p><strong>问题：什么是星系？</strong><br>回答：它是一个巨大的集合体，由数千亿到数万亿颗恒星和气体通过重力结合在一起。我们的银河系就是银河。</p><p><strong>问题：什么是黑洞？</strong><br>回答：它是一种引力太强，连光都无法逃脱的天体。它是巨大恒星生命结束时形成的。</p><p><strong>问题：在家如何欣赏呢？</strong><br>回答：可以看看银河的照片，画画螺旋状的图形，或者把黑洞比作“光吸尘器”来想象。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "银河和黑洞绘本插图",
+        "url": "https://assets.tangobook.co.kr/1773411347988-%EC%9D%80%ED%95%98%EC%99%80%EB%B8%94%EB%9E%99%ED%99%80-illustration-page18-1773581703931.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“银河和黑洞”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用美丽的图画和韩语·英语语音亲自体验吧。</p><a href=\"https://tangobook.co.kr/library/1773411347988\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

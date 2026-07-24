@@ -1,0 +1,112 @@
+{
+  "storybookId": "1777595882281",
+  "seo_title": "ลักษณะและความลับของผิวหนังคางคก — หนังสือภาพสังเกตธรรมชาติ",
+  "meta_description": "ความแตกต่างระหว่างคางคกกับกบ ความจริงเกี่ยวกับหนามหลัง ประโยชน์ในการจับแมลง และเรื่องน่ารู้ต่าง ๆ รวมถึงเนื้อหาจากหนังสือภาพสังเกตธรรมชาติของ Tango Book พร้อมวิธีการสังเกตด้วย คู่มือการสังเกตธรรมชาติสำหรับเด็กวัย 4-7 ปี",
+  "primary_keyword": "กบ",
+  "secondary_keywords": [
+    "ลักษณะของคางคก",
+    "ความแตกต่างระหว่างคางคกกับกบ",
+    "สัตว์ครึ่งบกครึ่งน้ำ",
+    "หนังสือสำหรับเด็กเล็กเกี่ยวกับการสังเกตธรรมชาติ",
+    "หนังสือนิทานภาพสัตว์"
+  ],
+  "url_slug": "toad-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "คางคก - คางคก มีอะไรน่าสนใจบ้างคะ/ครับ?",
+        "url": "https://assets.tangobook.co.kr/1777595882281-%EB%91%90%EA%BA%BC%EB%B9%84-cover-misc-1780026584316.webp",
+        "text": "<h2>กบหนู มีอะไรที่น่าทึ่งบ้างนะ?</h2><p>ผิวที่ขรุขระ <strong>กบหนู</strong>เป็นสัตว์ครึ่งบกครึ่งน้ำ ถึงจะเป็นญาติของกบ แต่ก็สามารถอาศัยอยู่ในพื้นที่แห้งแล้งได้ดีค่ะ นอกจากนี้ ในนิทานโบราณของเรายังเป็นที่รักในฐานะสัตว์นำโชคอีกด้วย</p>",
+        "caption": "กบตัวขรุขระ",
+        "image_style": "",
+        "image_prompt": "A toad with bumpy skin on damp ground, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "คางคก - ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของคางคก",
+        "url": "https://assets.tangobook.co.kr/1777595882281-%EC%97%89%EA%B8%88%EC%97%89%EA%B8%88%EC%88%B2%EC%86%8D%EC%9D%98%EB%93%AC%EC%A7%81%ED%95%9C%EC%8B%A0%EC%82%AC%EB%91%90%EA%BA%BC%EB%B9%84-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page1-1777595982781.webp",
+        "text": "<h2>ข้อเท็จจริงทางธรรมชาติและวิทยาศาสตร์ของคางคก</h2><p>ผิวหนังของคางคกนั้น... <strong>หนา แห้ง และขรุขระ</strong>มันสามารถอยู่ได้ดีแม้บนพื้นดินที่ห่างจากทะเลเล็กน้อย และปุ่มต่างๆ เหล่านี้ไม่ใช่ <strong>โครงสร้างผิวหนังที่ปกป้องร่างกาย</strong>ดังนั้น คำกล่าวที่ว่า \"ถ้าสัมผัสแล้วจะมีเห็บขึ้น\" เป็นเพียงตำนานเก่าที่ไม่เป็นความจริง ด้วยลิ้นที่ยาว <strong>ที่จับและกินแมลงศัตรูพืช เช่น ยุงหรือหนอน</strong> มีประโยชน์ต่อมนุษย์ และมีการเปลี่ยนแปลงรูปร่าง โดยการวางไข่ในน้ำและเติบโตผ่านระยะลูกอ๊อด</p>",
+        "caption": "การจับแมลงที่เป็นประโยชน์",
+        "image_style": "",
+        "image_prompt": "A toad catching an insect with its long tongue, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "กบ - หนังสือแทงโก เนื้อหาเกี่ยวกับ \"กบ\"",
+        "url": "https://assets.tangobook.co.kr/1777595882281-%EC%97%89%EA%B8%88%EC%97%89%EA%B8%88%EC%88%B2%EC%86%8D%EC%9D%98%EB%93%AC%EC%A7%81%ED%95%9C%EC%8B%A0%EC%82%AC%EB%91%90%EA%BA%BC%EB%B9%84-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page5-1777595992485.webp",
+        "text": "<h2>เนื้อหาที่หนังสือทังโกบุ๊กเรื่อง \"กบ\" นำเสนอ</h2><p>หนังสือทังโกบุ๊กเรื่อง \"กบ\" แสดงให้เห็นถึงผิวหนังที่ขรุขระ การจับแมลงด้วยลิ้นยาว ไข่และลูกอ๊อดในน้ำ ไปจนถึงกระบวนการเป็นกบตัวเต็มวัยอย่างอบอุ่น</p>",
+        "caption": "ถึงจะเป็นญาติ แต่มีอีกสองคนที่แตกต่างกัน",
+        "image_style": "",
+        "image_prompt": "A comparison of a toad and a frog, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "กบ - จุดที่น่าสังเกตเมื่อได้ดูด้วยกัน",
+        "url": "https://assets.tangobook.co.kr/1777595882281-%EC%97%89%EA%B8%88%EC%97%89%EA%B8%88%EC%88%B2%EC%86%8D%EC%9D%98%EB%93%AC%EC%A7%81%ED%95%9C%EC%8B%A0%EC%82%AC%EB%91%90%EA%BA%BC%EB%B9%84-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page10-1777596002364.webp",
+        "text": "<h2>จุดที่ควรสังเกตพร้อมกัน</h2><p>โปรดชี้ให้เห็นจุดต่างๆ เช่น ผิวหนา (ตุ่ม), ความแตกต่างจากกบ, การล่าแมลงศัตรูพืช (ประโยชน์), หรือการเปลี่ยนแปลงรูปร่าง (เมตาโมฟิซิส) เป็นต้น จะดีมากถ้าได้พูดคุยกันว่า \"คางคกกับกบต่างกันอย่างไร?\"</p>",
+        "caption": "จุดที่ควรสังเกต",
+        "image_style": "",
+        "image_prompt": "A close-up of toad bumpy skin, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "กบ - คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น",
+        "url": "https://assets.tangobook.co.kr/1777595882281-%EC%97%89%EA%B8%88%EC%97%89%EA%B8%88%EC%88%B2%EC%86%8D%EC%9D%98%EB%93%AC%EC%A7%81%ED%95%9C%EC%8B%A0%EC%82%AC%EB%91%90%EA%BA%BC%EB%B9%84-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page14-1777596011414.webp",
+        "text": "<h2>คู่มือสำหรับผู้ปกครอง — วิธีส่งเสริมความอยากรู้อยากเห็น</h2><p>ให้เด็กๆ เปรียบเทียบกบกับรูปภาพเพื่อค้นหาความแตกต่างของผิวหนังและที่อยู่อาศัย ควรเล่าเรื่องตำนาน \"การสัมผัสคางคกจะไม่ทำให้เป็นจิ้งจก\" และพูดถึงประโยชน์ในการจับศัตรูพืชให้พวกเขาฟังจะดีมาก</p>",
+        "caption": "การเปรียบเทียบกับกบ",
+        "image_style": "",
+        "image_prompt": "A parent and child comparing a toad and a frog picture, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>คำถามที่พบบ่อย (FAQ)</h2><p><strong>ถาม: ถ้าจับคางคกแล้วจะเป็นหูดไหมคะ/ครับ?</strong><br>ตอบ: ไม่ค่ะ/ครับ ปุ่มต่างๆ เหล่านั้นเป็นเพียงโครงสร้างผิวหนังที่ช่วยปกป้องร่างกายเท่านั้น ส่วนคำกล่าวที่ว่า \"จะเป็นหูด\" นั้นเป็นแค่ตำนานเก่าๆ ที่ไม่เป็นความจริงเลยค่ะ/ครับ</p><p><strong>ถาม: คางคกกับกบแตกต่างกันอย่างไรคะ/ครับ?</strong><br>ตอบ: คางคกมีผิวที่หนากว่า แห้งกว่า และขรุขระ ทำให้พวกมันสามารถอาศัยอยู่ได้ดีแม้บนบกที่ห่างจากน้ำเล็กน้อยค่ะ/ครับ</p><p><strong>ถาม: เราจะสังเกตพวกมันได้ดีๆ ที่บ้านได้อย่างไรคะ/ครับ?</strong><br>ตอบ: การเปรียบเทียบกบกับผิวหนังและถิ่นที่อยู่ หรือเรื่องราวเกี่ยวกับประโยชน์ในการจับแมลงศัตรูพืชเป็นสิ่งที่ดีค่ะ/ครับ</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>นิทานคลาสสิกดีๆ ที่ควรอ่านด้วยกัน</h2><p>ถ้าคุณสนุกกับการอ่านนิทานเรื่องนี้แล้ว ลองดูแบบนี้ <strong>นิทานคลาสสิก</strong>ลองอ่านด้วยกันดูนะคะ/ครับ</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">ลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">หญ้าลูกสุนัข</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">กบ</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">มด</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "ภาพประกอบหนังสือนิทานรูปกบ",
+        "url": "https://assets.tangobook.co.kr/1777595882281-%EC%97%89%EA%B8%88%EC%97%89%EA%B8%88%EC%88%B2%EC%86%8D%EC%9D%98%EB%93%AC%EC%A7%81%ED%95%9C%EC%8B%A0%EC%82%AC%EB%91%90%EA%BA%BC%EB%B9%84-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page18-1777596019100.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">สงสัยเกี่ยวกับ \"กบ\" ไหมคะ?</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">พบกับมันได้ด้วยตัวคุณเองที่แทงโกบุ๊ก ด้วยภาพสวย ๆ และเสียงภาษาเกาหลี/อังกฤษค่ะ</p><a href=\"https://tangobook.co.kr/library/1777595882281\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 ไปดูหนังสือนิทาน →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "storybookId": "1777600332199",
+  "seo_title": "鸵鸟的特点和快速奔跑的秘密——自然观察绘本",
+  "meta_description": "虽然鸵鸟是最大的鸟类，但它不飞却跑得快的秘密、巨大的蛋等奇妙事实，以及《Tango Book》自然观察绘本的内容和观察方法。4-7岁自然观察指南。",
+  "primary_keyword": "鸵鸟",
+  "secondary_keywords": ["鸵鸟的特点", "鸵鸟蛋", "不会飞的鸟", "幼儿自然观察书", "小鸟图画书"],
+  "url_slug": "ostrich-nature-for-kids",
+  "cards": [
+    {
+      "card_type": "text",
+      "sort_order": 0,
+      "content": {
+        "alt": "鸵鸟——鸵鸟，有什么神奇的地方呢？",
+        "url": "https://assets.tangobook.co.kr/1777600332199-%ED%83%80%EC%A1%B0-cover-misc-1780026363479.webp",
+        "text": "<h2>鸵鸟，哪些地方会让你觉得神奇呢？</h2><p>世上最大的鸟儿。 <strong>鸵鸟。</strong>它不能飞翔，但它跑起来像风一样神奇。它的蛋也是鸟类中最大的哦。</p>",
+        "caption": "最大的鸟",
+        "image_style": "",
+        "image_prompt": "A tall ostrich running fast across a savanna, dynamic children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 1,
+      "content": {
+        "alt": "鸵鸟 - 鸵鸟的自然与科学知识",
+        "url": "https://assets.tangobook.co.kr/1777600332199-%EC%84%B8%EC%83%81%EC%97%90%EC%84%9C%EA%B0%80%EC%9E%A5%ED%81%B0%EC%83%88%EB%8B%AC%EB%A6%AC%EA%B8%B0%EB%8C%80%EC%9E%A5%ED%83%80%EC%A1%B0-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page1-1777600376979.webp",
+        "text": "<h2>鸵鸟的自然和科学知识</h2><p>鸵鸟的身体太大了， <strong>虽然不能飞，但是</strong>它用又长又结实的腿，是鸟类中最快的（时速约 <strong>70km</strong>）奔跑。 <strong>因为只有两个脚趾</strong>，所以跑起来很方便；如果遇到危险，它会用强有力的踢腿保护自己。鸵鸟蛋是鸟类中最大的蛋，大到和成年人的手掌一样大。“遇到危险就把头埋在沙子里”这句话 <strong>并不是事实，而是一种误解</strong>，只是因为它弯下头来照顾蛋，才让人误以为是这样。</p>",
+        "caption": "双脚趾的秘密",
+        "image_style": "",
+        "image_prompt": "A close-up of ostrich strong legs with two toes, informative children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 2,
+      "content": {
+        "alt": "鸵鸟 - 探戈书《鸵鸟》的内容",
+        "url": "https://assets.tangobook.co.kr/1777600332199-%EC%84%B8%EC%83%81%EC%97%90%EC%84%9C%EA%B0%80%EC%9E%A5%ED%81%B0%EC%83%88%EB%8B%AC%EB%A6%AC%EA%B8%B0%EB%8C%80%EC%9E%A5%ED%83%80%EC%A1%B0-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page5-1777600595446.webp",
+        "text": "<h2>《探戈书》中的《鸵鸟》内容</h2><p>《探戈书》中的《鸵鸟》温馨地展示了快速奔跑的景象、最大的蛋、共同照顾小宝宝的父母，以及群居的鸵鸟。</p>",
+        "caption": "最大的蛋",
+        "image_style": "",
+        "image_prompt": "A giant ostrich egg next to a hand, gentle children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 3,
+      "content": {
+        "alt": "鸵鸟 - 共同观察的重点",
+        "url": "https://assets.tangobook.co.kr/1777600332199-%EC%84%B8%EC%83%81%EC%97%90%EC%84%9C%EA%B0%80%EC%9E%A5%ED%81%B0%EC%83%88%EB%8B%AC%EB%A6%AC%EA%B8%B0%EB%8C%80%EC%9E%A5%ED%83%80%EC%A1%B0-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page10-1777600420285.webp",
+        "text": "<h2>一起观察时可以关注的重点</h2><p>请指出一些重点，比如不会飞的鸟、快速奔跑（用两只脚）、大蛋、以及关于沙子的误解。一起讨论“为什么鸵鸟不能飞？”会很好。</p>",
+        "caption": "观察点",
+        "image_style": "",
+        "image_prompt": "An ostrich family caring for chicks, observational children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 4,
+      "content": {
+        "alt": "鸵鸟 - 父母指南 — 如何培养好奇心",
+        "url": "https://assets.tangobook.co.kr/1777600332199-%EC%84%B8%EC%83%81%EC%97%90%EC%84%9C%EA%B0%80%EC%9E%A5%ED%81%B0%EC%83%88%EB%8B%AC%EB%A6%AC%EA%B8%B0%EB%8C%80%EC%9E%A5%ED%83%80%EC%A1%B0-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page14-1777600429339.webp",
+        "text": "<h2>家长指南 — 如何培养好奇心</h2><p>尝试将“明明是鸟，却飞不起来？那不如快点跑！”与跑步游戏联系起来。将鸵鸟蛋的大小与手掌进行比较，并告诉他们“把头埋在沙子里是误解”，能让孩子的兴趣更浓厚。</p>",
+        "caption": "跑步游戏",
+        "image_style": "",
+        "image_prompt": "A parent and child running together like ostriches, warm children's book illustration, no text"
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 5,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>常见问题解答 (FAQ)</h2><p><strong>问：为什么鸵鸟飞不起来呢？</strong><br>答：因为身体太大了，所以飞不起来。不过它用又长又结实的腿，是鸟类中最跑得快的（时速约70公里）。</p><p><strong>问：鸵鸟会把头埋在沙子里吗？</strong><br>答：这其实是一个误解，不是事实。它只是为了照顾蛋而低下了头，所以看起来是那样。</p><p><strong>问：在家里怎样观察比较好呢？</strong><br>答：可以做跑步游戏连接、比较手掌和蛋的大小，以及讲“沙子误解”的故事。</p>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 6,
+      "content": {
+        "alt": "",
+        "url": "",
+        "text": "<h2>一起阅读的好经典童话</h2><p>如果喜欢阅读这个童话，还可以看看这些 <strong>经典童话</strong>也一起阅读吧。</p><ul><li><a href=\"https://tangobook.co.kr/blog/dog-nature-for-kids\">小狗</a></li><li><a href=\"https://tangobook.co.kr/blog/foxtail-grass-nature-for-kids\">狗狗草</a></li><li><a href=\"https://tangobook.co.kr/blog/frog-nature-for-kids\">青蛙</a></li><li><a href=\"https://tangobook.co.kr/blog/ant-nature-for-kids\">蚂蚁</a></li></ul>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    },
+    {
+      "card_type": "text",
+      "sort_order": 7,
+      "content": {
+        "alt": "鸵鸟绘本插画",
+        "url": "https://assets.tangobook.co.kr/1777600332199-%EC%84%B8%EC%83%81%EC%97%90%EC%84%9C%EA%B0%80%EC%9E%A5%ED%81%B0%EC%83%88%EB%8B%AC%EB%A6%AC%EA%B8%B0%EB%8C%80%EC%9E%A5%ED%83%80%EC%A1%B0-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page18-1777600438437.webp",
+        "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">对“鸵鸟”感到好奇吗？</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555555;line-height:1.6;\">在Tango Book里，用美丽的图画和韩语·英语语音亲自了解它吧。</p><a href=\"https://tangobook.co.kr/library/1777600332199\" style=\"display:inline-block;background:#FF6B5A;color:#FFFFFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 查看绘本 →</a></div>",
+        "caption": "",
+        "image_style": "",
+        "image_prompt": ""
+      }
+    }
+  ]
+}

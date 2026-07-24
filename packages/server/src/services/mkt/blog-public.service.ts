@@ -55,7 +55,7 @@ function cardImageUrl(content: Record<string, unknown> | null): string | null {
   return typeof u === 'string' && u ? u : null;
 }
 
-export async function listPublishedBlogs(): Promise<BlogPostSummary[]> {
+export async function listPublishedBlogs(lang = 'ko'): Promise<BlogPostSummary[]> {
   const sb = admin();
   const pub = await publishedContentMap();
   if (pub.size === 0) return [];
@@ -65,6 +65,7 @@ export async function listPublishedBlogs(): Promise<BlogPostSummary[]> {
     .from('mkt_blog_contents')
     .select('id, content_id, title, seo_title, meta_description, url_slug')
     .eq('channel', 'self_hosted')
+    .eq('lang', lang)
     .in('content_id', ids);
   const { data: contents } = await sb.from('mkt_contents').select('id, category').in('id', ids);
   const catById = new Map(
@@ -152,13 +153,36 @@ function sanitizeCrossLinks(html: string, published: Set<string>): string {
   );
 }
 
-export async function getPublishedBlog(slug: string): Promise<BlogPostDetail | null> {
+const SUPPORTED_BLOG_LANGS = ['ko', 'en', 'vi', 'zh', 'th'];
+
+/** 이 slug 의 번역이 존재하는 언어 목록 — hreflang 상호링크용. */
+export async function blogLangs(slug: string): Promise<string[]> {
   const sb = admin();
-  // url_slug 우선, 없으면 content_id 로 조회.
+  const { data } = await sb
+    .from('mkt_blog_contents')
+    .select('lang')
+    .eq('channel', 'self_hosted')
+    .eq('url_slug', slug);
+  const set = new Set(((data ?? []) as Array<{ lang: string }>).map((r) => r.lang));
+  return SUPPORTED_BLOG_LANGS.filter((l) => set.has(l));
+}
+
+/** 발행 블로그가 존재하는(시드된) 언어 목록 — 목록 페이지 hreflang용. */
+export async function blogListLangs(): Promise<string[]> {
+  const sb = admin();
+  const { data } = await sb.from('mkt_blog_contents').select('lang').eq('channel', 'self_hosted');
+  const set = new Set(((data ?? []) as Array<{ lang: string }>).map((r) => r.lang));
+  return SUPPORTED_BLOG_LANGS.filter((l) => set.has(l));
+}
+
+export async function getPublishedBlog(slug: string, lang = 'ko'): Promise<BlogPostDetail | null> {
+  const sb = admin();
+  // url_slug 우선, 없으면 content_id 로 조회. 언어 필터 필수(안 하면 ko 반환).
   let { data: blogs } = await sb
     .from('mkt_blog_contents')
     .select('id, content_id, title, seo_title, meta_description, url_slug, primary_keyword')
     .eq('channel', 'self_hosted')
+    .eq('lang', lang)
     .eq('url_slug', slug)
     .limit(1);
   if (!blogs?.length) {
@@ -166,6 +190,7 @@ export async function getPublishedBlog(slug: string): Promise<BlogPostDetail | n
       .from('mkt_blog_contents')
       .select('id, content_id, title, seo_title, meta_description, url_slug, primary_keyword')
       .eq('channel', 'self_hosted')
+      .eq('lang', lang)
       .eq('content_id', slug)
       .limit(1));
   }
