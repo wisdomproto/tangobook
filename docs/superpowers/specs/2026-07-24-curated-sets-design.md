@@ -1,7 +1,7 @@
 # 묶어 보기 — 미리 만들어둔 재생 세트 (Curated Sets)
 
 날짜: 2026-07-24
-상태: 설계 승인됨 (구현 계획 대기)
+상태: ✅ 구현 완료 (2026-07-24)
 
 ## 문제
 
@@ -33,96 +33,103 @@
 - 세트 개인화·추천 알고리즘
 - 큐레이션 세트 즐겨찾기/복제
 
-## 설계
+## 설계 (구현된 최종안)
 
-### 1. 데이터 — `features/continuous/lib/curated-sets.ts`
+> 초안은 세트 6종을 **책 id 로 하드코딩**하고 entitlement 로 잠금을 필터하는 방식이었으나,
+> 사용자 요청으로 단순화했다: **카테고리별 첫 3권 자동 파생 · 게스트/로그인 동일 · 수정 가능**.
+> 그 결과 하드코딩 id 목록과 `resolveCuratedSet` 의 잠금 판정이 통째로 사라졌다.
+
+### 1. 파생 로직 — `features/continuous/lib/category-bundles.ts`
 
 ```ts
-export interface CuratedSet {
-  id: string; // 'safety' — 안정적 식별자
-  nameKey: string; // i18n 키. 🔴 raw 한국어 금지(앱은 ko·en·vi·zh·th)
-  emoji: string;
-  bookIds: string[]; // 순서 = 재생 순서
+export interface CategoryBundle {
+  category: string; // R2 원본 한국어 카테고리명 — 표시할 때 categoryLabel() 로 변환
+  bookIds: string[]; // 재생 순서
 }
 
-export const CURATED_SETS: CuratedSet[] = [
-  /* … */
-];
+buildCategoryBundles(books, perBundle = 3): CategoryBundle[];
 ```
 
-세트 구성은 `docs/saenghwal-donghwa/curriculum-45.md` 의 7트랙과 라이브러리 카테고리에서 뽑는다.
-같은 책이 여러 세트에 들어가도 된다(검색·발견 경로가 늘어남).
+🔴 **묶음을 저장하지 않는다.** 책 id 를 상수로 박으면 책이 비공개·삭제될 때 조용히 썩는다.
+매번 현재 라이브러리 목록에서 계산하면 그 문제가 아예 없다.
 
-초안 6종:
+규칙:
 
-| id         | 이름            | 구성                       |
-| ---------- | --------------- | -------------------------- |
-| `hygiene`  | 건강·위생 습관  | 생활동화 01–08             |
-| `safety`   | 안전 동화       | 생활동화 15–22             |
-| `feelings` | 마음 다스리기   | 생활동화 23–30             |
-| `mealtime` | 밥 잘 먹는 아이 | 생활동화 01·05·06·13·14    |
-| `bedtime`  | 잠자리 명작     | 신데렐라·인어공주·백설공주 |
-| `dino`     | 공룡 친구들     | 공룡 카테고리              |
+- `isPublic === false` 제외
+- 🔴 **파닉스 제외** (`type && type !== 'storybook'`) — 라이브러리 동화책 페이지의 `matchesType` 과
+  같은 규칙. 안 거르면 동화책 화면에 파닉스 유닛 묶음이 튀어나온다.
+- 카테고리 없는 책 제외
+- 정렬 = 제목 선두 번호를 **숫자로** 비교(문자열 정렬은 `10.` 이 `2.` 보다 앞선다), 번호 없으면 제목순
+- 2권 미만인 카테고리는 묶음을 만들지 않는다
 
-### 2. 순수 로직 — `resolveCuratedSet`
+실측 결과 11개 묶음(호리 유치원동화·생활동화·세계 명작·육지/바다/곤충/하늘 동물·공룡·우리 몸·우주와 자연·식물).
 
-렌더·재생이 공유하는 단일 판정 함수. **여기가 테스트 대상.**
+### 2. 렌더 — `PlaylistLibrarySection`
 
-```ts
-resolveCuratedSet(set, booksById, canRead)
-  → { playableIds: string[]; lockedCount: number; missingCount: number }
+| 항목        | 이전           | 변경                |
+| ----------- | -------------- | ------------------- |
+| 제목        | 나의 재생 목록 | **묶어 보기**       |
+| 게스트      | 섹션 자체 숨김 | **묶음 노출(동일)** |
+| 기본 상태   | 접힘           | **펼침**            |
+| 내 세트     | 유일한 내용    | 묶음 아래로         |
+
+- **게스트·로그인 묶음 부분은 완전히 동일.** entitlement 분기 없음
+- 세트 이름 = `useCategoryLabel()` 재사용 → **세트명용 i18n 키 불필요**(섹션명 3키만 5개 언어 갱신)
+- 카드 = 기존 `PlaylistCard`. `onDelete` optional(묶음은 지울 대상이 없음)
+- 재생 = 기존 `beginPlaylist(bundle.bookIds, lang, navigate)`
+
+### 3. 묶음 수정
+
+묶음은 저장된 행이 아니므로 편집 대상이 없다 → **빌더에 쿼리로 실어 보낸다**.
+
+```
+/continuous/new?books=id1,id2,id3&name=<카테고리명>&lang=<UI언어>
 ```
 
-- `missing` = `bookIds` 에 있으나 라이브러리에 없는 책 → **조용히 탈락**
-  (하드코딩 id 가 썩어도 화면이 깨지지 않게)
-- `locked` = 존재하지만 `canRead` 가 false → 재생에서 제외, 카드에 개수 표시
-- `playableIds` 순서는 `set.bookIds` 순서를 유지
+`ContinuousBuilder` 가 `editId` 프리필과 **같은 `prefilledRef` 를 공유**해 두 경로가 서로 덮어쓰지 않는다.
+사용자가 손봐서 저장하면 자기 세트가 된다.
 
-판정은 기존 `shared/utils/entitlement.ts` 의 `canReadBook` 을 그대로 쓴다(중복 구현 금지).
+### 4. 잠긴 책
 
-### 3. 렌더 — `PlaylistLibrarySection` 수정
+**별도 처리하지 않는다.** 잠금은 기존 뷰어 게이팅에 맡긴다(다른 재생목록과 동일 동작).
 
-| 항목        | 현재           | 변경                     |
-| ----------- | -------------- | ------------------------ |
-| 제목        | 나의 재생 목록 | **묶어 보기**            |
-| 게스트      | 숨김           | **큐레이션 세트만 노출** |
-| 내 세트 0개 | CTA 만         | 큐레이션 + CTA           |
-| 기본 상태   | 접힘           | **펼침**                 |
-
-로그인 사용자는 한 섹션 안에서 `큐레이션 세트 → 내 세트` 순.
-
-- 카드 = 기존 `PlaylistCard` 재사용. 큐레이션은 편집·삭제가 없으므로 해당 핸들러를 **optional** 로 완화
-- 재생 = 기존 `beginPlaylist(playableIds, lang, navigate)` 그대로
-- `playableIds.length === 0` → 재생 대신 로그인/구독 안내
-
-### 4. 잠긴 책 UX (선택된 정책)
-
-묶음은 **전부 보여주고**, 잠긴 책이 있으면 카드에 `🔒 N권` 배지. 재생하면 열람 가능한 책만 이어진다.
-
-> 참고(2026-07-24 실측): 현재 게스트 접근 가능 공개책은 76권이며 **생활동화 45권·유치원동화 20권이 전부 열려 있다**
+> 참고(2026-07-24 실측): 게스트 접근 가능 공개책은 76권이며 **생활동화 45권·유치원동화 20권이 전부 열려 있다**
 > (`isAccessibleForFree` 미설정 → `!== false` 통과). 정책 문서상 "무료 11권"과 불일치하나
-> **이 작업의 범위 밖**이다. 생활동화 기반 세트는 현재 게스트도 전곡 재생된다.
+> **이 작업의 범위 밖**이다.
 
 ## 테스트
 
 **순수 로직** (`resolveCuratedSet`)
 
-- 전부 열람 가능 → `playableIds` = 전체, `lockedCount` 0
-- 일부 잠김 → 잠긴 것 제외, `lockedCount` 정확
-- 전부 잠김 → `playableIds` 빈 배열
-- 라이브러리에 없는 id → `missingCount` 로 집계되고 조용히 탈락
-- 재생 순서가 `set.bookIds` 순서를 따름
+**파생 로직** (`category-bundles.test.ts`, 11개)
 
-**컴포넌트** (기존 `PlaylistLibrarySection.test.tsx` 확장)
+- 카테고리별 앞 3권 · `perBundle` 조절
+- 선두 번호 숫자 정렬(`10.` 이 `2.` 뒤로)
+- 비공개 제외 · 카테고리 없는 책 제외
+- 🔴 **파닉스 제외** · `type: 'storybook'`/미지정은 포함
+- 2권 미만 카테고리는 묶음 없음 · 2권이면 2권짜리 생성
 
-- 게스트: 큐레이션 세트가 보이고, 내 세트 영역·CTA 는 없다
-- 로그인 + 세트 0개: 큐레이션 + CTA 둘 다
-- 기본 펼침
+**컴포넌트** (`PlaylistLibrarySection.test.tsx`, 11개)
+
+- 게스트: 묶음이 보이고 내 세트 영역·CTA 는 없다
+- 로그인: 같은 묶음 + 「내가 만든 세트」
+- 기본 펼침 · 헤더 클릭 시 접힘
+- 묶음 카드에 삭제 버튼 없음
+- 수정 → 책 목록을 실은 빌더로 이동
+
+## 검증 결과 (2026-07-24)
+
+- continuous 전체 50 테스트 통과 · client typecheck 통과
+- 실기동: 게스트 11묶음 노출 / 재생 `/continuous/play?lang=ko&autoplay=1` /
+  편집 시 빌더 「선택한 책 (3)」 프리필 / 모바일 375px 가로 넘침 0
+- ⚠️ 기존 실패 30개(AppShell·TrialBadge·SpeakingPlayer·resolve-scene·StorybookReportSection)는
+  이 작업 **이전에도 동일하게 실패**(stash 대조로 15 failed/14 passed 일치 확인)
 
 ## 리스크
 
-| 리스크                               | 완화                                                        |
-| ------------------------------------ | ----------------------------------------------------------- |
-| 하드코딩 id 가 책 삭제/비공개로 썩음 | `missing` 조용히 탈락 + 세트가 비면 카드 자체를 숨김        |
-| 라이브러리 첫 화면이 아래로 밀림     | 기본 펼침이지만 세트 행은 가로 스크롤 1줄                   |
-| 세트 이름 다국어 누락                | `nameKey` 강제, ko 외 언어는 기존 i18n 검증 스크립트로 확인 |
+| 리스크                           | 완화                                                              |
+| -------------------------------- | ----------------------------------------------------------------- |
+| 책 삭제·비공개로 묶음이 썩음     | **해소** — id 를 저장하지 않고 매번 파생                          |
+| 파닉스가 동화책 화면에 섞임      | `matchesType` 과 같은 규칙 + 회귀 테스트                          |
+| 라이브러리 첫 화면이 아래로 밀림 | 기본 펼침이지만 묶음 행은 가로 스크롤 1줄(페이지 가로 넘침 0 확인) |
+| 카테고리 표시 순서 불일치        | 현재는 목록 등장 순서. 어긋나 보이면 `category-order` comparator 재사용 |

@@ -1,6 +1,6 @@
 # 묶어 보기 (Category Bundles) Implementation Plan
 
-> **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** 라이브러리의 「나의 재생 목록」을 「묶어 보기」로 바꾸고, **카테고리별 첫 3권**으로 만든 묶음을 게스트·로그인 구분 없이 보여준다. 묶음은 빌더에서 수정할 수 있다.
 
@@ -48,7 +48,7 @@
 - Create: `packages/client/src/features/continuous/lib/category-bundles.ts`
 - Test: `packages/client/src/features/continuous/lib/category-bundles.test.ts`
 
-- [ ] **Step 1: 실패하는 테스트 작성**
+- [x] **Step 1: 실패하는 테스트 작성**
 
 ```ts
 import { describe, it, expect } from 'vitest';
@@ -129,12 +129,12 @@ describe('buildCategoryBundles', () => {
 });
 ```
 
-- [ ] **Step 2: 실패 확인**
+- [x] **Step 2: 실패 확인**
 
 Run: `pnpm --filter @tangobook/client exec vitest run src/features/continuous/lib/category-bundles.test.ts`
 Expected: FAIL — 모듈 없음
 
-- [ ] **Step 3: 구현**
+- [x] **Step 3: 구현**
 
 ```ts
 /**
@@ -194,12 +194,12 @@ export function buildCategoryBundles(books: BookLike[], perBundle = 3): Category
 }
 ```
 
-- [ ] **Step 4: 통과 확인**
+- [x] **Step 4: 통과 확인**
 
 Run: `pnpm --filter @tangobook/client exec vitest run src/features/continuous/lib/category-bundles.test.ts`
 Expected: PASS (8 tests)
 
-- [ ] **Step 5: 커밋**
+- [x] **Step 5: 커밋**
 
 ```bash
 git add packages/client/src/features/continuous/lib/category-bundles.ts packages/client/src/features/continuous/lib/category-bundles.test.ts
@@ -216,7 +216,7 @@ git commit -m "feat(continuous): derive category bundles from the live library"
 
 - Modify: `packages/client/src/features/continuous/pages/ContinuousBuilder.tsx`
 
-- [ ] **Step 1: 프리필 추가**
+- [x] **Step 1: 프리필 추가**
 
 `useSearchParams()` 로 `books`(쉼표구분 id), `name`, `lang` 을 읽어 기존 `prefilledRef` 패턴과 동일하게 **한 번만** 채운다.
 
@@ -238,12 +238,12 @@ useEffect(() => {
 
 🔴 기존 `editId` 프리필과 **같은 `prefilledRef` 를 공유**해 두 경로가 서로 덮어쓰지 않게 한다.
 
-- [ ] **Step 2: 기존 테스트 통과 확인**
+- [x] **Step 2: 기존 테스트 통과 확인**
 
 Run: `pnpm --filter @tangobook/client exec vitest run src/features/continuous`
 Expected: PASS (기존 그대로)
 
-- [ ] **Step 3: 커밋**
+- [x] **Step 3: 커밋**
 
 ```bash
 git add packages/client/src/features/continuous/pages/ContinuousBuilder.tsx
@@ -258,9 +258,9 @@ git commit -m "feat(continuous): prefill builder from query params"
 
 - Modify: `packages/client/src/features/continuous/components/PlaylistCard.tsx`
 
-- [ ] **Step 1:** `onDelete` 를 optional 로 바꾸고 없으면 삭제 버튼을 렌더하지 않는다. `onEdit` 은 묶음도 쓰므로 필수 유지.
-- [ ] **Step 2:** Run `pnpm --filter @tangobook/client exec vitest run src/features/continuous` → PASS
-- [ ] **Step 3:** 커밋 `refactor(continuous): make PlaylistCard delete optional`
+- [x] **Step 1:** `onDelete` 를 optional 로 바꾸고 없으면 삭제 버튼을 렌더하지 않는다. `onEdit` 은 묶음도 쓰므로 필수 유지.
+- [x] **Step 2:** Run `pnpm --filter @tangobook/client exec vitest run src/features/continuous` → PASS
+- [x] **Step 3:** 커밋 `refactor(continuous): make PlaylistCard delete optional`
 
 ---
 
@@ -271,7 +271,7 @@ git commit -m "feat(continuous): prefill builder from query params"
 - Modify: `packages/client/src/features/continuous/components/PlaylistLibrarySection.tsx`
 - Test: `packages/client/src/features/continuous/components/PlaylistLibrarySection.test.tsx`
 
-- [ ] **Step 1: 실패하는 테스트 추가**
+- [x] **Step 1: 실패하는 테스트 추가**
 
 ```tsx
 it('게스트에게도 카테고리 묶음이 보인다', async () => {
@@ -285,9 +285,9 @@ it('기본이 펼침이다', async () => {
 });
 ```
 
-- [ ] **Step 2:** Run → FAIL (게스트는 `return null`)
+- [x] **Step 2:** Run → FAIL (게스트는 `return null`)
 
-- [ ] **Step 3: 컴포넌트 수정**
+- [x] **Step 3: 컴포넌트 수정**
 
 1. `if (!account) return null` **제거**
 2. `useState(false)` → `useState(true)`
@@ -299,8 +299,8 @@ it('기본이 펼침이다', async () => {
 
 🔴 게스트·로그인 **묶음 부분은 완전히 동일**해야 한다. 분기는 "내 세트" 영역에만 존재한다.
 
-- [ ] **Step 4:** Run `pnpm --filter @tangobook/client exec vitest run src/features/continuous` → PASS
-- [ ] **Step 5:** 커밋 `feat(library): show category bundles to everyone`
+- [x] **Step 4:** Run `pnpm --filter @tangobook/client exec vitest run src/features/continuous` → PASS
+- [x] **Step 5:** 커밋 `feat(library): show category bundles to everyone`
 
 ---
 
@@ -308,14 +308,14 @@ it('기본이 펼침이다', async () => {
 
 **Files:** `packages/client/src/i18n/locales/{ko,en,vi,zh,th}/library.json`
 
-- [ ] **Step 1:** `playlist.title` / `playlist.subtitle` / `playlist.mySets` 3개만 수정·추가. 세트 이름은 카테고리 라벨을 쓰므로 **신규 키 없음**.
+- [x] **Step 1:** `playlist.title` / `playlist.subtitle` / `playlist.mySets` 3개만 수정·추가. 세트 이름은 카테고리 라벨을 쓰므로 **신규 키 없음**.
 
 - ko: `title`=`"묶어 보기"`, `subtitle`=`"여러 권을 이어서 들려주는 묶음이에요"`, `mySets`=`"내가 만든 세트"`
 - en: `"Story bundles"` / `"Ready-made bundles that play several books in a row"` / `"My sets"`
 - vi·zh·th: 동일 구조로 번역
 
-- [ ] **Step 2:** Run `node packages/client/scripts/verify-locales.mjs` → 통과
-- [ ] **Step 3:** 커밋 `i18n(library): rename playlist section to bundles`
+- [x] **Step 2:** Run `node packages/client/scripts/verify-locales.mjs` → 통과
+- [x] **Step 3:** 커밋 `i18n(library): rename playlist section to bundles`
 
 ---
 
@@ -323,9 +323,9 @@ it('기본이 펼침이다', async () => {
 
 ### Task 6: 전체 검증
 
-- [ ] **Step 1:** `pnpm --filter @tangobook/client typecheck` → 에러 0
-- [ ] **Step 2:** `pnpm --filter @tangobook/client exec vitest run` → 전체 PASS
-- [ ] **Step 3: 실제 화면 (@verify)** — `/library` 에서
+- [x] **Step 1:** `pnpm --filter @tangobook/client typecheck` → 에러 0
+- [x] **Step 2:** `pnpm --filter @tangobook/client exec vitest run` → 전체 PASS
+- [x] **Step 3: 실제 화면 (@verify)** — `/library` 에서
   - 로그아웃 → 「묶어 보기」가 펼쳐진 채 카테고리 묶음이 보인다
   - 카드 탭 → 연속재생 시작
   - 카드 ✏️ → 빌더가 그 책들로 프리필된 채 열린다
@@ -334,7 +334,7 @@ it('기본이 펼침이다', async () => {
 
   🔴 R2 없는 환경이면 `API_TARGET` 로 프로덕션 API 를 봐야 책 목록이 뜬다.
 
-- [ ] **Step 4:** 최종 커밋
+- [x] **Step 4:** 최종 커밋
 
 ---
 
