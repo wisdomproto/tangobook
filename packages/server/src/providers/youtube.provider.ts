@@ -3,6 +3,7 @@ import { Readable } from 'stream';
 import type { YouTubeUploadMeta, YouTubeChannel } from '@tangobook/shared';
 import { config } from '../config/index.js';
 import { uploadJsonToR2, downloadFromR2, deleteFromR2 } from './r2.provider.js';
+import { upsertChannel, type StoredChannel, type StoredTokens } from './youtube-channels.js';
 
 const CHANNELS_KEY = 'system/youtube-channels.json';
 const SCOPES = [
@@ -13,19 +14,6 @@ const SCOPES = [
   // "왜 조회수가 안 나오는지"를 추측밖에 못 한다. 🔴 기존 저장 토큰에는 없으므로 채널 재연동 후에야 유효.
   'https://www.googleapis.com/auth/yt-analytics.readonly',
 ];
-
-interface StoredTokens {
-  access_token: string;
-  refresh_token: string;
-  scope: string;
-  token_type: string;
-  expiry_date: number;
-}
-
-interface StoredChannel {
-  channel: YouTubeChannel;
-  tokens: StoredTokens;
-}
 
 function createOAuth2Client() {
   return new google.auth.OAuth2(
@@ -116,12 +104,18 @@ export const YouTubeProvider = {
       connectedAt: new Date().toISOString(),
     };
 
-    const channels = await loadChannels();
-    channels.push({ channel, tokens: storedTokens });
+    // 🔴 재연동은 추가가 아니라 교체 — 내부 channel.id 를 유지해야 예약 발행 레코드의
+    // metadata.target_id 가 계속 유효하다. push 하면 새 스코프가 예약분에 반영되지 않는다.
+    const existing = await loadChannels();
+    const { channels, channel: saved, replaced } = upsertChannel(existing, channel, storedTokens);
     await saveChannels(channels);
 
-    console.log('[youtube] Channel connected:', channel.name, channelId);
-    return channel;
+    console.log(
+      `[youtube] Channel ${replaced ? 'reconnected (tokens replaced)' : 'connected'}:`,
+      saved.name,
+      channelId
+    );
+    return saved;
   },
 
   /** List all connected channels */
