@@ -38,14 +38,65 @@ async function main() {
   if (channels.length === 0) throw new Error('연결된 YouTube 채널이 없습니다.');
   const target =
     channels.find((c) => c.channelTitle === wantChannel || c.name === wantChannel) || channels[0];
-
+  // 내 채널 자격증명으로 공개 데이터도 조회한다(경쟁 채널 = 인증 불필요, 우리 토큰이면 충분).
   const yt = await YouTubeProvider.getAuthenticatedClient(target.id);
-  // --handle=@someChannel 이면 그 공개 채널을 분석(경쟁 채널 벤치마킹). 없으면 내 채널(mine).
+
+  // ── 검색 모드: --search="키워드" → 채널을 찾아 헤드라인 통계만 나열(벤치마크 후보 발굴) ──
+  // 🔴 핸들 추측(@tangobooks 가 남의 채널로 잡히는 사고)을 피하려 검색 API로 정확한 channelId 확보.
+  const searchQuery = flag('search');
+  if (searchQuery !== undefined) {
+    const region = flag('region'); // 예: KR, US — 지역 편향
+    const relLang = flag('lang'); // 예: ko, en
+    const sr = await yt.search.list({
+      part: ['snippet'],
+      q: searchQuery,
+      type: ['channel'],
+      maxResults: Number(flag('max') ?? '15'),
+      ...(region ? { regionCode: region } : {}),
+      ...(relLang ? { relevanceLanguage: relLang } : {}),
+    });
+    const chIds = (sr.data.items ?? []).map((i) => i.snippet?.channelId!).filter(Boolean);
+    if (!chIds.length) {
+      console.log('검색 결과 없음');
+      return;
+    }
+    const stats = await yt.channels.list({
+      part: ['snippet', 'statistics'],
+      id: chIds,
+      maxResults: 50,
+    });
+    const rows = (stats.data.items ?? []).map((c) => ({
+      title: c.snippet?.title ?? '',
+      handle: c.snippet?.customUrl ?? '',
+      id: c.id ?? '',
+      subs: Number(c.statistics?.subscriberCount ?? 0),
+      views: Number(c.statistics?.viewCount ?? 0),
+      videos: Number(c.statistics?.videoCount ?? 0),
+    }));
+    rows.sort((a, b) => b.subs - a.subs);
+    console.log(
+      `🔎 "${searchQuery}" (region=${region ?? '-'} lang=${relLang ?? '-'}) — 채널 ${rows.length}개\n`
+    );
+    console.log('구독자     총조회      영상   편당    핸들 / 제목');
+    for (const r of rows) {
+      const avg = r.videos ? Math.round(r.views / r.videos) : 0;
+      console.log(
+        `${String(r.subs).padStart(8)} ${String(r.views).padStart(11)} ${String(r.videos).padStart(5)} ${String(avg).padStart(7)}  ${(r.handle || r.id).padEnd(22)} ${r.title}`
+      );
+    }
+    return;
+  }
+
+  // --handle=@someChannel 또는 --channel-id=UC... 면 그 공개 채널을 분석. 없으면 내 채널(mine).
   const handle = flag('handle');
+  const channelId = flag('channel-id');
+  const limit = Number(flag('limit') ?? '0') || Infinity; // 대형 채널: 최근 N개만
   const chRes = await yt.channels.list(
     handle
       ? { part: ['contentDetails', 'statistics', 'snippet'], forHandle: handle }
-      : { part: ['contentDetails', 'statistics', 'snippet'], mine: true }
+      : channelId
+        ? { part: ['contentDetails', 'statistics', 'snippet'], id: [channelId] }
+        : { part: ['contentDetails', 'statistics', 'snippet'], mine: true }
   );
   const ch = chRes.data.items?.[0];
   const uploads = ch?.contentDetails?.relatedPlaylists?.uploads;
@@ -56,7 +107,7 @@ async function main() {
     `▶ 구독자 ${ch?.statistics?.subscriberCount ?? '?'} · 총 조회수 ${ch?.statistics?.viewCount ?? '?'} · 영상 ${ch?.statistics?.videoCount ?? '?'}\n`
   );
 
-  // 전체 video id
+  // video id 수집(최근순, limit 있으면 그만큼만)
   const ids: string[] = [];
   let pageToken: string | undefined;
   do {
@@ -71,7 +122,9 @@ async function main() {
       if (v) ids.push(v);
     }
     pageToken = pl.data.nextPageToken ?? undefined;
-  } while (pageToken);
+  } while (pageToken && ids.length < limit);
+  if (ids.length > limit) ids.length = limit; // 최근 N개만
+  if (limit !== Infinity) console.log(`(최근 ${ids.length}개만 분석)\n`);
 
   type Row = {
     id: string;
