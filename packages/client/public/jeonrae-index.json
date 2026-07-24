@@ -43,5 +43,41 @@
     "label": "19 🐮 소가 된 게으름뱅이",
     "title": "소가 된 게으름뱅이"
   },
-  { "file": "jeonrae-uijoeun.html", "label": "20 🌾 의좋은 형제", "title": "의좋은 형제" }
+  { "file": "jeonrae-uijoeun.html", "label": "20 🌾 의좋은 형제", "title": "의좋은 형제" },
+  { "file": "jeonrae-simcheong.html", "label": "21 🌊 심청전", "title": "심청전" },
+  {
+    "file": "jeonrae-ondal.html",
+    "label": "22 🏹 바보 온달과 평강공주",
+    "title": "바보 온달과 평강공주"
+  },
+  { "file": "jeonrae-dangun.html", "label": "23 🐻 단군 이야기", "title": "단군 이야기" },
+  { "file": "jeonrae-seodong.html", "label": "24 🎵 서동요", "title": "서동요" },
+  { "file": "jeonrae-samnyeon.html", "label": "25 ⛰️ 삼년고개", "title": "삼년고개" },
+  { "file": "jeonrae-jaepan.html", "label": "26 ⚖️ 토끼의 재판", "title": "토끼의 재판" },
+  { "file": "jeonrae-hwolhwol.html", "label": "27 🕊️ 훨훨 간다", "title": "훨훨 간다" },
+  { "file": "jeonrae-tteokbo.html", "label": "28 🍡 떡보와 사신", "title": "떡보와 사신" },
+  { "file": "jeonrae-maetdol.html", "label": "29 🧂 요술 맷돌", "title": "요술 맷돌" },
+  { "file": "jeonrae-gamtu.html", "label": "30 🎩 도깨비 감투", "title": "도깨비 감투" },
+  { "file": "jeonrae-hangari.html", "label": "31 🏺 신기한 항아리", "title": "신기한 항아리" },
+  { "file": "jeonrae-jaringobi.html", "label": "32 🐟 자린고비", "title": "자린고비" },
+  { "file": "jeonrae-gaegoyangi.html", "label": "33 🐶 개와 고양이", "title": "개와 고양이" },
+  {
+    "file": "jeonrae-dukkeobi.html",
+    "label": "34 🐸 은혜 갚은 두꺼비",
+    "title": "은혜 갚은 두꺼비"
+  },
+  { "file": "jeonrae-hyeongnim.html", "label": "35 🐯 호랑이 형님", "title": "호랑이 형님" },
+  {
+    "file": "jeonrae-jopssal.html",
+    "label": "36 🌾 좁쌀 한 톨로 장가든 총각",
+    "title": "좁쌀 한 톨로 장가든 총각"
+  },
+  { "file": "jeonrae-boktareo.html", "label": "37 🍀 복 타러 간 총각", "title": "복 타러 간 총각" },
+  {
+    "file": "jeonrae-saeseonbi.html",
+    "label": "38 🐍 구렁덩덩 새선비",
+    "title": "구렁덩덩 새선비"
+  },
+  { "file": "jeonrae-dudeoji.html", "label": "39 🐹 두더지의 혼인", "title": "두더지의 혼인" },
+  { "file": "jeonrae-banjjogi.html", "label": "40 💪 반쪽이", "title": "반쪽이" }
 ]

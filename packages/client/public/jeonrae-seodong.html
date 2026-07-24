@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 서동요</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · 시즌2 #24</div>
+  <h1>🎵 서동요</h1>
+  <div class="sub">마 캐는 소년이 지은 노래 한 자락 — 온 서라벌에 퍼져 정말로 이루어진 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 노래의 힘 · 꿈을 이루는 마음 &nbsp;·&nbsp;
+  <b>분량</b> 12 스프레드 &nbsp;·&nbsp; <b>후렴</b> 서동이가 지은 노래(서동요) &nbsp;·&nbsp;
+  <b>핵심단어</b> 삼태기 · 붓 · 벼루 · 한지 · 종이연 &nbsp;·&nbsp;
+  <b>순화</b> 🔴 원작의 "소문을 퍼뜨려 공주를 곤란하게 하는 계략"을 <b>장난스러운 노래 놀이</b>로 완전히 뒤집는다 — 서동은 남을 골탕 먹이는 꾀보가 아니라 <b>노래를 지어 부르는 씩씩한 소년</b>, 공주는 억울하게 쫓겨나는 게 아니라 <b>스스로 "제가 가서 보고 오겠습니다" 하고 나서는 당당한 아이</b>. 궁을 나서는 대목은 서러움이 아니라 <b>새 길을 찾아 떠나는 밝은 출발</b>로. 임금님도 야단치는 어른이 아니라 딸을 믿고 웃으며 보내 주는 아버지 / 벌·추방·눈물 장면 없음
+</div>
+<div class="refrain">🎵 반복 후렴 — "마 캐는 서동이 노래를 하면, 선화공주님이 방긋 웃는대요! 얼씨구절씨구, 마 하나 더!" <span style="font-weight:600;font-size:13px">(P3 서동이 지어 부름 → P4 아이들에게 가르침 → P7 담 너머로 공주가 들음 → P12 온 마을 합창)</span></div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-seodong</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.<br>🔴 <b>상태 변형 캐릭터 = 시트 분리</b> — 선화공주는 <b>궁 안 차림(PrincessPalace)</b> 과 <b>마을 길 차림(PrincessVillage)</b> 이 각각 다른 @image다. 얼굴은 IDENTICAL FACE로 고정하고 옷·머리 매무새만 바뀐다. 각 쪽 SCENE은 그 시점의 상태 토큰만 쓴다(P9부터는 Village).<br>🔴 <b>화면당 빨강 악센트 1점 = 서동이의 붉은 허리끈</b>. 서동이가 없는 컷(P2·P7·P8)에서만 다른 빨강 하나를 쓴다 — 붓대에 감긴 붉은 실, 종이연 꼬리의 붉은 술, 임금님 사모의 붉은 끈. <b>공주에게는 빨강을 주지 않는다</b>(댕기는 옥빛).</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="서동" data-key="char-seodong-boy">
+  <div class="head"><span class="face">🎵</span><b>서동</b> <span class="rom">SeodongBoy · 마 캐는 소년</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: SeodongBoy — a bright, quick-witted village boy of about eleven who digs wild yams on the mountain and sells them at the market, and who is always singing. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a wide cheerful open singing mouth (a small O or a big one-line grin), no nose (or one tiny dot). Hair as one solid dark mass gathered into a single boy's braid down his back, with three or four stray strokes always flying loose because he is always moving.
+SILHOUETTE (his signature): wiry and springy, caught mid-stride and leaning forward, one shoulder dipped by the weight of the woven straw carrying basket on his back, the other arm swinging free. He is the most diagonal, most in-motion body in the book.
+SIGNATURE RED: a RED cloth sash knotted at his waist with the ends hanging loose — this is the picture's single red accent in every cut he appears in.
+CLOTHES & PROP: plain undyed cotton jacket and baggy trousers tied at the calf in soft blue-grey and pale cream pencil strokes, sleeves pushed up, mostly open paper with loose hatching, straw sandals in a few straw-yellow strokes, a smudge of mountain earth on the knees drawn as two scribbles. ALWAYS carries a woven straw carrying basket (samtaegi) with long knobbly yams poking out of it.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (basket on back, one hand raised mid-song, weight on one leg) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) wide open singing mouth mid-song, (2) mischievous squint with a sly one-line grin, (3) blushing astonishment — a big O mouth, lifted brow strokes and two tiny blush strokes on the cheeks. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="서동 어머니" data-key="char-seodong-mother">
+  <div class="head"><span class="face">👩</span><b>서동 어머니</b> <span class="rom">SeodongMother · 마을의 홀어머니</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: SeodongMother — Seodong's mother, a warm hard-working village widow who is proud of her singing son. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a soft one-line smile, no nose (or one tiny dot). Hair as one solid dark mass parted in the middle and gathered into a modest LOW bun at the nape with one plain wooden hairpin drawn as a single short stroke.
+SILHOUETTE (her signature): small, softly rounded and settled — she is usually the still body in the frame, hands busy at waist height (wiping them on her apron, holding a bowl), watching her son with her head tilted.
+CLOTHES: a humble everyday skirt-and-jacket hanbok in soft blue-grey and faded straw pencil tones, mostly open paper with loose hatching, a plain work apron drawn in a few strokes and one small scribbled patch on the hem. NO red anywhere on her (the red belongs to SeodongBoy's sash).
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded at her apron, warm one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) warm one-line smile, (2) laughing with a small curved open mouth and a hand at her cheek, (3) mock-scolding fondness — a tiny pursed mouth with one brow stroke lifted. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="선화공주 (궁 안)" data-key="char-princess-palace">
+  <div class="head"><span class="face">👸</span><b>선화공주 (궁 안)</b> <span class="rom">PrincessPalace · 궁궐 차림</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: PrincessPalace — Princess Seonhwa inside the palace, a curious, clear-headed girl of about eleven who says exactly what she thinks. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a small confident one-line mouth, no nose (or one tiny dot). Hair as one solid dark mass in a long neat braid down her back. IDENTICAL FACE to PrincessVillage.
+SILHOUETTE (her signature): small and upright with a straight back and a slightly lifted chin — poised and steady, the exact opposite of Seodong's leaning diagonal body. She reads as brave and forthright, never delicate or drooping.
+🔴 NO RED ON HER: her hair ribbon (daenggi) is JADE-GREEN, not red — the book's single red accent belongs to SeodongBoy's sash.
+CLOTHES (palace state): a fine court skirt-and-jacket hanbok — the jacket left as open cream paper with neat crisp edges, the wide skirt suggested in a gentle jade-green pencil tone with a few tidy hatching strokes and a hint of scribbled pattern at the hem, one small dangling ornament knot at the chest in pale plum. Lovely told by neatness, NOT by gold or heavy embroidery.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded at the waist, chin level, calm one-line mouth) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) calm curious one-line mouth, (2) delighted small smile with the head tilted toward a sound, (3) bold declaration — a firm open mouth and a lifted chin. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="선화공주 (마을 길)" data-key="char-princess-village">
+  <div class="head"><span class="face">🧒</span><b>선화공주 (마을 길)</b> <span class="rom">PrincessVillage · 길 떠난 차림</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: PrincessVillage — the SAME princess AFTER she walks out of the palace gate to see the world with her own eyes.
+🔴 IDENTICAL FACE to PrincessPalace: the same flat cream face, same two dot eyes, same small confident mouth, same solid dark hair. Leaving the palace changed her clothes, never her face or her bearing — still upright, curious and forthright, and she is HAPPY on the road, never sad, never a runaway.
+SILHOUETTE: the same small upright build, now walking with a real stride and her braid swinging — the straight back stays, so she is instantly the same person.
+🔴 NO RED ON HER: the jade-green hair ribbon carries over.
+CLOTHES (road state): a plain undyed cotton skirt-and-jacket hanbok in pale cream and soft blue-grey strokes, sleeves pushed up, the skirt hem tucked a little for walking, simple cloth shoes, and a small bundle of belongings tied in cloth carried in one hand. Only a few LESS strokes than the palace version — simple, comfortable, ready to walk.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body walking idle (mid-stride, bundle in one hand, braid swinging) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) bright open-air smile, (2) wide-eyed wonder with a small O mouth looking up, (3) amazed recognition with a big open mouth and lifted brow strokes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="임금님" data-key="char-king-jinpyeong">
+  <div class="head"><span class="face">👑</span><b>임금님</b> <span class="rom">KingJinpyeong · 공주의 아버지</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: KingJinpyeong — the princess's father, a booming but big-hearted king who ends up laughing and letting his daughter go. Dignified, comic-warm, NEVER angry or frightening. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a wide one-line mouth, no nose (or one tiny dot), a broad beard drawn as a few sweeping scribbled strokes along the jaw and two short mustache strokes.
+SILHOUETTE (his signature): big, square and vertical, made almost entirely of his ROBE — wide straight shoulders and a broad seated mass that reads as "king" from far away, plus a tall dark winged court hat drawn as one simple dark shape with two little side wings.
+CLOTHES: a wide court robe suggested in soft jade-green and cream pencil strokes, mostly open paper, with one loosely scribbled round emblem at the chest and a broad sash. Grand told by SHAPE, not by gold drench.
+NOTE: when he appears (SeodongBoy is never in frame with him), the picture's single red accent is the small RED cord knotted at his sash.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body seated idle on a low throne (one hand on his knee, chin up) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) puzzled frown with knitted brow strokes, (2) astonished big O mouth with lifted brow strokes, (3) a great hearty open-mouthed laugh with crinkled brow strokes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="마을 아이들" data-key="char-village-kids">
+  <div class="head"><span class="face">🧑‍🤝‍🧑</span><b>마을 아이들</b> <span class="rom">VillageKids · 노래를 퍼뜨린 아이들</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER GROUP: VillageKids — a little band of four Silla village children, aged about six to ten, who learn Seodong's song and carry it across the whole capital. Dot-eye design language for all of them: flat cream faces with zero shading, two dot eyes, wide open singing mouths, no noses (or one tiny dot), hair as solid dark masses.
+🔴 FOUR CLEARLY DIFFERENT SILHOUETTES so a group of them reads instantly: (a) a tall skinny boy with a short braid and a too-big jacket, (b) a small round-bellied boy, the youngest, always half a step behind, (c) a girl with two dark buns and a wide grin, (d) a taller girl with one long braid who is always the one holding the paper kite string.
+CLOTHES: plain undyed cotton village clothes in pale cream and soft blue-grey pencil strokes, mostly open paper, knees scribbled with dust, bare feet or straw sandals in a few straw-yellow strokes. NO red on any of them (the red belongs to SeodongBoy's sash; in cuts without him the red is the kite's tail tassel).
+REFERENCE SHEET: one sheet on plain bright cream paper — all four full-body, front idle in a row (mid-song, mouths open, hands clapping or arms up) + one 3/4 group turn + three shared face close-ups where the expression changes ONLY through the mouth line and brow strokes: (1) wide singing open mouth, (2) giggling squint, (3) round-eyed wonder with a small O mouth looking up at the sky. No text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.) 다섯 사물 모두 본문에 실제로 등장한다 — 삼태기 P1·P10·P11, 붓 P2·P5, 벼루 P2, 한지 P2·P5·P9, 종이연 P5·P6·P9·P12.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="삼태기" data-key="word-samtaegi">
+  <div class="head"><span class="face">🧺</span><b>삼태기</b> <span class="rom">samtaegi — a woven straw carrying basket</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "samtaegi — a traditional Korean scoop-shaped carrying basket woven from rice straw and split willow (삼태기)". A wide open-mouthed basket with a deep rounded back and a low scooped front lip, plaited from golden rice-straw rope (#D8B45A) over a bent willow rim (#B07A3C), the braid pattern clearly visible, with two twisted straw handles at the rim. Show TWO STATES side by side so the word reads clearly: (1) the basket empty, tilted at a slight 3/4 angle so the weave and the scoop shape read, and (2) the basket heaped full of long knobbly brown mountain yams with a little earth still on them. Warm, handcrafted, sturdy. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="붓" data-key="word-but">
+  <div class="head"><span class="face">🖌️</span><b>붓</b> <span class="rom">but — a Korean writing brush</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "but — a traditional Korean writing brush (붓)". A slim bamboo handle in warm honey-tan (#C9A46A) with two fine engraved rings near the ferrule, a tapering bundle of soft cream-and-charcoal animal hair coming to one perfect fine point, a thin RED silk cord with a tiny tassel tied near the top, and a glossy black ink drop hanging at the very tip. Show TWO views: (1) the brush lying at a slight diagonal, and (2) the same brush standing upright in a small ceramic brush holder. Crisp, elegant, proud craftsmanship. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="벼루" data-key="word-byeoru">
+  <div class="head"><span class="face">⬛</span><b>벼루</b> <span class="rom">byeoru — a stone ink slab</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "byeoru — a traditional Korean carved stone ink slab (벼루)". A rectangular slab of dark blue-grey slate (#4A4F55) with a softly polished sheen, a shallow flat grinding surface on one end sloping down into a small round ink well at the other, a carved plum-blossom and cloud relief along the rim, and a glossy pool of black ink resting in the well. Beside it lay the matching stick of ink (먹) — a slim black bar with a faint gold-painted pattern on its side. Shown at a slight 3/4 angle so the sloped surface and the ink well both read. Cool, glossy, beautifully carved stone. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="한지" data-key="word-hanji">
+  <div class="head"><span class="face">📜</span><b>한지</b> <span class="rom">hanji — Korean mulberry paper</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "hanji — traditional Korean handmade mulberry-bark paper (한지)". Warm ivory-cream sheets (#F3E9D2) with visible long mulberry fibres suspended in the pulp, softly deckled feathery edges, and a faint warm translucency where the light passes through. Show TWO forms: (1) a loosely rolled scroll of hanji tied with a slim cord, and (2) two or three loose sheets fanned out flat beneath it, one sheet lifting at the corner as if in a breeze. Absolutely NO letters or writing on the paper — the fibres and the deckled edge are the subject. Handcrafted, luminous, proud. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="종이연" data-key="word-jongiyeon">
+  <div class="head"><span class="face">🪁</span><b>종이연</b> <span class="rom">jongiyeon — a Korean paper kite</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jongiyeon — a traditional Korean paper kite (종이연, 방패연)". A rectangular shield-shaped kite of warm ivory hanji paper (#F3E9D2) stretched over five slim bamboo spars, with the signature round hole cut in the center, a broad crimson band painted across the top edge (#C0392B) and a small indigo crescent below it, a long ribbon tail of paper strips fluttering from the bottom corner with one RED tassel at its end, and a spool of twisted kite string beside it. Shown at a slight 3/4 angle as if lifting in the wind, tail curling. Bright, festive, soaring. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 12 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날, 서라벌 남쪽 작은 마을에 서동이라는 소년이 살았어요. 서동이는 날마다 산에 올라 마를 캤지요. 통통한 마를 삼태기에 가득 담고, 콧노래를 흥얼흥얼 불렀답니다. 서동이는 마을에서 노래를 제일 잘하는 아이였어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 + 스케일 대비, 높은 하이앵글 부감 — 초여름 산비탈 전체를 비스듬히 내려다보고, 그 넓은 비탈 한가운데 소년 하나가 손바닥만 하게 놓인 구성. 화면 아래 3분의 1은 캡션 자리로 비움.<br/><b>장소·시간</b> 서라벌 남쪽 마을 뒷산의 완만한 비탈밭과 그 아래로 이어지는 흙길, 이른 아침. 이슬이 마르는 맑고 시원한 공기.<br/><b>인물</b> 화면 중앙에 작게 — SeodongBoy(서동)가 비탈에 한 무릎을 세우고 앉아 두 손으로 흙 속의 긴 마를 쑥 뽑아 올리는 순간, 고개를 젖히고 입을 크게 벌려 노래하는 자세. 등 뒤에 <b>삼태기(samtaegi)</b>가 비스듬히 놓이고, 허리의 붉은 끈이 바람에 한 가닥 날림(화면의 단 하나 빨강). 화면 왼쪽 아래 아주 작게 — SeodongMother(서동 어머니)가 초가집 앞에 서서 한 손을 이마에 얹고 아들 쪽을 올려다보며 웃음.<br/><b>배경·소품</b> 서동이 곁에 흙 묻은 마 서너 뿌리가 뒹굴고, 삼태기에는 이미 마가 반쯤 담김. 비탈의 풀·덤불·먼 산등성이·아래 마을의 초가지붕과 흙길은 전부 열린 연필선 몇 획의 러프 스케치, 크림 종이가 그대로 비쳐 보임.<br/><b>톤</b> 낮게 깔린 아침 햇빛이 비탈을 길게 쓸고 지나가는 조명, 세상은 넓고 소년은 작지만 노랫소리는 크게 느껴지는 씩씩하고 산뜻한 정서.</pre></details>
+</div>
+
+<!-- ② 발단 : P2, P3 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(궁궐의 공주)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그 무렵 서라벌 궁궐에는 선화공주가 살고 있었어요. 공주는 날마다 벼루에 먹을 쓱쓱 갈고, 붓을 들어 한지에 또박또박 글씨를 썼지요. 하지만 마음은 자꾸만 담장 밖으로 폴짝 넘어갔어요. "저 담 너머에는 무엇이 있을까?" 공주는 궁금한 게 참 많은 아이였답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업 어깨너머 — 공주의 오른쪽 어깨와 땋은 머리채가 화면 앞쪽에 크게 걸치고, 그 너머로 붓끝과 한지가 화면 중앙에 가깝게 잡힘. 시선은 종이에서 창살 쪽으로 살짝 새는 구도.<br/><b>장소·시간</b> 신라 궁궐 안 공주의 방, 늦은 오전. 조용하고 반듯한 공기, 창살 사이로 들어온 빛이 종이 위에 격자무늬를 드리움.<br/><b>인물</b> PrincessPalace(선화공주)가 화면 중앙 오른쪽에 앉아 오른손으로 붓을 곧게 쥐고 왼손으로 한지 자락을 지그시 누름, 등은 곧게 편 자세. 얼굴은 3/4 각도로 보이고, 눈은 종이가 아니라 살짝 열린 창살 쪽을 향해 흘끔 — 입은 작은 한 줄이지만 눈썹 획 하나가 살짝 올라가 궁금함을 말함. 옥빛 댕기가 어깨 앞으로 흘러내림(빨강 아님).<br/><b>배경·소품</b> 전경 바로 앞에 <b>벼루(byeoru)</b> — 짙은 청회색 돌판에 검은 먹물이 고이고 먹 한 자루가 걸쳐짐. 공주의 손에는 <b>붓(but)</b>(붓대에 감긴 붉은 실 매듭 = 화면의 단 하나 빨강), 앞에는 반듯하게 펼친 <b>한지(hanji)</b> 한 장에 글씨 몇 줄이 적혀 있음. 뒤쪽 창살문·문지방·낮은 서안 다리·기와처마는 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 창살을 통과한 부드러운 낮 햇빛이 종이 위에 따뜻한 격자를 만들고 방 안쪽은 서늘한 회청빛, 반듯하지만 답답한, 밖이 그리운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(노래를 짓다)</b> <span class="tag beat">② 발단</span> <span class="tag">후렴 ①</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">장날, 서동이는 장터 한구석에서 마를 팔다가 어른들 이야기를 들었어요. "선화공주님은 궁 밖에 한 번도 못 나와 보셨다지 뭐야." 서동이는 눈이 반짝! 그 자리에서 벌떡 일어나 노래 한 자락을 지어 불렀지요. "마 캐는 서동이 노래를 하면, 선화공주님이 방긋 웃는대요! 얼씨구절씨구, 마 하나 더!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 낮은 로우앵글 — 좌판 높이에서 올려다보는 각도라 벌떡 일어선 서동이가 화면에서 우뚝하고 하늘이 뒤로 넓게 열림. 어른들은 화면 양옆에 어깨와 뒷모습만.<br/><b>장소·시간</b> 서라벌 장터 한구석의 마 좌판, 장날 한낮. 사람 소리로 왁자한 활기찬 공기.<br/><b>인물</b> SeodongBoy(서동)가 화면 중앙에서 좌판 옆에 벌떡 일어나 한 발을 나무궤 위에 척 올리고, 한 손은 하늘로 번쩍 다른 손은 가슴에 얹은 채 입을 크게 벌려 노래하는 자세 — 눈은 반달로 휘고 온몸이 대각선. 허리의 붉은 끈이 팔 동작을 따라 휘날림(화면의 단 하나 빨강). 화면 좌우 앞쪽에 장터 어른 두엇의 뒷모습·어깨가 크게 걸치고, 그중 한 사람이 고개를 돌려 웃음(얼굴은 획 몇 개만).<br/><b>배경·소품</b> 좌판에 나란히 늘어놓은 마 무더기와 그 옆의 <b>삼태기(samtaegi)</b>, 엎어 놓은 나무궤짝, 지나가는 장꾼들의 다리와 짐, 천막 자락과 멀리 기와지붕 — 배경은 전부 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 쨍한 한낮 햇빛이 위에서 쏟아지고 인물 발치에 짧은 그림자, 장난기와 신명이 터지는 밝고 유쾌한 정서.</pre></details>
+</div>
+
+<!-- ③ 사건 : P4, P5, P6, P7 -->
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(아이들에게 노래를 가르치다)</b> <span class="tag beat">③ 사건</span> <span class="tag">후렴 ②</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집으로 돌아온 서동이는 마을 아이들을 마당에 불러 모았어요. "이 노래를 부르는 사람에게는 마를 하나씩 줄게!" 아이들은 마를 하나씩 받아 들고 목청을 한껏 높였지요. "마 캐는 서동이 노래를 하면, 선화공주님이 방긋 웃는대요! 얼씨구절씨구, 마 하나 더!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 평면 부감 — 마당 바로 위에서 거의 수직으로 내려다보는 대형 컷. 아이들이 둥글게 둘러앉고 그 한가운데 삼태기가 놓인 동그란 구성이 위에서 한눈에 읽힘.<br/><b>장소·시간</b> 서동이네 초가집 흙마당, 늦은 오후. 흙먼지가 발끝에서 폴폴 이는 들뜬 공기.<br/><b>인물</b> 원의 위쪽 — SeodongBoy(서동)가 두 팔을 활짝 벌리고 서서 입을 크게 벌려 선창, 위에서 본 각도라 붉은 허리끈이 몸 둘레에 또렷한 고리로 보임(화면의 단 하나 빨강). 원을 이룬 VillageKids(마을 아이들) 넷 — 키다리 소년은 마를 번쩍 치켜들고, 통통한 막내는 마를 두 손으로 꼭 안은 채 입만 크게 벌리고, 두 갈래 머리 소녀는 손뼉을 치고, 긴 댕기 소녀는 무릎을 세우고 몸을 흔듦. 원 바깥 오른쪽 아래 — SeodongMother(서동 어머니)가 부엌문에 기대서서 앞치마에 손을 닦으며 웃는 모습이 위에서 작게.<br/><b>배경·소품</b> 원 한가운데 <b>삼태기(samtaegi)</b>에 마가 수북이 담기고 몇 개가 바닥에 굴러 나옴, 마당에 그려진 발자국 자국들, 흙마당 가장자리의 낮은 돌담과 초가지붕 처마·장독 두엇은 열린 연필선 몇 획으로만.<br/><b>톤</b> 늦은 오후의 길고 따뜻한 빛이 원 안으로 비스듬히 들어와 아이들 그림자를 바큇살처럼 뻗게 함, 놀이처럼 신나고 왁자한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(노랫말을 하늘로)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아이들은 붓을 들고 한지에 노랫말을 또박또박 옮겨 적었어요. 그러고는 그 종이를 종이연 꼬리에 매달아 하늘 높이 날렸지요. 팔랑팔랑— 노랫말이 바람을 타고 서라벌 하늘로 두둥실 올라갔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 극단 로우앵글 — 아이들의 발치에서 하늘을 거의 수직으로 올려다보는 각도. 화면의 4분의 3이 텅 빈 하늘과 그 위로 솟은 종이연들이고, 아이들은 화면 맨 아래 자락에 작게 뒤통수와 치켜든 팔만.<br/><b>장소·시간</b> 마을 앞 넓은 둔덕, 해 질 무렵 바람 부는 시각. 옷자락이 펄럭이는 시원하고 트인 공기.<br/><b>인물</b> 화면 맨 아래 — VillageKids(마을 아이들) 넷이 나란히 서서 고개를 한껏 젖히고 연줄을 잡아당김. 긴 댕기 소녀가 얼레를 두 손으로 잡고 팔을 쭉 뻗었고, 통통한 막내는 뒤로 넘어질 듯 고개를 젖힘. 그 곁 SeodongBoy(서동)는 한쪽 무릎을 꿇고 앉아 아직 <b>붓(but)</b>을 쥔 채 방금 <b>한지(hanji)</b> 한 장을 연 꼬리에 묶는 손동작, 고개만 하늘로 들고 활짝 웃음. 붉은 허리끈이 바람에 옆으로 곧게 뻗음(화면의 단 하나 빨강).<br/><b>배경·소품</b> 하늘 가득 <b>종이연(jongiyeon)</b> 서너 개 — 가운데 구멍이 뚫린 방패연이 대나무 살을 세우고 비스듬히 솟았고, 꼬리마다 노랫말을 적은 한지 조각들이 팔랑팔랑 매달려 줄지어 나부낌. 화면 아래 구석에 먹물 종지와 남은 한지 몇 장, 둔덕의 풀과 저 아래 마을 지붕은 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 해 질 녘 금빛 역광이 종이연을 뒤에서 비춰 한지가 반투명하게 빛나고 하늘은 옅은 살굿빛, 노래가 하늘로 풀려나는 벅차고 시원한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(온 서라벌에 퍼진 노래)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">노래는 골목에서 골목으로, 우물가에서 다리 밑으로 번져 갔어요. 떡을 사러 나온 아이도, 나무 그늘에 앉은 아이도 모두 그 노래를 따라 불렀지요. 며칠 만에 서라벌은 온통 노래로 가득한 마을이 되었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아주 높은 하이앵글 부감 — 서라벌 도성 전체를 새의 눈으로 내려다보는 지도 같은 구성. 골목이 미로처럼 갈라지고, 그 골목마다 노래하는 아이들이 콩알만 한 점점으로 흩어져 확산감을 만듦.<br/><b>장소·시간</b> 신라 서라벌 도성의 기와집·초가집이 뒤섞인 골목들과 우물가·돌다리, 맑은 한낮.<br/><b>인물</b> 화면 곳곳에 아주 작게 흩어진 아이들 — 우물가에서 물동이 옆에 서서 입을 벌린 아이 둘, 돌다리 위에서 팔짝 뛰는 아이 셋, 골목 모퉁이에서 손뼉 치는 아이 넷, 담장 위에 걸터앉아 다리를 흔드는 아이 하나. 그중 한 무리는 VillageKids(마을 아이들)로, 긴 댕기 소녀가 여전히 얼레를 들고 앞장서 골목을 달림. 어른들은 하던 일을 멈추고 고개를 든 실루엣 몇 획으로만.<br/><b>배경·소품</b> 골목마다 <b>종이연(jongiyeon)</b> 이 지붕 위로 하나씩 떠 있어 노래의 경로를 이어 주는 표시처럼 보임(연 꼬리의 붉은 술 하나만 또렷한 빨강 = 화면의 단 하나 빨강). 기와지붕의 물결, 우물과 두레박, 돌다리와 개울, 저 끝에 궁궐 담장의 긴 선 — 지붕·담·나무는 전부 열린 연필선과 방향 획 몇 개의 러프 스케치, 크림 종이가 넓게 비침.<br/><b>톤</b> 높고 환한 한낮 햇빛이 도성 전체에 고르게 깔리고, 노랫소리가 물결처럼 번져 나가는 들썩이고 명랑한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(담 너머로 들려온 노래)</b> <span class="tag beat">③ 사건</span> <span class="tag">후렴 ③</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그 노래는 마침내 궁궐 담장까지 넘어왔어요. "마 캐는 서동이 노래를 하면, 선화공주님이 방긋 웃는대요!" 창가에 앉아 있던 공주는 저도 모르게 배시시 웃었지요. "서동이? 마를 캐는 아이인가 보네. 참 재미있는 아이구나."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 겹침·가림 구도 — 화면 앞쪽 전체를 궁궐 창살의 굵은 격자가 세로로 가로지르고, 그 격자 사이 틈으로 공주의 옆얼굴이 반쯤 가린 채 보이는 구성. 담 밖 소리 쪽으로 화면이 열림.<br/><b>장소·시간</b> 궁궐 안 공주의 방 창가와 그 너머 담장, 늦은 오후. 조용한 방 안으로 담 밖 소리만 흘러드는 공기.<br/><b>인물</b> PrincessPalace(선화공주)가 화면 중앙, 창살 틈 사이로 옆얼굴이 보이게 앉아 두 손으로 창틀을 붙잡고 귀를 담 쪽으로 기울인 자세. 입은 참다 새어 나온 배시시 웃음(한 줄이 한쪽만 살짝 올라감), 눈은 초승달로 휨. 옥빛 댕기가 어깨에서 흔들림(빨강 아님).<br/><b>배경·소품</b> 창살 너머 담장 위로 <b>종이연(jongiyeon)</b> 하나가 빼꼼 올라와 있고 꼬리의 붉은 술이 흔들림(화면의 단 하나 빨강), 그 아래 담 밖에서 노래하는 아이들의 머리통 몇 개가 아주 작게 보임. 방 안쪽 서안 위에 아까 쓰던 <b>한지(hanji)</b> 한 장과 붓이 그대로 놓여 있어 하던 일을 멈췄음을 말함. 창살·기와처마·담장은 열린 연필선 몇 획.<br/><b>톤</b> 담 밖에서 들어온 늦은 오후 햇빛이 창살 틈으로 공주 얼굴에만 밝은 띠를 만들고 방 안은 서늘한 회청빛, 몰래 즐거워지는 간질간질한 정서.</pre></details>
+</div>
+
+<!-- ④ 절정 : P8, P9, P10, P11 -->
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>절정(제가 가서 보고 오겠습니다)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그 노래는 임금님 귀에도 들어갔어요. "대체 서동이가 누구란 말이냐?" 임금님이 눈썹을 찡그리자, 공주가 앞으로 한 걸음 나서서 또박또박 말했지요. "아버님, 제가 직접 가서 보고 오겠습니다!" 임금님은 눈이 휘둥그레졌다가, 이내 껄껄 웃으며 고개를 끄덕였답니다. "그래, 네 눈으로 보고 오너라."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 강한 로우앵글 — 공주의 발치 높이에서 올려다보는 각도라 어좌에 앉은 임금님이 화면 위쪽에 크고 넓게 자리하고, 그 앞에 선 공주는 작지만 화면 아래 중앙에서 곧게 솟은 수직선으로 읽힘. 크기 대비가 곧 용기의 크기.<br/><b>장소·시간</b> 궁궐 대전 안, 저녁 무렵. 높고 조용한, 숨소리가 울리는 공기.<br/><b>인물</b> KingJinpyeong(임금님)은 화면 위쪽 어좌에 앉아 한 손으로 무릎을 짚고 상체를 앞으로 기울인 채 눈썹을 모으고 큰 입을 벌려 묻는 표정 — 위압적이지 않고 어리둥절한 쪽. 넓은 어깨의 예복과 날개 달린 검은 관이 하나의 큰 실루엣. PrincessPalace(선화공주)는 화면 아래 중앙에서 등을 곧게 펴고 턱을 든 채 한 걸음 앞으로 내디딘 자세, 두 손은 앞에 가지런히 모으고 입은 야무지게 벌려 또박또박 말하는 중, 눈은 흔들림 없이 아버지를 마주 봄.<br/><b>배경·소품</b> 어좌 옆에 드리운 휘장 자락과 낮은 계단, 임금님 허리띠에 매인 붉은 끈 매듭(화면의 단 하나 빨강), 대전 기둥과 격자 창·서 있는 신하 두엇의 실루엣은 전부 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 저녁 빛이 높은 창에서 비스듬히 떨어져 공주 어깨에만 밝게 닿는 조명, 야단이 아니라 놀라움과 대견함으로 바뀌어 가는 든든하고 씩씩한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(길 위에 내려앉은 종이연)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">공주는 수수한 무명옷으로 갈아입고 남쪽으로 난 길을 걸었어요. 길가에서는 아이들이 그 노래를 부르며 뛰어다녔지요. 그때 종이연 하나가 툭— 공주 발치에 내려앉았어요. 꼬리에는 노랫말을 적은 한지가 팔랑팔랑 매달려 있었답니다. "이 노래, 누가 지었니?" "마 캐는 서동이요!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 어깨너머 컷, 살짝 하이앵글 — 화면 앞쪽 오른편에 공주의 어깨와 땋은 머리채가 크게 걸치고, 그 어깨 너머 아래쪽 흙길 위에 내려앉은 종이연과 저만치 달려가는 아이들이 함께 잡히는 구성.<br/><b>장소·시간</b> 서라벌 도성을 벗어나 남쪽 마을로 이어지는 들길, 한낮. 흙먼지와 풀냄새가 나는 트인 공기.<br/><b>인물</b> 화면 오른쪽 전경 — PrincessVillage(선화공주)가 걸음을 멈추고 반쯤 몸을 숙여 발치를 내려다봄, 한 손에는 작은 보퉁이, 다른 손은 연을 집으려 뻗는 중, 입은 작은 O 모양으로 벌어짐. 소매를 걷어 올린 무명 치마저고리에 옥빛 댕기(빨강 아님). 화면 왼쪽 안쪽 — VillageKids(마을 아이들) 중 셋이 노래하며 달려가다 뒤를 돌아보고 한 아이가 손가락으로 산 쪽을 가리키며 대답하는 자세.<br/><b>배경·소품</b> 공주 발치에 비스듬히 내려앉은 <b>종이연(jongiyeon)</b> — 가운데 구멍 뚫린 방패연, 꼬리에 묶인 <b>한지(hanji)</b> 조각에 노랫말이 적혀 있고 꼬리 끝 붉은 술이 흙 위에 놓임(화면의 단 하나 빨강). 끊어진 연줄 한 가닥이 길 위로 구불구불 이어짐. 길가 풀숲, 돌무더기, 저 멀리 남쪽 산과 초가지붕은 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 환한 한낮 햇빛이 흙길을 하얗게 비추고, 우연이 길잡이가 되어 주는 설레고 산뜻한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(산비탈에서 만나다)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">산비탈 오솔길에서, 삼태기를 진 소년이 흥얼흥얼 노래를 부르며 내려왔어요. 두 아이는 좁은 길에서 딱— 마주쳤지요. "네가 서동이니?" "우, 우와… 지, 진짜 선화공주님?" 서동이 얼굴이 잘 익은 홍시처럼 빨개졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업 투샷, 낮은 로우앵글 — 오솔길 바닥 가까이에서 올려다보는 각도로 두 아이의 상반신이 화면을 가득 채우고 얼굴이 서로 아주 가깝게 마주 놓임. 뒤로 산비탈과 하늘이 좁게 열림.<br/><b>장소·시간</b> 마을 뒷산 중턱의 좁은 오솔길, 늦은 오후. 풀벌레 소리가 나는 나른하고 따뜻한 공기.<br/><b>인물</b> 화면 오른쪽 — SeodongBoy(서동)가 <b>삼태기(samtaegi)</b>를 등에 진 채 한 발을 내딛다 그대로 멈춰 굳은 자세, 입은 커다란 O 모양으로 벌어지고 눈썹이 위로 치솟았으며 양 볼에 작은 홍조 획 두 개. 노래하던 손이 어정쩡하게 허공에 멈춰 있음. 붉은 허리끈이 급정거에 앞으로 쏠려 흔들림(화면의 단 하나 빨강). 화면 왼쪽 — PrincessVillage(선화공주)가 곧게 선 자세로 고개를 살짝 기울여 그를 올려다보듯 마주 보며, 한 손에 든 한지 조각을 살짝 들어 보이고 입은 반가운 작은 미소 한 줄. 두 사람 사이 거리는 두 걸음.<br/><b>배경·소품</b> 서동의 삼태기에서 삐죽 나온 긴 마 몇 뿌리, 발치에 흩어진 흙과 잔돌, 오솔길 양옆의 풀과 나뭇가지, 비탈 아래 마을 지붕과 저녁 하늘 — 배경은 열린 연필선 몇 획으로만 남기고 두 인물에만 밀도를 몰아줌.<br/><b>톤</b> 늦은 오후의 낮고 금빛인 옆빛이 두 얼굴을 따뜻하게 감싸는 조명, 놀람과 수줍음과 반가움이 한꺼번에 터지는 간질간질하고 사랑스러운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(누런 돌덩이의 비밀)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">서동이는 부끄러워하며 날마다 마를 캐던 자리를 보여 주었어요. 그 옆에는 누런 돌덩이가 산더미처럼 쌓여 있었지요. "이건 마를 캘 때마다 자꾸 걸리적거려서 치워 둔 돌이에요." 공주는 눈이 휘둥그레졌어요. "서동아, 이건 돌이 아니라… 금이야!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 하이앵글 부감 — 비탈의 파헤쳐진 구덩이와 그 옆에 쌓인 누런 돌더미 전체를 위에서 비스듬히 내려다보는 구성. 두 아이는 그 거대한 더미 옆에 작게 서서 스케일 대비를 만듦.<br/><b>장소·시간</b> 서동이가 날마다 마를 캐던 산비탈의 파헤친 자리, 해 질 무렵. 흙냄새와 함께 무언가 반짝이는 기묘하게 설레는 공기.<br/><b>인물</b> 화면 왼쪽 아래 — SeodongBoy(서동)가 <b>삼태기(samtaegi)</b>를 발치에 내려놓고 한 손으로 뒤통수를 긁으며 다른 손으로 돌더미를 가리킴, 어깨를 으쓱 올린 멋쩍은 자세에 입은 작은 한 줄(왜 저러지? 하는 얼굴). 붉은 허리끈이 그의 발치에 늘어짐(화면의 단 하나 빨강). 그 곁 PrincessVillage(선화공주)는 두 손으로 누런 돌 하나를 받쳐 든 채 상체를 앞으로 기울이고 입을 크게 벌림, 눈썹이 위로 치솟은 놀라움 — 몸 전체가 "이건 금이야!" 하는 외침.<br/><b>배경·소품</b> 산더미처럼 쌓인 누런 금덩이들(반들반들한 덩어리들이 무더기를 이루고 위쪽 몇 개에만 은은한 금빛 반짝임 획), 파헤쳐진 흙구덩이와 그 안에 아직 반쯤 묻힌 마 두어 뿌리, 굴러다니는 나무 호미자루. 비탈의 풀과 저 아래 마을·저녁 산등성이는 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 해 질 녘 낮은 햇빛이 돌더미 표면을 스치며 금빛으로 튀는 조명, 세상에서 제일 흔한 돌이 보물이었다는 반전의 벅차고 유쾌한 정서.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P12 -->
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>결말(노래가 정말로 이루어졌어요)</b> <span class="tag beat">⑤ 결말</span> <span class="tag">후렴 ④</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">두 아이는 그 금으로 마을에 튼튼한 다리를 놓고, 쌀을 나누고, 아픈 이웃을 도왔어요. 마을에는 큰 잔치가 열렸고, 하늘에는 종이연이 가득 떠올랐지요. "마 캐는 서동이 노래를 하면, 선화공주님이 방긋 웃는대요! 얼씨구절씨구, 마 하나 더!" 서동이가 지은 노래는 정말로 이루어졌답니다. 마음을 담아 부른 노래는 언젠가 진짜가 된대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 정면 — 마을 잔치 마당을 정면에서 넓게 담은 마무리 컷. 인물들이 좌우로 펼쳐지고 화면 위쪽 하늘로 종이연이 줄지어 오름. 화면 아래는 캡션 자리로 넉넉히 비움.<br/><b>장소·시간</b> 마을 어귀 넓은 마당과 그 옆에 새로 놓인 돌다리, 화창한 낮. 웃음소리와 노랫소리가 뒤섞인 흥겨운 공기.<br/><b>인물</b> 화면 중앙 — SeodongBoy(서동)가 두 팔을 활짝 벌리고 입을 크게 벌려 노래를 선창, 붉은 허리끈이 춤추듯 날림(화면의 단 하나 빨강). 그 옆 PrincessVillage(선화공주)는 손뼉을 치며 함께 노래하고 땋은 머리가 들썩임. 왼쪽에는 SeodongMother(서동 어머니)가 큰 함지를 든 채 눈물 대신 활짝 웃으며 아들을 바라봄. 오른쪽 앞에는 VillageKids(마을 아이들) 넷이 폴짝폴짝 뛰며 노래하고, 긴 댕기 소녀는 여전히 얼레를 쥐고 연줄을 당김. 마을 어른들은 뒤편에서 손뼉 치는 실루엣 몇 획.<br/><b>배경·소품</b> 하늘 가득 줄지어 떠오른 <b>종이연(jongiyeon)</b> 여러 개, 마당에 펼친 잔칫상과 김 오르는 밥·떡, 이웃들에게 나눠 주려 쌓아 둔 쌀자루, 그 곁에 비워 놓인 <b>삼태기(samtaegi)</b>, 개울 위에 새로 놓인 튼튼한 돌다리 — 다리와 지붕·나무는 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 환하고 고른 한낮 햇빛에 크림 종이가 넓게 비치는 조명, 노래가 이루어진 벅참과 나눔의 따뜻함이 함께 번지는 밝고 흐뭇한 마무리 정서.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 서동요 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING (finish hierarchy — the single most important rule): The bright warm cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. This picture is deliberately UNEVENLY finished, like one page from a master's sketchbook. Finish only what matters: the CHARACTERS = finished (clear line AND color, keep them at their current level); a prop a character is directly touching or holding (a loom, a bench, a gourd in their hands) = half-finished, a bit of line and a little color; everything else — the whole background: jars, walls, fences, roofs, trees, hills, anything far away — = a LOOSE UNFINISHED PENCIL SKETCH: just a few open contour lines and a few direction strokes, barely any color, lots of bare cream paper showing through, deliberately NOT filled in, like the rough underdrawing on a sketchbook page. A jar is two or three open outlines, a roof is a few slanted direction strokes, a distant thing is one or two lines and then paper. This is about how FINISHED each area is, NOT about opacity — the background is not faded, hazy, blurry or low-saturation, it is simply left as rough sketch lines and not drawn to completion. Spend all the density ONLY on the characters. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces; NOT a fully rendered background, NOT every jar / roof-tile / leaf drawn to completion, NOT a uniform finish across the whole picture, and NOT a hazy / blurry / faded background either (that is just blur, not a sketch) — keep the background as loose OPEN PENCIL SKETCH lines and every stroke loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'SeodongBoy',      name: '서동',              desc: '마 캐는 소년 — 등에 삼태기, 붉은 허리끈(화면의 단 하나 빨강), 늘 노래하는 대각선 몸',  aliases: ['SeodongBoy'] },
+    { token: 'SeodongMother',   name: '서동 어머니',        desc: '마을의 홀어머니 — 무명 치마저고리·앞치마, 낮은 쪽머리, 다정한 미소',                aliases: ['SeodongMother'] },
+    { token: 'PrincessPalace',  name: '선화공주 (궁 안)',   desc: '궁궐 차림 — 옥빛 치마저고리와 옥빛 댕기, 곧은 등·든 턱, 궁금한 눈(빨강 없음)',      aliases: ['PrincessPalace'] },
+    { token: 'PrincessVillage', name: '선화공주 (마을 길)', desc: '길 떠난 차림 — 수수한 무명옷, 소매 걷음, 같은 얼굴·같은 곧은 등, 씩씩한 걸음',      aliases: ['PrincessVillage'] },
+    { token: 'KingJinpyeong',   name: '임금님',            desc: '공주의 아버지 — 넓은 어깨 예복과 날개 관, 큰 수염 몇 획, 껄껄 웃는 큰 어른',        aliases: ['KingJinpyeong'] },
+    { token: 'VillageKids',     name: '마을 아이들',        desc: '노래를 퍼뜨린 아이 넷 — 키다리·통통 막내·두 갈래 머리 소녀·얼레 든 긴 댕기 소녀',   aliases: ['VillageKids'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

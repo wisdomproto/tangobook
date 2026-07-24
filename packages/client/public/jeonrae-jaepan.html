@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 토끼의 재판</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · 시즌2 #26</div>
+  <h1>⚖️ 토끼의 재판</h1>
+  <div class="sub">구덩이에 빠진 호랑이를 구해 준 나그네 — 은혜를 잊은 호랑이를 지혜로 가려낸 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 은혜와 공정 &nbsp;·&nbsp;
+  <b>분량</b> 13 스프레드 &nbsp;·&nbsp; <b>후렴</b> 토끼의 되묻기 &nbsp;·&nbsp;
+  <b>핵심단어</b> 통발 · 새끼줄 · 삽 · 괭이 · 짚방석 &nbsp;·&nbsp;
+  <b>순화</b> 🔴 호랑이의 <b>"잡아먹겠다" 직접 위협 삭제</b> — 배가 꼬르륵거리며 "못 간다, 나랑 가자, 냠냠!" 하는 <b>뻔뻔하고 우스꽝스러운 떼</b>로 (으르렁대되 무섭기보다 얄밉게, 발톱·이빨 강조 금지) / 결말은 해치지 않고 <b>처음 그 구덩이로 코믹하게 원위치 + 뉘우칠 기회</b>, 마지막엔 새끼줄을 다시 내려 주어 화해로 닫는다
+</div>
+<div class="refrain">🐰 반복 후렴 — "잘 모르겠는데요? 처음부터, 다시 한 번 해 보세요!" <span style="font-weight:600;font-size:13px">(P9 첫 갸웃 → P10 호랑이가 구덩이로 → P11 새끼줄 회수)</span></div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-jaepan</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.<br>🔴 <b>상태 변형 캐릭터 = 시트 분리</b> — 호랑이는 <b>구덩이에 빠진 호랑이(TigerTrapped)</b> / <b>구덩이에서 나온 호랑이(TigerFree)</b>가 각각 <b>다른 @image</b>다. 얼굴 구조는 IDENTICAL FACE로 고정하고 <b>자세·표정·꼬리</b>만 바뀐다(불쌍한 척 ↔ 뻔뻔). 각 쪽 SCENE은 그 시점의 상태 토큰만 쓴다.<br>🔴 <b>화면당 빨강 악센트 1점 = 나그네의 붉은 허리끈</b>(나그네가 없는 컷에서만 다른 빨강 하나 — 소나무의 붉은 열매 한 알 등).<br>🔴 <b>시즌1 「토끼와 자라」의 토끼와 다른 인물이다</b> — 그쪽이 팔팔한 꾀돌이라면, 이 편 토끼는 <b>나이 지긋하고 침착한 회백색 재판관</b>(한쪽 귀가 접히고 늘 짚방석을 옆구리에 낌). 디자인·성격이 겹치지 않게.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="나그네" data-key="char-traveler">
+  <div class="head"><span class="face">🚶</span><b>나그네</b> <span class="rom">Traveler · 마음씨 착한 나그네</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Traveler — a kind-hearted young man walking to the market, the good heart of the story. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile, no nose (or one tiny dot), hair as one solid dark mass tied into a small topknot (sangtu) under a simple cloth headband, and two or three tiny stubble dots on the chin so he reads as a grown man.
+SILHOUETTE (his signature): medium height, lean and springy, always leaning slightly FORWARD as if mid-step — a walking body. Trousers tied at the calf, sleeves pushed up.
+SIGNATURE RED: a narrow RED cloth sash knotted at his waist with one short end hanging — this is the picture's single red accent whenever he appears.
+CLOTHES & PROP: a plain everyday cotton hanbok suggested in soft blue-grey pencil strokes, mostly open paper with loose hatching, straw sandals in a few pale straw-yellow strokes. On his back he carries TWO OR THREE woven bamboo fish traps (tongbal) bundled together with a twisted straw rope (saekkijul) — the bundle is his instantly readable silhouette marker.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body 3/4 walking idle (trap bundle on his back, one hand steadying the rope) + a front view WITHOUT the bundle + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) gentle one-line smile, (2) astonished big O mouth with lifted brow strokes, (3) hurt and indignant — a straight firm mouth with brows pulled together. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="구덩이에 빠진 호랑이" data-key="char-tiger-trapped">
+  <div class="head"><span class="face">😿</span><b>구덩이에 빠진 호랑이</b> <span class="rom">TigerTrapped · 불쌍한 척하는 호랑이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: TigerTrapped — a big Korean tiger while he is still stuck at the bottom of the hunters' pit, begging pitifully. Dot-eye design language kept exactly: a flat cream muzzle with zero shading, two dot eyes, a simple line mouth, a tiny dot nose. Absolutely NOT fierce — rounded cheeks, soft paws with NO visible claws, and only a couple of little blunt tooth strokes at most. IDENTICAL FACE STRUCTURE to TigerFree.
+SILHOUETTE (his signature): a big soft potato-shaped body — round belly, short thick legs, a fat rope-like tail. Broad stripes drawn as a few quick dark brush-like pencil strokes over pale straw-yellow fur, most of the body left as open cream paper.
+STATE (trapped): everything droops — shoulders sunk, ears folded flat back, tail curled limp between his legs, both front paws pressed together in a pleading namaste, head tilted up and back. Two tiny stroke-tears on his cheeks and trembling brow strokes. He looks pitiful and a little pathetic — comic, never menacing.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle sitting on his haunches with paws pressed together and folded ears + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and ear position: (1) weepy pleading with a wobbly downcurved mouth and two stroke-tears, (2) hopeful small O mouth with ears half lifting, (3) exaggerated sobbing with a wide wobbly mouth. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="구덩이에서 나온 호랑이" data-key="char-tiger-free">
+  <div class="head"><span class="face">🐯</span><b>구덩이에서 나온 호랑이</b> <span class="rom">TigerFree · 뻔뻔해진 호랑이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: TigerFree — the SAME tiger the moment he is out of the pit and has forgotten his promise: shameless, smug and comic.
+🔴 IDENTICAL FACE STRUCTURE to TigerTrapped: the same flat cream muzzle, same two dot eyes, same tiny dot nose, same broad stripe strokes, same soft clawless paws. Freedom changed his POSTURE and his MOUTH LINE, never his design — he must stay funny and cheeky, NEVER frightening (no bared fangs, no claws out, no shadowed scary lighting, no looming horror pose).
+STATE (free): everything puffs up — chest out, belly forward with one paw patting it, ears perked, tail up in a confident curl, chin tilted back. His signature expression is a wide smug one-line smirk with the tongue tip showing and one raised brow stroke, as if saying "약속? 그런 게 있었나?"
+SILHOUETTE: the same big soft potato body — round belly, short thick legs, fat rope tail — just standing tall and swaggering instead of slumped.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (standing on hind legs, belly out, one paw patting the belly, tail curled up) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and ear position: (1) smug smirk with tongue tip out, (2) impatient huff with a squashed frown and puffed cheeks, (3) comic dismay — a big round O mouth with flyaway brow strokes and ears springing up. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="소나무 어르신" data-key="char-pine-tree">
+  <div class="head"><span class="face">🌲</span><b>소나무 어르신</b> <span class="rom">PineTree · 말하는 늙은 소나무</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: PineTree — an ancient talking pine on the hillside, the story's first "judge". A tall gnarled Korean red pine whose FACE lives in the trunk: two dot eyes drawn in the bark, a slow one-line mouth in a knothole, and a long beard made of drooping pine needles — the dot-eye design language applied to a tree, warm and grandfatherly, never spooky.
+SILHOUETTE (his signature): a thick leaning trunk with reddish-brown bark suggested by a few scaly hatch strokes, two big low branches that read as ARMS (one raised, one drooping), and a wide flat cloud of dark green needle clusters on top drawn as loose scribbled masses. Several broken branch stumps and one sawn-off stump low on the trunk — the wounds people left.
+NOTE: when he appears without Traveler in frame, the picture's single red accent is one tiny red berry cluster at his roots.
+REFERENCE SHEET: one sheet on plain bright cream paper — full front idle (branch-arms in a shrug) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line and brow-like bark strokes: (1) grumpy downcurved mouth, (2) speaking with a small open mouth and one branch raised, (3) a dry sideways smirk. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="늙은 소" data-key="char-ox-elder">
+  <div class="head"><span class="face">🐂</span><b>늙은 소</b> <span class="rom">OxElder · 밭 갈던 늙은 소</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: OxElder — an old Korean ox resting at the edge of a field, the story's second "judge": tired, blunt and a bit sulky, but gentle. Dot-eye design language: a flat cream muzzle with zero shading, two dot eyes with a few droopy lash strokes, a slow one-line mouth, one tiny dot nostril.
+SILHOUETTE (his signature): a heavy low rectangular body on short legs, head hanging LOW below the shoulder line, a bony back ridge and one visibly sagging belly curve — an old worker's body. Two short blunt horns curving forward, big floppy ears, a thin tasselled tail.
+COLOR & MARKS: warm straw-beige hide in loose pencil hatching, mostly open cream paper, with a soft grey muzzle showing his age and a simple wooden nose ring drawn as one small circle.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body side idle lying down with legs folded, head low + a 3/4 standing turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and ear position: (1) tired half-lidded look with a flat mouth, (2) sulky grumble with a downcurved mouth and ears back, (3) a soft resigned sigh with the eyes closed as two arcs. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="토끼 재판관" data-key="char-rabbit-judge">
+  <div class="head"><span class="face">🐰</span><b>토끼 재판관</b> <span class="rom">RabbitJudge · 침착하고 능청스러운 재판관</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: RabbitJudge — the wise village rabbit who settles the argument. 🔴 He is NOT a young bouncy trickster: he is an OLDER, unhurried, deadpan rabbit who plays innocent on purpose. Dot-eye design language: a flat cream face with zero shading, two small dot eyes set slightly low and calm, a tiny line mouth that stays almost flat even when he is teasing, a dot nose with three whisker strokes each side.
+SILHOUETTE (his signature): a small COMPACT pear-shaped body that mostly SITS — settled on his haunches with both forepaws folded neatly in front, back straight and unhurried, the stillest body in every picture. His marker: ONE EAR STANDS UP AND THE OTHER FOLDS OVER at the tip, and he always carries a small round woven straw cushion (jipbangseok) tucked under one arm — he sets it down and sits on it before he speaks.
+COLOR: soft grey-white fur left almost entirely as open cream paper with a few blue-grey pencil strokes for the ear insides, chest and haunch; a pale grey muzzle.
+NOTE: when he appears without Traveler in frame, the picture's single red accent is a thin red cord wrapped around the edge of his straw cushion.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body seated idle on the straw cushion (forepaws folded, one ear up one folded) + a standing 3/4 turn with the cushion under his arm + three face close-ups where the expression changes ONLY through the mouth line, whisker and ear angle: (1) deadpan innocent blank face with a tiny flat mouth, (2) puzzled head-tilt with the flat mouth pushed to one side, (3) the smallest knowing smile with one eye narrowed to a short line. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.) 다섯 사물 모두 본문에 실제로 등장한다 — 통발 P1·P4, 새끼줄 P4·P11·P13, 삽 P2·P3, 괭이 P8, 짚방석 P9·P12·P13.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="통발" data-key="word-tongbal">
+  <div class="head"><span class="face">🎣</span><b>통발</b> <span class="rom">tongbal — a woven bamboo fish trap</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "tongbal — a traditional Korean woven bamboo fish trap (통발)". A long barrel-shaped basket woven from split bamboo strips in warm honey-gold (#D8B45A) with visible diagonal weave and dark bamboo node lines, one end tapering into a funnel-shaped inward-facing mouth (the trap opening) and the other end closed with a twisted straw cord tie. Show TWO views so the word reads clearly: (1) the trap from the side at a slight 3/4 angle, and (2) a head-on view down the funnel mouth showing the woven cone inside. Handcrafted, springy, proud craftsmanship. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="새끼줄" data-key="word-saekkijul">
+  <div class="head"><span class="face">🪢</span><b>새끼줄</b> <span class="rom">saekkijul — a twisted rice-straw rope</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "saekkijul — a traditional Korean rope hand-twisted from rice straw (새끼줄)". A thick two-ply rope of golden rice straw (#D8B45A) with the two strands clearly spiralling around each other, loose straw whiskers sticking out along its length, one frayed cut end and one end tied into a simple loop knot. Show TWO forms on the card: (1) a neat coiled bundle of the rope, and (2) a length of it running across the card so the twist and the whiskers read clearly. Sturdy, warm, handmade. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="삽" data-key="word-sap">
+  <div class="head"><span class="face">🛠️</span><b>삽</b> <span class="rom">sap — a Korean digging spade</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "sap — a traditional Korean digging spade (삽)". A long straight shaft of warm honey-brown wood with visible grain (#B07A3C), bound near the head with a twisted straw cord, ending in a broad slightly dished iron blade with a rounded pointed tip in dark blue-steel grey (#6E7A80) showing hammered forge marks and a warm rust patina at the edges, and a small foot-step ledge on the shoulder of the blade. Shown standing at a slight 3/4 angle with a little loose earth clinging to the blade tip. Sturdy, honest farm-tool craftsmanship. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="괭이" data-key="word-gwaengi">
+  <div class="head"><span class="face">⛏️</span><b>괭이</b> <span class="rom">gwaengi — a Korean field hoe (mattock)</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "gwaengi — a traditional Korean field hoe / mattock for breaking up soil (괭이)". A long wooden handle of warm honey-brown grain (#B07A3C) fitted at a sharp right angle into a heavy broad iron blade in dark blue-steel grey (#6E7A80), the blade slightly curved downward with a blunt squared digging edge, forge-hammer marks and a warm rust patina, wedged tight with a small wooden peg and bound with twisted straw cord. Note: this is the BIG two-handed field hoe — clearly larger and heavier than the small hand-weeding homi. Shown at a slight 3/4 angle with a few crumbs of dark earth on the blade. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="짚방석" data-key="word-jipbangseok">
+  <div class="head"><span class="face">🟡</span><b>짚방석</b> <span class="rom">jipbangseok — a woven straw sitting cushion</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jipbangseok — a traditional Korean round sitting cushion woven from rice straw (짚방석)". A thick round mat coiled in a spiral from braided golden rice straw (#D8B45A), the spiral rounds clearly visible from the center outward, a neatly finished braided rim, a slightly domed springy thickness, and a small braided straw loop on one edge for hanging. Show TWO views so the word reads clearly: (1) the cushion from directly above showing the spiral weave, and (2) a low 3/4 view showing its thickness and rim. Cozy, humble, tidy craftsmanship. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 13 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 마음씨 착한 나그네가 살았어요. 나그네는 손수 엮은 통발을 등에 지고 장으로 가는 길이었지요. 뚜벅뚜벅, 뚜벅뚜벅— 산길을 넘고 또 넘었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 + 스케일 대비, 높은 하이앵글 — 굽이굽이 이어진 산길 전체를 멀리서 비스듬히 내려다보고, 그 한가운데 나그네가 손톱만 하게 걸어가는 컷. 길이 화면을 S자로 가른다.<br/><b>장소·시간</b> 깊은 산속 고갯길, 맑은 늦봄 아침. 새소리가 트인 시원하고 넉넉한 공기.<br/><b>인물</b> 화면 중앙 아래쪽에 아주 작게 — Traveler(나그네)가 몸을 앞으로 살짝 기울인 걸음 자세로 고갯길을 올라감, 등에는 대나무 <b>통발(tongbal)</b> 두세 개를 <b>새끼줄(saekkijul)</b>로 묶어 짊어짐, 한 손으로 어깨의 줄을 붙잡고 다른 팔은 힘차게 흔듦. 작아도 허리의 붉은 띠 한 점이 또렷(화면의 단 하나 빨강).<br/><b>배경·소품</b> 겹겹이 포개진 나지막한 산등성이와 등성이마다 선 소나무 몇 그루, 길가의 이름 없는 들꽃 몇 획, 하늘의 뭉게구름과 멀리 흩어진 새 몇 점 — 전부 열린 연필선 몇 획의 러프 스케치, 크림빛 종이 여백이 넓게 남음.<br/><b>톤</b> 맑은 아침 햇빛이 산등성이를 비스듬히 넘어옴, 세상은 넓고 사람은 작은 옛이야기의 시작, 씩씩하고 상쾌한 정서.</pre></details>
+</div>
+
+<!-- ② 발단 : P2, P3, P4 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(구덩이 속의 소리)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 어디선가 소리가 들렸어요. "사람 살려요! 여기 좀 봐 주세요!" 나그네가 살금살금 다가가 들여다보니, 세상에! 사냥꾼이 파 놓은 커다란 구덩이 속에 호랑이가 갇혀 있지 뭐예요. 구덩이 옆에는 사냥꾼이 두고 간 삽 한 자루가 놓여 있었어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글 부감 중형 — 구덩이 바로 위에서 거의 수직으로 내려다보는 컷. 화면의 대부분이 둥근 구덩이 입구와 그 바닥에 웅크린 호랑이, 위쪽 가장자리에 엎드려 들여다보는 나그네의 머리와 어깨가 걸침.<br/><b>장소·시간</b> 산길 옆 덤불 사이의 사냥 함정, 같은 날 아침. 서늘하고 숨죽인 공기.<br/><b>인물</b> 화면 중앙 아래 — TigerTrapped(구덩이에 빠진 호랑이)가 구덩이 바닥에 엉덩이를 붙이고 앉아 고개를 위로 젖힌 채 두 앞발을 모아 싹싹 빎, 귀는 뒤로 납작, 꼬리는 다리 사이로 말림, 볼에 작은 눈물 획 둘. 화면 위쪽 가장자리 — Traveler(나그네)가 땅에 엎드려 두 손을 짚고 구덩이를 들여다봄, 위에서 본 각도라 정수리와 어깨·등의 통발 묶음이 크게 보이고 입은 놀란 작은 O, 허리의 붉은 띠가 한 점(단 하나 빨강).<br/><b>배경·소품</b> 구덩이 가장자리에 흩어진 마른 나뭇가지와 걷힌 위장용 풀더미, 그 옆 흙더미에 비스듬히 꽂힌 <b>삽(sap)</b> 한 자루, 구덩이 벽의 파낸 흙 결과 드러난 잔뿌리 — 배경은 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 위에서 내려오는 아침 빛이 구덩이 안쪽으로 비스듬히 떨어져 바닥 절반만 밝음, 무섭기보다 딱하고 안쓰러운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(호랑이의 약속)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호랑이는 앞발을 모으고 눈물을 뚝뚝 흘렸어요. "제발 꺼내 주세요. 절대로 해치지 않을게요. 은혜는 꼭 갚을게요!" 나그네는 삽을 쭉 내밀어 보았어요. 하지만 삽자루는 너무 짧아서 호랑이 코앞에도 닿지 않았지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글(앙각) 중형 — 구덩이 바닥에서 위를 올려다보는 시점. 화면 위쪽 테두리가 동그란 구덩이 입구로 뚫려 하늘이 되고, 그 동그라미 안에 나그네의 얼굴과 내민 삽이 거꾸로 걸쳐 보인다.<br/><b>장소·시간</b> 함정 구덩이 안, 같은 날 아침. 축축하고 서늘한 흙냄새의 공기.<br/><b>인물</b> 화면 아래 전경 — TigerTrapped(구덩이에 빠진 호랑이)의 뒷모습과 젖힌 뒤통수가 크게, 두 앞발을 가슴 앞에 모아 빌며 고개를 한껏 위로 들어 애원, 접힌 귀와 축 늘어진 꼬리. 화면 위 동그란 하늘 안 — Traveler(나그네)가 구덩이 가장자리에 무릎을 꿇고 상체를 내밀어 <b>삽(sap)</b>을 두 손으로 아래로 쭉 뻗음, 팔을 최대한 늘이느라 어깨가 기울고 입은 힘주어 다문 한 줄, 눈썹은 걱정으로 휨. 삽 끝과 호랑이 앞발 사이가 한 뼘쯤 비어 있음이 분명히 보이게.<br/><b>배경·소품</b> 구덩이 벽면의 파낸 흙 결과 잔돌·잔뿌리, 바닥에 깔린 마른 나뭇잎 몇 장, 입구 테두리 너머로 보이는 나뭇가지 실루엣과 환한 하늘 — 배경은 열린 연필선 러프 스케치. 나그네 허리의 붉은 띠 끝이 아래로 늘어져 흔들림(단 하나 빨강).<br/><b>톤</b> 어둑한 구덩이 안과 눈부신 동그란 하늘의 강한 밝기 대비, 닿을 듯 닿지 않는 안타깝고 조마조마한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>발단(새끼줄을 내리다)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">나그네는 통발을 묶었던 새끼줄을 풀어 구덩이 속으로 스르르 내렸어요. "꼭 붙잡아요! 영차, 영차!" 호랑이는 새끼줄을 타고 낑낑, 드디어 구덩이 밖으로 올라왔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 측면 아이레벨 중형 + 대각선 구도 — 구덩이를 옆에서 자른 듯한 각도로, 팽팽한 새끼줄이 화면을 왼쪽 위에서 오른쪽 아래로 가로지르는 대각선이 된다.<br/><b>장소·시간</b> 함정 구덩이 가장자리, 같은 날 아침. 힘이 들어간 부산한 공기.<br/><b>인물</b> 화면 왼쪽 위 — Traveler(나그네)가 두 발을 땅에 단단히 버티고 상체를 뒤로 젖힌 채 <b>새끼줄(saekkijul)</b>을 두 손으로 감아쥐고 온 힘으로 당김, 이마에 땀 획 두어 개, 입은 "영차" 하듯 크게 벌림, 허리의 붉은 띠가 팽팽히 당겨짐(단 하나 빨강). 화면 오른쪽 아래 — TigerTrapped(구덩이에 빠진 호랑이)가 새끼줄을 두 앞발로 꼭 붙잡고 뒷발로 흙벽을 버둥버둥 딛으며 구덩이 밖으로 반쯤 올라온 상태, 눈은 질끈 감고 입은 낑낑대는 작은 O, 뒷다리 아래로 흙덩이가 후두둑 떨어짐.<br/><b>배경·소품</b> 풀어 헤쳐진 <b>통발(tongbal)</b> 두세 개가 나그네 발치에 굴러 있음, 흙더미에 박힌 삽, 구덩이 가장자리의 마른 풀과 걷힌 위장 나뭇가지, 뒤로 산비탈과 소나무 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 밝은 아침 햇빛이 두 몸의 대각선을 따라 흐름, 힘겨루기의 긴장과 곧 해낼 듯한 씩씩한 정서.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P5, P6, P7, P8 -->
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(돌변한 호랑이)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 이게 웬일일까요? 밖으로 나온 호랑이가 배를 툭툭 두드리며 말했어요. "아이고, 배에서 꼬르륵 소리가 나네. 나그네야, 너는 이제 못 간다. 나랑 같이 가자, 냠냠!" 호랑이는 하나도 미안해하지 않았어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 클로즈업 — 나그네의 가슴 높이쯤에서 살짝 올려다본 각도로, TigerFree의 얼굴과 불룩한 배가 화면 왼쪽 3분의 2를 가득 채운다. 나그네는 오른쪽 구석에 작게.<br/><b>장소·시간</b> 함정 구덩이 옆 산길, 같은 날 아침. 방금까지 애원하던 공기가 뒤집힌 어이없는 순간.<br/><b>인물</b> 화면 왼쪽 크게 — TigerFree(구덩이에서 나온 호랑이)가 뒷발로 서서 가슴을 쫙 펴고 한 앞발로 불룩한 배를 툭툭 두드림, 귀는 쫑긋 서고 꼬리는 위로 자신만만하게 말림, 입은 능글맞은 한 줄 미소에 혓바닥 끝이 살짝 나오고 눈썹 한쪽만 위로. 발톱·송곳니는 보이지 않게, 통통하고 우스꽝스럽게. 화면 오른쪽 아래 작게 — Traveler(나그네)가 한 발 물러서며 두 손을 어정쩡하게 든 채 입을 크게 벌리고 눈썹이 팔자로 휜 황당한 표정, 허리의 붉은 띠(단 하나 빨강).<br/><b>배경·소품</b> 호랑이 배 옆에 만화적인 "꼬르륵" 소용돌이 획 하나, 발치에 널브러진 새끼줄, 뒤쪽에 뻥 뚫린 구덩이 입구와 삽, 산길과 소나무 — 배경은 열린 연필선 몇 획.<br/><b>톤</b> 환한 아침 햇빛 그대로(그림자로 겁주지 않음), 뻔뻔함이 웃음으로 넘어가는 얄밉고 코믹한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(그럼 물어봅시다!)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"약속했잖아요! 은혜를 갚는다고요!" 나그네가 눈을 동그랗게 떴어요. 호랑이는 딴청을 부리며 능청스럽게 웃었지요. "약속? 배가 고프면 그런 건 까맣게 잊어버린단다." "그럼 누구 말이 옳은지 물어봐요!" "좋아, 셋한테 물어보자!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 어깨너머 컷, 중형 — 화면 앞쪽 왼편에 TigerFree의 어깨와 뒤통수·귀가 크게 걸치고, 그 너머로 항의하는 Traveler를 바라보는 구성. 앞의 호랑이는 반쯤 잘려 나가고 나그네가 초점.<br/><b>장소·시간</b> 함정 구덩이 옆 산길, 같은 날 아침. 티격태격 옥신각신하는 들썩한 공기.<br/><b>인물</b> 전경 왼쪽 — TigerFree(구덩이에서 나온 호랑이)의 어깨·뒤통수·쫑긋한 귀와 한쪽 볼이 크게, 고개를 딴 데로 홱 돌린 딴청 각도(보이는 입꼬리만 능글맞게 올라감), 한 앞발은 세 개를 세듯 발가락을 펴 보임. 화면 중앙 안쪽 — Traveler(나그네)가 두 팔을 활짝 벌리고 한 발을 앞으로 내디디며 억울하다는 듯 외침, 눈은 동그랗게 뜨고 입은 크게 벌림, 눈썹은 위로 치켜올라감, 허리의 붉은 띠가 몸짓을 따라 휘날림(단 하나 빨강).<br/><b>배경·소품</b> 두 사람 사이 땅바닥에 널브러진 새끼줄과 통발 묶음, 뒤쪽의 뻥 뚫린 구덩이, 갈림길로 이어지는 산길과 소나무 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 밝고 트인 아침 빛, 무섭지 않고 만담처럼 옥신각신하는 유쾌한 긴장의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(첫 번째, 소나무)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">맨 먼저 만난 건 산비탈의 늙은 소나무였어요. 소나무는 솔잎을 부스스 떨며 말했어요. "사람들은 내 가지를 뚝뚝 꺾고, 다 자라면 베어 가지요. 나는 호랑이 편!" 호랑이는 어깨를 으쓱, 아주 신이 났어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 강한 로우앵글 대형 — 나무 밑동 가까이에서 하늘을 향해 올려다본 각도. 거대한 소나무 줄기가 화면 아래에서 위로 우뚝 솟아 프레임을 가르고, 두 인물은 발치에 작게 놓인다.<br/><b>장소·시간</b> 산비탈의 늙은 소나무 아래, 같은 날 한낮. 솔향이 나는 서늘한 그늘의 공기.<br/><b>인물</b> 화면 중앙을 채우는 PineTree(소나무 어르신) — 굵고 비스듬히 기운 줄기의 옹이에 점눈 두 개와 느릿한 한 줄 입, 늘어진 솔잎 수염, 한쪽 큰 가지를 어깨 으쓱하듯 들어 올리고 다른 가지는 축 늘어뜨림, 입은 시큰둥하게 아래로 휨. 발치 왼쪽 — Traveler(나그네)가 두 손을 모으고 고개를 한껏 젖혀 올려다보며 애타는 표정, 허리의 붉은 띠(단 하나 빨강). 발치 오른쪽 — TigerFree(구덩이에서 나온 호랑이)가 뒷발로 서서 두 앞발을 번쩍 들고 폴짝 뛰며 신난 활짝 웃음.<br/><b>배경·소품</b> 줄기에 남은 부러진 가지 그루터기 몇과 톱으로 잘린 자국 하나, 밑동에 떨어진 솔방울 두엇, 뒤로 산비탈과 다른 나무들의 실루엣, 가지 사이로 쪼개져 내려오는 하늘 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 나뭇가지 사이로 새어드는 얼룩진 한낮 햇빛, 거대한 나무와 작은 사람의 스케일 대비, 야속하고 막막한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>사건(두 번째, 늙은 소)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다음은 밭에서 만난 늙은 소였어요. 소는 괭이 옆에 느릿느릿 앉아 말했지요. "나는 평생 밭을 갈았는데, 늙으니까 아무도 등을 쓸어 주지 않아요. 나도 호랑이 편!" 나그네는 그만 어깨가 축 처졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 평면 부감 중형 — 밭을 위에서 비스듬히 내려다보는 각도. 갈아 놓은 밭이랑의 긴 줄무늬가 화면을 가로로 층층이 채우고, 그 위에 세 인물이 위에서 본 모습으로 놓인다.<br/><b>장소·시간</b> 산 아래 마을 밭 귀퉁이, 같은 날 오후. 흙냄새 나는 나른하고 볕 좋은 공기.<br/><b>인물</b> 화면 중앙 — OxElder(늙은 소)가 밭머리에 네 다리를 접고 엎드려 고개를 어깨보다 낮게 늘어뜨린 채 눈은 반쯤 감기고 입은 시큰둥한 한 줄, 커다란 귀는 옆으로 축 처짐, 등뼈 능선과 축 늘어진 뱃가죽이 위에서도 보이게. 화면 왼쪽 — Traveler(나그네)가 어깨를 축 늘어뜨리고 두 팔을 힘없이 늘어뜨린 채 고개를 푹 숙임(위에서 본 정수리와 처진 어깨선), 허리의 붉은 띠(단 하나 빨강). 화면 오른쪽 — TigerFree(구덩이에서 나온 호랑이)가 배를 내밀고 앉아 앞발로 땅을 툭툭 치며 껄껄 웃음, 꼬리가 신나서 좌우로 흔들리는 잔상 획.<br/><b>배경·소품</b> 소 옆 이랑에 비스듬히 놓인 <b>괭이(gwaengi)</b> — 긴 나무 자루와 직각으로 물린 넓은 쇠날에 흙이 묻음. 갈아엎은 흙덩이 이랑, 밭두렁의 마른 짚단과 물그릇, 저 멀리 초가지붕 몇 채 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 높이 뜬 오후 햇살이 밭이랑에 긴 줄 그림자를 남김, 힘 빠지고 서운한 정서이되 소는 밉지 않고 그저 지쳐 보이게.</pre></details>
+</div>
+
+<!-- ④ 절정 : P9, P10, P11 -->
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(세 번째, 토끼가 나타나다)</b> <span class="tag beat">④ 절정</span> <span class="tag">후렴 ①</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마지막으로 깡충— 하얀 토끼가 나타났어요. 토끼는 옆구리에 낀 짚방석을 탁 깔고 점잖게 앉았지요. "무슨 일인지 차근차근 말해 보세요." 그런데 이야기를 다 듣고도 토끼는 고개를 갸웃했어요. "음… 잘 모르겠는데요? 처음부터, 다시 한 번 해 보세요!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업 전경 배치 — 화면 앞쪽 오른편에 짚방석 위에 앉은 RabbitJudge의 상반신이 크게(눈높이는 토끼에 맞춘 낮은 아이레벨), 그 어깨 너머 뒤쪽으로 나그네와 호랑이가 절반 크기로 나란히 서 있는 구성.<br/><b>장소·시간</b> 산길이 갈라지는 풀밭 어귀, 같은 날 늦은 오후. 바람이 잦아든 조용하고 나른한 공기.<br/><b>인물</b> 전경 오른쪽 크게 — RabbitJudge(토끼 재판관)가 <b>짚방석(jipbangseok)</b> 위에 두 앞발을 가지런히 모으고 등을 곧게 편 채 앉음, 한쪽 귀는 쫑긋 서고 다른 쪽 귀는 끝이 톡 접힘, 표정은 무표정에 가까운 짧은 일자 입과 낮게 자리한 작은 점눈 — 시치미를 뚝 뗀 얼굴로 고개만 살짝 갸웃. 뒤쪽 왼편 — Traveler(나그네)가 두 손을 모으고 몸을 앞으로 기울여 하소연하는 자세(붉은 허리띠 = 단 하나 빨강), 그 옆 TigerFree(구덩이에서 나온 호랑이)는 배를 내밀고 팔짱 낀 듯한 앞발 자세로 능글맞게 웃으며 발끝을 까딱임.<br/><b>배경·소품</b> 풀밭의 토끼풀과 들꽃 몇 획, 갈림길 어귀의 작은 돌무더기, 뒤로 이어진 산길과 소나무 실루엣 — 배경은 열린 연필선 러프 스케치, 크림빛 여백을 넉넉히.<br/><b>톤</b> 낮게 기운 오후 햇빛이 토끼 등에 부드럽게 얹힘, 소란 한가운데 홀로 침착한 인물이 등장하는 차분하고 살짝 우스운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(다시 한 번 해 보세요!)</b> <span class="tag beat">④ 절정</span> <span class="tag">후렴 ②</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"아이참, 답답하네!" 호랑이가 발을 굴렀어요. "내가 저 구덩이 안에 있었고—" "구덩이요? 어느 쪽에 계셨는데요? 잘 모르겠는데요. 처음부터, 다시 한 번 해 보세요!" 그러자 호랑이는 씩씩거리며 풀쩍! 구덩이 속으로 뛰어들었어요. "여기! 바로 여기 있었다고!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 겹침·가림 구도의 중형, 낮은 아이레벨 — 화면 앞쪽 아래를 구덩이 가장자리 흙더미와 마른 풀이 가로로 가리고, 그 너머 공중에서 구덩이 속으로 뛰어드는 호랑이가 화면 중앙에 걸린 순간. 몸의 절반이 이미 구덩이 테두리 아래로 잘려 들어감.<br/><b>장소·시간</b> 다시 돌아온 함정 구덩이 앞, 같은 날 늦은 오후. 성질이 뻗친 부산한 공기.<br/><b>인물</b> 화면 중앙 — TigerFree(구덩이에서 나온 호랑이)가 네 다리를 쫙 벌리고 공중에서 구덩이로 풀쩍 뛰어드는 자세, 배를 내민 통통한 몸이 대각선으로 기울고 꼬리는 위로 뻗침, 입은 답답해서 크게 벌린 O에 눈썹은 잔뜩 찌푸림(무섭지 않고 성마른 코믹). 화면 오른쪽 — RabbitJudge(토끼 재판관)가 <b>짚방석(jipbangseok)</b> 위에 그대로 앉은 채 앞발 하나만 살짝 들어 "저기요?" 하듯 가리키며 여전히 무표정, 한쪽 귀만 쫑긋. 화면 왼쪽 — Traveler(나그네)가 입을 작은 O로 벌린 채 눈이 동그래져 지켜봄, 허리의 붉은 띠(단 하나 빨강).<br/><b>배경·소품</b> 앞을 가린 흙더미와 걷힌 위장 나뭇가지 다발, 흙에 꽂힌 삽, 공중에 흩날리는 흙먼지 획과 만화적인 속도선 두어 줄, 뒤로 산비탈 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 늦은 오후의 낮고 따뜻한 빛, 아이가 소리 내어 웃을 만한 통쾌하고 명랑한 코믹 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(새끼줄은요?)</b> <span class="tag beat">④ 절정 · 펼침면 한 방</span> <span class="tag">후렴 ③</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"아하, 이제 조금 알겠어요. 그런데 새끼줄은 어디 있었지요? 잘 모르겠는데요, 처음처럼 다시 한 번!" 나그네가 얼른 새끼줄을 주르륵 걷어 올렸어요. 구덩이 속 호랑이는 그제야 눈이 휘둥그레졌지요. "어… 어라?"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글 수직 부감 대형 — 구덩이 바로 위에서 곧장 내려다보는 "펼침면 한 방". 둥근 구덩이 입구가 화면 한가운데 큰 원을 이루고 그 바닥에 호랑이가, 원 둘레 가장자리에 나그네와 토끼가 위에서 본 모습으로 배치된다(P2의 부감을 되풀이하되 인물 배치가 정반대로 뒤집힌 회수 컷).<br/><b>장소·시간</b> 함정 구덩이 위, 같은 날 늦은 오후. 모든 것이 제자리로 돌아온 통쾌한 순간.<br/><b>인물</b> 원 안 바닥 — TigerFree(구덩이에서 나온 호랑이)가 구덩이 바닥에서 고개를 위로 젖히고 두 앞발을 허둥지둥 들어 올림, 입은 커다란 O, 눈썹 획이 사방으로 튀고 귀가 쫑긋 솟은 코믹한 낭패. 원 둘레 위쪽 — Traveler(나그네)가 두 손으로 <b>새끼줄(saekkijul)</b>을 힘껏 걷어 올려 줄 끝이 구덩이 밖 공중으로 뱀처럼 휘어 올라옴, 얼굴은 위에서 본 각도로 입이 살짝 벌어진 반가운 놀람, 붉은 허리띠가 한 점(단 하나 빨강). 원 둘레 오른쪽 — RabbitJudge(토끼 재판관)가 <b>짚방석(jipbangseok)</b> 위에 앉은 채 앞발을 가지런히 모으고 여전히 시치미를 뚝 뗀 무표정, 한쪽 눈만 살짝 가늘어진 아주 작은 미소.<br/><b>배경·소품</b> 걷혀 올라오는 새끼줄이 그리는 큰 곡선, 구덩이 벽의 흙 결, 가장자리의 흙더미와 삽, 흩어진 마른 풀과 통발 묶음 — 배경은 열린 연필선 러프 스케치, 원 밖은 크림빛 종이 여백을 넓게.<br/><b>톤</b> 위에서 곧게 떨어지는 오후 빛이 구덩이 안까지 환하게 닿음, 상황이 딱 뒤집히는 시원하고 통쾌한 정서.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P12, P13 -->
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>결말(토끼의 판결)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">토끼는 짚방석 위에서 조용히 말했어요. "이제 다 알겠어요. 은혜를 잊은 호랑이님은, 처음 그 자리에서 곰곰 생각해 보세요." 호랑이는 고개를 푹 숙였어요. "미안해요… 제가 정말 잘못했어요. 살려 준 은혜를 까맣게 잊었네요."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글(앙각) 중형 — 다시 구덩이 바닥 시점. 화면 위 테두리가 동그란 하늘이 되고 그 원 안에 토끼와 나그네의 얼굴이 나란히 내려다보는 구성(P3의 앙각을 되풀이하되 이번엔 호랑이가 아래에 있는 대칭 회수 컷).<br/><b>장소·시간</b> 함정 구덩이 안, 같은 날 해질 무렵. 소란이 가라앉고 조용해진 공기.<br/><b>인물</b> 화면 아래 전경 — TigerFree(구덩이에서 나온 호랑이)가 구덩이 바닥에 주저앉아 고개를 푹 숙이고 두 앞발을 모아 무릎 위에 얹음, 귀는 뒤로 납작 접히고 꼬리는 힘없이 말림, 입은 미안해서 아래로 휜 짧은 선, 볼에 옅은 살구빛 부끄러움 획 두 개(빨강 아님). 화면 위 동그란 하늘 안 — RabbitJudge(토끼 재판관)가 <b>짚방석(jipbangseok)</b>을 옆구리에 낀 채 구덩이 가장자리에 앉아 조용히 내려다보며 짧은 일자 입, 접힌 귀 하나. 그 옆 Traveler(나그네)가 두 손을 모으고 함께 내려다봄, 화난 얼굴이 아니라 안쓰러움이 섞인 부드러운 눈썹, 허리의 붉은 띠가 원 안에서 유일한 빨강.<br/><b>배경·소품</b> 바닥에 떨어진 마른 잎 몇 장, 구덩이 벽의 흙 결, 원 테두리 너머 노을빛 하늘과 나뭇가지 실루엣 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 동그란 하늘로 내려오는 노을빛이 호랑이 등에 부드럽게 얹힘, 벌이 아니라 뉘우침의 시간인 잔잔하고 따뜻한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>결말(다시 내려 준 새끼줄)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">나그네는 잠깐 생각하다가, 새끼줄을 다시 스르르 내려 주었어요. "이번엔 꼭 약속을 지켜요!" 낑낑 기어 올라온 호랑이는 멀찍이서 꾸벅— 절을 하고 산속으로 사라졌답니다. 토끼는 짚방석을 툭툭 털어 옆구리에 끼고 깡충깡충 제 갈 길을 갔지요. 은혜는 잊지 않을 때 가장 빛난대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 + 극단 여백, 아이레벨보다 살짝 높은 눈높이 — 화면의 절반 이상이 노을 하늘과 빈 들길이고, 인물들은 아래쪽 띠에 작게 흩어져 각자의 방향으로 떠나는 마무리 컷.<br/><b>장소·시간</b> 함정 구덩이를 지나 마을로 이어지는 산길, 해질 무렵. 하루가 저무는 넉넉하고 고요한 공기.<br/><b>인물</b> 화면 오른쪽 뒤 멀리 — TigerFree(구덩이에서 나온 호랑이)가 산속 나무들 사이에서 몸을 반쯤 돌린 채 앞발을 모으고 허리를 굽혀 꾸벅 절함, 귀는 겸손하게 뒤로, 꼬리는 얌전히 내려감, 입은 부끄러운 작은 미소. 화면 중앙 — Traveler(나그네)가 걷어 올린 <b>새끼줄(saekkijul)</b>을 다시 어깨에 감고 <b>통발(tongbal)</b> 묶음을 지고 마을 쪽으로 걸음을 옮기며 뒤를 돌아 손을 흔듦, 허리의 붉은 띠가 노을 속 단 하나의 빨강. 화면 왼쪽 아래 — RabbitJudge(토끼 재판관)가 <b>짚방석(jipbangseok)</b>을 옆구리에 끼고 반대쪽 풀밭으로 깡충 뛰어가는 옆모습, 접힌 귀 하나와 끝까지 무표정한 짧은 일자 입.<br/><b>배경·소품</b> 뒤편에 그대로 남은 구덩이와 흙더미에 꽂힌 삽, 길가의 들꽃과 돌무더기, 층진 산등성이와 노을 구름, 하늘 높이 흩어진 새 몇 점 — 전부 열린 연필선 몇 획, 크림빛 여백이 화면 대부분.<br/><b>톤</b> 낮게 깔린 주황빛 노을이 세 갈래 길을 따뜻하게 물들임, 다툼이 풀리고 각자 제 길로 돌아가는 훈훈하고 여운 있는 마무리 정서.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 토끼의 재판 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING (finish hierarchy — the single most important rule): The bright warm cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. This picture is deliberately UNEVENLY finished, like one page from a master's sketchbook. Finish only what matters: the CHARACTERS = finished (clear line AND color, keep them at their current level); a prop a character is directly touching or holding (a loom, a bench, a gourd in their hands) = half-finished, a bit of line and a little color; everything else — the whole background: jars, walls, fences, roofs, trees, hills, anything far away — = a LOOSE UNFINISHED PENCIL SKETCH: just a few open contour lines and a few direction strokes, barely any color, lots of bare cream paper showing through, deliberately NOT filled in, like the rough underdrawing on a sketchbook page. A jar is two or three open outlines, a roof is a few slanted direction strokes, a distant thing is one or two lines and then paper. This is about how FINISHED each area is, NOT about opacity — the background is not faded, hazy, blurry or low-saturation, it is simply left as rough sketch lines and not drawn to completion. Spend all the density ONLY on the characters. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces; NOT a fully rendered background, NOT every jar / roof-tile / leaf drawn to completion, NOT a uniform finish across the whole picture, and NOT a hazy / blurry / faded background either (that is just blur, not a sketch) — keep the background as loose OPEN PENCIL SKETCH lines and every stroke loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'Traveler',     name: '나그네',                desc: '마음씨 착한 나그네 — 앞으로 기운 걸음 자세, 등에 통발 묶음, 붉은 허리띠(화면의 단 하나 빨강)', aliases: ['Traveler'] },
+    { token: 'TigerTrapped', name: '구덩이에 빠진 호랑이',   desc: '불쌍한 척하는 호랑이 — 접힌 귀·말린 꼬리·앞발 모아 빌기, 눈물 획 둘(발톱·송곳니 없음)',      aliases: ['TigerTrapped'] },
+    { token: 'TigerFree',    name: '구덩이에서 나온 호랑이', desc: '뻔뻔해진 호랑이 — 같은 얼굴, 배 내밀고 능글맞은 미소·혓바닥 끝, 꼬리 위로(무섭지 않게)',    aliases: ['TigerFree'] },
+    { token: 'PineTree',     name: '소나무 어르신',          desc: '말하는 늙은 소나무 — 옹이의 점눈·솔잎 수염, 가지가 팔, 부러진 그루터기 자국',                aliases: ['PineTree'] },
+    { token: 'OxElder',      name: '늙은 소',               desc: '밭 갈던 늙은 소 — 낮게 늘어뜨린 머리, 등뼈 능선·처진 뱃가죽, 시큰둥한 일자 입',              aliases: ['OxElder'] },
+    { token: 'RabbitJudge',  name: '토끼 재판관',            desc: '침착하고 능청스러운 재판관 — 한쪽 귀만 접힘, 늘 짚방석을 끼고 다니며 앉아서 말함(시즌1 꾀돌이 토끼와 다른 인물)', aliases: ['RabbitJudge'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

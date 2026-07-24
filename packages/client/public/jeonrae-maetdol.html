@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 요술 맷돌</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · 시즌2 #29</div>
+  <h1>🧂 요술 맷돌</h1>
+  <div class="sub">무엇이든 나오는 요술 맷돌 — 바닷물이 짜게 된 까닭 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 과욕 경계 + 유래담("바다가 짠 이유") &nbsp;·&nbsp;
+  <b>분량</b> 13 스프레드 &nbsp;·&nbsp; <b>후렴</b> 맷돌 주문 &nbsp;·&nbsp;
+  <b>핵심단어</b> 됫박 · 시루 · 궤 · 노 · 소금가마니 &nbsp;·&nbsp;
+  <b>순화</b> 🔴 도둑이 <b>물에 빠져 죽지 않는다</b> — 배가 소금에 파묻혀 기울면 도둑은 허우적허우적 헤엄쳐 나와 널빤지를 붙잡고, 지나던 고깃배에 <b>번쩍 건져 올려져</b> 혼쭐나고 뉘우친다. 가라앉는 사람·무서운 파도 묘사 금지 / 도둑은 무섭지 않고 <b>어리숙하고 우스꽝스러운</b> 욕심쟁이 / 맷돌은 바닷속에서 지금도 소금을 갈고 있다는 <b>유래 한 줄</b>로 닫는다
+</div>
+<div class="refrain">🧂 반복 후렴 — "나와라 뚝딱, 나와라 뚝딱! 그만 뚝딱, 그만 뚝딱!" <span style="font-weight:600;font-size:13px">(P3 쌀 → P4 이불 → P5 콩·팥 → P8 소금 → P10 "그만"을 모른다 = 절정)</span></div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-maetdol</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.<br>🔴 <b>화면당 빨강 악센트 1점 = 맷돌 손잡이에 매인 붉은 실 매듭</b>(할아버지가 매어 준 것 — 맷돌이 화면에 있는 모든 컷의 유일한 빨강). 맷돌이 화면에 없는 컷에서만 그 컷이 지정한 다른 빨강 하나를 쓴다(P1 처마의 고추 두름 · P2 눈 위 산열매 · P7 뱃머리 작은 깃발 · P12 어부의 붉은 수건 매듭). <b>캐릭터 시트에는 빨강을 넣지 않는다</b> — 옷·소품에 빨강을 발명하면 화면에 빨강이 둘이 된다.<br>🔴 도둑은 <b>무섭게 그리지 않는다</b> — 복면·칼·험한 인상 금지, 통통하고 어리숙한 코믹 욕심쟁이.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="착한 총각 덕이" data-key="char-kind-young-man">
+  <div class="head"><span class="face">🧑‍🌾</span><b>착한 총각 덕이</b> <span class="rom">KindYoungMan · 나눌 줄 아는 총각</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: KindYoungMan — a poor but warm-hearted young village man of about twenty who loves giving things away. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile, no nose (or one tiny dot), hair as one solid dark mass gathered into a simple topknot (sangtu) with a plain cloth headband drawn as one stroke. Young and clean-jawed — NO stubble dots, so he reads as younger than the older men in the cast.
+SILHOUETTE (his signature): tall, lean and light-footed, always leaning slightly FORWARD as if about to hand something over — both hands tend to be open and offering rather than holding. Willing, quick, generous body language.
+CLOTHES: a plain everyday work hanbok suggested in soft blue-grey pencil strokes — a short jacket with the sleeves pushed up, baggy trousers tied at the ankles, mostly open cream paper with loose hatching and one or two small scribbled patches, straw sandals in a few pale straw-yellow strokes. Humble and tidy — poor is told by the patches and the sparseness of the strokes, never by dirt or gloom.
+🔴 NO RED anywhere on him — the picture's single red belongs to the millstone's cord.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (both hands open and offering, gentle one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) gentle one-line smile, (2) delighted surprise with a small O mouth and lifted brow strokes, (3) a wide open laughing mouth with crinkled brow strokes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="산속 할아버지" data-key="char-old-mountain-man">
+  <div class="head"><span class="face">🧓</span><b>산속 할아버지</b> <span class="rom">OldMountainMan · 맷돌을 준 노인</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: OldMountainMan — a mysterious kindly old man met on a snowy mountain path, who turns out to be no ordinary traveller. Warm and twinkly, never solemn or spooky. Dot-eye design language: a flat cream face with zero shading, two dot eyes set in a permanently amused crinkle (two tiny stroke-creases at the outer corners), a knowing one-line smile, no nose (or one tiny dot).
+🔴 HIS SIGNATURE: a long flowing WHITE beard drawn as three or four sweeping strokes reaching to his chest, and white eyebrows as two short strokes — the only white-haired head in the cast, readable from far away. Hair in a loose white topknot.
+SILHOUETTE: small, round-shouldered and comfortably stooped, one hand resting on a slim walking stick drawn as one long confident stroke; he takes up little room but feels settled and unhurried.
+CLOTHES: a wide-sleeved plain robe suggested in soft blue-grey and pale straw pencil strokes, mostly open cream paper with one long open drape line, a simple sash, straw sandals in a few strokes. A faint pale shimmer of a few tiny strokes around him hints that he is not quite ordinary — no glow, no magic effects.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (one hand on the stick, the other tucked in his sleeve, knowing smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) knowing crinkled smile, (2) shivering with a small wobbly mouth and hunched shoulders, (3) hearty open-mouthed laugh. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="욕심쟁이 도둑" data-key="char-greedy-thief">
+  <div class="head"><span class="face">🥸</span><b>욕심쟁이 도둑</b> <span class="rom">GreedyThief · 어리숙한 욕심쟁이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: GreedyThief — the story's greedy thief, COMIC and clumsy, never frightening. Dot-eye design language: a flat cream face with zero shading, two dot eyes that are usually squinted into two short curved slits (greedy scheming), a wide crooked line grin, no nose (or one tiny dot), and his signature — a scruffy little chin beard drawn as three or four quick scribbled strokes.
+SILHOUETTE (his signature): short, round and pear-shaped with a heavy bottom and stubby legs, always tiptoeing in an exaggerated sneaky crouch with the shoulders hunched up around the ears and both hands hovering in front of him. The most comically off-balance body in the cast.
+🔴 NEVER SCARY: no mask over the face, no weapon, no menacing shadow. His disguise is only a dark cloth tied over his HEAD like a kerchief with the whole face left visible — the audience must read "silly sneak", not "danger".
+CLOTHES: shabby dark blue-grey trousers rolled to the shin and a short jacket, hatched a little more heavily than the other villagers so he reads as the odd one out, a wide sash stuffed with odds and ends, bare feet drawn in a few strokes.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (exaggerated tiptoe sneak, hands hovering, crooked grin) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) greedy squinting grin, (2) gleeful open-mouthed cackle with the chin up, (3) comic panic — a huge O mouth, flyaway brow strokes and both hands flat on the cheeks. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="마을 이웃들" data-key="char-villager">
+  <div class="head"><span class="face">👨‍👩‍👧</span><b>마을 이웃들</b> <span class="rom">Villager · 함께 나눠 먹는 이웃</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER SET: Villager — the neighbours of the seaside village, drawn as a small family of three types on ONE sheet so any crowd can be built from them. All share the dot-eye language: flat cream faces with zero shading, two dot eyes, simple line mouths, no noses (or one tiny dot), hair as solid dark masses.
+(a) VILLAGE WOMAN — a round, warm, motherly build, hair in a low bun, a skirt-and-jacket hanbok in soft blue-grey with a plain work apron in a few strokes, often carrying a wooden bowl on one hip.
+(b) VILLAGE OLD MAN — thin and slightly stooped, a short grey topknot and two or three stubble dots, a plain hanbok in pale straw tones, hands clasped behind his back. (He must NOT have a long white beard — that belongs to OldMountainMan alone.)
+(c) VILLAGE CHILD — a small round child with a tuft of hair tied in one short braid, a simple hanbok in open cream paper, always mid-run with both arms out.
+SILHOUETTE NOTE: all three are drawn LOOSER and lighter than the main cast — a few strokes less finish — so the leads stay the densest thing on any page.
+🔴 NO RED on any of them.
+REFERENCE SHEET: one sheet on plain bright cream paper — the three figures side by side, each in a full-body front idle plus a small 3/4 turn, and one face close-up each: the woman with a warm one-line smile, the old man with a pleased closed smile, the child with a big open laughing mouth. No text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="고깃배 어부" data-key="char-boatman">
+  <div class="head"><span class="face">🎣</span><b>고깃배 어부</b> <span class="rom">Boatman · 도둑을 건져 준 어부</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Boatman — a passing fisherman who hauls the thief out of the water; big, hearty and completely unbothered, the calm grown-up in a silly emergency. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a broad easy one-line smile, no nose (or one tiny dot), a short dark beard drawn as a few scribbled strokes along the jaw.
+SILHOUETTE (his signature): the broadest, most planted body on the page — wide square shoulders, short legs set far apart, thick forearms; when he pulls, his whole body leans back into it. Solid as a rock next to the flailing round thief.
+CLOTHES & PROP: work clothes — trousers rolled above the knee, a sleeveless jacket in soft blue-grey pencil strokes, a twisted straw rope belt, bare feet, and a cloth towel knotted around his head. Often has a fishing net looped over one shoulder, drawn as a loose criss-cross of open strokes.
+NOTE: when he appears, the picture's single red accent is the small RED knot of the towel at his head.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (feet planted, one hand on hip, net over shoulder) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) easy broad smile, (2) heaving effort — a gritted line mouth, lowered brow strokes and a backward lean, (3) an amused snort with one raised brow stroke. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.) 다섯 사물 모두 본문에 실제로 등장한다 — 됫박 P5·P13, 시루 P5, 궤 P6·P7, 노 P7·P11, 소금가마니 P7·P9.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="됫박" data-key="word-doetbak">
+  <div class="head"><span class="face">📦</span><b>됫박</b> <span class="rom">doetbak — a wooden grain measure</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "doetbak — a traditional Korean wooden grain measure box (됫박, 되)". A small square open-topped box of honey-brown pine with clear wood grain (#B07A3C), thick planked walls joined at the corners, a worn smooth rim from years of scooping, and a flat wooden levelling stick (평미레) lying beside it. Show TWO STATES side by side so the word reads clearly: (1) the empty box tilted at a 3/4 angle showing the inside, and (2) the box heaped with white rice (#F7F3E7) with a few grains spilling over the rim. Handcrafted, warm, proud. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="시루" data-key="word-siru">
+  <div class="head"><span class="face">🫖</span><b>시루</b> <span class="rom">siru — an earthenware steamer</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "siru — a traditional Korean earthenware steamer for rice cakes (시루)". A wide bowl-shaped vessel of dark glazed earthenware (#7B4B2A) with a warm glossy sheen, two small side handles, a flared rim, and a thick cloth band tied around its base. Show TWO VIEWS so the word reads clearly: (1) a 3/4 view sitting in steam with a fresh white rice cake inside and soft curls of steam rising, and (2) the vessel tipped up to reveal the row of round STEAM HOLES in its flat bottom — the feature that makes it a siru. Vivid, appetizing, proud. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="궤" data-key="word-gwe">
+  <div class="head"><span class="face">🧰</span><b>궤</b> <span class="rom">gwe — a wooden storage chest</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "gwe — a traditional Korean wooden storage chest (궤, 궤짝)". A sturdy low rectangular chest of honey-brown pine with strong visible grain (#B07A3C), reinforced at every corner and edge with blackened-iron strap fittings, a round iron ring pull on the front, a butterfly-shaped iron lock plate, and two thick carrying cords of twisted straw rope looped through side rings. Show TWO STATES side by side: (1) the lid shut and locked, and (2) the lid propped open showing the empty plank interior. Handcrafted and solid. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="노" data-key="word-no">
+  <div class="head"><span class="face">🛶</span><b>노</b> <span class="rom">no — a Korean sculling oar</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "no — a traditional Korean sculling oar (노) used to push a small wooden boat". One long shaft of pale weathered pine with visible grain (#C9A46B), slightly curved, widening into a broad flat blade at one end (the blade darker and water-stained), a smooth worn grip at the other, a small socket hole near the middle where it pivots on the boat's peg, and a short twisted straw rope loop hanging from the grip. Show TWO ANGLES so the shape reads clearly: (1) the whole oar laid at a diagonal, and (2) a close view of the blade end. Handcrafted, sea-worn, proud. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="소금가마니" data-key="word-sogeum-gamani">
+  <div class="head"><span class="face">🧂</span><b>소금가마니</b> <span class="rom">sogeum-gamani — a straw salt sack</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "sogeum-gamani — a traditional Korean straw sack for carrying salt (소금가마니)". A big sack woven from golden rice straw (#D8B45A) showing the coarse plaited weave, its mouth gathered and bound with twisted straw cord, bulging heavy at the bottom. Show TWO STATES side by side: (1) the sack standing upright, plump and neatly tied, and (2) the same sack burst open at the seam with sparkling white salt crystals (#FAFAF5) pouring out into a small glittering heap. Coarse straw texture against bright clean salt — a vivid material contrast. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 13 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 파도 소리가 늘 들리는 바닷가 마을에 마음씨 착한 총각 덕이가 살았어요. 덕이는 가진 것이 하나도 없어 배가 꼬르륵거리는 날이 많았지요. 그래도 나무 한 짐을 팔면 반은 이웃집 담 너머로 슬쩍 놓고 왔답니다. "나눠 먹으면 더 맛있잖아요!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 높은 하이앵글 부감 — 바닷가 마을 전체를 비스듬히 내려다보는 도입 컷. 골목길이 화면을 사선으로 가로지르고, 그 위를 걷는 덕이는 작게.<br/><b>장소·시간</b> 바다를 낀 옛 한국 시골 마을, 초겨울 맑은 아침. 짭조름한 바닷바람이 도는 트인 공기.<br/><b>인물</b> KindYoungMan(착한 총각 덕이)이 화면 가운데 골목길을 걸으며, 등에 진 나뭇짐에서 장작 몇 개비를 빼 이웃집 낮은 담 너머로 살짝 내려놓는 중 — 몸을 앞으로 기울이고 한 팔을 담 너머로 쭉 뻗은 자세, 얼굴은 위에서 본 각도로 온화한 한 줄 미소. 골목 저편에 Villager(마을 이웃들) 아주머니와 아이가 각각 물동이를 이고 뛰어가는 러프한 실루엣으로 작게.<br/><b>배경·소품</b> 초가지붕들이 어깨를 맞댄 마을, 낮은 흙담과 좁은 골목, 마을 아래로 이어진 모래톱과 매어 둔 작은 배 두 척, 수평선까지 펼쳐진 바다는 열린 연필선 물결 곡선 몇 겹과 크림빛 여백으로만. 처마 밑에 걸린 붉은 고추 두름 한 줄이 화면의 단 하나 빨강 — 나머지 배경(담·지붕·배·나무)은 전부 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 맑고 서늘한 아침 햇빛이 골목에 길게 떨어짐, 가난하지만 정겹고 씩씩한 정서, 옛이야기를 여는 넉넉한 여백.</pre></details>
+</div>
+
+<!-- ② 발단 : P2, P3 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(눈길의 할아버지)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느 추운 겨울날, 덕이가 산에 나무를 하러 갔어요. 그런데 눈길 바위 옆에 흰 수염 할아버지가 오들오들 떨고 앉아 있지 뭐예요. 덕이는 품에 품고 있던 주먹밥 한 덩이를 통째로 내밀었어요. "할아버지, 이거 드세요. 저는 이따 먹으면 돼요."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 어깨너머 중형 컷 — 화면 앞쪽 오른편에 웅크린 OldMountainMan의 어깨와 흰 수염 끝자락이 크게 걸치고, 그 너머로 주먹밥을 내미는 덕이가 화면 중앙에 놓임.<br/><b>장소·시간</b> 눈 덮인 산길 바위 옆, 겨울 한낮. 숨이 하얗게 보이는 시리고 고요한 공기.<br/><b>인물</b> 전경 오른쪽 — OldMountainMan(산속 할아버지)이 바위에 웅크려 앉아 두 손을 소맷자락에 넣고 어깨를 잔뜩 움츠린 뒷모습 반측면, 흰 수염 몇 획과 지팡이가 무릎 옆에. 화면 중앙 — KindYoungMan(착한 총각 덕이)이 한쪽 무릎을 눈 위에 꿇고 두 손으로 주먹밥 한 덩이를 공손히 내밀며 고개를 살짝 숙임, 입은 다정한 한 줄 미소이고 눈썹은 걱정스레 살짝 기울어짐. 등에 진 나뭇짐이 한쪽으로 기울어 있음.<br/><b>배경·소품</b> 하얀 주먹밥 한 덩이(화면에서 가장 또렷하게 완성된 작은 소품), 눈 쌓인 바위와 소나무 가지, 눈 위에 찍힌 덕이의 발자국 줄, 눈 옆 마른 덤불에 달린 붉은 산열매 몇 알이 화면의 단 하나 빨강 — 배경 나무·바위·산등성이는 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 눈에 반사된 파리하고 밝은 겨울빛, 시리지만 마음은 따뜻해지는 조용한 정서, 회청빛과 크림빛.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(맷돌과 주문)</b> <span class="tag beat">② 발단</span> <span class="tag">후렴 ①</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지는 빙그레 웃으며 작고 동그란 맷돌 하나를 꺼냈어요. "갖고 싶은 것을 부르며 돌려 보렴." 드르륵— "쌀 나와라, 뚝딱! 쌀 나와라, 뚝딱!" 정말로 하얀 쌀이 솨아 쏟아졌어요! "멈출 때는 그만 뚝딱, 그만 뚝딱! 이 말을 꼭 기억하렴."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업 + 로우앵글 — 눈밭에 놓인 맷돌 높이에서 아주 낮게 올려다보는 컷. 화면 아래 절반을 돌아가는 맷돌과 쏟아지는 쌀이 크게 채우고, 그 위로 두 사람의 얼굴이 마주 기울어 들어옴.<br/><b>장소·시간</b> 같은 눈 덮인 산길 바위 옆, 겨울 한낮. 방금 무슨 일이 벌어진 듯 숨을 멈춘 공기.<br/><b>인물</b> 화면 오른쪽 위 — OldMountainMan(산속 할아버지)이 한 손으로 맷돌 손잡이를 잡고 천천히 돌리며 다른 손 검지를 들어 "기억하렴" 하듯 세움, 흰 수염이 아래로 흘러 화면을 가로지르고 눈가 주름 획과 아는 듯한 한 줄 미소. 화면 왼쪽 위 — KindYoungMan(착한 총각 덕이)이 두 손을 무릎에 짚고 몸을 바짝 숙여 맷돌을 들여다봄, 입을 동그랗게 벌리고 눈썹이 번쩍 올라간 놀라움.<br/><b>배경·소품</b> 작고 동그란 두 짝 돌 맷돌(위짝의 나무 손잡이와 아가리 구멍이 또렷하게 완성), 손잡이에 매인 붉은 실 매듭이 돌아가며 흔들림 = 화면의 단 하나 빨강. 맷돌 주둥이에서 하얀 쌀이 솨아 쏟아져 눈 위에 소복한 무더기를 이룸(쌀알 몇 톨은 공중에 튐). 뒤로 눈밭·바위·소나무는 열린 연필선 몇 획.<br/><b>톤</b> 아래에서 위로 밝게 반사되는 설광, 신비롭지만 무섭지 않고 두근거리는 발견의 정서, 맷돌 둘레에만 옅은 반짝임 몇 점.</pre></details>
+</div>
+
+<!-- ③ 사건 : P4, P5, P6, P7 -->
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(집에서 돌려 보다)</b> <span class="tag beat">③ 사건</span> <span class="tag">후렴 ②</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집에 돌아온 덕이는 맷돌을 방바닥에 놓고 조심조심 돌렸어요. "쌀 나와라, 뚝딱!" 솨아— 쌀이 소복소복! "이불 나와라, 뚝딱!" 폭신한 이불이 톡! 덕이는 얼른 "그만 뚝딱, 그만 뚝딱!" 하고 멈추었어요. 꼭 쓸 만큼만 말이에요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 평면 부감 — 방바닥을 바로 위에서 수직으로 내려다보는 중형 컷. 화면 한가운데 맷돌, 그 둘레로 쌀 무더기와 개켜진 이불이 동그랗게 퍼진 구성, 덕이는 화면 위쪽 가장자리에서 몸을 숙여 아래로 걸침.<br/><b>장소·시간</b> 덕이네 초가집 작은 방 안, 그날 저녁. 조용하고 아늑한 공기.<br/><b>인물</b> KindYoungMan(착한 총각 덕이)이 화면 위쪽에서 무릎을 꿇고 앉아 두 손으로 맷돌 손잡이를 잡고 돌리는 중 — 위에서 내려다본 각도라 상투와 어깨, 팔의 곡선이 크게 보이고, 얼굴은 옆으로 살짝 돌려 입을 크게 벌린 감탄. 어깨가 신이 나서 들썩임.<br/><b>배경·소품</b> 방바닥 중앙의 맷돌과 손잡이의 붉은 실 매듭(화면의 단 하나 빨강), 맷돌 주둥이에서 부채꼴로 퍼진 하얀 쌀 무더기, 그 옆에 방금 톡 떨어진 폭신한 이불 한 채가 반쯤 접힌 채, 구석에 빈 그릇 하나와 등잔불 웅덩이. 흙바닥·문살·벽은 열린 연필선 러프 스케치.<br/><b>톤</b> 등잔의 따뜻한 주황빛이 방 한가운데만 동그랗게 밝힘, 벅차지만 소란스럽지 않은 조용한 기쁨의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(이웃과 나누는 잔치)</b> <span class="tag beat">③ 사건</span> <span class="tag">후렴 ③</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이튿날 덕이는 마당으로 이웃들을 다 불렀어요. "콩 나와라, 뚝딱! 팥 나와라, 뚝딱!" 덕이는 됫박으로 곡식을 되어 집집마다 나누어 주고, 시루에 김이 모락모락 나는 떡을 쪄서 함께 먹었지요. "그만 뚝딱, 그만 뚝딱!" 맷돌은 언제나 알맞은 데서 멈췄답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 겹침·가림 구도의 중형 컷, 살짝 로우앵글 — 화면 앞쪽을 김이 오르는 커다란 시루가 크게 가리고, 그 김과 시루 어깨 너머 틈으로 마당의 나눔 잔치가 보이는 구성.<br/><b>장소·시간</b> 덕이네 초가집 앞마당, 맑은 겨울 낮. 웃음소리와 떡 김이 뒤섞인 들썩하고 훈훈한 공기.<br/><b>인물</b> 화면 중앙 안쪽 — KindYoungMan(착한 총각 덕이)이 맷돌 옆에 앉아 한 손으로 <b>됫박(doetbak)</b>을 곡식 무더기에 푹 담갔다 들어 올리며 이웃에게 건네는 자세, 활짝 웃는 큰 입. Villager(마을 이웃들) — 아주머니가 앞치마 자락을 벌려 콩을 받으며 눈웃음, 등 굽은 할아버지가 뒷짐을 지고 흐뭇한 다문 미소로 지켜봄, 아이는 두 팔을 벌리고 떡 쪽으로 달려드는 중.<br/><b>배경·소품</b> 전경의 <b>시루(siru)</b> — 짙은 옹기 시루에서 하얀 김이 뭉게뭉게 피어올라 화면 왼쪽을 부드럽게 가림, 안에 흰 떡. 마당 가운데 맷돌과 붉은 실 매듭(화면의 단 하나 빨강), 콩과 팥이 각각 소복한 무더기, 이웃들이 들고 온 빈 그릇들. 초가지붕·담·나무는 열린 연필선 러프 스케치.<br/><b>톤</b> 맑은 겨울 햇빛 속 하얀 김이 부드럽게 흩어짐, 배부르고 훈훈한 잔치의 정서, 크림빛과 연둣빛.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(밤손님)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그 소문을 담 너머로 엿들은 욕심쟁이 도둑이 눈을 반짝였어요. '저 맷돌만 있으면 나는 세상에서 제일가는 부자다!' 깜깜한 밤, 도둑은 살금살금 방으로 들어와 맷돌을 궤에 쏙 넣고 등에 짊어졌어요. 그러고는 바닷가 쪽으로 뚜벅뚜벅 달아났지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 극단 여백 대형 컷 — 화면의 약 70%가 텅 빈 밤하늘과 하얀 마당 여백이고, 사건은 화면 오른쪽 아래 구석의 낮은 담 모퉁이에만 작게 놓임.<br/><b>장소·시간</b> 덕이네 초가집 담 모퉁이와 그 밖으로 이어진 밤길, 달 밝은 깊은 밤. 숨소리도 크게 들릴 만큼 고요한 공기.<br/><b>인물</b> 화면 오른쪽 아래 구석 — GreedyThief(욕심쟁이 도둑)이 담 모퉁이를 막 돌아 나오는 중, 어깨를 귀까지 잔뜩 올리고 발끝으로 성큼 내딛는 과장된 살금살금 자세, 등에는 묵직한 <b>궤(gwe)</b>를 짊어져 몸이 앞으로 기울고 무릎이 후들, 얼굴은 관객 쪽으로 살짝 돌려 실눈을 뜨고 히죽 웃는 삐뚠 입. 머리에 두건을 썼지만 얼굴은 다 보임(전혀 무섭지 않게).<br/><b>배경·소품</b> 등에 진 나무 궤의 무쇠 장석과 걸쇠, 궤 뚜껑 틈으로 삐져나온 붉은 실 매듭 한 자락이 흔들림 = 화면의 단 하나 빨강(맷돌이 저 안에 있다는 신호). 낮은 흙담과 사립문, 마당 저편의 잠든 초가집 실루엣, 위쪽 넓은 여백에 동그란 달과 별 몇 점 — 전부 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 푸르스름한 달빛과 넓은 크림빛 여백의 대비, 무섭기보다 우스꽝스럽고 조마조마한 코믹 서스펜스 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(먼바다로 달아나다)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">바닷가에 매어 둔 작은 배에 도둑은 빈 소금가마니를 잔뜩 실었어요. "소금은 값이 비싸지! 배가 넘치도록 갈아서 몽땅 팔아야지." 도둑은 노를 힘껏 저어 먼바다로 나아갔어요. 마을은 점점 작아져서 콩알만 해졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 + 스케일 대비, 높은 하이앵글 — 아주 넓은 새벽 바다를 위에서 비스듬히 내려다보고, 그 한가운데 배가 나뭇잎만 하게 놓인 컷. 화면 맨 위 구석에 마을이 콩알만 하게.<br/><b>장소·시간</b> 마을을 벗어난 먼바다, 해 뜰 무렵 이른 새벽. 바람이 밀려가는 시원하고 텅 빈 공기.<br/><b>인물</b> 배 위 아주 작게 — GreedyThief(욕심쟁이 도둑)이 고물에 서서 긴 <b>노(no)</b>를 두 손으로 잡고 온몸으로 밀며 저음, 몸이 잔뜩 앞으로 기울고 엉덩이가 뒤로 빠진 우스꽝스러운 자세, 작지만 벌어진 입이 보임(콧노래를 부르는 중).<br/><b>배경·소품</b> 널판을 짚 밧줄로 엮은 작은 나무 배, 갑판에 차곡차곡 쌓인 빈 <b>소금가마니(sogeum-gamani)</b> 여러 장(짚 결이 반쯤만 그려짐), 뱃전에 묶인 <b>궤(gwe)</b> 하나, 뱃머리의 작은 붉은 깃발 = 화면의 단 하나 빨강. 사방으로 펼쳐진 바다는 열린 연필선 물결 곡선 몇 겹과 넓은 크림빛 여백, 수평선 왼쪽 끝에 콩알만 한 마을과 갈매기 몇 획.<br/><b>톤</b> 수평선에서 번지는 옅은 새벽빛, 사람은 작고 바다는 큰 스케일의 트임, 욕심을 안고 떠나는 들뜬 정서.</pre></details>
+</div>
+
+<!-- ④ 절정 : P8, P9, P10, P11 -->
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>절정(소금 나와라!)</b> <span class="tag beat">④ 절정</span> <span class="tag">후렴 ④</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">바다 한가운데서 도둑은 맷돌을 무릎 앞에 놓고 드르륵 돌렸어요. "소금 나와라, 뚝딱! 소금 나와라, 뚝딱!" 하얀 소금이 솨아— 쏟아지기 시작했어요. "히히, 부자다 부자!" 도둑은 갑판 위에서 덩실덩실 춤을 추었지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 중형 — 갑판 바닥 높이에서 도둑을 아래에서 올려다보는 각도. 앞쪽에 돌아가는 맷돌이 크게, 그 뒤로 도둑의 몸이 하늘을 배경으로 우뚝 솟아 보임.<br/><b>장소·시간</b> 먼바다 한복판의 작은 배 갑판 위, 아침 햇살이 퍼진 맑은 낮. 신이 나서 들뜬 공기.<br/><b>인물</b> GreedyThief(욕심쟁이 도둑)이 화면 중앙에서 한 손으로 맷돌 손잡이를 붙잡아 돌리고 다른 팔은 번쩍 들어 흔들며 한쪽 발을 들고 덩실 춤추는 자세 — 실눈이 초승달처럼 휘고 입은 귀에 걸린 삐뚠 웃음, 배가 앞으로 튀어나온 채 몸이 뒤로 젖혀짐.<br/><b>배경·소품</b> 전경의 맷돌(위짝 손잡이와 아가리가 또렷이 완성)과 손잡이에 매인 붉은 실 매듭 = 화면의 단 하나 빨강. 맷돌 주둥이에서 흰 소금이 부채꼴로 솨아 흘러나와 갑판 위에 첫 무더기를 만들고 반짝이는 알갱이 몇 점이 공중에 튐. 뒤로 돛대와 널판 갑판, 옆에 쌓인 빈 소금가마니, 뱃전 너머 하늘과 구름 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 아래에서 위로 트인 밝은 아침 햇빛, 신나고 우스꽝스러운 들뜬 정서(아직 아무 걱정 없는 절정 직전).</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(소금 산이 된 배)</b> <span class="tag beat">④ 절정 · 🔴 펼침면 한 방</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 소금은 멈추지 않았어요. 솨아, 솨아, 솨아— 가마니가 툭툭 터지고, 갑판이 하얗게 덮이고, 소금은 자꾸자꾸 쌓여 커다란 산이 되었어요. 배가 기우뚱, 기우뚱!</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 + 극단적인 스케일 대비, 아주 높은 하이앵글 부감 — 하늘 높은 곳에서 배를 통째로 내려다보는 그림책 "펼침면 한 방". 화면 대부분을 눈부시게 하얀 소금 산이 차지하고, 그 아래 눌린 배와 손톱만 한 도둑이 대비됨.<br/><b>장소·시간</b> 먼바다 한복판, 맑은 한낮. 어마어마한 일이 벌어지는 벅차고 어이없는 공기.<br/><b>인물</b> 화면 오른쪽 아래 뱃전 끄트머리 — GreedyThief(욕심쟁이 도둑)이 소금 산에 허리까지 파묻힌 채 두 팔만 허우적허우적 위로 내밀고 있음, 얼굴은 위를 향해 커다란 O자 입, 눈썹 획이 사방으로 튐. 소금 산의 크기에 비해 아주 작게(스케일 대비의 핵심).<br/><b>배경·소품</b> 화면 중앙을 가득 채운 하얀 소금 산 — 정상에서부터 여러 갈래로 흘러내리는 소금 사태, 그 꼭대기 근처 파묻힌 맷돌이 여전히 돌아가며 소금을 뿜고 손잡이의 붉은 실 매듭 한 점만 소금 위로 삐져나옴 = 화면의 단 하나 빨강. 터져서 짚 결이 벌어진 <b>소금가마니(sogeum-gamani)</b> 여러 장이 소금 더미 사이에 파묻힘, 오른쪽으로 크게 기운 배와 물에 잠긴 뱃전, 배 둘레로 퍼지는 흰 소금 구름과 물결 곡선 — 바다와 하늘은 열린 연필선과 넓은 크림빛 여백.<br/><b>톤</b> 한낮 햇빛에 소금 산이 눈부시게 하얗게 빛남, 무섭지 않고 어처구니없이 커다란 소동의 정서, 흰빛과 크림빛 위주.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(그만이 뭐였더라!)</b> <span class="tag beat">④ 절정 · 🔴 후렴 결핍</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"그, 그만! 멈춰! 서라! 섰거라!" 도둑은 목이 터져라 소리쳤지만 맷돌은 들은 척도 하지 않았어요. 멈추는 말을 배우지도 않고 훔쳐 왔으니까요. "그만… 그만 뭐였더라!" 도둑의 얼굴이 소금보다 더 하얘졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업 + 살짝 기울어진 대각선(더치) 앵글 — 도둑의 얼굴과 두 손이 화면을 가득 채우고, 수평선이 비스듬히 기울어 배가 기울고 있음을 화면 자체로 말함.<br/><b>장소·시간</b> 기울어진 배 갑판 위, 같은 한낮. 다급하고 우스꽝스러운 공기.<br/><b>인물</b> GreedyThief(욕심쟁이 도둑)의 얼굴 클로즈업이 화면 중앙 — 실눈이 아니라 처음으로 두 눈이 동그란 점으로 커다랗게 떠지고, 입은 세로로 길쭉한 커다란 O자, 두 손바닥을 양 볼에 딱 붙인 코믹 패닉 자세. 이마와 볼에 땀 방울 획 두세 개, 머리 두건이 반쯤 흘러내려 눈썹에 걸림, 머리카락과 수염 획이 사방으로 튐.<br/><b>배경·소품</b> 도둑의 어깨 너머 아래쪽으로 여전히 돌아가는 맷돌 위짝과 붉은 실 매듭 = 화면의 단 하나 빨강, 그 주둥이에서 소금이 계속 솨아 흘러 화면 아래 가장자리를 하얗게 덮음. 비스듬히 기운 수평선과 돛대, 흩날리는 소금 알갱이 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 하얗게 반사되는 강한 한낮 빛, 무서움이 아니라 폭소를 부르는 코믹한 낭패의 정서, 화면 전체가 눈부신 흰빛으로 기울어짐.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(첨벙! 널빤지를 붙잡고)</b> <span class="tag beat">④ 절정 · 🔴 순화 핵심</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">쿠르릉— 배가 기우뚱 넘어가고, 맷돌은 소금과 함께 바닷속으로 쏘옥 내려갔어요. 도둑은 첨벙! 물에 빠졌다가 허우적허우적 헤엄쳐 나와, 둥둥 떠 있는 널빤지 하나를 두 팔로 꼭 끌어안았지요. "사, 살려 주세요! 짜다, 짜!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 수면 바로 위 아이레벨 — 물결 높이에서 옆으로 바라보는 각도. 화면 왼쪽에 기울어 가라앉는 배, 오른쪽에 널빤지를 붙잡은 도둑, 그 사이를 넓은 물결과 여백이 가름.<br/><b>장소·시간</b> 먼바다 수면 위, 한낮. 소동이 한바탕 지나간 뒤의 얼떨떨한 공기(무섭지 않게).<br/><b>인물</b> GreedyThief(욕심쟁이 도둑)이 화면 오른쪽에서 널빤지 한 장을 두 팔로 끌어안고 상체를 훌쩍 올린 채 물 위에 떠 있음 — 얼굴은 완전히 물 밖으로 나와 있고, 젖은 두건이 눈썹까지 흘러내렸으며, 입은 커다란 O자로 도움을 청하고 혀끝을 내밀어 짠맛에 인상을 찡그린 코믹한 표정, 볼에 물방울 획. (🔴 가라앉거나 물속으로 잠기는 묘사 절대 금지 — 상체가 확실히 물 위에 떠 있고 안전하게 보일 것.)<br/><b>배경·소품</b> 화면 왼쪽에 옆으로 기울어 소금을 쏟으며 천천히 잠기는 작은 배와 흘러내리는 흰 소금 자락, 물 위에 흩어진 빈 <b>소금가마니(sogeum-gamani)</b> 몇 장과 떠다니는 <b>노(no)</b> 한 자루. 물속 아래쪽으로 맷돌이 붉은 실 매듭 한 점을 남기고 작아지며 내려가는 실루엣 = 화면의 단 하나 빨강. 물결은 둥글게 말린 옛 그림풍 곡선 몇 겹(뾰족하거나 사납지 않게)과 넓은 크림빛 여백.<br/><b>톤</b> 밝고 환한 한낮 빛, 위험이 아니라 물벼락 소동으로 읽히는 명랑한 정서, 흰빛과 옅은 바다청록.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P12, P13 -->
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>결말(건져 올려진 도둑)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마침 지나던 고깃배가 도둑을 번쩍 건져 올렸어요. 짠물을 잔뜩 마신 도둑은 콜록콜록, 소금에 절인 무처럼 축 늘어졌지요. "다시는… 다시는 남의 것을 탐내지 않을게요." 마을로 돌아온 도둑은 덕이에게 꾸벅 절을 하고, 그날부터 이웃 일을 도우며 살았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 뱃전 위에서 내려다보는 살짝 하이앵글 — 어부의 어깨와 팔이 화면 위쪽에서 아래로 뻗어 내려오고, 그 끝에 물에서 끌어올려지는 도둑이 화면 아래 중앙에 매달린 구도.<br/><b>장소·시간</b> 먼바다 위 고깃배 뱃전, 한낮. 힘차게 끌어올리는 왁자한 공기.<br/><b>인물</b> Boatman(고깃배 어부)이 화면 위쪽에서 두 발을 뱃전에 단단히 딛고 상체를 뒤로 젖히며 두 팔로 도둑의 팔을 붙잡아 끌어올림 — 이를 앙다문 한 줄 입과 내려간 눈썹 획, 굵은 팔뚝, 머리 수건의 붉은 매듭 = 화면의 단 하나 빨강. GreedyThief(욕심쟁이 도둑)은 화면 아래 중앙에서 물에서 반쯤 올라온 채 축 늘어져 대롱대롱, 온몸에서 물이 뚝뚝, 입을 반쯤 벌려 "콜록" 하며 눈은 뱅글뱅글 도는 획, 머리와 어깨에 하얀 소금 결정이 서리처럼 앉음(소금에 절여진 코믹 신호).<br/><b>배경·소품</b> 고깃배의 널판 뱃전과 어부의 그물이 걸린 말뚝, 갑판에 놓인 나무 함지와 물고기 몇 마리, 도둑이 놓지 못한 널빤지가 물 위에 남아 떠다님, 저 멀리 수평선과 갈매기 몇 획 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 환한 한낮 햇빛, 아찔했던 일이 웃음으로 끝나는 안도와 익살의 정서, 시원한 바다빛과 크림빛.</pre></details>
+</div>
+
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>결말(바다가 짠 까닭)</b> <span class="tag beat">⑤ 결말 · 🔴 유래담</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그럼 바닷속으로 내려간 맷돌은 어떻게 되었을까요? 아무도 "그만 뚝딱!" 하고 말해 주지 않아서, 맷돌은 지금도 드르륵드르륵 소금을 갈고 있대요. 그래서 바닷물이 이렇게 짜답니다. 덕이는 여전히 됫박으로 곡식을 되어 이웃과 나누며 살았지요. 알맞은 데서 멈출 줄 아는 마음, 그게 진짜 보물이래요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 + 극단 여백, 수중 부감 — 바닷속을 위쪽 비스듬한 자리에서 내려다보는 각도. 화면의 약 70%가 텅 빈 푸른 물빛과 크림빛 여백이고, 사건은 화면 아래 구석 모래바닥의 맷돌 한 점에만 놓임.<br/><b>장소·시간</b> 깊고 맑은 바닷속 모래바닥, 시간이 흐르지 않는 지금도 계속되는 어느 때. 고요하고 환한 물빛 공기.<br/><b>인물</b> 사람 없음. 화면 아래 오른쪽 구석 모래바닥에 앉은 맷돌이 이 컷의 주인공 — 위짝이 저 혼자 천천히 돌아가며 아가리에서 흰 소금이 끝없이 피어올라 물속으로 뭉게뭉게 번져 올라감. 손잡이에 매인 붉은 실 매듭이 물살에 살랑 흔들림 = 화면의 단 하나 빨강.<br/><b>배경·소품</b> 맷돌 둘레에 소복이 쌓인 흰 소금 언덕과 몇 알갱이의 반짝임, 옆에 반쯤 모래에 묻힌 <b>됫박(doetbak)</b> 하나(도둑의 배에서 함께 내려온 살림), 모래에 난 잔물결 무늬 몇 획, 하늘거리는 미역 이파리 두어 획, 지나가는 작은 물고기 몇 마리, 화면 위쪽 아득한 수면에서 비스듬히 내려오는 빛줄기 — 전부 열린 연필선과 넓은 크림빛 여백.<br/><b>톤</b> 위에서 내려오는 부드러운 빛이 소금 기둥만 환하게 밝힘, 쓸쓸하지 않고 신비롭고 다정한 마무리 정서, 옅은 바다청록과 크림빛.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 요술 맷돌 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING (finish hierarchy — the single most important rule): The bright warm cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. This picture is deliberately UNEVENLY finished, like one page from a master's sketchbook. Finish only what matters: the CHARACTERS = finished (clear line AND color, keep them at their current level); a prop a character is directly touching or holding (a loom, a bench, a gourd in their hands) = half-finished, a bit of line and a little color; everything else — the whole background: jars, walls, fences, roofs, trees, hills, anything far away — = a LOOSE UNFINISHED PENCIL SKETCH: just a few open contour lines and a few direction strokes, barely any color, lots of bare cream paper showing through, deliberately NOT filled in, like the rough underdrawing on a sketchbook page. A jar is two or three open outlines, a roof is a few slanted direction strokes, a distant thing is one or two lines and then paper. This is about how FINISHED each area is, NOT about opacity — the background is not faded, hazy, blurry or low-saturation, it is simply left as rough sketch lines and not drawn to completion. Spend all the density ONLY on the characters. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces; NOT a fully rendered background, NOT every jar / roof-tile / leaf drawn to completion, NOT a uniform finish across the whole picture, and NOT a hazy / blurry / faded background either (that is just blur, not a sketch) — keep the background as loose OPEN PENCIL SKETCH lines and every stroke loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'KindYoungMan',   name: '착한 총각 덕이', desc: '나눌 줄 아는 총각 — 기운 소박한 일옷, 수염 없는 젊은 얼굴, 늘 내미는 두 손',      aliases: ['KindYoungMan'] },
+    { token: 'OldMountainMan', name: '산속 할아버지',  desc: '맷돌을 준 노인 — 긴 흰 수염 몇 획, 지팡이, 아는 듯한 미소',                        aliases: ['OldMountainMan'] },
+    { token: 'GreedyThief',    name: '욕심쟁이 도둑',  desc: '어리숙한 욕심쟁이 — 둥근 배, 까치발 살금살금, 얼굴 다 보이는 머리 두건(무섭지 않게)', aliases: ['GreedyThief'] },
+    { token: 'Villager',       name: '마을 이웃들',    desc: '이웃 3인 세트 — 아주머니·등 굽은 할아버지·달리는 아이, 주역보다 획을 적게',        aliases: ['Villager'] },
+    { token: 'Boatman',        name: '고깃배 어부',    desc: '도둑을 건져 준 어부 — 떡 벌어진 어깨, 그물, 머리 수건(붉은 매듭=악센트)',          aliases: ['Boatman'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 삼년고개</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · 시즌2 #25</div>
+  <h1>⛰️ 삼년고개</h1>
+  <div class="sub">넘어지면 큰일 난다는 고개에서, 할아버지는 왜 데굴데굴 굴렀을까요?</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 발상의 전환 — 걱정을 뒤집으면 복이 된다 &nbsp;·&nbsp;
+  <b>분량</b> 11 스프레드 &nbsp;·&nbsp; <b>후렴</b> 구르기 세는 노래 &nbsp;·&nbsp;
+  <b>핵심단어</b> 서낭당 돌탑 · 약초바구니 · 엿 · 삿자리 · 다듬잇돌 &nbsp;·&nbsp;
+  <b>순화</b> 아주 순한 편. 🔴 <b>"삼 년밖에 못 산다"는 옛말은 딱 한 번, 가볍게만</b> — 죽음이라는 말은 쓰지 않는다. 할아버지가 앓아눕는 대목은 무겁지 않게 <b>코믹하고 애교 있게</b>(이불 뒤집어쓰고 "아이고 아이고", 죽은 다 먹음). 전체 무게중심은 <b>"구를수록 오래오래 산다"는 신나는 뒤집기</b>에 둔다.
+</div>
+<div class="refrain">🌀 반복 후렴 — "한 번 구르면 삼 년! 두 번 구르면 육 년! 데굴데굴 구를수록 오래오래 산다네!" <span style="font-weight:600;font-size:13px">(P8 꾀돌이의 셈 → P9 다 함께 세기 절정 → P11 마을의 노래)</span></div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-samnyeon</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.<br>🔴 <b>상태 변형 캐릭터 = 시트 분리</b> — 할아버지는 <b>OldManWell(성한 할아버지)</b> / <b>OldManSick(앓아누운 할아버지)</b> 두 개의 다른 @image다. 얼굴은 IDENTICAL FACE로 고정하고 <b>머리 수건·이불·눈매</b>만 바뀐다. 각 쪽 SCENE은 그 시점의 상태 토큰만 쓴다(P5·P6·P7·P8 = Sick, 그 외 = Well).<br>🔴 <b>화면당 빨강 악센트 1점 = 꾀돌이의 붉은 댕기</b>. 꾀돌이가 없는 컷에서는 <b>서낭당 나무에 묶인 붉은 헝겊 한 조각</b>(또는 할머니의 붉은 옷고름 매듭) 하나만 쓴다.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="성한 할아버지" data-key="char-old-man-well">
+  <div class="head"><span class="face">👴</span><b>성한 할아버지</b> <span class="rom">OldManWell · 약초 캐는 할아버지</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: OldManWell — a cheerful old village grandfather who digs medicinal herbs on the hill, up and about and healthy. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a soft one-line smile, no nose (or one tiny dot). Hair as one solid PALE GREY mass in a small topknot (sangtu), plus a short white beard drawn as three or four quick sweeping strokes under the chin and two little white brow strokes. IDENTICAL FACE to OldManSick.
+SILHOUETTE (his signature): small, round and springy — a short stout body with a gently curved back and quick little legs, the bounciest body in the cast. He is always leaning slightly forward as if about to trot off somewhere.
+CLOTHES & PROP: a plain undyed cotton hanbok in soft blue-grey pencil strokes, trouser cuffs bound at the calf with simple cloth wraps, straw sandals in a few pale straw-yellow strokes, and his signature — a woven willow HERB BASKET carried on his back with two straw shoulder cords, a few root and leaf shapes poking out of it.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (basket on his back, one hand on the strap, soft one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) cheerful one-line smile, (2) comic fright — a big round O mouth with both brow strokes flying up, (3) a wide open belly laugh with the head tipped back and two tiny joy strokes at the eyes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="앓아누운 할아버지" data-key="char-old-man-sick">
+  <div class="head"><span class="face">🤒</span><b>앓아누운 할아버지</b> <span class="rom">OldManSick · 걱정에 드러누운 할아버지</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: OldManSick — the SAME grandfather after he tumbled on the hill, lying down not because he is ill but because he is WORRIED. Comic and endearing, never grave, never frail-looking, never sad — he is sulking-worrying under a quilt.
+🔴 IDENTICAL FACE to OldManWell: the same flat cream face, same pale grey topknot, same three-stroke white beard. TWO changes only — (1) a plain cotton cloth band tied around his forehead, its two ends flopping over one ear, and (2) his eyes drawn as two small wobbly ∩ arcs (comically squeezed shut) with his mouth a droopy little downcurve, the classic "aigo aigo" face. Never blank, never hollow, never pale-sick.
+SILHOUETTE (this state): a small round lump under a thick quilt — only his head, one hand and sometimes two feet stick out. The quilt is a big soft rounded mass, drawn with a few open outlines and a little hatching.
+CLOTHES: a plain white cotton sleeping jacket, the same undyed hanbok tone as OldManWell, mostly open cream paper.
+REFERENCE SHEET: one sheet on plain bright cream paper — lying on his back under the quilt with the headband on + sitting up cross-legged with the quilt around his shoulders + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) comic squeezed-shut ∩ eyes with a droopy "aigo" mouth, (2) one eye popping open into a big round dot eye, brow strokes lifted — a dawning idea, (3) both eyes wide open dots with a huge delighted O mouth. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="할머니" data-key="char-grandma">
+  <div class="head"><span class="face">👵</span><b>할머니</b> <span class="rom">Grandma · 야무진 아내</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Grandma — the grandfather's brisk, sensible wife. Fond of him but not fooled by his fussing; warm and a little exasperated. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a small one-line mouth, no nose (or one tiny dot). Hair as one solid PALE GREY mass parted in the middle and gathered into a small LOW bun at the nape with one plain hairpin drawn as a single short stroke.
+SILHOUETTE (her signature): small, soft and pear-round, planted firmly on both feet with her hands usually busy — holding a bowl, a laundry bat, a corner of the quilt. Sturdier and more grounded than the bouncy grandfather.
+CLOTHES: a modest skirt-and-jacket hanbok suggested in soft blue-grey and pale straw pencil strokes, mostly open paper with loose hatching, a plain work apron in a few strokes, cloth shoes. One small RED knot on her jacket tie — used as the picture's single red accent only in frames where CleverBoy does not appear.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded over the apron, small one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) warm one-line smile, (2) worried downcurved mouth with tilted brow strokes and a hand at her cheek, (3) exasperated flat line mouth with one brow stroke raised and hands on hips. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="꾀돌이" data-key="char-clever-boy">
+  <div class="head"><span class="face">🧒</span><b>꾀돌이</b> <span class="rom">CleverBoy · 생각을 뒤집는 마을 아이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: CleverBoy — a bright, cheeky village boy of about seven who turns the whole story upside down with one idea. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a wide cheerful one-line grin, no nose (or one tiny dot). Hair as one solid dark mass in a single braid down his back (the unmarried-boy braid), with two little strands escaping at the temples.
+SIGNATURE RED: a small RED ribbon (daenggi) tied at the end of his braid — this is the picture's single red accent in every frame he appears in.
+SILHOUETTE (his signature): the smallest body in the cast — a big round head on a short skinny body, and his trademark pose is one arm shot straight UP with the index finger raised, the other hand on his hip. Springy and full of beans.
+CLOTHES: a simple everyday boy's hanbok in soft blue-grey and pale cream pencil strokes, sleeves a bit too long and rolled once, straw sandals in a few strokes.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (one finger raised high, wide grin) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) cheeky wide line grin, (2) a bright idea — small O mouth, both brow strokes up, finger raised, (3) counting on his fingers with his tongue-tip line poking out in concentration. Include one extra half-body sketch of him holding up three fingers on one hand and three on the other. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.) 다섯 사물 모두 본문에 실제로 등장한다 — 서낭당 돌탑 P2·P10·P11, 약초바구니 P2·P3, 엿 P6·P11, 삿자리 P5·P7, 다듬잇돌 P1·P11.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="서낭당 돌탑" data-key="word-seonangdang">
+  <div class="head"><span class="face">🪨</span><b>서낭당 돌탑</b> <span class="rom">seonangdang doltap — a village guardian stone cairn</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "seonangdang doltap — the guardian stone cairn at a Korean mountain pass (서낭당 돌탑)". A waist-to-shoulder-high cone-shaped pile of rounded river stones in cool grey and warm sand tones (#8C8A85 & #B9A98C), stacked loosely wide at the base and narrow at the top, each stone smooth and hand-sized. Beside it a gnarled old tree trunk with a few strips of cloth tied to a low branch — one bright RED strip (#C0392B), one white, one deep blue — fluttering. Show TWO forms on the card: (1) the whole cairn with the cloth-tied tree, and (2) one single smooth palm-sized wishing stone in close-up beside it. Folk-sacred and welcoming, never spooky. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="약초바구니" data-key="word-yakcho-baguni">
+  <div class="head"><span class="face">🧺</span><b>약초바구니</b> <span class="rom">yakcho baguni — a woven herb-gathering basket</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "yakcho baguni — a traditional Korean woven basket for gathering medicinal herbs (약초바구니)". A deep round basket plaited from split willow and bamboo strips in warm honey and straw tones (#C79A3E & #D8B45A), the over-under weave clearly visible, a rolled rim, and two twisted rice-straw shoulder cords for carrying it on the back. Show TWO STATES side by side: (1) the empty basket seen at a 3/4 angle so the weave and the straps read, and (2) the same basket heaped with fresh mountain herbs — pale forked roots, green leafy stalks and a few red berries (#C0392B). Handcrafted, sturdy, proud. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="엿" data-key="word-yeot">
+  <div class="head"><span class="face">🍬</span><b>엿</b> <span class="rom">yeot — Korean hard grain taffy</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "yeot — traditional Korean hard taffy made from boiled grain syrup (엿)". Pale golden-ivory sticks (#E8D6A8) with a glossy pulled sheen and tiny air bubbles running through the inside, dusted lightly with roasted soybean powder, some sticks long and straight, some snapped into chunks showing the honeycomb of bubbles at the break. Show TWO forms: (1) a neat bundle of long sticks tied with a straw band, and (2) a few broken chunks scattered beside it, one wrapped in a small square of hanji paper. Sweet, glossy, appetizing. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="삿자리" data-key="word-satjari">
+  <div class="head"><span class="face">🟨</span><b>삿자리</b> <span class="rom">satjari — a woven reed floor mat</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "satjari — a traditional Korean floor mat woven from reeds (삿자리)". Flat reed strips in warm golden straw tones (#D8B45A) woven in a crisp herringbone/checker pattern, the edges bound with a dark indigo cotton tape (#3B4A66), the surface showing a soft natural sheen from years of use. Show TWO forms: (1) the mat spread flat, seen at a slight 3/4 angle so the weave pattern reads clearly, and (2) the same mat half rolled up beside it, showing the rolled edge and the bound border. Warm, homey, handcrafted. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="다듬잇돌" data-key="word-dadeumitdol">
+  <div class="head"><span class="face">🪵</span><b>다듬잇돌</b> <span class="rom">dadeumitdol — a stone fulling block with wooden bats</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "dadeumitdol — a traditional Korean fulling block: a smooth stone slab beaten with wooden bats to press cloth (다듬잇돌)". A low rectangular block of polished dark grey granite (#6E6B66) with softly rounded corners and short stubby feet, its top surface glossy from long use. With it, its matching pair of DADEUMITBANGMANGI — two smooth cylindrical wooden bats of honey-brown hardwood (#B07A3C) with shaped grips, one lying on the stone and one standing upright beside it. A folded length of white cotton cloth (#F7F3E7) rests on the block. Show at a slight 3/4 angle so the block, both bats and the cloth all read. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 11 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 산 아래 조그만 마을이 있었어요. 마을 밖에는 나지막한 고개가 하나 있었지요. 사람들은 그 고개를 <b>삼년고개</b>라고 불렀어요. "저 고개에서 넘어지면 삼 년밖에 못 산대!" 하는 옛말이 전해 왔거든요. 그래서 다들 고개를 넘을 땐 발끝을 살피며 살금살금 걸었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글 부감 와이드 — 마을 뒷산 중턱에서 마을 전체를 비스듬히 내려다보는 대형 컷. 화면 아래 3분의 1에 할아버지네 앞마당이 크게 걸치고, 그 너머로 초가집들과 마을을 지나 화면 오른쪽 위로 구불구불 이어지는 고갯길이 한눈에 들어오는 구성.<br/><b>장소·시간</b> 산 아래 옛 한국 시골 마을과 마을 밖 나지막한 고갯길, 화창한 늦봄 아침. 트이고 정겨운 공기.<br/><b>인물</b> 화면 아래 전경 왼쪽 — OldManWell(성한 할아버지)이 앞마당 툇마루 끝에 걸터앉아 등에 질 약초바구니 끈을 손으로 매만지며 고개 쪽을 올려다봄, 소박한 한 줄 미소. 그 오른쪽 — Grandma(할머니)가 다듬잇돌 앞에 무릎을 모으고 앉아 방망이 두 개를 양손에 쥐고 흰 무명천을 두드리는 중, 손이 위아래로 엇갈린 동작. 화면 오른쪽 위 고갯길 위에는 마을 사람 둘이 발끝을 살피며 조심조심 걷는 아주 작은 실루엣 두엇(단역, 몇 획만).<br/><b>배경·소품</b> 전경에 <b>다듬잇돌(dadeumitdol)</b> — 반들반들한 짙은 회색 돌 받침과 꿀빛 나무 방망이 한 쌍, 그 위에 개어 놓은 흰 무명천. 마당가에 널어 말리는 약초 몇 다발. 그 뒤 초가지붕들·돌담·논밭과 고갯길·소나무·먼 산은 열린 연필선 몇 획의 러프 스케치로만.<br/><b>톤</b> 맑고 고른 아침 햇빛, 옛이야기를 여는 넉넉하고 포근한 정서. 화면의 단 하나 빨강은 할머니 저고리 고름의 붉은 매듭.</pre></details>
+</div>
+
+<!-- ② 발단 : P2 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(고개를 넘는 할아버지)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마을에는 약초를 캐는 할아버지가 살았어요. 그날도 할아버지는 약초바구니를 지고 삼년고개를 넘었지요. 고갯마루 서낭당 돌탑 앞에서 돌 하나를 조심조심 얹었어요. "오늘도 넘어지지 않게 해 주세요." 그리고 살금, 살금, 아주 살금살금 걸었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 — 돌탑 발치의 땅바닥 높이에서 위를 올려다보는 중형 컷. 화면 왼쪽에 <b>서낭당 돌탑(seonangdang doltap)</b>이 아래에서 위로 우뚝 솟아 화면 높이를 가득 채우고, 오른쪽에 할아버지가 그보다 작게, 하늘이 넓게 열린 구성.<br/><b>장소·시간</b> 삼년고개 고갯마루의 서낭당, 화창한 늦봄 낮. 바람이 살랑 부는 트인 공기.<br/><b>인물</b> OldManWell(성한 할아버지)이 화면 오른쪽에서 두 발을 가지런히 모으고 서서, 등에는 나물과 뿌리가 삐죽 나온 <b>약초바구니(yakcho baguni)</b>를 지고, 두 손으로 조약돌 하나를 공손히 받쳐 들어 돌탑 꼭대기에 살며시 얹는 중. 고개를 살짝 숙이고 눈은 감은 듯 가늘게, 입은 소박한 한 줄 — 진지하지만 웃음이 나는 정성스러운 자세.<br/><b>배경·소품</b> 둥근 강돌을 차곡차곡 쌓은 원뿔 돌탑, 그 곁에 굽은 늙은 나무 한 그루와 낮은 가지에 묶인 헝겊 조각들(그중 붉은 헝겊 한 조각이 바람에 팔랑 — 화면의 단 하나 빨강). 발치에 굴러다니는 조약돌 몇 개와 고갯길 흙길. 뒤편 소나무·먼 산·구름은 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 아래에서 위로 트인 하늘의 밝은 빛, 우러르는 구도가 주는 정겹고 살짝 우스운 경건함.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P3, P4, P5, P6 -->
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>사건(데구루루!)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 해 질 무렵, 집으로 돌아오는 길이었어요. 툭! 돌부리에 발이 걸렸지 뭐예요. 데구루루— 데구루루— 할아버지는 고갯길을 한 바퀴 구르고 말았어요. 약초가 후두둑 쏟아지고, 엉덩이만 콩 찧었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 기울인 대각선(더치) 구도의 중형 컷 — 카메라를 30도쯤 기울여 고갯길이 화면을 대각선으로 가로지르게. 같은 화면 안에 구르는 동작이 왼쪽 위에서 오른쪽 아래로 이어지는 연속 동세(잔상처럼 옅은 연필선 자세 2개 + 또렷한 마지막 자세 1개).<br/><b>장소·시간</b> 삼년고개 내리막 흙길, 해 질 무렵. 붉은 노을이 비스듬히 드는 공기.<br/><b>인물</b> OldManWell(성한 할아버지) — 화면 왼쪽 위에 발이 돌부리에 걸려 앞으로 기우는 옅은 자세, 가운데에 몸을 동그랗게 만 채 구르는 옅은 자세, 그리고 오른쪽 아래에 또렷하게: 흙길에 털썩 앉아 두 다리를 앞으로 뻗고 한 손으로 엉덩이를 문지르며 입을 큰 O로 벌리고 눈썹이 위로 치솟은 코믹한 표정. 다치지 않았음이 분명하게 — 흙먼지만 폴폴, 상처나 눈물 없음.<br/><b>배경·소품</b> 뒤집힌 <b>약초바구니(yakcho baguni)</b>와 길 위로 후두둑 쏟아진 뿌리·나물 다발, 발끝에 걸린 툭 튀어나온 돌부리, 공중에 만화적인 흙먼지 뭉게구름 몇 덩이. 고갯길 양옆 풀숲·소나무·저 아래 마을은 열린 연필선 러프 스케치.<br/><b>톤</b> 기울어진 구도와 노을빛이 만드는 왁자한 소동감, 아프기보다 웃음이 터지는 명랑 코믹 정서. 화면의 단 하나 빨강은 쏟아진 약초 사이에 굴러 나온 붉은 열매 한 줌.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(하얗게 질린 얼굴)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그제야 할아버지는 화들짝 놀랐어요. "아이고! 여기가… 삼년고개잖아!" 할아버지는 쏟은 약초도 그대로 두고, 털레털레 집으로 걸어 내려갔어요. 어깨가 축, 다리도 축 늘어졌지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 얼굴 클로즈업 — 할아버지의 얼굴이 화면의 절반을 채우는 정면 가까운 컷. 화면 아래 구석 한쪽에만 저 멀리 집으로 내려가는 길이 아주 작게 보이는 구성.<br/><b>장소·시간</b> 삼년고개 내리막길 위, 해 질 무렵 바로 그 자리. 방금 소동이 딱 멎은 정적.<br/><b>인물</b> OldManWell(성한 할아버지)이 화면 가득 클로즈업 — 두 눈이 접시만 하게 커진 점눈, 두 눈썹 획이 위로 활짝 치솟고, 입은 세로로 길쭉한 O 모양으로 벌어짐. 두 손바닥을 양 볼에 딱 붙인 화들짝 놀란 자세, 흰 수염과 상투가 바람에 삐죽 흐트러짐. 머리 위 여백에 만화적인 놀람 표시로 짧은 획 몇 개만.<br/><b>배경·소품</b> 얼굴 뒤 배경은 거의 빈 크림 종이 — 고갯길 능선과 소나무 한 그루가 열린 연필선 두세 획으로만. 화면 오른쪽 아래 구석에 아주 작게, 어깨가 축 처진 채 터덜터덜 내려가는 뒷모습 한 컷을 곁들여 이어지는 시간을 암시(작게, 몇 획만).<br/><b>톤</b> 노을빛이 옆에서 드는 따뜻한 주황빛, 무서움이 아니라 <b>걱정에 폭 빠진</b> 코믹한 정서 — 아이가 보고 "에이, 할아버지도 참" 하고 웃을 정도로.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(이불 속 아이고 아이고)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집에 온 할아버지는 삿자리 위에 이불을 펴고 폭 드러누웠어요. "아이고, 아이고… 나는 이제 삼 년뿐이라네." 할머니가 기가 막혀 말했지요. "아이참, 죽이나 한 술 뜨세요!" 그래도 죽은 한 그릇 뚝딱 비웠답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 평면 부감 — 방 천장 쪽에서 방바닥을 거의 수직으로 내려다보는 중형 컷. 삿자리의 짜임 무늬와 이불이 화면을 평평하게 채우고, 그 위에 누운 할아버지가 한가운데 눕혀진 구성.<br/><b>장소·시간</b> 할아버지네 초가집 방 안, 저녁. 등잔 불빛이 은은한 아늑한 공기.<br/><b>인물</b> OldManSick(앓아누운 할아버지)이 화면 한가운데 반듯이 누워 이불을 턱밑까지 끌어 덮음 — 이마에 흰 무명 수건을 질끈 동이고, 두 눈은 코믹하게 꼭 감은 ∩ 호선, 입은 축 처진 "아이고" 표정. 이불 밖으로 삐죽 나온 두 발이 서로 까딱까딱. 그런데 한 손만 이불 밖으로 쑥 나와 죽 그릇을 들고 숟가락을 입으로 가져가는 중(우스운 대비). 화면 위쪽 가장자리에서 Grandma(할머니)가 무릎을 꿇고 앉아 한 손에 소반을, 다른 손은 허리에 얹고 기가 막힌다는 듯 입을 일자로 다문 채 내려다봄.<br/><b>배경·소품</b> 방바닥 가득 깔린 <b>삿자리(satjari)</b> — 황금빛 갈대 짜임의 헤링본 무늬와 남빛 천으로 두른 가장자리가 또렷하게. 머리맡에 소반과 빈 죽 그릇, 벽 쪽에 개어 둔 이불, 등잔 하나. 벽·문살은 열린 연필선 몇 획.<br/><b>톤</b> 등잔의 따뜻한 주황빛, 걱정이라기보다 <b>엄살</b>이 귀여운 코믹하고 포근한 정서. 화면의 단 하나 빨강은 할머니 저고리 고름의 붉은 매듭.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(줄줄이 문병)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">소문을 들은 마을 사람들이 줄줄이 문병을 왔어요. "기운 내세요!" "약을 지어 볼까요?" 하지만 할아버지는 도리도리, 이불을 더 끌어 덮을 뿐이었지요. 그때 꾀돌이가 엿 한 봉지를 들고 방으로 쏙 들어왔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 어깨너머 컷 — 화면 앞쪽 좌우로 문병 온 마을 사람들의 등과 어깨가 크게 걸치고, 그 사이 좁은 틈으로 저 안쪽 이불 속 할아버지가 보이는 중형 컷. 문지방 높이의 살짝 낮은 눈높이.<br/><b>장소·시간</b> 할아버지네 방 안과 열린 방문 어귀, 다음 날 낮. 사람 냄새 나는 왁자한 공기.<br/><b>인물</b> 화면 전경 좌우 — 마을 사람 서넛의 뒷모습(단역, 어깨·머리 실루엣과 몇 획만): 한 사람은 약봉지를 내밀고, 한 사람은 두 손을 모으고, 한 사람은 고개를 갸웃. 화면 안쪽 가운데 — OldManSick(앓아누운 할아버지)이 이불을 코까지 끌어 덮고 고개만 도리도리 좌우로 젓는 중, 이마 수건이 흔들리고 ∩ 감은 눈에 입은 축 처짐. 화면 오른쪽 문지방 — CleverBoy(꾀돌이)가 방으로 쏙 들어서며 한 손에 엿 봉지를 번쩍 들고 씩 웃음, 땋은 머리와 붉은 댕기가 뒤로 팔랑(화면의 단 하나 빨강). Grandma(할머니)는 왼쪽 뒤에서 손님들에게 자리를 내주며 난감한 미소.<br/><b>배경·소품</b> 꾀돌이가 든 하얀 한지 봉지 위로 삐죽 나온 <b>엿(yeot)</b> 가락 몇 개(꿀빛에 뽀얀 기포), 방바닥의 삿자리, 머리맡 소반, 열린 방문 밖 마당의 신발 여러 켤레. 벽·문·마당은 열린 연필선 러프 스케치.<br/><b>톤</b> 문밖에서 들어오는 환한 낮빛이 방 안을 비스듬히 가르고, 걱정 반 웃음 반의 북적이는 정서.</pre></details>
+</div>
+
+<!-- ④ 절정 : P7, P8, P9, P10 -->
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>절정(꾀돌이의 한마디)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">꾀돌이가 사연을 다 듣더니 무릎을 탁! 쳤어요. "할아버지, 그럼 한 번 더 구르면 되잖아요?" 할아버지는 벌떡 일어나 앉았어요. "뭐라고? 이 녀석이 지금 나를 놀리는 게냐!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 클로즈업 — 이불 속 할아버지의 눈높이, 즉 방바닥에 붙은 아주 낮은 카메라에서 꾀돌이를 올려다보는 컷. 꾀돌이가 화면에서 실제보다 크고 우뚝하게 보이고, 치켜든 손가락이 화면 맨 위에 닿을 듯.<br/><b>장소·시간</b> 할아버지네 방 안, 같은 날 낮. 방금 웅성거림이 뚝 멎은 순간의 정적.<br/><b>인물</b> CleverBoy(꾀돌이)가 화면 오른쪽에 두 발을 벌리고 서서 한쪽 무릎을 손바닥으로 탁 치고, 다른 팔은 하늘 높이 뻗어 검지를 번쩍 세움 — 눈은 반짝이는 점눈, 입은 자신만만한 활짝 웃음. 땋은 머리 끝의 붉은 댕기가 튀어 오르듯 흔들림(화면의 단 하나 빨강). 화면 왼쪽 아래 — OldManSick(앓아누운 할아버지)이 이불을 밀치고 상체를 벌떡 세운 채 아래에서 올려다보는 각도로, 감았던 눈 한쪽이 번쩍 뜨여 커다란 점눈이 되고 다른 쪽은 아직 ∩, 입은 어이없다는 듯 크게 벌어짐, 이마 수건이 비뚜름.<br/><b>배경·소품</b> 밀쳐진 이불 자락과 방바닥의 <b>삿자리(satjari)</b> 짜임, 옆에 놓인 엿 봉지, 뒤쪽 벽 앞에서 눈이 동그래진 마을 사람들과 Grandma(할머니)의 러프한 실루엣 몇. 벽·문살은 열린 연필선 몇 획.<br/><b>톤</b> 위쪽 창으로 쏟아지는 환한 낮빛이 꾀돌이의 손가락 끝을 비추고, 무언가 뒤집히기 직전의 통쾌한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>절정(뒤집힌 셈)</b> <span class="tag beat">④ 절정 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">꾀돌이는 손가락을 하나씩 꼽으며 말했어요. "한 번 구르면 삼 년! 두 번 구르면 육 년! 데굴데굴 구를수록 오래오래 산다네!" 할아버지의 두 눈이 번쩍 뜨였어요. "그… 그렇구나! 내가 왜 그 생각을 못 했지!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 극단 여백 구도의 중형 컷 — 화면의 7할이 텅 빈 밝은 크림 종이이고, 마주 앉은 두 사람은 화면 아래 오른쪽에 작게 몰려 있음. 빈 여백에는 꾀돌이가 꼽는 손가락 모양만 큼직하게 두 번(셋 편 손 / 여섯 편 두 손) 옅은 연필선 삽입 스케치로 떠 있어 셈이 눈에 보이게.<br/><b>장소·시간</b> 할아버지네 방 안, 같은 날 낮. 시간이 딱 멈춘 듯 고요한 공기.<br/><b>인물</b> 화면 아래 오른쪽 — CleverBoy(꾀돌이)가 무릎을 꿇고 앉아 두 손을 앞으로 내밀고 손가락을 하나씩 꼽는 중, 집중하느라 혀끝을 살짝 내민 획, 눈썹은 신이 나서 위로. 붉은 댕기가 어깨 앞으로 흘러내림(화면의 단 하나 빨강). 그 맞은편 — OldManSick(앓아누운 할아버지)이 이불을 어깨에 두른 채 책상다리로 앉아, 두 눈이 활짝 뜨인 커다란 점눈이 되고 눈가에 기쁨의 짧은 획 서너 개, 입은 커다란 O로 벌어짐, 두 손바닥을 무릎에 짚고 몸을 앞으로 쑥 내밂.<br/><b>배경·소품</b> 배경은 거의 그리지 않음 — 방바닥 삿자리 가장자리 한 줄과 벽 모서리 한 획, 옆에 놓인 엿 봉지 정도만 열린 연필선으로. 여백의 손가락 스케치가 이 쪽의 주인공.<br/><b>톤</b> 환한 낮빛이 텅 빈 종이 그대로 쏟아지는 밝은 화면, 머릿속에 불이 딱 켜지는 상쾌하고 통쾌한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(데굴데굴 구르기)</b> <span class="tag beat">④ 절정 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지는 한달음에 삼년고개로 달려갔어요. 그러고는 풀밭에 몸을 동그랗게 말고 데굴데굴 굴렀지요! 마을 아이들이 손뼉을 치며 세어 주었어요. "삼 년! 육 년! 구 년! 십이 년!" "한 번 구르면 삼 년, 두 번 구르면 육 년! 데굴데굴 구를수록 오래오래 산다네!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 로우앵글 — 고개 아래쪽 풀밭에 카메라를 낮게 놓고 비탈을 올려다보는 "펼침면 한 방". 비탈이 화면을 왼쪽 위에서 오른쪽 아래로 굵은 대각선으로 가르고, 그 대각선을 따라 구르는 할아버지가 <b>네 자세로 연달아</b> 놓임(위에서 아래로: 몸을 마는 자세 → 옆으로 도는 자세 → 거꾸로 도는 자세 → 또 마는 자세), 사이사이에 데굴데굴 궤적을 나타내는 동글동글한 연필 소용돌이 획.<br/><b>장소·시간</b> 삼년고개의 풀 비탈, 화창한 한낮. 바람이 시원하게 부는 신나는 공기.<br/><b>인물</b> OldManWell(성한 할아버지)이 비탈 위에서부터 네 자세로 데굴데굴 구르는 중 — 이불도 이마 수건도 없이 다시 성한 차림, 매 자세마다 입이 크게 벌어져 껄껄 웃고 두 눈은 즐거움에 반달, 소매와 흰 수염이 팔랑팔랑 날림. 화면 오른쪽 아래 풀밭 — CleverBoy(꾀돌이)가 두 팔을 번쩍 들고 폴짝 뛰며 소리쳐 세고, 그 옆으로 마을 아이 서넛이 손뼉을 치며 입을 크게 벌리고 함께 셈(단역, 몇 획의 러프한 실루엣). 화면 왼쪽 아래에는 Grandma(할머니)가 두 손을 입에 모으고 웃으며 지켜봄.<br/><b>배경·소품</b> 비탈에 눌린 풀 자국과 폴폴 날리는 풀잎·민들레 홀씨, 아이들 발치에 벗어 던진 짚신 몇 짝. 고갯마루의 서낭당 돌탑과 굽은 나무, 저 아래 마을은 열린 연필선 러프 스케치로 아주 성기게.<br/><b>톤</b> 한낮의 환한 햇빛과 시원하게 트인 하늘, 웃음이 터져 나오는 신명 나고 씩씩한 정서. 화면의 단 하나 빨강은 꾀돌이의 붉은 댕기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(가뿐해진 할아버지)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">한참을 구르고 난 할아버지가 벌떡 일어섰어요. 어깨를 툭툭, 다리를 탈탈 털고 나니 몸이 어찌나 가뿐한지! "허허허! 이제 나는 백 년도 넘게 살겠구나!" 걱정은 어느새 저 멀리 날아가 버렸답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글 부감 — 고개 위쪽에서 비탈 아래를 내려다보는 중형 컷. 화면을 구불구불 가로지른 <b>구른 자국</b>(풀이 눌린 굽이굽이 띠)이 위에서 아래로 이어지고, 그 끝 화면 아래쪽에 두 팔을 활짝 벌리고 선 할아버지가 있는 구성 — 지나온 길이 한눈에 보이게.<br/><b>장소·시간</b> 삼년고개 비탈 아래 풀밭, 화창한 한낮에서 살짝 기운 오후. 시원하고 상쾌한 공기.<br/><b>인물</b> OldManWell(성한 할아버지)이 화면 아래 가운데에서 두 팔을 하늘로 활짝 벌리고 가슴을 쫙 편 채 고개를 뒤로 젖혀 껄껄 웃음 — 입은 커다랗게 벌어지고 두 눈은 웃음 반달, 흰 수염과 상투에 풀잎이 두어 개 붙었으며 옷자락에도 풀물이 살짝. 발밑엔 방금 털어 낸 흙먼지가 폴폴. 그 둘레에서 CleverBoy(꾀돌이)와 마을 아이들이 손뼉을 치며 폴짝폴짝 뛰고(꾀돌이는 또렷하게, 나머지 아이들은 러프한 실루엣), Grandma(할머니)는 한쪽에서 앞치마에 손을 닦으며 "어이구, 참" 하듯 웃음.<br/><b>배경·소품</b> 풀밭에 남은 굽이굽이 구른 자국, 흩날리는 풀잎과 홀씨, 저 위 고갯마루의 서낭당 돌탑과 붉은 헝겊 묶인 나무가 작게, 그 너머 마을 지붕들 — 전부 열린 연필선 러프 스케치.<br/><b>톤</b> 오후의 넉넉한 햇빛이 위에서 고루 내리는 환한 화면, 무거운 걱정이 훌훌 털린 후련하고 시원한 정서. 화면의 단 하나 빨강은 꾀돌이의 붉은 댕기.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P11 -->
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>결말(만년고개가 되었어요)</b> <span class="tag beat">⑤ 결말 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날부터 마을 사람들은 고개에만 오면 일부러 데굴데굴 굴렀어요. "한 번 구르면 삼 년! 두 번 구르면 육 년! 데굴데굴 구를수록 오래오래 산다네!" 사람들은 이제 그 고개를 <b>만년고개</b>라고 불렀지요. 할아버지는 엿을 나누어 주며 오래오래 껄껄 웃었답니다. 걱정도 뒤집어 보면 복이 된대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면 — 고갯마루 서낭당 앞에 마을 사람들이 모인 훈훈한 마무리 컷. 화면 가운데 할아버지 부부와 꾀돌이, 좌우로 마을 사람들이 부채꼴로 늘어서고, 뒤쪽 비탈에는 굴러 내려가는 사람들이 작게 흩어진 구성.<br/><b>장소·시간</b> 삼년고개(이제 만년고개) 고갯마루의 서낭당 앞, 화창한 낮. 잔치처럼 들뜬 공기.<br/><b>인물</b> 화면 가운데 — OldManWell(성한 할아버지)이 <b>엿(yeot)</b> 가락을 한 아름 안고 아이들에게 하나씩 나누어 주며 입이 귀에 걸리게 껄껄 웃음, 몸이 앞으로 폴짝 기운 신난 자세. 그 옆 Grandma(할머니)는 한 손에 엿 봉지를 받쳐 들고 다른 손으로 남편의 등을 툭 치며 흐뭇한 미소. 앞쪽 CleverBoy(꾀돌이)는 엿을 한 입 베어 물고 다른 손 검지를 번쩍 들어 노래하듯 외침, 붉은 댕기가 팔랑(화면의 단 하나 빨강). 좌우 마을 사람들은 손뼉을 치며 웃는 러프한 실루엣들.<br/><b>배경·소품</b> 화면 왼쪽에 <b>서낭당 돌탑(seonangdang doltap)</b>이 전보다 한 뼘 더 높이 쌓였고 굽은 나무엔 헝겊들이 팔랑. 오른쪽 뒤 비탈에는 어른 아이 할 것 없이 몸을 말고 데굴데굴 구르는 사람들이 작게 여럿, 굽이굽이 구른 자국. 저 아래 마을 마당엔 <b>다듬잇돌(dadeumitdol)</b>과 널린 빨래가 아주 작게 보임. 배경 지붕·나무·산은 열린 연필선 러프 스케치.<br/><b>톤</b> 환하고 고른 한낮 햇빛, 온 마을이 함께 웃는 넉넉하고 따뜻한 마무리 정서, 옛이야기가 남기는 개운한 여운.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 삼년고개 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING (finish hierarchy — the single most important rule): The bright warm cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. This picture is deliberately UNEVENLY finished, like one page from a master's sketchbook. Finish only what matters: the CHARACTERS = finished (clear line AND color, keep them at their current level); a prop a character is directly touching or holding (a loom, a bench, a gourd in their hands) = half-finished, a bit of line and a little color; everything else — the whole background: jars, walls, fences, roofs, trees, hills, anything far away — = a LOOSE UNFINISHED PENCIL SKETCH: just a few open contour lines and a few direction strokes, barely any color, lots of bare cream paper showing through, deliberately NOT filled in, like the rough underdrawing on a sketchbook page. A jar is two or three open outlines, a roof is a few slanted direction strokes, a distant thing is one or two lines and then paper. This is about how FINISHED each area is, NOT about opacity — the background is not faded, hazy, blurry or low-saturation, it is simply left as rough sketch lines and not drawn to completion. Spend all the density ONLY on the characters. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces; NOT a fully rendered background, NOT every jar / roof-tile / leaf drawn to completion, NOT a uniform finish across the whole picture, and NOT a hazy / blurry / faded background either (that is just blur, not a sketch) — keep the background as loose OPEN PENCIL SKETCH lines and every stroke loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'OldManWell', name: '성한 할아버지',    desc: '약초 캐는 할아버지 — 작고 동글동글 통통 튀는 몸, 흰 수염 몇 획, 등에 약초바구니', aliases: ['OldManWell'] },
+    { token: 'OldManSick', name: '앓아누운 할아버지', desc: '걱정에 드러누운 할아버지 — 같은 얼굴에 이마 흰 수건 + 꼭 감은 ∩ 눈, 이불 덮고 엄살', aliases: ['OldManSick'] },
+    { token: 'Grandma',    name: '할머니',          desc: '야무진 아내 — 낮은 쪽머리, 앞치마, 늘 손이 바쁨(붉은 옷고름 매듭)', aliases: ['Grandma'] },
+    { token: 'CleverBoy',  name: '꾀돌이',          desc: '생각을 뒤집는 마을 아이 — 큰 머리 작은 몸, 땋은 머리 + 붉은 댕기(빨강 악센트), 검지 번쩍 포즈', aliases: ['CleverBoy'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

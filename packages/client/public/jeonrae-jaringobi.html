@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 자린고비</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · 시즌2 #32</div>
+  <h1>🐟 자린고비</h1>
+  <div class="sub">천장에 매달린 굴비 한 마리 — 아끼기만 하던 영감이 나눔을 배운 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 아낌과 나눔의 균형 &nbsp;·&nbsp;
+  <b>분량</b> 13 스프레드 &nbsp;·&nbsp; <b>후렴</b> 굴비 쳐다보기 노래 &nbsp;·&nbsp;
+  <b>핵심단어</b> 굴비 · 됫박 · 뒤웅박 · 놋수저 · 곳간 자물쇠 &nbsp;·&nbsp;
+  <b>순화</b> 🔴 구두쇠 짓은 <b>밉지 않고 우스꽝스럽게</b> — 아이가 깔깔 웃는 과장(부채 대신 고개 도리도리, 냄새만 맡기, 굴비 두 번 보면 "짜다!"). 비난·모욕·놀림 금지, 마을 사람들도 미워하지 않고 웃어 준다 / 흉년은 <b>굶주림의 참상 대신 "빈 됫박·묽은 죽" 한 컷</b>으로만 / 결말은 <b>설교 없이 스스로 마음이 움직여</b> 곳간을 여는 전환 — 누구도 자린고비를 가르치거나 혼내지 않는다
+</div>
+<div class="refrain">🐟 반복 후렴 — "한 술 뜨고 한 번 보고! 두 술 뜨고 한 번 보고!" <span style="font-weight:600;font-size:13px">(P3 첫 등장 → P6 아들이 두 번 봐서 "아이고 짜다!" → P13 변주 "한 술 뜨고 한 번 웃고! 두 술 뜨고 한 번 나누고!")</span></div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-jaringobi</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.<br>🔴 <b>상태 변형 캐릭터 = 시트 분리</b> — 구두쇠 자린고비(MiserJaringobi)와 나누는 자린고비(KindJaringobi)는 <b>다른 @image</b>다. <b>얼굴도 옷도 IDENTICAL</b> — 달라지는 건 오직 <b>주먹이 펴진 손·벌어진 두 팔·펴진 등·크게 열린 웃음</b>뿐이다(재산이 아니라 마음이 바뀐 이야기라 옷을 절대 좋게 바꾸지 말 것). 각 쪽 SCENE은 그 시점의 상태 토큰만 쓴다 — P1~P9=MiserJaringobi, P10~P13=KindJaringobi.<br>🔴 <b>화면당 빨강 악센트 1점 = 굴비를 매단 붉은 무명실</b>(굴비가 없는 컷에서만 다른 빨강 하나 — 아내의 붉은 옷고름 매듭, 장터 천막의 붉은 띠 등).</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="구두쇠 자린고비" data-key="char-miser-jaringobi">
+  <div class="head"><span class="face">🧓</span><b>구두쇠 자린고비</b> <span class="rom">MiserJaringobi · 소문난 구두쇠 영감</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: MiserJaringobi — a famously stingy old village man, comic and lovable, NEVER mean, cruel or scary; the whole village laughs WITH him. Dot-eye design language: a flat cream face with zero shading, two dot eyes set close together, a small pursed line mouth pinched tight like a knot, no nose (or one tiny dot), hair as one solid dark mass in a small tight topknot (sangtu), three tiny stubble dots on the chin and two short thin whisker strokes at the jaw so he reads as an old man. IDENTICAL FACE to KindJaringobi.
+SILHOUETTE (his signature): thin and narrow — a dry upright stick of a body with a slightly hunched back and shoulders drawn in toward the middle, elbows tucked to his sides. His hands are ALWAYS closed: two small tight fists, or one fist clutching something. Everything about him is pulled inward and held shut.
+CLOTHES & PROP: a much-mended plain cotton durumagi coat in soft blue-grey pencil strokes — mostly open cream paper with loose hatching and several tiny scribbled patches (patched because he refuses to throw anything away, tidy and never dirty), a thin sash, straw sandals in a few pale straw-yellow strokes. His signature prop: a ring of storehouse keys tied at his waist, drawn as a few small circles on a short cord — it juts out of his thin silhouette and jingles in every picture.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (both fists closed at his sides, back slightly hunched, key ring at the waist) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) pinched pursed line mouth with brows drawn together (calculating), (2) comic alarm — a big O mouth with flyaway brow strokes, (3) a quiet troubled downcurved mouth with the head lowered. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="나누는 자린고비" data-key="char-kind-jaringobi">
+  <div class="head"><span class="face">🤗</span><b>나누는 자린고비</b> <span class="rom">KindJaringobi · 곳간을 연 자린고비</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: KindJaringobi — the SAME old man from the moment he opens his storehouse, and after.
+🔴 IDENTICAL FACE to MiserJaringobi: the same flat cream face, same two close-set dot eyes, same small tight topknot, same three stubble dots and two whisker strokes. 🔴 IDENTICAL CLOTHES too: the very same much-mended blue-grey durumagi with the same little patches and the same straw sandals — do NOT give him fine clothes, do NOT make him look rich. Nothing about his wealth changed; only his heart did.
+SILHOUETTE (the entire payoff of the story): the hunched inward-pulled body OPENS UP — the back straightens, the tucked elbows swing out, and above all HIS HANDS ARE OPEN: the two tight fists become wide open palms, often both arms spread in a giving, welcoming gesture. The mouth, pinched shut in every earlier picture, is now a big open smile. The waist key ring hangs loose, unclasped, or is gone from his belt entirely.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (back straight, both arms open wide, palms up and empty) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) a big warm open smile with crinkle strokes at the eyes, (2) moved and teary — a wobbly smile with two tiny stroke-tears, (3) a hearty open-mouthed laugh with the chin up. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="자린고비 아내" data-key="char-jaringobi-wife">
+  <div class="head"><span class="face">👩</span><b>자린고비 아내</b> <span class="rom">JaringobiWife · 야무진 살림꾼 아내</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: JaringobiWife — the miser's practical, good-humoured wife; she is the story's comic reaction face, always half-exasperated and half-amused by her husband, but warm and never nagging or bitter. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a small round O mouth or a crooked half-smile line, no nose (or one tiny dot), hair as one solid dark mass parted in the middle and gathered into a modest LOW bun at the nape with one plain hairpin drawn as a single short stroke.
+SILHOUETTE (her signature): short, round and sturdy — a soft plump pear-shaped body, feet planted apart, one hand very often on her hip. Round and wide next to her husband's thin narrow stick of a body; the two silhouettes read instantly side by side.
+CLOTHES & PROP: an everyday skirt-and-jacket hanbok suggested in pale straw and soft blue-grey pencil strokes, mostly open paper with loose hatching, plus a plain work apron drawn in a few strokes. She almost always holds a kitchen thing — a wooden rice paddle or a cloth. NOTE: in pictures without the salted fish, her small RED jacket-tie knot (otgoreum) is the picture's single red accent.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (one hand on the hip, rice paddle in the other) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) a crooked half-smile with one brow stroke raised (exasperated but fond), (2) laughing out loud — a wide open curved mouth with the head tipped back, (3) a soft moved smile with the eyes crinkled. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="자린고비 아들" data-key="char-son-boy">
+  <div class="head"><span class="face">👦</span><b>자린고비 아들</b> <span class="rom">SonBoy · 여섯 살 아들</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: SonBoy — the miser's six-year-old son, the reader's stand-in: cheerful, hungry and endlessly curious. Dot-eye design language: a flat cream face with zero shading, two dot eyes set wide apart, a small open O mouth, no nose (or one tiny dot), hair as one solid dark mass in a single child's braid down his back (chonggak braid) with a short blunt fringe across the forehead.
+SILHOUETTE (his signature): small, round and bottom-heavy — a little dumpling body with a plump tummy and short stubby arms. HIS SIGNATURE POSE: head tipped ALL the way back, chin pointing straight up at the ceiling, so his whole body arcs backward — the pose of a child staring up at the hanging fish.
+CLOTHES: a short everyday jacket and baggy trousers in pale straw-yellow and soft blue-grey pencil strokes, mostly open cream paper, a simple waist tie, bare feet or tiny straw sandals in two or three strokes.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (head tipped back, chin up, both hands holding a small bowl) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) a delighted wide O mouth looking up, (2) a mischievous scrunched half-smile (sneaking a second look), (3) a puckered sour squeeze with tight-shut curved eye lines ("so salty!"). Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="이웃 아주머니" data-key="char-hungry-neighbor">
+  <div class="head"><span class="face">👩‍🍼</span><b>이웃 아주머니</b> <span class="rom">HungryNeighbor · 아기 업은 이웃</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: HungryNeighbor — a young village mother from the house next door during the drought year. Tired but never wretched, never gaunt, never pitiful — she keeps her dignity and a small tired smile. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a small soft line mouth, no nose (or one tiny dot), hair as one solid dark mass in a low bun wrapped with a plain cloth band.
+SILHOUETTE (her signature): a slender upright figure made unmistakable by TWO things — a baby carried on her back in a wide wrapped cloth sling (podaegi), the bundle making a round hump on her back with one tiny sleeping head peeking out, and an EMPTY wooden measuring box (doetbak) held flat against her chest with both arms. Baby on the back + empty box in the arms = instantly readable, and clearly a different woman from the round apron-and-paddle JaringobiWife.
+CLOTHES: a plain worn skirt-and-jacket hanbok in faded straw and soft blue-grey pencil strokes, mostly open paper, a couple of small scribbled patches at the hem, straw sandals in a few strokes. Poor is told by patches and sparse strokes, never by dirt or gloom. NOTE: in pictures without the salted fish, the small RED cord tying her baby sling is the picture's single red accent.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (baby sling on the back, empty measuring box held to the chest) + a 3/4 turn showing the baby bundle + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) a tired soft closed smile, (2) a quiet worried downcurved mouth with the head turned down toward the empty box, (3) astonished grateful joy — a big O mouth with lifted brow strokes and two tiny stroke-tears. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.) 다섯 사물 모두 본문에 실제로 등장한다 — 굴비 P3·P6·P9·P12, 됫박 P2·P8·P11, 뒤웅박 P2·P11, 놋수저 P3·P6·P12, 곳간 자물쇠 P2·P10.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="굴비" data-key="word-gulbi">
+  <div class="head"><span class="face">🐟</span><b>굴비</b> <span class="rom">gulbi — dried salted yellow croaker</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "gulbi — a Korean salt-dried yellow croaker fish (굴비)". A whole dried fish with warm golden-amber skin (#D8A441) shading to a pale cream belly, crisp overlapping scale texture, a fanned tail and stiff dried fins, its mouth tied through with a RED cotton cord (#C0392B) knotted into a loop for hanging. Show TWO forms on the card so the word reads clearly: (1) a single fish hanging from its red cord, and (2) a small bundle of two or three fish strung together on a straw rope, the classic gulbi bundle. Appetizing and proud, warm golden tones, a subtle glow rim. Centered icon-style word card, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="됫박" data-key="word-doetbak">
+  <div class="head"><span class="face">📦</span><b>됫박</b> <span class="rom">doetbak — a wooden grain measure</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "doetbak — a traditional Korean wooden grain measuring box, one 'doe' of rice (됫박)". A small square open-topped box of honey-brown pine with clear wood grain (#B07A3C), thick straight sides joined at the corners, a smooth worn rim from years of levelling, and a flat wooden levelling stick (평미레) lying beside it. Show TWO STATES side by side: (1) the box heaped full of white rice (#F7F3E7) with a few grains spilling over the rim, and (2) the box empty, showing the bare grain of the inner boards. Sturdy, handcrafted, warm. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="뒤웅박" data-key="word-dwiungbak">
+  <div class="head"><span class="face">🫙</span><b>뒤웅박</b> <span class="rom">dwiungbak — a hollowed gourd seed jar</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "dwiungbak — a whole dried bottle gourd hollowed out through a small round hole in the top and hung up as a seed jar (뒤웅박)". A plump round gourd with a smooth pale tan dried shell (#D9C7A0) and faint natural mottling, a neat small round opening cut at the top, a braided straw rope net cradling its body and looped into a hanging cord, and a little straw stopper plug. Show TWO forms: (1) the gourd hanging closed in its straw net, and (2) tipped slightly so a handful of seed grain spills from the opening. Handcrafted farm-cozy, warm straw and gourd tones. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="놋수저" data-key="word-notsujeo">
+  <div class="head"><span class="face">🥄</span><b>놋수저</b> <span class="rom">notsujeo — a brass spoon and chopsticks set</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "notsujeo — a traditional Korean brass spoon-and-chopsticks set (놋수저)". A long-handled bangjja brass spoon with a shallow oval bowl and a slim slightly flared handle, plus a matching pair of flat-sided brass chopsticks, all in warm polished yellow-brass (#C9A227) with a soft mirror sheen and a faint darker patina in the grooves. Lay them neatly side by side at a slight angle, spoon and chopsticks parallel, on a small folded hemp cloth. Crisp, gleaming, proud. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="곳간 자물쇠" data-key="word-gotgan-jamulsoe">
+  <div class="head"><span class="face">🔒</span><b>곳간 자물쇠</b> <span class="rom">gotgan jamulsoe — an old iron storehouse lock</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "gotgan jamulsoe — a big old Korean iron storehouse padlock with its key (곳간 자물쇠)". A heavy horizontal fish-shaped (mullpaesoe) wrought-iron lock body in dark blue-grey iron (#4A5157) with hammered texture, a long U-shaped shackle, simple inlaid brass line decoration along its side, and its matching long flat iron key with a notched tip, joined to the lock by a short straw cord. Show TWO STATES side by side: (1) the lock closed and hanging from a thick iron door ring, and (2) the lock sprung open with the key half inserted. Weighty, handcrafted, satisfying. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 13 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 어느 마을에 소문난 구두쇠 영감이 살았어요. 이름은 자린고비. 곳간에는 쌀이 그득그득한데, 쓰는 건 하나도 없었지요. 마을 사람들은 깔깔 웃으며 말했답니다. "저 집은 굴뚝 연기도 아껴 낸대!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 하이앵글 부감 + 스케일 대비 — 마을 전체를 비스듬히 위에서 내려다보는 도입 컷. 초가집 여러 채의 굴뚝에서 저녁 연기가 뭉게뭉게 피어오르는데, 화면 가운데 자린고비네 집 굴뚝에서만 실오라기 같은 연기 한 줄이 삐죽 올라온다 — 그 대비가 첫눈에 읽히게.<br/><b>장소·시간</b> 옛 한국 산골 마을, 초가집과 낮은 흙담이 옹기종기 모인 저녁 무렵. 밥 짓는 냄새가 도는 정겹고 들썩한 공기.<br/><b>인물</b> 화면 중앙 자린고비네 마당에 MiserJaringobi(구두쇠 자린고비)가 아주 작게 — 마른 막대 같은 몸으로 등을 살짝 구부린 채 두 주먹을 꼭 쥐고 굴뚝을 올려다보며 입을 한 일자로 앙다물고 서 있음, 허리의 열쇠 꾸러미가 옆으로 삐죽. 옆에 JaringobiWife(자린고비 아내)가 통통한 몸으로 한 손을 허리에 얹고 주걱을 든 채 남편을 흘겨보며 한쪽 눈썹 획을 치켜올린 어이없는 반쪽 미소. 담장 밖 길에는 마을 사람 두어 명이 그 집을 가리키며 배를 잡고 웃는 러프한 실루엣(비웃음이 아니라 정겨운 웃음).<br/><b>배경·소품</b> 이웃집 굴뚝마다 굵고 풍성한 연기 기둥, 자린고비네 굴뚝의 가느다란 연기 한 줄, 마당 한쪽의 큼직한 곳간과 굳게 닫힌 곳간 문, 장독대, 담장 너머 노랗게 익어 가는 논과 나지막한 산 — 배경은 열린 연필선 몇 획의 러프 스케치로.<br/><b>톤</b> 낮게 깔린 따뜻한 저녁 햇빛, 옛이야기를 여는 정겹고 우스운 정서. 화면의 단 하나 빨강은 아내의 붉은 옷고름 매듭.</pre></details>
+</div>
+
+<!-- ② 발단(구두쇠 짓) : P2, P3, P4 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(쌀은 딱 이만큼만)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">자린고비는 아침마다 곳간 앞에 섰어요. 커다란 자물쇠를 철컥 열고, 됫박으로 쌀을 딱 한 번만 펐지요. 그러고는 손날로 싹— 위를 깎아 냈어요. "쌀 한 톨도 그냥은 못 나가지!" 곳간 문은 다시 철컥, 굳게 닫혔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 극단 클로즈업, 어깨너머 — 자린고비의 어깨와 턱 아래 각도로, 화면을 가득 채운 두 손과 됫박만 크게. 손날이 쌀 위를 스치는 찰나에서 멈춘 순간 컷.<br/><b>장소·시간</b> 자린고비네 곳간 문 앞, 이른 아침. 서늘하고 조용한 공기, 문틈으로 들어온 아침 햇살 한 줄기.<br/><b>인물</b> MiserJaringobi(구두쇠 자린고비)는 화면 전경 오른쪽에 어깨와 턱 일부만 걸치고, 왼손으로 쌀이 소복이 담긴 됫박을 받쳐 들고 오른손 손날을 곧게 세워 쌀 윗면을 야무지게 밀어 깎는 중 — 입은 꽉 다문 매듭 같은 한 줄, 눈썹 두 획이 가운데로 바짝 모임, 손가락 마디에 힘이 들어감. 깎여 나간 쌀알 몇 톨이 공중에 또르르 흩어짐.<br/><b>배경·소품</b> <b>됫박(doetbak)</b> — 꿀빛 소나무 네모 되, 두툼한 널판과 반들반들 닳은 테두리. 화면 왼쪽 뒤로 흐릿하게 <b>곳간 자물쇠(gotgan jamulsoe)</b> — 굵은 무쇠 고리에 걸린 커다란 물고기 모양 자물쇠와 꽂힌 열쇠. 그 위쪽 곳간 안 서까래에 짚 그물에 싸인 <b>뒤웅박(dwiungbak)</b> 두어 개가 씨앗을 품고 매달려 있음. 곳간 널문, 쌀가마니 더미 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 문틈으로 들어온 좁은 아침 햇살이 쌀알에만 또렷이 떨어짐, 아까워 벌벌 떠는 마음이 손끝에 보이는 우스꽝스러운 긴장. 화면의 단 하나 빨강은 자물쇠에 매인 붉은 실 매듭.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(천장에 매달린 굴비)</b> <span class="tag beat">② 발단</span> <span class="tag">후렴 ①</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">자린고비네 밥상에는 반찬이 없었어요. 대신 천장에 굴비 한 마리가 대롱대롱 매달려 있었지요. 온 식구가 밥을 한 술 뜨고는 고개를 쭈욱 젖혀 굴비를 올려다보았어요. "한 술 뜨고 한 번 보고! 두 술 뜨고 한 번 보고!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 강한 로우앵글 — 밥상 바닥 높이에서 천장을 향해 올려다보는 각도. 화면 위쪽 한가운데 굴비가 붉은 실에 매달려 크게 걸리고, 그 아래로 세 사람의 얼굴이 부채꼴로 둘러앉아 일제히 고개를 젖힘. 시선이 굴비 한 점으로 모이는 방사 구도.<br/><b>장소·시간</b> 자린고비네 초가집 안방, 저녁 밥때. 좁고 아늑한 방, 밥 짓는 김이 남아 있는 따뜻한 공기.<br/><b>인물</b> 화면 아래 왼쪽 — MiserJaringobi(구두쇠 자린고비)가 밥그릇을 한 손에 받쳐 들고 놋수저를 입에 문 채 턱을 하늘 끝까지 치켜들고 굴비를 올려다봄, 입은 야무진 한 줄, 눈썹은 흐뭇하게 휨. 화면 아래 오른쪽 — SonBoy(자린고비 아들)가 시그니처 포즈로 고개를 뒤로 활짝 젖혀 몸이 활처럼 휜 채 입을 동그랗게 벌리고 굴비를 올려다봄, 작은 손에 밥그릇. 화면 아래 가운데 뒤편 — JaringobiWife(자린고비 아내)는 통통한 몸으로 앉아 한쪽 눈썹만 올린 삐뚜름한 반쪽 미소로 고개를 살짝만 젖힘(혼자 시큰둥한 반응 담당).<br/><b>배경·소품</b> 천장 서까래에서 <b>붉은 무명실</b>에 입이 꿰여 매달린 <b>굴비(gulbi)</b> — 금빛 도는 마른 조기 한 마리, 살짝 흔들리는 중. 아래 소반에는 밥그릇 셋과 물 대접, 나란히 놓인 <b>놋수저(notsujeo)</b>, 반찬 접시는 텅 비어 있음. 흙벽과 문살, 처마 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 아래에서 위로 올려다보는 시원한 각도, 저녁 등불빛이 굴비 아래쪽을 따끈하게 비춤, 밉지 않고 배꼽 잡게 우스운 정서. 화면의 단 하나 빨강은 굴비를 매단 붉은 실.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>발단(부채도 아까워)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">여름이 되어도 자린고비는 부채를 부치지 않았어요. 부채가 닳는 게 아까웠거든요. 활짝 편 부채를 꼼짝 않고 붙잡고서, 대신 고개를 도리도리 흔들었지요. 그 모습에 아내는 그만 웃음이 팡 터졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 측면 + 살짝 기울인 더치 앵글 — 마루에 앉은 자린고비를 옆에서 본 각도. 화면이 살짝 기울어 있어 흔들리는 고개의 우스운 리듬이 느껴지게.<br/><b>장소·시간</b> 자린고비네 초가집 툇마루, 한여름 대낮. 매미가 울고 아지랑이가 이는 후끈한 공기.<br/><b>인물</b> MiserJaringobi(구두쇠 자린고비)는 화면 왼쪽 마루에 다리를 접고 앉아, 활짝 편 부채를 두 손으로 가슴 앞에 꼼짝 않고 딱 붙잡은 채 얼굴만 좌우로 도리도리 흔듦 — 흔들리는 잔상을 나타내는 짧은 곡선 획 두세 개가 얼굴 양옆에, 이마에 땀방울 한두 방울, 입은 꽉 다문 매듭 같은 한 줄. 화면 오른쪽 JaringobiWife(자린고비 아내)는 부엌문에 기대서서 주걱을 든 손으로 배를 잡고 고개를 뒤로 젖혀 활짝 웃음, 입이 크게 벌어진 곡선. 마루 끝의 SonBoy(자린고비 아들)는 아버지를 흉내 내며 똑같이 고개를 도리도리, 신이 나서 눈이 동글.<br/><b>배경·소품</b> 활짝 편 종이부채(살이 또렷하게), 마루 위 물 대접 하나, 처마 끝에 늘어진 마른 옥수수 두름, 마당의 장독대와 그늘, 담장 위로 넘어온 호박 넝쿨 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 쨍한 한여름 정오 햇빛과 마루의 진한 그늘 대비, 명랑하고 폭소가 터지는 코믹 정서. 화면의 단 하나 빨강은 아내의 붉은 옷고름 매듭.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P5, P6, P7, P8 -->
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(냄새만 맡고 가는 장 구경)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">장날에는 더했어요. 자린고비는 생선 굽는 냄새를 킁킁, 배부르게 맡고는 그냥 지나갔지요. "여보시오, 냄새 값도 내셔야지요!" 장꾼이 놀리자 자린고비는 못 들은 척 총총총 걸어갔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 겹침·가림 구도 + 살짝 하이앵글 — 화면 앞쪽 아래를 생선 좌판과 숯불 화로가 크게 가로막고, 그 너머 틈으로 자린고비가 보이는 구성. 모락모락 피어오르는 연기가 인물 위를 반쯤 가림.<br/><b>장소·시간</b> 마을 장터 한복판, 장날 한낮. 사람들이 북적이고 고소한 연기가 자욱한 들썩한 공기.<br/><b>인물</b> 화면 가운데 틈 사이 — MiserJaringobi(구두쇠 자린고비)가 두 눈을 꼭 감고 코를 앞으로 쭉 내밀어 연기를 힘껏 들이마심, 두 주먹은 여전히 옷깃 앞에 꼭 쥔 채, 볼이 부풀고 입은 야무진 한 줄. 발끝은 이미 지나갈 방향으로 총총 돌아서 있음(먹진 않고 갈 참). 화면 오른쪽 좌판 뒤 — 생선을 굽던 장꾼 아주머니가 부채질을 멈추고 한 손을 내밀며 눈썹을 치켜올린 채 입을 크게 벌려 "냄새 값!" 하고 놀림(짓궂지만 웃는 얼굴, 단역이라 획 몇 개로).<br/><b>배경·소품</b> 좌판 위 석쇠에서 지글지글 구워지는 생선들과 피어오르는 연기 줄기, 숯불 화로, 옆 좌판의 옹기와 짚신 꾸러미, 장터 천막의 기둥과 오가는 사람들의 러프한 실루엣 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 밝고 트인 한낮 햇빛에 흰 연기가 부옇게 흩어짐, 왁자지껄 신나고 우스운 정서. 화면의 단 하나 빨강은 장터 천막에 두른 붉은 띠.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(아이고 짜다, 짜!)</b> <span class="tag beat">③ 사건</span> <span class="tag">후렴 ②</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다음 날 밥상에서도 노래가 울렸어요. "한 술 뜨고 한 번 보고! 두 술 뜨고 한 번 보고!" 그런데 아들이 그만 굴비를 두 번이나 쳐다보았지 뭐예요. "한 번만 보랬지! 아이고, 짜다 짜!" 자린고비는 물을 벌컥벌컥 들이켰답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 평면 부감 — 밥상을 수직으로 내려다보는 각도(P3의 로우앵글과 정반대). 화면 한가운데 둥근 소반과 밥그릇·놋수저가 도형처럼 놓이고, 상 둘레로 세 사람의 정수리와 얼굴이 위에서 보임. 굴비는 화면 밖 위쪽(카메라 뒤)에 있어 보이지 않고, 상 위에 드리운 굴비의 길쭉한 그림자만 걸침.<br/><b>장소·시간</b> 자린고비네 초가집 안방, 이튿날 아침 밥때. 밥김이 오르는 아늑한 공기.<br/><b>인물</b> 화면 왼쪽 — SonBoy(자린고비 아들)가 위에서 본 각도로 고개를 한껏 젖혀 카메라 쪽(굴비 쪽)을 올려다보며 장난스럽게 한쪽 눈을 찡긋, 입은 몰래 웃는 삐뚜름한 곡선(두 번째로 보는 중). 화면 오른쪽 — MiserJaringobi(구두쇠 자린고비)가 물 대접을 두 손으로 받쳐 들고 고개를 확 젖혀 벌컥벌컥 들이켬, 입은 크게 벌어진 O, 눈썹은 위로 튀어 오르고 이마에 놀란 획 두세 개. 대접에서 물방울이 튐. 화면 아래 — JaringobiWife(자린고비 아내)가 밥그릇을 든 채 어깨를 들썩이며 소리 없이 웃음, 반쪽 미소.<br/><b>배경·소품</b> 둥근 소반 위에 밥그릇 셋, 물 대접, 나란히 놓인 <b>놋수저(notsujeo)</b> 세 벌, 텅 빈 반찬 접시 하나. 상 위로 길게 드리운 <b>굴비(gulbi)</b>의 그림자와 그 그림자 끝에 매듭 모양. 방바닥 돗자리 결 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 위에서 곧게 떨어지는 맑은 아침 빛, 도형처럼 정돈된 부감 구도에 벌어진 소동이 얹혀 더 우스운 정서. 화면의 단 하나 빨강은 상 위에 드리운 그림자 위쪽, 실이 매인 자리를 표시하는 붉은 실 끝자락.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(비가 오지 않은 여름)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 그해 여름, 비가 한 방울도 오지 않았어요. 논바닥은 쩍쩍 갈라지고, 벼는 누렇게 말라 버렸지요. 마을 사람들의 밥그릇이 점점 가벼워졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 극단 여백 + 아주 낮은 로우앵글 — 갈라진 논바닥에 카메라를 바짝 붙여 화면 아래 3분의 1은 쩍쩍 갈라진 흙, 위 3분의 2는 구름 한 점 없는 텅 빈 하늘. 사람은 화면 오른쪽 아래 구석에 아주 작게.<br/><b>장소·시간</b> 마을 앞 마른 논, 한여름 한낮. 뜨겁고 메마른 공기, 아지랑이가 지평선에서 일렁임.<br/><b>인물</b> 화면 오른쪽 아래 구석에 작게 — 마을 농부 두 사람이 삿갓을 쓰고 갈라진 논 가운데 서서 한 사람은 허리를 굽혀 마른 흙을 한 줌 쥐어 보고, 다른 한 사람은 손차양을 하고 텅 빈 하늘을 올려다봄, 어깨가 축 처짐(단역, 획 몇 개의 실루엣). 아주 작아서 넓은 하늘과 마른 땅이 훨씬 크게 보이는 스케일 대비.<br/><b>배경·소품</b> 거북 등처럼 갈라진 논바닥의 금들이 화면 앞쪽에서 뒤로 뻗어 나가는 선, 누렇게 마르고 고개 숙인 벼 포기 몇, 바닥을 드러낸 도랑과 그 위에 걸린 마른 두레박줄, 멀리 지평선의 마을 지붕들 — 전부 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 하얗게 바랜 정오의 강한 햇빛, 색이 다 빠진 듯한 옅은 크림빛과 마른 흙빛, 무섭지 않되 막막하고 조용한 정서(굶주림의 참상은 그리지 않는다). 화면의 단 하나 빨강은 농부의 삿갓 턱끈 매듭.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>사건(담장 너머 빈 됫박)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날 저녁, 담장 너머로 이웃 아주머니가 지나갔어요. 등에는 아기를 업고, 품에는 텅 빈 됫박을 안고서요. "오늘도 멀건 죽 한 그릇뿐이네…" 자린고비는 그 소리를 그만 듣고 말았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 + 아이레벨 — 화면 전경 왼쪽에 자린고비의 어깨와 뒤통수, 담장 위에 얹힌 그의 두 손이 크게 걸치고, 그 너머 담장 밖 길을 지나는 이웃이 화면 오른쪽 안쪽에 보이는 구성.<br/><b>장소·시간</b> 자린고비네 집 낮은 흙담 안쪽, 흉년 든 여름 해질 무렵. 바람 한 점 없이 조용하고 서늘해지는 공기.<br/><b>인물</b> 전경 왼쪽 — MiserJaringobi(구두쇠 자린고비)의 뒷모습, 담장 위에 두 손을 얹었는데 늘 꽉 쥐던 주먹이 이번엔 저도 모르게 반쯤 펴져 있음(작은 복선), 어깨가 굳고 고개가 담장 너머로 살짝 기울어 귀를 기울임. 옆얼굴 일부만 보이며 입은 아래로 살짝 휜 한 줄. 화면 오른쪽 안쪽 길 — HungryNeighbor(이웃 아주머니)가 등에 포대기로 아기를 업고(둥근 보따리 위로 잠든 작은 머리 하나) 텅 빈 <b>됫박(doetbak)</b>을 두 팔로 가슴에 꼭 안은 채 천천히 걸어감, 지친 듯 고개를 살짝 숙였지만 입가엔 옅은 미소, 비참하지 않고 담담하게.<br/><b>배경·소품</b> 낮은 흙담과 그 위에 얹힌 기와 몇 장, 담 밖으로 이어진 흙길, 길가의 마른 풀, 담 안쪽 마당의 굳게 닫힌 곳간 문과 커다란 자물쇠(화면 구석에 작게), 저녁 하늘 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 낮게 비껴드는 저녁 햇빛이 이웃의 등만 길게 물들임, 슬프기보다 마음이 툭 건드려지는 조용하고 뭉클한 정서. 화면의 단 하나 빨강은 아기 포대기를 묶은 붉은 끈.</pre></details>
+</div>
+
+<!-- ④ 절정 : P9, P10, P11 -->
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(잠 못 이룬 밤)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날 밤, 자린고비는 잠이 오지 않았어요. 어둠 속에서 천장의 굴비만 물끄러미 올려다보았지요. '나는 저 굴비를 아끼느라, 한 번도 먹어 본 적이 없구나.' 곳간은 그득한데 가슴은 이상하게 텅 빈 것 같았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 강한 로우앵글(누운 사람의 눈높이) — 요에 누운 자린고비의 얼굴이 화면 아래에 가깝게 걸치고, 그의 시선 끝 천장에 굴비가 어둠 속에 홀로 매달려 있음. P3의 왁자한 로우앵글과 같은 대상이지만 이번엔 혼자, 밤, 정적.<br/><b>장소·시간</b> 자린고비네 초가집 안방, 깊은 밤. 숨소리만 들리는 고요하고 서늘한 공기.<br/><b>인물</b> MiserJaringobi(구두쇠 자린고비)가 화면 아래쪽에 이불을 턱까지 덮고 반듯이 누워 두 눈을 말똥말똥 뜬 채 천장을 올려다봄, 입은 아래로 휜 조용한 한 줄, 눈썹 두 획이 안쪽으로 살짝 기울어 쓸쓸함. 이불 위로 나온 한 손은 주먹을 쥐었다가 힘없이 펴진 상태. 옆자리에 JaringobiWife(자린고비 아내)와 SonBoy(자린고비 아들)가 등을 돌리고 새근새근 잠든 뒷모습(획 몇 개로만).<br/><b>배경·소품</b> 천장 서까래에 붉은 실로 매달린 <b>굴비(gulbi)</b> 한 마리가 어둠 속에서 문틈으로 든 달빛을 받아 옆구리만 은은히 빛남, 아주 조금 흔들리는 중. 방 한쪽 벽의 낮은 문살 창에 푸른 달빛, 머리맡의 물 대접, 개어 놓은 옷가지 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 문살로 스며든 푸른 달빛 한 줄기만 굴비와 얼굴에 닿고 나머지는 부드러운 남빛 어둠, 뉘우침이 아니라 스스로 마음이 움직이는 조용하고 뭉클한 정서. 화면의 단 하나 빨강은 굴비를 매단 붉은 실.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(자물쇠를 내려놓다)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">새벽닭이 울자 자린고비는 벌떡 일어났어요. 곳간 앞에 서서 커다란 자물쇠를 손에 쥐었지요. 철컥— 열쇠를 돌리고는, 이번에는 주머니에 도로 넣지 않았어요. 자물쇠를 문지방에 툭, 내려놓았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 극단 클로즈업, 아이레벨 정면 — 화면 전체가 손과 자물쇠. 곳간 문고리에서 방금 풀려 열린 무쇠 자물쇠를 펼친 손바닥 위에 얹은 순간, 다른 손은 열쇠를 쥔 채 아래로 내려가는 중. 얼굴은 화면 위쪽에 일부만 걸침.<br/><b>장소·시간</b> 자린고비네 곳간 문 앞, 첫닭이 우는 새벽. 푸르스름하고 서늘한, 무언가 시작되는 공기.<br/><b>인물</b> KindJaringobi(나누는 자린고비)의 두 손이 화면을 가득 채움 — 평생 꽉 쥐고만 있던 주먹이 활짝 펴져 손바닥 위에 묵직한 자물쇠가 얹힘, 손가락에 힘이 빠지고 편안하게 벌어짐. 화면 위쪽 가장자리에 그의 턱과 입이 걸치는데, 늘 매듭처럼 다물려 있던 입이 조금 벌어져 숨을 크게 내쉬는 모양. (🔴 옷·얼굴은 이전과 완전히 동일 — 바뀐 건 펴진 손과 자세뿐.)<br/><b>배경·소품</b> <b>곳간 자물쇠(gotgan jamulsoe)</b> — 물고기 모양의 커다란 무쇠 자물쇠, U자 고리가 활짝 열려 있고 긴 열쇠가 아직 반쯤 꽂힘, 짧은 짚끈으로 이어짐. 뒤로 살짝 밀려 열리기 시작한 곳간 널문 틈과 그 안의 어스름, 문지방의 나뭇결, 발치의 흙바닥 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 새벽의 푸른빛 속에 열린 문틈에서 새어 나온 따뜻한 빛이 손바닥에만 떨어짐, 결심이 조용히 딸깍 맞물리는 벅차고 담백한 정서. 화면의 단 하나 빨강은 자물쇠에 매인 붉은 실 매듭.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(곳간 문이 활짝!)</b> <span class="tag beat">④ 절정 · 시각적 한 방</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">곳간 문이 활짝 열렸어요! "가져가세요, 넉넉히 가져가세요!" 됫박마다 쌀이 소복소복, 씨앗이 담긴 뒤웅박도 이 손 저 손으로 건네졌지요. 마을 사람들은 눈이 휘둥그레졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 하이앵글 부감 — 마당 전체를 위에서 비스듬히 내려다보는 그림책 "펼침면 한 방". 화면 왼쪽에 활짝 열린 곳간 문이 빛의 사각형처럼 열리고, 거기서부터 마당 가득한 사람들 사이로 쌀과 씨앗이 물결처럼 퍼져 나가는 흐름이 한눈에.<br/><b>장소·시간</b> 자린고비네 집 앞마당, 해가 막 올라온 아침. 술렁이고 벅찬 공기.<br/><b>인물</b> 화면 왼쪽 곳간 문 앞 — KindJaringobi(나누는 자린고비)가 굽었던 등을 곧게 펴고 두 팔을 활짝 벌린 채 크게 웃으며 사람들을 불러들임, 손바닥은 활짝 펴져 위를 향함(옷은 여전히 기운 그 두루마기 그대로). 그 곁에서 JaringobiWife(자린고비 아내)가 주걱 대신 됫박을 들고 신이 나서 쌀을 퍼 담아 건네며 활짝 웃음. SonBoy(자린고비 아들)는 씨앗 뒤웅박을 두 팔로 안고 아장아장 사람들 사이를 누빔. 화면 오른쪽 앞 — HungryNeighbor(이웃 아주머니)가 아기를 업은 채 텅 비었던 됫박에 쌀이 소복이 담기는 것을 내려다보며 입을 크게 벌리고 눈가에 작은 눈물 획 하나. 그 뒤로 마을 사람 예닐곱이 그릇과 자루를 들고 모여드는 러프한 실루엣.<br/><b>배경·소품</b> 활짝 열린 곳간 문과 안에 그득한 쌀가마니 더미, 여러 개의 <b>됫박(doetbak)</b>이 이 손 저 손에서 쌀로 채워짐, 짚 그물에 싸인 <b>뒤웅박(dwiungbak)</b> 여럿이 서까래에서 내려져 건네지며 씨앗이 조르르 쏟아짐, 문지방 위에 놓인 채 잊힌 커다란 자물쇠, 마당의 장독대 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 갓 떠오른 아침 해가 곳간 문에서 마당으로 길게 쏟아짐, 인심이 터져 나오는 환하고 벅찬 정서, 넉넉한 크림빛과 볏짚 노랑. 화면의 단 하나 빨강은 이웃 아기 포대기의 붉은 끈.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P12, P13 -->
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>결말(굴비를 내리다)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날 저녁, 마당에 커다란 밥상이 차려졌어요. 자린고비는 천장의 굴비를 살며시 내렸지요. 그러고는 살을 쪽쪽 발라 이웃 아이 밥 위에 얹어 주었답니다. 놋수저 부딪는 소리가 달그락달그락, 마당이 웃음으로 가득 찼어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 밥상 높이의 아주 낮은 아이레벨 + 겹침 구도 — 카메라가 상 위에 놓인 듯 낮아서, 화면 앞쪽을 밥그릇과 놋수저가 크게 가로막고 그 사이 틈으로 마주 앉은 사람들이 보임. 굴비를 발라 건네는 손이 화면 한가운데.<br/><b>장소·시간</b> 자린고비네 집 앞마당의 평상, 같은 날 저녁. 등불이 켜지고 밥냄새가 퍼지는 다정하고 북적한 공기.<br/><b>인물</b> 화면 가운데 — KindJaringobi(나누는 자린고비)가 상 위로 몸을 기울여, 젓가락으로 발라낸 하얀 굴비 살점을 이웃 아이의 밥그릇 위에 조심스레 얹어 주는 중, 활짝 웃는 큰 입과 눈가의 주름 획. 그 옆 HungryNeighbor(이웃 아주머니)는 아기를 무릎에 안고 앉아 놀라움과 고마움이 섞인 부드러운 미소로 고개를 살짝 숙임. 맞은편 SonBoy(자린고비 아들)는 밥을 한가득 문 채 볼이 빵빵, 눈이 반달. 그 옆 JaringobiWife(자린고비 아내)는 밥을 더 퍼 주며 흐뭇한 반쪽 미소. 상 둘레로 이웃 두어 명이 더 앉은 러프한 실루엣.<br/><b>배경·소품</b> 상 한가운데 접시에 놓인 <b>굴비(gulbi)</b> — 이제 천장이 아니라 상 위에 내려와 살이 발라지는 중, 곁에 풀린 붉은 무명실이 접시 옆에 늘어져 있음. 밥그릇 여럿과 <b>놋수저(notsujeo)</b>가 달그락 부딪는 모습, 국그릇에서 오르는 김, 평상 옆 마당의 등불, 뒤로 열린 채인 곳간 문 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 등불의 따뜻한 주황빛이 상 위 사람들 얼굴을 아래에서 감쌈, 나눌 때 비로소 맛있어지는 뭉클하고 푸근한 정서. 화면의 단 하나 빨강은 접시 옆에 늘어진 굴비의 붉은 실.</pre></details>
+</div>
+
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>결말(진짜 배부른 날)</b> <span class="tag beat">⑤ 결말</span> <span class="tag">후렴 ③ 변주</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">참 이상한 일이었어요. 남에게 다 나눠 준 날, 자린고비는 태어나 처음으로 배가 아주 불렀거든요. 그날부터 자린고비네 밥상에는 새 노래가 울려 퍼진답니다. "한 술 뜨고 한 번 웃고! 두 술 뜨고 한 번 나누고!" 아끼는 마음도 좋지만, 나눌 때 진짜 넉넉해진대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 살짝 로우앵글 — 마당 평상 앞 낮은 자리에서 올려다보는 각도라 사람들과 저녁 하늘이 함께 넓게 담김. 화면 왼쪽 위 처마 밑에 이제 굴비 대신 짚 그물에 싸인 뒤웅박들이 나란히 매달려 있고, 화면 오른쪽으로 웃는 사람들이 길게 이어지는 마무리 컷.<br/><b>장소·시간</b> 자린고비네 집 앞마당, 노을이 물드는 저녁. 배부르고 흐뭇한, 웃음소리가 번지는 공기.<br/><b>인물</b> 화면 가운데 — KindJaringobi(나누는 자린고비)가 두둑해진 배에 한 손을 얹고 등을 활짝 편 채 고개를 뒤로 젖혀 크게 웃음, 다른 손은 손바닥을 펼쳐 옆 사람 쪽으로 내밀고 있음. 그 왼쪽에서 JaringobiWife(자린고비 아내)가 어이없다는 듯 한쪽 눈썹을 올렸다가 결국 함께 웃음. 오른쪽에서 SonBoy(자린고비 아들)가 놋수저를 번쩍 들고 노래하듯 입을 동그랗게 벌리고 폴짝 뜀. 그 곁 HungryNeighbor(이웃 아주머니)는 아기를 업은 채 한 손으로 박자를 맞추며 환하게 웃고, 뒤로 마을 사람들이 저마다 그릇을 들고 어깨를 들썩이는 러프한 실루엣.<br/><b>배경·소품</b> 처마 밑에 나란히 매달린 씨앗 <b>뒤웅박(dwiungbak)</b> 셋(굴비가 걸려 있던 자리를 대신함), 평상 위 텅 빈 밥그릇들과 <b>놋수저(notsujeo)</b>, 아무렇게나 열려 있는 곳간 문, 마당 등불, 노을 진 하늘과 낮은 산 능선 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 붉게 물드는 저녁 노을빛이 사람들 어깨 위로 넉넉하게 퍼짐, 배부르고 흐뭇한 웃음으로 닫는 따뜻한 여운의 정서. 화면의 단 하나 빨강은 자린고비 손목에 감아 둔, 굴비를 매달았던 붉은 실 한 가닥.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 자린고비 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING (finish hierarchy — the single most important rule): The bright warm cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. This picture is deliberately UNEVENLY finished, like one page from a master's sketchbook. Finish only what matters: the CHARACTERS = finished (clear line AND color, keep them at their current level); a prop a character is directly touching or holding (a loom, a bench, a gourd in their hands) = half-finished, a bit of line and a little color; everything else — the whole background: jars, walls, fences, roofs, trees, hills, anything far away — = a LOOSE UNFINISHED PENCIL SKETCH: just a few open contour lines and a few direction strokes, barely any color, lots of bare cream paper showing through, deliberately NOT filled in, like the rough underdrawing on a sketchbook page. A jar is two or three open outlines, a roof is a few slanted direction strokes, a distant thing is one or two lines and then paper. This is about how FINISHED each area is, NOT about opacity — the background is not faded, hazy, blurry or low-saturation, it is simply left as rough sketch lines and not drawn to completion. Spend all the density ONLY on the characters. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces; NOT a fully rendered background, NOT every jar / roof-tile / leaf drawn to completion, NOT a uniform finish across the whole picture, and NOT a hazy / blurry / faded background either (that is just blur, not a sketch) — keep the background as loose OPEN PENCIL SKETCH lines and every stroke loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'MiserJaringobi', name: '구두쇠 자린고비', desc: '소문난 구두쇠 영감(P1~P9) — 마른 막대 실루엣, 늘 꽉 쥔 두 주먹, 기운 두루마기, 허리 열쇠 꾸러미', aliases: ['MiserJaringobi'] },
+    { token: 'KindJaringobi',  name: '나누는 자린고비', desc: '곳간을 연 자린고비(P10~P13) — 같은 얼굴·같은 기운 옷, 펴진 손바닥·벌린 두 팔·펴진 등만 다름', aliases: ['KindJaringobi'] },
+    { token: 'JaringobiWife',  name: '자린고비 아내',   desc: '야무진 살림꾼 아내 — 통통한 배 모양 실루엣, 낮은 쪽머리·앞치마·주걱, 어이없는 반쪽 미소', aliases: ['JaringobiWife'] },
+    { token: 'SonBoy',         name: '자린고비 아들',   desc: '여섯 살 아들 — 동글동글한 몸, 아이 댕기머리, 고개를 끝까지 젖혀 굴비를 올려다보는 시그니처 포즈', aliases: ['SonBoy'] },
+    { token: 'HungryNeighbor', name: '이웃 아주머니',   desc: '아기 업은 이웃 — 포대기 위 잠든 아기 머리 + 가슴에 안은 텅 빈 됫박, 지치되 비참하지 않게', aliases: ['HungryNeighbor'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

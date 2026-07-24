@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 좁쌀 한 톨로 장가든 총각</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · 시즌2 #36</div>
+  <h1>🌾 좁쌀 한 톨로 장가든 총각</h1>
+  <div class="sub">길에서 주운 좁쌀 한 톨이 쥐가 되고, 고양이가 되고, 개가 되고, 말이 되고 — 넉살 좋은 총각의 신나는 바꿔치기 여행</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 지혜·긍정 (작은 것도 소중히 여기면 큰 것이 된다) &nbsp;·&nbsp;
+  <b>분량</b> 13 스프레드 &nbsp;·&nbsp; <b>후렴</b> 교환 문답 5회 (P4→P6→P8→P10→P12 반전) &nbsp;·&nbsp;
+  <b>핵심단어</b> 좁쌀 · 등롱 · 고삐 · 청사초롱 · 목기러기 &nbsp;·&nbsp;
+  <b>순화</b> 🔴 억지 떼쓰기가 아니라 <b>당당하고 넉살 좋은 재치</b> — 어른들은 화내지 않고 도리어 무릎을 치며 웃고 내어 준다 / 🔴 동물이 잡아먹히는 묘사 금지 — 쥐도 고양이도 개도 "폴짝 달아나 그만 없어졌다"로만(사라지는 뒷모습·꼬리 끝만) / 🔴 마지막 교환은 <b>사람을 주고받는 것이 아니다</b> — 처녀가 스스로 후렴을 되받아 외치며 혼인을 <b>제 뜻으로</b> 택하고, 원님도 웃으며 허락한다
+</div>
+<div class="refrain">🌾 반복 후렴 — "그럼, 그 ○○를 주세요! 좁쌀 한 톨도 제겐 소중하니까요!" <span style="font-weight:600;font-size:13px">(P4 쥐 → P6 고양이 → P8 개 → P10 말 → P12 처녀가 되받아 "그럼, 제가 가겠어요!")</span></div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-jopssal</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.<br>🔴 <b>혼례복은 상태 분리 대신 "한 시트 안 2상태"</b> — 총각·처녀는 마지막 P13 한 쪽에서만 혼례복이라, 각 시트에 <b>평상복 / 혼례복 두 상태</b>를 함께 그린다(제비 시트의 2상태 방식). 얼굴은 IDENTICAL, 옷·머리만 바뀐다.<br>🔴 <b>화면당 빨강 악센트 1점</b> = 기본은 <b>총각 봇짐을 묶은 붉은 끈</b>. 단 <b>처녀(BrideGirl)가 화면에 있으면 그녀의 붉은 댕기가 유일한 빨강</b>이고 총각의 봇짐 끈은 그 컷에서 남빛으로 그린다. 총각이 없는 컷은 각 쪽 SCENE 톤 줄에 지정된 빨강 하나만.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="총각" data-key="char-young-man">
+  <div class="head"><span class="face">🧑</span><b>총각</b> <span class="rom">YoungMan · 넉살 좋은 주인공</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: YoungMan — a poor but sunny, quick-witted unmarried young man walking the roads to see the world. Dot-eye design language: a flat cream face with zero shading, two dot eyes, and his signature — the widest, most confident one-line smile in the cast, curving up further at the corners than anyone else's. No nose (or one tiny dot). NO stubble dots and NO topknot: he is unmarried, so his hair is one solid dark mass gathered into a single long braid down his back (chonggak-meori) — that braid is how a child reads "young man, not yet married".
+SILHOUETTE (his signature): light and springy — a slim upright body always caught mid-stride, one shoulder lifted by the bundle strap, chin up and cheerful. He never slumps, not even when he has nothing.
+CLOTHES & PROP: a plain everyday hanbok suggested in soft blue-grey pencil strokes, mostly open cream paper with loose hatching and a small scribbled patch at the knee, straw sandals in a few pale straw-yellow strokes. ALWAYS a small cloth bundle (bottari) slung over one shoulder, tied shut with a RED cord — that cord is the picture's single red accent whenever he appears (see NOTE).
+NOTE (red rule): when BrideGirl is in the same picture, HER red hair ribbon takes the red and his bundle cord is drawn in soft blue-grey instead.
+TWO STATES on the same sheet: (a) EVERYDAY — as described above, braid and bundle; (b) WEDDING DAY (used on the final page only) — the SAME face, but the braid is now tied up into a topknot under a black winged groom's cap (samo), and a simple dark-jade ceremonial outer robe in a few tidy strokes over cream; no bundle. Clearly the SAME person, just dressed for the wedding.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle mid-stride (bundle on shoulder, wide grin) + a 3/4 turn + the wedding-day full body + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) wide confident grin, (2) bright idea — one brow stroke lifted, eyes wide, a small open O mouth, (3) playful bow with a closed happy smile. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="주모" data-key="char-inn-keeper">
+  <div class="head"><span class="face">🍶</span><b>주모</b> <span class="rom">InnKeeper · 주막 주인 아주머니</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: InnKeeper — the brisk, big-hearted woman who runs the roadside tavern-inn (jumak). Warm and teasing, never sour. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a wide open laughing mouth drawn as one curved open line, no nose (or one tiny dot). Hair as one solid dark mass in a practical low bun with a plain wooden pin.
+SILHOUETTE (her signature): sturdy and wide — round shoulders, sleeves rolled up above the elbows, hands usually on her hips or holding a big ladle. The most planted, immovable body in the cast.
+CLOTHES & PROP: a work skirt-and-jacket hanbok in soft blue-grey strokes with the skirt hitched and tucked at the waist, a straw-yellow work apron in a few strokes, and a long-handled wooden ladle almost always in one hand.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands on hips, ladle in one hand, big laugh) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) hearty open laugh, (2) teasing sideways smirk with one brow stroke raised, (3) an apologetic small O mouth with both palms up. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="방앗간 할머니" data-key="char-granny">
+  <div class="head"><span class="face">👵</span><b>방앗간 할머니</b> <span class="rom">Granny · 두 번째 집주인</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Granny — a tiny, cheerful old woman who runs the village mill shed, all giggles and pats. Dot-eye design language: a flat cream face with zero shading, but her eyes are TWO SHORT UPWARD-CURVED ARCS (∩ shapes) because she is always laughing — that is her signature and the only face in this cast with curved-arc eyes. A small open laughing mouth, no nose (or one tiny dot). Hair as one solid PALE GREY mass in a tiny tight bun.
+SILHOUETTE (her signature): the smallest adult in the cast — a little rounded dumpling of a body, back slightly curved, one hand often on her lower back. She barely reaches YoungMan's chest.
+CLOTHES & PROP: a soft grey-and-cream everyday hanbok in a few loose strokes, a cloth head-wrap, straw sandals, and often a short handbroom or a small wooden scoop of grain.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (one hand on her back, laughing) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture, the arc eyes staying curved: (1) crinkly open laugh, (2) flustered O mouth with both hands raised, (3) fond closed smile with a slight nod. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="농부 아저씨" data-key="char-farmer">
+  <div class="head"><span class="face">🧑‍🌾</span><b>농부 아저씨</b> <span class="rom">Farmer · 세 번째 집주인</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Farmer — the good-natured farmer whose yard dog causes the third mix-up. Loud, hearty, quick to slap his own forehead. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a broad one-line smile, no nose (or one tiny dot), three or four stubble dots on the chin, hair as one solid dark mass in a topknot (sangtu) under a simple cloth head-wrap.
+SILHOUETTE (his signature): square and thick — wide flat shoulders, short thick arms, legs planted apart, trousers tied at the calf. Built like a bundle of straw.
+CLOTHES & PROP: a sleeveless work jacket and rolled trousers in soft blue-grey pencil strokes, a twisted straw rope belt, bare feet or straw sandals. Often a short-handled hoe or a coil of straw rope in one hand.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (rope coil in one hand, broad grin) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) broad hearty grin, (2) forehead-slap dismay — a big O mouth, one palm flat against the brow, (3) an impressed closed smile with a slow approving nod. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="부잣집 어른" data-key="char-rich-host">
+  <div class="head"><span class="face">🧔</span><b>부잣집 어른</b> <span class="rom">RichHost · 말을 내어 주는 주인</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: RichHost — the well-off master of the tiled house with the stable; comfortable, fair and delighted by cleverness, never a villain and never stingy. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a calm closed one-line smile, no nose (or one tiny dot), a neat short beard drawn as a few soft strokes along the jaw, hair as one solid dark mass in a topknot (sangtu) under a wide black horsehair hat (gat) drawn as one simple dark shape.
+SILHOUETTE (his signature): tall and comfortably wide — a broad relaxed body made mostly of his long outer robe, hands often clasped behind his back. Reads as "the master of this house" from far away by the gat and the robe alone.
+CLOTHES: a long scholar's outer robe (dopo) suggested in soft cream and pale straw strokes with a wide sash, mostly open paper — well-off told by the clean unbroken lines and the gat, never by gold or pattern.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands clasped behind the back, calm smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) calm closed smile, (2) awkward apology — a small downcurved mouth, one hand rubbing the back of his neck, (3) delighted laugh with a big open mouth, one hand slapping his own knee. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="원님" data-key="char-wonnim">
+  <div class="head"><span class="face">👨‍⚖️</span><b>원님</b> <span class="rom">Wonnim · 고을 원님 · 처녀의 아버지</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Wonnim — the local magistrate and BrideGirl's father; dignified on the outside, soft and easily amused on the inside. Never angry, never frightening. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a straight formal line mouth that keeps breaking into a grin, no nose (or one tiny dot), a long thin mustache drawn as two sweeping strokes.
+SILHOUETTE (his signature): a wide upright rectangle made almost entirely of his official robe, plus a black winged official cap (samo) drawn as one simple dark shape with two little side wings — the "official" silhouette, readable from across the page.
+CLOTHES: a round-collar official robe suggested in soft jade-green and cream strokes with one loosely scribbled rank badge at the chest and a wide sash, mostly open paper. Grand told by the SHAPE, not by heavy rendering.
+NOTE (red rule): when he appears without BrideGirl or YoungMan in frame, the picture's single red accent is the small red cord of his sash.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands together in front, formal straight mouth) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) formal straight line mouth, (2) astonished big O mouth with both brow strokes flying up, (3) helpless belly laugh, head tipped back, one hand on his stomach. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="원님 댁 처녀" data-key="char-bride-girl">
+  <div class="head"><span class="face">👧</span><b>원님 댁 처녀</b> <span class="rom">BrideGirl · 스스로 혼인을 택하는 처녀</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: BrideGirl — the magistrate's daughter: bright, bold and horse-loving, the one person in the story quick enough to turn YoungMan's own refrain back on him. Never demure or passive — she decides. Dot-eye design language: a flat cream face with zero shading, two dot eyes, and her signature a slightly crooked mischievous one-line smile that lifts higher on one side, no nose (or one tiny dot). Hair as one solid dark mass in a single long braid down her back.
+SIGNATURE RED: a RED hair ribbon (daenggi) at the end of her braid — whenever she is in the picture this ribbon is the single red accent, and everyone else's red is dropped.
+SILHOUETTE (her signature): small and springy, always leaning forward into whatever interests her — up on her toes at the wall, hand already reaching out. Curiosity drawn as posture.
+CLOTHES: a tidy everyday skirt-and-jacket hanbok in soft cream and pale jade pencil strokes, mostly open paper, neat but easy to run in, cloth shoes in a couple of strokes.
+TWO STATES on the same sheet: (a) EVERYDAY — as described above; (b) WEDDING DAY (final page only) — the SAME face and braid, now coiled up under a small beaded bridal coronet, wearing a ceremonial bridal robe suggested in a few tidy strokes of pale apricot and jade with wide sleeves. Clearly the SAME girl, just dressed for the wedding; her red stays as the ribbon at the coronet.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (leaning forward, one hand reaching out, crooked smile) + a 3/4 turn + the wedding-day full body + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) crooked mischievous smile, (2) caught-in-the-act O mouth with both hands clapped over it, (3) bold laughing declaration — a wide open mouth, chin up, one fist at her hip. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="쥐" data-key="char-mouse-small">
+  <div class="head"><span class="face">🐭</span><b>쥐</b> <span class="rom">MouseSmall · 좁쌀을 먹어 버린 쥐</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: MouseSmall — a tiny field mouse, plump, guilty and comical, never dirty or creepy. Drawn with very few strokes: one soft rounded grey pencil mass for the body, two little round ears as two open circles, one dot eye, three whisker strokes, a long thin curl of a tail as a single stroke, and a small round belly left as bare cream paper.
+SCALE: he must read as TINY — no bigger than a person's cupped hand, so the size jump to the cat and the dog is instantly funny.
+REFERENCE SHEET: one sheet on plain bright cream paper — a side-profile sitting pose nibbling with both front paws + a front view + a scampering-away back view with the tail whipping. Show TWO MOODS by pose only: (a) smug and round-bellied after eating, (b) startled, all four legs off the ground. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="고양이" data-key="char-cat-one">
+  <div class="head"><span class="face">🐱</span><b>고양이</b> <span class="rom">CatOne · 방앗간 고양이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: CatOne — the mill shed's cat: sleek, unbothered, faintly pleased with itself. Never menacing, never mid-hunt with teeth showing. Drawn simply: one long rounded pale straw-yellow body mass with a few darker tabby direction strokes on the back, two triangle ears, two dot eyes, a tiny line mouth, three whisker strokes each side, and a tall question-mark tail as one confident stroke.
+SCALE: about four times MouseSmall, and clearly smaller than DogOne — the middle rung of the ladder.
+REFERENCE SHEET: one sheet on plain bright cream paper — a sitting side profile with the tail curled around the front paws + a front view + a stretched mid-pounce leap drawn as one long arc of a body. Show TWO MOODS by pose only: (a) calm loafing with eyes as two small closed arcs, (b) alert, ears forward, tail straight up. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="개" data-key="char-dog-one">
+  <div class="head"><span class="face">🐶</span><b>개</b> <span class="rom">DogOne · 농부네 마당 개</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: DogOne — a friendly yellow village dog (Jindo-ish): floppy-happy, always mid-bounce, mouth open in a panting smile. Never snarling, never scary. Drawn simply: a rounded warm straw-yellow body in loose pencil strokes with the chest left as bare cream paper, two small folded triangle ears, two dot eyes, an open smiling line mouth with a tiny tongue stroke, and a thick curled tail drawn as one spiral stroke.
+SCALE: roughly twice CatOne and clearly much smaller than HorseBig — the fourth rung of the ladder.
+PROP: a simple braided straw collar with a short lead rope, drawn in a few strokes.
+REFERENCE SHEET: one sheet on plain bright cream paper — a standing side profile + a front view sitting + a full-speed running pose with all four legs stretched out. Show TWO MOODS by pose only: (a) happily bouncing with both front paws off the ground, (b) startled — ears back, body low, tail tucked. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="말" data-key="char-horse-big">
+  <div class="head"><span class="face">🐴</span><b>말</b> <span class="rom">HorseBig · 부잣집 밤색 말</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: HorseBig — a handsome chestnut Korean horse, the top rung of the ladder: big, glossy-tempered and a little dramatic, but gentle and never frightening. Drawn with confident sweeping strokes: a warm chestnut-brown body (#8C5A33) with the belly left as bare cream paper, a solid dark mane and tail as two bold scribbled masses, two dot eyes, one soft nostril dot, and four long slim legs in single strokes.
+SCALE: he must tower — the biggest living thing in the book, well over YoungMan's head, so the "grain → mouse → cat → dog → horse" size ladder pays off in one look.
+PROP: a simple leather-and-brass bridle with a thick twisted rope lead (gobbi) hanging from it, drawn in a few strokes; a folded blanket saddle pad in soft blue-grey.
+REFERENCE SHEET: one sheet on plain bright cream paper — a standing side profile with the lead rope hanging + a 3/4 front view + a rearing-with-surprise pose, front hooves lifted, mane flying (comic and light, never violent). Show TWO MOODS by pose only: (a) calm with the head lowered, (b) startled with the head thrown up and ears back. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.) 다섯 사물 모두 본문에 실제로 등장한다 — 좁쌀 P2·P3·P4, 등롱 P3·P4, 고삐 P10·P11, 청사초롱 P13, 목기러기 P13.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="좁쌀" data-key="word-jopssal">
+  <div class="head"><span class="face">🌾</span><b>좁쌀</b> <span class="rom">jopssal — hulled foxtail millet</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jopssal — hulled foxtail millet, the smallest grain in a Korean kitchen (좁쌀)". Tiny perfectly round grains of warm golden yellow (#E8C25A) with a faint pearly sheen and a pale seam line on each grain. Show TWO forms so the word reads clearly: (1) ONE single grain magnified huge and centered like a precious jewel, with a soft glow rim and a gentle shadow — this is the hero of the story, and (2) beside it, at true tiny scale, a small heaped mound of the same grains spilling from a little wooden scoop, so the size difference is obvious. Precious and proud, not humble. Centered icon-style word card, hanji-cream backdrop, no people, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="등롱" data-key="word-deungnong">
+  <div class="head"><span class="face">🏮</span><b>등롱</b> <span class="rom">deungnong — a hanging paper lantern</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "deungnong — a traditional Korean hanging lantern that lit the eaves of a roadside inn (등롱)". A tall cylinder of oiled hanji paper (#F3E2B8) stretched over a slim bamboo ring frame, a turned wooden cap on top and a wooden ring at the base, hung from a braided cord with a small tassel, a candle glowing warm amber inside so the paper turns honey-gold and the bamboo ribs show through as dark lines. Show TWO states side by side: (1) lit at night with a soft amber halo, and (2) unlit in daylight showing the pale paper and the bamboo frame clearly. Handcrafted and warm. Centered icon-style word card, hanji-cream backdrop, no people, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="고삐" data-key="word-gobbi">
+  <div class="head"><span class="face">🪢</span><b>고삐</b> <span class="rom">gobbi — a horse's lead rope</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "gobbi — the twisted rope rein used to lead a Korean horse (고삐)". A thick hand-twisted hemp rope in warm straw tan (#CBA96A) with the strands and the braid clearly visible, one end whipped and knotted, attached to a simple horse bridle of dark chestnut leather straps (#6B4A2F) with small brass rings and studs. Show TWO forms: (1) the rope neatly coiled into loops, and (2) the bridle with the rein hanging loose in a long soft S-curve, as if just slipped from someone's hand. No horse, no people. Sturdy, handcrafted, warm rope texture. Centered icon-style word card, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="청사초롱" data-key="word-cheongsachorong">
+  <div class="head"><span class="face">🕯️</span><b>청사초롱</b> <span class="rom">cheongsachorong — a blue-and-red silk wedding lantern</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "cheongsachorong — the blue-and-red silk lantern carried at a traditional Korean wedding (청사초롱)". A barrel-shaped lantern on a slim bamboo frame, its silk gauze covering split into two bands: deep blue silk (#2E6DA4) on the upper half and vivid red silk (#C0392B) on the lower half, with gold-thread trim rings between them, a candle glowing inside so both silks light up like stained glass, a lotus-shaped wooden cap on top, and a long carrying pole with a small tassel hooked to it. Show it lit and slightly turned so both the blue and the red band read clearly. Festive, proud, glowing. Centered icon-style word card, hanji-cream backdrop, no people, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="목기러기" data-key="word-mokgireogi">
+  <div class="head"><span class="face">🦆</span><b>목기러기</b> <span class="rom">mokgireogi — a carved wooden wedding goose</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "mokgireogi — the carved wooden wild goose presented at a Korean wedding as a promise to stay together for life (목기러기)". A palm-sized goose carved from one block of pale paulownia wood with visible grain, a smooth rounded body, a long curved neck and a small flat beak, hand-painted with soft dancheong-style color bands on the wings and tail (jade, indigo, ochre) and one dot eye. Show TWO forms: (1) the bare carved-and-painted goose, and (2) the same goose wrapped in a blue-and-red silk cloth tied with a knot on its back, the way it is carried to the wedding table. Warm wood, crisp folk-paint colors. Centered icon-style word card, hanji-cream backdrop, no people, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 13 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(길 떠나는 총각)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 가진 것이라곤 봇짐 하나뿐인 총각이 살았어요. 그래도 웃음만은 온 마을에서 제일 넉넉했지요. "세상 구경을 하고 오겠습니다!" 총각은 휘파람을 휘휘 불며 기다란 흙길로 나섰답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 + 극단 여백 — 화면의 약 70%가 텅 빈 아침 하늘과 굽이진 흰 흙길이고, 총각은 화면 왼쪽 아래 3분의 1 지점에 작게 놓인 아이레벨 롱숏.<br/><b>장소·시간</b> 옛 한국 시골 마을 어귀에서 들판으로 뻗어 나가는 흙길, 이른 아침. 이슬이 마르는 상쾌하고 트인 공기.<br/><b>인물</b> YoungMan(총각)이 화면 왼쪽 아래에서 걸음을 한껏 내디딘 성큼성큼 자세, 한 손으로 어깨의 작은 봇짐 끈을 잡고 다른 손은 신나게 휘두름, 입술을 동그랗게 오므려 휘파람을 부는 작은 O 입, 눈은 두 점이지만 눈썹 획이 위로 올라가 즐거움. 등 뒤로 긴 댕기머리가 걸음에 맞춰 흔들림.<br/><b>배경·소품</b> 화면 오른쪽 위 여백으로 아득히 사라지는 흙길, 길가의 장승 하나와 돌무더기, 낮은 초가집 두어 채와 나지막한 산등성이, 멀리 날아가는 새 몇 획 — 전부 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 아침 햇살이 길 위로 낮게 깔리는 밝고 시원한 빛, 무엇이든 시작할 수 있을 것 같은 씩씩하고 설레는 정서. 화면의 단 하나 빨강 = 봇짐을 묶은 붉은 끈.</pre></details>
+</div>
+
+<!-- ② 발단 : P2 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(좁쌀 한 톨을 줍다)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">터벅터벅 걷던 총각이 길바닥에서 무언가를 발견했어요. 반짝, 노란 좁쌀 한 톨이었지요. "에이, 그런 걸 뭐 하러 줍나?" 지나가던 사람들이 픽 웃었어요. 그래도 총각은 좁쌀을 주워 주머니에 소중히 넣었답니다. "작다고 함부로 버릴쏘냐!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업 + 하이앵글 부감 — 총각의 어깨 위에서 그의 펼친 손바닥을 거의 수직으로 내려다보는 컷. 화면 대부분이 손바닥이고, 그 한가운데 좁쌀 한 톨이 아주 작게 놓임(스케일 대비).<br/><b>장소·시간</b> 들판 사이 흙길 위, 한낮. 먼지가 폴폴 이는 나른하고 밝은 공기.<br/><b>인물</b> YoungMan(총각)이 무릎을 굽히고 몸을 숙여 한 손바닥을 활짝 펴 든 자세 — 화면 위쪽 가장자리에 그의 얼굴이 거꾸로 들여다보듯 걸침, 두 점눈이 동그랗고 입은 감탄하는 작은 O. 다른 손은 벌써 허리춤 주머니를 벌리고 있음.<br/><b>배경·소품</b> 손바닥 한가운데 <b>좁쌀(jopssal)</b> 한 톨 — 노란 금빛 낟알 하나가 또렷하고 반짝임 획 두엇. 손바닥 아래로 마른 흙길과 자갈, 화면 구석에 지나가며 웃는 마을 사람 두엇의 다리와 지팡이만 러프한 몇 획으로(얼굴은 보이지 않게).<br/><b>톤</b> 한낮의 환한 빛이 손바닥 위로 곧게 떨어져 낟알 하나에만 시선이 모이는 조명, 하찮아 보이는 것이 귀해지는 다정하고 유쾌한 정서. 화면의 단 하나 빨강 = 봇짐의 붉은 끈(어깨 끝에 살짝).</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P3 ~ P10 (교환 사슬 4단계) -->
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>사건(주막에 맡긴 좁쌀)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">해가 뉘엿뉘엿 지자 총각은 주막에 들었어요. 처마에 걸린 등롱이 바람에 흔들흔들, 노란 불빛이 마당을 비췄지요. "주모님, 이 좁쌀 한 톨을 하룻밤만 맡아 주세요." 주모는 픽 웃으며 좁쌀을 선반 위 그릇에 톡 얹어 두었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 로우앵글 — 마당에 선 총각의 발치 높이에서 처마와 등롱을 올려다보는 구도. 화면 위쪽 3분의 1을 등롱과 처마 그림자가 차지하고, 두 사람은 아래쪽에.<br/><b>장소·시간</b> 길가 주막 마당, 해가 막 넘어간 저녁. 밥 짓는 연기와 두런거리는 소리가 섞인 포근한 공기.<br/><b>인물</b> YoungMan(총각)이 화면 왼쪽 아래에서 발끝을 들고 두 손으로 아주 작은 것을 조심조심 받쳐 올리듯 내밀며 진지한 부탁의 표정 — 눈썹 획이 팔자로 휘고 입은 야무진 한 줄. InnKeeper(주모)는 오른쪽에서 한 손에 국자를 든 채 허리를 굽혀 그 손바닥을 들여다보며 어이없다는 듯 한쪽 눈썹을 올린 장난스러운 웃음, 다른 손은 허리에.<br/><b>배경·소품</b> 처마 끝에 걸린 <b>등롱(deungnong)</b> — 대나무 살에 기름먹인 한지를 씌운 원통형 등, 안에서 촛불이 은은한 호박빛으로 비쳐 살대가 어두운 선으로 드러남. 주막 마당의 평상과 나무 선반, 선반 위 작은 사기 그릇, 부뚜막에서 오르는 김, 사립문 — 배경은 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 등롱의 따뜻한 호박빛 웅덩이와 그 밖의 짙푸른 저녁빛 대비, 하루가 저무는 아늑하고 정겨운 정서. 화면의 단 하나 빨강 = 총각 봇짐의 붉은 끈(등롱 불빛은 노랑·호박빛으로).</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(쥐가 먹어 버렸어요)</b> <span class="tag beat">③ 사건</span> <span class="tag">후렴 ①</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이튿날 아침, 그릇은 텅 비어 있었어요. "아이고, 밤새 쥐가 냠냠 먹어 버렸지 뭐야!" 그러자 총각이 눈을 반짝이며 말했지요. "그럼, 그 쥐를 주세요! 좁쌀 한 톨도 제겐 소중하니까요!" 주모는 배를 잡고 웃으며 쥐를 작은 바구니에 담아 주었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 평면 부감 — 주막 선반 바로 위에서 수직으로 내려다보는 중형 컷. 화면 한가운데 텅 빈 사기 그릇이 놓이고, 그릇 둘레로 흩어진 작은 발자국과 두 사람의 얼굴이 위아래 가장자리에 걸침.<br/><b>장소·시간</b> 주막 안 선반 앞, 이튿날 아침. 창살로 아침빛이 길게 들어오는 개운한 공기.<br/><b>인물</b> 화면 위쪽 가장자리 — InnKeeper(주모)의 얼굴이 아래를 들여다보며 두 팔을 벌리고 "이를 어째" 하는 큰 O 입, 눈썹 획이 팔자. 화면 아래쪽 가장자리 — YoungMan(총각)의 얼굴이 마주 들여다보는데 전혀 시무룩하지 않고 오히려 눈썹 한쪽이 번쩍 올라간 좋은 수가 떠오른 표정, 검지 하나를 세워 위로 척. 화면 오른쪽 구석 바구니 안에 MouseSmall(쥐)이 배가 볼록한 채 얌전히 앉아 앞발을 모으고 있음.<br/><b>배경·소품</b> 텅 빈 사기 그릇(바닥에 <b>좁쌀(jopssal)</b> 껍질 한 조각만 남음), 그릇 둘레의 작디작은 발자국 점선, 옆에 놓인 짚으로 엮은 작은 바구니, 선반 아래로 보이는 <b>등롱(deungnong)</b>이 불 꺼진 채 걸려 있음, 나무 선반 결과 술항아리 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 위에서 곧게 떨어지는 맑은 아침빛, 낭패가 웃음으로 뒤집히는 명랑하고 코믹한 정서. 화면의 단 하나 빨강 = 총각 봇짐의 붉은 끈(화면 아래 구석에 살짝).</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(방앗간의 고양이)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다음 날은 방앗간 할머니 댁에서 묵었어요. "할머니, 이 쥐를 하룻밤만 맡아 주세요." 그런데 광 속에서 야옹— 고양이가 쪼르르 달려들자, 쥐는 그만 폴짝! 문틈으로 달아나 사라져 버렸지 뭐예요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 겹침·가림 구도의 중형 컷 — 반쯤 열린 광 문짝이 화면 왼쪽 3분의 1을 세로로 가리고, 그 문틈 사이로 안쪽이 들여다보이는 구성. 시선 높이는 광 바닥에 가까운 낮은 위치.<br/><b>장소·시간</b> 방앗간 옆 광(곳간) 안, 늦은 오후. 곡식 먼지가 빛기둥에 떠다니는 어스름하고 아늑한 공기.<br/><b>인물</b> 문틈 안쪽 중앙 — CatOne(고양이)이 앞발을 모으고 몸을 길게 늘여 막 튀어나가는 자세, 귀는 앞으로, 꼬리는 곧게 위로, 표정은 사납지 않고 그저 호기심 가득한 점눈. 화면 오른쪽 구석 문지방 아래 — MouseSmall(쥐)의 뒷모습과 꼬리 끝만 문틈 밖으로 쏙 빠져나가는 중(몸의 대부분은 이미 화면 밖, 잡히는 장면이 아님이 분명히). 문짝 바깥 왼쪽 — YoungMan(총각)과 Granny(방앗간 할머니)의 얼굴이 문틈으로 나란히 들여다보며 둘 다 눈이 커지고 입이 O 자.<br/><b>배경·소품</b> 광 안의 곡식 가마니와 나무 됫박, 바닥에 흩어진 곡식알 몇, 문틈으로 비스듬히 들어오는 오후 빛기둥, 낡은 나무 문짝의 결 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 어둑한 광 안으로 들어온 한 줄기 오후 빛이 고양이 등을 훑는 조명, 놀랍지만 하나도 무섭지 않은 소동의 정서. 화면의 단 하나 빨강 = 총각 봇짐의 붉은 끈(문틈 왼쪽에 살짝).</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(그럼 그 고양이를!)</b> <span class="tag beat">③ 사건</span> <span class="tag">후렴 ②</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"아이고, 이를 어쩐담!" 할머니가 두 손을 내저었어요. 총각은 넉살 좋게 씩 웃으며 말했지요. "그럼, 그 고양이를 주세요! 좁쌀 한 톨도 제겐 소중하니까요!" 할머니는 껄껄껄 웃으며 고양이를 폭 안겨 주었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업 투샷, 아이레벨보다 살짝 낮게 — 마주 선 두 얼굴과 그 사이에 안긴 고양이까지만 화면에 꽉 차게 담은 컷. 키 차이가 화면 대각선을 만든다.<br/><b>장소·시간</b> 방앗간 앞마당, 늦은 오후. 볕이 낮게 드는 나른하고 따뜻한 공기.<br/><b>인물</b> 화면 왼쪽 아래 — Granny(방앗간 할머니)가 총각의 가슴께밖에 오지 않는 작은 키로 고개를 한껏 젖혀 올려다보며, 웃어서 감긴 호선 눈에 입은 크게 벌린 껄껄 웃음, 두 팔로 CatOne(고양이)을 들어 올려 건네는 중. 화면 오른쪽 위 — YoungMan(총각)이 허리를 굽혀 두 팔을 내밀며 고양이를 받는 자세, 가장 활짝 웃는 한 줄 미소와 감사하는 눈썹. 두 사람 사이의 CatOne(고양이)은 겨드랑이를 잡힌 채 다리를 축 늘어뜨리고 시큰둥한 점눈.<br/><b>배경·소품</b> 방앗간 처마와 매달린 마른 옥수수 두름, 마당의 절구와 나무 방아, 흙바닥에 길게 누운 오후 그림자 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 낮게 기운 오후 햇살이 두 사람의 뺨을 노랗게 물들이는 조명, 서로 웃음으로 주고받는 훈훈하고 유쾌한 정서. 화면의 단 하나 빨강 = 총각 봇짐의 붉은 끈.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(담을 훌쩍 넘은 고양이)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그다음 날은 농부 아저씨 댁이었어요. 마루에 앉은 고양이가 꼬리를 살랑살랑 흔들고 있었지요. 그때 마당의 개가 컹! 컹! 짖으며 뛰어오르자, 고양이는 담장을 훌쩍 넘어 그만 사라져 버렸어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 — 마당 흙바닥 높이에서 담장 꼭대기를 올려다보는 중형 컷. 화면 위쪽 대각선으로 담장 마루가 가로지르고, 그 위를 넘어가는 고양이가 하늘을 배경으로 실루엣처럼.<br/><b>장소·시간</b> 농부네 초가집 마당, 아침나절. 닭 울음과 흙먼지가 이는 부산한 공기.<br/><b>인물</b> 화면 오른쪽 위 담장 마루 — CatOne(고양이)이 몸을 길게 늘여 담을 넘어가는 중, 뒷다리와 곧추선 꼬리만 아직 이쪽에 남고 앞모습은 담 너머로 넘어감(붙잡히는 장면이 아니라 유유히 사라지는 뒷모습). 화면 중앙 아래 — DogOne(개)이 앞발을 번쩍 들고 담을 향해 폴짝 뛰어오르며 입을 벌리고 짖는 신난 표정, 꼬리는 신나게 말려 올라감(사납지 않고 놀자는 얼굴). 화면 왼쪽 아래 — YoungMan(총각)이 마루 끝에서 두 팔을 들어 올린 채 몸을 뒤로 젖히며 "어어—" 하는 큰 O 입, 그래도 눈썹은 화나지 않고 어이없어 웃는 모양.<br/><b>배경·소품</b> 낮은 흙담과 기와 얹은 담장 마루, 초가집 툇마루와 벗어 둔 짚신, 마당의 닭 두 마리가 놀라 푸드덕 흩어짐, 개의 짚 목줄이 풀려 바닥에 늘어짐 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 아침 햇살이 담장 너머에서 역광으로 쏟아져 고양이 실루엣을 또렷하게 만드는 조명, 왁자지껄하고 코믹한 소동의 정서. 화면의 단 하나 빨강 = 총각 봇짐의 붉은 끈.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>사건(그럼 그 개를!)</b> <span class="tag beat">③ 사건</span> <span class="tag">후렴 ③</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">농부 아저씨가 이마를 탁 쳤어요. "저런, 우리 개가 그만…" 총각은 허리를 쭉 펴고 씩씩하게 말했지요. "그럼, 그 개를 주세요! 좁쌀 한 톨도 제겐 소중하니까요!" 아저씨는 껄껄 웃으며 개의 목줄을 건네주었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 어깨너머 컷 — 화면 앞쪽 왼편에 Farmer(농부 아저씨)의 어깨와 뒤통수, 목덜미가 크게 걸치고, 그 너머로 마주 선 총각과 발치의 개가 보이는 중형 컷.<br/><b>장소·시간</b> 농부네 마당 한복판, 아침나절. 소동이 막 가라앉아 웃음만 남은 공기.<br/><b>인물</b> 전경 왼쪽 — Farmer(농부 아저씨)의 뒷모습, 한 손바닥을 이마에 철썩 붙인 자세가 뒤에서도 읽히게 팔꿈치가 옆으로 튀어나옴, 반대 손엔 짚 목줄이 늘어져 있음. 화면 중앙 안쪽 — YoungMan(총각)이 가슴을 펴고 한 손을 번쩍 들어 선언하듯 외침, 활짝 웃는 한 줄 미소와 위로 치켜 올라간 눈썹 획, 다른 손은 벌써 목줄을 받으려 내밀어져 있음. 그 발치에 DogOne(개)이 엉덩이를 붙이고 앉아 혀를 살짝 내밀고 꼬리를 탁탁 치며 총각을 올려다봄.<br/><b>배경·소품</b> 마당의 낮은 흙담과 툇마루, 담장 위 빈자리(고양이가 넘어간 흔적), 세워 둔 호미와 짚 밧줄 사리, 흩어졌던 닭들이 다시 모여 모이를 쫌 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 환한 아침 햇빛이 마당 가운데로 곧게 떨어지는 조명, 미안함이 곧 웃음으로 바뀌는 시원하고 넉넉한 정서. 화면의 단 하나 빨강 = 총각 봇짐의 붉은 끈.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>사건(마구간 옆에서 벌어진 일)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이번엔 커다란 기와집 부잣집에서 하룻밤을 묵게 되었어요. 마구간 옆에 개를 매어 두었는데, 히히힝! 커다란 말이 앞발을 번쩍 들자 개가 깜짝 놀라, 줄을 쏙 빼고 들판 너머로 달아나 버렸답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 + 스케일 대비, 살짝 로우앵글 — 화면 오른쪽을 거대한 말이 위아래로 꽉 채우고, 화면 왼쪽 아래 구석에 총각과 아주 작은 개가 놓여 크기 차이가 한눈에 읽히는 구성.<br/><b>장소·시간</b> 부잣집 기와집 마구간 앞마당, 이른 저녁. 여물 냄새와 흙먼지가 이는 넓은 공기.<br/><b>인물</b> 화면 오른쪽 — HorseBig(말)이 앞발 두 개를 번쩍 들어 올리고 갈기를 흩날리며 고개를 위로 젖힌 놀란 자세, 두 점눈은 동그랗고 콧구멍 점 하나, 무섭기보다 호들갑스럽고 우스꽝스럽게(폭력적 기색 없이). 화면 왼쪽 아래 — DogOne(개)이 귀를 뒤로 눕히고 몸을 낮춘 채 목줄에서 머리를 쏙 빼며 화면 밖으로 내달리는 중(뒷다리와 말린 꼬리만 남음). 그 곁에 YoungMan(총각)이 빈 목줄을 든 채 팔을 앞으로 뻗고 입을 크게 벌려 "어어!" 하는 자세, 몸이 개를 따라 기울어짐.<br/><b>배경·소품</b> 마구간의 나무 기둥과 여물통, 말 목에 걸린 굴레와 늘어진 밧줄, 바닥에 떨어진 짚 목줄, 뒤로 기와지붕 담장과 넓은 들판, 저녁 하늘 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 낮게 기운 저녁 햇빛이 말의 등을 길게 훑고 마당에 긴 그림자를 눕히는 조명, 아찔하지만 이내 웃음이 터지는 소동의 정서. 화면의 단 하나 빨강 = 총각 봇짐의 붉은 끈.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>사건(그럼 그 말을!)</b> <span class="tag beat">③ 사건</span> <span class="tag">후렴 ④</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">부잣집 어른이 난처해하자 총각이 빙긋 웃었어요. "그럼, 그 말을 주세요! 좁쌀 한 톨도 제겐 소중하니까요!" 어른은 무릎을 탁 쳤지요. "허허, 그 말솜씨가 참으로 시원하구나!" 그러고는 고삐를 총각 손에 쥐여 주었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글 부감 — 기와집 마당을 위에서 비스듬히 내려다보는 중형 컷. 마당 흙바닥이 화면의 절반을 차지하고, 세 인물이 위에서 본 각도로 삼각형을 이루며 배치.<br/><b>장소·시간</b> 부잣집 기와집 앞마당, 저녁 무렵. 소동이 가라앉고 웃음소리가 번지는 느긋한 공기.<br/><b>인물</b> 화면 왼쪽 — RichHost(부잣집 어른)가 한쪽 무릎을 손바닥으로 탁 치며 몸을 앞으로 접고 크게 웃는 자세, 갓 차양이 위에서 보면 커다란 검은 원으로 보이고 그 아래 벌린 입과 치켜 올라간 눈썹 획. 화면 오른쪽 — YoungMan(총각)이 두 손으로 굵은 고삐를 공손히 받아 쥐고 허리를 꾸벅 굽힌 자세, 위에서 보이는 긴 댕기머리가 등 위로 늘어짐, 얼굴은 자랑스러운 활짝 웃음. 두 사람 사이 위쪽에 HorseBig(말)이 이제는 얌전히 고개를 숙이고 서서 총각 쪽으로 코를 내밈.<br/><b>배경·소품</b> 총각의 두 손에 쥐인 <b>고삐(gobbi)</b> — 굵게 꼬은 짚·삼 밧줄이 말의 굴레에서 길게 늘어져 마당 흙바닥에 S자로 놓임. 마당의 디딤돌과 장독 두엇, 마구간 지붕, 위에서 본 기와지붕 선 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 저녁 햇살이 마당을 비스듬히 물들이는 따뜻한 금빛, 재치가 어른의 마음을 열어 준 흐뭇하고 통쾌한 정서. 화면의 단 하나 빨강 = 총각 봇짐의 붉은 끈.</pre></details>
+</div>
+
+<!-- ④ 절정 : P11, P12 -->
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(달아난 말)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">총각은 말을 타고 고을 원님 댁 앞을 지나갔어요. 담장 안에서 원님 댁 처녀가 말을 보고 반해 살금살금 다가왔지요. 처녀가 고삐를 살짝 만진 순간, 말이 히힝— 들판 너머로 껑충껑충 달아나 버렸답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 극단 여백 컷, 대형 와이드 — 화면의 약 70%가 텅 빈 들판과 하늘이고, 저 멀리 오른쪽 위 여백으로 달아나는 말이 아주 작게, 사건의 두 사람은 화면 왼쪽 아래 구석 담장 앞에만 몰려 있는 구성.<br/><b>장소·시간</b> 고을 원님 댁 솟을대문 앞 흙길과 그 너머 들판, 한낮. 바람이 넓게 지나가는 트인 공기.<br/><b>인물</b> 화면 왼쪽 아래 구석 — BrideGirl(원님 댁 처녀)이 손을 앞으로 뻗은 자세 그대로 굳어 있고, 두 손으로 입을 틀어막으며 눈이 커진 "앗!" 하는 표정, 긴 댕기머리와 붉은 댕기가 몸을 따라 휘날림. 그 옆 YoungMan(총각)은 반쯤 돌아선 채 한 손을 허공에 뻗고 입을 크게 벌린 자세지만 화난 기색은 전혀 없고 눈썹이 어이없다는 듯 휘어 웃음기가 남음. 화면 오른쪽 위 아주 작게 — HorseBig(말)이 갈기와 <b>고삐(gobbi)</b>를 길게 흩날리며 들판 너머로 껑충 뛰어가는 뒷모습.<br/><b>배경·소품</b> 솟을대문과 낮은 기와 담장, 담장 밑에 떨어진 총각의 봇짐, 말발굽 자국이 점점이 이어지는 흙길, 넓게 비워 둔 들판과 옅은 산등성이 몇 획 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 넓게 트인 한낮 빛과 커다란 빈 여백이 "아이코!"의 크기를 말해 주는 조명, 아찔하지만 명랑한 정서. 🔴 화면의 단 하나 빨강 = 처녀의 붉은 댕기(총각 봇짐 끈은 이 컷에서 남빛으로).</pre></details>
+</div>
+
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>절정(처녀가 되받은 후렴)</b> <span class="tag beat">④ 절정</span> <span class="tag">후렴 ⑤ 반전</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">총각이 입을 열려는데, 처녀가 먼저 깔깔 웃으며 나섰어요. "그럼, 제가 가겠어요! 그 말은 제가 놓쳤으니까요!" 원님은 눈이 휘둥그레졌지만, 딸의 환한 얼굴과 총각의 넉살에 그만 껄껄 웃고 말았지요. "허허, 좁쌀 한 톨이 사람을 데려왔구나!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업 3/4 어깨너머 — 화면 오른쪽 앞에 YoungMan(총각)의 어깨와 옆얼굴이 크게 걸치고, 그 너머 화면 중앙에 선언하는 처녀의 얼굴과 상반신이 가깝게 잡히는 컷. 원님은 처녀 뒤쪽으로 살짝 작게.<br/><b>장소·시간</b> 원님 댁 대문 안 앞마당, 같은 날 한낮. 대문이 활짝 열려 바깥 빛이 쏟아져 들어오는 공기.<br/><b>인물</b> 화면 중앙 — BrideGirl(원님 댁 처녀)이 턱을 들고 한 주먹을 허리에 얹은 채 다른 손 검지로 자기 가슴을 척 가리키며 크게 웃는 입으로 선언하는 자세, 눈썹 획이 시원하게 올라가고 댕기머리가 뒤로 흔들림 — 씩씩하고 당당하게(수줍거나 고개 숙인 모습 절대 금지). 화면 오른쪽 앞 — YoungMan(총각)의 옆얼굴, 벌어진 입과 위로 치솟은 눈썹 획, 하려던 말을 빼앗겨 어리둥절하면서도 이미 웃음이 번지는 표정, 검지를 어정쩡하게 들다 만 손. 화면 왼쪽 뒤 — Wonnim(원님)이 몸을 뒤로 젖히고 배에 한 손을 얹은 채 고개를 젖혀 껄껄 웃는 자세, 사모의 두 날개가 웃음에 흔들리듯 기울어짐.<br/><b>배경·소품</b> 활짝 열린 솟을대문과 문지방, 마당의 디딤돌, 담 너머 들판, 구경 나온 아랫사람 두엇의 러프한 실루엣, 총각이 내려놓은 봇짐 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 대문으로 쏟아져 들어온 한낮 빛이 처녀의 얼굴을 정면으로 밝히는 조명, 이야기의 주인이 바뀌는 통쾌하고 유쾌한 정서. 🔴 화면의 단 하나 빨강 = 처녀의 붉은 댕기(총각 봇짐 끈은 남빛으로).</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P13 -->
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>결말(좁쌀 한 톨의 잔칫날)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이윽고 잔칫날, 마당에는 청사초롱이 환하게 걸리고 상 위에는 목기러기가 나란히 놓였어요. 총각과 처녀는 마주 보며 방긋 웃었지요. 좁쌀 한 톨로 시작한 이야기가 이렇게 끝났답니다. 작은 것도 소중히 여기면, 어느새 큰 복이 되어 돌아온대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 정면 — 잔치 마당 전체를 좌우로 넓게 담은 마무리 컷. 화면 위쪽 가로로 초롱들이 줄지어 걸리고, 아래 중앙에 마주 선 두 사람, 그 사이에 혼례상.<br/><b>장소·시간</b> 원님 댁 잔치 마당, 잔칫날 해 질 무렵. 풍악과 웃음소리가 가득한 들뜬 공기.<br/><b>인물</b> 화면 중앙 왼쪽 — YoungMan(총각, 혼례복 차림: 상투를 틀어 검은 사모를 쓰고 짙은 옥빛 예복)이 두 손을 앞으로 모으고 허리를 살짝 굽혀 마주 선 처녀를 바라보며 가장 환한 한 줄 미소. 화면 중앙 오른쪽 — BrideGirl(처녀, 혼례복 차림: 댕기머리를 올려 작은 족두리를 쓰고 옅은 살굿빛 예복에 넓은 소매)이 두 손을 마주 잡아 얼굴 앞으로 모은 자세지만 고개는 숙이지 않고 총각을 똑바로 바라보며 씩씩하게 웃음. 화면 왼쪽 뒤 — Wonnim(원님)이 흐뭇하게 수염을 쓰다듬으며 고개를 끄덕임. 오른쪽 뒤 담장 밖으로 InnKeeper(주모)·Granny(방앗간 할머니)·Farmer(농부 아저씨)·RichHost(부잣집 어른)가 나란히 고개를 내밀고 손뼉을 치며 구경(작게, 몇 획으로).<br/><b>배경·소품</b> 마당 위로 줄지어 걸린 <b>청사초롱(cheongsachorong)</b> — 위는 푸른 비단, 아래는 붉은 비단을 두른 초롱들이 촛불로 환하게 빛남. 혼례상 한가운데 <b>목기러기(mokgireogi)</b> 한 쌍이 청·홍 보자기 매듭과 함께 나란히 놓임. 상 위의 대추·밤 그릇과 솔가지 꽂은 병, 멍석 깔린 마당, 담장과 기와지붕, 저녁 하늘 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 초롱 불빛과 저녁 노을이 함께 마당을 물들이는 따뜻한 금빛, 작은 것 하나가 큰 기쁨이 되어 돌아온 벅차고 환한 마무리 정서. 🔴 화면의 빨강은 신부 곁에 걸린 초롱 하나의 붉은 비단 자락뿐 — 나머지 초롱은 푸른 비단이 보이도록 돌려 걸고, 신부 예복은 옅은 살굿빛으로(빨강 아님).</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 좁쌀 한 톨로 장가든 총각 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING (finish hierarchy — the single most important rule): The bright warm cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. This picture is deliberately UNEVENLY finished, like one page from a master's sketchbook. Finish only what matters: the CHARACTERS = finished (clear line AND color, keep them at their current level); a prop a character is directly touching or holding (a loom, a bench, a gourd in their hands) = half-finished, a bit of line and a little color; everything else — the whole background: jars, walls, fences, roofs, trees, hills, anything far away — = a LOOSE UNFINISHED PENCIL SKETCH: just a few open contour lines and a few direction strokes, barely any color, lots of bare cream paper showing through, deliberately NOT filled in, like the rough underdrawing on a sketchbook page. A jar is two or three open outlines, a roof is a few slanted direction strokes, a distant thing is one or two lines and then paper. This is about how FINISHED each area is, NOT about opacity — the background is not faded, hazy, blurry or low-saturation, it is simply left as rough sketch lines and not drawn to completion. Spend all the density ONLY on the characters. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces; NOT a fully rendered background, NOT every jar / roof-tile / leaf drawn to completion, NOT a uniform finish across the whole picture, and NOT a hazy / blurry / faded background either (that is just blur, not a sketch) — keep the background as loose OPEN PENCIL SKETCH lines and every stroke loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'YoungMan',   name: '총각',          desc: '넉살 좋은 주인공 — 긴 댕기머리(미혼), 붉은 끈 묶은 봇짐, 가장 활짝 웃는 입선 (P13만 상투+사모 혼례복)', aliases: ['YoungMan'] },
+    { token: 'InnKeeper',  name: '주모',          desc: '주막 주인 아주머니 — 떡 벌어진 몸집, 걷어붙인 소매, 국자, 호탕한 웃음',                                aliases: ['InnKeeper'] },
+    { token: 'Granny',     name: '방앗간 할머니',  desc: '작고 명랑한 할머니 — 웃어서 감긴 호선 눈, 흰 쪽머리, 총각 가슴께 키',                                  aliases: ['Granny'] },
+    { token: 'Farmer',     name: '농부 아저씨',    desc: '네모 반듯한 농부 — 민소매 일옷, 짚 밧줄 허리띠, 이마 탁 치는 버릇',                                   aliases: ['Farmer'] },
+    { token: 'RichHost',   name: '부잣집 어른',    desc: '기와집 주인 — 갓과 긴 도포, 뒷짐, 재치를 알아보고 무릎 치며 웃음',                                    aliases: ['RichHost'] },
+    { token: 'Wonnim',     name: '원님',          desc: '고을 원님·처녀의 아버지 — 사모(날개 모자)와 단령 관복, 근엄하다 곧 웃음보 터짐',                        aliases: ['Wonnim'] },
+    { token: 'BrideGirl',  name: '원님 댁 처녀',   desc: '스스로 혼인을 택하는 처녀 — 긴 댕기머리+붉은 댕기(빨강 악센트), 한쪽만 올라간 장난스러운 미소 (P13 혼례복)', aliases: ['BrideGirl'] },
+    { token: 'MouseSmall', name: '쥐',            desc: '좁쌀을 먹어 버린 쥐 — 손바닥만 한 회색 몸, 동그란 배, 한 획 꼬리',                                    aliases: ['MouseSmall'] },
+    { token: 'CatOne',     name: '고양이',        desc: '방앗간 고양이 — 짚빛 몸에 등 줄무늬 몇 획, 물음표 꼬리, 시큰둥한 점눈',                                aliases: ['CatOne'] },
+    { token: 'DogOne',     name: '개',            desc: '농부네 마당 개 — 노란 몸, 말린 꼬리, 벌린 입의 헤벌쭉 웃음(사납지 않게)',                              aliases: ['DogOne'] },
+    { token: 'HorseBig',   name: '말',            desc: '부잣집 밤색 말 — 책에서 가장 큰 생물, 굵은 갈기, 굴레와 늘어진 고삐',                                  aliases: ['HorseBig'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>
