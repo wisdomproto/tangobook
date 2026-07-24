@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 구렁덩덩 새선비</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · 시즌2 #38</div>
+  <h1>🐍 구렁덩덩 새선비</h1>
+  <div class="sub">담 너머로 인사를 나눈 구렁이 동무 — 겉모습이 달라져도 서로를 알아본 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 약속과 진심은 겉모습이 달라져도 서로를 알아본다 &nbsp;·&nbsp;
+  <b>분량</b> 13 스프레드 &nbsp;·&nbsp; <b>후렴</b> 부름과 대답(P3·P4 첫 인사 → P9 약속 → P11 언니들 실패 → P12 회수) &nbsp;·&nbsp;
+  <b>핵심단어</b> 댕기 · 삼태기 · 보자기 · 초례상 · 사모 &nbsp;·&nbsp;
+  <b>분량 근거</b> 인물이 다섯(할머니·구렁이/선비·세 자매)이고 <b>변신 전후 두 상태</b>를 다 보여 줘야 해서 10~11쪽으로는 비약이 생긴다. 반대로 여정·시련이 없는 한마을 이야기라 14~16쪽은 늘어진다 → <b>13쪽</b>. 배분 = 도입 2 · 발단 2 · 사건 4 · 절정 4 · 결말 1 &nbsp;·&nbsp;
+  <b>🔴 순화</b> ① <b>허물 태우기·실종·고행 구조 전면 삭제</b> — 금기를 어겨 벌받는 이야기가 아니라 <b>약속을 지키고 서로를 알아보는</b> 이야기로 재구성(벗은 허물은 흰 나비처럼 날아가 태울 물건 자체가 남지 않는다) ② 구렁이는 <b>이빨·붉은 눈·독기 금지</b>, 통통 동글하고 큰 점눈에 순한 얼굴 — 변신 전후 모두 사랑스럽게 ③ 언니들의 시샘은 <b>제 입이 꼬여 스스로 우스워지는 코믹 골탕</b>, 저주·응징 없이 멋쩍음 → 사과 → 화해 ④ 혼례는 <b>"한집에서 같이 사는 짝꿍"</b> 톤의 가벼운 잔치 장면으로
+</div>
+<div class="refrain">🐍 반복 후렴 — "구렁덩덩 새선비!" &nbsp;/&nbsp; "덩실덩실, 나 여기 있소!" <span style="font-weight:600;font-size:13px">(P3 첫 부름 → P4 첫 대답 → P9 약속 → P11 언니들이 꼬여 실패 → P12 절정에서 회수)</span></div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-saeseonbi</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.<br>
+🔴 <b>화면당 빨강 악센트 = 셋째 딸의 붉은 댕기 딱 1점.</b> 다른 어떤 것도 붉게 칠하지 않는다 — 혼례복·초례상(촛대의 초 포함)·잔치 천·언니들 댕기는 전부 크림·쪽빛·연둣빛으로. <b>예외 규칙 2개</b>: ⑴ 셋째 딸이 아직 등장하지 않는 <b>P1·P2에 한해</b> 초가집 처마에 매달린 <b>마른 붉은 고추 두름 하나</b>가 그 자리를 대신한다(셋째 딸이 나오는 컷에는 고추 두름을 절대 그리지 않는다). ⑵ <b>P10~P12</b>는 언니가 댕기를 슬쩍 매고 있는 구간이라, 그 컷의 유일한 빨강은 <b>첫째 언니 머리의 붉은 댕기</b>이고 셋째 딸의 머리끈은 크림빛이다(P12의 "댕기가 없어도 알아본다"가 그림으로도 읽히게). P13에서 댕기가 셋째 딸에게 돌아오며 원래대로.<br>
+🔴 <b>변신 캐릭터 = 상태별 토큰 분리.</b> 구렁이 상태 = <code>SerpentGroom</code> / 선비 상태 = <code>ScholarGroom</code>. 두 토큰은 서로 부분문자열이 아니며, 각 쪽 SCENE은 그 시점의 상태 토큰만 쓴다(P1~P6 = SerpentGroom, P8~P13 = ScholarGroom, <b>P7 변신 순간만 둘 다</b> — 벗어 놓은 허물 껍질 = SerpentGroom, 일어서는 몸 = ScholarGroom). 두 시트 모두 <b>같은 종이에 두 상태를 나란히</b> 실어 "같은 존재"임을 못 박고, 이어지는 시그니처(큰 반달 점눈 + 옷자락 끝의 연둣빛 비늘 무늬)를 양쪽에 반드시 남긴다.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="새선비(구렁이)" data-key="char-serpent-groom">
+  <div class="head"><span class="face">🐍</span><b>새선비 · 구렁이 상태</b> <span class="rom">SerpentGroom · 할머니가 기른 구렁이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: SerpentGroom — a young house-serpent raised like a son by an old woman; bookish, shy and thoroughly lovable. 🔴 NEVER scary in any frame: NO fangs, NO forked tongue, NO red eyes, NO hood, NO coiling-to-strike pose, no menace of any kind. Dot-eye design language kept exactly: a flat cream face with zero shading, TWO BIG round dot eyes (the roundest, softest eyes in the cast — they curve into happy crescents when he smiles), a small gentle one-line mouth, no nose.
+SILHOUETTE (his signature): a short, plump, roly-poly serpent about the length of a child's arm, drawn as a soft rounded rope that loops in easy circles — no long menacing coils. He props his chin on things (a basket rim, a wall top, a book) which is his most typical pose, and lifts the front of his body up like a person sitting when he talks.
+COLOR: soft leaf-green and pale blue-grey pencil strokes over open cream paper, with a light scribbled diamond scale pattern ONLY along the back and a pale cream belly. Nothing on him is red.
+🔴 CONTINUITY WITH HIS OTHER STATE (ScholarGroom): the crescent-smiling dot eyes and the small leaf-green diamond scale pattern are the two marks that carry over into his human form — keep them identical here.
+🔴 SECOND STATE (put it on the SAME sheet, smaller, at the side): the same being AFTER shedding — a young scholar in a pale cream robe with the identical crescent dot eyes and a faint leaf-green diamond pattern at his cuffs, so the sheet reads "these two are one person".
+WEDDING PROP: for the feast he wears a black samo (the groom's winged official hat) perched on his serpent head — comically endearing, never silly-cruel — and holds the front of his body upright and dignified before the low wedding table.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body idle looped in a soft circle with the front lifted and chin propped + a 3/4 turn + a small "wearing the samo hat, front held upright" pose + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) a shy gentle one-line smile, (2) a delighted crescent-eyed open smile, (3) a quiet lonely downcurved mouth with lowered lids. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="새선비(선비)" data-key="char-scholar-groom">
+  <div class="head"><span class="face">🧑‍🎓</span><b>새선비 · 선비 상태</b> <span class="rom">ScholarGroom · 허물을 벗은 뒤</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: ScholarGroom — the same being as SerpentGroom after he sheds his skin: a bright, warm young scholar, newly grown-up but still boyish. Dot-eye design language: a flat cream face with zero shading, TWO BIG round dot eyes that curve into the very same happy crescents as his serpent form, a friendly one-line smile, no nose (or one tiny dot). Hair as one solid dark mass gathered into a neat topknot (sangtu) — a young married man, not an old scholar; no beard, no stubble.
+SILHOUETTE (his signature): slim and upright with softly sloping shoulders and wide sleeves that swing — the tallest gentle vertical in the cast, always standing straight as if he just stood up for the first time.
+CLOTHES: a scholar's long robe (dopo) suggested in pale cream and soft blue-grey pencil strokes, mostly open paper with loose hatching, a simple sash, cloth shoes in a few strokes. 🔴 CONTINUITY MARK: a faint LEAF-GREEN diamond scale pattern scribbled along his cuffs and the hem of the robe — the leftover of his serpent skin, and the visual proof that he is the same one. Nothing on him is red.
+🔴 SECOND STATE (put it on the SAME sheet, smaller, at the side): the same being BEFORE shedding — the plump roly-poly leaf-green house-serpent with the identical crescent dot eyes, so the sheet reads "these two are one person".
+WEDDING PROP (later feast): the black winged samo hat, worn straight, with both hands folded into the wide sleeves.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded in the wide sleeves, gentle one-line smile) + a 3/4 walking turn with the sleeves swinging + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) a calm one-line smile, (2) a puzzled head-tilt with a small wavy mouth and one lifted brow stroke, (3) a wide crescent-eyed joyful smile with the head thrown slightly back. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="셋째 딸" data-key="char-third-sister">
+  <div class="head"><span class="face">👧</span><b>셋째 딸</b> <span class="rom">ThirdSister · 붉은 댕기 (이 편의 단 하나 빨강)</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: ThirdSister — the youngest of three daughters in the rich house next door; the one who looks at the serpent and sees a friend. Warm, unbothered, quietly brave — never a victim, never weepy. Dot-eye design language: a flat cream face with zero shading, two dot eyes that curve into crescents when she laughs, a bright one-line smile, no nose (or one tiny dot). Hair as one solid dark mass in a single long braid down her back.
+AGE READ: a young unmarried woman (cheonyeo), not a small child — the single braid + daenggi is the unmarried marker; keep her a head shorter than ScholarGroom but adult-proportioned.
+🔴 SIGNATURE RED: a deep persimmon-red ribbon (daenggi) tied at the end of her braid — this is the ENTIRE picture's single red accent whenever she appears. Nothing else in any scene may be red.
+🔴 SECOND STATE (put it on the SAME sheet, smaller, at the side): the same girl with a PLAIN CREAM cord at the end of her braid instead of the red daenggi (for the pages where her sister has borrowed it) — identical face, clothes and posture, only the ribbon changes.
+SILHOUETTE (her signature): small and springy, weight always on the front foot, chin tipped up and forward — the most curious, leaning-in body in the cast. She loves to prop her chin on her hands over a wall top.
+CLOTHES: an everyday skirt-and-jacket hanbok suggested in soft blue-grey and pale straw-yellow pencil strokes, mostly open paper with loose hatching, cloth shoes in a few strokes. Tidy, simple, not showy even though her family is well-off.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands clasped behind the back, chin up, bright smile) + a 3/4 pose leaning over a low wall with her chin propped on both hands + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) a bright crescent-eyed grin, (2) a soft steady closed-line mouth (making a promise), (3) a delighted big O mouth with lifted brow strokes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="두 언니" data-key="char-elder-sisters">
+  <div class="head"><span class="face">👭</span><b>두 언니</b> <span class="rom">ElderSisters · 첫째·둘째 (늘 붙어 다니는 2인조)</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTERS: ElderSisters — the two older daughters, drawn as ONE inseparable comic duo who always appear together and always do the same thing a half-beat apart. Vain and easily jealous, but 🔴 never cruel and never villainous — every bad idea they have backfires on themselves and ends in an embarrassed apology. Dot-eye design language for both: flat cream faces with zero shading, two dot eyes each, simple line mouths, no noses.
+THE PAIR (their signature): FIRST SISTER is tall and thin with a long neck and a high stiff posture, chin lifted; SECOND SISTER is short and round with sloping shoulders, always half a step behind and copying her. Read instantly as "the long one and the round one".
+HAIR & RIBBONS: both wear a single braid like their little sister, but 🔴 their ribbons are PALE CREAM and INDIGO BLUE — never red (the picture's only red belongs to ThirdSister's daenggi). In the later pages FIRST SISTER wears the borrowed deep persimmon-red daenggi, and then THAT is the picture's single red.
+CLOTHES: slightly fancier everyday hanbok than their sister — a little scribbled flower pattern at the hems in pale straw-yellow and indigo, wide sleeves they like to flap.
+COMIC EXPRESSIONS: their faces are the funniest in the book — noses in the air, mouths twisting when a word goes wrong, cheeks marked with two small APRICOT (never red) blush strokes when they are embarrassed.
+REFERENCE SHEET: one sheet on plain bright cream paper — the pair standing together full-body (tall one with chin up, round one peeking from behind her sleeve) + a 3/4 turn of the pair mid-flounce + four face close-ups, two each, where the expression changes ONLY through the mouth line, brow strokes and posture: (1) a snooty downcurved pout, (2) a wide-open squawking O mouth (disgust yelp), (3) a tongue-tied crooked wavy mouth (the word came out wrong), (4) a sheepish tiny smile with the head bowed and apricot blush strokes. Two characters only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="할머니" data-key="char-grandma">
+  <div class="head"><span class="face">👵</span><b>할머니</b> <span class="rom">Grandma · 구렁이를 아들처럼 기른 할머니</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Grandma — the old woman who lives alone in a thatched cottage under the mountain and raises the little serpent as her own son. Kind, unhurried, entirely unafraid of him. Dot-eye design language: a flat cream face with zero shading, two dot eyes set in soft crescents, a warm one-line smile, no nose (or one tiny dot), and two or three tiny stroke-wrinkles at the corner of each eye so she reads as old.
+SILHOUETTE (her signature): small and rounded with a gently stooped back and a low bun of white hair pinned at the nape — a comma-shaped body. Her hands are always doing something: carrying, patting, wiping on her skirt.
+CLOTHES: a plain hemp jacket and skirt suggested in pale cream and soft blue-grey pencil strokes, mostly open paper with a couple of small scribbled patches, an apron sash, straw shoes in a few strokes. 🔴 Nothing she wears or carries is red.
+PROP: a woven straw carrying basket (samtaegi) she cradles at her hip — the basket the baby serpent was first brought home in.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body idle holding the straw basket at her hip + a 3/4 turn bending forward to look into the basket + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) a warm crinkled smile, (2) a surprised small O mouth with both hands lifted, (3) a proud teary-happy smile with the chin tucked. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.) 다섯 사물 모두 <b>본문 문장에 실제로 등장</b>한다 — <b>댕기</b> 본문 P3·P10·P12·P13(SCENE P3~P13 거의 전 쪽) · <b>삼태기</b> 본문 P1·P2·P13(SCENE P3·P6·P8·P10 배경) · <b>보자기</b> 본문 P5·P9(SCENE P11·P12·P13) · <b>초례상</b> 본문 P6·P13(SCENE P6·P13) · <b>사모</b> 본문 P6·P13(SCENE P6·P13). (시즌1 소진 사물과 겹치지 않는 새 어휘 5종. 🔴 목기러기는 #36·#39와 3편 중복이라 <b>초례상</b>으로 교체 — 혼인 소재 우선권은 다음 회차 #39 두더지의 혼인.)</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="댕기" data-key="word-daenggi">
+  <div class="head"><span class="face">🎀</span><b>댕기</b> <span class="rom">daenggi — a maiden's braid ribbon</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "daenggi — the long cloth ribbon a Korean girl ties at the end of her braided hair (댕기)". A wide flat ribbon of deep persimmon-red silk (#C0392B) with a soft satin sheen, its lower end squared off and finished with a few tiny gold-thread stitches and two small pressed gold-leaf motifs, the silk weave clearly visible. Show TWO forms side by side so the word reads clearly: (1) the ribbon alone, laid out flat with one gentle S-curve so its full length shows, and (2) the same ribbon tied in a firm knot around the tail of a thick dark braid of hair — hair only, no person. Crisp, tidy, handcrafted, proud. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="삼태기" data-key="word-samtaegi">
+  <div class="head"><span class="face">🧺</span><b>삼태기</b> <span class="rom">samtaegi — a woven straw carrying basket</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "samtaegi — a traditional Korean scoop-shaped basket woven from rice straw and split willow, used to carry earth, grain or firewood (삼태기)". A shallow scoop with a high curved back wall and a low OPEN front lip, plaited from warm golden rice straw (#D8B26A) with darker willow ribs (#8A6A3A) bent around the rim, and two short braided straw handles at the sides. The plaiting pattern must read clearly — tight rows of braid, a few loose straw ends left at the rim. Show TWO angles: (1) a 3/4 view showing the deep back and open front, and (2) a straight top-down view showing the spiral weave of the floor. Sturdy, warm, hand-plaited. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="보자기" data-key="word-bojagi">
+  <div class="head"><span class="face">🟦</span><b>보자기</b> <span class="rom">bojagi — a patchwork wrapping cloth</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "bojagi — a square Korean wrapping cloth, often pieced together from leftover scraps of silk or ramie (보자기)". A square cloth pieced from irregular rectangles of translucent ramie in indigo (#2E5A88), jade (#27795B), pale straw (#E3D8B8) and cream, every seam finished with a fine visible stitch line so the patchwork grid reads like stained glass when light passes through. 🔴 Cool indigo-jade-cream palette ONLY — no red, no pink patches. Show TWO forms: (1) the cloth spread flat and square so the full patchwork pattern shows, and (2) the same cloth gathered up and knotted into a small bundle with two ears of cloth on top. Elegant, airy, handcrafted. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="초례상" data-key="word-choryesang">
+  <div class="head"><span class="face">🪑</span><b>초례상</b> <span class="rom">choryesang — the wedding ceremony table</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "choryesang — the low table set up in the courtyard for a traditional Korean wedding ceremony (초례상)". A long low table of warm honey-brown wood (#B07A3C) with visible grain and short carved legs, covered with a cream ramie cloth, and set with the ceremony's proper items: a small pine branch and a bamboo branch standing in two brass vases (evergreen = a promise that lasts), a pair of tall candlesticks holding one blue and one red candle (the cheong-hong pair), two white porcelain cups on a small tray, and little heaps of chestnuts and jujubes in brass bowls. Show it as ONE clean 3/4 view of the whole table so a child reads "the wedding table" at a glance, plus a small inset of the pine-and-bamboo vase pair. Warm, ceremonial, dignified, handcrafted. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text, no people.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="사모" data-key="word-samo">
+  <div class="head"><span class="face">🎩</span><b>사모</b> <span class="rom">samo — the winged black wedding hat</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "samo — the black winged hat worn by a Korean bridegroom (and by officials) on his wedding day (사모)". A stiff two-tiered hat of black silk-covered ramie (#23242A) with a soft matte sheen: a lower rounded band and a taller domed crown behind it, and two flat oval WINGS projecting horizontally from the back sides, each wing framed with a fine bamboo rib and patterned with a faint woven cloud motif that catches the light. Show TWO views: (1) a straight front view so both wings spread symmetrically, and (2) a 3/4 view showing the two-step crown. Crisp, dignified, ceremonial, with a subtle mother-of-pearl sheen on the black. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 13 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1, P2 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 산 밑 초가집에 할머니가 혼자 살았어요. 어느 봄날 아침, 장독대 옆에서 "구렁덩덩—" 하는 소리가 났지요. 가만히 들여다보니 동글동글 조그만 구렁이 한 마리가 새근새근 낮잠을 자고 있지 뭐예요. 할머니는 구렁이를 삼태기에 살포시 담아 폭 안고 들어왔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업 하이앵글 — 삼태기 안을 거의 수직으로 내려다보는 대형 컷. 화면의 대부분이 엮은 짚결이고, 그 한가운데 아기 구렁이가 동그랗게 말려 있다.<br/><b>장소·시간</b> 산 밑 초가집 마당 장독대 옆, 이른 봄 아침. 이슬이 마르지 않은 서늘하고 맑은 공기.<br/><b>인물</b> SerpentGroom(구렁이)이 화면 한가운데 <b>삼태기(samtaegi)</b> 바닥 짚 위에 도르르 말려 낮잠 — 통통 동글한 몸이 달팽이처럼 두 바퀴 감기고, 큰 점눈 두 개는 감겨 아래로 휜 선 두 획, 입은 아주 작고 순한 곡선, 등에는 연둣빛 마름모 무늬 몇 획. 🔴 이빨·혀·붉은 눈은 어떤 각도에서도 보이지 않게. 화면 위 가장자리에 Grandma(할머니)의 두 손과 굽은 어깨·쪽진 흰머리만 걸침 — 삼태기 양쪽 손잡이를 받쳐 들고 고개를 숙여 들여다보며, 점눈이 동그래지고 입은 작은 O.<br/><b>배경·소품</b> 삼태기의 촘촘한 짚 엮음과 삐져나온 짚오라기 몇 가닥, 바닥에 깔린 마른 나뭇잎 두어 장, 화면 귀퉁이에 걸친 장독 아가리와 새로 돋은 봄풀 — 장독·담·초가지붕은 열린 연필선 몇 획의 러프 스케치. 화면 위 귀퉁이 처마에 마른 붉은 고추 두름 하나(이 컷의 단 하나 빨강 — 셋째 딸이 없는 P1·P2 한정).<br/><b>톤</b> 아침 햇살이 삼태기 안쪽만 동그랗게 밝히고 둘레는 성긴 스케치, 겁이 아니라 다정한 발견의 정서, 따뜻한 짚빛과 한지 크림색.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>도입(아들처럼 자란 구렁이)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할머니는 구렁이를 아들처럼 길렀어요. 구렁이는 삼태기 가장자리에 턱을 척 얹고 글을 읽었고, 밤이면 할머니 발치에서 도르르 몸을 말았지요. 그런데 마을 사람들은 담 밖으로 멀찍이 돌아서 다녔어요. "구렁이가 무슨 사람 노릇을 한다고!" 구렁이는 마당 끝에서 혼자 조용히 책장만 넘겼답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 극단 여백 와이드, 아이레벨 — 화면의 70%가 텅 빈 흙마당과 크림 종이 여백이고, 구렁이는 화면 오른쪽 아래 귀퉁이에만 작게 놓인다. 마을 사람들은 화면 왼쪽 위 담장 밖으로 반쯤 잘려 지나간다.<br/><b>장소·시간</b> 초가집 마당 끝, 같은 봄날 한낮. 볕은 환한데 인기척은 없는 조용한 공기.<br/><b>인물</b> 화면 오른쪽 아래 — SerpentGroom(구렁이)이 엎어 놓은 <b>삼태기(samtaegi)</b> 가장자리에 턱을 척 얹고, 몸의 앞부분만 사람처럼 들어 올린 채 펼친 책장을 꼬리 끝으로 넘기는 중. 큰 점눈은 책을 내려다보고 입은 잔잔한 한 줄, 등의 연둣빛 마름모 무늬 몇 획. 화면 왼쪽 위 담장 너머 — 마을 사람 셋의 뒷모습이 화면 밖으로 반쯤 잘린 채 멀찍이 돌아 지나가고, 한 사람은 얼굴만 힐끗 돌려 입을 삐죽인다(획 몇 개의 러프한 실루엣과 점눈만). 툇마루 끝에 Grandma(할머니)가 작게 앉아 나물을 다듬으며 구렁이 쪽을 흐뭇하게 바라봄.<br/><b>배경·소품</b> 비질 자국만 남은 넓은 흙마당(거의 빈 크림 종이), 마당 가운데 홀로 선 그림자 하나, 낮은 흙담과 사립문, 처마 밑 그늘 — 전부 열린 연필선 몇 획의 러프 스케치. 처마에 마른 붉은 고추 두름 하나(이 컷의 단 하나 빨강).<br/><b>톤</b> 한낮의 밝고 마른 빛에 넓은 여백이 만드는 살짝 쓸쓸한 정서, 그러나 할머니 쪽에서 오는 온기가 화면을 지켜 준다.</pre></details>
+</div>
+
+<!-- ② 발단(진심과 겉모습 대비) : P3, P4 -->
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(담 너머 세 자매)</b> <span class="tag beat">② 발단</span> <span class="tag">후렴 ①</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이웃 부잣집에는 딸이 셋 있었어요. 하루는 세 자매가 담 너머를 기웃 들여다보았지요. "으악, 징그러워!" 첫째와 둘째는 코를 막고 후다닥 달아났어요. 그런데 붉은 댕기를 드린 셋째만은 담장에 턱을 괴고 방긋 웃었답니다. "어머, 구렁덩덩 새선비네!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 어깨너머 컷, 살짝 하이앵글 — 화면 앞쪽 왼편에 달아나는 두 언니의 등과 펄럭이는 소매가 크게 걸치고, 그 너머 담장 위에 턱을 괸 셋째 딸과 담 안쪽 구렁이가 화면 오른쪽에 놓이는 중형 컷.<br/><b>장소·시간</b> 부잣집과 초가집을 가르는 낮은 흙담 앞, 봄 한낮. 볕이 따끈하고 흙냄새가 도는 공기.<br/><b>인물</b> 전경 왼쪽 — ElderSisters(두 언니)가 몸을 홱 돌려 달아나는 중: 키 크고 마른 첫째는 한 손으로 코를 막고 턱을 치켜든 채 큰 O 입으로 소리치고, 작고 동글한 둘째는 반 박자 늦게 소매로 눈을 가리며 언니 뒤를 따른다. 둘의 댕기는 크림빛·쪽빛(빨강 아님). 화면 오른쪽 — ThirdSister(셋째 딸)가 담장 위에 두 팔을 얹고 턱을 두 손으로 괸 채 몸을 앞으로 기울여 들여다봄, 점눈이 반달로 휘고 입은 활짝 웃는 곡선, 땋은 머리 끝의 붉은 <b>댕기(daenggi)</b>가 담 밖으로 늘어짐(화면의 단 하나 빨강). 담 안쪽 아래 — SerpentGroom(구렁이)이 책을 보다 고개를 막 드는 참, 큰 점눈이 동그랗게 위를 향하고 입은 작은 O.<br/><b>배경·소품</b> 흙담 위에 얹힌 기왓조각과 돋아난 풀 몇 포기, 담 아래 놓인 <b>삼태기(samtaegi)</b>와 펼쳐진 책, 담 너머 부잣집 기와지붕 한 귀퉁이 — 배경은 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 한낮의 환한 볕이 담장 위 셋째 딸의 얼굴과 붉은 댕기에만 또렷하게 떨어지고, 달아나는 언니들 쪽은 성긴 획. 소란스럽고 우스운데 끝은 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>발단(부르면 대답하는 사이)</b> <span class="tag beat">② 발단</span> <span class="tag">후렴 ②·대답</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그 말에 구렁이가 스르르 고개를 들었어요. "덩실덩실, 나 여기 있소!" 셋째 딸은 깔깔 웃으며 날마다 담 너머로 인사를 했지요. "구렁덩덩 새선비!" "덩실덩실, 나 여기 있소!" 그때부터 구렁이의 이름은 새선비가 되었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 — 담장 아래 땅바닥 높이에서 위를 올려다보는 대형 컷. 담장의 흙벽면이 화면 아래를 가로지르고, 그 위로 마주 내민 두 얼굴이 하늘을 배경으로 나란히 솟는다.<br/><b>장소·시간</b> 같은 흙담, 며칠 뒤 아침. 바람이 살랑이고 새소리가 도는 환한 공기.<br/><b>인물</b> 담 위 왼쪽 — SerpentGroom(구렁이)이 담장 꼭대기까지 몸을 세워 올려 고개를 쑥 내밈: 몸의 앞부분이 물음표처럼 곧게 서고, 큰 점눈이 반달로 휘며 입은 활짝 웃는 곡선, 등의 연둣빛 마름모 무늬가 담 위로 드러남. 🔴 이빨·혀 금지, 위협 자세 금지. 담 위 오른쪽 — ThirdSister(셋째 딸)가 발끝을 세우고 두 손을 담 위에 얹은 채 얼굴을 마주 내밀어 입을 동그랗게 벌려 부른다, 점눈은 반달, 땋은 머리와 붉은 <b>댕기(daenggi)</b>가 아래에서 올려다본 각도로 흔들림(화면의 단 하나 빨강). 두 얼굴 사이 거리는 한 뼘, 서로를 정면으로 마주 봄.<br/><b>배경·소품</b> 아래에서 올려다본 흙담의 결과 얹힌 기왓조각, 담 틈에 핀 작은 들꽃 두어 송이(흰색·연보랏빛), 하늘 가득한 크림 종이 여백에 구름 획 두엇, 담 너머로 보이는 초가지붕 끝 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 아래에서 위로 트이는 시원한 하늘과 아침 햇살, 두 동무가 마음을 트는 산뜻하고 경쾌한 정서.</pre></details>
+</div>
+
+<!-- ③ 사건 : P5, P6, P7, P8 -->
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(할머니의 청혼)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할머니는 정성껏 빚은 떡을 쪽빛 보자기에 곱게 싸서 부잣집으로 갔어요. "우리 새선비랑 한집에서 같이 사는 짝꿍이 되어 주지 않겠소?" 첫째와 둘째는 손사래를 쳤어요. "구렁이랑요? 절대 싫어요!" 그러자 셋째 딸이 조용히 앞으로 나섰지요. "저는 좋아요. 새선비는 제 동무인걸요."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 평면 부감 — 대청마루를 바로 위에서 내려다보는 중형 컷. 마룻널의 결이 화면을 가로로 가르고, 그 한가운데 펼쳐 놓은 보자기와 떡 소반이 정확히 화면 중심에 놓이며, 둘러앉은 사람들의 정수리와 무릎이 그 둘레를 감싼다.<br/><b>장소·시간</b> 이웃 부잣집 대청마루, 봄날 늦은 오전. 문을 활짝 열어 볕이 마루 깊숙이 들어오는 공기.<br/><b>인물</b> 화면 아래쪽 — Grandma(할머니)가 무릎을 꿇고 앉아 두 손으로 매듭을 막 풀어 놓은 참, 굽은 등과 쪽진 흰머리가 위에서 또렷이 보이고 고개는 앞으로 깊이 숙임. 화면 왼쪽 위 — ElderSisters(두 언니)가 나란히 앉아 몸을 뒤로 젖히며 두 팔로 크게 손사래: 키 큰 첫째는 고개를 홱 돌려 큰 O 입, 동글한 둘째는 소매로 얼굴을 반쯤 가림. 둘의 댕기는 크림빛·쪽빛. 화면 오른쪽 위 — ThirdSister(셋째 딸)가 무릎걸음으로 한 발 앞으로 나서며 두 손을 무릎에 얌전히 얹고 고개를 든다, 입은 곧게 다문 한 줄(마음을 정한 얼굴), 위에서 내려다본 각도라 땋은 머리와 붉은 <b>댕기(daenggi)</b>가 등 뒤로 길게 늘어져 화면에서 가장 또렷한 한 점(화면의 단 하나 빨강).<br/><b>배경·소품</b> 화면 중심에 활짝 펼쳐진 쪽빛·연둣빛 조각 <b>보자기(bojagi)</b>와 그 위에 놓인 흰 시루떡 소반(붉은 고명 금지 — 흰 떡과 노란 콩고물만), 마루 귀퉁이의 놋대야와 벗어 둔 신 몇 켤레, 열린 분합문 너머 마당 — 배경은 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 위에서 곧게 떨어지는 봄볕이 보자기와 떡 소반을 무대처럼 비추고 둘레는 성긴 획, 조마조마하다가 한 사람의 대답으로 확 풀리는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(잔칫날)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">드디어 잔칫날! 마당에는 솔가지와 대나무를 꽂은 초례상이 차려졌어요. 새선비는 까만 사모를 반듯하게 쓰고, 셋째 딸은 붉은 댕기를 곱게 드리고 마주 섰지요. 마을 사람들이 수군수군했지만, 둘은 서로를 보고 배시시 웃었어요. 꽹과리가 꽹—꽹— 울리고 잔치가 벌어졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 살짝 로우앵글 — 마당 전체를 낮은 눈높이로 넓게 잡은 잔치 컷. 화면 왼쪽에 <b>초례상(choryesang)</b>, 오른쪽에 구경꾼 무리, 그 사이 가운데 통로에 두 주인공이 마주 섰다.<br/><b>장소·시간</b> 부잣집 마당에 차린 혼례 자리, 봄날 한낮. 꽃가루와 먼지가 볕에 떠다니는 왁자한 공기.<br/><b>인물</b> 화면 가운데 왼쪽 — SerpentGroom(구렁이 새선비)이 몸의 앞부분을 사람처럼 곧게 세우고, 머리에는 날개 달린 까만 <b>사모(samo)</b>를 반듯하게 얹었으며, <b>초례상(choryesang)</b> 너머로 몸을 곧게 세워 어엿하게 선다. 큰 점눈은 반달, 입은 수줍은 한 줄, 등의 연둣빛 마름모 무늬. 🔴 우스꽝스럽게 놀림감이 되는 자세가 아니라 어엿하고 사랑스럽게. 마주 선 오른쪽 — ThirdSister(셋째 딸)가 두 손을 앞으로 모으고 고개를 살짝 숙였다가 눈만 들어 마주 보며 배시시 웃음, 땋은 머리 끝 붉은 <b>댕기(daenggi)</b>가 등 뒤로 곱게 늘어짐(화면의 단 하나 빨강). 그 곁 뒤쪽 — Grandma(할머니)가 두 손을 맞잡고 눈가를 찍으며 웃음. 화면 오른쪽 구경꾼 무리 속 — ElderSisters(두 언니)가 나란히 서서 첫째는 입을 삐죽, 둘째는 손으로 입을 가리고 수군댐. 🔴 혼례복은 크림·쪽빛·연둣빛으로만, 붉은 옷·붉은 천·붉은 초 금지.<br/><b>배경·소품</b> 낮은 <b>초례상(choryesang)</b> — 꿀빛 나무 상에 크림빛 모시보를 덮고 놋병에 솔가지와 대나무 가지를 꽂았으며, 백자 잔 둘과 밤·대추를 담은 놋그릇, 촛대 한 쌍(🔴 이 컷의 초는 불을 붙이지 않은 크림·쪽빛으로 — 붉은 초 금지). 마당에 깔린 멍석, 담벼락에 기대 세운 <b>삼태기(samtaegi)</b>, 꽹과리를 치는 마을 사람의 팔과 둥근 악기, 초가지붕과 담 — 배경은 열린 연필선 몇 획의 러프 스케치, 밀도는 두 주인공에게만.<br/><b>톤</b> 한낮의 환한 볕이 마당 가득 쏟아지고 그림자는 짧게, 수군거림 속에서도 둘만은 환한 유쾌하고 흐뭇한 잔치 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(사르르, 허물)</b> <span class="tag beat">③ 사건 · 변신</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날 밤, 달빛이 마당 가득 쏟아졌어요. "잠깐만 눈을 감아 주오." 새선비의 몸에서 하얀 허물이 사르르 벗겨졌지요. 그러자 그 속에서 훤한 선비가 쑥 일어섰고, 벗은 허물은 하얀 나비처럼 훨훨 날아갔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업 로우앵글 — 마당 바닥 높이에서 위를 올려다보는 세로로 시원한 대형 컷. 화면 아래에 벗어 놓은 허물, 그 위로 일어서는 몸, 화면 위쪽 달을 향해 날아오르는 하얀 허물 조각들이 아래에서 위로 한 줄기로 이어진다.<br/><b>장소·시간</b> 초가집 마당 한가운데, 잔칫날 밤. 달빛이 물처럼 고인 서늘하고 고요한 공기.<br/><b>인물</b> 화면 아래 — SerpentGroom(구렁이)의 벗어 놓은 <b>빈 허물 껍질</b>만: 아주 얇은 종이옷처럼 반투명한 크림빛 껍데기가 바닥에 스르르 흘러내려 동그랗게 남았고, 마름모 무늬 자국이 희미하게 비친다(살아 있는 구렁이 몸통을 그리지 말 것 — 껍질만). 화면 중앙 — ScholarGroom(선비가 된 새선비)이 그 허물 속에서 막 몸을 일으키는 참: 두 팔을 옆으로 벌려 넓은 소매가 날개처럼 펴지고 고개는 달을 향해 젖혀졌으며, 큰 점눈은 구렁이 시절과 똑같은 반달, 입은 놀라움과 기쁨이 섞인 작은 O. 도포 소맷단과 자락 끝에 연둣빛 마름모 무늬가 은은히 남아 있다(같은 존재라는 표식). 화면 오른쪽 아래 — ThirdSister(셋째 딸)가 등을 돌린 채 두 손으로 눈을 가리고 서 있고, 땋은 머리 끝 붉은 <b>댕기(daenggi)</b>가 달빛에 또렷하다(화면의 단 하나 빨강).<br/><b>배경·소품</b> 화면 위쪽으로 훨훨 흩어져 오르는 하얀 허물 조각들 — 하나하나가 흰 나비 모양으로 읽히게, 위로 갈수록 성기게. 마당에 길게 누운 달그림자, 툇마루 끝과 문살, 처마선 — 전부 열린 연필선의 러프 스케치. 🔴 무섭거나 징그러운 표현 금지: 허물은 비늘 덩어리가 아니라 얇고 고운 종이옷처럼.<br/><b>톤</b> 위에서 쏟아지는 은빛 달빛과 푸른 남빛 그늘, 마법 같지만 하나도 무섭지 않은 신비롭고 벅찬 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>사건(그대로 새선비)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">셋째 딸은 하나도 놀라지 않았어요. 눈이 반달로 웃는 것도, 도포 자락에 남은 연둣빛 무늬도 그대로였으니까요. "새선비, 여전히 새선비네요!" 문틈으로 몰래 보던 할머니가 손뼉을 짝 쳤어요. "아이고, 우리 아들!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 겹침·가림 구도의 3/4 시점 — 화면 오른쪽 3분의 1을 방문 문설주와 반쯤 열린 문짝이 세로로 가리고, 그 틈으로 할머니의 얼굴 반쪽과 맞잡은 손만 보인다. 왼쪽 3분의 2에 두 사람이 마주 선다.<br/><b>장소·시간</b> 초가집 마루 앞, 같은 밤 조금 뒤. 등잔불이 막 켜져 노란 빛이 도는 아늑한 공기.<br/><b>인물</b> 화면 왼쪽 — ScholarGroom(새선비)이 두 손을 앞으로 모으고 조금 쑥스러운 듯 어깨를 움츠린 채 서 있음, 점눈은 반달, 입은 잔잔한 한 줄. 도포 소맷단과 자락 끝의 연둣빛 마름모 무늬가 등잔불에 또렷이 드러난다(카메라가 그 무늬를 정확히 보여 주는 각도). 그 앞 — ThirdSister(셋째 딸)가 발끝을 세워 얼굴을 가까이 들이대고 한 손가락으로 그 소맷단의 무늬를 가리키며 활짝 웃음, 점눈은 반달, 입은 크게 벌어진 웃음, 땋은 머리 끝 붉은 <b>댕기(daenggi)</b>(화면의 단 하나 빨강). 화면 오른쪽 문틈 — Grandma(할머니)가 문설주에 반쯤 가린 채 두 손을 짝 마주치는 순간, 눈가 주름 획이 접히고 입은 크게 벌어진 웃음.<br/><b>배경·소품</b> 마루 끝에 놓인 등잔 하나와 그 노란 빛무리, 문살과 창호지, 마당 쪽에 남은 달빛 한 자락, 마루 밑에 놓인 <b>삼태기(samtaegi)</b> — 배경은 열린 연필선 몇 획의 러프 스케치. 허물은 이미 날아가 화면에 없다.<br/><b>톤</b> 등잔의 따뜻한 노란빛과 창밖의 푸른 달빛이 나뉘어 드는 조명, 겉이 달라져도 알아보는 뭉클하고 정다운 정서.</pre></details>
+</div>
+
+<!-- ④ 절정 : P9, P10, P11, P12 -->
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(약속)</b> <span class="tag beat">④ 절정</span> <span class="tag">후렴 ③·약속</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이듬해 봄, 새선비는 먼 고을로 글공부를 떠나게 되었어요. 셋째 딸은 쪽빛 보자기에 봇짐을 야무지게 쌌지요. "구렁덩덩 새선비 하고 부르면, 어디서든 대답해 주세요." "그럼요. 어디에 있든 꼭 대답하지요." 두 사람은 새끼손가락을 걸었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 + 스케일 대비, 아이레벨 원경 — 겹겹이 포개진 산줄기와 굽이도는 고갯길이 화면을 가로로 채우고, 사람은 아주 작게. 화면 왼쪽 아래 사립문 앞에 셋째 딸, 화면 중앙 고갯길 초입에 새선비가 놓여 둘 사이의 거리가 곧 이별의 길이가 된다.<br/><b>장소·시간</b> 마을을 벗어나는 고갯길 초입과 초가집 사립문 앞, 이듬해 이른 봄 아침. 바람이 서늘하고 볕은 여린 공기.<br/><b>인물</b> 화면 중앙 — ScholarGroom(새선비)이 고갯길 첫 굽이에 작게 서서 몸을 반쯤 돌려 뒤를 돌아보며 한 손을 들어 보임, 다른 손엔 <b>보자기(bojagi)</b>로 야무지게 싼 쪽빛 봇짐, 넓은 소매가 바람에 옆으로 날림. 작아도 도포 자락 끝의 연둣빛 마름모 무늬는 알아보이게. 화면 왼쪽 아래 — ThirdSister(셋째 딸)가 사립문 기둥을 한 손으로 잡고 다른 손의 새끼손가락을 앞으로 내민 채 발끝을 세워 몸을 앞으로 기울임, 입은 크게 벌려 부르는 모양, 땋은 머리 끝 붉은 <b>댕기(daenggi)</b>가 바람에 옆으로 날려 이 넓은 화면에서 유일하게 또렷한 색 한 점(화면의 단 하나 빨강).<br/><b>배경·소품</b> 앞뒤로 겹친 산등성이 여러 겹 — 멀수록 획 수를 줄여(흐림이 아니라 덜 그린 방식) 크림 종이가 훤히 비치게, 능선을 따라 가늘게 이어지는 흙길, 길가에 갓 핀 진달래 대신 흰 조팝꽃 무리(붉은 꽃 금지), 사립문과 초가지붕 — 전부 열린 연필선의 러프 스케치.<br/><b>톤</b> 이른 봄 아침의 맑고 옅은 빛, 산줄기는 푸른 잿빛 실루엣. 서운하지만 약속이 있어 씩씩한, 아득하고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(언니들의 궁리)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">셋째 딸이 친정에 다니러 온 날, 새선비가 돌아온다는 소식이 왔어요. 언니들은 배가 살살 아팠지요. "그 잘난 선비, 우리가 각시 노릇 좀 해 볼까?" 첫째는 셋째의 붉은 댕기를 슬쩍 빼내 제 머리에 맸어요. 둘째는 셋째를 부엌으로 살살 떠밀었지요. "너는 오늘 부뚜막이나 지키렴!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글 부감 — 마당과 부엌문을 비스듬히 위에서 내려다보는 중형 컷. 화면 위쪽 대문 앞에 언니 둘의 정수리와 어깨가 크게, 화면 아래쪽 부엌문 어둠 속으로 밀려 들어가는 셋째 딸이 작게 놓여, 위아래로 갈린 구도가 그대로 사건이 된다.<br/><b>장소·시간</b> 부잣집 안마당과 부엌 문간, 늦봄 아침. 들뜨고 부산한 공기.<br/><b>인물</b> 화면 위쪽 — ElderSisters(두 언니): 키 큰 첫째가 고개를 숙여 제 땋은 머리 끝에 방금 빼내 온 붉은 <b>댕기(daenggi)</b>를 매듭짓는 중, 입꼬리가 한쪽만 올라간 능청스러운 미소, 다른 손은 뒤로 감춤. 그 옆 동글한 둘째는 두 손바닥으로 동생의 등을 부엌 쪽으로 밀며 어깨 너머로 언니를 돌아보고 킥킥거리는 큰 O 입. 화면 아래쪽 — ThirdSister(셋째 딸)가 부엌 문지방에 한 발을 걸친 채 반쯤 떠밀려 들어가며 뒤를 돌아봄, 위에서 내려다본 각도라 머리끝이 잘 보이는데 🔴 이 컷의 셋째 딸 머리끈은 <b>크림빛 무명 끈</b>(댕기는 첫째 언니 머리로 옮겨갔다), 입은 어리둥절한 작은 O, 손에는 부지깽이.<br/><b>배경·소품</b> 마당의 비질 자국, 대문 빗장과 반쯤 열린 문짝, 부엌 안의 검은 아궁이 입과 걸린 가마솥 테두리, 담 밑에 놓인 <b>삼태기(samtaegi)</b> — 배경은 열린 연필선 몇 획의 러프 스케치. 🔴 화면에서 붉은 것은 첫째 언니 머리의 댕기 하나뿐(불빛·아궁이 불도 붉게 칠하지 말 것).<br/><b>톤</b> 위에서 곧게 떨어지는 아침 빛이 대문 앞은 환하게, 부엌 문간은 서늘한 그늘로 갈라 놓는 조명. 짓궂지만 어딘가 어설퍼 곧 탈이 날 것 같은 코믹한 긴장.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(꼬여 버린 인사)</b> <span class="tag beat">④ 절정 · 코믹 골탕</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">대문 앞에 새선비가 성큼 들어섰어요. 언니들이 앞다투어 소리쳤지요. "구렁둥둥 헌선비!" "구렁덜덜 세에선비!" 아이고, 말이 꼬여도 이렇게 꼬일 수가! 구경하던 마을 사람들이 그만 배를 잡고 웃었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 로우앵글 — 마당 바닥 조금 위 높이에서 올려다보는 컷. 앞으로 우르르 나선 두 언니가 화면 왼쪽에서 크게 기울어져 솟아오르고, 그 너머 대문간에 선 새선비는 화면 오른쪽에 반듯하게, 뒤편 담장 위로 구경꾼들의 얼굴이 줄줄이 얹힌다.<br/><b>장소·시간</b> 부잣집 대문 안 마당, 같은 날 늦은 아침. 웃음이 터지기 직전의 들썩이는 공기.<br/><b>인물</b> 화면 왼쪽 앞 — ElderSisters(두 언니)가 서로 먼저 나서려다 어깨를 부딪친 채 앞으로 고꾸라질 듯 기울었다: 키 큰 첫째는 팔을 활짝 벌리고 입을 크게 벌렸는데 입 모양이 삐뚜름하게 꼬였고 점눈 두 개가 빙글 소용돌이로 돌아가고, 머리엔 훔쳐 맨 붉은 <b>댕기(daenggi)</b>가 비뚜름히 흔들림(화면의 단 하나 빨강). 동글한 둘째는 뒤에서 발끝을 세워 언니 어깨 너머로 목을 빼고 입을 삐죽 내밀어 소리치는데 볼이 빵빵하게 부풀었다. 두 볼에 살구빛 창피 획 두 줄씩. 화면 오른쪽 — ScholarGroom(새선비)이 대문간에 막 들어서서 걸음을 멈추고 고개를 갸웃, 한쪽 눈썹 획만 위로 올라가고 입은 작은 물결 모양(어리둥절), 손에는 쪽빛 <b>보자기(bojagi)</b> 봇짐. 뒤 담장 위 — 마을 사람 대여섯이 담에 매달려 배를 잡고 웃음(획 몇 개의 러프한 실루엣과 점눈, 벌어진 입만).<br/><b>배경·소품</b> 활짝 열린 대문짝과 문지방, 마당 한쪽의 장독대, 담장과 기와, 화면 오른쪽 뒤로 살짝 보이는 부엌문(아직 닫혀 있다 — 다음 쪽의 준비) — 배경은 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 늦은 아침의 환한 볕, 기울어진 구도와 튀는 자세가 만드는 왁자한 웃음의 정서. 🔴 언니들은 미움받는 악역이 아니라 <b>제 꾀에 제가 넘어간 우스운 사람</b>으로 그릴 것.</pre></details>
+</div>
+
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>절정(서로를 알아보다)</b> <span class="tag beat">④ 절정 · 펼침면 한 방 · 후렴 회수</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 부엌문이 활짝 열렸어요. "구렁덩덩 새선비!" 맑은 목소리가 마당을 가로질렀지요. 새선비가 환하게 웃으며 대답했어요. "덩실덩실, 나 여기 있소!" 댕기가 없어도, 목소리 하나로 두 사람은 한눈에 서로를 알아보았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 정면 — 마당을 가로지르는 좌우 대칭에 가까운 펼침면 한 방. 화면 왼쪽 끝 부엌문에 셋째 딸, 화면 오른쪽 끝 대문간에 새선비가 서로를 정면으로 마주 보고, 그 사이 텅 빈 마당이 화면 한가운데를 넓게 가른다. 이 편에서 유일하게 정면·대칭을 쓰는 컷(절정의 안정감).<br/><b>장소·시간</b> 부잣집 안마당, 같은 날 낮. 소란이 뚝 그치고 목소리 하나만 지나가는 맑은 공기.<br/><b>인물</b> 화면 왼쪽 — ThirdSister(셋째 딸)가 활짝 열어젖힌 부엌문 앞에 서서 두 손을 입가에 모으고 몸을 앞으로 기울여 부른다, 점눈은 반달, 입은 크게 벌어진 부름의 모양, 앞치마엔 검댕 자국 몇 획, 🔴 머리끈은 크림빛 무명(댕기가 없다는 것이 그림으로 읽혀야 한다). 화면 오른쪽 — ScholarGroom(새선비)이 봇짐을 툭 떨어뜨리고 두 팔을 활짝 벌리며 그쪽으로 몸을 확 돌림, 점눈은 구렁이 시절과 똑같은 반달, 입은 크게 벌어진 웃음, 도포 자락 끝 연둣빛 마름모 무늬가 펄럭이며 드러남. 두 사람 사이 마당 한가운데 — ElderSisters(두 언니)가 어정쩡하게 선 채 서로 마주 보며 굳었다: 첫째의 머리에 비뚜름히 매인 붉은 <b>댕기(daenggi)</b>가 화면에서 유일한 빨강(화면의 단 하나 빨강), 둘 다 볼에 살구빛 획, 입은 작은 O.<br/><b>배경·소품</b> 텅 빈 마당의 넓은 크림 종이 여백, 떨어진 쪽빛 <b>보자기(bojagi)</b> 봇짐, 부엌문 안쪽의 아궁이 그림자, 담장 위에 줄지어 얹힌 구경꾼들의 얼굴이 전부 왼쪽으로 확 돌아간 모습, 장독대와 초가지붕 — 배경은 열린 연필선의 러프 스케치. 🔴 밀도는 마주 선 두 사람에게만.<br/><b>톤</b> 한낮 햇빛이 마당 한가운데를 환하게 비워 두 사람을 양 끝에서 이어 주는 조명, 소리 하나로 모든 것이 제자리를 찾는 벅차고 환한 정서.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P13 -->
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>결말(사과와 잔치)</b> <span class="tag beat">⑤ 결말 · 교훈과 여운</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">언니들은 얼굴이 발그레해져 고개를 푹 숙였어요. "우리가… 미안해." 셋째 딸은 댕기를 돌려받아 다시 매고는, 두 언니의 손을 잡아 잔치 마당으로 이끌었지요. 사모를 쓴 새선비가 초례상 곁에서 껄껄 웃었고, 할머니는 삼태기 가득 떡을 담아 돌렸어요. 겉모습이 달라져도 진심은 서로를 알아본대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 3/4 시점, 아이레벨보다 조금 높게 — 마당에 둥글게 모인 사람들을 비스듬히 옆에서 잡은 컷. 원형으로 모인 무리가 화면 가운데를 감싸고 그 틈으로 손을 맞잡은 세 자매가 보인다.<br/><b>장소·시간</b> 부잣집 마당의 잔치 자리, 같은 날 늦은 오후. 웃음소리와 떡 냄새가 도는 넉넉한 공기.<br/><b>인물</b> 화면 가운데 — ThirdSister(셋째 딸)가 양손으로 ElderSisters(두 언니)의 손을 각각 잡고 잔치 자리 쪽으로 끌어당기며 활짝 웃음, 땋은 머리 끝에 되찾아 맨 붉은 <b>댕기(daenggi)</b>(화면의 단 하나 빨강). 두 언니는 고개를 푹 숙인 채 끌려오는데 볼에는 살구빛 창피 획 두 줄씩, 키 큰 첫째는 입술을 오므린 작은 미소, 동글한 둘째는 눈을 내리깔고 겸연쩍은 한 줄 입 — 이제 둘의 머리끈은 다시 크림빛·쪽빛. 화면 오른쪽 — ScholarGroom(새선비)이 날개 달린 까만 <b>사모(samo)</b>를 쓴 채 <b>초례상(choryesang)</b> 곁에 서서 두 손을 소매에 넣고 고개를 젖혀 껄껄 웃음(초례상은 잔치가 이어지느라 그대로 남았고, 촛대의 초는 크림·쪽빛 — 붉은 초 금지), 도포 자락의 연둣빛 마름모 무늬가 보임. 화면 왼쪽 — Grandma(할머니)가 <b>삼태기(samtaegi)</b> 가득 흰 떡을 담아 이웃들에게 하나씩 쥐여 주며 눈가 주름이 접히도록 웃음. 둘레에 마을 사람 대여섯과 아이 둘이 떡을 받으려 폴짝 뜀(획 몇 개의 러프한 실루엣과 점눈만).<br/><b>배경·소품</b> 마당에 깔린 멍석과 낮은 상 몇, 쪽빛 <b>보자기(bojagi)</b>를 덮어 둔 함지, 담장 너머 초가지붕들과 저물어 가는 산등성이, 하늘에 흰 나비 한 마리가 아주 작게 지나감(P7 허물의 여운) — 배경은 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 나지막이 깔리는 늦은 오후 금빛, 미움이 남지 않고 다 같이 둥글게 닫히는 훈훈하고 정겨운 마무리 정서, 따뜻한 흙빛과 한지 크림색.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 구렁덩덩 새선비 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING (finish hierarchy — the single most important rule): The bright warm cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. This picture is deliberately UNEVENLY finished, like one page from a master's sketchbook. Finish only what matters: the CHARACTERS = finished (clear line AND color, keep them at their current level); a prop a character is directly touching or holding (a loom, a bench, a gourd in their hands) = half-finished, a bit of line and a little color; everything else — the whole background: jars, walls, fences, roofs, trees, hills, anything far away — = a LOOSE UNFINISHED PENCIL SKETCH: just a few open contour lines and a few direction strokes, barely any color, lots of bare cream paper showing through, deliberately NOT filled in, like the rough underdrawing on a sketchbook page. A jar is two or three open outlines, a roof is a few slanted direction strokes, a distant thing is one or two lines and then paper. This is about how FINISHED each area is, NOT about opacity — the background is not faded, hazy, blurry or low-saturation, it is simply left as rough sketch lines and not drawn to completion. Spend all the density ONLY on the characters. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces; NOT a fully rendered background, NOT every jar / roof-tile / leaf drawn to completion, NOT a uniform finish across the whole picture, and NOT a hazy / blurry / faded background either (that is just blur, not a sketch) — keep the background as loose OPEN PENCIL SKETCH lines and every stroke loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'SerpentGroom', name: '새선비(구렁이)', desc: '할머니가 기른 통통 동글 구렁이 — 큰 반달 점눈, 연둣빛 마름모 무늬, 순한 얼굴(이빨·붉은 눈 절대 금지)', aliases: ['SerpentGroom'] },
+    { token: 'ScholarGroom', name: '새선비(선비)',   desc: '허물을 벗고 선비가 된 같은 존재 — 크림빛 도포, 상투, 같은 반달 점눈 + 소맷단의 연둣빛 마름모 무늬',   aliases: ['ScholarGroom'] },
+    { token: 'ThirdSister',  name: '셋째 딸',        desc: '겉모습 너머를 보는 막내 — 땋은 머리 끝 붉은 댕기(이 편의 단 하나 빨강), 앞으로 기울인 호기심 많은 몸',  aliases: ['ThirdSister'] },
+    { token: 'ElderSisters', name: '두 언니',        desc: '늘 붙어 다니는 2인조 — 키 크고 마른 첫째 + 작고 동글한 둘째, 크림·쪽빛 댕기(P10~P12만 첫째가 붉은 댕기)', aliases: ['ElderSisters'] },
+    { token: 'Grandma',      name: '할머니',         desc: '구렁이를 아들처럼 기른 할머니 — 굽은 등, 쪽진 흰머리, 늘 삼태기를 낀 손',                              aliases: ['Grandma'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

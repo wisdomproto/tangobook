@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 반쪽이</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · 시즌2 #40</div>
+  <h1>💪 반쪽이</h1>
+  <div class="sub">팔도 하나 다리도 하나, 그래서 마을에서 제일 날랜 아이 — 형들과 함께 마을을 지킨 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 나는 처음부터 온전한 나 — 서로의 다름이 힘을 합치면 더 세진다 &nbsp;·&nbsp;
+  <b>분량</b> 13 스프레드 &nbsp;·&nbsp; <b>후렴</b> "껑충! 껑충! 반쪽이가 간다!"(P2 → P6 → P9 → P12에서 마을·형들이 함께 외치며 회수) &nbsp;·&nbsp;
+  <b>핵심단어</b> 쌀뒤주 · 새끼줄 · 절굿공이 · 반짇고리 · 꽹과리 &nbsp;·&nbsp;
+  <b>구조</b> 마을 근심(뒤주가 빈다) → 형들 먼저 출발 → 반쪽이의 산행 → 꾀 대결(술래잡기+새끼줄) → 삼형제 협동 → 화해 → 인정 &nbsp;·&nbsp;
+  <b>분량 근거</b> 인물 4(삼형제+호랑이)에 사건 축이 하나뿐이라 대작(14~16)은 불필요. 다만 ⓐ호랑이와의 화해와 ⓑ형들의 인정이 각각 한 쪽씩 필요해 표준의 위쪽인 <b>13</b>으로 잡았다(12로 줄이면 화해가 잘리고, 14로 늘리면 산길 장면이 반복된다).
+</div>
+
+<div class="meta-card" style="border-left:5px solid var(--vermilion)">
+  🔴 <b>이 편의 순화 — 신체 차이의 재현</b><br>
+  · <b>반쪽이는 결함·불운·동정의 대상이 아니다.</b> 첫 쪽부터 <b>마을에서 제일 날래고 제일 힘센 아이</b>로 확립하고, 그 힘과 꾀는 <b>원래 그 아이가 가진 것</b>이다 — "몸을 극복했다"는 톤은 한 줄도 쓰지 않는다.<br>
+  · <b>그림에서 절대 금지</b>: 잘린 단면·상처·꿰맨 자국·붕대·결손을 강조하는 묘사. 반쪽이의 몸은 <b>매끈하게 닫힌 쉼표 모양 실루엣</b>으로 디자인하고, 늘 <b>뛰어오르는 중</b>인 자세로 그린다(가장 멋진 실루엣).<br>
+  · <b>몸을 놀리는 대사·시선 없음.</b> 형들의 "넌 집에 있어"는 <b>따돌림이 아니라 걱정에서 나온 가벼운 티격태격</b>이고, 호랑이의 도발도 몸이 아니라 <b>덩치 차이</b>("요만한 게")로만 한다.<br>
+  · <b>호랑이</b>는 사람을 해치지 않는다 — 밤에 쌀만 퍼 간다. 대결은 <b>술래잡기 내기</b>이고, 벌은 <b>새끼줄에 스스로 감기는 코믹한 골탕</b>뿐. 유혈·죽음·상처 없음. 배고팠다고 실토하면 <b>반쪽이가 직접 풀어 준다</b>.<br>
+  · 원작의 <b>신붓감 겨루기·색시 데려오기 서사는 전부 제거</b>하고 <b>마을을 지키고 형들과 화해하는</b> 이야기로 대체했다.<br>
+  · 마무리는 시즌2의 마지막답게 <b>여운</b>으로 — 어머니의 반짇고리 앞, 나란히 놓인 삼형제의 옷 한 컷으로 닫는다.
+</div>
+<div class="refrain">💪 반복 후렴 — "껑충! 껑충! 반쪽이가 간다!" <span style="font-weight:600;font-size:13px">(P2 혼자 → P6 산길 → P9 호랑이 앞 → P12 마을 사람들과 형들이 함께 외치며 회수)</span></div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-banjjogi</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.<br>🔴 <b>화면당 빨강 악센트 1점 = 반쪽이의 붉은 술띠 매듭</b>(반쪽이는 전 쪽에 등장하므로 이 편의 빨강은 언제나 술띠다. 반쪽이가 화면 밖인 쪽(P7)은 <b>덤불 사이로 살짝 보이는 술띠 자락 한 점</b>이 그 빨강이다). 다른 인물·사물에는 빨강을 쓰지 않는다 — 특히 <b>호랑이는 황토빛 주황과 잿빛 줄무늬로만</b> 그리고 붉은 기를 넣지 않는다.<br>🔴 이 편에는 상태 변형 캐릭터가 없다 — 반쪽이는 처음부터 끝까지 <b>같은 몸, 같은 옷, 같은 당당한 얼굴</b>이다(변신·치유·완성 서사 없음이 이 이야기의 핵심 톤).</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="반쪽이" data-key="char-halfboy">
+  <div class="head"><span class="face">💪</span><b>반쪽이</b> <span class="rom">HalfBoy · 마을에서 제일 날랜 막내</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: HalfBoy — a bright, bold, capable seven-year-old boy, the youngest of three brothers, born with half a body: ONE arm and ONE leg on his right side. 🔴 HE IS NEVER PITIFUL. He is the quickest and strongest child in the village and every single line must say so — confident, springy, cheerful, proud. Never sad, never fragile, never an object of pity or teasing. Dot-eye design language kept exactly: a flat cream face with zero shading, TWO dot eyes (he keeps both dot eyes like everyone else in the cast), a big confident one-line grin, no nose (or one tiny dot).
+SILHOUETTE (his signature — the entire design lives here): a smooth, rounded, COMMA-SHAPED body that leans and springs — one sturdy arm on his right side, one sturdy leg beneath it, and his left outline closing in one soft continuous curve like the back of a comma or a springy seed. 🔴 The outline must read as a NEAT, WHOLE, DESIGNED shape: absolutely NO cut edge, NO seam, NO stitch line, NO wound, NO stump, NO bandage, NO shading that suggests something is missing, nothing surgical and nothing sad. Think "one bold brush-stroke of a boy", the way a paper cut-out or a jumping grasshopper is whole in itself.
+POSTURE (draw him this way by default): almost never standing still — mid-hop with his single leg coiled and then flung out, body tilted forward into the jump, his one arm thrown up or swinging something heavy with obvious delight. He is the most airborne body in the book; several pages show him fully off the ground.
+CLOTHES: a plain everyday child's hanbok in soft blue-grey pencil strokes — a short jacket and one wide trouser leg gathered and tied at the ankle, mostly open paper with loose hatching. Hair as one solid dark mass in a short child's braid that flies behind him when he jumps.
+SIGNATURE RED: a RED woven sash-cord (sultti) knotted at his waist with a short tassel — this is the picture's single red accent on every page he appears in (he appears in all of them).
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body idle standing tall and balanced with the one arm on the hip and a big confident grin + a big mid-air hopping pose seen from 3/4 (leg coiled, braid flying, sash tassel streaming) + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) a wide confident grin, (2) a determined straight-line mouth with lowered brow strokes, (3) a comic sulk — a small pushed-out pout with one brow lifted. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="첫째형" data-key="char-bigbrother">
+  <div class="head"><span class="face">🧑</span><b>첫째 형</b> <span class="rom">BigBrother · 키 큰 맏이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: BigBrother — the eldest of the three brothers, about fifteen; earnest, protective, a little bossy, and warm underneath. He is never a bully — when he says "you stay home" it comes out of worry, and his face must show worry, not scorn. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a straight serious line mouth, no nose (or one tiny dot). Hair as one solid dark mass in a single long braid down his back (unmarried youth).
+SILHOUETTE (his signature): tall, long-limbed and slightly stiff — a narrow upright rectangle of a boy with square shoulders and long arms, usually standing very straight with his chest out. He is the tallest body in the cast; HalfBoy's springy comma shape reads against his tall stiff line.
+CLOTHES: a plain everyday hanbok in soft blue-grey pencil strokes with the sleeves rolled up to the elbow, a plain cream sash (🔴 never red — the only red in any picture belongs to HalfBoy's sash), straw sandals in a few pale straw-yellow strokes.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (arms folded, chest out, serious line mouth) + a 3/4 turn mid-stride + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) a firm serious straight line, (2) worried — a small downcurved mouth with tilted brow strokes, (3) a big proud open smile with the head thrown back. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="둘째형" data-key="char-middlebrother">
+  <div class="head"><span class="face">🧒</span><b>둘째 형</b> <span class="rom">MiddleBrother · 동글동글 겁쟁이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: MiddleBrother — the middle of the three brothers, about twelve; chatty, easily startled, big-hearted, the comic one. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a mouth that is usually a small round O of surprise, no nose (or one tiny dot). Hair as one solid dark mass in a single braid, shorter and messier than BigBrother's, with two stray strands sticking up.
+SILHOUETTE (his signature): short and round — a soft pear-shaped body with a round tummy, stubby arms and legs, and shoulders that hunch up toward his ears whenever he is scared. Round against BigBrother's tall line and HalfBoy's springy comma: three completely different shapes at a glance.
+CLOTHES: a plain everyday hanbok in soft blue-grey pencil strokes, slightly too big for him with the trouser cuffs bunched, a plain straw-yellow sash (🔴 never red), straw sandals in a few strokes.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands clasped in front, round O mouth) + a 3/4 turn scrambling away with the shoulders hunched + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) a startled round O mouth with lifted brow strokes, (2) a wide delighted laugh, (3) sheepish — a wavy little mouth with the head ducked. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="어머니" data-key="char-mother">
+  <div class="head"><span class="face">👩‍🌾</span><b>어머니</b> <span class="rom">Mother · 삼형제의 어머니</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Mother — the mother of the three brothers; calm, steady, quietly proud of all three of them equally. 🔴 She never frets over HalfBoy, never fusses, never looks at him with pity — she hands him his rope the same way she would hand it to anyone. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile, no nose (or one tiny dot). Hair as one solid dark mass pulled into a low coiled bun held by a plain wooden hairpin (binyeo) drawn as one short stroke.
+SILHOUETTE (her signature): a wide, low, stable triangle — a full gathered skirt that spreads on the floor when she sits, rounded shoulders, and she is very often SEATED and working with her hands (sewing, twisting straw), which makes her the calmest shape in the book.
+CLOTHES: a plain skirt-and-jacket everyday hanbok suggested in soft blue-grey and pale cream pencil strokes, mostly open paper with loose hatching, a cream apron-cloth at the waist (🔴 no red anywhere on her).
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body seated idle with a sewing basket open at her knee and a threaded needle raised in one hand + a standing 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) a calm gentle one-line smile, (2) a warm crinkled smile with lowered brow strokes, (3) a quiet watchful look — a level mouth, chin slightly lifted, eyes toward the road. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="호랑이" data-key="char-bigtiger">
+  <div class="head"><span class="face">🐯</span><b>호랑이</b> <span class="rom">BigTiger · 덩치 자랑쟁이 산 호랑이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: BigTiger — an enormous mountain tiger who has been sneaking into the village at night to eat rice because there is nothing left to eat on the mountain. He is a BOASTER about his size, not a monster. 🔴 Never frightening: NO bared fangs, NO red eyes, NO claws out, NO snarl, NO blood, no menacing pose at any point in the book. Dot-eye design language kept exactly: a flat cream muzzle with zero shading, two dot eyes (round and soft — the second-biggest eyes in the cast after nobody), a small simple line mouth, a single dot nose.
+SILHOUETTE (his signature): huge and pillowy — a great rounded loaf of a body on four thick round paws, a big round head with two small rounded ears, a heavy tail that curls like a question mark. Everything about him is ROUND: round paws with no visible claws, round cheeks, round belly. His hugeness is played for scale comedy against HalfBoy's small springy shape, never for threat.
+COLOR: ochre-orange fur with soft grey-brown stripes drawn as quick open pencil strokes over lots of bare cream paper, a pale cream chest and muzzle. 🔴 NOTHING red on him — no red tongue, no red eyes, no reddish fur tone (the picture's only red is HalfBoy's waist sash).
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body idle standing in 3/4 with the chest puffed out and the tail curled high (boasting) + a full-body pose tangled in a straw rope, sitting down with the tail wrapped around him + three face close-ups where the expression changes ONLY through the mouth line, whisker strokes and posture: (1) a smug little smirk with the chin up, (2) panting exhaustion — an open mouth with the tongue as one soft cream stroke (not red) and drooping brow strokes, (3) sorry — a small downcurved mouth, ears flattened, two tiny stroke-tears at the corner of the eye. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.) 다섯 사물 모두 <b>본문 문장에</b> 실제로 등장한다(괄호 = 글에는 없고 그림에만 나오는 쪽) — <b>쌀뒤주</b> 본문 P3 (그림 P12) · <b>새끼줄</b> 본문 P5·P6·P10 (그림 P11·P13) · <b>절굿공이</b> 본문 P2 (그림 P4·P12·P13) · <b>반짇고리</b> 본문 P5·P13 · <b>꽹과리</b> 본문 P3·P12. (시즌1에서 이미 쓴 지게·가마솥·멍석·짚신 등과 겹치지 않게 고른 다섯이다.)</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="쌀뒤주" data-key="word-dwiju">
+  <div class="head"><span class="face">🍚</span><b>쌀뒤주</b> <span class="rom">ssal-dwiju — a wooden rice chest</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "ssal-dwiju — the sturdy wooden chest a Korean household stores its rice in (쌀뒤주)". A squat four-legged chest built from thick honey-brown pine boards with a strong straight grain (#B98A50), the panels joined without nails, short stubby corner legs, black iron hinges and a heavy iron ring-latch on the front (soft dark steel-grey #6E747A), and a hinged plank lid on top with a small carved hand-hold. Show TWO states side by side so the word reads clearly: (1) the chest closed and latched, and (2) the same chest with the lid tipped open showing it heaped full of pearly white rice grains. Solid, honest, well-oiled wood. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="새끼줄" data-key="word-saekkijul">
+  <div class="head"><span class="face">🪢</span><b>새끼줄</b> <span class="rom">saekkijul — hand-twisted straw rope</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "saekkijul — rope twisted by hand from rice straw, the everyday rope of old Korea (새끼줄)". Two strands of golden rice straw (#D8B863) twisted into one spiralling cord, the individual straw fibres and their little frayed ends clearly visible along the twist, warm and slightly fuzzy in texture. Show THREE forms so the word reads clearly: (1) a long coil neatly wound into a flat spiral bundle, (2) a single length running across with the twist pattern crisp and readable, and (3) one end tied into an open loop-snare. Rustic, springy, hand-made. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="절굿공이" data-key="word-gongi">
+  <div class="head"><span class="face">🥣</span><b>절굿공이</b> <span class="rom">jeolgutgongi — a heavy wooden pestle</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jeolgutgongi — the long heavy wooden pestle used to pound grain and rice cake in a Korean mortar (절굿공이)". A thick club-shaped pestle turned from a single piece of hardwood, warm honey-brown with a deep visible grain (#A9773B), fat and rounded at the pounding end, worn smooth and slightly paler where hands have gripped the narrow waist, with a few honest dents at the head. Show TWO forms: (1) the pestle alone lying at a slight 3/4 angle so its heavy weight reads, and (2) the same pestle standing upright inside a deep grey granite mortar (jeolgu, #8C8C88) with a little dusting of white rice flour at the rim. Weighty, honest, well-used. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="반짇고리" data-key="word-banjitgori">
+  <div class="head"><span class="face">🧵</span><b>반짇고리</b> <span class="rom">banjitgori — a Korean sewing basket</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "banjitgori — the lidded basket-box a Korean household keeps its sewing things in (반짇고리)". A low round-cornered box built up from layers of lacquered hanji paper in warm persimmon-tan (#C8894F) with a fine mother-of-pearl (najeon) inlay border of tiny flowers along the lid rim and a small silk lifting-loop. Show TWO states: (1) the box closed, lid on, so the inlay pattern reads, and (2) the same box open from a slight top-down angle showing its contents neatly arranged — spools of cotton thread in indigo and cream, a small embroidered needle-case, a fabric thimble (golmu), scraps of folded cloth and a pair of small iron scissors. Delicate, tidy, treasured. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="꽹과리" data-key="word-kkwaenggwari">
+  <div class="head"><span class="face">🥁</span><b>꽹과리</b> <span class="rom">kkwaenggwari — a small brass hand gong</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "kkwaenggwari — the small hand-held brass gong that leads a Korean farmers' band (꽹과리)". A shallow round gong hammered from warm yellow brass (#C9A227) with a bright polished face, faint concentric hammer marks radiating from the centre, a low upturned rim, and two holes at the rim threaded with a braided cotton hand-strap in indigo and cream. Beside it its striker: a short wooden beater with a round padded head bound in cloth. Show TWO views: (1) the gong face-on with the strap looped for the hand, and (2) a slight 3/4 tilt showing the shallow rim and the beater resting across it. Bright, ringing, festive. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 13 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 산 아래 마을에 삼형제가 살았어요. 첫째는 키가 껑충 크고, 둘째는 몸이 동글동글했지요. 그리고 막내는 몸이 반쪽이었어요. 팔도 하나, 다리도 하나. 그래서 이름도 반쪽이랍니다. 그리고 이 반쪽이는 마을에서 제일 날래고, 제일 힘이 셌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 평면 부감 — 초가집 앞마당을 거의 수직으로 위에서 내려다보는 대형 컷. 둥근 마당이 화면 가운데에 접시처럼 놓이고 세 형제가 그 위에 흩어져 놓임(세 개의 서로 다른 실루엣이 위에서 한눈에 읽히는 구도). 🔴 이 편 마지막 P12와 짝을 이루는 수미상관 앵글.<br/><b>장소·시간</b> 산 아래 작은 마을, 삼형제네 초가집 앞마당, 이른 아침. 밥 짓는 연기가 아직 낮게 깔린 포근한 공기.<br/><b>인물</b> 마당 위쪽 — BigBrother(첫째)가 길쭉하게 서서 팔짱을 끼고 마당을 내려다봄, 위에서 보면 어깨 선이 곧은 직사각형. 마당 오른쪽 — MiddleBrother(둘째)가 동그랗게 웅크려 앉아 두 손으로 그릇을 안고 있음, 위에서 보면 동그란 원. 마당 한가운데 — HalfBoy(반쪽이)가 <b>공중에 떠 있음</b>: 한 다리를 뒤로 접고 한 팔을 위로 뻗어 껑충 뛰어오른 순간이라 위에서 보면 매끈한 쉼표 모양, 얼굴은 위를 향해 활짝 웃는 한 줄, 짧은 댕기가 뒤로 날림, 땅에는 그의 작고 동그란 그림자만 남음. 허리의 붉은 술띠 매듭과 술이 화면에서 유일하게 또렷(화면의 단 하나 빨강).<br/><b>배경·소품</b> 마당 가장자리를 두른 낮은 흙담과 사립문, 담 밑에 엎어 놓은 옹기 두엇, 마루 끝에 개어 둔 이불, 마당 구석 절구 하나 — 전부 열린 연필선 두세 획의 러프 스케치. 담 너머로는 마을 초가지붕들과 산등성이가 획 몇 개로만.<br/><b>톤</b> 아침 햇살이 마당 흙바닥을 환하게 채워 밝은 크림 종이가 그대로 볕이 되는 조명, 세 형제의 실루엣이 대비되며 시작되는 경쾌하고 다정한 정서.</pre></details>
+</div>
+
+<!-- ② 발단 : P2, P3, P4 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(반쪽이는 이런 아이)</b> <span class="tag beat">② 발단</span> <span class="tag">후렴 ①</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">반쪽이는 껑충 한 번에 담을 넘고, 껑충 두 번에 마당을 가로질렀어요. 어른도 겨우 드는 절굿공이를 한 손으로 번쩍 들어 올렸지요. "껑충! 껑충! 반쪽이가 간다!" 형들은 눈이 휘둥그레졌다가 괜히 툴툴거렸답니다. "얘, 좀 천천히 다녀!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 클로즈업 — 땅바닥 높이에서 반쪽이를 한껏 올려다보는 컷. 치켜든 <b>절굿공이(jeolgutgongi)</b>가 화면 위쪽을 가로지르고, 그것을 쥔 한 팔과 어깨, 아래를 내려다보는 얼굴이 화면을 채움. 형들은 화면 아래 가장자리에 작게.<br/><b>장소·시간</b> 초가집 마당 한켠 절구 옆, 같은 날 아침. 흙먼지가 살짝 이는 활기찬 공기.<br/><b>인물</b> HalfBoy(반쪽이)가 화면 중앙 — 한 다리로 땅을 굳게 딛고 몸을 뒤로 살짝 젖힌 채 <b>한 팔로 절굿공이를 머리 위로 번쩍</b> 들어 올림. 팔뚝에 힘이 들어간 획 두어 개, 입은 활짝 웃는 큰 곡선, 점눈은 아래 형들을 보며 신났음. 몸의 왼쪽 윤곽은 한 번의 부드러운 곡선으로 매끈하게 닫힘 — 🔴 잘린 자국·꿰맨 선·붕대는 절대 그리지 않는다. 허리의 붉은 술띠 매듭(화면의 단 하나 빨강). 화면 아래 가장자리 — BigBrother(첫째)가 팔짱 낀 채 입은 곧은 한 줄로 다물고 눈썹 획만 살짝 올라감, MiddleBrother(둘째)는 입이 동그란 O가 되어 올려다봄.<br/><b>배경·소품</b> 반쪽이 발치의 돌절구와 그 안에 남은 곡식 한 줌, 옆으로 굴러간 소쿠리, 낮은 흙담과 담 너머 지붕들 — 배경은 열린 연필선 몇 획의 러프 스케치. 반쪽이가 방금 뛰어넘은 담 위에 남은 발자국 한 점.<br/><b>톤</b> 아래에서 위로 올려다보는 각도가 반쪽이를 늠름하게 키우고, 아침 햇살이 절굿공이 끝에 걸림. 씩씩하고 자랑스러운 정서 — 동정이나 안쓰러움은 한 획도 없이.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(빈 쌀뒤주)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그러던 어느 날 아침, 마을이 발칵 뒤집혔어요. 밤새 누가 쌀뒤주를 열고 쌀을 몽땅 퍼 갔지 뭐예요. 지난밤에도, 그 지난밤에도요. 밤새 꽹과리를 꽹꽹 두드려 봐도 소용이 없었지요. "산에 사는 커다란 호랑이 짓이야!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 어깨너머 컷 — 화면 앞쪽 좌우에 어른들의 등과 어깨가 크게 걸치고, 그 틈 사이로 활짝 열린 <b>쌀뒤주(ssal-dwiju)</b>의 텅 빈 속이 화면 한가운데 놓이는 중형 컷. 사람들 사이의 좁은 틈이 자연스러운 액자가 됨.<br/><b>장소·시간</b> 마을 한복판 곳간 앞 흙바닥, 같은 날 아침. 웅성거리는 어수선한 공기.<br/><b>인물</b> 전경 좌우 — 마을 어른 서넛의 등과 어깨(획 몇 개의 러프한 실루엣에 점눈만), 한 사람은 손에 <b>꽹과리(kkwaenggwari)</b>와 채를 든 채 힘없이 늘어뜨림, 다른 이는 두 손을 머리에 얹음. 화면 오른쪽 아래 — HalfBoy(반쪽이)가 어른들 틈에서 까치발 대신 한 다리로 통 뛰어올라 뒤주 속을 넘겨다보는 순간(공중에 살짝 뜬 자세), 입은 작은 O, 허리의 붉은 술띠 매듭(화면의 단 하나 빨강). 그 옆 MiddleBrother(둘째)가 어깨를 움츠리고 어른들 사이로 고개만 내밈.<br/><b>배경·소품</b> 뚜껑이 젖혀진 뒤주와 그 속의 텅 빈 어둠, 바닥에 흘린 쌀알 몇 톨과 곳간 문턱을 넘어간 커다랗고 둥근 발자국 서넛(발톱 자국 없이 동글동글하게), 곳간 문짝과 처마, 담벼락 — 배경은 열린 연필선의 러프 스케치.<br/><b>톤</b> 아침 빛이 사람들 어깨 사이로 들어와 텅 빈 뒤주 속만 컴컴하게 남기는 대비, 걱정스럽고 소란스럽지만 무섭지는 않은 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>발단(형들이 먼저 떠나다)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">첫째와 둘째가 팔을 걷어붙였어요. "우리가 가서 호랑이를 쫓아낼게요!" 반쪽이도 얼른 따라나섰지요. "나도 갈래!" 그러자 형들이 손사래를 쳤어요. "넌 어머니랑 집을 지켜. 산길이 얼마나 험한데." 반쪽이는 입을 삐죽 내밀었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 극단 여백 컷, 살짝 높은 하이앵글 롱샷 — 화면의 약 70%가 텅 빈 새벽 들길과 하늘이고, 멀어지는 형들은 화면 오른쪽 위 아득한 점 둘, 반쪽이는 화면 왼쪽 아래 구석 사립문 앞에만 놓인 대형 와이드. 둘 사이의 넓은 빈 종이가 서운함을 대신 말함.<br/><b>장소·시간</b> 마을 어귀 사립문과 거기서 산으로 뻗은 흙길, 이른 새벽. 이슬이 내려 서늘하고 조용한 공기.<br/><b>인물</b> 화면 오른쪽 위 — BigBrother(첫째)와 MiddleBrother(둘째)가 아주 작게, 산 쪽으로 걸어가며 첫째가 뒤돌아 한 손을 크게 흔들고 둘째는 종종걸음으로 형을 따라붙는 실루엣. 화면 왼쪽 아래 — HalfBoy(반쪽이)가 사립문 기둥에 한 팔을 얹고 서서 형들 쪽을 바라봄, 입은 삐죽 내민 작은 뾰로통한 모양이고 눈썹 획 하나가 삐딱하게 올라감(서운하지만 기죽지는 않은 얼굴 — 어깨는 펴져 있고 턱은 들려 있다). 한 다리는 이미 앞으로 반 발짝 나가 있어 곧 따라나설 것이 보임. 허리의 붉은 술띠 매듭(화면의 단 하나 빨강).<br/><b>배경·소품</b> 사립문과 낮은 흙담, 문 옆에 세워 둔 절굿공이, 저 멀리 산줄기의 능선 한두 획, 하늘에 남은 새벽별 한 점 — 전부 열린 연필선의 러프 스케치, 화면 대부분은 그냥 크림 종이 여백.<br/><b>톤</b> 해 뜨기 직전의 옅은 잿빛 푸름에 지평선만 옅은 straw-yellow 로 트인 조명(🔴 살구빛·붉은 노을 금지 — 넓은 면적의 따뜻한 색이 술띠 빨강과 경합하지 않게), 서운함과 결심이 나란히 있는 조용한 정서.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P5, P6, P7 -->
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(새끼줄과 반짇고리)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">하지만 반쪽이가 가만있을 리 없지요. 반쪽이는 마당에 앉아 볏짚을 비벼 새끼줄을 길게 길게 꼬았어요. 어머니는 반짇고리를 열어 터진 저고리를 꿰매 주었지요. "조심히 다녀오렴." "금방 다녀올게요!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 마루 높이보다 낮은 눈높이 — 두 사람의 <b>손</b>이 주인공인 컷. 화면 왼쪽에 새끼줄을 꼬는 반쪽이의 한 손과 무릎, 화면 오른쪽에 바늘을 든 어머니의 두 손이 크게 들어오고, 두 사람의 얼굴은 화면 위쪽에 반쯤 걸쳐 보임.<br/><b>장소·시간</b> 초가집 툇마루와 그 앞 흙마당, 아침 해가 한 뼘쯤 오른 시각. 볏짚 냄새가 나는 부산하고 아늑한 공기.<br/><b>인물</b> 화면 왼쪽 아래 — HalfBoy(반쪽이)가 마당에 앉아 <b>한 팔과 무릎 사이에 볏짚을 끼우고 손바닥으로 비벼</b> 꼬는 동작(한 손으로 꼬는 제 방식이 능숙해 보이게, 손바닥에 힘줄 획), 이미 꼬인 <b>새끼줄(saekkijul)</b>이 무릎 옆에 똬리로 수북이 쌓임. 얼굴은 화면 위쪽에 걸쳐 야무지게 다문 한 줄 입과 집중한 눈썹 획. 허리의 붉은 술띠 매듭(화면의 단 하나 빨강). 화면 오른쪽 — Mother(어머니)가 툇마루에 앉아 반쪽이의 저고리 어깨를 무릎에 펼쳐 놓고 실 꿴 바늘을 위로 뽑아 올리는 손, 다른 손은 옷감을 팽팽히 잡음, 얼굴은 화면 위 가장자리에 잔잔한 한 줄 미소. 🔴 어머니의 시선은 바느질감에 있고 반쪽이를 걱정스럽게 내려다보지 않는다.<br/><b>배경·소품</b> 마루에 열려 있는 <b>반짇고리(banjitgori)</b>와 그 속의 실패·골무·바늘쌈지, 마당에 흩어진 볏짚 다발, 옆에 놓인 물그릇, 툇마루 기둥과 처마 그림자 — 배경은 열린 연필선 몇 획의 러프 스케치. 🔴 반짇고리는 열린 연필선 두어 획과 옅은 남빛·크림으로만(감빛·붉은 기 없이 — 이 화면의 빨강은 술띠 하나뿐).<br/><b>톤</b> 아침 볕이 마루 끝과 두 사람의 손등에만 또렷이 떨어지고 나머지는 성긴 스케치, 담담하고 미더운 출발 준비의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(껑충껑충 산길)</b> <span class="tag beat">③ 사건</span> <span class="tag">후렴 ②</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">반쪽이는 새끼줄을 어깨에 둘러메고 산으로 뛰어올랐어요. 바위에서 바위로, 골짜기에서 골짜기로. "껑충! 껑충! 반쪽이가 간다!" 새벽에 떠난 형들을, 반쪽이가 어느새 바짝 따라잡았지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 + 스케일 대비, 맞은편 능선 높이에서 본 수평 원경(아이레벨 롱샷) — 골짜기를 사이에 둔 두 바위가 화면 좌우를 차지하고 그 사이 빈 하늘 한가운데를 반쪽이가 손톱만 하게 가로지른다. 세상은 아주 크고 아이는 아주 작지만, 그 작은 점이 화면의 정중앙에서 날고 있다.<br/><b>장소·시간</b> 산 중턱 바위 골짜기, 해가 높이 오른 아침나절. 바람이 위로 감아 도는 서늘하고 시원한 공기.<br/><b>인물</b> HalfBoy(반쪽이)가 화면 한가운데 공중에 — 한 다리를 뒤로 쭉 뻗고 한 팔은 앞으로 내지른 가장 멋진 도약 실루엣, 몸은 활처럼 길게 늘어난 쉼표 모양, 짧은 댕기와 <b>새끼줄(saekkijul)</b> 타래가 어깨에서 뒤로 흩날림, 입은 웃음으로 벌어짐. 작아도 허리의 붉은 술띠와 술 자락 두 점만은 또렷(화면의 단 하나 빨강). 🔴 실루엣은 매끈하게 닫힌 한 덩어리 — 어떤 각도에서도 잘린 단면처럼 보이지 않게.<br/><b>배경·소품</b> 좌우로 솟은 바위 두 덩이(각각 열린 윤곽선 몇 획과 결 방향 획 몇 개로만), 그 아래 아득한 골짜기와 겹겹이 포개진 산등성이 — 멀수록 획 수가 줄어드는 방식으로(흐림이 아니라 덜 그린 상태), 바위 틈의 소나무 한 그루, 하늘은 거의 전부 빈 크림 종이. 저 아래 오솔길에는 형들이 먼저 지나가며 남긴 어지러운 발자국과 떨어뜨린 봇짐 끈 하나(사람은 보이지 않는다 — 형들은 이미 이 위 어딘가에 있다).<br/><b>톤</b> 위쪽이 훤하게 트인 밝은 아침빛, 바위는 푸른 잿빛 실루엣, 날아오르는 통쾌함과 자유로움의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(나무 위의 형들)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">산 중턱에 이르자 나무 위에서 소리가 났어요. "사, 살려 줘!" 첫째와 둘째가 소나무 가지에 대롱대롱 매달려 있지 뭐예요. 나무 아래에는 집채만 한 호랑이가 어슬렁어슬렁 돌고 있었지요. "어흥, 언제까지 붙어 있나 보자!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 — 소나무 밑동 옆 땅바닥에서 위를 올려다보는 대형 세로 구도. 화면 아래 절반을 호랑이의 커다란 등과 둥근 엉덩이·꼬리가 차지하고, 화면 위쪽 가지에 형 둘이 매달림. 🔴 이 쪽에서 반쪽이는 아직 등장하지 않는다(다음 쪽 등장이 임팩트).<br/><b>장소·시간</b> 산 중턱 소나무 아래 비탈, 한낮. 솔잎 냄새가 나는 팽팽하지만 우스꽝스러운 공기.<br/><b>인물</b> 화면 아래 — BigTiger(호랑이)가 나무 둘레를 어슬렁 도는 뒷모습, 커다랗고 둥근 몸통과 통통한 네 발(🔴 발톱 보이지 않게), 꼬리는 물음표처럼 말려 올라감, 고개만 위로 젖혀 올려다보는 옆얼굴에 점눈 두 개와 뻐기는 작은 미소, 황토빛 주황 털에 잿빛 줄무늬 획 몇 개(🔴 붉은 기 없음). 화면 위 — BigBrother(첫째)가 굵은 가지에 두 팔로 매달려 다리를 버둥거리며 입은 곧은 한 줄로 꾹 다물었고 눈썹 획은 걱정으로 팔자, MiddleBrother(둘째)는 그 위 가지에 두 팔로 껴안듯 붙어 어깨를 귀까지 올린 채 입이 커다란 O.<br/><b>배경·소품</b> 굵은 소나무 줄기와 갈라진 가지들, 흩어져 떨어진 형들의 봇짐과 몽둥이 하나(호랑이를 때리는 데 쓰이지 않고 그냥 떨어져 있음), 비탈의 마른 솔잎 — 배경은 열린 연필선의 러프 스케치. 🔴 화면 오른쪽 아래 덤불 뒤로 <b>붉은 술띠 자락 한 점</b>이 살짝 삐져나와 있음 = 이 컷의 단 하나 빨강이자 반쪽이가 이미 와 있다는 복선(몸은 완전히 가려져 보이지 않게).<br/><b>톤</b> 나뭇가지 사이로 쏟아지는 한낮 볕이 호랑이 등에 얼룩덜룩 떨어짐, 큰일 난 듯하지만 어딘가 우스운 소동의 정서 — 무섭지 않게.</pre></details>
+</div>
+
+<!-- ④ 절정 : P8, P9, P10 -->
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>절정(내기하자!)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 반쪽이가 덤불에서 껑충 뛰어나와 호랑이 앞에 딱 섰어요. 호랑이가 코웃음을 쳤지요. "요만한 게 겁도 없구나!" "내기하자! 네가 나를 잡으면 쌀을 더 가져가고, 못 잡으면 다시는 마을에 내려오지 않기!" 호랑이는 수염을 씰룩였어요. "그쯤이야, 어흥!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 겹침·가림 + 극단적 스케일 대비, 아이레벨보다 살짝 낮게 — 화면 왼쪽 전경을 호랑이의 거대한 앞발과 가슴팍이 <b>화면 밖까지 잘려 나가며</b> 가리고, 그 앞발 사이 좁은 틈에 반쪽이가 온몸으로 서 있는 중형 컷. 큰 것은 화면에 다 안 들어오고, 작은 것은 통째로 또렷하다.<br/><b>장소·시간</b> 소나무 아래 비탈의 평평한 자리, 같은 한낮. 두 상대가 마주 선 팽팽하고 신나는 공기.<br/><b>인물</b> 화면 왼쪽 — BigTiger(호랑이)의 앞발 하나와 가슴·턱 아래만 크게 걸침(얼굴은 화면 위로 잘려 코끝과 수염 획, 뻐기는 작은 입만 보임), 통통하고 둥근 앞발에 🔴 발톱은 보이지 않게. 화면 오른쪽 — HalfBoy(반쪽이)가 한 다리로 땅을 딱 딛고 가슴을 펴고 섬, 한 팔은 호랑이를 향해 곧게 뻗어 손가락으로 가리키고, 턱은 들렸으며 입은 자신만만한 큰 곡선, 점눈은 조금도 겁먹지 않았음. 어깨의 <b>새끼줄(saekkijul)</b> 타래가 그대로 걸려 있음. 허리의 붉은 술띠 매듭(화면의 단 하나 빨강). 화면 위 가장자리 가지 끝에 BigBrother(첫째)와 MiddleBrother(둘째)의 발과 놀란 얼굴이 조금 걸침.<br/><b>배경·소품</b> 발밑의 마른 솔잎과 돌멩이 몇, 뒤편 소나무 줄기 아랫부분, 저 뒤로 이어지는 바위와 덤불 — 배경은 열린 연필선 몇 획. 🔴 화면의 밀도는 오직 반쪽이와 호랑이 앞발에.<br/><b>톤</b> 한낮 볕이 반쪽이 쪽에서 들어와 그를 환하게 세우고 거대한 앞발은 푸른 잿빛 그늘로 남김, 겁 없고 통쾌한 맞대결의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(술래잡기)</b> <span class="tag beat">④ 절정</span> <span class="tag">후렴 ③</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">반쪽이가 껑충 뛰자 호랑이가 우당탕 쫓아왔어요. 바위 뒤로 껑충, 나무 사이로 껑충, 덤불 밑으로 쏙! "껑충! 껑충! 반쪽이가 간다!" 호랑이는 헉헉, 혀를 빼물고 헐떡였답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글 부감 — 숲 한 자락을 비스듬히 위에서 내려다보는 대형 컷. 나무들의 우듬지와 바위 등이 위에서 보이고, 그 사이를 누비는 추격의 <b>궤적</b>이 화면을 대각선으로 가로지름. 반쪽이의 자취는 콩콩 찍힌 작고 동그란 발자국 하나짜리 점선, 호랑이의 자취는 크고 어지러운 네 발자국 무더기.<br/><b>장소·시간</b> 소나무와 바위가 섞인 산비탈 숲, 같은 한낮. 흙먼지와 솔잎이 날리는 왁자한 공기.<br/><b>인물</b> 화면 오른쪽 위 — HalfBoy(반쪽이)가 바위 등을 밟고 다음 바위로 껑충 뛰어오르는 중, 위에서 본 각도라 몸은 매끈한 쉼표가 비스듬히 누운 모양, 뒤를 힐끗 돌아보는 얼굴에 장난기 가득한 웃는 입. 허리의 붉은 술띠 매듭(화면의 단 하나 빨강). 화면 왼쪽 아래 — BigTiger(호랑이)가 덤불을 뭉개며 네 발로 달려오는데 몸이 너무 커서 나무 사이에 끼어 한쪽 어깨가 걸림, 입은 벌어져 헐떡이고 혀는 부드러운 크림빛 획 하나(🔴 붉지 않게), 눈썹 획이 축 처짐, 흙먼지 구름 획 몇 개가 뒤로 남음.<br/><b>배경·소품</b> 위에서 본 소나무 우듬지 서넛(방사형 획 몇 개로만), 둥근 바위 등 서넛, 덤불 뭉치, 반쪽이가 지나며 건드려 떨어진 솔방울 두엇 — 전부 열린 연필선의 러프 스케치. 나무 사이에는 아직 아무 줄도 보이지 않는다(P10의 새끼줄은 이 컷에서 감춘다).<br/><b>톤</b> 위에서 곧게 내리쬐는 한낮 볕이 나무 그림자를 짧게 만들고, 쫓고 쫓기는 술래잡기의 신나고 웃음 나는 정서 — 조금도 위협적이지 않게.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(형들, 지금이야!)</b> <span class="tag beat">④ 절정 · 펼침면 한 방</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">반쪽이는 미리 나무 사이에 새끼줄을 빙 둘러 두었어요. 쫓아오던 호랑이 뒷발이 줄에 턱! "형들, 지금이야! 당겨!" 나무 위에 있던 형들이 얼른 뛰어내려 줄을 잡아당겼지요. 영차! 영차! 호랑이는 소나무에 칭칭 감겨 옴짝달싹 못 하게 되었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 정면 — 소나무를 가운데 두고 좌우로 힘이 팽팽히 걸린 펼침면 한 방. 이 편에서 유일하게 정면·좌우 균형에 가까운 구도(절정의 안정감), 새끼줄이 화면을 가로지르는 큰 사선을 만든다.<br/><b>장소·시간</b> 소나무 아래 비탈, 같은 한낮. 흙먼지가 확 일고 함성이 터지는 공기.<br/><b>인물</b> 화면 중앙 — BigTiger(호랑이)가 소나무 줄기에 <b>새끼줄(saekkijul)</b>로 몇 바퀴 칭칭 감긴 채 엉덩방아를 찧고 앉음: 뒷발 하나가 줄고리에 걸려 위로 들리고, 꼬리는 제 몸에 감겼으며, 입은 커다란 O로 벌어진 코믹한 놀람, 점눈은 동그랗게 뜨였고 귀는 뒤로 눕혀짐(🔴 아프거나 다친 기색은 전혀 없이 그저 우스꽝스럽게 묶인 모습). 화면 왼쪽 — BigBrother(첫째)가 두 발로 땅을 버티고 줄을 어깨에 걸어 뒤로 당김, 몸이 45도로 기울고 입은 힘주어 벌어짐. 그 뒤 MiddleBrother(둘째)가 첫째의 허리를 붙잡고 함께 당기며 두 발이 미끄러짐. 화면 오른쪽 — HalfBoy(반쪽이)가 줄의 다른 쪽 끝을 한 팔로 잡은 채 공중에 껑충 떠올라 온몸의 무게로 줄을 당김, 형들 쪽을 돌아보며 크게 외치는 입, 허리의 붉은 술띠와 술이 뒤로 흩날림(화면의 단 하나 빨강).<br/><b>배경·소품</b> 가운데 굵은 소나무 줄기와 그것을 감아 도는 새끼줄의 나선, 땅에 파인 발끌린 자국, 흩어진 솔잎과 흙먼지 획, 뒤편 바위와 나무들 — 배경은 열린 연필선 몇 획, 🔴 밀도는 세 형제와 호랑이와 줄에만.<br/><b>톤</b> 한낮 볕이 화면 가운데로 쏟아져 팽팽한 줄에 그림자 선을 긋고, 셋이 처음으로 한 편이 된 벅차고 통쾌한 정서.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P11, P12, P13 -->
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>결말(배가 고팠구나)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"미안해… 산에 먹을 게 하나도 없어서 그랬어." 커다란 호랑이 눈에 눈물이 그렁그렁 맺혔어요. 반쪽이는 잠깐 생각하더니 매듭을 스르르 풀어 주었지요. "다시는 밤에 뒤주를 열지 마. 배고프면 낮에 와서 말해." 호랑이는 고개를 꾸벅하고, 도토리와 밤을 한 아름 굴려 놓고 산으로 돌아갔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아주 낮은 아이 눈높이 — 호랑이의 커다란 얼굴이 화면 오른쪽 절반을 가득 채우고, 화면 왼쪽에는 매듭을 푸는 반쪽이의 한 손과 얼굴 절반이 들어오는 컷. 커다란 얼굴과 작은 손이 화면 가운데에서 만난다.<br/><b>장소·시간</b> 소나무 아래, 한낮이 조금 기운 오후. 소란이 가라앉은 조용하고 뭉클한 공기.<br/><b>인물</b> 화면 오른쪽 — BigTiger(호랑이)의 큰 얼굴이 옆에서 비스듬히, 고개를 푹 숙여 반쪽이와 눈높이를 맞춤: 입은 아래로 휜 작은 한 줄, 귀는 납작하게 눕고, 눈꼬리에 아주 작은 눈물 획 두 개(주르륵 흐르지 않고 획 두 점으로만), 수염 획이 힘없이 처짐. 화면 왼쪽 — HalfBoy(반쪽이)가 한 팔을 뻗어 호랑이 목덜미의 <b>새끼줄(saekkijul)</b> 매듭을 손가락으로 톡 풀어 주는 동작, 얼굴 절반만 보이는데 입은 다정하고 야무진 한 줄이고 눈썹 획은 부드럽게 내려앉음(고소해하지 않고 담담하게). 허리의 붉은 술띠 매듭이 화면 아래 가장자리에 한 점(화면의 단 하나 빨강). 화면 뒤쪽 멀리 — BigBrother(첫째)와 MiddleBrother(둘째)가 획 몇 개의 실루엣으로 서서 지켜봄, 둘째는 여전히 입이 O.<br/><b>배경·소품</b> 스르르 풀려 땅에 늘어지는 새끼줄 고리, 호랑이가 굴려 놓은 도토리와 밤이 화면 아래 귀퉁이에 소복이, 소나무 밑동과 마른 솔잎 — 배경은 열린 연필선 몇 획.<br/><b>톤</b> 오후 볕이 호랑이의 큰 뺨과 반쪽이의 손등에만 따뜻하게 걸리고 나머지는 성긴 스케치, 미움이 풀리는 뭉클하고 너그러운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>결말(우리 막내가 해냈어요!)</b> <span class="tag beat">⑤ 결말 · 후렴 회수</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">삼형제가 마을로 내려오자 사람들이 꽹과리를 치며 달려 나왔어요. 꽹꽹! 꽹꽹! 첫째가 반쪽이 어깨에 팔을 두르고 큰 소리로 외쳤지요. "우리 막내가 해냈어요!" 둘째도 신이 나서 함께 외쳤어요. "껑충! 껑충! 반쪽이가 간다!" 마을 아이들이 따라 외치며 깔깔 웃었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 평면 부감 — 마을 마당을 거의 수직으로 위에서 내려다보는 대형 컷. 🔴 P1과 같은 앵글의 짝(수미상관): P1에서는 세 형제가 마당에 흩어져 있었는데, 여기서는 마을 사람들이 둥근 원을 이루고 그 한가운데에 세 형제가 나란히 붙어 있다.<br/><b>장소·시간</b> 마을 한복판 넓은 마당, 같은 날 늦은 오후. 꽹과리 소리가 쨍쨍 울리는 왁자한 공기.<br/><b>인물</b> 마당 한가운데 — 세 형제가 어깨를 맞대고 한 덩어리로: BigBrother(첫째)가 <b>HalfBoy(반쪽이)의 어깨에 팔을 두르고</b> 다른 팔을 하늘로 번쩍 들어 외침(위에서 보면 길쭉한 직사각형), HalfBoy(반쪽이)는 그 품에서 한 다리로 통 뛰어올라 공중에 살짝 뜬 채 활짝 웃음(위에서 보면 쉼표), MiddleBrother(둘째)는 반대편에서 두 팔을 휘저으며 폴짝거림(위에서 보면 동그라미). 반쪽이 허리의 붉은 술띠 매듭(화면의 단 하나 빨강). 그 둘레 — 마을 사람 예닐곱이 원을 그리고, 두 사람이 <b>꽹과리(kkwaenggwari)</b>를 높이 들어 채로 치고, 아이 셋이 손을 잡고 뛰며 따라 외치고, 할머니는 두 손을 모아 웃음(단역은 획 몇 개의 러프한 실루엣에 점눈만).<br/><b>배경·소품</b> 마당 한켠에 다시 뚜껑을 닫은 <b>쌀뒤주(ssal-dwiju)</b>와 그 옆에 부려 놓은 도토리·밤 자루, 절구에 <b>절굿공이(jeolgutgongi)</b>를 세워 두고 떡을 찧기 시작한 두 사람, 둘러선 초가지붕들과 담장 — 전부 열린 연필선의 러프 스케치. 마당 흙바닥에는 사람들의 짧은 그림자가 바퀴살처럼.<br/><b>톤</b> 기울어 가는 오후 금빛이 마당 전체를 노랗게 덮는 조명, 인정받는 순간의 왁자하고 자랑스러운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>결말(교훈과 여운)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">저녁이 되자 어머니가 반짇고리를 열고 삼형제의 옷을 나란히 놓고 꿰맸어요. "다음엔 같이 가자." 형들이 반쪽이 어깨를 툭 부딪쳤지요. "그럼! 형들이 줄을 당겨 줘야 하니까." 반쪽이가 씩 웃었어요. 반쪽이는 반쪽이 아니었어요. 처음부터 하나로 온전한, 우리 반쪽이였답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 극단 여백 컷, 살짝 먼 아이레벨 롱샷 — 화면의 약 70%가 저녁 하늘과 텅 빈 마당이고, 불빛이 도는 툇마루와 네 사람은 화면 오른쪽 아래 구석에만 작게 놓임. 조용히 닫는 마지막 장면답게 사람보다 여백이 더 많다.<br/><b>장소·시간</b> 삼형제네 초가집 툇마루와 앞마당, 해가 막 넘어간 저녁. 풀벌레 소리가 나기 시작한 고요하고 포근한 공기.<br/><b>인물</b> 툇마루 안쪽 — Mother(어머니)가 등을 곧게 펴고 앉아 무릎 위 옷을 꿰맴, 손에 든 바늘 획 하나, 입은 잔잔한 한 줄 미소. 그 옆에 <b>세 벌의 저고리가 나란히 개어져</b> 놓임(🔴 크기와 모양이 셋 다 다른 것이 한눈에 보이게 — 길쭉한 것, 동그란 것, 그리고 한쪽 소매만 있는 작은 것(🔴 처음부터 그렇게 지어진 옷 — 시접이 곱게 마감되어 뜯기거나 잘린 데가 전혀 없다) — 셋 다 똑같이 소중하게 개어져 있다). 마루 끝 — HalfBoy(반쪽이)가 한 다리를 마루 아래로 늘어뜨리고 걸터앉아 하늘을 올려다보며 씩 웃음, 허리의 붉은 술띠 매듭(화면의 단 하나 빨강). 그 양옆에 BigBrother(첫째)와 MiddleBrother(둘째)가 나란히 걸터앉아 어깨를 반쪽이 쪽으로 기울임 — 세 실루엣(길쭉·쉼표·동그라미)이 어깨선으로 이어져 하나의 덩어리를 이룸.<br/><b>배경·소품</b> 마루에 놓인 <b>반짇고리(banjitgori)</b>와 그 옆의 실패, 기둥에 걸린 호롱불 하나, 마당 구석에 세워 둔 절굿공이와 감아 놓은 새끼줄 타래, 사립문 너머로 어둑해지는 마을 지붕들과 그 뒤 산등성이 한 획, 하늘에 돋기 시작한 별 두셋 — 전부 열린 연필선의 러프 스케치, 화면 위쪽 절반은 거의 빈 크림 종이.<br/><b>톤</b> 툇마루의 작은 호롱불빛만 따뜻한 금빛으로 남고 마당과 하늘은 옅은 남빛으로 물드는 조명, 하루가 잘 끝난 뒤의 나직하고 오래 남는 여운의 정서.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 반쪽이 · 대본 v1.0 · 시즌2 완결편 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING (finish hierarchy — the single most important rule): The bright warm cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. This picture is deliberately UNEVENLY finished, like one page from a master's sketchbook. Finish only what matters: the CHARACTERS = finished (clear line AND color, keep them at their current level); a prop a character is directly touching or holding (a loom, a bench, a gourd in their hands) = half-finished, a bit of line and a little color; everything else — the whole background: jars, walls, fences, roofs, trees, hills, anything far away — = a LOOSE UNFINISHED PENCIL SKETCH: just a few open contour lines and a few direction strokes, barely any color, lots of bare cream paper showing through, deliberately NOT filled in, like the rough underdrawing on a sketchbook page. A jar is two or three open outlines, a roof is a few slanted direction strokes, a distant thing is one or two lines and then paper. This is about how FINISHED each area is, NOT about opacity — the background is not faded, hazy, blurry or low-saturation, it is simply left as rough sketch lines and not drawn to completion. Spend all the density ONLY on the characters. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces; NOT a fully rendered background, NOT every jar / roof-tile / leaf drawn to completion, NOT a uniform finish across the whole picture, and NOT a hazy / blurry / faded background either (that is just blur, not a sketch) — keep the background as loose OPEN PENCIL SKETCH lines and every stroke loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'HalfBoy',       name: '반쪽이',  desc: '막내 반쪽이 — 한 팔·한 다리의 매끈한 쉼표 실루엣(잘린 자국·상처 절대 없음), 늘 뛰어오르는 중, 붉은 술띠(단 하나 빨강). 마을에서 제일 날래고 힘센 아이', aliases: ['HalfBoy'] },
+    { token: 'BigBrother',    name: '첫째 형', desc: '키 큰 맏이 — 길쭉하고 곧은 실루엣, 팔짱, 걱정 많고 다정함(놀리는 형 아님)',                                       aliases: ['BigBrother'] },
+    { token: 'MiddleBrother', name: '둘째 형', desc: '동글동글한 둘째 — 배 나온 원형 실루엣, 잘 놀라고 입이 O, 수다스러운 코믹 담당',                              aliases: ['MiddleBrother'] },
+    { token: 'Mother',        name: '어머니',  desc: '삼형제의 어머니 — 낮고 안정된 삼각 실루엣, 쪽진머리에 비녀, 반짇고리 앞에 앉아 바느질(반쪽이를 안쓰럽게 보지 않음)', aliases: ['Mother'] },
+    { token: 'BigTiger',      name: '호랑이',  desc: '덩치 자랑쟁이 산 호랑이 — 둥글둥글 큰 몸, 발톱·송곳니 안 보임, 황토빛 주황+잿빛 줄무늬(붉은 기 없음), 배고파서 쌀을 훔친 사연', aliases: ['BigTiger'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>
