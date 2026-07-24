@@ -4,7 +4,7 @@
  * Render policy (2026-07-24 개편):
  * - 카테고리 묶음은 게스트·로그인 **동일하게** 노출 (이전엔 게스트에게 섹션 자체가 없었음)
  * - 기본 펼침 (이전엔 접힘)
- * - 로그인 사용자만 묶음 아래 "내가 만든 세트" 영역
+ * - 내 세트·카테고리 묶음은 한 행에 함께 (+만들기 카드(맨 앞, 로그인만) → 내 세트 → 묶음)
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
@@ -80,11 +80,17 @@ beforeEach(() => {
   vi.clearAllMocks();
 });
 
+/** 기본 접힘이므로 내용 검증 전 헤더를 눌러 펼친다. */
+function openSection() {
+  fireEvent.click(screen.getByRole('button', { name: /묶어 보기/ }));
+}
+
 describe('PlaylistLibrarySection', () => {
   it('게스트에게도 카테고리 묶음이 보인다', () => {
     mockAuth.account = null;
     renderSection();
     expect(screen.getByText(/묶어 보기/)).toBeInTheDocument();
+    openSection();
     expect(screen.getByText('공룡 친구들')).toBeInTheDocument();
     expect(screen.getByText('식물 친구들')).toBeInTheDocument();
   });
@@ -92,52 +98,71 @@ describe('PlaylistLibrarySection', () => {
   it('게스트에게는 "내가 만든 세트" 영역이 없다', () => {
     mockAuth.account = null;
     renderSection();
+    openSection();
     expect(screen.queryByText('내가 만든 세트')).toBeNull();
     expect(screen.queryByText('이어재생 만들기')).toBeNull();
   });
 
   it('로그인 사용자도 같은 묶음을 본다', () => {
     renderSection();
+    openSection();
     expect(screen.getByText('공룡 친구들')).toBeInTheDocument();
     expect(screen.getByText('식물 친구들')).toBeInTheDocument();
   });
 
-  it('기본이 펼침이다 (토글 클릭 없이 묶음이 보인다)', () => {
+  it('기본이 접힘이다 (헤더만 보이고 묶음은 숨김)', () => {
     renderSection();
-    expect(screen.getByText('공룡 친구들')).toBeInTheDocument();
+    expect(screen.getByText(/묶어 보기/)).toBeInTheDocument();
+    expect(screen.queryByText('공룡 친구들')).toBeNull();
   });
 
-  it('헤더를 누르면 접힌다', () => {
+  it('헤더를 누르면 펼쳐지고, 다시 누르면 접힌다', () => {
     renderSection();
-    fireEvent.click(screen.getByRole('button', { name: /묶어 보기/ }));
+    openSection();
+    expect(screen.getByText('공룡 친구들')).toBeInTheDocument();
+    openSection();
     expect(screen.queryByText('공룡 친구들')).toBeNull();
   });
 
   it('로그인 + 내 세트 0개 → 묶음과 "이어재생 만들기" CTA 가 함께 보인다', () => {
     mockPlaylists.data = [];
     renderSection();
+    openSection();
     expect(screen.getByText('공룡 친구들')).toBeInTheDocument();
     expect(screen.getByText('이어재생 만들기')).toBeInTheDocument();
   });
 
-  it('로그인 + 내 세트 ≥1 → 묶음 아래에 내 세트가 보인다', () => {
+  it('만들기 카드는 행 맨 앞(묶음보다 앞)에 온다', () => {
+    renderSection();
+    openSection();
+    const create = screen.getByText('이어재생 만들기');
+    const bundle = screen.getByText('공룡 친구들');
+    // DOCUMENT_POSITION_FOLLOWING(4) = bundle 이 create 뒤에 있다
+    expect(create.compareDocumentPosition(bundle) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it('로그인 + 내 세트 ≥1 → 내 세트가 묶음과 같은 행에 함께 보인다', () => {
     mockPlaylists.data = [
       { id: 'x1', name: '밤 동화 세트', bookIds: ['d1', 'd2'], language: 'ko' },
     ];
     renderSection();
+    openSection();
     expect(screen.getByText('공룡 친구들')).toBeInTheDocument();
-    expect(screen.getByText('내가 만든 세트')).toBeInTheDocument();
     expect(screen.getByText('밤 동화 세트')).toBeInTheDocument();
+    // 별도 "내가 만든 세트" 소제목 행은 사라졌다
+    expect(screen.queryByText('내가 만든 세트')).toBeNull();
   });
 
   it('묶음 카드에는 삭제 버튼이 없다(저장된 세트가 아니므로)', () => {
     mockPlaylists.data = [];
     renderSection();
+    openSection();
     expect(screen.queryByLabelText('공룡 친구들 세트 삭제')).toBeNull();
   });
 
   it('묶음 수정 → 책 목록을 실은 빌더로 이동한다', () => {
     renderSection();
+    openSection();
     fireEvent.click(screen.getByLabelText('공룡 친구들 세트 편집'));
     expect(mockNavigate).toHaveBeenCalledWith(
       expect.stringContaining('/continuous/new?books=d1%2Cd2%2Cd3')

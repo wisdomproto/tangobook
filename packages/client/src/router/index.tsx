@@ -120,6 +120,8 @@ export const router = createBrowserRouter([
           { path: 'vocabulary', element: <VocabularyHubPage /> },
           { path: 'playground', element: <Navigate to="/library" replace /> },
           { path: 'games', element: <GamesHubPage /> },
+          // 어휘 게임 — 사이드바 진입점이므로 AppShell 안 (2026-07-24, 동화책/파닉스와 통일).
+          { path: 'games/vocab', element: <RandomVocabStudyPage /> },
           // 연속재생 홈 — 사이드바 있는 브라우즈 화면 (AppShell 안). 저장된 세트 목록 + 새 세트 만들기.
           { path: 'continuous', element: <ContinuousHomePage /> },
           { path: 'continuous/new', element: <ContinuousBuilder /> },
@@ -443,15 +445,6 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <PaymentFailPage />
-          </ErrorBoundary>
-        ),
-      },
-      {
-        // 어휘 게임 — 세계 명작 랜덤 낱말로 동화책 게임 4종 (사이드바 "어휘 게임" 진입점). AppShell 밖.
-        path: 'games/vocab',
-        element: (
-          <ErrorBoundary>
-            <RandomVocabStudyPage />
           </ErrorBoundary>
         ),
       },

@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Mascot, PageHeader } from '@/design-system';
+import { Mascot } from '@/design-system';
 import { useStorybooks, useStorybook } from '@/features/storybook';
 import { deriveStorybookUnit } from '@/features/vocabulary-unit/lib/derive-storybook-unit';
 import { availableVocabLangs, resolveVocabLang } from '@/features/vocabulary-unit/lib/vocab-lang';
@@ -11,7 +11,7 @@ import type { Lang } from '@tangobook/shared';
 
 /**
  * 어휘 게임 — 세계 명작 중 **랜덤 1권**의 "단어 익히기"(동화책 게임 4종)를 그대로 플레이.
- * 사이드바 "어휘 게임" 진입점. AppShell 밖 풀화면.
+ * 사이드바 "어휘 게임" 진입점. AppShell 안(사이드바+상단 헤더 공유) — 동화책·파닉스와 통일.
  *
  * 🔴 왜 mix 가 아니라 1권인가 (2026-07-08 재설계): 게임 플레이어는 `storybookId` 하나로
  *   동작 — 정답 음원 프리워밍(cache 키)·정답 후 "그 단어가 나온 동화책 페이지" 장면 리빌이
@@ -72,7 +72,7 @@ export default function RandomVocabStudyPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-cream-50 to-peach-100 gap-6 px-6 text-center">
+      <div className="min-h-full flex flex-col items-center justify-center bg-gradient-to-b from-cream-50 to-peach-100 gap-6 px-6 text-center">
         <Mascot character="hori" state="thinking" size="xl" />
         <h2 className="text-3xl md:text-4xl font-black text-ink-900 font-display animate-pulse">
           {t('vocabHub.loading')}
@@ -84,7 +84,7 @@ export default function RandomVocabStudyPage() {
 
   if (!unit) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-b from-cream-50 to-peach-100 text-center gap-4">
+      <div className="min-h-full flex flex-col items-center justify-center p-6 bg-gradient-to-b from-cream-50 to-peach-100 text-center gap-4">
         <Mascot character="hori" state="thinking" size="lg" />
         <h2 className="text-2xl font-black text-ink-900 font-display">{t('vocabHub.notReady')}</h2>
         <button
@@ -106,56 +106,45 @@ export default function RandomVocabStudyPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-cream-50 to-peach-100">
-      <div className="px-4 sm:px-8 max-w-[1600px] mx-auto">
-        <PageHeader
-          onBack={() => navigate('/library')}
-          onHome={() => navigate('/library')}
-          right={
-            <button
-              type="button"
-              onClick={() => {
-                if (classicIds.length === 0) return;
-                // 직전 책과 다른 책으로 재추첨
-                let next = sessionBookId;
-                for (let i = 0; i < 8 && next === sessionBookId; i++) {
-                  next = classicIds[Math.floor(Math.random() * classicIds.length)];
-                }
-                sessionBookId = next;
-                setSeed((s) => s + 1);
-              }}
-              className="shrink-0 rounded-full bg-white px-3 py-2.5 sm:px-4 shadow-soft text-sm sm:text-base font-black text-ink-700 hover:shadow-pop transition break-keep"
-              aria-label={t('vocabHub.anotherBookAria')}
-            >
-              🎲 {t('vocabHub.anotherBook')}
-            </button>
-          }
-        >
-          {/* 책 제목은 아래 카드(📖)에 나오므로 헤더는 중복 제거 — 좁은 폭 확보 */}
-          <span className="truncate">🎮 {t('vocabHub.title')}</span>
-        </PageHeader>
-        {/* 언어 선택 — 칩 5개는 모바일에서 가로 오버플로우/줄바꿈이 지저분해 드롭박스로 압축. */}
-        {availableLangs.length > 1 && (
-          <div className="mt-2">
-            <VocabLangSelect langs={availableLangs} value={effectiveLang} onChange={setLang} />
-          </div>
-        )}
-      </div>
-
+    <div className="min-h-full bg-gradient-to-b from-cream-50 to-peach-100">
       <main className="px-4 sm:px-8 pt-4 pb-6 max-w-[1600px] mx-auto">
-        {/* 어떤 동화책에서 나온 낱말인지 안내 — 표지 썸네일 + 제목. 그림체는 아래 드랍박스로 선택. */}
-        <div className="mb-5 flex w-fit items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-soft">
-          {book?.coverImage && (
-            <img
-              src={book.coverImage}
-              alt=""
-              aria-hidden
-              className="h-14 w-14 shrink-0 rounded-xl object-cover shadow-sm"
-            />
+        {/* AppShell 안(사이드바·상단 헤더 공유)이라 자체 뒤로/홈 헤더는 두지 않는다. 2026-07-24.
+            대신 책 안내 카드 우측에 🎲 다른 책 + 언어 선택을 모은다. */}
+        <div className="mb-5 flex flex-wrap items-center gap-3">
+          <div className="flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-soft">
+            {book?.coverImage && (
+              <img
+                src={book.coverImage}
+                alt=""
+                aria-hidden
+                className="h-14 w-14 shrink-0 rounded-xl object-cover shadow-sm"
+              />
+            )}
+            <span className="font-display text-lg font-black leading-tight text-ink-900 break-keep sm:text-xl">
+              📖 {book?.titleTranslations?.[i18n.language] ?? book?.title}
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={() => {
+              if (classicIds.length === 0) return;
+              // 직전 책과 다른 책으로 재추첨
+              let next = sessionBookId;
+              for (let i = 0; i < 8 && next === sessionBookId; i++) {
+                next = classicIds[Math.floor(Math.random() * classicIds.length)];
+              }
+              sessionBookId = next;
+              setSeed((s) => s + 1);
+            }}
+            className="shrink-0 rounded-full bg-white px-4 py-2.5 shadow-soft text-sm sm:text-base font-black text-ink-700 hover:shadow-pop transition break-keep min-h-[44px]"
+            aria-label={t('vocabHub.anotherBookAria')}
+          >
+            🎲 {t('vocabHub.anotherBook')}
+          </button>
+          {/* 언어 선택 — 칩 5개는 모바일에서 가로 오버플로우/줄바꿈이 지저분해 드롭박스로 압축. */}
+          {availableLangs.length > 1 && (
+            <VocabLangSelect langs={availableLangs} value={effectiveLang} onChange={setLang} />
           )}
-          <span className="font-display text-lg font-black leading-tight text-ink-900 break-keep sm:text-xl">
-            📖 {book?.titleTranslations?.[i18n.language] ?? book?.title}
-          </span>
         </div>
         <VocabularyStudyContent
           unit={unit}

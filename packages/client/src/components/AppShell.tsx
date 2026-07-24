@@ -33,7 +33,8 @@ const PRIMARY_AXES = [
     color: 'coral' as const,
     end: true,
     comingSoon: false,
-    alwaysActive: true,
+    // 파닉스 사이드바 부활(2026-07-23) 후 alwaysActive 는 이중 활성 버그 — 라우트 기반으로만.
+    alwaysActive: false,
     devOnly: false,
     authOnly: false,
   },
@@ -100,6 +101,9 @@ function getPageTitle(
   if (pathname === '/library') return null;
   if (pathname.startsWith('/library/phonics'))
     return { iconSrc: 'tab/phonics.svg', titleKey: 'pageTitle.phonics' };
+  // 어휘 게임 — 사이드바 라벨 재사용(전용 키를 5개 로케일에 새로 넣을 이유 없음).
+  if (pathname.startsWith('/games/vocab'))
+    return { iconSrc: 'game/korean-block.webp', titleKey: 'sidebar.vocabGames' };
   if (pathname.startsWith('/vocabulary/book-'))
     return { iconSrc: 'tab/vocab.svg', titleKey: 'pageTitle.wordStudy' };
   if (pathname.startsWith('/vocabulary'))

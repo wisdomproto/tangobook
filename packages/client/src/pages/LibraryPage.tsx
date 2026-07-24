@@ -442,6 +442,9 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
             /library 헤더는 absolute overlay (transparent) — 배너가 viewport top 까지 차지. */}
         {type === 'storybook' && <PromoBanner />}
 
+        {/* 묶어 보기 — 검색/필터보다 위 (2026-07-24 사용자 요청). 게스트·로그인 동일 노출, 기본 펼침. */}
+        {type === 'storybook' && <PlaylistLibrarySection />}
+
         {/* 검색바 (좌) + 카테고리 chip (우). 모바일 stack, md+ 가로. 검색바 적정 폭으로 줄여 chip 영역 확보. */}
         <div className="mb-8 md:mb-10 flex flex-col md:flex-row md:items-center gap-3 md:gap-6 lg:gap-8">
           {/* 검색바 — 좌측 */}
@@ -547,9 +550,6 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
             </div>
           )}
         </div>
-
-        {/* 묶어 보기 — 카테고리 묶음은 게스트·로그인 동일 노출, 기본 펼침(컴포넌트 내부 판단). */}
-        {type === 'storybook' && <PlaylistLibrarySection />}
 
         {/* 콘텐츠 */}
         {isLoading ? (
