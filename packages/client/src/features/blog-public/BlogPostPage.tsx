@@ -4,19 +4,12 @@ import { useSeo } from '@/lib/useSeo';
 import { SiteFooter } from '@/components/SiteFooter';
 import { useBlogPost } from './api';
 import { BlogCards } from './BlogCards';
+import { useBlogLang } from './useBlogLang';
 
-const CAT_META: Record<string, { label: string; emoji: string; badge: string }> = {
-  classic: { label: '세계명작', emoji: '📖', badge: 'bg-coral-100 text-coral-600' },
-  nature: { label: '자연관찰', emoji: '🌿', badge: 'bg-mint-100 text-mint-600' },
+const CAT_META: Record<string, { tKey: string; emoji: string; badge: string }> = {
+  classic: { tKey: 'catClassic', emoji: '📖', badge: 'bg-coral-100 text-coral-600' },
+  nature: { tKey: 'catNature', emoji: '🌿', badge: 'bg-mint-100 text-mint-600' },
 };
-
-function fmtDate(iso: string | null): string {
-  if (!iso) return '';
-  const d = new Date(iso);
-  return Number.isNaN(d.getTime())
-    ? ''
-    : d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
-}
 
 // 저작 HTML(h2/h3/p/a…) 가독 스타일. 공개 블로그 전용.
 const PROSE_CSS = `
@@ -32,12 +25,12 @@ const PROSE_CSS = `
 `;
 
 export default function BlogPostPage() {
-  const { slug = '', lang } = useParams();
-  const pre = lang && lang !== 'ko' ? `/${lang}` : '';
-  const { data: post, isLoading, isError } = useBlogPost(slug, lang || 'ko');
+  const { slug = '' } = useParams();
+  const { lang, pre, t, fmtDate } = useBlogLang();
+  const { data: post, isLoading, isError } = useBlogPost(slug, lang);
 
   useSeo({
-    title: post ? `${post.title} — 탱고북 블로그` : '탱고북 블로그',
+    title: post ? `${post.title} — ${t('seoPostSuffix')}` : t('seoPostSuffix'),
     description: post?.description || undefined,
     path: `${pre}/blog/${slug}`,
     type: 'article',
@@ -64,22 +57,22 @@ export default function BlogPostPage() {
               to={`${pre}/blog`}
               className="text-sm font-semibold text-ink-500 hover:text-coral-500"
             >
-              블로그
+              {t('nav')}
             </Link>
           </div>
         </header>
 
         <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8 sm:px-6 sm:py-10">
           {isLoading ? (
-            <p className="py-16 text-center text-sm text-ink-400">불러오는 중…</p>
+            <p className="py-16 text-center text-sm text-ink-400">{t('loading')}</p>
           ) : isError || !post ? (
             <div className="py-16 text-center">
-              <p className="text-sm text-ink-500 break-keep">글을 찾을 수 없어요.</p>
+              <p className="text-sm text-ink-500 break-keep">{t('notFound')}</p>
               <Link
                 to={`${pre}/blog`}
                 className="mt-3 inline-block text-sm text-coral-500 hover:underline"
               >
-                ← 블로그 목록으로
+                {t('backToList')}
               </Link>
             </div>
           ) : (
@@ -88,7 +81,7 @@ export default function BlogPostPage() {
                 to={`${pre}/blog`}
                 className="inline-flex items-center gap-1 text-sm font-semibold text-ink-400 transition hover:text-coral-500"
               >
-                ← 목록으로
+                {t('back')}
               </Link>
 
               {/* 본문 카드 — 읽기 서피스 */}
@@ -100,7 +93,7 @@ export default function BlogPostPage() {
                         className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-bold ${cat.badge}`}
                       >
                         <span>{cat.emoji}</span>
-                        {cat.label}
+                        {t(cat.tKey)}
                       </span>
                     )}
                     <span className="text-xs text-ink-400">{fmtDate(post.publishedAt)}</span>
@@ -124,17 +117,13 @@ export default function BlogPostPage() {
               {/* 동화책 CTA */}
               {post.storybookId && (
                 <div className="mt-6 flex flex-col items-center gap-3 rounded-[2rem] border border-coral-200 bg-gradient-to-br from-coral-100 to-peach-200 p-7 text-center">
-                  <p className="text-base font-bold text-ink-900 break-keep">
-                    이 이야기를 그림책으로 만나보세요 📖
-                  </p>
-                  <p className="text-xs text-ink-600 break-keep">
-                    탱고북에서 그림·나레이션과 함께 읽을 수 있어요.
-                  </p>
+                  <p className="text-base font-bold text-ink-900 break-keep">{t('ctaTitle')}</p>
+                  <p className="text-xs text-ink-600 break-keep">{t('ctaDesc')}</p>
                   <Link
                     to={`/library/${post.storybookId}`}
                     className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-coral-500 px-6 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-coral-600"
                   >
-                    동화책 보러가기 →
+                    {t('ctaButton')}
                   </Link>
                 </div>
               )}
@@ -145,7 +134,7 @@ export default function BlogPostPage() {
                   to={`${pre}/blog`}
                   className="inline-block rounded-full bg-white px-5 py-2 text-sm font-bold text-ink-600 shadow-sm transition hover:bg-peach-50"
                 >
-                  다른 이야기 더 보기
+                  {t('moreStories')}
                 </Link>
               </div>
             </>

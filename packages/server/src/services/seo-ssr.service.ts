@@ -11,6 +11,7 @@ import type { Storybook, StorybookSummary, ReadingLevel, ParentGuide } from '@ta
 import {
   SUPPORTED_LANGUAGES,
   seoStrings,
+  blogStrings,
   fill,
   HUB_STRINGS,
   LANDING_STRINGS,
@@ -375,23 +376,29 @@ export function renderBlogSeo(
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: '블로그', item: `${SITE_URL}${pre}/blog` },
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: blogStrings(lang).breadcrumb,
+          item: `${SITE_URL}${pre}/blog`,
+        },
         { '@type': 'ListItem', position: 2, name: post.title, item: canonical },
       ],
     },
   ];
 
+  const B = blogStrings(lang);
   const bodyParts = [
     `<article><h1>${escapeHtml(post.title)}</h1>`,
     renderCardsHtml(post.cards),
     post.storybookId
-      ? `<p><a href="${pre}/library/${post.storybookId}/about">이 이야기를 그림책으로 — 탱고북에서 읽기</a></p>`
+      ? `<p><a href="${pre}/library/${post.storybookId}/about">${escapeHtml(B.readBookLink)}</a></p>`
       : '',
-    `<p><a href="${pre}/blog">탱고북 블로그 전체 보기</a></p></article>`,
+    `<p><a href="${pre}/blog">${escapeHtml(B.allPostsLink)}</a></p></article>`,
   ];
 
   return {
-    title: escapeHtml(`${post.title} | 탱고북 블로그`),
+    title: escapeHtml(`${post.title} | ${B.titleSuffix}`),
     description: escapeHtml(description),
     canonical,
     ogImage,
@@ -410,9 +417,9 @@ export function renderBlogListSeo(
 ): AboutSeo {
   const pre = langPrefix(lang);
   const canonical = `${SITE_URL}${pre}/blog`;
-  const title = '탱고북 블로그 — 유아 동화·자연관찰 그림책 가이드';
-  const description =
-    '세계 명작 동화 줄거리와 교훈, 동물·곤충·공룡·식물 자연관찰 이야기까지 — 4~7세 아이와 함께 읽는 그림책 가이드.';
+  const B = blogStrings(lang);
+  const title = B.listTitle;
+  const description = B.listDescription;
   const items = posts
     .map(
       (p) =>

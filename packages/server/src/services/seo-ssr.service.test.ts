@@ -262,6 +262,20 @@ describe('renderBlogSeo', () => {
     expect(seo.alternatesHtml).toBe('');
   });
 
+  it('다국어: 페이지 뼈대 문구도 그 언어로 (한국어 잔재 없음)', () => {
+    const vi = renderBlogSeo(post, 'vi', ['ko', 'vi']);
+    expect(vi.title).toContain('Blog Tangobook'); // 접미사 번역
+    expect(vi.title).not.toContain('탱고북 블로그');
+    expect(vi.bodyHtml).toContain('Đọc câu chuyện này'); // 동화책 링크 문구
+    expect(vi.bodyHtml).toContain('Xem tất cả bài viết'); // 전체 보기 문구
+    expect(vi.bodyHtml).not.toContain('탱고북 블로그 전체 보기');
+    expect(vi.jsonLdHtml).toContain('"name":"Blog"'); // breadcrumb 라벨
+
+    const th = renderBlogListSeo([], 'th', ['ko', 'th']);
+    expect(th.title).toContain('บล็อก Tangobook');
+    expect(th.description).not.toContain('세계 명작');
+  });
+
   it('다국어: canonical 에 langPrefix + hreflang 상호링크 + x-default', () => {
     const vi = renderBlogSeo(post, 'vi', ['ko', 'vi', 'zh']);
     expect(vi.canonical).toBe('https://www.tangobook.co.kr/vi/blog/cinderella-fairy-tale-for-kids');
