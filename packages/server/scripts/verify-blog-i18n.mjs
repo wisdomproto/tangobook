@@ -41,6 +41,9 @@ for (const lang of langs) {
     if (tr.storybookId !== ko.storybookId) issues.push('storybookId 변조');
     if (tr.url_slug !== ko.url_slug) issues.push('url_slug 변조');
     if (!tr.seo_title) issues.push('seo_title 누락');
+    // 메타 필드의 한글 잔재도 잡는다(카드 스캔은 cards 만 본다)
+    if (lang !== 'ko' && (hasHangul(tr.seo_title) || hasHangul(tr.meta_description)))
+      issues.push('메타(seo_title/meta_description) 한글 잔존');
 
     const kc = ko.cards || [], tc = tr.cards || [];
     if (tc.length !== kc.length) issues.push(`카드 수 ${tc.length}!=${kc.length}`);
@@ -54,10 +57,16 @@ for (const lang of langs) {
         if ((tco.image_prompt ?? '') !== (kco.image_prompt ?? '')) issues.push(`card${i} image_prompt 변조`);
         if (hrefs(tco.text) !== hrefs(kco.text)) issues.push(`card${i} href 변조`);
         if (Math.abs(tags(kco.text) - tags(tco.text)) > 3) bigTagDiff = true;
-        if (lang !== 'ko' && hasHangul(tco.text)) hangulHits++;
+        // 🔴 text 뿐 아니라 alt·caption 도 검사 — alt 는 이미지 대체텍스트라
+        // 접근성·SEO 에 그대로 노출되는데, text 만 보던 예전 기준이 이를 놓쳤다.
+        if (lang !== 'ko' && (hasHangul(tco.text) || hasHangul(tco.alt) || hasHangul(tco.caption)))
+          hangulHits++;
       });
       if (bigTagDiff) issues.push('태그 개수 크게 불일치(>3)');
-      if (hangulHits > kc.length / 2) issues.push(`한글 잔존 ${hangulHits}/${kc.length}(미번역?)`);
+      // 🔴 한글은 카드 1개만 남아도 FAIL — 로컬 모델이 캐릭터명(호리·콩이)이나
+      // 의성어(냠냠·보글보글)를 번역 안 하고 흘리는 일이 잦다. "절반 이상"으로 재던
+      // 예전 기준은 이런 소수 잔재를 통째로 놓쳤다(zh 26·th 16·vi 4 파일).
+      if (hangulHits > 0) issues.push(`한글 잔존 ${hangulHits}/${kc.length} 카드`);
     }
     if (JSON.stringify(tr.cards) === JSON.stringify(ko.cards)) issues.push('카드 원본과 동일(미번역)');
 
