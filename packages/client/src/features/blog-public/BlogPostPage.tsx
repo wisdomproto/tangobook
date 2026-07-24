@@ -141,7 +141,7 @@ export default function BlogPostPage() {
           )}
         </main>
 
-        <SiteFooter />
+        <SiteFooter minimal lang={lang} />
       </div>
     </div>
   );

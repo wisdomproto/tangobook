@@ -255,7 +255,7 @@ export default function BlogListPage() {
           )}
         </main>
 
-        <SiteFooter />
+        <SiteFooter minimal lang={lang} />
       </div>
     </div>
   );
