@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 은혜 갚은 두꺼비</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · 시즌2 #34</div>
+  <h1>🐸 은혜 갚은 두꺼비</h1>
+  <div class="sub">밥 한 술을 나눠 준 소녀와, 그 밥을 잊지 않은 두꺼비 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 보은·용기 &nbsp;·&nbsp;
+  <b>분량</b> 13 스프레드 &nbsp;·&nbsp; <b>후렴</b> 두꺼비에게 밥 주는 노래 &nbsp;·&nbsp;
+  <b>핵심단어</b> 부뚜막 · 밥주걱 · 종지 · 청사초롱 · 무명실 &nbsp;·&nbsp;
+  <b>순화</b> 🔴 <b>죽음 묘사 전면 금지</b> — ① 지네는 <b>거대하지만 우스꽝스럽고 겁 많게</b>(무서운 얼굴·공격 묘사 금지, 대부분 그림자·실루엣·다리 일부로만) ② <b>제물·희생 설정 삭제</b> — "무서운 지네 때문에 아무도 사당에 못 간다, 해마다 한 사람이 불을 밝히고 하룻밤 지킨다"로만 ③ 🔴 <b>두꺼비는 죽지 않는다</b> — 독 대신 <b>우렁찬 울음 + 그림자 꾀</b>로 지네를 멀리 쫓아내고, 지쳐 주저앉았다가 순이 품에서 깨어난다 ④ 결말 = 마을이 평화를 되찾고 순이와 두꺼비가 오래오래 함께
+</div>
+<div class="refrain">🍚 반복 후렴 — "두껍아 두껍아, 한 술 먹어라! 쑥쑥 자라라, 한 술 더 먹어라!" <span style="font-weight:600;font-size:13px">(P2 첫 밥 → P4 정든 밤 → P10 절정의 부름 → P13 깨우는 소리)</span></div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-dukkeobi</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.<br>🔴 <b>상태 변형 캐릭터 = 시트 분리</b> — 두꺼비는 <b>ToadSmall(손바닥만 한 아기)</b> / <b>ToadBig(강아지만큼 자란 뒤)</b> 가 각각 다른 @image다. 얼굴은 IDENTICAL FACE로 고정하고 크기·자세만 바뀐다. 각 쪽 SCENE은 그 시점의 상태 토큰만 쓴다(P1~P2=Small, P3부터=Big).<br>🔴 <b>화면당 빨강 악센트 1점 = 순이의 붉은 댕기</b>. 청사초롱은 <b>푸른 비단 위주</b>로 그려 빨강이 겹치지 않게 한다(초롱의 붉은 천은 쓰지 않는다).<br>🔴 <b>지네는 무섭게 그리지 않는다</b> — 대부분 그림자·실루엣·다리 몇 개로만 보이고, 전체가 드러나는 컷은 <b>달아나는 뒷모습(P12)</b> 하나뿐. 이빨·핏빛·공격 자세 금지.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="순이" data-key="char-girl-kind">
+  <div class="head"><span class="face">👧</span><b>순이 (마음씨 고운 소녀)</b> <span class="rom">GirlKind · 밥을 나눠 주는 소녀</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: GirlKind — Suni, a poor but warm-hearted village girl of about ten who shares her rice with a toad. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile, no nose (or one tiny dot). Hair as one solid dark mass parted in the middle and plaited into TWO short braids that hang forward over her shoulders (this is what tells her apart from other folktale girls, who wear one long braid).
+SILHOUETTE (her signature): small and light, with quick busy hands and a slightly forward-leaning, willing posture — always about to help someone. When she is frightened she does not shrink into a ball; she stands small but straight.
+SIGNATURE RED: a small RED ribbon (daenggi) tied at the end of each braid — this is the picture's single red accent whenever she appears. Nothing else in her scenes may be red.
+CLOTHES: a humble everyday skirt-and-jacket hanbok suggested in soft blue-grey and pale straw pencil strokes — mostly open cream paper with loose hatching, one small scribbled patch at the hem, straw sandals in a few pale strokes. Poor is told by the patches and the sparseness of the strokes, never by dirt or gloom.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (a small bowl held in both hands, gentle one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) gentle one-line smile, (2) frightened — a small O mouth with lifted brow strokes and shoulders pulled up, (3) brave resolve — a straight firm line mouth with the chin lifted. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="아기 두꺼비" data-key="char-toad-small">
+  <div class="head"><span class="face">🐸</span><b>아기 두꺼비</b> <span class="rom">ToadSmall · 부뚜막에 온 손바닥만 한 두꺼비</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: ToadSmall — a palm-sized baby toad, the size of a rice bowl, who moves into the girl's kitchen hearth. Dot-eye design language: a flat, softly rounded body in a warm olive-tan pencil tone (#9C8B5E) with a slightly paler cream belly left as open paper, two dot eyes set high and wide apart, and a wide one-line mouth that curves up. A scatter of small bumpy dots hatched across the back — just a dozen quick pencil dots, never warty or slimy. No nose. IDENTICAL FACE to ToadBig.
+SILHOUETTE (his signature): a squat cheerful dome with four stubby legs and toes drawn as two or three short strokes — a small round bun of a creature. Sits with the belly on the ground and blinks slowly.
+MOOD: sweet, patient, a little clumsy. All charm lives in the posture — head tilted up toward whoever is feeding him.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body side idle (sitting, head tilted up) + a front view + a small hop pose (back legs mid-push, drawn as a few open strokes). Include a size cue: the same toad shown next to a small ceramic sauce dish (종지) so the palm-size reads clearly. Three expressions through the mouth line only: (1) contented one-line smile, (2) eating with a small round O mouth and puffed cheeks, (3) sleepy half-closed eyes drawn as two short dashes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="자란 두꺼비" data-key="char-toad-big">
+  <div class="head"><span class="face">🐸</span><b>자란 두꺼비</b> <span class="rom">ToadBig · 강아지만큼 자란 두꺼비</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: ToadBig — the SAME toad AFTER a whole year of shared rice, now grown to the size of a big puppy and reaching about the girl's knee.
+🔴 IDENTICAL FACE to ToadSmall: the same flat olive-tan body, same two high wide-set dot eyes, same wide upward one-line mouth, same scattered bumpy dots on the back, same paler cream belly. Growing changed his size and his bearing, never his face — still sweet and gentle, NEVER fierce, NEVER monstrous, no teeth, no claws.
+SILHOUETTE: the same squat dome, now broad and solid with a heavy comfortable belly and sturdy planted legs — clearly the SAME creature, just much bigger. When he stands his ground he plants all four feet wide and lifts his chin; when he calls, his throat balloons into a big round sac (a simple circle) under the chin.
+MOOD RANGE: cozy and devoted at home; calm and immovable when protecting someone. His bravery reads as steadiness, not anger.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body side idle (sitting beside a small girl's straw sandal for scale) + a front view planted wide and facing the viewer + a calling pose with the throat sac ballooned round. Three expressions through the mouth line only: (1) contented one-line smile, (2) steady brave straight-line mouth with the chin up, (3) worn out — eyes as two short dashes, body slumped low and soft. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="지네" data-key="char-centipede-beast">
+  <div class="head"><span class="face">🌫️</span><b>지네</b> <span class="rom">CentipedeBeast · 크기만 큰 겁쟁이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+🔴 DESIGN BRIEF: CentipedeBeast is BIG but COMIC and COWARDLY — a blustering bully who is terrified the moment anything bigger answers back. He must never look genuinely frightening to a five-year-old. NO fangs, NO menacing eyes, NO blood or slime, NO attacking pose, NO looming over a child.
+CHARACTER: a huge old centipede who has been noisily claiming the hilltop shrine. Dot-eye design language applies to him too: a flat, softly rounded head with two round dot eyes set comically far apart, tiny worried eyebrow strokes tilted up like a sad accent, and a big round O mouth that is almost always open in surprise. Two soft floppy antennae drawn as two curly strokes — droopy, not sharp.
+BODY: a long segmented tube in a dull dusty blue-grey (#7B8390), each segment a simple rounded block, the body trailing off the edge of the picture so its full length is never actually shown. His many legs are soft and noodly like limp cooked noodles, wobbling in different directions and constantly getting tangled with each other — the legs are the joke.
+🔴 HOW HE APPEARS IN THE BOOK: almost always as a SHADOW, a SILHOUETTE, or a PART — a long shadow sliding past a doorway, a silhouette on a paper door, three or four noodly legs stepping over a threshold. The only picture that shows all of him is the one where he runs away from behind, legs tangled, in full comic panic.
+REFERENCE SHEET: one sheet on plain bright cream paper — (a) a head-and-front-segments close view with the big O mouth and up-tilted worried brows; (b) the same head as a flat dark silhouette (for shadow pages); (c) three noodly legs alone stepping over a wooden threshold (for the part-only page); (d) a small full-body view seen from BEHIND, running away with legs tangled and body zig-zagging. Comic, blustering, never scary. No text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="마을 어른" data-key="char-village-elder">
+  <div class="head"><span class="face">👴</span><b>마을 어른</b> <span class="rom">VillageElder · 마을을 걱정하는 할아버지</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: VillageElder — the kindly old head of the village, worried and a bit helpless, never stern or cruel. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a soft downcurved line mouth when worried, and his signature — a short white beard drawn as three or four quick pale strokes under the chin plus two tiny eyebrow strokes. Hair as one solid grey mass in a topknot (sangtu) under a wide black horsehair hat (gat) drawn as one simple dark shape.
+SILHOUETTE (his signature): a small stooped figure, back gently curved, leaning on a plain wooden walking stick drawn as one long stroke — the hat brim, the bent back and the stick read instantly at any size.
+CLOTHES: a plain long everyday coat suggested in soft blue-grey pencil strokes, mostly open cream paper with loose hatching, a simple sash, cloth shoes in a few strokes. Modest, tidy, no red anywhere (the picture's red belongs to the girl's daenggi).
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (both hands resting on the stick, soft worried mouth) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) worried downcurved mouth with the head lowered, (2) surprised small O mouth with lifted brow strokes, (3) relieved warm one-line smile with the chin lifted. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.) 다섯 사물 모두 본문에 실제로 등장한다 — 부뚜막 P1·P2·P13, 밥주걱 P2, 종지 P2·P3, 청사초롱 P7·P8·P11, 무명실 P4·P13.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="부뚜막" data-key="word-buttumak">
+  <div class="head"><span class="face">🔥</span><b>부뚜막</b> <span class="rom">buttumak — a clay kitchen hearth</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "buttumak — the clay cooking hearth of a traditional Korean kitchen (부뚜막)". A low, thick, hand-smoothed platform of warm ochre-tan clay (#C08A52) with a smooth polished top, a round open fire hole in the front where a small orange flame glows (#F2A93B), and a big black cast-iron cauldron lid (#3A3A3C) set into the round opening on top. A few sticks of firewood tucked under the fire hole, a smoke-darkened patch above it, and a small ledge along the side where dishes rest. Show it at a slight 3/4 angle so both the top surface and the fire hole read clearly. Warm, homely, handmade. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="밥주걱" data-key="word-bapjugeok">
+  <div class="head"><span class="face">🥄</span><b>밥주걱</b> <span class="rom">bapjugeok — a wooden rice paddle</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "bapjugeok — a traditional Korean wooden rice paddle (밥주걱)". A flat spoon-shaped scoop carved from a single piece of honey-brown wood with visible grain (#B07A3C), the blade wide and gently rounded with a smooth worn edge, the handle slim with a small hole at the end and a short braided straw loop through it for hanging. Show TWO views side by side so the word reads clearly: (1) the bare paddle at a slight 3/4 angle, and (2) the same paddle holding a small heap of glossy white steamed rice (#F7F3E7). Warm, worn, lovingly used. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="종지" data-key="word-jongji">
+  <div class="head"><span class="face">🥣</span><b>종지</b> <span class="rom">jongji — a tiny ceramic dish</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jongji — a very small traditional Korean ceramic dish for sauce or a little share of food (종지)". A tiny round bowl no bigger than a child's palm, thrown from pale celadon-grey stoneware (#98A79C) with a soft blue-green glaze pooling darker in the bottom, a slightly flared rim, a small unglazed clay foot ring, and one fine hairline crackle pattern in the glaze. Show TWO views so the smallness reads: (1) the empty dish seen from a high 3/4 angle so the inside shows, and (2) the same dish from the side holding a small mound of white rice (#F7F3E7). Humble, quiet, beautifully potted. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="청사초롱" data-key="word-cheongsachorong">
+  <div class="head"><span class="face">🏮</span><b>청사초롱</b> <span class="rom">cheongsachorong — a silk night lantern</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "cheongsachorong — a traditional Korean silk hand lantern carried at night (청사초롱)". A tall cylinder lantern with a slim bamboo-rib frame in honey-brown (#B07A3C), covered in translucent silk — the upper band a deep jade blue (#2E6E9B) and the lower band a soft blue-green (#27795B) — with a small candle glowing warmly inside (#F2A93B) so the silk lights up from within. A round wooden cap on top with a tasseled cord, and a long wooden carrying pole hooked through the loop. Show the lantern lit at a slight 3/4 angle, plus the carrying pole. Elegant, glowing, night-time. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="무명실" data-key="word-mumyeongsil">
+  <div class="head"><span class="face">🧵</span><b>무명실</b> <span class="rom">mumyeongsil — cotton sewing thread</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "mumyeongsil — hand-spun Korean cotton thread used for everyday mending (무명실)". Soft off-white cotton thread (#EFE6D2) with a faint natural fuzz, wound neatly around a small flat wooden thread-holder of honey-brown wood (#B07A3C), with a loose loop of thread trailing off the side and a slim brass needle (#C9A227) tucked into the winding. Show TWO forms: (1) the wound holder at a slight 3/4 angle, and (2) a loose soft coil of the same thread lying beside it with the needle threaded and ready. Humble, downy, quietly beautiful craft. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 13 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 산골 마을에 순이라는 소녀가 살았어요. 순이네는 아주 가난해서 밥이 늘 한 그릇뿐이었지만, 순이는 마음이 참 고왔지요. 어느 저녁, 부뚜막 구석에서 무언가 꼬물꼬물— 손바닥만 한 두꺼비 한 마리가 순이를 빤히 올려다보았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 하이앵글 부감 — 부엌 전체를 비스듬히 내려다보며, 넓은 부엌 한구석의 작디작은 두꺼비로 시선이 떨어지게(스케일 대비 도입).<br/><b>장소·시간</b> 옛 한국 산골 마을의 작은 초가집 흙바닥 부엌, 해 질 무렵. 밥 짓는 김이 도는 조용하고 소박한 공기.<br/><b>인물</b> GirlKind(순이)는 화면 오른쪽 아래에서 무릎을 굽히고 앉아, 두 손을 무릎에 얹은 채 고개를 앞으로 쭉 내밀고 부뚜막 구석을 들여다봄 — 눈은 동그랗고 입은 작은 O, 두 갈래 땋은 머리가 앞으로 흘러내림. ToadSmall(아기 두꺼비)은 화면 왼쪽 <b>부뚜막(buttumak)</b> 끝 구석에 배를 붙이고 앉아 고개를 위로 살짝 젖혀 순이를 마주 올려다봄, 입은 한 줄 미소.<br/><b>배경·소품</b> 흙으로 빚은 부뚜막과 그 위 검은 무쇠솥, 아궁이에서 새어 나오는 작은 주황 불빛, 벽에 걸린 소쿠리와 마른 나뭇단, 부뚜막 옆 낮은 살강에 놓인 그릇 두엇, 흙벽과 낮은 문. (배경은 열린 연필선 몇 획의 러프 스케치로 남기고, 밀도는 순이와 두꺼비에만.)<br/><b>톤</b> 아궁이 불빛이 아래에서 은은히 올라오는 따뜻한 저녁빛, 가난하지만 정겹고 포근한 정서. 화면의 빨강은 순이의 댕기 하나뿐.</pre></details>
+</div>
+
+<!-- ② 발단 : P2, P3, P4 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(밥 한 술을 나누다)</b> <span class="tag beat">② 발단</span> <span class="tag">후렴 ①</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">순이는 밥주걱으로 제 밥을 조금 덜어, 작은 종지에 소복이 담아 주었어요. "두껍아 두껍아, 한 술 먹어라! 쑥쑥 자라라, 한 술 더 먹어라!" 두꺼비는 오물오물 밥을 먹고는 배를 볼록 내밀었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 순이의 어깨너머 — 화면 앞쪽에 순이의 어깨와 팔이 크게 걸리고, 그 너머 종지와 두꺼비에 초점.<br/><b>장소·시간</b> 초가집 부엌 부뚜막 위, 저녁. 김이 모락모락 오르는 아늑한 공기.<br/><b>인물</b> GirlKind(순이)는 화면 왼쪽 앞에서 한 손에 나무 <b>밥주걱(bapjugeok)</b>을 들고 밥을 살짝 덜어 내리는 중, 다른 손은 작은 <b>종지(jongji)</b>를 받쳐 듦. 입을 동그랗게 벌려 노래하듯 부르는 표정, 눈은 초승달처럼 웃음. ToadSmall(아기 두꺼비)은 화면 오른쪽 부뚜막 위 종지 앞에 앉아, 앞다리 두 개를 종지 가장자리에 척 걸치고 작은 O 입으로 밥알을 오물거림, 볼이 볼록.<br/><b>배경·소품</b> 부뚜막의 매끈한 흙 상판, 김 오르는 무쇠솥 뚜껑, 밥알 몇 톨이 상판에 흩어짐, 살강의 그릇들, 흙벽. (부뚜막 상판과 종지·주걱만 반쯤 그리고, 나머지 배경은 열린 스케치선으로.)<br/><b>톤</b> 솥에서 오르는 김과 아궁이 불빛의 따뜻한 주황빛, 나눔의 다정하고 흐뭇한 정서. 빨강은 순이의 댕기 하나뿐.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(무럭무럭 자란 두꺼비)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날부터 순이는 날마다 밥을 나누었어요. 봄이 가고, 여름이 가고, 잎이 노랗게 물들 무렵— 두꺼비는 무럭무럭 자라 어느새 강아지만큼 커졌지 뭐예요! 순이가 부르면 뒤뚱뒤뚱, 그림자처럼 졸졸 따라다녔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 롱샷, 정면보다 살짝 옆에서 본 아이레벨 트래킹 — 마당을 가로질러 걸어가는 둘을 옆에서 따라가는 구도(세로가 아니라 가로로 길게 흐르는 배치).<br/><b>장소·시간</b> 초가집 앞마당에서 사립문까지 이어지는 흙길, 잎이 물든 가을 낮. 바스락거리는 마른 공기.<br/><b>인물</b> GirlKind(순이)는 화면 왼쪽에서 오른쪽으로 걸어가며 고개를 뒤로 돌려 웃음, 한 손을 뒤로 내밀어 "따라와" 하듯 부름. ToadBig(자란 두꺼비)은 순이 뒤를 뒤뚱뒤뚱 따라가는 중 — 이제 순이 무릎께에 오는 크기, 네 다리를 넓게 짚고 배를 묵직하게 흔들며, 입은 한 줄 미소. 두 걸음 앞뒤로 나란한 실루엣이 크기 차이를 또렷이 보여 줌.<br/><b>배경·소품</b> 흙마당에 놓인 빈 <b>종지(jongji)</b> 하나(늘 밥 주던 자리), 사립문과 싸리 울타리, 노랗게 물든 감나무 몇 가지, 마당 끝 초가지붕 처마, 멀리 낮은 산 능선. (마당 바닥선과 울타리는 몇 획만, 나머지는 크림 종이 그대로.)<br/><b>톤</b> 맑고 낮은 가을 햇빛이 옆에서 길게 드리우는 따뜻한 노란빛, 정든 사이의 흐뭇하고 편안한 정서. 빨강은 순이의 댕기 하나뿐.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>발단(정든 밤)</b> <span class="tag beat">② 발단</span> <span class="tag">후렴 ②</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">밤이면 순이는 툇마루에 앉아 무명실로 해진 옷을 기웠어요. 두꺼비는 그 옆에 배를 척 붙이고 앉아 순이를 지켜보았지요. "두껍아 두껍아, 한 술 먹어라! 쑥쑥 자라라, 한 술 더 먹어라!" 순이가 흥얼거리면 두꺼비는 끔뻑끔뻑 눈을 감았다 떴어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 극단 여백 — 화면의 약 70%가 빈 크림 종이(밤하늘과 어둠), 아래 오른쪽 구석에 툇마루와 둘이 아주 작게 자리한 조용한 구도.<br/><b>장소·시간</b> 초가집 툇마루, 늦은 밤. 풀벌레 소리가 들릴 듯 고요한 공기.<br/><b>인물</b> GirlKind(순이)는 화면 오른쪽 아래 툇마루 끝에 무릎을 모으고 앉아, 한 손에 바늘을 들고 다른 손으로 헝겊을 잡은 채 <b>무명실(mumyeongsil)</b>을 한 땀 한 땀 당기는 중 — 고개를 살짝 숙이고 입은 흥얼거리듯 작게 벌림. ToadBig(자란 두꺼비)은 순이 왼쪽 옆에 배를 마루에 척 붙이고 앉아 순이를 올려다보며 눈을 반쯤 감음(두 개의 짧은 대시), 입은 한 줄 미소.<br/><b>배경·소품</b> 툇마루 널판과 기둥 한 개를 몇 획으로, 마루에 놓인 무명실 실패와 헝겊 조각, 마루 아래 벗어 둔 짚신 한 켤레, 화면 대부분은 별 몇 점만 찍힌 빈 밤 종이.<br/><b>톤</b> 아주 낮고 부드러운 밤빛, 푸른빛이 감도는 회색조에 둘 주변만 은은히 따뜻함, 오래된 우정처럼 잔잔하고 뭉클한 정서. 빨강은 순이의 댕기 하나뿐.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P5, P6, P7 -->
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(마을의 걱정거리)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 이 마을에는 걱정거리가 하나 있었어요. 뒷산 낡은 사당에 아주 커다란 지네가 산다는 이야기였지요. 지네가 성을 내면 밤새 바람이 우웅우웅 울고 곡식이 시들시들해졌어요. 그래서 해마다 가을이면 마을에서 한 사람이 사당에 불을 밝히고 하룻밤을 지켜야 했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 하이앵글 부감 — 마당에 둥그렇게 둘러앉은 마을 사람들을 위에서 내려다보고, 화면 위쪽 멀리 뒷산 사당이 작게 걸리는 구도.<br/><b>장소·시간</b> 마을 한가운데 넓은 마당, 가을 늦은 오후. 술렁이고 무거운 공기.<br/><b>인물</b> VillageElder(마을 어른)는 원의 위쪽 가운데에서 지팡이에 두 손을 얹고 등을 굽힌 채 뒷산 쪽을 돌아보며 근심스레 입을 아래로 늘어뜨림. 마을 사람 예닐곱이 그 둘레에 앉거나 서서 서로 어깨를 붙이고 수군거림 — 어떤 이는 손으로 입을 가리고, 어떤 이는 뒷산을 손가락으로 가리킴. GirlKind(순이)는 원의 아래쪽 가장자리에 작게 앉아 어른들을 조용히 올려다봄.<br/><b>배경·소품</b> 마당 가장자리의 볏가리와 싸리 울타리, 멀리 언덕 위 낡은 사당 지붕이 작게(어둡지 않게, 선 몇 획으로), 사당 쪽 하늘에 길고 흐릿한 구름 그림자가 한 줄 스쳐 감(지네의 형체는 절대 보이지 않음).<br/><b>톤</b> 해가 기울며 마당에 긴 그림자가 지는 서늘한 오후빛, 무섭기보다 어른들의 근심이 전해지는 술렁이는 정서. 빨강은 순이의 댕기 하나뿐.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(순이가 손을 들다)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">올해는 순이네 차례였어요. 하지만 순이네에는 순이밖에 없었지요. 어른들은 어쩔 줄 몰라 서로 얼굴만 쳐다보았어요. 그때 순이가 조그맣게 손을 번쩍 들었답니다. "제가 갈게요." 아주 작은 목소리였지만, 아주 씩씩했어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 로우앵글 — 카메라를 순이 발치 높이까지 낮춰, 손을 든 작은 순이가 화면 아래에서 위로 솟아 보이고 어른들이 뒤에서 크게 굽어보는 구도(작지만 커 보이게).<br/><b>장소·시간</b> 같은 마을 마당, 방금 전보다 더 기운 저녁 해. 숨을 죽인 듯 조용해진 공기.<br/><b>인물</b> GirlKind(순이)는 화면 중앙 아래에서 한 팔을 곧게 위로 번쩍 들고 서 있음 — 턱을 살짝 들고 입은 굳게 다문 한 줄, 다른 손은 치마를 꼭 쥠, 두 갈래 땋은 머리가 어깨에 붙음. 뒤쪽 VillageElder(마을 어른)는 지팡이를 짚은 채 몸을 숙여 순이를 내려다보며 입을 작은 O로 벌리고 눈썹을 치켜올림. 어른 두셋이 그 옆에서 서로 마주 보며 놀라 웅성거림.<br/><b>배경·소품</b> 마당 흙바닥, 뒤로 볏가리와 울타리 몇 획, 어른들의 갓과 지팡이 실루엣이 순이 위로 둘러선 테두리를 이룸, 하늘은 대부분 빈 크림 종이.<br/><b>톤</b> 낮게 깔린 노을빛이 순이 얼굴만 환히 비춤, 겁이 나면서도 용기를 내는 뭉클하고 씩씩한 정서. 빨강은 순이의 댕기 하나뿐.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(청사초롱 들고 밤길)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">해가 지자 순이는 청사초롱에 불을 밝히고 뒷산 길을 올랐어요. 발밑에서 낙엽이 바스락바스락. 순이는 몰랐지만, 저만치 뒤에서 두꺼비가 뒤뚱뒤뚱 조용히 따라오고 있었지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 롱샷, 뒷모습 — 어두운 산길을 아주 작게 오르는 두 점(순이와 두꺼비)을 멀리서 잡고, 화면 대부분은 산과 밤하늘의 빈 종이.<br/><b>장소·시간</b> 마을 뒷산으로 오르는 굽은 낙엽 길, 초저녁 어스름. 서늘하고 고요한 가을밤 공기.<br/><b>인물</b> GirlKind(순이)는 화면 가운데쯤 길 위에서 뒷모습으로 걸어 올라감 — 한 손에 <b>청사초롱(cheongsachorong)</b> 장대를 들어 앞을 비추고, 어깨는 살짝 움츠렸지만 걸음은 곧음, 두 갈래 땋은 머리 끝의 댕기가 뒷모습에서도 보임. ToadBig(자란 두꺼비)은 화면 아래쪽 길모퉁이에서 훨씬 작게, 몸을 낮추고 뒤뚱뒤뚱 뒤따라 오르는 중 — 순이는 뒤를 돌아보지 않음(몰래 따라오는 것).<br/><b>배경·소품</b> 굽이진 흙길과 흩뿌려진 낙엽 몇 장, 길 양옆 마른 억새와 앙상한 나뭇가지 몇 획, 길 끝 언덕 위에 낡은 사당 지붕이 작게, 밤하늘은 대부분 빈 크림 종이에 별 몇 점.<br/><b>톤</b> 푸르스름한 밤 색조 속에 청사초롱의 푸른 비단 등불만 은은한 빛 웅덩이를 만듦(초롱은 푸른 계열로만, 붉은 천 없음), 조마조마하지만 무섭지 않은 정서. 빨강은 순이의 댕기 하나뿐.</pre></details>
+</div>
+
+<!-- ④ 절정 : P8, P9, P10, P11, P12 -->
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>절정(사당의 그림자)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">낡은 사당 안은 캄캄하고 조용했어요. 순이는 청사초롱을 문고리 옆에 걸고 무릎을 꼭 끌어안았지요. 그때 창호지 문 위로 스르륵— 길고 커다란 그림자가 지나갔어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 순이의 어깨너머 — 화면 앞 오른쪽에 웅크린 순이의 등과 뒤통수가 크게 걸리고, 그 너머 창호지 문 전체가 화면을 채움.<br/><b>장소·시간</b> 뒷산 낡은 사당 안, 깊은 밤. 먼지 냄새가 날 듯 적막한 공기.<br/><b>인물</b> GirlKind(순이)는 화면 앞 오른쪽에서 등을 보인 채 마룻바닥에 앉아 두 무릎을 끌어안고 어깨를 바짝 올림, 고개만 문 쪽으로 돌려 옆얼굴이 살짝 보이며 눈이 커지고 입은 작은 O. CentipedeBeast(지네)는 <b>절대 실물로 보이지 않고</b>, 창호지 문에 비친 길고 물결치는 그림자 실루엣으로만 — 마디마디 둥근 몸통이 문 왼쪽에서 오른쪽으로 스르륵 지나가고 국수 가락 같은 다리 그림자가 흐물흐물 흔들림.<br/><b>배경·소품</b> 문고리 옆에 걸린 <b>청사초롱(cheongsachorong)</b>이 푸른빛으로 문을 밝힘, 낡은 나무 기둥과 빛바랜 단청 몇 획, 마룻바닥의 먼지, 구석의 오래된 나무 상자. (실내는 선 몇 획만, 밀도는 순이와 문 그림자에.)<br/><b>톤</b> 초롱의 푸른빛 하나가 유일한 광원, 그림자는 부드럽고 둥글게(뾰족하거나 위협적이지 않게), 오싹하기보다 두근두근 조마조마한 정서. 빨강은 순이의 댕기 하나뿐.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(문지방을 넘는 다리)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">삐거덕— 문이 스르르 열렸어요. 국수 가락처럼 흐물흐물한 다리가 하나, 둘, 셋… 문지방을 슬금슬금 넘어왔지요. "누구냐! 내 사당에 누가 왔느냐!" 우렁우렁 울리는 목소리에 순이는 눈을 꼭 감았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 바닥에 붙은 초저각(개구리 시점) — 낡은 나무 문지방 한 줄이 화면을 가로지르고, 그 위를 넘어오는 다리 몇 개만 크게 잡음.<br/><b>장소·시간</b> 사당 문지방 바로 안쪽 마룻바닥, 깊은 밤. 삐걱이는 소리가 울리는 공기.<br/><b>인물</b> CentipedeBeast(지네)는 <b>다리 세 개와 몸통 아랫부분만</b> 화면에 보임 — 흐물흐물한 국수 같은 다리가 문지방 위로 하나씩 넘어오며 서로 살짝 엉킴, 위쪽은 화면 밖으로 잘려 얼굴은 보이지 않음(둔탁하고 우스꽝스러운 실루엣). GirlKind(순이)는 화면 오른쪽 뒤 구석에 아주 작게, 두 손으로 얼굴을 반쯤 가리고 눈을 꼭 감은 채 어깨를 웅크림.<br/><b>배경·소품</b> 반쯤 열린 나무 문짝과 낡은 문고리, 문지방의 갈라진 나뭇결, 문틈으로 새어드는 <b>청사초롱(cheongsachorong)</b>의 푸른 빛줄기 한 가닥, 바닥에 굴러다니는 마른 잎 한 장.<br/><b>톤</b> 낮고 푸른 밤빛에 문틈 빛 한 줄, 긴장되지만 다리의 흐물흐물함 덕에 우스꽝스러움이 배어 나오는 정서(공포로 기울지 않게). 빨강은 순이의 댕기 하나뿐.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(가로막고 선 두꺼비)</b> <span class="tag beat">④ 절정 · 🔴 시각적 훅</span> <span class="tag">후렴 ③</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"두껍아… 두껍아…" 순이가 떨리는 목소리로 불렀어요. 그러자 툭— 순이 앞으로 두꺼비가 폴짝 뛰어나왔지요. 손바닥만 하던 그 두꺼비가, 산더미 같은 그림자 앞을 떡 하니 가로막고 버티고 섰답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 + 극단 스케일 대비, 정면 아이레벨보다 아주 살짝 위 — 화면 왼쪽 3분의 2를 벽 가득한 거대한 둥근 그림자가 차지하고, 오른쪽 아래 그 앞에 자그마한 두꺼비가 뒷모습으로 버티고 선 <b>이 화의 대표 컷</b>.<br/><b>장소·시간</b> 사당 안 넓은 마루, 깊은 밤. 숨이 멎은 듯한 순간.<br/><b>인물</b> ToadBig(자란 두꺼비)은 화면 오른쪽 아래에서 <b>뒷모습</b>으로, 네 다리를 넓게 척 벌리고 배를 낮게 깔아 바닥에 못 박힌 듯 버티고 섬 — 고개만 위로 들어 거대한 그림자를 마주 봄, 등의 오돌토돌한 점이 또렷이. 크기는 그림자의 열 몇 분의 일밖에 안 되게 아주 작게. GirlKind(순이)는 두꺼비 바로 뒤 오른쪽 끝에서 두 손을 입가에 모으고 "두껍아" 하고 부르는 작은 O 입, 눈에는 놀람과 안도가 함께. CentipedeBeast(지네)는 여전히 <b>실물이 아니라 벽에 드리운 거대한 둥근 마디 그림자와 흐물거리는 다리 그림자로만</b> 존재(얼굴·이빨 없음).<br/><b>배경·소품</b> 사당 안쪽 벽과 낡은 기둥 몇 획, 바닥에 놓인 <b>청사초롱(cheongsachorong)</b>이 낮은 자리에서 위로 빛을 쏘아 그림자를 크게 키움, 마룻널의 긴 나뭇결이 두꺼비 쪽으로 모이는 사선.<br/><b>톤</b> 아래에서 올라오는 푸른 초롱빛과 벽 가득한 부드러운 그림자, 무섭기보다 <b>가슴이 뜨거워지는</b> 용기의 정서 — 작은 것이 큰 것 앞을 막아선 순간. 빨강은 순이의 댕기 하나뿐.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(우렁찬 울음과 그림자 꾀)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">두꺼비는 목을 크게 부풀리고 우엉— 우엉— 우렁차게 울었어요. 낡은 사당이 웅웅 울렸지요. 그러고는 발로 청사초롱을 슬쩍 밀어, 제 그림자를 벽에 산더미만큼 크게 비추었답니다. "으앗! 나보다 큰 놈이잖아!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업 로우앵글 — 카메라가 마룻바닥에 거의 붙어 두꺼비를 아래에서 올려다보고, 그 뒤 벽에 두꺼비의 그림자가 화면 천장까지 거대하게 솟은 구도(실물과 그림자의 크기 반전).<br/><b>장소·시간</b> 사당 안, 같은 밤 바로 그 다음 순간. 소리가 웅웅 울리는 공기.<br/><b>인물</b> ToadBig(자란 두꺼비)은 화면 아래 가운데에서 턱 아래 목주머니를 커다란 동그라미로 빵빵하게 부풀리고 입을 크게 벌려 우는 중, 앞발 하나를 옆으로 뻗어 바닥의 청사초롱을 슬쩍 밀고 있음 — 눈은 또렷하고 침착. 그 뒤 벽에는 <b>두꺼비 자신의 그림자</b>가 산더미처럼 크게 부풀어 올라 앉아 있음. CentipedeBeast(지네)는 화면 오른쪽 가장자리에 <b>머리 앞부분만</b> 살짝 들어와, 커다란 O 입을 벌리고 두 점눈이 휘둥그레, 눈썹 획은 팔자로 처져 완전히 겁먹은 우스꽝스러운 얼굴(무섭지 않게). GirlKind(순이)는 왼쪽 뒤에서 눈을 크게 뜨고 입을 벌린 채 두 손을 모으고 지켜봄.<br/><b>배경·소품</b> 바닥에서 옆으로 밀려나며 빛을 위로 쏘는 <b>청사초롱(cheongsachorong)</b>, 울림을 나타내는 만화적인 동심원 획 몇 개, 낡은 기둥과 벽면, 흔들리는 먼지 알갱이.<br/><b>톤</b> 아래에서 위로 뻗는 강한 푸른 초롱빛과 벽을 채운 거대한 그림자, 통쾌하고 씩씩한 정서 — 꾀가 통하는 짜릿한 순간. 빨강은 순이의 댕기 하나뿐.</pre></details>
+</div>
+
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>절정(꽁지가 빠지게 달아나다)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">지네는 놀라서 다리가 서로 엉켰어요. 우당탕탕! 문지방에 코를 콩 찧고는, 꽁지가 빠지게 산 너머로 달아났지요. "다시는, 다시는 안 올 테다!" 그 소리가 점점 멀어지더니 이내 조용해졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 높은 하이앵글 부감 — 사당 앞마당과 산길을 위에서 내려다보며, 지그재그로 달아나는 긴 몸통이 화면을 대각선으로 가로질러 산 너머로 사라지는 구도.<br/><b>장소·시간</b> 사당 문 앞 작은 마당과 그 너머 산길, 깊은 밤. 우당탕 소리가 멀어지는 공기.<br/><b>인물</b> CentipedeBeast(지네)는 이 화에서 유일하게 전체가 보이는 컷 — <b>완전히 뒷모습</b>으로 마당을 가로질러 산 너머로 달아나는 중, 몸통이 지그재그로 꼬이고 국수 같은 다리들이 서로 뒤엉켜 넘어질 듯 허둥댐, 뒤통수만 보여 얼굴은 안 보임(전혀 무섭지 않고 완전히 코믹). 사당 문간에는 ToadBig(자란 두꺼비)이 네 다리를 벌리고 앉아 조용히 그 뒷모습을 지켜봄, GirlKind(순이)는 두꺼비 옆 문지방에 서서 두 손을 맞잡고 입을 O로 벌린 채 놀라움 반 기쁨 반.<br/><b>배경·소품</b> 문지방에 부딪혀 굴러떨어진 마른 잎 몇 장, 마당에 남은 지그재그 발자국 자국, 열린 사당 문과 안에서 새어 나오는 푸른 초롱빛 한 줄기, 산등성이 너머 옅게 밝아 오는 하늘 끝.<br/><b>톤</b> 밤빛이 조금 묽어지기 시작한 새벽 직전의 푸른빛, 폭소가 터지는 시원하고 통쾌한 정서. 빨강은 순이의 댕기 하나뿐.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P13 -->
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>결말(아침, 눈을 뜬 두꺼비)</b> <span class="tag beat">⑤ 결말</span> <span class="tag">후렴 ④</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 두꺼비가 폭삭— 힘이 다 빠져 주저앉았어요. 순이는 두꺼비를 두 손으로 폭 안고 흔들었지요. "두껍아 두껍아, 한 술 먹어라! 쑥쑥 자라라, 어서 눈을 떠 봐!" 아침 해가 사당 문으로 스며들자, 두꺼비가 끔뻑— 눈을 떴답니다. 그날부터 마을은 다시 평화로워졌고, 순이와 두꺼비는 오래오래 함께 밥을 나누며 살았어요. 작은 마음으로 나눈 밥 한 술이 이렇게 큰 은혜로 돌아온대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 정면 아이레벨 — 활짝 열린 사당 문틀이 액자처럼 둘을 감싸고, 문 너머 아침 마을이 환하게 열리는 마무리 구도.<br/><b>장소·시간</b> 사당 문간 마루, 아침 해가 막 뜬 시각. 맑고 환하게 개운한 공기.<br/><b>인물</b> GirlKind(순이)는 화면 가운데 마루에 무릎을 꿇고 앉아, 무릎 위에 ToadBig(자란 두꺼비)을 두 팔로 폭 감싸 안고 고개를 숙여 이마를 맞댐 — 눈가에 작은 눈물 획 하나, 입은 부르듯 살짝 벌어진 웃음. ToadBig(자란 두꺼비)은 순이 품 안에서 몸을 축 늘어뜨렸다가 막 눈을 뜨는 순간 — 한쪽 눈은 아직 짧은 대시, 다른 쪽 눈은 동그란 점으로 뜨이고 입은 한 줄 미소로 돌아옴.<br/><b>배경·소품</b> 활짝 열린 사당 문과 문틀, 마루에 놓인 불 꺼진 <b>청사초롱(cheongsachorong)</b>과 순이가 밤새 쥐고 있던 <b>무명실(mumyeongsil)</b> 실패, 문 너머 아래로 초가지붕들과 밥 짓는 연기가 오르는 마을, 언덕을 올라오는 VillageElder(마을 어른)와 마을 사람 두엇이 손을 흔들며 작게, 왼쪽 아래 구석에 순이네 <b>부뚜막(buttumak)</b>을 떠올리게 하는 김 오르는 연기 한 줄.<br/><b>톤</b> 문 안으로 길게 쏟아지는 황금빛 아침 햇살, 밤이 걷히고 마음이 놓이는 벅차고 따뜻한 마무리 정서. 빨강은 순이의 댕기 하나뿐.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 은혜 갚은 두꺼비 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING (finish hierarchy — the single most important rule): The bright warm cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. This picture is deliberately UNEVENLY finished, like one page from a master's sketchbook. Finish only what matters: the CHARACTERS = finished (clear line AND color, keep them at their current level); a prop a character is directly touching or holding (a loom, a bench, a gourd in their hands) = half-finished, a bit of line and a little color; everything else — the whole background: jars, walls, fences, roofs, trees, hills, anything far away — = a LOOSE UNFINISHED PENCIL SKETCH: just a few open contour lines and a few direction strokes, barely any color, lots of bare cream paper showing through, deliberately NOT filled in, like the rough underdrawing on a sketchbook page. A jar is two or three open outlines, a roof is a few slanted direction strokes, a distant thing is one or two lines and then paper. This is about how FINISHED each area is, NOT about opacity — the background is not faded, hazy, blurry or low-saturation, it is simply left as rough sketch lines and not drawn to completion. Spend all the density ONLY on the characters. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces; NOT a fully rendered background, NOT every jar / roof-tile / leaf drawn to completion, NOT a uniform finish across the whole picture, and NOT a hazy / blurry / faded background either (that is just blur, not a sketch) — keep the background as loose OPEN PENCIL SKETCH lines and every stroke loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'GirlKind',        name: '순이',        desc: '마음씨 고운 소녀 — 두 갈래 땋은 머리+붉은 댕기(화면의 유일한 빨강), 기운 무명 치마저고리', aliases: ['GirlKind'] },
+    { token: 'ToadSmall',       name: '아기 두꺼비',  desc: '손바닥만 한 두꺼비 — 올리브빛 둥근 몸, 점눈 두 개, 등에 오돌토돌 점',                   aliases: ['ToadSmall'] },
+    { token: 'ToadBig',         name: '자란 두꺼비',  desc: '강아지만큼 자란 두꺼비 — 같은 얼굴, 넉넉한 배, 버틸 땐 네 다리 활짝(목주머니 빵빵)',    aliases: ['ToadBig'] },
+    { token: 'CentipedeBeast',  name: '지네',        desc: '크기만 큰 겁쟁이 — 대개 그림자·실루엣·다리 일부로만, 국수 같은 다리가 엉키는 코믹 디자인', aliases: ['CentipedeBeast'] },
+    { token: 'VillageElder',    name: '마을 어른',    desc: '걱정 많은 할아버지 — 갓·흰 수염 몇 획·지팡이, 굽은 등',                                aliases: ['VillageElder'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 개와 고양이</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · 시즌2 #33</div>
+  <h1>🐶 개와 고양이</h1>
+  <div class="sub">요술 구슬을 찾아 나선 두 친구 — 개와 고양이가 사이 나빠진 까닭</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 협동 + 유래담("개와 고양이가 사이 나빠진 까닭") &nbsp;·&nbsp;
+  <b>분량</b> 14 스프레드 &nbsp;·&nbsp; <b>후렴</b> 강 건너기 노래(주고받기) &nbsp;·&nbsp;
+  <b>핵심단어</b> 구슬 · 통발 · 나룻배 · 삿대 · 대바구니 &nbsp;·&nbsp;
+  <b>순화</b> 🔴 다툼은 <b>가볍게, 폭력 없이</b> — 서로 등을 홱 돌리는 투닥 삐침까지만(무는 장면·으르렁 금지) / 욕심쟁이는 무섭지 않은 <b>능청스러운 영감</b>(협박·추격 없음, 벌 대신 머쓱함) / 강물은 잔잔하고 얕게, 빠지는 것은 구슬뿐 — 물에 빠지는 위험 묘사 금지 / 고양이와 생쥐는 <b>거래하는 사이</b>(잡아먹는 위협 금지) / 마지막은 노부부의 따뜻함 + 미소 짓는 유래로
+</div>
+<div class="refrain">🌊 반복 후렴 — "첨벙첨벙 건너가자! 물었니? 물었지! 놓쳤니? 아니야!" <span style="font-weight:600;font-size:13px">(P7 가는 길 → P10 오는 길 완전판 → P11 대답하다 퐁당 → P14 되울림)</span></div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-gaegoyangi</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.<br>🔴 <b>화면당 빨강 악센트 1점 = 고양이 나비의 붉은 실 목끈</b>(고양이가 없는 컷에서만 다른 빨강 하나를 쓴다 — 욕심쟁이의 붉은 술띠, 나룻배의 붉은 깃발, 잉어의 붉은 지느러미 끝).<br>🔴 <b>개와 고양이는 네 발로 다니는 진짜 짐승</b>이다 — 옷을 입히거나 두 발로 세우지 말 것. 감정은 귀·꼬리·자세로만 말한다.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="개 복슬이" data-key="char-dog-friend">
+  <div class="head"><span class="face">🐶</span><b>개 복슬이</b> <span class="rom">DogFriend · 씩씩한 누렁이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: DogFriend — the old couple's cheerful yellow farm dog (a Korean nureongi), big-hearted, loud and a little careless. Dot-eye design language kept exactly: a flat cream muzzle with zero shading, two dot eyes, a simple line mouth that opens into a small O when he barks, one tiny dot for the nose tip.
+🔴 A REAL FOUR-LEGGED ANIMAL — never dressed, never standing on two legs like a person. All his feeling is told by EARS, TAIL and STANCE.
+SILHOUETTE (his signature): a sturdy medium-size dog with a broad chest, thick straight legs and a plump curled-up tail carried high over his back; ears are two soft triangles that flop forward when he is scolded. Next to the small light cat he is the big solid shape.
+COLOR: warm straw-yellow fur (#D8B45A) suggested with loose hatching over open cream paper, a paler cream chest and muzzle, a few quick darker strokes along the back. When wet, the same fur is drawn with long downward strokes clinging to the body plus a few flying droplet ticks.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body side idle (standing square, tail curled up, tongue out in a happy line) + a 3/4 turn + a SWIMMING pose seen from the side with only head, shoulders and curled tail-tip above a couple of water lines + three head close-ups where the feeling changes ONLY through ears, mouth line and brow ticks: (1) happy panting with tongue out, (2) proud open-mouthed bark with ears pricked, (3) sulky with both ears flopped down and the mouth a small downcurved line. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="고양이 나비" data-key="char-cat-friend">
+  <div class="head"><span class="face">🐱</span><b>고양이 나비</b> <span class="rom">CatFriend · 야무진 삼색 고양이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: CatFriend — the old couple's calm, clever calico cat, quiet where the dog is loud, and quietly stubborn. Dot-eye design language kept exactly: a flat cream face with zero shading, two dot eyes, a tiny line mouth (a small 'w' curve), one dot nose, and three short whisker strokes per side.
+🔴 A REAL FOUR-LEGGED ANIMAL — never dressed, never standing on two legs like a person. All her feeling is told by EARS, TAIL and STANCE.
+SILHOUETTE (her signature): small, light and neat, with a low compact crouch and a long slim tail that stands straight up when she is pleased and lashes low when she is cross. Beside the big blocky dog she is the small tidy shape.
+SIGNATURE RED: a thin RED thread collar with one tiny bell at her throat — this is the picture's single red accent whenever she appears.
+COLOR: cream-white body left mostly as open paper, with a few loose patches of straw-yellow and soft blue-grey (a calico) — one patch over one ear, one on the back, one on the tail.
+🔴 HOLDING THE BEAD: when she carries the magic bead she holds it gently in her closed mouth, cheeks a little round, the bead just peeking between her lips — she looks careful, never greedy or grim.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body side idle (sitting upright, tail curled around the front paws) + a 3/4 turn + a RIDING pose (crouched low as if clinging to a broad back, front paws gripping, tail up for balance) + three head close-ups where the feeling changes ONLY through ears, mouth line and brow ticks: (1) calm little 'w' smile, (2) alert with ears pricked forward and round eyes, (3) cross with ears turned sideways and the face angled away. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="할아버지" data-key="char-old-man">
+  <div class="head"><span class="face">👴</span><b>할아버지</b> <span class="rom">OldMan · 마음씨 착한 할아버지</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: OldMan — the kind-hearted old fisherman husband, gentle and easily moved. Dot-eye design language: a flat cream face with zero shading, two dot eyes that crinkle into two short arcs when he laughs, a soft one-line smile, no nose (or one tiny dot).
+SILHOUETTE (his signature): a small, slightly stooped old man with rounded shoulders and a big kind stoop forward, so he always looks as if he is leaning down toward the animals. Hair as one solid pale grey mass in a small topknot (sangtu), plus a short white beard drawn as three or four quick strokes at the chin.
+CLOTHES & PROP: a plain worn cotton hanbok in soft blue-grey pencil strokes, mostly open paper with one or two scribbled patches, trousers tied at the ankle, straw sandals in a few straw-yellow strokes, and a simple cloth headband. Often carries a woven fish trap (tongbal) or a bamboo basket.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (one hand holding a woven fish trap, gentle smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) warm crinkled smile, (2) surprised small O mouth with lifted brow strokes, (3) downhearted with a soft downcurved mouth and a bowed head. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="할머니" data-key="char-old-woman">
+  <div class="head"><span class="face">👵</span><b>할머니</b> <span class="rom">OldWoman · 다정한 할머니</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: OldWoman — the warm, bustling old wife who feeds everyone, including the animals. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a wide one-line smile, no nose (or one tiny dot), and two tiny stroke-wrinkles at the corners of the eyes.
+SILHOUETTE (her signature): small, round and soft, with a low centre of gravity and busy hands — she is nearly always carrying, offering or hugging something. Hair as one solid pale grey mass parted in the middle and gathered into a small LOW bun with one plain hairpin drawn as a single short stroke.
+CLOTHES & PROP: a humble skirt-and-jacket hanbok in soft blue-grey and faded straw pencil strokes, mostly open paper with loose hatching, a plain work apron in a few strokes. Often carries a wide woven bamboo basket (daebaguni) on her hip.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (a bamboo basket on one hip, wide warm smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) wide warm smile, (2) worried with a small downcurved mouth and tilted brow strokes, (3) delighted laugh drawn as a small open curved mouth with crinkled arc eyes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="욕심쟁이 영감" data-key="char-greedy-richman">
+  <div class="head"><span class="face">🧔</span><b>욕심쟁이 영감</b> <span class="rom">GreedyRichman · 강 건너 마을 부자</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: GreedyRichman — the well-off old man from the village across the river who slips the magic bead into his sleeve. Comic and sly, NEVER scary, never threatening — a sneaky uncle, not a villain. Dot-eye design language: a flat cream face with zero shading, two dot eyes usually narrowed into two short slit lines, a smug little downcurved line mouth, and his signature — a thin drooping mustache drawn as two long curved strokes past the corners of the mouth.
+SILHOUETTE (his signature): tall and thin with a long neck and a forward-craning head, hands habitually tucked inside his wide sleeves — a peeking, tiptoeing shape. The opposite of the small stooped OldMan.
+CLOTHES: the fanciest clothes in the cast — a long outer coat (durumagi) hatched in a slightly richer straw-gold tone with a hint of scribbled pattern, a wide black horsehair hat (gat) drawn as one simple dark shape, and a RED sash cord at the waist (the picture's single red accent in any frame where CatFriend is absent).
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands hidden in sleeves, chin craned forward, sly slit eyes) + a 3/4 turn + a TIPTOEING pose (exaggerated high step, shoulders hunched) + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) sly narrow-eyed smirk, (2) greedy delighted line grin, (3) caught-out sheepish face with a big O mouth and lifted brow strokes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="생쥐" data-key="char-mouse-helper">
+  <div class="head"><span class="face">🐭</span><b>생쥐</b> <span class="rom">MouseHelper · 곳간에 사는 생쥐</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: MouseHelper — a small house mouse living in the rich man's storehouse; polite, quick and businesslike (the cat strikes a deal with him, and he is never in danger). Dot-eye design language: a flat cream face, two dot eyes, one dot nose, a tiny line mouth with two small front-teeth ticks, three whisker strokes per side.
+🔴 A REAL FOUR-LEGGED ANIMAL — never dressed, never on two legs except when he sits up on his haunches to talk, front paws held together at his chest.
+SILHOUETTE (his signature): a little rounded body with big thin round ears (the largest ears in the cast, drawn as two open circles), a long thin tail as one single stroke.
+COLOR: soft blue-grey fur suggested with a few loose strokes over open cream paper, pale cream belly and inner ears.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body side idle (all fours, tail out straight) + a sitting-up pose (haunches, front paws together, ears up) + a GNAWING pose (nose pressed to a wooden edge, tiny wood chips flying as three ticks) + three head close-ups: (1) polite nodding with a tiny closed smile, (2) startled with round eyes and ears flared, (3) proud with the chin up and whiskers lifted. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="잉어" data-key="char-carp-fish">
+  <div class="head"><span class="face">🐟</span><b>잉어</b> <span class="rom">CarpFish · 용왕님의 아들 잉어</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: CarpFish — a big river carp who turns out to be the Dragon King's son; grateful, gentle and quietly magical. Dot-eye design language kept exactly: a flat cream face area with zero shading, two dot eyes, a small round O mouth — kind and a little solemn, never fierce, no sharp teeth.
+SILHOUETTE (his signature): a large plump carp as long as a man's arm, with a smoothly curved back, wide sweeping fan-shaped tail and two long trailing barbels (whiskers) at the mouth drawn as two soft curving strokes — the barbels are what make him read as a carp and hint at the dragon.
+COLOR: pale straw-gold and cream scales suggested with a few loose arc strokes over open paper (NOT every scale drawn), soft blue-grey along the back, and RED tips on the tail and fins (the picture's single red accent in frames where CatFriend is absent). A faint pearly shimmer along the body when he appears at night.
+REFERENCE SHEET: one sheet on plain bright cream paper — full side view swimming + a 3/4 view rising out of the water with the head and shoulders above a few water lines + a close-up of the head holding a small glowing round bead gently in the O mouth + two expression close-ups: (1) grateful soft eyes with the mouth a small O, (2) welling-up eyes drawn as two dots with one tiny stroke-tear beside them. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.) 다섯 사물 모두 본문에 실제로 등장한다 — 구슬 P3·P9·P12·P13, 통발 P2, 나룻배 P5·P7, 삿대 P5·P12, 대바구니 P4·P13.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="구슬" data-key="word-guseul">
+  <div class="head"><span class="face">🔮</span><b>구슬</b> <span class="rom">guseul — a jade wish bead</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "guseul — a Korean jade bead, here a wish-granting magic bead (요술 구슬)". One perfectly round polished bead about the size of a plum, carved from milky jade that glows from within — a warm jade-green core (#3E9A7A) melting into a pale pearly cream rim (#F0EAD8), with a soft mother-of-pearl sheen sliding across the surface, one crisp highlight and a gentle halo of light around it. A single tiny drill hole shows it is a real bead. Show TWO views so the word reads clearly: (1) the bead resting alone, glowing, and (2) the same bead threaded on a short braided silk cord (매듭끈) in dark blue-grey. Precious, magical, proud. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="통발" data-key="word-tongbal">
+  <div class="head"><span class="face">🪤</span><b>통발</b> <span class="rom">tongbal — a woven bamboo fish trap</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "tongbal — a traditional Korean woven bamboo fish trap set in a river (통발)". A long barrel-shaped basket woven from split bamboo strips in warm honey-straw tones (#C9A05A), the weave clearly visible as a regular diagonal lattice, bound with twisted straw rope at both ends, one end tapering into an inward-pointing funnel mouth (the fish door) and the other end closed with a small lid. Show the trap at a slight 3/4 angle so the funnel mouth reads, plus a small second view of the funnel end straight on. A few water droplets and one or two river weeds clinging to the weave. Handcrafted, sturdy, warm. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="나룻배" data-key="word-narutbae">
+  <div class="head"><span class="face">🛶</span><b>나룻배</b> <span class="rom">narutbae — a flat river ferry boat</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "narutbae — a traditional Korean flat-bottomed wooden ferry boat that carries people across a river (나룻배)". A wide open boat of thick honey-brown pine planks (#B07A3C) pegged together with wooden dowels, a squared-off blunt bow and stern, low plank benches across the middle, a coil of straw rope and a woven straw mat on the deck, and one small RED pennant on a short pole at the bow. No sail and no mast — this is a pole-and-oar river ferry, not a sailing ship. Shown at a slight 3/4 angle with a few stylized water curls at the hull. Sturdy, handcrafted, everyday. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="삿대" data-key="word-satdae">
+  <div class="head"><span class="face">🎋</span><b>삿대</b> <span class="rom">satdae — a boat punting pole</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "satdae — the long wooden pole a Korean ferryman pushes against the riverbed to move the boat (삿대)". One very long slim pole, taller than a person, of pale sun-bleached wood with visible grain (#C7A97B) and a few natural bamboo-like joint rings, the grip worn smooth and slightly darker in the middle where hands hold it, the lower end capped with a blunt blackened-iron ferrule and still wet, with two or three water droplets running off it and a little river mud. Show the whole pole laid diagonally across the card plus one close-up detail of the iron-capped tip. Simple, long, satisfying silhouette. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="대바구니" data-key="word-daebaguni">
+  <div class="head"><span class="face">🧺</span><b>대바구니</b> <span class="rom">daebaguni — a woven bamboo basket</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "daebaguni — a traditional Korean woven bamboo basket used to carry food, greens and rice cakes (대바구니)". A wide shallow round basket woven from split bamboo in warm honey-straw tones (#D8B45A), the crisscross weave clearly readable, a sturdy rolled rim and a simple arched handle bound with thin bamboo strips. Show TWO states side by side so the word reads clearly: (1) the empty basket at a slight 3/4 angle showing the woven inside, and (2) the same basket heaped with soft white rice cakes (tteok) under a folded off-white cotton cloth. Homely, handcrafted, warm. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 14 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1, P2 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 넓은 강가 마을에 마음씨 착한 할아버지와 할머니가 살았어요. 식구라고는 복슬복슬한 누렁이 복슬이와, 얌전한 고양이 나비뿐이었지요. 가난했지만 밥 한 술도 나누어 먹는 정다운 집이었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 정면 — 강가 초가집과 마당 식구 넷을 한 화면에 담는 설정 컷. 화면 왼쪽 3분의 1은 강물, 오른쪽 3분의 2는 마당.<br/><b>장소·시간</b> 넓은 강가에 홀로 앉은 작은 초가집 마당, 화창한 늦봄 아침. 물비린내와 풀냄새가 섞인 정겹고 트인 공기.<br/><b>인물</b> 화면 중앙 오른쪽 — OldMan(할아버지)이 툇마루 앞에 쪼그려 앉아 짚 밧줄을 손보며 고개를 돌려 마당 쪽을 보고 크렁크렁 웃음, 눈은 두 개의 짧은 호선. 그 옆 OldWoman(할머니)은 대바구니를 옆구리에 낀 채 허리를 굽혀 밥 한 덩이를 개에게 내밀며 활짝 웃음. 화면 앞쪽 — DogFriend(복슬이)가 네 발로 서서 꼬리를 말아 올리고 혀를 내민 채 할머니를 올려다봄. 그 곁 CatFriend(나비)는 툇마루 끝에 앞발을 모으고 얌전히 앉아 꼬리를 몸에 두름, 목의 붉은 실 목끈이 화면의 단 하나 빨강.<br/><b>배경·소품</b> 초가지붕과 흙벽, 툇마루, 마당 한켠의 작은 장독 둘, 사립문 밖으로 이어지는 강가 자갈밭, 물가에 세워 둔 <b>통발(tongbal)</b> 하나와 대나무 장대, 저 멀리 건너편 강 언덕과 나지막한 산 — 전부 열린 연필선 몇 획의 러프 스케치, 크림 종이가 훤히 비침.<br/><b>톤</b> 밝고 고른 아침 햇빛, 가난해도 넉넉한 옛이야기의 문을 여는 포근하고 정겨운 정서, 따뜻한 흙빛과 한지 크림색.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>도입(놓아준 잉어)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날도 할아버지는 강가에 통발을 놓았어요. 텀벙— 건져 올리니 커다란 잉어 한 마리가 파닥파닥! 그런데 잉어의 눈이 그렁그렁 젖어 있지 뭐예요. "어이구, 가엾어라. 어서 가거라." 할아버지는 잉어를 강물에 살며시 놓아주었지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글 부감 — 강물 바로 위에서 거의 수직으로 내려다보는 중형 컷. 화면 대부분이 얕은 물이고, 물 위에 놓인 통발과 그 곁 잉어, 화면 위 가장자리로 할아버지의 어깨와 두 손이 걸침.<br/><b>장소·시간</b> 초가집 앞 강가 얕은 여울, 같은 날 늦은 아침. 물이 반짝이며 흐르는 서늘하고 맑은 공기.<br/><b>인물</b> 화면 위쪽 가장자리 — OldMan(할아버지)이 무릎까지 걷어 올린 채 물에 서서 두 손을 물속으로 내리고 잉어를 살며시 놓아주는 자세, 위에서 본 얼굴은 눈썹이 팔자로 휘고 입은 작게 벌어진 안쓰러운 미소. 화면 중앙 — CarpFish(잉어)가 옆으로 누워 물결을 일으키며 파닥이는 순간, 둥근 O 입에 긴 수염 두 가닥, 점눈에 아주 작은 눈물 획 하나. 붉은 지느러미 끝이 화면의 단 하나 빨강.<br/><b>배경·소품</b> 물 위로 반쯤 건져 올려진 <b>통발(tongbal)</b> — 대나무를 엮은 통 모양 바구니, 안쪽으로 오므린 입구, 짚 밧줄로 묶인 양끝, 물이 뚝뚝 떨어짐. 여울 바닥의 조약돌 몇 개, 물풀 두어 포기, 잉어를 감싸는 동심원 물결과 튀는 물방울 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 물에 부서지는 아침 햇빛 반짝임, 놓아주는 손의 다정함이 화면 가운데 고이는 뭉클하고 산뜻한 정서.</pre></details>
+</div>
+
+<!-- ② 발단(요술 구슬) : P3, P4 -->
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(잉어의 보답)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날 밤이었어요. 찰랑— 강물이 갈라지더니, 낮에 놓아준 잉어가 쑤욱 올라왔지 뭐예요. "저는 용왕님의 아들이랍니다. 살려 주셔서 고맙습니다." 잉어는 반짝이는 구슬 한 알을 톡 내밀었어요. "소원을 말하면 무엇이든 나온답니다."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 — 강가 자갈밭에 선 할아버지 발치 높이에서 올려다보는 대형 컷. 물 위로 솟은 잉어가 화면에서 크고 우뚝하게, 그 위로 밤하늘이 넓게.<br/><b>장소·시간</b> 초가집 앞 강가, 달이 밝은 깊은 밤. 물소리만 찰랑이는 고요하고 신비로운 공기.<br/><b>인물</b> 화면 오른쪽 아래 — OldMan(할아버지)이 자갈밭에 서서 두 손을 앞으로 오목하게 모아 내밀고 고개를 한껏 젖혀 올려다봄, 입은 동그란 O, 눈썹이 위로 치켜올라간 놀라움. 화면 왼쪽 중앙 — CarpFish(잉어)가 물 위로 몸의 절반을 솟구쳐 세우고 할아버지 쪽으로 고개를 기울임, 긴 수염 두 가닥이 부드럽게 늘어지고 몸에 은은한 진줏빛 어른거림. 잉어의 O 입에 물린 작고 동그란 <b>구슬(guseul)</b>이 옥빛으로 환하게 빛남. 화면 구석 툇마루 아래엔 DogFriend(복슬이)와 CatFriend(나비)가 나란히 고개만 내밀고 눈을 동그랗게 뜬 채 구경(나비의 붉은 목끈 = 단 하나 빨강).<br/><b>배경·소품</b> 갈라지며 흘러내리는 물줄기와 동그란 물결, 물 위에 부서진 달빛 조각, 강가 자갈과 갈대 몇 대, 뒤쪽 초가집의 낮은 지붕선과 문살 창의 희미한 불빛 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 푸른 남빛 밤 속에서 구슬 주변만 옥빛으로 환하게 번지는 조명 대비, 무섭지 않고 경이롭고 다정한 신비의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>발단(넉넉해진 집)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"따끈한 밥 한 상이 나와라!" 하니, 정말로 김이 모락모락 밥상이 차려졌어요! 할머니는 대바구니 가득 떡을 담아 이웃집에도 돌렸지요. 복슬이와 나비도 배가 통통, 마당은 하루 종일 웃음소리로 넉넉했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 평면 부감 — 마당의 밥상을 바로 위에서 내려다보는 대형 컷. 화면 한가운데 둥근 상차림이 놓이고, 그 둘레로 사람과 짐승이 방사형으로 빙 둘러앉은 구성.<br/><b>장소·시간</b> 초가집 앞마당, 화창한 한낮. 김이 오르고 웃음이 오가는 들뜬 공기.<br/><b>인물</b> 화면 위쪽 — OldMan(할아버지)이 위에서 본 각도로 상 앞에 앉아 두 팔을 벌리며 껄껄 웃음, 눈은 두 개의 짧은 호선. 오른쪽 — OldWoman(할머니)이 떡을 소복이 담은 <b>대바구니(daebaguni)</b>를 두 손으로 들고 이웃에게 건네려 몸을 돌림, 활짝 웃는 입. 왼쪽 아래 — DogFriend(복슬이)가 밥그릇에 코를 박고 꼬리를 붕붕 흔듦(꼬리 잔상 획 두엇). 그 옆 CatFriend(나비)는 앞발을 모으고 앉아 생선 한 토막을 얌전히 바라봄, 붉은 목끈이 화면의 단 하나 빨강. 상 오른편 가장자리에 이웃 아낙 한 사람이 두 손을 모아 고마워하는 실루엣(단역, 획 몇 개).<br/><b>배경·소품</b> 상 위의 김 오르는 밥그릇과 국그릇, 나물 접시, 흰 떡 무더기, 상머리에 놓인 작고 동그란 <b>구슬(guseul)</b>이 옥빛으로 은은히 빛남. 마당의 멍석, 장독 둘, 사립문과 담장, 처마 그림자 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 위에서 곧게 떨어지는 환한 한낮 햇빛, 나눔이 넘치는 푸짐하고 흥겨운 정서, 따뜻한 짚빛과 크림빛.</pre></details>
+</div>
+
+<!-- ③ 사건 : P5, P6, P7 -->
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(구슬이 사라졌어요)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">강 건너 마을에는 욕심쟁이 영감이 살았어요. 소문을 듣고 슬금슬금 찾아와, 두리번두리번 방 안을 살폈지요. 그러고는 할아버지가 잠든 사이 구슬을 쏙— 소매에 넣고, 나룻배에 올라 삿대를 쭈욱 밀어 강을 건너가 버렸답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 겹침·가림 구도의 중형 컷 — 화면 앞쪽 왼편을 커다란 장독과 담장 모서리가 반쯤 가리고, 그 틈으로 나루터를 떠나는 욕심쟁이가 보이는 구성. 살짝 어깨너머 시점.<br/><b>장소·시간</b> 초가집 아래 강가 나루터, 해가 진 직후 어스름. 몰래 빠져나가는 조마조마하고 능청스러운 공기.<br/><b>인물</b> 화면 중앙 — GreedyRichman(욕심쟁이 영감)이 <b>나룻배(narutbae)</b> 위에 올라서서 긴 <b>삿대(satdae)</b>를 강바닥에 쿡 짚고 힘껏 밀며 떠나는 자세, 목을 앞으로 길게 빼고 눈은 두 줄 실눈, 입은 능글맞은 미소, 한쪽 소매를 손으로 꼭 눌러 감춤(그 안에 구슬). 허리의 붉은 술띠가 화면의 단 하나 빨강. 화면 오른쪽 뒤편 초가집 문살 창 안으로 잠든 OldMan(할아버지)의 실루엣이 아주 작게.<br/><b>배경·소품</b> 앞을 가린 커다란 장독 두 개와 담장 모서리(반쯤만 그려짐), 나룻배의 넓은 널판 바닥과 뱃머리의 작은 깃대, 나루터의 말뚝과 감아 놓은 짚 밧줄, 물 위로 번지는 배 지나간 자국, 건너편 강 언덕의 낮은 불빛 몇 점 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 해 진 뒤 남빛 어스름에 물빛만 희미하게 남은 조명, 무섭지 않고 우스꽝스럽게 살금거리는 코믹한 긴장의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(우리가 찾아오자!)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이튿날 아침, 구슬이 없어진 걸 안 할아버지와 할머니는 시무룩— 어깨가 축 처졌어요. 마루 밑에서 그 모습을 보던 복슬이와 나비는 서로 마주 보았지요. "우리가 찾아오자!" "그래, 함께 가자!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨 — 마루 밑 어둑한 틈에서 코를 맞대고 마주 본 개와 고양이의 두 얼굴이 화면을 꽉 채우는 중형 클로즈업. 화면 위쪽 좁은 띠로 마루 널 틈새 사이 바깥 빛이 들어옴.<br/><b>장소·시간</b> 초가집 툇마루 아래 좁은 틈, 이튿날 아침. 먼지가 반짝이며 떠도는 아늑하고 은밀한 공기.<br/><b>인물</b> 화면 왼쪽 — DogFriend(복슬이)의 얼굴이 크게, 귀를 쫑긋 세우고 눈을 동그랗게 뜬 채 입을 작은 O로 벌려 말하는 중, 코가 고양이 코에 거의 닿을 듯. 화면 오른쪽 — CatFriend(나비)의 얼굴이 마주 보게 크게, 귀를 앞으로 세우고 야무진 'w' 입, 앞발 하나를 살짝 들어 결심하듯 짚음. 붉은 실 목끈과 작은 방울이 클로즈업으로 또렷 = 화면의 단 하나 빨강.<br/><b>배경·소품</b> 마루 널의 굵은 나뭇결 몇 획과 그 틈으로 새어드는 빛줄기, 바닥의 흙과 잔돌 몇 개, 화면 위쪽 널 틈 너머로 아주 작게 보이는 OldMan(할아버지)·OldWoman(할머니)의 발과 축 처진 치맛자락·바짓자락(얼굴은 보이지 않음) — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 어둑한 마루 밑에 빛줄기 하나가 두 얼굴 위로 비스듬히 떨어짐, 작고 씩씩한 결심이 반짝 켜지는 다정하고 야무진 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(강을 건너다)</b> <span class="tag beat">③ 사건 · 후렴 ①</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">강물은 넓고 또 넓었어요. 복슬이는 첨벙첨벙 잘도 헤엄쳤지만, 나비는 물이 무서워 발끝만 콩콩. "내 등에 타!" 나비는 폴짝, 복슬이 등에 올라탔지요. "첨벙첨벙 건너가자! 꼭 붙잡았니?" "붙잡았지!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 + 스케일 대비, 높은 하이앵글 — 아주 넓은 강을 위에서 비스듬히 내려다보고, 그 한가운데 헤엄치는 개와 등에 탄 고양이가 손톱만 하게 놓인 컷. 화면의 절반 이상이 물결과 빈 종이.<br/><b>장소·시간</b> 마을 앞 넓은 강 한복판, 이튿날 한낮. 잔잔하고 트인 시원한 공기(사나운 물결·위험 기색 전혀 없이).<br/><b>인물</b> 화면 중앙 아래쪽에 아주 작게 — DogFriend(복슬이)가 머리와 어깨, 말린 꼬리 끝만 물 위로 내놓고 앞발로 물을 저으며 헤엄침, 입은 벌려 씩씩하게 노래하는 O. 그 등 위 CatFriend(나비)가 몸을 납작 낮춰 앞발로 등털을 꼭 붙잡고 꼬리를 위로 곧게 세워 균형을 잡음, 귀는 뒤로 살짝 눕고 눈은 동그랗게 — 작지만 붉은 목끈 한 점이 또렷 = 화면의 단 하나 빨강.<br/><b>배경·소품</b> 사방으로 퍼지는 둥근 물결 곡선 몇 겹과 개가 남긴 V자 물길, 물 위에 흩어진 햇빛 반짝임, 화면 위쪽 멀리 건너편 나루터에 매인 <b>나룻배(narutbae)</b>와 그 곁에 세워진 긴 <b>삿대(satdae)</b>, 강 언덕의 기와지붕 몇 채, 하늘의 뭉게구름 — 전부 열린 연필선 몇 획, 크림 종이 여백이 넓게.<br/><b>톤</b> 눈부신 한낮 햇빛이 물 위에 흩뿌려짐, 세상은 크고 친구는 작은 스케일의 벅참, 씩씩하고 신나는 출발의 정서.</pre></details>
+</div>
+
+<!-- ④ 절정 : P8, P9, P10, P11 -->
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>절정(곳간의 생쥐)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">욕심쟁이 영감네 곳간은 캄캄했어요. 그때 구석에서 찍찍— 생쥐 한 마리가 쪼르르 나왔지요. 나비가 눈을 반짝이며 말했어요. "구슬을 찾아 주면, 오늘은 못 본 척해 줄게!" 생쥐는 고개를 끄덕끄덕했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 극단 여백 컷 — 화면의 약 70%가 텅 빈 어두운 곳간 바닥과 벽이고, 사건은 화면 오른쪽 아래 구석의 작은 빛웅덩이 안에만 놓인 대형 와이드. 아이레벨보다 살짝 낮게.<br/><b>장소·시간</b> 강 건너 욕심쟁이 영감네 곳간 안, 같은 날 저녁. 서늘하고 조용한, 먼지 냄새 나는 공기.<br/><b>인물</b> 화면 오른쪽 아래 빛웅덩이 안 — CatFriend(나비)가 몸을 낮게 웅크리고 앞발을 가지런히 모은 채 고개를 살짝 기울여 생쥐와 눈높이를 맞춤, 귀는 앞으로, 입은 야무진 'w' 미소(위협하는 기색 전혀 없이 다정한 거래하는 얼굴). 붉은 실 목끈이 어둠 속 단 하나 빨강. 그 앞 MouseHelper(생쥐)가 뒷발로 앉아 앞발 두 개를 가슴에 모으고 큰 동그란 귀를 쫑긋, 고개를 끄덕이는 순간. 화면 바깥쪽 문틈으로 DogFriend(복슬이)의 코끝과 앞발 하나만 살짝 들어옴(몸은 밖에서 망보는 중).<br/><b>배경·소품</b> 곳간 벽에 기대 세운 가마니와 나무 궤짝의 어렴풋한 윤곽, 서까래와 거미줄 한 가닥, 바닥의 쌀 몇 톨, 문틈으로 비스듬히 들어온 한 줄기 저녁빛이 만든 밝은 웅덩이 — 배경은 열린 연필선 러프 스케치, 나머지는 거의 빈 크림 종이.<br/><b>톤</b> 어둑한 곳간과 문틈 빛줄기의 강한 대비, 무섭지 않고 소곤소곤 비밀스러운, 살짝 코믹한 작전 회의의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(데구루루, 구슬!)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">생쥐는 나무 궤짝 밑으로 쏙 들어가 사각사각 구멍을 냈어요. 잠시 뒤, 데구루루— 반짝이는 구슬이 굴러 나왔지 뭐예요! 나비는 구슬을 입에 꼭 물었어요. "고마워, 생쥐야!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 매크로 클로즈업, 바닥에 거의 붙은 아주 낮은 앵글 — 궤짝 밑 구멍에서 굴러 나오는 구슬이 화면 앞쪽에 커다랗게, 그 너머로 고양이의 얼굴과 생쥐가 초점 뒤에 놓이는 구성.<br/><b>장소·시간</b> 욕심쟁이 영감네 곳간 바닥, 같은 날 밤. 숨죽인 채 반짝 밝아지는 결정적 순간의 공기.<br/><b>인물</b> 화면 오른쪽 안쪽 — CatFriend(나비)가 바닥에 턱을 붙일 듯 몸을 낮추고 앞발을 뻗어 굴러오는 구슬을 막아 세우려는 자세, 눈은 크게 동그랗고 귀는 앞으로 바짝, 입은 작은 O. 붉은 실 목끈이 바닥 가까이서 또렷 = 화면의 단 하나 빨강. 화면 왼쪽 뒤 — MouseHelper(생쥐)가 궤짝 밑 갓 뚫은 구멍에서 코와 앞발을 내밀고 자랑스럽게 수염을 들어 올림, 코끝에 나무 부스러기 몇 톨.<br/><b>배경·소품</b> 화면 앞쪽에 크게 놓인 <b>구슬(guseul)</b> — 옥빛 속심이 안에서부터 환히 빛나고 표면에 진줏빛 광택이 흐르는 동그란 구슬, 굴러온 자리에 짧은 빛 자국. 궤짝 아래 갉아 낸 둥근 구멍과 흩어진 나무 부스러기, 궤짝의 검은 무쇠 귀장식, 바닥의 굵은 나뭇결 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 캄캄한 곳간 안에서 구슬 자체가 유일한 광원이 되어 고양이와 생쥐의 얼굴을 아래에서 옥빛으로 물들임, 짜릿하고 흐뭇한 성공의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(개 등에 탄 고양이)</b> <span class="tag beat">④ 절정 · 후렴 ② · 🔴 시각적 훅</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">돌아오는 길, 나비는 다시 복슬이 등에 폴짝 올라탔어요. 복슬이는 신이 나서 노래하듯 물었지요. "물었니?" "물었지!" "놓쳤니?" "아니야!" 첨벙첨벙, 물결 위로 노랫소리가 통통 튀었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, <b>수면 높이 로우앵글</b> — 카메라를 물에 거의 담근 채 옆에서 나란히 따라가는 각도. 화면 아래 3분의 1이 코앞의 물결이고, 헤엄치는 개의 머리와 그 등에 올라탄 고양이가 화면 가운데를 가득 채우는 이 편의 한 방 컷.<br/><b>장소·시간</b> 달빛 어린 강 한복판, 그날 밤. 물결이 잔잔하게 밀려가는 시원하고 신나는 공기.<br/><b>인물</b> 화면 중앙 — DogFriend(복슬이)가 머리와 어깨를 물 위로 내밀고 앞발로 물을 저으며 헤엄침, 젖은 털이 몸에 붙어 긴 아래 방향 획으로 그려지고, 고개를 뒤로 살짝 돌려 등 위를 보며 입을 크게 벌려 노래함, 귀는 뒤로 눕고 말린 꼬리 끝이 물 위로 삐죽. 그 등 위 CatFriend(나비)가 몸을 납작 낮춰 네 발로 등털을 꼭 붙잡고 꼬리를 곧게 세워 균형을 잡음 — 볼이 동그랗게 부푼 채 입을 꼭 다물어 <b>구슬(guseul)</b>을 물고 있고, 입술 사이로 옥빛 구슬이 살짝 비쳐 빛남. 눈은 반짝, 귀는 앞으로. 붉은 실 목끈이 젖은 채 목에 붙어 화면의 단 하나 빨강.<br/><b>배경·소품</b> 코앞에서 굽이치는 둥근 물결 곡선과 튀어 오르는 물방울 획들, 개가 남긴 V자 물길, 수면에 부서진 달빛과 구슬빛의 옥색 반영, 저 멀리 강가 초가집의 작은 불빛 한 점 — 배경은 열린 연필선 러프 스케치, 물은 대부분 빈 크림 종이에 곡선 몇 겹.<br/><b>톤</b> 남빛 밤 물결 위로 달빛과 구슬빛이 함께 어리는 조명, 둘이 해냈다는 신나고 우쭐한 정서 — 이 화면이 이 편의 표지 같은 한 장.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(퐁당! 그리고 삐침)</b> <span class="tag beat">④ 절정 · 후렴 ③</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 강 한가운데서 복슬이가 또 물었어요. "정말 물었니?" "물었다니까—" 대답하려고 입을 벌린 순간, 퐁당! 구슬이 물속으로 쏙 빠져 버렸어요. "네가 자꾸 물어봤잖아!" "네가 입을 벌렸잖아!" 둘은 홱— 서로 고개를 돌려 버렸지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글 부감 — 물 위 비스듬히 위에서 내려다보는 중형 컷. 화면 위쪽에 고개를 홱 돌린 두 얼굴이, 화면 아래쪽 물속으로는 가라앉으며 작아지는 구슬과 그 뒤를 따르는 공기방울 줄이 대각선으로 놓임.<br/><b>장소·시간</b> 달빛 어린 강 한복판, 같은 밤 바로 다음 순간. 노래가 뚝 끊긴 머쓱하고 어수선한 공기.<br/><b>인물</b> 화면 위 왼쪽 — DogFriend(복슬이)가 물 위에서 헤엄을 멈칫한 채 고개를 오른쪽으로 홱 돌리고 귀를 축 늘어뜨림, 입은 아래로 휜 한 줄에 눈썹 획 두 개로 뾰로통. 화면 위 오른쪽, 개의 등 위 — CatFriend(나비)가 정반대 방향으로 고개를 홱 돌려 귀를 옆으로 눕히고 꼬리를 낮게 탁 침, 입은 벌어진 채 아차 하는 O에서 삐친 'w'로 넘어가는 표정. 둘의 시선이 완전히 엇갈려 서로를 안 봄. 나비의 붉은 목끈 = 단 하나 빨강. (무는 동작·으르렁·발톱 절대 없이, 등 돌린 삐침으로만.)<br/><b>배경·소품</b> 물 아래로 대각선을 그으며 가라앉는 <b>구슬(guseul)</b>의 옥빛 점과 점점 작아지는 잔광, 그 위로 올라오는 동그란 공기방울 서너 개, 수면에 퍼지는 동심원과 튄 물방울 획, 달빛 조각들 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 달빛 아래 물빛이 서늘하게 식은 조명, 큰일이지만 무섭지 않고 어이없어 웃음이 나는 투닥 삐침의 정서.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P12, P13, P14 -->
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>결말(잉어가 다시 나타나다)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">복슬이는 시무룩하게 먼저 집으로 갔어요. 나비는 강가를 서성서성… 그때 물결이 찰랑, 낯익은 잉어가 쑤욱 올라왔지 뭐예요. 잉어의 입에는 반짝이는 구슬이 물려 있었지요. "이건 착한 마음에게 드린 거예요. 어서 가져가세요."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 수중 로우앵글 — 물속에서 수면을 올려다보는 중형 컷. 화면 위쪽에 은빛으로 일렁이는 수면과 그 너머 물가에 선 고양이의 실루엣이 거꾸로 비치고, 화면 중앙 물속에서 잉어가 구슬을 물고 위로 솟아오르는 구성.<br/><b>장소·시간</b> 마을 앞 강가 얕은 물속과 수면, 그날 밤이 지나 어스름한 새벽. 물속이 조용히 밝아 오는 신비롭고 다정한 공기.<br/><b>인물</b> 화면 중앙 물속 — CarpFish(잉어)가 커다란 몸을 위로 비스듬히 세워 솟아오르며 둥근 O 입에 <b>구슬(guseul)</b>을 물고 있음, 긴 수염 두 가닥이 물살에 뒤로 흐르고 부채 같은 꼬리가 크게 펼쳐짐, 점눈은 다정하고 몸에 진줏빛 어른거림, 붉은 지느러미 끝 = 화면의 단 하나 빨강(고양이는 수면 위 실루엣이라 목끈이 보이지 않음). 화면 위 수면 너머 — CatFriend(나비)가 물가 자갈밭에 앞발을 담그고 고개를 숙여 물속을 들여다보는 실루엣, 귀와 세운 꼬리 윤곽만.<br/><b>배경·소품</b> 물속으로 비스듬히 내려온 새벽빛 기둥 몇 줄기, 떠오르는 공기방울, 바닥의 조약돌과 물풀, 수면 위 물가에 세워진 긴 <b>삿대(satdae)</b>와 매인 배의 어렴풋한 윤곽 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 물속의 서늘한 옥빛·청록빛에 구슬만 따뜻하게 빛남, 은혜가 한 바퀴 돌아 되돌아오는 뭉클하고 신비로운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>결말(집으로 돌아온 구슬)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">나비는 구슬을 물고 한달음에 집으로 달려왔어요. "아이고, 우리 나비!" 할머니는 나비를 폭 안아 주었지요. 마루 밑에서 복슬이가 코를 씰룩였어요. 그러자 할아버지가 복슬이의 등도 쓱쓱 쓰다듬어 주었답니다. "복슬이도 참 애썼구나."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 어깨너머 중형 컷 — 화면 앞쪽 오른편에 할머니의 어깨와 팔이 크게 걸치고, 그 품에 안긴 고양이 너머로 마루 밑의 개와 할아버지가 함께 보이는 구성. 살짝 아이레벨 위.<br/><b>장소·시간</b> 초가집 툇마루 앞 마당, 이른 아침. 안도의 한숨과 웃음이 함께 터지는 따뜻한 공기.<br/><b>인물</b> 화면 오른쪽 앞 — OldWoman(할머니)이 무릎을 굽혀 CatFriend(나비)를 두 팔로 폭 안아 올림, 볼을 고양이 머리에 붙이고 눈은 두 개의 짧은 호선, 입은 활짝. 그 품의 나비는 앞발을 할머니 어깨에 얹은 채 야무진 'w' 미소, 붉은 실 목끈 = 단 하나 빨강. 화면 왼쪽 — 마루 밑에서 반쯤 나온 DogFriend(복슬이)가 코를 씰룩이며 눈치를 보고 귀는 아직 축 처짐, 꼬리는 조심스레 한 번 살랑. 그 곁에 OldMan(할아버지)이 쪼그려 앉아 개의 등을 쓱쓱 쓰다듬으며 다정하게 웃음 — 개의 귀가 막 다시 서기 시작함.<br/><b>배경·소품</b> 툇마루 위에 되돌아와 놓인 작고 동그란 <b>구슬(guseul)</b>이 옥빛으로 은은히 빛남, 그 옆에 놓인 <b>대바구니(daebaguni)</b>와 아침 밥그릇 둘, 마당의 장독과 사립문, 처마 밑으로 스미는 아침 햇살 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 낮게 깔린 이른 아침 햇빛, 서로 다른 두 마리 모두를 품는 넉넉하고 뭉클한 정서, 따뜻한 흙빛과 크림빛.</pre></details>
+</div>
+
+<div class="page-card" data-page="p14">
+  <div class="page-head"><span class="pnum">P14</span><b>결말(그래서 지금도…)</b> <span class="tag beat">⑤ 결말 · 유래</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날 저녁, 마당은 다시 웃음으로 넉넉했어요. 그런데 복슬이와 나비는요? 마주칠 때마다 고개를 홱— 서로 데면데면했지 뭐예요. "물었니?" "…" 그래서 지금도 개와 고양이는 만나면 슬쩍 눈을 흘긴대요. 함께 해낸 일은 함께 기뻐해야 오래오래 사이좋게 지낼 수 있대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 정면 — 마당 전체를 한 화면에 담는 마무리 컷. 화면 가운데 노부부의 저녁상이 놓이고, 그 좌우 끝에 개와 고양이가 서로 등을 지고 멀찍이 떨어져 앉은 대칭 구성(P1의 오순도순 모임과 짝을 이루되 짐승 둘만 양끝으로 갈라진 구도).<br/><b>장소·시간</b> 초가집 앞마당, 노을이 짙은 저녁. 배부르고 나른한, 웃음이 남아 도는 공기.<br/><b>인물</b> 화면 중앙 — OldMan(할아버지)과 OldWoman(할머니)이 나란히 앉아 마주 보며 껄껄 웃음, 두 사람 사이 상 위에 <b>구슬(guseul)</b>이 옥빛으로 은은히 빛남. 화면 왼쪽 끝 — DogFriend(복슬이)가 마당 가장자리에 엎드려 앞발에 턱을 얹고 고개를 오른쪽(고양이 반대편)으로 홱 돌림, 귀 한쪽만 뒤로 쫑긋 세워 저쪽을 신경 씀. 화면 오른쪽 끝 — CatFriend(나비)가 장독 위에 앉아 정확히 반대편으로 고개를 돌리고 꼬리를 한 번 탁 침, 눈꼬리만 슬쩍 개 쪽으로 흘김. 붉은 실 목끈 = 단 하나 빨강. (다투는 동작 없이, 등 돌린 채 서로를 곁눈질하는 우스운 데면데면함으로.)<br/><b>배경·소품</b> 마당의 멍석과 저녁상, 상 위 밥그릇과 나물 접시, 툇마루에 놓인 <b>대바구니(daebaguni)</b>, 장독 둘, 사립문 너머 노을빛 강물이 길게 반짝임, 하늘에 물든 주홍빛 구름과 돌아가는 새 몇 획 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 짙은 주홍 노을빛이 마당을 길게 물들이는 조명, 따뜻하게 닫히면서 마지막에 슬쩍 웃음이 터지는 유래담의 정서.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 개와 고양이 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING (finish hierarchy — the single most important rule): The bright warm cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. This picture is deliberately UNEVENLY finished, like one page from a master's sketchbook. Finish only what matters: the CHARACTERS = finished (clear line AND color, keep them at their current level); a prop a character is directly touching or holding (a loom, a bench, a gourd in their hands) = half-finished, a bit of line and a little color; everything else — the whole background: jars, walls, fences, roofs, trees, hills, anything far away — = a LOOSE UNFINISHED PENCIL SKETCH: just a few open contour lines and a few direction strokes, barely any color, lots of bare cream paper showing through, deliberately NOT filled in, like the rough underdrawing on a sketchbook page. A jar is two or three open outlines, a roof is a few slanted direction strokes, a distant thing is one or two lines and then paper. This is about how FINISHED each area is, NOT about opacity — the background is not faded, hazy, blurry or low-saturation, it is simply left as rough sketch lines and not drawn to completion. Spend all the density ONLY on the characters. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces; NOT a fully rendered background, NOT every jar / roof-tile / leaf drawn to completion, NOT a uniform finish across the whole picture, and NOT a hazy / blurry / faded background either (that is just blur, not a sketch) — keep the background as loose OPEN PENCIL SKETCH lines and every stroke loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'DogFriend',     name: '개 복슬이',      desc: '씩씩한 누렁이 — 짚빛 털, 말아 올린 꼬리, 감정은 귀·꼬리로(네 발 짐승)', aliases: ['DogFriend'] },
+    { token: 'CatFriend',     name: '고양이 나비',    desc: '야무진 삼색 고양이 — 붉은 실 목끈(빨강 악센트), 구슬을 입에 물음',     aliases: ['CatFriend'] },
+    { token: 'OldMan',        name: '할아버지',       desc: '마음씨 착한 할아버지 — 작고 구부정, 흰 수염 몇 획, 통발을 든 어부',   aliases: ['OldMan'] },
+    { token: 'OldWoman',      name: '할머니',         desc: '다정한 할머니 — 작고 동글, 낮은 쪽머리, 대바구니를 낀 바지런한 손',   aliases: ['OldWoman'] },
+    { token: 'GreedyRichman', name: '욕심쟁이 영감',  desc: '강 건너 부자 — 목을 길게 뺀 마른 몸, 늘어진 콧수염, 붉은 술띠',      aliases: ['GreedyRichman'] },
+    { token: 'MouseHelper',   name: '생쥐',          desc: '곳간 생쥐 — 큰 동그란 귀, 한 획 꼬리, 예의 바른 조력자',              aliases: ['MouseHelper'] },
+    { token: 'CarpFish',      name: '잉어',          desc: '용왕님의 아들 — 큼직한 잉어, 긴 수염 두 가닥, 붉은 지느러미 끝',      aliases: ['CarpFish'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

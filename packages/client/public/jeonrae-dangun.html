@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 단군 이야기</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · 시즌2 #23</div>
+  <h1>🐻 단군 이야기</h1>
+  <div class="sub">깜깜한 동굴에서 백 일을 참아 낸 곰 — 우리나라가 처음 생긴 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 인내 &nbsp;·&nbsp;
+  <b>분량</b> 12 스프레드 &nbsp;·&nbsp; <b>후렴</b> 쑥과 마늘 참기 노래 &nbsp;·&nbsp;
+  <b>핵심단어</b> 솟대 · 제기 · 쑥다발 · 마늘 · 북 &nbsp;·&nbsp;
+  <b>순화</b> 🔴 동굴 백 일 = <b>벌이 아니라 "견디기 놀이"</b> — 깜깜함·굶주림·고통 묘사 금지, 입구의 햇빛 한 줌이 늘 동그랗게 밝고 둘은 노래하며 하루를 센다 / 🔴 호랑이가 뛰쳐나가는 것은 <b>실패도 벌도 아니다</b> — "저마다 잘하는 게 다르다"는 따뜻한 시선, 곰이 웃으며 손을 흔들어 배웅하고 마지막에 다시 만나 축하한다 / 건국 서사는 무겁지 않게 — 전쟁·정복 없이 <b>아기가 태어나 온 마을이 기뻐하는</b> 정도로
+</div>
+<div class="refrain">🌿 반복 후렴 — "쑥 한 입, 마늘 한 쪽, 하나 둘 셋! 오늘도 잘 참았다, 하나 둘 셋!" <span style="font-weight:600;font-size:13px">(P5 시작 → P9 혼자서 → P10 백일째 완성)</span></div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-dangun</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.<br>🔴 <b>변신 캐릭터 = 시트 분리</b> — <code>BearAnimal(곰)</code> 과 <code>Ungnyeo(웅녀)</code> 는 <b>다른 @image</b> 다. 각 쪽 SCENE은 그 시점의 상태 토큰만 쓴다(P1~P9 = BearAnimal, P10 이후 = Ungnyeo). 곰이 사람이 되었다는 것은 <b>가슴의 초승달 무늬 하나</b>로만 이어 붙인다.<br>🔴 <b>화면당 빨강 악센트 1점 = 환웅의 붉은 술띠</b>. 환웅이 없는 컷의 빨강은 그 쪽 SCENE 이 지정한다(동굴 = 쑥다발을 묶은 붉은 실, 호랑이 단독 = 없이 두고 쑥다발 붉은 실 유지).</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="환웅" data-key="char-hwanung">
+  <div class="head"><span class="face">🌤️</span><b>환웅</b> <span class="rom">Hwanung · 하늘에서 내려온 임금</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Hwanung — the son of the sky king who came down to live among people; gentle, bright and approachable, NEVER solemn, stern or godlike-scary. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a warm one-line smile, no nose (or one tiny dot), hair as one solid dark mass in a topknot (sangtu) held by a simple cream headband, and two or three tiny stubble dots on the chin so he reads as a grown man.
+SILHOUETTE (his signature): tall and calm and vertical, with wide sleeves that hang in two long open drape lines — when he raises an arm the sleeve makes a soft sweeping curve like a cloud. He is always the stillest, most upright shape in the picture.
+SIGNATURE RED: a narrow RED sash cord tied at his waist with its two ends hanging down — this is the picture's single red accent whenever he appears.
+CLOTHES: a loose white-cream robe left almost entirely as open paper with only a few soft blue-grey contour strokes, a pale sky-blue over-vest suggested in light hatching, cloth shoes in two strokes. Airy and light — he should look like he arrived on the wind, told by the open sleeves, not by glow or gold.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands together in front, warm one-line smile, sleeves hanging open) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) warm one-line smile, (2) kindly explaining with a small open mouth and one hand raised, (3) delighted crinkled smile with lifted brow strokes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="곰" data-key="char-bear-animal">
+  <div class="head"><span class="face">🐻</span><b>곰</b> <span class="rom">BearAnimal · 참을성 많은 곰</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: BearAnimal — a young Asiatic black bear, patient, slow-moving and sweet-natured; cuddly and never fierce (no fangs, no claws shown). Dot-eye design language kept exactly: a flat muzzle with zero shading, two dot eyes set wide and low, a tiny line mouth, one small dot nose, two little round ears on top of the head.
+SILHOUETTE (her signature): a big soft ROUND pear-shaped body with short stubby arms and legs and a heavy settled bottom — she looks like she could sit still all day. The exact opposite of the long stretchy springy tiger.
+SIGNATURE MARK (🔴 carries over to Ungnyeo): a pale CREAM CRESCENT-MOON patch on her chest, drawn as one clean curved shape — the one thing that proves she and the woman are the same person.
+COLOR: her body is one solid soft dark blue-grey mass (not black ink), left open at the edges with loose pencil strokes and bare cream paper showing through at the belly.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (sitting upright, paws resting on her knees, tiny calm line mouth) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) calm patient closed line mouth, (2) chewing — cheeks puffed with a small squiggle mouth and eyes squeezed into two short arcs, (3) quiet joyful smile with lifted brow strokes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="웅녀" data-key="char-ungnyeo">
+  <div class="head"><span class="face">👩</span><b>웅녀</b> <span class="rom">Ungnyeo · 사람이 된 곰</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Ungnyeo — the SAME bear AFTER a hundred patient days, now a young woman. Warm, calm and steady; she moves slowly and settles softly, exactly like the bear did.
+🔴 THE LINK: she keeps the bear's bearing — the same wide-set low dot eyes, the same small calm line mouth, the same heavy settled way of sitting. And she wears one pale CREAM CRESCENT-MOON ornament at her collar, the same shape as the bear's chest patch — that is how a child knows she is the bear.
+Dot-eye design language: a flat cream face with zero shading, two dot eyes, a calm one-line smile, no nose (or one tiny dot), hair as one solid dark mass gathered into a low soft bun with one plain wooden hairpin drawn as a single stroke.
+SILHOUETTE: small, softly rounded and grounded — a settled, unhurried shape, never slender or elegant-tall. She is the calm weight in every picture she is in.
+CLOTHES: a simple everyday skirt-and-jacket hanbok — the jacket left as open cream paper with a few neat contour strokes, the skirt suggested in a soft leaf-green pencil tone with loose hatching, plain cloth shoes. Modest and comfortable, NOT ornate.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded at the waist, calm one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) calm one-line smile, (2) wondering at her own hands — small O mouth with lifted brow strokes, (3) tender smile with the head tilted down as if looking at a baby. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="호랑이" data-key="char-tiger-animal">
+  <div class="head"><span class="face">🐯</span><b>호랑이</b> <span class="rom">TigerAnimal · 씩씩하고 못 참는 호랑이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: TigerAnimal — a young tiger, cheerful, bouncy and full of energy; he is NOT a villain and NEVER scary or menacing (no bared fangs, no claws, no snarl). He simply cannot sit still. Dot-eye design language kept exactly: a flat muzzle with zero shading, two dot eyes, a wide happy line mouth, one small dot nose, two round ears, whiskers as three quick strokes each side.
+SILHOUETTE (his signature): long, stretchy and springy — a low bouncy body on quick legs with a long swishing tail that is always mid-motion. The exact opposite of the round settled bear.
+COLOR & PATTERN: a pale straw-yellow body left mostly as open cream paper, with just a handful of soft blue-grey stripe strokes across the back and tail — stripes suggested with a few quick strokes, never fully filled in.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (crouched ready to spring, tail curling up, wide line grin) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) bright wide line grin, (2) squirmy impatience — a wobbly zigzag mouth with tilted brow strokes and one ear flattened, (3) tongue-out "yuck" face after a bitter bite, eyes squeezed shut into two short arcs. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="아기 단군" data-key="char-baby-dangun">
+  <div class="head"><span class="face">👶</span><b>아기 단군</b> <span class="rom">BabyDangun · 새로 태어난 아기</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: BabyDangun — a chubby, healthy newborn baby boy, all roundness and calm; sweet and ordinary, never grand or holy (no halo, no glow, no crown).
+Dot-eye design language: a flat cream face with zero shading, two dot eyes, a tiny curved line mouth, no nose (or one tiny dot), and just one single curl of dark hair drawn as one small stroke on top of the head.
+SILHOUETTE (his signature): a simple round bundle — a plump swaddled shape with two tiny hands poking out at the top, so small that he always fits inside an adult's two arms. Scale is the point: he must read as tiny next to everyone.
+CLOTHES: wrapped in a plain cream cotton swaddling cloth suggested with a few soft contour strokes and light hatching, left mostly as open paper.
+REFERENCE SHEET: one sheet on plain bright cream paper — front idle lying swaddled with both tiny hands up + a 3/4 view held in a pair of adult arms (arms cropped) + three face close-ups where the expression changes ONLY through the mouth line and tiny brow strokes: (1) peaceful sleeping with two closed arc eyes, (2) wide-awake dot eyes with a small O mouth, (3) a gummy open-mouthed laugh. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.) 다섯 사물 모두 본문에 실제로 등장한다 — 솟대 P2·P12, 북 P3·P11, 쑥다발 P4·P5·P6·P9, 마늘 P4·P5·P6, 제기 P11.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="솟대" data-key="word-sotdae">
+  <div class="head"><span class="face">🪧</span><b>솟대</b> <span class="rom">sotdae — a village guardian bird pole</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "sotdae — a traditional Korean village guardian pole topped with a carved wooden bird (솟대)". One tall slender pole of natural peeled wood with visible grain (#B07A3C), slightly weathered, standing straight; on top a simply carved duck-or-goose figure with a long straight beak, turned sideways as if facing the wind, its body painted in soft mineral pigments — pale jade-green body (#27795B) with dancheong-style band accents and a small red beak (#C0392B). A few strands of twisted straw rope and a small hanging cloth streamer knotted near the top. Show the whole pole at a slight 3/4 angle with the bird large enough to read clearly. Proud, calm, folk-craft heritage. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="제기" data-key="word-jegi">
+  <div class="head"><span class="face">🍚</span><b>제기</b> <span class="rom">jegi — a footed ritual offering vessel</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jegi — a traditional Korean footed ritual vessel used to offer food to the ancestors and the sky (제기)". A shallow round bowl raised on a tall trumpet-shaped pedestal foot, turned from wood and finished in warm dark red-brown lacquer (#7B3B2E) with a soft satin sheen, its rim ringed by one thin gold line. Show TWO forms so the word reads clearly: (1) the empty vessel seen at a slight 3/4 angle so the pedestal and the bowl depth both read, and (2) the same vessel heaped with fresh harvest grain — pale golden rice and a few chestnuts and jujubes (#C0392B). Dignified, crisp, proud heritage. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="쑥다발" data-key="word-ssuk">
+  <div class="head"><span class="face">🌿</span><b>쑥다발</b> <span class="rom">ssuk — a bundle of mugwort</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "ssuk — a bundle of Korean mugwort (쑥), a wild herb people have gathered and eaten since ancient times". A generous hand-tied bundle of mugwort stems, the leaves deeply lobed and feathery with a sage-green top surface (#6E8B4E) and a distinctive silvery-white downy underside (#D8DCC8) that shows where the leaves curl over — this two-tone leaf is the plant's signature. The stems gathered and bound with a twist of RED thread (#C0392B). Show the tied bundle plus two or three loose single leaves laid beside it so the leaf shape reads clearly. Fresh, crisp, herbal and proud. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="마늘" data-key="word-maneul">
+  <div class="head"><span class="face">🧄</span><b>마늘</b> <span class="rom">maneul — Korean garlic</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "maneul — Korean garlic (마늘)". Plump round garlic bulbs wrapped in papery ivory-white skin (#F2ECDF) with fine violet-pink veining (#B98BA6) and a short dry twisted neck. Show THREE forms on the card so the word reads clearly: (1) a whole bulb seen from the side, (2) a single peeled clove standing beside it, glossy ivory and crisp, and (3) a small braided string of bulbs plaited by their dried stems, the way they are hung in an old Korean kitchen. Clean, appetizing, high-clarity. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="북" data-key="word-buk">
+  <div class="head"><span class="face">🥁</span><b>북</b> <span class="rom">buk — a traditional Korean barrel drum</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "buk — a traditional Korean barrel drum (북)". A wide shallow barrel-shaped drum body of solid paulownia wood painted in deep vermilion lacquer (#C0392B) with a bold dancheong-pattern band of jade-green, cobalt and gold circling the shell (#27795B, #3E6E9B, #C9A227), two round oxhide drumheads in warm pale tan (#E3CDA4) laced tight to the rim with rows of round-headed tacks. Show it standing on a simple carved wooden X-frame stand at a slight 3/4 angle, with one thick wooden drumstick (북채) resting against it. Vivid, festive, resonant. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 12 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 하늘나라 임금님의 아들 환웅이 살았어요. 환웅은 구름 사이로 아래 세상을 가만히 내려다보았지요. 푸른 산과 들이 반짝반짝, 시냇물이 졸졸졸. "저 땅에 내려가 사람들과 함께 살고 싶구나."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 하이앵글 부감 + 스케일 대비 — 구름 위에서 아득히 아래 땅을 내려다보는 구도. 화면 위쪽 구석에 환웅이 작게 서 있고, 화면의 대부분은 저 아래 펼쳐진 산과 들.<br/><b>장소·시간</b> 하늘 위 구름 언덕, 맑은 아침. 바람이 시원하게 지나가는 높고 트인 공기.<br/><b>인물</b> Hwanung(환웅)이 화면 왼쪽 위 구름 가장자리에 홀로 서서, 몸을 앞으로 살짝 기울이고 한 손으로 이마 위를 가려 먼 아래를 내려다봄. 넓은 소매가 바람에 두 가닥 긴 곡선으로 흘러내리고, 얼굴은 궁금함이 가득한 온화한 한 줄 미소. 허리의 붉은 술띠 두 자락이 아래로 나부낌(화면의 단 하나 빨강).<br/><b>배경·소품</b> 발밑의 두툼한 구름 언덕은 열린 연필선 몇 획으로, 저 아래로 아주 작게 펼쳐진 푸른 산줄기와 들판·구불구불한 시냇물·손톱만 한 초가 몇 채 — 전부 연필 러프 스케치로 옅게. 하늘엔 새 몇 마리가 점처럼.<br/><b>톤</b> 맑은 아침 햇빛이 위에서 넓게 쏟아지고, 세상이 처음 열리는 듯 벅차고 설레는 정서. 크림빛 여백이 하늘 그 자체.</pre></details>
+</div>
+
+<!-- ② 발단 : P2, P3 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(신단수 아래로)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">환웅은 바람과 비와 구름을 데리고 스르륵— 산꼭대기 큰 나무 아래로 내려왔어요. 사람들은 그 나무를 신단수라고 불렀지요. 나무 옆에는 나무 새를 얹은 솟대를 높이높이 세웠어요. 환웅은 씨앗 뿌리는 법도, 아플 때 낫는 법도 하나하나 알려 주었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 — 사람 키 아래에서 위를 올려다보는 세로로 시원한 대형 컷. 거대한 나무와 그 옆의 솟대가 화면 꼭대기까지 뻗고, 사람들은 나무 밑동에 작게.<br/><b>장소·시간</b> 산마루의 아주 큰 나무(신단수) 아래, 볕 좋은 한낮. 잎사귀 사이로 빛이 쏟아지는 시원한 공기.<br/><b>인물</b> Hwanung(환웅)이 나무 밑동 앞 화면 가운데에 서서 한 팔을 넓게 펴 밭 쪽을 가리키고, 소매가 큰 곡선을 그림. 고개를 살짝 숙여 사람들을 보는 다정한 한 줄 미소. 붉은 술띠가 허리에서 흔들림(단 하나 빨강). 그를 둘러싸고 마을 사람 네댓이 쪼그려 앉거나 서서 올려다보는 러프한 실루엣(얼굴은 점눈과 입선 몇 획만).<br/><b>배경·소품</b> 화면 오른쪽에 <b>솟대(sotdae)</b> — 껍질 벗긴 긴 나무 장대 꼭대기에 옆을 향한 나무 새 한 마리가 얹혀 있고 장대 아래쪽에 짚 밧줄이 감김. 굵은 나무 줄기와 사방으로 뻗은 가지는 열린 윤곽선 몇 획, 발치엔 이제 막 갈아 놓은 밭이랑과 흩뿌린 씨앗, 저 멀리 산줄기 — 배경 전부 러프한 연필 스케치.<br/><b>톤</b> 나뭇잎 사이로 내려오는 얼룩덜룩한 한낮 햇빛, 새 살림이 시작되는 활기차고 든든한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(찾아온 곰과 호랑이)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느 날 곰 한 마리와 호랑이 한 마리가 어슬렁어슬렁 찾아왔어요. 마을에서는 둥둥— 북소리가 울리고 있었지요. "환웅님, 저희도 사람이 되고 싶어요!" 곰은 앞발을 가지런히 모으고, 호랑이는 꼬리를 팔랑팔랑 흔들었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 어깨너머 컷, 중형 — 화면 앞쪽 오른편에 Hwanung의 어깨와 흰 소매 자락이 크게 걸치고, 그 너머로 나란히 앉은 곰과 호랑이를 바라보는 구도.<br/><b>장소·시간</b> 신단수 아래 마을 마당, 늦은 오후. 북소리가 둥둥 울려 퍼지는 들썩한 공기.<br/><b>인물</b> 전경 오른쪽 — Hwanung(환웅)의 뒷모습 일부(어깨·상투·흘러내린 흰 소매와 허리의 붉은 술띠, 단 하나 빨강). 화면 가운데 안쪽 — BearAnimal(곰)이 엉덩이를 붙이고 똑바로 앉아 두 앞발을 가지런히 모으고 고개를 들어 올려다봄, 작은 한 줄 입에 조용하고 간절한 표정, 가슴의 크림빛 초승달 무늬가 또렷하게. 그 옆 TigerAnimal(호랑이)은 앉은 자세가 자꾸 무너져 엉덩이를 들썩이며 긴 꼬리를 팔랑팔랑 휘두르고, 입은 활짝 웃는 한 줄에 눈썹 획이 신나게 올라감.<br/><b>배경·소품</b> 화면 왼쪽 뒤편에 <b>북(buk)</b> — 나무 X자 받침대에 얹힌 넓은 통북을 마을 사람 하나가 북채로 둥둥 두드림(북 몸통은 나무빛·소가죽빛으로만, 붉은 칠은 쓰지 말 것 — 이 컷의 빨강은 환웅의 술띠 하나). 뒤로 신단수 밑동과 솟대 윤곽, 구경 나온 사람들의 러프한 실루엣 — 배경은 열린 연필선 스케치.<br/><b>톤</b> 낮게 기운 오후 햇빛이 두 짐승의 등을 따뜻하게 비춤, 두근두근 소원을 말하는 설레고 정겨운 정서.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P4, P5, P6, P7, P8 -->
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(쑥과 마늘)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">환웅은 빙그레 웃으며 쑥 한 다발과 마늘 스무 쪽을 내주었어요. "이것만 먹으면서, 백 날 동안 햇빛을 보지 말고 동굴에서 지내 보렴." 곰과 호랑이는 눈을 반짝 뜨고 고개를 끄덕끄덕했지요. "백 날쯤이야, 문제없어요!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 평면 부감 클로즈업 — 바로 위에서 수직으로 내려다본 손 클로즈업. 화면 한가운데에 펼쳐진 두 손바닥과 그 위의 쑥다발·마늘이 크게, 화면 위아래 가장자리로 곰의 코끝과 호랑이의 앞발이 살짝 들어옴.<br/><b>장소·시간</b> 신단수 아래 마당, 해 질 무렵. 조용하고 조심스러운 공기.<br/><b>인물</b> 화면 중앙 — Hwanung(환웅)의 두 손이 위에서 본 각도로 크게, 손바닥을 나란히 펴서 내밈. 흰 소매 끝과 허리의 붉은 술띠 한 자락이 화면 위 가장자리에 걸침(단 하나 빨강). 화면 아래 가장자리 — BearAnimal(곰)의 코끝과 두 점눈이 손 위를 골똘히 들여다봄. 화면 오른쪽 가장자리 — TigerAnimal(호랑이)의 앞발 하나가 마늘 쪽으로 성급하게 뻗어 옴, 그 위로 휘는 수염 몇 획.<br/><b>배경·소품</b> 손바닥 위의 <b>쑥다발(ssuk)</b> — 은빛 뒷면이 비치는 깃털 모양 잎이 한 줌, 줄기는 실로 묶임. 그 옆 손바닥엔 <b>마늘(maneul)</b> 통마늘 한 통과 쪼갠 쪽 여러 개가 소복이. 아래로 흙바닥과 풀 몇 포기가 열린 연필선으로만.<br/><b>톤</b> 낮게 깔린 저녁 햇빛이 손 위로 길게 들어와 쑥과 마늘만 또렷하게, 약속을 건네받는 진지하고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(동굴 견디기 놀이 시작)</b> <span class="tag beat">③ 사건</span> <span class="tag">후렴 ①</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">곰과 호랑이는 나란히 동굴로 들어갔어요. 입구로 들어온 햇빛 한 줌만 동그랗게 밝았지요. 둘은 마주 보고 놀이하듯 노래를 시작했어요. "쑥 한 입, 마늘 한 쪽, 하나 둘 셋! 오늘도 잘 참았다, 하나 둘 셋!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 극단 여백 와이드 — 화면의 70%가 동굴 안의 비어 있는 어둑한 크림빛 공간이고, 오른쪽 아래 구석의 동그란 빛 웅덩이 안에 두 짐승이 작게 마주 앉은 구성.<br/><b>장소·시간</b> 산기슭 동굴 안, 첫날 낮. 서늘하지만 무섭지 않은 고요한 공기 — 깜깜한 암흑이 아니라 부드럽게 어둑한 종이빛.<br/><b>인물</b> 오른쪽 아래 빛 웅덩이 안 — BearAnimal(곰)과 TigerAnimal(호랑이)이 무릎을 맞대듯 마주 앉아 각자 앞발에 쑥 한 잎씩 들고 입을 동그랗게 벌려 노래하는 중. 곰은 등을 곧게 세우고 눈을 감듯 가늘게, 가슴의 초승달 무늬가 빛을 받아 또렷함. 호랑이는 어깨를 들썩이며 꼬리를 신나게 세우고 입은 활짝 웃는 한 줄. 둘 사이에 마늘 몇 쪽이 놓임.<br/><b>배경·소품</b> 화면 왼쪽 멀리 동굴 입구가 작은 아치로 뚫려 밝은 크림빛 바깥이 보이고, 거기서 들어온 빛이 바닥에 동그란 웅덩이를 만듦. 붉은 실로 묶은 <b>쑥다발(ssuk)</b>이 둘 곁에 놓임(붉은 실 = 이 컷의 단 하나 빨강), 곁에 <b>마늘(maneul)</b> 한 무더기. 동굴 벽과 바위 결은 열린 연필선 몇 획만, 나머지는 종이 그대로.<br/><b>톤</b> 입구에서 들어온 한 줄기 빛만 따뜻한 크림빛, 그 밖은 옅은 회청빛 여백. 무서운 어둠이 아니라 <b>놀이가 시작되는 아늑하고 씩씩한 정서</b>.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(쌉싸름한 하루하루)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">하루, 이틀, 열흘… 쑥은 쌉싸름하고 마늘은 알알했어요. 곰은 오물오물 천천히 씹었지만, 호랑이는 "우웩!" 하고 혀를 쏙 내밀었지요. "곰아, 넌 그게 어떻게 맛있니?" "맛있진 않아. 그냥 하나씩 세면 괜찮아."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 아이레벨 클로즈업, 투샷 — 두 얼굴이 화면을 가득 채우는 아주 가까운 컷. 왼쪽에 곰 얼굴, 오른쪽에 호랑이 얼굴이 서로 마주 보게 붙어 있음.<br/><b>장소·시간</b> 동굴 안 빛 웅덩이 가장자리, 열흘째 낮. 조용하고 나른한 공기.<br/><b>인물</b> 화면 왼쪽 — BearAnimal(곰)의 얼굴 클로즈업. 볼이 볼록하게 부풀고 입은 작은 지그재그 선으로 오물오물, 두 눈은 짧은 호선으로 감긴 채 아주 태연함. 앞발에 쑥 잎 한 장을 얌전히 쥠. 화면 오른쪽 — TigerAnimal(호랑이)의 얼굴 클로즈업. 눈을 질끈 감아 두 호선이 되고 혀를 쏙 내민 "우웩" 표정, 한쪽 귀가 납작하게 접히고 수염 획이 사방으로 튐, 앞발로 마늘 쪽을 코에서 멀찍이 밀어냄.<br/><b>배경·소품</b> 두 얼굴 사이 아래쪽에 반쯤 남은 <b>쑥다발(ssuk)</b>(붉은 실 매듭 = 단 하나 빨강)과 껍질 벗긴 <b>마늘(maneul)</b> 쪽 몇 개, 바닥에 하루를 셀 때 그은 짧은 금 몇 줄. 뒤 동굴 벽은 열린 연필선 두어 획으로만.<br/><b>톤</b> 옆에서 들어오는 부드러운 크림빛 반사광, 고생스럽기보다 <b>둘의 성격 차이가 웃음을 주는</b> 익살스럽고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(근질근질한 호랑이)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">스무 밤이 지나자 호랑이는 온몸이 근질근질했어요. 발끝이 들썩들썩, 꼬리가 씰룩씰룩. "나는 달리고 싶어! 바람도 쐬고 싶어! 폴짝 뛰고 싶어!" 호랑이는 그만 벌떡 일어서고 말았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 — 앉아 있는 곰의 눈높이, 즉 바닥 가까이에서 위를 올려다보는 중형 컷. 벌떡 선 호랑이가 화면 꼭대기까지 크고 길쭉하게 솟아 보이고, 곰은 화면 아래 구석에 작게.<br/><b>장소·시간</b> 동굴 안, 스무 날째 밤. 바깥에서 바람 소리가 들어오는 들썩한 공기.<br/><b>인물</b> 화면 중앙 위 — TigerAnimal(호랑이)이 두 뒷발로 벌떡 일어서서 두 앞발을 번쩍 들어 올리고 몸을 길게 늘여 기지개 켜듯 뻗음, 긴 꼬리가 화면 오른쪽으로 크게 휘어 나가고 입은 큰 O 자로 벌어져 외침, 눈썹 획이 위로 튀고 뒷발끝이 들썩들썩(발밑에 작은 움직임 획 두어 개). 화면 왼쪽 아래 — BearAnimal(곰)이 여전히 얌전히 앉은 채 고개만 뒤로 젖혀 호랑이를 올려다봄, 입은 작은 한 줄, 놀랐지만 나무라지 않는 순한 눈.<br/><b>배경·소품</b> 호랑이 뒤 저편에 동굴 입구가 밝은 아치로 뚫려 밤바람에 흔들리는 풀 그림자가 어른거림, 바닥의 <b>쑥다발(ssuk)</b>(붉은 실 = 단 하나 빨강)과 마늘 쪽 몇 개가 발치에 흩어짐, 벽에 그어 둔 짧은 금 스무 줄. 벽·바위는 열린 연필선으로만.<br/><b>톤</b> 입구에서 들어온 푸르스름한 달빛과 그 아래 크림빛 종이, 답답함이 터지는 씩씩하고 코믹한 정서 — 무섭거나 화난 기색은 전혀 없이.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>사건(잘 가, 호랑이야)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호랑이는 동굴 밖으로 훌쩍 뛰어나갔어요. 환한 빛 속에서 후련하게 크게 숨을 쉬었지요. 곰은 하나도 화내지 않고 손을 흔들어 주었어요. "잘 가, 호랑이야. 달리는 건 네가 제일 잘하잖아!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 역광 실루엣 와이드 — 동굴 안 깊은 쪽에서 밝은 입구 쪽을 바라보는 구도. 화면 가운데의 동굴 입구가 눈부신 크림빛 구멍이고, 그 빛을 등진 호랑이가 새까만 실루엣으로 튀어나가는 순간.<br/><b>장소·시간</b> 동굴 입구 안쪽, 이른 아침. 서늘한 안쪽에서 따뜻한 바깥으로 공기가 확 트이는 순간.<br/><b>인물</b> 화면 가운데 — TigerAnimal(호랑이)이 입구의 빛을 등지고 네 발을 쭉 편 채 공중에 뜬 도약 자세, 긴 꼬리가 뒤로 시원하게 뻗음. 역광이라 몸은 부드러운 회청빛 실루엣이지만 등의 줄무늬 획 몇 개와 활짝 웃는 입선이 살짝 비쳐 보임(무섭지 않게, 신나는 실루엣). 화면 왼쪽 앞 어둑한 안쪽 — BearAnimal(곰)이 자리에 앉은 채 앞발 하나를 높이 들어 크게 흔들며 배웅, 입은 따뜻한 한 줄 미소, 서운함보다 응원하는 눈, 가슴의 초승달 무늬가 어둑한 데서도 희미하게 밝음.<br/><b>배경·소품</b> 입구 밖으로 보이는 아침 들판과 산줄기는 하얗게 날아간 빛 속에 연필선 몇 획으로만. 곰 곁 바닥엔 붉은 실로 묶은 <b>쑥다발(ssuk)</b>(단 하나 빨강)과 마늘 몇 쪽, 벽의 짧은 금들. 동굴 벽은 열린 윤곽선으로만.<br/><b>톤</b> 입구에서 쏟아지는 강한 아침 역광이 화면 중앙을 하얗게 채우고 안쪽은 부드러운 회청빛, <b>실패가 아니라 서로를 인정하는</b> 후련하고 따뜻한 정서.</pre></details>
+</div>
+
+<!-- ④ 절정 : P9, P10 -->
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(혼자서 세는 날들)</b> <span class="tag beat">④ 절정</span> <span class="tag">후렴 ②</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 동굴에는 곰 혼자였어요. 곰은 하루가 지날 때마다 벽에 금을 하나씩 쓱— 그었어요. 심심하면 혼자서 노래를 불렀지요. "쑥 한 입, 마늘 한 쪽, 하나 둘 셋! 오늘도 잘 참았다, 하나 둘 셋!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 평면 부감 — 동굴 바닥을 거의 수직으로 내려다본 중형 컷. 화면 대부분이 바닥과 벽에 그어진 금들의 무늬이고, 그 한가운데에 웅크려 누운 곰이 위에서 본 동그란 덩어리로 놓임.<br/><b>장소·시간</b> 동굴 안, 아흔 날쯤 지난 낮. 아주 고요하고 규칙적인 공기.<br/><b>인물</b> 화면 한가운데 — BearAnimal(곰)이 위에서 본 각도로 몸을 동그랗게 말고 누워, 앞발 하나만 옆으로 뻗어 바닥에 금을 하나 쓱 긋는 중. 위에서 보이는 얼굴은 두 점눈이 반쯤 감기고 입은 작은 한 줄로 노래하는 모양, 가슴의 초승달 무늬가 동그란 등 옆으로 살짝 보임. 지치거나 야윈 기색 없이 통통하고 편안하게.<br/><b>배경·소품</b> 곰을 둘러싸고 바닥과 벽 아래쪽에 아흔 개 남짓한 짧은 금이 다섯씩 묶여 가지런히 그어져 있음(세다 만 리듬이 보이게), 곁에 이제 얼마 안 남은 <b>쑥다발(ssuk)</b>(붉은 실 매듭 = 단 하나 빨강)과 마늘 쪽 두어 개, 저 위 구석에 입구에서 들어온 동그란 빛 웅덩이가 작게. 바위 결은 열린 연필선 몇 획만.<br/><b>톤</b> 위에서 스미는 잔잔한 크림빛, 외롭기보다 <b>하루하루가 차곡차곡 쌓이는</b> 담담하고 대견한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(백 번째 금)</b> <span class="tag beat">④ 절정 · 펼침면 한 방</span> <span class="tag">후렴 ③</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">드디어 백 번째 금을 긋던 날! "아흔여덟, 아흔아홉, 백! 다 참았다, 하나 둘 셋!" 동굴 안이 환해지더니 곰의 몸이 스르르 빛에 감싸였어요. 눈을 떠 보니— 곰은 어여쁜 여인이 되어 있었지요. 사람들은 그를 웅녀라고 불렀답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 + 역광의 대형 펼침면 컷 — 동굴 바닥 높이에서 올려다보는 구도. 입구에서 쏟아진 빛기둥이 화면을 비스듬히 가로지르고, 그 빛 한가운데 선 인물이 화면 중앙에 우뚝.<br/><b>장소·시간</b> 동굴 안 입구 앞, 백 일째 아침. 공기가 환하게 열리는 벅찬 순간.<br/><b>인물</b> 화면 중앙 — Ungnyeo(웅녀)가 빛기둥 한가운데 서서, 방금 일어선 듯 한 손을 눈앞으로 들어 올려 제 손바닥을 놀란 눈으로 들여다봄. 입은 작은 O 자, 눈썹 획이 살짝 올라간 경이로운 표정. 낮은 쪽머리에 나무 비녀 한 획, 옷깃의 크림빛 초승달 장식이 빛을 받아 또렷하게 보임(곰이었다는 증거). 자세는 여전히 느긋하고 묵직하게 땅에 붙어 있음. 곁 바닥엔 방금까지 그이가 있던 자리처럼 온기가 남은 자국 몇 획.<br/><b>배경·소품</b> 벽 가득 다섯씩 묶여 그어진 백 개의 금과, 맨 끝에 아직 손자국이 남은 마지막 한 금. 발치에 다 먹고 남은 <b>쑥다발(ssuk)</b> 줄기와 붉은 실 매듭(단 하나 빨강), 빈 마늘 껍질 몇 장. 입구 밖은 하얗게 날아간 아침 빛과 연필선 몇 획의 산줄기. 공중에 작고 동그란 빛 알갱이 몇 개.<br/><b>톤</b> 입구에서 들어온 강한 아침 빛이 인물의 윤곽을 환하게 두르고 바닥으로 긴 빛길을 냄, 마법이 아니라 <b>오래 참은 마음이 피어나는</b> 벅차고 뭉클한 정서.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P11, P12 -->
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>결말(아기 단군)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">환웅과 웅녀는 부부가 되었어요. 얼마 뒤, 볼이 통통한 사내아이가 태어났지요. 이름은 단군! 마을 사람들은 제기에 햇곡식을 소복이 담아 하늘에 감사드리고, 북을 둥둥 울리며 덩실덩실 춤을 추었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 겹침·가림 구도의 중형 컷, 살짝 하이앵글 — 화면 앞쪽 좌우로 마을 사람들의 어깨와 뒤통수가 반쯤 가리고, 그 사이 틈으로 아기를 안은 두 사람이 보이는 구성. 시선이 자연스레 아기에게 모임.<br/><b>장소·시간</b> 신단수 아래 마을 마당, 잔치가 벌어진 한낮. 웃음소리와 북소리가 겹치는 들뜬 공기.<br/><b>인물</b> 화면 가운데 틈 사이 — Ungnyeo(웅녀)가 두 팔로 BabyDangun(아기 단군)을 안고 고개를 숙여 들여다보며 잔잔한 한 줄 미소, 옷깃의 초승달 장식이 보임. 그 곁에 Hwanung(환웅)이 상체를 기울여 아기 쪽으로 손가락 하나를 내밀고, 눈웃음 지으며 환하게 웃음, 허리의 붉은 술띠가 흔들림(단 하나 빨강). 아기는 크림빛 포대기에 싸여 두 손을 위로 꼬물꼬물, 입이 활짝 벌어진 웃음. 전경 좌우 — 마을 사람 서넛의 어깨·뒤통수 실루엣이 크게 걸침(얼굴은 보이지 않음).<br/><b>배경·소품</b> 화면 오른쪽 뒤 — <b>제기(jegi)</b>가 굽 달린 자태로 놓여 그 위에 햇곡식(누런 낟알·밤·대추)이 소복이 담김. 그 옆에서 마을 사람이 <b>북(buk)</b>을 둥둥 두드림(북 몸통은 나무빛·소가죽빛으로만, 붉은 칠 금지). 신단수 밑동과 솟대 윤곽, 널린 잔치 음식은 전부 열린 연필선 러프 스케치.<br/><b>톤</b> 밝고 고른 한낮 햇빛, 온 마을이 함께 기뻐하는 왁자하고 뭉클한 정서 — 거창한 대관식이 아니라 <b>동네 잔치</b>의 온도.</pre></details>
+</div>
+
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>결말(저마다의 재주)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">단군은 무럭무럭 자라, 넓고 넓은 땅에 우리나라를 처음 세웠어요. 솟대 위 나무 새가 훨훨— 하늘을 가리켰지요. 그날 산에서 내려온 호랑이도 "어흥!" 하고 반갑게 축하해 주었답니다. 참는 것도, 달리는 것도 저마다의 멋진 재주예요. 꾹 참고 기다린 마음은 언젠가 꼭 환하게 피어난대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 정면 — 언덕 위에 모여 선 사람들과 그 뒤로 넓게 펼쳐진 땅을 한 화면에 담는 시원한 마무리 컷. 인물들은 화면 아래 3분의 1에 나란히, 위쪽은 넓은 하늘.<br/><b>장소·시간</b> 신단수와 솟대가 선 언덕마루, 화창한 한낮. 멀리까지 트인 시원한 바람의 공기.<br/><b>인물</b> 화면 가운데 왼쪽 — Ungnyeo(웅녀)가 BabyDangun(아기 단군)을 한 팔로 안고 서서 먼 들판을 바라보며 잔잔한 미소, 아기는 통통한 손을 앞으로 뻗어 가리킴. 그 옆 Hwanung(환웅)이 한 팔을 넓게 펴 땅을 가리키고 소매가 큰 곡선을 그림, 붉은 술띠가 바람에 나부낌(단 하나 빨강). 화면 오른쪽 — TigerAnimal(호랑이)이 언덕 아래에서 막 뛰어 올라와 앞발을 척 들고 입을 크게 벌려 "어흥!" 인사, 꼬리가 반갑게 휘어 오름. 웅녀가 호랑이 쪽으로 고개를 돌려 반가운 눈인사를 보냄(둘의 시선이 마주치게).<br/><b>배경·소품</b> 화면 왼쪽에 <b>솟대(sotdae)</b>가 높이 서서 꼭대기 나무 새의 긴 부리가 하늘을 가리킴, 그 옆 신단수 가지. 언덕 아래로 밭이랑과 초가 몇 채, 구불구불한 강, 겹겹의 산줄기가 아득히 — 전부 열린 연필선 몇 획의 러프 스케치. 하늘엔 새 떼가 점처럼 날아감.<br/><b>톤</b> 넓게 퍼지는 한낮 햇빛과 시원한 바람, 다시 만난 반가움과 새 시작이 겹치는 벅차고 따뜻한 마무리 정서. 크림빛 여백이 하늘을 가득 채움.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 단군 이야기 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING (finish hierarchy — the single most important rule): The bright warm cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. This picture is deliberately UNEVENLY finished, like one page from a master's sketchbook. Finish only what matters: the CHARACTERS = finished (clear line AND color, keep them at their current level); a prop a character is directly touching or holding (a loom, a bench, a gourd in their hands) = half-finished, a bit of line and a little color; everything else — the whole background: jars, walls, fences, roofs, trees, hills, anything far away — = a LOOSE UNFINISHED PENCIL SKETCH: just a few open contour lines and a few direction strokes, barely any color, lots of bare cream paper showing through, deliberately NOT filled in, like the rough underdrawing on a sketchbook page. A jar is two or three open outlines, a roof is a few slanted direction strokes, a distant thing is one or two lines and then paper. This is about how FINISHED each area is, NOT about opacity — the background is not faded, hazy, blurry or low-saturation, it is simply left as rough sketch lines and not drawn to completion. Spend all the density ONLY on the characters. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces; NOT a fully rendered background, NOT every jar / roof-tile / leaf drawn to completion, NOT a uniform finish across the whole picture, and NOT a hazy / blurry / faded background either (that is just blur, not a sketch) — keep the background as loose OPEN PENCIL SKETCH lines and every stroke loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'Hwanung',     name: '환웅',      desc: '하늘에서 내려온 임금 — 흰 도포와 넓은 소매, 붉은 술띠(화면의 단 하나 빨강)', aliases: ['Hwanung'] },
+    { token: 'BearAnimal',  name: '곰',        desc: '참을성 많은 곰 — 동글동글 배 모양 몸집, 가슴의 크림빛 초승달 무늬',        aliases: ['BearAnimal'] },
+    { token: 'Ungnyeo',     name: '웅녀',      desc: '사람이 된 곰 — 낮은 쪽머리·연둣빛 치마, 옷깃의 초승달 장식(곰과 동일인)',   aliases: ['Ungnyeo'] },
+    { token: 'TigerAnimal', name: '호랑이',    desc: '씩씩한 호랑이 — 길쭉하고 탄력 있는 몸, 몇 획뿐인 줄무늬, 늘 움직이는 꼬리', aliases: ['TigerAnimal'] },
+    { token: 'BabyDangun',  name: '아기 단군', desc: '새로 태어난 아기 — 크림빛 포대기에 싸인 동그란 덩어리, 머리 위 곱슬 한 획', aliases: ['BabyDangun'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

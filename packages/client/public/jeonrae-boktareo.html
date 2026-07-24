@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 복 타러 간 총각</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · 시즌2 #37</div>
+  <h1>🍀 복 타러 간 총각</h1>
+  <div class="sub">복이 어디 있나 물으러 먼 길을 떠난 총각 — 남의 부탁부터 여쭈다 제 복을 만난 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 남을 도우면 그게 곧 내 복 &nbsp;·&nbsp;
+  <b>분량</b> 14 스프레드 &nbsp;·&nbsp; <b>후렴</b> 부탁의 문답(3회 반복 → P8에서 회수) &nbsp;·&nbsp;
+  <b>핵심단어</b> 대님 · 미투리 · 조롱박 · 괭이 · 여의주 &nbsp;·&nbsp;
+  <b>구조</b> 여정담 — 부탁 3개(감나무·이무기·처녀) → 신령님의 답 3개 → 귀로에 <b>역순</b>으로 회수(처녀 → 이무기 → 감나무) &nbsp;·&nbsp;
+  <b>순화</b> 신령님은 근엄하되 다정 — 벌·시험·꾸중 없음 / 이무기는 <b>무섭지 않은 크고 순한 물짐승</b>(뿔·비늘은 둥글게, 이빨·붉은 눈 금지) / 총각의 가난은 누추함이 아니라 <b>부지런함</b>으로 그림
+</div>
+<div class="refrain">🍀 반복 후렴 — "제 것도 좀 여쭤봐 주세요!" &nbsp;/&nbsp; "그럼요, 꼭 여쭤볼게요!" <span style="font-weight:600;font-size:13px">(P3 감나무 → P4 이무기 → P5 처녀 → P8 절정에서 회수)</span></div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-boktareo</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.<br>🔴 <b>화면당 빨강 악센트 1점 = 총각의 붉은 대님 끈</b>(총각은 전 쪽에 등장하므로 이 편의 빨강은 언제나 대님이다). 여의주는 <b>맑은 진줏빛·옥빛</b>으로 그려 빨강이 둘이 되지 않게 한다.<br>🔴 이 편에는 상태 변형 캐릭터가 없다 — 총각은 복을 받은 뒤에도 <b>같은 옷·같은 얼굴</b>(부자 티를 내지 않는 것이 이 이야기의 톤).</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="총각" data-key="char-poor-young-man">
+  <div class="head"><span class="face">🧑‍🌾</span><b>총각</b> <span class="rom">PoorYoungMan · 복 타러 떠난 총각</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: PoorYoungMan — a hardworking, good-natured young farmer in his early twenties who sets out to ask where his luck is. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a friendly one-line smile, no nose (or one tiny dot). Hair as one solid dark mass tied into a single long braid down his back (the traditional unmarried man's braid — NOT a topknot), so he instantly reads as a young unmarried man.
+SILHOUETTE (his signature): sturdy and square-shouldered but light on his feet, always leaning slightly FORWARD as if mid-stride — the most walking body in the book. Sleeves and trouser legs rolled and tied close to the body for travel.
+SIGNATURE RED: the RED cords (daenim) tied around both ankles over his trouser cuffs — this is the picture's single red accent whenever he appears (he appears in every page).
+CLOTHES & PROPS: a plain everyday hanbok suggested in soft blue-grey pencil strokes, mostly open paper with loose hatching and a small scribbled patch at one knee; hemp-woven travel shoes (mituri) in a few pale straw-yellow strokes; a dried bottle-gourd water flask (jorongbak) hanging at his waist from a short cord; and a wooden hoe (gwaengi) carried over one shoulder like a walking companion. Poor is told by the patches and the sparseness of the strokes, never by dirt or gloom.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hoe over the shoulder, gourd at the waist, friendly one-line smile) + a 3/4 walking turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) cheerful one-line smile, (2) an earnest promise — a firm straight line mouth with a nod of the head, (3) torn hesitation — a small wavy mouth with tilted brow strokes and a hand at the chin. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="신령님" data-key="char-mountain-spirit">
+  <div class="head"><span class="face">🧙</span><b>신령님</b> <span class="rom">MountainSpirit · 서쪽 끝 산신령</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: MountainSpirit — the old mountain spirit who lives at the far western edge of the world; solemn and dignified in BEARING but warm and kindly in FACE. Never a judge, never a tester, never frightening. Dot-eye design language kept exactly: a flat cream face with zero shading, two dot eyes, a calm one-line smile, no nose (or one tiny dot).
+SILHOUETTE (his signature): twice the height of a person and mostly BEARD AND ROBE — a tall, broad, mountain-shaped mass sitting on a boulder, a very long white beard drawn as a few sweeping strokes that flow down like a waterfall, long white eyebrows as two long strokes, and wide trailing sleeves. He is drawn as a big soft mountain shape, never a bony old man.
+CLOTHES: a loose scholar-spirit robe suggested in pale cream and soft blue-grey pencil strokes, mostly open paper with a hint of scribbled cloud pattern at the hem, a simple sash, and a plain crown-shaped headband drawn in two or three strokes.
+NOTE: he never carries anything red — the picture's single red accent stays on PoorYoungMan's ankle cords.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body seated idle on a boulder (one hand resting on a knee, the other raised with three fingers held up) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) calm solemn one-line mouth, (2) a warm crinkled smile with softly lowered brow strokes, (3) a hearty open-mouthed laugh with the beard swinging. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="감나무" data-key="char-old-tree">
+  <div class="head"><span class="face">🌳</span><b>감나무</b> <span class="rom">OldTree · 꽃이 피지 않는 늙은 감나무</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: OldTree — a big old persimmon tree by the roadside that has never once bloomed; sad and gentle, never spooky, never gnarled-scary. Dot-eye design language applied to a TREE: a small flat cream face on the trunk with two dot eyes and a soft one-line mouth, set low on the wide trunk so a child reads "a tree with a face" at a glance.
+SILHOUETTE (his signature): a thick sturdy trunk with a wide crown of BARE, DROOPING branches that hang down like tired arms — the whole shape sags. Two lower branches read clearly as arms and can gesture. Bare and empty on top: not one flower, not one leaf, so the emptiness of the crown is the story.
+COLOR: warm grey-brown bark in loose open pencil strokes with a little scribbled bark texture ONLY around the face and trunk; the branches thin out into a few open lines.
+🔴 SECOND STATE (put it on the same sheet): the SAME tree BLOOMING — the identical trunk and face, but the branches now lift UP and are covered in small white-cream persimmon blossoms drawn as quick little circles, and the mouth is a big happy open curve.
+REFERENCE SHEET: one sheet on plain bright cream paper — (a) full tree, bare and drooping, sad downcurved mouth; (b) the same full tree, blooming, branches lifted, joyful open mouth; plus two face close-ups on the trunk: (1) a soft sighing downcurved mouth with tilted brow strokes, (2) a wide relieved smile. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="이무기" data-key="char-water-serpent">
+  <div class="head"><span class="face">🐲</span><b>이무기</b> <span class="rom">WaterSerpent · 하늘에 오르지 못한 물짐승</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: WaterSerpent — a big, gentle water-creature (imugi) who has waited a thousand years to rise into the sky. Huge in SIZE, soft in FACE — 🔴 never scary: NO fangs, NO red eyes, NO forked tongue, NO menace of any kind. Dot-eye design language kept exactly: a flat cream face with zero shading, two big dot eyes (the biggest, roundest, softest eyes in the cast), a small gentle one-line mouth, no nose.
+SILHOUETTE (his signature): a long rounded serpentine body like a thick soft rope, coiled in loops with the head lifted on a curved neck. Two small ROUNDED antler-nubs curve back from the head, a few soft whiskers as single strokes, and a row of gentle rounded scallops (not spikes) along the back. Everything about him is round: round snout, round eyes, round coils.
+COLOR: sea-jade and pale blue-grey pencil strokes, mostly open cream paper, with a hint of scribbled scale pattern only along the back and a faint pearly shimmer. Nothing red on him.
+PROP: he holds TWO glowing orbs (yeouiju) — clear pearly-jade spheres with a soft white glow, one in the mouth and one cradled in a coil. In a later scene he gives ONE away and keeps one.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body coiled idle with the head lifted and two pearly orbs visible + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) a patient soft one-line mouth with lowered lids, (2) a hopeful small O mouth with lifted brow strokes, (3) a joyful wide smile with the whiskers swept back as if rising. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="처녀" data-key="char-lonely-girl">
+  <div class="head"><span class="face">👩</span><b>처녀</b> <span class="rom">LonelyGirl · 외딴집에 홀로 사는 처녀</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: LonelyGirl — a young woman who lives alone in a house at the bend of the mountain road and cannot stop crying; gentle and quietly sad, never pitiful or gloomy. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a soft downcurved line mouth, no nose (or one tiny dot). Hair as one solid dark mass in a single long braid down her back (unmarried), tied at the end with a plain PALE ribbon — 🔴 her ribbon is cream or pale jade, NEVER red (the picture's only red belongs to PoorYoungMan's ankle cords).
+SILHOUETTE (her signature): small and softly rounded, most often seated with her knees together and her shoulders drawn in, one sleeve lifted toward her cheek — a folded-in, tucked-away shape. When she cheers up the same body opens up and stands straight.
+TEARS: drawn as just two or three tiny stroke-tears at the cheek — a couple of pencil ticks, never streaming or dramatic.
+CLOTHES: a plain everyday skirt-and-jacket hanbok suggested in soft blue-grey and pale cream pencil strokes, mostly open paper with loose hatching, and simple cloth shoes in a few strokes. Tidy and modest.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body seated idle (knees together, one sleeve raised to the cheek, soft downcurved mouth) + a full-body standing 3/4 turn with the shoulders opened + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) quiet crying — downcurved mouth with two stroke-tears, (2) surprised small O mouth with lifted brow strokes and the tears stopping, (3) a bright shy smile with the head tilted. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.) 다섯 사물 모두 본문에 실제로 등장한다 — 대님 P2·P13, 미투리 P2·P6, 조롱박 P2·P6, 괭이 P1·P2·P12, 여의주 P9·P11·P13.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="대님" data-key="word-daenim">
+  <div class="head"><span class="face">🎀</span><b>대님</b> <span class="rom">daenim — hanbok ankle cords</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "daenim — the narrow cloth cords tied around the ankles of Korean hanbok trousers (대님)". A pair of long flat woven ribbon-cords in deep persimmon red (#C0392B) with neatly finished ends, the weave of the cotton clearly visible. Show TWO forms side by side so the word reads clearly: (1) one cord loosely coiled into a soft spiral, and (2) the other tied in a firm bow around a pale cream trouser cuff (#EFE6D2) gathered neatly above a bare ankle — no person, just the cuff. Crisp, tidy, handcrafted. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="미투리" data-key="word-mituri">
+  <div class="head"><span class="face">👞</span><b>미투리</b> <span class="rom">mituri — hemp-woven travel shoes</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "mituri — traditional Korean shoes woven from fine hemp cord, worn for long journeys (미투리)". A neat pair of shoes braided from pale ivory hemp cord (#E3D8B8), finer and tighter woven than straw sandals — a densely braided sole, a rounded toe cap, a woven heel cup and slim ankle-tie cords. Show the pair at a slight 3/4 angle, one from the top and one from the side, so the fine braid pattern reads clearly. Warm, tidy, hand-braided craftsmanship. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="조롱박" data-key="word-jorongbak">
+  <div class="head"><span class="face">🍐</span><b>조롱박</b> <span class="rom">jorongbak — a dried gourd water flask</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jorongbak — a small dried hourglass-shaped gourd used as a traveler's water flask (조롱박)". A little gourd pinched into two rounded lobes, a narrow waist and a short stem neck, its dried skin a warm tan (#D9B67A) with a soft satin sheen and faint natural mottling, closed with a small carved wooden stopper and slung on a braided cord for the waist. Show TWO forms: (1) the fresh pale green gourd still on its curly vine, and (2) the finished dried tan flask with its cord and stopper. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="괭이" data-key="word-gwaengi">
+  <div class="head"><span class="face">⛏️</span><b>괭이</b> <span class="rom">gwaengi — a Korean digging hoe</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "gwaengi — a traditional Korean digging hoe for breaking and turning soil (괭이)". A long straight wooden handle in warm honey-brown with visible grain (#B07A3C), and at its head a broad flat iron blade (soft dark steel-grey #6E747A) set at a right angle to the handle, bound to the wood with an iron collar and a small wedge, the blade edge worn bright and shiny from use, a faint reddish patina near the collar. Show it at a slight 3/4 angle so the L-shaped head reads clearly, with a small crumble of dark earth on the blade edge. Sturdy, honest, well-used. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="여의주" data-key="word-yeouiju">
+  <div class="head"><span class="face">🔮</span><b>여의주</b> <span class="rom">yeouiju — a dragon's wish-granting orb</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "yeouiju — the glowing wish-orb a Korean dragon holds to rise into the sky (여의주)". A perfectly round sphere of clear pearly jade (#CFE6DC) with a soft white inner glow, a swirl of pale light turning slowly inside it, a crisp highlight on the upper left, and a faint ring of tiny dancheong-pattern light motes floating around it. 🔴 Cool pearly jade and white ONLY — no red, no orange, no fire. Show TWO forms: (1) the orb floating alone with its halo, and (2) the same orb resting on a small carved wooden stand. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 14 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 산 아래 작은 마을에 총각이 혼자 살았어요. 부지런하기로는 마을에서 으뜸이었지요. 해가 뜨기도 전에 괭이를 들고 밭을 갈고, 해가 져도 일손을 놓지 않았어요. 그런데 이상하게도 살림은 늘 그대로였답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글 부감 — 비탈밭 위에서 거의 수직에 가깝게 내려다보는 대형 컷. 화면 대부분이 갈아엎은 밭고랑의 결이고, 그 한가운데 총각이 작게 놓임.<br/><b>장소·시간</b> 산 아래 비탈진 밭, 해가 막 뜨는 이른 아침. 이슬이 마르지 않은 서늘하고 맑은 공기.<br/><b>인물</b> PoorYoungMan(총각)이 화면 한가운데 밭고랑 사이에 서서 두 손으로 <b>괭이(gwaengi)</b>를 높이 치켜들었다 내리찍는 자세, 등이 활처럼 휘고 한쪽 무릎이 앞으로 나감. 위에서 내려다본 각도라 얼굴은 작게 보이되 입은 야무진 한 줄, 이마의 땀방울 획 두엇. 발목의 붉은 대님 두 점이 흙빛 화면에서 유일하게 또렷(화면의 단 하나 빨강). 걷어붙인 소매, 등 뒤로 늘어진 긴 댕기머리.<br/><b>배경·소품</b> 총각이 지나온 자리만 검게 갈린 밭고랑과 아직 안 간 마른 땅의 대비, 밭 끝에 놓인 <b>조롱박(jorongbak)</b> 물통과 벗어 둔 겉옷, 밭 아래 자그마한 초가집 한 채와 텅 빈 마당 — 집과 산등성이는 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 낮게 비껴 드는 아침 햇살이 밭고랑에 긴 그림자를 눕힘, 고단하지만 씩씩하고 정직한 정서, 따뜻한 흙빛과 한지 크림색.</pre></details>
+</div>
+
+<!-- ② 발단 : P2 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(복 타러 갑니다!)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느 날 총각이 무릎을 탁 쳤어요. "그래! 서쪽 끝에 계신 신령님을 찾아가서, 내 복이 어디 있는지 여쭤보자!" 총각은 바짓가랑이에 대님을 단단히 매고, 새 미투리를 신고, 조롱박에 물을 가득 채웠어요. 괭이도 어깨에 척 걸쳐 메었지요. "복 타러 갑니다!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아주 낮은 발치 눈높이 — 총각의 무릎 아래만 화면 가득. 대님을 매는 두 손과 미투리 신은 발이 주인공이고, 얼굴은 화면 위쪽에 살짝 잘려 걸침.<br/><b>장소·시간</b> 총각네 초가집 툇마루 앞 흙마당, 길 떠나는 이른 아침. 설레고 야무진 공기.<br/><b>인물</b> PoorYoungMan(총각)이 한쪽 무릎을 세우고 앉아 두 손으로 발목의 <b>대님(daenim)</b> 붉은 끈을 야무지게 잡아당겨 나비 모양으로 묶는 중 — 손가락 마디에 힘이 들어감. 이미 묶은 쪽 발은 새 <b>미투리(mituri)</b>를 신고 땅을 꾹 디딤. 화면 위 가장자리에 잘려 보이는 얼굴은 아래를 내려다보며 입꼬리가 올라간 야무진 미소.<br/><b>배경·소품</b> 옆에 세워 둔 <b>괭이(gwaengi)</b>의 자루 아랫부분, 물이 가득 차 볼록한 <b>조롱박(jorongbak)</b>과 그 끈, 벗어 놓은 낡은 헌 미투리 한 켤레(닳아 해진 것), 툇마루 귀퉁이와 흙마당 — 배경은 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 아침 햇살이 발치와 붉은 대님에만 또렷하게 떨어지고 그 밖은 성긴 스케치, 출발의 야무지고 경쾌한 정서. 화면의 단 하나 빨강 = 대님.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 (부탁 3개) : P3, P4, P5 -->
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>사건(부탁 ①·감나무)</b> <span class="tag beat">③ 사건</span> <span class="tag">후렴 ①</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">한나절을 걸으니 길가에 커다란 감나무가 서 있었어요. "총각님, 어디 가시나요?" "신령님께 복을 타러 갑니다!" 그러자 나무가 가지를 축 늘어뜨렸어요. "저는 백 년이 되도록 꽃 한 송이 못 피웠어요. 제 것도 좀 여쭤봐 주세요!" "그럼요, 꼭 여쭤볼게요!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 — 나무 밑동에서 위를 올려다보는 대형 컷. 굵은 줄기가 화면 아래에서 위로 솟아 화면을 가로지르고, 텅 빈 가지들이 하늘을 향해 축 늘어짐. 총각은 화면 아래쪽에 작게.<br/><b>장소·시간</b> 마을을 벗어난 들길 가, 첫날 한낮. 볕이 쨍하고 바람 한 점 없는 공기.<br/><b>인물</b> OldTree(감나무)가 화면 중앙을 채움 — 굵은 줄기에 붙은 작은 점눈 얼굴이 아래를 향해 살짝 기울고 입은 축 처진 한 줄, 눈썹 획이 팔자로 휨. 양옆 아래쪽 두 가지가 팔처럼 총각 쪽으로 힘없이 늘어져 내려옴. PoorYoungMan(총각)은 화면 왼쪽 아래에서 고개를 한껏 젖혀 나무를 올려다보며 한 손을 이마에 대고 햇빛을 가림, 다른 손은 어깨의 괭이를 붙잡음, 입은 작게 벌려 대답하는 모양. 발목의 붉은 대님(화면의 단 하나 빨강).<br/><b>배경·소품</b> 꽃도 잎도 하나 없이 텅 빈 가지들 — 열린 연필선으로만 성기게, 그래서 하늘의 크림 종이가 가지 사이로 훤히 비침. 나무 밑동에 툭 불거진 뿌리와 마른 흙, 길가에 이어지는 흙길과 멀어지는 마을 지붕 — 러프 스케치.<br/><b>톤</b> 한낮의 밝고 마른 빛, 텅 빈 가지가 만드는 허전함, 그러나 총각의 대답으로 온기가 도는 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(부탁 ②·이무기)</b> <span class="tag beat">③ 사건</span> <span class="tag">후렴 ②</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이튿날, 물이 바싹 마른 우물가를 지나는데 커다란 물짐승이 고개를 쑤욱 내밀었어요. 몸집은 산더미만 한데 눈망울은 순하디순했지요. "저는 천 년을 기다렸는데도 하늘에 오르지 못해요. 제 것도 좀 여쭤봐 주세요!" "그럼요, 꼭 여쭤볼게요!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글 부감 — 마른 우물 바로 위에서 비스듬히 내려다보는 대형 컷. 동그란 우물 아가리가 화면 중앙에 크게 놓이고, 그 안에서 솟아오른 이무기의 머리와 우물 가장자리에 선 총각이 함께 보임.<br/><b>장소·시간</b> 산길 중턱의 오래된 돌우물가, 이튿날 아침. 물기 없이 바삭한 공기.<br/><b>인물</b> WaterSerpent(이무기)가 마른 우물 속에서 둥근 목을 길게 뽑아 올림 — 커다랗고 동그란 점눈 두 개가 위를 향해 총각을 올려다보고, 입은 조그맣고 순한 한 줄, 수염 획 두어 가닥이 옆으로 늘어짐. 몸통은 우물 속 어둠에 잠긴 채 부드러운 고리로 감긴 실루엣만. 입에 물린 맑은 진줏빛 여의주 하나와 몸 고리에 얹힌 또 하나가 은은히 빛남. PoorYoungMan(총각)은 화면 위쪽 우물 가장자리에 쭈그려 앉아 두 손으로 돌 턱을 짚고 안을 들여다봄, 눈은 동그랗지만 겁먹지 않고 입은 "그럼요!" 하듯 벌어짐. 발목의 붉은 대님(화면의 단 하나 빨강).<br/><b>배경·소품</b> 이끼 마른 둥근 돌우물과 갈라진 바닥, 옆에 굴러다니는 빈 두레박 줄, 총각이 내려놓은 괭이와 <b>조롱박(jorongbak)</b>, 우물 둘레의 마른 풀 — 배경은 열린 연필선 러프 스케치. 🔴 이무기는 어떤 각도에서도 이빨·붉은 눈·위협 자세가 보이지 않게.<br/><b>톤</b> 위에서 곧게 떨어지는 아침 빛이 우물 안쪽만 부드럽게 밝힘, 놀랍지만 하나도 무섭지 않은 신비롭고 순한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(부탁 ③·처녀)</b> <span class="tag beat">③ 사건</span> <span class="tag">후렴 ③</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">산모퉁이 외딴집에서는 처녀가 마루에 앉아 자꾸만 눈물을 훔치고 있었어요. "저는 날마다 눈물이 나요. 어떻게 해야 웃을 수 있을까요? 제 것도 좀 여쭤봐 주세요!" "그럼요, 꼭 여쭤볼게요!" 총각은 손가락을 하나, 둘, 셋 꼽아 두었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 어깨너머 컷 — 화면 앞쪽 왼편에 PoorYoungMan의 어깨와 뒤통수, 어깨에 걸친 괭이 자루가 크게 걸치고, 그 너머 마루에 앉은 처녀가 화면 중앙에 놓이는 중형 컷.<br/><b>장소·시간</b> 산모퉁이 외딴집 사립문 안 좁은 마당과 툇마루, 사흘째 늦은 오후. 인기척 없이 조용한 공기.<br/><b>인물</b> 전경 왼쪽 — PoorYoungMan(총각)의 뒷모습(어깨·뒤통수·긴 댕기머리), 한 손을 가슴 앞으로 들어 손가락 셋을 꼽아 세는 자세가 옆에서 또렷이 보임, 발목의 붉은 대님이 전경 아래 살짝(화면의 단 하나 빨강). 화면 중앙 — LonelyGirl(처녀)이 툇마루에 무릎을 모으고 앉아 한쪽 소매를 볼에 대고 눈물을 훔침, 입은 아래로 휜 한 줄, 볼에 아주 작은 눈물 획 두 개, 다른 손은 무릎 위에 얌전히. 고개를 살짝 들어 총각 쪽을 바라보는 눈.<br/><b>배경·소품</b> 낡은 사립문과 낮은 흙담, 툇마루 끝에 놓인 빈 소반, 마당에 홀로 선 자그마한 나무 한 그루, 처녀의 창백한 크림빛 댕기(빨강 아님) — 배경은 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 기울어 가는 오후 햇살이 마루 끝만 길게 물들이고 마당은 그늘, 쓸쓸하지만 곧 온기가 들어설 것 같은 애틋한 정서.</pre></details>
+</div>
+
+<!-- ④ 절정 (여정·신령님·선택·답) : P6, P7, P8, P9 -->
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>절정(서쪽 끝으로)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">총각은 걷고 또 걸었어요. 미투리가 다 닳고, 조롱박의 물도 바닥이 났지요. 산을 몇 개나 넘었을까요. 걷다 보니 드디어 해가 지는 서쪽 끝, 구름이 걸린 봉우리에 닿았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 + 스케일 대비, 아이레벨 원경 — 겹겹이 포개진 산줄기가 화면 가로로 끝없이 이어지고, 그 능선 위 오솔길에 총각이 손톱만 하게 놓인 컷. 사람은 아주 작고 세상은 아주 크게.<br/><b>장소·시간</b> 서쪽 끝으로 이어지는 산줄기 능선길, 여러 날이 지난 해질 무렵. 높고 서늘한 바람의 공기.<br/><b>인물</b> PoorYoungMan(총각)이 화면 오른쪽 아래 능선길 위에 아주 작게 — 몸을 앞으로 기울여 성큼 내딛는 걷는 자세, 어깨의 괭이 실루엣과 허리에 매달린 <b>조롱박(jorongbak)</b>이 실루엣으로 알아보이고, 발치의 <b>미투리(mituri)</b>는 끝이 해져 실오라기 몇 가닥이 삐져나옴. 작아도 발목의 붉은 대님 두 점만은 또렷(화면의 단 하나 빨강).<br/><b>배경·소품</b> 앞뒤로 겹친 산등성이 여러 겹 — 각각 열린 연필선 한두 획으로만 그어 멀수록 옅어지게(흐림이 아니라 획 수가 줄어드는 방식), 능선을 따라 가늘게 이어지는 흙길, 저 끝 봉우리에 허리를 감은 구름 띠, 길가에 총각이 지나온 자취처럼 작게 흩어진 돌무더기 하나.<br/><b>톤</b> 서쪽 하늘이 옅은 살구빛으로 넓게 열리고 산줄기는 푸른 잿빛 실루엣, 아득한 거리감과 씩씩한 뚝심이 함께 느껴지는 벅찬 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>절정(딱 세 가지)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">구름 위 너럭바위에 하얀 수염 신령님이 앉아 계셨어요. "먼 길을 왔구나. 그런데 나는 한 사람에게 딱 세 가지만 답해 줄 수 있단다." 세 가지라니! 총각은 그만 말문이 막혔어요. 제 복을 여쭈면 약속 하나를 못 지키게 되니까요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 — 총각의 발치 높이에서 신령님을 한껏 올려다보는 대형 컷. 신령님이 화면 위쪽 전체를 차지하고, 총각은 화면 아래 구석에 작게 들어와 목을 젖힘.<br/><b>장소·시간</b> 서쪽 끝 봉우리 꼭대기의 너럭바위, 해가 반쯤 걸린 저녁. 구름이 발밑에 깔린 고요하고 서늘한 공기.<br/><b>인물</b> MountainSpirit(신령님)이 화면 위쪽 너럭바위에 책상다리로 앉음 — 산처럼 넓고 둥근 덩치, 폭포처럼 흘러내리는 긴 흰 수염 몇 획, 길게 늘어진 흰 눈썹 두 획, 점눈 두 개는 아래를 다정하게 내려다보고 입은 잔잔한 한 줄. 한 손은 무릎에 얹고, 다른 손은 가슴 앞으로 들어 <b>손가락 셋을 펴 보임</b>(이 컷의 핵심 제스처). PoorYoungMan(총각)은 화면 왼쪽 아래 구석에 작게 서서 두 손을 앞으로 모으고 고개를 뒤로 한껏 젖혀 올려다봄, 입은 작은 O 모양으로 벌어져 말문이 막힌 얼굴. 발목의 붉은 대님(화면의 단 하나 빨강).<br/><b>배경·소품</b> 발밑을 덮은 구름 바다와 바위 결 몇 획, 바위 옆에 뿌리내린 굽은 소나무 한 그루, 하늘 가장자리에 걸린 저녁 해 — 모두 열린 연필선의 러프 스케치로, 신령님과 총각에게만 밀도를 몰아줌.<br/><b>톤</b> 아래에서 위로 번지는 저녁 금빛과 서늘한 남빛 구름의 대비, 근엄하지만 조금도 무섭지 않고 오히려 다정한 위엄의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>절정(약속을 먼저)</b> <span class="tag beat">④ 절정 · 후렴 회수</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">총각은 잠깐 눈을 감았다가, 꼽아 두었던 손가락을 하나씩 폈어요. "감나무는 왜 꽃이 못 필까요? 물짐승은 왜 하늘에 못 오를까요? 처녀는 왜 눈물이 그치지 않을까요?" 세 가지를 다 쓰고 나니 제 복은 여쭐 수 없었지요. 그래도 총각은 고개를 끄덕였어요. "꼭 여쭤보겠다고 약속했거든요."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨보다 살짝 낮게 — 총각의 얼굴과 가슴 앞으로 들어 올린 손이 화면을 가득 채우는 컷. 신령님은 화면 뒤쪽에 흐리게가 아니라 <b>획 몇 개의 큰 실루엣</b>으로만 걸침.<br/><b>장소·시간</b> 너럭바위 앞, 같은 저녁. 숨을 고른 뒤의 고요한 공기.<br/><b>인물</b> PoorYoungMan(총각)이 화면 중앙 가까이 — 눈은 감았다 막 뜬 참이라 점눈이 또렷하고, 입은 곧게 다문 한 줄에서 말하는 작은 모양으로, 눈썹 획은 단단히 내려앉음. 가슴 앞의 한 손이 손가락 셋을 하나씩 펴 보이는 동작(엄지·검지·중지가 차례로 펴진 것이 분명히 보이게). 다른 손은 어깨의 괭이 자루를 꼭 쥠. 목덜미에 힘줄 획 하나 — 큰 결심의 순간. 발목은 화면 밖이므로 🔴 이 컷의 단 하나 빨강 = 소매 끝동에 살짝 드러난 붉은 대님 끈 자락(허리춤에 여분으로 감아 둔 것).<br/><b>배경·소품</b> 뒤쪽에 신령님의 수염과 어깨 실루엣이 큰 획 몇 개로 걸침, 발밑 구름의 곡선 두어 획, 그 밖은 크림 종이 여백 — 화면의 밀도는 전부 총각의 얼굴과 손에.<br/><b>톤</b> 저녁 금빛이 얼굴 한쪽만 스치고 나머지는 부드러운 그늘, 손해를 알면서도 약속을 고르는 뭉클하고 곧은 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(신령님의 세 가지 답)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">신령님이 껄껄 웃으며 답해 주었어요. "감나무 뿌리 밑에 금덩이가 눌러 있단다. 파내 주면 꽃이 필 테고, 그 금은 파낸 사람이 갖거라. 물짐승은 여의주를 둘이나 물었으니 하나를 착한 이에게 주면 하늘에 오른단다. 처녀는 마음 나눌 짝을 만나면 눈물이 웃음으로 바뀌지." 그러곤 빙그레 덧붙였어요. "네 복도 벌써 다 일러 주었단다."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 어깨너머 컷, 살짝 하이앵글 — 신령님의 어깨와 흰 수염 자락이 화면 오른쪽 앞을 크게 가리고, 그 너머 아래쪽에 고개를 든 총각이 보이는 중형 컷. 두 사람 사이 빈 공기에 답이 그림으로 떠오름.<br/><b>장소·시간</b> 너럭바위 앞, 같은 저녁 조금 뒤. 웃음소리가 퍼지는 환한 공기.<br/><b>인물</b> 전경 오른쪽 — MountainSpirit(신령님)의 어깨·수염·들어 올린 손이 크게 걸침, 입은 껄껄 웃는 큰 곡선, 흰 수염이 웃음에 흔들림. 화면 왼쪽 아래 — PoorYoungMan(총각)이 두 손을 무릎에 짚고 고개를 번쩍 든 채 눈이 동그래져 귀 기울이는 얼굴, 입은 작은 O. 발목의 붉은 대님(화면의 단 하나 빨강).<br/><b>배경·소품</b> 두 사람 사이 허공에 신령님의 말이 아주 작은 그림 셋으로 나란히 떠오름 — ① 나무 뿌리 밑에 묻힌 네모난 금덩이, ② 맑은 진줏빛 <b>여의주(yeouiju)</b> 두 개 중 하나가 옆으로 건네지는 모습, ③ 두 사람의 손이 맞잡힌 실루엣. 셋 다 연필선 몇 획의 작고 은은한 그림이며 말풍선·글자는 절대 넣지 않음. 뒤로 구름 바다와 저녁 하늘 — 러프 스케치.<br/><b>톤</b> 저녁 금빛이 신령님의 수염을 타고 총각에게 흘러내리는 조명, 비밀이 환하게 풀리는 시원하고 다정한 정서.</pre></details>
+</div>
+
+<!-- ⑤ 결말 (역순 회수) : P10, P11, P12, P13, P14 -->
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>결말(회수 ①·처녀)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">돌아오는 길, 총각은 외딴집부터 들렀어요. "마음 나눌 짝을 만나면 웃게 된대요!" 처녀가 고개를 들자 눈물이 뚝 그쳤어요. "그 착한 사람이… 총각님이면 좋겠어요." 두 사람은 볼이 발그레해져서, 나란히 길을 걷기 시작했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 극단 여백 컷 — 화면의 약 70%가 텅 빈 저녁 들판과 하늘이고, 두 사람은 화면 왼쪽 아래 구석 사립문 앞에만 작게 놓인 대형 와이드.<br/><b>장소·시간</b> 산모퉁이 외딴집 사립문 앞과 거기서 뻗어 나가는 들길, 돌아오는 길의 이른 저녁. 넓게 트인 조용한 공기.<br/><b>인물</b> 화면 왼쪽 아래 구석 — PoorYoungMan(총각)이 사립문 앞에 서서 한 손을 가슴에 얹고 몸을 살짝 앞으로 기울여 소식을 전하는 자세, 입은 활짝 웃는 곡선. 마주 선 LonelyGirl(처녀)은 마루에서 막 일어나 어깨를 활짝 펴고 고개를 들었으며, 볼의 눈물 획은 지워지고 입이 작은 O에서 수줍은 미소로 바뀌는 참, 두 손을 앞에 모음. 두 사람의 그림자가 들길 쪽으로 나란히 길게 눕는다(앞으로 함께 갈 길의 암시). 총각의 붉은 대님(화면의 단 하나 빨강), 처녀의 댕기는 크림빛.<br/><b>배경·소품</b> 사립문과 낮은 흙담, 마당의 작은 나무, 문밖으로 아득히 이어져 화면 오른쪽 위 여백으로 사라지는 들길, 하늘에 뜬 초저녁 별 한둘 — 전부 열린 연필선 몇 획.<br/><b>톤</b> 저녁 하늘이 옅은 살구빛에서 연한 남빛으로 번지는 넓은 여백, 눈물이 웃음으로 바뀌는 순간의 산뜻하고 설레는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>결말(회수 ②·이무기)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마른 우물가에 다다르자 총각이 두 손을 모아 외쳤어요. "여의주를 하나만 착한 이에게 주세요!" 물짐승은 반짝이는 여의주 하나를 총각의 손바닥에 톡 놓아 주었어요. 그러자 몸이 스르르 떠올라 구름 사이로 훨훨— 마침내 하늘에 올랐답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 수직 구도 — 우물가 땅바닥 높이에서 하늘을 향해 올려다보는 대형 세로 컷. 이무기의 긴 몸이 화면 아래에서 위로 나선을 그리며 솟아오르고, 두 사람은 화면 맨 아래에 작게.<br/><b>장소·시간</b> 산길 중턱 마른 우물가, 돌아오는 길의 맑은 낮. 바람이 위로 감아 도는 시원한 공기.<br/><b>인물</b> WaterSerpent(이무기)가 화면 중앙을 세로로 가로지르며 나선으로 떠오름 — 둥근 고리들이 아래에서 위로 점점 작아지고, 머리는 화면 위쪽에서 하늘을 향해 젖혀졌으며 커다란 점눈이 기쁨으로 반달, 입은 활짝 웃는 곡선, 수염 획이 뒤로 흩날림. 몸에서 옅은 진줏빛 반짝임이 흩어짐. 화면 아래 왼쪽 — PoorYoungMan(총각)이 두 손바닥을 오목하게 받쳐 올려 <b>여의주(yeouiju)</b> 한 알을 막 받은 자세, 고개를 뒤로 젖혀 올려다보며 입이 크게 벌어진 놀라움. 그 곁 LonelyGirl(처녀)은 두 손으로 입을 가리고 눈을 동그랗게 뜨고 함께 올려다봄. 총각의 붉은 대님(화면의 단 하나 빨강) — 🔴 여의주는 맑은 진줏빛·옥빛이며 절대 붉지 않게.<br/><b>배경·소품</b> 화면 아래 귀퉁이의 둥근 돌우물과 그 옆에 눕혀 둔 괭이, 우물 바닥으로 다시 스며 차오르기 시작한 얕은 물 한 겹, 위로 갈수록 성기게 흩어지는 구름 획과 크림 종이 여백 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 아래는 밝은 낮빛, 위로 갈수록 하얗게 트이는 상승감, 천 년 기다림이 풀리는 시원하고 벅찬 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>결말(회수 ③·뿌리 밑 금덩이)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">감나무 앞에 다다른 총각은 어깨의 괭이를 내렸어요. 쿵! 쿵! 쿵! 뿌리 밑을 파 내려가자 흙 속에서 누런 금덩이가 데굴 굴러 나왔지요. "아이고 시원해라, 이제야 숨이 트여요!" 감나무가 기지개를 켰답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글 부감 — 파 놓은 구덩이를 비스듬히 위에서 내려다보는 중형 컷. 화면 아래 절반이 흙구덩이의 검은 속과 드러난 뿌리들이고, 그 둘레로 사람과 나무 밑동이 걸침.<br/><b>장소·시간</b> 들길 가 감나무 아래, 돌아오는 길의 한낮. 흙냄새가 훅 올라오는 부산한 공기.<br/><b>인물</b> PoorYoungMan(총각)이 화면 왼쪽 위에서 구덩이 가장자리에 한 발을 딛고 <b>괭이(gwaengi)</b>를 크게 치켜들었다 내리찍는 자세, 흙이 튀고 소매가 걷어붙여짐, 입은 힘주어 벌어지고 이마에 땀 획. 발목의 붉은 대님(화면의 단 하나 빨강). 화면 오른쪽 위 — LonelyGirl(처녀)이 무릎을 굽혀 앉아 두 손으로 흙을 걷어내며 돕고, 놀라 입이 작은 O. 화면 위 가장자리에 OldTree(감나무)의 밑동과 얼굴 아랫부분이 걸치고, 눈이 아래를 내려다보며 입은 "아—" 하고 시원하게 벌어짐.<br/><b>배경·소품</b> 구덩이 속에 반쯤 드러난 누런 금덩이 덩어리들(둥글넓적한 덩이 서넛)과 그것을 짓누르고 있던 굵은 뿌리, 파낸 흙더미와 박힌 괭이 자국, 옆에 내려놓은 <b>조롱박(jorongbak)</b> — 배경(길·먼 마을 지붕)은 열린 연필선 몇 획.<br/><b>톤</b> 위에서 곧게 떨어지는 한낮 빛이 구덩이 속 금빛에 반사돼 위로 튐, 막힌 것이 뚫리는 시원하고 신나는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>결말(세 가지 복이 여기에)</b> <span class="tag beat">⑤ 결말 · 펼침면 한 방</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그 순간, 앙상하던 가지마다 하얀 감꽃이 팡! 팡! 팡! 눈처럼 피어났어요. 총각의 발치에는 금덩이가, 손에는 여의주가, 곁에는 처녀가 있었지요. 남의 복을 여쭈러 갔던 자리에, 제 복이 세 가지나 와 있었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 정면 — 꽃을 가득 인 감나무가 화면 전체를 우산처럼 덮고 그 아래 두 사람이 나란히 선 펼침면 한 방. 이 편에서 유일하게 정면·좌우 대칭에 가까운 구도(절정의 안정감).<br/><b>장소·시간</b> 들길 가 감나무 아래, 같은 날 한낮. 꽃잎이 흩날리는 환한 공기.<br/><b>인물</b> OldTree(감나무)가 화면 위 절반을 가득 채움 — 아까까지 축 늘어졌던 가지들이 위로 시원하게 들리고 잔가지마다 작고 흰 감꽃이 빼곡히 피었으며, 줄기의 점눈 얼굴은 눈이 반달이 되고 입은 크게 벌어진 환한 웃음. 화면 아래 중앙 — PoorYoungMan(총각)이 한 손에 맑은 진줏빛 <b>여의주(yeouiju)</b>를 받쳐 들고 다른 팔로 어깨의 괭이를 안은 채 하늘을 올려다보며 활짝 웃음, 발목의 붉은 대님(화면의 단 하나 빨강). 그 곁 LonelyGirl(처녀)은 총각 쪽으로 살짝 몸을 기울여 함께 위를 올려다보며 두 손으로 감꽃 한 송이를 받음, 이제 눈물 획은 하나도 없고 환한 미소. 발치에는 파낸 금덩이 서넛이 소복이.<br/><b>배경·소품</b> 공중에 흩날리는 흰 감꽃잎 여러 장, 나무 밑동 옆 메워지다 만 구덩이, 저 멀리 마을로 이어지는 흙길과 지붕들 — 배경은 열린 연필선 러프 스케치. 🔴 밀도는 감나무 꽃과 두 사람에게만.<br/><b>톤</b> 한낮 햇빛이 꽃잎 사이로 부서져 내리는 눈부신 조명, 세 가지 복이 한 화면에 모이는 벅차고 환한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p14">
+  <div class="page-head"><span class="pnum">P14</span><b>결말(교훈과 여운)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마을로 돌아온 총각은 이웃들과 곡식을 나누고, 마른 우물도 새로 팠어요. 마을 사람들이 물었지요. "그래, 복은 대체 어디서 타 왔소?" 총각은 빙그레 웃었어요. "남의 것을 여쭈러 갔더니, 제 것이 따라왔지 뭐예요." 남을 돕는 마음이 곧 제 복이 된대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨보다 조금 높은 3/4 시점 — 마을 우물가에 둥글게 모인 사람들을 비스듬히 옆에서 잡은 컷. 원형으로 모인 무리가 화면 가운데를 감싸고 그 틈으로 총각이 보임.<br/><b>장소·시간</b> 총각네 마을 한복판 새로 판 우물가, 며칠 뒤 늦은 오후. 웃음소리가 도는 왁자하고 넉넉한 공기.<br/><b>인물</b> PoorYoungMan(총각)이 무리 가운데서 새 우물 턱에 한 손을 얹고 서서 어깨를 으쓱하며 빙그레 웃음 — 옷차림은 처음과 똑같은 소박한 한복(부자 티를 절대 내지 않음), 발목의 붉은 대님(화면의 단 하나 빨강). 그 곁 LonelyGirl(처녀)이 곡식 자루의 아가리를 벌려 이웃에게 퍼 주며 환하게 웃음. 둘레에 마을 사람 대여섯 — 아이 둘은 두레박에 매달려 물장난, 할머니는 두 손 모아 고맙다는 인사, 지게 진 이웃은 껄껄 웃음(단역은 획 몇 개의 러프한 실루엣과 점눈만).<br/><b>배경·소품</b> 물이 찰랑찰랑 차오른 새 우물과 두레박, 총각이 세워 둔 <b>괭이(gwaengi)</b>, 나눠 주는 곡식 자루 여럿, 마을 초가지붕들과 저 멀리 하얗게 꽃 핀 감나무가 아주 작게 보이고 그 위 하늘 높이 이무기가 지나간 자리처럼 가느다란 구름 한 줄 — 배경은 열린 연필선 몇 획.<br/><b>톤</b> 나지막이 깔리는 늦은 오후 금빛, 나눌수록 넉넉해지는 훈훈하고 정겨운 마무리 정서, 따뜻한 흙빛과 한지 크림색.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 복 타러 간 총각 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING (finish hierarchy — the single most important rule): The bright warm cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. This picture is deliberately UNEVENLY finished, like one page from a master's sketchbook. Finish only what matters: the CHARACTERS = finished (clear line AND color, keep them at their current level); a prop a character is directly touching or holding (a loom, a bench, a gourd in their hands) = half-finished, a bit of line and a little color; everything else — the whole background: jars, walls, fences, roofs, trees, hills, anything far away — = a LOOSE UNFINISHED PENCIL SKETCH: just a few open contour lines and a few direction strokes, barely any color, lots of bare cream paper showing through, deliberately NOT filled in, like the rough underdrawing on a sketchbook page. A jar is two or three open outlines, a roof is a few slanted direction strokes, a distant thing is one or two lines and then paper. This is about how FINISHED each area is, NOT about opacity — the background is not faded, hazy, blurry or low-saturation, it is simply left as rough sketch lines and not drawn to completion. Spend all the density ONLY on the characters. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces; NOT a fully rendered background, NOT every jar / roof-tile / leaf drawn to completion, NOT a uniform finish across the whole picture, and NOT a hazy / blurry / faded background either (that is just blur, not a sketch) — keep the background as loose OPEN PENCIL SKETCH lines and every stroke loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'PoorYoungMan',  name: '총각',    desc: '복 타러 떠난 총각 — 소박한 한복·미투리, 긴 댕기머리, 어깨에 괭이, 붉은 대님(단 하나 빨강)', aliases: ['PoorYoungMan'] },
+    { token: 'MountainSpirit', name: '신령님',  desc: '서쪽 끝 산신령 — 산처럼 큰 덩치, 폭포 같은 흰 수염, 근엄하되 다정',                      aliases: ['MountainSpirit'] },
+    { token: 'OldTree',       name: '감나무',  desc: '꽃 못 피운 늙은 감나무 — 줄기에 점눈 얼굴, 늘어진 빈 가지 / 활짝 핀 상태',              aliases: ['OldTree'] },
+    { token: 'WaterSerpent',  name: '이무기',  desc: '순한 큰 물짐승 — 둥근 고리 몸, 커다란 점눈, 진줏빛 여의주 둘(무섭지 않게)',            aliases: ['WaterSerpent'] },
+    { token: 'LonelyGirl',    name: '처녀',    desc: '외딴집 처녀 — 소박한 치마저고리, 크림빛 댕기(빨강 아님), 눈물 획 두 개',               aliases: ['LonelyGirl'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

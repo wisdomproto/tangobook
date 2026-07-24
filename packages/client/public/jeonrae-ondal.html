@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 바보 온달과 평강공주</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · 시즌2 #22</div>
+  <h1>🏹 바보 온달과 평강공주</h1>
+  <div class="sub">울보 공주가 지킨 약속 — 아무것도 못 한다던 온달이 장군이 되기까지</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 성장·믿음 &nbsp;·&nbsp;
+  <b>분량</b> 15 스프레드 &nbsp;·&nbsp; <b>후렴</b> 한 뼘씩 자라는 노래 &nbsp;·&nbsp;
+  <b>핵심단어</b> 비단보자기 · 거문고 · 말안장 · 화살통 · 투구 &nbsp;·&nbsp;
+  <b>순화</b> 🔴 원작의 <b>전사(죽음) 결말을 완전히 제거</b> — 온달은 훌륭한 장군으로 자라 공주와 함께 개선한다 / 전투는 <b>절대 그리지 않는다</b>(늠름한 출정과 꽃잎 뿌리는 환영으로만 표현, 무기 겨눔·싸움·다침 묘사 금지) / "바보"라는 놀림은 초반 한 번만 쓰고 결말에서 거두어들인다 / 임금님의 꾸중은 무섭지 않고 얼굴 빨개지는 코믹으로
+</div>
+<div class="refrain">🌱 반복 후렴 — "하나, 둘! 하나, 둘! 오늘보다 내일 한 뼘 더!" <span style="font-weight:600;font-size:13px">(P1 유모의 달램 → P9 글공부 → P11 활 연습 → P15 온달이 공주에게 돌려주는 노래)</span></div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-ondal</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.<br>🔴 <b>상태 변형 캐릭터 = 시트 분리</b> — 평강공주(어린 울보/자란 공주), 온달(바보 온달/장군 온달)은 각각 <b>다른 @image</b>다. 얼굴은 IDENTICAL FACE로 고정하고 <b>옷·자세만</b> 바뀐다. 각 쪽 SCENE은 그 시점의 상태 토큰만 쓴다(장군이 된 뒤 장면 = OndalGeneral).<br>🔴 <b>화면당 빨강 악센트 1점</b> — 공주가 있는 컷은 <b>어린 공주의 붉은 댕기 / 자란 공주의 붉은 허리끈</b>이 그 빨강이다. 공주가 없는 컷에서만 다른 빨강 하나(말고삐의 붉은 술, 투구의 붉은 술)를 쓴다.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="어린 평강공주" data-key="char-princess-child">
+  <div class="head"><span class="face">👧</span><b>어린 평강공주</b> <span class="rom">PrincessChild · 울보 공주</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: PrincessChild — a small palace princess of about six who cries at everything, but sweet and never bratty. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a small line mouth, no nose (or one tiny dot). Hair as one solid dark mass in two neat looped braids at the sides of her head. IDENTICAL FACE to PrincessGrown.
+SILHOUETTE (her signature): tiny and round — the smallest body in the cast, short arms, feet planted apart when she wails. Her crying is drawn with two little stroke-tears flicking outward from the dot eyes and a wide-open wobbly mouth, comic and endearing, never miserable.
+SIGNATURE RED: a small RED ribbon (daenggi) tied at the end of each braid loop — this is the picture's single red accent whenever she appears.
+CLOTHES (palace child state): a neat little court skirt-and-jacket hanbok — the jacket left as open cream paper with tidy edges, the small wide skirt suggested in a gentle jade-green pencil tone with a few tidy hatching strokes, tiny cloth shoes in two strokes. Well-kept and precious, told by neat edges rather than heavy rendering.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands at her sides, small line mouth) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) big wobbly open-mouth wail with two stroke-tears, (2) sniffling with a downcurved mouth and one tear, (3) wide-awake curiosity — a small O mouth with both brow strokes lifted. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="평강공주" data-key="char-princess-grown">
+  <div class="head"><span class="face">👩</span><b>평강공주</b> <span class="rom">PrincessGrown · 마음을 정한 공주</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: PrincessGrown — the SAME princess grown to about sixteen, who leaves the palace to keep her word.
+🔴 IDENTICAL FACE to PrincessChild: the same flat cream face, same two dot eyes, same small line mouth, same solid dark hair mass. She simply grew — the face never changes. She NEVER cries again after leaving the palace; her signature is steadiness.
+SILHOUETTE (her signature): slight and upright with square, settled shoulders — the calmest, straightest body in every picture, and the one who is always doing something with her hands (holding out a brush, tying a strap, pointing the way). The two child braid loops are now one long single braid down her back.
+SIGNATURE RED: a narrow RED sash tied at her waist, its end hanging down — this is the picture's single red accent whenever she appears.
+CLOTHES (village state): a plain everyday skirt-and-jacket hanbok suggested in soft blue-grey and pale cream pencil strokes — mostly open paper with loose hatching, sleeves pushed up to the elbow for work, straw sandals in a few pale straw-yellow strokes. She dresses exactly like the villagers now; nothing about her says palace except her bearing.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded at the waist, calm line mouth) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) calm warm one-line smile, (2) firm resolve — a straight level mouth with the chin lifted, (3) bright encouragement — an open smiling mouth with one hand raised as if counting "hana, dul". Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="바보 온달" data-key="char-ondal-fool">
+  <div class="head"><span class="face">🧑‍🌾</span><b>바보 온달</b> <span class="rom">OndalFool · 놀림받던 착한 청년</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: OndalFool — a poor young man everyone calls a fool, but he is simply untaught: sunny, gentle and endlessly good-natured, never dim-witted or pitiful. Dot-eye design language: a flat cream face with zero shading, two dot eyes, and his signature — a wide open happy grin drawn as one big curved line (the most open mouth in the cast). No nose (or one tiny dot), hair as one shaggy dark mass loosely bundled at the back with a straw tie, a few stray strokes sticking out, two or three tiny stubble dots on the chin. IDENTICAL FACE to OndalGeneral.
+SILHOUETTE (his signature): big and soft — broad round shoulders and large hands, but he carries himself apologetically small: knees slightly bent, head ducked, shoulders drawn in. A big body folded up shy.
+CLOTHES (poor state): a threadbare work hanbok in soft blue-grey pencil strokes, mostly open paper, sleeves and trouser cuffs tied with straw cord, several small scribbled patches, bare feet or straw sandals in a few strokes, a twist of straw rope at his waist. Poor is told by patches and sparse strokes, never by dirt or gloom.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (arms full of a bundle of firewood, big open grin, head ducked) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) wide open happy grin, (2) startled backward flinch — a big O mouth with both brow strokes flying up, (3) bashful — a small closed smile with the head ducked and one hand rubbing the back of the neck. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="장군 온달" data-key="char-ondal-general">
+  <div class="head"><span class="face">🛡️</span><b>장군 온달</b> <span class="rom">OndalGeneral · 늠름한 장군</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: OndalGeneral — the SAME young man AFTER years of learning, now a general of Goguryeo.
+🔴 IDENTICAL FACE to OndalFool: the same flat cream face, same two dot eyes, same big open grin, same stubble dots. Learning changed his posture and his clothes, never his face — he is still warm and sunny, NEVER stern, NEVER proud.
+SILHOUETTE: the same big broad body, but now unfolded — shoulders squared and open, back straight, chin level, feet planted. Side by side with OndalFool the two silhouettes must read as "folded up" versus "stood up", the same man.
+CLOTHES & GEAR: a simple Goguryeo warrior's outfit suggested in soft blue-grey and honey-brown pencil strokes — a knee-length coat belted at the waist, a shoulder guard hatched with a hint of small scale marks, and a rounded iron helmet (tugu) with a short neck flap and a RED horsehair tassel at its crown. Grand told by the SHAPE, not by heavy rendering — no gold drench, no armour detail overload.
+🔴 NO WEAPON IN HAND: he may wear an empty quiver or hold a horse's rein, but never a drawn bow, never a blade, never a weapon pointed at anything.
+NOTE: when he appears without PrincessGrown in frame, the red tassel on his helmet is the picture's single red accent.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (helmet on, hands resting easy, big open grin) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) wide open happy grin, (2) steady calm resolve with a level line mouth, (3) moved and grateful — a soft closed smile with a slight bow of the head. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="온달 어머니" data-key="char-ondal-mother">
+  <div class="head"><span class="face">👵</span><b>온달 어머니</b> <span class="rom">OndalMother · 앞 못 보는 어머니</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: OndalMother — Ondal's old mother, who cannot see; gentle, dignified and quietly proud, never pitiful.
+🔴 HER EYES: instead of two dot eyes she has TWO GENTLY CLOSED EYES drawn as two small downward-curved arc lines (∪-shaped closed lids) — peaceful and warm, never blank or scary. Everything else is the standard dot-eye language: a flat cream face with zero shading, a soft one-line smile, no nose (or one tiny dot).
+SILHOUETTE (her signature): small, slightly stooped and round-backed, always sitting or standing with one hand reaching a little ahead into the air and her chin lifted as if listening. Hair as one solid grey-white mass in a small low bun, drawn a shade paler than everyone else's dark hair so her age reads instantly.
+CLOTHES & PROP: a worn plain skirt-and-jacket hanbok in soft blue-grey pencil strokes with two or three scribbled patches, a cloth band tied over her hair, and a slim wooden stick drawn as one long confident stroke, held or leaning beside her.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body seated idle (hands on knees, head tilted to listen, closed arc eyes) + a standing 3/4 turn with the stick + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture, the closed arc eyes staying the same: (1) warm listening smile, (2) apologetic — a small downcurved mouth with a waving hand, (3) deeply moved, a wobbly smile with one tiny stroke-tear. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="임금님" data-key="char-king">
+  <div class="head"><span class="face">👑</span><b>임금님</b> <span class="rom">King · 공주의 아버지</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: King — the princess's father, king of Goguryeo: hearty, teasing and hot-faced, but soft-hearted underneath. Never a tyrant, never frightening. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a broad line mouth, no nose (or one tiny dot), a full dark beard drawn as a few scribbled strokes along the jaw and two short mustache strokes.
+SILHOUETTE (his signature): wide and rectangular, made almost entirely of his ROBE — big square shoulders, hands often on his hips or one arm flung out mid-declaration. HIS HAT IS THE KEY MARKER: a soft rounded Goguryeo cap with TWO long feathers standing up from it (jo-u-gwan), drawn as one dark shape plus two quick upward strokes — this is what makes him read as an ancient Goguryeo king from far away.
+CLOTHES: a long court robe suggested in soft jade-green and cream pencil strokes, mostly open paper, with a wide belt hatched in honey-brown and one loosely scribbled round emblem at the chest. Grand told by SHAPE, not by gold.
+NOTE: when he appears without the princess in frame, the picture's single red accent is a small red cord knotted at his belt.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands on hips, broad line mouth) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) hearty teasing grin with the head thrown back, (2) comic bluster — a big shouting O mouth with both brow strokes down and cheeks flushed with two tiny hatch marks, (3) astonished delight — a small O mouth with both brow strokes lifted high. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="유모" data-key="char-nanny">
+  <div class="head"><span class="face">👩‍🍼</span><b>유모</b> <span class="rom">Nanny · 공주를 키운 유모</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Nanny — the palace nurse who raised the princess: plump, cheerful and endlessly patient, the one who sings the counting song. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a broad warm one-line smile, no nose (or one tiny dot), hair as one solid dark mass in a neat middle-parted low bun with a plain wooden hairpin drawn as one short stroke.
+SILHOUETTE (her signature): short, wide and pillowy — the roundest, softest body in the cast, arms usually open or bent as if about to scoop someone up. Next to the tiny PrincessChild she reads as a warm round shelter.
+CLOTHES: a tidy working skirt-and-jacket hanbok suggested in soft blue-grey pencil strokes with a hint of straw-yellow at the sash, an apron drawn in a few strokes, sleeves tied back with cord. Practical and clean, few strokes.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (one hand raised counting, warm smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) broad warm smile mid-song, (2) fond exasperation — a small pursed mouth with one brow stroke raised, (3) holding back tears — a wobbly smile with one tiny stroke-tear and a raised waving hand. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="말" data-key="char-horse">
+  <div class="head"><span class="face">🐴</span><b>말</b> <span class="rom">Horse · 병든 말에서 늠름한 말로</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Horse — the horse nobody wanted, who becomes the finest horse in the land. Drawn in the same dot-eye language as the people: a flat simple head with ONE dot eye visible in profile, a single line mouth, no realistic anatomy detail — all charm in the silhouette.
+🔴 SHOW TWO STATES on the sheet, told by SILHOUETTE and POSTURE only (same horse, same markings, never a different animal): (a) SICK STATE — a bony, sunken-backed little horse with a drooping head, ribs suggested by three or four quick hatch strokes, a thin ragged tail, ears laid flat, standing with legs close together; (b) FINE STATE — the same horse now round-chested and glossy, head lifted high, mane and tail full and sweeping, ears pricked forward, one front hoof raised mid-step. The transformation must read as the SAME horse fed and loved, not a replacement.
+COLOR: a warm honey-brown coat in loose hatching over open cream paper, with a small cream blaze down the nose kept IDENTICAL in both states so the two read as one horse.
+GEAR: in the fine state a simple wooden-framed saddle (malanjang) with a soft cushion and a stirrup hanging, and a bridle whose rein carries a small RED tassel — the picture's single red accent when no princess is in frame.
+REFERENCE SHEET: one sheet on plain bright cream paper — side profile of the SICK state and side profile of the FINE state placed side by side, plus a 3/4 front view of the fine state and one galloping pose (legs as a few quick strokes). Single animal only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.) 다섯 사물 모두 본문에 실제로 등장한다 — 비단보자기 P5·P8, 거문고 P9, 말안장 P10, 화살통 P11, 투구 P13·P14.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="비단보자기" data-key="word-bidanbojagi">
+  <div class="head"><span class="face">🎁</span><b>비단보자기</b> <span class="rom">bidan-bojagi — a silk wrapping cloth</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "bidan-bojagi — a traditional Korean silk wrapping cloth (비단보자기)". A square cloth pieced together patchwork-style from small silk panels in vivid jewel tones — jade green (#27795B), deep indigo (#3E6E9B), plum (#8E3B5E) and warm gold (#C9A227) — each panel edged with a fine hand-stitched seam line, the silk catching a soft satin sheen. Show TWO STATES side by side so the word reads clearly: (1) the cloth spread open flat at a slight angle showing the whole patchwork pattern, and (2) the same cloth gathered up and knotted into a round bundle with a neat top knot. Elegant, crisp, proud heritage craft. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="거문고" data-key="word-geomungo">
+  <div class="head"><span class="face">🎼</span><b>거문고</b> <span class="rom">geomungo — a six-string zither</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "geomungo — a traditional Korean six-string zither played with a short stick (거문고)". A long narrow plank-bodied zither of honey-brown paulownia wood with visible grain (#B07A3C), its top slightly arched, SIX silk strings running its length in pale ivory (#EFE6D2), a row of tall carved wooden frets under the strings, dark lacquered end-pieces (#3E2A20) with a small mother-of-pearl inlay motif, and its short bamboo striking stick (suldae) lying beside the body. Show the instrument at a slight 3/4 angle so the frets and the string depth read clearly. Warm, glossy, beautifully turned wood. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="말안장" data-key="word-malanjang">
+  <div class="head"><span class="face">🐎</span><b>말안장</b> <span class="rom">malanjang — a Korean horse saddle</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "malanjang — a traditional Korean wooden horse saddle (말안장)". A high-arched wooden saddle frame of honey-brown wood (#B07A3C) with a tall curved pommel and cantle, the arches edged with dark blackened-iron trim and a small dancheong-pattern painted band in jade and vermilion (#27795B & #C0392B), a padded leather seat in warm russet (#8B4A2B), woven girth straps, and a pair of iron stirrups hanging on either side by their leather straps. Shown at a slight 3/4 angle so the arch shape and one stirrup read clearly, saddle alone with no horse. Sturdy, handcrafted, proud. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="화살통" data-key="word-hwasaltong">
+  <div class="head"><span class="face">🏹</span><b>화살통</b> <span class="rom">hwasaltong — an arrow quiver</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "hwasaltong — a traditional Korean arrow quiver (화살통, 전통)". A slim cylindrical case of dark red-brown lacquered wood and leather (#7A4A2B) with a deep glossy sheen, banded top and bottom in blackened iron, a small mother-of-pearl inlay flower on the side, a braided shoulder cord with a red silk knot (#C0392B), and a handful of arrows standing in it — pale bamboo shafts (#D8B45A) with brown-and-white pheasant feather fletchings fanning out of the mouth. Show the quiver upright at a slight 3/4 angle plus one single arrow lying beside it so the fletching reads. Handsome, crisp, proud craftsmanship — never menacing, no bow, no target. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="투구" data-key="word-tugu">
+  <div class="head"><span class="face">⛑️</span><b>투구</b> <span class="rom">tugu — a warrior's helmet</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "tugu — a Goguryeo-era Korean warrior's iron helmet (투구)". A tall rounded helmet built from narrow curved iron plates riveted together in vertical bands (cool steel-grey #9AA3A8 with a warm bronze patina at the rivets #A97C3F), a small crown fitting at the top holding a plume of RED horsehair (#C0392B), a curved brow band with a simple engraved line pattern, and a hanging neck-and-cheek guard of small laced iron scales with braided cords under the chin. Shown at a slight 3/4 angle on an empty stand so the shape reads clearly, helmet alone with no person and no weapon. Noble, sturdy, proud heritage metalwork. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 15 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <span class="tag">후렴 ①</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날, 고구려라는 나라의 궁궐에 눈물이 아주 많은 공주님이 살았어요. 이름은 평강. 넘어져도 엉엉, 바람이 불어도 엉엉! 유모는 공주님을 기둥 앞에 세워 키를 재 주며 노래했지요. "하나, 둘! 하나, 둘! 오늘보다 내일 한 뼘 더!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 하이앵글 부감 + 스케일 대비 — 넓은 궁궐 뜰을 비스듬히 위에서 내려다보고, 그 한구석 큰 기둥 아래에 두 사람만 작게 놓인 도입 컷. 텅 빈 뜰의 여백이 아이의 울음소리를 더 크게 만든다.<br/><b>장소·시간</b> 옛 고구려 궁궐의 안뜰, 맑은 봄날 아침. 넓고 조용한 마당에 새소리만 드는 한가로운 공기.<br/><b>인물</b> 화면 중앙 아래 굵은 나무 기둥 앞 — PrincessChild(어린 평강공주)가 기둥에 등을 딱 붙이고 서서 두 발을 벌린 채 입을 크게 벌려 엉엉 울음, 두 눈의 점에서 눈물 획이 좌우로 튕겨 나가고 두 팔은 아래로 축 늘어짐. 양옆 댕기머리 고리 끝의 붉은 댕기가 흔들림(화면의 단 하나 빨강). 그 앞에 Nanny(유모)가 통통한 몸을 굽혀 무릎을 짚고 한 손을 공주 머리 위에 수평으로 얹어 키를 재 주며, 다른 손은 손가락을 하나 둘 펴 보이며 노래하듯 활짝 웃음.<br/><b>배경·소품</b> 기둥에 작은 칼금으로 새겨진 키 눈금 자국 서너 개(아래에서 위로 조금씩), 뜰의 넓은 흙바닥, 저 뒤로 낮은 궁궐 지붕과 난간·계단, 담장 너머 소나무 두어 그루와 봄꽃 몇 송이 — 배경은 전부 열린 연필선 몇 획의 러프 스케치로, 색은 거의 없이 크림 종이가 그대로 보이게.<br/><b>톤</b> 부드럽고 고른 봄 아침 햇빛이 뜰을 가로질러 두 사람에게 길게 닿음, 우는 아이가 안쓰럽기보다 귀엽고 정겨운 코믹한 정서, 크림빛과 옅은 옥빛.</pre></details>
+</div>
+
+<!-- ② 발단 : P2, P3, P4 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(임금님의 농담)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그래도 공주님은 날마다 울었어요. 어느 날 임금님이 껄껄 웃으며 놀렸지요. "울보 공주야, 자꾸 울면 바보 온달에게 시집보낼 테다!" 그런데 공주님은 울음을 뚝 그치고 눈을 반짝 떴어요. "온달님이 누구예요?"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 중형 — 어린 공주의 눈높이에서 임금님을 아래에서 올려다보는 각도. 임금님이 화면 위쪽에 크고 우뚝하고, 화면 아래 앞쪽에 공주의 작은 뒷머리와 어깨가 걸침.<br/><b>장소·시간</b> 궁궐 대청마루, 같은 봄날 낮. 웃음소리가 울리는 넉넉하고 환한 공기.<br/><b>인물</b> King(임금님)이 화면 중앙 위쪽에 두 손을 허리에 얹고 고개를 뒤로 젖힌 채 입을 크게 벌려 껄껄 웃으며 놀림, 수염 몇 획이 함께 들썩이고 눈썹 획이 장난스럽게 휘어짐, 머리엔 깃 두 개가 위로 곧게 선 고구려 관. 화면 아래 앞쪽 — PrincessChild(어린 평강공주)가 등을 보인 채 고개를 한껏 젖혀 아버지를 올려다봄, 방금 그친 울음의 눈물 획 하나가 볼에 남아 있고 입은 작은 O 모양, 양쪽 댕기 고리의 붉은 댕기가 위로 살짝 들림(단 하나 빨강).<br/><b>배경·소품</b> 대청의 굵은 나무 기둥과 들어 올린 문짝, 마루 끝의 낮은 난간, 한쪽에 놓인 나지막한 상과 놋대접, 열린 문 너머 뜰의 봄빛 — 배경은 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 열린 문에서 쏟아져 들어와 임금님을 뒤에서 감싸는 밝은 낮빛, 무섭지 않고 유쾌한 놀림의 코믹한 정서, 아이의 호기심이 반짝 켜지는 순간.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(산 아래 온달)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">산 아래 작은 마을에는 정말 온달이 살고 있었어요. 옷은 다 해졌지만 마음은 햇살처럼 밝은 청년이었지요. 앞 못 보는 어머니를 모시고, 날마다 산에 올라 나무껍질과 나물을 한 아름 안고 내려왔어요. 아이들이 "바보 온달!" 하고 놀려도 온달은 헤벌쭉 웃기만 했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 + 스케일 대비, 살짝 하이앵글 — 커다란 산비탈이 화면 전체를 차지하고, 그 아래 산길을 내려오는 온달이 손톱만 하게 놓인 컷. 큰 세상 속 작은 사람.<br/><b>장소·시간</b> 마을 뒤편의 높은 산과 산길, 늦봄 한낮. 나뭇잎 냄새가 나는 상쾌하고 트인 공기.<br/><b>인물</b> 화면 아래 오른쪽 산길에 작게 — OndalFool(바보 온달)이 나뭇단과 나물을 두 팔 가득 안고 성큼성큼 내려옴, 큰 몸을 앞으로 살짝 숙이고 고개는 아래로, 입은 그래도 크게 벌린 환한 웃음. 길가에 마을 아이 셋이 손가락질하며 웃는 아주 작은 실루엣(획 몇 개, 얼굴은 점 하나씩).<br/><b>배경·소품</b> 겹겹이 이어진 산등성이와 굽은 소나무들, 산길을 따라 난 풀숲, 온달이 안은 나뭇단 사이로 삐죽 나온 나물 줄기, 저 아래 마을의 작은 초가지붕 몇 채와 산 아래 온달네 오두막 — 전부 열린 연필선 몇 획의 러프 스케치, 산은 방향선 몇 획과 크림 종이 여백으로만.<br/><b>톤</b> 높은 데서 쏟아지는 맑은 한낮 햇빛, 놀림당해도 기죽지 않는 씩씩하고 밝은 정서, 화면의 단 하나 빨강은 온달이 허리에 묶은 붉은 끈 매듭 하나.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>발단(공주의 약속)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">세월이 흘러 공주님은 열여섯 살이 되었어요. 임금님이 말했지요. "이제 훌륭한 집안으로 시집을 가거라." 공주님은 조용히 고개를 저었어요. "임금님은 두 번 말하지 않는다 하셨어요. 저는 온달님께 가겠습니다." 임금님은 얼굴이 빨개져 소리쳤어요. "그렇다면 궁을 나가거라!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 어깨너머 중형 — 화면 왼쪽 앞에 King의 넓은 어깨와 깃 두 개 달린 관이 크게 걸치고, 그 너머 마주 선 PrincessGrown이 화면 중앙에 또렷하게 보이는 구성. 아버지는 크고 딸은 작지만, 시선의 힘은 딸에게 있다.<br/><b>장소·시간</b> 궁궐 안 넓은 마루방, 가을 낮. 팽팽하지만 무섭지는 않은 조용한 공기.<br/><b>인물</b> 화면 왼쪽 전경 — King(임금님)의 뒷모습 어깨와 관, 한 손을 번쩍 들어 문 쪽을 가리키고, 옆얼굴 볼에 화가 나 붉어진 잔 획 두 줄과 크게 벌린 입. 화면 중앙 — PrincessGrown(평강공주)이 두 손을 앞에 가지런히 모으고 허리를 곧게 편 채 아버지를 마주 봄, 고개를 살짝 숙였지만 눈은 흔들림 없고 입은 곧은 한 줄, 긴 댕기머리가 등 뒤로 늘어짐, 허리의 붉은 띠 끝이 아래로 드리움(화면의 단 하나 빨강).<br/><b>배경·소품</b> 마루방의 굵은 기둥과 격자 문살, 벽 쪽에 놓인 낮은 서안과 두루마리, 문 너머로 보이는 궁궐 뜰의 가을빛 — 배경은 열린 연필선 러프 스케치로, 색은 거의 없이.<br/><b>톤</b> 문에서 비스듬히 들어온 낮은 가을빛이 공주의 곧은 어깨선만 또렷하게 비춤, 야단이 아니라 마음이 맞부딪는 뭉클하고 곧은 정서.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P5, P6, P7, P8, P9 -->
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(궁을 나서다)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">새벽, 공주님은 패물을 비단보자기에 곱게 싸서 등에 지고 궁을 나섰어요. 유모가 눈물을 훔치며 손을 흔들었지요. 공주님은 한 번도 뒤돌아보지 않고 산 아래 마을로 걸어갔어요. 저벅, 저벅, 저벅.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 극단 여백 대형 와이드, 아이레벨 — 화면의 약 70%가 텅 빈 새벽 하늘과 희뿌연 흙길이고, 사건은 화면 왼쪽 아래 구석의 궁궐 옆문 앞에만 작게 놓인 구성. 길은 오른쪽 위 여백으로 아득히 사라진다.<br/><b>장소·시간</b> 궁궐 담 옆 작은 옆문과 그 앞으로 뻗은 흙길, 첫닭이 우는 이른 새벽. 서늘하고 텅 빈 공기.<br/><b>인물</b> 화면 왼쪽 아래 — PrincessGrown(평강공주)이 등에 <b>비단보자기(bidan-bojagi)</b> 보따리를 지고 이미 문밖 길 위로 여러 걸음 나선 자세, 몸도 얼굴도 길 쪽을 향하고 뒤돌아보지 않음, 입은 곧은 한 줄, 허리의 붉은 띠 끝이 새벽빛 속 유일한 빨강으로 흔들림. 문 안쪽에 Nanny(유모)가 문설주를 붙잡고 한 손으로 눈가를 닦으며 다른 손을 높이 흔듦, 입은 울음을 참는 떨리는 미소.<br/><b>배경·소품</b> 조각보 무늬가 어렴풋이 보이는 등짐 보따리, 반쯤 열린 나무 옆문과 높은 궁궐 담, 담 아래 이슬 맺힌 풀, 지붕 위 홰치는 수탉 한 마리, 길 끝 멀리 안개 속 산 그림자 — 전부 열린 연필선 몇 획, 색은 거의 없이 크림 종이 여백.<br/><b>톤</b> 푸르스름한 새벽빛에 지평선만 옅게 밝아옴, 넓은 빈 여백이 결심의 크기를 말하는 담담하고 씩씩한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(오두막의 어머니)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">산 아래 작은 오두막 앞에서 공주님은 온달의 어머니를 만났어요. "우리 집은 너무 가난해서 손님을 모실 수 없답니다." 어머니가 손사래를 쳤지요. 공주님은 무릎을 굽혀 어머니의 두 손을 잡았어요. "저는 손님이 아니라, 식구가 되러 왔어요."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 겹침·가림 구도의 중형 컷, 살짝 하이앵글 — 화면 앞쪽 좌우를 사립문 기둥과 늘어진 나뭇가지가 반쯤 가리고, 그 사이 틈으로 마당의 두 사람이 보이는 구성. 훔쳐보듯 조심스러운 시선.<br/><b>장소·시간</b> 산 아래 온달네 오두막 앞마당, 늦은 오후. 조용하고 가난하지만 정갈한 공기.<br/><b>인물</b> 틈 사이 화면 중앙 — OndalMother(온달 어머니)가 툇마루 끝에 앉아 몸을 뒤로 살짝 물리며 한 손을 앞으로 내저어 사양함, 감은 두 눈은 아래로 휜 부드러운 호선, 입은 미안한 듯 작게 아래로 휨, 곁에 나무 지팡이가 기대어 있음. 그 앞에 PrincessGrown(평강공주)이 두 무릎을 땅에 대고 몸을 낮춰 어머니의 내젓는 손을 두 손으로 감싸 잡음, 얼굴을 위로 들어 다정하게 웃는 한 줄 입, 등에 진 보따리는 옆에 내려놓았음. 허리의 붉은 띠가 단 하나 빨강.<br/><b>배경·소품</b> 낡은 사립문과 낮은 흙담, 초가지붕 끝이 살짝 내려앉은 작은 오두막, 마당 한쪽의 작은 항아리 하나와 마른 나물 두름, 앞을 가린 나뭇가지의 잎사귀 몇 장 — 배경은 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 낮게 누운 오후 햇빛이 툇마루 끝만 따뜻하게 물들임, 낯선 이를 밀어내던 손이 잡히는 뭉클하고 조용한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(온달이 돌아오다)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 온달이 나뭇단을 한 아름 안고 돌아왔어요. 고운 옷을 입은 공주님을 보자 화들짝 놀라 뒷걸음쳤지요. "저, 저는 글도 모르고 아무것도 할 줄 모르는 바보인데요!" 공주님은 방긋 웃었어요. "아니에요. 온달님은 아직 배우지 않았을 뿐이에요."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 클로즈업 투샷 — 마당 흙바닥 높이에서 올려다보는 각도. 놀라 뒷걸음치는 온달의 큰 몸이 화면 오른쪽에서 뒤로 기울고, 왼쪽에 공주가 곧게 서 있어 두 자세가 정반대로 대비된다.<br/><b>장소·시간</b> 온달네 오두막 앞마당, 같은 날 해질 무렵. 숨이 턱 멎는 짧은 정적의 공기.<br/><b>인물</b> 화면 오른쪽 — OndalFool(바보 온달)이 나뭇단을 두 팔로 안은 채 상체를 뒤로 확 젖히고 한 발을 뒤로 물림, 입은 커다란 O 모양, 두 눈썹 획이 위로 훌쩍 날아오르고, 안았던 나뭇가지 몇 개가 손에서 미끄러져 공중에 흩어짐. 화면 왼쪽 — PrincessGrown(평강공주)이 두 손을 앞에 모으고 곧게 서서 고개를 살짝 들어 온달을 마주 봄, 입은 다정한 한 줄 미소, 눈은 흔들림 없음. 허리의 붉은 띠 끝이 저녁빛에 유일한 빨강.<br/><b>배경·소품</b> 흩어져 떨어지는 나뭇가지 몇 개와 흙먼지 획 몇 줄, 발치의 짚 부스러기, 뒤편 툇마루 끝에 앉아 소리 쪽으로 고개를 돌린 OndalMother(온달 어머니)의 작은 뒷모습, 초가지붕과 낮은 담 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 옆에서 길게 들어오는 저녁 햇빛이 두 사람 사이를 가로지름, 놀람이 곧 웃음으로 풀리는 유쾌하고 따뜻한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>사건(아무도 안 사는 말)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">공주님은 비단보자기를 풀어 패물을 팔았어요. 작은 집과 밭을 사고, 아무도 거들떠보지 않던 비쩍 마른 말 한 마리도 데려왔지요. "저런 병든 말을 왜 사요?" 사람들이 고개를 갸웃했어요. "나라에서 기르다 병이 난 말이에요. 잘 먹이고 아껴 주면 꼭 튼튼해질 거예요."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 평면 부감 중형 — 마당에 활짝 펼쳐 놓은 비단보자기를 바로 위에서 내려다보는 각도. 화면의 절반 이상을 조각보 무늬가 채우고, 그 위에 늘어놓은 패물과 그것을 내려다보는 두 사람의 얼굴·손이 위쪽 가장자리에 걸친다.<br/><b>장소·시간</b> 장터 어귀 마당, 맑은 낮. 흥정 소리가 오가는 들썩한 공기.<br/><b>인물</b> 화면 위쪽 가장자리 — PrincessGrown(평강공주)이 몸을 굽혀 보자기 위 비녀 하나를 집어 들며 고개를 옆으로 돌려 무언가를 가리킴, 위에서 내려다본 각도의 얼굴에 입은 야무진 한 줄, 허리의 붉은 띠가 보자기 가장자리로 흘러내림(화면의 단 하나 빨강). 그 곁에 OndalFool(바보 온달)이 두 손을 무릎에 얹고 쭈그려 앉아 위에서 본 정수리와 어깨가 크게, 입은 어리둥절한 작은 O 모양. 화면 오른쪽 위 구석 — Horse(말)가 병든 상태로 고개를 푹 떨군 채 서 있고, 그 옆 마을 사람 둘의 러프한 실루엣이 고개를 갸웃함.<br/><b>배경·소품</b> 활짝 펼친 <b>비단보자기(bidan-bojagi)</b> — 옥빛·쪽빛·자줏빛·금빛 조각을 이어 붙인 무늬가 또렷하게, 그 위에 놓인 비녀·가락지·노리개 몇 점, 옆에 놓인 됫박과 새끼줄, 흙바닥의 발자국 몇 개 — 보자기와 패물만 반쯤 그려지고 나머지 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 위에서 곧게 내려오는 맑은 한낮 빛이 조각보의 색을 선명하게 살림, 가진 것을 아낌없이 바꾸는 시원하고 야무진 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>사건(저녁마다 공부)</b> <span class="tag beat">③ 사건</span> <span class="tag">후렴 ②</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날부터 저녁마다 공부가 시작됐어요. 온달은 커다란 손으로 붓을 꼭 쥐고 글자를 삐뚤빼뚤 그렸지요. 자꾸 삐끗해도 공주님은 웃으며 말했어요. "하나, 둘! 하나, 둘! 오늘보다 내일 한 뼘 더!" 공부가 끝나면 공주님은 거문고를 뜯어 어머니께 들려드렸답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 어깨너머 클로즈업 — PrincessGrown의 어깨 너머로 온달의 손과 종이를 가까이 들여다보는 각도. 화면 앞쪽 왼편에 공주의 어깨와 팔이 크게 걸치고, 화면 중앙에 붓을 쥔 커다란 손과 삐뚤빼뚤한 글자가 또렷하게.<br/><b>장소·시간</b> 작은 초가집 방 안, 깊은 저녁. 화롯불 하나가 방을 데우는 아늑하고 조용한 공기.<br/><b>인물</b> 화면 중앙 — OndalFool(바보 온달)이 상을 앞에 두고 무릎을 꿇고 앉아 붓을 주먹처럼 꽉 움켜쥔 채 혀를 살짝 내밀고 온 힘을 다해 글자를 그림, 눈썹 획이 잔뜩 모이고 이마엔 땀방울 획 하나, 어깨가 잔뜩 올라감. 화면 왼쪽 전경 — PrincessGrown(평강공주)의 어깨와 팔, 한 손을 들어 손가락 두 개를 펴 보이며 박자를 세어 줌, 옆얼굴의 입은 환한 미소, 허리의 붉은 띠가 앞으로 흘러내림(단 하나 빨강). 화면 오른쪽 뒤 벽 쪽 — OndalMother(온달 어머니)가 벽에 등을 기대고 앉아 감은 호선 눈에 흐뭇한 미소로 소리를 들음.<br/><b>배경·소품</b> 낮은 상 위의 벼루와 먹, 삐뚤빼뚤한 글자가 가득한 종이 여러 장, 방 한쪽에 세워 둔 <b>거문고(geomungo)</b> — 긴 오동나무 몸통과 여섯 줄, 술대가 몸통 위에 놓임. 곁의 작은 화로에서 오르는 불빛과 옅은 김 — 배경은 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 화롯불의 낮고 따뜻한 주황빛이 아래에서 손과 얼굴을 감싸고 그 밖은 부드러운 남빛 밤, 서툴러도 즐거운 다정하고 근기 있는 정서.</pre></details>
+</div>
+
+<!-- ④ 절정 : P10, P11, P12, P13 -->
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(늠름해진 말)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">봄이 가고 여름이 왔어요. 비쩍 말랐던 말은 털에 윤이 반질반질 흐르는 늠름한 말이 되었지요. 온달은 말안장을 얹고 새벽마다 넓은 들판을 달렸어요. 다그닥, 다그닥, 다그닥!</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아주 낮은 로우앵글 — 들풀 높이에서 달려오는 말을 정면 살짝 옆으로 올려다보는 각도. 말의 앞다리가 화면을 가르며 크게 뻗고, 하늘이 화면의 위쪽 대부분을 차지해 시원하게 트인다.<br/><b>장소·시간</b> 마을 앞 넓은 들판, 여름 새벽. 풀 냄새와 이슬이 튀는 시원한 공기.<br/><b>인물</b> 화면 중앙 — Horse(말)가 튼튼해진 상태로 힘차게 달림: 둥근 가슴과 윤나는 꿀빛 털, 코의 크림빛 무늬는 그대로, 갈기와 꼬리가 뒤로 길게 나부끼고 귀는 앞으로 쫑긋, 네 다리는 빠른 획 몇 줄로. 그 등에 OndalFool(바보 온달)이 상체를 낮게 숙이고 고삐를 두 손으로 잡은 채 입을 크게 벌려 신나게 웃음, 헝클어진 머리와 옷자락이 뒤로 나부낌(아직 장군이 아니므로 허름한 일옷 그대로). 화면 왼쪽 아래 멀리 풀밭 가장자리에 PrincessGrown(평강공주)이 아주 작게 서서 손을 들어 흔듦 — 허리의 붉은 띠가 화면의 단 하나 빨강.<br/><b>배경·소품</b> 말 등에 얹힌 <b>말안장(malanjang)</b> — 앞뒤가 높이 솟은 나무 안장틀과 방석, 옆으로 흔들리는 등자 한 짝이 또렷하게. 발굽에 차이는 풀과 이슬 방울 획, 지평선 위로 번지는 새벽빛, 멀리 산등성이와 마을 지붕 — 배경은 열린 연필선 몇 획과 크림 종이 여백.<br/><b>톤</b> 지평선에서 터져 나오는 밝은 새벽빛이 말과 사람을 뒤에서 감쌈, 답답하던 것이 확 트이는 시원하고 벅찬 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(빗나가도 다시)</b> <span class="tag beat">④ 절정</span> <span class="tag">후렴 ③</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">온달은 화살통을 등에 메고 활 쏘는 법도 익혔어요. 처음엔 화살이 엉뚱한 데로 팽— 날아갔지요. 그래도 온달은 팔이 아프도록 다시, 또다시 시위를 당겼어요. "하나, 둘! 하나, 둘! 오늘보다 내일 한 뼘 더!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨보다 살짝 낮게 — 등 뒤의 화살통과 그 안에서 화살을 뽑아 올리는 손이 화면 중앙을 가득 채우고, 그 너머로 활을 든 온달의 옆얼굴과 뒤편 공주가 흐릿하게 걸치는 구성.<br/><b>장소·시간</b> 집 뒤 언덕의 연습터, 여름 한낮. 매미 소리가 쟁쟁한 더운 공기.<br/><b>인물</b> 화면 중앙 — OndalFool(바보 온달)의 등과 어깨가 가깝게, 한 손이 어깨 너머 <b>화살통(hwasaltong)</b>에서 화살 한 대를 쑥 뽑아 올림, 손등에 힘줄 획 몇 줄과 땀방울 하나. 고개는 옆으로 돌려 앞을 겨누는 옆얼굴, 눈썹 획이 모이고 입은 야무지게 다문 한 줄. 화면 왼쪽 뒤편에 PrincessGrown(평강공주)이 팔짱을 풀고 한 손을 들어 박자를 세어 주며 웃음, 허리의 붉은 띠가 단 하나 빨강. (🔴 화살촉을 사람이나 짐승 쪽으로 향하게 하지 말 것 — 겨누는 방향은 화면 밖 짚 과녁 쪽.)<br/><b>배경·소품</b> 등에 멘 화살통에서 부챗살처럼 벌어진 꿩깃 화살들, 온달의 다른 손에 느슨하게 들린 활, 화면 뒤쪽 풀밭에 엉뚱한 곳으로 날아가 비스듬히 꽂힌 화살 서너 대, 저 멀리 짚을 둥글게 말아 세운 과녁, 언덕의 풀과 나무 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 쨍한 한여름 한낮 빛이 위에서 곧게 떨어짐, 실패해도 웃으며 다시 하는 끈질기고 유쾌한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>절정(삼짇날 사냥 대회)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">삼월 삼짇날, 온 나라 사람들이 모이는 큰 사냥 대회가 열렸어요. 수많은 말 가운데 가장 앞서 달리는 젊은이가 있었지요. "저 늠름한 젊은이는 누구냐?" 임금님이 물었어요. "온달이라 하옵니다!" 임금님은 눈이 휘둥그레졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 높은 하이앵글 부감 — 넓은 들판을 비스듬히 위에서 내려다보고, 무리 지어 달리는 말들이 화면을 가로지르는 긴 띠를 이루며, 그 띠보다 훌쩍 앞선 말 한 마리가 화면 오른쪽에 홀로 놓인 구성. 앞선 자와 무리 사이의 빈 여백이 승부를 말한다.<br/><b>장소·시간</b> 삼월 삼짇날의 넓은 벌판 사냥터, 화창한 봄날 낮. 함성과 말발굽 소리로 들썩이는 공기.<br/><b>인물</b> 화면 오른쪽 앞 — Horse(말)가 튼튼한 상태로 네 다리를 쭉 뻗어 달리고, 그 등에 OndalFool(바보 온달)이 상체를 낮게 숙인 채 앞만 보고 달림, 입은 크게 벌린 환한 웃음, 등에 화살통을 멤. 화면 왼쪽 뒤 — 뒤처진 말 탄 사람 예닐곱이 무리 지어 달리는 러프한 실루엣(획 몇 개씩). 화면 왼쪽 아래 언덕 위 — King(임금님)이 깃 두 개 선 관을 쓰고 몸을 앞으로 쑥 내밀며 한 손을 들어 앞선 말을 가리킴, 입은 놀란 작은 O 모양에 두 눈썹 획이 위로 번쩍(작지만 표정이 읽히게), 곁에 신하 둘의 실루엣.<br/><b>배경·소품</b> 벌판을 가로지르는 흙먼지 획들, 언덕 위에 세운 차일과 깃발 몇 개, 구경 나온 사람들의 러프한 점·획 무리, 저 멀리 산등성이와 봄 하늘 — 배경은 열린 연필선 몇 획, 색은 거의 없이 크림 종이 여백.<br/><b>톤</b> 밝고 트인 봄 한낮 햇빛, 마침내 실력이 드러나는 짜릿하고 통쾌한 정서, 화면의 단 하나 빨강은 온달의 말고삐에 달린 붉은 술(공주는 화면에 없음).</pre></details>
+</div>
+
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>절정(장군의 투구)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">임금님은 온달을 불러 장군의 투구를 씌워 주었어요. "온달 장군, 우리 나라의 북쪽 고개를 지켜 주게." 온달은 씩씩하게 말에 올랐지요. 공주님이 고삐를 매만지며 말했어요. "잘 다녀오세요. 저는 온달님을 믿어요."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 중형 — 말 발굽 가까운 낮은 자리에서 말 위의 온달을 올려다보는 각도. 투구 쓴 머리가 화면 위쪽 하늘을 배경으로 우뚝하고, 아래쪽에 고삐를 잡은 공주의 손과 얼굴이 올려다보는 구성.<br/><b>장소·시간</b> 마을 어귀 길, 이른 아침. 배웅하는 사람들의 조용한 설렘이 도는 공기.<br/><b>인물</b> 화면 중앙 위 — OndalGeneral(장군 온달)이 말 위에 곧게 앉아 어깨를 활짝 펴고 앞을 봄, 머리엔 <b>투구(tugu)</b>가 씌워져 있고 정수리의 붉은 술이 바람에 흔들림, 얼굴은 예전 그대로 크게 웃는 입(엄한 표정 금지), 두 손은 고삐만 가볍게 쥠(🔴 무기는 들지 않음). 화면 아래 왼쪽 — PrincessGrown(평강공주)이 까치발로 서서 두 손으로 말고삐를 매만지며 고개를 한껏 젖혀 올려다봄, 입은 다정하고 곧은 미소, 허리의 붉은 띠가 화면의 단 하나 빨강(투구 술은 이 컷에선 흐린 갈색빛 붉은 기로 눌러 그린다). 화면 오른쪽 아래 — King(임금님)이 뒷짐을 지고 서서 흐뭇하게 고개를 끄덕임.<br/><b>배경·소품</b> Horse(말)의 넓은 가슴과 <b>말안장(malanjang)</b>, 안장 옆에 걸린 빈 화살통, 길가에 배웅 나온 마을 사람들의 러프한 실루엣과 OndalMother(온달 어머니)가 지팡이를 짚고 소리 쪽으로 고개를 든 작은 모습, 뒤로 북쪽 산줄기와 아침 하늘 — 배경은 열린 연필선 러프 스케치. (🔴 창·칼·병사 대열 등 전투를 연상시키는 요소 금지 — 배웅 장면으로만.)<br/><b>톤</b> 아침 해가 낮게 뒤에서 비쳐 투구 테두리에 환한 윤곽선을 그림, 늠름하되 다정한 출발의 정서.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P14, P15 -->
+<div class="page-card" data-page="p14">
+  <div class="page-head"><span class="pnum">P14</span><b>결말(돌아온 온달 장군)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">온달 장군은 북쪽 고개를 튼튼히 지키고 무사히 돌아왔어요. 마을 사람들이 길가에 늘어서서 손뼉을 치고 꽃잎을 뿌렸지요. "온달 장군님이 오신다!" 이제는 아무도 온달을 바보라고 부르지 않았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 하이앵글 부감 — 마을로 들어오는 길을 위에서 비스듬히 내려다보는 각도. 길 양옆에 늘어선 사람들이 두 줄의 띠를 이루고, 그 사이 길 한가운데를 말 탄 장군이 천천히 걸어오는 구성. 흩날리는 꽃잎이 화면 전체에 흩어진다.<br/><b>장소·시간</b> 마을 어귀에서 집으로 이어지는 흙길, 늦봄 한낮. 웃음소리와 손뼉 소리가 가득한 들뜬 공기.<br/><b>인물</b> 화면 중앙 길 위 — OndalGeneral(장군 온달)이 Horse(말) 위에 앉아 천천히 들어옴, <b>투구(tugu)</b>를 손에 벗어 들고 다른 손을 높이 들어 사람들에게 흔듦, 고개를 젖혀 크게 웃는 입, 갑옷 어깨선이 넓고 자세는 곧음(🔴 무기 없음, 뒤따르는 병사 행렬 없음). 길 양옆 — 마을 사람 열댓의 러프한 실루엣이 손뼉을 치고 팔을 흔들며, 아이 몇은 말 옆을 나란히 뛰어감. 길 끝 집 앞 — PrincessGrown(평강공주)과 OndalMother(온달 어머니)가 나란히 서서 이쪽을 향해 손을 마주 흔듦(작지만 또렷하게).<br/><b>배경·소품</b> 공중에 흩날리는 연분홍 꽃잎 획들, 길가의 낮은 흙담과 초가지붕, 담 위에 걸터앉아 구경하는 아이 둘, 봄나무 몇 그루와 파란 하늘 — 배경은 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 환한 한낮 햇빛이 길 전체를 고르게 밝힘, 자랑스럽고 왁자한 환영의 벅찬 정서, 화면의 단 하나 빨강은 공주의 붉은 허리띠(투구 술은 이 컷에선 눌러서 흐리게).</pre></details>
+</div>
+
+<div class="page-card" data-page="p15">
+  <div class="page-head"><span class="pnum">P15</span><b>결말(돌려주는 노래)</b> <span class="tag beat">⑤ 결말</span> <span class="tag">후렴 ④</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">온달은 말에서 내려 공주님의 두 손을 꼭 잡았어요. "하나, 둘! 하나, 둘! 오늘보다 내일 한 뼘 더!" 이번엔 온달이 공주님께 그 노래를 돌려주었지요. 어머니도 곁에서 환하게 웃었어요. 누군가 나를 믿어 주면, 하루하루 한 뼘씩 자란대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업 투샷, 아이레벨에서 아주 가깝게 — 마주 잡은 두 손과 마주 보는 두 얼굴이 화면을 가득 채우는 마무리 컷. 배경은 거의 남기지 않고 밀도를 인물에 몰아준다.<br/><b>장소·시간</b> 온달네 집 앞마당, 늦봄 오후. 온 세상이 잠깐 멈춘 듯 벅차고 포근한 공기.<br/><b>인물</b> 화면 오른쪽 — OndalGeneral(장군 온달)이 투구를 옆구리에 낀 채 몸을 앞으로 숙여 PrincessGrown(평강공주)의 두 손을 자신의 커다란 두 손으로 감싸 잡음, 입은 예전 그대로 크게 벌린 환한 웃음, 눈가에 기쁨의 잔선 몇 획. 화면 왼쪽 — PrincessGrown(평강공주)이 고개를 살짝 들어 마주 보며 눈이 초승달처럼 휘고 입은 활짝 웃음, 볼에 아주 작은 눈물 획 하나(기쁨의 눈물), 허리의 붉은 띠가 화면의 단 하나 빨강. 두 사람 뒤 조금 떨어진 곳 — OndalMother(온달 어머니)가 지팡이를 짚고 서서 소리 쪽으로 고개를 들고 감은 호선 눈에 환한 미소, 한 손을 가슴에 얹음.<br/><b>배경·소품</b> 발치에 내려놓은 투구, 조금 뒤에서 고개를 내밀어 두 사람을 들여다보는 Horse(말)의 얼굴, 마당가에 핀 봄꽃 몇 송이, 초가지붕 끝과 낮은 담 한 줄 — 배경은 최소한의 열린 연필선만, 넓게 남은 크림 종이 여백.<br/><b>톤</b> 낮게 누운 오후 햇빛이 맞잡은 두 손 위로 환하게 모임, 믿어 준 마음과 자라난 마음이 만나는 뭉클하고 따뜻한 마무리 정서.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 바보 온달과 평강공주 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING (finish hierarchy — the single most important rule): The bright warm cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. This picture is deliberately UNEVENLY finished, like one page from a master's sketchbook. Finish only what matters: the CHARACTERS = finished (clear line AND color, keep them at their current level); a prop a character is directly touching or holding (a loom, a bench, a gourd in their hands) = half-finished, a bit of line and a little color; everything else — the whole background: jars, walls, fences, roofs, trees, hills, anything far away — = a LOOSE UNFINISHED PENCIL SKETCH: just a few open contour lines and a few direction strokes, barely any color, lots of bare cream paper showing through, deliberately NOT filled in, like the rough underdrawing on a sketchbook page. A jar is two or three open outlines, a roof is a few slanted direction strokes, a distant thing is one or two lines and then paper. This is about how FINISHED each area is, NOT about opacity — the background is not faded, hazy, blurry or low-saturation, it is simply left as rough sketch lines and not drawn to completion. Spend all the density ONLY on the characters. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces; NOT a fully rendered background, NOT every jar / roof-tile / leaf drawn to completion, NOT a uniform finish across the whole picture, and NOT a hazy / blurry / faded background either (that is just blur, not a sketch) — keep the background as loose OPEN PENCIL SKETCH lines and every stroke loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'PrincessChild', name: '어린 평강공주', desc: '울보 공주 — 작고 동그란 몸, 양갈래 고리 댕기머리+붉은 댕기(화면의 단 하나 빨강)', aliases: ['PrincessChild'] },
+    { token: 'PrincessGrown', name: '평강공주',     desc: '마음을 정한 공주 — 소박한 시골 치마저고리, 긴 외갈래 댕기머리, 붉은 허리띠', aliases: ['PrincessGrown'] },
+    { token: 'OndalFool',     name: '바보 온달',    desc: '놀림받던 착한 청년 — 크지만 움츠린 몸, 기운 일옷, 활짝 벌린 큰 웃음',      aliases: ['OndalFool'] },
+    { token: 'OndalGeneral',  name: '장군 온달',    desc: '늠름한 장군 — 같은 얼굴·같은 웃음, 펴진 어깨, 붉은 술 달린 투구(무기 없음)', aliases: ['OndalGeneral'] },
+    { token: 'OndalMother',   name: '온달 어머니',  desc: '앞 못 보는 어머니 — 감은 두 눈은 아래로 휜 호선, 희끗한 낮은 쪽머리, 지팡이', aliases: ['OndalMother'] },
+    { token: 'King',          name: '임금님',      desc: '공주의 아버지 — 깃 두 개 선 고구려 관(조우관), 넓은 사각 실루엣, 수염 몇 획', aliases: ['King'] },
+    { token: 'Nanny',         name: '유모',        desc: '공주를 키운 유모 — 통통하고 둥근 몸, 낮은 쪽머리·앞치마, 손가락으로 박자 세기', aliases: ['Nanny'] },
+    { token: 'Horse',         name: '말',          desc: '병든 말→늠름한 말 — 같은 코의 크림빛 무늬, 자세로만 상태 구분, 고삐의 붉은 술', aliases: ['Horse'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

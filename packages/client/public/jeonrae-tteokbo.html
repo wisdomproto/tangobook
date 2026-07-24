@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 떡보와 사신</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · 시즌2 #28</div>
+  <h1>🍡 떡보와 사신</h1>
+  <div class="sub">말없이 손짓만 하는 사신 앞에 나선 떡보 — 온통 떡 이야기로 통해 버린 유쾌한 소동</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 자신감·유머 (모르면 모르는 대로 당당하면 통한다) &nbsp;·&nbsp;
+  <b>분량</b> 12 스프레드 &nbsp;·&nbsp; <b>후렴</b> 떡 세는 노래 &nbsp;·&nbsp;
+  <b>핵심단어</b> 떡메 · 시루 · 주걱 · 초립 · 찬합 &nbsp;·&nbsp;
+  <b>순화</b> 순한 편 — 나라 간 긴장은 <b>가볍게</b>(전쟁·위협·모욕 표현 없음, "문제를 내러 온 손님"까지만) / <b>사신은 무섭거나 오만하지 않게</b> 진지하고 점잖은 어른으로 / 웃음의 대상은 <b>오해 그 자체</b>이지 사람이 아니다 — 떡보도 사신도 끝까지 존중받는다
+</div>
+<div class="refrain">🍡 반복 후렴 — "떡 하나 쿵! 떡 둘 쿵! 세어 보자, 배가 통통!" <span style="font-weight:600;font-size:13px">(P1 떡메질 → P8 손가락 다섯 → P12 웃음바다)</span></div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-tteokbo</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.<br>🔴 <b>이 편의 핵심은 손</b> — 네 인물 모두 <b>손 모양이 크게 읽히는 시트</b>가 필요하다(동그라미·네모·손가락 셋·손가락 다섯·손바닥 위·아래 가리킴). 시트 하단에 그 인물의 손 클로즈업 2~3개를 반드시 함께 그린다.<br>🔴 <b>화면당 빨강 악센트 1점 = 떡보의 붉은 허리끈 매듭</b>(떡보가 없는 컷에서만 다른 빨강 하나를 쓴다 — 궁궐 기둥의 붉은 단청 한 점, 사신 갓끈의 붉은 매듭 등).</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="떡보" data-key="char-tteokbo">
+  <div class="head"><span class="face">🍡</span><b>떡보</b> <span class="rom">Tteokbo · 떡을 세상에서 제일 좋아하는 총각</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Tteokbo — a cheerful young village rice-cake maker, warm-hearted, a little simple, never stupid and never mocked. Dot-eye design language: a flat cream face with zero shading, two dot eyes set wide apart, a big happy one-line smile that curves up at both ends, no nose (or one tiny dot), two round cheek dots. He is YOUNG and unmarried — hair as one solid dark mass in a single thick braid down his back (no topknot, no stubble), which instantly separates him from every bearded adult in this story.
+SILHOUETTE (his signature): short, round and bouncy — a soft pear-shaped body with a comfortably round tummy, shoulders up, feet planted wide and springy. Always looks like he is about to laugh.
+SIGNATURE RED: a RED cord knot tied at his waist sash — this is the picture's single red accent whenever he appears.
+CLOTHES & PROPS: everyday working hanbok in soft blue-grey pencil strokes with the sleeves rolled up above the elbows and trousers tied at the calf, mostly open paper with loose hatching, a few faint flour-white smudges scribbled on the front. On his head a CHORIP — a young man's small woven straw hat, a low round crown and a narrow brim in pale straw yellow. A wooden rice paddle (jugeok) is always tucked into the back of his sash like a sword.
+🔴 HANDS: his hands must read big and clear — chubby rounded fingers, drawn slightly larger than realistic, because the whole story is told through his hand signs.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands on hips, big grin) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) big happy one-line smile, (2) delighted realization with a small O mouth and lifted brow strokes, (3) a puzzled head-tilt with a wavy line mouth. PLUS along the bottom of the sheet, four HAND close-ups drawn large: (a) fingers forming a round circle, (b) two hands framing a square, (c) five fingers spread wide, (d) one finger pointing down at his own tummy. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="사신" data-key="char-envoy">
+  <div class="head"><span class="face">🎎</span><b>사신</b> <span class="rom">Envoy · 바다 건너 먼 나라에서 온 손님</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Envoy — a visiting envoy from a far country across the sea, come to pose a silent riddle. 🔴 He is DIGNIFIED, CALM and GENTLE — serious, courteous and quietly curious, NEVER haughty, NEVER sneering, NEVER threatening. He is a polite guest, not a villain, and he genuinely admires what he thinks he hears. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a straight thoughtful one-line mouth, no nose (or one tiny dot), and a long thin beard drawn as three or four sweeping downward strokes from the chin.
+SILHOUETTE (his signature): tall, straight and narrow — a still vertical column of a man with square shoulders and hands usually tucked inside his wide sleeves. A tall stiff dark scholar's cap with a flat top sits high on his head. Tall cap + long thin beard + wide trailing sleeves = readable from far away, and the exact opposite of the short bouncy Tteokbo.
+CLOTHES: a formal foreign court robe suggested in deep indigo and soft blue-grey pencil strokes, mostly open cream paper, with one loosely scribbled border pattern at the hem and very wide long sleeves that hang in one long open drape line. A jade pendant hangs at his sash as two small strokes.
+NOTE: when he appears without Tteokbo in frame, the picture's single red accent is the small red knot on his hat cord.
+🔴 HANDS: his hands must read big and clear, emerging from the wide sleeves — long calm fingers, drawn slightly larger than realistic, because he speaks only with them.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded inside sleeves, calm straight mouth) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) calm thoughtful straight line mouth, (2) astonished small O mouth with both brow strokes flying up, (3) deeply impressed — a warm closed smile with the head bowed. PLUS along the bottom of the sheet, three HAND close-ups drawn large, each emerging from a wide sleeve: (a) one finger tracing a big round circle in the air, (b) three fingers held up, (c) an open palm turned upward toward the sky. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="임금님" data-key="char-king-host">
+  <div class="head"><span class="face">👑</span><b>임금님</b> <span class="rom">KingHost · 손님을 맞은 임금</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: KingHost — the king receiving the visiting envoy, kind-hearted and a bit anxious, dignified but very approachable; he laughs easily at the end. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line mouth, no nose (or one tiny dot), a neat thin mustache drawn as two short strokes.
+SILHOUETTE (his signature): upright and squarish, made almost entirely of his ROBE — a wide straight-shouldered silhouette that reads as "king" from far away, plus a tall black winged court hat drawn as one simple dark shape with two little side wings.
+CLOTHES: a court robe suggested in soft jade-green and cream pencil strokes, mostly open paper, with one loosely scribbled round emblem at the chest and a wide sash. Grand told by the SHAPE, not by heavy rendering — no gold drench.
+NOTE: when he appears without Tteokbo in frame, the picture's single red accent is the small red cord of his sash.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands together in front, calm smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) worried downcurved mouth with tilted brow strokes and one hand at his chin, (2) amazed small O mouth with lifted brow strokes, (3) a big open laugh with the head tipped back. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="늙은 신하" data-key="char-minister-old">
+  <div class="head"><span class="face">🧓</span><b>늙은 신하</b> <span class="rom">MinisterOld · 떡보를 떠민 나이 든 신하</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: MinisterOld — the oldest court official, flustered and fidgety and very funny without ever being cruel; he is the one who spots Tteokbo and pushes him forward. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a wobbly worried line mouth, no nose (or one tiny dot), and his signature — a long WHITE beard drawn as a few pale sweeping strokes plus white brow strokes.
+SILHOUETTE (his signature): small, slightly hunched and round-backed, always leaning or twisting — he is the most restless body in the room, forever fiddling with his beard while everyone else stands still. Short and stooped next to the tall straight Envoy.
+CLOTHES: an official's robe in soft blue-grey pencil strokes with a wide sash, mostly open paper, and a simple dark court hat (samo) drawn as one flat dark shape with two small side flaps. A slim ivory tablet held in both hands.
+NOTE: when he appears without Tteokbo in frame, the picture's single red accent is one small red dancheong dot on the palace pillar behind him.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (both hands twisting the end of his beard, shoulders up) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) flustered wobbly mouth with sweat-drop strokes, (2) a bright idea — wide O mouth, both brow strokes up, one finger raised, (3) relieved open laugh with eyes squeezed into two curved arcs. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.) 다섯 사물 모두 본문에 실제로 등장한다 — 떡메 P1·P11, 주걱 P1·P10, 시루 P4, 초립 P4·P11, 찬합 P12.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="떡메" data-key="word-tteokme">
+  <div class="head"><span class="face">🔨</span><b>떡메</b> <span class="rom">tteokme — a wooden rice-cake mallet</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "tteokme — a traditional Korean wooden mallet for pounding rice cake (떡메)". A big blunt cylindrical head of pale honey-brown hardwood with visible end-grain rings (#C79A5A), slightly dented and polished smooth from years of pounding, wedged onto a long straight handle of darker wood (#8B5A2B) bound with a twist of straw cord at the joint. Show it at a slight 3/4 angle, plus the flat wooden pounding block (떡판) beside it with a small mound of glossy white pounded rice dough on top (#FBF7EE). FRIENDLY, not a weapon — rounded, chunky, cheerful. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="시루" data-key="word-siru">
+  <div class="head"><span class="face">🍚</span><b>시루</b> <span class="rom">siru — an earthenware steamer</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "siru — a traditional Korean earthenware steamer for making rice cake (시루)". A wide round pot of unglazed reddish-brown clay (#A4593A) that flares outward toward the rim, two small looped clay handles on the sides, and a floor pierced with several round steam holes. Show TWO views so the word reads clearly: (1) the empty steamer tipped slightly so the holed floor is visible, and (2) the steamer set upright, full of soft white steamed rice cake (#FBF7EE) with a few wisps of curling steam rising and a straw-woven lid resting half off. Warm, humble, handmade pottery. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="주걱" data-key="word-jugeok">
+  <div class="head"><span class="face">🥄</span><b>주걱</b> <span class="rom">jugeok — a wooden rice paddle</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jugeok — a traditional Korean wooden rice paddle (주걱)". A single piece of warm honey-brown wood (#B07A3C) carved into a broad flat rounded blade that narrows into a slim rounded handle, the wood grain running lengthwise, the blade edge worn smooth and slightly glossy, with a small hole at the handle end and a short twisted straw loop threaded through it for hanging. Show it flat-on plus a second one at a 3/4 angle so the gentle spoon-like curve of the blade reads. Simple, warm, beautifully worn. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="초립" data-key="word-chorip">
+  <div class="head"><span class="face">👒</span><b>초립</b> <span class="rom">chorip — a young man's woven straw hat</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "chorip — a traditional Korean hat of finely woven straw worn by young unmarried men (초립)". A small hat with a low flat-topped round crown and a narrow stiff brim, woven from fine pale golden straw (#D8B45A) so the tight diagonal weave pattern is clearly visible, with a dark navy silk band around the base of the crown and two soft chin cords hanging down. Show it at a 3/4 angle from slightly above so the crown and the weave read, plus a small side view. Crisp, sunny, proudly handwoven. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="찬합" data-key="word-chanhap">
+  <div class="head"><span class="face">🎁</span><b>찬합</b> <span class="rom">chanhap — a tiered lacquered food box</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "chanhap — a traditional Korean tiered lacquered food box for carrying festive food (찬합)". Three square stacking trays plus a lid, lacquered deep glossy cinnabar red and black (#8C2F1F & #2B211C) with fine mother-of-pearl (najeon) inlay in a scrolling flower pattern along the edges and small brass corner fittings. Show TWO states side by side: (1) the box neatly stacked and closed with a knotted silk carrying cord, and (2) the top tray lifted off and set beside it, filled with pretty pastel rice cakes — white, pale pink and green (#FBF7EE, #EBB8C0, #A8C58C). Elegant, festive, gift-like. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 12 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <span class="tag">후렴 ①</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 한 마을에 떡을 세상에서 제일 좋아하는 총각이 살았어요. 이름은 아무도 몰랐어요. 다들 그냥 "떡보"라고 불렀지요. 오늘도 떡보는 커다란 떡메를 번쩍 들고 노래를 불렀답니다. "떡 하나 쿵! 떡 둘 쿵! 세어 보자, 배가 통통!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 하이앵글 부감 + 스케일 대비 — 마을 떡집 마당 전체를 비스듬히 위에서 내려다보고, 그 한가운데 떡판과 떡보를 작게 놓은 도입 컷. 화면 위쪽 절반은 빈 크림 종이로 넉넉히 비움.<br/><b>장소·시간</b> 옛 한국 시골 마을 어귀의 작은 떡집 마당, 김이 오르는 이른 아침. 구수하고 부산한 공기, 초가지붕 위로 밥 짓는 연기.<br/><b>인물</b> Tteokbo(떡보)가 화면 중앙 아래 떡판 앞에 두 발을 넓게 벌리고 서서, 커다란 <b>떡메(tteokme)</b>를 두 손으로 머리 위까지 번쩍 치켜든 채 입을 크게 벌려 노래하듯 활짝 웃음. 둥근 배가 앞으로 볼록, 초립이 뒤로 살짝 밀려 얹혀 있고, 허리춤 뒤에는 나무 <b>주걱(jugeok)</b>이 칼처럼 꽂혀 있음. 허리끈의 붉은 매듭이 화면의 단 하나 빨강.<br/><b>배경·소품</b> 반들반들한 통나무 떡판 위에 하얀 떡 반죽 덩이, 옆에 김이 오르는 시루 하나, 마당 귀퉁이의 장독 몇 개와 낮은 흙담, 담 너머 초가지붕과 나지막한 산 — 떡판과 떡메만 반쯤 그리고, 나머지 배경은 열린 연필선 몇 획의 러프 스케치로 남긴다.<br/><b>톤</b> 밝고 상쾌한 아침 햇빛이 위에서 비스듬히 떨어짐, 흥겹고 구수한 정서, 따뜻한 크림빛과 옅은 짚빛.</pre></details>
+</div>
+
+<!-- ② 발단 : P2, P3, P4 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(말 없는 손님)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그 무렵 궁궐에서는 큰일이 났어요. 바다 건너 먼 나라에서 사신이 찾아왔거든요. 그런데 이 손님, 입을 꾹 다물고 한마디도 하지 않았어요. 대신 손짓으로만 어려운 문제를 척척 냈지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 강한 로우앵글 — 바닥 가까이에서 올려다봐 사신이 화면 위쪽으로 길게 솟아 보이게. 그의 높은 관이 화면 맨 위 가장자리에 닿는다.<br/><b>장소·시간</b> 궁궐 큰 대문을 막 들어선 앞뜰, 늦은 아침. 조용하고 팽팽한, 그러나 무섭지 않은 격식의 공기.<br/><b>인물</b> Envoy(사신)가 화면 중앙에 꼿꼿이 서서 두 손을 넓은 소매 속에 마주 넣고, 턱을 살짝 당긴 채 입을 다문 한 줄 표정으로 앞을 응시. 긴 수염 서너 획이 가슴까지 드리우고 소매 자락이 한 줄로 길게 늘어짐. 점잖고 예의 바른 손님의 자세 — 노려보거나 비웃지 않는다. 화면 아래 구석에 조선 관리 두엇의 뒷머리와 어깨만 작게 걸쳐 보이며 그를 올려다봄.<br/><b>배경·소품</b> 붉은 단청 기둥과 커다란 궁궐 대문, 돌계단, 깃대 하나 — 기둥의 붉은 단청 점 하나가 화면의 단 하나 빨강. 나머지 기와·담·나무는 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 맑고 높은 아침 빛이 위에서 쏟아져 사신의 실루엣을 또렷하게 세움, 진지하고 격식 있되 무겁지 않은 정서, 옅은 남빛과 크림빛.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(쩔쩔매는 신하들)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"저 손짓이 대체 무슨 뜻이냐?" 임금님이 물었어요. 하지만 신하들은 서로 얼굴만 멀뚱멀뚱 쳐다보았지요. 수염을 배배 꼬고, 이마를 긁적긁적. "으음…" "그, 글쎄올시다…" 아무도 답을 몰랐답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 평면 부감 — 대전 마루를 거의 바로 위에서 내려다본 컷. 줄지어 늘어선 신하들의 정수리와 관모가 격자처럼 보이고, 그 대열이 가운데에서 뻥 비어 있다.<br/><b>장소·시간</b> 궁궐 대전 안, 한낮. 숨죽인 정적, 마른침 삼키는 공기.<br/><b>인물</b> 화면 위쪽 단 위에 KingHost(임금님)가 앉아 한 손을 턱에 괴고 눈썹을 팔자로 내린 근심 어린 표정으로 아래를 내려다봄. 그 아래 좌우로 신하들이 두 줄로 늘어서 있는데, 하나같이 서로 옆 사람을 흘끔거리며 어깨를 움츠림 — 한 사람은 수염을 배배 꼬고, 한 사람은 이마를 긁적이고, 한 사람은 홀을 든 채 굳어 있음. 전경 오른쪽에 MinisterOld(늙은 신하)가 흰 수염 끝을 두 손으로 배배 꼬며 식은땀 획을 뿜음. 화면 왼쪽 끝에 Envoy(사신)가 홀로 꼿꼿이 앉아 조용히 기다리는 뒷모습.<br/><b>배경·소품</b> 넓은 마룻바닥의 긴 널판 선, 낮은 소반과 방석, 붉은 단청 기둥 하나(화면의 단 하나 빨강), 뒤편의 창살문 — 전부 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 창을 통해 들어온 부드러운 한낮 빛이 마룻바닥에 길게 깔림, 난처하고 우스꽝스러운 정적의 정서, 옅은 청회색과 크림빛.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>발단(얼떨결에 나선 떡보)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">바로 그때, 궁궐 부엌에 시루를 지고 온 떡보가 문틈으로 목을 쭉 빼고 구경을 했어요. "손짓이라면 저도 좀 하는뎁쇼?" 늙은 신하의 눈이 번쩍 뜨였어요. "옳지! 자네가 한번 나서 보게!" 떡보는 초립을 꾹 고쳐 쓰고 성큼성큼 걸어 들어갔지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 — 화면 왼쪽 전경에 MinisterOld(늙은 신하)의 어깨와 뒤통수를 크게 걸치고, 그 어깨 너머로 문틈 사이 떡보를 바라보는 구도.<br/><b>장소·시간</b> 대전 옆 쪽문 앞, 낮. 무거운 정적이 갑자기 깨지는 순간의 공기.<br/><b>인물</b> 화면 오른쪽 열린 쪽문 틈으로 Tteokbo(떡보)가 목을 쭉 빼고 얼굴 반쪽만 들이민 채, 두 눈을 동그랗게 뜨고 입은 헤벌쭉 웃음. 등에는 김이 모락모락 오르는 <b>시루(siru)</b>를 한 손으로 받쳐 지고, 다른 손으로 <b>초립(chorip)</b>의 챙을 꾹 눌러 고쳐 씀. 허리끈의 붉은 매듭이 화면의 단 하나 빨강. 전경 왼쪽 MinisterOld(늙은 신하)는 어깨 너머로 고개를 홱 돌리며 검지를 번쩍 들어 올림, 입은 커다란 O, 흰 눈썹 획이 위로 튀어 오름.<br/><b>배경·소품</b> 문틈 사이로 하얀 김이 흘러들고, 떡보 발치에 떡 보따리 하나, 문 너머 대전의 기둥과 신하들의 흐릿한 뒷모습 — 시루와 문틀만 반쯤 그리고 나머지는 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 문틈으로 새어 든 밝은 빛줄기가 떡보의 얼굴을 환하게 비춤, 답답한 대전에 웃음 구멍이 뚫리는 유쾌한 전환의 정서.</pre></details>
+</div>
+
+<!-- ③ 사건·오해 3라운드 : P5~P10 -->
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(첫 손짓 — 동그라미)</b> <span class="tag beat">③ 사건 · 라운드1</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">사신이 떡보 앞에 마주 앉았어요. 그러고는 손가락으로 커다란 동그라미를 슥— 그렸지요. <i>'하늘은 둥글다. 그대는 아는가?'</i> 하는 뜻이었어요. 그런데 떡보의 눈이 반짝! "오호, 동그란 절편 말이군요!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 극단 클로즈업 + 극단 여백 — 화면 오른쪽 아래 귀퉁이에 사신의 손 하나만 크게 잡고, 나머지 70%는 빈 크림 종이. 손가락이 허공에 그린 동그라미 궤적이 옅은 연필선 하나로 남아 화면 가운데를 둥글게 가로지른다.<br/><b>장소·시간</b> 궁궐 대전 한가운데, 마주 앉은 자리, 한낮. 숨을 죽인 고요한 공기.<br/><b>인물</b> Envoy(사신)의 오른손만 화면 오른쪽 아래에서 크게 등장 — 넓은 소매 밖으로 나온 길고 차분한 손가락이 검지를 펴 허공에 커다란 동그라미를 그리는 중, 손목은 부드럽게 돌아가 있음. 화면 왼쪽 아래 아주 작게 Tteokbo(떡보)의 뒤통수와 초립 윗부분만 걸쳐 보이며, 그 궤적을 따라 고개가 살짝 기울어져 있음.<br/><b>배경·소품</b> 배경은 거의 그리지 않는다 — 바닥 마루의 널판 선 두어 획과 저 뒤 방석 윤곽 하나뿐. 소매 자락의 붉은 실 매듭 한 점이 화면의 단 하나 빨강.<br/><b>톤</b> 옆에서 들어오는 부드러운 낮 빛이 손등만 또렷이 비추고 나머지는 밝은 종이 그대로, 문제를 내는 조용하고 진지한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(떡보의 답 — 네모)</b> <span class="tag beat">③ 사건 · 라운드1</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">떡보는 두 손으로 네모를 척! 그렸어요. "나는 네모난 백설기가 더 좋소이다!" 그러자 사신이 무릎을 탁 쳤어요. <i>'하늘은 둥글고 땅은 네모나다! 옳은 말씀이오!'</i> 신하들은 어리둥절, 눈만 껌뻑였답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 투샷, 정확한 옆모습(측면) 아이레벨 — 마주 앉은 두 사람을 화면 좌우에 나란히 놓아 마치 저울처럼 대칭시킨 구도. 짧고 둥근 떡보 vs 길고 꼿꼿한 사신의 실루엣 대비가 한눈에.<br/><b>장소·시간</b> 궁궐 대전 마루, 마주 앉은 자리, 한낮. 팽팽하던 공기가 탁 풀리는 순간.<br/><b>인물</b> 화면 왼쪽에 Tteokbo(떡보)가 책상다리로 앉아 두 손의 엄지와 검지를 맞대 커다란 네모를 척 만들어 얼굴 앞에 들어 올림, 그 네모 사이로 활짝 웃는 얼굴이 보임, 초립이 뒤로 밀리고 볼 점이 발그레. 화면 오른쪽에 Envoy(사신)가 한 손으로 자기 무릎을 탁 치며 상체를 앞으로 숙임, 입은 작은 O, 두 눈썹 획이 위로 튀어 오른 감탄의 표정.<br/><b>배경·소품</b> 두 사람 사이 바닥에 놓인 낮은 소반 하나, 뒤로 흐릿한 신하들의 다리와 도포 자락이 줄지어 보이고 그중 몇은 고개를 갸웃 — 뒤편은 전부 열린 연필선 몇 획의 러프 스케치. 떡보 허리끈의 붉은 매듭이 화면의 단 하나 빨강.<br/><b>톤</b> 옆창에서 들어온 밝은 낮 빛이 두 사람 사이를 가로지름, 통쾌하고 웃음이 터지기 직전의 경쾌한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(둘째 손짓 — 손가락 셋)</b> <span class="tag beat">③ 사건 · 라운드2</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이번엔 사신이 손가락 셋을 쫙 펴 보였어요. <i>'사람이 지켜야 할 세 가지를 아는가?'</i> 하는 뜻이었지요. 떡보는 볼록한 배를 쓱 문질렀어요. "아침에 떡을 셋 먹었느냐고요? 에이, 그것보다 훨씬 많지요!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업 로우앵글 — 떡보의 앉은키 높이보다 더 아래에서 올려다본 컷. 사신의 세 손가락이 화면 위쪽에 크게 솟아 하늘을 찌르듯 보이고, 그 아래로 떡보의 얼굴이 작게 올려다본다.<br/><b>장소·시간</b> 궁궐 대전 마루, 마주 앉은 자리, 한낮. 다시 한번 조여드는 긴장의 공기.<br/><b>인물</b> Envoy(사신)가 화면 위쪽 중앙에서 넓은 소매 밖으로 손을 쭉 뻗어 검지·중지·약지 세 손가락을 활짝 펴 보임 — 손이 화면에서 가장 크고 또렷한 요소. 얼굴은 손 뒤로 살짝 보이며 진지한 한 줄 입. 화면 아래쪽에 Tteokbo(떡보)가 고개를 뒤로 젖혀 그 손가락을 올려다보며, 한 손으로 자기 볼록한 배를 쓱 문지르고 입을 오물오물 — 진지하게 계산하는 표정.<br/><b>배경·소품</b> 아래에서 올려다본 각도라 뒤로 높은 서까래와 대들보가 비스듬히 지나감, 기둥의 붉은 단청 점은 이 컷에서는 쓰지 않고 떡보 허리끈의 붉은 매듭이 화면의 단 하나 빨강. 배경 서까래·기둥은 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 위에서 내리쬐는 빛에 손가락 셋이 또렷한 실루엣으로 뜸, 엄숙한 척하지만 곧 무너질 것 같은 우스운 긴장의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>사건(떡보의 답 — 손가락 다섯)</b> <span class="tag beat">③ 사건 · 라운드2</span> <span class="tag">후렴 ②</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">떡보는 손가락 다섯을 활짝 펴며 신나게 외쳤어요. "떡 하나 쿵! 떡 둘 쿵! 세어 보자, 배가 통통!" 다섯 손가락을 본 사신은 크게 감탄했어요. <i>'셋도 모자라 다섯까지 헤아리다니, 참으로 깊구나!'</i></p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 어깨너머 — 화면 왼쪽 전경에 Envoy(사신)의 어깨와 관모 뒤통수를 크게 걸치고, 그 너머로 정면을 향해 활짝 웃는 떡보를 잡는다. P7의 올려다보기와 정반대의 시선.<br/><b>장소·시간</b> 궁궐 대전 마루, 마주 앉은 자리, 한낮. 흥이 터져 나오는 들뜬 공기.<br/><b>인물</b> Tteokbo(떡보)가 화면 오른쪽 중앙에서 한 손을 얼굴 옆으로 번쩍 들어 다섯 손가락을 활짝 펴 보이며, 입을 크게 벌려 노래하듯 외침 — 눈은 초승달, 볼 점이 발그레, 다른 손으론 볼록한 배를 통통 두드림, 몸이 리듬을 타듯 살짝 기울어짐. 초립이 신나서 뒤로 넘어갈 듯. 전경의 Envoy(사신)는 뒷모습이지만, 고개가 뒤로 젖혀지고 소매 든 손이 살짝 떨리는 실루엣으로 감탄이 읽힘.<br/><b>배경·소품</b> 떡보 주위 허공에 작고 명랑한 음표 자국 두어 개(연필 획), 뒤편 신하들이 서로 마주 보며 어깨를 들썩이는 실루엣 — 전부 열린 연필선 몇 획의 러프 스케치. 떡보 허리끈의 붉은 매듭이 화면의 단 하나 빨강.<br/><b>톤</b> 밝고 환한 한낮 빛이 떡보 쪽으로 쏟아짐, 신명 나고 명랑한 정서, 따뜻한 짚빛과 크림빛.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>사건(마지막 손짓 — 하늘)</b> <span class="tag beat">③ 사건 · 라운드3</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마지막으로 사신이 손바닥을 활짝 펴 위를 가리켰어요. <i>'하늘의 뜻을 아는가?'</i> 하는 아주 어려운 물음이었지요. 대전 안이 쥐 죽은 듯 조용해졌어요. 떡보는 고개를 갸웃했어요. "위요? 위에서 뭘 먹었느냐고요?"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 로우앵글, 살짝 기울인 대각 구도 — 사신의 등 뒤 낮은 위치에서 올려다봐, 펼친 손바닥과 그 위로 활짝 열린 문 너머 하늘이 한 줄기로 이어져 보이게.<br/><b>장소·시간</b> 궁궐 대전 마루, 활짝 열린 문 안쪽, 한낮. 숨소리도 멎은 고요한 공기.<br/><b>인물</b> Envoy(사신)가 화면 왼쪽에서 상체를 곧게 세우고 한 팔을 위로 뻗어 손바닥을 활짝 펴 하늘 쪽을 가리킴, 넓은 소매가 팔을 따라 길게 흘러내림, 표정은 아주 진지한 한 줄 입. 화면 오른쪽 아래 Tteokbo(떡보)는 고개를 45도로 갸우뚱 기울인 채 검지로 자기 볼을 콕 누르고, 입은 물결 모양으로 어리둥절.<br/><b>배경·소품</b> 활짝 열린 대전 문 너머로 파란 하늘과 구름 한 조각, 문살 격자, 옆으로 늘어선 신하들의 굳은 뒷모습 — 문살·기둥·신하는 열린 연필선 몇 획의 러프 스케치. 떡보 허리끈의 붉은 매듭이 화면의 단 하나 빨강.<br/><b>톤</b> 문밖에서 쏟아지는 밝은 하늘빛이 사신의 손바닥을 하얗게 물들임, 엄숙하고 조용한 절정 직전의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>사건(떡보의 답 — 뱃속)</b> <span class="tag beat">③ 사건 · 라운드3</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">떡보는 볼록한 배를 통통 두드리더니, 손가락으로 아래를 쏙 가리켰어요. "떡은 여기, 뱃속으로 쏙 내려갔지요!" 사신의 눈이 휘둥그레졌어요. <i>'하늘의 뜻이 땅에까지 닿는다는 말씀이로구나!'</i></p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글 부감 — 두 사람 바로 위에서 비스듬히 내려다본 중형 컷. 떡보의 둥근 초립과 볼록한 배, 아래를 가리키는 손끝이 화면 중앙에 동그랗게 모이고, 시선이 자연스레 그 손끝을 따라 바닥으로 떨어진다.<br/><b>장소·시간</b> 궁궐 대전 마루, 마주 앉은 자리, 한낮. 조용하던 공기가 "아!" 하고 뒤집히는 순간.<br/><b>인물</b> Tteokbo(떡보)가 화면 중앙에서 한 손바닥으로 자기 볼록한 배를 통통 두드리고, 다른 손 검지로는 바닥을 쏙 가리킴 — 위에서 내려다본 각도라 둥근 초립과 둥근 배가 겹쳐 동그라미 두 개로 보임, 얼굴은 자랑스럽게 활짝 웃음. 마주 앉은 Envoy(사신)는 두 손을 소매 밖으로 툭 떨어뜨린 채 상체를 뒤로 젖히고, 입은 커다란 O, 두 눈썹 획이 관모까지 튀어 오른 놀라움 — 감탄이지 화가 아님이 분명하게.<br/><b>배경·소품</b> 마룻바닥의 긴 널판 선이 방사형으로 뻗어 손끝으로 시선을 모음, 옆에 밀쳐진 소반과 방석, 뒤편 신하들의 정수리 몇 개 — 배경은 열린 연필선 몇 획의 러프 스케치. 떡보 허리끈의 붉은 매듭이 화면의 단 하나 빨강.<br/><b>톤</b> 위에서 곧게 떨어지는 밝은 한낮 빛, 어리둥절과 감탄이 동시에 터지는 유쾌하고 얼떨떨한 정서.</pre></details>
+</div>
+
+<!-- ④ 절정 : P11 -->
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(사신의 큰절)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">사신은 자리에서 벌떡 일어나 떡보에게 허리를 깊이 숙였어요. "이 나라에는 참으로 훌륭한 분이 계시는군요!" 그러고는 환하게 웃으며 돌아갔답니다. 신하들은 얼싸안고 만세를 불렀어요. "만세! 떡보 만세!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 정면 — 대전 전체를 한 화면에 담은 그림책 "펼침면 한 방". 화면 중앙에 허리 숙인 사신과 얼떨떨한 떡보, 좌우로 두 팔 든 신하들이 물결처럼 퍼진다.<br/><b>장소·시간</b> 궁궐 대전 안, 활짝 열린 문으로 빛이 쏟아지는 한낮. 왁자하게 터지는 환호의 공기.<br/><b>인물</b> 화면 중앙 왼쪽에서 Envoy(사신)가 두 손을 앞으로 모으고 허리를 깊이 숙여 정중한 큰절을 함 — 긴 수염과 소매가 아래로 드리우고, 고개 숙인 얼굴엔 진심 어린 따뜻한 미소. 그 앞에 Tteokbo(떡보)가 <b>떡메(tteokme)</b>를 한 손에 든 채 어정쩡하게 마주 고개를 꾸벅, 초립을 벗어 가슴에 대고 "이게 무슨 일이래요?" 하듯 눈만 동그랗게 뜬 얼떨떨한 웃음. 좌우 신하들은 홀을 내던지고 두 팔을 번쩍 들어 얼싸안으며 입을 크게 벌려 환호, MinisterOld(늙은 신하)는 흰 수염을 휘날리며 폴짝 뛰어오름. 단 위 KingHost(임금님)는 두 손을 맞잡고 눈썹을 위로 올린 채 함박웃음.<br/><b>배경·소품</b> 활짝 열린 대전 문과 그 너머 파란 하늘, 붉은 단청 기둥들, 흩날리는 도포 자락, 바닥에 굴러다니는 홀 하나 — 인물 주변만 반쯤 그리고 기둥·문살·처마는 열린 연필선 몇 획의 러프 스케치. 떡보 허리끈의 붉은 매듭이 화면의 단 하나 빨강.<br/><b>톤</b> 문에서 쏟아지는 눈부신 한낮 빛이 중앙 두 사람을 감쌈, 벅차고 왁자지껄한 환희의 정서, 밝은 크림빛과 옅은 청록.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P12 -->
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>결말(웃음바다)</b> <span class="tag beat">⑤ 결말</span> <span class="tag">후렴 ③</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"대체 무슨 이야기를 나눈 것이냐?" 임금님이 묻자 떡보는 머리를 긁적였어요. "저는… 떡 이야기만 했는뎁쇼?" 궁궐이 온통 웃음바다가 되었지요. 임금님은 찬합 가득 떡을 담아 주었고, 떡보는 신이 나서 또 노래했어요. "떡 하나 쿵! 떡 둘 쿵! 세어 보자, 배가 통통!" 모르면 모르는 대로 씩씩하게 나서면, 웃음이 길을 열어 준대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 살짝 하이앵글 — 세 사람의 상반신과 열린 찬합을 가까이 둥글게 모아 잡은 따뜻한 마무리 컷. 화면 아래쪽엔 캡션을 위한 크림 종이 여백을 넉넉히.<br/><b>장소·시간</b> 궁궐 대전 앞 툇마루, 소동이 잦아든 늦은 오후. 웃음이 아직 남아 있는 노곤하고 포근한 공기.<br/><b>인물</b> Tteokbo(떡보)가 화면 중앙에서 한 손으로 초립 아래 머리를 긁적이며 멋쩍게 헤벌쭉 웃고, 다른 팔로는 커다란 <b>찬합(chanhap)</b>을 통째로 껴안음. KingHost(임금님)는 왼쪽에서 고개를 뒤로 젖히고 배를 잡으며 크게 웃음 — 입은 커다란 O, 눈은 두 개의 휜 호선. MinisterOld(늙은 신하)는 오른쪽에서 흰 수염을 부여잡고 눈물이 찔끔 나도록 웃으며 떡보의 등을 툭툭 두드림.<br/><b>배경·소품</b> 열린 찬합 층층이 담긴 하얗고 발그레한 떡들, 그 옆에 놓인 나무 <b>주걱(jugeok)</b> 하나, 툇마루 기둥과 마당의 나무, 저 멀리 대문 밖으로 사신 일행이 손을 흔들며 멀어지는 아주 작은 실루엣 — 찬합만 반쯤 그리고 기둥·나무·먼 실루엣은 열린 연필선 몇 획의 러프 스케치. 떡보 허리끈의 붉은 매듭이 화면의 단 하나 빨강.<br/><b>톤</b> 나른하고 따뜻한 늦은 오후 햇살이 옆에서 길게 들어옴, 실컷 웃고 난 뒤의 넉넉하고 다정한 마무리 정서, 따뜻한 크림빛과 꿀빛.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 떡보와 사신 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING (finish hierarchy — the single most important rule): The bright warm cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. This picture is deliberately UNEVENLY finished, like one page from a master's sketchbook. Finish only what matters: the CHARACTERS = finished (clear line AND color, keep them at their current level); a prop a character is directly touching or holding (a loom, a bench, a gourd in their hands) = half-finished, a bit of line and a little color; everything else — the whole background: jars, walls, fences, roofs, trees, hills, anything far away — = a LOOSE UNFINISHED PENCIL SKETCH: just a few open contour lines and a few direction strokes, barely any color, lots of bare cream paper showing through, deliberately NOT filled in, like the rough underdrawing on a sketchbook page. A jar is two or three open outlines, a roof is a few slanted direction strokes, a distant thing is one or two lines and then paper. This is about how FINISHED each area is, NOT about opacity — the background is not faded, hazy, blurry or low-saturation, it is simply left as rough sketch lines and not drawn to completion. Spend all the density ONLY on the characters. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces; NOT a fully rendered background, NOT every jar / roof-tile / leaf drawn to completion, NOT a uniform finish across the whole picture, and NOT a hazy / blurry / faded background either (that is just blur, not a sketch) — keep the background as loose OPEN PENCIL SKETCH lines and every stroke loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'Tteokbo',     name: '떡보',       desc: '떡을 제일 좋아하는 총각 — 짧고 둥근 몸, 초립·허리춤 주걱, 붉은 허리끈 매듭(악센트), 큰 손', aliases: ['Tteokbo'] },
+    { token: 'Envoy',       name: '사신',       desc: '먼 나라에서 온 점잖은 손님 — 길고 꼿꼿, 높은 관·긴 수염, 넓은 소매 밖 큰 손 (무섭거나 오만하지 않게)', aliases: ['Envoy'] },
+    { token: 'KingHost',    name: '임금님',     desc: '손님을 맞은 임금 — 각진 곤룡포 실루엣, 익선관, 근심 → 함박웃음',                       aliases: ['KingHost'] },
+    { token: 'MinisterOld', name: '늙은 신하',  desc: '안절부절 나이 든 신하 — 작고 굽은 등, 흰 수염 배배 꼬기, 사모·홀',                      aliases: ['MinisterOld'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

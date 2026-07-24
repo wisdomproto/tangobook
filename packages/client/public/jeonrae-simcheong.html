@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 심청전</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · 시즌2 #21</div>
+  <h1>🌊 심청전</h1>
+  <div class="sub">아버지의 눈을 뜨게 하고 싶었던 딸 — 바다가 품어 준 착한 마음 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 효·사랑 &nbsp;·&nbsp;
+  <b>분량</b> 16 스프레드 &nbsp;·&nbsp; <b>후렴</b> 아버지를 부르는 노래 &nbsp;·&nbsp;
+  <b>핵심단어</b> 뒤주 · 목탁 · 돛단배 · 등잔 · 병풍 &nbsp;·&nbsp;
+  <b>순화</b> 🔴 인당수 투신을 <b>죽음으로 그리지 않는다</b> — 물결이 비단 이불처럼 청이를 감싸 안고, 용왕님이 두 팔로 받아 지켜 주는 <b>꿈결 같은 장면</b>으로. 무서운 파도·가라앉는 묘사 금지 / 어머니는 "하늘나라로 떠나심"으로 한 줄만 / 뱃사람은 나쁜 사람이 아니라 <b>정성을 드려 줄 사람을 찾는 뱃사람</b>(제물·희생 표현 금지)
+</div>
+<div class="refrain">🌅 반복 후렴 — "아버지, 아버지, 우리 아버지! 눈을 번쩍 뜨세요, 우리 아버지!" <span style="font-weight:600;font-size:13px">(P1 아침 인사 → P8 눈물의 다짐 → P16 재회의 외침)</span></div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-simcheong</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.<br>🔴 <b>상태 변형 캐릭터 = 시트 분리</b> — 심청(딸/왕비), 심 봉사(눈먼/눈 뜬)는 각각 <b>다른 @image</b>다. 얼굴은 IDENTICAL FACE로 고정하고 옷·눈 표현만 바뀐다. 각 쪽 SCENE은 그 시점의 상태 토큰만 쓴다.<br>🔴 <b>화면당 빨강 악센트 1점 = 심청의 붉은 댕기</b>(청이가 없는 컷에서만 다른 빨강 하나를 쓴다 — 배의 붉은 깃발, 목탁 술 등).</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="심청" data-key="char-simcheong-girl">
+  <div class="head"><span class="face">👧</span><b>심청 (딸)</b> <span class="rom">SimcheongGirl · 효심 깊은 딸</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: SimcheongGirl — a kind, quietly brave village girl of about twelve who takes care of her blind father. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile, no nose (or one tiny dot). Hair as one solid dark mass in a single long braid down her back. IDENTICAL FACE to SimcheongQueen.
+SILHOUETTE (her signature): small and slight, with a straight, steady, upright posture that reads as quiet courage rather than weakness — she is the calmest body in every picture. The long single braid swings behind her.
+SIGNATURE RED: a small RED ribbon (daenggi) tied at the end of her braid — this is the picture's single red accent whenever she appears.
+CLOTHES (village state): a plain everyday skirt-and-jacket hanbok suggested in soft blue-grey and pale cream pencil strokes — mostly open paper with loose hatching, a small scribbled patch on the hem, straw sandals in a few pale straw-yellow strokes. Humble and tidy — poor is told by the patches and the sparseness of the strokes, never by dirt or gloom.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded at the waist, gentle one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) gentle one-line smile, (2) quiet resolve with a straight firm line mouth and a lifted chin, (3) held-back tears — a soft downcurved mouth with two tiny stroke-tears and a bowed head. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="왕비 심청" data-key="char-simcheong-queen">
+  <div class="head"><span class="face">👸</span><b>왕비 심청</b> <span class="rom">SimcheongQueen · 연꽃에서 나온 왕비</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: SimcheongQueen — the SAME girl AFTER the sea returned her and the king made her his queen.
+🔴 IDENTICAL FACE to SimcheongGirl: the same flat cream face, same two dot eyes, same gentle one-line smile, same solid dark hair. The palace changed her clothes, never her face or her bearing — still calm, warm and modest, NEVER haughty or grand.
+SILHOUETTE: the same small, slight, steady build. The single braid is now coiled into a neat low bun with one plain hairpin (binyeo) drawn as a single decisive stroke — clearly the SAME person, just dressed for the palace.
+SIGNATURE RED: a small RED silk ribbon at the hairpin, carrying over her daenggi red — still the picture's single red accent.
+CLOTHES (palace state): a clean court hanbok — the jacket left as open cream paper with neat edges, the wide skirt suggested in a gentle jade-green pencil tone with a few tidy hatching strokes and a hint of scribbled pattern at the hem. Only a few more strokes than the village version — quietly lovely, NOT gold-drenched, NOT heavily embroidered.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded at the waist, gentle one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) gentle one-line smile, (2) longing — a soft downcurved mouth with the head turned slightly away, (3) overjoyed recognition with a big open O mouth and lifted brow strokes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="눈먼 심 봉사" data-key="char-blind-sim">
+  <div class="head"><span class="face">👨‍🦯</span><b>눈먼 심 봉사</b> <span class="rom">BlindSim · 앞 못 보는 아버지</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: BlindSim — Simcheong's father, a gentle blind man, warm and a little helpless but never pitiful or grim. Dot-eye design language: a flat cream face with zero shading, no nose (or one tiny dot), a soft one-line mouth, hair as one solid dark mass in a topknot (sangtu), two or three tiny stubble dots on the chin.
+🔴 HIS EYES ARE THE WHOLE POINT: instead of two dot eyes he has TWO GENTLY CLOSED EYES drawn as two small downward-curved arc lines (∪-shaped closed lids) — peaceful, never scary, never blank or milky. This is the ONLY facial difference from SeeingSim. IDENTICAL FACE otherwise to SeeingSim.
+SILHOUETTE (his signature): a lean stooped older man who leans slightly forward, one hand always reaching a little ahead into the air, chin lifted as if listening. He is defined by listening posture.
+CLOTHES & PROP: a worn plain cotton hanbok in soft blue-grey pencil strokes with a couple of scribbled patches, a simple cloth headband, straw sandals in a few straw-yellow strokes, and ALWAYS a slim wooden walking stick drawn as one long confident stroke.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (stick in one hand, other hand reaching slightly forward, head tilted to listen) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture, the closed arc eyes staying the same: (1) warm listening smile, (2) startled small O mouth with lifted brow strokes, (3) regretful downcurved mouth with a bowed head. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="눈 뜬 심 봉사" data-key="char-seeing-sim">
+  <div class="head"><span class="face">👴</span><b>눈 뜬 심 봉사</b> <span class="rom">SeeingSim · 눈을 뜬 아버지</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: SeeingSim — the SAME father at the very moment his eyes open, and after.
+🔴 IDENTICAL FACE to BlindSim in every way — same flat cream face, same topknot, same stubble dots, same soft mouth — EXCEPT the eyes: the two closed arc lids are now TWO WIDE OPEN DOT EYES, drawn a touch larger and rounder than anyone else's in the book, with three or four tiny radiating joy strokes around them. That single change is the whole payoff of the story.
+SILHOUETTE: the same lean older build, but the stoop straightens and both arms open wide — the listening posture becomes a looking, hugging posture. The walking stick is dropped or held loosely, no longer needed to find the way.
+CLOTHES: the same worn plain cotton hanbok and cloth headband as BlindSim (do NOT upgrade his clothes — nothing changed but his eyes).
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (arms opening wide, chin up, stick dangling from one hand) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture, the wide dot eyes staying open: (1) astonished big O mouth with lifted brow strokes, (2) weeping-with-joy — a wobbly smile with two tiny stroke-tears, (3) a warm crinkled smile looking straight at his daughter. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="스님" data-key="char-monk">
+  <div class="head"><span class="face">🧘</span><b>스님</b> <span class="rom">Monk · 지나던 절의 스님</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Monk — a passing Buddhist monk, kind and calm, never solemn or intimidating. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a serene one-line smile, no nose (or one tiny dot).
+🔴 HIS SIGNATURE: a completely bald head drawn as one clean cream dome with no hair mass at all — the only bald head in the cast, instantly readable.
+SILHOUETTE: tall, calm and vertical, hands often together in front of his chest — a still, upright shape next to the leaning BlindSim.
+CLOTHES & PROP: a simple grey monk's robe suggested in soft blue-grey pencil strokes with one long open drape line, a string of round prayer beads over one wrist drawn as a line of small circles, and a small round wooden hand-bell (moktak) with its little striker, held in one hand.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (moktak in one hand, striker in the other) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) serene one-line smile, (2) gently concerned with a small downcurved mouth, (3) kindly speaking with a small open mouth and one hand raised. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="뱃사람" data-key="char-sailor">
+  <div class="head"><span class="face">🧑‍✈️</span><b>뱃사람 우두머리</b> <span class="rom">Sailor · 바닷길 뱃사람들의 우두머리</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Sailor — the leader of the seafaring traders, a big weathered but WARM-HEARTED man; he is NOT a villain and must never look threatening. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a broad one-line smile, no nose (or one tiny dot), a short dark beard drawn as a few scribbled strokes along the jaw.
+SILHOUETTE (his signature): the biggest, broadest body in the cast — wide square shoulders, short legs planted apart, arms often folded or raised in a hearty gesture. Big and rumbly, like a friendly bear of a man.
+CLOTHES & PROP: work clothes — trousers rolled to the calf and a sleeveless jacket in soft blue-grey pencil strokes, a twisted straw rope belt, a small towel knotted at his head, bare feet. Often coils a thick straw rope over one shoulder.
+NOTE: when he appears without SimcheongGirl in frame, the picture's single red accent is a small red pennant on his boat or a red knot on his belt.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (arms folded, hearty grin) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) hearty broad grin, (2) worried frown with a downcurved mouth looking up at the sky, (3) moved and grateful — a soft closed smile with a slight bow of the head. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="용왕님" data-key="char-dragon-king">
+  <div class="head"><span class="face">🐉</span><b>용왕님</b> <span class="rom">DragonKing · 바다를 다스리는 용왕</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: DragonKing — the kindly ruler of the undersea palace, grand in SIZE but gentle in FACE; awe-inspiring, never frightening. Dot-eye design language kept exactly: a flat cream face with zero shading, two dot eyes, a warm one-line smile, no nose (or one tiny dot).
+SILHOUETTE (his signature): enormous — three or four times the height of a person, a broad rounded seated mass with wide-open welcoming arms. He is drawn as a big soft shape, never a beast: a long flowing white beard as a few sweeping strokes, two small friendly antlers/horns curving back from his head, and long trailing sleeves that ripple like water.
+CLOTHES & COLOR: robes suggested in soft sea-jade and pale blue-grey pencil strokes with a hint of scribbled scale pattern at the shoulders and a faint pearly shimmer, mostly open cream paper. A simple round crown drawn as a few strokes.
+NOTE: when he appears, the picture's single red accent is one small red coral branch beside him (unless SimcheongGirl is in frame, in which case her daenggi carries the red).
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body seated idle with both arms opening wide in welcome + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) warm welcoming one-line smile, (2) deeply moved with softly tilted brow strokes, (3) hearty open-mouthed laugh. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="임금님" data-key="char-imgeum">
+  <div class="head"><span class="face">👑</span><b>임금님</b> <span class="rom">Imgeum · 마음씨 어진 임금</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Imgeum — the young king, kind-hearted and easily moved, dignified but approachable. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile, no nose (or one tiny dot), a neat thin mustache drawn as two short strokes.
+SILHOUETTE (his signature): upright and squarish, made almost entirely of his ROBE — a wide straight-shouldered silhouette that reads as "king" from far away, plus a tall black winged court hat drawn as one simple dark shape with two little side wings.
+CLOTHES: a court robe suggested in soft jade-green and cream pencil strokes, mostly open paper, with one loosely scribbled round emblem at the chest and a wide sash. Grand told by the SHAPE, not by heavy rendering — no gold drench.
+NOTE: when he appears without SimcheongGirl/SimcheongQueen in frame, the picture's single red accent is the small red cord of his sash.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands together in front, calm smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) calm gentle smile, (2) amazed small O mouth with lifted brow strokes, (3) warmly moved with a soft closed smile and a slight nod. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.) 다섯 사물 모두 본문에 실제로 등장한다 — 뒤주 P5·P7, 목탁 P4, 돛단배 P10, 등잔 P2·P8, 병풍 P15.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="뒤주" data-key="word-dwiju">
+  <div class="head"><span class="face">🗄️</span><b>뒤주</b> <span class="rom">dwiju — a wooden rice chest</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "dwiju — a traditional Korean wooden rice chest (뒤주)". A sturdy waist-high box of honey-brown pine with visible wood grain (#B07A3C), standing on four short square legs, its top made of two hinged lid panels, with dark blackened-iron corner brackets, a round iron ring pull and a small iron latch. Show TWO STATES side by side so the word reads clearly: (1) the lid closed, and (2) the lid open showing white rice heaped inside (#F7F3E7). Handcrafted, warm, proud. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="목탁" data-key="word-moktak">
+  <div class="head"><span class="face">🪘</span><b>목탁</b> <span class="rom">moktak — a wooden temple hand-bell</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "moktak — a Korean Buddhist wooden hand-bell struck by monks (목탁)". A rounded hollow block carved from a single piece of dark reddish-brown wood (#7A4A2B) with a deep polished sheen, a long slot mouth across the front, two carved fish-eye bumps on the sides (it is shaped after a fish), a small carved handle, and its short wooden striker stick lying beside it. Show the body at a slight 3/4 angle plus the striker. Calm, glossy, beautifully turned wood. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="돛단배" data-key="word-dotdanbae">
+  <div class="head"><span class="face">⛵</span><b>돛단배</b> <span class="rom">dotdanbae — a Korean sailing boat</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "dotdanbae — a traditional Korean wooden sailing boat (돛단배)". A broad flat-bottomed wooden boat of honey-brown planks lashed with straw rope (#B07A3C), a single tall mast carrying a wide rectangular sail of ribbed off-white hemp cloth (#EFE6D2) with horizontal bamboo battens, a long steering oar at the stern, a coil of straw rope on deck and one small RED pennant at the masthead. Shown at a slight 3/4 angle, sail full of wind, with a few stylized wave curls at the hull. Sturdy, handcrafted, adventurous. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="등잔" data-key="word-deungjan">
+  <div class="head"><span class="face">🪔</span><b>등잔</b> <span class="rom">deungjan — an oil lamp on a stand</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "deungjan — a traditional Korean oil lamp set on its wooden stand (등잔, 등잔대)". A small shallow bowl of dark celadon-grey pottery (#6E7B72) holding oil, with a twisted cotton wick lipping over the rim and a small warm flame (#F2A93B) glowing above it, seated on a slim turned wooden stand of honey-brown wood (#B07A3C) with a round base. Show the lamp bowl once separately at a slight angle so the wick reads, plus the whole lamp-on-stand. A soft warm halo of lamplight around the flame. Cozy, night-time, quietly beautiful. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="병풍" data-key="word-byeongpung">
+  <div class="head"><span class="face">🖼️</span><b>병풍</b> <span class="rom">byeongpung — a folding painted screen</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "byeongpung — a traditional Korean folding screen (병풍)". A four-panel screen standing in a gentle zigzag, each panel framed in slim dark lacquered wood (#3E2A20) and filled with cream hanji paper (#F6EFE0) painted in ink and soft mineral colors — pine branches, a crane, a rising sun and stylized blue-green wave crests (#27795B & #3E6E9B), with a small red seal mark (#C0392B) in one corner. Show it at a 3/4 angle so the fold and the depth read clearly. Elegant, crisp, proud heritage. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 16 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <span class="tag">후렴 ①</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 바닷가 작은 마을에 심 봉사와 딸 청이가 살았어요. 아버지는 두 눈이 보이지 않았고, 어머니는 청이가 아기일 때 하늘나라로 떠나셨지요. 아침마다 청이는 아버지 손을 잡고 노래하듯 말했어요. "아버지, 아버지, 우리 아버지! 눈을 번쩍 뜨세요, 우리 아버지!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 하이앵글 부감 + 스케일 대비 — 넓은 바닷가 마을을 멀리서 내려다보고, 그 안의 작은 초가 마당에 두 사람이 손톱만 하게 놓인 도입 컷.<br/><b>장소·시간</b> 옛 한국 바닷가 마을, 산자락 아래 초가집 몇 채가 바다를 향해 앉은 이른 아침. 갯내음 섞인 맑고 상쾌한 공기.<br/><b>인물</b> 화면 아래쪽 작은 초가 마당에 BlindSim(눈먼 심 봉사)이 지팡이를 짚고 서서 고개를 살짝 들어 소리를 듣는 자세, 감은 두 눈은 아래로 휜 부드러운 호선, 입가엔 온화한 미소. 그 앞에 SimcheongGirl(심청)이 아버지의 한 손을 두 손으로 꼭 잡고 까치발을 든 채 위를 올려다보며 노래하듯 입을 동그랗게 벌림. 붉은 댕기가 긴 댕기머리 끝에서 살짝 흔들림(화면의 단 하나 빨강).<br/><b>배경·소품</b> 초가지붕과 낮은 흙담, 마당의 작은 장독 하나, 마을 앞으로 펼쳐진 넓은 바다와 수평선, 멀리 떠 있는 작은 배 한 척, 언덕의 소나무 몇 그루 — 배경은 열린 연필선 몇 획의 러프 스케치로.<br/><b>톤</b> 부드러운 이른 아침 햇빛이 바다에서 마당 쪽으로 낮게 비침, 가난하지만 다정하고 씩씩한 정서, 따뜻한 크림빛과 옅은 바다 청록.</pre></details>
+</div>
+
+<!-- ② 발단 : P2, P3, P4 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(아버지를 돌보는 딸)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">청이는 무럭무럭 자랐어요. 낮에는 이웃집 바느질감을 받아 오고, 밤에는 등잔불을 켜고 한 땀 한 땀 삯바느질을 했지요. 그렇게 번 쌀로 따끈한 밥을 지어 아버지 앞에 놓았어요. "아버지, 어서 드세요." 심 봉사는 딸이 대견해 껄껄 웃었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨보다 살짝 낮은 눈높이 — 등잔 불빛을 화면 중앙에 두고 청이의 손과 얼굴을 가깝게 잡은 밤의 실내 컷.<br/><b>장소·시간</b> 심 봉사네 초가집 방 안, 깊은 밤. 고요하고 포근한 공기, 등잔 하나가 방을 밝히는 좁은 빛 웅덩이.<br/><b>인물</b> SimcheongGirl(심청)이 화면 중앙 오른쪽에 무릎을 모으고 앉아, 한 손에 바늘을 들고 다른 손으로 천을 팽팽히 잡은 채 눈을 가늘게 뜨고 바느질에 몰두, 입은 야무진 한 줄. 붉은 댕기가 어깨 앞으로 흘러내림(단 하나 빨강). 화면 왼쪽 뒤편에 BlindSim(눈먼 심 봉사)이 벽에 등을 기대고 앉아 감은 호선 눈에 흐뭇한 미소, 무릎 위에 두 손을 얹고 딸의 바느질 소리를 듣는 자세.<br/><b>배경·소품</b> 전경 왼쪽에 <b>등잔(deungjan)</b> — 나무 등잔대 위 자그마한 사기 등잔에 심지 불꽃이 하늘하늘, 그 둘레로 따뜻한 빛무리. 곁에 실패와 가위, 소반 위에 김이 오르는 밥 한 그릇과 나물 종지. 뒤 벽·문살은 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 등잔 불빛이 아래에서 위로 얼굴을 감싸는 따뜻한 주황 빛, 그 밖은 밤의 부드러운 남빛, 애틋하고 정겨운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(개울에 빠진 아버지)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느 겨울날, 청이가 늦도록 돌아오지 않자 심 봉사는 지팡이를 짚고 마중을 나갔어요. 그런데 눈길에 그만 발을 헛디뎌— 첨벙! 얼음장처럼 차가운 개울물에 빠지고 말았지요. "아이고, 사람 살려요!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글 부감 — 개울 바로 위에서 수직에 가깝게 내려다보는 중형 컷. 물에 앉은 아버지와 그를 둘러싼 동그란 물결이 화면 중앙에.<br/><b>장소·시간</b> 마을 밖 얕은 개울가, 눈 내린 겨울 해질 무렵. 시리고 파리한 공기, 눈에 덮인 조용한 들판.<br/><b>인물</b> BlindSim(눈먼 심 봉사)이 화면 중앙 얕은 개울물에 주저앉아 두 팔을 허우적대며 위를 향해 입을 크게 벌려 도움을 청함, 감은 호선 눈에 눈썹이 위로 치켜 올라간 놀란 표정, 저고리 자락이 물에 젖어 몸에 붙음. 지팡이는 손을 떠나 물 위에 비스듬히 떠 있음.<br/><b>배경·소품</b> 개울 언저리에 쌓인 흰 눈과 미끄러진 발자국 자국 하나, 얕은 물에 번지는 동심원 물결, 물가에 마른 갈대 몇 대, 저 멀리 눈 덮인 들길 — 전부 열린 연필선 몇 획의 러프 스케치. 물은 얕아 무릎 정도임이 분명히 보이게(위험이 아니라 놀란 소동).<br/><b>톤</b> 차가운 겨울 저녁의 옅은 회청빛, 무섭기보다 안타깝고 다급한 정서, 화면의 단 하나 빨강은 물가에 떨어진 아버지의 붉은 옷고름 매듭.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>발단(스님의 약속)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 마침 지나던 스님이 심 봉사를 번쩍 건져 주었어요. 스님은 목탁을 또옥또옥 두드리며 말했지요. "공양미 삼백 석을 부처님께 바치고 정성껏 빌면, 두 눈을 뜰 수 있답니다." 심 봉사는 얼떨결에 "제가 바치겠습니다!" 하고 약속해 버렸어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 — 젖은 채 주저앉은 아버지의 눈높이에서 스님을 올려다보는 중형 컷. 스님이 화면에서 크고 우뚝하게, 뒤로 겨울 하늘이 넓게.<br/><b>장소·시간</b> 개울가 눈길 위, 겨울 해질 무렵. 방금 소동이 가라앉은 고요한 공기.<br/><b>인물</b> Monk(스님)이 화면 오른쪽에 곧게 서서 한 손에 <b>목탁(moktak)</b>을, 다른 손에 채를 들고 가볍게 두드리며 잔잔한 한 줄 미소로 아래를 내려다봄, 민머리 크림빛 돔과 회색 장삼 자락이 한 획으로 길게 흘러내림, 손목의 염주는 작은 동그라미들의 줄. BlindSim(눈먼 심 봉사)은 왼쪽 아래에 젖은 옷으로 주저앉아 스님 쪽으로 두 손을 마주 모으고 고개를 번쩍 든 채 입을 동그랗게 벌림 — 희망에 덜컥 걸린 얼굴.<br/><b>배경·소품</b> 물기가 뚝뚝 듣는 저고리 자락, 눈 위에 놓인 지팡이, 목탁의 붉은 술 매듭(화면의 단 하나 빨강), 뒤로 눈 덮인 들과 멀리 절로 올라가는 산길 — 배경은 열린 연필선 몇 획으로만.<br/><b>톤</b> 겨울 저녁의 파리한 빛 속에서 목탁 쪽만 살짝 밝게, 뜻밖의 희망이 반짝 켜지는 뭉클하고 조심스러운 정서.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P5, P6, P7, P8, P9 -->
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(텅 빈 뒤주)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집에 돌아온 심 봉사는 땅이 꺼지게 한숨을 쉬었어요. "삼백 석이라니… 내가 무슨 약속을 한 걸까." 청이가 살며시 뒤주 뚜껑을 열어 보았어요. 텅— 바닥이 훤히 들여다보였지요. 그래도 청이는 마음속으로 다짐했답니다. '꼭 방법이 있을 거야.'</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 평면 부감 — 열린 뒤주 속을 바로 위에서 내려다보는 중형 컷. 화면의 절반 이상이 텅 빈 나무 궤 바닥이고, 그 위 가장자리로 들여다보는 청이의 얼굴이 걸침.<br/><b>장소·시간</b> 심 봉사네 초가집 부엌 곁방, 겨울 낮. 서늘하고 조용한 공기.<br/><b>인물</b> SimcheongGirl(심청)이 화면 위쪽 가장자리에서 두 손으로 뒤주 뚜껑을 들어 올린 채 안을 들여다봄 — 얼굴은 위에서 내려다본 각도로, 입은 한 줄로 야무지게 다물었고 눈은 담담하지만 곧은 결심. 긴 댕기머리와 붉은 댕기가 뒤주 안쪽으로 늘어져 흔들림(단 하나 빨강). 화면 아래 구석에 BlindSim(눈먼 심 봉사)의 뒷모습이 작게 — 벽을 향해 앉아 고개를 푹 숙이고 한 손으로 이마를 짚음.<br/><b>배경·소품</b> <b>뒤주(dwiju)</b> — 네 다리로 선 꿀빛 나무 궤, 검은 무쇠 귀장식과 둥근 고리 손잡이, 열린 뚜껑 판. 궤 안은 텅 비어 널판 결과 구석에 남은 쌀알 몇 톨만 보임. 곁에 빈 됫박과 소쿠리, 흙바닥 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 위에서 들어오는 차분한 겨울 낮빛, 텅 빈 여백이 만드는 막막함, 그러나 청이의 얼굴만은 또렷하고 단단한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(뱃사람들의 소문)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">며칠 뒤, 마을 어귀가 왁자지껄 시끌시끌했어요. 먼 바닷길을 오가는 뱃사람들이었지요. "인당수 물길이 어찌나 사나운지! 그곳에서 용왕님께 정성을 드려 줄 착하고 용감한 사람을 찾습니다. 그 대신 공양미 삼백 석을 드리겠소!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 어깨너머 컷 — 화면 앞쪽 왼편에 SimcheongGirl의 뒤통수와 어깨, 붉은 댕기가 크게 걸치고, 그 너머 마을 어귀에서 외치는 뱃사람들을 바라보는 중형 컷.<br/><b>장소·시간</b> 마을 어귀 느티나무 아래 장터 어름, 늦겨울 한낮. 사람들이 모여 웅성거리는 들썩한 공기.<br/><b>인물</b> 화면 전경 왼쪽 — SimcheongGirl(심청)의 뒷모습(뒤통수·어깨·긴 댕기머리와 붉은 댕기), 고개를 살짝 기울여 귀 기울이는 자세로 실루엣만. 화면 중앙 안쪽 — Sailor(뱃사람 우두머리)가 두 발을 벌리고 서서 한 손을 번쩍 들어 크게 외침, 넓은 어깨와 짧은 다리의 커다란 몸집, 머리에 동인 수건, 어깨에 굵은 짚 밧줄을 걸침, 얼굴은 우렁차지만 험악하지 않은 넉넉한 웃음. 그 뒤로 뱃사람 두엇이 짐을 진 채 서 있음(단역, 얼굴은 몇 획만).<br/><b>배경·소품</b> 마을 어귀 장승과 커다란 느티나무, 구경 나온 마을 사람들의 러프한 실루엣, 뱃사람들이 내려놓은 나무 궤짝과 밧줄 사리, 저 멀리 포구에 정박한 배의 돛 그림자 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 밝고 트인 겨울 한낮 빛, 소문이 술렁이는 들썩한 정서, 무섭거나 험한 기색 없이 씩씩하고 활기차게.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(청이가 나서다)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">청이는 조심조심 다가가 두 손을 모았어요. "제가 가겠습니다. 그 대신 공양미 삼백 석을 절에 보내 주세요." 뱃사람들은 그날로 쌀 삼백 석을 절로 보냈어요. 텅 비었던 뒤주에도 하얀 쌀이 소복소복 쌓였답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 겹침·가림 구도의 중형 컷, 살짝 로우앵글 — 화면 좌우로 높이 쌓인 쌀가마니가 앞을 반쯤 가리고, 그 사이 틈으로 마주 선 두 사람이 보이는 구성.<br/><b>장소·시간</b> 마을 어귀 마당, 같은 날 오후. 쌀가마를 부리느라 분주한 공기.<br/><b>인물</b> 화면 가운데 틈 사이 — SimcheongGirl(심청)이 두 손을 가지런히 모으고 허리를 곧게 편 채 고개만 살짝 들어 올려다보며 말함, 입은 곧은 한 줄, 작지만 흔들림 없는 자세. 붉은 댕기가 등 뒤로 또렷하게(단 하나 빨강). 맞은편 Sailor(뱃사람 우두머리)는 커다란 몸을 숙여 무릎을 짚고 눈높이를 낮춘 채 놀라움과 감동이 섞인 표정 — 눈썹이 위로 휘고 입은 다문 부드러운 미소, 한 손은 가슴에.<br/><b>배경·소품</b> 앞을 가린 흰 쌀가마니 더미(가마니 결이 반쯤만 그려짐), 화면 오른쪽 뒤편에 뚜껑을 연 <b>뒤주(dwiju)</b>에 하얀 쌀이 소복이 담기는 모습, 지게에 쌀가마를 얹어 절로 나르는 사람들의 러프한 실루엣과 산길 — 배경은 열린 연필선 스케치.<br/><b>톤</b> 늦은 오후의 낮고 따뜻한 빛, 어린 딸의 결심이 어른을 숙이게 하는 뭉클하고 곧은 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>사건(떠나기 전날 밤)</b> <span class="tag beat">③ 사건</span> <span class="tag">후렴 ②</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">떠나기 전날 밤, 청이는 등잔불 아래에서 아버지의 옷을 한 땀 한 땀 기웠어요. 다 기운 옷을 차곡차곡 개어 머리맡에 놓고, 소리 없이 눈물을 훔쳤지요. '아버지, 아버지, 우리 아버지… 눈을 번쩍 뜨세요, 우리 아버지.'</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 어깨너머 컷 — 잠든 아버지의 어깨 너머에서 바라본 중형 컷. 전경 아래쪽에 아버지의 등과 어깨가 크고 흐릿하게 걸치고, 그 너머 등잔 앞의 청이가 화면 중앙에.<br/><b>장소·시간</b> 심 봉사네 초가집 방 안, 떠나기 전날 깊은 밤. 숨소리마저 조심스러운 고요한 공기.<br/><b>인물</b> 전경 — BlindSim(눈먼 심 봉사)이 요 위에 모로 누워 잠든 뒷모습(어깨와 상투만 크게, 얼굴은 보이지 않음). 화면 중앙 — SimcheongGirl(심청)이 무릎을 꿇고 앉아 다 기운 아버지 옷을 두 손으로 반듯하게 개는 중, 고개를 숙인 옆얼굴에 눈은 감기듯 가늘고 볼에 아주 작은 눈물 획 하나, 입은 아래로 살짝 휜 한 줄. 붉은 댕기가 숙인 어깨 앞으로 흘러내림(단 하나 빨강).<br/><b>배경·소품</b> 청이 곁에 <b>등잔(deungjan)</b> — 나무 등잔대의 작은 불꽃이 방 한쪽만 동그랗게 밝힘. 개어 놓은 옷가지, 바늘꽂이와 실패, 아버지 머리맡의 지팡이, 문살 창에 비친 푸른 밤빛 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 등잔의 따뜻한 주황빛 웅덩이와 그 밖의 깊은 남빛 밤이 대비, 슬프지만 원망 없는 애틋하고 고요한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>사건(새벽의 작별)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">새벽닭이 울자 청이는 아버지 손을 꼭 잡았어요. "아버지, 저 다녀올게요." 그제야 딸의 마음을 알아챈 심 봉사는 손을 놓지 못했지요. "청아, 내 눈보다 네가 더 귀하단다!" 그래도 청이는 방긋 웃으며 사립문을 나섰답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 극단 여백 컷 — 화면의 약 70%가 텅 빈 새벽 하늘과 흰 길이고, 사건은 화면 왼쪽 아래 구석의 사립문 앞에만 작게 놓인 대형 와이드.<br/><b>장소·시간</b> 심 봉사네 초가집 사립문 앞과 그 앞으로 길게 뻗은 흙길, 첫닭이 우는 새벽. 서늘하고 텅 빈 새벽 공기.<br/><b>인물</b> 화면 왼쪽 아래 구석 — BlindSim(눈먼 심 봉사)이 사립문 기둥을 한 손으로 짚고 다른 손으로 딸의 손을 놓지 못한 채 꼭 붙잡음, 감은 호선 눈에 눈썹이 팔자로 휘고 입은 크게 벌려 부르는 모양. SimcheongGirl(심청)은 이미 문밖으로 반걸음 나선 자세로 몸은 길 쪽, 얼굴만 아버지를 향해 돌려 방긋 웃음 — 붉은 댕기가 새벽빛에 유일한 빨강으로 또렷.<br/><b>배경·소품</b> 사립문과 낮은 흙담, 마당의 작은 장독, 문밖으로 아득히 이어져 화면 오른쪽 위 여백으로 사라지는 흙길, 길 끝에 아주 작게 기다리는 뱃사람들의 실루엣 두엇, 지붕 위 홰치는 수탉 한 마리 — 전부 열린 연필선 몇 획.<br/><b>톤</b> 푸르스름한 새벽빛에서 지평선만 옅게 밝아오는 조명, 넓은 빈 여백이 이별의 크기를 말하는 애틋하고 담담한 정서.</pre></details>
+</div>
+
+<!-- ④ 절정 : P10, P11, P12, P13, P14 -->
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(돛단배가 바다로)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">돛단배가 커다란 돛을 활짝 펴고 바다로 나아갔어요. 어기여차, 어기여차! 뱃사람들의 노랫소리가 파도 위로 퍼졌지요. 바다는 넓고 또 넓어서, 배는 물 위에 뜬 나뭇잎처럼 작아 보였답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 + 스케일 대비, 높은 하이앵글 — 아주 넓은 바다를 위에서 비스듬히 내려다보고, 그 한가운데 돛단배가 나뭇잎만 하게 놓인 컷. 인물은 배 위에 아주 작게.<br/><b>장소·시간</b> 먼바다 한복판, 맑은 낮. 바람이 시원하게 밀려가는 트인 공기.<br/><b>인물</b> 배 위 아주 작게 — SimcheongGirl(심청)이 뱃머리 가까이 서서 앞을 바라보며 한 손으로 뱃전을 짚음(작지만 붉은 댕기 한 점이 또렷 = 화면의 단 하나 빨강). 그 뒤로 Sailor(뱃사람 우두머리)가 두 다리를 벌리고 서서 긴 노를 밀며 입을 크게 벌려 뱃노래를 부름, 뱃사람 두엇이 함께 노를 저음(획 몇 개의 실루엣).<br/><b>배경·소품</b> <b>돛단배(dotdanbae)</b> — 꿀빛 널판을 짚 밧줄로 엮은 넓은 배, 돛대 하나에 대나무 살을 넣은 커다란 흰 삼베 돛이 바람을 가득 안고 부풂, 고물의 긴 노, 갑판의 밧줄 사리. 사방으로 펼쳐진 바다는 열린 연필선의 물결 곡선 몇 겹과 흰 종이 여백으로만, 수평선 위로 흩어진 갈매기 몇 획과 뭉게구름.<br/><b>톤</b> 눈부신 한낮 햇빛이 바다 위에 흩어짐, 사람은 작고 세상은 큰 스케일의 벅참, 씩씩하고 시원한 항해의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(인당수의 기도)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이윽고 배는 인당수에 이르렀어요. 하늘이 어둑해지고 물결이 우르르 일렁였지요. 청이는 뱃머리에 서서 두 손을 모으고 빌었어요. "용왕님, 부디 우리 아버지 눈을 뜨게 해 주세요."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 중형 — 물결 높이에서 뱃머리를 올려다보는 각도. 청이가 화면 위쪽에 우뚝, 앞쪽으로 크게 굽이치는 물마루가 화면 아래를 채움.<br/><b>장소·시간</b> 인당수라 불리는 바다의 험한 물길, 흐린 낮. 바람이 세게 몰아치는 웅장한 공기(무섭지 않고 장엄하게).<br/><b>인물</b> SimcheongGirl(심청)이 뱃머리에 두 발을 모으고 곧게 서서 두 손을 가슴 앞에 마주 모으고 눈을 감은 채 기도, 얼굴은 두려움 없이 고요하고 입은 잔잔한 한 줄. 치맛자락과 긴 댕기머리가 바람에 크게 나부끼고 붉은 댕기가 흐린 하늘 아래 유일한 빨강으로 날림. 배 뒤쪽에서 Sailor(뱃사람 우두머리)가 돛줄을 붙잡은 채 청이를 돌아보며 걱정스레 눈썹을 모으고 입은 아래로 휨.<br/><b>배경·소품</b> 굽이치는 물결은 둥글게 말린 옛 그림풍 물마루 곡선들로(뾰족하거나 사납지 않게, 큼직하고 둥글게), 흐린 하늘의 층진 구름, 돛대와 부푼 돛, 뱃전에 매인 밧줄 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 구름 사이로 한 줄기 빛이 청이에게만 비스듬히 내려앉음, 장엄하고 숙연하되 공포가 아닌 경건한 정서, 회청빛과 크림빛.</pre></details>
+</div>
+
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>절정(바다가 폭 안아 주다)</b> <span class="tag beat">④ 절정 · 🔴 순화 핵심</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">청이가 눈을 감자, 사납던 물결이 스르르 잦아들었어요. 커다란 물결이 비단 이불처럼 청이를 폭— 감싸 안았지요. 청이는 하나도 무섭지 않았어요. 꿈결처럼 포근한 품에 안겨, 파랗고 환한 물빛 속으로 두둥실 내려갔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 수중 측면 아이레벨 + 극단 여백 — 화면 대부분이 맑고 환한 물빛과 빈 여백이고, 그 한가운데 청이가 물결 이불에 감싸여 가볍게 떠 있는 컷. 위쪽 멀리 수면의 빛이 어른거림.<br/><b>장소·시간</b> 바닷속 얕은 빛 층, 시간이 멈춘 듯한 꿈결의 순간. 포근하고 환한 공기.<br/><b>인물</b> SimcheongGirl(심청)이 화면 중앙에 눈을 감고 두 손을 가슴에 모은 채 편안하게 누운 듯 떠 있음, 표정은 잠든 아기처럼 평온한 한 줄 미소, 치맛자락과 긴 댕기머리가 물속에서 부드럽게 퍼져 흐름. 붉은 댕기가 물결 사이에서 단 하나의 빨강으로 떠 있음. (🔴 가라앉거나 허우적대는 묘사 절대 금지 — 안기고 받쳐지는 자세로.)<br/><b>배경·소품</b> 청이를 감싸 안은 커다란 물결이 비단 이불처럼 둥글게 말려 몸을 받쳐 줌(두 팔로 안아 주는 모양의 곡선), 둘레에 동글동글한 물방울들과 반짝이는 빛 알갱이, 아래쪽으로 부드럽게 흔들리는 미역 이파리 몇 획, 위쪽 수면에서 내려오는 빛줄기 — 전부 열린 연필선과 넓은 크림빛 여백.<br/><b>톤</b> 물속인데도 어둡지 않고 환하게, 위에서 내려오는 부드러운 빛이 청이를 감쌈, 무서움이 완전히 사라진 포근하고 신비로운 꿈결의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>절정(용왕님의 용궁)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">눈을 떠 보니 눈부신 용궁이었어요! 용왕님이 두 팔을 활짝 벌려 청이를 받아 주셨지요. "네 고운 마음이 이 깊은 바다까지 닿았구나. 이제 내가 너를 지켜 주마." 용궁의 물고기들이 반짝반짝 춤을 추었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 대형 — 청이의 등 뒤 낮은 자리에서 용왕을 크게 올려다보는 각도. 화면 위쪽 절반을 용왕의 넓은 품과 벌린 두 팔이 차지하고, 아래에 청이가 작게.<br/><b>장소·시간</b> 바닷속 용궁의 큰 마루, 시간이 없는 꿈결의 한때. 진주빛으로 환하게 일렁이는 공기.<br/><b>인물</b> DragonKing(용왕님)이 화면 중앙 위쪽에 커다랗게 앉아 두 팔을 활짝 벌려 맞이함, 사람 키의 서너 배 되는 넉넉하고 둥근 몸, 길게 흐르는 흰 수염 몇 획, 뒤로 굽은 작은 뿔 두 개, 소맷자락이 물결처럼 나부낌, 얼굴은 점눈 두 개와 따뜻한 한 줄 미소로 조금도 무섭지 않게. SimcheongGirl(심청)은 화면 아래 중앙에 작게 서서 고개를 위로 젖히고 두 손을 앞에 모은 채 입을 동그랗게 벌려 감탄, 붉은 댕기가 등 뒤로 흔들림(단 하나 빨강).<br/><b>배경·소품</b> 용궁의 둥근 기둥과 조개 무늬 난간, 천장에서 늘어진 진주 발, 둘레를 도는 자그마한 물고기 떼가 반짝이는 획들로, 산호와 미역 줄기 — 배경은 열린 연필선 러프 스케치에 진주빛 반짝임 몇 점만.<br/><b>톤</b> 아래에서 위로 환하게 퍼지는 진주빛·바다청록 조명, 웅장하지만 다정한 환대의 정서, 벅차고 신비로운 감동.</pre></details>
+</div>
+
+<div class="page-card" data-page="p14">
+  <div class="page-head"><span class="pnum">P14</span><b>절정(연꽃이 열리다)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">용왕님은 청이를 커다란 연꽃 속에 태워 물 위로 올려보냈어요. 두둥실— 연꽃은 임금님의 궁궐 연못까지 흘러갔지요. 꽃잎이 활짝 열리자 그 안에서 청이가 방긋 웃으며 나왔어요. 임금님은 청이의 고운 마음에 반해 왕비로 맞이했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글 부감 중형 — 궁궐 연못을 비스듬히 위에서 내려다보는 각도. 화면 중앙 연못 위의 커다란 연꽃과 그 둘레에 모여 선 사람들이 원을 이루는 구성.<br/><b>장소·시간</b> 임금님의 궁궐 연못가, 화창한 아침. 놀라움에 술렁이는 환한 공기.<br/><b>인물</b> 연꽃 한가운데 — SimcheongQueen(왕비 심청)이 활짝 열린 꽃잎 사이에 두 손을 모으고 서서 위를 향해 방긋 웃음, 옥빛 궁중 치마저고리에 낮게 쪽 찐 머리와 비녀, 비녀에 매인 붉은 비단 끈이 단 하나의 빨강. 연못가 오른쪽 — Imgeum(임금님)이 넓은 어깨의 곤룡포와 익선관 차림으로 한 손을 가슴에 얹고 입을 동그랗게 벌린 채 놀라움과 감탄, 상체를 연꽃 쪽으로 살짝 기울임. 그 뒤로 신하 서넛이 부채를 들고 놀라 웅성이는 러프한 실루엣.<br/><b>배경·소품</b> 커다란 분홍빛 연꽃 한 송이와 넓은 연잎들, 잔물결이 퍼지는 연못, 연못을 두른 돌난간과 기와 정자, 뒤로 궁궐 담과 소나무 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 위에서 곧게 내려오는 맑은 아침 햇빛이 연꽃 한가운데를 비춤, 기적처럼 환하고 산뜻한 경이의 정서.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P15, P16 -->
+<div class="page-card" data-page="p15">
+  <div class="page-head"><span class="pnum">P15</span><b>결말(맹인 잔치)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">왕비가 된 청이는 고운 병풍 앞에 앉아도 아버지 생각뿐이었어요. "임금님, 온 나라의 앞 못 보는 분들을 궁궐로 모셔 큰 잔치를 열어 주세요." 잔칫날, 상마다 사람들이 가득했지만 아버지는 보이지 않았어요. 그런데 마지막 날 저녁, 또각또각 지팡이 소리가 들려왔지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 극단 여백 대형 와이드, 아이레벨 — 화면 왼쪽 3분의 2는 잔치가 끝나 가는 텅 빈 마당과 빈 상들, 오른쪽 끝 대문 어귀에 작은 노인 한 사람이 홀로 서 있는 구성. 넓은 빈 공간이 기다림을 말한다.<br/><b>장소·시간</b> 궁궐 앞마당의 잔치 자리, 잔치 마지막 날 해질 무렵. 잔치가 저물어 가는 나른하고 쓸쓸한 공기.<br/><b>인물</b> 화면 왼쪽 안쪽 단 위 — SimcheongQueen(왕비 심청)이 <b>병풍(byeongpung)</b> 앞에 앉아 있다가 소리를 듣고 몸을 일으키며 대문 쪽으로 고개를 홱 돌림, 두 손은 무릎에서 떨어져 허공에 멈춤, 입은 작은 O 모양, 눈은 크게. 비녀의 붉은 끈이 단 하나의 빨강. 화면 오른쪽 끝 대문 어귀 — BlindSim(눈먼 심 봉사)이 지팡이로 땅을 또각또각 짚으며 조심조심 들어섬, 낡고 기운 옷에 어깨가 굽었고 감은 호선 눈에 머쓱한 표정, 다른 손은 앞을 더듬음. 두 사람 사이의 거리가 아주 멀게.<br/><b>배경·소품</b> 접힌 네 폭 <b>병풍(byeongpung)</b>(소나무·학·파도 무늬), 길게 늘어선 잔칫상들과 거의 비워진 놋그릇·떡 접시, 상 사이를 치우는 궁녀들의 러프한 실루엣, 대문과 궁궐 담, 물러가는 노을 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 길게 누운 저녁 노을빛이 마당을 가로질러 대문 쪽 노인에게까지 닿음, 텅 빈 여백의 쓸쓸함이 곧 만남으로 뒤집힐 듯한 조마조마하고 애틋한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p16">
+  <div class="page-head"><span class="pnum">P16</span><b>결말(눈을 번쩍!)</b> <span class="tag beat">⑤ 결말</span> <span class="tag">후렴 ③</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">청이는 버선발로 달려 나가 아버지를 와락 껴안았어요. "아버지, 아버지, 우리 아버지! 눈을 번쩍 뜨세요, 우리 아버지!" 그 소리에 아버지의 두 눈이 번쩍— 환하게 열렸어요! "청아, 우리 청아!" 아버지는 그제야 처음으로 딸의 얼굴을 보았답니다. 사랑하는 마음은 바다보다 깊어서, 그 마음은 꼭 다시 만난대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업 투샷, 아이레벨에서 아주 가깝게 — 서로 껴안은 두 얼굴이 화면을 가득 채우는 마무리 컷. 배경은 거의 남기지 않고 인물에 밀도를 몰아준다.<br/><b>장소·시간</b> 궁궐 앞마당 대문 어귀, 해질 무렵. 온 세상이 멈춘 듯 벅찬 공기.<br/><b>인물</b> 화면 오른쪽 — SeeingSim(눈 뜬 심 봉사)의 얼굴이 크게: 감겨 있던 호선 눈이 활짝 열려 크고 동그란 점눈 두 개가 되고 둘레에 기쁨의 잔선 서너 획이 뻗침, 입은 커다란 O 모양으로 딸의 이름을 부르며, 볼에 눈물 획 두 줄, 두 팔은 딸을 꽉 끌어안음. 지팡이는 손에서 미끄러져 발치에 떨어지는 중. 화면 왼쪽 — SimcheongQueen(왕비 심청)이 아버지 가슴에 얼굴을 묻었다가 고개를 들어 아버지를 마주 봄, 눈은 초승달처럼 휘고 입은 활짝 웃으며 볼엔 눈물 획 하나. 비녀의 붉은 끈이 단 하나의 빨강.<br/><b>배경·소품</b> 발치에 떨어진 지팡이, 두 사람 둘레로 퍼지는 환한 빛무리와 작은 반짝임 몇 점, 저 뒤로 Imgeum(임금님)과 잔치 손님들이 손뼉 치는 아주 러프한 실루엣 몇 획, 노을 하늘 — 배경은 최소한의 열린 연필선만.<br/><b>톤</b> 노을빛과 눈뜸의 흰빛이 두 사람 사이에서 환하게 터지는 조명, 울음과 웃음이 함께 터지는 벅차고 따뜻한 마무리 정서.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 심청전 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING (finish hierarchy — the single most important rule): The bright warm cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. This picture is deliberately UNEVENLY finished, like one page from a master's sketchbook. Finish only what matters: the CHARACTERS = finished (clear line AND color, keep them at their current level); a prop a character is directly touching or holding (a loom, a bench, a gourd in their hands) = half-finished, a bit of line and a little color; everything else — the whole background: jars, walls, fences, roofs, trees, hills, anything far away — = a LOOSE UNFINISHED PENCIL SKETCH: just a few open contour lines and a few direction strokes, barely any color, lots of bare cream paper showing through, deliberately NOT filled in, like the rough underdrawing on a sketchbook page. A jar is two or three open outlines, a roof is a few slanted direction strokes, a distant thing is one or two lines and then paper. This is about how FINISHED each area is, NOT about opacity — the background is not faded, hazy, blurry or low-saturation, it is simply left as rough sketch lines and not drawn to completion. Spend all the density ONLY on the characters. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces; NOT a fully rendered background, NOT every jar / roof-tile / leaf drawn to completion, NOT a uniform finish across the whole picture, and NOT a hazy / blurry / faded background either (that is just blur, not a sketch) — keep the background as loose OPEN PENCIL SKETCH lines and every stroke loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'SimcheongGirl',  name: '심청 (딸)',      desc: '효심 깊은 딸 — 소박한 치마저고리, 긴 댕기머리+붉은 댕기(화면의 단 하나 빨강)', aliases: ['SimcheongGirl'] },
+    { token: 'SimcheongQueen', name: '왕비 심청',      desc: '연꽃에서 나온 왕비 — 옥빛 궁중 한복, 낮은 쪽머리·비녀, 같은 따뜻한 얼굴',      aliases: ['SimcheongQueen'] },
+    { token: 'BlindSim',       name: '눈먼 심 봉사',   desc: '앞 못 보는 아버지 — 감은 두 눈은 아래로 휜 호선, 지팡이, 귀 기울이는 자세',    aliases: ['BlindSim'] },
+    { token: 'SeeingSim',      name: '눈 뜬 심 봉사',  desc: '눈을 뜬 아버지 — 크고 동그란 점눈 두 개+기쁨의 잔선, 옷은 그대로(눈만 변함)',  aliases: ['SeeingSim'] },
+    { token: 'Monk',           name: '스님',          desc: '지나던 절의 스님 — 유일한 민머리, 회색 장삼·염주, 목탁을 든 차분한 인물',      aliases: ['Monk'] },
+    { token: 'Sailor',         name: '뱃사람 우두머리', desc: '바닷길 뱃사람들의 우두머리 — 캐스트 중 가장 큰 몸집, 머리수건·짚 밧줄, 넉넉한 웃음(악당 아님)', aliases: ['Sailor'] },
+    { token: 'DragonKing',     name: '용왕님',        desc: '바다를 다스리는 용왕 — 사람의 서너 배 크기, 흰 수염·작은 뿔 둘, 두 팔 벌린 환대', aliases: ['DragonKing'] },
+    { token: 'Imgeum',         name: '임금님',        desc: '마음씨 어진 임금 — 곤룡포의 각진 실루엣, 익선관, 콧수염 두 획',                aliases: ['Imgeum'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

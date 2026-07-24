@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 도깨비 감투</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · 시즌2 #30</div>
+  <h1>🎩 도깨비 감투</h1>
+  <div class="sub">쓰면 몸이 사라지는 신기한 감투 — 아무도 안 보는 곳에서 마음이 자라는 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 정직 (보이지 않는다고 해도 되는 일은 없다) &nbsp;·&nbsp;
+  <b>분량</b> 12 스프레드 &nbsp;·&nbsp; <b>후렴</b> 감투 눌러쓰는 주문 &nbsp;·&nbsp;
+  <b>핵심단어</b> 감투 · 망건 · 초롱 · 자물쇠 · 염낭 &nbsp;·&nbsp;
+  <b>순화</b> 🔴 도둑질은 <b>가볍고 코믹하게</b> — 엿 한 가락, 배·감 한 알 정도(값나가는 물건·곳간 털이 금지) / 벌은 <b>창피함과 뉘우침</b>뿐(맞거나 잡혀가는 장면 금지) / 도깨비는 무섭지 않은 <b>장난꾸러기</b>(시즌1 도깨비 세계관 연결) / 피해자(엿장수·할머니)의 시무룩한 마음을 한 컷 보여 주어 "왜 안 되는지"를 설교 없이 전달
+</div>
+<div class="refrain">🎩 반복 후렴 — "감투야 감투야, 폭 눌러쓰자! 하나 둘 셋— 나는 없다!" <span style="font-weight:600;font-size:13px">(P3 도깨비가 알려 줌 → P4 첫 시험 → P10 들통나는 순간 → P12 아이들 놀이 노래)</span></div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-gamtu</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.<br>🔴 <b>상태 변형 = 시트 분리</b> — 감투를 안 쓴 김 서방(<code>GimSeobang</code>)과 <b>감투를 쓴 투명 상태</b>(<code>GimHidden</code>)는 완전히 다른 그림이라 <b>다른 @image</b>다. 투명 상태는 <b>사람을 아예 그리지 않는다</b> — 유령 실루엣·반투명 몸 금지, 오직 "빈자리·떠 있는 물건·발자국"으로만 읽히게.<br>🔴 <b>화면당 빨강 악센트 1점 — 이 편은 빨강이 바통처럼 옮겨간다.</b> P1~P8 = 그 컷에 지정된 소품 하나(고추 두름·초롱의 붉은 폭·자물쇠 붉은 매듭·붉은 고추·연의 붉은 원·장터 붉은 깃발·엿가위 붉은 끈·붉은 대추). <b>P9부터 P12까지 이 책의 빨강은 오직 「감투에 덧댄 빨간 헝겊 조각」</b> — 다른 빨강을 넣지 말 것(절정의 시각적 훅이 죽는다). 🔴 그래서 <b>이 편 도깨비 방망이의 술은 빨강이 아니라 짙은 남빛</b>으로 그린다(시즌1 빨간 술과 충돌 방지).</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="김 서방" data-key="char-gim-seobang">
+  <div class="head"><span class="face">🧑‍🌾</span><b>김 서방</b> <span class="rom">GimSeobang · 순한 마을 사람(감투 안 쓴 모습)</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: GimSeobang — a young village farmer, good-natured and a little too easily tempted; never a villain, always someone a child can like. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a soft one-line smile, no nose (or one tiny dot), hair as one solid dark mass gathered into a small topknot (sangtu), and two or three tiny stubble dots on the chin so he reads as a grown man.
+SILHOUETTE (his signature): medium height, round-shouldered and bouncy — a slightly hunched, quick-stepping body that always leans a little forward, as if curious about what is around the corner. Hands are big and busy.
+SIGNATURE PROP: a horsehair headband (manggeon) drawn as one dark band across his forehead, which he touches or straightens whenever he is nervous — his tell.
+CLOTHES: a plain everyday cotton hanbok suggested in soft blue-grey pencil strokes — a simple jacket and baggy trousers left mostly as open paper with loose hatching, a waist sash, straw sandals in a few pale straw-yellow strokes, and a small embroidered pouch (yeomnang) hanging at his waist drawn in a few jade-green strokes. Humble and tidy — told by sparse strokes, never by dirt or gloom.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands loose, soft one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) easy one-line smile, (2) sneaky delight — a crooked half-grin with the shoulders hunched and one hand at his manggeon, (3) burning shame — a small downcurved mouth, head bowed low, both hands hanging. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="보이지 않는 김 서방" data-key="char-gim-hidden">
+  <div class="head"><span class="face">👻</span><b>보이지 않는 김 서방</b> <span class="rom">GimHidden · 감투를 쓴 투명 상태(사람 안 그림)</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: GimHidden — the SAME man while wearing the dokkaebi cap. 🔴 THIS IS NOT A CHARACTER DRAWING. He is COMPLETELY ABSENT from the picture: do NOT draw a body, do NOT draw a faint outline, do NOT draw a ghost, a silhouette, a see-through person or any transparency effect on a human shape. He is simply NOT DRAWN. His presence is told ONLY by what the world does around him.
+THE VOCABULARY OF HIS PRESENCE (use two or three of these per picture, never more):
+ · an object floating in mid-air at a natural tilt, as if held — a spoon, a stick of taffy, a pear — with the end nearest the invisible hand HALF-FADED into bare cream paper;
+ · a neat line of bare footprints pressed into dust or sand with nobody above them;
+ · a cushion, a straw mat corner or a hanging cloth pressed, lifted or swinging with nothing touching it;
+ · a gap in a crowd — people leaning away from an empty patch of paper;
+ · 🔴 THE KEY IMAGE (from P10 on): a small RED cloth patch, the size of a palm, floating ALONE at head height with absolutely nothing around it — the only red in the picture and the loudest thing on the page.
+REFERENCE SHEET: one sheet on plain bright cream paper, divided into five simple tiles showing exactly these five devices, each drawn in the same loose colored pencil: (1) empty cushion with a pressed dent + a spoon floating tilted over a rice bowl, (2) a line of bare footprints in dust with empty air above, (3) a stick of taffy lifting off a tray, half-faded at one end, (4) a market awning cloth swinging with nobody near it, (5) a lone small red cloth patch floating at head height against empty cream paper. No person anywhere on the sheet, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="김 서방 아내" data-key="char-gim-wife">
+  <div class="head"><span class="face">👩‍🌾</span><b>김 서방 아내</b> <span class="rom">GimWife · 손끝 야무진 아내</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: GimWife — the farmer's wife, warm, practical and quick-handed; she mends everything in the house. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile, no nose (or one tiny dot), hair as one solid dark mass parted in the middle and gathered into a modest LOW bun at the nape with one plain hairpin drawn as a single short stroke.
+SILHOUETTE (her signature): small, soft and rounded, usually seated with her back very straight and her hands busy in front of her — the most SETTLED body in the cast, the opposite of her husband's restless lean.
+CLOTHES & PROP: a humble skirt-and-jacket hanbok in soft blue-grey and pale straw pencil tones, mostly open paper with loose hatching and a simple work apron. Her signature object is a round woven sewing basket (banjitgori) she keeps at her side, with a spool of thread and a needle drawn as tiny strokes. 🔴 Never dress her in red — in this book the red belongs to the cloth patch she sews.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body seated idle (sewing basket at her side, needle in hand, gentle one-line smile) + a standing 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) warm one-line smile, (2) astonished big O mouth with both hands lifted to her cheeks, (3) focused mending — mouth pursed into a tiny line, eyes down at her hands. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="도깨비" data-key="char-dokkaebi">
+  <div class="head"><span class="face">👹</span><b>도깨비</b> <span class="rom">Dokkaebi · 감투 주인 · 장난꾸러기</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Dokkaebi — a small playful Korean imp, mischievous and never scary (he gives the cap as a thank-you and later takes it back with a grin, never with anger). Dot-eye design language: a flat cream face like everyone else, two dot eyes, and a wide grin drawn as a single line with a few tiny teeth strokes across it. His signature — a wild shaggy mop of dark scribbled hair (the one place where the scribble goes wild) with TWO small horns poking out of the mop.
+SILHOUETTE: small and round — a little imp with a round tummy and stubby limbs, about knee-high to an adult. Small imp + mop hair + two horns + knobbly club = instantly readable and comic.
+CLOTHES & PROP: a simple ragged loincloth in a few strokes, and a knobbly wooden magic club (bangmangi). 🔴 THIS EPISODE ONLY: the tassel on his club is DEEP INDIGO, not red — the single red accent of this book is reserved for the red cloth patch on the cap, so nothing else may be red in any picture he appears in.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (club over shoulder, toothy line grin) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) mischievous toothy line grin, (2) soaked and helpless — a wobbly upside-down U mouth with the mop hair dripping in a few wet strokes, (3) a sly wink-less "I told you so" smile with the chin tucked. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="엿장수" data-key="char-yeotjangsu">
+  <div class="head"><span class="face">🍬</span><b>엿장수 아저씨</b> <span class="rom">Yeotjangsu · 장터 엿 파는 아저씨</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Yeotjangsu — the market taffy seller, loud, cheerful and easily flustered; a comic figure, never mean. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a wide open line mouth (he is always calling out), no nose (or one tiny dot), hair as one solid dark mass in a topknot (sangtu) with a small towel knotted around his head.
+SILHOUETTE (his signature): a broad flat-chested man made mostly of the WIDE WOODEN TRAY hanging from his neck — the tray is a long horizontal bar across his middle, so he reads as a walking table from far away.
+CLOTHES & PROP: work clothes in soft blue-grey strokes, sleeves rolled up, straw sandals; a flat wooden taffy tray with pale straw-yellow taffy sticks laid in rows and a light dusting of starch powder; and his big iron taffy SHEARS, always clacking in one hand.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (tray at his middle, shears raised mid-clack, mouth open calling) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) hearty open-mouth shout, (2) baffled — a small O mouth with both brow strokes lifted, looking over his shoulder at nothing, (3) an amused forgiving grin with the head tilted. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="과일 할머니" data-key="char-halmeoni">
+  <div class="head"><span class="face">👵</span><b>과일 파는 할머니</b> <span class="rom">Halmeoni · 장터 좌판 할머니</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Halmeoni — the old woman who sells pears and persimmons from a small mat stall; gentle, a bit slow-moving, and the quiet heart of the story's lesson (her disappointment is what teaches, not a scolding).
+Dot-eye design language: a flat cream face with zero shading, two dot eyes, a soft one-line smile, no nose (or one tiny dot), hair as one solid pale-grey mass in a tiny low bun, plus three or four fine stroke-lines at the corners of her eyes so she reads as old.
+SILHOUETTE (her signature): the smallest, roundest adult in the cast — a low, bent, comfortable shape that is almost always SEATED on her mat, knees tucked, which makes her instantly different from every standing market figure.
+CLOTHES & PROP: a worn skirt-and-jacket hanbok in pale straw and soft blue-grey strokes, a headscarf tied at the back, and her low straw mat stall with a shallow woven basket of fruit in front of her.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body seated idle at her mat (one hand resting on a basket, soft smile) + a standing 3/4 turn (slightly bent) + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) kind one-line smile, (2) 🔴 quiet disappointment — a small downcurved mouth, shoulders dropped, eyes on an empty spot in front of her, (3) forgiving relief with a crinkled smile and one hand raised to pat someone's shoulder. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.) 다섯 사물 모두 본문에 실제로 등장한다 — 감투 P3·P4·P9·P10·P11·P12, 망건 P1·P11, 초롱 P2, 자물쇠 P3, 염낭 P7·P8·P11.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="감투" data-key="word-gamtu">
+  <div class="head"><span class="face">🎩</span><b>감투</b> <span class="rom">gamtu — a soft brimless horsehair cap</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "gamtu — a traditional Korean soft brimless cap woven from horsehair (감투)". A rounded, slightly tapered crown with NO brim, woven from fine black horsehair (#2B2B2E) so the weave shows as a delicate semi-transparent mesh with a faint blue-black sheen, a neat woven rim band at the bottom edge and a small ribbon tie. Show TWO STATES side by side so the story reads: (1) the perfect black cap, and (2) the SAME cap with a small palm-sized square of vivid RED cotton cloth (#C0392B) hand-stitched over a burn hole on its side, the stitches drawn as visible little cross marks — the red patch is the boldest, most eye-catching thing on the card. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="망건" data-key="word-manggeon">
+  <div class="head"><span class="face">🎽</span><b>망건</b> <span class="rom">manggeon — a horsehair headband</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "manggeon — a traditional Korean horsehair headband worn by grown men to hold the hair back before putting on a hat (망건)". A long narrow band woven of fine dark horsehair (#2F2A26) with a finely meshed upper edge and a firmer woven lower edge, a pair of small round jade ornaments (gwanja, #6FA287) set at the sides, and slim tie cords at the back. Show TWO VIEWS: (1) the band laid flat and open so its long shape and mesh weave read clearly, and (2) the band curved into a ring as it sits on a head, seen at a slight 3/4 angle. Crisp weave texture, quietly elegant. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="초롱" data-key="word-chorong">
+  <div class="head"><span class="face">🏮</span><b>초롱</b> <span class="rom">chorong — a silk-covered hand lantern</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "chorong — a traditional Korean hand lantern of silk stretched over a bamboo frame, carried at night (청사초롱)". A tall octagonal lantern: a slim bamboo frame in honey wood tone (#B07A3C) wrapped in panels of deep indigo-blue silk (#2E4A7D) with a band of vivid red silk (#C0392B) at the top and bottom, a small candle glowing warmly inside so the silk lights up from within, a round wooden top cap and a long carrying pole with a hook. Show TWO VIEWS: (1) the lantern hanging lit from its pole at a slight 3/4 angle, and (2) a close side view of the silk panels showing the bamboo ribs through the glow. Warm inner light, festive and proud. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="자물쇠" data-key="word-jamulsoe">
+  <div class="head"><span class="face">🔒</span><b>자물쇠</b> <span class="rom">jamulsoe — a fish-shaped iron padlock</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jamulsoe — a traditional Korean fish-shaped padlock for a chest or a storeroom door (붕어 자물쇠)". A chunky lock cast in dark blackened iron with warm brass inlay (#8C6B2F): the body shaped like a plump fish with a simple engraved eye, gill line and tail, a keyhole slot in its belly, and a heavy shackle bar through the top. A short RED silk cord (#C0392B) is knotted through the shackle. Show TWO PARTS together: (1) the padlock closed, and (2) its long flat iron key with a decorative openwork handle lying beside it. Hand-forged, sturdy, characterful. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="염낭" data-key="word-yeomnang">
+  <div class="head"><span class="face">👝</span><b>염낭</b> <span class="rom">yeomnang — an embroidered drawstring pouch</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "yeomnang — a traditional Korean drawstring pouch worn at the waist, its mouth gathered into two rounded corners (염낭, 두루주머니)". A small round pouch of jade-green silk (#27795B) with a gold-thread embroidered good-luck pattern on the front, a woven drawstring with two decorative knots (maedeup) and short tassels at the ends. Show TWO STATES: (1) the pouch pulled shut and plump, hanging from its cord, and (2) the pouch with its mouth open and slack, tipped forward and empty. Silky sheen, fine embroidery, handcrafted pride. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 12 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 산 아래 작은 마을에 김 서방이 살았어요. 아침이면 머리에 망건을 매만지고 밭으로 나갔지요. 부지런하고 마음씨도 순한 사람이었답니다. 다만 한 가지— 남의 것이 조금 부러운 날도 있었어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 하이앵글 부감 — 산 아래 마을 전체를 비스듬히 내려다보고, 밭길을 걷는 인물은 화면 오른쪽 아래에 아주 작게(넓은 세계 vs 작은 사람, 스케일 대비 구도).<br/><b>장소·시간</b> 옛 한국 산골 마을, 이른 아침. 안개가 걷히는 서늘하고 맑은 공기.<br/><b>인물</b> GimSeobang(김 서방)은 화면 오른쪽 아래 논밭 사잇길 위에 작게, 한 손을 이마로 올려 <b>망건(manggeon)</b>을 매만지고 다른 팔은 크게 흔들며 성큼성큼 걸어감, 몸은 앞으로 살짝 기울고 옆얼굴엔 편안한 한 줄 미소.<br/><b>배경·소품</b> 초가집 대여섯 채와 돌담, 논밭 이랑, 마을 어귀의 큰 느티나무, 뒤로 나지막한 산과 소나무, 발밑에 깔린 아침 안개. <b>이 컷의 유일한 빨강 = 초가집 처마에 걸린 붉은 고추 두름 한 줄.</b> 집·담·산은 러프한 연필 스케치 선으로만.<br/><b>톤</b> 이른 아침의 옅은 금빛 햇살, 옛이야기를 여는 정겹고 잔잔한 정서, 넓고 시원한 여백.</pre></details>
+</div>
+
+<!-- ② 발단 : P2, P3 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(도랑에 빠진 도깨비)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느 날 밤, 김 서방은 초롱을 들고 산길을 내려왔어요. 그런데 도랑에서 "끙— 끙—" 소리가 났지요. 세상에, 조그만 도깨비가 도랑에 빠져 허우적대고 있지 뭐예요! 김 서방은 얼른 손을 쑥 내밀어 도깨비를 건져 주었어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 로우앵글 — 도랑 물바닥 높이에서 위를 올려다보는 시점, 초롱 불빛이 화면 위쪽에서 쏟아져 내리는 아래로부터의 구도.<br/><b>장소·시간</b> 마을 뒷산에서 내려오는 밤 산길 옆 도랑, 깜깜한 밤. 풀벌레 소리가 나는 서늘하고 고요한 공기.<br/><b>인물</b> GimSeobang(김 서방)은 화면 위쪽 도랑 가장자리에서 한쪽 무릎을 꿇고 몸을 앞으로 깊이 기울인 채, 한 손으로 <b>초롱(chorong)</b>을 높이 들고 다른 손을 도랑 아래로 쑥 뻗음 — 눈은 동그랗고 입은 작은 O, 놀랐지만 걱정이 앞선 표정. Dokkaebi(도깨비)는 화면 아래 도랑물 속에서 더벅머리가 흠뻑 젖은 채 두 팔을 허우적, 뿔 두 개만 물 밖으로 쏙 나오고 입은 울상 O자, 곁에 방망이(짙은 남빛 술)가 둥둥 떠 있음.<br/><b>배경·소품</b> 도랑물의 잔물결 몇 획, 갈대와 돌멩이, 위쪽 산길과 나무는 열린 연필선 몇 줄로만. 밤은 옅은 남빛 해칭 몇 획으로만 암시하고 종이는 여전히 밝은 크림색. <b>이 컷의 유일한 빨강 = 초롱 위아래를 두른 붉은 비단 띠</b>(초롱의 나머지 폭은 남빛).<br/><b>톤</b> 초롱이 만드는 따뜻한 불빛 웅덩이가 두 사람만 밝히고, 무섭기는커녕 우스꽝스럽고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(감투를 선물받다)</b> <span class="tag beat">② 발단 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">도깨비는 씩 웃더니 붉은 매듭이 달린 자물쇠를 딸깍 열고, 낡은 궤짝에서 까만 감투를 꺼냈어요. "이걸 쓰면 몸도, 옷도, 손에 쥔 것도 쓱— 사라져! 대신 남의 것에는 절대 손대면 안 돼!" 김 서방은 고개를 끄덕이며 주문을 따라 외웠지요. "감투야 감투야, 폭 눌러쓰자! 하나 둘 셋— 나는 없다!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머 — 전경 왼쪽에 김 서방의 어깨와 뒤통수가 크게 잘려 들어오고, 그 너머로 열린 궤짝 속을 들여다보는 구도.<br/><b>장소·시간</b> 도랑 옆 풀숲, 같은 밤 조금 뒤. 비밀스럽고 설레는 공기.<br/><b>인물</b> Dokkaebi(도깨비)는 화면 가운데 궤짝 앞에 쪼그려 앉아 두 손으로 까만 <b>감투(gamtu)</b>를 받쳐 들어 앞으로 쑥 내밀며 이빨 실선 웃음, 눈은 장난기로 반짝. GimSeobang(김 서방)은 전경 왼쪽에 어깨와 뒤통수(망건 띠가 뒤에서 보임)만 크게, 고개를 옆으로 살짝 기울여 들여다보고 옆얼굴에 눈 하나가 동그랗게 드러남, 두 손은 받으려고 반쯤 올라와 있음.<br/><b>배경·소품</b> 이끼 낀 낡은 나무 궤짝, 방금 딸깍 열린 물고기 모양 <b>자물쇠(jamulsoe)</b>가 궤짝 고리에 대롱대롱, 궤짝 옆에 놓인 도깨비 방망이(짙은 남빛 술), 풀숲과 나무는 열린 스케치선으로만. <b>이 컷의 유일한 빨강 = 자물쇠에 매인 붉은 실매듭.</b><br/><b>톤</b> 밤의 옅은 남빛 위로 궤짝 안에서 새어 나오는 은은한 옥빛 반짝임, 비밀을 나눠 갖는 두근거리는 정서.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P4, P5, P6, P7, P8 -->
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(첫 시험)</b> <span class="tag beat">③ 사건 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집에 온 김 서방은 아내 앞에서 감투를 폭 눌러썼어요. "감투야 감투야, 폭 눌러쓰자! 하나 둘 셋— 나는 없다!" 스르륵— 김 서방이 감쪽같이 사라졌어요! 빈자리에서 숟가락만 둥둥 떠서 밥을 뜨자, 아내는 "아이고머니!" 하며 눈이 동그래졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 평면 부감 — 방바닥과 소반을 거의 바로 위에서 내려다보는 위에서 본 구도(밥상 전체가 한눈에).<br/><b>장소·시간</b> 김 서방네 초가집 안방, 저녁 밥때. 조용하고 아늑한 공기.<br/><b>인물</b> GimWife(아내)는 소반 아래쪽에 앉아 두 손을 뺨에 대고 몸을 뒤로 살짝 젖힌 채 입이 커다란 O자, 눈이 동그래진 화들짝 놀란 표정. GimHidden(보이지 않는 김 서방) — 🔴 사람은 전혀 그리지 않는다(유령·반투명 몸 금지): 소반 건너편 방석에 앉았던 눌린 자국만 남아 있고, 숟가락 하나가 밥그릇 위 허공에 비스듬히 떠서 밥을 뜨는 중이며 숟가락 손잡이 끝은 크림 종이 속으로 반쯤 흐려져 사라짐, 국그릇의 김이 한쪽으로 밀려 휘어짐.<br/><b>배경·소품</b> 낮은 소반 위 밥그릇·국그릇·나물 접시, 방석, 벽에 걸린 무명 수건, 방 한쪽의 작은 불빛 한 점. 방바닥·벽은 열린 스케치선으로만. <b>이 컷의 유일한 빨강 = 소반 위 종지에 담긴 붉은 고추 한 개.</b><br/><b>톤</b> 저녁의 노란 불빛, 놀랍고 우스꽝스러운 즐거운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(신기한 마을)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이튿날부터 마을이 신기해졌어요. 나뭇가지에 걸린 연이 스르르 내려오고, 물을 준 적 없는 밭이 촉촉해졌지요. "도깨비가 도와줬나 봐!" 아이들이 손뼉을 쳤어요. 보이지 않는 김 서방은 어깨가 으쓱했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 — 전경 오른쪽에 마을 아이의 뒤통수와 번쩍 든 두 팔이 크게 들어오고, 그 어깨 너머로 느티나무 가지에서 내려오는 연을 올려다보는 구도.<br/><b>장소·시간</b> 마을 어귀 큰 느티나무 아래, 화창한 한낮. 들뜨고 신나는 공기.<br/><b>인물</b> 마을 아이 둘(단역 — 한 명은 전경 오른쪽 뒷모습으로 두 팔을 번쩍, 다른 한 명은 그 옆에서 입을 벌리고 나무를 가리킴). GimHidden(보이지 않는 김 서방) — 🔴 사람은 전혀 그리지 않는다: 나뭇가지에 걸려 있던 방패연이 저절로 스르르 풀려 아래로 내려오는 중이고 연줄이 팽팽하게 당겨져 있음, 나뭇가지 하나가 아무도 없는데 툭 흔들려 잎이 몇 장 떨어지고, 나무 아래 마른 흙에 맨발자국이 또박또박 두 줄로 찍혀 있음.<br/><b>배경·소품</b> 느티나무 둥치와 가지, 방패연, 뒤편 초가지붕과 돌담, 촉촉해진 밭이랑 한 귀퉁이. 나무·집·담은 열린 스케치선으로만. <b>이 컷의 유일한 빨강 = 방패연 한가운데의 붉은 동그라미.</b><br/><b>톤</b> 밝고 화창한 한낮 햇빛, 마법 같은 일이 벌어져 온 마을이 신난 명랑한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(장터 장난)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">장날, 김 서방은 감투를 쓰고 장터를 어슬렁어슬렁 걸었어요. 엿장수 아저씨의 상투를 살짝 톡, 할머니의 부채를 살랑 흔들었지요. "어? 바람인가?" 사람들이 두리번두리번. 김 서방은 배꼽을 잡고 웃었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 — 좌우로 긴 장터 골목을 가로지르는 수평 구도, 🔴 화면 한가운데가 사람 하나 없이 텅 비어 있고 양옆 사람들이 그 빈 곳을 향해 몸을 돌린 배치(빈 공간이 주인공).<br/><b>장소·시간</b> 시골 장터 골목, 장날 한낮. 왁자지껄 붐비는 공기.<br/><b>인물</b> Yeotjangsu(엿장수 아저씨)는 화면 왼쪽에서 엿목판을 목에 걸고 엿가위를 짤깍이다가 상투가 톡 눌리자 고개를 홱 뒤로 돌리며 눈썹을 치켜올린 어리둥절한 O자 입. Halmeoni(과일 할머니)는 화면 오른쪽 좌판 뒤에 앉아, 아무도 잡지 않은 부채가 저절로 살랑이자 눈을 가늘게 뜨고 두리번거림. GimHidden(보이지 않는 김 서방) — 🔴 사람은 전혀 그리지 않는다: 두 사람 사이 텅 빈 흙바닥에 맨발자국이 왼쪽에서 오른쪽으로 이어지고, 장터 차양 천 한 자락이 누가 스친 듯 들썩 들려 있음.<br/><b>배경·소품</b> 좌판들과 대나무 장대 차양, 엿목판·엿가위, 소쿠리에 담긴 과일, 지나가는 장꾼 서넛(러프한 스케치선으로만). <b>이 컷의 유일한 빨강 = 장터 차양 끝에 매달린 작은 붉은 깃발 하나.</b><br/><b>톤</b> 한낮의 밝은 햇빛, 아직은 죄 없는 장난이 주는 유쾌하고 명랑한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(첫 욕심)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 달콤한 엿 냄새가 코끝에 솔솔 풍겼어요. '한 가락쯤이야. 아무도 못 보는데.' 엿 한 가락이 공중에 붕 뜨더니 쓱— 사라졌지요. 김 서방은 허리에 찬 염낭에 엿을 쏙 넣고 살금살금 도망쳤어요. 가슴이 콩닥콩닥 뛰었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 극단 클로즈업, 살짝 로우앵글 — 엿목판 위 면을 바짝 붙어 올려다보듯 잡아, 떠오른 엿 한 가락이 화면을 가로지르는 구도(사람 얼굴은 화면에 없음).<br/><b>장소·시간</b> 장터 엿장수 좌판 앞, 같은 날 한낮. 달콤한 냄새가 도는 아슬아슬한 공기.<br/><b>인물</b> GimHidden(보이지 않는 김 서방) — 🔴 사람은 전혀 그리지 않는다: 엿 한 가락이 목판에서 비스듬히 붕 떠올라 공중에 멈춰 있고 🔴 잡힌 쪽 끝이 이미 크림 종이 속으로 반쯤 흐려져 사라지는 중, 목판 위 하얀 엿가루에 손가락 자국이 콕콕 남음, 그 아래 흙바닥엔 발자국 두 개가 좌판 쪽으로 바짝 찍혀 있음. Yeotjangsu(엿장수 아저씨)는 화면 뒤쪽에 등을 돌린 채 다른 손님을 향해 팔을 들고 외치는 러프한 스케치로만 작게.<br/><b>배경·소품</b> 나무 엿목판과 가지런히 놓인 엿가락들, 흩뿌려진 엿가루, 목판 모서리에 걸친 엿가위, 김 서방 허리에서 벗겨져 목판 옆에 벌어진 채 놓인 <b>염낭(yeomnang)</b>(입이 열려 엿을 받으려는 자세로, 몸이 안 보이니 주머니만 허공에 살짝 떠 있음). <b>이 컷의 유일한 빨강 = 엿가위 손잡이에 감긴 붉은 끈.</b><br/><b>톤</b> 밝은 낮 햇빛인데 화면이 바짝 좁아져 숨을 죽인 듯한 긴장, 나쁘다기보다 "들키면 어쩌지" 하는 조마조마한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>사건(시무룩해진 할머니)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">한 번이 두 번, 두 번이 세 번이 되었어요. 다음 장날엔 할머니 좌판에서 배도 하나, 감도 하나 염낭으로 쏙쏙. 휑해진 좌판을 보고 할머니는 그만 시무룩해졌지요. "오늘도 없어졌네…" 김 서방은 가슴이 콕 찔렸지만, 모른 척했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글 부감 — 할머니의 낮은 좌판을 바로 위에서 내려다봐, 과일이 빠져나간 빈자리들이 한눈에 보이는 구도.<br/><b>장소·시간</b> 장터 한 귀퉁이 할머니 좌판, 다음 장날 낮. 사람 소리가 멀어진 쓸쓸한 공기.<br/><b>인물</b> Halmeoni(과일 할머니)는 화면 아래쪽 멍석에 앉아 어깨가 축 처지고 입은 아래로 굽은 시무룩한 표정, 한 손으로 과일이 있던 빈자리를 천천히 쓸어 봄, 시선은 바닥. GimHidden(보이지 않는 김 서방) — 🔴 사람은 전혀 그리지 않는다: 배 하나가 좌판에서 붕 떠올라 허공에서 아래쪽부터 반쯤 흐려지며 사라지는 중이고, 그 옆 감이 있던 자리는 짚 자국만 옴폭 남았으며, 좌판 앞 흙바닥에 발자국이 뒷걸음질치듯 찍혀 있음.<br/><b>배경·소품</b> 낮은 멍석 좌판과 얕은 소쿠리, 남은 배·감 몇 알, 할머니 옆 물사발, 뒤편 장터 사람들은 아주 러프한 스케치선으로 멀리. <b>이 컷의 유일한 빨강 = 좌판 한쪽에 놓인 붉은 대추 한 무더기.</b><br/><b>톤</b> 낮 햇빛이지만 좌판 위만 휑하게 비어 보이는 조명, 혼내는 대신 마음이 아려 오는 조용하고 애틋한 정서.</pre></details>
+</div>
+
+<!-- ④ 절정 : P9, P10, P11 -->
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(빨간 헝겊을 덧대다)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날 밤, 부뚜막 불티가 톡 튀어 감투에 구멍이 뽕 났어요. 아내는 반짇고리에서 빨간 헝겊을 꺼내 콕콕 기워 주었지요. "자, 새것처럼 됐지요?" 김 서방은 고맙다며 감투를 눌러썼어요. 하지만 도깨비 감투가 아닌 것은 감춰 주지 않는다는 걸, 김 서방은 몰랐답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨 — 아내의 두 손과 감투가 화면 한가운데를 꽉 채우고, 남편은 화면 가장자리에 잘려 들어오는 손 중심 구도.<br/><b>장소·시간</b> 김 서방네 초가집 안방, 밤. 조용하고 아늑한, 그러나 어딘가 조마조마한 공기.<br/><b>인물</b> GimWife(아내)는 화면 가운데에서 무릎에 <b>감투(gamtu)</b>를 올려놓고 바늘로 빨간 헝겊 조각을 콕콕 꿰매는 중, 입을 작게 오므리고 눈은 바늘 끝에 딱 붙은 야무진 표정. GimSeobang(김 서방)은 오른쪽 가장자리에 얼굴 반쯤만 들어오게 앉아 턱을 괴고 고맙다는 듯 웃지만, 눈길은 감투에 착 붙어 있고 입꼬리가 한쪽만 올라간 살짝 들뜬 표정.<br/><b>배경·소품</b> 둥근 반짇고리와 실패·바늘, 감투 옆구리에 뽕 뚫린 그을린 구멍, 그 위에 놓인 손바닥만 한 빨간 헝겊 조각(꿰맨 자국이 작은 십자 표시로 보이게), 뒤쪽 부뚜막에서 튄 불티 자국. 벽·부뚜막은 열린 스케치선으로만. <b>🔴 이 컷부터 P12까지 이 책의 유일한 빨강 = 이 빨간 헝겊 조각 하나뿐</b>(다른 붉은 소품 일절 금지).<br/><b>톤</b> 밤의 노란 불빛이 손끝만 데우는 조명, 다정하면서도 앞일을 살짝 예고하는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(빨간 조각이 둥둥!)</b> <span class="tag beat">④ 절정 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이튿날 장터. "감투야 감투야, 폭 눌러쓰자! 하나 둘 셋— 나는 없다!" 김 서방은 또 엿목판 쪽으로 살금살금 걸었어요. 그런데 갑자기 사람들이 소리쳤지요. "저기 봐! 빨간 게 둥둥 떠다녀!" 아무도 없는 허공에, 빨간 헝겊 조각 하나만 둥실둥실 움직이고 있었어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 로우앵글 + 극단 여백 — 화면의 70%가 텅 빈 밝은 허공(그냥 크림 종이)이고, 그 한가운데 사람 키 높이에 작은 빨간 헝겊 조각 하나만 떠 있으며, 장터 사람들은 화면 아래 가장자리에 낮게 깔리는 구도. 그림책 "펼침면 한 방".<br/><b>장소·시간</b> 시골 장터 한복판, 한낮. 온 장터가 숨을 멈춘 듯한 공기.<br/><b>인물</b> GimHidden(보이지 않는 김 서방) — 🔴 사람은 전혀 그리지 않는다: 오직 손바닥만 한 빨간 헝겊 조각 하나가 허공에 비스듬히 떠서 걸음 리듬대로 위아래로 흔들리고, 그 아래 흙바닥엔 맨발자국이 또박또박 앞으로 이어지며, 지나온 자리의 차양 천이 아직도 들썩이고 있음. Yeotjangsu(엿장수 아저씨)는 화면 왼쪽 아래에서 엿가위를 든 채 고개를 확 젖히고 입이 커다란 O자, 한 팔로 허공을 가리킴. Halmeoni(과일 할머니)는 오른쪽 아래에서 좌판에 손을 짚고 반쯤 일어서며 눈을 크게 뜸. 장꾼 서넛도 모두 같은 한 점을 올려다봄.<br/><b>배경·소품</b> 좌판과 차양 장대, 흙바닥의 발자국 줄. 배경 인물·좌판은 러프한 스케치선으로 두고 밀도는 오직 헝겊 조각에. <b>🔴 화면 전체에서 유일한 빨강 = 떠 있는 그 헝겊 조각 하나(가장 진하고 가장 눈에 띄게).</b><br/><b>톤</b> 한낮의 눈부신 햇빛과 넓은 빈 종이, 모두의 시선이 한 점으로 모이는 짜릿한 절정의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(들통난 김 서방)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"저기다!" 사람들이 우르르 몰려와 빨간 조각을 덥석 잡았어요. 감투가 쏙 벗겨지자 김 서방이 뿅— 나타났지요! 귀 끝까지 화끈 달아오른 김 서방은 염낭을 탈탈 털어 엿도, 배도, 감도 도로 내놓았어요. "잘못했습니다. 정말 미안해요." 망건이 땀에 젖도록 꾸벅꾸벅 절을 했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 살짝 기울인(더치) 아이레벨 — 화면이 비스듬히 기울어 부끄러움이 무너져 내리는 느낌, 고개 숙인 인물이 화면 가운데를 채움.<br/><b>장소·시간</b> 장터 한복판, 바로 그 순간의 한낮. 웅성거림이 뚝 그친 뜨거운 공기.<br/><b>인물</b> GimSeobang(김 서방)은 화면 가운데 무릎을 꿇고 고개를 푹 숙인 채, 두 손으로 <b>염낭(yeomnang)</b>을 거꾸로 뒤집어 엿 가락과 배·감을 바닥에 쏟아 내놓음 — 눈은 질끈 감기고 입은 아래로 굽었으며, 땀에 젖은 <b>망건(manggeon)</b>이 이마에 착 붙고 귀 끝이 화끈 달아오른 자세. Halmeoni(과일 할머니)는 왼쪽에서 놀랐다가 마음이 스르르 풀리는 표정으로 한 손을 김 서방 어깨 쪽으로 내밂. Yeotjangsu(엿장수 아저씨)는 오른쪽에서 팔짱을 낀 채 어이없다는 듯 픽 웃음. 장꾼들은 둘러서서 웅성.<br/><b>배경·소품</b> 김 서방 발치에 벗겨져 떨어진 <b>감투(gamtu)</b>(빨간 헝겊을 덧댄 면이 위로 향해 보임), 쏟아진 엿·배·감, 흙바닥의 발자국. 좌판·사람들은 러프한 스케치선으로. <b>🔴 이 컷의 유일한 빨강 = 떨어진 감투 위의 빨간 헝겊 조각</b>(얼굴이나 옷에 붉은 기 금지).<br/><b>톤</b> 정오의 환한 햇빛이 도망갈 데 없이 다 비추는 조명, 창피하지만 밉지 않고 곧 용서로 이어지는 따뜻하고 코믹한 뉘우침.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P12 -->
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>결말(감투는 돌아가고)</b> <span class="tag beat">⑤ 결말 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날 저녁, 도깨비가 사르르 나타났어요. "약속을 잊었구나? 감투는 내가 가져갈게!" 도깨비는 씩 웃고는 훌쩍 사라졌지요. 김 서방은 이튿날부터 장터 짐을 날라 주고, 할머니 좌판도 지켜 주었어요. 아이들은 지금도 이렇게 노래한대요. "감투야 감투야, 폭 눌러쓰자! 하나 둘 셋— 나는 없다!" 보이지 않는 곳에서도 부끄럽지 않은 사람이 제일 멋진 사람이래요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 로우앵글 — 노을 하늘을 배경으로 돌담 위에 앉은 작은 도깨비를 아래에서 올려다보는 구도, 인물들은 화면 아래쪽에 낮게.<br/><b>장소·시간</b> 마을 어귀 돌담 앞, 해 질 무렵. 하루가 개운하게 닫히는 공기.<br/><b>인물</b> Dokkaebi(도깨비)는 화면 위쪽 돌담 위에 쪼그려 앉아 한 손으로 <b>감투(gamtu)</b>를 집어 들어 흔들며 이빨 실선 웃음, 다른 손엔 방망이(짙은 남빛 술)를 어깨에 걸침, 몸이 아래쪽부터 살짝 반짝이며 사라지려는 중. GimSeobang(김 서방)은 화면 아래 왼쪽에서 두 손을 앞에 모으고 도깨비를 올려다보며 고개를 끄덕이는 개운한 미소, 어깨엔 남의 짐을 대신 진 지게끈 자국처럼 소쿠리를 하나 얹음. 아이 둘(단역)은 오른쪽에서 두 손을 머리 위에 모아 감투 쓰는 흉내를 내며 깡충 뛰어오르고 입을 크게 벌려 후렴을 따라 부름.<br/><b>배경·소품</b> 돌담과 초가지붕, 멀리 장터 차양, 노을진 하늘의 성긴 구름 몇 획. 배경은 열린 스케치선으로만. <b>🔴 이 컷의 유일한 빨강 = 도깨비 손에 들린 감투 위의 빨간 헝겊 조각.</b><br/><b>톤</b> 따뜻한 노을빛, 벌이 아니라 배움으로 닫히는 개운하고 정겨운 마무리 정서.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 도깨비 감투 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING (finish hierarchy — the single most important rule): The bright warm cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. This picture is deliberately UNEVENLY finished, like one page from a master's sketchbook. Finish only what matters: the CHARACTERS = finished (clear line AND color, keep them at their current level); a prop a character is directly touching or holding (a loom, a bench, a gourd in their hands) = half-finished, a bit of line and a little color; everything else — the whole background: jars, walls, fences, roofs, trees, hills, anything far away — = a LOOSE UNFINISHED PENCIL SKETCH: just a few open contour lines and a few direction strokes, barely any color, lots of bare cream paper showing through, deliberately NOT filled in, like the rough underdrawing on a sketchbook page. A jar is two or three open outlines, a roof is a few slanted direction strokes, a distant thing is one or two lines and then paper. This is about how FINISHED each area is, NOT about opacity — the background is not faded, hazy, blurry or low-saturation, it is simply left as rough sketch lines and not drawn to completion. Spend all the density ONLY on the characters. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces; NOT a fully rendered background, NOT every jar / roof-tile / leaf drawn to completion, NOT a uniform finish across the whole picture, and NOT a hazy / blurry / faded background either (that is just blur, not a sketch) — keep the background as loose OPEN PENCIL SKETCH lines and every stroke loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'GimSeobang', name: '김 서방',            desc: '순한 마을 사람(감투 안 쓴 모습) — 망건·무명 한복, 허리에 염낭, 앞으로 기운 잰걸음', aliases: ['GimSeobang'] },
+    { token: 'GimHidden',  name: '보이지 않는 김 서방', desc: '감투를 쓴 투명 상태 — 🔴 사람을 그리지 않는다. 빈자리·떠 있는 물건·발자국, P10부터는 빨간 헝겊 조각만', aliases: ['GimHidden'] },
+    { token: 'GimWife',    name: '김 서방 아내',        desc: '손끝 야무진 아내 — 낮은 쪽머리, 앞치마, 반짇고리(빨간 헝겊을 덧대는 사람)', aliases: ['GimWife'] },
+    { token: 'Dokkaebi',   name: '도깨비',              desc: '장난꾸러기 임프 — 더벅머리+작은 뿔 2, 이빨 실선 웃음, 방망이(이 편은 술이 짙은 남빛)', aliases: ['Dokkaebi'] },
+    { token: 'Yeotjangsu', name: '엿장수 아저씨',       desc: '장터 엿장수 — 목에 건 넓은 엿목판, 짤깍이는 엿가위, 늘 외치는 입', aliases: ['Yeotjangsu'] },
+    { token: 'Halmeoni',   name: '과일 파는 할머니',     desc: '좌판 할머니 — 작고 둥근 앉은 실루엣, 머릿수건, 배·감 소쿠리', aliases: ['Halmeoni'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

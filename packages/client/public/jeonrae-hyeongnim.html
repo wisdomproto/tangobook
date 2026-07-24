@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 호랑이 형님</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · 시즌2 #35</div>
+  <h1>🐯 호랑이 형님</h1>
+  <div class="sub">꾀 하나로 호랑이를 형님 삼은 나무꾼 — 산에서 내려온 커다란 마음 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 기지·효 &nbsp;·&nbsp;
+  <b>분량</b> 13 스프레드 &nbsp;·&nbsp; <b>후렴</b> 형님을 부르는 소리 &nbsp;·&nbsp;
+  <b>핵심단어</b> 새끼줄 · 지게작대기 · 머릿수건 · 다래끼 · 신틀 &nbsp;·&nbsp;
+  <b>순화</b> 🔴 호랑이는 첫 등장 한 컷만 "커다랗고 놀라운" 존재이고, 그 뒤로는 <b>덩치 크고 순박한 형님</b>이다 — 겁주거나 골탕 먹이는 역할 아님(시즌1 「호랑이와 곶감」·「팥죽 할멈과 호랑이」의 어리숙한 훼방꾼 호랑이와 성격이 겹치지 않게) / 잡아먹으려는 묘사·이빨·발톱 강조 금지 / 🔴 어머니의 죽음은 <b>"먼 길을 떠나셨어요"</b> 한 줄로만, 슬픔보다 <b>따뜻한 그리움</b>으로 닫는다
+</div>
+<div class="refrain">🐯 반복 후렴 — "형님! 형님! 우리 형님! 산에 사는 우리 형님!" <span style="font-weight:600;font-size:13px">(P4 넙죽 절 → P9 저녁마다 산을 향해 → P13 마지막 배웅)</span></div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-hyeongnim</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.<br>🔴 <b>화면당 빨강 악센트 1점 = 나무꾼의 붉은 줄무늬 머릿수건</b>(나무꾼이 없는 컷에서만 다른 빨강 하나를 쓴다 — 처마의 붉은 고추 두름, 어머니 저고리의 붉은 옷고름 매듭 등).<br>🔴 <b>호랑이는 무섭게 그리지 않는다</b> — 이빨·발톱·부릅뜬 눈 금지. 첫 등장(P3)에서만 "화면을 꽉 채우는 크기"로 놀라움을 주고, 그 뒤는 어리둥절하고 정 많은 큰형 얼굴.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="나무꾼 동생" data-key="char-woodcutter-brother">
+  <div class="head"><span class="face">🪵</span><b>나무꾼</b> <span class="rom">WoodcutterBrother · 꾀 많고 효성 깊은 나무꾼</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: WoodcutterBrother — a young village woodcutter in his twenties who looks after his old mother, quick-witted and warm-hearted. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a friendly one-line smile, no nose (or one tiny dot), hair as one solid dark mass gathered into a small topknot (sangtu), and two or three tiny stubble dots on the chin so he reads as a grown man.
+SILHOUETTE (his signature): compact, sturdy and springy — squarish shoulders from carrying loads, sleeves and trouser legs bound close at the wrists and ankles with cord ties (daenim), knees slightly bent as if always ready to climb a hill. He is the smallest, quickest body in the book next to the huge tiger.
+SIGNATURE RED: an off-white cotton head towel with a woven RED border stripe, knotted around his forehead — this is the picture's single red accent whenever he appears (he may also pull it off to wipe his brow or wave it).
+CLOTHES & PROP: plain working hanbok suggested in soft blue-grey pencil strokes — a short jacket left mostly as open paper with loose hatching, baggy trousers tied at the ankles, straw sandals in a few pale straw-yellow strokes. Often carries a bundle of firewood bound with twisted straw rope, and a Y-forked wooden support stick (jigejakdaegi) drawn as one long confident stroke.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (support stick in one hand, easy grin) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) friendly one-line smile, (2) frozen fright — a tiny flat line mouth, brow strokes flying up, shoulders pulled to the ears, (3) quick cunning idea — one eyebrow stroke lifted with a small crooked grin. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="호랑이 형님" data-key="char-tiger-elder">
+  <div class="head"><span class="face">🐯</span><b>호랑이 형님</b> <span class="rom">TigerElder · 순박하고 정 많은 큰형</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: TigerElder — an enormous mountain tiger who is accidentally adopted as an older brother. 🔴 He is BIG but never frightening: simple-hearted, slow, easily moved to tears, deeply devoted. Dot-eye design language kept exactly, applied to an animal: a flat pale-straw face with zero shading, TWO DOT EYES (never wide or glaring), a simple line mouth (a small O when puzzled, a soft upward line when pleased), a single small dot nose, three whisker strokes each side, two small rounded ears.
+🔴 NEVER DRAW: bared fangs, sharp claws, a snarl, narrowed predator eyes, blood or prey being hunted. His mouth opens only in an O of surprise or a soft yawn-like roar.
+SILHOUETTE (his signature): the biggest shape in the whole book — a great soft rounded mass about three times a man's height when he sits up, with a broad round head, thick round paws with no visible claws, a heavy tail curling like a comma. He is drawn as a warm boulder of an animal, all curves and no points; his hugeness is the joke and the tenderness at once.
+COLOR: pale straw-yellow fur (#E3C377) left mostly as open cream paper with loose hatching, stripes as a few soft blue-grey brush-like pencil strokes (not black, not many), a cream belly and muzzle left as bare paper.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body sitting idle (upright on his haunches, front paws set down, soft line mouth) + a 3/4 turn + a walking side view + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) puzzled small O mouth with the head tilted, (2) brimming with tears — two tiny stroke-tears under the dot eyes and a wobbly downcurved mouth, (3) shy pleased smile with the eyes squeezed into two little arcs. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="어머니" data-key="char-mother-old">
+  <div class="head"><span class="face">👵</span><b>어머니</b> <span class="rom">MotherOld · 나무꾼의 늙은 어머니</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: MotherOld — the woodcutter's aged mother, small, gentle and quietly strong, never frail-looking or sad. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a soft one-line smile, no nose (or one tiny dot), and three or four tiny stroke-lines at the corners of the eyes so she reads as old.
+🔴 HER SIGNATURE: hair drawn as one solid PALE SILVER-GREY mass (the only light-haired head in the cast) parted in the middle and gathered into a small low bun at the nape with one plain wooden hairpin as a single short stroke.
+SILHOUETTE: small and round-backed, shoulders softly curved forward, hands usually folded together at her waist or reaching out to pat someone — the shortest, roundest, calmest shape in the book.
+CLOTHES & PROP: a humble skirt-and-jacket hanbok suggested in soft blue-grey and faded straw pencil strokes, mostly open paper with a couple of scribbled patches at the hem, cloth shoes in a few strokes. NOTE: when she appears without WoodcutterBrother in frame, the picture's single red accent is the small red knot of her jacket ribbon (goreum).
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded at the waist, soft one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) warm one-line smile, (2) astonished small O mouth with both hands lifted to her cheeks, (3) moved to tears — a wobbly smile with one tiny stroke-tear and a bowed head. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.) 다섯 사물 모두 본문에 실제로 등장한다 — 새끼줄 P1·P8, 지게작대기 P3·P7, 머릿수건 P1·P13, 다래끼 P10, 신틀 P9.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="새끼줄" data-key="word-saekkijul">
+  <div class="head"><span class="face">🪢</span><b>새끼줄</b> <span class="rom">saekkijul — twisted rice-straw rope</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "saekkijul — traditional Korean rope hand-twisted from rice straw (새끼줄)". Two strands of golden rice straw (#D8B45A) twisted together into a springy rope, with tiny straw whiskers standing out along its whole length and a neatly finished knotted end. Show TWO forms on the card so the word reads clearly: (1) a thick coil of the rope wound into a round bundle, and (2) a length of it tied around a bundle of firewood in a firm cross-knot. Warm hand-twisted straw texture, sturdy and humble craftsmanship. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="지게작대기" data-key="word-jigejakdaegi">
+  <div class="head"><span class="face">🥢</span><b>지게작대기</b> <span class="rom">jigejakdaegi — a forked prop stick</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jigejakdaegi — the Y-forked wooden stick a Korean woodcutter uses to prop up his A-frame carrier and to steady himself on mountain paths (지게작대기)". One straight natural branch of honey-brown hardwood (#B07A3C) about shoulder height, its bark partly peeled away and the grip worn smooth and glossy from years of hands, ending in a natural Y-shaped fork at the top and a blunt scuffed tip at the bottom. Show the whole stick at a slight angle plus one close detail of the Y fork. 🔴 It is a helper tool, NOT a weapon — friendly, well-used, warm. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="머릿수건" data-key="word-meoritsugeon">
+  <div class="head"><span class="face">🧣</span><b>머릿수건</b> <span class="rom">meoritsugeon — a cotton head towel</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "meoritsugeon — the cotton towel a Korean farmer or woodcutter ties around his head to catch sweat (머릿수건)". A long rectangle of hand-woven off-white cotton (#EFE6D2) with a visible plain weave and a woven RED stripe (#C0392B) running along each short end, its edges softly frayed. Show TWO forms so the word reads clearly: (1) the towel folded flat showing the red stripes, and (2) the same towel knotted into a headband ring with the tail ends hanging. Soft, everyday, hand-woven warmth. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="다래끼" data-key="word-daraekki">
+  <div class="head"><span class="face">🧺</span><b>다래끼</b> <span class="rom">daraekki — a small waist basket</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "daraekki — the small deep basket a Korean villager hangs at the waist to gather mountain greens, chestnuts and berries (다래끼)". A round-bottomed basket tightly plaited from split bushclover and willow withes in warm honey and pale straw tones (#B07A3C & #D8B45A), showing the over-under weave, a rolled rim, and a twisted straw cord strap. Show TWO states: (1) the basket empty at a 3/4 angle so the weave and depth read, and (2) the same basket heaped with fresh green mountain herbs (#4E7A3A). Handcrafted, springy, proud of its weave. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="신틀" data-key="word-sinteul">
+  <div class="head"><span class="face">🪑</span><b>신틀</b> <span class="rom">sinteul — a straw-sandal weaving frame</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "sinteul — the low wooden frame a Korean villager sits at to weave straw sandals (신틀)". A small sturdy frame of honey-brown wood (#B07A3C) with short legs and an upright crossbar notched with pegs, over which four twisted straw warp cords (#D8B45A) are stretched taut. Show TWO states so the word reads clearly: (1) the bare frame with its warp cords strung, and (2) the same frame with a half-woven straw sandal taking shape on the cords and a small bundle of loose rice straw laid beside it. Quiet handcraft, warm wood and golden straw. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 13 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 깊은 산 아래 작은 오두막에 나무꾼과 늙은 어머니가 살았어요. 나무꾼은 날마다 산에 올라 나무를 하고, 새끼줄로 나뭇짐을 꽁꽁 묶어 지고 내려왔지요. 마당에 들어서면 머릿수건을 풀어 이마의 땀을 쓱쓱 닦았답니다. "어머니, 오늘도 다녀왔습니다!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 하이앵글 부감 + 스케일 대비 — 우뚝한 산자락 전체를 비스듬히 위에서 내려다보고, 그 발치의 작은 오두막 마당에 두 사람이 손톱만 하게 놓인 도입 컷. 화면의 위 3분의 2는 산.<br/><b>장소·시간</b> 옛 한국 산골, 험한 산자락 바로 아래 홀로 앉은 작은 초가 오두막과 마당, 늦은 오후. 솔향 섞인 서늘하고 맑은 산 공기.<br/><b>인물</b> 화면 아래쪽 마당에 WoodcutterBrother(나무꾼)가 막 산에서 내려와 나뭇짐을 등에서 내려놓으며 한 손으로 머릿수건을 벗어 이마를 닦고 활짝 웃음 — 작지만 붉은 줄무늬 머릿수건 한 점이 또렷(화면의 단 하나 빨강). 그 앞 툇마루 끝에 MotherOld(어머니)가 두 손을 앞에 모으고 서서 아들을 향해 온화한 한 줄 미소, 은빛 낮은 쪽머리와 굽은 등.<br/><b>배경·소품</b> 마당에 부려 놓은 장작 다발을 꽁꽁 동여맨 <b>새끼줄(saekkijul)</b>의 굵은 꼬임과 삐죽삐죽한 짚 수염, 흙벽과 초가지붕, 처마 밑에 걸린 마른 나물 두름, 사립문과 낮은 싸리 담장, 산으로 이어지는 좁은 오솔길, 등성이의 소나무 몇 그루 — 배경은 열린 연필선 몇 획의 러프 스케치로.<br/><b>톤</b> 늦은 오후 햇빛이 산등성이 너머에서 길게 비껴 들어옴, 가난하지만 다정하고 씩씩한 정서, 따뜻한 크림빛과 옅은 솔빛 초록.</pre></details>
+</div>
+
+<!-- ② 발단 : P2, P3 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(더 깊은 산속으로)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느 가을날, 나무꾼은 여느 때보다 훨씬 깊은 산속까지 올라갔어요. 어머니 방을 따뜻하게 지필 땔감을 넉넉히 하고 싶었거든요. 낙엽이 바스락바스락, 솔가지가 우수수. 어느새 해가 뉘엿뉘엿 기울었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 어깨너머 컷, 세로로 깊은 구도 — 화면 앞쪽 아래에 WoodcutterBrother의 뒤통수와 어깨·머릿수건 매듭이 크게 걸치고, 그 너머로 나무 사이 오솔길이 화면 안쪽 위로 아득히 이어지는 중형 컷.<br/><b>장소·시간</b> 깊은 가을 산속, 참나무와 소나무가 뒤섞인 비탈길, 해 질 무렵. 낙엽 냄새가 나는 서늘하고 고요한 공기.<br/><b>인물</b> 화면 전경 — WoodcutterBrother(나무꾼)의 뒷모습, 어깨에 얹은 나뭇짐과 뒤통수의 붉은 줄무늬 머릿수건 매듭이 크게(화면의 단 하나 빨강), 고개를 살짝 들어 길 위쪽을 살피는 자세. 얼굴은 보이지 않고 자세만으로 씩씩함과 살짝의 조심스러움.<br/><b>배경·소품</b> 발밑에 두껍게 쌓인 갈색 낙엽과 흩어진 솔가지, 굵은 나무둥치 몇 그루가 화면 좌우를 세로로 막아 길을 좁게 만듦, 길 끝은 어둑한 덤불로 사라짐, 나뭇가지 사이로 낮게 걸린 해 — 배경은 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 나뭇가지 사이로 비스듬히 쏟아지는 늦은 오후의 금빛 햇살과 그 사이 길어진 그림자, 아름답지만 조금씩 조심스러워지는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(어흥! 커다란 호랑이)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때였어요. 우거진 덤불이 부스럭— 하더니, 어흥! 집채만 한 호랑이가 떡 하니 나타났지 뭐예요. 나무꾼은 다리가 후들후들, 손에 쥔 지게작대기가 툭 떨어졌어요. '이, 이제 어쩌지…'</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 극단 로우앵글 — 땅에 떨어진 지게작대기 높이에서 거의 하늘을 향해 올려다보는 대형 컷. TigerElder가 화면을 위아래로 꽉 채우고, 나무꾼은 화면 아래 구석에 아주 작게 들어감(크기 대비가 전부인 컷).<br/><b>장소·시간</b> 깊은 산속 오솔길 한복판, 해 질 무렵. 숨이 딱 멎은 듯 정지한 공기.<br/><b>인물</b> TigerElder(호랑이 형님)가 화면 중앙에 우뚝 — 덤불을 헤치고 나와 네 발로 버티고 선 거대한 둥근 몸집, 커다란 둥근 머리가 화면 위쪽을 가득 채움. 🔴 입은 놀란 듯 동그란 O 모양으로만 벌어졌고 이빨·발톱·부릅뜬 눈은 절대 그리지 않음, 두 점눈은 그저 동그랗고 담담. 화면 왼쪽 아래 구석 — WoodcutterBrother(나무꾼)가 뒤로 넘어질 듯 몸을 젖히고 두 팔을 벌린 채 얼어붙음, 입은 아주 작은 일자, 눈썹 획이 위로 튀고 어깨가 귀까지 올라감. 붉은 줄무늬 머릿수건(단 하나 빨강)이 놀란 바람에 한쪽으로 흘러내림.<br/><b>배경·소품</b> 나무꾼 발치에 떨어져 나뒹구는 <b>지게작대기(jigejakdaegi)</b> — 위쪽이 Y자로 갈라진 반들반들한 나무 막대가 낙엽 위에 비스듬히, 흩어진 나뭇짐과 새끼줄, 갈라진 덤불 가지, 호랑이 뒤로 아득히 높은 나무들과 붉게 물든 하늘 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 해 질 녘 역광이라 호랑이가 커다란 그림자 덩어리처럼 보이지만 얼굴만은 밝고 순한 크림빛, 무서움이 아니라 <b>"엄청나게 크다!"</b>는 놀라움의 정서.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P4, P5, P6, P7 -->
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(넙죽 큰절)</b> <span class="tag beat">③ 사건</span> <span class="tag">후렴 ①</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그 순간 나무꾼의 머릿속에 번쩍 꾀가 떠올랐어요. 나무꾼은 땅에 넙죽 엎드려 큰절을 올렸지요. "형님! 형님! 우리 형님! 산에 사는 우리 형님! 이제야 뵙습니다!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 + 스케일 대비, 옆에서 본 아이레벨 — 화면 오른쪽에 앉은 거대한 호랑이, 화면 왼쪽 바닥에 납작 엎드린 손톱만 한 나무꾼. 둘 사이에 넓은 낙엽 바닥이 비어 있어 크기 차이가 한눈에.<br/><b>장소·시간</b> 깊은 산속 오솔길, 해 질 무렵. 방금까지 팽팽하던 공기가 뜻밖의 절 하나로 멈칫한 순간.<br/><b>인물</b> WoodcutterBrother(나무꾼)가 화면 왼쪽 낙엽 위에 두 손을 앞으로 짚고 이마가 땅에 닿도록 납작 엎드려 큰절, 엉덩이만 살짝 들린 우스꽝스러우면서도 정성스러운 자세, 옆얼굴의 입은 크게 벌어져 외치는 모양. 머리에 동인 붉은 줄무늬 머릿수건(단 하나 빨강)이 절하는 각도로 앞으로 쏠림. TigerElder(호랑이 형님)는 화면 오른쪽에 뒷다리로 앉아 상체를 세운 채 고개를 옆으로 갸웃, 입은 작은 O, 앞발 하나가 어중간하게 공중에 들려 있음 — "얘가 지금 뭐 하는 거지?" 하는 어리둥절함.<br/><b>배경·소품</b> 두 사람 사이 텅 빈 낙엽 바닥, 나뒹구는 지게작대기와 흩어진 나뭇짐, 뒤로 높은 나무들과 붉은 노을 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 노을빛이 낮게 깔린 따뜻한 주황, 위기가 뜻밖의 코미디로 뒤집히는 유쾌하고 후련한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(형님이 된 호랑이)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호랑이는 눈을 끔뻑끔뻑했어요. "혀, 형님? 내가?" 나무꾼은 시치미를 뚝 떼고 말했지요. "어머니께서 늘 말씀하셨어요. 옛날에 산으로 간 큰아들이 호랑이가 되었다고요. 형님이 바로 그분이시군요!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업 — TigerElder의 얼굴이 화면을 거의 가득 채우는 대형 클로즈업, 정면보다 살짝 기울인 반측면. 화면 아래 구석에 나무꾼의 머리 꼭대기만 아주 작게 걸침.<br/><b>장소·시간</b> 깊은 산속 오솔길, 해 질 무렵. 시간이 뚝 멈춘 듯 조용한 공기.<br/><b>인물</b> TigerElder(호랑이 형님)의 커다란 얼굴 — 두 점눈이 끔뻑이듯 살짝 위로 향하고, 입은 작은 O 모양으로 벌어진 채, 한쪽 눈썹 획만 삐뚜름하게 올라간 어리둥절한 표정. 콧등의 작은 점코와 좌우 세 획씩의 수염, 둥근 귀 하나가 뒤로 살짝 젖혀짐. 파리한 짚빛 얼굴에 부드러운 청회색 줄무늬 몇 획. 화면 오른쪽 아래 구석 — WoodcutterBrother(나무꾼)의 정수리와 붉은 줄무늬 머릿수건(단 하나 빨강)만 조그맣게 들어와, 시치미를 떼며 올려다보는 한쪽 눈과 태연한 한 줄 입이 보임.<br/><b>배경·소품</b> 얼굴 뒤로는 거의 전부 빈 크림 종이 — 흐린 나뭇가지 두어 획과 떠도는 낙엽 두 장만, 완성하지 않은 스케치선으로.<br/><b>톤</b> 노을빛이 옆에서 얼굴에 닿는 부드러운 금빛, 무섭기는커녕 순하고 멍한 얼굴이 웃음을 주는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(호랑이의 눈물)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호랑이는 한참을 가만히 있었어요. 그러더니 커다란 눈에 눈물이 그렁그렁 맺혔지요. "그럼… 우리 어머니가 아직 살아 계신단 말이냐?" 뚝, 눈물 한 방울이 낙엽 위에 떨어졌어요. 어흐흑, 커다란 몸이 들썩들썩했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글 부감 — 두 사람을 나무 꼭대기 높이에서 비스듬히 내려다보는 중형 컷. 커다란 호랑이가 웅크린 둥근 덩어리로 보이고, 그 옆의 나무꾼은 아주 작게. 눈물 한 방울이 떨어진 낙엽 자리가 화면 중앙 아래에.<br/><b>장소·시간</b> 깊은 산속 오솔길, 해가 막 넘어간 직후. 숙연하고 뭉클한 저녁 공기.<br/><b>인물</b> TigerElder(호랑이 형님)가 화면 중앙에 앞발을 모으고 웅크려 앉아 고개를 깊이 숙임 — 위에서 보이는 둥근 등과 말린 꼬리, 두 점눈 아래 아주 작은 눈물 획 두 개, 아래로 휜 울먹이는 입, 어깨가 들썩이는 자세. WoodcutterBrother(나무꾼)는 그 옆에 조심스레 무릎을 굽히고 앉아 한 손을 호랑이의 커다란 앞발 위에 살며시 얹음, 위에서 보이는 정수리의 붉은 줄무늬 머릿수건(단 하나 빨강)과 놀란 듯 살짝 벌어진 입.<br/><b>배경·소품</b> 두 사람을 둘러싼 두툼한 낙엽 바닥, 낙엽 한 장 위에 동그랗게 번진 눈물 자국 하나, 나뒹구는 지게작대기, 위에서 내려다보이는 나무 꼭대기 몇 개 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 해가 넘어간 뒤의 푸르스름하고 부드러운 빛, 커다란 짐승이 우는 뜻밖의 뭉클함, 웃음 뒤에 오는 따뜻한 감동의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(산길 어귀까지 배웅)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호랑이는 나무꾼을 산길 어귀까지 데려다주었어요. "동생아, 어머니를 잘 모셔라. 나는 산을 지키마." 나무꾼은 꾸벅 인사하고 부지런히 산을 내려왔지요. 다리는 아직도 후들후들했지만요!</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 + 극단 여백, 뒷모습 컷 — 화면의 약 70%가 텅 빈 저녁 하늘과 능선이고, 사건은 화면 오른쪽 아래 구석의 산길 어귀에만. 산 위에 우뚝 선 호랑이의 뒷모습과, 아래로 멀어지는 나무꾼의 작은 뒷모습.<br/><b>장소·시간</b> 산에서 마을로 내려가는 길이 갈라지는 산길 어귀, 땅거미가 지는 초저녁. 서늘하고 시원하게 트인 공기.<br/><b>인물</b> TigerElder(호랑이 형님)는 화면 오른쪽 언덕 위에 네 발로 서서 아래를 내려다보는 뒷모습 — 커다랗고 둥근 등, 늘어뜨린 꼬리, 고개만 살짝 아래로 기울인 배웅 자세(얼굴은 거의 보이지 않고 실루엣의 다정함으로만). WoodcutterBrother(나무꾼)는 언덕 아래 길 위에 손톱만 하게, 나뭇짐을 지고 걸어 내려가며 뒤를 향해 한 손을 들어 인사, 붉은 줄무늬 머릿수건 한 점이 어스름 속에 또렷(단 하나 빨강). 손에는 다시 주워 든 <b>지게작대기(jigejakdaegi)</b>를 짚고 있음.<br/><b>배경·소품</b> 능선을 따라 내려가는 좁은 흙길, 길가의 서낭당 돌무더기, 저 아래 아득히 보이는 마을의 자그마한 불빛 하나둘, 텅 빈 하늘에 뜨기 시작한 첫 별 — 전부 열린 연필선 몇 획.<br/><b>톤</b> 남빛으로 저물어 가는 하늘과 지평선에만 남은 옅은 주황, 넓은 여백이 만드는 여운, 헤어지지만 든든한 정서.</pre></details>
+</div>
+
+<!-- ④ 절정 : P8, P9, P10, P11 -->
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>절정(마당의 선물)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이튿날 새벽, 마당에 나온 어머니가 깜짝 놀랐어요. 커다란 멧돼지 한 마리가 새끼줄에 꽁꽁 묶인 채 마당 한가운데 떡 놓여 있지 뭐예요! "아니, 이게 웬일이냐?" 눈 위에 찍힌 커다란 발자국은 산 쪽으로 나 있었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 평면 부감 — 마당 바로 위에서 거의 수직으로 내려다보는 중형 컷. 마당 한가운데 놓인 짐과, 그 옆에 선 어머니의 정수리, 그리고 사립문 밖 산 쪽으로 이어지는 커다란 발자국 줄이 한 화면에 다 보이는 구성.<br/><b>장소·시간</b> 오두막 앞마당, 서리 내린 이른 새벽. 하얗게 김이 서리는 차고 맑은 공기.<br/><b>인물</b> MotherOld(어머니)가 화면 왼쪽에서 두 손을 뺨에 대고 입을 동그랗게 벌린 채 마당 한가운데를 내려다봄 — 위에서 보이는 은빛 낮은 쪽머리와 굽은 등, 놀라 살짝 뒤로 물러선 발. 저고리 앞섶의 붉은 옷고름 매듭이 화면의 단 하나 빨강(나무꾼은 이 컷에 없음).<br/><b>배경·소품</b> 마당 한가운데에 <b>새끼줄(saekkijul)</b>로 네 발과 몸통을 꽁꽁 동여맨 커다란 멧돼지 한 마리 — 🔴 피나 상처는 전혀 없이 그냥 짐짝처럼 얌전히 묶여 놓인 모습으로, 무섭지 않게 둥글둥글하게. 그 곁에 가지런히 놓인 마른 나뭇단, 서리 앉은 흙마당에 크고 동그랗게 찍혀 사립문 밖 산 쪽으로 줄지어 사라지는 호랑이 발자국, 장독 두엇과 싸리 담장 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 해 뜨기 직전의 파리한 은빛 새벽 조명, 무섭지 않고 어리둥절하면서도 가슴이 뭉클해지는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(저녁마다 산을 향해)</b> <span class="tag beat">④ 절정</span> <span class="tag">후렴 ②</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">저녁이면 나무꾼은 신틀 앞에 앉아 짚신을 삼으며 산속 이야기를 들려드렸어요. 어머니는 두 손을 모으고 눈물을 훔쳤지요. 그날부터 두 사람은 저녁마다 산을 향해 소리쳤답니다. "형님! 형님! 우리 형님! 산에 사는 우리 형님!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 아이레벨보다 낮은 눈높이 — 툇마루에 앉은 두 사람을 마당 바닥 높이에서 가깝게 올려다보는 컷. 앞쪽에 신틀과 짚 다발이 크게, 그 뒤로 산을 향해 몸을 돌린 두 사람.<br/><b>장소·시간</b> 오두막 툇마루와 앞마당, 저녁. 밥 짓는 연기 냄새가 나는 포근한 공기.<br/><b>인물</b> WoodcutterBrother(나무꾼)가 화면 오른쪽 툇마루 끝에 앉아 한 손으로 짚을 쥔 채 고개는 산 쪽으로 돌리고 입을 크게 벌려 외침, 붉은 줄무늬 머릿수건(단 하나 빨강)이 목에 걸쳐짐. MotherOld(어머니)는 그 옆에 나란히 앉아 두 손을 모아 가슴에 대고 산을 바라보며 아래로 휜 울먹이는 미소, 눈가에 아주 작은 눈물 획 하나, 다른 손등으로 눈물을 훔치는 중.<br/><b>배경·소품</b> 화면 앞쪽에 <b>신틀(sinteul)</b> — 짧은 다리의 나지막한 나무 틀에 짚 날줄 네 가닥이 팽팽히 걸리고, 그 위에 반쯤 삼다 만 짚신 한 짝이 얹혀 있음, 곁에 풀어 놓은 짚 다발과 다 삼은 짚신 한 켤레. 툇마루 기둥에 걸린 등불, 마당 너머 어둑해지는 산 능선과 그 위 초저녁 별 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 등불의 따뜻한 주황빛이 두 사람의 옆얼굴을 감싸고 그 밖은 저녁의 푸른빛, 그리움과 고마움이 섞인 애틋하고 정겨운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(밤마다 살금살금)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그 뒤로도 호랑이는 밤마다 살금살금 산을 내려왔어요. 어느 날은 산나물이 소복한 다래끼, 어느 날은 알밤 한 무더기. 놓아 두고는 뒤도 안 돌아보고 슬금슬금 돌아갔지요. 달빛에 커다란 등이 어른어른했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 극단 여백 + 어깨너머 대형 와이드 — 화면의 약 70%가 텅 빈 달밤 하늘과 산 그림자이고, 사건은 화면 왼쪽 아래 구석에만. 마당에 놓인 다래끼 너머로, 담장을 넘어 산으로 돌아가는 호랑이의 뒷모습이 멀찍이.<br/><b>장소·시간</b> 오두막 앞마당과 그 뒤 산자락, 달 밝은 깊은 밤. 서리 내린 고요하고 파란 밤공기.<br/><b>인물</b> TigerElder(호랑이 형님)가 화면 오른쪽 중간, 담장 너머 오솔길을 따라 산으로 올라가는 뒷모습 — 달빛을 등진 커다랗고 둥근 실루엣, 늘어뜨린 꼬리 끝만 살짝 들림, 뒤도 돌아보지 않는 무뚝뚝하고 다정한 걸음(사람은 아무도 깨어 있지 않음).<br/><b>배경·소품</b> 화면 왼쪽 아래 마당 한구석에 방금 놓고 간 <b>다래끼(daraekki)</b> — 싸리로 촘촘히 엮은 작은 허리바구니에 파릇한 산나물이 소복이 담기고 짚 끈이 옆으로 늘어짐, 그 곁에 수북한 알밤 무더기. 마당의 서리, 사립문과 싸리 담장, 처마에 걸린 붉은 고추 두름 한 줄(나무꾼이 없는 컷의 단 하나 빨강), 하늘엔 둥근 달 하나와 성근 별 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 푸른 달빛 하나로만 밝힌 밤, 넓은 여백이 만드는 조용한 다정함, 몰래 두고 가는 마음이 뭉클한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(어머니의 인사)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">하루는 어머니가 마당 끝까지 나와 어둠을 향해 허리를 굽혔어요. "고맙구나, 우리 큰아들아. 밥은 먹었니?" 싸리 담장 너머에서 커다란 두 눈이 반짝, 코가 씰룩. 호랑이는 그 자리에 오래오래 서 있었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 겹침·가림 구도의 중형 컷, 살짝 로우앵글 — 화면 전체를 세로로 지나가는 싸리 담장의 성근 나뭇살이 앞을 반쯤 가리고, 그 틈새로 담 너머의 커다란 얼굴과 담 안쪽의 작은 어머니가 함께 보이는 구성.<br/><b>장소·시간</b> 오두막 마당 끝 싸리 담장, 달 밝은 밤. 숨죽인 듯 고요한 밤공기.<br/><b>인물</b> TigerElder(호랑이 형님)는 담장 바깥에 앉아 얼굴만 담 위로 살짝 내밀었고, 담장 살 사이로 두 점눈이 동그랗게 반짝이고 작은 점코가 씰룩, 입은 수줍은 한 줄 미소로 살짝 올라감 — 몸의 대부분은 담장에 가려 커다란 어깨 곡선만 어렴풋이. MotherOld(어머니)는 담 안쪽 화면 왼쪽 아래에 서서 어둠을 향해 두 손을 모으고 허리를 깊이 굽혀 인사, 은빛 쪽머리와 굽은 등, 온화한 한 줄 미소. 저고리의 붉은 옷고름 매듭이 화면의 단 하나 빨강(나무꾼은 이 컷에 없음).<br/><b>배경·소품</b> 앞을 가로막은 싸리 담장의 성근 나뭇살(반쯤만 그려진 선), 담 아래 놓인 빈 그릇 하나, 마당의 장독과 서리, 뒤로 검푸른 산 능선과 둥근 달 — 배경은 열린 연필선 러프 스케치.<br/><b>톤</b> 달빛이 담장 살 사이로 줄무늬처럼 떨어지는 조명, 서로를 마주 보지 못한 채 오가는 마음의 조심스럽고 뭉클한 정서.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P12, P13 -->
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>결말(먼 길을 떠나신 어머니)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">세월이 흐르고 또 흘렀어요. 어느 봄날, 어머니는 먼 길을 떠나셨지요. 그날 밤 산에서는 길고 긴 울음소리가 들려왔어요. 어흐응— 어흐응— 온 산이 함께 우는 것 같았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 대형 와이드 — 마당 한가운데에서 밤하늘과 산 능선을 올려다보는 컷. 화면의 대부분이 봄밤 하늘이고, 능선 꼭대기에 호랑이의 옆모습이 아주 작은 실루엣으로 하나. 나무꾼은 화면 아래 가장자리에 뒷모습으로 작게.<br/><b>장소·시간</b> 오두막 마당에서 올려다본 산 능선, 봄밤. 아직 서늘하지만 꽃내음이 도는 조용한 공기.<br/><b>인물</b> TigerElder(호랑이 형님)가 저 멀리 능선 꼭대기에 앉아 고개를 하늘로 치켜들고 길게 우는 옆모습 실루엣 — 아주 작지만 둥근 등과 치켜든 턱, 벌어진 입의 곡선으로 우는 것이 분명히 읽힘(사납지 않고 서럽게). 화면 아래 가장자리 — WoodcutterBrother(나무꾼)의 뒷모습이 마당에 홀로 서서 산을 올려다봄, 어깨가 아래로 처지고 손에 쥔 붉은 줄무늬 머릿수건(단 하나 빨강)이 힘없이 늘어짐.<br/><b>배경·소품</b> 마당가에 하얗게 핀 봄꽃 가지 몇, 불이 꺼진 오두막 창, 능선을 따라 늘어선 나무들의 어두운 톱니 실루엣, 성근 별과 흐린 반달 — 배경은 열린 연필선 러프 스케치. 🔴 무덤·상여·죽음을 뜻하는 사물은 일절 그리지 않는다.<br/><b>톤</b> 깊고 부드러운 남빛 밤에 별빛만 흩어진 조명, 무섭거나 어둡지 않고 <b>조용히 슬프고 따뜻한</b> 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>결말(산등성이의 뒷모습)</b> <span class="tag beat">⑤ 결말</span> <span class="tag">후렴 ③</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그 뒤로 마당에는 아무것도 놓이지 않았어요. 하지만 나무꾼이 산에 오를 때면, 저 멀리 산등성이에 커다란 뒷모습이 서 있곤 했지요. 나무꾼은 머릿수건을 벗어 힘껏 흔들었어요. "형님! 형님! 우리 형님! 산에 사는 우리 형님!" 꾀 하나로 만난 사이였지만, 마음을 나누니 진짜 형님이 되었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 어깨너머 + 극단 여백 대형 와이드 — 화면 왼쪽 앞에 나무꾼의 어깨와 치켜든 팔이 크게 걸치고, 그 너머 텅 빈 하늘과 넓은 산등성이가 화면의 대부분. 사건(호랑이 뒷모습)은 화면 오른쪽 위 능선에 아주 작게.<br/><b>장소·시간</b> 산 중턱 오솔길에서 건너다본 맞은편 산등성이, 맑은 봄날 아침. 바람이 시원하게 지나가는 트인 공기.<br/><b>인물</b> 화면 전경 왼쪽 — WoodcutterBrother(나무꾼)의 뒷모습 어깨와 뒤통수, 한 팔을 하늘로 번쩍 들어 벗은 <b>머릿수건(meoritsugeon)</b>을 힘껏 흔듦, 붉은 줄무늬가 바람에 펄럭이며 화면의 단 하나 빨강이 됨. 얼굴은 반쯤만 보이며 입은 크게 벌려 외치는 모양. 화면 오른쪽 위 멀리 능선 — TigerElder(호랑이 형님)가 이쪽을 향해 앉아 있다가 몸을 돌리는 뒷모습, 아주 작지만 커다랗고 둥근 등과 늘어뜨린 꼬리, 고개만 살짝 이쪽으로 돌린 각도로 "보고 있었다"는 것이 읽힘.<br/><b>배경·소품</b> 두 사람 사이를 가르는 넓고 텅 빈 봄 하늘, 골짜기에 흐릿하게 깔린 아침 안개, 능선을 따라 이어진 진달래 덤불과 소나무 몇 그루, 발밑 오솔길과 새싹 — 전부 열린 연필선 몇 획의 러프 스케치.<br/><b>톤</b> 맑은 아침 햇빛이 골짜기를 가로질러 능선을 밝힘, 슬픔이 아니라 <b>따뜻한 그리움</b>으로 닫는 정서, 넓은 여백이 남기는 긴 여운.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 호랑이 형님 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING (finish hierarchy — the single most important rule): The bright warm cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. This picture is deliberately UNEVENLY finished, like one page from a master's sketchbook. Finish only what matters: the CHARACTERS = finished (clear line AND color, keep them at their current level); a prop a character is directly touching or holding (a loom, a bench, a gourd in their hands) = half-finished, a bit of line and a little color; everything else — the whole background: jars, walls, fences, roofs, trees, hills, anything far away — = a LOOSE UNFINISHED PENCIL SKETCH: just a few open contour lines and a few direction strokes, barely any color, lots of bare cream paper showing through, deliberately NOT filled in, like the rough underdrawing on a sketchbook page. A jar is two or three open outlines, a roof is a few slanted direction strokes, a distant thing is one or two lines and then paper. This is about how FINISHED each area is, NOT about opacity — the background is not faded, hazy, blurry or low-saturation, it is simply left as rough sketch lines and not drawn to completion. Spend all the density ONLY on the characters. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces; NOT a fully rendered background, NOT every jar / roof-tile / leaf drawn to completion, NOT a uniform finish across the whole picture, and NOT a hazy / blurry / faded background either (that is just blur, not a sketch) — keep the background as loose OPEN PENCIL SKETCH lines and every stroke loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'WoodcutterBrother', name: '나무꾼',      desc: '꾀 많고 효성 깊은 나무꾼 — 상투+붉은 줄무늬 머릿수건(단 하나 빨강), 야무진 몸집', aliases: ['WoodcutterBrother'] },
+    { token: 'TigerElder',        name: '호랑이 형님', desc: '순박하고 정 많은 큰형 — 사람 세 배 크기의 둥근 몸, 짚빛 털+청회색 줄무늬 몇 획, 이빨·발톱 없음', aliases: ['TigerElder'] },
+    { token: 'MotherOld',         name: '어머니',      desc: '나무꾼의 늙은 어머니 — 은빛 낮은 쪽머리, 굽은 등, 온화한 한 줄 미소', aliases: ['MotherOld'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>
