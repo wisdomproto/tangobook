@@ -28,11 +28,13 @@ describe('base-article 산출물 검증', () => {
       expect(art[k], `${file}: ${k} 누락`).toBeTruthy();
     }
     expect(file).toBe(`${art.storybookId}.json`);
-    expect(['classic', 'nature']).toContain(art.category);
+    expect(['classic', 'nature', 'life']).toContain(art.category);
     const srcPath = path.join(VI_DIR, `${art.storybookId}.json`);
     expect(fs.existsSync(srcPath), `${file}: 원본 동화책 없음`).toBe(true);
     const src = JSON.parse(fs.readFileSync(srcPath, 'utf8'));
-    expect(art.category).toBe(classifyByPageCount((src.pages || []).length));
+    // life(생활동화)는 페이지수 버킷이 아니라 별개 콘텐츠 라인이라 페이지수 대조 대상이 아니다.
+    if (art.category !== 'life')
+      expect(art.category).toBe(classifyByPageCount((src.pages || []).length));
     const h2count = (art.body_html.match(/<h2/gi) || []).length;
     expect(h2count, `${file}: h2 섹션 ${h2count}개 (>=5 필요)`).toBeGreaterThanOrEqual(5);
   });
