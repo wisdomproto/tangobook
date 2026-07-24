@@ -120,7 +120,11 @@ export default function BlogPostPage() {
                   <p className="text-base font-bold text-ink-900 break-keep">{t('ctaTitle')}</p>
                   <p className="text-xs text-ink-600 break-keep">{t('ctaDesc')}</p>
                   <Link
-                    to={`/library/${post.storybookId}`}
+                    to={
+                      lang === 'ko'
+                        ? `/library/${post.storybookId}`
+                        : `/${lang}?to=${encodeURIComponent(`/library/${post.storybookId}`)}`
+                    }
                     className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-coral-500 px-6 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-coral-600"
                   >
                     {t('ctaButton')}

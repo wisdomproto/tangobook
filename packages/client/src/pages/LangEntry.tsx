@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate, useParams, useSearchParams } from 'react-router-dom';
 import { setUiLanguage, AVAILABLE_UI_LANGS, hasExplicitUiLang } from '@/i18n';
 import { useAuth } from '@/features/auth/context/AuthContext';
 
@@ -13,9 +13,16 @@ import { useAuth } from '@/features/auth/context/AuthContext';
  *   - 링크로 언어를 바꾸는 건 **신규·미로그인 방문자 온보딩**(해외 마케팅 `/vi` 링크 등)만.
  *   봇/크롤러는 미로그인·비explicit 라 `/en`=영어로 정상 동작(SEO 유지).
  *   (기존: 기본 한국어 유저가 `/en` 링크 한 번에 영어로 영구 전환되던 문제 해결.)
+ *
+ * `?to=<내부경로>` — 언어 설정 후 이동할 목적지(기본 `/library`). 다국어 블로그의
+ *   "동화책 보러가기" CTA 가 `/en?to=/library/:id` 로 걸어, 영어 블로그 독자가
+ *   영어로 설정된 책 상세로 가게 한다. 오픈 리다이렉트 방지로 내부 경로만 허용.
  */
 export function LangEntry() {
   const { lang } = useParams<{ lang: string }>();
+  const [params] = useSearchParams();
+  const rawTo = params.get('to') || '/library';
+  const to = rawTo.startsWith('/') && !rawTo.startsWith('//') ? rawTo : '/library';
   const { account, loading } = useAuth();
   const supported = !!lang && AVAILABLE_UI_LANGS.includes(lang);
   // 이미 언어를 정한 사용자 = 직접 고름(explicit) 또는 로그인. 링크는 이들을 덮어쓰지 않음.
@@ -33,5 +40,5 @@ export function LangEntry() {
   }, [loading, shouldSet, lang]);
 
   if (loading || !ready) return null;
-  return <Navigate to="/library" replace />;
+  return <Navigate to={to} replace />;
 }
