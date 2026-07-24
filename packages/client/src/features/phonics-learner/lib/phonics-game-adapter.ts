@@ -180,6 +180,38 @@ export function phonicsToEnglishWordWritingData(sb: Storybook): WordWritingData 
   return { type: 'english-word-writing', items: shuffle(items).slice(0, MAX_ITEMS) };
 }
 
+/**
+ * 유닛 페이지 게임 타일 노출 판정.
+ *
+ * 🔴 ActivityPage 의 dispatch 와 **같은 어댑터를 그대로** 호출한다 — 판정 로직을 따로 쓰면
+ * "타일은 보이는데 눌러보면 '단어 그림이 필요해요'" 라는 막다른 길이 다시 생긴다.
+ * 실제로 71 유닛 중 그림짝은 3개, 점잇기는 0개만 데이터가 있어서 그 대부분이 막다른 길이었다.
+ *
+ * `sb` 미로딩(undefined) 이면 데이터 의존 게임은 숨긴 채로 두고, 로드 후 나타나게 한다
+ * (반대로 하면 대부분의 유닛에서 타일이 떴다가 사라지는 깜빡임이 생긴다).
+ * 학습(learn) 활동은 storybook 데이터에 의존하지 않으므로 항상 true.
+ */
+export function isPhonicsActivityAvailable(kind: string, sb: Storybook | undefined): boolean {
+  if (!kind.startsWith('game-')) return true;
+  if (!sb) return false;
+  switch (kind) {
+    case 'game-korean-block':
+      return phonicsToKoreanBlockData(sb) !== null;
+    case 'game-english-block':
+      return phonicsToEnglishBlockData(sb) !== null;
+    // 낱말 쓰기는 ko/en 모두 targetWords 만 요구 — 어댑터 로직이 동일해 한쪽만 호출.
+    case 'game-word-writing':
+      return phonicsToWordWritingData(sb) !== null;
+    case 'game-connect-dots':
+      return phonicsToConnectTheDotsData(sb) !== null;
+    // 그림 짝 찾기도 ko/en 판정 기준(이미지 3장 이상)이 같다.
+    case 'game-line-matching':
+      return phonicsToLineMatchingData(sb) !== null;
+    default:
+      return true;
+  }
+}
+
 export function phonicsToEnglishLineMatchingData(sb: Storybook): EnglishLineMatchingData | null {
   const targetWords = sb.phonicsConfig?.targetWords ?? [];
   const candidates: LineMatchingItem[] = [];

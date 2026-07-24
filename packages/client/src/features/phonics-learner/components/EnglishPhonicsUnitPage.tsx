@@ -1,6 +1,9 @@
 import { Link, useParams } from 'react-router-dom';
+import type { Storybook } from '@tangobook/shared';
+import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { getEnglishActivityPlan, getEnglishUnit } from '../lib/english-phonics-units';
 import type { ActivityDef } from '../lib/korean-phonics-units';
+import { isPhonicsActivityAvailable } from '../lib/phonics-game-adapter';
 import { usePhonicsProgress } from '../lib/progress-store';
 
 /**
@@ -14,6 +17,8 @@ export default function EnglishPhonicsUnitPage({ embedded = false }: { embedded?
   const plan = getEnglishActivityPlan(unitId);
   const { unitCompletedActivities } = usePhonicsProgress('english');
   const completed = unitCompletedActivities(unitId);
+  // 게임 타일은 실제 데이터가 있는 것만 노출 (막다른 길 방지). 게임은 전부 required:false.
+  const storybook = useStorybook(unitId).data as Storybook | undefined;
 
   if (!unit) {
     return (
@@ -30,7 +35,9 @@ export default function EnglishPhonicsUnitPage({ embedded = false }: { embedded?
   }
 
   const learnActivities = plan.activities.filter((a) => a.section === 'learn');
-  const playActivities = plan.activities.filter((a) => a.section === 'play');
+  const playActivities = plan.activities.filter(
+    (a) => a.section === 'play' && isPhonicsActivityAvailable(a.kind, storybook)
+  );
 
   return (
     <div className="px-4 sm:px-6 pt-10 sm:pt-14 pb-5 sm:pb-6 max-w-[1200px] mx-auto">
