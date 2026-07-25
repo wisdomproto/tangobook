@@ -35,7 +35,7 @@ const RESOURCES: ResourceItem[] = [
     href: '/jeonrae-plan.html',
     icon: '🏮',
     label: '탱고북 전래동화 기획서',
-    desc: '우리 옛이야기 순수 각색 · 5~7세 · 시장조사·순화정책·작법 + 20편 커리큘럼(인기도 순)',
+    desc: '우리 옛이야기 순수 각색 · 5~7세 · 시장조사·순화정책·작법 + 40편(시즌1·2) 커리큘럼(인기도 순)',
   },
   {
     href: '/jeonrae-heungbu.html',
