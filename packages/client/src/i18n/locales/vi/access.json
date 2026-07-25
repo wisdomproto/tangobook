@@ -46,5 +46,6 @@
     "guestConfirmBody": "Sách đã đọc và tiến trình học sẽ không được lưu. Sau 30 ngày bạn cần đăng ký để tiếp tục đọc.",
     "guestConfirmContinue": "Vâng, bắt đầu với tư cách khách",
     "back": "Quay lại"
-  }
+  },
+  "betaOffer": "Đăng ký trước {{date}} để được miễn phí 1 năm!"
 }

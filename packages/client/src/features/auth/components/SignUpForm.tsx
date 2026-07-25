@@ -4,6 +4,7 @@ import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
 import { setUiLanguage, AVAILABLE_UI_LANGS } from '@/i18n';
 import { authApi } from '../api/auth.api';
 import { SocialAuthButtons } from './SocialAuthButtons';
+import { BetaOfferNote } from '@/features/access/components/BetaOfferNote';
 
 interface Props {
   onSwitchToSignIn: () => void;
@@ -120,6 +121,7 @@ export function SignUpForm({ onSwitchToSignIn }: Props) {
           <p className="text-sm text-ink-500 mt-1 break-keep short:hidden">
             {t('signUp.subtitle')}
           </p>
+          <BetaOfferNote className="short:hidden" />
         </div>
         <div className="flex flex-col gap-4 short:flex-row short:items-start short:gap-6">
           <div className="flex flex-col gap-4 short:flex-1 short:gap-3">

@@ -46,5 +46,6 @@
     "guestConfirmBody": "읽은 책과 학습 기록이 저장되지 않아요. 30일이 지나면 회원가입해야 계속 볼 수 있어요.",
     "guestConfirmContinue": "네, 게스트로 시작할게요",
     "back": "뒤로"
-  }
+  },
+  "betaOffer": "{{date}}까지 가입하면 1년 무료!"
 }

@@ -4,6 +4,7 @@ import { authApi } from '../api/auth.api';
 import { supabase } from '@/lib/supabase';
 import { PIN_REQUIRED } from '@/config/features';
 import { SocialAuthButtons } from './SocialAuthButtons';
+import { BetaOfferNote } from '@/features/access/components/BetaOfferNote';
 
 interface Props {
   onSwitchToSignUp: () => void;
@@ -78,6 +79,7 @@ export function SignInForm({ onSwitchToSignUp }: Props) {
           <p className="text-sm text-ink-500 mt-1 break-keep short:hidden">
             {t('signIn.subtitle')}
           </p>
+          <BetaOfferNote className="short:hidden" />
         </div>
         <div className="flex flex-col gap-4 short:flex-row short:items-center short:gap-6">
           <div className="short:flex-1">
