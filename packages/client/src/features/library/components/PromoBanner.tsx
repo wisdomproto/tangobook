@@ -94,7 +94,7 @@ export function PromoBanner() {
 
   return (
     <div
-      className="w-full rounded-2xl shadow-soft mb-6 px-4 py-2.5 md:py-3 flex flex-wrap items-center gap-x-4 gap-y-2 bg-gradient-to-r from-cream-50 to-peach-100"
+      className="w-full rounded-2xl shadow-soft mb-6 px-4 py-2.5 md:py-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4 bg-gradient-to-r from-cream-50 to-peach-100"
       role="region"
       aria-label={t('promo.region')}
     >
@@ -122,8 +122,9 @@ export function PromoBanner() {
         </div>
       )}
 
-      {/* 우 — 홈에 설치 + 로그인/로그아웃 (헤더에서 이 자리로 이동, 라이브러리 한정) */}
-      <div className="flex items-center gap-2 shrink-0 ml-auto">
+      {/* 우 — 홈에 설치 + 로그인/로그아웃 (헤더에서 이 자리로 이동, 라이브러리 한정).
+          모바일은 세로 스택이라 버튼 행을 우측 정렬(self-end), sm+ 는 한 행에서 ml-auto. */}
+      <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto sm:ml-auto">
         <InstallPwaButton className="flex items-center gap-1.5 rounded-full bg-coral-500 px-3 py-1.5 text-xs sm:text-sm font-black text-white shadow-soft transition hover:brightness-110 hover:shadow-pop sm:px-4" />
         {session ? (
           <button
