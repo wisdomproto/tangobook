@@ -308,7 +308,8 @@ export function getAvailableGames(unit: VocabularyUnit, lang: Lang, t: TFn): Voc
       emoji: '✏️',
       label: t('cards.writing.label'),
       subtitle: t('cards.writing.subtitle'),
-      iconSrc: '/icons/game/word-writing.webp',
+      // 한글은 연필이 '나무' 를 쓰는 한글판, 그 외는 알파벳판.
+      iconSrc: isKo ? '/icons/game/word-writing-ko.webp' : '/icons/game/word-writing.webp',
       bgFrom: 'from-coral-400',
       bgTo: 'to-coral-600',
       available: !!writingData,

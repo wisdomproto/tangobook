@@ -153,7 +153,8 @@ const KIND_ICON_URL: Partial<Record<ActivityDef['kind'], string>> = {
   'consonant-write': '/icons/activity/cvc-write.webp',
   // 게임
   'game-korean-block': '/icons/game/korean-block.webp',
-  'game-word-writing': '/icons/game/word-writing.webp',
+  // 🔴 영어판(word-writing.webp)은 연필이 알파벳 A 를 쓴다 — 한글 단원엔 한글판을 쓴다.
+  'game-word-writing': '/icons/game/word-writing-ko.webp',
   'game-connect-dots': '/icons/game/connect-dots.webp',
   'game-line-matching': '/icons/game/line-matching.webp',
 };
