@@ -122,11 +122,9 @@ describe('PromoBanner', () => {
       expect(screen.queryByRole('button', { name: '공유하기' })).toBeNull();
     });
 
-    it('hides the whole bar on mobile (nothing left to show there)', () => {
-      renderBanner();
-      const bar = screen.getByRole('region', { name: '프로모션 배너' });
-      expect(bar.className).toContain('hidden');
-      expect(bar.className).toContain('md:flex');
+    it('renders nothing at all (bar holds only promo now)', () => {
+      const { container } = renderBanner();
+      expect(container).toBeEmptyDOMElement();
     });
   });
 
@@ -169,9 +167,9 @@ describe('PromoBanner', () => {
       });
     });
 
-    it('still renders the bar (holds install/auth buttons — no longer null)', () => {
-      renderBanner();
-      expect(screen.getByRole('region', { name: '프로모션 배너' })).toBeInTheDocument();
+    it('renders nothing (no promo for subscribers)', () => {
+      const { container } = renderBanner();
+      expect(container).toBeEmptyDOMElement();
     });
 
     it('hides promo copy/CTA for subscribers', () => {

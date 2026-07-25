@@ -163,14 +163,6 @@ export function AppShell() {
         </Link>
       </div>
 
-      {/* 현재 아이 프로필 칩 — 아이 1명이어도 상시. 탭 → 프로필 시트(전환/추가·관리).
-          모바일은 사이드바가 숨겨지므로 헤더 우상단에도 같은 칩을 둔다. */}
-      {session && activeProfile && (
-        <div className="flex justify-center px-2 pt-3 shrink-0">
-          <ProfileChip profile={activeProfile} onClick={() => setPickerOpen(true)} />
-        </div>
-      )}
-
       {/* 로고 바로 아래 — UI 언어 선택. 「홈에 설치」는 헤더 우상단(로그인/로그아웃 옆)으로 통합
           (2026-07-25) — 사이드바·배너에 각각 있어 한 화면에 설치 버튼이 두 개였다. */}
       <div className="flex flex-col items-center gap-2 px-2 py-3 border-b border-ink-100/40 shrink-0">
@@ -324,10 +316,7 @@ export function AppShell() {
         <header
           className={cn(
             'h-16 md:h-20 z-30 flex items-center sticky top-0 bg-cream-50',
-            !isLibraryRoot && 'border-b border-ink-100/60',
-            // 라이브러리 루트 데스크탑: 헤더에 남는 게 없어(버튼은 배너로, 로고는 사이드바) 빈 바가
-            // 되므로 접는다. 모바일은 햄버거+로고가 필요해 유지.
-            isLibraryRoot && 'md:hidden'
+            !isLibraryRoot && 'border-b border-ink-100/60'
           )}
         >
           {/* isLibraryRoot 면 배너와 동일한 max-w wrapper 안 양쪽 정렬 — 버튼이 배너 우측 끝과 정렬. 그 외 페이지는 풀폭 padding. */}
@@ -378,12 +367,9 @@ export function AppShell() {
             </div>
 
             {/* 우측 — 홈에 설치 + 아이 프로필 칩(로그인) / 로그인 버튼.
-                🔴 로그아웃은 여기가 아니라 사이드바 부모 메뉴에 있다(부모 작업).
-                🔴 라이브러리 루트 데스크탑에선 헤더 자체가 접히고 사이드바·배너가 대신한다 →
-                md+ 에서만 숨겨 모바일 헤더의 빈 우측 공간을 쓴다. */}
-            <div
-              className={cn('flex-shrink-0 flex items-center gap-2', isLibraryRoot && 'md:hidden')}
-            >
+                🔴 여기가 chrome 의 유일한 자리다(2026-07-25) — 사이드바 칩·배너 버튼은 제거해
+                한 화면에 같은 버튼이 두 번 나오지 않게 했다. 로그아웃은 부모 메뉴(부모 작업). */}
+            <div className="flex-shrink-0 flex items-center gap-2">
               <InstallPwaButton className="flex items-center gap-1.5 rounded-full bg-coral-500 px-3 py-2 text-sm font-black text-white shadow-soft transition hover:brightness-110 hover:shadow-pop sm:px-4" />
               {session && activeProfile ? (
                 <ProfileChip profile={activeProfile} onClick={() => setPickerOpen(true)} />
