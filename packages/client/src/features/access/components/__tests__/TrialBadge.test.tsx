@@ -5,7 +5,11 @@ import { TrialBadge } from '../TrialBadge';
 import * as authCtx from '@/features/auth/context/AuthContext';
 import * as entitlementHook from '@/features/payment/hooks/useEntitlement';
 
-// PAYWALL_ENABLED is false in config → expired-pre-launch branch shows the free-open note.
+// PAYWALL_ENABLED is true since 2026-07-08 (정식 유료화 ON) → the "정식 오픈 전 · 전권 무료"
+// branch is dead in production config; expired now renders nothing (paywall handles the upsell).
+//
+// ⚠️ TrialBadge 자체는 2026-07-14 사이드바 정리로 **미사용** — 컴포넌트/카피만 보존 중이다.
+// 되살릴 때 이 테스트가 계약서 역할을 하도록 남겨둔다.
 
 function mockAuth(account: { id: string; createdAt: string } | null) {
   vi.spyOn(authCtx, 'useAuth').mockReturnValue({ account } as any);
@@ -78,11 +82,11 @@ describe('TrialBadge', () => {
     ).toBeInTheDocument();
   });
 
-  it('체험 만료 + 정식 오픈 전 → 전권 무료 안내', () => {
+  it('체험 만료 + 유료화 ON → 아무것도 렌더하지 않음(페이월이 안내)', () => {
     mockAuth({ id: 'a1', createdAt: daysAgo(30) });
     mockEntitlement();
-    renderBadge();
-    expect(screen.getByText('정식 오픈 전 · 지금은 전권 무료')).toBeInTheDocument();
+    const { container } = renderBadge();
+    expect(container).toBeEmptyDOMElement();
   });
 
   it('만료된 기존 계정도 trial_started_at 리셋 시 다시 7일 체험', () => {

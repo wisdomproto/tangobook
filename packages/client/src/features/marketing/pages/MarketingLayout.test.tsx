@@ -74,7 +74,7 @@ describe('MarketingLayout', () => {
     expect(screen.getByTestId('topbar')).toBeInTheDocument();
   });
 
-  it('redirects to /login when there is no session and not loading', () => {
+  it('shows the marketing password gate when there is no session and not loading', () => {
     mockAuth({ session: null, loading: false });
 
     renderLayout();
@@ -82,8 +82,10 @@ describe('MarketingLayout', () => {
     // Shell must NOT be rendered
     expect(document.querySelector('.marketing-scope')).toBeNull();
 
-    // Login page stub must be visible
-    expect(screen.getByTestId('login-page')).toBeInTheDocument();
+    // 미로그인은 /login 리다이렉트가 아니라 MarketingGate(비밀번호 8054 → 소유자 세션 자동 발급).
+    expect(screen.queryByTestId('login-page')).toBeNull();
+    expect(screen.getByRole('heading', { name: '마케팅 스튜디오' })).toBeInTheDocument();
+    expect(screen.getByLabelText('비밀번호')).toBeInTheDocument();
   });
 
   it('renders a loading spinner while auth is loading (no session yet)', () => {

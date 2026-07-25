@@ -132,7 +132,13 @@ pnpm dev              # client + server 동시
 pnpm typecheck        # 모든 패키지
 pnpm build / lint
 pnpm --filter {server|client|shared} {dev|build|...}
+pnpm --filter client test   # vitest (110 files / 805 tests, 2026-07-25 전부 green)
 ```
+
+## 테스트 (client)
+
+- **jsdom 전역 스텁 = `packages/client/src/test/setup.ts` 한 곳**: canvas `getContext` · `HTMLMediaElement.play/pause/load` · **`window.matchMedia`**(jsdom 미구현 — `matches:false` = 데스크탑/fine pointer) · `lottie-react` mock · i18n `ko` 고정. 여러 파일이 같은 이유로 죽으면 파일마다 mock 하지 말고 여기에.
+- 🔴 **실패는 "제품이 바뀐 것" vs "코드가 깨진 것"부터 구분** — 낡은 기대를 낮춰서 통과시키지 말고 **현재 의도된 동작에 맞춘다**. 크래시(스텁 누락) 하나가 낡은 기대 여러 건을 가리는 일이 반복됨. 상세 → memory `client-test-suite-repair-2026-07-25`.
 
 ## 환경변수
 

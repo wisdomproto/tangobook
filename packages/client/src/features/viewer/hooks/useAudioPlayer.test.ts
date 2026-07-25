@@ -42,6 +42,11 @@ class AudioMock {
 
   removeEventListener = vi.fn();
 
+  // playTts reuses a single element and compares `getAttribute('src')` before
+  // reassigning src (in-app browser autoplay fix, 2026-07-16). Mirror the src
+  // property — a real element keeps attribute and property in sync here.
+  getAttribute = (name: string) => (name === 'src' ? (this.src ?? null) : null);
+
   _emit(event: string, eventObj?: unknown) {
     (this._listeners[event] ?? []).forEach((h) => h(eventObj));
   }

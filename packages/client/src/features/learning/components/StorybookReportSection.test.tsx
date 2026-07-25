@@ -1,10 +1,20 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import type { ReactNode } from 'react';
 import type { LearningEvent, LearningEventType, StorybookSummary } from '@tangobook/shared';
 import { StorybookReportSection } from './StorybookReportSection';
 
 // ── helpers ──────────────────────────────────────────────────────────────────
+
+// ArtStyleGenreCard → useStyleGenreLabel 이 style-genre-map / art-style-library 를
+// react-query 로 조회한다. 테스트는 라벨 폴백("그림체 N")만 검증하므로 enabled:false 로 네트워크를 끊고,
+// useQueryClient 자체는 Provider 없이는 throw 하므로 감싸야 한다.
+function renderSection(ui: ReactNode) {
+  const qc = new QueryClient({ defaultOptions: { queries: { retry: false, enabled: false } } });
+  return render(<QueryClientProvider client={qc}>{ui}</QueryClientProvider>);
+}
 
 let idSeq = 0;
 function ev(partial: Partial<LearningEvent>): LearningEvent {
@@ -46,7 +56,7 @@ describe('StorybookReportSection', () => {
         created_at: '2026-07-01T05:00:00Z',
       }),
     ];
-    render(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
+    renderSection(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
     expect(screen.getByText('신데렐라')).toBeInTheDocument();
     expect(screen.getByText(/끝까지 읽음/)).toBeInTheDocument();
   });
@@ -61,7 +71,7 @@ describe('StorybookReportSection', () => {
         created_at: '2026-07-01T05:00:00Z',
       }),
     ];
-    render(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
+    renderSection(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
     expect(screen.getByText('신데렐라')).toBeInTheDocument();
     expect(screen.getByText('읽는 중')).toBeInTheDocument();
   });
@@ -77,7 +87,7 @@ describe('StorybookReportSection', () => {
         created_at: '2026-07-01T05:00:00Z',
       }),
     ];
-    render(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
+    renderSection(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
     expect(screen.queryByText('(알 수 없는 책)')).not.toBeInTheDocument();
     // The section should still render without the unknown book
     expect(screen.queryByText(/끝까지 읽음/)).not.toBeInTheDocument();
@@ -93,7 +103,7 @@ describe('StorybookReportSection', () => {
         created_at: '2026-07-01T05:00:00Z',
       }),
     ];
-    render(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
+    renderSection(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
     expect(screen.queryByText(/총 페이지/)).not.toBeInTheDocument();
   });
 
@@ -108,14 +118,14 @@ describe('StorybookReportSection', () => {
         created_at: new Date().toISOString(),
       }),
     ];
-    render(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
+    renderSection(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
     expect(screen.getByText('이번 주 책 1권을 만났어요!')).toBeInTheDocument();
     expect(screen.getByText('오늘')).toBeInTheDocument(); // 주간 도트
   });
 
   it('renders encouraging hero when no activity this week', () => {
     // 빈 상태 CTA(<Link>) 때문에 Router 컨텍스트 필요
-    render(
+    renderSection(
       <MemoryRouter>
         <StorybookReportSection events={[]} storybooks={[]} lang="ko" />
       </MemoryRouter>
@@ -146,7 +156,7 @@ describe('StorybookReportSection', () => {
         created_at: '2026-07-01T05:02:00Z',
       }),
     ];
-    render(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
+    renderSection(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
     expect(screen.getByText('이런 단어들을 만났어요')).toBeInTheDocument();
     expect(screen.getByText('사과')).toBeInTheDocument();
     expect(screen.getByText('바나나')).toBeInTheDocument();
@@ -162,7 +172,7 @@ describe('StorybookReportSection', () => {
         created_at: '2026-07-01T05:00:00Z',
       }),
     ];
-    render(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
+    renderSection(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
     expect(screen.queryByText('이런 단어들을 만났어요')).not.toBeInTheDocument();
   });
 
@@ -176,7 +186,7 @@ describe('StorybookReportSection', () => {
         created_at: '2026-07-01T05:00:00Z',
       }),
     ];
-    render(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
+    renderSection(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
     // Should resolve b1__L1 → b1 → '백설공주'
     expect(screen.getByText('백설공주')).toBeInTheDocument();
   });

@@ -32,6 +32,7 @@ describe('resolveSceneFromWord', () => {
       pageNumber: 2,
       pageText: '꽃이 피었어요',
       pageTtsUrl: 'p2-ko.mp3',
+      highlight: '꽃',
     });
   });
 
@@ -42,6 +43,7 @@ describe('resolveSceneFromWord', () => {
       pageNumber: 2,
       pageText: 'A flower bloomed',
       pageTtsUrl: 'p2-en.mp3',
+      highlight: 'flower',
     });
   });
 

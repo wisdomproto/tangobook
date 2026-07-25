@@ -25,6 +25,23 @@ if (typeof HTMLMediaElement !== 'undefined') {
   HTMLMediaElement.prototype.load = vi.fn();
 }
 
+// jsdom doesn't implement window.matchMedia at all. Components that call it
+// unguarded (MobileLandscapeGate, RewardScreen) throw inside their mount effect and
+// take the whole render down. matches:false = desktop / fine pointer / no
+// reduced-motion, which is the right default for jsdom (no rotate gate).
+if (typeof window !== 'undefined' && !window.matchMedia) {
+  window.matchMedia = vi.fn((query: string) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    addListener: vi.fn(),
+    removeListener: vi.fn(),
+    dispatchEvent: vi.fn(() => false),
+  })) as unknown as typeof window.matchMedia;
+}
+
 // Mock lottie-react — it imports lottie-web which trips over jsdom's canvas stub.
 // In tests we only care that PNG/emoji fallback paths render; Lottie rendering is
 // verified manually in Phase A QA.
