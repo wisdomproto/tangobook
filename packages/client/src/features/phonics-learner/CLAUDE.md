@@ -8,6 +8,21 @@
 
 모든 액티비티에서 TTS 끝난 후 칭찬/다음 카드/onComplete 이어질 때는 **반드시** `playAudio(url, onEnded)` 콜백 chain. `setTimeout(..., 1800)` 같은 단어 길이 가정은 다음절 한글 ("ㄱ ㄱ 거북이") 가 timeout 초과 시 다음 단계가 먼저 트리거되는 버그 원인. 이미 4 액티비티 전부 한 번에 fix 함 (2026-05-20). 새 액티비티 작성 시 [features/games/CLAUDE.md](../games/CLAUDE.md) 의 "TTS chain RULE" 섹션 참고.
 
+## 🔴 RULE — 활동 진입 시 발음 프리워밍 (2026-07-25)
+
+새 활동을 만들면 **그 활동이 쓸 텍스트를 `usePhonicsTtsWarm(unitId, texts, prefix)` 로 진입 시 데운다**(`hooks/usePhonicsTtsWarm.ts`). 안 하면 첫 탭이 **concat 왕복 804ms + mp3 620ms ≈ 1.4초 무음**(실측)이고 아이는 그 사이 카드를 다시 누른다.
+
+- 뿌리는 `resolveTtsUrl`(`features/tts`) 이 **탭할 때마다 서버에 URL 을 다시 물었던 것** — 결과가 결정적인데도. 이제 **세션 캐시**(in-flight 공유, 실패는 캐시 안 함)라 데워둔 소리는 왕복 0. 게임·뷰어 등 모든 호출부가 함께 이득.
+- 게임처럼 진행률 게이트를 세우지 **않는다** — 파닉스는 첫 소리까지 아이가 할 일(카드 보기)이 있어 게이트가 진입만 느려 보이게 한다.
+- 배선 완료: 모음 듣기/쓰기 · 자음 누르기/쓰기 · 자음+모음. 실측 = 탭 시 네트워크 요청 0건.
+
+## 활동 UI 규칙 (2026-07-25)
+
+- **모음 카드 배치는 `flex` + `justify-center`** — `grid-cols-6` 이던 시절 모음이 4개인 단원(ㅜㅠㅡㅣ)에서 왼쪽 4칸만 차 쏠렸다. 개수와 무관하게 가운데여야 하고, 마지막 줄이 1장이어도 중앙에 온다. 카드 폭 `w-[28%] lg:w-36`.
+- **퀴즈에서 맞춘 카드 = 민트 + ✓**(`solved` Set). 흰색 그대로면 몇 개 남았는지 안 보인다. 끝나면 전부 민트라 "다 맞췄다"가 그림으로 읽힌다.
+- **같은 제목 카드 두 장을 나란히 두지 않는다** — 자음 단원의 `ㄱ + 모음 배우기` 두 개는 모음 묶음이 다른데 제목이 같았다. 모음 듣기 1/2 규칙대로 **번호를 붙인다**(`makeConsonantPlan`, 자음 15개 단원 일괄).
+- **글자가 박힌 아이콘은 언어 자산이다** — `word-writing.webp` 는 연필이 알파벳 **A** 를 쓰는 그림이라 한글 단원엔 `word-writing-ko.webp`(연필이 `나무` 를 쓰는 그림, 512px webp 18KB)를 쓴다. 한글 경로 2곳 = 파닉스 단원 카드(`KoreanPhonicsUnitPage`) + 동화책 단어 익히기 따라쓰기 카드(`vocabulary-unit/lib/game-data-adapter.ts`, `isKo` 분기). vi/zh/th 는 아직 알파벳판 공용.
+
 ## 폴더 구조
 
 ```
@@ -28,6 +43,8 @@ features/phonics-learner/
     ConsonantWriteActivity.tsx       # 한글 자음 쓰기
     CvcPatternLearnActivity.tsx      # 영어 CVC 통합 — Phase A 배우기 → B 단어 → C 쓰기 (한 활동)
     CvcPatternWriteActivity.tsx      # 사용 안 함 (Phase C 가 CvcPatternLearn 에 통합됨, 2026-05-21)
+  hooks/
+    usePhonicsTtsWarm.ts          # 활동 진입 시 발음 프리워밍 (위 RULE)
   lib/
     korean-phonics-units.ts       # 한글 unit 메타 + ActivityDef (subtitle 없음) + makeConsonantPlan(c)
     english-phonics-units.ts      # 영어 unit 메타 + makeBook2UnitPlan(patterns) + BOOK2_PATTERNS
