@@ -83,31 +83,31 @@ export function PromoBanner() {
 
   return (
     <div
-      className="w-full rounded-2xl shadow-soft mb-6 px-4 py-2.5 md:py-3 flex flex-wrap items-center gap-x-4 gap-y-2 bg-gradient-to-r from-cream-50 to-peach-100"
+      className="flex min-w-0 items-center gap-2 sm:gap-3"
       role="region"
       aria-label={t('promo.region')}
     >
-      {/* 프로모 문구 + CTA — 이게 배너의 전부다(설치·프로필 칩은 헤더). */}
-      <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-        <p className="text-sm md:text-base font-black font-display text-ink-900 break-keep leading-tight">
-          {headline}
-        </p>
-        {isGuest ? (
-          <button
-            onClick={() => navigate('/login?mode=signup')}
-            className="shrink-0 bg-coral-500 text-white font-black rounded-lg px-3 py-1.5 text-xs hover:brightness-110 transition"
-          >
-            {t('promo.startFree')}
-          </button>
-        ) : (
-          <button
-            onClick={handleShare}
-            className="shrink-0 bg-coral-500 text-white font-black rounded-lg px-3 py-1.5 text-xs hover:brightness-110 transition"
-          >
-            {shared ? t('promo.shareCopied') : t('promo.share')}
-          </button>
-        )}
-      </div>
+      {/* 프로모 문구 + CTA — 헤더 좌측(라이브러리에선 페이지 타이틀이 없는 자리)에 한 줄로 얹힌다.
+          🔴 375px 에선 햄버거+문구+CTA+언어+로그인이 한 줄에 다 들어가지 않아 문구가 잘렸다
+          → 좁은 화면에선 문구를 접고 CTA 만 남긴다("무료로 시작하기" 자체가 메시지다). */}
+      <p className="hidden truncate text-sm font-black font-display text-ink-900 break-keep leading-tight sm:block md:text-base">
+        {headline}
+      </p>
+      {isGuest ? (
+        <button
+          onClick={() => navigate('/login?mode=signup')}
+          className="shrink-0 bg-coral-500 text-white font-black rounded-lg px-3 py-1.5 text-xs hover:brightness-110 transition"
+        >
+          {t('promo.startFree')}
+        </button>
+      ) : (
+        <button
+          onClick={handleShare}
+          className="shrink-0 bg-coral-500 text-white font-black rounded-lg px-3 py-1.5 text-xs hover:brightness-110 transition"
+        >
+          {shared ? t('promo.shareCopied') : t('promo.share')}
+        </button>
+      )}
     </div>
   );
 }

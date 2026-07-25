@@ -10,7 +10,6 @@ import {
   useLibraryConfig,
   makeCategoryComparator,
 } from '@/features/library';
-import { PromoBanner } from '@/features/library/components/PromoBanner';
 import { useCategoryLabel } from '@/features/library/lib/category-i18n';
 import { PlaylistLibrarySection } from '@/features/continuous';
 import { StateScreen, SkeletonBookCard, Chip } from '@/design-system';
@@ -438,10 +437,6 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
   return (
     <div className="bg-gradient-to-b from-cream-50 to-peach-100 min-h-full">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 pt-5 md:pt-6 pb-6">
-        {/* 롤링 배너 — 동화책 모드 only. 3 슬라이드 (그림체/어휘게임/자연관찰) 5s auto-advance.
-            /library 헤더는 absolute overlay (transparent) — 배너가 viewport top 까지 차지. */}
-        {type === 'storybook' && <PromoBanner />}
-
         {/* 묶어 보기 — 검색/필터보다 위 (2026-07-24 사용자 요청). 게스트·로그인 동일 노출, 기본 펼침. */}
         {type === 'storybook' && <PlaylistLibrarySection />}
 

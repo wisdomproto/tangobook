@@ -6,6 +6,7 @@ import { AppIcon } from '@/design-system';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { ProfilePicker } from '@/features/auth/components/ProfilePicker';
 import { EntryGate } from '@/features/access/components/EntryGate';
+import { PromoBanner } from '@/features/library/components/PromoBanner';
 import { useGuestMode } from '@/features/access/hooks/useGuestMode';
 import { AppBgm } from './AppBgm';
 import { UiLangMenu } from './UiLangMenu';
@@ -343,6 +344,9 @@ export function AppShell() {
               </button>
               {/* 🔴 모바일 헤더엔 로고를 두지 않는다(2026-07-25) — 375px 에서 햄버거·설치·프로필
                   칩과 함께 놓기엔 좁다. 로고와 홈 이동은 드로어(☰) 상단에 그대로 있다. */}
+              {/* 라이브러리 루트는 페이지 타이틀이 없다 → 그 자리에 프로모를 얹어
+                  헤더 버튼들과 같은 한 줄로 만든다(별도 배너 밴드 제거, 2026-07-25). */}
+              {isLibraryRoot && <PromoBanner />}
               {pageTitle && (
                 <h1 className="hidden sm:flex text-xl md:text-3xl font-black font-display text-ink-900 truncate items-center gap-2">
                   {pageTitle.iconSrc ? (
