@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
+import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 
@@ -26,6 +27,8 @@ export function ConsonantWriteActivity({ unitId, consonant, onComplete, onBack }
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   const [completedCount, setCompletedCount] = useState(0);
   const [completed, setCompleted] = useState(false);
+
+  usePhonicsTtsWarm(unitId, [consonant], 'consonant-write');
 
   const handleResult = useCallback(
     async (passed: boolean) => {

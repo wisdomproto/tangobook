@@ -3,6 +3,7 @@ import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { resolveTtsUrl } from '@/features/tts';
+import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 
 interface VowelItem {
   vowel: string;
@@ -27,6 +28,12 @@ export function VowelWriteActivity({ unitId, vowels, onComplete, onBack }: Props
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   const [doneSet, setDoneSet] = useState<Set<number>>(new Set());
   const [currentIdx, setCurrentIdx] = useState(0);
+
+  usePhonicsTtsWarm(
+    unitId,
+    vowels.map((v) => v.syllable),
+    'phonics-write'
+  );
 
   const handleResult = useCallback(
     async (passed: boolean) => {

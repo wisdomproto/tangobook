@@ -3,6 +3,7 @@ import { composeHangul } from '@tangobook/shared';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
+import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 
 interface Props {
   unitId: string;
@@ -36,6 +37,14 @@ export function ConsonantBlendListenActivity({
   );
 
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+
+  // 셀 3종(자음·모음·음절) 전부 미리 데운다 — 18칸이라 첫 탭 지연이 제일 잘 드러나는 활동.
+  usePhonicsTtsWarm(
+    unitId,
+    useMemo(() => [consonant, ...rows.flatMap((r) => [r.vowel, r.syllable])], [consonant, rows]),
+    'consonant-blend'
+  );
+
   // 클릭 기록 — `${row}-${col}` 으로 키
   const [pressed, setPressed] = useState<Set<string>>(new Set());
   const [completed, setCompleted] = useState(false);

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
+import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 
 interface VowelItem {
   vowel: string; // 'ㅏ'
@@ -28,6 +29,13 @@ interface Props {
 export function VowelListenActivity({ unitId, vowels, onMarkComplete, onBack }: Props) {
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
 
+  // 진입하자마자 6개 모음 발음을 백그라운드로 준비 — 첫 탭이 기다리지 않게.
+  usePhonicsTtsWarm(
+    unitId,
+    vowels.map((v) => v.vowel),
+    'phonics-vowel'
+  );
+
   const [phase, setPhase] = useState<'listen' | 'quiz' | 'done'>('listen');
 
   // Phase 1 — 순서 listen
@@ -38,6 +46,8 @@ export function VowelListenActivity({ unitId, vowels, onMarkComplete, onBack }: 
   const [quizQueue, setQuizQueue] = useState<number[]>([]); // 남은 정답 index
   const [quizCurrent, setQuizCurrent] = useState<number | null>(null);
   const [quizFeedback, setQuizFeedback] = useState<'none' | 'wrong'>('none');
+  // 이미 맞춘 모음 — 카드를 민트로 칠해 "몇 개 남았나"가 보이게 한다.
+  const [solved, setSolved] = useState<ReadonlySet<number>>(() => new Set());
   const wrongAudioRef = useRef<number | null>(null);
 
   const playVowel = useCallback(
@@ -86,6 +96,7 @@ export function VowelListenActivity({ unitId, vowels, onMarkComplete, onBack }: 
     }
     setQuizQueue(indices.slice(1));
     setQuizCurrent(indices[0]);
+    setSolved(new Set());
     setPhase('quiz');
   }, [vowels]);
 
@@ -101,6 +112,7 @@ export function VowelListenActivity({ unitId, vowels, onMarkComplete, onBack }: 
       if (quizFeedback === 'wrong') return; // shake 중에는 무시
       if (idx === quizCurrent) {
         playFeedbackSound(true);
+        setSolved((s) => new Set(s).add(idx));
         // 다음 문제로 진행
         if (quizQueue.length === 0) {
           // 퀴즈 끝 — 진척 마킹 + 칭찬. 자동 back 없음 — 다시하기 버튼 노출 ('done' phase).
@@ -137,6 +149,7 @@ export function VowelListenActivity({ unitId, vowels, onMarkComplete, onBack }: 
     setQuizQueue([]);
     setQuizCurrent(null);
     setQuizFeedback('none');
+    setSolved(new Set());
     setPhase('listen');
   }, []);
 
@@ -184,6 +197,8 @@ export function VowelListenActivity({ unitId, vowels, onMarkComplete, onBack }: 
             const active = isListenPhase && i === nextIdx && !listenedAll;
             const isClickable = (isListenPhase && isUnlockedListen) || phase === 'quiz';
             const isWrongTarget = phase === 'quiz' && quizFeedback === 'wrong';
+            // 퀴즈에서 이미 맞춘 카드 = 민트. 마지막엔 6장이 다 민트가 되어 "다 맞췄다"가 보인다.
+            const isSolved = !isListenPhase && solved.has(i);
             return (
               <button
                 key={v.vowel}
@@ -197,20 +212,37 @@ export function VowelListenActivity({ unitId, vowels, onMarkComplete, onBack }: 
                 disabled={!isClickable}
                 className={[
                   'relative rounded-3xl border-[6px] aspect-[3/4] flex flex-col items-center justify-center px-2 py-3 transition shadow-soft',
-                  active
-                    ? 'bg-coral-100 border-coral-500 animate-pulse'
-                    : isUnlockedListen || phase === 'quiz'
-                      ? 'bg-white border-white hover:shadow-pop active:scale-[0.97]'
-                      : 'bg-cream-100 border-cream-200 opacity-60 cursor-not-allowed',
+                  isSolved
+                    ? 'bg-mint-100 border-mint-500'
+                    : active
+                      ? 'bg-coral-100 border-coral-500 animate-pulse'
+                      : isUnlockedListen || phase === 'quiz'
+                        ? 'bg-white border-white hover:shadow-pop active:scale-[0.97]'
+                        : 'bg-cream-100 border-cream-200 opacity-60 cursor-not-allowed',
                   isWrongTarget && phase === 'quiz' ? 'animate-shake' : '',
                 ].join(' ')}
                 aria-label={v.syllable}
+                aria-pressed={isSolved || undefined}
               >
-                {/* 모음 — 빨강 (음절 앞 묵음 ㅇ 은 표기 안 함) */}
-                <div className="text-8xl sm:text-9xl font-black text-coral-600 leading-none">
+                {isSolved && (
+                  <span
+                    aria-hidden
+                    className="absolute top-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-mint-500 text-lg font-black text-white shadow-soft"
+                  >
+                    ✓
+                  </span>
+                )}
+                {/* 모음 — 빨강, 맞춘 뒤엔 민트 (음절 앞 묵음 ㅇ 은 표기 안 함) */}
+                <div
+                  className={`text-8xl sm:text-9xl font-black leading-none ${isSolved ? 'text-mint-600' : 'text-coral-600'}`}
+                >
                   {v.vowel}
                 </div>
-                <div className="text-lg sm:text-xl font-black text-ink-500 mt-3">{v.syllable}</div>
+                <div
+                  className={`text-lg sm:text-xl font-black mt-3 ${isSolved ? 'text-mint-600' : 'text-ink-500'}`}
+                >
+                  {v.syllable}
+                </div>
               </button>
             );
           })}

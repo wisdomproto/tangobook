@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
+import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 
 interface Props {
   unitId: string;
@@ -25,6 +26,8 @@ export function ConsonantTapActivity({ unitId, consonant, onComplete, onBack }: 
   const [tapCounts, setTapCounts] = useState<number[]>(Array(CARDS).fill(0));
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   const [completed, setCompleted] = useState(false);
+
+  usePhonicsTtsWarm(unitId, [consonant], 'consonant-tap');
 
   const handleTap = useCallback(
     async (idx: number) => {
