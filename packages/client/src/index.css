@@ -18,15 +18,20 @@
 :root {
   /* Base */
   --color-cream-50: #fff9f3;
+  --color-cream-100: #fff3e8;
+  --color-cream-200: #ffead8;
   --color-peach-100: #fff0e0;
   --color-peach-200: #ffddbf;
   --color-peach-300: #ffc19b;
   --color-peach-500: #ff9a5a;
   /* Coral */
+  --color-coral-50: #fff2ee;
   --color-coral-100: #ffe4dc;
+  --color-coral-300: #ff9c7e;
   --color-coral-400: #ff7a59;
   --color-coral-500: #ff5e3a;
   --color-coral-600: #e84b2a;
+  --color-coral-700: #c43a1c;
   /* Semantic */
   --color-success: #5cc99f;
   --color-info: #6baee8;

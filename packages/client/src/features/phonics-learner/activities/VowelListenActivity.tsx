@@ -190,7 +190,9 @@ export function VowelListenActivity({ unitId, vowels, onMarkComplete, onBack }: 
           {promptText}
         </h2>
 
-        <div className="grid grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 w-full max-w-5xl px-2">
+        {/* 🔴 grid 는 칸 수가 고정이라 모음이 6개보다 적은 단원(ㅜㅠㅡㅣ 4개)에서 왼쪽으로 쏠렸다.
+            개수와 무관하게 가운데 오도록 flex + justify-center. */}
+        <div className="flex flex-wrap justify-center gap-4 sm:gap-6 w-full max-w-5xl px-2">
           {vowels.map((v, i) => {
             // 듣기 단계: 다음 모음까지 활성. 다 들은 뒤 (listenedAll) 에는 6개 모두 다시 들을 수 있게 활성.
             const isUnlockedListen = isListenPhase && (listenedAll || i <= nextIdx);
@@ -211,7 +213,7 @@ export function VowelListenActivity({ unitId, vowels, onMarkComplete, onBack }: 
                 }
                 disabled={!isClickable}
                 className={[
-                  'relative rounded-3xl border-[6px] aspect-[3/4] flex flex-col items-center justify-center px-2 py-3 transition shadow-soft',
+                  'relative w-[28%] lg:w-36 rounded-3xl border-[6px] aspect-[3/4] flex flex-col items-center justify-center px-2 py-3 transition shadow-soft',
                   isSolved
                     ? 'bg-mint-100 border-mint-500'
                     : active
