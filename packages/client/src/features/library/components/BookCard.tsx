@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { canReadBook, coverTitleFont, type BookIndexEntry } from '@tangobook/shared';
+import { canReadBook, type BookIndexEntry } from '@tangobook/shared';
 import { BookCover } from '@/design-system';
 import { useAccess, LockBadge } from '@/features/access';
 import { useReadingStatus } from '../hooks/useReadingStatus';
@@ -10,12 +10,13 @@ interface BookCardProps {
   book: BookIndexEntry;
 }
 
-/** 책 카드 — 일러스트 풀 (정사각형 가까운 비율) + 아래 제목. 카드 배경/패딩 X (reference 디자인).
+/** 책 카드 — 표지 한 장만. 카드 배경/패딩 X (reference 디자인).
+ *  제목 캡션은 없앴다(2026-07-25) — 표지 이미지에 제목이 이미 그려져 있어 두 번 읽힌다.
+ *  🔴 접근성 이름은 `BookCover` 의 `alt`(언어별 제목)가 유지하므로 sr-only 제목을 덧붙이지 않는다
+ *  (덧붙이면 버튼 이름이 "제목 제목"으로 중복된다).
  *  표지는 책의 대표 그림체(defaultStyle)만 노출 — 그림체 선택은 BookDetailPage 에서. */
 export function BookCard({ book }: BookCardProps) {
   const { t, i18n } = useTranslation('library');
-  // UI 언어에 해당 번역 제목이 있으면 카드 제목도 그 언어로 (없으면 ko 원본).
-  const displayTitle = book.titleTranslations?.[i18n.language] ?? book.title;
   const navigate = useNavigate();
   const { data: statusMap } = useReadingStatus();
   const status = statusMap?.get(book.id);
@@ -50,12 +51,6 @@ export function BookCard({ book }: BookCardProps) {
         )}
         {locked && <LockBadge className="absolute top-2 left-2" />}
       </div>
-      <h3
-        className="mt-2 font-black text-base md:text-xl text-ink-900 truncate leading-tight px-1"
-        style={{ fontFamily: `"${coverTitleFont(i18n.language).family}", "Baloo 2", sans-serif` }}
-      >
-        {displayTitle}
-      </h3>
     </button>
   );
 }

@@ -5,6 +5,8 @@
 // ⚠️ 실효 순서는 R2 LibraryConfig.categoryOrder 가 우선 — 이 default 는 config 부재 시 폴백.
 export const DEFAULT_PRIORITY_CATEGORIES = [
   '생활동화',
+  // 카테고리 키는 '호리 유치원'이 아니라 '호리 유치원동화'(책 데이터 기준). 2026-07-25.
+  '호리 유치원동화',
   '세계 명작',
   '자연 관찰',
   '전래 동화',

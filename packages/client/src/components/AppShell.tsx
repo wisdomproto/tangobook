@@ -190,10 +190,10 @@ export function AppShell() {
         </div>
       )}
 
-      {/* 로고 바로 아래 — UI 언어 선택 + 홈에 설치(PWA). 배너 위 오버레이 대신 깨끗한 사이드바 면에. */}
+      {/* 로고 바로 아래 — UI 언어 선택. 「홈에 설치」는 헤더 우상단(로그인/로그아웃 옆)으로 통합
+          (2026-07-25) — 사이드바·배너에 각각 있어 한 화면에 설치 버튼이 두 개였다. */}
       <div className="flex flex-col items-center gap-2 px-2 py-3 border-b border-ink-100/40 shrink-0">
         <UiLangMenu />
-        <InstallPwaButton />
       </div>
 
       {/* 아이 zone — 동화책(아이가 매일 만지는 유일한 것) + 파닉스 / 어휘 / 학습 게임 (개발자 전용).
@@ -206,11 +206,13 @@ export function AppShell() {
         ))}
       </nav>
 
-      {/* 부모 영역 — 부모 설정 / 로그인/로그아웃. 하단 고정(nav flex-1 이 위 공간을 채워 밀어냄). */}
-      <div className="shrink-0 px-3 pt-3 pb-3 border-t-2 border-ink-200/60 bg-cream-100/30 flex flex-col gap-1.5">
-        {/* 부모 도메인 작업 — 학습 리포팅 · 친구 초대 · 부모 설정 · 건의하기.
-            사이드바 정리를 위해 접이식(기본 접힘). 2026-07-14. */}
-        {session && isConfigured && (
+      {/* 부모 영역 — 부모 메뉴만. 하단 고정(nav flex-1 이 위 공간을 채워 밀어냄).
+          로그아웃/로그인이 헤더로 빠져서(2026-07-25) 비로그인 땐 내용이 없다 → 블록째 숨긴다
+          (안 그러면 빈 구분선 바만 남는다). */}
+      {session && isConfigured && (
+        <div className="shrink-0 px-3 pt-3 pb-3 border-t-2 border-ink-200/60 bg-cream-100/30 flex flex-col gap-1.5">
+          {/* 부모 도메인 작업 — 학습 리포팅 · 친구 초대 · 부모 설정 · 건의하기.
+              사이드바 정리를 위해 접이식(기본 접힘). 2026-07-14. */}
           <>
             <button
               type="button"
@@ -274,46 +276,8 @@ export function AppShell() {
               </div>
             )}
           </>
-        )}
-        {/* 로그인/로그아웃 — session 상태에 따라 분기 */}
-        {session ? (
-          <button
-            onClick={handleSignOut}
-            className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-danger transition-all"
-            aria-label={t('sidebar.logout')}
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="shrink-0"
-            >
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-              <polyline points="16 17 21 12 16 7" />
-              <line x1="21" y1="12" x2="9" y2="12" />
-            </svg>
-            <span>{t('sidebar.logout')}</span>
-            {activeProfile && (
-              <span className="ml-auto text-[11px] text-ink-400 truncate max-w-[60px]">
-                {activeProfile.name}
-              </span>
-            )}
-          </button>
-        ) : isConfigured ? (
-          <Link
-            to="/login"
-            className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black bg-coral-500 hover:bg-coral-600 text-white shadow-soft hover:shadow-pop transition-all"
-          >
-            <span>🔑</span>
-            <span>{t('sidebar.login')}</span>
-          </Link>
-        ) : null}
-      </div>
+        </div>
+      )}
     </>
   );
 
@@ -359,17 +323,20 @@ export function AppShell() {
         </>
       )}
 
-      {/* 우측 영역. /library 일 때 header absolute overlay → main 이 0부터 시작 → 배너가 viewport top 까지. */}
+      {/* 우측 영역.
+          🔴 /library 헤더는 예전에 **배너 위 투명 absolute 오버레이**였다(배너가 viewport top 까지 닿게).
+          헤더가 비어 있을 땐 괜찮았지만, 「홈에 설치」·로그인/로그아웃이 들어오면서 버튼이 배너
+          일러스트를 깔고 앉아 붙어 보였다 → 오버레이를 걷고 **제 높이를 차지하는 sticky 헤더**로
+          통일(2026-07-25). 배경은 페이지 그라데이션 상단과 같은 cream-50 이라 이음매가 안 보이고,
+          배너는 헤더 아래에서 시작한다. 좌우 정렬만 배너와 같은 max-w wrapper 로 맞춘다. */}
       <div className="flex-1 flex flex-col min-w-0 relative">
         <header
           className={cn(
-            'h-16 md:h-20 z-30 flex items-center',
-            isLibraryRoot
-              ? 'absolute top-0 inset-x-0 bg-transparent border-b-0 pointer-events-none'
-              : 'sticky top-0 bg-cream-50 border-b border-ink-100/60'
+            'h-16 md:h-20 z-30 flex items-center sticky top-0 bg-cream-50',
+            !isLibraryRoot && 'border-b border-ink-100/60'
           )}
         >
-          {/* isLibraryRoot 면 배너와 동일한 max-w wrapper 안 양쪽 정렬 — 로그인 chip 이 배너 우상단 corner 와 정렬. 그 외 페이지는 풀폭 padding. */}
+          {/* isLibraryRoot 면 배너와 동일한 max-w wrapper 안 양쪽 정렬 — 버튼이 배너 우측 끝과 정렬. 그 외 페이지는 풀폭 padding. */}
           <div
             className={cn(
               'w-full h-full flex items-center justify-between',
@@ -397,7 +364,7 @@ export function AppShell() {
                   <line x1="3" y1="18" x2="21" y2="18" />
                 </svg>
               </button>
-              {/* 모바일 로고 — 사이드바 hidden 일 때 헤더에 노출. /library overlay 헤더에서도 보임. */}
+              {/* 모바일 로고 — 사이드바 hidden 일 때 헤더에 노출. */}
               <Link
                 to="/library"
                 aria-label={t('logo.home')}
@@ -426,8 +393,43 @@ export function AppShell() {
               )}
             </div>
 
-            {/* 우측 — 프로필 칩은 좌측 사이드바 상단(로고 아래)으로 이동(2026-07-14, 배너 겹침 해소). */}
-            <div className="flex-shrink-0" />
+            {/* 우측 — 홈에 설치 + 로그인/로그아웃(2026-07-25 사이드바·배너에서 이 자리로 통합).
+                프로필 칩은 좌측 사이드바 상단(로고 아래)에 그대로. */}
+            <div className="flex-shrink-0 flex items-center gap-2">
+              <InstallPwaButton className="flex items-center gap-1.5 rounded-full bg-coral-500 px-3 py-2 text-sm font-black text-white shadow-soft transition hover:brightness-110 hover:shadow-pop sm:px-4" />
+              {session ? (
+                <button
+                  onClick={handleSignOut}
+                  className="flex items-center gap-2 rounded-full bg-white/90 px-3 py-2 shadow-soft backdrop-blur text-sm font-black text-ink-600 hover:bg-white hover:text-danger transition-all"
+                  aria-label={t('sidebar.logout')}
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="shrink-0"
+                  >
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    <polyline points="16 17 21 12 16 7" />
+                    <line x1="21" y1="12" x2="9" y2="12" />
+                  </svg>
+                  <span className="hidden sm:inline">{t('sidebar.logout')}</span>
+                </button>
+              ) : isConfigured ? (
+                <Link
+                  to="/login"
+                  className="flex items-center gap-2 rounded-full bg-coral-500 px-4 py-2 shadow-soft text-sm font-black text-white hover:bg-coral-600 hover:shadow-pop transition-all"
+                >
+                  <span aria-hidden>🔑</span>
+                  <span>{t('sidebar.login')}</span>
+                </Link>
+              ) : null}
+            </div>
           </div>
         </header>
 
