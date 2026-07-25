@@ -333,7 +333,10 @@ export function AppShell() {
         <header
           className={cn(
             'h-16 md:h-20 z-30 flex items-center sticky top-0 bg-cream-50',
-            !isLibraryRoot && 'border-b border-ink-100/60'
+            !isLibraryRoot && 'border-b border-ink-100/60',
+            // 라이브러리 루트 데스크탑: 헤더에 남는 게 없어(버튼은 배너로, 로고는 사이드바) 빈 바가
+            // 되므로 접는다. 모바일은 햄버거+로고가 필요해 유지.
+            isLibraryRoot && 'md:hidden'
           )}
         >
           {/* isLibraryRoot 면 배너와 동일한 max-w wrapper 안 양쪽 정렬 — 버튼이 배너 우측 끝과 정렬. 그 외 페이지는 풀폭 padding. */}
@@ -393,9 +396,9 @@ export function AppShell() {
               )}
             </div>
 
-            {/* 우측 — 홈에 설치 + 로그인/로그아웃(2026-07-25 사이드바·배너에서 이 자리로 통합).
-                프로필 칩은 좌측 사이드바 상단(로고 아래)에 그대로. */}
-            <div className="flex-shrink-0 flex items-center gap-2">
+            {/* 우측 — 홈에 설치 + 로그인/로그아웃. 🔴 라이브러리 루트에선 PromoBanner 슬림 바가
+                이 버튼들을 갖고 있어(중복 방지) 여기선 숨긴다. 그 외 페이지는 헤더가 유지. */}
+            <div className={cn('flex-shrink-0 flex items-center gap-2', isLibraryRoot && 'hidden')}>
               <InstallPwaButton className="flex items-center gap-1.5 rounded-full bg-coral-500 px-3 py-2 text-sm font-black text-white shadow-soft transition hover:brightness-110 hover:shadow-pop sm:px-4" />
               {session ? (
                 <button

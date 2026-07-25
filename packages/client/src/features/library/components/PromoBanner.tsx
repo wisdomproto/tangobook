@@ -1,32 +1,34 @@
 import type { ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 import { computeAccess } from '@tangobook/shared';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useEntitlement } from '@/features/payment/hooks/useEntitlement';
 import { InviteButton } from '@/features/payment';
 import { PAYWALL_ENABLED } from '@/features/access/config';
+import { InstallPwaButton } from '@/components/InstallPwaButton';
 
 /**
- * Single-slide promo banner advertising 7-day free trial / referral bonus.
+ * Slim promo bar for the library top — 7-day trial / referral copy on the left,
+ * 홈에 설치 + 로그인/로그아웃 on the right. No mascot art, single low row.
  *
- * Copy and CTA change based on user state computed DIRECTLY from account age +
- * real subscription data — intentionally decoupled from PAYWALL_ENABLED so
- * logged-in users see their trial countdown even before paywall goes live.
- * Gating (what content is locked) still respects PAYWALL_ENABLED elsewhere.
+ * Copy changes from account age + real subscription data (decoupled from
+ * PAYWALL_ENABLED so trial countdown shows before paywall goes live):
+ *   - guest   → signup prompt + start CTA
+ *   - trial   → days remaining + InviteButton
+ *   - expired → referral / subscribe CTA + InviteButton
+ *   - subscribed → promo text hidden, bar keeps the install/auth buttons
  *
- *   - guest  → login prompt
- *   - trial  → days remaining + InviteButton (copy invite link)
- *   - expired → referral CTA + InviteButton
- *   - subscribed (real paid subscription) → hidden (returns null)
- *
- * Asset: public/images/library-banner/promo.webp
- *   1872×1248, tiger mascot + gift on RIGHT half; left ~40% is open cream space.
+ * 🔴 The install + logout buttons live here (not the AppShell header) on the
+ * library root — AppShell hides its own copy when isLibraryRoot so they don't
+ * double up. The bar therefore renders for EVERY library user (subscribers
+ * included) so logout stays reachable; other pages keep the header buttons.
  */
 export function PromoBanner() {
   const { t } = useTranslation('access');
+  const { t: ts } = useTranslation('shell');
   const navigate = useNavigate();
-  const { account } = useAuth();
+  const { account, session, signOut, isConfigured } = useAuth();
   const { paidUntil, referralBonusDays, trialStartedAt } = useEntitlement();
 
   // Compute access state directly from account + real subscription data,
@@ -38,86 +40,96 @@ export function PromoBanner() {
     trialStartedAt,
   });
 
-  // Real paid subscriber — hide banner entirely
-  if (raw.status === 'subscribed') return null;
-
+  const isSubscribed = raw.status === 'subscribed';
   const isGuest = raw.status === 'guest';
   const isTrial = raw.status === 'trial';
 
+  // 프로모 문구 — 구독자는 문구 없이 버튼만(로그아웃 도달 유지).
   let headline: ReactNode;
-  let sub: string;
-
-  // 양방향 초대 카피 — 세련되고 따뜻하게, 판매 냄새 X. (드롭박스식: 친구·나 둘 다 +7일)
-  const referralSub = t('promo.referralSub');
-
   if (isGuest) {
     headline = t('promo.guestHeadline');
-    sub = referralSub;
   } else if (isTrial) {
-    // 남은 일수를 앞세워 "무료 며칠 남았는지" 한눈에(부모 요청). 상실 프레이밍은 피함.
-    // 'N일' 강조 — 코랄색 + 크게(부모 요청).
+    // 남은 일수 강조 — 코랄색(부모 요청). 상실 프레이밍은 피함.
     headline = (
       <Trans
         t={t}
         i18nKey="promo.trialHeadline"
         values={{ days: raw.trialDaysLeft }}
-        components={{ big: <span className="text-coral-600 text-[1.3em] tabular-nums" /> }}
+        components={{ big: <span className="text-coral-600 text-[1.15em] tabular-nums" /> }}
       />
     );
-    sub = referralSub;
   } else if (!PAYWALL_ENABLED) {
-    // 출시 전(유료화 OFF): 전체 무료 상태 — 오래된 계정이 "만료"로 보이던 버그 방지.
     headline = t('promo.preOpenHeadline');
-    sub = referralSub;
   } else {
-    // expired (유료화 ON): 구독을 1순위로, 초대는 보조.
     headline = t('promo.expiredHeadline');
-    sub = t('promo.expiredSub');
   }
+
+  const handleSignOut = async () => {
+    if (!window.confirm(ts('sidebar.logoutConfirm'))) return;
+    await signOut();
+  };
 
   return (
     <div
-      className="relative w-full min-h-[118px] sm:min-h-[126px] md:min-h-[140px] lg:min-h-[156px] rounded-2xl overflow-hidden shadow-soft mb-8 md:mb-10 flex bg-gradient-to-br from-cream-50 to-peach-100"
+      className="w-full rounded-2xl shadow-soft mb-6 px-4 py-2.5 md:py-3 flex flex-wrap items-center gap-x-4 gap-y-2 bg-gradient-to-r from-cream-50 to-peach-100"
       role="region"
       aria-label={t('promo.region')}
     >
-      {/* Left zone — text overlay on the open cream area.
-          모바일은 고정 aspect 대신 콘텐츠 높이(min-h)로 — 긴 한글 헤드라인 잘림 방지. */}
-      <div className="relative w-3/5 sm:w-1/2 shrink-0 flex items-center py-4 sm:py-0 pl-5 pr-3 sm:pl-16 sm:pr-4 md:pl-20 md:pr-6 z-10">
-        <div className="min-w-0">
-          {/* 헤드라인은 1줄 고정 — 길면 오른쪽 일러스트 위로 얹혀서 노출 (요청). */}
-          <h2 className="whitespace-nowrap text-base sm:text-lg md:text-xl lg:text-2xl font-black font-display text-ink-900 leading-tight [text-shadow:0_1px_2px_rgba(255,255,255,0.7)]">
+      {/* 좌 — 프로모 문구 + CTA (구독자는 숨김) */}
+      {!isSubscribed && (
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+          <p className="text-sm md:text-base font-black font-display text-ink-900 break-keep leading-tight">
             {headline}
-          </h2>
-          <p className="hidden sm:block text-xs md:text-sm lg:text-base font-bold text-ink-600 mt-1 md:mt-2 leading-snug break-keep">
-            {sub}
           </p>
           {isGuest ? (
             <button
               onClick={() => navigate('/login?mode=signup')}
-              className="mt-2 md:mt-3 bg-coral-500 text-white font-black rounded-xl px-5 py-2.5 text-xs md:text-sm hover:brightness-110 transition"
+              className="shrink-0 bg-coral-500 text-white font-black rounded-lg px-3 py-1.5 text-xs hover:brightness-110 transition"
             >
               {t('promo.startFree')}
             </button>
           ) : (
-            <InviteButton className="mt-2 md:mt-3 bg-coral-500 text-white font-black rounded-xl px-5 py-2.5 text-xs md:text-sm hover:brightness-110 transition" />
+            <InviteButton className="shrink-0 bg-coral-500 text-white font-black rounded-lg px-3 py-1.5 text-xs hover:brightness-110 transition" />
           )}
         </div>
-      </div>
+      )}
 
-      {/* Right zone — 호랑이 일러스트. 「홈에 설치」는 헤더 우상단(로그인/로그아웃 옆)으로 통합해
-          여기서 제거했다(2026-07-25) — 사이드바에도 있어 한 화면에 설치 버튼이 두 개였다. */}
-      <div
-        className="relative flex-1 overflow-hidden"
-        style={{
-          backgroundImage: 'url(/images/library-banner/promo.webp)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          maskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 100%)',
-          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 100%)',
-        }}
-        aria-hidden
-      />
+      {/* 우 — 홈에 설치 + 로그인/로그아웃 (헤더에서 이 자리로 이동, 라이브러리 한정) */}
+      <div className="flex items-center gap-2 shrink-0 ml-auto">
+        <InstallPwaButton className="flex items-center gap-1.5 rounded-full bg-coral-500 px-3 py-1.5 text-xs sm:text-sm font-black text-white shadow-soft transition hover:brightness-110 hover:shadow-pop sm:px-4" />
+        {session ? (
+          <button
+            onClick={handleSignOut}
+            className="flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 shadow-soft text-xs sm:text-sm font-black text-ink-600 hover:bg-white hover:text-danger transition-all"
+            aria-label={ts('sidebar.logout')}
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="shrink-0"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            <span className="hidden sm:inline">{ts('sidebar.logout')}</span>
+          </button>
+        ) : isConfigured ? (
+          <Link
+            to="/login"
+            className="flex items-center gap-1.5 rounded-full bg-coral-500 px-3 py-1.5 shadow-soft text-xs sm:text-sm font-black text-white hover:bg-coral-600 hover:shadow-pop transition-all"
+          >
+            <span aria-hidden>🔑</span>
+            <span>{ts('sidebar.login')}</span>
+          </Link>
+        ) : null}
+      </div>
     </div>
   );
 }

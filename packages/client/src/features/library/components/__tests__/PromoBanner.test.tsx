@@ -84,11 +84,9 @@ describe('PromoBanner', () => {
       expect(screen.getByText('회원가입하면 7일 무료 체험')).toBeInTheDocument();
     });
 
-    it('shows two-sided referral sub-copy', () => {
+    it('omits the sub-copy line (slim bar — text simplified)', () => {
       renderBanner();
-      expect(
-        screen.getByText('친구를 초대하면 무료 기간이 서로 7일씩 늘어나요')
-      ).toBeInTheDocument();
+      expect(screen.queryByText('친구를 초대하면 무료 기간이 서로 7일씩 늘어나요')).toBeNull();
     });
 
     it('shows start CTA button (not InviteButton)', () => {
@@ -116,19 +114,12 @@ describe('PromoBanner', () => {
       renderBanner();
       // trialDaysLeft is ceil((7d - 2d elapsed)) = 5 — days-first copy still shows the number.
       // 'N일' 은 별도 span 으로 강조되어 텍스트가 분리되므로 h2 의 textContent 로 매칭.
-      const h2 = screen.getByText(
-        (_, el) => el?.tagName === 'H2' && /무료 체험 \d+일 남음/.test(el.textContent ?? '')
+      const line = screen.getByText(
+        (_, el) => el?.tagName === 'P' && /무료 체험 \d+일 남음/.test(el.textContent ?? '')
       );
-      expect(h2).toBeInTheDocument();
+      expect(line).toBeInTheDocument();
       // 강조된 'N일' span 존재 확인
-      expect(h2.querySelector('.text-coral-600')?.textContent).toMatch(/\d+일/);
-    });
-
-    it('shows two-sided invite sub-copy', () => {
-      renderBanner();
-      expect(
-        screen.getByText('친구를 초대하면 무료 기간이 서로 7일씩 늘어나요')
-      ).toBeInTheDocument();
+      expect(line.querySelector('.text-coral-600')?.textContent).toMatch(/\d+일/);
     });
 
     it('shows InviteButton (not login button)', () => {
@@ -160,11 +151,6 @@ describe('PromoBanner', () => {
       expect(screen.getByText('구독하고 모든 동화를 계속 즐겨요')).toBeInTheDocument();
     });
 
-    it('shows two-sided referral sub-copy (expired)', () => {
-      renderBanner();
-      expect(screen.getByText('친구를 초대하면 둘 다 무료 기간 +7일')).toBeInTheDocument();
-    });
-
     it('shows InviteButton', () => {
       renderBanner();
       expect(screen.getByRole('button', { name: '친구 초대하고 +7일 받기' })).toBeInTheDocument();
@@ -183,14 +169,16 @@ describe('PromoBanner', () => {
       });
     });
 
-    it('renders nothing (returns null)', () => {
+    it('still renders the bar (holds install/auth buttons — no longer null)', () => {
       renderBanner();
-      expect(screen.queryByRole('region', { name: '프로모션 배너' })).toBeNull();
+      expect(screen.getByRole('region', { name: '프로모션 배너' })).toBeInTheDocument();
     });
 
-    it('renders no button', () => {
+    it('hides promo copy/CTA for subscribers', () => {
       renderBanner();
-      expect(screen.queryByRole('button')).toBeNull();
+      expect(screen.queryByText('구독하고 모든 동화를 계속 즐겨요')).toBeNull();
+      expect(screen.queryByRole('button', { name: '무료로 시작하기' })).toBeNull();
+      expect(screen.queryByRole('button', { name: '친구 초대하고 +7일 받기' })).toBeNull();
     });
   });
 });
