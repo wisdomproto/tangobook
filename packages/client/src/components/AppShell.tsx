@@ -178,8 +178,15 @@ export function AppShell() {
           (안 그러면 빈 구분선 바만 남는다). */}
       {session && isConfigured && (
         <div className="shrink-0 px-3 pt-3 pb-3 border-t-2 border-ink-200/60 bg-cream-100/30 flex flex-col gap-1.5">
-          {/* 부모 도메인 작업 — 학습 리포팅 · 친구 초대 · 부모 설정 · 건의하기.
-              사이드바 정리를 위해 접이식(기본 접힘). 2026-07-14. */}
+          {/* 🔴 학습 리포팅은 접이식 밖 — 부모가 가장 자주 여는 화면이라 한 번에 닿게 한다
+              (2026-07-25). 나머지 부모 작업(초대·설정·건의·로그아웃)만 접이식 안. */}
+          <Link
+            to="/parent/reports"
+            className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-700 bg-white/70 hover:bg-white hover:text-ink-900 shadow-soft transition-all"
+          >
+            <span aria-hidden>📊</span>
+            <span>{t('sidebar.reports')}</span>
+          </Link>
           <>
             <button
               type="button"
@@ -211,13 +218,6 @@ export function AppShell() {
             </button>
             {parentMenuOpen && (
               <div className="flex flex-col gap-1.5">
-                <Link
-                  to="/parent/reports"
-                  className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
-                >
-                  <span aria-hidden>📊</span>
-                  <span>{t('sidebar.reports')}</span>
-                </Link>
                 <Link
                   to="/invite-friends"
                   className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"

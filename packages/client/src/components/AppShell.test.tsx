@@ -54,25 +54,25 @@ describe('AppShell sidebar axis visibility', () => {
     expect(screen.queryByText('학습 게임')).toBeNull(); // devOnly
   });
 
-  it('일반 부모 계정 → 부모 메뉴 노출(기본 접힘 — 펼쳐야 리포팅·초대가 보인다)', () => {
+  it('일반 부모 계정 → 학습 리포팅은 바로 노출, 나머지 부모 작업은 접이식 안', () => {
     setup({ email: 'someparent@example.com' });
     renderShell();
     expect(screen.getByText('동화책')).toBeInTheDocument();
     expect(screen.queryByText('연속재생')).toBeNull();
-    // 부모 작업은 접이식 메뉴 안(2026-07-14) — 접힌 상태에선 항목이 렌더되지 않는다.
+    // 학습 리포팅은 접이식 밖으로 승격(2026-07-25) — 접힌 상태에서도 보인다.
+    expect(screen.getByText('학습 리포팅')).toBeInTheDocument();
+    // 나머지 부모 작업은 여전히 접이식 안이라 접힌 상태에선 렌더되지 않는다.
     expect(screen.getByText('부모 메뉴')).toBeInTheDocument();
-    expect(screen.queryByText('학습 리포팅')).toBeNull();
     expect(screen.queryByText('친구 초대')).toBeNull();
     expect(screen.queryByText('어휘')).toBeNull(); // devOnly
     expect(screen.queryByText('학습 게임')).toBeNull(); // devOnly
   });
 
-  it('부모 메뉴를 펼치면 학습 리포팅·친구 초대·로그아웃이 나온다', async () => {
+  it('부모 메뉴를 펼치면 친구 초대·로그아웃이 나온다', async () => {
     const user = userEvent.setup();
     setup({ email: 'someparent@example.com' });
     renderShell();
     await user.click(screen.getByText('부모 메뉴'));
-    expect(screen.getByText('학습 리포팅')).toBeInTheDocument();
     expect(screen.getByText('친구 초대')).toBeInTheDocument();
     // 로그아웃은 헤더에서 이 자리로 복귀(2026-07-25) — 그 자리는 아이 프로필 칩이 가져갔다.
     expect(screen.getByText('로그아웃')).toBeInTheDocument();
