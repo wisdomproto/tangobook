@@ -163,12 +163,6 @@ export function AppShell() {
         </Link>
       </div>
 
-      {/* 로고 바로 아래 — UI 언어 선택. 「홈에 설치」는 헤더 우상단(로그인/로그아웃 옆)으로 통합
-          (2026-07-25) — 사이드바·배너에 각각 있어 한 화면에 설치 버튼이 두 개였다. */}
-      <div className="flex flex-col items-center gap-2 px-2 py-3 border-b border-ink-100/40 shrink-0">
-        <UiLangMenu />
-      </div>
-
       {/* 아이 zone — 동화책(아이가 매일 만지는 유일한 것) + 파닉스 / 어휘 / 학습 게임 (개발자 전용).
           부모 작업(리포팅·초대·연속재생·설정)은 위계를 정직하게 하려고 하단 부모 영역으로 분리. 2026-07-07. */}
       <nav className="flex-1 min-h-0 overflow-y-auto w-full flex flex-col gap-2.5 items-center pt-5 pb-5">
@@ -370,6 +364,7 @@ export function AppShell() {
                 🔴 여기가 chrome 의 유일한 자리다(2026-07-25) — 사이드바 칩·배너 버튼은 제거해
                 한 화면에 같은 버튼이 두 번 나오지 않게 했다. 로그아웃은 부모 메뉴(부모 작업). */}
             <div className="flex-shrink-0 flex items-center gap-2">
+              <UiLangMenu />
               <InstallPwaButton className="flex items-center gap-1.5 rounded-full bg-coral-500 px-3 py-2 text-sm font-black text-white shadow-soft transition hover:brightness-110 hover:shadow-pop sm:px-4" />
               {session && activeProfile ? (
                 <ProfileChip profile={activeProfile} onClick={() => setPickerOpen(true)} />

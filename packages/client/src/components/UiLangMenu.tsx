@@ -29,20 +29,21 @@ export function UiLangMenu() {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex w-28 items-center justify-center gap-1.5 rounded-2xl bg-white px-2 py-3 text-sm font-black text-ink-800 shadow-soft transition-all hover:shadow-pop"
+        className="flex items-center gap-1.5 rounded-full bg-white px-3 py-2 text-sm font-black text-ink-800 shadow-soft transition-all hover:shadow-pop"
         aria-label="언어 선택 / Select language"
         aria-haspopup="listbox"
         aria-expanded={open}
         data-sound="select"
       >
-        <span className="text-lg leading-none">{cur?.flag ?? '🌐'}</span>
-        <span className="truncate">{cur?.nativeName}</span>
+        <span className="text-base leading-none">{cur?.flag ?? '🌐'}</span>
+        {/* 좁은 화면에선 국기만 — 헤더에 설치·프로필 칩과 함께 놓이므로 폭을 아낀다. */}
+        <span className="hidden truncate sm:inline">{cur?.nativeName}</span>
         <span className="text-[10px] text-ink-400">▾</span>
       </button>
       {open && (
         <ul
           role="listbox"
-          className="absolute left-1/2 top-full z-50 mt-1.5 w-40 -translate-x-1/2 overflow-hidden rounded-2xl bg-white py-1 shadow-pop ring-1 ring-ink-100"
+          className="absolute right-0 top-full z-50 mt-1.5 w-40 overflow-hidden rounded-2xl bg-white py-1 shadow-pop ring-1 ring-ink-100"
         >
           {LANGS.map((l) => {
             const active = l.code === i18n.language;
