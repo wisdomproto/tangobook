@@ -11,26 +11,27 @@ import { InstallPwaButton } from '@/components/InstallPwaButton';
 const SHARE_URL = 'https://www.tangobook.co.kr';
 
 /**
- * Slim promo bar for the library top — 7-day trial / referral copy on the left,
- * 홈에 설치 + 로그인/로그아웃 on the right. No mascot art, single low row.
+ * Slim promo bar for the library top — one low row, no mascot art.
+ *   left  = promo copy + CTA (guest signup / share)
+ *   right = 홈에 설치 (+ 로그인 when logged out) — **desktop only**
  *
  * Copy changes from account age + real subscription data (decoupled from
- * PAYWALL_ENABLED so trial countdown shows before paywall goes live):
- *   - guest   → "1 year free" signup hook + start CTA
+ * PAYWALL_ENABLED so the countdown shows before paywall goes live):
+ *   - guest   → "1 year free" signup hook, or "게스트 N일 남음" during the guest window
  *   - trial   → days remaining + share button (beta = 1yr free, referral moot)
  *   - expired → subscribe hook + share button
- *   - subscribed → promo text hidden, bar keeps the install/auth buttons
+ *   - subscribed → promo text hidden, bar keeps the install button
  *
- * 🔴 The install + logout buttons live here (not the AppShell header) on the
- * library root — AppShell hides its own copy when isLibraryRoot so they don't
- * double up. The bar therefore renders for EVERY library user (subscribers
- * included) so logout stays reachable; other pages keep the header buttons.
+ * 🔴 Where the chrome lives, so it never doubles up (2026-07-25):
+ *   mobile  → AppShell header (hamburger + logo + 설치 + 프로필 칩); this bar shows promo only
+ *   desktop → header collapses on /library, sidebar holds the profile chip and
+ *             the parent menu holds 로그아웃 → this bar holds 설치/로그인
  */
 export function PromoBanner() {
   const { t } = useTranslation('access');
   const { t: ts } = useTranslation('shell');
   const navigate = useNavigate();
-  const { account, session, signOut, isConfigured } = useAuth();
+  const { account, session, isConfigured } = useAuth();
   const { paidUntil, referralBonusDays, trialStartedAt } = useEntitlement();
   const guestMode = useGuestMode();
 
@@ -69,11 +70,6 @@ export function PromoBanner() {
   } else {
     headline = t('promo.expiredHeadline');
   }
-
-  const handleSignOut = async () => {
-    if (!window.confirm(ts('sidebar.logoutConfirm'))) return;
-    await signOut();
-  };
 
   // 공유 — 베타 1년 무료라 레퍼럴 코드가 불필요해졌다. 순수 앱 공유(코드 없음):
   // Web Share API 우선, 미지원(데스크탑 등)이면 링크 복사 폴백.
@@ -127,34 +123,13 @@ export function PromoBanner() {
         </div>
       )}
 
-      {/* 우 — 홈에 설치 + 로그인/로그아웃 (헤더에서 이 자리로 이동, 라이브러리 한정).
-          모바일은 세로 스택이라 버튼 행을 우측 정렬(self-end), sm+ 는 한 행에서 ml-auto. */}
-      <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto sm:ml-auto">
+      {/* 우 — 홈에 설치 + (미로그인) 로그인.
+          🔴 모바일에선 숨긴다 — 그쪽은 헤더 우상단이 설치·프로필 칩을 갖고, 배너는 한 줄 프로모만
+          남겨 상단이 3겹이 되지 않게 한다. 데스크탑 라이브러리는 헤더가 접히므로 여기가 그 자리.
+          🔴 로그아웃·프로필 칩은 여기 없다 — 데스크탑엔 사이드바(칩)+부모 메뉴(로그아웃)가 있다. */}
+      <div className="hidden shrink-0 items-center gap-2 sm:ml-auto md:flex">
         <InstallPwaButton className="flex items-center gap-1.5 rounded-full bg-coral-500 px-3 py-1.5 text-xs sm:text-sm font-black text-white shadow-soft transition hover:brightness-110 hover:shadow-pop sm:px-4" />
-        {session ? (
-          <button
-            onClick={handleSignOut}
-            className="flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 shadow-soft text-xs sm:text-sm font-black text-ink-600 hover:bg-white hover:text-danger transition-all"
-            aria-label={ts('sidebar.logout')}
-          >
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="shrink-0"
-            >
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-              <polyline points="16 17 21 12 16 7" />
-              <line x1="21" y1="12" x2="9" y2="12" />
-            </svg>
-            <span className="hidden sm:inline">{ts('sidebar.logout')}</span>
-          </button>
-        ) : isConfigured ? (
+        {!session && isConfigured ? (
           <Link
             to="/login"
             className="flex items-center gap-1.5 rounded-full bg-coral-500 px-3 py-1.5 shadow-soft text-xs sm:text-sm font-black text-white hover:bg-coral-600 hover:shadow-pop transition-all"

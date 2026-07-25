@@ -10,7 +10,7 @@ import { useGuestMode } from '@/features/access/hooks/useGuestMode';
 import { AppBgm } from './AppBgm';
 import { UiLangMenu } from './UiLangMenu';
 import { InstallPwaButton } from './InstallPwaButton';
-import { AvatarRender } from '@/features/auth/components/AvatarRender';
+import { ProfileChip } from '@/features/auth/components/ProfileChip';
 import { cn } from '@/lib/cn';
 import { isDevEmail } from '@/config/dev';
 import { FeedbackDialog } from '@/features/feedback';
@@ -163,33 +163,11 @@ export function AppShell() {
         </Link>
       </div>
 
-      {/* 현재 아이 프로필 칩 — 아이 1명이어도 상시. 탭 → 프로필 시트(전환/추가·관리). */}
+      {/* 현재 아이 프로필 칩 — 아이 1명이어도 상시. 탭 → 프로필 시트(전환/추가·관리).
+          모바일은 사이드바가 숨겨지므로 헤더 우상단에도 같은 칩을 둔다. */}
       {session && activeProfile && (
         <div className="flex justify-center px-2 pt-3 shrink-0">
-          <button
-            onClick={() => setPickerOpen(true)}
-            className="flex items-center gap-1.5 rounded-full bg-white pl-1 pr-2.5 py-1 shadow-soft hover:shadow-pop transition-all max-w-full"
-            aria-label={t('header.profileMenu', { name: activeProfile.name })}
-          >
-            <AvatarRender id={activeProfile.avatarId} size="sm" />
-            <span className="text-sm font-black text-ink-800 truncate max-w-[84px]">
-              {activeProfile.name}
-            </span>
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="text-ink-400 shrink-0"
-              aria-hidden
-            >
-              <polyline points="6 9 12 15 18 9" />
-            </svg>
-          </button>
+          <ProfileChip profile={activeProfile} onClick={() => setPickerOpen(true)} />
         </div>
       )}
 
@@ -275,6 +253,16 @@ export function AppShell() {
                 >
                   <span aria-hidden>💬</span>
                   <span>{t('sidebar.feedback')}</span>
+                </button>
+                {/* 로그아웃 — 헤더 자리를 프로필 칩에 내주고 부모 메뉴로 복귀(2026-07-25).
+                    부모 작업이라 여기가 제자리다. */}
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-danger transition-all"
+                >
+                  <span aria-hidden>🚪</span>
+                  <span>{t('sidebar.logout')}</span>
                 </button>
               </div>
             )}
@@ -399,34 +387,17 @@ export function AppShell() {
               )}
             </div>
 
-            {/* 우측 — 홈에 설치 + 로그인/로그아웃. 🔴 라이브러리 루트에선 PromoBanner 슬림 바가
-                이 버튼들을 갖고 있어(중복 방지) 여기선 숨긴다. 그 외 페이지는 헤더가 유지. */}
-            <div className={cn('flex-shrink-0 flex items-center gap-2', isLibraryRoot && 'hidden')}>
+            {/* 우측 — 홈에 설치 + 아이 프로필 칩(로그인) / 로그인 버튼.
+                🔴 로그아웃은 여기가 아니라 사이드바 부모 메뉴에 있다(부모 작업).
+                🔴 라이브러리 루트 데스크탑에선 헤더 자체가 접히고 사이드바·배너가 대신한다 →
+                md+ 에서만 숨겨 모바일 헤더의 빈 우측 공간을 쓴다. */}
+            <div
+              className={cn('flex-shrink-0 flex items-center gap-2', isLibraryRoot && 'md:hidden')}
+            >
               <InstallPwaButton className="flex items-center gap-1.5 rounded-full bg-coral-500 px-3 py-2 text-sm font-black text-white shadow-soft transition hover:brightness-110 hover:shadow-pop sm:px-4" />
-              {session ? (
-                <button
-                  onClick={handleSignOut}
-                  className="flex items-center gap-2 rounded-full bg-white/90 px-3 py-2 shadow-soft backdrop-blur text-sm font-black text-ink-600 hover:bg-white hover:text-danger transition-all"
-                  aria-label={t('sidebar.logout')}
-                >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="shrink-0"
-                  >
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                    <polyline points="16 17 21 12 16 7" />
-                    <line x1="21" y1="12" x2="9" y2="12" />
-                  </svg>
-                  <span className="hidden sm:inline">{t('sidebar.logout')}</span>
-                </button>
-              ) : isConfigured ? (
+              {session && activeProfile ? (
+                <ProfileChip profile={activeProfile} onClick={() => setPickerOpen(true)} />
+              ) : session ? null : isConfigured ? (
                 <Link
                   to="/login"
                   className="flex items-center gap-2 rounded-full bg-coral-500 px-4 py-2 shadow-soft text-sm font-black text-white hover:bg-coral-600 hover:shadow-pop transition-all"
