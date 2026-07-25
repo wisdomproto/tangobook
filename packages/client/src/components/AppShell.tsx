@@ -377,7 +377,10 @@ export function AppShell() {
                   to="/login"
                   className="flex items-center gap-2 rounded-full bg-coral-500 px-4 py-2 shadow-soft text-sm font-black text-white hover:bg-coral-600 hover:shadow-pop transition-all"
                 >
-                  <span aria-hidden>🔑</span>
+                  {/* 375px + 설치 버튼까지 있으면 한 줄이 13px 모자란다 — 아이콘만 접는다. */}
+                  <span aria-hidden className="hidden sm:inline">
+                    🔑
+                  </span>
                   <span>{t('sidebar.login')}</span>
                 </Link>
               ) : null}

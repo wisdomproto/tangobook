@@ -89,9 +89,11 @@ describe('PromoBanner', () => {
       expect(screen.queryByText('친구를 초대하면 무료 기간이 서로 7일씩 늘어나요')).toBeNull();
     });
 
-    it('shows start CTA button (not InviteButton)', () => {
+    // 미로그인 = 이미 게스트 모드라, 헤더 우측 [로그인 / 회원가입] 과 같은 행동을
+    // 프로모가 한 번 더 시킬 이유가 없다(2026-07-25).
+    it('has no CTA of its own — the header login button is the CTA', () => {
       renderBanner();
-      expect(screen.getByRole('button', { name: '무료로 시작하기' })).toBeInTheDocument();
+      expect(screen.queryByRole('button')).toBeNull();
     });
   });
 

@@ -1,5 +1,4 @@
 import { useState, type ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { computeAccess } from '@tangobook/shared';
 import { useAuth } from '@/features/auth/context/AuthContext';
@@ -10,10 +9,11 @@ import { useGuestMode } from '@/features/access/hooks/useGuestMode';
 const SHARE_URL = 'https://www.tangobook.co.kr';
 
 /**
- * Slim promo bar at the top of the library — promo copy + one CTA, nothing else.
+ * Slim promo line in the library header — copy only for guests, copy + share for expired.
  *
  * 🔴 Only shown to someone with something left to convert:
- *   - guest   → "1 year free" signup hook, or "게스트 N일 남음" during the guest window
+ *   - guest   → "1 year free" signup hook, or "게스트 N일 남음" during the guest window.
+ *               No CTA — the header's [로그인 / 회원가입] already is one.
  *   - expired → subscribe hook + share button
  *   - signed up (trial / beta year / subscribed) → renders nothing. They already hold
  *     the benefit, so a "무료 체험 423일 남음" countdown is just noise.
@@ -23,7 +23,6 @@ const SHARE_URL = 'https://www.tangobook.co.kr';
  */
 export function PromoBanner() {
   const { t } = useTranslation('access');
-  const navigate = useNavigate();
   const { account } = useAuth();
   const { paidUntil, referralBonusDays, trialStartedAt } = useEntitlement();
   const guestMode = useGuestMode();
@@ -93,14 +92,9 @@ export function PromoBanner() {
       <p className="hidden truncate text-sm font-black font-display text-ink-900 break-keep leading-tight sm:block md:text-base">
         {headline}
       </p>
-      {isGuest ? (
-        <button
-          onClick={() => navigate('/login?mode=signup')}
-          className="shrink-0 bg-coral-500 text-white font-black rounded-lg px-3 py-1.5 text-xs hover:brightness-110 transition"
-        >
-          {t('promo.startFree')}
-        </button>
-      ) : (
+      {/* 🔴 게스트에는 CTA 를 두지 않는다(2026-07-25) — 미로그인 = 이미 게스트 모드라
+          "무료로 시작하기" 가 헤더 우측 [로그인 / 회원가입] 과 같은 행동을 두 번 시킨다. */}
+      {!isGuest && (
         <button
           onClick={handleShare}
           className="shrink-0 bg-coral-500 text-white font-black rounded-lg px-3 py-1.5 text-xs hover:brightness-110 transition"
