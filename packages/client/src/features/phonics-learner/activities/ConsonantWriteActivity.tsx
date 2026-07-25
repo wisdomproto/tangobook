@@ -8,6 +8,8 @@ import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 interface Props {
   unitId: string;
   consonant: string;
+  /** 발음할 텍스트. 미지정이면 `consonant`. 받침은 홀로 소리 못 내 예시 음절('앙')을 읽는다. */
+  soundText?: string;
   onComplete: () => void;
   onBack: () => void;
 }
@@ -23,12 +25,19 @@ const TIMES = 3;
  *
  * 이전: storybook 단어 카드 3개 기반 → 단어 의존성 + UI 복잡. 사용자 단순화 요청.
  */
-export function ConsonantWriteActivity({ unitId, consonant, onComplete, onBack }: Props) {
+export function ConsonantWriteActivity({
+  unitId,
+  consonant,
+  soundText,
+  onComplete,
+  onBack,
+}: Props) {
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   const [completedCount, setCompletedCount] = useState(0);
   const [completed, setCompleted] = useState(false);
+  const say = soundText ?? consonant;
 
-  usePhonicsTtsWarm(unitId, [consonant], 'consonant-write');
+  usePhonicsTtsWarm(unitId, [say], 'consonant-write');
 
   const handleResult = useCallback(
     async (passed: boolean) => {
@@ -37,7 +46,7 @@ export function ConsonantWriteActivity({ unitId, consonant, onComplete, onBack }
       setCompletedCount(nextCount);
 
       const url = await resolveTtsUrl({
-        text: consonant,
+        text: say,
         language: 'korean',
         storybookId: unitId,
         identifierPrefix: 'consonant-write',
@@ -57,7 +66,7 @@ export function ConsonantWriteActivity({ unitId, consonant, onComplete, onBack }
         playChime();
       }
     },
-    [completed, completedCount, consonant, unitId, playAudio, playCorrectSequence, onComplete]
+    [completed, completedCount, say, unitId, playAudio, playCorrectSequence, onComplete]
   );
 
   return (

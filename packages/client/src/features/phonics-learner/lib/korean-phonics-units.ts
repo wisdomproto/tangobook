@@ -7,7 +7,7 @@
  * 활동 구성은 unit 마다 다를 수 있어 `KOREAN_UNIT_ACTIVITY_PLAN` 으로 분리.
  * unit 1 (모음) 만 작성 — 나머지는 자료 모이는 대로 추가.
  */
-import { KOREAN_PHONICS_CURRICULUM } from '@tangobook/shared';
+import { KOREAN_PHONICS_CURRICULUM, composeHangul } from '@tangobook/shared';
 
 export interface KoreanUnitSummary {
   id: string; // 'kr-h1-u01'
@@ -57,6 +57,7 @@ export type ActivityKind =
   | 'vowel-write'
   | 'consonant-tap'
   | 'consonant-blend-listen'
+  | 'coda-blend-listen'
   | 'consonant-write'
   | 'cvc-pattern-learn'
   | 'cvc-pattern-write'
@@ -84,8 +85,18 @@ export interface ActivityDef {
   vowels?: ReadonlyArray<{ vowel: string; syllable: string }>;
   /** consonant-* 활동용 — 학습 대상 자음 (예: 'ㄱ'). */
   consonant?: string;
+  /**
+   * consonant-tap / consonant-write 활동용 — 화면 글자와 **다른** 발음을 낼 때.
+   * 받침은 홀로 소리 낼 수 없어 글자는 'ㅇ' 이지만 소리는 예시 음절 '앙' 이어야 한다.
+   * 미지정이면 `consonant` 를 그대로 읽는다 (한글1 자음 단원은 무변경).
+   */
+  soundText?: string;
   /** consonant-blend-listen 활동용 — 자음과 결합할 모음 글자만 (예: ['ㅏ','ㅑ','ㅓ','ㅕ','ㅗ','ㅛ']). 한 행씩 표시. */
   blendVowels?: ReadonlyArray<string>;
+  /** coda-blend-listen 활동용 — 학습 대상 받침 (예: 'ㅇ'). */
+  coda?: string;
+  /** coda-blend-listen 활동용 — 받침을 붙일 음절의 초성 (예: ['ㄱ','ㄴ',…] → 가+ㅇ→강). 중성은 ㅏ 고정. */
+  codaOnsets?: ReadonlyArray<string>;
   /** cvc-pattern-learn (영어) 활동용 — 학습 대상 VC. Phase A 에 vowel + consonant → vc, Phase B 에 flashcards 의 phonicPattern 매치 4 단어. */
   cvcPattern?: { vowel: string; consonant: string; vc: string };
   /** alphabet-letter-learn (영어 Book 1) 활동용 — storybook.phonicsLesson.blending[letterIndex] / wordFamilies[letterIndex] 인덱스. */
@@ -313,12 +324,162 @@ const CONSONANT_UNIT_MAP: Record<string, string> = {
   'kr-h1-u15': 'ㅎ',
 };
 
+// ─── 게임 4종 (모든 단원 공통 꼬리) ───
+const GAME_ACTIVITIES: ReadonlyArray<Omit<ActivityDef, 'order'>> = [
+  {
+    key: 'game-korean-block',
+    kind: 'game-korean-block',
+    section: 'play',
+    title: '한글 블록 게임',
+    emoji: '🧩',
+    required: false,
+  },
+  {
+    key: 'game-word-writing',
+    kind: 'game-word-writing',
+    section: 'play',
+    title: '낱말 쓰기',
+    emoji: '🖍️',
+    required: false,
+  },
+  {
+    key: 'game-dots',
+    kind: 'game-connect-dots',
+    section: 'play',
+    title: '낱말 그리기',
+    emoji: '🔵',
+    required: false,
+  },
+  {
+    key: 'game-line-matching',
+    kind: 'game-line-matching',
+    section: 'play',
+    title: '그림 짝 찾기',
+    emoji: '🔗',
+    required: false,
+  },
+];
+
+function withGames(learn: ReadonlyArray<Omit<ActivityDef, 'order'>>): ActivityPlan {
+  return {
+    activities: [...learn, ...GAME_ACTIVITIES].map((a, i) => ({ ...a, order: i + 1 })),
+  };
+}
+
+// ─── 한글2 받침 단원 (ㅇㄱㄴㄹㅅㅁㅂ) ───
+// 받침을 붙일 음절의 초성 14개. 커리큘럼 blending 과 같은 순서로 7+7 두 장.
+const CODA_ONSETS_1 = ['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ'] as const;
+const CODA_ONSETS_2 = ['ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'] as const;
+
+/**
+ * 받침 단원 활동 plan. 자음 단원과 같은 4 learn + 4 game 리듬.
+ * 🔴 받침은 홀로 소리 낼 수 없어 배우기·쓰기의 **발음은 예시 음절**(ㅇ → '앙') 이다.
+ */
+function makeCodaPlan(coda: string): ActivityPlan {
+  const sample = composeHangul('ㅇ', 'ㅏ', coda) || `아${coda}`; // 앙·악·안·알·앗·암·압
+  return withGames([
+    {
+      key: 'consonant-tap',
+      kind: 'consonant-tap',
+      section: 'learn',
+      title: `${coda} 받침 배우기`,
+      emoji: '👆',
+      required: true,
+      consonant: coda,
+      soundText: sample,
+    },
+    {
+      key: 'coda-listen-1',
+      kind: 'coda-blend-listen',
+      section: 'learn',
+      title: `${coda} 받침 붙이기 1`,
+      emoji: '🔗',
+      required: true,
+      coda,
+      codaOnsets: [...CODA_ONSETS_1],
+    },
+    {
+      key: 'coda-listen-2',
+      kind: 'coda-blend-listen',
+      section: 'learn',
+      title: `${coda} 받침 붙이기 2`,
+      emoji: '🔗',
+      required: true,
+      coda,
+      codaOnsets: [...CODA_ONSETS_2],
+    },
+    {
+      key: 'consonant-write',
+      kind: 'consonant-write',
+      section: 'learn',
+      title: `${coda} 받침 쓰기`,
+      emoji: '✏️',
+      required: true,
+      consonant: coda,
+      soundText: sample,
+    },
+  ]);
+}
+
+// ─── 한글4 복잡한 모음 단원 (ㅐㅔ · ㅖㅚ · ㅟㅢ · ㅘㅙ · ㅝㅞㅢ) ───
+/**
+ * 복잡한 모음 단원 plan. 모음이 2~3개뿐이라 u01 처럼 1/2 로 쪼개지 않고 듣기 1 + 쓰기 1.
+ * 음절은 `composeHangul('ㅇ', v)` 로 파생 — ㅐ→애, ㅚ→외 (하드코딩 없음).
+ */
+function makeComplexVowelPlan(vowels: readonly string[]): ActivityPlan {
+  const pairs = vowels.map((v) => ({
+    vowel: v,
+    syllable: composeHangul('ㅇ', v, null) || v,
+  }));
+  return withGames([
+    {
+      key: 'listen-1',
+      kind: 'vowel-listen',
+      section: 'learn',
+      title: '모음 듣기',
+      emoji: '👂',
+      required: true,
+      vowels: pairs,
+    },
+    {
+      key: 'write-1',
+      kind: 'vowel-write',
+      section: 'learn',
+      title: '모음 쓰기',
+      emoji: '✏️',
+      required: true,
+      vowels: pairs,
+    },
+  ]);
+}
+
+/**
+ * 커리큘럼에서 파생하는 단원 plan — 한글2(받침)·3(쌍자음)·4(복잡한 모음).
+ * 🔴 유닛 목록을 여기에 다시 적지 않는다. 커리큘럼에 단원이 늘면 자동으로 활동이 생긴다.
+ */
+function derivedPlans(): Record<string, ActivityPlan> {
+  const out: Record<string, ActivityPlan> = {};
+  for (const u of getAllKoreanUnits()) {
+    const first = u.phonemes[0];
+    if (!first) continue;
+    if (u.levelIndex === 2) {
+      out[u.id] = makeCodaPlan(first.replace('받침', '')); // '받침ㅇ' → 'ㅇ'
+    } else if (u.levelIndex === 3) {
+      out[u.id] = makeConsonantPlan(first); // 쌍자음 — 데이터 모양이 한글1 자음과 동일
+    } else if (u.levelIndex === 4) {
+      out[u.id] = makeComplexVowelPlan(u.phonemes);
+    }
+  }
+  return out;
+}
+
 /** unit ID → 활동 구성. 미정의 unit 은 빈 활동 (잠금 표시). */
 export const KOREAN_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
   'kr-h1-u01': UNIT_01_PLAN,
   ...Object.fromEntries(
     Object.entries(CONSONANT_UNIT_MAP).map(([unitId, c]) => [unitId, makeConsonantPlan(c)])
   ),
+  ...derivedPlans(),
 };
 
 export function getActivityPlan(unitId: string): ActivityPlan {

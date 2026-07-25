@@ -181,11 +181,28 @@ threshold 0.95 통일 — `LINE_WIDTH=60` 두꺼운 펜이라 도달 쉬움. 폰
 - `key_objects[]` — 일반 storybook 호환용 fallback
 - `findImageData(sb, word)` 가 위 순서로 검색
 
-## unit 별 활동 plan
+## unit 별 활동 plan — 한글 32 단원 전부 (2026-07-26)
 
-`KOREAN_UNIT_ACTIVITY_PLAN[unitId]` 에 unit 별로 정의. 현재 작성된 unit:
+`KOREAN_UNIT_ACTIVITY_PLAN[unitId]`. 한글1 은 명시 매핑, **한글2~4 는 `derivedPlans()` 가 커리큘럼에서 파생**한다 — 유닛 목록을 두 번 적지 않으므로 커리큘럼에 단원이 늘면 활동이 저절로 생긴다.
 
-- `kr-h1-u01` (모음) — vowel-listen ×2 + vowel-write ×2 + 게임 ×4
-- `kr-h1-u02` (ㄱ) — consonant-tap + blend-listen ×2 + consonant-write + 게임 ×4
+| 레벨              | 단원    | 학습 활동                                   | 생성                                       |
+| ----------------- | ------- | ------------------------------------------- | ------------------------------------------ |
+| 한글1 모음        | u01     | vowel-listen ×2 + vowel-write ×2            | `UNIT_01_PLAN`                             |
+| 한글1 자음        | u02~u15 | consonant-tap + blend ×2 + write            | `CONSONANT_UNIT_MAP` + `makeConsonantPlan` |
+| 한글2 받침        | 7       | consonant-tap(받침) + coda-blend ×2 + write | `makeCodaPlan`                             |
+| 한글3 쌍자음      | 5       | 자음 단원과 동일                            | `makeConsonantPlan(phonemes[0])`           |
+| 한글4 복잡한 모음 | 5       | vowel-listen + vowel-write (각 1장)         | `makeComplexVowelPlan(phonemes)`           |
 
-다른 unit 은 plan 추가 시 자동 활성화.
+게임 4종은 `withGames()` 가 모든 plan 뒤에 붙이고 `order` 를 매긴다. 가드 테스트 = `lib/korean-phonics-units.test.ts`.
+
+### 🔴 받침은 글자와 소리가 다르다
+
+`consonant-tap` / `consonant-write` 에 **`soundText?`** 를 준다. 받침 단원은 글자가 `ㅇ` 이어도 읽는 소리는 예시 음절 **`앙`**(`composeHangul('ㅇ','ㅏ',coda)`) 이다 — 받침은 홀로 소리 낼 수 없고, `ㅇ` 을 그대로 읽히면 초성 이응 소리가 난다. 미지정이면 글자를 그대로 읽어 기존 한글1 단원은 무변경.
+
+### 🔴 `coda-blend-listen` 은 별도 컴포넌트가 아니다
+
+`ConsonantBlendListenActivity` 가 두 모드를 겸한다 — 자음 모드 `[ㄱ]+[ㅏ]→[가]`, 받침 모드 `[가]+[ㅇ]→[강]`(초성 14개 × ㅏ, 7+7 두 장). **복사본을 만들지 말 것**: 이 컴포넌트의 TTS 체인(발음 끝 → 띵동 → 칭찬)이 반복 버그 지점이라 사본이 생기면 고칠 곳이 두 군데가 된다. 캐시 분리는 `identifierPrefix`(`coda-blend`).
+
+### 한글2~4 게임 자산 현황
+
+`phonicsConfig.targetWords` 는 32 단원 모두 있으나, **flashcard 이미지·keypoints 는 한글1 에만** 있다. 그래서 한글2~4 에서 그림 짝 찾기·낱말 그리기는 어댑터가 `null` 을 반환해 "단어 그림이 필요해요" 안내가 뜬다(정상). 한글 블록·낱말 쓰기는 텍스트만으로 동작. → 기획서 「🍎 타겟 단어 카드」 125장을 flashcard 에 붙이면 자동 복구.

@@ -7,6 +7,11 @@ import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 interface Props {
   unitId: string;
   consonant: string; // 'ㄱ'
+  /**
+   * 발음할 텍스트. 미지정이면 `consonant` 를 그대로 읽는다.
+   * 🔴 받침 단원은 화면 글자와 소리가 다르다 — 글자는 'ㅇ' 이지만 홀로 소리 낼 수 없어 예시 음절 '앙' 을 읽는다.
+   */
+  soundText?: string;
   onComplete: () => void;
   onBack: () => void;
 }
@@ -22,12 +27,13 @@ const CARDS = 3;
  *   - 각 카드 3 탭 완료 → ㄱ TTS 끝난 후 띵동 효과음 (per-card 완료 피드백)
  *   - 3 카드 모두 9 탭 완료 → 띵동 끝난 후 칭찬 시퀀스 chain
  */
-export function ConsonantTapActivity({ unitId, consonant, onComplete, onBack }: Props) {
+export function ConsonantTapActivity({ unitId, consonant, soundText, onComplete, onBack }: Props) {
   const [tapCounts, setTapCounts] = useState<number[]>(Array(CARDS).fill(0));
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   const [completed, setCompleted] = useState(false);
+  const say = soundText ?? consonant;
 
-  usePhonicsTtsWarm(unitId, [consonant], 'consonant-tap');
+  usePhonicsTtsWarm(unitId, [say], 'consonant-tap');
 
   const handleTap = useCallback(
     async (idx: number) => {
@@ -39,7 +45,7 @@ export function ConsonantTapActivity({ unitId, consonant, onComplete, onBack }: 
       setTapCounts(nextTaps);
 
       const url = await resolveTtsUrl({
-        text: consonant,
+        text: say,
         language: 'korean',
         storybookId: unitId,
         identifierPrefix: 'consonant-tap',
@@ -65,7 +71,7 @@ export function ConsonantTapActivity({ unitId, consonant, onComplete, onBack }: 
 
       if (url) playAudio(url);
     },
-    [completed, tapCounts, consonant, unitId, playAudio, playCorrectSequence, onComplete]
+    [completed, tapCounts, say, unitId, playAudio, playCorrectSequence, onComplete]
   );
 
   return (

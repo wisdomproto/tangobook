@@ -95,12 +95,25 @@ export default function KoreanPhonicsActivityPage() {
       />
     );
   }
-  // 자음 누르기 (unit 2 활동 1)
+  // 자음 누르기 (unit 2 활동 1) — 받침 단원은 soundText 로 예시 음절을 읽는다
   if (activity.kind === 'consonant-tap' && activity.consonant) {
     return (
       <ConsonantTapActivity
         unitId={unitId}
         consonant={activity.consonant}
+        soundText={activity.soundText}
+        onComplete={handleComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+  // 받침 붙이기 (한글2) — [가] + [ㅇ] → [강]
+  if (activity.kind === 'coda-blend-listen' && activity.coda && activity.codaOnsets) {
+    return (
+      <ConsonantBlendListenActivity
+        unitId={unitId}
+        coda={activity.coda}
+        codaOnsets={activity.codaOnsets}
         onComplete={handleComplete}
         onBack={backToUnit}
       />
@@ -124,6 +137,7 @@ export default function KoreanPhonicsActivityPage() {
       <ConsonantWriteActivity
         unitId={unitId}
         consonant={activity.consonant}
+        soundText={activity.soundText}
         onComplete={handleComplete}
         onBack={backToUnit}
       />

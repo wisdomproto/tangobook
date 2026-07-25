@@ -7,42 +7,64 @@ import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 
 interface Props {
   unitId: string;
-  consonant: string; // 'ㄱ'
-  blendVowels: ReadonlyArray<string>; // ['ㅏ','ㅑ','ㅓ','ㅕ','ㅗ','ㅛ']
+  /** 자음 모드 — 학습 자음 (예: 'ㄱ'). coda 모드면 미지정. */
+  consonant?: string;
+  blendVowels?: ReadonlyArray<string>; // ['ㅏ','ㅑ','ㅓ','ㅕ','ㅗ','ㅛ']
+  /** 받침 모드 — 학습 받침 (예: 'ㅇ'). 지정되면 행이 [가][ㅇ][강] 이 된다. */
+  coda?: string;
+  /** 받침 모드 — 받침을 붙일 음절의 초성 (중성은 ㅏ 고정). */
+  codaOnsets?: ReadonlyArray<string>;
   onComplete: () => void;
   onBack: () => void;
 }
 
 /**
- * 자음+모음 음절 구성 액티비티 (unit 2 활동 2, 3).
+ * 3칸 음절 구성 액티비티 — 자음 모드와 받침 모드 겸용.
  *
- * 행마다 3개 셀: [자음] [모음] [음절]. 클릭마다 해당 소리 발음.
- * 모든 셀 모두 한 번 이상 클릭 → 칭찬 + onComplete.
+ * - 자음 모드 (한글1·3): [자음] + [모음] → [음절]   ㄱ + ㅏ → 가
+ * - 받침 모드 (한글2):   [음절] + [받침] → [음절]   가 + ㅇ → 강
+ *
+ * 클릭마다 그 칸 소리 발음. 행 완성 → 띵동, 전부 완성 → 칭찬 + onComplete.
+ * 🔴 두 모드를 한 컴포넌트로 두는 이유 = TTS 체인(발음 끝난 뒤 띵동/칭찬)이 반복 버그 지점이라
+ *    복사본을 만들면 고칠 곳이 두 군데가 된다.
  */
 export function ConsonantBlendListenActivity({
   unitId,
   consonant,
   blendVowels,
+  coda,
+  codaOnsets,
   onComplete,
   onBack,
 }: Props) {
-  const rows = useMemo(
-    () =>
-      blendVowels.map((v) => ({
-        consonant,
-        vowel: v,
-        syllable: composeHangul(consonant, v, null) || `${consonant}${v}`,
-      })),
-    [blendVowels, consonant]
-  );
+  const isCoda = !!coda;
+
+  const rows = useMemo(() => {
+    if (coda) {
+      return (codaOnsets ?? []).map((onset) => {
+        const base = composeHangul(onset, 'ㅏ', null) || `${onset}ㅏ`;
+        return {
+          first: base,
+          second: coda,
+          syllable: composeHangul(onset, 'ㅏ', coda) || `${base}${coda}`,
+        };
+      });
+    }
+    const c = consonant ?? '';
+    return (blendVowels ?? []).map((v) => ({
+      first: c,
+      second: v,
+      syllable: composeHangul(c, v, null) || `${c}${v}`,
+    }));
+  }, [blendVowels, consonant, coda, codaOnsets]);
 
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
 
-  // 셀 3종(자음·모음·음절) 전부 미리 데운다 — 18칸이라 첫 탭 지연이 제일 잘 드러나는 활동.
+  // 셀 3종 전부 미리 데운다 — 21칸이라 첫 탭 지연이 제일 잘 드러나는 활동.
   usePhonicsTtsWarm(
     unitId,
-    useMemo(() => [consonant, ...rows.flatMap((r) => [r.vowel, r.syllable])], [consonant, rows]),
-    'consonant-blend'
+    useMemo(() => rows.flatMap((r) => [r.first, r.second, r.syllable]), [rows]),
+    isCoda ? 'coda-blend' : 'consonant-blend'
   );
 
   // 클릭 기록 — `${row}-${col}` 으로 키
@@ -70,7 +92,7 @@ export function ConsonantBlendListenActivity({
         text,
         language: 'korean',
         storybookId: unitId,
-        identifierPrefix: 'consonant-blend',
+        identifierPrefix: isCoda ? 'coda-blend' : 'consonant-blend',
       });
 
       // 이 클릭으로 (a) 행 3 셀 모두 채워지면 → 띵동, (b) 18 셀 모두 채워지면 → 띵동 → 칭찬.
@@ -116,7 +138,7 @@ export function ConsonantBlendListenActivity({
         afterTts();
       }
     },
-    [completed, totalCells, unitId, playAudio, playCorrectSequence, onComplete]
+    [completed, totalCells, unitId, isCoda, playAudio, playCorrectSequence, onComplete]
   );
 
   return (
@@ -136,27 +158,28 @@ export function ConsonantBlendListenActivity({
       </button>
 
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-3">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-ink-900 text-center">
-          <span className="text-coral-600">{consonant}</span> 을 모음과 만나게 해봐!
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-ink-900 text-center break-keep">
+          <span className="text-coral-600">{isCoda ? coda : consonant}</span>
+          {isCoda ? ' 받침을 붙여봐!' : ' 을 모음과 만나게 해봐!'}
         </h2>
 
         <div className="flex flex-col gap-2 sm:gap-2.5 w-full max-w-xl">
           {rows.map((row, r) => (
             <div key={r} className="flex items-center justify-center gap-2 sm:gap-3">
               <Cell
-                label={row.consonant}
+                label={row.first}
                 pressed={pressed.has(`${r}-0`)}
                 isNext={nextKey === `${r}-0`}
-                onClick={() => handleCell(r, 0, row.consonant)}
-                tone="consonant"
+                onClick={() => handleCell(r, 0, row.first)}
+                tone={isCoda ? 'vowel' : 'consonant'}
               />
               <span className="text-2xl font-black text-ink-500">+</span>
               <Cell
-                label={row.vowel}
+                label={row.second}
                 pressed={pressed.has(`${r}-1`)}
                 isNext={nextKey === `${r}-1`}
-                onClick={() => handleCell(r, 1, row.vowel)}
-                tone="vowel"
+                onClick={() => handleCell(r, 1, row.second)}
+                tone={isCoda ? 'consonant' : 'vowel'}
               />
               <span className="text-2xl font-black text-ink-500">→</span>
               <Cell

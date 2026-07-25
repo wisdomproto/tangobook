@@ -148,6 +148,7 @@ const KIND_ICON_URL: Partial<Record<ActivityDef['kind'], string>> = {
   'vowel-listen': '/icons/activity/cvc-learn.webp',
   'consonant-tap': '/icons/activity/cvc-learn.webp',
   'consonant-blend-listen': '/icons/activity/cvc-learn.webp',
+  'coda-blend-listen': '/icons/activity/cvc-learn.webp',
   // 학습 — 쓰기 = 미소짓는 연필
   'vowel-write': '/icons/activity/cvc-write.webp',
   'consonant-write': '/icons/activity/cvc-write.webp',
