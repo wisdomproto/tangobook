@@ -1,12 +1,13 @@
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 import { computeAccess } from '@tangobook/shared';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useEntitlement } from '@/features/payment/hooks/useEntitlement';
-import { InviteButton } from '@/features/payment';
 import { PAYWALL_ENABLED } from '@/features/access/config';
 import { InstallPwaButton } from '@/components/InstallPwaButton';
+
+const SHARE_URL = 'https://www.tangobook.co.kr';
 
 /**
  * Slim promo bar for the library top — 7-day trial / referral copy on the left,
@@ -14,9 +15,9 @@ import { InstallPwaButton } from '@/components/InstallPwaButton';
  *
  * Copy changes from account age + real subscription data (decoupled from
  * PAYWALL_ENABLED so trial countdown shows before paywall goes live):
- *   - guest   → signup prompt + start CTA
- *   - trial   → days remaining + InviteButton
- *   - expired → referral / subscribe CTA + InviteButton
+ *   - guest   → "1 year free" signup hook + start CTA
+ *   - trial   → days remaining + share button (beta = 1yr free, referral moot)
+ *   - expired → subscribe hook + share button
  *   - subscribed → promo text hidden, bar keeps the install/auth buttons
  *
  * 🔴 The install + logout buttons live here (not the AppShell header) on the
@@ -69,6 +70,28 @@ export function PromoBanner() {
     await signOut();
   };
 
+  // 공유 — 베타 1년 무료라 레퍼럴 코드가 불필요해졌다. 순수 앱 공유(코드 없음):
+  // Web Share API 우선, 미지원(데스크탑 등)이면 링크 복사 폴백.
+  const [shared, setShared] = useState(false);
+  const handleShare = async () => {
+    const text = t('promo.shareText');
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: '탱고북', text, url: SHARE_URL });
+        return;
+      }
+    } catch {
+      return; // 사용자가 공유 시트를 닫음 — 폴백 복사하지 않음
+    }
+    try {
+      await navigator.clipboard.writeText(`${text}\n${SHARE_URL}`);
+      setShared(true);
+      setTimeout(() => setShared(false), 2000);
+    } catch {
+      /* 클립보드 불가 환경 — 조용히 무시 */
+    }
+  };
+
   return (
     <div
       className="w-full rounded-2xl shadow-soft mb-6 px-4 py-2.5 md:py-3 flex flex-wrap items-center gap-x-4 gap-y-2 bg-gradient-to-r from-cream-50 to-peach-100"
@@ -89,7 +112,12 @@ export function PromoBanner() {
               {t('promo.startFree')}
             </button>
           ) : (
-            <InviteButton className="shrink-0 bg-coral-500 text-white font-black rounded-lg px-3 py-1.5 text-xs hover:brightness-110 transition" />
+            <button
+              onClick={handleShare}
+              className="shrink-0 bg-coral-500 text-white font-black rounded-lg px-3 py-1.5 text-xs hover:brightness-110 transition"
+            >
+              {shared ? t('promo.shareCopied') : t('promo.share')}
+            </button>
           )}
         </div>
       )}

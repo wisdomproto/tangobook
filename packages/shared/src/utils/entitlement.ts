@@ -6,6 +6,14 @@ export const TRIAL_DAYS = 7;
 /** 친구 1명 초대 시 적립되는 체험 연장 일수. */
 export const REFERRAL_BONUS_DAYS = 7;
 
+// ── 베타 프로모: 이 시각 전에 가입하면 가입일 + 1년 무료 ──
+// 오퍼 종료 시 이 두 상수만 되돌리면 신규 가입은 기본 7일 체험으로 자동 복귀한다.
+// (이미 1년 무료를 받은 기존 계정은 가입일 기준이라 그대로 유지됨.)
+/** 이 시각(KST 2026-12-31 24:00 = 2027-01-01 00:00 +09:00) 전 가입 = 베타 1년 무료. */
+export const BETA_SIGNUP_DEADLINE = '2027-01-01T00:00:00+09:00';
+export const BETA_FREE_DAYS = 365;
+const BETA_DEADLINE_MS = Date.parse(BETA_SIGNUP_DEADLINE);
+
 const DAY_MS = 86_400_000;
 
 export type SubscriptionStatus = 'active' | 'trialing' | 'past_due' | 'canceled' | 'expired';
@@ -90,10 +98,15 @@ export function computeAccess(input: AccessInput, now: number = Date.now()): Acc
     return { status: 'guest', isEntitled: false, trialEndsAt: null, trialDaysLeft: 0 };
   }
 
-  // 무료 종료 = (체험 앵커 종료 vs 구독 종료 중 더 나중) + 레퍼럴 보너스.
+  // 베타 프로모: 마감 전 가입 계정은 가입일 + 1년 무료(가입일 기준 — 체험 리셋과 무관).
+  const createdMs = toTime(account.createdAt);
+  const betaFreeEnd =
+    createdMs != null && createdMs < BETA_DEADLINE_MS ? createdMs + BETA_FREE_DAYS * DAY_MS : null;
+
+  // 무료 종료 = (체험 앵커 vs 구독 vs 베타 1년 중 더 나중) + 레퍼럴 보너스.
   // → 구독자가 초대한 보너스도 구독 종료 뒤로 붙고, 순수 체험자는 기존과 동일(구독 없음).
   const trialAnchorEnd = trialEndMs(trialStartedAt || account.createdAt, 0);
-  const ends = [trialAnchorEnd, subEndMs].filter(
+  const ends = [trialAnchorEnd, subEndMs, betaFreeEnd].filter(
     (x): x is number => x != null && Number.isFinite(x)
   );
   const baseEnd = ends.length ? Math.max(...ends) : null;

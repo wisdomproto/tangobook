@@ -20,12 +20,15 @@
   },
   "promo": {
     "region": "Biểu ngữ khuyến mãi",
-    "guestHeadline": "Đăng ký thành viên để dùng thử miễn phí 7 ngày",
+    "guestHeadline": "Đăng ký ngay — miễn phí 1 năm",
     "trialHeadline": "Còn <big>{{days}} ngày</big> dùng thử miễn phí",
     "preOpenHeadline": "Hiện tất cả truyện đều miễn phí",
     "expiredHeadline": "Đăng ký để tiếp tục thưởng thức tất cả truyện",
     "referralSub": "Mời bạn bè thì thời gian miễn phí của cả hai cùng tăng thêm 7 ngày",
     "expiredSub": "Mời bạn bè thì cả hai đều được cộng thêm 7 ngày miễn phí",
-    "startFree": "Bắt đầu miễn phí"
+    "startFree": "Bắt đầu miễn phí",
+    "share": "Chia sẻ",
+    "shareText": "Tangobook — truyện tranh AI cho bé. Đăng ký ngay để miễn phí 1 năm!",
+    "shareCopied": "Đã sao chép liên kết!"
   }
 }

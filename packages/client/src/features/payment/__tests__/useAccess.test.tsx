@@ -52,23 +52,27 @@ describe('PAYWALL enabled — paidUntil future → subscribed/entitled', () => {
 });
 
 describe('PAYWALL enabled — paidUntil past + no trial → expired', () => {
-  it('past paidUntil, trial expired, no referral → expired, not entitled', () => {
+  // 베타(2027-01-01 전) 가입은 1년 무료라, "만료" 검증은 마감 후 시점 + 마감 후 가입 계정으로.
+  const AFTER = Date.parse('2027-07-01T00:00:00Z');
+  const OLD_AFTER = { createdAt: new Date(AFTER - 100 * DAY).toISOString() };
+
+  it('past paidUntil, trial expired, no referral → expired, not entitled (마감 후)', () => {
     const result = computeAccess(
       {
-        account: OLD_ACCOUNT,
-        subscription: { status: 'expired', currentPeriodEnd: ago(1) },
+        account: OLD_AFTER,
+        subscription: { status: 'expired', currentPeriodEnd: new Date(AFTER - DAY).toISOString() },
         referralBonusDays: 0,
       },
-      NOW
+      AFTER
     );
     expect(result.status).toBe('expired');
     expect(result.isEntitled).toBe(false);
   });
 
-  it('no subscription row, trial expired → expired', () => {
+  it('no subscription row, trial expired → expired (마감 후)', () => {
     const result = computeAccess(
-      { account: OLD_ACCOUNT, subscription: null, referralBonusDays: 0 },
-      NOW
+      { account: OLD_AFTER, subscription: null, referralBonusDays: 0 },
+      AFTER
     );
     expect(result.status).toBe('expired');
     expect(result.isEntitled).toBe(false);

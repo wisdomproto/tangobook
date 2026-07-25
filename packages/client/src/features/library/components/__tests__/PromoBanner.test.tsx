@@ -79,9 +79,9 @@ describe('PromoBanner', () => {
       expect(screen.getByRole('region', { name: '프로모션 배너' })).toBeInTheDocument();
     });
 
-    it('shows guest headline', () => {
+    it('shows guest headline (beta 1-year-free hook)', () => {
       renderBanner();
-      expect(screen.getByText('회원가입하면 7일 무료 체험')).toBeInTheDocument();
+      expect(screen.getByText('지금 가입하면 1년 무료!')).toBeInTheDocument();
     });
 
     it('omits the sub-copy line (slim bar — text simplified)', () => {
@@ -122,11 +122,10 @@ describe('PromoBanner', () => {
       expect(line.querySelector('.text-coral-600')?.textContent).toMatch(/\d+일/);
     });
 
-    it('shows InviteButton (not login button)', () => {
+    it('shows share button (not start CTA — referral moot under 1yr free)', () => {
       renderBanner();
       expect(screen.queryByRole('button', { name: '무료로 시작하기' })).toBeNull();
-      // InviteButton stub renders this text
-      expect(screen.getByRole('button', { name: '친구 초대하고 +7일 받기' })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: '공유하기' })).toBeInTheDocument();
     });
   });
 
@@ -151,9 +150,9 @@ describe('PromoBanner', () => {
       expect(screen.getByText('구독하고 모든 동화를 계속 즐겨요')).toBeInTheDocument();
     });
 
-    it('shows InviteButton', () => {
+    it('shows share button', () => {
       renderBanner();
-      expect(screen.getByRole('button', { name: '친구 초대하고 +7일 받기' })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: '공유하기' })).toBeInTheDocument();
     });
   });
 
@@ -178,7 +177,7 @@ describe('PromoBanner', () => {
       renderBanner();
       expect(screen.queryByText('구독하고 모든 동화를 계속 즐겨요')).toBeNull();
       expect(screen.queryByRole('button', { name: '무료로 시작하기' })).toBeNull();
-      expect(screen.queryByRole('button', { name: '친구 초대하고 +7일 받기' })).toBeNull();
+      expect(screen.queryByRole('button', { name: '공유하기' })).toBeNull();
     });
   });
 });

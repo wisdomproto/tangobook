@@ -20,12 +20,15 @@
   },
   "promo": {
     "region": "Promotion banner",
-    "guestHeadline": "Sign up for a 7-day free trial",
+    "guestHeadline": "Sign up now — 1 year free",
     "trialHeadline": "<big>{{days}} days</big> of free trial left",
     "preOpenHeadline": "Enjoy every story free right now",
     "expiredHeadline": "Subscribe to keep enjoying every story",
     "referralSub": "Invite a friend and you both get 7 more free days each",
     "expiredSub": "Invite a friend and you both get +7 free days",
-    "startFree": "Start for free"
+    "startFree": "Start for free",
+    "share": "Share",
+    "shareText": "Tangobook — AI picture books for kids. Sign up now for 1 year free!",
+    "shareCopied": "Link copied!"
   }
 }

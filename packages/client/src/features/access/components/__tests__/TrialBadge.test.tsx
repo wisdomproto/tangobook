@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { TrialBadge } from '../TrialBadge';
@@ -35,7 +35,14 @@ function renderBadge() {
 const daysAgo = (n: number) => new Date(Date.now() - n * 86_400_000).toISOString();
 
 describe('TrialBadge', () => {
-  beforeEach(() => vi.restoreAllMocks());
+  // 베타(2027-01-01 전) 가입은 1년 무료라 7일 체험 표시가 덮인다. TrialBadge 의 7일 체험 로직은
+  // 마감 후 기준이므로 시스템 시각을 마감 후로 고정하고 검증한다(Date 만 fake — 타이머 미간섭).
+  beforeEach(() => {
+    vi.restoreAllMocks();
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(new Date('2027-07-01T00:00:00Z'));
+  });
+  afterEach(() => vi.useRealTimers());
 
   it('guest(account=null) → 아무것도 렌더하지 않음', () => {
     mockAuth(null);
