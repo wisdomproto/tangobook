@@ -31,8 +31,10 @@ describe('BookCover — 스톨 복구', () => {
     expect(srcOf()).not.toContain('cb=');
 
     // 스톨 시간 경과 → 재요청(캐시버스트 쿼리 부착)
-    act(() => vi.advanceTimersByTime(6500));
+    act(() => vi.advanceTimersByTime(3000));
     expect(srcOf()).toContain('cb=1');
+    // 🔴 재요청은 lazy 를 풀고 즉시 받아야 한다 — lazy 인 채면 안 뜨던 조건이 그대로다.
+    expect(screen.getByRole('img').getAttribute('loading')).toBe('eager');
   });
 
   it('로드가 끝나면 감시가 풀려 재요청하지 않는다', () => {

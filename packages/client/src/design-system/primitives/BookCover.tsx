@@ -13,7 +13,7 @@ const MAX_COVER_RETRIES = 4;
 // peach 플레이스홀더인 채 멈춘다 = "한번 안 뜨면 계속 안 뜸"의 남은 절반.
 // → 카드가 화면에 들어온 뒤 이 시간 안에 로드가 안 끝나면 강제로 remount 해 재요청한다.
 //   (화면에 들어왔을 때만 재기 때문에 lazy 의 이점은 유지된다.)
-const COVER_STALL_MS = 6000;
+const COVER_STALL_MS = 2500;
 
 export interface BookCoverProps {
   book: CoverInput;
@@ -98,7 +98,9 @@ export function BookCover({
           src={src}
           alt={title}
           className={cn('w-full h-full object-cover', imgClassName)}
-          loading={loading}
+          // 🔴 재시도 = "화면에 있는데 안 떴다" 는 뜻이므로 lazy 를 풀고 즉시 받는다.
+          // lazy 인 채로 다시 그리면 안 터지던 조건이 그대로라 또 안 뜬다(가로 스크롤 행에서 관찰됨).
+          loading={retry > 0 ? 'eager' : loading}
           decoding="async"
           key={`${img}:${retry}`}
           onLoad={() => setLoaded(true)}

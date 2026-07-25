@@ -61,9 +61,11 @@ export function CategorySection({
         aria-label={title}
         className="flex gap-2 sm:gap-5 overflow-x-auto pb-2 -mx-4 px-4 sm:-mx-6 sm:px-6 md:-mx-8 md:px-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {visible.map((b) => (
+        {visible.map((b, i) => (
           <div key={b.id} className="shrink-0 w-40 sm:w-56 lg:w-64">
-            <BookCard book={b} />
+            {/* 행에서 곧바로 보이는 앞 3장은 eager — 가로 스크롤 행 안에서 lazy 가 트리거되지
+                않아 행이 통째로 비는 일이 있었다. 나머지는 lazy(가로로 밀어야 보이는 카드). */}
+            <BookCard book={b} eager={i < 3} />
           </div>
         ))}
       </div>
