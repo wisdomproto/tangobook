@@ -15,6 +15,16 @@ if (typeof HTMLCanvasElement !== 'undefined') {
   ) as unknown as HTMLCanvasElement['getContext'];
 }
 
+// jsdom doesn't implement HTMLMediaElement.play/pause — it throws "Not implemented"
+// and returns undefined, so callers doing `audio.play().catch(...)` blow up during
+// commit and take the whole render down (AppBgm did this to every AppShell test).
+// Return a resolved promise so autoplay-with-fallback code paths behave.
+if (typeof HTMLMediaElement !== 'undefined') {
+  HTMLMediaElement.prototype.play = vi.fn(() => Promise.resolve());
+  HTMLMediaElement.prototype.pause = vi.fn();
+  HTMLMediaElement.prototype.load = vi.fn();
+}
+
 // Mock lottie-react — it imports lottie-web which trips over jsdom's canvas stub.
 // In tests we only care that PNG/emoji fallback paths render; Lottie rendering is
 // verified manually in Phase A QA.

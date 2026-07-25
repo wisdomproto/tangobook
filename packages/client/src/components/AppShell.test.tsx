@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AppShell } from './AppShell';
@@ -40,31 +41,44 @@ describe('AppShell sidebar axis visibility', () => {
     vi.restoreAllMocks();
   });
 
-  it('guest (account=null) → 동화책만, 학습 리포팅·친구 초대·파닉스/어휘/게임 숨김', () => {
+  it('guest (account=null) → 동화책·어휘 게임·파닉스, 부모 메뉴·개발자 축 숨김', () => {
     setup(null);
     renderShell();
+    // 일반 노출 3축 — 파닉스는 유닛 전부 공개되며 2026-07-23 부활했다.
     expect(screen.getByText('동화책')).toBeInTheDocument();
-    expect(screen.queryByText('연속재생')).toBeNull(); // 사이드바에서 제거 — 메인화면 "나의 재생 목록"으로 이전
-    expect(screen.queryByText('학습 리포팅')).toBeNull(); // 하단 부모존, 로그인 시만
-    expect(screen.queryByText('친구 초대')).toBeNull();
-    expect(screen.queryByText('파닉스')).toBeNull();
-    expect(screen.queryByText('어휘')).toBeNull();
-    expect(screen.queryByText('학습 게임')).toBeNull();
+    expect(screen.getByText('어휘 게임')).toBeInTheDocument();
+    expect(screen.getByText('파닉스')).toBeInTheDocument();
+    expect(screen.queryByText('연속재생')).toBeNull(); // 사이드바에서 제거 — 메인화면 「묶어 보기」로 이전
+    expect(screen.queryByText('부모 메뉴')).toBeNull(); // 로그인 시만
+    expect(screen.queryByText('어휘')).toBeNull(); // devOnly
+    expect(screen.queryByText('학습 게임')).toBeNull(); // devOnly
   });
 
-  it('일반 부모 계정 → 동화책 + 하단 부모존(학습 리포팅·친구 초대), 연속재생·파닉스/어휘/게임 숨김', () => {
+  it('일반 부모 계정 → 부모 메뉴 노출(기본 접힘 — 펼쳐야 리포팅·초대가 보인다)', () => {
     setup({ email: 'someparent@example.com' });
     renderShell();
     expect(screen.getByText('동화책')).toBeInTheDocument();
-    expect(screen.queryByText('연속재생')).toBeNull(); // 메인화면으로 이전
-    expect(screen.getByText('학습 리포팅')).toBeInTheDocument(); // 하단 부모존 텍스트 링크
-    expect(screen.getByText('친구 초대')).toBeInTheDocument();
-    expect(screen.queryByText('파닉스')).toBeNull();
-    expect(screen.queryByText('어휘')).toBeNull();
-    expect(screen.queryByText('학습 게임')).toBeNull();
+    expect(screen.queryByText('연속재생')).toBeNull();
+    // 부모 작업은 접이식 메뉴 안(2026-07-14) — 접힌 상태에선 항목이 렌더되지 않는다.
+    expect(screen.getByText('부모 메뉴')).toBeInTheDocument();
+    expect(screen.queryByText('학습 리포팅')).toBeNull();
+    expect(screen.queryByText('친구 초대')).toBeNull();
+    expect(screen.queryByText('어휘')).toBeNull(); // devOnly
+    expect(screen.queryByText('학습 게임')).toBeNull(); // devOnly
   });
 
-  it('개발자 계정(kil210@tangobook.co.kr) → 동화책+파닉스+어휘+학습게임 표시, 연속재생 숨김', () => {
+  it('부모 메뉴를 펼치면 학습 리포팅·친구 초대·로그아웃이 나온다', async () => {
+    const user = userEvent.setup();
+    setup({ email: 'someparent@example.com' });
+    renderShell();
+    await user.click(screen.getByText('부모 메뉴'));
+    expect(screen.getByText('학습 리포팅')).toBeInTheDocument();
+    expect(screen.getByText('친구 초대')).toBeInTheDocument();
+    // 로그아웃은 헤더에서 이 자리로 복귀(2026-07-25) — 그 자리는 아이 프로필 칩이 가져갔다.
+    expect(screen.getByText('로그아웃')).toBeInTheDocument();
+  });
+
+  it('개발자 계정(kil210@tangobook.co.kr) → 개발자 전용 축(어휘·학습 게임)까지 표시', () => {
     setup({ email: 'kil210@tangobook.co.kr' });
     renderShell();
     expect(screen.getByText('동화책')).toBeInTheDocument();
