@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { coverTitleFont } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
 import { resolveCover, type CoverInput } from './bookCover.util';
@@ -7,6 +7,13 @@ import { resolveCover, type CoverInput } from './bookCover.util';
 // 요청하면 일부가 드롭(429/네트워크 실패)되고 <img>는 자동 재시도를 안 해 카드가 계속 빈다.
 // → onError 시 지연·재마운트로 재요청. staggered delay + jitter 로 재요청이 몰리지 않게.
 const MAX_COVER_RETRIES = 4;
+
+// 🔴 onError 만으로는 부족하다(2026-07-25). 요청이 **에러 없이 그냥 안 오는** 경우가 있다
+// (스톨·드롭·lazy 트리거 실패). 그러면 onError 가 안 터져 위 재시도가 영영 안 돌고 카드가
+// peach 플레이스홀더인 채 멈춘다 = "한번 안 뜨면 계속 안 뜸"의 남은 절반.
+// → 카드가 화면에 들어온 뒤 이 시간 안에 로드가 안 끝나면 강제로 remount 해 재요청한다.
+//   (화면에 들어왔을 때만 재기 때문에 lazy 의 이점은 유지된다.)
+const COVER_STALL_MS = 6000;
 
 export interface BookCoverProps {
   book: CoverInput;
@@ -34,12 +41,50 @@ export function BookCover({
 
   // 이미지 로드 실패 시 재시도 카운터. img 가 바뀌면 리셋.
   const [retry, setRetry] = useState(0);
-  useEffect(() => setRetry(0), [img]);
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    setRetry(0);
+    setLoaded(false);
+  }, [img]);
   // 마지막 재시도부터는 캐시-버스트 쿼리로 부정 캐시/드롭을 확실히 우회.
   const src = img && retry > 0 ? `${img}${img.includes('?') ? '&' : '?'}cb=${retry}` : img;
 
+  // 스톨 감시 — 카드가 화면에 들어오면 타이머를 걸고, 그 안에 로드가 끝나지 않으면 재요청.
+  // 이미 캐시된 이미지는 즉시 onLoad 가 떠서 타이머가 곧바로 해제되므로 낭비가 없다.
+  const holderRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!img || loaded || retry >= MAX_COVER_RETRIES) return;
+    const el = holderRef.current;
+    if (!el) return;
+    let timer: number | undefined;
+    const arm = () => {
+      if (timer != null) return;
+      timer = window.setTimeout(
+        () => setRetry((r) => (r >= MAX_COVER_RETRIES ? r : r + 1)),
+        COVER_STALL_MS
+      );
+    };
+    // IntersectionObserver 미지원(구형·jsdom)이면 그냥 바로 건다 — 없느니 낫다.
+    if (typeof IntersectionObserver === 'undefined') {
+      arm();
+      return () => window.clearTimeout(timer);
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) arm();
+      },
+      { rootMargin: '200px' }
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      if (timer != null) window.clearTimeout(timer);
+    };
+  }, [img, loaded, retry]);
+
   return (
     <div
+      ref={holderRef}
       className={cn(
         // 로딩 중(이미지 미도착)엔 뒷배경 peach 플레이스홀더가 비쳐 "빈 카드"가 아닌 "로딩 중"으로 보임.
         // 이미지가 도착하면 object-cover 가 위를 덮어 가림.
@@ -56,6 +101,7 @@ export function BookCover({
           loading={loading}
           decoding="async"
           key={`${img}:${retry}`}
+          onLoad={() => setLoaded(true)}
           onError={() => {
             // key 가 retry 를 포함 → 실패할 때마다 img 가 remount 되어 이 클로저의 retry 는 항상 최신.
             if (retry >= MAX_COVER_RETRIES) return;
