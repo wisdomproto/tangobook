@@ -225,7 +225,9 @@ function makeConsonantPlan(consonant: string): ActivityPlan {
         order: 2,
         kind: 'consonant-blend-listen',
         section: 'learn',
-        title: `${consonant} + 모음 배우기`,
+        // 🔴 같은 제목 두 장이 나란히 놓이면 뭐가 다른지 알 수 없다(모음 묶음이 다르다).
+        // 모음 듣기 1/2 · 쓰기 1/2 과 같은 규칙으로 번호를 붙인다.
+        title: `${consonant} + 모음 배우기 1`,
         emoji: '🔗',
         required: true,
         consonant,
@@ -236,7 +238,7 @@ function makeConsonantPlan(consonant: string): ActivityPlan {
         order: 3,
         kind: 'consonant-blend-listen',
         section: 'learn',
-        title: `${consonant} + 모음 배우기`,
+        title: `${consonant} + 모음 배우기 2`,
         emoji: '🔗',
         required: true,
         consonant,
