@@ -95,7 +95,9 @@ describe('PromoBanner', () => {
     });
   });
 
-  describe('trial user (account recent, no paid subscription)', () => {
+  // 가입 완료 사용자(베타 1년 무료 포함) — 전환할 게 없으므로 프로모를 보여주지 않는다.
+  // "무료 체험 423일 남음" 같은 카운트다운이 소음이 된다는 사용자 지적(2026-07-25).
+  describe('signed-up user in the free window (beta year / trial)', () => {
     beforeEach(() => {
       mockUseAuth.mockReturnValue({ account: FAKE_ACCOUNT_RECENT } as ReturnType<typeof useAuth>);
       mockUseEntitlement.mockReturnValue({
@@ -105,27 +107,26 @@ describe('PromoBanner', () => {
       });
     });
 
-    it('renders the banner region', () => {
+    it('shows no trial countdown', () => {
       renderBanner();
-      expect(screen.getByRole('region', { name: '프로모션 배너' })).toBeInTheDocument();
+      expect(
+        screen.queryByText(
+          (_, el) => el?.tagName === 'P' && /무료 체험 \d+일 남음/.test(el.textContent ?? '')
+        )
+      ).toBeNull();
     });
 
-    it('shows trial days remaining in headline (count kept, N일 emphasized)', () => {
-      renderBanner();
-      // trialDaysLeft is ceil((7d - 2d elapsed)) = 5 — days-first copy still shows the number.
-      // 'N일' 은 별도 span 으로 강조되어 텍스트가 분리되므로 h2 의 textContent 로 매칭.
-      const line = screen.getByText(
-        (_, el) => el?.tagName === 'P' && /무료 체험 \d+일 남음/.test(el.textContent ?? '')
-      );
-      expect(line).toBeInTheDocument();
-      // 강조된 'N일' span 존재 확인
-      expect(line.querySelector('.text-coral-600')?.textContent).toMatch(/\d+일/);
-    });
-
-    it('shows share button (not start CTA — referral moot under 1yr free)', () => {
+    it('shows no promo CTA (neither signup nor share)', () => {
       renderBanner();
       expect(screen.queryByRole('button', { name: '무료로 시작하기' })).toBeNull();
-      expect(screen.getByRole('button', { name: '공유하기' })).toBeInTheDocument();
+      expect(screen.queryByRole('button', { name: '공유하기' })).toBeNull();
+    });
+
+    it('hides the whole bar on mobile (nothing left to show there)', () => {
+      renderBanner();
+      const bar = screen.getByRole('region', { name: '프로모션 배너' });
+      expect(bar.className).toContain('hidden');
+      expect(bar.className).toContain('md:flex');
     });
   });
 

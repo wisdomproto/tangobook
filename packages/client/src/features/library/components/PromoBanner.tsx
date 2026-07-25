@@ -1,12 +1,13 @@
 import { useState, type ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { computeAccess } from '@tangobook/shared';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useEntitlement } from '@/features/payment/hooks/useEntitlement';
 import { PAYWALL_ENABLED } from '@/features/access/config';
 import { useGuestMode } from '@/features/access/hooks/useGuestMode';
 import { InstallPwaButton } from '@/components/InstallPwaButton';
+import { cn } from '@/lib/cn';
 
 const SHARE_URL = 'https://www.tangobook.co.kr';
 
@@ -15,12 +16,12 @@ const SHARE_URL = 'https://www.tangobook.co.kr';
  *   left  = promo copy + CTA (guest signup / share)
  *   right = 홈에 설치 (+ 로그인 when logged out) — **desktop only**
  *
- * Copy changes from account age + real subscription data (decoupled from
- * PAYWALL_ENABLED so the countdown shows before paywall goes live):
+ * 🔴 The promo only shows to someone with something left to convert:
  *   - guest   → "1 year free" signup hook, or "게스트 N일 남음" during the guest window
- *   - trial   → days remaining + share button (beta = 1yr free, referral moot)
  *   - expired → subscribe hook + share button
- *   - subscribed → promo text hidden, bar keeps the install button
+ *   - signed up (trial / beta year / subscribed) → no promo. They already have the
+ *     benefit, so a "무료 체험 423일 남음" countdown is just noise. With nothing left
+ *     in the bar on mobile, the whole thing hides there.
  *
  * 🔴 Where the chrome lives, so it never doubles up (2026-07-25):
  *   mobile  → AppShell header (hamburger + logo + 설치 + 프로필 칩); this bar shows promo only
@@ -44,30 +45,21 @@ export function PromoBanner() {
     trialStartedAt,
   });
 
-  const isSubscribed = raw.status === 'subscribed';
   const isGuest = raw.status === 'guest';
-  const isTrial = raw.status === 'trial';
+  const isExpired = raw.status === 'expired';
 
-  // 프로모 문구 — 구독자는 문구 없이 버튼만(로그아웃 도달 유지).
-  let headline: ReactNode;
+  // 🔴 프로모는 **아직 전환할 게 남은 사람에게만** 보여준다(2026-07-25).
+  // 이미 가입한 사용자는 베타 1년 무료를 갖고 있어 "무료 체험 423일 남음" 같은 카운트다운이
+  // 할 일 없는 소음이 된다 → 게스트(가입 유도)와 만료(구독 유도)만 노출.
+  const showPromo = isGuest || (isExpired && PAYWALL_ENABLED);
+
+  let headline: ReactNode = null;
   if (isGuest && guestMode.active) {
     // 게스트 모드 30일 창 — 남은 일수를 보여줘 가입 전환을 재촉(CTA 는 그대로 가입).
     headline = t('entryGate.guestDays', { days: guestMode.daysLeft });
   } else if (isGuest) {
     headline = t('promo.guestHeadline');
-  } else if (isTrial) {
-    // 남은 일수 강조 — 코랄색(부모 요청). 상실 프레이밍은 피함.
-    headline = (
-      <Trans
-        t={t}
-        i18nKey="promo.trialHeadline"
-        values={{ days: raw.trialDaysLeft }}
-        components={{ big: <span className="text-coral-600 text-[1.15em] tabular-nums" /> }}
-      />
-    );
-  } else if (!PAYWALL_ENABLED) {
-    headline = t('promo.preOpenHeadline');
-  } else {
+  } else if (isExpired) {
     headline = t('promo.expiredHeadline');
   }
 
@@ -95,12 +87,17 @@ export function PromoBanner() {
 
   return (
     <div
-      className="w-full rounded-2xl shadow-soft mb-6 px-4 py-2.5 md:py-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4 bg-gradient-to-r from-cream-50 to-peach-100"
+      className={cn(
+        'w-full rounded-2xl shadow-soft mb-6 px-4 py-2.5 md:py-3 flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4 bg-gradient-to-r from-cream-50 to-peach-100',
+        // 프로모가 없으면(가입 완료 사용자) 남는 건 데스크탑 전용 버튼뿐 →
+        // 모바일에선 빈 바가 되므로 통째로 숨긴다.
+        showPromo ? 'flex' : 'hidden md:flex'
+      )}
       role="region"
       aria-label={t('promo.region')}
     >
-      {/* 좌 — 프로모 문구 + CTA (구독자는 숨김) */}
-      {!isSubscribed && (
+      {/* 좌 — 프로모 문구 + CTA. 가입 완료(체험/구독) 사용자는 전환할 게 없어 숨김. */}
+      {showPromo && (
         <div className="flex items-center gap-2 sm:gap-3 min-w-0">
           <p className="text-sm md:text-base font-black font-display text-ink-900 break-keep leading-tight">
             {headline}
