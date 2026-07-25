@@ -205,6 +205,15 @@
   .paste-box.busy { opacity: .5; }
   .grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
   @media (max-width: 720px) { .grid2 { grid-template-columns: 1fr; } }
+
+  /* 타겟 단어 카드 */
+  .wc-unit { margin-top: 22px; }
+  .wc-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+  .wc-head .glyph { font-size: 15px; }
+  .wc-head a { color: var(--bark); font-weight: 800; text-decoration: none; font-size: 14.5px; }
+  .wc-head a:hover { color: var(--apple); text-decoration: underline; }
+  .wc-head .lv { font-size: 12.5px; color: var(--ink-soft); font-weight: 700; }
+  .wc-head .copy-btn { margin-left: auto; }
 </style>
 </head>
 <body>
@@ -443,6 +452,27 @@
     <p class="lead muted" style="margin-top:12px;font-size:13px">🖼️ 각 카드 아래 상자에 확정된 니들펠트 레퍼런스 시트를 붙여넣어 보관합니다 (R2: <code>comic-assets/hangeul-tree-plan</code>). 저장한 이미지는 모든 유닛의 프롬프트에 재사용됩니다.</p>
   </section>
 
+  <!-- 타겟 단어 카드 프롬프트 -->
+  <section>
+    <div class="sec-head">
+      <span class="dot">🍎</span>
+      <div>
+        <h2>타겟 단어 카드 프롬프트</h2>
+        <div class="sub">유닛별 타겟 단어 = 니들펠트 사물 카드. 유닛 단위 배치 복사 / 카드별 개별 복사 + 이미지 보관</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="char-prompt" style="border:none;padding:0;box-shadow:none">
+        <div class="head"><span class="face">🍎</span><b>단어 카드 스타일 앵커</b> <button class="copy-btn">스타일 복사</button></div>
+        <details><summary>프롬프트 보기</summary><pre id="wc-style-pre"></pre></details>
+      </div>
+      <p class="lead muted" style="margin-top:12px;font-size:13.5px">쪽 삽화는 16:9 스프레드지만 <b>단어 카드는 1:1 정사각·사물 하나·크림 무지 배경</b>입니다 (게임·플래시카드에서 나란히 놓이므로 한 세트로 보여야 함). 카드에는 <b>글자를 넣지 않습니다</b> — 단어 텍스트는 앱이 따로 표시합니다(모음 열매 카드만 예외). 캐릭터가 들어가는 단어(엄마·아빠·동생 등)는 기획서에 저장된 <b>캐스트 레퍼런스 시트를 함께 첨부</b>하세요. 생성한 카드는 각 상자에 붙여넣어 보관합니다 (R2: <code>comic-assets/hangeul-tree-plan</code>).</p>
+    </div>
+
+    <div id="wc-units"></div>
+  </section>
+
   <!-- 워크플로우 -->
   <section>
     <div class="sec-head">
@@ -473,6 +503,242 @@
   </footer>
 
 </div>
+
+<script>
+// ── 타겟 단어 카드 생성 (아래 복사·붙여넣기 스크립트보다 먼저 DOM 을 만들어야 함) ──
+(function () {
+  var WORD_STYLE = [
+    '[스타일] 한글 나무 · 호리네 파닉스 동화 — 타겟 단어 카드. 그림체 = 니들펠트(양모 인형) 스톱모션 룩 (needle-felted wool plush, handmade felt stop-motion).',
+    '보송보송한 양모 펠트 섬유 질감이 살아있는 폭신한 3D 오브제, 통통하고 둥글둥글한 형태, 부드러운 스튜디오 조명과 은은한 실제 그림자, 밝고 채도 높은 색감.',
+    '평면 2D 아님·그림물감 아님·매끈한 CG/클레이 아님 — 양모 섬유 질감이 반드시 보여야 함 (visible wool-felt fibers).',
+    '동물·사람이 들어가는 단어는 본편과 같은 슈퍼-디폼드 치비 비율(머리≈몸통 1.3배, 크고 둥근 눈, 분홍 볼터치)로 그린다.',
+  ].join(' ');
+  var RULES = [
+    '[규칙] 대상 하나만 화면 가운데에 크게 · 배경은 크림색(#FBF7EF) 무지 또는 아주 옅은 펠트 천 질감 · 바닥에 부드러운 그림자 하나 ·',
+    '글자·숫자·캡션·말풍선 글씨·워터마크 없음 · 화면비 1:1 정사각 · 4~5세가 한눈에 알아보게 단순하고 또렷하게.',
+  ].join(' ');
+
+  var UNITS = [
+    { id: 'h1-u01', lv: '한글1 · 기본음절', glyph: '모음', words: [
+      ['모음 열매', 'moeum', 'ㅏ ㅑ ㅓ ㅕ ㅗ ㅛ ㅜ ㅠ ㅡ ㅣ 열 글자가 하나씩 도톰하게 새겨진 동그란 펠트 열매 10개를 2줄로 가지런히 배열 (🔴 이 카드만 예외로 한글 글자를 그린다)'] ] },
+    { id: 'h1-u02', lv: '한글1 · 기본음절', glyph: 'ㄱ', words: [
+      ['고기', 'gogi', '먹음직하게 구운 고기 한 점, 살짝 김이 오름'],
+      ['가구', 'gagu', '나란히 놓인 작은 의자와 서랍장'],
+      ['아기', 'agi', '포대기에 싸여 방긋 웃는 아기'],
+      ['야구', 'yagu', '야구공 하나와 나무 방망이'] ] },
+    { id: 'h1-u03', lv: '한글1 · 기본음절', glyph: 'ㄴ', words: [
+      ['나', 'na', '자기 가슴을 손바닥으로 가리키는 아기 동물 한 마리(반신)'],
+      ['너', 'neo', '마주 본 두 친구가 서로를 손가락으로 가리키는 모습'],
+      ['누나', 'nuna', '어린 동생의 손을 다정하게 잡아주는 큰 누나(누나가 조금 더 큼)'],
+      ['누구야', 'nuguya', '고개를 갸웃 돌려 뒤를 두리번거리는 아기 동물과 물음표 하나'] ] },
+    { id: 'h1-u04', lv: '한글1 · 기본음절', glyph: 'ㄷ', words: [
+      ['두유', 'duyu', '컵 옆에 세워둔 두유 팩 하나'],
+      ['도마', 'doma', '나무 도마 위에 썰어둔 채소 몇 조각'],
+      ['기도', 'gido', '가지런히 모은 두 손'],
+      ['구두', 'gudu', '반짝반짝 윤이 나는 구두 한 켤레'] ] },
+    { id: 'h1-u05', lv: '한글1 · 기본음절', glyph: 'ㄹ', words: [
+      ['오리', 'ori', '뒤뚱뒤뚱 걷는 노란 오리 한 마리'],
+      ['너구리', 'neoguri', '눈가에 검은 무늬가 있는 통통한 너구리'],
+      ['다리', 'dari', '개울 위에 놓인 작은 나무다리(신체 다리 아님)'],
+      ['노루', 'noru', '뿔이 작은 갈색 노루'] ] },
+    { id: 'h1-u06', lv: '한글1 · 기본음절', glyph: 'ㅁ', words: [
+      ['머리', 'meori', '빗으로 머리카락을 빗는 모습(머리 부분 클로즈업)'],
+      ['모두', 'modu', '손을 맞잡고 둥글게 선 친구들 여럿'],
+      ['모기', 'mogi', '동글동글 귀엽게 그린 모기 한 마리'],
+      ['거미', 'geomi', '거미줄에 매달려 방긋 웃는 통통한 거미'] ] },
+    { id: 'h1-u07', lv: '한글1 · 기본음절', glyph: 'ㅂ', words: [
+      ['바다', 'bada', '파란 파도와 모래 위 조개 하나'],
+      ['비누', 'binu', '거품이 뽀글뽀글 이는 동그란 비누'],
+      ['나비', 'nabi', '날개를 활짝 편 노랑나비'],
+      ['두부', 'dubu', '네모 반듯한 하얀 두부 한 모 (🔴 강아지 캐릭터 두부가 아니라 음식 두부)'] ] },
+    { id: 'h1-u08', lv: '한글1 · 기본음절', glyph: 'ㅅ', words: [
+      ['사자', 'saja', '풍성한 갈기의 사자 얼굴'],
+      ['버스', 'beoseu', '창문이 여러 개 달린 노란 버스 한 대(측면)'],
+      ['가수', 'gasu', '마이크를 들고 노래하는 아기 동물'],
+      ['미소', 'miso', '눈이 반달이 되도록 방긋 웃는 얼굴'] ] },
+    { id: 'h1-u09', lv: '한글1 · 기본음절', glyph: 'ㅇ', words: [
+      ['우주', 'uju', '별이 총총한 까만 밤하늘과 작은 로켓'],
+      ['여우', 'yeou', '꼬리가 복슬복슬한 여우 얼굴'],
+      ['우유', 'uyu', '하얀 우유가 가득 담긴 컵'],
+      ['어부', 'eobu', '작은 배 위에서 그물을 든 어부'] ] },
+    { id: 'h1-u10', lv: '한글1 · 기본음절', glyph: 'ㅈ', words: [
+      ['지구', 'jigu', '파랑·초록이 어우러진 동그란 지구'],
+      ['지도', 'jido', '돌돌 말렸다 펼쳐진 보물지도 한 장(글자 없이 길과 표시만)'],
+      ['자두', 'jadu', '빨갛고 통통한 자두 한 알'],
+      ['모자', 'moja', '챙이 넓은 모자 하나'] ] },
+    { id: 'h1-u11', lv: '한글1 · 기본음절', glyph: 'ㅊ', words: [
+      ['치마', 'chima', '펄럭이는 노란 치마'],
+      ['치즈', 'chijeu', '구멍이 뽕뽕 뚫린 노란 치즈 조각'],
+      ['마차', 'macha', '바퀴 달린 예쁜 말 마차'],
+      ['기차', 'gicha', '칙칙폭폭 연기를 내뿜는 빨간 기차'] ] },
+    { id: 'h1-u12', lv: '한글1 · 기본음절', glyph: 'ㅋ', words: [
+      ['쿠키', 'kuki', '초코칩이 콕콕 박힌 쿠키 한 개'],
+      ['코코아', 'kokoa', '마시멜로가 동동 뜬 따뜻한 코코아 머그'],
+      ['마이크', 'maikeu', '동그란 머리의 손 마이크 하나'],
+      ['카드', 'kadeu', '하트가 그려진 카드 한 장'] ] },
+    { id: 'h1-u13', lv: '한글1 · 기본음절', glyph: 'ㅌ', words: [
+      ['타조', 'tajo', '목이 길쭉한 타조 한 마리'],
+      ['하트', 'hateu', '빨갛고 도톰한 하트 하나'],
+      ['기타', 'gita', '줄이 여섯 개인 통기타'],
+      ['치타', 'chita', '점박이 무늬의 치타'] ] },
+    { id: 'h1-u14', lv: '한글1 · 기본음절', glyph: 'ㅍ', words: [
+      ['피자', 'pija', '치즈가 늘어나는 삼각 피자 한 조각'],
+      ['파리', 'pari', '작고 귀엽게 그린 파리 한 마리'],
+      ['포도', 'podo', '알이 굵은 보라 포도송이'],
+      ['소파', 'sopa', '폭신한 초록 소파'] ] },
+    { id: 'h1-u15', lv: '한글1 · 기본음절', glyph: 'ㅎ', words: [
+      ['하마', 'hama', '입을 크게 벌린 통통한 하마'],
+      ['호두', 'hodu', '단단한 호두 두 알(하나는 반으로 쪼개짐)'],
+      ['휴지', 'hyuji', '도르르 풀린 두루마리 휴지'],
+      ['호수', 'hosu', '잔잔한 물결이 이는 파란 호수'] ] },
+
+    { id: 'h2-u01', lv: '한글2 · 받침', glyph: '받침 ㅇ', words: [
+      ['형', 'hyeong', '손을 흔드는 든든한 큰 곰 형'],
+      ['풍덩', 'pungdeong', '물방울이 사방으로 튀는 웅덩이'],
+      ['농구', 'nonggu', '농구공과 골대'],
+      ['시장', 'sijang', '과일이 수북이 쌓인 시장 좌판'] ] },
+    { id: 'h2-u02', lv: '한글2 · 받침', glyph: '받침 ㄱ', words: [
+      ['학교', 'hakgyo', '작고 아담한 학교 건물'],
+      ['축구', 'chukgu', '검정·하양 축구공 하나'],
+      ['악어', 'ageo', '방긋 웃는 귀여운 초록 악어'],
+      ['탁구', 'takgu', '탁구채 두 개와 작은 흰 공'] ] },
+    { id: 'h2-u03', lv: '한글2 · 받침', glyph: '받침 ㄴ', words: [
+      ['손', 'son', '활짝 펼친 손바닥 하나'],
+      ['눈', 'nun', '동그랗고 반짝이는 두 눈(신체의 눈, 내리는 눈 아님)'],
+      ['언니', 'eonni', '다정하게 웃는 언니 토끼'],
+      ['잔디', 'jandi', '푸릇푸릇한 잔디밭 한 뙈기'] ] },
+    { id: 'h2-u04', lv: '한글2 · 받침', glyph: '받침 ㄹ', words: [
+      ['별', 'byeol', '노랗게 반짝이는 별 하나'],
+      ['달', 'dal', '둥글고 노란 보름달'],
+      ['하늘', 'haneul', '별이 뜬 밤하늘 한 조각'],
+      ['가을', 'gaeul', '노랗고 빨간 낙엽 몇 장과 도토리'] ] },
+    { id: 'h2-u05', lv: '한글2 · 받침', glyph: '받침 ㅅ', words: [
+      ['옷', 'ot', '단추 달린 티셔츠 한 벌'],
+      ['로봇', 'robot', '네모난 몸에 안테나가 달린 꼬마 로봇'],
+      ['비옷', 'biot', '모자 달린 노란 우비'],
+      ['그릇', 'geureut', '밥이 소복이 담긴 동그란 그릇'] ] },
+    { id: 'h2-u06', lv: '한글2 · 받침', glyph: '받침 ㅁ', words: [
+      ['몸', 'mom', '팔다리를 쭉 뻗어 스트레칭하는 아기 동물 전신'],
+      ['엄마', 'eomma', '다정하게 웃는 엄마 호랑이 얼굴 (호리네 엄마 레퍼런스 첨부)'],
+      ['염소', 'yeomso', '뿔이 달린 하얀 염소'],
+      ['구름', 'gureum', '두둥실 떠 있는 뭉게구름'] ] },
+    { id: 'h2-u07', lv: '한글2 · 받침', glyph: '받침 ㅂ', words: [
+      ['집', 'jip', '지붕과 창문이 있는 아담한 집'],
+      ['컵', 'keop', '손잡이 달린 컵 하나'],
+      ['입술', 'ipsul', '도톰하고 발그레한 입술'],
+      ['김밥', 'gimbap', '동글동글 썰어 놓은 김밥 몇 개'] ] },
+
+    { id: 'h3-u01', lv: '한글3 · 쌍자음', glyph: 'ㄲ', words: [
+      ['꿀벌', 'kkulbeol', '노랑·검정 줄무늬의 꿀벌 한 마리'],
+      ['꼬끼오', 'kkokkio', '벼슬을 세우고 목을 쭉 빼 우는 수탉'],
+      ['토끼', 'tokki', '귀가 길쭉한 하얀 토끼'],
+      ['코끼리', 'kokkiri', '긴 코를 위로 든 회색 코끼리'] ] },
+    { id: 'h3-u02', lv: '한글3 · 쌍자음', glyph: 'ㄸ', words: [
+      ['떡국', 'tteokguk', '김이 모락모락 나는 떡국 한 그릇'],
+      ['똑딱', 'ttokttak', '바늘이 또렷한 동그란 벽시계'],
+      ['땅콩', 'ttangkong', '껍질째 놓인 땅콩 몇 알(하나는 까져 있음)'],
+      ['딸기', 'ttalgi', '꼭지가 초록인 빨간 딸기 두 알'] ] },
+    { id: 'h3-u03', lv: '한글3 · 쌍자음', glyph: 'ㅃ', words: [
+      ['오빠', 'oppa', '가방을 메고 손 흔드는 큰 남자아이'],
+      ['뽀뽀', 'ppoppo', '두 볼이 맞닿아 쪽 하는 순간과 작은 하트 하나'],
+      ['빨래', 'ppallae', '빨랫줄에 널린 옷 두 벌과 집게'],
+      ['아빠', 'appa', '웃는 아빠 호랑이 얼굴 (호리네 아빠 레퍼런스 첨부)'] ] },
+    { id: 'h3-u04', lv: '한글3 · 쌍자음', glyph: 'ㅆ', words: [
+      ['씨앗', 'ssiat', '동글동글한 씨앗 몇 알'],
+      ['새싹', 'saessak', '흙을 뚫고 빼꼼 올라온 연둣빛 새싹'],
+      ['쓱싹', 'sseuksak', '작은 삽으로 흙을 쓱싹 덮는 모습과 흙무더기'],
+      ['썰매', 'sseolmae', '눈 위를 미끄러지는 나무 썰매'] ] },
+    { id: 'h3-u05', lv: '한글3 · 쌍자음', glyph: 'ㅉ', words: [
+      ['찐빵', 'jjinppang', '김이 모락모락 나는 하얀 찐빵'],
+      ['짝꿍', 'jjakkung', '손을 맞잡고 나란히 선 곰과 호랑이 둘'],
+      ['쫑긋', 'jjonggeut', '쫑긋 세운 토끼 귀(얼굴 윗부분 클로즈업)'],
+      ['쪽지', 'jjokji', '반으로 접힌 작은 쪽지 한 장(글자 없음)'] ] },
+
+    { id: 'h4-u01', lv: '한글4 · 복잡한 모음', glyph: 'ㅐㅔ', words: [
+      ['고래', 'gorae', '물을 뿜는 파란 고래'],
+      ['동생', 'dongsaeng', '포대기에 싸인 아기 호랑이 (호야 레퍼런스 첨부)'],
+      ['레몬', 'remon', '싱싱한 노란 레몬 한 알(반쪽 함께)'],
+      ['베개', 'begae', '폭신하게 부푼 베개 하나'] ] },
+    { id: 'h4-u02', lv: '한글4 · 복잡한 모음', glyph: 'ㅖㅚ', words: [
+      ['계란', 'gyeran', '하얀 달걀 하나와 옆에 반숙 프라이 하나'],
+      ['예절', 'yejeol', '마주 보고 꾸벅 인사하는 두 친구'],
+      ['시계', 'sigye', '숫자판이 또렷한 동그란 벽시계'],
+      ['얘기', 'yaegi', '도란도란 이야기 나누는 두 친구와 글자 없는 빈 말풍선 두 개'] ] },
+    { id: 'h4-u03', lv: '한글4 · 복잡한 모음', glyph: 'ㅟㅢ', words: [
+      ['참외', 'chamoe', '세로 줄무늬가 있는 노란 참외 한 알'],
+      ['열쇠', 'yeolsoe', '반짝이는 금색 열쇠 하나'],
+      ['생쥐', 'saengjwi', '동그란 귀의 귀여운 회색 생쥐'],
+      ['가위', 'gawi', '손잡이가 색색인 가위'] ] },
+    { id: 'h4-u04', lv: '한글4 · 복잡한 모음', glyph: 'ㅘㅙ', words: [
+      ['과자', 'gwaja', '봉지에서 쏟아진 과자 몇 조각'],
+      ['사과', 'sagwa', '꼭지 달린 빨갛고 동그란 사과 한 알'],
+      ['화가', 'hwaga', '붓과 물감 팔레트'],
+      ['횃불', 'hwaetbul', '자루 끝에 작은 불꽃이 타오르는 횃불 하나(작고 따뜻하게, 무섭지 않게)'] ] },
+    { id: 'h4-u05', lv: '한글4 · 복잡한 모음', glyph: 'ㅝㅞㅢ', words: [
+      ['권투', 'gwontu', '폭신한 빨간 권투 글러브 한 쌍'],
+      ['스웨터', 'seuweteo', '도톰하게 짠 니트 스웨터 한 벌'],
+      ['의자', 'uija', '등받이가 있는 노란 의자'],
+      ['의사', 'uisa', '청진기를 목에 건 흰 가운 곰돌이'] ] },
+  ];
+
+  var pre = document.getElementById('wc-style-pre');
+  if (pre) pre.textContent = WORD_STYLE + '\n\n' + RULES;
+
+  function wordLine(w) { return '· ' + w[0] + ' (' + w[1] + ') — ' + w[2]; }
+  function onePrompt(u, w) {
+    return WORD_STYLE + '\n\n[단어 카드] ' + u.lv + ' · ' + u.glyph + ' 유닛\n' + wordLine(w) + '\n\n' + RULES;
+  }
+  function unitPrompt(u) {
+    return WORD_STYLE + '\n\n[출력] 아래 ' + u.words.length + '개 단어를 각각 독립된 1:1 정사각 단어 카드로 그린다 (총 ' + u.words.length +
+      '장, 순서대로). ' + u.lv + ' · ' + u.glyph + ' 유닛. 네 장이 배경·조명·질감·크기감까지 한 세트로 보이게 통일한다.\n\n' +
+      u.words.map(wordLine).join('\n') + '\n\n' + RULES;
+  }
+
+  var host = document.getElementById('wc-units');
+  if (!host) return;
+  var lastLv = '';
+  UNITS.forEach(function (u) {
+    if (u.lv !== lastLv) {
+      lastLv = u.lv;
+      var band = document.createElement('div');
+      band.className = 'level-band';
+      band.innerHTML = '<span class="lv">' + u.lv + '</span>';
+      host.appendChild(band);
+    }
+    var uid = u.id.replace('-', '');
+    var box = document.createElement('div');
+    box.className = 'wc-unit';
+    var head = document.createElement('div');
+    head.className = 'wc-head';
+    head.innerHTML = '<span class="glyph">' + u.glyph + '</span>' +
+      '<a href="hangeul-tree-kr-' + u.id + '.html">' + u.id + '</a>' +
+      '<span class="lv">' + u.words.map(function (w) { return w[0]; }).join(' · ') + '</span>' +
+      '<button class="copy-btn" type="button">📋 ' + u.words.length + '장 배치 복사</button>';
+    head.querySelector('button').addEventListener('click', function () {
+      var btn = this;
+      navigator.clipboard.writeText(unitPrompt(u)).then(function () {
+        var o = btn.textContent; btn.textContent = '복사됨 ✓'; btn.classList.add('done');
+        setTimeout(function () { btn.textContent = o; btn.classList.remove('done'); }, 1600);
+      }, function () { window.prompt('복사가 막혔어요 — 직접 복사하세요:', unitPrompt(u)); });
+    });
+    box.appendChild(head);
+    var grid = document.createElement('div');
+    grid.className = 'grid2';
+    u.words.forEach(function (w) {
+      var card = document.createElement('div');
+      card.className = 'char-prompt';
+      card.setAttribute('data-key', 'word-' + uid + '-' + w[1]);
+      card.innerHTML = '<div class="head"><b>' + w[0] + '</b> <span class="rom">' + w[1] + '</span>' +
+        ' <button class="copy-btn" type="button">프롬프트 복사</button></div>' +
+        '<details><summary>프롬프트 보기</summary><pre></pre></details>';
+      card.querySelector('pre').textContent = onePrompt(u, w);
+      grid.appendChild(card);
+    });
+    box.appendChild(grid);
+    host.appendChild(box);
+  });
+})();
+</script>
 
 <script>
 // ── 프롬프트 복사 (스타일 앵커) ──
