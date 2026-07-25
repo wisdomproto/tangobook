@@ -15,6 +15,22 @@ const MAX_COVER_RETRIES = 4;
 //   (화면에 들어왔을 때만 재기 때문에 lazy 의 이점은 유지된다.)
 const COVER_STALL_MS = 2500;
 
+// 🔴 표지 원본은 1536px(~125KB)인데 카드는 160~256px 로 그린다 — 라이브러리 한 화면이
+// 표지만 ~11MB. 그래서 512px webp 썸네일(~27KB)을 먼저 쓴다.
+// 키 규칙은 결정적(`thumbs/512/<원본 key>`)이라 URL 만으로 유도한다 → 서버·데이터 변경 없음.
+// 아직 썸네일이 없는 표지는 404 → onError 에서 원본으로 1회 폴백하므로 안전하다.
+// 생성 스크립트: packages/server/scripts/generate-cover-thumbs.mjs
+function thumbUrl(src: string): string | null {
+  try {
+    const u = new URL(src);
+    if (u.search || u.pathname.startsWith('/thumbs/')) return null; // 캐시버스트 중이거나 이미 썸네일
+    u.pathname = `/thumbs/512${u.pathname}`;
+    return u.toString();
+  } catch {
+    return null; // 상대경로 등 — 원본 그대로
+  }
+}
+
 export interface BookCoverProps {
   book: CoverInput;
   lang: string;
@@ -42,12 +58,19 @@ export function BookCover({
   // 이미지 로드 실패 시 재시도 카운터. img 가 바뀌면 리셋.
   const [retry, setRetry] = useState(0);
   const [loaded, setLoaded] = useState(false);
+  // 썸네일이 없는(아직 안 구운) 표지는 404 → 한 번만 원본으로 내려간다.
+  const [thumbFailed, setThumbFailed] = useState(false);
   useEffect(() => {
     setRetry(0);
     setLoaded(false);
+    setThumbFailed(false);
   }, [img]);
+
+  // 재시도 중엔 캐시버스트가 붙어 썸네일 규칙을 못 쓰므로 원본으로 간다.
+  const thumb = img && !thumbFailed && retry === 0 ? thumbUrl(img) : null;
+  const base = thumb ?? img;
   // 마지막 재시도부터는 캐시-버스트 쿼리로 부정 캐시/드롭을 확실히 우회.
-  const src = img && retry > 0 ? `${img}${img.includes('?') ? '&' : '?'}cb=${retry}` : img;
+  const src = base && retry > 0 ? `${base}${base.includes('?') ? '&' : '?'}cb=${retry}` : base;
 
   // 스톨 감시 — 카드가 화면에 들어오면 타이머를 걸고, 그 안에 로드가 끝나지 않으면 재요청.
   // 이미 캐시된 이미지는 즉시 onLoad 가 떠서 타이머가 곧바로 해제되므로 낭비가 없다.
@@ -102,9 +125,14 @@ export function BookCover({
           // lazy 인 채로 다시 그리면 안 터지던 조건이 그대로라 또 안 뜬다(가로 스크롤 행에서 관찰됨).
           loading={retry > 0 ? 'eager' : loading}
           decoding="async"
-          key={`${img}:${retry}`}
+          key={`${src}:${retry}`}
           onLoad={() => setLoaded(true)}
           onError={() => {
+            // 썸네일이 아직 없는 표지 → 재시도가 아니라 원본으로 즉시 폴백(1회).
+            if (thumb) {
+              setThumbFailed(true);
+              return;
+            }
             // key 가 retry 를 포함 → 실패할 때마다 img 가 remount 되어 이 클로저의 retry 는 항상 최신.
             if (retry >= MAX_COVER_RETRIES) return;
             // 400ms·800ms·1.2s·1.6s + jitter — 재요청이 동시에 몰리지 않게 분산.

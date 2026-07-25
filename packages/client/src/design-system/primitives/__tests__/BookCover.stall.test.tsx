@@ -21,6 +21,23 @@ function srcOf() {
   return (screen.getByRole('img') as HTMLImageElement).getAttribute('src') ?? '';
 }
 
+describe('BookCover — 512px 썸네일', () => {
+  it('원본 대신 thumbs/512 를 먼저 요청한다', () => {
+    render(<BookCover book={BOOK} lang="ko" />);
+    expect(srcOf()).toBe('https://assets.tangobook.co.kr/thumbs/512/cover.webp');
+  });
+
+  it('썸네일이 없으면(404) 재시도가 아니라 원본으로 폴백한다', () => {
+    render(<BookCover book={BOOK} lang="ko" />);
+    act(() => {
+      screen.getByRole('img').dispatchEvent(new Event('error'));
+    });
+    // 캐시버스트(재시도) 가 아니라 원본 URL 이어야 한다
+    expect(srcOf()).toBe('https://assets.tangobook.co.kr/cover.webp');
+    expect(srcOf()).not.toContain('cb=');
+  });
+});
+
 describe('BookCover — 스톨 복구', () => {
   beforeEach(() => vi.useFakeTimers());
   afterEach(() => vi.useRealTimers());
