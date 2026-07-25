@@ -30,5 +30,17 @@
     "share": "分享",
     "shareText": "Tangobook — 给孩子的 AI 绘本。现在注册，免费 1 年！",
     "shareCopied": "已复制链接！"
+  },
+  "entryGate": {
+    "title": "欢迎来到 Tangobook！",
+    "sub": "和孩子一起读的 AI 绘本",
+    "guestBtn": "以访客身份浏览",
+    "guestNote": "免费 30 天 · 学习记录仅保存在本设备",
+    "signupBtn": "注册 — 免费 1 年",
+    "signupNote": "所有绘本免费 1 年 · 学习记录安全保存",
+    "loginBtn": "我已有账号",
+    "expiredTitle": "访客 30 天已结束",
+    "expiredSub": "注册后可免费畅读所有绘本 1 年，学习记录也会安全保存。",
+    "guestDays": "访客 · 剩余 {{days}} 天"
   }
 }

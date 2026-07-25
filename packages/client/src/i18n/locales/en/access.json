@@ -30,5 +30,17 @@
     "share": "Share",
     "shareText": "Tangobook — AI picture books for kids. Sign up now for 1 year free!",
     "shareCopied": "Link copied!"
+  },
+  "entryGate": {
+    "title": "Welcome to Tangobook!",
+    "sub": "AI picture books to read with your child",
+    "guestBtn": "Browse as guest",
+    "guestNote": "30 days free · Progress saved on this device only",
+    "signupBtn": "Sign up — 1 year free",
+    "signupNote": "Every story free for 1 year · Progress saved safely",
+    "loginBtn": "I already have an account",
+    "expiredTitle": "Your 30 guest days are over",
+    "expiredSub": "Sign up to enjoy every story free for 1 year, with your progress saved safely.",
+    "guestDays": "Guest · {{days}} days left"
   }
 }

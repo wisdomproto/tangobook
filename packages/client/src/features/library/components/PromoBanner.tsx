@@ -5,6 +5,7 @@ import { computeAccess } from '@tangobook/shared';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useEntitlement } from '@/features/payment/hooks/useEntitlement';
 import { PAYWALL_ENABLED } from '@/features/access/config';
+import { useGuestMode } from '@/features/access/hooks/useGuestMode';
 import { InstallPwaButton } from '@/components/InstallPwaButton';
 
 const SHARE_URL = 'https://www.tangobook.co.kr';
@@ -31,6 +32,7 @@ export function PromoBanner() {
   const navigate = useNavigate();
   const { account, session, signOut, isConfigured } = useAuth();
   const { paidUntil, referralBonusDays, trialStartedAt } = useEntitlement();
+  const guestMode = useGuestMode();
 
   // Compute access state directly from account + real subscription data,
   // NOT via useAccess() which returns 'subscribed' for everyone when PAYWALL_ENABLED=false.
@@ -47,7 +49,10 @@ export function PromoBanner() {
 
   // 프로모 문구 — 구독자는 문구 없이 버튼만(로그아웃 도달 유지).
   let headline: ReactNode;
-  if (isGuest) {
+  if (isGuest && guestMode.active) {
+    // 게스트 모드 30일 창 — 남은 일수를 보여줘 가입 전환을 재촉(CTA 는 그대로 가입).
+    headline = t('entryGate.guestDays', { days: guestMode.daysLeft });
+  } else if (isGuest) {
     headline = t('promo.guestHeadline');
   } else if (isTrial) {
     // 남은 일수 강조 — 코랄색(부모 요청). 상실 프레이밍은 피함.

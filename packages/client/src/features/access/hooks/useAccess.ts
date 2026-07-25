@@ -4,6 +4,7 @@ import { computeAccess, type AccessState } from '@tangobook/shared';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { PAYWALL_ENABLED, LOCK_FOR_GUESTS, OVERSEAS_FREE_UNTIL_PADDLE } from '../config';
 import { useEntitlement } from '@/features/payment/hooks/useEntitlement';
+import { useGuestMode } from './useGuestMode';
 
 /** 유료화 비활성(개발단계) 시 — 항상 접근 허용. */
 const ALWAYS_ENTITLED: AccessState = {
@@ -33,8 +34,21 @@ export function useAccess(): AccessState {
   const isOverseas = i18n.language !== 'ko';
   // Always call unconditionally (hooks rules); self-disables when account is null or Supabase unconfigured.
   const { paidUntil, referralBonusDays, trialStartedAt } = useEntitlement();
+  // 게스트 모드 — 진입 게이트에서 "게스트로 시작"을 고르면 30일간 전체 개방(로컬 앵커).
+  const guest = useGuestMode();
+  const guestActive = !account && guest.active;
+  const guestDaysLeft = guest.daysLeft;
 
   return useMemo(() => {
+    // 게스트 30일 창 — 계정이 없어도 전체 콘텐츠 개방(만료되면 EntryGate 가 가입 벽으로 막는다).
+    if (guestActive) {
+      return {
+        status: 'trial',
+        isEntitled: true,
+        trialEndsAt: null,
+        trialDaysLeft: guestDaysLeft,
+      } satisfies AccessState;
+    }
     if (!PAYWALL_ENABLED) {
       // 출시 전: 로그인 사용자는 전체 열람, 게스트는(플래그 시) 무료 책만 → 가입 유도.
       if (LOCK_FOR_GUESTS && !account) return GUEST_LOCKED;
@@ -49,5 +63,13 @@ export function useAccess(): AccessState {
       referralBonusDays,
       trialStartedAt,
     });
-  }, [account, isOverseas, paidUntil, referralBonusDays, trialStartedAt]);
+  }, [
+    account,
+    isOverseas,
+    paidUntil,
+    referralBonusDays,
+    trialStartedAt,
+    guestActive,
+    guestDaysLeft,
+  ]);
 }

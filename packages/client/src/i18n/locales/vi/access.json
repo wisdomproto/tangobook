@@ -30,5 +30,17 @@
     "share": "Chia sẻ",
     "shareText": "Tangobook — truyện tranh AI cho bé. Đăng ký ngay để miễn phí 1 năm!",
     "shareCopied": "Đã sao chép liên kết!"
+  },
+  "entryGate": {
+    "title": "Chào mừng đến Tangobook!",
+    "sub": "Truyện tranh AI để đọc cùng con",
+    "guestBtn": "Xem với tư cách khách",
+    "guestNote": "Miễn phí 30 ngày · Tiến trình chỉ lưu trên thiết bị này",
+    "signupBtn": "Đăng ký — miễn phí 1 năm",
+    "signupNote": "Miễn phí toàn bộ truyện 1 năm · Lưu tiến trình an toàn",
+    "loginBtn": "Tôi đã có tài khoản",
+    "expiredTitle": "30 ngày dùng thử khách đã kết thúc",
+    "expiredSub": "Đăng ký để đọc miễn phí toàn bộ truyện trong 1 năm và lưu tiến trình an toàn.",
+    "guestDays": "Khách · còn {{days}} ngày"
   }
 }
