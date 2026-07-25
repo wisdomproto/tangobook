@@ -62,6 +62,8 @@ export const mktKeys = {
     ['mkt', 'analytics', 'meta', projectId, platform, country] as const,
   youtubeChannel: (projectId: string, query: string) =>
     ['mkt', 'analytics', 'yt-channel', projectId, query] as const,
+  youtubeOwn: (channelName: string, days: number) =>
+    ['mkt', 'analytics', 'yt-own', channelName, days] as const,
   strategyTemplates: () => ['mkt', 'strategy', 'templates'] as const,
   monitoringKeywords: (projectId: string) => ['mkt', 'monitoring', 'keywords', projectId] as const,
   feedback: () => ['mkt', 'feedback'] as const,

@@ -162,6 +162,14 @@ export const YouTubeProvider = {
 
   /** Get an authenticated YouTube API client for a specific channel */
   async getAuthenticatedClient(channelId?: string) {
+    return google.youtube({ version: 'v3', auth: await this.getOAuthClient(channelId) });
+  },
+
+  /**
+   * 저장된 토큰으로 OAuth2 클라이언트를 만든다(자동 갱신 포함).
+   * Analytics API(`google.youtubeAnalytics`)처럼 v3 클라이언트가 아닌 곳에서 필요하다.
+   */
+  async getOAuthClient(channelId?: string) {
     const channels = await loadChannels();
     if (channels.length === 0) throw new Error('YouTube 연결이 필요합니다.');
 
@@ -186,7 +194,7 @@ export const YouTubeProvider = {
       console.log('[youtube] Tokens refreshed for channel:', entry.channel.name);
     });
 
-    return google.youtube({ version: 'v3', auth: oauth2 });
+    return oauth2;
   },
 
   /**

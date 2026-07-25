@@ -20,6 +20,7 @@ import {
   getMetaInsights,
   getYoutubeChannel,
 } from '../../services/mkt/analytics.service.js';
+import { getOwnChannelAnalytics } from '../../services/mkt/external/youtube-own-analytics.js';
 
 /**
  * GA4 analytics controllers (server-proxy). Each takes `{ projectId, period? }`
@@ -185,6 +186,22 @@ export const metaInsights = asyncHandler(async (req: Request, res: Response) => 
  * getVideoStats). Returns raw Google JSON — the client hook assembles the view-model.
  * Requires YOUTUBE_DATA_API_KEY server-side; throws 502 when absent.
  */
+/**
+ * 우리 채널의 YouTube Analytics(지속률·트래픽소스). OAuth 토큰은 서버 전용.
+ * 실패해도 200 + `available:false` — 대시보드가 통째로 죽지 않게 한다.
+ */
+export const youtubeOwnAnalytics = asyncHandler(async (req: Request, res: Response) => {
+  const { channelName, startDate, endDate, days, top } = req.body as {
+    channelName?: string;
+    startDate?: string;
+    endDate?: string;
+    days?: number;
+    top?: number;
+  };
+  const data = await getOwnChannelAnalytics({ channelName, startDate, endDate, days, top });
+  res.json({ success: true, data });
+});
+
 export const youtubeChannel = asyncHandler(async (req: Request, res: Response) => {
   const { action, params } = req.body as {
     action?: string;

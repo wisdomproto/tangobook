@@ -3,6 +3,7 @@ import { cn } from '../../lib/utils';
 import { useProject } from '../../api/use-projects';
 import { useMetaInsights } from '../../api/use-analytics';
 import { YoutubeChannelPanel } from './YoutubeChannelPanel';
+import { YoutubeOwnPanel } from './YoutubeOwnPanel';
 import { WebsiteSeoPanel } from './WebsiteSeoPanel';
 import type { MetaContentMetric, MetaOverviewMetrics } from '../../types/analytics';
 
@@ -347,8 +348,16 @@ export function MetaAnalyticsDashboard({ projectId }: Props) {
         ))}
       </div>
 
-      {/* YouTube tab */}
-      {selectedPlatform === 'youtube' && <YoutubeChannelPanel projectId={projectId} />}
+      {/* YouTube tab — 내 채널(Analytics API, 지속률·트래픽소스) + 경쟁 채널(공개 통계) */}
+      {selectedPlatform === 'youtube' && (
+        <div className="space-y-6">
+          <YoutubeOwnPanel />
+          <div>
+            <div className="text-sm font-semibold mb-2 break-keep">경쟁 채널 분석</div>
+            <YoutubeChannelPanel projectId={projectId} />
+          </div>
+        </div>
+      )}
 
       {/* Website SEO tab */}
       {selectedPlatform === 'website' && <WebsiteSeoPanel defaultUrl={websiteUrl} />}

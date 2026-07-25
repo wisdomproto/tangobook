@@ -357,6 +357,55 @@ async function ytApi(projectId: string, action: string, params: Record<string, s
   return json.data ?? json;
 }
 
+export interface YoutubeOwnVideo {
+  id: string;
+  title: string;
+  seconds: number;
+  isShort: boolean;
+  views: number;
+  avgViewDuration: number;
+  avgViewPercentage: number;
+  minutes: number;
+  subscribersGained: number;
+}
+
+export type YoutubeOwnAnalytics =
+  | {
+      available: true;
+      channel: { id: string; title: string; channelId: string };
+      period: { startDate: string; endDate: string };
+      totals: {
+        views: number;
+        minutes: number;
+        avgViewDuration: number;
+        avgViewPercentage: number;
+        subscribersGained: number;
+      };
+      traffic: { source: string; views: number; minutes: number }[];
+      videos: YoutubeOwnVideo[];
+      formats: {
+        label: 'longform' | 'shorts';
+        count: number;
+        views: number;
+        weightedAvgViewDuration: number;
+        weightedAvgViewPercentage: number;
+      }[];
+      impressionsAvailable: false;
+    }
+  | { available: false; reason: string; actionUrl?: string };
+
+/**
+ * POST /api/mkt/analytics/youtube-own — 우리 채널 지속률·트래픽소스.
+ * projectId 를 받지 않는다: 유튜브 연동은 프로젝트가 아니라 서버(R2 `system/youtube-channels.json`)에 있다.
+ */
+export function useYoutubeOwnAnalytics(channelName = '탱고북스', days = 28) {
+  return useQuery({
+    queryKey: mktKeys.youtubeOwn(channelName, days),
+    staleTime: STALE_TIME,
+    queryFn: () => postMkt<YoutubeOwnAnalytics>('/analytics/youtube-own', { channelName, days }),
+  });
+}
+
 export function useYoutubeChannel(projectId: string) {
   return useMutation({
     mutationFn: async (input: string): Promise<YoutubeChannelResult> => {
