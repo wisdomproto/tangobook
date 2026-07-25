@@ -1,11 +1,11 @@
 /**
- * 한글 파닉스 학습자 메타 — 사이드 진입용 unit 목록 + unit 1 활동 구성.
+ * 한글 파닉스 학습자 메타 — 사이드 진입용 unit 목록 + 단원별 활동 구성.
  *
  * 데이터 source: 저작도구의 `KOREAN_PHONICS_CURRICULUM` (`@tangobook/shared`).
  * R2 storybook ID 는 `kr-hN-uMM` 형식 (zero-pad).
  *
  * 활동 구성은 unit 마다 다를 수 있어 `KOREAN_UNIT_ACTIVITY_PLAN` 으로 분리.
- * unit 1 (모음) 만 작성 — 나머지는 자료 모이는 대로 추가.
+ * 32 단원 전부 작성됨 — 한글1 은 명시 매핑, 한글2~4 는 `derivedPlans()` 가 커리큘럼에서 파생.
  */
 import { KOREAN_PHONICS_CURRICULUM, composeHangul } from '@tangobook/shared';
 
