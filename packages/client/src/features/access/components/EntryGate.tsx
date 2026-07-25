@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { startGuestMode, markAuthChoice } from '../lib/guest-mode';
@@ -18,12 +19,62 @@ interface Props {
 export function EntryGate({ expired = false, onChoose }: Props) {
   const { t } = useTranslation('access');
   const navigate = useNavigate();
+  // 게스트는 학습 기록이 남지 않으므로, 버튼 밑 작은 글씨 말고 확인 단계로 한 번 더 알린다.
+  const [confirmGuest, setConfirmGuest] = useState(false);
 
   const goAuth = (mode: 'signup' | 'login') => {
     markAuthChoice();
     onChoose();
     navigate(mode === 'signup' ? '/login?mode=signup' : '/login');
   };
+
+  if (confirmGuest) {
+    return (
+      <div
+        className="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-gradient-to-b from-cream-50 to-peach-100 p-5 sm:p-8"
+        role="dialog"
+        aria-modal="true"
+        aria-label={t('entryGate.guestConfirmTitle')}
+      >
+        <div className="w-full max-w-sm text-center">
+          <div className="mx-auto mb-4 text-4xl" aria-hidden>
+            ⚠️
+          </div>
+          <h1 className="font-display text-xl font-black leading-tight text-ink-900 break-keep">
+            {t('entryGate.guestConfirmTitle')}
+          </h1>
+          <p className="mt-3 text-sm font-bold leading-relaxed text-ink-600 break-keep">
+            {t('entryGate.guestConfirmBody')}
+          </p>
+
+          <div className="mt-7 flex flex-col gap-3">
+            {/* 회원가입을 위에 둬서 기본 선택으로 유도 — 게스트는 아래 보조 버튼. */}
+            <button
+              onClick={() => goAuth('signup')}
+              className="w-full rounded-2xl bg-coral-500 px-5 py-3.5 font-black text-white shadow-pop transition hover:brightness-110"
+            >
+              {t('entryGate.signupBtn')}
+            </button>
+            <button
+              onClick={() => {
+                startGuestMode();
+                onChoose();
+              }}
+              className="min-h-[44px] w-full rounded-2xl border-2 border-ink-100 bg-white px-5 py-3 text-sm font-black text-ink-700 transition hover:border-coral-200"
+            >
+              {t('entryGate.guestConfirmContinue')}
+            </button>
+            <button
+              onClick={() => setConfirmGuest(false)}
+              className="min-h-[44px] w-full py-2 text-sm font-black text-ink-500 underline underline-offset-4 hover:text-ink-800"
+            >
+              {t('entryGate.back')}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -59,10 +110,7 @@ export function EntryGate({ expired = false, onChoose }: Props) {
 
           {!expired && (
             <button
-              onClick={() => {
-                startGuestMode();
-                onChoose();
-              }}
+              onClick={() => setConfirmGuest(true)}
               className="w-full rounded-2xl border-2 border-ink-100 bg-white px-5 py-3.5 font-black text-ink-700 shadow-soft transition hover:border-coral-200"
             >
               {t('entryGate.guestBtn')}
