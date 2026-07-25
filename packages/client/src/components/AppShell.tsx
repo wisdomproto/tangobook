@@ -358,18 +358,8 @@ export function AppShell() {
                   <line x1="3" y1="18" x2="21" y2="18" />
                 </svg>
               </button>
-              {/* 모바일 로고 — 사이드바 hidden 일 때 헤더에 노출. */}
-              <Link
-                to="/library"
-                aria-label={t('logo.home')}
-                className="md:hidden pointer-events-auto flex items-center"
-              >
-                <img
-                  src={i18n.language === 'ko' ? '/logo/logo-kr.webp' : '/logo/logo-en.webp'}
-                  alt={t('logo.alt')}
-                  className="h-9 w-auto object-contain"
-                />
-              </Link>
+              {/* 🔴 모바일 헤더엔 로고를 두지 않는다(2026-07-25) — 375px 에서 햄버거·설치·프로필
+                  칩과 함께 놓기엔 좁다. 로고와 홈 이동은 드로어(☰) 상단에 그대로 있다. */}
               {pageTitle && (
                 <h1 className="hidden sm:flex text-xl md:text-3xl font-black font-display text-ink-900 truncate items-center gap-2">
                   {pageTitle.iconSrc ? (
