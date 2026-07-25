@@ -16,9 +16,12 @@ import { loadGenreMap } from '../src/services/reel/reel-targets.js';
 import { getSupabaseAdmin } from '../src/providers/supabase-admin.provider.js';
 
 const API = process.env.TTS_API_ORIGIN || 'http://localhost:3500';
-// 탱고북스 채널 내부 id (system/youtube-channels.json). env 로 override 가능.
-const CHANNEL_INTERNAL_ID =
-  process.env.LONGFORM_YT_CHANNEL_ID || '82d18111-c023-4d2b-a893-dbe40893fdb8';
+// 언어별 채널 내부 id (system/youtube-channels.json). ko=탱고북스 / en=tango books.
+// env `LONGFORM_YT_CHANNEL_ID` 로 강제 override 가능.
+const CHANNEL_BY_LANG: Record<string, string> = {
+  ko: '82d18111-c023-4d2b-a893-dbe40893fdb8',
+  en: '817d117b-ce1b-4b9d-90fa-f29d7b72f446',
+};
 const GENRE_ORDER = ['paper3d', 'watercolor', 'collage'] as const;
 const NATURE_CATEGORY = /동물|곤충|공룡|우리 몸|우주와 자연|식물/;
 const CLASSIC_CATEGORY = /세계|명작/;
@@ -40,6 +43,14 @@ const HOUR_CLASSIC = Number(val('--hour-classic', '1')); // UTC 01:00 ≈ KST 10
 const HOUR_NATURE = Number(val('--hour-nature', '7')); // UTC 07:00 ≈ KST 16:00
 const HOUR_LIFE = Number(val('--hour-life', '10')); // UTC 10:00 ≈ KST 19:00
 const PRIVACY = val('--privacy', 'public');
+const LANG = val('--lang', 'ko');
+const CHANNEL_INTERNAL_ID = process.env.LONGFORM_YT_CHANNEL_ID || CHANNEL_BY_LANG[LANG];
+if (!CHANNEL_INTERNAL_ID) {
+  console.error(
+    `알 수 없는 언어(${LANG}) — CHANNEL_BY_LANG 에 채널을 추가하거나 LONGFORM_YT_CHANNEL_ID 로 지정하세요.`
+  );
+  process.exit(1);
+}
 
 interface LongRow {
   content_id: string;
@@ -122,7 +133,9 @@ async function main() {
     const artStyle = String(vs.artStyle ?? '');
     const lang = String(vs.language ?? 'ko');
     if (!bookId || !artStyle) continue;
-    if (lang !== 'ko') continue; // 현재 ko 만 발행
+    // 언어축 = 채널축. 한국어는 탱고북스, 영어는 tango books 로 따로 예약한다
+    // (같은 채널에 두 언어를 섞으면 시청자층이 갈려 추천이 흐려진다).
+    if (lang !== LANG) continue;
     if (scheduledKey.has(`${r.content_id}|${artStyle}|${lang}`)) continue; // 멱등
 
     const project_id = projByContent.get(r.content_id);
@@ -191,7 +204,7 @@ async function main() {
   );
 
   console.log(
-    `\n예약 계획 — 명작 ${classicOrdered.length}(paper3d ${classics[0].length}·수채 ${classics[1].length}·콜라주 ${classics[2].length}) · 자연 ${natureOrdered.length} · 생활동화 ${lifeOrdered.length} · 채널 ${CHANNEL_INTERNAL_ID} · privacy=${PRIVACY}`
+    `\n예약 계획 — 명작 ${classicOrdered.length}(paper3d ${classics[0].length}·수채 ${classics[1].length}·콜라주 ${classics[2].length}) · 자연 ${natureOrdered.length} · 생활동화 ${lifeOrdered.length} · lang=${LANG} · 채널 ${CHANNEL_INTERNAL_ID} · privacy=${PRIVACY}`
   );
   if (orphans.length)
     console.log(

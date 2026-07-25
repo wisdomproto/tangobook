@@ -14,7 +14,6 @@ import { spawnSync } from 'node:child_process';
 import { fetchStorybook } from '../src/services/reel/reel-targets.js';
 import { getSupabaseAdmin } from '../src/providers/supabase-admin.provider.js';
 
-const LANG = 'ko';
 const API = process.env.TTS_API_ORIGIN || 'http://localhost:3500';
 
 // 기본 카테고리 = 자연관찰(동물/곤충/공룡/몸/우주/식물). 명작·파닉스 제외.
@@ -39,13 +38,18 @@ async function fetchPublicNatureIds(): Promise<string[]> {
 
 const argv = process.argv.slice(2);
 const has = (f: string) => argv.includes(f);
+// `--limit 2` 와 `--limit=2` 둘 다 받는다 — 주석은 `=` 형식으로 안내해왔는데 indexOf 방식은
+// 그걸 못 읽어서, 예컨대 `--lang=en` 을 조용히 무시하고 ko 로 45편을 헛렌더할 수 있었다.
 const val = (f: string) => {
+  const eq = argv.find((a) => a.startsWith(`${f}=`));
+  if (eq) return eq.slice(f.length + 1);
   const i = argv.indexOf(f);
   return i >= 0 ? argv[i + 1] : undefined;
 };
 const DRY = has('--dry-run');
 const FORCE = has('--force');
 const LIMIT = Number(val('--limit') || 0);
+const LANG = val('--lang') || 'ko';
 const catArg = val('--category');
 const CATEGORY_RE = new RegExp(catArg || DEFAULT_CATEGORY);
 
