@@ -169,7 +169,12 @@ export default function KoreanPhonicsActivityPage() {
     return (
       <WordListenChooseActivity
         unitId={unitId}
-        words={choices}
+        items={choices.map((c) => ({
+          label: c.word,
+          sound: c.word,
+          imageUrl: c.imageUrl,
+          ...(c.ttsUrl ? { ttsUrl: c.ttsUrl } : {}),
+        }))}
         letter={activity.consonant}
         onMarkComplete={handleMarkComplete}
         onBack={backToUnit}

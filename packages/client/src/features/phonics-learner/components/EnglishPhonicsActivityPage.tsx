@@ -7,6 +7,7 @@ import { CvcPatternLearnActivity } from '../activities/CvcPatternLearnActivity';
 import { CvcPatternWriteActivity } from '../activities/CvcPatternWriteActivity';
 import { AlphabetLetterLearnActivity } from '../activities/AlphabetLetterLearnActivity';
 import { AlphabetLetterWriteActivity } from '../activities/AlphabetLetterWriteActivity';
+import { WordListenChooseActivity } from '../activities/WordListenChooseActivity';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { EnglishBlockPlayer } from '@/features/games/components/players/EnglishBlockPlayer';
 import { EnglishWordWritingPlayer } from '@/features/games/components/players/EnglishWordWritingPlayer';
@@ -69,6 +70,22 @@ export default function EnglishPhonicsActivityPage() {
           ← 단원으로
         </Link>
       </div>
+    );
+  }
+
+  // 🔊 듣고 고르기 — Book 1 은 알파벳 글자만 보기로 낸다 (그림·단어 철자 없음)
+  if (activity.kind === 'word-listen-choose' && activity.letters?.length) {
+    return (
+      <WordListenChooseActivity
+        unitId={unitId}
+        language="english"
+        items={activity.letters.map((L) => ({
+          label: `${L.toUpperCase()}${L.toLowerCase()}`,
+          sound: L.toLowerCase(),
+        }))}
+        onMarkComplete={handleMarkComplete}
+        onBack={backToUnit}
+      />
     );
   }
 

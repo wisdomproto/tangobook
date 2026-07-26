@@ -133,6 +133,18 @@ function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
     required: true,
     letters,
   });
+  // 🔊 듣고 고르기 — 🔴 Book 1 은 **알파벳이 학습 목표**라 보기에 단어 철자를 쓰지 않는다.
+  // (apple 을 읽으라는 건 아직 못 하는 일이다. 소리 → 알파벳 카드만 고른다.)
+  activities.push({
+    key: 'word-listen-choose',
+    order: order++,
+    kind: 'word-listen-choose',
+    section: 'learn',
+    title: '듣고 고르기',
+    emoji: '🔊',
+    required: true,
+    letters,
+  });
   // 4 games — wordFamilies 안 모든 단어 풀에서 어댑터가 픽업
   activities.push(
     {

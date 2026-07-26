@@ -4,17 +4,22 @@ import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 
-export interface WordChoice {
-  word: string;
-  imageUrl: string;
+export interface ListenChoice {
+  /** 보기 라벨 — 단어(고기) 또는 알파벳(Aa) */
+  label: string;
+  /** 발음할 텍스트 */
+  sound: string;
+  /** 그림 (알파벳 단원은 없음) */
+  imageUrl?: string;
   ttsUrl?: string;
 }
 
 interface Props {
   unitId: string;
-  words: ReadonlyArray<WordChoice>;
+  items: ReadonlyArray<ListenChoice>;
   /** 이 단원이 배우는 글자 — 문제 쪽에 함께 보여준다. */
   letter?: string;
+  language?: 'korean' | 'english';
   onMarkComplete: () => void;
   onBack: () => void;
 }
@@ -39,23 +44,33 @@ function shuffle<T>(arr: readonly T[]): T[] {
  * 🔴 **보기에 단어를 쓴다** — 파닉스의 목표가 소리↔글자 연결이라 그림만 두면 글자가 학습에서 빠진다.
  *    문제 쪽엔 오늘의 글자만 두고 **정답 단어는 쓰지 않는다** (쓰면 듣지 않고 글자만 맞춰버린다).
  */
-export function WordListenChooseActivity({ unitId, words, letter, onMarkComplete, onBack }: Props) {
+export function WordListenChooseActivity({
+  unitId,
+  items,
+  letter,
+  language = 'korean',
+  onMarkComplete,
+  onBack,
+}: Props) {
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
 
   usePhonicsTtsWarm(
     unitId,
-    useMemo(() => words.map((w) => w.word), [words]),
+    useMemo(() => items.map((w) => w.sound), [items]),
     'word-listen'
   );
 
   // 문제 순서 — 단원 단어 전부를 한 번씩. 보기는 정답 + 같은 단원 다른 단어.
   const questions = useMemo(() => {
-    const pool = words.slice(0, 8);
+    const pool = items.slice(0, 8);
     return shuffle(pool).map((answer) => {
-      const distractors = shuffle(pool.filter((w) => w.word !== answer.word)).slice(0, CHOICES - 1);
+      const distractors = shuffle(pool.filter((w) => w.label !== answer.label)).slice(
+        0,
+        CHOICES - 1
+      );
       return { answer, choices: shuffle([answer, ...distractors]) };
     });
-  }, [words]);
+  }, [items]);
 
   const [qIdx, setQIdx] = useState(0);
   const [wrong, setWrong] = useState<string | null>(null);
@@ -65,19 +80,19 @@ export function WordListenChooseActivity({ unitId, words, letter, onMarkComplete
   const current = questions[qIdx];
 
   const say = useCallback(
-    async (w: WordChoice, onEnded?: () => void) => {
+    async (w: ListenChoice, onEnded?: () => void) => {
       const url =
         w.ttsUrl ||
         (await resolveTtsUrl({
-          text: w.word,
-          language: 'korean',
+          text: w.sound,
+          language,
           storybookId: unitId,
           identifierPrefix: 'word-listen',
         }));
       if (url) playAudio(url, onEnded);
       else onEnded?.();
     },
-    [playAudio, unitId]
+    [playAudio, unitId, language]
   );
 
   // 문제가 바뀌면 자동으로 한 번 들려준다 — 아이가 버튼을 찾아 누를 필요가 없게.
@@ -94,11 +109,11 @@ export function WordListenChooseActivity({ unitId, words, letter, onMarkComplete
   );
 
   const handlePick = useCallback(
-    (picked: WordChoice) => {
+    (picked: ListenChoice) => {
       if (done || !current || wrong) return;
-      if (picked.word !== current.answer.word) {
+      if (picked.label !== current.answer.label) {
         playFeedbackSound(false);
-        setWrong(picked.word);
+        setWrong(picked.label);
         wrongTimer.current = window.setTimeout(() => setWrong(null), 600);
         return;
       }
@@ -108,7 +123,7 @@ export function WordListenChooseActivity({ unitId, words, letter, onMarkComplete
       say(picked, () => {
         if (isLast) {
           onMarkComplete();
-          playCorrectSequence({ language: 'ko' });
+          playCorrectSequence({ language: language === 'english' ? 'en' : 'ko' });
         } else {
           playFeedbackSound(true);
           setQIdx((i) => i + 1);
@@ -157,7 +172,7 @@ export function WordListenChooseActivity({ unitId, words, letter, onMarkComplete
         <div className="flex gap-2">
           {questions.map((q, i) => (
             <span
-              key={q.answer.word}
+              key={q.answer.label}
               className={[
                 'w-3.5 h-3.5 rounded-full transition',
                 i < qIdx || done ? 'bg-mint-500' : i === qIdx ? 'bg-coral-500' : 'bg-white',
@@ -187,21 +202,30 @@ export function WordListenChooseActivity({ unitId, words, letter, onMarkComplete
             <div className="flex flex-wrap justify-center gap-4 sm:gap-6 w-full max-w-4xl px-2">
               {current.choices.map((c) => (
                 <button
-                  key={c.word}
+                  key={c.label}
                   onClick={() => handlePick(c)}
-                  aria-label={c.word}
+                  aria-label={c.label}
                   className={[
                     'relative w-[28%] sm:w-44 rounded-3xl border-[6px] bg-white overflow-hidden shadow-soft transition',
-                    wrong === c.word
+                    wrong === c.label
                       ? 'border-coral-500 animate-shake'
                       : 'border-white hover:shadow-pop active:scale-[0.97]',
                   ].join(' ')}
                 >
-                  <img src={c.imageUrl} alt="" className="w-full aspect-square object-cover" />
-                  {/* 🔴 파닉스라 단어를 반드시 보여준다 — 소리↔글자를 잇는 게 학습 목표다. */}
-                  <span className="block py-2 text-xl sm:text-3xl font-black text-ink-800 break-keep">
-                    {c.word}
-                  </span>
+                  {/* 🔴 글자 단원(영어 Book 1 알파벳)은 그림 없이 글자만 — 아직 단어 철자를 읽을 단계가 아니다.
+                      그 외 단원은 그림 + 단어. 파닉스라 소리↔글자를 잇는 게 학습 목표다. */}
+                  {c.imageUrl ? (
+                    <>
+                      <img src={c.imageUrl} alt="" className="w-full aspect-square object-cover" />
+                      <span className="block py-2 text-xl sm:text-3xl font-black text-ink-800 break-keep">
+                        {c.label}
+                      </span>
+                    </>
+                  ) : (
+                    <span className="flex aspect-square items-center justify-center text-5xl sm:text-7xl font-black text-coral-600">
+                      {c.label}
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
