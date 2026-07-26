@@ -221,7 +221,7 @@ function ActivityCard({
         </span>
       </div>
       <div
-        className={`relative z-10 flex-1 flex items-center justify-center my-1 group-hover:scale-105 transition-transform duration-200 ${showDone ? 'opacity-50' : ''}`}
+        className={`relative z-10 flex-1 min-h-0 flex items-center justify-center my-1 group-hover:scale-105 transition-transform duration-200 ${showDone ? 'opacity-50' : ''}`}
       >
         {activity.kind === 'alphabet-letter-learn' && activity.letters ? (
           // ABC/DEF/... 배우기 — 대문자만, coral·sky 번갈아.
@@ -284,7 +284,7 @@ function ActivityCard({
         )}
       </div>
       <h3
-        className={`relative z-10 text-xl sm:text-2xl font-black font-display leading-tight break-keep text-center ${showDone ? 'text-ink-500' : 'text-ink-900'}`}
+        className={`relative z-10 shrink-0 pb-0.5 text-xl sm:text-2xl font-black font-display leading-tight break-keep text-center ${showDone ? 'text-ink-500' : 'text-ink-900'}`}
       >
         {activity.title}
       </h3>

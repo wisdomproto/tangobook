@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>ABC 나무 · 호리네 영어 파닉스 동화 기획서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
+  :root {
+    --bark: #7a4a26;
+    --leaf: #3f8f52;
+    --leaf-dark: #2f6b3d;
+    --leaf-50: #eaf5ec;
+    --leaf-100: #d5ecda;
+    --apple: #e0533b;
+    --apple-soft: #f6d9d2;
+    --cream: #fbf7ef;
+    --peach: #ffe9d6;
+    --ink: #2c2015;
+    --ink-soft: #6b5b4a;
+    --gold: #e8a53c;
+    --line: #e6dccb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Pretendard Variable', Pretendard, system-ui, sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(1200px 500px at 80% -10%, #fef4e4 0%, transparent 60%),
+      radial-gradient(1000px 480px at -5% 5%, var(--leaf-50) 0%, transparent 55%),
+      var(--cream);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 40px 20px 96px; }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    background: linear-gradient(135deg, var(--leaf-dark), var(--leaf));
+    color: #fff;
+    border-radius: 28px;
+    padding: 40px 36px 44px;
+    overflow: hidden;
+    box-shadow: 0 24px 48px -20px rgba(47, 107, 61, .5);
+  }
+  .hero::after {
+    content: "🌳";
+    position: absolute;
+    right: 18px; bottom: -18px;
+    font-size: 150px;
+    opacity: .18;
+    transform: rotate(-8deg);
+  }
+  .hero .kicker {
+    display: inline-block;
+    background: rgba(255,255,255,.2);
+    border: 1px solid rgba(255,255,255,.35);
+    padding: 5px 14px; border-radius: 999px;
+    font-size: 13px; font-weight: 600; letter-spacing: .02em;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    margin: 0 0 10px;
+    font-size: clamp(30px, 5vw, 46px);
+    font-weight: 800;
+    letter-spacing: -.01em;
+    word-break: keep-all;
+  }
+  .hero p { margin: 0; max-width: 640px; font-size: 17px; opacity: .95; word-break: keep-all; }
+  .chips { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    background: rgba(255,255,255,.16);
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 12px; padding: 8px 13px;
+    font-size: 13.5px; font-weight: 600;
+  }
+  .chip b { font-weight: 800; }
+
+  /* ── Section ── */
+  section { margin-top: 44px; }
+  .sec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .sec-head .dot {
+    width: 34px; height: 34px; flex: none;
+    display: grid; place-items: center;
+    background: var(--leaf-100); border-radius: 11px;
+    font-size: 19px;
+  }
+  .sec-head h2 { margin: 0; font-size: 23px; font-weight: 800; letter-spacing: -.01em; }
+  .sec-head .sub { color: var(--ink-soft); font-size: 14px; font-weight: 500; }
+
+  .card {
+    background: #fff; border: 1px solid var(--line);
+    border-radius: 20px; padding: 26px 28px;
+    box-shadow: 0 10px 30px -22px rgba(90,70,40,.5);
+  }
+  .card + .card { margin-top: 16px; }
+  p.lead { margin: 0 0 6px; font-size: 16.5px; word-break: keep-all; }
+  .muted { color: var(--ink-soft); }
+
+  /* ── Cast grid ── */
+  .cast { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .who {
+    background: var(--cream); border: 1px solid var(--line);
+    border-radius: 16px; padding: 14px 14px 16px; text-align: center;
+  }
+  .who .em { font-size: 34px; line-height: 1.1; }
+  .who .nm { font-weight: 800; margin-top: 6px; font-size: 15.5px; }
+  .who .rl { font-size: 12.5px; color: var(--ink-soft); margin-top: 2px; word-break: keep-all; }
+  .who.lead-who { background: var(--peach); border-color: #f3cfa8; }
+
+  /* ── Beat sheet ── */
+  .beats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .beat {
+    display: flex; gap: 13px; align-items: flex-start;
+    background: #fff; border: 1px solid var(--line);
+    border-radius: 14px; padding: 14px 16px;
+  }
+  .beat .n {
+    flex: none; width: 30px; height: 30px;
+    display: grid; place-items: center;
+    background: var(--leaf); color: #fff;
+    border-radius: 9px; font-weight: 800; font-size: 15px;
+  }
+  .beat .t { font-weight: 700; font-size: 15px; }
+  .beat .d { font-size: 13.5px; color: var(--ink-soft); word-break: keep-all; }
+  .beat.fun .n { background: var(--apple); }
+
+  /* ── Policy list ── */
+  ul.policy { margin: 4px 0 0; padding-left: 0; list-style: none; }
+  ul.policy li { position: relative; padding: 7px 0 7px 28px; border-top: 1px dashed var(--line); word-break: keep-all; }
+  ul.policy li:first-child { border-top: none; }
+  ul.policy li::before { content: "🍃"; position: absolute; left: 0; top: 6px; }
+  ul.policy b { color: var(--leaf-dark); }
+
+  /* ── Unit tables ── */
+  .level-band {
+    display: flex; align-items: center; gap: 10px;
+    margin: 30px 0 12px; padding: 10px 16px;
+    background: linear-gradient(90deg, var(--leaf-100), transparent);
+    border-left: 5px solid var(--leaf);
+    border-radius: 8px;
+  }
+  .level-band .lv { font-weight: 800; font-size: 17px; }
+  .level-band .cnt { font-size: 13px; color: var(--ink-soft); }
+  .tbl-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
+  table { width: 100%; border-collapse: collapse; min-width: 760px; }
+  th, td { text-align: left; padding: 12px 14px; vertical-align: top; font-size: 14px; }
+  thead th {
+    background: var(--leaf-50); color: var(--leaf-dark);
+    font-weight: 700; font-size: 12.5px; letter-spacing: .02em;
+    border-bottom: 2px solid var(--leaf-100); white-space: nowrap;
+  }
+  tbody tr + tr td { border-top: 1px solid var(--line); }
+  tbody tr:hover td { background: #fdfaf3; }
+  .u-id { font-weight: 800; white-space: nowrap; }
+  .u-id a { color: var(--bark); text-decoration: none; }
+  .u-id a:hover { color: var(--apple); text-decoration: underline; }
+  .glyph {
+    display: inline-block; min-width: 30px; text-align: center;
+    background: var(--apple-soft); color: var(--apple);
+    border-radius: 8px; padding: 2px 8px; font-weight: 800; font-size: 15px;
+  }
+  .words { color: var(--ink); font-weight: 600; }
+  .cast-cell { white-space: nowrap; font-weight: 600; color: var(--leaf-dark); }
+  .fun-cell { color: var(--ink-soft); font-size: 13.5px; word-break: keep-all; }
+  .concept { word-break: keep-all; }
+
+  /* ── Workflow ── */
+  .flow { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .flow .step {
+    background: #fff; border: 1px solid var(--line); border-radius: 12px;
+    padding: 12px 16px; font-weight: 700; font-size: 14.5px;
+  }
+  .flow .arr { color: var(--leaf); font-weight: 800; font-size: 18px; }
+
+  footer { margin-top: 50px; text-align: center; color: var(--ink-soft); font-size: 13px; }
+
+  @media (max-width: 720px) {
+    .cast { grid-template-columns: repeat(2, 1fr); }
+    .beats { grid-template-columns: 1fr; }
+    .hero { padding: 30px 22px 34px; }
+  }
+
+  /* 캐릭터 레퍼런스 저장 카드 (core 붙여넣기) */
+  .char-prompt { margin: 12px 0; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; background: #fff; }
+  .char-prompt .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .char-prompt .head b { font-size: 15px; }
+  .char-prompt .face { width: 34px; height: 34px; border-radius: 10px; background: var(--leaf-50); display: inline-flex; align-items: center; justify-content: center; font-size: 20px; }
+  .char-prompt .rom { font-size: 12.5px; color: var(--ink-soft); font-weight: 700; }
+  .char-prompt details { margin-top: 8px; }
+  .char-prompt summary { cursor: pointer; font-size: 13px; font-weight: 700; color: var(--ink-soft); }
+  .char-prompt pre { white-space: pre-wrap; background: var(--cream); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-family: inherit; font-size: 12.5px; line-height: 1.7; margin-top: 6px; }
+  .copy-btn { background: #fff; color: var(--leaf); border: 1.5px solid var(--leaf); border-radius: 999px; padding: 4px 14px; font-weight: 800; font-size: 12.5px; cursor: pointer; }
+  .copy-btn:hover, .copy-btn.done { background: var(--leaf); color: #fff; }
+  .paste-box { position: relative; border: 2px dashed var(--line); border-radius: 10px; min-height: 72px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; color: var(--ink-soft); font-weight: 700; cursor: pointer; outline: none; padding: 8px; background: #fff; margin-top: 10px; }
+  .paste-del { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; border: none; background: rgba(42,38,32,.6); color: #fff; font-size: 12px; font-weight: 800; cursor: pointer; line-height: 1; }
+  .paste-del:hover { background: var(--apple); }
+  .paste-box:focus { border-color: var(--leaf); color: var(--leaf-dark); }
+  .paste-box.has-img { padding: 0; min-height: 0; border-style: solid; border-color: var(--leaf); }
+  .paste-box img { width: 100%; border-radius: 8px; display: block; }
+  .paste-src { position: absolute; top: 6px; right: 6px; background: rgba(63,143,82,.92); color: #fff; font-size: 10.5px; font-weight: 800; padding: 3px 8px; border-radius: 999px; }
+  .paste-box.busy { opacity: .5; }
+  .grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (max-width: 720px) { .grid2 { grid-template-columns: 1fr; } }
+
+  /* 타겟 단어 카드 */
+  .wc-unit { margin-top: 22px; }
+  .wc-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+  .wc-head .glyph { font-size: 15px; }
+  .wc-head a { color: var(--bark); font-weight: 800; text-decoration: none; font-size: 14.5px; }
+  .wc-head a:hover { color: var(--apple); text-decoration: underline; }
+  .wc-head .lv { font-size: 12.5px; color: var(--ink-soft); font-weight: 700; }
+  .wc-head .copy-btn { margin-left: auto; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="kicker">탱고북 · 영어 파닉스 오리지널 기획서</span>
+    <h1>🌳 ABC 나무<br />호리네 영어 파닉스 동화</h1>
+    <p>한글 나무 옆에 선 두 번째 나무, <b>ABC 나무</b>. 같은 마을, 같은 친구들입니다. 유닛마다 가지에 새로운 알파벳 열매가 열리고, 호리와 친구들이 그 열매를 따서 오늘의 소리를 배우고 단어를 읽습니다. (좌상단 <b>☰ 유닛</b>에서 39개 회차로 이동)</p>
+    <div class="chips">
+      <span class="chip">🧒 대상 <b>5~7세</b></span>
+      <span class="chip">🧶 그림체 <b>니들펠트</b></span>
+      <span class="chip">📖 유닛당 <b>8쪽</b></span>
+      <span class="chip">🌱 전체 <b>39유닛</b></span>
+      <span class="chip">🐯 캐스트 <b>호리 앙상블</b></span>
+    </div>
+  </div>
+
+  <!-- 세계관 -->
+  <section>
+    <div class="sec-head">
+      <span class="dot">🌳</span>
+      <div>
+        <h2>세계관 — ABC 나무</h2>
+        <div class="sub">한글 나무와 같은 마을, 나무만 하나 더</div>
+      </div>
+    </div>
+    <div class="card">
+      <p class="lead">호리네 마을 언덕에는 오래된 <b>한글 나무</b>가 있습니다. 그 옆에 어느 날 낯선 씨앗에서 자란 나무가 한 그루 더 생겼어요 — 잎사귀에 처음 보는 글자가 돋는 <b>ABC 나무</b>입니다.</p>
+      <p class="lead muted">🔴 <b>새 세계를 만들지 않았습니다.</b> 마을·캐스트·그림체·저작 파이프라인이 한글 나무와 전부 같고, 바뀌는 건 나무 한 그루와 그 나무가 맺는 글자뿐입니다. 아이 입장에서도 "한글 배우던 그 동네에서 이번엔 영어를 배운다"가 되어 진입이 자연스럽고, 저작 입장에서도 레퍼런스 시트·스타일 앵커·코어 스크립트를 그대로 물려받습니다.</p>
+      <p class="lead muted">계절 리듬도 이어집니다 — Book 1 알파벳(봄 새싹) / Book 2 단모음(여름잎) / Book 3 장모음(가을열매) / Book 4 이중자음(겨울눈) / Book 5 이중모음·r모음(다시 봄).</p>
+    </div>
+  </section>
+
+  <!-- 캐스트 -->
+  <section>
+    <div class="sec-head">
+      <span class="dot">🐯</span>
+      <div>
+        <h2>등장 캐스트</h2>
+        <div class="sub">한글 나무와 <b>완전히 동일</b> — 레퍼런스 시트도 그대로 재사용</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="cast">
+        <div class="who lead-who"><div class="em">🐯</div><div class="nm">호리</div><div class="rl">고정 주인공 · 아기 호랑이</div></div>
+        <div class="who"><div class="em">🐰</div><div class="nm">토토</div><div class="rl">토끼 · 폴짝폴짝 장난꾸러기</div></div>
+        <div class="who"><div class="em">🐻</div><div class="nm">보리</div><div class="rl">곰 · 든든한 맏이</div></div>
+        <div class="who"><div class="em">🐿️</div><div class="nm">콩이</div><div class="rl">다람쥐 · 먹보 수집가</div></div>
+        <div class="who"><div class="em">🐶</div><div class="nm">두부</div><div class="rl">강아지 · 잘 흘리고 배고픔</div></div>
+        <div class="who"><div class="em">🍼</div><div class="nm">호야</div><div class="rl">호리 아기 동생</div></div>
+        <div class="who"><div class="em">🐯</div><div class="nm">엄마</div><div class="rl">엄마 호랑이</div></div>
+        <div class="who"><div class="em">🐯</div><div class="nm">아빠</div><div class="rl">아빠 호랑이</div></div>
+      </div>
+      <p class="lead muted" style="margin-top:18px">호리는 <b>모든 유닛 고정</b>, 친구 1~2명이 로테이션입니다. 되도록 그 유닛의 타겟 단어와 엮어요 — <b>dad·lap</b> 유닛엔 아빠, <b>bib·kid</b> 유닛엔 아기 호야, <b>bake·cake</b> 유닛엔 엄마. 레퍼런스 시트는 <b>생활동화 기획서 저장분을 그대로</b> 씁니다(중복 저장 불필요).</p>
+    </div>
+  </section>
+
+  <!-- 8쪽 템플릿 -->
+  <section>
+    <div class="sec-head">
+      <span class="dot">📖</span>
+      <div>
+        <h2>8쪽 공통 템플릿</h2>
+        <div class="sub">한글 나무와 같은 beat — 글자와 단어만 바뀝니다</div>
+      </div>
+    </div>
+    <div class="beats">
+      <div class="beat"><span class="n">1</span><div><div class="t">나무 앞에 모이기</div><div class="d">"어? ABC 나무에 새 열매가!" 오늘의 알파벳을 발견하는 도입.</div></div></div>
+      <div class="beat"><span class="n">2</span><div><div class="t">오늘의 글자 등장</div><div class="d">열매를 따니 <b>대문자·소문자</b>가 함께 두둥. 소리를 크게 함께 낸다.</div></div></div>
+      <div class="beat"><span class="n">3</span><div><div class="t">타겟 단어 ①②</div><div class="d">나뭇잎에 뜬 단어 둘을 짚으며 읽기. 첫소리가 오늘의 글자임을 확인.</div></div></div>
+      <div class="beat"><span class="n">4</span><div><div class="t">타겟 단어 ③④</div><div class="d">나머지 단어도 읽기. 그림과 단어를 짝지어 확인.</div></div></div>
+      <div class="beat"><span class="n">5</span><div><div class="t">도란도란 수다</div><div class="d">단어로 짧은 대화. 친구별 개성이 드러나는 티키타카.</div></div></div>
+      <div class="beat fun"><span class="n">6</span><div><div class="t">작은 웃음 포인트 🎈</div><div class="d">단어와 엮인 귀여운 사건. 이 화의 재미 훅.</div></div></div>
+      <div class="beat"><span class="n">7</span><div><div class="t">다 같이 따라 하기</div><div class="d">오늘 글자를 소리 내며 손으로 그려보기 (쓰기 활동 연결).</div></div></div>
+      <div class="beat"><span class="n">8</span><div><div class="t">마무리 &amp; 다음 예고</div><div class="d">ABC 나무에 오늘 글자 열매가 톡. 위에 익어가는 다음 열매 살짝.</div></div></div>
+    </div>
+  </section>
+
+  <!-- 정책 -->
+  <section>
+    <div class="sec-head">
+      <span class="dot">🎯</span>
+      <div>
+        <h2>집필 정책</h2>
+        <div class="sub">한글 나무 정책 + 영어 파닉스 특수 규칙</div>
+      </div>
+    </div>
+    <div class="card">
+      <ul class="policy">
+        <li>🔴 <b>본문은 한국어, 타겟 단어만 영어.</b> 5~7세 한국 아이가 읽는 책이다. 영어 문장을 억지로 만들지 않고, 오늘의 <b>알파벳과 타겟 단어</b>만 영어로 또렷하게 노출한다.</li>
+        <li>🔴 <b>Book 1 은 글자가 주인공이다.</b> 단어는 소리의 예시일 뿐 — 아이에게 <code>apple</code> 철자를 읽히려 하지 않는다. 앱의 듣고 고르기도 Book 1 만 보기가 알파벳뿐인 이유가 이것이다.</li>
+        <li><b>Book 2 부터는 단어를 읽힌다.</b> 같은 라임(-an, -at)을 나란히 놓아 <b>앞 글자만 바뀌는 것</b>이 눈에 보이게 한다.</li>
+        <li><b>타겟 단어는 커리큘럼 고정.</b> 게임·플래시카드·복습이 같은 데이터를 쓰므로 임의로 바꾸지 않는다.</li>
+        <li><b>대문자·소문자를 항상 함께.</b> 열매·글자판에 <code>Aa</code> 형태로 그린다.</li>
+        <li><b>재미 훅 필수.</b> 6쪽 웃음은 타겟 단어 또는 등장 친구와 엮어 자연스럽게.</li>
+        <li><b>SCENE 밀도.</b> 니들펠트 스타일 문구는 코어가 자동 부착 — 지문에 중복 기재하지 않는다. 쪽별 <b>[등장]</b> 캐릭터 명시.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 39 유닛 표 -->
+  <section>
+    <div class="sec-head">
+      <span class="dot">🌱</span>
+      <div>
+        <h2>39유닛 전체 컨셉</h2>
+        <div class="sub">Book → 글자 → 타겟 단어 → 등장 캐스트 → 한 줄 컨셉 → 재미 포인트</div>
+      </div>
+    </div>
+    <div id="abc-units"></div>
+  </section>
+
+  <!-- 캐릭터 레퍼런스 -->
+  <section>
+    <div class="sec-head">
+      <span class="dot">🎨</span>
+      <div>
+        <h2>캐릭터 레퍼런스</h2>
+        <div class="sub">한글 나무·생활동화와 <b>같은 시트</b> — 여기서 따로 저장하지 않습니다</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="char-prompt" style="border:none;padding:0;box-shadow:none">
+        <div class="head"><span class="face">🧶</span><b>니들펠트 스타일 앵커</b> <button class="copy-btn">스타일 복사</button></div>
+        <details><summary>프롬프트 보기</summary><pre id="abc-style-pre"></pre></details>
+      </div>
+      <p class="lead muted" style="margin-top:12px">캐스트 8인 레퍼런스는 <b>생활동화 기획서 저장분</b>(<code>comic-assets/saenghwal-plan</code>)을 그대로 씁니다 — 같은 캐릭터를 두 번 저장할 이유가 없습니다. 회차 페이지의 「🎬 이 화 등장」 스트립도 거기서 끌어옵니다.</p>
+    </div>
+  </section>
+
+  <!-- 워크플로우 -->
+  <section>
+    <div class="sec-head">
+      <span class="dot">🛠️</span>
+      <div>
+        <h2>제작 파이프라인</h2>
+        <div class="sub">한글 나무와 동일 — 스크립트도 포크해서 씁니다</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="flow">
+        <span class="step">① 기획서 컨셉</span>
+        <span class="arr">→</span>
+        <span class="step">② comic-writer 집필 (8쪽)</span>
+        <span class="arr">→</span>
+        <span class="step">③ comic-editor 검수</span>
+        <span class="arr">→</span>
+        <span class="step">④ 삽화 + 단어 카드 (니들펠트)</span>
+        <span class="arr">→</span>
+        <span class="step">⑤ 파닉스 유닛 연동</span>
+      </div>
+      <p class="lead muted" style="margin-top:18px">🔴 <b>앱을 먼저 살리는 건 ④의 단어 카드</b>입니다. 영어 유닛은 지금 flashcard 이미지가 0장이라 <b>그림 짝 찾기·낱말 그리기·듣고 고르기(그림)</b>가 뜨지 않습니다. 한글에서 쓴 연동 스크립트(<code>link-hangeul-tree-word-cards.mjs</code> · <code>extract-word-card-keypoints.mjs</code>)를 포크하면 같은 방식으로 붙습니다.</p>
+    </div>
+  </section>
+
+  <footer>
+    🌳 ABC 나무 · 호리네 영어 파닉스 동화 기획서 · 탱고북 영어 파닉스 39유닛
+  </footer>
+
+</div>
+
+<script>
+// ABC 나무 39유닛 — 커리큘럼(id·글자·단어)은 shared 에서 그대로, 컨셉·캐스트·재미포인트는 집필용 씨앗.
+window.ABC_UNITS = [
+  { book: 1, bookName: 'Book 1 · 알파벳 소리', id: 'en-b1-u01', letters: 'Aa Bb Cc', words: 'alligator ant apple / bag bat book / cap cat cup', cast: '호리·두부', concept: 'ABC 나무에 첫 열매 셋이 열렸다 — A·B·C 소리를 크게 내본다', fun: '두부가 apple 을 진짜 사과인 줄 알고 덥석' },
+  { book: 1, id: 'en-b1-u02', letters: 'Dd Ee Ff', words: 'desk dog duck / egg elbow elephant / fan fish fork', cast: '호리·토토', concept: 'duck 과 dog 을 흉내내며 D·E·F 소리 찾기', fun: 'egg 를 굴리다 토토 팔꿈치(elbow)에 콩' },
+  { book: 1, id: 'en-b1-u03', letters: 'Gg Hh Ii', words: 'game gift gorilla / hand hat hippo / igloo iguana ink', cast: '호리·보리', concept: 'gift 상자를 열자 G·H·I 열매가 데굴데굴', fun: '보리가 hat 을 썼는데 hippo 만큼 커서 눈까지 덮임' },
+  { book: 1, id: 'en-b1-u04', letters: 'Jj Kk Ll', words: 'jacket jam jet / key king kiwi / lamp lemon lion', cast: '호리·콩이', concept: 'key 로 상자를 열어 J·K·L 을 꺼낸다', fun: 'jam 을 먹던 콩이 입가가 lion 수염처럼 번짐' },
+  { book: 1, id: 'en-b1-u05', letters: 'Mm Nn Oo', words: 'map melon mouse / nest net nut / octopus ostrich ox', cast: '호리·콩이', concept: 'map 을 펴고 M·N·O 열매를 찾아 나선다', fun: 'nut 을 노리던 mouse 와 콩이가 눈이 딱 마주침' },
+  { book: 1, id: 'en-b1-u06', letters: 'Pp Qq Rr', words: 'panda pen piano / queen question quiet / rabbit ring robot', cast: '호리·토토', concept: 'piano 를 두드리며 P·Q·R 소리를 노래한다', fun: 'quiet! 하라는데 robot 이 삐빅삐빅 제일 시끄러움' },
+  { book: 1, id: 'en-b1-u07', letters: 'Ss Tt Uu Vv', words: 'sand sock sun / ten tiger top / umbrella under up / vase vest violin', cast: '호리·보리', concept: 'sun 아래 모래밭에서 S·T·U·V 네 열매를 줍는다', fun: 'umbrella 를 폈는데 비가 아니라 sand 만 우수수' },
+  { book: 1, id: 'en-b1-u08', letters: 'Ww Xx Yy Zz', words: 'watch watermelon window / box fox six / yacht yellow yo-yo / zebra zero zoo', cast: '호리·두부', concept: '마지막 네 열매 — W·X·Y·Z 로 알파벳을 완성한다', fun: 'yo-yo 를 돌리던 두부가 스스로 줄에 감김' },
+
+  { book: 2, bookName: 'Book 2 · 단모음', id: 'en-b2-u01', letters: '_an _at', words: 'can fan man pan / bat cat hat mat', cast: '호리·토토', concept: 'ABC 나무 아래 -an, -at 가족이 모였다 — 앞 글자만 바꿔 읽기', fun: 'cat 이 hat 을 쓰고 mat 위에 딱 앉아 안 비켜줌' },
+  { book: 2, id: 'en-b2-u02', letters: '_ap _ad _am', words: 'cap lap map tap / dad sad dam jam', cast: '호리·아빠', concept: '아빠 무릎(lap)에 앉아 cap·map 을 읽는다', fun: 'jam 병을 놓쳐 sad 했는데 아빠가 웃으며 닦아줌' },
+  { book: 2, id: 'en-b2-u03', letters: '_ip _it _ix', words: 'dip hip lip rip / hit sit mix six', cast: '호리·콩이', concept: '엉덩이(hip) 흔들며 -ip, -it 리듬 타기', fun: 'mix 하던 콩이가 그릇을 뒤집어 여섯(six) 방울 튐' },
+  { book: 2, id: 'en-b2-u04', letters: '_ib _id _ig _in', words: 'bib rib kid lid dig wig fin pin', cast: '호리·호야', concept: '턱받이(bib) 한 호야와 함께 -ib·-id·-ig·-in 읽기', fun: 'dig 하다 나온 게 보물이 아니라 wig' },
+  { book: 2, id: 'en-b2-u05', letters: '_et _ed _en', words: 'jet net vet wet / bed red hen pen', cast: '호리·보리', concept: 'hen 을 돌보는 vet 놀이로 -et·-ed·-en 익히기', fun: 'net 을 던졌는데 hen 대신 보리가 걸림' },
+  { book: 2, id: 'en-b2-u06', letters: '_og _op _ot _ox', words: 'dog log hop mop hot pot box fox', cast: '호리·두부', concept: '통나무(log) 위를 hop 하며 -og·-op·-ot·-ox', fun: 'hot pot 냄새에 두부가 box 안으로 코를 들이밈' },
+  { book: 2, id: 'en-b2-u07', letters: '_ug _ub _up', words: 'bug hug mug rug rub tub cup pup', cast: '호리·두부', concept: 'rug 위에서 pup 을 hug 하며 -ug·-ub·-up', fun: 'tub 에서 rub 하다 거품이 mug 처럼 머리에 얹힘' },
+  { book: 2, id: 'en-b2-u08', letters: '_un _ud _ut', words: 'bun fun run sun bud mud cut nut', cast: '호리·토토', concept: 'sun 아래 run 하며 -un·-ud·-ut 를 외친다', fun: 'mud 웅덩이를 뛰어넘던 토토가 그대로 풍덩' },
+
+  { book: 3, bookName: 'Book 3 · 장모음(매직 e)', id: 'en-b3-u01', letters: 'a_e (1)', words: 'bake cake lake rake / cape tape cave wave', cast: '호리·엄마', concept: '엄마와 cake 를 bake — 끝에 붙은 마법 e 를 발견', fun: 'rake 로 낙엽을 모으다 cake 재료를 통째 덮음' },
+  { book: 3, id: 'en-b3-u02', letters: 'a_e (2)', words: 'game name came lane / case vase date gate', cast: '호리·보리', concept: 'gate 앞에서 이름(name) 부르기 game', fun: 'vase 를 안고 오던 보리가 gate 에 딱 끼임' },
+  { book: 3, id: 'en-b3-u03', letters: 'i_e (1)', words: 'line nine pine vine / bike hike lime time', cast: '호리·토토', concept: 'pine 숲으로 bike hike — 마법 e 가 i 를 길게 만든다', fun: 'vine 을 타던 토토가 아홉(nine) 바퀴 빙글' },
+  { book: 3, id: 'en-b3-u04', letters: 'i_e (2)', words: 'hide ride pipe wipe / bite kite dive five', cast: '호리·콩이', concept: 'kite 를 날리며 -ide·-ipe·-ite·-ive', fun: 'hide 한 콩이를 못 찾았는데 kite 줄 끝에 매달려 있었음' },
+  { book: 3, id: 'en-b3-u05', letters: 'o_e (1)', words: 'hose nose pose rose / hope rope note vote', cast: '호리·두부', concept: 'hose 로 rose 에 물 주며 -ose·-ope·-ote', fun: 'hose 를 물고 pose 잡던 두부가 자기 nose 에 물 분사' },
+  { book: 3, id: 'en-b3-u06', letters: 'o_e (2)', words: 'hole mole pole sole / dome home bone cone', cast: '호리·콩이', concept: 'mole 이 판 hole 을 따라 home 까지', fun: 'bone 인 줄 알고 판 게 아이스크림 cone 이었음' },
+  { book: 3, id: 'en-b3-u07', letters: 'u_e', words: 'cube tube cute mute / dune June tune mule', cast: '호리·호야', concept: 'cube 블록을 쌓으며 마법 e 가 u 를 길게 만드는 걸 본다', fun: 'tune 을 부르는데 호야만 mute — 대신 손뼉으로 박자' },
+
+  { book: 4, bookName: 'Book 4 · 이중자음·이중글자', id: 'en-b4-u01', letters: 'bl cl fl', words: 'black blade block blue / clam clap cliff clock / flag flame flap flute', cast: '호리·토토', concept: '두 글자가 손을 잡고 한 소리를 낸다 — bl·cl·fl', fun: 'flute 를 불자 flag 가 펄럭이고 clock 이 같이 땡' },
+  { book: 4, id: 'en-b4-u02', letters: 'br cr fr', words: 'brake brave brick bride / crab crack crane crib / frame frog front frost', cast: '호리·보리', concept: 'brick 을 쌓다 만난 crab 과 frog — br·cr·fr', fun: 'crab 이 보리 발가락을 집어 brave 하던 보리가 폴짝' },
+  { book: 4, id: 'en-b4-u03', letters: 'gl pl sl', words: 'glass globe glove glue / plane plant plate plum / sled slice slide slim', cast: '호리·콩이', concept: 'glue 로 붙이고 slide 를 타며 gl·pl·sl', fun: 'glue 를 만진 콩이 glove 가 plate 에 딱 붙음' },
+  { book: 4, id: 'en-b4-u04', letters: 'dr pr tr', words: 'dragon dress drive drum / press price print prize / trace track truck tree', cast: '호리·토토', concept: 'drum 을 치며 truck 을 drive 하는 상상 — dr·pr·tr', fun: 'prize 인 줄 알고 연 상자에서 작은 dragon 인형이 뿅' },
+  { book: 4, id: 'en-b4-u05', letters: 'sm sn st sw', words: 'smell smile smoke snack snake snore stone stop swan sweet swim', cast: '호리·두부', concept: 'swan 이 swim 하는 연못에서 sm·sn·st·sw', fun: 'snack 냄새(smell)를 맡고 자던 두부가 snore 하다 벌떡' },
+  { book: 4, id: 'en-b4-u06', letters: 'ng nk', words: 'bang fang king ring long song / bank rank pink wink dunk junk', cast: '호리·보리', concept: '끝에서 울리는 소리 — -ng 와 -nk 를 구별해 듣기', fun: 'king 놀이 하던 보리가 wink 하다 ring 을 떨어뜨림' },
+  { book: 4, id: 'en-b4-u07', letters: 'ch sh', words: 'cherry chin bench branch catch / shape ship shop brush fish wash', cast: '호리·콩이', concept: 'bench 에 앉아 cherry 를 먹으며 ch·sh 소리 놀이', fun: 'wash 하려던 fish 가 손에서 미끄러져 shop 안으로 첨벙' },
+  { book: 4, id: 'en-b4-u08', letters: 'ph th wh', words: 'phone photo dolphin elephant / thick thin bath teeth / whale wheel whisper white', cast: '호리·토토', concept: 'photo 를 찍고 whale 을 보며 ph·th·wh', fun: 'whisper 로 비밀을 말했는데 elephant 귀에 다 들림' },
+
+  { book: 5, bookName: 'Book 5 · 이중모음·r 모음', id: 'en-b5-u01', letters: 'ee ea', words: 'bee feet green peel seed tree / leaf meat peanut sea seal tea', cast: '호리·콩이', concept: 'ABC 나무(tree)에 앉은 bee 를 보며 ee·ea 긴소리', fun: 'peanut 을 까던 콩이 앞에 seal 이 나타나 눈싸움' },
+  { book: 5, id: 'en-b5-u02', letters: 'oa ow', words: 'boat coat goat road soap toast / blow bowl pillow snow window', cast: '호리·보리', concept: 'boat 를 타고 road 를 지나며 oa·ow', fun: 'snow 를 뭉쳐 bowl 에 담았더니 toast 위에서 녹아버림' },
+  { book: 5, id: 'en-b5-u03', letters: 'ai ay', words: 'mail nail rail rain tail train / clay gray hay play pray tray', cast: '호리·토토', concept: 'rain 오는 날 train 을 기다리며 ai·ay', fun: 'clay 로 만든 tail 을 붙였는데 rain 에 흐물흐물' },
+  { book: 5, id: 'en-b5-u04', letters: 'oi oy', words: 'boil coil coin foil oil point soil toilet / boy joy soybean toy', cast: '호리·두부', concept: 'soil 에 심은 soybean 이 자라는 걸 보며 oi·oy', fun: 'coin 을 찾겠다고 foil 을 헤집던 두부가 toy 만 잔뜩 발굴' },
+  { book: 5, id: 'en-b5-u05', letters: 'ow ou', words: 'brown clown cow crown gown owl / blouse cloud count house mouse mouth', cast: '호리·토토', concept: 'owl 이 사는 house 를 찾아가며 ow·ou', fun: 'crown 을 쓴 clown 이 되려던 토토를 cow 가 핥아 다 무너짐' },
+  { book: 5, id: 'en-b5-u06', letters: 'ir er ur', words: 'bird girl shirt skirt / letter singer soccer teacher / nurse purple purse turtle', cast: '호리·보리', concept: 'turtle 우체부가 letter 를 배달하며 ir·er·ur', fun: 'soccer 하던 보리 shirt 가 purple 진흙 범벅' },
+  { book: 5, id: 'en-b5-u07', letters: 'ar or', words: 'arm car card farmer park star / cork corn fork horse north store', cast: '호리·콩이', concept: 'farmer 의 corn 밭과 park 를 오가며 ar·or', fun: 'fork 로 corn 을 찍으려다 horse 가 먼저 한입' },
+  { book: 5, id: 'en-b5-u08', letters: 'oo', words: 'book cook foot hook look wood / food goose moon pool spoon zoo', cast: '호리·엄마', concept: '같은 oo 인데 소리가 둘 — book 의 짧은 oo, moon 의 긴 oo', fun: 'goose 가 spoon 을 물고 pool 로 도망, 다 같이 우르르' },
+];
+</script>
+<script>
+// ── 39유닛 표 생성 ──
+(function () {
+  var host = document.getElementById('abc-units');
+  if (!host || !window.ABC_UNITS) return;
+  var lastBook = 0;
+  var tbody = null;
+  window.ABC_UNITS.forEach(function (u) {
+    if (u.book !== lastBook) {
+      lastBook = u.book;
+      var band = document.createElement('div');
+      band.className = 'level-band';
+      var count = window.ABC_UNITS.filter(function (x) { return x.book === u.book; }).length;
+      band.innerHTML = '<span class="lv">' + (u.bookName || 'Book ' + u.book) + '</span><span class="cnt">' + count + '유닛</span>';
+      host.appendChild(band);
+      var scroll = document.createElement('div');
+      scroll.className = 'tbl-scroll';
+      var table = document.createElement('table');
+      table.innerHTML = '<thead><tr><th>유닛</th><th>글자</th><th>타겟 단어</th><th>캐스트</th><th>한 줄 컨셉</th><th>재미 포인트 🎈</th></tr></thead>';
+      tbody = document.createElement('tbody');
+      table.appendChild(tbody);
+      scroll.appendChild(table);
+      host.appendChild(scroll);
+    }
+    var tr = document.createElement('tr');
+    var unitNo = u.id.slice(-3); // u01
+    tr.innerHTML =
+      '<td class="u-id"><a href="abc-tree-' + u.id + '.html">' + unitNo + '</a></td>' +
+      '<td><span class="glyph">' + u.letters + '</span></td>' +
+      '<td class="words">' + u.words + '</td>' +
+      '<td class="cast-cell">' + u.cast + '</td>' +
+      '<td class="concept">' + u.concept + '</td>' +
+      '<td class="fun-cell">' + u.fun + '</td>';
+    tbody.appendChild(tr);
+  });
+})();
+
+// ── 스타일 앵커 본문 = core.js SSOT 를 그대로 보여준다 (사본을 두지 않는다) ──
+(function () {
+  var pre = document.getElementById('abc-style-pre');
+  if (!pre) return;
+  fetch('/abc-tree-core.js')
+    .then(function (r) { return r.text(); })
+    .then(function (src) {
+      var m = src.match(/var STYLE_PROMPT = \[([\s\S]*?)\]\.join/);
+      if (!m) return;
+      pre.textContent = m[1]
+        .split('\n')
+        .map(function (l) { return l.trim().replace(/^'/, '').replace(/',?$/, ''); })
+        .filter(Boolean)
+        .join(' ');
+    })
+    .catch(function () {});
+})();
+
+// ── 프롬프트 복사 ──
+(function () {
+  document.querySelectorAll('.char-prompt').forEach(function (card) {
+    var btn = card.querySelector('.copy-btn');
+    var pre = card.querySelector('pre');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', function () {
+      navigator.clipboard.writeText(pre.textContent.trim()).then(
+        function () {
+          var o = btn.textContent;
+          btn.textContent = '복사됨 ✓';
+          btn.classList.add('done');
+          setTimeout(function () { btn.textContent = o; btn.classList.remove('done'); }, 1600);
+        },
+        function () { window.prompt('복사가 막혔어요 — 직접 복사하세요:', pre.textContent.trim()); }
+      );
+    });
+  });
+})();
+</script>
+<script src="/abc-tree-core.js"></script>
+</body>
+</html>

@@ -97,10 +97,12 @@ describe('korean phonics activity plans', () => {
     expect(reviews.flatMap((r) => r.coveredUnitIds!)).not.toContain('kr-h1-u01');
   });
 
-  it('복습 활동은 3종이고 카드는 6장을 넘지 않는다', () => {
+  it('복습은 게임만 — 익히기 활동이 없다', () => {
     for (const r of reviews) {
       const acts = getActivityPlan(r.id).activities;
-      expect(acts.map((a) => a.kind)).toEqual(['review-listen', 'review-match', 'review-write']);
+      // 🔴 복습에 익히기를 넣으면 학습 단원 축약판이 된다(같은 컴포넌트·같은 그림)
+      expect(acts.every((a) => a.section === 'play')).toBe(true);
+      expect(acts.map((a) => a.kind)).toEqual(['review-maze', 'review-match', 'review-write']);
       for (const a of acts) {
         expect(a.reviewCards!.length).toBeGreaterThan(0);
         expect(a.reviewCards!.length).toBeLessThanOrEqual(6);

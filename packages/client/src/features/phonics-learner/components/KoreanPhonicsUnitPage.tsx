@@ -152,6 +152,7 @@ const KIND_ICON_URL: Partial<Record<ActivityDef['kind'], string>> = {
   // 복습 — 익숙한 활동과 같은 그림을 써서 "해본 것"으로 읽히게 한다
   'word-listen-choose': '/icons/activity/cvc-learn.webp',
   'review-listen': '/icons/activity/cvc-learn.webp',
+  'review-maze': '/icons/game/connect-dots.webp',
   'review-match': '/icons/game/line-matching.webp',
   'review-write': '/icons/game/word-writing-ko.webp',
   // 학습 — 쓰기 = 미소짓는 연필
@@ -217,8 +218,10 @@ function ActivityCard({
       </div>
 
       {/* 큰 일러스트 (있으면 webp, 없으면 emoji) — 카드 가운데 차지 */}
+      {/* 🔴 `min-h-0` 필수 — 카드가 aspect 로 높이가 고정이라 공간이 모자라면 flex 가 자식을 줄인다.
+          이게 없으면 그림이 자리를 안 내주고 **아래 제목이 눌려 잘린다**(overflow-hidden 이라 조용히). */}
       <div
-        className={`relative z-10 flex-1 flex items-center justify-center my-1 group-hover:scale-105 transition-transform duration-200 ${showDone ? 'opacity-50' : ''}`}
+        className={`relative z-10 flex-1 min-h-0 flex items-center justify-center my-1 group-hover:scale-105 transition-transform duration-200 ${showDone ? 'opacity-50' : ''}`}
       >
         {iconUrl ? (
           <img
@@ -233,8 +236,9 @@ function ActivityCard({
         )}
       </div>
 
+      {/* 제목은 절대 줄이지 않는다 — 잘리면 무슨 활동인지 못 읽는다 */}
       <h3
-        className={`relative z-10 text-xl sm:text-2xl font-black font-display leading-tight break-keep text-center ${showDone ? 'text-ink-500' : 'text-ink-900'}`}
+        className={`relative z-10 shrink-0 pb-0.5 text-xl sm:text-2xl font-black font-display leading-tight break-keep text-center ${showDone ? 'text-ink-500' : 'text-ink-900'}`}
       >
         {activity.title}
       </h3>

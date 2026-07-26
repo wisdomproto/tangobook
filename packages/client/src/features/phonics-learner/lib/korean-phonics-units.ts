@@ -128,6 +128,7 @@ export type ActivityKind =
   | 'coda-blend-listen'
   | 'consonant-write'
   | 'word-listen-choose'
+  | 'review-maze'
   | 'review-listen'
   | 'review-match'
   | 'review-write'
@@ -559,30 +560,31 @@ function toReviewCard(u: KoreanUnitSummary): ReviewCard | null {
 }
 
 /**
- * 복습 단원 활동 plan — 5~7세용 3종. 게임을 따로 붙이지 않는다(복습 자체가 놀이 형식이다).
+ * 복습 단원 활동 plan — 🔴 **게임만 넣는다. 익히기는 넣지 않는다.**
  *
- * ① 다시 듣기 — 배운 글자를 순서대로 듣고 → 듣고 맞추기 퀴즈 (학습 단원의 모음 듣기와 같은 컴포넌트)
+ * 처음엔 「다시 듣기」를 첫 활동으로 뒀는데, 그게 학습 단원의 모음/자음 듣기와 **같은 컴포넌트·같은 그림**이라
+ * 복습 전체가 유닛 축약판처럼 보였다(사용자 피드백: "너무 심심하다"). 복습은 형식이 달라야 전이가 확인된다.
+ *
+ * ① 길 따라가기 — 격자 위 길을 밟으며 만나는 사물의 글자를 줍는다 (형식이 유일하게 완전히 다른 활동)
  * ② 짝 찾기 — 글자 ↔ 그 글자로 배운 단어 그림
  * ③ 글자 쓰기 — 그림을 보고 첫 글자 쓰기
  */
 function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
-  const shared = { required: true, reviewCards: cards } as const;
+  const shared = { required: true, reviewCards: cards, section: 'play' as const };
   return {
     activities: [
       {
-        key: 'review-listen',
+        key: 'review-maze',
         order: 1,
-        kind: 'review-listen',
-        section: 'learn',
-        title: '다시 듣기',
-        emoji: '👂',
+        kind: 'review-maze',
+        title: '길 따라가기',
+        emoji: '🌀',
         ...shared,
       },
       {
         key: 'review-match',
         order: 2,
         kind: 'review-match',
-        section: 'play',
         title: '짝 찾기',
         emoji: '🔗',
         ...shared,
@@ -591,7 +593,6 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
         key: 'review-write',
         order: 3,
         kind: 'review-write',
-        section: 'play',
         title: '글자 쓰기',
         emoji: '✏️',
         ...shared,
