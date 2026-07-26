@@ -28,7 +28,7 @@
 ```
 features/phonics-learner/
   components/
-    PhonicsLandingPage.tsx           # /library/phonics — 한글/영어 카드 (둘 다 active)
+    PhonicsLandingPage.tsx           # /library/phonics — 한글 카드만 active, 영어는 준비 중 음영 (2026-07-26)
     KoreanPhonicsStudyPage.tsx       # /library/phonics/korean — 한글 study layout
     KoreanPhonicsUnitPage.tsx        # 한글 unit body (embedded prop)
     KoreanPhonicsActivityPage.tsx    # 한글 활동 호스트
@@ -106,6 +106,10 @@ features/phonics-learner/
 - **사이드바 (StudyPage aside)**: 레벨별 접기/펴기 (`expandedLevels: Set<levelKey>`). 기본 = 현재 unit 의 레벨만 펼침, 다른 unit 클릭 시 그 레벨 자동 펼침 (useEffect). 헤더 = text-lg/xl + text-ink-900 + `playable/total` 카운트. 활성 unit = coral 그라데이션 + ring-2 흰색 + scale-[1.02] + shadow-pop.
 - **배경**: `/images/phonics/study-bg.webp` (1672×941, 44KB) — 풀밭·꽃·구름 톤. StudyPage 전체 backdrop.
 - **mint 디자인 토큰 추가** (`design-system/tokens/colors.ts`): mint 50/100/200/300/400/500/600 + peach 50 추가. Tailwind JIT 가 새 토큰 발견하려면 client 서버 재시작.
+
+## 🔴 영어 파닉스 = 준비 중 (2026-07-26)
+
+랜딩(`PhonicsLandingPage`)의 영어 카드를 `<Link>` → **음영 `<div>`**(「준비 중」·「곧 만나요 🔒」)로 바꿔 진입을 닫았다. **라우트(`library/phonics/english/*`)와 Book 1~5 활동 코드는 전부 그대로** — URL 직접 입력으로는 들어가지므로 개발은 계속 가능하다. 다시 열 때는 그 카드를 `<Link to="/library/phonics/english">` 로 되돌리면 끝. 아래 영어 문서는 그때를 위해 보존한다.
 
 ## 영어 파닉스 — Book 1 Single Letter Sounds (2026-05-22)
 
