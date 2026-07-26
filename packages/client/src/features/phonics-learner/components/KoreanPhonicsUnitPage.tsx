@@ -129,8 +129,12 @@ function ActivitySection({
         </div>
       </div>
       {/* 🔴 익히기(자음 단원 5장)가 두 줄이 되면 게임하기가 화면 밖으로 밀린다 — 한 화면에 둘 다
-          보여야 아이가 "오늘 할 것"을 한눈에 센다. lg 부터 5열이라 5장이 한 줄에 들어간다. */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+          보여야 아이가 "오늘 할 것"을 한눈에 센다. xl 부터 5열이라 5장이 한 줄에 들어간다.
+          🔴 **열 수는 뷰포트가 아니라 남는 폭으로 정한다** — md 부터 사이드바가 256px 를 먹어
+          834px 화면의 콘텐츠 폭은 486px 뿐이다. 여기에 4열을 깔면 카드가 110px 이 되고
+          두 줄짜리 제목이 카드 밖으로 흘러나간다. 그래서 sm(3열) 보다 md 가 **더 적은 2열**이다.
+          실측 콘텐츠 폭: 768→420 · 834→486 · 1024→676 · 1280→934 · 1512→1109. */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
         {activities.map((act) => (
           <ActivityCard
             key={act.key}
@@ -211,14 +215,14 @@ function ActivityCard({
         </div>
       )}
 
-      {/* 번호 배지 — 흰 외곽 + 그라데이션 + 살짝 기울임 */}
-      <div className="relative z-10 flex items-center justify-between mb-2">
-        <span
-          className={`inline-flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-full font-black text-xl sm:text-2xl shrink-0 shadow-pop ring-[4px] ring-white -rotate-[6deg] group-hover:-rotate-[3deg] transition-transform ${numBadgeClass}`}
-        >
-          {activity.order}
-        </span>
-      </div>
+      {/* 번호 배지 — 흰 외곽 + 그라데이션 + 살짝 기울임.
+          🔴 우상단 ✓ 처럼 **떠 있는다**(absolute). 흐름에 두면 48px 짜리 줄을 하나 더 먹어
+          정사각 카드에서 일러스트가 들어갈 자리가 사라진다. */}
+      <span
+        className={`absolute top-2.5 left-2.5 z-20 inline-flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-full font-black text-xl sm:text-2xl shrink-0 shadow-pop ring-[4px] ring-white -rotate-[6deg] group-hover:-rotate-[3deg] transition-transform ${numBadgeClass}`}
+      >
+        {activity.order}
+      </span>
 
       {/* 큰 일러스트 (있으면 webp, 없으면 emoji) — 카드 가운데 차지 */}
       {/* 🔴 `min-h-0` 필수 — 카드가 aspect 로 높이가 고정이라 공간이 모자라면 flex 가 자식을 줄인다.
@@ -226,14 +230,23 @@ function ActivityCard({
       <div
         className={`relative z-10 flex-1 min-h-0 flex items-center justify-center my-1 group-hover:scale-105 transition-transform duration-200 ${showDone ? 'opacity-50' : ''}`}
       >
+        {/* 🔴 그림에 **고정 크기를 주지 않는다** — `min-h-0` 은 컨테이너만 줄일 뿐이라 안에 h-28 짜리
+            그림이 있으면 밖으로 삐져나와 **제목 위에 겹친다**(넘침이 아니라 겹침이라 `scrollHeight`
+            검사에 안 걸린다).
+            🔴 그렇다고 흐름 안에서 `max-h-full` 을 주면 안 된다 — 부모가 `flex-1`(basis 0)이라
+            퍼센트 높이가 **0 으로 풀린다**(834px 에서 그림이 사라졌다). `absolute inset-0` 는
+            확정된 높이를 기준으로 잡히므로 안전하고, `m-auto` 가 가운데 정렬까지 한다. */}
         {iconUrl ? (
           <img
             src={iconUrl}
             alt={activity.title}
-            className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)]"
+            className="absolute inset-0 m-auto max-h-full max-w-full w-20 sm:w-24 md:w-28 object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)]"
           />
         ) : (
-          <span className="text-7xl sm:text-8xl leading-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)]">
+          // 🔴 이모지는 글꼴 크기라 `max-h-full` 로 못 묶는다 — **가장 좁은 카드(148px)에 들어가는
+          //    크기로 고정**한다. 72px 이던 시절 174px 카드에서 제목을 3px 침범했다.
+          //    (아이콘 webp 가 있는 활동은 위 img 경로라 이 제한과 무관하다.)
+          <span className="text-5xl sm:text-6xl leading-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)]">
             {activity.emoji}
           </span>
         )}

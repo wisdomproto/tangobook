@@ -101,7 +101,11 @@ features/phonics-learner/
 
 ## 디자인 (2026-05-20 패스)
 
-- **카드** ([KoreanPhonicsUnitPage:ActivityCard](components/KoreanPhonicsUnitPage.tsx)): `aspect-square rounded-[28px] border-[5px]` (2026-07-26 `aspect-[5/6]` → 정사각 + 그리드 `lg:grid-cols-5`. 🔴 **익히기·게임하기가 한 화면에 같이 보여야 한다** — 자음 단원은 익히기가 5장이라 4열에선 두 줄이 되고 그만큼 게임하기가 화면 밖으로 밀렸다. 5열이면 익히기 1줄 + 게임 1줄. 실측 1280×720 에서 마지막 카드 바닥 665px, 페이지 스크롤 0) + 코랄 틴트 그림자 + 위쪽 흰 하이라이트 + hover `-translate-y-1 rotate-[0.5deg]` + 번호 배지 `-rotate-[6deg]` 그라데이션 + ring-4 흰 외곽. 게임 4종은 `/icons/game/*.webp` 표시, 학습은 emoji text-7xl/8xl 폴백 (필요 일러스트: tap-listen / write / blend-link).
+- **카드** ([KoreanPhonicsUnitPage:ActivityCard](components/KoreanPhonicsUnitPage.tsx)): `aspect-square rounded-[28px] border-[5px]` + 그리드 `2 / sm:3 / md:2 / lg:4 / xl:5`. 🔴 **익히기·게임하기가 한 화면에 같이 보여야 한다** — 자음 단원은 익히기가 5장이라 4열이면 두 줄이 되고 게임하기가 화면 밖으로 밀린다.
+  - 🔴 **열 수는 뷰포트가 아니라 남는 폭으로 정한다** — md 부터 사이드바가 256px 를 먹어 834px 화면의 콘텐츠 폭은 486px 뿐이다. 그래서 sm(3열)보다 **md 가 더 적은 2열**이다. 실측 콘텐츠 폭 768→420 · 834→486 · 1024→676 · 1280→934 · 1512→1109.
+  - 🔴 **카드 안 그림에 고정 크기를 주지 않는다** — 정사각 카드는 높이가 빠듯해서 `h-28` 짜리 그림이 컨테이너를 넘어 **제목 위에 겹친다**. 그런데 흐름 안에서 `max-h-full` 을 주면 부모가 `flex-1`(basis 0)이라 퍼센트가 **0 으로 풀린다**(834px 에서 그림이 사라졌다). → `absolute inset-0 m-auto max-h-full`.
+  - 🔴 **이모지 폴백은 글꼴 크기라 못 묶는다** — 가장 좁은 카드(148px)에 들어가는 `text-5xl sm:text-6xl` 로 고정. 72px 이던 시절 174px 카드에서 제목을 3px 침범했다. (복습의 🎧🔊 두 활동만 아직 아이콘 webp 가 없어 이 경로를 탄다.)
+  - 🔴 **겹침은 `scrollHeight` 로 안 잡힌다** — 검수는 그림 사각형과 제목 사각형의 **교차**로 해야 한다(`art.bottom > title.top`). 넘침만 재다가 사용자가 스크린샷으로 잡아냈다.
 - **섹션 panel**: 익히기/게임하기 각각 `rounded-[32px]` panel wrap. 익히기 = peach 톤 (`from-peach-100/80 via-peach-50/70 to-cream-50/60 border-peach-200/70`), 게임 = mint 톤. 헤더 chip 은 panel `-top-5 left-5` floating peg (coral / mint 그라데이션 + 흰 3px 테두리). panel `pt-10 sm:pt-12` 로 카드와 헤더 분리.
 - **사이드바 (StudyPage aside)**: 레벨별 접기/펴기 (`expandedLevels: Set<levelKey>`). 기본 = 현재 unit 의 레벨만 펼침, 다른 unit 클릭 시 그 레벨 자동 펼침 (useEffect). 헤더 = text-lg/xl + text-ink-900 + `playable/total` 카운트. 활성 unit = coral 그라데이션 + ring-2 흰색 + scale-[1.02] + shadow-pop.
 - **배경**: `/images/phonics/study-bg.webp` (1672×941, 44KB) — 풀밭·꽃·구름 톤. StudyPage 전체 backdrop.
