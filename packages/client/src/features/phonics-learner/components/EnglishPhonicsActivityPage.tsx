@@ -8,6 +8,8 @@ import { CvcPatternWriteActivity } from '../activities/CvcPatternWriteActivity';
 import { AlphabetLetterLearnActivity } from '../activities/AlphabetLetterLearnActivity';
 import { AlphabetLetterWriteActivity } from '../activities/AlphabetLetterWriteActivity';
 import { WordListenChooseActivity } from '../activities/WordListenChooseActivity';
+import { VowelListenActivity } from '../activities/VowelListenActivity';
+import { ReviewWriteActivity } from '../activities/ReviewWriteActivity';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { EnglishBlockPlayer } from '@/features/games/components/players/EnglishBlockPlayer';
 import { EnglishWordWritingPlayer } from '@/features/games/components/players/EnglishWordWritingPlayer';
@@ -84,6 +86,35 @@ export default function EnglishPhonicsActivityPage() {
           sound: L.toLowerCase(),
         }))}
         onMarkComplete={handleMarkComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+
+  // ── 🏅 복습 액티비티 ──
+  // 🔴 영어 복습은 그림 자산이 없어 **글자만으로** 돈다 (짝 찾기 없음, 쓰기는 소리가 문제).
+  if (activity.kind === 'review-listen' && activity.reviewCards?.length) {
+    return (
+      <VowelListenActivity
+        unitId={unitId}
+        vowels={activity.reviewCards.map((c) => ({
+          vowel: c.letter,
+          syllable: c.syllable,
+          sound: c.sound,
+        }))}
+        language="english"
+        onMarkComplete={handleMarkComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+  if (activity.kind === 'review-write' && activity.reviewCards?.length) {
+    return (
+      <ReviewWriteActivity
+        unitId={unitId}
+        language="english"
+        sources={activity.reviewCards.map((c) => ({ ...c, word: c.letter, imageUrl: '' }))}
+        onComplete={handleComplete}
         onBack={backToUnit}
       />
     );

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
@@ -9,6 +9,7 @@ import type { ReviewCardSource } from '../hooks/useReviewCardSources';
 interface Props {
   unitId: string;
   sources: ReadonlyArray<ReviewCardSource>;
+  language?: 'korean' | 'english';
   onComplete: () => void;
   onBack: () => void;
 }
@@ -24,7 +25,13 @@ interface Props {
  */
 const HINT_AFTER_FAILS = 3;
 
-export function ReviewWriteActivity({ unitId, sources, onComplete, onBack }: Props) {
+export function ReviewWriteActivity({
+  unitId,
+  sources,
+  language = 'korean',
+  onComplete,
+  onBack,
+}: Props) {
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   const [idx, setIdx] = useState(0);
   const [fails, setFails] = useState(0);
@@ -38,6 +45,25 @@ export function ReviewWriteActivity({ unitId, sources, onComplete, onBack }: Pro
 
   const current = sources[idx];
 
+  const say = useCallback(
+    async (card: ReviewCardSource) => {
+      const url = await resolveTtsUrl({
+        text: card.sound,
+        language,
+        storybookId: unitId,
+        identifierPrefix: 'review-write',
+      });
+      if (url) playAudio(url);
+    },
+    [language, unitId, playAudio]
+  );
+
+  // 그림이 없는 복습(영어)은 소리가 곧 문제다 — 카드가 바뀌면 자동으로 한 번 들려준다.
+  useEffect(() => {
+    if (done || !current || current.imageUrl) return;
+    say(current);
+  }, [idx, done, current, say]);
+
   const handleResult = useCallback(
     async (passed: boolean) => {
       if (done || !current) return;
@@ -50,13 +76,17 @@ export function ReviewWriteActivity({ unitId, sources, onComplete, onBack }: Pro
 
       const url = await resolveTtsUrl({
         text: current.sound,
-        language: 'korean',
+        language,
         storybookId: unitId,
         identifierPrefix: 'review-write',
       });
 
       const afterChime = () => {
-        if (isLast) playCorrectSequence({ language: 'ko', onDone: onComplete });
+        if (isLast)
+          playCorrectSequence({
+            language: language === 'english' ? 'en' : 'ko',
+            onDone: onComplete,
+          });
         else {
           setIdx((i) => i + 1);
           setFails(0);
@@ -66,7 +96,17 @@ export function ReviewWriteActivity({ unitId, sources, onComplete, onBack }: Pro
       if (url) playAudio(url, playChime);
       else playChime();
     },
-    [done, current, idx, sources.length, unitId, playAudio, playCorrectSequence, onComplete]
+    [
+      done,
+      current,
+      idx,
+      sources.length,
+      unitId,
+      language,
+      playAudio,
+      playCorrectSequence,
+      onComplete,
+    ]
   );
 
   if (!current) return null;
@@ -91,8 +131,9 @@ export function ReviewWriteActivity({ unitId, sources, onComplete, onBack }: Pro
         {/* 진행 dots — 몇 장 남았는지 그림으로 */}
         <div className="flex gap-2 sm:gap-3">
           {sources.map((s, i) => (
+            // 🔴 key 는 unitId 만으로 부족하다 — 영어는 한 단원이 글자를 3~4개 내서 같은 unitId 가 반복된다.
             <span
-              key={s.unitId}
+              key={`${s.unitId}-${s.letter}`}
               className={[
                 'w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-black text-sm sm:text-base shadow-soft transition',
                 i < idx
@@ -108,7 +149,9 @@ export function ReviewWriteActivity({ unitId, sources, onComplete, onBack }: Pro
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
-          {/* 그림 = 문제 */}
+          {/* 문제 — 그림이 있으면 그림, 없으면 소리.
+              🔴 영어 단원은 아직 단어 그림이 0장이라 소리로 낸다. 자산 때문에 택한 형태지만
+                 "소리를 듣고 글자를 쓴다"는 파닉스로는 오히려 정공법이라 그대로 둔다. */}
           <div className="relative w-40 h-40 sm:w-56 sm:h-56 rounded-3xl bg-white border-[6px] border-white shadow-pop overflow-hidden shrink-0">
             {current.imageUrl ? (
               <img
@@ -117,7 +160,13 @@ export function ReviewWriteActivity({ unitId, sources, onComplete, onBack }: Pro
                 className="w-full h-full object-cover"
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-6xl">🖼️</div>
+              <button
+                onClick={() => say(current)}
+                aria-label="다시 듣기"
+                className="w-full h-full flex items-center justify-center bg-coral-500 text-white text-6xl sm:text-7xl active:scale-[0.97] transition"
+              >
+                🔊
+              </button>
             )}
           </div>
 

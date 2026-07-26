@@ -111,6 +111,17 @@ features/phonics-learner/
 
 랜딩(`PhonicsLandingPage`)의 영어 카드를 `<Link>` → **음영 `<div>`**(「준비 중」·「곧 만나요 🔒」)로 바꿔 진입을 닫았다. **라우트(`library/phonics/english/*`)와 Book 1~5 활동 코드는 전부 그대로** — URL 직접 입력으로는 들어가지므로 개발은 계속 가능하다. 다시 열 때는 그 카드를 `<Link to="/library/phonics/english">` 로 되돌리면 끝. 아래 영어 문서는 그때를 위해 보존한다.
 
+## 🏅 영어 복습 (2026-07-26) — 한글과 규칙이 다르다
+
+`en-b1-r1~r4`, `en-b2-r1~r4` (8개). 가드 = `lib/english-phonics-units.test.ts`.
+
+- 🔴 **묶음이 2단원**(한글은 4). 영어는 한 단원이 글자·패턴을 3~4개씩 안고 있어 4단원을 묶으면 카드가 12~14장 깔린다. 2단원이면 5~8장으로 한글과 비슷한 밀도.
+- 🔴 **Book 1·2 에만** 만든다(`reviewableLevels`). Book 3~5 는 학습 활동 자체가 없어 복습만 생기면 빈 껍데기가 된다.
+- 🔴 **활동 2종뿐 — 짝 찾기 없음.** 영어는 flashcard 이미지가 0장이라 짝 찾기를 넣어봐야 "단어 그림이 필요해요" 로 끝난다. 그림이 생기면 그때 추가.
+- **쓰기는 그림 대신 소리가 문제** — `ReviewWriteActivity` 가 `imageUrl` 없으면 🔊 버튼을 띄우고 카드가 바뀔 때 자동 재생한다. 자산 때문에 택한 형태지만 파닉스로는 오히려 정공법.
+- 카드 = Book 1 `{letter:'A', syllable:'a'}`(대/소문자 쌍) · Book 2 `{letter:'an'}`(VC 패턴). `matchPosition` 은 한글 전용 필드라 `'cho'` 로 채우고 안 쓴다.
+- 🔴 **진행 점 key 는 `unitId` 만으로 부족하다** — 영어는 한 단원이 카드를 3~4장 내서 중복 key 경고가 났다(한글은 단원당 1장이라 안 드러났다). `${unitId}-${letter}`.
+
 ## 영어 파닉스 — Book 1 Single Letter Sounds (2026-05-22)
 
 영어 Book 1 (Aa·Bb·Cc … Zz) 8 unit 모두 plan 자동 등록 — `BOOK1_LETTERS` (`english-phonics-units.ts`) + `makeBook1UnitPlan(letters)` 가 글자별 1 활동 + 마지막 ABC 쓰기 + 게임 4종 생성.

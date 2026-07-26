@@ -241,7 +241,8 @@ function CurriculumItem({
                 : 'bg-ink-100 text-ink-400 ring-white',
         ].join(' ')}
       >
-        {done ? '✓' : unit.unitIndexInLevel}
+        {/* 🔴 복습은 앞 단원과 번호가 같아 숫자를 쓰면 "4, 4" 로 보인다 — 트로피로 구분. */}
+        {done ? '✓' : unit.isReview ? '🏅' : unit.unitIndexInLevel}
       </span>
       <span className="text-sm sm:text-base font-black truncate break-keep">{titleShort}</span>
       {!hasPlan && !active && (

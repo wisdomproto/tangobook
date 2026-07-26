@@ -17,6 +17,8 @@ interface VowelItem {
 interface Props {
   unitId: string;
   vowels: ReadonlyArray<VowelItem>;
+  /** 발음·칭찬 언어. 복습에서 영어 알파벳을 읽힐 때 'english'. */
+  language?: 'korean' | 'english';
   /** 진척만 마킹 — 자동 back 없음. activity 가 다시하기 / 돌아가기 UI 직접 노출. */
   onMarkComplete: () => void;
   onBack: () => void;
@@ -31,7 +33,13 @@ interface Props {
  * Phase 2 (quiz, 듣고 맞추기): 랜덤 모음 음원 재생 → 6개 칸 중 정답 선택.
  *   모든 정답 맞추면 onMarkComplete (진척 마킹) — 자동 back 없음, 다시하기 버튼 노출.
  */
-export function VowelListenActivity({ unitId, vowels, onMarkComplete, onBack }: Props) {
+export function VowelListenActivity({
+  unitId,
+  vowels,
+  language = 'korean',
+  onMarkComplete,
+  onBack,
+}: Props) {
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
 
   // 진입하자마자 6개 모음 발음을 백그라운드로 준비 — 첫 탭이 기다리지 않게.
@@ -59,14 +67,14 @@ export function VowelListenActivity({ unitId, vowels, onMarkComplete, onBack }: 
     async (vowel: string, onEnded?: () => void) => {
       const url = await resolveTtsUrl({
         text: vowel,
-        language: 'korean',
+        language,
         storybookId: unitId,
         identifierPrefix: 'phonics-vowel',
       });
       if (url) playAudio(url, onEnded);
       else onEnded?.();
     },
-    [playAudio, unitId]
+    [playAudio, unitId, language]
   );
 
   const handleListenTap = useCallback(
@@ -76,7 +84,7 @@ export function VowelListenActivity({ unitId, vowels, onMarkComplete, onBack }: 
         // 마지막 모음 — 음원이 다 재생된 후에야 칭찬 시작 (요 발음 잘리지 않게)
         playVowel(vowels[idx].sound ?? vowels[idx].vowel, () => {
           setListenedAll(true);
-          playCorrectSequence({ language: 'ko' });
+          playCorrectSequence({ language: language === 'english' ? 'en' : 'ko' });
         });
       } else {
         playVowel(vowels[idx].sound ?? vowels[idx].vowel);
@@ -123,7 +131,7 @@ export function VowelListenActivity({ unitId, vowels, onMarkComplete, onBack }: 
           // 퀴즈 끝 — 진척 마킹 + 칭찬. 자동 back 없음 — 다시하기 버튼 노출 ('done' phase).
           setPhase('done');
           onMarkComplete();
-          playCorrectSequence({ language: 'ko' });
+          playCorrectSequence({ language: language === 'english' ? 'en' : 'ko' });
         } else {
           const [next, ...rest] = quizQueue;
           setQuizQueue(rest);

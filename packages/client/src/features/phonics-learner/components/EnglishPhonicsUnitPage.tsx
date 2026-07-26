@@ -166,6 +166,9 @@ const KIND_ICON_URL: Partial<Record<ActivityDef['kind'], string>> = {
   // 학습 — Book 1 알파벳 배우기/쓰기 모두 카드 안에서 큰 글자 직접 렌더 (ActivityCard 분기 참고)
   // 학습 — CVC 배우기/쓰기 (Book 2)
   'cvc-pattern-learn': '/icons/activity/cvc-learn.webp',
+  'word-listen-choose': '/icons/activity/cvc-learn.webp',
+  'review-listen': '/icons/activity/cvc-learn.webp',
+  'review-write': '/icons/activity/cvc-write.webp',
   'cvc-pattern-write': '/icons/activity/cvc-write.webp',
   // 게임 (한글 파닉스 동일 webp 재사용)
   'game-english-block': '/icons/game/korean-block.webp', // 블록 일러

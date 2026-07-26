@@ -4,11 +4,11 @@
  * 데이터 source: `ENGLISH_PHONICS_CURRICULUM` (`@tangobook/shared`).
  * R2 storybook ID 는 `en-bN-uMM` 형식 (zero-pad).
  *
- * 활동 plan 은 아직 미구성 — 모든 unit 이 "활동 준비 중" 표시.
- * 추후 한글의 `KOREAN_UNIT_ACTIVITY_PLAN` 처럼 `ENGLISH_UNIT_ACTIVITY_PLAN[unitId]` 으로 활동 정의 추가.
+ * 활동 plan = Book 1·2 만 작성됨(Book 3~5 는 "활동 준비 중"). 복습 단원은 Book 1·2 에 2단원씩 파생.
+ * 🔴 영어는 그림 자산이 아직 0장이라, 복습·듣고 고르기 모두 **글자만으로** 도는 형태로 짰다.
  */
 import { ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
-import type { ActivityPlan } from './korean-phonics-units';
+import type { ActivityPlan, ReviewCard } from './korean-phonics-units';
 
 export interface EnglishUnitSummary {
   id: string; // 'en-b1-u01'
@@ -19,9 +19,14 @@ export interface EnglishUnitSummary {
   unitTitle: string; // 'Unit 01: Aa Bb Cc'
   phonemes: string[];
   targetWords: string[];
+  /** 복습 단원인가 (커리큘럼에 없는 파생 단원). */
+  isReview?: boolean;
+  /** 복습 단원이 되짚는 학습 단원 ID 들. */
+  coveredUnitIds?: string[];
 }
 
-export function getAllEnglishUnits(): EnglishUnitSummary[] {
+/** 커리큘럼 단원만 (복습 제외). */
+function getCurriculumUnits(): EnglishUnitSummary[] {
   const out: EnglishUnitSummary[] = [];
   for (const level of ENGLISH_PHONICS_CURRICULUM) {
     const levelIndex = Number(String(level.level).replace(/\D/g, '')) || 0;
@@ -37,6 +42,64 @@ export function getAllEnglishUnits(): EnglishUnitSummary[] {
         phonemes: [...u.phonemes],
         targetWords: [...(u.sampleWords ?? [])],
       });
+    }
+  }
+  return out;
+}
+
+/**
+ * 🔴 복습 묶음이 **2단원**이다 (한글은 4단원).
+ * 영어는 한 단원이 글자·패턴을 3~4개씩 안고 있어서, 4단원을 묶으면 복습 화면에 카드가 12~14장 깔린다.
+ * 2단원이면 5~8장으로 한글 복습과 비슷한 밀도가 된다.
+ */
+const REVIEW_CHUNK = 2;
+const MAX_REVIEW_CARDS = 8;
+
+/** 활동 plan 이 있는 레벨만 복습을 만든다 — Book 3~5 는 아직 학습 활동 자체가 없다. */
+function reviewableLevels(): string[] {
+  return ['book1', 'book2'];
+}
+
+/**
+ * 모든 영어 unit + 복습 단원을 학습 순서대로.
+ * 복습은 그 묶음 마지막 단원 **뒤에** 끼어든다 (사이드바에서 단원처럼 보인다).
+ */
+export function getAllEnglishUnits(): EnglishUnitSummary[] {
+  const curriculum = getCurriculumUnits();
+  const out: EnglishUnitSummary[] = [];
+  const reviewable = reviewableLevels();
+
+  for (const level of ENGLISH_PHONICS_CURRICULUM) {
+    const levelKey = String(level.level);
+    const levelUnits = curriculum.filter((u) => u.levelKey === levelKey);
+    const reviewAfter = new Map<string, EnglishUnitSummary>();
+
+    if (reviewable.includes(levelKey)) {
+      const groups: EnglishUnitSummary[][] = [];
+      for (let i = 0; i < levelUnits.length; i += REVIEW_CHUNK) {
+        groups.push(levelUnits.slice(i, i + REVIEW_CHUNK));
+      }
+      groups.forEach((group, gi) => {
+        const last = group[group.length - 1];
+        reviewAfter.set(last.id, {
+          id: `en-b${last.levelIndex}-r${gi + 1}`,
+          levelKey,
+          levelName: level.name,
+          levelIndex: last.levelIndex,
+          unitIndexInLevel: last.unitIndexInLevel,
+          unitTitle: `Review ${gi + 1}`,
+          phonemes: group.flatMap((u) => u.phonemes),
+          targetWords: group.flatMap((u) => u.targetWords),
+          isReview: true,
+          coveredUnitIds: group.map((u) => u.id),
+        });
+      });
+    }
+
+    for (const u of levelUnits) {
+      out.push(u);
+      const review = reviewAfter.get(u.id);
+      if (review) out.push(review);
     }
   }
   return out;
@@ -244,6 +307,78 @@ const BOOK2_PATTERNS: Record<string, readonly VcPattern[]> = {
   ],
 };
 
+// ─── 복습 단원 ───
+/**
+ * 되짚는 단원 → 복습 카드들.
+ * Book 1 = 알파벳(대문자 크게 + 소문자 작게, 소리는 음가) / Book 2 = VC 패턴(`an`, `at` …).
+ */
+function reviewCardsFor(unitId: string): ReviewCard[] {
+  const letters = BOOK1_LETTERS[unitId];
+  if (letters) {
+    return letters.map((L) => ({
+      unitId,
+      letter: L.toUpperCase(),
+      syllable: L.toLowerCase(),
+      sound: L.toLowerCase(),
+      matchPosition: 'cho' as const, // 영어는 자리 개념을 안 쓴다 (한글 전용 필드)
+    }));
+  }
+  const patterns = BOOK2_PATTERNS[unitId];
+  if (patterns) {
+    return patterns.map((p) => ({
+      unitId,
+      letter: p.vc,
+      syllable: '',
+      sound: p.vc,
+      matchPosition: 'cho' as const,
+    }));
+  }
+  return [];
+}
+
+/**
+ * 영어 복습 plan — **자산 없이 되는 2종만**.
+ *
+ * 🔴 짝 찾기(글자↔그림)는 넣지 않았다. 영어 단원은 flashcard 이미지가 아직 0장이라
+ *    카드를 만들어봐야 "단어 그림이 필요해요" 로 끝난다. 그림이 생기면 그때 추가한다.
+ * 🔴 쓰기는 그림 대신 **소리를 듣고 쓴다** — 자산이 없어서 택한 형태지만 파닉스로는 오히려 정공법이다.
+ */
+function makeEnglishReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
+  const shared = { required: true, reviewCards: cards } as const;
+  return {
+    activities: [
+      {
+        key: 'review-listen',
+        order: 1,
+        kind: 'review-listen',
+        section: 'learn',
+        title: '다시 듣기',
+        emoji: '👂',
+        ...shared,
+      },
+      {
+        key: 'review-write',
+        order: 2,
+        kind: 'review-write',
+        section: 'play',
+        title: '글자 쓰기',
+        emoji: '✏️',
+        ...shared,
+      },
+    ],
+  };
+}
+
+function englishReviewPlans(): Record<string, ActivityPlan> {
+  const out: Record<string, ActivityPlan> = {};
+  for (const u of getAllEnglishUnits()) {
+    if (!u.isReview) continue;
+    const cards = (u.coveredUnitIds ?? []).flatMap(reviewCardsFor).slice(0, MAX_REVIEW_CARDS);
+    if (cards.length) out[u.id] = makeEnglishReviewPlan(cards);
+  }
+  return out;
+}
+
 export const ENGLISH_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
   ...Object.fromEntries(
     Object.entries(BOOK1_LETTERS).map(([unitId, letters]) => [unitId, makeBook1UnitPlan(letters)])
@@ -254,6 +389,7 @@ export const ENGLISH_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
       makeBook2UnitPlan(patterns),
     ])
   ),
+  ...englishReviewPlans(),
 };
 
 export function getEnglishActivityPlan(unitId: string): ActivityPlan {
