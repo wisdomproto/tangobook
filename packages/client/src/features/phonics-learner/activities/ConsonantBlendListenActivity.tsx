@@ -91,7 +91,15 @@ export function ConsonantBlendListenActivity({
   const [idx, setIdx] = useState(0); // 지금 만드는 짝
   const [round, setRound] = useState(0); // 0 멀리 · 1 가까이 · 2 붙음(자동)
   const [step, setStep] = useState(0); // 0 첫 글자 차례 · 1 둘째 글자 차례
+  const [madeSet, setMade] = useState<ReadonlySet<number>>(() => new Set()); // 만들어 본 음절
   const [completed, setCompleted] = useState(false);
+
+  /** 위 음절 목록에서 아무거나 골라 그것부터 할 수 있다 — 순서를 강제하지 않는다. */
+  const goTo = useCallback((i: number) => {
+    setIdx(i);
+    setRound(0);
+    setStep(0);
+  }, []);
 
   const pair = pairs[idx];
   const merging = round >= TAP_ROUNDS;
@@ -131,16 +139,19 @@ export function ConsonantBlendListenActivity({
       }
 
       // 합체: 글자가 미끄러져 붙는 동안 `ㄱ ㅏ 가` 를 이어 읽고, 끝나면 띵동 → 다음 짝.
-      const isLast = idx + 1 >= pairs.length;
+      const made = new Set(madeSet).add(idx);
+      setMade(made);
+      const isLast = made.size >= pairs.length;
       if (isLast) setCompleted(true);
       const advance = () => {
         if (isLast) {
           playCorrectSequence({ language: 'ko', onDone: onComplete });
           return;
         }
-        setIdx((i) => i + 1);
-        setRound(0);
-        setStep(0);
+        // 🔴 idx+1 이 아니라 **아직 안 만든 다음 음절**로 — 목록에서 건너뛰며 골랐을 수 있다.
+        //    뒤에 없으면 앞에서 찾는다. (isLast 가 아니므로 하나는 반드시 있다.)
+        const after = pairs.findIndex((_, i) => i > idx && !made.has(i));
+        goTo(after >= 0 ? after : pairs.findIndex((_, i) => !made.has(i)));
       };
       say(`${pair.first} ${pair.second} ${pair.syllable}`, () =>
         playAudio('/sounds/game/correct.mp3', advance)
@@ -153,7 +164,9 @@ export function ConsonantBlendListenActivity({
       step,
       round,
       idx,
-      pairs.length,
+      pairs,
+      madeSet,
+      goTo,
       say,
       playAudio,
       playCorrectSequence,
@@ -189,6 +202,35 @@ export function ConsonantBlendListenActivity({
         ← 돌아가기
       </button>
 
+      {/* 만들 음절 목록 — 완료 표시 + 아무거나 눌러 그것부터. 진행 점을 대신한다(같은 정보를 두 번 두지 않는다). */}
+      <div className="flex flex-wrap justify-center gap-2 sm:gap-3 px-2">
+        {pairs.map((p, i) => {
+          const made = madeSet.has(i);
+          return (
+            <button
+              key={p.syllable}
+              onClick={() => goTo(i)}
+              aria-label={`${p.syllable} 만들기${made ? ' (완료)' : ''}`}
+              className={[
+                'relative w-11 h-11 sm:w-14 sm:h-14 rounded-2xl border-[3px] font-black text-xl sm:text-2xl shadow-soft transition active:scale-[0.95]',
+                i === idx
+                  ? 'bg-coral-500 text-white border-white ring-4 ring-coral-200'
+                  : made
+                    ? 'bg-mint-500 text-white border-white'
+                    : 'bg-white/80 text-ink-500 border-white',
+              ].join(' ')}
+            >
+              {p.syllable}
+              {made && i !== idx && (
+                <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-white text-mint-600 text-xs flex items-center justify-center ring-2 ring-mint-500">
+                  ✓
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-8">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-900 text-center break-keep">
           {merging ? (
@@ -223,19 +265,6 @@ export function ConsonantBlendListenActivity({
               </button>
             </>
           )}
-        </div>
-
-        {/* 진행 — 몇 개째 만들고 있는지 */}
-        <div className="flex flex-wrap justify-center gap-2">
-          {pairs.map((p, i) => (
-            <span
-              key={p.syllable}
-              className={[
-                'w-3 h-3 rounded-full transition',
-                i < idx ? 'bg-mint-500' : i === idx ? 'bg-coral-500' : 'bg-white/70',
-              ].join(' ')}
-            />
-          ))}
         </div>
       </div>
 
