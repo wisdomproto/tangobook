@@ -203,7 +203,9 @@ function ResourcesDropdown() {
         📁 자료실 <span className="text-[10px]">{open ? '▴' : '▾'}</span>
       </button>
       {open && (
-        <div className="absolute right-0 mt-1 w-60 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg overflow-hidden z-50">
+        // 🔴 항목이 29개라 목록이 화면 높이를 넘는다. `overflow-hidden` 만 있으면 아래쪽이
+        // 스크롤 없이 잘려서 최근에 추가한 자료일수록 못 연다 → 최대 높이 + 세로 스크롤.
+        <div className="absolute right-0 mt-1 w-60 max-h-[calc(100vh-5rem)] overflow-y-auto overflow-x-hidden overscroll-contain bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg z-50">
           {RESOURCES.map((item) => {
             const className =
               'flex items-start gap-2 px-4 py-2.5 text-sm hover:bg-slate-50 dark:hover:bg-slate-700 border-b border-slate-100 dark:border-slate-700 last:border-b-0';
