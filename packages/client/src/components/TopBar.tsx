@@ -56,6 +56,12 @@ const RESOURCES: ResourceItem[] = [
     desc: '호리 앙상블 니들펠트 · 한글 파닉스 32유닛 학습 장면형 동화(8쪽) + 회차별 대본·프롬프트(☰ 유닛)',
   },
   {
+    href: '/abc-tree-plan.html',
+    icon: '🔤',
+    label: 'ABC 나무 파닉스 동화 기획서',
+    desc: '한글 나무의 영어판(같은 마을·같은 캐스트) · 영어 파닉스 39유닛 + 타겟 단어 카드 388장(☰ 유닛)',
+  },
+  {
     href: '/learning-comic-franchise.html',
     icon: '🗺️',
     label: '학습만화 「타임 티코」 프랜차이즈',
