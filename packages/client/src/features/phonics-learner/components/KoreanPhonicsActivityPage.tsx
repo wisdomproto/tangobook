@@ -8,6 +8,7 @@ import { ConsonantTapActivity } from '../activities/ConsonantTapActivity';
 import { ConsonantBlendListenActivity } from '../activities/ConsonantBlendListenActivity';
 import { ConsonantWriteActivity } from '../activities/ConsonantWriteActivity';
 import { ReviewWriteActivity } from '../activities/ReviewWriteActivity';
+import { WordListenChooseActivity } from '../activities/WordListenChooseActivity';
 import { useReviewCardSources } from '../hooks/useReviewCardSources';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { KoreanBlockPlayer } from '@/features/games/components/players/KoreanBlockPlayer';
@@ -19,6 +20,7 @@ import {
   phonicsToWordWritingData,
   phonicsToLineMatchingData,
   phonicsToConnectTheDotsData,
+  phonicsToWordChoices,
 } from '../lib/phonics-game-adapter';
 import type { Storybook } from '@tangobook/shared';
 
@@ -145,6 +147,30 @@ export default function KoreanPhonicsActivityPage() {
         consonant={activity.consonant}
         soundText={activity.soundText}
         onComplete={handleComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+
+  // 🔊 듣고 고르기 — 단원 storybook 의 단어·그림이 필요하다
+  if (activity.kind === 'word-listen-choose') {
+    if (!storybook) {
+      return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
+    }
+    const choices = phonicsToWordChoices(storybook);
+    if (choices.length < 3)
+      return (
+        <ActivityUnavailable
+          activity={activity}
+          onBack={backToUnit}
+          reason="단어 그림이 필요해요"
+        />
+      );
+    return (
+      <WordListenChooseActivity
+        unitId={unitId}
+        words={choices}
+        onMarkComplete={handleMarkComplete}
         onBack={backToUnit}
       />
     );

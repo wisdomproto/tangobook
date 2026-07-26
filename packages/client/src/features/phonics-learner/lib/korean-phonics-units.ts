@@ -127,6 +127,7 @@ export type ActivityKind =
   | 'consonant-blend-listen'
   | 'coda-blend-listen'
   | 'consonant-write'
+  | 'word-listen-choose'
   | 'review-listen'
   | 'review-match'
   | 'review-write'
@@ -302,93 +303,52 @@ const CONSONANT_BLEND_VOWELS_1 = ['ㅏ', 'ㅑ', 'ㅓ', 'ㅕ', 'ㅗ', 'ㅛ'] as c
 const CONSONANT_BLEND_VOWELS_2 = ['ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ', 'ㅣ'] as const;
 
 /**
- * 자음 단원 (ㄱ~ㅎ) 공통 활동 plan 생성. 14 자음 모두 같은 구조 — 자음만 바뀌어 4 learn + 4 game.
+ * 자음 단원 (ㄱ~ㅎ) 공통 활동 plan 생성. 자음만 바뀌어 구조는 전부 같다.
+ * 꼬리(듣고 고르기 + 게임 4)는 `withGames` 가 붙이고 순서도 거기서 매긴다.
  */
 function makeConsonantPlan(consonant: string): ActivityPlan {
-  return {
-    activities: [
-      {
-        key: 'consonant-tap',
-        order: 1,
-        kind: 'consonant-tap',
-        section: 'learn',
-        title: `${consonant} 배우기`,
-        emoji: '👆',
-        required: true,
-        consonant,
-      },
-      {
-        key: 'blend-listen-1',
-        order: 2,
-        kind: 'consonant-blend-listen',
-        section: 'learn',
-        // 🔴 같은 제목 두 장이 나란히 놓이면 뭐가 다른지 알 수 없다(모음 묶음이 다르다).
-        // 모음 듣기 1/2 · 쓰기 1/2 과 같은 규칙으로 번호를 붙인다.
-        title: `${consonant} + 모음 배우기 1`,
-        emoji: '🔗',
-        required: true,
-        consonant,
-        blendVowels: [...CONSONANT_BLEND_VOWELS_1],
-      },
-      {
-        key: 'blend-listen-2',
-        order: 3,
-        kind: 'consonant-blend-listen',
-        section: 'learn',
-        title: `${consonant} + 모음 배우기 2`,
-        emoji: '🔗',
-        required: true,
-        consonant,
-        blendVowels: [...CONSONANT_BLEND_VOWELS_2],
-      },
-      {
-        key: 'consonant-write',
-        order: 4,
-        kind: 'consonant-write',
-        section: 'learn',
-        title: `${consonant} 쓰기`,
-        emoji: '✏️',
-        required: true,
-        consonant,
-      },
-      {
-        key: 'game-korean-block',
-        order: 5,
-        kind: 'game-korean-block',
-        section: 'play',
-        title: '한글 블록 게임',
-        emoji: '🧩',
-        required: false,
-      },
-      {
-        key: 'game-word-writing',
-        order: 6,
-        kind: 'game-word-writing',
-        section: 'play',
-        title: '낱말 쓰기',
-        emoji: '🖍️',
-        required: false,
-      },
-      {
-        key: 'game-dots',
-        order: 7,
-        kind: 'game-connect-dots',
-        section: 'play',
-        title: '낱말 그리기',
-        emoji: '🔵',
-        required: false,
-      },
-      {
-        key: 'game-line-matching',
-        order: 8,
-        kind: 'game-line-matching',
-        section: 'play',
-        title: '그림 짝 찾기',
-        emoji: '🔗',
-        required: false,
-      },
-    ],
-  };
+  return withGames([
+    {
+      key: 'consonant-tap',
+      kind: 'consonant-tap',
+      section: 'learn',
+      title: `${consonant} 배우기`,
+      emoji: '👆',
+      required: true,
+      consonant,
+    },
+    {
+      key: 'blend-listen-1',
+      kind: 'consonant-blend-listen',
+      section: 'learn',
+      // 🔴 같은 제목 두 장이 나란히 놓이면 뭐가 다른지 알 수 없다(모음 묶음이 다르다).
+      // 모음 듣기 1/2 · 쓰기 1/2 과 같은 규칙으로 번호를 붙인다.
+      title: `${consonant} + 모음 배우기 1`,
+      emoji: '🔗',
+      required: true,
+      consonant,
+      blendVowels: [...CONSONANT_BLEND_VOWELS_1],
+    },
+    {
+      key: 'blend-listen-2',
+      kind: 'consonant-blend-listen',
+      section: 'learn',
+      title: `${consonant} + 모음 배우기 2`,
+      emoji: '🔗',
+      required: true,
+      consonant,
+      blendVowels: [...CONSONANT_BLEND_VOWELS_2],
+    },
+    {
+      key: 'consonant-write',
+      kind: 'consonant-write',
+      section: 'learn',
+      title: `${consonant} 쓰기`,
+      emoji: '✏️',
+      required: true,
+      consonant,
+    },
+  ]);
 }
 
 // 한글1 자음 단원 매핑 — u02 (ㄱ) ~ u15 (ㅎ).
@@ -446,9 +406,29 @@ const GAME_ACTIVITIES: ReadonlyArray<Omit<ActivityDef, 'order'>> = [
   },
 ];
 
+/**
+ * 🔊 듣고 고르기 — 단어 발음을 먼저 들려주고 그림을 고른다.
+ *
+ * 🔴 다른 학습 활동은 전부 **누르면 소리가 나는** 탐색형이라 아이가 소리를 구별하는지 확인할 방법이 없었다.
+ *    이 활동만 소리가 먼저 오고 아이가 판단한다(이퓨처 교재는 유닛 6쪽 중 절반이 이 형식).
+ *    단어·그림은 그 단원 storybook 에서 오므로 별도 데이터가 필요 없다.
+ */
+const WORD_LISTEN_ACTIVITY: Omit<ActivityDef, 'order'> = {
+  key: 'word-listen-choose',
+  kind: 'word-listen-choose',
+  section: 'learn',
+  title: '듣고 고르기',
+  emoji: '🔊',
+  required: true,
+};
+
+/** 학습 활동 뒤에 [듣고 고르기 + 게임 4] 를 붙이고 순서를 매긴다. */
 function withGames(learn: ReadonlyArray<Omit<ActivityDef, 'order'>>): ActivityPlan {
   return {
-    activities: [...learn, ...GAME_ACTIVITIES].map((a, i) => ({ ...a, order: i + 1 })),
+    activities: [...learn, WORD_LISTEN_ACTIVITY, ...GAME_ACTIVITIES].map((a, i) => ({
+      ...a,
+      order: i + 1,
+    })),
   };
 }
 

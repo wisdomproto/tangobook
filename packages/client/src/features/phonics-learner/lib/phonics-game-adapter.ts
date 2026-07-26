@@ -105,6 +105,26 @@ export function phonicsToWordWritingData(sb: Storybook): WordWritingData | null 
   return { type: 'korean-word-writing', items: shuffle(items).slice(0, MAX_ITEMS) };
 }
 
+/**
+ * 듣고 고르기용 — 그림이 있는 타겟 단어만. 보기가 3장이라 최소 3개가 있어야 문제가 성립한다.
+ */
+export function phonicsToWordChoices(
+  sb: Storybook
+): Array<{ word: string; imageUrl: string; ttsUrl?: string }> {
+  const targetWords = sb.phonicsConfig?.targetWords ?? [];
+  const out: Array<{ word: string; imageUrl: string; ttsUrl?: string }> = [];
+  for (const w of targetWords) {
+    const extra = findImageData(sb, w);
+    if (!extra.imageUrl) continue;
+    out.push({
+      word: w,
+      imageUrl: extra.imageUrl,
+      ...(extra.ttsUrl ? { ttsUrl: extra.ttsUrl } : {}),
+    });
+  }
+  return out;
+}
+
 export function phonicsToLineMatchingData(sb: Storybook): KoreanLineMatchingData | null {
   const targetWords = sb.phonicsConfig?.targetWords ?? [];
   const candidates: LineMatchingItem[] = [];
