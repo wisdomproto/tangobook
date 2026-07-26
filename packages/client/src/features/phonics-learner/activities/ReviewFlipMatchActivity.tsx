@@ -187,10 +187,19 @@ export function ReviewFlipMatchActivity({
                     tile.face === 'image' && tile.card.imageUrl ? (
                       <img src={tile.card.imageUrl} alt="" className="w-full h-full object-cover" />
                     ) : (
+                      // 🔴 글자 면은 **음소(ㄱ)가 아니라 낱말(고기)** — 음소만 덜렁 있으면 무엇의 짝인지
+                      //    떠올릴 실마리가 없다. 모은 글자 칩이 음소를 맡으므로 파닉스는 유지된다.
+                      //    크기는 라벨 길이로 분기 — 3글자를 큰 글꼴로 두면 좁은 칸(75px)에서 넘친다.
                       <span
-                        className={`text-4xl sm:text-5xl font-black ${isMatched ? 'text-mint-600' : 'text-coral-600'}`}
+                        className={[
+                          'font-black break-keep px-1 leading-none',
+                          (tile.card.word || tile.card.letter).length >= 3
+                            ? 'text-xl sm:text-3xl'
+                            : 'text-2xl sm:text-4xl',
+                          isMatched ? 'text-mint-600' : 'text-coral-600',
+                        ].join(' ')}
                       >
-                        {tile.card.letter}
+                        {tile.card.word || tile.card.letter}
                       </span>
                     )
                   ) : (

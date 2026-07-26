@@ -115,6 +115,8 @@ export default function KoreanPhonicsActivityPage() {
         unitId={unitId}
         consonant={activity.consonant}
         soundText={activity.soundText}
+        // 카드마다 타겟 단어 그림 하나 — storybook 이 아직 안 왔으면 글자만 있는 화면으로 뜬다.
+        words={storybook ? phonicsToWordChoices(storybook) : []}
         onComplete={handleComplete}
         onBack={backToUnit}
       />
@@ -203,8 +205,8 @@ export default function KoreanPhonicsActivityPage() {
     );
   }
 
-  // 🔊 듣고 단어 맞추기 — 되짚는 단원의 대표 단어. 보기는 **낱말 글자**(그림 X) 라
-  //    앞의 「듣고 고르기」(소리→그림) 와 방향이 다르다: 소리→글자.
+  // 🔊 듣고 단어 맞추기 — 되짚는 단원의 대표 단어. 보기 = **그림 + 낱말**.
+  //    (낱말만 두면 아직 못 읽는 아이에게는 네 칸이 다 똑같아 보인다.)
   if (activity.kind === 'review-word-listen' && reviewCards.length) {
     if (reviewLoading) {
       return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
@@ -218,7 +220,11 @@ export default function KoreanPhonicsActivityPage() {
     return (
       <WordListenChooseActivity
         unitId={unitId}
-        items={words.map((s) => ({ label: s.word, sound: s.word }))}
+        items={words.map((s) => ({
+          label: s.word,
+          sound: s.word,
+          ...(s.imageUrl ? { imageUrl: s.imageUrl } : {}),
+        }))}
         choices={REVIEW_CHOICES}
         onMarkComplete={handleMarkComplete}
         onBack={backToUnit}

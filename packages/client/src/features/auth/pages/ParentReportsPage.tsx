@@ -34,7 +34,8 @@ export default function ParentReportsPage() {
   const [tab, setTab] = useState<MainTab>('storybook');
   const [storybookLang, setStorybookLang] = useState<Lang>('ko');
 
-  const visibleTabs = TAB_DEFS.filter((t) => t.id === 'storybook' || isDev);
+  // 파닉스는 부모가 보는 탭이다(2026-07-26 재공개) — 어휘·활동 현황만 아직 dev 전용.
+  const visibleTabs = TAB_DEFS.filter((t) => t.id === 'storybook' || t.id === 'phonics' || isDev);
 
   if (!isConfigured) {
     return (
@@ -134,7 +135,7 @@ export default function ParentReportsPage() {
         </section>
       )}
 
-      {tab === 'phonics' && isDev && (
+      {tab === 'phonics' && (
         <section>
           <h2 className="mb-3 flex items-center gap-2 text-lg font-bold">
             <AppIcon src="tab/phonics.svg" size={28} alt={t('reports.section.phonics')} />

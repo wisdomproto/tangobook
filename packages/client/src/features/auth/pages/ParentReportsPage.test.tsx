@@ -1,6 +1,6 @@
 /** ParentReportsPage — tab visibility + parent-friendly header tests. */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 // ── Mocks (hoisted — vi.mock calls run before imports) ────────────────────
@@ -65,9 +65,19 @@ describe('ParentReportsPage — non-dev parent', () => {
     mockAuth.account = { id: 'u1', email: 'someparent@example.com', hasPin: true } as any;
   });
 
-  it('does NOT show 파닉스 tab', () => {
+  it('shows the 파닉스 tab — 부모가 보는 탭이다 (2026-07-26)', () => {
     renderPage();
-    expect(screen.queryByText('파닉스')).toBeNull();
+    const tabs = screen.getAllByRole('button').map((b) => b.textContent ?? '');
+    expect(tabs.some((x) => x.includes('파닉스'))).toBe(true);
+  });
+
+  it('opens the 파닉스 section when that tab is tapped', () => {
+    renderPage();
+    const phonicsTab = screen
+      .getAllByRole('button')
+      .find((b) => b.textContent?.includes('파닉스'))!;
+    fireEvent.click(phonicsTab);
+    expect(screen.getByTestId('phonics-section')).toBeInTheDocument();
   });
 
   it('does NOT show 어휘 tab', () => {
@@ -85,14 +95,13 @@ describe('ParentReportsPage — non-dev parent', () => {
     expect(screen.getByTestId('storybook-section')).toBeInTheDocument();
   });
 
-  it('hides the tab bar entirely (no Chip buttons rendered)', () => {
+  it('shows exactly the two parent tabs (동화책·파닉스)', () => {
     renderPage();
-    // When only one tab is visible, no Chip tab bar is rendered at all.
-    // Tab chips are <button> elements. The storybook section h2 still says "동화책"
-    // but there should be no button with that label.
-    const buttons = screen.queryAllByRole('button');
-    const tabButtons = buttons.filter((b) => b.textContent?.includes('동화책'));
-    expect(tabButtons).toHaveLength(0);
+    const tabs = screen
+      .getAllByRole('button')
+      .map((b) => b.textContent ?? '')
+      .filter((x) => /동화책|파닉스|어휘|활동 현황/.test(x));
+    expect(tabs).toHaveLength(2);
   });
 });
 
