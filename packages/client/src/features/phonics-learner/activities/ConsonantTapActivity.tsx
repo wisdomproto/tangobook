@@ -139,50 +139,42 @@ export function ConsonantTapActivity({
                 onClick={() => handleTap(i)}
                 disabled={done}
                 className={[
-                  'relative rounded-3xl border-[5px] aspect-square flex flex-col items-center justify-center gap-0.5 sm:gap-1 p-2 sm:p-3 shadow-soft transition',
+                  'relative rounded-3xl border-[5px] aspect-square overflow-hidden flex flex-col items-center justify-center shadow-soft transition',
                   done
                     ? 'bg-success/15 border-success'
                     : 'bg-white border-coral-300 hover:shadow-pop active:scale-[0.96]',
                 ].join(' ')}
-                aria-label={`${consonant} ${i + 1}번 카드`}
+                aria-label={done && word ? word.word : `${consonant} ${i + 1}번 카드`}
               >
-                <div
-                  className={`font-black text-coral-600 leading-none ${
-                    // 🔴 그림·낱말과 자리를 나눠 써야 한다 — 375px 카드는 104px 뿐이라
-                    //    글자를 크게 두면 `flex-1` 인 그림이 0px 로 눌린다(실측).
-                    word ? 'text-2xl sm:text-4xl md:text-6xl' : 'text-6xl sm:text-7xl md:text-8xl'
-                  }`}
-                >
-                  {consonant}
-                </div>
-                {/* 타겟 단어 — 카드마다 무작위. 세 번째 탭에서 이 낱말을 읽어준다.
-                    🔴 그림에 고정 크기를 주지 않는다(부모가 flex-1 이라 퍼센트 높이가 0 으로 풀린다).
-                       `absolute inset-0 m-auto max-h-full` 로 확정 높이 기준에 맞춘다. */}
-                {word && (
+                {/* 🔴 글자와 그림을 **한 카드에 같이 두지 않는다** — 셋(글자·그림·낱말)을 욱여넣으면
+                    카드가 지저분하고 375px 에선 그림이 눌려 사라진다. 세 번 다 누르면
+                    글자가 빠지고 **그림이 카드를 꽉 채운다** — 보상처럼 열리는 화면. */}
+                {done && word ? (
+                  <img
+                    src={word.imageUrl}
+                    alt={word.word}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                ) : (
                   <>
-                    <div className="relative flex-1 min-h-0 w-full">
-                      <img
-                        src={word.imageUrl}
-                        alt=""
-                        className="absolute inset-0 m-auto max-h-full max-w-full object-contain"
-                      />
+                    <div className="text-6xl sm:text-7xl md:text-8xl font-black text-coral-600 leading-none">
+                      {consonant}
                     </div>
-                    <span className="text-xs sm:text-lg md:text-xl font-black text-ink-800 leading-none break-keep">
-                      {word.word}
-                    </span>
+                    {/* 진행 dots */}
+                    <div className="absolute bottom-3 flex gap-1.5">
+                      {Array.from({ length: TAPS_PER_CARD }).map((_, k) => (
+                        <span
+                          key={k}
+                          className={`w-2.5 h-2.5 rounded-full ${k < taps ? 'bg-coral-500' : 'bg-cream-200'}`}
+                        />
+                      ))}
+                    </div>
                   </>
                 )}
-                {/* 진행 dots */}
-                <div className="flex gap-1.5 pt-0.5">
-                  {Array.from({ length: TAPS_PER_CARD }).map((_, k) => (
-                    <span
-                      key={k}
-                      className={`w-1.5 h-1.5 sm:w-2.5 sm:h-2.5 rounded-full ${k < taps ? 'bg-coral-500' : 'bg-cream-200'}`}
-                    />
-                  ))}
-                </div>
                 {done && (
-                  <span className="absolute top-2 right-2 text-success-700 text-2xl">✓</span>
+                  <span className="absolute top-2 right-2 w-9 h-9 rounded-full bg-success text-white ring-4 ring-white flex items-center justify-center text-xl font-black">
+                    ✓
+                  </span>
                 )}
               </button>
             );
