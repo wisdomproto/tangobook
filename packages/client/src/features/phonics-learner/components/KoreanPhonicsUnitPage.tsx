@@ -128,7 +128,9 @@ function ActivitySection({
           <span className="text-sm sm:text-base font-black text-white/90">· {subtitle}</span>
         </div>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
+      {/* 🔴 익히기(자음 단원 5장)가 두 줄이 되면 게임하기가 화면 밖으로 밀린다 — 한 화면에 둘 다
+          보여야 아이가 "오늘 할 것"을 한눈에 센다. lg 부터 5열이라 5장이 한 줄에 들어간다. */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
         {activities.map((act) => (
           <ActivityCard
             key={act.key}
@@ -197,7 +199,7 @@ function ActivityCard({
   return (
     <Link
       to={`/library/phonics/korean/${unitId}/${activity.key}`}
-      className={`group relative block aspect-[5/6] rounded-[28px] border-[5px] p-3 sm:p-4 transition-all duration-200 active:scale-[0.97] hover:-translate-y-1 hover:rotate-[0.5deg] hover:shadow-[0_18px_40px_-12px_rgba(255,94,58,0.4)] shadow-[0_8px_24px_-10px_rgba(255,94,58,0.25)] flex flex-col overflow-hidden ${cardClass}`}
+      className={`group relative block aspect-square rounded-[28px] border-[5px] p-3 sm:p-4 transition-all duration-200 active:scale-[0.97] hover:-translate-y-1 hover:rotate-[0.5deg] hover:shadow-[0_18px_40px_-12px_rgba(255,94,58,0.4)] shadow-[0_8px_24px_-10px_rgba(255,94,58,0.25)] flex flex-col overflow-hidden ${cardClass}`}
     >
       {/* 위쪽 살짝 하이라이트 (3D rendered 느낌) */}
       <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/60 to-transparent pointer-events-none" />
