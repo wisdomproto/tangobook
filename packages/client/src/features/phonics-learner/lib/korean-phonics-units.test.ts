@@ -102,12 +102,15 @@ describe('korean phonics activity plans', () => {
       const acts = getActivityPlan(r.id).activities;
       // 🔴 복습에 익히기를 넣으면 학습 단원 축약판이 된다(같은 컴포넌트·같은 그림)
       expect(acts.every((a) => a.section === 'play')).toBe(true);
-      // 🔴 네 형식이 전부 다르다 — 길 따라가기 / 기억해서 맞추기 / 알아보고 잇기 / 손으로 쓰기
+      // 🔴 형식이 전부 다르다. 그리고 **듣기와 눈으로 보는 활동을 번갈아** 둔다 —
+      //    듣기 둘을 붙여 놓으면 아이가 같은 화면을 두 번 하는 걸로 느낀다.
       expect(acts.map((a) => a.kind)).toEqual([
-        'review-maze',
-        'review-flip',
-        'review-match',
-        'review-write',
+        'review-maze', // 길 따라가기
+        'review-flip', // 뒤집기 짝 맞추기
+        'review-syllable-listen', // 듣고 음절 맞추기
+        'review-match', // 짝 찾기
+        'review-word-listen', // 듣고 단어 맞추기
+        'review-write', // 글자 쓰기
       ]);
       for (const a of acts) {
         expect(a.reviewCards!.length).toBeGreaterThan(0);

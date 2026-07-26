@@ -130,6 +130,8 @@ export type ActivityKind =
   | 'word-listen-choose'
   | 'review-maze'
   | 'review-flip'
+  | 'review-syllable-listen'
+  | 'review-word-listen'
   | 'review-listen'
   | 'review-match'
   | 'review-write'
@@ -567,8 +569,14 @@ function toReviewCard(u: KoreanUnitSummary): ReviewCard | null {
  * 복습 전체가 유닛 축약판처럼 보였다(사용자 피드백: "너무 심심하다"). 복습은 형식이 달라야 전이가 확인된다.
  *
  * ① 길 따라가기 — 격자 위 길을 밟으며 만나는 사물의 글자를 줍는다 (형식이 유일하게 완전히 다른 활동)
- * ② 짝 찾기 — 글자 ↔ 그 글자로 배운 단어 그림
- * ③ 글자 쓰기 — 그림을 보고 첫 글자 쓰기
+ * ② 뒤집기 짝 맞추기 — 기억해서 맞추기
+ * ③ 듣고 음절 맞추기 — 음절 소리를 듣고 글자 4개 중 고르기
+ * ④ 짝 찾기 — 글자 ↔ 그 글자로 배운 단어 그림
+ * ⑤ 듣고 단어 맞추기 — 단어 소리를 듣고 낱말 4개 중 고르기
+ * ⑥ 글자 쓰기 — 그림을 보고 첫 글자 쓰기
+ *
+ * 🔴 **듣기 둘을 붙여 놓지 않는다** — 같은 화면(🔊 + 보기 4개)이라 연달아 나오면 한 활동을
+ * 두 번 하는 걸로 느낀다. 눈으로 보는 활동 사이에 하나씩 끼운다.
  */
 function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
   const shared = { required: true, reviewCards: cards, section: 'play' as const };
@@ -591,16 +599,32 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
         ...shared,
       },
       {
-        key: 'review-match',
+        key: 'review-syllable-listen',
         order: 3,
+        kind: 'review-syllable-listen',
+        title: '듣고 음절 맞추기',
+        emoji: '🎧',
+        ...shared,
+      },
+      {
+        key: 'review-match',
+        order: 4,
         kind: 'review-match',
         title: '짝 찾기',
         emoji: '🔗',
         ...shared,
       },
       {
+        key: 'review-word-listen',
+        order: 5,
+        kind: 'review-word-listen',
+        title: '듣고 단어 맞추기',
+        emoji: '🔊',
+        ...shared,
+      },
+      {
         key: 'review-write',
-        order: 4,
+        order: 6,
         kind: 'review-write',
         title: '글자 쓰기',
         emoji: '✏️',

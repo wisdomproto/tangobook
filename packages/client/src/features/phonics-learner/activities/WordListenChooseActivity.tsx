@@ -20,12 +20,14 @@ interface Props {
   /** 이 단원이 배우는 글자 — 문제 쪽에 함께 보여준다. */
   letter?: string;
   language?: 'korean' | 'english';
+  /**
+   * 한 문제의 보기 수. 기본 3 — 4~7세가 **그림** 3장을 한눈에 훑는 한계다.
+   * 복습은 보기가 글자·낱말(그림 없음)이라 눈이 덜 바빠 4개까지 쓴다.
+   */
+  choices?: number;
   onMarkComplete: () => void;
   onBack: () => void;
 }
-
-/** 한 문제에 보여줄 그림 수 — 4~7세는 3장이 한눈에 들어오는 한계다. */
-const CHOICES = 3;
 
 function shuffle<T>(arr: readonly T[]): T[] {
   const a = [...arr];
@@ -49,6 +51,7 @@ export function WordListenChooseActivity({
   items,
   letter,
   language = 'korean',
+  choices = 3,
   onMarkComplete,
   onBack,
 }: Props) {
@@ -66,11 +69,11 @@ export function WordListenChooseActivity({
     return shuffle(pool).map((answer) => {
       const distractors = shuffle(pool.filter((w) => w.label !== answer.label)).slice(
         0,
-        CHOICES - 1
+        choices - 1
       );
       return { answer, choices: shuffle([answer, ...distractors]) };
     });
-  }, [items]);
+  }, [items, choices]);
 
   const [qIdx, setQIdx] = useState(0);
   const [wrong, setWrong] = useState<string | null>(null);
@@ -222,7 +225,14 @@ export function WordListenChooseActivity({
                       </span>
                     </>
                   ) : (
-                    <span className="flex aspect-square items-center justify-center text-5xl sm:text-7xl font-black text-coral-600">
+                    // 🔴 글자 크기는 길이에 따라 — 375px 에서 카드가 92px 인데 3글자를 72px 로 두면
+                    //    두 줄로 접히고 `overflow-hidden` 에 잘린다(코코아·꼬끼오·스웨터).
+                    <span
+                      className={[
+                        'flex aspect-square items-center justify-center px-1 leading-none font-black text-coral-600 break-keep',
+                        c.label.length >= 3 ? 'text-2xl sm:text-4xl' : 'text-5xl sm:text-7xl',
+                      ].join(' ')}
+                    >
                       {c.label}
                     </span>
                   )}

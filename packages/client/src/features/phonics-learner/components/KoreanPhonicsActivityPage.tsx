@@ -26,6 +26,9 @@ import {
 } from '../lib/phonics-game-adapter';
 import type { Storybook } from '@tangobook/shared';
 
+/** 복습 듣기 활동의 보기 수 — 보기가 글자·낱말(그림 X)이라 학습 단원(3장)보다 하나 더 둔다. */
+const REVIEW_CHOICES = 4;
+
 /**
  * /library/phonics/korean/:unitId/:activityKey — 액티비티 호스트.
  *
@@ -185,6 +188,44 @@ export default function KoreanPhonicsActivityPage() {
   }
 
   // ── 복습 액티비티 ──
+
+  // 🎧 듣고 음절 맞추기 — 카드에 이미 음절·발음이 들어 있어 storybook 을 안 기다린다.
+  //    🔴 받침 카드는 글자 'ㅇ' 이 아니라 음절 '앙' 을 보기로 쓴다(글자만 두면 넷 다 같아 보인다).
+  if (activity.kind === 'review-syllable-listen' && reviewCards.length) {
+    return (
+      <WordListenChooseActivity
+        unitId={unitId}
+        items={reviewCards.map((c) => ({ label: c.syllable, sound: c.sound }))}
+        choices={REVIEW_CHOICES}
+        onMarkComplete={handleMarkComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+
+  // 🔊 듣고 단어 맞추기 — 되짚는 단원의 대표 단어. 보기는 **낱말 글자**(그림 X) 라
+  //    앞의 「듣고 고르기」(소리→그림) 와 방향이 다르다: 소리→글자.
+  if (activity.kind === 'review-word-listen' && reviewCards.length) {
+    if (reviewLoading) {
+      return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
+    }
+    const words = reviewSources.filter((s) => s.word);
+    if (words.length < 3) {
+      return (
+        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="단어가 필요해요" />
+      );
+    }
+    return (
+      <WordListenChooseActivity
+        unitId={unitId}
+        items={words.map((s) => ({ label: s.word, sound: s.word }))}
+        choices={REVIEW_CHOICES}
+        onMarkComplete={handleMarkComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+
   if (activity.kind === 'review-listen' && reviewCards.length) {
     return (
       <VowelListenActivity
