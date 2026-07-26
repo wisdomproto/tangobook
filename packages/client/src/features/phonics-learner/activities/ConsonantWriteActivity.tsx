@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
@@ -10,6 +10,8 @@ interface Props {
   consonant: string;
   /** 발음할 텍스트. 미지정이면 `consonant`. 받침은 홀로 소리 못 내 예시 음절('앙')을 읽는다. */
   soundText?: string;
+  /** 단원의 타겟 단어(그림 있는 것). 한 번 쓸 때마다 슬롯에 하나씩 열린다. */
+  words?: ReadonlyArray<{ word: string; imageUrl: string; ttsUrl?: string }>;
   onComplete: () => void;
   onBack: () => void;
 }
@@ -29,6 +31,7 @@ export function ConsonantWriteActivity({
   unitId,
   consonant,
   soundText,
+  words = [],
   onComplete,
   onBack,
 }: Props) {
@@ -37,7 +40,22 @@ export function ConsonantWriteActivity({
   const [completed, setCompleted] = useState(false);
   const say = soundText ?? consonant;
 
-  usePhonicsTtsWarm(unitId, [say], 'consonant-write');
+  // 슬롯별 단어 — 마운트 때 한 번만 뽑는다(쓸 때마다 섞이면 그림이 춤춘다).
+  const slotWords = useMemo(() => {
+    if (!words.length) return [];
+    const pool = [...words];
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    return Array.from({ length: TIMES }, (_, i) => pool[i % pool.length]);
+  }, [words]);
+
+  usePhonicsTtsWarm(
+    unitId,
+    useMemo(() => [say, ...slotWords.map((w) => w.word)], [say, slotWords]),
+    'consonant-write'
+  );
 
   const handleResult = useCallback(
     async (passed: boolean) => {
@@ -45,28 +63,35 @@ export function ConsonantWriteActivity({
       const nextCount = completedCount + 1;
       setCompletedCount(nextCount);
 
-      const url = await resolveTtsUrl({
-        text: say,
-        language: 'korean',
-        storybookId: unitId,
-        identifierPrefix: 'consonant-write',
-      });
+      const ttsFor = (text: string) =>
+        resolveTtsUrl({
+          text,
+          language: 'korean',
+          storybookId: unitId,
+          identifierPrefix: 'consonant-write',
+        });
+
+      const url = await ttsFor(say);
+      // 🔴 쓴 글자 → **그 슬롯에서 열린 낱말** 순서로 읽는다 (자음 누르기의 `ㄱ ㄱ 고기` 와 같은 리듬).
+      const slot = slotWords[completedCount];
+      const wordUrl = slot ? slot.ttsUrl || (await ttsFor(slot.word)) : null;
 
       const isAllDone = nextCount >= TIMES;
       if (isAllDone) setCompleted(true);
 
-      // TTS → 띵동 → (전체 완료면 칭찬)
+      // 글자 TTS → 낱말 TTS → 띵동 → (전체 완료면 칭찬)
       const afterChime = isAllDone
         ? () => playCorrectSequence({ language: 'ko', onDone: onComplete })
         : undefined;
       const playChime = () => playAudio('/sounds/game/correct.mp3', afterChime);
+      const playWord = () => (wordUrl ? playAudio(wordUrl, playChime) : playChime());
       if (url) {
-        playAudio(url, playChime);
+        playAudio(url, playWord);
       } else {
-        playChime();
+        playWord();
       }
     },
-    [completed, completedCount, say, unitId, playAudio, playCorrectSequence, onComplete]
+    [completed, completedCount, say, slotWords, unitId, playAudio, playCorrectSequence, onComplete]
   );
 
   return (
@@ -90,15 +115,21 @@ export function ConsonantWriteActivity({
           ✏️ <span className="text-coral-600">{consonant}</span> 을 세 번 따라써봐!
         </h2>
 
-        {/* 진행 dots — 3 슬롯 */}
+        {/* 진행 슬롯 — 한 번 쓸 때마다 그 자리에 **낱말 그림이 열린다**.
+            자음 누르기 카드와 같은 규칙: 그림은 장식이 아니라 해낸 보상으로 나온다. */}
         <div className="flex gap-2 sm:gap-3">
           {Array.from({ length: TIMES }).map((_, i) => {
             const done = i < completedCount;
+            const word = slotWords[i];
             return (
               <span
                 key={i}
+                title={done && word ? word.word : undefined}
                 className={[
-                  'w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-black text-sm sm:text-base shadow-soft transition',
+                  'relative overflow-hidden flex items-center justify-center font-black shadow-soft transition',
+                  word
+                    ? 'w-16 h-16 sm:w-24 sm:h-24 rounded-2xl text-base sm:text-xl'
+                    : 'w-8 h-8 sm:w-10 sm:h-10 rounded-full text-sm sm:text-base',
                   done
                     ? 'bg-success text-white'
                     : i === completedCount
@@ -106,7 +137,15 @@ export function ConsonantWriteActivity({
                       : 'bg-white text-ink-400',
                 ].join(' ')}
               >
-                {done ? '✓' : i + 1}
+                {done && word ? (
+                  <img
+                    src={word.imageUrl}
+                    alt={word.word}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                ) : (
+                  <span>{done ? '✓' : i + 1}</span>
+                )}
               </span>
             );
           })}

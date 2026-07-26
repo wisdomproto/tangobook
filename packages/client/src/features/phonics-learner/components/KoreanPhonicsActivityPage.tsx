@@ -153,6 +153,8 @@ export default function KoreanPhonicsActivityPage() {
         unitId={unitId}
         consonant={activity.consonant}
         soundText={activity.soundText}
+        // 한 번 쓸 때마다 슬롯에 낱말 그림이 열린다 — 자음 누르기 카드와 같은 규칙.
+        words={storybook ? phonicsToWordChoices(storybook) : []}
         onComplete={handleComplete}
         onBack={backToUnit}
       />
