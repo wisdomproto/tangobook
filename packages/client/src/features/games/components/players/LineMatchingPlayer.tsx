@@ -451,8 +451,18 @@ function LineMatchingPlayerInner({
                     <img
                       src={imageItem.imageUrl}
                       alt=""
-                      className="w-full h-full object-contain p-4 lg:p-6"
+                      className={cn(
+                        'w-full object-contain p-4 lg:p-6',
+                        imageItem.imageLabel ? 'h-[calc(100%-1.75rem)]' : 'h-full'
+                      )}
                     />
+                    {/* 그림이 무엇인지 못 알아보면 짝을 지을 수가 없다 — 애매한 그림 대비 낱말 표기.
+                        `imageLabel` 을 넣은 호출부(파닉스 복습)에만 뜬다. */}
+                    {imageItem.imageLabel && (
+                      <span className="block h-7 leading-7 text-sm sm:text-base font-black text-ink-700 break-keep">
+                        {imageItem.imageLabel}
+                      </span>
+                    )}
                   </button>
                   {connectionDot(imageDotState(imageItemIdx), 'right')}
                 </div>

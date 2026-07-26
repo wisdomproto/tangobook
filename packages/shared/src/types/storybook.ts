@@ -554,6 +554,11 @@ export interface LineMatchingItem {
   ttsUrl?: string; // 정답 시 읽어주기 (phonics-library concat로도 대체 가능)
   /** 메인 단어 아래 작은 글씨로 표시할 보조 라벨 (ko 게임 → 영어, en 게임 → 한글). 없으면 미표시. */
   subLabel?: string;
+  /**
+   * 좌측 **그림 아래** 낱말. 파닉스 복습처럼 우측이 글자(ㄱ·ㄹ)이고 그림이 애매할 수 있을 때만 넣는다
+   * (오리 그림이 무엇인지 못 알아보면 짝을 지을 수가 없다). 동화책 어휘 게임은 안 넣으므로 무변경.
+   */
+  imageLabel?: string;
 }
 
 export interface KoreanLineMatchingConfig {

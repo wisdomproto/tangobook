@@ -322,7 +322,12 @@ export default function KoreanPhonicsActivityPage() {
         lang="ko"
         gameData={{
           type: 'korean-line-matching',
-          items: withImage.map((s) => ({ word: s.letter, imageUrl: s.imageUrl })),
+          // imageLabel = 그림 아래 낱말. 복습은 우측이 글자(ㄱ·ㄹ)뿐이라 그림이 애매하면 짝을 못 짓는다.
+          items: withImage.map((s) => ({
+            word: s.letter,
+            imageUrl: s.imageUrl,
+            imageLabel: s.word,
+          })),
         }}
       />
     );

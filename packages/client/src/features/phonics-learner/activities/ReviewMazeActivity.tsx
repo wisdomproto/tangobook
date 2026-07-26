@@ -137,35 +137,46 @@ export function ReviewMazeActivity({
             const walked = idx < step;
             const isNext = idx === step && !done;
             return (
-              <button
+              <div
                 key={`${cell.r}-${cell.c}`}
-                onClick={() => handleTap(idx)}
-                aria-label={stop ? stop.word : `${idx + 1}번 칸`}
                 style={{ gridRow: cell.r + 1, gridColumn: cell.c + 1 }}
-                className={[
-                  'relative w-[16vw] h-[16vw] max-w-20 max-h-20 sm:w-24 sm:h-24 sm:max-w-none sm:max-h-none rounded-2xl border-[4px] overflow-hidden transition flex items-center justify-center',
-                  walked
-                    ? 'bg-mint-100 border-mint-500'
-                    : isNext
-                      ? 'bg-white border-coral-500 ring-4 ring-coral-200 animate-pulse'
-                      : 'bg-white/70 border-white',
-                ].join(' ')}
+                className="flex flex-col items-center"
               >
-                {stop?.imageUrl ? (
-                  <img src={stop.imageUrl} alt="" className="w-full h-full object-cover" />
-                ) : stop ? (
-                  <span className="text-2xl sm:text-3xl font-black text-coral-600">
-                    {stop.letter}
-                  </span>
-                ) : walked ? (
-                  <span className="text-xl">·</span>
-                ) : null}
-                {idx === path.length - 1 && !walked && (
-                  <span className="absolute inset-0 flex items-center justify-center text-2xl">
-                    🏁
-                  </span>
-                )}
-              </button>
+                <button
+                  onClick={() => handleTap(idx)}
+                  aria-label={stop ? stop.word : `${idx + 1}번 칸`}
+                  className={[
+                    // 🔴 칸 크기는 vw 만 보면 안 된다 — 전체화면 활동이라 높이가 먼저 모자란다.
+                    //    5×5 격자라 `min(vw, vh)` 로 잡아야 큰 화면을 쓰고 작은 화면에서 안 넘친다.
+                    'relative w-[min(15vw,12vh)] h-[min(15vw,12vh)] rounded-2xl border-[4px] overflow-hidden transition flex items-center justify-center',
+                    walked
+                      ? 'bg-mint-100 border-mint-500'
+                      : isNext
+                        ? 'bg-white border-coral-500 ring-4 ring-coral-200 animate-pulse'
+                        : 'bg-white/70 border-white',
+                  ].join(' ')}
+                >
+                  {stop?.imageUrl ? (
+                    <img src={stop.imageUrl} alt="" className="w-full h-full object-cover" />
+                  ) : stop ? (
+                    <span className="text-2xl sm:text-3xl font-black text-coral-600">
+                      {stop.letter}
+                    </span>
+                  ) : walked ? (
+                    <span className="text-xl">·</span>
+                  ) : null}
+                  {idx === path.length - 1 && !walked && (
+                    <span className="absolute inset-0 flex items-center justify-center text-2xl">
+                      🏁
+                    </span>
+                  )}
+                </button>
+                {/* 그림이 애매하면 무엇인지 알 수가 없다 — 낱말을 칸 아래에.
+                    빈 칸도 같은 높이를 차지해야 격자가 안 흔들린다. */}
+                <span className="h-4 sm:h-5 text-[11px] sm:text-sm font-black text-ink-700 leading-4 sm:leading-5 break-keep">
+                  {stop?.word ?? ''}
+                </span>
+              </div>
             );
           })}
         </div>

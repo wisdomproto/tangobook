@@ -165,35 +165,44 @@ export function ReviewFlipMatchActivity({
           {tiles.map((tile) => {
             const isMatched = matched.has(tile.card.letter);
             const isOpen = open.includes(tile.id) || isMatched;
+            const showWord = isOpen && tile.face === 'image' && !!tile.card.imageUrl;
             return (
-              <button
-                key={tile.id}
-                onClick={() => handleTap(tile)}
-                aria-label={isOpen ? tile.card.word || tile.card.letter : '뒤집기'}
-                className={[
-                  'relative w-[20vw] h-[20vw] max-w-24 max-h-24 sm:w-28 sm:h-28 sm:max-w-none sm:max-h-none rounded-2xl border-[4px] overflow-hidden shadow-soft transition active:scale-[0.97] flex items-center justify-center',
-                  isMatched
-                    ? 'bg-mint-100 border-mint-500'
-                    : isOpen
-                      ? 'bg-white border-coral-400'
-                      : 'bg-gradient-to-br from-coral-400 to-coral-600 border-white',
-                ].join(' ')}
-              >
-                {isOpen ? (
-                  tile.face === 'image' && tile.card.imageUrl ? (
-                    <img src={tile.card.imageUrl} alt="" className="w-full h-full object-cover" />
+              // 낱말 줄은 **항상 자리를 차지한다** — 뒤집을 때만 생기면 격자가 통째로 흔들린다.
+              <div key={tile.id} className="flex flex-col items-center">
+                <button
+                  onClick={() => handleTap(tile)}
+                  aria-label={isOpen ? tile.card.word || tile.card.letter : '뒤집기'}
+                  className={[
+                    // 🔴 칸 크기는 vw 만 보면 안 된다 — 전체화면 활동이라 **높이가 먼저 남는다/모자란다**.
+                    //    `min(vw, vh)` 로 잡아야 큰 화면에서 카드가 좁쌀만 해지지 않는다(1370px 에서 112px 였다).
+                    'relative w-[min(20vw,18vh)] h-[min(20vw,18vh)] rounded-2xl border-[4px] overflow-hidden shadow-soft transition active:scale-[0.97] flex items-center justify-center',
+                    isMatched
+                      ? 'bg-mint-100 border-mint-500'
+                      : isOpen
+                        ? 'bg-white border-coral-400'
+                        : 'bg-gradient-to-br from-coral-400 to-coral-600 border-white',
+                  ].join(' ')}
+                >
+                  {isOpen ? (
+                    tile.face === 'image' && tile.card.imageUrl ? (
+                      <img src={tile.card.imageUrl} alt="" className="w-full h-full object-cover" />
+                    ) : (
+                      <span
+                        className={`text-4xl sm:text-5xl font-black ${isMatched ? 'text-mint-600' : 'text-coral-600'}`}
+                      >
+                        {tile.card.letter}
+                      </span>
+                    )
                   ) : (
-                    <span
-                      className={`text-4xl sm:text-5xl font-black ${isMatched ? 'text-mint-600' : 'text-coral-600'}`}
-                    >
-                      {tile.card.letter}
-                    </span>
-                  )
-                ) : (
-                  // 뒷면 — 아이가 "누르면 뒤집힌다"를 그림으로 알게
-                  <span className="text-3xl sm:text-4xl">❓</span>
-                )}
-              </button>
+                    // 뒷면 — 아이가 "누르면 뒤집힌다"를 그림으로 알게
+                    <span className="text-3xl sm:text-4xl">❓</span>
+                  )}
+                </button>
+                {/* 그림이 애매하면 무엇인지 알 수가 없어 짝을 못 짓는다 — 낱말을 칸 아래에 */}
+                <span className="h-5 sm:h-6 text-xs sm:text-base font-black text-ink-700 leading-5 sm:leading-6 break-keep">
+                  {showWord ? tile.card.word : ''}
+                </span>
+              </div>
             );
           })}
         </div>
