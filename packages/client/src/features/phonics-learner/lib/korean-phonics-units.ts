@@ -129,6 +129,7 @@ export type ActivityKind =
   | 'consonant-write'
   | 'word-listen-choose'
   | 'review-maze'
+  | 'review-flip'
   | 'review-listen'
   | 'review-match'
   | 'review-write'
@@ -582,8 +583,16 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
         ...shared,
       },
       {
-        key: 'review-match',
+        key: 'review-flip',
         order: 2,
+        kind: 'review-flip',
+        title: '뒤집기 짝 맞추기',
+        emoji: '🎴',
+        ...shared,
+      },
+      {
+        key: 'review-match',
+        order: 3,
         kind: 'review-match',
         title: '짝 찾기',
         emoji: '🔗',
@@ -591,7 +600,7 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
       },
       {
         key: 'review-write',
-        order: 3,
+        order: 4,
         kind: 'review-write',
         title: '글자 쓰기',
         emoji: '✏️',

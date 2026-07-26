@@ -102,7 +102,13 @@ describe('korean phonics activity plans', () => {
       const acts = getActivityPlan(r.id).activities;
       // 🔴 복습에 익히기를 넣으면 학습 단원 축약판이 된다(같은 컴포넌트·같은 그림)
       expect(acts.every((a) => a.section === 'play')).toBe(true);
-      expect(acts.map((a) => a.kind)).toEqual(['review-maze', 'review-match', 'review-write']);
+      // 🔴 네 형식이 전부 다르다 — 길 따라가기 / 기억해서 맞추기 / 알아보고 잇기 / 손으로 쓰기
+      expect(acts.map((a) => a.kind)).toEqual([
+        'review-maze',
+        'review-flip',
+        'review-match',
+        'review-write',
+      ]);
       for (const a of acts) {
         expect(a.reviewCards!.length).toBeGreaterThan(0);
         expect(a.reviewCards!.length).toBeLessThanOrEqual(6);

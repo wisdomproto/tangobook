@@ -9,6 +9,7 @@ import { ConsonantBlendListenActivity } from '../activities/ConsonantBlendListen
 import { ConsonantWriteActivity } from '../activities/ConsonantWriteActivity';
 import { ReviewWriteActivity } from '../activities/ReviewWriteActivity';
 import { ReviewMazeActivity } from '../activities/ReviewMazeActivity';
+import { ReviewFlipMatchActivity } from '../activities/ReviewFlipMatchActivity';
 import { WordListenChooseActivity } from '../activities/WordListenChooseActivity';
 import { useReviewCardSources } from '../hooks/useReviewCardSources';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
@@ -201,12 +202,31 @@ export default function KoreanPhonicsActivityPage() {
   if (
     activity.kind === 'review-match' ||
     activity.kind === 'review-write' ||
-    activity.kind === 'review-maze'
+    activity.kind === 'review-maze' ||
+    activity.kind === 'review-flip'
   ) {
     if (reviewLoading) {
       return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
     }
     const withImage = reviewSources.filter((s) => s.imageUrl);
+    if (activity.kind === 'review-flip') {
+      if (withImage.length < 3)
+        return (
+          <ActivityUnavailable
+            activity={activity}
+            onBack={backToUnit}
+            reason="단어 그림이 필요해요"
+          />
+        );
+      return (
+        <ReviewFlipMatchActivity
+          unitId={unitId}
+          sources={withImage}
+          onComplete={handleComplete}
+          onBack={backToUnit}
+        />
+      );
+    }
     if (activity.kind === 'review-maze') {
       if (!withImage.length)
         return (

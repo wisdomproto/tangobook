@@ -153,6 +153,7 @@ const KIND_ICON_URL: Partial<Record<ActivityDef['kind'], string>> = {
   'word-listen-choose': '/icons/activity/cvc-learn.webp',
   'review-listen': '/icons/activity/cvc-learn.webp',
   'review-maze': '/icons/game/connect-dots.webp',
+  'review-flip': '/icons/game/korean-block.webp',
   'review-match': '/icons/game/line-matching.webp',
   'review-write': '/icons/game/word-writing-ko.webp',
   // 학습 — 쓰기 = 미소짓는 연필
