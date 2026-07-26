@@ -207,6 +207,20 @@ threshold 0.95 통일 — `LINE_WIDTH=60` 두꺼운 펜이라 도달 쉬움. 폰
 
 `ConsonantBlendListenActivity` 가 두 모드를 겸한다 — 자음 모드 `[ㄱ]+[ㅏ]→[가]`, 받침 모드 `[가]+[ㅇ]→[강]`(초성 14개 × ㅏ, 7+7 두 장). **복사본을 만들지 말 것**: 이 컴포넌트의 TTS 체인(발음 끝 → 띵동 → 칭찬)이 반복 버그 지점이라 사본이 생기면 고칠 곳이 두 군데가 된다. 캐시 분리는 `identifierPrefix`(`coda-blend`).
 
+### 🏅 복습 단원 (2026-07-26)
+
+이퓨처 EFL Phonics 분석([docs/phonics-english/efl-phonics-analysis.md](../../../../../docs/phonics-english/efl-phonics-analysis.md))에서 가장 큰 갭이 **복습 층 부재**였다. 한글에 먼저 넣었고 배관은 영어와 공용이다.
+
+- **묶음 규칙** — 레벨 안에서 4단원씩, 꼬리가 2 이하면 앞 묶음에 병합. 결과 7개(`kr-h1-r1~r3`, `kr-h2-r1~r2`, `kr-h3-r1`, `kr-h4-r1`). `getAllKoreanUnits()` 가 **그 묶음 마지막 단원 뒤에 끼워** 반환하므로 사이드바에 단원처럼 나온다.
+- 🔴 **모음 단원(kr-h1-u01)은 묶음에서 제외** — 복습은 묶음의 글자를 카드로 한 번에 펼치는데 10장이 들어오면 4~7세 화면에서 카드가 손톱만해진다. 판정은 id 가 아니라 `phonemes.length <= 4`.
+- 🔴 **사이드바 번호 대신 🏅** — 복습은 앞 단원과 같은 `unitIndexInLevel` 이라 번호를 쓰면 "5, 5" 로 보인다.
+- **활동 3종** (`makeReviewPlan`) — 게임을 따로 붙이지 않는다(복습 자체가 놀이 형식).
+  1. `review-listen` — **기존 `VowelListenActivity` 재사용**(순서 듣기 → 듣고 맞추기 퀴즈). `VowelItem.sound?` 를 추가해 받침 카드는 글자 `ㅇ`, 소리 `앙` 으로 읽힌다.
+  2. `review-match` — **기존 `LineMatchingPlayer` 재사용**. `gameData.items[].word` 에 **글자**를 넣어 글자↔그림 매칭이 된다.
+  3. `review-write` — `ReviewWriteActivity`(신규). 그림만 보여주고 첫 글자를 쓰게 하며, 3회 실패 시 힌트 글자를 띄운다.
+- **자료 출처** = `useReviewCardSources` — 되짚는 단원들의 storybook 을 `useQueries` 로 병렬 로드(캐시 키가 학습 단원과 같아 이미 다녀왔으면 왕복 0)하고 단원당 대표 단어 1개를 뽑는다.
+- 🔴 **대표 단어는 점수로 고른다**(`pickWord`): 첫 음절이 그 자리에 글자를 가지면 +3, 뒤 음절이면 +1, **첫 글자가 같은 화면 다른 카드와 겹치면 −4**. 이게 없으면 ㄹ 카드에 `오리` 가 붙는데(한국어엔 ㄹ로 시작하는 유아 단어가 없다) 같은 묶음에 ㅇ 카드가 있으면 **정답이 두 개로 보인다**. 받침 단원은 종성 자리로 채점한다(`matchPosition`).
+
 ### 한글2~4 게임 자산 현황
 
 `phonicsConfig.targetWords` 는 32 단원 모두 있으나, **flashcard 이미지·keypoints 는 한글1 에만** 있다. 그래서 한글2~4 에서 그림 짝 찾기·낱말 그리기는 어댑터가 `null` 을 반환해 "단어 그림이 필요해요" 안내가 뜬다(정상). 한글 블록·낱말 쓰기는 텍스트만으로 동작. → 기획서 「🍎 타겟 단어 카드」 125장을 flashcard 에 붙이면 자동 복구.

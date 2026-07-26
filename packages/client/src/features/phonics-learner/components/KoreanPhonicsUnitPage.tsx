@@ -149,6 +149,10 @@ const KIND_ICON_URL: Partial<Record<ActivityDef['kind'], string>> = {
   'consonant-tap': '/icons/activity/cvc-learn.webp',
   'consonant-blend-listen': '/icons/activity/cvc-learn.webp',
   'coda-blend-listen': '/icons/activity/cvc-learn.webp',
+  // 복습 — 익숙한 활동과 같은 그림을 써서 "해본 것"으로 읽히게 한다
+  'review-listen': '/icons/activity/cvc-learn.webp',
+  'review-match': '/icons/game/line-matching.webp',
+  'review-write': '/icons/game/word-writing-ko.webp',
   // 학습 — 쓰기 = 미소짓는 연필
   'vowel-write': '/icons/activity/cvc-write.webp',
   'consonant-write': '/icons/activity/cvc-write.webp',

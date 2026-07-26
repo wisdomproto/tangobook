@@ -7,6 +7,8 @@ import { VowelWriteActivity } from '../activities/VowelWriteActivity';
 import { ConsonantTapActivity } from '../activities/ConsonantTapActivity';
 import { ConsonantBlendListenActivity } from '../activities/ConsonantBlendListenActivity';
 import { ConsonantWriteActivity } from '../activities/ConsonantWriteActivity';
+import { ReviewWriteActivity } from '../activities/ReviewWriteActivity';
+import { useReviewCardSources } from '../hooks/useReviewCardSources';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { KoreanBlockPlayer } from '@/features/games/components/players/KoreanBlockPlayer';
 import { KoreanWordWritingPlayer } from '@/features/games/components/players/KoreanWordWritingPlayer';
@@ -41,8 +43,12 @@ export default function KoreanPhonicsActivityPage() {
     [plan, activityKey]
   );
 
-  const storybookQuery = useStorybook(unitId);
+  const storybookQuery = useStorybook(unit?.isReview ? undefined : unitId);
   const storybook = storybookQuery.data as Storybook | undefined;
+
+  // 복습 활동은 되짚는 단원들의 그림·단어가 필요하다 (early return 앞에서 호출 — 훅 순서 고정).
+  const reviewCards = useMemo(() => activity?.reviewCards ?? [], [activity]);
+  const { sources: reviewSources, isLoading: reviewLoading } = useReviewCardSources(reviewCards);
 
   const backToUnit = useCallback(
     () => navigate(`/library/phonics/korean/${unitId}`),
@@ -140,6 +146,68 @@ export default function KoreanPhonicsActivityPage() {
         soundText={activity.soundText}
         onComplete={handleComplete}
         onBack={backToUnit}
+      />
+    );
+  }
+
+  // ── 복습 액티비티 ──
+  if (activity.kind === 'review-listen' && reviewCards.length) {
+    return (
+      <VowelListenActivity
+        unitId={unitId}
+        vowels={reviewCards.map((c) => ({
+          vowel: c.letter,
+          syllable: c.syllable,
+          sound: c.sound,
+        }))}
+        onMarkComplete={handleMarkComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+  if (activity.kind === 'review-match' || activity.kind === 'review-write') {
+    if (reviewLoading) {
+      return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
+    }
+    const withImage = reviewSources.filter((s) => s.imageUrl);
+    if (activity.kind === 'review-write') {
+      if (!withImage.length)
+        return (
+          <ActivityUnavailable
+            activity={activity}
+            onBack={backToUnit}
+            reason="단어 그림이 필요해요"
+          />
+        );
+      return (
+        <ReviewWriteActivity
+          unitId={unitId}
+          sources={withImage}
+          onComplete={handleComplete}
+          onBack={backToUnit}
+        />
+      );
+    }
+    // 짝 찾기 — 카드의 글자와 그 글자로 배운 단어 그림을 잇는다. 최소 3쌍이 있어야 게임이 성립.
+    if (withImage.length < 3)
+      return (
+        <ActivityUnavailable
+          activity={activity}
+          onBack={backToUnit}
+          reason="단어 그림이 필요해요"
+        />
+      );
+    return (
+      <LineMatchingPlayer
+        storybookId={unitId}
+        difficulty="easy"
+        onComplete={handleComplete}
+        onBack={backToUnit}
+        lang="ko"
+        gameData={{
+          type: 'korean-line-matching',
+          items: withImage.map((s) => ({ word: s.letter, imageUrl: s.imageUrl })),
+        }}
       />
     );
   }

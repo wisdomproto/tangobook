@@ -284,7 +284,8 @@ function CurriculumItem({
               : 'bg-coral-100 text-coral-600 ring-white',
         ].join(' ')}
       >
-        {done ? '✓' : unit.unitIndexInLevel}
+        {/* 🔴 복습은 번호를 쓰지 않는다 — 앞 단원과 같은 번호가 되어 "5, 5" 로 보인다. 트로피로 구분. */}
+        {done ? '✓' : unit.isReview ? '🏅' : unit.unitIndexInLevel}
       </span>
       <span className="text-sm sm:text-base font-black truncate break-keep">{titleShort}</span>
     </Link>

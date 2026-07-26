@@ -8,14 +8,17 @@ import { getAllKoreanUnits, getActivityPlan, getRequiredActivities } from './kor
 describe('korean phonics activity plans', () => {
   const units = getAllKoreanUnits();
 
+  const lessons = units.filter((u) => !u.isReview);
+  const reviews = units.filter((u) => u.isReview);
+
   it('커리큘럼 32 단원이 모두 활동을 갖는다', () => {
-    expect(units).toHaveLength(32);
+    expect(lessons).toHaveLength(32);
     const empty = units.filter((u) => getActivityPlan(u.id).activities.length === 0);
     expect(empty.map((u) => u.id)).toEqual([]);
   });
 
-  it('모든 단원이 학습 활동 + 게임 4종을 갖는다', () => {
-    for (const u of units) {
+  it('모든 학습 단원이 학습 활동 + 게임 4종을 갖는다', () => {
+    for (const u of lessons) {
       const acts = getActivityPlan(u.id).activities;
       expect(acts.filter((a) => a.section === 'play')).toHaveLength(4);
       expect(acts.filter((a) => a.section === 'learn').length).toBeGreaterThan(0);
@@ -58,6 +61,48 @@ describe('korean phonics activity plans', () => {
       { vowel: 'ㅔ', syllable: '에' },
     ]);
     expect(acts.find((a) => a.kind === 'vowel-write')?.vowels).toEqual(listen.vowels);
+  });
+
+  it('복습 단원이 레벨마다 묶음 뒤에 끼어든다', () => {
+    // 한글1 자음 14(모음 단원은 글자 10개라 제외) → 4·4·6 / 한글2 7 → 4·3 / 한글3·4 각 5 → 1묶음
+    expect(reviews.map((r) => r.id)).toEqual([
+      'kr-h1-r1',
+      'kr-h1-r2',
+      'kr-h1-r3',
+      'kr-h2-r1',
+      'kr-h2-r2',
+      'kr-h3-r1',
+      'kr-h4-r1',
+    ]);
+    // 복습은 언제나 자기가 되짚는 마지막 단원 바로 뒤에 온다
+    for (const r of reviews) {
+      const idx = units.findIndex((u) => u.id === r.id);
+      expect(units[idx - 1].id).toBe(r.coveredUnitIds!.at(-1));
+    }
+    // 🔴 모음 단원은 카드가 10장이 되어 화면이 무너지므로 묶음에서 빠진다
+    expect(reviews.flatMap((r) => r.coveredUnitIds!)).not.toContain('kr-h1-u01');
+  });
+
+  it('복습 활동은 3종이고 카드는 6장을 넘지 않는다', () => {
+    for (const r of reviews) {
+      const acts = getActivityPlan(r.id).activities;
+      expect(acts.map((a) => a.kind)).toEqual(['review-listen', 'review-match', 'review-write']);
+      for (const a of acts) {
+        expect(a.reviewCards!.length).toBeGreaterThan(0);
+        expect(a.reviewCards!.length).toBeLessThanOrEqual(6);
+      }
+    }
+  });
+
+  it('받침 복습 카드는 글자와 소리가 다르다', () => {
+    const r = reviews.find((x) => x.id === 'kr-h2-r1')!;
+    const cards = getActivityPlan(r.id).activities[0].reviewCards!;
+    const coda = cards.find((c) => c.unitId === 'kr-h2-u01')!;
+    expect(coda.letter).toBe('ㅇ');
+    expect(coda.sound).toBe('앙'); // 🔴 'ㅇ' 을 그대로 읽으면 초성 이응 소리가 난다
+    // 자음 복습은 글자를 그대로 읽는다
+    const consonant = getActivityPlan('kr-h1-r1').activities[0].reviewCards![0];
+    expect(consonant.letter).toBe(consonant.sound);
   });
 
   it('한글1 단원 구성은 그대로다 (회귀 가드)', () => {

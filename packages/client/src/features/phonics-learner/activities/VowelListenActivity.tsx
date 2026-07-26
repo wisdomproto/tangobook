@@ -7,6 +7,11 @@ import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 interface VowelItem {
   vowel: string; // 'ㅏ'
   syllable: string; // '아'
+  /**
+   * 발음할 텍스트. 미지정이면 `vowel` 을 그대로 읽는다.
+   * 🔴 복습에서 받침 카드는 글자가 'ㅇ' 이어도 소리는 '앙' 이다 — 받침은 홀로 소리 낼 수 없다.
+   */
+  sound?: string;
 }
 
 interface Props {
@@ -32,7 +37,7 @@ export function VowelListenActivity({ unitId, vowels, onMarkComplete, onBack }: 
   // 진입하자마자 6개 모음 발음을 백그라운드로 준비 — 첫 탭이 기다리지 않게.
   usePhonicsTtsWarm(
     unitId,
-    vowels.map((v) => v.vowel),
+    vowels.map((v) => v.sound ?? v.vowel),
     'phonics-vowel'
   );
 
@@ -69,12 +74,12 @@ export function VowelListenActivity({ unitId, vowels, onMarkComplete, onBack }: 
       if (idx !== nextIdx) return; // 순서 강제
       if (idx + 1 >= vowels.length) {
         // 마지막 모음 — 음원이 다 재생된 후에야 칭찬 시작 (요 발음 잘리지 않게)
-        playVowel(vowels[idx].vowel, () => {
+        playVowel(vowels[idx].sound ?? vowels[idx].vowel, () => {
           setListenedAll(true);
           playCorrectSequence({ language: 'ko' });
         });
       } else {
-        playVowel(vowels[idx].vowel);
+        playVowel(vowels[idx].sound ?? vowels[idx].vowel);
         setNextIdx(idx + 1);
       }
     },
@@ -103,7 +108,7 @@ export function VowelListenActivity({ unitId, vowels, onMarkComplete, onBack }: 
   // 퀴즈 음원 자동 재생 (current 변경 시 한번)
   useEffect(() => {
     if (phase !== 'quiz' || quizCurrent === null) return;
-    playVowel(vowels[quizCurrent].vowel);
+    playVowel(vowels[quizCurrent].sound ?? vowels[quizCurrent].vowel);
   }, [phase, quizCurrent, vowels, playVowel]);
 
   const handleQuizTap = useCallback(
@@ -269,7 +274,7 @@ export function VowelListenActivity({ unitId, vowels, onMarkComplete, onBack }: 
 
         {phase === 'quiz' && quizCurrent !== null && (
           <button
-            onClick={() => playVowel(vowels[quizCurrent].vowel)}
+            onClick={() => playVowel(vowels[quizCurrent].sound ?? vowels[quizCurrent].vowel)}
             className="px-6 py-3 rounded-full bg-white shadow-soft text-ink-700 font-black text-lg"
           >
             🔊 다시 듣기
