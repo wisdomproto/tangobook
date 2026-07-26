@@ -170,6 +170,7 @@ export default function KoreanPhonicsActivityPage() {
       <WordListenChooseActivity
         unitId={unitId}
         words={choices}
+        letter={activity.consonant}
         onMarkComplete={handleMarkComplete}
         onBack={backToUnit}
       />

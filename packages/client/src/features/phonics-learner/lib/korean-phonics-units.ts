@@ -307,48 +307,51 @@ const CONSONANT_BLEND_VOWELS_2 = ['ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ', 'ㅣ'] as c
  * 꼬리(듣고 고르기 + 게임 4)는 `withGames` 가 붙이고 순서도 거기서 매긴다.
  */
 function makeConsonantPlan(consonant: string): ActivityPlan {
-  return withGames([
-    {
-      key: 'consonant-tap',
-      kind: 'consonant-tap',
-      section: 'learn',
-      title: `${consonant} 배우기`,
-      emoji: '👆',
-      required: true,
-      consonant,
-    },
-    {
-      key: 'blend-listen-1',
-      kind: 'consonant-blend-listen',
-      section: 'learn',
-      // 🔴 같은 제목 두 장이 나란히 놓이면 뭐가 다른지 알 수 없다(모음 묶음이 다르다).
-      // 모음 듣기 1/2 · 쓰기 1/2 과 같은 규칙으로 번호를 붙인다.
-      title: `${consonant} + 모음 배우기 1`,
-      emoji: '🔗',
-      required: true,
-      consonant,
-      blendVowels: [...CONSONANT_BLEND_VOWELS_1],
-    },
-    {
-      key: 'blend-listen-2',
-      kind: 'consonant-blend-listen',
-      section: 'learn',
-      title: `${consonant} + 모음 배우기 2`,
-      emoji: '🔗',
-      required: true,
-      consonant,
-      blendVowels: [...CONSONANT_BLEND_VOWELS_2],
-    },
-    {
-      key: 'consonant-write',
-      kind: 'consonant-write',
-      section: 'learn',
-      title: `${consonant} 쓰기`,
-      emoji: '✏️',
-      required: true,
-      consonant,
-    },
-  ]);
+  return withGames(
+    [
+      {
+        key: 'consonant-tap',
+        kind: 'consonant-tap',
+        section: 'learn',
+        title: `${consonant} 배우기`,
+        emoji: '👆',
+        required: true,
+        consonant,
+      },
+      {
+        key: 'blend-listen-1',
+        kind: 'consonant-blend-listen',
+        section: 'learn',
+        // 🔴 같은 제목 두 장이 나란히 놓이면 뭐가 다른지 알 수 없다(모음 묶음이 다르다).
+        // 모음 듣기 1/2 · 쓰기 1/2 과 같은 규칙으로 번호를 붙인다.
+        title: `${consonant} + 모음 배우기 1`,
+        emoji: '🔗',
+        required: true,
+        consonant,
+        blendVowels: [...CONSONANT_BLEND_VOWELS_1],
+      },
+      {
+        key: 'blend-listen-2',
+        kind: 'consonant-blend-listen',
+        section: 'learn',
+        title: `${consonant} + 모음 배우기 2`,
+        emoji: '🔗',
+        required: true,
+        consonant,
+        blendVowels: [...CONSONANT_BLEND_VOWELS_2],
+      },
+      {
+        key: 'consonant-write',
+        kind: 'consonant-write',
+        section: 'learn',
+        title: `${consonant} 쓰기`,
+        emoji: '✏️',
+        required: true,
+        consonant,
+      },
+    ],
+    consonant
+  );
 }
 
 // 한글1 자음 단원 매핑 — u02 (ㄱ) ~ u15 (ㅎ).
@@ -407,25 +410,33 @@ const GAME_ACTIVITIES: ReadonlyArray<Omit<ActivityDef, 'order'>> = [
 ];
 
 /**
- * 🔊 듣고 고르기 — 단어 발음을 먼저 들려주고 그림을 고른다.
+ * 🔊 듣고 고르기 — 단어 발음을 먼저 들려주고 [그림 + 단어] 카드를 고른다.
  *
  * 🔴 다른 학습 활동은 전부 **누르면 소리가 나는** 탐색형이라 아이가 소리를 구별하는지 확인할 방법이 없었다.
  *    이 활동만 소리가 먼저 오고 아이가 판단한다(이퓨처 교재는 유닛 6쪽 중 절반이 이 형식).
- *    단어·그림은 그 단원 storybook 에서 오므로 별도 데이터가 필요 없다.
+ * 🔴 **보기에 단어를 반드시 쓴다** — 파닉스의 학습 목표가 소리↔글자 연결이다. 그림만 두면
+ *    "소리 듣고 사물 찾기"가 되어 글자가 학습에서 빠진다. 문제 쪽엔 오늘의 글자만 보여주고
+ *    정답 단어는 쓰지 않는다(쓰면 듣지 않고 글자만 맞춰버린다).
  */
-const WORD_LISTEN_ACTIVITY: Omit<ActivityDef, 'order'> = {
-  key: 'word-listen-choose',
-  kind: 'word-listen-choose',
-  section: 'learn',
-  title: '듣고 고르기',
-  emoji: '🔊',
-  required: true,
-};
+function wordListenActivity(letter?: string): Omit<ActivityDef, 'order'> {
+  return {
+    key: 'word-listen-choose',
+    kind: 'word-listen-choose',
+    section: 'learn',
+    title: '듣고 고르기',
+    emoji: '🔊',
+    required: true,
+    ...(letter ? { consonant: letter } : {}),
+  };
+}
 
 /** 학습 활동 뒤에 [듣고 고르기 + 게임 4] 를 붙이고 순서를 매긴다. */
-function withGames(learn: ReadonlyArray<Omit<ActivityDef, 'order'>>): ActivityPlan {
+function withGames(
+  learn: ReadonlyArray<Omit<ActivityDef, 'order'>>,
+  letter?: string
+): ActivityPlan {
   return {
-    activities: [...learn, WORD_LISTEN_ACTIVITY, ...GAME_ACTIVITIES].map((a, i) => ({
+    activities: [...learn, wordListenActivity(letter), ...GAME_ACTIVITIES].map((a, i) => ({
       ...a,
       order: i + 1,
     })),
@@ -443,48 +454,51 @@ const CODA_ONSETS_2 = ['ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'] as const
  */
 function makeCodaPlan(coda: string): ActivityPlan {
   const sample = composeHangul('ㅇ', 'ㅏ', coda) || `아${coda}`; // 앙·악·안·알·앗·암·압
-  return withGames([
-    {
-      key: 'consonant-tap',
-      kind: 'consonant-tap',
-      section: 'learn',
-      title: `${coda} 받침 배우기`,
-      emoji: '👆',
-      required: true,
-      consonant: coda,
-      soundText: sample,
-    },
-    {
-      key: 'coda-listen-1',
-      kind: 'coda-blend-listen',
-      section: 'learn',
-      title: `${coda} 받침 붙이기 1`,
-      emoji: '🔗',
-      required: true,
-      coda,
-      codaOnsets: [...CODA_ONSETS_1],
-    },
-    {
-      key: 'coda-listen-2',
-      kind: 'coda-blend-listen',
-      section: 'learn',
-      title: `${coda} 받침 붙이기 2`,
-      emoji: '🔗',
-      required: true,
-      coda,
-      codaOnsets: [...CODA_ONSETS_2],
-    },
-    {
-      key: 'consonant-write',
-      kind: 'consonant-write',
-      section: 'learn',
-      title: `${coda} 받침 쓰기`,
-      emoji: '✏️',
-      required: true,
-      consonant: coda,
-      soundText: sample,
-    },
-  ]);
+  return withGames(
+    [
+      {
+        key: 'consonant-tap',
+        kind: 'consonant-tap',
+        section: 'learn',
+        title: `${coda} 받침 배우기`,
+        emoji: '👆',
+        required: true,
+        consonant: coda,
+        soundText: sample,
+      },
+      {
+        key: 'coda-listen-1',
+        kind: 'coda-blend-listen',
+        section: 'learn',
+        title: `${coda} 받침 붙이기 1`,
+        emoji: '🔗',
+        required: true,
+        coda,
+        codaOnsets: [...CODA_ONSETS_1],
+      },
+      {
+        key: 'coda-listen-2',
+        kind: 'coda-blend-listen',
+        section: 'learn',
+        title: `${coda} 받침 붙이기 2`,
+        emoji: '🔗',
+        required: true,
+        coda,
+        codaOnsets: [...CODA_ONSETS_2],
+      },
+      {
+        key: 'consonant-write',
+        kind: 'consonant-write',
+        section: 'learn',
+        title: `${coda} 받침 쓰기`,
+        emoji: '✏️',
+        required: true,
+        consonant: coda,
+        soundText: sample,
+      },
+    ],
+    coda
+  );
 }
 
 // ─── 한글4 복잡한 모음 단원 (ㅐㅔ · ㅖㅚ · ㅟㅢ · ㅘㅙ · ㅝㅞㅢ) ───
@@ -497,26 +511,29 @@ function makeComplexVowelPlan(vowels: readonly string[]): ActivityPlan {
     vowel: v,
     syllable: composeHangul('ㅇ', v, null) || v,
   }));
-  return withGames([
-    {
-      key: 'listen-1',
-      kind: 'vowel-listen',
-      section: 'learn',
-      title: '모음 듣기',
-      emoji: '👂',
-      required: true,
-      vowels: pairs,
-    },
-    {
-      key: 'write-1',
-      kind: 'vowel-write',
-      section: 'learn',
-      title: '모음 쓰기',
-      emoji: '✏️',
-      required: true,
-      vowels: pairs,
-    },
-  ]);
+  return withGames(
+    [
+      {
+        key: 'listen-1',
+        kind: 'vowel-listen',
+        section: 'learn',
+        title: '모음 듣기',
+        emoji: '👂',
+        required: true,
+        vowels: pairs,
+      },
+      {
+        key: 'write-1',
+        kind: 'vowel-write',
+        section: 'learn',
+        title: '모음 쓰기',
+        emoji: '✏️',
+        required: true,
+        vowels: pairs,
+      },
+    ],
+    vowels[0]
+  );
 }
 
 // ─── 복습 단원 ───

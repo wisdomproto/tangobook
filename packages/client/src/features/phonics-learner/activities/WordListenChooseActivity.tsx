@@ -13,6 +13,8 @@ export interface WordChoice {
 interface Props {
   unitId: string;
   words: ReadonlyArray<WordChoice>;
+  /** 이 단원이 배우는 글자 — 문제 쪽에 함께 보여준다. */
+  letter?: string;
   onMarkComplete: () => void;
   onBack: () => void;
 }
@@ -34,9 +36,10 @@ function shuffle<T>(arr: readonly T[]): T[] {
  *
  * 🔴 다른 학습 활동은 **누르면 소리가 나는** 탐색형이다. 여기만 소리가 먼저 오고 아이가 판단하므로
  *    "소리를 구별하는가"를 확인할 수 있는 유일한 활동이다.
- * 🔴 글자를 쓰지 않는다 — 아직 못 읽는 아이도 풀 수 있어야 하고, 그림만으로 규칙이 읽혀야 한다.
+ * 🔴 **보기에 단어를 쓴다** — 파닉스의 목표가 소리↔글자 연결이라 그림만 두면 글자가 학습에서 빠진다.
+ *    문제 쪽엔 오늘의 글자만 두고 **정답 단어는 쓰지 않는다** (쓰면 듣지 않고 글자만 맞춰버린다).
  */
-export function WordListenChooseActivity({ unitId, words, onMarkComplete, onBack }: Props) {
+export function WordListenChooseActivity({ unitId, words, letter, onMarkComplete, onBack }: Props) {
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
 
   usePhonicsTtsWarm(
@@ -165,14 +168,21 @@ export function WordListenChooseActivity({ unitId, words, onMarkComplete, onBack
 
         {!done && (
           <>
-            {/* 🔊 = 문제. 누르면 다시 들려준다 — 글자를 못 읽어도 이게 규칙이라는 걸 안다. */}
-            <button
-              onClick={() => say(current.answer)}
-              aria-label="다시 듣기"
-              className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-coral-500 text-white text-5xl sm:text-6xl shadow-pop hover:scale-[1.03] active:scale-[0.97] transition animate-pulse"
-            >
-              🔊
-            </button>
+            {/* 문제 = 오늘의 글자 + 🔊. 누르면 다시 들려준다. 정답 단어는 여기 쓰지 않는다. */}
+            <div className="flex items-center gap-4 sm:gap-6">
+              {letter && (
+                <span className="text-6xl sm:text-8xl font-black text-coral-600 leading-none">
+                  {letter}
+                </span>
+              )}
+              <button
+                onClick={() => say(current.answer)}
+                aria-label="다시 듣기"
+                className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-coral-500 text-white text-5xl sm:text-6xl shadow-pop hover:scale-[1.03] active:scale-[0.97] transition animate-pulse"
+              >
+                🔊
+              </button>
+            </div>
 
             <div className="flex flex-wrap justify-center gap-4 sm:gap-6 w-full max-w-4xl px-2">
               {current.choices.map((c) => (
@@ -181,13 +191,17 @@ export function WordListenChooseActivity({ unitId, words, onMarkComplete, onBack
                   onClick={() => handlePick(c)}
                   aria-label={c.word}
                   className={[
-                    'relative w-[28%] sm:w-44 aspect-square rounded-3xl border-[6px] bg-white overflow-hidden shadow-soft transition',
+                    'relative w-[28%] sm:w-44 rounded-3xl border-[6px] bg-white overflow-hidden shadow-soft transition',
                     wrong === c.word
                       ? 'border-coral-500 animate-shake'
                       : 'border-white hover:shadow-pop active:scale-[0.97]',
                   ].join(' ')}
                 >
-                  <img src={c.imageUrl} alt="" className="w-full h-full object-cover" />
+                  <img src={c.imageUrl} alt="" className="w-full aspect-square object-cover" />
+                  {/* 🔴 파닉스라 단어를 반드시 보여준다 — 소리↔글자를 잇는 게 학습 목표다. */}
+                  <span className="block py-2 text-xl sm:text-3xl font-black text-ink-800 break-keep">
+                    {c.word}
+                  </span>
                 </button>
               ))}
             </div>
