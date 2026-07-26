@@ -203,7 +203,7 @@ function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
     order: order++,
     kind: 'word-listen-choose',
     section: 'learn',
-    title: '듣고 고르기',
+    title: '단어 연습',
     emoji: '🔊',
     required: true,
     letters,

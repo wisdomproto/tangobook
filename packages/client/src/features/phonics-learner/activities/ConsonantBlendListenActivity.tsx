@@ -1,9 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
-import { composeHangul } from '@tangobook/shared';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
+import { buildBlendPairs } from '../lib/blend-pairs';
 
 interface Props {
   unitId: string;
@@ -56,24 +56,10 @@ export function ConsonantBlendListenActivity({
 }: Props) {
   const isCoda = !!coda;
 
-  const pairs = useMemo(() => {
-    if (coda) {
-      return (codaOnsets ?? []).map((onset) => {
-        const base = composeHangul(onset, 'ㅏ', null) || `${onset}ㅏ`;
-        return {
-          first: base,
-          second: coda,
-          syllable: composeHangul(onset, 'ㅏ', coda) || `${base}${coda}`,
-        };
-      });
-    }
-    const c = consonant ?? '';
-    return (blendVowels ?? []).map((v) => ({
-      first: c,
-      second: v,
-      syllable: composeHangul(c, v, null) || `${c}${v}`,
-    }));
-  }, [blendVowels, consonant, coda, codaOnsets]);
+  const pairs = useMemo(
+    () => buildBlendPairs({ consonant, blendVowels, coda, codaOnsets }),
+    [blendVowels, consonant, coda, codaOnsets]
+  );
 
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   const prefix = isCoda ? 'coda-blend' : 'consonant-blend';

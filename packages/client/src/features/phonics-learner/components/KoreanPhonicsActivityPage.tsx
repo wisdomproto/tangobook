@@ -153,8 +153,9 @@ export default function KoreanPhonicsActivityPage() {
         unitId={unitId}
         consonant={activity.consonant}
         soundText={activity.soundText}
-        // 한 번 쓸 때마다 슬롯에 낱말 그림이 열린다 — 자음 누르기 카드와 같은 규칙.
-        words={storybook ? phonicsToWordChoices(storybook) : []}
+        blendVowels={activity.blendVowels}
+        coda={activity.coda}
+        codaOnsets={activity.codaOnsets}
         onComplete={handleComplete}
         onBack={backToUnit}
       />
@@ -185,6 +186,8 @@ export default function KoreanPhonicsActivityPage() {
           ...(c.ttsUrl ? { ttsUrl: c.ttsUrl } : {}),
         }))}
         letter={activity.consonant}
+        // 학습 단원은 카드를 눌러 들어본 뒤 「퀴즈」 로 넘어간다(복습은 바로 퀴즈).
+        exploreFirst
         onMarkComplete={handleMarkComplete}
         onBack={backToUnit}
       />

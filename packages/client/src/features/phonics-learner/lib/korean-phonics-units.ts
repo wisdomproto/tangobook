@@ -357,6 +357,8 @@ function makeConsonantPlan(consonant: string): ActivityPlan {
         emoji: '✏️',
         required: true,
         consonant,
+        // 음절 만들기와 같은 짝을 쓴다 — 쓰기도 `ㄱ`·`ㅏ` 를 써서 `가` 를 만든다.
+        blendVowels: [...CONSONANT_BLEND_VOWELS],
       },
     ],
     consonant
@@ -432,7 +434,7 @@ function wordListenActivity(letter?: string): Omit<ActivityDef, 'order'> {
     key: 'word-listen-choose',
     kind: 'word-listen-choose',
     section: 'learn',
-    title: '듣고 고르기',
+    title: '단어 연습',
     emoji: '🔊',
     required: true,
     ...(letter ? { consonant: letter } : {}),

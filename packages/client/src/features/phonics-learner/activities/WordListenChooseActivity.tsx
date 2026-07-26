@@ -25,6 +25,11 @@ interface Props {
    * 복습은 보기가 글자·낱말(그림 없음)이라 눈이 덜 바빠 4개까지 쓴다.
    */
   choices?: number;
+  /**
+   * 퀴즈 전에 **탐색 화면**을 먼저 보여줄지. 카드를 눌러 소리를 들어보고 「퀴즈」 버튼으로 넘어간다.
+   * 복습은 되짚는 자리라 바로 퀴즈로 들어가므로 기본값은 false.
+   */
+  exploreFirst?: boolean;
   onMarkComplete: () => void;
   onBack: () => void;
 }
@@ -52,6 +57,7 @@ export function WordListenChooseActivity({
   letter,
   language = 'korean',
   choices = 3,
+  exploreFirst = false,
   onMarkComplete,
   onBack,
 }: Props) {
@@ -75,6 +81,7 @@ export function WordListenChooseActivity({
     });
   }, [items, choices]);
 
+  const [exploring, setExploring] = useState(exploreFirst);
   const [qIdx, setQIdx] = useState(0);
   const [wrong, setWrong] = useState<string | null>(null);
   const [done, setDone] = useState(false);
@@ -100,9 +107,9 @@ export function WordListenChooseActivity({
 
   // 문제가 바뀌면 자동으로 한 번 들려준다 — 아이가 버튼을 찾아 누를 필요가 없게.
   useEffect(() => {
-    if (done || !current) return;
+    if (exploring || done || !current) return;
     say(current.answer);
-  }, [qIdx, done, current, say]);
+  }, [qIdx, exploring, done, current, say]);
 
   useEffect(
     () => () => {
@@ -150,7 +157,8 @@ export function WordListenChooseActivity({
     setQIdx(0);
     setWrong(null);
     setDone(false);
-  }, []);
+    setExploring(exploreFirst);
+  }, [exploreFirst]);
 
   if (!current) return null;
 
@@ -171,20 +179,56 @@ export function WordListenChooseActivity({
       </button>
 
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-5">
-        {/* 진행 dots */}
-        <div className="flex gap-2">
-          {questions.map((q, i) => (
-            <span
-              key={q.answer.label}
-              className={[
-                'w-3.5 h-3.5 rounded-full transition',
-                i < qIdx || done ? 'bg-mint-500' : i === qIdx ? 'bg-coral-500' : 'bg-white',
-              ].join(' ')}
-            />
-          ))}
-        </div>
+        {/* 🔎 탐색 — 눌러서 소리를 들어보고, 준비되면 퀴즈로.
+            🔴 예전엔 들어오자마자 문제가 나왔다. 처음 보는 낱말을 소리만 듣고 고르라는 셈이라,
+               먼저 만져보는 화면이 있어야 퀴즈가 "확인"이 된다(모음 듣기와 같은 순서). */}
+        {exploring && (
+          <>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-900 text-center break-keep">
+              눌러서 들어봐!
+            </h2>
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 w-full max-w-4xl px-2">
+              {items.slice(0, 4).map((c) => (
+                <button
+                  key={c.label}
+                  onClick={() => say(c)}
+                  aria-label={c.label}
+                  className="relative w-[40%] sm:w-52 rounded-3xl border-[6px] border-white bg-white overflow-hidden shadow-soft hover:shadow-pop active:scale-[0.97] transition"
+                >
+                  {c.imageUrl && (
+                    <img src={c.imageUrl} alt="" className="w-full aspect-square object-cover" />
+                  )}
+                  <span className="block py-2 text-xl sm:text-3xl font-black text-ink-800 break-keep">
+                    {c.label}
+                  </span>
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => setExploring(false)}
+              className="px-10 py-4 rounded-full bg-coral-500 text-white font-black text-2xl sm:text-3xl shadow-pop active:scale-[0.98] transition"
+            >
+              🎯 퀴즈
+            </button>
+          </>
+        )}
 
-        {!done && (
+        {/* 진행 dots */}
+        {!exploring && (
+          <div className="flex gap-2">
+            {questions.map((q, i) => (
+              <span
+                key={q.answer.label}
+                className={[
+                  'w-3.5 h-3.5 rounded-full transition',
+                  i < qIdx || done ? 'bg-mint-500' : i === qIdx ? 'bg-coral-500' : 'bg-white',
+                ].join(' ')}
+              />
+            ))}
+          </div>
+        )}
+
+        {!exploring && !done && (
           <>
             {/* 문제 = 오늘의 글자 + 🔊. 누르면 다시 들려준다. 정답 단어는 여기 쓰지 않는다. */}
             <div className="flex items-center gap-4 sm:gap-6">
@@ -242,7 +286,7 @@ export function WordListenChooseActivity({
           </>
         )}
 
-        {done && (
+        {!exploring && done && (
           <div className="flex flex-col items-center gap-4">
             <p className="text-3xl sm:text-5xl font-black text-ink-900">모두 맞췄어!</p>
             <div className="flex flex-wrap items-center justify-center gap-3">
