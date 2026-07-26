@@ -36,6 +36,18 @@
 - 오늘의 글자/타겟 단어의 시각 앵커 명시: 글자=나무 열매 표면, 단어=나뭇잎 글자판(옆에 작은 그림), 단어 속 오늘 글자는 빨강 강조.
 - 🔴 **타겟 단어 4개 전부 `'단어' 잎 옆 작은 그림(…)` 형태로 시각 지시를 쓸 것** — 이 문구가 기획서 「타겟 단어 카드 프롬프트」의 소스라, 빠지면 본편 삽화와 단어 카드의 사물이 어긋난다.
 
+## 단어 카드 → 앱 연동 (2026-07-26)
+
+기획서에 붙여넣은 단어 카드는 **파닉스 유닛의 게임 자산**이 된다(그림 짝 찾기·낱말 그리기·블록·따라쓰기). 새 유닛 카드를 붙인 뒤 두 줄만 돌리면 끝:
+
+```bash
+node packages/server/scripts/link-hangeul-tree-word-cards.mjs --apply      # 카드 → flashcards[].imageUrl (w800 webp 로 구움)
+node packages/server/scripts/extract-word-card-keypoints.mjs --preview     # 윤곽 → keypoints, 먼저 눈으로 확인
+node packages/server/scripts/extract-word-card-keypoints.mjs --apply
+```
+
+둘 다 멱등. 한글↔로마자 매핑은 기획서 `UNITS` 배열이 SSOT라 유닛 목록을 따로 적지 않는다. 상세 → [features/phonics-learner/CLAUDE.md](../../packages/client/src/features/phonics-learner/CLAUDE.md)
+
 ## 특수 유닛 처리
 - **모음 유닛(kr-h1-u01)**: 타겟 단어가 없음. 대신 **모음 10개(아·야·어·여·오·요·우·유·으·이)** 가 나무 열매로 주렁주렁. 쪽3~4에서 모음을 그룹으로 나눠 노래하듯 읽고(아야어여오요 / 우유으이), 쪽7에서 모음 하나를 손으로 그림. "오늘의 글자 3회" 대신 모음 소리를 여러 번 노래로 냄.
 - **받침 유닛(kr-h2-*)**: "오늘의 글자" = 받침(예: 받침 ㅇ). 소릿값도 받침 소리로. 타겟 단어의 **받침 부분**을 짚어 강조. 나무 열매엔 받침 글자를 보여줌.

@@ -50,6 +50,14 @@ features/phonics/
 
 reader 4곳 통일: AlphabetCardTab 미리보기 svg, LearningCardPreviewModal hit-test + 🔊, PhonicsViewer hit-test + 🔊, HotspotEditorModal.
 
+## 점선 = `keypoints` + `tracingPoints` 양쪽 (2026-07-26)
+
+핵심단어 탭의 **「점선 편집」은 두 필드를 함께 다룬다** — 읽을 땐 `keypoints` 우선(없으면 옛 `tracingPoints`), 저장할 땐 **둘 다** 기록. 변환은 순수함수 `lib/tracing-points.ts`(`flashcardDots`/`toKeypoints`, 테스트 有).
+
+🔴 **왜 두 개인가**: `tracingPoints` 는 저작도구 미리보기(`TracingGamePreviewModal`) 전용이고, 학습자 「낱말 그리기」(`ConnectTheDotsPlayer`)가 읽는 건 `keypoints`(order 有)다. 예전엔 편집기가 `tracingPoints` 만 써서 **저작도구에서 점선을 고쳐도 게임은 그대로였다**. 새 점선 UI 를 붙일 땐 이 두 필드를 같이 쓰는지부터 확인할 것.
+
+자동 추출본(`server/scripts/extract-word-card-keypoints.mjs`, 18점)이 `keypoints` 로 들어가 있어 편집기에 그대로 뜬다 — 손볼 카드만 고치면 된다.
+
 ## 한글/영어 데이터 차이
 
 - **한글**: `blend`=음절(가, 나), `illustrationUrl`=삽화, `phonicsConfig.language === 'korean'`

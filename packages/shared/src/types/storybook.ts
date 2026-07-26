@@ -87,7 +87,10 @@ export interface PhonicsFlashcard {
   ttsUrl?: string;
   sentenceTtsUrl?: string;
   outlineUrl?: string;
+  /** 저작도구 「따라그리기 미리보기」 전용 점열 (순서 없음). */
   tracingPoints?: TracingPoint[];
+  /** 학습자 「낱말 그리기」(ConnectTheDotsPlayer) 가 읽는 폴리곤. 저작도구가 점선 저장 시 함께 기록. */
+  keypoints?: DotKeypoint[];
 }
 
 export type WorksheetType = 'matching' | 'fill-blank' | 'tracing' | 'circle-sound';

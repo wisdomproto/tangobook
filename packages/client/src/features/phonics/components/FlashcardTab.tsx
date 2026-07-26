@@ -16,6 +16,7 @@ import { ImageDescriptionInput } from './ImageDescriptionInput';
 import { ImageHistory } from './ImageHistory';
 import { TracingPointEditorModal } from './TracingPointEditorModal';
 import { TracingGamePreviewModal } from './TracingGamePreviewModal';
+import { flashcardDots, toKeypoints } from '../lib/tracing-points';
 
 interface FlashcardTabProps {
   storybook: Storybook;
@@ -415,8 +416,8 @@ export function FlashcardTab({ storybook, onUpdate, onSave }: FlashcardTabProps)
                               onClick={() => setTracingEditIdx(idx)}
                               disabled={isBusy}
                             >
-                              {card.tracingPoints?.length
-                                ? `점선 편집 (${card.tracingPoints.length})`
+                              {flashcardDots(card).length
+                                ? `점선 편집 (${flashcardDots(card).length})`
                                 : '점선 그리기'}
                             </Button>
                           )}
@@ -426,7 +427,7 @@ export function FlashcardTab({ storybook, onUpdate, onSave }: FlashcardTabProps)
                               variant="ghost"
                               className="w-full"
                               onClick={() => setTracingPreviewIdx(idx)}
-                              disabled={(card.tracingPoints?.length ?? 0) < 2}
+                              disabled={flashcardDots(card).length < 2}
                             >
                               따라그리기 미리보기
                             </Button>
@@ -526,11 +527,13 @@ export function FlashcardTab({ storybook, onUpdate, onSave }: FlashcardTabProps)
         <TracingPointEditorModal
           imageUrl={flashcards[tracingEditIdx].imageUrl!}
           word={flashcards[tracingEditIdx].word}
-          initialPoints={flashcards[tracingEditIdx].tracingPoints}
+          initialPoints={flashcardDots(flashcards[tracingEditIdx])}
           aspectRatio="1/1"
           onSave={(points) => {
             onUpdate((d) => {
               d.flashcards![tracingEditIdx].tracingPoints = points;
+              // 학습자 「낱말 그리기」는 keypoints 를 읽는다 — 같이 안 쓰면 편집이 게임에 안 닿는다.
+              d.flashcards![tracingEditIdx].keypoints = toKeypoints(points);
             });
             onSave();
             setTracingEditIdx(null);
@@ -541,11 +544,11 @@ export function FlashcardTab({ storybook, onUpdate, onSave }: FlashcardTabProps)
 
       {tracingPreviewIdx !== null &&
         flashcards[tracingPreviewIdx]?.imageUrl &&
-        (flashcards[tracingPreviewIdx].tracingPoints?.length ?? 0) >= 2 && (
+        flashcardDots(flashcards[tracingPreviewIdx]).length >= 2 && (
           <TracingGamePreviewModal
             imageUrl={flashcards[tracingPreviewIdx].imageUrl!}
             word={flashcards[tracingPreviewIdx].word}
-            tracingPoints={flashcards[tracingPreviewIdx].tracingPoints!}
+            tracingPoints={flashcardDots(flashcards[tracingPreviewIdx])}
             ttsUrl={flashcards[tracingPreviewIdx].ttsUrl}
             onClose={() => setTracingPreviewIdx(null)}
           />
