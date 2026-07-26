@@ -9,8 +9,8 @@ interface Props {
   unitId: string;
   /** 자음 모드 — 학습 자음 (예: 'ㄱ'). coda 모드면 미지정. */
   consonant?: string;
-  blendVowels?: ReadonlyArray<string>; // ['ㅏ','ㅑ','ㅓ','ㅕ','ㅗ','ㅛ']
-  /** 받침 모드 — 학습 받침 (예: 'ㅇ'). 지정되면 행이 [가][ㅇ][강] 이 된다. */
+  blendVowels?: ReadonlyArray<string>; // ['ㅏ','ㅑ','ㅓ','ㅕ','ㅗ','ㅛ','ㅜ','ㅠ','ㅡ','ㅣ']
+  /** 받침 모드 — 학습 받침 (예: 'ㅇ'). 지정되면 짝이 [가]+[ㅇ]→[강] 이 된다. */
   coda?: string;
   /** 받침 모드 — 받침을 붙일 음절의 초성 (중성은 ㅏ 고정). */
   codaOnsets?: ReadonlyArray<string>;
@@ -19,14 +19,31 @@ interface Props {
 }
 
 /**
- * 3칸 음절 구성 액티비티 — 자음 모드와 받침 모드 겸용.
+ * 두 글자가 붙기까지의 거리 — 멀리 → 가까이 → 붙음.
+ * 🔴 Tailwind 클래스가 아니라 **인라인 스타일**로 준다. `gap-[18vw] sm:gap-56` 처럼 두 겹으로 쓰면
+ *    어느 쪽이 이겼는지 브레이크포인트마다 확인해야 하고(실제로 375px 에서 값이 어긋나 보였다),
+ *    `min()` 한 줄이면 화면 크기와 무관하게 같은 규칙이 된다.
+ */
+const GAPS = ['min(18vw, 14rem)', 'min(6vw, 4rem)', '0px'] as const;
+const TAP_ROUNDS = 2; // 탭으로 진행하는 라운드 수(멀리·가까이). 마지막 붙는 건 자동.
+
+/**
+ * 음절 만들기 액티비티 — 자음 모드와 받침 모드 겸용.
  *
  * - 자음 모드 (한글1·3): [자음] + [모음] → [음절]   ㄱ + ㅏ → 가
  * - 받침 모드 (한글2):   [음절] + [받침] → [음절]   가 + ㅇ → 강
  *
- * 클릭마다 그 칸 소리 발음. 행 완성 → 띵동, 전부 완성 → 칭찬 + onComplete.
+ * 🔴 **한 번에 한 짝만, 두 글자가 가까워지다 합쳐진다**(2026-07-26 개편).
+ *    예전엔 `[ㄱ][ㅏ][가]` 3칸짜리 행을 6~7줄 깔아두고 순서대로 누르게 했는데, 그러면 아이가 배우는 건
+ *    "칸을 순서대로 누른다" 였다. 지금은 **거리가 좁혀지는 움직임**이 블렌딩 개념 자체를 보여준다:
+ *      ① 멀리 떨어진 ㄱ · ㅏ — 반짝이는 쪽을 눌러 각각의 소리를 듣는다
+ *      ② 가까워진 상태로 같은 2탭
+ *      ③ 탭 없이 스르륵 붙으며 `ㄱ ㅏ 가` 를 이어 읽는다 — 합체는 **누르는 게 아니라 일어나는 일**
+ *
  * 🔴 두 모드를 한 컴포넌트로 두는 이유 = TTS 체인(발음 끝난 뒤 띵동/칭찬)이 반복 버그 지점이라
  *    복사본을 만들면 고칠 곳이 두 군데가 된다.
+ * 🔴 애니메이션과 소리를 `setTimeout` 으로 맞추지 않는다 — 합쳐지는 순간 이어읽기 TTS 를 바로 걸고,
+ *    그 `onEnded` 로 띵동 → 다음 짝으로 넘어간다.
  */
 export function ConsonantBlendListenActivity({
   unitId,
@@ -39,7 +56,7 @@ export function ConsonantBlendListenActivity({
 }: Props) {
   const isCoda = !!coda;
 
-  const rows = useMemo(() => {
+  const pairs = useMemo(() => {
     if (coda) {
       return (codaOnsets ?? []).map((onset) => {
         const base = composeHangul(onset, 'ㅏ', null) || `${onset}ㅏ`;
@@ -59,87 +76,102 @@ export function ConsonantBlendListenActivity({
   }, [blendVowels, consonant, coda, codaOnsets]);
 
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  const prefix = isCoda ? 'coda-blend' : 'consonant-blend';
 
-  // 셀 3종 전부 미리 데운다 — 21칸이라 첫 탭 지연이 제일 잘 드러나는 활동.
+  // 낱글자 + 이어읽기까지 전부 데운다 — 합쳐지는 순간 무음이면 "정답 느낌"이 사라진다.
   usePhonicsTtsWarm(
     unitId,
-    useMemo(() => rows.flatMap((r) => [r.first, r.second, r.syllable]), [rows]),
-    isCoda ? 'coda-blend' : 'consonant-blend'
+    useMemo(
+      () => pairs.flatMap((p) => [p.first, p.second, `${p.first} ${p.second} ${p.syllable}`]),
+      [pairs]
+    ),
+    prefix
   );
 
-  // 클릭 기록 — `${row}-${col}` 으로 키
-  const [pressed, setPressed] = useState<Set<string>>(new Set());
+  const [idx, setIdx] = useState(0); // 지금 만드는 짝
+  const [round, setRound] = useState(0); // 0 멀리 · 1 가까이 · 2 붙음(자동)
+  const [step, setStep] = useState(0); // 0 첫 글자 차례 · 1 둘째 글자 차례
   const [completed, setCompleted] = useState(false);
 
-  const totalCells = rows.length * 3;
+  const pair = pairs[idx];
+  const merging = round >= TAP_ROUNDS;
 
-  // 다음에 눌러야 할 셀 (row-major, 첫 미클릭) — 하이라이트 안내용. 모두 누르면 null.
-  const nextKey = useMemo(() => {
-    for (let r = 0; r < rows.length; r++) {
-      for (let c = 0; c < 3; c++) {
-        const key = `${r}-${c}`;
-        if (!pressed.has(key)) return key;
-      }
-    }
-    return null;
-  }, [rows.length, pressed]);
-
-  const handleCell = useCallback(
-    async (r: number, c: number, text: string) => {
-      if (completed) return;
-      const key = `${r}-${c}`;
+  const say = useCallback(
+    async (text: string, onEnded?: () => void) => {
       const url = await resolveTtsUrl({
         text,
         language: 'korean',
         storybookId: unitId,
-        identifierPrefix: isCoda ? 'coda-blend' : 'consonant-blend',
+        identifierPrefix: prefix,
       });
-
-      // 이 클릭으로 (a) 행 3 셀 모두 채워지면 → 띵동, (b) 18 셀 모두 채워지면 → 띵동 → 칭찬.
-      let willCompleteAll = false;
-      let willCompleteRow = false;
-      setPressed((prev) => {
-        if (prev.has(key)) return prev;
-        const next = new Set(prev);
-        next.add(key);
-        if (next.size >= totalCells) willCompleteAll = true;
-        // 이 행의 3셀 모두 next 에 포함되면 row complete
-        if (
-          next.has(`${r}-0`) &&
-          next.has(`${r}-1`) &&
-          next.has(`${r}-2`) &&
-          // 이전엔 미완료 상태였어야 (방금 클릭한 셀로 완성됐어야)
-          !(prev.has(`${r}-0`) && prev.has(`${r}-1`) && prev.has(`${r}-2`))
-        ) {
-          willCompleteRow = true;
-        }
-        return next;
-      });
-
-      if (willCompleteAll) setCompleted(true);
-
-      // TTS ended chain:
-      // - 전체 완료: TTS → 띵동 → 칭찬
-      // - 행 완료: TTS → 띵동
-      // - 그 외: TTS 만
-      const afterTts = () => {
-        if (willCompleteAll) {
-          playAudio('/sounds/game/correct.mp3', () =>
-            playCorrectSequence({ language: 'ko', onDone: onComplete })
-          );
-        } else if (willCompleteRow) {
-          playAudio('/sounds/game/correct.mp3');
-        }
-      };
-
-      if (url) {
-        playAudio(url, afterTts);
-      } else {
-        afterTts();
-      }
+      if (url) playAudio(url, onEnded);
+      else onEnded?.();
     },
-    [completed, totalCells, unitId, isCoda, playAudio, playCorrectSequence, onComplete]
+    [unitId, prefix, playAudio]
   );
+
+  const handleTap = useCallback(
+    (which: 0 | 1) => {
+      if (completed || merging || !pair || which !== step) return;
+      const text = which === 0 ? pair.first : pair.second;
+
+      if (which === 0) {
+        setStep(1);
+        say(text);
+        return;
+      }
+
+      // 둘째 글자까지 눌렀다 — 다음 라운드로 좁히거나, 마지막이면 합친다.
+      const nextRound = round + 1;
+      setStep(0);
+      setRound(nextRound);
+      if (nextRound < TAP_ROUNDS) {
+        say(text);
+        return;
+      }
+
+      // 합체: 글자가 미끄러져 붙는 동안 `ㄱ ㅏ 가` 를 이어 읽고, 끝나면 띵동 → 다음 짝.
+      const isLast = idx + 1 >= pairs.length;
+      if (isLast) setCompleted(true);
+      const advance = () => {
+        if (isLast) {
+          playCorrectSequence({ language: 'ko', onDone: onComplete });
+          return;
+        }
+        setIdx((i) => i + 1);
+        setRound(0);
+        setStep(0);
+      };
+      say(`${pair.first} ${pair.second} ${pair.syllable}`, () =>
+        playAudio('/sounds/game/correct.mp3', advance)
+      );
+    },
+    [
+      completed,
+      merging,
+      pair,
+      step,
+      round,
+      idx,
+      pairs.length,
+      say,
+      playAudio,
+      playCorrectSequence,
+      onComplete,
+    ]
+  );
+
+  if (!pair) return null;
+
+  const tileClass = (which: 0 | 1) =>
+    [
+      'w-[26vw] h-[26vw] max-w-40 max-h-40 sm:w-40 sm:h-40 rounded-3xl border-[5px] flex items-center justify-center font-black text-coral-600 text-5xl sm:text-7xl shadow-soft transition',
+      merging
+        ? 'bg-mint-100 border-mint-500'
+        : step === which
+          ? 'bg-white border-coral-500 ring-4 ring-coral-200 animate-pulse'
+          : 'bg-white/70 border-white',
+    ].join(' ');
 
   return (
     <div
@@ -157,94 +189,57 @@ export function ConsonantBlendListenActivity({
         ← 돌아가기
       </button>
 
-      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-3">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-ink-900 text-center break-keep">
-          <span className="text-coral-600">{isCoda ? coda : consonant}</span>
-          {isCoda ? ' 받침을 붙여봐!' : ' 을 모음과 만나게 해봐!'}
+      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-8">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-900 text-center break-keep">
+          {merging ? (
+            <>
+              두 소리가 만나서 <span className="text-coral-600">{pair.syllable}</span>!
+            </>
+          ) : (
+            '반짝이는 글자를 눌러봐!'
+          )}
         </h2>
 
-        <div className="flex flex-col gap-2 sm:gap-2.5 w-full max-w-xl">
-          {rows.map((row, r) => (
-            <div key={r} className="flex items-center justify-center gap-2 sm:gap-3">
-              <Cell
-                label={row.first}
-                pressed={pressed.has(`${r}-0`)}
-                isNext={nextKey === `${r}-0`}
-                onClick={() => handleCell(r, 0, row.first)}
-                tone={isCoda ? 'vowel' : 'consonant'}
-              />
-              <span className="text-2xl font-black text-ink-500">+</span>
-              <Cell
-                label={row.second}
-                pressed={pressed.has(`${r}-1`)}
-                isNext={nextKey === `${r}-1`}
-                onClick={() => handleCell(r, 1, row.second)}
-                tone={isCoda ? 'consonant' : 'vowel'}
-              />
-              <span className="text-2xl font-black text-ink-500">→</span>
-              <Cell
-                label={row.syllable}
-                pressed={pressed.has(`${r}-2`)}
-                isNext={nextKey === `${r}-2`}
-                onClick={() => handleCell(r, 2, row.syllable)}
-                tone="syllable"
-              />
+        {/* 두 글자 — 라운드가 오를수록 간격이 좁아지고, 마지막엔 붙어서 음절이 된다. */}
+        <div
+          className="flex items-center justify-center transition-all duration-500 ease-out"
+          style={{ columnGap: GAPS[Math.min(round, GAPS.length - 1)] }}
+        >
+          {merging ? (
+            <div className="w-[52vw] h-[26vw] max-w-80 max-h-40 sm:w-80 sm:h-40 rounded-3xl border-[5px] border-mint-500 bg-mint-100 flex items-center justify-center font-black text-mint-700 text-6xl sm:text-8xl shadow-pop">
+              {pair.syllable}
             </div>
+          ) : (
+            <>
+              <button onClick={() => handleTap(0)} className={tileClass(0)} aria-label={pair.first}>
+                {pair.first}
+              </button>
+              <button
+                onClick={() => handleTap(1)}
+                className={tileClass(1)}
+                aria-label={pair.second}
+              >
+                {pair.second}
+              </button>
+            </>
+          )}
+        </div>
+
+        {/* 진행 — 몇 개째 만들고 있는지 */}
+        <div className="flex flex-wrap justify-center gap-2">
+          {pairs.map((p, i) => (
+            <span
+              key={p.syllable}
+              className={[
+                'w-3 h-3 rounded-full transition',
+                i < idx ? 'bg-mint-500' : i === idx ? 'bg-coral-500' : 'bg-white/70',
+              ].join(' ')}
+            />
           ))}
         </div>
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
     </div>
-  );
-}
-
-function Cell({
-  label,
-  pressed,
-  isNext,
-  onClick,
-  tone,
-}: {
-  label: string;
-  pressed: boolean;
-  isNext: boolean;
-  onClick: () => void;
-  tone: 'consonant' | 'vowel' | 'syllable';
-}) {
-  const bg =
-    tone === 'syllable'
-      ? 'bg-coral-100 border-coral-400'
-      : tone === 'consonant'
-        ? 'bg-amber-100 border-amber-400'
-        : 'bg-mint-100 border-mint-400';
-  return (
-    <button
-      onClick={onClick}
-      className={[
-        'relative w-[clamp(2.5rem,8vw,4rem)] h-[clamp(2.5rem,8vw,4rem)] sm:w-[clamp(3rem,9vw,5rem)] sm:h-[clamp(3rem,9vw,5rem)] rounded-2xl border-[3px] flex items-center justify-center shadow-soft active:scale-[0.95] transition-all font-black text-coral-700',
-        bg,
-        pressed
-          ? 'ring-2 ring-success/40'
-          : isNext
-            ? 'ring-4 ring-coral-500 scale-110 shadow-pop animate-pulse'
-            : '',
-      ].join(' ')}
-    >
-      <span className="text-2xl sm:text-3xl">{label}</span>
-      {pressed && (
-        <span className="absolute -top-1.5 -right-1.5 inline-flex items-center justify-center w-5 h-5 rounded-full bg-success text-white text-[10px] font-black">
-          ✓
-        </span>
-      )}
-      {isNext && !pressed && (
-        <span
-          aria-hidden
-          className="absolute -bottom-3 left-1/2 -translate-x-1/2 text-xl text-coral-600 animate-bounce"
-        >
-          👆
-        </span>
-      )}
-    </button>
   );
 }

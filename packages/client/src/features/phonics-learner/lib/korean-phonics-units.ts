@@ -303,8 +303,23 @@ const UNIT_01_PLAN: ActivityPlan = {
 
 // ─── 자음 단원 (ㄱ ~ ㅎ) 공용 plan 생성기 ───
 // 모음 그룹 (자음+모음 액티비티용)
-const CONSONANT_BLEND_VOWELS_1 = ['ㅏ', 'ㅑ', 'ㅓ', 'ㅕ', 'ㅗ', 'ㅛ'] as const;
-const CONSONANT_BLEND_VOWELS_2 = ['ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ', 'ㅣ'] as const;
+/**
+ * 자음과 붙일 기본 모음 10개.
+ * 🔴 예전엔 6+6 두 묶음이었고 ㅗ·ㅛ 가 양쪽에 겹쳐 있었다(활동이 두 장이라 이어지라고 넣은 중복).
+ *    한 장으로 합치면서 중복을 걷어냈다 — 안 걷으면 같은 음절을 두 번 만들게 된다.
+ */
+const CONSONANT_BLEND_VOWELS = [
+  'ㅏ',
+  'ㅑ',
+  'ㅓ',
+  'ㅕ',
+  'ㅗ',
+  'ㅛ',
+  'ㅜ',
+  'ㅠ',
+  'ㅡ',
+  'ㅣ',
+] as const;
 
 /**
  * 자음 단원 (ㄱ~ㅎ) 공통 활동 plan 생성. 자음만 바뀌어 구조는 전부 같다.
@@ -323,27 +338,16 @@ function makeConsonantPlan(consonant: string): ActivityPlan {
         consonant,
       },
       {
-        key: 'blend-listen-1',
+        // 🔴 1·2 로 나눠 두 장이던 걸 **한 장으로 합쳤다**(2026-07-26). 활동이 한 번에 한 짝만
+        // 보여주는 방식으로 바뀌어 모음을 나눌 이유가 사라졌고, 익히기 카드도 5장→4장이 됐다.
+        key: 'blend-listen',
         kind: 'consonant-blend-listen',
         section: 'learn',
-        // 🔴 같은 제목 두 장이 나란히 놓이면 뭐가 다른지 알 수 없다(모음 묶음이 다르다).
-        // 모음 듣기 1/2 · 쓰기 1/2 과 같은 규칙으로 번호를 붙인다.
-        // 🔴 짧게 — `ㄱ + 모음 배우기 1` 은 카드에서 **두 줄로 접힌다**(사용자 지적).
-        title: `${consonant}+모음 1`,
+        title: `${consonant}+모음`,
         emoji: '🔗',
         required: true,
         consonant,
-        blendVowels: [...CONSONANT_BLEND_VOWELS_1],
-      },
-      {
-        key: 'blend-listen-2',
-        kind: 'consonant-blend-listen',
-        section: 'learn',
-        title: `${consonant}+모음 2`,
-        emoji: '🔗',
-        required: true,
-        consonant,
-        blendVowels: [...CONSONANT_BLEND_VOWELS_2],
+        blendVowels: [...CONSONANT_BLEND_VOWELS],
       },
       {
         key: 'consonant-write',

@@ -47,7 +47,10 @@ describe('korean phonics activity plans', () => {
   it('쌍자음 단원은 자음 단원과 같은 구성을 쓴다', () => {
     const acts = getActivityPlan('kr-h3-u01').activities;
     expect(acts.find((a) => a.kind === 'consonant-tap')?.consonant).toBe('ㄲ');
-    expect(acts.filter((a) => a.kind === 'consonant-blend-listen')).toHaveLength(2);
+    // 🔴 1·2 로 나뉘어 있던 걸 한 장으로 합쳤다(2026-07-26) — 활동이 한 번에 한 짝만 보여준다.
+    const blend = acts.filter((a) => a.kind === 'consonant-blend-listen');
+    expect(blend).toHaveLength(1);
+    expect(blend[0].blendVowels).toHaveLength(10);
     expect(acts.find((a) => a.kind === 'consonant-write')?.consonant).toBe('ㄲ');
     // 자음 단원은 예시 음절이 필요 없다 (글자 그대로 읽음)
     expect(acts.find((a) => a.kind === 'consonant-tap')?.soundText).toBeUndefined();
@@ -142,9 +145,8 @@ describe('korean phonics activity plans', () => {
       'game-line-matching',
     ]);
     const u02 = getActivityPlan('kr-h1-u02').activities;
-    expect(u02.map((a) => a.kind).slice(0, 4)).toEqual([
+    expect(u02.map((a) => a.kind).slice(0, 3)).toEqual([
       'consonant-tap',
-      'consonant-blend-listen',
       'consonant-blend-listen',
       'consonant-write',
     ]);
