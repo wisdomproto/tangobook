@@ -37,6 +37,15 @@ interface Props {
   onBack: () => void;
 }
 
+/**
+ * 소리와 소리 **사이의 쉼**(ms).
+ *
+ * 🔴 콜백 체인은 앞 소리가 끝나는 즉시 다음 소리를 낸다 — 실측 간격이 **1~3ms** 였다.
+ *    안내가 끝나자마자 문제가 나오고, 단어가 끝나자마자 띵동이 붙어 한 덩어리로 들린다.
+ *    말과 말 사이엔 숨 쉴 자리가 있어야 아이가 각각을 따로 알아듣는다.
+ */
+const REST_MS = 420;
+
 function shuffle<T>(arr: readonly T[]): T[] {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -85,10 +94,18 @@ export function WordListenChooseActivity({
   const questions = useMemo(() => shuffle(board).map((answer) => ({ answer })), [board]);
 
   const [exploring, setExploring] = useState(exploreFirst);
+  /** 퀴즈 안내 음성이 나오는 중 — 끝나야 첫 문제가 나간다. */
+  const [starting, setStarting] = useState(false);
   const [qIdx, setQIdx] = useState(0);
   const [wrong, setWrong] = useState<string | null>(null);
   const [done, setDone] = useState(false);
   const wrongTimer = useRef<number | null>(null);
+  const restTimer = useRef<number | null>(null);
+
+  /** 소리가 **끝난 뒤** 잠깐 쉬고 다음으로 — 길이를 가정하는 게 아니라 사이를 벌리는 것이다. */
+  const rest = useCallback((fn: () => void) => {
+    restTimer.current = window.setTimeout(fn, REST_MS);
+  }, []);
 
   const current = questions[qIdx];
 
@@ -109,14 +126,17 @@ export function WordListenChooseActivity({
   );
 
   // 문제가 바뀌면 자동으로 한 번 들려준다 — 아이가 버튼을 찾아 누를 필요가 없게.
+  // 🔴 단, 퀴즈 첫 문제는 **안내 음성이 끝난 뒤**(`starting`) 낸다 — 안 그러면 안내와 첫 문제가 겹친다.
   useEffect(() => {
-    if (exploring || done || !current) return;
+    if (exploring || starting || done || !current) return;
     say(current.answer);
-  }, [qIdx, exploring, done, current, say]);
+  }, [qIdx, exploring, starting, done, current, say]);
 
+  // 나가는 도중 예약된 소리가 빈 화면에서 울리지 않게 둘 다 정리한다.
   useEffect(
     () => () => {
       if (wrongTimer.current) clearTimeout(wrongTimer.current);
+      if (restTimer.current) clearTimeout(restTimer.current);
     },
     []
   );
@@ -132,16 +152,19 @@ export function WordListenChooseActivity({
       }
       const isLast = qIdx + 1 >= questions.length;
       if (isLast) setDone(true);
-      // 🔴 TTS 끝난 뒤에 다음 단계 — setTimeout 으로 길이를 가정하지 않는다.
-      say(picked, () => {
-        if (isLast) {
-          onMarkComplete();
-          playCorrectSequence({ language: language === 'english' ? 'en' : 'ko' });
-        } else {
-          playFeedbackSound(true);
-          setQIdx((i) => i + 1);
-        }
-      });
+      // 🔴 한 단계씩 **콜백으로** 잇는다 — setTimeout 으로 길이를 가정하지 않는다.
+      //    정답 단어 → 띵동 → 다음 문제. 예전엔 띵동을 틀자마자 `setQIdx` 가 다음 문제 소리를
+      //    내보내서, 단일 채널이라 **띵동이 곧바로 잘렸다**(이 프로젝트의 단골 버그).
+      say(picked, () =>
+        rest(() => {
+          if (isLast) {
+            onMarkComplete();
+            playCorrectSequence({ language: language === 'english' ? 'en' : 'ko' });
+            return;
+          }
+          playAudio('/sounds/game/correct.mp3', () => rest(() => setQIdx((i) => i + 1)));
+        })
+      );
     },
     [
       done,
@@ -150,22 +173,38 @@ export function WordListenChooseActivity({
       qIdx,
       questions.length,
       say,
+      rest,
+      playAudio,
       playFeedbackSound,
       playCorrectSequence,
       onMarkComplete,
+      language,
     ]
   );
 
-  /** 퀴즈 진입 — 시작 효과음으로 "지금부터 문제다"를 귀로도 알린다(화면은 거의 그대로라 더 필요하다). */
+  /**
+   * 퀴즈 진입 — **안내 음성을 다 듣고** 첫 문제가 나온다.
+   *
+   * 🔴 예전엔 버튼을 누르는 즉시 첫 문제 소리가 나서, 아이가 마음의 준비를 하기도 전에 지나갔다.
+   *    화면이 탐색과 거의 같아서(같은 판을 쓴다) 더 그랬다 — "지금부터 문제다"를 귀로 알려야 한다.
+   * 🔴 문장은 concat 으로 못 만든다(음절을 이어 붙이면 글자를 하나씩 읽는 소리가 된다).
+   *    Gemini TTS 로 한 번 구워 `public/sounds/voice/` 에 둔 정적 자산이다
+   *    (`server/scripts/generate-activity-voice-prompts.mjs`, 문구를 바꾸면 재실행).
+   */
   const startQuiz = useCallback(() => {
-    playUi('play');
     setExploring(false);
-  }, []);
+    setStarting(true);
+    // 🔴 안내는 **영어 단원에서도 한국어**다. `language` 는 배우는 내용의 언어일 뿐이고,
+    //    "무엇을 하라"는 말은 아이가 알아듣는 말이어야 한다 — 파닉스 화면의 글자도 전부 한국어다
+    //    ('ABC 배우기'·'단어 연습'). 영어 UI 로케일이 생기면 그때 `quiz-start-en.mp3` 로 가른다.
+    playAudio('/sounds/voice/quiz-start-ko.mp3', () => rest(() => setStarting(false)));
+  }, [playAudio, rest]);
 
   const restart = useCallback(() => {
     setQIdx(0);
     setWrong(null);
     setDone(false);
+    setStarting(false);
     setExploring(exploreFirst);
   }, [exploreFirst]);
 
@@ -196,6 +235,11 @@ export function WordListenChooseActivity({
           {exploring ? (
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-900 text-center break-keep">
               눌러서 들어봐!
+            </h2>
+          ) : starting ? (
+            // 안내 음성이 나오는 동안 같은 문구를 화면에도 — 소리를 못 듣는 상황에서도 전달된다.
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-coral-600 text-center break-keep animate-pulse">
+              🎧 잘 듣고 맞춰봐!
             </h2>
           ) : done ? (
             <p className="text-3xl sm:text-5xl font-black text-ink-900">모두 맞췄어!</p>
@@ -237,9 +281,16 @@ export function WordListenChooseActivity({
           {(exploring ? board : quizBoard).map((c) => (
             <button
               key={c.label}
-              onClick={() => (exploring ? say(c) : handlePick(c))}
+              onClick={() => {
+                // 탐색은 누르는 맛이 전부다 — 탭음으로 카드가 반응한다는 걸 알린다.
+                if (exploring) {
+                  playUi('tap');
+                  say(c);
+                } else handlePick(c);
+              }}
               aria-label={c.label}
-              disabled={done}
+              // 안내 음성 중엔 못 누른다 — 문제를 듣기도 전에 찍고 지나가는 걸 막는다.
+              disabled={done || starting}
               className={[
                 'relative w-full rounded-3xl border-[6px] bg-white overflow-hidden shadow-soft transition',
                 wrong === c.label
