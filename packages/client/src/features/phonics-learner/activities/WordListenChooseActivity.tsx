@@ -5,6 +5,8 @@ import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 
 export interface ListenChoice {
+  /** 카드 구분자. 같은 라벨이 두 장일 수 있다(알파벳 단원의 Aa=apple / Aa=alligator). */
+  id?: string;
   /** 보기 라벨 — 단어(고기) 또는 알파벳(Aa) */
   label: string;
   /** 발음할 텍스트 */
@@ -32,6 +34,13 @@ interface Props {
    * 복습은 되짚는 자리라 바로 퀴즈로 들어가므로 기본값은 false.
    */
   exploreFirst?: boolean;
+  /**
+   * 카드에 그림을 **처음부터 보여주지 않고 누르면 나타나게** 한다(알파벳 단원).
+   * 🔴 Book 1 은 글자가 학습 목표라 판에는 글자만 깔린다. 눌러서 소리를 들은 카드만 그림이 열려,
+   *    "이 A 는 사과, 저 A 는 악어" 가 아이 손으로 밝혀진다. 퀴즈에선 전부 열어둔다 —
+   *    같은 글자가 두 장이라 그림이 없으면 어느 쪽이 정답인지 가릴 수가 없다.
+   */
+  revealImageOnTap?: boolean;
   onMarkComplete: () => void;
   onBack: () => void;
 }
@@ -69,6 +78,7 @@ export function WordListenChooseActivity({
   language = 'korean',
   choices = 4,
   exploreFirst = false,
+  revealImageOnTap = false,
   onMarkComplete,
   onBack,
 }: Props) {
@@ -91,6 +101,11 @@ export function WordListenChooseActivity({
   const quizBoard = useMemo(() => shuffle(board), [board]);
   // 문제 순서 — 판에 깔린 단어를 한 번씩.
   const questions = useMemo(() => shuffle(board).map((answer) => ({ answer })), [board]);
+
+  /** 같은 라벨이 여러 장일 수 있어 라벨 대신 이걸로 구분한다. */
+  const idOf = (c: ListenChoice) => c.id ?? c.label;
+  /** 눌러서 그림이 열린 카드 (revealImageOnTap 일 때만 의미 있음). */
+  const [opened, setOpened] = useState<Set<string>>(new Set());
 
   const [exploring, setExploring] = useState(exploreFirst);
   /** 퀴즈 안내 음성이 나오는 중 — 끝나야 첫 문제가 나간다. */
@@ -143,9 +158,9 @@ export function WordListenChooseActivity({
   const handlePick = useCallback(
     (picked: ListenChoice) => {
       if (done || !current || wrong) return;
-      if (picked.label !== current.answer.label) {
+      if (idOf(picked) !== idOf(current.answer)) {
         playFeedbackSound(false);
-        setWrong(picked.label);
+        setWrong(idOf(picked));
         wrongTimer.current = window.setTimeout(() => setWrong(null), 600);
         return;
       }
@@ -276,26 +291,40 @@ export function WordListenChooseActivity({
         {/* 🔴 카드 격자는 **탐색·퀴즈가 같은 것**을 쓴다 — 2×2 고정, 같은 크기, 같은 자리.
             예전엔 퀴즈가 보기를 따로 3장 뽑아 격자·장수·자리가 통째로 바뀌어, 버튼 하나 눌렀는데
             딴 화면으로 간 것처럼 보였다. 바뀌는 건 **문제와 클릭 동작뿐**이다. */}
-        <div className="grid grid-cols-2 justify-center gap-4 sm:gap-6 w-full max-w-xl px-2">
+        {/* 🔴 열 수는 장수로 — 알파벳 단원은 글자 하나에 카드가 두 장이라 6장이 깔린다(3+3).
+            2열로 두면 세 줄이 되어 아래가 화면 밖으로 밀린다. */}
+        <div
+          className={[
+            'grid justify-center gap-4 sm:gap-6 w-full px-2',
+            board.length > 4 ? 'grid-cols-3 max-w-3xl' : 'grid-cols-2 max-w-xl',
+          ].join(' ')}
+        >
           {(exploring ? board : quizBoard).map((c) => (
             <button
-              key={c.label}
+              key={idOf(c)}
               // 🔴 탭음을 여기서 내지 않는다 — `GlobalUiSound` 위임 리스너가 **모든 버튼에 자동**으로
               //    붙인다. 직접 부르면 한 번 눌렀는데 두 번 난다(내가 낸 버그).
-              onClick={() => (exploring ? say(c) : handlePick(c))}
+              onClick={() => {
+                if (!exploring) {
+                  handlePick(c);
+                  return;
+                }
+                if (revealImageOnTap) setOpened((prev) => new Set(prev).add(idOf(c)));
+                void say(c);
+              }}
               aria-label={c.label}
               // 안내 음성 중엔 못 누른다 — 문제를 듣기도 전에 찍고 지나가는 걸 막는다.
               disabled={done || starting}
               className={[
                 'relative w-full rounded-3xl border-[6px] bg-white overflow-hidden shadow-soft transition',
-                wrong === c.label
+                wrong === idOf(c)
                   ? 'border-coral-500 animate-shake'
                   : 'border-white hover:shadow-pop active:scale-[0.97]',
               ].join(' ')}
             >
               {/* 🔴 글자 단원(영어 Book 1 알파벳)은 그림 없이 글자만 — 아직 단어 철자를 읽을 단계가 아니다.
                   그 외 단원은 그림 + 단어. 파닉스라 소리↔글자를 잇는 게 학습 목표다. */}
-              {c.imageUrl ? (
+              {c.imageUrl && (!revealImageOnTap || !exploring || opened.has(idOf(c))) ? (
                 <>
                   <img src={c.imageUrl} alt="" className="w-full aspect-square object-cover" />
                   <span className="block py-2 text-xl sm:text-3xl font-black text-ink-800 break-keep">

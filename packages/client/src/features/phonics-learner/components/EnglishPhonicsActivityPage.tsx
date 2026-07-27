@@ -25,6 +25,7 @@ import {
   phonicsToEnglishWordWritingData,
   phonicsToEnglishLineMatchingData,
   phonicsToConnectTheDotsData,
+  findImageData,
 } from '../lib/phonics-game-adapter';
 import type { Storybook } from '@tangobook/shared';
 
@@ -41,6 +42,9 @@ import type { Storybook } from '@tangobook/shared';
  *
  * 게임 데이터: storybook 의 `phonicsConfig.targetWords` (8개) 중 어댑터가 랜덤 4개.
  */
+/** 알파벳 단원에서 글자 하나에 깔 카드 수 (= 서로 다른 낱말 개수). */
+const WORDS_PER_LETTER = 2;
+
 /** 복습 듣기 보기 수 — 보기가 그림이 아니라 글자·낱말이라 학습 단원(4장)과 같게 둔다. */
 const REVIEW_CHOICES = 4;
 
@@ -89,14 +93,47 @@ export default function EnglishPhonicsActivityPage() {
 
   // 🔊 듣고 고르기 — Book 1 은 알파벳 글자만 보기로 낸다 (그림·단어 철자 없음)
   if (activity.kind === 'word-listen-choose' && activity.letters?.length) {
+    /**
+     * 🔴 **글자 하나에 카드 두 장** — 같은 `Aa` 라도 하나는 apple, 하나는 alligator 다.
+     *    위·아래 두 줄로 같은 글자가 깔리고, 누른 카드만 그림이 열리며 그 단어를 읽어준다
+     *    (`a a apple` / `a a alligator` — 저작 음원이 이미 그 형태다).
+     *    한 글자에 한 카드면 "A 는 사과" 로만 남는데, 글자 소리는 여러 낱말에서 같다는 게
+     *    이 권의 학습 내용이다.
+     */
+    const sb = storybookQuery.data as Storybook | undefined;
+    const families = sb?.phonicsLesson?.wordFamilies ?? [];
+    const perLetter = activity.letters.map((L, i) => {
+      const label = `${L.toUpperCase()}${L.toLowerCase()}`;
+      // 🔴 그림은 `wordFamilies` 가 아니라 **단어 카드(flashcards)** 에 있다 — 여기서 찾으면 늘 비어서
+      //    글자 카드 3장으로 끝난다(내가 낸 버그). 게임 어댑터와 같은 조회를 쓴다.
+      const words = (families[i]?.words ?? [])
+        .map((w) => ({ word: w.word, ...findImageData(sb!, w.word), ttsUrl: w.ttsUrl }))
+        .filter((w) => w.imageUrl)
+        .slice(0, WORDS_PER_LETTER);
+      if (!sb || words.length === 0) return [{ id: label, label, sound: L.toLowerCase() }];
+      return words.map((w) => ({
+        id: `${label}-${w.word}`,
+        label,
+        sound: w.word,
+        imageUrl: w.imageUrl,
+        ...(w.ttsUrl ? { ttsUrl: w.ttsUrl } : {}),
+      }));
+    });
+    /**
+     * 🔴 **줄마다 ABC 가 한 벌씩** — 글자별로 묶어 늘어놓으면 `Aa Aa Bb / Bb Cc Cc` 가 되어
+     *    줄이 글자 순서를 흐린다. 첫 낱말들을 윗줄에, 둘째 낱말들을 아랫줄에 깐다.
+     */
+    const depth = Math.max(...perLetter.map((w) => w.length));
+    const items = Array.from({ length: depth }).flatMap((_, d) =>
+      perLetter.map((w) => w[d]).filter((c): c is NonNullable<typeof c> => !!c)
+    );
     return (
       <WordListenChooseActivity
         unitId={unitId}
         language="english"
-        items={activity.letters.map((L) => ({
-          label: `${L.toUpperCase()}${L.toLowerCase()}`,
-          sound: L.toLowerCase(),
-        }))}
+        items={items}
+        choices={items.length}
+        revealImageOnTap
         // 🔴 바로 퀴즈로 밀어넣지 않는다 — 먼저 눌러 소리를 들어보고 「🎯 퀴즈」 로 넘어간다
         //    (한글 「단어 연습」과 같은 순서. 처음 보는 걸 소리만 듣고 고르라면 찍기가 된다.)
         exploreFirst

@@ -43,7 +43,7 @@ function shuffle<T>(arr: readonly T[]): T[] {
  * Phonics 책 저작도구는 핵심단어 탭에서 `flashcards[]` 에 imageUrl 을 저장 — flashcards 를 먼저 본다.
  * 일반 책 호환을 위해 `key_objects[]` 도 fallback.
  */
-function findImageData(
+export function findImageData(
   sb: Storybook,
   word: string
 ): { imageUrl?: string; ttsUrl?: string; keypoints?: DotKeypoint[] } {

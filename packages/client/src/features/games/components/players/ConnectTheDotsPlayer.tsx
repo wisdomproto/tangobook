@@ -147,6 +147,8 @@ function ConnectTheDotsPlayer({
   const currentItem: ConnectTheDotsItem | undefined = items[itemIdx];
   /** 완성 시 보여줄 낱말 — 발음과 같은 소스라 들리는 말과 항상 일치한다. */
   const completedWord = resolveSpeakTarget(currentItem?.objectName)?.text;
+  /** 알파벳 단원(영어 Book 1)은 **글자**가 학습 목표라 낱말보다 크게 세운다. */
+  const completedLetter = currentItem?.letter;
 
   const sortedKps = useMemo(
     () => (currentItem ? [...currentItem.keypoints].sort((a, b) => a.order - b.order) : []),
@@ -302,7 +304,9 @@ function ConnectTheDotsPlayer({
         text: target.text,
         language: ttsLangOf(target.lang),
         storybookId,
-        directUrl: keyObjTts,
+        // 🔴 아이템이 음원을 직접 들고 오면 그게 우선 — 알파벳 단원은 `b b book` 이라
+        //    글자와 낱말이 한 클립에 있다(keyObject 조회로는 못 찾는다).
+        directUrl: currentItem.ttsUrl ?? keyObjTts,
         identifierPrefix: 'dot',
       });
     }
@@ -491,7 +495,18 @@ function ConnectTheDotsPlayer({
             //    읽어주는 말과 보이는 글자가 어긋나지 않게 한다(vi/zh/th 는 번역 없으면 생략).
             <p className="flex items-baseline gap-2 sm:gap-3">
               <span className="text-3xl sm:text-4xl">🎉</span>
-              {completedWord ? (
+              {completedLetter ? (
+                <>
+                  <span className="text-6xl sm:text-8xl font-black font-display text-coral-500 leading-none">
+                    {completedLetter}
+                  </span>
+                  {completedWord && (
+                    <span className="text-3xl sm:text-4xl font-black text-success break-keep">
+                      {completedWord}
+                    </span>
+                  )}
+                </>
+              ) : completedWord ? (
                 <span className="text-4xl sm:text-5xl font-black text-success break-keep">
                   {completedWord}
                 </span>
