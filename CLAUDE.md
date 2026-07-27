@@ -89,6 +89,20 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 - `normalizeStorybook` 가 `keyObjectImages[]` null entry 필터링(일부 책 silent 404 방지).
 - **`koCompletion.pagesTts`(summary 완성도 플래그, `r2.repository.ts` `toSummary`)** = **글 있는 페이지만** TTS 요구(`텍스트 페이지.every(ttsUrl)`) — 텍스트 없는 마지막 빈 페이지까지 요구하던 `pages.every` 는 완비된 책을 오분류(공룡 등 연속재생 선택기에서 통째로 빠짐, 2026-07-10 fix). 나레이션 없는 책 **배치 생성** = `scripts/generate-storybook-narration.mjs`(로컬 서버 `/api/tts/generate` gemini + `translation-core` 저장, `--dry-run/--book/--limit`, 멱등). 현재 공개 149권 **전부 나레이션 완비**. 상세 → memory `narration-backfill-completion-flag-2026-07-10`.
 
+## 🔴 음원은 mp3 — wav 금지 (2026-07-27)
+
+파닉스 단어·글자 음원이 **무압축 wav 로 장당 370KB** 였다. 아이가 카드를 처음 누르면 그 순간
+그 파일을 받느라 소리가 늦었다 — 「첫 소리가 늦다」 반복 신고의 진짜 원인이 여기 있었고,
+프리워밍은 증상 완화일 뿐이다(데워지기 전에 누르면 그대로 기다린다).
+
+- **저작 자산 일괄 변환** = `scripts/convert-phonics-tts-to-mp3.mjs`(멱등, URL 단위 1회, 원본 wav 는 보존).
+  실적: 파닉스 69권·음원 601개 **176.6MB → 16.3MB**. 전체 책 재스캔 결과 남은 wav 참조 **0**.
+- 🔴 **런타임 concat 도 mp3**(`phonics-library.service.ts`) — 예전엔 이어읽기(`ㄱ ㄱ 고기`)를 wav 로
+  구워 `tts-cache/` 에 쌓았다(1,266개·266MB). 모노 64kbps 로 바꿔 **22KB**. 캐시 키 확장자가 바뀌므로
+  기존 wav 캐시는 자연히 안 쓰이고 새 mp3 가 생긴다.
+- ⚠️ R2 에 **옛 wav 590MB**(루트 323MB + `tts-cache/` 266MB)가 참조 없이 남아 있다 — 지워도 되지만
+  되돌릴 여지를 위해 남겨둠.
+
 ## 영상 렌더 화질
 
 - **Remotion 렌더**(오디오북·이북: `audiobook.service.ts`·`book-v2.service.ts`·`scripts/mosquito-render.ts`) `renderMedia` = `imageFormat:'png'`(기본 jpeg/q80 아티팩트 제거) + `scale:1.5`(컴포지션 720p→1080p) + `crf:16`. **longform**(`longform.service.ts`) = 1080p + preset `medium` + `crf 18`. 컴포지션 기본 해상도 `RESOLUTIONS`(`packages/remotion/src/types.ts`)는 720p — 4K는 생성 이미지 해상도부터 올려야(Imagen `sampleImageSize`).

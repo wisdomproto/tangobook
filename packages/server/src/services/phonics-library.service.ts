@@ -221,8 +221,21 @@ async function concatWithFfmpeg(audioBuffers: Buffer[], gaps: number[]): Promise
     const filterComplex =
       filterParts.join(';') + `;${concatInputs}concat=n=${inputIdx}:v=0:a=1[out]`;
 
-    const outputPath = join(tempDir, 'output.wav');
-    args.push('-filter_complex', filterComplex, '-map', '[out]', '-y', outputPath);
+    // 🔴 결과는 **mp3** — 예전엔 무압축 wav 라 이어읽기 하나가 300~400KB 였다. 아이가 카드를
+    //    처음 누를 때 그걸 받느라 소리가 늦었다. 말소리는 모노 64kbps 면 구분이 안 되면서 10배 작다.
+    const outputPath = join(tempDir, 'output.mp3');
+    args.push(
+      '-filter_complex',
+      filterComplex,
+      '-map',
+      '[out]',
+      '-ac',
+      '1',
+      '-b:a',
+      '64k',
+      '-y',
+      outputPath
+    );
 
     await execFileAsync(ffmpegPath, args, { timeout: 30000 });
 
@@ -369,10 +382,9 @@ export const PhonicsLibraryService = {
     const { tokens, gaps } = parseText(trimmed);
     if (tokens.length === 0) throw new AppError(400, '유효한 토큰이 없습니다.');
 
-    // 단일 토큰 / 연결 구분 (캐시 key 결정에도 사용)
-    const willBeSingle = tokens.length === 1 && gaps.length === 0;
-    const ext = willBeSingle ? 'mp3' : 'wav';
-    const mimeType = willBeSingle ? 'audio/mpeg' : 'audio/wav';
+    // 단일 토큰이면 원본 mp3 를 그대로, 이어읽기도 mp3 로 굽는다 — 어느 쪽이든 mp3 다.
+    const ext = 'mp3';
+    const mimeType = 'audio/mpeg';
 
     // === Deterministic 캐시 key — (storybookId, identifier, language, text-hash) 기반 ===
     // 이전엔 (sbId, identifier) 만 키라 텍스트만 바뀌면 옛 음원이 캐시 hit 으로 재사용되는 버그.

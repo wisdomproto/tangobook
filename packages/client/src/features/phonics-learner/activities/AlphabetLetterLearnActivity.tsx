@@ -5,6 +5,8 @@ import { resolveTtsUrl } from '@/features/tts';
 import type { Storybook } from '@tangobook/shared';
 import { getWordHotspots } from '@tangobook/shared';
 import { playUi } from '@/lib/uiSound';
+import { warmAudioUrl } from '@/features/games/hooks/useGamePrefetch';
+import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { LetterWriteModal } from './LetterWriteModal';
 
@@ -67,6 +69,36 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
   useEffect(() => setTapped(0), [currentIdx]);
   const allDone = spots.length === 0 || tapped >= spots.length;
   const current = allDone ? null : spots[tapped];
+
+  /**
+   * 🔴 **진입 시 프리워밍** — 이 활동만 빠져 있어서 첫 탭이 늦었다(다른 파닉스 활동엔 다 있다).
+   *
+   * 순서가 곧 우선순위다: **핫스팟 단어 먼저**(스포트라이트가 거기를 가리키므로 아이가 제일 먼저
+   * 누른다) → 그 다음 이 단원 글자들. 단어는 저작 `ttsUrl`(R2 직행)이라 mp3 만 데우면 되고,
+   * 글자는 라이브러리에서 URL 을 받아야 해서 훅이 세션 캐시에 넣어 둔다.
+   */
+  const wordUrls = useMemo(
+    () => words.map((w) => w.ttsUrl).filter((u): u is string => !!u),
+    [words]
+  );
+  useEffect(() => {
+    let alive = true;
+    void (async () => {
+      for (const url of wordUrls) {
+        if (!alive) return;
+        await warmAudioUrl(url).catch(() => {});
+      }
+    })();
+    return () => {
+      alive = false;
+    };
+  }, [wordUrls]);
+  usePhonicsTtsWarm(
+    unitId,
+    useMemo(() => letters.map((l) => l.toLowerCase()), [letters]),
+    'en-letter',
+    'english'
+  );
 
   // 동시 재생 차단용 — 진척 추적 X
   const audioBusyRef = useRef(false);
