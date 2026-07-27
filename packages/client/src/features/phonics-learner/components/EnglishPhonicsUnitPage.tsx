@@ -147,7 +147,9 @@ function ActivitySection({
           <span className="text-sm sm:text-base font-black text-white/90">· {subtitle}</span>
         </div>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
+      {/* 🔴 grid 가 아니라 flex-wrap + justify-center — 고정 열 수는 장수가 열보다 적을 때
+          카드를 왼쪽에 몰고 오른쪽을 비운다. 폭은 카드 쪽에서 준다(한글판과 같은 규칙). */}
+      <div className="flex flex-wrap justify-center gap-4 sm:gap-6 lg:gap-8">
         {activities.map((act) => (
           <ActivityCard
             key={act.key}
@@ -205,7 +207,8 @@ function ActivityCard({
   return (
     <Link
       to={`/library/phonics/english/${unitId}/${activity.key}`}
-      className={`group relative block aspect-[5/6] rounded-[28px] border-[5px] p-3 sm:p-4 transition-all duration-200 active:scale-[0.97] hover:-translate-y-1 hover:rotate-[0.5deg] hover:shadow-[0_18px_40px_-12px_rgba(255,94,58,0.4)] shadow-[0_8px_24px_-10px_rgba(255,94,58,0.25)] flex flex-col overflow-hidden ${cardClass}`}
+      // 🔴 flex 아이템이라 폭을 직접 준다 — 안 주면 카드가 내용만큼 오그라든다.
+      className={`group relative block aspect-[5/6] w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)] md:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.5rem)] xl:w-[calc(20%-1.6rem)] max-w-[13rem] rounded-[28px] border-[5px] p-3 sm:p-4 transition-all duration-200 active:scale-[0.97] hover:-translate-y-1 hover:rotate-[0.5deg] hover:shadow-[0_18px_40px_-12px_rgba(255,94,58,0.4)] shadow-[0_8px_24px_-10px_rgba(255,94,58,0.25)] flex flex-col overflow-hidden ${cardClass}`}
     >
       <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/60 to-transparent pointer-events-none" />
       {showDone && (
@@ -213,13 +216,13 @@ function ActivityCard({
           ✓
         </div>
       )}
-      <div className="relative z-10 flex items-center justify-between mb-2">
-        <span
-          className={`inline-flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-full font-black text-xl sm:text-2xl shrink-0 shadow-pop ring-[4px] ring-white -rotate-[6deg] group-hover:-rotate-[3deg] transition-transform ${numBadgeClass}`}
-        >
-          {activity.order}
-        </span>
-      </div>
+      {/* 🔴 번호 배지는 **떠 있는다**(absolute). 흐름에 두면 48px 짜리 줄을 하나 더 먹어
+          높이가 고정된 카드에서 일러스트 자리가 사라진다. (한글판과 같은 규칙) */}
+      <span
+        className={`absolute top-2.5 left-2.5 z-20 inline-flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-full font-black text-xl sm:text-2xl shrink-0 shadow-pop ring-[4px] ring-white -rotate-[6deg] group-hover:-rotate-[3deg] transition-transform ${numBadgeClass}`}
+      >
+        {activity.order}
+      </span>
       <div
         className={`relative z-10 flex-1 min-h-0 flex items-center justify-center my-1 group-hover:scale-105 transition-transform duration-200 ${showDone ? 'opacity-50' : ''}`}
       >
@@ -272,13 +275,18 @@ function ActivityCard({
             );
           })()
         ) : iconUrl ? (
+          // 🔴 그림에 **고정 높이를 주지 않는다** — `min-h-0` 은 컨테이너만 줄일 뿐이라 h-28 짜리
+          //    그림은 밖으로 삐져나와 **제목 위에 겹친다**(제목이 두 줄인 "영어 블록 게임"에서 드러났다).
+          //    흐름 안 `max-h-full` 도 안 된다 — 부모가 `flex-1`(basis 0)이라 퍼센트 높이가 0 으로 풀린다.
+          //    `absolute inset-0` 는 확정된 높이 기준이라 안전하고 `m-auto` 가 가운데 정렬까지 한다.
           <img
             src={iconUrl}
             alt={activity.title}
-            className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)]"
+            className="absolute inset-0 m-auto max-h-full max-w-full w-20 sm:w-24 md:w-28 object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)]"
           />
         ) : (
-          <span className="text-7xl sm:text-8xl leading-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)]">
+          // 🔴 이모지는 글꼴 크기라 `max-h-full` 로 못 묶는다 — 가장 좁은 카드에 들어가는 크기로 고정.
+          <span className="text-5xl sm:text-6xl leading-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)]">
             {activity.emoji}
           </span>
         )}

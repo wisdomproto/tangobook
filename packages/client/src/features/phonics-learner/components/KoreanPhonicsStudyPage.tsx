@@ -9,6 +9,7 @@ import {
   type KoreanUnitSummary,
 } from '../lib/korean-phonics-units';
 import { usePhonicsProgress, getRecentUnit, markRecentUnit } from '../lib/progress-store';
+import { sumProgress } from '../lib/unit-progress';
 import KoreanPhonicsUnitPage from './KoreanPhonicsUnitPage';
 
 /**
@@ -23,7 +24,7 @@ export default function KoreanPhonicsStudyPage() {
   const { unitId } = useParams<{ unitId?: string }>();
   const navigate = useNavigate();
   const allUnits = useMemo(() => getAllKoreanUnits(), []);
-  const { isUnitDone } = usePhonicsProgress('korean');
+  const { unitCompletedActivities } = usePhonicsProgress('korean');
   // 모바일: 커리큘럼 사이드바를 슬라이드 드로어로 (좁은 화면에서 고정 사이드바가 절반 차지 방지)
   const [navOpen, setNavOpen] = useState(false);
 
@@ -176,16 +177,26 @@ export default function KoreanPhonicsStudyPage() {
           <div className="flex flex-col gap-5">
             {byLevel.map(([levelKey, level]) => {
               const isExpanded = expandedLevels.has(levelKey);
-              const totalUnits = level.units.length;
-              const playableCount = level.units.filter(
-                (u) => getActivityPlan(u.id).activities.length > 0
-              ).length;
+              // 단원별 진행 = 완료한 required 활동 / 전체 required 활동.
+              const unitStats = level.units.map((u) => {
+                const required = getRequiredActivities(u.id);
+                const doneKeys = unitCompletedActivities(u.id);
+                return {
+                  unit: u,
+                  done: required.filter((k) => doneKeys.includes(k)).length,
+                  total: required.length,
+                };
+              });
+              // 🔴 레벨 머리글 숫자는 예전엔 "활동 있는 단원 수/전체 단원 수"(항상 18/18)라 아무 정보가
+              //    없었다. 아이가 알고 싶은 건 "얼마나 했나"다 → 진행률 %.
+              const levelPct = sumProgress(unitStats).percent;
               return (
                 <section key={levelKey}>
                   <button
                     onClick={() => toggleLevel(levelKey)}
                     aria-expanded={isExpanded}
-                    className="w-full flex items-center justify-between gap-2 text-lg sm:text-xl font-black font-display text-ink-900 px-2.5 py-2.5 sticky top-0 bg-white/95 backdrop-blur z-10 rounded-lg hover:bg-cream-50 transition"
+                    // 🔴 sticky 금지 — 레벨 머리글이 상단에 붙어 있으면 스크롤 중 단원 위에 얹혀 가린다.
+                    className="w-full flex items-center justify-between gap-2 text-lg sm:text-xl font-black font-display text-ink-900 px-2.5 py-2.5 rounded-lg hover:bg-cream-50 transition"
                   >
                     <span className="flex items-center gap-2 truncate">
                       <span
@@ -196,28 +207,32 @@ export default function KoreanPhonicsStudyPage() {
                       </span>
                       <span className="truncate">{level.name}</span>
                     </span>
-                    <span className="text-xs font-bold text-ink-500 shrink-0">
-                      {playableCount}/{totalUnits}
+                    <span
+                      className={[
+                        'text-xs font-black shrink-0 px-2 py-0.5 rounded-full',
+                        levelPct === 100
+                          ? 'bg-success text-white'
+                          : levelPct > 0
+                            ? 'bg-coral-100 text-coral-600'
+                            : 'text-ink-400',
+                      ].join(' ')}
+                    >
+                      {levelPct === 100 ? '✓ 100%' : `${levelPct}%`}
                     </span>
                   </button>
                   {isExpanded && (
                     <div className="flex flex-col gap-1 mt-1">
-                      {level.units.map((u) => {
-                        const plan = getActivityPlan(u.id);
-                        const hasPlan = plan.activities.length > 0;
-                        const required = getRequiredActivities(u.id);
-                        const done = isUnitDone(u.id, required);
-                        const active = u.id === unitId;
-                        return (
-                          <CurriculumItem
-                            key={u.id}
-                            unit={u}
-                            active={active}
-                            done={done}
-                            hasPlan={hasPlan}
-                          />
-                        );
-                      })}
+                      {unitStats.map(({ unit: u, done, total }) => (
+                        <CurriculumItem
+                          key={u.id}
+                          unit={u}
+                          active={u.id === unitId}
+                          done={total > 0 && done >= total}
+                          hasPlan={getActivityPlan(u.id).activities.length > 0}
+                          doneCount={done}
+                          totalCount={total}
+                        />
+                      ))}
                     </div>
                   )}
                 </section>
@@ -240,11 +255,15 @@ function CurriculumItem({
   active,
   done,
   hasPlan,
+  doneCount,
+  totalCount,
 }: {
   unit: KoreanUnitSummary;
   active: boolean;
   done: boolean;
   hasPlan: boolean;
+  doneCount: number;
+  totalCount: number;
 }) {
   const titleShort = unit.unitTitle.replace(/^unit\s+\d+:\s*/i, '');
   const baseClass = 'flex items-center gap-2.5 px-2.5 py-2.5 rounded-2xl text-left transition-all';
@@ -288,6 +307,15 @@ function CurriculumItem({
         {done ? '✓' : unit.isReview ? '🏅' : unit.unitIndexInLevel}
       </span>
       <span className="text-sm sm:text-base font-black truncate break-keep">{titleShort}</span>
+      {/* 하다 만 단원만 n/N — 0 이면 아직 안 연 것이라 모든 줄에 '0/4' 를 달면 소음이다.
+          다 한 단원은 왼쪽 ✓ 로 충분하다. */}
+      {!done && doneCount > 0 && (
+        <span
+          className={`ml-auto shrink-0 text-[11px] font-black tabular-nums ${active ? 'text-white/90' : 'text-coral-500'}`}
+        >
+          {doneCount}/{totalCount}
+        </span>
+      )}
     </Link>
   );
 }

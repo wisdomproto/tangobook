@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { resolveTtsUrl } from '@/features/tts';
 import { ReviewFlipMatchActivity } from './ReviewFlipMatchActivity';
 import type { ReviewCardSource } from '../hooks/useReviewCardSources';
 
@@ -83,6 +84,26 @@ describe('ReviewFlipMatchActivity', () => {
     await waitFor(() => expect(screen.queryAllByText('❓')).toHaveLength(0));
     await waitFor(() => expect(onComplete).toHaveBeenCalled());
     expect(playCorrectSequence).toHaveBeenCalled();
+  });
+
+  it('짝을 맞추면 음소가 아니라 낱말을 읽어주고, 모은 칩도 낱말이다', async () => {
+    render(
+      <ReviewFlipMatchActivity
+        unitId="kr-h1-r1"
+        sources={[card('ㄱ', '고기')]}
+        onComplete={vi.fn()}
+        onBack={vi.fn()}
+      />
+    );
+    const flip = tiles().filter((t) => t.getAttribute('aria-label') === '뒤집기');
+    fireEvent.click(flip[0]);
+    fireEvent.click(flip[1]);
+
+    await waitFor(() => expect(resolveTtsUrl).toHaveBeenCalled());
+    expect(vi.mocked(resolveTtsUrl).mock.calls.map((c) => c[0].text)).toContain('고기');
+    expect(vi.mocked(resolveTtsUrl).mock.calls.map((c) => c[0].text)).not.toContain('ㄱ');
+    // 하단 모은 칩 — 'ㄱ' 이 아니라 '고기'
+    await waitFor(() => expect(screen.getAllByText('고기').length).toBeGreaterThan(1));
   });
 
   it('짝이 아니면 잠시 뒤 다시 덮인다', async () => {

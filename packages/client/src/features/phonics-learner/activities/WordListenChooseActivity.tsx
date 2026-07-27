@@ -3,6 +3,7 @@ import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
+import { playUi } from '@/lib/uiSound';
 
 export interface ListenChoice {
   /** 보기 라벨 — 단어(고기) 또는 알파벳(Aa) */
@@ -21,8 +22,10 @@ interface Props {
   letter?: string;
   language?: 'korean' | 'english';
   /**
-   * 한 문제의 보기 수. 기본 3 — 4~7세가 **그림** 3장을 한눈에 훑는 한계다.
-   * 복습은 보기가 글자·낱말(그림 없음)이라 눈이 덜 바빠 4개까지 쓴다.
+   * 판에 깔리는 카드 수 = 한 문제의 보기 수(탐색·퀴즈가 같은 판을 쓴다).
+   *
+   * 🔴 기본 **4** — 2×2 격자라 4가 딱 맞고, 단원 타겟 단어도 보통 4개다.
+   *    3으로 두면 마지막 단어 하나가 통째로 안 나온다(받침 단원 '시장'이 그랬다).
    */
   choices?: number;
   /**
@@ -56,7 +59,7 @@ export function WordListenChooseActivity({
   items,
   letter,
   language = 'korean',
-  choices = 3,
+  choices = 4,
   exploreFirst = false,
   onMarkComplete,
   onBack,
@@ -69,17 +72,17 @@ export function WordListenChooseActivity({
     'word-listen'
   );
 
-  // 문제 순서 — 단원 단어 전부를 한 번씩. 보기는 정답 + 같은 단원 다른 단어.
-  const questions = useMemo(() => {
-    const pool = items.slice(0, 8);
-    return shuffle(pool).map((answer) => {
-      const distractors = shuffle(pool.filter((w) => w.label !== answer.label)).slice(
-        0,
-        choices - 1
-      );
-      return { answer, choices: shuffle([answer, ...distractors]) };
-    });
-  }, [items, choices]);
+  /**
+   * 화면에 깔리는 카드 — **탐색과 퀴즈가 같은 판**을 쓴다.
+   *
+   * 🔴 예전엔 퀴즈가 문제마다 보기를 새로 뽑아(3장) 격자·장수·자리가 통째로 바뀌었다.
+   *    아이 입장에선 버튼 하나 눌렀는데 화면이 딴 데로 간 셈이라, 같은 2×2 를 유지하고
+   *    **문제만** 바뀌게 한다. 자리는 퀴즈 시작 때 한 번만 섞어 문제마다 튀지 않게 한다.
+   */
+  const board = useMemo(() => items.slice(0, choices), [items, choices]);
+  const quizBoard = useMemo(() => shuffle(board), [board]);
+  // 문제 순서 — 판에 깔린 단어를 한 번씩.
+  const questions = useMemo(() => shuffle(board).map((answer) => ({ answer })), [board]);
 
   const [exploring, setExploring] = useState(exploreFirst);
   const [qIdx, setQIdx] = useState(0);
@@ -153,6 +156,12 @@ export function WordListenChooseActivity({
     ]
   );
 
+  /** 퀴즈 진입 — 시작 효과음으로 "지금부터 문제다"를 귀로도 알린다(화면은 거의 그대로라 더 필요하다). */
+  const startQuiz = useCallback(() => {
+    playUi('play');
+    setExploring(false);
+  }, []);
+
   const restart = useCallback(() => {
     setQIdx(0);
     setWrong(null);
@@ -182,108 +191,97 @@ export function WordListenChooseActivity({
         {/* 🔎 탐색 — 눌러서 소리를 들어보고, 준비되면 퀴즈로.
             🔴 예전엔 들어오자마자 문제가 나왔다. 처음 보는 낱말을 소리만 듣고 고르라는 셈이라,
                먼저 만져보는 화면이 있어야 퀴즈가 "확인"이 된다(모음 듣기와 같은 순서). */}
-        {exploring && (
-          <>
+        {/* 문제 줄 — 탐색이면 안내, 퀴즈면 [오늘의 글자 + 🔊]. 자리를 항상 차지해 격자가 위아래로 안 튄다. */}
+        <div className="flex flex-col items-center gap-3 min-h-[7rem] sm:min-h-[9rem] justify-center">
+          {exploring ? (
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-900 text-center break-keep">
               눌러서 들어봐!
             </h2>
-            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 w-full max-w-4xl px-2">
-              {items.slice(0, 4).map((c) => (
+          ) : done ? (
+            <p className="text-3xl sm:text-5xl font-black text-ink-900">모두 맞췄어!</p>
+          ) : (
+            <>
+              <div className="flex gap-2">
+                {questions.map((q, i) => (
+                  <span
+                    key={q.answer.label}
+                    className={[
+                      'w-3.5 h-3.5 rounded-full transition',
+                      i < qIdx ? 'bg-mint-500' : i === qIdx ? 'bg-coral-500' : 'bg-white',
+                    ].join(' ')}
+                  />
+                ))}
+              </div>
+              <div className="flex items-center gap-4 sm:gap-6">
+                {letter && (
+                  <span className="text-5xl sm:text-7xl font-black text-coral-600 leading-none">
+                    {letter}
+                  </span>
+                )}
                 <button
-                  key={c.label}
-                  onClick={() => say(c)}
-                  aria-label={c.label}
-                  className="relative w-[40%] sm:w-52 rounded-3xl border-[6px] border-white bg-white overflow-hidden shadow-soft hover:shadow-pop active:scale-[0.97] transition"
+                  onClick={() => say(current.answer)}
+                  aria-label="다시 듣기"
+                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-coral-500 text-white text-4xl sm:text-5xl shadow-pop hover:scale-[1.03] active:scale-[0.97] transition animate-pulse"
                 >
-                  {c.imageUrl && (
-                    <img src={c.imageUrl} alt="" className="w-full aspect-square object-cover" />
-                  )}
+                  🔊
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* 🔴 카드 격자는 **탐색·퀴즈가 같은 것**을 쓴다 — 2×2 고정, 같은 크기, 같은 자리.
+            예전엔 퀴즈가 보기를 따로 3장 뽑아 격자·장수·자리가 통째로 바뀌어, 버튼 하나 눌렀는데
+            딴 화면으로 간 것처럼 보였다. 바뀌는 건 **문제와 클릭 동작뿐**이다. */}
+        <div className="grid grid-cols-2 justify-center gap-4 sm:gap-6 w-full max-w-xl px-2">
+          {(exploring ? board : quizBoard).map((c) => (
+            <button
+              key={c.label}
+              onClick={() => (exploring ? say(c) : handlePick(c))}
+              aria-label={c.label}
+              disabled={done}
+              className={[
+                'relative w-full rounded-3xl border-[6px] bg-white overflow-hidden shadow-soft transition',
+                wrong === c.label
+                  ? 'border-coral-500 animate-shake'
+                  : 'border-white hover:shadow-pop active:scale-[0.97]',
+              ].join(' ')}
+            >
+              {/* 🔴 글자 단원(영어 Book 1 알파벳)은 그림 없이 글자만 — 아직 단어 철자를 읽을 단계가 아니다.
+                  그 외 단원은 그림 + 단어. 파닉스라 소리↔글자를 잇는 게 학습 목표다. */}
+              {c.imageUrl ? (
+                <>
+                  <img src={c.imageUrl} alt="" className="w-full aspect-square object-cover" />
                   <span className="block py-2 text-xl sm:text-3xl font-black text-ink-800 break-keep">
                     {c.label}
                   </span>
-                </button>
-              ))}
-            </div>
-            <button
-              onClick={() => setExploring(false)}
-              className="px-10 py-4 rounded-full bg-coral-500 text-white font-black text-2xl sm:text-3xl shadow-pop active:scale-[0.98] transition"
-            >
-              🎯 퀴즈
-            </button>
-          </>
-        )}
-
-        {/* 진행 dots */}
-        {!exploring && (
-          <div className="flex gap-2">
-            {questions.map((q, i) => (
-              <span
-                key={q.answer.label}
-                className={[
-                  'w-3.5 h-3.5 rounded-full transition',
-                  i < qIdx || done ? 'bg-mint-500' : i === qIdx ? 'bg-coral-500' : 'bg-white',
-                ].join(' ')}
-              />
-            ))}
-          </div>
-        )}
-
-        {!exploring && !done && (
-          <>
-            {/* 문제 = 오늘의 글자 + 🔊. 누르면 다시 들려준다. 정답 단어는 여기 쓰지 않는다. */}
-            <div className="flex items-center gap-4 sm:gap-6">
-              {letter && (
-                <span className="text-6xl sm:text-8xl font-black text-coral-600 leading-none">
-                  {letter}
-                </span>
-              )}
-              <button
-                onClick={() => say(current.answer)}
-                aria-label="다시 듣기"
-                className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-coral-500 text-white text-5xl sm:text-6xl shadow-pop hover:scale-[1.03] active:scale-[0.97] transition animate-pulse"
-              >
-                🔊
-              </button>
-            </div>
-
-            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 w-full max-w-4xl px-2">
-              {current.choices.map((c) => (
-                <button
-                  key={c.label}
-                  onClick={() => handlePick(c)}
-                  aria-label={c.label}
+                </>
+              ) : (
+                // 🔴 글자 크기는 길이에 따라 — 좁은 화면에서 3글자를 큰 글꼴로 두면 두 줄로 접혀 잘린다.
+                <span
                   className={[
-                    'relative w-[28%] sm:w-44 rounded-3xl border-[6px] bg-white overflow-hidden shadow-soft transition',
-                    wrong === c.label
-                      ? 'border-coral-500 animate-shake'
-                      : 'border-white hover:shadow-pop active:scale-[0.97]',
+                    'flex aspect-square items-center justify-center px-1 leading-none font-black text-coral-600 break-keep',
+                    c.label.length >= 3 ? 'text-2xl sm:text-4xl' : 'text-5xl sm:text-7xl',
                   ].join(' ')}
                 >
-                  {/* 🔴 글자 단원(영어 Book 1 알파벳)은 그림 없이 글자만 — 아직 단어 철자를 읽을 단계가 아니다.
-                      그 외 단원은 그림 + 단어. 파닉스라 소리↔글자를 잇는 게 학습 목표다. */}
-                  {c.imageUrl ? (
-                    <>
-                      <img src={c.imageUrl} alt="" className="w-full aspect-square object-cover" />
-                      <span className="block py-2 text-xl sm:text-3xl font-black text-ink-800 break-keep">
-                        {c.label}
-                      </span>
-                    </>
-                  ) : (
-                    // 🔴 글자 크기는 길이에 따라 — 375px 에서 카드가 92px 인데 3글자를 72px 로 두면
-                    //    두 줄로 접히고 `overflow-hidden` 에 잘린다(코코아·꼬끼오·스웨터).
-                    <span
-                      className={[
-                        'flex aspect-square items-center justify-center px-1 leading-none font-black text-coral-600 break-keep',
-                        c.label.length >= 3 ? 'text-2xl sm:text-4xl' : 'text-5xl sm:text-7xl',
-                      ].join(' ')}
-                    >
-                      {c.label}
-                    </span>
-                  )}
-                </button>
-              ))}
-            </div>
-          </>
+                  {c.label}
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+
+        {exploring && (
+          // 🔴 "퀴즈" 만으론 무엇을 하는 버튼인지 알 수 없다 — 무슨 퀴즈인지 한 줄로 붙인다.
+          <button
+            onClick={startQuiz}
+            className="px-10 py-4 rounded-full bg-coral-500 text-white shadow-pop active:scale-[0.98] transition flex flex-col items-center leading-tight"
+          >
+            <span className="font-black text-2xl sm:text-3xl">🎯 퀴즈</span>
+            <span className="font-bold text-sm sm:text-base text-white/90 break-keep">
+              듣고 맞춰보기
+            </span>
+          </button>
         )}
 
         {!exploring && done && (

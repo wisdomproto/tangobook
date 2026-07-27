@@ -99,3 +99,7 @@ docs/marketing/drafts/shorts-upload-state.json
 
 # WIA award reference images — internal viewing only, never commit/deploy (copyright)
 packages/client/public/_wia-refs/
+
+# 파닉스 카드 keypoints 추출 작업 캐시 (원본 이미지 + rembg 마스크, 수십 MB)
+packages/server/scripts/_word-card-cache/
+packages/server/scripts/_keyobject-cache/

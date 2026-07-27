@@ -455,47 +455,51 @@ function withGames(
 }
 
 // ─── 한글2 받침 단원 (ㅇㄱㄴㄹㅅㅁㅂ) ───
-// 받침을 붙일 음절의 초성 14개. 커리큘럼 blending 과 같은 순서로 7+7 두 장.
-const CODA_ONSETS_1 = ['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ'] as const;
-const CODA_ONSETS_2 = ['ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'] as const;
+/**
+ * 받침을 붙일 음절의 초성 14개.
+ * 🔴 예전엔 7+7 로 「붙이기 1·2」 두 장이었다(2026-07-27 통합). 자음 단원의 `ㄱ+모음 1/2` 를
+ * 합친 것과 같은 이유 — 활동이 **한 번에 한 짝만** 보여주고 위 목록에서 원하는 음절을 골라
+ * 만드는 구조라, 카드를 둘로 나눌 이유가 사라졌다.
+ */
+const CODA_ONSETS = [
+  'ㄱ',
+  'ㄴ',
+  'ㄷ',
+  'ㄹ',
+  'ㅁ',
+  'ㅂ',
+  'ㅅ',
+  'ㅇ',
+  'ㅈ',
+  'ㅊ',
+  'ㅋ',
+  'ㅌ',
+  'ㅍ',
+  'ㅎ',
+] as const;
 
 /**
- * 받침 단원 활동 plan. 자음 단원과 같은 4 learn + 4 game 리듬.
- * 🔴 받침은 홀로 소리 낼 수 없어 배우기·쓰기의 **발음은 예시 음절**(ㅇ → '앙') 이다.
+ * 받침 단원 활동 plan — **붙이기 2 + 쓰기 1**.
+ *
+ * 🔴 받침은 홀로 소리 낼 수 없어 쓰기의 **발음은 예시 음절**(ㅇ → '앙') 이다.
+ * 🔴 자음 단원의 「배우기」(`consonant-tap` — 글자를 눌러 그 소리를 듣는 활동)는 **넣지 않는다**
+ *    (2026-07-27). 받침 `ㅇ` 을 눌러 낼 소리가 없어서 예시 음절 '앙' 을 읽어주는데,
+ *    아이 눈에는 `ㅇ` 을 눌렀더니 '앙' 이 나오는 셈이라 글자와 소리가 어긋나 보인다.
+ *    받침의 소리는 **붙는 순간**에만 생기므로 「붙이기」가 그 역할을 온전히 맡는다.
  */
 function makeCodaPlan(coda: string): ActivityPlan {
   const sample = composeHangul('ㅇ', 'ㅏ', coda) || `아${coda}`; // 앙·악·안·알·앗·암·압
   return withGames(
     [
       {
-        key: 'consonant-tap',
-        kind: 'consonant-tap',
-        section: 'learn',
-        title: `${coda} 받침 배우기`,
-        emoji: '👆',
-        required: true,
-        consonant: coda,
-        soundText: sample,
-      },
-      {
         key: 'coda-listen-1',
         kind: 'coda-blend-listen',
         section: 'learn',
-        title: `${coda} 받침 붙이기 1`,
+        title: `${coda} 받침 익히기`,
         emoji: '🔗',
         required: true,
         coda,
-        codaOnsets: [...CODA_ONSETS_1],
-      },
-      {
-        key: 'coda-listen-2',
-        kind: 'coda-blend-listen',
-        section: 'learn',
-        title: `${coda} 받침 붙이기 2`,
-        emoji: '🔗',
-        required: true,
-        coda,
-        codaOnsets: [...CODA_ONSETS_2],
+        codaOnsets: [...CODA_ONSETS],
       },
       {
         key: 'consonant-write',
@@ -506,6 +510,10 @@ function makeCodaPlan(coda: string): ActivityPlan {
         required: true,
         consonant: coda,
         soundText: sample,
+        // 🔴 `coda`+`codaOnsets` 를 넘겨야 쓰기도 **음절 짝**을 만든다. 이게 없으면 짝이 0개라
+        //    옛 폴백(글자 하나를 세 번 쓰기)으로 떨어져 화면에 `ㅇ` 만 덩그러니 떴다.
+        coda,
+        codaOnsets: [...CODA_ONSETS],
       },
     ],
     coda

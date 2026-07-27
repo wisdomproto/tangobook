@@ -32,6 +32,12 @@ interface WordFillCanvasProps {
   threshold?: number;
   /** 글꼴 override (zh=Noto Sans SC, th=Noto Sans Thai 등). 미지정 시 한글/라틴 자동 감지. */
   fontFamily?: string;
+  /**
+   * 🔴 기본 **순차 쓰기** — 지금 쓸 글자 한 칸만 밝히고 나머지는 덮는다. 칠하기도 그 칸에서만 먹는다.
+   * `bat` 을 통째로 내주면 아이가 아무 데나 문질러 순서 없이 통과한다(파닉스는 왼→오른쪽 순서가 곧 학습).
+   * 자유 색칠이 필요한 화면만 `false`.
+   */
+  sequential?: boolean;
 }
 
 export function WordFillCanvas({
@@ -39,8 +45,9 @@ export function WordFillCanvas({
   syllables,
   onSyllableDone,
   onComplete,
-  threshold = 0.9,
+  threshold = 0.99,
   fontFamily,
+  sequential = true,
 }: WordFillCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isDrawingRef = useRef(false);
@@ -49,6 +56,11 @@ export function WordFillCanvas({
   const rangesRef = useRef<Array<{ start: number; end: number; guide: number }>>([]);
   const doneRef = useRef<boolean[]>([]);
   const [doneCount, setDoneCount] = useState(0);
+  // 하이라이트를 그리려면 렌더가 범위를 알아야 한다 — ref 와 같은 값을 state 로도 둔다.
+  const [ranges, setRanges] = useState<Array<{ start: number; end: number }>>([]);
+  /** 지금 쓸 칸 = 아직 안 끝난 첫 칸. 순차가 아니면 제한 없음(null). */
+  const activeIdx = sequential ? doneCount : null;
+  const activeRange = activeIdx !== null ? ranges[activeIdx] : undefined;
 
   const drawGuide = useCallback(() => {
     const canvas = canvasRef.current;
@@ -98,6 +110,7 @@ export function WordFillCanvas({
     rangesRef.current = ranges;
     doneRef.current = ranges.map(() => false);
     setDoneCount(0);
+    setRanges(ranges.map((r) => ({ start: r.start, end: r.end })));
   }, [word, syllables, fontFamily]);
 
   useEffect(() => {
@@ -178,6 +191,18 @@ export function WordFillCanvas({
   const paintTo = (x: number, y: number) => {
     const ctx = canvasRef.current!.getContext('2d')!;
     ctx.save();
+    // 🔴 순차 모드에선 지금 칸 밖은 아예 칠해지지 않는다 — 덮개는 보기용일 뿐이고,
+    //    실제 차단은 여기 clip 이 한다(안 그러면 덮개 위로 문질러 다음 글자가 채워진다).
+    if (sequential) {
+      const r = rangesRef.current[doneRef.current.findIndex((d) => !d)];
+      if (!r) {
+        ctx.restore();
+        return;
+      }
+      ctx.beginPath();
+      ctx.rect(r.start, 0, r.end - r.start, CANVAS_H);
+      ctx.clip();
+    }
     ctx.globalCompositeOperation = 'source-atop';
     ctx.strokeStyle = PAINT_COLOR;
     ctx.fillStyle = PAINT_COLOR;
@@ -229,7 +254,37 @@ export function WordFillCanvas({
 
   return (
     <div className="w-full flex flex-col items-center gap-2">
-      <div className="w-full rounded-3xl overflow-hidden border-[5px] border-peach-200 bg-white shadow-pop">
+      <div className="relative w-full rounded-3xl overflow-hidden border-[5px] border-peach-200 bg-white shadow-pop">
+        {/* 🔴 지금 쓸 칸만 남기고 덮는 스포트라이트. 캔버스 픽셀을 건드리면 이미 칠한 획이 지워지므로
+         **DOM 오버레이**로 얹는다. 차단 자체는 paintTo 의 clip 이 담당한다. */}
+        {activeRange && (
+          <>
+            {/* 🔴 **아직 안 쓴 오른쪽만 덮는다** — 왼쪽(이미 끝낸 글자)까지 덮으면 애써 칠한 초록이
+                회색으로 눌려, 다 쓴 글자가 안 쓴 글자와 똑같아 보인다. 끝낸 것은 그대로 보여준다. */}
+            <div
+              aria-hidden
+              className="absolute inset-y-0 right-0 z-10 pointer-events-none bg-cream-50/90 backdrop-grayscale transition-all duration-300"
+              style={{ width: `${((CANVAS_W - activeRange.end) / CANVAS_W) * 100}%` }}
+            />
+            {/* 지금 칸 = 코랄 테두리 + 아래 굵은 밑줄. 깜빡임까지 더해 눈이 바로 여기로 온다. */}
+            <div
+              aria-hidden
+              className="absolute inset-y-1 z-20 pointer-events-none rounded-2xl ring-[5px] ring-coral-400 animate-pulse transition-all duration-300"
+              style={{
+                left: `${(activeRange.start / CANVAS_W) * 100}%`,
+                width: `${((activeRange.end - activeRange.start) / CANVAS_W) * 100}%`,
+              }}
+            />
+            <div
+              aria-hidden
+              className="absolute bottom-0 z-20 h-2 bg-coral-500 rounded-full pointer-events-none transition-all duration-300"
+              style={{
+                left: `${(activeRange.start / CANVAS_W) * 100}%`,
+                width: `${((activeRange.end - activeRange.start) / CANVAS_W) * 100}%`,
+              }}
+            />
+          </>
+        )}
         <canvas
           ref={canvasRef}
           width={CANVAS_W}

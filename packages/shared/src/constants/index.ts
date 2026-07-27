@@ -1264,7 +1264,7 @@ export const KOREAN_PHONICS_CURRICULUM = [
         title: 'unit 03: ㅟ, ㅢ 배우기',
         phonemes: ['ㅟ', 'ㅢ'],
         patterns: ['복잡한 모음'],
-        sampleWords: ['참의', '열쇠', '생쥐', '가위'],
+        sampleWords: ['참외', '열쇠', '생쥐', '가위'],
         blending: [],
       },
       {

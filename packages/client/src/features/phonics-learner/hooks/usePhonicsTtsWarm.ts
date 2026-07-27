@@ -22,10 +22,35 @@ export function usePhonicsTtsWarm(
   const key = texts.join('\n');
   useEffect(() => {
     if (!unitId || !key) return;
-    for (const text of key.split('\n')) {
-      void resolveTtsUrl({ text, language: 'korean', storybookId: unitId, identifierPrefix })
-        .then((url) => (url ? warmAudioUrl(url) : undefined))
-        .catch(() => undefined);
-    }
+    let alive = true;
+    /**
+     * 🔴 **순서대로 하나씩** 데운다 — 예전엔 전부 한 번에 쐈다.
+     *
+     * 받침 익히기는 14짝 × 3텍스트 = 중복 제거해도 29건이다. 병렬로 쏘면 서버가 그 무리를
+     * 한꺼번에 처리하느라, 아이가 가장 먼저 누르는 **첫 글자**가 스물몇 건 뒤에 줄을 선다.
+     * 순차로 돌리면 목록 앞쪽(=먼저 쓰는 것)이 가장 먼저 준비된다 — 전체가 다 데워지는 시간은
+     * 길어지지만, 그건 아이가 기다리는 시간이 아니다.
+     *
+     * 호출부는 `[첫글자, 둘째글자, 이어읽기]` 순으로 넘기므로 이 순서가 곧 우선순위다.
+     */
+    void (async () => {
+      for (const text of key.split('\n')) {
+        if (!alive) return;
+        try {
+          const url = await resolveTtsUrl({
+            text,
+            language: 'korean',
+            storybookId: unitId,
+            identifierPrefix,
+          });
+          if (url) await warmAudioUrl(url);
+        } catch {
+          /* 한 건 실패가 나머지를 막지 않는다 */
+        }
+      }
+    })();
+    return () => {
+      alive = false;
+    };
   }, [unitId, key, identifierPrefix]);
 }

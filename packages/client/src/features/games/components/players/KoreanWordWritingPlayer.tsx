@@ -86,22 +86,34 @@ export function KoreanWordWritingPlayer({
   // handleWordComplete 가 [마지막 음절 → 쉼 → 단어 → 칭찬] 체인을 소유한다(음원 겹침 방지).
   // onSyllableDone 직후 onComplete 가 동기로 불리므로, microtask 로 미뤄 completedRef 로 판별한다.
   const handleSyllableDone = useCallback(
-    (syl: string) => {
+    (syl: string, index: number) => {
       lastSylRef.current = syl;
       queueMicrotask(() => {
         if (completedRef.current) return; // 마지막 음절 = handleWordComplete 가 처리
         void (async () => {
-          const url = await resolveTtsUrl({
-            text: syl,
-            language: 'korean',
-            storybookId,
-            identifierPrefix: 'wwrite-ko',
+          // 🔴 여기까지 이어 읽기(고 → 고기). 라이브러리에 그 조합이 없으면 방금 쓴 음절만.
+          const blend = syllables.slice(0, index + 1).join('');
+          const url =
+            (await resolveTtsUrl({
+              text: blend,
+              language: 'korean',
+              storybookId,
+              identifierPrefix: 'wwrite-ko',
+            })) ??
+            (await resolveTtsUrl({
+              text: syl,
+              language: 'korean',
+              storybookId,
+              identifierPrefix: 'wwrite-ko',
+            }));
+          // 🔴 띵동 **먼저**, 끝나면 읽기 — 한 채널이라 동시에 내면 앞소리가 잘린다.
+          playAudio('/sounds/game/correct.mp3', () => {
+            if (url) playAudio(url);
           });
-          if (url) playAudio(url);
         })();
       });
     },
-    [storybookId, playAudio]
+    [storybookId, playAudio, syllables]
   );
 
   // 모든 음절 완성 → [마지막 음절 → 쉼 → 단어 → 칭찬] 순서로 재생 후 동화 장면 리빌 → 다음 단어.
@@ -205,7 +217,7 @@ export function KoreanWordWritingPlayer({
               syllables={syllables}
               onSyllableDone={handleSyllableDone}
               onComplete={handleWordComplete}
-              threshold={0.9}
+              threshold={0.99}
             />
           </div>
         </div>

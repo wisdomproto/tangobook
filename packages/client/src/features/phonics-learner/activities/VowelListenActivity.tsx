@@ -58,7 +58,9 @@ export function VowelListenActivity({
   // Phase 2 — quiz
   const [quizQueue, setQuizQueue] = useState<number[]>([]); // 남은 정답 index
   const [quizCurrent, setQuizCurrent] = useState<number | null>(null);
-  const [quizFeedback, setQuizFeedback] = useState<'none' | 'wrong'>('none');
+  // 🔴 "틀렸다"가 아니라 **어느 카드를 틀렸는지**를 담는다 — 예전엔 boolean 이라 오답 하나에
+  //    화면의 카드가 전부 흔들려서, 아이가 무엇을 잘못 골랐는지 알 수 없었다.
+  const [wrongIdx, setWrongIdx] = useState<number | null>(null);
   // 이미 맞춘 모음 — 카드를 민트로 칠해 "몇 개 남았나"가 보이게 한다.
   const [solved, setSolved] = useState<ReadonlySet<number>>(() => new Set());
   const wrongAudioRef = useRef<number | null>(null);
@@ -122,7 +124,7 @@ export function VowelListenActivity({
   const handleQuizTap = useCallback(
     (idx: number) => {
       if (phase !== 'quiz' || quizCurrent === null) return;
-      if (quizFeedback === 'wrong') return; // shake 중에는 무시
+      if (wrongIdx !== null) return; // shake 중에는 무시
       if (idx === quizCurrent) {
         playFeedbackSound(true);
         setSolved((s) => new Set(s).add(idx));
@@ -139,8 +141,8 @@ export function VowelListenActivity({
         }
       } else {
         playFeedbackSound(false);
-        setQuizFeedback('wrong');
-        const t = window.setTimeout(() => setQuizFeedback('none'), 600);
+        setWrongIdx(idx);
+        const t = window.setTimeout(() => setWrongIdx(null), 600);
         wrongAudioRef.current = t;
       }
     },
@@ -148,7 +150,7 @@ export function VowelListenActivity({
       phase,
       quizCurrent,
       quizQueue,
-      quizFeedback,
+      wrongIdx,
       playFeedbackSound,
       playCorrectSequence,
       onMarkComplete,
@@ -161,7 +163,7 @@ export function VowelListenActivity({
     setListenedAll(false);
     setQuizQueue([]);
     setQuizCurrent(null);
-    setQuizFeedback('none');
+    setWrongIdx(null);
     setSolved(new Set());
     setPhase('listen');
   }, []);
@@ -211,7 +213,7 @@ export function VowelListenActivity({
             const isUnlockedListen = isListenPhase && (listenedAll || i <= nextIdx);
             const active = isListenPhase && i === nextIdx && !listenedAll;
             const isClickable = (isListenPhase && isUnlockedListen) || phase === 'quiz';
-            const isWrongTarget = phase === 'quiz' && quizFeedback === 'wrong';
+            const isWrongTarget = phase === 'quiz' && wrongIdx === i;
             // 퀴즈에서 이미 맞춘 카드 = 민트. 마지막엔 6장이 다 민트가 되어 "다 맞췄다"가 보인다.
             const isSolved = !isListenPhase && solved.has(i);
             return (

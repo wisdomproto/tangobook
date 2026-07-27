@@ -113,24 +113,34 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
     onMarkComplete,
   ]);
 
-  // 한 글자 통과 핸들러 — 띵동 → 글자 음가 → 상태 업데이트
+  /**
+   * 한 글자 통과 — 띵동 → **거기까지 쌓인 소리**.
+   *
+   * 🔴 낱글자(`a`·`n`)가 아니라 **블렌딩**을 들려준다: f 다음 a 를 쓰면 `fa`, n 을 쓰면 `fan`.
+   *    파닉스는 글자를 따로 아는 게 아니라 **이어 붙여 읽는 것**이 목표라, 쓸 때마다 그 순간까지의
+   *    소리가 자라야 한다.
+   * 🔴 마지막 글자는 여기서 읽지 않는다 — 단어 완료 effect 가 단어 전체를 읽으므로 겹친다.
+   */
   const makeHandleLetter = useCallback(
     (wordIdx: number, letterIdx: number) => async (passed: boolean) => {
       if (!passed) return;
       if (done.has(`${wordIdx}-${letterIdx}`)) return;
-      const letter = vcLetters[letterIdx];
+      const isLast = letterIdx === vcLetters.length - 1;
+      const blend = isLast
+        ? undefined
+        : (cvcWords[wordIdx]?.consonantBefore ?? '') + vcLetters.slice(0, letterIdx + 1).join('');
 
-      // 사운드: 띵동 → 글자 음가
-      const letterUrl = letter
+      // 사운드: 띵동 → 여기까지 이어 읽기
+      const blendUrl = blend
         ? await resolveTtsUrl({
-            text: letter,
+            text: blend,
             language: 'english',
             storybookId: unitId,
-            identifierPrefix: 'cvc-write-letter',
+            identifierPrefix: 'cvc-write-blend',
           })
         : undefined;
       const playLetter = () => {
-        if (letterUrl) playAudio(letterUrl);
+        if (blendUrl) playAudio(blendUrl);
       };
       playAudio('/sounds/game/correct.mp3', playLetter);
 
@@ -141,7 +151,7 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
         return next;
       });
     },
-    [done, vcLetters, unitId, playAudio]
+    [done, vcLetters, cvcWords, unitId, playAudio]
   );
 
   const currentWord = cvcWords[currentWordIdx];

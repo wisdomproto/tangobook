@@ -4,6 +4,14 @@ import { composeHangul } from '@tangobook/shared';
 export interface BlendPair {
   first: string; // ㄱ (자음 모드) · 가 (받침 모드)
   second: string; // ㅏ (자음 모드) · ㅇ (받침 모드)
+  /**
+   * 둘째 글자를 **읽을 때** 쓰는 텍스트. 화면 글자와 다를 수 있다.
+   *
+   * 🔴 받침은 글자 그대로는 소리가 없다 — `ㅇ` 을 그냥 읽히면 음원이 없어 **무음**이다.
+   *    자음에 ㅡ 를 붙인 형태(ㅇ→으, ㄱ→그, ㄴ→느)로 읽어야 소리가 난다.
+   *    자음 모드의 모음(ㅏ)은 그대로 소리가 나므로 `second` 와 같다.
+   */
+  secondSound: string;
   syllable: string; // 가 · 강
 }
 
@@ -31,11 +39,13 @@ export function buildBlendPairs({
   codaOnsets,
 }: BlendSource): BlendPair[] {
   if (coda) {
+    const codaSound = composeHangul(coda, 'ㅡ', null) || coda; // ㅇ→으 · ㄱ→그 · ㄴ→느
     return (codaOnsets ?? []).map((onset) => {
       const base = composeHangul(onset, 'ㅏ', null) || `${onset}ㅏ`;
       return {
         first: base,
         second: coda,
+        secondSound: codaSound,
         syllable: composeHangul(onset, 'ㅏ', coda) || `${base}${coda}`,
       };
     });
@@ -44,6 +54,7 @@ export function buildBlendPairs({
   return (blendVowels ?? []).map((v) => ({
     first: c,
     second: v,
+    secondSound: v,
     syllable: composeHangul(c, v, null) || `${c}${v}`,
   }));
 }

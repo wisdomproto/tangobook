@@ -24,6 +24,10 @@ interface Props {
 const SYLLABLES = 3;
 /** 두 글자가 붙기까지의 거리 — 멀리 → 가까이 → 붙음. (음절 만들기와 같은 규칙) */
 const GAPS = ['min(7vw, 8rem)', 'min(2vw, 2rem)', '0px'] as const;
+/** 받침은 위·아래로 모인다(아+ㅇ=앙) — 세로라 높이 기준 값이 따로 필요하다. */
+const CODA_GAPS = ['min(9vh, 5rem)', 'min(3vh, 1.5rem)', '0px'] as const;
+/** 받침 모드의 두 칸 공통 폭 — 주어진 판과 쓰는 칸이 같은 크기여야 한 글자로 읽힌다. */
+const CODA_TILE = 'w-[min(46vw,26vh)] max-w-52';
 const WRITE_ROUNDS = 2; // 쓰는 라운드 수(멀리·가까이). 마지막 붙는 건 자동.
 
 /**
@@ -51,18 +55,30 @@ export function ConsonantWriteActivity({
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   const prefix = 'consonant-write';
 
+  const isCoda = !!coda;
   const pairs = useMemo(() => {
     const all = buildBlendPairs({ consonant, blendVowels, coda, codaOnsets });
-    return pickRandom(all, SYLLABLES);
+    // 🔴 받침은 **받침 한 글자만** 쓰므로(앞 음절은 주어진다) 14개를 다 돌아도 금방이다.
+    //    자음은 두 글자를 두 번씩 쓰느라 오래 걸려 무작위 3개만 뽑는다.
+    return coda ? all : pickRandom(all, SYLLABLES);
   }, [consonant, blendVowels, coda, codaOnsets]);
 
   const [idx, setIdx] = useState(0);
   const [round, setRound] = useState(0);
   const [step, setStep] = useState<0 | 1>(0); // 지금 쓸 칸
+  const [madeSet, setMade] = useState<ReadonlySet<number>>(() => new Set());
   const [completed, setCompleted] = useState(false);
 
   const pair = pairs[idx];
-  const merging = round >= WRITE_ROUNDS;
+  // 받침은 한 번만 쓰면 합쳐진다 — 자음처럼 [멀리·가까이] 두 번 쓰지 않는다.
+  const writeRounds = isCoda ? 1 : WRITE_ROUNDS;
+  const merging = round >= writeRounds;
+
+  const goTo = useCallback((i: number) => {
+    setIdx(i);
+    setRound(0);
+    setStep(0);
+  }, []);
   const say = soundText ?? consonant;
 
   usePhonicsTtsWarm(
@@ -70,7 +86,11 @@ export function ConsonantWriteActivity({
     useMemo(
       () =>
         pairs.length
-          ? pairs.flatMap((p) => [p.first, p.second, `${p.first} ${p.second} ${p.syllable}`])
+          ? pairs.flatMap((p) => [
+              p.first,
+              p.secondSound,
+              `${p.first} ${p.secondSound} ${p.syllable}`,
+            ])
           : [say],
       [pairs, say]
     ),
@@ -95,6 +115,33 @@ export function ConsonantWriteActivity({
     (passed: boolean) => {
       if (!passed || completed || merging || !pair) return;
 
+      // 만든 음절을 기록하고 아직 안 만든 다음 것으로 (목록에서 건너뛰며 골랐을 수 있다).
+      const finishSyllable = (read: string) => {
+        const made = new Set(madeSet).add(idx);
+        setMade(made);
+        const isLast = made.size >= pairs.length;
+        if (isLast) setCompleted(true);
+        const advance = () => {
+          if (isLast) {
+            playCorrectSequence({ language: 'ko', onDone: onComplete });
+            return;
+          }
+          const after = pairs.findIndex((_, i) => i > idx && !made.has(i));
+          goTo(after >= 0 ? after : pairs.findIndex((_, i) => !made.has(i)));
+        };
+        speak(read, () => playAudio('/sounds/game/correct.mp3', advance));
+      };
+
+      // 🔴 받침은 **받침 한 칸만** 쓴다 — 앞 음절(가)은 이미 주어져 있고, 이 단원이 가르치는 건
+      //    받침이다. 다 칠하면 합쳐진 음절(강)을 그대로 읽어준다.
+      if (isCoda) {
+        setRound(1);
+        // 합쳐진 음절만 읽지 않고 **이어 읽는다**(나 · 으 · 낭) — 받침이 어떻게 붙어 그 소리가
+        // 됐는지가 들려야 한다. 음절 만들기와 같은 형식.
+        finishSyllable(`${pair.first} ${pair.secondSound} ${pair.syllable}`);
+        return;
+      }
+
       if (step === 0) {
         setStep(1);
         speak(pair.first);
@@ -104,25 +151,11 @@ export function ConsonantWriteActivity({
       const nextRound = round + 1;
       setStep(0);
       setRound(nextRound);
-      if (nextRound < WRITE_ROUNDS) {
-        speak(pair.second);
+      if (nextRound < writeRounds) {
+        speak(pair.secondSound);
         return;
       }
-
-      const isLast = idx + 1 >= pairs.length;
-      if (isLast) setCompleted(true);
-      const advance = () => {
-        if (isLast) {
-          playCorrectSequence({ language: 'ko', onDone: onComplete });
-          return;
-        }
-        setIdx((i) => i + 1);
-        setRound(0);
-        setStep(0);
-      };
-      speak(`${pair.first} ${pair.second} ${pair.syllable}`, () =>
-        playAudio('/sounds/game/correct.mp3', advance)
-      );
+      finishSyllable(`${pair.first} ${pair.secondSound} ${pair.syllable}`);
     },
     [
       completed,
@@ -131,7 +164,11 @@ export function ConsonantWriteActivity({
       step,
       round,
       idx,
-      pairs.length,
+      pairs,
+      madeSet,
+      isCoda,
+      writeRounds,
+      goTo,
       speak,
       playAudio,
       playCorrectSequence,
@@ -155,23 +192,31 @@ export function ConsonantWriteActivity({
         ← 돌아가기
       </button>
 
-      {/* 오늘 써볼 음절 — 다 쓴 건 민트 + ✓ */}
-      <div className="flex justify-center gap-2 sm:gap-3">
-        {pairs.map((p, i) => (
-          <span
-            key={p.syllable}
-            className={[
-              'w-11 h-11 sm:w-14 sm:h-14 rounded-2xl border-[3px] border-white flex items-center justify-center font-black text-xl sm:text-2xl shadow-soft transition',
-              i < idx
-                ? 'bg-mint-500 text-white'
-                : i === idx
-                  ? 'bg-coral-500 text-white ring-4 ring-coral-200'
-                  : 'bg-white/80 text-ink-500',
-            ].join(' ')}
-          >
-            {i < idx ? '✓' : p.syllable}
-          </span>
-        ))}
+      {/* 오늘 써볼 음절 — 다 쓴 건 민트 + ✓. 아무거나 눌러 그것부터 할 수 있다(음절 만들기와 같다).
+          🔴 진척은 `idx` 가 아니라 `madeSet` 으로 판단한다 — 건너뛰며 골랐을 때 앞의 안 한 것이
+             '완료'로 보이면 안 된다. */}
+      <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+        {pairs.map((p, i) => {
+          const done = madeSet.has(i);
+          return (
+            <button
+              key={p.syllable}
+              onClick={() => !done && goTo(i)}
+              disabled={done}
+              aria-label={`${p.syllable} 쓰기`}
+              className={[
+                'w-11 h-11 sm:w-14 sm:h-14 rounded-2xl border-[3px] border-white flex items-center justify-center font-black text-xl sm:text-2xl shadow-soft transition',
+                done
+                  ? 'bg-mint-500 text-white'
+                  : i === idx
+                    ? 'bg-coral-500 text-white ring-4 ring-coral-200'
+                    : 'bg-white/80 text-ink-500 hover:shadow-pop active:scale-[0.97]',
+              ].join(' ')}
+            >
+              {done ? '✓' : p.syllable}
+            </button>
+          );
+        })}
       </div>
 
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4">
@@ -183,6 +228,11 @@ export function ConsonantWriteActivity({
           ) : merging ? (
             <>
               두 글자가 만나서 <span className="text-coral-600">{pair.syllable}</span>!
+            </>
+          ) : isCoda ? (
+            <>
+              ✏️ 받침 <span className="text-coral-600">{pair.second}</span> 을 써서{' '}
+              <span className="text-coral-600">{pair.syllable}</span> 을 만들어봐!
             </>
           ) : (
             <>
@@ -214,14 +264,41 @@ export function ConsonantWriteActivity({
           />
         ) : (
           <div
-            className="flex items-center justify-center transition-all duration-500 ease-out"
-            style={{ columnGap: GAPS[Math.min(round, GAPS.length - 1)] }}
+            className={`flex items-center justify-center transition-all duration-500 ease-out ${
+              coda ? 'flex-col' : ''
+            }`}
+            style={
+              coda
+                ? { rowGap: CODA_GAPS[Math.min(round, CODA_GAPS.length - 1)] }
+                : { columnGap: GAPS[Math.min(round, GAPS.length - 1)] }
+            }
           >
             {/* 🔴 대기 칸에 `shrink-0` 필수 — 없으면 캔버스가 자리를 차지하며 눌려 정사각이 깨진다(375px 에서 65×98). */}
             {merging ? (
               <div className="w-[60vw] h-[30vw] max-w-96 max-h-48 sm:w-96 sm:h-48 rounded-3xl border-[5px] border-mint-500 bg-mint-100 flex items-center justify-center font-black text-mint-700 text-6xl sm:text-8xl shadow-pop">
                 {pair.syllable}
               </div>
+            ) : isCoda ? (
+              // 🔴 받침 모드 — 앞 음절(가)은 **주어진 판**으로 위에 두고, 아래 받침 칸만 캔버스다.
+              //    이 단원이 가르치는 건 받침이라 `가` 까지 쓰게 하면 초점이 흐려진다.
+              // 🔴 두 칸의 **폭을 같게** 묶는다(CODA_TILE). 캔버스는 자체 `max-w-sm`(384px)이라
+              //    그냥 두면 주어진 판(176px)의 두 배가 되어, 위아래가 한 글자로 안 보인다.
+              <>
+                <div
+                  className={`shrink-0 ${CODA_TILE} aspect-square rounded-3xl border-[5px] border-white bg-white/70 flex items-center justify-center font-black text-coral-400 text-5xl sm:text-7xl shadow-soft`}
+                >
+                  {pair.first}
+                </div>
+                <div className={`shrink-0 ${CODA_TILE}`}>
+                  <LetterFillCanvas
+                    key={`${pair.syllable}-coda`}
+                    letter={pair.second}
+                    onResult={handleResult}
+                    autoCheck
+                    threshold={0.95}
+                  />
+                </div>
+              </>
             ) : (
               // 🔴 지금 쓸 칸만 캔버스로 살아 있고, 옆 칸은 글자를 보여주는 판이다.
               //    두 캔버스를 동시에 띄우면 375px 에서 한 칸이 140px 밑으로 내려가 쓸 수가 없다.

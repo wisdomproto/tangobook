@@ -61,7 +61,8 @@ export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?:
           이 단원은 활동이 아직 준비되지 않았어요.
         </div>
       ) : (
-        <div className="flex flex-col gap-5 sm:gap-6">
+        // 두 섹션 사이를 넉넉히 — 아래로 화면이 남는데 붙어 있으면 한 덩어리로 보인다.
+        <div className="flex flex-col gap-8 sm:gap-10 lg:gap-14">
           <ActivitySection
             unitId={unitId}
             title="익히기"
@@ -114,7 +115,7 @@ function ActivitySection({
     : 'bg-gradient-to-r from-mint-500 to-mint-400';
   return (
     <section
-      className={`relative rounded-[32px] border-2 ${panelClass} backdrop-blur-sm shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)] px-4 sm:px-5 pt-10 sm:pt-12 pb-5 sm:pb-6`}
+      className={`relative rounded-[32px] border-2 ${panelClass} backdrop-blur-sm shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)] px-4 sm:px-6 pt-12 sm:pt-14 pb-8 sm:pb-10`}
     >
       {/* 섹션 헤더 — 위쪽 좌측 peg 처럼 띄움 */}
       <div className="absolute -top-5 left-5 sm:left-6">
@@ -128,13 +129,14 @@ function ActivitySection({
           <span className="text-sm sm:text-base font-black text-white/90">· {subtitle}</span>
         </div>
       </div>
-      {/* 🔴 익히기(자음 단원 5장)가 두 줄이 되면 게임하기가 화면 밖으로 밀린다 — 한 화면에 둘 다
-          보여야 아이가 "오늘 할 것"을 한눈에 센다. xl 부터 5열이라 5장이 한 줄에 들어간다.
-          🔴 **열 수는 뷰포트가 아니라 남는 폭으로 정한다** — md 부터 사이드바가 256px 를 먹어
-          834px 화면의 콘텐츠 폭은 486px 뿐이다. 여기에 4열을 깔면 카드가 110px 이 되고
-          두 줄짜리 제목이 카드 밖으로 흘러나간다. 그래서 sm(3열) 보다 md 가 **더 적은 2열**이다.
-          실측 콘텐츠 폭: 768→420 · 834→486 · 1024→676 · 1280→934 · 1512→1109. */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
+      {/* 🔴 grid 가 아니라 **flex-wrap + justify-center** — 고정 열 수는 장수가 열보다 적을 때
+          카드를 왼쪽에 몰아놓고 빈 칸을 남긴다(5열에 4장 = 오른쪽이 텅 빈다). flex 는 있는 만큼만
+          깔고 가운데로 모은다.
+          🔴 **카드 폭은 뷰포트가 아니라 남는 폭 기준** — md 부터 사이드바가 256px 를 먹어
+          834px 화면의 콘텐츠 폭은 486px 뿐이다. 그래서 sm(3장)보다 md 가 더 넓은 카드(=2장)다.
+          실측 콘텐츠 폭: 768→420 · 834→486 · 1024→676 · 1280→934 · 1512→1109.
+          🔴 익히기가 두 줄이 되면 게임하기가 화면 밖으로 밀린다 — 한 화면에 둘 다 보여야 한다. */}
+      <div className="flex flex-wrap justify-center gap-4 sm:gap-6 lg:gap-8">
         {activities.map((act) => (
           <ActivityCard
             key={act.key}
@@ -203,7 +205,9 @@ function ActivityCard({
   return (
     <Link
       to={`/library/phonics/korean/${unitId}/${activity.key}`}
-      className={`group relative block aspect-square rounded-[28px] border-[5px] p-3 sm:p-4 transition-all duration-200 active:scale-[0.97] hover:-translate-y-1 hover:rotate-[0.5deg] hover:shadow-[0_18px_40px_-12px_rgba(255,94,58,0.4)] shadow-[0_8px_24px_-10px_rgba(255,94,58,0.25)] flex flex-col overflow-hidden ${cardClass}`}
+      // 🔴 flex 아이템이라 **폭을 직접 준다** — 안 주면 정사각 카드가 내용만큼 오그라든다.
+      //    한 줄에 몇 장인지를 폭으로 정한다: 375=2 · sm=3 · md=2(사이드바가 256px 먹음) · lg=4 · xl=5.
+      className={`group relative block aspect-square w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)] md:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.5rem)] xl:w-[calc(20%-1.6rem)] max-w-[13rem] rounded-[28px] border-[5px] p-3 sm:p-4 transition-all duration-200 active:scale-[0.97] hover:-translate-y-1 hover:rotate-[0.5deg] hover:shadow-[0_18px_40px_-12px_rgba(255,94,58,0.4)] shadow-[0_8px_24px_-10px_rgba(255,94,58,0.25)] flex flex-col overflow-hidden ${cardClass}`}
     >
       {/* 위쪽 살짝 하이라이트 (3D rendered 느낌) */}
       <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/60 to-transparent pointer-events-none" />

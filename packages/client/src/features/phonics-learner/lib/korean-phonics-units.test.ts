@@ -30,18 +30,23 @@ describe('korean phonics activity plans', () => {
     }
   });
 
-  it('받침 단원은 [가]+[ㅇ]→[강] 행을 만들고, 홀로 못 내는 받침 소리를 예시 음절로 읽는다', () => {
+  it('받침 단원은 [가]+[ㅇ]→[강] 행을 만들고, 「배우기」는 두지 않는다', () => {
     const u = units.find((x) => x.id === 'kr-h2-u01')!;
     const acts = getActivityPlan(u.id).activities;
 
-    const tap = acts.find((a) => a.kind === 'consonant-tap')!;
-    expect(tap.consonant).toBe('ㅇ');
-    expect(tap.soundText).toBe('앙'); // 🔴 'ㅇ' 을 그대로 읽으면 초성 이응 소리가 난다
+    // 🔴 받침은 홀로 소리가 없다 — `ㅇ` 을 눌러 '앙' 을 읽어주면 글자와 소리가 어긋나 보인다.
+    //    소리는 붙는 순간에만 생기므로 「붙이기」가 그 역할을 맡고, 「배우기」는 뺀다.
+    expect(acts.find((a) => a.kind === 'consonant-tap')).toBeUndefined();
+    // 쓰기는 남는다 — 발음은 예시 음절로.
+    const write = acts.find((a) => a.kind === 'consonant-write')!;
+    expect(write.consonant).toBe('ㅇ');
+    expect(write.soundText).toBe('앙');
 
+    // 🔴 1·2 로 나뉘어 있던 걸 한 장으로 합쳤다(2026-07-27) — 자음 단원과 같은 이유.
     const blends = acts.filter((a) => a.kind === 'coda-blend-listen');
-    expect(blends).toHaveLength(2);
-    expect(blends.flatMap((a) => [...(a.codaOnsets ?? [])])).toHaveLength(14);
-    expect(blends.every((a) => a.coda === 'ㅇ')).toBe(true);
+    expect(blends).toHaveLength(1);
+    expect(blends[0].codaOnsets).toHaveLength(14);
+    expect(blends[0].coda).toBe('ㅇ');
   });
 
   it('쌍자음 단원은 자음 단원과 같은 구성을 쓴다', () => {

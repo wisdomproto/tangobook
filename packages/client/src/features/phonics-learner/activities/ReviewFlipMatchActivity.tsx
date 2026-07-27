@@ -51,9 +51,13 @@ export function ReviewFlipMatchActivity({
 
   const picked = useMemo(() => sources.slice(0, PAIRS), [sources]);
 
+  // 🔴 짝을 맞추면 **낱말**을 읽어준다 — 카드에 보이는 게 '고기'인데 'ㄱ' 이 나오면 방금 맞춘 것과
+  //    들리는 것이 어긋난다. 음소는 학습 단원이 맡고, 여기선 맞춘 것을 그대로 읽어 확인시킨다.
+  const wordOf = useCallback((c: ReviewCardSource) => c.word || c.sound, []);
+
   usePhonicsTtsWarm(
     unitId,
-    useMemo(() => picked.map((s) => s.sound), [picked]),
+    useMemo(() => picked.map(wordOf), [picked, wordOf]),
     'review-flip'
   );
 
@@ -83,7 +87,7 @@ export function ReviewFlipMatchActivity({
   const say = useCallback(
     async (card: ReviewCardSource, onEnded?: () => void) => {
       const url = await resolveTtsUrl({
-        text: card.sound,
+        text: wordOf(card),
         language,
         storybookId: unitId,
         identifierPrefix: 'review-flip',
@@ -91,7 +95,7 @@ export function ReviewFlipMatchActivity({
       if (url) playAudio(url, onEnded);
       else onEnded?.();
     },
-    [language, unitId, playAudio]
+    [language, unitId, playAudio, wordOf]
   );
 
   const handleTap = useCallback(
@@ -188,7 +192,8 @@ export function ReviewFlipMatchActivity({
                       <img src={tile.card.imageUrl} alt="" className="w-full h-full object-cover" />
                     ) : (
                       // 🔴 글자 면은 **음소(ㄱ)가 아니라 낱말(고기)** — 음소만 덜렁 있으면 무엇의 짝인지
-                      //    떠올릴 실마리가 없다. 모은 글자 칩이 음소를 맡으므로 파닉스는 유지된다.
+                      //    떠올릴 실마리가 없다. 이 활동은 낱말↔그림 기억 인출을 맡고, 음소 자체는
+                      //    같은 복습 묶음의 듣기·글자쓰기 활동이 맡는다.
                       //    크기는 라벨 길이로 분기 — 3글자를 큰 글꼴로 두면 좁은 칸(75px)에서 넘친다.
                       <span
                         className={[
@@ -216,16 +221,18 @@ export function ReviewFlipMatchActivity({
           })}
         </div>
 
-        <div className="flex gap-2">
+        {/* 모은 것 — 맞춘 짝은 **낱말**로 남는다(카드·소리와 같게). 아직이면 '?'.
+            🔴 낱말은 3글자까지 오므로 원이 아니라 알약 모양이어야 한다. */}
+        <div className="flex flex-wrap justify-center gap-2">
           {picked.map((s) => (
             <span
               key={`${s.unitId}-${s.letter}`}
               className={[
-                'w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-xl sm:text-2xl font-black shadow-soft transition',
+                'h-10 sm:h-12 min-w-[2.5rem] sm:min-w-[3rem] px-3 rounded-full flex items-center justify-center text-lg sm:text-xl font-black shadow-soft transition break-keep',
                 matched.has(s.letter) ? 'bg-mint-500 text-white' : 'bg-white/70 text-ink-300',
               ].join(' ')}
             >
-              {matched.has(s.letter) ? s.letter : '?'}
+              {matched.has(s.letter) ? wordOf(s) : '?'}
             </span>
           ))}
         </div>

@@ -27,6 +27,7 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { loadEnv, getStorybook, putStorybook, parseArgs } from './translation-core.mjs';
+import { KOREAN_PHONICS_CURRICULUM, ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const args = parseArgs(process.argv.slice(2));
@@ -215,12 +216,14 @@ export async function keypointsFromMask(maskBuf, { points = POINTS, alpha = ALPH
 
 // ── 실행 ─────────────────────────────────────────────────────────────────────
 
-const UNIT_IDS = [
-  ...Array.from({ length: 15 }, (_, i) => `kr-h1-u${String(i + 1).padStart(2, '0')}`),
-  ...Array.from({ length: 7 }, (_, i) => `kr-h2-u${String(i + 1).padStart(2, '0')}`),
-  ...Array.from({ length: 5 }, (_, i) => `kr-h3-u${String(i + 1).padStart(2, '0')}`),
-  ...Array.from({ length: 5 }, (_, i) => `kr-h4-u${String(i + 1).padStart(2, '0')}`),
-];
+/**
+ * 대상 유닛 = 한글·영어 커리큘럼 전체. 🔴 손으로 적은 목록을 두지 않는다 — 예전엔 한글 32유닛을
+ * 배열로 박아둬서, 영어 카드가 들어와도 이 스크립트가 쳐다보지 않았다. 카드 없는 유닛은
+ * 아래 루프가 `imageUrl` 없음으로 알아서 건너뛴다.
+ */
+const UNIT_IDS = [...KOREAN_PHONICS_CURRICULUM, ...ENGLISH_PHONICS_CURRICULUM].flatMap((level) =>
+  level.units.map((u) => u.id)
+);
 
 async function previewPng(srcPath, keypoints, outPath) {
   const SIZE = 480;

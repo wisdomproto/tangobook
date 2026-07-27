@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
@@ -25,6 +25,10 @@ interface Props {
  *    `min()` 한 줄이면 화면 크기와 무관하게 같은 규칙이 된다.
  */
 const GAPS = ['min(18vw, 14rem)', 'min(6vw, 4rem)', '0px'] as const;
+/** 받침은 위·아래로 모이므로 **높이**가 기준이다 — 가로 값(18vw)을 그대로 쓰면 화면 밖으로 나간다. */
+const CODA_GAPS = ['min(22vh, 11rem)', 'min(7vh, 3.5rem)', '0px'] as const;
+/** 받침 마지막 탭에서 [누른 소리] 뒤에 두는 쉼 — 이어읽기가 바로 붙으면 한 덩어리로 들린다. */
+const MERGE_REST_MS = 550;
 const TAP_ROUNDS = 2; // 탭으로 진행하는 라운드 수(멀리·가까이). 마지막 붙는 건 자동.
 
 /**
@@ -68,7 +72,10 @@ export function ConsonantBlendListenActivity({
   usePhonicsTtsWarm(
     unitId,
     useMemo(
-      () => pairs.flatMap((p) => [p.first, p.second, `${p.first} ${p.second} ${p.syllable}`]),
+      // 🔴 데우는 텍스트는 **실제 읽는 텍스트**여야 한다 — `second`(ㅇ)를 데우면 정작 재생하는
+      //    `secondSound`(으)는 안 데워져 첫 탭이 서버 왕복을 기다린다.
+      () =>
+        pairs.flatMap((p) => [p.first, p.secondSound, `${p.first} ${p.secondSound} ${p.syllable}`]),
       [pairs]
     ),
     prefix
@@ -79,6 +86,14 @@ export function ConsonantBlendListenActivity({
   const [step, setStep] = useState(0); // 0 첫 글자 차례 · 1 둘째 글자 차례
   const [madeSet, setMade] = useState<ReadonlySet<number>>(() => new Set()); // 만들어 본 음절
   const [completed, setCompleted] = useState(false);
+  // 받침 합체 전 '쉼' 타이머 — 도중에 나가면 이어읽기가 빈 화면에서 울린다.
+  const restTimerRef = useRef<number | null>(null);
+  useEffect(
+    () => () => {
+      if (restTimerRef.current) clearTimeout(restTimerRef.current);
+    },
+    []
+  );
 
   /** 위 음절 목록에서 아무거나 골라 그것부터 할 수 있다 — 순서를 강제하지 않는다. */
   const goTo = useCallback((i: number) => {
@@ -107,7 +122,8 @@ export function ConsonantBlendListenActivity({
   const handleTap = useCallback(
     (which: 0 | 1) => {
       if (completed || merging || !pair || which !== step) return;
-      const text = which === 0 ? pair.first : pair.second;
+      // 🔴 읽는 텍스트는 화면 글자가 아니라 `secondSound` — 받침 `ㅇ` 은 그대로 읽으면 무음이다.
+      const text = which === 0 ? pair.first : pair.secondSound;
 
       if (which === 0) {
         setStep(1);
@@ -139,9 +155,22 @@ export function ConsonantBlendListenActivity({
         const after = pairs.findIndex((_, i) => i > idx && !made.has(i));
         goTo(after >= 0 ? after : pairs.findIndex((_, i) => !made.has(i)));
       };
-      say(`${pair.first} ${pair.second} ${pair.syllable}`, () =>
-        playAudio('/sounds/game/correct.mp3', advance)
-      );
+      const readBlend = () =>
+        say(`${pair.first} ${pair.secondSound} ${pair.syllable}`, () =>
+          playAudio('/sounds/game/correct.mp3', advance)
+        );
+
+      if (isCoda) {
+        // 🔴 **마지막 라운드에서도 누른 글자를 읽는다** — 예전엔 여기서 곧장 이어읽기로 넘어가,
+        //    1라운드에선 나던 `으` 소리가 2라운드에선 아예 안 났다(누르고 아무 반응이 없었다).
+        //    순서 = [누른 소리] → 쉼 → [이어읽기]. 쉼은 **소리가 끝난 뒤** 넣는 것이라
+        //    길이를 가정하는 게 아니다(낱말쓰기 REST_MS 와 같은 패턴).
+        say(text, () => {
+          restTimerRef.current = window.setTimeout(readBlend, MERGE_REST_MS);
+        });
+        return;
+      }
+      readBlend();
     },
     [
       completed,
@@ -228,10 +257,18 @@ export function ConsonantBlendListenActivity({
           )}
         </h2>
 
-        {/* 두 글자 — 라운드가 오를수록 간격이 좁아지고, 마지막엔 붙어서 음절이 된다. */}
+        {/* 두 글자 — 라운드가 오를수록 간격이 좁아지고, 마지막엔 붙어서 음절이 된다.
+            🔴 **받침은 위·아래로 가까워진다** — 한글에서 받침은 옆이 아니라 **아래**에 붙는다(아+ㅇ=앙).
+               가로로 모으면 글자가 합쳐지는 방향을 거꾸로 가르치는 셈이다. 자음+모음만 좌→우. */}
         <div
-          className="flex items-center justify-center transition-all duration-500 ease-out"
-          style={{ columnGap: GAPS[Math.min(round, GAPS.length - 1)] }}
+          className={`flex items-center justify-center transition-all duration-500 ease-out ${
+            isCoda ? 'flex-col' : ''
+          }`}
+          style={
+            isCoda
+              ? { rowGap: CODA_GAPS[Math.min(round, CODA_GAPS.length - 1)] }
+              : { columnGap: GAPS[Math.min(round, GAPS.length - 1)] }
+          }
         >
           {merging ? (
             <div className="w-[52vw] h-[26vw] max-w-80 max-h-40 sm:w-80 sm:h-40 rounded-3xl border-[5px] border-mint-500 bg-mint-100 flex items-center justify-center font-black text-mint-700 text-6xl sm:text-8xl shadow-pop">

@@ -3,10 +3,7 @@ import { Link } from 'react-router-dom';
 /**
  * /library/phonics — 한글/영어 파닉스 선택 페이지.
  *
- * AppShell 안에서 렌더 — 헤더 (파닉스 타이틀) + 본문 (2 카드).
- * 🔴 영어 파닉스는 **준비 중** (2026-07-26) — 카드가 링크가 아니라 음영 처리된 div 다.
- *    라우트(`/library/phonics/english/*`)와 활동 코드는 그대로 살아 있어 URL 직접 입력으로는 들어가진다.
- *    다시 열 때는 이 카드를 `<Link to="/library/phonics/english">` 로 되돌리면 끝.
+ * AppShell 안에서 렌더 — 헤더 (파닉스 타이틀) + 본문 (2 카드). 한글·영어 둘 다 진입 가능.
  *
  * 디자인 (2026-05-20): 코랄/블루 큰 컬러 카드 + 거대 character + 데코 blob.
  * BookDetailPage ModeCard 톤과 일관.
@@ -67,10 +64,10 @@ export default function PhonicsLandingPage() {
           </div>
         </Link>
 
-        {/* 영어 파닉스 — 준비 중 (2026-07-26). 진입 링크만 닫았고 코드·라우트는 그대로 살아 있다. */}
-        <div
-          aria-disabled
-          className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-400 via-blue-500 to-blue-600 shadow-soft saturate-[.45] opacity-80 aspect-[4/3] md:aspect-[5/4] p-6 sm:p-8 text-white flex flex-col justify-between cursor-default"
+        {/* 영어 파닉스 */}
+        <Link
+          to="/library/phonics/english"
+          className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-400 via-blue-500 to-blue-600 shadow-soft hover:shadow-pop active:scale-[0.99] transition aspect-[4/3] md:aspect-[5/4] p-6 sm:p-8 text-white flex flex-col justify-between"
         >
           {/* 데코 blob */}
           <div
@@ -86,8 +83,8 @@ export default function PhonicsLandingPage() {
             <span className="px-3 py-1 rounded-full bg-white/25 backdrop-blur-sm text-xs sm:text-sm font-black tracking-wide">
               ABC
             </span>
-            <span className="px-3 py-1 rounded-full bg-ink-900/45 backdrop-blur-sm text-xs sm:text-sm font-black">
-              준비 중
+            <span className="px-3 py-1 rounded-full bg-white/25 backdrop-blur-sm text-xs sm:text-sm font-black">
+              4-7세
             </span>
           </div>
           {/* 거대 character */}
@@ -99,18 +96,18 @@ export default function PhonicsLandingPage() {
               <p className="text-xs sm:text-sm md:text-base font-bold mt-1 text-white/90 break-keep">
                 알파벳 음가부터 단어까지
               </p>
-              <div className="mt-3 sm:mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/25 backdrop-blur-sm text-white font-black text-sm sm:text-base">
-                곧 만나요
-                <span className="text-base sm:text-lg">🔒</span>
+              <div className="mt-3 sm:mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-blue-600 font-black text-sm sm:text-base shadow-soft group-hover:shadow-pop transition">
+                시작하기
+                <span className="text-base sm:text-lg">→</span>
               </div>
             </div>
             <img
               src="/icons/phonics/english.webp"
               alt="영어 파닉스 호리"
-              className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 object-contain shrink-0 drop-shadow-[0_8px_20px_rgba(0,0,0,0.3)] -mr-2"
+              className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 object-contain shrink-0 drop-shadow-[0_8px_20px_rgba(0,0,0,0.3)] group-hover:scale-105 transition -mr-2"
             />
           </div>
-        </div>
+        </Link>
       </div>
     </div>
   );

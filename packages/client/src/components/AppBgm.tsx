@@ -25,11 +25,18 @@ const MAIN_BGM_VOLUME = 0.25; // 나레이션 없는 화면이지만 은은하�
 
 // ── 배경음 전용 음소거 store (UI 효과음 음소거와 별개) ─────────────────────
 const BGM_MUTE_KEY = 'tangobook-bgm-muted';
+/**
+ * 🔴 **기본값 = 꺼짐**(2026-07-27). 들어오자마자 음악이 나오면 놀라는 데다, 아이가 옆에서
+ * 다른 걸 보고 있을 때 부모가 먼저 끄러 가야 했다. 듣고 싶은 사람이 🎵 로 켜는 쪽이 맞다.
+ *
+ * 🔴 판정이 `=== 'true'` 가 아니라 **`!== 'false'`** 인 이유: 키가 없으면(=한 번도 안 건드림)
+ * 꺼짐이 되어야 하고, 예전에 **직접 켜 둔** 사람('false' 가 저장돼 있다)은 그대로 켜져 있어야 한다.
+ */
 let bgmMuted = ((): boolean => {
   try {
-    return localStorage.getItem(BGM_MUTE_KEY) === 'true';
+    return localStorage.getItem(BGM_MUTE_KEY) !== 'false';
   } catch {
-    return false;
+    return true;
   }
 })();
 const bgmListeners = new Set<() => void>();

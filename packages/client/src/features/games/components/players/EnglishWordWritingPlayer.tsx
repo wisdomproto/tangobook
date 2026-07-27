@@ -81,22 +81,35 @@ export function EnglishWordWritingPlayer({
   // handleWordComplete 가 [마지막 글자 → 쉼 → 단어 → 칭찬] 체인을 소유한다(음원 겹침 방지).
   // onSyllableDone 직후 onComplete 가 동기로 불리므로, microtask 로 미뤄 completedRef 로 판별한다.
   const handleLetterDone = useCallback(
-    (letter: string) => {
+    (letter: string, index: number) => {
       lastLetterRef.current = letter;
       queueMicrotask(() => {
         if (completedRef.current) return; // 마지막 글자 = handleWordComplete 가 처리
         void (async () => {
-          const url = await resolveTtsUrl({
-            text: letter,
-            language: 'english',
-            storybookId,
-            identifierPrefix: 'wwrite-en',
+          // 🔴 낱글자가 아니라 **여기까지 이어 읽기** — b → ba → bat.
+          //    파닉스 라이브러리에 그 블렌드가 있으면 그걸 쓰고, 없으면 방금 쓴 음소만 읽는다.
+          const blend = letters.slice(0, index + 1).join('');
+          const url =
+            (await resolveTtsUrl({
+              text: blend,
+              language: 'english',
+              storybookId,
+              identifierPrefix: 'wwrite-en',
+            })) ??
+            (await resolveTtsUrl({
+              text: letter,
+              language: 'english',
+              storybookId,
+              identifierPrefix: 'wwrite-en',
+            }));
+          // 🔴 띵동 **먼저**, 끝나면 읽기 — 한 채널이라 동시에 내면 앞소리가 잘린다.
+          playAudio('/sounds/game/correct.mp3', () => {
+            if (url) playAudio(url);
           });
-          if (url) playAudio(url);
         })();
       });
     },
-    [storybookId, playAudio]
+    [storybookId, playAudio, letters]
   );
 
   // 모든 글자 완성 → [마지막 글자 → 쉼 → 단어 → 칭찬] 순서로 재생 후 장면 리빌 → 다음 단어.
@@ -200,7 +213,7 @@ export function EnglishWordWritingPlayer({
               syllables={letters}
               onSyllableDone={handleLetterDone}
               onComplete={handleWordComplete}
-              threshold={0.9}
+              threshold={0.99}
             />
           </div>
         </div>

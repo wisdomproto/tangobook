@@ -188,3 +188,37 @@ export function usePhonicsMap(modules: ModuleKey[], enabled = true): PhonicsMapR
 
   return { mapRef, loading };
 }
+
+// ── 훅 밖에서 쓰는 낱 음절 조회 ──────────────────────────────────────────────
+let sharedKoMap: Map<string, string> | null = null;
+let sharedKoMapPromise: Promise<Map<string, string>> | null = null;
+
+/**
+ * 한글 낱 음절/자모 → R2 mp3 URL. **React 훅 밖에서도** 쓴다.
+ *
+ * 🔴 `가`·`강`·`으`·`ㄱ` 은 라이브러리에 **이미 mp3 가 있다**(mod_korean 3232 음절 + 자모 40).
+ *    그런데 파닉스 학습 활동은 그걸 안 보고 매번 서버 concat(`POST /api/phonics-library/concat`,
+ *    ffmpeg 왕복)을 불러 한 글자를 "합쳐" 달라고 했다 — 첫 탭이 늦는 이유가 여기였다.
+ *    동화책 게임이 `usePhonicsMap` 으로 이미 푼 문제인데 학습 활동만 빠져 있었다.
+ *    여러 토막을 잇는 이어읽기(`가 으 강`)만 concat 이 필요하다.
+ *
+ * 캐시·in-flight 가드는 위 훅과 **같은 것**을 쓴다(localStorage 키 공유, 목록 fetch 1회).
+ */
+export function getKoreanSyllableUrl(text: string): Promise<string | undefined> {
+  if (sharedKoMap) return Promise.resolve(sharedKoMap.get(text));
+  if (!sharedKoMapPromise) {
+    const cached = loadCachedLibrary();
+    sharedKoMapPromise = cached
+      ? Promise.resolve(buildPhonicsMap(cached, ['mod_korean']))
+      : fetchLibShared()
+          .then((lib) => {
+            saveCachedLibrary(lib);
+            return buildPhonicsMap(lib, ['mod_korean']);
+          })
+          .catch(() => new Map<string, string>());
+    void sharedKoMapPromise.then((m) => {
+      sharedKoMap = m;
+    });
+  }
+  return sharedKoMapPromise.then((m) => m.get(text));
+}

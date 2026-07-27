@@ -15,6 +15,9 @@
 - 뿌리는 `resolveTtsUrl`(`features/tts`) 이 **탭할 때마다 서버에 URL 을 다시 물었던 것** — 결과가 결정적인데도. 이제 **세션 캐시**(in-flight 공유, 실패는 캐시 안 함)라 데워둔 소리는 왕복 0. 게임·뷰어 등 모든 호출부가 함께 이득.
 - 게임처럼 진행률 게이트를 세우지 **않는다** — 파닉스는 첫 소리까지 아이가 할 일(카드 보기)이 있어 게이트가 진입만 느려 보이게 한다.
 - 배선 완료: 모음 듣기/쓰기 · 자음 누르기/쓰기 · 자음+모음. 실측 = 탭 시 네트워크 요청 0건.
+- 🔴 **워밍은 순차로**(2026-07-27). 받침 익히기는 14짝 × 3텍스트 = 중복 제거해도 29건이다.
+  병렬로 쏘면 아이가 가장 먼저 누르는 첫 글자가 스물몇 건 뒤에 줄을 선다. 호출부가 넘기는
+  `[첫글자, 둘째글자, 이어읽기]` 순서가 곧 우선순위이므로 그 순서대로 하나씩 데운다.
 
 ## 활동 UI 규칙 (2026-07-25)
 
@@ -28,7 +31,7 @@
 ```
 features/phonics-learner/
   components/
-    PhonicsLandingPage.tsx           # /library/phonics — 한글 카드만 active, 영어는 준비 중 음영 (2026-07-26)
+    PhonicsLandingPage.tsx           # /library/phonics — 한글·영어 카드 둘 다 진입 가능
     KoreanPhonicsStudyPage.tsx       # /library/phonics/korean — 한글 study layout
     KoreanPhonicsUnitPage.tsx        # 한글 unit body (embedded prop)
     KoreanPhonicsActivityPage.tsx    # 한글 활동 호스트
@@ -96,9 +99,23 @@ features/phonics-learner/
 
 ## TTS
 
-모든 한글 발음은 phonics-library concat (`resolveTtsUrl` 의 한글 정책). storybookId = unit ID (kr-hN-uMM) 로 캐시 분리.
+한글 발음은 `resolveTtsUrl`(`features/tts`) 의 한글 정책. storybookId = unit ID (kr-hN-uMM) 로 캐시 분리.
+
+🔴 **낱 음절은 라이브러리 mp3 직행, 이어읽기만 concat** (2026-07-27). `가`·`강`·`으`·`ㄱ` 은 R2
+`mod_korean` 에 **이미 개별 mp3 가 있다**(3232 음절 + 자모 40). 예전엔 이것마저 서버에
+`POST /api/phonics-library/concat` 을 보내 "한 글자를 합쳐" 달라고 해서 첫 탭이 늦었다 —
+**동화책 게임은 `usePhonicsMap` 으로 진작 푼 문제인데 학습 활동만 그 경로에서 빠져 있었다**
+(라이브러리 캐시가 비어 있던 게 증거: 게임을 한 번도 안 돌리면 채워지지도 않았다).
+이제 `resolveTtsUrl` 이 **공백 없는 텍스트면 `getKoreanSyllableUrl`**(usePhonicsMap 의 모듈 레벨
+조회, localStorage 캐시·목록 fetch 를 훅과 공유)로 R2 URL 을 바로 준다. 실측: concat 요청 0건,
+탭→소리 27ms. 진입 워밍 29건 중 28건이 서버 왕복에서 사라져 **서버 부하도 같이** 줄었다.
 
 자음+단어 시퀀스는 공백을 0.3s 무음으로 — 예: `"ㄱ ㄱ 고기"` → ㄱ → 0.3s → ㄱ → 0.3s → 고기.
+이 **공백 있는 텍스트만** concat 이 필요하다.
+
+🔴 **받침은 화면 글자와 읽는 소리가 다르다** — `BlendPair.secondSound`(`lib/blend-pairs.ts`).
+`ㅇ` 을 그대로 읽히면 음원이 없어 **무음**이라, ㅡ 를 붙인 형태(ㅇ→으·ㄱ→그·ㄴ→느)로 읽는다.
+프리워밍 목록도 반드시 `secondSound` 로 — 화면 글자를 데우면 정작 재생하는 소리는 안 데워진다.
 
 ## 진척
 
@@ -121,9 +138,9 @@ features/phonics-learner/
 - **배경**: `/images/phonics/study-bg.webp` (1672×941, 44KB) — 풀밭·꽃·구름 톤. StudyPage 전체 backdrop.
 - **mint 디자인 토큰 추가** (`design-system/tokens/colors.ts`): mint 50/100/200/300/400/500/600 + peach 50 추가. Tailwind JIT 가 새 토큰 발견하려면 client 서버 재시작.
 
-## 🔴 영어 파닉스 = 준비 중 (2026-07-26)
+## 영어 파닉스 = 공개 (2026-07-26 재개방)
 
-랜딩(`PhonicsLandingPage`)의 영어 카드를 `<Link>` → **음영 `<div>`**(「준비 중」·「곧 만나요 🔒」)로 바꿔 진입을 닫았다. **라우트(`library/phonics/english/*`)와 Book 1~5 활동 코드는 전부 그대로** — URL 직접 입력으로는 들어가지므로 개발은 계속 가능하다. 다시 열 때는 그 카드를 `<Link to="/library/phonics/english">` 로 되돌리면 끝. 아래 영어 문서는 그때를 위해 보존한다.
+랜딩(`PhonicsLandingPage`)의 영어 카드가 다시 `<Link to="/library/phonics/english">` 다. 같은 날 「준비 중」 음영으로 닫았다가 테스트를 위해 되돌렸다 — **닫는 것도 여는 것도 그 카드 한 곳**이고, 라우트(`library/phonics/english/*`)와 Book 1~5 활동 코드는 닫혀 있는 동안에도 전부 살아 있었다.
 
 ## 🏅 영어 복습 (2026-07-26) — 한글과 규칙이 다르다
 
@@ -142,7 +159,11 @@ features/phonics-learner/
 
 활동 종류 2개 신규:
 
-- **`alphabet-letter-learn`** ([AlphabetLetterLearnActivity](activities/AlphabetLetterLearnActivity.tsx)) — 한 글자 학습카드 풀화면. 큰 일러스트(저작도구 illustrationUrl) + 저작도구 hotspots 위 작은 🔊 (coral pulse) overlay. 핫스팟 클릭 → 그 단어 ttsUrl 재생 (multi-hotspot 지원, `getWordHotspots` 헬퍼). **진척 마킹 없음 — 그냥 누르며 듣는 자유 탐색** (영어 모르는 4-5세 입문자). 자동 재생 X, 완료 버튼 X, ← 돌아가기만으로 종료.
+- **`alphabet-letter-learn`** ([AlphabetLetterLearnActivity](activities/AlphabetLetterLearnActivity.tsx)) — 한 글자 학습카드 풀화면. 큰 일러스트(저작도구 illustrationUrl) + 저작도구 hotspots. 핫스팟 클릭 → 그 단어 ttsUrl 재생 (multi-hotspot 지원, `getWordHotspots` 헬퍼).
+  - 🔴 **순서 스포트라이트**(2026-07-27). 예전엔 안내 문구가 **아예 없어** 아이가 그림만 보다 나갔다. 이제 「🔊 반짝이는 곳을 눌러봐! n/N」 안내 + **지금 누를 핫스팟 한 곳만 밝히고 나머지는 덮는다**(구현은 거대 `box-shadow` spread 한 장 — 구멍 뚫린 오버레이를 따로 만들지 않는다). 순서 단계엔 그 칸만 받고(다른 데를 눌러도 아무 일 없음 — 틀렸다고 혼내지 않는다), 다 누르면 덮개가 걷히고 아무거나 다시 눌러 들을 수 있다.
+  - 🔴 **탭음 → 단어 → 띵동** 순서. 탭 순간 `playUi('tap')`, 단어를 **다 읽은 뒤** 띵동(한 채널이라 동시에 내면 앞소리가 잘린다).
+  - 🔴 **써보기 버튼은 다 눌러본 뒤에 나온다** — 소리를 듣기도 전에 쓰기 버튼이 있으면 아이가 그리로 먼저 간다. (핫스팟 없는 글자는 처음부터 보인다.)
+  - 진척 마킹 없음 — 자유 탐색 (영어 모르는 4-5세 입문자). 자동 재생 X, ← 돌아가기만으로 종료.
 - **`alphabet-letter-write`** ([AlphabetLetterWriteActivity](activities/AlphabetLetterWriteActivity.tsx)) — unit 글자 좌→우 카드 진행 (예: A → B → C). 카드당 [대문자 캔버스][소문자 캔버스] 2개. `LetterWritingCanvas` 가 자기 letter 채점, `onResult('upper'|'lower')` 콜백. 통과 시 그 글자 wordFamilies 단어 중 **랜덤 1개 TTS** 재생 (예: `a a apple` / `a a alligator` / `a a ant`). 두 캔버스 모두 통과 → useEffect 가 advanceToNext (race-free). 마지막 글자 → 칭찬 시퀀스 → onMarkComplete.
 
 UnitPage 카드 UI (`EnglishPhonicsUnitPage.ActivityCard`) 알파벳 분기:
@@ -214,23 +235,43 @@ threshold 0.95 통일 — `LINE_WIDTH=60` 두꺼운 펜이라 도달 쉬움. 폰
 
 `KOREAN_UNIT_ACTIVITY_PLAN[unitId]`. 한글1 은 명시 매핑, **한글2~4 는 `derivedPlans()` 가 커리큘럼에서 파생**한다 — 유닛 목록을 두 번 적지 않으므로 커리큘럼에 단원이 늘면 활동이 저절로 생긴다.
 
-| 레벨              | 단원    | 학습 활동                                   | 생성                                       |
-| ----------------- | ------- | ------------------------------------------- | ------------------------------------------ |
-| 한글1 모음        | u01     | vowel-listen ×2 + vowel-write ×2            | `UNIT_01_PLAN`                             |
-| 한글1 자음        | u02~u15 | consonant-tap + blend ×2 + write            | `CONSONANT_UNIT_MAP` + `makeConsonantPlan` |
-| 한글2 받침        | 7       | consonant-tap(받침) + coda-blend ×2 + write | `makeCodaPlan`                             |
-| 한글3 쌍자음      | 5       | 자음 단원과 동일                            | `makeConsonantPlan(phonemes[0])`           |
-| 한글4 복잡한 모음 | 5       | vowel-listen + vowel-write (각 1장)         | `makeComplexVowelPlan(phonemes)`           |
+| 레벨              | 단원    | 학습 활동                            | 생성                                       |
+| ----------------- | ------- | ------------------------------------ | ------------------------------------------ |
+| 한글1 모음        | u01     | vowel-listen ×2 + vowel-write ×2     | `UNIT_01_PLAN`                             |
+| 한글1 자음        | u02~u15 | consonant-tap + blend + write        | `CONSONANT_UNIT_MAP` + `makeConsonantPlan` |
+| 한글2 받침        | 7       | **coda-blend + write** (배우기 없음) | `makeCodaPlan`                             |
+| 한글3 쌍자음      | 5       | 자음 단원과 동일                     | `makeConsonantPlan(phonemes[0])`           |
+| 한글4 복잡한 모음 | 5       | vowel-listen + vowel-write (각 1장)  | `makeComplexVowelPlan(phonemes)`           |
 
 게임 4종은 `withGames()` 가 모든 plan 뒤에 붙이고 `order` 를 매긴다. 가드 테스트 = `lib/korean-phonics-units.test.ts`.
 
-### 🔴 받침은 글자와 소리가 다르다
+### 🔴 받침 단원 구성 (2026-07-27 정리)
 
-`consonant-tap` / `consonant-write` 에 **`soundText?`** 를 준다. 받침 단원은 글자가 `ㅇ` 이어도 읽는 소리는 예시 음절 **`앙`**(`composeHangul('ㅇ','ㅏ',coda)`) 이다 — 받침은 홀로 소리 낼 수 없고, `ㅇ` 을 그대로 읽히면 초성 이응 소리가 난다. 미지정이면 글자를 그대로 읽어 기존 한글1 단원은 무변경.
+**익히기 = 붙이기 1장 + 쓰기 1장**. 「배우기」(`consonant-tap`)는 **넣지 않는다** — 받침 `ㅇ` 을
+눌러 낼 소리가 없어 예시 음절 '앙' 을 읽어주는데, 아이 눈엔 `ㅇ` 을 눌렀더니 '앙' 이 나오는 셈이라
+글자와 소리가 어긋나 보인다. 받침의 소리는 **붙는 순간**에만 생기므로 붙이기가 그 역할을 맡는다.
+(쓰기는 남고, 거기서만 `soundText`=예시 음절 `앙` 을 쓴다.)
+
+- **초성 14개 한 장**으로 통합(7+7 두 장 → 하나). 활동이 한 번에 한 짝만 보여주고 위 목록에서
+  골라 만드는 구조라 카드를 나눌 이유가 없다. 자음 `ㄱ+모음 1/2` 통합과 같은 이유.
+- **받침 쓰기 = 받침만 쓴다.** 앞 음절(`가`)은 **주어진 판**으로 위에 두고 아래 받침 칸만 캔버스다.
+  이 단원이 가르치는 건 받침이라 `가` 까지 쓰게 하면 초점이 흐려진다. 그래서 자음처럼
+  [멀리·가까이] 두 번 쓰지 않고 **한 번**이다. 대신 14개를 다 돌아도 금방이라 무작위로 줄이지 않는다.
+  🔴 두 칸의 **폭을 같게** 묶어야 한다(`CODA_TILE`) — 캔버스 자체 `max-w-sm`(384px)을 그냥 두면
+  주어진 판(176px)의 두 배가 되어 위아래가 한 글자로 안 보인다.
+- 정답음은 합쳐진 음절만이 아니라 **이어읽기**(`나 · 으 · 낭`) — 받침이 어떻게 붙어 그 소리가
+  됐는지가 들려야 한다.
 
 ### 🔴 `coda-blend-listen` 은 별도 컴포넌트가 아니다
 
-`ConsonantBlendListenActivity` 가 두 모드를 겸한다 — 자음 모드 `[ㄱ]+[ㅏ]→[가]`, 받침 모드 `[가]+[ㅇ]→[강]`(초성 14개 × ㅏ, 7+7 두 장). **복사본을 만들지 말 것**: 이 컴포넌트의 TTS 체인(발음 끝 → 띵동 → 칭찬)이 반복 버그 지점이라 사본이 생기면 고칠 곳이 두 군데가 된다. 캐시 분리는 `identifierPrefix`(`coda-blend`).
+`ConsonantBlendListenActivity` 가 두 모드를 겸한다 — 자음 모드 `[ㄱ]+[ㅏ]→[가]`, 받침 모드 `[가]+[ㅇ]→[강]`(초성 14개 × ㅏ, 한 장). **복사본을 만들지 말 것**: 이 컴포넌트의 TTS 체인(발음 끝 → 띵동 → 칭찬)이 반복 버그 지점이라 사본이 생기면 고칠 곳이 두 군데가 된다. 캐시 분리는 `identifierPrefix`(`coda-blend`).
+
+- 🔴 **받침은 위·아래로 모인다** — 한글에서 받침은 옆이 아니라 아래에 붙는다(아+ㅇ=앙). 가로로
+  모으면 글자가 합쳐지는 방향을 거꾸로 가르치는 셈이다. 간격도 **높이 기준**(`CODA_GAPS`, vh) —
+  가로 값(18vw)을 그대로 쓰면 화면 밖으로 나간다.
+- 🔴 **마지막 라운드에서도 누른 글자를 읽는다.** 예전엔 곧장 이어읽기로 넘어가 1라운드에선 나던
+  `으` 가 2라운드에선 아예 안 났다(누르고 아무 반응 없음). 순서 = [누른 소리] → 쉼(`MERGE_REST_MS`)
+  → [이어읽기]. 쉼은 **소리가 끝난 뒤** 넣는 것이라 길이를 가정하는 게 아니다(낱말쓰기 `REST_MS` 패턴).
 
 ### 🔊 듣고 고르기 (2026-07-26)
 
@@ -239,7 +280,13 @@ threshold 0.95 통일 — `LINE_WIDTH=60` 두꺼운 펜이라 도달 쉬움. 폰
 - 🔴 **소리 변별을 확인하는 유일한 활동이다.** 나머지 학습 활동은 전부 _누르면 소리가 나는_ 탐색형이라 아이가 소리를 구별하는지 알 수 없었다(이퓨처 교재는 유닛 6쪽 중 절반이 이 형식).
 - 🔴 **보기에 단어 글자를 반드시 쓴다.** 처음엔 "못 읽는 아이도 풀 수 있게" 그림만 뒀는데 **파닉스의 학습 목표가 소리↔글자 연결**이라 글자를 빼면 "소리 듣고 사물 찾기"가 되어 버린다(사용자 지적으로 바로잡음). 문제 쪽엔 **오늘의 글자**를 함께 띄우되 **정답 단어는 쓰지 않는다** — 쓰면 듣지 않고 글자만 맞춰버린다. 문제가 바뀌면 자동으로 한 번 들려준다.
 - 🔴 **영어 Book 1(알파벳)만 예외 — 보기가 알파벳 글자뿐이다**(그림도 단어 철자도 없음). 그 권의 학습 목표가 글자 자체고, `apple` 철자를 읽는 건 아직 못 하는 일이다. 컴포넌트는 `items[].imageUrl` 유무로 갈린다 — 있으면 그림+단어, 없으면 글자만 크게.
-- 보기 3장 = 4~7세가 한눈에 훑는 한계. 오답은 **같은 단원의 다른 타겟 단어**(다른 단원 단어를 섞으면 난도가 아니라 운이 된다).
+- 🔴 **탐색 → 퀴즈, 같은 판을 쓴다**(2026-07-27). 들어오면 먼저 **2×2 카드 4장**을 눌러 소리를
+  들어보고, 「🎯 퀴즈 / 듣고 맞춰보기」 버튼으로 넘어간다. 퀴즈는 **같은 격자·같은 크기·같은 자리**
+  이고 문제와 클릭 동작만 바뀐다 — 예전엔 퀴즈가 보기를 따로 3장 뽑아 격자가 통째로 바뀌어,
+  버튼 하나 눌렀는데 딴 화면으로 간 것처럼 보였다. 자리는 퀴즈 시작 때 한 번만 섞어 문제마다 안 튄다.
+- 🔴 **카드 수 기본 4** — 2×2 격자라 4가 맞고 단원 타겟 단어도 보통 4개다. 3으로 두면 마지막
+  단어 하나가 통째로 안 나온다(받침 단원 `시장` 이 그랬다). 오답은 **같은 단원의 다른 타겟 단어**
+  (다른 단원 단어를 섞으면 난도가 아니라 운이 된다).
 - 한글/영어 공용 — `language` prop 으로 TTS·칭찬 언어가 갈린다. 영어 Book 1 은 `letters` 를 그대로 보기로 쓰므로 **그림 자산이 없어도 지금 동작한다**.
 - 데이터 = `phonicsToWordChoices(sb)`(그림 있는 타겟 단어). 3개 미만이면 "단어 그림이 필요해요". 모음 단원은 단어가 없어 활동이 붙지 않는다. (2026-07-26 카드 연동으로 **전 단원 그림이 찼다** — 아래 「단어 삽화」 참조.)
 

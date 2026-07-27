@@ -85,6 +85,9 @@ export default function EnglishPhonicsActivityPage() {
           label: `${L.toUpperCase()}${L.toLowerCase()}`,
           sound: L.toLowerCase(),
         }))}
+        // 🔴 바로 퀴즈로 밀어넣지 않는다 — 먼저 눌러 소리를 들어보고 「🎯 퀴즈」 로 넘어간다
+        //    (한글 「단어 연습」과 같은 순서. 처음 보는 걸 소리만 듣고 고르라면 찍기가 된다.)
+        exploreFirst
         onMarkComplete={handleMarkComplete}
         onBack={backToUnit}
       />

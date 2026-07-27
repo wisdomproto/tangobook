@@ -39,7 +39,6 @@ const MASK_COLOR = 'rgba(160, 160, 160, 0.45)'; // 반투명 회색 — 안 칠�
 const POLYGON_OUTLINE = '#FF6F61'; // coral — polygon 윤곽선
 const THRESHOLD = 0.95; // 95% 채우면 통과 — 그림을 거의 다 칠해야 완성 인정
 const PEN_RATIO = 0.08; // canvas width 대비 펜 두께 비율 (~8%)
-const DOT_RADIUS_PX = 14; // 점 표시 (참고용, interaction X)
 
 interface ConnectTheDotsPlayerProps extends GamePlayerProps {
   /** 어휘 게임(vocab GameOverlay)에서 명시 전달. 미지정 시 책 뷰어 `?lang`(ko/en) 폴백. */
@@ -516,23 +515,9 @@ function ConnectTheDotsPlayer({
               onPointerMove={handlePointerMove}
             />
 
-            {/* 점 시각 표시 (참고용, interaction X). 완성 시 숨겨 깨끗한 완성본 감상. */}
-            <div className="absolute inset-0 pointer-events-none">
-              {!completed &&
-                sortedKps.map((kp, i) => (
-                  <div
-                    key={i}
-                    className="absolute rounded-full bg-coral-500 ring-2 ring-white shadow-pop"
-                    style={{
-                      left: `${kp.x * 100}%`,
-                      top: `${kp.y * 100}%`,
-                      width: DOT_RADIUS_PX * 2,
-                      height: DOT_RADIUS_PX * 2,
-                      transform: 'translate(-50%, -50%)',
-                    }}
-                  />
-                ))}
-            </div>
+            {/* 🔴 윤곽 점은 그리지 않는다 — 이 게임은 **모양 안을 칠하는** 것이지 점을 잇는 게 아니다.
+                (2026-05-25 에 점잇기 → 색칠로 바뀌었는데 점 표시만 남아 있었다. 자동 추출한 18점이
+                그림 위에 촘촘히 얹혀 사물을 가리기만 했다.) 경계는 canvas 의 coral 점선이 이미 보여준다. */}
           </div>
         </div>
 

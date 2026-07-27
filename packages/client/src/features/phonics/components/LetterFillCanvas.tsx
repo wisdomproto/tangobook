@@ -34,7 +34,12 @@ function pickFontFamily(letter: string): string {
 
 interface LetterFillCanvasProps {
   letter: string;
-  /** 통과 시 호출 — autoCheck 모드만 자동 호출, 아니면 사용자가 "확인" 버튼 누름. */
+  /**
+   * 통과 시 호출 — autoCheck 모드만 자동 호출, 아니면 사용자가 "확인" 버튼 누름.
+   * 🔴 **autoCheck 모드는 `passed=false` 를 절대 부르지 않는다** — 채우기 방식이라 "시도"라는 단위가
+   *    없고, 획을 뗄 때마다 실패로 세면 ㄱ 하나 쓰는 동안 수십 번 실패가 된다. 실패 횟수로
+   *    힌트를 띄우려는 화면은 시간으로 재야 한다(`ReviewWriteActivity` 참고).
+   */
   onResult?: (passed: boolean, coverage: number) => void;
   correctSoundUrl?: string;
   correctSoundUrls?: string[];

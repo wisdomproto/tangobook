@@ -21,9 +21,13 @@ interface Props {
  * 마지막까지 쓰면 칭찬 + onComplete.
  *
  * 🔴 4~7세라 화면에 글자를 미리 보여주지 않는다 — 그림이 곧 문제다.
- *    대신 세 번 실패하면 힌트(회색 글자)를 띄워 막히지 않게 한다.
+ *    대신 한동안 못 쓰고 있으면 힌트(회색 글자)를 띄워 막히지 않게 한다.
+ *
+ * 🔴 힌트는 **실패 횟수가 아니라 시간**으로 띄운다. `LetterFillCanvas` 는 글자 안을 칠하는 방식이라
+ *    통과 전까지 아무것도 알리지 않는다(`onResult(false)` 가 아예 없다) — 예전엔 "3회 실패 시 힌트"로
+ *    적혀 있었지만 그 조건이 성립할 수 없어 힌트가 뜬 적이 없었다.
  */
-const HINT_AFTER_FAILS = 3;
+const HINT_AFTER_MS = 12000;
 
 export function ReviewWriteActivity({
   unitId,
@@ -34,7 +38,7 @@ export function ReviewWriteActivity({
 }: Props) {
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   const [idx, setIdx] = useState(0);
-  const [fails, setFails] = useState(0);
+  const [hint, setHint] = useState(false);
   const [done, setDone] = useState(false);
 
   usePhonicsTtsWarm(
@@ -64,13 +68,17 @@ export function ReviewWriteActivity({
     say(current);
   }, [idx, done, current, say]);
 
+  // 카드가 바뀌면 힌트를 접고 다시 잰다.
+  useEffect(() => {
+    setHint(false);
+    if (done) return;
+    const t = window.setTimeout(() => setHint(true), HINT_AFTER_MS);
+    return () => clearTimeout(t);
+  }, [idx, done]);
+
   const handleResult = useCallback(
     async (passed: boolean) => {
-      if (done || !current) return;
-      if (!passed) {
-        setFails((f) => f + 1);
-        return;
-      }
+      if (done || !current || !passed) return;
       const isLast = idx + 1 >= sources.length;
       if (isLast) setDone(true);
 
@@ -87,10 +95,7 @@ export function ReviewWriteActivity({
             language: language === 'english' ? 'en' : 'ko',
             onDone: onComplete,
           });
-        else {
-          setIdx((i) => i + 1);
-          setFails(0);
-        }
+        else setIdx((i) => i + 1);
       };
       const playChime = () => playAudio('/sounds/game/correct.mp3', afterChime);
       if (url) playAudio(url, playChime);
@@ -179,7 +184,7 @@ export function ReviewWriteActivity({
           />
         </div>
 
-        {fails >= HINT_AFTER_FAILS && (
+        {hint && (
           <p className="text-2xl sm:text-3xl font-black text-ink-400">
             힌트 <span className="text-coral-400">{current.letter}</span>
           </p>
