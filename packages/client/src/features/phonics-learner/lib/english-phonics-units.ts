@@ -81,14 +81,19 @@ export function getAllEnglishUnits(): EnglishUnitSummary[] {
       }
       groups.forEach((group, gi) => {
         const last = group[group.length - 1];
+        const letters = group.flatMap((u) => u.phonemes);
         reviewAfter.set(last.id, {
           id: `en-b${last.levelIndex}-r${gi + 1}`,
           levelKey,
           levelName: level.name,
           levelIndex: last.levelIndex,
           unitIndexInLevel: last.unitIndexInLevel,
-          unitTitle: `Review ${gi + 1}`,
-          phonemes: group.flatMap((u) => u.phonemes),
+          // 한글과 같은 이유로 번호가 아니라 되짚는 글자 범위 (`Review 1` 은 무엇을 되짚는지 안 알려준다).
+          unitTitle:
+            letters.length > 1
+              ? `${letters[0]}~${letters[letters.length - 1]} Review`
+              : `${letters[0] ?? ''} Review`.trim(),
+          phonemes: letters,
           targetWords: group.flatMap((u) => u.targetWords),
           isReview: true,
           coveredUnitIds: group.map((u) => u.id),

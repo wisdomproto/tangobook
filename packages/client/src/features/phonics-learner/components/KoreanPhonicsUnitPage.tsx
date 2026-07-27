@@ -74,9 +74,11 @@ export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?:
           />
           <ActivitySection
             unitId={unitId}
-            title="게임하기"
+            // 🔴 복습 단원은 이 패널이 화면의 유일한 글자다 — "게임하기" 로 두면 무엇을 복습하는지
+            //    화면 어디에도 안 적힌다. 사이드바와 같은 이름(ㄱ~ㄹ 복습)을 그대로 쓴다.
+            title={unit.isReview ? unit.unitTitle : '게임하기'}
             subtitle="재미있게 익혀요"
-            emoji="🎮"
+            emoji={unit.isReview ? '🏅' : '🎮'}
             tone="play"
             activities={playActivities}
             completed={completed}
@@ -143,12 +145,27 @@ function ActivitySection({
             unitId={unitId}
             activity={act}
             done={completed.includes(act.key)}
+            widthClass={activities.length === 6 ? SIX_CARD_WIDTH : undefined}
           />
         ))}
       </div>
     </section>
   );
 }
+
+/**
+ * 🔴 flex 아이템이라 **폭을 직접 준다** — 안 주면 정사각 카드가 내용만큼 오그라든다.
+ * 한 줄에 몇 장인지를 폭으로 정한다: 375=2 · sm=3 · md=2(사이드바가 256px 먹음) · lg=4 · xl=5.
+ */
+const DEFAULT_CARD_WIDTH =
+  'w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)] md:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.5rem)] xl:w-[calc(20%-1.6rem)]';
+
+/**
+ * 6장짜리 섹션(복습 게임)은 **3+3** 으로 나눈다 — 기본 폭이면 lg 4장·xl 5장이라 마지막 한 장이
+ * 혼자 남아 덤처럼 보인다. 좁은 화면(md 이하)은 그대로 2장씩: 3장으로 쪼개면 카드가 100px 대가 된다.
+ */
+const SIX_CARD_WIDTH =
+  'w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)] md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1.34rem)] xl:w-[calc(33.333%-1.34rem)]';
 
 /** 액티비티 kind → 일러스트 (webp). 매칭 안 되면 undefined → emoji 폴백. */
 const KIND_ICON_URL: Partial<Record<ActivityDef['kind'], string>> = {
@@ -179,10 +196,12 @@ function ActivityCard({
   unitId,
   activity,
   done,
+  widthClass = DEFAULT_CARD_WIDTH,
 }: {
   unitId: string;
   activity: ActivityDef;
   done: boolean;
+  widthClass?: string;
 }) {
   const isLearn = activity.section === 'learn';
   // 게임하기는 완료 개념 없음 → done 시그널 무시
@@ -205,9 +224,7 @@ function ActivityCard({
   return (
     <Link
       to={`/library/phonics/korean/${unitId}/${activity.key}`}
-      // 🔴 flex 아이템이라 **폭을 직접 준다** — 안 주면 정사각 카드가 내용만큼 오그라든다.
-      //    한 줄에 몇 장인지를 폭으로 정한다: 375=2 · sm=3 · md=2(사이드바가 256px 먹음) · lg=4 · xl=5.
-      className={`group relative block aspect-square w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)] md:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.5rem)] xl:w-[calc(20%-1.6rem)] max-w-[13rem] rounded-[28px] border-[5px] p-3 sm:p-4 transition-all duration-200 active:scale-[0.97] hover:-translate-y-1 hover:rotate-[0.5deg] hover:shadow-[0_18px_40px_-12px_rgba(255,94,58,0.4)] shadow-[0_8px_24px_-10px_rgba(255,94,58,0.25)] flex flex-col overflow-hidden ${cardClass}`}
+      className={`group relative block aspect-square ${widthClass} max-w-[13rem] rounded-[28px] border-[5px] p-3 sm:p-4 transition-all duration-200 active:scale-[0.97] hover:-translate-y-1 hover:rotate-[0.5deg] hover:shadow-[0_18px_40px_-12px_rgba(255,94,58,0.4)] shadow-[0_8px_24px_-10px_rgba(255,94,58,0.25)] flex flex-col overflow-hidden ${cardClass}`}
     >
       {/* 위쪽 살짝 하이라이트 (3D rendered 느낌) */}
       <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/60 to-transparent pointer-events-none" />

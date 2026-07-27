@@ -105,6 +105,14 @@ describe('korean phonics activity plans', () => {
     expect(reviews.flatMap((r) => r.coveredUnitIds!)).not.toContain('kr-h1-u01');
   });
 
+  it('복습 이름은 번호가 아니라 되짚는 글자 범위다', () => {
+    // 🔴 `복습 1` 은 무엇을 복습하는지 안 알려준다 — 사이드바·단원 화면이 같은 unitTitle 을 쓴다.
+    expect(reviews.map((r) => r.unitTitle)).toContain('ㄱ~ㄹ 복습');
+    for (const r of reviews) {
+      expect(r.unitTitle).toBe(`${r.phonemes[0]}~${r.phonemes.at(-1)} 복습`);
+    }
+  });
+
   it('복습은 게임만 — 익히기 활동이 없다', () => {
     for (const r of reviews) {
       const acts = getActivityPlan(r.id).activities;

@@ -56,6 +56,17 @@ function getCurriculumUnits(): KoreanUnitSummary[] {
 const MAX_REVIEW_CARDS = 6;
 const REVIEW_CHUNK = 4;
 
+/**
+ * 복습 이름은 **되짚는 글자 범위**로 짓는다 — `복습 1` 은 무엇을 복습하는지 아무것도 안 알려준다.
+ * 사이드바·단원 화면이 같은 `unitTitle` 을 쓰므로 여기 한 곳이면 둘 다 바뀐다.
+ */
+function reviewTitle(letters: string[]): string {
+  const first = letters[0];
+  const last = letters[letters.length - 1];
+  if (!first) return '복습';
+  return first === last ? `${first} 복습` : `${first}~${last} 복습`;
+}
+
 function chunkForReview(units: KoreanUnitSummary[]): KoreanUnitSummary[][] {
   const eligible = units.filter((u) => u.phonemes.length <= 4);
   const groups: KoreanUnitSummary[][] = [];
@@ -87,14 +98,15 @@ export function getAllKoreanUnits(): KoreanUnitSummary[] {
     groups.forEach((group, gi) => {
       const last = group[group.length - 1];
       const levelIndex = last.levelIndex;
+      const letters = group.map((u) => u.phonemes[0]).filter(Boolean);
       reviewAfter.set(last.id, {
         id: `kr-h${levelIndex}-r${gi + 1}`,
         levelKey,
         levelName: level.name,
         levelIndex,
         unitIndexInLevel: last.unitIndexInLevel,
-        unitTitle: `복습 ${gi + 1}`,
-        phonemes: group.map((u) => u.phonemes[0]).filter(Boolean),
+        unitTitle: reviewTitle(letters),
+        phonemes: letters,
         targetWords: group.flatMap((u) => u.targetWords),
         isReview: true,
         coveredUnitIds: group.map((u) => u.id),
