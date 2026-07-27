@@ -254,10 +254,26 @@ export function isPhonicsActivityAvailable(kind: string, sb: Storybook | undefin
 
 export function phonicsToEnglishLineMatchingData(sb: Storybook): EnglishLineMatchingData | null {
   const targetWords = sb.phonicsConfig?.targetWords ?? [];
+  const alphabet = isAlphabetUnit(sb);
   const candidates: LineMatchingItem[] = [];
+  const usedLetters = new Set<string>();
   for (const w of targetWords) {
     const extra = findImageData(sb, w);
     if (!extra.imageUrl) continue;
+    if (alphabet) {
+      // 🔴 알파벳 단원은 **그림 ↔ 글자** 로 잇는다. 같은 글자가 두 번 나오면 정답이 둘이 되므로
+      //    글자당 한 장만 남긴다(단어는 그림 아래 라벨로 맥락만).
+      const letter = (w[0] ?? '').toLowerCase();
+      if (!letter || usedLetters.has(letter)) continue;
+      usedLetters.add(letter);
+      candidates.push({
+        word: `${letter.toUpperCase()}${letter}`,
+        imageUrl: extra.imageUrl,
+        imageLabel: w,
+        ...(extra.ttsUrl ? { ttsUrl: extra.ttsUrl } : {}),
+      });
+      continue;
+    }
     candidates.push({
       word: w,
       imageUrl: extra.imageUrl,
