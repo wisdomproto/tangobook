@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { StorybookSummary } from '@tangobook/shared';
 import { BookCover } from '@/design-system';
@@ -39,7 +40,13 @@ export function RecentBooksStrip({ items, completed, storybooks }: Props) {
       <h3 className="mb-2 text-base font-bold text-ink-900">{t('recentBooks.title')}</h3>
       <div className="flex gap-3 overflow-x-auto pb-2">
         {resolved.map(({ item, book, done }) => (
-          <div key={item.storybookId} className="flex w-32 shrink-0 flex-col items-center">
+          // 🔴 표지가 `div` 라 리포트가 막다른 길이었다 — 「읽는 중」 을 보고 눌러도 아무 일이
+          //    없어서, 부모가 사이드바로 나가 라이브러리에서 그 책을 다시 찾아야 했다.
+          <Link
+            key={item.storybookId}
+            to={`/library/${item.storybookId}`}
+            className="flex w-32 shrink-0 flex-col items-center transition hover:-translate-y-0.5"
+          >
             <div className="relative h-40 w-32 overflow-hidden rounded-xl bg-peach-100 shadow-soft">
               <BookCover book={book} lang={i18n.language} overlayTitle={false} />
               <span
@@ -58,7 +65,7 @@ export function RecentBooksStrip({ items, completed, storybooks }: Props) {
               {done && done.count > 1 ? t('recentBooks.readCount', { count: done.count }) : ''}
             </div>
             <div className="text-[10px] text-ink-400">{formatKstDate(item.lastAt)}</div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

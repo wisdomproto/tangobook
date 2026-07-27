@@ -43,5 +43,10 @@
     "emptyKo": "Bé chưa đọc sách tiếng Hàn",
     "emptyEn": "Bé chưa đọc sách tiếng Anh",
     "goToLibrary": "Đi xem truyện tranh"
+  },
+  "reviewWords": {
+    "title": "Những từ nên xem lại",
+    "hint": "Bé còn lẫn lộn. Tối nay mở lại cuốn sách đó cùng bé nhé.",
+    "open": "Mở sách"
   }
 }

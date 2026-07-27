@@ -13,6 +13,7 @@ import {
 import { ReportEmptyState } from './ReportEmptyState';
 import { ArtStyleGenreCard } from './ArtStyleGenreCard';
 import { MetWordsCard } from './MetWordsCard';
+import { ReviewWordsCard } from './ReviewWordsCard';
 import { WeeklyHeroCard } from './WeeklyHeroCard';
 import { RecentBooksStrip } from './RecentBooksStrip';
 
@@ -92,8 +93,22 @@ export function StorybookReportSection({ events, storybooks, lang }: Props) {
         />
       )}
 
-      {/* 학습한 단어 — 카드 그리드(책 표지 + 읽음/게임 배지 + 전체 보기) */}
-      <MetWordsCard details={wordItems} storybooks={storybooks} />
+      {/* 🔴 이 리포트에서 **유일하게 행동이 되는 카드** — 헷갈린 단어 5개 + 그 책으로 가는 링크.
+          「만난 단어 N개」보다 위에 온다(그건 자랑이고, 이건 오늘 밤 할 일이다). */}
+      <ReviewWordsCard words={wordItems} storybooks={storybooks} />
+
+      {/* 학습한 단어 — 카드 그리드. 🔴 **접어 둔다**: 24장이 화면 절반을 먹는데 시키는 행동이 없다.
+          🔴 단어가 없으면 접이식 껍데기도 만들지 않는다(빈 아코디언은 "고장" 으로 읽힌다). */}
+      {wordItems.length > 0 && (
+        <details className="rounded-2xl bg-white/80 p-4 shadow-sm">
+          <summary className="cursor-pointer text-base font-bold text-ink-900">
+            {t('metWords.title')}
+          </summary>
+          <div className="mt-3">
+            <MetWordsCard details={wordItems} storybooks={storybooks} />
+          </div>
+        </details>
+      )}
 
       {/* 그림체 분포: 재미 요소, 학습 성과 아님. 메인 3종 장르만. */}
       <details className="rounded-2xl bg-white/80 p-4 shadow-sm">

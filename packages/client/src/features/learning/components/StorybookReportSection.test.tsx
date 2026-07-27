@@ -13,7 +13,12 @@ import { StorybookReportSection } from './StorybookReportSection';
 // useQueryClient 자체는 Provider 없이는 throw 하므로 감싸야 한다.
 function renderSection(ui: ReactNode) {
   const qc = new QueryClient({ defaultOptions: { queries: { retry: false, enabled: false } } });
-  return render(<QueryClientProvider client={qc}>{ui}</QueryClientProvider>);
+  // 표지·단어 카드가 이제 그 책으로 가는 링크라 라우터가 필요하다.
+  return render(
+    <MemoryRouter>
+      <QueryClientProvider client={qc}>{ui}</QueryClientProvider>
+    </MemoryRouter>
+  );
 }
 
 let idSeq = 0;
@@ -127,9 +132,9 @@ describe('StorybookReportSection', () => {
   it('renders encouraging hero when no activity this week', () => {
     // 빈 상태 CTA(<Link>) 때문에 Router 컨텍스트 필요
     renderSection(
-      <MemoryRouter>
+      <>
         <StorybookReportSection events={[]} storybooks={[]} lang="ko" />
-      </MemoryRouter>
+      </>
     );
     expect(screen.getByText('이번 주 첫 책을 기다리고 있어요')).toBeInTheDocument();
     expect(screen.getByText('동화책 보러 가기')).toBeInTheDocument();
@@ -158,7 +163,8 @@ describe('StorybookReportSection', () => {
       }),
     ];
     renderSection(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
-    expect(screen.getByText('이런 단어들을 만났어요')).toBeInTheDocument();
+    // 🔴 접이식으로 내려서 제목이 summary·카드 두 곳에 있다 — 존재만 확인한다.
+    expect(screen.getAllByText('이런 단어들을 만났어요').length).toBeGreaterThan(0);
     expect(screen.getByText('사과')).toBeInTheDocument();
     expect(screen.getByText('바나나')).toBeInTheDocument();
   });
@@ -174,7 +180,7 @@ describe('StorybookReportSection', () => {
       }),
     ];
     renderSection(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
-    expect(screen.queryByText('이런 단어들을 만났어요')).not.toBeInTheDocument();
+    expect(screen.queryAllByText('이런 단어들을 만났어요').length).toBe(0);
   });
 
   it('resolves variant suffix (__L1) to base book', () => {

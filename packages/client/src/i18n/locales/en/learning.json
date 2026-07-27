@@ -43,5 +43,10 @@
     "emptyKo": "No Korean books read yet",
     "emptyEn": "No English books read yet",
     "goToLibrary": "Go to the library"
+  },
+  "reviewWords": {
+    "title": "Words worth another look",
+    "hint": "These tripped them up. Open the book together tonight.",
+    "open": "Open book"
   }
 }
