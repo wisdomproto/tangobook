@@ -23,6 +23,8 @@ import {
   mapTopBooks,
   mapPwaInstalls,
   resolveGa4Config,
+  isIdleBrowsePath,
+  sumEngagementExcludingIdle,
 } from '../analytics.service.js';
 import type { GA4Report } from '../external/ga4.js';
 
@@ -188,6 +190,35 @@ describe('extractBookId (pagePath → storybook id | null)', () => {
     expect(extractBookId('/library-master')).toBeNull();
     expect(extractBookId('/games/vocab')).toBeNull();
     expect(extractBookId('')).toBeNull();
+  });
+});
+
+describe('체류시간에서 책 고르는 화면 제외', () => {
+  it('/library 만 뺀다 — 책 상세는 그 책을 본 시간이다', () => {
+    expect(isIdleBrowsePath('/library')).toBe(true);
+    expect(isIdleBrowsePath('/library/')).toBe(true);
+    expect(isIdleBrowsePath('/library?category=공룡')).toBe(true);
+    expect(isIdleBrowsePath('/en/library')).toBe(true); // 언어 프리픽스
+    // 🔴 접두사 매칭이면 아래가 전부 딸려 들어간다 — 그러면 뺄 게 아니라 콘텐츠를 본 시간이다
+    expect(isIdleBrowsePath('/library/100')).toBe(false);
+    expect(isIdleBrowsePath('/library/100/about')).toBe(false);
+    expect(isIdleBrowsePath('/library/phonics/korean')).toBe(false);
+    expect(isIdleBrowsePath('/library-master')).toBe(false);
+    expect(isIdleBrowsePath('/')).toBe(false);
+  });
+
+  it('제외 경로를 뺀 참여 시간만 더한다', () => {
+    const report = ga4Report([
+      { d: ['/library'], m: ['9000'] },
+      { d: ['/library/100'], m: ['300'] },
+      { d: ['/en/library'], m: ['500'] },
+      { d: ['/blog/foo'], m: ['200'] },
+    ]);
+    expect(sumEngagementExcludingIdle(report)).toBe(500); // 300 + 200
+  });
+
+  it('행이 없으면 0', () => {
+    expect(sumEngagementExcludingIdle(ga4Report([]))).toBe(0);
   });
 });
 

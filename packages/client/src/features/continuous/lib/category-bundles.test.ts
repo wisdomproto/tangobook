@@ -9,7 +9,8 @@ const b = (id: string, category: string, title: string, isPublic = true) => ({
 });
 
 describe('buildCategoryBundles', () => {
-  it('카테고리별로 앞에서 3권씩 묶는다', () => {
+  // 🔴 앞 3권만 담던 시절엔 10분 남짓이라 "틀어놓고 재우는" 쓰임에 못 미쳤다 — 카테고리 통째로.
+  it('카테고리에 있는 책을 전부 묶는다', () => {
     const out = buildCategoryBundles([
       b('1', '공룡', '01. 가'),
       b('2', '공룡', '02. 나'),
@@ -20,7 +21,7 @@ describe('buildCategoryBundles', () => {
       b('7', '식물', '03. 사'),
     ]);
     expect(out).toHaveLength(2);
-    expect(out[0]).toEqual({ category: '공룡', bookIds: ['1', '2', '3'] });
+    expect(out[0]).toEqual({ category: '공룡', bookIds: ['1', '2', '3', '4'] });
     expect(out[1]).toEqual({ category: '식물', bookIds: ['5', '6', '7'] });
   });
 
@@ -69,14 +70,6 @@ describe('buildCategoryBundles', () => {
       b('b', '명작', '백설공주'),
     ]);
     expect(out[0].bookIds).toEqual(['a', 'b', 'c']);
-  });
-
-  it('perBundle 을 바꿀 수 있다', () => {
-    const out = buildCategoryBundles(
-      [b('1', '공룡', '01'), b('2', '공룡', '02'), b('3', '공룡', '03')],
-      2
-    );
-    expect(out[0].bookIds).toEqual(['1', '2']);
   });
 
   it('빈 입력이면 빈 배열', () => {

@@ -1,8 +1,12 @@
 /**
- * 라이브러리 목록에서 "카테고리별 첫 N권" 묶음을 파생한다.
+ * 라이브러리 목록에서 **카테고리 통째로** 묶음을 파생한다.
  *
  * 🔴 묶음을 저장하지 않는 이유: 책 id 를 상수로 박아두면 책이 비공개·삭제될 때 조용히 썩는다.
  * 매번 현재 목록에서 계산하면 그 문제가 아예 없다.
+ *
+ * 🔴 예전엔 카테고리당 **앞 3권**만 담았다(2026-07-27 전체로). 3권이면 10분 남짓이라
+ * "틀어놓고 재우는" 쓰임에 못 미쳤고, 나머지를 들으려면 결국 세트를 손으로 만들어야 했다.
+ * 카드에 총 재생시간을 함께 띄우므로 몇 시간짜리인지도 눌러보기 전에 보인다.
  *
  * 게스트·로그인 구분 없이 동일한 결과를 낸다(잠금은 기존 뷰어 게이팅에 맡긴다).
  */
@@ -38,7 +42,7 @@ function compareBooks(a: BookLike, b: BookLike): number {
   return (a.title ?? '').localeCompare(b.title ?? '', 'ko');
 }
 
-export function buildCategoryBundles(books: BookLike[], perBundle = 3): CategoryBundle[] {
+export function buildCategoryBundles(books: BookLike[]): CategoryBundle[] {
   const byCategory = new Map<string, BookLike[]>();
   for (const book of books) {
     if (book.isPublic === false) continue;
@@ -52,10 +56,7 @@ export function buildCategoryBundles(books: BookLike[], perBundle = 3): Category
 
   const out: CategoryBundle[] = [];
   for (const [category, list] of byCategory) {
-    const bookIds = [...list]
-      .sort(compareBooks)
-      .slice(0, perBundle)
-      .map((b) => b.id);
+    const bookIds = [...list].sort(compareBooks).map((b) => b.id);
     if (bookIds.length < 2) continue; // 한 권짜리는 묶음이 아니다
     out.push({ category, bookIds });
   }

@@ -6,6 +6,7 @@ import { useStorybooks } from '@/features/storybook';
 import { useCategoryLabel } from '@/features/library/lib/category-i18n';
 import { usePlaylists, useDeletePlaylist } from '../hooks/usePlaylists';
 import { buildCategoryBundles } from '../lib/category-bundles';
+import { estimatePlaySeconds, playtimeParts } from '../lib/playtime';
 import { beginPlaylist } from '../lib/begin-playlist';
 import { PlaylistCard } from './PlaylistCard';
 
@@ -48,6 +49,14 @@ export function PlaylistLibrarySection() {
 
   const coversFor = (ids: string[]) =>
     ids.map((id) => coverOf.get(id)).filter((u): u is string => Boolean(u));
+
+  /** "약 2시간 35분" — 시간이 0이면 분만, 분이 0이면 시간만 말한다. */
+  const durationOf = (bookCount: number) => {
+    const { hours, minutes } = playtimeParts(estimatePlaySeconds(bookCount));
+    if (!hours) return t('playlist.durationM', { minutes });
+    if (!minutes) return t('playlist.durationH', { hours });
+    return t('playlist.durationHm', { hours, minutes });
+  };
 
   const handleDelete = (id: string, name: string) => {
     if (window.confirm(t('playlist.deleteConfirm', { name }))) {
@@ -119,6 +128,7 @@ export function PlaylistLibrarySection() {
               <PlaylistCard
                 name={p.name}
                 bookCount={p.bookIds.length}
+                durationLabel={durationOf(p.bookIds.length)}
                 language={p.language}
                 coverUrls={coversFor(p.bookIds)}
                 onPlay={() => beginPlaylist(p.bookIds, p.language, navigate)}
@@ -134,6 +144,7 @@ export function PlaylistLibrarySection() {
                 <PlaylistCard
                   name={name}
                   bookCount={bundle.bookIds.length}
+                  durationLabel={durationOf(bundle.bookIds.length)}
                   language={i18n.language}
                   coverUrls={coversFor(bundle.bookIds)}
                   onPlay={() => beginPlaylist(bundle.bookIds, i18n.language, navigate)}

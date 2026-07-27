@@ -39,6 +39,8 @@ export function OverviewCards({ data }: OverviewCardsProps) {
     },
     {
       label: '체류시간',
+      // 책 고르는 화면(/library)은 배경음만 켜두는 사람이 있어 평균에서 뺐다(서버 getOverview).
+      hint: '세션당 참여 시간 — 책 고르는 화면(/library)에 머문 시간은 제외',
       value: formatDuration(data.avgSessionDuration),
       icon: Timer,
       color: 'text-rose-600',
@@ -56,7 +58,10 @@ export function OverviewCards({ data }: OverviewCardsProps) {
       {cards.map((c) => (
         <Card key={c.label}>
           <CardContent className="p-4">
-            <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
+            <div
+              className="flex items-center gap-2 text-xs text-muted-foreground mb-1"
+              title={'hint' in c ? c.hint : undefined}
+            >
               <c.icon size={14} className={c.color} />
               <span className="break-keep">{c.label}</span>
             </div>

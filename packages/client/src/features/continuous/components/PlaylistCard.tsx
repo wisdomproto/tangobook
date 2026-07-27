@@ -5,6 +5,8 @@ interface PlaylistCardProps {
   name: string;
   /** 세트에 담긴 책 수. */
   bookCount: number;
+  /** "약 2시간 35분" — 총 재생시간 어림. 없으면 책 수만 보인다. */
+  durationLabel?: string;
   language: string;
   /** 커버 썸네일 URL (앞쪽 몇 장). */
   coverUrls: string[];
@@ -20,6 +22,7 @@ interface PlaylistCardProps {
 export function PlaylistCard({
   name,
   bookCount,
+  durationLabel,
   language,
   coverUrls,
   onPlay,
@@ -57,9 +60,10 @@ export function PlaylistCard({
         </div>
         <div className="p-4">
           <h3 className="font-black text-lg text-ink-900 font-display truncate">{name}</h3>
-          <p className="mt-0.5 text-sm font-bold text-ink-500">
+          <p className="mt-0.5 text-sm font-bold text-ink-500 break-keep">
             {lang ? `${lang.flag} ` : ''}
             {t('playlist.bookCount', { count: bookCount })}
+            {durationLabel ? ` · ${durationLabel}` : ''}
           </p>
           <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-coral-500 text-white font-black text-sm px-4 py-2 shadow-soft">
             {t('playlist.play')}

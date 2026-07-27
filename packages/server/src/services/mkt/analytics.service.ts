@@ -164,6 +164,27 @@ export function mapOverviewSummary(
   };
 }
 
+/**
+ * 🔴 **책 고르는 화면(`/library`)에 머문 시간은 체류시간에서 뺀다** (2026-07-27).
+ * 그 화면은 배경음만 틀어놓고 켜둔 채 두는 사람이 있어서, 세션 평균을 통째로 부풀린다.
+ * 우리가 알고 싶은 건 "콘텐츠를 실제로 본 시간"이다.
+ *
+ * 🔴 **`/library/<id>`(책 상세)는 뺄 이유가 없다** — 거기 머문 건 그 책을 본 것이다.
+ * 그래서 접두사 매칭이 아니라 **정확히 그 경로**만 본다(언어 프리픽스 `/en/library` 포함).
+ */
+export function isIdleBrowsePath(path: string): boolean {
+  const clean = (path.split('?')[0] ?? '').replace(/\/+$/, '') || '/';
+  return /^(\/[a-z]{2})?\/library$/.test(clean);
+}
+
+/** pagePath × userEngagementDuration 리포트 → 제외 경로를 뺀 참여 시간 합(초). */
+export function sumEngagementExcludingIdle(report: GA4Report): number {
+  return (report.rows ?? []).reduce((sum, r) => {
+    const path = r.dimensionValues?.[0]?.value ?? '';
+    return isIdleBrowsePath(path) ? sum : sum + flt(r.metricValues?.[0]?.value);
+  }, 0);
+}
+
 /** daily pageviews (CF overview/route.ts:47‑50). */
 export function mapDaily(report: GA4Report): GA4OverviewData['dailyPageviews'] {
   return (report.rows ?? []).map((r) => ({
@@ -339,7 +360,7 @@ function dateRangeFor(period: Period): { startDate: string; endDate: string } {
 /** overview = 2 runReport calls (summary + daily) → GA4OverviewData. */
 export async function getOverview(cfg: ResolvedGa4, period: Period): Promise<GA4OverviewData> {
   const dateRanges = [dateRangeFor(period)];
-  const [summary, daily] = await Promise.all([
+  const [summary, daily, byPage] = await Promise.all([
     runReport(cfg, {
       dateRanges,
       metrics: [
@@ -356,8 +377,29 @@ export async function getOverview(cfg: ResolvedGa4, period: Period): Promise<GA4
       dimensions: [{ name: 'date' }],
       orderBys: [{ dimension: { dimensionName: 'date' } }],
     }),
+    // 체류시간에서 `/library` 를 빼려면 **쪽별** 참여 시간이 필요하다 —
+    // `averageSessionDuration` 은 세션 단위라 페이지로 못 가른다.
+    runReport(cfg, {
+      dateRanges,
+      metrics: [{ name: 'userEngagementDuration' }],
+      dimensions: [{ name: 'pagePath' }],
+      orderBys: [{ metric: { metricName: 'userEngagementDuration' }, desc: true }],
+      limit: 500,
+    }),
   ]);
-  return { period, ...mapOverviewSummary(summary), dailyPageviews: mapDaily(daily) };
+  const base = mapOverviewSummary(summary);
+  const engagedSec = sumEngagementExcludingIdle(byPage);
+  return {
+    period,
+    ...base,
+    // 세션이 0이면 나눌 수 없다. 쪽별 리포트가 비면(0초) 원래 값을 그대로 둔다 —
+    // 데이터가 없는 것과 "체류가 0" 은 다르다.
+    avgSessionDuration:
+      base.totalSessions > 0 && engagedSec > 0
+        ? engagedSec / base.totalSessions
+        : base.avgSessionDuration,
+    dailyPageviews: mapDaily(daily),
+  };
 }
 
 export async function getTraffic(cfg: ResolvedGa4, period: Period): Promise<GA4TrafficSource[]> {
