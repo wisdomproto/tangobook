@@ -50,13 +50,36 @@ function LineMatchingPlayerInner({
   const data = gameData as KoreanLineMatchingData | EnglishLineMatchingData;
   const items = data.items;
 
-  // vi/zh/th·en 은 단어 발음이 direct ttsUrl(R2). 정답 순간 콜드 페치로 늦지 않게
-  // 마운트 시 미리 오디오를 워밍(한글은 음절 mp3 라 ttsUrl 없음 → 스킵).
+  // phonics 라이브러리 (한글 음절 mp3 lookup) — KoreanBlock 과 동일 방식
+  const { mapRef: phonicsMapRef, loading: phonicsLoading } = usePhonicsMap([
+    'mod_korean',
+    'mod_phonics',
+    'mod_english',
+  ]);
+
+  /**
+   * 정답 순간 콜드 페치로 늦지 않게 마운트 시 오디오를 워밍한다.
+   *
+   * 🔴 **한글이 통째로 빠져 있었다.** 예전 주석은 "한글은 ttsUrl 없음 → 스킵" 이라고 스스로
+   *    말하면서, 정작 한글이 재생하는 **음절 mp3(고·기)는 아무도 데우지 않았다.** 그래서 첫 정답에서
+   *    글자 수만큼 R2 를 새로 받느라 소리가 늦었다(사용자 지적). ttsUrl 이 없는 게 스킵 이유가
+   *    될 수 없다 — 재생하는 실체가 다를 뿐이다.
+   * 🔴 맵이 로드된 **뒤에** 돌아야 한다(`phonicsLoading`) — 비어 있을 때 돌면 아무것도 못 데운다.
+   */
   useEffect(() => {
+    if (phonicsLoading) return;
+    const map = phonicsMapRef.current;
     for (const it of items) {
-      if (it.ttsUrl) void warmAudioUrl(it.ttsUrl);
+      if (it.ttsUrl) {
+        void warmAudioUrl(it.ttsUrl);
+        continue;
+      }
+      for (const ch of it.word) {
+        const url = map.get(ch) ?? map.get(ch.toLowerCase());
+        if (url) void warmAudioUrl(url);
+      }
     }
-  }, [items]);
+  }, [items, phonicsLoading, phonicsMapRef]);
 
   // 이미지는 원래 순서 유지, 단어만 셔플
   const imageOrder = useMemo(() => items.map((_, i) => i), [items]);
@@ -92,13 +115,6 @@ function LineMatchingPlayerInner({
     (itemIdx: number) => matched.some((m) => m.itemIdx === itemIdx),
     [matched]
   );
-
-  // phonics 라이브러리 (한글 음절 mp3 lookup) — KoreanBlock 과 동일 방식
-  const { mapRef: phonicsMapRef, loading: phonicsLoading } = usePhonicsMap([
-    'mod_korean',
-    'mod_phonics',
-    'mod_english',
-  ]);
 
   // 게임 시작 게이트 = phonics 맵 로드만(localStorage 캐시라 재진입 즉시).
   const audioReady = !phonicsLoading;

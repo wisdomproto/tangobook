@@ -3,7 +3,7 @@ import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
-import { buildBlendPairs } from '../lib/blend-pairs';
+import { buildBlendPairs, stacksVertically } from '../lib/blend-pairs';
 
 interface Props {
   unitId: string;
@@ -27,7 +27,9 @@ interface Props {
 const GAPS = ['min(18vw, 14rem)', 'min(6vw, 4rem)', '0px'] as const;
 /** 받침은 위·아래로 모이므로 **높이**가 기준이다 — 가로 값(18vw)을 그대로 쓰면 화면 밖으로 나간다. */
 const CODA_GAPS = ['min(22vh, 11rem)', 'min(7vh, 3.5rem)', '0px'] as const;
-/** 받침 마지막 탭에서 [누른 소리] 뒤에 두는 쉼 — 이어읽기가 바로 붙으면 한 덩어리로 들린다. */
+/** 두 글자가 미끄러져 붙는 시간. CSS `duration-500` 과 맞춘다 — 어긋나면 붙기 전에 합쳐진 글자가 뜬다. */
+const CLOSE_MS = 500;
+/** 합쳐진 글자가 뜬 뒤 이어읽기까지의 쉼 — 붙자마자 소리가 나면 눈이 따라가기 전에 지나간다. */
 const MERGE_REST_MS = 550;
 const TAP_ROUNDS = 2; // 탭으로 진행하는 라운드 수(멀리·가까이). 마지막 붙는 건 자동.
 
@@ -86,10 +88,12 @@ export function ConsonantBlendListenActivity({
   const [step, setStep] = useState(0); // 0 첫 글자 차례 · 1 둘째 글자 차례
   const [madeSet, setMade] = useState<ReadonlySet<number>>(() => new Set()); // 만들어 본 음절
   const [completed, setCompleted] = useState(false);
-  // 받침 합체 전 '쉼' 타이머 — 도중에 나가면 이어읽기가 빈 화면에서 울린다.
+  // 붙는 애니메이션·쉼 타이머 — 도중에 나가면 이어읽기가 빈 화면에서 울린다.
+  const closeTimerRef = useRef<number | null>(null);
   const restTimerRef = useRef<number | null>(null);
   useEffect(
     () => () => {
+      if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
       if (restTimerRef.current) clearTimeout(restTimerRef.current);
     },
     []
@@ -103,7 +107,16 @@ export function ConsonantBlendListenActivity({
   }, []);
 
   const pair = pairs[idx];
-  const merging = round >= TAP_ROUNDS;
+  /**
+   * 🔴 탭이 끝나면 **붙는 과정을 보여주는 단계**가 하나 더 있다(2026-07-27).
+   *   round 0·1 = 탭(멀리·가까이) · round 2 = 두 글자가 미끄러져 붙는 중 · round 3 = 합쳐진 음절
+   * 예전엔 마지막 탭 즉시 합쳐진 글자로 갈아쳐서 **가까워지는 순간이 아예 안 보였다** —
+   * 간격 배열의 마지막 값(`0px`)이 화면에 뜬 적이 없었다. 자음·받침 **둘 다** 같다.
+   */
+  const closing = round === TAP_ROUNDS;
+  const merging = round > TAP_ROUNDS;
+  /** 위·아래로 모이는가 — 받침이거나 수직 모음(ㅗㅛㅜㅠㅡ)이면 세로. */
+  const vertical = isCoda || stacksVertically(pair);
 
   const say = useCallback(
     async (text: string, onEnded?: () => void) => {
@@ -121,7 +134,8 @@ export function ConsonantBlendListenActivity({
 
   const handleTap = useCallback(
     (which: 0 | 1) => {
-      if (completed || merging || !pair || which !== step) return;
+      // 붙는 중(closing)에도 막는다 — 타일이 아직 눌리면 미끄러지는 도중 한 번 더 들어온다.
+      if (completed || merging || closing || !pair || which !== step) return;
       // 🔴 읽는 텍스트는 화면 글자가 아니라 `secondSound` — 받침 `ㅇ` 은 그대로 읽으면 무음이다.
       const text = which === 0 ? pair.first : pair.secondSound;
 
@@ -160,17 +174,20 @@ export function ConsonantBlendListenActivity({
           playAudio('/sounds/game/correct.mp3', advance)
         );
 
-      if (isCoda) {
-        // 🔴 **마지막 라운드에서도 누른 글자를 읽는다** — 예전엔 여기서 곧장 이어읽기로 넘어가,
-        //    1라운드에선 나던 `으` 소리가 2라운드에선 아예 안 났다(누르고 아무 반응이 없었다).
-        //    순서 = [누른 소리] → 쉼 → [이어읽기]. 쉼은 **소리가 끝난 뒤** 넣는 것이라
-        //    길이를 가정하는 게 아니다(낱말쓰기 REST_MS 와 같은 패턴).
-        say(text, () => {
+      /**
+       * 마지막 탭 뒤 순서 = [누른 글자 소리] → **붙는 애니메이션** → [합쳐진 글자] → 쉼 → [이어읽기].
+       *
+       * 🔴 붙는 도중엔 소리를 내지 않는다 — 눈으로 붙는 걸 보고 나서 그 소리를 들어야 이어진다.
+       * 🔴 **마지막 라운드에서도 누른 글자를 읽는다.** 예전엔 곧장 이어읽기로 넘어가, 1라운드에선
+       *    나던 `으` 가 2라운드에선 아예 안 났다(누르고 아무 반응이 없었다).
+       * 쉼은 **소리가 끝난 뒤** 넣는 것이라 길이를 가정하는 게 아니다(낱말쓰기 REST_MS 와 같은 패턴).
+       */
+      say(text, () => {
+        closeTimerRef.current = window.setTimeout(() => {
+          setRound(TAP_ROUNDS + 1); // 합쳐진 글자 등장
           restTimerRef.current = window.setTimeout(readBlend, MERGE_REST_MS);
-        });
-        return;
-      }
-      readBlend();
+        }, CLOSE_MS);
+      });
     },
     [
       completed,
@@ -258,14 +275,14 @@ export function ConsonantBlendListenActivity({
         </h2>
 
         {/* 두 글자 — 라운드가 오를수록 간격이 좁아지고, 마지막엔 붙어서 음절이 된다.
-            🔴 **받침은 위·아래로 가까워진다** — 한글에서 받침은 옆이 아니라 **아래**에 붙는다(아+ㅇ=앙).
-               가로로 모으면 글자가 합쳐지는 방향을 거꾸로 가르치는 셈이다. 자음+모음만 좌→우. */}
+            🔴 **모이는 방향은 글자가 정한다** — 받침(아+ㅇ=앙)과 **수직 모음**(ㄲ+ㅛ=꼬)은 아래로,
+               그 밖의 모음(ㄱ+ㅏ=가)은 오른쪽으로. 방향이 틀리면 합쳐지는 규칙을 거꾸로 가르친다. */}
         <div
           className={`flex items-center justify-center transition-all duration-500 ease-out ${
-            isCoda ? 'flex-col' : ''
+            vertical ? 'flex-col' : ''
           }`}
           style={
-            isCoda
+            vertical
               ? { rowGap: CODA_GAPS[Math.min(round, CODA_GAPS.length - 1)] }
               : { columnGap: GAPS[Math.min(round, GAPS.length - 1)] }
           }

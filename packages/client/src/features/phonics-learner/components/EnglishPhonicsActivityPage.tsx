@@ -1,4 +1,6 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, type ReactNode } from 'react';
+import type { GameTypeId } from '@tangobook/shared';
+import { PhonicsGameGate } from './PhonicsGameGate';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getEnglishActivityPlan, getEnglishUnit } from '../lib/english-phonics-units';
 import type { ActivityDef } from '../lib/korean-phonics-units';
@@ -185,13 +187,31 @@ export default function EnglishPhonicsActivityPage() {
     onBack: backToUnit,
   };
 
+  // 🔴 게임은 **진입 게이트**로 감싼다 — 동화 게임과 같은 방식(한글판과 동일).
+  //    `game` 은 활동 kind 가 아니라 수집기가 아는 게임 id 다.
+  const gate = (game: GameTypeId, gameData: object, node: ReactNode) => (
+    <PhonicsGameGate
+      game={game}
+      gameData={gameData as { type: string; items?: Array<Record<string, unknown>> }}
+      storybook={storybook}
+      storybookId={unitId}
+      lang="en"
+    >
+      {node}
+    </PhonicsGameGate>
+  );
+
   if (activity.kind === 'game-english-block') {
     const gameData = phonicsToEnglishBlockData(storybook);
     if (!gameData)
       return (
         <ActivityUnavailable activity={activity} onBack={backToUnit} reason="단어가 부족해요" />
       );
-    return <EnglishBlockPlayer {...commonProps} gameData={gameData} />;
+    return gate(
+      'english-block',
+      gameData,
+      <EnglishBlockPlayer {...commonProps} gameData={gameData} />
+    );
   }
   if (activity.kind === 'game-word-writing') {
     const gameData = phonicsToEnglishWordWritingData(storybook);
@@ -199,7 +219,11 @@ export default function EnglishPhonicsActivityPage() {
       return (
         <ActivityUnavailable activity={activity} onBack={backToUnit} reason="단어가 부족해요" />
       );
-    return <EnglishWordWritingPlayer {...commonProps} gameData={gameData} />;
+    return gate(
+      'english-word-writing',
+      gameData,
+      <EnglishWordWritingPlayer {...commonProps} gameData={gameData} />
+    );
   }
   if (activity.kind === 'game-line-matching') {
     const gameData = phonicsToEnglishLineMatchingData(storybook);
@@ -211,7 +235,11 @@ export default function EnglishPhonicsActivityPage() {
           reason="단어 그림이 필요해요"
         />
       );
-    return <LineMatchingPlayer {...commonProps} gameData={gameData} lang="en" />;
+    return gate(
+      'english-line-matching',
+      gameData,
+      <LineMatchingPlayer {...commonProps} gameData={gameData} lang="en" />
+    );
   }
   if (activity.kind === 'game-connect-dots') {
     const gameData = phonicsToConnectTheDotsData(storybook);
@@ -223,7 +251,11 @@ export default function EnglishPhonicsActivityPage() {
           reason="단어 그림과 점이 필요해요"
         />
       );
-    return <ConnectTheDotsPlayer {...commonProps} gameData={gameData} />;
+    return gate(
+      'connect-the-dots',
+      gameData,
+      <ConnectTheDotsPlayer {...commonProps} gameData={gameData} />
+    );
   }
 
   return <ActivityUnavailable activity={activity} onBack={backToUnit} reason="아직 준비 중" />;

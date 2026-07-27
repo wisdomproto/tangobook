@@ -1,4 +1,6 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, type ReactNode } from 'react';
+import type { GameTypeId } from '@tangobook/shared';
+import { PhonicsGameGate } from './PhonicsGameGate';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getActivityPlan, getKoreanUnit, type ActivityDef } from '../lib/korean-phonics-units';
 import { markActivityCompleted } from '../lib/progress-store';
@@ -364,13 +366,31 @@ export default function KoreanPhonicsActivityPage() {
     onBack: backToUnit,
   };
 
+  // 🔴 게임은 **진입 게이트**로 감싼다 — 동화 게임과 같은 방식으로 이번 판 자산을 다 데운 뒤 시작한다.
+  //    `game` 은 활동 kind 가 아니라 수집기가 아는 게임 id 다(어긋나면 정답 TTS 가 조용히 안 데워진다).
+  const gate = (game: GameTypeId, gameData: object, node: ReactNode) => (
+    <PhonicsGameGate
+      game={game}
+      gameData={gameData as { type: string; items?: Array<Record<string, unknown>> }}
+      storybook={storybook}
+      storybookId={unitId}
+      lang="ko"
+    >
+      {node}
+    </PhonicsGameGate>
+  );
+
   if (activity.kind === 'game-korean-block') {
     const gameData = phonicsToKoreanBlockData(storybook);
     if (!gameData)
       return (
         <ActivityUnavailable activity={activity} onBack={backToUnit} reason="단어가 부족해요" />
       );
-    return <KoreanBlockPlayer {...commonProps} gameData={gameData} />;
+    return gate(
+      'korean-block',
+      gameData,
+      <KoreanBlockPlayer {...commonProps} gameData={gameData} />
+    );
   }
   if (activity.kind === 'game-word-writing') {
     const gameData = phonicsToWordWritingData(storybook);
@@ -378,7 +398,11 @@ export default function KoreanPhonicsActivityPage() {
       return (
         <ActivityUnavailable activity={activity} onBack={backToUnit} reason="단어가 부족해요" />
       );
-    return <KoreanWordWritingPlayer {...commonProps} gameData={gameData} />;
+    return gate(
+      'korean-word-writing',
+      gameData,
+      <KoreanWordWritingPlayer {...commonProps} gameData={gameData} />
+    );
   }
   if (activity.kind === 'game-line-matching') {
     const gameData = phonicsToLineMatchingData(storybook);
@@ -390,7 +414,11 @@ export default function KoreanPhonicsActivityPage() {
           reason="단어 그림이 필요해요"
         />
       );
-    return <LineMatchingPlayer {...commonProps} gameData={gameData} lang="ko" />;
+    return gate(
+      'korean-line-matching',
+      gameData,
+      <LineMatchingPlayer {...commonProps} gameData={gameData} lang="ko" />
+    );
   }
   if (activity.kind === 'game-connect-dots') {
     const gameData = phonicsToConnectTheDotsData(storybook);
@@ -402,7 +430,11 @@ export default function KoreanPhonicsActivityPage() {
           reason="단어 그림과 점이 필요해요"
         />
       );
-    return <ConnectTheDotsPlayer {...commonProps} gameData={gameData} />;
+    return gate(
+      'connect-the-dots',
+      gameData,
+      <ConnectTheDotsPlayer {...commonProps} gameData={gameData} />
+    );
   }
 
   return <ActivityUnavailable activity={activity} onBack={backToUnit} reason="아직 준비 중" />;

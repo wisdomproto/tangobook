@@ -3,7 +3,6 @@ import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
-import { playUi } from '@/lib/uiSound';
 
 export interface ListenChoice {
   /** 보기 라벨 — 단어(고기) 또는 알파벳(Aa) */
@@ -281,13 +280,9 @@ export function WordListenChooseActivity({
           {(exploring ? board : quizBoard).map((c) => (
             <button
               key={c.label}
-              onClick={() => {
-                // 탐색은 누르는 맛이 전부다 — 탭음으로 카드가 반응한다는 걸 알린다.
-                if (exploring) {
-                  playUi('tap');
-                  say(c);
-                } else handlePick(c);
-              }}
+              // 🔴 탭음을 여기서 내지 않는다 — `GlobalUiSound` 위임 리스너가 **모든 버튼에 자동**으로
+              //    붙인다. 직접 부르면 한 번 눌렀는데 두 번 난다(내가 낸 버그).
+              onClick={() => (exploring ? say(c) : handlePick(c))}
               aria-label={c.label}
               // 안내 음성 중엔 못 누른다 — 문제를 듣기도 전에 찍고 지나가는 걸 막는다.
               disabled={done || starting}

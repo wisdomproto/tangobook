@@ -1,10 +1,10 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
-import { buildBlendPairs, pickRandom } from '../lib/blend-pairs';
+import { buildBlendPairs, pickRandom, stacksVertically } from '../lib/blend-pairs';
 
 interface Props {
   unitId: string;
@@ -26,8 +26,19 @@ const SYLLABLES = 3;
 const GAPS = ['min(7vw, 8rem)', 'min(2vw, 2rem)', '0px'] as const;
 /** 받침은 위·아래로 모인다(아+ㅇ=앙) — 세로라 높이 기준 값이 따로 필요하다. */
 const CODA_GAPS = ['min(9vh, 5rem)', 'min(3vh, 1.5rem)', '0px'] as const;
-/** 받침 모드의 두 칸 공통 폭 — 주어진 판과 쓰는 칸이 같은 크기여야 한 글자로 읽힌다. */
+/**
+ * 두 칸의 **공통 폭**. 대기 칸과 캔버스가 같은 크기여야 한 글자로 읽힌다.
+ *
+ * 🔴 캔버스는 자체 `max-w-sm`(384px)이라 그냥 두면 대기 칸(176px)의 두 배가 된다.
+ *    받침(세로)만 고쳐놨더니 자음(가로)에 그대로 남아 있었다 — 두 모드 다 묶는다.
+ * 가로로 나란한 자음은 두 칸이 한 줄에 들어가야 해서 세로보다 좁다.
+ */
 const CODA_TILE = 'w-[min(46vw,26vh)] max-w-52';
+const ROW_TILE = 'w-[min(38vw,24vh)] max-w-44';
+/** 두 글자가 미끄러져 붙는 시간. CSS `duration-500` 과 맞춘다 — 어긋나면 붙기 전에 합쳐진 글자가 뜬다. */
+const CLOSE_MS = 500;
+/** 합쳐진 글자가 뜬 뒤 읽기까지의 쉼 — 붙자마자 소리가 나면 눈이 따라가기 전에 지나간다. */
+const MERGE_REST_MS = 550;
 const WRITE_ROUNDS = 2; // 쓰는 라운드 수(멀리·가까이). 마지막 붙는 건 자동.
 
 /**
@@ -68,11 +79,31 @@ export function ConsonantWriteActivity({
   const [step, setStep] = useState<0 | 1>(0); // 지금 쓸 칸
   const [madeSet, setMade] = useState<ReadonlySet<number>>(() => new Set());
   const [completed, setCompleted] = useState(false);
+  // 붙는 애니메이션·쉼 타이머 — 도중에 나가면 빈 화면에서 소리가 울린다.
+  const closeTimer = useRef<number | null>(null);
+  const restTimer = useRef<number | null>(null);
+  useEffect(
+    () => () => {
+      if (closeTimer.current) clearTimeout(closeTimer.current);
+      if (restTimer.current) clearTimeout(restTimer.current);
+    },
+    []
+  );
 
   const pair = pairs[idx];
-  // 받침은 한 번만 쓰면 합쳐진다 — 자음처럼 [멀리·가까이] 두 번 쓰지 않는다.
+  // 받침은 한 번만 쓰면 된다 — 자음처럼 [멀리·가까이] 두 번 쓰지 않는다.
   const writeRounds = isCoda ? 1 : WRITE_ROUNDS;
-  const merging = round >= writeRounds;
+  /**
+   * 🔴 받침은 쓰기 뒤에 **붙는 과정을 보여주는 단계**가 하나 더 있다.
+   *   round 0 = 쓰는 중 · round 1 = 두 글자가 미끄러져 붙는 중 · round 2 = 합쳐진 음절
+   * 예전엔 다 칠하자마자 `강` 으로 갈아치워서 **가까워지는 게 아예 안 보였다** —
+   * 받침이 "어디에 어떻게 붙는지"가 이 단원의 전부인데 그 순간을 건너뛴 셈이다.
+   */
+  const closing = isCoda && round === 1;
+  const merging = isCoda ? round >= 2 : round >= writeRounds;
+  /** 위·아래로 모이는가 — 받침이거나 수직 모음(ㅗㅛㅜㅠㅡ)이면 세로. 방향은 글자가 정한다. */
+  const vertical = isCoda || stacksVertically(pair);
+  const tile = vertical ? CODA_TILE : ROW_TILE;
 
   const goTo = useCallback((i: number) => {
     setIdx(i);
@@ -113,7 +144,8 @@ export function ConsonantWriteActivity({
 
   const handleResult = useCallback(
     (passed: boolean) => {
-      if (!passed || completed || merging || !pair) return;
+      // 붙는 중(closing)에도 막는다 — 캔버스가 아직 살아 있으면 한 번 더 통과가 들어온다.
+      if (!passed || completed || merging || closing || !pair) return;
 
       // 만든 음절을 기록하고 아직 안 만든 다음 것으로 (목록에서 건너뛰며 골랐을 수 있다).
       const finishSyllable = (read: string) => {
@@ -135,10 +167,18 @@ export function ConsonantWriteActivity({
       // 🔴 받침은 **받침 한 칸만** 쓴다 — 앞 음절(가)은 이미 주어져 있고, 이 단원이 가르치는 건
       //    받침이다. 다 칠하면 합쳐진 음절(강)을 그대로 읽어준다.
       if (isCoda) {
+        // 붙는 중(round 1) → 다 붙으면 합쳐진 글자(round 2) → 좀 쉬고 읽기.
+        // 🔴 소리를 붙는 도중에 내지 않는다 — 눈으로 붙는 걸 보고 나서 그 소리를 들어야 이어진다.
         setRound(1);
-        // 합쳐진 음절만 읽지 않고 **이어 읽는다**(나 · 으 · 낭) — 받침이 어떻게 붙어 그 소리가
-        // 됐는지가 들려야 한다. 음절 만들기와 같은 형식.
-        finishSyllable(`${pair.first} ${pair.secondSound} ${pair.syllable}`);
+        closeTimer.current = window.setTimeout(() => {
+          setRound(2);
+          // 합쳐진 음절만이 아니라 **이어 읽는다**(가 · 으 · 강) — 받침이 어떻게 붙어 그 소리가
+          // 됐는지가 들려야 한다. 음절 만들기와 같은 형식.
+          restTimer.current = window.setTimeout(
+            () => finishSyllable(`${pair.first} ${pair.secondSound} ${pair.syllable}`),
+            MERGE_REST_MS
+          );
+        }, CLOSE_MS);
         return;
       }
 
@@ -160,6 +200,7 @@ export function ConsonantWriteActivity({
     [
       completed,
       merging,
+      closing,
       pair,
       step,
       round,
@@ -285,19 +326,29 @@ export function ConsonantWriteActivity({
               //    그냥 두면 주어진 판(176px)의 두 배가 되어, 위아래가 한 글자로 안 보인다.
               <>
                 <div
-                  className={`shrink-0 ${CODA_TILE} aspect-square rounded-3xl border-[5px] border-white bg-white/70 flex items-center justify-center font-black text-coral-400 text-5xl sm:text-7xl shadow-soft`}
+                  className={`shrink-0 ${tile} aspect-square rounded-3xl border-[5px] border-white bg-white/70 flex items-center justify-center font-black text-coral-400 text-5xl sm:text-7xl shadow-soft`}
                 >
                   {pair.first}
                 </div>
-                <div className={`shrink-0 ${CODA_TILE}`}>
-                  <LetterFillCanvas
-                    key={`${pair.syllable}-coda`}
-                    letter={pair.second}
-                    onResult={handleResult}
-                    autoCheck
-                    threshold={0.95}
-                  />
-                </div>
+                {/* 🔴 붙는 동안엔 캔버스를 **판으로 바꾼다** — 그대로 두면 미끄러지는 중에도 계속
+                    칠할 수 있고, 다 칠한 글자가 아니라 빈 가이드가 붙는 것처럼 보인다. */}
+                {closing ? (
+                  <div
+                    className={`shrink-0 ${tile} aspect-square rounded-3xl border-[5px] border-mint-500 bg-mint-100 flex items-center justify-center font-black text-mint-700 text-5xl sm:text-7xl shadow-pop`}
+                  >
+                    {pair.second}
+                  </div>
+                ) : (
+                  <div className={`shrink-0 ${tile}`}>
+                    <LetterFillCanvas
+                      key={`${pair.syllable}-coda`}
+                      letter={pair.second}
+                      onResult={handleResult}
+                      autoCheck
+                      threshold={0.95}
+                    />
+                  </div>
+                )}
               </>
             ) : (
               // 🔴 지금 쓸 칸만 캔버스로 살아 있고, 옆 칸은 글자를 보여주는 판이다.
@@ -306,19 +357,22 @@ export function ConsonantWriteActivity({
                 const letter = which === 0 ? pair.first : pair.second;
                 if (which === step) {
                   return (
-                    <LetterFillCanvas
-                      key={`${pair.syllable}-${round}-${which}`}
-                      letter={letter}
-                      onResult={handleResult}
-                      autoCheck
-                      threshold={0.95}
-                    />
+                    // 🔴 캔버스도 대기 칸과 **같은 폭**으로 묶는다 — 안 묶으면 자체 max-w-sm(384px)이라
+                    //    대기 칸(176px)의 두 배가 되어 두 글자 크기가 제각각으로 보인다.
+                    <div key={`${pair.syllable}-${round}-${which}`} className={`shrink-0 ${tile}`}>
+                      <LetterFillCanvas
+                        letter={letter}
+                        onResult={handleResult}
+                        autoCheck
+                        threshold={0.95}
+                      />
+                    </div>
                   );
                 }
                 return (
                   <div
                     key={`${pair.syllable}-${which}-idle`}
-                    className="shrink-0 w-[18vw] h-[18vw] max-w-44 max-h-44 sm:w-44 sm:h-44 rounded-3xl border-[5px] border-white bg-white/70 flex items-center justify-center font-black text-coral-400 text-4xl sm:text-7xl shadow-soft"
+                    className={`shrink-0 ${tile} aspect-square rounded-3xl border-[5px] border-white bg-white/70 flex items-center justify-center font-black text-coral-400 text-5xl sm:text-7xl shadow-soft`}
                   >
                     {letter}
                   </div>
