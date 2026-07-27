@@ -53,7 +53,8 @@ export function VowelListenActivity({
   usePhonicsTtsWarm(
     unitId,
     vowels.map((v) => v.sound ?? v.vowel),
-    'phonics-vowel'
+    'phonics-vowel',
+    language
   );
 
   const [phase, setPhase] = useState<'listen' | 'quiz' | 'done'>('listen');

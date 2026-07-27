@@ -8,7 +8,14 @@
     "metaStreak": "🔥 {{streak}}-day streak",
     "today": "Today",
     "readOn": "Read on {{label}}",
-    "notReadOn": "Not read on {{label}}"
+    "notReadOn": "Not read on {{label}}",
+    "todayWithBook": "Read “{{title}}” today · {{minutes}} min",
+    "todayMinutes": "Read {{minutes}} min today",
+    "todayNone": "Nothing yet today",
+    "subUp": "{{delta}} more than last week 👏",
+    "subSame": "About the same as last week",
+    "subDown": "A quieter week",
+    "metaBooks": "📚 {{count}} books this week"
   },
   "recentBooks": {
     "title": "Books Read",

@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import type { Lang, LearningEvent, StorybookSummary } from '@tangobook/shared';
 import {
+  kstDateKey,
   booksThisWeek,
   completedBooks,
   computeStreak,
@@ -40,6 +41,23 @@ export function StorybookReportSection({ events, storybooks, lang }: Props) {
   const streak = computeStreak(relevant, now);
   const days = weekActivity(relevant, now);
 
+  // 오늘 — 부모가 제일 먼저 묻는 것. 같은 7일 창 계산을 하루로 좁히면 된다.
+  const todayKey = kstDateKey(now.toISOString());
+  const todayEvents = relevant.filter((e) => kstDateKey(e.created_at) === todayKey);
+  const todayMinutes = todayEvents.length > 0 ? estimateReadingMinutes(todayEvents) : 0;
+  const todayBookId = [...todayEvents]
+    .reverse()
+    .find((e) => e.event_type === 'page_read' && e.storybook_id)?.storybook_id;
+  const todayBookTitle = todayBookId
+    ? storybooks.find((s) => s.id === todayBookId)?.title
+    : undefined;
+  // 지난주(7~14일 전) — 이번 주가 는 건지 준 건지 견줄 기준.
+  const prevWeekBooks = booksThisWeek(
+    relevant.filter((e) => Date.parse(e.created_at) < now.getTime() - WEEK_MS),
+    new Date(now.getTime() - WEEK_MS),
+    lang
+  );
+
   // 읽은 책 스트립 — 완독 여부와 무관하게 만난 책 전부 (완독은 리본으로 표시)
   const recent = recentBooks(relevant);
   const completed = new Map(completedBooks(relevant).map((c) => [c.storybookId, c]));
@@ -52,7 +70,15 @@ export function StorybookReportSection({ events, storybooks, lang }: Props) {
   return (
     <div className="space-y-5">
       {/* 히어로 — 호리 + 이번 주 한 줄 + 읽기 리듬 도트 */}
-      <WeeklyHeroCard weekBooks={weekBooks} weekMinutes={weekMinutes} streak={streak} days={days} />
+      <WeeklyHeroCard
+        todayMinutes={todayMinutes}
+        {...(todayBookTitle ? { todayBookTitle } : {})}
+        prevWeekBooks={prevWeekBooks}
+        weekBooks={weekBooks}
+        weekMinutes={weekMinutes}
+        streak={streak}
+        days={days}
+      />
 
       {/* 읽은 책 표지 스트립 */}
       <RecentBooksStrip items={recent} completed={completed} storybooks={storybooks} />

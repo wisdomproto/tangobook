@@ -152,16 +152,20 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
    * 🔴 첫 진입에만 **안내 음성 → 쉼 → 글자 소리**. 글자를 바꿀 땐 글자 소리만.
    */
   const guidedRef = useRef(false);
+  // 🔴 `blending` 은 storybook refetch 마다 **새 객체**라 의존성에 넣으면 창 포커스만 돌아와도
+  //    글자 소리가 저절로 났다. 값은 ref 로 읽고, 다시 낼 조건은 **글자가 바뀐 것뿐**이다.
+  const blendingRef = useRef(blending);
+  blendingRef.current = blending;
   useEffect(() => {
-    if (!blending) return;
+    if (!blendingRef.current) return;
     if (guidedRef.current) {
       sayLetter();
       return;
     }
     guidedRef.current = true;
     playAudio(GUIDE_VOICE, () => scheduleTimer(sayLetter, REST_MS));
-    // 의존성은 **글자**만 — sayLetter/playAudio 를 넣으면 sb 갱신마다 소리가 다시 난다.
-  }, [currentIdx, blending]);
+    // 의존성은 **글자 인덱스**만.
+  }, [currentIdx]);
 
   /**
    * 한 글자를 다 눌러보면 완료. 🔴 핫스팟이 없는 글자는 세지 않는다 —

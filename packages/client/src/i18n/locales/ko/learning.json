@@ -8,7 +8,14 @@
     "metaStreak": "🔥 연속 {{streak}}일",
     "today": "오늘",
     "readOn": "{{label}}요일 읽음",
-    "notReadOn": "{{label}}요일 안 읽음"
+    "notReadOn": "{{label}}요일 안 읽음",
+    "todayWithBook": "오늘 『{{title}}』을 읽었어요 · {{minutes}}분",
+    "todayMinutes": "오늘 {{minutes}}분 읽었어요",
+    "todayNone": "오늘은 아직이에요",
+    "subUp": "지난주보다 {{delta}}권 늘었어요 👏",
+    "subSame": "지난주와 비슷해요",
+    "subDown": "이번 주는 조금 쉬어갔어요",
+    "metaBooks": "📚 이번 주 {{count}}권"
   },
   "recentBooks": {
     "title": "읽은 책",

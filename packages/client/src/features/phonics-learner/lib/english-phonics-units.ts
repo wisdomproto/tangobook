@@ -333,7 +333,9 @@ function reviewCardsFor(unitId: string): ReviewCard[] {
     return patterns.map((p) => ({
       unitId,
       letter: p.vc,
-      syllable: '',
+      // 🔴 빈 문자열이면 안 된다 — 보기 라벨이자 카드 식별자로 쓰여서, 넷 다 '' 이면
+      //    어느 카드를 눌러도 정답이 된다(빈 카드 4장 + React 중복 key).
+      syllable: p.vc,
       sound: p.vc,
       matchPosition: 'cho' as const,
     }));

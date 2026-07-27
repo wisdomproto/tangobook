@@ -8,7 +8,14 @@
     "metaStreak": "🔥 连续 {{streak}} 天",
     "today": "今天",
     "readOn": "周{{label}}读过",
-    "notReadOn": "周{{label}}没读"
+    "notReadOn": "周{{label}}没读",
+    "todayWithBook": "今天读了《{{title}}》· {{minutes}} 分钟",
+    "todayMinutes": "今天读了 {{minutes}} 分钟",
+    "todayNone": "今天还没有读",
+    "subUp": "比上周多 {{delta}} 本 👏",
+    "subSame": "和上周差不多",
+    "subDown": "这周稍微少一些",
+    "metaBooks": "📚 本周 {{count}} 本"
   },
   "recentBooks": {
     "title": "读过的绘本",

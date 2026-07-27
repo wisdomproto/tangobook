@@ -262,7 +262,7 @@ export function WordListenChooseActivity({
               <div className="flex gap-2">
                 {questions.map((q, i) => (
                   <span
-                    key={q.answer.label}
+                    key={idOf(q.answer)}
                     className={[
                       'w-3.5 h-3.5 rounded-full transition',
                       i < qIdx ? 'bg-mint-500' : i === qIdx ? 'bg-coral-500' : 'bg-white',
@@ -296,7 +296,12 @@ export function WordListenChooseActivity({
         <div
           className={[
             'grid justify-center gap-4 sm:gap-6 w-full px-2',
-            board.length > 4 ? 'grid-cols-3 max-w-3xl' : 'grid-cols-2 max-w-xl',
+            // 🔴 8장(4글자 단원 × 2낱말)을 3열로 두면 세 줄이라 아래가 화면 밖으로 밀린다.
+            board.length > 6
+              ? 'grid-cols-4 max-w-4xl'
+              : board.length > 4
+                ? 'grid-cols-3 max-w-3xl'
+                : 'grid-cols-2 max-w-xl',
           ].join(' ')}
         >
           {(exploring ? board : quizBoard).map((c) => (

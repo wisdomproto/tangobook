@@ -8,7 +8,14 @@
     "metaStreak": "🔥 Liên tục {{streak}} ngày",
     "today": "Hôm nay",
     "readOn": "Đọc vào thứ {{label}}",
-    "notReadOn": "Không đọc vào thứ {{label}}"
+    "notReadOn": "Không đọc vào thứ {{label}}",
+    "todayWithBook": "Hôm nay đã đọc “{{title}}” · {{minutes}} phút",
+    "todayMinutes": "Hôm nay đã đọc {{minutes}} phút",
+    "todayNone": "Hôm nay chưa đọc",
+    "subUp": "Nhiều hơn tuần trước {{delta}} cuốn 👏",
+    "subSame": "Gần như tuần trước",
+    "subDown": "Tuần này nghỉ một chút",
+    "metaBooks": "📚 {{count}} cuốn tuần này"
   },
   "recentBooks": {
     "title": "Sách đã đọc",

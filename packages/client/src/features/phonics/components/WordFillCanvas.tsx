@@ -55,6 +55,11 @@ export function WordFillCanvas({
   // 각 음절의 x 열 범위 [start, end] (canvas 좌표) + 가이드 픽셀 수(분모).
   const rangesRef = useRef<Array<{ start: number; end: number; guide: number }>>([]);
   const doneRef = useRef<boolean[]>([]);
+  /**
+   * 🔴 `onComplete` 는 **한 번만** — `evaluate()` 가 획을 뗄 때마다 다시 불려서, 마지막 획에서
+   *    move + up 으로 두 번 확정됐다. 호출부가 "다음 카드로" 를 걸어두면 카드가 한 장씩 건너뛴다.
+   */
+  const completedRef = useRef(false);
   const [doneCount, setDoneCount] = useState(0);
   // 하이라이트를 그리려면 렌더가 범위를 알아야 한다 — ref 와 같은 값을 state 로도 둔다.
   const [ranges, setRanges] = useState<Array<{ start: number; end: number }>>([]);
@@ -177,7 +182,10 @@ export function WordFillCanvas({
         onSyllableDone?.(syllables[i], i);
       }
     }
-    if (doneRef.current.every(Boolean)) onComplete?.();
+    if (doneRef.current.every(Boolean) && !completedRef.current) {
+      completedRef.current = true;
+      onComplete?.();
+    }
   }, [syllables, threshold, onSyllableDone, onComplete]);
 
   const toCanvas = (e: ReactPointerEvent<HTMLCanvasElement>) => {

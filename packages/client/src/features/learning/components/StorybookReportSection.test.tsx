@@ -119,8 +119,9 @@ describe('StorybookReportSection', () => {
       }),
     ];
     renderSection(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
-    expect(screen.getByText('이번 주 책 1권을 만났어요!')).toBeInTheDocument();
-    expect(screen.getByText('오늘')).toBeInTheDocument(); // 주간 도트
+    // 🔴 오늘 이벤트이므로 헤드라인은 **오늘** 기준이고, 주간 수치는 메타 줄로 내려간다.
+    expect(screen.getAllByText(/오늘/).length).toBeGreaterThan(0);
+    expect(screen.getByText(/이번 주 1권/)).toBeInTheDocument();
   });
 
   it('renders encouraging hero when no activity this week', () => {

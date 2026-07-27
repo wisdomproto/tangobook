@@ -39,7 +39,8 @@ export function ReviewWriteActivity({
   usePhonicsTtsWarm(
     unitId,
     sources.map((s) => s.word),
-    'review-write'
+    'review-write',
+    language
   );
 
   const current = sources[idx];

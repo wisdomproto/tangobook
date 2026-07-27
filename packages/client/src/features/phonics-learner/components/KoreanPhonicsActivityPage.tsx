@@ -1,4 +1,4 @@
-import { useCallback, useMemo, type ReactNode } from 'react';
+import { useCallback, useMemo, type ReactNode, useRef } from 'react';
 import type { GameTypeId } from '@tangobook/shared';
 import { PhonicsGameGate } from './PhonicsGameGate';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -15,6 +15,7 @@ import { ReviewFlipMatchActivity } from '../activities/ReviewFlipMatchActivity';
 import { WordListenChooseActivity } from '../activities/WordListenChooseActivity';
 import { useReviewCardSources } from '../hooks/useReviewCardSources';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
+import { useLogEvent } from '@/features/learning/hooks/useLogEvent';
 import { KoreanBlockPlayer } from '@/features/games/components/players/KoreanBlockPlayer';
 import { KoreanWordWritingPlayer } from '@/features/games/components/players/KoreanWordWritingPlayer';
 import { LineMatchingPlayer } from '@/features/games/components/players/LineMatchingPlayer';
@@ -59,20 +60,54 @@ export default function KoreanPhonicsActivityPage() {
   const reviewCards = useMemo(() => activity?.reviewCards ?? [], [activity]);
   const { sources: reviewSources, isLoading: reviewLoading } = useReviewCardSources(reviewCards);
 
+  /**
+   * 🔴 게임 데이터는 **한 번만 뽑는다** — 어댑터가 내부에서 `shuffle().slice(0,4)` 를 해서,
+   *    렌더할 때마다 새로 부르면 다른 단어가 뽑힌다. 그러면 진입 게이트의 자산 키가 바뀌어
+   *    **게임 도중에 로딩 화면이 다시 뜨고 판이 리셋**된다(창 포커스 복귀 시 refetch 로 재현).
+   */
+  const gameMemoRef = useRef<{ key: string; data: unknown } | null>(null);
+  const memoGame = <T,>(build: () => T): T => {
+    const key = `${unitId}:${activityKey}:${storybookQuery.dataUpdatedAt}`;
+    if (gameMemoRef.current?.key !== key) {
+      gameMemoRef.current = { key, data: build() };
+    }
+    return gameMemoRef.current.data as T;
+  };
+
   const backToUnit = useCallback(
     () => navigate(`/library/phonics/korean/${unitId}`),
     [navigate, unitId]
   );
 
+  /**
+   * 🔴 **활동을 마치면 학습 이벤트를 남긴다** (2026-07-27).
+   * 예전엔 파닉스 학습 화면이 이벤트를 **하나도** 안 보냈다. 진척은 localStorage 에만 쌓여서,
+   * 아이가 저녁 내내 파닉스를 해도 **부모 리포트의 파닉스 탭은 늘 0%** 였다 — 화면이 비는 게 아니라
+   * 없는 사실을 보고하고 있었던 것이라 더 나빴다.
+   * `phonics-progress.ts` 가 `page_read` 의 `storybook_id` 로 단원 진행을 세므로 그 형태로 남긴다.
+   * (음절·음소 정오답은 활동이 실제로 그걸 판정할 때 따로 남긴다 — 없는 정답을 지어내지 않는다.)
+   */
+  const logEvent = useLogEvent();
+  const logUnitProgress = useCallback(() => {
+    if (!unitId) return;
+    logEvent({
+      type: 'page_read',
+      storybookId: unitId,
+      metadata: { source: 'phonics', unitId, lang: 'ko' },
+    });
+  }, [logEvent, unitId]);
+
   const handleComplete = useCallback(() => {
     markActivityCompleted('korean', unitId, activityKey);
+    logUnitProgress();
     backToUnit();
-  }, [unitId, activityKey, backToUnit]);
+  }, [unitId, activityKey, backToUnit, logUnitProgress]);
 
   // 자동 back 없이 진척만 마킹 (activity 가 직접 retry/back UI 노출용)
   const handleMarkComplete = useCallback(() => {
     markActivityCompleted('korean', unitId, activityKey);
-  }, [unitId, activityKey]);
+    logUnitProgress();
+  }, [unitId, activityKey, logUnitProgress]);
 
   if (!unit || !activity) {
     return (
@@ -382,7 +417,7 @@ export default function KoreanPhonicsActivityPage() {
   );
 
   if (activity.kind === 'game-korean-block') {
-    const gameData = phonicsToKoreanBlockData(storybook);
+    const gameData = memoGame(() => phonicsToKoreanBlockData(storybook));
     if (!gameData)
       return (
         <ActivityUnavailable activity={activity} onBack={backToUnit} reason="단어가 부족해요" />
@@ -394,7 +429,7 @@ export default function KoreanPhonicsActivityPage() {
     );
   }
   if (activity.kind === 'game-word-writing') {
-    const gameData = phonicsToWordWritingData(storybook);
+    const gameData = memoGame(() => phonicsToWordWritingData(storybook));
     if (!gameData)
       return (
         <ActivityUnavailable activity={activity} onBack={backToUnit} reason="단어가 부족해요" />
@@ -422,7 +457,7 @@ export default function KoreanPhonicsActivityPage() {
     );
   }
   if (activity.kind === 'game-connect-dots') {
-    const gameData = phonicsToConnectTheDotsData(storybook);
+    const gameData = memoGame(() => phonicsToConnectTheDotsData(storybook));
     if (!gameData)
       return (
         <ActivityUnavailable

@@ -87,9 +87,12 @@ export function ReviewMazeActivity({
       const next = idx + 1;
       setStep(next);
       const stop = stops.get(idx);
+      const isLast = next >= path.length;
+      // 🔴 마지막 칸에서 딩동을 내지 않는다 — 바로 뒤 `playCorrectSequence` 가 같은 소리를
+      //    다시 내서 한 이벤트에 2발이 겹쳤다.
       if (stop) say(stop);
-      else playFeedbackSound(true);
-      if (next >= path.length) {
+      else if (!isLast) playFeedbackSound(true);
+      if (isLast) {
         setDone(true);
         playCorrectSequence({ language: language === 'english' ? 'en' : 'ko', onDone: onComplete });
       }

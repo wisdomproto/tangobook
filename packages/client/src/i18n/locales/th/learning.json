@@ -8,7 +8,14 @@
     "metaStreak": "🔥 ต่อเนื่อง {{streak}} วัน",
     "today": "วันนี้",
     "readOn": "อ่านวัน{{label}}",
-    "notReadOn": "ไม่ได้อ่านวัน{{label}}"
+    "notReadOn": "ไม่ได้อ่านวัน{{label}}",
+    "todayWithBook": "วันนี้อ่าน “{{title}}” · {{minutes}} นาที",
+    "todayMinutes": "วันนี้อ่าน {{minutes}} นาที",
+    "todayNone": "วันนี้ยังไม่ได้อ่าน",
+    "subUp": "มากกว่าสัปดาห์ก่อน {{delta}} เล่ม 👏",
+    "subSame": "พอ ๆ กับสัปดาห์ก่อน",
+    "subDown": "สัปดาห์นี้พักบ้าง",
+    "metaBooks": "📚 สัปดาห์นี้ {{count}} เล่ม"
   },
   "recentBooks": {
     "title": "หนังสือที่อ่านแล้ว",
