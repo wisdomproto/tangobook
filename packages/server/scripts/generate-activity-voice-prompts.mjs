@@ -31,6 +31,8 @@ const FORCE = args.flags.has('force');
 const PROMPTS = [
   { name: 'quiz-start-ko', text: '잘 듣고 맞춰봐!', language: 'korean' },
   { name: 'quiz-start-en', text: 'Listen carefully and choose!', language: 'english' },
+  // ABC 배우기 — 진입하면 화면이 통째로 무음이라 글을 못 읽는 아이가 뭘 할지 몰랐다.
+  { name: 'tap-sparkle-ko', text: '반짝이는 곳을 눌러봐!', language: 'korean' },
 ];
 
 async function generate({ name, text, language }) {

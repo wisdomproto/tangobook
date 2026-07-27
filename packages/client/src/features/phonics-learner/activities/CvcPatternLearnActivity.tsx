@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
@@ -60,6 +60,46 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
     [playAudio, unitId]
   );
 
+  /**
+   * 이 패턴(`_an`)을 쓰는 단어들 — Phase A 의 줄별 타겟이자 Phase B 의 행이다.
+   * 🔴 Phase A 핸들러가 의존성 배열에서 이걸 읽으므로 **핸들러보다 위에** 있어야 한다
+   *    (아래에 두면 렌더 시점에 TDZ 로 터진다).
+   */
+  const cvcWords = useMemo<CvcWord[]>(() => {
+    const sb = storybookQuery.data;
+    if (!sb) return [];
+    const expectedPattern = `_${pattern.vc}`;
+    const matches = (sb.flashcards ?? []).filter((f) => f.phonicPattern === expectedPattern);
+    return matches.slice(0, 4).map((f) => {
+      const word = f.word ?? '';
+      const consonantBefore = word.slice(0, Math.max(0, word.length - pattern.vc.length));
+      const out: CvcWord = { word, consonantBefore };
+      if (f.imageUrl) out.imageUrl = f.imageUrl;
+      if (f.sentence) out.sentence = f.sentence;
+      return out;
+    });
+  }, [storybookQuery.data, pattern.vc]);
+
+  /** Phase A 는 3줄이라 앞 3단어만 쓴다. */
+  const phaseAWords = useMemo(() => cvcWords.slice(0, PHASE_A_ROWS), [cvcWords]);
+
+  /**
+   * 🔴 소리와 소리 사이엔 쉼 — 콜백만 이으면 1~3ms 간격으로 붙어 한 덩어리로 들린다.
+   * 길이를 가정하는 setTimeout 이 아니라, 앞 소리가 **끝난 걸 확인한 뒤** 넣는 쉼이다.
+   */
+  const REST_MS = 420;
+  const restRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(
+    () => () => {
+      if (restRef.current) clearTimeout(restRef.current);
+    },
+    []
+  );
+  const rest = useCallback((fn: () => void) => {
+    if (restRef.current) clearTimeout(restRef.current);
+    restRef.current = setTimeout(fn, REST_MS);
+  }, []);
+
   const handlePhaseACell = useCallback(
     (row: number, col: number) => {
       if (phase !== 'A') return;
@@ -80,37 +120,25 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
       });
 
       const afterTts = () => {
-        if (willAllComplete) {
-          playAudio('/sounds/game/correct.mp3', () => {
-            playCorrectSequence({ language: 'en' });
-          });
-        } else if (willRowComplete) {
-          playAudio('/sounds/game/correct.mp3');
-        }
+        if (!willRowComplete) return;
+        // 행을 완성하면 그 줄의 타겟 단어가 오른쪽에 나타난다 — 띵동 뒤에 쉬고 그 단어를 읽는다.
+        // 🔴 `an` 만 세 줄 반복하면 무엇을 배우는 건지 안 보인다. 줄마다 다른 단어가 붙어야
+        //    "an 이 들어간 낱말"이 눈에 들어온다.
+        const word = phaseAWords[row]?.word;
+        playAudio('/sounds/game/correct.mp3', () => {
+          if (word) rest(() => playEnglish(word, willAllComplete ? afterWord : undefined));
+          else if (willAllComplete) afterWord();
+        });
       };
+      const afterWord = () => rest(() => playCorrectSequence({ language: 'en' }));
       playEnglish(text, afterTts);
     },
-    [phase, pattern, totalPhaseA, playEnglish, playAudio, playCorrectSequence]
+    [phase, pattern, totalPhaseA, phaseAWords, playEnglish, playAudio, playCorrectSequence, rest]
   );
 
   const phaseADone = phaseAPressed.size >= totalPhaseA;
 
-  // ── Phase B: 4 단어 ──
-  const cvcWords = useMemo<CvcWord[]>(() => {
-    const sb = storybookQuery.data;
-    if (!sb) return [];
-    const expectedPattern = `_${pattern.vc}`;
-    const matches = (sb.flashcards ?? []).filter((f) => f.phonicPattern === expectedPattern);
-    return matches.slice(0, 4).map((f) => {
-      const word = f.word ?? '';
-      const consonantBefore = word.slice(0, Math.max(0, word.length - pattern.vc.length));
-      const out: CvcWord = { word, consonantBefore };
-      if (f.imageUrl) out.imageUrl = f.imageUrl;
-      if (f.sentence) out.sentence = f.sentence;
-      return out;
-    });
-  }, [storybookQuery.data, pattern.vc]);
-
+  // ── Phase B: 4 단어 (`cvcWords` 는 위에서 만든다 — Phase A 도 쓴다) ──
   // 단어별 row 진척: Set<`${wordIdx}-${col}`> col: 0=c, 1=vc, 2=word
   const [phaseBPressed, setPhaseBPressed] = useState<Set<string>>(new Set());
   const totalPhaseB = cvcWords.length * 3;
@@ -344,6 +372,16 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
                   onClick={() => handlePhaseACell(r, 2)}
                   tone="right"
                 />
+                {/* 줄을 완성하면 그 줄의 타겟 단어가 여기 나타나며 읽어준다.
+                    🔴 **자리는 항상 차지한다** — 나타날 때 생기면 세 줄이 통째로 밀린다. */}
+                <PhaseAWordSlot
+                  word={phaseAWords[r]}
+                  revealed={[0, 1, 2].every((c) => phaseAPressed.has(`${r}-${c}`))}
+                  onClick={() => {
+                    const w = phaseAWords[r]?.word;
+                    if (w) playEnglish(w);
+                  }}
+                />
               </div>
             ))}
           </div>
@@ -542,6 +580,49 @@ function Connector({ char }: { char: '+' | '→' }) {
 }
 
 type CellTone = 'left' | 'middle' | 'right';
+
+/**
+ * Phase A 줄 끝의 타겟 단어 — 줄을 완성해야 보인다.
+ * 🔴 안 보일 때도 **자리를 지킨다**(`invisible`) — 나타날 때 줄이 밀리면 방금 누른 칸이 움직인다.
+ * 단어가 없는 줄(저작 데이터 부족)은 자리도 만들지 않는다.
+ */
+function PhaseAWordSlot({
+  word,
+  revealed,
+  onClick,
+}: {
+  word?: CvcWord;
+  revealed: boolean;
+  onClick: () => void;
+}) {
+  if (!word) return null;
+  return (
+    <button
+      type="button"
+      onClick={revealed ? onClick : undefined}
+      aria-hidden={!revealed}
+      className={`flex flex-col items-center gap-1 shrink-0 transition-opacity duration-300 ${
+        revealed ? 'opacity-100' : 'invisible opacity-0'
+      }`}
+    >
+      {word.imageUrl ? (
+        <img
+          src={word.imageUrl}
+          alt={word.word}
+          draggable={false}
+          className="h-[clamp(3.5rem,12vh,6.5rem)] w-[clamp(3.5rem,12vh,6.5rem)] rounded-3xl object-cover bg-white shadow-pop ring-4 ring-white"
+        />
+      ) : (
+        <span className="h-[clamp(3.5rem,12vh,6.5rem)] w-[clamp(3.5rem,12vh,6.5rem)] rounded-3xl bg-white shadow-pop ring-4 ring-white flex items-center justify-center text-4xl">
+          🔊
+        </span>
+      )}
+      <span className="font-display font-black text-ink-800 text-xl sm:text-2xl leading-none">
+        {word.word}
+      </span>
+    </button>
+  );
+}
 
 function Cell({
   label,
