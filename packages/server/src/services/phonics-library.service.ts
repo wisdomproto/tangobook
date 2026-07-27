@@ -154,6 +154,11 @@ async function downloadSound(token: string, language?: string): Promise<Buffer |
     const uniqueChars = Array.from(new Set(lower));
     if (uniqueChars.length === 1 && uniqueChars[0] !== lower) candidates.push(uniqueChars[0]);
   }
+  // 🔴 하이픈·아포스트로피는 떼고도 찾아본다 — 커리큘럼 표기와 라이브러리 표기가 갈리는 자리다.
+  //    `yo-yo` 가 라이브러리엔 `yoyo` 로 있어 TTS 생성이 통째로 실패했다. 위 분기는 `^[A-Za-z]+$`
+  //    라 하이픈이 든 토큰은 애초에 걸리지도 않았다.
+  const stripped = token.toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (stripped && stripped !== token && !candidates.includes(stripped)) candidates.push(stripped);
   const neutralized = neutralizeKoreanFinal(token);
   if (neutralized && neutralized !== token) candidates.push(neutralized);
 
