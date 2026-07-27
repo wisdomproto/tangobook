@@ -19,7 +19,8 @@ import { PlaylistCard } from './PlaylistCard';
  *     "여러 권 이어 듣기"를 쓰려면 백지에서 시작해야 했다.
  *   - 묶음은 저장하지 않고 현재 라이브러리 목록에서 파생한다(책이 빠져도 썩지 않음).
  *   - 내 세트와 카테고리 묶음은 **한 행에 함께** 흐른다: +만들기 카드(맨 앞, 로그인만) → 내 세트 → 묶음.
- *   - 기본 접힘(2026-07-24) — 검색/필터 아래 책 목록이 먼저 보이게, 헤더 탭으로 펼친다.
+ *   - 기본 펼침(2026-07-27) — 묶음이 카테고리 통째가 되면서 첫 화면에 보일 값이 생겼다.
+ *     (접힘 ↔ 펼침이 두 번 뒤집힌 자리다. 되돌리기 전에 묶음 크기부터 볼 것.)
  */
 export function PlaylistLibrarySection() {
   const { t, i18n } = useTranslation('library');
@@ -29,7 +30,9 @@ export function PlaylistLibrarySection() {
   const { data: books } = useStorybooks();
   const deletePlaylist = useDeletePlaylist();
   const catLabel = useCategoryLabel();
-  const [open, setOpen] = useState(false);
+  // 🔴 기본 펼침(2026-07-27). 접어뒀던 건 묶음이 3권짜리라 자리값을 못 했기 때문인데,
+  //    이제 카테고리 통째(최대 48권·2시간 35분)라 책 목록보다 먼저 보일 값이 있다.
+  const [open, setOpen] = useState(true);
 
   const bundles = useMemo(() => buildCategoryBundles(books ?? []), [books]);
 
