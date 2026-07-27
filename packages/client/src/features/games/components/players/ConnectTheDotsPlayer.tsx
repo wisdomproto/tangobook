@@ -145,6 +145,8 @@ function ConnectTheDotsPlayer({
   usePrewarmWordTts(prewarmItems, viewerLang === 'ko' ? 'korean' : 'english', storybookId, 'dot');
 
   const currentItem: ConnectTheDotsItem | undefined = items[itemIdx];
+  /** 완성 시 보여줄 낱말 — 발음과 같은 소스라 들리는 말과 항상 일치한다. */
+  const completedWord = resolveSpeakTarget(currentItem?.objectName)?.text;
 
   const sortedKps = useMemo(
     () => (currentItem ? [...currentItem.keypoints].sort((a, b) => a.order - b.order) : []),
@@ -484,8 +486,20 @@ function ConnectTheDotsPlayer({
         {/* 안내 텍스트 */}
         <div className="h-[clamp(2.5rem,8vh,4rem)] flex items-center justify-center shrink-0">
           {completed ? (
-            <p className="text-3xl sm:text-4xl font-black text-success">
-              🎉 {t('connectDots.done')}
+            // 🔴 다 칠하면 **그 낱말을 글자로도 보여준다** — 그림만 완성하고 끝나면 무엇을 그렸는지
+            //    귀로만 지나간다. 표기는 발음과 **같은 소스**(`resolveSpeakTarget`)를 써서
+            //    읽어주는 말과 보이는 글자가 어긋나지 않게 한다(vi/zh/th 는 번역 없으면 생략).
+            <p className="flex items-baseline gap-2 sm:gap-3">
+              <span className="text-3xl sm:text-4xl">🎉</span>
+              {completedWord ? (
+                <span className="text-4xl sm:text-5xl font-black text-success break-keep">
+                  {completedWord}
+                </span>
+              ) : (
+                <span className="text-3xl sm:text-4xl font-black text-success">
+                  {t('connectDots.done')}
+                </span>
+              )}
             </p>
           ) : (
             <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-ink-900 break-keep text-center px-4">
