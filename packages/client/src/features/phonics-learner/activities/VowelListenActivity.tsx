@@ -46,6 +46,8 @@ export function VowelListenActivity({
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
   /** 다음 문제로 넘어가기 전 쉼 — 소리가 끝난 걸 확인한 뒤 넣는다. */
   const advanceRef = useRef<number | null>(null);
+  /** 안내 음성이 나오는 동안 — 첫 문제는 그게 끝난 뒤에 낸다. */
+  const [starting, setStarting] = useState(false);
 
   // 진입하자마자 6개 모음 발음을 백그라운드로 준비 — 첫 탭이 기다리지 않게.
   usePhonicsTtsWarm(
@@ -118,17 +120,26 @@ export function VowelListenActivity({
     setQuizCurrent(indices[0]);
     setSolved(new Set());
     setPhase('quiz');
-  }, [vowels]);
+    // 🔴 첫 문제를 곧바로 내지 않는다 — 「퀴즈 시작」을 누른 순간 소리가 나면 아이는 그게
+    //    문제인 줄도 모른 채 흘려듣는다. 안내 음성이 끝나고 쉰 뒤에 첫 문제.
+    //    안내는 영어 단원에서도 한국어다(무엇을 하라는 말은 아이가 알아듣는 말이어야 한다).
+    setStarting(true);
+    playAudio('/sounds/voice/quiz-start-ko.mp3', () => {
+      if (advanceRef.current) clearTimeout(advanceRef.current);
+      advanceRef.current = window.setTimeout(() => setStarting(false), REST_MS);
+    });
+  }, [vowels, playAudio]);
 
   // 퀴즈 음원 자동 재생 (current 변경 시 한번)
   useEffect(() => {
-    if (phase !== 'quiz' || quizCurrent === null) return;
+    if (phase !== 'quiz' || starting || quizCurrent === null) return;
     playVowel(vowels[quizCurrent].sound ?? vowels[quizCurrent].vowel);
-  }, [phase, quizCurrent, vowels, playVowel]);
+  }, [phase, starting, quizCurrent, vowels, playVowel]);
 
   const handleQuizTap = useCallback(
     (idx: number) => {
       if (phase !== 'quiz' || quizCurrent === null) return;
+      if (starting) return; // 안내 음성 중에는 무시
       if (wrongIdx !== null) return; // shake 중에는 무시
       if (idx === quizCurrent) {
         setSolved((s) => new Set(s).add(idx));
@@ -157,6 +168,7 @@ export function VowelListenActivity({
     },
     [
       phase,
+      starting,
       quizCurrent,
       quizQueue,
       wrongIdx,
@@ -175,6 +187,7 @@ export function VowelListenActivity({
     setQuizCurrent(null);
     setWrongIdx(null);
     setSolved(new Set());
+    setStarting(false);
     setPhase('listen');
   }, []);
 
@@ -191,9 +204,9 @@ export function VowelListenActivity({
   const promptText = useMemo(() => {
     if (isListenPhase && !listenedAll) return '순서대로 눌러봐!';
     if (isListenPhase && listenedAll) return '잘했어! 이제 퀴즈를 풀어볼까?';
-    if (phase === 'quiz') return '🔊 들리는 소리를 골라봐!';
+    if (phase === 'quiz') return starting ? '🎧 잘 듣고 맞춰봐!' : '🔊 들리는 소리를 골라봐!';
     return '모두 맞췄어!';
-  }, [isListenPhase, listenedAll, phase]);
+  }, [isListenPhase, listenedAll, phase, starting]);
 
   return (
     <div
@@ -294,7 +307,7 @@ export function VowelListenActivity({
           </div>
         )}
 
-        {phase === 'quiz' && quizCurrent !== null && (
+        {phase === 'quiz' && !starting && quizCurrent !== null && (
           <button
             onClick={() => playVowel(vowels[quizCurrent].sound ?? vowels[quizCurrent].vowel)}
             className="px-6 py-3 rounded-full bg-white shadow-soft text-ink-700 font-black text-lg"

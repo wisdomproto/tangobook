@@ -37,6 +37,10 @@ describe('VowelListenActivity 퀴즈 오답', () => {
     cards().forEach((c) => fireEvent.click(c));
     fireEvent.click(await screen.findByRole('button', { name: /퀴즈 시작/ }));
 
+    // 🔴 첫 문제는 안내 음성("잘 듣고 맞춰봐!")이 끝난 뒤에 나온다 — 그동안은 탭도 안 받는다.
+    expect(screen.getByText(/잘 듣고 맞춰봐/)).toBeTruthy();
+    await screen.findByText(/들리는 소리를 골라봐/);
+
     fireEvent.click(cards()[0]); // 정답은 1 이므로 오답
 
     const [wrong, other] = cards();
