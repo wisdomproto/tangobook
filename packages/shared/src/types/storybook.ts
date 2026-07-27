@@ -433,6 +433,10 @@ export interface ConnectTheDotsItem {
   originalImageUrl: string;
   keypoints: DotKeypoint[];
   objectName?: string;
+  /** 알파벳 단원(영어 Book 1) — 완성 시 크게 보여줄 글자. 그 권의 학습 목표가 글자다. */
+  letter?: string;
+  /** 정답 음원 직행 URL. 알파벳 단원은 `b b book` 처럼 글자+낱말이 이어진 클립이다. */
+  ttsUrl?: string;
 }
 export interface ConnectTheDotsData {
   type: 'connect-the-dots';

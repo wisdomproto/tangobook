@@ -342,30 +342,62 @@ function reviewCardsFor(unitId: string): ReviewCard[] {
 }
 
 /**
- * 영어 복습 plan — **자산 없이 되는 2종만**.
+/**
+ * 영어 복습 plan — **한글과 같은 6종**.
  *
- * 🔴 짝 찾기(글자↔그림)는 넣지 않았다. 영어 단원은 flashcard 이미지가 아직 0장이라
- *    카드를 만들어봐야 "단어 그림이 필요해요" 로 끝난다. 그림이 생기면 그때 추가한다.
- * 🔴 쓰기는 그림 대신 **소리를 듣고 쓴다** — 자산이 없어서 택한 형태지만 파닉스로는 오히려 정공법이다.
+ * 🔴 예전엔 2종뿐이었다. 「영어는 flashcard 이미지가 0장」이라는 전제로 짠 건데,
+ *    2026-07-27 단어 카드 362장이 붙으면서 그 전제가 사라졌다(사용자: "a~f review 너무 뭐가 없는데?").
+ *    복습이 심심한 건 활동 가짓수가 아니라 **형식이 같아서**다 — 한글이 이미 푼 문제라 그 구성을 따른다.
+ * 🔴 순서는 듣기와 눈 활동을 번갈아 — 듣기 둘을 붙여 놓으면 한 활동을 두 번 하는 걸로 느낀다.
  */
 function makeEnglishReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
-  const shared = { required: true, reviewCards: cards } as const;
+  const shared = { required: true, reviewCards: cards, section: 'play' as const };
   return {
     activities: [
       {
-        key: 'review-listen',
+        key: 'review-maze',
         order: 1,
-        kind: 'review-listen',
-        section: 'learn',
-        title: '다시 듣기',
-        emoji: '👂',
+        kind: 'review-maze',
+        title: '길 따라가기',
+        emoji: '🌀',
+        ...shared,
+      },
+      {
+        key: 'review-flip',
+        order: 2,
+        kind: 'review-flip',
+        title: '뒤집기 짝 맞추기',
+        emoji: '🎴',
+        ...shared,
+      },
+      {
+        key: 'review-syllable-listen',
+        order: 3,
+        kind: 'review-syllable-listen',
+        title: '듣고 글자 맞추기',
+        emoji: '🎧',
+        ...shared,
+      },
+      {
+        key: 'review-match',
+        order: 4,
+        kind: 'review-match',
+        title: '짝 찾기',
+        emoji: '🔗',
+        ...shared,
+      },
+      {
+        key: 'review-word-listen',
+        order: 5,
+        kind: 'review-word-listen',
+        title: '듣고 단어 맞추기',
+        emoji: '🔊',
         ...shared,
       },
       {
         key: 'review-write',
-        order: 2,
+        order: 6,
         kind: 'review-write',
-        section: 'play',
         title: '글자 쓰기',
         emoji: '✏️',
         ...shared,

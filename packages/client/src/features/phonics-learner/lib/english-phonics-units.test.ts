@@ -40,11 +40,19 @@ describe('english phonics units', () => {
     }
   });
 
-  it('복습 활동은 글자만으로 도는 2종이고 카드는 8장을 넘지 않는다', () => {
+  // 🔴 예전엔 2종뿐이었다("영어는 그림이 0장"). 단어 카드가 붙은 뒤로는 한글과 같은 6종이다 —
+  //    복습이 심심한 건 가짓수가 아니라 형식이 같아서라, 형식이 다른 활동을 늘어놓는다.
+  it('복습 활동은 한글과 같은 6종이고 카드는 8장을 넘지 않는다', () => {
     for (const r of reviews) {
       const acts = getEnglishActivityPlan(r.id).activities;
-      // 🔴 짝 찾기 없음 — 영어는 단어 그림이 아직 0장이다
-      expect(acts.map((a) => a.kind)).toEqual(['review-listen', 'review-write']);
+      expect(acts.map((a) => a.kind)).toEqual([
+        'review-maze',
+        'review-flip',
+        'review-syllable-listen',
+        'review-match',
+        'review-word-listen',
+        'review-write',
+      ]);
       for (const a of acts) {
         expect(a.reviewCards!.length).toBeGreaterThan(0);
         expect(a.reviewCards!.length).toBeLessThanOrEqual(8);

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * 파닉스 음원 **wav → mp3** 일괄 변환 (멱등).
+ * 버킷 안의 **wav → mp3** 일괄 변환 (멱등).
  *
  * 🔴 왜: 저작도구가 만든 단어·글자 음원이 **무압축 wav 로 370KB** 씩이다. 아이가 카드를 처음 누르면
  *    그 순간 370KB 를 받느라 소리가 늦는다 — "첫 소리가 늦다"의 진짜 원인이 여기 있었다
@@ -11,29 +11,33 @@
  * 🔴 기존 wav 는 지우지 않는다(되돌릴 여지). 새 키는 확장자만 .mp3 로 바꾼 결정적 이름이라
  *    다시 돌려도 이미 있는 건 건너뛴다.
  *
- * 🔴 파닉스만이 아니라 **모든 책**을 훑는다 — 같은 저작도구가 동화책 쪽에도 wav 를 남긴다.
- *    `--type=phonics` 로 좁힐 수 있다.
+ * 🔴 책만 훑지 않는다 — **버킷의 모든 JSON**이 대상이다. 책 데이터를 다 고치고도 wav 582개가
+ *    남아 있었는데, 전부 `vocabulary-db.json` 한 곳이 쥐고 있었다. 어디에 적혀 있든 따라간다.
  *
  * 사용:
- *   node packages/server/scripts/convert-phonics-tts-to-mp3.mjs               # dry-run (전체)
- *   node packages/server/scripts/convert-phonics-tts-to-mp3.mjs --apply
- *   node packages/server/scripts/convert-phonics-tts-to-mp3.mjs --apply --only=en-b1-u01
+ *   node packages/server/scripts/convert-wav-to-mp3.mjs               # dry-run
+ *   node packages/server/scripts/convert-wav-to-mp3.mjs --apply
+ *   node packages/server/scripts/convert-wav-to-mp3.mjs --apply --only=vocabulary-db.json
  */
-import { S3Client, PutObjectCommand, HeadObjectCommand } from '@aws-sdk/client-s3';
+import {
+  S3Client,
+  PutObjectCommand,
+  HeadObjectCommand,
+  ListObjectsV2Command,
+  GetObjectCommand,
+} from '@aws-sdk/client-s3';
 import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { loadEnv, getStorybook, putStorybook, parseArgs } from './translation-core.mjs';
+import { loadEnv, parseArgs } from './translation-core.mjs';
 
 const require = createRequire(import.meta.url);
 const FFMPEG = require('ffmpeg-static');
 const args = parseArgs(process.argv.slice(2));
 const APPLY = args.flags.has('apply');
 const ONLY = args.only ? String(args.only) : null;
-const TYPE = args.type ? String(args.type) : null;
-const API = process.env.API_BASE || 'http://localhost:3500';
 
 loadEnv();
 const BUCKET = process.env.R2_BUCKET_NAME;
@@ -110,9 +114,35 @@ async function convert(wavUrl) {
   return { url, skipped: false, srcBytes: src.length, outBytes: out.length };
 }
 
-const list = await (await fetch(`${API}/api/storybooks`)).json();
-const books = list.data.filter((b) => (!TYPE || b.type === TYPE) && (!ONLY || b.id === ONLY));
-console.log(`Mode: ${APPLY ? '✏️  APPLY' : '👀 DRY-RUN'} · 책 ${books.length}권\n`);
+async function listJsonKeys() {
+  const keys = [];
+  let token;
+  do {
+    const res = await s3.send(new ListObjectsV2Command({ Bucket: BUCKET, ContinuationToken: token }));
+    for (const o of res.Contents ?? []) if (/\.json$/i.test(o.Key)) keys.push(o.Key);
+    token = res.IsTruncated ? res.NextContinuationToken : undefined;
+  } while (token);
+  return keys;
+}
+
+async function getJson(key) {
+  const res = await s3.send(new GetObjectCommand({ Bucket: BUCKET, Key: key }));
+  return JSON.parse(await res.Body.transformToString('utf-8'));
+}
+
+async function putJson(key, data) {
+  await s3.send(
+    new PutObjectCommand({
+      Bucket: BUCKET,
+      Key: key,
+      Body: JSON.stringify(data),
+      ContentType: 'application/json',
+    })
+  );
+}
+
+const jsonKeys = (await listJsonKeys()).filter((k) => !ONLY || k.includes(ONLY));
+console.log(`Mode: ${APPLY ? '✏️  APPLY' : '👀 DRY-RUN'} · json ${jsonKeys.length}개\n`);
 
 const converted = new Map(); // wavUrl → mp3Url
 let srcTotal = 0;
@@ -121,13 +151,17 @@ let failed = 0;
 let touchedBooks = 0;
 let fields = 0;
 
-for (const summary of books) {
-  const sb = await getStorybook(summary.id);
-  if (!sb) continue;
+for (const key of jsonKeys) {
+  let doc;
+  try {
+    doc = await getJson(key);
+  } catch {
+    continue; // 파싱 안 되는 파일은 건드리지 않는다
+  }
 
-  // 1) 이 책이 쓰는 wav 를 먼저 전부 변환 (중복 URL 은 한 번만)
+  // 1) 이 문서가 쓰는 wav 를 먼저 전부 변환 (중복 URL 은 한 번만)
   const wavs = new Set();
-  rewriteWavUrls(sb, (u) => {
+  rewriteWavUrls(doc, (u) => {
     wavs.add(u);
     return u;
   });
@@ -148,16 +182,13 @@ for (const summary of books) {
     }
   }
 
-  // 2) 책 안의 URL 교체
-  const n = rewriteWavUrls(sb, (u) => converted.get(u));
+  // 2) 문서 안의 URL 교체
+  const n = rewriteWavUrls(doc, (u) => converted.get(u));
   if (n === 0) continue;
   fields += n;
   touchedBooks++;
-  console.log(`[${summary.id}] ${n}곳 교체`);
-  if (APPLY) {
-    sb.updatedAt = new Date().toISOString();
-    await putStorybook(summary.id, sb);
-  }
+  console.log(`[${key}] ${n}곳 교체`);
+  if (APPLY) await putJson(key, doc);
 }
 
 fs.rmSync(TMP, { recursive: true, force: true });

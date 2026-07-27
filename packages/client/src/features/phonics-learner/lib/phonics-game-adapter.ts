@@ -92,11 +92,13 @@ export function phonicsToKoreanBlockData(sb: Storybook): KoreanBlockData | null 
 export function phonicsToWordWritingData(sb: Storybook): WordWritingData | null {
   const targetWords = sb.phonicsConfig?.targetWords ?? [];
   if (targetWords.length === 0) return null;
+  const alphabet = isAlphabetUnit(sb);
   const items: WordWritingItem[] = targetWords.map((w) => {
     const extra = findImageData(sb, w);
+    const target = alphabet ? (w[0] ?? w).toLowerCase() : w;
     return {
-      word: w,
-      displayWord: w,
+      word: target,
+      displayWord: target,
       ...(extra.imageUrl ? { imageUrl: extra.imageUrl } : {}),
       referenceImageUrl: extra.imageUrl ?? '', // 미사용 필드 (canvas 가이드는 텍스트로 직접 렌더)
       ...(extra.ttsUrl ? { ttsUrl: extra.ttsUrl } : {}),
@@ -152,6 +154,11 @@ export function phonicsToConnectTheDotsData(sb: Storybook): ConnectTheDotsData |
       originalImageUrl: extra.imageUrl,
       keypoints: extra.keypoints,
       objectName: w,
+      // 알파벳 단원은 완성했을 때 **글자**를 크게 보여주고 `b b book` 클립을 읽어준다.
+      ...(isAlphabetUnit(sb)
+        ? { letter: `${(w[0] ?? '').toUpperCase()}${(w[0] ?? '').toLowerCase()}` }
+        : {}),
+      ...(extra.ttsUrl ? { ttsUrl: extra.ttsUrl } : {}),
     });
   }
   if (candidates.length === 0) return null;
@@ -162,15 +169,26 @@ export function phonicsToConnectTheDotsData(sb: Storybook): ConnectTheDotsData |
 // 영어 파닉스 어댑터 — 영어 단어 (cat, fan, ...) 용
 // ──────────────────────────────────────────────────────────────────────────
 
+/**
+ * 🔴 **영어 Book 1 은 글자가 단위다** — 그 권의 학습 목표가 알파벳이라, 게임에서 `apple` 철자를
+ * 맞추거나 쓰게 하면 아직 못 하는 일을 시키는 셈이다. 블록은 한 칸, 쓰기는 한 글자, 짝 찾기는
+ * 그림↔글자로 맞춘다. 단어와 그림은 "무엇으로 시작하는지" 를 보여주는 맥락으로만 남는다.
+ */
+function isAlphabetUnit(sb: Storybook): boolean {
+  return /^en-b1-/.test(sb.id ?? '');
+}
+
 const ENGLISH_WORD_RE = /^[a-z]+$/i;
 const MAX_BLOCK_WORD_LEN = 6;
 
 export function phonicsToEnglishBlockData(sb: Storybook): EnglishBlockData | null {
   const targetWords = sb.phonicsConfig?.targetWords ?? [];
+  const alphabet = isAlphabetUnit(sb);
   const items: EnglishBlockItem[] = [];
   for (const w of targetWords) {
-    const word = w.toLowerCase().trim();
-    if (!ENGLISH_WORD_RE.test(word) || word.length > MAX_BLOCK_WORD_LEN) continue;
+    const full = w.toLowerCase().trim();
+    if (!ENGLISH_WORD_RE.test(full) || full.length > MAX_BLOCK_WORD_LEN) continue;
+    const word = alphabet ? full[0] : full;
     const extra = findImageData(sb, w);
     items.push({
       word,
@@ -187,11 +205,13 @@ export function phonicsToEnglishBlockData(sb: Storybook): EnglishBlockData | nul
 export function phonicsToEnglishWordWritingData(sb: Storybook): WordWritingData | null {
   const targetWords = sb.phonicsConfig?.targetWords ?? [];
   if (targetWords.length === 0) return null;
+  const alphabet = isAlphabetUnit(sb);
   const items: WordWritingItem[] = targetWords.map((w) => {
     const extra = findImageData(sb, w);
+    const target = alphabet ? (w[0] ?? w).toLowerCase() : w;
     return {
-      word: w,
-      displayWord: w,
+      word: target,
+      displayWord: target,
       ...(extra.imageUrl ? { imageUrl: extra.imageUrl } : {}),
       referenceImageUrl: extra.imageUrl ?? '',
       ...(extra.ttsUrl ? { ttsUrl: extra.ttsUrl } : {}),

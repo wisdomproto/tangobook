@@ -12,6 +12,9 @@ import { AlphabetLetterWriteActivity } from '../activities/AlphabetLetterWriteAc
 import { WordListenChooseActivity } from '../activities/WordListenChooseActivity';
 import { VowelListenActivity } from '../activities/VowelListenActivity';
 import { ReviewWriteActivity } from '../activities/ReviewWriteActivity';
+import { ReviewMazeActivity } from '../activities/ReviewMazeActivity';
+import { ReviewFlipMatchActivity } from '../activities/ReviewFlipMatchActivity';
+import { useReviewCardSources } from '../hooks/useReviewCardSources';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { EnglishBlockPlayer } from '@/features/games/components/players/EnglishBlockPlayer';
 import { EnglishWordWritingPlayer } from '@/features/games/components/players/EnglishWordWritingPlayer';
@@ -38,6 +41,9 @@ import type { Storybook } from '@tangobook/shared';
  *
  * 게임 데이터: storybook 의 `phonicsConfig.targetWords` (8개) 중 어댑터가 랜덤 4개.
  */
+/** 복습 듣기 보기 수 — 보기가 그림이 아니라 글자·낱말이라 학습 단원(4장)과 같게 둔다. */
+const REVIEW_CHOICES = 4;
+
 export default function EnglishPhonicsActivityPage() {
   const { unitId = '', activityKey = '' } = useParams<{ unitId: string; activityKey: string }>();
   const navigate = useNavigate();
@@ -47,6 +53,10 @@ export default function EnglishPhonicsActivityPage() {
     () => plan.activities.find((a) => a.key === activityKey),
     [plan, activityKey]
   );
+
+  // 복습은 되짚는 단원들의 그림·단어가 필요하다 (early return 앞에서 호출 — 훅 순서 고정).
+  const reviewCards = useMemo(() => activity?.reviewCards ?? [], [activity]);
+  const { sources: reviewSources, isLoading: reviewLoading } = useReviewCardSources(reviewCards);
 
   const storybookQuery = useStorybook(unitId);
   const storybook = storybookQuery.data as Storybook | undefined;
@@ -97,7 +107,96 @@ export default function EnglishPhonicsActivityPage() {
   }
 
   // ── 🏅 복습 액티비티 ──
-  // 🔴 영어 복습은 그림 자산이 없어 **글자만으로** 돈다 (짝 찾기 없음, 쓰기는 소리가 문제).
+  // 🔴 예전엔 「영어는 그림이 0장」이라 글자만으로 도는 2종뿐이었다. 단어 카드가 붙은 뒤로는
+  //    한글과 같은 6종을 돌린다(사용자: "a~f review 너무 뭐가 없는데?").
+
+  // 🎧 듣고 글자 맞추기 — 카드에 글자·발음이 들어 있어 storybook 을 안 기다린다.
+  if (activity.kind === 'review-syllable-listen' && activity.reviewCards?.length) {
+    return (
+      <WordListenChooseActivity
+        unitId={unitId}
+        language="english"
+        items={activity.reviewCards.map((c) => ({ label: c.syllable, sound: c.sound }))}
+        choices={REVIEW_CHOICES}
+        onMarkComplete={handleMarkComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+
+  if (
+    activity.kind === 'review-word-listen' ||
+    activity.kind === 'review-maze' ||
+    activity.kind === 'review-flip' ||
+    activity.kind === 'review-match'
+  ) {
+    if (reviewLoading) {
+      return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
+    }
+    const withImage = reviewSources.filter((s) => s.imageUrl);
+    if (withImage.length < 3) {
+      return (
+        <ActivityUnavailable
+          activity={activity}
+          onBack={backToUnit}
+          reason="단어 그림이 필요해요"
+        />
+      );
+    }
+    if (activity.kind === 'review-word-listen') {
+      return (
+        <WordListenChooseActivity
+          unitId={unitId}
+          language="english"
+          items={withImage.map((s) => ({
+            label: s.word,
+            sound: s.word,
+            ...(s.imageUrl ? { imageUrl: s.imageUrl } : {}),
+          }))}
+          choices={REVIEW_CHOICES}
+          onMarkComplete={handleMarkComplete}
+          onBack={backToUnit}
+        />
+      );
+    }
+    if (activity.kind === 'review-maze') {
+      return (
+        <ReviewMazeActivity
+          unitId={unitId}
+          sources={withImage}
+          onComplete={handleComplete}
+          onBack={backToUnit}
+        />
+      );
+    }
+    if (activity.kind === 'review-flip') {
+      return (
+        <ReviewFlipMatchActivity
+          unitId={unitId}
+          sources={withImage}
+          onComplete={handleComplete}
+          onBack={backToUnit}
+        />
+      );
+    }
+    return (
+      <LineMatchingPlayer
+        storybookId={unitId}
+        difficulty="easy"
+        onComplete={handleComplete}
+        onBack={backToUnit}
+        lang="en"
+        gameData={{
+          type: 'english-line-matching',
+          items: withImage.map((s) => ({
+            word: s.letter,
+            imageUrl: s.imageUrl,
+            imageLabel: s.word,
+          })),
+        }}
+      />
+    );
+  }
   if (activity.kind === 'review-listen' && activity.reviewCards?.length) {
     return (
       <VowelListenActivity
@@ -254,7 +353,8 @@ export default function EnglishPhonicsActivityPage() {
     return gate(
       'connect-the-dots',
       gameData,
-      <ConnectTheDotsPlayer {...commonProps} gameData={gameData} />
+      // 🔴 `lang` 을 안 주면 한국어로 읽는다 — 영어 단원인데 정답을 한글로 읽어주던 버그.
+      <ConnectTheDotsPlayer {...commonProps} gameData={gameData} lang="en" />
     );
   }
 
