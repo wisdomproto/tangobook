@@ -1,4 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
+/** 소리 사이 쉼 (ms). 콜백으로 끝을 확인한 뒤 넣는 것이라 길이 가정이 아니다. */
+const REST_MS = 420;
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
@@ -41,6 +44,8 @@ export function VowelListenActivity({
   onBack,
 }: Props) {
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
+  /** 다음 문제로 넘어가기 전 쉼 — 소리가 끝난 걸 확인한 뒤 넣는다. */
+  const advanceRef = useRef<number | null>(null);
 
   // 진입하자마자 6개 모음 발음을 백그라운드로 준비 — 첫 탭이 기다리지 않게.
   usePhonicsTtsWarm(
@@ -126,18 +131,22 @@ export function VowelListenActivity({
       if (phase !== 'quiz' || quizCurrent === null) return;
       if (wrongIdx !== null) return; // shake 중에는 무시
       if (idx === quizCurrent) {
-        playFeedbackSound(true);
         setSolved((s) => new Set(s).add(idx));
-        // 다음 문제로 진행
         if (quizQueue.length === 0) {
           // 퀴즈 끝 — 진척 마킹 + 칭찬. 자동 back 없음 — 다시하기 버튼 노출 ('done' phase).
+          playFeedbackSound(true);
           setPhase('done');
           onMarkComplete();
           playCorrectSequence({ language: language === 'english' ? 'en' : 'ko' });
         } else {
+          // 🔴 띵동이 **끝난 뒤 쉬고** 다음 문제 — 예전엔 정답과 동시에 다음 음원이 나가서
+          //    맞췄다는 느낌도 없이 문제가 지나갔다(콜백으로 끝을 확인하므로 길이 가정 아님).
           const [next, ...rest] = quizQueue;
           setQuizQueue(rest);
-          setQuizCurrent(next);
+          playAudio('/sounds/game/correct.mp3', () => {
+            if (advanceRef.current) clearTimeout(advanceRef.current);
+            advanceRef.current = window.setTimeout(() => setQuizCurrent(next), REST_MS);
+          });
         }
       } else {
         playFeedbackSound(false);
@@ -153,6 +162,7 @@ export function VowelListenActivity({
       wrongIdx,
       playFeedbackSound,
       playCorrectSequence,
+      playAudio,
       onMarkComplete,
     ]
   );
@@ -172,6 +182,7 @@ export function VowelListenActivity({
   useEffect(
     () => () => {
       if (wrongAudioRef.current) clearTimeout(wrongAudioRef.current);
+      if (advanceRef.current) clearTimeout(advanceRef.current);
     },
     []
   );
@@ -186,7 +197,7 @@ export function VowelListenActivity({
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 overflow-hidden"
+      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 overflow-y-auto"
       style={{
         backgroundImage: "url('/images/phonics/study-bg.webp')",
         backgroundSize: 'cover',
@@ -200,7 +211,8 @@ export function VowelListenActivity({
         ← 돌아가기
       </button>
 
-      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-8">
+      {/* 🔴 `gap-8` 고정 + `overflow-hidden` 이면 '모두 맞췄어!' 단계에서 버튼 줄이 늘면서 잘렸다. */}
+      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4 sm:gap-6 lg:gap-8">
         <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-ink-900 text-center">
           {promptText}
         </h2>

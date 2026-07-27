@@ -152,6 +152,15 @@ features/phonics-learner/
 
 ## 진척
 
+🔴 **게임도 끝내면 ✓** (2026-07-27) — `KoreanPhonicsUnitPage` 가 "게임은 완료 개념 없음"이라며 `done` 을
+익히기에서만 썼다. 아이가 게임을 다 깨고 나와도 목록이 그대로라 무엇을 했는지 안 보였다.
+
+🔴 **받침 단원부터 블록 게임은 전체 자모 패널**(`blockDifficulty`, levelIndex ≥ 2) — `easy` 는
+「순서대로 눌러봐」 strip 이라 정답 자모 4개만 나오는 튜토리얼 모드다. 받침을 배운 아이에겐 고를 것이 없다.
+
+🔴 **easy strip 버튼은 `data-sound="none"`** — 플레이어가 배치음(`playPlacementTick`)을 따로 내는데
+`GlobalUiSound` 자동 tap 까지 겹쳐 **소리가 두 번** 났다. 드래그(보통·어려움)는 버튼이 아니라 안 겹쳤다.
+
 `localStorage["phonics-progress"]` = `{ korean: { [unitId]: { completedActivities: string[] } } }`.
 
 - 액티비티 잠금 **없음** — 사용자가 자유롭게 진입.
@@ -355,7 +364,7 @@ threshold 0.95 통일 — `LINE_WIDTH=60` 두꺼운 펜이라 도달 쉬움. 폰
 - **활동 목록** (`makeReviewPlan`) — 전부 `section: 'play'`. 길찾기 → 뒤집기 → 🎧음절 듣기 → 짝 찾기 → 🔊단어 듣기 → 쓰기.
   - `review-listen` — **기존 `VowelListenActivity` 재사용**(순서 듣기 → 듣고 맞추기 퀴즈). `VowelItem.sound?` 를 추가해 받침 카드는 글자 `ㅇ`, 소리 `앙` 으로 읽힌다. (지금 plan 에는 안 들어간다 — 위 "익히기 금지" 참조. 컴포넌트 배선은 보존.)
   - `review-match` — **기존 `LineMatchingPlayer` 재사용**. `gameData.items[].word` 에 **글자**를 넣어 글자↔그림 매칭이 된다.
-  - `review-write` — `ReviewWriteActivity`(신규). 그림만 보여주고 첫 글자를 쓰게 하며, 3회 실패 시 힌트 글자를 띄운다.
+  - `review-write` — `ReviewWriteActivity`. 🔴 **낱말 전체를 한 글자씩**(2026-07-27) — 예전엔 그림이 `고기` 인데 쓰는 건 `ㄱ` 하나라 그림과 손이 따로 놀았다. 낱말쓰기와 같은 `WordFillCanvas`(순차·끝낸 글자는 칠한 색 유지)를 쓰고, 다 쓰면 **낱말**을 읽어준다. 힌트는 없앴다 — 캔버스가 글자를 이미 보여준다.
 - **자료 출처** = `useReviewCardSources` — 되짚는 단원들의 storybook 을 `useQueries` 로 병렬 로드(캐시 키가 학습 단원과 같아 이미 다녀왔으면 왕복 0)하고 단원당 대표 단어 1개를 뽑는다.
 - 🔴 **대표 단어는 점수로 고른다**(`pickWord`): 첫 음절이 그 자리에 글자를 가지면 +3, 뒤 음절이면 +1, **첫 글자가 같은 화면 다른 카드와 겹치면 −4**. 이게 없으면 ㄹ 카드에 `오리` 가 붙는데(한국어엔 ㄹ로 시작하는 유아 단어가 없다) 같은 묶음에 ㅇ 카드가 있으면 **정답이 두 개로 보인다**. 받침 단원은 종성 자리로 채점한다(`matchPosition`).
 

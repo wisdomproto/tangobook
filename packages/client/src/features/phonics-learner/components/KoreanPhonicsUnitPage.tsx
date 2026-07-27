@@ -204,8 +204,9 @@ function ActivityCard({
   widthClass?: string;
 }) {
   const isLearn = activity.section === 'learn';
-  // 게임하기는 완료 개념 없음 → done 시그널 무시
-  const showDone = isLearn && done;
+  // 🔴 게임도 끝내면 ✓ — 예전엔 "게임은 완료 개념 없음"이라며 무시했는데,
+  //    아이가 게임을 다 깨고 나와도 목록이 그대로라 무엇을 했는지 안 보였다.
+  const showDone = done;
 
   const cardClass = showDone
     ? 'bg-gradient-to-br from-success/10 to-success/20 border-success/60 ring-2 ring-success/30'

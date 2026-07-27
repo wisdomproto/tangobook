@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
+import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
@@ -15,19 +15,15 @@ interface Props {
 }
 
 /**
- * 복습 — 그림을 보고 첫 글자 쓰기.
+ * 복습 — 그림을 보고 **낱말 전체** 쓰기.
  *
- * 카드 하나당 [그림] + [쓰기 캔버스]. 통과 → 그 글자 소리 → 띵동 → 다음 그림.
- * 마지막까지 쓰면 칭찬 + onComplete.
+ * 카드 하나당 [그림] + [낱말 쓰기 캔버스]. 한 글자씩 순서대로 칠하고, 낱말을 다 쓰면
+ * 그 낱말 소리 → 띵동 → 다음 그림. 마지막까지 쓰면 칭찬 + onComplete.
  *
- * 🔴 4~7세라 화면에 글자를 미리 보여주지 않는다 — 그림이 곧 문제다.
- *    대신 한동안 못 쓰고 있으면 힌트(회색 글자)를 띄워 막히지 않게 한다.
- *
- * 🔴 힌트는 **실패 횟수가 아니라 시간**으로 띄운다. `LetterFillCanvas` 는 글자 안을 칠하는 방식이라
- *    통과 전까지 아무것도 알리지 않는다(`onResult(false)` 가 아예 없다) — 예전엔 "3회 실패 시 힌트"로
- *    적혀 있었지만 그 조건이 성립할 수 없어 힌트가 뜬 적이 없었다.
+ * 🔴 **음소 한 글자(ㄱ)가 아니라 낱말(고기)** 을 쓴다(2026-07-27). 그림은 `고기` 인데 쓰는 건 `ㄱ`
+ *    하나라 그림과 손이 따로 놀았다. 낱말쓰기와 같은 `WordFillCanvas` 를 쓰므로 **한 번에 한 글자만**
+ *    밝고, 끝낸 글자는 칠한 색이 남는다.
  */
-const HINT_AFTER_MS = 12000;
 
 export function ReviewWriteActivity({
   unitId,
@@ -38,12 +34,11 @@ export function ReviewWriteActivity({
 }: Props) {
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   const [idx, setIdx] = useState(0);
-  const [hint, setHint] = useState(false);
   const [done, setDone] = useState(false);
 
   usePhonicsTtsWarm(
     unitId,
-    sources.map((s) => s.sound),
+    sources.map((s) => s.word),
     'review-write'
   );
 
@@ -52,7 +47,7 @@ export function ReviewWriteActivity({
   const say = useCallback(
     async (card: ReviewCardSource) => {
       const url = await resolveTtsUrl({
-        text: card.sound,
+        text: card.word,
         language,
         storybookId: unitId,
         identifierPrefix: 'review-write',
@@ -68,51 +63,41 @@ export function ReviewWriteActivity({
     say(current);
   }, [idx, done, current, say]);
 
-  // 카드가 바뀌면 힌트를 접고 다시 잰다.
-  useEffect(() => {
-    setHint(false);
-    if (done) return;
-    const t = window.setTimeout(() => setHint(true), HINT_AFTER_MS);
-    return () => clearTimeout(t);
-  }, [idx, done]);
+  /** 낱말을 다 쓰면 — 그 낱말을 읽어주고 띵동, 다음 그림으로. */
+  const handleWordDone = useCallback(async () => {
+    if (done || !current) return;
+    const isLast = idx + 1 >= sources.length;
+    if (isLast) setDone(true);
 
-  const handleResult = useCallback(
-    async (passed: boolean) => {
-      if (done || !current || !passed) return;
-      const isLast = idx + 1 >= sources.length;
-      if (isLast) setDone(true);
-
-      const url = await resolveTtsUrl({
-        text: current.sound,
-        language,
-        storybookId: unitId,
-        identifierPrefix: 'review-write',
-      });
-
-      const afterChime = () => {
-        if (isLast)
-          playCorrectSequence({
-            language: language === 'english' ? 'en' : 'ko',
-            onDone: onComplete,
-          });
-        else setIdx((i) => i + 1);
-      };
-      const playChime = () => playAudio('/sounds/game/correct.mp3', afterChime);
-      if (url) playAudio(url, playChime);
-      else playChime();
-    },
-    [
-      done,
-      current,
-      idx,
-      sources.length,
-      unitId,
+    const url = await resolveTtsUrl({
+      text: current.word,
       language,
-      playAudio,
-      playCorrectSequence,
-      onComplete,
-    ]
-  );
+      storybookId: unitId,
+      identifierPrefix: 'review-write',
+    });
+
+    const afterChime = () => {
+      if (isLast)
+        playCorrectSequence({
+          language: language === 'english' ? 'en' : 'ko',
+          onDone: onComplete,
+        });
+      else setIdx((i) => i + 1);
+    };
+    const playChime = () => playAudio('/sounds/game/correct.mp3', afterChime);
+    if (url) playAudio(url, playChime);
+    else playChime();
+  }, [
+    done,
+    current,
+    idx,
+    sources.length,
+    unitId,
+    language,
+    playAudio,
+    playCorrectSequence,
+    onComplete,
+  ]);
 
   if (!current) return null;
 
@@ -175,20 +160,15 @@ export function ReviewWriteActivity({
             )}
           </div>
 
-          <LetterFillCanvas
-            key={`review-write-${idx}`}
-            letter={current.letter}
-            onResult={handleResult}
-            autoCheck
-            threshold={0.95}
-          />
+          <div className="w-full max-w-2xl">
+            <WordFillCanvas
+              key={`review-write-${idx}`}
+              word={current.word}
+              syllables={[...current.word]}
+              onComplete={handleWordDone}
+            />
+          </div>
         </div>
-
-        {hint && (
-          <p className="text-2xl sm:text-3xl font-black text-ink-400">
-            힌트 <span className="text-coral-400">{current.letter}</span>
-          </p>
-        )}
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />

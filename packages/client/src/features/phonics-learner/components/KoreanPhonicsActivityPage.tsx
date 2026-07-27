@@ -354,11 +354,12 @@ export default function KoreanPhonicsActivityPage() {
   const noopComplete = () => handleComplete();
   // 파닉스 unit level 별 Block 게임 picker 난이도:
   // - 한글1 (기본 음절 가/갸 등) → easy: 기본 자음 14 + 기본 모음 10. 쌍자음/복잡모음 X.
-  // - 한글2 (받침 산/강 등) → easy: 받침도 기본 자음 (ㄱㄴㄷㄹㅁㅂㅇ) 안에 있어 충분.
+  // - 한글2 (받침 산/강 등) → medium: 🔴 easy 는 「순서대로 눌러봐」 strip(정답 자모만 4개)이라
+  //   받침을 배운 아이에겐 고를 것이 없다. 받침 단원부터는 **전체 자모 패널**에서 직접 찾는다.
   // - 한글3 (쌍자음 까/뱀 등) → medium: 쌍자음 picker 필요 (ㄲㄸㅃㅆㅉ).
   // - 한글4 (복잡 모음 ㅐㅔㅒㅖㅘㅝ 등) → medium: 복잡 모음 picker 필요.
   // (다른 게임은 difficulty 사용 안 함 → 영향 없음)
-  const blockDifficulty: 'easy' | 'medium' | 'hard' = unit.levelIndex >= 3 ? 'medium' : 'easy';
+  const blockDifficulty: 'easy' | 'medium' | 'hard' = unit.levelIndex >= 2 ? 'medium' : 'easy';
   const commonProps = {
     storybookId: unitId,
     difficulty: blockDifficulty,

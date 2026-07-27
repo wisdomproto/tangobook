@@ -940,6 +940,9 @@ function EasyOrderStrip({
           return (
             <motion.button
               key={s.stepIdx}
+              // 🔴 위임 탭음을 끈다 — 배치음(`playPlacementTick`)을 플레이어가 따로 내므로
+              //    `GlobalUiSound` 의 자동 tap 과 겹쳐 소리가 두 번 났다.
+              data-sound="none"
               onClick={() => interactable && onTap(s.stepIdx)}
               disabled={!interactable}
               animate={isNext ? { scale: [1, 1.08, 1] } : { scale: 1 }}

@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, afterEach } from 'vitest';
-import { render, screen, act } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen } from '@testing-library/react';
 import { ReviewWriteActivity } from './ReviewWriteActivity';
 import type { ReviewCardSource } from '../hooks/useReviewCardSources';
 
@@ -26,18 +26,14 @@ const SOURCES: ReviewCardSource[] = [
   },
 ];
 
-afterEach(() => vi.useRealTimers());
-
-describe('ReviewWriteActivity 힌트', () => {
-  it('한동안 못 쓰면 힌트가 뜬다', () => {
-    // 🔴 예전엔 "3회 실패 시" 였는데 LetterFillCanvas 가 실패를 알리지 않아 영영 안 떴다.
-    vi.useFakeTimers();
+describe('ReviewWriteActivity', () => {
+  // 🔴 음소 한 글자(ㄱ)가 아니라 **낱말 전체**(고기)를 쓴다 — 그림은 고기인데 손은 ㄱ 하나만
+  //    쓰던 시절엔 그림과 과제가 따로 놀았다. 캔버스가 글자 수만큼 칸을 만든다.
+  it('낱말 전체를 글자 수만큼 쓴다', () => {
     render(
       <ReviewWriteActivity unitId="u1" sources={SOURCES} onComplete={vi.fn()} onBack={vi.fn()} />
     );
-
-    expect(screen.queryByText('힌트')).toBeNull();
-    act(() => void vi.advanceTimersByTime(12_000));
-    expect(screen.getByText(/힌트/)).toBeTruthy();
+    expect(screen.getByText(/0\/2/)).toBeTruthy(); // 고기 = 2글자
+    expect(screen.getByAltText('고기')).toBeTruthy();
   });
 });
