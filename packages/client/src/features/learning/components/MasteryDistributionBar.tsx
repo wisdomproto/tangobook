@@ -7,7 +7,7 @@ import type { MasteryState } from '../lib/mastery';
 const SEGMENTS: Array<{ key: MasteryState; cls: string; label: string }> = [
   { key: 'unknown', cls: 'bg-ink-200', label: '안 봄' },
   { key: 'seen', cls: 'bg-coral-200', label: '봄' },
-  { key: 'practiced', cls: 'bg-coral-400', label: '연습' },
+  { key: 'practiced', cls: 'bg-coral-400', label: '연습 중' },
   { key: 'mastered', cls: 'bg-success', label: '익힘' },
 ];
 

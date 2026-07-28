@@ -29,7 +29,7 @@ export function computeMastery(s: MasteryStats, now = Date.now()): number {
 const PARENT_LABEL: Record<MasteryState, string> = {
   unknown: '안 봄',
   seen: '봄',
-  practiced: '연습',
+  practiced: '연습 중',
   mastered: '익힘',
 };
 

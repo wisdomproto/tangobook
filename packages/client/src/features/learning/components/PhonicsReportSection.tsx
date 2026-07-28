@@ -4,6 +4,7 @@ import { LanguageTabs } from './LanguageTabs';
 import { KoreanPhonicsHeatmap } from './KoreanPhonicsHeatmap';
 import { EnglishPhonicsSkillTree } from './EnglishPhonicsSkillTree';
 import { PhonicsSummaryCard } from './PhonicsSummaryCard';
+import { MasteryLegendCard } from './MasteryLegendCard';
 
 interface Props {
   events: LearningEvent[];
@@ -24,7 +25,9 @@ export function PhonicsReportSection({ events, storybooks, defaultLang = 'ko' }:
       <PhonicsSummaryCard events={filtered} storybooks={storybooks} lang={lang} />
       <details className="rounded-2xl bg-white/80 p-4 shadow-sm">
         <summary className="cursor-pointer text-base font-bold text-ink-900">자세히 보기</summary>
-        <div className="mt-3">
+        <div className="mt-3 space-y-3">
+          {/* 색이 무슨 뜻인지 표 위에서 한 번 — 없으면 회색과 코랄의 차이를 부모가 추론해야 한다. */}
+          <MasteryLegendCard />
           {lang === 'ko' ? (
             <KoreanPhonicsHeatmap events={filtered} storybooks={storybooks} />
           ) : (
