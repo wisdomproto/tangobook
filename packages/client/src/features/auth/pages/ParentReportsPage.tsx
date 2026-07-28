@@ -27,9 +27,17 @@ const TAB_DEFS: { id: MainTab; iconSrc: string; labelKey: string }[] = [
 
 export default function ParentReportsPage() {
   const { t } = useTranslation('auth');
-  const { account, activeProfile, isConfigured } = useAuth();
+  const { account, activeProfile, profiles, isConfigured } = useAuth();
   const isDev = isDevEmail(account?.email);
-  const { data: events = [], isLoading } = useLearningEvents(activeProfile?.id);
+  /**
+   * 🔴 **리포트에서 아이를 바꾸는 것은 `activeProfile` 을 건드리지 않는다.**
+   *    헤더 프로필 칩은 "누가 놀고 있어요?" 를 고르는 장치라, 그걸로 둘째 리포트를 보면
+   *    앱 전체가 둘째 모드가 되고 다음날 첫째가 켰을 때 첫째 기록이 둘째에게 붙는다.
+   *    여기선 **조회 대상만** 로컬 state 로 갈아 끼운다.
+   */
+  const [viewProfileId, setViewProfileId] = useState<string | null>(null);
+  const viewProfile = profiles.find((p) => p.id === viewProfileId) ?? activeProfile;
+  const { data: events = [], isLoading } = useLearningEvents(viewProfile?.id);
   const { data: storybooks = [] } = useStorybooks();
   const [tab, setTab] = useState<MainTab>('storybook');
   const [storybookLang, setStorybookLang] = useState<Lang>('ko');
@@ -70,8 +78,30 @@ export default function ParentReportsPage() {
       {/* 헤더는 제목 한 줄 — 숫자·호리는 아래 WeeklyHeroCard 가 담당 (헤더/본문 수치 불일치 방지) */}
       <header>
         <h1 className="font-display text-2xl font-black text-ink-900 break-keep">
-          {t('reports.title', { name: activeProfile.name })}
+          {t('reports.title', { name: viewProfile?.name ?? activeProfile.name })}
         </h1>
+        {/* 아이가 둘 이상일 때만 — 리포트 조회 대상 전환(아이 화면의 활성 프로필과 무관). */}
+        {profiles.length > 1 && (
+          <div className="mt-2 flex flex-wrap gap-2">
+            {profiles.map((p) => {
+              const on = (viewProfile?.id ?? activeProfile.id) === p.id;
+              return (
+                <button
+                  key={p.id}
+                  onClick={() => setViewProfileId(p.id)}
+                  className={
+                    'rounded-full px-4 py-1.5 text-sm font-black transition ' +
+                    (on
+                      ? 'bg-coral-500 text-white shadow-pop'
+                      : 'bg-white text-ink-600 shadow-soft hover:bg-peach-50')
+                  }
+                >
+                  {p.name}
+                </button>
+              );
+            })}
+          </div>
+        )}
       </header>
 
       {/* 메인 탭바 — 부모 화면은 동화책만. 개발자 계정은 전체 탭 노출 */}

@@ -39,8 +39,14 @@ export function StorybookReportSection({ events, storybooks, lang }: Props) {
   const weekEvents = relevant.filter((e) => Date.parse(e.created_at) >= now.getTime() - WEEK_MS);
   const weekBooks = booksThisWeek(relevant, now, lang);
   const weekMinutes = weekEvents.length > 0 ? estimateReadingMinutes(weekEvents) : 0;
-  const streak = computeStreak(relevant, now);
-  const days = weekActivity(relevant, now);
+  /**
+   * 🔴 **읽기 리듬은 읽은 날만** — 예전엔 모든 이벤트를 셌다. 아이가 단어 게임만 3분 하고
+   *    책은 한 장도 안 봤는데 그 날 도트에 ✓ 가 켜지고 「🔥 연속 4일」 이 유지됐다.
+   *    라벨이 "읽음" 이면 세는 것도 읽기여야 한다.
+   */
+  const readEvents = relevant.filter((e) => e.event_type === 'page_read');
+  const streak = computeStreak(readEvents, now);
+  const days = weekActivity(readEvents, now);
 
   // 오늘 — 부모가 제일 먼저 묻는 것. 같은 7일 창 계산을 하루로 좁히면 된다.
   const todayKey = kstDateKey(now.toISOString());
