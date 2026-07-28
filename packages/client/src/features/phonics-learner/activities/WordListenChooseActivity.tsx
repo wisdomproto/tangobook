@@ -129,6 +129,16 @@ export function WordListenChooseActivity({
   const [exploring, setExploring] = useState(exploreFirst);
   /** 지금 화면에 깔린 판 — 탐색은 전체, 퀴즈는 라벨당 한 장. */
   const shownBoard = exploring ? board : quizBoard;
+  /**
+   * 카드 한 장의 크기 — **폭과 높이 중 작은 쪽**이 정한다.
+   *
+   * 🔴 예전엔 `grid-cols-N` + `w-full aspect-square` 라 카드가 **넓이만** 따라갔다. 1024×768 처럼
+   *    세로가 짧으면 두 줄이 통째로 넘쳐 제목이 위로 잘리고 「퀴즈」 버튼이 화면 밖으로 나갔다.
+   *    카드 아래 낱말 줄까지 얹히므로 두 줄일 때는 24vh 로 잡아야 문제·버튼 자리가 남는다.
+   */
+  const cols = shownBoard.length > 6 ? 4 : shownBoard.length > 4 ? 3 : 2;
+  const rows = Math.ceil(shownBoard.length / cols);
+  const cardSize = `min(${Math.floor(80 / cols)}vw, ${rows > 1 ? 24 : 40}vh)`;
   /** 퀴즈 안내 음성이 나오는 중 — 끝나야 첫 문제가 나간다. */
   const [starting, setStarting] = useState(false);
   const [qIdx, setQIdx] = useState(0);
@@ -317,21 +327,14 @@ export function WordListenChooseActivity({
             딴 화면으로 간 것처럼 보였다. 바뀌는 건 **문제와 클릭 동작뿐**이다. */}
         {/* 🔴 열 수는 장수로 — 알파벳 단원은 글자 하나에 카드가 두 장이라 6장이 깔린다(3+3).
             2열로 두면 세 줄이 되어 아래가 화면 밖으로 밀린다. */}
-        <div
-          className={[
-            'grid justify-center gap-4 sm:gap-6 w-full px-2',
-            // 🔴 8장(4글자 단원 × 2낱말)을 3열로 두면 세 줄이라 아래가 화면 밖으로 밀린다.
-            // 🔴 지금 깔린 판의 장수로 센다 — 퀴즈는 중복 라벨을 접어 장수가 줄어든다(6→3).
-            shownBoard.length > 6
-              ? 'grid-cols-4 max-w-4xl'
-              : shownBoard.length > 4
-                ? 'grid-cols-3 max-w-3xl'
-                : 'grid-cols-2 max-w-xl',
-          ].join(' ')}
-        >
+        <div className="flex flex-wrap justify-center gap-4 sm:gap-6 w-full px-2">
           {shownBoard.map((c) => (
             <button
               key={idOf(c)}
+              // 🔴 카드 크기는 **폭과 높이 둘 다** 본다(`min(vw, vh)`). `aspect-square` + `w-full` 만
+              //    두면 세로가 얼마든 정사각이 넓이를 따라가서, 1024×768 에서 제목이 위로 잘리고
+              //    「퀴즈」 버튼이 화면 밖으로 나갔다(계측으로 확인). 전체화면 활동의 공통 규칙이다.
+              style={{ width: cardSize }}
               // 🔴 탭음을 여기서 내지 않는다 — `GlobalUiSound` 위임 리스너가 **모든 버튼에 자동**으로
               //    붙인다. 직접 부르면 한 번 눌렀는데 두 번 난다(내가 낸 버그).
               onClick={() => {
@@ -346,7 +349,7 @@ export function WordListenChooseActivity({
               // 안내 음성 중엔 못 누른다 — 문제를 듣기도 전에 찍고 지나가는 걸 막는다.
               disabled={done || starting}
               className={[
-                'relative w-full rounded-3xl border-[6px] bg-white overflow-hidden shadow-soft transition',
+                'relative rounded-3xl border-[6px] bg-white overflow-hidden shadow-soft transition',
                 wrong === idOf(c)
                   ? 'border-coral-500 animate-shake'
                   : 'border-white hover:shadow-pop active:scale-[0.97]',
