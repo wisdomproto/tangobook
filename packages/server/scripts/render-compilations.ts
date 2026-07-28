@@ -24,6 +24,7 @@ import { uploadBufferToR2 } from '../src/providers/r2.provider.js';
 import { YouTubeProvider } from '../src/providers/youtube.provider.js';
 import {
   LIFE_TRACKS,
+  DINO_TRACKS,
   groupByTrack,
   unassignedParts,
   buildTrackCompilationMeta,
@@ -64,9 +65,12 @@ const SERIES_LABEL: Record<string, string> = {
   classic: '세계명작 동화',
 };
 
-// 카테고리 → 트랙 정의. 자연·명작은 아직 주제 분류가 없어 미지원(추가 시 여기에 등록).
+// 카테고리 → 트랙 정의. 명작은 아직 주제 분류가 없어 미지원(추가 시 여기에 등록).
+// 🔴 nature 는 공룡만 묶는다 — 자연관찰(동물·식물)은 주제 축이 아직 없어 DINO_TRACKS 의
+//    키워드에 안 걸리고, 그런 편은 `unassignedParts` 로 빠져 경고만 뜬다.
 const TRACKS: Record<string, typeof LIFE_TRACKS | undefined> = {
   life: LIFE_TRACKS,
+  nature: DINO_TRACKS,
 };
 
 async function ffmpegPath(): Promise<string> {

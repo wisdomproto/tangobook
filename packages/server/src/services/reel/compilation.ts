@@ -28,9 +28,62 @@ export interface TrackDef {
   label: string; // 제목 앞 [라벨]
   hook: string; // 부모가 검색할 말 / 혜택
   emoji: string;
-  from: number; // 회차 시작(포함)
-  to: number; // 회차 끝(포함)
+  from?: number; // 회차 시작(포함) — 번호로 묶는 라인
+  to?: number; // 회차 끝(포함)
+  /**
+   * 회차 번호가 없는 라인(자연·공룡)은 제목 키워드로 묶는다.
+   * `match` 가 있으면 from/to 대신 이걸 쓴다.
+   */
+  match?: RegExp;
+  /** 제목 가운데 문구. 기본값은 잠자리 동화용이라 공룡엔 안 맞는다. */
+  subtitle?: string;
 }
+
+const DEFAULT_SUBTITLE = '중간광고 없는 잠자리 동화';
+
+/**
+ * 공룡 묶음 트랙.
+ * 🔴 「공룡모음」·「연속듣기」는 네이버 월 30·20회로 **검색 수요가 없다**(2026-07-28 실측).
+ *    묶음은 검색이 아니라 추천으로 배달되므로 제목엔 **종명**을 앞세운다
+ *    (티라노사우루스 31,960 · 공룡 26,010 · 공룡종류 12,870).
+ * 🔴 공룡을 고른 이유 = 우리 채널에 실제로 배달되는 시청자군이 공룡 시청자다
+ *    (추천 유입 출처 = EBS 한반도의 공룡·넷플릭스 「공룡들」, 검색 유입 전량 공룡 종명,
+ *    공룡 롱폼 CTR 6~7% vs 명작 1.7~2.4%).
+ */
+export const DINO_TRACKS: TrackDef[] = [
+  {
+    key: 'carnivore',
+    label: '육식 공룡 모음',
+    hook: '티라노사우루스와 사냥꾼들',
+    emoji: '🦖',
+    match: /티라노|스피노|기가노토|타르보|바리오닉스|벨로키랍토르|알로사우루스/,
+    subtitle: '어린이 공룡 백과',
+  },
+  {
+    key: 'giant',
+    label: '거대 초식 공룡 모음',
+    hook: '목이 제일 긴 공룡은 누구일까',
+    emoji: '🦕',
+    match: /브라키오|디플로도쿠스|아파토|마이아사우라|이구아나돈|파라사우롤로푸스/,
+    subtitle: '어린이 공룡 백과',
+  },
+  {
+    key: 'armored',
+    label: '뿔·갑옷 공룡 모음',
+    hook: '몸을 지키는 공룡들',
+    emoji: '🛡️',
+    match: /트리케라톱스|안킬로|스테고|프로토케라톱스|파키케팔로|스티라코/,
+    subtitle: '어린이 공룡 백과',
+  },
+  {
+    key: 'sky',
+    label: '하늘을 나는 공룡 모음',
+    hook: '하늘의 지배자들',
+    emoji: '🪽',
+    match: /프테라노돈|케찰코아틀루스|람포린쿠스/,
+    subtitle: '어린이 공룡 백과',
+  },
+];
 
 /** 호리네 생활동화 45편 = docs/saenghwal-donghwa/curriculum-45.md 의 7트랙. */
 export const LIFE_TRACKS: TrackDef[] = [
@@ -106,15 +159,26 @@ export interface TrackGroup {
  * 회차 번호로 트랙에 배정해 묶는다. 번호 없는 편은 어느 트랙에도 안 들어간다(호출부가 경고).
  * 트랙에 조각이 하나도 없으면 그 트랙은 결과에서 빠진다.
  */
+/** 이 조각이 트랙에 속하나 — 번호 구간(생활동화) 또는 제목 키워드(자연·공룡). */
+function inTrackDef(track: TrackDef, title: string): boolean {
+  if (track.match) return track.match.test(title);
+  if (track.from === undefined || track.to === undefined) return false;
+  const n = episodeNumber(title);
+  return n !== null && n >= track.from && n <= track.to;
+}
+
 export function groupByTrack(parts: CompilationPart[], tracks: TrackDef[]): TrackGroup[] {
   const out: TrackGroup[] = [];
   for (const track of tracks) {
     const inTrack = parts
-      .filter((p) => {
-        const n = episodeNumber(p.title);
-        return n !== null && n >= track.from && n <= track.to;
-      })
-      .sort((a, b) => (episodeNumber(a.title) ?? 0) - (episodeNumber(b.title) ?? 0));
+      .filter((p) => inTrackDef(track, p.title))
+      // 번호가 있으면 번호순, 없으면 제목순(결정적이어야 재실행이 같은 결과를 낸다).
+      .sort((a, b) => {
+        const na = episodeNumber(a.title);
+        const nb = episodeNumber(b.title);
+        if (na !== null && nb !== null) return na - nb;
+        return a.title.localeCompare(b.title, 'ko');
+      });
     if (!inTrack.length) continue;
     out.push({
       track,
@@ -127,10 +191,7 @@ export function groupByTrack(parts: CompilationPart[], tracks: TrackDef[]): Trac
 
 /** 트랙에 못 들어간(번호 없는) 조각 — 호출부에서 경고용. */
 export function unassignedParts(parts: CompilationPart[], tracks: TrackDef[]): CompilationPart[] {
-  return parts.filter((p) => {
-    const n = episodeNumber(p.title);
-    return n === null || !tracks.some((t) => n >= t.from && n <= t.to);
-  });
+  return parts.filter((p) => !tracks.some((t) => inTrackDef(t, p.title)));
 }
 
 /**
@@ -147,7 +208,7 @@ export function buildTrackCompilationMeta(input: {
   const mins = Math.max(1, Math.round(input.totalSec / 60));
   const { track } = input;
   const title =
-    `[${track.label}] ${track.hook} ${track.emoji} ${mins}분 연속듣기 | 중간광고 없는 잠자리 동화 | ${input.seriesLabel}`.slice(
+    `[${track.label}] ${track.hook} ${track.emoji} ${mins}분 연속듣기 | ${track.subtitle ?? DEFAULT_SUBTITLE} | ${input.seriesLabel}`.slice(
       0,
       100
     );
