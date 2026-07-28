@@ -44,7 +44,49 @@ const args = Object.fromEntries(
 const LIMIT = Number(args.limit ?? 14);
 const HOUR = String(args.hour ?? '9').padStart(2, '0');
 const APPLY = args.apply === true;
-const CATEGORY_NAME = '자연관찰 동화';
+
+/**
+ * 예약 날짜를 **달력으로** 고른다.
+ *
+ * 🔴 날짜 입력은 `readOnly` 라 값을 넣거나 타이핑해도 안 먹는다(오늘로 남고 「현재 시간
+ *    이후로 설정해주세요」로 거부된다). 실제 위젯은 **jQuery UI datepicker** 다:
+ *      .ui-datepicker-next / .ui-datepicker-year / .ui-datepicker-month
+ *      날짜 = `td:not(.ui-state-disabled) > button` (지난 날짜는 pointer-events:none)
+ */
+async function pickDate(ed: Frame, y: number, m: number, d: number): Promise<void> {
+  await ed.click('input.input_date__QmA0s');
+  await sleep(900);
+
+  for (let i = 0; i < 14; i++) {
+    const cur = (await ed.evaluate(
+      `(function(){
+         var dp=document.querySelector('.ui-datepicker'); if(!dp) return null;
+         var yy=dp.querySelector('.ui-datepicker-year'), mm=dp.querySelector('.ui-datepicker-month');
+         return { y: parseInt((yy&&yy.textContent||'').replace(/[^0-9]/g,''),10),
+                  m: parseInt((mm&&mm.textContent||'').replace(/[^0-9]/g,''),10) };
+       })()`
+    )) as { y: number; m: number } | null;
+    if (!cur) throw new Error('달력이 안 열렸다');
+    if (cur.y === y && cur.m === m) break;
+    const moved = await ed.evaluate(
+      `(function(){var n=document.querySelector('.ui-datepicker-next');
+        if(!n || /ui-state-disabled/.test(n.className)) return false; n.click(); return true})()`
+    );
+    if (!moved) throw new Error(`달력을 ${y}.${m} 로 못 옮김`);
+    await sleep(500);
+  }
+
+  const ok = await ed.evaluate(
+    `(function(){
+       var btns=document.querySelectorAll('.ui-datepicker td:not(.ui-state-disabled) > button');
+       for (var i=0;i<btns.length;i++)
+         if ((btns[i].textContent||'').trim() === ${'${JSON.stringify(String(d))}'}) { btns[i].click(); return true; }
+       return false;
+     })()`
+  );
+  if (!ok) throw new Error(`${y}.${m}.${d} 를 달력에서 못 찾음(지난 날짜이거나 비활성)`);
+  await sleep(700);
+}
 
 /** 예약 날짜 문자열 — 네이버 입력 형식 `2026. 07. 29` */
 function dateStr(base: Date, addDays: number): string {
@@ -104,7 +146,7 @@ async function writeAndSchedule(
   ed: Frame,
   plan: { title: string; blocks: Array<{ kind: string; html?: string; imageUrl?: string }> },
   imgs: Map<string, string>,
-  when: { date: string; hour: string }
+  when: { y: number; m: number; d: number; hour: string }
 ) {
   for (const label of ['취소', '닫기']) {
     await ed.evaluate(
@@ -190,15 +232,7 @@ async function writeAndSchedule(
   // 🔴 날짜는 **직접 타이핑**해야 한다. 네이티브 setter + input 이벤트로 넣으면 네이버 상태가
   //    안 받아 기본값(오늘)로 되돌아가고, 그러면 「현재 시간 이후로 설정해주세요」로 거부된다.
   // 🔴 분은 10분 단위만 고를 수 있어 정각으로 둔다.
-  const dateEl = await ed.$('input.input_date__QmA0s');
-  if (dateEl) {
-    await dateEl.click({ clickCount: 3 });
-    await page.keyboard.down('Control');
-    await page.keyboard.press('KeyA');
-    await page.keyboard.up('Control');
-    await page.keyboard.type(when.date, { delay: 40 });
-    await page.keyboard.press('Tab');
-  }
+  await pickDate(ed, when.y, when.m, when.d);
   await sleep(600);
   await ed.evaluate(
     `(function(){
@@ -370,7 +404,14 @@ async function main() {
       if (!ed) throw new Error('에디터 프레임 없음');
       await sleep(1500);
 
-      await writeAndSchedule(page, ed, plan, imgs, { date: dateStr(base, i + 1), hour: HOUR });
+      const when = new Date(base);
+      when.setDate(when.getDate() + i + 1);
+      await writeAndSchedule(page, ed, plan, imgs, {
+        y: when.getFullYear(),
+        m: when.getMonth() + 1,
+        d: when.getDate(),
+        hour: HOUR,
+      });
       await recordPublication({
         bookId: src.bookId,
         postId: src.blogContentId,

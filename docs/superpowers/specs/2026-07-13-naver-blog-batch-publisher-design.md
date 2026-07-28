@@ -226,3 +226,26 @@ PoC 셀렉터를 `naver-blog-post.ts`로 정착 + `blog-html.ts`(TDD) + `naver-p
 - 예약 발행글 **100개** · 임시저장 **300개** 상한.
 - 🔴 그래도 한 세션에 100편을 밀어넣으면 안 된다 — 예약 시각은 흩어져도 **작성 기록이 한날에
   몰린다**. 2주치 14편 정도가 상한선으로 보인다.
+
+## §14 예약 날짜 = jQuery UI datepicker (2026-07-28 해결)
+
+🔴 `input.input_date__QmA0s` 는 **readOnly** 다. 네이티브 value setter 도, 타이핑도 안 먹는다 —
+값이 오늘로 남고 네이버가 「현재 시간 이후로 설정해주세요」로 거부한다. 이걸로 두 번 헛돌았다.
+
+실제 위젯은 **jQuery UI datepicker**:
+
+| 대상 | 셀렉터 |
+|---|---|
+| 위젯 | `.ui-datepicker` (날짜 입력 클릭 시 열림) |
+| 현재 연 / 월 | `.ui-datepicker-year` / `.ui-datepicker-month` (`2026` / `7월`) |
+| 다음 달 | `.ui-datepicker-next` (막히면 `ui-state-disabled` 붙음) |
+| 날짜 셀 | `td:not(.ui-state-disabled) > button` |
+
+지난 날짜는 `td.ui-state-disabled` + 버튼에 `pointer-events:none` 이라 클릭이 안 먹는다 →
+반드시 `:not(.ui-state-disabled)` 로 걸러야 한다.
+
+절차 = 입력 클릭 → 연·월이 목표와 다르면 `.ui-datepicker-next` 클릭(반복) → 날짜 버튼 클릭.
+실측: `2026.07.28` → 내일 `07.29` ✓ / +20일 `08.17` ✓ (7월→8월 이동 포함).
+
+🔴 셀을 못 찾는다고 나오면 **달력이 닫혀 있는지** 먼저 보라. 조회 전에 입력을 두 번 클릭하면
+토글로 닫힌다 — 그것 때문에 네 번 헛짚었다.
