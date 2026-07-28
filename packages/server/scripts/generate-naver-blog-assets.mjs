@@ -6,9 +6,9 @@
  * SVG 를 sharp(librsvg) 로 굽고 로고 webp 를 합성한다. AI 생성 X, 한글이 깨지지 않는다.
  *
  * 산출물 → docs/marketing/naver/
- *   cover-pc.png      966×600   PC 블로그 커버(타이틀) 이미지
+ *   cover-pc.png      966×300   PC 블로그 커버(타이틀) 이미지
  *   cover-mobile.png  1080×1300 모바일 앱 커버
- *   profile.png       286×286   프로필 이미지 (기존 인스타 니들펠트 프로필 재사용)
+ *   profile-{felt,3d}.png 286×286 프로필 이미지 후보 2종
  *
  * 🔴 모바일 커버는 네이버 앱이 블로그명·프로필을 그 위에 겹쳐 그린다.
  *    그래서 글자를 넣지 않고 분위기(호리+배경)만 둔다 — 겹치면 둘 다 안 읽힌다.
@@ -57,27 +57,32 @@ async function setupFontconfig() {
   process.env.FONTCONFIG_FILE = confPath;
 }
 
-/** PC 커버 966×600 — 로고 + 한 줄 카피 + 도메인 pill */
+/**
+ * PC 커버 966×300 — 로고(왼쪽) + 카피·도메인(오른쪽) 가로 배치.
+ *
+ * 🔴 세로로 쌓지 않는 이유: 600px 로 만들었더니 노트북 첫 화면을 통째로 먹어서,
+ *    검색으로 들어온 사람이 글을 보려면 스크롤부터 해야 했다. 블로그 배너는
+ *    3:1 안팎이어야 본문이 같이 보인다.
+ */
 function svgCoverPc(W, H) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="${C.cream}"/>
       <stop offset="1" stop-color="${C.peach100}"/>
     </linearGradient>
   </defs>
   <rect width="${W}" height="${H}" fill="url(#bg)"/>
-  <circle cx="880" cy="70" r="130" fill="${C.mint100}" opacity="0.5"/>
-  <circle cx="90" cy="530" r="150" fill="${C.peach200}" opacity="0.42"/>
-  <circle cx="915" cy="520" r="80" fill="${C.coral100}" opacity="0.55"/>
-  <circle cx="70" cy="80" r="44" fill="${C.coral100}" opacity="0.65"/>
-  <g font-family="Pretendard" text-anchor="middle">
-    <text x="${W / 2}" y="398" font-weight="800" font-size="42" fill="${C.ink700}">동화로 자라는 4–7세 한글·영어</text>
-    <text x="${W / 2}" y="446" font-weight="400" font-size="27" fill="${C.ink600}">AI 동화책 · 한글 파닉스 · 어휘 학습</text>
+  <circle cx="900" cy="40" r="95" fill="${C.mint100}" opacity="0.5"/>
+  <circle cx="60" cy="270" r="90" fill="${C.peach200}" opacity="0.42"/>
+  <circle cx="930" cy="275" r="55" fill="${C.coral100}" opacity="0.5"/>
+  <g font-family="Pretendard">
+    <text x="430" y="132" font-weight="800" font-size="34" fill="${C.ink700}">동화로 자라는 4–7세 한글·영어</text>
+    <text x="432" y="174" font-weight="400" font-size="21" fill="${C.ink600}">AI 동화책 · 한글 파닉스 · 어휘 학습</text>
   </g>
-  <g transform="translate(${W / 2} 512)">
-    <rect x="-108" y="-24" width="216" height="38" rx="19" fill="${C.coral500}"/>
-    <text x="0" y="2" text-anchor="middle" font-family="Pretendard" font-weight="800" font-size="21" fill="#ffffff">tangobook.co.kr</text>
+  <g transform="translate(430 210)">
+    <rect x="0" y="0" width="196" height="34" rx="17" fill="${C.coral500}"/>
+    <text x="98" y="23" text-anchor="middle" font-family="Pretendard" font-weight="800" font-size="19" fill="#ffffff">tangobook.co.kr</text>
   </g>
 </svg>`;
 }
@@ -117,11 +122,10 @@ async function main() {
   await fs.mkdir(outDir, { recursive: true });
   console.log('네이버 블로그 자산 생성 →', path.relative(process.cwd(), outDir));
 
-  // 1) PC 커버 966×600 — 로고를 위쪽에
+  // 1) PC 커버 966×300 — 로고는 왼쪽, 카피는 오른쪽
   await compose(
-    svgCoverPc(966, 600),
-    // 🔴 커버는 스킨 스타일에 따라 위아래가 잘린다 — 로고~pill 을 가운데 띠에 모은다
-    [{ src: logoPath, width: 420, top: 132, centerX: 483 }],
+    svgCoverPc(966, 300),
+    [{ src: logoPath, width: 330, top: 68, centerX: 235 }],
     path.join(outDir, 'cover-pc.png'),
   );
 
