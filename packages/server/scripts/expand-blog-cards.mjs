@@ -61,6 +61,7 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
  * 제목 목록을 알고 있으므로 그걸로 자른다(휴리스틱보다 안전).
  */
 const HEADINGS = [
+  // 자연관찰
   '주제 소개',
   '추천 연령',
   '자연·과학 사실 검증',
@@ -69,7 +70,34 @@ const HEADINGS = [
   '아이의 호기심을 여는 질문',
   '부모 가이드 — 관찰·체험으로 확장하는 법',
   '함께 할 수 있는 활동',
+  // 명작 — 섹션 이름이 완전히 다르다
+  '작품 소개',
+  '원작 이야기',
+  '줄거리 요약',
+  '이 동화가 주는 교훈',
+  '탱고북 각색 비교',
+  '추천 연령·읽기 포인트',
+  '함께 나눌 질문',
+  '부모 가이드 — 읽어주는 법',
 ];
+
+/**
+ * 카테고리별로 **블로그가 안 쓰고 버린 섹션**. 앵커는 그 뒤에 끼울 기존 카드의 표식.
+ * 🔴 생활동화는 없다 — 블로그가 이미 평균 93점(분량 충분·제목도 검색어 기반)이라
+ *    되살릴 게 없다. 확장 대상이 아니다.
+ */
+const RESTORE = {
+  nature: [
+    { sec: '핵심 어휘', title: '이 책에서 만나는 낱말', after: '다루는 내용', vocab: true },
+    { sec: '아이의 호기심을 여는 질문', title: '아이의 호기심을 여는 질문', after: '관찰하면 좋은' },
+    { sec: '함께 할 수 있는 활동', title: '함께 할 수 있는 활동', after: '부모 가이드' },
+  ],
+  classic: [
+    { sec: '탱고북 각색 비교', title: '탱고북은 어떻게 각색했나요?', after: '줄거리 요약' },
+    { sec: '함께 나눌 질문', title: '아이와 함께 나눌 질문', after: '주는 교훈' },
+    { sec: '추천 연령·읽기 포인트', title: '추천 연령과 읽기 포인트', after: '읽어주는 법' },
+  ],
+};
 function parseSections(body) {
   const blocks = String(body || '')
     .split(/\n{2,}/)
@@ -134,18 +162,15 @@ async function expandOne(content) {
 
   // 되살릴 섹션 — 이미 들어가 있으면 건너뛴다(멱등)
   const additions = [];
-  if (sec['핵심 어휘']?.length && !existing.includes('만나는 낱말'))
-    additions.push({ after: '다루는 내용', html: vocabHtml(sec['핵심 어휘']) });
-  if (sec['아이의 호기심을 여는 질문']?.length && !existing.includes('호기심을 여는 질문'))
+  for (const r of RESTORE[content.category] ?? []) {
+    const lines = sec[r.sec];
+    if (!lines?.length) continue;
+    if (existing.includes(r.title)) continue;
     additions.push({
-      after: '관찰하면 좋은',
-      html: paraHtml('아이의 호기심을 여는 질문', sec['아이의 호기심을 여는 질문']),
+      after: r.after,
+      html: r.vocab ? vocabHtml(lines) : paraHtml(r.title, lines),
     });
-  if (sec['함께 할 수 있는 활동']?.length && !existing.includes('함께 할 수 있는 활동'))
-    additions.push({
-      after: '부모 가이드',
-      html: paraHtml('함께 할 수 있는 활동', sec['함께 할 수 있는 활동']),
-    });
+  }
 
   // 사용 안 한 삽화를 새 카드에 붙인다.
   // 🔴 mkt_contents 에 book_id 컬럼이 없다 — 기존 카드 이미지 파일명 앞의 숫자가 책 ID다.
@@ -243,7 +268,7 @@ async function main() {
   const filter = args.book
     ? `title=ilike.*${encodeURIComponent(args.book)}*`
     : `category=eq.${args.category ?? 'nature'}`;
-  const contents = await sb(`mkt_contents?select=id,title&${filter}&order=title`);
+  const contents = await sb(`mkt_contents?select=id,title,category&${filter}&order=title`);
   console.log(`대상 ${contents.length}편${APPLY ? '' : ' (dry-run — --apply 로 반영)'}\n`);
 
   let done = 0;

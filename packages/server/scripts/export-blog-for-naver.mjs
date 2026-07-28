@@ -120,6 +120,9 @@ function buildHtml(title, blocks) {
  .mini{background:#fff;border:1px solid #FFDDBF;border-radius:999px;padding:3px 10px;font-size:12px;margin-left:6px}
  .copy.ok{background:#5CC99F}
  .note{background:#FFF0E0;border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.6;margin-bottom:16px}
+ .all{background:#fff;border-radius:12px;padding:16px;margin-bottom:20px;text-align:center}
+ .big{font-size:15px;padding:13px 26px}
+ .hint{font-size:12px;color:#6D5A4C;line-height:1.6;margin-top:10px}
 </style>
 <h1>${esc(title)} — 네이버 발행</h1>
 <div class="sub">위에서부터 순서대로 복사 → 스마트에디터에 붙여넣기. 이미지도 버튼으로 복사됩니다.</div>
@@ -127,6 +130,12 @@ function buildHtml(title, blocks) {
 <div class="note">
  🔴 발행 패널에서 <b>공개 설정 = 전체공개</b> · <b>검색 허용 체크</b> 확인.<br>
  🔴 <b>소제목 ▸</b> 로 표시된 줄은 붙여넣은 뒤 에디터에서 <b>소제목</b> 서식을 입히세요.
+</div>
+
+<div class="all">
+ <button class="copy big" id="all">📄 전체 복사 (글 + 이미지 한 번에)</button>
+ <div class="hint">먼저 이걸 눌러 에디터에 <b>한 번만</b> 붙여넣어 보세요. 이미지까지 딸려 들어가면 끝입니다.<br>
+ 이미지가 안 들어오거나 깨지면 — 아래 블록별 버튼으로 하시면 됩니다.</div>
 </div>
 
 <div class="top">
@@ -150,6 +159,39 @@ document.querySelectorAll('[data-copy]').forEach(b =>
 document.querySelectorAll('[data-from]').forEach(b =>
   b.onclick = () => navigator.clipboard.writeText(document.getElementById(b.dataset.from).value)
     .then(() => flash(b, '✓')));
+
+/* 🔴 전체 복사 = text/html 로 쓴다. 웹페이지에서 복사한 것과 같은 모양이라
+   에디터가 <img> 의 원격 URL 을 스스로 받아 올릴 여지가 생긴다(안 되면 블록별 폴백).
+   text/plain 을 함께 넣어야 리치 붙여넣기를 막는 곳에서도 글은 들어간다. */
+const FULL_HTML = ${JSON.stringify(
+    blocks
+      .map((b) =>
+        b.kind === 'image'
+          ? `<p><img src="${b.url}" alt="${esc(b.caption || title)}"></p>` +
+            (b.caption ? `<p>${esc(b.caption)}</p>` : '')
+          : (b.heading ? `<h3>${esc(b.heading)}</h3>` : '') +
+            b.text
+              .split(/\n{2,}/)
+              .map((p) => `<p>${esc(p).replace(/\n/g, '<br>')}</p>`)
+              .join(''),
+      )
+      .join('\n'),
+  )};
+const FULL_TEXT = ${JSON.stringify(blocks.map((b) => (b.kind === 'image' ? `[사진 ${b.file}]` : b.raw)).join('\n\n'))};
+
+document.getElementById('all').onclick = async (e) => {
+  const b = e.currentTarget;
+  try {
+    await navigator.clipboard.write([new ClipboardItem({
+      'text/html': new Blob([FULL_HTML], { type: 'text/html' }),
+      'text/plain': new Blob([FULL_TEXT], { type: 'text/plain' }),
+    })]);
+    flash(b, '✓ 복사됨 — 에디터에서 Ctrl+V');
+  } catch (err) {
+    await navigator.clipboard.writeText(FULL_TEXT);
+    flash(b, '△ 글만 복사됨 (이미지는 아래 버튼으로)');
+  }
+};
 
 // 🔴 클립보드는 png 만 받는다(webp 로 쓰면 조용히 실패). canvas 로 옮겨 굽는다.
 document.querySelectorAll('[data-img]').forEach(b => b.onclick = async () => {
@@ -214,7 +256,13 @@ const main = async () => {
         await fs.writeFile(path.join(outDir, file), buf);
         const cap = c.content.caption ?? '';
         body.push(`[사진 ${file}]${cap ? ` — 캡션: ${cap}` : ''}`);
-        blocks.push({ kind: 'image', file, caption: cap, dataUri: `data:image/webp;base64,${buf.toString('base64')}` });
+        blocks.push({
+          kind: 'image',
+          file,
+          caption: cap,
+          url, // 🔴 전체 복사는 이 원격 URL 을 쓴다 — 에디터가 스스로 받아 올리게
+          dataUri: `data:image/webp;base64,${buf.toString('base64')}`,
+        });
       } else {
         body.push(`[사진 받기 실패 ${res.status}] ${url}`);
         console.warn(`  ! 이미지 ${res.status}: ${url.slice(0, 80)}`);
