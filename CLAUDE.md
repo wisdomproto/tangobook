@@ -243,7 +243,7 @@ ContentFlow AI 마케팅 자동화 SaaS 이식 — **전 단계(Phase 0~5) 완�
 - **네이버용 채점** `score-naver-seo.mjs` — `verify-blog-seo.mjs`는 **우리 웹 블로그 기준**이라 네이버 판정과 다르다. 자연 90점 · 명작 83점 · 생활 93점. 감점은 사실상 본문 길이 하나.
 - **발행기**(naver-blog 워크트리): `publish-naver-blog.ts`(초안 생성 — 제목·본문·이미지) · `schedule-naver-drafts.ts`(임시저장 글을 열어 태그·공개설정·검색허용·**예약 날짜**까지) · 이력 `mkt_naver_blog_publications`(멱등). 결과는 **텔레그램**으로(`telegram-setup.mjs`, env `TELEGRAM_BOT_TOKEN`/`TELEGRAM_CHAT_ID`).
 - 🔴 **한 세션에 몰아넣지 말 것** — 예약 시각은 흩어져도 **작성 기록이 한날에 몰린다**. 2주치(14편)가 상한선. 예약 상한 100개·임시저장 300개(사용자 실측). ⚠️ 네이버 약관은 자동화 수단 이용을 금지한다 — 감수할 리스크는 사용자 판단.
-- 셀렉터 실측은 스펙 §12~§14(`docs/superpowers/specs/2026-07-13-naver-blog-batch-publisher-design.md`). → memory `naver-blog-launch-2026-07-28` · `naver-blog-publisher-2026-07-14`
+- 셀렉터 실측은 스펙 §12~§14(`docs/superpowers/specs/2026-07-13-naver-blog-batch-publisher-design.md`). 🔴 **판단·운용은 `naver-blog-manager` 에이전트 경유**(`.claude/agents/`) — 이미 틀린 판단 11개를 들고 시작한다. → memory `naver-blog`
 
 ## 마케팅 자료
 
