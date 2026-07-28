@@ -31,7 +31,8 @@
     "read": "📖 已读",
     "played": "🎮 游戏",
     "collapse": "收起",
-    "showAll": "查看全部 {{count}} 个"
+    "showAll": "查看全部 {{count}} 个",
+    "countRecent": "近期记录中 {{count}} 个"
   },
   "artStyle": {
     "empty": "还没有读过的绘本",

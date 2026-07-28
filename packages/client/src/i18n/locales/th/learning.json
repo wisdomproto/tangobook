@@ -31,7 +31,8 @@
     "read": "📖 อ่านแล้ว",
     "played": "🎮 เกม",
     "collapse": "ย่อ",
-    "showAll": "ดูทั้งหมด {{count}} คำ"
+    "showAll": "ดูทั้งหมด {{count}} คำ",
+    "countRecent": "{{count}} คำจากบันทึกล่าสุด"
   },
   "artStyle": {
     "empty": "ยังไม่มีหนังสือที่อ่าน",

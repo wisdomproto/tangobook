@@ -31,7 +31,8 @@
     "read": "📖 Đã đọc",
     "played": "🎮 Trò chơi",
     "collapse": "Thu gọn",
-    "showAll": "Xem tất cả {{count}} từ"
+    "showAll": "Xem tất cả {{count}} từ",
+    "countRecent": "{{count}} trong hoạt động gần đây"
   },
   "artStyle": {
     "empty": "Chưa có cuốn sách nào đã đọc",

@@ -37,7 +37,7 @@ export default function ParentReportsPage() {
    */
   const [viewProfileId, setViewProfileId] = useState<string | null>(null);
   const viewProfile = profiles.find((p) => p.id === viewProfileId) ?? activeProfile;
-  const { data: events = [], isLoading } = useLearningEvents(viewProfile?.id);
+  const { data: events = [], isLoading, capped } = useLearningEvents(viewProfile?.id);
   const { data: storybooks = [] } = useStorybooks();
   const [tab, setTab] = useState<MainTab>('storybook');
   const [storybookLang, setStorybookLang] = useState<Lang>('ko');
@@ -160,7 +160,12 @@ export default function ParentReportsPage() {
               <div className="h-16 rounded-2xl bg-white/70" />
             </div>
           ) : (
-            <StorybookReportSection events={events} storybooks={storybooks} lang={storybookLang} />
+            <StorybookReportSection
+              events={events}
+              storybooks={storybooks}
+              lang={storybookLang}
+              capped={capped}
+            />
           )}
         </section>
       )}

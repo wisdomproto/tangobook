@@ -6,6 +6,8 @@ import type { WordDetail } from '../lib/aggregate';
 interface Props {
   details: WordDetail[];
   storybooks: StorybookSummary[];
+  /** 이벤트가 상한에 걸려 오래된 기록이 빠졌는가 — 총계를 단정하지 않기 위해. */
+  capped?: boolean;
 }
 
 const stripVariant = (id: string) => id.replace(/__L[1-4]$/, '');
@@ -16,7 +18,7 @@ const INITIAL = 24;
  * 각 카드: (책 표지) + 단어 + 만난 책 이름(+외 N권) + 📖 읽음 / 🎮 게임 배지.
  * 기본 INITIAL 개만 보이고 "전체 N개 보기" 로 전부 펼침.
  */
-export function MetWordsCard({ details, storybooks }: Props) {
+export function MetWordsCard({ details, storybooks, capped = false }: Props) {
   const { t } = useTranslation('learning');
   const [expanded, setExpanded] = useState(false);
 
@@ -32,8 +34,11 @@ export function MetWordsCard({ details, storybooks }: Props) {
     <div>
       <h3 className="mb-2 text-base font-bold text-ink-900">
         <span>{t('metWords.title')}</span>
+        {/* 🔴 잘린 목록에 「모두 N개」 를 붙이지 않는다 — 실제보다 적은 숫자가 정확한 총계처럼 보인다. */}
         <span className="ml-1.5 text-sm font-black text-coral-500">
-          {t('metWords.count', { count: details.length })}
+          {capped
+            ? t('metWords.countRecent', { count: details.length })
+            : t('metWords.count', { count: details.length })}
         </span>
       </h3>
 

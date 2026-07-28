@@ -31,7 +31,8 @@
     "read": "📖 Read",
     "played": "🎮 Game",
     "collapse": "Collapse",
-    "showAll": "See all {{count}}"
+    "showAll": "See all {{count}}",
+    "countRecent": "{{count}} in recent activity"
   },
   "artStyle": {
     "empty": "No books read yet",

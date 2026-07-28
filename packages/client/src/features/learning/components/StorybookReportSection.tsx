@@ -18,6 +18,8 @@ import { WeeklyHeroCard } from './WeeklyHeroCard';
 import { RecentBooksStrip } from './RecentBooksStrip';
 
 interface Props {
+  /** 이벤트가 상한에 걸려 오래된 기록이 빠졌는가. */
+  capped?: boolean;
   events: LearningEvent[];
   storybooks: StorybookSummary[];
   lang: Lang;
@@ -25,7 +27,7 @@ interface Props {
 
 const WEEK_MS = 7 * 86_400_000;
 
-export function StorybookReportSection({ events, storybooks, lang }: Props) {
+export function StorybookReportSection({ events, storybooks, lang, capped }: Props) {
   const { t } = useTranslation('learning');
   const now = new Date();
 
@@ -111,7 +113,7 @@ export function StorybookReportSection({ events, storybooks, lang }: Props) {
             {t('metWords.title')}
           </summary>
           <div className="mt-3">
-            <MetWordsCard details={wordItems} storybooks={storybooks} />
+            <MetWordsCard details={wordItems} storybooks={storybooks} capped={capped} />
           </div>
         </details>
       )}
