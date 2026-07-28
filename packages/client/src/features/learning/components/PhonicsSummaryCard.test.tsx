@@ -45,9 +45,10 @@ describe('PhonicsSummaryCard', () => {
     );
   });
 
-  it('한 번도 안 했으면 나무라지 않고 시작 버튼만', () => {
-    show([]);
-    expect(screen.getByText(/아직 파닉스를 시작하지 않았어요/)).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: '시작하기' })).toBeInTheDocument();
+  // 🔴 기록이 하나도 없으면 **카드를 안 그린다** — 아래 표가 이미 빈 상태를 보여주는데
+  //    위에서 "아직 시작 안 함" 을 선언하면, 기록이 있는데도 그렇게 뜨는 순간 거짓말이 된다.
+  it('기록이 없으면 카드를 그리지 않는다', () => {
+    const { container } = show([]);
+    expect(container).toBeEmptyDOMElement();
   });
 });

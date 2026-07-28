@@ -202,7 +202,7 @@ function KoreanLevelTargetWords({ levelId, wordStats, now }: TargetWordsProps) {
             className="flex items-center justify-between gap-2 rounded bg-cream-50 px-2 py-1 text-xs"
           >
             <span className="truncate font-semibold text-ink-700">{r.word}</span>
-            <MasteryBadge label={masteryWord(r.mastery)} mastery={r.mastery} />
+            <MasteryBadge label={masteryWord(r.mastery)} mastery={r.mastery} parent />
           </div>
         ))}
       </div>
