@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
 import type { LearningEvent, StorybookSummary } from '@tangobook/shared';
 import { AppIcon } from '@/design-system';
-import { computeMastery, masteryState, type MasteryState } from '../lib/mastery';
+import { computeMastery, masteryState, masteryLabel, type MasteryState } from '../lib/mastery';
 import { groupByPhoneme, groupByWord } from '../lib/aggregate';
 import { ENGLISH_PHONICS_BOOKS, type EnglishBookId } from '../lib/english-phonics-skills';
 import { readPhonicsUnitIds, englishBookProgress } from '../lib/phonics-progress';
@@ -23,19 +23,6 @@ function getEnglishBookTargetWords(bookId: EnglishBookId): string[] {
 interface Props {
   events: LearningEvent[];
   storybooks: StorybookSummary[];
-}
-
-/**
- * 🔴 부모 화면엔 **% 를 쓰지 않는다** — 마스터리는 최근성 감쇠(`exp(-days/30)`)를 곱해서,
- *    아이가 아무것도 안 해도 매일 내려간다. 92% 가 다음 주에 71% 로 보이면 부모는
- *    "애가 까먹고 있다" 로 읽는데, 그건 사실이 아니고 할 수 있는 일도 없다. 불안만 만든다.
- *    3단계 말로 바꾼다 — 색은 이미 4단계라 그대로 쓴다.
- */
-function masteryWord(m: number): string {
-  const s = masteryState(m);
-  if (s === 'mastered') return '잘해요';
-  if (s === 'practiced') return '배우는 중';
-  return '아직';
 }
 
 export function EnglishPhonicsSkillTree({ events, storybooks }: Props) {
@@ -116,7 +103,7 @@ export function EnglishPhonicsSkillTree({ events, storybooks }: Props) {
                       className="flex items-center justify-between gap-2 rounded bg-cream-50 px-2 py-1 text-xs"
                     >
                       <span className="truncate font-semibold text-ink-700">{r.word}</span>
-                      <MasteryBadge label={masteryWord(r.mastery)} mastery={r.mastery} parent />
+                      <MasteryBadge label={masteryLabel(r.mastery)} mastery={r.mastery} />
                     </div>
                   ))}
                 </div>

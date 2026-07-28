@@ -19,18 +19,22 @@ export function computeMastery(s: MasteryStats, now = Date.now()): number {
 }
 
 /**
- * 부모 화면용 **3단계**. 🔴 `MasteryState` 는 4단계(안 봄/봄/연습/익힘)인데 부모에게
- * "안 봄" 과 "봄" 의 차이는 아무 의미가 없다 — 예전엔 둘 다 「아직」 이라고 쓰면서 **색만 달라서**,
- * 회색 「아직」 과 코랄 「아직」 이 나란히 놓여 무슨 차이인지 알 수 없었다(사용자 지적).
- * 말과 색이 **같은 것**을 가리키게 3단계로 묶는다.
+ * 부모 화면 라벨 — **막대 범례와 같은 말**(`MasteryDistributionBar` 의 `SEGMENTS`).
+ *
+ * 🔴 한 화면에서 같은 것을 두 가지 말로 부르지 않는다. 막대는 「안 봄·봄·연습·익힘」 인데
+ *    배지만 「아직·배우는 중」 이라 무엇과 무엇이 같은 단계인지 알 수 없었다(사용자 지적).
+ *    말을 바꾸고 싶으면 **두 곳을 같이** 바꿀 것 — 색(4단계)도 이 네 상태를 그대로 따른다.
+ * 🔴 % 는 쓰지 않는다(감쇠 때문에 아무것도 안 해도 매일 내려간다).
  */
-export type ParentMastery = 'notyet' | 'learning' | 'good';
+const PARENT_LABEL: Record<MasteryState, string> = {
+  unknown: '안 봄',
+  seen: '봄',
+  practiced: '연습',
+  mastered: '익힘',
+};
 
-export function parentMastery(m: number): ParentMastery {
-  const s = masteryState(m);
-  if (s === 'mastered') return 'good';
-  if (s === 'practiced') return 'learning';
-  return 'notyet';
+export function masteryLabel(m: number): string {
+  return PARENT_LABEL[masteryState(m)];
 }
 
 export function masteryState(m: number): MasteryState {

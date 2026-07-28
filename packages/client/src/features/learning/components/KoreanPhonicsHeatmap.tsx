@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { KOREAN_PHONICS_CURRICULUM } from '@tangobook/shared';
 import type { LearningEvent, StorybookSummary } from '@tangobook/shared';
 import { AppIcon } from '@/design-system';
-import { computeMastery, masteryState, type MasteryState } from '../lib/mastery';
+import { computeMastery, masteryState, masteryLabel, type MasteryState } from '../lib/mastery';
 import { groupBySyllable, groupByWord } from '../lib/aggregate';
 import {
   buildKoreanPhonicsGrid,
@@ -36,19 +36,6 @@ const CELL_COLOR: Record<MasteryState, string> = {
   practiced: 'bg-coral-400 text-white',
   mastered: 'bg-success text-white',
 };
-
-/**
- * 🔴 부모 화면엔 **% 를 쓰지 않는다** — 마스터리는 최근성 감쇠(`exp(-days/30)`)를 곱해서,
- *    아이가 아무것도 안 해도 매일 내려간다. 92% 가 다음 주에 71% 로 보이면 부모는
- *    "애가 까먹고 있다" 로 읽는데, 그건 사실이 아니고 할 수 있는 일도 없다. 불안만 만든다.
- *    3단계 말로 바꾼다 — 색은 이미 4단계라 그대로 쓴다.
- */
-function masteryWord(m: number): string {
-  const s = masteryState(m);
-  if (s === 'mastered') return '잘해요';
-  if (s === 'practiced') return '배우는 중';
-  return '아직';
-}
 
 export function KoreanPhonicsHeatmap({ events, storybooks }: Props) {
   const syllableStats = useMemo(() => groupBySyllable(events), [events]);
@@ -105,9 +92,8 @@ export function KoreanPhonicsHeatmap({ events, storybooks }: Props) {
                 <MasteryDistributionBar counts={counts} />
               </div>
             )}
-            {/* 타겟 단어는 항상 노출 — 모든 레벨에서 한눈에 보기 */}
-            <KoreanLevelTargetWords levelId={lv.id} wordStats={wordStats} now={now} />
-            {/* 자음×모음 표는 무거우므로 펼쳐서 자세히 — 펼침 토글 별도 버튼 */}
+            {/* 🔴 자음×모음 표가 **먼저** — 이 레벨에서 무엇을 배웠는지 한 장으로 보여주는 게
+                이 표다. 타겟 단어 56개 뱃지 아래에 두면 스크롤을 한참 내려야 나왔다. */}
             <button
               type="button"
               onClick={() => setOpenLevel(open ? null : lv.id)}
@@ -160,6 +146,8 @@ export function KoreanPhonicsHeatmap({ events, storybooks }: Props) {
                   </table>
                 </div>
               ))}
+            {/* 타겟 단어 — 표 아래. 목록이라 길고, 표를 본 뒤에 보는 게 순서다. */}
+            <KoreanLevelTargetWords levelId={lv.id} wordStats={wordStats} now={now} />
           </div>
         );
       })}
@@ -202,7 +190,7 @@ function KoreanLevelTargetWords({ levelId, wordStats, now }: TargetWordsProps) {
             className="flex items-center justify-between gap-2 rounded bg-cream-50 px-2 py-1 text-xs"
           >
             <span className="truncate font-semibold text-ink-700">{r.word}</span>
-            <MasteryBadge label={masteryWord(r.mastery)} mastery={r.mastery} parent />
+            <MasteryBadge label={masteryLabel(r.mastery)} mastery={r.mastery} />
           </div>
         ))}
       </div>
