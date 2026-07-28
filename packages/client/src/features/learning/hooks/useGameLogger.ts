@@ -36,8 +36,10 @@ export interface LogGameArgs {
  *
  * 게스트 모드(활성 프로필 없음)에선 자동 no-op (useLogEventsBatch 내부).
  *
- * TODO(follow-up): korean-block·english-block·word-writing 등 나머지 게임 플레이어에
- *  점진적으로 연동. 지금은 connect-the-dots 시범 연동만 완료.
+ * 🔴 **한글 블록·낱말 쓰기·그림 짝은 플레이어가 직접 `decomposeWord` 로 음절 결과까지 만들어 넘긴다**
+ *  (그 게임들은 아이가 음절을 실제로 조작하므로 정식 1점이 맞다). 그래서 `groupBySyllable` 은
+ *  그 게임의 단어에는 부분점수를 안 얹는다 — 얹으면 같은 판정을 두 번 센다. 새 플레이어에서
+ *  음절 결과를 넣고 뺄 때 집계 쪽은 손댈 필요 없다(이벤트에서 판단한다).
  */
 export function useGameLogger() {
   const batch = useLogEventsBatch();

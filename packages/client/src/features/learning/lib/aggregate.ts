@@ -89,6 +89,10 @@ export function groupByVowel(events: LearningEvent[]): Map<string, MasteryStats>
  *    `고` 를 읽는다는 확증은 아니지만, 아예 0점을 주면 그게 더 이상하다 — 단어를 맞히는 아이는
  *    그 글자를 어느 정도 읽고 있다. 단어만으로 「연습 중」까지는 2~3번, 「익힘」까지는 열 번쯤
  *    걸리고, 그 사이 그 글자를 따로 한 번 맞히면 단숨에 올라간다.
+ * 🔴 **음절을 직접 쏘는 게임의 단어는 부분점수에서 뺀다** — 한글 블록·낱말 쓰기·그림 짝은 플레이어가
+ *    이미 `decomposeWord` 로 음절 이벤트를 정식 1점으로 보낸다. 거기에 단어 점수까지 얹으면
+ *    **같은 판정을 1.25번 센다**. 게임 이름을 박아두면 플레이어가 바뀔 때 조용히 썩으므로,
+ *    **그 판에서 음절 이벤트가 실제로 왔는지를 데이터에서 뽑아** 판단한다.
  */
 const WORD_CREDIT = 0.25;
 export function groupBySyllable(events: LearningEvent[]): Map<string, MasteryStats> {
@@ -98,13 +102,18 @@ export function groupBySyllable(events: LearningEvent[]): Map<string, MasterySta
     out.set(key, cur);
     return cur;
   };
+  // 음절을 직접 쏜 게임들. 파닉스 활동은 game_type 이 없어 여기 안 들어가고, 따라서
+  // 게임 밖 단어(동화책 읽기 등)의 부분점수는 그대로 살아 있다.
+  const syllableGames = new Set(
+    events.filter((e) => SYLLABLE_TYPES.has(e.event_type) && e.game_type).map((e) => e.game_type)
+  );
   for (const e of events) {
     if (SYLLABLE_TYPES.has(e.event_type)) {
       const c = e.metadata?.consonant;
       const v = e.metadata?.vowel;
       if (!c || !v) continue;
       bump(cell(`${c}${v}`), e);
-    } else if (WORD_TYPES.has(e.event_type) && e.word) {
+    } else if (WORD_TYPES.has(e.event_type) && e.word && !syllableGames.has(e.game_type)) {
       // 한글이 아니면 decomposeWord 가 빈 배열이라 영어 단어는 저절로 걸러진다.
       for (const s of decomposeWord(e.word)) {
         const cur = cell(`${s.cho}${s.jung}`);

@@ -29,9 +29,9 @@ export function MasteryLegendCard() {
         ))}
       </ul>
       <p className="mt-2.5 text-[11px] text-ink-400 break-keep">
-        글자 공부뿐 아니라 <b className="font-bold text-ink-500">단어를 배우면서 만난 글자</b>도
-        함께 세요. 「고기」를 맞히면 <b className="font-bold text-ink-500">고·기</b> 칸이 조금씩
-        올라가요. 단어로는 천천히, 그 글자만 따로 맞히면 빠르게 올라가요.
+        파닉스뿐 아니라 <b className="font-bold text-ink-500">동화책에서 배운 단어</b>도 함께 세요.
+        「고기」를 맞히면 <b className="font-bold text-ink-500">고·기</b> 칸이 같이 올라가요.
+        단어로는 조금씩, 그 글자를 직접 만들거나 써보면 크게 올라가요.
       </p>
       <p className="mt-1.5 text-[11px] text-ink-400 break-keep">
         한동안 안 하면 단계가 조금씩 내려가요. 까먹은 게 아니라 다시 볼 때가 됐다는 뜻이에요.

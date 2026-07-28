@@ -150,6 +150,33 @@ describe('groupBySyllable', () => {
     expect(masteryState(computeMastery(drilled.get('ㄱㅗ')!, now))).toBe('practiced');
   });
 
+  it('음절을 직접 쏜 게임의 단어는 부분점수를 얹지 않는다', () => {
+    // 한글 블록은 플레이어가 이미 음절을 1점으로 보낸다 — 단어 점수까지 더하면 1.25 가 된다.
+    const r = groupBySyllable([
+      ev({ event_type: 'word_correct', word: '고기', game_type: 'korean-block' }),
+      ev({
+        event_type: 'syllable_correct',
+        word: '고',
+        game_type: 'korean-block',
+        metadata: { consonant: 'ㄱ', vowel: 'ㅗ' },
+      }),
+    ]);
+    expect(r.get('ㄱㅗ')).toMatchObject({ exposed: 1, correct: 1 });
+  });
+
+  it('음절을 안 쏘는 게임의 단어는 부분점수가 살아 있다', () => {
+    const r = groupBySyllable([
+      ev({ event_type: 'word_correct', word: '고기', game_type: 'connect-the-dots' }),
+      ev({
+        event_type: 'syllable_correct',
+        word: '나',
+        game_type: 'korean-block',
+        metadata: { consonant: 'ㄴ', vowel: 'ㅏ' },
+      }),
+    ]);
+    expect(r.get('ㄱㅗ')).toMatchObject({ correct: 0.25 });
+  });
+
   it('영어 단어는 칸을 만들지 않는다', () => {
     const events = [ev({ event_type: 'word_correct', word: 'cat', metadata: { lang: 'en' } })];
     expect(groupBySyllable(events).size).toBe(0);
