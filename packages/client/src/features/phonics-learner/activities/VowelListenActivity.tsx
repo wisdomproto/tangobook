@@ -108,7 +108,17 @@ export function VowelListenActivity({
 
   const handleListenTap = useCallback(
     (idx: number) => {
-      if (idx !== nextIdx) return; // 순서 강제
+      /**
+       * 🔴 한 바퀴 돌고 나면 **자유놀이** — 아무 카드나 눌러 다시 듣는다(순서도 칭찬도 없다).
+       *    예전엔 `nextIdx` 가 마지막에 멈춰 있어서, 다른 카드는 순서 검사에 걸려 **무음**이고
+       *    마지막 카드만 완료 분기로 들어가 **칭찬이 다시 울렸다**. 카드는 이미 전부 눌러지게
+       *    보이는데(`isUnlockedListen`) 동작이 안 따라온 것 — 보이는 대로 되어야 한다.
+       */
+      if (listenedAll) {
+        playVowel(vowels[idx].sound ?? vowels[idx].vowel);
+        return;
+      }
+      if (idx !== nextIdx) return; // 순서 강제 (첫 바퀴만)
       if (idx + 1 >= vowels.length) {
         // 마지막 모음 — 음원이 다 재생된 후에야 칭찬 시작 (요 발음 잘리지 않게)
         playVowel(vowels[idx].sound ?? vowels[idx].vowel, () => {
@@ -120,7 +130,7 @@ export function VowelListenActivity({
         setNextIdx(idx + 1);
       }
     },
-    [nextIdx, vowels, playVowel, playCorrectSequence]
+    [listenedAll, nextIdx, vowels, playVowel, playCorrectSequence, language]
   );
 
   // 듣기 단계 다시 시작 — 진행 초기화 (퀴즈 들어가기 전 한 번 더 들어보기용)
