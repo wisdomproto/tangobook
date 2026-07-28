@@ -57,9 +57,11 @@ export function ConsonantTapActivity({
     return Array.from({ length: CARDS }, (_, i) => pool[i % pool.length]);
   }, [words]);
 
+  // 🔴 데우는 텍스트는 **실제 읽는 텍스트** — 세 번째 탭은 낱말이 아니라 이어읽기(`ㄱ ㄱ 아기`)라
+  //    낱말만 데우면 그 탭에서 서버 concat 왕복을 기다린다. 순서가 곧 우선순위(글자 먼저).
   usePhonicsTtsWarm(
     unitId,
-    useMemo(() => [say, ...cardWords.map((w) => w.word)], [say, cardWords]),
+    useMemo(() => [say, ...cardWords.map((w) => `${say} ${say} ${w.word}`)], [say, cardWords]),
     'consonant-tap'
   );
 
@@ -73,17 +75,20 @@ export function ConsonantTapActivity({
       setTapCounts(nextTaps);
 
       const isCardComplete = next === TAPS_PER_CARD;
-      // 🔴 세 번째 탭은 **그 카드의 단어**를 읽는다 — 기존 "ㄱ ㄱ 고기" 규칙과 같은 리듬.
+      /**
+       * 🔴 세 번째 탭은 **`ㄱ ㄱ 아기` 를 이어 읽는다** — 글자 소리에서 낱말로 건너가는 다리가
+       *    이 리듬이다(영어 `a a apple` 과 같은 형식). 예전엔 낱말만 읽어서 **누른 글자 소리가
+       *    아예 안 나고 그림만 튀어나왔다**(사용자 지적). 원인 둘: ①`text` 가 단어 하나뿐 ②단어만
+       *    녹음된 `card.ttsUrl` 이 먼저 잡혀 concat 경로로 못 갔다. 그래서 그 우선순위도 뺀다.
+       */
       const card = cardWords[idx];
-      const text = isCardComplete && card ? card.word : say;
-      const url =
-        (isCardComplete && card?.ttsUrl) ||
-        (await resolveTtsUrl({
-          text,
-          language: 'korean',
-          storybookId: unitId,
-          identifierPrefix: 'consonant-tap',
-        }));
+      const text = isCardComplete && card ? `${say} ${say} ${card.word}` : say;
+      const url = await resolveTtsUrl({
+        text,
+        language: 'korean',
+        storybookId: unitId,
+        identifierPrefix: 'consonant-tap',
+      });
 
       const isAllDone = nextTaps.every((c) => c >= TAPS_PER_CARD);
 

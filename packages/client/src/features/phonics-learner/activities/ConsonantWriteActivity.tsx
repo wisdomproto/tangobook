@@ -103,7 +103,12 @@ export function ConsonantWriteActivity({
    */
   const closing = isCoda && round === 1;
   const merging = isCoda ? round >= 2 : round >= writeRounds;
-  /** 위·아래로 모이는가 — 받침이거나 수직 모음(ㅗㅛㅜㅠㅡ)이면 세로. 방향은 글자가 정한다. */
+  /**
+   * 위·아래로 모이는가 — 받침이거나 수직 모음(ㅗㅛㅜㅠㅡ)이면 세로. 방향은 글자가 정한다.
+   * 🔴 **칸 크기뿐 아니라 배치 방향까지** 이 값이 정해야 한다 — 예전엔 방향만 `coda` 로 갈라져서
+   *    `구`·`꼬` 를 옆으로 나란히 쓰게 했다(사용자 지적). 음절 만들기는 진작 이 값으로 갈리고
+   *    있었으므로 두 화면이 어긋나 있던 것이다(규칙 SSOT = `stacksVertically`).
+   */
   const vertical = isCoda || stacksVertically(pair);
   const tile = vertical ? CODA_TILE : ROW_TILE;
 
@@ -311,10 +316,10 @@ export function ConsonantWriteActivity({
         ) : (
           <div
             className={`flex items-center justify-center transition-all duration-500 ease-out ${
-              coda ? 'flex-col' : ''
+              vertical ? 'flex-col' : ''
             }`}
             style={
-              coda
+              vertical
                 ? { rowGap: CODA_GAPS[Math.min(round, CODA_GAPS.length - 1)] }
                 : { columnGap: GAPS[Math.min(round, GAPS.length - 1)] }
             }

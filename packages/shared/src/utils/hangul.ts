@@ -80,6 +80,20 @@ export const JONGSUNG = [
   'ㅎ',
 ] as const;
 
+/**
+ * 🔴 **수직 모음** — 자음의 **아래**에 붙는다(고·구·느). 나머지는 오른쪽(가·기).
+ *
+ * 글자가 합쳐지는 방향이라 학습 화면·게임이 전부 같은 답을 내야 한다. 예전엔 목록이 두 벌
+ * 복사돼 있었고, 그와 별개로 **자음 쓰기 화면만 이 규칙을 안 보고 받침 여부로 방향을 갈라서**
+ * `구` 를 옆으로 나란히 쓰게 했다. 방향을 정할 땐 반드시 이 함수를 쓸 것.
+ */
+export const VERTICAL_VOWELS: ReadonlySet<string> = new Set(['ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ']);
+
+/** 이 모음은 자음 아래에 붙는가? */
+export function isVerticalVowel(vowel: string | undefined): boolean {
+  return !!vowel && VERTICAL_VOWELS.has(vowel);
+}
+
 export function isHangulSyllable(char: string): boolean {
   const code = char.charCodeAt(0);
   return code >= HANGUL_START && code <= HANGUL_END;

@@ -1,6 +1,4 @@
-import { decomposeWord } from '@tangobook/shared';
-
-const VERT_JUNG = new Set(['ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ']);
+import { decomposeWord, isVerticalVowel } from '@tangobook/shared';
 
 export interface TutorialSyllable {
   cho: string;
@@ -21,7 +19,7 @@ export function planTutorialLayout(word: string): TutorialSyllable[] {
   let col = 0;
   for (const syl of syllables) {
     if (!syl.cho || !syl.jung) continue;
-    const isVertical = VERT_JUNG.has(syl.jung);
+    const isVertical = isVerticalVowel(syl.jung);
     if (isVertical) {
       plan.push({
         cho: syl.cho,

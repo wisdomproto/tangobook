@@ -1,18 +1,11 @@
-import { composeHangul } from '@tangobook/shared';
+import { composeHangul, isVerticalVowel } from '@tangobook/shared';
 
 /**
- * 🔴 **수직 모음** — 자음의 **아래**에 붙는다(꼬·구·느). 나머지는 오른쪽(가·기).
- *
- * 두 글자가 모이는 방향이 이 값으로 갈린다. 옆으로 모으면 `ㅛ` 가 오른쪽에 붙는 것처럼 보여
- * **합쳐지는 방향을 거꾸로 가르친다**. 받침이 아래로 붙는 것과 같은 이유다.
- * (같은 규칙이 `KoreanBlockPlayer`·`KoreanBlockTutorial.layout` 에도 있다 — 셋이 어긋나면 안 된다.)
+ * 이 짝은 위·아래로 모이는가? 수직 모음(ㅗㅛㅜㅠㅡ)이면 세로.
+ * 목록은 `@tangobook/shared` 의 `VERTICAL_VOWELS` 한 곳 — 블록 게임 튜토리얼과 같은 값을 본다.
  */
-const VERTICAL_VOWELS = new Set(['ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ']);
-
-/** 이 짝은 위·아래로 모이는가? 받침이거나 수직 모음이면 세로. */
 export function stacksVertically(pair: Pick<BlendPair, 'second'> | undefined): boolean {
-  if (!pair) return false;
-  return VERTICAL_VOWELS.has(pair.second);
+  return isVerticalVowel(pair?.second);
 }
 
 /** 합쳐서 음절 하나를 만드는 두 글자. */
