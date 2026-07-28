@@ -196,3 +196,33 @@ PoC 셀렉터를 `naver-blog-post.ts`로 정착 + `blog-html.ts`(TDD) + `naver-p
 ### 예약 발행
 버튼이 실재하므로 **한 세션에 여러 편을 각각 다른 시각으로 예약**할 수 있다.
 → CLI 에 `--schedule` 을 넣어 주 1회 실행으로 7편을 하루 간격 예약하는 운용이 가능.
+
+## §13 발행 패널 실측 (2026-07-28, `naver-measure-publish.ts`)
+
+상단 「발행」은 패널을 여는 버튼이고, 실제 발행은 패널 안 `button.confirm_btn__WEaBq` 다.
+측정은 **빈 문서**로 했다 — 제목이 없으면 네이버가 발행을 막으므로 오조작해도 글이 안 나간다.
+
+| 항목 | 셀렉터 |
+|---|---|
+| 카테고리 | `button.selectbox_button__jb1Dt` (기본값이 첫 카테고리) |
+| 태그 | `input#tag-input` (최대 30개) |
+| 공개 = 전체공개 | `input#open_public` (radio `open_type`, 그 외 neighbor/both/private) |
+| **검색 허용** | `input#publish-option-search` |
+| 그 외 옵션 | `#publish-option-{comment,sympathy,scrap,outside}` |
+| 발행 시간 = 현재 | `input#radio_time1` (`now`) |
+| **발행 시간 = 예약** | `input#radio_time2` (`pre`) |
+| 예약 날짜 | `input.input_date__QmA0s` — 형식 `2026. 07. 28` |
+| 예약 시 | `select.hour_option__J_heO` (00~23) |
+| 예약 분 | `select.minute_option__Vb3xB` |
+| 확정 발행 | `button.confirm_btn__WEaBq` |
+| 예약 목록 열기 | `button.reserve_btn__Km5Xh` (`예약 발행 N건`) |
+
+🔴 **예약 날짜·시간 입력은 `#radio_time2` 를 켠 뒤에만 DOM 에 나타난다.** 라디오를 켜지 않고
+찾으면 없다고 나온다(1차 측정이 그랬다).
+
+🔴 **분은 10분 단위만 고를 수 있다** — 00/10/20/30/40/50. 임의 분(예: 09:07)은 못 넣는다.
+
+### 운용 한도 (사용자 실측 보고 기준, 공식 문서 아님)
+- 예약 발행글 **100개** · 임시저장 **300개** 상한.
+- 🔴 그래도 한 세션에 100편을 밀어넣으면 안 된다 — 예약 시각은 흩어져도 **작성 기록이 한날에
+  몰린다**. 2주치 14편 정도가 상한선으로 보인다.
