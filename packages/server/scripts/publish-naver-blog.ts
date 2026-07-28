@@ -167,16 +167,22 @@ async function writeAndSchedule(
   );
   await sleep(1000);
 
-  // 예약 날짜·시간 — 🔴 분은 10분 단위만 고를 수 있어 정각으로 둔다.
+  // 예약 날짜·시간.
+  // 🔴 날짜는 **직접 타이핑**해야 한다. 네이티브 setter + input 이벤트로 넣으면 네이버 상태가
+  //    안 받아 기본값(오늘)로 되돌아가고, 그러면 「현재 시간 이후로 설정해주세요」로 거부된다.
+  // 🔴 분은 10분 단위만 고를 수 있어 정각으로 둔다.
+  const dateEl = await ed.$('input.input_date__QmA0s');
+  if (dateEl) {
+    await dateEl.click({ clickCount: 3 });
+    await page.keyboard.down('Control');
+    await page.keyboard.press('KeyA');
+    await page.keyboard.up('Control');
+    await page.keyboard.type(when.date, { delay: 40 });
+    await page.keyboard.press('Tab');
+  }
+  await sleep(600);
   await ed.evaluate(
     `(function(){
-       var d = document.querySelector('input.input_date__QmA0s');
-       if (d) {
-         var setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
-         setter.call(d, ${JSON.stringify(when.date)});
-         d.dispatchEvent(new Event('input', { bubbles: true }));
-         d.dispatchEvent(new Event('change', { bubbles: true }));
-       }
        var h = document.querySelector('select.hour_option__J_heO');
        if (h) { h.value = ${JSON.stringify(when.hour)}; h.dispatchEvent(new Event('change', { bubbles: true })); }
        var m = document.querySelector('select.minute_option__Vb3xB');
@@ -186,19 +192,47 @@ async function writeAndSchedule(
   );
   await sleep(600);
 
+  // 🔴 태그는 **한 개씩 Enter** 로 끊어 넣는다. 쉼표로 이어 붙이면 통째로 한 덩어리가 되고,
+  //    입력 중 자동완성이 끼어들어 엉뚱한 태그(#첫글)가 붙는다.
   const tagInput = await ed.$('#tag-input');
   if (tagInput) {
     await tagInput.click();
-    await page.keyboard.type(tagsFor(plan.title.split(' ')[0]), { delay: 6 });
+    for (const t of tagsFor(plan.title.split(' ')[0]).split(',')) {
+      await page.keyboard.type(t, { delay: 25 });
+      await sleep(250);
+      await page.keyboard.press('Enter');
+      await sleep(250);
+    }
   }
   await sleep(500);
 
   if (!APPLY) return { scheduled: false };
 
-  await ed.evaluate(
-    `(function(){var b=document.querySelector('button.confirm_btn__WEaBq'); if(b) b.click()})()`
+  // 🔴 예약이 걸렸는지 **확인**한다. 예전엔 확정 버튼을 누르기만 하고 성공으로 보고했는데,
+  //    실제로는 임시저장만 되고 「예약 발행 0건」이었다. 누른 것과 걸린 것은 다르다.
+  const before = await ed.evaluate(
+    `(document.querySelector('button.reserve_btn__Km5Xh')||{}).innerText || ''`
   );
-  await sleep(5000);
+  await page.screenshot({ path: path.join(OUT, 'panel-before-confirm.png') });
+
+  const clicked = await ed.evaluate(
+    `(function(){
+       var b = document.querySelector('button.confirm_btn__WEaBq');
+       if (!b) return 'no-button';
+       if (b.disabled) return 'disabled';
+       b.click();
+       return 'clicked';
+     })()`
+  );
+  await sleep(6000);
+  await page.screenshot({ path: path.join(OUT, 'panel-after-confirm.png') });
+
+  const after = await ed.evaluate(
+    `(document.querySelector('button.reserve_btn__Km5Xh')||{}).innerText || ''`
+  );
+  const n = (s: string) => Number(String(s).match(/(\d+)\s*건/)?.[1] ?? -1);
+  if (n(after) <= n(before))
+    throw new Error(`예약 안 걸림 (버튼:${clicked} · ${before} → ${after})`);
   return { scheduled: true };
 }
 
@@ -253,8 +287,15 @@ async function main() {
     return k ? volMap[k] : { keyword: '', vol: 0, comp: null };
   };
 
+  // 🔴 검색량이 커도 **검색 의도가 우리와 다른** 키워드는 뒤로 민다.
+  //    먹는 것·반려동물은 값·요리·분양을 찾는 어른 검색이 압도적이라, 그림책 글이 이겨도
+  //    읽을 사람이 아니다. ⚠️ 실측이 아니라 판단이다 — 유입 데이터가 쌓이면 고칠 것.
+  const DEMOTED = new Set(['수박', '딸기', '문어', '오리', '고양이', '강아지']);
+  const rank = (t: string) => (DEMOTED.has(volOf(t).keyword) ? 1 : 0);
+
   if (args.order === 'score') picked.sort((a, b) => b.chars - a.chars);
-  else picked.sort((a, b) => volOf(b.title).vol - volOf(a.title).vol);
+  else
+    picked.sort((a, b) => rank(a.title) - rank(b.title) || volOf(b.title).vol - volOf(a.title).vol);
   const list = picked.slice(0, LIMIT);
 
   console.log(`대상 ${list.length}편${APPLY ? '' : ' (dry-run — --apply 로 예약)'}`);
