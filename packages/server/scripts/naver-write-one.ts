@@ -144,9 +144,22 @@ async function main() {
 
   for (const b of plan.blocks) {
     if (b.kind === 'html') {
+      // 🔴 「함께 읽으면 좋은 명작 동화」는 네이버에서 뺀다.
+      //    맨 URL 을 치면 네이버가 **자동으로 링크 카드**로 바꾼다. 링크가 4개라 거대한
+      //    카드 4장이 되고, 변환이 일어나며 앞뒤 줄바꿈까지 먹혀 텍스트가 뒤엉킨다.
+      //    (우리 웹 블로그로 나가는 외부 링크라 네이버 쪽 값어치도 낮다. 나중에 네이버
+      //     글이 쌓이면 네이버 글끼리 잇는 편이 낫다.) CTA 는 URL 이 하나라 카드 1장 = 유지.
+      if (/함께 읽으면 좋은/.test(b.html)) continue;
       const text = toPlain(b.html);
       if (!text) continue;
-      await page.keyboard.type(text, { delay: 4 });
+      // 🔴 `\n` 을 keyboard.type 에 그냥 넘기면 contenteditable 에서 **무시된다** —
+      //    Enter 로 안 바뀐다. 그래서 관련글 링크 4개가 한 문단에 이어 붙었었다.
+      //    줄로 쪼개 치고 사이에 Enter 를 직접 눌러야 문단이 생긴다.
+      const lines = text.split('\n');
+      for (let i = 0; i < lines.length; i++) {
+        if (lines[i]) await page.keyboard.type(lines[i], { delay: 4 });
+        if (i < lines.length - 1) await page.keyboard.press('Enter');
+      }
       await page.keyboard.press('Enter');
       await sleep(250);
       continue;
