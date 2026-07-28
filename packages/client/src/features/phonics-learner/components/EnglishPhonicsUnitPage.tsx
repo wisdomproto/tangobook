@@ -94,9 +94,12 @@ export default function EnglishPhonicsUnitPage({ embedded = false }: { embedded?
           {playActivities.length > 0 && (
             <ActivitySection
               unitId={unitId}
-              title="게임하기"
+              /* 🔴 복습 단원은 **그 묶음 이름**(`A~F Review`)을 쓴다 — 게임 패널이 화면의 유일한
+                 글자라 「게임하기」로 두면 무엇을 되짚는 자리인지 알 수 없다(한글과 같은 규칙).
+                 `isReview` 는 영어 데이터에도 진작 있었는데 화면이 안 쓰고 있었다. */
+              title={unit.isReview ? unit.unitTitle : '게임하기'}
               subtitle="재미있게 익혀요"
-              emoji="🎮"
+              emoji={unit.isReview ? '🏅' : '🎮'}
               tone="play"
               activities={playActivities}
               completed={completed}
@@ -208,7 +211,9 @@ function ActivityCard({
   widthClass?: string;
 }) {
   const isLearn = activity.section === 'learn';
-  const showDone = isLearn && done;
+  // 🔴 **게임도 끝내면 ✓** — 한글은 2026-07-27 에 고쳤는데 영어만 `isLearn &&` 가 남아 있었다.
+  //    아이가 게임을 다 깨고 나와도 목록이 그대로라 무엇을 했는지 안 보인다.
+  const showDone = done;
   const iconUrl = KIND_ICON_URL[activity.kind];
 
   const cardClass = showDone
