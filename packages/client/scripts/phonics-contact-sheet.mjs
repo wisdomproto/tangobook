@@ -182,6 +182,9 @@ async function instrumentAudioTiming(page) {
   });
 }
 
+/** 못 받아온 미디어 — `shoot()` 이 화면마다 비워 가므로 모듈 스코프에 둔다. */
+const mediaFails = [];
+
 function watchMedia(page, bucket) {
   const bad = (t) => bucket.push(t.slice(0, 60));
   page.on('requestfailed', (r) => {
@@ -273,7 +276,6 @@ async function main() {
   const browser = await puppeteer.launch({ headless: 'new', args: ['--no-sandbox'] });
   const page = await browser.newPage();
   await instrumentAudioTiming(page);
-  const mediaFails = [];
   watchMedia(page, mediaFails);
   await page.setViewport(VIEWPORT);
   const rows = [];

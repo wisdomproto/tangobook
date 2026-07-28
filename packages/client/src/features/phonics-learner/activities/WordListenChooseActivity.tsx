@@ -103,7 +103,21 @@ export function WordListenChooseActivity({
    *    아이 입장에선 버튼 하나 눌렀는데 화면이 딴 데로 간 셈이라, 같은 2×2 를 유지하고
    *    **문제만** 바뀌게 한다. 자리는 퀴즈 시작 때 한 번만 섞어 문제마다 튀지 않게 한다.
    */
-  const board = useMemo(() => items.slice(0, choices), [items, choices]);
+  /**
+   * 🔴 **판은 내용이 같으면 다시 만들지 않는다.**
+   *
+   * 호출부 6곳이 전부 `items={cards.map(...)}` 로 **렌더마다 새 배열**을 넘긴다. 배열 신원으로
+   * memo 를 걸면 `board → quizBoard → questions → current` 가 통째로 다시 계산되어,
+   *   ① 보기가 **매 렌더 다시 섞이고**(정답이 바뀐다)
+   *   ② 자동재생 effect 가 **다시 울린다**
+   * 실측: 복습 듣기 화면 진입 10ms 안에 `ㄹ·ㄹ·ㄷ·ㄹ` 네 번이 겹쳐 재생됐다 — 채널이 하나라
+   * 아이 귀엔 뭉개진 조각만 들린다. 호출부를 하나씩 고치면 다음 호출부에서 또 난다.
+   */
+  const itemsKey = items.map((i) => `${i.id ?? ''}|${i.label}|${i.sound}`).join('~');
+  const itemsRef = useRef(items);
+  itemsRef.current = items;
+  // 🔴 deps 는 `items` 신원이 아니라 **내용**(`itemsKey`) 이다 — 위 설명 참조.
+  const board = useMemo(() => itemsRef.current.slice(0, choices), [itemsKey, choices]);
   /**
    * 퀴즈 판 — **같은 라벨은 한 장만** 남긴다(무작위).
    *
@@ -172,10 +186,16 @@ export function WordListenChooseActivity({
 
   // 문제가 바뀌면 자동으로 한 번 들려준다 — 아이가 버튼을 찾아 누를 필요가 없게.
   // 🔴 단, 퀴즈 첫 문제는 **안내 음성이 끝난 뒤**(`starting`) 낸다 — 안 그러면 안내와 첫 문제가 겹친다.
+  // 🔴 **문제가 실제로 바뀐 때만** 울린다 — `current` 객체 신원이나 `say` 함수 신원에 걸면
+  //    부모가 리렌더될 때마다 같은 문제를 다시 읽어 소리가 겹친다(위 `itemsKey` 와 같은 사고).
+  const sayRef = useRef(say);
+  sayRef.current = say;
+  const answerKey = current ? idOf(current.answer) : '';
   useEffect(() => {
-    if (exploring || starting || done || !current) return;
-    say(current.answer);
-  }, [qIdx, exploring, starting, done, current, say]);
+    if (exploring || starting || done || !answerKey) return;
+    const answer = questions[qIdx]?.answer;
+    if (answer) sayRef.current(answer);
+  }, [qIdx, answerKey, exploring, starting, done]);
 
   // 나가는 도중 예약된 소리가 빈 화면에서 울리지 않게 둘 다 정리한다.
   useEffect(
