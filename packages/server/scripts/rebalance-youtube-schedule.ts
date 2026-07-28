@@ -27,13 +27,20 @@ function flag(name: string, d = ''): string {
 const APPLY = process.argv.includes('--apply');
 const HOUR = Number(flag('hour', '10'));
 
-/** 요일 → 라인. 0=일 … 6=토. 토(6)는 묶음용으로 비운다. */
-const WEEKDAY_LINE: Record<number, 'nature' | 'classic' | 'life' | null> = {
+type Line = 'nature' | 'classic' | 'life' | 'folktale';
+
+/**
+ * 요일 → 라인. 0=일 … 6=토. 토(6)는 묶음용으로 비운다.
+ * 🔴 금요일을 전래로 준 이유(2026-07-28): 목요일을 빼면 명작이 주 1회로 줄어드는데,
+ *    명작은 그날 제목 꼬리를 교체해 **효과 측정 중**이라 빈도를 건드리면 측정이 흐려진다.
+ *    자연·공룡은 94편이라 주 3회 → 2회로 줄여도 여유가 있다.
+ */
+const WEEKDAY_LINE: Record<number, Line | null> = {
   1: 'nature', // 월
   2: 'classic', // 화
   3: 'nature', // 수
   4: 'classic', // 목
-  5: 'nature', // 금
+  5: 'folktale', // 금
   6: null, // 토 — 묶음
   0: 'life', // 일
 };
@@ -57,14 +64,21 @@ async function main() {
   const { data: contents } = await sb.from('mkt_contents').select('id, category').in('id', ids);
   const catById = new Map((contents ?? []).map((c: any) => [c.id, c.category]));
 
-  const queues: Record<string, any[]> = { nature: [], classic: [], life: [] };
+  const queues: Record<Line, any[]> = { nature: [], classic: [], life: [], folktale: [] };
   for (const r of longform) {
     const raw = catById.get(r.content_id);
-    const line = raw === 'nature' ? 'nature' : raw === 'life' ? 'life' : 'classic';
+    const line: Line =
+      raw === 'nature'
+        ? 'nature'
+        : raw === 'life'
+          ? 'life'
+          : raw === 'folktale'
+            ? 'folktale'
+            : 'classic';
     queues[line].push(r);
   }
   console.log(
-    `대상 ${longform.length}편 — 자연 ${queues.nature.length} · 명작 ${queues.classic.length} · 생활 ${queues.life.length}`
+    `대상 ${longform.length}편 — 자연 ${queues.nature.length} · 명작 ${queues.classic.length} · 생활 ${queues.life.length} · 전래 ${queues.folktale.length}`
   );
 
   // 시작일: 기본은 내일(오늘 발행분은 건드리지 않는다).
@@ -76,7 +90,7 @@ async function main() {
       );
 
   const plan: { id: string; at: string; line: string; old: string }[] = [];
-  const cursor = { nature: 0, classic: 0, life: 0 };
+  const cursor: Record<Line, number> = { nature: 0, classic: 0, life: 0, folktale: 0 };
   let day = 0;
   while (plan.length < longform.length && day < 2000) {
     const d = new Date(start.getTime() + day * 86400_000);

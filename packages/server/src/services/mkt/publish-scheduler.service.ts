@@ -31,6 +31,14 @@ interface PublishedSiteLite {
  * when already started. Fires once on boot so a restart doesn't wait a full minute.
  */
 export function startPublishScheduler(): void {
+  // 🔴 R2 데이터 한 건 고치려고 프로덕션 `.env` 로 로컬 서버를 띄우면, 부팅과 동시에 이 tick 이
+  //    돌아 **예약된 유튜브·인스타 콘텐츠를 실제로 발행**한다. 2026-07-28 에 그렇게 같은 롱폼이
+  //    10:01·10:02 두 번 올라갔다(프로덕션 + 로컬이 같은 due 행을 각자 집었다).
+  //    그런 작업엔 `DISABLE_PUBLISH_SCHEDULER=1` 로 띄운다.
+  if (process.env.DISABLE_PUBLISH_SCHEDULER === '1') {
+    console.warn('[mkt] publish scheduler disabled (DISABLE_PUBLISH_SCHEDULER=1).');
+    return;
+  }
   const admin = getSupabaseAdmin();
   if (!admin) return; // graceful no-op (env unset) — the provider already logged
   if (timer) return; // already started
