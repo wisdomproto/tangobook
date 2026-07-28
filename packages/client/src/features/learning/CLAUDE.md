@@ -181,8 +181,11 @@
   그 형태로 단원 진행을 센다.
 - 🔴 **음절·음소는 활동이 실제로 판정하는 자리에서만** 남긴다(2026-07-27 배선 완료):
   - `ConsonantBlendListenActivity`(음절 만들기)·`ConsonantWriteActivity`(음절 쓰기) →
-    `syllable_correct` + `metadata.{consonant, vowel}`. 히트맵 칸 키가 `${consonant}${vowel}` 이다.
-  - 🔴 **받침 모드는 남기지 않는다** — 그 표의 칸은 (자음 × 모음)이라 `가 + ㅇ` 은 들어갈 자리가 없다.
+    `useLogSyllable` 이 **만든 글자를 쪼개** `syllable_correct` + `metadata.{consonant, vowel, coda}`.
+    칸 키가 `${consonant}${vowel}${coda ?? ''}` 라 `강` 과 `가` 가 갈린다.
+  - 🔴 **받침 모드도 남긴다**(2026-07-28 수정) — 예전엔 "(자음 × 모음) 표에 `가 + ㅇ` 자리가 없다"며
+    건너뛰었는데, 그 표의 축을 `받침 × 초성` 으로 바로잡아 자리가 생겼다. **막아둔 이유가 사라지면
+    막은 것도 같이 푼다.**
   - `WordListenChooseActivity` 퀴즈 → `onJudge` 콜백으로 **호출부가** 정한다:
     한글 단원·복습 = `word_correct/word_wrong`(「다시 볼 단어」가 이걸로 뽑힌다),
     영어 알파벳 단원 = `phoneme_correct/phoneme_wrong`(스킬트리).
