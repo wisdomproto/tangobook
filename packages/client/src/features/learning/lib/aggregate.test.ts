@@ -113,6 +113,30 @@ describe('groupBySyllable', () => {
     const events = [ev({ event_type: 'syllable_correct', word: '가', metadata: { lang: 'ko' } })];
     expect(groupBySyllable(events).size).toBe(0);
   });
+
+  it('단어에서 만난 음절은 노출로만 센다', () => {
+    const r = groupBySyllable([ev({ event_type: 'word_correct', word: '고기' })]);
+    // 🔴 `고기` 를 맞혔다고 `고` 를 읽을 수 있는 건 아니다 — 노출만 오른다(「봄」에서 멈춤).
+    expect(r.get('ㄱㅗ')).toMatchObject({ exposed: 1, correct: 0, wrong: 0 });
+    expect(r.get('ㄱㅣ')).toMatchObject({ exposed: 1, correct: 0 });
+  });
+
+  it('단어 노출과 음절 판정이 같은 칸에 쌓인다', () => {
+    const r = groupBySyllable([
+      ev({ event_type: 'word_exposed', word: '고기' }),
+      ev({
+        event_type: 'syllable_correct',
+        word: '고',
+        metadata: { consonant: 'ㄱ', vowel: 'ㅗ' },
+      }),
+    ]);
+    expect(r.get('ㄱㅗ')).toMatchObject({ exposed: 2, correct: 1 });
+  });
+
+  it('영어 단어는 칸을 만들지 않는다', () => {
+    const events = [ev({ event_type: 'word_correct', word: 'cat', metadata: { lang: 'en' } })];
+    expect(groupBySyllable(events).size).toBe(0);
+  });
 });
 
 describe('groupByPhoneme', () => {

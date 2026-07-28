@@ -5,6 +5,7 @@ import {
   estimateReadingMinutes,
   computeStreak,
   weekActivity,
+  decomposeWord,
   type Lang,
   type LearningEvent,
   type LearningEventType,
@@ -79,17 +80,36 @@ export function groupByVowel(events: LearningEvent[]): Map<string, MasteryStats>
   return out;
 }
 
+/**
+ * 자음×모음 칸 집계 — **음절 활동 + 단어에서 만난 음절**.
+ *
+ * 🔴 단어를 공부하면 그 단어의 음절도 눈에 들어온다. `고기` 를 하면 `고`·`기` 칸이 그날
+ *    노출된 것인데, 예전엔 음절 활동만 세서 **표가 실제보다 비어 보였다**(사용자 지적).
+ * 🔴 다만 **맞힘으로는 세지 않고 노출만 올린다** — `고기` 를 맞혔다고 `고` 를 읽을 수 있다는
+ *    근거는 없다. 노출만 오르면 `computeMastery` 의 `attempts === 0` 가지를 타서 그 칸은
+ *    「봄」에서 멈춘다. 「연습 중」 위로 가려면 그 음절을 실제로 판정받아야 한다.
+ */
 export function groupBySyllable(events: LearningEvent[]): Map<string, MasteryStats> {
   const out = new Map<string, MasteryStats>();
-  for (const e of events) {
-    if (!SYLLABLE_TYPES.has(e.event_type)) continue;
-    const c = e.metadata?.consonant;
-    const v = e.metadata?.vowel;
-    if (!c || !v) continue;
-    const key = `${c}${v}`;
+  const cell = (key: string) => {
     const cur = out.get(key) ?? emptyStats();
-    bump(cur, e);
     out.set(key, cur);
+    return cur;
+  };
+  for (const e of events) {
+    if (SYLLABLE_TYPES.has(e.event_type)) {
+      const c = e.metadata?.consonant;
+      const v = e.metadata?.vowel;
+      if (!c || !v) continue;
+      bump(cell(`${c}${v}`), e);
+    } else if (WORD_TYPES.has(e.event_type) && e.word) {
+      // 한글이 아니면 decomposeWord 가 빈 배열이라 영어 단어는 저절로 걸러진다.
+      for (const s of decomposeWord(e.word)) {
+        const cur = cell(`${s.cho}${s.jung}`);
+        cur.exposed += 1;
+        if (!cur.lastAt || e.created_at > cur.lastAt) cur.lastAt = e.created_at;
+      }
+    }
   }
   return out;
 }
