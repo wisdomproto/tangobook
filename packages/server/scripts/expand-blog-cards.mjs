@@ -81,9 +81,19 @@ function parseSections(body) {
     if (HEADINGS.includes(b)) {
       cur = b;
       out[cur] = [];
-    } else if (cur) {
-      out[cur].push(b);
+      continue;
     }
+    // 🔴 책마다 형식이 둘이다 — 제목과 본문 사이가 빈 줄인 것도 있고 줄바꿈 하나인 것도 있다.
+    //    후자는 `제목\n본문` 이 한 덩어리라 위 정확 매칭에 안 걸린다(자연관찰 절반이 그랬다).
+    const head = HEADINGS.find((h) => b === h || b.startsWith(`${h}\n`));
+    if (head) {
+      cur = head;
+      out[cur] = [];
+      const rest = b.slice(head.length).trim();
+      if (rest) out[cur].push(...rest.split('\n').map((s) => s.trim()).filter(Boolean));
+      continue;
+    }
+    if (cur) out[cur].push(b);
   }
   return out;
 }
