@@ -37,7 +37,12 @@ import { feedDrawLoop } from '@/lib/uiSound';
 const PAINT_COLOR = '#10b981'; // emerald
 const MASK_COLOR = 'rgba(160, 160, 160, 0.45)'; // 반투명 회색 — 안 칠한 영역
 const POLYGON_OUTLINE = '#FF6F61'; // coral — polygon 윤곽선
-const THRESHOLD = 0.95; // 95% 채우면 통과 — 그림을 거의 다 칠해야 완성 인정
+/**
+ * 99% 채우면 통과 — 글자 쓰기(`LetterFillCanvas`)와 같은 기준(2026-07-28, 사용자 지시).
+ * ⚠️ 여기 마스크는 손으로 찍은 점이 아니라 `rembg` 가 뽑은 **윤곽 근사치**라, 가장자리 몇 px 가
+ *    원본 그림과 어긋날 수 있다. 아이가 다 칠했는데 안 넘어가는 게 보이면 이 숫자부터 볼 것.
+ */
+const THRESHOLD = 0.99;
 const PEN_RATIO = 0.08; // canvas width 대비 펜 두께 비율 (~8%)
 
 interface ConnectTheDotsPlayerProps extends GamePlayerProps {
