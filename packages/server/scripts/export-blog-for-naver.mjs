@@ -6,8 +6,12 @@
  * 자동화가 만들어야 할 결과물의 기준이기도 하다.
  *
  * 산출물 → out/naver-posts/<slug>/
- *   POST.md    제목 후보 · 태그 · 본문(이미지 삽입 위치 표시)
+ *   POST.html  🔴 이걸 브라우저로 연다. 블록마다 「복사」 버튼 — 텍스트도 이미지도.
+ *   POST.md    같은 내용의 평문(참고용)
  *   01.webp …  본문에 넣는 순서대로 번호 매긴 삽화
+ *
+ * 🔴 이미지를 base64 로 HTML 안에 박는 이유: file:// 로 열었을 때 외부 파일을 canvas 에
+ *    올리면 tainted 라 toBlob 이 막힌다 = 클립보드 복사가 안 된다. 자체 포함이라야 동작한다.
  *
  * 사용:
  *   node packages/server/scripts/export-blog-for-naver.mjs --book=장수풍뎅이
@@ -65,6 +69,105 @@ function toPlain(html) {
     .trim();
 }
 
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+/** 브라우저로 열어 버튼만 누르면 되는 작업 페이지. 자체 포함(이미지 base64). */
+function buildHtml(title, blocks) {
+  const tags = `${title}, ${title}그림책, 유아그림책, 자연관찰, 자연관찰책, 유아자연관찰, 4세그림책, 5세그림책, 6세그림책, 탱고북`;
+  const postTitle = `${title} 뿔은 왜 있을까? 아이와 보는 자연관찰 그림책`;
+
+  const rows = blocks
+    .map((b, i) => {
+      if (b.kind === 'image') {
+        return `<div class="blk img">
+  <div class="n">${i + 1}</div>
+  <img src="${b.dataUri}" alt="">
+  <div class="meta">
+    <div class="fn">${esc(b.file)}</div>
+    ${b.caption ? `<div class="cap">캡션: ${esc(b.caption)}<button class="mini" data-copy="${esc(b.caption)}">캡션 복사</button></div>` : ''}
+    <button class="copy imgbtn" data-img="${i}">🖼 이미지 복사 → 에디터에서 Ctrl+V</button>
+  </div>
+</div>`;
+      }
+      return `<div class="blk">
+  <div class="n">${i + 1}</div>
+  <div class="meta">
+    ${b.heading ? `<div class="h">소제목 ▸ ${esc(b.heading)}</div>` : ''}
+    <pre>${esc(b.raw.replace(/^## .*\n?/, ''))}</pre>
+    <button class="copy" data-copy="${esc(b.raw.replace(/^## /, ''))}">📋 이 블록 복사</button>
+  </div>
+</div>`;
+    })
+    .join('\n');
+
+  return `<!doctype html><meta charset="utf-8"><title>${esc(title)} — 네이버 발행</title>
+<style>
+ body{font-family:Pretendard,-apple-system,'Malgun Gothic',sans-serif;max-width:860px;margin:0 auto;padding:24px;background:#FFF9F3;color:#3F2F24}
+ h1{font-size:20px;margin:0 0 4px} .sub{color:#6D5A4C;font-size:13px;margin-bottom:20px}
+ .top{background:#fff;border-radius:12px;padding:16px;margin-bottom:20px}
+ .top label{display:block;font-size:12px;color:#6D5A4C;margin:10px 0 4px}
+ .top input{width:100%;padding:9px;border:1px solid #FFDDBF;border-radius:8px;font-size:14px;font-family:inherit}
+ .row{display:flex;gap:8px;align-items:center}
+ .blk{display:flex;gap:12px;background:#fff;border-radius:12px;padding:14px;margin-bottom:12px}
+ .n{flex:0 0 26px;height:26px;border-radius:13px;background:#FFE4DC;color:#E84B2A;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+ .meta{flex:1;min-width:0}
+ .h{font-weight:700;font-size:14px;color:#E84B2A;margin-bottom:6px}
+ pre{white-space:pre-wrap;word-break:break-word;font-family:inherit;font-size:14px;line-height:1.65;margin:0 0 10px}
+ .blk.img img{width:150px;border-radius:8px;flex:0 0 150px;align-self:flex-start}
+ .fn{font-size:12px;color:#6D5A4C} .cap{font-size:13px;margin:6px 0}
+ button{cursor:pointer;font-family:inherit}
+ .copy{background:#FF5E3A;color:#fff;border:0;border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700}
+ .mini{background:#fff;border:1px solid #FFDDBF;border-radius:999px;padding:3px 10px;font-size:12px;margin-left:6px}
+ .copy.ok{background:#5CC99F}
+ .note{background:#FFF0E0;border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.6;margin-bottom:16px}
+</style>
+<h1>${esc(title)} — 네이버 발행</h1>
+<div class="sub">위에서부터 순서대로 복사 → 스마트에디터에 붙여넣기. 이미지도 버튼으로 복사됩니다.</div>
+
+<div class="note">
+ 🔴 발행 패널에서 <b>공개 설정 = 전체공개</b> · <b>검색 허용 체크</b> 확인.<br>
+ 🔴 <b>소제목 ▸</b> 로 표시된 줄은 붙여넣은 뒤 에디터에서 <b>소제목</b> 서식을 입히세요.
+</div>
+
+<div class="top">
+ <label>제목</label>
+ <div class="row"><input id="t" value="${esc(postTitle)}"><button class="copy" data-from="t">복사</button></div>
+ <label>태그 (발행 패널에 입력)</label>
+ <div class="row"><input id="g" value="${esc(tags)}"><button class="copy" data-from="g">복사</button></div>
+ <label>카테고리</label>
+ <div class="row"><input id="c" value="자연관찰 동화" readonly><button class="copy" data-from="c">복사</button></div>
+</div>
+
+${rows}
+
+<script>
+const flash = (b, msg) => { const o = b.textContent; b.textContent = msg; b.classList.add('ok');
+  setTimeout(() => { b.textContent = o; b.classList.remove('ok'); }, 1200); };
+
+document.querySelectorAll('[data-copy]').forEach(b =>
+  b.onclick = () => navigator.clipboard.writeText(b.dataset.copy).then(() => flash(b, '✓ 복사됨')));
+
+document.querySelectorAll('[data-from]').forEach(b =>
+  b.onclick = () => navigator.clipboard.writeText(document.getElementById(b.dataset.from).value)
+    .then(() => flash(b, '✓')));
+
+// 🔴 클립보드는 png 만 받는다(webp 로 쓰면 조용히 실패). canvas 로 옮겨 굽는다.
+document.querySelectorAll('[data-img]').forEach(b => b.onclick = async () => {
+  const img = b.closest('.blk').querySelector('img');
+  const cv = document.createElement('canvas');
+  cv.width = img.naturalWidth; cv.height = img.naturalHeight;
+  cv.getContext('2d').drawImage(img, 0, 0);
+  try {
+    const blob = await new Promise(r => cv.toBlob(r, 'image/png'));
+    await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+    flash(b, '✓ 복사됨 — 에디터에서 Ctrl+V');
+  } catch (e) {
+    flash(b, '✗ 실패 — 폴더에서 파일을 드래그하세요');
+  }
+});
+</script>`;
+}
+
 const main = async () => {
   let blogId = args.blog;
   let title = args.book;
@@ -92,19 +195,26 @@ const main = async () => {
   await fs.mkdir(outDir, { recursive: true });
 
   const body = [];
+  const blocks = []; // POST.html 용 — {kind:'text'|'image', ...}
   let imgNo = 0;
   for (const c of cards) {
     const text = toPlain(c.content?.text ?? '');
-    if (text) body.push(text);
+    if (text) {
+      body.push(text);
+      const heading = text.startsWith('## ') ? text.slice(3, text.indexOf('\n')) : '';
+      blocks.push({ kind: 'text', heading, text: text.replace(/^## .*\n?/, '').trim(), raw: text });
+    }
     const url = c.content?.url;
     if (url) {
       imgNo += 1;
       const file = `${String(imgNo).padStart(2, '0')}.webp`;
       const res = await fetch(encodeURI(decodeURI(url)));
       if (res.ok) {
-        await fs.writeFile(path.join(outDir, file), Buffer.from(await res.arrayBuffer()));
-        const cap = c.content.caption ? ` — 캡션: ${c.content.caption}` : '';
-        body.push(`[사진 ${file}]${cap}`);
+        const buf = Buffer.from(await res.arrayBuffer());
+        await fs.writeFile(path.join(outDir, file), buf);
+        const cap = c.content.caption ?? '';
+        body.push(`[사진 ${file}]${cap ? ` — 캡션: ${cap}` : ''}`);
+        blocks.push({ kind: 'image', file, caption: cap, dataUri: `data:image/webp;base64,${buf.toString('base64')}` });
       } else {
         body.push(`[사진 받기 실패 ${res.status}] ${url}`);
         console.warn(`  ! 이미지 ${res.status}: ${url.slice(0, 80)}`);
@@ -133,8 +243,9 @@ ${body.join('\n\n')}
 `;
 
   await fs.writeFile(path.join(outDir, 'POST.md'), post, 'utf-8');
+  await fs.writeFile(path.join(outDir, 'POST.html'), buildHtml(title, blocks), 'utf-8');
   console.log(`✅ ${slug} — 섹션 ${cards.length} · 이미지 ${imgNo}장`);
-  console.log(`   → ${path.relative(repoRoot, outDir)}`);
+  console.log(`   → ${path.join(outDir, 'POST.html')}`);
 };
 
 main().catch((e) => {
