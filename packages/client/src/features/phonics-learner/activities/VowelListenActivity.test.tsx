@@ -12,6 +12,8 @@ vi.mock('@/features/games/hooks/useGameAudio', () => ({
   }),
 }));
 vi.mock('../hooks/usePhonicsTtsWarm', () => ({ usePhonicsTtsWarm: vi.fn() }));
+// 모음 퀴즈 판정을 학습 이벤트로 남기므로 로거를 세운다(AuthProvider 없이 렌더하기 위해).
+vi.mock('@/features/learning/hooks/useLogEvent', () => ({ useLogEvent: () => vi.fn() }));
 
 const VOWELS = [
   { vowel: 'ㅏ', syllable: '아' },

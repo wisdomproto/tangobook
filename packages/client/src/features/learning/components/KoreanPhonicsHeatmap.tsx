@@ -3,7 +3,7 @@ import { KOREAN_PHONICS_CURRICULUM } from '@tangobook/shared';
 import type { LearningEvent, StorybookSummary } from '@tangobook/shared';
 import { AppIcon } from '@/design-system';
 import { computeMastery, masteryState, masteryLabel, type MasteryState } from '../lib/mastery';
-import { groupBySyllable, groupByWord } from '../lib/aggregate';
+import { groupByVowel, groupBySyllable, groupByWord } from '../lib/aggregate';
 import {
   buildKoreanPhonicsGrid,
   KOREAN_PHONICS_LEVELS,
@@ -12,7 +12,6 @@ import {
 import { readPhonicsUnitIds, koreanLevelProgress } from '../lib/phonics-progress';
 import { MasteryBadge } from './MasteryBadge';
 import { MasteryDistributionBar } from './MasteryDistributionBar';
-import { ReportEmptyState } from './ReportEmptyState';
 
 /** 한 레벨의 모든 unit.sampleWords 를 평탄화. unique 처리. */
 function getKoreanLevelTargetWords(levelId: string): string[] {
@@ -39,6 +38,8 @@ const CELL_COLOR: Record<MasteryState, string> = {
 
 export function KoreanPhonicsHeatmap({ events, storybooks }: Props) {
   const syllableStats = useMemo(() => groupBySyllable(events), [events]);
+  // 자음×모음 표가 없는 레벨용 — 모음 하나 단위 집계.
+  const vowelStats = useMemo(() => groupByVowel(events), [events]);
   const wordStats = useMemo(() => groupByWord(events, 'ko'), [events]);
   const readUnits = useMemo(() => readPhonicsUnitIds(events, storybooks), [events, storybooks]);
   const [openLevel, setOpenLevel] = useState<string | null>('hangul1');
@@ -99,14 +100,35 @@ export function KoreanPhonicsHeatmap({ events, storybooks }: Props) {
               onClick={() => setOpenLevel(open ? null : lv.id)}
               className="mt-3 w-full rounded-md bg-peach-100 px-3 py-1.5 text-xs font-bold text-ink-700 hover:bg-peach-200"
             >
-              {open ? '▲ 자세히 닫기' : '▼ 자음×모음 자세히 보기'}
+              {open
+                ? '▲ 자세히 닫기'
+                : grid.cells.length === 0
+                  ? '▼ 모음 자세히 보기'
+                  : '▼ 자음×모음 자세히 보기'}
             </button>
             {open &&
               (grid.cells.length === 0 ? (
-                <ReportEmptyState
-                  emoji="✨"
-                  message={`${lv.name}의 학습 컨텐츠는 준비 중이에요. 모음: ${grid.vowels.join(' ')}`}
-                />
+                /**
+                 * 🔴 자음×모음 표가 없는 레벨(한글4 복잡한 모음) — **모음 한 줄**로 보여준다.
+                 *    그 레벨의 활동은 모음 듣기·쓰기라 (자음, 모음) 짝이 아예 안 나온다.
+                 *    억지로 표를 만들면 영영 안 채워질 회색 칸만 남고, 예전엔 활동이 5단원이나
+                 *    있는데도 「학습 컨텐츠는 준비 중」 이라고 **틀린 말**을 하고 있었다.
+                 */
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {grid.vowels.map((v) => {
+                    const st = vowelStats.get(v);
+                    const m = st ? computeMastery(st, now) : 0;
+                    return (
+                      <span
+                        key={v}
+                        title={`${v} — ${masteryLabel(m)}`}
+                        className={`flex h-9 w-9 items-center justify-center rounded font-bold ${CELL_COLOR[masteryState(m)]}`}
+                      >
+                        {v}
+                      </span>
+                    );
+                  })}
+                </div>
               ) : (
                 <div className="mt-4 overflow-x-auto">
                   <table className="min-w-full border-separate border-spacing-1 text-xs">

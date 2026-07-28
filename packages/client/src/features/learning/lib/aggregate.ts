@@ -61,6 +61,24 @@ export function groupByWord(events: LearningEvent[], lang: Lang): Map<string, Ma
   return out;
 }
 
+/**
+ * 모음 하나 단위 집계 — **자음×모음 표가 없는 레벨**(한글4 복잡한 모음)용.
+ * 🔴 그 레벨의 활동은 모음 듣기·쓰기라 (자음, 모음) 짝이 아예 안 나온다. 표를 억지로 만들면
+ *    영영 안 채워질 회색 칸만 남으므로, 실제로 하는 단위인 **모음**으로 센다.
+ */
+export function groupByVowel(events: LearningEvent[]): Map<string, MasteryStats> {
+  const out = new Map<string, MasteryStats>();
+  for (const e of events) {
+    if (!SYLLABLE_TYPES.has(e.event_type)) continue;
+    const v = e.metadata?.vowel;
+    if (!v) continue;
+    const cur = out.get(v) ?? emptyStats();
+    bump(cur, e);
+    out.set(v, cur);
+  }
+  return out;
+}
+
 export function groupBySyllable(events: LearningEvent[]): Map<string, MasteryStats> {
   const out = new Map<string, MasteryStats>();
   for (const e of events) {

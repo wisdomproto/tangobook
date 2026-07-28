@@ -5,6 +5,7 @@ const REST_MS = 420;
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
+import { useLogEvent } from '@/features/learning/hooks/useLogEvent';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 
 interface VowelItem {
@@ -44,6 +45,24 @@ export function VowelListenActivity({
   onBack,
 }: Props) {
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
+  const logEvent = useLogEvent();
+  /**
+   * 🔴 모음 퀴즈 판정을 남긴다 — 복잡한 모음 레벨(한글4)은 자음×모음 표가 없어서
+   *    부모 리포트가 **이 이벤트로만** 채워진다. 영어 복습에서 이 컴포넌트를 재사용할 때는
+   *    `vowel` 이 알파벳이라 한국어일 때만 남긴다.
+   */
+  const judgeVowel = useCallback(
+    (correct: boolean, vowel: string) => {
+      if (language !== 'korean') return;
+      logEvent({
+        type: correct ? 'syllable_correct' : 'syllable_wrong',
+        storybookId: unitId,
+        metadata: { source: 'phonics', unitId, lang: 'ko', vowel },
+      });
+    },
+    [logEvent, language, unitId]
+  );
+
   /** 다음 문제로 넘어가기 전 쉼 — 소리가 끝난 걸 확인한 뒤 넣는다. */
   const advanceRef = useRef<number | null>(null);
   /** 안내 음성이 나오는 동안 — 첫 문제는 그게 끝난 뒤에 낸다. */
@@ -143,6 +162,7 @@ export function VowelListenActivity({
       if (starting) return; // 안내 음성 중에는 무시
       if (wrongIdx !== null) return; // shake 중에는 무시
       if (idx === quizCurrent) {
+        judgeVowel(true, vowels[quizCurrent].vowel);
         setSolved((s) => new Set(s).add(idx));
         if (quizQueue.length === 0) {
           // 퀴즈 끝 — 진척 마킹 + 칭찬. 자동 back 없음 — 다시하기 버튼 노출 ('done' phase).
@@ -161,6 +181,7 @@ export function VowelListenActivity({
           });
         }
       } else {
+        judgeVowel(false, vowels[quizCurrent].vowel);
         playFeedbackSound(false);
         setWrongIdx(idx);
         const t = window.setTimeout(() => setWrongIdx(null), 600);
@@ -170,6 +191,8 @@ export function VowelListenActivity({
     [
       phase,
       starting,
+      judgeVowel,
+      vowels,
       quizCurrent,
       quizQueue,
       wrongIdx,
