@@ -29,6 +29,8 @@ interface Props {
   storybooks: StorybookSummary[];
 }
 
+const round1 = (n: number) => +n.toFixed(1);
+
 const CELL_COLOR: Record<MasteryState, string> = {
   unknown: 'bg-ink-100 text-ink-400',
   seen: 'bg-coral-200 text-ink-700',
@@ -155,7 +157,8 @@ export function KoreanPhonicsHeatmap({ events, storybooks }: Props) {
                               <td key={v} className="p-0">
                                 <div
                                   className={`flex h-8 w-8 items-center justify-center rounded font-bold ${CELL_COLOR[masteryState(m)]}`}
-                                  title={`${cell.syllable} — ${Math.round(m * 100)}% (${s?.correct ?? 0}/${(s?.correct ?? 0) + (s?.wrong ?? 0)})`}
+                                  // 단어에서 온 점수는 0.25 단위라 소수가 나온다 — 자릿수만 줄인다.
+                                  title={`${cell.syllable} — ${Math.round(m * 100)}% (${round1(s?.correct ?? 0)}/${round1((s?.correct ?? 0) + (s?.wrong ?? 0))})`}
                                 >
                                   {cell.syllable}
                                 </div>

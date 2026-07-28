@@ -15,6 +15,7 @@ import {
   wordDetails,
   groupByGenre,
 } from './aggregate';
+import { computeMastery, masteryState } from './mastery';
 
 let idSeq = 0;
 function ev(partial: Partial<LearningEvent>): LearningEvent {
@@ -114,23 +115,39 @@ describe('groupBySyllable', () => {
     expect(groupBySyllable(events).size).toBe(0);
   });
 
-  it('단어에서 만난 음절은 노출로만 센다', () => {
+  it('단어를 맞히면 그 음절 칸에 약한 점수가 들어간다', () => {
     const r = groupBySyllable([ev({ event_type: 'word_correct', word: '고기' })]);
-    // 🔴 `고기` 를 맞혔다고 `고` 를 읽을 수 있는 건 아니다 — 노출만 오른다(「봄」에서 멈춤).
-    expect(r.get('ㄱㅗ')).toMatchObject({ exposed: 1, correct: 0, wrong: 0 });
-    expect(r.get('ㄱㅣ')).toMatchObject({ exposed: 1, correct: 0 });
+    // 단어 4번 = 글자 1번. 확증은 아니지만 0점을 주는 게 더 이상하다.
+    expect(r.get('ㄱㅗ')).toMatchObject({ exposed: 1, correct: 0.25, wrong: 0 });
+    expect(r.get('ㄱㅣ')).toMatchObject({ exposed: 1, correct: 0.25 });
   });
 
-  it('단어 노출과 음절 판정이 같은 칸에 쌓인다', () => {
-    const r = groupBySyllable([
-      ev({ event_type: 'word_exposed', word: '고기' }),
+  it('단어를 틀리면 같은 무게로 깎인다', () => {
+    const r = groupBySyllable([ev({ event_type: 'word_wrong', word: '고기' })]);
+    expect(r.get('ㄱㅗ')).toMatchObject({ exposed: 1, correct: 0, wrong: 0.25 });
+  });
+
+  it('단어 한 번으로는 「봄」을 못 넘고, 음절을 맞히면 넘는다', () => {
+    // 감쇠가 끼어들지 않게 이벤트 시각을 now 로 고정한다(안 그러면 무게가 아니라 날짜가 답을 정한다).
+    const at = '2026-07-28T00:00:00Z';
+    const now = new Date(at).getTime();
+
+    const word = groupBySyllable([
+      ev({ event_type: 'word_correct', word: '고기', created_at: at }),
+    ]);
+    expect(masteryState(computeMastery(word.get('ㄱㅗ')!, now))).toBe('seen');
+
+    const drilled = groupBySyllable([
+      ev({ event_type: 'word_correct', word: '고기', created_at: at }),
       ev({
         event_type: 'syllable_correct',
         word: '고',
         metadata: { consonant: 'ㄱ', vowel: 'ㅗ' },
+        created_at: at,
       }),
     ]);
-    expect(r.get('ㄱㅗ')).toMatchObject({ exposed: 2, correct: 1 });
+    expect(drilled.get('ㄱㅗ')).toMatchObject({ exposed: 2, correct: 1.25 });
+    expect(masteryState(computeMastery(drilled.get('ㄱㅗ')!, now))).toBe('practiced');
   });
 
   it('영어 단어는 칸을 만들지 않는다', () => {

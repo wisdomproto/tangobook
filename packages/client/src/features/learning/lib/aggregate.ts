@@ -85,10 +85,12 @@ export function groupByVowel(events: LearningEvent[]): Map<string, MasteryStats>
  *
  * 🔴 단어를 공부하면 그 단어의 음절도 눈에 들어온다. `고기` 를 하면 `고`·`기` 칸이 그날
  *    노출된 것인데, 예전엔 음절 활동만 세서 **표가 실제보다 비어 보였다**(사용자 지적).
- * 🔴 다만 **맞힘으로는 세지 않고 노출만 올린다** — `고기` 를 맞혔다고 `고` 를 읽을 수 있다는
- *    근거는 없다. 노출만 오르면 `computeMastery` 의 `attempts === 0` 가지를 타서 그 칸은
- *    「봄」에서 멈춘다. 「연습 중」 위로 가려면 그 음절을 실제로 판정받아야 한다.
+ * 🔴 맞고 틀린 것도 **약하게** 센다(`WORD_CREDIT` = **단어 4번이 글자 1번**). `고기` 를 맞혔다고
+ *    `고` 를 읽는다는 확증은 아니지만, 아예 0점을 주면 그게 더 이상하다 — 단어를 맞히는 아이는
+ *    그 글자를 어느 정도 읽고 있다. 단어만으로 「연습 중」까지는 2~3번, 「익힘」까지는 열 번쯤
+ *    걸리고, 그 사이 그 글자를 따로 한 번 맞히면 단숨에 올라간다.
  */
+const WORD_CREDIT = 0.25;
 export function groupBySyllable(events: LearningEvent[]): Map<string, MasteryStats> {
   const out = new Map<string, MasteryStats>();
   const cell = (key: string) => {
@@ -107,6 +109,11 @@ export function groupBySyllable(events: LearningEvent[]): Map<string, MasterySta
       for (const s of decomposeWord(e.word)) {
         const cur = cell(`${s.cho}${s.jung}`);
         cur.exposed += 1;
+        if (e.event_type === 'word_correct' || e.event_type === 'word_spoken') {
+          cur.correct += WORD_CREDIT;
+        } else if (e.event_type === 'word_wrong') {
+          cur.wrong += WORD_CREDIT;
+        }
         if (!cur.lastAt || e.created_at > cur.lastAt) cur.lastAt = e.created_at;
       }
     }
