@@ -201,7 +201,6 @@ export function LangWordWritingPlayer({
               fontFamily={font}
               onSyllableDone={handleUnitDone}
               onComplete={handleWordComplete}
-              threshold={0.99}
             />
           </div>
         </div>

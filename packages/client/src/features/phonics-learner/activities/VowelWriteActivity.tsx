@@ -138,8 +138,6 @@ export function VowelWriteActivity({ unitId, vowels, onComplete, onBack }: Props
           letter={vowels[currentIdx].syllable}
           onResult={handleResult}
           autoCheck
-          // 낱말 쓰기(`WordFillCanvas`)와 같은 99% — 95% 는 획 하나를 덜 칠해도 넘어간다.
-          threshold={0.99}
         />
       </div>
 

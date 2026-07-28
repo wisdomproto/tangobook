@@ -534,7 +534,6 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
                       letter={letter}
                       onResult={makeHandleWriteLetter(writeCurrentWordIdx, l)}
                       autoCheck
-                      threshold={0.95}
                     />
                   </div>
                 );

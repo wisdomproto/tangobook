@@ -307,7 +307,6 @@ export function ConsonantWriteActivity({
               );
             }}
             autoCheck
-            threshold={0.95}
           />
         ) : (
           <div
@@ -351,7 +350,6 @@ export function ConsonantWriteActivity({
                       letter={pair.second}
                       onResult={handleResult}
                       autoCheck
-                      threshold={0.95}
                     />
                   </div>
                 )}
@@ -366,12 +364,7 @@ export function ConsonantWriteActivity({
                     // 🔴 캔버스도 대기 칸과 **같은 폭**으로 묶는다 — 안 묶으면 자체 max-w-sm(384px)이라
                     //    대기 칸(176px)의 두 배가 되어 두 글자 크기가 제각각으로 보인다.
                     <div key={`${pair.syllable}-${round}-${which}`} className={`shrink-0 ${tile}`}>
-                      <LetterFillCanvas
-                        letter={letter}
-                        onResult={handleResult}
-                        autoCheck
-                        threshold={0.95}
-                      />
+                      <LetterFillCanvas letter={letter} onResult={handleResult} autoCheck />
                     </div>
                   );
                 }

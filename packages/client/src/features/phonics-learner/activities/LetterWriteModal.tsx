@@ -110,7 +110,6 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
               letter={upper}
               onResult={handleComplete('upper')}
               autoCheck
-              threshold={0.95}
             />
           </div>
           {/* 소문자 */}
@@ -128,7 +127,6 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
               letter={lower}
               onResult={handleComplete('lower')}
               autoCheck
-              threshold={0.95}
             />
           </div>
         </div>

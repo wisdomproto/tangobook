@@ -217,7 +217,6 @@ export function KoreanWordWritingPlayer({
               syllables={syllables}
               onSyllableDone={handleSyllableDone}
               onComplete={handleWordComplete}
-              threshold={0.99}
             />
           </div>
         </div>

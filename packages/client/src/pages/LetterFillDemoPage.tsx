@@ -25,7 +25,8 @@ const GROUPS: Array<{ title: string; chars: string[] }> = [
 
 export default function LetterFillDemoPage() {
   const [currentChar, setCurrentChar] = useState<string>('가');
-  const [threshold, setThreshold] = useState<number>(0.95);
+  // 실제 활동 기준과 같은 값에서 시작 — 데모는 슬라이더로 흔들어 보는 자리다.
+  const [threshold, setThreshold] = useState<number>(0.99);
   const [results, setResults] = useState<Record<string, { passed: boolean; coverage: number }>>({});
 
   return (

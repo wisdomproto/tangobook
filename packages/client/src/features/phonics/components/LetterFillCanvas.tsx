@@ -23,7 +23,12 @@ const CANVAS_H = 400;
 const LINE_WIDTH = 60;
 const GUIDE_COLOR = '#e5e7eb'; // 글자 회색 outline (gray-200)
 const PAINT_COLOR = '#10b981'; // emerald — 사용자가 채운 영역
-const DEFAULT_THRESHOLD = 0.95; // 95% 채우면 통과 — 두꺼운 펜이라 도달 쉬움
+/**
+ * 99% 채우면 통과. 🔴 95% 이던 시절 **획 하나를 덜 써도 정답 처리**됐다(사용자 확인) — 한글 자음처럼
+ * 획이 여러 개면 짧은 획 하나가 통째로 5% 안에 들어간다. 낱말 쓰기(`WordFillCanvas`)는 진작 99% 였다.
+ * 🔴 호출부마다 넘기지 말 것 — 여기가 유일한 숫자여야 새 쓰기 활동이 저절로 같은 기준을 받는다.
+ */
+const DEFAULT_THRESHOLD = 0.99;
 
 const HANGUL_RE = /[ㄱ-ㆎ가-힣]/;
 const FONT_FAMILY_EN = 'system-ui, sans-serif';

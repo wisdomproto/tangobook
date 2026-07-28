@@ -213,7 +213,6 @@ export function EnglishWordWritingPlayer({
               syllables={letters}
               onSyllableDone={handleLetterDone}
               onComplete={handleWordComplete}
-              threshold={0.99}
             />
           </div>
         </div>

@@ -201,7 +201,6 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
               letter={currentUpper}
               onResult={handleResult('upper')}
               autoCheck
-              threshold={0.95}
             />
           </div>
           {/* 소문자 */}
@@ -219,7 +218,6 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
               letter={currentLower}
               onResult={handleResult('lower')}
               autoCheck
-              threshold={0.95}
             />
           </div>
         </div>

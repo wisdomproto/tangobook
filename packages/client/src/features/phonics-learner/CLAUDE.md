@@ -274,7 +274,11 @@ Book 1 데이터 정리 (2026-05-21):
 - `CvcPatternLearnActivity` Phase C (Book 2 CVC 단어 안 글자별 쓰기)
 - `VowelWriteActivity` / `ConsonantWriteActivity` (한글 모음/자음)
 
-threshold 0.95 통일 — `LINE_WIDTH=60` 두꺼운 펜이라 도달 쉬움. 폰트 fidelity 100%.
+🔴 **통과 기준 99% — 숫자는 `LetterFillCanvas.DEFAULT_THRESHOLD` 한 곳에만 둔다**(2026-07-28).
+95% 이던 시절 **획 하나를 덜 써도 정답 처리**됐다(사용자 확인) — 한글 자음처럼 획이 여럿이면 짧은 획
+하나가 통째로 5% 안에 들어간다. 예전엔 호출부 12곳이 각자 숫자를 들고 있어서 한 곳만 고치면 기준이
+둘로 갈라졌다 → **전부 지우고 기본값으로**. 새 쓰기 활동은 아무것도 안 넘기면 같은 기준을 받는다
+(`WordFillCanvas` 도 자체 기본 0.99). 폰트 fidelity 100%.
 
 ## 한글 블록 쉬움 모드 (2026-05-20)
 
