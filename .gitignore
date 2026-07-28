@@ -87,6 +87,8 @@ lottie-samples/
 # Server render outputs + local backup dumps (large binaries / not source)
 packages/server/out/
 packages/client/out/
+# 키포인트 검수용 미리보기 — 볼 때만 만들고 버린다
+packages/server/scripts/_preview-keypoints/
 packages/server/scripts/_backup*/
 
 # 학습만화 자산은 R2 저장(comic-assets.routes.ts) — 리포에 커밋하지 않음
