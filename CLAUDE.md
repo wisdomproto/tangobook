@@ -69,7 +69,7 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 
 ## 글자 쓰기 채점 — `LetterFillCanvas` (paint mode)
 
-모든 글자/단어 쓰기 통일 (영/한/일). 글자 회색 fill → 사용자 stroke `source-atop` 으로 글자 안만 painted → `coverage`(painted/mask 픽셀) ≥ `threshold` 시 autoCheck 통과. `LINE_WIDTH=60`. 🔴 **기준 99%, 숫자는 `LetterFillCanvas.DEFAULT_THRESHOLD` 한 곳에만**(2026-07-28 — 95% 는 획 하나를 덜 써도 통과했다. 호출부 12곳이 각자 복사본을 들고 있어 한 곳만 고치면 기준이 갈라지므로 전부 지우고 기본값으로). 폰트 fidelity 100% (폰트 그대로 채점). **동화책 단어 익히기 경로도 통일 완료**(2026-07-02 — VocabularyStudyContent 가 레거시 `WordWritingPlayer` 직접 import 로 레지스트리를 우회하던 잔재 제거 → `Korean/EnglishWordWritingPlayer`. 레거시 파일은 미사용 보존).
+모든 글자/단어 쓰기 통일 (영/한/일). 글자 회색 fill → 사용자 stroke `source-atop` 으로 글자 안만 painted → `coverage`(painted/mask 픽셀) ≥ `threshold` 시 autoCheck 통과. `LINE_WIDTH=60`. 🔴 **기준 99%, 숫자는 `LetterFillCanvas.DEFAULT_THRESHOLD` 한 곳에만**(2026-07-28 — 95% 는 획 하나를 덜 써도 통과했다. 호출부 12곳이 각자 복사본을 들고 있어 한 곳만 고치면 기준이 갈라지므로 전부 지우고 기본값으로). 폰트 fidelity 100% (폰트 그대로 채점). 🔴 **`autoCheck` 화면엔 「지우기」 버튼이 없다**(2026-07-28) — 칠하기라 되돌릴 게 없고(글자 밖 획은 안 세고 칠할수록 오르기만 한다), 버튼이 캔버스 **아래 높이를 먹어** 옆 칸과의 정렬을 흔들었다. 수동 채점(`확인`) 경로만 유지. **동화책 단어 익히기 경로도 통일 완료**(2026-07-02 — VocabularyStudyContent 가 레거시 `WordWritingPlayer` 직접 import 로 레지스트리를 우회하던 잔재 제거 → `Korean/EnglishWordWritingPlayer`. 레거시 파일은 미사용 보존).
 
 - 데모: `/letter-fill-demo` (TopBar 자료실 🎨).
 - 도입 배경 + deprecated stroke library 인프라(미래 자모 단위 학습용 보관, 학습자 미통합) → memory / `docs/` 참조.
