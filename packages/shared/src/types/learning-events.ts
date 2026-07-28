@@ -28,6 +28,8 @@ export interface LearningEventMetadata {
   attempts?: number;
   consonant?: string;
   vowel?: string;
+  /** 받침. 있으면 그 음절은 `강`(ㄱㅏㅇ)이지 `가`(ㄱㅏ)가 아니다 — 집계 칸이 갈린다. */
+  coda?: string;
   level?: string;
   unitId?: string;
   phoneme?: string;

@@ -112,11 +112,12 @@ export function groupBySyllable(events: LearningEvent[]): Map<string, MasterySta
       const c = e.metadata?.consonant;
       const v = e.metadata?.vowel;
       if (!c || !v) continue;
-      bump(cell(`${c}${v}`), e);
+      // 🔴 받침은 키에 들어간다 — `강` 을 `가` 칸에 넣으면 한글2 표가 한글1 진도를 빌려 쓴다.
+      bump(cell(`${c}${v}${e.metadata?.coda ?? ''}`), e);
     } else if (WORD_TYPES.has(e.event_type) && e.word && !syllableGames.has(e.game_type)) {
       // 한글이 아니면 decomposeWord 가 빈 배열이라 영어 단어는 저절로 걸러진다.
       for (const s of decomposeWord(e.word)) {
-        const cur = cell(`${s.cho}${s.jung}`);
+        const cur = cell(`${s.cho}${s.jung}${s.jong ?? ''}`);
         cur.exposed += 1;
         if (e.event_type === 'word_correct' || e.event_type === 'word_spoken') {
           cur.correct += WORD_CREDIT;
