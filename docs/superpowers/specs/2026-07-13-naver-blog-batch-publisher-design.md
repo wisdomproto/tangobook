@@ -162,3 +162,37 @@ PoC 셀렉터를 `naver-blog-post.ts`로 정착 + `blog-html.ts`(TDD) + `naver-p
 - 파일 input 주입 vs 클립보드 붙여넣기 중 무엇이 되는가?
 - 임시저장 후 재편집 URL을 이력에 저장 가능한가(멱등 강화)?
 - 이미지 캡션을 에디터에 넣을 수 있는가, 넣을 가치가 있는가?
+
+---
+
+## §12 스마트에디터 ONE 실측 (2026-07-28, `naver-measure2.ts`)
+
+세션 재사용 ✅ — 저장된 쿠키로 글쓰기 화면까지 로그인 상태 유지 확인.
+
+### 프레임
+에디터는 **`mainFrame` iframe 안**에 있다 (`PostWriteForm.naver?blogId=...`).
+최상위 page 에서 셀렉터를 찾으면 아무것도 안 나온다 — 반드시 이 프레임을 잡고 들어가야 한다.
+로딩이 느려서 `[contenteditable="true"]` 가 생길 때까지 폴링해야 한다(4초 고정 대기로는 빈손).
+
+### 셀렉터
+| 대상 | 셀렉터 |
+|---|---|
+| 제목 | `.se-title-text` (내부 `.se-text-paragraph`) |
+| 본문 | `.se-text-paragraph` (제목 다음 것) |
+| 사진 추가 | `button.se-image-toolbar-button` |
+| 저장(임시) | `button.save_btn__bzc5B` |
+| 발행 | `button.publish_btn__m9KHH` |
+| 예약 발행 | `button.reserve_btn__Km5Xh` — **예약 기능 실재 확인** |
+
+🔴 **상단 버튼 클래스는 CSS-module 해시**(`__bzc5B`)라 네이버 배포 때마다 바뀔 수 있다.
+→ 발행기는 클래스가 아니라 **버튼 텍스트(`저장`·`발행`)로 찾고**, 클래스는 폴백으로만 쓸 것.
+
+### 🔴 이미지 주입 — `input[type=file]` 이 **없다**
+`fileInputs: []`. 사진 버튼이 DOM 파일 input 이 아니라 **네이티브 파일 다이얼로그**를 연다.
+→ 설계 가정("파일 input 1순위")이 반증됐다. puppeteer 는 `page.on('filechooser')` 로
+그 다이얼로그를 가로채 `fileChooser.accept([경로])` 할 수 있다. **이 경로로 간다.**
+클립보드 붙여넣기는 폴백.
+
+### 예약 발행
+버튼이 실재하므로 **한 세션에 여러 편을 각각 다른 시각으로 예약**할 수 있다.
+→ CLI 에 `--schedule` 을 넣어 주 1회 실행으로 7편을 하루 간격 예약하는 운용이 가능.
