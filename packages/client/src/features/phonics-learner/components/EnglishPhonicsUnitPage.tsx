@@ -156,6 +156,7 @@ function ActivitySection({
             unitId={unitId}
             activity={act}
             done={completed.includes(act.key)}
+            widthClass={activities.length === 6 ? SIX_CARD_WIDTH : DEFAULT_CARD_WIDTH}
           />
         ))}
       </div>
@@ -179,14 +180,32 @@ const KIND_ICON_URL: Partial<Record<ActivityDef['kind'], string>> = {
   'game-line-matching': '/icons/game/line-matching.webp',
 };
 
+/**
+ * 🔴 flex 아이템이라 **폭을 직접 준다** — 안 주면 카드가 내용만큼 오그라든다.
+ * 한 줄에 몇 장인지를 폭으로 정한다: 375=2 · sm=3 · md=2(사이드바 256px) · lg=4 · xl=5.
+ * 🔴 **한글판(`KoreanPhonicsUnitPage`)과 같은 값이어야 한다** — 두 화면이 같은 카드다.
+ */
+const DEFAULT_CARD_WIDTH =
+  'w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)] md:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.5rem)] xl:w-[calc(20%-1.6rem)]';
+
+/**
+ * 6장짜리 섹션(복습 게임)은 **3+3**. 기본 폭이면 lg 4장·xl 5장이라 마지막 한 장이 혼자 남아
+ * 덤처럼 보인다 — 영어 복습이 2종에서 6종으로 늘면서 이 화면도 그 상태가 됐다(사용자 지적).
+ * 좁은 화면(md 이하)은 그대로 2장씩: 3장으로 쪼개면 카드가 100px 대가 된다.
+ */
+const SIX_CARD_WIDTH =
+  'w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)] md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1.34rem)] xl:w-[calc(33.333%-1.34rem)]';
+
 function ActivityCard({
   unitId,
   activity,
   done,
+  widthClass = DEFAULT_CARD_WIDTH,
 }: {
   unitId: string;
   activity: ActivityDef;
   done: boolean;
+  widthClass?: string;
 }) {
   const isLearn = activity.section === 'learn';
   const showDone = isLearn && done;
@@ -208,7 +227,7 @@ function ActivityCard({
     <Link
       to={`/library/phonics/english/${unitId}/${activity.key}`}
       // 🔴 flex 아이템이라 폭을 직접 준다 — 안 주면 카드가 내용만큼 오그라든다.
-      className={`group relative block aspect-[5/6] w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)] md:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.5rem)] xl:w-[calc(20%-1.6rem)] max-w-[13rem] rounded-[28px] border-[5px] p-3 sm:p-4 transition-all duration-200 active:scale-[0.97] hover:-translate-y-1 hover:rotate-[0.5deg] hover:shadow-[0_18px_40px_-12px_rgba(255,94,58,0.4)] shadow-[0_8px_24px_-10px_rgba(255,94,58,0.25)] flex flex-col overflow-hidden ${cardClass}`}
+      className={`group relative block aspect-[5/6] ${widthClass} max-w-[13rem] rounded-[28px] border-[5px] p-3 sm:p-4 transition-all duration-200 active:scale-[0.97] hover:-translate-y-1 hover:rotate-[0.5deg] hover:shadow-[0_18px_40px_-12px_rgba(255,94,58,0.4)] shadow-[0_8px_24px_-10px_rgba(255,94,58,0.25)] flex flex-col overflow-hidden ${cardClass}`}
     >
       <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/60 to-transparent pointer-events-none" />
       {showDone && (

@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
@@ -50,6 +50,20 @@ function EnglishBlockPlayerInner({
   const { t } = useTranslation('games');
   const data = gameData as EnglishBlockData;
   const items = data.items;
+  /**
+   * 하단 패널에 깔 글자 — **알파벳 단원(한 칸짜리)은 그 단원 글자만** 깐다.
+   *
+   * 🔴 `a` 하나를 넣는데 26자를 훑게 하면, 배우는 건 글자가 아니라 **찾기**가 된다(사용자 지적:
+   *    "abc 배우는 애가 이렇게 하면 뭘 어쩌라는거야"). 한글 블록은 같은 이유로 입문 단원에서
+   *    쉬움 모드(필요한 자모만 순서대로)를 쓰는데 영어만 늘 26자를 깔고 있었다.
+   * 🔴 보기는 **그 단원이 배우는 글자들**(a·b·c) — 무작위 오답이 아니라 지금 배우는 것들 사이의
+   *    선택이라야 소리↔글자 연결을 확인하는 게 된다. 판정은 데이터에서 파생한다(한 칸짜리 = 알파벳).
+   */
+  const panelLetters = useMemo(() => {
+    if (!items.every((i) => i.word.length === 1)) return ALL_LETTERS;
+    const unit = [...new Set(items.map((i) => i.word))].sort();
+    return unit.map((ch, i) => ({ id: `ltr-${i}`, char: ch, isVowel: isEnglishVowel(ch) }));
+  }, [items]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -607,7 +621,7 @@ function EnglishBlockPlayerInner({
         <div className="shrink-0 px-3 sm:px-6 py-4 sm:py-6 bg-white/40 backdrop-blur-sm">
           <p className="text-lg sm:text-xl font-black text-ink-900 mb-2 sm:mb-3 ml-1">ABC</p>
           <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center">
-            {ALL_LETTERS.map(renderBlock)}
+            {panelLetters.map(renderBlock)}
           </div>
         </div>
       </div>

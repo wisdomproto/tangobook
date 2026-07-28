@@ -104,9 +104,22 @@ export function WordListenChooseActivity({
    *    **문제만** 바뀌게 한다. 자리는 퀴즈 시작 때 한 번만 섞어 문제마다 튀지 않게 한다.
    */
   const board = useMemo(() => items.slice(0, choices), [items, choices]);
-  const quizBoard = useMemo(() => shuffle(board), [board]);
-  // 문제 순서 — 판에 깔린 단어를 한 번씩.
-  const questions = useMemo(() => shuffle(board).map((answer) => ({ answer })), [board]);
+  /**
+   * 퀴즈 판 — **같은 라벨은 한 장만** 남긴다(무작위).
+   *
+   * 🔴 Book 1 은 탐색에서 글자 하나에 카드를 두 장 깐다(`Aa`=apple·alligator — 같은 소리가 여러
+   *    낱말에서 난다는 게 그 권의 학습 내용). 그 판을 퀴즈에 그대로 쓰면 **6장 중 정답이 둘**이라
+   *    소리를 맞게 듣고도 틀릴 수 있어 너무 어렵다(사용자 지적). 라벨이 안 겹치는 단원은 그대로다.
+   */
+  const quizBoard = useMemo(() => {
+    const byLabel = new Map<string, ListenChoice[]>();
+    for (const c of board) byLabel.set(c.label, [...(byLabel.get(c.label) ?? []), c]);
+    return shuffle(
+      [...byLabel.values()].map((same) => same[Math.floor(Math.random() * same.length)])
+    );
+  }, [board]);
+  // 문제 순서 — 퀴즈 판에 깔린 것을 한 번씩(탐색 판이 아니다 — 안 깔린 카드가 정답이 되면 못 고른다).
+  const questions = useMemo(() => shuffle(quizBoard).map((answer) => ({ answer })), [quizBoard]);
 
   /** 같은 라벨이 여러 장일 수 있어 라벨 대신 이걸로 구분한다. */
   const idOf = (c: ListenChoice) => c.id ?? c.label;
@@ -114,6 +127,8 @@ export function WordListenChooseActivity({
   const [opened, setOpened] = useState<Set<string>>(new Set());
 
   const [exploring, setExploring] = useState(exploreFirst);
+  /** 지금 화면에 깔린 판 — 탐색은 전체, 퀴즈는 라벨당 한 장. */
+  const shownBoard = exploring ? board : quizBoard;
   /** 퀴즈 안내 음성이 나오는 중 — 끝나야 첫 문제가 나간다. */
   const [starting, setStarting] = useState(false);
   const [qIdx, setQIdx] = useState(0);
@@ -306,14 +321,15 @@ export function WordListenChooseActivity({
           className={[
             'grid justify-center gap-4 sm:gap-6 w-full px-2',
             // 🔴 8장(4글자 단원 × 2낱말)을 3열로 두면 세 줄이라 아래가 화면 밖으로 밀린다.
-            board.length > 6
+            // 🔴 지금 깔린 판의 장수로 센다 — 퀴즈는 중복 라벨을 접어 장수가 줄어든다(6→3).
+            shownBoard.length > 6
               ? 'grid-cols-4 max-w-4xl'
-              : board.length > 4
+              : shownBoard.length > 4
                 ? 'grid-cols-3 max-w-3xl'
                 : 'grid-cols-2 max-w-xl',
           ].join(' ')}
         >
-          {(exploring ? board : quizBoard).map((c) => (
+          {shownBoard.map((c) => (
             <button
               key={idOf(c)}
               // 🔴 탭음을 여기서 내지 않는다 — `GlobalUiSound` 위임 리스너가 **모든 버튼에 자동**으로
