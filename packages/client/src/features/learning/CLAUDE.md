@@ -134,3 +134,22 @@
     한글 단원·복습 = `word_correct/word_wrong`(「다시 볼 단어」가 이걸로 뽑힌다),
     영어 알파벳 단원 = `phoneme_correct/phoneme_wrong`(스킬트리).
     활동은 판정만 하고 이벤트 종류를 모른다.
+
+### 🔴 게스트 기록 = 로컬 (2026-07-27)
+
+계정 없이 노는 30일 동안의 이벤트를 **localStorage 에 쌓고**, 프로필이 생기는 순간 그 프로필로
+옮겨 붙인다. 예전엔 프로필이 없으면 `useLogEvent` 가 통째로 버려서 **게스트 30일이 없던 일**이
+됐다 — 체험의 가장 큰 가치(우리 아이 기록)를 체험 중에는 볼 수 없고, 가입해도 0에서 시작했다.
+
+- `lib/guest-events.ts` — `appendGuestEvent`/`readGuestEvents`/`drainGuestEvents`. 상한 **2000건**,
+  넘으면 **오래된 것부터** 버린다(localStorage 5MB 를 다른 기능과 나눠 쓴다).
+- 🔴 **서버로 보내지 않는다** — 붙일 계정이 없고, 익명 기록을 서버에 쌓을 이유도 없다.
+- `hooks/useAdoptGuestEvents` + `components/GuestEventAdopter`(라우터 최상단) — 프로필이 생기면 1회 이관.
+  🔴 **업로드 성공 뒤에 비운다**(`drainGuestEvents` 는 꺼내며 지운다). 실패하면 되돌려 놓고 다음 기회에.
+  🔴 세션당 1회만 시도(`triedRef`) — 실패를 렌더마다 재시도하면 조용한 무한 업로드가 된다.
+
+### ⚠️ 이벤트 5,000건 상한
+
+`events.api.fetchByProfile(limit = 5000)` 는 **계산된 값이 아니라 첫 구현부터 있던 상한**이다
+(PostgREST 기본 1000행을 넉넉히 올린 것). 넘으면 **오래된 것부터 조용히 잘리므로**, 몇 달 쓴 계정은
+「모두 N개」 같은 총계가 실제보다 적게 나온다. 총계를 정확히 쓰려면 서버 집계로 옮겨야 한다.

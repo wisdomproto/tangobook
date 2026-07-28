@@ -66,6 +66,7 @@ import PaymentSuccessPage from '../features/payment/pages/PaymentSuccessPage';
 import PaymentFailPage from '../features/payment/pages/PaymentFailPage';
 import { InviteLandingPage, InviteFriendsPage, ReferralRewardToast } from '../features/payment';
 import { GlobalUiSound } from '../components/GlobalUiSound';
+import { GuestEventAdopter } from '@/features/learning/components/GuestEventAdopter';
 import { MetaPixelTracker } from '../components/MetaPixelTracker';
 import { AnalyticsControl } from '../components/AnalyticsControl';
 import { ParentGate } from '../features/auth/components/ParentGate';
@@ -90,6 +91,8 @@ export const router = createBrowserRouter([
         <MetaPixelTracker />
         {/* 트래킹 제어 — 내부계정 제외 + 앱 UI 언어를 GA4 유저속성으로 전송 */}
         <AnalyticsControl />
+        {/* 게스트로 논 기록을 가입 후 프로필로 옮겨 붙인다 (앱 어디서 가입해도 걸리도록 최상단) */}
+        <GuestEventAdopter />
       </AuthProvider>
     ),
     children: [
