@@ -29,7 +29,6 @@ import { LineMatchingTutorial } from './LineMatchingTutorial/LineMatchingTutoria
 import { phonicsApi } from '@/features/phonics/api/phonics.api';
 import { shuffle } from '../../utils/shuffle';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
-import { decomposeWord } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
 
 interface LineMatchingPlayerProps extends GamePlayerProps {
@@ -218,15 +217,11 @@ function LineMatchingPlayerInner({
     if (!finished) return;
     // onComplete 는 GameResultScreen 의 onBack 에서 호출 — finished 되자마자 부르면
     // 부모가 overlay 를 unmount 해서 결과 화면이 안 보임 (ConnectTheDots 와 동일 패턴).
-    const results: GameWordResult[] = [];
-    for (const it of items) {
-      results.push({ word: it.word, correct: true });
-      if (lang === 'ko') {
-        for (const syl of decomposeWord(it.word)) {
-          results.push({ correct: true, consonant: syl.cho, vowel: syl.jung });
-        }
-      }
-    }
+    // 🔴 음절은 쏘지 않는다 — 그림과 `고기` 를 이었다고 아이가 `고` 를 읽은 건 아니다(게다가
+    //    완료가 곧 전원 정답이라 판정이랄 것도 없다). 단어만 보내면 `groupBySyllable` 이
+    //    부분점수(1/4)로 얹어준다. 음절을 정식 1점으로 세는 건 아이가 글자를 직접 조작하는
+    //    한글 블록·낱말 쓰기뿐이다.
+    const results: GameWordResult[] = items.map((it) => ({ word: it.word, correct: true }));
     logGame({
       gameType: lang === 'ko' ? 'korean-line-matching' : 'english-line-matching',
       storybookId,
