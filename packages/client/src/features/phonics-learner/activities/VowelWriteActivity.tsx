@@ -1,9 +1,12 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { resolveTtsUrl } from '@/features/tts';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
+
+/** 읽어준 뒤 다음 글자까지의 쉼 (ms). 소리가 끝난 걸 확인한 뒤 넣으므로 길이 가정이 아니다. */
+const REST_MS = 450;
 
 interface VowelItem {
   vowel: string;
@@ -28,6 +31,14 @@ export function VowelWriteActivity({ unitId, vowels, onComplete, onBack }: Props
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   const [doneSet, setDoneSet] = useState<Set<number>>(new Set());
   const [currentIdx, setCurrentIdx] = useState(0);
+  // 쉬는 동안 나가면 예약된 다음 카드·칭찬이 빈 화면에서 울린다.
+  const restRef = useRef<number | null>(null);
+  useEffect(
+    () => () => {
+      if (restRef.current) clearTimeout(restRef.current);
+    },
+    []
+  );
 
   usePhonicsTtsWarm(
     unitId,
@@ -52,14 +63,20 @@ export function VowelWriteActivity({ unitId, vowels, onComplete, onBack }: Props
 
       const remaining = vowels.map((_, i) => i).filter((i) => !nextDone.has(i));
 
-      // playAudio onEnded chain — 단어 TTS 끝난 후 칭찬/다음 카드 (기존 setTimeout 가정 폐기)
+      /**
+       * playAudio onEnded chain — 발음이 끝난 뒤 칭찬/다음 카드 (setTimeout 길이 가정 폐기).
+       * 🔴 그 사이에 **쉼**을 둔다 — `아` 를 읽자마자 다음 칸으로 바뀌면 읽어준 소리와 새 글자가
+       *    한 덩어리로 지나간다. 소리가 **끝난 걸 확인한 뒤** 넣는 쉼이라 길이 가정이 아니다.
+       */
       const onTtsEnded = () => {
-        if (remaining.length === 0) {
-          playCorrectSequence({ language: 'ko', onDone: onComplete });
-        } else {
-          const next = remaining.find((i) => i > idx) ?? remaining[0];
-          setCurrentIdx(next);
-        }
+        restRef.current = window.setTimeout(() => {
+          if (remaining.length === 0) {
+            playCorrectSequence({ language: 'ko', onDone: onComplete });
+          } else {
+            const next = remaining.find((i) => i > idx) ?? remaining[0];
+            setCurrentIdx(next);
+          }
+        }, REST_MS);
       };
       if (url) {
         playAudio(url, onTtsEnded);
@@ -121,7 +138,8 @@ export function VowelWriteActivity({ unitId, vowels, onComplete, onBack }: Props
           letter={vowels[currentIdx].syllable}
           onResult={handleResult}
           autoCheck
-          threshold={0.95}
+          // 낱말 쓰기(`WordFillCanvas`)와 같은 99% — 95% 는 획 하나를 덜 칠해도 넘어간다.
+          threshold={0.99}
         />
       </div>
 
