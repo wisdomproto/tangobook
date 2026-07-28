@@ -118,6 +118,30 @@ export async function flipDueSelfHosted(admin: SupabaseClient): Promise<void> {
  */
 const META_BATCH = 5;
 
+/**
+ * 발행 직전 원자적 선점 — `scheduled` → `publishing` 조건부 UPDATE 가 **실제로 행을 바꿨을 때만**
+ * 업로드한다.
+ *
+ * 왜: 모듈 레벨 `running` 플래그는 **한 프로세스 안에서만** 겹침을 막는다. 스케줄러가 둘 이상
+ * 떠 있으면(프로덕션 + 프로덕션 `.env` 로 띄운 로컬 dev 서버) 둘 다 같은 `scheduled` 행을 집어
+ * **같은 영상을 두 번 업로드**한다. 실측(2026-07-25): 같은 롱폼이 10:01·10:02 에 두 번 올라가
+ * 쿼터 1,600 units 를 헛쓰고 조회수가 갈렸다(유튜브 「inauthentic content」 정책상 같은 콘텐츠
+ * 반복은 위험 요소이기도 하다).
+ *
+ * ponytail: 업로드 도중 프로세스가 죽으면 행이 `publishing` 에 남아 재시도되지 않는다. 중복
+ * 업로드가 더 비싸서 택한 트레이드오프 — 필요해지면 오래된 `publishing` 행을 `scheduled` 로
+ * 되돌리는 청소 단계를 붙이면 된다.
+ */
+async function claimRecord(admin: SupabaseClient, id: string): Promise<boolean> {
+  const { data } = await admin
+    .from('mkt_publish_records')
+    .update({ status: 'publishing' })
+    .eq('id', id)
+    .eq('status', 'scheduled')
+    .select('id');
+  return !!(data as unknown[] | null)?.length;
+}
+
 export async function publishDueMeta(admin: SupabaseClient): Promise<void> {
   const nowIso = new Date().toISOString();
   const { data: due, error } = await admin
@@ -135,6 +159,7 @@ export async function publishDueMeta(admin: SupabaseClient): Promise<void> {
   // Sequential: each publish drives multiple Graph calls (+polling) — parallel would spike
   // rate limits. Executor is self-contained (updates each record's terminal/retry state).
   for (const row of due as Array<{ id: string }>) {
+    if (!(await claimRecord(admin, row.id))) continue; // 다른 스케줄러가 먼저 가져감
     await publishRecord(row.id);
   }
 }
@@ -166,6 +191,7 @@ export async function publishDueYoutube(admin: SupabaseClient): Promise<void> {
   if (!due?.length) return;
 
   for (const row of due as Array<{ id: string }>) {
+    if (!(await claimRecord(admin, row.id))) continue; // 다른 스케줄러가 먼저 가져감
     await publishRecord(row.id);
   }
 }
