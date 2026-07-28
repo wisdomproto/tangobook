@@ -754,7 +754,9 @@ function KoreanBlockPlayerInner({
                         }
                         onClick={() => cellInteractable && handleCellClick(row, col)}
                         className={cn(
-                          'w-[clamp(2.5rem,8vh,5.5rem)] h-[clamp(2.5rem,8vh,5.5rem)]',
+                          // 🔴 11vw = 좁은 화면에서 6칸이 가로로 들어가는 한계. 세로로 긴 화면에선
+                          //    8vh 가 65px 까지 커져 6칸이 폭을 넘고 칸끼리 겹쳤다(375px 실측).
+                          'w-[clamp(2.5rem,min(8vh,11vw),5.5rem)] h-[clamp(2.5rem,min(8vh,11vw),5.5rem)]',
                           'rounded-2xl flex items-center justify-center select-none transition-all',
                           !cellInteractable
                             ? 'cursor-not-allowed'
@@ -850,8 +852,10 @@ function KoreanBlockPlayerInner({
               disabled={roundCorrect}
             />
           ) : (
-            // 자음/모음 패널 — 가로 풀폭 50/50, 세로 비중 3 (짧은 화면에서 2줄 타일 확보).
-            <div className="flex-[3] min-h-0 flex flex-row gap-[clamp(0.625rem,2vw,1.5rem)] items-stretch">
+            // 자음/모음 패널 — 가로면 50/50 나란히, 세로면 위아래(좁은 폭에 11칸을 우겨넣지 않기).
+            // 🔴 shrink-0 = 타일이 필요한 줄 수만큼 높이를 갖는다. flex 비중으로 잡으면 줄이 늘 때
+            //    타일이 화면 밖으로 밀린다(세로 375px 에서 실측).
+            <div className="shrink-0 flex flex-col landscape:flex-row landscape:flex-[3] landscape:min-h-0 gap-[clamp(0.625rem,2vw,1.5rem)] items-stretch">
               <div className="flex-1 flex">
                 <BlockPanel title={t('blockGame.consonants')} tone="consonant">
                   {ALL_CONSONANTS.map((b) => (
@@ -987,7 +991,7 @@ function BlockPanel({
   children: ReactNode;
 }) {
   return (
-    <div className="relative w-full rounded-3xl bg-cream-50/95 shadow-pop px-[clamp(0.5rem,1.5vw,1rem)] pt-[clamp(0.5rem,2.5vh,1.75rem)] pb-[clamp(0.25rem,0.875vh,1rem)] border-2 border-dashed border-cream-50">
+    <div className="relative w-full min-h-0 flex flex-col rounded-3xl bg-cream-50/95 shadow-pop px-[clamp(0.5rem,1.5vw,1rem)] pt-[clamp(0.5rem,2.5vh,1.75rem)] pb-[clamp(0.25rem,0.875vh,1rem)] border-2 border-dashed border-cream-50">
       {/* 헤더 칩 */}
       <div className="absolute -top-3 left-1/2 -translate-x-1/2">
         <span
@@ -1001,7 +1005,11 @@ function BlockPanel({
           ⭐ {title} ⭐
         </span>
       </div>
-      <div className="grid grid-cols-11 gap-[clamp(0.25rem,0.75vh,0.5rem)]">{children}</div>
+      {/* 🔴 열 수를 고정하지 않는다 — 칸을 44px 아래로 못 내려가게 잡고 몇 칸이 들어갈지는
+          패널 폭이 정한다. grid-cols-11 은 375px 폭에서 타일을 6.7px 로 만들었다(실측). */}
+      <div className="flex-1 min-h-0 grid gap-[clamp(0.25rem,0.75vh,0.5rem)] [grid-template-columns:repeat(auto-fill,minmax(2.75rem,1fr))] [grid-auto-rows:minmax(1.25rem,1fr)]">
+        {children}
+      </div>
     </div>
   );
 }
@@ -1044,9 +1052,9 @@ function BlockTile({
       }
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className={cn(
-        // 🔴 그리드 열 너비에 맞춰 축소(고정폭이면 grid-cols-11 에서 좁은 폭 시 타일끼리 겹침).
-        // 정사각 유지 + 큰 화면은 3rem 캡(기존 룩), 좁은 폰트는 min(2.5vh,열폭)로 자연 축소.
-        'w-full aspect-square max-w-[3rem] mx-auto rounded-xl flex items-center justify-center font-black text-[clamp(0.75rem,3vh,1.4rem)] leading-none select-none',
+        // 칸을 그대로 채운다(폭 44px 이상은 그리드가 보장, 큰 화면은 3rem 캡으로 기존 룩 유지).
+        // 정사각을 강제하지 않는 이유 = 세로가 짧은 가로화면에선 줄 높이가 폭보다 먼저 모자란다.
+        'w-full h-full max-w-[3rem] max-h-[3rem] m-auto rounded-xl flex items-center justify-center font-black text-[clamp(0.75rem,3vh,1.4rem)] leading-none select-none',
         interactable ? 'cursor-grab' : 'cursor-not-allowed',
         interactable && 'hover:scale-110 active:scale-95 active:cursor-grabbing',
         'shadow-md transition-all',
