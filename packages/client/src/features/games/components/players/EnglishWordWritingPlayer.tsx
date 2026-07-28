@@ -197,7 +197,8 @@ export function EnglishWordWritingPlayer({
             <img
               src={currentItem.imageUrl}
               alt={currentItem.word}
-              className="h-[clamp(4rem,20vh,18rem)] w-auto object-contain drop-shadow-[0_6px_8px_rgba(0,0,0,0.15)]"
+              // 🔴 그림이 이 화면의 문제다 — 무엇을 쓸지 알려주는 유일한 단서라 작으면 화면이 비어 보인다.
+              className="h-[clamp(6rem,34vh,22rem)] w-auto object-contain drop-shadow-[0_6px_8px_rgba(0,0,0,0.15)]"
             />
           )}
           <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-ink-900">

@@ -51,19 +51,23 @@ function EnglishBlockPlayerInner({
   const data = gameData as EnglishBlockData;
   const items = data.items;
   /**
-   * 하단 패널에 깔 글자 — **알파벳 단원(한 칸짜리)은 그 단원 글자만** 깐다.
+   * 하단 패널에 깔 글자 — 어댑터가 준 목록(알파벳 단원 = 그 단원 글자)이 있으면 그것만, 없으면 a~z.
    *
-   * 🔴 `a` 하나를 넣는데 26자를 훑게 하면, 배우는 건 글자가 아니라 **찾기**가 된다(사용자 지적:
-   *    "abc 배우는 애가 이렇게 하면 뭘 어쩌라는거야"). 한글 블록은 같은 이유로 입문 단원에서
-   *    쉬움 모드(필요한 자모만 순서대로)를 쓰는데 영어만 늘 26자를 깔고 있었다.
-   * 🔴 보기는 **그 단원이 배우는 글자들**(a·b·c) — 무작위 오답이 아니라 지금 배우는 것들 사이의
-   *    선택이라야 소리↔글자 연결을 확인하는 게 된다. 판정은 데이터에서 파생한다(한 칸짜리 = 알파벳).
+   * 🔴 `a` 하나를 넣는데 26자를 훑게 하면 배우는 게 글자가 아니라 **찾기**가 된다(사용자 지적).
+   * 🔴 목록을 **이번 판 문제(`items`)에서 모으지 않는다** — 4문제가 b·c 만 뽑히면 「ABC 배우기」인데
+   *    패널에 A 가 없다(내가 그렇게 냈다가 사용자가 잡았다). 단원 전체는 어댑터만 알고 있다.
    */
-  const panelLetters = useMemo(() => {
-    if (!items.every((i) => i.word.length === 1)) return ALL_LETTERS;
-    const unit = [...new Set(items.map((i) => i.word))].sort();
-    return unit.map((ch, i) => ({ id: `ltr-${i}`, char: ch, isVowel: isEnglishVowel(ch) }));
-  }, [items]);
+  const panelLetters = useMemo(
+    () =>
+      data.panelLetters?.length
+        ? data.panelLetters.map((ch, i) => ({
+            id: `ltr-${i}`,
+            char: ch,
+            isVowel: isEnglishVowel(ch),
+          }))
+        : ALL_LETTERS,
+    [data.panelLetters]
+  );
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -89,6 +93,12 @@ function EnglishBlockPlayerInner({
 
   const currentItem = items[currentIndex];
   const letterCount = currentItem.letters.length;
+  /**
+   * 한 글자짜리 라운드 = 알파벳 단원.
+   * 🔴 그 경우 **정답 글자를 화면에 쓰지 않는다** — 단어가 곧 정답이라 `c` 를 띄우고 `c` 를 고르라는
+   *    꼴이 된다(사용자 지적). 대신 그림과 소리로 판단하게 하고, 무엇을 하라는 말을 그 자리에 둔다.
+   */
+  const isAlphabetRound = currentItem.word.length === 1;
 
   const initGrid = useCallback(
     (letters: EnglishBlockLetter[]) =>
@@ -573,9 +583,15 @@ function EnglishBlockPlayerInner({
           )}
 
           <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-5">
-            <span className="text-2xl sm:text-4xl lg:text-6xl font-black tracking-wide text-ink-900">
-              {currentItem.word}
-            </span>
+            {isAlphabetRound ? (
+              <span className="text-lg sm:text-2xl font-black text-ink-700 break-keep">
+                {t('blockGame.pickFirstLetter')}
+              </span>
+            ) : (
+              <span className="text-2xl sm:text-4xl lg:text-6xl font-black tracking-wide text-ink-900">
+                {currentItem.word}
+              </span>
+            )}
             <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2">
               {Array.from({ length: letterCount }, (_, slot) => renderCell(slot))}
             </div>

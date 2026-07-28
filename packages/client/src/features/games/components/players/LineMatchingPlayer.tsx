@@ -513,7 +513,16 @@ function LineMatchingPlayerInner({
                     )}
                     aria-label={t('lineMatching.wordAria', { word: wordItem.word })}
                   >
-                    <span className="text-xl sm:text-3xl lg:text-5xl font-black text-ink-900 font-display leading-tight break-keep text-center">
+                    {/* 🔴 크기는 **라벨 길이로 갈린다** — `Bb` 같은 두 글자를 긴 낱말과 같은 크기로
+                        두면 카드가 텅 비어 보인다. 긴 한글 낱말은 키우면 접혀서 잘린다. */}
+                    <span
+                      className={cn(
+                        wordItem.word.length <= 3
+                          ? 'text-4xl sm:text-6xl lg:text-8xl'
+                          : 'text-xl sm:text-3xl lg:text-5xl',
+                        'font-black text-ink-900 font-display leading-tight break-keep text-center'
+                      )}
+                    >
                       {wordItem.word}
                     </span>
                   </button>

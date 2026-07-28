@@ -493,7 +493,9 @@ function ConnectTheDotsPlayer({
       />
       <div className="flex flex-col items-center gap-3 sm:gap-4 w-full flex-1 min-h-0">
         {/* 안내 텍스트 */}
-        <div className="h-[clamp(2.5rem,8vh,4rem)] flex items-center justify-center shrink-0">
+        {/* 🔴 **고정 높이 금지** — 정답 줄의 글자는 `text-8xl`(96px)까지 커지는데 칸은 최대 64px 라
+            헤더에 붙어 보였다(사용자 지적). 최소 높이만 잡고 내용이 자리를 만들게 한다. */}
+        <div className="min-h-[clamp(2.5rem,8vh,4rem)] py-1 sm:py-2 flex items-center justify-center shrink-0">
           {completed ? (
             // 🔴 다 칠하면 **그 낱말을 글자로도 보여준다** — 그림만 완성하고 끝나면 무엇을 그렸는지
             //    귀로만 지나간다. 표기는 발음과 **같은 소스**(`resolveSpeakTarget`)를 써서

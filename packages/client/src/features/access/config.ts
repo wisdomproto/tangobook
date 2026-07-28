@@ -38,3 +38,23 @@ export const LOCK_FOR_GUESTS = true;
  *    Paddle 전까지의 런칭 브릿지라 감수. (region 기반 정교화는 Paddle 시점에.)
  */
 export const OVERSEAS_FREE_UNTIL_PADDLE = true;
+
+/**
+ * 🔴 **파닉스는 언제나 무료** — 잠그지 않는다(2026-07-28 결정).
+ *
+ * 한글/영어 파닉스는 **획득 채널**이다. 광고·검색으로 들어온 사람이 가입도, 결제도, 게스트 창 만료도
+ * 없이 32단원을 끝까지 쓸 수 있어야 한다. 가입 유인은 잠금이 아니라 **학습 기록**이 맡는다
+ * (게스트는 계정이 없어 부모 리포트의 자음×모음 표가 안 쌓인다).
+ *
+ * 지금까지 열려 있던 건 **결정이 아니라 누락**이었다 — 학습 화면(`/library/phonics/korean/*`)이
+ * AppShell 밖이라 진입 게이트를 안 만났을 뿐이고, 정작 **랜딩(`/library/phonics`)은 셸 안이라
+ * 미로그인 첫 방문과 게스트 만료 뒤에 벽을 만났다**. 광고를 태우면 그 벽에서 샌다.
+ *
+ * 그래서 ①이 상수로 결정을 이름 붙이고 ②`AppShell` 이 파닉스 경로에선 게이트를 띄우지 않는다.
+ * 🔴 파닉스 화면에 `useAccess`/페이월을 붙이지 말 것 — 붙이는 순간 이 결정이 조용히 뒤집힌다.
+ */
+export const PHONICS_ALWAYS_FREE = true;
+
+/** 잠그지 않는 경로 접두사 — `PHONICS_ALWAYS_FREE` 의 적용 범위. */
+export const isAlwaysFreePath = (pathname: string) =>
+  PHONICS_ALWAYS_FREE && pathname.startsWith('/library/phonics');

@@ -109,7 +109,8 @@
     "dragHint": "아래 블록을\n여기에 놓아요!",
     "next": "다음 →",
     "seeResult": "결과 보기",
-    "help": "🪄 도와줘"
+    "help": "🪄 도와줘",
+    "pickFirstLetter": "그림을 보고 첫 글자를 넣어봐!"
   },
   "writingGame": {
     "paintPrompt": "글자를 색칠해봐",

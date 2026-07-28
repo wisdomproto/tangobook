@@ -199,7 +199,16 @@ export function phonicsToEnglishBlockData(sb: Storybook): EnglishBlockData | nul
     });
   }
   if (items.length === 0) return null;
-  return { type: 'english-block', items: shuffle(items).slice(0, MAX_ITEMS) };
+  /**
+   * 🔴 패널 글자는 **단원 전체**에서 모은다 — `items` 는 이번 판에 뽑힌 4문제뿐이라
+   *    b·c 만 걸리면 「ABC 배우기」인데 패널에 A 가 없다(실제로 그렇게 나왔다).
+   */
+  const panelLetters = alphabet ? [...new Set(items.map((i) => i.word))].sort() : undefined;
+  return {
+    type: 'english-block',
+    items: shuffle(items).slice(0, MAX_ITEMS),
+    ...(panelLetters ? { panelLetters } : {}),
+  };
 }
 
 export function phonicsToEnglishWordWritingData(sb: Storybook): WordWritingData | null {

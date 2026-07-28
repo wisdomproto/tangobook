@@ -109,7 +109,8 @@
     "dragHint": "把下面的积木\n放到这里！",
     "next": "下一个 →",
     "seeResult": "查看结果",
-    "help": "🪄 帮帮我"
+    "help": "🪄 帮帮我",
+    "pickFirstLetter": "看图片，放上它的第一个字母吧！"
   },
   "writingGame": {
     "paintPrompt": "给字涂上颜色吧！",

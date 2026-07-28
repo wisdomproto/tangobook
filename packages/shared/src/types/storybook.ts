@@ -488,6 +488,14 @@ export interface EnglishBlockItem {
 export interface EnglishBlockData {
   type: 'english-block';
   items: EnglishBlockItem[];
+  /**
+   * 하단 패널에 깔 글자 — 미지정이면 a~z 전체.
+   *
+   * 🔴 알파벳 단원(Book 1)은 **그 단원이 배우는 글자**(a·b·c)만 깐다. `a` 하나를 넣는데 26자를
+   *    훑게 하면 배우는 게 글자가 아니라 찾기가 된다. 🔴 이번 판에 뽑힌 문제에서 모으면 안 된다 —
+   *    4문제가 b·c 만 뽑히면 패널이 두 장이 되어 「ABC 배우기」인데 A 가 없다(실제로 그랬다).
+   */
+  panelLetters?: string[];
 }
 
 // --- 순서 맞추기 블록 (vi/zh/th 공용) ---

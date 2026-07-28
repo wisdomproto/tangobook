@@ -6,6 +6,7 @@ import { AppIcon } from '@/design-system';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { ProfilePicker } from '@/features/auth/components/ProfilePicker';
 import { EntryGate } from '@/features/access/components/EntryGate';
+import { isAlwaysFreePath } from '@/features/access/config';
 import { PromoBanner } from '@/features/library/components/PromoBanner';
 import { useGuestMode } from '@/features/access/hooks/useGuestMode';
 import { AppBgm } from './AppBgm';
@@ -401,8 +402,11 @@ export function AppShell() {
 
       {/* 진입 게이트 — 미로그인 방문자의 첫 선택(게스트 30일 / 가입 / 로그인).
           게스트 30일이 끝나면 같은 게이트가 가입 벽으로 재등장한다. 로그인 사용자는 안 뜬다.
-          Supabase 미설정(게스트 전용 빌드)에서는 가입 경로가 없으므로 게이트도 띄우지 않는다. */}
-      {!session && isConfigured && guest.needsGate && (
+          Supabase 미설정(게스트 전용 빌드)에서는 가입 경로가 없으므로 게이트도 띄우지 않는다.
+          🔴 **파닉스에선 띄우지 않는다**(`isAlwaysFreePath`) — 파닉스는 획득 채널이라 잠그지 않기로
+          했는데, 정작 학습 화면은 셸 **밖**이라 늘 열려 있고 랜딩(`/library/phonics`)만 셸 **안**이라
+          벽을 만났다. 광고를 태우면 그 벽에서 샌다. */}
+      {!session && isConfigured && guest.needsGate && !isAlwaysFreePath(location.pathname) && (
         <EntryGate expired={guest.expired} onChoose={guest.refresh} />
       )}
 

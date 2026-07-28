@@ -109,7 +109,8 @@
     "dragHint": "Đặt khối\nvào đây!",
     "next": "Tiếp →",
     "seeResult": "Xem kết quả",
-    "help": "🪄 Giúp với"
+    "help": "🪄 Giúp với",
+    "pickFirstLetter": "Nhìn tranh và đặt chữ cái đầu tiên nhé!"
   },
   "writingGame": {
     "paintPrompt": "Tô màu chữ nào!",
