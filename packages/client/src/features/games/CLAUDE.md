@@ -193,6 +193,7 @@ last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, �
 - **시연만**: 그리드는 빈 상태 유지 (튜토리얼 끝나면 사용자가 직접 드래그)
 - **음성**: `public/sounds/games/tutorial/hori-{intro,pop,place,syllable-done,end}.mp3` (없으면 말풍선만 graceful)
 - **canonical layout**: row 1 베이스, 수직 모음 (ㅗㅛㅜㅠㅡ) 시 row 2. `planTutorialLayout(word)` pure 함수 — 단위 테스트 있음
+- 🔴 **수직 모음 목록 = `@tangobook/shared` `VERTICAL_VOWELS` / `isVerticalVowel`** (2026-07-28). 여기와 파닉스 학습 활동이 각자 사본을 들고 있었다 — **세 번째 사본을 만들지 말 것**. 글자가 합쳐지는 방향이라 게임·학습이 같은 답을 내야 한다(실제로 파닉스 자음 쓰기가 이 규칙을 안 봐서 `구` 를 옆으로 쓰게 하고 있었다).
 - **Context 기반**: `TutorialProvider` 가 BlockTile/그리드셀에 highlight (popJamo / glowCell) 공유 → 컴포넌트 자체적으로 pop / glow 클래스 적용. 디커플 깔끔.
 - **Arrow**: `data-jamo-tile` (BlockTile 에 부착) + `data-grid-cell` (그리드셀에 부착) querySelector 로 좌표 측정 → Quadratic Bézier 곡선 SVG. `fixed inset-0 z-[85] pointer-events-none`.
 - **위치**: `packages/client/src/features/games/components/players/KoreanBlockTutorial/`
