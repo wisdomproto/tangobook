@@ -34,8 +34,15 @@ const CODA_GAPS = ['min(9vh, 5rem)', 'min(3vh, 1.5rem)', '0px'] as const;
  *    받침(세로)만 고쳐놨더니 자음(가로)에 그대로 남아 있었다 — 두 모드 다 묶는다.
  * 가로로 나란한 자음은 두 칸이 한 줄에 들어가야 해서 세로보다 좁다.
  */
-const CODA_TILE = 'w-[min(46vw,26vh)] max-w-52';
-const ROW_TILE = 'w-[min(38vw,24vh)] max-w-44';
+const CODA_TILE = 'min(46vw, 26vh, 13rem)';
+const ROW_TILE = 'min(38vw, 24vh, 11rem)';
+/**
+ * 🔴 **대기 칸 글자는 캔버스가 그리는 글자와 같은 크기여야 한다** — `LetterFillCanvas` 는 400px
+ * 캔버스에 `0.85em` 으로 그린 뒤 칸 폭에 맞춰 늘리므로, 화면에 보이는 em 크기는 **칸 폭 × 0.85** 다.
+ * 예전엔 대기 칸이 `text-5xl sm:text-7xl` 고정이라 쓰는 글자와 옆 글자의 크기가 달랐다(사용자 지적).
+ * 글꼴도 캔버스와 같은 NanumSquareRound(`font-display`)로 맞춘다 — 예전엔 Pretendard 였다.
+ */
+const tileFont = (tile: string) => `calc(${tile} * 0.85)`;
 /** 두 글자가 미끄러져 붙는 시간. CSS `duration-500` 과 맞춘다 — 어긋나면 붙기 전에 합쳐진 글자가 뜬다. */
 const CLOSE_MS = 500;
 /** 합쳐진 글자가 뜬 뒤 읽기까지의 쉼 — 붙자마자 소리가 나면 눈이 따라가기 전에 지나간다. */
@@ -111,6 +118,14 @@ export function ConsonantWriteActivity({
    */
   const vertical = isCoda || stacksVertically(pair);
   const tile = vertical ? CODA_TILE : ROW_TILE;
+  /**
+   * 🔴 가로로 나란할 땐 **위를 맞춘다**(`items-start`) — 캔버스 아래엔 진척 바처럼 나타났다 사라지는
+   *    것이 붙어서 그 래퍼만 키가 커진다. `items-center` 로 묶으면 그만큼 **캔버스가 위로 밀려**
+   *    옆 대기 칸과 글자 높이가 어긋난다(사용자 지적: "ㄱ 이랑 ㅓ 가 수평이 맞아야지").
+   *    두 칸이 같은 정사각이라 위만 맞추면 글자끼리 맞고, 아래에 뭐가 붙든 안 흔들린다.
+   * 세로로 쌓을 땐 교차축이 가로라 가운데 정렬이 맞다.
+   */
+  const align = vertical ? 'flex-col items-center' : 'items-start';
 
   const goTo = useCallback((i: number) => {
     setIdx(i);
@@ -315,9 +330,7 @@ export function ConsonantWriteActivity({
           />
         ) : (
           <div
-            className={`flex items-center justify-center transition-all duration-500 ease-out ${
-              vertical ? 'flex-col' : ''
-            }`}
+            className={`flex justify-center transition-all duration-500 ease-out ${align}`}
             style={
               vertical
                 ? { rowGap: CODA_GAPS[Math.min(round, CODA_GAPS.length - 1)] }
@@ -336,7 +349,8 @@ export function ConsonantWriteActivity({
               //    그냥 두면 주어진 판(176px)의 두 배가 되어, 위아래가 한 글자로 안 보인다.
               <>
                 <div
-                  className={`shrink-0 ${tile} aspect-square rounded-3xl border-[5px] border-white bg-white/70 flex items-center justify-center font-black text-coral-400 text-5xl sm:text-7xl shadow-soft`}
+                  className="shrink-0 aspect-square rounded-3xl border-[5px] border-white bg-white/70 flex items-center justify-center font-display font-black text-coral-400 shadow-soft leading-none"
+                  style={{ width: tile, fontSize: tileFont(tile) }}
                 >
                   {pair.first}
                 </div>
@@ -344,12 +358,13 @@ export function ConsonantWriteActivity({
                     칠할 수 있고, 다 칠한 글자가 아니라 빈 가이드가 붙는 것처럼 보인다. */}
                 {closing ? (
                   <div
-                    className={`shrink-0 ${tile} aspect-square rounded-3xl border-[5px] border-mint-500 bg-mint-100 flex items-center justify-center font-black text-mint-700 text-5xl sm:text-7xl shadow-pop`}
+                    className="shrink-0 aspect-square rounded-3xl border-[5px] border-mint-500 bg-mint-100 flex items-center justify-center font-display font-black text-mint-700 shadow-pop leading-none"
+                    style={{ width: tile, fontSize: tileFont(tile) }}
                   >
                     {pair.second}
                   </div>
                 ) : (
-                  <div className={`shrink-0 ${tile}`}>
+                  <div className="shrink-0" style={{ width: tile }}>
                     <LetterFillCanvas
                       key={`${pair.syllable}-coda`}
                       letter={pair.second}
@@ -368,7 +383,11 @@ export function ConsonantWriteActivity({
                   return (
                     // 🔴 캔버스도 대기 칸과 **같은 폭**으로 묶는다 — 안 묶으면 자체 max-w-sm(384px)이라
                     //    대기 칸(176px)의 두 배가 되어 두 글자 크기가 제각각으로 보인다.
-                    <div key={`${pair.syllable}-${round}-${which}`} className={`shrink-0 ${tile}`}>
+                    <div
+                      key={`${pair.syllable}-${round}-${which}`}
+                      className="shrink-0"
+                      style={{ width: tile }}
+                    >
                       <LetterFillCanvas letter={letter} onResult={handleResult} autoCheck />
                     </div>
                   );
@@ -376,7 +395,8 @@ export function ConsonantWriteActivity({
                 return (
                   <div
                     key={`${pair.syllable}-${which}-idle`}
-                    className={`shrink-0 ${tile} aspect-square rounded-3xl border-[5px] border-white bg-white/70 flex items-center justify-center font-black text-coral-400 text-5xl sm:text-7xl shadow-soft`}
+                    className="shrink-0 aspect-square rounded-3xl border-[5px] border-white bg-white/70 flex items-center justify-center font-display font-black text-coral-400 shadow-soft leading-none"
+                    style={{ width: tile, fontSize: tileFont(tile) }}
                   >
                     {letter}
                   </div>

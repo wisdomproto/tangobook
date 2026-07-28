@@ -378,21 +378,30 @@ export function LetterFillCanvas({
         </div>
       )}
 
-      <div className="flex gap-3">
-        <Button variant="ghost" size="lg" onClick={handleClear} className="text-lg px-6">
-          {result ? '다시 쓰기' : '지우기'}
-        </Button>
-        {!result && !autoCheck && (
-          <Button
-            size="lg"
-            onClick={() => handleCheck()}
-            disabled={!hasDrawn}
-            className="text-lg px-8"
-          >
-            확인
+      {/**
+       * 🔴 **autoCheck 화면엔 버튼을 두지 않는다**(2026-07-28).
+       *  ① 칠하기라 되돌릴 게 없다 — 글자 밖 획은 애초에 안 세고, 칠할수록 올라가기만 한다.
+       *  ② 버튼이 캔버스 **아래 높이를 먹어서**, 옆에 나란한 대기 칸과 `items-center` 로 맞추면
+       *     캔버스가 위로 밀려 `ㄱ` 과 `ㅓ` 의 높이가 어긋나 보였다(사용자 지적).
+       * 수동 채점(`확인`) 경로는 틀린 뒤 다시 쓸 길이 필요하므로 그대로 둔다.
+       */}
+      {!autoCheck && (
+        <div className="flex gap-3">
+          <Button variant="ghost" size="lg" onClick={handleClear} className="text-lg px-6">
+            {result ? '다시 쓰기' : '지우기'}
           </Button>
-        )}
-      </div>
+          {!result && (
+            <Button
+              size="lg"
+              onClick={() => handleCheck()}
+              disabled={!hasDrawn}
+              className="text-lg px-8"
+            >
+              확인
+            </Button>
+          )}
+        </div>
+      )}
     </div>
   );
 }
