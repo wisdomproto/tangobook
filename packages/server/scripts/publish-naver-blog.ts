@@ -150,6 +150,25 @@ async function writeAndSchedule(
     await sleep(4000);
   }
 
+  // --- 초안 모드 -------------------------------------------------------
+  // 🔴 예약 날짜 필드가 readOnly 라 자동으로 못 바꾼다(달력 위젯 미해결). 그래서 초안까지만
+  //    만들고 예약은 사람이 한다. 진짜 노동인 이미지 업로드는 여기서 이미 끝나 있다.
+  if (args.draft) {
+    if (!APPLY) return { scheduled: false, saved: false };
+    const before = await ed.evaluate(
+      `(document.querySelector('button.save_count_btn__ZTLNa')||{}).innerText || '0'`
+    );
+    await ed.evaluate(
+      `(function(){var b=Array.prototype.slice.call(document.querySelectorAll('button')).filter(function(x){return (x.innerText||'').trim()==='저장'})[0]; if(b) b.click()})()`
+    );
+    await sleep(4000);
+    const after = await ed.evaluate(
+      `(document.querySelector('button.save_count_btn__ZTLNa')||{}).innerText || '0'`
+    );
+    if (Number(after) <= Number(before)) throw new Error(`임시저장 안 됨 (${before} → ${after})`);
+    return { scheduled: false, saved: true };
+  }
+
   // --- 발행 패널 (스펙 §13) -------------------------------------------
   await sleep(800);
   await ed.evaluate(
@@ -270,7 +289,7 @@ async function main() {
       .replace(/<[^>]+>/g, '')
       .replace(/\s/g, '').length;
     const hist = await findPublication(src.bookId, src.blogContentId, 'ko');
-    if (shouldSkip(hist, 'publish')) continue;
+    if (shouldSkip(hist, args.draft ? 'draft' : 'publish')) continue;
     picked.push({ blogContentId: t.blogContentId, title: src.title, bookId: src.bookId, chars });
   }
   // 🔴 기본은 **검색량 많은 순**. 글 길이순(`--order=score`)도 남겨두지만 근거가 약하다 —
@@ -356,10 +375,14 @@ async function main() {
         bookId: src.bookId,
         postId: src.blogContentId,
         language: 'ko',
-        status: 'published',
+        status: args.draft ? 'draft' : 'published',
       });
       done.push(item.title);
-      console.log(`  ✓ ${item.title} → ${dateStr(base, i + 1)} ${HOUR}:00 예약`);
+      console.log(
+        args.draft
+          ? `  ✓ ${item.title} → 임시저장`
+          : `  ✓ ${item.title} → ${dateStr(base, i + 1)} ${HOUR}:00 예약`
+      );
       await page.close();
     } catch (e) {
       failed.push(`${item.title}(${(e as Error).message.slice(0, 40)})`);
