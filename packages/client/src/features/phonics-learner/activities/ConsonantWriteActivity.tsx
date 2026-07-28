@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
+import { useLogEvent } from '@/features/learning/hooks/useLogEvent';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
@@ -77,6 +78,7 @@ export function ConsonantWriteActivity({
   const [idx, setIdx] = useState(0);
   const [round, setRound] = useState(0);
   const [step, setStep] = useState<0 | 1>(0); // 지금 쓸 칸
+  const logEvent = useLogEvent();
   const [madeSet, setMade] = useState<ReadonlySet<number>>(() => new Set());
   const [completed, setCompleted] = useState(false);
   // 붙는 애니메이션·쉼 타이머 — 도중에 나가면 빈 화면에서 소리가 울린다.
@@ -149,6 +151,15 @@ export function ConsonantWriteActivity({
 
       // 만든 음절을 기록하고 아직 안 만든 다음 것으로 (목록에서 건너뛰며 골랐을 수 있다).
       const finishSyllable = (read: string) => {
+        // 🔴 손으로 쓴 음절 — 부모 리포트 자음×모음 표가 이 이벤트로 칸을 채운다.
+        //    받침 모드는 그 표의 칸(자음×모음)이 아니라 남기지 않는다.
+        if (!isCoda) {
+          logEvent({
+            type: 'syllable_correct',
+            storybookId: unitId,
+            metadata: { source: 'phonics', unitId, consonant: pair.first, vowel: pair.second },
+          });
+        }
         const made = new Set(madeSet).add(idx);
         setMade(made);
         const isLast = made.size >= pairs.length;
@@ -207,6 +218,9 @@ export function ConsonantWriteActivity({
       idx,
       pairs,
       madeSet,
+      logEvent,
+      isCoda,
+      unitId,
       isCoda,
       writeRounds,
       goTo,

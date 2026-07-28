@@ -41,6 +41,11 @@ interface Props {
    *    같은 글자가 두 장이라 그림이 없으면 어느 쪽이 정답인지 가릴 수가 없다.
    */
   revealImageOnTap?: boolean;
+  /**
+   * 퀴즈에서 한 문제를 판정할 때마다 호출 — 무엇으로 기록할지는 **호출부가 정한다**
+   * (한글 단원은 낱말, 영어 알파벳 단원은 음소). 활동은 판정만 하고 이벤트 종류를 모른다.
+   */
+  onJudge?: (correct: boolean, item: ListenChoice) => void;
   onMarkComplete: () => void;
   onBack: () => void;
 }
@@ -79,6 +84,7 @@ export function WordListenChooseActivity({
   choices = 4,
   exploreFirst = false,
   revealImageOnTap = false,
+  onJudge,
   onMarkComplete,
   onBack,
 }: Props) {
@@ -159,11 +165,13 @@ export function WordListenChooseActivity({
     (picked: ListenChoice) => {
       if (done || !current || wrong) return;
       if (idOf(picked) !== idOf(current.answer)) {
+        onJudge?.(false, current.answer);
         playFeedbackSound(false);
         setWrong(idOf(picked));
         wrongTimer.current = window.setTimeout(() => setWrong(null), 600);
         return;
       }
+      onJudge?.(true, picked);
       const isLast = qIdx + 1 >= questions.length;
       if (isLast) setDone(true);
       // 🔴 한 단계씩 **콜백으로** 잇는다 — setTimeout 으로 길이를 가정하지 않는다.
@@ -186,6 +194,7 @@ export function WordListenChooseActivity({
       wrong,
       qIdx,
       questions.length,
+      onJudge,
       say,
       rest,
       playAudio,

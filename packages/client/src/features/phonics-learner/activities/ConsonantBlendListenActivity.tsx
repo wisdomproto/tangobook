@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
+import { useLogEvent } from '@/features/learning/hooks/useLogEvent';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { buildBlendPairs, stacksVertically } from '../lib/blend-pairs';
 
@@ -106,6 +107,7 @@ export function ConsonantBlendListenActivity({
     setStep(0);
   }, []);
 
+  const logEvent = useLogEvent();
   const pair = pairs[idx];
   /**
    * 🔴 탭이 끝나면 **붙는 과정을 보여주는 단계**가 하나 더 있다(2026-07-27).
@@ -154,6 +156,20 @@ export function ConsonantBlendListenActivity({
         return;
       }
 
+      /**
+       * 🔴 **음절을 만들면 그 사실을 남긴다** — 부모 리포트의 자음×모음 표는 `syllable_correct` 의
+       *    `metadata.{consonant, vowel}` 로 칸을 채운다. 이 배선이 없어서 아이가 다 해도 표가 회색이었다.
+       * 🔴 **받침 모드는 남기지 않는다** — 그 표의 칸은 (자음 × 모음)이라 `가 + ㅇ` 은 들어갈 자리가 없다.
+       *    억지로 넣으면 없는 사실을 그리는 셈이다.
+       */
+      if (!isCoda) {
+        logEvent({
+          type: 'syllable_correct',
+          storybookId: unitId,
+          metadata: { source: 'phonics', unitId, consonant: pair.first, vowel: pair.second },
+        });
+      }
+
       // 합체: 글자가 미끄러져 붙는 동안 `ㄱ ㅏ 가` 를 이어 읽고, 끝나면 띵동 → 다음 짝.
       const made = new Set(madeSet).add(idx);
       setMade(made);
@@ -192,6 +208,9 @@ export function ConsonantBlendListenActivity({
     [
       completed,
       merging,
+      logEvent,
+      isCoda,
+      unitId,
       pair,
       step,
       round,

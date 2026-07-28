@@ -104,6 +104,19 @@ export default function KoreanPhonicsActivityPage() {
   }, [unitId, activityKey, backToUnit, logUnitProgress]);
 
   // 자동 back 없이 진척만 마킹 (activity 가 직접 retry/back UI 노출용)
+  /** 퀴즈 판정 → 낱말 정오답. 부모 리포트의 「다시 한번 보면 좋을 단어」가 이걸로 뽑힌다. */
+  const judgeWord = useCallback(
+    (correct: boolean, item: { sound: string; label: string }) => {
+      logEvent({
+        type: correct ? 'word_correct' : 'word_wrong',
+        storybookId: unitId,
+        word: item.sound || item.label,
+        metadata: { source: 'phonics', unitId, lang: 'ko' },
+      });
+    },
+    [logEvent, unitId]
+  );
+
   const handleMarkComplete = useCallback(() => {
     markActivityCompleted('korean', unitId, activityKey);
     logUnitProgress();
@@ -223,6 +236,7 @@ export default function KoreanPhonicsActivityPage() {
           ...(c.ttsUrl ? { ttsUrl: c.ttsUrl } : {}),
         }))}
         letter={activity.consonant}
+        onJudge={judgeWord}
         // 학습 단원은 카드를 눌러 들어본 뒤 「퀴즈」 로 넘어간다(복습은 바로 퀴즈).
         exploreFirst
         onMarkComplete={handleMarkComplete}
@@ -267,6 +281,7 @@ export default function KoreanPhonicsActivityPage() {
           sound: s.word,
           ...(s.imageUrl ? { imageUrl: s.imageUrl } : {}),
         }))}
+        onJudge={judgeWord}
         choices={REVIEW_CHOICES}
         onMarkComplete={handleMarkComplete}
         onBack={backToUnit}

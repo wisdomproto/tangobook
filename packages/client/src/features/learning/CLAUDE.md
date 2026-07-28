@@ -126,5 +126,11 @@
 - 두 활동 페이지(`Korean/EnglishPhonicsActivityPage`)의 `markActivityCompleted` 자리에서
   `page_read`(storybookId=unitId, `metadata.source='phonics'`)를 남긴다 — `phonics-progress.ts` 가
   그 형태로 단원 진행을 센다.
-- 🔴 **음절·음소 정오답(`syllable_correct` 등)은 지어내지 않는다.** 활동이 실제로 그걸 판정할 때
-  그 자리에서 남길 일이다. 히트맵이 비어 보이는 건 그 배선이 아직 없기 때문이다.
+- 🔴 **음절·음소는 활동이 실제로 판정하는 자리에서만** 남긴다(2026-07-27 배선 완료):
+  - `ConsonantBlendListenActivity`(음절 만들기)·`ConsonantWriteActivity`(음절 쓰기) →
+    `syllable_correct` + `metadata.{consonant, vowel}`. 히트맵 칸 키가 `${consonant}${vowel}` 이다.
+  - 🔴 **받침 모드는 남기지 않는다** — 그 표의 칸은 (자음 × 모음)이라 `가 + ㅇ` 은 들어갈 자리가 없다.
+  - `WordListenChooseActivity` 퀴즈 → `onJudge` 콜백으로 **호출부가** 정한다:
+    한글 단원·복습 = `word_correct/word_wrong`(「다시 볼 단어」가 이걸로 뽑힌다),
+    영어 알파벳 단원 = `phoneme_correct/phoneme_wrong`(스킬트리).
+    활동은 판정만 하고 이벤트 종류를 모른다.

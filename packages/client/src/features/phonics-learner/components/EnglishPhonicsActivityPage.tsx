@@ -107,6 +107,23 @@ export default function EnglishPhonicsActivityPage() {
     logUnitProgress();
     backToUnit();
   }, [unitId, activityKey, backToUnit, logUnitProgress]);
+  /**
+   * 퀴즈 판정 → 영어는 **음소**로 남긴다(부모 리포트 스킬트리가 `phoneme` 으로 칸을 채운다).
+   * 카드 라벨이 `Aa` 라 소문자 한 글자로 정규화한다.
+   */
+  const judgePhoneme = useCallback(
+    (correct: boolean, item: { sound: string; label: string }) => {
+      const phoneme = (item.label || item.sound).trim().toLowerCase().slice(0, 1);
+      if (!phoneme) return;
+      logEvent({
+        type: correct ? 'phoneme_correct' : 'phoneme_wrong',
+        storybookId: unitId,
+        metadata: { source: 'phonics', unitId, lang: 'en', phoneme },
+      });
+    },
+    [logEvent, unitId]
+  );
+
   const handleMarkComplete = useCallback(() => {
     markActivityCompleted('english', unitId, activityKey);
     logUnitProgress();
@@ -169,6 +186,7 @@ export default function EnglishPhonicsActivityPage() {
         items={items}
         choices={items.length}
         revealImageOnTap
+        onJudge={judgePhoneme}
         // 🔴 바로 퀴즈로 밀어넣지 않는다 — 먼저 눌러 소리를 들어보고 「🎯 퀴즈」 로 넘어간다
         //    (한글 「단어 연습」과 같은 순서. 처음 보는 걸 소리만 듣고 고르라면 찍기가 된다.)
         exploreFirst
