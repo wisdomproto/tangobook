@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
@@ -44,6 +44,8 @@ export function ReviewWriteActivity({
   );
 
   const current = sources[idx];
+  const sourcesRef = useRef(sources);
+  sourcesRef.current = sources;
 
   const say = useCallback(
     async (card: ReviewCardSource) => {
@@ -58,11 +60,22 @@ export function ReviewWriteActivity({
     [language, unitId, playAudio]
   );
 
-  // 그림이 없는 복습(영어)은 소리가 곧 문제다 — 카드가 바뀌면 자동으로 한 번 들려준다.
+  /**
+   * 그림이 없는 복습(영어)은 소리가 곧 문제다 — 카드가 바뀌면 자동으로 **한 번** 들려준다.
+   *
+   * 🔴 deps 에 `current`(부모가 렌더마다 새로 만드는 배열에서 파생)와 `say`(함수 신원)를 걸면
+   *    부모가 리렌더될 때마다 다시 울린다. 실측: 진입 직후 같은 소리가 **다섯 번** 겹쳤다
+   *    (StrictMode 의 이중 실행 2회로는 설명되지 않는 수). 채널이 하나라 아이 귀엔 한 조각만 남는다.
+   *    같은 사고를 `WordListenChooseActivity` 에서도 냈다 — **카드가 실제로 바뀐 때만** 울려야 한다.
+   */
+  const sayRef = useRef(say);
+  sayRef.current = say;
+  const wordKey = current && !current.imageUrl ? current.word : '';
   useEffect(() => {
-    if (done || !current || current.imageUrl) return;
-    say(current);
-  }, [idx, done, current, say]);
+    if (done || !wordKey) return;
+    const card = sourcesRef.current[idx];
+    if (card) sayRef.current(card);
+  }, [idx, wordKey, done]);
 
   /** 낱말을 다 쓰면 — 그 낱말을 읽어주고 띵동, 다음 그림으로. */
   const handleWordDone = useCallback(async () => {
