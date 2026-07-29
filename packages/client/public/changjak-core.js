@@ -99,6 +99,21 @@
   });
 })();
 
+/* 회차의 앵커 바인딩을 메타 줄에 띄운다.
+ * 바인딩이 데이터로만 있고 화면에 안 보이면 아무도 안 채운다 — 미확정이면 미확정이라고 보여준다. */
+(function () {
+  var e = window.CJ_EPISODE;
+  var meta = document.querySelector('.ep .meta');
+  if (!e || !meta) return;
+  var chip = document.createElement('span');
+  chip.className = 'q';
+  chip.innerHTML = e.anchorSlug
+    ? '🎨 앵커 <b>' + e.anchorSlug + '</b> · ' + e.cluster
+    : '🎨 앵커 <b>미확정</b> · ' + e.cluster + ' (ref ' + e.reference + ')';
+  chip.title = '프롬프트: ' + (e.prompts || '');
+  meta.appendChild(chip);
+})();
+
 /* §5 주제군 8개 = 탭.
  * 120권을 세로로 쌓으면 한 화면에 한 주제군도 안 들어와 비교가 안 된다.
  * 기획서 HTML 은 마크업만 두고(.grp 8개) 탭 로직은 여기 있다. */
