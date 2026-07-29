@@ -6,6 +6,7 @@ import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import type { Storybook } from '@tangobook/shared';
 import { ActivityShell } from '../components/ActivityShell';
+import { findImageData } from '../lib/phonics-game-adapter';
 
 interface Props {
   unitId: string;
@@ -37,23 +38,31 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
   const [advancing, setAdvancing] = useState(false);
 
   const wordFamilies = sb?.phonicsLesson?.wordFamilies ?? [];
-  const blendingList = sb?.phonicsLesson?.blending ?? [];
-  /**
-   * 글자를 다 쓰면 보여주는 그림 — 「배우기」 화면과 **같은 삽화**다(아이가 이미 본 그림이라
-   * "그 A 를 내가 썼다" 로 이어진다). 없으면 그냥 다음 글자로 간다.
-   */
-  const [reward, setReward] = useState<{ url: string; letter: string } | null>(null);
 
-  // 현재 글자의 단어 TTS URL 중 랜덤 1개 (예: 'a a apple' / 'a a alligator' / 'a a ant').
-  // 캔버스 통과마다 호출 → 통과 시점에 다른 단어 들음.
-  const pickRandomWordTts = useCallback(
-    (letterIdx: number): string | undefined => {
-      const wf = wordFamilies[letterIdx];
-      const urls = (wf?.words ?? []).map((w) => w.ttsUrl).filter((u): u is string => !!u);
-      if (urls.length === 0) return undefined;
-      return urls[Math.floor(Math.random() * urls.length)];
+  /**
+   * 캔버스 하나를 통과할 때 여는 그림 — **글자당 두 장**(apple / alligator)을 하나씩 준다.
+   * 🔴 대문자 통과 = 첫 낱말, 소문자 통과 = 둘째 낱말(2026-07-29 사용자 지시: "하나씩 나오게 해").
+   *    예전엔 낱말을 **무작위**로 골라 소리만 냈고 그림은 글자를 다 쓴 뒤 한 장만 나왔다 —
+   *    글자당 그림이 두 장인데 한 장은 아무도 못 봤다.
+   * 🔴 그림은 **낱말 소리와 함께** 연다. 소리가 끝나기를 기다렸다가 열었더니 「a a alligator」를
+   *    다 듣고도 4.2초 동안 아무 일이 없었다(사용자: "그림이 안 나오는데?").
+   */
+  const [reward, setReward] = useState<{
+    url: string;
+    word: string;
+    /** 이 그림이 닫히면 다음 글자로 — 그 글자의 두 번째(=마지막) 통과였다. */
+    last: boolean;
+  } | null>(null);
+
+  /** 글자의 n 번째 낱말 — 그림·소리를 같이 준다. */
+  const wordAt = useCallback(
+    (letterIdx: number, slot: number) => {
+      const w = wordFamilies[letterIdx]?.words?.[slot];
+      if (!w?.word || !sb) return null;
+      const extra = findImageData(sb, w.word);
+      return { word: w.word, ttsUrl: w.ttsUrl, imageUrl: extra.imageUrl };
     },
-    [wordFamilies]
+    [wordFamilies, sb]
   );
 
   const currentLetter = letters[currentIdx];
@@ -61,42 +70,8 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
   const currentLower = currentLetter?.toLowerCase() ?? '';
   const currentPassed = passed[currentLetter ?? ''] ?? { upper: false, lower: false };
 
-  /**
-   * 다음 글자로 진행 — 두 캔버스 모두 통과했을 때만 호출.
-   *
-   * 🔴 **낱말이 끝나기를 기다린다.** 예전엔 `setTimeout(1200)` 이었는데 낱말 음원이 3.3~4.3초라
-   *    실측에서 **2.06초가 통째로 잘렸다**(`f… f… f—` 하다 칭찬이 덮었다). 중간 글자에서도 낱말이
-   *    나오는 중에 다음 글자 화면으로 넘어가, 아이는 B 를 보면서 A 의 낱말을 들었다.
-   *    소리 길이를 가정하지 않는다는 이 프로젝트의 규칙이 이 화면에만 안 걸려 있었다.
-   */
-  const wordPlayingRef = useRef(false);
-  const pendingAdvanceRef = useRef(false);
-
-  /**
-   * 이 글자를 끝낸다 — 삽화 보상이 있으면 그걸 띄우고, 없으면 바로 다음 글자(마지막이면 칭찬).
-   *
-   * 🔴 **`advanceToNext` 와 분리되어 있어야 한다.** 예전엔 이 몸통이 `advanceToNext` 안에 있었고,
-   *    낱말이 끝난 뒤 깨울 때도 `advanceToNext` 를 다시 불렀다 — 그런데 그 함수 첫 줄이
-   *    `if (advancing) return` 이라 **자기가 세워둔 깃발에 자기가 막혀** 글자가 영영 안 넘어갔다.
-   *    (다 쓰고도 `Aa 써 보기` 에 머물렀다.) 깨우는 쪽은 이 함수를 직접 부른다.
-   */
-  const finishLetter = useCallback(() => {
-    /**
-     * 🔴 다음 글자로 넘어가기 전에 **방금 쓴 글자의 삽화**를 보여준다(2026-07-29 사용자 요청).
-     *    쓰기는 손만 쓰는 화면이라 끝나도 남는 게 없었다 — 다 쓰면 그림이 열리는 게 보상이다.
-     *    탭하거나 2.4초가 지나면 넘어간다(아이를 기다리게 두지 않는다).
-     */
-    const art =
-      blendingList[currentIdx]?.illustrationUrl ?? blendingList[currentIdx]?.exampleWordImageUrl;
-    if (art && currentIdx + 1 < letters.length) {
-      setReward({ url: art, letter: letters[currentIdx] ?? '' });
-      return;
-    }
-    if (currentIdx + 1 < letters.length) {
-      setCurrentIdx((i) => i + 1);
-      setAdvancing(false);
-      return;
-    }
+  /** 마지막 글자까지 끝났을 때 — 칭찬하고 단원으로. */
+  const finishUnit = useCallback(() => {
     playCorrectSequence({
       language: 'en',
       systemSounds,
@@ -105,92 +80,61 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
         onBack();
       },
     });
-  }, [
-    blendingList,
-    currentIdx,
-    letters,
-    playCorrectSequence,
-    systemSounds,
-    onMarkComplete,
-    onBack,
-  ]);
-  const finishRef = useRef(finishLetter);
-  finishRef.current = finishLetter;
+  }, [playCorrectSequence, systemSounds, onMarkComplete, onBack]);
 
-  /**
-   * 두 캔버스를 다 통과했을 때 — **낱말이 끝나기를 기다린다.**
-   * 🔴 예전엔 `setTimeout(1200)` 이었는데 낱말 음원이 3.3~4.3초라 실측에서 2.06초가 잘렸다.
-   */
-  const advanceToNext = useCallback(() => {
-    if (advancing) return;
-    setAdvancing(true);
-    // 낱말이 아직 나오는 중이면 그 소리가 끝난 뒤에 넘어간다(`handleResult` 가 깨운다).
-    if (wordPlayingRef.current) {
-      pendingAdvanceRef.current = true;
-      return;
-    }
-    scheduleTimer(() => finishRef.current(), REST_MS);
-  }, [advancing, scheduleTimer]);
-
-  // 캔버스 통과 콜백 — LetterFillCanvas paint mode, threshold 도달 시 onResult(true) 호출.
-  //   1) 통과 시 그 글자의 랜덤 단어 TTS 재생 (예: 'a a apple').
-  //   2) advance 판정은 useEffect 가 단일 source (race 무관).
-  const handleResult = useCallback(
-    (which: 'upper' | 'lower') => (ok: boolean) => {
-      if (!currentLetter || !ok) return;
-      const alreadyPassed = passed[currentLetter]?.[which];
-      setPassed((prev) => {
-        const cur = prev[currentLetter] ?? { upper: false, lower: false };
-        if (cur[which]) return prev; // 이미 통과
-        return { ...prev, [currentLetter]: { ...cur, [which]: true } };
-      });
-      if (!alreadyPassed) {
-        const url = pickRandomWordTts(currentIdx);
-        if (url) {
-          // 쓰기가 끝난 뒤 숨 돌릴 자리 — 간격은 공용 값(`REST_MS`)을 쓴다.
-          wordPlayingRef.current = true;
-          scheduleTimer(
-            () =>
-              playAudio(url, () => {
-                wordPlayingRef.current = false;
-                // 두 캔버스가 이미 끝나 대기 중이었다면 지금 넘어간다.
-                if (pendingAdvanceRef.current) {
-                  pendingAdvanceRef.current = false;
-                  scheduleTimer(() => finishRef.current(), REST_MS);
-                }
-              }),
-            REST_MS
-          );
-        }
-      }
-    },
-    [currentLetter, currentIdx, passed, pickRandomWordTts, playAudio, scheduleTimer]
-  );
-
-  /** 보상 그림을 닫고 다음 글자로. 탭하거나 시간이 지나면 불린다(둘 중 먼저). */
+  /** 그림을 닫는다 — 그 글자의 마지막 그림이었으면 다음 글자(또는 단원 종료)로. */
   const closeReward = useCallback(() => {
     setReward((r) => {
       if (!r) return null;
-      setCurrentIdx((i) => i + 1);
-      setAdvancing(false);
+      if (r.last) {
+        if (currentIdx + 1 < letters.length) {
+          setCurrentIdx((i) => i + 1);
+          setAdvancing(false);
+        } else {
+          finishUnit();
+        }
+      }
       return null;
     });
-  }, []);
+  }, [currentIdx, letters.length, finishUnit]);
+  const closeRewardRef = useRef(closeReward);
+  closeRewardRef.current = closeReward;
+
+  /**
+   * 캔버스 통과 콜백 — 통과한 쪽(대/소문자)에 해당하는 낱말을 **그림 + 소리로 함께** 낸다.
+   * 🔴 소리 길이를 가정하지 않는다 — 그림은 소리가 끝나고 잠깐 더 있다가 닫힌다(탭하면 즉시).
+   */
+  const handleResult = useCallback(
+    (which: 'upper' | 'lower') => (ok: boolean) => {
+      if (!currentLetter || !ok) return;
+      if (passed[currentLetter]?.[which]) return; // 이미 통과한 칸
+      const other = which === 'upper' ? 'lower' : 'upper';
+      const isLast = !!passed[currentLetter]?.[other]; // 이번이 그 글자의 두 번째 통과
+      setPassed((prev) => {
+        const cur = prev[currentLetter] ?? { upper: false, lower: false };
+        return { ...prev, [currentLetter]: { ...cur, [which]: true } };
+      });
+      if (isLast) setAdvancing(true);
+
+      const w = wordAt(currentIdx, which === 'upper' ? 0 : 1) ?? wordAt(currentIdx, 0);
+      if (w?.imageUrl) setReward({ url: w.imageUrl, word: w.word, last: isLast });
+
+      // 쓰기가 끝난 뒤 숨 돌릴 자리 — 간격은 공용 값(`REST_MS`).
+      scheduleTimer(() => {
+        playAudio(w?.ttsUrl, () => {
+          // 소리가 끝나면 그림을 잠깐 더 두고 닫는다. 그림이 없으면 바로 다음 단계로.
+          scheduleTimer(() => closeRewardRef.current(), w?.imageUrl ? 1200 : 0);
+        });
+      }, REST_MS);
+    },
+    [currentLetter, currentIdx, passed, wordAt, playAudio, scheduleTimer]
+  );
+
+  /** 소리가 아예 없어 `playAudio` 가 즉시 끝나는 경우 대비 — 그림이 영영 안 닫히지 않게. */
   useEffect(() => {
     if (!reward) return;
-    scheduleTimer(closeReward, 2400);
-  }, [reward, scheduleTimer, closeReward]);
-
-  // 두 캔버스 모두 통과 + advance 아직 진행 중 X → 다음 글자.
-  // setTimeout 안 closure 변수 대신 useEffect 가 commit 된 state 만 보고 결정 → race 무관.
-  useEffect(() => {
-    if (!currentLetter || advancing) return;
-    const cur = passed[currentLetter];
-    if (cur?.upper && cur?.lower) {
-      const t = setTimeout(advanceToNext, 200);
-      return () => clearTimeout(t);
-    }
-  }, [passed, currentLetter, advancing, advanceToNext]);
+    scheduleTimer(() => closeRewardRef.current(), 6000);
+  }, [reward, scheduleTimer]);
 
   const progressText = useMemo(
     () =>
@@ -298,11 +242,11 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
         <button
           onClick={closeReward}
           className="fixed inset-0 z-[70] flex flex-col items-center justify-center gap-4 bg-ink-900/70 backdrop-blur-sm px-6"
-          aria-label={`${reward.letter} 그림`}
+          aria-label={reward.word}
         >
-          <span className="text-white font-display font-black text-5xl sm:text-7xl leading-none">
-            {reward.letter.toUpperCase()}
-            {reward.letter.toLowerCase()}
+          {/* 낱말을 같이 보여준다 — 소리로 듣는 그 낱말이 화면에도 있어야 글자와 이어진다. */}
+          <span className="text-white font-display font-black text-4xl sm:text-6xl leading-none">
+            {reward.word}
           </span>
           <img
             src={reward.url}
