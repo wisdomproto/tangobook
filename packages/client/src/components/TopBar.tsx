@@ -50,6 +50,12 @@ const RESOURCES: ResourceItem[] = [
     desc: '같은 P1 장면으로 4개 그림체 A/B (민화 팝·모던 K·디오라마·하이브리드)',
   },
   {
+    href: '/changjak-plan.html',
+    icon: '📖',
+    label: '탱고북 창작동화 1000 기획서',
+    desc: '단권 완결 · 4~6세 유럽풍 · 책마다 다른 그림체 · 주제군 8 × 엔진 8 × 무대 생성 시스템 + 120권 제목·요약',
+  },
+  {
     href: '/hangeul-tree-plan.html',
     icon: '🌳',
     label: '한글 나무 파닉스 동화 기획서',
