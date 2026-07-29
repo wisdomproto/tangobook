@@ -8,7 +8,6 @@ import { playUi } from '@/lib/uiSound';
 import { warmAudioUrl } from '@/features/games/hooks/useGamePrefetch';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
-import { LetterWriteModal } from './LetterWriteModal';
 import { ActivityShell } from '../components/ActivityShell';
 
 /** 소리 사이 쉼 — 콜백으로 끝난 걸 확인한 뒤 넣는다(길이 가정 아님). */
@@ -45,8 +44,6 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
 
   // 활성 글자 인덱스 (letters 배열의 인덱스). storybook.phonicsLesson.blending[i] 와 1:1 매칭.
   const [currentIdx, setCurrentIdx] = useState(0);
-  // 써보기 모달 — 활성 글자에 대해서만 노출
-  const [writeOpen, setWriteOpen] = useState(false);
 
   const blending = sb?.phonicsLesson?.blending?.[currentIdx];
   const wordFamily = sb?.phonicsLesson?.wordFamilies?.[currentIdx];
@@ -242,7 +239,6 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
     (idx: number) => {
       if (idx !== currentIdx) {
         setCurrentIdx(idx);
-        setWriteOpen(false);
         return;
       }
       // 활성 글자 재클릭 = 글자 소리 (아래 큰 버튼과 같은 경로 — 예전엔 저작 음원이 없어 무음이었다)
@@ -432,9 +428,9 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
           </div>
         </div>
 
-        {/* 써보기 — 활성 글자 모달 트리거. ABC 써보기 활동 별도 카드 대신 학습 페이지 내 통합.
-            🔴 **다 눌러본 뒤에 나온다** — 소리를 듣기도 전에 쓰기 버튼이 있으면 아이가 그리로 먼저 간다.
-               (핫스팟이 없는 글자는 `allDone` 이 처음부터 true 라 바로 보인다.) */}
+        {/* 🔴 **써보기는 여기 없다**(2026-07-29) — 단원 목록의 「ABC 써보기」 카드가 맡는다.
+            예전엔 이 화면 안 모달이었는데, 그러면 단원 목록에서 쓰기가 안 보여
+            「이 단원엔 쓰기가 없다」로 읽힌다(한글 단원은 배우기/써보기가 나란한 카드다). */}
         <div className="flex flex-wrap items-center justify-center gap-3">
           {/* 🔴 글자 소리 = 이 단원의 목표. **처음부터 끝까지** 큰 버튼으로 열어둔다 —
               탭을 한 번 더 누르는 숨은 조작에만 맡겨두면 아이는 영영 못 듣는다. */}
@@ -456,19 +452,6 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
               <span className="text-2xl sm:text-3xl">🔊</span>
             </button>
           )}
-          {allDone && (
-            <button
-              onClick={() => setWriteOpen(true)}
-              className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-gradient-to-r from-coral-400 to-coral-500 text-white shadow-pop hover:-translate-y-0.5 active:translate-y-0.5 transition-transform text-lg sm:text-xl font-black"
-            >
-              <span className="text-xl sm:text-2xl">✏️</span>
-              <span className="inline-flex items-baseline">
-                <span>{upper}</span>
-                <span>{lower}</span>
-              </span>
-              <span>써보기</span>
-            </button>
-          )}
           {/* 다 찾은 뒤 갈 곳 — 없으면 아이가 상단 탭을 스스로 발견해야 한다. */}
           {allDone && currentIdx < letters.length - 1 && (
             <button
@@ -486,15 +469,6 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
-
-      {writeOpen && (
-        <LetterWriteModal
-          storybook={sb}
-          letterIndex={currentIdx}
-          activeLetter={letters[currentIdx] ?? upper}
-          onClose={() => setWriteOpen(false)}
-        />
-      )}
     </ActivityShell>
   );
 }

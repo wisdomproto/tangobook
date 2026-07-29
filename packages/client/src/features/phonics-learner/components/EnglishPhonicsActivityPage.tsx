@@ -174,19 +174,20 @@ export default function EnglishPhonicsActivityPage() {
       }));
     });
     /**
-     * 🔴 **줄마다 ABC 가 한 벌씩** — 글자별로 묶어 늘어놓으면 `Aa Aa Bb / Bb Cc Cc` 가 되어
-     *    줄이 글자 순서를 흐린다. 첫 낱말들을 윗줄에, 둘째 낱말들을 아랫줄에 깐다.
+     * 🔴 **한 줄에 글자 하나**(2026-07-29 사용자 지시) — A 두 장 / B 두 장 / C 두 장이 각각 한 줄이다.
+     *    이 권의 학습 내용이 "같은 A 소리가 사과에도 악어에도 있다" 라서, **그 둘이 나란히 보여야**
+     *    한 줄이 곧 한 글자가 된다. (예전엔 줄마다 ABC 를 한 벌씩 깔았는데, 화면이 넓으면 여섯 장이
+     *    통째로 한 줄이 되어 묶음이 아예 안 보였다.)
      */
-    const depth = Math.max(...perLetter.map((w) => w.length));
-    const items = Array.from({ length: depth }).flatMap((_, d) =>
-      perLetter.map((w) => w[d]).filter((c): c is NonNullable<typeof c> => !!c)
-    );
+    const items = perLetter.flat();
     return (
       <WordListenChooseActivity
         unitId={unitId}
         language="english"
         items={items}
         choices={items.length}
+        // 글자당 카드 수 = 한 줄에 놓을 장수(보통 2).
+        columns={WORDS_PER_LETTER}
         revealImageOnTap
         onJudge={judgePhoneme}
         // 🔴 바로 퀴즈로 밀어넣지 않는다 — 먼저 눌러 소리를 들어보고 「🎯 퀴즈」 로 넘어간다

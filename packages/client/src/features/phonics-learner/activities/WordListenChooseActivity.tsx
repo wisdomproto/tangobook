@@ -31,6 +31,12 @@ interface Props {
    */
   choices?: number;
   /**
+   * 한 줄에 놓을 카드 수. 미지정이면 장수로 정한다.
+   * 🔴 알파벳 단원은 **글자당 한 줄**이라 2 를 넘긴다 — 안 넘기면 넓은 화면에서 여섯 장이
+   *    한 줄로 늘어서서 "이 A 는 사과, 저 A 는 악어" 묶음이 안 보인다.
+   */
+  columns?: number;
+  /**
    * 퀴즈 전에 **탐색 화면**을 먼저 보여줄지. 카드를 눌러 소리를 들어보고 「퀴즈」 버튼으로 넘어간다.
    * 복습은 되짚는 자리라 바로 퀴즈로 들어가므로 기본값은 false.
    */
@@ -83,6 +89,7 @@ export function WordListenChooseActivity({
   letter,
   language = 'korean',
   choices = 4,
+  columns,
   exploreFirst = false,
   revealImageOnTap = false,
   onJudge,
@@ -151,9 +158,14 @@ export function WordListenChooseActivity({
    *    세로가 짧으면 두 줄이 통째로 넘쳐 제목이 위로 잘리고 「퀴즈」 버튼이 화면 밖으로 나갔다.
    *    카드 아래 낱말 줄까지 얹히므로 두 줄일 때는 24vh 로 잡아야 문제·버튼 자리가 남는다.
    */
-  const cols = shownBoard.length > 6 ? 4 : shownBoard.length > 4 ? 3 : 2;
+  const cols = columns ?? (shownBoard.length > 6 ? 4 : shownBoard.length > 4 ? 3 : 2);
   const rows = Math.ceil(shownBoard.length / cols);
-  const cardSize = `min(${Math.floor(80 / cols)}vw, ${rows > 1 ? 24 : 40}vh)`;
+  /**
+   * 🔴 세로 몫은 **줄 수로 나눈다** — 예전엔 `rows > 1` 을 전부 24vh 로 뭉뚱그렸다. 알파벳 단원이
+   *    글자당 한 줄(3줄)이 되자 카드만 601px 을 먹어 **「퀴즈」 버튼이 화면 밖(850px)으로** 나갔다.
+   *    46vh 는 문제줄(9rem)·「퀴즈」 버튼·gap 을 뺀 몫이다 — 1024×768 에서 3줄이 딱 들어오게 실측으로 맞췄다(60·54 는 각각 36px·13px 모자랐다).
+   */
+  const cardSize = `min(${Math.floor(80 / cols)}vw, ${rows === 1 ? 40 : rows === 2 ? 24 : Math.floor(46 / rows)}vh)`;
   /** 퀴즈 안내 음성이 나오는 중 — 끝나야 첫 문제가 나간다. */
   const [starting, setStarting] = useState(false);
   const [qIdx, setQIdx] = useState(0);
@@ -348,7 +360,12 @@ export function WordListenChooseActivity({
             딴 화면으로 간 것처럼 보였다. 바뀌는 건 **문제와 클릭 동작뿐**이다. */}
         {/* 🔴 열 수는 장수로 — 알파벳 단원은 글자 하나에 카드가 두 장이라 6장이 깔린다(3+3).
             2열로 두면 세 줄이 되어 아래가 화면 밖으로 밀린다. */}
-        <div className="flex flex-wrap justify-center gap-4 sm:gap-6 w-full px-2">
+        {/* 🔴 `flex-wrap` 은 **폭이 남으면 안 접힌다** — 계산한 열 수(`cols`)가 무시돼 여섯 장이
+            한 줄로 늘어섰다. grid 로 두면 줄 수가 화면 폭과 무관하게 의도대로 선다. */}
+        <div
+          className="grid justify-center gap-4 sm:gap-6 px-2"
+          style={{ gridTemplateColumns: `repeat(${cols}, max-content)` }}
+        >
           {shownBoard.map((c) => (
             <button
               key={idOf(c)}
