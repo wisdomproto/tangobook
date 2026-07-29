@@ -213,6 +213,31 @@ export function randomReviewSyllable(card: ReviewCard, rand: () => number = Math
   return composeHangul(card.letter, pick(BASIC_VOWELS), null) || card.syllable;
 }
 
+/**
+ * 복습 카드를 **섞어서** 돌려준다 — 활동마다 앞에서 N장만 쓰기 때문이다.
+ *
+ * 🔴 복습 묶음은 4장이 아니라 **5~6장일 때가 있다**(`chunkForReview` 가 꼬리 ≤2 를 앞 묶음에 합친다 —
+ *    한글1 자음 14개 → 4·4·6). 그런데 활동 넷이 전부 `slice(0, 4)` 였다:
+ *    글자 사냥(라운드 4) · 듣고 음절/듣고 단어(보기 4) · 뒤집기(4쌍).
+ *    순서가 고정이라 **늘 같은 뒤쪽 글자가 잘렸다** — 「ㅈ~ㅎ 복습」에서 `ㅍ·ㅎ` 은 여섯 활동 중
+ *    넷에서 한 번도 안 나왔다(이름에는 ㅎ 이 붙어 있는데).
+ *
+ * 🔴 상한(4)은 그대로 둔다 — 4~7세가 한 화면에서 감당하는 수라 늘리면 다른 게 깨진다.
+ *    대신 **어느 넷이 뽑히는지를 판마다 다르게** 해서, 다시 하면 남은 글자가 나온다.
+ * 🔴 그래서 이 함수는 **활동 진입마다 한 번만** 불려야 한다(렌더마다 부르면 보기가 계속 바뀐다).
+ */
+export function shuffleReviewCards(
+  cards: ReadonlyArray<ReviewCard>,
+  rand: () => number = Math.random
+): ReviewCard[] {
+  const a = [...cards];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 export interface ActivityDef {
   key: string; // 'listen-1', 'write-2', ...
   order: number; // 1-based 표시 순서

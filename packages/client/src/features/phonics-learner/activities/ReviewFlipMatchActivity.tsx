@@ -219,8 +219,11 @@ export function ReviewFlipMatchActivity({
           })}
         </div>
 
-        {/* 모은 것 — 맞춘 짝은 **낱말**로 남는다(카드·소리와 같게). 아직이면 '?'.
-            🔴 낱말은 3글자까지 오므로 원이 아니라 알약 모양이어야 한다. */}
+        {/* 모은 것 — 맞춘 짝은 **글자**로 남는다.
+            🔴 여기가 이 활동의 **유일한 글자 자리**다(2026-07-29). 카드 앞면은 낱말, 그림면은 그림,
+               읽어주는 것도 낱말이라, 칩까지 낱말로 두면 파닉스 복습인데 **화면 어디에도 글자가 없다**.
+               받침 복습에서 ㅇ·ㄱ·ㄴ·ㄹ 이 한 번도 안 보였다(검수로 잡힘). 모듈 문서도 원래
+               "칩이 음소를 맡으므로 파닉스가 유지된다"고 적어둔 자리다 — 코드만 어긋나 있었다. */}
         <div className="flex flex-wrap justify-center gap-2">
           {picked.map((s) => (
             <span
@@ -230,7 +233,7 @@ export function ReviewFlipMatchActivity({
                 matched.has(s.letter) ? 'bg-mint-500 text-white' : 'bg-white/70 text-ink-300',
               ].join(' ')}
             >
-              {matched.has(s.letter) ? wordOf(s) : '?'}
+              {matched.has(s.letter) ? s.letter : '?'}
             </span>
           ))}
         </div>

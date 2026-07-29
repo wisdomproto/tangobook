@@ -3,6 +3,7 @@ import type { GameTypeId } from '@tangobook/shared';
 import { PhonicsGameGate } from './PhonicsGameGate';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getEnglishActivityPlan, getEnglishUnit } from '../lib/english-phonics-units';
+import { shuffleReviewCards } from '../lib/korean-phonics-units';
 import type { ActivityDef } from '../lib/korean-phonics-units';
 import { markActivityCompleted } from '../lib/progress-store';
 import { CvcPatternLearnActivity } from '../activities/CvcPatternLearnActivity';
@@ -60,7 +61,8 @@ export default function EnglishPhonicsActivityPage() {
   );
 
   // 복습은 되짚는 단원들의 그림·단어가 필요하다 (early return 앞에서 호출 — 훅 순서 고정).
-  const reviewCards = useMemo(() => activity?.reviewCards ?? [], [activity]);
+  // 🔴 **섞어서** 넘긴다 — 활동들이 앞에서 4장만 쓰기 때문에 순서가 고정이면 뒤쪽 글자가 영영 안 나온다.
+  const reviewCards = useMemo(() => shuffleReviewCards(activity?.reviewCards ?? []), [activity]);
   const { sources: reviewSources, isLoading: reviewLoading } = useReviewCardSources(reviewCards);
 
   const storybookQuery = useStorybook(unitId);
@@ -201,12 +203,12 @@ export default function EnglishPhonicsActivityPage() {
   //    한글과 같은 6종을 돌린다(사용자: "a~f review 너무 뭐가 없는데?").
 
   // 🎧 듣고 글자 맞추기 — 카드에 글자·발음이 들어 있어 storybook 을 안 기다린다.
-  if (activity.kind === 'review-syllable-listen' && activity.reviewCards?.length) {
+  if (activity.kind === 'review-syllable-listen' && reviewCards.length) {
     return (
       <WordListenChooseActivity
         unitId={unitId}
         language="english"
-        items={activity.reviewCards.map((c) => ({ label: c.syllable, sound: c.sound }))}
+        items={reviewCards.map((c) => ({ label: c.syllable, sound: c.sound }))}
         choices={REVIEW_CHOICES}
         onMarkComplete={handleMarkComplete}
         onBack={backToUnit}
@@ -216,11 +218,11 @@ export default function EnglishPhonicsActivityPage() {
 
   // 🔎 글자 사냥 — 글자만 쓰는 활동이라 단어 그림을 기다리지 않는다.
   //    영어는 Book 2 가 word family(at·an)라 방해꾼도 같은 꼴로 만들어진다(모음·끝소리 교체).
-  if (activity.kind === 'review-hunt' && activity.reviewCards?.length) {
+  if (activity.kind === 'review-hunt' && reviewCards.length) {
     return (
       <LetterHuntActivity
         unitId={unitId}
-        cards={activity.reviewCards}
+        cards={reviewCards}
         language="english"
         onComplete={handleComplete}
         onBack={backToUnit}
@@ -290,11 +292,11 @@ export default function EnglishPhonicsActivityPage() {
       />
     );
   }
-  if (activity.kind === 'review-listen' && activity.reviewCards?.length) {
+  if (activity.kind === 'review-listen' && reviewCards.length) {
     return (
       <VowelListenActivity
         unitId={unitId}
-        vowels={activity.reviewCards.map((c) => ({
+        vowels={reviewCards.map((c) => ({
           vowel: c.letter,
           syllable: c.syllable,
           sound: c.sound,
@@ -305,12 +307,12 @@ export default function EnglishPhonicsActivityPage() {
       />
     );
   }
-  if (activity.kind === 'review-write' && activity.reviewCards?.length) {
+  if (activity.kind === 'review-write' && reviewCards.length) {
     return (
       <ReviewWriteActivity
         unitId={unitId}
         language="english"
-        sources={activity.reviewCards.map((c) => ({ ...c, word: c.letter, imageUrl: '' }))}
+        sources={reviewCards.map((c) => ({ ...c, word: c.letter, imageUrl: '' }))}
         onComplete={handleComplete}
         onBack={backToUnit}
       />

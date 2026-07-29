@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { getAllKoreanUnits, getActivityPlan, getRequiredActivities } from './korean-phonics-units';
+import {
+  getAllKoreanUnits,
+  getActivityPlan,
+  getRequiredActivities,
+  shuffleReviewCards,
+} from './korean-phonics-units';
 
 /**
  * 32 단원 전체가 활동을 갖는지 지키는 가드.
@@ -163,5 +168,33 @@ describe('korean phonics activity plans', () => {
       'consonant-blend-listen',
       'consonant-write',
     ]);
+  });
+});
+
+describe('shuffleReviewCards', () => {
+  const cards = ['ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'].map((letter) => ({
+    unitId: `u-${letter}`,
+    letter,
+    syllable: letter,
+    sound: letter,
+    matchPosition: 'cho' as const,
+  }));
+
+  it('카드를 잃지도 늘리지도 않는다', () => {
+    const out = shuffleReviewCards(cards);
+    expect(out.map((c) => c.letter).sort()).toEqual(['ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'].sort());
+  });
+
+  /**
+   * 🔴 활동들이 앞에서 4장만 쓴다 — 순서가 고정이면 `ㅍ·ㅎ` 은 여섯 활동 중 넷에서 영영 안 나온다.
+   *    여러 번 뽑으면 뒤쪽 글자도 앞 4장에 들어와야 한다.
+   */
+  it('앞 4장에 뒤쪽 글자도 들어온다 (늘 같은 꼬리가 잘리지 않는다)', () => {
+    const seen = new Set<string>();
+    for (let i = 0; i < 200; i++) {
+      for (const c of shuffleReviewCards(cards).slice(0, 4)) seen.add(c.letter);
+    }
+    expect(seen.has('ㅍ')).toBe(true);
+    expect(seen.has('ㅎ')).toBe(true);
   });
 });

@@ -6,6 +6,7 @@ import {
   getActivityPlan,
   getKoreanUnit,
   randomReviewSyllable,
+  shuffleReviewCards,
   type ActivityDef,
 } from '../lib/korean-phonics-units';
 import { markActivityCompleted } from '../lib/progress-store';
@@ -62,7 +63,8 @@ export default function KoreanPhonicsActivityPage() {
   const storybook = storybookQuery.data as Storybook | undefined;
 
   // 복습 활동은 되짚는 단원들의 그림·단어가 필요하다 (early return 앞에서 호출 — 훅 순서 고정).
-  const reviewCards = useMemo(() => activity?.reviewCards ?? [], [activity]);
+  // 🔴 **섞어서** 넘긴다 — 활동들이 앞에서 4장만 쓰기 때문에 순서가 고정이면 뒤쪽 글자가 영영 안 나온다.
+  const reviewCards = useMemo(() => shuffleReviewCards(activity?.reviewCards ?? []), [activity]);
   /** 🔴 한 번만 뽑는다 — 렌더마다 다시 뽑으면 보기가 계속 바뀌고 자동재생이 다시 울린다. */
   const syllableChoices = useMemo(
     () => reviewCards.map((c) => randomReviewSyllable(c)),
