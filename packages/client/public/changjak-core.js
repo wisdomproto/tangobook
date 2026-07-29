@@ -11,6 +11,48 @@
  * 🔴 docId·key 는 서버에서 /^[A-Za-z0-9-]{1,64}$/ 로 검증한다 — 슬러그는 영문/숫자/하이픈만.
  *    한글 이름은 JSON 메타에 담는다.
  */
+/* §5 주제군 8개 = 탭.
+ * 120권을 세로로 쌓으면 한 화면에 한 주제군도 안 들어와 비교가 안 된다.
+ * 기획서 HTML 은 마크업만 두고(.grp 8개) 탭 로직은 여기 있다. */
+(function () {
+  var grps = [].slice.call(document.querySelectorAll('.grp'));
+  if (grps.length < 2) return;
+
+  var bar = document.createElement('div');
+  bar.className = 'grp-tabs';
+  var btns = [];
+
+  function show(i) {
+    grps.forEach(function (g, n) { g.style.display = i < 0 || n === i ? '' : 'none'; });
+    btns.forEach(function (b, n) { b.classList.toggle('on', n === i + 1); });
+  }
+
+  // 첫 칩 = 전체(인쇄·통독용), 그다음 주제군 8개
+  [{ label: '전체', idx: -1 }]
+    .concat(grps.map(function (g, i) {
+      var h = g.querySelector('.head h3');
+      var emo = g.querySelector('.head .emo');
+      var cnt = g.querySelector('.head .cnt');
+      return {
+        label: (emo ? emo.textContent + ' ' : '') + (h ? h.textContent.replace(/^[A-H]\s*·\s*/, '') : '?'),
+        sub: cnt ? cnt.textContent : '',
+        idx: i,
+      };
+    }))
+    .forEach(function (t) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'grp-tab';
+      b.innerHTML = t.label + (t.sub ? ' <i>' + t.sub + '</i>' : '');
+      b.addEventListener('click', function () { show(t.idx); });
+      bar.appendChild(b);
+      btns.push(b);
+    });
+
+  grps[0].parentNode.insertBefore(bar, grps[0]);
+  show(0); // 기본 = 첫 주제군
+})();
+
 (function () {
   var MEMO = '/api/saenghwal-memo';
   var ASSETS = '/api/comic-assets/changjak-anchors';

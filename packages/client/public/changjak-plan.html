@@ -38,6 +38,12 @@
   table.books td:nth-child(5) { width:104px; font-size:12px; color:var(--ink-soft); }
   code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12.5px; }
   footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  /* §5 주제군 탭 (changjak-core.js) */
+  .grp-tabs { display:flex; flex-wrap:wrap; gap:6px; margin:14px 0 4px; position:sticky; top:0; z-index:4; background:var(--cream); padding:8px 0; border-bottom:2px solid var(--line); }
+  .grp-tab { background:#fff; border:1px solid var(--line); color:var(--ink-soft); border-radius:999px; padding:5px 13px; font-size:12.5px; font-weight:800; cursor:pointer; font-family:inherit; line-height:1.3; }
+  .grp-tab i { font-style:normal; font-weight:600; opacity:.65; font-size:11px; margin-left:3px; }
+  .grp-tab:hover { border-color:var(--coral); color:var(--coral-dark); }
+  .grp-tab.on { background:var(--coral); border-color:var(--coral); color:#fff; }
   /* 앵커 보관함 (changjak-core.js) */
   .vault-bar { background:#fff; border:1px solid var(--line); border-radius:12px; padding:11px 14px; font-size:14px; margin:12px 0; }
   .dim { color:var(--ink-soft); font-size:12.5px; font-weight:600; }
