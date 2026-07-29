@@ -12,6 +12,7 @@ import {
   useVideoConfig,
 } from 'remotion';
 import { loadFont } from '@remotion/google-fonts/NotoSansKR';
+import { layout, bgmLevelAt, type Scene } from './adreel/timeline';
 
 // 한글 파닉스 광고 릴스 — docs/marketing/drafts/ad-reel-phonics-2026-07-28-plan.md.
 // 9:16 · 1080×1920 · 30fps · 1046프레임(34.87초). 맨 앞 썸네일 60f · 끝 CTA 90f.
@@ -29,7 +30,6 @@ const { fontFamily } = loadFont('normal', { weights: ['700', '800'] });
 export const PHX_FPS = 30;
 export const PHX_WIDTH = 1080;
 export const PHX_HEIGHT = 1920;
-export const PHX_DURATION = 1046;
 
 const CORAL = '#FF5E3A';
 const ACCENT = '#FFE08A'; // 무료 메시지 강조 — 어두운 스크림 위에서 흰색과 구분된다
@@ -419,167 +419,218 @@ const Cta: React.FC = () => {
   );
 };
 
-// ── BGM 볼륨(기준 0.35 = 100) ──────────────────────────────────────────────
-// 🔴 레벨 함수는 본 트랙과 꼬리 트랙이 **같이** 쓴다 — 꼬리만 안 깎으면 합체 직전 무음이 안 생긴다.
-const BGM_BASE = 0.35;
-const bgmLevel = (f: number) => {
-  if (f < 364) return 1; // 썸네일 + 내비게이션 — 앱 소리가 없다
-  // 패턴 인터럽트 — 합체(f498) 직전엔 BGM 을 내린다.
-  if (f < 522) return interpolate(f, [510, 518], [0.55, 0], C);
-  // 합체에서 0.6초 램프로 되돌린다.
-  if (f < 774) return interpolate(f, [522, 540], [0, 0.55], C);
-  return 1;
-};
+// ── 씬 배열 ────────────────────────────────────────────────────────────────
+// 🔴 예전엔 한 타임라인에 `from` 을 손으로 적었다. 클립 하나를 다시 자를 때마다 뒤 씬 `from` 과
+//    오디오 앵커 수십 개가 같이 틀어져, 하루에 다섯 번 전체를 밀었다(+126/−40/−36/+24/+36).
+//    → 씬은 **로컬 프레임 0부터**, 소리도 **씬 안에 로컬로**. `from` 은 `layout()` 이 누적한다.
+//    → memory `ad-reel-scene-based-authoring-2026-07-28`
 
-// 🔴 bgm.mp3 는 곡이 f899(29.99초)에 끝난다 — 32.6초 릴스라 그대로 두면 뒤가 통째로 무음이다.
+const BGM_BASE = 0.35;
+
+/** 씬5(합체) 앵커 — 클립 로컬. sfx 와 **BGM 인터럽트가 같은 상수를 본다**. */
+const BLEND = { taps: [21, 49, 76, 104], merge: 121, clear: 139 };
+/** 씬4(ㄱ 소리) 앵커 — 점1 · 점2 · ✓ 뒤집기 · 낱말 그림. */
+const TAP = { dot1: 19, dot2: 35, check: 50, word: 65 };
+/** 씬6(쓰기) — 첫 획 · 다 칠해짐 · 앱이 음절을 읽는 시점. */
+const WRITE = { stroke: 0, done: 84, read: 97 };
+
+const SCENES: Scene[] = [
+  // ⓪ 썸네일 — 인스타가 첫 프레임을 커버로 쓴다. 1.2초로 짧게(길면 훅이 늦는다).
+  { key: 'thumb', durationInFrames: 60, Component: () => <Thumbnail /> },
+  {
+    // ① 라이브러리 → ☰ → 사이드바 → 파닉스 탭. 도입부는 앱 소리가 없어 BGM 만 100.
+    key: 'n1-enter',
+    durationInFrames: 96,
+    Component: ({ dur }) => (
+      <>
+        <Clip src="phonics/clips/n1-enter.mp4" />
+        <Subtitle lines={[{ text: '동화책도, 파닉스도 한 앱에', at: 6 }]} dur={dur} />
+      </>
+    ),
+  },
+  {
+    // ② 파닉스 랜딩 → 「한글 파닉스」 탭
+    key: 'n2-phonics',
+    durationInFrames: 82,
+    Component: ({ dur }) => (
+      <>
+        <Clip src="phonics/clips/n2-phonics.mp4" />
+        <Subtitle
+          lines={[
+            { text: '한글도, 영어도', at: 6 },
+            { text: '파닉스가 있어요', at: 36, accent: true },
+          ]}
+          dur={dur}
+        />
+      </>
+    ),
+  },
+  {
+    // ③ 왼쪽 단원 리스트 → ㄱ 탭 → 게임 목록 → 첫 게임 탭
+    key: 'n3-unit',
+    durationInFrames: 145,
+    Component: ({ dur }) => (
+      <>
+        <Clip src="phonics/clips/n3-unit.mp4" />
+        <Subtitle
+          lines={[
+            { text: '자음·모음부터 받침까지', at: 6 },
+            { text: '한글 32단원', at: 70, accent: true },
+          ]}
+          dur={dur}
+        />
+      </>
+    ),
+  },
+  {
+    // ④ ㄱ 소리 — 🔴 보이는 점 두 개만 ㄱ 이고, 세 번째 탭은 그 자리의 띵동이 대신한다.
+    //    낱말 그림은 의자·서랍장 = 「가구」 라 word-gagu 가 맞다.
+    key: 'c4-tap',
+    durationInFrames: 100,
+    bgm: 0.55,
+    sfx: [
+      { at: TAP.dot1, src: 'phonics/audio/letter-g.mp3' },
+      { at: TAP.dot2, src: 'phonics/audio/letter-g.mp3' },
+      { at: TAP.check, src: 'phonics/audio/correct.mp3' },
+      { at: TAP.word, src: 'phonics/audio/word-gagu.mp3' },
+    ],
+    Component: ({ dur }) => (
+      <>
+        <Clip src="phonics/clips/c4-tap.mp4" />
+        <Subtitle lines={[{ text: '누르면 소리가 나고', at: 6 }]} dur={dur} />
+      </>
+    ),
+  },
+  {
+    // ⑤ ㄱ+ㅏ → 가 ★ 클라이맥스 — 탭 4번 → 합체 → 읽기가 한 클립에 있다.
+    //    🔴 탭 넷 뒤에 합체가 바로 와야 「ㄱ ㅏ ㄱ ㅏ」에 결말이 생긴다.
+    //    🔴 이어읽기(`ㄱ ㅏ 가`)를 쓰면 탭에서 들은 「그 아」가 한 번 더 반복된다 →
+    //       합체 프레임엔 「가」 **단독**, 그 뒤에 완료 징글.
+    key: 'c5-blend',
+    durationInFrames: 181,
+    // 🔴 패턴 인터럽트 — 합체 직전 BGM 을 완전히 걷었다가 합체와 함께 되돌린다.
+    //    앵커가 BLEND 를 보므로 클립을 다시 자르면 음악도 같이 따라온다.
+    bgmAt: (l) =>
+      l < BLEND.merge
+        ? interpolate(l, [BLEND.merge - 12, BLEND.merge - 4], [0.55, 0], C)
+        : interpolate(l, [BLEND.merge, BLEND.merge + 18], [0, 0.55], C),
+    sfx: [
+      { at: BLEND.taps[0], src: 'phonics/audio/letter-g.mp3' },
+      { at: BLEND.taps[1], src: 'phonics/audio/vowel-a.mp3' },
+      { at: BLEND.taps[2], src: 'phonics/audio/letter-g.mp3' },
+      { at: BLEND.taps[3], src: 'phonics/audio/vowel-a.mp3' },
+      { at: BLEND.merge, src: 'phonics/audio/syl-ga.mp3' },
+      { at: BLEND.clear, src: 'phonics/audio/clear.mp3' },
+    ],
+    Component: ({ dur }) => (
+      <>
+        <Clip src="phonics/clips/c5-blend.mp4" />
+        <BlendOverlay dur={dur} />
+        <Subtitle lines={[{ text: '글자 둘이 만나 소리 하나', at: 4 }]} dur={dur} />
+      </>
+    ),
+  },
+  {
+    // ⑥ 쓰기 — 🔴 **옆 칸 `ㅑ` 는 "안 쓴 것"이 아니라 처음부터 주어진 것이다.** 이 활동은 자음 한
+    //    칸만 쓰게 하고, 다 쓰면 앱이 스스로 그 음절을 읽는다(네트워크 실측: `ㄱ.mp3` → `ㅑ.mp3`
+    //    → `consonant-write-ko-ㄱ ㅑ 갸`). 그러니 여기서 「갸」를 읽히는 건 화면과 일치한다.
+    key: 'c5-write',
+    durationInFrames: 105,
+    bgm: 0.55,
+    sfx: [
+      // 🔴 칠하는 동안만. 클립은 **점프컷**이다 — 다 칠한 뒤 앱이 통과를 알리기까지 63프레임이
+      //    「초록 ㄱ · 0%」 로 멈춰 있어(진행바가 pointerup 에만 갱신된다) 그 구간을 들어냈다.
+      //    앞뒤 프레임이 같아 이음매가 안 보인다.
+      {
+        at: WRITE.stroke,
+        src: 'phonics/audio/draw.mp3',
+        volume: 0.8,
+        dur: WRITE.done - WRITE.stroke,
+      },
+      { at: WRITE.done, src: 'phonics/audio/correct.mp3' },
+      { at: WRITE.read, src: 'phonics/audio/syl-gya.mp3' },
+    ],
+    Component: ({ dur }) => (
+      <>
+        <Clip src="phonics/clips/c5-write.mp4" />
+        <Subtitle lines={[{ text: '손으로 직접 써 보고', at: 6 }]} dur={dur} />
+      </>
+    ),
+  },
+  {
+    // ⑦ 짝찾기 — 상단 카운터 0/4→1/4 f12 · 1/4→2/4 f54(숫자 크롭 실측).
+    //    🔴 3/4 는 f74 = 클립 끝 2프레임이라 띵동이 다음 씬으로 새어 안 건다.
+    // 🔴 클립 원본 f113~115 에 **검은 오버레이가 3프레임** 번쩍인다 — 정답 뒤 뜨는 `SceneReveal` 인데
+    //    파닉스 낱말엔 붙은 동화 장면이 없어 빈 검은 카드로 뜬다. 그 앞(104)에서 끊는다.
+    key: 'c6-match',
+    durationInFrames: 104,
+    bgm: 0.55,
+    sfx: [
+      { at: 36, src: 'phonics/audio/correct.mp3' },
+      { at: 85, src: 'phonics/audio/correct.mp3' },
+    ],
+    Component: ({ dur }) => (
+      <>
+        <Clip src="phonics/clips/c6-match.mp4" />
+        <Subtitle lines={[{ text: '그림과 낱말을 이어 보고', at: 6 }]} dur={dur} />
+      </>
+    ),
+  },
+  {
+    // ⑧ 낱말 그리기 — 초록이 걷혀 고기가 드러나는 f44 가 정답, 그 직후 「🎉 고기」 라벨.
+    key: 'c7-dots',
+    durationInFrames: 116,
+    sfx: [
+      { at: 70, src: 'phonics/audio/correct.mp3' },
+      { at: 108, src: 'phonics/audio/word-gogi.mp3' },
+    ],
+    Component: ({ dur }) => (
+      <>
+        <Clip src="phonics/clips/c7-dots.mp4" />
+        <Subtitle lines={[{ text: '게임으로 익혀요', at: 6 }]} dur={dur} />
+      </>
+    ),
+  },
+  { key: 'blocks', durationInFrames: 90, Component: ({ dur }) => <CurriculumBlocks dur={dur} /> },
+  // 커리큘럼 블록과 4프레임 겹치는 디졸브
+  { key: 'cta', durationInFrames: 90, overlap: 4, Component: () => <Cta /> },
+];
+
+const { placed, total } = layout(SCENES);
+export const PHX_DURATION = total;
+
+// 🔴 bgm.mp3 는 곡이 f899(29.99초)에 끝난다 — 그대로 두면 뒤가 통째로 무음이다.
 //    음이 죽기 전에 내리고, 같은 곡 앞부분(꼬리 트랙)을 겹쳐 이어 붙인다.
 //    🔴 이 860/878 은 **곡 길이에 묶인 값**이라 씬을 밀어도 같이 밀면 안 된다.
 const BGM_TAIL_FROM = 860;
-const BGM_TAIL_LEN = PHX_DURATION - BGM_TAIL_FROM;
+const BGM_TAIL_LEN = Math.max(0, total - BGM_TAIL_FROM);
 
 const bgmVolume = (f: number) =>
-  BGM_BASE * bgmLevel(f) * interpolate(f, [BGM_TAIL_FROM, 878], [1, 0], C);
-
-// 꼬리도 같은 레벨을 타야 하고, 페이드아웃은 **릴스 끝**에 맞춘다.
+  BGM_BASE * bgmLevelAt(placed, f) * interpolate(f, [BGM_TAIL_FROM, 878], [1, 0], C);
 const bgmTailVolume = (l: number) =>
   BGM_BASE *
-  bgmLevel(l + BGM_TAIL_FROM) *
+  bgmLevelAt(placed, l + BGM_TAIL_FROM) *
   interpolate(l, [0, 18], [0, 1], C) *
   interpolate(l, [BGM_TAIL_LEN - 14, BGM_TAIL_LEN - 2], [1, 0], C);
-
-const Sfx: React.FC<{ at: number; src: string; volume?: number; dur?: number }> = ({
-  at,
-  src,
-  volume = 1,
-  dur,
-}) => (
-  <Sequence from={at} durationInFrames={dur ?? PHX_DURATION - at}>
-    <Audio src={staticFile(`phonics/audio/${src}`)} volume={volume} />
-  </Sequence>
-);
 
 export const AdReelPhonics: React.FC = () => (
   <AbsoluteFill style={{ backgroundColor: CREAM }}>
     <Audio src={staticFile('phonics/audio/bgm.mp3')} volume={bgmVolume} />
-    <Sequence from={BGM_TAIL_FROM} durationInFrames={BGM_TAIL_LEN}>
-      <Audio src={staticFile('phonics/audio/bgm.mp3')} volume={bgmTailVolume} />
-    </Sequence>
+    {BGM_TAIL_LEN > 30 && (
+      <Sequence from={BGM_TAIL_FROM} durationInFrames={BGM_TAIL_LEN}>
+        <Audio src={staticFile('phonics/audio/bgm.mp3')} volume={bgmTailVolume} />
+      </Sequence>
+    )}
 
-    {/* ⓪ 썸네일 — 인스타가 기본 커버로 첫 프레임을 쓰므로 여기서 무엇에 관한 영상인지 못박는다.
-        1.2초로 짧게: 길면 훅이 늦어진다. */}
-    <Sequence from={0} durationInFrames={60}>
-      <Thumbnail />
-    </Sequence>
-
-    {/* ① 라이브러리 → ☰ → 사이드바 → 파닉스 탭 */}
-    <Sequence from={60} durationInFrames={96}>
-      <Clip src="phonics/clips/n1-enter.mp4" />
-      <Subtitle lines={[{ text: '동화책도, 파닉스도 한 앱에', at: 6 }]} dur={96} />
-    </Sequence>
-
-    {/* ② 파닉스 랜딩 → 한글 파닉스 탭 */}
-    <Sequence from={156} durationInFrames={78}>
-      <Clip src="phonics/clips/n2-phonics.mp4" />
-      <Subtitle
-        lines={[
-          { text: '한글도, 영어도', at: 6 },
-          { text: '파닉스가 있어요', at: 36, accent: true },
-        ]}
-        dur={78}
-      />
-    </Sequence>
-
-    {/* ③ 왼쪽 단원 리스트 → ㄱ 탭 → 게임 목록 → 첫 게임 탭 */}
-    <Sequence from={234} durationInFrames={130}>
-      <Clip src="phonics/clips/n3-unit.mp4" />
-      <Subtitle
-        lines={[
-          { text: '자음·모음부터 받침까지', at: 6 },
-          { text: '한글 32단원', at: 60, accent: true },
-        ]}
-        dur={130}
-      />
-    </Sequence>
-
-    {/* ④ ㄱ 소리 */}
-    <Sequence from={364} durationInFrames={84}>
-      <Clip src="phonics/clips/c4-tap.mp4" />
-      <Subtitle lines={[{ text: '누르면 소리가 나고', at: 6 }]} dur={84} />
-    </Sequence>
-
-    {/* ⑤ ㄱ+ㅏ → 가 ★ — 탭 4번 → 합체 → 이어읽기가 한 클립에 있다 */}
-    <Sequence from={448} durationInFrames={160}>
-      <Clip src="phonics/clips/c5-blend.mp4" />
-      <BlendOverlay dur={160} />
-      <Subtitle lines={[{ text: '글자 둘이 만나 소리 하나', at: 4 }]} dur={160} />
-    </Sequence>
-
-    {/* ⑥ 쓰기 */}
-    <Sequence from={608} durationInFrames={90}>
-      <Clip src="phonics/clips/c5-write.mp4" />
-      <Subtitle lines={[{ text: '손으로 직접 써 보고', at: 6 }]} dur={90} />
-    </Sequence>
-
-    {/* ⑦ 짝찾기 */}
-    <Sequence from={698} durationInFrames={76}>
-      <Clip src="phonics/clips/c6-match.mp4" />
-      <Subtitle lines={[{ text: '그림과 낱말을 이어 보고', at: 6 }]} dur={76} />
-    </Sequence>
-
-    {/* ⑧ 낱말 그리기 */}
-    <Sequence from={774} durationInFrames={96}>
-      <Clip src="phonics/clips/c7-dots.mp4" />
-      <Subtitle lines={[{ text: '게임으로 익혀요', at: 6 }]} dur={96} />
-    </Sequence>
-
-    <Sequence from={870} durationInFrames={90}>
-      <CurriculumBlocks dur={90} />
-    </Sequence>
-
-    {/* 커리큘럼 블록과 4프레임 겹치는 디졸브 */}
-    <Sequence from={956} durationInFrames={90}>
-      <Cta />
-    </Sequence>
-
-    {/* 오디오 — 앱이 실제로 내는 소리를 그대로 쓴다.
-        🔴 소리는 화면에서 그 일이 일어나는 프레임에 건다(전부 픽셀 실측). */}
-
-    {/* 씬4 ㄱ 소리(c4-tap 로컬, 프레임 차분 실측): 점1 f5 · 점2 f21 · ✓ 뒤집기 f38 · 낱말 그림 f62.
-        🔴 보이는 점 두 개만 ㄱ 이고, 세 번째 탭은 그 자리의 띵동이 대신한다.
-        낱말 그림은 의자·서랍장 = 「가구」 라 word-gagu 가 맞다. */}
-    <Sfx at={369} src="letter-g.mp3" />
-    <Sfx at={385} src="letter-g.mp3" />
-    <Sfx at={402} src="correct.mp3" />
-    <Sfx at={426} src="word-gagu.mp3" />
-
-    {/* 씬5 ㄱ+ㅏ→가 — 코랄 링(=지금 누를 글자)이 옮겨가는 프레임이 탭이다.
-        로컬 f4 ㄱ · f21 ㅏ · f39 ㄱ · f55 ㅏ, **f74 에 두 글자가 붙는다**.
-        🔴 탭 넷 뒤에 이어읽기(ㄱ→ㅏ→가)가 바로 와야 「ㄱ ㅏ ㄱ ㅏ」에 결말이 생긴다. */}
-    <Sfx at={452} src="letter-g.mp3" />
-    <Sfx at={469} src="vowel-a.mp3" />
-    <Sfx at={487} src="letter-g.mp3" />
-    <Sfx at={503} src="vowel-a.mp3" />
-    {/* 🔴 이어읽기(blend-ga = `ㄱ ㅏ 가`)를 쓰면 탭에서 이미 들은 「그 아」가 한 번 더 반복된다.
-        소리는 **그 아 그 아 → 가** 로 끝나야 한다 → 합체 프레임에 「가」 단독. */}
-    <Sfx at={522} src="syl-ga.mp3" />
-    {/* 「가」(0.52초)가 끝나면 앱의 완료 징글. 이게 없으면 합체가 소리로 마무리되지 않는다. */}
-    <Sfx at={540} src="clear.mp3" />
-
-    {/* 씬6 쓰기 — 첫 획 로컬 f11, ㄱ 이 다 칠해지는 f38. draw.mp3(2초)는 칠하는 27f 동안만.
-        🔴 **옆 칸 `ㅑ` 는 "안 쓴 것"이 아니라 처음부터 주어진 것이다.** 이 활동은 자음 한 칸만
-        쓰게 하고, 다 쓰면 앱이 스스로 그 음절을 읽는다(네트워크 실측: `ㄱ.mp3` → `ㅑ.mp3` →
-        `consonant-write-ko-ㄱ ㅑ 갸`). 그러니 여기서 「갸」를 읽히는 건 화면과 일치한다. */}
-    <Sfx at={619} src="draw.mp3" volume={0.8} dur={27} />
-    <Sfx at={646} src="correct.mp3" />
-    <Sfx at={659} src="syl-gya.mp3" />
-
-    {/* 씬7 짝찾기 — 상단 카운터 0/4→1/4 로컬 f12 · 1/4→2/4 f54 (숫자 크롭 실측).
-        🔴 3/4 는 로컬 f74 = 클립 끝 2프레임이라 띵동이 다음 씬으로 새어 안 건다. */}
-    <Sfx at={710} src="correct.mp3" />
-    <Sfx at={752} src="correct.mp3" />
-
-    {/* 씬8 그리기 — 초록이 걷혀 고기가 드러나는 로컬 f44 가 정답, 그 직후 「🎉 고기」 라벨. */}
-    <Sfx at={818} src="correct.mp3" />
-    <Sfx at={831} src="word-gogi.mp3" />
+    {placed.map((s) => (
+      <Sequence key={s.key} from={s.from} durationInFrames={s.durationInFrames}>
+        <s.Component dur={s.durationInFrames} />
+        {(s.sfx ?? []).map((f, i) => (
+          <Sequence key={`${s.key}-${i}`} from={f.at} durationInFrames={f.dur ?? 9999}>
+            <Audio src={staticFile(f.src)} volume={f.volume ?? 1} />
+          </Sequence>
+        ))}
+      </Sequence>
+    ))}
   </AbsoluteFill>
 );

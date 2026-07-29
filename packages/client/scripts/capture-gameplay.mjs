@@ -6,6 +6,7 @@
 //    단어 카드 이미지는 늦게 붙는다. 준비 안 된 화면을 찍으면 로딩바만 남는다(1차 시도에서 실제로 그랬다).
 // 🔴 screencast 는 CSS 뷰포트 크기로 찍는다 — deviceScaleFactor 는 무시된다. 크기는 `scale` 옵션으로 올린다.
 import puppeteer from 'puppeteer';
+import { LAUNCH_ARGS, record } from './_capture-lib.mjs';
 import path from 'node:path';
 import fs from 'node:fs';
 
@@ -17,7 +18,6 @@ const VOCAB = `${BASE}/vocabulary/book-${BOOK}?lang=ko`;
 // 360×640 = 9:16 정확 + 모바일 레이아웃(<640 sm). screencast 는 scale 3 → 1080×1920,
 // 스크린샷은 deviceScaleFactor 3 → 1080×1920. (screencast 는 dsf 를 무시하므로 둘 다 필요하다.)
 const VIEWPORT = { width: 360, height: 640, deviceScaleFactor: 3 };
-const SCALE = 3;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -141,21 +141,9 @@ async function playKoreanBlock(page, rounds = 3) {
   return log;
 }
 
-async function record(page, name, fn) {
-  const webm = path.join(OUT, `${name}.webm`);
-  const rec = await page.screencast({ path: webm, scale: SCALE });
-  try {
-    await fn();
-  } finally {
-    await rec.stop();
-  }
-  const size = fs.existsSync(webm) ? fs.statSync(webm).size : 0;
-  console.log(`  → ${name}.webm  ${(size / 1024 / 1024).toFixed(2)}MB`);
-}
-
 const browser = await puppeteer.launch({
   headless: true,
-  args: ['--autoplay-policy=no-user-gesture-required'],
+  args: LAUNCH_ARGS,
 });
 const page = await browser.newPage();
 await page.setViewport(VIEWPORT);
@@ -176,7 +164,7 @@ try {
   console.log('[2/3] 그림짝 맞추기');
   await clickByText(page, '그림짝 맞추기');
   await waitReady(page, '[data-image-card]');
-  await record(page, 'linematch', () => playLineMatching(page));
+  await record(page, OUT, 'linematch', () => playLineMatching(page));
 
   // 3) 한글 블록 (S6)
   console.log('[3/3] 한글 블록');
@@ -184,7 +172,7 @@ try {
   await clickByText(page, '한글 블록');
   await waitReady(page, '[data-jamo-tile]');
   let rounds = [];
-  await record(page, 'block', async () => {
+  await record(page, OUT, 'block', async () => {
     rounds = await playKoreanBlock(page, 3);
   });
   fs.writeFileSync(path.join(OUT, 'block-rounds.json'), JSON.stringify(rounds, null, 2));

@@ -41,6 +41,34 @@ import {
   PHX_HEIGHT,
 } from './compositions/AdReelPhonics';
 import {
+  AdReelClassics,
+  CLS_DURATION,
+  CLS_FPS,
+  CLS_WIDTH,
+  CLS_HEIGHT,
+} from './compositions/AdReelClassics';
+import {
+  AdReelNature,
+  NAT_DURATION,
+  NAT_FPS,
+  NAT_WIDTH,
+  NAT_HEIGHT,
+} from './compositions/AdReelNature';
+import {
+  AdReelJeonrae,
+  JEO_DURATION,
+  JEO_FPS,
+  JEO_WIDTH,
+  JEO_HEIGHT,
+} from './compositions/AdReelJeonrae';
+import {
+  AdReelHori,
+  HRI_DURATION,
+  HRI_FPS,
+  HRI_WIDTH,
+  HRI_HEIGHT,
+} from './compositions/AdReelHori';
+import {
   LongformThumbnail,
   LongformThumbSchema,
   LT_W,
@@ -254,6 +282,38 @@ export const RemotionRoot: React.FC = () => {
         fps={PHX_FPS}
         width={PHX_WIDTH}
         height={PHX_HEIGHT}
+      />
+      <Composition
+        id="AdReelClassics"
+        component={AdReelClassics}
+        durationInFrames={CLS_DURATION}
+        fps={CLS_FPS}
+        width={CLS_WIDTH}
+        height={CLS_HEIGHT}
+      />
+      <Composition
+        id="AdReelNature"
+        component={AdReelNature}
+        durationInFrames={NAT_DURATION}
+        fps={NAT_FPS}
+        width={NAT_WIDTH}
+        height={NAT_HEIGHT}
+      />
+      <Composition
+        id="AdReelJeonrae"
+        component={AdReelJeonrae}
+        durationInFrames={JEO_DURATION}
+        fps={JEO_FPS}
+        width={JEO_WIDTH}
+        height={JEO_HEIGHT}
+      />
+      <Composition
+        id="AdReelHori"
+        component={AdReelHori}
+        durationInFrames={HRI_DURATION}
+        fps={HRI_FPS}
+        width={HRI_WIDTH}
+        height={HRI_HEIGHT}
       />
       <Composition
         id="AdThumbnail"

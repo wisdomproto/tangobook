@@ -19,6 +19,16 @@ const TEXT_CLASS: Record<PageSubtitleProps['textSize'], string> = {
 
 const CHARS_PER_SECOND = 7; // 한국어 TTS 평균 속도 (fallback용)
 
+/**
+ * 🔴 `break-keep`(word-break: keep-all)은 **띄어쓰기가 있는 글**에만 맞다.
+ * 한국어는 낱말이 중간에 끊기는 걸 막아 주지만, 중국어처럼 공백이 없는 글은 문장 전체가
+ * 한 낱말로 취급돼 **줄바꿈이 아예 안 되고 화면 밖으로 잘린다**(실측: 신데렐라 zh 자막이
+ * 통째로 잘려, 「5개 언어」를 파는 광고에서 중국어만 빼야 했다).
+ * 공백이 없으면 브라우저 기본 규칙에 맡긴다 — 중국어는 그쪽이 옳게 끊는다.
+ * ⚠️ 줄바꿈(`\n`)은 공백으로 치지 않는다 — zh 본문에도 `\n` 은 있어서 그걸 세면 판정이 뒤집힌다.
+ */
+const wrapClass = (text: string) => (/[^\S\n]/.test(text) ? 'break-keep' : 'break-words');
+
 /** 구두점·줄바꿈으로 문장 분할 */
 function splitIntoSentences(text: string): string[] {
   const parts = text
@@ -162,7 +172,7 @@ export function PageSubtitle({
         TEXT_CLASS[textSize]
       )}
     >
-      <div className="min-h-[1.5em] whitespace-pre-line break-keep">
+      <div className={cn('min-h-[1.5em] whitespace-pre-line', wrapClass(text))}>
         {displayParts.map((p, i) =>
           p.current ? (
             <span key={i} className="text-coral-500">
@@ -184,7 +194,8 @@ export function PageSubtitle({
       {displaySub && (
         <div
           className={cn(
-            'mt-1 text-sm sm:text-base font-semibold whitespace-pre-line break-keep',
+            'mt-1 text-sm sm:text-base font-semibold whitespace-pre-line',
+            wrapClass(displaySub),
             isDarkMode ? 'text-ink-300' : 'text-ink-700'
           )}
         >

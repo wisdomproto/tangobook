@@ -1,6 +1,7 @@
 // 한글 파닉스 화면 실물 스틸 — 광고 소재 후보 훑기.
 //   node shoot-phonics.mjs <baseUrl> <outDir>
 import puppeteer from 'puppeteer';
+import { LAUNCH_ARGS } from './_capture-lib.mjs';
 import path from 'node:path';
 
 const BASE = process.argv[2];
@@ -19,7 +20,7 @@ const SHOTS = [
 
 const browser = await puppeteer.launch({
   headless: true,
-  args: ['--autoplay-policy=no-user-gesture-required'],
+  args: LAUNCH_ARGS,
 });
 const page = await browser.newPage();
 await page.setViewport({ width: 360, height: 640, deviceScaleFactor: 3 });
