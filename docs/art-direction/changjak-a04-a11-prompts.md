@@ -107,6 +107,10 @@ CHARACTER DESIGN: eyes are DRAWN, not dotted - a small dark almond with a SEPARA
   Bodies read as one soft mass plus a neck and a tail. Bills are two or three pencil strokes.
   The silhouette must be readable at thumbnail size.
 
+  FACE SEPARATION (required): the face must read apart from the body in VALUE, not by adding
+  a colour - a lighter muzzle or brow patch, bare paper, or a tonal step at the jaw. Eyes,
+  brow and mouth must never sink into one flat body mass. Test: at thumbnail size the
+  expression is still legible. This does NOT add a colour to the palette above.
 SETTING: a Dutch canal town - narrow tall stepped-gable brick houses shoulder to shoulder along
   the water, tulip pots on window ledges, bicycles laid on their sides, mooring rope and
   bollards, a white wooden drawbridge, a windmill at the end of the road, clogs by a door.
@@ -177,6 +181,10 @@ REFERENCE SHEET: full-body side view standing / three-quarter turn stepping BACK
   startled (brow high, eye wide and round, bill open a crack),
   quietly pleased (eye a downward crescent, brow relaxed, neck loose).
   Plain paper background, no scenery, no amber.
+FACE SEPARATION (required): on this sheet the face must read apart from the body in VALUE,
+  not by adding a colour - a lighter muzzle/cheek patch, bare paper, or a tonal step at the jaw.
+  Eyes, brow and mouth must never sink into one flat body mass. Test: shrink this sheet to
+  thumbnail size - the expression must still be legible. This does NOT add a colour.
 SCENE token: DuckBack.
 ```
 
@@ -513,6 +521,10 @@ CHARACTER DESIGN: heads are solid masses of ink; the eye is a small WHITE DOT CU
   act. Open beaks are cut out as bright wedges of bare paper, which makes an open beak readable
   from across the page. Bodies are single silhouettes; posture and tail angle do the acting.
 
+  FACE SEPARATION (required): the face must read apart from the body in VALUE, not by adding
+  a colour - a lighter muzzle or brow patch, bare paper, or a tonal step at the jaw. Eyes,
+  brow and mouth must never sink into one flat body mass. Test: at thumbnail size the
+  expression is still legible. This does NOT add a colour to the palette above.
 SETTING: the old town of a Czech city seen from the rooftops - steep terracotta pantile roofs
   stepping in layers, dormer windows, low chimneys, green-copper gutters (rendered in
   terracotta+overprint, not green), stone steps, a cobbled lane below, a square clock tower far
@@ -573,6 +585,10 @@ REFERENCE SHEET: full-body side view standing, tail up / three-quarter view with
   three head close-ups showing ONLY the brow gouge changing: indignant (brow up and out),
   panicking (brow driven down and inward, beak wide), silent (brow flat, beak shut).
   Plain oat paper background, no scenery.
+FACE SEPARATION (required): on this sheet the face must read apart from the body in VALUE,
+  not by adding a colour - a lighter muzzle/cheek patch, bare paper, or a tonal step at the jaw.
+  Eyes, brow and mouth must never sink into one flat body mass. Test: shrink this sheet to
+  thumbnail size - the expression must still be legible. This does NOT add a colour.
 SCENE token: MagpieClean.
 
 CHARACTER SHEET - MagpieSoiled   (state variant - same bird, after page 9)
@@ -612,6 +628,10 @@ GRANDMOTHER - an adult woman, head about one seventh of her standing height, gre
   leaning posture.
 REFERENCE SHEET: all seven side by side at correct relative scale, each also shown as it appears
   framed in a window rectangle (head and shoulders only). Plain oat paper background.
+FACE SEPARATION (required): every face on this sheet must read apart from its body in VALUE,
+  not by adding a colour - a lighter muzzle/cheek patch, bare paper, or a tonal step at the jaw.
+  Eyes, brow and mouth must never sink into one flat body mass. 🔴 This matters most for the
+  window-framed heads: at that size a face without value separation is a blob.
 SCENE tokens: Pigeon, OldSparrow, Sparrow, Wren, Cat, Dog, Grandmother.
 ```
 

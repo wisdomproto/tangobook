@@ -19,7 +19,9 @@ const blocks = (text) => [...text.matchAll(/```\n([\s\S]*?)```/g)].map((m) => m[
 
 const out = {};
 for (const file of readdirSync(DOCS).filter((f) => /^changjak-.*prompts\.md$/.test(f))) {
-  const md = readFileSync(join(DOCS, file), 'utf8');
+  // 🔴 CRLF 정규화 — 편집 도구가 줄바꿈을 바꿔 놓으면 코드펜스 정규식(```\n)이 조용히 안 맞는다.
+  //    "프롬프트를 하나도 못 찾았다"로 터진 적 있음.
+  const md = readFileSync(join(DOCS, file), 'utf8').replace(/\r\n/g, '\n');
 
   // 책 단위로 자른다: "## A-04 §1." 같은 머리에서 회차 id 를 얻는다
   const ids = [...new Set([...md.matchAll(/^##\s+A-(\d+)\s+§/gm)].map((m) => 'a' + m[1]))];
