@@ -46,8 +46,63 @@ curl -s "https://worldillustrationawards.com/wp-json/wp/v2/award?award-category=
 - 목록 썸네일은 `imagedelivery.net/.../<file>/<variant>` 형식 — 🔴 **variant 는 `public` 또는 `250` 만 열림**(500·800 = 403 "doesn't have variant with this name").
 - 🔴 **분석은 반드시 이미지를 직접 받아서 Read 로 볼 것.** 제목·설명만 읽고 스타일을 논하지 말 것.
 
+**🔴 보정 (2026-07-29 실측) — theaoi.com 원본은 죽고 imagedelivery 로 옮겨갔다:**
+- `_embed=wp:featuredmedia` 가 주는 `source_url`(`theaoi.com/wp-content/uploads/...`)이 **2023년 이전 자산은 404** 다(2026-07 세션엔 살아 있었다 — 사이트가 옮긴 것). 41점 중 20점이 이렇게 죽었다.
+- **경로가 1:1로 매핑된다** → 죽으면 아래로 바꿔라. 재다운로드 성공률 20/20.
+```
+theaoi.com/wp-content/uploads/<PATH>
+  → https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/<PATH>/original
+```
+- 🔴 **`original` variant 가 열린다**(위 표의 "public·250 만 열림"은 **폐기**). 프로젝트 페이지(`worldillustrationawards.com/projects/<slug>/`)의 `<a href>` 가 전부 `/original` 이다.
+- 🔴 **2020년 이전은 API 로 못 캔다.** `award-category=childrens-publishing(908)` 은 2020~2026 만, `publishing(1084)` 은 2023+ 만 존재한다. 2002~2019 항목은 카테고리 태그 자체가 없어(`award-list` 만 붙음) 어린이책만 골라낼 방법이 없다. **20년치가 필요하면 WIA 말고 아래 3개 상을 써라.**
+
+### 🏛️ BolognaRagazzi Award (BRAW) — 페이지 id 고정 + Wayback (2026-07-29 확립)
+🔴 **사이트에 WP REST API 가 없다**(`/wp-json` 404). 자체 CMS 이고 URL 은 `/{lang}/awards/<slug>/<수치 id>.html` 인데 — **슬러그는 해마다 바뀌고 id 는 고정**이다. 그리고 🔴 **id 는 재사용된다**: 현재 `10903` 을 치면 2026 위너가 아니라 **빈 홈 템플릿**이 나온다(콘텐츠가 걷혔다). → **과거 연도는 Wayback 이 유일한 창구.**
+
+| 부문 | 고정 page id |
+|---|---|
+| 연도 인덱스 "All the {year} Winners" | **10903** |
+| **Fiction** | **10904** |
+| Non-Fiction | 10905 |
+| Opera Prima | 10906 |
+| New Horizons | 10907 |
+| Comics (middle grade / early reader / young adult) | 10909 / 10910 / 10911 |
+| **그 해 특별부문** (2022 Poetry · 2023 Photography · 2024 The Sea · 2025 Sustainability · **2026 Fables & Fairytales**) | **10912** |
+| **Toddler** (2024 신설) | **13255** |
+| Extraordinary / Honourable Mention | 13258 |
+
+```bash
+# ① 그 해 인덱스의 스냅샷 찾기 (CDX)
+curl -s "http://web.archive.org/cdx/search/cdx?url=bolognachildrensbookfair.com*&filter=urlkey:.*winner.*&collapse=urlkey&fl=timestamp,original,statuscode&limit=200&output=text" | grep -i ragazzi
+# ② 인덱스를 raw 로 받아 부문 링크를 긁는다 (id_ = 원본, 래퍼 없음)
+curl -s "https://web.archive.org/web/<TS>id_/https://www.bolognachildrensbookfair.com/en/awards/bolognaragazzi-awards/braw-all-the-2026-winners/10903.html"
+```
+- **마크업**: 수상작 1건 = `<div class="col-3">`(썸네일) + `<div class="col-9">`(심사평). `col-3` 로 split 하면 그대로 레코드가 된다.
+- **이미지**: 썸네일은 `/cache/cfx_imagecr3/<해시>.jpg`(쓸모없음). **원본은 `<a href>` 쪽** — `/media/libro/{year}/premi/BRAW/vincitori/<slug>.jpg`(2026 은 `/media/libro/premi/BRAW/winning covers/<slug>.jpg`, **파일명에 공백이 있어 URL 인코딩 필수**).
+- 🔴 **이미지는 라이브 먼저, 실패하면 Wayback.** 과거 연도 이미지가 라이브에 그대로 남아 있는 경우가 많고(경로에 연도가 박혀 있어서), Wayback 엔 오히려 안 잡힌 게 있다.
+- 🔴 **심사평(`col-9`)을 반드시 같이 긁어라.** 팔레트·판형·종이까지 심사위원이 명시한다("elegant three-colour palette", "untitled cover and rounded corners") — 우리 §2.1 원칙의 1차 사료다.
+- **부문 선택**: 4~6세 대중 라인이면 **Toddler·Fiction + 그 해 특별부문**. Opera Prima·New Horizons 는 실험작 비중이 높아 이식성이 낮다.
+
+### 📚 Carnegie(구 Kate Greenaway) · HCA · ALMA — 명단은 사이트, 이미지는 Open Library
+그림책 상은 대부분 **명단만 있고 이미지가 없다.** 두 단계로 나눠라.
+```bash
+# ① 명단 — Carnegie 는 WP REST 로 본문을 통째 받는 게 가장 빠르다 (페이지는 JS 렌더라 스크레이핑 실패)
+curl -s "https://carnegies.co.uk/wp-json/wp/v2/pages?slug=illustration-winners&_fields=content"
+#   → 1955~현재 전 수상자(작가·책·출판사)가 한 문단에 다 들어 있다.
+#   ⚠️ books 포스트타입(/wp/v2/books)은 그 해 후보만 37건 — 아카이브가 아니다.
+# ② 이미지 — Open Library 검색 → 커버
+curl -s "https://openlibrary.org/search.json?title=<TITLE>&author=<ARTIST>&fields=title,author_name,cover_i&limit=5"
+#   → https://covers.openlibrary.org/b/id/<cover_i>-L.jpg
+```
+- 적중률 실측 **23/32(72%)**. 못 찾으면 `q=` 전문검색으로 1회 재시도. 그래도 없으면 버려라(다음 세션에 쌓으면 된다).
+- 🔴 **커버는 스프레드가 아니다.** 매체·팔레트·캐릭터 언어 판정엔 충분하지만 **여백·마감 밀도 배분은 커버로 판정하지 마라**(커버는 제목이 얹히므로 원래 비어 있다).
+- HCA(안데르센상)·ALMA 는 **작가 통산 수상**이라 사이트에 대표작이 없다 — 대표작을 우리가 지정해서 커버를 찾아야 한다.
+
+### 🖼️ 대량 열람 = 컨택트 시트 (2026-07-29)
+🔴 **이미지 90여 장을 한 장씩 Read 하면 세션이 끝난다.** Pillow 로 3×3 그리드(셀 760px, 상단 검정 띠에 `번호 + 파일명`)를 구워 **11장으로 94점을 다 봤다.** 매체·팔레트·마감 밀도·캐릭터 언어는 이 해상도로 전부 판정된다. 특정 항목만 의심되면 그때 원본을 따로 Read 한다.
+
 ### 그 외 검증 소스 (미개척 — 추후 확장)
-- 볼로냐 라가치상(BolognaRagazzi) · 아스트리드 린드그렌상(ALMA) · 칼데콧 · 케이트 그린어웨이
+- 칼데콧(ALA) · 케이트 그린어웨이 **후보/숏리스트**(위너만 봤다) · 프랑스 Pépites · 독일 Deutscher Jugendliteraturpreis
 - 유튜브 조회수(핑크퐁·깨비키즈·지니키즈 등) — 아동 콘텐츠 시장 검증
 - 교보/예스24 베스트셀러 · 넷플릭스 애니 흥행작
 
@@ -135,6 +190,22 @@ curl -s "https://worldillustrationawards.com/wp-json/wp/v2/award?award-category=
 - **교정**: 밀도 배분을 "hinted/airy" 같은 애매어로 쓰지 말고 **완성도 위계(finish hierarchy)** 를 명시하라 — characters = finished(line+color) / their handled props = half-finished / **everything else = a LOOSE UNFINISHED PENCIL SKETCH: a few open contour lines and direction strokes, barely any color, bare paper showing through, deliberately not filled in, like the rough underdrawing on a sketchbook page.** 질감을 "unfinished pencil sketch / rough underdrawing" 로 못 박아야 한다.
 - 🔴 **오해 차단 문구 필수**: "this is about how FINISHED each area is, NOT about opacity — the background is not faded, hazy, blurry or low-saturation, it is simply left as rough sketch lines, not drawn to completion." NOT 리스트에도 `NOT a fully rendered background / NOT every jar·roof-tile·leaf drawn to completion / NOT a uniform finish / NOT a hazy·blurry·faded background(그건 흐림이지 스케치가 아님)` 을 넣는다.
 - 🔴 **문구만으론 못 이긴다(§2.3 재확인)**: 근본 원인은 **스타일 ref 2장(P6·놀부 도깨비)이 둘 다 배경 완성형** — 모델이 문구보다 그 ref 를 따라 배경을 완성한다. ref 가 문구와 반대로 말하는 중. → **스타일 ref 세트에 "배경이 러프 스케치로 남은 승인 컷" 1장이 반드시 포함**돼야 이 문구가 먹는다. 밀도 배분은 문구 + ref 가 같은 방향일 때만 성립한다.
+
+### 2.8 🔴 형태 언어(shape language)는 캐릭터를 대신할 수 있다 — 단 감정은 못 한다 (2026-07-29, BRAW Toddler 부문 3년치에서 확립)
+BRAW **Toddler**(2024 신설) 위너·특별언급 9점을 전부 열람한 결과, **절반이 얼굴 없이 도형만으로 캐릭터를 세웠다.**
+- Darme-Rizzo 수탉 = `반원 + 삼각 + 눈 하나` / Moriconi 달 = 도형 하나가 매 쪽 변신 / Karski 고양이 = `검정 실루엣 + 흰 동그라미 2` / Alméras 기린 = `점 두 개 + 검정 코` + 목이 화면을 대각선으로 관통 / Virardi 가족 = 사각·반원·삼각.
+- **공통 조건**: 평면 평칠 · 음영 0 · 윤곽선 0 또는 아주 굵게 · 3~4색. **크롭이 스케일을 만든다**(형태를 화면 밖으로 흘려보낸다).
+- 🔴 **한계가 분명하다 — 표정이 없다.** 이 언어로는 「화가 나면」·「서운함」·「무서움」을 못 쓴다. 자세·거리·크기로만 감정을 써야 하고, 12스프레드짜리 감정 서사에는 **못 버틴다**.
+- **판정 규칙**: 형태 언어 앵커는 **B(상상·변신)·C(자연·동물)·E(웃음)·H(만들기)** 에만 배정하고 **A(마음·감정)·G(용기·두려움)엔 금지**한다.
+
+### 2.9 🔴 「단색조 + 악센트 1」이 서사 장치일 때가 최적점 (2026-07-29)
+§2.1-1의 팔레트 규율은 **그냥 예쁘라고 있는 게 아니다.** 표본에서 가장 강한 것들은 **그 한 점의 색이 이야기의 변수**였다:
+Klassen = 검정 바다에 물고기 1 / Pinfold = 회백 설경에 검정 개 + 빨강 코트 / Rogaar = 검정 밤에 흰 달 1 / Au = 빨간 토마토 스무 개에 파랑 하나 / Ilustrajo = 흑백에 겨자 1점.
+→ **앵커를 배정할 때 「그 권에서 변하는 것 하나」가 악센트 색이 되게 하라.** 색을 먼저 고르고 이야기를 끼워 넣으면 그냥 예쁜 그림이 된다.
+
+### 2.10 🔴 「덜 그리기」의 천장은 실측된다 — 고밀도는 위너가 아니다 (49점 → 94점에서 재확인)
+표본을 94점으로 늘려도 결과가 같다. 고밀도 장식(Yuxin Ding·Danowski·Berner·Sala)은 **전부 HC 또는 통산 수상**이고 **부문 위너가 아니다.**
+단 실무적으로 이 사실을 이렇게 쓴다 — **고밀도를 금지하는 게 아니라 쪽수를 배급한다.** 12스프레드 중 **1~2쪽만** 전경(마을 광장·시장) 고밀도로 쓰고 나머지는 덜 그린다. 밀도는 리듬 장치이지 기본값이 아니다.
 
 ### 2.5 🔴 NOT 문구 운용 규칙 (사고 2건에서 확립)
 - **NOT 은 렌더링 기법에만 쓴다** (에어브러시·그라데이션·CG 광택·셀셰이딩·사진풍…).
@@ -250,6 +321,7 @@ https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/<FILE>.pdf/page{N}-192
 |---|---|---|
 | 호리 생활동화 / 유치원동화 (3~5세) | 니들펠트 양모 인형 스톱모션 | ✅ 확정 |
 | **전래동화 (5~7세)** | **점눈이 (Dot-Eye)** — 밝은 크림 종이(=햇빛) + 느슨한 색연필 낙서 해칭 + 점눈 캐릭터 언어(§2.6). 팔레트=크림+짚빛 노랑+청회색+연두 소량+화면당 빨강 1점. 스타일 ref = **승인 렌더 2장(P6 제비 · 놀부 도깨비)** + 🔴 **배경 러프 스케치 컷 1장 확보 예정**(3장째, §2.7 보정 — 현 2장이 배경 완성형이라 배경까지 완성돼 나옴). 앵커 SSOT = `jeonrae-plan.html` §6 + 회차 `JR_EPISODE.style`. 🔴 **RENDERING = 완성도 위계 명시**(2026-07-18 보정: 인물 finished / 만지는 소품 half / 배경 = unfinished pencil sketch, "흐리게" 아님) | ✅ **확정 (2026-07-17)** · RENDERING 보정 (2026-07-18) |
+| **창작동화 1000 (4~6세)** | **권마다 다름 — 앵커 100~150 × 팔레트·매체 변주.** 클러스터 10군 지도 + 주제군 8 배정안 = **§7**. 후보 데이터 = `award-styles-20y.json`(69항목). 🔴 라인 충돌 규칙: 실물 입체 재료 금지(니들펠트) · C1(색연필 나이브) 쓸 땐 **종이색·얼굴·악센트 3가지를 점눈이와 다르게**(§7.2) | 🔶 **후보 도출 완료 (2026-07-29)** — 파일럿 앵커 ① 프롬프트 대기(A-1 여우/알프스), 승인 렌더 나오면 §0.5에 4호 등재 |
 | 타임 티코 학습만화 (초등 저학년) | — | 별도 |
 | 세계명작·자연관찰 | 멀티 그림체(수채·페이퍼3D·콜라주) | 기존 |
 
@@ -311,3 +383,156 @@ WIA 딥 스윕(§1.5) 후보 1·2 를 **같은 조건**으로 맞대결. §2.4 �
 - **개수 상한 명시** — "exactly two syllable blocks, nothing else is written anywhere" + `NOT any other Latin/Chinese/Japanese/invented characters`. 안 쓰면 여백에 가짜 글자를 채워 넣는다.
 - **재시도 규칙**: 자소가 틀리면 문구를 늘리지 말고(§5.1 교훈) ① 글자 수를 줄이거나(2음절→1음절) ② **글자 없는 빈 노트 버전을 받아 한글은 나중에 합성**한다. 3회 실패 = 레버가 틀린 것.
 - 진행 상태 표현(실선 완성 1 + 점선 가이드 1 + 연필 끝이 점선 시작점)은 원본이 이미 검증한 문법이라 그대로 상속한다.
+
+---
+
+## 7. 📖 창작동화 1000 — 스타일 클러스터 지도 · 주제군 배정안 (2026-07-29)
+
+> **표본**: 이번 세션 직접 열람 **93점**(WIA 41 · BolognaRagazzi 30 · Carnegie·HCA·ALMA 커버 22, 2000~2026 = 27년치).
+> **후보 데이터 = `docs/art-direction/award-styles-20y.json`** (69항목 · imageUrl 69/69 응답 확인 · 유럽 원작 56/69).
+> 🔴 이 라인만 구조가 다르다 — **고정 캐스트 없음 · 그림체가 권마다 다름 · 앵커 100~150개 × 팔레트/매체 변주로 1000권**(권당 앵커 1개, 앵커당 6~10권 상한). SSOT = `packages/client/public/changjak-plan.html`.
+
+### 7.1 클러스터 10군 (WIA 7군 지도를 94점으로 확장·재편)
+
+| # | 클러스터 | 매체 | 팔레트 | 마감 밀도 | 캐릭터 언어 | 맞는 정서 |
+|---|---|---|---|---|---|---|
+| **C1** | **연필·색연필 나이브** | 색연필·연필·목탄, 흰/크림 종이에 직접 | 3~4색 + 종이 흰색 | 인물만, 배경은 종이 | 색면 덩어리 몸 + 점·선 몇 개 얼굴. 왜곡이 곧 개성 | 조용한 감정 · 혼자 · 군중 속 나 |
+| **C2** | **선 하나 캐릭터** | 잉크 낙서 선 + 색면 1~2 | 2~3색 | 선은 완성, 배경은 색면 하나 | 🔴 **캐릭터가 전부**. 늘인 실루엣·수염·문신 같은 시그니처 | 웃음 · 능청 · 한 마리가 화면을 지배 |
+| **C3** | **프린트-크래프트** | 활판·리소·스크린·리노컷 | 2~4잉크(공정이 강제) | 잉크판 겹침, 눌림·긁힘 | 잉크 덩어리 + 점 눈 | 밤 · 소리 · 반복 리듬 |
+| **C4** | **평면 형태** | 평면 채색·컷아웃 도형 | 3~5색이나 전부 평면 잉크 | 평면, 음영 0, 배경 없음 | 🔴 도형으로 분해. **표정 없음**(§2.8) | 변신 · 사물 · 만들기 · 개그 |
+| **C5** | **장식 민속·보태니컬** | 판화풍 겹친 색면 · 장식 프레임 · 스텐실 | 4색 + 크림, 톤 통일 | 식물·프레임은 촘촘, 인물은 평칠·점만 하게 | 인물이 상징처럼 배치. 숲/무대가 주인공 | 숲 · 옛이야기 비틀기 · 공방 · 마을 |
+| **C6** | **단색조 + 악센트 1** | 붓·석판 크레용·과슈·잉크 | 1~2색 + 딱 한 점 | 대상만 마감, 나머지는 저정보 필드 | 손톱만 한 인물, 몸짓으로 연기 | 절제된 감정 · 어둠 · 계절 |
+| **C7** | **회화적 톤 아트** | 수채·과슈·유화·목탄, 붓 자국 유지 | 뮤트 3~4색 단색조 | 인물 마감, 배경은 색 한 겹 | 실루엣 + 빛의 위치가 감정 | 여정 · 풍경 · 서정 · 두려움 |
+| **C8** | **수채 번짐 몰입** | wet-in-wet, 그래뉼레이션 | 사실상 1색 + 종이 | 번짐이 형태를 만듦 | 점 눈 인물이 손톱만 함 | 마법이 번지는 순간 |
+| **C9** | **믹스드 콜라주(2D)** | 드로잉 + 실사 패턴/오브제 | 다색이나 패턴이 통일 | 인물은 선, 배경은 잘라 붙임 | 비율이 제각각인 채로 성립 | 집·가족 · 먹기 · 개그 |
+| **C10** | **정밀 톤 리얼리즘** | 세필 + 수채, 전면 마감 | 저채도 다색 | 전면 균일 | 사실적 묘사에 의존 | 🔴 **대조군** — 위너 0, AI로 하면 곧장 평범 |
+
+🔴 **의도적으로 뺀 것 = 실물 재료 콜라주(천·양모·도자·활자 입체).** BRAW 2026 특별부문 자수(送西瓜)·WIA 섬유 콜라주(chencorn) 등 좋은 표본이 있었지만 **호리 니들펠트와 정체성이 겹친다**(§4 라인 충돌). C9는 **2D 인쇄물·사진 패턴**에 한정한다.
+
+### 7.2 라인 충돌 점검 결과 (필수)
+
+| 기존 라인 | 그림체 | 창작동화에서 피할 것 |
+|---|---|---|
+| 호리 생활·유치원·탐험 | 니들펠트(입체 양모) | 실물 입체 재료 전체. **C9는 2D 평면 콜라주로만** |
+| 전래동화 | 점눈이(밝은 크림 종이 + 느슨한 색연필 낙서 + 점눈 2·실선 입 + **화면당 빨강 1점**) | 🔴 **C1이 가장 위험하다.** 색연필 + 크림 종이 + 점눈 + 빨강 악센트가 4개 다 겹칠 수 있다 |
+
+🔴 **C1을 쓸 때의 분리 규칙 3가지** — 하나라도 안 지키면 전래동화 복사본이 된다.
+1. **종이색을 바꾼다.** 점눈이 = 밝은 크림(=햇빛). 창작동화 C1 = **차가운 흰 종이** 또는 **크라프트 갈색**.
+2. **얼굴을 점눈으로 하지 않는다.** 창작동화는 감정 서사(A·G)가 크므로 **눈+눈썹을 선으로** 그려 표정을 만든다. (전래동화가 문화 기호로 어른을 읽히는 것과 반대 전략.)
+3. **빨강 1점 규칙을 쓰지 않는다.** 악센트 색은 **그 권의 서사 변수**에서 나온다(§2.9) — 파랑일 수도, 노랑일 수도 있다.
+- Klassen(`klassen-hat`)·Yunyun Ai(`ai-journey`)는 **점눈이의 직계 조상**이라 데이터에 「참고만, 캐릭터 언어 금지」로 표시해 뒀다.
+
+### 7.3 주제군 8 × 앵커 후보 배정안
+
+각 칸의 근거·리스크는 `award-styles-20y.json` 의 `why` 에 항목별로 있다. **1순위를 굵게.**
+
+| 주제군 | 1순위 | 2순위 | 3순위 | 왜 이렇게 갈랐나 |
+|---|---|---|---|---|
+| **A 마음·감정** (180) | **C6 단색조+악센트 1** — `shih-taichi` · `bouvier-spring` · `rolfe-dyslexia` | C1 나이브 — `erlbruch-duck` · `bauer-angel` · `massa-gino` | C7 톤 — `smith-smallcity` · `gent-thatsnice` | 기준선(감정=단색조+여백)이 **맞았다.** 다만 §2.9대로 **악센트 색이 감정 그 자체**여야 한다(화=빨강, 서운함=무게). 🔴 C4 금지(표정 없음) |
+| **B 상상·변신** (150) | **C4 평면 형태** — `moriconi-lua` · `matoso-desenha` | C7 스케일 초현실 — `tao-noodle` · `tengiz-mai` | C8 번짐 — `carrossine-beterraba` | 🔴 기준선을 **뒤집었다.** B의 정의가 "평범한 것 하나가 규칙을 어긴다"이므로 **형태가 변신하는** C4가 서사 구조와 동형이다. 감정 부담이 없어 C4의 한계(무표정)가 여기선 비용이 아니다 |
+| **C 자연·계절·동물** (150) | **C7 회화적 톤** — `lundberg-ingen` · `cheveau-troupeau` · `gill-clevercrow` | C2 선 하나 — `rayner-harris` · `albertine-marta` | C5 보태니컬 — `gamon-boucle` | 기준선(자연=물성 강한 매체)이 맞다. 🔴 단 **`morris-lostwords` 같은 도감형은 피한다** — 자연관찰 라인과 톤이 겹치고 서사가 사라진다 |
+| **D 모험·여정** (120) | **C7 명암 대비** — `smith-townsea` · `buro-street` | C4 실루엣+스케일 — `marais-tomber` | C1 지도형 — `grill-shackleton` | D의 정서는 "떠남과 돌아옴" = **빛의 변화**다. 명암이 스프레드 리듬을 만든다. `grill-shackleton`은 여정 장비·지도 쪽만 |
+| **E 웃음·말놀이** (120) | **C2 선 하나 캐릭터** — `metcalfe-crisps` · `albertine-marta` | C4 고채도 — `gottwald-spinne` · `wang-thump` | C9 이질 재료 개그 — `ismail-friend` · `child-tomato` | 기준선(웃음=굵은 선+채도)이 맞다. 🔴 **이 주제군만 캐릭터 시트가 그림체보다 중요하다**(§2.6) — 앵커를 골라도 시트가 평범하면 안 웃긴다 |
+| **F 집·가족의 작은 사건** (110) | **C9 믹스드 콜라주** — `child-tomato` | C7 생활 시선 — `kim-subway` · `frankel-antes` | C4 실내 — `panicha-interior` · `virardi-instant` | Goodreads 상위 300에서 가장 두꺼운 소재(잠자리 11 · 먹기 10)의 정본이 콜라주였다. 🔴 리스크=AI가 콜라주를 질감 오버레이로 뭉갠다 → **실사 패턴을 프롬프트가 아니라 ref 이미지로** 줘야 한다 |
+| **G 용기·두려움** (90) | **C3 프린트-크래프트(밤)** — `rogaar-lucy` | C6 검정 바탕 — `watanabe-kintsugi` | C7 스케일 공포 — `pinfold-blackdog` · `gwilym-tigers` | 기준선(용기=명암 대비와 스케일 시)이 맞다. 🔴 **G만 검정 바탕을 허용**한다 — 릴스 썸네일 대비도 최강이라 이 주제군이 마케팅 선봉이 될 수 있다 |
+| **H 호기심·만들기·직업** (80) | **C5 장식 민속·보태니컬** — `lejonc-fechamos` · `davis-guitar` | C1 3색 군상 — `garzon-museum` | C4 도구·과정 — `matoso-desenha` · `rutova-octopus` | 유럽 공방·시장이 무대이므로 **장식 프레임·무대 구도**가 내용-형식 필연성을 만든다. `berner-town`은 전경 1~2쪽 배급용(§2.10) |
+
+**교차 관찰 3가지**
+1. **C7이 15항목으로 가장 두껍다** — 범용성이 높다는 뜻이자 **가장 평범해지기 쉽다는 뜻**이다. C7 앵커에는 매체를 반드시 특정하라(유화 두껍게 / 목탄 그레인 / 잉크+수채 명암 — "회화풍"은 금지).
+2. **프랑스 원작이 유독 C4에 몰려 있다**(Darme-Rizzo·Alméras·Virardi·Marais). 유럽풍 무대 라인에서 **프랑스 무대 권 = C4 우선**이라는 간단한 배정 규칙을 쓸 수 있다.
+3. **2024 신설 Toddler 부문이 이 라인의 최적 사료다.** Fiction 은 중·고학년 실험작이 섞이는데 Toddler 는 전량 4세 이하 대중서라, **거기서 통한 것은 우리 4~6세에서 반드시 통한다**(위로 조금만 올리면 된다).
+
+### 7.4 파일럿 앵커 ① — A-1 「화가 나면 털이 빨개져」
+
+- **권 정보**(기획서 §5-A-1): 주제군 A 마음·감정 / 엔진 **오해와 반전**(§6 실측: 중앙값 500단어, **후렴 0/3 — 후렴 금지**) / 무대 **알프스 산마을** / 주인공 **여우**.
+- **배정 판정**: **C6 단색조 + 악센트 1**. 🔴 이 권은 §2.9의 교과서다 — **빨강이 장식이 아니라 주인공의 상태 변수**이고, **안개**가 저정보 필드를 서사가 직접 제공한다. C1(나이브)은 전래동화와 4개 축이 겹쳐 위험, C4(형태)는 화·부끄러움을 못 그려 탈락.
+- **분리 확인**: 종이 크림 ✕(차가운 회청 안개 필드) · 점눈 ✕(선으로 그린 눈+눈썹) · 색연필 낙서 ✕(석판 크레용의 눌러 칠한 결) → 점눈이·니들펠트 양쪽과 안 겹친다.
+- 🔴 **파이프라인 순서**: 아래 STYLE ANCHOR 로 **먼저 캐릭터 시트를 굽는다** → 승인된 시트를 @image 로 붙여 12컷(§2.4). 시트 없이 장면부터 뽑으면 인물만 매끈한 CG로 나온다.
+
+```
+STYLE ANCHOR — changjak-A01 (fox / alpine / anger)
+
+Style: a hand-printed picture-book page for 4-6 year olds, warm and quiet, not cute-glossy.
+
+MEDIUM: lithographic crayon and oil pastel pressed onto slightly toothed paper.
+  The grain of the paper breaks every stroke - colour sits in the tooth and skips on the ridges.
+  Edges of shapes are made by the crayon running out, never by a clean vector line.
+  Fog and air are laid in with the flat side of the crayon in long horizontal passes.
+  Visible waxy build-up where colour is layered twice. No blending, no soft airbrush gradient.
+
+PALETTE: a single cold grey-green fog dominates the whole page (roughly 80% of the surface),
+  with warm paper-cream showing through the grain.
+  EXACTLY ONE other colour exists on the page: a warm orange-red.
+  The red appears ONLY on the fox's fur, and its AMOUNT is the story
+  - a few red hairs early, the whole coat late. Nothing else in the world is red.
+  Hex anchors: fog #8C9A92 / deeper fog #5F6E68 / paper #EFE9DC / red #D8442A.
+
+COMPOSITION: low-information field first, subject second.
+  The fox is small in frame (about 1/6 of the page height) except in the two turning-point spreads.
+  Mountains, roofs and fences are horizontal bands that dissolve into the fog toward the top.
+  Diagonal paths lead the eye; never centre the subject symmetrically.
+  Keep the bottom 18% of the image quiet and free of key subject matter (caption band).
+
+FINISH HIERARCHY: this is about how FINISHED each area is, not about opacity.
+  The fox = finished (crayon body colour + drawn face).
+  Objects the fox touches = half-finished (contour and one pass of colour).
+  Everything else = the fog itself, laid in with two or three flat crayon passes and left alone
+  - it is not blurry, not faded and not hazy; there is simply nothing drawn in it.
+  Never draw every roof tile, fence post, pine needle or window.
+
+CHARACTER DESIGN: eyes are drawn, not dotted - a small dark almond with a separate drawn
+  eyebrow line above it, so the face can act (embarrassed, angry, relieved).
+  Muzzle and ears are made of two or three crayon strokes. Bodies read as one soft mass
+  plus a tail. Silhouette must be readable at thumbnail size.
+
+SETTING: an alpine mountain village - timber chalets with deep eaves and carved balconies,
+  stone-walled lanes, a wooden fountain trough, split-rail fences, a small stone chapel,
+  spruce, and pasture. European, no Asian architectural motifs.
+
+CANVAS: 16:9 double-page spread, 4-6 year old picture book.
+
+NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
+  NOT cel-shaded anime / NOT a texture filter laid over flat digital colour /
+  NOT photographic / NOT a fully rendered background / NOT a uniform finish across the page /
+  NOT a hazy, blurry or desaturated background (that is blur, not un-drawn) /
+  NOT any second accent colour / NOT any lettering, numerals or signage anywhere in the image /
+  NOT wool felt, NOT stitched fabric, NOT sculpted clay (those belong to another line).
+```
+
+```
+CHARACTER SHEET - FoxCalm  (bake this FIRST, before any scene)
+
+FACE: warm grey-brown crayon mass. Eyes = small dark almond (#2B2320) with a separate
+  drawn eyebrow stroke above, set wide. Nose = one dark triangle. Mouth = one thin line.
+  Cheeks bare paper. No blush, no highlight dots, no glossy catchlight.
+FUR: grey-brown #8A7362 body, cream #EFE9DC throat and tail tip, darker #5F4A3C ear tips
+  and forelegs. Exactly six warm orange-red (#D8442A) hairs on the crown - the only red.
+CLOTHES: a hand-knitted moss-green (#6E7A55) scarf, ribbed, one end longer than the other,
+  wound twice. Nothing else worn.
+BUILD & SILHOUETTE: young adult fox, upright on two legs, about four heads tall.
+  Narrow shoulders, round low belly, long full tail that trails and curls at the end.
+  Distinguishing point: the trailing curled tail plus the uneven scarf ends - readable
+  in silhouette against any other village animal.
+REFERENCE SHEET: full-body front idle / 3-quarter turn walking / back view showing tail /
+  three expression close-ups: embarrassed (ears flat, eyes down, inner eyebrows raised),
+  startled (ears up, eyes wide, eyebrows high), quietly pleased (eyes crescent, one ear tilted).
+  Neutral paper background, no scenery.
+
+CHARACTER SHEET - FoxRed  (state variant - same animal, anger)
+  IDENTICAL FACE, IDENTICAL SCARF, IDENTICAL BUILD as FoxCalm.
+  Only change: the entire coat is warm orange-red (#D8442A); cream throat and tail tip
+  unchanged; the six crown hairs are no longer distinguishable.
+  Expression close-ups: furious (eyebrows down and in, short teeth line) /
+  ashamed of being red (eyes squeezed shut, ears flat) / calm again but still red.
+  SCENE tokens: use FoxCalm and FoxRed - never "Fox" alone.
+```
+
+🔴 **첫 렌더에서 볼 것 3가지** — 하나라도 걸리면 문구가 아니라 **ref 를 바꿔라**(§5.1 교훈).
+1. **빨강이 여우 밖으로 샜나**(지붕·꽃·문). 샜으면 팔레트 규율 실패 = 이 앵커의 핵심이 무너진 것.
+2. **얼굴이 매끈한 CG로 회귀했나**(§2.4 최대 실패 모드). 시트를 다시 굽는다.
+3. **안개가 「흐린 배경」이 아니라 「안 그린 면」인가.** 창틀·기와가 다 그려져 있으면 §2.7 보정 문구를 강화하고, 그래도 안 되면 **배경이 러프하게 남은 승인 컷을 ref 세트에 넣는다**(전래동화가 같은 데서 막혔다).
+
+### 7.5 다음 세션이 이어서 할 일
+1. **앵커 카운트**: 지금 데이터 69항목 → 앵커 후보. 목표 100~150이므로 **아직 절반**이다. 미개척 소스(§1 하단: 그린어웨이 숏리스트 · Pépites · 독일 청소년문학상 · BRAW Fiction 2015~2021)에서 이어 쌓는다.
+2. 🔴 **JSON 은 append 전제다.** `award-styles-20y.json` 에 새 항목을 추가할 때 **`id` 중복만 피하면** 된다. 열어본 적 없는 이미지는 넣지 말 것.
+3. **파일럿 ①의 승인 렌더가 나오면** 그 2~3장을 자기참조 스타일 ref 로 고정하고, §0.5 하우스 스타일 등록부에 **4호**로 등재한다(이름은 렌더를 보고 짓는다 — 니들펠트·점눈이가 그랬듯 문구가 아니라 결과가 이름을 준다).

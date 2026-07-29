@@ -50,6 +50,12 @@ const RESOURCES: ResourceItem[] = [
     desc: '단권 완결 · 4~6세 유럽풍 · 책마다 다른 그림체 · 주제군 8 × 엔진 8 × 무대 생성 시스템 + 120권 제목·요약',
   },
   {
+    href: '/changjak-styles.html',
+    icon: '🎨',
+    label: '창작동화 · 앵커 후보 시트',
+    desc: '최근 20년 수상 일러스트 69점 · 클러스터 10종 × 주제군 필터 + 선택 복사 (그림체 고르기)',
+  },
+  {
     href: '/hangeul-tree-plan.html',
     icon: '🌳',
     label: '한글 나무 파닉스 동화 기획서',
