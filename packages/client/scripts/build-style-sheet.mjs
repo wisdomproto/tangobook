@@ -82,6 +82,10 @@ FINISH HIERARCHY: ${s.finish}
   Never draw every roof tile, fence post, leaf or window pane.
 
 CHARACTER DESIGN: ${s.character || DEFAULT_CHARACTER}
+  FACE SEPARATION (required): the face must read apart from the body in VALUE, not by adding a
+  colour - a lighter muzzle or brow patch, the paper left bare, or a tonal step at the jaw.
+  Eyes, brow and mouth must never sink into one flat body mass. Test: at thumbnail size the
+  expression is still legible. This does NOT add a colour to the palette above.
 
 COMPOSITION: leave real empty space - the blank ground is a component, not a gap.
   Big readable silhouette, subject off-centre, and keep the bottom 18% quiet for a caption band.
