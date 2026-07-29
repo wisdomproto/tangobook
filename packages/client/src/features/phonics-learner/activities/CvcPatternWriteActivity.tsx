@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
-import { LetterWritingCanvas } from '@/features/phonics/components/LetterWritingCanvas';
+import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { REST_MS } from '../hooks/useActivitySound';
@@ -85,7 +85,19 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
       const after = () => {
         if (cancelled) return;
         if (allComplete) {
-          setTimeout(() => playCorrectSequence({ language: 'en', onDone: onMarkComplete }), 400);
+          // 🔴 끝나면 **단원으로 돌아간다** — 예전엔 진척만 기록하고 화면이 그대로 멈춰서,
+          //    남은 건 「← 돌아가기」뿐이었다(형제 화면 `letters-write` 는 복귀한다).
+          scheduleTimer(
+            () =>
+              playCorrectSequence({
+                language: 'en',
+                onDone: () => {
+                  onMarkComplete();
+                  onBack();
+                },
+              }),
+            REST_MS
+          );
         } else {
           // 다음 미완료 단어로
           const next = cvcWords.findIndex(
@@ -211,7 +223,7 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
                 <img
                   src={currentWord.imageUrl}
                   alt={currentWord.word}
-                  className="w-[clamp(5rem,16vh,9rem)] h-[clamp(5rem,16vh,9rem)] object-cover rounded-3xl border-[5px] border-white shadow-pop"
+                  className="w-[min(22vw,16vh,9rem)] h-[min(22vw,16vh,9rem)] object-cover rounded-3xl border-[5px] border-white shadow-pop"
                 />
               )}
 
@@ -227,13 +239,16 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
                     return <DoneCell key={l} label={letter} />;
                   }
                   return (
-                    <div key={l} className="w-[clamp(8rem,28vh,18rem)] shrink-0">
-                      <LetterWritingCanvas
+                    <div key={l} className="w-[min(32vw,28vh,18rem)] shrink-0">
+                      {/* 🔴 이 화면만 `LetterWritingCanvas` + `threshold={20}` 이었다 — 세로 직선 두 개만
+                          그어도 `n` 이 통과했다(실측). 나머지 쓰기 12곳은 전부 `LetterFillCanvas` 99% 다.
+                          plan 에 키가 없어 아무도 못 열던 화면이라 기준 통일에서 빠져 있었다.
+                          🔴 숫자는 넘기지 않는다 — 기준은 `LetterFillCanvas.DEFAULT_THRESHOLD` 한 곳에만. */}
+                      <LetterFillCanvas
                         key={`${currentWordIdx}-${l}-${letter}`}
                         letter={letter}
                         onResult={makeHandleLetter(currentWordIdx, l)}
                         autoCheck
-                        threshold={20}
                       />
                     </div>
                   );
@@ -253,7 +268,7 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
 function ConsonantCell({ label }: { label: string }) {
   return (
     <div
-      className="h-[clamp(8rem,28vh,18rem)] w-[clamp(7rem,24vh,15rem)] rounded-[28px] border-[4px] flex items-center justify-center shadow-[0_8px_0_rgba(0,0,0,0.08),0_14px_28px_-8px_rgba(0,0,0,0.25)] bg-gradient-to-b from-coral-400 to-coral-500 border-coral-600 text-white"
+      className="h-[min(28vw,28vh,18rem)] w-[min(20vw,24vh,15rem)] rounded-[28px] border-[4px] flex items-center justify-center shadow-[0_8px_0_rgba(0,0,0,0.08),0_14px_28px_-8px_rgba(0,0,0,0.25)] bg-gradient-to-b from-coral-400 to-coral-500 border-coral-600 text-white"
       style={{
         textShadow: '0 3px 0 rgba(0,0,0,0.18)',
         WebkitTextStroke: '1.5px rgba(255,255,255,0.5)',
@@ -271,7 +286,7 @@ function ConsonantCell({ label }: { label: string }) {
 function DoneCell({ label }: { label: string }) {
   return (
     <div
-      className="w-[clamp(8rem,28vh,18rem)] h-[clamp(8rem,28vh,18rem)] shrink-0 rounded-[28px] border-[4px] flex items-center justify-center shadow-pop bg-gradient-to-b from-mint-300 to-mint-400 border-mint-500 text-white relative"
+      className="w-[min(32vw,28vh,18rem)] h-[min(32vw,28vh,18rem)] shrink-0 rounded-[28px] border-[4px] flex items-center justify-center shadow-pop bg-gradient-to-b from-mint-300 to-mint-400 border-mint-500 text-white relative"
       style={{ textShadow: '0 3px 0 rgba(0,0,0,0.18)' }}
     >
       <span className="text-[clamp(4rem,18vh,11rem)] font-black leading-none whitespace-nowrap">

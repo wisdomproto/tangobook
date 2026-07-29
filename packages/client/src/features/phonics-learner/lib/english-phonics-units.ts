@@ -137,6 +137,22 @@ function makeBook2UnitPlan(patterns: readonly VcPattern[]): ActivityPlan {
       required: true,
       cvcPattern: { ...p },
     });
+    /**
+     * 🔴 **써보기를 별도 카드로 둔다**(2026-07-29). 배우기 화면 안에도 Phase C 쓰기가 있지만,
+     *    단원 목록에서 보이지 않아 **아이도 부모도 「이 단원엔 쓰기가 없다」로 읽었다**.
+     *    한글 단원은 `ㄱ 배우기` → `ㄱ 써보기` 로 나뉘어 있어 영어만 다른 모양이었다.
+     *    (컴포넌트는 원래 있었는데 **어느 plan 에도 키가 없어 라우트로 도달조차 못 했다**.)
+     */
+    activities.push({
+      key: `cvc-write-${p.vc}`,
+      order: order++,
+      kind: 'cvc-pattern-write',
+      section: 'learn',
+      title: `${p.vc} 써보기`,
+      emoji: '✏️',
+      required: true,
+      cvcPattern: { ...p },
+    });
   }
   // 4 games — 패턴 단어 풀에서 랜덤 4개
   activities.push(
@@ -210,6 +226,18 @@ function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
     section: 'learn',
     title: `${letterListLabel} 배우기 2`,
     emoji: '🔊',
+    required: true,
+    letters,
+  });
+  // ✏️ 글자 쓰기 — 대문자·소문자 캔버스 두 개. 배우기 화면 안 「써보기」 모달과 같은 일을 하지만,
+  //    단원 목록에 카드로 서야 아이가 「쓰는 차례」를 안다(한글 단원과 같은 모양).
+  activities.push({
+    key: 'letters-write',
+    order: order++,
+    kind: 'alphabet-letter-write',
+    section: 'learn',
+    title: `${letterListLabel} 써보기`,
+    emoji: '✏️',
     required: true,
     letters,
   });

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { REST_MS } from '../hooks/useActivitySound';
@@ -28,7 +28,7 @@ interface Props {
 export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, onBack }: Props) {
   const storybookQuery = useStorybook(unitId);
   const sb = storybookQuery.data as Storybook | undefined;
-  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
   const systemSounds = sb?.systemSounds;
 
   // 글자별 (대문자/소문자) 통과 트래킹
@@ -55,17 +55,24 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
   const currentLower = currentLetter?.toLowerCase() ?? '';
   const currentPassed = passed[currentLetter ?? ''] ?? { upper: false, lower: false };
 
-  // 다음 글자로 진행 — 두 캔버스 모두 통과했을 때만 호출.
-  // 별도 음원 재생 X (직전 캔버스 통과 시 단어 TTS 이미 들음). 단어 TTS 길이 고려해 1.2s 후 advance.
+  /**
+   * 다음 글자로 진행 — 두 캔버스 모두 통과했을 때만 호출.
+   *
+   * 🔴 **낱말이 끝나기를 기다린다.** 예전엔 `setTimeout(1200)` 이었는데 낱말 음원이 3.3~4.3초라
+   *    실측에서 **2.06초가 통째로 잘렸다**(`f… f… f—` 하다 칭찬이 덮었다). 중간 글자에서도 낱말이
+   *    나오는 중에 다음 글자 화면으로 넘어가, 아이는 B 를 보면서 A 의 낱말을 들었다.
+   *    소리 길이를 가정하지 않는다는 이 프로젝트의 규칙이 이 화면에만 안 걸려 있었다.
+   */
+  const wordPlayingRef = useRef(false);
+  const pendingAdvanceRef = useRef(false);
   const advanceToNext = useCallback(() => {
     if (advancing) return;
     setAdvancing(true);
-    setTimeout(() => {
+    const go = () => {
       if (currentIdx + 1 < letters.length) {
         setCurrentIdx((i) => i + 1);
         setAdvancing(false);
       } else {
-        // 마지막 글자 — 칭찬 시퀀스
         playCorrectSequence({
           language: 'en',
           systemSounds,
@@ -75,8 +82,15 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
           },
         });
       }
-    }, 1200);
+    };
+    // 낱말이 아직 나오는 중이면 그 소리가 끝난 뒤에 넘어간다(`handleResult` 가 깨운다).
+    if (wordPlayingRef.current) {
+      pendingAdvanceRef.current = true;
+      return;
+    }
+    scheduleTimer(go, REST_MS);
   }, [
+    scheduleTimer,
     advancing,
     currentIdx,
     letters.length,
@@ -102,12 +116,28 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
         const url = pickRandomWordTts(currentIdx);
         if (url) {
           // 쓰기가 끝난 뒤 숨 돌릴 자리 — 간격은 공용 값(`REST_MS`)을 쓴다.
-          setTimeout(() => playAudio(url), REST_MS);
+          wordPlayingRef.current = true;
+          scheduleTimer(
+            () =>
+              playAudio(url, () => {
+                wordPlayingRef.current = false;
+                // 두 캔버스가 이미 끝나 대기 중이었다면 지금 넘어간다.
+                if (pendingAdvanceRef.current) {
+                  pendingAdvanceRef.current = false;
+                  scheduleTimer(() => advanceRef.current(), REST_MS);
+                }
+              }),
+            REST_MS
+          );
         }
       }
     },
-    [currentLetter, currentIdx, passed, pickRandomWordTts, playAudio]
+    [currentLetter, currentIdx, passed, pickRandomWordTts, playAudio, scheduleTimer]
   );
+
+  /** `handleResult` 가 낱말 끝에서 부르므로 최신 `advanceToNext` 를 ref 로 잡아둔다. */
+  const advanceRef = useRef(advanceToNext);
+  advanceRef.current = advanceToNext;
 
   // 두 캔버스 모두 통과 + advance 아직 진행 중 X → 다음 글자.
   // setTimeout 안 closure 변수 대신 useEffect 가 commit 된 state 만 보고 결정 → race 무관.
