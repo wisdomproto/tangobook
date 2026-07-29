@@ -57,11 +57,11 @@ export function ConsonantTapActivity({
     return Array.from({ length: CARDS }, (_, i) => pool[i % pool.length]);
   }, [words]);
 
-  // 🔴 데우는 텍스트는 **실제 읽는 텍스트** — 세 번째 탭은 낱말이 아니라 이어읽기(`ㄱ ㄱ 아기`)라
+  // 🔴 데우는 텍스트는 **실제 읽는 텍스트** — 세 번째 탭은 낱말이 아니라 이어읽기(`ㄱ 고기`)라
   //    낱말만 데우면 그 탭에서 서버 concat 왕복을 기다린다. 순서가 곧 우선순위(글자 먼저).
   usePhonicsTtsWarm(
     unitId,
-    useMemo(() => [say, ...cardWords.map((w) => `${say} ${say} ${w.word}`)], [say, cardWords]),
+    useMemo(() => [say, ...cardWords.map((w) => `${say} ${w.word}`)], [say, cardWords]),
     'consonant-tap'
   );
 
@@ -76,13 +76,16 @@ export function ConsonantTapActivity({
 
       const isCardComplete = next === TAPS_PER_CARD;
       /**
-       * 🔴 세 번째 탭은 **`ㄱ ㄱ 아기` 를 이어 읽는다** — 글자 소리에서 낱말로 건너가는 다리가
-       *    이 리듬이다(영어 `a a apple` 과 같은 형식). 예전엔 낱말만 읽어서 **누른 글자 소리가
-       *    아예 안 나고 그림만 튀어나왔다**(사용자 지적). 원인 둘: ①`text` 가 단어 하나뿐 ②단어만
-       *    녹음된 `card.ttsUrl` 이 먼저 잡혀 concat 경로로 못 갔다. 그래서 그 우선순위도 뺀다.
+       * 🔴 세 번째 탭은 **`ㄱ 고기`** — 누른 글자 소리 **한 번** 뒤에 낱말이 붙는다.
+       *
+       * 한때 `ㄱ ㄱ 고기`(영어 `a a apple` 형식)로 뒀는데, 세 번 누르는 활동이라 아이 귀엔
+       * **ㄱ 이 네 번** 들렸다(사용자 지적: "누른만큼만 읽어줘"). 카드당 탭 수가 곧 소리 수여야
+       * 세는 것과 들리는 것이 맞는다.
+       * 🔴 낱말만 녹음된 `card.ttsUrl` 을 먼저 쓰면 concat 경로로 못 가 **누른 글자 소리가 아예
+       *    안 난다** — 그래서 그 우선순위는 두지 않는다(예전 버그).
        */
       const card = cardWords[idx];
-      const text = isCardComplete && card ? `${say} ${say} ${card.word}` : say;
+      const text = isCardComplete && card ? `${say} ${card.word}` : say;
       const url = await resolveTtsUrl({
         text,
         language: 'korean',
