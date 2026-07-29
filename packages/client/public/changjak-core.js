@@ -158,9 +158,11 @@
   if (!e || !meta) return;
   var chip = document.createElement('span');
   chip.className = 'q';
+  // 🔴 클러스터·ref 는 앵커 후보를 좁혀 둔 권에만 있다. 없는 권에 그대로 이으면 'null (ref null)' 이 뜬다.
+  var hint = e.cluster ? ' · ' + e.cluster + (e.reference ? ' (ref ' + e.reference + ')' : '') : '';
   chip.innerHTML = e.anchorSlug
-    ? '🎨 앵커 <b>' + e.anchorSlug + '</b> · ' + e.cluster
-    : '🎨 앵커 <b>미확정</b> · ' + e.cluster + ' (ref ' + e.reference + ')';
+    ? '🎨 앵커 <b>' + e.anchorSlug + '</b>' + (e.cluster ? ' · ' + e.cluster : '')
+    : '🎨 앵커 <b>미확정</b>' + hint;
   chip.title = '프롬프트: ' + (e.prompts || '');
   meta.appendChild(chip);
 })();

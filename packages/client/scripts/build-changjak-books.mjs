@@ -128,7 +128,8 @@ window.CJ_EPISODE = {
 `;
 }
 
-const files = existsSync(SRC) ? readdirSync(SRC).filter((f) => f.endsWith('.md')) : [];
+// `_` 로 시작하는 건 원고가 아니라 문서다(_AUTHORING.md)
+const files = existsSync(SRC) ? readdirSync(SRC).filter((f) => f.endsWith('.md') && !f.startsWith('_')) : [];
 if (!files.length) throw new Error(`원고가 없다: ${SRC}`);
 
 const built = [];
