@@ -157,6 +157,12 @@ export function WordListenChooseActivity({
   const [starting, setStarting] = useState(false);
   const [qIdx, setQIdx] = useState(0);
   const [wrong, setWrong] = useState<string | null>(null);
+  /**
+   * 방금 맞힌 카드 — 다음 문제로 넘어갈 때까지 초록으로 남는다.
+   * 🔴 오답만 빨갛게 흔들리고 **정답엔 아무 표시가 없었다**(2026-07-29). 소리는 났지만 아이가 누른
+   *    카드가 그 소리의 주인이라는 표시가 없어, 맞았는지 화면으로는 알 수가 없었다.
+   */
+  const [correct, setCorrect] = useState<string | null>(null);
   const [done, setDone] = useState(false);
   const wrongTimer = useRef<number | null>(null);
   const restTimer = useRef<number | null>(null);
@@ -208,7 +214,8 @@ export function WordListenChooseActivity({
 
   const handlePick = useCallback(
     (picked: ListenChoice) => {
-      if (done || !current || wrong) return;
+      // `correct` 가 남아 있는 동안은 정답 소리 체인이 도는 중이라 다음 탭을 받지 않는다.
+      if (done || !current || wrong || correct) return;
       if (idOf(picked) !== idOf(current.answer)) {
         onJudge?.(false, current.answer);
         playFeedbackSound(false);
@@ -217,6 +224,7 @@ export function WordListenChooseActivity({
         return;
       }
       onJudge?.(true, picked);
+      setCorrect(idOf(picked));
       const isLast = qIdx + 1 >= questions.length;
       if (isLast) setDone(true);
       // 🔴 한 단계씩 **콜백으로** 잇는다 — setTimeout 으로 길이를 가정하지 않는다.
@@ -229,7 +237,12 @@ export function WordListenChooseActivity({
             playCorrectSequence({ language: language === 'english' ? 'en' : 'ko' });
             return;
           }
-          playAudio('/sounds/game/correct.mp3', () => rest(() => setQIdx((i) => i + 1)));
+          playAudio('/sounds/game/correct.mp3', () =>
+            rest(() => {
+              setCorrect(null);
+              setQIdx((i) => i + 1);
+            })
+          );
         })
       );
     },
@@ -237,6 +250,7 @@ export function WordListenChooseActivity({
       done,
       current,
       wrong,
+      correct,
       qIdx,
       questions.length,
       onJudge,
@@ -370,9 +384,11 @@ export function WordListenChooseActivity({
               disabled={done || starting}
               className={[
                 'relative rounded-3xl border-[6px] bg-white overflow-hidden shadow-soft transition',
-                wrong === idOf(c)
-                  ? 'border-coral-500 animate-shake'
-                  : 'border-white hover:shadow-pop active:scale-[0.97]',
+                correct === idOf(c)
+                  ? 'border-success ring-4 ring-success/40 bg-success/10 scale-[1.03]'
+                  : wrong === idOf(c)
+                    ? 'border-coral-500 animate-shake'
+                    : 'border-white hover:shadow-pop active:scale-[0.97]',
               ].join(' ')}
             >
               {/* 🔴 글자 단원(영어 Book 1 알파벳)은 그림 없이 글자만 — 아직 단어 철자를 읽을 단계가 아니다.

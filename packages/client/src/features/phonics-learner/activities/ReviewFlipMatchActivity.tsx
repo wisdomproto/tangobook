@@ -75,6 +75,8 @@ export function ReviewFlipMatchActivity({
   const [open, setOpen] = useState<string[]>([]); // 지금 뒤집힌 카드 (최대 2)
   const [matched, setMatched] = useState<ReadonlySet<string>>(() => new Set());
   const [locked, setLocked] = useState(false);
+  /** 방금 안 맞은 두 장 — 덮이기 전까지 흔들린다. */
+  const [wrong, setWrong] = useState<string[]>([]);
   const timer = useRef<number | null>(null);
 
   useEffect(
@@ -123,10 +125,18 @@ export function ReviewFlipMatchActivity({
         });
         return;
       }
-      // 안 맞음 — 잠깐 보여주고 덮는다. 소리로 혼내지 않는다.
+      /**
+       * 안 맞음 — 잠깐 보여주고 덮는다.
+       * 🔴 **틀렸다는 걸 알려준다**(2026-07-29 사용자 지시). 예전엔 소리도 표시도 없이 그냥 덮여서,
+       *    아이 눈엔 카드가 저절로 닫힌 것과 구분이 안 됐다("내가 뭘 잘못했지?"가 아니라 "왜 닫히지?").
+       *    다른 게임과 같은 오답음 + 두 장 흔들기 — 벌이 아니라 **무슨 일이 일어났는지**를 말해준다.
+       */
       setLocked(true);
+      setWrong(next);
+      playFeedbackSound(false);
       timer.current = window.setTimeout(() => {
         setOpen([]);
+        setWrong([]);
         setLocked(false);
       }, FLIP_BACK_MS);
     },
@@ -182,9 +192,11 @@ export function ReviewFlipMatchActivity({
                     'relative w-[min(20vw,18vh)] h-[min(20vw,18vh)] rounded-2xl border-[4px] overflow-hidden shadow-soft transition active:scale-[0.97] flex items-center justify-center',
                     isMatched
                       ? 'bg-mint-100 border-mint-500'
-                      : isOpen
-                        ? 'bg-white border-coral-400'
-                        : 'bg-gradient-to-br from-coral-400 to-coral-600 border-white',
+                      : wrong.includes(tile.id)
+                        ? 'bg-danger/10 border-danger animate-shake'
+                        : isOpen
+                          ? 'bg-white border-coral-400'
+                          : 'bg-gradient-to-br from-coral-400 to-coral-600 border-white',
                   ].join(' ')}
                 >
                   {isOpen ? (

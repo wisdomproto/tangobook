@@ -77,6 +77,42 @@ export function ReviewWriteActivity({
     if (card) sayRef.current(card);
   }, [idx, wordKey, done]);
 
+  /**
+   * 한 글자를 다 쓰면 — 띵동 → **거기까지 이어읽기**(고 → 고기).
+   *
+   * 🔴 예전엔 이 콜백을 아예 안 넘겨서 **글자를 다 써도 아무 소리가 안 났다**. 낱말쓰기 게임
+   *    (`KoreanWordWritingPlayer`)에는 있는 배선인데 이 활동만 빠져 있었다 — 같은 `WordFillCanvas`
+   *    를 쓰면서 콜백 하나를 안 넘긴 것이라 화면만 봐선 안 보이고 **소리로만 드러나는** 종류의 구멍이다.
+   * 🔴 낱말을 **완성하는** 마지막 글자는 여기서 내지 않는다 — 바로 뒤 `handleWordDone` 이
+   *    [낱말 → 띵동 → 다음] 을 소유하므로, 여기서도 내면 한 채널에서 앞소리가 잘린다.
+   */
+  const handleSyllableDone = useCallback(
+    (syllable: string, index: number) => {
+      if (!current || index + 1 >= current.word.length) return;
+      void (async () => {
+        const blend = current.word.slice(0, index + 1);
+        const url =
+          (await resolveTtsUrl({
+            text: blend,
+            language,
+            storybookId: unitId,
+            identifierPrefix: 'review-write',
+          })) ??
+          (await resolveTtsUrl({
+            text: syllable,
+            language,
+            storybookId: unitId,
+            identifierPrefix: 'review-write',
+          }));
+        // 🔴 띵동 **먼저**, 끝나면 읽기 — 한 채널이라 동시에 내면 앞소리가 잘린다.
+        playAudio('/sounds/game/correct.mp3', () => {
+          if (url) playAudio(url);
+        });
+      })();
+    },
+    [current, language, unitId, playAudio]
+  );
+
   /** 낱말을 다 쓰면 — 그 낱말을 읽어주고 띵동, 다음 그림으로. */
   const handleWordDone = useCallback(async () => {
     if (done || !current) return;
@@ -179,6 +215,7 @@ export function ReviewWriteActivity({
               key={`review-write-${idx}`}
               word={current.word}
               syllables={[...current.word]}
+              onSyllableDone={handleSyllableDone}
               onComplete={handleWordDone}
             />
           </div>

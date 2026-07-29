@@ -2,7 +2,12 @@ import { useCallback, useMemo, type ReactNode, useRef } from 'react';
 import type { GameTypeId } from '@tangobook/shared';
 import { PhonicsGameGate } from './PhonicsGameGate';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { getActivityPlan, getKoreanUnit, type ActivityDef } from '../lib/korean-phonics-units';
+import {
+  getActivityPlan,
+  getKoreanUnit,
+  randomReviewSyllable,
+  type ActivityDef,
+} from '../lib/korean-phonics-units';
 import { markActivityCompleted } from '../lib/progress-store';
 import { VowelListenActivity } from '../activities/VowelListenActivity';
 import { VowelWriteActivity } from '../activities/VowelWriteActivity';
@@ -58,6 +63,11 @@ export default function KoreanPhonicsActivityPage() {
 
   // 복습 활동은 되짚는 단원들의 그림·단어가 필요하다 (early return 앞에서 호출 — 훅 순서 고정).
   const reviewCards = useMemo(() => activity?.reviewCards ?? [], [activity]);
+  /** 🔴 한 번만 뽑는다 — 렌더마다 다시 뽑으면 보기가 계속 바뀌고 자동재생이 다시 울린다. */
+  const syllableChoices = useMemo(
+    () => reviewCards.map((c) => randomReviewSyllable(c)),
+    [reviewCards]
+  );
   const { sources: reviewSources, isLoading: reviewLoading } = useReviewCardSources(reviewCards);
 
   /**
@@ -253,7 +263,9 @@ export default function KoreanPhonicsActivityPage() {
     return (
       <WordListenChooseActivity
         unitId={unitId}
-        items={reviewCards.map((c) => ({ label: c.syllable, sound: c.sound }))}
+        // 🔴 보기와 음원이 **같은 글자**여야 한다 — 예전엔 보기가 `가` 인데 음원이 `ㄱ` 이었다.
+        //    음절은 매번 무작위로 만든다(자음 단원=모음 랜덤, 받침 단원=앞 음절 랜덤).
+        items={syllableChoices.map((s) => ({ label: s, sound: s }))}
         choices={REVIEW_CHOICES}
         onMarkComplete={handleMarkComplete}
         onBack={backToUnit}

@@ -172,6 +172,47 @@ export interface ReviewCard {
   matchPosition: 'cho' | 'jung' | 'jong';
 }
 
+/** 기본 자음 14 · 기본 모음 10 — 「듣고 음절 맞추기」가 섞어 쓰는 범위(ㄱ~ㅎ, ㅏ~ㅣ). */
+const BASIC_CONSONANTS = [
+  'ㄱ',
+  'ㄴ',
+  'ㄷ',
+  'ㄹ',
+  'ㅁ',
+  'ㅂ',
+  'ㅅ',
+  'ㅇ',
+  'ㅈ',
+  'ㅊ',
+  'ㅋ',
+  'ㅌ',
+  'ㅍ',
+  'ㅎ',
+] as const;
+const BASIC_VOWELS = ['ㅏ', 'ㅑ', 'ㅓ', 'ㅕ', 'ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ', 'ㅣ'] as const;
+
+/**
+ * 복습 카드 → 「듣고 음절 맞추기」에 낼 음절. **배우는 자리는 고정, 나머지는 매번 무작위**다.
+ *
+ * 🔴 예전엔 `card.syllable` 고정이라 한글1 복습이 늘 `가 나 다 라` 였다. 같은 넷을 반복하면
+ *    아이는 소리가 아니라 **자리를 외운다**. 자음 단원이면 자음만 잡고 모음을 ㅏ~ㅣ 에서 뽑고,
+ *    받침 단원이면 받침만 잡고 앞 음절(초성·중성)을 뽑는다 — 되짚는 글자는 그대로 두면서
+ *    소리는 매번 달라진다.
+ * 🔴 반환은 **한 글자 음절**이라 발음이 곧 그 글자다(`sound` 를 따로 두지 않는다). 예전엔 보기가
+ *    `가` 인데 음원이 `ㄱ` 이라 **듣는 것과 고르는 것이 달랐다**.
+ * 🔴 파닉스 음원 라이브러리는 19자음×21모음 + 7종성을 다 갖고 있어 조합이 비지 않는다.
+ */
+export function randomReviewSyllable(card: ReviewCard, rand: () => number = Math.random): string {
+  const pick = <T>(a: readonly T[]) => a[Math.floor(rand() * a.length)];
+  if (card.matchPosition === 'jong') {
+    return composeHangul(pick(BASIC_CONSONANTS), pick(BASIC_VOWELS), card.letter) || card.syllable;
+  }
+  if (card.matchPosition === 'jung') {
+    return composeHangul(pick(BASIC_CONSONANTS), card.letter, null) || card.syllable;
+  }
+  return composeHangul(card.letter, pick(BASIC_VOWELS), null) || card.syllable;
+}
+
 export interface ActivityDef {
   key: string; // 'listen-1', 'write-2', ...
   order: number; // 1-based 표시 순서
