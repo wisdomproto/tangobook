@@ -177,7 +177,7 @@ const KIND_ICON_URL: Partial<Record<ActivityDef['kind'], string>> = {
   // 복습 — 익숙한 활동과 같은 그림을 써서 "해본 것"으로 읽히게 한다
   'word-listen-choose': '/icons/activity/cvc-learn.webp',
   'review-listen': '/icons/activity/cvc-learn.webp',
-  'review-maze': '/icons/game/connect-dots.webp',
+  'review-hunt': '/icons/game/connect-dots.webp',
   'review-flip': '/icons/game/korean-block.webp',
   'review-match': '/icons/game/line-matching.webp',
   'review-write': '/icons/game/word-writing-ko.webp',

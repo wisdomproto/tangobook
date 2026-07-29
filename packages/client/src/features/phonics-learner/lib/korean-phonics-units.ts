@@ -140,7 +140,7 @@ export type ActivityKind =
   | 'coda-blend-listen'
   | 'consonant-write'
   | 'word-listen-choose'
-  | 'review-maze'
+  | 'review-hunt'
   | 'review-flip'
   | 'review-syllable-listen'
   | 'review-word-listen'
@@ -595,7 +595,10 @@ function toReviewCard(u: KoreanUnitSummary): ReviewCard | null {
  * 처음엔 「다시 듣기」를 첫 활동으로 뒀는데, 그게 학습 단원의 모음/자음 듣기와 **같은 컴포넌트·같은 그림**이라
  * 복습 전체가 유닛 축약판처럼 보였다(사용자 피드백: "너무 심심하다"). 복습은 형식이 달라야 전이가 확인된다.
  *
- * ① 길 따라가기 — 격자 위 길을 밟으며 만나는 사물의 글자를 줍는다 (형식이 유일하게 완전히 다른 활동)
+ * ① 글자 사냥 — 헷갈리는 짝(ㄱ/ㅋ/ㄲ) 사이에 숨은 목표 글자만 전부 찾는다 (모양 변별)
+ *    🔴 원래 여기엔 「길 따라가기」가 있었다 — 반짝이는 칸을 순서대로 누르면 끝이라 **아이가 하는
+ *       판단이 하나도 없었고**(사용자: "정체성 없는 게임"), 격자·길·도착 깃발이 학습이 아니라
+ *       포장만 담당했다. 형식이 다르기만 하면 된다는 게 아니라, 매 탭이 판단이어야 한다.
  * ② 뒤집기 짝 맞추기 — 기억해서 맞추기
  * ③ 듣고 음절 맞추기 — 음절 소리를 듣고 글자 4개 중 고르기
  * ④ 짝 찾기 — 글자 ↔ 그 글자로 배운 단어 그림
@@ -610,11 +613,11 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
   return {
     activities: [
       {
-        key: 'review-maze',
+        key: 'review-hunt',
         order: 1,
-        kind: 'review-maze',
-        title: '길 따라가기',
-        emoji: '🌀',
+        kind: 'review-hunt',
+        title: '글자 사냥',
+        emoji: '🔎',
         ...shared,
       },
       {

@@ -12,7 +12,7 @@ import { AlphabetLetterWriteActivity } from '../activities/AlphabetLetterWriteAc
 import { WordListenChooseActivity } from '../activities/WordListenChooseActivity';
 import { VowelListenActivity } from '../activities/VowelListenActivity';
 import { ReviewWriteActivity } from '../activities/ReviewWriteActivity';
-import { ReviewMazeActivity } from '../activities/ReviewMazeActivity';
+import { LetterHuntActivity } from '../activities/LetterHuntActivity';
 import { ReviewFlipMatchActivity } from '../activities/ReviewFlipMatchActivity';
 import { useReviewCardSources } from '../hooks/useReviewCardSources';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
@@ -214,9 +214,22 @@ export default function EnglishPhonicsActivityPage() {
     );
   }
 
+  // 🔎 글자 사냥 — 글자만 쓰는 활동이라 단어 그림을 기다리지 않는다.
+  //    영어는 Book 2 가 word family(at·an)라 방해꾼도 같은 꼴로 만들어진다(모음·끝소리 교체).
+  if (activity.kind === 'review-hunt' && activity.reviewCards?.length) {
+    return (
+      <LetterHuntActivity
+        unitId={unitId}
+        cards={activity.reviewCards}
+        language="english"
+        onComplete={handleComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+
   if (
     activity.kind === 'review-word-listen' ||
-    activity.kind === 'review-maze' ||
     activity.kind === 'review-flip' ||
     activity.kind === 'review-match'
   ) {
@@ -245,16 +258,6 @@ export default function EnglishPhonicsActivityPage() {
           }))}
           choices={REVIEW_CHOICES}
           onMarkComplete={handleMarkComplete}
-          onBack={backToUnit}
-        />
-      );
-    }
-    if (activity.kind === 'review-maze') {
-      return (
-        <ReviewMazeActivity
-          unitId={unitId}
-          sources={withImage}
-          onComplete={handleComplete}
           onBack={backToUnit}
         />
       );

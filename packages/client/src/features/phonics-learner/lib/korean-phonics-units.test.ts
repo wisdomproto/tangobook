@@ -121,7 +121,7 @@ describe('korean phonics activity plans', () => {
       // 🔴 형식이 전부 다르다. 그리고 **듣기와 눈으로 보는 활동을 번갈아** 둔다 —
       //    듣기 둘을 붙여 놓으면 아이가 같은 화면을 두 번 하는 걸로 느낀다.
       expect(acts.map((a) => a.kind)).toEqual([
-        'review-maze', // 길 따라가기
+        'review-hunt', // 글자 사냥
         'review-flip', // 뒤집기 짝 맞추기
         'review-syllable-listen', // 듣고 음절 맞추기
         'review-match', // 짝 찾기

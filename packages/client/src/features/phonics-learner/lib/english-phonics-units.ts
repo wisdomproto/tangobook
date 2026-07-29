@@ -357,11 +357,11 @@ function makeEnglishReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
   return {
     activities: [
       {
-        key: 'review-maze',
+        key: 'review-hunt',
         order: 1,
-        kind: 'review-maze',
-        title: '길 따라가기',
-        emoji: '🌀',
+        kind: 'review-hunt',
+        title: '글자 사냥',
+        emoji: '🔎',
         ...shared,
       },
       {

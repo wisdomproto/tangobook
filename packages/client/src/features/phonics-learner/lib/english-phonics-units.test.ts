@@ -46,7 +46,7 @@ describe('english phonics units', () => {
     for (const r of reviews) {
       const acts = getEnglishActivityPlan(r.id).activities;
       expect(acts.map((a) => a.kind)).toEqual([
-        'review-maze',
+        'review-hunt',
         'review-flip',
         'review-syllable-listen',
         'review-match',

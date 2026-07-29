@@ -10,7 +10,7 @@ import { ConsonantTapActivity } from '../activities/ConsonantTapActivity';
 import { ConsonantBlendListenActivity } from '../activities/ConsonantBlendListenActivity';
 import { ConsonantWriteActivity } from '../activities/ConsonantWriteActivity';
 import { ReviewWriteActivity } from '../activities/ReviewWriteActivity';
-import { ReviewMazeActivity } from '../activities/ReviewMazeActivity';
+import { LetterHuntActivity } from '../activities/LetterHuntActivity';
 import { ReviewFlipMatchActivity } from '../activities/ReviewFlipMatchActivity';
 import { WordListenChooseActivity } from '../activities/WordListenChooseActivity';
 import { useReviewCardSources } from '../hooks/useReviewCardSources';
@@ -303,10 +303,21 @@ export default function KoreanPhonicsActivityPage() {
       />
     );
   }
+  // 🔎 글자 사냥 — 글자만 쓰는 활동이라 단어 그림을 기다리지 않는다(자산 없는 단원에서도 돈다).
+  if (activity.kind === 'review-hunt' && reviewCards.length) {
+    return (
+      <LetterHuntActivity
+        unitId={unitId}
+        cards={reviewCards}
+        onComplete={handleComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+
   if (
     activity.kind === 'review-match' ||
     activity.kind === 'review-write' ||
-    activity.kind === 'review-maze' ||
     activity.kind === 'review-flip'
   ) {
     if (reviewLoading) {
@@ -324,24 +335,6 @@ export default function KoreanPhonicsActivityPage() {
         );
       return (
         <ReviewFlipMatchActivity
-          unitId={unitId}
-          sources={withImage}
-          onComplete={handleComplete}
-          onBack={backToUnit}
-        />
-      );
-    }
-    if (activity.kind === 'review-maze') {
-      if (!withImage.length)
-        return (
-          <ActivityUnavailable
-            activity={activity}
-            onBack={backToUnit}
-            reason="단어 그림이 필요해요"
-          />
-        );
-      return (
-        <ReviewMazeActivity
           unitId={unitId}
           sources={withImage}
           onComplete={handleComplete}
