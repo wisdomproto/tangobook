@@ -11,6 +11,74 @@
  * 🔴 docId·key 는 서버에서 /^[A-Za-z0-9-]{1,64}$/ 로 검증한다 — 슬러그는 영문/숫자/하이픈만.
  *    한글 이름은 JSON 메타에 담는다.
  */
+/* ☰ 회차 드로어 — 기획서·시트·회차를 한 곳에서 오간다.
+ * 목록 SSOT = changjak-index.json (한 줄 추가하면 전 페이지에 반영된다).
+ * 다른 라인의 core.js 와 같은 자리·같은 조작. 상태/메모는 회차가 늘면 그때 붙인다. */
+(function () {
+  var CSS =
+    '#cj-tog{position:fixed;left:0;top:14px;z-index:60;background:#ff7c5c;color:#fff;border:none;' +
+    'border-radius:0 10px 10px 0;padding:9px 13px 9px 11px;font-size:14px;font-weight:800;cursor:pointer;' +
+    "font-family:inherit;box-shadow:0 2px 8px rgba(0,0,0,.16)}" +
+    '#cj-nav{position:fixed;left:0;top:0;bottom:0;width:270px;background:#fff;border-right:1px solid #f0e0d2;' +
+    'z-index:61;overflow-y:auto;padding:14px 12px 40px;box-shadow:2px 0 14px rgba(0,0,0,.09)}' +
+    '#cj-nav h4{font-size:12px;font-weight:800;color:#e85c3a;letter-spacing:.08em;margin:0 0 10px}' +
+    '#cj-nav a{display:block;padding:7px 9px;border-radius:9px;text-decoration:none;color:#2b2320;font-size:13px;line-height:1.4}' +
+    '#cj-nav a:hover{background:#fff8f0}' +
+    '#cj-nav a.on{background:#ffe8d9;font-weight:800;color:#e85c3a}' +
+    '#cj-nav a i{display:block;font-style:normal;font-size:11.5px;color:#6b5d55;font-weight:600}' +
+    '#cj-back{position:fixed;inset:0;background:rgba(43,35,32,.28);z-index:60}';
+  var s = document.createElement('style');
+  s.textContent = CSS;
+  document.head.appendChild(s);
+
+  var here = location.pathname.split('/').pop() || 'changjak-plan.html';
+  var open = false, nav, back;
+
+  var tog = document.createElement('button');
+  tog.id = 'cj-tog';
+  tog.type = 'button';
+  tog.textContent = '☰';
+  tog.title = '회차 목록';
+  document.body.appendChild(tog);
+
+  function close() {
+    open = false;
+    if (nav) nav.remove();
+    if (back) back.remove();
+    nav = back = null;
+  }
+
+  tog.addEventListener('click', function () {
+    if (open) return close();
+    open = true;
+    back = document.createElement('div');
+    back.id = 'cj-back';
+    back.addEventListener('click', close);
+    document.body.appendChild(back);
+
+    nav = document.createElement('nav');
+    nav.id = 'cj-nav';
+    nav.innerHTML = '<h4>창작동화 1000</h4><div id="cj-list">불러오는 중…</div>';
+    document.body.appendChild(nav);
+
+    fetch('/changjak-index.json')
+      .then(function (r) { return r.json(); })
+      .then(function (list) {
+        document.getElementById('cj-list').innerHTML = list
+          .map(function (e) {
+            return (
+              '<a href="/' + e.file + '"' + (e.file === here ? ' class="on"' : '') + '>' +
+              e.label + '<i>' + (e.title || '') + '</i></a>'
+            );
+          })
+          .join('');
+      })
+      .catch(function () {
+        document.getElementById('cj-list').textContent = '목록을 못 불러왔습니다.';
+      });
+  });
+})();
+
 /* §5 주제군 8개 = 탭.
  * 120권을 세로로 쌓으면 한 화면에 한 주제군도 안 들어와 비교가 안 된다.
  * 기획서 HTML 은 마크업만 두고(.grp 8개) 탭 로직은 여기 있다. */

@@ -266,6 +266,7 @@ function sync(){
   document.getElementById('picked').textContent=p.slice(0,6).join(', ')+(p.length>6?' …':'');
 }
 document.addEventListener('change',function(e){if(e.target.matches('.c input'))sync();});
+// ☰ 회차 드로어는 core.js 가 붙인다(vault·탭 코드는 해당 요소가 없으면 스스로 빠진다).
 document.getElementById('copy').addEventListener('click',function(){
   var p=picked(); if(!p.length){alert('먼저 후보를 체크하세요');return;}
   navigator.clipboard.writeText(p.join(' ')).then(function(){
@@ -274,6 +275,7 @@ document.getElementById('copy').addEventListener('click',function(){
   });
 });
 </script>
+<script src="/changjak-core.js"></script>
 `;
 
 writeFileSync(OUT, html, 'utf8');
