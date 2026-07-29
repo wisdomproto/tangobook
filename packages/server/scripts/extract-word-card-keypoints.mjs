@@ -25,6 +25,7 @@ import sharp from 'sharp';
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
+import crypto from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { loadEnv, getStorybook, putStorybook, parseArgs } from './translation-core.mjs';
 import { KOREAN_PHONICS_CURRICULUM, ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
@@ -286,8 +287,20 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     const sb = await getStorybook(unitId);
     for (const card of sb.flashcards ?? []) {
       if (!card.imageUrl) continue;
+      /**
+       * 🔴 **캐시 키에 이미지 URL 을 넣는다.**
+       *
+       * 예전엔 `{단원}__{단어}` 뿐이라, 카드 그림을 새로 올려 교체해도 **옛 파일을 그대로 써서
+       * 옛 그림의 윤곽이 뽑혔다**(모음 4장에서 실제로 겪었다 — 새 니들펠트 카드에 수채화 윤곽이
+       * 붙었고, 나는 그 미리보기를 보고 "그림체가 안 맞다"고 잘못 보고까지 했다).
+       * 구운 URL 에 원본 해시가 들어가 있으므로 URL 만 섞으면 교체가 저절로 감지된다.
+       * ⚠️ 키 규칙을 바꾼 **첫 실행은 516장을 다시 받고 rembg 마스크도 다시 만든다**(장당 ~7초).
+       *    한 번만 그렇고 이후엔 바뀐 카드만 다시 돈다.
+       */
       const name = `${unitId}__${card.word}`;
-      const file = path.join(imgDir, `${name}.webp`);
+      const stamp = crypto.createHash('sha1').update(card.imageUrl).digest('hex').slice(0, 8);
+      const key = `${name}__${stamp}`;
+      const file = path.join(imgDir, `${key}.webp`);
       if (!fs.existsSync(file)) {
         const res = await fetch(card.imageUrl);
         if (!res.ok) {
@@ -296,7 +309,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
         }
         fs.writeFileSync(file, Buffer.from(await res.arrayBuffer()));
       }
-      cards.push({ unitId, sb, card, name, file });
+      cards.push({ unitId, sb, card, name, key, file });
     }
   }
   console.log(`카드 ${cards.length}장 준비\n`);
@@ -314,8 +327,8 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   let done = 0;
   const failed = [];
   const bySb = new Map();
-  for (const { unitId, sb, card, name, file } of cards) {
-    const maskFile = path.join(maskDir, `${name}.png`);
+  for (const { unitId, sb, card, name, key, file } of cards) {
+    const maskFile = path.join(maskDir, `${key}.png`);
     if (!fs.existsSync(maskFile)) {
       failed.push(`${unitId}/${card.word} — 마스크 없음`);
       continue;
