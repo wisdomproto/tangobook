@@ -52,12 +52,17 @@
     });
   }
 
+  // 🔴 남아 있는 ref 이미지 키까지 보고 최댓값을 잡는다.
+  // 앵커 삭제는 메타(memo)만 지우고 R2 이미지는 남기므로, 메타만 보면 마지막 번호를 지운 뒤
+  // 새로 추가할 때 같은 번호가 다시 나와 **새 앵커가 남의 ref 를 물려받는다.**
   function nextSlug() {
     var n = 0;
-    Object.keys(anchors).forEach(function (s) {
-      var m = /^a-(\d+)$/.exec(s);
+    var bump = function (s) {
+      var m = /^a-(\d+)/.exec(s);
       if (m) n = Math.max(n, parseInt(m[1], 10));
-    });
+    };
+    Object.keys(anchors).forEach(bump);
+    Object.keys(images).forEach(bump); // `a-003-2` 같은 잔재도 잡힌다
     return 'a-' + String(n + 1).padStart(3, '0');
   }
 
