@@ -243,15 +243,12 @@ function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
   });
   // 4 games — wordFamilies 안 모든 단어 풀에서 어댑터가 픽업
   activities.push(
-    {
-      key: 'game-english-block',
-      order: order++,
-      kind: 'game-english-block',
-      section: 'play',
-      title: '영어 블록 게임',
-      emoji: '🧩',
-      required: false,
-    },
+    /**
+     * 🔴 **Book 1 에는 영어 블록 게임을 두지 않는다**(2026-07-29 사용자 지시).
+     *    이 권은 글자가 단위라 블록이 **한 칸**이고, 그 한 칸을 채우는 일은 바로 앞 「배우기 2」
+     *    (듣고 고르기)가 이미 시킨다 — 같은 과제를 게임 이름만 바꿔 한 번 더 하는 셈이었다.
+     *    Book 2 부터는 낱말을 통째로 조립하므로 그대로 둔다.
+     */
     {
       key: 'game-word-writing',
       order: order++,

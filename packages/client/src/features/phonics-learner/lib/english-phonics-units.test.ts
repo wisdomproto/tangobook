@@ -100,4 +100,15 @@ describe('english phonics units', () => {
     // 🔴 보기를 flashcard 가 아니라 단원 글자에서 만든다 — 그래서 그림 자산 없이도 동작한다
     expect(listen.letters).toEqual(['A', 'B', 'C']);
   });
+
+  /**
+   * 🔴 Book 1 은 글자가 단위라 블록이 한 칸이고, 그 한 칸 채우기는 바로 앞 「배우기 2」가 이미 시킨다.
+   *    Book 2 부터는 낱말을 통째로 조립하므로 남긴다.
+   */
+  it('영어 블록 게임은 Book 2 부터만 나온다', () => {
+    const b1 = getEnglishActivityPlan('en-b1-u01').activities.map((a) => a.kind);
+    expect(b1).not.toContain('game-english-block');
+    const b2 = getEnglishActivityPlan('en-b2-u01').activities.map((a) => a.kind);
+    expect(b2).toContain('game-english-block');
+  });
 });
