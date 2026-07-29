@@ -26,7 +26,27 @@
     '#cj-nav a:hover{background:#fff8f0}' +
     '#cj-nav a.on{background:#ffe8d9;font-weight:800;color:#e85c3a}' +
     '#cj-nav a i{display:block;font-style:normal;font-size:11.5px;color:#6b5d55;font-weight:600}' +
-    '#cj-back{position:fixed;inset:0;background:rgba(43,35,32,.28);z-index:60}';
+    '#cj-back{position:fixed;inset:0;background:rgba(43,35,32,.28);z-index:60}' +
+    /* 회차 페이지 — 마크업만 두고 스타일은 여기서 준다(회차마다 CSS 복사 금지) */
+    '.ep{max-width:980px;margin:0 auto;padding:24px 24px 120px}' +
+    '.ep .hero{text-align:center;padding:30px 0;border-bottom:3px solid #ff7c5c;margin-bottom:8px}' +
+    '.ep .hero .kicker{color:#e85c3a;font-weight:800;letter-spacing:.14em;font-size:11.5px}' +
+    '.ep .hero h1{font-size:30px;font-weight:900;margin:8px 0 6px}' +
+    '.ep .hero .sub{color:#6b5d55;font-size:13.5px;font-weight:600}' +
+    '.ep .meta{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:14px 0 26px}' +
+    '.ep .meta span{background:#ffe8d9;color:#e85c3a;border-radius:999px;padding:3px 12px;font-size:12px;font-weight:800}' +
+    '.ep .meta span.q{background:#fff;border:1px solid #f0e0d2;color:#6b5d55}' +
+    '.ep .pg{display:grid;grid-template-columns:1fr 1fr;gap:0;background:#f0e0d2;border:1px solid #f0e0d2;' +
+    'border-radius:14px;overflow:hidden;margin-bottom:16px}' +
+    '.ep .ko,.ep .sc{background:#fff;padding:16px 18px}' +
+    '.ep .ko{font-size:17px;line-height:1.95;white-space:pre-line;display:flex;flex-direction:column;justify-content:center}' +
+    '.ep .sc{background:#fff8f0;font-size:12.5px;line-height:1.7;color:#6b5d55;white-space:pre-line}' +
+    '.ep .sc b{color:#2b2320;font-weight:800}' +
+    '.ep .n{display:block;font-size:11px;font-weight:800;color:#e85c3a;letter-spacing:.1em;margin-bottom:8px}' +
+    '.ep .ko.empty{color:#b9a99c;font-size:13px;font-style:italic}' +
+    '.ep .note{font-size:13px;color:#6b5d55;background:#ffe8d9;border-radius:10px;padding:11px 15px;margin:20px 0}' +
+    '.ep .note b{color:#e85c3a}' +
+    '@media(max-width:760px){.ep .pg{grid-template-columns:1fr}}';
   var s = document.createElement('style');
   s.textContent = CSS;
   document.head.appendChild(s);
