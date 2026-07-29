@@ -269,6 +269,9 @@ export default function EnglishPhonicsActivityPage() {
         <ReviewFlipMatchActivity
           unitId={unitId}
           sources={withImage}
+          // 🔴 이 파일에서 **여기만** language 가 빠져 있었다 — 컴포넌트 기본값이 'korean' 이라
+          //    영어 낱말(dam·dad)을 한국어 음성으로 읽고 칭찬도 한국어가 나왔다.
+          language="english"
           onComplete={handleComplete}
           onBack={backToUnit}
         />

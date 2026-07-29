@@ -13,8 +13,16 @@ import { loadEnv, getStorybook, putStorybook } from './translation-core.mjs';
 loadEnv();
 
 const argv = process.argv;
-const hasFlag = (f) => argv.includes(f);
+const hasFlag = (f) => argv.some((a) => a === f || a.startsWith(`${f}=`));
+/**
+ * `--flag value` 와 `--flag=value` **둘 다** 받는다.
+ * 🔴 예전엔 공백 형식만 받아서 `--category='전래 동화'` 가 **조용히 무시됐다** — 필터가 안 걸린 채
+ *    전체 89권을 대상으로 잡는다(같은 함정을 `render-nature-ko.ts` 에서 이미 한 번 겪었다).
+ *    안 맞는 플래그는 에러를 내지 않고 사라지므로, 파서가 두 형식을 다 받는 게 유일한 방어다.
+ */
 const argVal = (f) => {
+  const eq = argv.find((a) => a.startsWith(`${f}=`));
+  if (eq) return eq.slice(f.length + 1);
   const i = argv.indexOf(f);
   return i >= 0 ? argv[i + 1] : undefined;
 };
