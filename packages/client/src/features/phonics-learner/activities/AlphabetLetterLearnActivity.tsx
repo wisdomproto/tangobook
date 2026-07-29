@@ -129,28 +129,37 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
    *    낱글자 음원이 이미 있고, Book 2 의 `a`·`n` 칸이 쓰는 것과 같은 경로다. 저작 음원이 생기면
    *    그게 우선.
    */
-  const sayLetter = useCallback(async () => {
-    if (audioBusyRef.current) return;
-    const url =
-      blending?.blendingSequenceTtsUrl ??
-      (await resolveTtsUrl({
-        text: lower,
-        language: 'english',
-        storybookId: unitId,
-        identifierPrefix: 'en-letter',
-      }));
-    if (!url) return;
-    audioBusyRef.current = true;
-    playAudio(url, () => {
-      audioBusyRef.current = false;
-    });
-  }, [blending, lower, unitId, playAudio]);
+  const sayLetter = useCallback(
+    async (onEnded?: () => void) => {
+      if (audioBusyRef.current) return;
+      const url =
+        blending?.blendingSequenceTtsUrl ??
+        (await resolveTtsUrl({
+          text: lower,
+          language: 'english',
+          storybookId: unitId,
+          identifierPrefix: 'en-letter',
+        }));
+      if (!url) {
+        onEnded?.();
+        return;
+      }
+      audioBusyRef.current = true;
+      playAudio(url, () => {
+        audioBusyRef.current = false;
+        onEnded?.();
+      });
+    },
+    [blending, lower, unitId, playAudio]
+  );
 
   /**
    * 🔴 **진입하면 글자 소리를 한 번 들려준다** — 예전엔 이미 선택된 글자 탭을 *한 번 더* 눌러야
    *    났고, 그 안내는 핫스팟을 다 누른 뒤에야 떴다. 그래서 아이가 A 소리를 한 번도 못 듣고
    *    나갈 수 있었다(이 단원의 목표가 글자인데).
-   * 🔴 첫 진입에만 **안내 음성 → 쉼 → 글자 소리**. 글자를 바꿀 땐 글자 소리만.
+   * 🔴 첫 진입에만 **글자 소리 → 쉼 → 안내 음성**. 글자를 바꿀 땐 글자 소리만.
+   *    순서가 반대였을 땐 "반짝이는 곳을 눌러봐!" 다음에 뜬금없이 「에」 가 붙어 나왔다
+   *    (사용자 지적). 배울 글자를 먼저 들려주고 **무엇을 하라는 말로 끝나야** 아이가 바로 움직인다.
    */
   const guidedRef = useRef(false);
   // 🔴 `blending` 은 storybook refetch 마다 **새 객체**라 의존성에 넣으면 창 포커스만 돌아와도
@@ -164,7 +173,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
       return;
     }
     guidedRef.current = true;
-    playAudio(GUIDE_VOICE, () => scheduleTimer(sayLetter, REST_MS));
+    void sayLetter(() => scheduleTimer(() => playAudio(GUIDE_VOICE), REST_MS));
     // 의존성은 **글자 인덱스**만.
   }, [currentIdx]);
 
@@ -200,11 +209,22 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
         if (!current || !hit(current.h)) return;
         playUi('tap');
         const isLast = tapped + 1 >= spots.length;
-        setTapped((t) => t + 1);
-        // 단어를 다 읽은 **뒤에** 띵동 — 잘 눌렀다는 신호. 마지막 칸이면 칭찬까지 이어진다.
+        /**
+         * 🔴 **다음 칸은 소리가 끝난 뒤에 밝힌다**(2026-07-29 사용자 지적). 예전엔 누르는 즉시
+         *    `setTapped` 라 「에 에 엘리게이터」가 나오는 동안 벌써 다음 칸이 반짝였다 — 아이는
+         *    듣던 걸 버리고 손을 옮긴다. 눌러서 나는 소리를 **끝까지 듣게 하는 것**이 이 활동이다.
+         *    (마지막 칸은 칭찬까지 끝나고 덮개가 걷힌다.)
+         */
         say(current.w.ttsUrl, () =>
           playAudio('/sounds/game/correct.mp3', () => {
-            if (isLast) scheduleTimer(() => playCorrectSequence({ language: 'en' }), REST_MS);
+            if (!isLast) {
+              scheduleTimer(() => setTapped((t) => t + 1), REST_MS);
+              return;
+            }
+            scheduleTimer(() => {
+              setTapped((t) => t + 1);
+              playCorrectSequence({ language: 'en' });
+            }, REST_MS);
           })
         );
         return;
