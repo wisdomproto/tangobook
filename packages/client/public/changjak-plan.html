@@ -38,6 +38,36 @@
   table.books td:nth-child(5) { width:104px; font-size:12px; color:var(--ink-soft); }
   code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12.5px; }
   footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  /* 앵커 보관함 (changjak-core.js) */
+  .vault-bar { background:#fff; border:1px solid var(--line); border-radius:12px; padding:11px 14px; font-size:14px; margin:12px 0; }
+  .dim { color:var(--ink-soft); font-size:12.5px; font-weight:600; }
+  .gbs { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .gb { background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:11.5px; font-weight:800; border:1px solid transparent; }
+  .gb.chip { cursor:pointer; background:#fff; border-color:var(--line); color:var(--ink-soft); }
+  .gb.chip.on { background:var(--coral); border-color:var(--coral); color:#fff; }
+  .gb.pick { display:inline-flex; align-items:center; gap:4px; cursor:pointer; background:#fff; border-color:var(--line); color:var(--ink-soft); font-weight:700; }
+  .anchor-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; margin:14px 0; }
+  .anchor { background:#fff; border:1px solid var(--line); border-radius:14px; padding:13px 15px; }
+  .anchor.new { border-style:dashed; }
+  .anchor .ahead { display:flex; align-items:baseline; justify-content:space-between; gap:8px; }
+  .anchor .ahead b { font-size:15px; }
+  .anchor .ahead code { background:var(--cream); border-radius:5px; padding:1px 6px; font-size:11px; color:var(--ink-soft); }
+  .anchor .ameta { font-size:12.5px; color:var(--ink-soft); margin-top:3px; }
+  .anchor input, .anchor textarea { width:100%; margin-top:7px; padding:7px 9px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:13px; background:var(--cream); color:var(--ink); }
+  .refs { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-top:10px; }
+  .reflabel { font-size:11px; color:var(--ink-soft); margin-top:5px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:9px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:10.5px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:6px; background:#fffdfa; }
+  .paste-box:focus { border-color:var(--coral); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:7px; display:block; }
+  .paste-del { position:absolute; top:4px; right:4px; width:20px; height:20px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-weight:800; font-size:11px; cursor:pointer; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-top:10px; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  .copy-btn.del { color:var(--ink-soft); border-color:var(--line); margin-left:6px; }
+  .copy-btn.del:hover { background:var(--ink-soft); color:#fff; }
+  details { margin-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:700; color:var(--ink-soft); }
+  pre.sheet { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:9px; padding:10px 12px; font-family:inherit; font-size:11.5px; line-height:1.6; margin-top:6px; color:var(--ink-soft); }
 </style>
 </head>
 <body>
@@ -342,6 +372,15 @@
 </table>
 <div class="note">🔴 <b>그림체 실명은 학습자 화면에 절대 노출하지 않는다</b>(저작권 예방 · 전사 정책). 내부 문서·저작도구에서만 실명을 쓴다.</div>
 
+<h2><span class="no">7.5</span>🎨 앵커 보관함</h2>
+<p class="lead">앵커는 <b>하루에 다 만드는 게 아니라 쌓는 것</b>이다. 하나 만들 때마다 여기 추가하고, 승인된 렌더를 붙여넣으면 <b>그 이미지가 그 앵커의 원본</b>이 된다(자기참조).</p>
+<div id="anchor-vault"></div>
+<div class="note">
+🔴 <b>ref 를 붙여넣기 전까지 그 앵커는 미완성이다.</b> 프롬프트만 있는 앵커는 다음에 쓸 때 다른 그림이 나온다 — 문구는 모델의 기본 렌더를 못 이긴다(§7).<br>
+🔴 <b>ref 슬롯 3칸을 다 채우되 서로 다른 것을 넣어라</b> — 인물 컷 1 · 배경이 러프 스케치로 남은 컷 1 · 전체 장면 1. 승인 컷이 전부 배경 완성형이면 "배경은 덜 그린다"는 문구가 영영 안 먹는다(점눈이에서 실제로 겪은 일).<br>
+저장 위치 — 메타는 <code>/api/saenghwal-memo</code>(<code>ca-&lt;slug&gt;</code>), 이미지는 R2 <code>comic-assets/changjak-anchors/</code>. 로컬·프로덕션 어디서 붙여넣어도 같은 곳에 남는다.
+</div>
+
 <h2><span class="no">8</span>파이프라인 · 다음 할 일</h2>
 <table>
   <tr><th>순서</th><th>할 일</th><th>산출물</th></tr>
@@ -357,5 +396,6 @@
 
 <footer>탱고북 창작동화 1000 · 기획서 v1 · 내부 저작용</footer>
 </div>
+<script src="/changjak-core.js"></script>
 </body>
 </html>
