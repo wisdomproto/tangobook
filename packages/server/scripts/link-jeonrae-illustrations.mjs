@@ -258,7 +258,23 @@ async function main() {
 
     if (existingId) {
       const book = await getStorybook(existingId);
-      book.pages = pages;
+      /**
+       * 🔴 **나레이션·번역을 덮지 않는다.** 기획서 HTML 에는 글과 콘티만 있고 `ttsUrl`·`translations`
+       *    는 나중에 다른 파이프라인이 붙인 것이다. 예전엔 `book.pages = pages` 라 재실행 한 번에
+       *    **공개 중인 책의 나레이션이 통째로 날아갔다**(시즌1 20권 = 전 페이지 ttsUrl + 롱폼/오디오북
+       *    렌더 완료 상태). 쪽 번호로 이어 붙여 살린다.
+       *    ⚠️ 쪽 수가 달라지면(대본 개정) 짝이 없는 쪽의 소리는 자연히 없어진다 — 그건 맞는 동작이다.
+       */
+      const keepByPage = new Map((book.pages ?? []).map((p) => [p.pageNumber, p]));
+      book.pages = pages.map((p) => {
+        const prev = keepByPage.get(p.pageNumber);
+        if (!prev) return p;
+        return {
+          ...p,
+          ...(prev.ttsUrl ? { ttsUrl: prev.ttsUrl } : {}),
+          ...(prev.translations ? { translations: prev.translations } : {}),
+        };
+      });
       book.characters = chars;
       book.key_objects = keyObjects;
       if (images.length) book.keyObjectImages = images;
