@@ -167,6 +167,11 @@ button.pb{margin-top:8px;background:#fff;color:var(--mint);border:1.5px solid va
 button.pb:hover,button.pb.done{background:var(--mint);color:#fff}
 details pre{white-space:pre-wrap;background:var(--cream);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-family:inherit;font-size:10.5px;line-height:1.55;color:var(--ink-soft);margin-top:5px;max-height:260px;overflow:auto}
 .hide{display:none}
+#lb{position:fixed;inset:0;z-index:50;background:rgba(24,18,15,.9);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:24px;cursor:zoom-out}
+#lb img{max-width:96vw;max-height:84vh;object-fit:contain;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,.5);background:#f4ece4}
+#lb .cap2{color:#fff;font-size:13px;font-weight:700;text-align:center}
+#lb .cap2 b{color:#ffb9a5}
+#lb .x{position:absolute;top:14px;right:18px;background:none;border:none;color:#fff;font-size:26px;font-weight:800;cursor:pointer;line-height:1;font-family:inherit}
 </style>
 <div class="wrap">
 <h1>🎨 창작동화 · 앵커 후보 시트</h1>
@@ -244,6 +249,22 @@ fetch(TRY).then(function(r){return r.json();}).then(function(j){
 
 // 카드가 <label> 이라 안쪽 클릭은 체크박스를 토글한다 — 프롬프트 버튼/붙여넣기/펼치기는 막아야 한다.
 document.addEventListener('click',function(e){
+  // 이미지 클릭 = 확대. 수상작·내 렌더 둘 다.
+  var img=e.target.closest('.ph img');
+  if(img){ e.preventDefault(); e.stopPropagation();
+    var mine=!!img.closest('.ph.mine');
+    var card=img.closest('.c');
+    var lb=document.createElement('div'); lb.id='lb';
+    lb.innerHTML='<button type="button" class="x">✕</button>'+
+      '<img src="'+img.src+'" alt="" />'+
+      '<div class="cap2"><b>'+(mine?'내 렌더':'수상작')+'</b> · '+
+      (card?card.querySelector('.t').textContent+' — '+card.querySelector('.cl').textContent:'')+'</div>';
+    function close(){ lb.remove(); document.removeEventListener('keydown',esc); }
+    function esc(ev){ if(ev.key==='Escape') close(); }
+    lb.addEventListener('click',close);
+    document.addEventListener('keydown',esc);
+    document.body.appendChild(lb);
+    return; }
   var del=e.target.closest('.ph.mine .del');
   if(del){ e.preventDefault(); e.stopPropagation();
     var box=del.closest('.ph.mine');
