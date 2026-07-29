@@ -138,6 +138,10 @@ for (const f of files) {
   if (only && id !== only) continue;
   const doc = parse(readFileSync(join(SRC, f), 'utf8'));
   // 🔴 반쪽 원고를 내보내느니 실패한다 — 쪽이 비면 페이지가 조용히 짧아진다
+  // 🔴 빠진 키는 `엔진 · undefined` 로 조용히 나간다. 조용한 게 문제라 여기서 세운다.
+  const missing = ['id', 'group', 'no', 'title', 'engine', 'stage'].filter((k) => !doc.meta[k]);
+  if (missing.length) throw new Error(`${id}: 프론트매터 누락 — ${missing.join(', ')}`);
+  if (doc.meta.id !== id) throw new Error(`${id}: 프론트매터 id 가 '${doc.meta.id}' 라 파일명과 다르다`);
   if (doc.pages.length !== 12) throw new Error(`${id}: 쪽 ${doc.pages.length}개 (12 이어야 함)`);
   const noScene = doc.pages.filter((p) => !p.scene);
   if (noScene.length) throw new Error(`${id}: SCENE 없음 — ${noScene.map((p) => p.page).join(',')}`);
