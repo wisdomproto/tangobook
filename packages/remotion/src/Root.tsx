@@ -27,6 +27,20 @@ import {
 import { AdReel, AD_DURATION, AD_FPS, AD_WIDTH, AD_HEIGHT } from './compositions/AdReel';
 import { AdThumbnail, AD_THUMB_W, AD_THUMB_H } from './compositions/AdThumbnail';
 import {
+  AdReelV2,
+  ADV2_DURATION,
+  ADV2_FPS,
+  ADV2_WIDTH,
+  ADV2_HEIGHT,
+} from './compositions/AdReelV2';
+import {
+  AdReelPhonics,
+  PHX_DURATION,
+  PHX_FPS,
+  PHX_WIDTH,
+  PHX_HEIGHT,
+} from './compositions/AdReelPhonics';
+import {
   LongformThumbnail,
   LongformThumbSchema,
   LT_W,
@@ -224,6 +238,22 @@ export const RemotionRoot: React.FC = () => {
         fps={AD_FPS}
         width={AD_WIDTH}
         height={AD_HEIGHT}
+      />
+      <Composition
+        id="AdReelV2"
+        component={AdReelV2}
+        durationInFrames={ADV2_DURATION}
+        fps={ADV2_FPS}
+        width={ADV2_WIDTH}
+        height={ADV2_HEIGHT}
+      />
+      <Composition
+        id="AdReelPhonics"
+        component={AdReelPhonics}
+        durationInFrames={PHX_DURATION}
+        fps={PHX_FPS}
+        width={PHX_WIDTH}
+        height={PHX_HEIGHT}
       />
       <Composition
         id="AdThumbnail"
