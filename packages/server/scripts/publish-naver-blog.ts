@@ -408,11 +408,17 @@ async function main() {
       const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'nv-'));
       const imgs = new Map<string, string>();
       let n = 0;
+      // 🔴 업로드 파일명은 네이버가 그대로 보관해 이미지 URL 끝에 남는다
+      //    (실측: `.../JPEG/01.jpg` — 우리가 올린 이름 그대로). `01.webp` 로 올리는 건
+      //    이미지 검색이 읽을 수 있는 유일한 우리 말을 버리는 것이라 책 이름을 넣는다.
+      const slug =
+        (volOf(item.title).keyword || item.title).replace(/[\\/:*?"<>|\s]/g, '').slice(0, 20) ||
+        'tangobook';
       for (const b of plan.blocks) {
         if (b.kind !== 'image') continue;
         const res = await fetch(encodeURI(decodeURI(b.imageUrl)));
         if (!res.ok) continue;
-        const p = path.join(tmp, `${String(++n).padStart(2, '0')}.webp`);
+        const p = path.join(tmp, `${slug}-${String(++n).padStart(2, '0')}.webp`);
         fs.writeFileSync(p, Buffer.from(await res.arrayBuffer()));
         imgs.set(b.imageUrl, p);
       }
