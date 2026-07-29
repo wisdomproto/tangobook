@@ -6,6 +6,7 @@ import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import type { Storybook } from '@tangobook/shared';
 import { ActivityShell } from '../components/ActivityShell';
+import { FirstLetterWord } from '../components/FirstLetterWord';
 import { findImageData } from '../lib/phonics-game-adapter';
 
 interface Props {
@@ -245,8 +246,9 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
           aria-label={reward.word}
         >
           {/* 낱말을 같이 보여준다 — 소리로 듣는 그 낱말이 화면에도 있어야 글자와 이어진다. */}
+          {/* 낱말을 같이 보여준다 — 첫 글자만 크게(이 권의 목표는 글자다). */}
           <span className="text-white font-display font-black text-4xl sm:text-6xl leading-none">
-            {reward.word}
+            <FirstLetterWord word={reward.word} />
           </span>
           <img
             src={reward.url}

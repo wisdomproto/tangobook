@@ -30,9 +30,15 @@ import { phonicsApi } from '@/features/phonics/api/phonics.api';
 import { shuffle } from '../../utils/shuffle';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
 import { cn } from '@/lib/cn';
+import { FirstLetterWord } from '@/features/phonics-learner/components/FirstLetterWord';
 
 interface LineMatchingPlayerProps extends GamePlayerProps {
   lang: Lang;
+  /**
+   * 글자 카드 아래 낱말의 **첫 글자만 크게**. 영어 Book 1(알파벳 배우기)처럼 글자가 목표인 화면만.
+   * 🔴 Book 2 의 패턴은 `_am` 처럼 뒤쪽이라 켜면 **틀린 곳을 가리킨다**.
+   */
+  emphasizeFirstLabel?: boolean;
 }
 
 interface MatchedPair {
@@ -45,6 +51,7 @@ function LineMatchingPlayerInner({
   onComplete,
   onBack,
   lang,
+  emphasizeFirstLabel = false,
 }: LineMatchingPlayerProps) {
   const data = gameData as KoreanLineMatchingData | EnglishLineMatchingData;
   const items = data.items;
@@ -523,7 +530,11 @@ function LineMatchingPlayerInner({
                         대신 **글자와 낱말을 같이 보게** 한다. `imageLabel` 을 넘긴 호출부에만 뜬다. */}
                     {wordItem.imageLabel && (
                       <span className="mt-1 text-base sm:text-2xl font-black text-ink-500 break-keep">
-                        {wordItem.imageLabel}
+                        {emphasizeFirstLabel ? (
+                          <FirstLetterWord word={wordItem.imageLabel} />
+                        ) : (
+                          wordItem.imageLabel
+                        )}
                       </span>
                     )}
                   </button>

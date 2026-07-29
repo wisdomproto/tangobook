@@ -63,6 +63,8 @@ export default function EnglishPhonicsActivityPage() {
   // 복습은 되짚는 단원들의 그림·단어가 필요하다 (early return 앞에서 호출 — 훅 순서 고정).
   // 🔴 **섞어서** 넘긴다 — 활동들이 앞에서 4장만 쓰기 때문에 순서가 고정이면 뒤쪽 글자가 영영 안 나온다.
   const reviewCards = useMemo(() => shuffleReviewCards(activity?.reviewCards ?? []), [activity]);
+  /** Book 1 = 글자가 목표인 권. 낱말은 첫 글자만 크게 쓴다. */
+  const isBook1 = unitId.startsWith('en-b1');
   const { sources: reviewSources, isLoading: reviewLoading } = useReviewCardSources(reviewCards);
 
   const storybookQuery = useStorybook(unitId);
@@ -274,6 +276,8 @@ export default function EnglishPhonicsActivityPage() {
         <ReviewFlipMatchActivity
           unitId={unitId}
           sources={withImage}
+          // 🔴 Book 1 만 — Book 2 의 패턴은 `_am` 처럼 **뒤쪽**이라 첫 글자를 키우면 틀린 곳을 가리킨다.
+          emphasizeFirstLetter={isBook1}
           // 🔴 이 파일에서 **여기만** language 가 빠져 있었다 — 컴포넌트 기본값이 'korean' 이라
           //    영어 낱말(dam·dad)을 한국어 음성으로 읽고 칭찬도 한국어가 나왔다.
           language="english"
@@ -289,6 +293,8 @@ export default function EnglishPhonicsActivityPage() {
         onComplete={handleComplete}
         onBack={backToUnit}
         lang="en"
+        // Book 1 = 글자가 목표 — 낱말은 첫 글자만 크게.
+        emphasizeFirstLabel={isBook1}
         gameData={{
           type: 'english-line-matching',
           items: withImage.map((s) => ({
@@ -440,7 +446,12 @@ export default function EnglishPhonicsActivityPage() {
     return gate(
       'english-line-matching',
       gameData,
-      <LineMatchingPlayer {...commonProps} gameData={gameData} lang="en" />
+      <LineMatchingPlayer
+        {...commonProps}
+        gameData={gameData}
+        lang="en"
+        emphasizeFirstLabel={isBook1}
+      />
     );
   }
   if (activity.kind === 'game-connect-dots') {

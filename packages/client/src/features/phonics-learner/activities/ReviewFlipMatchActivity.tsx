@@ -4,11 +4,14 @@ import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import type { ReviewCardSource } from '../hooks/useReviewCardSources';
 import { ActivityShell } from '../components/ActivityShell';
+import { FirstLetterWord } from '../components/FirstLetterWord';
 
 interface Props {
   unitId: string;
   sources: ReadonlyArray<ReviewCardSource>;
   language?: 'korean' | 'english';
+  /** 낱말의 **첫 글자만 크게** 쓴다 — 영어 Book 1(알파벳 배우기)처럼 글자가 목표인 단원. */
+  emphasizeFirstLetter?: boolean;
   onComplete: () => void;
   onBack: () => void;
 }
@@ -44,6 +47,7 @@ export function ReviewFlipMatchActivity({
   unitId,
   sources,
   language = 'korean',
+  emphasizeFirstLetter = false,
   onComplete,
   onBack,
 }: Props) {
@@ -202,7 +206,11 @@ export function ReviewFlipMatchActivity({
                           isMatched ? 'text-mint-600' : 'text-coral-600',
                         ].join(' ')}
                       >
-                        {tile.card.word || tile.card.letter}
+                        {emphasizeFirstLetter ? (
+                          <FirstLetterWord word={tile.card.word || tile.card.letter} />
+                        ) : (
+                          tile.card.word || tile.card.letter
+                        )}
                       </span>
                     )
                   ) : (
