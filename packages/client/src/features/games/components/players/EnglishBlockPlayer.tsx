@@ -244,6 +244,42 @@ function EnglishBlockPlayerInner({
     [grid, roundCorrect]
   );
 
+  /**
+   * 낱말 소리 — 알파벳 판의 **문제**다(그림은 보조).
+   * 🔴 `currentItem.ttsUrl` 은 어댑터가 **낱말 전체**(cat)로 넣어준다. `currentItem.word` 는
+   *    알파벳 판에서 첫 글자(`c`) 하나뿐이라, 그걸 읽으면 문제가 아니라 답을 불러주는 셈이다.
+   */
+  const sayWord = useCallback(async () => {
+    if (currentItem.ttsUrl) {
+      playAudio(currentItem.ttsUrl);
+      return;
+    }
+    /**
+     * 🔴 알파벳 판에서 `currentItem.word` 로 폴백하면 **정답(`c`)을 읽어준다** — 낱말 음원이 없으면
+     *    차라리 소리를 안 낸다(그림이 무엇인지 알려준다). 낱말 전체를 쓰는 판만 폴백한다.
+     */
+    if (isAlphabetRound) return;
+    const url = await resolveTtsUrl({
+      text: currentItem.word,
+      language: 'english',
+      storybookId,
+      identifierPrefix: 'eblock',
+    });
+    playAudio(url);
+  }, [currentItem.ttsUrl, currentItem.word, isAlphabetRound, storybookId, playAudio]);
+
+  /**
+   * 문제가 바뀌면 **한 번** 들려준다 — 아이가 버튼을 찾아 누를 필요가 없게.
+   * 🔴 의존성은 **문제 인덱스**만. 함수·객체 신원에 걸면 부모가 리렌더될 때마다 다시 울린다
+   *    (이 프로젝트에서 반복해서 낸 버그).
+   */
+  const sayWordRef = useRef(sayWord);
+  sayWordRef.current = sayWord;
+  useEffect(() => {
+    if (!isAlphabetRound) return;
+    void sayWordRef.current();
+  }, [currentIndex, isAlphabetRound]);
+
   // 정답 자동 체크 — 모든 slot 이 target 과 일치하면 "확인" 버튼 없이 정답 처리.
   // 오답 분기는 자동 발동 X (사용자가 확인 누를 때만 wrong slot 표시).
   useEffect(() => {
@@ -577,16 +613,28 @@ function EnglishBlockPlayerInner({
               <img
                 src={currentItem.imageUrl}
                 alt={currentItem.word}
-                className="relative h-[clamp(4rem,20vh,16rem)] w-auto object-contain rounded-xl bg-white shadow-card"
+                className={cn(
+                  'relative w-auto object-contain rounded-xl bg-white shadow-card',
+                  // 🔴 알파벳 판은 확인·다음·도와줘가 없어 자리가 남는다 — 그림이 곧 문제라 크게 준다.
+                  isAlphabetRound ? 'h-[clamp(6rem,36vh,24rem)]' : 'h-[clamp(4rem,20vh,16rem)]'
+                )}
               />
             </div>
           )}
 
           <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-5">
             {isAlphabetRound ? (
-              <span className="text-lg sm:text-2xl font-black text-ink-700 break-keep">
-                {t('blockGame.pickFirstLetter')}
-              </span>
+              /* 🔴 **그림이 아니라 소리로 낸다**(2026-07-29) — 낱말을 들려주고 그 첫 글자를 넣는 게
+                 파닉스다. 그림만 보고 고르면 영어 소리는 한 번도 안 듣고 끝난다. 그림은 무엇의
+                 소리인지 알려주는 보조로 남긴다. */
+              <button
+                onClick={() => void sayWord()}
+                className="inline-flex items-center gap-2 text-lg sm:text-2xl font-black text-ink-700 break-keep"
+                aria-label={t('blockGame.listenFirstLetter')}
+              >
+                <span className="text-2xl sm:text-3xl">🔊</span>
+                {t('blockGame.listenFirstLetter')}
+              </button>
             ) : (
               <span className="text-2xl sm:text-4xl lg:text-6xl font-black tracking-wide text-ink-900">
                 {currentItem.word}
@@ -597,7 +645,9 @@ function EnglishBlockPlayerInner({
             </div>
           </div>
 
-          <div className="flex justify-center gap-3 sm:gap-4">
+          {/* 🔴 알파벳 판에는 **버튼을 두지 않는다**(2026-07-29) — 한 칸짜리라 맞추면 자동 통과·자동
+              진행이고, 「확인·다음·도와줘」는 아이가 소리 대신 누를 것을 셋이나 만들어 준다. */}
+          <div className={cn('flex justify-center gap-3 sm:gap-4', isAlphabetRound && 'hidden')}>
             <button
               onClick={handleCheck}
               disabled={roundCorrect || isTutorialPlaying}

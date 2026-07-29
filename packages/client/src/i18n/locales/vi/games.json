@@ -110,7 +110,8 @@
     "next": "Tiếp →",
     "seeResult": "Xem kết quả",
     "help": "🪄 Giúp với",
-    "pickFirstLetter": "Nhìn tranh và đặt chữ cái đầu tiên nhé!"
+    "pickFirstLetter": "Nhìn tranh và đặt chữ cái đầu tiên nhé!",
+    "listenFirstLetter": "Hãy nghe và đặt chữ cái đầu tiên nhé!"
   },
   "writingGame": {
     "paintPrompt": "Tô màu chữ nào!",

@@ -110,7 +110,8 @@
     "next": "다음 →",
     "seeResult": "결과 보기",
     "help": "🪄 도와줘",
-    "pickFirstLetter": "그림을 보고 첫 글자를 넣어봐!"
+    "pickFirstLetter": "그림을 보고 첫 글자를 넣어봐!",
+    "listenFirstLetter": "잘 듣고 첫 글자를 넣어봐!"
   },
   "writingGame": {
     "paintPrompt": "글자를 색칠해봐",
