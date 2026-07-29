@@ -1,8 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
-import { resolveTtsUrl } from '@/features/tts';
-import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
+import { useActivitySound } from '../hooks/useActivitySound';
 
 interface Props {
   unitId: string;
@@ -41,7 +40,16 @@ export function ConsonantTapActivity({
   onBack,
 }: Props) {
   const [tapCounts, setTapCounts] = useState<number[]>(Array(CARDS).fill(0));
-  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  // 🔴 소리 순서(소리 → 쉼 → 띵동 → 쉼 → 다음)는 훅이 소유한다 — 활동마다 손으로 복사하면
+  //    쉼이 빠진 사본이 생긴다(실제로 활동 14개 중 6개가 그랬다).
+  const {
+    sayThenChime,
+    say: speak,
+    praiseVisible,
+  } = useActivitySound({
+    unitId,
+    prefix: 'consonant-tap',
+  });
   const [completed, setCompleted] = useState(false);
   const say = soundText ?? consonant;
 
@@ -86,33 +94,18 @@ export function ConsonantTapActivity({
        */
       const card = cardWords[idx];
       const text = isCardComplete && card ? `${say} ${card.word}` : say;
-      const url = await resolveTtsUrl({
-        text,
-        language: 'korean',
-        storybookId: unitId,
-        identifierPrefix: 'consonant-tap',
-      });
-
       const isAllDone = nextTaps.every((c) => c >= TAPS_PER_CARD);
 
       if (isCardComplete) {
-        // 카드 3 탭 완료: ㄱ TTS → 띵동 (per-card). 마지막 카드면 추가로 띵동 끝나면 칭찬.
         if (isAllDone) setCompleted(true);
-        const afterChime = isAllDone
-          ? () => playCorrectSequence({ language: 'ko', onDone: onComplete })
-          : undefined;
-        const playChime = () => playAudio('/sounds/game/correct.mp3', afterChime);
-        if (url) {
-          playAudio(url, playChime);
-        } else {
-          playChime();
-        }
+        // 카드 3 탭 완료: [글자·낱말 → 쉼 → 띵동] · 마지막 카드면 띵동 대신 칭찬.
+        void sayThenChime(text, isAllDone ? { praise: true, onDone: onComplete } : undefined);
         return;
       }
 
-      if (url) playAudio(url);
+      void speak(text);
     },
-    [completed, tapCounts, say, cardWords, unitId, playAudio, playCorrectSequence, onComplete]
+    [completed, tapCounts, say, cardWords, sayThenChime, speak, onComplete]
   );
 
   return (

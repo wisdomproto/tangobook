@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { REST_MS } from '../hooks/useActivitySound';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import type { Storybook } from '@tangobook/shared';
@@ -99,7 +100,8 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
       if (!alreadyPassed) {
         const url = pickRandomWordTts(currentIdx);
         if (url) {
-          setTimeout(() => playAudio(url), 200);
+          // 쓰기가 끝난 뒤 숨 돌릴 자리 — 간격은 공용 값(`REST_MS`)을 쓴다.
+          setTimeout(() => playAudio(url), REST_MS);
         }
       }
     },

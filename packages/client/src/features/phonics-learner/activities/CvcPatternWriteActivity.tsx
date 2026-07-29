@@ -3,6 +3,7 @@ import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { LetterWritingCanvas } from '@/features/phonics/components/LetterWritingCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { REST_MS } from '../hooks/useActivitySound';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 
 interface Props {
@@ -28,7 +29,7 @@ interface CvcWord {
  */
 export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBack }: Props) {
   const storybookQuery = useStorybook(unitId);
-  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
 
   const cvcWords = useMemo<CvcWord[]>(() => {
     const sb = storybookQuery.data;
@@ -139,10 +140,10 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
             identifierPrefix: 'cvc-write-blend',
           })
         : undefined;
-      const playLetter = () => {
-        if (blendUrl) playAudio(blendUrl);
-      };
-      playAudio('/sounds/game/correct.mp3', playLetter);
+      // 🔴 띵동 → **쉼** → 이어읽기. 붙여 내면 한 덩어리로 들린다(공용 규칙, `useActivitySound`).
+      playAudio('/sounds/game/correct.mp3', () => {
+        if (blendUrl) scheduleTimer(() => playAudio(blendUrl), REST_MS);
+      });
 
       setDone((prev) => {
         if (prev.has(`${wordIdx}-${letterIdx}`)) return prev;

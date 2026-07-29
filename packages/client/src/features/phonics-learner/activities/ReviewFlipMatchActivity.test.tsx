@@ -17,6 +17,11 @@ vi.mock('@/features/games/hooks/useGameAudio', () => ({
     playFeedbackSound: vi.fn(),
     playCorrectSequence: (o?: { onDone?: () => void }) => playCorrectSequence(o),
     praiseVisible: false,
+    // 소리 사이 쉼 — 테스트에선 기다리지 않고 바로 잇는다(재는 건 길이가 아니라 순서다).
+    scheduleTimer: (fn: () => void) => {
+      fn();
+      return 0;
+    },
   }),
 }));
 

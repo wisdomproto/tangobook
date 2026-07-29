@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { resolveTtsUrl } from '@/features/tts';
-import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { useActivitySound } from '../hooks/useActivitySound';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import type { ReviewCardSource } from '../hooks/useReviewCardSources';
@@ -47,7 +46,13 @@ export function ReviewFlipMatchActivity({
   onComplete,
   onBack,
 }: Props) {
-  const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
+  const {
+    say: speak,
+    rest,
+    playFeedbackSound,
+    playCorrectSequence,
+    praiseVisible,
+  } = useActivitySound({ unitId, language, prefix: 'review-flip' });
 
   const picked = useMemo(() => sources.slice(0, PAIRS), [sources]);
 
@@ -87,17 +92,8 @@ export function ReviewFlipMatchActivity({
   );
 
   const say = useCallback(
-    async (card: ReviewCardSource, onEnded?: () => void) => {
-      const url = await resolveTtsUrl({
-        text: wordOf(card),
-        language,
-        storybookId: unitId,
-        identifierPrefix: 'review-flip',
-      });
-      if (url) playAudio(url, onEnded);
-      else onEnded?.();
-    },
-    [language, unitId, playAudio, wordOf]
+    (card: ReviewCardSource, onEnded?: () => void) => void speak(wordOf(card), onEnded),
+    [speak, wordOf]
   );
 
   const handleTap = useCallback(
@@ -112,17 +108,19 @@ export function ReviewFlipMatchActivity({
         const done = new Set(matched).add(a.card.letter);
         setMatched(done);
         setOpen([]);
-        // 🔴 TTS 끝난 뒤에 다음 단계 — setTimeout 으로 길이를 가정하지 않는다.
-        say(a.card, () => {
-          if (done.size >= picked.length) {
-            playCorrectSequence({
-              language: language === 'english' ? 'en' : 'ko',
-              onDone: onComplete,
-            });
-          } else {
-            playFeedbackSound(true);
-          }
-        });
+        // 🔴 낱말 끝 → **쉼** → 칭찬/띵동. 끝나자마자 붙이면 한 덩어리로 들린다.
+        say(a.card, () =>
+          rest(() => {
+            if (done.size >= picked.length) {
+              playCorrectSequence({
+                language: language === 'english' ? 'en' : 'ko',
+                onDone: onComplete,
+              });
+            } else {
+              playFeedbackSound(true);
+            }
+          })
+        );
         return;
       }
       /**
@@ -146,6 +144,7 @@ export function ReviewFlipMatchActivity({
       matched,
       tiles,
       say,
+      rest,
       picked.length,
       playCorrectSequence,
       playFeedbackSound,

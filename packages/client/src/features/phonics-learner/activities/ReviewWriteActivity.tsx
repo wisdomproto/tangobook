@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
-import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { useActivitySound } from '../hooks/useActivitySound';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import type { ReviewCardSource } from '../hooks/useReviewCardSources';
@@ -32,7 +32,18 @@ export function ReviewWriteActivity({
   onComplete,
   onBack,
 }: Props) {
-  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  // 🔴 소리 순서는 훅이 소유한다 — 예전엔 여기서 손으로 이어 붙여 **쉼이 통째로 빠져** 있었다.
+  const {
+    say: speak,
+    chime,
+    rest,
+    sayThenChime,
+    praiseVisible,
+  } = useActivitySound({
+    unitId,
+    language,
+    prefix: 'review-write',
+  });
   const [idx, setIdx] = useState(0);
   const [done, setDone] = useState(false);
 
@@ -47,18 +58,7 @@ export function ReviewWriteActivity({
   const sourcesRef = useRef(sources);
   sourcesRef.current = sources;
 
-  const say = useCallback(
-    async (card: ReviewCardSource) => {
-      const url = await resolveTtsUrl({
-        text: card.word,
-        language,
-        storybookId: unitId,
-        identifierPrefix: 'review-write',
-      });
-      if (url) playAudio(url);
-    },
-    [language, unitId, playAudio]
-  );
+  const say = useCallback((card: ReviewCardSource) => void speak(card.word), [speak]);
 
   /**
    * 그림이 없는 복습(영어)은 소리가 곧 문제다 — 카드가 바뀌면 자동으로 **한 번** 들려준다.
@@ -104,50 +104,24 @@ export function ReviewWriteActivity({
             storybookId: unitId,
             identifierPrefix: 'review-write',
           }));
-        // 🔴 띵동 **먼저**, 끝나면 읽기 — 한 채널이라 동시에 내면 앞소리가 잘린다.
-        playAudio('/sounds/game/correct.mp3', () => {
-          if (url) playAudio(url);
-        });
+        // 🔴 띵동 **먼저**, 쉬고, 읽기 — 한 채널이라 붙여 내면 앞소리가 잘리고 한 덩어리로 들린다.
+        chime(() => rest(() => void speak(blend, undefined, url)));
       })();
     },
-    [current, language, unitId, playAudio]
+    [current, language, unitId, chime, rest, speak]
   );
 
   /** 낱말을 다 쓰면 — 그 낱말을 읽어주고 띵동, 다음 그림으로. */
-  const handleWordDone = useCallback(async () => {
+  const handleWordDone = useCallback(() => {
     if (done || !current) return;
     const isLast = idx + 1 >= sources.length;
     if (isLast) setDone(true);
-
-    const url = await resolveTtsUrl({
-      text: current.word,
-      language,
-      storybookId: unitId,
-      identifierPrefix: 'review-write',
+    // [낱말 → 쉼 → 띵동 → 쉼 → 다음] · 마지막이면 띵동 대신 칭찬.
+    void sayThenChime(current.word, {
+      praise: isLast,
+      onDone: isLast ? onComplete : () => setIdx((i) => i + 1),
     });
-
-    const afterChime = () => {
-      if (isLast)
-        playCorrectSequence({
-          language: language === 'english' ? 'en' : 'ko',
-          onDone: onComplete,
-        });
-      else setIdx((i) => i + 1);
-    };
-    const playChime = () => playAudio('/sounds/game/correct.mp3', afterChime);
-    if (url) playAudio(url, playChime);
-    else playChime();
-  }, [
-    done,
-    current,
-    idx,
-    sources.length,
-    unitId,
-    language,
-    playAudio,
-    playCorrectSequence,
-    onComplete,
-  ]);
+  }, [done, current, idx, sources.length, sayThenChime, onComplete]);
 
   if (!current) return null;
 

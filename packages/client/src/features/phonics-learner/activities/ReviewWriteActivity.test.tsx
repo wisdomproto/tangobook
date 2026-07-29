@@ -3,16 +3,21 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ReviewWriteActivity } from './ReviewWriteActivity';
 import type { ReviewCardSource } from '../hooks/useReviewCardSources';
 
-const resolveTtsUrl = vi.fn(async () => 'blob:tts');
+const resolveTtsUrl = vi.fn(async (_o?: unknown) => 'blob:tts');
 const playAudio = vi.fn((_u?: string, e?: () => void) => e?.());
 
-vi.mock('@/features/tts', () => ({ resolveTtsUrl: (o: unknown) => resolveTtsUrl(o as never) }));
+vi.mock('@/features/tts', () => ({ resolveTtsUrl: (o: unknown) => resolveTtsUrl(o) }));
 vi.mock('@/features/games/hooks/useGameAudio', () => ({
   useGameAudio: () => ({
     playAudio: (u?: string, e?: () => void) => playAudio(u, e),
     playFeedbackSound: vi.fn(),
     playCorrectSequence: (o?: { onDone?: () => void }) => o?.onDone?.(),
     praiseVisible: false,
+    // 소리 사이 쉼 — 테스트에선 기다리지 않고 바로 잇는다(재는 건 순서다).
+    scheduleTimer: (fn: () => void) => {
+      fn();
+      return 0;
+    },
   }),
 }));
 vi.mock('../hooks/usePhonicsTtsWarm', () => ({ usePhonicsTtsWarm: vi.fn() }));
