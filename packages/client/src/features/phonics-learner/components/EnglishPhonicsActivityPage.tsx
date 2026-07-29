@@ -268,7 +268,14 @@ export default function EnglishPhonicsActivityPage() {
              */
             label: isBook1 ? `${s.letter.toUpperCase()}${s.letter.toLowerCase()}` : s.word,
             sound: s.word,
-            ...(s.imageUrl ? { imageUrl: s.imageUrl } : {}),
+            /**
+             * 🔴 Book 1 은 **그림을 빼야** 소리→글자가 된다(2026-07-29 검수). 라벨만 글자로 바꾸고
+             *    그림을 남겼더니 들린 낱말의 그림이 늘 정답 칸에 있어서 **글자를 안 보고도 만점**이었다
+             *    — 모듈 문서에 이미 적혀 있던 규칙("단어 듣기 보기에 그림을 넣지 않는다")을 내가 어겼다.
+             *    보기가 `Aa`·`Bb` 라 그림이 없어도 넷이 서로 구분된다(낱말 넷이면 못 읽는 아이에게
+             *    다 똑같아 보이지만, 글자는 다르다).
+             */
+            ...(!isBook1 && s.imageUrl ? { imageUrl: s.imageUrl } : {}),
           }))}
           choices={REVIEW_CHOICES}
           onMarkComplete={handleMarkComplete}

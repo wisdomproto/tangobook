@@ -32,6 +32,19 @@ interface Tile {
   face: 'letter' | 'image';
 }
 
+/**
+ * 글자면 라벨 — 영어는 **대·소문자 쌍**(`Dd`). 복습 안 다른 활동(듣고 단어 `Aa`, 학습 단원 탭)이
+ * 전부 쌍이라 여기만 대문자 하나면 같은 글자가 화면마다 다른 꼴로 보인다(2026-07-29 검수).
+ * 🔴 `syllable` 은 영어에서 소문자다(`{letter:'A', syllable:'a'}`) — 한글은 `가` 라 쌍이 성립 안 하므로
+ *    이 함수는 `letterFace`(= Book 1)에서만 쓴다.
+ */
+function faceLabel(card: { letter: string; syllable?: string }): string {
+  const lower = card.syllable ?? '';
+  return /^[a-z]$/i.test(lower) && lower.toLowerCase() !== card.letter.toLowerCase()
+    ? card.letter
+    : `${card.letter}${lower}`;
+}
+
 function shuffle<T>(arr: readonly T[]): T[] {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -111,6 +124,12 @@ export function ReviewFlipMatchActivity({
       if (locked || open.includes(tile.id) || matched.has(tile.card.letter)) return;
       const next = [...open, tile.id];
       setOpen(next);
+      /**
+       * 🔴 **글자를 뒤집으면 그 글자 소리를 들려준다**(2026-07-29 검수). 글자면 모드에서 카드 8장을
+       *    다 뒤집어도 알파벳 소리가 한 번도 안 났다 — 나머지 다섯 활동은 전부 글자 소리를 낸다.
+       *    (짝을 맞췄을 때 나는 낱말 소리는 그대로 — 과제는 글자, 보상은 낱말.)
+       */
+      if (letterFace && tile.face === 'letter') void speak(tile.card.sound);
       if (next.length < 2) return;
 
       const [a, b] = next.map((id) => tiles.find((t) => t.id === id)!);
@@ -154,6 +173,8 @@ export function ReviewFlipMatchActivity({
       matched,
       tiles,
       say,
+      speak,
+      letterFace,
       rest,
       picked.length,
       playCorrectSequence,
@@ -213,7 +234,7 @@ export function ReviewFlipMatchActivity({
                           isMatched ? 'text-mint-600' : 'text-coral-600',
                         ].join(' ')}
                       >
-                        {letterFace ? tile.card.letter : tile.card.word || tile.card.letter}
+                        {letterFace ? faceLabel(tile.card) : tile.card.word || tile.card.letter}
                       </span>
                     )
                   ) : (

@@ -173,6 +173,11 @@ function LineMatchingPlayerInner({
       setSelectedWordIdx(null);
       // 튜토리얼 wait 중이면 advance
       notifyMatch(matchedIdx);
+      /**
+       * 🔴 **띵동과 단어 사이에도 쉼**(2026-07-29 검수). 150ms 라 실측 간격이 **151ms** 였다 —
+       *    단일 채널이라 띵동 꼬리가 단어/글자 소리에 먹힌다. 이 프로젝트의 이음매 값은 400~450ms 다.
+       *    영어 파닉스 짝 찾기에선 그 글자 소리가 **유일한 음성 보상**이라 머리가 잘리면 남는 게 없다.
+       */
       setTimeout(() => {
         // 🔴 chain 규칙: 발음이 "끝난 뒤" 칭찬음 → 장면 리빌 — 고정 타이머는 다음절 단어 발음이
         // 잘린 채 다음 단계가 겹치는 원인.
@@ -195,7 +200,7 @@ function LineMatchingPlayerInner({
           // 단어 발음 후 칭찬음(+호리 오버레이) → 장면 리빌. (2026-07 그림짝 칭찬음 누락 수정)
           playCorrectSequence({ language: lang, onDone: showScene });
         });
-      }, 150);
+      }, 430);
     } else {
       setWrongPair({ image: selectedImageIdx, word: selectedWordIdx });
       playFeedbackSound(false);
