@@ -46,6 +46,17 @@
     '.ep .ko.empty{color:#b9a99c;font-size:13px;font-style:italic}' +
     '.ep .note{font-size:13px;color:#6b5d55;background:#ffe8d9;border-radius:10px;padding:11px 15px;margin:20px 0}' +
     '.ep .note b{color:#e85c3a}' +
+    '.ep .pbar{background:#fff;border:1px solid #f0e0d2;border-radius:14px;padding:13px 16px;margin:0 0 22px;' +
+    'display:flex;flex-wrap:wrap;gap:8px;align-items:center}' +
+    '.ep .pbar b{font-size:14px;width:100%}' +
+    '.ep .pbar i{font-style:normal;font-size:12px;color:#6b5d55;width:100%;line-height:1.6;margin-bottom:4px}' +
+    '.ep .pbar code{background:#fff8f0;border-radius:4px;padding:0 4px;font-size:11.5px}' +
+    '.pbtn{background:#fff;color:#22b8a6;border:1.5px solid #22b8a6;border-radius:999px;padding:4px 13px;' +
+    'font-weight:800;font-size:12px;cursor:pointer;font-family:inherit;margin-top:10px}' +
+    '.pbtn:hover,.pbtn.done{background:#22b8a6;color:#fff}' +
+    '.ep .pbar .pbtn{margin-top:0}' +
+    '.pbtn.hot{color:#e85c3a;border-color:#e85c3a}' +
+    '.pbtn.hot:hover,.pbtn.hot.done{background:#e85c3a;color:#fff}' +
     '@media(max-width:760px){.ep .pg{grid-template-columns:1fr}}';
   var s = document.createElement('style');
   s.textContent = CSS;
@@ -99,6 +110,46 @@
   });
 })();
 
+/* 기획서 §5.5 집필 현황 — index.json 에서 회차만 골라 표로.
+ * 목록을 손으로 관리하면 반드시 어긋난다. 드로어와 같은 원본을 쓴다. */
+(function () {
+  var mount = document.getElementById('written-list');
+  if (!mount) return;
+  fetch('/changjak-index.json')
+    .then(function (r) { return r.json(); })
+    .then(function (list) {
+      var books = list.filter(function (e) { return /^changjak-a\d+\.html$/.test(e.file); });
+      if (!books.length) { mount.innerHTML = '<p class="lead">아직 쓴 책이 없습니다.</p>'; return; }
+      var rows = books
+        .map(function (b) {
+          return (
+            '<tr><td><b>' + b.label + '</b></td>' +
+            '<td><a href="/' + b.file + '" style="color:#e85c3a;font-weight:800">' + (b.title || b.file) + '</a></td>' +
+            '<td class="st" data-file="' + b.file + '">…</td></tr>'
+          );
+        })
+        .join('');
+      mount.innerHTML =
+        '<table><tr><th>회차</th><th>제목</th><th>앵커 · 상태</th></tr>' + rows + '</table>';
+
+      // 상태는 회차 파일의 CJ_EPISODE 에서 읽는다 — 두 곳에 적어 두면 어긋난다
+      books.forEach(function (b) {
+        fetch('/' + b.file)
+          .then(function (r) { return r.text(); })
+          .then(function (t) {
+            var cl = (t.match(/cluster:\s*'([^']+)'/) || [])[1] || '—';
+            var slug = (t.match(/anchorSlug:\s*'([^']+)'/) || [])[1];
+            var cell = mount.querySelector('.st[data-file="' + b.file + '"]');
+            if (cell) cell.innerHTML = slug
+              ? '<b style="color:#22b8a6">' + slug + '</b> · ' + cl
+              : '<b style="color:#6b5d55">앵커 미확정</b> · ' + cl;
+          })
+          .catch(function () {});
+      });
+    })
+    .catch(function () { mount.innerHTML = '<p class="lead">목록을 못 불러왔습니다.</p>'; });
+})();
+
 /* 회차의 앵커 바인딩을 메타 줄에 띄운다.
  * 바인딩이 데이터로만 있고 화면에 안 보이면 아무도 안 채운다 — 미확정이면 미확정이라고 보여준다. */
 (function () {
@@ -112,6 +163,60 @@
     : '🎨 앵커 <b>미확정</b> · ' + e.cluster + ' (ref ' + e.reference + ')';
   chip.title = '프롬프트: ' + (e.prompts || '');
   meta.appendChild(chip);
+})();
+
+/* 회차 페이지의 삽화 프롬프트 — 🔴 시트를 따로 준다.
+ * 시트를 먼저 굽고 그걸 @image1 로 붙이는 순서를 어기면 인물만 매끈한 CG 로 나온다(§2.4).
+ * 버튼을 분리해 두면 순서가 눈에 보인다. 컷 버튼은 STYLE ANCHOR + 시트 지시 + 그 쪽 블록을 합성해 준다. */
+(function () {
+  var ep = window.CJ_EPISODE, all = window.CJ_PROMPTS;
+  if (!ep || !all || !all[ep.id]) return;
+  var P = all[ep.id];
+  var meta = document.querySelector('.ep .meta');
+  if (!meta) return;
+
+  function copy(btn, text, label) {
+    navigator.clipboard.writeText(text).then(function () {
+      var o = btn.textContent;
+      btn.textContent = (label || '복사됨') + ' ✓';
+      btn.classList.add('done');
+      setTimeout(function () { btn.textContent = o; btn.classList.remove('done'); }, 1600);
+    });
+  }
+  function mk(label, text, cls) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'pbtn' + (cls ? ' ' + cls : '');
+    b.textContent = label;
+    b.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); copy(b, text); });
+    return b;
+  }
+
+  var bar = document.createElement('div');
+  bar.className = 'pbar';
+  bar.innerHTML =
+    '<b>🎨 삽화 프롬프트</b>' +
+    '<i>🔴 <b>①시트를 먼저 굽는다</b> → 승인된 시트를 <code>@image1</code> 로 붙여 ②컷을 뽑는다. ' +
+    '순서를 어기면 배경엔 매체가 먹고 <b>인물만 매끈한 CG</b> 로 나온다.</i>';
+  bar.appendChild(mk('📋 ① 스타일 앵커', P.anchor));
+  P.sheets.forEach(function (s, i) {
+    bar.appendChild(mk('📋 ① 캐릭터 시트' + (P.sheets.length > 1 ? ' ' + (i + 1) : '') + ' (먼저!)', s, 'hot'));
+  });
+  meta.parentNode.insertBefore(bar, meta.nextSibling);
+
+  // 쪽마다 — 합성해서 복사
+  var pgs = document.querySelectorAll('.ep .pg');
+  P.cuts.forEach(function (c, i) {
+    var pg = pgs[i];
+    if (!pg) return;
+    var composed =
+      P.anchor + '\n\n' +
+      '--- 이 컷 (' + c.page + ' — ' + c.title + ') ---\n' +
+      '@image1 = 위 스타일로 승인된 캐릭터 시트. 인물은 시트를 그대로 따른다.\n\n' +
+      c.prompt;
+    var b = mk('📋 ' + c.page + ' 컷 프롬프트 (앵커+시트 합성)', composed);
+    pg.querySelector('.sc').appendChild(b);
+  });
 })();
 
 /* §5 주제군 8개 = 탭.
