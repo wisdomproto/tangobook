@@ -96,19 +96,26 @@ function dateStr(base: Date, addDays: number): string {
 }
 
 function toPlain(html: string): string {
-  return html
-    .replace(/<h[1-6][^>]*>(.*?)<\/h[1-6]>/gis, '$1\n')
-    .replace(/<li[^>]*>(.*?)<\/li>/gis, '$1\n')
-    .replace(/<br\s*\/?>/gi, '\n')
-    .replace(/<\/p>|<\/div>|<\/ul>/gi, '\n')
-    .replace(/<[^>]+>/g, '')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/\n{3,}/g, '\n\n')
-    .trim();
+  return (
+    html
+      // 🔴 링크는 **텍스트 다음 줄에 URL 단독**으로 내려놓는다.
+      //    `<[^>]+>` 로 태그를 지우면 href 도 같이 사라져 「동화책 보러가기 →」 만 남는다
+      //    (실제로 그렇게 14편이 나갔다 — 사용자가 "링크가 없어졌는데"로 발견).
+      //    단독 URL 은 네이버가 **OG 카드**(표지 이미지+제목+설명)로 바꿔주므로 홍보에도 유리하다.
+      .replace(/<a [^>]*href="([^"]+)"[^>]*>(.*?)<\/a>/gis, '$2\n$1')
+      .replace(/<h[1-6][^>]*>(.*?)<\/h[1-6]>/gis, '$1\n')
+      .replace(/<li[^>]*>(.*?)<\/li>/gis, '$1\n')
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<\/p>|<\/div>|<\/ul>/gi, '\n')
+      .replace(/<[^>]+>/g, '')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim()
+  );
 }
 
 const tagsFor = (title: string) =>
@@ -161,9 +168,26 @@ async function writeAndSchedule(
   await page.keyboard.press('Enter');
   await sleep(400);
 
+  // 탱고북 노출은 세 군데 — 표지 아래 출처 한 줄 · 끝의 라이브러리 안내 · CTA OG 카드.
+  // 🔴 이보다 더 끼워 넣지 말 것. 광고성 과다는 네이버가 잡는 축이다.
+  const book = plan.title.split(/[\s—:]/)[0];
+  let imageNo = 0;
+
   for (const b of plan.blocks) {
     if (b.kind === 'html') {
       if (/함께 읽으면 좋은/.test(b.html ?? '')) continue; // 링크 4개 = 대형 카드 4장
+      // CTA 직전에 라이브러리 한 줄 — 이 책 하나가 아니라 **서비스 전체**로 보내는 유일한 자리
+      if (/data-blog-cta/.test(b.html ?? '')) {
+        for (const line of [
+          `탱고북에는 아이와 함께 볼 자연관찰 그림책이 100권 넘게 있어요.`,
+          `https://tangobook.co.kr/library`,
+        ]) {
+          await page.keyboard.type(line, { delay: 3 });
+          await page.keyboard.press('Enter');
+        }
+        await page.keyboard.press('Enter');
+        await sleep(1500); // 링크 카드 변환 대기
+      }
       const text = toPlain(b.html ?? '');
       if (!text) continue;
       const lines = text.split('\n');
@@ -190,6 +214,15 @@ async function writeAndSchedule(
     }
     if (!ok) throw new Error(`이미지 삽입 실패: ${local}`);
     await sleep(4000);
+
+    // 표지(첫 장) 아래 출처 한 줄. 삽화가 어디서 왔는지 밝히는 문장이라 광고로 안 읽히고,
+    // 글 첫 화면에서 브랜드가 한 번 노출된다.
+    imageNo += 1;
+    if (imageNo === 1) {
+      await page.keyboard.type(`그림 · 탱고북 「${book}」`, { delay: 3 });
+      await page.keyboard.press('Enter');
+      await sleep(300);
+    }
   }
 
   // --- 초안 모드 -------------------------------------------------------
