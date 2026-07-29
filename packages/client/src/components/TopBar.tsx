@@ -44,12 +44,6 @@ const RESOURCES: ResourceItem[] = [
     desc: '15스프레드 대본 + 등장인물 8(가난/부자 상태별)·핵심단어 5 + 전체 프롬프트 복사(☰ 회차)',
   },
   {
-    href: '/jeonrae-style-bakeoff.html',
-    icon: '🎨',
-    label: '전래동화 · 그림체 베이크오프',
-    desc: '같은 P1 장면으로 4개 그림체 A/B (민화 팝·모던 K·디오라마·하이브리드)',
-  },
-  {
     href: '/changjak-plan.html',
     icon: '📖',
     label: '탱고북 창작동화 1000 기획서',
