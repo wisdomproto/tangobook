@@ -177,14 +177,14 @@ features/phonics-learner/
 
 ## 활동 종류 (`ActivityKind`)
 
-| kind                                                                                                          | 컴포넌트                     | 데이터                                                                             |
-| ------------------------------------------------------------------------------------------------------------- | ---------------------------- | ---------------------------------------------------------------------------------- |
-| `vowel-listen` / `vowel-write`                                                                                | VowelListen/Write Activity   | `vowels: [{vowel,syllable}]`                                                       |
-| `consonant-tap` / `consonant-write`                                                                           | ConsonantTap/Write Activity  | `consonant: 'ㄱ'`                                                                  |
-| `consonant-blend-listen`                                                                                      | ConsonantBlendListenActivity | `consonant, blendVowels`                                                           |
-| `cvc-pattern-learn`                                                                                           | CvcPatternLearnActivity      | `cvcPattern: { vowel, consonant, vc }` — 한 활동 안 Phase A→B→C (배우기·단어·쓰기) |
-| `cvc-pattern-write`                                                                                           | (deprecated, Phase C 통합)   | —                                                                                  |
-| `game-korean-block` / `game-english-block` / `game-word-writing` / `game-connect-dots` / `game-line-matching` | 기존 게임 플레이어           | `phonics-game-adapter` 가 빌드                                                     |
+| kind                                                                                                          | 컴포넌트                                    | 데이터                                                                             |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `vowel-listen` / `vowel-write`                                                                                | VowelListen/Write Activity                  | `vowels: [{vowel,syllable}]`                                                       |
+| `consonant-tap` / `consonant-write`                                                                           | ConsonantTap/Write Activity                 | `consonant: 'ㄱ'`                                                                  |
+| `consonant-blend-listen`                                                                                      | ConsonantBlendListenActivity                | `consonant, blendVowels`                                                           |
+| `cvc-pattern-learn`                                                                                           | CvcPatternLearnActivity                     | `cvcPattern: { vowel, consonant, vc }` — 한 활동 안 Phase A→B→C (배우기·단어·쓰기) |
+| `cvc-pattern-write`                                                                                           | `CvcPatternWriteActivity` (2026-07-29 부활) | 패턴마다 `cvc-write-{vc}` 카드                                                     |
+| `game-korean-block` / `game-english-block` / `game-word-writing` / `game-connect-dots` / `game-line-matching` | 기존 게임 플레이어                          | `phonics-game-adapter` 가 빌드                                                     |
 
 ## TTS
 
@@ -253,7 +253,9 @@ features/phonics-learner/
 
 ## 영어 파닉스 — Book 1 Single Letter Sounds (2026-05-22)
 
-영어 Book 1 (Aa·Bb·Cc … Zz) 8 unit 모두 plan 자동 등록 — `BOOK1_LETTERS` (`english-phonics-units.ts`) + `makeBook1UnitPlan(letters)` 가 글자별 1 활동 + 마지막 ABC 쓰기 + 게임 4종 생성.
+영어 Book 1 (Aa·Bb·Cc … Zz) 8 unit 모두 plan 자동 등록 — `BOOK1_LETTERS` (`english-phonics-units.ts`) + `makeBook1UnitPlan(letters)` 가 `배우기 1`(letters-learn) → `배우기 2`(word-listen-choose) → **`써보기`(letters-write)** → 게임 4종 생성.
+
+🔴 **죽은 코드는 규칙 적용에서도 죽는다**(2026-07-29). `alphabet-letter-write`·`cvc-pattern-write` 는 컴포넌트도 호스트 분기도 멀쩡히 있었는데 **plan 에 키가 없어 라우트로 도달할 수 없었다**. 붙여 놓고 `game-reviewer` 로 돌리자마자 그 화면들에만 4건이 나왔다 — 낱말이 끝나기 전에 넘어가 **2.06초가 잘림**(1.2초 타이머), 375px 에서 글자 행이 **674px** 로 화면 밖(폭을 `vh` 로만 잡음), **`threshold={20}`** 이라 세로 직선 두 개로 `n` 통과, 다 쓰고도 단원 복귀 없음. 전부 「기준 99% 통일」·「min(vw,vh)」 같은 **이미 있는 규칙**인데 그 정리를 하던 시점에 화면이 죽어 있어 빠졌다. 새 활동을 만들면 **그 날 plan 에 붙일 것**.
 
 활동 종류 2개 신규:
 
@@ -284,7 +286,7 @@ Book 1 데이터 정리 (2026-05-21):
 
 영어 phonics 학습 모드는 `/library/phonics/english(/:unitId)?` 진입. KoreanPhonicsStudyPage 평행 (`Book 1~5` 사이드바). Book 2 (Short Vowels) 8 unit 모두 plan 등록 (`BOOK2_PATTERNS` + `makeBook2UnitPlan`).
 
-각 unit 은 VC 패턴 2~4개 보유 (예: u01 `_an _at`, u04 `_ib _id _ig _in`). 패턴마다 활동 1개 (`cvc-pattern-learn`) — 한 활동 안에서 Phase A→B→C 통합:
+각 unit 은 VC 패턴 2~4개 보유 (예: u01 `_an _at`, u04 `_ib _id _ig _in`). 패턴마다 **[배우기(`cvc-pattern-learn`) → 써보기(`cvc-write-{vc}`)] 두 카드**(2026-07-29 — 배우기 안에도 Phase C 쓰기가 있지만 단원 목록에서 안 보여 「쓰기가 없는 단원」으로 읽혔다. 한글이 `ㄱ 배우기 → ㄱ 써보기` 인 것과 같은 모양). 배우기는 한 활동 안에서 Phase A→B→C 통합:
 
 - **Phase A** — `a + n → an` 3행 (9 셀). 셀 클릭 시 phonics TTS, 행 완료 → 띵동, 9 셀 → 칭찬 + "다시/다음"
   - 🔴 **행을 완성하면 그 줄의 타겟 단어가 오른쪽에 나타나며 읽어준다**(2026-07-27) — `an` 만 세 줄 반복하면 무엇을 배우는지 안 보인다. 줄마다 다른 단어(can·fan·man)가 붙어야 "an 이 들어간 낱말"이 눈에 들어온다. 순서 = `an` → 띵동 → **쉼(420ms)** → 단어. 나타난 뒤엔 눌러서 다시 듣는다.
