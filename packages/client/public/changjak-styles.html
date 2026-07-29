@@ -22,8 +22,15 @@ button.f.on{background:var(--coral);border-color:var(--coral);color:#fff}
 .c{display:block;background:#fff;border:2px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer;position:relative}
 .c:has(input:checked){border-color:var(--coral);box-shadow:0 0 0 3px rgba(255,124,92,.18)}
 .c input{position:absolute;top:9px;left:9px;z-index:2;width:19px;height:19px;accent-color:var(--coral);cursor:pointer}
-.ph{height:210px;background:#f4ece4;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line)}
+.ph{height:180px;background:#f4ece4;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
 .ph img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.ph .cap{position:absolute;left:0;bottom:0;background:rgba(43,35,32,.62);color:#fff;font-size:9.5px;font-weight:800;padding:1px 6px;border-radius:0 6px 0 0;pointer-events:none}
+.ph.mine{background:#fffdfa;border:2px dashed var(--line);cursor:pointer;outline:none;font-size:10.5px;color:var(--ink-soft);font-weight:700;text-align:center;padding:6px}
+.ph.mine:focus{border-color:var(--coral)}
+.ph.mine.has{border-style:solid;border-color:var(--mint);padding:0}
+.ph.mine .hint{opacity:.8}
+.ph.mine .del{position:absolute;top:4px;right:4px;width:20px;height:20px;border-radius:50%;border:none;background:rgba(43,35,32,.6);color:#fff;font-weight:800;font-size:11px;cursor:pointer;z-index:2}
 .b{padding:10px 12px 12px}
 .t{font-size:14px;font-weight:800;line-height:1.35}
 .s{font-size:11.5px;color:var(--ink-soft);margin-top:1px}
@@ -55,7 +62,10 @@ details pre{white-space:pre-wrap;background:var(--cream);border:1px solid var(--
 <div class="grid">
 <label class="c" data-cluster="C1 연필·크레용 나이브" data-groups="G,E">
   <input type="checkbox" value="gravett-wolves" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/761206-L.jpg" alt="Wolves" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/761206-L.jpg" alt="Wolves" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="gravett-wolves" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Wolves</div>
     <div class="s">Emily Gravett · UK</div>
@@ -140,7 +150,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C1 연필·크레용 나이브" data-groups="A,G">
   <input type="checkbox" value="erlbruch-duck" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/14811976-L.jpg" alt="Duck, Death and the Tulip" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/14811976-L.jpg" alt="Duck, Death and the Tulip" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="erlbruch-duck" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Duck, Death and the Tulip</div>
     <div class="s">Wolf Erlbruch · DE</div>
@@ -225,7 +238,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C1 연필·크레용 나이브" data-groups="A,F,D">
   <input type="checkbox" value="bauer-angel" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/516530-L.jpg" alt="Grandpa's Angel" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/516530-L.jpg" alt="Grandpa's Angel" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="bauer-angel" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Grandpa's Angel</div>
     <div class="s">Jutta Bauer · DE</div>
@@ -310,7 +326,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C1 연필·크레용 나이브" data-groups="G,D">
   <input type="checkbox" value="sis-wall" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/7166513-L.jpg" alt="The Wall: Growing Up Behind the Iron Curtain" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/7166513-L.jpg" alt="The Wall: Growing Up Behind the Iron Curtain" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="sis-wall" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">The Wall: Growing Up Behind the Iron Curtain</div>
     <div class="s">Peter Sís · CZ</div>
@@ -395,7 +414,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C1 연필·크레용 나이브" data-groups="D,H,C">
   <input type="checkbox" value="grill-shackleton" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/12642704-L.jpg" alt="Shackleton's Journey" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/12642704-L.jpg" alt="Shackleton's Journey" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="grill-shackleton" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Shackleton's Journey</div>
     <div class="s">William Grill · UK</div>
@@ -480,7 +502,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C1 연필·크레용 나이브" data-groups="A,D,F">
   <input type="checkbox" value="massa-gino" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2023/02/simonamassa_gino_image1.jpg/original" alt="Gino" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2023/02/simonamassa_gino_image1.jpg/original" alt="Gino" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="massa-gino" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Gino</div>
     <div class="s">Simona Massa · IT</div>
@@ -565,7 +590,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C1 연필·크레용 나이브" data-groups="A,F,G">
   <input type="checkbox" value="frankel-antes" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2023/premi/braw/VINCITORI/LIMONERO_BASSA.jpg" alt="Todo lo que pasó antes de que llegaras" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2023/premi/braw/VINCITORI/LIMONERO_BASSA.jpg" alt="Todo lo que pasó antes de que llegaras" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="frankel-antes" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Todo lo que pasó antes de que llegaras</div>
     <div class="s">Yael Frankel · AR</div>
@@ -650,7 +678,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C1 연필·크레용 나이브" data-groups="H,F,B">
   <input type="checkbox" value="garzon-museum" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2026/01/CarolinaGarzon_The-world-inside-me_image2.jpg/original" alt="The World Inside Me" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2026/01/CarolinaGarzon_The-world-inside-me_image2.jpg/original" alt="The World Inside Me" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="garzon-museum" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">The World Inside Me</div>
     <div class="s">Carolina Garzon Blanco · CO/UK</div>
@@ -735,7 +766,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C1 연필·크레용 나이브" data-groups="A,D,E">
   <input type="checkbox" value="ray-yue-crowd" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2026/01/IMG_4389.jpg/original" alt="(어른들은 어디에나 있다 — 군중 속 아이)" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2026/01/IMG_4389.jpg/original" alt="(어른들은 어디에나 있다 — 군중 속 아이)" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="ray-yue-crowd" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">(어른들은 어디에나 있다 — 군중 속 아이)</div>
     <div class="s">Ray Yue · CN/UK</div>
@@ -820,7 +854,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C2 선 하나 캐릭터" data-groups="C,G,A">
   <input type="checkbox" value="rayner-harris" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/2913021-L.jpg" alt="Harris Finds His Feet" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/2913021-L.jpg" alt="Harris Finds His Feet" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="rayner-harris" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Harris Finds His Feet</div>
     <div class="s">Catherine Rayner · UK</div>
@@ -905,7 +942,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C2 선 하나 캐릭터" data-groups="E,C,D">
   <input type="checkbox" value="albertine-marta" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/953431-L.jpg" alt="Marta and the Bicycle" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/953431-L.jpg" alt="Marta and the Bicycle" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="albertine-marta" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Marta and the Bicycle</div>
     <div class="s">Albertine · CH</div>
@@ -990,7 +1030,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C2 선 하나 캐릭터" data-groups="E,F,H">
   <input type="checkbox" value="metcalfe-crisps" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/02/Lizzymetcalfe_mrcrisps_image1-2.png/original" alt="Mr Crisps" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/02/Lizzymetcalfe_mrcrisps_image1-2.png/original" alt="Mr Crisps" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="metcalfe-crisps" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Mr Crisps</div>
     <div class="s">Lizzy Metcalfe · UK</div>
@@ -1075,7 +1118,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C2 선 하나 캐릭터" data-groups="C,H,E">
   <input type="checkbox" value="rutova-octopus" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/Me_Octopus.jpg" alt="Já, chobotnice (Me, Octopus)" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/Me_Octopus.jpg" alt="Já, chobotnice (Me, Octopus)" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="rutova-octopus" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Já, chobotnice (Me, Octopus)</div>
     <div class="s">Magdalena Rutová · CZ</div>
@@ -1160,7 +1206,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C3 프린트-크래프트" data-groups="A,E">
   <input type="checkbox" value="rolfe-dyslexia" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/02/KateRolfe_NavigatingDyslexia_Image1.jpg/original" alt="Navigating Dyslexia" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/02/KateRolfe_NavigatingDyslexia_Image1.jpg/original" alt="Navigating Dyslexia" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="rolfe-dyslexia" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Navigating Dyslexia</div>
     <div class="s">Kate Rolfe · UK</div>
@@ -1245,7 +1294,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C3 프린트-크래프트" data-groups="D,H">
   <input type="checkbox" value="mintzi-nour" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/01/ValiMintzi_Cover.jpg/original" alt="Nour's Secret Library" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/01/ValiMintzi_Cover.jpg/original" alt="Nour's Secret Library" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="mintzi-nour" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Nour's Secret Library</div>
     <div class="s">Vali Mintzi · RO/IL</div>
@@ -1330,7 +1382,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C3 프린트-크래프트" data-groups="E">
   <input type="checkbox" value="rolfe-wiggling" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/01/KateRolfe_WigglingWords_Image1.jpg/original" alt="Wiggling Words" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/01/KateRolfe_WigglingWords_Image1.jpg/original" alt="Wiggling Words" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="rolfe-wiggling" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Wiggling Words</div>
     <div class="s">Kate Rolfe · UK</div>
@@ -1415,7 +1470,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C3 프린트-크래프트" data-groups="C,E,D">
   <input type="checkbox" value="davidson-clancy" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/01/ClancyandRoberta.jpg/original" alt="Clancy and Roberta" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/01/ClancyandRoberta.jpg/original" alt="Clancy and Roberta" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="davidson-clancy" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Clancy and Roberta</div>
     <div class="s">Marguerite Davidson · AU/UK</div>
@@ -1500,7 +1558,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C3 프린트-크래프트" data-groups="H,D">
   <input type="checkbox" value="younesi-wisdom" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/wisdom.jpg" alt="House of Wisdom" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/wisdom.jpg" alt="House of Wisdom" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="younesi-wisdom" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">House of Wisdom</div>
     <div class="s">Majid Zakeri Younesi · AE/IR</div>
@@ -1585,7 +1646,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C3 프린트-크래프트" data-groups="G,B">
   <input type="checkbox" value="rogaar-lucy" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_fiction_mention_1.jpg" alt="Lucy en Donker (Lucy and Dark)" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_fiction_mention_1.jpg" alt="Lucy en Donker (Lucy and Dark)" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="rogaar-lucy" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Lucy en Donker (Lucy and Dark)</div>
     <div class="s">Karst-Janneke Rogaar · NL</div>
@@ -1670,7 +1734,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C4 평면 형태" data-groups="E">
   <input type="checkbox" value="gottwald-spinne" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2023/premi/braw/VINCITORI/klavier_bassa.jpg" alt="Spinne spielt Klavier (Spider Plays Piano)" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2023/premi/braw/VINCITORI/klavier_bassa.jpg" alt="Spinne spielt Klavier (Spider Plays Piano)" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="gottwald-spinne" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Spinne spielt Klavier (Spider Plays Piano)</div>
     <div class="s">Benjamin Gottwald · DE</div>
@@ -1755,7 +1822,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C4 평면 형태" data-groups="E,C">
   <input type="checkbox" value="wang-thump" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2023/premi/braw/VINCITORI/thump_bassa.jpg" alt="噔噔噔 (Thump! Thump! Thump!)" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2023/premi/braw/VINCITORI/thump_bassa.jpg" alt="噔噔噔 (Thump! Thump! Thump!)" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="wang-thump" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">噔噔噔 (Thump! Thump! Thump!)</div>
     <div class="s">Wang Zumin · CN</div>
@@ -1840,7 +1910,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C4 평면 형태" data-groups="C,B">
   <input type="checkbox" value="frankel-bosque" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2022/Premi/BRAW/winners/QUE_TIENE_UN_BOSQUE_Low.jpg" alt="¿Qué tiene un bosque?" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2022/Premi/BRAW/winners/QUE_TIENE_UN_BOSQUE_Low.jpg" alt="¿Qué tiene un bosque?" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="frankel-bosque" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">¿Qué tiene un bosque?</div>
     <div class="s">Yael Frankel · AR/CL</div>
@@ -1925,7 +1998,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C4 평면 형태" data-groups="A,E">
   <input type="checkbox" value="au-blue-tomato" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/01/AmberAu_thebluetomato_image-1.png/original" alt="The Blue Tomato" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/01/AmberAu_thebluetomato_image-1.png/original" alt="The Blue Tomato" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="au-blue-tomato" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">The Blue Tomato</div>
     <div class="s">Amber Au · HK/UK</div>
@@ -2010,7 +2086,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C4 평면 형태" data-groups="B,C">
   <input type="checkbox" value="moriconi-lua" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/dia_de_lua.jpg" alt="Dia de Lua (Moon Day)" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/dia_de_lua.jpg" alt="Dia de Lua (Moon Day)" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="moriconi-lua" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Dia de Lua (Moon Day)</div>
     <div class="s">Renato Moriconi · BR</div>
@@ -2099,7 +2178,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C4 평면 형태" data-groups="H,B">
   <input type="checkbox" value="matoso-desenha" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/desenha.jpg" alt="Desenha tudo o que quiseres" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/desenha.jpg" alt="Desenha tudo o que quiseres" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="matoso-desenha" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Desenha tudo o que quiseres</div>
     <div class="s">Madalena Matoso · PT</div>
@@ -2188,7 +2270,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C4 평면 형태" data-groups="C,E">
   <input type="checkbox" value="karski-tutu" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/i_will_catch_you.jpg" alt="Złapię cię! Tutu i pojazdy" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/i_will_catch_you.jpg" alt="Złapię cię! Tutu i pojazdy" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="karski-tutu" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Złapię cię! Tutu i pojazdy</div>
     <div class="s">Piotr Karski · PL</div>
@@ -2273,7 +2358,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C4 평면 형태" data-groups="C,E">
   <input type="checkbox" value="almeras-josephine" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/josephine.jpg" alt="Joséphine" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/josephine.jpg" alt="Joséphine" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="almeras-josephine" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Joséphine</div>
     <div class="s">Chloé Alméras · FR</div>
@@ -2358,7 +2446,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C4 평면 형태" data-groups="E,C">
   <input type="checkbox" value="darme-coq" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/coq_polyglotte.jpg" alt="Le coq polyglotte" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/coq_polyglotte.jpg" alt="Le coq polyglotte" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="darme-coq" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Le coq polyglotte</div>
     <div class="s">Marie Darme-Rizzo · FR</div>
@@ -2443,7 +2534,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C4 평면 형태" data-groups="D,G">
   <input type="checkbox" value="marais-tomber" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_fiction_mention_2.jpg" alt="Tomber 8 fois, se relever 9" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_fiction_mention_2.jpg" alt="Tomber 8 fois, se relever 9" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="marais-tomber" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Tomber 8 fois, se relever 9</div>
     <div class="s">Frédéric Marais · FR</div>
@@ -2528,7 +2622,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C4 평면 형태" data-groups="F,A">
   <input type="checkbox" value="virardi-instant" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/BRAW_toddler_mention_2.jpg" alt="Un instant (A Moment)" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/BRAW_toddler_mention_2.jpg" alt="Un instant (A Moment)" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="virardi-instant" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Un instant (A Moment)</div>
     <div class="s">Liuna Virardi · FR</div>
@@ -2613,7 +2710,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C4 평면 형태" data-groups="F,H">
   <input type="checkbox" value="panicha-interior" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2023/02/Overall.jpg/original" alt="(실내 · 개가 있는 오후)" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2023/02/Overall.jpg/original" alt="(실내 · 개가 있는 오후)" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="panicha-interior" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">(실내 · 개가 있는 오후)</div>
     <div class="s">Beya Panicha · TH/UK</div>
@@ -2698,7 +2798,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C5 장식 민속·보태니컬" data-groups="E,H,B">
   <input type="checkbox" value="grey-dishspoon" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/234249-L.jpg" alt="The Adventures of the Dish and the Spoon" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/234249-L.jpg" alt="The Adventures of the Dish and the Spoon" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="grey-dishspoon" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">The Adventures of the Dish and the Spoon</div>
     <div class="s">Mini Grey · UK</div>
@@ -2783,7 +2886,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C5 장식 민속·보태니컬" data-groups="H,F">
   <input type="checkbox" value="berner-town" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/7257546-L.jpg" alt="In the Town All Year Round" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/7257546-L.jpg" alt="In the Town All Year Round" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="berner-town" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">In the Town All Year Round</div>
     <div class="s">Rotraut Susanne Berner · DE</div>
@@ -2868,7 +2974,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C5 장식 민속·보태니컬" data-groups="H,D">
   <input type="checkbox" value="lejonc-fechamos" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2022/Premi/BRAW/winners/FECHAMOS_Low.jpg" alt="Fechamos" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2022/Premi/BRAW/winners/FECHAMOS_Low.jpg" alt="Fechamos" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="lejonc-fechamos" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Fechamos</div>
     <div class="s">Régis Lejonc · FR</div>
@@ -2953,7 +3062,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C5 장식 민속·보태니컬" data-groups="H,C">
   <input type="checkbox" value="davis-guitar" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/02/ryan-davis_joan-and-the-devil_image1.jpg/original" alt="Joan and the Devil" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/02/ryan-davis_joan-and-the-devil_image1.jpg/original" alt="Joan and the Devil" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="davis-guitar" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Joan and the Devil</div>
     <div class="s">Ryan Davis · UK</div>
@@ -3038,7 +3150,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C5 장식 민속·보태니컬" data-groups="C,D,B">
   <input type="checkbox" value="gamon-boucle" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/Boucle_dor_en_chemin.jpg" alt="Boucle d'or en chemin (Let's Go, Goldilocks!)" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/Boucle_dor_en_chemin.jpg" alt="Boucle d'or en chemin (Let's Go, Goldilocks!)" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="gamon-boucle" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Boucle d'or en chemin (Let's Go, Goldilocks!)</div>
     <div class="s">Caroline Gamon · FR</div>
@@ -3123,7 +3238,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C5 장식 민속·보태니컬" data-groups="B,D,A">
   <input type="checkbox" value="volk-grimm" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_cat_speciale_menzione_2.jpg" alt="Zur Zeit, wo das Wünschen noch geholfen hat (Grimm)" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_cat_speciale_menzione_2.jpg" alt="Zur Zeit, wo das Wünschen noch geholfen hat (Grimm)" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="volk-grimm" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Zur Zeit, wo das Wünschen noch geholfen hat (Grimm)</div>
     <div class="s">Julie Völk · DE/AT</div>
@@ -3208,7 +3326,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C5 장식 민속·보태니컬" data-groups="C">
   <input type="checkbox" value="morris-lostwords" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/10452126-L.jpg" alt="The Lost Words" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/10452126-L.jpg" alt="The Lost Words" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="morris-lostwords" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">The Lost Words</div>
     <div class="s">Jackie Morris · UK</div>
@@ -3293,7 +3414,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C6 단색조 + 악센트 1" data-groups="A,G,B">
   <input type="checkbox" value="ilustrajo-flooded" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2020/02/mariajoilustrajo_flooded_image1.png/original" alt="Flooded" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2020/02/mariajoilustrajo_flooded_image1.png/original" alt="Flooded" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="ilustrajo-flooded" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Flooded</div>
     <div class="s">Mariajo Ilustrajo · ES/UK</div>
@@ -3378,7 +3502,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C6 단색조 + 악센트 1" data-groups="A,C,F">
   <input type="checkbox" value="bouvier-spring" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/02/CaroleBouvier_OnASpringDay_image1.jpg/original" alt="On A Spring Day" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/02/CaroleBouvier_OnASpringDay_image1.jpg/original" alt="On A Spring Day" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="bouvier-spring" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">On A Spring Day</div>
     <div class="s">Carole Bouvier · FR</div>
@@ -3463,7 +3590,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C6 단색조 + 악센트 1" data-groups="E,G">
   <input type="checkbox" value="klassen-hat" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/10207424-L.jpg" alt="This Is Not My Hat" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/10207424-L.jpg" alt="This Is Not My Hat" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="klassen-hat" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">This Is Not My Hat</div>
     <div class="s">Jon Klassen · CA/UK</div>
@@ -3548,7 +3678,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C6 단색조 + 악센트 1" data-groups="A,B">
   <input type="checkbox" value="erlbruch-bigq" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/961729-L.jpg" alt="The Big Question" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/961729-L.jpg" alt="The Big Question" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="erlbruch-bigq" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">The Big Question</div>
     <div class="s">Wolf Erlbruch · DE</div>
@@ -3633,7 +3766,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C6 단색조 + 악센트 1" data-groups="A,C">
   <input type="checkbox" value="shih-taichi" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/12/Ping-An-Shih_Tai-Chi_image1.jpg/original" alt="Tai Chi" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/12/Ping-An-Shih_Tai-Chi_image1.jpg/original" alt="Tai Chi" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="shih-taichi" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Tai Chi</div>
     <div class="s">Ping-An Shih · TW/UK</div>
@@ -3718,7 +3854,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C6 단색조 + 악센트 1" data-groups="G,B,C">
   <input type="checkbox" value="watanabe-kintsugi" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/Kintsugi.jpg" alt="Kintsugi" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/Kintsugi.jpg" alt="Kintsugi" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="watanabe-kintsugi" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Kintsugi</div>
     <div class="s">Issa Watanabe · ES/PE</div>
@@ -3803,7 +3942,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C6 단색조 + 악센트 1" data-groups="B,F">
   <input type="checkbox" value="lee-moving" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2023/premi/braw/VINCITORI/moving_bassa_croppata.jpg" alt="이사가 (Moving Away)" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2023/premi/braw/VINCITORI/moving_bassa_croppata.jpg" alt="이사가 (Moving Away)" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="lee-moving" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">이사가 (Moving Away)</div>
     <div class="s">Ji Yeon Lee · KR</div>
@@ -3888,7 +4030,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C6 단색조 + 악센트 1" data-groups="C,G">
   <input type="checkbox" value="lee-wave" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/2647280-L.jpg" alt="Wave" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/2647280-L.jpg" alt="Wave" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="lee-wave" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Wave</div>
     <div class="s">Suzy Lee · KR</div>
@@ -3973,7 +4118,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C6 단색조 + 악센트 1" data-groups="A,C">
   <input type="checkbox" value="redniss-heatwave" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/heatwave.jpg" alt="Heatwave" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/heatwave.jpg" alt="Heatwave" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="redniss-heatwave" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Heatwave</div>
     <div class="s">Lauren Redniss · US</div>
@@ -4058,7 +4206,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C7 회화적 톤 아트" data-groups="G,D">
   <input type="checkbox" value="ai-journey" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2020/02/Journey1.jpg/original" alt="Journey" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2020/02/Journey1.jpg/original" alt="Journey" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="ai-journey" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Journey</div>
     <div class="s">Yunyun Ai · CN/UK</div>
@@ -4143,7 +4294,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C7 회화적 톤 아트" data-groups="B,D">
   <input type="checkbox" value="tengiz-mai" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2021/02/DideTengiz_Mai-_Image1.png/original" alt="Mai" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2021/02/DideTengiz_Mai-_Image1.png/original" alt="Mai" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="tengiz-mai" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Mai</div>
     <div class="s">Dide Tengiz · TR/UK</div>
@@ -4228,7 +4382,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C7 회화적 톤 아트" data-groups="F,A">
   <input type="checkbox" value="kim-subway" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2021/06/KimHyo-Uen_IamtheSubway_Image1-scaled-1.jpg/original" alt="I Am the Subway" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2021/06/KimHyo-Uen_IamtheSubway_Image1-scaled-1.jpg/original" alt="I Am the Subway" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="kim-subway" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">I Am the Subway</div>
     <div class="s">Kim Hyo-Eun · KR</div>
@@ -4313,7 +4470,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C7 회화적 톤 아트" data-groups="B,F">
   <input type="checkbox" value="tao-noodle" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2023/01/Xiaoweitao_Amusement-part-at-home_image2.jpg/original" alt="Amusement park at home" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2023/01/Xiaoweitao_Amusement-part-at-home_image2.jpg/original" alt="Amusement park at home" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="tao-noodle" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Amusement park at home</div>
     <div class="s">Xiaowei Tao · CN/UK</div>
@@ -4398,7 +4558,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C7 회화적 톤 아트" data-groups="A,B">
   <input type="checkbox" value="gent-thatsnice" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/12/OwenGent_ThatsNiceLove_Image1.jpg/original" alt="That's Nice, Love" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/12/OwenGent_ThatsNiceLove_Image1.jpg/original" alt="That's Nice, Love" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="gent-thatsnice" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">That's Nice, Love</div>
     <div class="s">Owen Gent · UK</div>
@@ -4483,7 +4646,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C7 회화적 톤 아트" data-groups="G,B">
   <input type="checkbox" value="gwilym-tigers" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/02/1-Yuliya-Gwilym.jpg/original" alt="(호랑이와 유령 동물)" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/02/1-Yuliya-Gwilym.jpg/original" alt="(호랑이와 유령 동물)" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="gwilym-tigers" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">(호랑이와 유령 동물)</div>
     <div class="s">Yuliya Gwilym · UA/UK</div>
@@ -4568,7 +4734,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C7 회화적 톤 아트" data-groups="D,F,H">
   <input type="checkbox" value="buro-street" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/02/Stadtszene_1_final.jpg/original" alt="(도시 거리 · Stadtszene)" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/02/Stadtszene_1_final.jpg/original" alt="(도시 거리 · Stadtszene)" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="buro-street" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">(도시 거리 · Stadtszene)</div>
     <div class="s">Büro Wünsch &amp; Störmer · DE</div>
@@ -4653,7 +4822,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C7 회화적 톤 아트" data-groups="C,D">
   <input type="checkbox" value="lundberg-ingen" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/Nobody_but_M.jpg" alt="Ingen utom jag (Nobody but Me)" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/Nobody_but_M.jpg" alt="Ingen utom jag (Nobody but Me)" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="lundberg-ingen" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Ingen utom jag (Nobody but Me)</div>
     <div class="s">Sara Lundberg · SE</div>
@@ -4738,7 +4910,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C7 회화적 톤 아트" data-groups="C,G">
   <input type="checkbox" value="cheveau-troupeau" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_toddler_mention_1.jpg" alt="Troupeau: L'hiver, l'été" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_toddler_mention_1.jpg" alt="Troupeau: L'hiver, l'été" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="cheveau-troupeau" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Troupeau: L'hiver, l'été</div>
     <div class="s">Sarah Cheveau · FR</div>
@@ -4823,7 +4998,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C7 회화적 톤 아트" data-groups="G">
   <input type="checkbox" value="pinfold-blackdog" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/7372759-L.jpg" alt="Black Dog" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/7372759-L.jpg" alt="Black Dog" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="pinfold-blackdog" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Black Dog</div>
     <div class="s">Levi Pinfold · UK</div>
@@ -4908,7 +5086,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C7 회화적 톤 아트" data-groups="D,A">
   <input type="checkbox" value="smith-townsea" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/11610229-L.jpg" alt="Town Is by the Sea" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/11610229-L.jpg" alt="Town Is by the Sea" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="smith-townsea" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Town Is by the Sea</div>
     <div class="s">Sydney Smith · CA</div>
@@ -4993,7 +5174,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C7 회화적 톤 아트" data-groups="A,G,D">
   <input type="checkbox" value="smith-smallcity" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/9181130-L.jpg" alt="Small in the City" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/9181130-L.jpg" alt="Small in the City" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="smith-smallcity" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Small in the City</div>
     <div class="s">Sydney Smith · CA</div>
@@ -5078,7 +5262,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C7 회화적 톤 아트" data-groups="C,B">
   <input type="checkbox" value="lane-tribe" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/7442605-L.jpg" alt="There Is a Tribe of Kids" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/7442605-L.jpg" alt="There Is a Tribe of Kids" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="lane-tribe" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">There Is a Tribe of Kids</div>
     <div class="s">Lane Smith · US/UK</div>
@@ -5163,7 +5350,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C7 회화적 톤 아트" data-groups="C,H">
   <input type="checkbox" value="gill-clevercrow" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/14641520-L.jpg" alt="Clever Crow" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/14641520-L.jpg" alt="Clever Crow" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="gill-clevercrow" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Clever Crow</div>
     <div class="s">Olivia Lomenech Gill · UK</div>
@@ -5248,7 +5438,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C7 회화적 톤 아트" data-groups="C,D">
   <input type="checkbox" value="becker-tree" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/13301299-L.jpg" alt="The Tree and the River" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/13301299-L.jpg" alt="The Tree and the River" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="becker-tree" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">The Tree and the River</div>
     <div class="s">Aaron Becker · US/UK</div>
@@ -5337,7 +5530,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C8 수채 번짐 몰입" data-groups="B,G">
   <input type="checkbox" value="carrossine-beterraba" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/02/CamilaCarrossine_TheGirltheGhostandtheBeetrootForest_image01.jpg/original" alt="A menina, o fantasma e a floresta de beterrabas" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/02/CamilaCarrossine_TheGirltheGhostandtheBeetrootForest_image01.jpg/original" alt="A menina, o fantasma e a floresta de beterrabas" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="carrossine-beterraba" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">A menina, o fantasma e a floresta de beterrabas</div>
     <div class="s">Camila Carrossine · BR</div>
@@ -5422,7 +5618,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C8 수채 번짐 몰입" data-groups="C,B">
   <input type="checkbox" value="alcantara-rio" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_toddler_winner.jpg" alt="Río Viento (Wind River)" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_toddler_winner.jpg" alt="Río Viento (Wind River)" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="alcantara-rio" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Río Viento (Wind River)</div>
     <div class="s">Mariana Alcántara · MX</div>
@@ -5507,7 +5706,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C9 믹스드 콜라주" data-groups="F,E,A">
   <input type="checkbox" value="child-tomato" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/885657-L.jpg" alt="I Will Not Ever Never Eat a Tomato" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/885657-L.jpg" alt="I Will Not Ever Never Eat a Tomato" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="child-tomato" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">I Will Not Ever Never Eat a Tomato</div>
     <div class="s">Lauren Child · UK</div>
@@ -5592,7 +5794,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C9 믹스드 콜라주" data-groups="E,F">
   <input type="checkbox" value="ismail-friend" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2020/02/WYLAB_YIsmail_Withafriend.jpg/original" alt="With a Friend" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2020/02/WYLAB_YIsmail_Withafriend.jpg/original" alt="With a Friend" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="ismail-friend" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">With a Friend</div>
     <div class="s">Yasmeen Ismail · IE/UK</div>
@@ -5677,7 +5882,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C10 정밀 톤 리얼리즘(후순위·대조군)" data-groups="F">
   <input type="checkbox" value="hughes-ella" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/438878-L.jpg" alt="Ella's Big Chance" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/438878-L.jpg" alt="Ella's Big Chance" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="hughes-ella" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Ella's Big Chance</div>
     <div class="s">Shirley Hughes · UK</div>
@@ -5762,7 +5970,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C10 정밀 톤 리얼리즘(후순위·대조군)" data-groups="B">
   <input type="checkbox" value="danowski-dream" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2023/02/SonjaDanowski_ByNightInMyDream_image1.png/original" alt="By Night In My Dream" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2023/02/SonjaDanowski_ByNightInMyDream_image1.png/original" alt="By Night In My Dream" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="danowski-dream" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">By Night In My Dream</div>
     <div class="s">Sonja Danowski · DE</div>
@@ -5847,7 +6058,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C10 정밀 톤 리얼리즘(후순위·대조군)" data-groups="C">
   <input type="checkbox" value="ding-smallanimals" />
-  <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/01/YuxinDing_SmallAnimalsBigWorld_image9.jpg/original" alt="Small Animals Big World" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/01/YuxinDing_SmallAnimalsBigWorld_image9.jpg/original" alt="Small Animals Big World" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="ding-smallanimals" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Small Animals Big World</div>
     <div class="s">Yuxin Ding · CN/UK</div>
@@ -5932,7 +6146,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C2 선 하나 캐릭터" data-groups="E,F">
   <input type="checkbox" value="collins-bearchair" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/10126819-L.jpg" alt="There's a Bear on My Chair" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/10126819-L.jpg" alt="There's a Bear on My Chair" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="collins-bearchair" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">There's a Bear on My Chair</div>
     <div class="s">Ross Collins · UK</div>
@@ -6017,7 +6234,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C2 선 하나 캐릭터" data-groups="B,G">
   <input type="checkbox" value="torseter-troll" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/13054784-L.jpg" alt="The Heartless Troll" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/13054784-L.jpg" alt="The Heartless Troll" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="torseter-troll" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">The Heartless Troll</div>
     <div class="s">Øyvind Torseter · NO</div>
@@ -6102,7 +6322,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C2 선 하나 캐릭터" data-groups="E,H">
   <input type="checkbox" value="konnecke-anton" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/8848129-L.jpg" alt="Anton kann zaubern" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/8848129-L.jpg" alt="Anton kann zaubern" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="konnecke-anton" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Anton kann zaubern</div>
     <div class="s">Ole Könnecke · DE</div>
@@ -6187,7 +6410,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C2 선 하나 캐릭터" data-groups="E,H">
   <input type="checkbox" value="jeffers-crayons" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/8314152-L.jpg" alt="The Day the Crayons Quit" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/8314152-L.jpg" alt="The Day the Crayons Quit" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="jeffers-crayons" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">The Day the Crayons Quit</div>
     <div class="s">Oliver Jeffers · UK/IE</div>
@@ -6272,7 +6498,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C2 선 하나 캐릭터" data-groups="G,D">
   <input type="checkbox" value="naylor-suitcase" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/10481244-L.jpg" alt="The Suitcase" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/10481244-L.jpg" alt="The Suitcase" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="naylor-suitcase" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">The Suitcase</div>
     <div class="s">Chris Naylor-Ballesteros · UK</div>
@@ -6357,7 +6586,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C8 수채 번짐 몰입" data-groups="A,C">
   <input type="checkbox" value="rayner-arlo" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/10518624-L.jpg" alt="Arlo The Lion Who Couldn't Sleep" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/10518624-L.jpg" alt="Arlo The Lion Who Couldn't Sleep" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="rayner-arlo" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Arlo The Lion Who Couldn't Sleep</div>
     <div class="s">Catherine Rayner · UK</div>
@@ -6442,7 +6674,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C8 수채 번짐 몰입" data-groups="E,C">
   <input type="checkbox" value="rayner-louie" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/10097851-L.jpg" alt="Smelly Louie" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/10097851-L.jpg" alt="Smelly Louie" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="rayner-louie" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Smelly Louie</div>
     <div class="s">Catherine Rayner · UK</div>
@@ -6527,7 +6762,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C8 수채 번짐 몰입" data-groups="H,C">
   <input type="checkbox" value="savage-jellyfish" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/14333290-L.jpg" alt="The Search for the Giant Arctic Jellyfish" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/14333290-L.jpg" alt="The Search for the Giant Arctic Jellyfish" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="savage-jellyfish" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">The Search for the Giant Arctic Jellyfish</div>
     <div class="s">Chloe Savage · UK</div>
@@ -6612,7 +6850,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C8 수채 번짐 몰입" data-groups="B,E">
   <input type="checkbox" value="oxenbury-captainjack" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/10212405-L.jpg" alt="Captain Jack and the Pirates" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/10212405-L.jpg" alt="Captain Jack and the Pirates" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="oxenbury-captainjack" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Captain Jack and the Pirates</div>
     <div class="s">Helen Oxenbury · UK</div>
@@ -6697,7 +6938,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C8 수채 번짐 몰입" data-groups="B,C">
   <input type="checkbox" value="tolman-treehouse" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/7073870-L.jpg" alt="Het boomhuis (The Tree House)" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/7073870-L.jpg" alt="Het boomhuis (The Tree House)" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="tolman-treehouse" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Het boomhuis (The Tree House)</div>
     <div class="s">Ronald &amp; Marije Tolman · NL</div>
@@ -6782,7 +7026,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C8 수채 번짐 몰입" data-groups="A,C">
   <input type="checkbox" value="rutten-ombre" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2014/L_OMBRE%20DE%20CHACUN_menzione_Fiction_BRAW2014.jpg" alt="L'ombre de chacun" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2014/L_OMBRE%20DE%20CHACUN_menzione_Fiction_BRAW2014.jpg" alt="L'ombre de chacun" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="rutten-ombre" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">L'ombre de chacun</div>
     <div class="s">Mélanie Rutten · FR</div>
@@ -6867,7 +7114,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C9 믹스드 콜라주" data-groups="A,H">
   <input type="checkbox" value="hole-garmann" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/2639572-L.jpg" alt="Garmann's Summer" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/2639572-L.jpg" alt="Garmann's Summer" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="hole-garmann" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Garmann's Summer</div>
     <div class="s">Stian Hole · NO</div>
@@ -6952,7 +7202,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C9 믹스드 콜라주" data-groups="F,D">
   <input type="checkbox" value="robinson-milo" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/15229799-L.jpg" alt="Milo Imagines the World" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/15229799-L.jpg" alt="Milo Imagines the World" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="robinson-milo" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Milo Imagines the World</div>
     <div class="s">Christian Robinson · US</div>
@@ -7037,7 +7290,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C9 믹스드 콜라주" data-groups="F,H">
   <input type="checkbox" value="carlin-kingsky" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/14485706-L.jpg" alt="King of the Sky" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/14485706-L.jpg" alt="King of the Sky" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="carlin-kingsky" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">King of the Sky</div>
     <div class="s">Laura Carlin · UK</div>
@@ -7122,7 +7378,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C9 믹스드 콜라주" data-groups="G,A">
   <input type="checkbox" value="brooks-fox" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/2106916-L.jpg" alt="Fox" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/2106916-L.jpg" alt="Fox" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="brooks-fox" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Fox</div>
     <div class="s">Ron Brooks · AU</div>
@@ -7207,7 +7466,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C9 믹스드 콜라주" data-groups="C,B">
   <input type="checkbox" value="teckentrup-samesky" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/8867686-L.jpg" alt="Under the Same Sky" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/8867686-L.jpg" alt="Under the Same Sky" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="teckentrup-samesky" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Under the Same Sky</div>
     <div class="s">Britta Teckentrup · DE/UK</div>
@@ -7292,7 +7554,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C3 프린트-크래프트" data-groups="B,D">
   <input type="checkbox" value="icinori-issunboshi" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2014/ISSUN_BOSHI_menzione_Fiction_BRAW2014.jpg" alt="Issun Bôshi" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2014/ISSUN_BOSHI_menzione_Fiction_BRAW2014.jpg" alt="Issun Bôshi" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="icinori-issunboshi" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Issun Bôshi</div>
     <div class="s">Icinori (Mayumi Otero &amp; Raphael Urwiller) · FR</div>
@@ -7377,7 +7642,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C3 프린트-크래프트" data-groups="B,E">
   <input type="checkbox" value="valousek-panacek" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2019/images/premi/BRAW/winner_BRAW_BCBF_19.jpg" alt="Panáček, pecka, švestka, poleno a zase panáček" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2019/images/premi/BRAW/winner_BRAW_BCBF_19.jpg" alt="Panáček, pecka, švestka, poleno a zase panáček" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="valousek-panacek" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Panáček, pecka, švestka, poleno a zase panáček</div>
     <div class="s">Chrudoš Valoušek · CZ</div>
@@ -7462,7 +7730,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C3 프린트-크래프트" data-groups="G,B">
   <input type="checkbox" value="rascal-chaperon" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/2144880-L.jpg" alt="Le petit chaperon rouge" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/2144880-L.jpg" alt="Le petit chaperon rouge" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="rascal-chaperon" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Le petit chaperon rouge</div>
     <div class="s">Rascal · BE</div>
@@ -7547,7 +7818,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C6 단색조 + 악센트 1" data-groups="F,A">
   <input type="checkbox" value="arsenault-marguerite" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2014/LE_NOEL_DE%20MARGUERITE_vincitore_Fiction_BRAW2014.jpg" alt="Le Noël de Marguerite" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2014/LE_NOEL_DE%20MARGUERITE_vincitore_Fiction_BRAW2014.jpg" alt="Le Noël de Marguerite" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="arsenault-marguerite" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Le Noël de Marguerite</div>
     <div class="s">Isabelle Arsenault · CA</div>
@@ -7632,7 +7906,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C6 단색조 + 악센트 1" data-groups="F,G">
   <input type="checkbox" value="lindenbaum-siv" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/6958154-L.jpg" alt="Siv sover vilse (Siv Sleeps Over)" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/6958154-L.jpg" alt="Siv sover vilse (Siv Sleeps Over)" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="lindenbaum-siv" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Siv sover vilse (Siv Sleeps Over)</div>
     <div class="s">Pija Lindenbaum · SE</div>
@@ -7717,7 +7994,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C6 단색조 + 악센트 1" data-groups="F,A">
   <input type="checkbox" value="milner-nomoney" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/14509385-L.jpg" alt="It's a No-Money Day" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/14509385-L.jpg" alt="It's a No-Money Day" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="milner-nomoney" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">It's a No-Money Day</div>
     <div class="s">Kate Milner · UK</div>
@@ -7802,7 +8082,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C6 단색조 + 악센트 1" data-groups="H,G">
   <input type="checkbox" value="boyd-flashlight" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2015/FICTION/winner_flashlight_cover%20ok.jpg" alt="Flashlight" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2015/FICTION/winner_flashlight_cover%20ok.jpg" alt="Flashlight" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="boyd-flashlight" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Flashlight</div>
     <div class="s">Lizi Boyd · US</div>
@@ -7887,7 +8170,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C6 단색조 + 악센트 1" data-groups="A,D">
   <input type="checkbox" value="duzakin-hvorfor" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2015/FICTION/why%20am%20i%20here_cover_ok.jpg" alt="Hvorfor er jeg her? (Why Am I Here?)" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2015/FICTION/why%20am%20i%20here_cover_ok.jpg" alt="Hvorfor er jeg her? (Why Am I Here?)" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="duzakin-hvorfor" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Hvorfor er jeg her? (Why Am I Here?)</div>
     <div class="s">Akin Düzakin · NO</div>
@@ -7972,7 +8258,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C1 연필·크레용 나이브" data-groups="G,D">
   <input type="checkbox" value="dubois-akim" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/7393036-L.jpg" alt="Akim court" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/7393036-L.jpg" alt="Akim court" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="dubois-akim" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Akim court</div>
     <div class="s">Claude K. Dubois · BE</div>
@@ -8057,7 +8346,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C1 연필·크레용 나이브" data-groups="F,E">
   <input type="checkbox" value="meschenmoser-gordon" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2015/FICTION/gordon%20un%20tapir_coverOK.jpg" alt="Gordon und Tapir" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2015/FICTION/gordon%20un%20tapir_coverOK.jpg" alt="Gordon und Tapir" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="meschenmoser-gordon" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Gordon und Tapir</div>
     <div class="s">Sebastian Meschenmoser · DE</div>
@@ -8142,7 +8434,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C1 연필·크레용 나이브" data-groups="F,H">
   <input type="checkbox" value="cobb-paperdolls" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/10395361-L.jpg" alt="The Paper Dolls" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/10395361-L.jpg" alt="The Paper Dolls" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="cobb-paperdolls" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">The Paper Dolls</div>
     <div class="s">Rebecca Cobb · UK</div>
@@ -8227,7 +8522,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C1 연필·크레용 나이브" data-groups="H,D">
   <input type="checkbox" value="butler-borders" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/10838996-L.jpg" alt="Drawn Across Borders" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/10838996-L.jpg" alt="Drawn Across Borders" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="butler-borders" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Drawn Across Borders</div>
     <div class="s">George Butler · UK</div>
@@ -8312,7 +8610,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C4 평면 형태" data-groups="H,F">
   <input type="checkbox" value="palomino-charcoal" />
-  <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/14419950-L.jpg" alt="Letters in Charcoal" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://covers.openlibrary.org/b/id/14419950-L.jpg" alt="Letters in Charcoal" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="palomino-charcoal" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">Letters in Charcoal</div>
     <div class="s">Juan Palomino · MX</div>
@@ -8397,7 +8698,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
 </label>
 <label class="c" data-cluster="C4 평면 형태" data-groups="D,H">
   <input type="checkbox" value="haugomat-atravers" />
-  <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2019/images/premi/BRAW/A_travers_BRAW_BCBF_19.jpg" alt="À travers" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="https://www.bolognachildrensbookfair.com/media/libro/2019/images/premi/BRAW/A_travers_BRAW_BCBF_19.jpg" alt="À travers" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="haugomat-atravers" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">À travers</div>
     <div class="s">Tom Haugomat · FR</div>
@@ -8497,8 +8801,55 @@ document.querySelectorAll('button.f').forEach(function(b){
     apply();
   });
 });
-// 카드가 <label> 이라 안쪽 클릭은 체크박스를 토글한다 — 프롬프트 버튼/펼치기는 막아야 한다.
+// ── 내 렌더 붙여넣기 (R2: comic-assets/changjak-tryouts) ───────────────
+// 🔴 앵커 보관함(changjak-anchors)과 분리한다 — 저건 확정 앵커의 ref 고, 이건 시험 렌더다.
+var TRY='/api/comic-assets/changjak-tryouts';
+function paintMine(box,url){
+  box.classList.add('has');
+  box.innerHTML='<img src="'+url+'" alt="" /><span class="cap">내 렌더</span><button type="button" class="del">✕</button>';
+}
+function resetMine(box){
+  box.classList.remove('has');
+  box.innerHTML='<span class="hint">🖼️ 클릭 후 Ctrl+V</span><span class="cap">내 렌더</span>';
+}
+document.querySelectorAll('.ph.mine').forEach(function(box){
+  resetMine(box);
+  box.addEventListener('paste',function(e){
+    var items=(e.clipboardData&&e.clipboardData.items)||[];
+    for(var i=0;i<items.length;i++){
+      if(items[i].type&&items[i].type.indexOf('image/')===0){
+        e.preventDefault(); e.stopPropagation();
+        var fr=new FileReader();
+        box.innerHTML='<span class="hint">올리는 중…</span>';
+        fr.onload=function(){
+          fetch(TRY,{method:'POST',headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({key:box.dataset.key,dataUrl:fr.result})})
+            .then(function(r){return r.json();})
+            .then(function(j){ if(!j.success) throw new Error(); paintMine(box,j.data.url+'?t='+Date.now()); })
+            .catch(function(){ alert('저장 실패 — 서버(3500)가 떠 있는지 확인하세요'); resetMine(box); });
+        };
+        fr.readAsDataURL(items[i].getAsFile());
+        return;
+      }
+    }
+  });
+});
+fetch(TRY).then(function(r){return r.json();}).then(function(j){
+  var m=(j&&j.data)||{};
+  document.querySelectorAll('.ph.mine').forEach(function(box){
+    if(m[box.dataset.key]) paintMine(box,m[box.dataset.key]+'?t='+Date.now());
+  });
+}).catch(function(){});
+
+// 카드가 <label> 이라 안쪽 클릭은 체크박스를 토글한다 — 프롬프트 버튼/붙여넣기/펼치기는 막아야 한다.
 document.addEventListener('click',function(e){
+  var del=e.target.closest('.ph.mine .del');
+  if(del){ e.preventDefault(); e.stopPropagation();
+    var box=del.closest('.ph.mine');
+    if(confirm('이 렌더를 지울까요?')) fetch(TRY+'/'+box.dataset.key,{method:'DELETE'}).then(function(){resetMine(box);});
+    return; }
+  var mine=e.target.closest('.ph.mine');
+  if(mine){ e.preventDefault(); e.stopPropagation(); mine.focus(); return; }
   var b=e.target.closest('button.pb');
   if(b){ e.preventDefault(); e.stopPropagation();
     navigator.clipboard.writeText(b.dataset.p).then(function(){

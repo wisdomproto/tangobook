@@ -96,7 +96,10 @@ NOT: ${NOT_COMMON}`;
 const card = (e) => `
 <label class="c" data-cluster="${esc(e.cluster)}" data-groups="${esc((e.groups || []).join(','))}">
   <input type="checkbox" value="${esc(e.id)}" />
-  <div class="ph"><img loading="lazy" src="${esc(e.imageUrl)}" alt="${esc(e.work)}" /></div>
+  <div class="two">
+    <div class="ph"><img loading="lazy" src="${esc(e.imageUrl)}" alt="${esc(e.work)}" /><span class="cap">수상작</span></div>
+    <div class="ph mine" data-key="${esc(e.id)}" tabindex="0"><span class="cap">내 렌더</span></div>
+  </div>
   <div class="b">
     <div class="t">${esc(e.work)}</div>
     <div class="s">${esc(e.artist)} · ${esc(e.origin)}</div>
@@ -138,8 +141,15 @@ button.f.on{background:var(--coral);border-color:var(--coral);color:#fff}
 .c{display:block;background:#fff;border:2px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer;position:relative}
 .c:has(input:checked){border-color:var(--coral);box-shadow:0 0 0 3px rgba(255,124,92,.18)}
 .c input{position:absolute;top:9px;left:9px;z-index:2;width:19px;height:19px;accent-color:var(--coral);cursor:pointer}
-.ph{height:210px;background:#f4ece4;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line)}
+.ph{height:180px;background:#f4ece4;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
 .ph img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.ph .cap{position:absolute;left:0;bottom:0;background:rgba(43,35,32,.62);color:#fff;font-size:9.5px;font-weight:800;padding:1px 6px;border-radius:0 6px 0 0;pointer-events:none}
+.ph.mine{background:#fffdfa;border:2px dashed var(--line);cursor:pointer;outline:none;font-size:10.5px;color:var(--ink-soft);font-weight:700;text-align:center;padding:6px}
+.ph.mine:focus{border-color:var(--coral)}
+.ph.mine.has{border-style:solid;border-color:var(--mint);padding:0}
+.ph.mine .hint{opacity:.8}
+.ph.mine .del{position:absolute;top:4px;right:4px;width:20px;height:20px;border-radius:50%;border:none;background:rgba(43,35,32,.6);color:#fff;font-weight:800;font-size:11px;cursor:pointer;z-index:2}
 .b{padding:10px 12px 12px}
 .t{font-size:14px;font-weight:800;line-height:1.35}
 .s{font-size:11.5px;color:var(--ink-soft);margin-top:1px}
@@ -192,8 +202,55 @@ document.querySelectorAll('button.f').forEach(function(b){
     apply();
   });
 });
-// 카드가 <label> 이라 안쪽 클릭은 체크박스를 토글한다 — 프롬프트 버튼/펼치기는 막아야 한다.
+// ── 내 렌더 붙여넣기 (R2: comic-assets/changjak-tryouts) ───────────────
+// 🔴 앵커 보관함(changjak-anchors)과 분리한다 — 저건 확정 앵커의 ref 고, 이건 시험 렌더다.
+var TRY='/api/comic-assets/changjak-tryouts';
+function paintMine(box,url){
+  box.classList.add('has');
+  box.innerHTML='<img src="'+url+'" alt="" /><span class="cap">내 렌더</span><button type="button" class="del">✕</button>';
+}
+function resetMine(box){
+  box.classList.remove('has');
+  box.innerHTML='<span class="hint">🖼️ 클릭 후 Ctrl+V</span><span class="cap">내 렌더</span>';
+}
+document.querySelectorAll('.ph.mine').forEach(function(box){
+  resetMine(box);
+  box.addEventListener('paste',function(e){
+    var items=(e.clipboardData&&e.clipboardData.items)||[];
+    for(var i=0;i<items.length;i++){
+      if(items[i].type&&items[i].type.indexOf('image/')===0){
+        e.preventDefault(); e.stopPropagation();
+        var fr=new FileReader();
+        box.innerHTML='<span class="hint">올리는 중…</span>';
+        fr.onload=function(){
+          fetch(TRY,{method:'POST',headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({key:box.dataset.key,dataUrl:fr.result})})
+            .then(function(r){return r.json();})
+            .then(function(j){ if(!j.success) throw new Error(); paintMine(box,j.data.url+'?t='+Date.now()); })
+            .catch(function(){ alert('저장 실패 — 서버(3500)가 떠 있는지 확인하세요'); resetMine(box); });
+        };
+        fr.readAsDataURL(items[i].getAsFile());
+        return;
+      }
+    }
+  });
+});
+fetch(TRY).then(function(r){return r.json();}).then(function(j){
+  var m=(j&&j.data)||{};
+  document.querySelectorAll('.ph.mine').forEach(function(box){
+    if(m[box.dataset.key]) paintMine(box,m[box.dataset.key]+'?t='+Date.now());
+  });
+}).catch(function(){});
+
+// 카드가 <label> 이라 안쪽 클릭은 체크박스를 토글한다 — 프롬프트 버튼/붙여넣기/펼치기는 막아야 한다.
 document.addEventListener('click',function(e){
+  var del=e.target.closest('.ph.mine .del');
+  if(del){ e.preventDefault(); e.stopPropagation();
+    var box=del.closest('.ph.mine');
+    if(confirm('이 렌더를 지울까요?')) fetch(TRY+'/'+box.dataset.key,{method:'DELETE'}).then(function(){resetMine(box);});
+    return; }
+  var mine=e.target.closest('.ph.mine');
+  if(mine){ e.preventDefault(); e.stopPropagation(); mine.focus(); return; }
   var b=e.target.closest('button.pb');
   if(b){ e.preventDefault(); e.stopPropagation();
     navigator.clipboard.writeText(b.dataset.p).then(function(){
