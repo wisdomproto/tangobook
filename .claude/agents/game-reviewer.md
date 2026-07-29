@@ -48,6 +48,13 @@ preview_start { name: "client" }   # 클라 (포트는 반환값 확인)
 window.__aud = [];
 const O = window.Audio;
 window.Audio = function (u) { window.__aud.push({ u, t: Math.round(performance.now()) }); return new O(u); };
+// 🔴 `new Audio` 래핑만으로는 **프리로드된 효과음이 안 잡힌다**(같은 element 를 재사용한다).
+//    이것까지 걸어야 띵동·오답음이 보인다 — 안 걸면 "오답에 아무 소리 없음" 같은 헛것을 잡는다.
+const P = HTMLMediaElement.prototype.play;
+HTMLMediaElement.prototype.play = function () {
+  window.__aud.push({ u: this.currentSrc || this.src, t: Math.round(performance.now()) });
+  return P.apply(this, arguments);
+};
 ```
 
 - `__aud` 의 **순서와 간격**이 곧 아이가 듣는 것이다.
@@ -108,6 +115,10 @@ window.Audio = function (u) { window.__aud.push({ u, t: Math.round(performance.n
 🔴 **네 보고도 표본을 다시 판다.** 실제로 "그림 밑 낱말이 답을 알려준다"고 올렸는데 재보니
 그림 카드는 그림만 있고 낱말은 **글자 카드 아래**(의도한 배치)였다. 내부 텍스트만 보고
 어느 카드인지 단정하지 말고 `[data-image-card]` / `[data-word-card]` 를 갈라서 확인해라.
+
+🔴 **이미 고쳐진 건 아닌지 본다.** 다른 브랜치에서 고쳐 놓고 아직 안 합친 게 있다(한글 블록
+6.7px 이 그랬다). 결함을 올리기 전에 `git log --all --oneline -- <파일>` 로 한 번 훑어라 —
+그렇게 올라온 건 "이 브랜치에 없는 수정"이라고 밝혀서 보고해야 중복 수정으로 충돌하지 않는다.
 
 🔴 **집계는 증거가 아니다.** "13건 발견" 같은 숫자를 먼저 쓰지 말고, **표본 하나를 직접 파본 뒤**
 확인된 것만 올려라. 지난번 자동 검수는 134건을 냈고 거의 전부 헛것이었다.
