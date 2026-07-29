@@ -53,7 +53,7 @@ const RESOURCES: ResourceItem[] = [
     href: '/changjak-styles.html',
     icon: '🎨',
     label: '창작동화 · 앵커 후보 시트',
-    desc: '최근 20년 수상 일러스트 69점 · 클러스터 10종 × 주제군 필터 + 선택 복사 (그림체 고르기)',
+    desc: '최근 20년 수상 일러스트 99점 · 클러스터 10종 × 주제군 필터 + 카드별 STYLE ANCHOR 프롬프트 복사',
   },
   {
     href: '/hangeul-tree-plan.html',

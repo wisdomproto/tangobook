@@ -19,6 +19,11 @@ const OUT = resolve(here, '../public/changjak-styles.html');
 const items = JSON.parse(readFileSync(SRC, 'utf8'));
 const missing = items.filter((e) => !e.imageUrl || !e.id);
 if (missing.length) throw new Error(`imageUrl/id 없는 항목 ${missing.length}건 — JSON 을 먼저 고칠 것`);
+// 🔴 반쪽 프롬프트를 내보내느니 굽지 않는다.
+const noSpec = items.filter((e) => !e.styleSpec?.medium || !e.styleSpec?.palette || !e.styleSpec?.finish);
+if (noSpec.length) throw new Error(`styleSpec 미완 ${noSpec.length}건: ${noSpec.map((e) => e.id).join(', ')}`);
+const leak = items.filter((e) => /[가-힣]/.test(JSON.stringify(e.styleSpec)));
+if (leak.length) throw new Error(`styleSpec 에 한글 ${leak.length}건: ${leak.map((e) => e.id).join(', ')}`);
 
 const GROUPS = {
   A: '마음·감정', B: '상상·변신', C: '자연·계절·동물', D: '모험·여정',
@@ -27,6 +32,66 @@ const GROUPS = {
 const clusters = [...new Set(items.map((e) => e.cluster))].sort();
 const esc = (s) =>
   String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+
+/**
+ * 후보 → 탐색용 STYLE ANCHOR 프롬프트.
+ *
+ * 골격은 §7.4 파일럿(손으로 저작한 것)에서 가져왔다. 다만 파일럿은 책 하나에 묶여 있고(여우·알프스·화),
+ * 앵커는 **그림체의 것**이라 여기서는 무대·서사를 빼고 스타일 축만 남긴다.
+ *
+ * 🔴 테스트 장면을 69개 전부 동일하게 고정한다 — 베이크오프 규칙(변수는 그림체 하나만).
+ *    장면 지문에 색·매체 단어를 넣지 않는다. 넣으면 특정 후보에 유리해져 공정한 비교가 아니다.
+ * 🔴 작가 실명은 넣지 않는다(매체·팔레트·마감·캐릭터 언어로만 기술).
+ * 🔴 이건 **첫 렌더용 초안**이다. 문구는 모델의 기본 렌더를 못 이기므로(§2.3), 살아남은 후보만
+ *    art-director 가 제대로 저작하고, 승인 렌더를 ref 로 고정해야 앵커가 완성된다.
+ */
+const TEST_SUBJECT = `TEST SUBJECT — identical for every candidate, so that only the style differs:
+  a small animal child standing in the open doorway of a village lane house at midday,
+  one wooden bucket on the ground beside them, a low wall and one window behind.
+  Nothing else in the scene. The animal is the only character.`;
+
+const NOT_COMMON = `NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render /
+  NOT cel-shaded anime / NOT a texture filter laid over flat digital colour / NOT photographic /
+  NOT a uniform finish across the page / NOT a hazy, blurry or desaturated background
+  (that is blur, not un-drawn) / NOT any lettering, numerals or signage anywhere in the image /
+  NOT wool felt, NOT stitched fabric, NOT sculpted clay (those belong to another Tangobook line)`;
+
+// 🔴 프롬프트는 `styleSpec`(영문 지시문)만 쓴다. top-level medium/palette/finish/character 는
+//    사람이 읽을 한국어 분석 노트라 그대로 꽂으면 한영이 섞이고 감상이 지시문 자리에 들어간다.
+const DEFAULT_CHARACTER = `the animal reads as one soft mass plus a defining feature (ears, tail, snout)
+  built from two or three strokes. Silhouette must be readable at thumbnail size.
+  The face must be able to act - give it drawn eyes rather than plain dots.`;
+
+const promptFor = (e) => {
+  const s = e.styleSpec;
+  return `STYLE ANCHOR (draft) — ${e.id}
+
+Style: a hand-made picture-book page for 4-6 year olds. European. Warm and quiet, not cute-glossy.
+  Made by a person - the marks of the tool stay visible.
+
+MEDIUM: ${s.medium}
+  The mark of the tool must be visible in every shape - edges happen where the medium runs out,
+  never as a clean vector line. No blending into airbrush softness.
+
+PALETTE: ${s.palette}
+  Keep the number of colours low and let the paper or ground carry the rest of the page.
+
+FINISH HIERARCHY: ${s.finish}
+  This is about how FINISHED each area is, not about opacity - the un-drawn areas are simply
+  not drawn, they are not blurred, faded or desaturated.
+  Never draw every roof tile, fence post, leaf or window pane.
+
+CHARACTER DESIGN: ${s.character || DEFAULT_CHARACTER}
+
+COMPOSITION: leave real empty space - the blank ground is a component, not a gap.
+  Big readable silhouette, subject off-centre, and keep the bottom 18% quiet for a caption band.
+
+${TEST_SUBJECT}
+
+CANVAS: 16:9 double-page spread, 4-6 year old picture book.
+
+NOT: ${NOT_COMMON}`;
+};
 
 const card = (e) => `
 <label class="c" data-cluster="${esc(e.cluster)}" data-groups="${esc((e.groups || []).join(','))}">
@@ -43,6 +108,8 @@ const card = (e) => `
     ${e.character ? `<div class="m"><b>캐릭터</b> ${esc(e.character)}</div>` : ''}
     <div class="g">${(e.groups || []).map((g) => `<span>${g} ${esc(GROUPS[g] || '')}</span>`).join('')}</div>
     <details><summary>왜 이 라인에 맞나</summary><p>${esc(e.why)}</p></details>
+    <button class="pb" type="button" data-p="${esc(promptFor(e))}">📋 프롬프트 복사</button>
+    <details><summary>프롬프트 보기</summary><pre>${esc(promptFor(e))}</pre></details>
     <code>${esc(e.id)}</code>
   </div>
 </label>`;
@@ -86,6 +153,9 @@ details{margin-top:6px}
 summary{font-size:11.5px;font-weight:700;color:var(--ink-soft);cursor:pointer}
 details p{font-size:11.5px;color:var(--ink-soft);margin-top:4px}
 .b code{display:block;margin-top:7px;font-size:10.5px;color:var(--ink-soft);background:var(--cream);border-radius:5px;padding:1px 6px;width:fit-content}
+button.pb{margin-top:8px;background:#fff;color:var(--mint);border:1.5px solid var(--mint);border-radius:999px;padding:3px 12px;font-size:11.5px;font-weight:800;cursor:pointer;font-family:inherit}
+button.pb:hover,button.pb.done{background:var(--mint);color:#fff}
+details pre{white-space:pre-wrap;background:var(--cream);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-family:inherit;font-size:10.5px;line-height:1.55;color:var(--ink-soft);margin-top:5px;max-height:260px;overflow:auto}
 .hide{display:none}
 </style>
 <div class="wrap">
@@ -122,6 +192,16 @@ document.querySelectorAll('button.f').forEach(function(b){
     apply();
   });
 });
+// 카드가 <label> 이라 안쪽 클릭은 체크박스를 토글한다 — 프롬프트 버튼/펼치기는 막아야 한다.
+document.addEventListener('click',function(e){
+  var b=e.target.closest('button.pb');
+  if(b){ e.preventDefault(); e.stopPropagation();
+    navigator.clipboard.writeText(b.dataset.p).then(function(){
+      b.textContent='복사됨 ✓'; b.classList.add('done');
+      setTimeout(function(){b.textContent='📋 프롬프트 복사';b.classList.remove('done');},1500);
+    }); return; }
+  if(e.target.closest('.c details')) e.preventDefault();
+},true);
 function picked(){return [].slice.call(document.querySelectorAll('.c input:checked')).map(function(i){return i.value;});}
 function sync(){
   var p=picked();
