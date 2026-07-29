@@ -290,10 +290,18 @@ export default function KoreanPhonicsActivityPage() {
     return (
       <WordListenChooseActivity
         unitId={unitId}
+        /**
+         * 🔴 **그림을 넣지 않는다** — 넣으면 들린 낱말의 그림이 늘 정답 칸에 있어서 글자를 안 보고도
+         *    통과한다(학습 단원의 「듣고 고르기」와 같은 활동이 된다). 복습은 소리→**글자** 방향이다.
+         * 🔴 한글은 **낱말 그대로** 보기로 둘 수 있다 — 이 복습에 오기까지 `고`·`기` 를 이미 배웠으므로
+         *    `고기` 는 **읽히는 낱말**이다(2026-07-29 사용자). 예전 주석의 "못 읽는 아이에겐 네 칸이
+         *    똑같아 보인다" 는 학습 단원 얘기지 복습에는 안 맞는다.
+         *    ⚠️ 영어 Book 1 은 반대다 — 거긴 **음소**만 배운 단계라 `alligator` 가 안 읽힌다.
+         *    그래서 영어 Book 1 만 보기를 **글자(Aa)** 로 바꾼다(`EnglishPhonicsActivityPage`).
+         */
         items={words.map((s) => ({
           label: s.word,
           sound: s.word,
-          ...(s.imageUrl ? { imageUrl: s.imageUrl } : {}),
         }))}
         onJudge={judgeWord}
         choices={REVIEW_CHOICES}
