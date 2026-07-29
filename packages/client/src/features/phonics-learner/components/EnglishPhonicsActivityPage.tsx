@@ -261,7 +261,12 @@ export default function EnglishPhonicsActivityPage() {
           unitId={unitId}
           language="english"
           items={withImage.map((s) => ({
-            label: s.word,
+            /**
+             * 🔴 Book 1 은 **보기가 글자**다 — 낱말 소리(`alligator`)를 듣고 **첫 글자**를 고른다.
+             *    예전엔 낱말↔그림이라 이 화면에 알파벳이 한 글자도 안 나왔다(글자를 몰라도 통과).
+             *    Book 2 는 낱말 그대로 — 거긴 패턴이 낱말 안에 있다.
+             */
+            label: isBook1 ? `${s.letter.toUpperCase()}${s.letter.toLowerCase()}` : s.word,
             sound: s.word,
             ...(s.imageUrl ? { imageUrl: s.imageUrl } : {}),
           }))}
@@ -276,8 +281,9 @@ export default function EnglishPhonicsActivityPage() {
         <ReviewFlipMatchActivity
           unitId={unitId}
           sources={withImage}
-          // 🔴 Book 1 만 — Book 2 의 패턴은 `_am` 처럼 **뒤쪽**이라 첫 글자를 키우면 틀린 곳을 가리킨다.
-          emphasizeFirstLetter={isBook1}
+          // 🔴 Book 1 은 **글자↔그림**으로 짝을 짓는다(글자가 목표인 권).
+          //    Book 2 는 낱말↔그림 그대로 — 거긴 패턴(`_am`)이 낱말 안에 있다.
+          letterFace={isBook1}
           // 🔴 이 파일에서 **여기만** language 가 빠져 있었다 — 컴포넌트 기본값이 'korean' 이라
           //    영어 낱말(dam·dad)을 한국어 음성으로 읽고 칭찬도 한국어가 나왔다.
           language="english"

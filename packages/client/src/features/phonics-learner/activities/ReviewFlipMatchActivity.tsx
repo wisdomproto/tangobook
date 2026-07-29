@@ -4,14 +4,19 @@ import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import type { ReviewCardSource } from '../hooks/useReviewCardSources';
 import { ActivityShell } from '../components/ActivityShell';
-import { FirstLetterWord } from '../components/FirstLetterWord';
 
 interface Props {
   unitId: string;
   sources: ReadonlyArray<ReviewCardSource>;
   language?: 'korean' | 'english';
-  /** 낱말의 **첫 글자만 크게** 쓴다 — 영어 Book 1(알파벳 배우기)처럼 글자가 목표인 단원. */
-  emphasizeFirstLetter?: boolean;
+  /**
+   * 카드 앞면을 **낱말이 아니라 글자**로 — 영어 Book 1 처럼 **글자가 목표**인 권.
+   * 🔴 낱말↔그림으로 짝을 지으면 알파벳을 한 번도 안 거치고 통과할 수 있다(사용자 지적:
+   *    "알파벳 공부가 중요한건 알지?"). 글자↔그림이면 기억해야 할 것이 곧 글자다.
+   *    낱말은 그림 칸 **아래 라벨**로 남아 있어 무엇의 그림인지는 여전히 알 수 있고,
+   *    맞히면 낱말을 읽어준다(보상은 낱말, 과제는 글자).
+   */
+  letterFace?: boolean;
   onComplete: () => void;
   onBack: () => void;
 }
@@ -47,7 +52,7 @@ export function ReviewFlipMatchActivity({
   unitId,
   sources,
   language = 'korean',
-  emphasizeFirstLetter = false,
+  letterFace = false,
   onComplete,
   onBack,
 }: Props) {
@@ -200,17 +205,15 @@ export function ReviewFlipMatchActivity({
                       <span
                         className={[
                           'font-black break-keep px-1 leading-none',
-                          (tile.card.word || tile.card.letter).length >= 3
-                            ? 'text-xl sm:text-3xl'
-                            : 'text-2xl sm:text-4xl',
+                          letterFace
+                            ? 'text-4xl sm:text-6xl font-display'
+                            : (tile.card.word || tile.card.letter).length >= 3
+                              ? 'text-xl sm:text-3xl'
+                              : 'text-2xl sm:text-4xl',
                           isMatched ? 'text-mint-600' : 'text-coral-600',
                         ].join(' ')}
                       >
-                        {emphasizeFirstLetter ? (
-                          <FirstLetterWord word={tile.card.word || tile.card.letter} />
-                        ) : (
-                          tile.card.word || tile.card.letter
-                        )}
+                        {letterFace ? tile.card.letter : tile.card.word || tile.card.letter}
                       </span>
                     )
                   ) : (
