@@ -5,6 +5,7 @@ import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
+import { ActivityShell } from '../components/ActivityShell';
 
 interface Props {
   unitId: string;
@@ -313,21 +314,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
   }, []);
 
   return (
-    <div
-      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 overflow-hidden"
-      style={{
-        backgroundImage: "url('/images/phonics/study-bg.webp')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <button
-        onClick={onBack}
-        className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-      >
-        ← 돌아가기
-      </button>
-
+    <ActivityShell onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-6 sm:gap-10">
         <h2
           className="text-5xl sm:text-6xl md:text-7xl font-black font-display text-center"
@@ -562,7 +549,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
-    </div>
+    </ActivityShell>
   );
 }
 

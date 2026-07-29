@@ -5,6 +5,7 @@ import { REST_MS } from '../hooks/useActivitySound';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import type { Storybook } from '@tangobook/shared';
+import { ActivityShell } from '../components/ActivityShell';
 
 interface Props {
   unitId: string;
@@ -132,17 +133,11 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
 
   if (storybookQuery.isLoading || !sb) {
     return (
-      <div className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-gradient-to-b from-cream-50 to-peach-100 overflow-hidden">
-        <button
-          onClick={onBack}
-          className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-        >
-          ← 돌아가기
-        </button>
+      <ActivityShell onBack={onBack} background="peach-gradient">
         <div className="flex-1 flex items-center justify-center text-ink-500 font-bold">
           불러오는 중…
         </div>
-      </div>
+      </ActivityShell>
     );
   }
 
@@ -151,15 +146,12 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
   }
 
   return (
-    <div className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-3 bg-gradient-to-b from-cream-50 to-peach-100 overflow-y-auto">
-      {/* 헤더 — 뒤로 + 진행 도트 */}
-      <div className="flex items-center justify-between gap-3 mb-3 shrink-0">
-        <button
-          onClick={onBack}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-        >
-          ← 돌아가기
-        </button>
+    <ActivityShell
+      onBack={onBack}
+      background="peach-gradient"
+      scroll
+      // 진행 도트 — 뒤로가기와 한 줄에.
+      headerRight={
         <div className="flex items-center gap-2">
           {progressText.map(({ L, done, current }) => (
             <div
@@ -176,9 +168,8 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
             </div>
           ))}
         </div>
-        <div className="w-[88px]" />
-      </div>
-
+      }
+    >
       {/* 가운데 — 현재 글자의 대문자/소문자 캔버스 2개 */}
       <div className="flex-1 min-h-0 flex flex-col items-center justify-start gap-4">
         <h2 className="text-2xl sm:text-3xl font-black text-ink-900 font-display">
@@ -230,6 +221,6 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
-    </div>
+    </ActivityShell>
   );
 }

@@ -3,6 +3,7 @@ import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
+import { ActivityShell } from '../components/ActivityShell';
 
 export interface ListenChoice {
   /** 카드 구분자. 같은 라벨이 두 장일 수 있다(알파벳 단원의 Aa=apple / Aa=alligator). */
@@ -293,21 +294,7 @@ export function WordListenChooseActivity({
   if (!current) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 overflow-hidden"
-      style={{
-        backgroundImage: "url('/images/phonics/study-bg.webp')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <button
-        onClick={onBack}
-        className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-      >
-        ← 돌아가기
-      </button>
-
+    <ActivityShell onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-5">
         {/* 🔎 탐색 — 눌러서 소리를 들어보고, 준비되면 퀴즈로.
             🔴 예전엔 들어오자마자 문제가 나왔다. 처음 보는 낱말을 소리만 듣고 고르라는 셈이라,
@@ -440,7 +427,7 @@ export function WordListenChooseActivity({
               </button>
               <button
                 onClick={onBack}
-                className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg shadow-soft active:scale-[0.98] transition"
+                className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-pop active:scale-[0.98] transition"
               >
                 ← 돌아가기
               </button>
@@ -450,6 +437,6 @@ export function WordListenChooseActivity({
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
-    </div>
+    </ActivityShell>
   );
 }

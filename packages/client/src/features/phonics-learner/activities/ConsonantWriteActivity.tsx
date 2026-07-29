@@ -6,6 +6,7 @@ import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { buildBlendPairs, pickRandom, stacksVertically } from '../lib/blend-pairs';
+import { ActivityShell } from '../components/ActivityShell';
 
 interface Props {
   unitId: string;
@@ -244,21 +245,7 @@ export function ConsonantWriteActivity({
   );
 
   return (
-    <div
-      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 overflow-hidden"
-      style={{
-        backgroundImage: "url('/images/phonics/study-bg.webp')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <button
-        onClick={onBack}
-        className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-      >
-        ← 돌아가기
-      </button>
-
+    <ActivityShell onBack={onBack}>
       {/* 오늘 써볼 음절 — 다 쓴 건 민트 + ✓. 아무거나 눌러 그것부터 할 수 있다(음절 만들기와 같다).
           🔴 진척은 `idx` 가 아니라 `madeSet` 으로 판단한다 — 건너뛰며 골랐을 때 앞의 안 한 것이
              '완료'로 보이면 안 된다. */}
@@ -408,6 +395,6 @@ export function ConsonantWriteActivity({
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
-    </div>
+    </ActivityShell>
   );
 }

@@ -5,6 +5,7 @@ import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { useLogSyllable } from '../hooks/useLogSyllable';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { buildBlendPairs, stacksVertically } from '../lib/blend-pairs';
+import { ActivityShell } from '../components/ActivityShell';
 
 interface Props {
   unitId: string;
@@ -231,21 +232,7 @@ export function ConsonantBlendListenActivity({
     ].join(' ');
 
   return (
-    <div
-      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 overflow-hidden"
-      style={{
-        backgroundImage: "url('/images/phonics/study-bg.webp')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <button
-        onClick={onBack}
-        className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-      >
-        ← 돌아가기
-      </button>
-
+    <ActivityShell onBack={onBack}>
       {/* 만들 음절 목록 — 완료 표시 + 아무거나 눌러 그것부터. 진행 점을 대신한다(같은 정보를 두 번 두지 않는다). */}
       <div className="flex flex-wrap justify-center gap-2 sm:gap-3 px-2">
         {pairs.map((p, i) => {
@@ -321,6 +308,6 @@ export function ConsonantBlendListenActivity({
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
-    </div>
+    </ActivityShell>
   );
 }

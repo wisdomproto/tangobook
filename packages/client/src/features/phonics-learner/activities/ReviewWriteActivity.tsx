@@ -5,6 +5,7 @@ import { useActivitySound } from '../hooks/useActivitySound';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import type { ReviewCardSource } from '../hooks/useReviewCardSources';
+import { ActivityShell } from '../components/ActivityShell';
 
 interface Props {
   unitId: string;
@@ -126,21 +127,7 @@ export function ReviewWriteActivity({
   if (!current) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 overflow-hidden"
-      style={{
-        backgroundImage: "url('/images/phonics/study-bg.webp')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <button
-        onClick={onBack}
-        className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-      >
-        ← 돌아가기
-      </button>
-
+    <ActivityShell onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4">
         {/* 진행 dots — 몇 장 남았는지 그림으로 */}
         <div className="flex gap-2 sm:gap-3">
@@ -197,6 +184,6 @@ export function ReviewWriteActivity({
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
-    </div>
+    </ActivityShell>
   );
 }

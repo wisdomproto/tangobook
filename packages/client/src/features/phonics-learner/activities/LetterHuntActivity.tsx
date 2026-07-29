@@ -5,6 +5,7 @@ import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { buildHuntBoard } from '../lib/letter-lookalikes';
 import type { ReviewCard } from '../lib/korean-phonics-units';
+import { ActivityShell } from '../components/ActivityShell';
 
 interface Props {
   unitId: string;
@@ -164,22 +165,10 @@ export function LetterHuntActivity({
   if (!card) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 overflow-hidden"
-      style={{
-        backgroundImage: "url('/images/phonics/study-bg.webp')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <div className="flex items-center justify-between gap-3">
-        <button
-          onClick={onBack}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-        >
-          ← 돌아가기
-        </button>
-        {/* 몇 개 남았는지 = 이 게임의 유일한 진행 표시 */}
+    <ActivityShell
+      onBack={onBack}
+      // 몇 개 남았는지 = 이 게임의 유일한 진행 표시. 뒤로가기와 한 줄에 양끝으로 선다.
+      headerRight={
         <div className="flex gap-1.5">
           {Array.from({ length: TARGETS }).map((_, i) => (
             <span
@@ -190,8 +179,8 @@ export function LetterHuntActivity({
             />
           ))}
         </div>
-      </div>
-
+      }
+    >
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4">
         {/* 🔴 제목에 글자를 끼워 넣지 않는다 — 'ㄱ 을' / 'A 을' 처럼 조사가 언어마다 어긋난다.
             찾을 글자는 눌러 소리를 듣는 큰 칩으로 따로 세운다. */}
@@ -250,6 +239,6 @@ export function LetterHuntActivity({
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
-    </div>
+    </ActivityShell>
   );
 }

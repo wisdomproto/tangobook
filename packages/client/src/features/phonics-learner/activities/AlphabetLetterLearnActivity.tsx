@@ -9,6 +9,7 @@ import { warmAudioUrl } from '@/features/games/hooks/useGamePrefetch';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { LetterWriteModal } from './LetterWriteModal';
+import { ActivityShell } from '../components/ActivityShell';
 
 /** 소리 사이 쉼 — 콜백으로 끝난 걸 확인한 뒤 넣는다(길이 가정 아님). */
 const REST_MS = 420;
@@ -235,58 +236,33 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
 
   if (storybookQuery.isLoading || !sb) {
     return (
-      <div
-        className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-cream-50 bg-cover bg-center overflow-hidden"
-        style={{ backgroundImage: "url('/images/phonics/study-bg.webp')" }}
-      >
-        <button
-          onClick={onBack}
-          className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-        >
-          ← 돌아가기
-        </button>
+      <ActivityShell onBack={onBack}>
         <div className="flex-1 flex items-center justify-center text-ink-500 font-bold">
           불러오는 중…
         </div>
-      </div>
+      </ActivityShell>
     );
   }
 
   if (!blending) {
     return (
-      <div
-        className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-cream-50 bg-cover bg-center overflow-hidden"
-        style={{ backgroundImage: "url('/images/phonics/study-bg.webp')" }}
-      >
-        <button
-          onClick={onBack}
-          className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-        >
-          ← 돌아가기
-        </button>
+      <ActivityShell onBack={onBack}>
         <div className="flex-1 flex flex-col items-center justify-center gap-3">
           <div className="text-6xl">🔤</div>
           <p className="text-xl font-black text-ink-700">학습카드 데이터가 없어요</p>
         </div>
-      </div>
+      </ActivityShell>
     );
   }
 
   return (
     // 🔴 배경은 한글 활동들과 같은 풀밭 — 이 화면만 밋밋한 그라데이션이라 다른 제품처럼 보였다.
-    <div
-      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-3 bg-cream-50 bg-cover bg-center overflow-y-auto"
-      style={{ backgroundImage: "url('/images/phonics/study-bg.webp')" }}
-    >
-      {/* 헤더 — 뒤로 + 글자 탭들 (가운데) */}
-      <div className="flex items-center justify-between gap-3 mb-3 shrink-0">
-        <button
-          onClick={onBack}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold shrink-0"
-        >
-          ← 돌아가기
-        </button>
-        {/* 글자 탭 — 활성 글자만 coral background + 큰 크기 (다시 클릭 = 발음). 비활성은 white. */}
+    <ActivityShell
+      onBack={onBack}
+      scroll
+      // 글자 탭 — 뒤로가기와 한 줄에.
+      headerRight={
+        // 글자 탭 — 활성 글자만 coral background + 큰 크기(다시 클릭 = 발음). 비활성은 white.
         <div className="flex items-center gap-2 sm:gap-3">
           {letters.map((L, i) => {
             const U = L.toUpperCase();
@@ -323,9 +299,8 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
             );
           })}
         </div>
-        <div className="w-[88px] shrink-0" /> {/* spacer for visual centering */}
-      </div>
-
+      }
+    >
       {/* 🔴 안내 문구 — 이 화면은 자유 탐색이라 **무엇을 누르면 되는지 글로 말해주지 않으면**
           아이는 그림만 보다 나간다(다른 활동엔 다 있는데 여기만 빠져 있었다).
           누를 것이 실제로 있을 때만 그렇게 쓴다 — 핫스팟이 없는 글자엔 글자 탭을 가리킨다. */}
@@ -500,6 +475,6 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
           onClose={() => setWriteOpen(false)}
         />
       )}
-    </div>
+    </ActivityShell>
   );
 }

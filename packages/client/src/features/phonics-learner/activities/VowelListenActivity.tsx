@@ -7,6 +7,7 @@ import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { useLogEvent } from '@/features/learning/hooks/useLogEvent';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
+import { ActivityShell } from '../components/ActivityShell';
 
 interface VowelItem {
   vowel: string; // 'ㅏ'
@@ -243,21 +244,7 @@ export function VowelListenActivity({
   }, [isListenPhase, listenedAll, phase, starting]);
 
   return (
-    <div
-      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 overflow-y-auto"
-      style={{
-        backgroundImage: "url('/images/phonics/study-bg.webp')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <button
-        onClick={onBack}
-        className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-      >
-        ← 돌아가기
-      </button>
-
+    <ActivityShell onBack={onBack} scroll>
       {/* 🔴 `gap-8` 고정 + `overflow-hidden` 이면 '모두 맞췄어!' 단계에서 버튼 줄이 늘면서 잘렸다. */}
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4 sm:gap-6 lg:gap-8">
         <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-ink-900 text-center">
@@ -369,6 +356,6 @@ export function VowelListenActivity({
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
-    </div>
+    </ActivityShell>
   );
 }
