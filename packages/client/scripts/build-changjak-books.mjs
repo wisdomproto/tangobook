@@ -142,7 +142,11 @@ for (const f of files) {
   const missing = ['id', 'group', 'no', 'title', 'engine', 'stage'].filter((k) => !doc.meta[k]);
   if (missing.length) throw new Error(`${id}: 프론트매터 누락 — ${missing.join(', ')}`);
   if (doc.meta.id !== id) throw new Error(`${id}: 프론트매터 id 가 '${doc.meta.id}' 라 파일명과 다르다`);
-  if (doc.pages.length !== 12) throw new Error(`${id}: 쪽 ${doc.pages.length}개 (12 이어야 함)`);
+  // 🔴 쪽수는 고정이 아니다 — 이야기와 연령이 정한다(사용자 방침). 번호가 끊기거나 너무 적은 것만 막는다.
+  if (doc.pages.length < 8 || doc.pages.length > 20) throw new Error(`${id}: 쪽 ${doc.pages.length}개 (8~20)`);
+  const nums = doc.pages.map((p) => Number(p.page.slice(1)));
+  const gap = nums.find((n, i) => n !== i + 1);
+  if (gap !== undefined) throw new Error(`${id}: 쪽 번호가 p1 부터 연속이 아니다 (p${gap} 자리)`);
   const noScene = doc.pages.filter((p) => !p.scene);
   if (noScene.length) throw new Error(`${id}: SCENE 없음 — ${noScene.map((p) => p.page).join(',')}`);
   writeFileSync(join(PUB, `changjak-${id}.html`), render(doc), 'utf8');
