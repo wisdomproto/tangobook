@@ -684,6 +684,13 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
         kind: 'letter-hunt',
         title: '글자 사냥',
         emoji: '🔎',
+        /**
+         * 🔴 사냥은 **음절로** 판을 깐다(2026-07-30 사용자) — 학습 단원의 사냥이 `가갸거겨` 인데
+         *    복습만 `ㄱㄴㄷㄹ` 이면 같은 활동이 갑자기 낱자로 바뀐다.
+         * 🔴 음절은 여기(plan)가 아니라 **활동 진입 때** 뽑는다 — plan 은 모듈 로드 시 한 번만
+         *    만들어져서, 여기서 무작위를 쓰면 새로고침 전까지 같은 음절이 고정된다.
+         *    `KoreanPhonicsActivityPage` 가 `randomReviewSyllable` 로 판마다 새로 뽑는다.
+         */
         ...shared,
       },
       {

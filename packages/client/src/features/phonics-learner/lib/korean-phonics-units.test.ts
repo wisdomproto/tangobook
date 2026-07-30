@@ -1,8 +1,10 @@
 import { describe, it, expect } from 'vitest';
+import { decomposeHangul } from '@tangobook/shared';
 import {
   getAllKoreanUnits,
   getActivityPlan,
   getRequiredActivities,
+  randomReviewSyllable,
   shuffleReviewCards,
 } from './korean-phonics-units';
 
@@ -181,15 +183,38 @@ describe('korean phonics activity plans', () => {
     }
   });
 
+  /** 사냥은 자기 카드(음절)를 따로 만든다 — 나머지 다섯이 공유하는 원본 카드는 여기서 본다. */
+  const sharedCards = (unitId: string) =>
+    getActivityPlan(unitId).activities.find((a) => a.kind === 'review-flip')!.reviewCards!;
+
   it('받침 복습 카드는 글자와 소리가 다르다', () => {
-    const r = reviews.find((x) => x.id === 'kr-h2-r1')!;
-    const cards = getActivityPlan(r.id).activities[0].reviewCards!;
-    const coda = cards.find((c) => c.unitId === 'kr-h2-u01')!;
+    const coda = sharedCards('kr-h2-r1').find((c) => c.unitId === 'kr-h2-u01')!;
     expect(coda.letter).toBe('ㅇ');
     expect(coda.sound).toBe('앙'); // 🔴 'ㅇ' 을 그대로 읽으면 초성 이응 소리가 난다
     // 자음 복습은 글자를 그대로 읽는다
-    const consonant = getActivityPlan('kr-h1-r1').activities[0].reviewCards![0];
+    const consonant = sharedCards('kr-h1-r1')[0];
     expect(consonant.letter).toBe(consonant.sound);
+  });
+
+  /**
+   * 🔴 복습 사냥판은 **낱자가 아니라 음절**이고, 음절은 plan 이 아니라 화면이 뽑는다
+   *    (`KoreanPhonicsActivityPage.huntCards` → `randomReviewSyllable`). plan 에서 뽑으면
+   *    모듈 로드 때 한 번 고정돼 새로고침 전까지 같은 음절만 나온다.
+   *    여기서는 그 재료(`randomReviewSyllable`)가 **되짚는 글자를 지킨 채 나머지를 바꾸는지**를 잠근다.
+   */
+  it('복습 사냥 음절은 되짚는 글자를 지키면서 매번 달라진다', () => {
+    const cards = sharedCards('kr-h1-r1');
+    const g = cards.find((c) => c.letter === 'ㄱ')!;
+    const seen = new Set<string>();
+    for (let i = 0; i < 60; i++) seen.add(randomReviewSyllable(g));
+    // 🔴 ㄱ 단원은 `가갸거겨고교구규그기` 를 다 배운다 — 여러 모음에 걸쳐 ㄱ 을 알아보는 게 그 학습의 몫.
+    expect(seen.size).toBeGreaterThan(1);
+    for (const s of seen) expect(decomposeHangul(s).cho).toBe('ㄱ');
+
+    // 받침 복습은 **받침**이 고정되고 앞 음절이 바뀐다.
+    const coda = sharedCards('kr-h2-r1').find((c) => c.unitId === 'kr-h2-u01')!;
+    for (let i = 0; i < 30; i++)
+      expect(decomposeHangul(randomReviewSyllable(coda)).jong).toBe('ㅇ');
   });
 
   it('한글1 단원 구성은 그대로다 (회귀 가드)', () => {

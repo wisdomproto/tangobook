@@ -70,6 +70,26 @@ export default function KoreanPhonicsActivityPage() {
     () => reviewCards.map((c) => randomReviewSyllable(c)),
     [reviewCards]
   );
+  /**
+   * 🔎 글자 사냥 판 — **복습만** 낱자를 음절로 바꿔 깐다.
+   *
+   * 🔴 **한글은 음소 하나를 음절 묶음으로 배운다**(2026-07-30 사용자) — ㄱ 단원에서 `가갸거겨고교구규그기`
+   *    를 다 익히므로, 여러 모음에 걸쳐 ㄱ 을 알아보는 것이 곧 그 단원이 가르친 것이다. 그래서
+   *    대표 음절(가) 고정이 아니라 **매번 무작위**(`randomReviewSyllable` — 자음은 고정, 모음이 바뀐다).
+   *    받침 복습은 받침을 고정하고 앞 음절이 바뀐다(`앙`→`옹`), 복잡한 모음은 그 모음이 고정된다.
+   * 🔴 학습 단원의 사냥은 이미 음절(가갸거겨)이거나 모음이라 **그대로 둔다**.
+   * 🔴 진입당 한 번만 — 렌더마다 뽑으면 누를 때마다 판이 바뀐다.
+   */
+  const huntCards = useMemo(
+    () =>
+      unit?.isReview
+        ? reviewCards.map((c) => {
+            const s = randomReviewSyllable(c);
+            return { ...c, letter: s, syllable: s, sound: s };
+          })
+        : reviewCards,
+    [reviewCards, unit?.isReview]
+  );
   const { sources: reviewSources, isLoading: reviewLoading } = useReviewCardSources(reviewCards);
 
   /**
@@ -328,11 +348,11 @@ export default function KoreanPhonicsActivityPage() {
     );
   }
   // 🔎 글자 사냥 — 글자만 쓰는 활동이라 단어 그림을 기다리지 않는다(자산 없는 단원에서도 돈다).
-  if (activity.kind === 'letter-hunt' && reviewCards.length) {
+  if (activity.kind === 'letter-hunt' && huntCards.length) {
     return (
       <LetterHuntActivity
         unitId={unitId}
-        cards={reviewCards}
+        cards={huntCards}
         onComplete={handleComplete}
         onBack={backToUnit}
       />
