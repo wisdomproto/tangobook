@@ -26,8 +26,11 @@ const BOOKS = resolve(here, '../../../docs/changjak-books');
 const args = process.argv.slice(2);
 const N = Number(args[args.indexOf('--n') + 1]) || 4;
 const asJson = args.includes('--json');
+// 🔴 막힌 엔진을 열려면 그 엔진으로 한 권을 통과시켜야 하는데, 기본 필터가 그 엔진을 빼 버려서
+//    후보를 볼 방법이 없었다. --engine 은 **그 한 권을 고르는 용도**다 — 통과하기 전엔 표를 고치지 마라.
+const engineArg = (args.find((a) => a.startsWith('--engine=')) || '').slice(9);
 
-const VERIFIED = new Set(['누적·반복', '오해와 반전']);
+const VERIFIED = new Set(engineArg ? [engineArg] : ['누적·반복', '오해와 반전']);
 
 // 🔴 은유 함정 — 「감정이 몸·사물을 바꾼다」는 요약. a01(부끄러우면 털이 빨개져)이 이 병으로 죽었다.
 //    4~6세는 그 치환을 못 읽는다. 규칙 깨기 엔진과 함께 이 라인의 두 실패 원인이다.
