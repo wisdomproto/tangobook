@@ -17,6 +17,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import puppeteer, { type Browser, type Frame, type Page } from 'puppeteer';
 import { loadSession, applySession } from '../src/services/naver/naver-session.js';
+import { recordPublication } from '../src/services/naver/naver-publications.store.js';
 
 const OUT = path.resolve(process.cwd(), 'out/naver');
 fs.mkdirSync(OUT, { recursive: true });
@@ -50,6 +51,51 @@ const tagsFor = (title: string) => {
     '탱고북',
   ];
 };
+
+/**
+ * DB 상태: ①이미 **발행된** ko 제목(예약 대상에서 뺀다) ②ko 제목→bookId 다리(발행 성공 시 기록용).
+ *
+ * 🔴 두 구멍이 겹쳐 장수풍뎅이가 두 번 나갔다:
+ *    (1) 예약 스크립트가 발행이력을 **아예 안 남긴다** — `--draft` 가 30건을 draft 로 기록하는데 예약이
+ *        성공해도 published 로 안 바꿔, DB 는 뭐가 나갔는지 모른다. → 성공 시 recordPublication 으로 기록.
+ *    (2) 초안 생성엔 `shouldSkip` 대조가 있는데 예약 쪽엔 없었다 → 라이브 발행한 책의 초안이 임시저장에
+ *        남아 검색량 1위로 재예약. → 아래 published 로 제외.
+ *    book_id = `mkt_blog_contents.content_id`. post_id='' 로 upsert 하면 draft 행을 그대로 갱신한다.
+ */
+interface BookRef {
+  bookId: string; // mkt_blog_contents.content_id
+  blogContentId: string; // mkt_blog_contents.id — 발행이력 post_id 규칙(publish-naver-blog 와 동일)
+}
+async function loadDbState(): Promise<{
+  published: Set<string>;
+  titleToBook: Map<string, BookRef>;
+}> {
+  const base = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const empty = { published: new Set<string>(), titleToBook: new Map<string, BookRef>() };
+  if (!base || !key) return empty; // 키 없으면 dedup 생략(중복이 무발행보다 낫다)
+  const rest = async <T>(q: string): Promise<T[]> => {
+    const r = await fetch(`${base}/rest/v1/${q}`, {
+      headers: { apikey: key, Authorization: `Bearer ${key}` },
+    });
+    if (!r.ok) throw new Error(`Supabase ${r.status}`);
+    return r.json() as Promise<T[]>;
+  };
+  const rows = await rest<{ id: string; title: string; content_id: string }>(
+    'mkt_blog_contents?select=id,title,content_id&lang=eq.ko&limit=2000'
+  );
+  const titleToBook = new Map<string, BookRef>(
+    rows.map((r) => [r.title, { bookId: r.content_id, blogContentId: r.id }])
+  );
+  const pubs = await rest<{ book_id: string }>(
+    'mkt_naver_blog_publications?select=book_id&status=eq.published'
+  );
+  const publishedBooks = new Set(pubs.map((p) => p.book_id));
+  const published = new Set(
+    [...titleToBook].filter(([, ref]) => publishedBooks.has(ref.bookId)).map(([t]) => t)
+  );
+  return { published, titleToBook };
+}
 
 async function notify(text: string) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
@@ -246,11 +292,14 @@ async function main() {
     return k ? volMap[k].vol : 0;
   };
 
+  // 🔴 이미 발행된 책은 뺀다 — 라이브 발행한 책의 초안이 임시저장에 남아 재예약되던 구멍(장수풍뎅이 2회).
+  const { published, titleToBook } = await loadDbState();
   // 🔴 같은 제목이 두 번 있을 수 있다(테스트하다 중복 저장된 초안). 첫 개만 쓴다 —
   //    안 거르면 같은 글이 이틀 연속 나간다.
-  const targets = [...new Set(all.filter((t) => t.includes(MATCH)))]
+  const targets = [...new Set(all.filter((t) => t.includes(MATCH) && !published.has(t)))]
     .sort((a, b) => volOf(b) - volOf(a))
     .slice(0, LIMIT);
+  if (published.size) console.log(`발행 완료 ${published.size}편은 예약 대상에서 제외`);
 
   console.log(
     `임시저장 ${all.length}개 · "${MATCH}" 포함 ${targets.length}개 예약${APPLY ? '' : ' (dry-run)'}`
@@ -286,6 +335,19 @@ async function main() {
         d: w.getDate(),
       });
       done.push(title);
+      // 🔴 예약 성공을 발행이력에 남긴다 — 이게 없어서 같은 책이 두 번 나갔다. book_id 를 못 찾으면(제목
+      //    불일치) 기록만 건너뛴다(예약은 이미 걸렸다). post_id='' 로 upsert 하면 draft 행을 published 로 갱신.
+      const ref = titleToBook.get(title);
+      if (ref) {
+        await recordPublication({
+          bookId: ref.bookId,
+          postId: ref.blogContentId,
+          language: 'ko',
+          status: 'published',
+        }).catch((e) => console.log(`    (이력 기록 실패: ${(e as Error).message.slice(0, 40)})`));
+      } else {
+        console.log(`    (이력 기록 건너뜀 — 제목으로 book_id 못 찾음)`);
+      }
       console.log(`  ✓ ${w.getMonth() + 1}/${w.getDate()} ${HOUR}:00 — ${title.slice(0, 36)}`);
     } catch (e) {
       failed.push(`${title.slice(0, 24)} (${(e as Error).message.slice(0, 40)})`);
