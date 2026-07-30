@@ -139,7 +139,9 @@ for (const f of files) {
   const doc = parse(readFileSync(join(SRC, f), 'utf8'));
   // 🔴 반쪽 원고를 내보내느니 실패한다 — 쪽이 비면 페이지가 조용히 짧아진다
   // 🔴 빠진 키는 `엔진 · undefined` 로 조용히 나간다. 조용한 게 문제라 여기서 세운다.
-  const missing = ['id', 'group', 'no', 'title', 'engine', 'stage'].filter((k) => !doc.meta[k]);
+  // 🔴 premise·resolution 은 규격 ⑰ — 이 둘이 없으면 「해결이 전제를 해결하는가」를 아무도 못 묻는다.
+  //    a01 의 결함이 이 두 줄이 없어서 요약문 단계에서 통과한 것이다.
+  const missing = ['id', 'group', 'no', 'title', 'engine', 'stage', 'premise', 'resolution'].filter((k) => !doc.meta[k]);
   if (missing.length) throw new Error(`${id}: 프론트매터 누락 — ${missing.join(', ')}`);
   if (doc.meta.id !== id) throw new Error(`${id}: 프론트매터 id 가 '${doc.meta.id}' 라 파일명과 다르다`);
   // 🔴 쪽수는 고정이 아니다 — 이야기와 연령이 정한다(사용자 방침). 번호가 끊기거나 너무 적은 것만 막는다.
