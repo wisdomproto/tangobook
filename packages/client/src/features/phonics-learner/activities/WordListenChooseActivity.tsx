@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
@@ -14,6 +15,14 @@ export interface ListenChoice {
   sound: string;
   /** 그림 (알파벳 단원은 없음) */
   imageUrl?: string;
+  /**
+   * **맞힌 뒤에만** 열리는 그림. 보기로는 글자만 깔고, 정답을 고르면 그 칸이 그림으로 뒤집힌다.
+   *
+   * 🔴 `imageUrl` 과 목적이 다르다 — 그건 처음부터 보이는 보기라 **정답을 알려준다**(복습에서 쓰면
+   *    들린 낱말의 그림이 늘 정답 칸에 있어 글자를 안 보고 통과한다). 이건 판정이 끝난 뒤에 열리므로
+   *    고르는 근거가 되지 않고, "내가 고른 게 이거였구나"를 확인시켜 준다.
+   */
+  revealImageUrl?: string;
   ttsUrl?: string;
 }
 
@@ -176,6 +185,11 @@ export function WordListenChooseActivity({
    *    카드가 그 소리의 주인이라는 표시가 없어, 맞았는지 화면으로는 알 수가 없었다.
    */
   const [correct, setCorrect] = useState<string | null>(null);
+  /**
+   * 맞혀서 **그림이 열린** 카드 — 다음 문제로 넘어가도 그림인 채로 남는다.
+   * 남은 글자 칸이 곧 "아직 안 맞힌 것"이라 몇 개 남았는지가 그림으로 읽힌다(맞춘 카드=민트+✓ 와 같은 뜻).
+   */
+  const [revealed, setRevealed] = useState<Set<string>>(new Set());
   const [done, setDone] = useState(false);
   const wrongTimer = useRef<number | null>(null);
   const restTimer = useRef<number | null>(null);
@@ -238,6 +252,8 @@ export function WordListenChooseActivity({
       }
       onJudge?.(true, picked);
       setCorrect(idOf(picked));
+      // 맞힌 칸은 글자 → 그림으로 뒤집힌다(그림이 주어진 경우).
+      if (picked.revealImageUrl) setRevealed((prev) => new Set(prev).add(idOf(picked)));
       const isLast = qIdx + 1 >= questions.length;
       if (isLast) setDone(true);
       // 🔴 한 단계씩 **콜백으로** 잇는다 — setTimeout 으로 길이를 가정하지 않는다.
@@ -397,7 +413,28 @@ export function WordListenChooseActivity({
             >
               {/* 🔴 글자 단원(영어 Book 1 알파벳)은 그림 없이 글자만 — 아직 단어 철자를 읽을 단계가 아니다.
                   그 외 단원은 그림 + 단어. 파닉스라 소리↔글자를 잇는 게 학습 목표다. */}
-              {c.imageUrl && (!revealImageOnTap || !exploring || opened.has(idOf(c))) ? (
+              {/* 맞힌 칸 — 글자가 옆으로 돌아 사라지고 그림이 돌아 들어온다(0.32초).
+                  🔴 `mode="wait"` 라 글자가 다 접힌 **뒤** 그림이 펴진다. 동시에 돌면 두 장이 겹쳐
+                     한순간 글자 위에 그림이 얹혀 보인다. */}
+              {revealed.has(idOf(c)) && c.revealImageUrl ? (
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div
+                    key="revealed"
+                    initial={{ rotateY: 90, opacity: 0 }}
+                    animate={{ rotateY: 0, opacity: 1 }}
+                    transition={{ duration: 0.32, ease: 'easeOut' }}
+                  >
+                    <img
+                      src={c.revealImageUrl}
+                      alt=""
+                      className="w-full aspect-square object-cover"
+                    />
+                    <span className="block py-2 text-xl sm:text-3xl font-black text-ink-800 break-keep">
+                      {c.label}
+                    </span>
+                  </motion.div>
+                </AnimatePresence>
+              ) : c.imageUrl && (!revealImageOnTap || !exploring || opened.has(idOf(c))) ? (
                 <>
                   <img src={c.imageUrl} alt="" className="w-full aspect-square object-cover" />
                   <span className="block py-2 text-xl sm:text-3xl font-black text-ink-800 break-keep">

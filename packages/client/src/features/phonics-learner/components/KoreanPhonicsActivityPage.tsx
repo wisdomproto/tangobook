@@ -302,6 +302,8 @@ export default function KoreanPhonicsActivityPage() {
         items={words.map((s) => ({
           label: s.word,
           sound: s.word,
+          // 🔴 보기가 아니라 **맞힌 뒤에** 열리는 그림이다 — 고르는 근거는 여전히 소리↔글자다.
+          revealImageUrl: s.imageUrl,
         }))}
         onJudge={judgeWord}
         choices={REVIEW_CHOICES}
@@ -326,7 +328,7 @@ export default function KoreanPhonicsActivityPage() {
     );
   }
   // 🔎 글자 사냥 — 글자만 쓰는 활동이라 단어 그림을 기다리지 않는다(자산 없는 단원에서도 돈다).
-  if (activity.kind === 'review-hunt' && reviewCards.length) {
+  if (activity.kind === 'letter-hunt' && reviewCards.length) {
     return (
       <LetterHuntActivity
         unitId={unitId}

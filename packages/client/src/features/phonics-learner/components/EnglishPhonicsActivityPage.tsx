@@ -225,7 +225,7 @@ export default function EnglishPhonicsActivityPage() {
 
   // 🔎 글자 사냥 — 글자만 쓰는 활동이라 단어 그림을 기다리지 않는다.
   //    영어는 Book 2 가 word family(at·an)라 방해꾼도 같은 꼴로 만들어진다(모음·끝소리 교체).
-  if (activity.kind === 'review-hunt' && reviewCards.length) {
+  if (activity.kind === 'letter-hunt' && reviewCards.length) {
     return (
       <LetterHuntActivity
         unitId={unitId}
@@ -276,6 +276,9 @@ export default function EnglishPhonicsActivityPage() {
              *    다 똑같아 보이지만, 글자는 다르다).
              */
             ...(!isBook1 && s.imageUrl ? { imageUrl: s.imageUrl } : {}),
+            // 🔴 **맞힌 뒤에** 열리는 그림은 별개다 — 판정이 끝난 뒤라 고르는 근거가 되지 않는다.
+            //    Book 1 도 여기선 그림을 준다(글자를 고른 뒤 "그게 alligator 였구나"를 본다).
+            revealImageUrl: s.imageUrl,
           }))}
           choices={REVIEW_CHOICES}
           onMarkComplete={handleMarkComplete}

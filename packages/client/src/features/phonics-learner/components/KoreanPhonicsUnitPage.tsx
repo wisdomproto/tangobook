@@ -199,7 +199,9 @@ const KIND_ICON_URL: Partial<Record<ActivityDef['kind'], string>> = {
   // 복습 — 익숙한 활동과 같은 그림을 써서 "해본 것"으로 읽히게 한다
   'word-listen-choose': '/icons/activity/cvc-learn.webp',
   'review-listen': '/icons/activity/cvc-learn.webp',
-  'review-hunt': '/icons/game/connect-dots.webp',
+  // 🔴 글자 사냥은 **아이콘을 주지 않는다** → 🔎 이모지 폴백. 예전엔 `connect-dots.webp` 를 썼는데,
+  //    학습 단원에도 들어오면서 같은 화면 아래쪽 「낱말 그리기」와 **그림이 똑같아졌다**.
+  //    글자를 못 읽는 아이는 그림으로 활동을 구분한다 — 같은 그림 두 장은 같은 활동으로 읽힌다.
   'review-flip': '/icons/game/korean-block.webp',
   'review-match': '/icons/game/line-matching.webp',
   'review-write': '/icons/game/word-writing-ko.webp',
