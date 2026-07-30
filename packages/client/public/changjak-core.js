@@ -629,6 +629,34 @@
   meta.parentNode.insertBefore(box, meta.nextSibling);
   var body = box.querySelector('.sb-body');
 
+  // 🔴 앵커 후보 시트의 **원본 수상작 이미지**를 먼저 띄운다.
+  //    승인 렌더(ref)가 나오기 전에도 그리는 사람이 「어떤 그림체인지」를 눈으로 봐야 한다 —
+  //    빈 칸 셋만 있으면 패널이 아무 일도 안 한다. 실명은 여기(근거 표시)만, 프롬프트엔 절대 안 들어간다.
+  fetch('/changjak-anchor-refs.json')
+    .then(function (r) { return r.json(); })
+    .then(function (all) {
+      var e2 = (all || {})[ep.id];
+      if (!e2 || !e2.refs || !e2.refs.length) return;
+      var wrap = document.createElement('div');
+      wrap.className = 'sb-cands';
+      wrap.innerHTML =
+        '<div class="sb-cl">🏆 이 그림체의 근거 — 수상작 원본 <span>(베끼는 게 아니라 문법을 참고한다)</span></div>' +
+        '<div class="sb-crow">' +
+        e2.refs
+          .filter(function (r) { return r.imageUrl; })
+          .map(function (r) {
+            return (
+              '<a class="sb-c" href="' + r.imageUrl + '" target="_blank" rel="noopener">' +
+              '<img loading="lazy" src="' + r.imageUrl + '" alt="' + (r.work || '') + '" />' +
+              '<span>' + (r.artist || '') + '<i>' + (r.award || '') + ' ' + (r.year || '') + '</i></span></a>'
+            );
+          })
+          .join('') +
+        '</div>';
+      box.appendChild(wrap);
+    })
+    .catch(function () {});
+
   if (!ep.anchorSlug) {
     body.innerHTML =
       '<p class="sb-hint">이 책은 아직 앵커가 배정되지 않았습니다. ' +
