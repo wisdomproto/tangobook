@@ -1,14 +1,22 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { resolveTtsUrl } from '@/features/tts';
-import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { useActivitySound } from '../hooks/useActivitySound';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import type { ReviewCardSource } from '../hooks/useReviewCardSources';
+import { ActivityShell } from '../components/ActivityShell';
 
 interface Props {
   unitId: string;
   sources: ReadonlyArray<ReviewCardSource>;
   language?: 'korean' | 'english';
+  /**
+   * 카드 앞면을 **낱말이 아니라 글자**로 — 영어 Book 1 처럼 **글자가 목표**인 권.
+   * 🔴 낱말↔그림으로 짝을 지으면 알파벳을 한 번도 안 거치고 통과할 수 있다(사용자 지적:
+   *    "알파벳 공부가 중요한건 알지?"). 글자↔그림이면 기억해야 할 것이 곧 글자다.
+   *    낱말은 그림 칸 **아래 라벨**로 남아 있어 무엇의 그림인지는 여전히 알 수 있고,
+   *    맞히면 낱말을 읽어준다(보상은 낱말, 과제는 글자).
+   */
+  letterFace?: boolean;
   onComplete: () => void;
   onBack: () => void;
 }
@@ -22,6 +30,19 @@ interface Tile {
   id: string;
   card: ReviewCardSource;
   face: 'letter' | 'image';
+}
+
+/**
+ * 글자면 라벨 — 영어는 **대·소문자 쌍**(`Dd`). 복습 안 다른 활동(듣고 단어 `Aa`, 학습 단원 탭)이
+ * 전부 쌍이라 여기만 대문자 하나면 같은 글자가 화면마다 다른 꼴로 보인다(2026-07-29 검수).
+ * 🔴 `syllable` 은 영어에서 소문자다(`{letter:'A', syllable:'a'}`) — 한글은 `가` 라 쌍이 성립 안 하므로
+ *    이 함수는 `letterFace`(= Book 1)에서만 쓴다.
+ */
+function faceLabel(card: { letter: string; syllable?: string }): string {
+  const lower = card.syllable ?? '';
+  return /^[a-z]$/i.test(lower) && lower.toLowerCase() !== card.letter.toLowerCase()
+    ? card.letter
+    : `${card.letter}${lower}`;
 }
 
 function shuffle<T>(arr: readonly T[]): T[] {
@@ -44,10 +65,17 @@ export function ReviewFlipMatchActivity({
   unitId,
   sources,
   language = 'korean',
+  letterFace = false,
   onComplete,
   onBack,
 }: Props) {
-  const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
+  const {
+    say: speak,
+    rest,
+    playFeedbackSound,
+    playCorrectSequence,
+    praiseVisible,
+  } = useActivitySound({ unitId, language, prefix: 'review-flip' });
 
   const picked = useMemo(() => sources.slice(0, PAIRS), [sources]);
 
@@ -75,6 +103,8 @@ export function ReviewFlipMatchActivity({
   const [open, setOpen] = useState<string[]>([]); // 지금 뒤집힌 카드 (최대 2)
   const [matched, setMatched] = useState<ReadonlySet<string>>(() => new Set());
   const [locked, setLocked] = useState(false);
+  /** 방금 안 맞은 두 장 — 덮이기 전까지 흔들린다. */
+  const [wrong, setWrong] = useState<string[]>([]);
   const timer = useRef<number | null>(null);
 
   useEffect(
@@ -85,17 +115,8 @@ export function ReviewFlipMatchActivity({
   );
 
   const say = useCallback(
-    async (card: ReviewCardSource, onEnded?: () => void) => {
-      const url = await resolveTtsUrl({
-        text: wordOf(card),
-        language,
-        storybookId: unitId,
-        identifierPrefix: 'review-flip',
-      });
-      if (url) playAudio(url, onEnded);
-      else onEnded?.();
-    },
-    [language, unitId, playAudio, wordOf]
+    (card: ReviewCardSource, onEnded?: () => void) => void speak(wordOf(card), onEnded),
+    [speak, wordOf]
   );
 
   const handleTap = useCallback(
@@ -103,6 +124,12 @@ export function ReviewFlipMatchActivity({
       if (locked || open.includes(tile.id) || matched.has(tile.card.letter)) return;
       const next = [...open, tile.id];
       setOpen(next);
+      /**
+       * 🔴 **글자를 뒤집으면 그 글자 소리를 들려준다**(2026-07-29 검수). 글자면 모드에서 카드 8장을
+       *    다 뒤집어도 알파벳 소리가 한 번도 안 났다 — 나머지 다섯 활동은 전부 글자 소리를 낸다.
+       *    (짝을 맞췄을 때 나는 낱말 소리는 그대로 — 과제는 글자, 보상은 낱말.)
+       */
+      if (letterFace && tile.face === 'letter') void speak(tile.card.sound);
       if (next.length < 2) return;
 
       const [a, b] = next.map((id) => tiles.find((t) => t.id === id)!);
@@ -110,23 +137,33 @@ export function ReviewFlipMatchActivity({
         const done = new Set(matched).add(a.card.letter);
         setMatched(done);
         setOpen([]);
-        // 🔴 TTS 끝난 뒤에 다음 단계 — setTimeout 으로 길이를 가정하지 않는다.
-        say(a.card, () => {
-          if (done.size >= picked.length) {
-            playCorrectSequence({
-              language: language === 'english' ? 'en' : 'ko',
-              onDone: onComplete,
-            });
-          } else {
-            playFeedbackSound(true);
-          }
-        });
+        // 🔴 낱말 끝 → **쉼** → 칭찬/띵동. 끝나자마자 붙이면 한 덩어리로 들린다.
+        say(a.card, () =>
+          rest(() => {
+            if (done.size >= picked.length) {
+              playCorrectSequence({
+                language: language === 'english' ? 'en' : 'ko',
+                onDone: onComplete,
+              });
+            } else {
+              playFeedbackSound(true);
+            }
+          })
+        );
         return;
       }
-      // 안 맞음 — 잠깐 보여주고 덮는다. 소리로 혼내지 않는다.
+      /**
+       * 안 맞음 — 잠깐 보여주고 덮는다.
+       * 🔴 **틀렸다는 걸 알려준다**(2026-07-29 사용자 지시). 예전엔 소리도 표시도 없이 그냥 덮여서,
+       *    아이 눈엔 카드가 저절로 닫힌 것과 구분이 안 됐다("내가 뭘 잘못했지?"가 아니라 "왜 닫히지?").
+       *    다른 게임과 같은 오답음 + 두 장 흔들기 — 벌이 아니라 **무슨 일이 일어났는지**를 말해준다.
+       */
       setLocked(true);
+      setWrong(next);
+      playFeedbackSound(false);
       timer.current = window.setTimeout(() => {
         setOpen([]);
+        setWrong([]);
         setLocked(false);
       }, FLIP_BACK_MS);
     },
@@ -136,6 +173,9 @@ export function ReviewFlipMatchActivity({
       matched,
       tiles,
       say,
+      speak,
+      letterFace,
+      rest,
       picked.length,
       playCorrectSequence,
       playFeedbackSound,
@@ -145,21 +185,7 @@ export function ReviewFlipMatchActivity({
   );
 
   return (
-    <div
-      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 overflow-hidden"
-      style={{
-        backgroundImage: "url('/images/phonics/study-bg.webp')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <button
-        onClick={onBack}
-        className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-      >
-        ← 돌아가기
-      </button>
-
+    <ActivityShell onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4">
         <h2 className="text-2xl sm:text-4xl font-black text-ink-900 text-center break-keep">
           {matched.size >= picked.length ? '다 맞췄어!' : '같은 짝을 찾아봐!'}
@@ -182,9 +208,11 @@ export function ReviewFlipMatchActivity({
                     'relative w-[min(20vw,18vh)] h-[min(20vw,18vh)] rounded-2xl border-[4px] overflow-hidden shadow-soft transition active:scale-[0.97] flex items-center justify-center',
                     isMatched
                       ? 'bg-mint-100 border-mint-500'
-                      : isOpen
-                        ? 'bg-white border-coral-400'
-                        : 'bg-gradient-to-br from-coral-400 to-coral-600 border-white',
+                      : wrong.includes(tile.id)
+                        ? 'bg-danger/10 border-danger animate-shake'
+                        : isOpen
+                          ? 'bg-white border-coral-400'
+                          : 'bg-gradient-to-br from-coral-400 to-coral-600 border-white',
                   ].join(' ')}
                 >
                   {isOpen ? (
@@ -198,13 +226,15 @@ export function ReviewFlipMatchActivity({
                       <span
                         className={[
                           'font-black break-keep px-1 leading-none',
-                          (tile.card.word || tile.card.letter).length >= 3
-                            ? 'text-xl sm:text-3xl'
-                            : 'text-2xl sm:text-4xl',
+                          letterFace
+                            ? 'text-4xl sm:text-6xl font-display'
+                            : (tile.card.word || tile.card.letter).length >= 3
+                              ? 'text-xl sm:text-3xl'
+                              : 'text-2xl sm:text-4xl',
                           isMatched ? 'text-mint-600' : 'text-coral-600',
                         ].join(' ')}
                       >
-                        {tile.card.word || tile.card.letter}
+                        {letterFace ? faceLabel(tile.card) : tile.card.word || tile.card.letter}
                       </span>
                     )
                   ) : (
@@ -221,8 +251,11 @@ export function ReviewFlipMatchActivity({
           })}
         </div>
 
-        {/* 모은 것 — 맞춘 짝은 **낱말**로 남는다(카드·소리와 같게). 아직이면 '?'.
-            🔴 낱말은 3글자까지 오므로 원이 아니라 알약 모양이어야 한다. */}
+        {/* 모은 것 — 맞춘 짝은 **글자**로 남는다.
+            🔴 여기가 이 활동의 **유일한 글자 자리**다(2026-07-29). 카드 앞면은 낱말, 그림면은 그림,
+               읽어주는 것도 낱말이라, 칩까지 낱말로 두면 파닉스 복습인데 **화면 어디에도 글자가 없다**.
+               받침 복습에서 ㅇ·ㄱ·ㄴ·ㄹ 이 한 번도 안 보였다(검수로 잡힘). 모듈 문서도 원래
+               "칩이 음소를 맡으므로 파닉스가 유지된다"고 적어둔 자리다 — 코드만 어긋나 있었다. */}
         <div className="flex flex-wrap justify-center gap-2">
           {picked.map((s) => (
             <span
@@ -232,13 +265,13 @@ export function ReviewFlipMatchActivity({
                 matched.has(s.letter) ? 'bg-mint-500 text-white' : 'bg-white/70 text-ink-300',
               ].join(' ')}
             >
-              {matched.has(s.letter) ? wordOf(s) : '?'}
+              {matched.has(s.letter) ? s.letter : '?'}
             </span>
           ))}
         </div>
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
-    </div>
+    </ActivityShell>
   );
 }

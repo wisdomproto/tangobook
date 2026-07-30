@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { Storybook } from '@tangobook/shared';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { REST_MS } from '../hooks/useActivitySound';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 
@@ -47,8 +48,10 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
         return { ...prev, [which]: true };
       });
       // 완료 시 단어 TTS 랜덤 재생 — 짧은 갭 후 (시스템 효과음 없음)
+      // 🔴 200ms 는 "소리가 이 정도면 끝났겠지"가 아니라 **쓰기가 끝난 뒤 숨 돌릴 자리**다.
+      //    소리끼리 잇는 자리가 아니라(앞에 소리가 없다) 규칙상 문제는 없지만, 간격은 공용 값을 쓴다.
       const url = pickRandomWordTts();
-      if (url) setTimeout(() => playAudio(url), 200);
+      if (url) setTimeout(() => playAudio(url), REST_MS);
     },
     [pickRandomWordTts, playAudio]
   );

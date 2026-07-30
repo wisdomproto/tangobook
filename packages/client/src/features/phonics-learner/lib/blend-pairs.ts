@@ -32,6 +32,10 @@ export interface BlendSource {
   coda?: string;
   /** 받침 모드 — 받침을 붙일 음절의 초성 (중성은 ㅏ 고정). */
   codaOnsets?: ReadonlyArray<string>;
+  /** 모음 모드 — 학습 모음 (예: 'ㅐ'). 자음 단원과 방향만 반대(모음 고정 · 자음 순회). */
+  vowel?: string;
+  /** 모음 모드 — 앞에 붙일 자음들 (ㄱ~ㅎ). */
+  blendConsonants?: ReadonlyArray<string>;
 }
 
 /**
@@ -45,7 +49,19 @@ export function buildBlendPairs({
   blendVowels,
   coda,
   codaOnsets,
+  vowel,
+  blendConsonants,
 }: BlendSource): BlendPair[] {
+  // 🔴 모음 모드 — 자음 단원과 pair 모양이 **완전히 같다**(first=자음·second=모음). 무엇을 고정하고
+  //    무엇을 순회하는지만 다르므로 활동(듣기·쓰기)은 그대로 재사용한다.
+  if (vowel) {
+    return (blendConsonants ?? []).map((c) => ({
+      first: c,
+      second: vowel,
+      secondSound: vowel,
+      syllable: composeHangul(c, vowel, null) || `${c}${vowel}`,
+    }));
+  }
   if (coda) {
     const codaSound = composeHangul(coda, 'ㅡ', null) || coda; // ㅇ→으 · ㄱ→그 · ㄴ→느
     return (codaOnsets ?? []).map((onset) => {

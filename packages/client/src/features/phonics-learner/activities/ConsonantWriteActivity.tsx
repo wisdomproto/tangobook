@@ -1,15 +1,17 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import { useLogSyllable } from '../hooks/useLogSyllable';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
-import { buildBlendPairs, pickRandom, stacksVertically } from '../lib/blend-pairs';
+import { buildBlendPairs, stacksVertically } from '../lib/blend-pairs';
+import { ActivityShell } from '../components/ActivityShell';
 
 interface Props {
   unitId: string;
-  consonant: string;
+  consonant?: string;
   /** 발음할 텍스트. 미지정이면 `consonant`. 받침은 홀로 소리 못 내 예시 음절('앙')을 읽는다. */
   soundText?: string;
   /** 자음 모드 — 붙일 모음들. 없으면 글자만 세 번 쓰는 옛 화면. */
@@ -17,12 +19,14 @@ interface Props {
   /** 받침 모드 — 학습 받침과 붙일 초성들. */
   coda?: string;
   codaOnsets?: ReadonlyArray<string>;
+  /** 모음 모드 — 학습 모음 (예: 'ㅐ'). 자음 순회([자음]+[ㅐ]→[개]). */
+  vowel?: string;
+  /** 모음 모드 — 앞에 붙일 자음들 (ㄱ~ㅎ). */
+  blendConsonants?: ReadonlyArray<string>;
   onComplete: () => void;
   onBack: () => void;
 }
 
-/** 몇 음절을 써볼지. 쓰기는 탭보다 훨씬 느려서 음절 만들기(10개)만큼 둘 수 없다. */
-const SYLLABLES = 3;
 /** 두 글자가 붙기까지의 거리 — 멀리 → 가까이 → 붙음. (음절 만들기와 같은 규칙) */
 const GAPS = ['min(7vw, 8rem)', 'min(2vw, 2rem)', '0px'] as const;
 /** 받침은 위·아래로 모인다(아+ㅇ=앙) — 세로라 높이 기준 값이 따로 필요하다. */
@@ -43,11 +47,43 @@ const ROW_TILE = 'min(38vw, 24vh, 11rem)';
  * 글꼴도 캔버스와 같은 NanumSquareRound(`font-display`)로 맞춘다 — 예전엔 Pretendard 였다.
  */
 const tileFont = (tile: string) => `calc(${tile} * 0.85)`;
+/**
+ * 대기 칸 = **캔버스와 똑같이 생긴 판**. 흰 바탕에 회색 글자(`LetterFillCanvas` 의 `GUIDE_COLOR`).
+ *
+ * 🔴 두 칸의 차이는 **색이 아니라 반짝임**이어야 한다(2026-07-29 사용자 지적) — 예전엔 대기 칸
+ *    글자가 코랄이라 「반짝이는 칸에 ㄱ 써봐!」 를 읽고 **주황색인 옆 칸**을 쓰려 했다. 정작
+ *    쓸 칸(캔버스)은 회색이라 아무 표시가 없었고, 문구가 약속한 반짝임은 화면에 없었다.
+ */
+const IDLE_TILE_CLASS =
+  'shrink-0 aspect-square rounded-3xl border-[5px] border-white bg-white/70 flex items-center justify-center font-display font-black text-[#e5e7eb] shadow-soft leading-none';
 /** 두 글자가 미끄러져 붙는 시간. CSS `duration-500` 과 맞춘다 — 어긋나면 붙기 전에 합쳐진 글자가 뜬다. */
 const CLOSE_MS = 500;
 /** 합쳐진 글자가 뜬 뒤 읽기까지의 쉼 — 붙자마자 소리가 나면 눈이 따라가기 전에 지나간다. */
 const MERGE_REST_MS = 550;
-const WRITE_ROUNDS = 2; // 쓰는 라운드 수(멀리·가까이). 마지막 붙는 건 자동.
+/**
+ * 쓰는 라운드 수 — **한 번**(2026-07-30 사용자: "2번씩 쓰게 하는데, 1번만 쓰게 하는 게 낫겠다").
+ *
+ * 🔴 「음절 만들기」는 탭이라 [멀리·가까이] 두 라운드가 리듬이 되지만, 쓰기는 한 글자에 몇 초가
+ *    걸려서 같은 두 글자를 두 번 쓰면 음절 하나에 네 번이다. 음절 10개를 다 열어 준 지금은
+ *    두 글자를 한 번씩만 쓰고 붙는 걸 본다(10음절 × 2 = 20번).
+ */
+const WRITE_ROUNDS = 1;
+
+/**
+ * 지금 쓸 칸 — 캔버스를 감싸고 **반짝이는 테두리**를 얹는다.
+ *
+ * 🔴 테두리는 캔버스 래퍼가 아니라 **정사각 영역에만** 건다. 래퍼 높이는 진척 바·결과가 나타나며
+ *    늘어나므로(그래서 가로 정렬이 `items-start` 다) 래퍼에 걸면 쓰는 도중 테두리가 아래로 자란다.
+ *    캔버스는 `aspect-square` 라 `top-0` + `aspect-square` 로 그 칸에 딱 맞는다.
+ */
+function WriteCell({ tile, children }: { tile: string; children: ReactNode }) {
+  return (
+    <div className="relative shrink-0" style={{ width: tile }}>
+      {children}
+      <span className="pointer-events-none absolute inset-x-0 top-0 aspect-square rounded-xl ring-4 ring-coral-400 animate-pulse" />
+    </div>
+  );
+}
 
 /**
  * 음절 써보기 액티비티 — 「음절 만들기」와 **같은 흐름을 손으로** 한다(2026-07-26 개편).
@@ -56,9 +92,11 @@ const WRITE_ROUNDS = 2; // 쓰는 라운드 수(멀리·가까이). 마지막 �
  *   ② 가까워진 상태로 같은 두 번
  *   ③ 쓰지 않아도 스르륵 붙으며 `ㄱ ㅏ 가` 를 이어 읽는다
  *
- * 🔴 음절 수는 **3개**로 묶는다. 음절 만들기는 탭이라 10개가 1분이지만, 쓰기는 한 글자에 몇 초씩
- *    걸려서 10개면 40번을 쓰게 된다. 짝은 무작위로 뽑아 매번 다른 음절을 만난다.
- * 🔴 받침 단원도 같은 데이터(`buildBlendPairs`)를 쓴다 — `가` 를 쓰고 `ㅇ` 을 써서 `강` 을 만든다.
+ * 🔴 음절은 **그 단원 것을 다 보여준다**(2026-07-30) — 자음 10개(가갸거겨고교구규그기)·받침 14개.
+ *    예전엔 자음만 무작위 3개로 줄였는데, 바로 앞 「ㄱ+모음」이 만든 음절 중 셋만 써 보게 됐다.
+ *    다 쓰라고 강요하진 않는다 — 위 목록에서 아무거나 골라 하고 언제든 나갈 수 있다.
+ * 🔴 받침 단원도 같은 데이터(`buildBlendPairs`)를 쓰고 **두 칸 다 쓴다** — `가` 를 쓰고 `ㅇ` 을 써서
+ *    `강` 을 만든다. 라운드만 한 번(자음은 멀리·가까이 두 번).
  * 🔴 TTS 는 콜백 체인 — 합쳐질 때 이어읽기 → 띵동 → 다음 음절.
  */
 export function ConsonantWriteActivity({
@@ -68,19 +106,29 @@ export function ConsonantWriteActivity({
   blendVowels,
   coda,
   codaOnsets,
+  vowel,
+  blendConsonants,
   onComplete,
   onBack,
 }: Props) {
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  // 🔴 진입 안내 — 지시가 텍스트뿐이라 글 못 읽는 아이엔 통째로 무음이었다(쓰기 6종 공통).
+  useEntryGuide(ENTRY_GUIDE.write, playAudio);
   const prefix = 'consonant-write';
 
   const isCoda = !!coda;
-  const pairs = useMemo(() => {
-    const all = buildBlendPairs({ consonant, blendVowels, coda, codaOnsets });
-    // 🔴 받침은 **받침 한 글자만** 쓰므로(앞 음절은 주어진다) 14개를 다 돌아도 금방이다.
-    //    자음은 두 글자를 두 번씩 쓰느라 오래 걸려 무작위 3개만 뽑는다.
-    return coda ? all : pickRandom(all, SYLLABLES);
-  }, [consonant, blendVowels, coda, codaOnsets]);
+  /**
+   * 🔴 **음절을 다 보여준다**(2026-07-30 사용자: "ㄱ 써보기에서 왜 규 기 거 만 있지? 다 있어야지").
+   *    예전엔 무작위 3개만 뽑았다 — 두 글자를 두 번씩 쓰느라 길어진다는 이유였는데, 그러면
+   *    **바로 앞 「ㄱ+모음」이 만든 음절 10개 중 셋만** 써 보게 되고 목록도 단원마다 달라 보인다.
+   *    ㄱ 단원이 가르치는 건 `가갸거겨고교구규그기` 전부다.
+   * 🔴 대신 **다 쓰라고 강요하지 않는다** — 위 목록에서 아무거나 눌러 그것부터 할 수 있고,
+   *    끝내지 않고 나가도 된다(칭찬은 다 만들었을 때).
+   */
+  const pairs = useMemo(
+    () => buildBlendPairs({ consonant, blendVowels, coda, codaOnsets, vowel, blendConsonants }),
+    [consonant, blendVowels, coda, codaOnsets, vowel, blendConsonants]
+  );
 
   const [idx, setIdx] = useState(0);
   const [round, setRound] = useState(0);
@@ -100,16 +148,18 @@ export function ConsonantWriteActivity({
   );
 
   const pair = pairs[idx];
-  // 받침은 한 번만 쓰면 된다 — 자음처럼 [멀리·가까이] 두 번 쓰지 않는다.
-  const writeRounds = isCoda ? 1 : WRITE_ROUNDS;
+  const writeRounds = WRITE_ROUNDS;
   /**
-   * 🔴 받침은 쓰기 뒤에 **붙는 과정을 보여주는 단계**가 하나 더 있다.
-   *   round 0 = 쓰는 중 · round 1 = 두 글자가 미끄러져 붙는 중 · round 2 = 합쳐진 음절
-   * 예전엔 다 칠하자마자 `강` 으로 갈아치워서 **가까워지는 게 아예 안 보였다** —
-   * 받침이 "어디에 어떻게 붙는지"가 이 단원의 전부인데 그 순간을 건너뛴 셈이다.
+   * 라운드 = `0..writeRounds-1` 쓰는 중 · `writeRounds` 두 글자가 **미끄러져 붙는 중** ·
+   * 그 다음 합쳐진 음절.
+   *
+   * 🔴 붙는 단계를 건너뛰면 다 칠하자마자 `강` 으로 갈아치워져 **가까워지는 게 아예 안 보인다** —
+   *    글자가 "어디에 어떻게 붙는지"가 이 활동의 전부인데 그 순간이 사라진다.
+   * 🔴 예전엔 이 단계가 **받침 모드에만** 있었다(자음은 두 라운드의 거리 변화가 그 역할을 했다).
+   *    쓰기를 한 번으로 줄이면서 자음도 같은 단계를 쓴다 — 두 모드가 한 흐름이 됐다.
    */
-  const closing = isCoda && round === 1;
-  const merging = isCoda ? round >= 2 : round >= writeRounds;
+  const closing = round === writeRounds;
+  const merging = round > writeRounds;
   /**
    * 위·아래로 모이는가 — 받침이거나 수직 모음(ㅗㅛㅜㅠㅡ)이면 세로. 방향은 글자가 정한다.
    * 🔴 **칸 크기뿐 아니라 배치 방향까지** 이 값이 정해야 한다 — 예전엔 방향만 `coda` 로 갈라져서
@@ -132,7 +182,8 @@ export function ConsonantWriteActivity({
     setRound(0);
     setStep(0);
   }, []);
-  const say = soundText ?? consonant;
+  // 짝 없는 단원(모음 정보만) 폴백용 — 모음 모드는 pair 가 늘 있어 안 쓰인다.
+  const say = soundText ?? consonant ?? vowel ?? '';
 
   usePhonicsTtsWarm(
     unitId,
@@ -189,24 +240,12 @@ export function ConsonantWriteActivity({
         speak(read, () => playAudio('/sounds/game/correct.mp3', advance));
       };
 
-      // 🔴 받침은 **받침 한 칸만** 쓴다 — 앞 음절(가)은 이미 주어져 있고, 이 단원이 가르치는 건
-      //    받침이다. 다 칠하면 합쳐진 음절(강)을 그대로 읽어준다.
-      if (isCoda) {
-        // 붙는 중(round 1) → 다 붙으면 합쳐진 글자(round 2) → 좀 쉬고 읽기.
-        // 🔴 소리를 붙는 도중에 내지 않는다 — 눈으로 붙는 걸 보고 나서 그 소리를 들어야 이어진다.
-        setRound(1);
-        closeTimer.current = window.setTimeout(() => {
-          setRound(2);
-          // 합쳐진 음절만이 아니라 **이어 읽는다**(가 · 으 · 강) — 받침이 어떻게 붙어 그 소리가
-          // 됐는지가 들려야 한다. 음절 만들기와 같은 형식.
-          restTimer.current = window.setTimeout(
-            () => finishSyllable(`${pair.first} ${pair.secondSound} ${pair.syllable}`),
-            MERGE_REST_MS
-          );
-        }, CLOSE_MS);
-        return;
-      }
-
+      /**
+       * 🔴 **두 칸 다 쓴다 — 받침 모드도**(2026-07-30 사용자: "받침에서 써보기도 받침만 써보기로
+       *    하는데, 다 써보게 하자. 위에 글자도"). 예전엔 앞 음절(`가`)을 주어진 판으로 두고 받침만
+       *    쓰게 했다("이 단원이 가르치는 건 받침"). 하지만 아이가 손으로 만드는 건 **음절 하나**(`강`)라
+       *    앞 글자를 안 써 보면 그게 어떻게 한 글자가 되는지 손에 안 남는다. 두 모드가 같은 흐름이다.
+       */
       if (step === 0) {
         setStep(1);
         speak(pair.first);
@@ -216,11 +255,24 @@ export function ConsonantWriteActivity({
       const nextRound = round + 1;
       setStep(0);
       setRound(nextRound);
+      // 아직 쓸 라운드가 남았으면 다음 라운드로 (지금은 한 라운드라 자음·받침 모두 바로 붙는다).
       if (nextRound < writeRounds) {
         speak(pair.secondSound);
         return;
       }
-      finishSyllable(`${pair.first} ${pair.secondSound} ${pair.syllable}`);
+      /**
+       * 다 썼다 → 미끄러져 붙고(`closing`) → 합쳐진 글자 → 쉼 → 이어 읽기.
+       * 🔴 소리를 **붙는 도중에 내지 않는다** — 눈으로 붙는 걸 보고 나서 그 소리를 들어야 이어진다.
+       * 🔴 합쳐진 음절만이 아니라 **이어 읽는다**(가 · 으 · 강 / ㄱ · ㅏ · 가) — 어떻게 붙어 그 소리가
+       *    됐는지가 들려야 한다. 「음절 만들기」와 같은 형식.
+       */
+      closeTimer.current = window.setTimeout(() => {
+        setRound(nextRound + 1);
+        restTimer.current = window.setTimeout(
+          () => finishSyllable(`${pair.first} ${pair.secondSound} ${pair.syllable}`),
+          MERGE_REST_MS
+        );
+      }, CLOSE_MS);
     },
     [
       completed,
@@ -244,21 +296,7 @@ export function ConsonantWriteActivity({
   );
 
   return (
-    <div
-      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 overflow-hidden"
-      style={{
-        backgroundImage: "url('/images/phonics/study-bg.webp')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <button
-        onClick={onBack}
-        className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-      >
-        ← 돌아가기
-      </button>
-
+    <ActivityShell onBack={onBack}>
       {/* 오늘 써볼 음절 — 다 쓴 건 민트 + ✓. 아무거나 눌러 그것부터 할 수 있다(음절 만들기와 같다).
           🔴 진척은 `idx` 가 아니라 `madeSet` 으로 판단한다 — 건너뛰며 골랐을 때 앞의 안 한 것이
              '완료'로 보이면 안 된다. */}
@@ -296,7 +334,8 @@ export function ConsonantWriteActivity({
             <>
               두 글자가 만나서 <span className="text-coral-600">{pair.syllable}</span>!
             </>
-          ) : isCoda ? (
+          ) : isCoda && step === 1 ? (
+            // 받침 차례 — 무엇을 만드는 중인지 같이 말해준다(앞 글자는 이미 썼다).
             <>
               ✏️ 받침 <span className="text-coral-600">{pair.second}</span> 을 써서{' '}
               <span className="text-coral-600">{pair.syllable}</span> 을 만들어봐!
@@ -313,7 +352,7 @@ export function ConsonantWriteActivity({
         {!pair ? (
           <LetterFillCanvas
             key={`single-${round}`}
-            letter={consonant}
+            letter={say}
             onResult={(ok) => {
               if (!ok) return;
               const next = round + 1;
@@ -342,37 +381,19 @@ export function ConsonantWriteActivity({
               <div className="w-[60vw] h-[30vw] max-w-96 max-h-48 sm:w-96 sm:h-48 rounded-3xl border-[5px] border-mint-500 bg-mint-100 flex items-center justify-center font-black text-mint-700 text-6xl sm:text-8xl shadow-pop">
                 {pair.syllable}
               </div>
-            ) : isCoda ? (
-              // 🔴 받침 모드 — 앞 음절(가)은 **주어진 판**으로 위에 두고, 아래 받침 칸만 캔버스다.
-              //    이 단원이 가르치는 건 받침이라 `가` 까지 쓰게 하면 초점이 흐려진다.
-              // 🔴 두 칸의 **폭을 같게** 묶는다(CODA_TILE). 캔버스는 자체 `max-w-sm`(384px)이라
-              //    그냥 두면 주어진 판(176px)의 두 배가 되어, 위아래가 한 글자로 안 보인다.
+            ) : closing ? (
+              /* 붙는 동안(받침 모드 round 1) — 🔴 **두 칸 다 판으로 바꾼다.** 캔버스를 남겨 두면
+                 미끄러지는 중에도 칠할 수 있고, 다 칠한 글자가 아니라 빈 가이드가 붙는 것처럼 보인다. */
               <>
-                <div
-                  className="shrink-0 aspect-square rounded-3xl border-[5px] border-white bg-white/70 flex items-center justify-center font-display font-black text-coral-400 shadow-soft leading-none"
-                  style={{ width: tile, fontSize: tileFont(tile) }}
-                >
+                <div className={IDLE_TILE_CLASS} style={{ width: tile, fontSize: tileFont(tile) }}>
                   {pair.first}
                 </div>
-                {/* 🔴 붙는 동안엔 캔버스를 **판으로 바꾼다** — 그대로 두면 미끄러지는 중에도 계속
-                    칠할 수 있고, 다 칠한 글자가 아니라 빈 가이드가 붙는 것처럼 보인다. */}
-                {closing ? (
-                  <div
-                    className="shrink-0 aspect-square rounded-3xl border-[5px] border-mint-500 bg-mint-100 flex items-center justify-center font-display font-black text-mint-700 shadow-pop leading-none"
-                    style={{ width: tile, fontSize: tileFont(tile) }}
-                  >
-                    {pair.second}
-                  </div>
-                ) : (
-                  <div className="shrink-0" style={{ width: tile }}>
-                    <LetterFillCanvas
-                      key={`${pair.syllable}-coda`}
-                      letter={pair.second}
-                      onResult={handleResult}
-                      autoCheck
-                    />
-                  </div>
-                )}
+                <div
+                  className="shrink-0 aspect-square rounded-3xl border-[5px] border-mint-500 bg-mint-100 flex items-center justify-center font-display font-black text-mint-700 shadow-pop leading-none"
+                  style={{ width: tile, fontSize: tileFont(tile) }}
+                >
+                  {pair.second}
+                </div>
               </>
             ) : (
               // 🔴 지금 쓸 칸만 캔버스로 살아 있고, 옆 칸은 글자를 보여주는 판이다.
@@ -383,19 +404,15 @@ export function ConsonantWriteActivity({
                   return (
                     // 🔴 캔버스도 대기 칸과 **같은 폭**으로 묶는다 — 안 묶으면 자체 max-w-sm(384px)이라
                     //    대기 칸(176px)의 두 배가 되어 두 글자 크기가 제각각으로 보인다.
-                    <div
-                      key={`${pair.syllable}-${round}-${which}`}
-                      className="shrink-0"
-                      style={{ width: tile }}
-                    >
+                    <WriteCell key={`${pair.syllable}-${round}-${which}`} tile={tile}>
                       <LetterFillCanvas letter={letter} onResult={handleResult} autoCheck />
-                    </div>
+                    </WriteCell>
                   );
                 }
                 return (
                   <div
                     key={`${pair.syllable}-${which}-idle`}
-                    className="shrink-0 aspect-square rounded-3xl border-[5px] border-white bg-white/70 flex items-center justify-center font-display font-black text-coral-400 shadow-soft leading-none"
+                    className={IDLE_TILE_CLASS}
                     style={{ width: tile, fontSize: tileFont(tile) }}
                   >
                     {letter}
@@ -408,6 +425,6 @@ export function ConsonantWriteActivity({
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
-    </div>
+    </ActivityShell>
   );
 }

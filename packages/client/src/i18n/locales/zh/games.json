@@ -110,7 +110,8 @@
     "next": "下一个 →",
     "seeResult": "查看结果",
     "help": "🪄 帮帮我",
-    "pickFirstLetter": "看图片，放上它的第一个字母吧！"
+    "pickFirstLetter": "看图片，放上它的第一个字母吧！",
+    "listenFirstLetter": "仔细听，放上第一个字母吧！"
   },
   "writingGame": {
     "paintPrompt": "给字涂上颜色吧！",

@@ -5,6 +5,7 @@ import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
+import { ActivityShell } from '../components/ActivityShell';
 
 interface Props {
   unitId: string;
@@ -125,10 +126,13 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
         // 🔴 `an` 만 세 줄 반복하면 무엇을 배우는 건지 안 보인다. 줄마다 다른 단어가 붙어야
         //    "an 이 들어간 낱말"이 눈에 들어온다.
         const word = phaseAWords[row]?.word;
-        playAudio('/sounds/game/correct.mp3', () => {
-          if (word) rest(() => playEnglish(word, willAllComplete ? afterWord : undefined));
-          else if (willAllComplete) afterWord();
-        });
+        // 🔴 글자 소리 끝 → **쉼** → 띵동. 실측 간격이 0ms 라 한 덩어리로 들렸다(띵동→낱말은 정상이었다).
+        rest(() =>
+          playAudio('/sounds/game/correct.mp3', () => {
+            if (word) rest(() => playEnglish(word, willAllComplete ? afterWord : undefined));
+            else if (willAllComplete) afterWord();
+          })
+        );
       };
       const afterWord = () => rest(() => playCorrectSequence({ language: 'en' }));
       playEnglish(text, afterTts);
@@ -172,14 +176,16 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
 
       const afterTts = () => {
         if (willRowComplete) {
-          // 띵동 → 예문 발음 → (마지막 행이면) Phase C 로 자동 진입
-          playAudio('/sounds/game/correct.mp3', () => {
-            playSentence(() => {
-              if (willAllComplete) {
-                setTimeout(() => setPhase('C'), 600);
-              }
-            });
-          });
+          // 소리 끝 → 쉼 → 띵동 → 예문 발음 → (마지막 행이면) Phase C 로 자동 진입
+          rest(() =>
+            playAudio('/sounds/game/correct.mp3', () => {
+              playSentence(() => {
+                if (willAllComplete) {
+                  setTimeout(() => setPhase('C'), 600);
+                }
+              });
+            })
+          );
         }
       };
       playEnglish(text, afterTts);
@@ -270,8 +276,9 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
             identifierPrefix: 'cvc-write-letter',
           })
         : undefined;
+      // 띵동 → **쉼** → 글자. 붙여 내면 한 덩어리로 들린다.
       const playLetter = () => {
-        if (letterUrl) playAudio(letterUrl);
+        if (letterUrl) rest(() => playAudio(letterUrl));
       };
       playAudio('/sounds/game/correct.mp3', playLetter);
 
@@ -313,21 +320,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
   }, []);
 
   return (
-    <div
-      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 overflow-hidden"
-      style={{
-        backgroundImage: "url('/images/phonics/study-bg.webp')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <button
-        onClick={onBack}
-        className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-      >
-        ← 돌아가기
-      </button>
-
+    <ActivityShell onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-6 sm:gap-10">
         <h2
           className="text-5xl sm:text-6xl md:text-7xl font-black font-display text-center"
@@ -339,7 +332,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
           }}
         >
           {phase === 'A' && <>{pattern.vc} 배우기</>}
-          {phase === 'B' && <>{pattern.vc} 단어 익히기</>}
+          {phase === 'B' && <>{pattern.vc} 낱말 익히기</>}
           {phase === 'C' && <>{pattern.vc} 써보기</>}
           {phase === 'done' && '잘했어!'}
         </h2>
@@ -562,7 +555,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
-    </div>
+    </ActivityShell>
   );
 }
 

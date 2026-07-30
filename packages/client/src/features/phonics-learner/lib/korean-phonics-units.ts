@@ -139,8 +139,10 @@ export type ActivityKind =
   | 'consonant-blend-listen'
   | 'coda-blend-listen'
   | 'consonant-write'
+  | 'vowel-blend-listen'
+  | 'vowel-blend-write'
   | 'word-listen-choose'
-  | 'review-maze'
+  | 'letter-hunt'
   | 'review-flip'
   | 'review-syllable-listen'
   | 'review-word-listen'
@@ -170,6 +172,72 @@ export interface ReviewCard {
   sound: string; // 발음할 텍스트
   /** 이 단원이 글자를 가르치는 자리 — 대표 단어를 고를 때 어디를 보는지 결정한다. */
   matchPosition: 'cho' | 'jung' | 'jong';
+}
+
+/** 기본 자음 14 · 기본 모음 10 — 「듣고 음절 맞추기」가 섞어 쓰는 범위(ㄱ~ㅎ, ㅏ~ㅣ). */
+const BASIC_CONSONANTS = [
+  'ㄱ',
+  'ㄴ',
+  'ㄷ',
+  'ㄹ',
+  'ㅁ',
+  'ㅂ',
+  'ㅅ',
+  'ㅇ',
+  'ㅈ',
+  'ㅊ',
+  'ㅋ',
+  'ㅌ',
+  'ㅍ',
+  'ㅎ',
+] as const;
+const BASIC_VOWELS = ['ㅏ', 'ㅑ', 'ㅓ', 'ㅕ', 'ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ', 'ㅣ'] as const;
+
+/**
+ * 복습 카드 → 「듣고 음절 맞추기」에 낼 음절. **배우는 자리는 고정, 나머지는 매번 무작위**다.
+ *
+ * 🔴 예전엔 `card.syllable` 고정이라 한글1 복습이 늘 `가 나 다 라` 였다. 같은 넷을 반복하면
+ *    아이는 소리가 아니라 **자리를 외운다**. 자음 단원이면 자음만 잡고 모음을 ㅏ~ㅣ 에서 뽑고,
+ *    받침 단원이면 받침만 잡고 앞 음절(초성·중성)을 뽑는다 — 되짚는 글자는 그대로 두면서
+ *    소리는 매번 달라진다.
+ * 🔴 반환은 **한 글자 음절**이라 발음이 곧 그 글자다(`sound` 를 따로 두지 않는다). 예전엔 보기가
+ *    `가` 인데 음원이 `ㄱ` 이라 **듣는 것과 고르는 것이 달랐다**.
+ * 🔴 파닉스 음원 라이브러리는 19자음×21모음 + 7종성을 다 갖고 있어 조합이 비지 않는다.
+ */
+export function randomReviewSyllable(card: ReviewCard, rand: () => number = Math.random): string {
+  const pick = <T>(a: readonly T[]) => a[Math.floor(rand() * a.length)];
+  if (card.matchPosition === 'jong') {
+    return composeHangul(pick(BASIC_CONSONANTS), pick(BASIC_VOWELS), card.letter) || card.syllable;
+  }
+  if (card.matchPosition === 'jung') {
+    return composeHangul(pick(BASIC_CONSONANTS), card.letter, null) || card.syllable;
+  }
+  return composeHangul(card.letter, pick(BASIC_VOWELS), null) || card.syllable;
+}
+
+/**
+ * 복습 카드를 **섞어서** 돌려준다 — 활동마다 앞에서 N장만 쓰기 때문이다.
+ *
+ * 🔴 복습 묶음은 4장이 아니라 **5~6장일 때가 있다**(`chunkForReview` 가 꼬리 ≤2 를 앞 묶음에 합친다 —
+ *    한글1 자음 14개 → 4·4·6). 그런데 활동 넷이 전부 `slice(0, 4)` 였다:
+ *    글자 사냥(라운드 4) · 듣고 음절/듣고 단어(보기 4) · 뒤집기(4쌍).
+ *    순서가 고정이라 **늘 같은 뒤쪽 글자가 잘렸다** — 「ㅈ~ㅎ 복습」에서 `ㅍ·ㅎ` 은 여섯 활동 중
+ *    넷에서 한 번도 안 나왔다(이름에는 ㅎ 이 붙어 있는데).
+ *
+ * 🔴 상한(4)은 그대로 둔다 — 4~7세가 한 화면에서 감당하는 수라 늘리면 다른 게 깨진다.
+ *    대신 **어느 넷이 뽑히는지를 판마다 다르게** 해서, 다시 하면 남은 글자가 나온다.
+ * 🔴 그래서 이 함수는 **활동 진입마다 한 번만** 불려야 한다(렌더마다 부르면 보기가 계속 바뀐다).
+ */
+export function shuffleReviewCards(
+  cards: ReadonlyArray<ReviewCard>,
+  rand: () => number = Math.random
+): ReviewCard[] {
+  const a = [...cards];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
 export interface ActivityDef {
@@ -206,6 +274,8 @@ export interface ActivityDef {
   letterIndex?: number;
   /** alphabet-letter-write (영어 Book 1) 활동용 — unit 내 학습 글자 목록 (예: ['A','B','C']). 각 글자마다 대문자/소문자 쓰기 캔버스 노출. */
   letters?: readonly string[];
+  /** vowel-blend-* (한글4 복잡한 모음) 활동용 — 이 음절들에 붙일 자음 (ㄱ~ㅎ). 모음을 고른 뒤 자음 음절을 만든다. */
+  blendConsonants?: ReadonlyArray<string>;
 }
 
 export interface ActivityPlan {
@@ -228,90 +298,111 @@ const VOWEL_GROUP_2 = [
   { vowel: 'ㅣ', syllable: '이' },
 ] as const;
 
-const UNIT_01_PLAN: ActivityPlan = {
-  activities: [
-    {
-      key: 'listen-1',
-      order: 1,
-      kind: 'vowel-listen',
-      section: 'learn',
-      title: '모음 듣기 1',
-      subtitle: 'ㅏ ㅑ ㅓ ㅕ ㅗ ㅛ',
-      emoji: '👂',
-      required: true,
-      vowels: VOWEL_GROUP_1,
-    },
-    {
-      key: 'listen-2',
-      order: 2,
-      kind: 'vowel-listen',
-      section: 'learn',
-      title: '모음 듣기 2',
-      subtitle: 'ㅜ ㅠ ㅡ ㅣ',
-      emoji: '👂',
-      required: true,
-      vowels: VOWEL_GROUP_2,
-    },
-    {
-      key: 'write-1',
-      order: 3,
-      kind: 'vowel-write',
-      section: 'learn',
-      title: '모음 쓰기 1',
-      subtitle: '아 야 어 여 오 요',
-      emoji: '✏️',
-      required: true,
-      vowels: VOWEL_GROUP_1,
-    },
-    {
-      key: 'write-2',
-      order: 4,
-      kind: 'vowel-write',
-      section: 'learn',
-      title: '모음 쓰기 2',
-      subtitle: '우 유 으 이',
-      emoji: '✏️',
-      required: true,
-      vowels: VOWEL_GROUP_2,
-    },
-    {
-      key: 'game-dots',
-      order: 5,
-      kind: 'game-connect-dots',
-      section: 'play',
-      title: '낱말 그리기',
-      emoji: '🔵',
-      required: false,
-    },
-    {
-      key: 'game-korean-block',
-      order: 6,
-      kind: 'game-korean-block',
-      section: 'play',
-      title: '한글 블록 게임',
-      emoji: '🧩',
-      required: false,
-    },
-    {
-      key: 'game-word-writing',
-      order: 7,
-      kind: 'game-word-writing',
-      section: 'play',
-      title: '낱말 쓰기',
-      emoji: '🖍️',
-      required: false,
-    },
-    {
-      key: 'game-line-matching',
-      order: 8,
-      kind: 'game-line-matching',
-      section: 'play',
-      title: '그림 짝 찾기',
-      emoji: '🔗',
-      required: false,
-    },
-  ],
-};
+// ─── 게임 4종 (모든 단원 공통 꼬리) ───
+// 🔴 **낱말 놀이 순서는 여기 한 곳**(2026-07-29) — 낱말 연습 → 낱말 그리기 → 한글 블록 게임 →
+//    낱말 쓰기 → 그림 짝 찾기. 예전엔 모음 단원(u01)이 게임 목록을 따로 적어 두어 자음 단원과
+//    순서가 달랐다(같은 게임인데 단원마다 자리가 바뀌면 아이가 매번 다시 찾는다).
+/**
+ * 🔎 글자 사냥 카드 한 장 — 학습 단원용. (복습은 `makeReviewPlan` 이 자기 카드를 만든다.)
+ *
+ * 🔴 **모양 변별은 배우는 자리에도 필요하다**(2026-07-29 사용자). 복습에만 두기엔 아깝다 —
+ *    익히기 활동은 전부 *누르면 소리가 나는* 탐색형이라, 방금 배운 글자를 **다른 글자 사이에서
+ *    골라내는** 활동이 하나도 없었다. 목표는 단원이 지금 가르치는 것으로:
+ *      · 모음 단원 = 모음 글자(ㅏ·ㅑ·ㅓ…) — 방해꾼은 사전의 헷갈리는 짝(ㅏ/ㅓ/ㅑ)
+ *      · 자음 단원 = 그 자음으로 만든 **음절**(가·갸·거·겨…) — 사전에 없으므로 같은 판의 다른
+ *        음절이 방해꾼이 된다. 자음 하나(ㄱ)만 목표로 두면 판에 ㄱ 밖에 없어 사냥이 성립하지 않는다.
+ */
+const huntCard = (unitId: string, letter: string, sound: string): ReviewCard => ({
+  unitId,
+  letter,
+  syllable: sound,
+  sound,
+  matchPosition: 'cho',
+});
+
+const huntActivity = (cards: readonly ReviewCard[]): Omit<ActivityDef, 'order'> => ({
+  key: 'letter-hunt',
+  kind: 'letter-hunt',
+  section: 'learn',
+  title: '글자 사냥',
+  emoji: '🔎',
+  required: true,
+  reviewCards: [...cards],
+});
+
+const GAME_ACTIVITIES: ReadonlyArray<Omit<ActivityDef, 'order'>> = [
+  {
+    key: 'game-dots',
+    kind: 'game-connect-dots',
+    section: 'play',
+    title: '낱말 그리기',
+    emoji: '🔵',
+    required: false,
+  },
+  {
+    key: 'game-korean-block',
+    kind: 'game-korean-block',
+    section: 'play',
+    title: '한글 블록 게임',
+    emoji: '🧩',
+    required: false,
+  },
+  {
+    key: 'game-word-writing',
+    kind: 'game-word-writing',
+    section: 'play',
+    title: '낱말 쓰기',
+    emoji: '🖍️',
+    required: false,
+  },
+  {
+    key: 'game-line-matching',
+    kind: 'game-line-matching',
+    section: 'play',
+    title: '그림 짝 찾기',
+    emoji: '🔗',
+    required: false,
+  },
+];
+
+const UNIT_01_PLAN: ActivityPlan = withGames([
+  {
+    key: 'listen-1',
+    kind: 'vowel-listen',
+    section: 'learn',
+    title: '모음 듣기 1',
+    subtitle: 'ㅏ ㅑ ㅓ ㅕ ㅗ ㅛ',
+    emoji: '👂',
+    required: true,
+    vowels: VOWEL_GROUP_1,
+  },
+  {
+    key: 'listen-2',
+    kind: 'vowel-listen',
+    section: 'learn',
+    title: '모음 듣기 2',
+    subtitle: 'ㅜ ㅠ ㅡ ㅣ',
+    emoji: '👂',
+    required: true,
+    vowels: VOWEL_GROUP_2,
+  },
+  {
+    // 🔴 예전엔 쓰기도 1·2 두 장이었다(2026-07-29 통합). 듣기는 한 번에 열 개를 들려주면
+    //    길어서 둘로 나눴지만, 쓰기는 아이가 자기 속도로 한 글자씩 넘기므로 나눌 이유가 없었다.
+    //    카드가 한 장 줄어 익히기가 3장이 되고, 아래 「낱말 놀이」가 한 화면에 같이 들어온다.
+    key: 'write-1',
+    kind: 'vowel-write',
+    section: 'learn',
+    title: '모음 쓰기',
+    subtitle: '아 야 어 여 오 요 우 유 으 이',
+    emoji: '✏️',
+    required: true,
+    vowels: [...VOWEL_GROUP_1, ...VOWEL_GROUP_2],
+  },
+  huntActivity(
+    [...VOWEL_GROUP_1, ...VOWEL_GROUP_2].map((v) => huntCard('kr-h1-u01', v.vowel, v.syllable))
+  ),
+]);
 
 // ─── 자음 단원 (ㄱ ~ ㅎ) 공용 plan 생성기 ───
 // 모음 그룹 (자음+모음 액티비티용)
@@ -337,7 +428,7 @@ const CONSONANT_BLEND_VOWELS = [
  * 자음 단원 (ㄱ~ㅎ) 공통 활동 plan 생성. 자음만 바뀌어 구조는 전부 같다.
  * 꼬리(듣고 고르기 + 게임 4)는 `withGames` 가 붙이고 순서도 거기서 매긴다.
  */
-function makeConsonantPlan(consonant: string): ActivityPlan {
+function makeConsonantPlan(consonant: string, unitId = ''): ActivityPlan {
   return withGames(
     [
       {
@@ -372,6 +463,14 @@ function makeConsonantPlan(consonant: string): ActivityPlan {
         // 음절 만들기와 같은 짝을 쓴다 — 쓰기도 `ㄱ`·`ㅏ` 를 써서 `가` 를 만든다.
         blendVowels: [...CONSONANT_BLEND_VOWELS],
       },
+      // 🔎 글자 사냥 — 목표는 자음이 아니라 **그 자음으로 만든 음절**(가갸거겨고교구규그기).
+      //    자음 하나(ㄱ)만 목표로 두면 판이 ㄱ 과 다른 자음뿐이라, 방금 배운 음절을 안 쓴다.
+      huntActivity(
+        CONSONANT_BLEND_VOWELS.map((v) => {
+          const syllable = composeHangul(consonant, v, null) || consonant;
+          return huntCard(unitId, syllable, syllable);
+        })
+      ),
     ],
     consonant
   );
@@ -396,42 +495,6 @@ const CONSONANT_UNIT_MAP: Record<string, string> = {
   'kr-h1-u15': 'ㅎ',
 };
 
-// ─── 게임 4종 (모든 단원 공통 꼬리) ───
-const GAME_ACTIVITIES: ReadonlyArray<Omit<ActivityDef, 'order'>> = [
-  {
-    key: 'game-korean-block',
-    kind: 'game-korean-block',
-    section: 'play',
-    title: '한글 블록 게임',
-    emoji: '🧩',
-    required: false,
-  },
-  {
-    key: 'game-word-writing',
-    kind: 'game-word-writing',
-    section: 'play',
-    title: '낱말 쓰기',
-    emoji: '🖍️',
-    required: false,
-  },
-  {
-    key: 'game-dots',
-    kind: 'game-connect-dots',
-    section: 'play',
-    title: '낱말 그리기',
-    emoji: '🔵',
-    required: false,
-  },
-  {
-    key: 'game-line-matching',
-    kind: 'game-line-matching',
-    section: 'play',
-    title: '그림 짝 찾기',
-    emoji: '🔗',
-    required: false,
-  },
-];
-
 /**
  * 🔊 듣고 고르기 — 단어 발음을 먼저 들려주고 [그림 + 단어] 카드를 고른다.
  *
@@ -445,8 +508,13 @@ function wordListenActivity(letter?: string): Omit<ActivityDef, 'order'> {
   return {
     key: 'word-listen-choose',
     kind: 'word-listen-choose',
-    section: 'learn',
-    title: '단어 연습',
+    // 🔴 아래 「낱말 놀이」 칸이다(2026-07-29) — 위 칸은 **글자**(ㄱ 배우기·ㄱ+모음·ㄱ 써보기),
+    //    아래 칸은 **낱말**(단어 연습·블록·낱말 쓰기·낱말 그리기·그림 짝)이다. 단어 연습만
+    //    글자 칸에 앉아 있어서 위아래를 가르는 기준이 흐렸다.
+    section: 'play',
+    // 🔴 「단어」가 아니라 **낱말**(2026-07-29) — 옆 카드들이 전부 「낱말 …」 이라 하나만
+    //    단어라고 부르면 다른 것처럼 보인다. 아이 화면 용어는 한 말로 통일한다.
+    title: '낱말 연습',
     emoji: '🔊',
     required: true,
     ...(letter ? { consonant: letter } : {}),
@@ -534,10 +602,12 @@ function makeCodaPlan(coda: string): ActivityPlan {
 
 // ─── 한글4 복잡한 모음 단원 (ㅐㅔ · ㅖㅚ · ㅟㅢ · ㅘㅙ · ㅝㅞㅢ) ───
 /**
- * 복잡한 모음 단원 plan. 모음이 2~3개뿐이라 u01 처럼 1/2 로 쪼개지 않고 듣기 1 + 쓰기 1.
- * 음절은 `composeHangul('ㅇ', v)` 로 파생 — ㅐ→애, ㅚ→외 (하드코딩 없음).
+ * 복잡한 모음 단원 plan (한글4). 🔴 **자음을 배운 뒤라 모음 자체가 아니라 음절을 만든다**
+ * (2026-07-30 사용자: "이제 한글 자음을 아니까 모음 듣기·쓰기에 ㄱ~ㅎ 까지 다"). 흐름 =
+ * 모음(ㅐ·ㅔ) 하나를 고르면 그 모음 + ㄱ~ㅎ 음절(개·게·내…)을 만든다. 자음 단원의 「ㄱ+모음」과
+ * 방향만 반대(모음 고정 · 자음 순회)라 같은 활동을 쓴다(`VowelSyllable*` wrapper 가 모음 선택만 덧댐).
  */
-function makeComplexVowelPlan(vowels: readonly string[]): ActivityPlan {
+function makeComplexVowelPlan(vowels: readonly string[], unitId = ''): ActivityPlan {
   const pairs = vowels.map((v) => ({
     vowel: v,
     syllable: composeHangul('ㅇ', v, null) || v,
@@ -546,22 +616,34 @@ function makeComplexVowelPlan(vowels: readonly string[]): ActivityPlan {
     [
       {
         key: 'listen-1',
-        kind: 'vowel-listen',
+        kind: 'vowel-blend-listen',
         section: 'learn',
-        title: '모음 듣기',
-        emoji: '👂',
+        title: '음절 만들기',
+        emoji: '🔗',
         required: true,
         vowels: pairs,
+        blendConsonants: [...BASIC_CONSONANTS],
       },
       {
         key: 'write-1',
-        kind: 'vowel-write',
+        kind: 'vowel-blend-write',
         section: 'learn',
-        title: '모음 쓰기',
+        title: '음절 쓰기',
         emoji: '✏️',
         required: true,
         vowels: pairs,
+        blendConsonants: [...BASIC_CONSONANTS],
       },
+      // 🔴 사냥도 **음절 랜덤**(자음×모음) — 모음 글자만 목표로 두면 방금 만든 음절을 안 쓴다.
+      //    카드는 자음14×모음N 이고, 진입 시 4개가 무작위로 뽑힌다(`shuffleReviewCards`).
+      huntActivity(
+        vowels.flatMap((v) =>
+          BASIC_CONSONANTS.map((c) => {
+            const syl = composeHangul(c, v, null) || `${c}${v}`;
+            return huntCard(unitId, syl, syl);
+          })
+        )
+      ),
     ],
     vowels[0]
   );
@@ -595,12 +677,16 @@ function toReviewCard(u: KoreanUnitSummary): ReviewCard | null {
  * 처음엔 「다시 듣기」를 첫 활동으로 뒀는데, 그게 학습 단원의 모음/자음 듣기와 **같은 컴포넌트·같은 그림**이라
  * 복습 전체가 유닛 축약판처럼 보였다(사용자 피드백: "너무 심심하다"). 복습은 형식이 달라야 전이가 확인된다.
  *
- * ① 길 따라가기 — 격자 위 길을 밟으며 만나는 사물의 글자를 줍는다 (형식이 유일하게 완전히 다른 활동)
+ * ① 글자 사냥 — 헷갈리는 짝(ㄱ/ㅋ/ㄲ) 사이에 숨은 목표 글자만 전부 찾는다 (모양 변별)
+ *    🔴 원래 여기엔 「길 따라가기」가 있었다 — 반짝이는 칸을 순서대로 누르면 끝이라 **아이가 하는
+ *       판단이 하나도 없었고**(사용자: "정체성 없는 게임"), 격자·길·도착 깃발이 학습이 아니라
+ *       포장만 담당했다. 형식이 다르기만 하면 된다는 게 아니라, 매 탭이 판단이어야 한다.
  * ② 뒤집기 짝 맞추기 — 기억해서 맞추기
  * ③ 듣고 음절 맞추기 — 음절 소리를 듣고 글자 4개 중 고르기
- * ④ 짝 찾기 — 글자 ↔ 그 글자로 배운 단어 그림
- * ⑤ 듣고 단어 맞추기 — 단어 소리를 듣고 낱말 4개 중 고르기
- * ⑥ 글자 쓰기 — 그림을 보고 첫 글자 쓰기
+ * ④ 그림 짝 찾기 — 글자 ↔ 그 글자로 배운 낱말 그림
+ * ⑤ 듣고 낱말 맞추기 — 낱말 소리를 듣고 낱말 4개 중 고르기
+ * ⑥ 낱말 쓰기 — 그림을 보고 **낱말 전체를 한 글자씩** (2026-07-27 부터. 예전엔 첫 글자 하나였고
+ *    그림이 `고기` 인데 쓰는 건 `ㄱ` 이라 그림과 손이 따로 놀았다)
  *
  * 🔴 **듣기 둘을 붙여 놓지 않는다** — 같은 화면(🔊 + 보기 4개)이라 연달아 나오면 한 활동을
  * 두 번 하는 걸로 느낀다. 눈으로 보는 활동 사이에 하나씩 끼운다.
@@ -610,11 +696,18 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
   return {
     activities: [
       {
-        key: 'review-maze',
+        key: 'letter-hunt',
         order: 1,
-        kind: 'review-maze',
-        title: '길 따라가기',
-        emoji: '🌀',
+        kind: 'letter-hunt',
+        title: '글자 사냥',
+        emoji: '🔎',
+        /**
+         * 🔴 사냥은 **음절로** 판을 깐다(2026-07-30 사용자) — 학습 단원의 사냥이 `가갸거겨` 인데
+         *    복습만 `ㄱㄴㄷㄹ` 이면 같은 활동이 갑자기 낱자로 바뀐다.
+         * 🔴 음절은 여기(plan)가 아니라 **활동 진입 때** 뽑는다 — plan 은 모듈 로드 시 한 번만
+         *    만들어져서, 여기서 무작위를 쓰면 새로고침 전까지 같은 음절이 고정된다.
+         *    `KoreanPhonicsActivityPage` 가 `randomReviewSyllable` 로 판마다 새로 뽑는다.
+         */
         ...shared,
       },
       {
@@ -637,7 +730,7 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
         key: 'review-match',
         order: 4,
         kind: 'review-match',
-        title: '짝 찾기',
+        title: '그림 짝 찾기',
         emoji: '🔗',
         ...shared,
       },
@@ -645,7 +738,7 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
         key: 'review-word-listen',
         order: 5,
         kind: 'review-word-listen',
-        title: '듣고 단어 맞추기',
+        title: '듣고 낱말 맞추기',
         emoji: '🔊',
         ...shared,
       },
@@ -653,7 +746,7 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
         key: 'review-write',
         order: 6,
         kind: 'review-write',
-        title: '글자 쓰기',
+        title: '낱말 쓰기',
         emoji: '✏️',
         ...shared,
       },
@@ -683,9 +776,9 @@ function derivedPlans(): Record<string, ActivityPlan> {
     if (u.levelIndex === 2) {
       out[u.id] = makeCodaPlan(first.replace('받침', '')); // '받침ㅇ' → 'ㅇ'
     } else if (u.levelIndex === 3) {
-      out[u.id] = makeConsonantPlan(first); // 쌍자음 — 데이터 모양이 한글1 자음과 동일
+      out[u.id] = makeConsonantPlan(first, u.id); // 쌍자음 — 데이터 모양이 한글1 자음과 동일
     } else if (u.levelIndex === 4) {
-      out[u.id] = makeComplexVowelPlan(u.phonemes);
+      out[u.id] = makeComplexVowelPlan(u.phonemes, u.id);
     }
   }
   return out;
@@ -695,7 +788,7 @@ function derivedPlans(): Record<string, ActivityPlan> {
 export const KOREAN_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
   'kr-h1-u01': UNIT_01_PLAN,
   ...Object.fromEntries(
-    Object.entries(CONSONANT_UNIT_MAP).map(([unitId, c]) => [unitId, makeConsonantPlan(c)])
+    Object.entries(CONSONANT_UNIT_MAP).map(([unitId, c]) => [unitId, makeConsonantPlan(c, unitId)])
   ),
   ...derivedPlans(),
 };
