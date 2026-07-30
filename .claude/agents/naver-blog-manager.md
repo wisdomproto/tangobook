@@ -95,6 +95,13 @@ tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 「동화책 보러가기 →」 글자만 남는다. **14편이 링크 없이 나갔고 사용자가 발견했다.**
 링크는 **텍스트 다음 줄에 URL 단독**으로 — 네이버가 OG 카드(표지+제목)로 바꿔줘서 오히려 낫다.
 
+**⑬-b 같은 책이 두 번 나갔다(장수풍뎅이) — 예약 스크립트가 발행이력을 안 남겼다.** 두 구멍이 겹쳤다:
+(1) `schedule-naver-drafts.ts` 가 예약 성공을 `mkt_naver_blog_publications` 에 **기록하지 않아** DB 는 뭐가
+나갔는지 몰랐다(전 행이 `draft`). (2) 초안 생성엔 `shouldSkip` 대조가 있는데 예약 쪽엔 없어, 라이브 발행한
+책의 **초안이 임시저장에 orphan 으로 남아** 검색량 1위로 재예약됐다. → 스케줄러가 이제 성공 시
+`recordPublication(status:'published', postId=blogContentId)` 로 기록 + `published` 인 책은 예약 대상에서 제외.
+🔴 **라이브로 하나 올렸으면 그 책 초안을 임시저장에서 지우거나 DB 를 published 로 맞춰라** — 안 그러면 orphan.
+
 **⑬ 탱고북 노출은 세 군데까지.** 표지 아래 출처 한 줄(`그림 · 탱고북 「제목」`) · 글 끝 라이브러리 한 줄
 · 그 책 CTA 카드. 🔴 **더 끼워 넣지 마라** — 광고성 과다는 네이버가 실제로 감점하는 축이다.
 
