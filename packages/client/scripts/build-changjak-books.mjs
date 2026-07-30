@@ -101,6 +101,11 @@ function render({ meta, notes, pages }) {
 .stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
 .stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
 .stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
 .stylebox .sb-name{font-weight:700;margin-bottom:6px}
 .stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
 .stylebox .sb-m b{color:#8a6a4f;margin-right:5px}

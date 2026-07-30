@@ -328,6 +328,13 @@
     .catch(function () { mount.innerHTML = '<p class="lead">목록을 못 불러왔습니다.</p>'; });
 })();
 
+/* 🔴 앵커 배정의 원본은 changjak-anchor-refs.json 한 곳이다.
+ * 회차 HTML 의 CJ_EPISODE.anchorSlug 는 열 권 전부 null 이라 그걸 보면 다 「미확정」이 뜬다.
+ * 세 자리(메타 칩 · 집필 현황표 · 그림체 패널)가 전부 이 하나를 봐야 한 곳만 고쳐도 셋이 같이 맞는다. */
+window.CJ_ANCHORS = fetch('/changjak-anchor-refs.json')
+  .then(function (r) { return r.json(); })
+  .catch(function () { return {}; });
+
 /* 회차의 앵커 바인딩을 메타 줄에 띄운다.
  * 바인딩이 데이터로만 있고 화면에 안 보이면 아무도 안 채운다 — 미확정이면 미확정이라고 보여준다. */
 (function () {
@@ -338,11 +345,14 @@
   chip.className = 'q';
   // 🔴 클러스터·ref 는 앵커 후보를 좁혀 둔 권에만 있다. 없는 권에 그대로 이으면 'null (ref null)' 이 뜬다.
   var hint = e.cluster ? ' · ' + e.cluster + (e.reference ? ' (ref ' + e.reference + ')' : '') : '';
-  chip.innerHTML = e.anchorSlug
-    ? '🎨 앵커 <b>' + e.anchorSlug + '</b>' + (e.cluster ? ' · ' + e.cluster : '')
-    : '🎨 앵커 <b>미확정</b>' + hint;
   chip.title = '프롬프트: ' + (e.prompts || '');
   meta.appendChild(chip);
+  window.CJ_ANCHORS.then(function (all) {
+    var slug = e.anchorSlug || ((all[e.id] || {}).slug);
+    chip.innerHTML = slug
+      ? '🎨 앵커 <b>' + slug + '</b>' + (e.cluster ? ' · ' + e.cluster : '')
+      : '🎨 앵커 <b>미확정</b>' + hint;
+  });
 })();
 
 /* 회차 페이지의 삽화 프롬프트 — 🔴 시트를 따로 준다.
@@ -815,32 +825,12 @@
       var e2 = (all || {})[ep.id] || {};
       // 🔴 슬러그는 여기(배정표)가 원본이다. 회차 HTML 의 anchorSlug 는 열 권 전부 null 이라
       //    그것만 보면 배정이 끝난 권도 「미확정」으로 뜬다.
-      renderVault(ep.anchorSlug || e2.slug);
-      if (!e2.refs || !e2.refs.length) return;
-      var wrap = document.createElement('div');
-      wrap.className = 'sb-cands';
-      wrap.innerHTML =
-        // 민팅 앵커는 후보를 인용해 세운 게 아니다 — 같은 클러스터의 검증 사례일 뿐이라고 밝힌다.
-        (e2.neighbor
-          ? '<div class="sb-cl">🏆 같은 클러스터의 검증 사례 <span>(이 권의 앵커는 후보 없이 새로 세웠습니다 — 출처가 아니라 이웃)</span></div>'
-          : '<div class="sb-cl">🏆 이 그림체의 근거 — 수상작 원본 <span>(베끼는 게 아니라 문법을 참고한다)</span></div>') +
-        '<div class="sb-crow">' +
-        e2.refs
-          .filter(function (r) { return r.imageUrl; })
-          .map(function (r) {
-            return (
-              '<a class="sb-c" href="' + r.imageUrl + '" target="_blank" rel="noopener">' +
-              '<img loading="lazy" src="' + r.imageUrl + '" alt="' + (r.work || '') + '" />' +
-              '<span>' + (r.artist || '') + '<i>' + (r.award || '') + ' ' + (r.year || '') + '</i></span></a>'
-            );
-          })
-          .join('') +
-        '</div>';
-      box.appendChild(wrap);
+      renderVault(ep.anchorSlug || e2.slug, e2);
     })
-    .catch(function () { renderVault(ep.anchorSlug); });
+    .catch(function () { renderVault(ep.anchorSlug, {}); });
 
-  function renderVault(slug) {
+  function renderVault(slug, anchorRefs) {
+  anchorRefs = anchorRefs || {};
   box.querySelector('.sb-head').innerHTML =
     '🎨 <b>이 책의 그림체</b>' +
     (slug ? ' · <code>' + slug + '</code>' : ' · <b style="color:#b4553c">앵커 미확정</b>');
@@ -868,13 +858,26 @@
      .map(function (r) { return '<div class="sb-m"><b>' + r[0] + '</b> ' + r[1] + '</div>'; })
      .join('');
 
+    // 🔴 승인 시트가 없으면 **앵커가 된 그림체의 원본 표지**를 그 자리에 놓는다.
+    //    빈 칸 셋은 그리는 사람에게 아무것도 안 알려 준다 — 앵커를 골랐다는 사실 자체가 안 보인다.
+    var origins = (anchorRefs.refs || []).filter(function (r) { return r.imageUrl; });
     var thumbs = '';
     for (var i = 1; i <= REFS; i++) {
       var k = slug + '-' + i;
-      thumbs += images[k]
-        ? '<a class="sb-th" href="' + images[k] + '" target="_blank" rel="noopener">' +
-            '<img loading="lazy" src="' + images[k] + '" alt="레퍼런스 ' + i + '" /></a>'
-        : '<div class="sb-th empty"><span>ref ' + i + ' 없음</span></div>';
+      var o = origins[i - 1];
+      if (images[k]) {
+        thumbs +=
+          '<a class="sb-th" href="' + images[k] + '" target="_blank" rel="noopener">' +
+          '<img loading="lazy" src="' + images[k] + '" alt="레퍼런스 ' + i + '" /></a>';
+      } else if (o) {
+        thumbs +=
+          '<a class="sb-th origin" href="' + o.imageUrl + '" target="_blank" rel="noopener" ' +
+          'title="' + (o.artist || '') + ' · ' + (o.work || '') + ' (' + (o.award || '') + ')">' +
+          '<img loading="lazy" src="' + o.imageUrl + '" alt="' + (o.work || '') + '" />' +
+          '<em>' + (anchorRefs.neighbor ? '같은 클러스터 원본' : '앵커 원본') + '</em></a>';
+      } else {
+        thumbs += '<div class="sb-th empty"><span>ref ' + i + ' 없음</span></div>';
+      }
     }
 
     body.innerHTML =
