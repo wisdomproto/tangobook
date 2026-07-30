@@ -404,26 +404,56 @@ window.CJ_ANCHORS = fetch('/changjak-anchor-refs.json')
     }
     reset();
     box.addEventListener('click', function () { box.focus(); });
+
+    // 🔴 서버는 POST /api/comic-assets/{docId} + JSON {key, dataUrl} 만 받는다(호리·전래와 같은 라우트).
+    //    여기만 FormData 를 PUT /{docId}/{key} 로 보내고 있어서 붙여넣기가 한 번도 성공한 적이 없다.
+    function upload(file) {
+      if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type)) {
+        box.className = 'paste-box err';
+        box.textContent = 'png·jpg·webp 만 됩니다';
+        return;
+      }
+      box.className = 'paste-box busy';
+      box.textContent = '올리는 중…';
+      var fr = new FileReader();
+      fr.onload = function () {
+        fetch(ASSET_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key: key, dataUrl: fr.result }),
+        })
+          .then(function (r) {
+            // 🔴 10MB 를 넘으면 express 가 JSON 이 아닌 413 을 준다 — 「실패」로 뭉개면 원인을 못 찾는다.
+            if (r.status === 413) throw new Error('그림이 너무 큽니다 (10MB 넘음)');
+            return r.json();
+          })
+          .then(function (j) {
+            if (!j || !j.success || !j.data || !j.data.url) throw new Error((j && j.error) || '서버가 URL 을 안 줬습니다');
+            shots[key] = j.data.url;
+            show(j.data.url + '?t=' + Date.now());
+          })
+          .catch(function (err) {
+            box.className = 'paste-box err';
+            box.textContent = '실패 — ' + (err.message || '다시 시도');
+          });
+      };
+      fr.readAsDataURL(file);
+    }
+
     box.addEventListener('paste', function (e) {
       var items = (e.clipboardData || {}).items || [];
       for (var i = 0; i < items.length; i++) {
-        if (items[i].type.indexOf('image') !== 0) continue;
+        if (items[i].type.indexOf('image/') !== 0) continue;
         e.preventDefault();
-        var fd = new FormData();
-        fd.append('image', items[i].getAsFile());
-        box.className = 'paste-box busy';
-        box.textContent = '올리는 중…';
-        fetch(ASSET_API + '/' + key, { method: 'PUT', body: fd })
-          .then(function (r) { return r.json(); })
-          .then(function (j) {
-            var url = (j && j.data && j.data.url) || (j && j.url);
-            if (!url) throw new Error('no url');
-            shots[key] = url;
-            show(url);
-          })
-          .catch(function () { box.className = 'paste-box err'; box.textContent = '실패 — 다시 시도'; });
+        upload(items[i].getAsFile());
         return;
       }
+    });
+    // 파일을 끌어다 놓는 쪽이 편할 때가 많다 — 호리와 같게 둔다.
+    box.addEventListener('dragover', function (e) { e.preventDefault(); });
+    box.addEventListener('drop', function (e) {
+      e.preventDefault();
+      upload(e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]);
     });
     box._show = show;
     return box;
@@ -437,10 +467,22 @@ window.CJ_ANCHORS = fetch('/changjak-anchor-refs.json')
   bar.innerHTML =
     '<b>🎨 삽화 프롬프트</b>' +
     '<i>🔴 <b>①먼저 주인공만 그린다</b>(배경 없이 정면·옆·뒤 — 이게 <b>캐릭터 시트</b>다) → 마음에 드는 시트를 <code>@image1</code> 로 첨부해 ②쪽 그림을 뽑는다. ' +
-    '순서를 어기면 배경엔 매체가 먹고 <b>인물만 매끈한 CG</b> 로 나온다.</i>';
-  bar.appendChild(mk('📋 ① 스타일 앵커', P.anchor));
+    '순서를 어기면 배경엔 매체가 먹고 <b>인물만 매끈한 CG</b> 로 나온다.<br>' +
+    '아래 <b>@image 버튼은 스타일 앵커를 앞에 붙여서</b> 복사됩니다 — 그대로 GPT에 넣으면 됩니다.</i>';
+  // 🔴 시트 이름은 프롬프트 첫 줄이 갖고 있다 — 「CHARACTER SHEET - BunnyWet (...)」.
+  //    「시트 1·2·3」으로만 부르면 무엇을 굽는 버튼인지 눌러 봐야 안다.
+  //    타입은 CHARACTER 말고 OBJECT·PARTS·SET·PROP 도 온다.
+  function sheetName(s, i) {
+    var hit = /^[A-Z][A-Z ]*?SHEET\s*[-–—]\s*([^(\n]+)/.exec(s || '');
+    return hit ? hit[1].trim() : '시트 ' + (i + 1);
+  }
+  bar.appendChild(mk('📋 스타일 앵커만 보기', P.anchor));
+  // 🔴 시트 버튼은 **앵커 + 시트**를 함께 복사한다. 시트 프롬프트에 hex 는 몇 개 들어 있지만
+  //    NOT 목록(에어브러시·3D·사진 금지)은 열 권 전부 시트에 없다 — 시트만 주면 매끈한 CG 가 온다.
   P.sheets.forEach(function (s, i) {
-    bar.appendChild(mk('📋 ① 캐릭터 시트' + (P.sheets.length > 1 ? ' ' + (i + 1) : '') + ' (먼저!)', s, 'hot'));
+    bar.appendChild(
+      mk('📋 ① @image' + (i + 1) + ' · ' + sheetName(s, i) + (i ? '' : ' (먼저!)'), P.anchor + '\n\n' + s, 'hot')
+    );
   });
   meta.parentNode.insertBefore(bar, meta.nextSibling);
 
@@ -450,7 +492,7 @@ window.CJ_ANCHORS = fetch('/changjak-anchor-refs.json')
     P.anchor +
     '\n\n[캐릭터 레퍼런스] 아래 @image 순서대로 위에서 승인한 캐릭터 시트를 첨부하세요. ' +
     '인물의 얼굴·비율·색은 시트와 100% 동일하게 유지합니다.\n' +
-    P.sheets.map(function (_, i) { return '@image' + (i + 1) + ' = 캐릭터 시트 ' + (i + 1); }).join('\n') +
+    P.sheets.map(function (s, i) { return '@image' + (i + 1) + ' = ' + sheetName(s, i); }).join('\n') +
     '\n\n※ 각 컷은 위 스타일 앵커를 그대로 따르고 장면만 바꿉니다.\n\n' +
     P.cuts.map(composeCut).join('\n\n');
   var bb = document.createElement('div');
@@ -474,7 +516,7 @@ window.CJ_ANCHORS = fetch('/changjak-anchor-refs.json')
   srBoxes.className = 'sr-boxes';
   var boxes = [];
   P.sheets.forEach(function (_, i) {
-    var b = pasteBox('sheet-' + (i + 1), '🖼️ @image' + (i + 1) + ' 시트 붙여넣기');
+    var b = pasteBox('sheet-' + (i + 1), '🖼️ @image' + (i + 1) + ' · ' + sheetName(_, i));
     boxes.push(b);
     srBoxes.appendChild(b);
   });
