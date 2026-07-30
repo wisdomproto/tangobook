@@ -40,6 +40,11 @@
     "title": "이사 온 날의 상자 도시"
   },
   {
+    "file": "changjak-b04.html",
+    "label": "B-04 📗 오해와 반전",
+    "title": "그림자가 먼저 일어났다"
+  },
+  {
     "file": "changjak-c01.html",
     "label": "C-01 📗 오해와 반전",
     "title": "첫눈이 오는 규칙"
@@ -58,6 +63,11 @@
     "file": "changjak-d01.html",
     "label": "D-01 📗 여정과 귀환",
     "title": "산 너머엔 뭐가 있어?"
+  },
+  {
+    "file": "changjak-d03.html",
+    "label": "D-03 📗 누적·반복",
+    "title": "바구니를 탄 고양이"
   },
   {
     "file": "changjak-e01.html",
@@ -108,5 +118,10 @@
     "file": "changjak-h01.html",
     "label": "H-01 📗 관찰과 성장",
     "title": "빵이 부푸는 동안"
+  },
+  {
+    "file": "changjak-h03.html",
+    "label": "H-03 📗 누적·반복",
+    "title": "구두 한 켤레가 생기기까지"
   }
 ]
