@@ -8,8 +8,8 @@ import { usePhonicsProgress } from '../lib/progress-store';
 /**
  * /library/phonics/korean/:unitId — unit 의 액티비티 그리드.
  *
- * 두 섹션 — **익히기** (모음 듣기/쓰기 4개), **게임하기** (4개 게임).
- * 액티비티 잠금 없음 — 8개 모두 자유롭게 접근. 진척은 ✓ 뱃지로만 표시.
+ * 두 섹션 — **익히기**(글자: 배우기·+모음·써보기) / **낱말 놀이**(낱말: 낱말 연습 + 게임 4종).
+ * 액티비티 잠금 없음 — 전부 자유롭게 접근. 진척은 ✓ 뱃지로만 표시.
  *
  * `embedded` 모드 (KoreanPhonicsStudyPage 안에 렌더될 때): "← 단원 목록" 링크 hide
  * (좌측 사이드바가 단원 목록 역할). 그 외는 standalone 화면용.
@@ -111,7 +111,7 @@ function ActivitySection({
   if (activities.length === 0) return null;
   const isLearn = tone === 'learn';
   const layout = cardLayout(activities.length);
-  // Panel: 익히기 = peach 톤 wash, 게임하기 = mint 톤 wash. 양 섹션 시각 구분 강화.
+  // Panel: 익히기 = peach 톤 wash, 낱말 놀이 = mint 톤 wash. 양 섹션 시각 구분 강화.
   const panelClass = isLearn
     ? 'bg-gradient-to-br from-peach-100/80 via-peach-50/70 to-cream-50/60 border-peach-200/70'
     : 'bg-gradient-to-br from-mint-100/80 via-mint-50/70 to-cream-50/60 border-mint-200/70';
@@ -136,11 +136,7 @@ function ActivitySection({
       </div>
       {/* 🔴 grid 가 아니라 **flex-wrap + justify-center** — 고정 열 수는 장수가 열보다 적을 때
           카드를 왼쪽에 몰아놓고 빈 칸을 남긴다(5열에 4장 = 오른쪽이 텅 빈다). flex 는 있는 만큼만
-          깔고 가운데로 모은다.
-          🔴 **카드 폭은 뷰포트가 아니라 남는 폭 기준** — md 부터 사이드바가 256px 를 먹어
-          834px 화면의 콘텐츠 폭은 486px 뿐이다. 그래서 sm(3장)보다 md 가 더 넓은 카드(=2장)다.
-          실측 콘텐츠 폭: 768→420 · 834→486 · 1024→676 · 1280→934 · 1512→1109.
-          🔴 익히기가 두 줄이 되면 게임하기가 화면 밖으로 밀린다 — 한 화면에 둘 다 보여야 한다. */}
+          깔고 가운데로 모은다. 폭·간격은 `cardLayout(장수)` 이 정한다. */}
       <div className={`flex flex-wrap justify-center ${layout.gap}`}>
         {activities.map((act) => (
           <ActivityCard
@@ -164,8 +160,6 @@ function ActivitySection({
  * 🔴 **기준은 뷰포트가 아니라 남는 폭** — md 부터 사이드바가 256px 를 먹는다.
  *    실측 콘텐츠 폭: 768→420 · 834→486 · 1024→676 · 1280→934 · 1512→1109.
  * 🔴 익히기가 두 줄이 되면 아래 섹션이 화면 밖으로 밀린다 — 한 화면에 둘 다 보여야 한다.
- */
-/**
  * 🔴 카드에 `transition-all` 을 주지 말 것 — **폭까지 애니메이션된다**. 한 줄에 다섯을 넣던 날
  *    첫 카드만 9.6px 좁게 굳었는데(다른 넷은 정상), 원인이 이것이었다. 클래스는 다섯 장이
  *    완전히 같은데 계산값만 달랐고, `transition: none` 을 주자 즉시 제자리로 왔다.
