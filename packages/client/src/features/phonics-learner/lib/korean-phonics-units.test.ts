@@ -1,8 +1,10 @@
 import { describe, it, expect } from 'vitest';
+import { decomposeHangul } from '@tangobook/shared';
 import {
   getAllKoreanUnits,
   getActivityPlan,
   getRequiredActivities,
+  randomReviewSyllable,
   shuffleReviewCards,
 } from './korean-phonics-units';
 
@@ -194,16 +196,25 @@ describe('korean phonics activity plans', () => {
     expect(consonant.letter).toBe(consonant.sound);
   });
 
-  it('복습 글자 사냥은 낱자가 아니라 음절로 판을 깐다', () => {
-    // 🔴 학습 단원 사냥이 `가갸거겨` 인데 복습만 `ㄱㄴㄷㄹ` 이면 같은 활동이 낱자로 바뀐다.
-    const hunt = (id: string) =>
-      getActivityPlan(id).activities.find((a) => a.kind === 'letter-hunt')!.reviewCards!;
-    expect(hunt('kr-h1-r1').map((c) => c.letter)).toEqual(['가', '나', '다', '라']);
-    // 🔴 모음은 고정 — 무작위였다면 자음이 아니라 모음이 달라서 갈린다.
-    expect(hunt('kr-h1-r1').every((c) => c.letter === c.sound)).toBe(true);
-    // 받침 복습은 받침이 붙은 음절, 복잡한 모음은 그 모음 음절.
-    expect(hunt('kr-h2-r1')[0].letter).toBe('앙');
-    expect(hunt('kr-h4-r1')[0].letter).toBe('애');
+  /**
+   * 🔴 복습 사냥판은 **낱자가 아니라 음절**이고, 음절은 plan 이 아니라 화면이 뽑는다
+   *    (`KoreanPhonicsActivityPage.huntCards` → `randomReviewSyllable`). plan 에서 뽑으면
+   *    모듈 로드 때 한 번 고정돼 새로고침 전까지 같은 음절만 나온다.
+   *    여기서는 그 재료(`randomReviewSyllable`)가 **되짚는 글자를 지킨 채 나머지를 바꾸는지**를 잠근다.
+   */
+  it('복습 사냥 음절은 되짚는 글자를 지키면서 매번 달라진다', () => {
+    const cards = sharedCards('kr-h1-r1');
+    const g = cards.find((c) => c.letter === 'ㄱ')!;
+    const seen = new Set<string>();
+    for (let i = 0; i < 60; i++) seen.add(randomReviewSyllable(g));
+    // 🔴 ㄱ 단원은 `가갸거겨고교구규그기` 를 다 배운다 — 여러 모음에 걸쳐 ㄱ 을 알아보는 게 그 학습의 몫.
+    expect(seen.size).toBeGreaterThan(1);
+    for (const s of seen) expect(decomposeHangul(s).cho).toBe('ㄱ');
+
+    // 받침 복습은 **받침**이 고정되고 앞 음절이 바뀐다.
+    const coda = sharedCards('kr-h2-r1').find((c) => c.unitId === 'kr-h2-u01')!;
+    for (let i = 0; i < 30; i++)
+      expect(decomposeHangul(randomReviewSyllable(coda)).jong).toBe('ㅇ');
   });
 
   it('한글1 단원 구성은 그대로다 (회귀 가드)', () => {
