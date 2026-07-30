@@ -100,6 +100,37 @@ describe('korean phonics activity plans', () => {
     expect(units.find((u) => u.id === 'kr-h1-u01')!.targetWords.length).toBe(0);
   });
 
+  it('모음·자음 단원도 글자 사냥을 갖는다 — 목표는 그 단원이 가르치는 글자다', () => {
+    // 모음 단원 = 모음 글자 그대로, 소리는 그 음절(ㅏ→아)
+    const vowelHunt = getActivityPlan('kr-h1-u01').activities.find(
+      (a) => a.kind === 'letter-hunt'
+    )!;
+    expect(vowelHunt.reviewCards!.map((c) => c.letter)).toEqual([
+      'ㅏ',
+      'ㅑ',
+      'ㅓ',
+      'ㅕ',
+      'ㅗ',
+      'ㅛ',
+      'ㅜ',
+      'ㅠ',
+      'ㅡ',
+      'ㅣ',
+    ]);
+    expect(vowelHunt.reviewCards![0].sound).toBe('아');
+
+    // 🔴 자음 단원은 **음절**(가갸거겨…)이다 — 자음 하나(ㄱ)만 목표로 두면 방금 배운 음절을 안 쓴다.
+    const consonantHunt = getActivityPlan('kr-h1-u02').activities.find(
+      (a) => a.kind === 'letter-hunt'
+    )!;
+    expect(consonantHunt.reviewCards!.map((c) => c.letter).join('')).toBe('가갸거겨고교구규그기');
+
+    // 받침 단원은 넣지 않는다 — 받침은 홀로 서는 글자가 아니라 붙는 자리다.
+    expect(getActivityPlan('kr-h2-u01').activities.some((a) => a.kind === 'letter-hunt')).toBe(
+      false
+    );
+  });
+
   it('복습 단원이 레벨마다 묶음 뒤에 끼어든다', () => {
     // 한글1 자음 14(모음 단원은 글자 10개라 제외) → 4·4·6 / 한글2 7 → 4·3 / 한글3·4 각 5 → 1묶음
     expect(reviews.map((r) => r.id)).toEqual([
@@ -136,7 +167,7 @@ describe('korean phonics activity plans', () => {
       // 🔴 형식이 전부 다르다. 그리고 **듣기와 눈으로 보는 활동을 번갈아** 둔다 —
       //    듣기 둘을 붙여 놓으면 아이가 같은 화면을 두 번 하는 걸로 느낀다.
       expect(acts.map((a) => a.kind)).toEqual([
-        'review-hunt', // 글자 사냥
+        'letter-hunt', // 글자 사냥
         'review-flip', // 뒤집기 짝 맞추기
         'review-syllable-listen', // 듣고 음절 맞추기
         'review-match', // 짝 찾기
@@ -167,6 +198,7 @@ describe('korean phonics activity plans', () => {
       'listen-1',
       'listen-2',
       'write-1',
+      'letter-hunt',
       ...PLAY_ORDER,
     ]);
     expect(

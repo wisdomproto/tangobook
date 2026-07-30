@@ -328,7 +328,7 @@ export default function KoreanPhonicsActivityPage() {
     );
   }
   // 🔎 글자 사냥 — 글자만 쓰는 활동이라 단어 그림을 기다리지 않는다(자산 없는 단원에서도 돈다).
-  if (activity.kind === 'review-hunt' && reviewCards.length) {
+  if (activity.kind === 'letter-hunt' && reviewCards.length) {
     return (
       <LetterHuntActivity
         unitId={unitId}

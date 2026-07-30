@@ -382,9 +382,9 @@ function makeEnglishReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
   return {
     activities: [
       {
-        key: 'review-hunt',
+        key: 'letter-hunt',
         order: 1,
-        kind: 'review-hunt',
+        kind: 'letter-hunt',
         title: '글자 사냥',
         emoji: '🔎',
         ...shared,

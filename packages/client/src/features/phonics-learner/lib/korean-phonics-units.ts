@@ -140,7 +140,7 @@ export type ActivityKind =
   | 'coda-blend-listen'
   | 'consonant-write'
   | 'word-listen-choose'
-  | 'review-hunt'
+  | 'letter-hunt'
   | 'review-flip'
   | 'review-syllable-listen'
   | 'review-word-listen'
@@ -298,6 +298,34 @@ const VOWEL_GROUP_2 = [
 // 🔴 **낱말 놀이 순서는 여기 한 곳**(2026-07-29) — 낱말 연습 → 낱말 그리기 → 한글 블록 게임 →
 //    낱말 쓰기 → 그림 짝 찾기. 예전엔 모음 단원(u01)이 게임 목록을 따로 적어 두어 자음 단원과
 //    순서가 달랐다(같은 게임인데 단원마다 자리가 바뀌면 아이가 매번 다시 찾는다).
+/**
+ * 🔎 글자 사냥 카드 한 장 — 학습 단원용. (복습은 `makeReviewPlan` 이 자기 카드를 만든다.)
+ *
+ * 🔴 **모양 변별은 배우는 자리에도 필요하다**(2026-07-29 사용자). 복습에만 두기엔 아깝다 —
+ *    익히기 활동은 전부 *누르면 소리가 나는* 탐색형이라, 방금 배운 글자를 **다른 글자 사이에서
+ *    골라내는** 활동이 하나도 없었다. 목표는 단원이 지금 가르치는 것으로:
+ *      · 모음 단원 = 모음 글자(ㅏ·ㅑ·ㅓ…) — 방해꾼은 사전의 헷갈리는 짝(ㅏ/ㅓ/ㅑ)
+ *      · 자음 단원 = 그 자음으로 만든 **음절**(가·갸·거·겨…) — 사전에 없으므로 같은 판의 다른
+ *        음절이 방해꾼이 된다. 자음 하나(ㄱ)만 목표로 두면 판에 ㄱ 밖에 없어 사냥이 성립하지 않는다.
+ */
+const huntCard = (unitId: string, letter: string, sound: string): ReviewCard => ({
+  unitId,
+  letter,
+  syllable: sound,
+  sound,
+  matchPosition: 'cho',
+});
+
+const huntActivity = (cards: readonly ReviewCard[]): Omit<ActivityDef, 'order'> => ({
+  key: 'letter-hunt',
+  kind: 'letter-hunt',
+  section: 'learn',
+  title: '글자 사냥',
+  emoji: '🔎',
+  required: true,
+  reviewCards: [...cards],
+});
+
 const GAME_ACTIVITIES: ReadonlyArray<Omit<ActivityDef, 'order'>> = [
   {
     key: 'game-dots',
@@ -367,6 +395,9 @@ const UNIT_01_PLAN: ActivityPlan = withGames([
     required: true,
     vowels: [...VOWEL_GROUP_1, ...VOWEL_GROUP_2],
   },
+  huntActivity(
+    [...VOWEL_GROUP_1, ...VOWEL_GROUP_2].map((v) => huntCard('kr-h1-u01', v.vowel, v.syllable))
+  ),
 ]);
 
 // ─── 자음 단원 (ㄱ ~ ㅎ) 공용 plan 생성기 ───
@@ -393,7 +424,7 @@ const CONSONANT_BLEND_VOWELS = [
  * 자음 단원 (ㄱ~ㅎ) 공통 활동 plan 생성. 자음만 바뀌어 구조는 전부 같다.
  * 꼬리(듣고 고르기 + 게임 4)는 `withGames` 가 붙이고 순서도 거기서 매긴다.
  */
-function makeConsonantPlan(consonant: string): ActivityPlan {
+function makeConsonantPlan(consonant: string, unitId = ''): ActivityPlan {
   return withGames(
     [
       {
@@ -428,6 +459,14 @@ function makeConsonantPlan(consonant: string): ActivityPlan {
         // 음절 만들기와 같은 짝을 쓴다 — 쓰기도 `ㄱ`·`ㅏ` 를 써서 `가` 를 만든다.
         blendVowels: [...CONSONANT_BLEND_VOWELS],
       },
+      // 🔎 글자 사냥 — 목표는 자음이 아니라 **그 자음으로 만든 음절**(가갸거겨고교구규그기).
+      //    자음 하나(ㄱ)만 목표로 두면 판이 ㄱ 과 다른 자음뿐이라, 방금 배운 음절을 안 쓴다.
+      huntActivity(
+        CONSONANT_BLEND_VOWELS.map((v) => {
+          const syllable = composeHangul(consonant, v, null) || consonant;
+          return huntCard(unitId, syllable, syllable);
+        })
+      ),
     ],
     consonant
   );
@@ -562,7 +601,7 @@ function makeCodaPlan(coda: string): ActivityPlan {
  * 복잡한 모음 단원 plan. 모음이 2~3개뿐이라 u01 처럼 1/2 로 쪼개지 않고 듣기 1 + 쓰기 1.
  * 음절은 `composeHangul('ㅇ', v)` 로 파생 — ㅐ→애, ㅚ→외 (하드코딩 없음).
  */
-function makeComplexVowelPlan(vowels: readonly string[]): ActivityPlan {
+function makeComplexVowelPlan(vowels: readonly string[], unitId = ''): ActivityPlan {
   const pairs = vowels.map((v) => ({
     vowel: v,
     syllable: composeHangul('ㅇ', v, null) || v,
@@ -587,6 +626,7 @@ function makeComplexVowelPlan(vowels: readonly string[]): ActivityPlan {
         required: true,
         vowels: pairs,
       },
+      huntActivity(pairs.map((p) => huntCard(unitId, p.vowel, p.syllable))),
     ],
     vowels[0]
   );
@@ -639,9 +679,9 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
   return {
     activities: [
       {
-        key: 'review-hunt',
+        key: 'letter-hunt',
         order: 1,
-        kind: 'review-hunt',
+        kind: 'letter-hunt',
         title: '글자 사냥',
         emoji: '🔎',
         ...shared,
@@ -712,9 +752,9 @@ function derivedPlans(): Record<string, ActivityPlan> {
     if (u.levelIndex === 2) {
       out[u.id] = makeCodaPlan(first.replace('받침', '')); // '받침ㅇ' → 'ㅇ'
     } else if (u.levelIndex === 3) {
-      out[u.id] = makeConsonantPlan(first); // 쌍자음 — 데이터 모양이 한글1 자음과 동일
+      out[u.id] = makeConsonantPlan(first, u.id); // 쌍자음 — 데이터 모양이 한글1 자음과 동일
     } else if (u.levelIndex === 4) {
-      out[u.id] = makeComplexVowelPlan(u.phonemes);
+      out[u.id] = makeComplexVowelPlan(u.phonemes, u.id);
     }
   }
   return out;
@@ -724,7 +764,7 @@ function derivedPlans(): Record<string, ActivityPlan> {
 export const KOREAN_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
   'kr-h1-u01': UNIT_01_PLAN,
   ...Object.fromEntries(
-    Object.entries(CONSONANT_UNIT_MAP).map(([unitId, c]) => [unitId, makeConsonantPlan(c)])
+    Object.entries(CONSONANT_UNIT_MAP).map(([unitId, c]) => [unitId, makeConsonantPlan(c, unitId)])
   ),
   ...derivedPlans(),
 };
