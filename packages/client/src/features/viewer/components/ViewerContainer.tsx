@@ -34,6 +34,7 @@ import { WordRevealScreen } from './WordRevealScreen';
 import { GameListViewer } from './GameListViewer';
 import { PhonicsViewer } from './PhonicsViewer';
 import { ViewerLoading } from './ViewerLoading';
+import { useWakeLock } from '@/lib/useWakeLock';
 
 interface PlaylistProp {
   hasNext: boolean;
@@ -68,6 +69,10 @@ const NEXT_IMG_CAP_MS = 1500; // 다음 이미지 로딩 상한 (안 와도 넘�
 export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps) {
   const { t } = useTranslation('viewer');
   const navigate = useNavigate();
+  // 🔴 뷰어에 있는 동안 화면이 안 꺼지게 잡는다 — 나레이션+이미지라 `<video>` 가 없어 유튜브처럼
+  //    자동 유지가 안 됐다(사용자: "우리 동화 볼 때 자꾸 자동 화면 잠금"). 재생 여부와 무관하게
+  //    뷰어(단일·연속재생 공용)에 있으면 켜 둔다.
+  useWakeLock();
   const [sp, setSp] = useSearchParams();
   const mode = sp.get('mode');
 
