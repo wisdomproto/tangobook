@@ -4,6 +4,7 @@ import { resolveTtsUrl } from '@/features/tts';
 import { useLogSyllable } from '../hooks/useLogSyllable';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { buildBlendPairs, stacksVertically } from '../lib/blend-pairs';
 import { ActivityShell } from '../components/ActivityShell';
@@ -105,6 +106,8 @@ export function ConsonantWriteActivity({
   onBack,
 }: Props) {
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  // 🔴 진입 안내 — 지시가 텍스트뿐이라 글 못 읽는 아이엔 통째로 무음이었다(쓰기 6종 공통).
+  useEntryGuide(ENTRY_GUIDE.write, playAudio);
   const prefix = 'consonant-write';
 
   const isCoda = !!coda;

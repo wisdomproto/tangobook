@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { resolveTtsUrl } from '@/features/tts';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
@@ -30,6 +31,8 @@ interface Props {
  */
 export function VowelWriteActivity({ unitId, vowels, onComplete, onBack }: Props) {
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  // 🔴 진입 안내 — 지시가 텍스트뿐이라 글 못 읽는 아이엔 통째로 무음이었다(쓰기 6종 공통).
+  useEntryGuide(ENTRY_GUIDE.write, playAudio);
   const [doneSet, setDoneSet] = useState<Set<number>>(new Set());
   const [currentIdx, setCurrentIdx] = useState(0);
   // 쉬는 동안 나가면 예약된 다음 카드·칭찬이 빈 화면에서 울린다.

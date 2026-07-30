@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import { useActivitySound } from '../hooks/useActivitySound';
+import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import type { ReviewCardSource } from '../hooks/useReviewCardSources';
@@ -40,11 +41,14 @@ export function ReviewWriteActivity({
     rest,
     sayThenChime,
     praiseVisible,
+    playAudio,
   } = useActivitySound({
     unitId,
     language,
     prefix: 'review-write',
   });
+  // 진입 안내 — 이 화면은 그림 없는 카드(영어)면 소리가 곧 문제라, 안내가 끝난 뒤에 문제를 낸다.
+  const guiding = useEntryGuide(ENTRY_GUIDE.write, playAudio);
   const [idx, setIdx] = useState(0);
   const [done, setDone] = useState(false);
 
@@ -73,10 +77,11 @@ export function ReviewWriteActivity({
   sayRef.current = say;
   const wordKey = current && !current.imageUrl ? current.word : '';
   useEffect(() => {
-    if (done || !wordKey) return;
+    // 🔴 안내가 끝난 뒤에 문제를 낸다 — 예전엔 진입 104ms 에 **정답 글자부터** 읽고 안내는 없었다.
+    if (done || guiding || !wordKey) return;
     const card = sourcesRef.current[idx];
     if (card) sayRef.current(card);
-  }, [idx, wordKey, done]);
+  }, [idx, wordKey, done, guiding]);
 
   /**
    * 한 글자를 다 쓰면 — 띵동 → **거기까지 이어읽기**(고 → 고기).

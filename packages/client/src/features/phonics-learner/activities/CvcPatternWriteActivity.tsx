@@ -3,6 +3,7 @@ import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { REST_MS } from '../hooks/useActivitySound';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { ActivityShell } from '../components/ActivityShell';
@@ -31,6 +32,8 @@ interface CvcWord {
 export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBack }: Props) {
   const storybookQuery = useStorybook(unitId);
   const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
+  // 🔴 진입 안내 — 지시가 텍스트뿐이라 글 못 읽는 아이엔 통째로 무음이었다(쓰기 6종 공통).
+  useEntryGuide(ENTRY_GUIDE.write, playAudio);
 
   const cvcWords = useMemo<CvcWord[]>(() => {
     const sb = storybookQuery.data;
