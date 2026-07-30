@@ -55,7 +55,14 @@ const IDLE_TILE_CLASS =
 const CLOSE_MS = 500;
 /** 합쳐진 글자가 뜬 뒤 읽기까지의 쉼 — 붙자마자 소리가 나면 눈이 따라가기 전에 지나간다. */
 const MERGE_REST_MS = 550;
-const WRITE_ROUNDS = 2; // 쓰는 라운드 수(멀리·가까이). 마지막 붙는 건 자동.
+/**
+ * 쓰는 라운드 수 — **한 번**(2026-07-30 사용자: "2번씩 쓰게 하는데, 1번만 쓰게 하는 게 낫겠다").
+ *
+ * 🔴 「음절 만들기」는 탭이라 [멀리·가까이] 두 라운드가 리듬이 되지만, 쓰기는 한 글자에 몇 초가
+ *    걸려서 같은 두 글자를 두 번 쓰면 음절 하나에 네 번이다. 음절 10개를 다 열어 준 지금은
+ *    두 글자를 한 번씩만 쓰고 붙는 걸 본다(10음절 × 2 = 20번).
+ */
+const WRITE_ROUNDS = 1;
 
 /**
  * 지금 쓸 칸 — 캔버스를 감싸고 **반짝이는 테두리**를 얹는다.
@@ -132,16 +139,18 @@ export function ConsonantWriteActivity({
   );
 
   const pair = pairs[idx];
-  // 받침은 한 번만 쓰면 된다 — 자음처럼 [멀리·가까이] 두 번 쓰지 않는다.
-  const writeRounds = isCoda ? 1 : WRITE_ROUNDS;
+  const writeRounds = WRITE_ROUNDS;
   /**
-   * 🔴 받침은 쓰기 뒤에 **붙는 과정을 보여주는 단계**가 하나 더 있다.
-   *   round 0 = 쓰는 중 · round 1 = 두 글자가 미끄러져 붙는 중 · round 2 = 합쳐진 음절
-   * 예전엔 다 칠하자마자 `강` 으로 갈아치워서 **가까워지는 게 아예 안 보였다** —
-   * 받침이 "어디에 어떻게 붙는지"가 이 단원의 전부인데 그 순간을 건너뛴 셈이다.
+   * 라운드 = `0..writeRounds-1` 쓰는 중 · `writeRounds` 두 글자가 **미끄러져 붙는 중** ·
+   * 그 다음 합쳐진 음절.
+   *
+   * 🔴 붙는 단계를 건너뛰면 다 칠하자마자 `강` 으로 갈아치워져 **가까워지는 게 아예 안 보인다** —
+   *    글자가 "어디에 어떻게 붙는지"가 이 활동의 전부인데 그 순간이 사라진다.
+   * 🔴 예전엔 이 단계가 **받침 모드에만** 있었다(자음은 두 라운드의 거리 변화가 그 역할을 했다).
+   *    쓰기를 한 번으로 줄이면서 자음도 같은 단계를 쓴다 — 두 모드가 한 흐름이 됐다.
    */
-  const closing = isCoda && round === 1;
-  const merging = isCoda ? round >= 2 : round >= writeRounds;
+  const closing = round === writeRounds;
+  const merging = round > writeRounds;
   /**
    * 위·아래로 모이는가 — 받침이거나 수직 모음(ㅗㅛㅜㅠㅡ)이면 세로. 방향은 글자가 정한다.
    * 🔴 **칸 크기뿐 아니라 배치 방향까지** 이 값이 정해야 한다 — 예전엔 방향만 `coda` 로 갈라져서
@@ -222,33 +231,11 @@ export function ConsonantWriteActivity({
       };
 
       /**
-       * 🔴 받침도 **두 칸 다 쓴다**(2026-07-30 사용자: "받침에서 써보기도 받침만 써보기로 하는데,
-       *    다 써보게 하자. 위에 글자도"). 예전엔 앞 음절(`가`)을 주어진 판으로 두고 받침만 쓰게 했다 —
-       *    "이 단원이 가르치는 건 받침"이라는 이유였지만, 아이가 손으로 만드는 건 **음절 하나**(`강`)이고
-       *    앞 글자를 안 써 보면 그게 어떻게 한 글자가 되는지 손에 안 남는다.
+       * 🔴 **두 칸 다 쓴다 — 받침 모드도**(2026-07-30 사용자: "받침에서 써보기도 받침만 써보기로
+       *    하는데, 다 써보게 하자. 위에 글자도"). 예전엔 앞 음절(`가`)을 주어진 판으로 두고 받침만
+       *    쓰게 했다("이 단원이 가르치는 건 받침"). 하지만 아이가 손으로 만드는 건 **음절 하나**(`강`)라
+       *    앞 글자를 안 써 보면 그게 어떻게 한 글자가 되는지 손에 안 남는다. 두 모드가 같은 흐름이다.
        */
-      if (isCoda && step === 0) {
-        setStep(1);
-        speak(pair.first);
-        return;
-      }
-      if (isCoda) {
-        // 붙는 중(round 1) → 다 붙으면 합쳐진 글자(round 2) → 좀 쉬고 읽기.
-        // 🔴 소리를 붙는 도중에 내지 않는다 — 눈으로 붙는 걸 보고 나서 그 소리를 들어야 이어진다.
-        setStep(0);
-        setRound(1);
-        closeTimer.current = window.setTimeout(() => {
-          setRound(2);
-          // 합쳐진 음절만이 아니라 **이어 읽는다**(가 · 으 · 강) — 받침이 어떻게 붙어 그 소리가
-          // 됐는지가 들려야 한다. 음절 만들기와 같은 형식.
-          restTimer.current = window.setTimeout(
-            () => finishSyllable(`${pair.first} ${pair.secondSound} ${pair.syllable}`),
-            MERGE_REST_MS
-          );
-        }, CLOSE_MS);
-        return;
-      }
-
       if (step === 0) {
         setStep(1);
         speak(pair.first);
@@ -258,11 +245,24 @@ export function ConsonantWriteActivity({
       const nextRound = round + 1;
       setStep(0);
       setRound(nextRound);
+      // 아직 쓸 라운드가 남았으면 다음 라운드로 (지금은 한 라운드라 자음·받침 모두 바로 붙는다).
       if (nextRound < writeRounds) {
         speak(pair.secondSound);
         return;
       }
-      finishSyllable(`${pair.first} ${pair.secondSound} ${pair.syllable}`);
+      /**
+       * 다 썼다 → 미끄러져 붙고(`closing`) → 합쳐진 글자 → 쉼 → 이어 읽기.
+       * 🔴 소리를 **붙는 도중에 내지 않는다** — 눈으로 붙는 걸 보고 나서 그 소리를 들어야 이어진다.
+       * 🔴 합쳐진 음절만이 아니라 **이어 읽는다**(가 · 으 · 강 / ㄱ · ㅏ · 가) — 어떻게 붙어 그 소리가
+       *    됐는지가 들려야 한다. 「음절 만들기」와 같은 형식.
+       */
+      closeTimer.current = window.setTimeout(() => {
+        setRound(nextRound + 1);
+        restTimer.current = window.setTimeout(
+          () => finishSyllable(`${pair.first} ${pair.secondSound} ${pair.syllable}`),
+          MERGE_REST_MS
+        );
+      }, CLOSE_MS);
     },
     [
       completed,
