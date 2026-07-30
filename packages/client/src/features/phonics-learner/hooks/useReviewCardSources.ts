@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useQueries } from '@tanstack/react-query';
 import { decomposeHangul, type Storybook } from '@tangobook/shared';
 import { storybookApi } from '@/features/storybook/api/storybook.api';
@@ -115,5 +115,46 @@ export function useReviewCardSources(cards: ReadonlyArray<ReviewCard>): {
     [cards, dataKey]
   );
 
-  return { sources, isLoading };
+  /**
+   * 🔴 **그림 파일까지 프리로드한 뒤에 로딩을 끝낸다**(2026-07-30 사용자: "그림이 늦게 나오는데?").
+   *
+   * `useQueries` 의 `isLoading` 은 storybook **데이터**(그림 URL 문자열)만 기다린다 — 실제 이미지
+   * 파일은 화면에 `<img>` 가 뜰 때 비로소 받아온다. 그래서 데이터 로드 완료 → 활동 렌더 → 그제서야
+   * 그림이 깜빡 늦게 떴다. 뒤집기·그림짝·듣고낱말이 **다 같은 증상**이었던 건 셋 다 이 훅을 쓰기
+   * 때문 — 여기 한 곳에서 프리로드하면 세 활동이 동시에 낫는다(호출부는 이미 `isLoading` 이면
+   * 로딩 화면을 띄운다).
+   */
+  const imageKey = sources
+    .map((s) => s.imageUrl)
+    .filter(Boolean)
+    .join('|');
+  const [imagesReady, setImagesReady] = useState(false);
+  useEffect(() => {
+    const urls = imageKey ? imageKey.split('|') : [];
+    if (!urls.length) {
+      setImagesReady(true);
+      return;
+    }
+    setImagesReady(false);
+    let alive = true;
+    let left = urls.length;
+    const done = () => {
+      if (--left <= 0 && alive) setImagesReady(true);
+    };
+    const imgs = urls.map((url) => {
+      const img = new Image();
+      img.onload = done;
+      img.onerror = done; // 못 받아도 무한 로딩은 안 된다 — 그 카드만 안 뜬다.
+      img.src = url;
+      return img;
+    });
+    return () => {
+      alive = false;
+      imgs.forEach((img) => {
+        img.onload = img.onerror = null;
+      });
+    };
+  }, [imageKey]);
+
+  return { sources, isLoading: isLoading || !imagesReady };
 }

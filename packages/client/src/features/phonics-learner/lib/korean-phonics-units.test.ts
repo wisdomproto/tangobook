@@ -81,14 +81,15 @@ describe('korean phonics activity plans', () => {
     expect(acts.find((a) => a.kind === 'consonant-tap')?.soundText).toBeUndefined();
   });
 
-  it('복잡한 모음 단원은 모음 음절을 조합으로 파생한다', () => {
+  it('복잡한 모음 단원은 음절 만들기(모음 선택 → 자음 음절)로 배운다', () => {
+    // 🔴 자음을 배운 뒤라 모음 자체가 아니라 음절을 만든다 — 모음 고르고 ㄱ~ㅎ 붙이기.
     const acts = getActivityPlan('kr-h4-u01').activities;
-    const listen = acts.find((a) => a.kind === 'vowel-listen')!;
+    const listen = acts.find((a) => a.kind === 'vowel-blend-listen')!;
     expect(listen.vowels).toEqual([
       { vowel: 'ㅐ', syllable: '애' },
       { vowel: 'ㅔ', syllable: '에' },
     ]);
-    expect(acts.find((a) => a.kind === 'vowel-write')?.vowels).toEqual(listen.vowels);
+    expect(listen.blendConsonants).toHaveLength(14); // ㄱ~ㅎ
   });
 
   it('모든 학습 단원이 낱말 연습을 갖는다', () => {

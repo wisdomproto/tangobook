@@ -11,7 +11,7 @@ import { ActivityShell } from '../components/ActivityShell';
 
 interface Props {
   unitId: string;
-  consonant: string;
+  consonant?: string;
   /** 발음할 텍스트. 미지정이면 `consonant`. 받침은 홀로 소리 못 내 예시 음절('앙')을 읽는다. */
   soundText?: string;
   /** 자음 모드 — 붙일 모음들. 없으면 글자만 세 번 쓰는 옛 화면. */
@@ -19,6 +19,10 @@ interface Props {
   /** 받침 모드 — 학습 받침과 붙일 초성들. */
   coda?: string;
   codaOnsets?: ReadonlyArray<string>;
+  /** 모음 모드 — 학습 모음 (예: 'ㅐ'). 자음 순회([자음]+[ㅐ]→[개]). */
+  vowel?: string;
+  /** 모음 모드 — 앞에 붙일 자음들 (ㄱ~ㅎ). */
+  blendConsonants?: ReadonlyArray<string>;
   onComplete: () => void;
   onBack: () => void;
 }
@@ -102,6 +106,8 @@ export function ConsonantWriteActivity({
   blendVowels,
   coda,
   codaOnsets,
+  vowel,
+  blendConsonants,
   onComplete,
   onBack,
 }: Props) {
@@ -120,8 +126,8 @@ export function ConsonantWriteActivity({
    *    끝내지 않고 나가도 된다(칭찬은 다 만들었을 때).
    */
   const pairs = useMemo(
-    () => buildBlendPairs({ consonant, blendVowels, coda, codaOnsets }),
-    [consonant, blendVowels, coda, codaOnsets]
+    () => buildBlendPairs({ consonant, blendVowels, coda, codaOnsets, vowel, blendConsonants }),
+    [consonant, blendVowels, coda, codaOnsets, vowel, blendConsonants]
   );
 
   const [idx, setIdx] = useState(0);
@@ -176,7 +182,8 @@ export function ConsonantWriteActivity({
     setRound(0);
     setStep(0);
   }, []);
-  const say = soundText ?? consonant;
+  // 짝 없는 단원(모음 정보만) 폴백용 — 모음 모드는 pair 가 늘 있어 안 쓰인다.
+  const say = soundText ?? consonant ?? vowel ?? '';
 
   usePhonicsTtsWarm(
     unitId,
@@ -345,7 +352,7 @@ export function ConsonantWriteActivity({
         {!pair ? (
           <LetterFillCanvas
             key={`single-${round}`}
-            letter={consonant}
+            letter={say}
             onResult={(ok) => {
               if (!ok) return;
               const next = round + 1;

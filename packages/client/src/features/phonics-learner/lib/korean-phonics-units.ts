@@ -139,6 +139,8 @@ export type ActivityKind =
   | 'consonant-blend-listen'
   | 'coda-blend-listen'
   | 'consonant-write'
+  | 'vowel-blend-listen'
+  | 'vowel-blend-write'
   | 'word-listen-choose'
   | 'letter-hunt'
   | 'review-flip'
@@ -272,6 +274,8 @@ export interface ActivityDef {
   letterIndex?: number;
   /** alphabet-letter-write (영어 Book 1) 활동용 — unit 내 학습 글자 목록 (예: ['A','B','C']). 각 글자마다 대문자/소문자 쓰기 캔버스 노출. */
   letters?: readonly string[];
+  /** vowel-blend-* (한글4 복잡한 모음) 활동용 — 이 음절들에 붙일 자음 (ㄱ~ㅎ). 모음을 고른 뒤 자음 음절을 만든다. */
+  blendConsonants?: ReadonlyArray<string>;
 }
 
 export interface ActivityPlan {
@@ -598,8 +602,10 @@ function makeCodaPlan(coda: string): ActivityPlan {
 
 // ─── 한글4 복잡한 모음 단원 (ㅐㅔ · ㅖㅚ · ㅟㅢ · ㅘㅙ · ㅝㅞㅢ) ───
 /**
- * 복잡한 모음 단원 plan. 모음이 2~3개뿐이라 u01 처럼 1/2 로 쪼개지 않고 듣기 1 + 쓰기 1.
- * 음절은 `composeHangul('ㅇ', v)` 로 파생 — ㅐ→애, ㅚ→외 (하드코딩 없음).
+ * 복잡한 모음 단원 plan (한글4). 🔴 **자음을 배운 뒤라 모음 자체가 아니라 음절을 만든다**
+ * (2026-07-30 사용자: "이제 한글 자음을 아니까 모음 듣기·쓰기에 ㄱ~ㅎ 까지 다"). 흐름 =
+ * 모음(ㅐ·ㅔ) 하나를 고르면 그 모음 + ㄱ~ㅎ 음절(개·게·내…)을 만든다. 자음 단원의 「ㄱ+모음」과
+ * 방향만 반대(모음 고정 · 자음 순회)라 같은 활동을 쓴다(`VowelSyllable*` wrapper 가 모음 선택만 덧댐).
  */
 function makeComplexVowelPlan(vowels: readonly string[], unitId = ''): ActivityPlan {
   const pairs = vowels.map((v) => ({
@@ -610,23 +616,34 @@ function makeComplexVowelPlan(vowels: readonly string[], unitId = ''): ActivityP
     [
       {
         key: 'listen-1',
-        kind: 'vowel-listen',
+        kind: 'vowel-blend-listen',
         section: 'learn',
-        title: '모음 듣기',
-        emoji: '👂',
+        title: '음절 만들기',
+        emoji: '🔗',
         required: true,
         vowels: pairs,
+        blendConsonants: [...BASIC_CONSONANTS],
       },
       {
         key: 'write-1',
-        kind: 'vowel-write',
+        kind: 'vowel-blend-write',
         section: 'learn',
-        title: '모음 쓰기',
+        title: '음절 쓰기',
         emoji: '✏️',
         required: true,
         vowels: pairs,
+        blendConsonants: [...BASIC_CONSONANTS],
       },
-      huntActivity(pairs.map((p) => huntCard(unitId, p.vowel, p.syllable))),
+      // 🔴 사냥도 **음절 랜덤**(자음×모음) — 모음 글자만 목표로 두면 방금 만든 음절을 안 쓴다.
+      //    카드는 자음14×모음N 이고, 진입 시 4개가 무작위로 뽑힌다(`shuffleReviewCards`).
+      huntActivity(
+        vowels.flatMap((v) =>
+          BASIC_CONSONANTS.map((c) => {
+            const syl = composeHangul(c, v, null) || `${c}${v}`;
+            return huntCard(unitId, syl, syl);
+          })
+        )
+      ),
     ],
     vowels[0]
   );
