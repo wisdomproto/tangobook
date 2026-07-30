@@ -679,12 +679,22 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
   return {
     activities: [
       {
+        ...shared,
         key: 'letter-hunt',
         order: 1,
         kind: 'letter-hunt',
         title: '글자 사냥',
         emoji: '🔎',
-        ...shared,
+        /**
+         * 🔴 사냥만 **음절로** 판을 깐다(2026-07-30 사용자) — 학습 단원의 사냥이 `가갸거겨` 인데
+         *    복습만 `ㄱㄴㄷㄹ` 이면 같은 활동이 갑자기 낱자로 바뀐다. 아이가 읽는 단위도 음절이다.
+         * 🔴 대표 음절(`syllable`)을 쓰므로 **모음이 고정**된다 — 판이 `가·나·다·라` 가 되어
+         *    이 복습이 겨루려는 것(ㄱ 과 ㄴ·ㄷ·ㄹ 의 구별)이 그대로 남는다. 무작위 모음을 쓰면
+         *    `가` 옆에 `너`·`두` 가 깔려 **자음이 아니라 모음이 달라서** 갈리게 된다.
+         * 🔴 받침 복습은 `앙·악·안`, 복잡한 모음은 `애·에` — 레벨마다 `syllable` 이 이미 그 자리를
+         *    가리키고 있어서 분기 없이 맞는다.
+         */
+        reviewCards: cards.map((c) => huntCard(c.unitId, c.syllable, c.syllable)),
       },
       {
         key: 'review-flip',

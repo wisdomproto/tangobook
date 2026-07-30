@@ -181,15 +181,29 @@ describe('korean phonics activity plans', () => {
     }
   });
 
+  /** 사냥은 자기 카드(음절)를 따로 만든다 — 나머지 다섯이 공유하는 원본 카드는 여기서 본다. */
+  const sharedCards = (unitId: string) =>
+    getActivityPlan(unitId).activities.find((a) => a.kind === 'review-flip')!.reviewCards!;
+
   it('받침 복습 카드는 글자와 소리가 다르다', () => {
-    const r = reviews.find((x) => x.id === 'kr-h2-r1')!;
-    const cards = getActivityPlan(r.id).activities[0].reviewCards!;
-    const coda = cards.find((c) => c.unitId === 'kr-h2-u01')!;
+    const coda = sharedCards('kr-h2-r1').find((c) => c.unitId === 'kr-h2-u01')!;
     expect(coda.letter).toBe('ㅇ');
     expect(coda.sound).toBe('앙'); // 🔴 'ㅇ' 을 그대로 읽으면 초성 이응 소리가 난다
     // 자음 복습은 글자를 그대로 읽는다
-    const consonant = getActivityPlan('kr-h1-r1').activities[0].reviewCards![0];
+    const consonant = sharedCards('kr-h1-r1')[0];
     expect(consonant.letter).toBe(consonant.sound);
+  });
+
+  it('복습 글자 사냥은 낱자가 아니라 음절로 판을 깐다', () => {
+    // 🔴 학습 단원 사냥이 `가갸거겨` 인데 복습만 `ㄱㄴㄷㄹ` 이면 같은 활동이 낱자로 바뀐다.
+    const hunt = (id: string) =>
+      getActivityPlan(id).activities.find((a) => a.kind === 'letter-hunt')!.reviewCards!;
+    expect(hunt('kr-h1-r1').map((c) => c.letter)).toEqual(['가', '나', '다', '라']);
+    // 🔴 모음은 고정 — 무작위였다면 자음이 아니라 모음이 달라서 갈린다.
+    expect(hunt('kr-h1-r1').every((c) => c.letter === c.sound)).toBe(true);
+    // 받침 복습은 받침이 붙은 음절, 복잡한 모음은 그 모음 음절.
+    expect(hunt('kr-h2-r1')[0].letter).toBe('앙');
+    expect(hunt('kr-h4-r1')[0].letter).toBe('애');
   });
 
   it('한글1 단원 구성은 그대로다 (회귀 가드)', () => {
