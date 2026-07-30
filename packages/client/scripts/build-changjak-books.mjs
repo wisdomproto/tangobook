@@ -143,7 +143,9 @@ window.CJ_EPISODE = {
 }
 
 // `_` 로 시작하는 건 원고가 아니라 문서다(_AUTHORING.md)
-const files = existsSync(SRC) ? readdirSync(SRC).filter((f) => f.endsWith('.md') && !f.startsWith('_')) : [];
+// 🔴 원고만 고른다. `_` 접두(문서)만 걸렀더니 `CLAUDE.md`(모듈 가이드)를 원고로 읽어 빌드가 죽었다.
+//    원고는 반드시 `<군><번호>.md` 이므로 그 형태로 못박는다 — 앞으로 어떤 문서를 넣어도 안 깨진다.
+const files = existsSync(SRC) ? readdirSync(SRC).filter((f) => /^[a-h]\d+\.md$/.test(f)) : [];
 if (!files.length) throw new Error(`원고가 없다: ${SRC}`);
 
 const built = [];
