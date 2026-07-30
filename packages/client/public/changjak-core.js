@@ -46,6 +46,9 @@
     '.cj-st:hover,.cj-mm:hover{background:#f1ebe3}' +
     '.cj-mm{opacity:.32}' +
     '.cj-mm.has{opacity:1}' +
+    '#cj-sortrow{display:flex;align-items:center;gap:6px;margin:0 0 9px}' +
+    '#cj-sortrow label{font-size:11.5px;color:#8b7d70;font-weight:700}' +
+    '#cj-sort{flex:1;border:1px solid #e0d5c8;border-radius:8px;background:#fff;font:inherit;font-size:12px;padding:4px 6px;color:#4a3f37}' +
     '.cj-none{font-size:12.5px;color:#a89887;padding:8px 2px}' +
     '.cj-st.unsaved,.cj-mm.unsaved{outline:2px solid #c9705a;outline-offset:-1px;border-radius:6px}' +
     '#cj-back{position:fixed;inset:0;background:rgba(43,35,32,.28);z-index:60}' +
@@ -119,7 +122,13 @@
       '<button data-f="grade:A">A</button><button data-f="grade:B">B</button>' +
       '<button data-f="st:done">✅ 완성</button><button data-f="st:wip">🟡 진행</button>' +
       '<button data-f="st:">⬜ 미정</button>' +
-      '</div><div id="cj-sum"></div><div id="cj-list">불러오는 중…</div>';
+      '</div>' +
+      '<div id="cj-sortrow"><label>정렬</label><select id="cj-sort">' +
+      '<option value="no">번호</option><option value="title">제목</option>' +
+      '<option value="grade">등급</option><option value="status">상태</option>' +
+      '<option value="pages">쪽수 많은 순</option><option value="stage">무대</option>' +
+      '</select></div>' +
+      '<div id="cj-sum"></div><div id="cj-list">불러오는 중…</div>';
     document.body.appendChild(nav);
 
     // 🔴 상태·메모는 호리와 같은 API 를 쓴다(/api/saenghwal-{status,memo}) — docId 가 파일명이라 무충돌.
@@ -129,8 +138,9 @@
     var ICON = { '': '⬜', wip: '🟡', done: '✅' };
     var LABEL = { '': '미정', wip: '진행 중', done: '완성' };
 
-    var items = [], status = {}, memo = {}, grades = {}, filter = '', q = '';
+    var items = [], status = {}, memo = {}, grades = {}, filter = '', q = '', sort = 'no';
     var docIdOf = function (file) { return file.replace(/\.html$/, ''); };
+    var idOf = function (e) { return docIdOf(e.file).replace('changjak-', ''); };
 
     // 🔴 저장 실패를 화면에 드러낸다. 아이콘만 바뀌고 서버엔 안 들어가면
     //    새로고침에 사라지는데 사용자는 저장된 줄 안다(로컬은 R2 키가 없어 늘 500 이다).
@@ -181,11 +191,33 @@
       return true;
     }
 
+    // 🔴 정렬 — 목록이 늘면 「번호순」 하나로는 못 찾는다.
+    //    기획서·시트(book 이 아닌 항목)는 언제나 원래 자리(맨 앞)에 두고 회차만 줄 세운다.
+    var SORTS = {
+      no: ['번호', function (a, b) { return a.label.localeCompare(b.label, 'ko'); }],
+      title: ['제목', function (a, b) { return (a.title || '').localeCompare(b.title || '', 'ko'); }],
+      pages: ['쪽수', function (a, b) { return (b.pages || 0) - (a.pages || 0); }],
+      stage: ['무대', function (a, b) { return (a.stage || '').localeCompare(b.stage || '', 'ko'); }],
+      grade: ['등급', function (a, b) {
+        var ga = (grades[idOf(a)] || {}).grade || 'Z';
+        var gb = (grades[idOf(b)] || {}).grade || 'Z';
+        return ga === gb ? a.label.localeCompare(b.label, 'ko') : ga < gb ? -1 : 1;
+      }],
+      status: ['상태', function (a, b) {
+        var o = { done: 0, wip: 1, '': 2 };
+        var sa = o[status[docIdOf(a.file)] || ''], sb = o[status[docIdOf(b.file)] || ''];
+        return sa === sb ? a.label.localeCompare(b.label, 'ko') : sa - sb;
+      }],
+    };
+
     function render() {
       var host = document.getElementById('cj-list');
       host.innerHTML = '';
       var shown = 0;
-      items.forEach(function (e) {
+      var books = items.filter(function (e) { return e.book; }).slice();
+      books.sort(SORTS[sort][1]);
+      var ordered = items.filter(function (e) { return !e.book; }).concat(books);
+      ordered.forEach(function (e) {
         if (!match(e)) return;
         shown++;
         var docId = docIdOf(e.file);
@@ -276,6 +308,10 @@
 
     document.getElementById('cj-q').addEventListener('input', function () {
       q = this.value.trim().toLowerCase();
+      render();
+    });
+    document.getElementById('cj-sort').addEventListener('change', function () {
+      sort = SORTS[this.value] ? this.value : 'no';
       render();
     });
     document.getElementById('cj-f').addEventListener('click', function (ev) {
