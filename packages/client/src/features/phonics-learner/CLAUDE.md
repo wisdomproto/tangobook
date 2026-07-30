@@ -241,6 +241,7 @@ features/phonics-learner/
 | `vowel-listen` / `vowel-write`                                                                                | VowelListen/Write Activity                  | `vowels: [{vowel,syllable}]`                                                       |
 | `consonant-tap` / `consonant-write`                                                                           | ConsonantTap/Write Activity                 | `consonant: 'ㄱ'`                                                                  |
 | `consonant-blend-listen`                                                                                      | ConsonantBlendListenActivity                | `consonant, blendVowels`                                                           |
+| `vowel-blend-listen` / `vowel-blend-write`                                                                    | VowelSyllablePickerActivity(`mode`)         | `vowels, blendConsonants` — 모음 선택 → 자음 음절 만들기/쓰기 (한글4)              |
 | `cvc-pattern-learn`                                                                                           | CvcPatternLearnActivity                     | `cvcPattern: { vowel, consonant, vc }` — 한 활동 안 Phase A→B→C (배우기·단어·쓰기) |
 | `cvc-pattern-write`                                                                                           | `CvcPatternWriteActivity` (2026-07-29 부활) | 패턴마다 `cvc-write-{vc}` 카드                                                     |
 | `game-korean-block` / `game-english-block` / `game-word-writing` / `game-connect-dots` / `game-line-matching` | 기존 게임 플레이어                          | `phonics-game-adapter` 가 빌드                                                     |
@@ -414,7 +415,23 @@ Book 1 데이터 정리 (2026-05-21):
 | 한글1 자음        | u02~u15 | consonant-tap + blend + write + 🔎사냥 | `CONSONANT_UNIT_MAP` + `makeConsonantPlan` |
 | 한글2 받침        | 7       | **coda-blend + write** (배우기 없음)   | `makeCodaPlan`                             |
 | 한글3 쌍자음      | 5       | 자음 단원과 동일                       | `makeConsonantPlan(phonemes[0])`           |
-| 한글4 복잡한 모음 | 5       | vowel-listen + write + 🔎사냥          | `makeComplexVowelPlan(phonemes)`           |
+| 한글4 복잡한 모음 | 5       | **음절 만들기 + 음절 쓰기** + 🔎사냥   | `makeComplexVowelPlan(phonemes)`           |
+
+## 🔴 한글4 = 자음 배운 뒤라 **음절을 만든다** (2026-07-30)
+
+사용자: **"이제 한글 자음을 아니까 모음 듣기·쓰기에 ㄱ~ㅎ 까지 다."** 복잡한 모음 단원(ㅐ·ㅔ 등)에
+온 아이는 이미 자음을 배웠으므로, `애`·`에` 를 따로 익히는 대신 **모음을 고르고 그 모음에 ㄱ~ㅎ 를
+붙여 음절**(개·게·내·네…)을 만든다. 흐름 = `[ㅐ][ㅔ] 고르기 → 그 모음 + 자음14 음절` (모음 자체
+학습 단계는 뺐다 — 사용자 확정). **모음 둘 다 해야 완료**, 하나 끝내면 선택 화면으로 돌아가 민트 표시.
+
+- 🔴 **핵심 = 재사용.** `개`(ㄱ+ㅐ)의 pair 는 자음 단원 `가`(ㄱ+ㅏ)와 **모양이 완전히 같다** — 무엇을
+  고정하고 순회하는지만 다르다(자음 단원=자음 고정·모음 순회 / 복잡모음=모음 고정·자음 순회). 그래서
+  `blend-pairs` 에 **vowel 모드 한 줄**(`vowel`+`blendConsonants`)만 넣으면 음절 만들기
+  (`ConsonantBlendListenActivity`)·음절 쓰기(`ConsonantWriteActivity`)를 **그대로** 쓴다. 새로 만든 건
+  「모음 선택」 한 겹(`VowelSyllablePickerActivity`, `mode='listen'|'write'` 로 듣기·쓰기 공유)뿐.
+- 🔴 **사냥도 음절 랜덤**(자음×모음) — 모음 글자만 목표로 두면 방금 만든 음절을 안 쓴다. 카드는
+  자음14×모음N, 진입 시 4개 무작위(`shuffleReviewCards`).
+- 가드 = `korean-phonics-units.test.ts`(`vowel-blend-listen` 이 blendConsonants 14개를 갖는지).
 
 🔴 **모음 쓰기는 한 장**(2026-07-29 통합, 열 글자). 듣기는 한 번에 열 개를 들려주면 길어서 둘로 나눴지만, 쓰기는 아이가 자기 속도로 한 글자씩 넘기므로 나눌 이유가 없었다. 익히기가 3장이 되어 아래 「낱말 놀이」가 한 화면에 들어온다(그 자리에 🔎글자 사냥이 들어와 다시 4장).
 
@@ -534,10 +551,13 @@ Book 1 데이터 정리 (2026-05-21):
   - ℹ️ ㄹ 처럼 **첫소리 단어가 없는 글자**(두음법칙)는 둘째 음절 매칭을 그대로 쓴다 — 사용자 확인(2026-07-26). 곰인형=`나` 도 "자기를 가리키는 모습"이라 의도된 삽화다.
 - **활동 목록** (`makeReviewPlan`) — 전부 `section: 'play'`. 글자 사냥 → 뒤집기 → 🎧음절 듣기 → 그림 짝 찾기 → 🔊낱말 듣기 → 낱말 쓰기.
   - `review-listen` — **기존 `VowelListenActivity` 재사용**(순서 듣기 → 듣고 맞추기 퀴즈). `VowelItem.sound?` 를 추가해 받침 카드는 글자 `ㅇ`, 소리 `앙` 으로 읽힌다. (지금 plan 에는 안 들어간다 — 위 "익히기 금지" 참조. 컴포넌트 배선은 보존.)
-  - `review-match` — **기존 `LineMatchingPlayer` 재사용**. `gameData.items[].word` 에 **글자**를 넣어 글자↔그림 매칭이 된다.
+  - `review-match` — **기존 `LineMatchingPlayer` 재사용**. 🔴 **낱말↔그림**(2026-07-30 사용자: "여기도 그냥 단어로. 음소 말고") — `gameData.items[].word` 에 **낱말**을 넣는다. 복습에 온 아이는 그 자음의 음절을 다 배운 뒤라 `도마` 가 읽히고, 그림과 짝지어지는 게 실제로 낱말이다(예전엔 큰 글자가 `ㄷ`, 낱말은 그 아래 작은 글씨였는데 큰 글자가 겉돌았다). 글자 활동은 사냥(모양)·듣고음절(소리)이 맡는다. **영어 복습은 `imageLabel` 유지**(카드가 글자 `Aa`, 낱말은 아래 — Book 1 은 음소 단계라 낱말을 카드로 못 세운다).
+  - 🔴 **짝 수는 4쌍 상한**(`REVIEW_PAIRS`, 2026-07-30) — 복습 묶음이 6단원일 수 있는데(`chunkForReview` 꼬리 병합) 짝 찾기만 안 잘라 「ㅈ~ㅎ 복습」이 6쌍(12칸)으로 떴다(사용자 지적). 다른 복습 활동은 다 앞 4장만 쓴다. 카드는 섞여 들어오므로 어느 넷인지는 판마다 다르다(한/영 공통).
   - `review-write` — `ReviewWriteActivity`. 🔴 **낱말 전체를 한 글자씩**(2026-07-27) — 예전엔 그림이 `고기` 인데 쓰는 건 `ㄱ` 하나라 그림과 손이 따로 놀았다. 낱말쓰기와 같은 `WordFillCanvas`(순차·끝낸 글자는 칠한 색 유지)를 쓰고, 다 쓰면 **낱말**을 읽어준다. 힌트는 없앴다 — 캔버스가 글자를 이미 보여준다.
 - **자료 출처** = `useReviewCardSources` — 되짚는 단원들의 storybook 을 `useQueries` 로 병렬 로드(캐시 키가 학습 단원과 같아 이미 다녀왔으면 왕복 0)하고 단원당 대표 단어 1개를 뽑는다.
-- 🔴 **대표 단어는 점수로 고른다**(`pickWord`): 첫 음절이 그 자리에 글자를 가지면 +3, 뒤 음절이면 +1, **첫 글자가 같은 화면 다른 카드와 겹치면 −4**. 이게 없으면 ㄹ 카드에 `오리` 가 붙는데(한국어엔 ㄹ로 시작하는 유아 단어가 없다) 같은 묶음에 ㅇ 카드가 있으면 **정답이 두 개로 보인다**. 받침 단원은 종성 자리로 채점한다(`matchPosition`).
+  - 🔴 **그림 파일까지 프리로드한 뒤 로딩을 끝낸다**(2026-07-30 사용자: "그림이 늦게 나오는데?"). `useQueries.isLoading` 은 storybook **데이터**(그림 URL)만 기다린다 — 실제 이미지는 `<img>` 가 뜰 때 받아와서 뒤집기·그림짝에서 그림이 한 박자 늦게 떴다. **세 활동이 다 이 훅을 쓰므로** 여기 한 곳에서 `new Image()` 로 프리로드하고 `isLoading` 에 포함하면 동시에 낫는다(호출부는 이미 로딩 화면을 띄운다). 사용자 지적: "함수 재사용이 잘 안 되어 있나보네" — 정확했다.
+- 🔴 **대표 단어는 점수로 고른다**(`pickWord`): 첫 음절이 그 자리에 글자를 가지면 +3, 뒤 음절이면 +1, **첫 글자가 같은 화면 다른 카드와 겹치면 −4**. 받침 단원은 종성 자리로 채점(`matchPosition`).
+  - 🔴 **점수는 자격 요건이지 순위가 아니다**(2026-07-30 사용자: "고정된 4개 같기도"). 예전엔 최고점 하나를 `score > bestScore` 로 뽑아 **동점이면 늘 앞엣것**이 이겼고, ㄱ 단원처럼 낱말 넷이 다 ㄱ 으로 시작하면 **매번 같은 하나만** 나왔다. **동점 후보를 모아 무작위로** 뽑는다(자격 갖춘 것들 중엔 아무거나 좋다). ⚠️ ㄹ 은 데이터상 후보가 `오리` 하나뿐이라 여전히 고정(한국어에 ㄹ로 시작하는 유아 낱말이 없다). 가드 = `useReviewCardSources.test.ts`.
 
 ### 단어 삽화 = 기획서 카드 연동 (2026-07-26)
 
