@@ -436,7 +436,7 @@ window.CJ_ANCHORS = fetch('/changjak-anchor-refs.json')
   bar.className = 'pbar';
   bar.innerHTML =
     '<b>🎨 삽화 프롬프트</b>' +
-    '<i>🔴 <b>①시트를 먼저 굽는다</b> → 승인된 시트를 <code>@image1</code> 로 붙여 ②컷을 뽑는다. ' +
+    '<i>🔴 <b>①먼저 주인공만 그린다</b>(배경 없이 정면·옆·뒤 — 이게 <b>캐릭터 시트</b>다) → 마음에 드는 시트를 <code>@image1</code> 로 첨부해 ②쪽 그림을 뽑는다. ' +
     '순서를 어기면 배경엔 매체가 먹고 <b>인물만 매끈한 CG</b> 로 나온다.</i>';
   bar.appendChild(mk('📋 ① 스타일 앵커', P.anchor));
   P.sheets.forEach(function (s, i) {
@@ -860,11 +860,13 @@ window.CJ_ANCHORS = fetch('/changjak-anchor-refs.json')
 
     // 🔴 승인 시트가 없으면 **앵커가 된 그림체의 원본 표지**를 그 자리에 놓는다.
     //    빈 칸 셋은 그리는 사람에게 아무것도 안 알려 준다 — 앵커를 골랐다는 사실 자체가 안 보인다.
-    var origins = (anchorRefs.refs || []).filter(function (r) { return r.imageUrl; });
+    // 🔴 원본은 **한 장만** 놓는다. 셋을 나란히 놓으면 고르라는 뜻으로 읽힌다 —
+    //    앵커는 하나고, 후보①이 그 하나다(열 권 전부 후보①이 뽑혔다). 2·3번 칸은 시트 붙일 자리로 비워 둔다.
+    var origin = (anchorRefs.refs || []).filter(function (r) { return r.imageUrl; })[0];
     var thumbs = '';
     for (var i = 1; i <= REFS; i++) {
       var k = slug + '-' + i;
-      var o = origins[i - 1];
+      var o = i === 1 ? origin : null;
       if (images[k]) {
         thumbs +=
           '<a class="sb-th" href="' + images[k] + '" target="_blank" rel="noopener">' +
@@ -874,7 +876,7 @@ window.CJ_ANCHORS = fetch('/changjak-anchor-refs.json')
           '<a class="sb-th origin" href="' + o.imageUrl + '" target="_blank" rel="noopener" ' +
           'title="' + (o.artist || '') + ' · ' + (o.work || '') + ' (' + (o.award || '') + ')">' +
           '<img loading="lazy" src="' + o.imageUrl + '" alt="' + (o.work || '') + '" />' +
-          '<em>' + (anchorRefs.neighbor ? '같은 클러스터 원본' : '앵커 원본') + '</em></a>';
+          '<em>' + (anchorRefs.neighbor ? '앵커 아님 · 가까운 이웃' : '앵커 원본') + '</em></a>';
       } else {
         thumbs += '<div class="sb-th empty"><span>ref ' + i + ' 없음</span></div>';
       }
