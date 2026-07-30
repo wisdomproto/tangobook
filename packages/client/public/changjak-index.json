@@ -12,51 +12,81 @@
   {
     "file": "changjak-a97.html",
     "label": "A-97 📗 오해와 반전",
-    "title": "벌이 나만 피해"
+    "title": "벌이 나만 피해",
+    "engine": "오해와 반전",
+    "stage": "프로방스 라벤더밭",
+    "pages": 10
   },
   {
     "file": "changjak-b04.html",
     "label": "B-04 📗 오해와 반전",
-    "title": "그림자가 먼저 일어났다"
+    "title": "그림자가 먼저 일어났다",
+    "engine": "오해와 반전",
+    "stage": "스페인 흰 마을 (회벽 좁은 골목·계단·빨래줄)",
+    "pages": 10
   },
   {
     "file": "changjak-b09.html",
     "label": "B-09 📗 오해와 반전",
-    "title": "시계 속에서 온 손님"
+    "title": "시계 속에서 온 손님",
+    "engine": "오해와 반전",
+    "stage": "독일 검은 숲 마을의 작은 시계공방 (창 하나 · 작업대 하나 · 벽에 걸린 뻐꾸기시계 하나 · 바닥에 톱밥)",
+    "pages": 11
   },
   {
     "file": "changjak-c37.html",
     "label": "C-37 📗 오해와 반전",
-    "title": "누가 웅덩이를 비웠지?"
+    "title": "누가 웅덩이를 비웠지?",
+    "engine": "오해와 반전",
+    "stage": "콘월 해변 (바위 조수웅덩이)",
+    "pages": 10
   },
   {
     "file": "changjak-c60.html",
     "label": "C-60 📗 오해와 반전",
-    "title": "우리 무리가 아니야"
+    "title": "우리 무리가 아니야",
+    "engine": "오해와 반전",
+    "stage": "웨일스 양치기 언덕",
+    "pages": 12
   },
   {
     "file": "changjak-d03.html",
     "label": "D-03 📗 누적·반복",
-    "title": "바구니를 탄 고양이"
+    "title": "바구니를 탄 고양이",
+    "engine": "누적·반복",
+    "stage": "프랑스 시골 상공 (열기구 바구니 안과 그 둘레)",
+    "pages": 12
   },
   {
     "file": "changjak-e120.html",
     "label": "E-120 📗 누적·반복",
-    "title": "라라— 첨벙!"
+    "title": "라라— 첨벙!",
+    "engine": "누적·반복",
+    "stage": "베네치아 곤돌라 수로 (양옆이 통째로 창문 벽인 좁은 물길)",
+    "pages": 10
   },
   {
     "file": "changjak-f02.html",
     "label": "F-02 📗 오해와 반전",
-    "title": "아기는 딴 데만 봤다"
+    "title": "아기는 딴 데만 봤다",
+    "engine": "오해와 반전",
+    "stage": "네덜란드 집 (델프트 블루 타일 벽난로·격자창·흑백 체크 바닥·좁은 계단)",
+    "pages": 12
   },
   {
     "file": "changjak-g88.html",
     "label": "G-88 📗 누적·반복",
-    "title": "한 칸 더 올라가면"
+    "title": "한 칸 더 올라가면",
+    "engine": "누적·반복",
+    "stage": "프랑스 성당 종탑 (가운데가 뚫린 나선 돌계단 · 화살창 셋 · 꼭대기 종실)",
+    "pages": 13
   },
   {
     "file": "changjak-h03.html",
     "label": "H-03 📗 누적·반복",
-    "title": "구두 한 켤레가 생기기까지"
+    "title": "구두 한 켤레가 생기기까지",
+    "engine": "누적·반복",
+    "stage": "이탈리아 산골 마을의 작은 구둣방 (창 하나 · 작업대 · 선반 하나 · 창밖 밤나무 한 그루)",
+    "pages": 13
   }
 ]

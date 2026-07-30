@@ -200,7 +200,7 @@ for (const f of files) {
   const noScene = doc.pages.filter((p) => !p.scene);
   if (noScene.length) throw new Error(`${id}: SCENE 없음 — ${noScene.map((p) => p.page).join(',')}`);
   writeFileSync(join(PUB, `changjak-${id}.html`), render(doc), 'utf8');
-  built.push({ id, ...doc.meta, chars: doc.pages.reduce((n, p) => n + p.ko.replace(/\s/g, '').length, 0) });
+  built.push({ id, ...doc.meta, pages: doc.pages.length, chars: doc.pages.reduce((n, p) => n + p.ko.replace(/\s/g, '').length, 0) });
 }
 
 // 인덱스 — 기획서·시트는 앞에 고정, 회차는 id 순
@@ -211,7 +211,8 @@ const eps = [...idx.filter((e) => /^changjak-[a-h]\d+\.html$/.test(e.file))];
 for (const b of built) {
   const file = `changjak-${b.id}.html`;
   const label = `${b.id.toUpperCase().replace(/^([A-H])/, '$1-')} ${b.emoji ?? '📗'} ${b.engine}`;
-  const row = { file, label, title: b.title };
+  // 🔴 검색용 필드까지 넣는다 — 드로어 검색이 제목만 보면 「종탑」·「누적」으로 못 찾는다.
+  const row = { file, label, title: b.title, engine: b.engine, stage: b.stage ?? '', pages: b.pages ?? 0 };
   const at = eps.findIndex((e) => e.file === file);
   at < 0 ? eps.push(row) : (eps[at] = row);
 }

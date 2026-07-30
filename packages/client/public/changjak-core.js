@@ -26,6 +26,28 @@
     '#cj-nav a:hover{background:#fff8f0}' +
     '#cj-nav a.on{background:#ffe8d9;font-weight:800;color:#e85c3a}' +
     '#cj-nav a i{display:block;font-style:normal;font-size:11.5px;color:#6b5d55;font-weight:600}' +
+    '#cj-q{width:100%;box-sizing:border-box;margin:0 0 8px;padding:7px 9px;border:1px solid #e0d5c8;border-radius:8px;font:inherit;font-size:13px;background:#fff}' +
+    '#cj-q:focus{outline:none;border-color:#c98b62}' +
+    '#cj-f{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}' +
+    '#cj-f button{border:1px solid #e0d5c8;background:#fff;border-radius:999px;font:inherit;font-size:11.5px;padding:3px 9px;cursor:pointer;color:#6b5d55}' +
+    '#cj-f button.on{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700}' +
+    '#cj-sum{font-size:11.5px;color:#8b7d70;margin:0 0 9px;padding-bottom:8px;border-bottom:1px solid #efe6db}' +
+    '#cj-sum b{color:#4a3f37}' +
+    '.cj-row{display:flex;align-items:center;gap:3px}' +
+    '.cj-row a{flex:1 1 auto;min-width:0}' +
+    '.cj-row.done a{text-decoration:line-through;color:#a89887}' +
+    '.cj-g{flex:0 0 auto;width:19px;height:19px;border-radius:5px;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:help;border:1.5px dashed #d8cbbd;color:#8b7d70;background:#fff}' +
+    '.cj-g.full{border-style:solid}' +
+    '.cj-g.gA{color:#4f8a6b;border-color:#a8c9b8}' +
+    '.cj-g.gA.full{background:#4f8a6b;border-color:#4f8a6b;color:#fff}' +
+    '.cj-g.gB{color:#b4813c;border-color:#e0c9a0}' +
+    '.cj-g.gC{color:#b4553c;border-color:#e0b0a0}' +
+    '.cj-st,.cj-mm{flex:0 0 auto;border:0;background:transparent;font-size:14px;line-height:1;padding:3px;border-radius:6px;cursor:pointer}' +
+    '.cj-st:hover,.cj-mm:hover{background:#f1ebe3}' +
+    '.cj-mm{opacity:.32}' +
+    '.cj-mm.has{opacity:1}' +
+    '.cj-none{font-size:12.5px;color:#a89887;padding:8px 2px}' +
+    '.cj-st.unsaved,.cj-mm.unsaved{outline:2px solid #c9705a;outline-offset:-1px;border-radius:6px}' +
     '#cj-back{position:fixed;inset:0;background:rgba(43,35,32,.28);z-index:60}' +
     /* 회차 페이지 — 마크업만 두고 스타일은 여기서 준다(회차마다 CSS 복사 금지) */
     '.ep{max-width:980px;margin:0 auto;padding:24px 24px 120px}' +
@@ -89,24 +111,180 @@
 
     nav = document.createElement('nav');
     nav.id = 'cj-nav';
-    nav.innerHTML = '<h4>창작동화 1000</h4><div id="cj-list">불러오는 중…</div>';
+    nav.innerHTML =
+      '<h4>창작동화 1000</h4>' +
+      '<input id="cj-q" type="search" placeholder="제목·엔진·무대 검색" autocomplete="off" />' +
+      '<div id="cj-f">' +
+      '<button data-f="" class="on">전체</button>' +
+      '<button data-f="grade:A">A</button><button data-f="grade:B">B</button>' +
+      '<button data-f="st:done">✅ 완성</button><button data-f="st:wip">🟡 진행</button>' +
+      '<button data-f="st:">⬜ 미정</button>' +
+      '</div><div id="cj-sum"></div><div id="cj-list">불러오는 중…</div>';
     document.body.appendChild(nav);
 
-    fetch('/changjak-index.json')
-      .then(function (r) { return r.json(); })
-      .then(function (list) {
-        document.getElementById('cj-list').innerHTML = list
-          .map(function (e) {
-            return (
-              '<a href="/' + e.file + '"' + (e.file === here ? ' class="on"' : '') + '>' +
-              e.label + '<i>' + (e.title || '') + '</i></a>'
-            );
-          })
-          .join('');
+    // 🔴 상태·메모는 호리와 같은 API 를 쓴다(/api/saenghwal-{status,memo}) — docId 가 파일명이라 무충돌.
+    var STATUS_API = '/api/saenghwal-status';
+    var MEMO_API = '/api/saenghwal-memo';
+    var CYCLE = { '': 'wip', wip: 'done', done: '' };
+    var ICON = { '': '⬜', wip: '🟡', done: '✅' };
+    var LABEL = { '': '미정', wip: '진행 중', done: '완성' };
+
+    var items = [], status = {}, memo = {}, grades = {}, filter = '', q = '';
+    var docIdOf = function (file) { return file.replace(/\.html$/, ''); };
+
+    // 🔴 저장 실패를 화면에 드러낸다. 아이콘만 바뀌고 서버엔 안 들어가면
+    //    새로고침에 사라지는데 사용자는 저장된 줄 안다(로컬은 R2 키가 없어 늘 500 이다).
+    function save(api, docId, value, el) {
+      var body = api === STATUS_API ? { docId: docId, status: value } : { docId: docId, memo: value };
+      return fetch(api, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+        .then(function (r) {
+          if (!r.ok) throw new Error(r.status);
+          if (el) el.classList.remove('unsaved');
+        })
+        .catch(function () {
+          if (el) {
+            el.classList.add('unsaved');
+            el.title = '⚠️ 저장 실패 — 새로고침하면 사라집니다 (' + el.title + ')';
+          }
+        });
+    }
+
+    function summary() {
+      var d = 0, w = 0, n = 0;
+      items.forEach(function (e) {
+        if (!e.book) return;
+        n++;
+        var s = status[docIdOf(e.file)] || '';
+        if (s === 'done') d++;
+        else if (s === 'wip') w++;
+      });
+      document.getElementById('cj-sum').innerHTML =
+        '<b>' + n + '권</b> · ✅ ' + d + ' · 🟡 ' + w + ' · ⬜ ' + (n - d - w);
+    }
+
+    function match(e) {
+      // 🔴 기획서·앵커시트는 검색·필터를 걸면 숨긴다(안 숨기면 결과가 늘 둘 섞인다).
+      if (!e.book) return !filter && !q;
+      var id = docIdOf(e.file).replace('changjak-', '');
+      var g = (grades[id] || {}).grade || '';
+      var s = status[docIdOf(e.file)] || '';
+      if (filter.indexOf('grade:') === 0 && g !== filter.slice(6)) return false;
+      if (filter.indexOf('st:') === 0 && s !== filter.slice(3)) return false;
+      if (q) {
+        var hay = (e.label + ' ' + (e.title || '') + ' ' + (e.engine || '') + ' ' + (e.stage || '') + ' ' + id).toLowerCase();
+        if (hay.indexOf(q) < 0) return false;
+      }
+      return true;
+    }
+
+    function render() {
+      var host = document.getElementById('cj-list');
+      host.innerHTML = '';
+      var shown = 0;
+      items.forEach(function (e) {
+        if (!match(e)) return;
+        shown++;
+        var docId = docIdOf(e.file);
+        var id = docId.replace('changjak-', '');
+        var s = status[docId] || '';
+        var g = grades[id] || {};
+
+        var row = document.createElement('div');
+        row.className = 'cj-row' + (e.file === here ? ' on' : '') + (s === 'done' ? ' done' : '');
+
+        var a = document.createElement('a');
+        a.href = '/' + e.file;
+        a.innerHTML = e.label + '<i>' + (e.title || '') + '</i>';
+        row.appendChild(a);
+
+        if (e.book) {
+          if (g.grade) {
+            var gb = document.createElement('span');
+            // 🔴 사용자가 전문을 읽은 권만 테두리를 채운다 — 내 등급과 사용자 확인은 다른 것이다.
+            gb.className = 'cj-g g' + g.grade + (g.read === 'full' ? ' full' : '');
+            gb.textContent = g.grade;
+            gb.title =
+              '내 판정 ' + g.grade + ' — ' + (g.note || '') +
+              '\n사용자 확인: ' + (g.read === 'full' ? '전문 읽음' : '요약만 봤음');
+            row.appendChild(gb);
+          }
+
+          var sb = document.createElement('button');
+          sb.className = 'cj-st';
+          sb.textContent = ICON[s];
+          sb.title = LABEL[s] + ' — 눌러서 바꿈';
+          sb.addEventListener('click', function (ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            var next = CYCLE[status[docId] || ''];
+            status[docId] = next;
+            sb.textContent = ICON[next];
+            sb.title = LABEL[next] + ' — 눌러서 바꿈';
+            row.classList.toggle('done', next === 'done');
+            summary();
+            save(STATUS_API, docId, next, sb);
+          });
+          row.appendChild(sb);
+
+          var mb = document.createElement('button');
+          mb.className = 'cj-mm' + (memo[docId] ? ' has' : '');
+          mb.textContent = '📝';
+          mb.title = memo[docId] || '메모 없음';
+          mb.addEventListener('click', function (ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            var next = window.prompt(e.label + ' 메모', memo[docId] || '');
+            if (next === null) return;
+            memo[docId] = next;
+            mb.classList.toggle('has', !!next);
+            mb.title = next || '메모 없음';
+            save(MEMO_API, docId, next, mb);
+          });
+          row.appendChild(mb);
+        }
+        host.appendChild(row);
+      });
+      if (!shown) host.innerHTML = '<p class="cj-none">없습니다.</p>';
+    }
+
+    Promise.all([
+      fetch('/changjak-index.json').then(function (r) { return r.json(); }),
+      fetch(STATUS_API).then(function (r) { return r.json(); }).catch(function () { return {}; }),
+      fetch(MEMO_API).then(function (r) { return r.json(); }).catch(function () { return {}; }),
+      fetch('/changjak-grades.json').then(function (r) { return r.json(); }).catch(function () { return {}; }),
+    ])
+      .then(function (res) {
+        items = (res[0] || []).map(function (e) {
+          var o = {};
+          for (var k in e) o[k] = e[k];
+          o.book = /^changjak-[a-h]\d+\.html$/.test(e.file);
+          return o;
+        });
+        status = (res[1] && res[1].data) || {};
+        memo = (res[2] && res[2].data) || {};
+        grades = (res[3] && res[3].books) || {};
+        summary();
+        render();
       })
       .catch(function () {
         document.getElementById('cj-list').textContent = '목록을 못 불러왔습니다.';
       });
+
+    document.getElementById('cj-q').addEventListener('input', function () {
+      q = this.value.trim().toLowerCase();
+      render();
+    });
+    document.getElementById('cj-f').addEventListener('click', function (ev) {
+      var b = ev.target.closest('button[data-f]');
+      if (!b) return;
+      filter = b.getAttribute('data-f');
+      [].forEach.call(this.querySelectorAll('button'), function (x) { x.classList.toggle('on', x === b); });
+      render();
+    });
   });
 })();
 
