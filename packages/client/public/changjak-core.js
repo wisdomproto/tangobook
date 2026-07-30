@@ -505,3 +505,67 @@
     render();
   });
 })();
+
+/* 🎨 회차 페이지 상단의 그림체 레퍼런스 — 앵커 시트를 글 위에 띄운다.
+ * 🔴 삽화는 사용자가 직접 그린다. 그리는 사람이 글을 읽으면서 "이 그림체로" 를 눈으로 보고 있어야
+ *    쪽마다 매체·팔레트가 흔들리지 않는다. 앵커 이름만 한 줄 뜨는 것으로는 그 일을 못 한다.
+ * 데이터는 앵커 보관함과 같은 곳을 본다 — 메타 /api/saenghwal-memo `ca-<slug>` · ref /api/comic-assets/changjak-anchors `<slug>-1..3` */
+(function () {
+  var ep = window.CJ_EPISODE;
+  var meta = document.querySelector('.ep .meta');
+  if (!ep || !meta) return;
+
+  var MEMO = '/api/saenghwal-memo';
+  var ASSETS = '/api/comic-assets/changjak-anchors';
+  var REFS = 3;
+
+  var box = document.createElement('section');
+  box.className = 'stylebox';
+  box.innerHTML =
+    '<div class="sb-head">🎨 <b>이 책의 그림체</b>' +
+    (ep.anchorSlug ? ' · <code>' + ep.anchorSlug + '</code>' : ' · <b style="color:#b4553c">앵커 미확정</b>') +
+    '</div><div class="sb-body"><p class="sb-hint">불러오는 중…</p></div>';
+  // 메타 줄 바로 아래 = 글보다 위. 그리는 사람이 첫 쪽을 읽기 전에 그림체를 본다.
+  meta.parentNode.insertBefore(box, meta.nextSibling);
+  var body = box.querySelector('.sb-body');
+
+  if (!ep.anchorSlug) {
+    body.innerHTML =
+      '<p class="sb-hint">이 책은 아직 앵커가 배정되지 않았습니다. ' +
+      '<a href="/changjak-styles.html">앵커 후보 시트</a>에서 고르고 ' +
+      '<a href="/changjak-plan.html#anchor-vault">앵커 보관함</a>에 등록하세요.</p>';
+    return;
+  }
+
+  Promise.all([
+    fetch(MEMO).then(function (r) { return r.json(); }).catch(function () { return {}; }),
+    fetch(ASSETS).then(function (r) { return r.json(); }).catch(function () { return {}; }),
+  ]).then(function (res) {
+    var memos = (res[0] && res[0].data) || {};
+    var images = (res[1] && res[1].data) || {};
+    var a = {};
+    try { a = JSON.parse(memos['ca-' + ep.anchorSlug] || '{}'); } catch (e) { a = {}; }
+
+    var rows = [
+      ['매체', a.media], ['팔레트', a.palette], ['마감', a.finish], ['캐릭터', a.character],
+    ].filter(function (r) { return r[1]; })
+     .map(function (r) { return '<div class="sb-m"><b>' + r[0] + '</b> ' + r[1] + '</div>'; })
+     .join('');
+
+    var thumbs = '';
+    for (var i = 1; i <= REFS; i++) {
+      var k = ep.anchorSlug + '-' + i;
+      thumbs += images[k]
+        ? '<a class="sb-th" href="' + images[k] + '" target="_blank" rel="noopener">' +
+            '<img loading="lazy" src="' + images[k] + '" alt="레퍼런스 ' + i + '" /></a>'
+        : '<div class="sb-th empty"><span>ref ' + i + ' 없음</span></div>';
+    }
+
+    body.innerHTML =
+      '<div class="sb-refs">' + thumbs + '</div>' +
+      (a.name ? '<div class="sb-name">' + a.name + (a.cluster ? ' · ' + a.cluster : '') + '</div>' : '') +
+      (rows || '<p class="sb-hint">앵커 메타가 비어 있습니다 — 보관함에서 매체·팔레트를 채우세요.</p>') +
+      '<p class="sb-hint">🔴 레퍼런스는 <a href="/changjak-plan.html#anchor-vault">앵커 보관함</a>에서 붙여넣습니다. ' +
+      '아래 <b>삽화 프롬프트</b> 버튼은 시트 → 컷 순서로 쓰세요.</p>';
+  });
+})();
