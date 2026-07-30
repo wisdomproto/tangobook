@@ -41,8 +41,8 @@ export function LetterHuntActivity({
   onComplete,
   onBack,
 }: Props) {
-  const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible, scheduleTimer } =
-    useGameAudio();
+  // 오답음(`playFeedbackSound`)은 쓰지 않는다 — 틀린 칸도 그냥 읽어준다(아래 `handleTap`).
+  const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
   const [round, setRound] = useState(0);
   const [found, setFound] = useState<number[]>([]);
   const foundRef = useRef<number[]>([]);
@@ -208,13 +208,18 @@ export function LetterHuntActivity({
     },
     [
       done,
+      // 🔴 `starting`·`soundOf` 를 빼먹으면 **판이 통째로 죽는다** — 나머지 deps 는 안내가 끝나도
+      //    안 바뀌므로 `handleTap` 이 첫 렌더의 `starting === true` 를 붙잡은 채 남아 모든 탭이
+      //    첫 줄에서 return 한다. 이 저장소는 `react-hooks/exhaustive-deps` 가 꺼져 있어
+      //    **아무도 경고해주지 않는다** — 훅에 상태를 추가하면 deps 를 직접 확인할 것.
+      starting,
+      soundOf,
       card,
       board,
       round,
       hunt.length,
       say,
       playAudio,
-      playFeedbackSound,
       playCorrectSequence,
       scheduleTimer,
       language,
