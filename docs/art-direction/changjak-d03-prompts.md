@@ -9,7 +9,7 @@
 
 1. **STYLE ANCHOR 로 시트 3장을 먼저 굽는다**(BasketCat → SwallowGuide → CargoThree). 장면 금지.
 2. 🔴 **시트가 승인되면 p2 와 p9 를 먼저 굽는다.** 이 둘이 **같은 땅을 아득하게 / 손에 잡힐 듯하게** 그린 한 쌍이고, 이 권의 고도계 양 끝이다. 여기서 밀밭·강·다리·소의 「알아볼 만한 크기」가 확정되지 않으면 사이 열 장의 고도가 전부 흔들린다. 🔴 **p2 승인본을 p9 의 ref 로 붙인다**(문구로 같은 땅을 두 번 재현시키려 하지 말 것 — 같은 땅이어야 커진 것이 사건이 된다).
-3. 그 다음 **p7(닦아낸 판)** 과 **p8(글레이즈 판)** 을 굽는다. 🔴 이 두 장이 이 앵커의 공정 선언이고(닦아냄 ↔ 덮어씌움), 여기가 안 서면 「젖어서 무거워졌다」가 그림에서 통째로 사라진다.
+3. 그 다음 **p7(덮은 판)** 과 **p8(글레이즈 판)** 을 굽는다. 🔴 이 두 장이 이 앵커의 공정 선언이고 **서로 반대**다 — **구름 = 불투명 마른 스컴블로 덮는 것 / 비 = 투명 글레이즈로 가라앉히는 것.** 여기가 안 서면 「젖어서 무거워졌다」가 그림에서 통째로 사라진다.
 4. 나머지 여덟을 굽는다. 제비가 나오는 p2~p12 전부에 SwallowGuide 시트를 함께 붙인다(p1 은 붙이지 않는다 — 그 쪽엔 제비가 없다).
 5. 승인 렌더 3장을 앵커 ref 슬롯에 넣는다 — 🔴 **인물 컷 1(p3 또는 p9) · 하늘이 통째로 저정보 필드로 남은 컷 1(p6) · 임파스토 세 점이 다 보이는 컷 1(p1 또는 p11)**. 3장에 두꺼운 물감이 안 들어가면 「두께가 서사다」라는 문구가 영영 안 먹는다(점눈이에서 실제로 겪은 일, §2.7 보정).
 6. 앵커 이름은 **렌더를 보고 짓는다**(§7.5-3). 지금은 슬러그만 쓴다: `changjak-d03`.
@@ -24,7 +24,7 @@
 
 **권**: `바구니를 탄 고양이` (d03 · 12쪽 · 4~6세 · 주제군 **D 모험·여정** · 엔진 **누적·반복** · 무대 프랑스 시골 상공 · 주인공 고양이)
 
-**한 줄**: 🔴 **하늘은 얇게 문질러 칠하고, 버릴 물건 셋만 두껍게 얹는다 — 이 책에서 물감의 두께는 곧 무게다.** 비는 색이 아니라 **위에 씌우는 한 겹의 글레이즈**이고, 구름 속은 **판을 닦아낸 자리**다. 앵커 슬러그 `changjak-d03` — **신규 민팅**.
+**한 줄**: 🔴 **하늘은 얇게 문질러 칠하고, 버릴 물건 셋만 두껍게 얹는다 — 이 책에서 물감의 두께는 곧 무게다.** 그리고 화면 전체에 얹히는 막이 **딱 두 번, 서로 반대로** 온다 — **구름은 불투명 마른 스컴블로 덮고, 비는 투명 글레이즈로 가라앉힌다.** 앵커 슬러그 `changjak-d03` — **신규 민팅** (🔴 **C7 셋째**, 공정이 e09·b09 와 다르다).
 
 ### 이 권이 그림에 요구하는 것 (판정의 전제 — 후보는 이 다섯을 통과하는지로만 봤다)
 
@@ -38,18 +38,18 @@
 
 | | 후보 ① **C7 회화적 톤 · 얇게 문지른 유화 판 + 임파스토 셋, 비는 글레이즈**(신규 앵커) | 후보 ② C8 수채 번짐 몰입 | 후보 ③ C4 평면 형태 · 오려 붙인 색면 |
 |---|---|---|---|
-| 매체 | 창백한 지지면에 유화/알키드를 **넓은 납작붓으로 얇게 문질러** 하늘을 만들고, 물건 셋만 **물감을 두껍게 실어 붓결이 산으로 서게** 얹는다. 구름 속은 판을 **헝겊으로 닦아내고**, 비는 전체에 **찬 회색 글레이즈 한 겹을 씌운다** | wet-in-wet 번짐과 그래뉼레이션이 물과 구름을 만든다 | 무지 색면을 오려 붙여 하늘·땅·물건을 만든다 |
-| 이 권에 맞는 이유 | 요구 1~4 를 **한 공정이 동시에** 푼다. ⓐ 얇게 문지른 하늘은 **밀도가 0인데 표면은 살아 있다** — 빈 하늘이 「못 그린 곳」이 아니라 「칠해진 넓은 면」이 된다(요구 1·4) ⓑ 🔴 **두께가 무게다** — 실은 물감이 두꺼우면 실제로 무겁고, 짐 셋만 두껍게 얹으면 **바구니가 비어 가는 것이 화면의 물감 양이 줄어드는 것**과 같은 사건이 된다(요구 2·3) ⓒ 🔴 **글레이즈는 문자 그대로 「위에서 들어온 무게」**다 — 색을 안 바꾸고 한 겹을 씌우면 모든 색이 한 톤 짙어지고 가라앉는다. 비를 그리는 게 아니라 **비를 칠한다**(요구 2) ⓓ **닦아냄**이 p7 을 만든다(요구 5). §7.3 이 **D 1순위를 C7 명암**으로 뒀고, §7.5 가 **「C7 은 D 여정 권에 아껴 쓰고, 얹는 유화 쪽으로 열라」**고 지정해 둔 슬롯이 정확히 여기다 | 물·구름·젖음이 주제라 가장 유혹적이다 | 하늘·땅이 평면 색면이면 고도 대비가 아주 선명해진다 |
-| 리스크 | 🔴 **C7 은 이 라인에서 가장 두꺼운 군이라 「예쁜 풍경화」가 되기 쉽다**(§7.5 교차관찰 1). 처방 = §2.13 대로 **매체·지지면·공정·도구를 전부 특정**했다(얇게 문지름 / 임파스토 / 닦아냄 / 글레이즈 — 네 공정이 각자 담당 쪽을 갖는다). 두 번째 실패 모드는 **두껍게 칠하다 붓이 형태를 뭉개는 것** → 고양이·제비만 작은 강모붓으로 마감하고 나머지는 뭉개게 둔다 | 🔴 **탈락** | 🔴 **탈락** |
+| 매체 | 창백한 지지면에 유화/알키드를 **넓은 납작붓으로 얇게 문질러** 하늘을 만들고, 물건 셋만 **물감을 두껍게 실어 붓결이 산으로 서게** 얹는다. 구름 속은 **마른 불투명 물감을 빳빳한 붓으로 화면 전체에 끌어 덮고**, 비는 전체에 **찬 회색 투명 글레이즈 한 겹을 씌운다** | wet-in-wet 번짐과 그래뉼레이션이 물과 구름을 만든다 | 무지 색면을 오려 붙여 하늘·땅·물건을 만든다 |
+| 이 권에 맞는 이유 | 요구 1~4 를 **한 공정이 동시에** 푼다. ⓐ 얇게 문지른 하늘은 **밀도가 0인데 표면은 살아 있다** — 빈 하늘이 「못 그린 곳」이 아니라 「칠해진 넓은 면」이 된다(요구 1·4) ⓑ 🔴 **두께가 무게다** — 실은 물감이 두꺼우면 실제로 무겁고, 짐 셋만 두껍게 얹으면 **바구니가 비어 가는 것이 화면의 물감 양이 줄어드는 것**과 같은 사건이 된다(요구 2·3) ⓒ 🔴 **글레이즈는 문자 그대로 「위에서 들어온 무게」**다 — 색을 안 바꾸고 한 겹을 씌우면 모든 색이 한 톤 짙어지고 가라앉는다. 비를 그리는 게 아니라 **비를 칠한다**(요구 2) ⓓ 🔴 **구름은 덮는 것이라 스컴블이 p7 을 만든다**(요구 5) — 그리고 ⓒ·ⓓ 가 **투명 ↔ 불투명으로 서로 반대**여서 두 막이 같은 장치로 안 읽힌다. §7.3 이 **D 1순위를 C7 명암**으로 뒀고, §7.5 가 **「C7 은 D 여정 권에 아껴 쓰고, 얹는 유화 쪽으로 열라」**고 지정해 둔 슬롯이 정확히 여기다 | 물·구름·젖음이 주제라 가장 유혹적이다 | 하늘·땅이 평면 색면이면 고도 대비가 아주 선명해진다 |
+| 리스크 | 🔴 **C7 은 이 라인에서 가장 두꺼운 군이라 「예쁜 풍경화」가 되기 쉽다**(§7.5 교차관찰 1). 처방 = §2.13 대로 **매체·지지면·공정·도구를 전부 특정**했다(얇게 문지름 / 임파스토 / 스컴블로 덮기 / 글레이즈 — 네 공정이 각자 담당 쪽을 갖는다). 두 번째 실패 모드는 **두껍게 칠하다 붓이 형태를 뭉개는 것** → 고양이·제비만 작은 강모붓으로 마감하고 나머지는 뭉개게 둔다. 🔴 세 번째 = **같은 세션에 b09 가 C7 을 썼다**(꿀빛 나무판 + 기름 글레이즈) → 아래 라인 충돌 표에서 6축으로 갈랐고, 특히 **글레이즈의 일이 다르다**(b09 = 빛의 온도 세 번 / d03 = 물의 무게 **딱 한 번**) | 🔴 **탈락** | 🔴 **탈락** |
 | 판정 | ✅ **추천** | 🔴 **탈락 이유 둘.** ① §7.3.1-1 이 C8 을 **8권 상한**으로 잡고 **물·잠·번짐이 소재인 권에만** 쓰라고 했는데, a91 이 이미 한 칸을 썼고 🔴 **a91 의 처방이 「번짐 먼저 → 마른 뒤 잉크 선」 2단계**다 — d03 에 쓰면 **같은 공정의 두 번째 권**이 된다 ② 결정적으로 **번짐은 무게를 못 그린다.** 수채는 얹을수록 어두워질 뿐 **두꺼워지지 않는다** — 요구 2 가 원천 불가다. 그리고 열두 쪽에서 고양이가 밀고·당기고·부치고·흘겨봐야 하는데 번짐은 인물을 뭉갠다 | 🔴 **탈락 이유 둘.** ① 라인이 C4 를 이미 둘 썼고 이번 배치에서 b04 가 셋째다 — **같은 배치 안에서 같은 클러스터 두 권은 안 된다**(라이브러리 카드가 가로로 이웃한다, §7.6) ② 🔴 **e120 과 소재까지 겹친다** — e120 이 이미 「떨어진 물건 셋(빨강·파랑·노랑)을 오려 붙인 색면으로 세는」 권이다. 평면으로 가면 d03 이 e120 의 하늘 버전이 된다 |
 
 **후보에도 못 올린 것들**: `lundberg-ingen`의 형제격 「초록 단색조 + 노란 배 1점」 구조(🔴 매체와 「붓이 형태를 뭉개게 둔다」는 공정은 상속했지만, **단색조 + 악센트 1 은 이 권에 안 맞는다** — 여기 악센트는 셋이고 하나씩 빠져나간다) · `smith-townsea`(D 1순위 잉크+수채 명암 — 🔴 **명암이 서사가 아닌 권**이다. 이 책의 변수는 빛이 아니라 고도와 무게이고, 하늘은 열두 쪽 내내 밝다) · `becker-tree`(수채 광역 풍경 — 예쁜 시골 풍경이 되고 두께 축이 없다) · `grill-shackleton`(여정 장비·지도형 — 이 권에 지도·계기·장비 설명이 한 조각도 없다) · `tengiz-mai`(뮤트 파스텔 — 임파스토가 불가능).
 
-### 🔴 추천 = 후보 ① — 얇게 문지른 판 + 임파스토 셋 + 닦아냄 + 글레이즈
+### 🔴 추천 = 후보 ① — 얇게 문지른 판 + 임파스토 셋 + 덮기 + 글레이즈
 
 근거 세 줄:
 
-- **네 공정이 각자 담당 쪽을 가진다 = §2.13 을 통과한다.** §2.13 은 C7 을 여는 조건으로 **매체 + 지지면 + 공정 + 도구**를 전부 특정하라고 했고, 판정 문장은 「이 앵커 문구로 다른 권을 그리면 다른 그림이 나오나」였다. 이 앵커는 **①얇게 문지름(하늘 열두 쪽) ②임파스토(짐 셋) ③닦아냄(p7) ④글레이즈(p8~p10)** 네 공정을 쪽에 배당해 놓았으므로, 다른 권에 그대로 쓰면 그 권에는 닦아낼 이유도 글레이즈할 이유도 없다. 뿌리가 되는 검증 문법은 **「유화나 두꺼운 과슈, 붓이 형태를 묘사하지 않고 문질러 뭉개게 둔다 · 인물이 풍경에 거의 흡수되고, 프레임 안에서 사람이 얼마나 작은가가 곧 주제다」**(BolognaRagazzi Fiction 위너)와 **「불투명 과슈를 두껍게 얹어 붓 자국이 서 있게 둔다 · 건물은 평면 색 덩어리, 사람은 각자 붓질 몇 개」**(WIA 카테고리 위너)다.
+- **네 공정이 각자 담당 쪽을 가진다 = §2.13 을 통과한다.** §2.13 은 C7 을 여는 조건으로 **매체 + 지지면 + 공정 + 도구**를 전부 특정하라고 했고, 판정 문장은 「이 앵커 문구로 다른 권을 그리면 다른 그림이 나오나」였다. 이 앵커는 **①얇게 문지름(하늘 열두 쪽) ②임파스토(짐 셋) ③마른 불투명 스컴블로 덮기(p7) ④투명 글레이즈(p8~p10)** 네 공정을 쪽에 배당해 놓았으므로, 다른 권에 그대로 쓰면 그 권에는 덮을 이유도 가라앉힐 이유도 없다. 뿌리가 되는 검증 문법은 **「유화나 두꺼운 과슈, 붓이 형태를 묘사하지 않고 문질러 뭉개게 둔다 · 인물이 풍경에 거의 흡수되고, 프레임 안에서 사람이 얼마나 작은가가 곧 주제다」**(BolognaRagazzi Fiction 위너)와 **「불투명 과슈를 두껍게 얹어 붓 자국이 서 있게 둔다 · 건물은 평면 색 덩어리, 사람은 각자 붓질 몇 개」**(WIA 카테고리 위너)다.
 - 🔴 **두께가 §2.9 의 일곱째 변형이다.** 이 라인은 악센트를 **더하고**(a04) **안 칠하고**(a91) **들어내고**(e09) **비켜 가게**(g88) **주인공의 재료로**(c01) **칠 자체를 희소 자원으로**(b04) 썼다. d03 은 일곱째다 — **악센트가 물감의 높이**다. 셋이 하나씩 떨어질 때마다 화면에서 두꺼운 물감이 한 점씩 줄고, **p6 에는 두꺼운 물감이 한 점도 없다.** 그리고 p11 에서 셋이 땅에 다시 서고, p12 에서 그중 하나가 주인공의 등에 올라간다. 🔴 이 규칙 하나가 요구 3(세기)과 요구 4(사라짐의 허전함)를 동시에 만족한다.
 - **밀도와 두께가 다른 축이라 아래 풍경을 자유롭게 촘촘하게 할 수 있다.** 이게 이 배정의 실무적 결정타다 — p9 의 밀밭은 「이랑 한 줄 한 줄」이 보여야 하는데, 만약 「두껍게 칠한 것이 곧 밀도」였다면 밀밭이 넷째 임파스토가 되어 셈이 무너진다. 🔴 **밀도(붓질의 개수) ≠ 두께(물감의 높이)**로 갈라 두면 땅은 얇게, 촘촘히, 잔붓으로 칠하고 짐 셋만 산처럼 서 있게 된다.
 
@@ -63,7 +63,7 @@
 | p4 | 하나 남음 + **떨어지는 하나**(주전자) = 화면에 둘 |
 | p5 | 0 남음 + **날아가는 하나**(담요) = 화면에 하나. 🔴 이 책에서 두꺼운 빨강이 크게 보이는 마지막 쪽 |
 | p6 | 🔴 **없다. 화면 전체가 얇다** — 이 권에서 표면이 가장 평평한 쪽 |
-| p7 | 없다 (닦아낸 판) |
+| p7 | 없다 (덮은 판) |
 | p8 | 없다 (글레이즈만) |
 | p9 | 없다 — 🔴 **밀밭은 얇고 촘촘하다.** 넷째 임파스토를 만들지 말 것 |
 | p10 | 없다 |
@@ -84,19 +84,20 @@
 | 호리 **니들펠트** | ✕ | 물감이 두껍지만 **물감이다.** 양모·보풀·바느질·점토가 아니다 — 🔴 이 권은 물성이 정체이므로 NOT 절에 못 박고 검수 부수 3번으로 올렸다 |
 | 전래동화 **점눈이** | ✕ (4축 전부) | ① **종이색** — 밝은 크림(=햇빛)이 아니라 **창백한 회청 지지면**(=높은 하늘) ② **얼굴** — 점눈+실선 입이 아니라 **아몬드 눈 + 별개 눈썹 선 + 수염**(놀람·앙다묾·흘겨보기가 필수) ③ **악센트** — 화면당 빨강 1점 규칙 ✕. 🔴 **빨강이 다섯 쪽 동안 아예 없고**, 있을 때는 「점」이 아니라 **두꺼운 물감 덩어리**다 ④ **매체** — 느슨한 색연필 낙서가 아니라 **얇게 문지른 유화 + 임파스토** |
 | 🔴 **e120 「랄라, 첨벙」**(같은 라인 · 🔴 이 라인에서 가장 가까운 상대) | ✕ (4축) | 🔴 **둘 다 「떨어진 물건 셋을 색으로 센다」.** 갈라 둔 것 — ① **공정** — 오려 붙인 무지 색면(가위 자국이 보인다) ↔ **문지르고 얹은 물감**(붓결이 보인다) ② **어휘** — e120 은 **도형이 어휘**이고 표정 0 / d03 은 **두께가 어휘**이고 얼굴이 연기한다 ③ **무대의 축** — 수로(수평·좁음·저채도 회청) ↔ **하늘(수직·고도·창백)** ④ 🔴 **셋의 운명이 반대다** — e120 의 셋은 물에 떨어져 화면에 **남고**, d03 의 셋은 화면에서 **다섯 쪽 동안 통째로 없어졌다가** 땅에서 다시 모인다 |
+| 🔴 **b09 「시계 속에서 온 손님」**(같은 라인 C7 둘째 · 🔴 **같은 세션에서 나왔고 둘 다 유화 + 글레이즈다 — 이 배치의 최대 근접 위험**) | ✕ (6축) | ① 🔴 **지지면** — 꿀빛 **나무판**이고 나뭇결이 그림의 일부다(손님의 몸을 관통해 「못 나는 이유」가 된다) ↔ **매끈한 창백 프라임 보드, 결이 아예 없다**(NOT 절에 명시) ② 🔴 **글레이즈가 하는 일** — b09 = **빛의 온도, 세 번**(오후 노랑 → 저녁 남회 → 밤 주황) / d03 = **물의 무게, 딱 한 번**(p8). 🔴 b09 에서 글레이즈는 시계이고 d03 에서는 사건이다 ③ 🔴 **두꺼운 물감의 뜻** — b09 = **불투명 = 살아 있는 것**(정체 표시) / d03 = **두꺼움 = 무게**(짐 셋만, 인물은 얇다) ④ 🔴 **감산이 있나** — b09 는 톱밥 스컴블을 **긁어 판을 드러낸다**(발자국) / d03 은 **긁지도 닦지도 않는다** — 구름은 반대로 **덮는다**(불투명 스컴블). 두 권의 스컴블이 정반대 방향이다 ⑤ **무대·밝기** — 실내 공방, 하루가 저물어 밤이 된다 ↔ **한낮 하늘, 열두 쪽 내내 밝다** ⑥ **팔레트** — 갈색·놋빛 + 빨간 실 한 줄 ↔ **창백한 청 + 채도 셋이 들락날락** |
 | 🔴 **e09**(같은 라인 C7 첫 사용) | ✕ (4축 전부 반대) | ① **지지면** — 어두운 슬레이트-토프 종이 ↔ **창백한 회청 지지면** ② **공정** — 🔴 **감법**(칠하고 지우개로 빛을 들어낸다) ↔ 🔴 **가법**(얇게 문지른 위에 두껍게 얹는다). §2.13 이 「아껴야 할 것은 클러스터가 아니라 공정」이라 못 박은 자리다 ③ **매체** — 마른 목탄·파스텔 ↔ **젖은 유화** ④ **밝기** — 밤 방(어둠이 지배면) ↔ **한낮 하늘**(밝음이 지배면). 썸네일에서 하나는 검정 책, 하나는 흰 책 |
 | **c37/tidepool**(젖음↔마름이 서사) | ✕ | 겹칠 위험 = 「물감의 상태가 서사」. 🔴 갈라 둔 것 — c37 은 **젖음/마름**(투명 워시의 번짐 vs 종이결 드라이브러시)이고 매체가 **얇다**. d03 은 **두께/글레이즈**(불투명 물감의 높이)이고 매체가 **두껍다.** 그리고 c37 은 빨강 1점이 한 쪽에만, d03 은 두꺼운 색이 셋이다 |
 | **a91**(흡수지 워시) | ✕ | a91 은 **종이가 물감을 빨아들인다**(흡수). d03 은 🔴 **물감이 판 위에 서 있다**(비흡수). 악센트도 안 칠한 흰 종이 ↔ 두껍게 얹은 물감 |
 | **buro 계열 두꺼운 과슈 도시**(참고 문법) | — | 두께와 붓 자국은 상속한다. 🔴 상속하지 않는 것 = **인물 스무 명 군상**. 이 책에 인물은 둘이다 |
 | **a01 · a04**(마른 매체 C6) | ✕ | 마른 크레용·흑연 ↔ **젖은 유화**. 그리고 저정보 필드의 정체가 다르다 — 안개·회백지 ↔ **얇게 문질러 칠한 하늘** |
-| 세계명작 수채 그림풍 | ✕ | 임파스토·글레이즈·닦아냄. 투명 수채 아님 |
+| 세계명작 수채 그림풍 | ✕ | 임파스토·글레이즈·스컴블. 투명 수채 아님 |
 
 ### 왜 새 앵커인가
 
-이 라인의 C7 은 현재 **e09 하나**이고 그것은 **어두운 종이 + 마른 목탄 + 감산**이다. d03 은 **창백한 지지면 + 젖은 유화 + 가법**이라 4축 검사(지지면·매체·공정·밝기)에서 **네 축 전부 반대**다. §2.13 이 확립한 규칙 — **「클러스터 라벨보다 공정이 정체를 정한다」** — 의 세 번째 적용이다(전례: C3 셋을 「새기나/찍나」로, C6 넷을 「밝은 종이 가법 / 검정 판 가법」으로).
-그리고 §7.5 가 남긴 지시를 그대로 이행한다: **「C7 은 §2.13 대로 지지면·공정·도구까지 특정해야 열린다(e09 가 감산 목탄을 썼으니 얹는 유화 쪽으로) · D 여정·풍경 권에 아껴 쓸 것.」** 🔴 이 권이 그 D 권이다.
+이 라인의 C7 은 **e09**(어두운 종이 + 마른 목탄 + **감산**)와 **b09**(꿀빛 나무판 + 기름 글레이즈 + 긁어내기)다. d03 은 **매끈한 창백 판 + 얇은 문지름 + 임파스토 + 덮기**라 4축 검사(지지면·지배 물성·막의 일·감산 유무)에서 둘 모두와 갈린다 — 위 라인 충돌 표의 **b09 행 6축**이 그 근거다. §2.13 이 확립한 규칙 — **「클러스터 라벨보다 공정이 정체를 정한다」** — 의 세 번째 적용이다(전례: C3 셋을 「새기나/찍나」로, C6 넷을 「밝은 종이 가법 / 검정 판 가법」으로).
+그리고 §7.5 가 남긴 지시를 그대로 이행한다: **「C7 은 §2.13 대로 지지면·공정·도구까지 특정해야 열린다(e09 가 감산 목탄을 썼으니 얹는 유화 쪽으로) · D 여정·풍경 권에 아껴 쓸 것.」** 🔴 이 권이 그 D 권이고, 세 C7 중 **유일하게 야외·상공·한낮**이다.
 
-🔴 **비용을 기록해 둔다: 이걸로 C7 이 2/19 가 된다.** 아직 여유가 있으나, 다음 C7 배정은 **감산 목탄 / 얹는 유화** 둘과 또 다른 공정(잉크+수채 명암 등)이어야 한다.
+🔴 **비용을 기록해 둔다: 이걸로 C7 이 3/21 이 되어 C3·C4 와 나란해지고 C6(4) 바로 아래다.** ⚠️ 그리고 **b09 와 같은 세션에서 나왔다** — 같은 배치에서 같은 클러스터 두 권은 원칙적으로 피해야 하는데(§7.6), 이 권은 §7.5 가 **D 권에 아껴 두라고 예약한 슬롯**이라 그 예약을 쓰는 것이 맞다고 판정했다. 🔴 **대신 다음 배정 서너 권은 C7 을 완전히 닫는다.** 열게 되면 조건은 **「감산 목탄 / 나무판 글레이즈 / 매끈한 판 임파스토」 셋과 또 다른 공정**(잉크+수채 명암 등)이다.
 
 ### 🔴 대본과 그림이 어긋나는 곳 2건 (대본 수정 불필요, 삽화 지시만 분기)
 
@@ -119,9 +120,10 @@ Style: a hand-painted picture-book page for 4-6 year olds. High, airy, wide open
   thin and flat, and the only things painted THICKLY are the three heavy objects that get
   thrown out of the basket.
 
-MEDIUM: oil or heavy-bodied gouache on a pale cool-primed board with a slight tooth, worked with
-  a wide flat brush, a small stiff bristle brush, a rag and a soft glazing brush. Four processes,
-  and each one belongs to particular pages:
+MEDIUM: oil or heavy-bodied gouache on a pale cool-primed board with a slight tooth - 🔴 A SMOOTH
+  PRIMED SURFACE WITH NO WOOD GRAIN AND NO VISIBLE SUPPORT PATTERN - worked with a wide flat
+  brush, a small stiff bristle brush, and a soft glazing brush. Four processes, and each one
+  belongs to particular pages:
   1. 🔴 SCRUBBED THIN (the sky, all twelve pages) - paint dragged across the board in long wide
      passes with almost no load, so the primer shows through and the surface is flat, dry and
      almost empty, but still clearly PAINTED. Brush marks are broad and few. Nothing is drawn
@@ -129,14 +131,19 @@ MEDIUM: oil or heavy-bodied gouache on a pale cool-primed board with a slight to
   2. 🔴 IMPASTO (the three cargo objects, and nothing else) - paint loaded on the brush and left
      standing, so the ridges of the stroke cast their own tiny real edges. These are the only
      places in the book where paint has HEIGHT. They read as heavy because they are heavy.
-  3. 🔴 WIPED BACK (the cloud page) - the board rubbed down with a rag until the picture is
-     almost gone: a pale wet-looking ground with only a few smeared traces of what was there.
-     NOT a blur, NOT a fog filter, NOT an airbrushed haze - it looks like paint that has been
-     TAKEN OFF.
-  4. 🔴 GLAZED (the wet pages) - one thin cool grey-blue film laid over the whole picture after
-     it is finished, so every colour underneath goes one step deeper and heavier at once. The
-     glaze is even, it does not blur anything, and it does not change any hue - it just sinks
-     everything. This is how rain is painted: it is a layer ADDED ON TOP.
+  3. 🔴 SCUMBLED OVER (the cloud page) - dry, OPAQUE pale paint dragged right across the finished
+     picture with a stiff brush, covering it unevenly and in a broken way: the paint catches on
+     the tooth and skips, so a rope, a rim and a curve of canvas still show through the gaps
+     where the dry brush missed. 🔴 THE CLOUD IS A LAYER PUT ON TOP OF THE PICTURE, NOT PAINT
+     TAKEN OFF AND NOT A SOFTENING OF IT. NOT a blur, NOT a fog filter, NOT an airbrushed haze,
+     NOT scraped, NOT wiped, NOT rubbed away - it is opaque, grainy, and laid over.
+  4. 🔴 GLAZED (the wet pages) - one thin cool grey-blue TRANSPARENT film laid over the whole
+     picture after it is finished, so every colour underneath goes one step deeper and heavier at
+     once. The glaze is even, it does not blur anything, and it does not change any hue - it just
+     sinks everything. This is how rain is painted: it is a layer ADDED ON TOP.
+  🔴 THE BOOK LAYS A FILM OVER A WHOLE PAGE EXACTLY TWICE, AND THE TWO ARE OPPOSITES: the cloud
+  is OPAQUE and hides what is under it; the rain is TRANSPARENT and sinks what is under it. Never
+  swap them, never blend them, and never use either one to change the light.
   The brush is allowed to smear a form rather than describe it. Only the cat and the swallow get
   tightened, and only with the small stiff brush. No blending into digital smoothness, no
   airbrush, no glow, no lens effects.
@@ -226,7 +233,10 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render / NOT
   lens flare or sparkle highlights / NOT a fully rendered background / NOT a uniform finish
   across the page / NOT a hazy, blurry or faded sky (that is blur, not un-described) / NOT thick
   paint anywhere except the three cargo objects / NOT a fourth saturated colour / NOT a golden-
-  hour orange sky / NOT any lettering, numerals, signage or numbers anywhere in the image / NOT
+  hour orange sky / NOT wood grain or any support pattern showing through the painting (the board
+  is smooth and primed) / NOT scraped, scratched or wiped-away passages anywhere (the cloud is
+  laid ON TOP, not taken off) / NOT a glaze used to change the light or the time of day (the one
+  glaze in this book is rain) / NOT any lettering, numerals, signage or numbers anywhere in the image / NOT
   wool felt, NOT stitched fabric, NOT visible thread, NOT fuzzy fibre edges, NOT sculpted clay
   (other lines own those - this is paint, however thick) / NOT dot-eyes on warm cream paper with
   a red thing on every page (that is another line).
@@ -246,7 +256,7 @@ NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render / NOT
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | 3 | 3 | 2(+낙하 1) | 1(+낙하 1) | 0(+비행 1) | 🔴 **0** | 0 | 0 | 0 | 0 | 🔴 **땅에 3** | 등에 1 + 땅에 2 |
 
-**규칙 C — 공정.** 컷마다 `PAINT:` 줄을 읽는다. 이 줄이 그 쪽의 표면을 결정하고, 표면이 이 책의 사건을 결정한다. 🔴 **p7(닦아냄)과 p8(글레이즈)가 이 앵커의 두 선언이다.**
+**규칙 C — 공정.** 컷마다 `PAINT:` 줄을 읽는다. 이 줄이 그 쪽의 표면을 결정하고, 표면이 이 책의 사건을 결정한다. 🔴 **p7(불투명 스컴블로 덮기)과 p8(투명 글레이즈로 가라앉히기)가 이 앵커의 두 선언이고 서로 반대다.**
 
 **규칙 D — 제비.** 컷마다 `SWALLOW:` 줄을 읽는다. 🔴 **제비는 p2 부터 계속 있는데 고양이는 p6 까지 한 번도 안 본다** — 어른 독자만 「저 새는 알면서 구경했구나」를 읽는다. p1 에는 없다.
 
@@ -523,32 +533,34 @@ TONE: 🔴 THE EMPTINESS IS THE SUBJECT AND IT MUST NOT LOOK LIKE AN UNFINISHED 
   confident and the sky an assured wide sweep, and let the absence do the work.
 ```
 
-### p7 — 구름 속 · 아무것도 안 보인다 🔴 닦아낸 판
+### p7 — 구름 속 · 아무것도 안 보인다 🔴 덮은 판
 
 ```
 ALT: 🔴 ZERO. Sight is completely reset. Neither the ground nor the sky nor the balloon above
   exists as a describable thing. This is deliberate: the ground has to be re-discovered two pages
   later.
 LOAD: ZERO.
-PAINT: 🔴 WIPED BACK, AND THIS IS THE PAGE THAT DECLARES THE PROCESS. About 90% of the surface is
-  a pale, damp-looking board that has been rubbed down with a rag - a few smeared traces of a
-  rope, a rim, a curve of canvas, and nothing else survives. 🔴 IT IS NOT A BLUR, NOT A FOG
-  FILTER, NOT AN AIRBRUSHED HAZE AND NOT A LOW-CONTRAST RENDER. It reads as paint that was TAKEN
-  OFF: rag streaks, a slightly uneven wipe, board showing through unevenly, and hard little
-  islands where the rag missed.
-SWALLOW: at the right edge, half erased - a silhouette hunched on the rim with feathers spiked, its
-  two blue-black strokes surviving the wipe while the rest of it is gone.
+PAINT: 🔴 SCUMBLED OVER, AND THIS IS THE PAGE THAT DECLARES THE PROCESS. About 90% of the surface
+  is a dry, OPAQUE, pale grey-white layer DRAGGED ACROSS THE WHOLE PICTURE with a stiff brush.
+  🔴 IT IS A LAYER PUT ON TOP, NOT PAINT TAKEN OFF. The brush skipped in places, so a rope, the
+  basket rim and one curve of canvas still show through the gaps in the covering - hard little
+  islands the dry brush missed. 🔴 NOT a blur, NOT a fog filter, NOT an airbrushed haze, NOT a
+  low-contrast render, NOT wiped, NOT scraped. The surface is grainy and it hides things.
+SWALLOW: at the right edge, mostly covered over - a hunched silhouette on the rim with feathers
+  spiked, its two blue-black strokes showing through a gap in the scumble while the rest of it is
+  buried under the layer.
 CAMERA: medium close-up, child's eye level - one corner of the basket and the cat's face.
 SUBJECT: centre - BasketCat has put just its nose over the rim with both front paws laid side by
   side on it, eyes narrowed, peering forward, ears beginning to lay back as they wet. 🔴 The cat's
-  face and the water beads are the ONLY places on this page where paint was not wiped away, so they
-  are the only sharp things in the frame.
-SETTING: soaked grey-white all over. One rope survives with a row of beads hanging from it as small
-  reserves of pale board. A trace of the canvas above as one smeared curve.
+  face and the water beads are the ONLY places the covering layer was kept off, so they are the
+  only sharp things in the frame - painted after the scumble, on top of it.
+SETTING: soaked grey-white covering everything. One rope shows through a gap in it, with a row of
+  beads hanging from it as small reserves of pale board. A trace of the canvas above as one curve
+  half buried under the layer.
 FINISH: 🔴 INVERTED HIERARCHY, ONE PAGE ONLY: the cat's face is finished, the drops half-finished,
-  and EVERYTHING ELSE has been actively removed rather than left undone.
+  and EVERYTHING ELSE has been actively covered over rather than left undone.
 TONE: cold, wet, blind. 🔴 Two pages of the book have no legible world - this is the one where that
-  is because the paint is gone.
+  is because something was laid over it.
 ```
 
 ### p8 — 흠뻑 젖어 무거워졌다 🔴 글레이즈 판
@@ -692,7 +704,7 @@ TONE: 🔴 THE PAGE SPLITS INTO UP AND DOWN - the balloon in the bright upper pa
 | # | 볼 것 | 실패 시 처방 |
 |---|---|---|
 | 1 | 🔴 **두께 차이가 실제로 보이나.** p1(임파스토 셋)과 p6(전부 얇음)을 나란히 놓아 「물감이 서 있는 것 ↔ 판이 비쳐 보이는 것」이 한눈에 갈리는지 본다. 안 갈리면 이 책의 무게 축이 통째로 없다 | p1 을 다시 굽는다. 🔴 **p1(두께 기준판)이 확정되기 전엔 나머지 열한 컷을 굽지 마라** |
-| 2 | 🔴 **p7 이 「닦아낸 판」인가 「블러」인가.** 부드러운 안개·가우시안·저채도 렌더면 실패다. 헝겊 결·불균일한 지워짐·판이 드러난 자리·지우다 남은 딱딱한 섬이 보여야 한다 | 문구 튜닝 금지. **p7 을 단독으로 여러 번 뽑아 「지워진 것처럼 보이는」 한 장을 확보해 ref 로 고정**한다 |
+| 2 | 🔴 **p7 이 「위에 덮인 판」인가 「블러」인가.** 부드러운 안개·가우시안·저채도 렌더면 실패다. **마른 붓이 건너뛴 자리·불균일한 덮임·덮개 틈으로 비치는 밧줄과 테두리**가 보여야 한다. 🔴 **닦아낸 것처럼 보이면 그것도 실패다** — 그건 b09 의 공정이고, 이 권의 구름은 덮는 것이다 | 문구 튜닝 금지. **p7 을 단독으로 여러 번 뽑아 「위에 한 겹 덮인 것처럼 보이는」 한 장을 확보해 ref 로 고정**한다 |
 | 3 | 🔴 **p8 의 무거움이 글레이즈인가 그림자인가.** 색 위에 회색을 섞어 어둡게 했거나, 아래쪽만 어둡거나, 그림자를 그려 넣었으면 실패다. **한 겹이 전체에 고르게 얹혀 모든 색이 같이 가라앉아** 있어야 한다 | p8 을 「완성한 그림 + 위에 한 겹」 순서로 다시 지시한다. 2회 실패면 **글레이즈 없는 같은 구도**를 먼저 뽑아 두고 그 위에 한 겹 올린 두 장을 대조해 판정한다 |
 | 4 | 🔴 **p2 와 p9 가 같은 땅인가.** 나란히 놓아 밀밭·강·다리·마을·소가 같은 배치인지 본다. 다른 땅이면 「커졌다」가 「다른 데 왔다」가 되고 이 권의 고도 축이 사라진다 | **p2 승인본을 p9 의 ref 로 첨부**해서 다시 굽는다(문구로 같은 땅을 두 번 재현시키려 하지 말 것) |
 | 5 | **p6~p10 에 빨강·파랑·황토가 샜나.** 바구니에 빨간 천, 하늘에 파란 채도, 밀밭에 두꺼운 황토가 한 점이라도 있으면 다섯 쪽의 허전함이 죽는다. 그리고 **p9 의 밀밭이 두꺼우면 넷째 임파스토**가 되어 p11 의 셈이 무너진다 | PALETTE·두께 규칙 뒤에 실제로 샌 사물을 이름으로 못 박고 재시도. 🔴 「밀도 ≠ 두께」를 그 컷 블록에 한 줄 더 명시한다 |
@@ -706,5 +718,6 @@ TONE: 🔴 THE PAGE SPLITS INTO UP AND DOWN - the balloon in the bright upper pa
 ## 라인 정체 점검 (이웃한 권과 나란히)
 
 🔴 **첫 렌더가 나오면 e120 과 두 권을 반드시 붙여 본다** — 이 라인에서 가장 가까운 상대다(둘 다 「떨어진 물건 셋을 색으로 센다」). 판정 문장 셋: ① **가위 자국이 보이나 / 붓결이 보이나** ② **인물에 표정이 있나**(d03 만 있다) ③ **셋이 화면에 남나 / 다섯 쪽 동안 통째로 없어지나**. 하나라도 헷갈리면 d03 의 붓과 두께를 더 밀어야 한다.
+🔴 **그리고 b09 와 반드시 붙여 본다 — 같은 세션에서 나온 같은 C7 이고, 둘 다 유화에 글레이즈를 쓴다.** 판정 문장 넷: ① **지지면에 나뭇결이 보이나**(b09 만) ② **글레이즈가 하루의 빛인가 / 한 번의 비인가** ③ **긁어낸 자리가 있나**(b09 만 — d03 은 덮기만 한다) ④ **실내 밤인가 / 야외 한낮인가**. 하나라도 헷갈리면 d03 의 지지면에서 결을 완전히 빼고 글레이즈를 p8 한 쪽으로 더 좁힌다.
 그리고 **e09 와 한 번 붙여 본다** — 같은 C7 이고 공정이 정반대다(어두운 종이에서 빛을 들어내기 ↔ 창백한 판에 두껍게 얹기). 썸네일에서 하나는 검정 책, 하나는 흰 책이어야 한다.
 마지막으로 **c37 과 붙여 본다** — 둘 다 「물감의 상태가 서사」이므로 갈라진 지점을 확인한다: c37 은 **얇고 젖음/마름**, d03 은 **두껍고 두께/글레이즈**.
