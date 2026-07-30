@@ -404,7 +404,7 @@ export default function KoreanPhonicsActivityPage() {
         />
       );
     }
-    // 짝 찾기 — 카드의 글자와 그 글자로 배운 단어 그림을 잇는다. 최소 3쌍이 있어야 게임이 성립.
+    // 짝 찾기 — 카드의 **낱말**과 그 그림을 잇는다. 최소 3쌍이 있어야 게임이 성립.
     if (withImage.length < 3)
       return (
         <ActivityUnavailable
@@ -422,11 +422,17 @@ export default function KoreanPhonicsActivityPage() {
         lang="ko"
         gameData={{
           type: 'korean-line-matching',
-          // imageLabel = 그림 아래 낱말. 복습은 우측이 글자(ㄱ·ㄹ)뿐이라 그림이 애매하면 짝을 못 짓는다.
+          /**
+           * 🔴 카드는 **음소가 아니라 낱말**이다(2026-07-30 사용자: "여기도 그냥 단어로 넣어줘.
+           *    음소 말고"). 복습에 온 아이는 그 자음의 음절을 다 배운 뒤라 `도마` 가 읽히고,
+           *    낱말↔그림이 실제로 하는 일과 맞는다. 예전엔 카드가 `ㄷ` 이고 낱말은 그 아래
+           *    작은 글씨였는데, 정작 그림과 짝지어지는 건 낱말이라 큰 글자가 겉돌았다.
+           * 🔴 글자 활동이 사라지는 게 아니다 — 같은 복습의 **글자 사냥**(모양)·**듣고 음절**(소리)이
+           *    음소를 맡는다. 활동마다 겨루는 층이 다른 것이 이 복습의 구성이다.
+           */
           items: withImage.map((s) => ({
-            word: s.letter,
+            word: s.word,
             imageUrl: s.imageUrl,
-            imageLabel: s.word,
           })),
         }}
       />
