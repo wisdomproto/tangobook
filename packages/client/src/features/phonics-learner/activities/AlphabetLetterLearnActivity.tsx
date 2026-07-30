@@ -8,7 +8,7 @@ import { playUi } from '@/lib/uiSound';
 import { warmAudioUrl } from '@/features/games/hooks/useGamePrefetch';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
-import { LetterWriteModal } from './LetterWriteModal';
+import { ActivityShell } from '../components/ActivityShell';
 
 /** 소리 사이 쉼 — 콜백으로 끝난 걸 확인한 뒤 넣는다(길이 가정 아님). */
 const REST_MS = 420;
@@ -44,8 +44,6 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
 
   // 활성 글자 인덱스 (letters 배열의 인덱스). storybook.phonicsLesson.blending[i] 와 1:1 매칭.
   const [currentIdx, setCurrentIdx] = useState(0);
-  // 써보기 모달 — 활성 글자에 대해서만 노출
-  const [writeOpen, setWriteOpen] = useState(false);
 
   const blending = sb?.phonicsLesson?.blending?.[currentIdx];
   const wordFamily = sb?.phonicsLesson?.wordFamilies?.[currentIdx];
@@ -128,28 +126,37 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
    *    낱글자 음원이 이미 있고, Book 2 의 `a`·`n` 칸이 쓰는 것과 같은 경로다. 저작 음원이 생기면
    *    그게 우선.
    */
-  const sayLetter = useCallback(async () => {
-    if (audioBusyRef.current) return;
-    const url =
-      blending?.blendingSequenceTtsUrl ??
-      (await resolveTtsUrl({
-        text: lower,
-        language: 'english',
-        storybookId: unitId,
-        identifierPrefix: 'en-letter',
-      }));
-    if (!url) return;
-    audioBusyRef.current = true;
-    playAudio(url, () => {
-      audioBusyRef.current = false;
-    });
-  }, [blending, lower, unitId, playAudio]);
+  const sayLetter = useCallback(
+    async (onEnded?: () => void) => {
+      if (audioBusyRef.current) return;
+      const url =
+        blending?.blendingSequenceTtsUrl ??
+        (await resolveTtsUrl({
+          text: lower,
+          language: 'english',
+          storybookId: unitId,
+          identifierPrefix: 'en-letter',
+        }));
+      if (!url) {
+        onEnded?.();
+        return;
+      }
+      audioBusyRef.current = true;
+      playAudio(url, () => {
+        audioBusyRef.current = false;
+        onEnded?.();
+      });
+    },
+    [blending, lower, unitId, playAudio]
+  );
 
   /**
    * 🔴 **진입하면 글자 소리를 한 번 들려준다** — 예전엔 이미 선택된 글자 탭을 *한 번 더* 눌러야
    *    났고, 그 안내는 핫스팟을 다 누른 뒤에야 떴다. 그래서 아이가 A 소리를 한 번도 못 듣고
    *    나갈 수 있었다(이 단원의 목표가 글자인데).
-   * 🔴 첫 진입에만 **안내 음성 → 쉼 → 글자 소리**. 글자를 바꿀 땐 글자 소리만.
+   * 🔴 첫 진입에만 **글자 소리 → 쉼 → 안내 음성**. 글자를 바꿀 땐 글자 소리만.
+   *    순서가 반대였을 땐 "반짝이는 곳을 눌러봐!" 다음에 뜬금없이 「에」 가 붙어 나왔다
+   *    (사용자 지적). 배울 글자를 먼저 들려주고 **무엇을 하라는 말로 끝나야** 아이가 바로 움직인다.
    */
   const guidedRef = useRef(false);
   // 🔴 `blending` 은 storybook refetch 마다 **새 객체**라 의존성에 넣으면 창 포커스만 돌아와도
@@ -163,7 +170,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
       return;
     }
     guidedRef.current = true;
-    playAudio(GUIDE_VOICE, () => scheduleTimer(sayLetter, REST_MS));
+    void sayLetter(() => scheduleTimer(() => playAudio(GUIDE_VOICE), REST_MS));
     // 의존성은 **글자 인덱스**만.
   }, [currentIdx]);
 
@@ -199,11 +206,22 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
         if (!current || !hit(current.h)) return;
         playUi('tap');
         const isLast = tapped + 1 >= spots.length;
-        setTapped((t) => t + 1);
-        // 단어를 다 읽은 **뒤에** 띵동 — 잘 눌렀다는 신호. 마지막 칸이면 칭찬까지 이어진다.
+        /**
+         * 🔴 **다음 칸은 소리가 끝난 뒤에 밝힌다**(2026-07-29 사용자 지적). 예전엔 누르는 즉시
+         *    `setTapped` 라 「에 에 엘리게이터」가 나오는 동안 벌써 다음 칸이 반짝였다 — 아이는
+         *    듣던 걸 버리고 손을 옮긴다. 눌러서 나는 소리를 **끝까지 듣게 하는 것**이 이 활동이다.
+         *    (마지막 칸은 칭찬까지 끝나고 덮개가 걷힌다.)
+         */
         say(current.w.ttsUrl, () =>
           playAudio('/sounds/game/correct.mp3', () => {
-            if (isLast) scheduleTimer(() => playCorrectSequence({ language: 'en' }), REST_MS);
+            if (!isLast) {
+              scheduleTimer(() => setTapped((t) => t + 1), REST_MS);
+              return;
+            }
+            scheduleTimer(() => {
+              setTapped((t) => t + 1);
+              playCorrectSequence({ language: 'en' });
+            }, REST_MS);
           })
         );
         return;
@@ -221,7 +239,6 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
     (idx: number) => {
       if (idx !== currentIdx) {
         setCurrentIdx(idx);
-        setWriteOpen(false);
         return;
       }
       // 활성 글자 재클릭 = 글자 소리 (아래 큰 버튼과 같은 경로 — 예전엔 저작 음원이 없어 무음이었다)
@@ -235,58 +252,33 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
 
   if (storybookQuery.isLoading || !sb) {
     return (
-      <div
-        className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-cream-50 bg-cover bg-center overflow-hidden"
-        style={{ backgroundImage: "url('/images/phonics/study-bg.webp')" }}
-      >
-        <button
-          onClick={onBack}
-          className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-        >
-          ← 돌아가기
-        </button>
+      <ActivityShell onBack={onBack}>
         <div className="flex-1 flex items-center justify-center text-ink-500 font-bold">
           불러오는 중…
         </div>
-      </div>
+      </ActivityShell>
     );
   }
 
   if (!blending) {
     return (
-      <div
-        className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-cream-50 bg-cover bg-center overflow-hidden"
-        style={{ backgroundImage: "url('/images/phonics/study-bg.webp')" }}
-      >
-        <button
-          onClick={onBack}
-          className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-        >
-          ← 돌아가기
-        </button>
+      <ActivityShell onBack={onBack}>
         <div className="flex-1 flex flex-col items-center justify-center gap-3">
           <div className="text-6xl">🔤</div>
           <p className="text-xl font-black text-ink-700">학습카드 데이터가 없어요</p>
         </div>
-      </div>
+      </ActivityShell>
     );
   }
 
   return (
     // 🔴 배경은 한글 활동들과 같은 풀밭 — 이 화면만 밋밋한 그라데이션이라 다른 제품처럼 보였다.
-    <div
-      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-3 bg-cream-50 bg-cover bg-center overflow-y-auto"
-      style={{ backgroundImage: "url('/images/phonics/study-bg.webp')" }}
-    >
-      {/* 헤더 — 뒤로 + 글자 탭들 (가운데) */}
-      <div className="flex items-center justify-between gap-3 mb-3 shrink-0">
-        <button
-          onClick={onBack}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold shrink-0"
-        >
-          ← 돌아가기
-        </button>
-        {/* 글자 탭 — 활성 글자만 coral background + 큰 크기 (다시 클릭 = 발음). 비활성은 white. */}
+    <ActivityShell
+      onBack={onBack}
+      scroll
+      // 글자 탭 — 뒤로가기와 한 줄에.
+      headerRight={
+        // 글자 탭 — 활성 글자만 coral background + 큰 크기(다시 클릭 = 발음). 비활성은 white.
         <div className="flex items-center gap-2 sm:gap-3">
           {letters.map((L, i) => {
             const U = L.toUpperCase();
@@ -323,9 +315,8 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
             );
           })}
         </div>
-        <div className="w-[88px] shrink-0" /> {/* spacer for visual centering */}
-      </div>
-
+      }
+    >
       {/* 🔴 안내 문구 — 이 화면은 자유 탐색이라 **무엇을 누르면 되는지 글로 말해주지 않으면**
           아이는 그림만 보다 나간다(다른 활동엔 다 있는데 여기만 빠져 있었다).
           누를 것이 실제로 있을 때만 그렇게 쓴다 — 핫스팟이 없는 글자엔 글자 탭을 가리킨다. */}
@@ -437,9 +428,9 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
           </div>
         </div>
 
-        {/* 써보기 — 활성 글자 모달 트리거. ABC 써보기 활동 별도 카드 대신 학습 페이지 내 통합.
-            🔴 **다 눌러본 뒤에 나온다** — 소리를 듣기도 전에 쓰기 버튼이 있으면 아이가 그리로 먼저 간다.
-               (핫스팟이 없는 글자는 `allDone` 이 처음부터 true 라 바로 보인다.) */}
+        {/* 🔴 **써보기는 여기 없다**(2026-07-29) — 단원 목록의 「ABC 써보기」 카드가 맡는다.
+            예전엔 이 화면 안 모달이었는데, 그러면 단원 목록에서 쓰기가 안 보여
+            「이 단원엔 쓰기가 없다」로 읽힌다(한글 단원은 배우기/써보기가 나란한 카드다). */}
         <div className="flex flex-wrap items-center justify-center gap-3">
           {/* 🔴 글자 소리 = 이 단원의 목표. **처음부터 끝까지** 큰 버튼으로 열어둔다 —
               탭을 한 번 더 누르는 숨은 조작에만 맡겨두면 아이는 영영 못 듣는다. */}
@@ -461,19 +452,6 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
               <span className="text-2xl sm:text-3xl">🔊</span>
             </button>
           )}
-          {allDone && (
-            <button
-              onClick={() => setWriteOpen(true)}
-              className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-gradient-to-r from-coral-400 to-coral-500 text-white shadow-pop hover:-translate-y-0.5 active:translate-y-0.5 transition-transform text-lg sm:text-xl font-black"
-            >
-              <span className="text-xl sm:text-2xl">✏️</span>
-              <span className="inline-flex items-baseline">
-                <span>{upper}</span>
-                <span>{lower}</span>
-              </span>
-              <span>써보기</span>
-            </button>
-          )}
           {/* 다 찾은 뒤 갈 곳 — 없으면 아이가 상단 탭을 스스로 발견해야 한다. */}
           {allDone && currentIdx < letters.length - 1 && (
             <button
@@ -491,15 +469,6 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
-
-      {writeOpen && (
-        <LetterWriteModal
-          storybook={sb}
-          letterIndex={currentIdx}
-          activeLetter={letters[currentIdx] ?? upper}
-          onClose={() => setWriteOpen(false)}
-        />
-      )}
-    </div>
+    </ActivityShell>
   );
 }

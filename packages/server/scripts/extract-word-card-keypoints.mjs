@@ -20,6 +20,11 @@
  *   node packages/server/scripts/extract-word-card-keypoints.mjs --preview          # 미리보기 PNG 만
  *   node packages/server/scripts/extract-word-card-keypoints.mjs --preview --only=kr-h1-u02
  *   node packages/server/scripts/extract-word-card-keypoints.mjs --apply
+ *
+ * 🔴 동화책(전래동화·생활동화 등)도 같은 스크립트로 뽑는다:
+ *   node ... --category='전래 동화' [--preview|--apply]
+ *   파닉스는 카드가 `flashcards[]` 에 있고 동화책은 `keyObjectImages[]` 에 있다 —
+ *   읽는 배열만 다르고 마스크·폴리곤 파이프라인은 완전히 같다.
  */
 import sharp from 'sharp';
 import fs from 'node:fs';
@@ -35,6 +40,7 @@ const args = parseArgs(process.argv.slice(2));
 const APPLY = args.flags.has('apply');
 const PREVIEW = args.flags.has('preview');
 const ONLY = args.only ? String(args.only) : null;
+const CATEGORY = args.category ? String(args.category) : null;
 const POINTS = parseInt(args.points ?? '18', 10); // 폴리곤 점 상한
 const ALPHA = parseInt(args.alpha ?? '24', 10); // 알파 이진화 임계
 const BRIDGE = parseInt(args.bridge ?? '4', 10); // 가까운 덩어리를 잇는 닫힘 반지름
@@ -226,6 +232,39 @@ const UNIT_IDS = [...KOREAN_PHONICS_CURRICULUM, ...ENGLISH_PHONICS_CURRICULUM].f
   level.units.map((u) => u.id)
 );
 
+/**
+ * 동화책 모드 — 카테고리의 모든 책에서 `keyObjectImages[]` 를 카드로 본다.
+ * 🔴 게임(`generateConnectTheDots`)이 읽는 자리는 **`keyObjectImages[].keypoints`** 이고
+ *    `success !== true` 인 항목은 후보에서 빠진다. 파닉스의 `flashcards[].keypoints` 와 다른 자리다.
+ */
+async function collectCategoryCards(category, imgDir) {
+  const { listStorybookKeys, getJsonByKey } = await import('./translation-core.mjs');
+  const keys = await listStorybookKeys();
+  const cards = [];
+  for (const k of keys) {
+    const sb = await getJsonByKey(k).catch(() => null);
+    if (!sb || sb.category !== category) continue;
+    for (const img of sb.keyObjectImages ?? []) {
+      if (!img.imageUrl) continue;
+      const word = img.objectName ?? 'obj';
+      const name = `${sb.id}__${word}`;
+      const stamp = crypto.createHash('sha1').update(img.imageUrl).digest('hex').slice(0, 8);
+      const key = `${name}__${stamp}`;
+      const file = path.join(imgDir, `${key}.webp`);
+      if (!fs.existsSync(file)) {
+        const res = await fetch(img.imageUrl);
+        if (!res.ok) {
+          console.log(`  ⚠️  ${name} 이미지 ${res.status}`);
+          continue;
+        }
+        fs.writeFileSync(file, Buffer.from(await res.arrayBuffer()));
+      }
+      cards.push({ unitId: sb.id, sb, card: { word, imageUrl: img.imageUrl, target: img }, name, key, file });
+    }
+  }
+  return cards;
+}
+
 async function previewPng(srcPath, keypoints, outPath) {
   const SIZE = 480;
   const xy = (k) => [(k.x * SIZE).toFixed(1), (k.y * SIZE).toFixed(1)];
@@ -282,7 +321,10 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
 
   // 1) 카드 이미지 내려받기 (캐시)
   const cards = [];
-  for (const unitId of UNIT_IDS) {
+  if (CATEGORY) {
+    cards.push(...(await collectCategoryCards(CATEGORY, imgDir)));
+  }
+  for (const unitId of CATEGORY ? [] : UNIT_IDS) {
     if (ONLY && unitId !== ONLY) continue;
     const sb = await getStorybook(unitId);
     for (const card of sb.flashcards ?? []) {
@@ -342,7 +384,11 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
       continue;
     }
     if (PREVIEW) await previewPng(file, out.keypoints, path.join(PREVIEW_DIR, `${name}.png`));
-    card.keypoints = out.keypoints;
+    // 🔴 동화책은 `keyObjectImages` 항목(`card.target`)에 쓴다 — 게임이 읽는 자리가 거기다.
+    //    저작도구 미리보기용 `tracingPoints` 도 같이 채운다(둘이 갈리면 편집기와 게임이 어긋난다).
+    const dest = card.target ?? card;
+    dest.keypoints = out.keypoints;
+    if (card.target) dest.tracingPoints = out.keypoints.map(({ x, y }) => ({ x, y }));
     bySb.set(unitId, sb);
     done++;
   }

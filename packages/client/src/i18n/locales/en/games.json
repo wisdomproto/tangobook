@@ -110,7 +110,8 @@
     "next": "Next →",
     "seeResult": "See Results",
     "help": "🪄 Help",
-    "pickFirstLetter": "Look at the picture and add its first letter!"
+    "pickFirstLetter": "Look at the picture and add its first letter!",
+    "listenFirstLetter": "Listen and add the first letter!"
   },
   "writingGame": {
     "paintPrompt": "Color in the letters!",

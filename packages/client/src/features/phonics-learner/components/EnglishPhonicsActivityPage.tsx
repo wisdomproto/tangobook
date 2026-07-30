@@ -3,6 +3,7 @@ import type { GameTypeId } from '@tangobook/shared';
 import { PhonicsGameGate } from './PhonicsGameGate';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getEnglishActivityPlan, getEnglishUnit } from '../lib/english-phonics-units';
+import { shuffleReviewCards } from '../lib/korean-phonics-units';
 import type { ActivityDef } from '../lib/korean-phonics-units';
 import { markActivityCompleted } from '../lib/progress-store';
 import { CvcPatternLearnActivity } from '../activities/CvcPatternLearnActivity';
@@ -12,7 +13,7 @@ import { AlphabetLetterWriteActivity } from '../activities/AlphabetLetterWriteAc
 import { WordListenChooseActivity } from '../activities/WordListenChooseActivity';
 import { VowelListenActivity } from '../activities/VowelListenActivity';
 import { ReviewWriteActivity } from '../activities/ReviewWriteActivity';
-import { ReviewMazeActivity } from '../activities/ReviewMazeActivity';
+import { LetterHuntActivity } from '../activities/LetterHuntActivity';
 import { ReviewFlipMatchActivity } from '../activities/ReviewFlipMatchActivity';
 import { useReviewCardSources } from '../hooks/useReviewCardSources';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
@@ -60,7 +61,10 @@ export default function EnglishPhonicsActivityPage() {
   );
 
   // 복습은 되짚는 단원들의 그림·단어가 필요하다 (early return 앞에서 호출 — 훅 순서 고정).
-  const reviewCards = useMemo(() => activity?.reviewCards ?? [], [activity]);
+  // 🔴 **섞어서** 넘긴다 — 활동들이 앞에서 4장만 쓰기 때문에 순서가 고정이면 뒤쪽 글자가 영영 안 나온다.
+  const reviewCards = useMemo(() => shuffleReviewCards(activity?.reviewCards ?? []), [activity]);
+  /** Book 1 = 글자가 목표인 권. 낱말은 첫 글자만 크게 쓴다. */
+  const isBook1 = unitId.startsWith('en-b1');
   const { sources: reviewSources, isLoading: reviewLoading } = useReviewCardSources(reviewCards);
 
   const storybookQuery = useStorybook(unitId);
@@ -172,8 +176,11 @@ export default function EnglishPhonicsActivityPage() {
       }));
     });
     /**
-     * 🔴 **줄마다 ABC 가 한 벌씩** — 글자별로 묶어 늘어놓으면 `Aa Aa Bb / Bb Cc Cc` 가 되어
-     *    줄이 글자 순서를 흐린다. 첫 낱말들을 윗줄에, 둘째 낱말들을 아랫줄에 깐다.
+     * 🔴 **한 세로줄에 글자 하나**(2026-07-29 사용자 지시) — `A A / B B / C C` 가 **위아래로** 서서
+     *    3열 × 2행이 된다. 이 권의 학습 내용이 "같은 A 소리가 apple 에도 alligator 에도 있다" 라
+     *    **그 둘이 붙어 보여야** 한 칸이 곧 한 글자가 된다.
+     * 🔴 그래서 배열은 **행 우선으로 섞어** 넣는다(`A B C / A B C`) — 3열 grid 에 그대로 흘리면
+     *    세로로 같은 글자가 만난다. `perLetter.flat()`(A A B B C C)을 넣으면 첫 줄이 `A A B` 가 된다.
      */
     const depth = Math.max(...perLetter.map((w) => w.length));
     const items = Array.from({ length: depth }).flatMap((_, d) =>
@@ -185,6 +192,8 @@ export default function EnglishPhonicsActivityPage() {
         language="english"
         items={items}
         choices={items.length}
+        // 열 수 = 글자 수(A·B·C) — 세로 한 줄이 글자 하나가 된다.
+        columns={perLetter.length}
         revealImageOnTap
         onJudge={judgePhoneme}
         // 🔴 바로 퀴즈로 밀어넣지 않는다 — 먼저 눌러 소리를 들어보고 「🎯 퀴즈」 로 넘어간다
@@ -201,12 +210,12 @@ export default function EnglishPhonicsActivityPage() {
   //    한글과 같은 6종을 돌린다(사용자: "a~f review 너무 뭐가 없는데?").
 
   // 🎧 듣고 글자 맞추기 — 카드에 글자·발음이 들어 있어 storybook 을 안 기다린다.
-  if (activity.kind === 'review-syllable-listen' && activity.reviewCards?.length) {
+  if (activity.kind === 'review-syllable-listen' && reviewCards.length) {
     return (
       <WordListenChooseActivity
         unitId={unitId}
         language="english"
-        items={activity.reviewCards.map((c) => ({ label: c.syllable, sound: c.sound }))}
+        items={reviewCards.map((c) => ({ label: c.syllable, sound: c.sound }))}
         choices={REVIEW_CHOICES}
         onMarkComplete={handleMarkComplete}
         onBack={backToUnit}
@@ -214,9 +223,22 @@ export default function EnglishPhonicsActivityPage() {
     );
   }
 
+  // 🔎 글자 사냥 — 글자만 쓰는 활동이라 단어 그림을 기다리지 않는다.
+  //    영어는 Book 2 가 word family(at·an)라 방해꾼도 같은 꼴로 만들어진다(모음·끝소리 교체).
+  if (activity.kind === 'review-hunt' && reviewCards.length) {
+    return (
+      <LetterHuntActivity
+        unitId={unitId}
+        cards={reviewCards}
+        language="english"
+        onComplete={handleComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+
   if (
     activity.kind === 'review-word-listen' ||
-    activity.kind === 'review-maze' ||
     activity.kind === 'review-flip' ||
     activity.kind === 'review-match'
   ) {
@@ -229,7 +251,7 @@ export default function EnglishPhonicsActivityPage() {
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="단어 그림이 필요해요"
+          reason="낱말 그림이 필요해요"
         />
       );
     }
@@ -239,22 +261,24 @@ export default function EnglishPhonicsActivityPage() {
           unitId={unitId}
           language="english"
           items={withImage.map((s) => ({
-            label: s.word,
+            /**
+             * 🔴 Book 1 은 **보기가 글자**다 — 낱말 소리(`alligator`)를 듣고 **첫 글자**를 고른다.
+             *    예전엔 낱말↔그림이라 이 화면에 알파벳이 한 글자도 안 나왔다(글자를 몰라도 통과).
+             *    Book 2 는 낱말 그대로 — 거긴 패턴이 낱말 안에 있다.
+             */
+            label: isBook1 ? `${s.letter.toUpperCase()}${s.letter.toLowerCase()}` : s.word,
             sound: s.word,
-            ...(s.imageUrl ? { imageUrl: s.imageUrl } : {}),
+            /**
+             * 🔴 Book 1 은 **그림을 빼야** 소리→글자가 된다(2026-07-29 검수). 라벨만 글자로 바꾸고
+             *    그림을 남겼더니 들린 낱말의 그림이 늘 정답 칸에 있어서 **글자를 안 보고도 만점**이었다
+             *    — 모듈 문서에 이미 적혀 있던 규칙("단어 듣기 보기에 그림을 넣지 않는다")을 내가 어겼다.
+             *    보기가 `Aa`·`Bb` 라 그림이 없어도 넷이 서로 구분된다(낱말 넷이면 못 읽는 아이에게
+             *    다 똑같아 보이지만, 글자는 다르다).
+             */
+            ...(!isBook1 && s.imageUrl ? { imageUrl: s.imageUrl } : {}),
           }))}
           choices={REVIEW_CHOICES}
           onMarkComplete={handleMarkComplete}
-          onBack={backToUnit}
-        />
-      );
-    }
-    if (activity.kind === 'review-maze') {
-      return (
-        <ReviewMazeActivity
-          unitId={unitId}
-          sources={withImage}
-          onComplete={handleComplete}
           onBack={backToUnit}
         />
       );
@@ -264,6 +288,12 @@ export default function EnglishPhonicsActivityPage() {
         <ReviewFlipMatchActivity
           unitId={unitId}
           sources={withImage}
+          // 🔴 Book 1 은 **글자↔그림**으로 짝을 짓는다(글자가 목표인 권).
+          //    Book 2 는 낱말↔그림 그대로 — 거긴 패턴(`_am`)이 낱말 안에 있다.
+          letterFace={isBook1}
+          // 🔴 이 파일에서 **여기만** language 가 빠져 있었다 — 컴포넌트 기본값이 'korean' 이라
+          //    영어 낱말(dam·dad)을 한국어 음성으로 읽고 칭찬도 한국어가 나왔다.
+          language="english"
           onComplete={handleComplete}
           onBack={backToUnit}
         />
@@ -276,6 +306,8 @@ export default function EnglishPhonicsActivityPage() {
         onComplete={handleComplete}
         onBack={backToUnit}
         lang="en"
+        // Book 1 = 글자가 목표 — 낱말은 첫 글자만 크게.
+        emphasizeFirstLabel={isBook1}
         gameData={{
           type: 'english-line-matching',
           items: withImage.map((s) => ({
@@ -287,11 +319,11 @@ export default function EnglishPhonicsActivityPage() {
       />
     );
   }
-  if (activity.kind === 'review-listen' && activity.reviewCards?.length) {
+  if (activity.kind === 'review-listen' && reviewCards.length) {
     return (
       <VowelListenActivity
         unitId={unitId}
-        vowels={activity.reviewCards.map((c) => ({
+        vowels={reviewCards.map((c) => ({
           vowel: c.letter,
           syllable: c.syllable,
           sound: c.sound,
@@ -302,12 +334,12 @@ export default function EnglishPhonicsActivityPage() {
       />
     );
   }
-  if (activity.kind === 'review-write' && activity.reviewCards?.length) {
+  if (activity.kind === 'review-write' && reviewCards.length) {
     return (
       <ReviewWriteActivity
         unitId={unitId}
         language="english"
-        sources={activity.reviewCards.map((c) => ({ ...c, word: c.letter, imageUrl: '' }))}
+        sources={reviewCards.map((c) => ({ ...c, word: c.letter, imageUrl: '' }))}
         onComplete={handleComplete}
         onBack={backToUnit}
       />
@@ -394,7 +426,7 @@ export default function EnglishPhonicsActivityPage() {
     const gameData = memoGame(() => phonicsToEnglishBlockData(storybook));
     if (!gameData)
       return (
-        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="단어가 부족해요" />
+        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 부족해요" />
       );
     return gate(
       'english-block',
@@ -406,7 +438,7 @@ export default function EnglishPhonicsActivityPage() {
     const gameData = memoGame(() => phonicsToEnglishWordWritingData(storybook));
     if (!gameData)
       return (
-        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="단어가 부족해요" />
+        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 부족해요" />
       );
     return gate(
       'english-word-writing',
@@ -421,13 +453,18 @@ export default function EnglishPhonicsActivityPage() {
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="단어 그림이 필요해요"
+          reason="낱말 그림이 필요해요"
         />
       );
     return gate(
       'english-line-matching',
       gameData,
-      <LineMatchingPlayer {...commonProps} gameData={gameData} lang="en" />
+      <LineMatchingPlayer
+        {...commonProps}
+        gameData={gameData}
+        lang="en"
+        emphasizeFirstLabel={isBook1}
+      />
     );
   }
   if (activity.kind === 'game-connect-dots') {
@@ -437,7 +474,7 @@ export default function EnglishPhonicsActivityPage() {
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="단어 그림과 점이 필요해요"
+          reason="낱말 그림과 점이 필요해요"
         />
       );
     return gate(

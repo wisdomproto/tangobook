@@ -176,6 +176,7 @@ const KIND_ICON_URL: Partial<Record<ActivityDef['kind'], string>> = {
   'review-listen': '/icons/activity/cvc-learn.webp',
   'review-write': '/icons/activity/cvc-write.webp',
   'cvc-pattern-write': '/icons/activity/cvc-write.webp',
+  'alphabet-letter-write': '/icons/activity/cvc-write.webp',
   // 게임 (한글 파닉스 동일 webp 재사용)
   'game-english-block': '/icons/game/korean-block.webp', // 블록 일러
   'game-word-writing': '/icons/game/word-writing.webp',

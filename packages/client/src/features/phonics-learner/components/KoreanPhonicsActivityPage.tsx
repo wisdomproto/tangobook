@@ -2,7 +2,13 @@ import { useCallback, useMemo, type ReactNode, useRef } from 'react';
 import type { GameTypeId } from '@tangobook/shared';
 import { PhonicsGameGate } from './PhonicsGameGate';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { getActivityPlan, getKoreanUnit, type ActivityDef } from '../lib/korean-phonics-units';
+import {
+  getActivityPlan,
+  getKoreanUnit,
+  randomReviewSyllable,
+  shuffleReviewCards,
+  type ActivityDef,
+} from '../lib/korean-phonics-units';
 import { markActivityCompleted } from '../lib/progress-store';
 import { VowelListenActivity } from '../activities/VowelListenActivity';
 import { VowelWriteActivity } from '../activities/VowelWriteActivity';
@@ -10,7 +16,7 @@ import { ConsonantTapActivity } from '../activities/ConsonantTapActivity';
 import { ConsonantBlendListenActivity } from '../activities/ConsonantBlendListenActivity';
 import { ConsonantWriteActivity } from '../activities/ConsonantWriteActivity';
 import { ReviewWriteActivity } from '../activities/ReviewWriteActivity';
-import { ReviewMazeActivity } from '../activities/ReviewMazeActivity';
+import { LetterHuntActivity } from '../activities/LetterHuntActivity';
 import { ReviewFlipMatchActivity } from '../activities/ReviewFlipMatchActivity';
 import { WordListenChooseActivity } from '../activities/WordListenChooseActivity';
 import { useReviewCardSources } from '../hooks/useReviewCardSources';
@@ -57,7 +63,13 @@ export default function KoreanPhonicsActivityPage() {
   const storybook = storybookQuery.data as Storybook | undefined;
 
   // 복습 활동은 되짚는 단원들의 그림·단어가 필요하다 (early return 앞에서 호출 — 훅 순서 고정).
-  const reviewCards = useMemo(() => activity?.reviewCards ?? [], [activity]);
+  // 🔴 **섞어서** 넘긴다 — 활동들이 앞에서 4장만 쓰기 때문에 순서가 고정이면 뒤쪽 글자가 영영 안 나온다.
+  const reviewCards = useMemo(() => shuffleReviewCards(activity?.reviewCards ?? []), [activity]);
+  /** 🔴 한 번만 뽑는다 — 렌더마다 다시 뽑으면 보기가 계속 바뀌고 자동재생이 다시 울린다. */
+  const syllableChoices = useMemo(
+    () => reviewCards.map((c) => randomReviewSyllable(c)),
+    [reviewCards]
+  );
   const { sources: reviewSources, isLoading: reviewLoading } = useReviewCardSources(reviewCards);
 
   /**
@@ -223,7 +235,7 @@ export default function KoreanPhonicsActivityPage() {
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="단어 그림이 필요해요"
+          reason="낱말 그림이 필요해요"
         />
       );
     return (
@@ -253,7 +265,9 @@ export default function KoreanPhonicsActivityPage() {
     return (
       <WordListenChooseActivity
         unitId={unitId}
-        items={reviewCards.map((c) => ({ label: c.syllable, sound: c.sound }))}
+        // 🔴 보기와 음원이 **같은 글자**여야 한다 — 예전엔 보기가 `가` 인데 음원이 `ㄱ` 이었다.
+        //    음절은 매번 무작위로 만든다(자음 단원=모음 랜덤, 받침 단원=앞 음절 랜덤).
+        items={syllableChoices.map((s) => ({ label: s, sound: s }))}
         choices={REVIEW_CHOICES}
         onMarkComplete={handleMarkComplete}
         onBack={backToUnit}
@@ -270,16 +284,24 @@ export default function KoreanPhonicsActivityPage() {
     const words = reviewSources.filter((s) => s.word);
     if (words.length < 3) {
       return (
-        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="단어가 필요해요" />
+        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 필요해요" />
       );
     }
     return (
       <WordListenChooseActivity
         unitId={unitId}
+        /**
+         * 🔴 **그림을 넣지 않는다** — 넣으면 들린 낱말의 그림이 늘 정답 칸에 있어서 글자를 안 보고도
+         *    통과한다(학습 단원의 「듣고 고르기」와 같은 활동이 된다). 복습은 소리→**글자** 방향이다.
+         * 🔴 한글은 **낱말 그대로** 보기로 둘 수 있다 — 이 복습에 오기까지 `고`·`기` 를 이미 배웠으므로
+         *    `고기` 는 **읽히는 낱말**이다(2026-07-29 사용자). 예전 주석의 "못 읽는 아이에겐 네 칸이
+         *    똑같아 보인다" 는 학습 단원 얘기지 복습에는 안 맞는다.
+         *    ⚠️ 영어 Book 1 은 반대다 — 거긴 **음소**만 배운 단계라 `alligator` 가 안 읽힌다.
+         *    그래서 영어 Book 1 만 보기를 **글자(Aa)** 로 바꾼다(`EnglishPhonicsActivityPage`).
+         */
         items={words.map((s) => ({
           label: s.word,
           sound: s.word,
-          ...(s.imageUrl ? { imageUrl: s.imageUrl } : {}),
         }))}
         onJudge={judgeWord}
         choices={REVIEW_CHOICES}
@@ -303,10 +325,21 @@ export default function KoreanPhonicsActivityPage() {
       />
     );
   }
+  // 🔎 글자 사냥 — 글자만 쓰는 활동이라 단어 그림을 기다리지 않는다(자산 없는 단원에서도 돈다).
+  if (activity.kind === 'review-hunt' && reviewCards.length) {
+    return (
+      <LetterHuntActivity
+        unitId={unitId}
+        cards={reviewCards}
+        onComplete={handleComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+
   if (
     activity.kind === 'review-match' ||
     activity.kind === 'review-write' ||
-    activity.kind === 'review-maze' ||
     activity.kind === 'review-flip'
   ) {
     if (reviewLoading) {
@@ -319,29 +352,11 @@ export default function KoreanPhonicsActivityPage() {
           <ActivityUnavailable
             activity={activity}
             onBack={backToUnit}
-            reason="단어 그림이 필요해요"
+            reason="낱말 그림이 필요해요"
           />
         );
       return (
         <ReviewFlipMatchActivity
-          unitId={unitId}
-          sources={withImage}
-          onComplete={handleComplete}
-          onBack={backToUnit}
-        />
-      );
-    }
-    if (activity.kind === 'review-maze') {
-      if (!withImage.length)
-        return (
-          <ActivityUnavailable
-            activity={activity}
-            onBack={backToUnit}
-            reason="단어 그림이 필요해요"
-          />
-        );
-      return (
-        <ReviewMazeActivity
           unitId={unitId}
           sources={withImage}
           onComplete={handleComplete}
@@ -355,7 +370,7 @@ export default function KoreanPhonicsActivityPage() {
           <ActivityUnavailable
             activity={activity}
             onBack={backToUnit}
-            reason="단어 그림이 필요해요"
+            reason="낱말 그림이 필요해요"
           />
         );
       return (
@@ -373,7 +388,7 @@ export default function KoreanPhonicsActivityPage() {
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="단어 그림이 필요해요"
+          reason="낱말 그림이 필요해요"
         />
       );
     return (
@@ -435,7 +450,7 @@ export default function KoreanPhonicsActivityPage() {
     const gameData = memoGame(() => phonicsToKoreanBlockData(storybook));
     if (!gameData)
       return (
-        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="단어가 부족해요" />
+        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 부족해요" />
       );
     return gate(
       'korean-block',
@@ -447,7 +462,7 @@ export default function KoreanPhonicsActivityPage() {
     const gameData = memoGame(() => phonicsToWordWritingData(storybook));
     if (!gameData)
       return (
-        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="단어가 부족해요" />
+        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 부족해요" />
       );
     return gate(
       'korean-word-writing',
@@ -462,7 +477,7 @@ export default function KoreanPhonicsActivityPage() {
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="단어 그림이 필요해요"
+          reason="낱말 그림이 필요해요"
         />
       );
     return gate(
@@ -478,7 +493,7 @@ export default function KoreanPhonicsActivityPage() {
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="단어 그림과 점이 필요해요"
+          reason="낱말 그림과 점이 필요해요"
         />
       );
     return gate(

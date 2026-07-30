@@ -30,9 +30,15 @@ import { phonicsApi } from '@/features/phonics/api/phonics.api';
 import { shuffle } from '../../utils/shuffle';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
 import { cn } from '@/lib/cn';
+import { FirstLetterWord } from '@/features/phonics-learner/components/FirstLetterWord';
 
 interface LineMatchingPlayerProps extends GamePlayerProps {
   lang: Lang;
+  /**
+   * 글자 카드 아래 낱말의 **첫 글자만 크게**. 영어 Book 1(알파벳 배우기)처럼 글자가 목표인 화면만.
+   * 🔴 Book 2 의 패턴은 `_am` 처럼 뒤쪽이라 켜면 **틀린 곳을 가리킨다**.
+   */
+  emphasizeFirstLabel?: boolean;
 }
 
 interface MatchedPair {
@@ -45,6 +51,7 @@ function LineMatchingPlayerInner({
   onComplete,
   onBack,
   lang,
+  emphasizeFirstLabel = false,
 }: LineMatchingPlayerProps) {
   const data = gameData as KoreanLineMatchingData | EnglishLineMatchingData;
   const items = data.items;
@@ -166,6 +173,11 @@ function LineMatchingPlayerInner({
       setSelectedWordIdx(null);
       // 튜토리얼 wait 중이면 advance
       notifyMatch(matchedIdx);
+      /**
+       * 🔴 **띵동과 단어 사이에도 쉼**(2026-07-29 검수). 150ms 라 실측 간격이 **151ms** 였다 —
+       *    단일 채널이라 띵동 꼬리가 단어/글자 소리에 먹힌다. 이 프로젝트의 이음매 값은 400~450ms 다.
+       *    영어 파닉스 짝 찾기에선 그 글자 소리가 **유일한 음성 보상**이라 머리가 잘리면 남는 게 없다.
+       */
       setTimeout(() => {
         // 🔴 chain 규칙: 발음이 "끝난 뒤" 칭찬음 → 장면 리빌 — 고정 타이머는 다음절 단어 발음이
         // 잘린 채 다음 단계가 겹치는 원인.
@@ -188,7 +200,7 @@ function LineMatchingPlayerInner({
           // 단어 발음 후 칭찬음(+호리 오버레이) → 장면 리빌. (2026-07 그림짝 칭찬음 누락 수정)
           playCorrectSequence({ language: lang, onDone: showScene });
         });
-      }, 150);
+      }, 430);
     } else {
       setWrongPair({ image: selectedImageIdx, word: selectedWordIdx });
       playFeedbackSound(false);
@@ -459,21 +471,14 @@ function LineMatchingPlayerInner({
                     className={cn(imageCardClass(imageItemIdx), 'w-full h-full overflow-hidden')}
                     aria-label={t('lineMatching.imageAria')}
                   >
+                    {/* 🔴 그림 카드엔 **그림만** 둔다(2026-07-29). 낱말은 우측 글자 카드 아래로 옮겼다 —
+                        그림 밑에 「고기」가 있으면 아이가 그림을 볼 필요 없이 글자만 읽고 짝을 짓는다.
+                        자리를 통째로 그림에 주니 같은 카드에서 그림이 훨씬 커진다. */}
                     <img
                       src={imageItem.imageUrl}
                       alt=""
-                      className={cn(
-                        'w-full object-contain p-4 lg:p-6',
-                        imageItem.imageLabel ? 'h-[calc(100%-1.75rem)]' : 'h-full'
-                      )}
+                      className="w-full h-full object-contain p-2 lg:p-3"
                     />
-                    {/* 그림이 무엇인지 못 알아보면 짝을 지을 수가 없다 — 애매한 그림 대비 낱말 표기.
-                        `imageLabel` 을 넣은 호출부(파닉스 복습)에만 뜬다. */}
-                    {imageItem.imageLabel && (
-                      <span className="block h-7 leading-7 text-sm sm:text-base font-black text-ink-700 break-keep">
-                        {imageItem.imageLabel}
-                      </span>
-                    )}
                   </button>
                   {connectionDot(imageDotState(imageItemIdx), 'right')}
                 </div>
@@ -525,6 +530,18 @@ function LineMatchingPlayerInner({
                     >
                       {wordItem.word}
                     </span>
+                    {/* 🔴 낱말은 **글자 카드 아래**에(2026-07-29). 그림이 무엇인지 알려주되(오리 그림을
+                        못 알아보면 짝을 못 짓는다) 그림 옆이 아니라 글자 옆에 둬서, 답을 손에 쥐여주는
+                        대신 **글자와 낱말을 같이 보게** 한다. `imageLabel` 을 넘긴 호출부에만 뜬다. */}
+                    {wordItem.imageLabel && (
+                      <span className="mt-1 text-base sm:text-2xl font-black text-ink-500 break-keep">
+                        {emphasizeFirstLabel ? (
+                          <FirstLetterWord word={wordItem.imageLabel} />
+                        ) : (
+                          wordItem.imageLabel
+                        )}
+                      </span>
+                    )}
                   </button>
                   {connectionDot(wordDotState(wordItemIdx), 'left')}
                 </div>
