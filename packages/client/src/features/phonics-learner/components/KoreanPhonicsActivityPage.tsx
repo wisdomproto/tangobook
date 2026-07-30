@@ -14,6 +14,7 @@ import { VowelListenActivity } from '../activities/VowelListenActivity';
 import { VowelWriteActivity } from '../activities/VowelWriteActivity';
 import { ConsonantTapActivity } from '../activities/ConsonantTapActivity';
 import { ConsonantBlendListenActivity } from '../activities/ConsonantBlendListenActivity';
+import { VowelSyllablePickerActivity } from '../activities/VowelSyllablePickerActivity';
 import { ConsonantWriteActivity } from '../activities/ConsonantWriteActivity';
 import { ReviewWriteActivity } from '../activities/ReviewWriteActivity';
 import { LetterHuntActivity } from '../activities/LetterHuntActivity';
@@ -186,6 +187,23 @@ export default function KoreanPhonicsActivityPage() {
         unitId={unitId}
         vowels={activity.vowels}
         onMarkComplete={handleMarkComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+  // 복잡한 모음 음절 (한글4) — 모음 선택 → 그 모음의 자음 음절 만들기(듣기)/쓰기
+  if (
+    (activity.kind === 'vowel-blend-listen' || activity.kind === 'vowel-blend-write') &&
+    activity.vowels &&
+    activity.blendConsonants
+  ) {
+    return (
+      <VowelSyllablePickerActivity
+        unitId={unitId}
+        vowels={activity.vowels}
+        blendConsonants={activity.blendConsonants}
+        mode={activity.kind === 'vowel-blend-listen' ? 'listen' : 'write'}
+        onComplete={handleComplete}
         onBack={backToUnit}
       />
     );

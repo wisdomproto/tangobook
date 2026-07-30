@@ -16,6 +16,10 @@ interface Props {
   coda?: string;
   /** 받침 모드 — 받침을 붙일 음절의 초성 (중성은 ㅏ 고정). */
   codaOnsets?: ReadonlyArray<string>;
+  /** 모음 모드 — 학습 모음 (예: 'ㅐ'). 자음 단원과 방향만 반대([자음]+[ㅐ]→[개], 자음 순회). */
+  vowel?: string;
+  /** 모음 모드 — 앞에 붙일 자음들 (ㄱ~ㅎ). */
+  blendConsonants?: ReadonlyArray<string>;
   onComplete: () => void;
   onBack: () => void;
 }
@@ -59,14 +63,16 @@ export function ConsonantBlendListenActivity({
   blendVowels,
   coda,
   codaOnsets,
+  vowel,
+  blendConsonants,
   onComplete,
   onBack,
 }: Props) {
   const isCoda = !!coda;
 
   const pairs = useMemo(
-    () => buildBlendPairs({ consonant, blendVowels, coda, codaOnsets }),
-    [blendVowels, consonant, coda, codaOnsets]
+    () => buildBlendPairs({ consonant, blendVowels, coda, codaOnsets, vowel, blendConsonants }),
+    [blendVowels, consonant, coda, codaOnsets, vowel, blendConsonants]
   );
 
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
