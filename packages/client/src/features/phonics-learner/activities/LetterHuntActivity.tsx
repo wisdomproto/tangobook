@@ -97,6 +97,11 @@ export function LetterHuntActivity({
       const known = cardsRef.current.find((c) => c.letter === ch);
       if (known) return known.sound;
       if (/^[ㅏ-ㅣ]$/.test(ch)) return composeHangul('ㅇ', ch, null) || ch;
+      // 🔴 영어 방해꾼 낱글자(I·L…)는 **소문자로** 읽는다(2026-07-30 사용자: "안 읽어주고 효과음만").
+      //    board 엔 대문자로 깔리는데(`lookalikesOf` 가 대문자 변환) 음원 키는 소문자(`en-letter` 가
+      //    `lower` 로 만든다)라, 대문자 그대로 읽으려다 **무음**이 됐다. 그러면 버튼 탭음만 들린다.
+      //    카드에 있는 글자는 `known.sound`(이미 맞는 소리)로 빠지므로 여기 오는 건 방해꾼뿐이다.
+      if (/^[A-Za-z]$/.test(ch)) return ch.toLowerCase();
       return ch;
     },
     // cardsRef 는 ref 라 신원이 안 바뀐다 — 내용이 바뀌면 lettersKey 로 다시 만든다.
