@@ -9,6 +9,7 @@
  * 🔴 본문 자수는 여기서 센다 — 손으로 적어 두면 고칠 때마다 어긋난다.
  */
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve, join } from 'node:path';
 
@@ -16,6 +17,16 @@ const here = dirname(fileURLToPath(import.meta.url));
 const SRC = resolve(here, '../../../docs/changjak-books');
 const PUB = resolve(here, '../public');
 const only = process.argv.includes('--only') ? process.argv[process.argv.indexOf('--only') + 1] : null;
+
+// 🔴 Cloudflare 가 `.js` 만 제 규칙(4시간)으로 덮어쓴다 — 서버가 no-cache 를 보내도 소용없다.
+//    `.html`·`.json` 은 통과하므로, **html 안의 script 주소에 버전을 박아** 캐시를 비킨다.
+//    실측: core.js·prompts.js 를 고쳐 배포해도 4시간 동안 옛 화면이 떴다(붙여넣기 버그 수정이 그렇게 묻혔다).
+//    ⚠️ 그래서 core.js 를 고치면 **이 빌드를 다시 돌려야** 반영된다. 안 돌리면 옛 버전이 그대로 걸린다.
+const assetHash = (f) => {
+  const p = resolve(PUB, f);
+  return existsSync(p) ? createHash('md5').update(readFileSync(p)).digest('hex').slice(0, 8) : 'dev';
+};
+const ASSET_V = assetHash('changjak-core.js') + assetHash('changjak-prompts.js');
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 // SCENE 의 **라벨** 만 굵게 — 본문에는 마크다운을 쓰지 않는다
@@ -172,8 +183,8 @@ window.CJ_EPISODE = {
   cast: [${cast.map((c) => `'${c}'`).join(', ')}],
 };
 </script>
-<script src="/changjak-prompts.js"></script>
-<script src="/changjak-core.js"></script>
+<script src="/changjak-prompts.js?v=${ASSET_V}"></script>
+<script src="/changjak-core.js?v=${ASSET_V}"></script>
 </body>
 </html>
 `;
@@ -226,3 +237,15 @@ writeFileSync(idxPath, JSON.stringify([...fixed, ...eps], null, 2) + '\n', 'utf8
 
 console.log(`회차 ${built.length}권 → public/`);
 for (const b of built) console.log(`  ${b.id} 「${b.title}」 ${b.engine} · 본문 ${b.chars}자`);
+
+// 🔴 손으로 관리하는 페이지(기획서·후보 시트)도 같은 core.js 를 쓴다 — 버전을 같이 갈아 끼운다.
+//    안 하면 기획서만 옛 드로어를 들고 있어 「회차에선 되는데 기획서에선 안 된다」가 된다.
+for (const f of readdirSync(PUB).filter((f) => /^changjak-.*\.html$/.test(f))) {
+  const p = join(PUB, f);
+  const before = readFileSync(p, 'utf8');
+  const after = before.replace(
+    /\/(changjak-(?:core|prompts))\.js(\?v=[a-z0-9]*)?/g,
+    (_, name) => `/${name}.js?v=${ASSET_V}`
+  );
+  if (after !== before) writeFileSync(p, after);
+}
