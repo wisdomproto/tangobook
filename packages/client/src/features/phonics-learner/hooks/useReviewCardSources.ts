@@ -25,10 +25,11 @@ function partsAt(word: string, position: ReviewCard['matchPosition']): string[] 
  *  -4 첫 글자가 **같은 화면의 다른 카드**와 겹침 (ㄹ 카드에 "오리"가 붙었는데 옆에 ㅇ 카드가 있으면
  *     아이가 오리를 ㅇ에 붙이는 게 더 자연스럽다 — 정답이 두 개로 보인다)
  */
-function pickWord(
+export function pickWord(
   sb: Storybook | undefined,
   card: ReviewCard,
-  otherLetters: readonly string[]
+  otherLetters: readonly string[],
+  rand: () => number = Math.random
 ): { word: string; imageUrl: string } {
   if (!sb) return { word: '', imageUrl: '' };
   const cards = (sb.flashcards ?? []) as Array<{ word?: string; imageUrl?: string }>;
@@ -49,12 +50,12 @@ function pickWord(
     const pool = starts.length ? starts : contains.length ? contains : withImage;
     // 같은 화면의 다른 카드가 이미 쓴 낱말은 피한다 — 판에 같은 그림이 두 장 깔리면 못 고른다.
     const fresh = pool.filter((c) => !otherLetters.includes(c.word ?? ''));
-    const picked = (fresh.length ? fresh : pool)[0];
-    return { word: picked.word ?? '', imageUrl: picked.imageUrl ?? '' };
+    const picked = pickOne(fresh.length ? fresh : pool, rand);
+    return { word: picked?.word ?? '', imageUrl: picked?.imageUrl ?? '' };
   }
 
-  let best = withImage[0];
   let bestScore = -Infinity;
+  let best: typeof withImage = [];
   for (const c of withImage) {
     const word = c.word ?? '';
     const parts = partsAt(word, card.matchPosition);
@@ -65,10 +66,25 @@ function pickWord(
     if (firstCho && firstCho !== card.letter && otherLetters.includes(firstCho)) score -= 4;
     if (score > bestScore) {
       bestScore = score;
-      best = c;
+      best = [c];
+    } else if (score === bestScore) {
+      best.push(c); // 🔴 동점은 **모아 둔다** — 아래에서 무작위로 하나를 뽑는다.
     }
   }
-  return { word: best.word ?? '', imageUrl: best.imageUrl ?? '' };
+  const picked = pickOne(best, rand);
+  return { word: picked?.word ?? '', imageUrl: picked?.imageUrl ?? '' };
+}
+
+/**
+ * 🔴 **동점 후보 중 무작위**(2026-07-30 사용자: "단어들도 랜덤으로 나오는 거 맞지? 고정된 4개 같기도").
+ *
+ * 예전엔 최고점 하나를 `score > bestScore` 로 뽑아서, 동점이면 **늘 앞엣것**이 이겼다. ㄱ 단원처럼
+ * 타겟 낱말 넷이 다 ㄱ 으로 시작하면 넷 다 +3 동점인데 **매번 같은 하나만** 나왔고, 복습에 몇 번을
+ * 들어가도 판이 늘 같은 낱말 4개였다. 점수는 "이 낱말이 그 글자를 보여주는가"를 거르는 자격 요건이지
+ * 순위가 아니다 — 자격을 갖춘 것들 중엔 아무거나 좋다.
+ */
+function pickOne<T>(arr: readonly T[], rand: () => number): T | undefined {
+  return arr.length ? arr[Math.floor(rand() * arr.length)] : undefined;
 }
 
 export function useReviewCardSources(cards: ReadonlyArray<ReviewCard>): {
