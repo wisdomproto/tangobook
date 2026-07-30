@@ -42,6 +42,22 @@
     "pages": 11
   },
   {
+    "file": "changjak-c02.html",
+    "label": "C-02 📗 관찰과 성장",
+    "title": "소가 아는 길",
+    "engine": "관찰과 성장",
+    "stage": "알프스 목초지 (해 질 녘 비탈)",
+    "pages": 12
+  },
+  {
+    "file": "changjak-c23.html",
+    "label": "C-23 📗 옛이야기 비틀기",
+    "title": "이번엔 안 잘게",
+    "engine": "옛이야기 비틀기",
+    "stage": "토스카나 언덕 (꼭대기까지 이어진 흙길)",
+    "pages": 14
+  },
+  {
     "file": "changjak-c37.html",
     "label": "C-37 📗 오해와 반전",
     "title": "누가 웅덩이를 비웠지?",
