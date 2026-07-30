@@ -94,7 +94,7 @@ export default function EnglishPhonicsUnitPage({ embedded = false }: { embedded?
           {playActivities.length > 0 && (
             <ActivitySection
               unitId={unitId}
-              /* 🔴 복습 단원은 **그 묶음 이름**(`A~F Review`)을 쓴다 — 게임 패널이 화면의 유일한
+              /* 🔴 복습 단원은 **그 묶음 이름**(`A~F 복습`)을 쓴다 — 게임 패널이 화면의 유일한
                  글자라 「게임하기」로 두면 무엇을 되짚는 자리인지 알 수 없다(한글과 같은 규칙).
                  `isReview` 는 영어 데이터에도 진작 있었는데 화면이 안 쓰고 있었다. */
               title={unit.isReview ? unit.unitTitle : '게임하기'}

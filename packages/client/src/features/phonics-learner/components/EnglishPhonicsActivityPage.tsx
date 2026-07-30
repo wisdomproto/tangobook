@@ -276,6 +276,9 @@ export default function EnglishPhonicsActivityPage() {
              *    다 똑같아 보이지만, 글자는 다르다).
              */
             ...(!isBook1 && s.imageUrl ? { imageUrl: s.imageUrl } : {}),
+            // 🔴 **맞힌 뒤에** 열리는 그림은 별개다 — 판정이 끝난 뒤라 고르는 근거가 되지 않는다.
+            //    Book 1 도 여기선 그림을 준다(글자를 고른 뒤 "그게 alligator 였구나"를 본다).
+            revealImageUrl: s.imageUrl,
           }))}
           choices={REVIEW_CHOICES}
           onMarkComplete={handleMarkComplete}

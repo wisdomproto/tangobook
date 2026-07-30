@@ -91,8 +91,8 @@ export function getAllEnglishUnits(): EnglishUnitSummary[] {
           // 한글과 같은 이유로 번호가 아니라 되짚는 글자 범위 (`Review 1` 은 무엇을 되짚는지 안 알려준다).
           unitTitle:
             letters.length > 1
-              ? `${letters[0]}~${letters[letters.length - 1]} Review`
-              : `${letters[0] ?? ''} Review`.trim(),
+              ? `${letters[0]}~${letters[letters.length - 1]} 복습`
+              : `${letters[0] ?? ''} 복습`.trim(),
           phonemes: letters,
           targetWords: group.flatMap((u) => u.targetWords),
           isReview: true,
@@ -409,7 +409,7 @@ function makeEnglishReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
         key: 'review-match',
         order: 4,
         kind: 'review-match',
-        title: '짝 찾기',
+        title: '그림 짝 찾기',
         emoji: '🔗',
         ...shared,
       },

@@ -302,6 +302,8 @@ export default function KoreanPhonicsActivityPage() {
         items={words.map((s) => ({
           label: s.word,
           sound: s.word,
+          // 🔴 보기가 아니라 **맞힌 뒤에** 열리는 그림이다 — 고르는 근거는 여전히 소리↔글자다.
+          revealImageUrl: s.imageUrl,
         }))}
         onJudge={judgeWord}
         choices={REVIEW_CHOICES}

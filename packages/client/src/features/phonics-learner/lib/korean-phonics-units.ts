@@ -626,9 +626,10 @@ function toReviewCard(u: KoreanUnitSummary): ReviewCard | null {
  *       포장만 담당했다. 형식이 다르기만 하면 된다는 게 아니라, 매 탭이 판단이어야 한다.
  * ② 뒤집기 짝 맞추기 — 기억해서 맞추기
  * ③ 듣고 음절 맞추기 — 음절 소리를 듣고 글자 4개 중 고르기
- * ④ 짝 찾기 — 글자 ↔ 그 글자로 배운 단어 그림
- * ⑤ 듣고 단어 맞추기 — 단어 소리를 듣고 낱말 4개 중 고르기
- * ⑥ 글자 쓰기 — 그림을 보고 첫 글자 쓰기
+ * ④ 그림 짝 찾기 — 글자 ↔ 그 글자로 배운 낱말 그림
+ * ⑤ 듣고 낱말 맞추기 — 낱말 소리를 듣고 낱말 4개 중 고르기
+ * ⑥ 낱말 쓰기 — 그림을 보고 **낱말 전체를 한 글자씩** (2026-07-27 부터. 예전엔 첫 글자 하나였고
+ *    그림이 `고기` 인데 쓰는 건 `ㄱ` 이라 그림과 손이 따로 놀았다)
  *
  * 🔴 **듣기 둘을 붙여 놓지 않는다** — 같은 화면(🔊 + 보기 4개)이라 연달아 나오면 한 활동을
  * 두 번 하는 걸로 느낀다. 눈으로 보는 활동 사이에 하나씩 끼운다.
@@ -665,7 +666,7 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
         key: 'review-match',
         order: 4,
         kind: 'review-match',
-        title: '짝 찾기',
+        title: '그림 짝 찾기',
         emoji: '🔗',
         ...shared,
       },
@@ -681,7 +682,7 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
         key: 'review-write',
         order: 6,
         kind: 'review-write',
-        title: '글자 쓰기',
+        title: '낱말 쓰기',
         emoji: '✏️',
         ...shared,
       },
