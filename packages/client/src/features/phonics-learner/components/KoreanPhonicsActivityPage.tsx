@@ -39,6 +39,17 @@ import type { Storybook } from '@tangobook/shared';
 const REVIEW_CHOICES = 4;
 
 /**
+ * 복습 짝 찾기의 **쌍 수**.
+ *
+ * 🔴 복습 묶음은 4장이 아닐 수 있다 — `chunkForReview` 가 꼬리 ≤2 를 앞 묶음에 합쳐서
+ *    한글1 자음 14개가 **4·4·6** 으로 갈린다. 다른 복습 활동은 전부 앞에서 4장만 쓰는데
+ *    짝 찾기만 안 잘라서 「ㅈ~ㅎ 복습」이 **6쌍(12칸)** 으로 떴다(사용자 지적). 4~7세 한 화면에
+ *    12칸은 스크롤 없이 안 들어오고, 같은 복습인데 활동마다 분량이 달라 보인다.
+ * 🔴 카드는 진입할 때 이미 섞여 있으므로(`shuffleReviewCards`) **어느 넷이 뽑히는지는 판마다 다르다**.
+ */
+const REVIEW_PAIRS = 4;
+
+/**
  * /library/phonics/korean/:unitId/:activityKey — 액티비티 호스트.
  *
  * activity.kind 에 따라 알맞은 컴포넌트 마운트.
@@ -430,7 +441,7 @@ export default function KoreanPhonicsActivityPage() {
            * 🔴 글자 활동이 사라지는 게 아니다 — 같은 복습의 **글자 사냥**(모양)·**듣고 음절**(소리)이
            *    음소를 맡는다. 활동마다 겨루는 층이 다른 것이 이 복습의 구성이다.
            */
-          items: withImage.map((s) => ({
+          items: withImage.slice(0, REVIEW_PAIRS).map((s) => ({
             word: s.word,
             imageUrl: s.imageUrl,
           })),
