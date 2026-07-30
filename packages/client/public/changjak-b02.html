@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>B-02 계단 아래 작은 문 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · B · 상상·변신 · 02</div>
+  <h1>계단 아래 작은 문</h1>
+  <div class="sub">문 앞에 놓아둔 것이 밤새 다른 것으로 바뀌어요. 저 안에는 누가 살까요?</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 교환·연쇄</span>
+  <span>무대 · 런던 계단집의 계단 밑 (좁은 삼각 공간 · 낮은 쪽 벽에 손바닥만 한 나무 문 · 계단 널 틈으로 빛 한 줄이 문 앞 바닥에 떨어진다 · 위층에서 사람 발소리만 울린다)</span>
+  <span class="q">12스프레드</span>
+  <span class="q">본문 667자 · 쪽당 56자</span>
+</div>
+
+<div class="note">
+- 🔴 <b>사슬을 만들지 않았다.</b> 교환은 열두 쪽 내내 <b>문 앞 바닥 한 자리</b>에서만 일어난다 — 강아지가 놓은 것 ↔ 아침에 놓여 있는 것. A가 B에게, B가 C에게 가는 추적이 없으니 아이가 머리로 좇을 것이 없다. 쌓이는 것은 사슬이 아니라 <b>보물 상자가 비어 가는 것</b>이고, 그건 쪽마다 상자 안이 줄어드는 그림으로 보인다.<br>
+- 🔴 <b>판타지 규칙이 없다.</b> 저 안에 사는 것은 요정도 마법도 아니고 <b>아주 작은 이웃</b>이다. 소원도, 주문도, 「밤에만 열린다」 같은 조건도 없다. 밤에 나오는 것은 위층 발소리가 멎기 때문이고, 그건 아이가 제 집에서 이미 겪는 일이다. 🔴 외울 설정이 하나도 없다.<br>
+- 🔴 <b>저쪽의 살림이 물건에 묻어 있다.</b> 실패엔 <b>실밥</b>, 빵 조각엔 <b>부스러기</b>, 의자엔 <b>톱밥</b>, 잼 그릇 가장자리엔 <b>물기</b>. 강아지는 안을 한 번도 못 보지만 물건만 보고 「저 안에서 바느질을 하나 봐」라고 말한다 — 🔴 짐작을 강아지가 <b>말로 해 준다</b>(추론으로 남기지 않는다).<br>
+- 🔴 <b>크기가 이 책의 재미다.</b> 규칙은 열두 쪽 고정 — <b>문의 높이 = 강아지 앞발 길이</b>. 딸기 한 알은 문을 반쯤 가리고, 실패·빵·의자·그릇은 강아지 발톱만 하고, 생쥐는 문보다 조금 작다. 🔴 <b>크기 문구는 두 것이 한 화면에 있는 쪽에만</b> 넣었고, 비교되는 둘은 <b>반드시 같은 깊이</b>에 둔다. 원근이 뒤집히면 이 책은 통째로 무너진다.<br>
+- 🔴 <b>첫 회(p3)는 놓는 행위를 그린다</b> — 빨간 단추가 앞발에서 떨어져 바닥에 닿는 그 순간. 두 번째(p6)·세 번째(p8)는 놓인 뒤의 상태로 압축했다(딸기가 문 앞에 서 있다 · 구슬이 굴러가 멈췄다). 첫 회를 결과로 그리면 아이는 「놓는 것」을 한 번도 못 본다.<br>
+- 🔴 <b>빛 한 줄이 이 무대의 시계다.</b> 계단 널 틈으로 든 빛줄기가 문 앞 바닥에 눕는 때가 아침이고, 그 줄이 없으면 저녁이다. 놓는 자리도 그 줄 위라 <b>저녁 쪽과 아침 쪽이 그림만으로 갈린다</b> — 시간을 글로 설명하지 않아도 된다.<br>
+- 🔴 <b>빨간 단추가 돌아온다.</b> p2 에서 문손잡이가 좁쌀만 해 강아지가 잡지 못했고, p3 에서 준 단추가 p12 에 <b>문손잡이가 되어</b> 달려 있다. 준 것이 저쪽 살림에 쓰이고 있다는 게 말 없이 보인다. 화면의 빨강은 쪽마다 하나뿐이라 눈이 저절로 따라간다.<br>
+- 🔴 <b>착지 카드 = 먼저 놓기.</b> 열 쪽 동안 먼저 놓는 쪽은 언제나 강아지였다. p11 에서 강아지는 줄 것이 하나도 없는데 문 앞에 벌써 그릇이 놓여 있다 — 「오늘은 저쪽이 먼저 놓았어요」 한 줄이 전부고, 교훈 문장은 없다.<br>
+- 🔴 <b>열두 쪽.</b> 놓기 셋(p3·p6·p8)과 아침 셋(p4·p7·p9)이 짝으로 고정이라 하나를 빼면 「바뀌어 돌아온다」가 안 서고, 하나를 더하면 같은 리듬이 네 번째로 돌아온다. 앞에 둘(발견·두드림), 뒤에 넷(빈손·먼저 놓임·문 열림). p5 는 첫 물건만 앞발에 올려 자세히 보는 쪽이라 첫 회에만 있다.<br>
+- 🔴 <b>의인화 등급 = 강아지는 사족</b>(물건을 집을 때만 앞발을 쓰고 앉는다) · <b>생쥐는 이족 · 앞발이 손 · 작은 앞치마 하나</b>, 고정. 사람은 위층 발소리로만 있고 화면에 안 나온다. 🔴 <b>글자·숫자 요소 없음</b> — 계단집은 신문·액자·벽지 무늬가 붙기 쉬운 무대라 쪽마다 못박았다.<br>
+- 컷 관통 줄 제안(art-director 소관) — <code>DOOR:</code>(문 높이 = 강아지 앞발 길이) · <code>LIGHT:</code>(빛줄이 문 앞에 있나 없나 = 아침이냐 저녁이냐) · <code>BOX:</code>(보물 상자에 남은 것)
+</div>
+
+<div class="pg">
+  <div class="ko"><span class="n">p1 · 본문</span>강아지가 계단 밑으로 살금살금 기어 들어갔어요.
+보물 상자를 숨겨 두는 자리거든요.
+그런데 벽에 작은 문이 있어요!
+"어? 이게 언제부터 있었지?"</div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 미디엄 와이드 · 로우 앵글(바닥에 붙은 높이) · 화면 오른쪽에 배를 붙이고 기어든 강아지, 왼쪽 낮은 벽에 작은 문
+<b>장소·시간</b> 런던 집 현관 옆, 계단 밑의 좁은 삼각 공간 — 위로 계단 널이 비스듬히 내려오고 안쪽으로 갈수록 천장이 낮아진다, 낮은 쪽 벽 아래에 <b>작은 나무 문 하나</b>, 바닥은 닳은 마룻널이다. <b>이 자리와 구조는 열두 쪽 내내 같다.</b> 해가 진 뒤의 저녁
+<b>인물</b> 화면 오른쪽 — 새끼 강아지가 배를 마룻바닥에 붙이고 앞발로 기어 들어온 자세다, 뒷다리가 아직 밖에 있고 등이 계단 널 아래에 눌려 납작하다, 곱슬한 귀가 바닥에 끌리고 눈이 동그랗게 커졌으며 입이 조금 벌어졌다, 한쪽 앞발로 낡은 나무 상자를 끌어안고 있다. 사족 · 옷 없음
+<b>배경·소품</b> 🔴 <b>작은 나무 문 — 높이가 강아지 앞발 길이와 똑같다</b>(둘이 같은 깊이에 있어 여기서 크기가 견줘진다), 널판 세 장을 이어 붙였고 아래쪽에 손가락만 한 틈이 있다. 문 옆으로 좁쌀만 한 놋빛 손잡이. 강아지가 안은 나무 상자 안에 빨간 단추 하나·새빨간 딸기 한 알·파란 구슬 하나가 담겼다. 구석에 먼지 뭉치와 낡은 빗자루, 벽에 박힌 못 하나. 🔴 <b>계단 널 틈으로 드는 빛줄기가 없다</b>(저녁이다) — 위층 램프 불빛만 틈으로 가늘게 새어 든다. 🔴 글자·숫자·신문·액자·벽지 무늬 요소 없음
+<b>톤</b> 안쪽으로 갈수록 어두워지는 좁은 공간, 위에서 가늘게 새어 든 빛이 문 위쪽 널만 겨우 스친다. 화면에서 가장 밝은 데가 그 문이 되도록 — 기어 들어온 눈이 곧장 거기 닿는다. 숨어드는 재미와 처음 보는 것의 놀람</div>
+</div>
+
+<div class="pg">
+  <div class="ko"><span class="n">p2 · 본문</span>문은 강아지 앞발만 해요.
+손잡이는 좁쌀만큼 작아요.
+"안녕? 안에 누구 있어요?"
+톡, 톡, 톡. 아무 소리도 안 나요.</div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 · 화면 왼쪽에 문 전체, 오른쪽에서 뻗어 온 강아지의 앞발과 코끝
+<b>장소·시간</b> 같은 계단 밑, 문 바로 앞. 같은 저녁
+<b>인물</b> 화면 오른쪽 — 강아지가 엎드린 채 앞발 하나를 문에 대고 발끝으로 두드리는 중이다, 다른 앞발은 바닥을 짚었고 코끝이 문에 거의 닿을 만큼 가까이 왔다, 귀 하나가 문 쪽으로 쫑긋 쏠리고 눈썹 위에 주름이 잡혔다(소리를 기다리는 얼굴). 사족 · 옷 없음
+<b>배경·소품</b> 🔴 <b>강아지 앞발과 문이 나란히 같은 깊이에 있고, 문 높이와 앞발 길이가 똑같다</b> — 이 쪽에서 크기가 확정된다. 🔴 <b>손잡이는 앞발 발톱 하나보다도 작은 좁쌀만 한 놋 알갱이</b>라 강아지 발가락이 걸리지 않는다. 문틀에 오래된 페인트가 갈라져 있고 문 아래 틈으로 안쪽 어둠이 보인다, 문짝에 강아지 콧김이 서린 자국. 옆에 내려놓은 나무 상자, 바닥 마룻널의 결. 🔴 빛줄기 없음(저녁). 🔴 글자·숫자 요소 없음
+<b>톤</b> 문과 앞발만 또렷하고 둘레는 어둠으로 물러난다. 두드리는 소리가 안으로 안 들어가는 답답함이 좁은 화면으로 읽히도록 — 문 안쪽 틈만 유난히 깊고 캄캄하게</div>
+</div>
+
+<div class="pg">
+  <div class="ko"><span class="n">p3 · 본문</span>상자에 든 빨간 단추가 제일 반짝여요.
+강아지가 문 앞에 톡 내려놓았어요.
+"이거 줄게. 내일 또 올게!"
+계단 위에서 쿵쿵 발소리가 울렸어요.</div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 클로즈업 · 하이 앵글(위에서 바닥을 곧게 내려다본다) · 화면 가운데 바닥에 막 닿는 단추와 그 위에 벌어진 앞발
+<b>장소·시간</b> 같은 계단 밑, 문 앞 바닥. 같은 저녁
+<b>인물</b> 화면 가운데 위 — 🔴 <b>강아지의 앞발 하나만</b> 프레임에 크게 든다, 발가락을 벌려 단추를 막 놓아 보내는 중이라 단추 아래가 마룻널에 닿았고 발바닥 볼록살이 아직 단추 위에 반쯤 걸려 있다, 화면 가장자리에 강아지 코끝과 벌어진 입이 걸린다. 사족(물건을 놓을 때만 앞발을 쓴다)
+<b>배경·소품</b> 🔴 <b>빨간 단추 하나</b> — 구멍 넷이 뚫린 납작한 단추다, 🔴 문 바로 앞 바닥에 놓이는데 <b>문의 좁쌀만 한 손잡이보다는 크고 문짝보다는 훨씬 작다</b>(둘이 한 화면에 같은 깊이로 있다). 옆에 뚜껑 열린 나무 상자, 🔴 <b>상자 안에는 딸기 한 알과 파란 구슬 둘만 남았다</b>. 마룻널 사이 먼지, 문 아래 틈. 🔴 빛줄기 없음(저녁) — 위층 램프빛만 비스듬히. 🔴 글자·숫자 요소 없음
+<b>톤</b> 위에서 곧게 내려다본 각도라 손과 단추와 문턱만 남고 배경이 사라진다. 화면에서 가장 진한 색이 방금 놓인 그것이 되도록. 계단 위 발소리가 울려 나무가 아주 조금 떨리는 밤의 기운</div>
+</div>
+
+<div class="pg">
+  <div class="ko"><span class="n">p4 · 본문</span>아침이 되자 계단 틈으로 빛이 쪼르르 들어왔어요.
+어? 단추가 없어졌어요.
+그 자리에 작은 실패가 놓여 있어요.
+"우아! 바뀌었어!"</div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 · 로우 앵글 · 화면 왼쪽에 문과 그 앞 빛줄 위의 실패, 오른쪽에 계단 밑으로 머리를 들이민 강아지
+<b>장소·시간</b> 같은 계단 밑, 문 앞. 이른 아침
+<b>인물</b> 화면 오른쪽 — 강아지가 계단 밑으로 머리와 앞발만 들이밀었다, 목을 길게 빼고 눈이 아주 크게 벌어졌으며 귀가 위로 번쩍 섰다, 입이 벌어지고 꼬리가 계단 밖에서 위로 곧게 섰다, 앞발 하나가 바닥을 짚은 채 멈췄다. 사족 · 옷 없음
+<b>배경·소품</b> 🔴 <b>계단 널 사이 틈으로 빛줄기 한 줄이 비스듬히 내려와 문 앞 바닥에 길게 눕는다</b>(아침의 표지다). 🔴 그 빛줄 위, 어제 단추를 놓았던 <b>그 자리에 작은 나무 실패가 놓였다</b> — 실이 칭칭 감겼고 끝이 매듭져 있다, 빨간 단추는 어디에도 없다. 실패 크기는 강아지 발톱만 하다(강아지 앞발이 같은 화면 안 같은 깊이에 있다). 문은 닫혔고 아래 틈은 그대로다. 옆에 뚜껑 열린 나무 상자(딸기와 구슬 둘). 공중에 먼지가 반짝이며 떠 있다. 🔴 글자·숫자 요소 없음
+<b>톤</b> 어두운 계단 밑을 가로지른 빛 한 줄이 화면을 대각으로 자르고, 그 줄 위에 놓인 것만 밝게 뜬다. 🔴 어제 그 자리인데 놓인 것이 다르다는 게 한눈에 읽히도록 — 빛줄 바깥은 전부 어둠으로 눌러 둔다. 자다 깨어 달려온 아침의 들뜸</div>
+</div>
+
+<div class="pg">
+  <div class="ko"><span class="n">p5 · 본문</span>강아지가 실패를 앞발에 살짝 올려놓았어요.
+발톱만큼 작아요.
+실밥이 몇 가닥 묻어 있어요.
+"저 안에서 바느질을 하나 봐!"</div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 익스트림 클로즈업 · 아이레벨 · 화면 가득 강아지의 앞발 하나와 그 위에 놓인 실패, 위쪽 가장자리에 코와 한쪽 눈
+<b>장소·시간</b> 같은 계단 밑, 문 앞 빛줄 안. 같은 아침
+<b>인물</b> 화면 아래 — 강아지가 앞발을 뒤집어 볼록살이 위로 오게 펴 들었다, 그 위에 실패를 올려놓고 발가락을 오므려 굴러떨어지지 않게 받쳤다, 화면 위 가장자리에 코끝이 실패 쪽으로 내려오고 한쪽 눈이 아주 크게 뜨였다, 콧구멍이 벌름거린다. 사족(앞발을 쓸 때만 앉는다)
+<b>배경·소품</b> 🔴 <b>실패가 강아지 발톱 하나만 하다</b> — 앞발과 실패가 한 화면 같은 깊이에 있어 여기서 크기가 견줘진다. 🔴 감긴 실 사이에 <b>짧은 실밥 몇 가닥</b>이 삐져나와 볼록살에 들러붙었고, 실패 나무결에 바늘 자국 같은 작은 흠이 나 있다. 아래로 마룻널과 빛줄, 뒤쪽에 흐릿하게 닫힌 문. 🔴 글자·숫자 요소 없음
+<b>톤</b> 발바닥 볼록살의 결까지 보일 만큼 가까이, 배경은 통째로 풀어 놓는다. 들러붙은 실밥 한 가닥에 초점이 맺히도록 — 저쪽 집의 살림이 그 한 가닥에 다 있다. 코앞까지 들여다보는 골똘함</div>
+</div>
+
+<div class="pg">
+  <div class="ko"><span class="n">p6 · 본문</span>저녁에 강아지가 딸기 한 알을 놓았어요.
+딸기가 문을 반이나 가려요!
+"이건 제일 맛있는 거야."
+문 안은 조용조용했어요.</div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨 · 화면 왼쪽에 문, 그 앞에 세워 놓인 딸기 한 알, 오른쪽에 앉은 강아지
+<b>장소·시간</b> 같은 계단 밑, 문 앞. 저녁
+<b>인물</b> 화면 오른쪽 — 강아지가 뒷다리를 접고 앉아 두 앞발을 바닥에 나란히 짚었다, 고개를 옆으로 갸웃 기울여 놓아 둔 딸기를 바라보고 눈이 반달로 휘었으며 혀끝이 조금 나왔다(제 딴에 아까운 걸 준 얼굴), 꼬리가 바닥을 느리게 쓴다. 사족 · 옷 없음
+<b>배경·소품</b> 🔴 <b>새빨간 딸기 한 알이 꼭지를 위로 하고 문 앞에 서 있고, 문의 아래 절반을 가린다</b> — 딸기와 문이 같은 깊이에 나란히 있어 크기가 그림으로 읽힌다. 딸기 표면에 씨앗 자국이 오돌토돌하고 물기가 한 방울 맺혔다. 🔴 옆에 뚜껑 열린 나무 상자, <b>안에는 파란 구슬 하나만 남았다</b>. 문은 꼭 닫혔고 아래 틈은 캄캄하다. 🔴 빛줄기 없음(저녁). 🔴 글자·숫자 요소 없음
+<b>톤</b> 문 앞만 낮게 밝고 나머지는 어둠에 잠긴다. 놓인 것이 문에 비해 크다는 것이 실루엣만으로 보이도록 — 문짝 윤곽과 딸기 윤곽이 겹치는 자리를 또렷하게. 아까운 걸 주고 나서 뿌듯한 기분</div>
+</div>
+
+<div class="pg">
+  <div class="ko"><span class="n">p7 · 본문</span>딸기가 없어지고 빵 한 조각이 놓여 있어요!
+강아지가 코를 대고 킁킁 맡았어요.
+"빵 냄새다!"
+"아직 따끈따끈해!"</div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 · 화면 가운데 빛줄 위의 빵 조각, 오른쪽에서 내려온 강아지의 커다란 코
+<b>장소·시간</b> 같은 계단 밑, 문 앞 빛줄 안. 아침
+<b>인물</b> 화면 오른쪽 — 강아지의 코와 입 언저리가 프레임 안으로 크게 들어와 빵 조각 바로 위에서 멈췄다, 콧구멍이 크게 벌어지고 콧등에 주름이 잡혔으며 한쪽 눈만 화면 가장자리에 걸려 아래를 내려다본다, 앞발 하나가 빵 옆 바닥을 짚었다. 사족 · 옷 없음
+<b>배경·소품</b> 🔴 <b>아주 작은 빵 한 조각</b> — 강아지 발톱만 하고, 겉이 노릇하게 부풀었으며 아직 김이 실오라기처럼 한 줄 오른다. 🔴 <b>빵 둘레 바닥에 부스러기가 흩어져 있다</b> — 여기까지 끌고 온 자국이 부스러기 줄로 문 앞까지 이어진다. 딸기는 어디에도 없다. 🔴 계단 틈 빛줄기가 빵 위로 곧게 떨어진다(아침). 문은 닫혔고, 옆에 뚜껑 열린 빈 나무 상자. 🔴 글자·숫자 요소 없음
+<b>톤</b> 코와 빵 사이의 좁은 거리에 초점을 몰아 두고, 오르는 김 한 줄에 빛이 걸리게 한다. 🔴 냄새가 그림에 있어야 한다 — 김·부스러기·벌름거리는 콧구멍 셋으로. 갓 구운 것 앞의 조급함</div>
+</div>
+
+<div class="pg">
+  <div class="ko"><span class="n">p8 · 본문</span>상자에 파란 구슬 하나가 남았어요.
+제일 아끼는 거라 조금 망설였어요.
+"음… 그래도 줄래!"
+구슬이 데굴, 문 앞에 멈췄어요.</div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 · 하이 앵글 · 화면 아래에 굴러가 멈춘 구슬과 문, 위쪽에 앞발을 뻗은 채 엎드린 강아지
+<b>장소·시간</b> 같은 계단 밑, 문 앞 바닥. 저녁
+<b>인물</b> 화면 위 — 강아지가 배를 바닥에 붙이고 엎드려 앞발 하나를 앞으로 길게 뻗었다, 방금 밀어 보낸 자세라 발가락이 아직 벌어져 있고 시선이 구슬을 따라간다, 귀가 앞으로 쏠리고 눈꼬리가 조금 내려갔으며 입이 다물렸다(아까워하는 얼굴). 사족 · 옷 없음
+<b>배경·소품</b> 🔴 <b>파란 구슬이 문 앞 바닥에서 막 멈췄다</b> — 굴러온 자리에 먼지가 얇게 밀려 짧은 줄을 남겼다, 구슬은 문의 좁쌀만 한 손잡이보다 크고 문짝보다는 훨씬 작다(구슬과 문이 같은 깊이에 나란히 있다). 구슬 속에 실 같은 무늬가 들었고 겉면에 램프빛이 한 점 맺힌다. 🔴 옆에 <b>뚜껑이 열린 채 텅 빈 나무 상자</b>, 안쪽 바닥까지 훤히 보인다. 문은 닫혔고, 🔴 빛줄기 없음(저녁). 🔴 글자·숫자 요소 없음
+<b>톤</b> 바닥을 훑는 낮은 각도라 굴러간 거리가 길게 보인다. 화면에서 유일하게 빛을 물고 반짝이는 것이 방금 내준 그것이 되도록. 아까움과 그래도 주고 싶은 마음이 같이 있는 정지</div>
+</div>
+
+<div class="pg">
+  <div class="ko"><span class="n">p9 · 본문</span>이번엔 아주 작은 나무 의자예요!
+톱밥이 뽀얗게 묻어 있어요.
+"이런 의자는 처음 봐!"
+문 아래로 그림자가 스윽 지나갔어요.</div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 · 화면 가운데 앞발 위의 작은 의자, 왼쪽에 문과 그 아래 틈
+<b>장소·시간</b> 같은 계단 밑, 문 앞 빛줄 안. 아침
+<b>인물</b> 화면 오른쪽 — 강아지가 앞발을 펴서 의자를 올려놓고 눈높이까지 들어 올렸다, 다른 앞발로 바닥을 짚어 몸을 기울였고 고개가 옆으로 갸웃하다, 눈이 크게 뜨이고 입꼬리가 올라갔으며 귀 하나가 문 쪽으로 쏠렸다. 사족(앞발을 쓸 때만 앉는다)
+<b>배경·소품</b> 🔴 <b>아주 작은 나무 의자</b> — 등받이에 잎 모양이 파였고 다리 넷이 반듯하다, 강아지 발톱만 해서 볼록살 하나에 통째로 얹힌다(앞발과 의자가 같은 깊이에 있다). 🔴 의자 다리 아래쪽과 볼록살에 <b>뽀얀 톱밥이 묻었고</b>, 바닥 빛줄 위에도 톱밥이 조금 떨어져 있다. 파란 구슬은 없다. 🔴 화면 왼쪽 <b>문 아래 손가락만 한 틈으로 작은 그림자가 지나가는 중이다</b>(발 모양은 안 보이고 어둠이 한 번 움직인다), 안에서 딸깍 소리가 난 듯 문짝이 아주 조금 흔들린다. 옆에 텅 빈 나무 상자. 🔴 글자·숫자 요소 없음
+<b>톤</b> 앞발 위 의자에 초점이 맺히고 왼쪽 문 아래 틈은 살짝 흐리게 — 🔴 아이가 손안의 것을 보다가 <b>틈에서 움직인 어둠</b>을 뒤늦게 알아채도록 시선을 오른쪽에서 왼쪽으로 흘린다. 다음 쪽으로 넘기고 싶어지는 술렁임</div>
+</div>
+
+<div class="pg">
+  <div class="ko"><span class="n">p10 · 본문</span>강아지가 상자를 거꾸로 탈탈 털었어요.
+아무것도 안 나와요.
+"오늘은 줄 게 하나도 없는데…"
+강아지 귀가 축 처졌어요.</div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 오른쪽에 상자를 뒤집어 든 강아지, 왼쪽 뒤에 닫힌 문
+<b>장소·시간</b> 같은 계단 밑, 문 앞. 저녁
+<b>인물</b> 화면 오른쪽 — 강아지가 뒷다리로 앉아 두 앞발로 나무 상자를 거꾸로 들고 흔든다, 상자 입이 바닥을 향했고 몸이 흔드는 쪽으로 기울었다, 귀 두 개가 옆으로 축 내려앉고 눈썹이 팔자로 모였으며 입꼬리가 내려갔다, 꼬리가 바닥에 힘없이 누웠다. 사족(앞발을 쓸 때만 앉는다)
+<b>배경·소품</b> 🔴 <b>뒤집힌 상자에서 먼지 몇 알갱이만 떨어진다</b> — 안쪽 바닥이 훤히 비었다. 문 앞 바닥은 아무것도 없이 말끔하다(놓인 것이 없는 유일한 쪽이다). 상자 옆에 그동안 받은 것 셋이 나란히 놓였다 — 실패, 빵 부스러기가 남은 접시 자국, 작은 나무 의자. 문은 꼭 닫혔고 아래 틈은 캄캄하다. 🔴 빛줄기 없음(저녁). 🔴 글자·숫자 요소 없음
+<b>톤</b> 화면 오른쪽은 인물로 차 있고 왼쪽 문 앞이 텅 비었다 — 🔴 <b>비어 있는 그 자리가 이 쪽의 주인공</b>이 되도록. 램프빛이 위에서 얕게 들어 그림자가 아래로 처진다. 미안한 마음이 몸 전체로 내려앉은 정지</div>
+</div>
+
+<div class="pg">
+  <div class="ko"><span class="n">p11 · 본문</span>그런데 문 앞에 벌써 뭐가 놓여 있어요!
+작은 그릇에 새빨간 딸기잼이 가득해요.
+"어, 이거 내 딸기다!"
+오늘은 저쪽이 먼저 놓았어요.</div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 클로즈업 · 하이 앵글(위에서 문 앞 바닥을 곧게 내려다본다) · 화면 가운데 빛줄 위의 잼 그릇, 위 가장자리에 멈춘 강아지의 두 앞발과 코끝 (문은 아래쪽 문턱만 걸린다)
+<b>장소·시간</b> 같은 계단 밑, 문 앞 바닥. 아침
+<b>인물</b> 화면 위 가장자리 — 강아지의 두 앞발이 바닥을 짚은 채 딱 멈췄고 코끝이 그릇 위로 내려오다 멎었다, 발가락이 살짝 벌어져 힘이 빠졌고(빈손으로 온 발이다) 화면에 걸린 한쪽 눈이 아주 크게 뜨였다. 사족 · 옷 없음
+<b>배경·소품</b> 🔴 <b>작은 나무 그릇에 새빨간 딸기잼이 가득 담겼다</b> — 그릇은 강아지 발톱만 하고 나뭇결이 곱게 깎였다. 🔴 <b>그릇 옆 바닥에 잼이 한 방울 떨어져 있고, 그릇 가장자리가 아직 젖어 반짝인다</b>(방금 씻어 담아 내놓은 것이다). 🔴 강아지 쪽 바닥에는 <b>놓인 것이 하나도 없다</b> — 오늘은 아직 아무것도 안 줬다는 게 빈 자리로 보인다. 계단 틈 빛줄기가 그릇 위로 곧게 떨어진다(아침). 🔴 문은 프레임 아래쪽에 문턱만 걸려 손잡이는 안 보인다. 🔴 글자·숫자 요소 없음
+<b>톤</b> 위에서 곧게 내려다본 각도라 바닥과 그릇과 멈춘 발만 남는다. 화면에서 가장 진한 것이 먼저 놓인 그것이 되도록. 🔴 시선이 빈 자리를 지나 그릇에 닿아 멎게 — 받을 차례가 아닌데 받은 어리둥절함과 벅참</div>
+</div>
+
+<div class="pg">
+  <div class="ko"><span class="n">p12 · 본문</span>삐걱, 문이 열렸어요.
+빨간 단추가 문손잡이가 되어 달려 있어요!
+아주 작은 생쥐가 쏙 나왔어요.
+"안녕! 우아, 너 진짜 작구나!"
+"너는 진짜 크구나!"</div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨(바닥에 붙은 높이) · 화면 왼쪽에 열린 문과 문턱에 선 생쥐, 오른쪽에 턱을 바닥에 대고 엎드린 강아지 — 🔴 <b>둘이 같은 깊이에 나란히</b> 있어 크기가 여기서 견줘진다
+<b>장소·시간</b> 같은 계단 밑, 문 앞. 같은 아침
+<b>인물</b> 화면 왼쪽 — 아주 작은 생쥐가 열린 문턱에 두 발로 서서 한 손을 위로 들어 인사한다, 다른 손은 아직 문짝에 붙어 있고 몸을 반쯤 내밀었다, 둥근 귀가 쫑긋 서고 눈이 반짝이며 수염이 앞으로 뻗쳤다, 작은 앞치마에 실밥과 톱밥이 묻었다. 이족 · 앞발이 손 · 앞치마 하나. 화면 오른쪽 — 강아지가 배를 바닥에 붙이고 턱을 마룻널에 내려놓아 눈높이를 맞췄다, 두 앞발을 앞으로 모으고 눈이 크게 벌어졌으며 입이 활짝 열렸다, 꼬리가 뒤에서 크게 흔들린다. 사족 · 옷 없음
+<b>배경·소품</b> 🔴 <b>문이 안쪽으로 활짝 열렸고, 문짝 바깥면에 빨간 단추가 손잡이가 되어 달려 있다</b> — 생쥐의 두 손으로 잡기 딱 맞는 크기다(p3 에서 준 그 단추다). 🔴 <b>생쥐의 키가 문보다 조금 작고, 강아지 코보다도 작다.</b> 둘 사이 바닥 빛줄 위에 잼 그릇이 그대로 놓였다. 문 안쪽은 따뜻한 등불빛이 새어 나오는 정도로만 보이고 살림은 보이지 않는다. 옆에 텅 빈 나무 상자와 그동안 받은 실패·작은 의자. 계단 틈 빛줄기(아침). 🔴 글자·숫자 요소 없음
+<b>톤</b> 바닥에 붙은 낮은 각도라 열린 문 안의 빛과 마주 댄 두 얼굴이 한 줄에 놓인다. 🔴 화면 왼쪽의 아주 작은 몸과 오른쪽의 커다란 얼굴이 <b>한 화면 안에서 곧장 견줘지도록</b> 둘 사이를 비워 둔다. 열 번을 기다린 문이 열린 아침의 환함</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'b02',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 강아지(이름 없음)', '아주 작은 생쥐(이름 없음', '작은 앞치마 — p12 에만 나온다)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=1434682c7d137ef9"></script>
+<script src="/changjak-core.js?v=1434682c7d137ef9"></script>
+</body>
+</html>
