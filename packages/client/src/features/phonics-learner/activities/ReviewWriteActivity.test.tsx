@@ -75,8 +75,23 @@ describe('ReviewWriteActivity', () => {
       expect(resolveTtsUrl).toHaveBeenCalledWith(expect.objectContaining({ text: '고' }))
     );
     // 띵동 먼저, 그 다음 읽기 — 한 채널이라 순서가 곧 들리는 결과다.
-    await waitFor(() => expect(playAudio.mock.calls.length).toBeGreaterThanOrEqual(2));
-    expect(playAudio.mock.calls[0][0]).toContain('correct.mp3');
-    expect(playAudio.mock.calls[1][0]).toBe('blob:tts');
+    // 🔴 진입 안내(`/sounds/voice/*`)는 빼고 본다 — 인덱스로 세면 안내가 생길 때마다 깨진다.
+    const chain = () =>
+      playAudio.mock.calls.map((c) => String(c[0])).filter((u) => !u.includes('/sounds/voice/'));
+    await waitFor(() => expect(chain().length).toBeGreaterThanOrEqual(2));
+    expect(chain()[0]).toContain('correct.mp3');
+    expect(chain()[1]).toBe('blob:tts');
+  });
+
+  /**
+   * 🔴 진입 안내 — 이 화면은 그림 없는 카드(영어)면 **소리가 곧 문제**라, 안내 없이 열면
+   *    아이는 방금 난 소리가 "따라 써야 할 글자"인지 알 수 없다(검수에서 잡힌 결함).
+   */
+  it('들어오면 무엇을 하라는 안내부터 나온다', () => {
+    playAudio.mockClear();
+    render(
+      <ReviewWriteActivity unitId="u1" sources={SOURCES} onComplete={vi.fn()} onBack={vi.fn()} />
+    );
+    expect(String(playAudio.mock.calls[0][0])).toContain('write-start-ko');
   });
 });
