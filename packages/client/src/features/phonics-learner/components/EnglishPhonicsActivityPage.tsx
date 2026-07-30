@@ -50,6 +50,12 @@ const WORDS_PER_LETTER = 2;
 /** 복습 듣기 보기 수 — 보기가 그림이 아니라 글자·낱말이라 학습 단원(4장)과 같게 둔다. */
 const REVIEW_CHOICES = 4;
 
+/**
+ * 복습 짝 찾기의 **쌍 수** — 한글과 같은 이유로 4.
+ * 🔴 영어 복습은 한 단원이 글자를 3~4개씩 내서 카드가 **5~8장**이다. 안 자르면 8쌍(16칸)이 된다.
+ */
+const REVIEW_PAIRS = 4;
+
 export default function EnglishPhonicsActivityPage() {
   const { unitId = '', activityKey = '' } = useParams<{ unitId: string; activityKey: string }>();
   const navigate = useNavigate();
@@ -313,7 +319,7 @@ export default function EnglishPhonicsActivityPage() {
         emphasizeFirstLabel={isBook1}
         gameData={{
           type: 'english-line-matching',
-          items: withImage.map((s) => ({
+          items: withImage.slice(0, REVIEW_PAIRS).map((s) => ({
             word: s.letter,
             imageUrl: s.imageUrl,
             imageLabel: s.word,

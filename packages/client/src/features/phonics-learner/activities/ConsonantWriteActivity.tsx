@@ -5,7 +5,7 @@ import { useLogSyllable } from '../hooks/useLogSyllable';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
-import { buildBlendPairs, pickRandom, stacksVertically } from '../lib/blend-pairs';
+import { buildBlendPairs, stacksVertically } from '../lib/blend-pairs';
 import { ActivityShell } from '../components/ActivityShell';
 
 interface Props {
@@ -22,8 +22,6 @@ interface Props {
   onBack: () => void;
 }
 
-/** 몇 음절을 써볼지. 쓰기는 탭보다 훨씬 느려서 음절 만들기(10개)만큼 둘 수 없다. */
-const SYLLABLES = 3;
 /** 두 글자가 붙기까지의 거리 — 멀리 → 가까이 → 붙음. (음절 만들기와 같은 규칙) */
 const GAPS = ['min(7vw, 8rem)', 'min(2vw, 2rem)', '0px'] as const;
 /** 받침은 위·아래로 모인다(아+ㅇ=앙) — 세로라 높이 기준 값이 따로 필요하다. */
@@ -82,9 +80,11 @@ function WriteCell({ tile, children }: { tile: string; children: ReactNode }) {
  *   ② 가까워진 상태로 같은 두 번
  *   ③ 쓰지 않아도 스르륵 붙으며 `ㄱ ㅏ 가` 를 이어 읽는다
  *
- * 🔴 음절 수는 **3개**로 묶는다. 음절 만들기는 탭이라 10개가 1분이지만, 쓰기는 한 글자에 몇 초씩
- *    걸려서 10개면 40번을 쓰게 된다. 짝은 무작위로 뽑아 매번 다른 음절을 만난다.
- * 🔴 받침 단원도 같은 데이터(`buildBlendPairs`)를 쓴다 — `가` 를 쓰고 `ㅇ` 을 써서 `강` 을 만든다.
+ * 🔴 음절은 **그 단원 것을 다 보여준다**(2026-07-30) — 자음 10개(가갸거겨고교구규그기)·받침 14개.
+ *    예전엔 자음만 무작위 3개로 줄였는데, 바로 앞 「ㄱ+모음」이 만든 음절 중 셋만 써 보게 됐다.
+ *    다 쓰라고 강요하진 않는다 — 위 목록에서 아무거나 골라 하고 언제든 나갈 수 있다.
+ * 🔴 받침 단원도 같은 데이터(`buildBlendPairs`)를 쓰고 **두 칸 다 쓴다** — `가` 를 쓰고 `ㅇ` 을 써서
+ *    `강` 을 만든다. 라운드만 한 번(자음은 멀리·가까이 두 번).
  * 🔴 TTS 는 콜백 체인 — 합쳐질 때 이어읽기 → 띵동 → 다음 음절.
  */
 export function ConsonantWriteActivity({
@@ -101,12 +101,18 @@ export function ConsonantWriteActivity({
   const prefix = 'consonant-write';
 
   const isCoda = !!coda;
-  const pairs = useMemo(() => {
-    const all = buildBlendPairs({ consonant, blendVowels, coda, codaOnsets });
-    // 🔴 받침은 **받침 한 글자만** 쓰므로(앞 음절은 주어진다) 14개를 다 돌아도 금방이다.
-    //    자음은 두 글자를 두 번씩 쓰느라 오래 걸려 무작위 3개만 뽑는다.
-    return coda ? all : pickRandom(all, SYLLABLES);
-  }, [consonant, blendVowels, coda, codaOnsets]);
+  /**
+   * 🔴 **음절을 다 보여준다**(2026-07-30 사용자: "ㄱ 써보기에서 왜 규 기 거 만 있지? 다 있어야지").
+   *    예전엔 무작위 3개만 뽑았다 — 두 글자를 두 번씩 쓰느라 길어진다는 이유였는데, 그러면
+   *    **바로 앞 「ㄱ+모음」이 만든 음절 10개 중 셋만** 써 보게 되고 목록도 단원마다 달라 보인다.
+   *    ㄱ 단원이 가르치는 건 `가갸거겨고교구규그기` 전부다.
+   * 🔴 대신 **다 쓰라고 강요하지 않는다** — 위 목록에서 아무거나 눌러 그것부터 할 수 있고,
+   *    끝내지 않고 나가도 된다(칭찬은 다 만들었을 때).
+   */
+  const pairs = useMemo(
+    () => buildBlendPairs({ consonant, blendVowels, coda, codaOnsets }),
+    [consonant, blendVowels, coda, codaOnsets]
+  );
 
   const [idx, setIdx] = useState(0);
   const [round, setRound] = useState(0);
@@ -215,11 +221,21 @@ export function ConsonantWriteActivity({
         speak(read, () => playAudio('/sounds/game/correct.mp3', advance));
       };
 
-      // 🔴 받침은 **받침 한 칸만** 쓴다 — 앞 음절(가)은 이미 주어져 있고, 이 단원이 가르치는 건
-      //    받침이다. 다 칠하면 합쳐진 음절(강)을 그대로 읽어준다.
+      /**
+       * 🔴 받침도 **두 칸 다 쓴다**(2026-07-30 사용자: "받침에서 써보기도 받침만 써보기로 하는데,
+       *    다 써보게 하자. 위에 글자도"). 예전엔 앞 음절(`가`)을 주어진 판으로 두고 받침만 쓰게 했다 —
+       *    "이 단원이 가르치는 건 받침"이라는 이유였지만, 아이가 손으로 만드는 건 **음절 하나**(`강`)이고
+       *    앞 글자를 안 써 보면 그게 어떻게 한 글자가 되는지 손에 안 남는다.
+       */
+      if (isCoda && step === 0) {
+        setStep(1);
+        speak(pair.first);
+        return;
+      }
       if (isCoda) {
         // 붙는 중(round 1) → 다 붙으면 합쳐진 글자(round 2) → 좀 쉬고 읽기.
         // 🔴 소리를 붙는 도중에 내지 않는다 — 눈으로 붙는 걸 보고 나서 그 소리를 들어야 이어진다.
+        setStep(0);
         setRound(1);
         closeTimer.current = window.setTimeout(() => {
           setRound(2);
@@ -308,7 +324,8 @@ export function ConsonantWriteActivity({
             <>
               두 글자가 만나서 <span className="text-coral-600">{pair.syllable}</span>!
             </>
-          ) : isCoda ? (
+          ) : isCoda && step === 1 ? (
+            // 받침 차례 — 무엇을 만드는 중인지 같이 말해준다(앞 글자는 이미 썼다).
             <>
               ✏️ 받침 <span className="text-coral-600">{pair.second}</span> 을 써서{' '}
               <span className="text-coral-600">{pair.syllable}</span> 을 만들어봐!
@@ -354,34 +371,19 @@ export function ConsonantWriteActivity({
               <div className="w-[60vw] h-[30vw] max-w-96 max-h-48 sm:w-96 sm:h-48 rounded-3xl border-[5px] border-mint-500 bg-mint-100 flex items-center justify-center font-black text-mint-700 text-6xl sm:text-8xl shadow-pop">
                 {pair.syllable}
               </div>
-            ) : isCoda ? (
-              // 🔴 받침 모드 — 앞 음절(가)은 **주어진 판**으로 위에 두고, 아래 받침 칸만 캔버스다.
-              //    이 단원이 가르치는 건 받침이라 `가` 까지 쓰게 하면 초점이 흐려진다.
-              // 🔴 두 칸의 **폭을 같게** 묶는다(CODA_TILE). 캔버스는 자체 `max-w-sm`(384px)이라
-              //    그냥 두면 주어진 판(176px)의 두 배가 되어, 위아래가 한 글자로 안 보인다.
+            ) : closing ? (
+              /* 붙는 동안(받침 모드 round 1) — 🔴 **두 칸 다 판으로 바꾼다.** 캔버스를 남겨 두면
+                 미끄러지는 중에도 칠할 수 있고, 다 칠한 글자가 아니라 빈 가이드가 붙는 것처럼 보인다. */
               <>
                 <div className={IDLE_TILE_CLASS} style={{ width: tile, fontSize: tileFont(tile) }}>
                   {pair.first}
                 </div>
-                {/* 🔴 붙는 동안엔 캔버스를 **판으로 바꾼다** — 그대로 두면 미끄러지는 중에도 계속
-                    칠할 수 있고, 다 칠한 글자가 아니라 빈 가이드가 붙는 것처럼 보인다. */}
-                {closing ? (
-                  <div
-                    className="shrink-0 aspect-square rounded-3xl border-[5px] border-mint-500 bg-mint-100 flex items-center justify-center font-display font-black text-mint-700 shadow-pop leading-none"
-                    style={{ width: tile, fontSize: tileFont(tile) }}
-                  >
-                    {pair.second}
-                  </div>
-                ) : (
-                  <WriteCell tile={tile}>
-                    <LetterFillCanvas
-                      key={`${pair.syllable}-coda`}
-                      letter={pair.second}
-                      onResult={handleResult}
-                      autoCheck
-                    />
-                  </WriteCell>
-                )}
+                <div
+                  className="shrink-0 aspect-square rounded-3xl border-[5px] border-mint-500 bg-mint-100 flex items-center justify-center font-display font-black text-mint-700 shadow-pop leading-none"
+                  style={{ width: tile, fontSize: tileFont(tile) }}
+                >
+                  {pair.second}
+                </div>
               </>
             ) : (
               // 🔴 지금 쓸 칸만 캔버스로 살아 있고, 옆 칸은 글자를 보여주는 판이다.
