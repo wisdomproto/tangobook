@@ -194,6 +194,56 @@
     return b;
   }
 
+  // 🔴 붙여넣기 = 회차별 R2 폴더. 앵커 보관함(changjak-anchors)과 분리한다 —
+  //    저건 그림체 원본이고 이건 이 책의 시트·컷이다. 호리·전래와 같은 구조(`comic-assets/{docId}`).
+  var ASSET_API = '/api/comic-assets/changjak-' + ep.id;
+  var shots = {};
+
+  function pasteBox(key, hint) {
+    var box = document.createElement('div');
+    box.className = 'paste-box';
+    box.tabIndex = 0;
+    box.setAttribute('data-key', key);
+    function reset() { box.className = 'paste-box'; box.textContent = hint; }
+    function show(url) {
+      box.className = 'paste-box has-img';
+      box.innerHTML = '<img src="' + url + '" alt="" /><button type="button" class="paste-del">✕</button>';
+      box.querySelector('.paste-del').addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (!confirm('이 그림을 지울까요?')) return;
+        fetch(ASSET_API + '/' + key, { method: 'DELETE' }).then(function () { delete shots[key]; reset(); });
+      });
+    }
+    reset();
+    box.addEventListener('click', function () { box.focus(); });
+    box.addEventListener('paste', function (e) {
+      var items = (e.clipboardData || {}).items || [];
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image') !== 0) continue;
+        e.preventDefault();
+        var fd = new FormData();
+        fd.append('image', items[i].getAsFile());
+        box.className = 'paste-box busy';
+        box.textContent = '올리는 중…';
+        fetch(ASSET_API + '/' + key, { method: 'PUT', body: fd })
+          .then(function (r) { return r.json(); })
+          .then(function (j) {
+            var url = (j && j.data && j.data.url) || (j && j.url);
+            if (!url) throw new Error('no url');
+            shots[key] = url;
+            show(url);
+          })
+          .catch(function () { box.className = 'paste-box err'; box.textContent = '실패 — 다시 시도'; });
+        return;
+      }
+    });
+    box._show = show;
+    return box;
+  }
+
+  // 전체 복사와 쪽별 복사가 같은 문자열을 쓰게 한 곳에서 만든다.
+  function composeCut(c) { return '--- ' + c.page + ' — ' + c.title + ' ---\n' + c.prompt; }
+
   var bar = document.createElement('div');
   bar.className = 'pbar';
   bar.innerHTML =
@@ -206,19 +256,69 @@
   });
   meta.parentNode.insertBefore(bar, meta.nextSibling);
 
-  // 쪽마다 — 합성해서 복사
+  // 🔴 전체 묶음 프롬프트 = 호리·전래와 같은 구조(.batch-bar = 제목 + 설명 + 큰 버튼 하나).
+  //    작은 버튼으로 섞어 두면 「한 번에 다 뽑는 길」이 안 보인다.
+  var batchText =
+    P.anchor +
+    '\n\n[캐릭터 레퍼런스] 아래 @image 순서대로 위에서 승인한 캐릭터 시트를 첨부하세요. ' +
+    '인물의 얼굴·비율·색은 시트와 100% 동일하게 유지합니다.\n' +
+    P.sheets.map(function (_, i) { return '@image' + (i + 1) + ' = 캐릭터 시트 ' + (i + 1); }).join('\n') +
+    '\n\n※ 각 컷은 위 스타일 앵커를 그대로 따르고 장면만 바꿉니다.\n\n' +
+    P.cuts.map(composeCut).join('\n\n');
+  var bb = document.createElement('div');
+  bb.className = 'batch-bar';
+  bb.innerHTML =
+    '<div class="bhead">🖼️ 전체 이미지 프롬프트 — GPT에 한 번에</div>' +
+    '<div class="bhint">버튼을 누르면 <b>스타일 앵커(1회) + 캐릭터 레퍼런스(@image1~) + ' +
+    P.cuts.length + '개 쪽 장면</b>이 하나로 복사됩니다. ' +
+    'GPT에 <b>@image1부터 순서대로 아래에서 확정한 시트를 첨부</b>하세요.</div>';
+  var brow = document.createElement('div');
+  brow.className = 'brow';
+  brow.appendChild(mk('📋 전체 프롬프트 복사 (' + P.cuts.length + '장)', batchText, 'batch-btn'));
+  bb.appendChild(brow);
+  bar.parentNode.insertBefore(bb, bar.nextSibling);
+
+  // 🔴 확정 캐릭터 시트 붙여넣기 — 시트를 먼저 굽는 순서라 승인본을 여기 두고 컷을 뽑는다.
+  var sheetRow = document.createElement('div');
+  sheetRow.className = 'sheetrow';
+  sheetRow.innerHTML = '<div class="sr-lab">🎭 확정 캐릭터 시트 <span>(@image 순서대로)</span></div>';
+  var srBoxes = document.createElement('div');
+  srBoxes.className = 'sr-boxes';
+  var boxes = [];
+  P.sheets.forEach(function (_, i) {
+    var b = pasteBox('sheet-' + (i + 1), '🖼️ @image' + (i + 1) + ' 시트 붙여넣기');
+    boxes.push(b);
+    srBoxes.appendChild(b);
+  });
+  sheetRow.appendChild(srBoxes);
+  bb.parentNode.insertBefore(sheetRow, bb.nextSibling);
+
+  // 쪽마다 — 컷 프롬프트 복사 + 그린 컷 붙여넣기
   var pgs = document.querySelectorAll('.ep .pg');
   P.cuts.forEach(function (c, i) {
     var pg = pgs[i];
     if (!pg) return;
     var composed =
       P.anchor + '\n\n' +
-      '--- 이 컷 (' + c.page + ' — ' + c.title + ') ---\n' +
       '@image1 = 위 스타일로 승인된 캐릭터 시트. 인물은 시트를 그대로 따른다.\n\n' +
-      c.prompt;
-    var b = mk('📋 ' + c.page + ' 컷 프롬프트 (앵커+시트 합성)', composed);
-    pg.querySelector('.sc').appendChild(b);
+      composeCut(c);
+    (pg.querySelector('.sc') || pg).appendChild(mk('📋 ' + c.page + ' 컷 프롬프트 (앵커+시트 합성)', composed));
+    var b = pasteBox(c.page, '🖼️ ' + c.page + ' 그린 컷 붙여넣기');
+    boxes.push(b);
+    pg.appendChild(b);
   });
+
+  // 이미 올린 것 불러오기 — 🔴 박스를 다 만든 뒤에 채운다(순서를 뒤집으면 빈 박스가 남는다).
+  fetch(ASSET_API)
+    .then(function (r) { return r.json(); })
+    .then(function (j) {
+      shots = (j && j.data) || {};
+      boxes.forEach(function (b) {
+        var k = b.getAttribute('data-key');
+        if (shots[k]) b._show(shots[k]);
+      });
+    })
+    .catch(function () {});
 })();
 
 /* §5 주제군 8개 = 탭.
