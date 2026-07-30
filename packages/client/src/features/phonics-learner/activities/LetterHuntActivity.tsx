@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { composeHangul } from '@tangobook/shared';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
@@ -45,8 +46,15 @@ export function LetterHuntActivity({
   const [round, setRound] = useState(0);
   const [found, setFound] = useState<number[]>([]);
   const foundRef = useRef<number[]>([]);
-  const [missed, setMissed] = useState<number | null>(null);
   const [done, setDone] = useState(false);
+  /**
+   * 진입 안내가 나오는 중 — 끝나야 첫 글자를 읽고 판이 열린다.
+   *
+   * 🔴 예전엔 들어가자마자 목표 글자부터 읽었다(사용자: "들어가자 마자 바로 문제가 나오는데? ㅋㅋㅋ").
+   *    글을 못 읽는 아이에겐 화면의 「이 글자를 다 찾아봐!」 가 안 보이므로, 무엇을 하라는 말이
+   *    **소리로** 먼저 와야 한다(「퀴즈 시작」·「ABC 배우기」와 같은 규칙).
+   */
+  const [starting, setStarting] = useState(true);
 
   /**
    * 🔴 라운드는 **네 개까지**. 영어 복습은 카드가 6~8장이라 그대로 돌면 한 활동에 40번을 눌러야 한다
@@ -78,6 +86,23 @@ export function LetterHuntActivity({
     });
   }, [round, lettersKey]);
 
+  /**
+   * 칸에 적힌 글자 → **읽을 소리**. 목표 칸은 카드가 소리를 갖고 있지만(모음 `ㅏ`→`아`),
+   * 방해꾼은 사전에서 온 글자라 카드에 없다.
+   * 🔴 모음 홑글자는 그대로 읽으면 자모 이름이 나온다 — `ㅇ` 을 붙여 음절로 읽는다(ㅐ→애).
+   *    이 단원이 "모음은 홀로 소리가 없다"로 가르치는 것과 같은 규칙이다.
+   */
+  const soundOf = useCallback(
+    (ch: string) => {
+      const known = cardsRef.current.find((c) => c.letter === ch);
+      if (known) return known.sound;
+      if (/^[ㅏ-ㅣ]$/.test(ch)) return composeHangul('ㅇ', ch, null) || ch;
+      return ch;
+    },
+    // cardsRef 는 ref 라 신원이 안 바뀐다 — 내용이 바뀌면 lettersKey 로 다시 만든다.
+    [lettersKey]
+  );
+
   const say = useCallback(
     async (text: string, onEnded?: () => void) => {
       const url = await resolveTtsUrl({
@@ -95,18 +120,48 @@ export function LetterHuntActivity({
   const sayRef = useRef(say);
   sayRef.current = say;
   const soundKey = card?.sound ?? '';
+  /** 안내 다음 첫 글자만 쉼을 두고 읽는다 — 라운드 넘어갈 땐 앞 체인이 이미 쉬었다. */
+  const firstLetterRef = useRef(true);
   useEffect(() => {
-    if (!soundKey || done) return;
+    if (!soundKey || done || starting) return;
+    if (firstLetterRef.current) {
+      firstLetterRef.current = false;
+      scheduleTimer(() => sayRef.current(soundKey), REST_MS);
+      return;
+    }
     sayRef.current(soundKey);
-  }, [soundKey, round, done]);
+  }, [soundKey, round, done, starting, scheduleTimer]);
+
+  /**
+   * 진입 안내 → 쉼 → 첫 글자. 🔴 안내는 **영어 단원에서도 한국어**다 — 무엇을 하라는 말은
+   * 아이가 알아듣는 말이어야 한다(파닉스 화면 글자도 전부 한국어다).
+   */
+  const guidedRef = useRef(false);
+  useEffect(() => {
+    // 🔴 **ref 로 한 번만** — 개발 모드(StrictMode)는 effect 를 두 번 실행하는데, `playAudio` 는
+    //    새 소리를 틀 때 앞 소리의 `src` 를 비운다. 그러면 앞 소리에 `error` 가 떠서 **끝난 걸로
+    //    치고 콜백이 즉시** 실행된다 — 2.4초짜리 안내가 0.45초에 잘리고 바로 문제로 넘어갔다(실측).
+    //    프로덕션엔 없는 현상이지만, 이러면 **개발에서 소리 순서를 확인할 수가 없다**.
+    if (guidedRef.current) return;
+    guidedRef.current = true;
+    // 🔴 잠금 해제는 **타이머를 거치지 않는다** — `scheduleTimer` 는 언마운트 때 예약을 지우므로,
+    //    개발 모드의 가짜 언마운트에 그 타이머가 쓸려 나가면 `starting` 이 영영 true 로 남아
+    //    **판이 통째로 안 눌린다**(실측: 탭 3초 뒤에도 무반응). 쉼은 첫 글자 읽기 쪽에서 준다.
+    playAudio('/sounds/voice/hunt-start-ko.mp3', () => setStarting(false));
+    // 진입 시 한 번만 — 라운드마다 다시 안내하면 잔소리가 된다.
+  }, [playAudio]);
 
   const handleTap = useCallback(
     (idx: number) => {
-      if (done || !card || foundRef.current.includes(idx)) return;
+      if (done || starting || !card || foundRef.current.includes(idx)) return;
+      /**
+       * 🔴 **틀렸다고 하지 않는다 — 그냥 그 글자를 읽어준다**(2026-07-30 사용자).
+       *    사냥은 모양을 훑다가 짚어 보는 활동이라, 짚을 때마다 빨갛게 흔들리면 **눌러보는 것 자체가
+       *    벌**이 된다. 아이가 알아야 할 건 "틀렸다"가 아니라 **그 칸이 무슨 소리인가**이고,
+       *    그걸 들으면 목표와 다르다는 걸 스스로 안다.
+       */
       if (board[idx] !== card.letter) {
-        setMissed(idx);
-        scheduleTimer(() => setMissed(null), 500);
-        playFeedbackSound(false);
+        say(soundOf(board[idx]));
         return;
       }
       /**
@@ -120,24 +175,29 @@ export function LetterHuntActivity({
       const isRoundDone = next.length >= TARGETS;
       const isLast = round + 1 >= hunt.length;
 
-      if (!isRoundDone) {
-        say(card.sound);
-        return;
-      }
-      // 🔴 글자 소리 → 쉼 → (마지막이면 칭찬 / 아니면 딩동 → 쉼 → 다음 라운드)
-      //    라운드가 넘어가면 위 effect 가 새 글자를 읽는다.
-      if (isLast) setDone(true);
-      say(card.sound, () =>
+      if (isLast && isRoundDone) setDone(true);
+      /**
+       * 🔴 **띵동 먼저, 그 다음 글자**(2026-07-30 사용자: "맞추면 맞췄다고 효과음 내주고").
+       *    잘 찾았다는 건 **즉시** 와야 하고, 글자 소리는 그 뒤에 온다 — 반대로 두면 아이가
+       *    소리를 다 들을 때까지 맞았는지 모른다(낱말 쓰기가 이미 이 순서다).
+       *    한 칸마다 울리므로 라운드 끝에서 따로 울리지 않는다 — 그러면 띵동이 두 번이다.
+       */
+      playAudio('/sounds/game/correct.mp3', () =>
         scheduleTimer(() => {
-          if (isLast) {
-            playCorrectSequence({
-              language: language === 'english' ? 'en' : 'ko',
-              onDone: onComplete,
-            });
+          if (!isRoundDone) {
+            say(card.sound);
             return;
           }
-          playAudio('/sounds/game/correct.mp3', () =>
+          say(card.sound, () =>
             scheduleTimer(() => {
+              if (isLast) {
+                playCorrectSequence({
+                  language: language === 'english' ? 'en' : 'ko',
+                  onDone: onComplete,
+                });
+                return;
+              }
+              // 라운드가 넘어가면 위 effect 가 새 글자를 읽는다.
               foundRef.current = [];
               setFound([]);
               setRound((r) => r + 1);
@@ -211,9 +271,7 @@ export function LetterHuntActivity({
                   'text-[min(8vw,7vh)] leading-none',
                   got
                     ? 'bg-mint-500 border-mint-500 text-white scale-95'
-                    : missed === idx
-                      ? 'bg-danger/10 border-danger text-ink-700 animate-shake'
-                      : 'bg-white border-white text-ink-900 active:scale-95',
+                    : 'bg-white border-white text-ink-900 active:scale-95',
                 ].join(' ')}
               >
                 {ch}

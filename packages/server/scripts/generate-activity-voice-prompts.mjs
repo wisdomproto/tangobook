@@ -33,6 +33,8 @@ const PROMPTS = [
   { name: 'quiz-start-en', text: 'Listen carefully and choose!', language: 'english' },
   // ABC 배우기 — 진입하면 화면이 통째로 무음이라 글을 못 읽는 아이가 뭘 할지 몰랐다.
   { name: 'tap-sparkle-ko', text: '반짝이는 곳을 눌러봐!', language: 'korean' },
+  // 글자 사냥 — 들어가자마자 목표 글자가 떠서, 무엇을 하라는 건지 없이 문제부터 나왔다.
+  { name: 'hunt-start-ko', text: '같은 글자를 모두 찾아봐!', language: 'korean' },
 ];
 
 async function generate({ name, text, language }) {
