@@ -800,9 +800,8 @@
   var box = document.createElement('section');
   box.className = 'stylebox';
   box.innerHTML =
-    '<div class="sb-head">🎨 <b>이 책의 그림체</b>' +
-    (ep.anchorSlug ? ' · <code>' + ep.anchorSlug + '</code>' : ' · <b style="color:#b4553c">앵커 미확정</b>') +
-    '</div><div class="sb-body"><p class="sb-hint">불러오는 중…</p></div>';
+    '<div class="sb-head">🎨 <b>이 책의 그림체</b></div>' +
+    '<div class="sb-body"><p class="sb-hint">불러오는 중…</p></div>';
   // 메타 줄 바로 아래 = 글보다 위. 그리는 사람이 첫 쪽을 읽기 전에 그림체를 본다.
   meta.parentNode.insertBefore(box, meta.nextSibling);
   var body = box.querySelector('.sb-body');
@@ -813,12 +812,18 @@
   fetch('/changjak-anchor-refs.json')
     .then(function (r) { return r.json(); })
     .then(function (all) {
-      var e2 = (all || {})[ep.id];
-      if (!e2 || !e2.refs || !e2.refs.length) return;
+      var e2 = (all || {})[ep.id] || {};
+      // 🔴 슬러그는 여기(배정표)가 원본이다. 회차 HTML 의 anchorSlug 는 열 권 전부 null 이라
+      //    그것만 보면 배정이 끝난 권도 「미확정」으로 뜬다.
+      renderVault(ep.anchorSlug || e2.slug);
+      if (!e2.refs || !e2.refs.length) return;
       var wrap = document.createElement('div');
       wrap.className = 'sb-cands';
       wrap.innerHTML =
-        '<div class="sb-cl">🏆 이 그림체의 근거 — 수상작 원본 <span>(베끼는 게 아니라 문법을 참고한다)</span></div>' +
+        // 민팅 앵커는 후보를 인용해 세운 게 아니다 — 같은 클러스터의 검증 사례일 뿐이라고 밝힌다.
+        (e2.neighbor
+          ? '<div class="sb-cl">🏆 같은 클러스터의 검증 사례 <span>(이 권의 앵커는 후보 없이 새로 세웠습니다 — 출처가 아니라 이웃)</span></div>'
+          : '<div class="sb-cl">🏆 이 그림체의 근거 — 수상작 원본 <span>(베끼는 게 아니라 문법을 참고한다)</span></div>') +
         '<div class="sb-crow">' +
         e2.refs
           .filter(function (r) { return r.imageUrl; })
@@ -833,9 +838,14 @@
         '</div>';
       box.appendChild(wrap);
     })
-    .catch(function () {});
+    .catch(function () { renderVault(ep.anchorSlug); });
 
-  if (!ep.anchorSlug) {
+  function renderVault(slug) {
+  box.querySelector('.sb-head').innerHTML =
+    '🎨 <b>이 책의 그림체</b>' +
+    (slug ? ' · <code>' + slug + '</code>' : ' · <b style="color:#b4553c">앵커 미확정</b>');
+
+  if (!slug) {
     body.innerHTML =
       '<p class="sb-hint">이 책은 아직 앵커가 배정되지 않았습니다. ' +
       '<a href="/changjak-styles.html">앵커 후보 시트</a>에서 고르고 ' +
@@ -850,7 +860,7 @@
     var memos = (res[0] && res[0].data) || {};
     var images = (res[1] && res[1].data) || {};
     var a = {};
-    try { a = JSON.parse(memos['ca-' + ep.anchorSlug] || '{}'); } catch (e) { a = {}; }
+    try { a = JSON.parse(memos['ca-' + slug] || '{}'); } catch (e) { a = {}; }
 
     var rows = [
       ['매체', a.media], ['팔레트', a.palette], ['마감', a.finish], ['캐릭터', a.character],
@@ -860,7 +870,7 @@
 
     var thumbs = '';
     for (var i = 1; i <= REFS; i++) {
-      var k = ep.anchorSlug + '-' + i;
+      var k = slug + '-' + i;
       thumbs += images[k]
         ? '<a class="sb-th" href="' + images[k] + '" target="_blank" rel="noopener">' +
             '<img loading="lazy" src="' + images[k] + '" alt="레퍼런스 ' + i + '" /></a>'
@@ -874,4 +884,5 @@
       '<p class="sb-hint">🔴 레퍼런스는 <a href="/changjak-plan.html#anchor-vault">앵커 보관함</a>에서 붙여넣습니다. ' +
       '아래 <b>삽화 프롬프트</b> 버튼은 시트 → 컷 순서로 쓰세요.</p>';
   });
+  }
 })();

@@ -1,7 +1,33 @@
 {
   "a97": {
     "slug": "changjak-lavender",
-    "refs": []
+    "refs": [
+      {
+        "id": "grey-dishspoon",
+        "imageUrl": "https://covers.openlibrary.org/b/id/234249-L.jpg",
+        "artist": "Mini Grey",
+        "work": "The Adventures of the Dish and the Spoon",
+        "award": "Kate Greenaway Medal 2007",
+        "year": 2007
+      },
+      {
+        "id": "berner-town",
+        "imageUrl": "https://covers.openlibrary.org/b/id/7257546-L.jpg",
+        "artist": "Rotraut Susanne Berner",
+        "work": "In the Town All Year Round",
+        "award": "HCA Illustrator Award 2016",
+        "year": 2016
+      },
+      {
+        "id": "lejonc-fechamos",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2022/Premi/BRAW/winners/FECHAMOS_Low.jpg",
+        "artist": "Régis Lejonc",
+        "work": "Fechamos",
+        "award": "BolognaRagazzi 2022 Fiction",
+        "year": 2022
+      }
+    ],
+    "neighbor": true
   },
   "b04": {
     "slug": "changjak-b04",
@@ -63,11 +89,63 @@
   },
   "c37": {
     "slug": "changjak-tidepool",
-    "refs": []
+    "refs": [
+      {
+        "id": "ilustrajo-flooded",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2020/02/mariajoilustrajo_flooded_image1.png/original",
+        "artist": "Mariajo Ilustrajo",
+        "work": "Flooded",
+        "award": "WIA 2020 Overall Winner",
+        "year": 2020
+      },
+      {
+        "id": "bouvier-spring",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/02/CaroleBouvier_OnASpringDay_image1.jpg/original",
+        "artist": "Carole Bouvier",
+        "work": "On A Spring Day",
+        "award": "WIA 2022 Highly Commended",
+        "year": 2022
+      },
+      {
+        "id": "klassen-hat",
+        "imageUrl": "https://covers.openlibrary.org/b/id/10207424-L.jpg",
+        "artist": "Jon Klassen",
+        "work": "This Is Not My Hat",
+        "award": "Kate Greenaway Medal 2014",
+        "year": 2014
+      }
+    ],
+    "neighbor": true
   },
   "c60": {
     "slug": "changjak-fogplate",
-    "refs": []
+    "refs": [
+      {
+        "id": "rolfe-dyslexia",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/02/KateRolfe_NavigatingDyslexia_Image1.jpg/original",
+        "artist": "Kate Rolfe",
+        "work": "Navigating Dyslexia",
+        "award": "WIA 2022 Category Winner",
+        "year": 2022
+      },
+      {
+        "id": "mintzi-nour",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/01/ValiMintzi_Cover.jpg/original",
+        "artist": "Vali Mintzi",
+        "work": "Nour's Secret Library",
+        "award": "WIA 2022 Highly Commended",
+        "year": 2022
+      },
+      {
+        "id": "rolfe-wiggling",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/01/KateRolfe_WigglingWords_Image1.jpg/original",
+        "artist": "Kate Rolfe",
+        "work": "Wiggling Words",
+        "award": "WIA 2024 Category Winner",
+        "year": 2024
+      }
+    ],
+    "neighbor": true
   },
   "d03": {
     "slug": "changjak-d03",
