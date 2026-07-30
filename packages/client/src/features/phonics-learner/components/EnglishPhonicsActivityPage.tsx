@@ -251,7 +251,7 @@ export default function EnglishPhonicsActivityPage() {
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="단어 그림이 필요해요"
+          reason="낱말 그림이 필요해요"
         />
       );
     }
@@ -426,7 +426,7 @@ export default function EnglishPhonicsActivityPage() {
     const gameData = memoGame(() => phonicsToEnglishBlockData(storybook));
     if (!gameData)
       return (
-        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="단어가 부족해요" />
+        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 부족해요" />
       );
     return gate(
       'english-block',
@@ -438,7 +438,7 @@ export default function EnglishPhonicsActivityPage() {
     const gameData = memoGame(() => phonicsToEnglishWordWritingData(storybook));
     if (!gameData)
       return (
-        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="단어가 부족해요" />
+        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 부족해요" />
       );
     return gate(
       'english-word-writing',
@@ -453,7 +453,7 @@ export default function EnglishPhonicsActivityPage() {
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="단어 그림이 필요해요"
+          reason="낱말 그림이 필요해요"
         />
       );
     return gate(
@@ -474,7 +474,7 @@ export default function EnglishPhonicsActivityPage() {
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="단어 그림과 점이 필요해요"
+          reason="낱말 그림과 점이 필요해요"
         />
       );
     return gate(

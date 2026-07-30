@@ -332,7 +332,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
           }}
         >
           {phase === 'A' && <>{pattern.vc} 배우기</>}
-          {phase === 'B' && <>{pattern.vc} 단어 익히기</>}
+          {phase === 'B' && <>{pattern.vc} 낱말 익히기</>}
           {phase === 'C' && <>{pattern.vc} 써보기</>}
           {phase === 'done' && '잘했어!'}
         </h2>

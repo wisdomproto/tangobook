@@ -417,7 +417,7 @@ function makeEnglishReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
         key: 'review-word-listen',
         order: 5,
         kind: 'review-word-listen',
-        title: '듣고 단어 맞추기',
+        title: '듣고 낱말 맞추기',
         emoji: '🔊',
         ...shared,
       },

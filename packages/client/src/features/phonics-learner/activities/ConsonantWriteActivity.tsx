@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import { useLogSyllable } from '../hooks/useLogSyllable';
@@ -44,11 +44,36 @@ const ROW_TILE = 'min(38vw, 24vh, 11rem)';
  * 글꼴도 캔버스와 같은 NanumSquareRound(`font-display`)로 맞춘다 — 예전엔 Pretendard 였다.
  */
 const tileFont = (tile: string) => `calc(${tile} * 0.85)`;
+/**
+ * 대기 칸 = **캔버스와 똑같이 생긴 판**. 흰 바탕에 회색 글자(`LetterFillCanvas` 의 `GUIDE_COLOR`).
+ *
+ * 🔴 두 칸의 차이는 **색이 아니라 반짝임**이어야 한다(2026-07-29 사용자 지적) — 예전엔 대기 칸
+ *    글자가 코랄이라 「반짝이는 칸에 ㄱ 써봐!」 를 읽고 **주황색인 옆 칸**을 쓰려 했다. 정작
+ *    쓸 칸(캔버스)은 회색이라 아무 표시가 없었고, 문구가 약속한 반짝임은 화면에 없었다.
+ */
+const IDLE_TILE_CLASS =
+  'shrink-0 aspect-square rounded-3xl border-[5px] border-white bg-white/70 flex items-center justify-center font-display font-black text-[#e5e7eb] shadow-soft leading-none';
 /** 두 글자가 미끄러져 붙는 시간. CSS `duration-500` 과 맞춘다 — 어긋나면 붙기 전에 합쳐진 글자가 뜬다. */
 const CLOSE_MS = 500;
 /** 합쳐진 글자가 뜬 뒤 읽기까지의 쉼 — 붙자마자 소리가 나면 눈이 따라가기 전에 지나간다. */
 const MERGE_REST_MS = 550;
 const WRITE_ROUNDS = 2; // 쓰는 라운드 수(멀리·가까이). 마지막 붙는 건 자동.
+
+/**
+ * 지금 쓸 칸 — 캔버스를 감싸고 **반짝이는 테두리**를 얹는다.
+ *
+ * 🔴 테두리는 캔버스 래퍼가 아니라 **정사각 영역에만** 건다. 래퍼 높이는 진척 바·결과가 나타나며
+ *    늘어나므로(그래서 가로 정렬이 `items-start` 다) 래퍼에 걸면 쓰는 도중 테두리가 아래로 자란다.
+ *    캔버스는 `aspect-square` 라 `top-0` + `aspect-square` 로 그 칸에 딱 맞는다.
+ */
+function WriteCell({ tile, children }: { tile: string; children: ReactNode }) {
+  return (
+    <div className="relative shrink-0" style={{ width: tile }}>
+      {children}
+      <span className="pointer-events-none absolute inset-x-0 top-0 aspect-square rounded-xl ring-4 ring-coral-400 animate-pulse" />
+    </div>
+  );
+}
 
 /**
  * 음절 써보기 액티비티 — 「음절 만들기」와 **같은 흐름을 손으로** 한다(2026-07-26 개편).
@@ -335,10 +360,7 @@ export function ConsonantWriteActivity({
               // 🔴 두 칸의 **폭을 같게** 묶는다(CODA_TILE). 캔버스는 자체 `max-w-sm`(384px)이라
               //    그냥 두면 주어진 판(176px)의 두 배가 되어, 위아래가 한 글자로 안 보인다.
               <>
-                <div
-                  className="shrink-0 aspect-square rounded-3xl border-[5px] border-white bg-white/70 flex items-center justify-center font-display font-black text-coral-400 shadow-soft leading-none"
-                  style={{ width: tile, fontSize: tileFont(tile) }}
-                >
+                <div className={IDLE_TILE_CLASS} style={{ width: tile, fontSize: tileFont(tile) }}>
                   {pair.first}
                 </div>
                 {/* 🔴 붙는 동안엔 캔버스를 **판으로 바꾼다** — 그대로 두면 미끄러지는 중에도 계속
@@ -351,14 +373,14 @@ export function ConsonantWriteActivity({
                     {pair.second}
                   </div>
                 ) : (
-                  <div className="shrink-0" style={{ width: tile }}>
+                  <WriteCell tile={tile}>
                     <LetterFillCanvas
                       key={`${pair.syllable}-coda`}
                       letter={pair.second}
                       onResult={handleResult}
                       autoCheck
                     />
-                  </div>
+                  </WriteCell>
                 )}
               </>
             ) : (
@@ -370,19 +392,15 @@ export function ConsonantWriteActivity({
                   return (
                     // 🔴 캔버스도 대기 칸과 **같은 폭**으로 묶는다 — 안 묶으면 자체 max-w-sm(384px)이라
                     //    대기 칸(176px)의 두 배가 되어 두 글자 크기가 제각각으로 보인다.
-                    <div
-                      key={`${pair.syllable}-${round}-${which}`}
-                      className="shrink-0"
-                      style={{ width: tile }}
-                    >
+                    <WriteCell key={`${pair.syllable}-${round}-${which}`} tile={tile}>
                       <LetterFillCanvas letter={letter} onResult={handleResult} autoCheck />
-                    </div>
+                    </WriteCell>
                   );
                 }
                 return (
                   <div
                     key={`${pair.syllable}-${which}-idle`}
-                    className="shrink-0 aspect-square rounded-3xl border-[5px] border-white bg-white/70 flex items-center justify-center font-display font-black text-coral-400 shadow-soft leading-none"
+                    className={IDLE_TILE_CLASS}
                     style={{ width: tile, fontSize: tileFont(tile) }}
                   >
                     {letter}

@@ -235,7 +235,7 @@ export default function KoreanPhonicsActivityPage() {
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="단어 그림이 필요해요"
+          reason="낱말 그림이 필요해요"
         />
       );
     return (
@@ -284,7 +284,7 @@ export default function KoreanPhonicsActivityPage() {
     const words = reviewSources.filter((s) => s.word);
     if (words.length < 3) {
       return (
-        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="단어가 필요해요" />
+        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 필요해요" />
       );
     }
     return (
@@ -352,7 +352,7 @@ export default function KoreanPhonicsActivityPage() {
           <ActivityUnavailable
             activity={activity}
             onBack={backToUnit}
-            reason="단어 그림이 필요해요"
+            reason="낱말 그림이 필요해요"
           />
         );
       return (
@@ -370,7 +370,7 @@ export default function KoreanPhonicsActivityPage() {
           <ActivityUnavailable
             activity={activity}
             onBack={backToUnit}
-            reason="단어 그림이 필요해요"
+            reason="낱말 그림이 필요해요"
           />
         );
       return (
@@ -388,7 +388,7 @@ export default function KoreanPhonicsActivityPage() {
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="단어 그림이 필요해요"
+          reason="낱말 그림이 필요해요"
         />
       );
     return (
@@ -450,7 +450,7 @@ export default function KoreanPhonicsActivityPage() {
     const gameData = memoGame(() => phonicsToKoreanBlockData(storybook));
     if (!gameData)
       return (
-        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="단어가 부족해요" />
+        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 부족해요" />
       );
     return gate(
       'korean-block',
@@ -462,7 +462,7 @@ export default function KoreanPhonicsActivityPage() {
     const gameData = memoGame(() => phonicsToWordWritingData(storybook));
     if (!gameData)
       return (
-        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="단어가 부족해요" />
+        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 부족해요" />
       );
     return gate(
       'korean-word-writing',
@@ -477,7 +477,7 @@ export default function KoreanPhonicsActivityPage() {
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="단어 그림이 필요해요"
+          reason="낱말 그림이 필요해요"
         />
       );
     return gate(
@@ -493,7 +493,7 @@ export default function KoreanPhonicsActivityPage() {
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="단어 그림과 점이 필요해요"
+          reason="낱말 그림과 점이 필요해요"
         />
       );
     return gate(

@@ -294,90 +294,80 @@ const VOWEL_GROUP_2 = [
   { vowel: 'ㅣ', syllable: '이' },
 ] as const;
 
-const UNIT_01_PLAN: ActivityPlan = {
-  activities: [
-    {
-      key: 'listen-1',
-      order: 1,
-      kind: 'vowel-listen',
-      section: 'learn',
-      title: '모음 듣기 1',
-      subtitle: 'ㅏ ㅑ ㅓ ㅕ ㅗ ㅛ',
-      emoji: '👂',
-      required: true,
-      vowels: VOWEL_GROUP_1,
-    },
-    {
-      key: 'listen-2',
-      order: 2,
-      kind: 'vowel-listen',
-      section: 'learn',
-      title: '모음 듣기 2',
-      subtitle: 'ㅜ ㅠ ㅡ ㅣ',
-      emoji: '👂',
-      required: true,
-      vowels: VOWEL_GROUP_2,
-    },
-    {
-      key: 'write-1',
-      order: 3,
-      kind: 'vowel-write',
-      section: 'learn',
-      title: '모음 쓰기 1',
-      subtitle: '아 야 어 여 오 요',
-      emoji: '✏️',
-      required: true,
-      vowels: VOWEL_GROUP_1,
-    },
-    {
-      key: 'write-2',
-      order: 4,
-      kind: 'vowel-write',
-      section: 'learn',
-      title: '모음 쓰기 2',
-      subtitle: '우 유 으 이',
-      emoji: '✏️',
-      required: true,
-      vowels: VOWEL_GROUP_2,
-    },
-    {
-      key: 'game-dots',
-      order: 5,
-      kind: 'game-connect-dots',
-      section: 'play',
-      title: '낱말 그리기',
-      emoji: '🔵',
-      required: false,
-    },
-    {
-      key: 'game-korean-block',
-      order: 6,
-      kind: 'game-korean-block',
-      section: 'play',
-      title: '한글 블록 게임',
-      emoji: '🧩',
-      required: false,
-    },
-    {
-      key: 'game-word-writing',
-      order: 7,
-      kind: 'game-word-writing',
-      section: 'play',
-      title: '낱말 쓰기',
-      emoji: '🖍️',
-      required: false,
-    },
-    {
-      key: 'game-line-matching',
-      order: 8,
-      kind: 'game-line-matching',
-      section: 'play',
-      title: '그림 짝 찾기',
-      emoji: '🔗',
-      required: false,
-    },
-  ],
-};
+// ─── 게임 4종 (모든 단원 공통 꼬리) ───
+// 🔴 **낱말 놀이 순서는 여기 한 곳**(2026-07-29) — 낱말 연습 → 낱말 그리기 → 한글 블록 게임 →
+//    낱말 쓰기 → 그림 짝 찾기. 예전엔 모음 단원(u01)이 게임 목록을 따로 적어 두어 자음 단원과
+//    순서가 달랐다(같은 게임인데 단원마다 자리가 바뀌면 아이가 매번 다시 찾는다).
+const GAME_ACTIVITIES: ReadonlyArray<Omit<ActivityDef, 'order'>> = [
+  {
+    key: 'game-dots',
+    kind: 'game-connect-dots',
+    section: 'play',
+    title: '낱말 그리기',
+    emoji: '🔵',
+    required: false,
+  },
+  {
+    key: 'game-korean-block',
+    kind: 'game-korean-block',
+    section: 'play',
+    title: '한글 블록 게임',
+    emoji: '🧩',
+    required: false,
+  },
+  {
+    key: 'game-word-writing',
+    kind: 'game-word-writing',
+    section: 'play',
+    title: '낱말 쓰기',
+    emoji: '🖍️',
+    required: false,
+  },
+  {
+    key: 'game-line-matching',
+    kind: 'game-line-matching',
+    section: 'play',
+    title: '그림 짝 찾기',
+    emoji: '🔗',
+    required: false,
+  },
+];
+
+const UNIT_01_PLAN: ActivityPlan = withGames([
+  {
+    key: 'listen-1',
+    kind: 'vowel-listen',
+    section: 'learn',
+    title: '모음 듣기 1',
+    subtitle: 'ㅏ ㅑ ㅓ ㅕ ㅗ ㅛ',
+    emoji: '👂',
+    required: true,
+    vowels: VOWEL_GROUP_1,
+  },
+  {
+    key: 'listen-2',
+    kind: 'vowel-listen',
+    section: 'learn',
+    title: '모음 듣기 2',
+    subtitle: 'ㅜ ㅠ ㅡ ㅣ',
+    emoji: '👂',
+    required: true,
+    vowels: VOWEL_GROUP_2,
+  },
+  {
+    // 🔴 예전엔 쓰기도 1·2 두 장이었다(2026-07-29 통합). 듣기는 한 번에 열 개를 들려주면
+    //    길어서 둘로 나눴지만, 쓰기는 아이가 자기 속도로 한 글자씩 넘기므로 나눌 이유가 없었다.
+    //    카드가 한 장 줄어 익히기가 3장이 되고, 아래 「낱말 놀이」가 한 화면에 같이 들어온다.
+    key: 'write-1',
+    kind: 'vowel-write',
+    section: 'learn',
+    title: '모음 쓰기',
+    subtitle: '아 야 어 여 오 요 우 유 으 이',
+    emoji: '✏️',
+    required: true,
+    vowels: [...VOWEL_GROUP_1, ...VOWEL_GROUP_2],
+  },
+]);
 
 // ─── 자음 단원 (ㄱ ~ ㅎ) 공용 plan 생성기 ───
 // 모음 그룹 (자음+모음 액티비티용)
@@ -462,42 +452,6 @@ const CONSONANT_UNIT_MAP: Record<string, string> = {
   'kr-h1-u15': 'ㅎ',
 };
 
-// ─── 게임 4종 (모든 단원 공통 꼬리) ───
-const GAME_ACTIVITIES: ReadonlyArray<Omit<ActivityDef, 'order'>> = [
-  {
-    key: 'game-korean-block',
-    kind: 'game-korean-block',
-    section: 'play',
-    title: '한글 블록 게임',
-    emoji: '🧩',
-    required: false,
-  },
-  {
-    key: 'game-word-writing',
-    kind: 'game-word-writing',
-    section: 'play',
-    title: '낱말 쓰기',
-    emoji: '🖍️',
-    required: false,
-  },
-  {
-    key: 'game-dots',
-    kind: 'game-connect-dots',
-    section: 'play',
-    title: '낱말 그리기',
-    emoji: '🔵',
-    required: false,
-  },
-  {
-    key: 'game-line-matching',
-    kind: 'game-line-matching',
-    section: 'play',
-    title: '그림 짝 찾기',
-    emoji: '🔗',
-    required: false,
-  },
-];
-
 /**
  * 🔊 듣고 고르기 — 단어 발음을 먼저 들려주고 [그림 + 단어] 카드를 고른다.
  *
@@ -511,8 +465,13 @@ function wordListenActivity(letter?: string): Omit<ActivityDef, 'order'> {
   return {
     key: 'word-listen-choose',
     kind: 'word-listen-choose',
-    section: 'learn',
-    title: '단어 연습',
+    // 🔴 아래 「낱말 놀이」 칸이다(2026-07-29) — 위 칸은 **글자**(ㄱ 배우기·ㄱ+모음·ㄱ 써보기),
+    //    아래 칸은 **낱말**(단어 연습·블록·낱말 쓰기·낱말 그리기·그림 짝)이다. 단어 연습만
+    //    글자 칸에 앉아 있어서 위아래를 가르는 기준이 흐렸다.
+    section: 'play',
+    // 🔴 「단어」가 아니라 **낱말**(2026-07-29) — 옆 카드들이 전부 「낱말 …」 이라 하나만
+    //    단어라고 부르면 다른 것처럼 보인다. 아이 화면 용어는 한 말로 통일한다.
+    title: '낱말 연습',
     emoji: '🔊',
     required: true,
     ...(letter ? { consonant: letter } : {}),
@@ -714,7 +673,7 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
         key: 'review-word-listen',
         order: 5,
         kind: 'review-word-listen',
-        title: '듣고 단어 맞추기',
+        title: '듣고 낱말 맞추기',
         emoji: '🔊',
         ...shared,
       },

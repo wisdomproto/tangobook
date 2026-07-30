@@ -22,10 +22,23 @@ describe('korean phonics activity plans', () => {
     expect(empty.map((u) => u.id)).toEqual([]);
   });
 
-  it('모든 학습 단원이 학습 활동 + 게임 4종을 갖는다', () => {
+  /**
+   * 🔴 「낱말 놀이」 = 낱말 연습 + 게임 4종, **순서까지 모든 단원이 같다**(2026-07-29).
+   *    예전엔 모음 단원만 게임 목록을 따로 적어 두어 순서가 달랐다 — 같은 게임이 단원마다
+   *    다른 자리에 있으면 아이가 매번 다시 찾는다.
+   */
+  const PLAY_ORDER = [
+    'word-listen-choose',
+    'game-dots',
+    'game-korean-block',
+    'game-word-writing',
+    'game-line-matching',
+  ];
+
+  it('모든 학습 단원의 「낱말 놀이」가 같은 5장·같은 순서다', () => {
     for (const u of lessons) {
       const acts = getActivityPlan(u.id).activities;
-      expect(acts.filter((a) => a.section === 'play')).toHaveLength(4);
+      expect(acts.filter((a) => a.section === 'play').map((a) => a.key)).toEqual(PLAY_ORDER);
       expect(acts.filter((a) => a.section === 'learn').length).toBeGreaterThan(0);
       // order 는 1부터 빈틈없이
       expect(acts.map((a) => a.order)).toEqual(acts.map((_, i) => i + 1));
@@ -76,18 +89,15 @@ describe('korean phonics activity plans', () => {
     expect(acts.find((a) => a.kind === 'vowel-write')?.vowels).toEqual(listen.vowels);
   });
 
-  it('단어가 있는 학습 단원은 모두 듣고 고르기를 갖는다', () => {
+  it('모든 학습 단원이 낱말 연습을 갖는다', () => {
     // 🔴 다른 활동은 누르면 소리가 나는 탐색형이라, 소리 변별을 확인하는 활동은 이것뿐이다.
-    const withWords = lessons.filter((u) => u.targetWords.length >= 3);
-    expect(withWords.length).toBe(31); // 모음 단원(단어 없음)만 빠진다
-    for (const u of withWords) {
-      const kinds = getActivityPlan(u.id).activities.map((a) => a.kind);
-      expect(kinds).toContain('word-listen-choose');
+    for (const u of lessons) {
+      expect(getActivityPlan(u.id).activities.map((a) => a.kind)).toContain('word-listen-choose');
     }
-    // 모음 단원은 단어가 없어 붙지 않는다
-    expect(getActivityPlan('kr-h1-u01').activities.map((a) => a.kind)).not.toContain(
-      'word-listen-choose'
-    );
+    // 🔴 모음 단원(kr-h1-u01)도 포함한다(2026-07-29). 커리큘럼 메타의 `targetWords` 는 비어 있지만
+    //    **활동이 읽는 건 단원 storybook** 이고 거기엔 그림 있는 낱말 4개(아이·오이·우유·여우)가 있다.
+    //    예전엔 커리큘럼만 보고 "모음 단원은 단어가 없다"고 빼 놨었다.
+    expect(units.find((u) => u.id === 'kr-h1-u01')!.targetWords.length).toBe(0);
   });
 
   it('복습 단원이 레벨마다 묶음 뒤에 끼어든다', () => {
@@ -152,16 +162,16 @@ describe('korean phonics activity plans', () => {
   });
 
   it('한글1 단원 구성은 그대로다 (회귀 가드)', () => {
+    // 🔴 모음 쓰기는 **한 장**(2026-07-29 통합) — 열 글자를 한 활동에서 쓴다.
     expect(getActivityPlan('kr-h1-u01').activities.map((a) => a.key)).toEqual([
       'listen-1',
       'listen-2',
       'write-1',
-      'write-2',
-      'game-dots',
-      'game-korean-block',
-      'game-word-writing',
-      'game-line-matching',
+      ...PLAY_ORDER,
     ]);
+    expect(
+      getActivityPlan('kr-h1-u01').activities.find((a) => a.key === 'write-1')!.vowels
+    ).toHaveLength(10);
     const u02 = getActivityPlan('kr-h1-u02').activities;
     expect(u02.map((a) => a.kind).slice(0, 3)).toEqual([
       'consonant-tap',

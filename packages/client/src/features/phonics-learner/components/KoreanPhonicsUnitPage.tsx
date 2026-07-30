@@ -76,8 +76,10 @@ export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?:
             unitId={unitId}
             // 🔴 복습 단원은 이 패널이 화면의 유일한 글자다 — "게임하기" 로 두면 무엇을 복습하는지
             //    화면 어디에도 안 적힌다. 사이드바와 같은 이름(ㄱ~ㄹ 복습)을 그대로 쓴다.
-            title={unit.isReview ? unit.unitTitle : '게임하기'}
-            subtitle="재미있게 익혀요"
+            // 🔴 「게임하기」가 아니라 **낱말 놀이**(2026-07-29) — 이 칸 다섯이 전부 낱말 활동이다.
+            //    「어휘 연습」 도 후보였으나 4~7세 화면에서 '어휘'·'연습' 은 어른 말이고 공부로 읽힌다.
+            title={unit.isReview ? unit.unitTitle : '낱말 놀이'}
+            subtitle="놀면서 익혀요"
             emoji={unit.isReview ? '🏅' : '🎮'}
             tone="play"
             activities={playActivities}
@@ -108,6 +110,7 @@ function ActivitySection({
 }) {
   if (activities.length === 0) return null;
   const isLearn = tone === 'learn';
+  const layout = cardLayout(activities.length);
   // Panel: 익히기 = peach 톤 wash, 게임하기 = mint 톤 wash. 양 섹션 시각 구분 강화.
   const panelClass = isLearn
     ? 'bg-gradient-to-br from-peach-100/80 via-peach-50/70 to-cream-50/60 border-peach-200/70'
@@ -138,14 +141,14 @@ function ActivitySection({
           834px 화면의 콘텐츠 폭은 486px 뿐이다. 그래서 sm(3장)보다 md 가 더 넓은 카드(=2장)다.
           실측 콘텐츠 폭: 768→420 · 834→486 · 1024→676 · 1280→934 · 1512→1109.
           🔴 익히기가 두 줄이 되면 게임하기가 화면 밖으로 밀린다 — 한 화면에 둘 다 보여야 한다. */}
-      <div className="flex flex-wrap justify-center gap-4 sm:gap-6 lg:gap-8">
+      <div className={`flex flex-wrap justify-center ${layout.gap}`}>
         {activities.map((act) => (
           <ActivityCard
             key={act.key}
             unitId={unitId}
             activity={act}
             done={completed.includes(act.key)}
-            widthClass={activities.length === 6 ? SIX_CARD_WIDTH : undefined}
+            widthClass={layout.width}
           />
         ))}
       </div>
@@ -154,18 +157,43 @@ function ActivitySection({
 }
 
 /**
- * 🔴 flex 아이템이라 **폭을 직접 준다** — 안 주면 정사각 카드가 내용만큼 오그라든다.
- * 한 줄에 몇 장인지를 폭으로 정한다: 375=2 · sm=3 · md=2(사이드바가 256px 먹음) · lg=4 · xl=5.
+ * 카드 폭 + 사이 간격은 **장수가 정한다**. 🔴 flex 아이템이라 폭을 직접 줘야 한다 — 안 주면
+ * 정사각 카드가 내용만큼 오그라든다. 폭 계산식은 그 브레이크포인트의 **gap 과 한 벌**이라
+ * (`n장이면 100/n% - gap×(n-1)/n`) 둘을 따로 두면 한쪽만 고쳐 줄이 어긋난다.
+ *
+ * 🔴 **기준은 뷰포트가 아니라 남는 폭** — md 부터 사이드바가 256px 를 먹는다.
+ *    실측 콘텐츠 폭: 768→420 · 834→486 · 1024→676 · 1280→934 · 1512→1109.
+ * 🔴 익히기가 두 줄이 되면 아래 섹션이 화면 밖으로 밀린다 — 한 화면에 둘 다 보여야 한다.
  */
-const DEFAULT_CARD_WIDTH =
-  'w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)] md:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.5rem)] xl:w-[calc(20%-1.6rem)]';
-
 /**
- * 6장짜리 섹션(복습 게임)은 **3+3** 으로 나눈다 — 기본 폭이면 lg 4장·xl 5장이라 마지막 한 장이
- * 혼자 남아 덤처럼 보인다. 좁은 화면(md 이하)은 그대로 2장씩: 3장으로 쪼개면 카드가 100px 대가 된다.
+ * 🔴 카드에 `transition-all` 을 주지 말 것 — **폭까지 애니메이션된다**. 한 줄에 다섯을 넣던 날
+ *    첫 카드만 9.6px 좁게 굳었는데(다른 넷은 정상), 원인이 이것이었다. 클래스는 다섯 장이
+ *    완전히 같은데 계산값만 달랐고, `transition: none` 을 주자 즉시 제자리로 왔다.
+ *    카드가 실제로 움직이는 건 hover 의 들림·그림자뿐이라 그 둘만 전이한다.
  */
-const SIX_CARD_WIDTH =
-  'w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)] md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1.34rem)] xl:w-[calc(33.333%-1.34rem)]';
+function cardLayout(count: number): { gap: string; width: string } {
+  // 5장(낱말 놀이) — lg 부터 **한 줄에 다섯**. 간격을 좁혀야 카드가 120px 밑으로 안 내려간다
+  // (lg 콘텐츠 676px: gap-5 면 119px · gap-8 이면 110px). 글자·배지는 카드 폭을 따라 줄어든다
+  // (`containerType: inline-size` + `cqw`)이라 이 크기에서도 제목이 안 잘린다.
+  // md(486px)는 3장 = 148px — 5장을 넣으면 88px 라 손톱만해진다.
+  if (count === 5)
+    return {
+      gap: 'gap-4 sm:gap-5 lg:gap-5',
+      width: 'w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.834rem)] lg:w-[calc(20%-1rem)]',
+    };
+  // 6장(복습 게임)은 **3+3** — 4열·5열이면 마지막 한 장이 혼자 남아 덤처럼 보인다.
+  if (count === 6)
+    return {
+      gap: 'gap-4 sm:gap-6 lg:gap-8',
+      width:
+        'w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)] md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1.34rem)]',
+    };
+  return {
+    gap: 'gap-4 sm:gap-6 lg:gap-8',
+    width:
+      'w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)] md:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.5rem)] xl:w-[calc(20%-1.6rem)]',
+  };
+}
 
 /** 액티비티 kind → 일러스트 (webp). 매칭 안 되면 undefined → emoji 폴백. */
 const KIND_ICON_URL: Partial<Record<ActivityDef['kind'], string>> = {
@@ -192,30 +220,59 @@ const KIND_ICON_URL: Partial<Record<ActivityDef['kind'], string>> = {
   'game-line-matching': '/icons/game/line-matching.webp',
 };
 
+/**
+ * 카드 안 크기는 **뷰포트가 아니라 카드 폭**을 따른다. 한 줄에 다섯을 넣으면 카드가 118px 까지
+ * 내려가는데, `text-2xl`·48px 배지를 그대로 두면 제목이 세 줄로 접혀 잘리고 배지가 카드를 먹는다.
+ *
+ * 🔴 **`cqw` 는 카드의 content box 기준**(테두리 5px·패딩 12~16px 을 뺀 폭)이라, 146px 카드의
+ *    1cqw 는 1.46px 이 아니라 **1.12px** 이다. 처음 계수를 겉보기 폭으로 잡았다가 모바일에서
+ *    글자·배지가 예전보다 25% 작아졌다(실측 배지 44→33px). 계수는 실측으로 맞춘 값이다:
+ *    375px(카드 146) 에서 예전 고정값(제목 20px · 배지 44px · 그림 80px)과 같고,
+ *    상한(1.5rem · 3rem)은 큰 화면의 예전 값과 같다.
+ */
+const BADGE = 'clamp(1.75rem, 39cqw, 3rem)';
+const FIT = {
+  title: { fontSize: 'clamp(0.85rem, 18cqw, 1.5rem)' },
+  badge: { width: BADGE, height: BADGE },
+  badgeText: { fontSize: 'clamp(0.8rem, 18cqw, 1.5rem)' },
+  icon: { width: '72cqw' },
+  emoji: { fontSize: 'clamp(1.75rem, 48cqw, 3.75rem)' },
+} as const;
+
 function ActivityCard({
   unitId,
   activity,
   done,
-  widthClass = DEFAULT_CARD_WIDTH,
+  widthClass,
 }: {
   unitId: string;
   activity: ActivityDef;
   done: boolean;
-  widthClass?: string;
+  widthClass: string;
 }) {
   const isLearn = activity.section === 'learn';
   // 🔴 게임도 끝내면 ✓ — 예전엔 "게임은 완료 개념 없음"이라며 무시했는데,
   //    아이가 게임을 다 깨고 나와도 목록이 그대로라 무엇을 했는지 안 보였다.
   const showDone = done;
 
+  /**
+   * 🔴 **완료 색은 그 섹션 색으로**(2026-07-29 사용자 지적). 예전엔 완료가 양쪽 다 초록이라
+   *    익히기의 다 한 카드가 **아래 「낱말 놀이」(민트) 카드처럼** 보였다 — 색이 "어디"와 "얼마나
+   *    했나"를 동시에 말하려다 둘 다 흐려진 것이다. 이제 **패널 색 = 어디 / 카드 진하기 = 진도**
+   *    이고, 완료 신호는 우상단 ✓ 배지(초록)가 맡는다.
+   */
   const cardClass = showDone
-    ? 'bg-gradient-to-br from-success/10 to-success/20 border-success/60 ring-2 ring-success/30'
+    ? isLearn
+      ? 'bg-gradient-to-br from-peach-200 to-peach-300 border-peach-300 ring-2 ring-peach-200'
+      : 'bg-gradient-to-br from-mint-200 to-mint-300 border-mint-300 ring-2 ring-mint-200'
     : isLearn
       ? 'bg-gradient-to-br from-white via-peach-50 to-peach-100 border-white'
       : 'bg-gradient-to-br from-white via-mint-50 to-mint-100 border-white';
 
   const numBadgeClass = showDone
-    ? 'bg-success text-white opacity-70'
+    ? isLearn
+      ? 'bg-coral-400 text-white opacity-70'
+      : 'bg-mint-500 text-white opacity-70'
     : isLearn
       ? 'bg-gradient-to-br from-coral-400 to-coral-600 text-white'
       : 'bg-gradient-to-br from-mint-400 to-mint-600 text-white';
@@ -225,14 +282,19 @@ function ActivityCard({
   return (
     <Link
       to={`/library/phonics/korean/${unitId}/${activity.key}`}
-      className={`group relative block aspect-square ${widthClass} max-w-[13rem] rounded-[28px] border-[5px] p-3 sm:p-4 transition-all duration-200 active:scale-[0.97] hover:-translate-y-1 hover:rotate-[0.5deg] hover:shadow-[0_18px_40px_-12px_rgba(255,94,58,0.4)] shadow-[0_8px_24px_-10px_rgba(255,94,58,0.25)] flex flex-col overflow-hidden ${cardClass}`}
+      className={`group relative block aspect-square ${widthClass} max-w-[13rem] rounded-[28px] border-[5px] p-3 sm:p-4 transition-[transform,box-shadow] duration-200 active:scale-[0.97] hover:-translate-y-1 hover:rotate-[0.5deg] hover:shadow-[0_18px_40px_-12px_rgba(255,94,58,0.4)] shadow-[0_8px_24px_-10px_rgba(255,94,58,0.25)] flex flex-col overflow-hidden ${cardClass}`}
+      // 안쪽 크기의 기준 — `cqw` 가 이 카드 폭의 1% 가 된다(위 FIT).
+      style={{ containerType: 'inline-size' }}
     >
       {/* 위쪽 살짝 하이라이트 (3D rendered 느낌) */}
       <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/60 to-transparent pointer-events-none" />
 
       {/* 완료 큰 ✓ overlay — 우상단 (익히기 완료 시만) */}
       {showDone && (
-        <div className="absolute top-2.5 right-2.5 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-success text-white flex items-center justify-center shadow-pop text-2xl sm:text-3xl font-black ring-[5px] ring-white z-20">
+        <div
+          className="absolute top-2.5 right-2.5 rounded-full bg-success text-white flex items-center justify-center shadow-pop font-black ring-[5px] ring-white z-20"
+          style={{ ...FIT.badge, ...FIT.badgeText }}
+        >
           ✓
         </div>
       )}
@@ -241,7 +303,8 @@ function ActivityCard({
           🔴 우상단 ✓ 처럼 **떠 있는다**(absolute). 흐름에 두면 48px 짜리 줄을 하나 더 먹어
           정사각 카드에서 일러스트가 들어갈 자리가 사라진다. */}
       <span
-        className={`absolute top-2.5 left-2.5 z-20 inline-flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-full font-black text-xl sm:text-2xl shrink-0 shadow-pop ring-[4px] ring-white -rotate-[6deg] group-hover:-rotate-[3deg] transition-transform ${numBadgeClass}`}
+        className={`absolute top-2.5 left-2.5 z-20 inline-flex items-center justify-center rounded-full font-black shrink-0 shadow-pop ring-[4px] ring-white -rotate-[6deg] group-hover:-rotate-[3deg] transition-transform ${numBadgeClass}`}
+        style={{ ...FIT.badge, ...FIT.badgeText }}
       >
         {activity.order}
       </span>
@@ -262,13 +325,13 @@ function ActivityCard({
           <img
             src={iconUrl}
             alt={activity.title}
-            className="absolute inset-0 m-auto max-h-full max-w-full w-20 sm:w-24 md:w-28 object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)]"
+            className="absolute inset-0 m-auto max-h-full max-w-full object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)]"
+            style={FIT.icon}
           />
         ) : (
-          // 🔴 이모지는 글꼴 크기라 `max-h-full` 로 못 묶는다 — **가장 좁은 카드(148px)에 들어가는
-          //    크기로 고정**한다. 72px 이던 시절 174px 카드에서 제목을 3px 침범했다.
-          //    (아이콘 webp 가 있는 활동은 위 img 경로라 이 제한과 무관하다.)
-          <span className="text-5xl sm:text-6xl leading-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)]">
+          // 🔴 이모지는 글꼴 크기라 `max-h-full` 로 못 묶는다 — 카드 폭에 비례시켜야(cqw) 좁은
+          //    카드에서 제목을 침범하지 않는다. 72px 고정이던 시절 174px 카드에서 3px 침범했다.
+          <span className="leading-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)]" style={FIT.emoji}>
             {activity.emoji}
           </span>
         )}
@@ -276,7 +339,8 @@ function ActivityCard({
 
       {/* 제목은 절대 줄이지 않는다 — 잘리면 무슨 활동인지 못 읽는다 */}
       <h3
-        className={`relative z-10 shrink-0 pb-0.5 text-xl sm:text-2xl font-black font-display leading-tight break-keep text-center ${showDone ? 'text-ink-500' : 'text-ink-900'}`}
+        className={`relative z-10 shrink-0 pb-0.5 font-black font-display leading-tight break-keep text-center ${showDone ? 'text-ink-700' : 'text-ink-900'}`}
+        style={FIT.title}
       >
         {activity.title}
       </h3>
