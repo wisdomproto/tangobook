@@ -177,7 +177,9 @@ export default function EnglishPhonicsActivityPage() {
         id: `${label}-${w.word}`,
         label,
         sound: w.word,
+        // 탐색: 눌러서 그림을 연다. 퀴즈: 글자만 깔고 맞히면 이 그림으로 뒤집힌다(2026-07-31 사용자).
         imageUrl: w.imageUrl,
+        revealImageUrl: w.imageUrl,
         ...(w.ttsUrl ? { ttsUrl: w.ttsUrl } : {}),
       }));
     });

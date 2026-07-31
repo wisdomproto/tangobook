@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
@@ -7,7 +7,6 @@ import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import type { Storybook } from '@tangobook/shared';
 import { ActivityShell } from '../components/ActivityShell';
-import { FirstLetterWord } from '../components/FirstLetterWord';
 import { findImageData } from '../lib/phonics-game-adapter';
 
 interface Props {
@@ -28,6 +27,9 @@ interface Props {
  * 글자 음원: storybook.phonicsLesson.blending[i].blendTtsUrl 우선,
  *   없으면 vowelTtsUrl 또는 blendingSequenceTtsUrl 폴백. 통과 시 자동 재생.
  */
+/** 마지막 칸까지 통과한 뒤 그림을 잠깐 더 두고 다음 글자로 — 아이가 그림을 볼 틈. */
+const REVEAL_LINGER_MS = 1000;
+
 export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, onBack }: Props) {
   const storybookQuery = useStorybook(unitId);
   const sb = storybookQuery.data as Storybook | undefined;
@@ -39,24 +41,15 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
   // 글자별 (대문자/소문자) 통과 트래킹
   const [passed, setPassed] = useState<Record<string, { upper: boolean; lower: boolean }>>({});
   const [currentIdx, setCurrentIdx] = useState(0);
-  const [advancing, setAdvancing] = useState(false);
 
   const wordFamilies = sb?.phonicsLesson?.wordFamilies ?? [];
 
   /**
-   * 캔버스 하나를 통과할 때 여는 그림 — **글자당 두 장**(apple / alligator)을 하나씩 준다.
-   * 🔴 대문자 통과 = 첫 낱말, 소문자 통과 = 둘째 낱말(2026-07-29 사용자 지시: "하나씩 나오게 해").
-   *    예전엔 낱말을 **무작위**로 골라 소리만 냈고 그림은 글자를 다 쓴 뒤 한 장만 나왔다 —
-   *    글자당 그림이 두 장인데 한 장은 아무도 못 봤다.
-   * 🔴 그림은 **낱말 소리와 함께** 연다. 소리가 끝나기를 기다렸다가 열었더니 「a a alligator」를
-   *    다 듣고도 4.2초 동안 아무 일이 없었다(사용자: "그림이 안 나오는데?").
+   * 🔴 **통과한 칸은 그 자리에서 그림으로 바뀐다**(2026-07-31 사용자: "쓰기 칸을 그림으로 바꾸자.
+   *    그 아래 알파벳은 보여주고"). 예전엔 통과할 때마다 **풀스크린 그림 팝업**이 튀어나왔는데
+   *    (`reward` 오버레이), 쓰던 자리를 덮어 흐름이 끊겼다. 이제 그림은 캔버스 칸 안에서 열린다 —
+   *    대문자 통과 = 첫 낱말(apple) / 소문자 통과 = 둘째 낱말(alligator), 그림 아래 알파벳(B/b)을 둔다.
    */
-  const [reward, setReward] = useState<{
-    url: string;
-    word: string;
-    /** 이 그림이 닫히면 다음 글자로 — 그 글자의 두 번째(=마지막) 통과였다. */
-    last: boolean;
-  } | null>(null);
 
   /** 글자의 n 번째 낱말 — 그림·소리를 같이 준다. */
   const wordAt = useCallback(
@@ -86,27 +79,18 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
     });
   }, [playCorrectSequence, systemSounds, onMarkComplete, onBack]);
 
-  /** 그림을 닫는다 — 그 글자의 마지막 그림이었으면 다음 글자(또는 단원 종료)로. */
-  const closeReward = useCallback(() => {
-    setReward((r) => {
-      if (!r) return null;
-      if (r.last) {
-        if (currentIdx + 1 < letters.length) {
-          setCurrentIdx((i) => i + 1);
-          setAdvancing(false);
-        } else {
-          finishUnit();
-        }
-      }
-      return null;
-    });
+  /** 이 글자의 두 칸을 다 통과했으니 다음 글자(또는 단원 종료)로. */
+  const advanceLetter = useCallback(() => {
+    if (currentIdx + 1 < letters.length) setCurrentIdx((i) => i + 1);
+    else finishUnit();
   }, [currentIdx, letters.length, finishUnit]);
-  const closeRewardRef = useRef(closeReward);
-  closeRewardRef.current = closeReward;
+  const advanceRef = useRef(advanceLetter);
+  advanceRef.current = advanceLetter;
 
   /**
-   * 캔버스 통과 콜백 — 통과한 쪽(대/소문자)에 해당하는 낱말을 **그림 + 소리로 함께** 낸다.
-   * 🔴 소리 길이를 가정하지 않는다 — 그림은 소리가 끝나고 잠깐 더 있다가 닫힌다(탭하면 즉시).
+   * 캔버스 통과 콜백 — 통과한 칸은 그림으로 바뀌고(`passed` → 아래 `renderCell` 이 파생), 그 낱말을 읽어준다.
+   * 🔴 소리 길이를 가정하지 않는다(`playAudio` 콜백 체인). 두 번째 통과면 소리가 끝나고 그림을 잠깐
+   *    더 둔 뒤 다음 글자로 — 아이가 그림을 볼 틈.
    */
   const handleResult = useCallback(
     (which: 'upper' | 'lower') => (ok: boolean) => {
@@ -118,27 +102,47 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
         const cur = prev[currentLetter] ?? { upper: false, lower: false };
         return { ...prev, [currentLetter]: { ...cur, [which]: true } };
       });
-      if (isLast) setAdvancing(true);
 
       const w = wordAt(currentIdx, which === 'upper' ? 0 : 1) ?? wordAt(currentIdx, 0);
-      if (w?.imageUrl) setReward({ url: w.imageUrl, word: w.word, last: isLast });
-
-      // 쓰기가 끝난 뒤 숨 돌릴 자리 — 간격은 공용 값(`REST_MS`).
+      // 그림은 setPassed 로 칸에 이미 떴다 — 쓰기 뒤 숨 돌리고 낱말 소리, 마지막이면 그 뒤 다음 글자로.
       scheduleTimer(() => {
         playAudio(w?.ttsUrl, () => {
-          // 소리가 끝나면 그림을 잠깐 더 두고 닫는다. 그림이 없으면 바로 다음 단계로.
-          scheduleTimer(() => closeRewardRef.current(), w?.imageUrl ? 1200 : 0);
+          if (isLast) scheduleTimer(() => advanceRef.current(), REVEAL_LINGER_MS);
         });
       }, REST_MS);
     },
     [currentLetter, currentIdx, passed, wordAt, playAudio, scheduleTimer]
   );
 
-  /** 소리가 아예 없어 `playAudio` 가 즉시 끝나는 경우 대비 — 그림이 영영 안 닫히지 않게. */
-  useEffect(() => {
-    if (!reward) return;
-    scheduleTimer(() => closeRewardRef.current(), 6000);
-  }, [reward, scheduleTimer]);
+  /**
+   * 한 칸(대/소문자) — 통과 전엔 캔버스, 통과하면 그 낱말 그림 + 아래 알파벳.
+   * 🔴 그림이 없는 글자(플래시카드 미보유)는 통과해도 캔버스를 그대로 둔다(✓ 통과 배지가 상태를 말한다).
+   */
+  const renderCell = (which: 'upper' | 'lower', letter: string, letterColor: string) => {
+    const img = currentPassed[which]
+      ? (wordAt(currentIdx, which === 'upper' ? 0 : 1) ?? wordAt(currentIdx, 0))?.imageUrl
+      : undefined;
+    if (img) {
+      return (
+        <div className="flex flex-col items-center gap-1">
+          <img src={img} alt="" className="w-full aspect-square object-contain rounded-[18px]" />
+          <span
+            className={`font-display font-black text-4xl sm:text-5xl leading-none ${letterColor}`}
+          >
+            {letter}
+          </span>
+        </div>
+      );
+    }
+    return (
+      <LetterFillCanvas
+        key={`${which}-${currentLetter}`}
+        letter={letter}
+        onResult={handleResult(which)}
+        autoCheck
+      />
+    );
+  };
 
   const progressText = useMemo(
     () =>
@@ -210,12 +214,7 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
                 <span className="text-mint-500 text-xl sm:text-2xl font-black">✓ 통과</span>
               )}
             </div>
-            <LetterFillCanvas
-              key={`upper-${currentLetter}`}
-              letter={currentUpper}
-              onResult={handleResult('upper')}
-              autoCheck
-            />
+            {renderCell('upper', currentUpper, 'text-coral-600')}
           </div>
           {/* 소문자 */}
           <div className="bg-white rounded-[24px] p-3 sm:p-4 shadow-pop ring-4 ring-white border-2 border-sky-100">
@@ -227,12 +226,7 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
                 <span className="text-mint-500 text-xl sm:text-2xl font-black">✓ 통과</span>
               )}
             </div>
-            <LetterFillCanvas
-              key={`lower-${currentLetter}`}
-              letter={currentLower}
-              onResult={handleResult('lower')}
-              autoCheck
-            />
+            {renderCell('lower', currentLower, 'text-sky-600')}
           </div>
         </div>
 
@@ -240,26 +234,6 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
           대문자와 소문자를 따라써 보세요. 둘 다 통과하면 다음 글자로 넘어가요.
         </p>
       </div>
-
-      {reward && (
-        // 🔴 `onClick` 으로 언제든 넘어갈 수 있게 — 기다리는 화면을 강제하지 않는다.
-        <button
-          onClick={closeReward}
-          className="fixed inset-0 z-[70] flex flex-col items-center justify-center gap-4 bg-ink-900/70 backdrop-blur-sm px-6"
-          aria-label={reward.word}
-        >
-          {/* 낱말을 같이 보여준다 — 소리로 듣는 그 낱말이 화면에도 있어야 글자와 이어진다. */}
-          {/* 낱말을 같이 보여준다 — 첫 글자만 크게(이 권의 목표는 글자다). */}
-          <span className="text-white font-display font-black text-4xl sm:text-6xl leading-none">
-            <FirstLetterWord word={reward.word} />
-          </span>
-          <img
-            src={reward.url}
-            alt=""
-            className="max-h-[60vh] max-w-full object-contain rounded-3xl border-[6px] border-white shadow-pop"
-          />
-        </button>
-      )}
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
     </ActivityShell>
