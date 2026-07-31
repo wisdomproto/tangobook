@@ -47,6 +47,33 @@ for (const [id, slug] of Object.entries(slugOf)) {
   console.log(`  ${id} ← ${twin[0]} (공유 슬러그 ${slug})`);
 }
 
+// 🔴 **첫 장은 슬러그마다 달라야 한다.** 화면에 뜨는 건 `refs[0]` 한 장뿐이라, 두 권이 같은 그림을
+//    첫 장으로 가지면 **그리는 사람이 두 책을 같은 그림체로 그린다**(그 사람은 글보다 그림을 먼저 본다).
+//    담당 넷이 병렬로 고르니 같은 그림을 동시에 집는 건 막을 수 없다 — 실제로 한 배치에서
+//    `rolfe-dyslexia` 가 네 권, `virardi-instant` 가 네 권에 걸렸다. 후보를 셋씩 갖고 있으므로
+//    **안 쓰인 후보로 민다**. 정확도를 조금 잃지만, 같은 그림 두 장은 아무것도 안 알려 준다.
+//    ⚠️ 공유 슬러그(짝)는 **같은 그림을 써야 맞으므로** 슬러그 단위로 본다.
+const claimed = new Map(); // refId → slug
+const bumped = [];
+for (const [id, e] of Object.entries(db)) {
+  if (!e.refs?.length) continue;
+  const owner = claimed.get(e.refs[0].id);
+  if (!owner || owner === e.slug) {
+    claimed.set(e.refs[0].id, e.slug);
+    continue;
+  }
+  const alt = e.refs.findIndex((r, i) => i > 0 && !claimed.has(r.id));
+  if (alt < 0) {
+    bumped.push(`🔴 ${id}(${e.slug}) — 후보 셋이 전부 남에게 잡혔다. 첫 장이 ${owner} 와 겹친 채로 둔다`);
+    continue;
+  }
+  const [pick] = e.refs.splice(alt, 1);
+  e.refs.unshift(pick);
+  claimed.set(pick.id, e.slug);
+  bumped.push(`  ${id} 첫 장 → ${pick.id} (원래 것이 ${owner} 와 겹침)`);
+}
+if (bumped.length) console.log('\n첫 장 중복 정리\n' + bumped.join('\n'));
+
 writeFileSync(TARGET, JSON.stringify(db, null, 2) + '\n');
 
 const missing = Object.keys(slugOf).filter((id) => !db[id]);

@@ -151,20 +151,20 @@
     "slug": "changjak-d03",
     "refs": [
       {
-        "id": "lundberg-ingen",
-        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/Nobody_but_M.jpg",
-        "artist": "Sara Lundberg",
-        "work": "Ingen utom jag (Nobody but Me)",
-        "award": "BolognaRagazzi 2025 Fiction",
-        "year": 2025
-      },
-      {
         "id": "smith-townsea",
         "imageUrl": "https://covers.openlibrary.org/b/id/11610229-L.jpg",
         "artist": "Sydney Smith",
         "work": "Town Is by the Sea",
         "award": "Kate Greenaway Medal 2018",
         "year": 2018
+      },
+      {
+        "id": "lundberg-ingen",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/Nobody_but_M.jpg",
+        "artist": "Sara Lundberg",
+        "work": "Ingen utom jag (Nobody but Me)",
+        "award": "BolognaRagazzi 2025 Fiction",
+        "year": 2025
       },
       {
         "id": "becker-tree",
@@ -414,20 +414,20 @@
     "slug": "changjak-cobblepairs",
     "refs": [
       {
-        "id": "marais-tomber",
-        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_fiction_mention_2.jpg",
-        "artist": "Frédéric Marais",
-        "work": "Tomber 8 fois, se relever 9",
-        "award": "BolognaRagazzi 2026 Fiction",
-        "year": 2026
-      },
-      {
         "id": "teckentrup-samesky",
         "imageUrl": "https://covers.openlibrary.org/b/id/8867686-L.jpg",
         "artist": "Britta Teckentrup",
         "work": "Under the Same Sky",
         "award": "CILIP Kate Greenaway Medal 숏리스트 2018",
         "year": 2017
+      },
+      {
+        "id": "marais-tomber",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_fiction_mention_2.jpg",
+        "artist": "Frédéric Marais",
+        "work": "Tomber 8 fois, se relever 9",
+        "award": "BolognaRagazzi 2026 Fiction",
+        "year": 2026
       },
       {
         "id": "robinson-milo",
@@ -474,20 +474,20 @@
     "slug": "changjak-scratchdoor",
     "refs": [
       {
-        "id": "rogaar-lucy",
-        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_fiction_mention_1.jpg",
-        "artist": "Karst-Janneke Rogaar",
-        "work": "Lucy en Donker (Lucy and Dark)",
-        "award": "BolognaRagazzi 2026 Fiction",
-        "year": 2026
-      },
-      {
         "id": "valousek-panacek",
         "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2019/images/premi/BRAW/winner_BRAW_BCBF_19.jpg",
         "artist": "Chrudoš Valoušek",
         "work": "Panáček, pecka, švestka, poleno a zase panáček",
         "award": "BolognaRagazzi Fiction 위너 2019",
         "year": 2018
+      },
+      {
+        "id": "rogaar-lucy",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_fiction_mention_1.jpg",
+        "artist": "Karst-Janneke Rogaar",
+        "work": "Lucy en Donker (Lucy and Dark)",
+        "award": "BolognaRagazzi 2026 Fiction",
+        "year": 2026
       },
       {
         "id": "brooks-fox",
@@ -711,20 +711,20 @@
     "slug": "changjak-canalfork",
     "refs": [
       {
-        "id": "smith-townsea",
-        "imageUrl": "https://covers.openlibrary.org/b/id/11610229-L.jpg",
-        "artist": "Sydney Smith",
-        "work": "Town Is by the Sea",
-        "award": "Kate Greenaway Medal 2018",
-        "year": 2018
-      },
-      {
         "id": "butler-borders",
         "imageUrl": "https://covers.openlibrary.org/b/id/10838996-L.jpg",
         "artist": "George Butler",
         "work": "Drawn Across Borders",
         "award": "CILIP Kate Greenaway Medal 숏리스트 2022",
         "year": 2021
+      },
+      {
+        "id": "smith-townsea",
+        "imageUrl": "https://covers.openlibrary.org/b/id/11610229-L.jpg",
+        "artist": "Sydney Smith",
+        "work": "Town Is by the Sea",
+        "award": "Kate Greenaway Medal 2018",
+        "year": 2018
       },
       {
         "id": "bauer-angel",
@@ -740,20 +740,20 @@
     "slug": "changjak-pressmark",
     "refs": [
       {
-        "id": "rolfe-dyslexia",
-        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/02/KateRolfe_NavigatingDyslexia_Image1.jpg/original",
-        "artist": "Kate Rolfe",
-        "work": "Navigating Dyslexia",
-        "award": "WIA 2022 Category Winner",
-        "year": 2022
-      },
-      {
         "id": "ai-journey",
         "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2020/02/Journey1.jpg/original",
         "artist": "Yunyun Ai",
         "work": "Journey",
         "award": "WIA 2020 Highly Commended",
         "year": 2020
+      },
+      {
+        "id": "rolfe-dyslexia",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/02/KateRolfe_NavigatingDyslexia_Image1.jpg/original",
+        "artist": "Kate Rolfe",
+        "work": "Navigating Dyslexia",
+        "award": "WIA 2022 Category Winner",
+        "year": 2022
       },
       {
         "id": "arsenault-marguerite",
@@ -770,6 +770,14 @@
     "slug": "changjak-hullcut",
     "refs": [
       {
+        "id": "robinson-milo",
+        "imageUrl": "https://covers.openlibrary.org/b/id/15229799-L.jpg",
+        "artist": "Christian Robinson",
+        "work": "Milo Imagines the World",
+        "award": "CILIP Kate Greenaway Medal 숏리스트 2022",
+        "year": 2021
+      },
+      {
         "id": "teckentrup-samesky",
         "imageUrl": "https://covers.openlibrary.org/b/id/8867686-L.jpg",
         "artist": "Britta Teckentrup",
@@ -784,14 +792,6 @@
         "work": "Le coq polyglotte",
         "award": "BolognaRagazzi 2025 Toddler",
         "year": 2025
-      },
-      {
-        "id": "robinson-milo",
-        "imageUrl": "https://covers.openlibrary.org/b/id/15229799-L.jpg",
-        "artist": "Christian Robinson",
-        "work": "Milo Imagines the World",
-        "award": "CILIP Kate Greenaway Medal 숏리스트 2022",
-        "year": 2021
       }
     ],
     "neighbor": true
@@ -1006,20 +1006,20 @@
     "slug": "changjak-tubwater",
     "refs": [
       {
-        "id": "carrossine-beterraba",
-        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/02/CamilaCarrossine_TheGirltheGhostandtheBeetrootForest_image01.jpg/original",
-        "artist": "Camila Carrossine",
-        "work": "A menina, o fantasma e a floresta de beterrabas",
-        "award": "WIA 2025 Category Winner",
-        "year": 2025
-      },
-      {
         "id": "rayner-arlo",
         "imageUrl": "https://covers.openlibrary.org/b/id/10518624-L.jpg",
         "artist": "Catherine Rayner",
         "work": "Arlo The Lion Who Couldn't Sleep",
         "award": "CILIP Kate Greenaway Medal 숏리스트 2021",
         "year": 2020
+      },
+      {
+        "id": "carrossine-beterraba",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/02/CamilaCarrossine_TheGirltheGhostandtheBeetrootForest_image01.jpg/original",
+        "artist": "Camila Carrossine",
+        "work": "A menina, o fantasma e a floresta de beterrabas",
+        "award": "WIA 2025 Category Winner",
+        "year": 2025
       },
       {
         "id": "savage-jellyfish",
@@ -1208,5 +1208,724 @@
         "year": 2024
       }
     ]
+  },
+  "a08": {
+    "slug": "changjak-floursift",
+    "refs": [
+      {
+        "id": "lane-tribe",
+        "imageUrl": "https://covers.openlibrary.org/b/id/7442605-L.jpg",
+        "artist": "Lane Smith",
+        "work": "There Is a Tribe of Kids",
+        "award": "Kate Greenaway Medal 2017",
+        "year": 2017
+      },
+      {
+        "id": "gill-clevercrow",
+        "imageUrl": "https://covers.openlibrary.org/b/id/14641520-L.jpg",
+        "artist": "Olivia Lomenech Gill",
+        "work": "Clever Crow",
+        "award": "Carnegie Medal for Illustration 2025",
+        "year": 2025
+      },
+      {
+        "id": "teckentrup-samesky",
+        "imageUrl": "https://covers.openlibrary.org/b/id/8867686-L.jpg",
+        "artist": "Britta Teckentrup",
+        "work": "Under the Same Sky",
+        "award": "CILIP Kate Greenaway Medal 숏리스트 2018",
+        "year": 2017
+      }
+    ],
+    "neighbor": true
+  },
+  "a09": {
+    "slug": "changjak-darkcut",
+    "refs": [
+      {
+        "id": "boyd-flashlight",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2015/FICTION/winner_flashlight_cover%20ok.jpg",
+        "artist": "Lizi Boyd",
+        "work": "Flashlight",
+        "award": "BolognaRagazzi Fiction 위너 2015",
+        "year": 2014
+      },
+      {
+        "id": "haugomat-atravers",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2019/images/premi/BRAW/A_travers_BRAW_BCBF_19.jpg",
+        "artist": "Tom Haugomat",
+        "work": "À travers",
+        "award": "BolognaRagazzi Fiction 특별언급 2019",
+        "year": 2018
+      },
+      {
+        "id": "marais-tomber",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_fiction_mention_2.jpg",
+        "artist": "Frédéric Marais",
+        "work": "Tomber 8 fois, se relever 9",
+        "award": "BolognaRagazzi 2026 Fiction",
+        "year": 2026
+      }
+    ],
+    "neighbor": false
+  },
+  "a11": {
+    "slug": "changjak-tilefield",
+    "refs": [
+      {
+        "id": "rolfe-wiggling",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/01/KateRolfe_WigglingWords_Image1.jpg/original",
+        "artist": "Kate Rolfe",
+        "work": "Wiggling Words",
+        "award": "WIA 2024 Category Winner",
+        "year": 2024
+      },
+      {
+        "id": "younesi-wisdom",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/wisdom.jpg",
+        "artist": "Majid Zakeri Younesi",
+        "work": "House of Wisdom",
+        "award": "BolognaRagazzi 2025 Fiction",
+        "year": 2025
+      },
+      {
+        "id": "carlin-kingsky",
+        "imageUrl": "https://covers.openlibrary.org/b/id/14485706-L.jpg",
+        "artist": "Laura Carlin",
+        "work": "King of the Sky",
+        "award": "CILIP Kate Greenaway Medal 숏리스트 2018",
+        "year": 2017
+      }
+    ],
+    "neighbor": true
+  },
+  "a12": {
+    "slug": "changjak-liftcolor",
+    "refs": [
+      {
+        "id": "ai-journey",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2020/02/Journey1.jpg/original",
+        "artist": "Yunyun Ai",
+        "work": "Journey",
+        "award": "WIA 2020 Highly Commended",
+        "year": 2020
+      },
+      {
+        "id": "bouvier-spring",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/02/CaroleBouvier_OnASpringDay_image1.jpg/original",
+        "artist": "Carole Bouvier",
+        "work": "On A Spring Day",
+        "award": "WIA 2022 Highly Commended",
+        "year": 2022
+      },
+      {
+        "id": "lundberg-ingen",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/Nobody_but_M.jpg",
+        "artist": "Sara Lundberg",
+        "work": "Ingen utom jag (Nobody but Me)",
+        "award": "BolognaRagazzi 2025 Fiction",
+        "year": 2025
+      }
+    ],
+    "neighbor": true
+  },
+  "a75": {
+    "slug": "changjak-ridgewash",
+    "refs": [
+      {
+        "id": "gwilym-tigers",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/02/1-Yuliya-Gwilym.jpg/original",
+        "artist": "Yuliya Gwilym",
+        "work": "(호랑이와 유령 동물)",
+        "award": "WIA 2025 Highly Commended",
+        "year": 2025
+      },
+      {
+        "id": "rayner-arlo",
+        "imageUrl": "https://covers.openlibrary.org/b/id/10518624-L.jpg",
+        "artist": "Catherine Rayner",
+        "work": "Arlo The Lion Who Couldn't Sleep",
+        "award": "CILIP Kate Greenaway Medal 숏리스트 2021",
+        "year": 2020
+      },
+      {
+        "id": "carrossine-beterraba",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/02/CamilaCarrossine_TheGirltheGhostandtheBeetrootForest_image01.jpg/original",
+        "artist": "Camila Carrossine",
+        "work": "A menina, o fantasma e a floresta de beterrabas",
+        "award": "WIA 2025 Category Winner",
+        "year": 2025
+      }
+    ],
+    "neighbor": true
+  },
+  "b05": {
+    "slug": "changjak-paperbloom",
+    "refs": [
+      {
+        "id": "gamon-boucle",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/Boucle_dor_en_chemin.jpg",
+        "artist": "Caroline Gamon",
+        "work": "Boucle d'or en chemin (Let's Go, Goldilocks!)",
+        "award": "BolognaRagazzi 2025 Fiction",
+        "year": 2025
+      },
+      {
+        "id": "child-tomato",
+        "imageUrl": "https://covers.openlibrary.org/b/id/885657-L.jpg",
+        "artist": "Lauren Child",
+        "work": "I Will Not Ever Never Eat a Tomato",
+        "award": "Kate Greenaway Medal 2000",
+        "year": 2000
+      },
+      {
+        "id": "icinori-issunboshi",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2014/ISSUN_BOSHI_menzione_Fiction_BRAW2014.jpg",
+        "artist": "Icinori (Mayumi Otero & Raphael Urwiller)",
+        "work": "Issun Bôshi",
+        "award": "BolognaRagazzi Fiction 특별언급 2014",
+        "year": 2013
+      }
+    ],
+    "neighbor": true
+  },
+  "b06": {
+    "slug": "changjak-risenpaper",
+    "refs": [
+      {
+        "id": "massa-gino",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2023/02/simonamassa_gino_image1.jpg/original",
+        "artist": "Simona Massa",
+        "work": "Gino",
+        "award": "WIA 2023 Category Winner",
+        "year": 2023
+      },
+      {
+        "id": "rolfe-dyslexia",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/02/KateRolfe_NavigatingDyslexia_Image1.jpg/original",
+        "artist": "Kate Rolfe",
+        "work": "Navigating Dyslexia",
+        "award": "WIA 2022 Category Winner",
+        "year": 2022
+      },
+      {
+        "id": "erlbruch-duck",
+        "imageUrl": "https://covers.openlibrary.org/b/id/14811976-L.jpg",
+        "artist": "Wolf Erlbruch",
+        "work": "Duck, Death and the Tulip",
+        "award": "HCA Illustrator Award 2006",
+        "year": 2006
+      }
+    ],
+    "neighbor": true
+  },
+  "b08": {
+    "slug": "changjak-fivemarks",
+    "refs": [
+      {
+        "id": "lee-moving",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2023/premi/braw/VINCITORI/moving_bassa_croppata.jpg",
+        "artist": "Ji Yeon Lee",
+        "work": "이사가 (Moving Away)",
+        "award": "BolognaRagazzi 2023 Fiction",
+        "year": 2023
+      },
+      {
+        "id": "meschenmoser-gordon",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2015/FICTION/gordon%20un%20tapir_coverOK.jpg",
+        "artist": "Sebastian Meschenmoser",
+        "work": "Gordon und Tapir",
+        "award": "BolognaRagazzi Fiction 특별언급 2015",
+        "year": 2014
+      },
+      {
+        "id": "duzakin-hvorfor",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2015/FICTION/why%20am%20i%20here_cover_ok.jpg",
+        "artist": "Akin Düzakin",
+        "work": "Hvorfor er jeg her? (Why Am I Here?)",
+        "award": "BolognaRagazzi Fiction 특별언급 2015",
+        "year": 2014
+      }
+    ],
+    "neighbor": true
+  },
+  "b10": {
+    "slug": "changjak-floatwhite",
+    "refs": [
+      {
+        "id": "watanabe-kintsugi",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/Kintsugi.jpg",
+        "artist": "Issa Watanabe",
+        "work": "Kintsugi",
+        "award": "BolognaRagazzi 2024 Fiction",
+        "year": 2024
+      },
+      {
+        "id": "boyd-flashlight",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2015/FICTION/winner_flashlight_cover%20ok.jpg",
+        "artist": "Lizi Boyd",
+        "work": "Flashlight",
+        "award": "BolognaRagazzi Fiction 위너 2015",
+        "year": 2014
+      },
+      {
+        "id": "klassen-hat",
+        "imageUrl": "https://covers.openlibrary.org/b/id/10207424-L.jpg",
+        "artist": "Jon Klassen",
+        "work": "This Is Not My Hat",
+        "award": "Kate Greenaway Medal 2014",
+        "year": 2014
+      }
+    ],
+    "neighbor": true
+  },
+  "b14": {
+    "slug": "changjak-freshpine",
+    "refs": [
+      {
+        "id": "frankel-bosque",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2022/Premi/BRAW/winners/QUE_TIENE_UN_BOSQUE_Low.jpg",
+        "artist": "Yael Frankel",
+        "work": "¿Qué tiene un bosque?",
+        "award": "BolognaRagazzi 2022 Fiction",
+        "year": 2022
+      },
+      {
+        "id": "icinori-issunboshi",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2014/ISSUN_BOSHI_menzione_Fiction_BRAW2014.jpg",
+        "artist": "Icinori (Mayumi Otero & Raphael Urwiller)",
+        "work": "Issun Bôshi",
+        "award": "BolognaRagazzi Fiction 특별언급 2014",
+        "year": 2013
+      },
+      {
+        "id": "haugomat-atravers",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2019/images/premi/BRAW/A_travers_BRAW_BCBF_19.jpg",
+        "artist": "Tom Haugomat",
+        "work": "À travers",
+        "award": "BolognaRagazzi Fiction 특별언급 2019",
+        "year": 2018
+      }
+    ],
+    "neighbor": true
+  },
+  "b19": {
+    "slug": "changjak-twofields",
+    "refs": [
+      {
+        "id": "virardi-instant",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/BRAW_toddler_mention_2.jpg",
+        "artist": "Liuna Virardi",
+        "work": "Un instant (A Moment)",
+        "award": "BolognaRagazzi 2026 Toddler",
+        "year": 2026
+      },
+      {
+        "id": "darme-coq",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/coq_polyglotte.jpg",
+        "artist": "Marie Darme-Rizzo",
+        "work": "Le coq polyglotte",
+        "award": "BolognaRagazzi 2025 Toddler",
+        "year": 2025
+      },
+      {
+        "id": "marais-tomber",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_fiction_mention_2.jpg",
+        "artist": "Frédéric Marais",
+        "work": "Tomber 8 fois, se relever 9",
+        "award": "BolognaRagazzi 2026 Fiction",
+        "year": 2026
+      }
+    ],
+    "neighbor": true
+  },
+  "c03": {
+    "slug": "changjak-oneblock",
+    "refs": [
+      {
+        "id": "valousek-panacek",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2019/images/premi/BRAW/winner_BRAW_BCBF_19.jpg",
+        "artist": "Chrudoš Valoušek",
+        "work": "Panáček, pecka, švestka, poleno a zase panáček",
+        "award": "BolognaRagazzi Fiction 위너 2019",
+        "year": 2018
+      },
+      {
+        "id": "rogaar-lucy",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_fiction_mention_1.jpg",
+        "artist": "Karst-Janneke Rogaar",
+        "work": "Lucy en Donker (Lucy and Dark)",
+        "award": "BolognaRagazzi 2026 Fiction",
+        "year": 2026
+      },
+      {
+        "id": "rolfe-wiggling",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/01/KateRolfe_WigglingWords_Image1.jpg/original",
+        "artist": "Kate Rolfe",
+        "work": "Wiggling Words",
+        "award": "WIA 2024 Category Winner",
+        "year": 2024
+      }
+    ]
+  },
+  "c04": {
+    "slug": "changjak-onewet",
+    "refs": [
+      {
+        "id": "au-blue-tomato",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/01/AmberAu_thebluetomato_image-1.png/original",
+        "artist": "Amber Au",
+        "work": "The Blue Tomato",
+        "award": "WIA 2024 Highly Commended",
+        "year": 2024
+      },
+      {
+        "id": "ai-journey",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2020/02/Journey1.jpg/original",
+        "artist": "Yunyun Ai",
+        "work": "Journey",
+        "award": "WIA 2020 Highly Commended",
+        "year": 2020
+      },
+      {
+        "id": "frankel-bosque",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2022/Premi/BRAW/winners/QUE_TIENE_UN_BOSQUE_Low.jpg",
+        "artist": "Yael Frankel",
+        "work": "¿Qué tiene un bosque?",
+        "award": "BolognaRagazzi 2022 Fiction",
+        "year": 2022
+      }
+    ],
+    "neighbor": true
+  },
+  "d01": {
+    "slug": "changjak-backpress",
+    "refs": [
+      {
+        "id": "gravett-wolves",
+        "imageUrl": "https://covers.openlibrary.org/b/id/761206-L.jpg",
+        "artist": "Emily Gravett",
+        "work": "Wolves",
+        "award": "Kate Greenaway Medal 2005",
+        "year": 2005
+      },
+      {
+        "id": "rolfe-dyslexia",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/02/KateRolfe_NavigatingDyslexia_Image1.jpg/original",
+        "artist": "Kate Rolfe",
+        "work": "Navigating Dyslexia",
+        "award": "WIA 2022 Category Winner",
+        "year": 2022
+      },
+      {
+        "id": "rolfe-wiggling",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/01/KateRolfe_WigglingWords_Image1.jpg/original",
+        "artist": "Kate Rolfe",
+        "work": "Wiggling Words",
+        "award": "WIA 2024 Category Winner",
+        "year": 2024
+      }
+    ],
+    "neighbor": true
+  },
+  "e02": {
+    "slug": "changjak-soakwall",
+    "refs": [
+      {
+        "id": "kim-subway",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2021/06/KimHyo-Uen_IamtheSubway_Image1-scaled-1.jpg/original",
+        "artist": "Kim Hyo-Eun",
+        "work": "I Am the Subway",
+        "award": "WIA 2021 Category Winner",
+        "year": 2021
+      },
+      {
+        "id": "palomino-charcoal",
+        "imageUrl": "https://covers.openlibrary.org/b/id/14419950-L.jpg",
+        "artist": "Juan Palomino",
+        "work": "Letters in Charcoal",
+        "award": "Yoto Carnegie Medal for Illustration 숏리스트 2025",
+        "year": 2023
+      },
+      {
+        "id": "tengiz-mai",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2021/02/DideTengiz_Mai-_Image1.png/original",
+        "artist": "Dide Tengiz",
+        "work": "Mai",
+        "award": "WIA 2021 Category Winner",
+        "year": 2021
+      }
+    ],
+    "neighbor": true
+  },
+  "e03": {
+    "slug": "changjak-grainstroke",
+    "refs": [
+      {
+        "id": "tao-noodle",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2023/01/Xiaoweitao_Amusement-part-at-home_image2.jpg/original",
+        "artist": "Xiaowei Tao",
+        "work": "Amusement park at home",
+        "award": "WIA 2023 Highly Commended",
+        "year": 2023
+      },
+      {
+        "id": "lane-tribe",
+        "imageUrl": "https://covers.openlibrary.org/b/id/7442605-L.jpg",
+        "artist": "Lane Smith",
+        "work": "There Is a Tribe of Kids",
+        "award": "Kate Greenaway Medal 2017",
+        "year": 2017
+      },
+      {
+        "id": "brooks-fox",
+        "imageUrl": "https://covers.openlibrary.org/b/id/2106916-L.jpg",
+        "artist": "Ron Brooks",
+        "work": "Fox",
+        "award": "Deutscher Jugendliteraturpreis 그림책 부문 수상 2004 (Fuchs)",
+        "year": 2000
+      }
+    ],
+    "neighbor": true
+  },
+  "e04": {
+    "slug": "changjak-twosided",
+    "refs": [
+      {
+        "id": "jenkins-tail",
+        "imageUrl": "https://covers.openlibrary.org/b/id/2542595-L.jpg",
+        "artist": "Steve Jenkins",
+        "work": "What Do You Do With a Tail Like This?",
+        "award": "Caldecott Honor 2004",
+        "year": 2003
+      },
+      {
+        "id": "young-mice",
+        "imageUrl": "https://covers.openlibrary.org/b/id/259513-L.jpg",
+        "artist": "Ed Young",
+        "work": "Seven Blind Mice",
+        "award": "Caldecott Honor 1993",
+        "year": 1992
+      },
+      {
+        "id": "darme-coq",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/coq_polyglotte.jpg",
+        "artist": "Marie Darme-Rizzo",
+        "work": "Le coq polyglotte",
+        "award": "BolognaRagazzi 2025 Toddler",
+        "year": 2025
+      }
+    ],
+    "neighbor": true
+  },
+  "e05": {
+    "slug": "changjak-eatenpaper",
+    "refs": [
+      {
+        "id": "child-tomato",
+        "imageUrl": "https://covers.openlibrary.org/b/id/885657-L.jpg",
+        "artist": "Lauren Child",
+        "work": "I Will Not Ever Never Eat a Tomato",
+        "award": "Kate Greenaway Medal 2000",
+        "year": 2000
+      },
+      {
+        "id": "robinson-milo",
+        "imageUrl": "https://covers.openlibrary.org/b/id/15229799-L.jpg",
+        "artist": "Christian Robinson",
+        "work": "Milo Imagines the World",
+        "award": "CILIP Kate Greenaway Medal 숏리스트 2022",
+        "year": 2021
+      },
+      {
+        "id": "teckentrup-samesky",
+        "imageUrl": "https://covers.openlibrary.org/b/id/8867686-L.jpg",
+        "artist": "Britta Teckentrup",
+        "work": "Under the Same Sky",
+        "award": "CILIP Kate Greenaway Medal 숏리스트 2018",
+        "year": 2017
+      }
+    ],
+    "neighbor": true
+  },
+  "e07": {
+    "slug": "changjak-tautline",
+    "refs": [
+      {
+        "id": "buro-street",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/02/Stadtszene_1_final.jpg/original",
+        "artist": "Büro Wünsch & Störmer",
+        "work": "(도시 거리 · Stadtszene)",
+        "award": "WIA 2025 Category Winner",
+        "year": 2025
+      },
+      {
+        "id": "wang-thump",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2023/premi/braw/VINCITORI/thump_bassa.jpg",
+        "artist": "Wang Zumin",
+        "work": "噔噔噔 (Thump! Thump! Thump!)",
+        "award": "BolognaRagazzi 2023 Fiction",
+        "year": 2023
+      },
+      {
+        "id": "ilustrajo-flooded",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2020/02/mariajoilustrajo_flooded_image1.png/original",
+        "artist": "Mariajo Ilustrajo",
+        "work": "Flooded",
+        "award": "WIA 2020 Overall Winner",
+        "year": 2020
+      }
+    ],
+    "neighbor": true
+  },
+  "f04": {
+    "slug": "changjak-onehole",
+    "refs": [
+      {
+        "id": "naylor-suitcase",
+        "imageUrl": "https://covers.openlibrary.org/b/id/10481244-L.jpg",
+        "artist": "Chris Naylor-Ballesteros",
+        "work": "The Suitcase",
+        "award": "CILIP Kate Greenaway Medal 숏리스트 2020",
+        "year": 2019
+      },
+      {
+        "id": "torseter-hole",
+        "imageUrl": "https://covers.openlibrary.org/b/id/14319982-L.jpg",
+        "artist": "Øyvind Torseter",
+        "work": "The Hole (Hullet)",
+        "award": "Årets vakreste bøker 2013 (노르웨이 · 4대 상 목록 외 · 실물 다이컷 증거)",
+        "year": 2013
+      },
+      {
+        "id": "erlbruch-duck",
+        "imageUrl": "https://covers.openlibrary.org/b/id/14811976-L.jpg",
+        "artist": "Wolf Erlbruch",
+        "work": "Duck, Death and the Tulip",
+        "award": "HCA Illustrator Award 2006",
+        "year": 2006
+      }
+    ],
+    "neighbor": true
+  },
+  "f05": {
+    "slug": "changjak-plateonly",
+    "refs": [
+      {
+        "id": "meschenmoser-gordon",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2015/FICTION/gordon%20un%20tapir_coverOK.jpg",
+        "artist": "Sebastian Meschenmoser",
+        "work": "Gordon und Tapir",
+        "award": "BolognaRagazzi Fiction 특별언급 2015",
+        "year": 2014
+      },
+      {
+        "id": "butler-borders",
+        "imageUrl": "https://covers.openlibrary.org/b/id/10838996-L.jpg",
+        "artist": "George Butler",
+        "work": "Drawn Across Borders",
+        "award": "CILIP Kate Greenaway Medal 숏리스트 2022",
+        "year": 2021
+      },
+      {
+        "id": "massa-gino",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2023/02/simonamassa_gino_image1.jpg/original",
+        "artist": "Simona Massa",
+        "work": "Gino",
+        "award": "WIA 2023 Category Winner",
+        "year": 2023
+      }
+    ],
+    "neighbor": true
+  },
+  "g03": {
+    "slug": "changjak-sixlayers",
+    "refs": [
+      {
+        "id": "virardi-instant",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/BRAW_toddler_mention_2.jpg",
+        "artist": "Liuna Virardi",
+        "work": "Un instant (A Moment)",
+        "award": "BolognaRagazzi 2026 Toddler",
+        "year": 2026
+      },
+      {
+        "id": "haugomat-atravers",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2019/images/premi/BRAW/A_travers_BRAW_BCBF_19.jpg",
+        "artist": "Tom Haugomat",
+        "work": "À travers",
+        "award": "BolognaRagazzi Fiction 특별언급 2019",
+        "year": 2018
+      },
+      {
+        "id": "darme-coq",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/coq_polyglotte.jpg",
+        "artist": "Marie Darme-Rizzo",
+        "work": "Le coq polyglotte",
+        "award": "BolognaRagazzi 2025 Toddler",
+        "year": 2025
+      }
+    ],
+    "neighbor": true
+  },
+  "g04": {
+    "slug": "changjak-touchgrain",
+    "refs": [
+      {
+        "id": "almeras-josephine",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/josephine.jpg",
+        "artist": "Chloé Alméras",
+        "work": "Joséphine",
+        "award": "BolognaRagazzi 2024 Toddler",
+        "year": 2024
+      },
+      {
+        "id": "marais-tomber",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_fiction_mention_2.jpg",
+        "artist": "Frédéric Marais",
+        "work": "Tomber 8 fois, se relever 9",
+        "award": "BolognaRagazzi 2026 Fiction",
+        "year": 2026
+      },
+      {
+        "id": "palomino-charcoal",
+        "imageUrl": "https://covers.openlibrary.org/b/id/14419950-L.jpg",
+        "artist": "Juan Palomino",
+        "work": "Letters in Charcoal",
+        "award": "Yoto Carnegie Medal for Illustration 숏리스트 2025",
+        "year": 2023
+      }
+    ],
+    "neighbor": true
+  },
+  "h01": {
+    "slug": "changjak-gridshade",
+    "refs": [
+      {
+        "id": "mintzi-nour",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/01/ValiMintzi_Cover.jpg/original",
+        "artist": "Vali Mintzi",
+        "work": "Nour's Secret Library",
+        "award": "WIA 2022 Highly Commended",
+        "year": 2022
+      },
+      {
+        "id": "boyd-flashlight",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2015/FICTION/winner_flashlight_cover%20ok.jpg",
+        "artist": "Lizi Boyd",
+        "work": "Flashlight",
+        "award": "BolognaRagazzi Fiction 위너 2015",
+        "year": 2014
+      },
+      {
+        "id": "matoso-desenha",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/desenha.jpg",
+        "artist": "Madalena Matoso",
+        "work": "Desenha tudo o que quiseres",
+        "award": "BolognaRagazzi 2024 Toddler",
+        "year": 2024
+      }
+    ],
+    "neighbor": true
   }
 }
