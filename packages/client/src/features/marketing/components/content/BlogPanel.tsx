@@ -6,6 +6,7 @@ import { Input } from '../../ui/input';
 import { Badge } from '../../ui/badge';
 import { WorkflowStepBar, type WorkflowStep } from './WorkflowStepBar';
 import { NaverKeywordPanel } from './NaverKeywordPanel';
+import { NaverPublishStatus } from './NaverPublishStatus';
 import { SeoScoreDisplay } from './SeoScoreDisplay';
 import { ChannelModelSelector } from './ChannelModelSelector';
 import { ChannelContentList } from './ChannelContentList';
@@ -446,6 +447,8 @@ function BlogPanelInner({
   return (
     <div className="flex flex-col h-full overflow-y-auto p-3 space-y-4">
       {/* Workflow step bar */}
+      <NaverPublishStatus contentId={content.id} title={content.title} />
+
       <WorkflowStepBar
         steps={WORKFLOW_STEPS}
         currentStep={currentStep}
