@@ -145,68 +145,59 @@
 ```
 STYLE ANCHOR - changjak-h03   (rabbit kit and old badger cobbler / Italian mountain shoe workshop)
 
-Style: a hand-printed picture-book page for 4-8 year olds, warm and honey-coloured. ONE room drawn
-  thirteen times in which two things slowly grow - the work on the shelf and the season in the
-  window. 🔴 THOSE TWO ARE THE ONLY VARIABLES: the palette, the furniture and the layout never
-  change from page to page. The room is fixed by the WorkshopKit sheet - low beams, ONE window on
-  the RIGHT with a cobbled lane and ONE chestnut tree, the low workbench under it, one shelf, a
-  small brazier, the doorway on the LEFT. Cameras and distances change, the geometry does not:
-  never mirror the room, never move the window, never add a second window or more furniture.
+Style: a hand-printed picture-book page for 4-8 year olds, warm and honey-coloured. ONE Italian
+  mountain shoe workshop drawn thirteen times in which two things slowly grow - the work on the
+  shelf and the season in the window - and 🔴 THOSE TWO ARE THE ONLY VARIABLES. The room is fixed
+  by the WorkshopKit sheet (window RIGHT with one chestnut, bench under it, one shelf, brazier,
+  doorway LEFT); cameras change, the geometry does not - never mirror it, never add furniture.
 
 RENDERING: broad printed colour areas made with a roller and a wide flat brush, then FINE LINES
   laid over them with a small pointed brush and a pen nib. 🔴 THE ROOM IS PRINTED, NOT PAINTED -
-  flat areas of ONE BROWN INK laid once, twice or three times, and where an area prints over
-  another the colour steps darker. Edges are clean and slightly uneven, the way a hand-inked block
-  is; a hair of misregister is welcome, softness is not. 🔴 ALL THE INFORMATION IS IN THE FINE
-  LINES - tools, branches, shavings, a leather cut edge, awl holes, tack heads and stitches are
-  each a thin drawn line or a small drawn mark on top of a printed area, done one at a time.
-  🔴 ZERO SHADING AND ZERO MODELLING: no gradient, no soft edge, no blend, no cast-shadow
-  rendering. Depth is which area printed over which, plus line. Sunlight is 🔴 ONE PRINTED PATCH
-  OF THE SEASON'S COLOUR LYING ON THE FLOOR with a clean edge - never a glow, shaft or gradient.
+  flat areas of ONE BROWN INK laid once, twice or three times, stepping darker where one prints
+  over another. Edges are clean and slightly uneven, as a hand-inked block is; a hair of misregister
+  is welcome, softness is not. 🔴 ALL THE INFORMATION IS IN THE FINE LINES: tools, branches,
+  shavings, a leather cut edge, awl holes, tack heads and stitches are each one thin drawn mark on
+  top of a printed area, done one at a time. 🔴 ZERO SHADING AND ZERO MODELLING - depth is which
+  area printed over which, plus line - and sunlight is 🔴 ONE PRINTED PATCH OF THE SEASON'S COLOUR
+  ON THE FLOOR with a clean edge, never a glow, shaft or gradient.
   FINISHED THINGS PER PAGE = 2 (the work in hand + the one tool doing it); the two figures are flat
-  printed areas with a very small number of fine lines for face and hands and NO modelling; what
-  they are touching gets the area plus one or two lines; everything else is A FLAT PRINTED AREA
-  WITH NOTHING INSIDE IT - not faded, not hazy, simply not drawn. DENSITY RATION = pages 1 and 13,
-  spent on the tool wall, the props and the chestnut. Counts: wall, floor and beams = 0 marks ·
-  shaving = 2 fine curved lines each · leather = 1 broken line along the cut edge + 3-4 surface
-  marks · the wooden last = 4-5 short lines running with the form · brazier = a three-pass mouth +
-  3 fine lines, 0 glow · tacks and awl holes = countable drawn dots · the chestnut = the season's
-  colour area + a few branch lines, 0 leaves drawn, 0 bark. 🔴 If the room gets described, the
-  shelf stops being readable, and the shelf is how this book counts.
+  printed areas with a few fine lines for face and hands; what they touch gets its area plus one or
+  two lines; everything else is A FLAT AREA WITH NOTHING INSIDE IT - not faded, not hazy, simply not
+  drawn. DENSITY RATION = pages 1 and 13, spent on the tool wall, the props and the chestnut.
+  Counts: wall, floor and beams = 0 marks · shaving = 2 fine curved lines · leather = 1 broken line
+  along the cut edge + 3-4 surface marks · the last = 4-5 lines running with the form · brazier =
+  3 fine lines, 0 glow · tacks and awl holes = countable dots · chestnut = the season's colour area
+  + a few branch lines, 0 leaves, 0 bark. 🔴 If the room gets described, the shelf stops being
+  readable, and the shelf is how this book counts.
 
-PALETTE: honey-cream board and lime wall #EDE6D6 · 🔴 ALL THE BROWN IS ONE INK IN THREE STEPS -
-  one pass #DCB27E (shavings, sill, fresh-cut wood), two #B58455 (upper leather, bench, shelf,
-  apron), three #6E4A2C (the wooden last, beams, brazier mouth, and the empty inside of the
-  finished shoe). Never mix a new brown. Thick sole leather = two passes plus one of the season
-  yellow #B98B4A. SEASON, the one variable, on the window and its floor patch: late-autumn yellow
-  #D9B14E · grey #C4C6BF · winter grey-white #CFD3D2 · whiteout snow-light #E2E5E2 · thawing
-  #D8D4C2 · spring green #A8C46B. 🔴 RED WAXED THREAD #B8322A IS THE ONLY RED AND IT IS A LINE,
-  NOT A SPOT: where it appears is what was done today, it gets longer as the book goes on, and on
-  several pages there is none at all. 🔴 THERE IS NO BLACK ANYWHERE IN THIS BOOK - the darkest
-  thing on any page is the brown printed three times. No black outline, no black shadow.
+PALETTE: honey-cream board and lime wall #EDE6D6 · 🔴 ALL THE BROWN IS ONE INK IN THREE STEPS - one
+  pass #DCB27E (shavings, sill, fresh-cut wood), two #B58455 (upper leather, bench, shelf, apron),
+  three #6E4A2C (the wooden last, beams, brazier mouth, and the empty inside of the finished shoe).
+  Never mix a new brown. Thick sole leather = two passes plus one of the season yellow #B98B4A.
+  SEASON, on the window and its floor patch only: #D9B14E · #C4C6BF · #CFD3D2 · #E2E5E2 ·
+  #D8D4C2 · #A8C46B. 🔴 RED WAXED THREAD #B8322A IS THE ONLY RED AND IT IS A LINE, NOT A SPOT -
+  where it appears is what was done today, it gets longer, and on several pages there is none.
+  🔴 NO BLACK ANYWHERE - the darkest thing on any page is the brown printed three times.
 
-CHARACTER DESIGN LANGUAGE: 🔴 both figures are FLAT-FILLED, no modelling anywhere on the body, and
-  🔴 THEY ARE ALWAYS WORKING OR WAITING, NEVER POSED FRONTALLY LIKE A PORTRAIT - knees grip the
-  wood, weight goes into the knife, elbows swing wide to pull the thread, a chin goes onto folded
-  paws. The body tells you which stage of the work this page is. Eyes are DRAWN - one small dark
-  almond with a SEPARATE brow stroke above it, NOT dot-eyes, no blush, no catchlight. 🔴 THE FACES
-  STAY ANIMAL: the badger keeps its striped face, drawn in the three-pass brown and never in black,
-  and the rabbit keeps its long ears. 🔴 The badger's face barely changes for thirteen pages - brows
-  level, mouth a soft line, and NEVER a knowing smile or a look that says "I planned this"; the
-  rabbit does all the acting, with its EARS as the second acting organ. Grade, fixed for thirteen
-  pages: upright on two legs, front paws as hands, the badger in a leather apron and the rabbit in
-  a loose baggy jumper, nothing else worn. 🔴 THE RABBIT'S FEET ARE BARE UNTIL THE LAST PAGE.
+CHARACTER DESIGN LANGUAGE: 🔴 both figures are FLAT-FILLED with no modelling and 🔴 ALWAYS WORKING
+  OR WAITING, NEVER POSED FRONTALLY - knees grip the wood, weight goes into the knife, elbows swing
+  wide; the body tells you which stage this page is. Eyes are DRAWN, one small dark almond with a
+  SEPARATE brow stroke above - not dot-eyes, no catchlight. 🔴 FACES STAY ANIMAL: the badger's
+  striped face in three-pass brown, never black; the rabbit's long ears. 🔴 The badger's face barely
+  changes for thirteen pages - brows level, NEVER a knowing smile - and the rabbit does all the
+  acting, with its EARS as the second acting organ. Grade, fixed: upright on two legs, front paws as
+  hands, a leather apron and a loose baggy jumper, nothing else worn. 🔴 THE RABBIT'S FEET ARE BARE
+  UNTIL THE LAST PAGE.
 
 CANVAS: 16:9 double-page spread, 4-8 year old picture book. The frame is the room's own geometry -
-  the window opening, the doorway - so add no ornamental border. Bottom 18% quiet for a caption.
-  No lettering, numerals, signage or calendar anywhere.
+  add no ornamental border. Bottom 18% quiet for a caption. No lettering, numerals or calendar.
 
 NOT (rendering only): no digital slickness of any kind - airbrush, gradient, glow, 3D CG,
-  cel-shading, photographic, or a texture filter over flat colour (the printed areas and the drawn
-  lines must MAKE the picture) / no shading or modelling on any surface / no black ink, outline or
-  shadow / no rendered wood grain, hide texture, plaster or stone / no warm glow from the brazier,
-  no light shaft from the window / no wool felt, needle-felted fibre, fuzzy fibre edge, visible
-  fabric weave or real thread - 🔴 the stitches here are DRAWN LINES.
+  cel-shading, photographic, or a texture filter over flat colour (printed areas and drawn lines
+  must MAKE the picture) / no shading or modelling on any surface / no black ink, outline or shadow
+  / no rendered wood grain, hide texture, plaster or stone / no glow from the brazier, no light
+  shaft from the window / no wool felt, fuzzy fibre edge, fabric weave or real thread - 🔴 the
+  stitches here are DRAWN LINES.
 ```
 
 **🔴 이 앵커의 네 불변 규칙 (매 컷 반복 확인)**
@@ -426,12 +417,11 @@ SUBJECT: in the doorway, RabbitKit throws its head right back to look up at the 
   folded back, mouth just open, and 🔴 ONE OF THE BIG HAND-ME-DOWN SHOES HAS SLIPPED OFF ITS HEEL
   AND LIES ACROSS THE THRESHOLD with one bare foot flat on the floor beside it. Behind the bench,
   BadgerCobbler sits low on his stool and lifts only his head, apron on, face loose and level.
-SETTING: the hide on its hook, the RedSkein on a nail beside it, the ToolWall row - two awls, the
-  curved knife, the pincers, the hammer, five or six wooden lasts largest to smallest - the empty
-  shelf, the brazier. The autumn FloorPatch lies across the floor with a clean edge and 🔴 its far
-  end reaches the rabbit's bare foot.
+SETTING: the hide on its hook, the RedSkein on a nail, the ToolWall (two awls, curved knife,
+  pincers, hammer, five or six lasts largest to smallest), the empty shelf, the brazier. The autumn
+  FloorPatch crosses the floor with a clean edge and 🔴 its far end reaches the bare foot.
 FINISH: DENSITY RATION 1 of 2 - tool wall, hide, skein, big shoes and chestnut finished with fine
-  lines; bench and shelf half. 🔴 Walls, floor and beams are flat areas with NOTHING inside.
+  lines; bench and shelf half. 🔴 Walls, floor and beams flat, with NOTHING inside.
 RED: 🔴 the RedSkein on its nail, the only red on the page - a coil of fine drawn lines. This is
   the plant: it becomes a line, then a row of stitches, then a ring.
 ```
@@ -451,10 +441,10 @@ CAMERA: close-up, HIGH ANGLE straight down onto the workbench top; the paper and
 SUBJECT: RabbitKit sits up on the bench with 🔴 ONE BARE HIND FOOT LAID FLAT ON THE PAPER, toes
   slightly curled, the other leg hanging over the edge, leaning forward to look at its own foot so
   🔴 both long ears spill forward into the frame.
-SETTING: 🔴 THE PAPER IS THE SUBJECT. The outline of the foot is drawn round it in a fine brown
-  line and 🔴 BETWEEN THE TOES AND THE DRAWN TOE-LINE THERE IS A CLEARLY VISIBLE EMPTY GAP OF ONE
-  THUMB-WIDTH. That gap is fixed here and is looked at twice more - once when the toes overshoot
-  it, once when they fill it. Also the stub of pencil, one shallow drawer pulled open.
+SETTING: 🔴 THE PAPER IS THE SUBJECT - the outline of the foot drawn round it in a fine brown line
+  and 🔴 BETWEEN THE TOES AND THE DRAWN TOE-LINE A CLEARLY VISIBLE EMPTY GAP OF ONE THUMB-WIDTH,
+  fixed here and looked at twice more (when the toes overshoot it, when they fill it). Also the stub
+  of pencil, one drawer pulled open.
 FINISH: 2 (the paper with its gap + the two hands and the thread); bench top half. 🔴 Everything
   past the bench edge is flat printed area - do not draw the room on this page.
 RED: 🔴 THE MEASURING THREAD IS THE RED WAXED THREAD - one fine strand off the wall skein, looped
@@ -568,11 +558,10 @@ SUBJECT: RabbitKit sits on the floor with 🔴 THE PAPER PATTERN SPREAD OUT AND 
   LAID ON IT, and 🔴 ITS TOES OVERSHOOT THE DRAWN LINE BY A LITTLE. Head bent over its own foot,
   🔴 both ears flopped forward, mouth small and open, brows pushed together. Today it did not ask.
 SETTING: 🔴 THE SAME SHEET AS ON PAGE 2, now with more creases - fine lines, countable. The whiteout
-  FloorPatch is the widest and palest of the book with almost no edge contrast; the brazier burns
-  low, its fine lines shorter than before.
-FINISH: 2 (the rabbit + the paper under its foot); the shoe on the shelf half. 🔴 THIS IS THE
-  ANCHOR'S FLAT-BACKGROUND REFERENCE PLATE - walls, floor, beams and the far side of the room are
-  flat printed areas containing NOTHING AT ALL, not faded and not hazy.
+  FloorPatch is the widest and palest of the book; the brazier burns low, its lines shorter.
+FINISH: 2 (the rabbit + the paper under its foot); the shoe on the shelf half. 🔴 THE ANCHOR'S
+  FLAT-BACKGROUND REFERENCE PLATE - walls, floor, beams and the far side of the room are flat areas
+  containing NOTHING AT ALL, not faded and not hazy.
 RED: unchanged - only the seam stitches on the shoe on the shelf. 🔴 No new red, because nothing
   was done today.
 ```
@@ -641,11 +630,9 @@ SUBJECT: left, his arm reaching across the picture, 🔴 HIS FACE COMPLETELY UNC
   mouth a soft line, no smile, no wink, no look of doing a favour. Right, RabbitKit gone rigid where
   it sits, both hands halted at the chest, 🔴 BOTH EARS BOLT UPRIGHT, eyes at their widest, going
   back and forth between the needle and the badger's face.
-SETTING: the shoe on his knees with the almost-closed ring and the one gap; the needle tip small and
-  precise at the centre of the frame; the shelf empty.
-FINISH: 2 (the shoe with the ring, the gap and its two awl holes + the offered needle and both pairs
-  of hands); stool half. 🔴 The wall must be EMPTY - the space between the two of them is the subject,
-  and 🔴 ONE FINE RED LINE CROSSES IT.
+FINISH: 2 (the shoe with its ring, gap and two awl holes + the offered needle and both pairs of
+  hands); stool half, shelf empty. 🔴 The wall must be EMPTY - the space between the two of them is
+  the subject, and 🔴 ONE FINE RED LINE CROSSES IT.
 RED: 🔴 the almost-complete ring plus the single strand crossing the empty middle of the frame - the
   longest the thread has looked so far.
 ```
@@ -667,10 +654,9 @@ HANDS: 🔴 THE ONE PAGE WHERE THE MOVING HANDS ARE THE RABBIT'S, AND THAT IS TH
 CAMERA: 🔴 EXTREME CLOSE-UP, HIGH ANGLE - a hand's span of the sole and the hands on it fill the
   frame. 🔴 NO FACES ARE IN THIS PICTURE AT ALL, and that absence is why the page exists.
 SUBJECT: the two rabbit hands and the thread. Nothing else.
-SETTING: the leather grain, the awl marks and the stitches right under the reader's nose, drawn with
-  the finest lines in the book; a wax mark on the thread.
-FINISH: 🔴 EVERYTHING IN FRAME IS FINISHED, because nothing in frame is not the work. The only page
-  in the book with no flat empty area, and it is one page only.
+SETTING: leather grain, awl marks and stitches right under the reader's nose, drawn with the finest
+  lines in the book; a wax mark on the thread.
+FINISH: 🔴 EVERYTHING IN FRAME IS FINISHED - the only page in the book with no flat empty area.
 RED: 🔴 AT ITS DARKEST, CROSSING THE MIDDLE OF THE FRAME - the page the wall skein has been
   travelling toward for eleven spreads.
 ```
@@ -714,13 +700,13 @@ SUBJECT: right, in the doorway, RabbitKit 🔴 SEEN FROM BEHIND crossing the thr
   LIFTED, both hands out a little, 🔴 BOTH EARS BOLT UPRIGHT, head tipped down to look at its own
   feet. 🔴 We do not see its face and do not need to. Back left, BadgerCobbler at the bench, head
   turned to the door, hands already busy.
-SETTING: DENSITY RATION 2 of 2, and it mirrors page 1 - 🔴 THE BIG HAND-ME-DOWN SHOES, both of them,
-  set down side by side just inside the threshold; 🔴 THE PAPER PATTERN, folded, lying beside them
-  with its empty one-thumb gap still drawn on it and still empty, 🔴 but the foot that fills it is now
-  inside a shoe; the new WholeHide back on its hook; the ToolWall with its row of lasts; and 🔴 the
-  sole of the raised back foot turned enough toward us that THE RED RING OF STITCHES IS VISIBLE.
+SETTING: DENSITY RATION 2 of 2, mirroring page 1 - 🔴 THE BIG HAND-ME-DOWN SHOES, both of them, set
+  side by side just inside the threshold; 🔴 THE PAPER PATTERN, folded, beside them with its empty
+  one-thumb gap still drawn and still empty, 🔴 but the foot that fills it is now inside a shoe; the
+  new WholeHide back on its hook; the ToolWall with its lasts; and 🔴 the sole of the raised back
+  foot turned enough toward us that THE RED RING OF STITCHES IS VISIBLE.
 FINISH: the rabbit, the two shoes, the folded paper, the new hide and the chestnut finished;
-  threshold and bench half. 🔴 Walls, floor and beams flat, and the square outside is ONE bright green
+  threshold and bench half. 🔴 Walls, floor and beams flat; the square outside is ONE bright green
   printed area with a few fine lines, not a described street.
 RED: 🔴 THE STITCH RING ON THE SOLE OF THE LIFTED FOOT, and 🔴 THE NEW SKEIN BACK ON ITS NAIL - the
   book's first image and its last are the same red coil, and in between it became a shoe.

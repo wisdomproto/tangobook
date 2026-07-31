@@ -113,11 +113,11 @@
 STYLE ANCHOR - changjak-g88   (mouse kit / spiral bell-tower stair / three frightening things)
 
 Style: a hand-painted picture-book page for 4-6 year olds, dark and tall - one French cathedral
-  bell tower drawn thirteen times, European Gothic masonry, no signage. The stair, the rope, the
-  bell and the sill are fixed by the TowerProps sheet: 🔴 the spiral CLIMBS CLOCKWISE ON EVERY PAGE
-  (outer wall on the climber's right, never mirrored) and 🔴 ONE WEDGE TREAD IS TWICE THE MOUSE'S
-  STANDING HEIGHT, which is why one step is an event. Three openings in fixed order - low slit
-  (p3), middle slit with the nest (p6, p7), top louvred window with the red low sun (p9-p12) - and
+  bell tower drawn thirteen times, European Gothic masonry, no signage. Stair, rope, bell and sill
+  are fixed by the TowerProps sheet: 🔴 the spiral CLIMBS CLOCKWISE ON EVERY PAGE (outer wall on the
+  climber's right, never mirrored) and 🔴 ONE WEDGE TREAD IS TWICE THE MOUSE'S STANDING HEIGHT,
+  which is why one step is an event. Three openings in fixed order - low slit (p3), middle slit with
+  the nest (p6, p7), top louvred window (p9-p12) - and
   🔴 THE SIZE OF THE TOWN ROOFS THROUGH THEM IS THE ALTIMETER: large, then smaller, then tiny.
 
 RENDERING: opaque grey and pale gouache plus soft pastel worked ON TOP OF a near-black board.
@@ -131,9 +131,9 @@ RENDERING: opaque grey and pale gouache plus soft pastel worked ON TOP OF a near
   everything else is BARE BOARD, not drawn. DENSITY RATION = pages 10 and 12, spent on objects,
   light and air, never on masonry. Counts: tread = 1 pale pass + 3-4 chisel strokes · stone courses
   inside the dark = 0 · rope twist = 5-6 diagonal strokes · bell = 1 flat matte plane + 1 pale
-  stroke at the rim, which is the entire shine · feather = 1 shaft + 3 barbs · dust = small painted
-  dots, 0 sparkles · town = small painted roof shapes, 0 tiles. 🔴 Never raise the overall
-  brightness to keep things legible - move the mouse into the light instead of lighting the room.
+  stroke at the rim, which is the entire shine · feather = 1 shaft + 3 barbs · dust = painted dots,
+  0 sparkles · town = small roof shapes, 0 tiles. 🔴 Never raise the overall brightness to keep
+  things legible - move the mouse into the light instead of lighting the room.
   🔴 LIT-AREA LADDER (% of frame painted at all, obey exactly): p1 3 | p2 8 | p3 25 | p4 2 DARKEST
   | p5 10 | p6 18 | p7 32 | p8 45 | p9 55 | p10 70 BRIGHTEST | p11 60 | p12 40 | p13 10. The light
   also counts the steps: one lit tread, then about six, then one last one - hard-edged, separated.
@@ -145,13 +145,12 @@ PALETTE: BOARD BLACK (never painted) #16181C = shaft, void, soffits, every shado
   SISTER FUR #7E7468, EYE INK #14161A. 🔴 No red, blue, green, purple or yellow anywhere.
 
 CHARACTER DESIGN LANGUAGE: eyes are DRAWN, not dotted - a small dark almond with a SEPARATE brow
-  stroke above, on the pale muzzle so it reads at thumbnail size, able to stare up wide open, be
-  squeezed tightly shut, or be half open with both forepaws clamped over the ears. The tail is
-  longer than the body and acts. 🔴 VALUE RULE - the belly, muzzle front and inner ears stay PALE
-  #D8CFC0 whether or not light is on them, so a tiny animal stays findable when 90% of the frame is
-  bare board; a painting rule, never a rim light, glow or catchlight. Grade: every animal is a
-  QUADRUPED, rising onto the hind legs only to use the forepaws - no hands, no clothes, no walking
-  upright. 🔴 The pigeon does not speak and is a real pigeon.
+  stroke above, on the pale muzzle so it reads at thumbnail size, able to stare up wide, be squeezed
+  shut, or half open with both forepaws clamped over the ears. The tail is longer than the body and
+  acts. 🔴 VALUE RULE - belly, muzzle front and inner ears stay PALE #D8CFC0 whether or not light is
+  on them, so a tiny animal stays findable when 90% of the frame is bare board; a painting rule,
+  never a rim light, glow or catchlight. Grade: every animal is a QUADRUPED, rising onto the hind
+  legs only to use the forepaws. 🔴 The pigeon does not speak and is a real pigeon.
 
 CANVAS: 16:9 double-page spread, 4-6 year old picture book. Verticals dominate; let shapes run out
   of the top and bottom. Bottom 18% quiet for a caption. No lettering or numerals anywhere.
