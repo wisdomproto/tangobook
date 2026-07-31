@@ -52,9 +52,10 @@ interface Props {
   exploreFirst?: boolean;
   /**
    * 카드에 그림을 **처음부터 보여주지 않고 누르면 나타나게** 한다(알파벳 단원).
-   * 🔴 Book 1 은 글자가 학습 목표라 판에는 글자만 깔린다. 눌러서 소리를 들은 카드만 그림이 열려,
-   *    "이 A 는 사과, 저 A 는 악어" 가 아이 손으로 밝혀진다. 퀴즈에선 전부 열어둔다 —
-   *    같은 글자가 두 장이라 그림이 없으면 어느 쪽이 정답인지 가릴 수가 없다.
+   * 🔴 Book 1 은 글자가 학습 목표라 판에는 글자만 깔린다. 탐색에선 눌러서 소리를 들은 카드만 그림이
+   *    열려 "이 A 는 사과, 저 A 는 악어" 가 아이 손으로 밝혀지고, **퀴즈에서도 글자만 깔고 맞힌 칸만
+   *    그림으로 뒤집는다**(`revealImageUrl`, 2026-07-31 사용자). 퀴즈 판은 같은 라벨을 한 장으로
+   *    합치므로(아래 `quizBoard`) 그림이 없어도 정답이 둘일 일이 없다.
    */
   revealImageOnTap?: boolean;
   /**
@@ -477,7 +478,7 @@ export function WordListenChooseActivity({
                     </span>
                   </motion.div>
                 </AnimatePresence>
-              ) : c.imageUrl && (!revealImageOnTap || !exploring || opened.has(idOf(c))) ? (
+              ) : c.imageUrl && (!revealImageOnTap || (exploring && opened.has(idOf(c)))) ? (
                 <>
                   <img src={c.imageUrl} alt="" className="w-full aspect-square object-cover" />
                   <span className="block py-2 text-xl sm:text-3xl font-black text-ink-800 break-keep">
