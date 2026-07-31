@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type MouseEvent } from 'react';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { useEntryGuide } from '../hooks/useEntryGuide';
 import { resolveTtsUrl } from '@/features/tts';
 import type { Storybook } from '@tangobook/shared';
 import { getWordHotspots } from '@tangobook/shared';
@@ -151,28 +152,13 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
   );
 
   /**
-   * 🔴 **진입하면 글자 소리를 한 번 들려준다** — 예전엔 이미 선택된 글자 탭을 *한 번 더* 눌러야
-   *    났고, 그 안내는 핫스팟을 다 누른 뒤에야 떴다. 그래서 아이가 A 소리를 한 번도 못 듣고
-   *    나갈 수 있었다(이 단원의 목표가 글자인데).
-   * 🔴 첫 진입에만 **글자 소리 → 쉼 → 안내 음성**. 글자를 바꿀 땐 글자 소리만.
-   *    순서가 반대였을 땐 "반짝이는 곳을 눌러봐!" 다음에 뜬금없이 「에」 가 붙어 나왔다
-   *    (사용자 지적). 배울 글자를 먼저 들려주고 **무엇을 하라는 말로 끝나야** 아이가 바로 움직인다.
+   * 🔴 **진입 시 안내만** — 글자 소리는 큰 [Aa🔊] 버튼으로 아이가 눌러 듣는다(2026-07-30 사용자:
+   *    "들어가자 마자 애 음원 나온다 ㅡ.ㅡ"). 예전엔 진입하면 글자 소리를 자동 재생했는데
+   *    (2026-07-29 "A 소리 못 듣고 나갈까 봐"), 다른 학습 화면(모음 듣기·자음 누르기)은 전부
+   *    진입 자동재생 없이 탐색형("눌러서 들어봐")이라 ABC 배우기만 튀었다. **공용 훅으로 통일** —
+   *    안내("반짝이는 곳을 눌러봐!")만 한 번 나오고, 글자·핫스팟은 눌러서 듣는다.
    */
-  const guidedRef = useRef(false);
-  // 🔴 `blending` 은 storybook refetch 마다 **새 객체**라 의존성에 넣으면 창 포커스만 돌아와도
-  //    글자 소리가 저절로 났다. 값은 ref 로 읽고, 다시 낼 조건은 **글자가 바뀐 것뿐**이다.
-  const blendingRef = useRef(blending);
-  blendingRef.current = blending;
-  useEffect(() => {
-    if (!blendingRef.current) return;
-    if (guidedRef.current) {
-      sayLetter();
-      return;
-    }
-    guidedRef.current = true;
-    void sayLetter(() => scheduleTimer(() => playAudio(GUIDE_VOICE), REST_MS));
-    // 의존성은 **글자 인덱스**만.
-  }, [currentIdx]);
+  useEntryGuide(GUIDE_VOICE, playAudio);
 
   /**
    * 한 글자를 다 눌러보면 완료. 🔴 핫스팟이 없는 글자는 세지 않는다 —

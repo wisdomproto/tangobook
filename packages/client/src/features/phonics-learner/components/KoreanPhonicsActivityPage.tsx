@@ -14,6 +14,7 @@ import { VowelListenActivity } from '../activities/VowelListenActivity';
 import { VowelWriteActivity } from '../activities/VowelWriteActivity';
 import { ConsonantTapActivity } from '../activities/ConsonantTapActivity';
 import { ConsonantBlendListenActivity } from '../activities/ConsonantBlendListenActivity';
+import { VowelSyllablePickerActivity } from '../activities/VowelSyllablePickerActivity';
 import { ConsonantWriteActivity } from '../activities/ConsonantWriteActivity';
 import { ReviewWriteActivity } from '../activities/ReviewWriteActivity';
 import { LetterHuntActivity } from '../activities/LetterHuntActivity';
@@ -37,6 +38,17 @@ import type { Storybook } from '@tangobook/shared';
 
 /** 복습 듣기 활동의 보기 수 — 보기가 글자·낱말(그림 X)이라 학습 단원(3장)보다 하나 더 둔다. */
 const REVIEW_CHOICES = 4;
+
+/**
+ * 복습 짝 찾기의 **쌍 수**.
+ *
+ * 🔴 복습 묶음은 4장이 아닐 수 있다 — `chunkForReview` 가 꼬리 ≤2 를 앞 묶음에 합쳐서
+ *    한글1 자음 14개가 **4·4·6** 으로 갈린다. 다른 복습 활동은 전부 앞에서 4장만 쓰는데
+ *    짝 찾기만 안 잘라서 「ㅈ~ㅎ 복습」이 **6쌍(12칸)** 으로 떴다(사용자 지적). 4~7세 한 화면에
+ *    12칸은 스크롤 없이 안 들어오고, 같은 복습인데 활동마다 분량이 달라 보인다.
+ * 🔴 카드는 진입할 때 이미 섞여 있으므로(`shuffleReviewCards`) **어느 넷이 뽑히는지는 판마다 다르다**.
+ */
+const REVIEW_PAIRS = 4;
 
 /**
  * /library/phonics/korean/:unitId/:activityKey — 액티비티 호스트.
@@ -69,6 +81,26 @@ export default function KoreanPhonicsActivityPage() {
   const syllableChoices = useMemo(
     () => reviewCards.map((c) => randomReviewSyllable(c)),
     [reviewCards]
+  );
+  /**
+   * 🔎 글자 사냥 판 — **복습만** 낱자를 음절로 바꿔 깐다.
+   *
+   * 🔴 **한글은 음소 하나를 음절 묶음으로 배운다**(2026-07-30 사용자) — ㄱ 단원에서 `가갸거겨고교구규그기`
+   *    를 다 익히므로, 여러 모음에 걸쳐 ㄱ 을 알아보는 것이 곧 그 단원이 가르친 것이다. 그래서
+   *    대표 음절(가) 고정이 아니라 **매번 무작위**(`randomReviewSyllable` — 자음은 고정, 모음이 바뀐다).
+   *    받침 복습은 받침을 고정하고 앞 음절이 바뀐다(`앙`→`옹`), 복잡한 모음은 그 모음이 고정된다.
+   * 🔴 학습 단원의 사냥은 이미 음절(가갸거겨)이거나 모음이라 **그대로 둔다**.
+   * 🔴 진입당 한 번만 — 렌더마다 뽑으면 누를 때마다 판이 바뀐다.
+   */
+  const huntCards = useMemo(
+    () =>
+      unit?.isReview
+        ? reviewCards.map((c) => {
+            const s = randomReviewSyllable(c);
+            return { ...c, letter: s, syllable: s, sound: s };
+          })
+        : reviewCards,
+    [reviewCards, unit?.isReview]
   );
   const { sources: reviewSources, isLoading: reviewLoading } = useReviewCardSources(reviewCards);
 
@@ -155,6 +187,23 @@ export default function KoreanPhonicsActivityPage() {
         unitId={unitId}
         vowels={activity.vowels}
         onMarkComplete={handleMarkComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+  // 복잡한 모음 음절 (한글4) — 모음 선택 → 그 모음의 자음 음절 만들기(듣기)/쓰기
+  if (
+    (activity.kind === 'vowel-blend-listen' || activity.kind === 'vowel-blend-write') &&
+    activity.vowels &&
+    activity.blendConsonants
+  ) {
+    return (
+      <VowelSyllablePickerActivity
+        unitId={unitId}
+        vowels={activity.vowels}
+        blendConsonants={activity.blendConsonants}
+        mode={activity.kind === 'vowel-blend-listen' ? 'listen' : 'write'}
+        onComplete={handleComplete}
         onBack={backToUnit}
       />
     );
@@ -328,11 +377,11 @@ export default function KoreanPhonicsActivityPage() {
     );
   }
   // 🔎 글자 사냥 — 글자만 쓰는 활동이라 단어 그림을 기다리지 않는다(자산 없는 단원에서도 돈다).
-  if (activity.kind === 'letter-hunt' && reviewCards.length) {
+  if (activity.kind === 'letter-hunt' && huntCards.length) {
     return (
       <LetterHuntActivity
         unitId={unitId}
-        cards={reviewCards}
+        cards={huntCards}
         onComplete={handleComplete}
         onBack={backToUnit}
       />
@@ -384,7 +433,7 @@ export default function KoreanPhonicsActivityPage() {
         />
       );
     }
-    // 짝 찾기 — 카드의 글자와 그 글자로 배운 단어 그림을 잇는다. 최소 3쌍이 있어야 게임이 성립.
+    // 짝 찾기 — 카드의 **낱말**과 그 그림을 잇는다. 최소 3쌍이 있어야 게임이 성립.
     if (withImage.length < 3)
       return (
         <ActivityUnavailable
@@ -402,11 +451,17 @@ export default function KoreanPhonicsActivityPage() {
         lang="ko"
         gameData={{
           type: 'korean-line-matching',
-          // imageLabel = 그림 아래 낱말. 복습은 우측이 글자(ㄱ·ㄹ)뿐이라 그림이 애매하면 짝을 못 짓는다.
-          items: withImage.map((s) => ({
-            word: s.letter,
+          /**
+           * 🔴 카드는 **음소가 아니라 낱말**이다(2026-07-30 사용자: "여기도 그냥 단어로 넣어줘.
+           *    음소 말고"). 복습에 온 아이는 그 자음의 음절을 다 배운 뒤라 `도마` 가 읽히고,
+           *    낱말↔그림이 실제로 하는 일과 맞는다. 예전엔 카드가 `ㄷ` 이고 낱말은 그 아래
+           *    작은 글씨였는데, 정작 그림과 짝지어지는 건 낱말이라 큰 글자가 겉돌았다.
+           * 🔴 글자 활동이 사라지는 게 아니다 — 같은 복습의 **글자 사냥**(모양)·**듣고 음절**(소리)이
+           *    음소를 맡는다. 활동마다 겨루는 층이 다른 것이 이 복습의 구성이다.
+           */
+          items: withImage.slice(0, REVIEW_PAIRS).map((s) => ({
+            word: s.word,
             imageUrl: s.imageUrl,
-            imageLabel: s.word,
           })),
         }}
       />

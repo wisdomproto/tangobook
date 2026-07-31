@@ -9,6 +9,7 @@
  * 🔴 본문 자수는 여기서 센다 — 손으로 적어 두면 고칠 때마다 어긋난다.
  */
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve, join } from 'node:path';
 
@@ -16,6 +17,16 @@ const here = dirname(fileURLToPath(import.meta.url));
 const SRC = resolve(here, '../../../docs/changjak-books');
 const PUB = resolve(here, '../public');
 const only = process.argv.includes('--only') ? process.argv[process.argv.indexOf('--only') + 1] : null;
+
+// 🔴 Cloudflare 가 `.js` 만 제 규칙(4시간)으로 덮어쓴다 — 서버가 no-cache 를 보내도 소용없다.
+//    `.html`·`.json` 은 통과하므로, **html 안의 script 주소에 버전을 박아** 캐시를 비킨다.
+//    실측: core.js·prompts.js 를 고쳐 배포해도 4시간 동안 옛 화면이 떴다(붙여넣기 버그 수정이 그렇게 묻혔다).
+//    ⚠️ 그래서 core.js 를 고치면 **이 빌드를 다시 돌려야** 반영된다. 안 돌리면 옛 버전이 그대로 걸린다.
+const assetHash = (f) => {
+  const p = resolve(PUB, f);
+  return existsSync(p) ? createHash('md5').update(readFileSync(p)).digest('hex').slice(0, 8) : 'dev';
+};
+const ASSET_V = assetHash('changjak-core.js') + assetHash('changjak-prompts.js');
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 // SCENE 의 **라벨** 만 굵게 — 본문에는 마크다운을 쓰지 않는다
@@ -62,14 +73,25 @@ function render({ meta, notes, pages }) {
   const body = pages
     .map(
       (p) =>
+        // 🔴 왼쪽 = 그린 컷(core.js 가 .pg-art 에 붙여넣기 상자를 꽂는다) + 그 아래 본문 / 오른쪽 = SCENE.
+        //    그림과 그 쪽 글이 한 눈에 같이 읽혀야 한다 — 예전엔 글·SCENE 이 나란하고 그림이 아래로 밀려
+        //    셋을 한 화면에서 못 봤다.
         `<div class="pg">\n` +
-        `  <div class="ko${p.ko ? '' : ' empty'}"><span class="n">${p.page} · 본문</span>${p.ko ? esc(p.ko) : '(글 없음 — 그림만)'}</div>\n` +
+        `  <div class="pg-l">\n` +
+        `    <div class="pg-art"></div>\n` +
+        `    <div class="ko${p.ko ? '' : ' empty'}"><span class="n">${p.page} · 본문</span>${p.ko ? esc(p.ko) : '(글 없음 — 그림만)'}</div>\n` +
+        `  </div>\n` +
         `  <div class="sc"><span class="n">${p.page} · SCENE</span>${scene(p.scene)}</div>\n` +
         `</div>`
     )
     .join('\n\n');
 
-  const noteBlocks = notes.map((n) => `<div class="note">\n${note(n)}\n</div>`);
+  // 🔴 note 는 편집 메모라 길다 — 접어 둔다. 펼쳐 두면 쪽 하나를 보러 왔을 때 그걸 지나쳐야 한다.
+  //    <details> 라 자바스크립트 없이 접히고, 브라우저 찾기(Ctrl+F)에도 안 걸린다는 점은 감수한다.
+  const noteBlocks = notes.map(
+    (n, i) =>
+      `<details class="note"${i === 0 ? '' : ''}>\n<summary>📝 편집 메모${notes.length > 1 ? ` ${i + 1}` : ''}</summary>\n<div class="note-body">\n${note(n)}\n</div>\n</details>`
+  );
   // 첫 note 는 머리(집필 과제), 나머지는 꼬리(검수 반영)로 — a04 수기본과 같은 배치
   const head = noteBlocks.length ? noteBlocks[0] + '\n\n' : '';
   const tail = noteBlocks.length > 1 ? '\n\n' + noteBlocks.slice(1).join('\n\n') : '';
@@ -91,6 +113,57 @@ function render({ meta, notes, pages }) {
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
 </style>
 </head>
 <body>
@@ -121,15 +194,17 @@ window.CJ_EPISODE = {
   cast: [${cast.map((c) => `'${c}'`).join(', ')}],
 };
 </script>
-<script src="/changjak-prompts.js"></script>
-<script src="/changjak-core.js"></script>
+<script src="/changjak-prompts.js?v=${ASSET_V}"></script>
+<script src="/changjak-core.js?v=${ASSET_V}"></script>
 </body>
 </html>
 `;
 }
 
 // `_` 로 시작하는 건 원고가 아니라 문서다(_AUTHORING.md)
-const files = existsSync(SRC) ? readdirSync(SRC).filter((f) => f.endsWith('.md') && !f.startsWith('_')) : [];
+// 🔴 원고만 고른다. `_` 접두(문서)만 걸렀더니 `CLAUDE.md`(모듈 가이드)를 원고로 읽어 빌드가 죽었다.
+//    원고는 반드시 `<군><번호>.md` 이므로 그 형태로 못박는다 — 앞으로 어떤 문서를 넣어도 안 깨진다.
+const files = existsSync(SRC) ? readdirSync(SRC).filter((f) => /^[a-h]\d+\.md$/.test(f)) : [];
 if (!files.length) throw new Error(`원고가 없다: ${SRC}`);
 
 const built = [];
@@ -152,7 +227,7 @@ for (const f of files) {
   const noScene = doc.pages.filter((p) => !p.scene);
   if (noScene.length) throw new Error(`${id}: SCENE 없음 — ${noScene.map((p) => p.page).join(',')}`);
   writeFileSync(join(PUB, `changjak-${id}.html`), render(doc), 'utf8');
-  built.push({ id, ...doc.meta, chars: doc.pages.reduce((n, p) => n + p.ko.replace(/\s/g, '').length, 0) });
+  built.push({ id, ...doc.meta, pages: doc.pages.length, chars: doc.pages.reduce((n, p) => n + p.ko.replace(/\s/g, '').length, 0) });
 }
 
 // 인덱스 — 기획서·시트는 앞에 고정, 회차는 id 순
@@ -163,7 +238,8 @@ const eps = [...idx.filter((e) => /^changjak-[a-h]\d+\.html$/.test(e.file))];
 for (const b of built) {
   const file = `changjak-${b.id}.html`;
   const label = `${b.id.toUpperCase().replace(/^([A-H])/, '$1-')} ${b.emoji ?? '📗'} ${b.engine}`;
-  const row = { file, label, title: b.title };
+  // 🔴 검색용 필드까지 넣는다 — 드로어 검색이 제목만 보면 「종탑」·「누적」으로 못 찾는다.
+  const row = { file, label, title: b.title, engine: b.engine, stage: b.stage ?? '', pages: b.pages ?? 0 };
   const at = eps.findIndex((e) => e.file === file);
   at < 0 ? eps.push(row) : (eps[at] = row);
 }
@@ -172,3 +248,15 @@ writeFileSync(idxPath, JSON.stringify([...fixed, ...eps], null, 2) + '\n', 'utf8
 
 console.log(`회차 ${built.length}권 → public/`);
 for (const b of built) console.log(`  ${b.id} 「${b.title}」 ${b.engine} · 본문 ${b.chars}자`);
+
+// 🔴 손으로 관리하는 페이지(기획서·후보 시트)도 같은 core.js 를 쓴다 — 버전을 같이 갈아 끼운다.
+//    안 하면 기획서만 옛 드로어를 들고 있어 「회차에선 되는데 기획서에선 안 된다」가 된다.
+for (const f of readdirSync(PUB).filter((f) => /^changjak-.*\.html$/.test(f))) {
+  const p = join(PUB, f);
+  const before = readFileSync(p, 'utf8');
+  const after = before.replace(
+    /\/(changjak-(?:core|prompts))\.js(\?v=[a-z0-9]*)?/g,
+    (_, name) => `/${name}.js?v=${ASSET_V}`
+  );
+  if (after !== before) writeFileSync(p, after);
+}

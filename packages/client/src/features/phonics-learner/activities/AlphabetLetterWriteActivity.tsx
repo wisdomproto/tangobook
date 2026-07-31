@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { REST_MS } from '../hooks/useActivitySound';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
@@ -31,6 +32,8 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
   const storybookQuery = useStorybook(unitId);
   const sb = storybookQuery.data as Storybook | undefined;
   const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
+  // 🔴 진입 안내 — 지시가 텍스트뿐이라 글 못 읽는 아이엔 통째로 무음이었다(쓰기 6종 공통).
+  useEntryGuide(ENTRY_GUIDE.write, playAudio);
   const systemSounds = sb?.systemSounds;
 
   // 글자별 (대문자/소문자) 통과 트래킹

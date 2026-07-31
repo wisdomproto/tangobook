@@ -468,17 +468,32 @@ function LineMatchingPlayerInner({
                       isTutorialPlaying ||
                       (expected !== null && expected.itemIdx !== imageItemIdx)
                     }
-                    className={cn(imageCardClass(imageItemIdx), 'w-full h-full overflow-hidden')}
+                    className={cn(
+                      imageCardClass(imageItemIdx),
+                      'w-full h-full overflow-hidden',
+                      imageItem.imageLabel && 'flex flex-col'
+                    )}
                     aria-label={t('lineMatching.imageAria')}
                   >
-                    {/* 🔴 그림 카드엔 **그림만** 둔다(2026-07-29). 낱말은 우측 글자 카드 아래로 옮겼다 —
-                        그림 밑에 「고기」가 있으면 아이가 그림을 볼 필요 없이 글자만 읽고 짝을 짓는다.
-                        자리를 통째로 그림에 주니 같은 카드에서 그림이 훨씬 커진다. */}
+                    {/* 🔴 그림 카드는 **그림만** 이 기본이다(2026-07-29 한글) — 그림 밑에 「고기」가 있으면
+                        아이가 그림을 볼 필요 없이 글자만 읽고 짝을 짓는다. 한글·동화책은 `imageLabel`
+                        을 안 넘기므로 그대로 그림만.
+                        🔴 **영어 복습만 그림 아래 낱말**(2026-07-30 사용자) — 니들펠트 그림이 무엇인지
+                        아이가 못 알아볼 수 있어서(elbow·desk 등) 낱말로 알려준다. 우측이 글자(B)라
+                        낱말끼리 매칭은 안 된다. */}
                     <img
                       src={imageItem.imageUrl}
                       alt=""
-                      className="w-full h-full object-contain p-2 lg:p-3"
+                      className={cn(
+                        'w-full object-contain p-2 lg:p-3',
+                        imageItem.imageLabel ? 'flex-1 min-h-0' : 'h-full'
+                      )}
                     />
+                    {imageItem.imageLabel && (
+                      <span className="block shrink-0 pb-2 text-center text-xl sm:text-3xl font-black text-ink-800 break-keep">
+                        {imageItem.imageLabel}
+                      </span>
+                    )}
                   </button>
                   {connectionDot(imageDotState(imageItemIdx), 'right')}
                 </div>

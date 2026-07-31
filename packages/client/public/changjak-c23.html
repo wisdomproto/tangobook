@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>C-23 이번엔 안 잘게 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · C · 자연·계절·동물 · 23</div>
+  <h1>이번엔 안 잘게</h1>
+  <div class="sub">이번엔 정말로 안 자요. 그런데 해가 자꾸 토끼를 붙잡아요</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 옛이야기 비틀기</span>
+  <span>무대 · 토스카나 언덕 (꼭대기까지 이어진 흙길)</span>
+  <span class="q">14스프레드</span>
+  <span class="q">본문 686자 · 쪽당 49자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- 🔴 <b>원작을 설명하지 않는다.</b> 지난 시합은 p1 의 토끼 대사 한 마디(「이번엔 안 잘게!」)로 끝이고, 그 뒤로 다시는 언급하지 않는다. 원작을 아는 아이에게는 비틀림이 되고, 모르는 아이에게는 그냥 <b>또 겨루는 이야기</b>로 읽힌다. 어느 쪽이든 화면에서 벌어지는 일은 같다.<br>
+- 🔴 <b>비틀림이 지식이 아니라 몸으로 읽힌다.</b> 토끼는 털이 두껍고 땀을 못 흘려 더위에 약하고(그래서 귀로 열을 내보낸다 — 더울수록 귀 안쪽이 붉어진다), 거북은 볕에 등딱지가 데워져야 다리가 잘 움직인다. <b>둘 다 진짜다.</b> 아이는 「토끼가 헉헉대고 거북이 씩씩하다」를 열네 쪽 내내 그림으로 본다.<br>
+- 🔴 <b>토끼는 게으름뱅이가 아니다.</b> 이번엔 정말로 한 번도 안 잔다. 눈을 감는 쪽이 하나도 없고, p5 에서 스스로 「자는 거 아니야」라고 못 박는다. 그런데도 진다 — 그게 이 권의 전부다. ⚠️ 「자만하면 안 돼요」로 착지하면 이 권은 실패다.<br>
+- 🔴 <b>몸 상태를 두 가지 색으로 추적한다.</b> ①토끼 <b>귀 안쪽</b> — p1 하얗고 연함 → p5 발그레 → p8·p9 새빨감 → p14 다시 하얘짐. ②거북 <b>등딱지</b> — p1 아침 이슬로 뿌옇게 젖음 → p10 바짝 말라 윤이 남 → p14 그늘에서 다시 흐려짐. 글에는 최소한만 쓰고 <b>그림이 계기판 노릇을 한다</b> — 글을 못 읽는 아이도 누가 뜨거워지고 누가 데워지는지 본다.<br>
+- 🔴 <b>뒤집힘은 토끼의 대사다(p11).</b> 거북이 먼저 설명하지 않는다. 토끼가 제 귀를 만져 보고 뜨겁다는 걸 안 다음에 「너는… 뜨거울수록 잘 걷는구나!」라고 말한다. 거북은 그제야 사실만 보탠다 — 「해가 등을 데워 줘야 다리가 움직이거든.」 ⚠️ 「그러니까 서두르지 마」처럼 마음을 정리해 주지 않는다.<br>
+- 🔴 <b>더위는 전부 물리다.</b> 아지랑이·마른 흙먼지·매미 소리·발바닥에 뜨거운 흙·그늘의 칼 같은 경계선·헐떡이는 혀. 판타지 장치도 추론도 없다.<br>
+- 🔴 <b>착지 카드 = 몸이 다름.</b> 거울도 소리도 감각 바꾸기도 아니다. 마지막 쪽은 <b>해가 기울어 서늘해진 꼭대기</b>다. 그늘이 필요 없어진 토끼는 팔짝팔짝 뛰고 귀가 다시 하얘지고, 등이 식은 거북은 목을 집어넣고 납작 엎드린다. <b>같은 자리·같은 시간에 두 몸이 정반대</b>인 화면 하나가 결말이고, 교훈 문장은 없다. 마지막 두 줄은 「지금은 내가 빨라!」 / 「응. 지금은.」뿐이다.<br>
+- 🔴 <b>반복 구간(그늘에 멈추기)의 첫 회는 멈추는 순간을 그린다</b> — p4 는 그늘 경계선 앞에서 발이 미끄러지며 브레이크가 걸리는 그 순간이다. 두 번째(p8)는 이미 엎드린 상태 + 볕 위에 남은 <b>짧아진 발자국</b>(흔적)으로 그려 반복이 늘어지지 않게 한다.<br>
+- 🔴 <b>장소는 언덕 오르는 길 하나.</b> 화면이 매 쪽 달라지는 것은 <b>해의 높이와 그늘의 폭</b>이다 — 이슬 아침 → 그늘이 길다 → 정오(그늘이 발밑까지 줄어든다) → 기운 해(그늘이 다시 길어진다). 매 쪽 <b>볕/그늘 경계선의 위치</b>를 지시할 것.<br>
+- 🔴 <b>의인화 등급 고정</b> — 토끼는 네 발로 달리되 앞발을 쓰고 뒷다리로 설 수 있는 등급(앞발 들기, 앞발로 제 귀 만지기)으로 열네 쪽 내내 같다. 거북은 <b>네 발 그대로, 손짓이 없다</b> — 목을 빼고 넣는 것과 걷는 것만 한다. 옷은 둘 다 없다.<br>
+- 🔴 <b>14쪽.</b> 오름 셋(1~3) · 첫 그늘(4~6) · 다시 뜀과 둘째 그늘(7~8) · 정오(9~10) · 뒤집힘(11) · 도착(12) · 서늘해짐(13~14). 그늘을 한 번 더 넣으면 c37 note 가 짚은 늘어짐(같은 장면 반복)이 된다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>"이번엔 안 잘게!"
+어린 토끼가 앞발을 번쩍 들었어요.
+언덕 아래 흙길에 아침 이슬이 또르르.
+거북이 뒤뚱뒤뚱 걸어왔어요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 화면 왼쪽에 앞발을 든 토끼, 오른쪽에 다가오는 거북, 뒤로 언덕길이 위로 뻗는다
+<b>장소·시간</b> 언덕 아래 흙길이 시작되는 자리. 해가 막 뜬 이른 아침, 공기가 아직 서늘하다
+<b>인물</b> 화면 왼쪽 — 어린 토끼가 뒷다리로 서서 앞발 하나를 머리 위로 번쩍 들었다, 가슴을 내밀고 입을 크게 벌려 외친다, 두 귀가 곧게 위로 섰고 🔴 <b>귀 안쪽이 하얗고 연한 분홍</b>이다. 화면 오른쪽 — 거북이 목을 반쯤만 빼고 뒤뚱뒤뚱 다가온다, 다리를 짧게 짧게 떼고 눈이 반쯤 감겼다(아침이라 굼뜨다), 🔴 <b>등딱지가 밤이슬로 뿌옇게 젖어 무늬가 흐릿하다</b>
+<b>배경·소품</b> 발밑에 마른 황토 흙길, 길가 금빛 마른 풀에 이슬방울이 맺혀 또르르 흐른다, 길을 따라 검푸른 사이프러스 나무들이 띄엄띄엄 서 있고 🔴 <b>그 그림자가 아침이라 길게 누워 길을 여러 번 가로지른다</b>, 저 위로 언덕 꼭대기의 큰 나무 한 그루
+<b>톤</b> 이른 아침의 낮고 파르스름한 빛. 아직 아무것도 뜨겁지 않게 — 🔴 <b>토끼의 하얀 귀 안쪽과 거북의 뿌연 등딱지</b>가 나란히 또렷하게 보이도록(이 둘이 뒤에서 계속 변한다)</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>거북이 천천히 대답했어요.
+"그럼 가 볼까."
+토끼가 흙먼지를 폭 내며 튀어 나갔어요.
+거북은 앞발을 아주 느리게 뗐어요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 오른쪽 앞으로 튀어 나가는 토끼, 왼쪽 뒤에 아직 출발선인 거북
+<b>장소·시간</b> 같은 흙길 시작점. 해가 조금 올라온 아침
+<b>인물</b> 화면 오른쪽 — 토끼가 뒷다리를 흙에 깊이 박고 몸을 앞으로 길게 뻗어 튀어 나가는 중이다, 앞발 두 개가 이미 공중에 있고 귀가 뒤로 눕혀졌다, 입가에 신난 웃음. 화면 왼쪽 — 거북이 같은 자리에서 앞발 하나만 겨우 들어 앞으로 내민다, 목을 짧게 빼고 눈은 발밑을 본다, 🔴 등딱지는 아직 젖어 뿌옇다
+<b>배경·소품</b> 토끼 뒷발 뒤로 폭 피어오르는 마른 흙먼지 뭉치, 흙길에 파인 발자국 두 개, 길 위로 누운 사이프러스 그림자, 길가 마른 풀이 바람에 살짝 눕는다
+<b>톤</b> 아침빛이 아직 부드럽다. 🔴 <b>한 화면에 「이미 날아간 몸」과 「이제 발을 떼는 몸」이 같이 있어</b> 둘의 속도 차이가 자세만으로 읽히도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>토끼가 저만치 위에서 멈췄어요.
+뒤를 홱 돌아봤어요.
+거북은 저 아래 점처럼 작아요.
+"봤지? 안 자고 있잖아!"</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 와이드 · 살짝 하이앵글 · 화면 위쪽 길 위에 선 토끼, 화면 아래 멀리 작은 거북
+<b>장소·시간</b> 언덕길 중턱. 해가 나무 높이까지 올라온 아침
+<b>인물</b> 화면 위 가운데 — 토끼가 길 한가운데 멈춰 서서 상체를 비틀어 뒤를 홱 돌아본다, 앞발 하나를 아직 앞으로 든 채이고 꼬리가 위로 솟았다, 입을 벌려 아래로 외친다, 🔴 귀 안쪽은 아직 연한 분홍
+<b>배경·소품</b> 둘 사이에 텅 빈 황토 흙길이 화면 절반을 차지하며 굽이쳐 내려간다, 화면 아래 끝에 거북이 아주 작게 보이고 등딱지가 햇빛에 뿌옇게 반짝, 길가 사이프러스 그림자가 아까보다 짧아졌다, 멀리 낮은 돌담과 물결치는 언덕들
+<b>톤</b> 맑고 밝은 아침빛. 🔴 <b>둘 사이의 빈 흙길 거리가 이 쪽의 주인공</b> — 토끼가 얼마나 앞섰는지가 거리로만 보이도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>해가 쑥쑥 올라왔어요.
+흙길이 아른아른 흔들려요.
+토끼가 나무 그늘 앞에서 딱 멈췄어요.
+발이 흙에 주욱 미끄러졌어요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 가운데 그늘 경계선, 그 앞에서 급정거하는 토끼
+<b>장소·시간</b> 언덕길 중턱 사이프러스 아래. 해가 높아진 늦은 아침
+<b>인물</b> 화면 가운데 — 토끼가 달리던 그대로 네 발에 힘을 주고 급정거한다, 앞발 두 개가 흙을 짚은 채 앞으로 주욱 밀리고 뒷다리가 아직 뜬 상태, 고개를 그늘 쪽으로 처박듯 기울였고 입이 벌어져 숨이 새어 나온다, 귀가 옆으로 벌어졌다
+<b>배경·소품</b> 🔴 <b>화면을 대각선으로 자르는 그늘의 또렷한 경계선</b> — 왼쪽은 하얗게 달아오른 볕의 흙길, 오른쪽은 짙고 서늘한 그늘. 토끼 앞발이 밀리며 파인 두 줄기 흙자국과 피어오르는 흙먼지, 길바닥 위로 🔴 <b>아지랑이가 아른아른 일렁여 먼 길이 흔들려 보인다</b>, 머리 위 검푸른 사이프러스 가지
+<b>톤</b> 볕 쪽은 색이 날아갈 만큼 밝고 그늘 쪽은 한 단 짙게. 🔴 <b>경계선이 칼처럼 선명해서</b> 「저기 들어가면 시원하다」가 그림만으로 읽히도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>그늘 흙은 서늘해요.
+토끼가 배를 착 붙이고 헉헉거려요.
+혀가 쏙 나오고 귀가 발그레해요.
+"자는 거 아니야. 숨만 고르는 거야."</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 클로즈업 · 낮은 아이레벨(땅에 붙은 눈높이) · 화면 가득 엎드린 토끼
+<b>장소·시간</b> 사이프러스 그늘 안 서늘한 흙바닥. 늦은 아침
+<b>인물</b> 화면 가운데 — 토끼가 배와 턱을 흙에 착 붙이고 네 다리를 앞뒤로 쭉 뻗어 납작하게 엎드렸다, 🔴 <b>눈은 크게 뜨고 있다</b>(자지 않는다), 입을 벌려 헉헉거리며 분홍 혀가 쏙 나왔고, 🔴 <b>두 귀를 활짝 옆으로 펼쳐 눕혔는데 귀 안쪽이 발그레 물들었다</b>
+<b>배경·소품</b> 토끼 몸 아래 흙이 눌려 배 모양으로 옴폭 팬 자국, 그늘 안 흙은 색이 짙고 축축해 보인다, 화면 위쪽 가장자리로 볕의 흰 띠가 조금 걸린다, 떨어진 마른 잎 몇
+<b>톤</b> 그늘 안쪽만 시원한 청록빛이 돌고 가장자리 볕은 하얗게 타 보인다. 🔴 <b>뜬 눈과 붉어진 귀 안쪽</b>이 화면에서 가장 또렷하도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>거북이 그늘 앞을 지나갔어요.
+그런데 그늘로 안 들어와요.
+"야, 여기 시원해!"
+"난 볕이 좋아."</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 화면 오른쪽 그늘 속 토끼, 왼쪽 볕 속을 지나가는 거북 — 둘이 <b>같은 깊이</b>로 나란히
+<b>장소·시간</b> 같은 사이프러스 그늘의 경계. 해가 더 높아진 한낮 직전
+<b>인물</b> 화면 오른쪽 — 토끼가 그늘 안에서 고개만 번쩍 들고 앞발 하나를 들어 제 옆자리를 툭툭 친다, 눈이 커지고 입이 벌어졌다, 몸은 여전히 납작 엎드린 채, 🔴 귀 안쪽이 발그레. 화면 왼쪽 — 거북이 볕 한가운데 흙길을 그대로 지나간다, 목을 앞으로 길게 빼고 네 다리를 아까보다 넓게 뻗어 걷는다(🔴 손짓 없이 걷기만 한다), 🔴 <b>등딱지의 이슬이 다 말라 무늬가 진해지기 시작했다</b>
+<b>배경·소품</b> 둘 사이를 지나는 그늘의 경계선, 볕 쪽 흙길에 거북의 짧은 발자국이 줄지어 남고 그 위로 마른 먼지가 폴폴, 그늘 쪽에는 토끼가 눌러 놓은 배 자국
+<b>톤</b> 화면 왼쪽 절반은 하얗게 뜨겁고 오른쪽 절반은 짙고 서늘하게. 🔴 <b>시원한 자리를 마다하고 뜨거운 쪽으로 가는 몸</b>이 한 화면에 같이 보이도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>토끼가 그늘 밖으로 폴짝 튀어 나갔어요.
+"간다!"
+볕이 등에 확 쏟아졌어요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 미디엄 · 살짝 로우앵글 · 그늘에서 볕으로 넘어가는 순간의 토끼
+<b>장소·시간</b> 그늘의 경계선 위. 한낮 직전
+<b>인물</b> 화면 가운데 — 토끼가 그늘 안에서 몸을 튕겨 볕 쪽으로 뛰어드는 중이다, 뒷다리가 아직 그늘에 있고 🔴 <b>앞발과 머리는 이미 볕 속에 들어가 하얗게 빛난다</b>, 귀를 뒤로 눕히고 입을 벌려 외친다, 눈은 앞 길을 본다
+<b>배경·소품</b> 몸을 반으로 가르는 그늘의 경계선, 뒤에 남은 배 모양 눌린 자국, 볕 쪽 흙에서 튀어 오르는 먼지 알갱이, 저 앞으로 아지랑이에 흔들리는 길과 다음 사이프러스가 작게 보인다
+<b>톤</b> 그늘에서 볕으로 넘어가는 자리의 밝기 차이를 세게. 🔴 <b>한 몸이 두 빛에 걸쳐 있어</b> 볕이 얼마나 센지 몸으로 읽히도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>다음 나무 그늘이에요.
+토끼가 벌써 배를 붙이고 있어요.
+볕 위 발자국이 아까보다 짧아요.
+헉, 헉, 헉.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 와이드 · 살짝 하이앵글 · 화면 오른쪽 그늘에 엎드린 토끼, 왼쪽 볕에 토끼가 지나온 짧은 발자국 줄
+<b>장소·시간</b> 두 번째 사이프러스 그늘. 해가 거의 머리 위인 한낮
+<b>인물</b> 화면 오른쪽 — 토끼가 다시 배를 흙에 붙이고 납작 엎드려 어깨가 크게 오르내린다, 혀가 길게 나와 늘어졌고 눈은 뜨고 있다, 🔴 <b>두 귀를 활짝 펼쳤는데 귀 안쪽이 아까보다 더 붉다</b>
+<b>배경·소품</b> 🔴 화면 왼쪽 볕 위에 토끼 발자국이 줄지어 있는데 <b>앞 그늘에서 이 그늘까지가 아주 짧다</b>(p6·p7 에서 온 그 길이 화면 안에 다 들어온다), 그늘은 해가 높아져 나무 밑동에 바짝 붙을 만큼 좁아졌다, 흙먼지가 발자국 위에 얇게 앉았다
+<b>톤</b> 볕 쪽은 색이 다 날아가게 하얗고 남은 그늘은 좁고 짙게. 🔴 <b>그늘이 좁아진 것</b>과 <b>발자국이 짧아진 것</b> 둘 다 화면 안에 있게 — 「점점 못 간다」가 글 없이 보이도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>매미가 맴맴맴 울어요.
+토끼가 앞발을 볕에 쓱 내밀었어요.
+"앗, 뜨거!"
+앞발을 얼른 도로 넣었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 · 화면 앞 가득 그늘의 경계선과 토끼의 앞발
+<b>장소·시간</b> 좁아진 그늘 가장자리. 해가 꼭대기에 온 정오
+<b>인물</b> 화면 가운데 — 토끼가 그늘 안에 엎드린 채 내밀었던 앞발을 몸 쪽으로 홱 당기는 중이다, 발바닥이 위로 뒤집혀 보이고 발가락이 오므라들었다, 고개를 뒤로 젖히고 눈을 질끈 감으며 입을 크게 벌렸다, 🔴 <b>귀 안쪽이 가장 새빨갛다</b>
+<b>배경·소품</b> 🔴 볕 쪽 흙 위에 방금 짚었던 <b>앞발 자국 하나</b>가 또렷하게 남아 있다, 그 위로 열기가 아지랑이로 피어오른다, 흙은 하얗게 마르고 갈라져 부슬부슬, 머리 위 사이프러스 가지에 매미 한 마리가 붙어 있고 그늘은 나무 밑동 폭만큼만 남았다
+<b>톤</b> 볕 쪽이 눈이 부실 만큼 희고 뜨겁게, 그늘은 아주 좁고 짙게. 🔴 <b>당기는 앞발과 볕 위에 남은 발자국</b>이 나란히 보여 「방금 닿았다가 놀랐다」가 한 장에 읽히도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>거북은 볕 한가운데를 걸어요.
+목을 쭉 빼고 다리를 길게 뻗어요.
+등딱지가 뜨끈뜨끈 윤이 나요.
+"지금이 제일 좋아."</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 · 살짝 로우앵글 · 화면 가운데를 가로질러 걷는 거북을 아래서 올려다봄
+<b>장소·시간</b> 그늘 하나 없는 볕 속 흙길. 정오
+<b>인물</b> 화면 가운데 — 거북이 목을 앞으로 한껏 길게 빼고 네 다리를 크게 벌려 성큼성큼 걷는다, 배가 땅에서 떠 다리가 곧게 섰고 눈을 크게 떴다, 입이 살짝 벌어져 말하는 중, 🔴 <b>등딱지가 바짝 말라 무늬가 진하고 정수리에 햇빛 반사가 반짝인다</b>(p1 의 뿌연 등딱지와 반대)
+<b>배경·소품</b> 뒤로 이어진 거북의 발자국이 아까보다 넓은 간격으로 찍혔다, 흙길에서 피어오르는 아지랑이, 길가 마른 금빛 풀이 미동 없이 서 있고 매미 소리가 나는 사이프러스는 저 뒤에 작게, 화면 어디에도 그늘이 없다
+<b>톤</b> 정오의 가장 강한 빛. 🔴 화면에서 <b>가장 씩씩한 몸이 거북</b>이 되도록 — 아래서 올려다봐 다리가 길고 걸음이 커 보이게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>토끼가 제 귀를 만져 봤어요. 뜨거워요.
+"너는… 뜨거울수록 잘 걷는구나!"
+"해가 등을 데워 줘야 다리가 움직이거든."
+"난 반대야. 뜨거우면 다리가 안 가."</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨 · 화면 오른쪽 그늘 속 토끼, 왼쪽 볕 속에 멈춰 선 거북 — 둘이 <b>같은 깊이</b>로 마주 본다
+<b>장소·시간</b> 좁은 그늘과 볕이 맞닿은 자리. 정오를 조금 지난 낮
+<b>인물</b> 화면 오른쪽 — 토끼가 앞발 하나를 들어 제 귀를 아래로 당겨 잡고 만져 본다, 귀가 손에 접혀 🔴 <b>새빨간 안쪽이 화면에 정면으로 드러난다</b>, 눈이 크게 떠지고 입이 벌어졌다(막 알아챈 얼굴), 몸은 아직 엎드린 채. 화면 왼쪽 — 거북이 볕 속에서 걸음을 멈추고 목을 돌려 토끼를 본다, 네 다리로 곧게 선 자세 그대로(🔴 손짓 없음), 등딱지가 윤이 난다
+<b>배경·소품</b> 둘 사이를 지나는 그늘의 경계선이 화면을 세로로 가른다, 볕 쪽 흙은 하얗고 그늘 쪽 흙은 짙다, 토끼 아래 눌린 배 자국, 거북 뒤로 이어진 넓은 발자국
+<b>톤</b> 🔴 <b>한 화면이 반으로 갈려 왼쪽은 뜨겁고 밝게 오른쪽은 서늘하고 짙게</b> — 두 몸이 각자 편한 자리에 있는 것이 배경 색으로 그대로 읽히도록. 토끼의 빨간 귀 안쪽이 가장 진한 색</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>거북이 언덕 꼭대기 나무에 닿았어요.
+토끼는 아직 아래 그늘에 엎드려 있어요.
+"먼저 왔어."</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 화면 위 꼭대기의 거북, 화면 아래 중턱 그늘의 토끼, 둘 사이로 굽은 흙길
+<b>장소·시간</b> 언덕 꼭대기 큰 나무 아래와 그 아래 비탈길. 해가 조금 기울기 시작한 오후
+<b>인물</b> 화면 위 오른쪽 — 거북이 꼭대기 나무 밑동에 앞발을 척 올려놓고 목을 길게 빼 아래를 내려다본다, 다리가 아직 곧게 서 있다, 입이 살짝 벌어져 말한다, 등딱지에 아직 윤이 난다. 화면 아래 왼쪽 — 토끼가 좁은 그늘에 배를 붙이고 엎드린 채 고개만 위로 들어 본다, 혀가 나와 있고 귀가 여전히 붉다
+<b>배경·소품</b> 둘을 잇는 황토 흙길이 화면을 굽이쳐 오르고 그 위엔 아무도 없다, 길가 사이프러스 그림자들이 조금씩 길어지기 시작했다, 꼭대기 큰 나무의 넓은 그늘, 멀리 물결치는 언덕과 낮은 돌담
+<b>톤</b> 오후로 넘어가는 빛. 🔴 <b>먼저 닿은 몸이 위에, 아직 못 간 몸이 아래에</b> 놓인 구도 하나로 결과가 읽히도록 — 누구도 웃거나 약 올리지 않는다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>해가 기울고 바람이 서늘해졌어요.
+토끼가 언덕길을 뛰어 올라가요.
+발밑에서 흙먼지가 파바박!</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 미디엄 와이드 · 살짝 로우앵글 · 비탈길을 위로 달려 오르는 토끼
+<b>장소·시간</b> 언덕길 위쪽 비탈. 해가 낮게 기운 저녁 무렵, 바람이 분다
+<b>인물</b> 화면 가운데 — 토끼가 네 발을 크게 뻗어 언덕길을 힘차게 뛰어 오른다, 뒷다리가 땅을 차고 앞발이 앞으로 멀리 나갔다, 두 귀가 위로 곧게 섰고 🔴 <b>귀 안쪽 붉은 기가 눈에 띄게 옅어졌다</b>, 입은 다물었고 눈이 반짝인다
+<b>배경·소품</b> 뒷발 뒤로 파바박 튀는 흙먼지 덩어리들, 🔴 화면 아래 뒤쪽 그늘 자리에 <b>토끼가 남기고 온 배 모양 눌린 자국</b>이 아직 보인다, 길가 마른 풀이 바람에 한쪽으로 눕고, 사이프러스 그림자가 길게 늘어져 길을 여러 번 가로지른다(p1 아침처럼 다시 길어졌다)
+<b>톤</b> 낮게 깔린 주황빛과 서늘해진 공기. 🔴 흙길에 이제 <b>하얗게 타는 볕 자리가 없다</b> — 화면 전체가 고르게 부드러워져 토끼를 막는 것이 아무것도 없도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p14 · 본문</span>꼭대기에 둘이 나란히 있어요.
+토끼는 팔짝팔짝, 귀가 다시 하얘요.
+거북은 목을 쏙 넣고 납작 엎드렸어요.
+"지금은 내가 빨라!"
+"응. 지금은."</div>
+  </div>
+  <div class="sc"><span class="n">p14 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 화면 왼쪽에 뛰는 토끼, 오른쪽에 웅크린 거북 — 둘이 <b>같은 깊이</b>로 나란히
+<b>장소·시간</b> 언덕 꼭대기 큰 나무 아래. 해가 지평선에 걸린 저녁, 바람이 서늘하다
+<b>인물</b> 화면 왼쪽 — 토끼가 네 발을 모아 팔짝 뛰어올라 발이 다 땅에서 떴다, 두 귀가 곧게 위로 섰고 🔴 <b>귀 안쪽이 p1 처럼 다시 하얗고 연한 분홍</b>이다, 입을 벌려 웃으며 외친다, 털이 바람에 부풀었다. 화면 오른쪽 — 거북이 나무 밑동에 배를 딱 붙이고 납작 엎드렸다, 🔴 <b>목을 등딱지 안으로 반쯤 집어넣고</b> 다리도 몸 아래로 접어 넣었다, 눈이 반쯤 감긴 채 느릿하게 대답한다, 🔴 <b>등딱지의 윤이 사라지고 무늬가 다시 흐릿해졌다</b>
+<b>배경·소품</b> 꼭대기 큰 나무의 넓은 그늘이 이제 언덕 전체를 덮어 볕과 그늘의 경계선이 화면에서 사라졌다, 아래로 굽이쳐 내려가는 빈 흙길과 띄엄띄엄 선 사이프러스, 멀리 물결치는 언덕 능선에 걸린 붉은 해, 풀이 한쪽으로 눕는다
+<b>톤</b> 저녁의 낮고 서늘한 주황빛. 🔴 <b>두 몸이 정확히 반대</b>로 보이도록 — 왼쪽은 공중에 뜬 몸·곧게 선 귀·부푼 털, 오른쪽은 땅에 붙은 몸·집어넣은 목·접은 다리. 아침(p1)에는 이 둘의 자세가 서로 바뀌어 있었다는 것이 같은 구도로 겹쳐 보이게</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'c23',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['어린 토끼(이름 없음)', '거북(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=43defebe18a6c159"></script>
+<script src="/changjak-core.js?v=43defebe18a6c159"></script>
+</body>
+</html>

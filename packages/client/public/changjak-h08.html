@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>H-08 유리를 부는 사람 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · H · 호기심·만들기·직업 · 08</div>
+  <h1>유리를 부는 사람</h1>
+  <div class="sub">뜨거울 때만 모양이 바뀌어요. 식으면 그대로예요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 소원의 대가</span>
+  <span>무대 · 베네치아 유리공방 (둥근 가마 하나 · 팔걸이가 긴 유리장이 의자 · 창 하나 · 창 아래 재 상자 — 열세 쪽 내내 이 방을 나가지 않는다)</span>
+  <span>후렴 · '"한 번만 더요!" / 쓰윽— 불 속으로 / 빙글, 빙글' (p5·p7 두 번 · 🔴 p9 에서 처음으로 불에 대지 않고 돌리기만 한다)</span>
+  <span class="q">13스프레드</span>
+  <span class="q">본문 788자 · 쪽당 61자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- 🔴 <b>이 권은 「소원의 대가」 엔진의 대가를 물리로 바꾼다.</b> 소원을 비는 장치도 요정도 주문도 없다. 대가는 「원하는 걸 얻으면 뭘 잃는다」가 아니라 <b>「고치려고 불에 다시 대면 그 옆이 같이 물러져 다른 데가 늘어진다」</b>이다. 아이가 외울 규칙이 아니라 <b>화면에서 두 번 보는 성질</b>이다 — p6 에서 목을 폈더니 꼬리가 처지고, p8 에서 꼬리를 올렸더니 배가 늘어진다. 추론이 아니라 목격이다.<br>
+- 🔴 <b>제한 시간을 말로 걸지 않는다.</b> 유리가 식는 것이 제한 시간이고, 그건 <b>색</b>으로만 보인다(주황 → 붉음 → 검붉음). 「빨리 해!」·「시간이 없어!」 같은 대사는 한 줄도 없다. 쪽마다 유리가 조금씩 어두워지므로, 글을 못 읽는 아이도 뒤로 갈수록 남은 시간이 줄어드는 걸 본다.<br>
+- 🔴 <b>염소는 사실만 말한다.</b> 「불에 대면 그 옆도 같이 물러져」(p6) · 「댈 때마다 다른 데가 늘어져」(p8) · 「못 고쳐. 식었으니까」(p10) · 「밤새 천천히 식어야 안 깨져」(p11). 네 마디가 전부 <b>일어난 일의 이름</b>이고, 한 번도 「괜찮아」·「참을성을 길러야지」·「처음이니까 그럴 수 있어」로 마음을 정리해 주지 않는다. 해법도 안 준다 — p9 에서 불에 대지 않기로 한 건 고슴도치가 스스로 한 일이다.<br>
+- 🔴 <b>착지 카드 = 식음.</b> 마지막 한 땀(h03)도 차례(e120)도 소리(a97)도 아니다. 이 책에서 유리는 <b>뜨거울 때 주황으로 빛나고 식으면 그 색을 잃고 맑아진다</b> — 실제 유리가 그렇다. 그래서 「굳었다」가 설명 없이 <b>색이 사라진 것</b>으로 보이고, 마지막 쪽에서 그 맑아진 몸을 아침 햇빛이 통과해 굽은 목의 그림자 대신 <b>빛 한 조각</b>을 작업대에 떨군다. 🔴 「그래도 괜찮아요」류 정리 문장은 없다 — 염소가 두 손으로 받아 들고 웃는 것으로 끝난다.<br>
+- 🔴 <b>h03(구둣방)과 정면으로 반대가 되게 짰다.</b> h03 은 <b>기다림</b>(가을에서 봄까지 · 오소리가 만들고 토끼는 물으며 기다린다 · 착지는 아이가 놓은 마지막 한 땀). h08 은 <b>조급함</b>(한 덩이가 식는 몇 분 · 고슴도치가 처음부터 끝까지 제 손으로 다 하고 염소는 지켜보기만 한다 · 착지는 아이가 <b>손대기를 멈춘</b> 것). 후렴도 반대다 — h03 은 「다 됐어요?/아직」이고 여기는 「한 번만 더요!」다. 공정 묘사도 겹치지 않는다(가죽 오리기·꿰매기 ↔ 불기·목 뽑기·다시 달구기).<br>
+- 🔴 <b>불과 뜨거움은 사실대로, 다치는 장면은 없다.</b> 대롱은 길고 고슴도치는 <b>뜨거운 쪽에서 팔 하나만큼 먼 반대쪽 끝</b>을 잡는다. 도구는 물에 적신 나무 집게라 닿을 때 김이 난다. 손을 멈추면 유리가 아래로 처지므로 <b>쪽마다 대롱이 돌아가고 있다</b>. 가마 입구는 몸보다 높이 있고 염소가 늘 그 사이에 선다. 유리가 깨지는 장면·데는 장면·불꽃이 튀는 장면은 넣지 않았다.<br>
+- 🔴 <b>공정은 다섯 동작으로 줄였다.</b> ①대롱을 돌리며 뜨거운 유리 덩이를 붙들고 있기 ②불어서 부풀리기 ③젖은 나무 집게로 목 뽑기 ④가마 구멍에 다시 대서 물렁하게 만들기 ⑤다 되면 대롱 끝을 톡 쳐서 떼어 따뜻한 재에 묻어 천천히 식히기. 굽 붙이기·색유리 입히기·자르기는 뺐다 — 넣으면 「한 번만 더요!」가 네 번째로 돌아온다.<br>
+- 🔴 <b>후렴은 둘인데 하나는 손이 낸다.</b> 말 후렴 「한 번만 더요!」는 <b>딱 두 번</b>(p5·p7)이고, 몸 후렴 「빙글, 빙글」은 계속 돈다. p9 에서 말 후렴이 나오지 않고 <b>빙글, 빙글만 남는 것</b>이 이 이야기의 전환이다 — 고슴도치가 처음으로 손대기를 멈춘 쪽이라 소리도 하나가 준다.<br>
+- 🔴 <b>뒤집힘은 마지막 두 쪽 앞(p12)에 주인공 대사로 온다.</b> 「어! 얘가 저를 내려다봐요!」 — 삐뚤어졌다고 부르던 굽은 목이, 식어서 굳고 나서 <b>내려다보는 목</b>으로 읽히는 순간이다. 앞쪽에서 아무도 그 힌트를 말해 주지 않는다. 단서는 그림에만 있다 — p4 부터 굽은 목은 <b>줄곧 고슴도치 얼굴 쪽으로</b> 기울어 있다.<br>
+- 🔴 <b>열세 쪽.</b> 재가열 두 번(넣는 쪽 · 결과 쪽)이 네 쪽을 먹고, 앞에 넷(달구기·불기·목 뽑기·발견), 굳는 쪽 하나, 못 고친다는 사실 하나, 뒤에 셋(재에 묻기·다음 날 꺼내기·창빛). 재가열을 세 번으로 늘리면 같은 어긋남이 셋이 되어 늘어지고, 두 쪽을 합치면 「넣었다」와 「늘어졌다」가 한 그림에 눌려 원인과 결과가 사라진다.<br>
+- 🔴 <b>의인화 등급 = 이족 · 앞발이 손 · 간단한 앞치마, 열세 쪽 고정.</b> 긴 쇠대롱을 두 손으로 돌려야 하는 무대라 사족이 불가능하다. 고슴도치는 소매 짧은 회색 앞치마, 염소는 검댕 묻은 가죽 앞치마. 얼굴은 동물 그대로(고슴도치 뾰족한 코와 등 가시 · 염소 굽은 뿔과 긴 턱수염)이고 사람 얼굴로 바꾸지 않는다. 🔴 <b>글자·숫자·간판 없음</b> — 창밖 물길과 배도 배경으로만 두고 아무것도 쓰지 않는다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>"오늘은 네가 불어 봐."
+늙은 염소가 가마 덮개를 열었어요. 화악—
+고슴도치가 긴 쇠대롱을 두 손으로 잡고 빙글, 빙글 돌려요.
+멈추면 주황빛 유리가 축 늘어지거든요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 화면 왼쪽에 둥근 가마와 열린 입구, 오른쪽에 긴 의자에 앉은 고슴도치
+<b>장소·시간</b> 베네치아의 작은 유리공방. 낮은 천장, 검댕이 낀 벽돌 벽, 화면 왼쪽에 사람 키만 한 둥근 가마(작은 아치형 입구에 쇠덮개), 가운데에 <b>두 팔걸이가 앞으로 길게 뻗은 유리장이 의자</b>, 오른쪽 벽에 창 하나와 그 아래 낮은 작업대. <b>이 자리와 구조는 열세 쪽 내내 같다.</b> 늦은 오후, 방 안이 어둑하다
+<b>인물</b> 화면 오른쪽 — 어린 고슴도치가 긴 의자에 걸터앉아 <b>두 손으로 쇠대롱을 잡고 팔걸이 위에서 앞뒤로 굴린다</b>, 몸을 앞으로 조금 숙였고 눈은 대롱 끝만 본다, 등 가시가 긴장해 곧게 섰고 입이 야무지게 다물렸다. 🔴 <b>뜨거운 끝에서 팔 하나만큼 먼 쪽을 잡았다.</b> 화면 왼쪽 — 늙은 염소가 가마 옆에 서서 한 손을 아직 덮개 걸쇠에 얹은 채 고개만 돌려 고슴도치를 본다, 굽은 뿔과 긴 턱수염, 검댕 묻은 가죽 앞치마. 둘 다 이족 · 앞발이 손 · 간단한 앞치마
+<b>배경·소품</b> 🔴 대롱 끝에 <b>주황빛으로 환하게 빛나는 물렁한 유리 덩이</b>가 엿처럼 붙어 조금 아래로 늘어지려 한다. 열린 가마 입구에서 주황 불빛이 방바닥까지 길게 뻗는다. 벽 걸이에 길이가 다른 쇠대롱 여럿, 물통 하나, 젖은 나무 집게, 젖은 나무판. 창 아래 작업대 곁에 <b>뚜껑 덮인 낮은 재 상자</b>(🔴 p11 까지 간다). 창밖으로 좁은 물길과 매어 둔 배 한 척이 어둑하게. 글자·숫자·간판 없음
+<b>톤</b> 방 안 전체가 갈색 그늘인데 <b>가마 입구와 유리 덩이만 주황으로 타오른다</b> — 이 책에서 색을 가진 것은 불과 유리뿐이라는 규칙이 첫 쪽에서 정해지도록. 뜨거운 공기가 가마 입구 위에서 일렁여 벽 윤곽이 흔들린다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>고슴도치가 대롱 끝에 입을 대고 볼을 빵빵하게 부풀렸어요.
+후우—
+유리가 동그랗게 부풀어 올라요.
+"우아, 커진다!"</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 살짝 로우앵글 · 화면 왼쪽 아래에 볼을 부풀린 고슴도치 얼굴, 대롱을 따라 오른쪽 위로 부푸는 유리
+<b>장소·시간</b> 같은 공방, 유리장이 의자 위. 같은 늦은 오후
+<b>인물</b> 화면 왼쪽 — 고슴도치가 대롱 끝을 입에 물고 <b>두 볼을 빵빵하게 부풀렸다</b>, 눈이 위로 치켜떠져 유리 쪽을 보고, 콧등에 주름이 잡혔다, 등 가시가 뒤로 살짝 눕고 <b>두 손은 그 와중에도 대롱을 굴리고 있다</b>(한 손이 앞으로 다른 손이 뒤로). 화면 오른쪽 뒤 — 염소가 팔짱을 끼고 한 발짝 떨어져 서서 내려다본다, 아무 말도 안 하는 얼굴. 이족 · 앞발이 손 · 간단한 앞치마
+<b>배경·소품</b> 🔴 대롱 끝의 유리 덩이가 <b>동그랗게 부풀어 오르는 중</b> — 껍질이 얇아지며 안쪽이 더 밝게 빛나고 겉면에 매끈한 광택이 돈다, 덩이 아래쪽이 가늘게 늘어져 대롱에 붙었다. 뒤로 열린 가마 입구의 주황빛, 발밑 바닥에 대롱 그림자
+<b>톤</b> 부푸는 유리가 화면에서 가장 밝고, 그 빛이 고슴도치의 부푼 볼과 코끝을 주황으로 물들인다. 방 나머지는 어둡게 눌러 <b>빛나는 공 하나와 그걸 보는 눈 두 개</b>만 남도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>고슴도치가 젖은 나무 집게로 유리 끝을 집어 쭈욱— 잡아당겼어요.
+치익, 김이 났어요.
+가느다란 목이 쑥 나왔어요.
+"새다! 새가 됐어요!"</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 · 화면 가운데를 가로질러 대롱과 유리, 오른쪽에 집게를 쥔 두 손
+<b>장소·시간</b> 같은 공방, 의자 앞. 같은 늦은 오후
+<b>인물</b> 화면 오른쪽 — 고슴도치의 두 손이 프레임에 크게 든다, 한 손은 대롱을 계속 굴리고 다른 손이 <b>젖은 나무 집게로 부푼 유리의 한 끝을 집어 옆으로 쭉 당기는 중</b>이다, 팔이 곧게 뻗었고 손목에 힘이 들어갔다. 화면 왼쪽 위 가장자리 — 고슴도치의 얼굴 아래쪽만 걸린다, 입이 벌어져 소리치는 참. 🔴 뜨거운 유리와 얼굴 사이에 팔 하나만큼 거리가 있다
+<b>배경·소품</b> 🔴 부푼 유리에서 <b>가느다란 목이 엿가락처럼 늘어 나온다</b> — 늘어난 부분은 얇아서 더 밝은 주황이고 몸통 쪽은 조금 어둡다, 끝이 살짝 뭉툭해 새 머리처럼 보이기 시작한다. 집게가 닿은 자리에서 <b>하얀 김이 치익 오른다</b>(집게가 물에 젖어 있다), 옆에 물통과 물 자국. 뒤로 흐린 가마 불빛
+<b>톤</b> 늘어나는 목이 화면에서 가장 밝은 선이 되어 왼쪽 위에서 오른쪽 아래로 화면을 가른다. 김 한 줄기가 그 위로 흐릿하게 걸쳐 <b>뜨거움이 눈에 보이도록</b></div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>그런데 목이 한쪽으로 삐뚜름해요.
+고슴도치가 대롱을 눈앞까지 들어 올렸어요.
+주황빛이 조금씩 붉어져요. 유리가 식고 있어요.
+"안 돼요, 삐뚤어졌어요!"</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨 · 화면 오른쪽에 고슴도치 얼굴, 왼쪽에 눈높이로 들린 유리 새
+<b>장소·시간</b> 같은 공방, 의자 위. 같은 늦은 오후
+<b>인물</b> 화면 오른쪽 — 고슴도치가 <b>대롱을 제 눈높이까지 들어 올려</b> 두 손으로 천천히 굴리며 유리를 들여다본다, 눈썹이 가운데로 모이고 콧등에 주름이 잡혔다, 입이 벌어져 소리치는 참, 등 가시가 팍 곤두섰다. 화면 왼쪽 뒤 — 염소는 그대로 서 있고 아무것도 하지 않는다(팔짱 낀 실루엣만)
+<b>배경·소품</b> 🔴 유리 새의 <b>가느다란 목이 한쪽으로 기울어 있다</b> — 🔴 <b>기운 방향은 고슴도치 얼굴 쪽</b>이고, 이 방향은 p12·p13 까지 바뀌지 않는다. 🔴 유리 색이 p3 보다 한 단 어두워져 <b>밝은 주황에서 붉은 주황으로</b> 내려앉았고 겉면 광택이 조금 굳었다. 뒤로 가마 입구의 주황 불빛, 발밑에 물통
+<b>톤</b> 유리에서 나오는 빛이 앞 쪽보다 약해져 고슴도치 얼굴을 덜 밝힌다 — 🔴 <b>시간이 줄어든 것이 밝기로만 보이도록</b>. 삐뚠 목의 기울기가 화면에서 유일하게 비스듬한 선이라 눈이 거기 붙는다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>"한 번만 더요!"
+고슴도치가 가마 구멍에 대롱을 쓰윽— 밀어 넣었어요.
+불빛 속에서 유리가 다시 환한 주황으로 밝아져요.
+빙글, 빙글.</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 와이드 · 살짝 로우앵글 · 화면 왼쪽에 가마 입구, 오른쪽에 팔을 뻗어 대롱을 밀어 넣은 고슴도치 전신
+<b>장소·시간</b> 같은 공방, 가마 앞. 같은 늦은 오후
+<b>인물</b> 화면 오른쪽 — 고슴도치가 두 발로 서서 <b>팔을 앞으로 쭉 뻗어 대롱을 가마 구멍 안으로 밀어 넣고</b>, 그 자세로 두 손을 반대로 움직여 대롱을 굴린다, 몸은 불에서 뒤로 젖혀졌고 얼굴을 옆으로 살짝 돌려 눈만 구멍 쪽을 본다, 입가가 다시 올라갔다(고칠 수 있다고 믿는 얼굴). 화면 가운데 뒤 — 염소가 고슴도치와 가마 사이 옆자리에 서서 한 손을 등 뒤에 가볍게 대고 있다(🔴 대신 해 주지 않고 자리만 지킨다). 이족 · 앞발이 손 · 간단한 앞치마
+<b>배경·소품</b> 🔴 가마의 작은 아치형 구멍이 화면 왼쪽에서 <b>주황으로 환하게 뚫려 있고</b>, 대롱 끝의 유리 새가 그 안으로 들어가 <b>다시 밝은 주황으로 되살아나는 중</b>이다 — 목의 기울기는 아직 그대로. 구멍 언저리 벽돌이 하얗게 달았고 그 위로 공기가 일렁인다. 바닥에 두 사람의 긴 그림자가 뒤로 뻗는다
+<b>톤</b> 화면 왼쪽이 통째로 주황 불빛이고 오른쪽으로 갈수록 어두워져, 뻗은 팔이 밝은 쪽과 어두운 쪽을 잇는 다리처럼 보이도록. 🔴 <b>뜨거운 쪽과 몸 사이에 팔 하나만큼의 거리</b>가 화면에서 분명히 읽히게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>꺼내 보니 목이 반듯해요!
+그런데 꼬리가 아래로 축 늘어졌어요.
+"어? 꼬리가 왜 이래요?"
+"불에 대면 그 옆도 같이 물러져." 염소가 말했어요.</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨 · 화면 가운데에 들린 유리 새, 왼쪽에 고슴도치 얼굴, 오른쪽 뒤에 염소
+<b>장소·시간</b> 같은 공방, 가마와 의자 사이. 같은 늦은 오후
+<b>인물</b> 화면 왼쪽 — 고슴도치가 대롱을 눈앞에 들고 굴리다 <b>손이 딱 멈췄다</b>, 눈이 동그랗게 커지고 입이 작게 벌어졌으며 귀가 뒤로 눕고 가시가 다시 섰다. 화면 오른쪽 뒤 — 염소가 턱수염을 한 번 쓸며 유리 새 쪽으로 고개를 기울여 말한다, 표정은 평소 그대로다(🔴 걱정도 나무람도 없다)
+<b>배경·소품</b> 🔴 유리 새의 <b>목은 곧게 펴졌는데 꼬리 끝이 엿처럼 아래로 축 처졌다</b> — 처진 부분이 늘어나며 얇아져 그 자리만 더 밝다. 🔴 유리 전체 색은 p5 보다 한 단 내려온 <b>붉은 주황</b>. 뒤로 가마 입구의 불빛과 벽에 걸린 대롱들
+<b>톤</b> 유리 새를 화면에서 가장 또렷하게 두고 두 얼굴은 그 빛을 받는다. 🔴 <b>곧게 편 목</b>과 <b>아래로 흐른 꼬리</b>가 한 화면에서 정반대 방향으로 읽혀, 하나를 고치면 다른 하나가 흘러내린다는 것이 그림만으로 보이도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>"한 번만 더요!"
+쓰윽— 불 속에서 꼬리가 스르르 올라와요.
+고슴도치가 빙글, 빙글 더 빠르게 돌려요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 · 가마 구멍 바로 앞에서 구멍 안쪽을 들여다보는 컷 — 화면 가득 주황 불빛과 그 속의 유리 새
+<b>장소·시간</b> 같은 공방, 가마 입구 안쪽. 같은 늦은 오후
+<b>인물</b> 화면 오른쪽 가장자리 — 고슴도치의 <b>두 손과 얼굴 반쪽만</b> 프레임에 걸린다, 두 손이 대롱을 반대 방향으로 빠르게 굴려 잔상이 남고, 눈이 크게 뜨여 불빛에 주황으로 물들었으며 입은 다물렸다(🔴 이번엔 웃지 않는다)
+<b>배경·소품</b> 🔴 구멍 안 주황빛 속에서 유리 새가 <b>다시 물렁해져 꼬리가 스르르 위로 말려 올라가는 중</b>이다 — 대롱이 돌아가는 힘에 꼬리가 따라 올라온다. 🔴 그런데 <b>배 아래쪽이 벌써 볼록하게 부풀어 처지기 시작했다</b>(다음 쪽의 원인이 여기 그림에 먼저 있다). 구멍 언저리 하얗게 달아오른 벽돌, 일렁이는 열기
+<b>톤</b> 화면 대부분이 주황 하나로 채워져 눈이 유리 새의 실루엣만 좇게. 🔴 앞 쪽들보다 <b>훨씬 밝게</b> — 불에 대면 색이 되살아난다는 것이 반복해서 보이도록. 손의 잔상이 조급함을 만든다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>꺼내 보니 꼬리가 쏙 올라왔어요.
+그런데 이번엔 배가 불룩 늘어졌어요.
+"댈 때마다 다른 데가 늘어져."
+염소는 그것만 말하고 팔짱을 꼈어요.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 익스트림 클로즈업 · 살짝 하이앵글 · 화면 가득 유리 새 하나(얼굴은 프레임에 거의 없다)
+<b>장소·시간</b> 같은 공방, 대롱 끝 바로 앞. 같은 늦은 오후, 해가 낮아졌다
+<b>인물</b> 화면 위 가장자리 — 고슴도치의 두 손끝과 아래턱만 걸린다, 손은 아주 천천히 굴리는 중. 화면 뒤쪽 흐릿한 어둠 속 — 염소가 팔짱을 끼고 선 실루엣, 얼굴은 안 보이고 뿔과 수염 윤곽만
+<b>배경·소품</b> 🔴 유리 새를 코앞에서 본다 — <b>꼬리는 예쁘게 올라갔는데 배가 물방울처럼 불룩 아래로 늘어졌고</b>, 목은 다시 조금 기울었다(p4 와 같은 방향). 늘어진 배 쪽이 얇아져 안쪽이 비쳐 보인다. 🔴 유리 색이 또 한 단 내려와 <b>붉은색</b>이고, 겉면에 방금 굳기 시작한 잔주름이 보인다. 뒤 배경은 거의 안 보이게
+<b>톤</b> 화면 전체가 어두운 갈색이고 그 가운데 붉게 식어 가는 유리 하나만 빛난다. 🔴 p6 은 아이레벨 미디엄, 여기는 코앞 클로즈업이라 <b>같은 어긋남을 두 번째로 보는 자리가 앞 쪽과 안 닮게</b>. 늘어진 배의 무게가 아래로 당기는 느낌</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>고슴도치는 이번엔 불에 대지 않았어요.
+그냥 빙글, 빙글 돌리기만 했어요.
+주황이 붉어지고, 붉은빛이 어두워져요.
+대롱이 점점 무거워져요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 가운데에 의자에 앉은 고슴도치 전신, 왼쪽 뒤에 아직 열린 가마 입구
+<b>장소·시간</b> 같은 공방, 유리장이 의자. 해가 거의 진 저녁
+<b>인물</b> 화면 가운데 — 고슴도치가 긴 의자에 앉아 <b>두 손으로 대롱을 팔걸이 위에서 계속 굴린다</b>, 어깨가 낮게 내려앉았고 손목이 무게에 처졌다, 눈은 유리를 보지만 아무것도 하려 하지 않는 얼굴이다, 가시가 눕고 입이 다물렸다. 화면 왼쪽 뒤 — 염소가 가마 옆에서 그 모습을 본다, 다가오지 않는다
+<b>배경·소품</b> 🔴 대롱 끝의 유리 새가 <b>검붉게 어두워졌다</b> — 안쪽 깊은 데만 아직 희미하게 붉고 겉면은 거의 색을 잃어 간다, 삐뚠 목과 늘어진 배가 그 상태로 멈춰 있다. 🔴 <b>가마 입구는 여전히 환한 주황</b>이라 화면 왼쪽(뜨거움)과 오른쪽(식음)이 색으로 갈린다. 창밖은 어둑하고 물길에 등불 하나가 흔들린다
+<b>톤</b> 이 책에서 <b>유리가 가마보다 어두워지는 첫 쪽</b>이다 — 지금까지 화면에서 가장 밝던 것이 이제 배경 불빛보다 어둡다. 그 뒤바뀜만으로 「끝나 간다」가 읽히도록. 굴러가는 소리만 남은 조용한 저녁</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>염소가 가마 덮개를 쿵 닫았어요.
+"이제 못 고쳐요?"
+"못 고쳐. 식었으니까."
+고슴도치가 대롱을 무릎 위에 내려놓았어요.</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 화면 왼쪽에 닫힌 가마 앞의 염소, 오른쪽에 의자에 앉은 고슴도치
+<b>장소·시간</b> 같은 공방. 같은 저녁, 방이 훨씬 어두워졌다
+<b>인물</b> 화면 왼쪽 — 염소가 <b>닫힌 쇠덮개에서 막 손을 떼는 참</b>이다, 몸을 반쯤 돌려 고슴도치를 보고 턱수염이 아래로 늘어졌다, 표정은 담담하다. 화면 오른쪽 — 고슴도치가 의자에 앉아 <b>대롱을 두 무릎 위에 가로로 내려놓았다</b>, 두 손이 대롱 위에 얹힌 채 처음으로 멈췄고 어깨가 축 내려갔다, 고개를 숙여 유리 새를 내려다본다, 가시가 납작하게 누웠다. 이족 · 앞발이 손 · 간단한 앞치마
+<b>배경·소품</b> 🔴 <b>가마 입구가 닫혀 주황빛이 사라졌다</b> — 열세 쪽 중 방이 가장 어두운 쪽이고, 남은 빛은 덮개 틈으로 새는 가느다란 주황 선 하나와 창으로 드는 푸른 저녁빛뿐이다. 무릎 위 유리 새는 이제 <b>거의 검게 식었고</b> 삐뚠 목과 늘어진 배가 실루엣으로만 보인다. 벽에 걸린 대롱들, 창 아래 재 상자
+<b>톤</b> 🔴 <b>불이 꺼진 것이 곧 시간이 끝난 것</b>이라 이 쪽만 색이 없다. 덮개 틈의 주황 선 하나가 화면에서 유일한 따뜻한 자리이고 나머지는 푸른 회색. 아무도 소리를 안 내는 정지</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>염소가 따뜻한 재 상자 위에서 대롱 끝을 톡 쳤어요.
+유리 새가 재 속으로 폭 떨어졌어요.
+"밤새 천천히 식어야 안 깨져."</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 클로즈업 · 하이앵글 · 위에서 열린 재 상자 안을 내려다본다, 화면 가운데에 막 떨어진 유리 새
+<b>장소·시간</b> 같은 공방, 창 아래 재 상자 앞. 같은 저녁
+<b>인물</b> 화면 위 — 염소의 두 손만 프레임에 든다, 한 손이 대롱을 비스듬히 잡고 다른 손이 작은 쇠막대로 <b>대롱 목을 톡 친 직후</b>라 손이 아직 튕긴 자리에 있다. 화면 위 오른쪽 가장자리 — 고슴도치의 두 손이 상자 가장자리를 꼭 붙잡았고 이마와 눈만 걸린다, 눈이 크게 뜨였다
+<b>배경·소품</b> 🔴 회백색 재가 두툼하게 깔린 상자 안, 그 한가운데 <b>유리 새가 막 떨어져 재가 사방으로 폭 튀어 오르는 중</b>이다 — 새는 이제 검붉은 기운만 남아 재 아래로 반쯤 파묻혔고, 닿은 자리에서 재가 조금 흩날린다. 🔴 대롱 끝에는 <b>유리가 떨어져 나간 자국</b>만 남았다. 옆에 뚜껑, 상자 안쪽 바닥에 남은 온기의 흐릿한 붉은 기
+<b>톤</b> 회백색 재가 화면을 채우고 그 안에 어두운 새 하나. 위에서 곧게 내려다봐 <b>떨어진 자리가 한눈에 보이도록</b>. 재의 부드러움과 유리의 딱딱함이 한 화면에서 대비된다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>다음 날 아침, 고슴도치가 재를 살살 헤쳤어요.
+유리 새가 맑고 차갑게 나왔어요.
+굽은 목이 고슴도치 쪽으로 폭 숙여져 있어요.
+"어! 얘가 저를 내려다봐요!"</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 클로즈업 · 로우앵글 · 재 위로 갓 드러난 유리 새를 <b>고슴도치 눈높이보다 아래에서</b> 올려다보듯 잡되, 새의 굽은 목이 화면 앞쪽(고슴도치 쪽)으로 숙여져 있다
+<b>장소·시간</b> 같은 공방, 창 아래 재 상자. 다음 날 이른 아침, 창으로 흰 아침빛이 든다
+<b>인물</b> 화면 아래 가장자리 — 고슴도치의 두 손이 재를 양옆으로 살살 밀어내는 중이다, 손끝에 재가 묻었고 한 손가락이 새의 몸에 막 닿았다, 프레임 아래로 코끝과 커다래진 두 눈이 걸린다, 가시가 놀라 곤두섰다. 화면 뒤 흐릿하게 — 염소가 창가에 서서 이쪽을 본다
+<b>배경·소품</b> 🔴 유리 새가 <b>완전히 색을 잃고 무색투명해졌다</b> — 주황도 붉음도 없고 아침빛이 몸을 그대로 통과해 안쪽이 훤히 비친다, 겉면에 회백색 재가 뽀얗게 앉았고 손가락이 닿은 자리만 닦여 맑다. 🔴 <b>굽은 목이 화면 앞쪽으로 폭 숙여져 고슴도치 얼굴을 향한다</b>(p4 부터 한 번도 안 바뀐 그 방향), 늘어진 배가 둥글게 앉아 새가 스스로 서 있다. 옆에 헤쳐진 재 자국과 어제 쓴 빈 대롱
+<b>톤</b> 🔴 <b>처음으로 빛이 유리에서 나오지 않고 유리를 통과한다</b> — 열한 쪽 내내 스스로 타오르던 것이 이제 남의 빛을 받는 물건이 됐다는 것이 그 하나로 보이도록. 아침빛이 차고 맑고, 재의 회백과 유리의 투명만 남아 화면에서 주황이 완전히 사라졌다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>염소가 두 손으로 새를 받아 창빛에 들어 올렸어요.
+아침 햇빛이 맑은 유리를 쏙 통과했어요.
+굽은 목에서 빛 한 조각이 작업대에 떨어졌어요.
+"어이쿠, 인사를 하는구나." 염소가 껄껄 웃었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 미디엄 · 살짝 로우앵글 · 화면 가운데 위에 창빛을 등지고 들린 유리 새, 아래로 두 인물, 오른쪽 아래 작업대
+<b>장소·시간</b> 같은 공방, 창가 작업대 앞. 같은 아침, 창으로 햇빛이 곧게 들어온다
+<b>인물</b> 화면 가운데 — 염소가 <b>두 손을 오므려 유리 새를 받쳐 눈높이 위로 들어 올렸다</b>, 고개를 젖혀 새를 올려다보고 입이 크게 벌어져 웃는다, 턱수염이 흔들리고 눈가에 주름이 접혔다. 화면 왼쪽 아래 — 고슴도치가 두 발끝을 들고 염소의 팔을 올려다본다, 방금 건넨 두 손이 아직 허공에 떠 있고 입이 벌어졌으며 가시가 위로 곧게 섰다. 이족 · 앞발이 손 · 간단한 앞치마
+<b>배경·소품</b> 🔴 유리 새가 창빛 앞에서 <b>속까지 훤히 비친다</b> — 삐뚠 목도, 처졌던 꼬리도, 늘어진 배도 어제 그대로인데 그 모양대로 빛이 통과한다. 🔴 굽은 목이 렌즈처럼 빛을 모아 <b>작업대 위에 밝은 빛 한 조각을 떨어뜨렸고</b>, 그 조각이 새의 숙인 방향 그대로 아래에 놓였다. 화면 왼쪽에 <b>덮개가 닫힌 채 식은 가마</b>, 벽에 걸린 대롱들, 창밖으로 아침 물길과 지나가는 배 한 척. 글자·숫자·간판 없음
+<b>톤</b> 🔴 열세 쪽 내내 주황 불빛 하나로 버티던 방에 <b>처음으로 아침 햇빛이 가득 들어온다</b> — 어제의 뜨거운 주황과 오늘의 흰 햇빛이 같은 방에서 완전히 다른 색이라, 밤이 지나갔고 되돌아갈 수 없다는 것이 밝기로만 읽히도록. 작업대 위 빛 한 조각이 화면에서 가장 밝은 점</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'h08',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['어린 고슴도치 견습(이름 없음)', '늙은 염소 유리장이(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=43defebe18a6c159"></script>
+<script src="/changjak-core.js?v=43defebe18a6c159"></script>
+</body>
+</html>

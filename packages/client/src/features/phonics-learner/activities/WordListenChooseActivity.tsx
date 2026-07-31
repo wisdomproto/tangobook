@@ -75,6 +75,17 @@ interface Props {
  */
 const REST_MS = 420;
 
+/**
+ * 「지금부터 문제다」 안내 — **두 진입로가 같은 소리를 쓴다**(탐색 후 「🎯 퀴즈」 버튼 · 바로 퀴즈).
+ *
+ * 🔴 안내는 **영어 단원에서도 한국어**다. `language` 는 배우는 내용의 언어일 뿐이고, "무엇을 하라"는
+ *    말은 아이가 알아듣는 말이어야 한다 — 파닉스 화면의 글자도 전부 한국어다. 영어 UI 로케일이
+ *    생기면 그때 `quiz-start-en.mp3` 로 가른다.
+ * 🔴 문장은 concat 으로 못 만든다(음절을 이어 붙이면 글자를 하나씩 읽는 소리가 된다).
+ *    Gemini TTS 로 구운 정적 자산 — `server/scripts/generate-activity-voice-prompts.mjs`.
+ */
+const QUIZ_START_SOUND = '/sounds/voice/quiz-start-ko.mp3';
+
 function shuffle<T>(arr: readonly T[]): T[] {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -172,11 +183,22 @@ export function WordListenChooseActivity({
   /**
    * 🔴 세로 몫은 **줄 수로 나눈다** — 예전엔 `rows > 1` 을 전부 24vh 로 뭉뚱그렸다. 알파벳 단원이
    *    글자당 한 줄(3줄)이 되자 카드만 601px 을 먹어 **「퀴즈」 버튼이 화면 밖(850px)으로** 나갔다.
-   *    46vh 는 문제줄(9rem)·「퀴즈」 버튼·gap 을 뺀 몫이다 — 1024×768 에서 3줄이 딱 들어오게 실측으로 맞췄다(60·54 는 각각 36px·13px 모자랐다).
+   *    46vh 는 문제줄(9rem)·「퀴즈」 버튼·gap 을 뺀 몫이다 — 1024×768 에서 3줄이 딱 들어오게 실측으로 맞췄다.
+   * 🔴 **2줄은 20vh**(2026-07-30) — 24vh 는 퀴즈 화면(🔊만) 기준이었는데, **탐색 화면엔 그 위에
+   *    「🎯 퀴즈」 버튼(2줄·92px)이 더 얹혀** 카드가 이미지(24vh)+낱말줄(52px)이 되면서 버튼이
+   *    화면 밖 30px 로 밀렸다(1024×768 실측). 낱말줄·버튼 자리를 빼면 20vh 에서 딱 fit(여유 0)이라,
+   *    폰트 로딩·줌에서 넘치지 않게 **19vh**(≈14px 마진)로 둔다.
    */
-  const cardSize = `min(${Math.floor(80 / cols)}vw, ${rows === 1 ? 40 : rows === 2 ? 24 : Math.floor(46 / rows)}vh)`;
-  /** 퀴즈 안내 음성이 나오는 중 — 끝나야 첫 문제가 나간다. */
-  const [starting, setStarting] = useState(false);
+  const cardSize = `min(${Math.floor(80 / cols)}vw, ${rows === 1 ? 40 : rows === 2 ? 19 : Math.floor(46 / rows)}vh)`;
+  /**
+   * 퀴즈 안내 음성이 나오는 중 — 끝나야 첫 문제가 나간다.
+   *
+   * 🔴 **탐색 없이 들어오는 화면(복습)도 안내를 듣는다**(2026-07-30 사용자: "듣고 음절 맞추기도
+   *    누르자마자 문제 나오네"). 예전엔 안내가 「🎯 퀴즈」 버튼(`startQuiz`)에만 붙어 있어서,
+   *    `exploreFirst` 없이 바로 퀴즈로 들어오는 복습 듣기 2종은 **진입하자마자 문제**가 나갔다.
+   *    같은 컴포넌트인데 한쪽 경로에만 안내가 있었던 것 — 공용으로 만들었으면 두 진입로를 다 봐야 한다.
+   */
+  const [starting, setStarting] = useState(!exploreFirst);
   const [qIdx, setQIdx] = useState(0);
   const [wrong, setWrong] = useState<string | null>(null);
   /**
@@ -224,11 +246,34 @@ export function WordListenChooseActivity({
   const sayRef = useRef(say);
   sayRef.current = say;
   const answerKey = current ? idOf(current.answer) : '';
+  /** 안내 다음 첫 문제만 쉼을 두고 낸다 — 문제 사이는 정답 체인이 이미 쉬었다. */
+  const firstAskRef = useRef(true);
   useEffect(() => {
     if (exploring || starting || done || !answerKey) return;
     const answer = questions[qIdx]?.answer;
-    if (answer) sayRef.current(answer);
+    if (!answer) return;
+    if (firstAskRef.current) {
+      firstAskRef.current = false;
+      restTimer.current = window.setTimeout(() => sayRef.current(answer), REST_MS);
+      return;
+    }
+    sayRef.current(answer);
   }, [qIdx, answerKey, exploring, starting, done]);
+
+  /**
+   * 진입 안내(탐색 없이 바로 퀴즈인 화면) — 한 번만, 끝나면 잠금 해제.
+   *
+   * 🔴 해제를 **타이머로 하지 않는다** — 언마운트 때 예약이 지워지면 `starting` 이 true 로 남아
+   *    판이 통째로 안 눌린다(글자 사냥에서 실제로 그랬다). 쉼은 위 첫 문제 쪽에서 준다.
+   * 🔴 `ref` 로 한 번만 — 개발 모드는 effect 를 두 번 실행하고, `playAudio` 는 앞 소리의 `src` 를
+   *    비우면서 그 콜백을 **끝난 것처럼** 부른다(안내가 잘린다).
+   */
+  const guidedRef = useRef(false);
+  useEffect(() => {
+    if (exploreFirst || guidedRef.current) return;
+    guidedRef.current = true;
+    playAudio(QUIZ_START_SOUND, () => setStarting(false));
+  }, [exploreFirst, playAudio]);
 
   // 나가는 도중 예약된 소리가 빈 화면에서 울리지 않게 둘 다 정리한다.
   useEffect(
@@ -305,11 +350,9 @@ export function WordListenChooseActivity({
   const startQuiz = useCallback(() => {
     setExploring(false);
     setStarting(true);
-    // 🔴 안내는 **영어 단원에서도 한국어**다. `language` 는 배우는 내용의 언어일 뿐이고,
-    //    "무엇을 하라"는 말은 아이가 알아듣는 말이어야 한다 — 파닉스 화면의 글자도 전부 한국어다
-    //    ('ABC 배우기'·'단어 연습'). 영어 UI 로케일이 생기면 그때 `quiz-start-en.mp3` 로 가른다.
-    playAudio('/sounds/voice/quiz-start-ko.mp3', () => rest(() => setStarting(false)));
-  }, [playAudio, rest]);
+    firstAskRef.current = true; // 안내 뒤 첫 문제엔 쉼을 준다(진입 경로와 같은 흐름).
+    playAudio(QUIZ_START_SOUND, () => setStarting(false));
+  }, [playAudio]);
 
   const restart = useCallback(() => {
     setQIdx(0);

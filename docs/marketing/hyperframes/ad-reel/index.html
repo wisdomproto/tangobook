@@ -1,0 +1,1248 @@
+<!doctype html>
+<html lang="ko" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>탱고북 광고 릴스 — HyperFrames</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Pretendard";
+        src: url("assets/fonts/Pretendard-Regular.otf") format("opentype");
+        font-weight: 400;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Pretendard";
+        src: url("assets/fonts/Pretendard-ExtraBold.otf") format("opentype");
+        font-weight: 800;
+        font-display: block;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #000;
+      }
+      body {
+        font-family: "Pretendard", sans-serif;
+        word-break: keep-all;
+      }
+
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+      }
+
+      .clip {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+      .stage {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+
+      /* ---- shared ---- */
+      .bgblur {
+        position: absolute;
+        inset: -80px;
+        background-size: cover;
+        background-position: center;
+        filter: blur(48px) brightness(0.42) saturate(1.1);
+      }
+      .cream {
+        position: absolute;
+        inset: 0;
+        background: #fff7ef;
+      }
+      .scrim-bottom {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 840px;
+        background: linear-gradient(
+          to bottom,
+          rgba(10, 7, 5, 0) 0%,
+          rgba(10, 7, 5, 0.78) 44%,
+          rgba(10, 7, 5, 0.95) 100%
+        );
+      }
+
+      .pill {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        display: block;
+        text-align: center;
+        background: #ffffff;
+        color: #2b2320;
+        font-weight: 800;
+        font-size: 44px;
+        line-height: 1.15;
+        padding: 20px 40px;
+        border-radius: 999px;
+        white-space: nowrap;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+      }
+      .pill-green {
+        background: #17754f;
+        color: #ffffff;
+      }
+
+      .subtitle-hero {
+        position: absolute;
+        left: 70px;
+        right: 70px;
+        text-align: center;
+        color: #ffffff;
+        font-weight: 800;
+        font-size: 78px;
+        line-height: 1.28;
+        text-shadow: 0 6px 28px rgba(0, 0, 0, 0.8);
+      }
+      .subtitle-box {
+        position: absolute;
+        left: 60px;
+        right: 60px;
+        background: rgba(6, 4, 3, 0.86);
+        border-radius: 32px;
+        padding: 36px 44px;
+        color: #ffffff;
+        font-weight: 400;
+        font-size: 56px;
+        line-height: 1.42;
+        text-align: center;
+      }
+      .subtitle-ink {
+        position: absolute;
+        left: 70px;
+        right: 70px;
+        text-align: center;
+        color: #2b2320;
+        font-weight: 800;
+        font-size: 70px;
+        line-height: 1.3;
+      }
+
+      .shot {
+        position: absolute;
+        left: 60px;
+        width: 960px;
+        height: 540px;
+        border-radius: 40px;
+        overflow: hidden;
+        box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
+      }
+      .shot img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* ---- S1 ---- */
+      .s1-layer {
+        position: absolute;
+        inset: 0;
+      }
+      .s1-art {
+        position: absolute;
+        left: 0;
+        top: 556px;
+        width: 1080px;
+        height: 608px;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* ---- S2 / S3 ---- */
+      .bars {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 1136px;
+        height: 96px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 20px;
+      }
+      .bar {
+        display: block;
+        width: 20px;
+        border-radius: 12px;
+        background: #ffffff;
+        transform-origin: bottom center;
+      }
+      .lang-seg {
+        position: relative;
+        display: inline-block;
+      }
+      .lang-mark {
+        position: absolute;
+        inset: -8px -16px;
+        border-radius: 999px;
+        background: #cc3f2e;
+        z-index: 0;
+      }
+      .lang-word {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* ---- S4 ---- */
+      .wordcard {
+        position: absolute;
+        width: 440px;
+        background: #ffffff;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0 14px 40px rgba(90, 60, 40, 0.18);
+      }
+      .wordcard img {
+        display: block;
+        width: 440px;
+        height: 248px;
+        object-fit: cover;
+      }
+      .wordcard span {
+        display: block;
+        text-align: center;
+        font-weight: 800;
+        font-size: 46px;
+        line-height: 70px;
+        color: #2b2320;
+      }
+
+      /* ---- S5 ---- */
+      .mcard {
+        position: absolute;
+        width: 340px;
+        height: 190px;
+        border-radius: 26px;
+        background: #ffffff;
+        overflow: hidden;
+        box-shadow: 0 12px 34px rgba(90, 60, 40, 0.18);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .mcard img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .mcard b {
+        font-weight: 800;
+        font-size: 62px;
+        color: #2b2320;
+      }
+      #s5-lines {
+        position: absolute;
+        inset: 0;
+      }
+      #s5-lines path {
+        fill: none;
+        stroke: #2b8a5c;
+        stroke-width: 12;
+        stroke-linecap: round;
+      }
+
+      /* ---- S6 ---- */
+      .slot {
+        position: absolute;
+        top: 700px;
+        width: 200px;
+        height: 200px;
+        border-radius: 28px;
+        border: 6px dashed #cbb49e;
+        background: #ffffff;
+      }
+      .tile {
+        position: absolute;
+        top: 1150px;
+        width: 180px;
+        height: 180px;
+        border-radius: 26px;
+        background: #ffffff;
+        border: 5px solid #eddcc8;
+        box-shadow: 0 12px 30px rgba(90, 60, 40, 0.2);
+        font-weight: 800;
+        font-size: 92px;
+        line-height: 170px;
+        text-align: center;
+        color: #2b2320;
+      }
+      #s6-ring {
+        position: absolute;
+        top: 682px;
+        left: 302px;
+        width: 476px;
+        height: 236px;
+        border-radius: 34px;
+        border: 8px solid #17754f;
+      }
+      #s6-badge {
+        position: absolute;
+        top: 962px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #17754f;
+        color: #ffffff;
+        font-weight: 800;
+        font-size: 46px;
+        padding: 16px 40px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+
+      /* ---- S7 ---- */
+      #s7-art {
+        position: absolute;
+        left: 0;
+        top: 500px;
+        width: 1080px;
+        height: 608px;
+        object-fit: cover;
+        display: block;
+        transform-origin: 62% 56%;
+      }
+      .hl {
+        color: #ff9878;
+        font-weight: 800;
+        display: inline-block;
+      }
+
+      /* ---- S8 ---- */
+      .cover {
+        position: absolute;
+        width: 320px;
+        height: 180px;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 12px 30px rgba(90, 60, 40, 0.2);
+      }
+      .cover img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      #s8-kicker {
+        position: absolute;
+        left: 70px;
+        right: 70px;
+        top: 396px;
+        text-align: center;
+        font-weight: 800;
+        font-size: 40px;
+        color: #7a5744;
+      }
+      #s8-head {
+        position: absolute;
+        left: 70px;
+        right: 70px;
+        top: 458px;
+        text-align: center;
+        font-weight: 800;
+        font-size: 78px;
+        color: #2b2320;
+      }
+
+      /* ---- S9 ---- */
+      #s9-bg {
+        position: absolute;
+        inset: 0;
+        background: #cc3f2e;
+      }
+      #s9-card {
+        position: absolute;
+        left: 200px;
+        top: 452px;
+        width: 680px;
+        height: 320px;
+        border-radius: 44px;
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+      }
+      #s9-card img {
+        width: 520px;
+        height: 260px;
+        object-fit: contain;
+        display: block;
+      }
+      .s9-line {
+        position: absolute;
+        left: 70px;
+        right: 70px;
+        text-align: center;
+        color: #ffffff;
+        font-weight: 800;
+        font-size: 104px;
+        line-height: 1.16;
+      }
+      #s9-url {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 1236px;
+        background: #ffffff;
+        color: #b3331f;
+        font-weight: 800;
+        font-size: 62px;
+        padding: 26px 68px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+      #s9-note {
+        position: absolute;
+        left: 70px;
+        right: 70px;
+        top: 1424px;
+        text-align: center;
+        color: #ffffff;
+        font-weight: 400;
+        font-size: 40px;
+      }
+      .spark {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="24.7"
+      data-fps="30"
+      data-width="1080"
+      data-height="1920"
+    >
+      <!-- ============ S1 · 0.00–2.20 · 그림체 3종 모핑 ============ -->
+      <div
+        id="s1"
+        class="clip"
+        data-start="0"
+        data-duration="2.2"
+        data-track-index="1"
+        data-layout-allow-overflow
+      >
+        <div class="stage">
+          <div id="s1-zoom" style="position: absolute; inset: 0">
+            <div class="s1-layer" id="s1-l1">
+              <div class="bgblur" style="background-image: url('assets/morph-watercolor.webp')"></div>
+              <img class="s1-art" src="assets/morph-watercolor.webp" alt="" />
+            </div>
+            <div class="s1-layer" id="s1-l2" style="opacity: 0">
+              <div class="bgblur" style="background-image: url('assets/morph-paper.webp')"></div>
+              <img class="s1-art" src="assets/morph-paper.webp" alt="" />
+            </div>
+            <div class="s1-layer" id="s1-l3" style="opacity: 0">
+              <div class="bgblur" style="background-image: url('assets/morph-collage.webp')"></div>
+              <img class="s1-art" src="assets/morph-collage.webp" alt="" />
+            </div>
+          </div>
+          <div class="scrim-bottom"></div>
+          <div id="s1-sub" class="subtitle-hero" style="top: 1340px">
+            매일 같은 책만 읽어달라고 하죠
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ S2 · 2.20–5.50 · 한국어 읽기 ============ -->
+      <div
+        id="s2"
+        class="clip"
+        data-start="2.2"
+        data-duration="3.3"
+        data-track-index="1"
+        data-layout-allow-overflow
+      >
+        <div class="stage">
+          <div class="bgblur" style="background-image: url('assets/read-p1.webp')"></div>
+          <div class="scrim-bottom"></div>
+          <div id="s2-pill" class="pill" style="top: 216px"><span class="lang-seg"><span
+                class="lang-mark"
+              ></span><span class="lang-word" style="color: #ffffff">한글</span></span>도,
+            <span class="lang-seg"><span class="lang-word">영어</span></span>도 읽어줘요
+          </div>
+          <div id="s2-shot" class="shot" style="top: 520px">
+            <img src="assets/read-p1.webp" alt="백설공주 1쪽 삽화" />
+          </div>
+          <div class="bars" id="s2-bars">
+            <span class="bar" style="height: 44px"></span>
+            <span class="bar" style="height: 72px"></span>
+            <span class="bar" style="height: 96px"></span>
+            <span class="bar" style="height: 68px"></span>
+            <span class="bar" style="height: 40px"></span>
+          </div>
+          <div id="s2-sub" class="subtitle-box" style="top: 1392px">
+            피부가 눈처럼 하얀 백설공주가 살았어요.
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ S3 · 5.50–8.30 · 영어 읽기 ============ -->
+      <div
+        id="s3"
+        class="clip"
+        data-start="5.5"
+        data-duration="2.8"
+        data-track-index="1"
+        data-layout-allow-overflow
+      >
+        <div class="stage">
+          <div class="bgblur" style="background-image: url('assets/read-p2.webp')"></div>
+          <div class="scrim-bottom"></div>
+          <div id="s3-pill" class="pill" style="top: 216px"><span class="lang-seg"><span
+                id="s3-mark-ko"
+                class="lang-mark"
+              ></span><span id="s3-ko" class="lang-word" style="color: #ffffff">한글</span></span>도,
+            <span class="lang-seg"><span
+                id="s3-mark-en"
+                class="lang-mark"
+                style="opacity: 0"
+              ></span><span id="s3-en" class="lang-word">영어</span></span>도 읽어줘요
+          </div>
+          <div id="s3-shot" class="shot" style="top: 520px">
+            <img src="assets/read-p2.webp" alt="백설공주 거울 장면 삽화" />
+          </div>
+          <div class="bars" id="s3-bars">
+            <span class="bar" style="height: 52px"></span>
+            <span class="bar" style="height: 88px"></span>
+            <span class="bar" style="height: 66px"></span>
+            <span class="bar" style="height: 96px"></span>
+            <span class="bar" style="height: 46px"></span>
+          </div>
+          <div id="s3-sub" class="subtitle-box" style="top: 1392px">
+            The new queen had a magical mirror
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ S4 · 8.30–10.30 · 단어 카드 6장 ============ -->
+      <div
+        id="s4"
+        class="clip"
+        data-start="8.3"
+        data-duration="2"
+        data-track-index="1"
+        data-layout-allow-overflow
+      >
+        <div class="stage">
+          <div class="cream"></div>
+          <div id="s4-pill" class="pill" style="top: 190px">책에 나온 단어가 그대로 게임이 돼요</div>
+          <div
+            id="s4-cover"
+            style="
+              position: absolute;
+              left: 280px;
+              top: 316px;
+              width: 520px;
+              height: 292px;
+              border-radius: 26px;
+              overflow: hidden;
+              box-shadow: 0 18px 46px rgba(90, 60, 40, 0.24);
+            "
+          >
+            <img
+              src="assets/sw-scene-intro.webp"
+              alt="백설공주 표지"
+              style="width: 100%; height: 100%; object-fit: cover; display: block"
+            />
+          </div>
+          <div id="s4-grid"></div>
+        </div>
+      </div>
+
+      <!-- ============ S5 · 10.30–12.30 · 그림짝 맞추기 ============ -->
+      <div
+        id="s5"
+        class="clip"
+        data-start="10.3"
+        data-duration="2"
+        data-track-index="1"
+        data-layout-allow-overflow
+      >
+        <div class="stage">
+          <div class="cream"></div>
+          <div class="mcard" id="s5-l1" style="left: 90px; top: 520px">
+            <img src="assets/words/apple.webp" alt="사과 그림" />
+          </div>
+          <div class="mcard" id="s5-l2" style="left: 90px; top: 760px">
+            <img src="assets/words/mirror.webp" alt="거울 그림" />
+          </div>
+          <div class="mcard" id="s5-l3" style="left: 90px; top: 1000px">
+            <img src="assets/words/forest.webp" alt="숲 그림" />
+          </div>
+          <div class="mcard" id="s5-r1" style="left: 650px; top: 520px"><b>사과</b></div>
+          <div class="mcard" id="s5-r2" style="left: 650px; top: 760px"><b>거울</b></div>
+          <div class="mcard" id="s5-r3" style="left: 650px; top: 1000px"><b>숲</b></div>
+          <svg id="s5-lines" viewBox="0 0 1080 1920" width="1080" height="1920">
+            <path id="s5-p1" pathLength="1" d="M430,615 C500,565 580,665 650,615" />
+            <path id="s5-p2" pathLength="1" d="M430,855 C500,805 580,905 650,855" />
+            <path id="s5-p3" pathLength="1" d="M430,1095 C500,1045 580,1145 650,1095" />
+          </svg>
+          <div id="s5-sub" class="subtitle-ink" style="top: 1340px">그림과 단어, 짝을 맞추고</div>
+        </div>
+      </div>
+
+      <!-- ============ S6 · 12.30–14.70 · 블록으로 단어 완성 ============ -->
+      <div
+        id="s6"
+        class="clip"
+        data-start="12.3"
+        data-duration="2.4"
+        data-track-index="1"
+        data-layout-allow-overflow
+      >
+        <div class="stage">
+          <div id="s6-push" style="position: absolute; inset: 0">
+            <div class="cream"></div>
+            <div
+              id="s6-hint"
+              style="
+                position: absolute;
+                left: 330px;
+                top: 300px;
+                width: 420px;
+                height: 236px;
+                border-radius: 26px;
+                overflow: hidden;
+                box-shadow: 0 16px 40px rgba(90, 60, 40, 0.22);
+                background-image: url('assets/words/apple.webp');
+                background-size: cover;
+                background-position: center;
+              "
+              role="img"
+              aria-label="사과 힌트 그림"
+            ></div>
+            <div class="slot" style="left: 320px"></div>
+            <div class="slot" style="left: 560px"></div>
+            <div id="s6-ring" style="opacity: 0"></div>
+            <div id="s6-badge" style="opacity: 0">사과 완성</div>
+            <div class="tile" id="s6-t1" style="left: 270px">사</div>
+            <div class="tile" id="s6-t2" style="left: 490px">과</div>
+            <div class="tile" id="s6-t3" style="left: 710px">나</div>
+            <div id="s6-sub" class="subtitle-ink" style="top: 1470px">혼자서 단어를 완성해요</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====== S7 · 14.40(밀어올림)–19.40 · 클라이맥스 ====== -->
+      <div
+        id="s7"
+        class="clip"
+        data-start="14.4"
+        data-duration="5"
+        data-track-index="2"
+        data-layout-allow-overflow
+      >
+        <div class="stage">
+          <div id="s7-push" style="position: absolute; inset: 0">
+            <div class="bgblur" style="background-image: url('assets/sw-scene-apple.webp')"></div>
+            <img id="s7-art" src="assets/sw-scene-apple.webp" alt="사과가 나오는 동화 페이지 삽화" />
+            <div class="scrim-bottom"></div>
+            <div id="s7-pill" class="pill pill-green" style="top: 240px; opacity: 0">
+              방금 맞힌 그 단어
+            </div>
+            <div id="s7-sub" class="subtitle-box" style="top: 1226px; opacity: 0">
+              예쁜 아가씨, 여기 아주 맛있는 빨간 <span id="s7-word" class="hl">사과</span>가
+              있답니다.
+            </div>
+            <div id="s7-tail" class="subtitle-hero" style="top: 1636px; font-size: 62px; opacity: 0">
+              동화 속에서 다시 만나요
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ S8 · 19.40–21.60 · 표지 격자 ============ -->
+      <div
+        id="s8"
+        class="clip"
+        data-start="19.4"
+        data-duration="2.2"
+        data-track-index="1"
+        data-layout-allow-overflow
+      >
+        <div class="stage">
+          <div class="cream"></div>
+          <div id="s8-fade" style="position: absolute; inset: 0">
+            <div id="s8-kicker">명작부터 자연관찰까지</div>
+            <div id="s8-head">이야기는 계속 늘어나요</div>
+            <div id="s8-grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ S9 · 21.47(디졸브)–24.70 · CTA ============ -->
+      <div
+        id="s9"
+        class="clip"
+        data-start="21.47"
+        data-duration="3.23"
+        data-track-index="2"
+        data-layout-allow-overflow
+      >
+        <div class="stage">
+          <div id="s9-fade" style="position: absolute; inset: 0; opacity: 0">
+            <div id="s9-bg"></div>
+            <div id="s9-sparks"></div>
+            <div id="s9-card"><img src="assets/logo-kr.webp" alt="탱고북 로고" /></div>
+            <div id="s9-line1" class="s9-line" style="top: 900px">지금 가입하면</div>
+            <div id="s9-line2" class="s9-line" style="top: 1030px">1년 무료</div>
+            <div id="s9-url">tangobook.co.kr</div>
+            <div id="s9-note">2026년 12월 31일까지 가입하면 됩니다</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== 오디오 ===================== -->
+      <audio
+        id="bgm"
+        src="assets/audio/bgm.mp3"
+        data-start="0"
+        data-duration="24.7"
+        data-track-index="10"
+        data-volume="0.35"
+      ></audio>
+      <audio
+        id="nar-ko"
+        src="assets/audio/page1-ko-trim.mp3"
+        data-start="2.2"
+        data-duration="3.25"
+        data-track-index="11"
+      ></audio>
+      <audio
+        id="nar-en"
+        src="assets/audio/page2-en-trim.mp3"
+        data-start="5.5"
+        data-duration="2.71"
+        data-track-index="12"
+      ></audio>
+      <!-- 🔴 word-apple-ko.mp3 은 앞에 0.30초 무음이 있다(기획서 §3 의 "앞뒤 무음
+           없음"은 사실과 다름). 그대로 15.05 에 놓으면 소리가 15.35 에 나서
+           무음이 0.35초가 아니라 0.66초가 된다 → data-media-start 로 건너뛴다. -->
+      <audio
+        id="word-apple"
+        src="assets/audio/word-apple-ko.mp3"
+        data-start="15.05"
+        data-media-start="0.3"
+        data-duration="0.66"
+        data-track-index="13"
+      ></audio>
+
+      <audio
+        id="tap-s1a"
+        src="assets/audio/sfx-tap.mp3"
+        data-start="0.75"
+        data-duration="0.07"
+        data-track-index="14"
+      ></audio>
+      <audio
+        id="tap-s1b"
+        src="assets/audio/sfx-tap.mp3"
+        data-start="1.5"
+        data-duration="0.07"
+        data-track-index="15"
+      ></audio>
+      <audio
+        id="tap-s3"
+        src="assets/audio/sfx-tap.mp3"
+        data-start="5.5"
+        data-duration="0.07"
+        data-track-index="16"
+      ></audio>
+
+      <audio
+        id="tap-s4a"
+        src="assets/audio/sfx-tap.mp3"
+        data-start="8.3"
+        data-duration="0.07"
+        data-track-index="17"
+      ></audio>
+      <audio
+        id="tap-s4b"
+        src="assets/audio/sfx-tap.mp3"
+        data-start="8.37"
+        data-duration="0.07"
+        data-track-index="18"
+      ></audio>
+      <audio
+        id="tap-s4c"
+        src="assets/audio/sfx-tap.mp3"
+        data-start="8.44"
+        data-duration="0.07"
+        data-track-index="19"
+      ></audio>
+      <audio
+        id="tap-s4d"
+        src="assets/audio/sfx-tap.mp3"
+        data-start="8.51"
+        data-duration="0.07"
+        data-track-index="20"
+      ></audio>
+      <audio
+        id="tap-s4e"
+        src="assets/audio/sfx-tap.mp3"
+        data-start="8.58"
+        data-duration="0.07"
+        data-track-index="21"
+      ></audio>
+      <audio
+        id="tap-s4f"
+        src="assets/audio/sfx-tap.mp3"
+        data-start="8.65"
+        data-duration="0.07"
+        data-track-index="22"
+      ></audio>
+
+      <audio
+        id="con-1"
+        src="assets/audio/sfx-connect.mp3"
+        data-start="10.55"
+        data-duration="0.2"
+        data-track-index="23"
+      ></audio>
+      <audio
+        id="con-2"
+        src="assets/audio/sfx-connect.mp3"
+        data-start="11.05"
+        data-duration="0.2"
+        data-track-index="24"
+      ></audio>
+      <audio
+        id="con-3"
+        src="assets/audio/sfx-connect.mp3"
+        data-start="11.55"
+        data-duration="0.2"
+        data-track-index="25"
+      ></audio>
+
+      <audio
+        id="tap-s6a"
+        src="assets/audio/sfx-tap.mp3"
+        data-start="13.2"
+        data-duration="0.07"
+        data-track-index="26"
+      ></audio>
+      <audio
+        id="tap-s6b"
+        src="assets/audio/sfx-tap.mp3"
+        data-start="13.9"
+        data-duration="0.07"
+        data-track-index="27"
+      ></audio>
+      <audio
+        id="syl-sa"
+        src="assets/audio/syl-sa.mp3"
+        data-start="13.2"
+        data-duration="0.73"
+        data-track-index="28"
+      ></audio>
+      <audio
+        id="syl-gwa"
+        src="assets/audio/syl-gwa.mp3"
+        data-start="13.9"
+        data-duration="0.57"
+        data-track-index="29"
+      ></audio>
+      <audio
+        id="praise"
+        src="assets/audio/praise.mp3"
+        data-start="14.1"
+        data-duration="0.48"
+        data-track-index="30"
+      ></audio>
+    </div>
+
+    <script>
+      /* -----------------------------------------------------------
+         반복 요소는 목록 데이터에서 생성한다 (S4 카드 6장 / S8 표지 15장)
+         ----------------------------------------------------------- */
+      const S4_WORDS = [
+        { img: "assets/words/apple.webp", ko: "사과" },
+        { img: "assets/words/mirror.webp", ko: "거울" },
+        { img: "assets/words/forest.webp", ko: "숲" },
+        { img: "assets/words/castle.webp", ko: "성" },
+        { img: "assets/words/bed.webp", ko: "침대" },
+        { img: "assets/words/house.webp", ko: "집" },
+      ];
+      const S8_COVERS = [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8",
+        "c9",
+        "n1",
+        "n2",
+        "n3",
+        "n4",
+        "n5",
+        "n6",
+      ].map((n) => "assets/grid/" + n + ".webp");
+
+      const s4grid = document.getElementById("s4-grid");
+      S4_WORDS.forEach((w, i) => {
+        const el = document.createElement("div");
+        el.className = "wordcard s4-card";
+        el.id = "s4-card-" + i;
+        el.style.left = 80 + (i % 2) * 480 + "px";
+        el.style.top = 690 + ((i / 2) | 0) * 344 + "px";
+        el.innerHTML =
+          '<img src="' + w.img + '" alt="' + w.ko + ' 삽화" /><span>' + w.ko + "</span>";
+        s4grid.appendChild(el);
+      });
+
+      const s8grid = document.getElementById("s8-grid");
+      S8_COVERS.forEach((src, i) => {
+        const el = document.createElement("div");
+        el.className = "cover s8-cover";
+        el.id = "s8-cover-" + i;
+        el.style.left = 34 + (i % 3) * 346 + "px";
+        el.style.top = 660 + ((i / 3) | 0) * 206 + "px";
+        el.innerHTML = '<img src="' + src + '" alt="탱고북 동화 표지" />';
+        s8grid.appendChild(el);
+      });
+
+      /* 반짝임 입자 — 시드 고정 PRNG (결정성 유지) */
+      function mulberry32(a) {
+        return function () {
+          a |= 0;
+          a = (a + 0x6d2b79f5) | 0;
+          let t = Math.imul(a ^ (a >>> 15), 1 | a);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+      const rnd = mulberry32(20260728);
+      const sparks = document.getElementById("s9-sparks");
+      for (let i = 0; i < 26; i++) {
+        const el = document.createElement("span");
+        el.className = "spark";
+        el.id = "spark-" + i;
+        el.style.left = ((rnd() * 1040) | 0) + "px";
+        el.style.top = ((rnd() * 1860) | 0) + "px";
+        el.style.opacity = "0";
+        el.dataset.scale = (0.5 + rnd() * 1.6).toFixed(3);
+        el.dataset.cycle = (1.1 + rnd() * 1.3).toFixed(3);
+        sparks.appendChild(el);
+      }
+
+      /* -----------------------------------------------------------
+         타임라인 — 모든 시각은 전역 시각(초)
+         ----------------------------------------------------------- */
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      const S1 = 0.0,
+        S2 = 2.2,
+        S3 = 5.5,
+        S4 = 8.3,
+        S5 = 10.3,
+        S6 = 12.3,
+        PUSH = 14.4,
+        S7 = 14.7,
+        S8 = 19.4,
+        DIS = 21.47,
+        S9 = 21.6,
+        END = 24.7;
+
+      /* ---------- S1 ---------- */
+      tl.fromTo("#s1-zoom", { scale: 1 }, { scale: 1.06, duration: 2.2, ease: "none" }, S1);
+      tl.to("#s1-l2", { opacity: 1, duration: 0.15, ease: "none" }, S1 + 0.75);
+      tl.to("#s1-l3", { opacity: 1, duration: 0.15, ease: "none" }, S1 + 1.5);
+      tl.fromTo(
+        "#s1-sub",
+        { y: 64, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" },
+        S1 + 0.35
+      );
+      tl.to("#s1-sub", { opacity: 0, duration: 0.15, ease: "none" }, S2 - 0.15);
+      tl.set("#s1-sub", { opacity: 0 }, S2);
+
+      /* ---------- 음성 막대 ---------- */
+      function voiceBars(sel, at, len) {
+        document.querySelectorAll(sel + " .bar").forEach((bar, i) => {
+          const cycle = 0.26 + i * 0.05;
+          const reps = Math.max(0, Math.floor(len / cycle) - 1);
+          tl.fromTo(
+            bar,
+            { scaleY: 0.3 + i * 0.05 },
+            { scaleY: 1, duration: cycle / 2, ease: "sine.inOut", yoyo: true, repeat: reps },
+            at + i * 0.04
+          );
+        });
+      }
+
+      /* ---------- S2 ---------- */
+      tl.fromTo(
+        "#s2-shot",
+        { scale: 0.94, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.4, ease: "power3.out" },
+        S2
+      );
+      tl.fromTo(
+        "#s2-pill",
+        { y: -40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.35, ease: "power3.out" },
+        S2 + 0.1
+      );
+      tl.fromTo("#s2-sub", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "none" }, S2 + 0.2);
+      voiceBars("#s2-bars", S2, 3.3);
+      tl.to("#s2-sub", { opacity: 0, duration: 0.15, ease: "none" }, S3 - 0.15);
+      tl.set("#s2-sub", { opacity: 0 }, S3);
+
+      /* ---------- S3 : 표시가 한글 → 영어로 옮겨 붙는다 (0.2s) ---------- */
+      tl.fromTo(
+        "#s3-shot",
+        { scale: 0.94, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.4, ease: "power3.out" },
+        S3
+      );
+      tl.to("#s3-mark-ko", { opacity: 0, duration: 0.2, ease: "power2.inOut" }, S3);
+      tl.to("#s3-mark-en", { opacity: 1, duration: 0.2, ease: "power2.inOut" }, S3);
+      tl.to("#s3-ko", { color: "#2b2320", duration: 0.2, ease: "none" }, S3);
+      tl.to("#s3-en", { color: "#ffffff", duration: 0.2, ease: "none" }, S3);
+      tl.fromTo("#s3-sub", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "none" }, S3 + 0.15);
+      voiceBars("#s3-bars", S3, 2.8);
+      tl.to("#s3-sub", { opacity: 0, duration: 0.15, ease: "none" }, S4 - 0.15);
+      tl.set("#s3-sub", { opacity: 0 }, S4);
+
+      /* ---------- S4 : 0.07초 간격 순차 등장 ---------- */
+      tl.fromTo(
+        "#s4-pill",
+        { y: -40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" },
+        S4
+      );
+      tl.fromTo(
+        "#s4-cover",
+        { scale: 0.9, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.35, ease: "power3.out" },
+        S4
+      );
+      tl.fromTo(
+        ".s4-card",
+        { scale: 0.6, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.42, ease: "back.out(2)", stagger: 0.07 },
+        S4
+      );
+      tl.to("#s4-pill", { opacity: 0, duration: 0.15, ease: "none" }, S5 - 0.15);
+      tl.set("#s4-pill", { opacity: 0 }, S5);
+
+      /* ---------- S5 : 곡선이 자라며 이어진다 ---------- */
+      tl.fromTo(
+        ".mcard",
+        { scale: 0.88, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.3, ease: "power3.out", stagger: 0.04 },
+        S5
+      );
+      tl.fromTo("#s5-sub", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "none" }, S5 + 0.1);
+      ["#s5-p1", "#s5-p2", "#s5-p3"].forEach((sel, i) => {
+        tl.fromTo(
+          sel,
+          { strokeDasharray: 1, strokeDashoffset: 1 },
+          { strokeDashoffset: 0, duration: 0.5, ease: "power1.inOut" },
+          S5 + 0.25 + i * 0.5
+        );
+      });
+      tl.to("#s5-sub", { opacity: 0, duration: 0.15, ease: "none" }, S6 - 0.15);
+      tl.set("#s5-sub", { opacity: 0 }, S6);
+
+      /* ---------- S6 : 타일 3개, 각자 다른 시각·경로 ---------- */
+      tl.fromTo(
+        "#s6-hint",
+        { scale: 0.92, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.3, ease: "power3.out" },
+        S6
+      );
+      tl.fromTo(
+        ".tile",
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.3, ease: "power3.out", stagger: 0.05 },
+        S6
+      );
+      tl.fromTo("#s6-sub", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "none" }, S6 + 0.1);
+      tl.to("#s6-t1", { x: 60, y: -440, duration: 0.5, ease: "power2.inOut" }, S6 + 0.4);
+      tl.to("#s6-t2", { x: 80, y: -440, duration: 0.5, ease: "power2.inOut" }, S6 + 1.1);
+      tl.fromTo(
+        "#s6-ring",
+        { opacity: 0, scale: 1.08 },
+        { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)" },
+        S6 + 1.75
+      );
+      tl.fromTo(
+        "#s6-badge",
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.25, ease: "back.out(2)" },
+        S6 + 1.75
+      );
+      tl.to("#s6-sub", { opacity: 0, duration: 0.15, ease: "none" }, S7 - 0.15);
+
+      /* ---------- 밀어올림 0.3초 (씬 경계를 넘는 한 동작) ---------- */
+      tl.fromTo("#s6-push", { y: 0 }, { y: -1920, duration: 0.3, ease: "power2.inOut" }, PUSH);
+      tl.fromTo("#s7-push", { y: 1920 }, { y: 0, duration: 0.3, ease: "power2.inOut" }, PUSH);
+
+      /* ---------- S7 : 클라이맥스 5비트 + 4.7초 밀착 ---------- */
+      tl.set("#s7-art", { scale: 1.06 }, PUSH);
+      tl.to("#s7-art", { scale: 1.14, duration: 2.1, ease: "none" }, S7 + 2.6);
+      tl.fromTo(
+        "#s7-pill",
+        { y: -36, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.32, ease: "power3.out" },
+        S7 + 0.35
+      );
+      tl.fromTo(
+        "#s7-sub",
+        { y: 28, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" },
+        S7 + 1.1
+      );
+      tl.to(
+        "#s7-word",
+        { scale: 1.15, duration: 0.1, ease: "power2.inOut", yoyo: true, repeat: 1 },
+        S7 + 1.6
+      );
+      tl.fromTo(
+        "#s7-tail",
+        { y: 28, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.32, ease: "power3.out" },
+        S7 + 3.4
+      );
+      tl.to(
+        ["#s7-sub", "#s7-tail", "#s7-pill"],
+        { opacity: 0, duration: 0.15, ease: "none" },
+        S8 - 0.15
+      );
+      tl.set(["#s7-sub", "#s7-tail", "#s7-pill"], { opacity: 0 }, S8);
+
+      /* ---------- S8 : 15장, 대각선 0.03초 ---------- */
+      tl.fromTo(
+        "#s8-kicker",
+        { y: 24, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" },
+        S8
+      );
+      tl.fromTo(
+        "#s8-head",
+        { y: 28, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.34, ease: "power3.out" },
+        S8 + 0.06
+      );
+      tl.fromTo(
+        ".s8-cover",
+        { scale: 0.55, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.4,
+          ease: "back.out(1.8)",
+          stagger: { each: 0.03, grid: [5, 3], from: "start" },
+        },
+        S8 + 0.12
+      );
+
+      /* ---------- 디졸브 0.13초 ---------- */
+      tl.to("#s8-fade", { opacity: 0, duration: 0.13, ease: "none" }, DIS);
+      tl.fromTo("#s9-fade", { opacity: 0 }, { opacity: 1, duration: 0.13, ease: "none" }, DIS);
+
+      /* ---------- S9 : CTA ---------- */
+      tl.fromTo(
+        "#s9-card",
+        { scale: 0.7, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.2)" },
+        S9
+      );
+      tl.fromTo(
+        ["#s9-line1", "#s9-line2"],
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.36, ease: "power3.out", stagger: 0.08 },
+        S9 + 0.4
+      );
+      tl.fromTo(
+        "#s9-url",
+        { scale: 0.86, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.32, ease: "back.out(2)" },
+        S9 + 0.9
+      );
+      tl.fromTo(
+        "#s9-note",
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" },
+        S9 + 1.2
+      );
+      document.querySelectorAll(".spark").forEach((sp, i) => {
+        const cycle = parseFloat(sp.dataset.cycle);
+        const reps = Math.max(0, Math.floor((END - S9) / cycle) - 1);
+        tl.fromTo(
+          sp,
+          { opacity: 0.1, scale: parseFloat(sp.dataset.scale) * 0.6 },
+          {
+            opacity: 0.8,
+            scale: parseFloat(sp.dataset.scale),
+            duration: cycle / 2,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: reps,
+          },
+          S9 + (i % 7) * 0.09
+        );
+      });
+
+      /* ---------- BGM 볼륨 자동화 (기준 0.35 = 100) ----------
+         🔴 프레임워크는 el.volume 을 프레임마다 샘플링해 "값이 바뀐 지점"만
+         키프레임으로 남기고 그 사이를 선형 보간한다
+         (cli.js discoverAudioVolumeAutomationFromTimeline + 런타임 보간기 Fa).
+         결과적으로 ①전환이 한 프레임(1/30초)보다 짧으면 중간 샘플이 안 남아
+         직전 키프레임까지가 통째로 램프가 되고, ②평탄 구간은 아무 키프레임도
+         안 남기므로 전환 직전 값이 다음 전환 지점까지 서서히 흘러간다.
+         → 전환은 0.1초(3프레임) 이상 + 각 평탄 구간 끝에 "앵커"(들리지 않는
+         0.0002 차이)를 박아 키프레임을 강제로 남긴다. */
+      const V100 = 0.35,
+        V45 = 0.1575,
+        EPS = 0.0002;
+      tl.set("#bgm", { volume: V100 }, 0);
+      tl.set("#bgm", { volume: V100 - EPS }, 2.05); // 100 평탄 구간 앵커
+      tl.to("#bgm", { volume: V45, duration: 0.1, ease: "none" }, 2.1); // 2.20 에 45
+      tl.set("#bgm", { volume: V45 - EPS }, 8.25); // 45 평탄 구간 앵커
+      tl.to("#bgm", { volume: V100, duration: 0.1, ease: "none" }, S4); // 8.30~8.40 100 복귀
+      tl.set("#bgm", { volume: V100 - EPS }, 14.55); // 100 평탄 구간 앵커
+      tl.to("#bgm", { volume: 0, duration: 0.1, ease: "none" }, 14.6); // 14.70 완전 0
+      tl.set("#bgm", { volume: 0 }, 14.7); // 하드 0
+      tl.set("#bgm", { volume: EPS }, 15.55); // 무음 평탄 구간 앵커
+      tl.to("#bgm", { volume: V100, duration: 0.6, ease: "none" }, 15.6); // 15.60~16.20 복귀
+      tl.set("#bgm", { volume: V100 - EPS }, 24.25); // 100 평탄 구간 앵커
+      tl.to("#bgm", { volume: 0, duration: 0.4, ease: "none" }, END - 0.4); // 마지막 0.4초 페이드아웃
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

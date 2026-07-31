@@ -4,6 +4,7 @@ import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
+import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { buildHuntBoard } from '../lib/letter-lookalikes';
 import type { ReviewCard } from '../lib/korean-phonics-units';
 import { ActivityShell } from '../components/ActivityShell';
@@ -41,8 +42,8 @@ export function LetterHuntActivity({
   onComplete,
   onBack,
 }: Props) {
-  const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible, scheduleTimer } =
-    useGameAudio();
+  // 오답음(`playFeedbackSound`)은 쓰지 않는다 — 틀린 칸도 그냥 읽어준다(아래 `handleTap`).
+  const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
   const [round, setRound] = useState(0);
   const [found, setFound] = useState<number[]>([]);
   const foundRef = useRef<number[]>([]);
@@ -54,7 +55,6 @@ export function LetterHuntActivity({
    *    글을 못 읽는 아이에겐 화면의 「이 글자를 다 찾아봐!」 가 안 보이므로, 무엇을 하라는 말이
    *    **소리로** 먼저 와야 한다(「퀴즈 시작」·「ABC 배우기」와 같은 규칙).
    */
-  const [starting, setStarting] = useState(true);
 
   /**
    * 🔴 라운드는 **네 개까지**. 영어 복습은 카드가 6~8장이라 그대로 돌면 한 활동에 40번을 눌러야 한다
@@ -97,6 +97,11 @@ export function LetterHuntActivity({
       const known = cardsRef.current.find((c) => c.letter === ch);
       if (known) return known.sound;
       if (/^[ㅏ-ㅣ]$/.test(ch)) return composeHangul('ㅇ', ch, null) || ch;
+      // 🔴 영어 방해꾼 낱글자(I·L…)는 **소문자로** 읽는다(2026-07-30 사용자: "안 읽어주고 효과음만").
+      //    board 엔 대문자로 깔리는데(`lookalikesOf` 가 대문자 변환) 음원 키는 소문자(`en-letter` 가
+      //    `lower` 로 만든다)라, 대문자 그대로 읽으려다 **무음**이 됐다. 그러면 버튼 탭음만 들린다.
+      //    카드에 있는 글자는 `known.sound`(이미 맞는 소리)로 빠지므로 여기 오는 건 방해꾼뿐이다.
+      if (/^[A-Za-z]$/.test(ch)) return ch.toLowerCase();
       return ch;
     },
     // cardsRef 는 ref 라 신원이 안 바뀐다 — 내용이 바뀌면 lettersKey 로 다시 만든다.
@@ -115,6 +120,9 @@ export function LetterHuntActivity({
     },
     [language, unitId, playAudio]
   );
+
+  /** 진입 안내 — 「같은 글자를 모두 찾아봐!」. 끝나야 첫 글자를 읽고 판이 열린다. */
+  const starting = useEntryGuide(ENTRY_GUIDE.hunt, playAudio);
 
   // 라운드가 열리면 찾을 글자를 한 번 읽어준다 — 소리와 모양을 같이 붙잡게.
   const sayRef = useRef(say);
@@ -136,20 +144,6 @@ export function LetterHuntActivity({
    * 진입 안내 → 쉼 → 첫 글자. 🔴 안내는 **영어 단원에서도 한국어**다 — 무엇을 하라는 말은
    * 아이가 알아듣는 말이어야 한다(파닉스 화면 글자도 전부 한국어다).
    */
-  const guidedRef = useRef(false);
-  useEffect(() => {
-    // 🔴 **ref 로 한 번만** — 개발 모드(StrictMode)는 effect 를 두 번 실행하는데, `playAudio` 는
-    //    새 소리를 틀 때 앞 소리의 `src` 를 비운다. 그러면 앞 소리에 `error` 가 떠서 **끝난 걸로
-    //    치고 콜백이 즉시** 실행된다 — 2.4초짜리 안내가 0.45초에 잘리고 바로 문제로 넘어갔다(실측).
-    //    프로덕션엔 없는 현상이지만, 이러면 **개발에서 소리 순서를 확인할 수가 없다**.
-    if (guidedRef.current) return;
-    guidedRef.current = true;
-    // 🔴 잠금 해제는 **타이머를 거치지 않는다** — `scheduleTimer` 는 언마운트 때 예약을 지우므로,
-    //    개발 모드의 가짜 언마운트에 그 타이머가 쓸려 나가면 `starting` 이 영영 true 로 남아
-    //    **판이 통째로 안 눌린다**(실측: 탭 3초 뒤에도 무반응). 쉼은 첫 글자 읽기 쪽에서 준다.
-    playAudio('/sounds/voice/hunt-start-ko.mp3', () => setStarting(false));
-    // 진입 시 한 번만 — 라운드마다 다시 안내하면 잔소리가 된다.
-  }, [playAudio]);
 
   const handleTap = useCallback(
     (idx: number) => {
@@ -208,13 +202,18 @@ export function LetterHuntActivity({
     },
     [
       done,
+      // 🔴 `starting`·`soundOf` 를 빼먹으면 **판이 통째로 죽는다** — 나머지 deps 는 안내가 끝나도
+      //    안 바뀌므로 `handleTap` 이 첫 렌더의 `starting === true` 를 붙잡은 채 남아 모든 탭이
+      //    첫 줄에서 return 한다. 이 저장소는 `react-hooks/exhaustive-deps` 가 꺼져 있어
+      //    **아무도 경고해주지 않는다** — 훅에 상태를 추가하면 deps 를 직접 확인할 것.
+      starting,
+      soundOf,
       card,
       board,
       round,
       hunt.length,
       say,
       playAudio,
-      playFeedbackSound,
       playCorrectSequence,
       scheduleTimer,
       language,
