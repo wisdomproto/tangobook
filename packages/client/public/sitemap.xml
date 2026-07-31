@@ -6,93 +6,309 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.tangobook.co.kr/</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/phonics/korean</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vocabulary</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/blog</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/guide/classics</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/guide/nature</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/en/guide/classics</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/en/guide/nature</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vi/guide/classics</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vi/guide/nature</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/zh/guide/classics</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/zh/guide/nature</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/th/guide/classics</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/th/guide/nature</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-vowel-wo-we-ui-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-vowel-wa-wae-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-vowel-wi-ui-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-vowel-ye-oe-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-vowel-ae-e-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-double-consonant-ssangjieut-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-double-consonant-ssangsiot-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-double-consonant-ssangbieup-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-double-consonant-ssangdigeut-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-double-consonant-ssanggiyeok-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-batchim-bieup-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-batchim-mieum-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-batchim-siot-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-batchim-rieul-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-batchim-nieun-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-batchim-giyeok-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-batchim-ieung-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-consonant-hieut-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-consonant-pieup-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-consonant-tieut-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-consonant-kieuk-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-consonant-chieut-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-consonant-jieut-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-consonant-ieung-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-double-consonant-guide</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-consonant-siot-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-batchim-guide</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-consonant-bieup-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-jamo-order-guide</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-consonant-mieum-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-teaching-order-guide</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-consonant-rieul-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-consonant-digeut-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-consonant-nieun-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-vowels-teaching-first</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-consonant-giyeok-teaching</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/blog/picky-eating-rainbow-power-storybook</loc>
@@ -11351,13 +11567,6 @@
     <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1783608743641-13엉덩이딱밥은앉아서-cover-misc-1783993962799.webp</image:loc></image:image>
   </url>
   <url>
-    <loc>https://www.tangobook.co.kr/library/1783949746731/about</loc>
-    <lastmod>2026-07-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image><image:loc>https://assets.tangobook.co.kr/comic-assets/saenghwal-simsim/p1.webp</image:loc></image:image>
-  </url>
-  <url>
     <loc>https://www.tangobook.co.kr/library/1783990046124/about</loc>
     <lastmod>2026-07-14</lastmod>
     <changefreq>monthly</changefreq>
@@ -11415,140 +11624,140 @@
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1784529056876/about</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1784529056876-흥부와놀부-cover-misc-1785231385300.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1784529057190/about</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1784529057190-도깨비방망이-cover-misc-1785230824543.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784529057190-도깨비방망이-cover-misc-1785230824543.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1784529057529/about</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1784529057529-팥죽할멈과호랑이-cover-misc-1785228592457.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1784529057861/about</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1784529057861-방귀쟁이며느리-cover-misc-1785225401376.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784529057861-방귀쟁이며느리-cover-misc-1785225397755.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1784529058143/about</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1784529058143-금도끼은도끼-cover-misc-1785225179676.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1784529058442/about</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1784529058442-토끼와자라-cover-misc-1785227853317.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1784529058796/about</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1784529058796-혹부리영감-cover-misc-1784793287599.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1784529059096/about</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1784529059096-말안듣는청개구리-cover-misc-1784788693635.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1784529059096-말안듣는청개구리-cover-misc-1784788693635.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1784529059421/about</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1784529059421-해와달이된오누이-cover-misc-1784786366276.webp</image:loc></image:image>
+    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1784529059421-해와달이된오누이-cover-misc-1785284853976.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1784529059709/about</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1784529059709-콩쥐팥쥐-cover-misc-1784783880625.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1784529060026/about</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1784529060026-선녀와나무꾼-cover-misc-1784782187082.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1784529060346/about</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1784529060346-호랑이와곶감-cover-misc-1784770419996.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1784529060634/about</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1784529060634-은혜갚은까치-cover-misc-1784769655139.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1784529060920/about</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://assets.tangobook.co.kr/1784529060920-젊어지는샘물-cover-misc-1784717325279.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1784529061222/about</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://assets.tangobook.co.kr/1784529061222-견우와직녀-cover-misc-1784716440529.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1784529061520/about</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1784529061520-우렁각시-cover-misc-1784713582497.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1784529061822/about</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1784529061822-재주많은삼형제-cover-misc-1784707814395.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1784529062118/about</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://assets.tangobook.co.kr/1784529062118-임금님귀는당나귀귀-cover-misc-1784703915274.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1784529062415/about</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://assets.tangobook.co.kr/1784529062415-소가된게으름뱅이-cover-misc-1784693019056.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1784529062755/about</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://assets.tangobook.co.kr/1784529062755-의좋은형제-cover-misc-1784692020098.webp</image:loc></image:image>
@@ -11797,5 +12006,145 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://assets.tangobook.co.kr/1784860653877-15편지배달왔어요-cover-misc-1785150595081.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1785303652428/about</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1785303652428-심청전-cover-misc-1785304063638.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1785303652738/about</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1785303652738-바보온달과평강공주-cover-misc-1785306775550.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1785303653015/about</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1785303653015-단군이야기-cover-misc-1785307531003.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1785303653346/about</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1785303653346-서동요-cover-misc-1785308849879.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1785303653631/about</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1785303653631-삼년고개-cover-misc-1785309445652.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1785303653932/about</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1785303653932-토끼의재판-cover-misc-1785310480649.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1785303654219/about</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1785303654219-훨훨간다-cover-misc-1785310297744.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1785303654489/about</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1785303654489-떡보와사신-cover-misc-1785317642942.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1785303654809/about</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1785303654809-요술맷돌-cover-misc-1785318727959.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1785303655079/about</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1785303655079-도깨비감투-cover-misc-1785318245098.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1785303655346/about</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1785303655346-신기한항아리-cover-misc-1785323352488.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1785303655646/about</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1785303655646-자린고비-cover-misc-1785322832909.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1785303655950/about</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1785303655950-개와고양이-cover-misc-1785322636464.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1785303656257/about</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1785303656257-은혜갚은두꺼비-cover-misc-1785324487768.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1785303656554/about</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1785303656554-호랑이형님-cover-misc-1785324439447.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1785303656827/about</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1785303656827-좁쌀한톨로장가든총각-cover-misc-1785369704174.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1785303657174/about</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1785303657174-복타러간총각-cover-misc-1785372066895.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1785303657451/about</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1785303657451-구렁덩덩새선비-cover-misc-1785372322308.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1785303657748/about</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1785303657748-두더지의혼인-cover-misc-1785373164014.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/library/1785303658036/about</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1785303658036-반쪽이-cover-misc-1785373418524.webp</image:loc></image:image>
   </url>
 </urlset>
