@@ -1,7 +1,7 @@
 # 창작동화 1000 — D-08 앵커 + 삽화 프롬프트
 
 > 대본 SSOT 는 `docs/changjak-books/d08.md`. **대본은 한 글자도 안 고친다** — 아래 14컷은 그 SCENE 을 그림 지시로 옮긴 번역본이다.
-> 🔴 실행 순서: ① 시트 4장을 **먼저** 굽는다(장면 금지) → ② 승인본을 `@image` 로 붙여 **p1(기준 컷)** → ③ 그 두 장을 ref 로 나머지 13컷.
+> 🔴 실행 순서: ① 시트 3장을 **먼저** 굽는다(장면 금지) → ② 승인본을 `@image` 로 붙여 **p1(기준 컷)** → ③ 그 두 장을 ref 로 나머지 13컷.
 > 🔴 이미지 생성은 여기서 하지 않는다 · 🔴 작가 실명 없음(전부 문구).
 
 ---
@@ -184,7 +184,7 @@ SKY: bare paper, upper two thirds. 2 marks in it - the small red kite at the top
 RED: 2. Kite HIGH in the top third, no bigger than the pup's eye. RedReel LOW at belly height.
   🔴 The village roofs are GREY, not red.
 LINE: full and taut, unbroken from the reel to the kite, crossing the bare paper, one weight.
-CAMERA: wide, low angle from just below, horizon low.
+CAMERA: wide, low angle from just below.
 SUBJECT: lower left - PupDog braced, hind feet split front and back into the dirt, body leaning
   back, both forepaws clamping the EMPTY RedReel against its belly, chin thrown right up, pupils
   at the TOP of the eye circles, mouth open. Right and behind - DonkeyFoal on four legs, both
@@ -193,7 +193,7 @@ SETTING: a knee-high drystone wall cutting once across the frame; dry grass all 
   one thornbush at the right edge; far below a white village - bare-paper walls, GREY roofs, at
   most 5 shapes - and one grey line of sea.
 FINISH: 2 - PupDog and RedReel. Wall, grass and village stay flat colour.
-TONE: dry bright Atlantic light. Each figure gets ONE short hard-edged flat grey shadow.
+TONE: dry bright Atlantic light. One short hard-edged flat grey shadow per figure.
 🔴 Animals stay animals - no clothes, no fingers. No letters, numbers or signs anywhere.
 ```
 

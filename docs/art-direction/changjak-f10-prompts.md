@@ -18,8 +18,9 @@
 |---|---|
 | **b04** (C4, 스페인 흰 마을) | **그림자가 도형**이고 회벽은 **안 칠한 흰 종이**이며 계기판이 그림자 **길이** |
 | **a09** | 어둠 도형이 빛에 **잘려 나간다**(면적이 준다) |
-| **f10** | **빛이 도형이고 그림자가 0**, 회벽은 **칠한** 흰 회칠, 계기판은 **조각 개수**(18+3+1 → 1 → 18+3+1) |
+| **f10** | **빛이 도형이고 그림자가 0**, 회벽은 **칠한** 흰 회칠, 계기판은 **조각 개수**(22 → 1 → 22) |
 
+- 🔴 **조각 개수 = 소리원 셋의 상태계**다. 문간 구슬발이 흔들리면 18조각, 창 덧문이 흔들리면 3조각, 놋빛 추가 흔들리면 바닥을 지나는 작은 마름모 1개. 셋이 다 고정되면 **큰 사각형 하나**로 닫힌다. 아이가 몇 개를 멈췄는지 **바닥만 봐도 세어진다.**
 - 🔴 **f02(델프트) 회피** — 코발트 굽도리를 타일 문법으로 그리지 마라. f10 의 코발트는 허리 높이를 지나는 **띠 하나**이고 무늬는 그 위 얇은 한 겹이다.
 - 🔴 **b12(리스본 계단골목) 회피** — b12 의 파랑은 **둘째 지지면**, f10 의 파랑은 **띠 하나**. b12 는 야외, f10 은 실내이고 지지면이 하나다.
 - 🔴 **h05 와 바닥의 노란 사각형이 겹친다** — h05 는 크기 불변, f10 은 **개수가 변한다**.
@@ -30,11 +31,11 @@
 | 대본 | 컷에서 |
 |---|---|
 | p1·p2 「어른거린다 / 흔들린다」 | 매체에 흐림이 없다 → **조각 개수**로. `LIGHT:` 줄이 매 쪽 세어 준다 |
-| p1 「그림자가 짧고 바닥에 반사광이 얕게 깔린다」 | 🔴 그림자 0. 대신 **빛 사각형의 세로 길이를 짧게**(한낮) |
-| p2·p8·p12 「문자판이 빛에 하얗게 날린다」 | 날림·번짐 없음 → 문자판을 **화면 위로 자르거나** 순수 `#F2EFE6` **민무늬 판**으로. 숫자·바늘 0 |
+| p1 「그림자가 짧고 반사광이 얕게 깔린다」 | 🔴 그림자 0. 대신 **빛 사각형의 세로 길이를 짧게**(한낮) |
+| p2·p8·p12 「문자판이 빛에 하얗게 날린다」 | 날림·번짐 없음 → 문자판을 **화면 위로 자르거나** 순수 `#F2EFE6` **민무늬 판**. 숫자·바늘 0 |
 | p3 「흔들의자가 흐릿하게」 | **마감을 안 준다**(윤곽 + 평칠, 안은 안 채움). 초점흐림 금지 |
 | p6 「빛이 딱딱하게 굳는다」 | 조각 개수 **1**. 그 한 사각형의 네 변이 화면에서 가장 곧다 |
-| p7 「빨간 띠에만 채도가 몰린다」 | 화면의 다른 빨강 **0** — 이 규칙은 열세 쪽 전부 |
+| p7 「빨간 띠에만 채도가 몰린다」 | 화면의 다른 빨강 **0** — 열세 쪽 전부 |
 | ⚠️ 대본 결함 없음 | 소리원 셋의 상태가 쪽마다 SCENE 에 다 적혀 있어 컷이 그대로 받아 적었다 |
 
 ---
@@ -78,7 +79,7 @@ Medium: hard-edge flat colour, shading 0, outline #1E1C1A, no shadow anywhere.
 FACE: young dog, round skull, short blunt muzzle, black nose #1E1C1A. Two drop ears that fall to the jawline; one ear lifts forward when he listens. Eyes = flat almond of #F2EFE6 with a black disc, wide open on 11 of 13 pages. Mouth = one ink line, opens as a plain rounded shape when he calls.
 COAT: tight curly black #1E1C1A over the whole body; the curl is read as a scalloped silhouette edge, at most 14 scallops around the head and shoulders. 0 individual hairs, 0 fur strokes inside the shape - the body is one solid black field.
 CLOTHES: sand shorts #D8C6A4 with two cobalt #2B4E8C shoulder straps crossing at the back; 3 flat shapes total, no pockets, no buttons, no pattern, no shoes.
-BUILD & SILHOUETTE: half the grandfather's height; head is 1/4 of body height; barefoot webless dog paws used as hands, 4 fingers, no claws drawn. Tail = one tapered black shape, always visible outside the body silhouette. Instantly told from the grandfather by size, by the two straps, and by the absence of a hat.
+BUILD & SILHOUETTE: half the grandfather's height; head is 1/4 of body height; barefoot dog paws used as hands, 4 fingers, no claws drawn. Tail = one tapered black shape, always visible outside the body silhouette. Instantly told from the grandfather by size, by the two straps, and by the absence of a hat.
 POSTURES (cuts call these by number):
  1 SHUSH - one forepaw with a single finger pressed hard on the lips, cheek dented, one eye squeezed shut, other arm out.
  2 REACH - up on hind toes, both arms straight overhead, belly showing, tail swung sideways for balance.
@@ -114,10 +115,10 @@ REFERENCE SHEET: full-body seated 3/4 in a plain chair, full-body standing front
 
 ```
 --- p1 — 문간에서 발끝을 든다 ---
-LIGHT: 18 small shards at the doorway (bead strands cut the light) + 3 wobbling strip pieces from the half-open window + 1 travelling brass lozenge near the clock = 22 flat #F2EFE6 shapes on the apricot floor. This exact count returns on p13.
-THREE: clock RUNNING (brass pendulum tilted with a short arc) · curtain SWAYING (strands splayed apart) · shutter LOOSE (pushed inward, hinge gap open).
+LIGHT: 18 small shards at the doorway + 3 strip pieces at the window + 1 travelling brass lozenge by the clock = 22 flat #F2EFE6 shapes on the floor.
+THREE: clock RUNNING (pendulum tilted, short arc) · curtain SWAYING (strands splayed) · shutter LOOSE (pushed inward, hinge gap open).
 HAT: covering the whole face, only muzzle tip and white chin out - the size to remember.
-CAMERA medium wide, eye level, the whole room and all three sound-makers in one frame; this is the base composition p13 returns to. / SUBJECT front left in the doorway, Puppy seen from behind and in profile, up on his hind toes, body tipped forward, both forepaws clasped at his chest, one ear lifted, mouth just open, whispering; far right Grandfather in POSTURE 1. / SETTING seven props only: case clock on the back wall, bead curtain in the left front doorway, shutter and iron hook on the left wall, rocking chair centre right, low stool beside it, woven mat on the floor. Beyond the doorway one flat bleached plane with 9 wisteria leaves, all leaning one way. / FINISH Puppy full; the doorway curtain half; all else flat fill and outline. NO SHADOW anywhere. No letters, numbers, dial numerals or hands - the clock dial is cropped above the top edge, only the pendulum shows through the glass door. Both dogs bipedal, forepaws as hands. / TONE outside plane is a full step brighter than the room; the room stays cool and flat; light rectangles are short and squat because the sun is high.
+CAMERA medium wide, eye level, the whole room and all three sound-makers in one frame; p13 returns to this composition. / SUBJECT front left in the doorway, Puppy from behind and in profile, up on hind toes, tipped forward, both forepaws clasped at his chest, one ear lifted, mouth just open; far right Grandfather POSTURE 1. / SETTING the seven props in their fixed places - clock back wall, curtain left front, shutter and hook left wall, chair centre right, stool beside it, mat on the floor. Past the doorway a flat bleached plane, 9 wisteria leaves leaning one way. / FINISH Puppy full; the curtain half; rest flat fill and outline. NO SHADOW. No letters or numerals; the dial cropped above the top edge, only the pendulum shows. Both dogs bipedal. / TONE the outdoor plane a step brighter than the room; light rectangles short and squat.
 ```
 
 ### p2
@@ -125,49 +126,49 @@ CAMERA medium wide, eye level, the whole room and all three sound-makers in one 
 ```
 --- p2 — 이렇게 시끄러운데 ---
 LIGHT: 18 + 3 + 1 = 22 shapes, unchanged from p1.
-THREE: all three still going - pendulum arc to the right, strands knocking apart at the doorway, shutter hinge gap open at the upper left.
+THREE: all three going - pendulum arc to the right, strands knocking apart, hinge gap open upper left.
 HAT: still covering the whole face.
-CAMERA medium, low angle from below the puppy's shoulder, looking up; the three sound-makers hang at three different corners of the frame so the picture answers where the noise comes from. / SUBJECT centre, Puppy planted on the mat with both hind feet together, forepaws held slightly out from the body, body locked stiff, BOTH drop ears hauled straight up, head half turned toward the sound, brow gathered, mouth wide, shouting; tail rigid behind him. / SETTING back wall clock upper right, doorway curtain left, shutter upper left; the rocking chair and Grandfather small at the back right, POSTURE 1. Floor light shapes read at the bottom of the frame, small because the camera is low. / FINISH Puppy full; nothing else gets a second finish level - all flat fill and outline. NO SHADOW. Clock dial is a plain #F2EFE6 disc with 0 numerals, 0 hands, 0 marks. Both dogs bipedal, forepaws as hands. / TONE one small body ringed by three big things; only the three sound-makers carry a bright edge, every wall plane stays even.
+CAMERA medium, low angle from below his shoulder; the three sound-makers hang at three different corners so the picture answers where the noise comes from. / SUBJECT centre, Puppy planted on the mat, hind feet together, forepaws held out a little, body locked stiff, BOTH drop ears hauled straight up, head half turned to the sound, brow gathered, mouth wide, tail rigid. / SETTING clock upper right, curtain left, shutter upper left; rocking chair and Grandfather small at the back right, POSTURE 1. Floor light shapes small at the bottom of the frame. / FINISH Puppy full; nothing else gets a second level - all flat fill and outline. NO SHADOW. The dial is a plain #F2EFE6 disc, 0 numerals, 0 hands, 0 marks. Both dogs bipedal. / TONE one small body ringed by three big things; only the three sound-makers carry a bright edge, wall planes stay even.
 ```
 
 ### p3
 
 ```
 --- p3 — 시계 추를 붙잡다 ---
-LIGHT: 18 + 3 + 0 = 21 shapes. The brass lozenge is GONE, so the count drops by exactly one from p2 - the first thing the floor loses.
-THREE: clock HELD (pendulum tilted to one side, 0 arc, a black forepaw closed around it) · curtain still swaying · shutter still loose.
+LIGHT: 18 + 3 + 0 = 21 shapes. The brass lozenge is GONE - the count drops by exactly one from p2.
+THREE: clock HELD (pendulum tilted, 0 arc, a black forepaw closed round it) · curtain still swaying · shutter still loose.
 HAT: slid down to the bridge of the nose.
-CAMERA medium close-up, slight low angle; right of frame the Puppy up on the low stool with his forearm inside the clock case, left rear the rocking chair. / SUBJECT right, Puppy on the stool on hind toes, one arm stretched straight up into the open glass door with five fingers wrapped round the brass pendulum, the other forepaw in POSTURE 1 shush, cheek dented, one eye squeezed shut, one ear slid onto his shoulder. THE PENDULUM IS THE SIZE OF HIS FOREPAW - both are in the same plane here, so this is where that size is set. Left rear Grandfather POSTURE 1 but one toe on the armrest is lifted. / SETTING clock case with its glass door half open, wrist caught in the gap; at the far left edge a strip of still-swaying curtain and the open hinge gap - those two are still moving. / FINISH Puppy full; brass pendulum half; the rocking chair gets outline and flat fill only, no interior marks. NO SHADOW. Dial cropped above the frame, 0 numerals, 0 hands. Both dogs bipedal. / TONE the brass is the only warm accent in the frame and a black paw closes over it.
+CAMERA medium close-up, slight low angle; right the Puppy on the stool with his forearm in the clock case, left rear the rocking chair. / SUBJECT right, Puppy on hind toes on the stool, one arm straight up inside the open glass door, five fingers round the brass pendulum, the other forepaw in POSTURE 1, cheek dented, one eye shut, one ear on his shoulder. THE PENDULUM IS THE SIZE OF HIS FOREPAW - same plane, so it is set here. Left rear Grandfather POSTURE 1 with one toe lifted on the armrest. / SETTING clock case, glass door half open, wrist in the gap; far left edge a strip of still-swaying curtain and the open hinge gap. / FINISH Puppy full; brass pendulum half; the rocking chair outline and flat fill only, no interior marks. NO SHADOW. Dial cropped, 0 numerals, 0 hands. Both dogs bipedal. / TONE the brass is the one warm accent and a black paw closes over it.
 ```
 
 ### p4
 
 ```
 --- p4 — 구슬발을 걷어 묶다 ---
-LIGHT: the cleared half of the doorway throws 1 LARGE hard-edged rectangle across the floor; 9 small shards remain under the strands still hanging; window 3; brass 0 = 13 shapes. The count is falling and one big shape has appeared.
-THREE: clock STOPPED (pendulum tilted, 0 arc) · curtain HALF GATHERED (bundled to one side, a cord going round it, the lower doorway wide open) · shutter still loose.
-HAT: pushed onto one ear, half the face uncovered, head rolled sideways, one hind foot down on the floor.
-CAMERA medium, eye level; left of frame the doorway and the Puppy, right rear the rocking chair. / SUBJECT left, Puppy pressed against the door jamb, both forepaws hugging a whole armful of bead strands swept sideways, chin clamped down on the bundle, one finger looping the cord, shoulders hiked, back arched away, one hind foot on the threshold, cheek squashed by the strands, mouth open sideways shouting; the free forepaw touches his lips in the POSTURE 1 shape. THE HANGING CURTAIN IS TWICE HIS HEIGHT - same plane, so measured here. Right rear Grandfather POSTURE 1, head rolled aside. / SETTING beyond the door the flat bleached plane and 9 wisteria leaves STILL LEANING ONE WAY - the wind never stops. Back wall pendulum tilted and frozen; upper left hinge gap still open. / FINISH Puppy full; the bundled curtain half; all else flat. NO SHADOW. No letters or numbers. Both dogs bipedal. / TONE the left third of the picture is taken by that one big pale rectangle - he shut something and the room got brighter; his black scalloped silhouette sits on it.
+LIGHT: the cleared half of the doorway throws 1 LARGE hard-edged rectangle on the floor; 9 shards remain under the hanging strands; window 3; brass 0 = 13 shapes.
+THREE: clock STOPPED · curtain HALF GATHERED (bundled to one side, cord going round, lower doorway wide open) · shutter still loose.
+HAT: pushed onto one ear, half the face uncovered, head rolled sideways.
+CAMERA medium, eye level; left the doorway and the Puppy, right rear the rocking chair. / SUBJECT left, Puppy against the door jamb, both forepaws hugging an armful of strands swept sideways, chin clamped on the bundle, one finger looping the cord, shoulders hiked, back arched, cheek squashed, mouth open sideways; the free forepaw at his lips in the POSTURE 1 shape. THE HANGING CURTAIN IS TWICE HIS HEIGHT - same plane, measured here. Right rear Grandfather POSTURE 1, head rolled aside. / SETTING past the door the bleached plane and 9 wisteria leaves STILL LEANING ONE WAY - the wind never stops. Pendulum frozen; hinge gap still open. / FINISH Puppy full; the bundled curtain half; rest flat. NO SHADOW. No letters or numerals. Both dogs bipedal. / TONE the left third is one big pale rectangle - he shut something and the room got brighter.
 ```
 
 ### p5
 
 ```
 --- p5 — 덧문을 고리에 걸다 ---
-LIGHT: 2 shapes only - the doorway rectangle, and the window patch snapping straight as the hook goes on. No shards left anywhere. The two rectangles are about to meet.
-THREE: clock STOPPED · curtain TIED (one bundle at the left jamb, cord wound round it) · shutter BEING HOOKED (flat against the wall, hinge gap closing to 0).
-HAT: ridden up above the brow, one eye uncovered, shoulders twitching so the rocking chair tips.
-CAMERA medium, low angle; right of frame the Puppy stretched up, upper left the window and shutter large. / SUBJECT right, Puppy on hind toes stretched to full length, one forepaw pressing the shutter edge to the wall, the other threading the iron hook onto the shutter catch, both arms overhead, belly showing, tail curved out for balance, head tipped right back, tongue tip out, both ears laid back - POSTURE 2. / SETTING window plane beyond the shutter, white courtyard wall and wisteria, LEAVES STILL MOVING; at the right rear both the tied curtain and the stopped pendulum are visible in the same frame - all three go quiet on this page. Grandfather in the chair, hat above the brow. / FINISH Puppy full; the iron hook and catch half; all else flat fill and outline. NO SHADOW - the wall stays one even plane. No letters or numbers. Both dogs bipedal. / TONE the bright window rectangle is the biggest shape in the frame and a stretched black body lies across it; every edge in the picture is at its straightest here.
+LIGHT: 2 shapes only - the doorway rectangle, and the window patch snapping straight as the hook goes on. 0 shards left. The two rectangles are about to meet.
+THREE: clock STOPPED · curtain TIED (one bundle at the jamb) · shutter BEING HOOKED (flat to the wall, hinge gap closing to 0).
+HAT: ridden up above the brow, one eye uncovered, shoulders twitching so the chair tips.
+CAMERA medium, low angle; right the Puppy stretched up, upper left the window and shutter large. / SUBJECT right, Puppy in POSTURE 2 at full stretch, one forepaw pressing the shutter edge to the wall, the other threading the iron hook onto the catch, belly showing, tail curved for balance, head tipped back, tongue tip out, both ears laid back. / SETTING beyond the shutter the white courtyard wall and wisteria, LEAVES STILL MOVING; at the right rear the tied curtain and the stopped pendulum in the same frame - all three go quiet here. / FINISH Puppy full; iron hook half; rest flat fill and outline. NO SHADOW - the wall stays one even plane. No letters or numerals. Both dogs bipedal. / TONE the bright window rectangle is the biggest shape and a stretched black body lies on it; every edge is at its straightest here.
 ```
 
 ### p6
 
 ```
 --- p6 — 다 지켰다 ---
-LIGHT: 1 SHAPE. The doorway rectangle and the window rectangle now abut and read as one single large rectangle with four straight edges, the hardest edges in the book. 0 shards, 0 brass lozenge.
-THREE: all three STOPPED - pendulum tilted and frozen, curtain tied in one bundle, shutter flat on its hook with no hinge gap.
+LIGHT: 1 SHAPE. The doorway patch and the window patch now abut and read as one single large rectangle with four straight edges, the hardest edges in the book. 0 shards, 0 brass lozenge.
+THREE: all three STOPPED - pendulum tilted and frozen, curtain tied in one bundle, shutter flat on its hook, no hinge gap.
 HAT: balanced on the very edge of the forehead, about to fall.
-CAMERA medium wide, eye level, the rocking chair centre with doorway and window both inside the frame, so a reader can count that all three have stopped. / SUBJECT centre front, Puppy in POSTURE 3 on the mat, eyes folded into happy crescents, mouth corners up, both ears hanging easy, only the tail tip a hair off the floor. Centre rear Grandfather POSTURE 1, the hat teetering on his brow and the shut eyelids trembling - IN THIS ROOM THAT TREMBLE IS THE ONLY THING MOVING. / SETTING seven props, all still; the rocking chair itself is stopped. BUT past the open doorway the 9 wisteria leaves still lean and the courtyard plane is unchanged - the wind did not stop, only the sound did. / FINISH Puppy full; Grandfather's hat half; all else flat fill and outline. NO SHADOW. Dial cropped above the frame edge, 0 numerals, 0 hands. Both dogs bipedal, forepaws as hands. / TONE the room reads frozen and slightly wrong; the one pale rectangle is the flattest, hardest shape in the whole book, and only the leaves outside are loose.
+CAMERA medium wide, eye level, rocking chair centre with doorway and window both in frame, so a reader can count all three stopped. / SUBJECT centre front, Puppy POSTURE 3, eyes folded into crescents, mouth corners up, ears easy, only the tail tip a hair off the floor. Centre rear Grandfather POSTURE 1, hat teetering on his brow, shut eyelids trembling - IN THIS ROOM THAT TREMBLE IS THE ONLY THING MOVING. / SETTING seven props, all still, the chair stopped too. BUT past the open doorway the 9 wisteria leaves still lean - the wind did not stop, only the sound did. / FINISH Puppy full; the hat half; rest flat fill and outline. NO SHADOW. Dial cropped, 0 numerals, 0 hands. Both dogs bipedal. / TONE the room reads frozen and slightly wrong; that one pale rectangle is the flattest hardest shape in the book, and only the leaves outside are loose.
 ```
 
 ### p7
@@ -176,8 +177,8 @@ CAMERA medium wide, eye level, the rocking chair centre with doorway and window 
 --- p7 — 눈을 번쩍 떴어요 ---
 LIGHT: still 1 single rectangle, its near corner running under the rocking chair. 0 shards.
 THREE: all three still stopped.
-HAT: FALLEN - upside down on the knees, its red band the only saturated red in the frame and the thing the eye goes to.
-CAMERA medium close-up, slight low angle; upper frame Grandfather risen and sitting forward, lower front the Puppy's upturned face. / SUBJECT upper, Grandfather POSTURE 2 - off the backrest, both eyes round and fully open, forepaws braced on the armrests, shoulders up, white muzzle mask and drop ears thrown forward, mouth just open. The fallen hat on his knees is the same size that covered his whole face on p1. Lower front, Puppy still in POSTURE 3, frozen mid-pose, eyes huge, mouth slightly open, ears back, tail flat on the floor. / SETTING the three are still stopped - tilted pendulum, tied bundle, hooked shutter; the rocking chair tipped forward on its rockers; through the doorway the leaves still lean. / FINISH Grandfather full; the hat and its band half; the Puppy flat except the face; all else flat fill. NO SHADOW - the chair meets the floor on a plain contact line. No letters or numbers, dial out of frame. Both dogs bipedal. / TONE one big body pitched forward over one small body locked still; all the saturation in the picture sits in that red band.
+HAT: FALLEN - upside down on the knees, its red band the only saturated red in the frame and where the eye goes.
+CAMERA medium close-up, slight low angle; upper frame Grandfather risen and sitting forward, lower front the Puppy's upturned face. / SUBJECT upper, Grandfather POSTURE 2 - off the backrest, both eyes round and fully open, forepaws braced on the armrests, white muzzle mask and ears thrown forward, mouth just open. The fallen hat is the same size that covered his whole face on p1. Lower front, Puppy still in POSTURE 3, frozen mid-pose, eyes huge, mouth slightly open, ears back, tail flat. / SETTING the three still stopped - tilted pendulum, tied bundle, hooked shutter; the chair tipped forward on its rockers; leaves leaning past the door. / FINISH Grandfather full; the hat and band half; the Puppy flat except the face; rest flat fill. NO SHADOW - the chair meets the floor on a plain contact line. No letters or numerals, dial out of frame. Both dogs bipedal. / TONE one big body pitched over one small body locked still; all the saturation sits in that red band.
 ```
 
 ### p8
@@ -185,57 +186,57 @@ CAMERA medium close-up, slight low angle; upper frame Grandfather risen and sitt
 ```
 --- p8 — 시계가 안 가는구나 ---
 LIGHT: 1 rectangle; its far corner reaches the foot of the clock case, so the two gazes and the light land in the same place. 0 shards.
-THREE: all three still stopped - and the stopped pendulum is what both dogs are looking at.
+THREE: all three still stopped - and the stopped pendulum is what both dogs look at.
 HAT: on the knees, one forepaw resting on it.
-CAMERA medium wide, eye level, opened out left to right; the two bodies are apart and only their sightlines meet, at the clock on the back wall. / SUBJECT front left, Puppy up on his feet in POSTURE 4 - both arms flung wide, palms up, shoulders hiked, head tipped back, mouth wide, brow gathered, ears back, one hind foot stepped away. Right, Grandfather seated, one forepaw on the armrest, head turned back over his shoulder and up at the clock, eyes half-lidded, muzzle stretched sideways, the other forepaw on the hat. / SETTING back wall clock, brass pendulum tilted and frozen inside the glass door - both sightlines end here. Tied curtain and hooked shutter unchanged; leaves still leaning past the door; red band on the knees. / FINISH Puppy full; the stopped pendulum half; all else flat fill and outline. NO SHADOW. THE DIAL IS A PLAIN #F2EFE6 DISC - 0 numerals, 0 hands, 0 marks - or cropped by the frame. Both dogs bipedal. / TONE the picture points at the answer before the child has it; the only bright accent near the clock is the frozen brass.
+CAMERA medium wide, eye level, opened out left to right; the two bodies are apart and only their sightlines meet, at the clock. / SUBJECT front left, Puppy on his feet in POSTURE 4 - arms flung wide, palms up, shoulders hiked, head tipped back, mouth wide, brow gathered, ears back, one hind foot stepped away. Right, Grandfather seated, one forepaw on the armrest, head turned back over his shoulder and up at the clock, eyes half-lidded, muzzle stretched sideways, the other forepaw on the hat. / SETTING the brass pendulum tilted and frozen inside the glass door - both sightlines end here. Tied curtain and hooked shutter unchanged; leaves leaning; red band on the knees. / FINISH Puppy full; the stopped pendulum half; rest flat fill and outline. NO SHADOW. THE DIAL IS A PLAIN #F2EFE6 DISC - 0 numerals, 0 hands, 0 marks - or cropped. Both dogs bipedal. / TONE the picture points at the answer before the child has it.
 ```
 
 ### p9
 
 ```
 --- p9 — 추를 톡 밀다 ---
-LIGHT: 1 rectangle + 1 brass lozenge = 2 shapes. The travelling lozenge is BACK for the first time since p3; the floor count has gone up by one.
-THREE: clock RUNNING AGAIN (pendulum swung past centre with a short arc) · curtain still tied · shutter still hooked.
+LIGHT: 1 rectangle + 1 brass lozenge = 2 shapes. The lozenge is BACK for the first time since p3 - the floor count goes up by one.
+THREE: clock RUNNING AGAIN (pendulum swung past centre, short arc) · curtain still tied · shutter still hooked.
 HAT: on the knees under one hanging forepaw.
-CAMERA medium close-up, eye level; left the Puppy on the stool with his paw in the case, right rear the rocking chair. This is p3's place with the hand reversed - holding then, pushing now. / SUBJECT left, Puppy on the stool, ONE finger extended, its tip just touching the brass pendulum and pushing it sideways, arm straight out, body leaning to the clock, head twisted to look back over his shoulder, eyes round, one ear swung that way, the other forepaw gripping the glass door edge. THE PENDULUM IS THE SIZE OF HIS FOREPAW - same plane, measured again. Right rear Grandfather POSTURE 3, both eyes sliding half shut, shoulders dropping. / SETTING short pendulum arc; glass door half open; at the right edge the still-tied curtain and still-hooked shutter. / FINISH Puppy full; the brass pendulum half; all else flat. NO SHADOW. Dial cropped, 0 numerals, 0 hands. Both dogs bipedal. / TONE the returned brass lozenge and the closing eyelids sit in one frame at the same height - the child sees this with his own eyes.
+CAMERA medium close-up, eye level; left the Puppy on the stool with his paw in the case, right rear the chair. This is p3's place with the hand reversed - holding then, pushing now. / SUBJECT left, Puppy on the stool, ONE finger extended, its tip just touching the brass pendulum and pushing it sideways, arm straight out, body leaning to the clock, head twisted back over his shoulder, eyes round, one ear swung that way, the other forepaw on the glass door edge. THE PENDULUM IS THE SIZE OF HIS FOREPAW - same plane, measured again. Right rear Grandfather POSTURE 3. / SETTING short pendulum arc; glass door half open; at the right edge the still-tied curtain and still-hooked shutter. / FINISH Puppy full; pendulum half; rest flat. NO SHADOW. Dial cropped, 0 numerals. Both dogs bipedal. / TONE the returned lozenge and the closing eyelids sit at the same height in one frame - the child sees this with his own eyes.
 ```
 
 ### p10
 
 ```
 --- p10 — 앞발이 입에서 뚝 떨어진다 ---
-LIGHT: 1 rectangle + 1 brass lozenge = 2 shapes, and the widest, brightest part of the rectangle lies exactly between the falling paw and the mouth.
-THREE: clock RUNNING · curtain still tied · shutter still hooked - the remaining two sit together at the left of the frame so the next job is readable.
+LIGHT: 1 rectangle + 1 brass lozenge = 2 shapes, and the widest brightest part of the rectangle lies exactly between the falling paw and the mouth.
+THREE: clock RUNNING · curtain still tied · shutter still hooked - the remaining two sit together at the left so the next job is readable.
 HAT: on the knees.
-CAMERA medium close-up, slight low angle; centre frame the Puppy down off the stool, upper body large; right rear Grandfather nearly asleep. The gap between paw and mouth is dead centre. / SUBJECT centre, Puppy on both hind feet leaning forward, THE FOREPAW THAT WAS PRESSED TO HIS LIPS NOW DROPPING AWAY, a hand's width of clear air between fingers and mouth, the hand still holding the single-finger shush shape; the other arm thrown out toward the doorway; mouth wide shouting, eyes bright and round, both ears up, tail swung wide behind. Right rear Grandfather POSTURE 3, eyes nearly shut, one forepaw hanging, mouth just open. / SETTING pendulum swinging with an arc; tied curtain and hooked shutter both visible at the left; red band on the knees; leaves leaning past the door. / FINISH Puppy full; the dropping forepaw half; all else flat fill and outline. NO SHADOW. No letters or numbers, dial out of frame. Both dogs bipedal. / TONE the brightest part of the picture is the gap he just opened between his hand and his mouth; the sleeping side goes soft only in the sense of fewer marks.
+CAMERA medium close-up, slight low angle; centre the Puppy down off the stool, upper body large; right rear Grandfather nearly asleep. The gap between paw and mouth is dead centre. / SUBJECT centre, Puppy on both hind feet leaning forward, THE FOREPAW THAT WAS PRESSED TO HIS LIPS NOW DROPPING AWAY, a hand's width of clear air between fingers and mouth, the hand still in the single-finger shush shape; the other arm thrown toward the doorway; mouth wide, eyes round, both ears up, tail swung wide. Right rear Grandfather POSTURE 3, eyes nearly shut. / SETTING pendulum swinging; tied curtain and hooked shutter both at the left; red band on the knees; leaves leaning. / FINISH Puppy full; the dropping forepaw half; rest flat fill and outline. NO SHADOW. No letters or numerals, dial out of frame. Both dogs bipedal. / TONE the brightest place is the gap he just opened between hand and mouth.
 ```
 
 ### p11
 
 ```
 --- p11 — 구슬발을 확 잡아당기다 ---
-LIGHT: the doorway shatters back into 18 small shards; the window rectangle (1) and the brass lozenge (1) remain = 20 shapes. The count is climbing back.
-THREE: clock RUNNING · curtain RELEASED (strands pouring down the whole doorway, knocking apart) · shutter still hooked, the last one left.
+LIGHT: the doorway shatters back into 18 shards; the window rectangle (1) and the brass lozenge (1) remain = 20 shapes. The count is climbing back.
+THREE: clock RUNNING · curtain RELEASED (strands pouring down the doorway, knocking apart) · shutter still hooked, the last one left.
 HAT: on the knees.
-CAMERA medium, eye level; left the doorway with the Puppy hauling on the cord, right rear the rocking chair. / SUBJECT left, Puppy in POSTURE 5 in front of the jamb - both forepaws on the cord end, whole body arched backwards, both hind feet skidding forward onto the threshold, tail up, head thrown back to watch the strands come down, mouth wide, eyes folded into laughing crescents, both ears flying up. THE RELEASED CURTAIN IS TWICE HIS HEIGHT - same plane, measured again. Right rear Grandfather asleep, shoulders sinking, head tilted so the cheek presses the backrest. / SETTING bead strands filling the doorway top to bottom, splayed apart where they knock; the loose cord in his paws; beyond, the courtyard plane and the leaning leaves; back wall pendulum swinging; upper left the shutter STILL on its hook - one to go. / FINISH Puppy full; the falling strands half; all else flat. NO SHADOW. No letters or numbers. Both dogs bipedal. / TONE the left of the frame is a vertical run of strands with the outside brightness broken small between them - what was shut coming out all at once.
+CAMERA medium, eye level; left the doorway with the Puppy hauling the cord, right rear the chair. / SUBJECT left, Puppy in POSTURE 5 before the jamb - both forepaws on the cord end, body arched backwards, hind feet skidding onto the threshold, tail up, head thrown back to watch the strands come down, mouth wide, eyes in laughing crescents, ears flying up. THE RELEASED CURTAIN IS TWICE HIS HEIGHT - same plane, measured again. Right rear Grandfather asleep, cheek pressed to the backrest. / SETTING strands filling the doorway top to bottom, splayed where they knock; the cord in his paws; past them the courtyard plane and leaning leaves; pendulum swinging; upper left the shutter STILL hooked - one to go. / FINISH Puppy full; the falling strands half; rest flat. NO SHADOW. No letters or numerals. Both dogs bipedal. / TONE the left is a vertical run of strands with the outside brightness broken small between them.
 ```
 
 ### p12
 
 ```
 --- p12 — 고리를 벗기고, 모자를 도로 덮는다 ---
-LIGHT: 18 shards + the window patch broken back into 3 wobbling pieces + 1 brass lozenge = 22 shapes. The p1 count is back.
+LIGHT: 18 shards + the window patch broken back into 3 pieces + 1 brass lozenge = 22 shapes. The p1 count is back.
 THREE: clock RUNNING · curtain HANGING AND SWAYING · shutter UNHOOKED (pushed inward, hinge gap open again).
-HAT: being lifted back - held in one forepaw, tilted in front of the muzzle on its way over the face, the red band across the middle of the frame's right half.
-CAMERA medium wide, eye level; left the Puppy at the window, right the rocking chair, each body doing its own job in one frame. / SUBJECT left, Puppy on hind toes, one forepaw flicking the iron hook up off the catch so the hook dangles from his fingertips, the other flat on the wall, body tipped to the wall, head thrown back, mouth open laughing, one ear flipped back. Right, Grandfather POSTURE 4 - one forepaw carrying the straw hat up off his knees and tilting it back over the muzzle, eyes already shut, other forepaw on his belly, shoulders fully collapsed. / SETTING the freed shutter swinging inward with the hinge gap open; past the window the white courtyard wall and moving wisteria; back wall pendulum swinging and the doorway strands hanging loose - all three are back on this page; the loose cord left dangling on the jamb. / FINISH Puppy full; the iron hook half; all else flat fill and outline. NO SHADOW. Dial cropped or a plain disc, 0 numerals, 0 hands. Both dogs bipedal. / TONE what was opened on the left carries across the frame and lands on the hat at the right; both bodies lean the way weight falls.
+HAT: being lifted back - held in one forepaw, tilted in front of the muzzle on its way over the face.
+CAMERA medium wide, eye level; left the Puppy at the window, right the chair, each body doing its own job in one frame. / SUBJECT left, Puppy on hind toes, one forepaw flicking the iron hook up off the catch so it dangles from his fingertips, the other flat on the wall, head thrown back, mouth open laughing, one ear flipped back. Right, Grandfather POSTURE 4, eyes already shut, shoulders fully collapsed. / SETTING the freed shutter swinging inward, hinge gap open; past the window the courtyard wall and moving wisteria; pendulum swinging and the doorway strands hanging loose - all three are back on this page; the cord left on the jamb. / FINISH Puppy full; the iron hook half; rest flat fill and outline. NO SHADOW. Dial cropped or a plain disc, 0 numerals. Both dogs bipedal. / TONE what was opened on the left carries across and lands on the hat at the right.
 ```
 
 ### p13
 
 ```
 --- p13 — 집이 도로 시끄러워요 ---
-LIGHT: 18 + 3 + 1 = 22 shapes, the exact count and the exact places of p1.
-THREE: all three MOVING, in the same three corners as p1 - pendulum swung wide with its arc, doorway strands splayed by the wind, shutter pushed inward with the hinge gap open. Give the three equal weight; none of them is bigger than the others.
+LIGHT: 18 + 3 + 1 = 22 shapes, the exact count and places of p1.
+THREE: all three MOVING, in the same corners as p1 - pendulum swung wide with its arc, strands splayed, shutter pushed inward with the hinge gap open. Equal weight; none bigger than the others.
 HAT: covering the whole face again, only muzzle tip out.
-CAMERA medium wide, eye level, the same composition as p1 - the whole room and all three sound-makers in one frame. The single difference is where the Puppy is: not standing in the doorway but sitting at the foot of the chair. / SUBJECT centre right, Puppy in POSTURE 6 on the mat at the chair's foot, back and nape against Grandfather's leg, forepaws loose on his belly, hind legs stretched out, shoulders down, eyes half shut, mouth just open whispering, both ears easy, tail laid out long on the floor. Above him Grandfather POSTURE 1, hat over the face, both forepaws folded on his belly, chest high. / SETTING the same seven props in the same places; cord dangling on the jamb; stool still under the clock; leaves leaning past the open door. / FINISH the two leaning bodies full; everything else, including all three sound-makers, flat fill and outline - THEY ARE THE SUBJECT OF THIS PAGE, so keep them equal and unfinished. NO SHADOW. Dial cropped above the frame, 0 numerals, 0 hands. Both dogs bipedal. / TONE afternoon: the light rectangles are longer and lower on the floor than on p1 and the whole room is a step warmer; noisiest page, easiest page.
+CAMERA medium wide, eye level, the same composition as p1 - the whole room and all three sound-makers in frame. The one difference is where the Puppy is: not in the doorway but at the foot of the chair. / SUBJECT centre right, Puppy in POSTURE 6 on the mat, back and nape against Grandfather's leg, hind legs stretched out, eyes half shut, mouth just open, tail laid out long. Above him Grandfather POSTURE 1, hat over the face, chest high. / SETTING the same seven props in the same places; cord on the jamb; stool under the clock; leaves leaning past the door. / FINISH the two leaning bodies full; everything else including all three sound-makers flat fill and outline - THEY ARE THE SUBJECT HERE, keep them equal and unfinished. NO SHADOW. Dial cropped, 0 numerals. Both dogs bipedal. / TONE afternoon: light rectangles longer and lower than p1, the room a step warmer; noisiest page, easiest page.
 ```

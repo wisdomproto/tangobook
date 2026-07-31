@@ -186,11 +186,11 @@ SUBJECT: left - BabyOwl gripping the lip of the entrance with both sets of claws
   back, beak wide open shouting so the face tips up, eyes huge dark rounds, down puffed all over,
   both short wings a little out for balance. Right - MotherOwl sat back against the inner wall
   shaking out one wet shoulder, head tilted toward the owlet.
-SETTING: honey wood flesh in at most 5 broad tonal bands; at most 7 floor flakes; one band of
-  moss on the lip; brightening morning past the entrance.
+SETTING: honey wood flesh in at most 5 broad tonal bands; at most 7 floor flakes; one moss band
+  on the lip; brightening morning past.
 FINISH: 2 - BabyOwl and the lip it is gripping.
-TONE: the inside stays brown and dim while only the entrance warms to gold, so the frame reads in
-  two brightnesses. Funny, not fraught. 🔴 The owlet comes up to the mother's chest - both are at
+TONE: the inside stays brown and dim while only the entrance warms to gold, so the frame reads
+  in two brightnesses. Funny, not fraught. 🔴 The owlet comes up to the mother's chest - both are at
   the same depth here, so size is stated on this page.
 🔴 Both stay birds - no clothes, no fingers, nothing held. No letters or numbers anywhere.
 ```
@@ -251,7 +251,7 @@ SUBJECT: centre - BabyOwl on both feet with 🔴 both short wings spread as wide
   touching the two walls, chest thrust forward, beak wide open pouring it all out, face to camera,
   down puffed everywhere, toes pushing so the heels lift. Lower right - MotherOwl seated, head
   tipped back, eyes at the narrow lens.
-SETTING: wall bands behind; at most 7 flakes, 3 rolled aside by the wing wash.
+SETTING: wall bands; at most 7 flakes, 3 rolled aside by the wing wash.
 FINISH: 2 - BabyOwl and WhiteDown.
 TONE: the body filling the frame is how loud it is. Everything is honey brown and blended, and
   🔴 the one small white feather with the hard boundary is the only thing the eye can land on.
@@ -407,13 +407,13 @@ EDGE: 1 - WhiteDown, and here it is the whole point. Everything else is blended 
 DOWN: 🔴 LANDED, at rest right in front of the parted beak - the first and only time it settles
   in the book. About the size of the owlet's eye. The text never says why.
 LID: the mother's face is out of frame; only her breast and the inside of the lifted wing show.
-CAMERA: close-up, eye level, 🔴 tightened to the owlet's face alone - the camera does NOT pull
-  back for the last page.
+CAMERA: close-up, eye level, 🔴 tightened to the owlet's face alone - the camera does NOT
+  pull back here.
 SUBJECT: centre - BabyOwl's face laid sideways and sunk into the mother's breast, 🔴 the beak
   still parted on a word it did not finish - parted, NOT closed - both eyes shut, the down round
   the eyes softly pressed, one ear tuft flopped sideways.
-SETTING: 🔴 nothing else in frame at all. One face and one feather; along the top, the mother's
-  breast and the inner wing, large and soft.
+SETTING: 🔴 nothing else in frame. One face and one feather; along the top, the mother's breast
+  and the inner wing, large and soft.
 FINISH: 2 - the face and WhiteDown.
 TONE: one thread of morning warms the parted beak and the feather in front of it, nothing else.
   🔴 The subject of the last picture is not a sleeping face

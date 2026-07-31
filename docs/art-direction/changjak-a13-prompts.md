@@ -52,7 +52,7 @@ Style: TWO-PLATE relief print, opaque flat inks pulled onto a dark board, 4-6 ye
   never painted: log walls, door grain, corners and the shadow side of every body are the
   unprinted board #241C16.
 
-PLATES - the whole grammar of this book:
+PLATES:
   PLATE 1 FIRE ORANGE #D2701F - opaque, flat, hard cut edges. Lands ONLY where the hearth fire
     physically reaches.
   PLATE 2 SNOW BLUE - opaque, flat, hard cut edges, two values: #7FA3C4 where outdoor light comes
@@ -60,16 +60,16 @@ PLATES - the whole grammar of this book:
     from outdoors physically reaches.
   🔴 THE TWO PLATES NEVER OVERLAP UNTIL p13. Overlap count = 0 places on p1-p12; on p13 exactly
     ONE floor band where the blue doorway rectangle crosses the orange hearth pool, pulled as a
-    dusty ochre #A0763C that exists nowhere else. Invent no third colour on any other page and
-    never grade, blend or soften either ink.
+    dusty ochre #A0763C that exists nowhere else. No third colour on any other page; never
+    blend or soften either ink.
 
 RENDERING (finish hierarchy): 🔴 THE BLUE AREA IS THE GAUGE. Blue ink covers about p1 2% · p2 1% ·
   p3 4% · p4 3% · p5 8% · p6 5% · p7 25% · p8 2% · p9 6% · p10 4% · p11 30% · p12 25% · p13 35%
   of the picture; hold those numbers. FINISHED THINGS PER PAGE = 2, the bear and the one thing it
   touches. 🔴 THE ROOM HOLDS EXACTLY SIX THINGS: stone hearth, fur rug, one low wooden stool, one
   small square frosted window, wooden door with its bar, one woodpile. 0 pictures, 0 shelves,
-  0 bowls, 0 pots. Fur = 0 hairs drawn; a body is ONE flat plate shape against bare board. Log
-  wall = 0 marks except at most 4 seam cuts a page. Frost = at most 7 feather strokes. Falling
+  0 bowls. Fur = 0 hairs drawn; a body is ONE flat plate shape against bare board. Log wall =
+  0 marks except at most 4 seam cuts a page. Frost = at most 7 feather strokes. Falling
   snow = at most 12 flakes. Sparks = at most 9 dots. Footprints = at most 8 marks.
   DENSITY RATION = none.
 
@@ -86,7 +86,7 @@ CHARACTER DESIGN LANGUAGE: an eye is a small notch of BARE BOARD cut inside the 
   legs only to lift the bar or carry logs, and grip with the whole forepaw.
 
 CANVAS: 16:9 double-page spread, full bleed, image to all four edges, no caption margin, no
-  border, no vignette. 0 letters, numbers, signage or symbols anywhere.
+  border. 0 letters, numbers, signage or symbols anywhere.
 
 NOT (rendering only): no airbrush, gradient, glossy CG or photographic finish · no wool, stitching,
   felted fibre or fuzzy fibre edge on any animal · no third colour and no plate overlap except the
@@ -250,20 +250,20 @@ GRADE: animal, quadruped, no clothes/shoes/fingers. 0 letters or numbers.
 --- p5 — rubbing the frost ---
 BLUE: 8% - the rubbed circle is the brightest #7FA3C4 so far; the rest of the pane stays flat
   #EDE7DA. Overlap 0.
-WOOD: pine at shoulder height (bare board) far behind. 🔴 THREE birch logs (#EDE7DA) lie on the
-  snow outside, visible only inside the rubbed circle. Barred.
+WOOD: pine at shoulder height (bare board) far behind. 🔴 THREE birch logs (#EDE7DA) on the snow
+  outside, visible only inside the rubbed circle. Barred.
 SPOT: at the window, two steps from the hearth.
-CAMERA: medium close-up, slightly high angle. The small square window and the rubbing forepaw at
-  centre, the bear's profile at frame left.
-SUBJECT: Bear in posture 2 - on hind legs against the wall, one forepaw scrubbing a circle clear
-  (that forepaw doubled as two overlapping flat shapes), the other braced on the sill, head to the
-  glass, nose pressed flat, one eye at the clear patch, mouth cut open speaking.
-SETTING: 🔴 outside exists ONLY inside the rubbed circle - three birch logs side by side on snow
-  and at most 8 footprint marks leading away between trees. Outside the circle the pane is flat
-  #EDE7DA with at most 7 frost feathers. Hearth and pine pile far right, low orange.
+CAMERA: medium close-up, slightly high angle. Window and rubbing forepaw at centre, the
+  bear's profile at frame left.
+SUBJECT: Bear in posture 2 - on hind legs at the wall, one forepaw scrubbing a circle clear (doubled as
+  two overlapping flat shapes), the other braced on the sill, nose pressed flat to the glass, one
+  eye at the clear patch, mouth cut open speaking.
+SETTING: 🔴 outside exists ONLY inside the rubbed circle - three birch logs on snow, at most
+  8 footprint marks leading between trees. Outside it the pane is flat #EDE7DA, at most 7 frost
+  feathers. Hearth and pine pile far right, low orange.
 FINISH: 2 (bear + the circle it has rubbed).
 TONE: 🔴 the circle is the only crisp thing and the only bright blue; the room behind is dim
-  orange. First white birch in the book - birch #EDE7DA, stacked pine bare board.
+  orange. First white birch in the book - birch #EDE7DA, pine bare board.
 GRADE: animal, quadruped, no clothes/shoes/fingers. 0 letters or numbers.
 ```
 
@@ -293,22 +293,21 @@ GRADE: animal, quadruped, no clothes/shoes/fingers. 0 letters or numbers.
 
 ```
 --- p7 — seeing the paws that put them there (@image2) ---
-BLUE: 25% - the rubbed circle fills the middle of the frame and is the brightest blue field so
-  far; everything outside it is flat #EDE7DA frost with 0 detail. Overlap 0.
-WOOD: 🔴 several birch logs (#EDE7DA) already stacked on the snow, plus one being set down now.
-  Pine inside at waist height (bare board). Barred.
+BLUE: 25% - the rubbed circle fills the middle of the frame, the brightest blue field so far;
+  everything outside it is flat #EDE7DA frost with 0 detail. Overlap 0.
+WOOD: 🔴 several birch logs (#EDE7DA) already stacked on the snow, one being set down now. Pine
+  inside at waist height (bare board). Barred.
 SPOT: at the window, eye against the glass.
-CAMERA: extreme close-up, eye level. The pane fills the frame, the freshly rubbed circle at centre.
-SUBJECT: 🔴 inside the circle - WhiteHare in posture 1, crouched on the snow with its BACK to us,
-  both forepaws lowering one birch log onto the snow, snow pushed aside where it lands, ears laid
-  back, spine rounded, 🔴 face not visible - back, two forepaws and ears only. At the frame edges,
-  Bear's forepaw enters from the top on the wet glass, its nose-tip and one eye press in from the
-  bottom corner.
-SETTING: inside the circle, snow with at most 8 footprint marks running away between trees; outside
-  the circle, flat pale frost, 0 shapes.
+CAMERA: extreme close-up, eye level. The pane fills the frame, the rubbed circle at centre.
+SUBJECT: 🔴 inside the circle - WhiteHare in posture 1, crouched with its BACK to us, both forepaws
+  lowering one birch log, snow pushed aside where it lands, ears laid back, 🔴 face not visible -
+  back, forepaws and ears only. At the frame edges, Bear's forepaw enters from the top on the wet
+  glass, its nose-tip and one eye from the bottom corner.
+SETTING: inside the circle, snow, at most 8 footprint marks running between trees; outside it,
+  flat pale frost, 0 shapes.
 FINISH: 2 (hare + the log it is setting down).
-TONE: 🔴 the picture is sealed with frost and the world exists through one round hole, and in that
-  hole a pair of paws is putting something down right now.
+TONE: 🔴 the picture is sealed with frost and the world exists through one round hole - and in it
+  a pair of paws is putting something down right now.
 GRADE: both stay animals, quadruped, no clothes/shoes/fingers. 0 letters or numbers.
 ```
 
@@ -338,20 +337,20 @@ GRADE: animal, quadruped, no clothes/shoes/fingers. 0 letters or numbers.
 ```
 --- p9 — a paw laid on the bar ---
 BLUE: 6% - the band under the door is thicker and brighter than on p4, and 🔴 one sliver of white
-  birch bark (#EDE7DA) has been pushed through the gap into the room. Overlap 0.
-WOOD: two pine logs left on the floor (bare board). Outside, the birch pile has reached knee
-  height - shown ONLY by the thicker band and the bark sliver. The bar is still in its catch.
-SPOT: at the threshold - the nearest the bear has come to the door.
+  birch bark (#EDE7DA) is pushed through the gap into the room. Overlap 0.
+WOOD: two pine logs left on the floor (bare board). Outside the birch pile has reached knee height
+  - shown ONLY by the thicker band and the bark sliver. The bar is still in its catch.
+SPOT: at the threshold - nearest the bear has come to the door.
 CAMERA: medium close-up, slightly low angle. Door and barred catch at centre with the bear's
   forepaw on it, the bear's face at frame left.
-SUBJECT: Bear in posture 3 - on hind legs before the threshold, one forepaw laid loosely on the
-  bar with the toes spread and no force in it, the other hanging, a hind foot touching the
-  threshold timber, head lowered to the door, both ears forward, mouth cut slightly open.
+SUBJECT: Bear in posture 3 - on hind legs at the threshold, one forepaw laid loosely on the bar,
+  toes spread and no force in it, the other hanging, a hind foot on the threshold timber, head
+  lowered to the door, both ears forward, mouth cut slightly open.
   🔴 IT DOES NOT LIFT THE BAR.
-SETTING: the picture is mostly bare board (the door). Behind, a low fire and the two logs.
+SETTING: mostly bare board (the door). Behind, a low fire and the two logs.
 FINISH: 2 (bear + the bar under its paw). Log wall = 4 seam cuts.
-TONE: 🔴 only the blue band and the pale bark sliver caught in it are lit; the fire arrives faint
-  from far behind. Nearness with one plank in the way.
+TONE: 🔴 only the blue band and the bark sliver caught in it are lit; the fire arrives faint from
+  far behind. Nearness with one plank in the way.
 GRADE: animal, quadruped, no clothes/shoes/fingers. 0 letters or numbers.
 ```
 
@@ -380,23 +379,22 @@ GRADE: animal, quadruped, no clothes/shoes/fingers. 0 letters or numbers.
 
 ```
 --- p11 — the door swings wide (REFERENCE PULL: blue at 30%, @image2) ---
-BLUE: 30% - 🔴 the open doorway is one big hard-edged rectangle of #7FA3C4 with #EDE7DA snow in it,
-  and blue spills across the floorboards. It still does NOT reach the hearth: overlap 0.
-WOOD: 0 pine inside. 🔴 Birch piled knee-high on the snow outside; the hare holds two more. The bar
-  is lifted and still gripped in the bear's forepaw.
+BLUE: 30% - 🔴 the doorway is one hard-edged rectangle of #7FA3C4 with #EDE7DA snow in it, spilling
+  across the floorboards. It still does NOT reach the hearth: overlap 0.
+WOOD: 0 pine inside. 🔴 Birch knee-high on the snow outside; the hare holds two more. The bar is
+  lifted, still gripped in the bear's forepaw.
 SPOT: in the doorway - but 🔴 BOTH HIND FEET STAY ON THE ROOM'S FLOOR; it does not cross.
-CAMERA: medium wide, eye level. 🔴 The camera stays inside the room; the open door frame makes a
-  rectangle at the centre and the outside arrives inside it.
-SUBJECT: Bear at frame left on hind legs, one forepaw still holding the lifted bar and the other
-  flat on the door it has pushed back to the wall, body leaning out, eyes wide as two bare-board
-  notches, mouth cut open speaking. In the doorway, WhiteHare in posture 2 - on the snow, two birch
-  logs clamped to its chest, ears bolt upright, stopped dead. 🔴 The hare is about the size of two
-  of the bear's forepaws; they are at the same depth here.
-SETTING: inside the doorway, a knee-high birch stack and trodden prints running to snow-covered
-  spruces. Inside the room, the emptied stack wall and coals only.
-FINISH: 2 (bear + the hare it faces). Footprints = at most 8 marks.
-TONE: 🔴 where a black door stood, a bright blue rectangle has opened. Room = cooled orange,
-  doorway = blue, and the two inks part along the door frame line without touching.
+CAMERA: medium wide, eye level. 🔴 Camera stays inside the room; the door frame makes a rectangle
+  at the centre and the outside arrives in it.
+SUBJECT: Bear at frame left on hind legs, one forepaw on the lifted bar, the other flat on the door
+  pushed back to the wall, eyes wide as two bare-board notches, mouth cut open. In the doorway,
+  WhiteHare in posture 2 - two birch logs clamped to its chest, ears bolt upright, stopped dead.
+  🔴 The hare is the size of two of the bear's forepaws; same depth.
+SETTING: knee-high birch stack, trodden prints to snow-covered spruces; in the room, the emptied
+  stack wall and coals. Footprints = at most 8 marks.
+FINISH: 2 (bear + the hare it faces).
+TONE: 🔴 where a black door stood, a blue rectangle has opened. Room = cooled orange, doorway =
+  blue, parting at the frame line without touching.
 GRADE: both stay animals, quadruped, no clothes/shoes/fingers. 0 letters or numbers.
 ```
 
@@ -409,17 +407,16 @@ WOOD: 0 pine. 🔴 White birch (#EDE7DA) starting to stack against the wall insi
   knee-high but bright against the bare-board wall. The bar is out of the catch.
 SPOT: at the hearth (bear) and at the wall inside the door (hare).
 CAMERA: medium wide, eye level. Hare stacking at frame right, bear at the hearth at frame left,
-  the open doorway behind at the right.
-SUBJECT: WhiteHare at frame right in posture 3 - on hind legs, both forepaws lowering one birch log
-  onto the floor stack just as it touches, body bent forward, ears turned back to the bear, head
-  up, mouth cut open asking. Bear at frame left in posture 4 - crouched at the hearth, one forepaw
-  pushing a WHITE-BARKED log into the fire, neck twisted right, mouth slightly open answering, one
-  ear to the hare. 🔴 Neither helps the other and the middle of the frame is empty.
-SETTING: in the hearth the white bark curls as it catches and the flame rises again. Loose bark
-  chips on the floor, rug, stool. Through the doorway, blue snow and trodden prints.
+  the open doorway behind them.
+SUBJECT: WhiteHare at frame right in posture 3 - both forepaws lowering one birch log onto the
+  floor stack just as it touches, ears turned back to the bear, head up, mouth cut open asking.
+  Bear at frame left in posture 4 - one forepaw pushing a WHITE-BARKED log into the fire, neck
+  twisted right, mouth open answering. 🔴 Neither helps the other; the frame's middle is empty.
+SETTING: white bark curls as it catches and the flame rises again. Bark chips, rug, stool. Through
+  the doorway, blue snow and trodden prints.
 FINISH: 2 (each character + the log in its paws).
-TONE: 🔴 three colours are in the room at once - orange left, blue right, the pale birch stack
-  between - and the orange and the blue still do not touch.
+TONE: 🔴 three colours at once - orange left, blue right, the birch stack between - and the orange
+  and the blue still do not touch.
 GRADE: both stay animals, quadruped, no clothes/shoes/fingers. 0 letters or numbers.
 ```
 
@@ -427,26 +424,23 @@ GRADE: both stay animals, quadruped, no clothes/shoes/fingers. 0 letters or numb
 
 ```
 --- p13 — the door left open (🔴 the only overlap in the book) ---
-BLUE: 35%, the widest of the book - the open doorway plus a long blue band lying across the floor
-  from it. 🔴 OVERLAP: exactly ONE band, where that floor band crosses the orange pool in front of
-  the hearth, pulled as dusty ochre #A0763C. One band, one page, nowhere else - do not repeat it
-  and do not soften its edges.
-WOOD: 0 pine. Birch stacked inside the door (#EDE7DA). 🔴 The bar is OUT of its catch and leans
-  against the wall beside the door.
-SPOT: at the hearth, in posture 1 again - but facing the door.
-CAMERA: wide, eye level. 🔴 The centre of the picture is the empty open doorway; Bear is small at
-  the far left by the hearth; the camera is still inside the room, as on all thirteen pages.
-SUBJECT: Bear lying belly-down on the rug exactly as in posture 1, chin on stacked forepaws, one
-  hind leg flung out, 🔴 but its head is turned to the door and its eyes are on the empty frame,
-  both ears forward, mouth cut slightly open. It is alone and it neither crosses nor straddles
-  anything.
-SETTING: door swung flat to the wall, bar leaning beside it. In the doorway, hare footprints
-  shrinking away between trees, at most 8 marks, and one small #EDE7DA tail-tip already in shadow.
-  Birch burning in the hearth, birch stacked inside the door.
+BLUE: 35%, the widest in the book - the doorway plus a long blue band across the floor from it.
+  🔴 OVERLAP: exactly ONE band, where it crosses the orange pool at the hearth, pulled as dusty
+  ochre #A0763C. One band, one page, nowhere else; hard edges, not softened.
+WOOD: 0 pine. Birch stacked inside the door (#EDE7DA). 🔴 The bar is OUT of its catch, leaning on
+  the wall beside the door.
+SPOT: at the hearth, posture 1 again - but facing the door.
+CAMERA: wide, eye level. 🔴 The centre of the picture is the empty doorway; Bear is small at the
+  far left; the camera is still in the room, as on all 13 pages.
+SUBJECT: Bear belly-down on the rug exactly as in posture 1, chin on stacked forepaws, one hind leg
+  flung out, 🔴 but head turned to the door and eyes on the empty frame, ears forward. Alone; it
+  neither crosses nor straddles anything.
+SETTING: door flat to the wall, bar leaning beside it; in the doorway, hare prints shrinking
+  between trees (at most 8 marks) and one #EDE7DA tail-tip in shadow. Birch burns in the hearth.
 FINISH: 2 (the doorway + the bear). Log wall = 4 seam cuts.
-TONE: 🔴 one thing has changed and it is dead centre - the place shut for twelve pages is now empty
-  and blue. The bear's spot is unchanged from p3, and the blue band reaches the fire, where the two
-  inks meet for the first and only time.
+TONE: 🔴 one thing has changed and it is dead centre - the place shut for twelve pages is empty and
+  blue. The bear's spot is unchanged from p3; the blue band reaches the fire, where the two inks
+  meet for the first and only time.
 GRADE: animal, quadruped, no clothes/shoes/fingers. 0 letters or numbers.
 ```
 

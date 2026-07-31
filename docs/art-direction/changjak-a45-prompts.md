@@ -86,13 +86,14 @@ PALETTE: paper #F6F4EE · lake green #2C4A3C, and #21372E for the hand-filled sl
   crusted salt #C9C4B4, grey and never bright. 🔴 THE ONLY PURE WHITE IN THE BOOK IS THE GOSLING AND
   ITS MIRROR PRINT - not the salt, not a splash, not a highlight. No sky blue, no purple, no pink.
 
-CHARACTER DESIGN LANGUAGE: flat gouache shapes with a soft brush edge, no ink outline. An eye is a full round dark iris with a lid line over it that can lower; no eyebrow, no
-  human mouth, no cheeks. 🔴 Acting is done by NECK LENGTH and by how far a forepaw leaves the boards.
+CHARACTER DESIGN LANGUAGE: flat gouache shapes with a soft brush edge, no ink outline. An eye is a
+  full round dark iris with a lid line over it that can lower; no eyebrow, no human mouth, no cheeks. 🔴 Acting is done by NECK LENGTH and by how far a forepaw leaves the boards.
   Silhouettes separate at thumbnail size: heavy low body and thick tail against a light round body
   and a long neck. FIXED GRADE: four-legged otter, waterbird gosling; no clothes, no
   shoes, nothing held. The otter raises ONE forepaw only when it is using it.
 
-CANVAS: 16:9 double-page spread. Same dock corner on all thirteen pages. 🔴 No lettering, numerals, signs or name boards anywhere.
+CANVAS: 16:9 double-page spread. Same dock corner on all thirteen pages.
+  🔴 No lettering, numerals, signs or name boards anywhere.
 
 NOT: no digital slickness - airbrush, gradient, glow, 3D CG, cel-shading, photographic or texture
   filter / never a blurred or double-exposed reflection, only mis-printing / never a second white,
@@ -290,15 +291,15 @@ TONE: the head is held large so the offset nose sits at frame centre. 🔴 What 
 
 ```
 --- p8 — 이제 안 비쳐! ---
-MIRROR: 🔴 MASKED. A paper slip covered HALF the water before the press, so nothing transferred; that half is filled by hand with one flat slab of #21372E - no image, no edge, no grain. The uncovered half is still exactly square, mountains sharp upside down. The two lie side by side.
+MIRROR: 🔴 MASKED. A paper slip covered HALF the water before the press, so nothing transferred; that half is filled by hand with one flat slab of #21372E - no image, no edge, no grain. The uncovered half is still exactly square. The two lie side by side.
 WHITE: 🔴 only the gosling's TAIL TIP, still outside the plank's edge, with a short wake. Its body is already under the plank and is not drawn. Sheet reference (d).
-PLANK: 🔴 pushed out flat on the water, covering half of it, laid on TOP of the press.
+PLANK: 🔴 flat on the water covering half of it, laid on TOP of the press.
 CAMERA: medium wide, slightly high. The plank runs left to right across the water; the otter pushes from behind it at frame left.
-SUBJECT: the otter braces its hind feet on the boards and drives BOTH forepaws against the end of the spare plank, back arched, hind legs stretched behind, claws scoring the wood. Jaw clenched so the cheeks swell, eyes on the far end, tail straight back.
+SUBJECT: the otter braces its hind feet on the boards and drives BOTH forepaws against the end of the spare plank, back arched, hind legs stretched behind, claws scoring the wood. Jaw clenched, eyes on the far end, tail straight back.
 SETTING: same dock corner. Posts, rope, the salt bucket.
 FINISH = 2: the otter and the plank it is pushing.
 GRADE: four-legged otter, waterbird gosling, no clothes or shoes, nothing held. 🔴 No lettering, numerals or signs.
-TONE: a large grey-brown board lands on the smooth green and half the frame dies with it. 🔴 The wider the cover, the more of the second picture is gone.
+TONE: a grey-brown board lands on the smooth green and half the frame dies. 🔴 The wider the cover, the more of the second picture is gone.
 ```
 
 ### p9
@@ -320,15 +321,15 @@ TONE: green and grey-brown only. 🔴 The bright point the eye went straight to 
 
 ```
 --- p10 — 컴컴해서 ---
-MIRROR: 🔴 MASKED over about three quarters of the frame - one flat hand-filled slab of #21372E holding no image, no edge, no grain. Only a narrow strip outside the plank is still square, and in it the mountains print sharp. 🔴 Do not shade or spotlight the slab; it is flat.
+MIRROR: 🔴 MASKED over about three quarters of the frame - one flat hand-filled slab of #21372E holding no image, no edge, no grain. Only a narrow strip outside the plank is still square, mountains printing sharp in it. 🔴 Do not shade or spotlight the slab; it is flat.
 WHITE: 🔴 NONE. Not one mark.
 PLANK: floating, masking three quarters; its thick sawn side faces the camera.
-CAMERA: close-up, eye level just above the surface. The plank's cut edge and the flat dark beneath fill the lower frame; the otter's face is pressed to the board at the top.
+CAMERA: close-up, eye level just above the surface. The plank's cut edge and the flat dark beneath fill the lower frame; the otter's face is pressed to the board above.
 SUBJECT: the otter lies belly-flat on the plank, chin hooked over the edge, head tipped sideways to look underneath. One cheek squashed against the wood, one forepaw gripping. Eyes narrowed into the dark, mouth closed, ears forward, tail slack.
-SETTING: same dock corner. Wet grain and a line of green slime on the sawn side; small wrinkles where water meets wood.
+SETTING: same dock corner. Wet grain and green slime on the plank's sawn side.
 FINISH = 2: the otter's face and the plank edge it is hooked over.
 GRADE: four-legged otter, no clothes or shoes, nothing held. 🔴 No lettering, numerals or signs.
-TONE: the lower half flat and dark, the face above only faintly lit. 🔴 The page where the wish came completely true is the quietest in the book - no dialogue, one looking eye.
+TONE: the lower half flat and dark, the face above only faintly lit. 🔴 The page where the wish came fully true is the quietest in the book - no dialogue, one looking eye.
 ```
 
 ### p11
@@ -350,28 +351,28 @@ TONE: one bright band opens in a dark frame and the eye goes to it. 🔴 The bod
 
 ```
 --- p12 — 거기 있었구나! ---
-MIRROR: the mask lifts as the plank slides off and the opened water prints SQUARE again. 🔴 First use of the SHORT FOLD - the gosling's body is laid on after the press and folded under on its own short line, so its mirror sits directly beneath it. Body and mirror share one frame for the first time.
-WHITE: 🔴 BOTH - the gosling on open water and its white mirror right below it, the two brightest things in the frame. Sheet reference (b).
+MIRROR: the mask lifts with the plank and the opened water prints SQUARE again. 🔴 First use of the SHORT FOLD - the gosling's body is laid on after the press and folded under on its own line, so its mirror sits directly beneath it - body and mirror in one frame at last.
+WHITE: 🔴 BOTH - the gosling on open water and its mirror right below it, the two brightest things in frame. Sheet (b).
 PLANK: sliding off past the left edge with a long wake, masking only the far corner.
-CAMERA: medium wide, high angle. The plank leaving at frame left, the opened water and the gosling to the right.
-SUBJECT: upper right - the otter leans out over the opened water, neck stretched, both forepaws still thrown out in the pushing position, eyes locked on the white, mouth open, ears up. Lower centre - the gosling turns its head up over its shoulder, neck bent soft, bill slightly open, webbed feet under water and not drawn.
-SETTING: same dock corner. Posts, rope, the salt bucket.
+CAMERA: medium wide, high angle. The plank leaving at frame left, opened water and the gosling to the right.
+SUBJECT: upper right - the otter leans out over the opened water, neck stretched, both forepaws still thrown out from the push, eyes locked on the white, mouth open, ears up. Lower centre - the gosling turns its head up over its shoulder, neck bent soft, bill slightly open, feet under water and not drawn.
+SETTING: same dock corner. Posts, rope, bucket.
 FINISH = 2: the gosling and the otter.
 GRADE: four-legged otter, waterbird gosling, no clothes or shoes, nothing held. 🔴 No lettering, numerals or signs.
-TONE: the board leaves, the green widens, two white things sit stacked at the centre. 🔴 Exactly as much comes back as was uncovered.
+TONE: the board leaves, the green widens, two whites stacked at centre. 🔴 Exactly as much comes back as was uncovered.
 ```
 
 ### p13
 
 ```
 --- p13 — 우리 둘 다 늘어났다! ---
-MIRROR: 🔴 SQUARE, then ONE slipped band crossing BOTH printed faces at once - one press, one direction, the same amount on each, both cut at the same height. 🔴 If only one is stretched this page dies. Outside the band the mountains print sharp.
+MIRROR: 🔴 SQUARE, then ONE slipped band crossing BOTH printed faces at once - one press, one direction, the same amount on each. 🔴 If only one is stretched this page dies. Outside the band the mountains print sharp.
 WHITE: 🔴 the gosling on the boards and its mirror below the fold, both stretched by that one band - two above, two below.
-PLANK: adrift at the far side, idle, masking at most an eighth of the water in the far corner.
+PLANK: adrift at the far side, masking at most an eighth of the water.
 CAMERA: medium, high angle - 🔴 the same place and angle as p1, but two above and two below.
-SUBJECT: the otter and the gosling lie side by side, shoulders touching, both chins pushed out past the edge, both looking down. The otter's forepaws stacked under its chin, eyes creased into half-moons, mouth open on a shout; the gosling's neck bent low, bill turned to the water, watching with one eye. Tail and tail feathers side by side.
+SUBJECT: the otter and the gosling lie side by side, shoulders touching, chins pushed out past the edge, both looking down. The otter's forepaws stacked under its chin, eyes creased into half-moons, mouth open on a shout; the gosling's neck bent low, bill turned to the water. Tail and tail feathers side by side.
 SETTING: same dock corner. Posts, coiled rope, the salt bucket in grey.
 FINISH = 2: the two animals.
 GRADE: four-legged otter, waterbird gosling, no clothes or shoes, nothing held. 🔴 No lettering, numerals or signs.
-TONE: the sun a little higher, the water brighter than p1. 🔴 p1 was one animal looking at one face; here two lie side by side and two lie beneath, and nobody tries to fix the stretching.
+TONE: the sun a little higher, the water brighter than p1. 🔴 p1 was one animal looking at one face; here two lie side by side and two beneath, and nobody tries to fix the stretching.
 ```

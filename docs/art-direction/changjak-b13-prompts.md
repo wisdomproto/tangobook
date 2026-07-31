@@ -188,21 +188,20 @@ lower). LOCK this placement and spacing; p3 p7 p9 p10 p12 repeat it exactly. 0
 holes in the bowl (steam covers the whole surface). All 3 the same diameter.
 PLUG: none.
 PROPS: 5 - table edge, two chairs, bowl, spoon, low oil lamp.
-CAMERA: medium wide, child eye level. LEFT half = table corner with Brother on
-his chair. RIGHT half = one small square window. This left-table / right-window
+CAMERA: medium wide, child eye level. LEFT half = table corner and Brother;
+RIGHT half = one small square window. This left-table / right-window
 framing returns identically on p7 and p12.
 SUBJECT: Brother Hedgehog kneeling on the chair, rump on his heels, both forepaws
 gripping the table edge, torso tipped toward the bowl, lips pushed into a small
 round to blow, eyes down on the soup, quills flat. Striped sweater. GRADE:
-bipedal, forepaws as hands, hedgehog head kept animal.
-SETTING: honey-brown paper table corner, two straight-backed chairs, cream bowl
-with a cream steam shape over the entire soup surface, spoon beside it, low lamp
-at the far end. The navy support sheet is the room and the sky - not painted. A
-low dark roof line under the window.
-FINISH: Brother + the bowl he blows on. Chairs, lamp, frame and roof stay flat
-cut paper, 0 interior marks, 0 pattern. No letters or numbers anywhere.
-TONE: the room darker than the sky. The 3 cuts are the brightest thing on the
-spread; the lamp patch stays browner and duller.
+bipedal, forepaws as hands, animal head.
+SETTING: a cream steam shape covers the ENTIRE soup surface; low lamp at the
+far end; a low dark roof line under the window. The navy support sheet is the
+room and the sky - not painted.
+FINISH: Brother + the bowl he blows on. Chairs, lamp, frame, roof = flat cut
+paper, 0 marks, 0 pattern. No letters or numbers anywhere.
+TONE: room darker than the sky. The 3 cuts are the brightest thing on the spread;
+the lamp stays browner and duller.
 ```
 
 ### p2
@@ -222,8 +221,8 @@ either side to brace, eyes wide with both pupils fixed on the single point below
 mouth slightly open, quill contour risen into 5 blunt points. GRADE: bipedal,
 forepaws as hands, animal head.
 SETTING: the cream soup disc with one round yellow cut at its centre. Steam is
-now a thin cream sliver along the rim only. Spoon beside the bowl. A dull orange
-lamp patch clipped at one corner. Nothing else.
+now a thin cream sliver along the rim only. A dull orange lamp patch clipped at one
+corner.
 FINISH: Brother's face + the bowl. The spoon stays flat paper, 0 marks. No
 letters or numbers anywhere.
 TONE: the bowl is the whole frame, the surround falls to flat navy. The cut is
@@ -240,20 +239,20 @@ p1 spacing, unchanged. The soup one and the roof ones must be indistinguishable
 in colour and size.
 PLUG: none.
 PROPS: 5 - bowl, spoon, lamp, window frame, table edge.
-CAMERA: medium close-up, child eye level from the side of the table. Brother at
-left, Younger climbing in at right, the bowl low between their two faces.
-SUBJECT: Younger Hedgehog with one knee up on the next chair and the other foot
+CAMERA: medium close-up, child eye level from the side. Brother left, Younger
+climbing in at right, bowl low between their faces.
+SUBJECT: Younger Hedgehog with one knee up on the next chair, the other foot
 still down with the heel raised, both forepaws clamped on the table corner,
 hauling himself up so only his head clears the bowl, eyes round, mouth wide open,
 long sleeves slid over his paws. Brother stays seated, head turned to him, one
 forepaw pointing into the bowl, mouth corner lifted. GRADE: both bipedal,
 forepaws as hands, animal heads - STRIPED vs PLAIN reads at a glance.
-SETTING: the bowl between and below the two faces, spoon beside it, low lamp far
-end, the small window at rear right with the roof line under it.
-FINISH: the two heads + the bowl between them. Chairs, lamp and frame stay flat
-cut paper, 0 marks, 0 pattern. No letters or numbers anywhere.
-TONE: dark room, both faces lit from below by the soup cut as hard-edged pale
-paper shapes under the chins, no soft falloff.
+SETTING: bowl between and below the two faces, spoon, low lamp far end, small
+window rear right with the roof line under it.
+FINISH: the two heads + the bowl between them. Chairs, lamp, frame = flat cut
+paper, 0 marks, 0 pattern. No letters or numbers anywhere.
+TONE: dark room; both faces lit from below by the soup cut as hard-edged pale
+planes under the chins, no soft falloff.
 ```
 
 ### p4
@@ -284,54 +283,51 @@ bright thing and the navy takes the rest of the spread.
 
 ```
 --- p5 — 들어 올린다 ---
-HOLES: 1 round hole, now cut in the bowl of the raised wooden spoon, SAME
-diameter as every other hole in the book. Plus 4 hairline straight slits
-radiating from it, also cut through to the same yellow, each 1/3 the hole's
-width - this is the book's only translation of "빛살", and they are cuts, never
-painted rays. The soup surface now has 0 holes. Window out of frame.
+HOLES: 1 round hole, now cut in the bowl of the raised spoon, SAME diameter as
+every other hole in the book. Plus 4 hairline slits radiating from it, cut
+through to the same yellow, each 1/3 the hole's width - the only translation of
+「빛살」 in this book, and they are cuts, never painted rays. The soup surface now
+has 0 holes. Window out of frame.
 PLUG: none.
-PROPS: 4 - spoon, bowl, table edge, chair back.
-CAMERA: medium close-up, slightly low angle looking up at the lifted spoon. Spoon
-centre, Brother's face behind it at left.
-SUBJECT: Brother Hedgehog with his arm raised so the elbow is above the shoulder,
-the forepaw holding the spoon stopped dead a hand's width above the bowl, head
-pushed forward, both dot eyes fixed on the point on the spoon, mouth open and
-held, quill contour risen into 5 blunt points. GRADE: bipedal, forepaws as hands,
+PROPS: 4 - spoon, bowl, table edge, chair.
+CAMERA: medium close-up, slightly low angle up at the lifted spoon. Spoon centre,
+Brother's face behind it at left.
+SUBJECT: Brother Hedgehog, arm raised, elbow above the shoulder, the forepaw
+holding the spoon stopped dead a hand's width above the bowl, head pushed
+forward, both dot eyes on the point on the spoon, mouth open and held, quills
+risen into 5 blunt points. GRADE: bipedal, forepaws as hands,
 animal head.
-SETTING: honey-brown spoon with two cream drops falling from its rim. Below, the
-cream soup disc with a round yellow reflection cut into it at half a hole's
-diameter so it is never miscounted. Nothing else.
-FINISH: Brother's face + the spoon. Bowl and chair stay flat paper, 0 marks. No
-letters or numbers anywhere.
-TONE: the light source has risen, so his face is lit brighter than on any earlier
-page - by widening the pale paper planes, not by glow.
+SETTING: honey-brown spoon, two cream drops falling from the rim. Below, the soup
+disc with a round yellow reflection cut at half a hole's diameter, never
+miscounted.
+FINISH: Brother's face + the spoon. Bowl and chair = flat paper, 0 marks. No
+letters or numbers.
+TONE: the light has risen, so his face is brighter than on any earlier page - by
+widening pale planes, not by glow.
 ```
 
 ### p6
 
 ```
 --- p6 — 하나 없어졌어 ---
-HOLES: 2 - upper and lower on the roof line at EXACTLY the p1 positions. The
-middle position is empty. No bowl in frame, so the page total is 2.
-PLUG: 1 - a patch of the same navy paper laid over the middle hole from the
-front. Hairline seam all the way round plus a thin cast shadow on one side, 0
-yellow inside. Do not dim, blur or grey anything.
+HOLES: 2 - upper and lower on the roof line at EXACTLY the p1 positions; the
+middle is empty. No bowl in frame, so the page total is 2.
+PLUG: 1 - a patch of the same navy paper laid over the middle hole from the front
+- hairline seam all round plus a thin cast shadow, 0 yellow inside.
 PROPS: 3 - window frame, roof line, chair.
-CAMERA: medium, the window almost frontal, filling the spread with the square
-frame and the sky beyond. Younger's outstretched forepaw cuts in at lower left as
-a silhouette.
+CAMERA: medium, window almost frontal, the square frame and the sky beyond
+filling the spread. Younger's forepaw cuts in at lower left.
 SUBJECT: Younger Hedgehog standing on the chair, one forepaw thrust straight at
-the window and reading as a flat navy silhouette with one digit extended (posture
-2). Only the back of his head and one shoulder contour are visible; the face is
-not seen. Sleeve slid back off the paw. Brother is NOT in this frame. GRADE:
-bipedal, forepaw as a hand.
+the window, reading as a flat navy silhouette with one digit extended (posture 2).
+Only the back of his head and one shoulder contour show; no face. Brother is NOT
+in this frame. GRADE: bipedal, forepaw as a hand.
 SETTING: dark roof line low across the window, navy sky above, honey-brown frame.
 One dull orange lamp reflection in the glass, at most a quarter of a hole's width
-so it is never counted as a light.
-FINISH: the window opening + Younger's silhouette arm. Frame and chair stay flat
-cut paper, 0 pattern. No letters or numbers anywhere.
-TONE: mostly navy with 2 yellow cuts in it. The upper and lower holes sit at the
-p1 coordinates, so "the middle one is gone" reads from their positions alone.
+so it never counts.
+FINISH: the window opening + Younger's silhouette arm. Frame and chair = flat cut
+paper, 0 pattern. No letters or numbers anywhere.
+TONE: mostly navy with 2 yellow cuts. Upper and lower sit at p1 coordinates, so
+the missing middle reads from their positions alone.
 ```
 
 ### p7
@@ -343,20 +339,17 @@ again. All 4 the same diameter and the same flat yellow.
 PLUG: none - the patch is gone, and the reopened middle hole shows no seam, no
 scar, no residue. It is simply a hole again.
 PROPS: 5 - bowl, spoon, lamp, window frame, table edge.
-CAMERA: medium wide, child eye level. SAME FRAMING AS p1 - table and Brother at
-left, window at right. Match the p1 coordinates for the table edge, the window
-and the roof line.
+CAMERA: medium wide, child eye level. SAME FRAMING AS p1 - table and Brother
+left, window right; match p1 coordinates for the table edge, window, roof line.
 SUBJECT: Brother Hedgehog with his arm all the way down, the spoon head back in
 the soup and only the handle in his grip, shoulders dropped, head turned to the
-window. Younger stands on his chair centre frame, both forepaws thrown up, on
-tiptoe, mouth wide open, calling at the window, the too-long sleeves slid to his
-elbows. GRADE: both bipedal, forepaws as hands, animal heads.
-SETTING: bowl with the yellow cut on the soup and the spoon submerged beside it,
-low lamp far end, window at right with the roof line under it.
-FINISH: Brother + the bowl. Younger, chairs, lamp and frame stay flat cut paper,
-0 marks, 0 pattern. No letters or numbers anywhere.
-TONE: cause and effect are both in this frame, so everything else is pressed down
-dark. Room and window brightness identical to p1.
+window. Younger stands on his chair centre, both forepaws thrown up, on tiptoe,
+mouth wide open, calling at the window, sleeves slid to his elbows. GRADE: both bipedal, forepaws as hands, animal heads.
+SETTING: bowl with the yellow cut on the soup, spoon submerged beside it, low
+lamp far end, window right with the roof line under it.
+FINISH: Brother + the bowl. Younger, chairs, lamp, frame = flat cut paper, 0
+marks, 0 pattern. No letters or numbers anywhere.
+TONE: cause and effect are both here, so everything else is pressed down dark. Room and window brightness identical to p1.
 ```
 
 ### p8
@@ -364,27 +357,25 @@ dark. Room and window brightness identical to p1.
 ```
 --- p8 — 들어 올린다, 그리고 톡 ---
 HOLES: 3 - 1 on the lifted spoon at lower left + 2 on the roof line at right
-(upper and lower at their p1 positions). The spoon hole and the two roof holes
-must be the same diameter and sit at the SAME depth in frame so they compare.
-PLUG: 1 - a navy paper patch over the middle roof position, hairline seam plus
-thin cast shadow, 0 yellow inside.
-PROPS: 4 - spoon, bowl, window frame, roof line.
-CAMERA: medium wide, over the shoulder from just above and behind Brother, facing
-the window the way he faces it. Window at right, bowl and outstretched arm at
-lower left. The book's central frame: the lifting hand and the emptied sky in one
-picture.
+(upper and lower at p1 positions), same diameter and same depth in frame so they
+compare.
+PLUG: 1 - a navy patch over the middle roof position, hairline seam plus thin
+cast shadow, 0 yellow inside.
+PROPS: 4 - spoon, bowl, frame, roof.
+CAMERA: medium wide, over the shoulder from just above and behind Brother. Window
+right, bowl and outstretched arm lower left - the lifting hand and the emptied
+sky in one picture.
 SUBJECT: Brother Hedgehog seated, body and head turned fully to the window while
 one arm alone reaches sideways to the bowl (posture 3) - head right, arm left.
-The reaching forepaw has just cleared the spoon from the soup, quill contour
-risen, open mouth held, dot eyes locked on one place outside. Younger at rear
-right grips the sill with both forepaws, forehead on the glass. GRADE: both
+That forepaw has just cleared the spoon from the soup; quills risen, mouth open,
+eyes locked on one place outside. Younger at rear right grips the sill,
+forehead to the glass. GRADE: both
 bipedal, forepaws as hands, animal heads.
-SETTING: honey-brown spoon with one cream drop falling, cream soup disc below,
-window frame and roof line at right.
-FINISH: Brother + the spoon. Younger, frame and bowl stay flat cut paper, 0
-marks. No letters or numbers anywhere.
-TONE: the only light in the room is that one hole on the spoon - the left of his
-face carries a pale hard-edged plane, the right none.
+SETTING: honey-brown spoon, one cream drop falling, soup disc below, frame and
+roof line right.
+FINISH: Brother + the spoon. Younger, frame, bowl = flat cut paper, 0 marks. No letters or numbers anywhere.
+TONE: the only light is that one hole - the left of his face carries a pale
+hard-edged plane, the right none.
 ```
 
 ### p9
@@ -443,45 +434,45 @@ HOLES: 2 - 1 still sunk in the pooled soup at the centre of the bowl + 1 roof
 hole clipped at the corner where the bottom of the window enters. Same diameter.
 PLUG: none.
 PROPS: 4 - bowl, spoon, table edge, window corner.
-CAMERA: close-up, high angle looking down into the bowl at a slant. The bowl
-fills the centre; Brother's mouth and the spoon enter at the top edge.
-SUBJECT: Brother Hedgehog with his head lowered, bringing the spoon to his mouth
-- the spoon has come up from the OUTER EDGE of the bowl on a wide arc that clears
-the centre, arm rotated outward, wrist bent. His lip is a moment from the spoon;
-his eyes glance down at the centre of the bowl. Striped sweater. GRADE: bipedal,
+CAMERA: close-up, high angle down into the bowl at a slant. Bowl fills the
+centre; Brother's mouth and the spoon enter at the top edge.
+SUBJECT: Brother Hedgehog, head lowered, bringing the spoon to his mouth - it has
+come up from the OUTER EDGE of the bowl on a wide arc clearing the centre, arm
+rotated outward, wrist bent. Lip a moment from the spoon, eyes glancing down at
+the centre. Striped sweater. GRADE: bipedal,
 forepaws as hands, animal head.
-SETTING: inside the bowl the outer ring has been eaten down so the pale floor
-shows as a cream crescent, while the centre still holds a pooled disc of soup
-with the yellow cut sunk in it - the boundary between eaten and uneaten reads as
-one clean cut circle. One spilled cream drop on the table.
-FINISH: Brother's muzzle + the spoon. Bowl wall and window stay flat cut paper, 0
+SETTING: inside the bowl the outer ring is eaten down so the pale floor shows as
+a cream crescent; the centre still holds a pooled disc of soup with the yellow
+cut sunk in it, and that boundary reads as one clean cut circle. One spilled
+cream drop on the table.
+FINISH: Brother's muzzle + the spoon. Bowl wall and window = flat cut paper, 0
 marks. No letters or numbers anywhere.
-TONE: the bowl is the whole frame. The emptied side pale cream, the kept centre
-the only place carrying yellow - the split reads as a shape, not as shading.
+TONE: the bowl is the whole frame. Emptied side pale cream, kept centre the only
+place carrying yellow - the split reads as a shape, not as shading.
 ```
 
 ### p12
 
 ```
 --- p12 — 별이 셋, 그대로 ---
-HOLES: 4 - 1 sunk in the shallow pool left in the bottom of the bowl + 3 on the
-roof line at EXACTLY the p1 coordinates and spacing. Lay p1 and p12 side by side
-and the three must not have moved a hair.
+HOLES: 4 - 1 sunk in the shallow pool in the bottom of the bowl + 3 on the roof
+line at EXACTLY the p1 coordinates and spacing; laid beside p1 the three must not
+have moved.
 PLUG: none.
 PROPS: 5 - bowl, spoon, lamp, window frame, table edge.
 CAMERA: medium wide, child eye level. SAME FRAMING AS p1 AND p7 - table and bowl
-at left, window at right, identical coordinates.
-SUBJECT: Brother Hedgehog seated with both forepaws laid side by side on the
-table and his chin resting lightly on them, eyes half closed and sleepy, mouth
-easy, quills fully flat. Younger sits on the next chair a little behind, looking
-up at the window, one forepaw rubbing an eye, sleeve over the paw. GRADE: both
+left, window right, same coordinates.
+SUBJECT: Brother Hedgehog seated, both forepaws side by side on the table, chin
+resting on them, eyes half closed, mouth easy, quills fully flat. Younger
+sits on the next chair behind, looking up at the window, one forepaw rubbing an
+eye. GRADE: both
 bipedal, forepaws as hands, animal heads.
-SETTING: the bowl holds a shallow soup pool gathered in the centre with the
-yellow cut sunk in it; a cream ring is left round the inner wall where the soup
-was eaten down; the spoon lies on the TABLE, outside the bowl. Low lamp far end.
-FINISH: Brother + the bowl. Younger, spoon, lamp, chairs and frame stay flat cut
-paper, 0 marks, 0 pattern. No letters or numbers anywhere.
-TONE: darker than p1, and only two things are lit - the one in the bowl and the
-three outside. The bowl must read as DELIBERATELY LEFT, not as leftovers: a clean
+SETTING: the bowl holds a shallow pool gathered in the centre with the yellow cut
+sunk in it; a cream ring round the inner wall where the soup was eaten; the
+spoon lies on the TABLE, outside the bowl. Low lamp far end.
+FINISH: Brother + the bowl. Younger, spoon, lamp, chairs, frame = flat cut paper,
+0 marks, 0 pattern. No letters or numbers anywhere.
+TONE: darker than p1; only two things are lit - the one in the bowl and the three
+outside. The bowl must read as DELIBERATELY LEFT, not leftovers: a clean
 round disc holding the light, not a smear.
 ```
