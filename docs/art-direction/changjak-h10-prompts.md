@@ -106,8 +106,7 @@ CHARACTER DESIGN LANGUAGE: both animals are cut from the same papers as the worl
   WARNS OR EXPLAINS - he only sets stones, and once he raises an eyebrow.
 
 CANVAS: 16:9 double-page spread. One creek crossing, fixed for all fourteen pages by the
-  CreekSet sheet. 🔴 The camera never leaves the creek and never goes under the water. Bottom
-  18% quiet for a caption. No lettering, numerals or signs.
+  CreekSet sheet. 🔴 The camera never leaves the creek and never goes under the water. No lettering, numerals or signs.
 
 NOT: no digital slickness - airbrush, gradient, glow, 3D CG, cel-shading, photographic,
   or a paper-texture filter over flat colour (the papers must be REAL cut sheets) / no drawn line,

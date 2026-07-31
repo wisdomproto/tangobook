@@ -22,7 +22,7 @@ Style:                        연령·무대·그림체 한 줄
 RENDERING (finish hierarchy)  마감 위계 + 개수 상한 + 밀도 배급 쪽 번호
 PALETTE                       hex + 악센트 규칙
 CHARACTER DESIGN LANGUAGE     눈·얼굴·의인화 등급
-CANVAS                        16:9 double-page spread · 캡션 여백 · 글자 금지
+CANVAS                        16:9 double-page spread · 글자 금지
 NOT (rendering only)          4항 이하
 ```
 
@@ -33,6 +33,8 @@ NOT (rendering only)          4항 이하
 ## 반드시 들어갈 것
 
 - **hex 팔레트** · **`16:9 double-page spread`** · **글자·숫자·간판 금지** · **의인화 등급**
+- 🔴 **아래쪽 캡션 여백을 잡지 마라**(2026-07-31 지시). 예전 앵커는 `Bottom 18% left quiet for a
+  caption` 을 달고 있었고 65권에서 걷어냈다. 화면은 끝까지 그림이다.
 - **`FINISHED THINGS PER PAGE = 2`** — 주인공 + 그 쪽에서 만지는 것 하나
 - **밀도 배급 쪽 번호를 `RENDERING` 안에** — 없으면 `DENSITY RATION = none`
   🔴 §1 판정문에만 적으면 **쪽별로 뽑히는 컷에 안 따라간다.** 앞 10권이 전부 이 실수를 했다.

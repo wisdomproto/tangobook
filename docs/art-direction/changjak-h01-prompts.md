@@ -68,8 +68,7 @@ ear, black eye patches). The bear baker wears a cream apron and nothing else;
 HIS HEAD IS 1/6 OF HIS TOTAL HEIGHT so he reads as a grown-up, never as a larger
 child. 0 shoes, 0 hats, 0 accessories on either. This grade holds all 12 spreads.
 
-CANVAS: 16:9 double-page spread, horizontal. Keep the bottom 12% quiet for a
-caption. NO letters, numbers, signs, price boards or lettering of any kind - the
+CANVAS: 16:9 double-page spread, horizontal. NO letters, numbers, signs, price boards or lettering of any kind - the
 bowl is plain but for its one cobalt line, the oven door carries no maker's mark.
 
 NOT (rendering only): no opaque or closed-shape shadows; no airbrush, gradients,

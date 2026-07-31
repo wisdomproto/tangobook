@@ -55,7 +55,7 @@ CHARACTER DESIGN LANGUAGE
 A kid goat that walks on four legs but rears onto the hind legs to hold the willow basket against its chest with both forepaws; a forepaw opens into a flat spread shape that reads as a palm when it is laid on something. No clothing, no shoes, no bag, nothing worn. Eye = one flat #3A3630 oval, taller than round - never a round dot with a highlight, never a folk dot-eye. The goose is a plain flat #EDEDE8 shape with a #D8C48E beak; it carries no red.
 
 CANVAS
-16:9 double-page spread. Keep the lower 12% quiet for a caption. No letters, numbers, signs or symbols anywhere in this book - the signpost arm and the blue door are blank.
+16:9 double-page spread. No letters, numbers, signs or symbols anywhere in this book - the signpost arm and the blue door are blank.
 
 NOT (rendering only)
 - no shading, gradient, airbrush, texture filter or 3D render - one flat tone per shape

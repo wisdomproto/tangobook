@@ -104,7 +104,7 @@ CHARACTER DESIGN LANGUAGE: animal faces, no clothes, no shoes. A lifted eye shap
   are doing something; the gosling walks on two legs and NEVER uses a wing as a hand - a wing may
   cover its eyes or beat, nothing else. If a pose fails, change the mouse.
 
-CANVAS: 16:9 double-page spread, 4-6 year old picture book. Bottom 18% quiet for a caption. No
+CANVAS: 16:9 double-page spread, 4-6 year old picture book. No
   lettering or numerals anywhere, and no blackboard, clock face, nameplate or noticeboard. Time is
   told only by sun, bell, lit windows and moon.
 

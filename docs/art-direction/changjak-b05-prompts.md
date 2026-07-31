@@ -95,7 +95,7 @@ CHARACTER DESIGN LANGUAGE: both badgers are FLAT-FILLED cream with the two dark 
   EXPLAINS ANYTHING - no knowing smile, no wink, no raised finger. Grade: upright on two legs,
   front paws work as hands. Cub = a plain nightshirt. Grandmother = a plain apron. No other clothes.
 
-CANVAS: 16:9 double-page spread, no ornamental border. Bottom 18% quiet for a caption. No lettering
+CANVAS: 16:9 double-page spread, no ornamental border. No lettering
   or numerals anywhere - no wallpaper monogram, no picture-frame plaque.
 
 NOT (rendering only): no digital slickness - airbrush, gradient, glow, 3D CG, cel-shading,

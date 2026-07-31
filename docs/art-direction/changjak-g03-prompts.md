@@ -69,8 +69,7 @@ CHARACTER DESIGN LANGUAGE: every animal is a plain natural animal - 0 clothing,
 holding, otherwise natural posture. Cloth appears in this book ONLY as blankets.
 The one exception is the old cow's neck bell, a single flat shape.
 
-CANVAS: 16:9 double-page spread, horizontal. Keep the bottom 12% quiet for a
-caption. NO letters, numbers, signs or lettering of any kind anywhere.
+CANVAS: 16:9 double-page spread, horizontal. NO letters, numbers, signs or lettering of any kind anywhere.
 
 NOT (rendering only): no felt, wool fibre, needle-felting, stitching or fabric
 weave of any kind; no airbrush, gradients, gloss or 3D shading; no transparency

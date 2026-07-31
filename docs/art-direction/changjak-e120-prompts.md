@@ -106,7 +106,7 @@ CHARACTER DESIGN LANGUAGE: EYES = a cut pale oval with a solid dark disc, and �
   🔴 That is the whole acting system - no eyebrows, no blush, no drawn smile. Both stand on two legs,
   front paws as hands, never four.
 
-CANVAS: 16:9 double-page spread. Bottom 18% quiet for a caption. 🔴 No lettering or numerals -
+CANVAS: 16:9 double-page spread. 🔴 No lettering or numerals -
   no house numbers, shop signs, boat names or musical notes.
 
 NOT (rendering only): no drawn outlines, and no digital slickness - airbrush, gradient, drop shadow,

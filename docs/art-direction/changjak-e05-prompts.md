@@ -55,7 +55,7 @@ CHARACTER DESIGN LANGUAGE
 Mice standing on the hind legs and using their forepaws as hands. No clothing, no props, nothing worn, nothing carried. Eye = one filled oval, no white, no catchlight. A full mouth packs the cheeks out into round shapes. The three big mice are told apart by silhouette, never by colour.
 
 CANVAS
-16:9 double-page spread. Keep the lower 12% quiet for a caption. No letters, numbers, signs or symbols anywhere in this book - crate and shelf carry no writing.
+16:9 double-page spread. No letters, numbers, signs or symbols anywhere in this book - crate and shelf carry no writing.
 
 NOT (rendering only)
 - no pasted dark pieces: the cellar dark is bare support board

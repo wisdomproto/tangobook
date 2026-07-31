@@ -107,8 +107,7 @@ CHARACTER DESIGN LANGUAGE: animal faces, no clothes, no shoes. A large drawn eye
   🔴 THE DONKEY'S TWO LONG EARS AND THE GOAT'S TWO SHORT HORNS ARE THE WHOLE DIFFERENCE BETWEEN
   THEIR SHADOWS - make both readable in silhouette at thumbnail size.
 
-CANVAS: 16:9 double-page spread. One narrow alley, never left, its props never moving. Bottom 18%
-  quiet for a caption. No lettering, numerals, house numbers or signs.
+CANVAS: 16:9 double-page spread. One narrow alley, never left, its props never moving. No lettering, numerals, house numbers or signs.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,
   or a paper-texture filter over flat tone / 🔴 NO WHITE PAINT, WHITE CHALK OR HIGHLIGHT - if a

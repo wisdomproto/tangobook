@@ -149,7 +149,7 @@ CHARACTER DESIGN LANGUAGE: drawn almond eye + a SEPARATE brow stroke - no dot-ey
   scrubbed. Setting: European (French) farmland - wheat, green squares, a silver river with a stone
   bridge, red clay roofs, poplars, an apple tree, a pebble stream, cows.
 
-CANVAS: 16:9 double-page spread. Bottom 18% quiet for a caption. No lettering or numerals.
+CANVAS: 16:9 double-page spread. No lettering or numerals.
 
 NOT (rendering only): no digital slickness - airbrush, gradient, CG gloss, cel-shading,
   photographic, or a texture filter over flat colour / no rendered clouds, volumetric light or god

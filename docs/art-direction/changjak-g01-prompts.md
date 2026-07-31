@@ -109,8 +109,7 @@ CHARACTER DESIGN LANGUAGE: both animals are cut shapes and must read from silhou
   on four legs, rolls into a ball and unrolls, speaks, and NEVER HOLDS ANYTHING WITH A FOREPAW. No
   clothes, no fingers.
 
-CANVAS: 16:9 double-page spread. One bedroom, the furniture never moving. Bottom 18% quiet for a
-  caption. No lettering or numerals anywhere.
+CANVAS: 16:9 double-page spread. One bedroom, the furniture never moving. No lettering or numerals anywhere.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,
   or a texture filter over flat colour (the sheets must be REAL cut paper) / no painted black and

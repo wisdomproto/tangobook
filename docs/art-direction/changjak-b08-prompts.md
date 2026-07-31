@@ -101,7 +101,7 @@ CHARACTER DESIGN LANGUAGE: flat painted shapes with a clean edge; no fur renderi
   on p8 only.
 
 CANVAS: 16:9 double-page spread. One place - a snowy yard's fence corner, fixed by the
-  FenceCorner sheet. Bottom 18% quiet for a caption. No lettering, numerals or signs anywhere.
+  FenceCorner sheet. No lettering, numerals or signs anywhere.
 
 NOT: 🔴 no wool, no felted fuzz, no fibre edge, no stitching, no needle-felt look anywhere - every
   surface is flat paper and flat paint / no outline, edge, shading, sparkle or stipple on the snow

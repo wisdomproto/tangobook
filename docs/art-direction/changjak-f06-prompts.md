@@ -92,8 +92,7 @@ CHARACTER DESIGN LANGUAGE: bodies are built from the wash and read by silhouette
 CANVAS: 16:9 double-page spread. One Swedish nursery on all twelve pages: a lattice window with
   thin white curtains in the LEFT wall with a lake and birches beyond, a honey plank floor and
   striped rug, two low pale-blue beds RIGHT, a white door in the back wall, a wooden box with its
-  lid open at the bed foot, pegs with two garments. Positions never change. Bottom 18% quiet for a
-  caption. NO CLOCK, NO LETTERING, NO NUMERALS.
+  lid open at the bed foot, pegs with two garments. Positions never change. NO CLOCK, NO LETTERING, NO NUMERALS.
 
 NOT: no digital slickness of any kind - airbrush, gradient banding, glow, 3D CG, cel-shading,
   photographic, or a texture filter over the wash / no dark value, no cast shadow beyond one extra

@@ -97,7 +97,7 @@ CHARACTER DESIGN LANGUAGE: both are birds and stay birds for thirteen pages. An 
 CANVAS: 16:9 double-page spread. Under one eave and nowhere else: three thick rafters across a
   white wall, grey reed thatch above, the old mud nest in the corner of the middle rafter, the
   flaked kraft patch a hand's width beside it, dried corn hung at the eave end, a rain-cut trench
-  in the mud along the bottom edge. NO PEOPLE ON ANY PAGE. Bottom 18% quiet for a caption. No
+  in the mud along the bottom edge. NO PEOPLE ON ANY PAGE. No
   lettering, numerals, date stones or signboards anywhere.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,

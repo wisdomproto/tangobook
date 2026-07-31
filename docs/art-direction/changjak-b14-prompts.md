@@ -92,7 +92,7 @@ CHARACTER DESIGN LANGUAGE: both animals are FLAT-FILLED with no modelling. Eyes 
   cub does all the acting with its whole body. Grade: upright on two legs, front paws work as
   hands. Cub = plain dungarees. Carpenter = a plain apron, and antlers. No other clothes.
 
-CANVAS: 16:9 double-page spread, no ornamental border. Bottom 18% quiet for a caption. 🔴 NO
+CANVAS: 16:9 double-page spread, no ornamental border. 🔴 NO
   LETTERING OR NUMERALS ANYWHERE - no ruler markings, no scale, no tool stamps, no shop sign, no
   chalk marks on the wood.
 

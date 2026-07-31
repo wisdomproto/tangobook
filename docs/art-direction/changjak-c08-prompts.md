@@ -99,7 +99,7 @@ CHARACTER DESIGN LANGUAGE: flat bodies read from silhouette alone at thumbnail s
   its beak, stretches its neck and steps, and NEVER gestures with a wing. No clothes, no
   fingers, no shoes.
 
-CANVAS: 16:9 double-page spread, one scene, the bottom 18% left quiet for a caption. No text,
+CANVAS: 16:9 double-page spread, one scene, No text,
   letters, numerals or watermark anywhere - especially not on the lighthouse, the rope, a buoy
   or driftwood.
 

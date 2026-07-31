@@ -74,7 +74,7 @@ CANVAS: 16:9 double-page spread. A Cornish rocky shore tide pool - blue-grey roc
   barnacles and periwinkles, green weed, wet sand, a wide low mudflat and the distant sea. British
   Atlantic, cool northern light. Vast negative space first, subject second; the crab is about 1/7 of
   page height on the wide pages and comes forward only on the close pages. Diagonals lead the eye,
-  never dead symmetry. Bottom 18% quiet for a caption. No lettering or numerals anywhere.
+  never dead symmetry. No lettering or numerals anywhere.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,
   or a paper-texture filter over flat colour / no glassy mirror reflection, wet-plastic sheen on

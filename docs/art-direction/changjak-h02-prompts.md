@@ -108,7 +108,7 @@ CHARACTER DESIGN LANGUAGE: both animals are built from the same flat planes as t
   FOOLISH OR SCOLDED - his brow is level on every page.
 
 CANVAS: 16:9 double-page spread. One workshop, identical on all fourteen pages and fixed by the
-  ClockRoom sheet. Bottom 18% quiet for a caption. 🔴 The clock's dial is on the outside town wall
+  ClockRoom sheet. 🔴 The clock's dial is on the outside town wall
   and never enters the frame. No lettering, numerals, clock faces, calendars or signs.
 
 NOT: no digital slickness - airbrush, gradient, glow, 3D CG, cel-shading, photographic, or a

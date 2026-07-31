@@ -54,7 +54,7 @@ CHARACTER DESIGN LANGUAGE
 Badgers walking upright on two legs and using their forepaws as hands. The father wears a cloth apron and nothing else; the cub wears nothing at all. The two dark head stripes are drawn as dense hatched bands, never as flat black masks. Eye = one small brown circle, no white highlight. Bodies are built from hatching, never filled in.
 
 CANVAS
-16:9 double-page spread. Keep the lower 12% quiet for a caption. No letters, numbers, signs or symbols anywhere in this book - the salt jar, oil bottle, sacks and crates carry no writing.
+16:9 double-page spread. No letters, numbers, signs or symbols anywhere in this book - the salt jar, oil bottle, sacks and crates carry no writing.
 
 NOT (rendering only)
 - no opaque white: steam, foam and light are bare paper, never a laid white shape

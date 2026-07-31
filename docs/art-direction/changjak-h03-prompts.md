@@ -179,7 +179,7 @@ CHARACTER DESIGN LANGUAGE: 🔴 both figures are FLAT-FILLED and ALWAYS WORKING 
   acting organ. Grade: upright on two legs, front paws as hands, leather apron and baggy jumper.
   🔴 THE RABBIT'S FEET ARE BARE UNTIL THE LAST PAGE.
 
-CANVAS: 16:9 double-page spread, no ornamental border. Bottom 18% quiet for a caption. No
+CANVAS: 16:9 double-page spread, no ornamental border. No
   lettering or numerals.
 
 NOT (rendering only): no digital slickness - airbrush, gradient, glow, 3D CG, cel-shading,

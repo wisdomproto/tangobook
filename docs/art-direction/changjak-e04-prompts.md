@@ -53,7 +53,7 @@ CHARACTER DESIGN LANGUAGE
 Terriers who stand upright to reach and work, and drop to four legs to crouch and sniff. They use their forepaws as hands. They wear no clothing at all - socks are laundry, never worn by the elder. Each animal is 4 to 6 cut pieces: body, head, two ears, a muzzle patch, a tail. Eye = one punched #5E6266 disc, nothing inside it. Open mouth = one cut #5E6266 shape. There are no whiskers, no eyebrows, no fur edges - the outline of a body is a plain scissor cut, slightly wavering, never feathered or torn.
 
 CANVAS
-16:9 double-page spread. Keep the lower 12% quiet for a caption. No letters, numbers, labels or symbols anywhere - not on the machine, the basket or the stove.
+16:9 double-page spread. No letters, numbers, labels or symbols anywhere - not on the machine, the basket or the stove.
 
 NOT (rendering only)
 - 0 drawn marks: no pencil, ink or brush on any piece; every edge is cut with scissors

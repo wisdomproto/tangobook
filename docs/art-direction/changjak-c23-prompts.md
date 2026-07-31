@@ -94,7 +94,7 @@ CHARACTER DESIGN LANGUAGE: both animals are made exactly as the page is - a flat
   four legs and only pushes its neck out and draws it back - no gestures. No clothes, no props.
 
 CANVAS: 16:9 double-page spread. One dirt road climbing a Tuscan hill and nothing else on all
-  fourteen pages. Bottom 18% quiet for a caption. No lettering, numerals, signs or markers.
+  fourteen pages. No lettering, numerals, signs or markers.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,
   or a texture filter laid over the flat fills / never a third flat colour, never a blended or

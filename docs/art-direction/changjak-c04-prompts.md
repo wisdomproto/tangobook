@@ -101,7 +101,7 @@ CHARACTER DESIGN LANGUAGE: flat chalk shapes with a pencil edge, no fur renderin
   used as a hand, never standing upright on two legs. The hare reaches with a FORELEG, not an arm.
 
 CANVAS: 16:9 double-page spread. One place - one frozen puddle in a dry field, fixed by the IcePool
-  sheet, and the camera never leaves it. Bottom 18% quiet for a caption. No lettering, numerals or
+  sheet, and the camera never leaves it. No lettering, numerals or
   signs anywhere.
 
 NOT: 🔴 nothing blurred, hazy, misted or depth-of-field softened - frost is white chalk LAID ON

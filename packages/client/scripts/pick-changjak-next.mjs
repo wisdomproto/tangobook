@@ -161,7 +161,14 @@ for (let i = 0; i < N; i++) {
   for (const g of order) {
     const inGroup = pool.filter((c) => c.group === g).sort((a, b) => a.no - b.no);
     // ④ 무대·주인공 동물이 겹치지 않는 것 우선 → 무대만이라도 → 없으면 겹쳐도 받는다
-    const freshStage = (c) => !takenStages.has(c.stage.split(/[(（]/)[0].trim());
+    // 🔴 무대는 **부분 일치**로 본다. 완전 일치만 보다가 a42(「영국 해안 등대」)가 a09(「영국 해안
+    //    등대 꼭대기 등롱실 한 칸」)를 못 보고 통과했다 — 기획서 무대는 짧고 원고 frontmatter 는
+    //    쪽 배치까지 적어 늘어나므로 두 문자열이 같을 일이 애초에 드물다. 둘 다 고슴도치에 등대라
+    //    사실상 같은 책이 될 뻔했다.
+    const freshStage = (c) => {
+      const k = c.stage.split(/[(（]/)[0].trim();
+      return ![...takenStages].some((t) => t.includes(k) || k.includes(t));
+    };
     // 🔴 3권을 넘긴 동물만 피한다. 곰·토끼는 유럽 그림책의 기본 배역이라 0 으로 막으면 후보가 말라붙는다
     const freshAnimal = (c) => animalsIn(c.title + ' ' + c.summary).every((a) => (animalUse[a] || 0) < 3);
     got =

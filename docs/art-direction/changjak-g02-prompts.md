@@ -106,8 +106,7 @@ CHARACTER DESIGN LANGUAGE: animal faces, no clothes, no shoes. An eye is a drawn
   while their forepaws are doing something; a squirrel grips with its forepaws, which is how the
   torch is held. Big soft tails. No fingers.
 
-CANVAS: 16:9 double-page spread. One attic under a pitched roof, unchanged. Bottom 18% quiet for a
-  caption. No lettering or numerals anywhere.
+CANVAS: 16:9 double-page spread. One attic under a pitched roof, unchanged. No lettering or numerals anywhere.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,
   or a texture filter over flat tone / no bloom, halo or light bleeding out of the torch beam / 🔴

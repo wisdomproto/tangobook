@@ -101,7 +101,7 @@ CHARACTER DESIGN LANGUAGE: both animals are hand-laid flat colour with a printed
   with its NOSE. That difference tells them apart in silhouette.
 
 CANVAS: 16:9 double-page spread. One place - the foot of one oak, fixed by the TheBlock sheet, and
-  the camera never leaves the ground round it. Bottom 18% quiet for a caption. No lettering,
+  the camera never leaves the ground round it. No lettering,
   numerals or signs anywhere.
 
 NOT: no digital slickness - airbrush, gradient, glow, bloom, 3D CG, cel-shading, photographic, or a

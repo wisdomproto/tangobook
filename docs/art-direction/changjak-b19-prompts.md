@@ -53,7 +53,7 @@ CHARACTER DESIGN LANGUAGE
 Quadruped marmots. No clothing, no held objects, no props of any kind; they rear onto the hind legs only where a cut says so. A body is one flat #7A5236 silhouette in which ears, muzzle, haunch and tail read as shape alone. Eye = one flat oval of #2E3A40; nose = one smaller oval. No fur strokes, no whisker lines, no mouth line - an open mouth is a flat #2E3A40 shape cut into the head.
 
 CANVAS
-16:9 double-page spread. Keep the lower 12% quiet for a caption. No letters, numbers, signs or symbols anywhere in this book.
+16:9 double-page spread. No letters, numbers, signs or symbols anywhere in this book.
 
 NOT (rendering only)
 - 0 drawn lines: no ink, pencil, crayon or brush contour on anything

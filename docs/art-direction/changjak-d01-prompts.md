@@ -57,7 +57,7 @@ CHARACTER DESIGN LANGUAGE
 Quadruped animals. No clothing, no two-legged standing, no held objects - the goat carries a stone in its MOUTH. The one worn thing in the book is a brass bell on a cord at the goat's neck. Eye = one pressed oval, no white, no highlight. An open mouth is a pressed shape, not a line.
 
 CANVAS
-16:9 double-page spread. Keep the lower 12% quiet for a caption. No letters, numbers, signs or symbols anywhere in this book.
+16:9 double-page spread. No letters, numbers, signs or symbols anywhere in this book.
 
 NOT (rendering only)
 - 0 brush marks: nothing laid, floated or washed on the surface - every mark is transferred by pressing

@@ -68,8 +68,7 @@ grey shirt with sleeves rolled to the elbow. Faces stay true badger: two white
 stripes running nose to ear, black eye patches. 0 human hair, 0 shoes, 0
 accessories. This grade holds on all 14 spreads.
 
-CANVAS: 16:9 double-page spread, horizontal. Keep the bottom 12% quiet for a
-caption. NO letters, numbers, labels, shop signs or lettering of any kind - the
+CANVAS: 16:9 double-page spread, horizontal. NO letters, numbers, labels, shop signs or lettering of any kind - the
 moving box is identified by tape and cord only, the newspaper carries 0 type,
 and the rooftops outside carry 0 signage.
 

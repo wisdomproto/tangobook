@@ -100,7 +100,7 @@ CHARACTER DESIGN LANGUAGE: both animals are the same grey as the shore, separate
   front paws used as hands and wears only a striped apron and a headscarf.
 
 CANVAS: 16:9 double-page spread. One place - the cobbles in front of the hat shop, fixed by the
-  ShopFront sheet, and the camera never leaves it. Bottom 18% quiet for a caption. 🔴 No lettering,
+  ShopFront sheet, and the camera never leaves it. 🔴 No lettering,
   numerals, prices or signboards anywhere, above all on the shop.
 
 NOT: no digital slickness - airbrush, gradient, glow, bloom, 3D CG, cel-shading, photographic, or

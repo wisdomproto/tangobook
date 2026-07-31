@@ -98,7 +98,7 @@ CHARACTER DESIGN LANGUAGE: bodies read from silhouette alone at thumbnail size; 
 
 CANVAS: 16:9 double-page spread. The camera stays in the strip of water at the foot of the quay
   wall and only rises and sinks between just under and just over the surface; the quay top is never
-  more than a cut edge along the very top. Bottom 18% quiet for a caption. NO LETTERING OR NUMERALS
+  more than a cut edge along the very top. NO LETTERING OR NUMERALS
   ANYWHERE - no name on any bow. Every bow carries THE SAME painted eye motif.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,

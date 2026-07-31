@@ -103,8 +103,7 @@ CHARACTER DESIGN LANGUAGE: both animals are built from the same flat planes as t
   the lamb walks on four hooves and lifts a forehoof only to splash or point, and holds nothing;
   the cormorant spreads and folds its wings and turns its head and does nothing else.
 
-CANVAS: 16:9 double-page spread. One tidal causeway and the rock at its end, on all fourteen pages.
-  Bottom 18% quiet for a caption. No lettering, numerals, name plates, signs or markers anywhere,
+CANVAS: 16:9 double-page spread. One tidal causeway and the rock at its end, on all fourteen pages. No lettering, numerals, name plates, signs or markers anywhere,
   including on the lighthouse.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,

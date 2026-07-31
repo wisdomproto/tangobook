@@ -162,8 +162,7 @@ CHARACTER DESIGN LANGUAGE: the cat is a flat grey-taupe shape carrying exactly f
 CANVAS: 16:9 double-page spread. A white hill village in southern Spain, European - unornamented
   lime-washed walls, deep-blue doors, narrow stepped alleys, a small square with a low stone well.
   Alley perspective is made of flat shapes and thin lines, never tone; the shadow's long axis is
-  usually the main diagonal; the cat is about 1/6 of page height except on the two close pages.
-  Bottom 18% quiet for a caption. No lettering, numerals or signs anywhere.
+  usually the main diagonal; the cat is about 1/6 of page height except on the two close pages. No lettering, numerals or signs anywhere.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,
   or a texture filter over the flat colour / never a soft, feathered or faded edge anywhere /

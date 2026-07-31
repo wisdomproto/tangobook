@@ -106,7 +106,7 @@ CHARACTER DESIGN LANGUAGE: bodies are poured silhouettes, readable from shape al
   kingfisher is a bird: it perches, hops and turns its beak, and NEVER gestures with a wing. No
   clothes, no fingers, no shoes.
 
-CANVAS: 16:9 double-page spread, one scene, the bottom 18% left quiet for a caption. No text,
+CANVAS: 16:9 double-page spread, one scene, No text,
   letters, numerals or watermark anywhere - no signpost, mooring post or marked gear.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading,

@@ -96,8 +96,7 @@ CHARACTER DESIGN LANGUAGE: flat bodies read from silhouette alone at thumbnail s
   PAGE. The seal moves by pushing on belly and fore-flippers, never gestures and never leaves
   its pool. No clothes, no fingers, no shoes.
 
-CANVAS: 16:9 double-page spread, one scene, a long low horizon, the bottom 18% left quiet for a
-  caption. No text, letters, numerals or watermark anywhere in the image.
+CANVAS: 16:9 double-page spread, one scene, a long low horizon, the No text, letters, numerals or watermark anywhere in the image.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading,
   photographic, or a texture filter over flat colour / not a wet glossy mudflat with mirror

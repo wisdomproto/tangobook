@@ -53,7 +53,7 @@ CHARACTER DESIGN LANGUAGE
 Upright, child-shaped animals that sit and stand like people and use their forepaws as hands. Clothing: the goose wears one apron, the badger one buttoned vest with a chest pocket and small round glasses; the bear cub and the kitten wear nothing at all. Faces are built from soaked shapes: eye = one flat #6B5138 oval, nose = one smaller mark, open mouth = one flat #6B5138 shape. No fur strokes, no whisker lines, no eyebrows, no blush.
 
 CANVAS
-16:9 double-page spread. Keep the lower 12% quiet for a caption. No letters, numbers, prices, signs or symbols anywhere - not on the awning, the crates, the cup or the steps.
+16:9 double-page spread. No letters, numbers, prices, signs or symbols anywhere - not on the awning, the crates, the cup or the steps.
 
 NOT (rendering only)
 - no paint sitting on the surface anywhere except the cherry - opaque objects per page = exactly 1

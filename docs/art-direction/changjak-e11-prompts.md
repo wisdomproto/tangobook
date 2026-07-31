@@ -93,7 +93,7 @@ CHARACTER DESIGN LANGUAGE: both animals are made of the two things this book is 
 CANVAS: 16:9 double-page spread. One Irish stone byre and nothing else on all fourteen pages: one
   long wooden trough down the left wall, a thick post and low partition mid-floor, three back
   stalls, a split stable door at the right with only its top half open, one tin bucket on a
-  rafter. Positions never change. Bottom 18% quiet for a caption. NO LETTERING, NUMERALS OR
+  rafter. Positions never change. NO LETTERING, NUMERALS OR
   SIGNS ANYWHERE.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading,

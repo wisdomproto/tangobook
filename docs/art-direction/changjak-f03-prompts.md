@@ -93,8 +93,7 @@ CHARACTER DESIGN LANGUAGE: both foxes are one flat red shape with a cobalt conto
 CANVAS: 16:9 double-page spread. One Polish country kitchen and nothing else on all twelve pages:
   white tile stove and long bench LEFT, heavy honey table centre, counter and arched brick oven
   RIGHT with a banded shelf of dotted crockery above, a small back window, a broom and wooden
-  shoes by the door, a lidded glass jar in the corner. Positions never change.
-  Bottom 18% quiet for a caption. NO LETTERING, NUMERALS OR SIGNS.
+  shoes by the door, a lidded glass jar in the corner. Positions never change. NO LETTERING, NUMERALS OR SIGNS.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,
   or a paper-texture filter over flat colour / no light rays, beams, sparkle or lens bloom - the
