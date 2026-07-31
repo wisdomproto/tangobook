@@ -6,7 +6,6 @@ import { useBlogPost } from './api';
 import { BlogCards } from './BlogCards';
 import { useBlogLang } from './useBlogLang';
 import { PhonicsTryIt } from '@/features/phonics-learner/components/PhonicsTryIt';
-import { PhonicsStoryPeek } from '@/features/phonics-learner/components/PhonicsStoryPeek';
 
 /**
  * 파닉스 글에서 「직접 해보기」가 들어갈 자리 — 앞 N개 섹션 뒤.
@@ -159,9 +158,6 @@ export default function BlogPostPage() {
                       <BlogCards cards={post.cards.slice(0, TRY_IT_AFTER)} />
                       <PhonicsTryIt unitId={phonicsUnit} />
                       <BlogCards cards={post.cards.slice(TRY_IT_AFTER)} />
-                      {/* 동화는 **맨 끝** — 활동을 다 설명한 뒤에 「이게 다가 아니라 이야기도 있다」가
-                          와야 자랑이 된다. 앞에 두면 글의 본론(학습법)을 밀어낸다. */}
-                      <PhonicsStoryPeek unitId={phonicsUnit} />
                     </>
                   ) : (
                     <BlogCards cards={post.cards} />

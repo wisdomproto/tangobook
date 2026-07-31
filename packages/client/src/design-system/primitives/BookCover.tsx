@@ -20,10 +20,7 @@ const COVER_STALL_MS = 2500;
 // 키 규칙은 결정적(`thumbs/512/<원본 key>`)이라 URL 만으로 유도한다 → 서버·데이터 변경 없음.
 // 아직 썸네일이 없는 표지는 404 → onError 에서 원본으로 1회 폴백하므로 안전하다.
 // 생성 스크립트: packages/server/scripts/generate-cover-thumbs.mjs
-//
-// 🔴 표지 전용 규칙이 아니다 — R2 에 올라간 **어떤 큰 이미지든** 같은 키 규칙을 쓴다.
-//    그래서 export 한다(파닉스 블로그의 동화 미리보기도 4.4MB 원본을 188px 로 그리고 있었다).
-export function thumbUrl(src: string): string | null {
+function thumbUrl(src: string): string | null {
   try {
     const u = new URL(src);
     if (u.search || u.pathname.startsWith('/thumbs/')) return null; // 캐시버스트 중이거나 이미 썸네일
