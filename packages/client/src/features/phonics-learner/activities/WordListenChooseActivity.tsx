@@ -119,10 +119,12 @@ export function WordListenChooseActivity({
 }: Props) {
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
 
+  // 🔴 language 를 넘겨야 영어 단원에서 데운 캐시가 탭과 맞는다(안 넘기면 korean 으로 데워 헛돈다).
   usePhonicsTtsWarm(
     unitId,
     useMemo(() => items.map((w) => w.sound), [items]),
-    'word-listen'
+    'word-listen',
+    language
   );
 
   /**
