@@ -407,8 +407,11 @@ window.CJ_ANCHORS = fetch('/changjak-anchor-refs.json')
  * 버튼을 분리해 두면 순서가 눈에 보인다. 컷 버튼은 STYLE ANCHOR + 시트 지시 + 그 쪽 블록을 합성해 준다. */
 (function () {
   var ep = window.CJ_EPISODE, all = window.CJ_PROMPTS;
-  if (!ep || !all || !all[ep.id]) return;
-  var P = all[ep.id];
+  if (!ep) return;
+  // 🔴 프롬프트가 아직 없는 권도 **그림은 붙여넣을 수 있어야 한다.**
+  //    예전엔 여기서 통째로 빠져나가 붙여넣기 상자까지 같이 사라졌다(41권 중 31권이 그 상태였다).
+  //    붙여넣기는 프롬프트와 무관한 기능이다.
+  var P = (all || {})[ep.id];
   var meta = document.querySelector('.ep .meta');
   if (!meta) return;
 
@@ -509,6 +512,11 @@ window.CJ_ANCHORS = fetch('/changjak-anchor-refs.json')
   // 전체 복사와 쪽별 복사가 같은 문자열을 쓰게 한 곳에서 만든다.
   function composeCut(c) { return '--- ' + c.page + ' — ' + c.title + ' ---\n' + c.prompt; }
 
+  // 🔴 붙여넣은 그림을 담을 통 — 프롬프트 유무와 무관하게 쓰이므로 if 밖에 둔다.
+  var boxes = [];
+
+  // 프롬프트가 있는 권만 — 앵커·시트 버튼, 전체 프롬프트, 확정 시트 붙여넣기
+  if (P) {
   var bar = document.createElement('div');
   bar.className = 'pbar';
   bar.innerHTML =
@@ -561,7 +569,6 @@ window.CJ_ANCHORS = fetch('/changjak-anchor-refs.json')
   sheetRow.innerHTML = '<div class="sr-lab">🎭 확정 캐릭터 시트 <span>(@image 순서대로)</span></div>';
   var srBoxes = document.createElement('div');
   srBoxes.className = 'sr-boxes';
-  var boxes = [];
   P.sheets.forEach(function (_, i) {
     var b = pasteBox('sheet-' + (i + 1), '🖼️ @image' + (i + 1) + ' · ' + sheetName(_, i));
     boxes.push(b);
@@ -569,17 +576,27 @@ window.CJ_ANCHORS = fetch('/changjak-anchor-refs.json')
   });
   sheetRow.appendChild(srBoxes);
   bb.parentNode.insertBefore(sheetRow, bb.nextSibling);
+  }
 
-  // 쪽마다 — 컷 프롬프트 복사 + 그린 컷 붙여넣기
+  // 쪽마다 — 컷 프롬프트 복사(프롬프트 있을 때만) + 그린 컷 붙여넣기(언제나)
   var pgs = document.querySelectorAll('.ep .pg');
-  P.cuts.forEach(function (c, i) {
+  // 🔴 상자 개수는 프롬프트가 아니라 **쪽 수**가 정한다. 프롬프트가 없어도 쪽마다 하나씩 생긴다.
+  var cuts = P
+    ? P.cuts
+    : [].map.call(pgs, function (pg, i) {
+        var n = (pg.querySelector('.n') || {}).textContent || '';
+        return { page: (n.match(/p\d+/) || ['p' + (i + 1)])[0] };
+      });
+  cuts.forEach(function (c, i) {
     var pg = pgs[i];
     if (!pg) return;
-    var composed =
-      P.anchor + '\n\n' +
-      '@image1 = 위 스타일로 승인된 캐릭터 시트. 인물은 시트를 그대로 따른다.\n\n' +
-      composeCut(c);
-    (pg.querySelector('.sc') || pg).appendChild(mk('📋 ' + c.page + ' 컷 프롬프트 (앵커+시트 합성)', composed));
+    if (P) {
+      var composed =
+        P.anchor + '\n\n' +
+        '@image1 = 위 스타일로 승인된 캐릭터 시트. 인물은 시트를 그대로 따른다.\n\n' +
+        composeCut(c);
+      (pg.querySelector('.sc') || pg).appendChild(mk('📋 ' + c.page + ' 컷 프롬프트 (앵커+시트 합성)', composed));
+    }
     var b = pasteBox(c.page, '🖼️ ' + c.page + ' 그린 컷 붙여넣기');
     boxes.push(b);
     // 🔴 왼쪽 칸 맨 위에 꽂는다 — 없으면(옛 빌드 HTML) 예전처럼 쪽 맨 아래.
