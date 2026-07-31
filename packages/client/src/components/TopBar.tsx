@@ -44,10 +44,16 @@ const RESOURCES: ResourceItem[] = [
     desc: '15스프레드 대본 + 등장인물 8(가난/부자 상태별)·핵심단어 5 + 전체 프롬프트 복사(☰ 회차)',
   },
   {
-    href: '/jeonrae-style-bakeoff.html',
+    href: '/changjak-plan.html',
+    icon: '📖',
+    label: '탱고북 창작동화 1000 기획서',
+    desc: '단권 완결 · 4~6세 유럽풍 · 책마다 다른 그림체 · 주제군 8 × 엔진 8 × 무대 생성 시스템 + 120권 제목·요약',
+  },
+  {
+    href: '/changjak-styles.html',
     icon: '🎨',
-    label: '전래동화 · 그림체 베이크오프',
-    desc: '같은 P1 장면으로 4개 그림체 A/B (민화 팝·모던 K·디오라마·하이브리드)',
+    label: '창작동화 · 앵커 후보 시트',
+    desc: '최근 20년 수상 일러스트 99점 · 클러스터 10종 × 주제군 필터 + 카드별 STYLE ANCHOR 프롬프트 복사',
   },
   {
     href: '/hangeul-tree-plan.html',

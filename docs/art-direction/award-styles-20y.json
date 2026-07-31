@@ -1,0 +1,2490 @@
+[
+  {
+    "id": "gravett-wolves",
+    "award": "Kate Greenaway Medal 2005",
+    "year": 2005,
+    "artist": "Emily Gravett",
+    "work": "Wolves",
+    "origin": "UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/761206-L.jpg",
+    "cluster": "C1 연필·크레용 나이브",
+    "medium": "연필 + 옅은 수채 워시, 흰 종이 위 직접",
+    "palette": "흑연 + 옅은 갈 1~2색",
+    "finish": "동물만 마감, 배경은 아예 없음(종이 그대로)",
+    "character": "토끼 = 가는 윤곽선 + 점 눈. 유머가 디자인이 아니라 '모르고 있는 표정'에서 나온다",
+    "groups": [
+      "G",
+      "E"
+    ],
+    "why": "G 용기·두려움 + E 웃음 겸용. 무서운 것을 없애지 않고 같이 두는 우리 G 공식과 원작의 구조가 같다. 리스크=배경이 없어 12스프레드 내내 쓰면 단조롭다",
+    "styleSpec": {
+      "medium": "graphite pencil drawn straight onto white cartridge paper, with one thin watercolour wash laid over parts of the animal only; pencil texture stays visible through the wash",
+      "palette": "graphite grey plus one pale warm brown; the paper's own white is the third colour and covers most of the page",
+      "finish": "the animal is finished with line and wash; there is no background at all - bare paper runs to every edge and nothing is drawn in it",
+      "character": "animals built from a thin wobbling contour line and two solid dot eyes; the comedy comes from a face that does not know what is happening behind it, not from cuteness"
+    }
+  },
+  {
+    "id": "erlbruch-duck",
+    "award": "HCA Illustrator Award 2006",
+    "year": 2006,
+    "artist": "Wolf Erlbruch",
+    "work": "Duck, Death and the Tulip",
+    "origin": "DE",
+    "imageUrl": "https://covers.openlibrary.org/b/id/14811976-L.jpg",
+    "cluster": "C1 연필·크레용 나이브",
+    "medium": "연필·색연필 + 종이 콜라주 소량, 크림 바탕",
+    "palette": "크림 + 회 + 튤립 빨강 1점",
+    "finish": "인물만 마감, 배경은 통째로 빈 크림 종이",
+    "character": "길쭉하게 늘인 오리 + 점 눈. 우스꽝스러운 비율이 무거운 주제를 4~6세가 견디게 만든다",
+    "groups": [
+      "A",
+      "G"
+    ],
+    "why": "A 마음·감정에서 가장 다루기 어려운 것(그리움·상실)을 유아용으로 성립시킨 유럽 정본. 「할머니가 두고 간 웃음」 계열의 기준선",
+    "styleSpec": {
+      "medium": "pencil and coloured pencil on cream paper with a few small torn paper shapes glued in; the join edges of the pasted paper are left visible",
+      "palette": "cream paper, warm grey, and exactly one red object; nothing else on the page carries colour",
+      "finish": "the two figures are finished; the rest of the spread is untouched cream paper with no horizon, no floor and no props",
+      "character": "bodies stretched far longer than natural, tiny round heads, eyes as single dots; the absurd proportion is what lets a heavy subject stay bearable for a small child"
+    }
+  },
+  {
+    "id": "bauer-angel",
+    "award": "HCA Illustrator Award 2010",
+    "year": 2010,
+    "artist": "Jutta Bauer",
+    "work": "Grandpa's Angel",
+    "origin": "DE",
+    "imageUrl": "https://covers.openlibrary.org/b/id/516530-L.jpg",
+    "cluster": "C1 연필·크레용 나이브",
+    "medium": "가는 펜선 + 아주 옅은 수채",
+    "palette": "거의 무채 + 파랑 세로 띠 1",
+    "finish": "선 몇 개로 끝. 화면 90%가 백지",
+    "character": "막대 같은 몸 + 점 눈. 천사와 소년의 크기 대비로 이야기가 굴러간다",
+    "groups": [
+      "A",
+      "F",
+      "D"
+    ],
+    "why": "획을 극단적으로 아끼는 유럽 정본. 「기다리는 건 왜 이렇게 길까」처럼 시간이 주제인 권에 맞다. 리스크=연출이 약하면 그냥 허전해 보인다",
+    "styleSpec": {
+      "medium": "fine ink pen line with a very thin watercolour wash, brushed once and not gone over",
+      "palette": "near-neutral greys with one vertical blue band; no other colour appears",
+      "finish": "figures are described by a handful of lines and stop there; about ninety percent of the sheet is left blank",
+      "character": "stick-thin bodies with dot eyes; the story is carried by the size difference between a very tall figure and a small one standing beside it"
+    }
+  },
+  {
+    "id": "sis-wall",
+    "award": "HCA Illustrator Award 2012",
+    "year": 2012,
+    "artist": "Peter Sís",
+    "work": "The Wall: Growing Up Behind the Iron Curtain",
+    "origin": "CZ",
+    "imageUrl": "https://covers.openlibrary.org/b/id/7166513-L.jpg",
+    "cluster": "C1 연필·크레용 나이브",
+    "medium": "펜 크로스해칭 + 부분 채색",
+    "palette": "회 단색조 + 빨강 1점",
+    "finish": "해칭으로 채우되 색은 한 곳만",
+    "character": "작은 인물 + 거대 구조물. 체코 = 유럽 무대와 직결",
+    "groups": [
+      "G",
+      "D"
+    ],
+    "why": "G 용기·두려움의 '크고 무서운 것'을 색이 아니라 밀도로 표현. 리스크=해칭 밀도가 높아 4~6세엔 답답할 수 있어 밀도를 절반으로 낮춰야 한다",
+    "styleSpec": {
+      "medium": "dense pen cross-hatching over the whole surface, with colour brushed into one small area only",
+      "palette": "a grey monochrome built entirely from hatching, plus one red element",
+      "finish": "hatching fills the page evenly, but colour is finished in one place only, so the eye is pulled there",
+      "character": "a very small figure set against a very large structure; the person reads by scale, not by facial detail"
+    }
+  },
+  {
+    "id": "grill-shackleton",
+    "award": "Kate Greenaway Medal 2015",
+    "year": 2015,
+    "artist": "William Grill",
+    "work": "Shackleton's Journey",
+    "origin": "UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/12642704-L.jpg",
+    "cluster": "C1 연필·크레용 나이브",
+    "medium": "색연필만, 겹칠 없이",
+    "palette": "청·황토·회 3색축",
+    "finish": "작은 요소를 무수히 나열하되 각각은 몇 획",
+    "character": "인물이 5mm 크기 — 캐릭터가 아니라 '점의 무리'로 읽힌다",
+    "groups": [
+      "D",
+      "H",
+      "C"
+    ],
+    "why": "D 모험·여정의 지도·장비·여정 스프레드에 최적. 인물 표정 연기가 안 되므로 감정 주제군(A·G)엔 부적합",
+    "styleSpec": {
+      "medium": "coloured pencil only, laid in single passes with no blending and no outline",
+      "palette": "three colour axes - blue, ochre and grey - on white paper",
+      "finish": "hundreds of small items are arranged across the page, but each one is only a few pencil strokes; nothing is modelled",
+      "character": "figures are about five millimetres tall and read as a scatter of marks rather than as characters"
+    }
+  },
+  {
+    "id": "massa-gino",
+    "award": "WIA 2023 Category Winner",
+    "year": 2023,
+    "artist": "Simona Massa",
+    "work": "Gino",
+    "origin": "IT",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2023/02/simonamassa_gino_image1.jpg/original",
+    "cluster": "C1 연필·크레용 나이브",
+    "medium": "연필선 + 단색 면 1개",
+    "palette": "황토 1색 + 백지 70%",
+    "finish": "극단적 절제 — 개 한 마리를 윤곽선 몇 개 + 노란 외투 하나로",
+    "character": "동물 주인공. 얼굴은 점 눈 + 선 하나. 실루엣만으로 종(種)이 읽힌다",
+    "groups": [
+      "A",
+      "D",
+      "F"
+    ],
+    "why": "🔴 이 라인 주인공이 거의 동물이라는 조건과 정확히 일치. 「제일 작은 목소리」·「혼자 있고 싶은 날」처럼 한 마리가 화면을 지배하는 권에 최적. 리스크=너무 비면 4~6세가 지루할 수 있어 소품 1~2개는 남겨야",
+    "styleSpec": {
+      "medium": "pencil contour line with one flat single-colour shape filled beside it",
+      "palette": "one ochre plus bare white paper across roughly seventy percent of the page",
+      "finish": "extreme economy - an animal is a few contour lines plus one flat coat; nothing else on the spread is drawn",
+      "character": "an animal lead whose face is two dots and one line; the species is readable from silhouette alone"
+    }
+  },
+  {
+    "id": "frankel-antes",
+    "award": "BolognaRagazzi 2023 Fiction",
+    "year": 2023,
+    "artist": "Yael Frankel",
+    "work": "Todo lo que pasó antes de que llegaras",
+    "origin": "AR",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2023/premi/braw/VINCITORI/LIMONERO_BASSA.jpg",
+    "cluster": "C1 연필·크레용 나이브",
+    "medium": "연필·목탄의 아이 같은 선 + 단색 면",
+    "palette": "테라코타 1색 + 종이 흰색",
+    "finish": "선은 러프, 색면은 평칠 — 완성도 위계가 이미 들어가 있다",
+    "character": "작은 인물이 거대한 색면 앞에 섬 = 스케일 시",
+    "groups": [
+      "A",
+      "F",
+      "G"
+    ],
+    "why": "F 집·가족의 작은 사건에 최적(거대한 어른 vs 작은 아이). 심사평이 'minimalist pencil and charcoal child-like drawing'으로 명시",
+    "styleSpec": {
+      "medium": "pencil and charcoal lines drawn with a deliberately childlike unsteady hand, set against one flat block of colour",
+      "palette": "one terracotta plus the white of the paper",
+      "finish": "the line work is left rough and open while the colour block is filled flat - the two finishes sit side by side on purpose",
+      "character": "a small figure standing in front of an enormous flat colour field; scale contrast does the work"
+    }
+  },
+  {
+    "id": "garzon-museum",
+    "award": "WIA 2026 Category Winner",
+    "year": 2026,
+    "artist": "Carolina Garzon Blanco",
+    "work": "The World Inside Me",
+    "origin": "CO/UK",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2026/01/CarolinaGarzon_The-world-inside-me_image2.jpg/original",
+    "cluster": "C1 연필·크레용 나이브",
+    "medium": "과슈 + 색연필, 평면 채색",
+    "palette": "핑크·블루·옐로 3색 + 크림",
+    "finish": "평면 평칠, 색연필 자국을 지우지 않고 남김",
+    "character": "머리·몸이 색면 덩어리, 이목구비는 점과 선 몇 개. 군상 각자가 다른 자세",
+    "groups": [
+      "H",
+      "F",
+      "B"
+    ],
+    "why": "H 호기심·만들기(박물관·공방·시장)의 군상 장면에 그대로 맞는다. 3색 규율이 강제돼 있어 AI 렌더가 5색+로 새는 실패 모드를 막는다",
+    "styleSpec": {
+      "medium": "gouache laid flat with coloured pencil worked on top; the pencil strokes are left unblended and visible",
+      "palette": "exactly three colours - pink, blue and yellow - over cream",
+      "finish": "everything is flat with no shading; density sits in the crowd of figures while the ground stays plain",
+      "character": "heads and bodies are solid colour masses; features are a few dots and short lines; every figure in the crowd holds a different posture"
+    }
+  },
+  {
+    "id": "ray-yue-crowd",
+    "award": "WIA 2026 Category Winner",
+    "year": 2026,
+    "artist": "Ray Yue",
+    "work": "(어른들은 어디에나 있다 — 군중 속 아이)",
+    "origin": "CN/UK",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2026/01/IMG_4389.jpg/original",
+    "cluster": "C1 연필·크레용 나이브",
+    "medium": "색연필, 흰 종이 위 직접 드로잉",
+    "palette": "4색(적·청·황·녹) + 종이 흰색",
+    "finish": "군중 밀집인데 획이 성기고 종이가 다 비친다",
+    "character": "블록 같은 단순 몸체 + 점 눈. 얼굴에 파랑을 칠하는 대담함 — 개성이 렌더가 아니라 왜곡에서 나온다",
+    "groups": [
+      "A",
+      "D",
+      "E"
+    ],
+    "why": "군중 속 작은 주인공 = A 마음·감정의 기본 구도. 종이 흰색이 캡션 밴드와 상성 최고. 리스크=인물 수십 명이라 12스프레드 내내 이 밀도를 유지하면 제작비가 뛴다",
+    "styleSpec": {
+      "medium": "coloured pencil drawn directly on white paper, strokes spaced so the paper shows between them",
+      "palette": "four colours - red, blue, yellow, green - plus the white paper",
+      "finish": "a densely packed crowd that is nonetheless sparsely stroked, so paper shows through everywhere",
+      "character": "blocky simplified bodies with dot eyes; a face may be painted flat blue - the personality comes from distortion rather than from rendering"
+    }
+  },
+  {
+    "id": "rayner-harris",
+    "award": "Kate Greenaway Medal 2009",
+    "year": 2009,
+    "artist": "Catherine Rayner",
+    "work": "Harris Finds His Feet",
+    "origin": "UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/2913021-L.jpg",
+    "cluster": "C2 선 하나 캐릭터",
+    "medium": "잉크 선 + 수채 워시",
+    "palette": "갈·연두 2색축",
+    "finish": "동물만 마감, 배경은 색 한 겹",
+    "character": "산토끼 한 마리가 화면을 지배. 귀·발의 과장이 곧 캐릭터",
+    "groups": [
+      "C",
+      "G",
+      "A"
+    ],
+    "why": "C 자연·계절·동물의 단독 동물 주인공 권에 최적. 4~6세 정서 폭이 넓다(무섭지도 유치하지도 않다)",
+    "styleSpec": {
+      "medium": "brush-and-ink contour line with loose watercolour washed inside and slightly over it",
+      "palette": "two colour axes - warm brown and yellow-green - on white paper",
+      "finish": "only the animal is finished; the ground is one thin pass of colour with nothing drawn in it",
+      "character": "a single animal fills the frame; ears and feet are exaggerated well past natural proportion and that exaggeration is the character"
+    }
+  },
+  {
+    "id": "albertine-marta",
+    "award": "HCA Illustrator Award 2020",
+    "year": 2020,
+    "artist": "Albertine",
+    "work": "Marta and the Bicycle",
+    "origin": "CH",
+    "imageUrl": "https://covers.openlibrary.org/b/id/953431-L.jpg",
+    "cluster": "C2 선 하나 캐릭터",
+    "medium": "잉크 선 + 평면 색면",
+    "palette": "주황·청·흰 3색",
+    "finish": "선은 완성, 배경은 색면 하나",
+    "character": "길쭉하게 늘인 동물 몸 + 점 눈. 늘어난 실루엣 자체가 유머",
+    "groups": [
+      "E",
+      "C",
+      "D"
+    ],
+    "why": "🔴 스위스 원산 — 알프스 산마을 무대(A-1「화가 나면 털이 빨개져」·D-1「산 너머엔 뭐가 있어?」)와 문화 정합이 자동으로 성립. 동물 주인공 규칙과도 맞는다",
+    "styleSpec": {
+      "medium": "ink line drawn at speed over flat areas of colour; the line does not follow the colour edges exactly",
+      "palette": "three colours - orange, blue and white",
+      "finish": "the line drawing is finished; the background is a single flat colour field with nothing in it",
+      "character": "animal bodies stretched long and thin with dot eyes; the elongated silhouette itself is the joke"
+    }
+  },
+  {
+    "id": "metcalfe-crisps",
+    "award": "WIA 2024 Category Winner",
+    "year": 2024,
+    "artist": "Lizzy Metcalfe",
+    "work": "Mr Crisps",
+    "origin": "UK",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/02/Lizzymetcalfe_mrcrisps_image1-2.png/original",
+    "cluster": "C2 선 하나 캐릭터",
+    "medium": "잉크 낙서 선 + 색면 2개",
+    "palette": "티일 + 머스타드 2색",
+    "finish": "스케치 메모까지 남긴 러프함 — 의도된 미완성",
+    "character": "🔴 이 표본에서 캐릭터 매력이 가장 강한 축. 예쁘지 않고 '이 작가만 그리는 아저씨'. 수염·문신·줄무늬가 시그니처",
+    "groups": [
+      "E",
+      "F",
+      "H"
+    ],
+    "why": "E 웃음·말놀이의 1순위. '굵은 선 + 채도'라는 기준선을 실제로 구현한 수상작. 리스크=이 언어는 캐릭터 시트가 전부라, 시트가 평범하면 그림체도 같이 죽는다",
+    "styleSpec": {
+      "medium": "scribbled ink line with two flat colour areas dropped behind it; construction marks and notes are left on the page",
+      "palette": "two colours - teal and mustard",
+      "finish": "deliberately unfinished - sketch notes and searching lines stay visible instead of being cleaned up",
+      "character": "an adult male character with a moustache, tattoos and a striped shirt; he is not drawn to be pretty, and the specific ugly details are what make him memorable"
+    }
+  },
+  {
+    "id": "rutova-octopus",
+    "award": "BolognaRagazzi 2024 Fiction",
+    "year": 2024,
+    "artist": "Magdalena Rutová",
+    "work": "Já, chobotnice (Me, Octopus)",
+    "origin": "CZ",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/Me_Octopus.jpg",
+    "cluster": "C2 선 하나 캐릭터",
+    "medium": "평면 채색 + 굵은 윤곽",
+    "palette": "코럴·노랑·하늘 3색",
+    "finish": "평칠, 그라데이션 0",
+    "character": "흰자만 큰 동그란 눈 2개. 문어라는 어려운 형태를 실루엣 하나로 해결",
+    "groups": [
+      "C",
+      "H",
+      "E"
+    ],
+    "why": "체코 = 유럽 무대. 「고장 난 것들의 병원」처럼 생물·사물의 구조를 보여주는 H 권에 맞다",
+    "styleSpec": {
+      "medium": "flat opaque colour bounded by a thick even outline",
+      "palette": "three colours - coral, yellow and pale blue",
+      "finish": "flat fill throughout with zero gradient; the outline carries all the drawing",
+      "character": "large round eyes made of white discs with a small pupil; a difficult body shape is resolved into one clear silhouette"
+    }
+  },
+  {
+    "id": "rolfe-dyslexia",
+    "award": "WIA 2022 Category Winner",
+    "year": 2022,
+    "artist": "Kate Rolfe",
+    "work": "Navigating Dyslexia",
+    "origin": "UK",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/02/KateRolfe_NavigatingDyslexia_Image1.jpg/original",
+    "cluster": "C3 프린트-크래프트",
+    "medium": "활판(letterpress), 나무 활자 질감",
+    "palette": "블루 단색 + 볼 빨강 1점",
+    "finish": "활자 눌린 자국이 형태를 만든다",
+    "character": "안경 + 점 눈 소년. 단색인데 볼 빨강 하나로 살아남",
+    "groups": [
+      "A",
+      "E"
+    ],
+    "why": "단색조 + 악센트 1의 프린트 버전. A 마음·감정의 '부끄러움·주눅' 계열에 맞다",
+    "styleSpec": {
+      "medium": "real letterpress printing - wood type and blocks pressed into paper so the impression is dented into the sheet",
+      "palette": "one blue ink plus one small red spot",
+      "finish": "the pressed impression of the block is what makes the shape; nothing is drawn on top of it",
+      "character": "a child reduced to a printed ink mass with dot eyes and spectacles; one red cheek keeps a single-ink figure alive"
+    }
+  },
+  {
+    "id": "mintzi-nour",
+    "award": "WIA 2022 Highly Commended",
+    "year": 2022,
+    "artist": "Vali Mintzi",
+    "work": "Nour's Secret Library",
+    "origin": "RO/IL",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/01/ValiMintzi_Cover.jpg/original",
+    "cluster": "C3 프린트-크래프트",
+    "medium": "과슈 포스터풍 + 선묘",
+    "palette": "파랑 바탕 + 빨강 선 + 황금 사선 3색",
+    "finish": "선-위-색 순서가 눈에 보인다(인쇄 논리)",
+    "character": "인물은 색면 + 굵은 선. 정면 연극 구도",
+    "groups": [
+      "D",
+      "H"
+    ],
+    "why": "D 모험 + H 만들기. 3색 규율이 강해 팔레트가 새지 않는다",
+    "styleSpec": {
+      "medium": "poster-weight gouache laid flat with a drawn line placed on top, so line and colour clearly sit in separate layers",
+      "palette": "three inks - blue ground, red line, gold diagonal",
+      "finish": "the layering order is visible: flat colour first, line second; nothing is blended between them",
+      "character": "figures are flat colour masses bounded by a heavy line, staged frontally as if on a shallow stage"
+    }
+  },
+  {
+    "id": "rolfe-wiggling",
+    "award": "WIA 2024 Category Winner",
+    "year": 2024,
+    "artist": "Kate Rolfe",
+    "work": "Wiggling Words",
+    "origin": "UK",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/01/KateRolfe_WigglingWords_Image1.jpg/original",
+    "cluster": "C3 프린트-크래프트",
+    "medium": "활판 실물 인쇄",
+    "palette": "핑크 + 블루 정확히 2색",
+    "finish": "잉크 눌림·긁힘이 그대로 = 손 티가 공정에서 나온다",
+    "character": "인물은 잉크 덩어리 + 점 눈. 글자가 곧 배경",
+    "groups": [
+      "E"
+    ],
+    "why": "🔴 E 웃음·말놀이의 '소리내어 읽는 재미'를 시각으로 번역한 사례. 단 우리 규칙은 그림 안 글자 금지(다국어)라 글자를 형태로 쓰는 부분은 못 가져온다 — 잉크 물성만 가져올 것",
+    "styleSpec": {
+      "medium": "real letterpress; the ink sits unevenly and skips where the block did not take",
+      "palette": "exactly two inks - pink and blue - and where they overlap a third tone appears",
+      "finish": "press marks, skips and scratches are left in; the handmade evidence comes from the process, not from drawing",
+      "character": "figures are solid ink masses with dot eyes; large type is used as the background field"
+    }
+  },
+  {
+    "id": "davidson-clancy",
+    "award": "WIA 2025 Highly Commended",
+    "year": 2025,
+    "artist": "Marguerite Davidson",
+    "work": "Clancy and Roberta",
+    "origin": "AU/UK",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/01/ClancyandRoberta.jpg/original",
+    "cluster": "C3 프린트-크래프트",
+    "medium": "스크린프린트/리소 감성, 오버프린트",
+    "palette": "티일 바탕 + 주황 + 패턴 3~4잉크",
+    "finish": "평면 잉크판, 겹친 곳이 어두워지는 인쇄 논리",
+    "character": "고글처럼 큰 흰자 + 점 눈, 몸은 색 덩어리 하나",
+    "groups": [
+      "C",
+      "E",
+      "D"
+    ],
+    "why": "잉크 수가 공정 차원에서 제한되므로 팔레트 규율이 자동으로 지켜진다. C 자연·동물 + E 웃음 겸용",
+    "styleSpec": {
+      "medium": "screenprint or riso logic - three or four flat ink layers that darken where they overlap",
+      "palette": "teal ground plus orange plus a patterned layer, three to four inks total",
+      "finish": "flat printed planes only; the overlap darkening is the only shading that exists",
+      "character": "goggle-large white eye discs with dot pupils on a body that is one solid colour mass"
+    }
+  },
+  {
+    "id": "younesi-wisdom",
+    "award": "BolognaRagazzi 2025 Fiction",
+    "year": 2025,
+    "artist": "Majid Zakeri Younesi",
+    "work": "House of Wisdom",
+    "origin": "AE/IR",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/wisdom.jpg",
+    "cluster": "C3 프린트-크래프트",
+    "medium": "판화 + 사본(寫本) 콜라주",
+    "palette": "흑 + 적 + 크림 3색",
+    "finish": "인물·문양은 촘촘, 여백은 사본 프레임이 잡는다",
+    "character": "군상이 문양처럼 배치 — 개별 인물이 아니라 패턴",
+    "groups": [
+      "H",
+      "D"
+    ],
+    "why": "H 만들기·직업의 '작업장·서재' 권. 인쇄 물성 + 3색 규율. 리스크=비유럽 문양이 강해 유럽 무대엔 문양을 갈아야 한다",
+    "styleSpec": {
+      "medium": "printmaking marks combined with pasted fragments of old manuscript pages",
+      "palette": "three inks - black, red and cream",
+      "finish": "figures and ornament are worked densely; the empty areas are held by a manuscript-style frame rather than left blank",
+      "character": "a crowd arranged like ornament, read as pattern rather than as individual people"
+    }
+  },
+  {
+    "id": "rogaar-lucy",
+    "award": "BolognaRagazzi 2026 Fiction",
+    "year": 2026,
+    "artist": "Karst-Janneke Rogaar",
+    "work": "Lucy en Donker (Lucy and Dark)",
+    "origin": "NL",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_fiction_mention_1.jpg",
+    "cluster": "C3 프린트-크래프트",
+    "medium": "리노컷/스크래치보드 밤 풍경",
+    "palette": "검정 + 핑크 하늘 + 흰 달 3색",
+    "finish": "새김선이 형태를 만든다. 여백 대신 저정보 밤하늘이 눈을 쉬게 한다",
+    "character": "실루엣 인물 + 작은 흰 개. 어둠 속 흰 점이 시선을 끈다",
+    "groups": [
+      "G",
+      "B"
+    ],
+    "why": "🔴 네덜란드. 「혼자 자는 첫날 밤」·「침대 밑에 사는 것」 같은 G 밤 권의 1순위. 판화 물성이라 AI 에어브러시 실패 모드와 가장 멀다",
+    "styleSpec": {
+      "medium": "linocut or scratchboard - white marks cut out of a black field, so light is carved rather than painted",
+      "palette": "three - black, one pink sky, one white moon",
+      "finish": "the carved marks make the form; instead of white space the eye rests on a large low-information night field",
+      "character": "a silhouetted figure with a small white animal; the one white shape in the dark is where the eye goes"
+    }
+  },
+  {
+    "id": "gottwald-spinne",
+    "award": "BolognaRagazzi 2023 Fiction",
+    "year": 2023,
+    "artist": "Benjamin Gottwald",
+    "work": "Spinne spielt Klavier (Spider Plays Piano)",
+    "origin": "DE",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2023/premi/braw/VINCITORI/klavier_bassa.jpg",
+    "cluster": "C4 평면 형태",
+    "medium": "평면 채색 + 굵은 윤곽, 고채도",
+    "palette": "검정 바탕 + 노랑·핑크·하늘 + 컨페티",
+    "finish": "평면 평칠, 음영 0",
+    "character": "다리 여덟 개 거미가 점 눈 두 개로 연기. 몸은 털 뭉치 하나",
+    "groups": [
+      "E"
+    ],
+    "why": "🔴 E 웃음·말놀이 1순위 후보. '소리 그림책'이라 후렴·의성어 구조(누적·반복 엔진)와 형식이 맞물린다. 독일",
+    "styleSpec": {
+      "medium": "flat saturated colour bounded by a thick outline, no texture",
+      "palette": "black ground with yellow, pink and pale blue on top plus scattered confetti dots",
+      "finish": "completely flat, zero shading, no rendering of any kind",
+      "character": "an eight-legged animal acting with only two dot eyes; the body is a single hairy mass"
+    }
+  },
+  {
+    "id": "wang-thump",
+    "award": "BolognaRagazzi 2023 Fiction",
+    "year": 2023,
+    "artist": "Wang Zumin",
+    "work": "噔噔噔 (Thump! Thump! Thump!)",
+    "origin": "CN",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2023/premi/braw/VINCITORI/thump_bassa.jpg",
+    "cluster": "C4 평면 형태",
+    "medium": "두꺼운 물감 평칠 + 무늬",
+    "palette": "노랑 바탕 + 감청 + 빨강 3색",
+    "finish": "평칠하되 붓 결이 남는다",
+    "character": "수탉을 정면 반신으로 크게 — 무늬 옷이 캐릭터",
+    "groups": [
+      "E",
+      "C"
+    ],
+    "why": "E 웃음의 '크게 잡은 동물 하나'. 대담한 크롭이 4~6세 시선을 잡는다",
+    "styleSpec": {
+      "medium": "thick opaque paint laid flat, with brush direction still readable in the fill",
+      "palette": "three - yellow ground, deep indigo, red",
+      "finish": "flat fills, but the brush grain is left in rather than smoothed out",
+      "character": "an animal shown large and frontal from the chest up; its patterned clothing is what identifies it"
+    }
+  },
+  {
+    "id": "frankel-bosque",
+    "award": "BolognaRagazzi 2022 Fiction",
+    "year": 2022,
+    "artist": "Yael Frankel",
+    "work": "¿Qué tiene un bosque?",
+    "origin": "AR/CL",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2022/Premi/BRAW/winners/QUE_TIENE_UN_BOSQUE_Low.jpg",
+    "cluster": "C4 평면 형태",
+    "medium": "색연필 질감이 남은 평면 도형",
+    "palette": "뮤트 6색이나 전부 저채도로 통일",
+    "finish": "도형만, 배경은 크림 종이",
+    "character": "나무·동물을 쌓은 타원으로 — 형태 언어 실험",
+    "groups": [
+      "C",
+      "B"
+    ],
+    "why": "C 자연의 추상 접근. 🔴 표정이 없어 감정 권(A·G)엔 부적합",
+    "styleSpec": {
+      "medium": "flat geometric shapes filled with a coloured-pencil texture that is allowed to show",
+      "palette": "six muted colours held together by keeping every one of them low in saturation",
+      "finish": "only the shapes are drawn; the ground stays cream paper",
+      "character": "trees and animals are built by stacking ovals; recognition comes from the stack order, not from features"
+    }
+  },
+  {
+    "id": "au-blue-tomato",
+    "award": "WIA 2024 Highly Commended",
+    "year": 2024,
+    "artist": "Amber Au",
+    "work": "The Blue Tomato",
+    "origin": "HK/UK",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/01/AmberAu_thebluetomato_image-1.png/original",
+    "cluster": "C4 평면 형태",
+    "medium": "크레용 질감 평면",
+    "palette": "테라코타 + 파랑 정확히 2색",
+    "finish": "평면이되 크레용 결이 남는다",
+    "character": "토마토마다 점 눈 + 실선 입 — 사물에 얼굴을 붙이는 최소 문법",
+    "groups": [
+      "A",
+      "E"
+    ],
+    "why": "🔴 '반복 + 이례 하나' = 누적·반복 엔진의 시각적 등가물. E 웃음, A 다름·소외 양쪽에 쓰인다",
+    "styleSpec": {
+      "medium": "flat colour with a crayon grain left in the fill",
+      "palette": "exactly two colours - terracotta and blue",
+      "finish": "flat fills with the crayon texture visible; no background beyond the paper tone",
+      "character": "objects given a face with two dots and one line each - the minimum grammar for making a thing into a character"
+    }
+  },
+  {
+    "id": "moriconi-lua",
+    "award": "BolognaRagazzi 2024 Toddler",
+    "year": 2024,
+    "artist": "Renato Moriconi",
+    "work": "Dia de Lua (Moon Day)",
+    "origin": "BR",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/dia_de_lua.jpg",
+    "cluster": "C4 평면 형태",
+    "medium": "평면 채색, 도형 하나",
+    "palette": "하늘색 + 흰 + 검정 3색 (심사평이 'elegant three-colour palette'로 명시)",
+    "finish": "도형 하나로 한 페이지",
+    "character": "캐릭터 없음 — 달 자체가 주인공. 형태가 매 쪽 변신한다",
+    "groups": [
+      "B",
+      "C"
+    ],
+    "why": "🔴 B 상상·변신의 교과서. '평범한 것 하나가 규칙을 어긴다'는 B 주제군 정의와 구조가 동일. 2024 BRAW Toddler 위너",
+    "styleSpec": {
+      "medium": "flat opaque colour, one large shape per page",
+      "palette": "three - pale blue, white and black",
+      "finish": "one shape occupies the page; nothing else is drawn",
+      "character": null
+    }
+  },
+  {
+    "id": "matoso-desenha",
+    "award": "BolognaRagazzi 2024 Toddler",
+    "year": 2024,
+    "artist": "Madalena Matoso",
+    "work": "Desenha tudo o que quiseres",
+    "origin": "PT",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/desenha.jpg",
+    "cluster": "C4 평면 형태",
+    "medium": "2도 평면 인쇄",
+    "palette": "보라 + 흰 2색",
+    "finish": "도형과 점선만, 나머지는 백지",
+    "character": null,
+    "groups": [
+      "H",
+      "B"
+    ],
+    "why": "포르투갈. H 호기심·만들기의 '도구·과정' 스프레드에 맞다. 리스크=인물 감정 연기가 원천적으로 안 됨 → A·G엔 금지",
+    "styleSpec": {
+      "medium": "two-colour flat printing with hard edges",
+      "palette": "two - violet and white",
+      "finish": "only shapes and dotted guide lines are printed; everything else is blank paper waiting to be drawn on",
+      "character": null
+    }
+  },
+  {
+    "id": "karski-tutu",
+    "award": "BolognaRagazzi 2024 Toddler",
+    "year": 2024,
+    "artist": "Piotr Karski",
+    "work": "Złapię cię! Tutu i pojazdy",
+    "origin": "PL",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/i_will_catch_you.jpg",
+    "cluster": "C4 평면 형태",
+    "medium": "평면 채색 + 굵은 윤곽",
+    "palette": "황토 바탕 + 검정 + 핑크 3색",
+    "finish": "평면, 배경 없음",
+    "character": "검정 고양이 = 실루엣 + 흰 동그란 눈 2개. 극도로 단순하나 즉시 캐릭터",
+    "groups": [
+      "C",
+      "E"
+    ],
+    "why": "폴란드 — 동유럽 눈마을 무대 권과 정합. 저연령 쪽으로 기울어 있어 4~6세엔 배경 정보를 조금 얹어야 한다",
+    "styleSpec": {
+      "medium": "flat colour bounded by a thick outline",
+      "palette": "three - ochre ground, black, pink",
+      "finish": "flat, with no background drawn behind the figures",
+      "character": "a black animal reduced to a silhouette with two white eye discs; almost nothing is drawn and it still reads instantly"
+    }
+  },
+  {
+    "id": "almeras-josephine",
+    "award": "BolognaRagazzi 2024 Toddler",
+    "year": 2024,
+    "artist": "Chloé Alméras",
+    "work": "Joséphine",
+    "origin": "FR",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/josephine.jpg",
+    "cluster": "C4 평면 형태",
+    "medium": "과슈 평칠 + 화면 밖으로 잘리는 대담한 크롭",
+    "palette": "하늘색 + 오렌지 + 흰 3색",
+    "finish": "평면. 목 하나가 화면을 대각선으로 관통한다",
+    "character": "기린을 '점 두 개 + 검정 코'로. 극단적 크롭이 캐릭터 디자인의 일부",
+    "groups": [
+      "C",
+      "E"
+    ],
+    "why": "프랑스. C 자연·동물 + E 웃음. 크롭으로 스케일을 만드는 방식이라 12스프레드에서 리듬을 만들기 쉽다",
+    "styleSpec": {
+      "medium": "gouache laid flat, with the subject cropped hard so parts of it run off the page",
+      "palette": "three - pale blue, orange, white",
+      "finish": "flat throughout; a single long neck crosses the whole spread diagonally and nothing surrounds it",
+      "character": "a giraffe made of two dots and one black nose; the extreme crop is part of the character design, not just framing"
+    }
+  },
+  {
+    "id": "darme-coq",
+    "award": "BolognaRagazzi 2025 Toddler",
+    "year": 2025,
+    "artist": "Marie Darme-Rizzo",
+    "work": "Le coq polyglotte",
+    "origin": "FR",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/coq_polyglotte.jpg",
+    "cluster": "C4 평면 형태",
+    "medium": "컷아웃 도형 + 동심원 선 패턴",
+    "palette": "회청 바탕 + 적·감청·연두 4색",
+    "finish": "완전 평면, 음영 0",
+    "character": "🔴 수탉을 '반원 + 삼각 + 눈 하나'로 분해. 형태 언어만으로 동물이 읽히는 극단",
+    "groups": [
+      "E",
+      "C"
+    ],
+    "why": "2025 BRAW Toddler 위너. E 웃음(말놀이·소리)과 C 동물을 동시에 잡는다. 4~6세엔 상단 연령이라 디테일을 조금 올려야",
+    "styleSpec": {
+      "medium": "cut-out geometric shapes with concentric line patterns printed over them",
+      "palette": "four - grey-blue ground, red, deep blue, yellow-green",
+      "finish": "completely flat with zero shading; shapes butt against each other with no outline",
+      "character": "an animal built from a half-circle, a triangle and one eye; the shape language alone carries the species"
+    }
+  },
+  {
+    "id": "marais-tomber",
+    "award": "BolognaRagazzi 2026 Fiction",
+    "year": 2026,
+    "artist": "Frédéric Marais",
+    "work": "Tomber 8 fois, se relever 9",
+    "origin": "FR",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_fiction_mention_2.jpg",
+    "cluster": "C4 평면 형태",
+    "medium": "평면 색면 + 실루엣 컷아웃",
+    "palette": "하늘 + 검정 + 살구 3색",
+    "finish": "평면, 원근은 선으로만",
+    "character": "인물은 검정 실루엣 하나. 크기로만 존재를 말한다",
+    "groups": [
+      "D",
+      "G"
+    ],
+    "why": "프랑스. D 모험·여정의 '길·다리·철교' 스프레드. 스케일 시(작은 인물 vs 거대 구조)가 그대로 들어 있다",
+    "styleSpec": {
+      "medium": "flat colour fields with the figure cut out as a solid silhouette",
+      "palette": "three - sky blue, black, apricot",
+      "finish": "flat; depth is indicated by drawn lines only, never by shading",
+      "character": "the figure is a single black silhouette; its size in the frame is the only thing that states its situation"
+    }
+  },
+  {
+    "id": "virardi-instant",
+    "award": "BolognaRagazzi 2026 Toddler",
+    "year": 2026,
+    "artist": "Liuna Virardi",
+    "work": "Un instant (A Moment)",
+    "origin": "FR",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/BRAW_toddler_mention_2.jpg",
+    "cluster": "C4 평면 형태",
+    "medium": "기하 색면 컷아웃",
+    "palette": "하늘·자주·노랑·초록·핑크 5색이지만 전부 평면 잉크라 통제됨",
+    "finish": "평면, 윤곽선 0",
+    "character": "사람을 사각·반원·삼각으로만. 표정은 없고 자세로만 읽힌다",
+    "groups": [
+      "F",
+      "A"
+    ],
+    "why": "프랑스. F 집·가족의 '가족 구성' 장면에 맞다. 🔴 표정이 없어 감정 서사(A)엔 반쪽 — 자세·거리로만 감정을 쓸 각오가 필요",
+    "styleSpec": {
+      "medium": "flat geometric colour shapes with no outline anywhere",
+      "palette": "five flat ink colours; they stay controlled because none of them is modelled or blended",
+      "finish": "flat shapes only, no line, no texture, no ground",
+      "character": "people made only of squares, half-circles and triangles; there is no face, so posture must carry everything"
+    }
+  },
+  {
+    "id": "panicha-interior",
+    "award": "WIA 2023 Category Winner",
+    "year": 2023,
+    "artist": "Beya Panicha",
+    "work": "(실내 · 개가 있는 오후)",
+    "origin": "TH/UK",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2023/02/Overall.jpg/original",
+    "cluster": "C4 평면 형태",
+    "medium": "평면 채색 + 하프톤 점",
+    "palette": "녹·하늘·핑크 + 주황 1점",
+    "finish": "평면, 원근은 색면 겹침으로만",
+    "character": "사람 없이 사물·개 하나로 장면을 세운다",
+    "groups": [
+      "F",
+      "H"
+    ],
+    "why": "F 집·가족의 실내 스프레드. 사물 배치만으로 '누가 방금 여기 있었다'를 말하는 문법",
+    "styleSpec": {
+      "medium": "flat colour with a halftone dot layer over parts of it",
+      "palette": "green, pale blue and pink with one orange spot",
+      "finish": "flat; depth is made by overlapping colour planes rather than by perspective drawing",
+      "character": "no people - one animal and a few objects hold the whole scene"
+    }
+  },
+  {
+    "id": "grey-dishspoon",
+    "award": "Kate Greenaway Medal 2007",
+    "year": 2007,
+    "artist": "Mini Grey",
+    "work": "The Adventures of the Dish and the Spoon",
+    "origin": "UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/234249-L.jpg",
+    "cluster": "C5 장식 민속·보태니컬",
+    "medium": "혼합매체 + 빈티지 인쇄물 콜라주",
+    "palette": "적·금·청 + 크림",
+    "finish": "장식 프레임 밀도가 높고 안쪽은 평칠",
+    "character": "사물(접시·숟가락)에 팔다리와 눈을 붙임 — 사물 의인화 문법",
+    "groups": [
+      "E",
+      "H",
+      "B"
+    ],
+    "why": "🔴 「말대꾸하는 계단」·「자라나는 의자」처럼 사물이 주인공인 권의 기준선. 영국",
+    "styleSpec": {
+      "medium": "drawing combined with pasted fragments of old printed ephemera - tickets, labels, ruled paper",
+      "palette": "red, gold and blue over cream",
+      "finish": "the decorative frame and props are worked densely while the shapes inside them are filled flat",
+      "character": "household objects given arms, legs and eyes; the object's real outline stays intact and is not restyled"
+    }
+  },
+  {
+    "id": "berner-town",
+    "award": "HCA Illustrator Award 2016",
+    "year": 2016,
+    "artist": "Rotraut Susanne Berner",
+    "work": "In the Town All Year Round",
+    "origin": "DE",
+    "imageUrl": "https://covers.openlibrary.org/b/id/7257546-L.jpg",
+    "cluster": "C5 장식 민속·보태니컬",
+    "medium": "선 + 평면 채색, 빔멜부흐(찾아보기 그림)",
+    "palette": "다색이나 채도를 낮춰 톤을 통일",
+    "finish": "전면 균일 고밀도 — 🔴 '덜 그리기' 원칙의 반례",
+    "character": "인물 수십 명이 각자 다른 이야기를 살고 있다",
+    "groups": [
+      "H",
+      "F"
+    ],
+    "why": "독일. 유럽 마을 전경(광장·시장)의 정본. 리스크=고밀도는 수상 지형에서 천장이 낮고 제작비도 크다 → 12쪽 중 1~2쪽만 이 밀도로 쓰는 '전경 쪽' 용도로 한정",
+    "styleSpec": {
+      "medium": "line drawing with flat colour fill, arranged as a search-and-find panorama",
+      "palette": "many colours held together by keeping every one of them low in saturation",
+      "finish": "uniformly dense across the whole spread with no quiet area - use this at most once or twice in a book",
+      "character": "dozens of small figures, each mid-way through a different private action"
+    }
+  },
+  {
+    "id": "lejonc-fechamos",
+    "award": "BolognaRagazzi 2022 Fiction",
+    "year": 2022,
+    "artist": "Régis Lejonc",
+    "work": "Fechamos",
+    "origin": "FR",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2022/Premi/BRAW/winners/FECHAMOS_Low.jpg",
+    "cluster": "C5 장식 민속·보태니컬",
+    "medium": "평면 채색 + 장식 프레임",
+    "palette": "녹·황·적·청 4색 + 크림",
+    "finish": "프레임과 소품은 밀도 높게, 인물은 평칠",
+    "character": "정면 무대 구도. 인물이 '배역'으로 보이게 서 있다",
+    "groups": [
+      "H",
+      "D"
+    ],
+    "why": "프랑스. H 직업·마을의 일(극장·상점) 권에 맞다. 프로시니엄 구도라 매 쪽이 무대처럼 읽힌다",
+    "styleSpec": {
+      "medium": "flat opaque colour inside a drawn decorative frame",
+      "palette": "four - green, yellow, red, blue - over cream",
+      "finish": "frames and props are worked in detail while the figures inside stay flat-filled",
+      "character": "figures placed frontally as if posed on a stage, so each reads as a role rather than as a passer-by"
+    }
+  },
+  {
+    "id": "davis-guitar",
+    "award": "WIA 2025 Highly Commended",
+    "year": 2025,
+    "artist": "Ryan Davis",
+    "work": "Joan and the Devil",
+    "origin": "UK",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/02/ryan-davis_joan-and-the-devil_image1.jpg/original",
+    "cluster": "C5 장식 민속·보태니컬",
+    "medium": "목판/리노 느낌 평면 + 덩굴 보더",
+    "palette": "검정 바탕 + 녹·핑크·크림 4색",
+    "finish": "보더는 촘촘, 인물은 평칠",
+    "character": "정면 민속화 구도. 인물이 상징처럼 배치된다",
+    "groups": [
+      "H",
+      "C"
+    ],
+    "why": "H 만들기·공방 권. 좌측 텍스트 / 우측 판화라는 페이지 구조 자체가 12스프레드 리듬을 만든다",
+    "styleSpec": {
+      "medium": "flat colour with a cut-block look, enclosed by a drawn vine border",
+      "palette": "four - black ground, green, pink, cream",
+      "finish": "the border is dense; the figures inside are flat with no modelling",
+      "character": "frontal folk-art staging; the figure stands like a symbol rather than acting"
+    }
+  },
+  {
+    "id": "gamon-boucle",
+    "award": "BolognaRagazzi 2025 Fiction",
+    "year": 2025,
+    "artist": "Caroline Gamon",
+    "work": "Boucle d'or en chemin (Let's Go, Goldilocks!)",
+    "origin": "FR",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/Boucle_dor_en_chemin.jpg",
+    "cluster": "C5 장식 민속·보태니컬",
+    "medium": "판화풍 겹친 색면 + 스텐실 질감",
+    "palette": "녹 계열 3단 + 노랑·빨강 악센트",
+    "finish": "식물은 밀도 높게, 인물은 점만 하게",
+    "character": "인물이 손톱만 하다 — 숲이 주인공, 아이는 빨강 점 1개",
+    "groups": [
+      "C",
+      "D",
+      "B"
+    ],
+    "why": "🔴 프랑스 + 옛이야기 비틀기(골디락스) = 우리 축2 엔진과 직결. 「북유럽 숲」·「독일 검은숲」 무대 권의 기준선. 스케일 시가 서사와 맞물린다",
+    "styleSpec": {
+      "medium": "overlapping printed colour planes with a stencil grain in the fill",
+      "palette": "three steps of green plus yellow and red accents",
+      "finish": "the plants are densely built while the figure is left tiny and barely drawn",
+      "character": "the human is the size of a thumbnail; the forest is the subject and the child is one red mark inside it"
+    }
+  },
+  {
+    "id": "volk-grimm",
+    "award": "BolognaRagazzi 2026 Special (Fables & Fairytales)",
+    "year": 2026,
+    "artist": "Julie Völk",
+    "work": "Zur Zeit, wo das Wünschen noch geholfen hat (Grimm)",
+    "origin": "DE/AT",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_cat_speciale_menzione_2.jpg",
+    "cluster": "C5 장식 민속·보태니컬",
+    "medium": "크림 종이 + 단색 선묘 모티프 + 주인공만 부분 채색",
+    "palette": "크림 + 빨강 단색 선 + 인물만 다색",
+    "finish": "🔴 완성도 위계가 명확 — 주인공만 채색, 주변 모티프는 빨강 선묘만",
+    "character": "타원 액자 안 인물 하나 + 주변에 동물·사물 아이콘이 흩어짐",
+    "groups": [
+      "B",
+      "D",
+      "A"
+    ],
+    "why": "🔴 이 표본에서 우리 라인과 소재가 가장 가까운 항목(그림 형제, 2026 BRAW 특별부문 Fables & Fairytales). '크림 종이 + 한 색 선묘 + 주인공만 채색'은 전래동화 점눈이와도 안 겹치는 별개 문법",
+    "styleSpec": {
+      "medium": "cream paper with single-colour outline motifs drawn on it, and only the lead figure carrying full colour",
+      "palette": "cream, one red drawing colour, and full colour on the protagonist alone",
+      "finish": "an explicit hierarchy - the protagonist is finished in colour, the surrounding motifs are red outline only, the rest is bare paper",
+      "character": "one figure inside an oval frame with small animal and object icons scattered around it in outline"
+    }
+  },
+  {
+    "id": "morris-lostwords",
+    "award": "Kate Greenaway Medal 2019",
+    "year": 2019,
+    "artist": "Jackie Morris",
+    "work": "The Lost Words",
+    "origin": "UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/10452126-L.jpg",
+    "cluster": "C5 장식 민속·보태니컬",
+    "medium": "수채 + 금박",
+    "palette": "크림 + 금 + 새의 자연색",
+    "finish": "새는 정밀, 배경은 통째 크림",
+    "character": "동물 도감형 — 캐릭터가 아니라 표본",
+    "groups": [
+      "C"
+    ],
+    "why": "C 자연의 '도감처럼 아름답게'. 🔴 자연관찰 라인과 톤이 겹칠 위험 + 서사가 없는 쪽으로 흐르기 쉬움 → 후순위",
+    "styleSpec": {
+      "medium": "watercolour with applied gold leaf",
+      "palette": "cream ground, gold, and the natural colours of the animal",
+      "finish": "the animal is finished in detail; the entire rest of the page is untouched cream",
+      "character": "the animal is drawn as a specimen, not as a character - no face acting"
+    }
+  },
+  {
+    "id": "ilustrajo-flooded",
+    "award": "WIA 2020 Overall Winner",
+    "year": 2020,
+    "artist": "Mariajo Ilustrajo",
+    "work": "Flooded",
+    "origin": "ES/UK",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2020/02/mariajoilustrajo_flooded_image1.png/original",
+    "cluster": "C6 단색조 + 악센트 1",
+    "medium": "잉크 붓",
+    "palette": "거의 흑백 + 겨자 1점",
+    "finish": "대각선 구성, 종이 그대로가 절반",
+    "character": "동물 군상이 각자 태연 — 유머가 무표정에서 나온다",
+    "groups": [
+      "A",
+      "G",
+      "B"
+    ],
+    "why": "WIA 2020 전체 위너. '모두가 태연한데 상황만 이상하다'는 E·B 엔진과 궁합. 색을 거의 안 씀으로써 한 점이 폭발한다",
+    "styleSpec": {
+      "medium": "brushed ink, the brush allowed to run dry at the edges",
+      "palette": "near black and white with exactly one mustard element",
+      "finish": "diagonal composition with half the surface left as bare paper",
+      "character": "a crowd of animals all behaving as if nothing is wrong; the humour comes from unbothered faces"
+    }
+  },
+  {
+    "id": "bouvier-spring",
+    "award": "WIA 2022 Highly Commended",
+    "year": 2022,
+    "artist": "Carole Bouvier",
+    "work": "On A Spring Day",
+    "origin": "FR",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/02/CaroleBouvier_OnASpringDay_image1.jpg/original",
+    "cluster": "C6 단색조 + 악센트 1",
+    "medium": "석판 크레용 그레인",
+    "palette": "노랑-주황 단색조 + 흰 시트 + 빨강 셔츠 1점",
+    "finish": "전면 단색조, 인물만 색이 다르다",
+    "character": "뒷모습 인물 하나 — 얼굴 없이 감정을 낸다",
+    "groups": [
+      "A",
+      "C",
+      "F"
+    ],
+    "why": "프랑스. 따뜻한 단색조라 A 감정 권에서 '어둡지 않은 절제'가 필요할 때의 답",
+    "styleSpec": {
+      "medium": "lithographic crayon on toothed paper so the grain breaks every stroke",
+      "palette": "a yellow-to-orange monochrome plus a white sheet plus one red garment",
+      "finish": "the whole page is one colour family; only the figure carries a different hue",
+      "character": "one figure seen from behind - no face is shown and the emotion is carried by posture"
+    }
+  },
+  {
+    "id": "klassen-hat",
+    "award": "Kate Greenaway Medal 2014",
+    "year": 2014,
+    "artist": "Jon Klassen",
+    "work": "This Is Not My Hat",
+    "origin": "CA/UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/10207424-L.jpg",
+    "cluster": "C6 단색조 + 악센트 1",
+    "medium": "아크릴·잉크 + 종이 질감",
+    "palette": "검정 + 물고기 1점",
+    "finish": "배경은 통째 검정, 대상만 마감",
+    "character": "🔴 점 눈 하나로 시선·거짓말·긴장을 전부 연기 — '점 눈으로 연기시키기'의 정본",
+    "groups": [
+      "E",
+      "G"
+    ],
+    "why": "E 웃음(반전 개그) + G 겸용. 🔴 라인 충돌 주의 — 전래동화 점눈이와 캐릭터 언어가 겹친다. 창작동화에선 물성(검정 바탕·종이 결)만 가져오고 얼굴 문법은 다르게 갈 것",
+    "styleSpec": {
+      "medium": "acrylic and ink on visibly toothed paper; edges come from the brush running dry rather than from a drawn line",
+      "palette": "a near-black ground over the whole page with one small pale subject inside it",
+      "finish": "the subject is finished; the ground is unbroken flat black with nothing drawn in it",
+      "character": "eyes are single dark dots whose position is shifted a fraction to one side, so a change of gaze carries the whole performance; the body is one soft mass plus ears"
+    }
+  },
+  {
+    "id": "erlbruch-bigq",
+    "award": "ALMA 2017",
+    "year": 2017,
+    "artist": "Wolf Erlbruch",
+    "work": "The Big Question",
+    "origin": "DE",
+    "imageUrl": "https://covers.openlibrary.org/b/id/961729-L.jpg",
+    "cluster": "C6 단색조 + 악센트 1",
+    "medium": "크림 종이 + 색면 하나 + 패턴 인물",
+    "palette": "크림 + 청록 아크 1 + 인물 체크무늬",
+    "finish": "색면 하나가 화면 절반, 나머지는 종이",
+    "character": "체크무늬 옷 + 왕관 = 소품 두 개로 캐릭터 성립",
+    "groups": [
+      "A",
+      "B"
+    ],
+    "why": "A 마음·감정의 추상 질문(「미안해는 어디 갔을까」) 계열. 종이 자체를 공간으로 쓰는 문법",
+    "styleSpec": {
+      "medium": "cream paper with one large flat colour field and a patterned figure placed against it",
+      "palette": "cream, one teal arc, and a checked pattern on the figure",
+      "finish": "one colour field takes half the page; the remainder is bare paper",
+      "character": "a figure defined by two props - a checked garment and a crown - rather than by facial detail"
+    }
+  },
+  {
+    "id": "shih-taichi",
+    "award": "WIA 2025 Category Winner",
+    "year": 2025,
+    "artist": "Ping-An Shih",
+    "work": "Tai Chi",
+    "origin": "TW/UK",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/12/Ping-An-Shih_Tai-Chi_image1.jpg/original",
+    "cluster": "C6 단색조 + 악센트 1",
+    "medium": "붓 + 과슈",
+    "palette": "하늘색 + 노랑 2색",
+    "finish": "화면 90%가 빈 하늘, 붓으로 그린 동심원",
+    "character": "손톱만 한 인물 하나. 몸짓만으로 캐릭터",
+    "groups": [
+      "A",
+      "C"
+    ],
+    "why": "🔴 절제의 극한. A 마음·감정에서 '조용한 감정'(기다림·혼자 있고 싶음) 권에 최적. 리스크=4~6세엔 너무 비어 보일 수 있어 소품·동물 1개는 남길 것",
+    "styleSpec": {
+      "medium": "brush and gouache, concentric rings drawn in one continuous brush pass",
+      "palette": "two - pale sky blue and yellow",
+      "finish": "ninety percent of the page is empty sky with nothing drawn in it",
+      "character": "one figure the size of a thumbnail; the pose alone carries the character"
+    }
+  },
+  {
+    "id": "watanabe-kintsugi",
+    "award": "BolognaRagazzi 2024 Fiction",
+    "year": 2024,
+    "artist": "Issa Watanabe",
+    "work": "Kintsugi",
+    "origin": "ES/PE",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/Kintsugi.jpg",
+    "cluster": "C6 단색조 + 악센트 1",
+    "medium": "검정 바탕 위 흑연·백색 과슈",
+    "palette": "검정 + 회백 + 악센트 1점",
+    "finish": "생물은 정밀, 배경은 통째로 검정",
+    "character": "동물이 사실적이면서도 눈만 만화적. 어둠이 곧 무대",
+    "groups": [
+      "G",
+      "B",
+      "C"
+    ],
+    "why": "🔴 G 용기·두려움의 '어둠' 권에 정면으로 맞다(「불 끄면 커지는 것들」·「동굴 안쪽」). 검정 바탕은 릴스 썸네일 대비도 최강",
+    "styleSpec": {
+      "medium": "graphite and white gouache worked on a black ground",
+      "palette": "black, grey-white, and one accent",
+      "finish": "the creatures are finished in detail; the ground is unbroken black",
+      "character": "animals drawn with anatomical accuracy but given cartoon eyes; the darkness itself functions as the stage"
+    }
+  },
+  {
+    "id": "lee-moving",
+    "award": "BolognaRagazzi 2023 Fiction",
+    "year": 2023,
+    "artist": "Ji Yeon Lee",
+    "work": "이사가 (Moving Away)",
+    "origin": "KR",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2023/premi/braw/VINCITORI/moving_bassa_croppata.jpg",
+    "cluster": "C6 단색조 + 악센트 1",
+    "medium": "세필 + 백지",
+    "palette": "흰 종이 + 검정 개미 + 주황 1점",
+    "finish": "화면 98%가 백지, 개미 몇 마리",
+    "character": "개미 = 점. 크기 대비가 전부",
+    "groups": [
+      "B",
+      "F"
+    ],
+    "why": "F 이사·집 권. 여백 극단의 표본. 리스크=4~6세 12스프레드를 이 밀도로 끌면 못 버틴다 — 한두 쪽만",
+    "styleSpec": {
+      "medium": "very fine brush on bare white paper",
+      "palette": "white paper, black insects, one orange element",
+      "finish": "about ninety-eight percent of the page is untouched; only a few tiny creatures are drawn",
+      "character": "the creatures are dots; the entire meaning comes from the size difference"
+    }
+  },
+  {
+    "id": "lee-wave",
+    "award": "ALMA 2022",
+    "year": 2022,
+    "artist": "Suzy Lee",
+    "work": "Wave",
+    "origin": "KR",
+    "imageUrl": "https://covers.openlibrary.org/b/id/2647280-L.jpg",
+    "cluster": "C6 단색조 + 악센트 1",
+    "medium": "목탄 + 아크릴 파랑",
+    "palette": "목탄 회 + 파랑 1색",
+    "finish": "파도는 붓 몇 번, 인물은 선만",
+    "character": "아이 하나 + 갈매기. 몸짓만으로 전 감정",
+    "groups": [
+      "C",
+      "G"
+    ],
+    "why": "C 자연·계절의 '바다·파도' 권. 비유럽이나 문법이 무대 중립이라 이식 가능",
+    "styleSpec": {
+      "medium": "charcoal for the figure and one blue acrylic for the water, kept as separate materials",
+      "palette": "charcoal grey plus one blue",
+      "finish": "the wave is a few brush passes; the figure is line only; nothing else exists",
+      "character": "one child and one bird; all emotion is carried by body movement, never by the face"
+    }
+  },
+  {
+    "id": "redniss-heatwave",
+    "award": "BolognaRagazzi 2025 Fiction",
+    "year": 2025,
+    "artist": "Lauren Redniss",
+    "work": "Heatwave",
+    "origin": "US",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/heatwave.jpg",
+    "cluster": "C6 단색조 + 악센트 1",
+    "medium": "선묘 + 단색 판",
+    "palette": "빨강 1색 + 흰 선",
+    "finish": "전면 빨강, 형태는 선으로만",
+    "character": "인물이 배경과 같은 톤이라 실루엣으로만 읽힌다",
+    "groups": [
+      "A",
+      "C"
+    ],
+    "why": "C 자연·계절의 '더위'를 색 하나로. 미국 원작이라 유럽 우선순위에선 후순위이나 단색 규율 표본으로 유용",
+    "styleSpec": {
+      "medium": "white line scratched or reversed out of a single flat colour plate",
+      "palette": "one red plus the white of the line",
+      "finish": "the whole surface is red; form exists only where the line cuts through it",
+      "character": "the figure is the same tone as the ground and reads only as a silhouette"
+    }
+  },
+  {
+    "id": "ai-journey",
+    "award": "WIA 2020 Highly Commended",
+    "year": 2020,
+    "artist": "Yunyun Ai",
+    "work": "Journey",
+    "origin": "CN/UK",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2020/02/Journey1.jpg/original",
+    "cluster": "C7 회화적 톤 아트",
+    "medium": "연필·목탄 그레인",
+    "palette": "얼음빛 청회 + 노랑 1점",
+    "finish": "거인은 목탄 덩어리, 물은 선 몇 개",
+    "character": "🔴 납작 흰 얼굴 + 점 눈 2 + 실선 입 + 한 덩어리 머리 = 우리 점눈이의 원형",
+    "groups": [
+      "G",
+      "D"
+    ],
+    "why": "🔴 라인 충돌 경보 — 전래동화 점눈이가 이 캐릭터 언어에서 나왔다. 창작동화에 쓰면 두 라인이 겹친다. 물성(목탄 그레인)만 참고하고 캐릭터 언어는 가져오지 말 것",
+    "styleSpec": {
+      "medium": "pencil and charcoal with the paper grain left visible in every mass",
+      "palette": "ice blue-grey monochrome with one yellow accent",
+      "finish": "the large figure is a finished charcoal mass; the water is a few lines and the rest is bare",
+      "character": "a flat pale face with two dot eyes, a single drawn line for the mouth, and hair as one solid mass; the body is a hunched round bulk"
+    }
+  },
+  {
+    "id": "tengiz-mai",
+    "award": "WIA 2021 Category Winner",
+    "year": 2021,
+    "artist": "Dide Tengiz",
+    "work": "Mai",
+    "origin": "TR/UK",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2021/02/DideTengiz_Mai-_Image1.png/original",
+    "cluster": "C7 회화적 톤 아트",
+    "medium": "수채·과슈 뮤트 파스텔",
+    "palette": "노랑·회보라·녹 4색 뮤트",
+    "finish": "안개처럼 흐린 도시 + 인물만 선명",
+    "character": "다리 위에 앉은 거대 소녀 vs 미니어처 도시 = 스케일 초현실",
+    "groups": [
+      "B",
+      "D"
+    ],
+    "why": "B 상상·변신의 '일상이 규칙을 어기는' 장면. 유럽 도시 전경과 맞는다",
+    "styleSpec": {
+      "medium": "watercolour and gouache kept muted, laid in soft overlapping passes",
+      "palette": "four muted colours - yellow, grey-violet, green",
+      "finish": "the city is left soft and unresolved while the figure alone is drawn sharply",
+      "character": "an oversized girl seated on a bridge above a miniature city; the scale inversion is the design"
+    }
+  },
+  {
+    "id": "kim-subway",
+    "award": "WIA 2021 Category Winner",
+    "year": 2021,
+    "artist": "Kim Hyo-Eun",
+    "work": "I Am the Subway",
+    "origin": "KR",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2021/06/KimHyo-Uen_IamtheSubway_Image1-scaled-1.jpg/original",
+    "cluster": "C7 회화적 톤 아트",
+    "medium": "수묵·과슈",
+    "palette": "크림·황토 단색조 + 초록 한 줄기",
+    "finish": "인물만 밀도, 배경은 색 한 겹",
+    "character": "승객 수십 명이 각자 다른 이야기를 살고 있다",
+    "groups": [
+      "F",
+      "A"
+    ],
+    "why": "평범한 소재 + 비범한 시선. F 집·가족·일상 권에서 '작은 사건을 크게 보는 법'의 교본",
+    "styleSpec": {
+      "medium": "ink wash and gouache, brush pressure varied so lines swell and thin",
+      "palette": "a cream and ochre monochrome with one thread of green",
+      "finish": "the people are finished; the interior around them is one pass of colour",
+      "character": "dozens of passengers each mid-way through a different private moment"
+    }
+  },
+  {
+    "id": "tao-noodle",
+    "award": "WIA 2023 Highly Commended",
+    "year": 2023,
+    "artist": "Xiaowei Tao",
+    "work": "Amusement park at home",
+    "origin": "CN/UK",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2023/01/Xiaoweitao_Amusement-part-at-home_image2.jpg/original",
+    "cluster": "C7 회화적 톤 아트",
+    "medium": "색연필 + 과슈 정물",
+    "palette": "적·크림·회청·황토 4색 뮤트",
+    "finish": "정물은 마감, 미니 인물은 선 몇 개",
+    "character": "🔴 국수 그릇 안에서 뱃놀이하는 미니 소녀 = 스케일 시의 생활 버전",
+    "groups": [
+      "B",
+      "F"
+    ],
+    "why": "🔴 B 상상·변신 + F 집·가족을 한 장면에서 잇는다. 「수프에 빠진 별」·「내 이불 속에 누가 있어」에 그대로 맞는 문법",
+    "styleSpec": {
+      "medium": "coloured pencil and gouache handled as a still life",
+      "palette": "four muted colours - red, cream, grey-blue, ochre",
+      "finish": "the still-life objects are finished; the miniature figures on them are a few strokes",
+      "character": "a miniature person boating inside a bowl of food; ordinary domestic objects become the landscape"
+    }
+  },
+  {
+    "id": "gent-thatsnice",
+    "award": "WIA 2023 Category Winner",
+    "year": 2023,
+    "artist": "Owen Gent",
+    "work": "That's Nice, Love",
+    "origin": "UK",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/12/OwenGent_ThatsNiceLove_Image1.jpg/original",
+    "cluster": "C7 회화적 톤 아트",
+    "medium": "디지털 소프트 그레인(손 그림 질감 유지)",
+    "palette": "크림 + 청 + 주황 3색",
+    "finish": "인물 마감, 배경은 색면 + 그레인",
+    "character": "거꾸로 떨어지는 인물 = 구성이 곧 컨셉",
+    "groups": [
+      "A",
+      "B"
+    ],
+    "why": "A 마음·감정의 초현실 은유. 🔴 디지털이라 물성이 약한 축 — 우리 쪽에선 종이 결·연필 자국을 추가로 요구해야 평범해지지 않는다",
+    "styleSpec": {
+      "medium": "digital work kept rough with a heavy printed grain over every area",
+      "palette": "three - cream, blue, orange",
+      "finish": "figures are finished; the surroundings are a flat colour field with grain and nothing drawn in it",
+      "character": "a person falling upside down through the frame; the composition itself states the idea"
+    }
+  },
+  {
+    "id": "gwilym-tigers",
+    "award": "WIA 2025 Highly Commended",
+    "year": 2025,
+    "artist": "Yuliya Gwilym",
+    "work": "(호랑이와 유령 동물)",
+    "origin": "UA/UK",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/02/1-Yuliya-Gwilym.jpg/original",
+    "cluster": "C7 회화적 톤 아트",
+    "medium": "짙은 수채 바탕 + 오일파스텔 네온",
+    "palette": "남색 단색조 + 네온 그린 + 주황 호랑이",
+    "finish": "바탕은 통째 어둡게, 악센트만 진하게",
+    "character": "🔴 아이 그림 같은 하늘색 선묘 '유령 동물'이 배경에 떠다닌다 — 두 개의 그리기 언어를 한 화면에",
+    "groups": [
+      "G",
+      "B"
+    ],
+    "why": "G 용기·두려움 + B 상상. 어두운 바탕 위 형광이라 '무서운 것이 무섭지만은 않게'가 성립한다",
+    "styleSpec": {
+      "medium": "deep watercolour ground with oil pastel drawn on top in near-fluorescent colour",
+      "palette": "navy monochrome with neon green and one orange animal",
+      "finish": "the ground stays uniformly dark; only the accent marks are worked up",
+      "character": "child-like pale blue outline animals float across the background while the main animal is fully painted - two different drawing languages held on one page"
+    }
+  },
+  {
+    "id": "buro-street",
+    "award": "WIA 2025 Category Winner",
+    "year": 2025,
+    "artist": "Büro Wünsch & Störmer",
+    "work": "(도시 거리 · Stadtszene)",
+    "origin": "DE",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/02/Stadtszene_1_final.jpg/original",
+    "cluster": "C7 회화적 톤 아트",
+    "medium": "불투명 과슈 두껍게, 붓 자국 그대로",
+    "palette": "핑크 보도 + 흰 건물 + 주황 1점",
+    "finish": "건물은 색면, 인물은 붓 몇 번",
+    "character": "인물 20여 명이 전부 다른 옷·걸음. 얼굴은 없다시피",
+    "groups": [
+      "D",
+      "F",
+      "H"
+    ],
+    "why": "독일. 유럽 광장·거리 무대의 군중 장면. 얼굴 없이 옷·자세로만 개성을 내는 방식이라 다국어 배포에 안전",
+    "styleSpec": {
+      "medium": "opaque gouache laid on thickly with brush marks left standing",
+      "palette": "pink pavement, white buildings, one orange accent",
+      "finish": "buildings are flat colour blocks; people are a few brush strokes each",
+      "character": "twenty-odd figures, each with different clothing and gait; faces are barely indicated"
+    }
+  },
+  {
+    "id": "lundberg-ingen",
+    "award": "BolognaRagazzi 2025 Fiction",
+    "year": 2025,
+    "artist": "Sara Lundberg",
+    "work": "Ingen utom jag (Nobody but Me)",
+    "origin": "SE",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/Nobody_but_M.jpg",
+    "cluster": "C7 회화적 톤 아트",
+    "medium": "유화/과슈 두껍게",
+    "palette": "녹 단색조 + 노랑 보트 1점",
+    "finish": "붓이 형태를 뭉갠 채로 둔다",
+    "character": "인물이 자연에 묻힌다 — 존재의 크기가 곧 주제",
+    "groups": [
+      "C",
+      "D"
+    ],
+    "why": "🔴 스웨덴 = 북유럽 숲·핀란드 오두막 무대와 직결. C 자연·계절 권의 여름·물가",
+    "styleSpec": {
+      "medium": "oil or thick gouache, the brush allowed to smear form rather than describe it",
+      "palette": "a green monochrome with one yellow object",
+      "finish": "edges are left blurred by the brush; nothing is tightened afterwards",
+      "character": "the figure is nearly absorbed into the landscape; how small a person is in the frame is the subject"
+    }
+  },
+  {
+    "id": "cheveau-troupeau",
+    "award": "BolognaRagazzi 2026 Toddler",
+    "year": 2026,
+    "artist": "Sarah Cheveau",
+    "work": "Troupeau: L'hiver, l'été",
+    "origin": "FR",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_toddler_mention_1.jpg",
+    "cluster": "C7 회화적 톤 아트",
+    "medium": "파스텔·목탄 부드러운 결 + 나무결 어두운 면",
+    "palette": "흰 + 갈 + 검정 3색",
+    "finish": "양 얼굴만 마감, 나머지는 재질 면",
+    "character": "양의 검은 반점이 곧 눈·코 — 재질이 캐릭터",
+    "groups": [
+      "C",
+      "G"
+    ],
+    "why": "프랑스. C 자연·계절(겨울/여름 대비)의 아코디언 구조. 「초록 스웨터를 입은 날」 같은 양 주인공 권",
+    "styleSpec": {
+      "medium": "pastel and charcoal with a dark wood-grain plane behind",
+      "palette": "three - white, brown, black",
+      "finish": "only the animals' faces are finished; everything else stays as a material surface",
+      "character": "the animal's dark patches double as its eyes and nose - the material makes the face"
+    }
+  },
+  {
+    "id": "pinfold-blackdog",
+    "award": "Kate Greenaway Medal 2013",
+    "year": 2013,
+    "artist": "Levi Pinfold",
+    "work": "Black Dog",
+    "origin": "UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/7372759-L.jpg",
+    "cluster": "C7 회화적 톤 아트",
+    "medium": "에그템페라풍 정밀 채색",
+    "palette": "회백 설경 + 검정 개 + 빨강 코트 1점",
+    "finish": "전면 마감 — 밀도가 높다",
+    "character": "거대한 검정 개 vs 작은 빨강 아이. 크기 자체가 이야기",
+    "groups": [
+      "G"
+    ],
+    "why": "🔴 G 용기·두려움의 정본(무서운 것이 내가 무서워하는 만큼 커진다). 리스크=마감 밀도가 높아 제작 단가·AI 재현 난도 모두 최상급",
+    "styleSpec": {
+      "medium": "fine egg-tempera-like painting, tightly controlled",
+      "palette": "grey-white snow, a black animal, one red garment",
+      "finish": "fully rendered across the whole page - high density used deliberately",
+      "character": "a huge black animal against a small red-coated child; the size relation is the whole story"
+    }
+  },
+  {
+    "id": "smith-townsea",
+    "award": "Kate Greenaway Medal 2018",
+    "year": 2018,
+    "artist": "Sydney Smith",
+    "work": "Town Is by the Sea",
+    "origin": "CA",
+    "imageUrl": "https://covers.openlibrary.org/b/id/11610229-L.jpg",
+    "cluster": "C7 회화적 톤 아트",
+    "medium": "잉크 + 수채, 빛/어둠 대비",
+    "palette": "청·황토 + 검정",
+    "finish": "붓 자국을 남긴 채 마감",
+    "character": "인물 실루엣 + 빛의 위치가 감정",
+    "groups": [
+      "D",
+      "A"
+    ],
+    "why": "D 모험·여정 + A. 바다·항구 무대 권. 명암 대비가 강해 스프레드 리듬을 만들기 쉽다",
+    "styleSpec": {
+      "medium": "ink line with watercolour, worked for strong light-against-dark contrast",
+      "palette": "blue and ochre with black",
+      "finish": "finished, but with brush marks deliberately left readable",
+      "character": "figures read as silhouettes; where the light falls is what states the feeling"
+    }
+  },
+  {
+    "id": "smith-smallcity",
+    "award": "Kate Greenaway Medal 2021",
+    "year": 2021,
+    "artist": "Sydney Smith",
+    "work": "Small in the City",
+    "origin": "CA",
+    "imageUrl": "https://covers.openlibrary.org/b/id/9181130-L.jpg",
+    "cluster": "C7 회화적 톤 아트",
+    "medium": "잉크 + 수채, 창틀 프레임 구성",
+    "palette": "회 도시 + 살구 얼굴 + 붉은 점",
+    "finish": "얼굴만 마감, 도시는 붓 자국",
+    "character": "창에 비친 얼굴 클로즈업 — 프레임 안 프레임",
+    "groups": [
+      "A",
+      "G",
+      "D"
+    ],
+    "why": "A 마음·감정의 '큰 도시 속 작은 나'. 눈만 크게 잡는 구도라 릴스 썸네일 문법(얼굴 30~80% 클로즈업)과도 맞는다",
+    "styleSpec": {
+      "medium": "ink and watercolour, composed through window frames so the page is framed within the frame",
+      "palette": "grey city, apricot skin, one red mark",
+      "finish": "only the face is finished; the city is brush marks",
+      "character": "a face reflected in glass, shown close - the frame inside the frame is the design"
+    }
+  },
+  {
+    "id": "lane-tribe",
+    "award": "Kate Greenaway Medal 2017",
+    "year": 2017,
+    "artist": "Lane Smith",
+    "work": "There Is a Tribe of Kids",
+    "origin": "US/UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/7442605-L.jpg",
+    "cluster": "C7 회화적 톤 아트",
+    "medium": "혼합매체 질감 + 스폰지·스텐실",
+    "palette": "옅은 청·연두 + 크림",
+    "finish": "질감은 전면, 형태는 최소",
+    "character": "동물과 아이가 같은 질감으로 그려져 경계가 흐리다",
+    "groups": [
+      "C",
+      "B"
+    ],
+    "why": "C 자연 + B 상상. 질감이 형태보다 앞서는 드문 문법. 리스크=형태가 약해 4~6세가 '무엇인지' 못 읽을 수 있다",
+    "styleSpec": {
+      "medium": "mixed media with sponged and stencilled texture built up over the whole surface",
+      "palette": "pale blue and yellow-green over cream",
+      "finish": "texture covers everything while form is kept minimal, so shapes emerge out of the surface",
+      "character": "children and animals are given the same texture so the boundary between them is deliberately unclear"
+    }
+  },
+  {
+    "id": "gill-clevercrow",
+    "award": "Carnegie Medal for Illustration 2025",
+    "year": 2025,
+    "artist": "Olivia Lomenech Gill",
+    "work": "Clever Crow",
+    "origin": "UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/14641520-L.jpg",
+    "cluster": "C7 회화적 톤 아트",
+    "medium": "혼합매체(크라프트지 + 수채 + 판화 조각)",
+    "palette": "크라프트 갈 + 청 워시 + 검정",
+    "finish": "새만 마감, 바탕은 재료 그대로",
+    "character": "까마귀 한 마리. 재료의 거친 결이 곧 깃털",
+    "groups": [
+      "C",
+      "H"
+    ],
+    "why": "영국. C 자연·동물. 크라프트지를 광원이 아니라 '흙빛 바탕'으로 쓰는 문법 — 크림 종이(점눈이)와 안 겹친다",
+    "styleSpec": {
+      "medium": "kraft paper support with watercolour and pasted printed fragments; the kraft tone shows through everything",
+      "palette": "kraft brown, a blue wash, black",
+      "finish": "the bird is finished; the ground is left as the raw material",
+      "character": "one bird; the coarse grain of the support reads as feathers"
+    }
+  },
+  {
+    "id": "becker-tree",
+    "award": "Carnegie Medal for Illustration 2024",
+    "year": 2024,
+    "artist": "Aaron Becker",
+    "work": "The Tree and the River",
+    "origin": "US/UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/13301299-L.jpg",
+    "cluster": "C7 회화적 톤 아트",
+    "medium": "수채 광역 풍경",
+    "palette": "녹·황토·연보라 뮤트",
+    "finish": "풍경 전면 마감, 인물 없음",
+    "character": null,
+    "groups": [
+      "C",
+      "D"
+    ],
+    "why": "C 자연·계절의 '시간이 흐르는 같은 자리' 구조. 글 없는 책이라 우리 12스프레드 글 분량과는 안 맞으나 구조는 차용 가능",
+    "styleSpec": {
+      "medium": "wide watercolour landscape washes",
+      "palette": "muted green, ochre and pale violet",
+      "finish": "the landscape is finished across the whole page; there are no figures",
+      "character": null
+    }
+  },
+  {
+    "id": "carrossine-beterraba",
+    "award": "WIA 2025 Category Winner",
+    "year": 2025,
+    "artist": "Camila Carrossine",
+    "work": "A menina, o fantasma e a floresta de beterrabas",
+    "origin": "BR",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/02/CamilaCarrossine_TheGirltheGhostandtheBeetrootForest_image01.jpg/original",
+    "cluster": "C8 수채 번짐 몰입",
+    "medium": "수채 wet-in-wet, 그래뉼레이션 그대로",
+    "palette": "비트 마젠타 사실상 1색 + 종이 크림",
+    "finish": "번짐이 형태를 만든다 — 통제하지 않은 것이 스타일",
+    "character": "점 눈 소녀가 손톱만 하다. 숲이 압도한다",
+    "groups": [
+      "B",
+      "G"
+    ],
+    "why": "B 상상·변신의 '마법이 번지는' 장면. 리스크=번짐은 캐릭터 일관성이 잘 깨져 시트 관리가 어렵다",
+    "styleSpec": {
+      "medium": "wet-in-wet watercolour with granulating pigment allowed to settle and bloom; the bleed is not corrected",
+      "palette": "effectively one beet-magenta plus the cream of the paper",
+      "finish": "the bleed itself makes the form; nothing is outlined or tightened afterwards",
+      "character": "a dot-eyed child the size of a thumbnail; the forest overwhelms her"
+    }
+  },
+  {
+    "id": "alcantara-rio",
+    "award": "BolognaRagazzi 2026 Toddler",
+    "year": 2026,
+    "artist": "Mariana Alcántara",
+    "work": "Río Viento (Wind River)",
+    "origin": "MX",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_toddler_winner.jpg",
+    "cluster": "C8 수채 번짐 몰입",
+    "medium": "붓 + 점 찍기",
+    "palette": "청록 바탕 + 노랑·적 2점",
+    "finish": "붓 자국 몇 번으로 물고기 한 마리",
+    "character": "동물이 붓질 그 자체. 눈 하나만 정확히 찍는다",
+    "groups": [
+      "C",
+      "B"
+    ],
+    "why": "2026 BRAW Toddler 위너. C 자연·계절의 물·바람 권. 형태가 느슨해 4~6세 서사엔 인물 고정이 어렵다",
+    "styleSpec": {
+      "medium": "brush marks and dotting on wet paper",
+      "palette": "a teal ground with two accents - yellow and red",
+      "finish": "an animal is a few brush passes; the water around it is one unbroken wash",
+      "character": "the animal is the brushstroke itself, with only the eye placed precisely"
+    }
+  },
+  {
+    "id": "child-tomato",
+    "award": "Kate Greenaway Medal 2000",
+    "year": 2000,
+    "artist": "Lauren Child",
+    "work": "I Will Not Ever Never Eat a Tomato",
+    "origin": "UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/885657-L.jpg",
+    "cluster": "C9 믹스드 콜라주",
+    "medium": "드로잉 + 실사 사진 패턴·천 무늬 콜라주",
+    "palette": "다색이나 패턴으로 통일",
+    "finish": "인물은 선, 배경은 잘라 붙인 무늬",
+    "character": "🔴 얼굴 비율이 제각각인 채로 캐릭터가 성립한다. 유럽 유아 그림책 최대 히트 중 하나",
+    "groups": [
+      "F",
+      "E",
+      "A"
+    ],
+    "why": "🔴 F 집·가족(먹기·잠자리)이 Goodreads 상위 300에서 가장 두꺼운 소재고 이 책이 그 정본. 실사 패턴 콜라주는 니들펠트(입체 인형)와 다른 축이라 라인 충돌 없음. 리스크=AI가 콜라주를 '질감 오버레이'로 뭉갤 가능성이 크다",
+    "styleSpec": {
+      "medium": "drawing combined with photographed fabric and printed patterns cut and pasted in; the cut edges stay visible",
+      "palette": "many colours held together because the patterns repeat across the spread",
+      "finish": "the figures are line only; the surroundings are pasted patterned material with no drawing on them",
+      "character": "facial features sit at inconsistent scales relative to each other and the character still holds together; the mismatch is the style"
+    }
+  },
+  {
+    "id": "ismail-friend",
+    "award": "WIA 2020 Category Winner",
+    "year": 2020,
+    "artist": "Yasmeen Ismail",
+    "work": "With a Friend",
+    "origin": "IE/UK",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2020/02/WYLAB_YIsmail_Withafriend.jpg/original",
+    "cluster": "C9 믹스드 콜라주",
+    "medium": "잉크·과슈 블롭 + 실물 사진 오브제",
+    "palette": "크림 여백 + 흑·청·황 + 핑크",
+    "finish": "인물은 물감 덩어리, 오브제만 사진",
+    "character": "고릴라가 물감 블롭 + 점 눈. 이질 재료 병치가 개그",
+    "groups": [
+      "E",
+      "F"
+    ],
+    "why": "아일랜드. E 웃음. '진짜 바나나' 같은 이질 재료 하나가 개그를 만드는 구조 — 12스프레드 중 반전 쪽에 쓸 카드",
+    "styleSpec": {
+      "medium": "ink and gouache blobs dropped on paper, with photographed real objects pasted alongside them",
+      "palette": "cream ground with black, blue and yellow plus pink",
+      "finish": "figures are paint blobs; only the pasted objects are photographically finished",
+      "character": "an animal made of one paint blob with two dot eyes; the clash between paint and photograph is the joke"
+    }
+  },
+  {
+    "id": "hughes-ella",
+    "award": "Kate Greenaway Medal 2003",
+    "year": 2003,
+    "artist": "Shirley Hughes",
+    "work": "Ella's Big Chance",
+    "origin": "UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/438878-L.jpg",
+    "cluster": "C10 정밀 톤 리얼리즘(후순위·대조군)",
+    "medium": "수채 + 파스텔",
+    "palette": "따뜻한 다색, 저채도",
+    "finish": "전면 마감, 부드러운 경계",
+    "character": "사실적 인물. 유럽 생활 그림책의 고전 화법",
+    "groups": [
+      "F"
+    ],
+    "why": "F 집·가족. 🔴 후순위 — 현재 수상 지형에서 이 화법은 위너가 아니고, AI로 하면 곧장 '잘 나왔는데 평범하다'로 간다(전래동화 수채 실패와 같은 구조)",
+    "styleSpec": {
+      "medium": "watercolour with soft pastel worked over it",
+      "palette": "many warm colours, all kept low in saturation",
+      "finish": "fully rendered with soft edges everywhere; no area is left undrawn",
+      "character": "naturalistically proportioned people; appeal depends on observation rather than on design"
+    }
+  },
+  {
+    "id": "danowski-dream",
+    "award": "WIA 2023 Highly Commended",
+    "year": 2023,
+    "artist": "Sonja Danowski",
+    "work": "By Night In My Dream",
+    "origin": "DE",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2023/02/SonjaDanowski_ByNightInMyDream_image1.png/original",
+    "cluster": "C10 정밀 톤 리얼리즘(후순위·대조군)",
+    "medium": "세필 연필 + 수채",
+    "palette": "회보라 톤 + 연어색 1점",
+    "finish": "전면 정밀 마감",
+    "character": "사실적 아이 얼굴 — 🔴 매력이 디자인이 아니라 묘사에 의존한다",
+    "groups": [
+      "B"
+    ],
+    "why": "독일. B 상상·꿈 권의 '진짜 같아서 이상한' 톤. 🔴 리스크 큼 — 정밀 리얼리즘은 수상 지형에서 HC 천장이고, AI로 하면 매끈한 CG로 회귀한다",
+    "styleSpec": {
+      "medium": "fine pencil with watercolour, worked slowly and evenly",
+      "palette": "grey-violet tones with one salmon accent",
+      "finish": "fully rendered everywhere at the same level of detail",
+      "character": "a naturalistic child's face; the appeal rests on depiction, not on any designed feature"
+    }
+  },
+  {
+    "id": "ding-smallanimals",
+    "award": "WIA 2024 Highly Commended",
+    "year": 2024,
+    "artist": "Yuxin Ding",
+    "work": "Small Animals Big World",
+    "origin": "CN/UK",
+    "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/01/YuxinDing_SmallAnimalsBigWorld_image9.jpg/original",
+    "cluster": "C10 정밀 톤 리얼리즘(후순위·대조군)",
+    "medium": "고밀도 장식 수채",
+    "palette": "앰버 지배 + 금·적·청 5색+",
+    "finish": "전면 고밀도 — 🔴 '덜 그리기'의 반례",
+    "character": "장식이 캐릭터를 삼킨다",
+    "groups": [
+      "C"
+    ],
+    "why": "🔴 반례 표본으로 보관. 화려하나 기억에 덜 남고 위너가 아닌 HC. 우리 라인엔 권하지 않는다 — '밀도를 올리면 어떻게 되는지'의 대조군",
+    "styleSpec": {
+      "medium": "watercolour packed with ornamental detail across the entire surface",
+      "palette": "amber dominant with gold, red and blue - five or more colours in play",
+      "finish": "uniformly dense with no quiet area anywhere",
+      "character": "ornament competes with the figures and swallows them"
+    }
+  },
+  {
+    "id": "collins-bearchair",
+    "award": "CILIP Kate Greenaway Medal 숏리스트 2016",
+    "year": 2015,
+    "artist": "Ross Collins",
+    "work": "There's a Bear on My Chair",
+    "origin": "UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/10126819-L.jpg",
+    "cluster": "C2 선 하나 캐릭터",
+    "medium": "연필·잉크 선 + 단색 티일 배경 평칠",
+    "palette": "티일 1색 배경 + 흰 곰 + 노랑·빨강 소품 3색",
+    "finish": "곰만 마감, 배경은 색 한 겹에 아무것도 안 그림",
+    "character": "거대한 흰 곰 vs 손바닥만 한 쥐. 곰의 무표정 + 쥐의 과장된 팔동작으로만 갈등을 연기",
+    "groups": [
+      "E",
+      "F"
+    ],
+    "why": "E 웃음의 정본 구조 — 캐릭터 둘의 크기 차만으로 12스프레드를 버틴다. F(집·자리 다툼)에도 그대로 쓰인다. 리스크=배경이 단색이라 무대 변화가 없어, 장소가 바뀌는 서사엔 안 맞는다",
+    "styleSpec": {
+      "medium": "pencil and ink contour line drawn over one flat area of colour; the line does not sit exactly on the colour edge",
+      "palette": "one teal ground covering the whole page, a white animal, and two small props in yellow and red",
+      "finish": "only the animals are finished; the ground is a single flat colour pass with nothing drawn in it",
+      "character": "one very large animal and one very small one in the same frame; the large one keeps a blank face while the small one over-acts with its arms - the size gap does the comedy"
+    }
+  },
+  {
+    "id": "torseter-troll",
+    "award": "Deutscher Jugendliteraturpreis 그림책 부문 수상 2018 (Der siebente Bruder)",
+    "year": 2017,
+    "artist": "Øyvind Torseter",
+    "work": "The Heartless Troll",
+    "origin": "NO",
+    "imageUrl": "https://covers.openlibrary.org/b/id/13054784-L.jpg",
+    "cluster": "C2 선 하나 캐릭터",
+    "medium": "가는 잉크 선 + 평면 색면 2~3, 종이색 그대로 노출",
+    "palette": "회청 바탕 + 벽돌 빨강 지면 + 흰 인물 3색",
+    "finish": "인물·나무는 선으로 완성, 지면은 빨강 한 겹 + 흩어진 잔해 몇 개",
+    "character": "긴 코 + 점 눈 + 막대 몸의 고정 캐릭터. 얼굴 표정이 거의 없고 자세·소품(지팡이·배낭)으로 연기",
+    "groups": [
+      "B",
+      "G"
+    ],
+    "why": "B 상상·변신과 G 용기 둘 다 커버하는 드문 C2. 유럽 옛이야기 무대를 선 하나로 처리해 무겁지 않게 만든다. 리스크=긴 코 캐릭터 언어가 너무 강해 이 앵커로 만든 책들끼리 서로 닮는다 → 앵커당 권수를 6권 이하로",
+    "styleSpec": {
+      "medium": "thin even ink line over two or three flat colour areas, with the paper tone left showing between them",
+      "palette": "grey-blue ground, a brick-red floor plane, white figures - three colours total",
+      "finish": "figures and trees are finished as line drawings; the ground is one flat red pass with a few scattered objects and nothing else",
+      "character": "a recurring figure with a very long nose, two dot eyes and a stick-thin body; the face barely changes, so posture and carried props do the acting"
+    }
+  },
+  {
+    "id": "konnecke-anton",
+    "award": "🔴 수상 미검증 — 독일 그림책 스테디셀러(시장 검증)",
+    "year": 2006,
+    "artist": "Ole Könnecke",
+    "work": "Anton kann zaubern",
+    "origin": "DE",
+    "imageUrl": "https://covers.openlibrary.org/b/id/8848129-L.jpg",
+    "cluster": "C2 선 하나 캐릭터",
+    "medium": "깨끗한 균일 잉크 선 + 평면 채색",
+    "palette": "노랑 바탕 1색 + 검정 나무 + 살구·갈 인물 3~4색",
+    "finish": "인물·나무만 그리고 지면·하늘은 노랑 한 판. 화면 60%가 빈 노랑",
+    "character": "아이 = 동그란 머리 + 점 눈 + 선 입 하나. 감정이 눈썹 없이 몸 기울기로만 나온다",
+    "groups": [
+      "E",
+      "H"
+    ],
+    "why": "H 호기심·만들기용 C2 — '해보다 실패하고 다시 해보는' 과정 서사에 선이 빠르고 여백이 많아 잘 맞는다. 🔴 수상 이력을 확인하지 못했으므로 다른 후보와 동급으로 취급하지 말 것",
+    "styleSpec": {
+      "medium": "clean even-weight ink line over flat colour fills",
+      "palette": "one yellow ground plus a black tree and two skin-and-brown tones - three to four colours",
+      "finish": "only the figure and one or two objects are drawn; ground and sky are a single yellow plane, and about sixty percent of the page stays empty yellow",
+      "character": "a child drawn as a round head with two dot eyes and one line mouth, no eyebrows; feeling is carried entirely by how far the body tilts"
+    }
+  },
+  {
+    "id": "jeffers-crayons",
+    "award": "CILIP Kate Greenaway Medal 숏리스트 2014",
+    "year": 2013,
+    "artist": "Oliver Jeffers",
+    "work": "The Day the Crayons Quit",
+    "origin": "UK/IE",
+    "imageUrl": "https://covers.openlibrary.org/b/id/8314152-L.jpg",
+    "cluster": "C2 선 하나 캐릭터",
+    "medium": "크레용 선 + 아이 글씨체, 노트 종이 위에 직접",
+    "palette": "크레용 색 그대로(각 캐릭터가 자기 색 1개) + 흰 종이",
+    "finish": "사물 캐릭터만 마감, 나머지는 노트 종이. 그림자도 크레용 획 하나",
+    "character": "크레용 막대에 점 눈 2 + 선 팔다리. 🔴 매체 자체가 캐릭터가 되는 문법 — 도구가 주인공",
+    "groups": [
+      "E",
+      "H"
+    ],
+    "why": "H 만들기·도구 주제의 가장 직접적인 해법 — 그리는 도구가 등장인물이 된다. 🔴 글자가 그림에 박혀 있는 원작 구조는 우리 다국어 규칙(§4)과 충돌하므로 **글자는 절대 상속하지 말 것**",
+    "styleSpec": {
+      "medium": "wax crayon drawn directly onto lined or plain notebook paper, with the waxy skip of the crayon left visible",
+      "palette": "each character carries exactly one crayon colour; the paper white is the ground",
+      "finish": "only the object-characters are finished; the page stays notebook paper and even the shadows are a single crayon stroke",
+      "character": "drawing tools given two dot eyes and stick limbs; the medium itself becomes the cast, so the tool is the protagonist"
+    }
+  },
+  {
+    "id": "naylor-suitcase",
+    "award": "CILIP Kate Greenaway Medal 숏리스트 2020",
+    "year": 2019,
+    "artist": "Chris Naylor-Ballesteros",
+    "work": "The Suitcase",
+    "origin": "UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/10481244-L.jpg",
+    "cluster": "C2 선 하나 캐릭터",
+    "medium": "가는 잉크 선 + 평면 색면, 크림 바탕",
+    "palette": "크림 바탕 + 청록·주황·갈 3색 + 표지 빨강 띠 1",
+    "finish": "동물 셋만 그리고 바닥·배경은 크림 종이 그대로",
+    "character": "낯선 동물 하나 vs 토박이 셋. 표정이 거의 없고 서 있는 거리(간격)로 배척과 수용을 그린다",
+    "groups": [
+      "G",
+      "D"
+    ],
+    "why": "G 용기·두려움을 C2로 다루는 드문 사례 — 표정이 아니라 **인물 사이 간격**으로 감정을 쓴다(§2.8의 형태 언어 한계를 우회하는 방법). D 여정에도 적용 가능",
+    "styleSpec": {
+      "medium": "thin ink line over flat colour areas on a cream ground",
+      "palette": "cream ground with teal, orange and brown, plus one red band",
+      "finish": "only the three or four animals are drawn; floor and background stay bare cream paper",
+      "character": "one outsider animal facing a group of locals; faces stay almost neutral and the emotion is written by the physical gap between them, which opens and closes across the spreads"
+    }
+  },
+  {
+    "id": "rayner-arlo",
+    "award": "CILIP Kate Greenaway Medal 숏리스트 2021",
+    "year": 2020,
+    "artist": "Catherine Rayner",
+    "work": "Arlo The Lion Who Couldn't Sleep",
+    "origin": "UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/10518624-L.jpg",
+    "cluster": "C8 수채 번짐 몰입",
+    "medium": "wet-in-wet 수채 + 잉크, 그래뉼레이션 그대로",
+    "palette": "자주-갈 단색조 + 크림 얼굴 + 별 흰 점",
+    "finish": "동물만 마감(단 갈기는 번짐이 대신 그림), 배경은 물감 한 겹",
+    "character": "사자 갈기가 붓질이 아니라 번짐 덩어리. 얼굴만 크림색으로 남겨 눈이 그리 간다",
+    "groups": [
+      "A",
+      "C"
+    ],
+    "why": "A 마음·감정을 C8로 푸는 표본 — 잠 못 드는 상태를 번짐의 불안정함이 대신 말한다. 🔴 C8은 형태가 통제 불가라 **소품·기계가 나오는 권(H)엔 쓰지 말 것**",
+    "styleSpec": {
+      "medium": "wet-in-wet watercolour with ink, granulating pigment left to settle where it wants",
+      "palette": "a plum-brown monochrome with a cream face shape and small white dots",
+      "finish": "only the animal is finished, and even then the mane is made of bleed rather than of strokes; the ground is one wash with nothing drawn in it",
+      "character": "an animal whose mane is a mass of bleeding pigment, not brushwork; the face is reserved as bare cream so the eye lands there"
+    }
+  },
+  {
+    "id": "rayner-louie",
+    "award": "CILIP Kate Greenaway Medal 숏리스트 2015",
+    "year": 2014,
+    "artist": "Catherine Rayner",
+    "work": "Smelly Louie",
+    "origin": "UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/10097851-L.jpg",
+    "cluster": "C8 수채 번짐 몰입",
+    "medium": "wet-in-wet 수채 블롯 + 잉크 튐, 평면 민트 바탕",
+    "palette": "민트 1색 바탕 + 개의 갈·황토·회 번짐 + 잉크 검정",
+    "finish": "🔴 개 한 마리만 존재. 배경은 민트 평칠에 아무것도 없음",
+    "character": "개의 몸이 통째로 얼룩 덩어리 — 털을 그린 게 아니라 번지게 둔 것. 코와 눈만 잉크로 정확히 찍는다",
+    "groups": [
+      "E",
+      "C"
+    ],
+    "why": "C8이 웃음(E)에도 쓰인다는 반례 — 번짐의 지저분함 자체가 개그다. C8 앵커 중 **평면 단색 바탕 + 번짐 주인공** 조합은 릴스 썸네일 대비도 가장 좋다",
+    "styleSpec": {
+      "medium": "wet-in-wet watercolour blots with flicked ink spatter, set against one flat colour ground",
+      "palette": "one mint ground, the animal built from brown, ochre and grey bleeds, plus black ink",
+      "finish": "one animal is the only thing on the page; the ground is a flat mint pass with nothing drawn in it",
+      "character": "the animal's whole body is a stain allowed to spread rather than fur that was drawn; only the nose and the eye are placed precisely in ink"
+    }
+  },
+  {
+    "id": "savage-jellyfish",
+    "award": "Yoto Carnegie Medal for Illustration 숏리스트 2024",
+    "year": 2022,
+    "artist": "Chloe Savage",
+    "work": "The Search for the Giant Arctic Jellyfish",
+    "origin": "UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/14333290-L.jpg",
+    "cluster": "C8 수채 번짐 몰입",
+    "medium": "수채 광역 워시, 아래로 갈수록 어두워지는 그라데이션을 물로만",
+    "palette": "청 단색조 3단(수면 흰 → 중층 하늘 → 심해 남색) + 빨강 방한복 1점",
+    "finish": "해파리는 번짐 그 자체, 인물은 빨강 점 하나. 물속엔 아무 디테일도 없다",
+    "character": "인물이 손톱만 하고 빨강 옷 하나로만 존재. 거대한 생물 vs 작은 사람 = 스케일 시",
+    "groups": [
+      "H",
+      "C"
+    ],
+    "why": "🔴 H 호기심·탐사에 쓸 수 있는 유일한 C8 — 도구·장비를 그리지 않고 '찾는 행위'만으로 논픽션 정서를 낸다. 자연관찰 라인과 겹치지 않는 이유 = 도감이 아니라 **못 찾는 이야기**라서",
+    "styleSpec": {
+      "medium": "broad watercolour washes where the darkening toward the bottom of the page is done with water alone, no added line",
+      "palette": "a blue monochrome in three steps - white at the surface, pale blue mid-water, deep navy below - plus one red garment",
+      "finish": "the large sea creature is made of bleed alone; the human is a single red mark; the water contains no drawn detail anywhere",
+      "character": "the person is thumbnail-sized and exists only as one red shape; a vast creature against a tiny human carries the scale"
+    }
+  },
+  {
+    "id": "oxenbury-captainjack",
+    "award": "CILIP Kate Greenaway Medal 숏리스트 2016",
+    "year": 2015,
+    "artist": "Helen Oxenbury",
+    "work": "Captain Jack and the Pirates",
+    "origin": "UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/10212405-L.jpg",
+    "cluster": "C8 수채 번짐 몰입",
+    "medium": "젖은 종이 위 옅은 수채, 연필 밑그림을 남긴 채",
+    "palette": "모래 베이지·회청 뮤트 + 빨강 두건 1점",
+    "finish": "아이들만 마감, 바다·모래는 워시 한 겹으로 종이 흰색이 비친다",
+    "character": "실제 유아 체형(머리 1/4, 짧은 팔다리)을 관찰로 잡은 인물. 표정이 아주 미세하다",
+    "groups": [
+      "B",
+      "E"
+    ],
+    "why": "B 상상 놀이(모래성=해적선)의 정석 — **현실을 그대로 그리는데 아이들의 놀이가 판타지를 만든다**. 🔴 이 관찰형 유아 체형은 우리 4~6세 라인에 그대로 쓸 수 있는 드문 참조(호리 치비 비율과도, 점눈이와도 안 겹침)",
+    "styleSpec": {
+      "medium": "pale watercolour on damp paper with the pencil underdrawing deliberately left showing through",
+      "palette": "muted sand beige and grey-blue with one red headscarf",
+      "finish": "only the children are finished; sea and sand are a single wash thin enough that the paper white shows through",
+      "character": "small children drawn from observation - heads about a quarter of the body, short limbs, soft joints; expressions are very slight and never exaggerated"
+    }
+  },
+  {
+    "id": "tolman-treehouse",
+    "award": "🔴 수상 미검증 — Gouden Penseel(네덜란드) 2010 로 알려짐",
+    "year": 2009,
+    "artist": "Ronald & Marije Tolman",
+    "work": "Het boomhuis (The Tree House)",
+    "origin": "NL",
+    "imageUrl": "https://covers.openlibrary.org/b/id/7073870-L.jpg",
+    "cluster": "C8 수채 번짐 몰입",
+    "medium": "옅은 수채 워시 + 에칭/드라이포인트 선, 종이 얼룩을 남긴 채",
+    "palette": "청 3단(창백한 하늘 → 중간 청 → 짙은 청) 사실상 1색 + 흰 동물",
+    "finish": "동물만 형태를 갖고, 물·하늘은 워시 경계 그 자체. 지평선이 없다",
+    "character": "흰 곰 하나가 거대한 동물 위에 앉음. 표정 없음 — 크기 관계와 정적인 자세로만",
+    "groups": [
+      "B",
+      "C"
+    ],
+    "why": "글 없는 그림책이라 **번짐만으로 서사가 굴러가는지**를 검증한 표본. B 상상에 적합. 🔴 수상 이력 미검증이라 근거로 쓸 땐 '시장 검증' 등급으로만",
+    "styleSpec": {
+      "medium": "thin watercolour washes with etched drypoint line worked into them; blotches and paper stains are left in",
+      "palette": "effectively one blue in three steps - pale sky, mid blue, deep blue - with white animals",
+      "finish": "only the animals hold a shape; water and sky are nothing but the edge of one wash meeting another, and there is no horizon line",
+      "character": "a white animal seated on a much larger one; there is no facial expression at all, only the size relation and a completely still pose"
+    }
+  },
+  {
+    "id": "rutten-ombre",
+    "award": "BolognaRagazzi Fiction 특별언급 2014",
+    "year": 2013,
+    "artist": "Mélanie Rutten",
+    "work": "L'ombre de chacun",
+    "origin": "FR",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2014/L_OMBRE%20DE%20CHACUN_menzione_Fiction_BRAW2014.jpg",
+    "cluster": "C8 수채 번짐 몰입",
+    "medium": "수채 번짐 + 가는 잉크 선을 마른 뒤에 얹음",
+    "palette": "크림 바탕 + 청·황·적 워시 + 빨강 옷 1점",
+    "finish": "동물 인물만 선까지 마감, 주변 식물은 번진 색 덩어리로만(형태 미완)",
+    "character": "동물 인물이 옷을 입고 앉아 있음. 얼굴은 점 눈 + 코 하나, 감정은 어깨선으로",
+    "groups": [
+      "A",
+      "C"
+    ],
+    "why": "🔴 C8의 약점(형태 통제 불가)을 **잉크 선을 나중에 얹어** 해결한 사례 — 우리가 C8 앵커를 쓸 때 이 2단계 공정을 명시해야 인물이 안 뭉개진다. A 마음·감정에 배정",
+    "styleSpec": {
+      "medium": "watercolour bleeds laid first and allowed to dry, then a thin ink line drawn on top; the line never follows the bleed edge exactly",
+      "palette": "cream ground with blue, yellow and red washes, plus one red garment",
+      "finish": "the animal figures are finished with both bleed and line; the surrounding plants stay as blooms of colour with no drawn shape at all",
+      "character": "clothed animal figures with two dot eyes and one nose mark; the feeling is carried by the slope of the shoulders, not by the face"
+    }
+  },
+  {
+    "id": "hole-garmann",
+    "award": "Deutscher Jugendliteraturpreis 그림책 부문 수상 2010",
+    "year": 2006,
+    "artist": "Stian Hole",
+    "work": "Garmann's Summer",
+    "origin": "NO",
+    "imageUrl": "https://covers.openlibrary.org/b/id/2639572-L.jpg",
+    "cluster": "C9 믹스드 콜라주",
+    "medium": "🔴 실사 사진 조각(얼굴·피부·물)을 오려 붙인 디지털 포토 콜라주 + 손그림 식물·광선",
+    "palette": "베이지·물빛 뮤트 + 주황 물놀이 튜브 1점",
+    "finish": "인물 얼굴만 사진처럼 마감, 배경 요소(잎·곤충·햇살)는 오려 붙인 평면 조각으로 떠 있다",
+    "character": "실제 아이 얼굴 사진을 오려 붙였는데 몸은 도해처럼 평면 — 이 어긋남이 불안(첫 등교·이 빠짐)의 정서를 만든다",
+    "groups": [
+      "A",
+      "H"
+    ],
+    "why": "C9의 가장 이질적인 극 — 사진과 그림을 대놓고 어긋나게 둔다. 🔴 **AI가 가장 쉽게 뭉개는 유형**(사진을 '사진풍 렌더'로 바꿔 버림) → 반드시 실사 소스를 ref 이미지로 줘야 성립. A 마음·감정의 불안 계열에 배정",
+    "styleSpec": {
+      "medium": "photographic fragments - faces, skin, water - cut out and pasted into a digital collage, with hand-drawn plants and light rays layered over them; the cut edges stay hard",
+      "palette": "muted beige and water tones with one orange object",
+      "finish": "only the face is finished at photographic detail; leaves, insects and sunbeams stay as flat cut-out pieces floating in front of the ground",
+      "character": "a real photographed child's face pasted onto a body that is treated as a flat diagram; that mismatch between the two is what produces the unease"
+    }
+  },
+  {
+    "id": "robinson-milo",
+    "award": "CILIP Kate Greenaway Medal 숏리스트 2022",
+    "year": 2021,
+    "artist": "Christian Robinson",
+    "work": "Milo Imagines the World",
+    "origin": "US",
+    "imageUrl": "https://covers.openlibrary.org/b/id/15229799-L.jpg",
+    "cluster": "C9 믹스드 콜라주",
+    "medium": "오려 붙인 색종이 + 아크릴 평칠 + 아이 글씨 같은 크레용 선을 한 화면에",
+    "palette": "크래프트 갈 지배 + 노랑·청·적 평면 3색",
+    "finish": "🔴 두 그리기 언어를 의도적으로 병치 — 현실 장면은 종이 콜라주로, 주인공의 상상은 크레용 낙서로",
+    "character": "얼굴은 갈색 종이 덩어리 + 점 눈 + 안경 하나. 사람이 종이 조각처럼 납작하다",
+    "groups": [
+      "F",
+      "D"
+    ],
+    "why": "F 집·가족(지하철로 면회 가는 길)의 정본. 🔴 **한 권 안에 두 그림체를 두는 장치**(현실=콜라주 / 상상=아이 그림)는 우리 B·F 권에 그대로 이식 가능 — 앵커 하나로 두 레지스터를 쓴다",
+    "styleSpec": {
+      "medium": "cut paper shapes, flat acrylic and a childlike crayon line all held on the same page; the cut edges of the paper are never hidden",
+      "palette": "a dominant kraft brown with three flat colours - yellow, blue, red",
+      "finish": "two drawing languages sit side by side on purpose - the real scenes are built from pasted paper, the imagined ones are loose crayon scribble",
+      "character": "a face made of one brown paper mass with two dot eyes and a pair of glasses; people are as flat as the paper they are cut from"
+    }
+  },
+  {
+    "id": "carlin-kingsky",
+    "award": "CILIP Kate Greenaway Medal 숏리스트 2018",
+    "year": 2017,
+    "artist": "Laura Carlin",
+    "work": "King of the Sky",
+    "origin": "UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/14485706-L.jpg",
+    "cluster": "C9 믹스드 콜라주",
+    "medium": "연필·과슈 드로잉 + 인쇄 조각·도자 전사 같은 이질 표면을 합침, 회색 종이 위",
+    "palette": "회 종이 바탕 + 새의 청·적·황토 다색이나 전부 저채도",
+    "finish": "새는 하나하나 마감, 배경 종이는 그대로. 새를 격자로 나열해 **밀도를 반복으로 만든다**",
+    "character": "인간 인물은 아주 작고 흐릿, 새가 캐릭터 자리를 차지한다",
+    "groups": [
+      "F",
+      "H"
+    ],
+    "why": "F 집·가족(이주민 노인과 소년)과 H 직업·취미(비둘기 경주)를 한 앵커로. 🔴 **격자 나열로 밀도를 만드는 기법**은 §2.10(고밀도 쪽수 배급) 문제를 우회한다 — 한 쪽을 촘촘하게 채우되 같은 것의 반복이라 눈이 지치지 않는다",
+    "styleSpec": {
+      "medium": "pencil and gouache drawing combined with printed fragments and transfer-like surfaces, all worked on grey paper so the grey shows everywhere",
+      "palette": "grey paper ground with blue, red and ochre on the birds - many hues but all held low in saturation",
+      "finish": "each bird is finished individually while the paper ground is left untouched; density is produced by repeating the same subject in a grid rather than by rendering a scene",
+      "character": "human figures are kept very small and indistinct; the animals occupy the character role instead"
+    }
+  },
+  {
+    "id": "brooks-fox",
+    "award": "Deutscher Jugendliteraturpreis 그림책 부문 수상 2004 (Fuchs)",
+    "year": 2000,
+    "artist": "Ron Brooks",
+    "work": "Fox",
+    "origin": "AU",
+    "imageUrl": "https://covers.openlibrary.org/b/id/2106916-L.jpg",
+    "cluster": "C9 믹스드 콜라주",
+    "medium": "거친 판지 위 오일파스텔·목탄·긁어내기, 표면 자체가 상처처럼 남음",
+    "palette": "황토·적갈 단색조 + 여우 주홍 + 검정 긁힘",
+    "finish": "🔴 전면이 거칠게 덮여 있으나 형태는 최소 — 재질이 마감을 대신한다",
+    "character": "여우 얼굴이 정면 클로즈업. 눈만 노란 점 2개로 정확히, 나머지는 문지른 자국",
+    "groups": [
+      "G",
+      "A"
+    ],
+    "why": "G 용기·두려움의 재질형 해법 — 배신·질투 같은 어두운 감정을 **표면의 거칠기**로 쓴다. 🔴 유럽 원작 아님(호주)이지만 독일 수상작이라 유럽 유통 검증은 있다. 리스크=4~6세엔 너무 무거울 수 있어 팔레트를 밝히는 변주 전제",
+    "styleSpec": {
+      "medium": "oil pastel and charcoal scraped and rubbed into rough board, so the support surface reads as scratches and gouges under everything",
+      "palette": "an ochre and red-brown monochrome with one vermilion animal and black scratch marks",
+      "finish": "the surface is roughly covered edge to edge but the forms in it are minimal - the material stands in for finish",
+      "character": "an animal face shown frontally and close; only the two yellow eye dots are placed precisely, everything else is smeared"
+    }
+  },
+  {
+    "id": "teckentrup-samesky",
+    "award": "CILIP Kate Greenaway Medal 숏리스트 2018",
+    "year": 2017,
+    "artist": "Britta Teckentrup",
+    "work": "Under the Same Sky",
+    "origin": "DE/UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/8867686-L.jpg",
+    "cluster": "C9 믹스드 콜라주",
+    "medium": "찍어낸 질감판(스펀지·롤러·스텐실)을 스캔해 겹쳐 붙인 디지털 콜라주 + 다이컷 구멍",
+    "palette": "회청·연두·황토 뮤트 4색, 전부 질감이 있어 평면인데도 두께가 보인다",
+    "finish": "동물은 질감 덩어리 하나로 오려낸 것, 배경은 같은 질감을 더 옅게. 윤곽선 0",
+    "character": "동물이 실루엣 + 흰 눈 동그라미 2개. 얼굴을 뚫린 구멍(다이컷)이 대신하기도 한다",
+    "groups": [
+      "C",
+      "B"
+    ],
+    "why": "C 자연·계절을 C9로 하는 표본 — 붓 대신 **찍어낸 질감**이라 니들펠트(입체)와도, 수채(C7·C8)와도 안 겹친다. 🔴 다이컷 구멍은 우리 디지털 매체엔 못 옮기므로 **질감 겹침만 상속**",
+    "styleSpec": {
+      "medium": "printed textures made with sponge, roller and stencil, scanned and layered as flat collage; every shape carries a visible grain",
+      "palette": "four muted colours - grey-blue, yellow-green, ochre - all textured, so flat shapes still look like they have thickness",
+      "finish": "animals are cut out as single textured masses; the background is the same texture at lower contrast; there is no outline anywhere",
+      "character": "animals reduced to a silhouette plus two white eye discs; sometimes a hole in the shape stands in for the face"
+    }
+  },
+  {
+    "id": "icinori-issunboshi",
+    "award": "BolognaRagazzi Fiction 특별언급 2014",
+    "year": 2013,
+    "artist": "Icinori (Mayumi Otero & Raphael Urwiller)",
+    "work": "Issun Bôshi",
+    "origin": "FR",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2014/ISSUN_BOSHI_menzione_Fiction_BRAW2014.jpg",
+    "cluster": "C3 프린트-크래프트",
+    "medium": "실크스크린 논리의 평면 잉크판 2~3, 겹친 곳에서 세 번째 색이 생긴다",
+    "palette": "크림 종이 + 황토 오렌지 + 검정, 정확히 2잉크",
+    "finish": "식물·소품은 잉크판으로 촘촘, 하늘·바닥은 종이 그대로 비워 둠",
+    "character": "주인공이 화면에서 아주 작고 검정 실루엣 하나. 크기 자체가 이야기(작은 사람 설화)",
+    "groups": [
+      "B",
+      "D"
+    ],
+    "why": "C3(프린트-크래프트)의 유럽 정본이자 **스케일 시**를 잉크 2판으로 해결한 사례. 🔴 원작은 일본 설화지만 제작은 프랑스 — 우리 전래동화(점눈이)와 소재가 겹칠 수 있으므로 **창작동화에 쓸 땐 무대를 유럽으로 고정**",
+    "styleSpec": {
+      "medium": "two or three flat screen-printed ink plates; where two plates overlap a third colour appears and that is the only shading in the image",
+      "palette": "cream paper, one ochre-orange and one black - exactly two inks",
+      "finish": "plants and props are worked densely inside the ink plates while sky and floor are left as untouched paper",
+      "character": "the protagonist is very small in the frame and reads as a single black silhouette; how small he is against the props is the story"
+    }
+  },
+  {
+    "id": "valousek-panacek",
+    "award": "BolognaRagazzi Fiction 위너 2019",
+    "year": 2018,
+    "artist": "Chrudoš Valoušek",
+    "work": "Panáček, pecka, švestka, poleno a zase panáček",
+    "origin": "CZ",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2019/images/premi/BRAW/winner_BRAW_BCBF_19.jpg",
+    "cluster": "C3 프린트-크래프트",
+    "medium": "리노컷/목판 — 칼자국이 굵고 잉크가 고르지 않게 앉는다",
+    "palette": "티일 바탕 + 빨강 + 노랑 + 검정 새김선 3~4잉크",
+    "finish": "인물은 칼로 판 선까지 마감, 바탕은 잉크 한 판이 고르지 않게 덮인 채로 둠",
+    "character": "나무인형 = 관절이 분리된 도형들의 조립. 눈은 흰 점 2개, 코는 삼각 하나. 얼굴이 판에 새겨져 뻣뻣하다",
+    "groups": [
+      "B",
+      "E"
+    ],
+    "why": "BRAW Fiction 위너급 C3 — **판화의 뻣뻣함이 나무인형이라는 소재와 정확히 맞는다**(내용-형식 필연성 §2.3의 교본). B 변신·E 웃음 겸용. 리스크=칼맛을 AI가 '질감 오버레이'로 뭉개므로 ref 필수",
+    "styleSpec": {
+      "medium": "linocut or woodcut - the gouge marks are wide and blunt and the ink sits unevenly, skipping where the block did not take",
+      "palette": "a teal ground with red, yellow and the black of the cut line - three to four inks",
+      "finish": "figures are finished right down to the carved line; the ground is left as one uneven ink pass with nothing drawn in it",
+      "character": "a wooden puppet assembled from separate jointed shapes; eyes are two white dots, the nose is one triangle, and the face is stiff because it was cut into a block"
+    }
+  },
+  {
+    "id": "rascal-chaperon",
+    "award": "🔴 수상 미검증 — 벨기에 Pastel 스테디셀러(시장 검증)",
+    "year": 2002,
+    "artist": "Rascal",
+    "work": "Le petit chaperon rouge",
+    "origin": "BE",
+    "imageUrl": "https://covers.openlibrary.org/b/id/2144880-L.jpg",
+    "cluster": "C3 프린트-크래프트",
+    "medium": "검정 스텐실/컷아웃 도형만 — 붓도 선도 없다",
+    "palette": "흰 종이 + 검정 + 빨강 정확히 1점, 3요소",
+    "finish": "🔴 도형만 오려 붙인 수준의 극단적 절제. 그림자·원근·질감 전부 없음",
+    "character": "늑대 = 사각 머리 + 계단형 이빨 + 흰 점 눈 2개. 얼굴 도형이 곧 위협",
+    "groups": [
+      "G",
+      "B"
+    ],
+    "why": "§2.9(단색조+악센트 1)와 §2.8(형태 언어)이 한 화면에서 만나는 지점 — **빨강 하나가 곧 주인공**이다. G 두려움에 강하고 릴스 썸네일 대비 최강. 🔴 표정이 없으므로 A(마음·감정)엔 금지. 수상 미검증",
+    "styleSpec": {
+      "medium": "black stencil and cut-out shapes only - no brush, no drawn line, no texture",
+      "palette": "white paper, black, and exactly one red element - three components total",
+      "finish": "extreme reduction: only the cut shapes exist, with no shadow, no perspective and no surface texture anywhere",
+      "character": "a threatening animal built from a square head, a stepped row of teeth and two white dot eyes; the geometry of the head is the menace"
+    }
+  },
+  {
+    "id": "arsenault-marguerite",
+    "award": "BolognaRagazzi Fiction 위너 2014",
+    "year": 2013,
+    "artist": "Isabelle Arsenault",
+    "work": "Le Noël de Marguerite",
+    "origin": "CA",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2014/LE_NOEL_DE%20MARGUERITE_vincitore_Fiction_BRAW2014.jpg",
+    "cluster": "C6 단색조 + 악센트 1",
+    "medium": "흑연 + 잉크 + 얇은 색 한 판, 크림 종이 위",
+    "palette": "크림 + 흑연 회 단색조 + 빨강 1점(외투·유리공 안의 빛)",
+    "finish": "인물만 마감, 실내는 연필선 몇 개. 빨강이 놓인 자리가 곧 시선 유도",
+    "character": "노인 인물 — 굽은 등·긴 코·가는 손이 실루엣을 만든다. 얼굴은 선 몇 개뿐인데 나이가 읽힌다",
+    "groups": [
+      "F",
+      "A"
+    ],
+    "why": "🔴 F 집·가족(노인의 크리스마스)과 §2.9의 교본이 겹치는 자리 — **빨강이 기억/온기라는 서사 변수**다. 노인을 비율이 아니라 **실루엣(굽은 등)**으로 읽히게 한 것이 §2.6 그대로",
+    "styleSpec": {
+      "medium": "graphite and ink with one thin colour plate laid over, on cream paper",
+      "palette": "cream and graphite grey monochrome with exactly one red element",
+      "finish": "only the figure is finished; the interior is a handful of pencil lines, and where the red sits is where the eye is sent",
+      "character": "an elderly figure read entirely from silhouette - curved back, long nose, thin hands; the face is only a few lines yet the age is unmistakable"
+    }
+  },
+  {
+    "id": "lindenbaum-siv",
+    "award": "Deutscher Jugendliteraturpreis 그림책 부문 수상 2012",
+    "year": 2011,
+    "artist": "Pija Lindenbaum",
+    "work": "Siv sover vilse (Siv Sleeps Over)",
+    "origin": "SE",
+    "imageUrl": "https://covers.openlibrary.org/b/id/6958154-L.jpg",
+    "cluster": "C6 단색조 + 악센트 1",
+    "medium": "과슈 평칠, 붓 결이 남은 채로 화면 전체를 한 색이 덮음",
+    "palette": "채도 높은 빨강 1색이 90% + 노랑 띠 + 작은 인물의 파랑·검정",
+    "finish": "🔴 방 전체가 빨강 한 덩어리 — 가구·벽 어느 것도 안 그렸다. 인물과 그림자만 존재",
+    "character": "아이가 화면 대비 아주 작고, 등을 보인 채 서 있다. 표정 없이 크기로 불안을 쓴다",
+    "groups": [
+      "F",
+      "G"
+    ],
+    "why": "F 집·가족(친구 집에서 자기)의 불안을 **색 하나로 통째 칠해** 표현. 🔴 감정을 '어두운 색'이 아니라 **강한 색의 과잉**으로 쓴 드문 사례 — A/G 배정 시 어둡게만 가지 않는 대안",
+    "styleSpec": {
+      "medium": "gouache laid flat with the brush direction still readable, one colour covering the entire surface",
+      "palette": "one highly saturated red filling about ninety percent of the page, one yellow band, and the small figure in blue and black",
+      "finish": "the whole room is a single red mass - no furniture and no walls are drawn; only the figure and its shadow exist",
+      "character": "a child kept very small in the frame and turned away from the viewer; there is no expression, and the unease is written by scale alone"
+    }
+  },
+  {
+    "id": "milner-nomoney",
+    "award": "CILIP Kate Greenaway Medal 숏리스트 2021",
+    "year": 2019,
+    "artist": "Kate Milner",
+    "work": "It's a No-Money Day",
+    "origin": "UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/14509385-L.jpg",
+    "cluster": "C6 단색조 + 악센트 1",
+    "medium": "부드러운 연필 해칭 + 평면 색 바탕 한 판",
+    "palette": "머스터드 노랑 바탕 1색 + 흑연 회 + 초록 줄무늬 1점",
+    "finish": "인물만 연필로 마감, 나머지는 노랑 평면. 바닥선조차 없다",
+    "character": "엄마와 아이가 한 덩어리로 겹쳐 앉음 — 두 몸이 하나의 실루엣이 되는 것이 관계를 말한다",
+    "groups": [
+      "F",
+      "A"
+    ],
+    "why": "F 집·가족의 무거운 소재(가난)를 **밝은 색 바탕 + 연필 인물**로 견디게 만든 표본. 🔴 우리 F 권이 대체로 밝은 소재라 이 조합은 무거운 F 권 1~2권용 예비 앵커로 남긴다",
+    "styleSpec": {
+      "medium": "soft pencil hatching for the figures over one flat plate of colour",
+      "palette": "one mustard yellow ground, graphite grey, and one green stripe",
+      "finish": "only the figures are worked in pencil; everything else is the flat yellow plane, with not even a floor line drawn",
+      "character": "an adult and a child drawn overlapping into a single mass, so the two bodies share one silhouette - the relationship is stated by the shape, not by the faces"
+    }
+  },
+  {
+    "id": "boyd-flashlight",
+    "award": "BolognaRagazzi Fiction 위너 2015",
+    "year": 2014,
+    "artist": "Lizi Boyd",
+    "work": "Flashlight",
+    "origin": "US",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2015/FICTION/winner_flashlight_cover%20ok.jpg",
+    "cluster": "C6 단색조 + 악센트 1",
+    "medium": "검정 바탕 위 회색 과슈 + 손전등 빛 부분만 컷아웃처럼 밝게 오려냄",
+    "palette": "검정 90% + 회 + 빛 안쪽에만 연두·빨강 소량",
+    "finish": "🔴 빛이 닿은 곳만 채색·마감, 나머지는 검정에 회색 실루엣만. **완성도 위계를 손전등이 직접 정한다**",
+    "character": "아이는 회색 실루엣 + 흰 점 눈 하나. 빛 밖에선 형태만 남는다",
+    "groups": [
+      "H",
+      "G"
+    ],
+    "why": "🔴 H 호기심의 최적 장치 — **보는 도구(손전등)가 곧 마감 위계**라 §2.7을 서사가 강제한다. 밤·두려움(G)도 같은 앵커로. AI 실패 모드=빛을 '글로우 효과'로 처리 → 프롬프트에서 컷아웃임을 명시할 것",
+    "styleSpec": {
+      "medium": "grey gouache over a black ground, with the lit area cut out as a hard-edged shape rather than glowed or blurred",
+      "palette": "black across roughly ninety percent of the page, grey, and small amounts of green and red that exist only inside the lit shape",
+      "finish": "only what the light falls on is coloured and finished; everything outside it stays black with a grey silhouette - the light beam itself sets the finish hierarchy",
+      "character": "a child rendered as a grey silhouette with one white dot eye; outside the beam only the outline survives"
+    }
+  },
+  {
+    "id": "duzakin-hvorfor",
+    "award": "BolognaRagazzi Fiction 특별언급 2015",
+    "year": 2014,
+    "artist": "Akin Düzakin",
+    "work": "Hvorfor er jeg her? (Why Am I Here?)",
+    "origin": "NO",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2015/FICTION/why%20am%20i%20here_cover_ok.jpg",
+    "cluster": "C6 단색조 + 악센트 1",
+    "medium": "부드러운 파스텔·연필 문지르기, 흰 종이 위 작은 섬 하나만",
+    "palette": "회갈 단색조 + 초록 셔츠 1점 + 흰 여백 85%",
+    "finish": "인물이 선 바위 하나만 그리고 나머지는 완전한 백지 — 지평선·하늘 없음",
+    "character": "아이 하나 + 작은 동물. 뒷모습이거나 옆모습이고 얼굴이 거의 안 보인다",
+    "groups": [
+      "A",
+      "D"
+    ],
+    "why": "A 마음·감정의 '질문' 계열 — **백지를 물음표로 쓰는** 구성. §2.1-2 여백 원칙의 극단 표본. 리스크=12스프레드 내내 백지면 단조롭다 → 중간 2~3쪽에 밀도를 배급",
+    "styleSpec": {
+      "medium": "soft pastel and pencil rubbed into the paper, with only one small island of drawing on an otherwise blank sheet",
+      "palette": "a grey-brown monochrome with one green garment; about eighty-five percent of the page is bare white",
+      "finish": "only the rock the figure stands on is drawn; there is no horizon and no sky, just untouched paper",
+      "character": "one child and one small animal, seen from behind or in profile so the face is barely visible"
+    }
+  },
+  {
+    "id": "dubois-akim",
+    "award": "Deutscher Jugendliteraturpreis 그림책 부문 수상 2014 (Akim rennt)",
+    "year": 2012,
+    "artist": "Claude K. Dubois",
+    "work": "Akim court",
+    "origin": "BE",
+    "imageUrl": "https://covers.openlibrary.org/b/id/7393036-L.jpg",
+    "cluster": "C1 연필·크레용 나이브",
+    "medium": "무른 연필·목탄을 문질러 번지게, 흰 종이 위",
+    "palette": "흑연 회 단색조 + 아주 옅은 황토, 색이라 부를 게 거의 없다",
+    "finish": "인물 몇 명만 문지른 덩어리로, 배경 건물·연기는 회색 얼룩. 선명한 선이 하나도 없다",
+    "character": "아이들이 아주 작고 얼굴이 뭉개져 있다 — 개별 얼굴을 지운 것이 곧 이 책의 주제(피난민)",
+    "groups": [
+      "G",
+      "D"
+    ],
+    "why": "C1이 감정을 밀 때의 극단 — **얼굴을 안 그림으로써** 무거운 소재를 4~6세가 견디게 한다. 🔴 §7.2 분리 규칙 점검: 종이=차가운 흰색·점눈 없음·빨강 악센트 없음 → 점눈이와 안 겹친다",
+    "styleSpec": {
+      "medium": "soft pencil and charcoal smudged with the finger on white paper; no line is ever left crisp",
+      "palette": "a graphite-grey monochrome with a trace of pale ochre - effectively no colour at all",
+      "finish": "a few figures exist as rubbed masses; buildings and smoke behind them are grey stains with no drawn edges",
+      "character": "children are kept very small and their faces are deliberately smudged out, so no individual features survive"
+    }
+  },
+  {
+    "id": "meschenmoser-gordon",
+    "award": "BolognaRagazzi Fiction 특별언급 2015",
+    "year": 2014,
+    "artist": "Sebastian Meschenmoser",
+    "work": "Gordon und Tapir",
+    "origin": "DE",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2015/FICTION/gordon%20un%20tapir_coverOK.jpg",
+    "cluster": "C1 연필·크레용 나이브",
+    "medium": "정밀 연필 드로잉 + 부분에만 수채 한 점, 흰 종이 위 직접",
+    "palette": "흑연 회 + 동물의 국소 색 1~2점(부리 주황·깃 노랑)",
+    "finish": "🔴 동물만 정밀 마감하고 배경은 아예 없음 — 흰 종이 위에 동물이 떠 있다",
+    "character": "동물이 사람처럼 자세를 취한다(거꾸로 매달림·팔짱). 해부는 정확한데 포즈가 코믹",
+    "groups": [
+      "F",
+      "E"
+    ],
+    "why": "F 집·생활(같이 사는 두 동물의 갈등 = 룸메이트 서사)의 정본. 🔴 **정확한 해부 + 코믹 포즈**는 우리가 자주 놓치는 조합 — 동물을 왜곡하지 않고도 웃길 수 있다는 반례",
+    "styleSpec": {
+      "medium": "precise pencil drawing on bare white paper with one or two spots of watercolour dropped in locally",
+      "palette": "graphite grey plus one or two local colours on the animal only",
+      "finish": "only the animals are finished, in detail; there is no background at all and they float on white paper",
+      "character": "animals drawn with accurate anatomy but posed like people - hanging upside down, arms folded; the comedy is in the pose, not in any distortion of the body"
+    }
+  },
+  {
+    "id": "cobb-paperdolls",
+    "award": "CILIP Kate Greenaway Medal 숏리스트 2014",
+    "year": 2012,
+    "artist": "Rebecca Cobb",
+    "work": "The Paper Dolls",
+    "origin": "UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/10395361-L.jpg",
+    "cluster": "C1 연필·크레용 나이브",
+    "medium": "색연필·크레용 + 오려 붙인 종이 인형 도형, 아이 손 같은 필치",
+    "palette": "옅은 회청 바탕 + 빨강·노랑·초록 소품 4색, 전부 저채도",
+    "finish": "인물만 마감, 배경은 색 한 겹 + 별 몇 개. 종이 인형은 통째 평면 도형",
+    "character": "아이 얼굴 = 동그라미 + 점 눈 + 볼 두 점 + 실선 입. 🔴 점눈이와 가장 가까운 후보",
+    "groups": [
+      "F",
+      "H"
+    ],
+    "why": "F 집·놀이(종이 인형 만들기)와 H 만들기 겸용. 🔴 **§7.2 충돌 경고 대상** — 이 앵커를 쓸 거면 분리 규칙 3개를 전부 적용해야 한다(차가운 흰 종이 또는 크라프트 / 눈+눈썹 선으로 / 빨강 1점 규칙 금지). 안 지키면 전래동화 복사본",
+    "styleSpec": {
+      "medium": "coloured pencil and crayon worked with a deliberately childlike hand, with flat cut-paper shapes pasted among the drawing",
+      "palette": "a pale grey-blue ground with red, yellow and green props - four colours, all low in saturation",
+      "finish": "only the figures are finished; the ground is one colour pass with a few small marks, and the paper cut-outs stay completely flat",
+      "character": "a child's face as a circle with two dot eyes, two cheek dots and one line mouth - draw the eyes with a separate eyebrow line instead if this anchor is used, to keep it away from another line's face grammar"
+    }
+  },
+  {
+    "id": "butler-borders",
+    "award": "CILIP Kate Greenaway Medal 숏리스트 2022",
+    "year": 2021,
+    "artist": "George Butler",
+    "work": "Drawn Across Borders",
+    "origin": "UK",
+    "imageUrl": "https://covers.openlibrary.org/b/id/10838996-L.jpg",
+    "cluster": "C1 연필·크레용 나이브",
+    "medium": "갈대펜 잉크 + 옅은 수채, 현장에서 그린 리포타주 필치(선이 떨리고 끊긴다)",
+    "palette": "잉크 검정 + 종이 흰색 + 워시 1~2색",
+    "finish": "🔴 인물 한 명만 마감, 주변은 사선 해칭 몇 줄로 공간만 암시하고 종이로 소멸",
+    "character": "인물이 작고 뒷모습. 얼굴 대신 **짐·자세·발 위치**로 누구인지 말한다",
+    "groups": [
+      "H",
+      "D"
+    ],
+    "why": "H 직업·현장을 다루는 유일한 리포타주형 후보 — 공방·시장·일터를 **그 자리에서 본 사람의 선**으로 그린다. 🔴 §2.7 완성도 위계가 원작에 이미 완벽히 구현돼 있어 프롬프트 재기술이 쉽다",
+    "styleSpec": {
+      "medium": "reed-pen ink with a thin watercolour wash, drawn on the spot so the line trembles and breaks",
+      "palette": "black ink, white paper, and one or two wash colours",
+      "finish": "one figure is finished; the surroundings are a few diagonal hatch strokes that suggest space and then dissolve into bare paper",
+      "character": "the figure is small and often seen from behind; identity is carried by the load being carried, the stance and the position of the feet rather than by a face"
+    }
+  },
+  {
+    "id": "palomino-charcoal",
+    "award": "Yoto Carnegie Medal for Illustration 숏리스트 2025",
+    "year": 2023,
+    "artist": "Juan Palomino",
+    "work": "Letters in Charcoal",
+    "origin": "MX",
+    "imageUrl": "https://covers.openlibrary.org/b/id/14419950-L.jpg",
+    "cluster": "C4 평면 형태",
+    "medium": "평면 색면 + 숯 질감 그레인을 면 안에 남김",
+    "palette": "황토 바탕 + 초록 잎 + 갈 실루엣 + 분홍 1점 4색",
+    "finish": "잎·인물은 평면 도형, 바닥은 황토 한 판. 음영 0",
+    "character": "인물이 갈색 실루엣 + 곱슬머리 덩어리. 옆모습이고 얼굴 디테일이 거의 없다",
+    "groups": [
+      "H",
+      "F"
+    ],
+    "why": "H 호기심·배움(글자 배우기)을 평면 형태로. 🔴 무대가 중남미라 **유럽 무대 라인엔 그대로 못 쓴다** — 상속할 것은 '숯 그레인이 남은 평면'이라는 매체 처리뿐",
+    "styleSpec": {
+      "medium": "flat colour areas with a charcoal grain left inside each fill",
+      "palette": "an ochre ground, green leaves, brown silhouettes and one pink accent - four colours",
+      "finish": "leaves and figures are flat shapes; the ground is one ochre plate; there is no shading anywhere",
+      "character": "a figure as a brown silhouette with the hair as one separate mass; shown in profile with almost no facial detail"
+    }
+  },
+  {
+    "id": "haugomat-atravers",
+    "award": "BolognaRagazzi Fiction 특별언급 2019",
+    "year": 2018,
+    "artist": "Tom Haugomat",
+    "work": "À travers",
+    "origin": "FR",
+    "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2019/images/premi/BRAW/A_travers_BRAW_BCBF_19.jpg",
+    "cluster": "C4 평면 형태",
+    "medium": "스크린프린트 논리의 평면 색면, 윤곽선 0",
+    "palette": "청 바탕 + 흰 + 빨강 1점, 2~3색",
+    "finish": "장면 전체가 평면 도형이고, 시야(쌍안경·창)의 **바깥은 통째 단색으로 잘라낸다**",
+    "character": "인물이 아주 작고 실루엣. 얼굴 없음 — 무엇을 보고 있는지로만 존재",
+    "groups": [
+      "D",
+      "H"
+    ],
+    "why": "🔴 **보는 프레임(쌍안경·창·문)으로 화면을 잘라내는 장치** — 한 권 전체를 이 규칙 하나로 묶을 수 있어 앵커 효율이 높다. D 여정·H 관찰 겸용. 표정이 없으므로 A엔 금지(§2.8)",
+    "styleSpec": {
+      "medium": "flat screen-print-style colour areas with no outline anywhere",
+      "palette": "a blue ground, white, and one red accent - two to three colours",
+      "finish": "the whole scene is flat shapes, and everything outside the viewing frame - binoculars, a window, a doorway - is cut away to a single unbroken colour",
+      "character": "figures are tiny silhouettes with no face; they exist only through what they are looking at"
+    }
+  }
+]

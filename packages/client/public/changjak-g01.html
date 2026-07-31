@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>G-01 침대 밑에 사는 것 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · G · 용기·두려움 · 01</div>
+  <h1>침대 밑에 사는 것</h1>
+  <div class="sub">밤마다 침대 밑에서 소리가 나요. 아주 큰 게 있나 봐요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 오해와 반전</span>
+  <span>무대 · 영국 아이방 (벽에 붙인 낮은 나무 침대 · 침대 밑에 쌓인 마른 잎 · 격자 창 · 창빛이 마루에 만든 달빛 네모)</span>
+  <span class="q">13스프레드</span>
+  <span class="q">본문 696자 · 쪽당 54자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- 🔴 <b>오해의 원인이 물리적이고, 못 아는 이유가 둘 다 글 안에 있다.</b> ①침대 밑은 좁아서 작은 소리도 웅웅 울린다(p1 에 사실로 심는다 — 독자는 첫 쪽부터 알고 오소리는 p9 까지 모른다) ②침대 판자가 사이를 막아 <b>위에서는 아래가 안 보이고, 아래에서는 내려온 발 하나밖에 안 보인다</b>(p10 고슴도치 대사 「밑에서는 발밖에 안 보여! 얼마나 큰지 어떻게 알아?」가 그것이다). 이 한 줄이 없으면 「왜 몰라?」가 남는다.<br>
+- 🔴 <b>저쪽이 무서워한 것도 물건이 아니라 오소리가 실제로 한 일이다.</b> 밤마다 침대 밖으로 늘어지는 뒷발, 그리고 p4 에서 겁을 주려고 <b>쿵 구른 그 발</b>. 겁주려던 행동이 저쪽을 더 무섭게 만든 인과가 화면 안에서 닫힌다 — 그래서 p5 의 소리가 더 커진다(고슴도치가 잎 속으로 파고드느라).<br>
+- 🔴 <b>침대 밑에 사는 것은 괴물이 아니라 고슴도치다.</b> 영국 집 밑에 실제로 마른 잎을 끌어다 들어와 있고, 놀라면 몸을 공처럼 만다 — <b>무서움이 몸동작으로 그려지는 동물</b>이라 이 책에 필요했다. 등에 마른 잎이 꽂히는 것도 실제로 그렇다.<br>
+- 🔴 <b>밤을 공포로 안 그린다.</b> 방은 달빛으로 부드럽게 밝고, 어두운 데는 침대 밑 한 군데뿐이다. 정체가 드러나는 데 세 쪽 이상 안 끌고(4~6세는 못 들고 간다), 뾰족한 것이 나오자마자 <b>떨고 있는 것</b>으로 보인다. 이빨·발톱·으르렁 없음.<br>
+- 🔴 <b>어둠 속 단서를 눈으로 하지 않았다</b> — f01 p6 이 「캄캄한 속에서 눈이 반짝」이라 겹친다. 여기서는 <b>삐죽삐죽한 것 여럿</b>이고, 그것이 뒤로 물러나며 반대쪽으로 새는 소리(p7)가 다음 쪽으로 잇는다.<br>
+- 🔴 <b>크기는 p11 에서 딱 한 번 잰다.</b> p6 의 어둠에서는 뾰족한 끝만 보여 크기가 안 읽히고(g88 p4 와 같은 자리), p8 은 위에서 내려다봐 원근이 크기를 뒤집는다. 둘이 <b>달빛 네모 위 같은 바닥에 나란히 앉는 p11</b> 에서만 「고슴도치가 오소리 앞발만 하다」가 화면에서 읽힌다. 다른 쪽에 크기 문구를 적으면 소음이다.<br>
+- 🔴 <b>규칙을 외우게 하지 않는다.</b> 둘이 정한 것은 조항이 아니라 <b>각자 하던 짓 하나씩을 그만두는 것</b>이다 — 오소리는 발을 안 내리고, 고슴도치는 밤에 잎을 안 끈다. p12 는 그 말이 나오는 쪽이 아니라 <b>말과 동시에 몸이 그 자리로 물러나는 쪽</b>이다(네 발이 이불 속으로, 잎 뭉치가 구석으로). 그림 한 장으로 규칙 전부가 보인다.<br>
+- 🔴 <b>아무도 설명해 주지 않는다.</b> 어른이 없고, 둘 다 제가 본 것만 말한다. 고슴도치는 「네 발!」이라고 제 무서움을 말할 뿐 「넌 나를 무서워할 필요 없어」라고 정리해 주지 않는다.<br>
+- 🔴 <b>착지 카드 = 같은 무서움.</b> 마지막 쪽에서 자리는 하나도 안 바뀐다 — 오소리는 침대 위, 고슴도치는 침대 밑 그대로다. 바뀐 것은 <b>판자 위아래에서 같은 자세로 몸을 마는 것</b>과, 소리가 났을 때 그것이 아는 소리라는 것뿐이다. 교훈 문장을 넣을 자리를 아예 비웠다.<br>
+- 🔴 <b>의인화 등급 고정</b> — 둘 다 사족 그대로, 옷·손가락 없음. 오소리는 앞발을 쓸 때만 일어나 앉고 침대와 이불은 쓴다. 고슴도치는 말은 하되 앞발로 무언가를 쥐지 않는다. 열세 쪽 내내 같다.<br>
+- 🔴 <b>열세 쪽.</b> 무서움이 커지는 데 넷(소리 → 발 숨기기 → 겁주기 → 더 커짐), 알아내는 데 넷(들여다봄 → 물러남 → 떠는 공 → 건드림), 뒤집힘에 둘(내 발 → 나란히), 물러난 자리와 착지에 둘, 첫 쪽 하나. p4 를 빼면 저쪽이 더 무서워진 이유가 사라지고, p8 을 붙이면 「떨고 있다」를 못 보고 정체부터 알게 된다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>"잘 자!"
+새끼 오소리가 침대에 폭 누웠어요.
+뒷발 하나가 침대 밖으로 대롱대롱 나왔어요.
+침대 밑은 캄캄해요. 마른 잎이 가득하고, 좁아서 소리가 웅웅 울려요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 아이레벨보다 조금 낮게(마루 높이에서 옆으로 본다) · 화면 오른쪽에 침대와 그 위 오소리, 왼쪽에 마루와 달빛 네모, 침대 아래 어두운 틈이 화면 아래를 가로로 가른다
+<b>장소·시간</b> 영국 아이방 하나 — 벽에 붙인 낮은 나무 침대(다리 넷, 바닥과의 틈이 오소리 키만 하다), 그 위에 크림색 이불, 맞은편 벽에 나무 격자 창, 창으로 든 달빛이 마룻바닥에 <b>격자무늬 흰 네모</b>를 찍어 놓았다, 꿀빛 나무 마루, 침대 옆에 작은 양탄자와 나무 상자. <b>이 방과 물건 자리는 열세 쪽 내내 같다.</b> 달이 밝은 밤
+<b>인물</b> 화면 오른쪽 침대 위 — 새끼 오소리가 이불을 배까지 덮고 옆으로 누웠다, 두 앞발을 턱 밑에 모아 붙였고 눈이 반쯤 감겼으며 입가가 편하게 풀렸다, 흑백 줄무늬가 있는 얼굴이 베개에 눌려 한쪽으로 밀렸다. 🔴 <b>뒷발 하나만 이불 밖 침대 모서리로 나와 아래로 대롱대롱 늘어져 있다</b> — 발끝이 침대 밑 어둠 바로 위에서 멈춘다(열세 쪽 내내 이 발의 자리가 눈금이다). 사족 그대로 · 옷·손가락 없음 · 앞발을 쓸 때만 일어나 앉는다. 고슴도치는 프레임에 없다
+<b>배경·소품</b> 🔴 침대 밑 틈이 통째로 캄캄하고 그 안쪽 벽 쪽에 <b>갈색 마른 잎이 두툼하게 쌓여 있다</b> — 어둠에 묻혀 가장자리만 겨우 보인다. 침대 밑은 위아래가 나무 판자와 마루로 막힌 좁고 낮은 상자 같은 공간이다. 격자 창밖으로 마당 나무 가지와 달, 마루의 달빛 네모 안에 창살 그림자가 격자로 얹혔다, 나무 상자 위에 접힌 천 한 장. 글자·숫자 요소 없음
+<b>톤</b> 방 전체가 달빛으로 부드럽게 밝고 색이 남아 있다 — 🔴 <b>밤이 무섭지 않게, 어두운 데는 침대 밑 한 군데뿐이도록.</b> 화면에서 가장 밝은 자리가 마루의 흰 네모, 가장 어두운 자리가 그 옆 침대 밑 틈이라 둘이 나란히 놓인다. 하루가 닫히는 조용함</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>부스럭! 부스럭!
+침대 밑에서 나는 소리가 웅— 웅— 울렸어요.
+오소리는 이불을 코까지 끌어올렸어요.
+마른 잎 한 장이 스르륵 밀려 나왔어요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 위쪽에 이불을 끌어올린 오소리 얼굴, 아래쪽에 침대 밑 틈과 거기서 밀려 나온 잎 한 장
+<b>장소·시간</b> 같은 방, 침대 옆. 같은 밤
+<b>인물</b> 화면 위 — 오소리가 누운 채 <b>두 앞발로 이불 끝을 잡아 코까지 끌어올렸다</b>, 이불 위로 눈과 귀만 나왔고 눈이 크게 벌어졌으며 귀 두 개가 아래쪽을 향해 쫑긋 돌아갔다, 이불이 턱 밑에서 잔뜩 구겨졌다. 🔴 <b>늘어져 있던 뒷발은 아직 그대로 밖에 나와 있다</b>(오소리는 얼굴만 숨겼다). 사족 그대로 · 옷·손가락 없음
+<b>배경·소품</b> 🔴 <b>침대 밑 어둠에서 갈색 마른 잎 한 장이 마루로 밀려 나와 달빛 네모 가장자리에 걸쳤다</b> — 어두운 화면에서 유일하게 색을 가진 작은 것이라 눈이 거기 닿는다. 잎이 밀려 나온 자리에 마루 먼지가 가늘게 쓸린 자국. 어둠 안쪽은 아무것도 안 보인다. 격자 창, 달빛 네모. 글자·숫자 요소 없음
+<b>톤</b> 침대 위는 크림색 이불로 밝고 침대 밑은 통째로 검다 — 두 밝기가 화면을 위아래로 가른다. 🔴 <b>소리가 나는 데는 안 보이고 밀려 나온 것만 보인다</b>는 것이 화면 구조 그 자체다. 이불 속으로 파고드는 몸의 움츠러듦</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>"소리가 이렇게 큰데… 엄청 큰 거잖아!"
+오소리가 대롱대롱 나온 발을 이불 속으로 쏙 넣었어요.
+소리가 뚝 그쳤어요.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨 · 침대 모서리를 화면 아래에 두고 그 위 이불 속으로 들어가는 뒷발을 본다
+<b>장소·시간</b> 같은 방, 침대 모서리. 같은 밤
+<b>인물</b> 화면 가운데 — 오소리가 이불 속에서 몸을 접어 <b>늘어져 있던 뒷발을 무릎째 끌어당겨 이불 안으로 넣는 중</b>이다, 발끝이 이불 자락 아래로 막 사라지고 발가락 하나만 아직 밖에 걸렸다, 이불이 발을 따라 안쪽으로 끌려 들며 주름이 몰린다. 이불 위로 나온 얼굴은 아래를 곁눈질하고 눈썹이 몰렸으며 입이 조금 벌어져 말하는 중이다. 사족 그대로 · 옷·손가락 없음
+<b>배경·소품</b> 침대 모서리 아래 어둠은 <b>아무 움직임도 없이 조용하다</b> — 밀려 나온 마른 잎 한 장이 아까 그 자리에 그대로 놓였다. 이불 자락이 침대 옆으로 조금 흘러내렸다, 마루의 달빛 네모, 격자 창. 글자·숫자 요소 없음
+<b>톤</b> 발이 사라지는 이불 자락 한 뼘에만 초점이 맺히고 나머지는 부드럽게 풀린다. 🔴 <b>발이 들어가자 아래가 조용해진다</b> — 다음 쪽에서 발이 다시 내려갈 것이므로, 이 쪽의 조용함이 화면에 남도록 침대 밑 어둠을 아주 고르게(잎 한 장 말고는 아무 결도 없이). 숨을 죽인 정지</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>그런데 또 부스럭!
+오소리가 발을 쭉 뻗어 마룻바닥을 쿵! 굴렀어요.
+"저리 가!"</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 와이드 · 로우앵글(마루 가까이에서 위를 향해) · 화면 위쪽에 침대 위 오소리, 아래쪽에 마루를 밟은 뒷발과 튀어 오른 먼지
+<b>장소·시간</b> 같은 방, 침대 옆 마루. 같은 밤
+<b>인물</b> 화면 가운데 — 오소리가 상체를 일으켜 한 앞발로 침대를 짚고 <b>뒷다리 하나를 침대 밖으로 힘껏 뻗어 마룻바닥을 내리 굴렀다</b>, 발바닥이 마루에 납작하게 닿아 눌렸고 몸이 그쪽으로 기울었다, 눈썹이 위로 치켜 올라가고 입이 크게 벌어져 소리친다, 등털이 살짝 섰다. 🔴 <b>숨겼던 그 발이 다시 어둠 앞으로 내려왔다</b> — 겁을 주려고 제가 내린 것이다. 사족 그대로 · 옷·손가락 없음
+<b>배경·소품</b> 밟힌 자리에서 마루 먼지가 동그랗게 튀어 오르고 널판이 아주 조금 휘었다. 🔴 <b>밀려 나와 있던 마른 잎이 그 발 바로 옆에서 밟혀 한쪽 끝이 접혔다.</b> 침대 밑 어둠 안쪽에서 잎 무더기가 한 번 크게 들썩인 자국. 달빛 네모의 한 칸을 발이 밟고 있다, 격자 창. 글자·숫자 요소 없음
+<b>톤</b> 아래에서 올려다본 각도라 뻗은 다리와 밟은 발이 화면에서 가장 크다 — 🔴 <b>이 화면의 주인공은 발이다</b>(고슴도치가 아래에서 본 것이 이것뿐이라는 게 나중에 밝혀진다). 발밑 먼지에만 달빛이 걸려 반짝이고 침대 밑은 여전히 검다. 짧고 사나운 한 번의 소리</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>사그락사그락, 아까보다 더 크게 울려요.
+오소리는 이불 속에서 몸을 잔뜩 웅크렸어요.
+등털이 쭈뼛!
+"자꾸 커지잖아…"</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 · 하이앵글 · 위에서 침대와 이불 속에 뭉친 오소리를 비스듬히 내려다본다
+<b>장소·시간</b> 같은 방, 침대 위. 같은 밤
+<b>인물</b> 화면 가운데 — 오소리가 이불을 통째로 뒤집어쓰고 <b>무릎을 배까지 당겨 공처럼 웅크렸다</b>, 두 앞발로 제 귀를 반쯤 덮었고 눈을 크게 뜬 채 아래를 본다, 이불 밖으로 나온 등 쪽 털이 삐죽삐죽 곤두섰다, 꼬리가 몸 아래로 말려 들어갔다. 🔴 <b>발은 이불 속에 그대로 있다</b>(p4 이후 다시 넣었다). 사족 그대로 · 옷·손가락 없음
+<b>배경·소품</b> 🔴 침대 밑 어둠 안쪽에서 마른 잎 무더기가 크게 흔들려 <b>잎 두어 장이 마루 쪽으로 더 밀려 나왔다</b> — 아까 한 장이던 것이 세 장이 됐다. 흔들린 잎 사이로 먼지가 옅게 떠오른다. 이불이 몸을 따라 둥근 산 모양으로 솟았다, 달빛 네모, 격자 창. 글자·숫자 요소 없음
+<b>톤</b> 위에서 본 화면이라 이불이 만든 둥근 덩어리 하나와 그 아래 검은 침대 밑 틈이 한눈에 든다 — 🔴 <b>위에도 아래에도 웅크린 것이 하나씩 있다는 구도</b>(아래 것은 아직 안 보인다). 소리는 커졌는데 화면은 오히려 더 조용해 목덜미가 뻣뻣해지는 무서움</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>오소리가 침대 아래로 고개를 거꾸로 쑥 내밀었어요.
+캄캄한 속에 삐죽삐죽 뾰족한 게 잔뜩!
+"뾰족한 게 저렇게 많아?"</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 클로즈업 · 로우앵글(침대 밑 틈 높이에서 옆으로) · 화면 위쪽 가장자리에 거꾸로 들어온 오소리 얼굴, 화면 가운데 어둠 속에 뾰족한 것들의 윤곽
+<b>장소·시간</b> 같은 방, 침대 밑 틈 입구. 같은 밤
+<b>인물</b> 화면 위 — 오소리가 침대 모서리를 두 앞발로 붙잡고 <b>고개를 아래로 거꾸로 내밀어 안을 들여다본다</b>, 얼굴이 위아래로 뒤집혀 보이고 귀가 아래로 늘어졌으며 눈이 크게 벌어졌다, 흑백 줄무늬가 거꾸로 그려진다, 입이 조금 벌어졌다. 사족 그대로 · 옷·손가락 없음
+<b>배경·소품</b> 어둠 속에 <b>뾰족한 끝들이 여럿 삐죽삐죽 솟아 윤곽으로만 잡힌다</b> — 🔴 <b>무엇의 일부인지, 얼마나 큰지 여기서 읽히면 안 된다</b>(크기는 p11 이 댄다). 달빛이 틈 입구 한 뼘까지만 들어와 앞쪽 뾰족한 끝 두어 개에만 옅게 걸리고 나머지는 검다. 그 아래 깔린 마른 잎, 잎에 눌린 자국 하나. 글자·숫자 요소 없음
+<b>톤</b> 화면의 대부분이 검고 들어온 빛은 위쪽 한 줄뿐이다. 🔴 뾰족한 것들이 <b>가만히 있고 아무 소리도 안 낸다</b> — 움직이거나 다가오면 무서운 책이 된다. 눈을 크게 뜨고 숨을 멈춘 한순간</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>뾰족한 것들이 스르륵 뒤로 물러났어요.
+스슥, 스슥 — 저쪽 끝으로 가는 소리예요.
+오소리는 침대 모서리를 두 앞발로 꼭 잡았어요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 미디엄 · 로우앵글 · 같은 틈 입구에서, 화면 왼쪽으로 멀어지는 뾰족한 윤곽과 오른쪽 위의 오소리 얼굴
+<b>장소·시간</b> 같은 방, 침대 밑 틈 입구. 같은 밤
+<b>인물</b> 화면 오른쪽 위 — 오소리가 아직 고개를 거꾸로 내민 자세 그대로 <b>두 앞발로 침대 모서리를 꽉 움켜쥐었다</b>, 발가락에 힘이 들어가 나무가 눌리고 팔이 뻣뻣하다, 눈이 왼쪽을 따라가고 귀 하나가 소리 쪽으로 돌아갔다, 입을 다물었다. 사족 그대로 · 옷·손가락 없음
+<b>배경·소품</b> 🔴 뾰족한 윤곽이 <b>화면 왼쪽 안쪽으로 물러나며 작아지고</b> 그 뒤로 마른 잎이 밀려 갈라진 골이 한 줄 났다 — 지나간 자리가 그림에 남는다. 잎 몇 장이 그 골 양옆으로 밀려 쌓였고 먼지가 낮게 떠 있다. 저 왼쪽 끝, 침대 반대편 다리 사이로 달빛 한 조각이 가늘게 들어와 있다(다음 쪽으로 눈을 보내는 빛). 글자·숫자 요소 없음
+<b>톤</b> 어둠 속에서 유일하게 움직이는 것이 멀어지는 방향이라 시선이 오른쪽 얼굴에서 왼쪽 끝 빛까지 한 번에 미끄러진다. 🔴 <b>다가오는 게 아니라 도망가는 것</b>이 이 쪽의 전부 — 무서움의 방향이 여기서 이미 한 번 꺾인다. 손끝에 힘이 들어가는 긴장</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>오소리가 반대쪽 아래를 내려다봤어요.
+달빛 네모 위에 작은 공이 하나 있어요.
+공이 부들부들 떨려요.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 하이앵글(침대 반대편 모서리에서 아래를 내려다본다) · 화면 위 가장자리에 오소리의 얼굴과 앞발, 화면 가운데 마루의 달빛 네모와 그 위 작은 공
+<b>장소·시간</b> 같은 방, 침대 반대편 아래 마루. 같은 밤
+<b>인물</b> 화면 위 — 오소리가 침대 반대편 모서리 밖으로 상체를 내밀고 두 앞발로 모서리를 짚은 채 아래를 내려다본다, 목이 길게 늘어나고 귀가 앞으로 쏠렸으며 눈이 동그랗게 커졌다, 입이 조금 벌어졌다. 🔴 <b>놀라거나 뒤로 물러나지 않는다</b> — 보는 자세 하나만. 사족 그대로 · 옷·손가락 없음
+<b>배경·소품</b> 화면 가운데 마루의 흰 달빛 네모 위에 <b>갈색 가시로 뒤덮인 작은 공 하나</b>가 놓였다 — 얼굴도 발도 안 보이고 둥근 것뿐이며, 🔴 <b>가시 사이에 마른 잎 한 장이 꽂혀 있다</b>(침대 밑에서 나던 소리의 주인이라는 게 색으로 이어진다). 공 둘레의 가시 끝이 잘게 떨려 그림자도 같이 떨린다, 달빛 네모의 격자 창살 그림자가 공 위로 지나간다. 침대 다리, 침대 밑 어둠 입구. 글자·숫자 요소 없음
+<b>톤</b> 화면에서 가장 밝은 흰 네모 한가운데에 어두운 갈색 공 하나만 놓여 시선이 갈 데가 거기뿐이다. 🔴 <b>위에서 내려다보는 각도라 크기는 못 재게 하고</b>(원근이 뒤집는다), 대신 <b>떨림이 보이게</b> — 처음 나온 순간에 이미 무서워하고 있다는 것만 읽히도록. 숨을 죽이고 지켜보는 조용함</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>오소리가 앞발로 톡 건드려 봤어요.
+따끔!
+공이 스르르 풀리더니 코가 쏙 나왔어요.
+"네 발! 밤마다 큰 발이 쑥 내려온단 말이야!"</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨(마루 높이에서 수평) · 화면 왼쪽에 오소리의 앞발과 얼굴 일부, 오른쪽에 몸을 반쯤 푼 고슴도치
+<b>장소·시간</b> 같은 방, 마루의 달빛 네모 위. 같은 밤
+<b>인물</b> 화면 왼쪽 — 오소리가 침대에서 내려와 마루에 앉아 <b>앞발 하나를 뻗어 공을 톡 건드린 참</b>이다, 건드린 앞발이 가시에 찔려 화들짝 위로 튀어 오르며 발가락이 벌어졌고, 얼굴은 눈을 질끈 감으며 코를 찡그렸다. 화면 오른쪽 — 고슴도치가 <b>말았던 몸을 스르르 풀며 앞쪽 가시가 눕고 그 사이로 뾰족한 코와 까만 눈, 짧은 앞발이 나왔다</b>, 코를 위로 들어 오소리 쪽을 향하고 입을 벌려 말하는 중이다, 아직 뒷몸은 공처럼 말린 채다. 🔴 고슴도치는 앞발로 무엇도 쥐지 않는다. 둘 다 사족 그대로 · 옷·손가락 없음
+<b>배경·소품</b> 🔴 마른 잎 한 장이 고슴도치 등 가시에 그대로 꽂혀 흔들린다. 오소리가 건드린 자리의 가시 두어 개가 아직 눕지 않고 섰다, 달빛 네모의 창살 그림자가 둘 사이 마루에 격자로 얹혔다, 뒤쪽에 침대 다리와 어두운 틈. 글자·숫자 요소 없음
+<b>톤</b> 달빛 네모 안에서 처음으로 <b>양쪽 얼굴이 다 보인다</b> — 어둠에서 윤곽만이던 것이 코와 눈을 갖는 순간. 튀어 오른 앞발과 눕는 가시가 같은 화면에 있어 「따끔」이 두 몸에 동시에 보인다. 무서웠던 것이 갑자기 말을 걸어올 때의 멋쩍은 놀람</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>오소리가 제 뒷발을 번쩍 들어 봤어요.
+"이 발? 이거 내 발인데."
+"밑에서는 발밖에 안 보여! 얼마나 큰지 어떻게 알아?"</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 왼쪽에 뒷발을 든 오소리 전신, 오른쪽 아래에 고개를 든 고슴도치
+<b>장소·시간</b> 같은 방, 마루의 달빛 네모 위. 같은 밤
+<b>인물</b> 화면 왼쪽 — 오소리가 마루에 엉덩이를 붙이고 앉아 <b>뒷발 하나를 두 앞발로 받쳐 얼굴 앞까지 번쩍 들어 올렸다</b>, 발바닥이 정면으로 보이고 발가락이 벌어졌다, 고개를 갸웃 기울여 제 발과 고슴도치를 번갈아 보며 눈썹이 위로 올라갔고 입이 벌어졌다. 🔴 <b>p1 부터 대롱대롱 늘어져 있고 p4 에서 마루를 굴렀던 그 발이다</b> — 이 쪽에서 처음으로 화면 한가운데에 온다. 화면 오른쪽 아래 — 고슴도치가 몸을 거의 다 펴고 네 발로 서서 코를 위로 쳐들어 오소리 발을 올려다본다, 가시가 등에 눕고 입을 벌려 말하는 중이다. 둘 다 사족 그대로 · 옷·손가락 없음
+<b>배경·소품</b> 둘 뒤로 침대 옆면과 그 아래 검은 틈이 보인다 — 🔴 <b>틈이 아주 납작해서, 저 안에서는 위쪽이 하나도 안 보이고 발만 들어온다는 것이 화면에 있도록.</b> 마루의 달빛 네모, 밀려 나온 마른 잎 세 장, 고슴도치 가시에 꽂힌 잎 한 장. 글자·숫자 요소 없음
+<b>톤</b> 들어 올린 발바닥이 달빛을 정면으로 받아 화면에서 가장 밝다 — 열 쪽 내내 어둠 쪽으로 늘어져 있던 것이 이제 빛 한가운데 있다. 🔴 <b>크기 문구를 여기 적지 마라</b>(발 하나만 크게 보이는 각도다, 크기는 p11). 어이없다는 얼굴과 억울하다는 얼굴이 마주 보는 우스움</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>둘이 달빛 네모 위에 나란히 앉았어요.
+고슴도치는 오소리 앞발만 해요.
+"너, 나보다 작잖아!"
+"너는 나보다 크잖아!"</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 · 아이레벨(마루 높이에서 정면 수평) · 화면 가운데에 둘이 나란히, 🔴 <b>똑같은 깊이의 같은 바닥에 앉아 있어 크기가 이 컷에서만 정확히 견줘진다</b>
+<b>장소·시간</b> 같은 방, 마루의 달빛 네모 위. 같은 밤
+<b>인물</b> 화면 왼쪽 — 오소리가 뒷다리를 접고 앉아 앞발 하나를 옆으로 내려 마루를 짚었다, 고개를 옆으로 돌려 아래를 내려다보고 눈이 크게 떠졌으며 입이 벌어졌다. 화면 오른쪽 — 고슴도치가 오소리 바로 옆에 네 발로 붙어 서서 고개를 위로 젖혀 올려다본다, 코끝이 위를 향하고 입을 벌렸으며 가시가 등에 편하게 누웠다. 🔴 <b>고슴도치의 몸통이 오소리의 앞발 하나만 하다</b> — 마루에 짚은 오소리 앞발과 고슴도치가 나란히 닿아 있어 견줄 것이 한 화면 안에서 맞붙는다. 둘 다 사족 그대로 · 옷·손가락 없음
+<b>배경·소품</b> 마루의 흰 달빛 네모가 둘을 함께 담고 창살 그림자가 둘의 등을 가로로 지난다, 뒤쪽에 침대 옆면과 낮은 틈, 밀려 나온 마른 잎 세 장이 둘 발치에 흩어졌다, 고슴도치 등의 잎 한 장. 글자·숫자 요소 없음
+<b>톤</b> 화면 좌우가 밝기와 초점이 같아 어느 쪽도 커 보이거나 작아 보이게 만드는 각도가 없다 — 🔴 <b>이 책에서 크기가 사실대로 보이는 유일한 컷</b>. 서로 반대말을 하는데 뜻이 같아지는 짧은 웃음</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>"그럼 나는 발 안 내릴게."
+"나는 밤에 잎 안 끌게."
+오소리는 네 발을 이불 속에 쏙 넣었어요.
+고슴도치는 잎 뭉치를 구석으로 밀어 놨어요.</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 침대를 옆에서 본다, 화면 위쪽 절반에 침대 위 오소리, 아래쪽 절반에 침대 밑 틈과 고슴도치 — 🔴 <b>둘이 한 화면에 위아래로 놓이되 서로를 보지는 않는다</b>
+<b>장소·시간</b> 같은 방, 침대 위와 침대 밑. 같은 밤
+<b>인물</b> 화면 위 — 오소리가 침대에 옆으로 누워 <b>네 발을 다 배 쪽으로 당겨 이불 속에 넣었다</b>, 이불 자락을 앞발로 발 위까지 꾹 눌러 여몄고 이불 밖으로는 얼굴만 나왔다, 눈이 반쯤 감기고 입가가 풀렸다. 🔴 <b>침대 밖으로 나온 발이 하나도 없다</b> — p1 과 정반대다. 화면 아래 — 고슴도치가 침대 밑에서 <b>마른 잎 뭉치를 코와 이마로 밀어 안쪽 구석으로 옮기는 중</b>이다, 앞다리가 뻗고 뒷다리가 마루를 밀며 몸이 낮게 기울었다, 밀린 잎이 앞쪽에 둥글게 뭉쳤다. 둘 다 사족 그대로 · 옷·손가락 없음
+<b>배경·소품</b> 🔴 <b>침대 밑 마루가 잎이 치워진 만큼 훤해졌고</b>, 밀려 나와 있던 잎 세 장도 함께 안쪽으로 들어가는 중이다. 침대 다리 사이로 달빛 네모의 한 귀퉁이가 여전히 밝다, 격자 창밖의 달, 나무 상자. 글자·숫자 요소 없음
+<b>톤</b> 위아래 두 칸이 같은 밝기로 고르게 보이고, 침대 판자 한 장이 그 사이를 가로로 가른다 — 🔴 <b>각자 제자리에서 제가 하던 것 하나씩을 그만두는 것이 두 몸의 자세로 동시에 보이도록.</b> 말없이 정리되는 밤의 차분함</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>부스럭.
+"…무서웠어?"
+"응. 너도?"
+"나도."
+오소리가 침대 위에서 몸을 동그랗게 말았어요.
+침대 밑에서도 똑같이 동그란 공이 잠들었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · p12 와 같은 옆에서 본 구도, 화면 위에 침대 위 오소리, 아래에 침대 밑 고슴도치 — 🔴 <b>둘의 몸이 판자 하나를 사이에 두고 같은 자세로 겹쳐 놓인다</b>
+<b>장소·시간</b> 같은 방, 침대 위와 침대 밑. 달이 기운 늦은 밤
+<b>인물</b> 화면 위 — 오소리가 이불 속에서 <b>등을 둥글게 말고 코를 배에 묻은 채 잠들었다</b>, 꼬리가 몸을 한 바퀴 감았고 귀가 편하게 눕고 눈이 감겼다, 이불이 그 위로 둥근 산을 만든다. 화면 아래 — 고슴도치가 침대 밑 구석에서 <b>똑같이 몸을 동그랗게 말고 잠들었다</b>, 가시가 바깥으로 고르게 눕고 코끝만 조금 나왔다. 🔴 <b>위의 둥근 덩어리와 아래의 둥근 공이 화면에서 같은 크기로 보이도록 배치한다</b>(위는 이불이 덮여 부풀고, 아래는 몸 그대로다 — 그래서 실제 크기가 달라도 그림에서는 두 개의 같은 동그라미가 된다). 둘 다 사족 그대로 · 옷·손가락 없음
+<b>배경·소품</b> 🔴 <b>마른 잎이 전부 침대 밑 안쪽 구석에 모여 있고 마루에는 한 장도 없다.</b> 침대 밖으로 나온 발도 없다. 마루의 달빛 네모가 아까보다 옆으로 조금 옮겨 가 침대 다리 아래를 지난다, 격자 창밖으로 기운 달과 마당 나뭇가지. 글자·숫자 요소 없음
+<b>톤</b> 방 전체가 낮고 고르게 어둡고, 위아래 두 동그라미에만 달빛이 얇게 얹힌다 — 🔴 <b>자리는 처음과 하나도 안 바뀌었는데 화면에 잠든 것이 둘이 됐다</b>는 것이 이 쪽의 전부. 어느 쪽이 더 무서웠는지 가릴 수 없는 밤의 고요함</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'g01',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 오소리(이름 없음)', '고슴도치(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=43defebe18a6c159"></script>
+<script src="/changjak-core.js?v=43defebe18a6c159"></script>
+</body>
+</html>
