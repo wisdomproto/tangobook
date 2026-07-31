@@ -213,6 +213,52 @@ export default function EnglishPhonicsActivityPage() {
     );
   }
 
+  // ── Book 3·4·5: 낱말 기반 듣고 고르기 (letters 없음 → 낱말 소리 듣고 그림 고르기) ──
+  if (activity.kind === 'word-listen-choose') {
+    const sb = storybookQuery.data as Storybook | undefined;
+    if (storybookQuery.isLoading || !sb) {
+      return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
+    }
+    // 🔴 발음은 flashcards 가 아니라 **wordFamilies** 에 있다(findImageData 는 그림·keypoints 만 준다).
+    //    낱말·발음은 wordFamilies 에서, 그림은 findImageData 에서 가져와 합친다.
+    const seen = new Set<string>();
+    const items = (sb.phonicsLesson?.wordFamilies ?? [])
+      .flatMap((f) => f.words ?? [])
+      .filter((w) => !!w.word && !seen.has(w.word) && !!seen.add(w.word))
+      .map((w) => {
+        const img = findImageData(sb, w.word);
+        return {
+          id: w.word,
+          label: w.word,
+          sound: w.word,
+          ...(img.imageUrl ? { imageUrl: img.imageUrl, revealImageUrl: img.imageUrl } : {}),
+          ...(w.ttsUrl ? { ttsUrl: w.ttsUrl } : {}),
+        };
+      })
+      .filter((it) => it.imageUrl);
+    if (items.length < 3) {
+      return (
+        <ActivityUnavailable
+          activity={activity}
+          onBack={backToUnit}
+          reason="낱말 그림이 필요해요"
+        />
+      );
+    }
+    return (
+      <WordListenChooseActivity
+        unitId={unitId}
+        language="english"
+        items={items}
+        choices={4}
+        columns={2}
+        exploreFirst
+        onMarkComplete={handleMarkComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+
   // ── 🏅 복습 액티비티 ──
   // 🔴 예전엔 「영어는 그림이 0장」이라 글자만으로 도는 2종뿐이었다. 단어 카드가 붙은 뒤로는
   //    한글과 같은 6종을 돌린다(사용자: "a~f review 너무 뭐가 없는데?").

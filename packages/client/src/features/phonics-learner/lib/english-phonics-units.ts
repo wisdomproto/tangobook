@@ -280,6 +280,26 @@ function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
   return { activities };
 }
 
+// ─── Book 3·4·5 plan generator (낱말 단위 — Magic-e / 블렌드 / 모음팀) ───
+/**
+ * 🔴 **Book 3·4·5 는 낱말 기반 재사용 플랜**(2026-07-31). 이 권들은 철자 패턴이 저마다 달라서
+ *    (Magic-e 라임 `_ake` · 앞 블렌드 `bl_` · 모음팀 `ee`) Book 2 의 CVC 전용 「배우기」가 안 맞는다.
+ *    데이터(단어 그림·keypoints·wordFamilies TTS)는 이미 완비돼 있으므로, **기존 컴포넌트만 재사용**해
+ *    먼저 연다: 듣고 고르기(낱말) + 게임 4종. 패턴 개념을 가르치는 전용 「배우기」는 후속.
+ *  - `word-listen-choose` 는 `letters` 를 안 넘긴다 → 호스트가 **낱말 기반 분기**로 렌더한다
+ *    (Book 1 은 `letters` 가 있어 알파벳 분기).
+ */
+function makeWordUnitPlan(): ActivityPlan {
+  const games: ActivityDef[] = [
+    { key: 'word-listen-choose', order: 1, kind: 'word-listen-choose', section: 'learn', title: '듣고 고르기', emoji: '🔊', required: true }, // prettier-ignore
+    { key: 'game-english-block', order: 2, kind: 'game-english-block', section: 'play', title: '블록 게임', emoji: '🧩', required: false }, // prettier-ignore
+    { key: 'game-word-writing', order: 3, kind: 'game-word-writing', section: 'play', title: '낱말 쓰기', emoji: '🖍️', required: false }, // prettier-ignore
+    { key: 'game-dots', order: 4, kind: 'game-connect-dots', section: 'play', title: '낱말 그리기', emoji: '🔵', required: false }, // prettier-ignore
+    { key: 'game-line-matching', order: 5, kind: 'game-line-matching', section: 'play', title: '그림 짝 찾기', emoji: '🔗', required: false }, // prettier-ignore
+  ];
+  return { activities: games };
+}
+
 // Book 1 unit → 글자 (storybook title 과 일치)
 const BOOK1_LETTERS: Record<string, readonly string[]> = {
   'en-b1-u01': ['A', 'B', 'C'],
@@ -445,6 +465,11 @@ function englishReviewPlans(): Record<string, ActivityPlan> {
   return out;
 }
 
+// Book 3·4·5 단원 id — 커리큘럼에서 파생(목록을 두 번 적지 않는다).
+const BOOK345_UNIT_IDS = getCurriculumUnits()
+  .filter((u) => u.levelKey === 'book3' || u.levelKey === 'book4' || u.levelKey === 'book5')
+  .map((u) => u.id);
+
 export const ENGLISH_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
   ...Object.fromEntries(
     Object.entries(BOOK1_LETTERS).map(([unitId, letters]) => [unitId, makeBook1UnitPlan(letters)])
@@ -455,6 +480,8 @@ export const ENGLISH_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
       makeBook2UnitPlan(patterns),
     ])
   ),
+  // Book 3·4·5 — 낱말 기반 재사용 플랜(듣고 고르기 + 게임 4종).
+  ...Object.fromEntries(BOOK345_UNIT_IDS.map((id) => [id, makeWordUnitPlan()])),
   ...englishReviewPlans(),
 };
 
