@@ -29,7 +29,17 @@ await page.setViewport(VIEWPORT);
  * 키는 `lib/korean-phonics-units.ts` 에 있는 것 그대로다.
  * ⚠️ `game-korean-block` 은 쓰지 않는다 — 모바일에서 자모 타일이 7.2×19.2px 라 그림이 안 된다.
  */
-const KO_ACTIVITY = ['consonant-tap', 'vowel-tap', 'blend-listen'];
+// 🔴 활동 키는 **레벨마다 다르다** — 자음 단원 키만 넣어두면 모음·받침·복잡한 모음 13단원이
+//    조용히 빈다(실측). 자음(consonant-*) · 모음(listen-1/write-1) · 받침(coda-listen-1) ·
+//    복잡한 모음(listen-1) 순으로 훑고 처음 뜨는 것을 찍는다.
+const KO_ACTIVITY = [
+  'consonant-tap',
+  'blend-listen',
+  'coda-listen-1',
+  'listen-1',
+  'write-1',
+  'consonant-write',
+];
 const KO_GAME = ['game-line-matching', 'game-dots', 'game-word-writing'];
 const EN_ACTIVITY = ['letter-sound', 'blend-listen', 'word-listen-choose'];
 const EN_GAME = ['game-line-matching', 'game-dots', 'game-word-writing'];
