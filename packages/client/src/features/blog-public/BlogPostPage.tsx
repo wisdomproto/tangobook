@@ -6,6 +6,7 @@ import { useBlogPost } from './api';
 import { BlogCards } from './BlogCards';
 import { useBlogLang } from './useBlogLang';
 import { PhonicsTryIt } from '@/features/phonics-learner/components/PhonicsTryIt';
+import { PhonicsStoryPeek } from '@/features/phonics-learner/components/PhonicsStoryPeek';
 
 /**
  * 파닉스 글에서 「직접 해보기」가 들어갈 자리 — 앞 N개 섹션 뒤.
@@ -50,7 +51,8 @@ export default function BlogPostPage() {
    * 웹앱이라 가능한 것이고, 스크린샷으로는 「두 글자가 합쳐지는 순간」을 전할 방법이 없다.
    * 🔴 한국어 글에만 — 활동 화면 글자가 전부 한국어라 영어 독자에겐 맞지 않는다.
    */
-  const tryIt = lang === 'ko' && post?.storybookId?.startsWith('kr-h') ? post.storybookId : null;
+  const phonicsUnit =
+    lang === 'ko' && post?.storybookId?.startsWith('kr-h') ? post.storybookId : null;
 
   // 책 상세 링크 — 위/아래 CTA 가 같은 곳을 가리킨다.
   // ⚠️ 비-ko 는 `/{lang}?to=…`(LangEntry) 그대로 둔다. 로그인 사용자는 자기 UI 언어를 유지하는 게
@@ -149,14 +151,17 @@ export default function BlogPostPage() {
                 </div>
 
                 <div className="px-6 pb-9 pt-6 sm:px-10 sm:pb-11">
-                  {tryIt ? (
+                  {phonicsUnit ? (
                     <>
                       {/* 🔴 임베드는 **그 얘기를 한 섹션 바로 뒤**에 온다 — 맨 끝에 두면 이미 다
                           읽고 난 뒤라 「직접 해보세요」가 뒷북이다. 파닉스 32편이 같은 6섹션
                           구조를 쓰므로 자리는 고정(§2 「합쳐지는 순간」 다음 = 앞 3장 뒤). */}
                       <BlogCards cards={post.cards.slice(0, TRY_IT_AFTER)} />
-                      <PhonicsTryIt unitId={tryIt} />
+                      <PhonicsTryIt unitId={phonicsUnit} />
                       <BlogCards cards={post.cards.slice(TRY_IT_AFTER)} />
+                      {/* 동화는 **맨 끝** — 활동을 다 설명한 뒤에 「이게 다가 아니라 이야기도 있다」가
+                          와야 자랑이 된다. 앞에 두면 글의 본론(학습법)을 밀어낸다. */}
+                      <PhonicsStoryPeek unitId={phonicsUnit} />
                     </>
                   ) : (
                     <BlogCards cards={post.cards} />
