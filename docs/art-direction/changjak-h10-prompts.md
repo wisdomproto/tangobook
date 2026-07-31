@@ -87,12 +87,11 @@ RENDERING (finish hierarchy): 🔴 THIS VOLUME: THE CUT PIECES LEAN ON EACH OTHE
   OPEN GAP AT THE TOP where no piece is laid yet. The book is over when the wide one becomes a
   hairline. Evening is 🔴 THE SAME PIECES SWAPPED FOR ONE STEP DARKER PAPER, and to push something
   back you 🔴 USE FEWER AND SMALLER PIECES. FINISHED THINGS PER PAGE = 2. Stones = at most 16 a
-  frame. Pebbles = at most 9. Dust = at most 6 tiny flecks. Water = 1 plane + at most 3 cut strips.
-  DENSITY RATION = page 10, and 🔴 THERE THE DENSITY IS COUNT AND NOT FINISH - one trapezoid
-  repeated in a fan. All fourteen pages stay at finish 2.
+  frame. Pebbles = at most 9. Dust = at most 6 flecks. Water = 1 plane + 3 strips. DENSITY RATION = page 10, and 🔴 THERE THE DENSITY IS COUNT, NOT FINISH - one trapezoid repeated in a
+  fan. All fourteen stay at finish 2.
 
-PALETTE: GROUND #BFCBD0, the pale grey-blue sheet everything is laid on - 🔴 it is the sky, and it
-  is also every gap between two stones · STONE #B7A98C, laid paper with a visible grain · STONE
+PALETTE: GROUND #BFCBD0, the sheet everything is laid on - 🔴 the sky, and also every
+  gap between two stones · STONE #B7A98C, laid paper with a visible grain · STONE
   INNER #93866C, one step darker, the underside of the arch (a different face, not a shadow) ·
   TIMBER #6F5638 and PLANK #8A6E48 · WATER #4E9B8E with SHALLOWS #77B3A5 · OTTER #4B3A2C with a
   #C9BFA4 linen waistcoat · LYNX #9B8A72. 🔴 ONE ACCENT: THE WHITE STONE #F6F2E6 - the only piece
@@ -106,13 +105,13 @@ CHARACTER DESIGN LANGUAGE: both animals are cut from the same papers as the worl
   animal; the otter in a short linen waistcoat, the lynx in a tool belt. 🔴 THE LYNX NEVER POINTS,
   WARNS OR EXPLAINS - he only sets stones, and once he raises an eyebrow.
 
-CANVAS: 16:9 double-page spread. One creek crossing, the same on all fourteen pages and fixed by
-  the CreekSet sheet. 🔴 The camera never leaves the creek and never goes under the water. Bottom
+CANVAS: 16:9 double-page spread. One creek crossing, fixed for all fourteen pages by the
+  CreekSet sheet. 🔴 The camera never leaves the creek and never goes under the water. Bottom
   18% quiet for a caption. No lettering, numerals or signs.
 
 NOT: no digital slickness - airbrush, gradient, glow, 3D CG, cel-shading, photographic,
   or a paper-texture filter over flat colour (the papers must be REAL cut sheets) / no drawn line,
-  outline, brush mark or pencil - every line here is a gap between two pieces / never a shadow,
+  outline or brush mark - every line here is a gap between two pieces / never a shadow,
   light shaft or shine on water / ONE SHEET THICK - no stitching, thread, wool, needle felting or
   fabric weave.
 ```
@@ -244,22 +243,19 @@ Also: the wheelbarrow with five or six stone pieces in it, and the same barrow e
 
 ```
 BAKE THIS PAGE SECOND, right after page 10. 🔴 It fixes the crossing for all fourteen spreads.
-CAMERA: wide, eye level, from the far bank, taking the whole crossing in one look. The otter and
-  the wheelbarrow at the RIGHT bank.
-SUBJECT: OtterKit stands on two legs and shoves the wheelbarrow, bent right over its handles, back
-  curved, hind feet slipping on the gravel, the linen waistcoat sliding off one shoulder, mouth
-  set. Posture: SHOVING. On the planks in the middle, LynxMason stands at the top of a stone row
-  and wipes his brow with the back of one wrist, the maul on his belt.
+CAMERA: wide, eye level, from the far bank, the whole crossing in one look. The otter and the
+  wheelbarrow at the RIGHT bank.
+SUBJECT: OtterKit shoves the wheelbarrow, bent right over its handles, back curved, hind feet
+  slipping on the gravel, the waistcoat sliding off one shoulder. SHOVING. On the planks in the
+  middle, LynxMason stands at the top of a stone row and wipes his brow with one wrist.
 SKY: 🔴 THE WIDE OPEN GAP AT THE CROWN - two rows of trapezoids have climbed from both banks to
-  equal height and no piece has been laid at the top, so the GROUND sheet shows straight through
-  between them, 🔴 AND THAT GAP SITS IN THE MIDDLE OF THE FRAME. Between every pair of stones runs
-  a hairline of the same sheet. 🔴 Same material, two widths - the whole book is that comparison.
-WHITE: 0 - the barrow holds five or six ordinary grained STONE pieces and the white one is not
-  visible yet.
+  equal height and no piece is laid at the top, so the GROUND sheet shows straight through, 🔴 AND
+  THAT GAP SITS IN THE MIDDLE OF THE FRAME. Between every pair of stones runs a hairline of the
+  same sheet. 🔴 Same material, two widths - the book is that comparison.
+WHITE: 0 - the barrow holds five or six ordinary grained STONE pieces.
 FRAME: STANDING (state A) - the timber curve touches the underside of the stones all along, four
-  posts and wedges in the water. Under the bridge there is almost no GROUND at all.
-FINISH: 2 (the otter + the barrow). Stones = at most 16. Pebbles = at most 9. One low ridge behind
-  as a single piece. 🔴 Page 14 is the exact opposite of this frame. 0 lettering, 0 numerals.
+  posts and wedges in the water. Under the bridge, almost no GROUND at all.
+FINISH: 2 (the otter + the barrow). 🔴 Page 14 is the exact opposite of this frame. 0 lettering.
 ```
 
 ### p2 — 하나씩. 양쪽 똑같이
@@ -330,13 +326,11 @@ CAMERA: medium close-up, slightly HIGH angle. The two outstretched paws at the u
   white piece part way down the slope below them.
 SUBJECT: OtterKit is in the same lying-out pose, 🔴 BOTH PAWS STILL OUT IN THE AIR AND THE DIGITS
   SPREAD WIDE WHERE THEY MISSED, head turned down to follow, eyes wide, mouth open, whiskers out.
-SKY: 🔴 THE EVIDENCE IS A NEW GAP - where the white piece was sitting a moment ago there is now a
-  clean band of GROUND, and the piece itself is part way down the slope. 🔴 THAT IS HOW THIS BOOK
-  DRAWS MOVEMENT: not a streak, not a blur, not a ghost, not a dust trail - a piece is somewhere
-  else and the sheet shows where it was.
-WHITE: 🔴 PART WAY DOWN THE SLANTED BACK, and it is the only pale thing in the frame, so the eye
-  travels with it. Stone dust it has scraped loose = at most 6 tiny cut flecks laid along its path,
-  each one a hard-edged shape.
+SKY: 🔴 THE EVIDENCE IS A NEW GAP - where the white piece sat a moment ago there is now a clean band
+  of GROUND, and the piece is part way down the slope. 🔴 THAT IS HOW THIS BOOK DRAWS MOVEMENT: not
+  a streak, blur, ghost or dust trail - a piece is somewhere else and the sheet shows where it was.
+WHITE: 🔴 PART WAY DOWN THE SLANTED BACK, the only pale thing in the frame, so the eye travels with
+  it. Stone dust it scraped loose = at most 6 tiny cut flecks along its path, each hard-edged.
 FRAME: STANDING - 🔴 THE PLANKS ARE PLAINLY UNDERNEATH THE WHOLE SLOPE, so the reader sees it
   cannot fall into the water. Water shows only at the very bottom edge.
 FINISH: 2 (the two empty paws + the sliding piece). 🔴 THE OPEN SPACE BETWEEN THE PAWS AND THE
@@ -369,9 +363,9 @@ FINISH: 2 (the two hauling hands + the bottom stone). 🔴 THE BOTTOM STONE IS T
 ATTACH THE APPROVED PAGE 1 RENDER - the same wide view of the whole crossing.
 CAMERA: wide, eye level, the whole crossing in frame. OtterKit sat down hard at the lower RIGHT.
 SUBJECT: OtterKit has 🔴 SAT DOWN IN THE SHALLOW WATER WITH HIS LEGS APART, the pulled-out stone
-  still in one arm, water thrown up as at most 6 small hard-edged cut shapes, eyes and mouth round,
-  wet fur cut into points on his face. Posture: SAT DOWN HARD. Above on the planks, LynxMason has
-  turned to look down 🔴 and has not started toward him.
+  still in one arm, water thrown up as at most 6 small hard-edged cut shapes, eyes and mouth round.
+  SAT DOWN HARD. Above on the planks, LynxMason has turned to look down 🔴 and has not started
+  toward him.
 SKY: 🔴 THREE STONES HAVE SLID DOWN THE ROW AND THE GAPS THEY LEFT ARE THREE CLEAN BANDS OF GROUND
   - the sheet showing through is the entire record of what happened. The three pieces themselves
   lie tilted lower down, still touching each other. The crown gap above is unchanged.
@@ -426,24 +420,22 @@ FINISH: 2 (the white piece + the reaching hand). 🔴 No shadow inside the empty
 ### p10 — 한 군데가 환해요 🔴 판 ref · 가장 먼저 굽는다 · 밀도 배급
 
 ```
-BAKE THIS PAGE FIRST OF ALL FOURTEEN. 🔴 The test of the book: one trapezoid repeated into a fan,
-hairlines between all of them, and ONE WIDE GAP. If the pieces arrive overlapping, shaded or with a
-drawn outline, nothing else is worth baking.
-CAMERA: 🔴 EXTREME LOW ANGLE, THE VIEW OF SOMEONE LYING ON HIS BACK - the whole top of the frame is
-  the underside of the arch; a forehead, a nose tip and one wide eye clip the bottom edge.
-SUBJECT: OtterKit lies flat on his back on the planks, arms loose at his sides, tail laid out. Only
-  those three small pieces of him are in frame.
+BAKE THIS PAGE FIRST OF ALL FOURTEEN. 🔴 The test: one trapezoid repeated into a fan, hairlines
+between all of them, and ONE WIDE GAP. If the pieces arrive overlapping, shaded or outlined,
+nothing else is worth baking.
+CAMERA: 🔴 EXTREME LOW ANGLE, THE VIEW OF SOMEONE LYING ON HIS BACK - the top of the frame is the
+  underside of the arch; a forehead, a nose tip and one eye clip the bottom edge.
+SUBJECT: OtterKit lies flat on his back on the planks, arms loose, tail out. Only those three
+  pieces of him are in frame.
 SKY: 🔴 THE UNDERSIDES OF THE STONES CURVE FROM LOWER LEFT TO LOWER RIGHT AS A FAN of narrow
-  trapezoid bottoms in STONE INNER #93866C - 🔴 a darker paper because it is a different face, not
-  because it is in shadow - with 🔴 A HAIRLINE OF GROUND BETWEEN EVERY PAIR. And 🔴 AT THE CROWN,
-  DEAD CENTRE, ONE GAP IS WIDE OPEN and the bare GROUND sheet shows through it. Every other place
-  is closed. 🔴 The wide one and the hairlines are the SAME sheet at different widths.
-WHITE: 🔴 NOT IN THE FRAME AT ALL - he is lying down and has left it behind, so the only pale shape
-  on this page is the gap itself.
+  trapezoid bottoms in STONE INNER #93866C - 🔴 darker paper because it is a different face, not
+  because it is shaded - with 🔴 A HAIRLINE OF GROUND BETWEEN EVERY PAIR. And 🔴 AT THE CROWN, DEAD
+  CENTRE, ONE GAP IS WIDE OPEN. Every other place is closed. 🔴 The wide one and the hairlines are
+  the SAME sheet at different widths.
+WHITE: 🔴 NOT IN FRAME - he left it behind, so the only pale shape here is the gap itself.
 FRAME: STANDING - plank edges along the bottom.
-FINISH: 🔴 DENSITY RATION, BUT AS COUNT AND NOT FINISH - at most 16 stones, all one shape repeated,
-  0 marks inside any of them, so the page is packed and carries no information at all. Finish
-  stays 2 (the eye + the open gap). 0 lettering, 0 numerals.
+FINISH: 🔴 DENSITY RATION, BUT AS COUNT NOT FINISH - at most 16 stones, one shape repeated, 0 marks
+  inside. Finish stays 2 (the eye + the gap). 0 lettering.
 ```
 
 ### p11 — 여기밖에 없어요! 🔴 뒤집힘
@@ -473,64 +465,57 @@ ATTACH THE APPROVED PAGE 10 RENDER - 🔴 use ARCH PLATE B.
 CAMERA: extreme close-up, slightly LOW angle. The crown fills the frame with the white piece in it;
   two small paws at the bottom.
 SUBJECT: 🔴 ONLY OTTERKIT'S TWO FOREPAWS are in frame, both palms still cupped in the shape of the
-  piece but 🔴 STOPPED A FINGER'S WIDTH BELOW IT, digits still tensed, stone dust on the tips.
+  piece but 🔴 STOPPED A FINGER'S WIDTH BELOW IT, digits tensed, stone dust on the tips.
 SKY: 🔴 THE PAYOFF. The wide crown gap has become 🔴 TWO HAIRLINES, one on each slanted side of the
   white piece, exactly like every other joint in the arch. Nothing shows through the crown any
-  more. 🔴 It is the same sheet it always was; only its width has changed, and that change is the
-  whole book.
-WHITE: 🔴 SEATED IN THE CROWN, its slanted sides flush against its two neighbours and 🔴 ITS NARROW
-  BOTTOM WEDGED SO IT CANNOT GO DOWN ANY FURTHER - the shape does the holding, not glue and not
-  hands. The shell punch faces outward.
-FRAME: STANDING, out of frame below - the timber is still there and is about to become unnecessary.
+  more. 🔴 It is the same sheet it always was; only its width changed, and that is the whole book.
+WHITE: 🔴 SEATED IN THE CROWN, its slanted sides flush against its neighbours and 🔴 ITS NARROW
+  BOTTOM WEDGED SO IT CANNOT GO DOWN FURTHER - the shape does the holding, not glue and not hands.
+  The shell punch faces outward.
+FRAME: STANDING, out of frame below - still there, about to become unnecessary.
 FINISH: 2 (the seated white piece + the two paws). 🔴 THE ONE GRAINLESS PIECE AMONG GRAINED ONES IS
-  THE BRIGHTEST THING IN THE FRAME, with no light on it and no shadow under it. 🔴 Nothing in this
-  picture is moving; only the hands have drawn back. 0 lettering, 0 numerals.
+  THE BRIGHTEST THING IN THE FRAME, with no light on it and no shadow under it. 🔴 Nothing here is
+  moving; only the hands have drawn back. 0 lettering, 0 numerals.
 ```
 
 ### p13 — 이제 나무를 빼도 돼 🔴 새 틈 한 줄
 
 ```
 ATTACH THE APPROVED PAGE 10 AND PAGE 12 RENDERS.
-CAMERA: medium wide, eye level. LynxMason crouched at the RIGHT under a post, OtterKit standing in
-  the shallows at the LEFT, the arch and the timber across the middle. 🔴 EVENING SET - every piece
+CAMERA: medium wide, eye level. LynxMason crouched at the RIGHT under a post, OtterKit in the
+  shallows at the LEFT, the arch and the timber across the middle. 🔴 EVENING SET - every piece
   swapped for its one-step-darker cut.
 SUBJECT: LynxMason crouches low with both hands on the maul haft, 🔴 STRIKING A WEDGE SIDEWAYS AT
-  THE FOOT OF A POST, shoulders forward, eyes on that one wedge. Posture: CROUCHED LOW. At the
-  LEFT, OtterKit stands in ankle-deep water with both paws at his mouth and his head thrown back,
-  heels lifted, tail stiff in the water, eyes wide.
-SKY: 🔴 A NEW BAND HAS OPENED - use FALSEWORK STATE B: the timber has dropped a handspan and 🔴 ONE
+  THE FOOT OF A POST, shoulders forward, eyes on that wedge. CROUCHED LOW. At the LEFT, OtterKit
+  stands in ankle-deep water, both paws at his mouth, head thrown back, heels lifted.
+SKY: 🔴 A NEW BAND HAS OPENED - use FALSEWORK STATE B: the timber dropped a handspan and 🔴 ONE
   THIN LINE OF GROUND NOW RUNS BETWEEN THE UNDERSIDE OF THE STONES AND THE TOP OF THE TIMBER, along
-  the whole curve. The stones are no longer resting on wood. One freed wedge floats away as a small
-  piece with at most 3 ripple strips.
-WHITE: at the crown, and 🔴 IT HAS NOT BEEN SWAPPED FOR A DARKER CUT - every other piece in this
-  frame has gone one step down and it has not, so it is now plainly the palest thing in the book.
-FRAME: 🔴 SETTLED. The whole page is that one thin band; before it, wood held the bridge, and after
-  it the stones hold themselves.
-FINISH: 2 (the maul and wedge + the new band). 🔴 No shadow anywhere along that band - it is the
-  sheet. 0 lettering, 0 numerals.
+  the whole curve. The stones no longer rest on wood. One freed wedge floats away.
+WHITE: at the crown, and 🔴 IT WAS NOT SWAPPED FOR A DARKER CUT - every other piece went one step
+  down and it did not, so it is now plainly the palest thing in the book.
+FRAME: 🔴 SETTLED. The whole page is that one thin band; before it wood held the bridge, after it
+  the stones hold themselves.
+FINISH: 2 (the maul and wedge + the new band). 🔴 No shadow along that band - it is the sheet.
 ```
 
 ### p14 — 제가 맨 마지막에 놓았는데! 🔴 착지 · p1 의 정반대 · 세 번째로 굽는다
 
 ```
 BAKE THIS PAGE THIRD, after pages 10 and 1. 🔴 ATTACH THE APPROVED PAGE 1 RENDER - the same
-crossing, the same ridge, the same banks; only what is packed and what is empty has swapped.
-CAMERA: wide, LOW angle from the middle of the creek looking up at the bridge, OtterKit small and
-  seen from behind at the lower centre. 🔴 EVENING SET - every piece one step darker.
-SUBJECT: OtterKit stands in ankle-deep water with his back to us, head thrown right back, both arms
-  hanging loose, wet tail floating out on the surface. His face is not in frame - only the upright
-  ears and the tipped-back head. At the RIGHT bank, LynxMason drags a loose log onto the gravel and
-  🔴 is not looking this way.
+crossing and banks; only what is packed and what is empty has swapped.
+CAMERA: wide, LOW angle from mid-creek looking up at the bridge, OtterKit small and seen from
+  behind at the lower centre. 🔴 EVENING SET - every piece one step darker.
+SUBJECT: OtterKit stands in ankle-deep water, back to us, head thrown right back, arms
+  loose, wet tail floating. His face is not in frame - only the upright ears and tipped-back head.
+  At the RIGHT bank, LynxMason drags a log onto the gravel and 🔴 is not looking this way.
 SKY: 🔴 UNDER THE ARCH THERE IS NOTHING BUT GROUND, THE FAR BANK AND THE WATER - use FALSEWORK
-  STATE C. No frame, no posts, no wedges. 🔴 On page 1 that space was packed solid with timber and
-  the crown was open; here the crown is closed and the space is empty. Between the stones, only
-  hairlines.
+  STATE C. No frame, no posts, no wedges. 🔴 On page 1 that space was packed with timber and the
+  crown was open; here the crown is closed and the space empty. Between the stones, hairlines.
 WHITE: 🔴 ONE GRAINLESS PIECE AT THE CROWN, DEAD CENTRE AND HIGHEST IN THE FRAME. Every other piece
-  has been swapped for its darker cut and this one has not, so it is alone in being pale - 🔴 not
-  because evening light is falling on it, and there is no shadow, no beam and no glow anywhere.
-FRAME: 🔴 GONE. Two loose logs lie on the gravel bank.
-FINISH: 2 (the otter's back + the white piece at the crown). Stones = at most 16. Water = 1 plane +
-  at most 3 ripple strips. One low ridge behind as a single piece. 0 lettering, 0 numerals.
+  went one step darker and this one did not, so it is alone in being pale - 🔴 not because light
+  falls on it; no shadow, beam or glow.
+FRAME: 🔴 GONE. Two logs on the gravel bank.
+FINISH: 2 (the otter + the white piece at the crown). 0 lettering.
 ```
 
 ---

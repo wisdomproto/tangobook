@@ -85,20 +85,20 @@ RENDERING (finish hierarchy): 🔴 THIS VOLUME: ONE SHAPE IN A ROW OF IDENTICAL 
   STEP HIGH. From above a wheel is ONE PLAIN CIRCLE with 0 marks on its face and eight differ only
   in size, so 🔴 A VIEW FROM ABOVE CARRIES NO BLACK AT ALL. From the side the same wheels are
   narrow rims whose bottoms lie on one ruled line, and under exactly one sits 🔴 A SINGLE BLACK
-  SLOT, the only black in this book. Movement is never blur, streak or ghost - a shape is simply in
-  a different place or tilt than the page before. 🔴 TO PUSH SOMETHING BACK, MERGE IT
-  INTO THE PLANE BESIDE IT so it loses its own edge. FINISHED THINGS PER PAGE = 2. Wheels = at most
+  SLOT, the only black in this book. Movement is never blur, streak or ghost - a shape is simply in a
+  different place or tilt than the page before. 🔴 TO PUSH SOMETHING BACK, MERGE IT INTO THE PLANE
+  BESIDE IT so it loses its own edge. FINISHED THINGS PER PAGE = 2. Wheels = at most
   8 a frame. Dust = at most 6 dots. Tools, chain links, townspeople = 1 plane each. DENSITY RATION
   = page 8 only (finish 4); pages 6 and 7 raise the COUNT of wheels, never the finish.
 
-PALETTE: WOOD #C89A5E, the case, bench, stool and beams · WOOD DEEP
-  #6E4A2C, the inside of the case, 🔴 and every eye in this book · PALE #D8CEBA, the lime wall, the
-  brass dust and 🔴 the mouse's own fur, so he is found by his apron and not his body · BRASS
+PALETTE: WOOD #C89A5E, the case, bench, stool and beams · WOOD DEEP #6E4A2C, the inside of the
+  case, 🔴 and every eye in this book · PALE #D8CEBA, the lime wall, the brass dust and 🔴 the
+  mouse's own fur, so he is found by his apron and not his body · BRASS
   #A8863F, a wheel face on · BRASS RIM #7B5F26, the same wheel edge on - 🔴 the difference between
   those two is the whole book · BEAR #5E5348 · DAYLIGHT #F0D99A, the window and the clean-edged
   patch it lays on the floor. TWO ACCENTS AND NO OTHERS: 🔴 APRON BLUE #46708C, the only cool thing
   in the room · 🔴 SLOT BLACK #14161A, one gap under one wheel and nothing else - not an outline,
-  not a shadow, not an eye. Late afternoon = the same planes one step darker, never a new colour.
+  not a shadow, not an eye. Evening = the same planes one step darker, never a new colour.
 
 CHARACTER DESIGN LANGUAGE: both animals are built from the same flat planes as the room. 🔴 AN EYE
   IS ONE SMALL WOOD-DEEP ALMOND, never black, with no eyebrow and no expression; its position is
@@ -247,10 +247,9 @@ ROW: eight BRASS wheels on their spindles inside the case, face on, largest to s
 GAP: 🔴 ONE SLOT BLACK WEDGE under one small wheel in the middle of the row, and no black anywhere
   else in the frame. It is not in the words; it is planted here and read seven times.
 LIGHT: the DAYLIGHT patch is SHORT AND CLOSE UNDER THE WINDOW, hard-edged.
-FINISH: 2 (the mouse + the case). 🔴 NOTHING IN THIS PICTURE IS MOVING - the pendulum rod stands
-  DEAD STRAIGHT, the weights are down, and through the window four townspeople stand with their
-  feet together, all tilted back to look above the frame, beside a still cart. 0 lettering,
-  0 numerals, no clock face anywhere.
+FINISH: 2 (the mouse + the case). 🔴 NOTHING HERE IS MOVING - the pendulum rod stands DEAD
+  STRAIGHT, the weights are down, and through the window four townspeople stand with their feet
+  together, all tilted back to look above the frame, beside a still cart. 0 lettering, 0 numerals.
 ```
 
 ### p2 — 째깍 안 해요 · 첫 회
@@ -372,23 +371,21 @@ FINISH: 2 (the mouse's back + the row). 🔴 THE COUNT IS HIGH AND THE FINISH IS
 ### p8 — 옆에서 봤어요. 어? 🔴 판 ref · 가장 먼저 굽는다 · 밀도 배급
 
 ```
-BAKE THIS PAGE FIRST OF ALL FOURTEEN. 🔴 The test of the book: a row of bottoms on one ruled line,
-one of them half a step high, and one black shape under that one. If the wheels arrive with
-shading, shine or grain, nothing else is worth baking.
-CAMERA: medium close-up, 🔴 EYE LEVEL EXACTLY AT THE HEIGHT OF THE WHEELS, so the picture is very
-  flat. The mouse's cheek and one eye at the LEFT, the row running away to the RIGHT.
+BAKE THIS PAGE FIRST OF ALL FOURTEEN. 🔴 The test: a row of bottoms on one ruled line, one of them
+half a step high, and one black shape under that one. If the wheels arrive with shading, shine or
+grain, nothing else is worth baking.
+CAMERA: medium close-up, 🔴 EYE LEVEL EXACTLY AT WHEEL HEIGHT, so the picture is very flat. The
+  mouse's cheek and one eye at the LEFT, the row running away to the RIGHT.
 SUBJECT: MouseFix kneeling with ONE CHEEK LAID FLAT ON THE BENCH TOP, one eye large in frame and
-  tracking along the row, both paws on the bench edge, ears back, whiskers bent by the surface,
-  mouth small and open. CHEEK DOWN.
+  tracking along the row, both paws on the bench edge. CHEEK DOWN.
 ROW: 🔴 THE WHEELS AS NARROW BRASS RIM BANDS SEEN EDGE ON, 🔴 THEIR BOTTOM EDGES ALONG ONE RULED
   HORIZONTAL - use PLATE B1. One small wheel in the middle sits HALF A STEP ABOVE that line. 🔴 The
   lifted one and its neighbour are AT THE SAME DEPTH and the same size; perspective must not tilt
-  that. Wheels further back are merged into the WOOD DEEP plane and lose their own edges - not
-  blurred, simply not separate shapes.
-GAP: 🔴 ONE SLOT BLACK WEDGE ON THE RULED LINE UNDER THE LIFTED WHEEL, the only black in the frame.
+  that. Wheels further back merge into the WOOD DEEP plane - not blurred, simply not separate.
+GAP: 🔴 ONE SLOT BLACK WEDGE ON THE RULED LINE UNDER THE LIFTED WHEEL, the only black in frame.
 LIGHT: low and sideways across the bench top.
-FINISH: 🔴 DENSITY RATION - 4 (the cheek and eye + the ruled row + the lifted wheel + the slot).
-  The only page in the book above 2. 0 lettering, 0 numerals, no clock face.
+FINISH: 🔴 DENSITY RATION - 4 (the cheek and eye + the row + the lifted wheel + the slot). The only
+  page above 2. 0 lettering, 0 numerals.
 ```
 
 ### p9 — 그 자리에서만 스르륵 미끄러져요
@@ -493,24 +490,21 @@ FINISH: 2 (the mouse + the tilted rod). 🔴 Through the window the townspeople 
 ### p14 — 뎅— 사람들이 걷기 시작했어요 🔴 착지 · p1 의 정반대
 
 ```
-ATTACH THE APPROVED PAGE 1 RENDER. 🔴 The same room, window and square - only what is moving has
-changed.
+ATTACH THE APPROVED PAGE 1 RENDER. 🔴 Same room, window and square - only what is moving changed.
 CAMERA: wide, eye level, 🔴 FROM INSIDE THE WORKSHOP LOOKING OUT THROUGH THE WINDOW. MouseFix small
   and seen from behind on the sill at the lower LEFT; the bright window and the square fill the
   RIGHT of the frame.
 SUBJECT: MouseFix stands on the sill with both paws on it and 🔴 HIS HIND HEELS LIFTED, neck
-  stretched, seen entirely from behind - only upright ears, raised tail and blue apron straps.
-  Behind at the RIGHT, BearClock sits on the low stool with only his head turned to the window, one
-  hand already holding a different tool.
-ROW: out of frame behind, but through the open case door the pendulum rod is still TILTED OVER.
+  stretched, seen from behind - only upright ears, raised tail and blue apron straps. Behind at the
+  RIGHT, BearClock sits on the stool, head turned to the window, one hand already on another tool.
+ROW: out of frame; through the open case door the pendulum rod is still TILTED OVER.
 GAP: 0.
 LIGHT: 🔴 THE WHOLE SQUARE IS ONE DAYLIGHT PLANE - the largest warm shape in the book, and the room
   inside stays WOOD. The eye leaves the dark interior for the bright outside in one move.
-FINISH: 2 (the mouse's back + the square beyond). 🔴 EVERYTHING OUT THERE IS MOVING AND ON PAGE 1
+FINISH: 2 (the mouse's back + the square). 🔴 EVERYTHING OUT THERE IS MOVING AND ON PAGE 1
   NOTHING WAS: the four figures now have their FEET APART, each turned a different way, one half
-  out of frame; the cart is under way; pigeons are up. Along the top edge, the eaves and 🔴 THE
-  BOTTOM OF A BELL, TILTED TO ONE SIDE - the dial is on the far side of that wall. Figures = 1 flat
-  plane each, 0 faces. 0 lettering, 0 numerals, no clock face.
+  out of frame; the cart is under way; pigeons are up. Along the top edge, 🔴 THE BOTTOM OF A BELL,
+  TILTED TO ONE SIDE. Figures = 1 plane each, 0 faces. 0 lettering.
 ```
 
 ---

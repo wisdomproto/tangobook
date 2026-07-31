@@ -67,24 +67,24 @@
 STYLE ANCHOR - changjak-glowglass   (a hedgehog apprentice and an old goat glassblower / a Venetian glass workshop)
 
 Style: a soot-brown field rubbed over the whole sheet, 4-6 year old picture book, with opaque
-  colour laid on top of it. 🔴 THE FIELD COVERS THE PAPER COMPLETELY - for eleven pages not one
-  handspan of bare paper is visible, and the room, the tools and both animals are all that one
-  brown: warm, and with no chroma at all.
+  colour on top. 🔴 THE FIELD COVERS THE PAPER COMPLETELY - for eleven pages not one handspan of
+  bare paper is visible, and the room, the tools and both animals are all that one brown: warm,
+  and with no chroma at all.
 
 RENDERING (finish hierarchy): 🔴 THIS VOLUME: THE ONLY SATURATED THING IN THE BOOK IS HEAT. Fire
   and glass are the one place colour is laid on, and it is ONE PIGMENT IN FOUR STEPS going only
   DOWN, one step at a time: T1 blazing → T2 red-orange → T3 red → T4 dark red. 🔴 STEP FIVE IS NOT
   A COLOUR - it is BARE PAPER: the field is lifted away from that shape and the sheet shows
   through. It happens on page 12 and never before. A THIN PART OF THE GLASS IS ONE STEP BRIGHTER
-  THAN THE THICK PART BESIDE IT - the only brightness allowed; no highlight, glint or sheen
-  anywhere, and heat is never shimmer, wavy air, rays or glow. 🔴 TO PUSH SOMETHING BACK, MERGE IT
-  INTO THE SOOT FIELD so it keeps no edge of its own. FINISHED THINGS PER PAGE = 2. Blowpipes = at
-  most 5 shapes. Brick = 0 joints. Ash = 1 plane + at most 6 flecks. Spines and beard = at most 8
-  marks. DENSITY RATION = none; all thirteen pages stay at 2.
+  THAN THE THICK PART BESIDE IT - the only brightness allowed; no highlight, glint or sheen, and
+  heat is never shimmer, wavy air, rays or glow. 🔴 TO PUSH SOMETHING BACK, MERGE IT INTO THE SOOT
+  FIELD so it keeps no edge of its own. FINISHED THINGS PER PAGE = 2. Blowpipes = at most 5. Brick
+  = 0 joints. Ash = 1 plane + at most 6 flecks. Spines and beard = at most 8 marks. DENSITY RATION
+  = none; all thirteen pages stay at 2.
 
-PALETTE: SOOT #3A3029, the field, with SOOT PALE #6B5A4B for the furnace brick and far wall as its
-  only other step · ASH #B9B2A6 · PAPER #F2ECDC, 🔴 the bare sheet, which is both the cooled glass
-  and the morning window and is deliberately the SAME in both · HEDGEHOG #7E7468 · GOAT #9A958C -
+PALETTE: SOOT #3A3029, the field, with SOOT PALE #6B5A4B for the furnace brick and far wall · ASH
+  #B9B2A6 · PAPER #F2ECDC, 🔴 the bare sheet, which is both the cooled glass and the morning window
+  and is deliberately the SAME in both · HEDGEHOG #7E7468 · GOAT #9A958C -
   🔴 both animals carry no chroma at all · DUSK #4E5A62, a low-chroma cold grey for the evening
   window. HEAT, one pigment, four steps and no others: #F7A73A · #DF6B22 · #A83B1E · #5E2417.
   🔴 NOTHING ELSE MAY BE ORANGE, RED, YELLOW, GOLD OR PINK - not a lamp across the canal, not a
@@ -99,7 +99,7 @@ CHARACTER DESIGN LANGUAGE: both animals are the same soot brown as the room with
   turns in both hands; nothing burns, breaks or sparks.
 
 CANVAS: 16:9 double-page spread. One workshop, identical on all thirteen pages and fixed by the
-  FurnaceRoom sheet. Bottom 18% quiet for a caption. No lettering, numerals or signs anywhere,
+  FurnaceRoom sheet. Bottom 18% quiet for a caption. No lettering, numerals or signs,
   including outside the window.
 
 NOT: no digital slickness - airbrush, gradient, glow, lens flare, bloom, 3D CG, cel-shading,
@@ -326,23 +326,22 @@ FINISH: 2 (the furnace mouth + the reaching arms). 0 lettering, 0 numerals.
 ### p6 — 불에 대면 그 옆도 같이 물러져 🔴 판 ref · 가장 먼저 굽는다
 
 ```
-BAKE THIS PAGE FIRST OF ALL THIRTEEN. 🔴 The test of the book: one part straightened and another
-part run, in one object, at one heat step, with no highlight anywhere. If the glass arrives with a
-gloss arc, a glow or a haze, nothing else is worth baking.
+BAKE THIS PAGE FIRST OF ALL THIRTEEN. 🔴 The test: one part straightened and another part run, in
+one object, at one heat step, with no highlight anywhere.
 CAMERA: medium close-up, eye level. The bird held up dead centre, the hedgehog's face at the LEFT,
   the goat behind at the RIGHT.
 SUBJECT: HedgehogBlow holds the pipe at eye height and 🔴 HIS HANDS HAVE STOPPED DEAD MID-ROLL,
-  eyes round, mouth small and open, spines up again. Behind at the RIGHT, GoatGlazier strokes his
-  beard once and tips his head toward the bird as he names it - 🔴 his face is exactly as on page
-  1: no worry, no reproach, no smile.
+  eyes round, mouth small and open, spines up. Behind at the RIGHT, GoatGlazier strokes his beard
+  once and tips his head toward the bird as he names it - 🔴 his face is exactly as on page 1: no
+  worry, no reproach, no smile.
 HEAT: T2 #DF6B22 overall, 🔴 AND THE SAGGED TAIL ONE STEP BRIGHTER AT T1 BECAUSE IT HAS THINNED.
   That one step is how the picture says which part ran.
 SHAPE: 🔴 STATE D - THE NECK IS STRAIGHT AND THE TAIL HANGS DOWN LIKE PULLED TOFFEE. Compose so the
-  straightened neck and the run tail point in opposite directions in one frame; a child must see
-  the trade without a word.
-FIELD: 100%. The wall pipes and the furnace behind are merged into the field with no edges.
-FINISH: 2 (the bird + the two faces lit by it). 🔴 No highlight, sheen or rim light on the glass at
-  any point. 0 lettering, 0 numerals, no signs.
+  straightened neck and the run tail point opposite ways in one frame; a child must see the trade
+  without a word.
+FIELD: 100%. The wall pipes and furnace behind are merged into the field with no edges.
+FINISH: 2 (the bird + the two faces lit by it). 🔴 No highlight, sheen or rim light on the glass.
+  0 lettering, 0 numerals, no signs.
 ```
 
 ### p7 — 쓰윽— 불 속에서 꼬리가 올라와요 · 후렴 2 🔴 원인을 먼저 그린다
@@ -378,11 +377,10 @@ HEAT: 🔴 T3 #A83B1E - another step down, and the surface now carries a few fin
   anything shines on it.
 SHAPE: 🔴 STATE E - THE TAIL IS UP AND PRETTY, THE BELLY HANGS LIKE A DROP, AND THE NECK HAS LEANED
   OVER AGAIN THE SAME WAY AS ON PAGE 4. Three facts in one silhouette.
-FIELD: 100%, and darker overall than page 6 - the sun outside has gone down. 🔴 Page 6 was a medium
-  at eye level; this is a close-up from above, so the same kind of failure is not seen the same way
-  twice.
-FINISH: 2 (the bird + the fingertips). 🔴 Nothing else in the frame is legible. The weight of the
-  hanging belly is read from the shape alone - no drips, no strings, no motion lines. 0 lettering.
+FIELD: 100%, darker overall than page 6 - the sun outside has gone down. 🔴 Page 6 was a medium at
+  eye level; this is a close-up from above, so the same failure is not seen the same way twice.
+FINISH: 2 (the bird + the fingertips). 🔴 Nothing else is legible. The weight of the hanging belly
+  is read from the shape alone - no drips, no strings, no motion lines. 0 lettering.
 ```
 
 ### p9 — 이번엔 불에 대지 않았어요 🔴 유리가 가마보다 어두워진다
@@ -391,9 +389,9 @@ FINISH: 2 (the bird + the fingertips). 🔴 Nothing else in the frame is legible
 CAMERA: medium, eye level. HedgehogBlow full length on the bench in the centre, the still-open
   furnace mouth behind at the LEFT.
 SUBJECT: HedgehogBlow sits on the bench, 🔴 SHOULDERS DROPPED AND WRISTS HANGING WITH THE WEIGHT,
-  still rolling the pipe on the bench arms but with nothing else in the movement, eyes on the glass
-  and no intention in the face, spines flat, mouth shut. Posture: SUNK. At the LEFT, GoatGlazier
-  watches from beside the furnace 🔴 AND DOES NOT COME CLOSER.
+  still rolling the pipe but with nothing else in the movement, eyes on the glass and no intention
+  in the face, spines flat. SUNK. At the LEFT, GoatGlazier watches from beside the furnace 🔴 AND
+  DOES NOT COME CLOSER.
 HEAT: 🔴 T4 #5E2417 - dark red, only the deepest part of the glass still faintly at T3. The furnace
   mouth behind is still T1. 🔴 THIS IS THE FIRST PAGE ON WHICH THE GLASS IS DARKER THAN THE FIRE -
   the brightest thing in the book has been overtaken by the background, and that reversal is the
@@ -448,23 +446,22 @@ FINISH: 2 (the bird in the ash + the two hands). The box lid leans beside it as 
 ### p12 — 얘가 저를 내려다봐요! 🔴 착지 판 · 두 번째로 굽는다 · 종이가 처음 드러난다
 
 ```
-BAKE THIS PAGE SECOND, right after page 6, and 🔴 SET THE TWO SIDE BY SIDE: on page 6 the glass is
-the only thing with colour; here it has NO colour and is the only thing NOT painted.
-CAMERA: close-up, LOW angle - the bird has just come clear of the ash and is seen from a little
-  below, 🔴 with its bent neck bowed forward toward the camera.
+BAKE THIS PAGE SECOND, and 🔴 SET IT BESIDE PAGE 6: there the glass is the only coloured thing;
+here it has NO colour and is the only thing NOT painted.
+CAMERA: close-up, LOW angle - the bird has just come clear of the ash, 🔴 its bent neck bowed
+  toward the camera.
 SUBJECT: at the bottom edge, only HedgehogBlow's TWO HANDS brushing the ash apart, one finger just
-  touching the bird's body; his snout tip and two very wide eyes clip the frame, spines bolt
-  upright. Far behind at the window, GoatGlazier is an outline merged into the field.
-HEAT: 🔴 NONE. STEP FIVE. No orange, red or warm mark anywhere in this frame.
-SHAPE: STATE E, now rigid - and 🔴 THE BENT NECK BOWS FORWARD TOWARD THE CHILD'S FACE, the same
-  direction it has leaned since page 4. The swollen belly has settled round so the bird stands by
-  itself.
+  touching the bird; his snout tip and two very wide eyes clip the frame, spines up. Behind at the
+  window, GoatGlazier is an outline merged into the field.
+HEAT: 🔴 NONE. STEP FIVE. No orange, red or warm mark in the frame.
+SHAPE: STATE E, now rigid - and 🔴 THE BENT NECK BOWS TOWARD THE CHILD'S FACE, the direction it
+  has leaned since page 4. The swollen belly has settled round so the bird stands by itself.
 FIELD: 🔴 THE FIELD IS LIFTED AWAY FROM THE BIRD AND BARE PAPER #F2ECDC SHOWS THROUGH ITS SHAPE -
-  hard-edged, no tint, no pale blue, no white paint, no wash. It is the first bare paper in eleven
-  pages and the coldest, clearest thing in the book. Grey ASH still lies on its surface except
-  where one finger has wiped it clear. Morning light enters the window as PAPER too.
-FINISH: 2 (the clear bird + the two hands). 🔴 The light no longer comes OUT of the glass; the
-  glass is now a thing light passes through. 0 lettering, 0 numerals.
+  hard-edged, no tint, no pale blue, no white paint, no wash. First bare paper in eleven pages.
+  Grey ASH still lies on it except where one finger wiped it clear. Morning light enters the window
+  as PAPER too.
+FINISH: 2 (the clear bird + the hands). 🔴 The light no longer comes OUT of the glass; it is now a
+  thing light passes through. 0 lettering, 0 numerals.
 ```
 
 ### p13 — 어이쿠, 인사를 하는구나 🔴 착지
@@ -474,21 +471,17 @@ ATTACH THE APPROVED PAGE 12 RENDER - the same bare-paper bird, unchanged.
 CAMERA: medium, slightly LOW angle. The bird held up against the window high in the centre, both
   animals below it, the low bench at the lower RIGHT.
 SUBJECT: GoatGlazier holds the bird in 🔴 BOTH CUPPED HANDS RAISED ABOVE HIS OWN EYE LEVEL, head
-  tipped right back, mouth wide open laughing, beard swung, eyes creased - 🔴 the only page on
-  which his face changes at all. At the LEFT below, HedgehogBlow is up on his toes looking at the
-  goat's arms, his own two hands still open in the air where he handed it over, mouth open, spines
-  straight up.
-HEAT: 🔴 NONE ANYWHERE. The furnace at the LEFT is shut and cold, 🔴 AND EVEN THE LID SEAM HAS NO
-  WARM LINE NOW. Yesterday's orange and today's white are the same room and different colours.
-SHAPE: STATE E, unchanged - the leaning neck, the once-sagged tail and the swollen belly are
-  exactly as they set. Nothing has been fixed.
+  tipped back, mouth wide open laughing, beard swung, eyes creased - 🔴 the only page on which his
+  face changes. At the LEFT below, HedgehogBlow is up on his toes looking at the goat's arms, his
+  own hands still open where he handed it over, spines straight up.
+HEAT: 🔴 NONE ANYWHERE. The furnace is shut and cold, 🔴 AND EVEN THE LID SEAM HAS NO WARM LINE NOW.
+SHAPE: STATE E, unchanged - leaning neck, once-sagged tail, swollen belly. Nothing was fixed.
 FIELD: 🔴 THE FIELD IS LIFTED IN THREE PLACES AND NOWHERE ELSE: the bird, the window, and 🔴 ONE
-  SMALL HARD-EDGED PAPER SHAPE LYING ON THE BENCH TOP where the bent neck has gathered the light.
-  🔴 Do not draw a beam, a shaft, a cone or a glow between them - the bird and the patch are the
-  same bare material, and that is the whole sentence. The patch lies in the direction the neck
-  bows.
-FINISH: 2 (the raised bird + the patch on the bench). Outside the window, a morning canal and one
-  passing boat as flat soot shapes. 0 lettering, 0 numerals, no signs.
+  SMALL HARD-EDGED PAPER SHAPE ON THE BENCH TOP where the bent neck gathered the light. 🔴 Do not
+  draw a beam, shaft, cone or glow between them - the bird and the patch are the same bare
+  material, and that is the whole sentence.
+FINISH: 2 (the raised bird + the patch). Outside, a canal and one boat as flat soot shapes.
+  0 lettering, 0 numerals.
 ```
 
 ---
