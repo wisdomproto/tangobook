@@ -90,156 +90,51 @@
 ## F-02 §2. STYLE ANCHOR
 
 ```
-STYLE ANCHOR - changjak-delft  (puppy big brother / new baby / Dutch house / a gaze)
+STYLE ANCHOR - changjak-delft   (puppy big brother / new baby / Dutch house / a gaze)
 
-Style: a hand-painted picture-book page for 4-6 year olds. Cool, clean, quiet, geometric.
-  A winter morning in one room. Legible before it is pretty. Never cute-glossy.
+Style: a hand-painted picture-book page for 4-6 year olds - cool, clean, geometric. A winter
+  morning in ONE Dutch room drawn twelve times; the map is fixed by the RoomKit sheet and never
+  changes, only the camera moves. Legible before pretty, never cute-glossy.
 
-MEDIUM: painted the way a hand-painted tin-glazed tile is painted - on a smooth WHITE GLAZED
-  SURFACE, not on textured paper.
-  Exactly three operations and no others:
-   1. ONE CONTOUR STROKE in dark cobalt, laid with a soft round brush in a single pass. It swells and
-      thins with the brush, and it ends where the brush lifts. It never becomes a clean even vector
-      line and it is never gone over twice.
-   2. FLAT FILL inside that contour, in ONE loaded pass, stopping at a hard visible edge.
-      🔴 THERE ARE EXACTLY TWO COBALT DENSITIES IN THIS BOOK AND NO OTHERS: a mid cobalt and a
-      double-laid dark cobalt. A shape is one or the other. Never a third density, never a gradient
-      inside a shape, never a soft or feathered edge.
-   3. THE RED IS ADDED LAST, as a separate colour laid over the finished surface, and it exists in
-      ONE PLACE ONLY (see PALETTE).
-  🔴 THERE IS NO SHADING ANYWHERE IN THIS BOOK. No modelling, no rounded highlights, no cast
-  shadows with soft edges, no glow, no airbrush, no digital gradient, no depth-of-field blur.
-  Where the glaze is thin over the white ground a hair of the white shows through at an edge - that
-  slight bleed is the only softness allowed, and it is a property of the material, not lighting.
-  🔴 BRIGHTNESS IS BARE WHITE GROUND. SHADE IS ONE FLAT FILM OF MID COBALT LAID OVER WHATEVER IS
-  UNDER IT, WITH A HARD EDGE. When the film crosses the chequered floor, the pattern still reads
-  through it. That film is how this book makes a dark corner, an evening, or the space behind a wall
-  of adults. It is a shape, and its shape can be counted.
+RENDERING: painted the way a hand-painted tin-glazed tile is painted, on a smooth white glazed
+  surface. ONE cobalt contour stroke laid once / FLAT FILL inside it in one pass to a hard edge /
+  the RED added last as a separate colour. EXACTLY TWO COBALT DENSITIES, mid and double-laid dark -
+  never a third, never a gradient, NO SHADING. Bright = bare white ground; dark = ONE flat
+  mid-cobalt film with a hard edge over whatever is under it, the chequer reading through it.
+  FINISHED THINGS PER PAGE = 2 (the brother + the one thing he touches or looks at); all else keeps
+  its contour with NO FILL - unpainted, which is not faded, hazy or blurred. DENSITY RATION = pages
+  1 and 7, where the room's objects go to recognisable and no further. Counts: wall tiles alternate
+  between EXACTLY 2 motifs, ship and windmill · plaster = 0 marks · each floor square = 0 marks
+  inside · outdoors = 0 after p2.
+  🔴 THE FLOOR IS THE RULER - chequered tiles all one size, straight receding rows, one-point
+  perspective, the lattice printing same-sized white squares on them. Steps are counted in squares:
+  never tilt, warp, blur or resize them, and compare two things only at one depth.
 
-PALETTE: the white ground plus four flat colours. That is the whole book.
-  white   #F1EDE3 - the glazed ground. Lime-plastered walls, the pale squares of the floor, the
-    swaddling cloth, and every lit square the lattice window throws. It is most of every page.
-  cobalt  #2E5C9A (mid) and #1D3A63 (double-laid dark) - every contour, the tiles' painted pictures,
-    the two hanging plates, the brass kettle, the window lattice, the adults' HANDS and KNEES, and
-    every flat shade film.
-  black   #16181B - one opaque pass. The dark squares of the chequered floor, the wooden clogs, the
-    stair treads, and 🔴 THE ADULTS' CLOTHING MASSES.
-  oat     #CBB79C - 🔴 THE ONLY COLOUR OF LIVING THINGS. Nothing in this world is oat except the two
-    puppies' bodies. Not the wood, not the cradle, not the floor, not the adults. This is how the
-    reader finds the brother even when he is one tenth of the frame.
-  red     #C8412B - the knitted scarf, and one dropped strand of its wool. 🔴 NOTHING ELSE IN THE
-    WORLD IS RED, ON ANY PAGE. Not a cheek, not a flower, not a tile, not a fire.
-  🔴 THE ROOM IS COLD AND THE ONLY WARM THINGS IN IT ARE THE TWO PUPPIES AND THAT ONE RED. Do not
-  add a warm light, a fire glow, an amber lamp or a sunset to make a page feel kinder.
+PALETTE: white #F1EDE3 = ground, walls, pale squares, swaddling, lit squares · cobalt #2E5C9A and
+  dark #1D3A63 = every contour, every cool object, every shade film · black #16181B = dark squares,
+  clogs, stair treads, ADULTS' CLOTHING · oat #CBB79C = THE ONLY COLOUR OF LIVING THINGS, the two
+  puppies and nothing else · red #C8412B = the knitted scarf and one dropped strand of its wool,
+  THE ONLY RED ON ANY PAGE. No fifth colour, no fire glow, no sunset.
 
-🔴 THE GAZE - the whole engine of this book. Read this twice.
-  ON EVERY PAGE THE BABY'S PUPILS ARE AIMED AT THE RED SCARF, wherever it is - across the room,
-  through a gap, or at one hand's width of it sticking out from under a blanket. The baby's head may
-  be facing forward while only the pupils are slid to one side; both are used.
-  ON EVERY PAGE THE ADULTS ARE AIMED INTO THE CRADLE. Their backs, their bent knees, their sleeves
-  and their hands all point inward and downward at the baby, and therefore they always point somewhere
-  DIFFERENT from where the baby is looking. That mismatch of directions must be visible in the shapes
-  themselves, and it stays true on the last page too.
-  THE BROTHER'S OWN GAZE is the third direction, and it is usually wrong: he looks at the door, at
-  the adults' backs, at a wall, at his own chest.
-  Each cut states all three. 🔴 If the reader cannot tell where the baby is looking, that cut has
-  failed, no matter how it looks.
+CHARACTER DESIGN LANGUAGE: a puppy's eye = a round disc of bare white ground, ONE cobalt-black
+  pupil in it, one upper-lid line, and 🔴 THE PUPIL'S POSITION IS THE ACTING. The brother adds a
+  separate brow stroke and a mouth line; the baby has no brows and no expression - one pupil
+  position, one head angle, on p12 one gripping hand. No dot-eyes, no catchlight. 🔴 THE ADULTS
+  HAVE NO FACES on any page, at any size, in any reflection: black clothing masses with almost
+  nothing inside, flat cobalt hands and knees, and they never speak. Grade: the brother upright on
+  hind legs, forepaws as hands, wearing one thing, the scarf. 🔴 THREE DIRECTIONS ON EVERY CUT -
+  her pupils on the red scarf wherever it is; the adults all aimed into the cradle, therefore
+  always pointing somewhere else than she looks, last page included; the brother at a third thing,
+  usually wrong. 🔴 EYE LEVEL - eleven pages he is LOWER than the baby and every adult part comes
+  DOWN from above; on p12 his chin is on the rail and the two faces are one height and one size.
 
-🔴 EYE LEVEL - the landing of this book is built out of camera height. Read this twice.
-  For eleven pages the brother is LOWER than the baby - on the floor tiles, in a gap between knees,
-  under the stairs, under a blanket - and every adult hand and back comes DOWN from above the cradle.
-  On the last page his chin rests on the wooden rail of the cradle and 🔴 THE TWO FACES ARE AT THE
-  SAME HEIGHT, THE SAME SIZE, AND SIDE BY SIDE FOR THE FIRST AND ONLY TIME.
-  Each cut states the brother's eye height against the baby's. Never let him rise early, and never
-  let an adult face enter the frame to compete.
+CANVAS: 16:9 double-page spread, 4-6 year old picture book. Bottom 18% quiet for a caption. No
+  lettering or numerals anywhere.
 
-🔴 THE GRID IS THE RULER. The floor is black-and-white chequered tiles, always the same size, drawn
-  with straight receding edges (a plain one-point perspective is correct and welcome - the floor is
-  how this room states depth). The small-paned lattice window prints SQUARES OF BARE WHITE GROUND on
-  that floor, always the same size as each other. Steps, distances and positions are stated in
-  squares, and the squares can be counted. 🔴 Never blur, tilt, warp or texture the squares, and never
-  vary their size for effect.
-
-COMPOSITION: flat, frontal, staged like a shallow box. Big empty white areas are correct.
-  🔴 WHEN TWO THINGS ARE COMPARED, PUT THEM AT THE SAME DEPTH, on the same floor squares, and do not
-  foreshorten one of them.
-  Vary the camera every page - one room, twelve pages, so distance and height do the work. Never two
-  consecutive pages from the same height.
-  🔴 THE ROOM MAP NEVER CHANGES, only the camera (see SETTING).
-  🔴 Keep the bottom 18% of the image quiet and free of key subject matter (a caption band is laid over
-  it later). Where the floor fills the frame, keep the bottom strip plain chequer.
-
-FINISH HIERARCHY - read this twice. This is about how FINISHED each area is, NOT about opacity, and
-  NOT about focus.
-  1. THE TWO PUPPIES, THE BABY'S EYES, THE SCARF AND THE FLOOR SQUARES THAT ARE BEING COUNTED =
-     finished: contour plus flat fill.
-  2. WHAT IS BEING HANDLED OR LOOKED AT on that page (the cradle rail, the rattle, the blanket, the
-     kettle, the clogs) = half-finished: contour and one flat pass.
-  3. EVERYTHING ELSE = A LOOSE UNFINISHED BRUSH SKETCH: a few open contour strokes with NO FILL
-     inside them, white ground showing through, corners left unclosed, deliberately not carried to
-     completion.
-  🔴 The background is NOT faded, NOT hazy, NOT blurred, NOT soft-focus and NOT desaturated. It is
-  simply NOT FILLED IN. A dark open contour with nothing inside it is correct; a pale smudged shape
-  is wrong. (Where the script asks for something to be "softly let go", this is what it means.)
-  🔴 NEVER PAINT A DIFFERENT PICTURE ON EVERY TILE, NEVER TEXTURE THE PLASTER, NEVER PUT A STAIN OR
-  A PATTERN IN EVERY FLOOR SQUARE. The wall tiles alternate between just TWO painted motifs, a little
-  ship and a little windmill, and that repetition is the pattern. If the walls get busy, the ruler on
-  the floor dies - that is the failure mode of this book.
-
-CHARACTER DESIGN: three registers that must never converge.
-  🔴 THE TWO PUPPIES are flat oat shapes with a cobalt contour, and their eyes are the most precise
-    thing in the book: A ROUND DISC OF BARE WHITE GROUND with ONE SOLID COBALT-BLACK PUPIL placed
-    inside it, plus a cobalt UPPER LID LINE across the top of the disc. The pupil's POSITION inside
-    the white disc is the acting. No dot eyes on a bare face, no highlight sparkle, no eyelashes,
-    no blush, no gradient in the iris.
-    THE BROTHER also has a SEPARATE eyebrow stroke above each eye and a small drawn mouth line, so he
-    can be eager, anxious, startled or delighted.
-    🔴 THE BABY HAS NO EYEBROWS AND NO EXPRESSION TO SPEAK OF - one pupil position, one head angle,
-    and (on the last page only) one small hand. That is all the baby ever does, and it is enough.
-  🔴 THE ADULTS HAVE NO FACES, EVER. They are cut off by the top of the frame or by the edge, or seen
-    from behind. Their clothing is a solid BLACK mass with almost nothing drawn inside it; their hands
-    and knees are flat MID COBALT shapes with a contour and no detail. No eyes, no mouths, no hair, no
-    smiles, not even in the far distance, not even reflected in anything. THEY NEVER SPEAK.
-  FACE SEPARATION (required): each puppy's face must read apart from its body by the white eye discs
-    and one flat cobalt muzzle line - never by adding a colour. Test: shrink the page to thumbnail
-    size; the direction the baby is looking must still be legible.
-
-ANTHROPOMORPHISM GRADE (fixed for all twelve pages): the brother stands on his hind legs and uses his
-  forepaws as hands (he waves the scarf, he taps his own chest). He wears ONE thing, the scarf.
-  🔴 THE BABY MOVES ONLY THREE THINGS: EYES, HEAD, AND - on the last page only - ONE HAND, and that
-  hand only grips. The baby never speaks, never points, never waves, never sits up, never crawls.
-  The adults are never given animal features or expressions of any kind.
-
-SETTING - THE ROOM MAP. 🔴 The same house on all twelve pages. The camera moves freely; the map does
-  not:
-    one side wall  - the big wooden front door with a brass handle, two courses of painted tiles
-                     beside it, a pair of small black wooden clogs on the floor at its foot;
-    opposite side  - a steep narrow wooden staircase turning sharply upward, and the low triangular
-                     nook beneath it with a broom and a pail in it;
-    back wall      - the fireplace faced with painted tiles, a brass kettle on the hearth with a thin
-                     line of steam, and TWO round painted plates hanging on the wall;
-    front side wall- one lattice window of small glass panes; the winter morning light comes in here
-                     and prints squares on the floor;
-    centre of room - one wooden cradle on curved rockers, with a carved wooden rail;
-    everywhere      - the black-and-white chequered tile floor.
-  A Dutch house: lime plaster, painted blue-and-white tiles, small-paned lattice glass, clogs,
-  a chequered floor. European; no Asian motifs. 🔴 The door is never opened again after page 2 and the
-  weather outside is never drawn - this book happens in one room.
-
-CANVAS: 16:9 double-page spread, 4-6 year old picture book.
-
-NOT: NOT digital airbrush / NOT smooth gradients / NOT glossy 3D CG render / NOT cel-shaded anime /
-  NOT photographic / NOT any shading, modelling or rounded highlight anywhere / NOT soft-edged or
-  gradient shadows (shade is a flat film with a hard edge) / NOT depth-of-field blur or soft focus /
-  NOT a fully rendered background / NOT a different picture painted on every tile / NOT plaster
-  texture / NOT a stain or pattern in every floor square / NOT a uniform finish across the page /
-  NOT a hazy, blurry or faded background (that is blur, not un-painted) / NOT a third cobalt density /
-  NOT a fifth colour / NOT any red anywhere except the scarf and one dropped strand of its wool /
-  NOT a warm light, fire glow, lamp glow or sunset / NOT any adult face, adult eye or adult mouth
-  anywhere, at any size, in any reflection / NOT motion blur, speed lines or ghosting /
-  NOT any lettering, numerals, signage, tile inscription or maker's mark anywhere in the image /
-  NOT visible stitching, thread, yarn fibre, fabric weave, fuzz or felted wool (another line owns
-  those - the knitting is a few drawn diagonal strokes inside a flat fill).
+NOT (rendering only): no digital slickness of any kind - airbrush, gradient, glow, 3D CG,
+  cel-shading, photographic, or a texture filter over flat colour (the brush must MAKE the shapes)
+  / no shading, modelling, rounded highlight or soft-edged shadow / not blurred or soft-focus / no
+  felt, stitching, yarn fibre or fabric weave.
 ```
 
 ### 🔴 이 앵커의 네 불변 규칙 (매 컷 네 줄로 반복 확인)
@@ -437,346 +332,207 @@ SCENE tokens: ChequerFloor, LatticeLight, Cradle, TileHearth, StairNook, FrontDo
 
 ### p1 — 아침부터 빨간 목도리를 두르고 문만 봤어요 🔴 밀도 배급 1/2
 ```
-CAMERA: medium, slightly HIGH angle. BigBrother small at the bottom centre (about 1/6 of frame
-  height); the big wooden front door fills the upper part of the frame, very large.
-SUBJECT: BigBrother sits neatly on the chequered tiles with his hind legs folded, both forepaws set
-  side by side in front of him, looking up at the door handle. Ears pricked straight up, pupils high
-  in the discs and locked on the handle, brows up. His tail is the only thing moving, striking the
-  floor. 🔴 BabyPup is not in this picture.
-SETTING: the room map from the door side. Two courses of ship-and-windmill tiles beside the door, the
-  brass handle, the pair of small black clogs on the floor at its foot, the chequered floor running
-  away to one side, and far off at the back 🔴 THE EMPTY CRADLE.
-GAZE: brother at the door handle. No baby. No adults.
-EYE-LEVEL: 🔴 the baseline of the book - he is sitting flat on the floor tiles, and the camera is a
-  little above him. Every later page measures from here.
-SCARF: wound twice round the neck, one end hanging all the way down to the tiles in a slack curve.
-GRID: the chequer runs away in straight rows; the lattice window prints a block of same-sized white
-  squares across it. 🔴 The size of one square is established here and never changes again.
-FINISH: 🔴 DENSITY BUDGET 1/2 - spend it on OBJECTS: the door and its handle, the two courses of
-  tiles, the clogs, the cradle, the lattice squares. All finished enough to be recognised. 🔴 The
-  plaster walls stay bare white ground with a few open contour strokes; do not texture them and do
-  not put a mark in every floor square.
-TONE: a cold pale winter morning. 🔴 Only white, cobalt and black exist in this room - and ONE RED
-  SCARF, so the eye lands on it first. He is small and the door is enormous, so the waiting looks long.
-NO LETTERING, NO NUMERALS anywhere in this image.
+CAMERA: medium, slightly HIGH. BigBrother small at bottom centre (1/6 of frame), the big wooden
+  front door filling the upper frame.
+SUBJECT: posture 1 - sitting neatly on the tiles, forepaws side by side, ears up, brows up, tail
+  striking the floor. Beside the door: two courses of ship-and-windmill tiles, the brass handle,
+  the small black clogs. Far off at the back, THE EMPTY CRADLE. BabyPup is not in this picture.
+GAZE: brother at the door handle, pupils high. No baby, no adults.
+LEVEL: 🔴 the baseline - flat on the floor tiles, camera a little above him.
+SCARF: wound twice round the neck, one end hanging to the tiles in a slack curve.
+GRID: 🔴 one square's size is fixed here and never changes again.
+FINISH: DENSITY RATION 1 of 2 - those objects recognisable and no further; walls bare white.
 ```
 
 ### p2 — 소매가, 무릎이, 등이 쑥쑥 들어왔어요
 ```
-CAMERA: medium wide, LOW ANGLE from the floor, looking up between adult knees and sleeves.
-SUBJECT: GrownUps fill the frame - knees, long hems and heavy black sleeves, 🔴 EVERY HEAD CUT OFF BY
-  THE TOP OF THE FRAME. One sleeve holds a white swaddled bundle at chest height. In the bundle,
-  BabyPup's round face is half visible.
-  At the lower left, BigBrother is up on the tips of his hind feet with both forepaws stretched high,
-  mouth open, ears forward.
-SETTING: the front door wide open, the outside a flat area of bare white ground with nothing drawn in
-  it; wet paw-and-shoe marks on the tiles where they came in; the tiles beside the door; kicked-off
-  clogs.
-GAZE: 🔴 BABY'S PUPILS ARE NOT ON THE SLEEVE THAT HOLDS HER - they are slid DOWN AND LEFT, aimed at
-  the red scarf at the bottom of the frame. All the adult parts point inward at the bundle. The
-  brother is looking up past his own paws at the bundle.
-EYE-LEVEL: 🔴 the widest gap in the book - the baby is at adult chest height, the brother is on the
-  floor and stretching and still far below.
-SCARF: the hanging end flicked UP into a hook by his jump.
-GRID: the cold light from the open door washes the floor squares out to plain white near the door;
-  the chequer resumes further in. 🔴 Keep the squares the same size right up to the doorway.
-FINISH: baby's face, the brother, the bundle and the wet marks finished. The holding sleeve and the
-  door edge half-finished. Other knees, hems, the tiles and the walls = open contours with no fill.
-TONE: the dark adult clothing stands in the frame like vertical columns and splits it up. 🔴 Through
-  the one gap between them, the white bundle above and the red scarf below line up in a single
-  vertical line. No warm light from the door - the outside is white and cold.
-NO LETTERING, NO NUMERALS anywhere in this image.
+CAMERA: medium wide, LOW from the floor, up between adult knees and sleeves.
+SUBJECT: GrownUps fill the frame, EVERY HEAD CUT OFF BY THE TOP EDGE; one sleeve holds the white
+  swaddled bundle at chest height with BabyPup's face half visible. Lower left, posture 2 - up on
+  the tips of his hind feet, forepaws stretched high, mouth open. The door wide open with the
+  outside a flat area of bare white; wet paw-and-shoe marks where they came in; kicked-off clogs.
+GAZE: 🔴 her pupils are NOT on the sleeve holding her - slid DOWN AND LEFT to the red scarf at the
+  bottom edge. All adult parts inward at the bundle. He looks up past his own paws at the bundle.
+LEVEL: 🔴 the widest gap in the book - baby at adult chest height, brother on the floor.
+SCARF: end flicked UP into a hook by the jump; 🔴 through the one gap between the adults the white
+  bundle above and the red scarf below line up in a single vertical.
+GRID: squares wash to plain white near the doorway but keep their size right up to it.
+FINISH: 2 (the brother + the bundle with her face); wet marks half. Outside is white and cold.
 ```
 
 ### p3 — 등이 벽처럼 딱 붙어서 틈이 없어요
 ```
-CAMERA: medium, EYE LEVEL AT THE BROTHER'S HEIGHT. The upper two thirds of the frame is a solid mass
-  of adult backs; a single bright gap at the lower left.
-SUBJECT: 🔴 A WALL OF THREE BACKS - shoulders and long skirts in solid black, standing in a close
-  curve round the cradle, filling the frame, 🔴 ALL HEADS CUT OFF BY THE TOP EDGE, with exactly ONE
-  GAP between two knees. One sleeve goes down into the cradle.
-  In that gap, BigBrother has pushed in his nose and ONE eye; one forepaw pulls a hem aside, one hind
-  foot is slipping, brows pulled in and up. His scarf is trodden on and pulled taut to one side.
-  Inside the cradle, 🔴 BabyPup's face is almost entirely hidden behind the backs, BUT ONE VISIBLE EYE
-  DISC WITH ITS PUPIL AIMED DOWN AND OUT TOWARD THAT GAP.
-SETTING: the tiled fireplace behind with its alternating ship and windmill tiles, the brass kettle
-  with one line of steam, two round plates on the wall, the cradle's carved rail and curved rocker,
-  the chequered floor at the bottom.
-GAZE: 🔴 the baby's one visible pupil is aimed at the gap where the brother is. Every adult part -
-  three backs, two hems, one descending sleeve - points into the cradle. The brother is looking
-  through the gap at the cradle, not at the baby's eye, and he cannot see it.
-EYE-LEVEL: below - his face is down near the floor between knees; the baby is up at cradle-rail
-  height.
-SCARF: pulled taut into a straight line to one side because a foot is standing on it.
-GRID: only a few floor squares are visible under the hems at the bottom of the frame, and 🔴 the one
-  bright gap is the only white shape in the upper half - that is what "no room to see" means here.
-FINISH: the brother's face in the gap, the baby's one eye, and the gap's edges finished. The cradle
-  rail and the descending sleeve half-finished. 🔴 The three backs are large FLAT BLACK masses with
-  almost nothing drawn inside them; hearth tiles, kettle, plates and floor = open contours with no
-  fill.
-TONE: 🔴 THE BLOCKING IS THE COMPOSITION - the top of the picture is one unbroken dark shape and the
-  only opening in it is the size of a puppy's face. Cold, crowded, and the only red is a trodden
-  straight line.
-NO LETTERING, NO NUMERALS, NO ADULT FACE anywhere in this image.
+CAMERA: medium, EYE LEVEL AT HIS HEIGHT. Upper two thirds = a solid mass of adult backs, one
+  bright gap at the lower left.
+SUBJECT: 🔴 A WALL OF THREE BACKS in solid black round the cradle, ALL HEADS CUT OFF, with exactly
+  ONE GAP between two knees the size of a puppy's face; one sleeve goes down into the cradle. In
+  the gap, posture 3 - nose and ONE eye pushed in, one forepaw pulling a hem aside, one hind foot
+  slipping, brows in and up. BabyPup is hidden behind the backs: ONE EYE DISC VISIBLE AND NO MORE.
+GAZE: 🔴 that one pupil aimed DOWN AND OUT at the gap. Backs, hems and sleeve into the cradle. He
+  looks through the gap at the cradle, not at the eye, and cannot see it.
+LEVEL: below - his face near the floor between knees, the baby up at rail height.
+SCARF: pulled taut into a straight line because a foot is standing on it.
+GRID: a few squares under the hems; 🔴 the gap is the only white shape in the upper half.
+FINISH: 2 (his face in the gap + her one eye); backs flat black with almost nothing inside.
 ```
 
 ### p4 — 커다란 손이 형을 옆으로 살짝 밀었어요
 ```
-CAMERA: medium, EYE LEVEL. BigBrother at the lower right being pushed aside; the cradle and one adult
-  hand at the upper left.
-SUBJECT: BigBrother holds one end of the red scarf in a forepaw and swings it high over his head, so
-  🔴 THE SCARF IS ONE BIG RED CURVE IN THE AIR - the largest red shape in the whole book. His mouth is
-  wide open, and his hind feet are being dragged two floor squares sideways.
-  From the upper left, 🔴 ONE LARGE FLAT COBALT HAND pushes his shoulder sideways, 🔴 THE FACE ABOVE IT
-  OUT OF FRAME. Another black sleeve is tucking the cover in the cradle.
-  In the cradle, 🔴 BABYPUP'S TWO PUPILS ARE FOLLOWING THE RED CURVE EXACTLY and the head has turned a
-  little that way.
-SETTING: one loose strand of red wool falling away from the swung scarf; sleeves laid over the cradle;
-  the kettle with its line of steam; the hearth tiles; one clog knocked over on the floor.
-GAZE: 🔴 the baby is on the red curve, and only on it. The pushing hand and the tucking sleeve both
-  point into the cradle - a different direction. The brother is watching his own scarf.
-EYE-LEVEL: below - he is on the floor being pushed, the baby is up in the cradle.
-SCARF: 🔴 the biggest red shape in the book: one long curve drawn through the air, plus ONE dropped
-  strand of wool.
-GRID: 🔴 THE PUSH IS MEASURED IN SQUARES - his hind feet have been dragged exactly TWO chequer squares
-  sideways, and the marks of the drag are on those two squares. Count them.
-FINISH: the brother, the red curve, the baby's eyes, the pushing hand and the two dragged squares
-  finished. The tucking sleeve and the cradle rail half-finished. Hearth, kettle, plates, walls =
-  open contours with no fill.
-TONE: 🔴 the cradle side of the picture is plain bright white ground; the side he has been pushed into
-  carries ONE FLAT MID-COBALT FILM with a hard edge over the chequer. That film is the only way this
-  page says he is out in the cold, and the only red in the frame is his.
-NO LETTERING, NO NUMERALS, NO ADULT FACE anywhere in this image.
+CAMERA: medium, EYE LEVEL. Brother lower right being pushed aside, cradle and one adult hand
+  upper left.
+SUBJECT: he holds one end of the scarf and swings it high over his head, mouth wide open, hind
+  feet dragged sideways. ONE LARGE FLAT COBALT HAND pushes his shoulder from the upper left, THE
+  FACE ABOVE IT OUT OF FRAME; another sleeve tucks the cover. Her head has turned a little toward
+  the swung scarf. One dropped strand of red wool falls away from it; one clog knocked over.
+GAZE: 🔴 BOTH HER PUPILS FOLLOW THE RED CURVE EXACTLY and only it. Pushing hand and tucking sleeve
+  both into the cradle - a different direction. He watches his own scarf.
+LEVEL: below - on the floor being pushed, the baby up in the cradle.
+SCARF: 🔴 THE BIGGEST RED SHAPE IN THE BOOK, one curve through the air, plus that one strand.
+GRID: 🔴 THE PUSH IS MEASURED IN SQUARES - hind feet dragged exactly TWO squares sideways, the
+  drag marks on those two. Count them.
+FINISH: 2 (the brother with the red curve + the pushing hand). The cradle side is plain white; the
+  side he was pushed into carries ONE hard-edged cobalt film.
 ```
 
 ### p5 — 담요 밖으로 빨간 목도리 끝만 삐져나왔어요 🔴 이 책의 논지가 한 화면에
 ```
-CAMERA: medium wide, EYE LEVEL, low. Left: the low triangular nook under the stairs. Right, far off
-  across the room: the cradle. The two are on one horizontal line.
-SUBJECT: 🔴 IN THE NOOK THERE IS ONLY A ROUND LUMP UNDER A GREY BLANKET - the brother's body is
-  completely gone. Two hind feet show below the blanket, and 🔴 ONE HAND'S WIDTH OF THE RED SCARF END
-  LIES OUT ON THE FLOOR TILE. The lump is turned toward the wall, so which way he is facing is told by
-  a back and nothing else.
-  Far right: the cradle with adult backs bent over it, 🔴 BabyPup's small face visible between them and
-  🔴 BOTH PUPILS SLID HARD ACROSS THE ROOM TO THAT RED END.
-SETTING: the broom and pail in the nook, the wooden stair treads above, plain white plaster, the
-  hearth tiles and the kettle's steam over by the cradle.
-GAZE: 🔴 THE WHOLE PAGE IS ONE STRAIGHT LINE: baby's pupils - across the room - one hand's width of
-  red. The adults' backs are bent into the cradle and point the other way. The brother is looking at
-  a wall.
-EYE-LEVEL: 🔴 THE LOWEST POINT IN THE BOOK - he is a lump on the floor under a stair. The baby is up
-  in the cradle. The camera is down at the floor with him.
-SCARF: 🔴 THE SMALLEST RED IN THE BOOK - one hand's width of the end, lying flat on one white floor
-  square so it is unmissable.
-GRID: the lattice squares lie across the floor between the two of them and 🔴 THEY STOP AT THE EDGE OF
-  THE NOOK, where one flat mid-cobalt film begins with a hard edge. The line of squares is the road
-  the baby's look travels.
-FINISH: 🔴 the red scarf end, the white floor square under it, the baby's face and eyes, and the
-  blanket lump finished - those four and nothing else. The broom, pail and stair edge half-finished.
-  Adult backs are flat black masses; hearth, plates, walls and the far floor = open contours with no
-  fill. 🔴 Nothing may compete with the red end.
-TONE: 🔴 A PICTURE IN WHICH THE MAIN CHARACTER HAS DISAPPEARED, AND IT IS STILL COMPLETELY CLEAR WHAT
-  IS HAPPENING. The nook is one flat cobalt film, the cradle side is bare white, and between them a
-  single red mark and a pair of pupils aimed at it.
-NO LETTERING, NO NUMERALS, NO ADULT FACE anywhere in this image.
+BAKE THIS PAGE EARLY - the whole argument of the book is in one frame.
+CAMERA: medium wide, EYE LEVEL, low. Left the triangular nook under the stairs, right and far off
+  the cradle, the two on one horizontal line.
+SUBJECT: 🔴 IN THE NOOK, ONLY A ROUND LUMP UNDER A GREY BLANKET - the body completely gone, two
+  hind feet below it, the lump turned to the wall, and 🔴 ONE HAND'S WIDTH OF THE RED SCARF END
+  LYING OUT ON A WHITE FLOOR TILE. Far right, adult backs bent over the cradle with BabyPup's small
+  face between them. Broom and pail in the nook, stair treads above.
+GAZE: 🔴 THE PAGE IS ONE STRAIGHT LINE - her two pupils slid hard across the room to that red end.
+  The backs point the other way. He faces a wall.
+LEVEL: 🔴 THE LOWEST POINT IN THE BOOK - a lump on the floor, camera down with him.
+SCARF: 🔴 THE SMALLEST RED IN THE BOOK, and nothing may compete with it.
+GRID: the lit squares run between them and 🔴 STOP AT THE NOOK'S EDGE where one hard-edged cobalt
+  film begins - that line of squares is the road her look travels.
+FINISH: 2 (the blanket lump with the red end + her face and eyes); broom, pail, stair edge half.
 ```
 
 ### p6 — 형이 제 뒤를 돌아봤어요. 나막신 한 켤레뿐이었어요
 ```
-CAMERA: medium close-up, OVER THE SHOULDER. Front right: the brother's back and his face turned round.
-  Over his shoulder at the upper left, smaller: the cradle.
-SUBJECT: BigBrother has pushed the blanket half off his head and twisted his body round to look at
-  🔴 THE WALL BEHIND HIMSELF. Brows pulled in, one ear flicked back, one forepaw still holding the
-  blanket. His scarf end is still lying out on the floor.
-  Over his shoulder: an adult hand shakes a small wooden rattle right in front of the baby's nose -
-  and 🔴 BABYPUP IS NOT LOOKING AT THE RATTLE. The head is still frontal and only the pupils are slid
-  hard to one side, toward the brother.
-SETTING: 🔴 WHAT HE HAS TURNED TO LOOK AT IS: one pair of small black clogs, a broom, and plain white
-  plaster. THERE IS NOTHING THERE. The kettle's steam and one round plate over by the cradle.
-GAZE: 🔴 THE TWO LOOKS MISS EACH OTHER AND THAT MISS IS THE WHOLE CUT - his look goes back at an empty
-  wall, the baby's pupils come forward to him. The adult hand and sleeve point into the cradle.
-EYE-LEVEL: below - he is still down in the nook; the baby is up in the cradle.
+CAMERA: medium close-up, OVER THE SHOULDER. Front right his back with the face turned round; over
+  his shoulder at upper left, smaller, the cradle.
+SUBJECT: blanket pushed half off his head, body twisted round, brows in, one ear flicked back, one
+  forepaw still on the blanket. 🔴 WHAT HE HAS TURNED TO LOOK AT IS ONE PAIR OF SMALL BLACK CLOGS,
+  A BROOM AND PLAIN WHITE PLASTER. THERE IS NOTHING THERE. Over his shoulder an adult hand shakes
+  a small wooden rattle right in front of the baby's nose.
+GAZE: 🔴 THE TWO LOOKS MISS EACH OTHER AND THAT MISS IS THE CUT - his ends at an empty wall, and
+  🔴 SHE IS NOT LOOKING AT THE RATTLE: head frontal, only the pupils slid hard toward him.
+LEVEL: below - still down in the nook, the baby up in the cradle.
 SCARF: the same one hand's width of end still out on the floor tile.
-GRID: 🔴 THERE ARE NO LIGHT SQUARES ON THE WALL HE TURNS TO - it is plain white plaster with a couple
-  of open contour strokes. The absence of anything to see is drawn as an absence of marks.
-FINISH: his face, the empty wall he is looking at, the clogs, and the baby's eyes finished. The rattle,
-  the holding hand and the blanket half-finished. 🔴 The cradle side is NOT blurred and NOT faded - it
-  is left as open contours with no fill (that is what "softly let go" means in this book).
-TONE: cool and quiet. Two directions crossing in one frame, and one of them ends at nothing.
-NO LETTERING, NO NUMERALS, NO ADULT FACE anywhere in this image.
+GRID: 🔴 NO LIGHT SQUARES ON THE WALL HE TURNS TO - nothing to see is drawn as no marks.
+FINISH: 2 (his face + the empty wall and clogs). 🔴 The cradle side is NOT blurred and NOT faded -
+  open contours with no fill.
 ```
 
 ### p7 — 아기 머리가 스르륵 돌았어요 🔴 밀도 배급 2/2
 ```
-CAMERA: wide, HIGH ANGLE looking down over the whole room. Lower right: the nook the brother is
-  leaving. Upper left: the front door he is walking toward. Centre: the cradle.
-SUBJECT: BigBrother walks from lower right toward upper left with his shoulders down, head low and
-  tail hanging; the scarf trails behind him along the floor. He has left prints on the lit squares he
-  crossed.
-  Centre: adult backs still bent over the cradle, 🔴 all pointing inward, faces out of frame - and
-  🔴 BABYPUP'S HEAD HAS CLEARLY TURNED to the left after him, the cheek and jaw line tipped that way,
-  both pupils following his back.
-SETTING: the whole room map seen from above: the chequered floor, the blocks of lattice light squares,
-  the cradle with its rockers, the tiled hearth with the kettle, two plates on the wall, the clogs by
-  the door, the stair and its nook.
-GAZE: 🔴 THE BROTHER'S PATH AND THE BABY'S HEAD POINT THE SAME WAY IN ONE FRAME. All the adult backs
-  point into the cradle and therefore cut across that direction.
-EYE-LEVEL: below - he is standing but his head is down, and the camera is high above everything, so
-  he is small; the baby is up in the cradle.
-SCARF: a long red line trailing behind him along the floor, marking the path he has walked.
-GRID: 🔴 the walked path is drawn across the light squares as a line of faint prints, so the distance
-  he has gone is countable in squares.
-FINISH: 🔴 DENSITY BUDGET 2/2 - spend it on OBJECTS: cradle, hearth tiles, kettle, plates, clogs,
-  broom, pail, the lattice square blocks, the walked prints. All recognisable. 🔴 The plaster stays
-  bare white with open strokes; do NOT put a mark in each floor square and do NOT give every hearth
-  tile a different picture (ship and windmill alternate, that is all).
-TONE: seen from above, the room is a cold white-and-black board with one oat figure crossing it, one
-  red line behind him, and one small oat face in the middle turned his way.
-NO LETTERING, NO NUMERALS, NO ADULT FACE anywhere in this image.
+CAMERA: wide, HIGH ANGLE down over the whole room. Lower right the nook he leaves, upper left the
+  door he walks toward, centre the cradle.
+SUBJECT: posture 5 - walking away lower right to upper left, shoulders down, head low, tail
+  hanging, the scarf trailing and faint prints left on the lit squares he crossed. Centre, adult
+  backs still bent over the cradle, faces out of frame, and 🔴 BABYPUP'S HEAD HAS CLEARLY TURNED
+  after him, cheek and jaw tipped that way.
+GAZE: 🔴 HIS PATH AND HER TWO PUPILS POINT THE SAME WAY IN ONE FRAME, and every adult back cuts
+  across that direction.
+LEVEL: below - standing but head down, seen from high above, so he is small.
+SCARF: a long red line trailing behind him, marking the path he walked.
+GRID: 🔴 the walked path crosses the lit squares as faint prints, so the distance is countable.
+FINISH: DENSITY RATION 2 of 2 - cradle, hearth tiles, kettle, plates, clogs, broom, pail, the lit
+  square blocks and the prints recognisable and no further. 🔴 Plaster bare white, no mark in each
+  floor square, hearth tiles ship-and-windmill alternating and nothing else.
 ```
 
 ### p8 — 뒤를 돌아봤는데 벽하고 놋주전자밖에 없어요
 ```
-CAMERA: medium, EYE LEVEL. Left: BigBrother stopped mid-step, twisted round. Right and behind: the
-  cradle with the baby. A wide empty stretch of floor between them.
-SUBJECT: BigBrother has stopped with one forefoot still lifted and his body twisted to look back the
-  way he came. His eye discs are at their widest, pupils centred, both ears out sideways. The scarf
-  has swung forward across his chest.
-  In the cradle behind, 🔴 the baby's head is turned right round to him and 🔴 BOTH PUPILS MEET HIS
-  FACE STRAIGHT ON - the first time in this book that two pairs of eyes are on one line. An adult
-  sleeve passes right over the baby's face tucking the cover, 🔴 and the baby does not move the pupils
-  at all.
-SETTING: 🔴 WHAT HE HAS TURNED TO LOOK AT IS: plain white plaster, the brass kettle, and one round
-  plate. THERE IS NOTHING THERE.
-GAZE: 🔴 THE LINE BETWEEN THE TWO PAIRS OF EYES CROSSES THE EMPTY FLOOR, and the direction he has
-  turned his head is empty - both facts must be visible at once. The passing sleeve points into the
-  cradle as always.
-EYE-LEVEL: 🔴 STILL BELOW. The look connects, the heights do not - he is standing on the floor and the
-  baby is up over the cradle rail looking down at him. Do not let them level up here; that belongs to
-  p12 alone.
+CAMERA: medium, EYE LEVEL. Left he is stopped mid-step and twisted round; right and behind, the
+  cradle; a wide empty stretch of floor between them.
+SUBJECT: posture 6 - one forefoot still lifted, eye discs at their widest, pupils centred, ears out
+  sideways, the scarf swung forward across his chest. 🔴 WHAT HE HAS TURNED TO LOOK AT IS PLAIN
+  WHITE PLASTER, THE BRASS KETTLE AND ONE ROUND PLATE. THERE IS NOTHING THERE. In the cradle her
+  head is turned right round to him and an adult sleeve passes over her face tucking the cover.
+GAZE: 🔴 BOTH HER PUPILS MEET HIS FACE STRAIGHT ON - the first time two pairs of eyes are on one
+  line - and 🔴 the passing sleeve does not move them at all. The look crosses the empty floor while
+  the direction he turned to is empty: both facts at once.
+LEVEL: 🔴 STILL BELOW. The look connects, the heights do not; levelling belongs to p12 alone.
 SCARF: swung forward by the sudden stop, lying across his own chest.
-GRID: he is standing on one lit square; between him and the cradle lies a countable run of plain
-  squares, kept clear and empty.
-FINISH: his face, the baby's face and eyes, the kettle and the plate finished. The passing sleeve and
-  the cradle rail half-finished. Plaster, hearth and far floor = open contours with no fill.
-TONE: the middle of the picture is wide and empty white. 🔴 A look crosses that emptiness, and the
-  place he turned to look is empty too, and the two things are said side by side.
-NO LETTERING, NO NUMERALS, NO ADULT FACE anywhere in this image.
+GRID: he stands on one lit square; between him and the cradle a countable run of plain squares.
+FINISH: 2 (his face + her face and eyes); kettle and plate half. The middle is wide empty white.
 ```
 
 ### p9 — 제 가슴을 톡 짚어 봤어요. "…나?"
 ```
-CAMERA: close-up, slightly LOW ANGLE. BigBrother's chest and face fill the centre of the frame.
-SUBJECT: BigBrother has his head bent right down, looking at his own forepaw and his own chest.
-  🔴 ONE FOREPAW IS OPEN AND LAID ON THE RED SCARF IN THE MIDDLE OF HIS OWN CHEST. His eye discs are
-  round and wide, mouth a little open, the other forepaw stopped awkwardly in the air, one ear back,
-  tail straight and still.
-SETTING: the chequered tiles under his feet with ONE lattice light square, and at the very edge of the
-  frame the cradle's wooden rail and the end of the white swaddling.
-GAZE: 🔴 his own chest - the only page where his look lands on the right thing. 🔴 The baby is out of
-  frame on this page, so no baby pupils are drawn; do not add a baby face here. The adult parts are
-  only edges of cloth at the frame border, still angled into the cradle.
-EYE-LEVEL: below - his head is bent down, so his eyes are the second lowest in the book.
-SCARF: 🔴 the darkest, most concentrated red in the book - a mass in the middle of his chest with his
-  own open paw laid on it.
-GRID: 🔴 ONE LATTICE LIGHT SQUARE HOLDS HIS FEET EXACTLY, edges hard, chequer reading through it. One
-  square, one realisation.
-FINISH: his chest, the paw on it, the scarf, his face and that one light square finished. Nothing else
-  on this page is filled at all - 🔴 the cradle rail and the swaddling edge are open contours with no
-  fill (NOT blurred, NOT faded, NOT smudged).
-TONE: everything in the picture is white and empty except one oat figure and 🔴 the reddest thing in
-  the book, which turns out to have been on him the whole time.
-NO LETTERING, NO NUMERALS, NO ADULT FACE anywhere in this image.
+CAMERA: close-up, slightly LOW. His chest and face fill the centre.
+SUBJECT: head bent right down at his own forepaw and his own chest. 🔴 ONE FOREPAW IS OPEN AND LAID
+  ON THE RED SCARF IN THE MIDDLE OF HIS OWN CHEST. Eye discs round and wide, mouth a little open,
+  the other forepaw stopped awkwardly in the air, one ear back, tail straight and still. At the
+  frame edge, the cradle's rail and the end of the white swaddling.
+GAZE: 🔴 his own chest - the only page where his look lands on the right thing. 🔴 THE BABY IS OUT
+  OF FRAME; draw no baby face here. Adult parts are cloth edges at the border, still angled in.
+LEVEL: below - head bent down, his eyes the second lowest in the book.
+SCARF: 🔴 the darkest, most concentrated red in the book, his own open paw laid on it.
+GRID: 🔴 ONE LATTICE LIGHT SQUARE HOLDS HIS FEET EXACTLY. One square, one realisation.
+FINISH: 2 (his chest with paw and scarf + that one square). Nothing else is filled at all - rail
+  and swaddling edge are open contours, NOT blurred, NOT faded.
 ```
 
 ### p10 — 왼쪽으로 세 걸음, 오른쪽으로 세 걸음
 ```
-CAMERA: wide, EYE LEVEL. 🔴 THE SAME CHARACTER APPEARS TWICE IN THIS FRAME - once at the far left and
-  once at the far right, reading left then right. The cradle is in the centre between them.
-SUBJECT: LEFT: BigBrother stands at the left end having stepped across three lit squares, both
-  forepaws drawn up to his chest, shoulders lifted high, looking at the cradle.
-  RIGHT: the same BigBrother stands at the right end on three lit squares on that side, head pushed
-  forward, eye discs bright, the scarf flying in the direction he ran.
-  🔴 BOTH FIGURES ARE EXACTLY THE SAME SIZE, AT THE SAME EYE LEVEL, standing on the same row of floor
-  squares. No motion blur, no ghosting, no transparency, no arrows, no trailing copies.
-  CENTRE, in the cradle: 🔴 the baby's head is turned to the RIGHT-HAND brother with both pupils fixed
-  on him, and there is a small crease of a smile in the cheek. Adult backs and sleeves are still bent
-  into the cradle and see none of it.
-SETTING: the cradle and its rockers, the hearth tiles, one plate, faint prints on the squares he has
-  crossed and re-crossed.
-GAZE: 🔴 the baby is on the right-hand brother; the left-hand brother is the same look one moment
-  earlier. The adults point into the cradle throughout.
-EYE-LEVEL: below, in both positions - identical heights, so the only variable on this page is LEFT
-  and RIGHT (the vertical axis belongs to p11).
-SCARF: two reds in one frame, and only two: one hanging at the left, one flying at the right.
-GRID: 🔴 THE POINT OF THE PAGE - EXACTLY THREE lit squares are trodden on the left and EXACTLY THREE on
-  the right, with his prints on them, so the steps can be counted by a child. Keep every square the
-  same size and keep the rest of the floor clear.
-FINISH: both figures, the baby's face and eyes, and the six trodden squares finished. Cradle rail and
-  prints half-finished. Hearth, plates, plaster = open contours with no fill.
-TONE: the lattice light cuts the floor into bright squares and the walking becomes arithmetic. 🔴 BOTH
-  ENDS OF THE ROOM WERE THE END OF THE BABY'S LOOK, and one frame says so.
-NO LETTERING, NO NUMERALS, NO ADULT FACE anywhere in this image.
+CAMERA: wide, EYE LEVEL. 🔴 THE SAME CHARACTER TWICE IN ONE FRAME - once far left, once far right,
+  read left then right, the cradle between them.
+SUBJECT: LEFT, having stepped across three lit squares, forepaws drawn up to his chest, shoulders
+  lifted. RIGHT, the same brother on three lit squares at that end, head pushed forward, eye discs
+  bright, scarf flying in the direction he ran. 🔴 BOTH FIGURES EXACTLY THE SAME SIZE AND EYE LEVEL
+  on the same row of squares; no motion blur, ghosting, transparency, arrows or trailing copies.
+  Centre, a small crease of a smile in her cheek; adult backs still bent in, seeing none of it.
+GAZE: 🔴 her pupils are on the RIGHT-HAND brother; the left-hand one is the same look a moment
+  earlier. The adults into the cradle throughout.
+LEVEL: below in both positions, identical - the only variable here is LEFT and RIGHT.
+SCARF: two reds in one frame and only two - one hanging left, one flying right.
+GRID: 🔴 THE POINT OF THE PAGE - EXACTLY THREE lit squares trodden on the left and EXACTLY THREE on
+  the right, his prints on them, countable by a child. Keep the rest of the floor clear.
+FINISH: 2 (the two figures + her face); the six trodden squares half.
 ```
 
 ### p11 — 쭈그려 앉아 봤어요. 아기 눈이 아래로 내려왔어요
 ```
-CAMERA: medium, EYE LEVEL but LOW. Right: BigBrother crouched right down on the floor. Left: the
-  cradle with the baby. 🔴 THE AXIS OF THIS CUT IS VERTICAL, not left-right.
-SUBJECT: BigBrother is crouched as low as he goes, hind legs folded, both forepaws together in front
-  of him, looking up. His mouth is opening into a smile, ears up, 🔴 his tail sweeping the floor to one
-  side, and the scarf end coiled in a small ring on the tiles.
-  In the cradle: 🔴 BABYPUP'S PUPILS HAVE DROPPED TO THE BOTTOM OF THE WHITE DISCS, looking down at
-  him, chin tucked slightly. One small oat hand has come out of the cover and is moving toward the
-  cradle rail. 🔴 TWO ADULT SLEEVES STILL COME DOWN FROM ABOVE INTO THE CRADLE, AND THE BABY IS NOT
-  LOOKING AT THEM.
-SETTING: the carved cradle rail and rockers, one lattice light square under him, the hearth tiles and
-  kettle behind, adult hems cut off by the top of the frame.
-GAZE: 🔴 the baby's look goes DOWN, past the sleeves that come from above, to the floor. That is the
-  page. The adults' sleeves point into the cradle from over the top as always.
-EYE-LEVEL: 🔴 LOWER AGAIN ON PURPOSE. He goes down one more step here, and that crouch is a rehearsal
-  for the next page. He is still below the baby.
+CAMERA: medium, EYE LEVEL but LOW. Right he is crouched right down, left the cradle. 🔴 THE AXIS OF
+  THIS CUT IS VERTICAL, not left-right.
+SUBJECT: posture 7 - crouched as low as he goes, forepaws together in front, looking up, mouth
+  opening into a smile, ears up, tail sweeping the floor, the scarf end coiled in a small ring on
+  the tiles. In the cradle one small oat hand has come out of the cover toward the rail, chin
+  tucked. 🔴 TWO ADULT SLEEVES STILL COME DOWN FROM ABOVE INTO THE CRADLE.
+GAZE: 🔴 HER PUPILS HAVE DROPPED TO THE BOTTOM OF THE WHITE DISCS, looking down at him past the
+  sleeves that come from above - and she is not looking at them. That is the page.
+LEVEL: 🔴 LOWER AGAIN ON PURPOSE - one more step down, a rehearsal for the next page.
 SCARF: the end coiled into a small ring on the tile beside him.
-GRID: one lit square under his crouched feet; the squares above him are covered by a flat mid-cobalt
-  film where the adult clothing crowds the top of the frame.
-FINISH: the brother, the baby's eyes, the small hand and the cradle rail finished. The reaching sleeve
-  edges half-finished. Hearth, kettle, plaster = open contours with no fill.
-TONE: 🔴 THE PAGE IS BUILT UP AND DOWN - the bottom is bright white floor and the top is a flat cobalt
-  film of adult clothing, and the baby's look travels downward through it.
-NO LETTERING, NO NUMERALS, NO ADULT FACE anywhere in this image.
+GRID: one lit square under his feet; the squares above him are covered by a flat cobalt film where
+  the adult clothing crowds the top of the frame.
+FINISH: 2 (the brother + her eyes and the small hand); rail half.
 ```
 
 ### p12 — 나무 턱에 턱을 걸쳤어요. 아기가 목도리 끝을 꽉 잡았어요 🔴 착지
 ```
-CAMERA: close-up, EYE LEVEL AT THE CRADLE RAIL. Left: BigBrother's face with his chin on the wooden
-  rail. Right: BabyPup's face. 🔴 THE TWO FACES ARE SIDE BY SIDE, THE SAME HEIGHT AND THE SAME SIZE.
-  Bake this cut LAST.
-SUBJECT: BigBrother has laid his lower jaw on the carved wooden rail with both forepaws hooked over
-  its edge; his eye discs are narrowed to crescents by the lid line, ears resting easy, nose reaching
-  a little toward the baby.
-  BabyPup has turned her head to face him; the two pairs of pupils meet dead centre and her mouth is
-  open in a laugh. 🔴 ONE SMALL OAT HAND HAS COME OUT OVER THE RAIL AND IS GRIPPING THE END OF THE RED
-  SCARF, fingers closed round it.
-  🔴 At the very top edge of the frame, adult sleeves and hems HAVE STEPPED BACK - but they are still
-  angled toward the cradle. No face, ever, and the fact that they are still watching the baby is not
-  corrected on this page.
-SETTING: the carved cradle rail, the folds of the white swaddling, the hearth tiles and one plate
-  behind, one lattice light square lying across the rail, and the clogs far off on the floor.
-GAZE: 🔴 the two of them at each other, for the first and only time. The adults still into the cradle.
-EYE-LEVEL: 🔴 THE SAME. The whole book has been travelling here. Both faces at one height, one size,
-  in one frame, 🔴 and the same oat colour, so they read as the same kind of creature - while every
-  adult part is black and pushed to the top edge.
-SCARF: 🔴 the end has gone OVER the rail into the cradle and is held in the baby's hand - one red line
-  drawn between the two faces. It is the only thing touching them both.
-GRID: one lattice light square lies across the rail between them, hard-edged, so even this close-up is
-  measured by the same ruler as the rest of the book.
-FINISH: both faces, both pairs of eyes, the gripping hand, the red end and the rail finished. The
-  swaddling folds half-finished. Hearth tiles, plate, the withdrawn sleeves = open contours with no
-  fill.
-TONE: pale winter morning light lies on both faces equally. 🔴 What joins them is exactly two things -
-  a look and one red end held in a fist - and the hands that used to come down from above have been
-  pushed out to the edge of the frame.
-NO LETTERING, NO NUMERALS, NO ADULT FACE anywhere in this image.
+BAKE THIS CUT LAST - eleven pages of camera height arrive here.
+CAMERA: close-up, EYE LEVEL AT THE CRADLE RAIL. Left his face with his chin on the rail, right
+  BabyPup's face. 🔴 THE TWO FACES SIDE BY SIDE, SAME HEIGHT, SAME SIZE.
+SUBJECT: posture 8 - lower jaw laid on the carved rail, both forepaws hooked over its edge, eye
+  discs narrowed to crescents, ears easy, nose reaching a little toward her. She has turned her
+  head to face him, mouth open in a laugh, and 🔴 ONE SMALL OAT HAND HAS COME OUT OVER THE RAIL
+  GRIPPING THE END OF THE RED SCARF. 🔴 At the top edge, adult sleeves and hems HAVE STEPPED BACK
+  but are still angled toward the cradle - no face, ever, and that is not corrected here.
+GAZE: the two pairs of pupils meet dead centre, for the first and only time.
+LEVEL: 🔴 THE SAME - one height, one size, one frame, and 🔴 the same oat colour, so they read as
+  the same kind of creature while every adult part is black and at the edge.
+SCARF: 🔴 the end has gone OVER the rail into the cradle and is held in her fist - one red line
+  between the two faces, the only thing touching them both.
+GRID: one lit square lies across the rail between them, hard-edged.
+FINISH: 2 (the two faces + the gripping hand on the red end); rail half. Swaddling folds, hearth
+  tiles, plate and the clogs far off keep contours with no fill.
 ```
 
 ---

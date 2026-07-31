@@ -110,167 +110,57 @@
 ## G-88 §2. STYLE ANCHOR
 
 ```
-STYLE ANCHOR - changjak-g88  (mouse kit / spiral bell-tower stair / three frightening things)
+STYLE ANCHOR - changjak-g88   (mouse kit / spiral bell-tower stair / three frightening things)
 
-Style: a hand-painted picture-book page for 4-6 year olds. Dark, quiet, tall and un-slick.
-  This is a book about climbing up a black stone shaft toward one window of light, so the
-  PAINT ITSELF is the light: the dark is unpainted board, and everything that is painted is
-  something the light has reached.
+Style: a hand-painted picture-book page for 4-6 year olds, dark and tall - one French cathedral
+  bell tower drawn thirteen times, European Gothic masonry, no signage. The stair, the rope, the
+  bell and the sill are fixed by the TowerProps sheet: 🔴 the spiral CLIMBS CLOCKWISE ON EVERY PAGE
+  (outer wall on the climber's right, never mirrored) and 🔴 ONE WEDGE TREAD IS TWICE THE MOUSE'S
+  STANDING HEIGHT, which is why one step is an event. Three openings in fixed order - low slit
+  (p3), middle slit with the nest (p6, p7), top louvred window with the red low sun (p9-p12) - and
+  🔴 THE SIZE OF THE TOWN ROOFS THROUGH THEM IS THE ALTIMETER: large, then smaller, then tiny.
 
-MEDIUM: opaque grey and pale gouache, plus soft pastel, worked ON TOP OF a near-black board.
-  🔴 THE DARK IS NOT PAINTED. It is the bare board, left alone. Nothing is "darkened" and
-  nothing is "shaded down" - the black was there first and the picture is what has been laid
-  over it.
-  🔴 LIGHT IS A SHAPE, NOT A GLOW. Wherever light falls, the pale paint is laid down opaque
-  with a HARD, CLEANLY STATED EDGE, as if that patch of light had been cut out and dropped on
-  the black. A window's light on a stair is a straight-sided pale wedge with a definite border.
-  It NEVER fades off, NEVER blooms, NEVER haloes, NEVER glows and NEVER blurs into the dark.
-  Brush and pastel grain stay visible inside the pale shapes - the board's tooth breaks the
-  stroke and a little black shows through the thin passes.
-  There is almost NO drawn contour line in this book. Forms are made by where the pale paint
-  stops. Use a line only for the mouse's face, the rope's twist, the bell's lower rim and the
-  feather's barbs.
-  No blending into digital smoothness, no airbrush, no volumetric light rays, no lens flare.
+RENDERING: opaque grey and pale gouache plus soft pastel worked ON TOP OF a near-black board.
+  🔴 THE DARK IS NOT PAINTED - it is bare board, left alone; nothing is darkened or shaded down.
+  🔴 LIGHT IS A SHAPE, NOT A GLOW: where light falls the pale paint goes down opaque with a HARD
+  edge, as if cut out and dropped on the black, and it never fades off, blooms, haloes or blurs.
+  Grain stays visible inside the pale shapes. Almost no contour - form is where the pale paint
+  stops; line only on the face, the rope's twist, the bell's rim and the feather's barbs.
+  FINISHED THINGS PER PAGE = 2 (the mouse + the one thing the light actually falls on); a form
+  present but unlit is ONE STEP OFF BLACK, silhouette only with nothing described inside it;
+  everything else is BARE BOARD, not drawn. DENSITY RATION = pages 10 and 12, spent on objects,
+  light and air, never on masonry. Counts: tread = 1 pale pass + 3-4 chisel strokes · stone courses
+  inside the dark = 0 · rope twist = 5-6 diagonal strokes · bell = 1 flat matte plane + 1 pale
+  stroke at the rim, which is the entire shine · feather = 1 shaft + 3 barbs · dust = small painted
+  dots, 0 sparkles · town = small painted roof shapes, 0 tiles. 🔴 Never raise the overall
+  brightness to keep things legible - move the mouse into the light instead of lighting the room.
+  🔴 LIT-AREA LADDER (% of frame painted at all, obey exactly): p1 3 | p2 8 | p3 25 | p4 2 DARKEST
+  | p5 10 | p6 18 | p7 32 | p8 45 | p9 55 | p10 70 BRIGHTEST | p11 60 | p12 40 | p13 10. The light
+  also counts the steps: one lit tread, then about six, then one last one - hard-edged, separated.
 
-PALETTE: a black world with two greys, one light, and exactly two spot colours.
-  Hex anchors:
-    BOARD BLACK (never painted) #16181C  -> the shaft, the void, the soffits, every shadow.
-    ONE STEP OFF BLACK #2C3238  -> a form that is present but not identified yet (the rope in
-      the dark, the far wall, the outer edge of the stair below the mouse). Silhouette only:
-      no interior description is allowed inside this value.
-    COOL STONE #7C8A90  -> worn stone that weak light reaches.
-    PALE LIGHT #C8BCA4  -> the cool dusk light of the two lower arrow slits, laid opaque.
-    EVENING ORANGE #D9793C and its hotter core #E9A860  -> the red low sun of the top window
-      (pages 8 to 12 only).
-    BRASS #B08A3C  -> the bell and its iron/wood fittings. Nothing else is ever brass.
-    DUSTY PINK #D9B4AE  -> the pigeon feather. Nothing else is ever pink.
-    MOUSE FUR #9A8F82, MOUSE PALE #D8CFC0, SISTER FUR #7E7468, INK FOR EYES #14161A.
-  🔴 NO RED, NO BLUE, NO GREEN, NO PURPLE, NO YELLOW anywhere. The only warm things in this
-    book are window light and the brass bell, and the only pink thing is one feather.
-  🔴 THE NARRATIVE COLOUR IS THE AMOUNT OF PALE PAINT. Read the LIGHT line on every cut - it
-    states what percentage of the frame is painted at all. The rest is bare board.
+PALETTE: BOARD BLACK (never painted) #16181C = shaft, void, soffits, every shadow · ONE STEP OFF
+  BLACK #2C3238 = present but not yet identified · COOL STONE #7C8A90 · PALE LIGHT #C8BCA4 (lower
+  slits) · EVENING ORANGE #D9793C with core #E9A860 (top window, p8-p12 only) · BRASS #B08A3C (the
+  bell only) · DUSTY PINK #D9B4AE (the feather only) · MOUSE FUR #9A8F82, MOUSE PALE #D8CFC0,
+  SISTER FUR #7E7468, EYE INK #14161A. 🔴 No red, blue, green, purple or yellow anywhere.
 
-🔴 LIT-AREA LADDER (this is the book's accumulation engine - obey it exactly):
-  p1 3% | p2 8% | p3 25% | p4 2% (DARKEST PAGE) | p5 10% | p6 18% | p7 32% | p8 45% |
-  p9 55% | p10 70% (BRIGHTEST PAGE) | p11 60% | p12 40% | p13 10%
-  The climb gets brighter, DIPS BACK TO ALMOST NOTHING on the rope page, then opens all the way
-  at the bell, and closes down again at the foot of the stair. 🔴 If p4 is not the darkest page
-  and p10 not the brightest, the climb has no length and this book does not work.
+CHARACTER DESIGN LANGUAGE: eyes are DRAWN, not dotted - a small dark almond with a SEPARATE brow
+  stroke above, on the pale muzzle so it reads at thumbnail size, able to stare up wide open, be
+  squeezed tightly shut, or be half open with both forepaws clamped over the ears. The tail is
+  longer than the body and acts. 🔴 VALUE RULE - the belly, muzzle front and inner ears stay PALE
+  #D8CFC0 whether or not light is on them, so a tiny animal stays findable when 90% of the frame is
+  bare board; a painting rule, never a rim light, glow or catchlight. Grade: every animal is a
+  QUADRUPED, rising onto the hind legs only to use the forepaws - no hands, no clothes, no walking
+  upright. 🔴 The pigeon does not speak and is a real pigeon.
 
-🔴 THE BOOK COUNTS WITH LIGHT. The story says "one step", "six steps", "twelve", "thirty", but
-  NO NUMERAL AND NO LETTER MAY BE DRAWN. Instead the light counts: on the first-step page
-  EXACTLY ONE stair tread is lit; on the first-window page the light band crosses ABOUT SIX
-  treads; on the top-window page one last tread is lit below a wall of red. Make the lit treads
-  countable - hard-edged, separated, not a soft pool.
+CANVAS: 16:9 double-page spread, 4-6 year old picture book. Verticals dominate; let shapes run out
+  of the top and bottom. Bottom 18% quiet for a caption. No lettering or numerals anywhere.
 
-MATERIAL TRANSLATION (🔴 keep it painted - never photographic, never plastic, never CG):
-  - WORN STONE STAIR = one flat pale pass with the board showing through the tooth, plus three
-    or four short chisel strokes. The tread is hollowed in the middle from wear, stated by one
-    darker curved stroke, not by modelling. NOT rendered stone texture, NOT a normal map,
-    NOT photographic granite, NOT specular.
-  - THICK BELL ROPE = a heavy cylinder whose twist is FIVE OR SIX short diagonal pale strokes
-    running around it, with a few loose fibres flicking out. NOT every fibre drawn, NOT a
-    3D-rendered braid, NOT shiny nylon.
-  - BRASS BELL = ONE flat brass plane with a single pale stroke along the lower rim.
-    🔴 NOT a mirror, NOT chrome, NOT environment reflections, NOT rendered metal. The one pale
-    stroke is the whole "shine". Its bronze surface is matte and slightly mottled.
-  - PIGEON FEATHER = one dusty-pink stroke for the shaft and three light strokes for the barbs.
-    NOT rendered down, NOT fluffy airbrushed fibre, NOT translucent CG.
-  - DUST IN THE AIR = many small painted pale dots, put there with a brush.
-    🔴 NOT sparkles, NOT bokeh, NOT lens particles, NOT glowing motes.
-  - DARKNESS = bare board. NOT a black gradient, NOT fog, NOT haze, NOT depth-of-field blur.
-
-🔴 SPIRAL-STAIR MAP (the same architecture on all thirteen pages - nothing moves except the
-  animals, the rope, the feather and the light):
-  - A round stone shaft with an OPEN WELL down its middle. A stone spiral stair winds up the
-    inside of the outer wall. 🔴 IT WINDS THE SAME WAY ON EVERY PAGE - climbing clockwise, so
-    the outer wall is on the climber's right. NEVER mirror it.
-  - Wedge-shaped treads, hollowed in the middle from centuries of feet. 🔴 ONE TREAD IS AS HIGH
-    AS THE MOUSE KIT IS TALL, TWICE OVER. That ratio is fixed for thirteen pages and is the
-    reason one step is an event.
-  - Outer wall: rough coursed stone with chisel marks. Inner edge of the stair: a low stone kerb
-    about a finger thick. No handrail, no balustrade, no iron railing.
-  - THREE ARROW SLITS at fixed heights, and their order never changes:
-      LOW SLIT (page 3) - tall narrow opening, town roofs seen LARGE and close.
-      MIDDLE SLIT (pages 6, 7) - same shape, a nest of dry grass and twigs on its sill,
-        town roofs noticeably SMALLER.
-      TOP LOUVRED WINDOW (pages 9 to 12) - the west opening of the bell chamber, the red low
-        sun coming straight in, town roofs TINY.
-  - The BELL ROPE runs down the outer wall from the bell to the floor, where it lies coiled with
-    its end loose (same place on page 1 and page 13).
-  - BELL CHAMBER at the top: a big brass bell hung in a heavy timber frame, louvred openings on
-    four sides, old worn floor stone.
-  - A French cathedral tower: European Gothic masonry, no Asian architectural motifs, no signage.
-  🔴 THE SIZE OF THE TOWN ROOFS SEEN THROUGH A WINDOW IS THE ALTIMETER: large on page 3,
-  clearly smaller on pages 6 and 7, small on page 9, thumbnail-sized on pages 11 and 12.
-
-COMPOSITION: the void first, the subject second.
-  The mouse kit is tiny in frame on the wide pages (about 1/12 to 1/7 of frame height) and comes
-  forward only on the close pages. Verticals dominate - this is a tall shaft, so let shapes run
-  out of the top and bottom of the frame.
-  🔴 THE TWO END PAGES ARE ONE INVERTED PAIR, NOT A MIRROR. Page 1 looks UP the well and sees
-  only the SOFFITS (the undersides) of the stair, stacked and overlapping, so the black swallows
-  them into one mass and the path has no visible end. Page 12 looks DOWN the same well and sees
-  only the TREADS (the walking surfaces), which catch the window light and therefore read as a
-  chain of pale wedges running from the top of the frame to the bottom, where the coiled rope on
-  the floor closes it. Same tower, same winding direction, OPPOSITE PAINT JOB:
-  on page 1 the black makes the form; on page 12 the pale paint makes the form.
-  🔴 Do not flip the image left-to-right, and do not repeat page 1's camera position.
-  Keep the bottom 18% of the image quiet and free of key subject matter (a caption band is laid
-  over it later).
-
-FINISH HIERARCHY - read this twice. This is about how FINISHED each area is, NOT about opacity.
-  🔴 IN THIS BOOK THE LIGHT DECIDES THE HIERARCHY. What the light reaches is finished; what it
-  does not reach is bare board.
-  1. THE MOUSE KIT = finished on every page, lit or not (see the VALUE RULE below).
-  2. WHAT THE LIGHT ACTUALLY FALLS ON on that page (the one lit tread, the rope where it is
-     touched, the sill and the pigeon on it, the bell, the feather) = finished.
-  3. FORMS PRESENT BUT UNLIT = the ONE STEP OFF BLACK value, silhouette only. An outline in
-     value and nothing inside it.
-  4. EVERYTHING ELSE = BARE BOARD. Not drawn at all.
-  🔴 The dark is NOT faded, NOT hazy, NOT blurred and NOT out of focus. It is simply NOT PAINTED.
-  🔴 NEVER draw every stone course, every chisel mark, every rope fibre or every straw in the
-  nest. If the masonry inside the dark is described, page 1 stops being bottomless and the whole
-  book stops working.
-  🔴 DO NOT LIFT THE OVERALL BRIGHTNESS TO KEEP THINGS LEGIBLE. If a page feels too dark, that
-  is the page working. Move the mouse into the light instead of lighting the room.
-
-🔴 VALUE RULE - the mouse kit is the brightest small thing in a black book:
-  its belly, the front of its muzzle and the insides of its ears stay PALE #D8CFC0 whether or
-  not light is on them. This is how a small animal stays findable when 90% of the frame is bare
-  black board. It is a painting rule, not a lighting effect - do NOT achieve it with a highlight,
-  a rim light, a glow or a catchlight in the eye.
-
-CHARACTER DESIGN: eyes are DRAWN, not dotted - a small dark almond #14161A with a SEPARATE drawn
-  eyebrow stroke above it, sitting on the pale muzzle so it reads at thumbnail size. The face
-  must be able to: stare up wide open / be squeezed tightly shut / be half open with both
-  forepaws clamped over the ears. Whiskers are four fine strokes that stand straight up when the
-  mouse is smelling something.
-  The tail is LONGER THAN THE BODY and is an acting instrument: trembling in fine ticks at the
-  tip / wound once around the whole body / lying loose and easy.
-  Silhouettes must be readable at thumbnail size.
-  FACE SEPARATION (required): the face must read apart from the body in VALUE, not by adding a
-  colour - the pale muzzle and inner ears carry it. Never let the eyes sink into one dark mass.
-
-ANTHROPOMORPHISM GRADE (fixed for all thirteen pages): every animal is a QUADRUPED. The mice
-  rise onto their hind legs only when they are using their forepaws. No hands, no fingers, no
-  clothes, no walking upright, no furniture. 🔴 THE PIGEON DOES NOT SPEAK and is drawn as a real
-  pigeon - no cartoon smile, no eyebrows, no gesturing wing.
-
-CANVAS: 16:9 double-page spread, 4-6 year old picture book.
-
-NOT: NOT a glow, NOT bloom, NOT a halo around any light, NOT volumetric light rays or god-rays,
-  NOT lens flare, NOT sparkles or glinting particles / NOT digital airbrush / NOT smooth
-  gradients / NOT a black gradient or vignette standing in for darkness / NOT fog, haze or
-  depth-of-field blur / NOT glossy 3D CG render / NOT cel-shaded anime / NOT a paper-texture
-  filter laid over flat digital colour (the paint must MAKE the shapes) / NOT photographic /
-  NOT rendered stone, rendered metal, chrome, mirror reflections or specular highlights /
-  NOT a fully rendered background / NOT every stone course, chisel mark, rope fibre or straw
-  drawn / NOT a uniform finish across the page / NOT raising the overall exposure to make the
-  dark legible / NOT any third spot colour beyond brass and one pink feather / NOT any red /
-  NOT any lettering, numerals, signage, clock face or numbers anywhere in the image /
-  NOT wool felt, NOT stitched fabric, NOT sculpted clay (other lines own those) /
-  NOT dot-eyes on warm cream paper with a red thing on every page (that is another line).
+NOT (rendering only): no digital slickness of any kind - airbrush, gradient, glow, bloom, halo,
+  god-rays, lens flare, sparkle, 3D CG, cel-shading, photographic, or a texture filter over flat
+  colour (the paint must MAKE the shapes) / darkness is bare board, NOT a black gradient, vignette,
+  fog, haze or blur / no rendered stone or metal, chrome, mirror reflection or specular highlight /
+  no wool felt, stitched fabric or sculpted clay.
 ```
 
 ### 🔴 이 앵커의 세 불변 규칙 (매 컷 반복 확인)
@@ -464,478 +354,255 @@ SCENE tokens: BellRope, BrassBell, StairStone, WindowSill.
 
 ### p1 — 아래에서 올려다본 계단 밑면 🔴 뒤집힌 한 쌍 1/2
 ```
-LIGHT: 🔴 3% PAINTED - the second darkest page in the book. There are exactly TWO pale things:
-  one small chip of window light far up at the top of the frame, and the mouse's face and pressed
-  forepaws down at the bottom. Everything else is bare board or the one-step-off-black value.
-  🔴 The two pale things are the whole composition: the eye slides once, slowly, from the bottom
-  one to the top one, and the length of that slide IS the height of the tower.
-CAMERA: wide, extreme low angle - the camera sits on the floor right in front of the first tread
-  and looks straight UP the open well of the spiral. The mouse is small at lower centre (about
-  1/14 of frame height). The stair winds up out of the top of the frame.
-SUBJECT: MouseKit stands on the floor in front of the first tread, up on its hind legs, head
-  tipped right back to look up, BOTH FOREPAWS PRESSED TOGETHER AGAINST ITS CHEST, eyes wide, mouth
-  just open. The tail tip trembles in fine ticks on the floor and knocks a few dry crumbs loose.
-  🔴 The front edge of the first tread is ABOVE THE MOUSE'S HEAD - it is twice its standing height.
-  MouseSister is NOT in frame; she is a voice from somewhere above. Quadruped grade.
-SETTING: the spiral-stair map, at the very bottom. The bell rope comes down the outer wall and
-  lies COILED on the floor beside the mouse with its end loose. A few dry straws in the floor
-  joints.
-FEAR: 🔴 THIS PAGE HIDES THE END OF THE PATH. Looking up the well you see only the SOFFITS - the
-  undersides of the treads - stacked and overlapping one behind another, and because the black is
-  simply unpainted board those overlapping wedges merge into ONE UNREADABLE MASS. You cannot tell
-  how far it goes or where it stops. 🔴 Not one walking surface is visible on this page.
-  What it shows instead: the height of a single step.
-CARRY: nothing yet - zero steps climbed, no feather, nothing named. The rope is on this page but
-  it is only scenery so far: it lies coiled and completely still.
-SIZE CHAIN: 🔴 tread against mouse only. One tread = twice the standing mouse. Do NOT compare the
-  rope's thickness here - the coil is beside the mouse but the comparison belongs to page 5.
-FINISH: the mouse's face and pressed forepaws finished. The floor stone directly under it and the
-  near coil of rope at the one-step-off-black value, silhouette only. 🔴 The stacked soffits, the
-  outer wall and the whole upper two thirds of the frame are BARE BOARD - no stone courses, no
-  chisel marks, nothing drawn inside the black.
-TONE: eight tenths of this page is dark and there is almost no colour in it - only the faintest
-  cool stone value where the near soffits catch nothing. Cold, still stone. Nothing has happened
-  yet, and the only thing the page tells you is how far there is to go.
-NO LETTERING anywhere in this image.
+LIGHT: 🔴 3% PAINTED - exactly TWO pale things: one chip of window light far up at the top, and the
+  mouse's face and pressed forepaws at the bottom. The eye slides once between them.
+CAMERA: wide, extreme low angle from the floor in front of the first tread, straight UP the open
+  well. The mouse at lower centre, 1/14 of frame height.
+SUBJECT: MouseKit on its hind legs, head tipped right back, BOTH FOREPAWS PRESSED TOGETHER AT ITS
+  CHEST, eyes wide, tail tip trembling and knocking dry crumbs loose. 🔴 The first tread's front
+  edge is ABOVE ITS HEAD. The bell rope lies COILED beside it, end loose, completely still.
+FEAR: 🔴 HIDES THE END OF THE PATH - only SOFFITS, stacked and overlapping, merged by the unpainted
+  black into ONE UNREADABLE MASS. 🔴 Not one walking surface is visible.
+CARRY: zero steps, no feather, nothing named. 🔴 Do not compare the rope to the mouse here (p5).
+FINISH: 2 (the face + the forepaws); floor stone and the near coil at one-step-off-black. 🔴 The
+  soffits and the upper two thirds are BARE BOARD.
 ```
 
 ### p2 — 한 칸. 밝은 칸이 정확히 하나
 ```
-LIGHT: 8% PAINTED. 🔴 EXACTLY ONE STAIR TREAD IS LIT - one hard-edged pale wedge, the width of a
-  single step, and nothing beyond it in any direction. Above it, below it, in front and behind is
-  bare board. 🔴 That single lit tread is how this page says "one step": the light counts, not a
-  numeral.
-CAMERA: close-up, level with the tread, horizontal. The front edge of the first tread cuts the
-  frame across, and the mouse coming over that edge is at centre.
-SUBJECT: MouseKit has BOTH FOREPAWS HOOKED OVER the tread's front edge and is hauling itself up,
-  pushing off the wall with its hind legs. Its belly is pressed on the edge, one hind foot still
-  hanging free below. 🔴 ITS EYES ARE SQUEEZED SHUT and its mouth is clamped - "don't look at the
-  top" has to be readable as a POSTURE, not as a look. The tail is stiff and straight out behind.
-  MouseSister out of frame. Quadruped grade - it is using its forepaws, so it is up on its hind legs.
-SETTING: the bottom of the spiral. The worn hollow of this one tread fills the near half of the
-  frame and its wear is stated by one darker curved stroke, not by modelling. The second tread
-  above it is already bare board.
-FEAR: this page hides EVERYTHING EXCEPT ONE STEP. The lit area is literally the size of the
-  instruction it was given. What it shows: that one step is possible.
-CARRY: ONE step climbed - one lit tread. No feather. Nothing named yet. Behind and below, the
-  coiled rope sits at the edge of the lit patch, half in the dark, unremarked.
-SIZE CHAIN: none on this page.
-FINISH: the mouse and the one lit tread finished. The very edge of the rope coil at the
-  one-step-off-black value. Everything else bare board.
-TONE: the whole page is one small bright step with a very small animal arriving on it. Gritty
-  stone under the forepaws, one short effort. 🔴 The brightness of the page is the size of the
-  advice it was given.
-NO LETTERING anywhere in this image.
+LIGHT: 8% PAINTED. 🔴 EXACTLY ONE STAIR TREAD IS LIT - one hard-edged pale wedge one step wide,
+  nothing beyond it in any direction. That is how the page says "one step".
+CAMERA: close-up, level with the tread, horizontal; its front edge cuts across the frame.
+SUBJECT: BOTH FOREPAWS HOOKED OVER the front edge, hauling itself up, pushing off the wall, belly
+  on the edge, one hind foot hanging free. 🔴 EYES SQUEEZED SHUT, mouth clamped - "don't look at
+  the top" must read as POSTURE, not as a look. The worn hollow of this tread fills the near half
+  of the frame, stated by one darker curved stroke.
+FEAR: hides everything except one step - the lit area is the size of the instruction.
+CARRY: ONE step climbed. No feather, nothing named; the coiled rope sits half in the dark at the
+  edge of the lit patch, unremarked.
+FINISH: 2 (the mouse + the one lit tread). All else bare board, the tread above included.
 ```
 
 ### p3 — 첫 창 · 빛 띠가 계단 여섯 칸을 가로지른다
 ```
-LIGHT: 25% PAINTED - the biggest opening so far. The LOW ARROW SLIT on the right throws a single
-  hard-edged pale band diagonally across the stair. 🔴 THAT BAND CROSSES ABOUT SIX TREADS AND THE
-  TREADS INSIDE IT ARE SEPARATELY COUNTABLE - each one a distinct pale wedge with a black gap
-  between it and the next. Above the band and below it, bare board. This is how the page says
-  "six steps".
-CAMERA: medium wide, eye level. The climbing mouse is on the left, the tall narrow slit is in the
-  right-hand wall, and the light band runs from the slit down to the left across the steps.
-SUBJECT: MouseKit has just come up onto a tread on all fours and has turned only its HEAD to the
-  right toward the window. One forepaw rests on the next tread's edge, one hind foot is on the
-  step below. Its eyes are round and wide in the light, whiskers pushed forward, mouth open
-  calling out. Quadruped grade.
-SETTING: the lower run of the spiral at the low slit. 🔴 Through the slit, TOWN ROOFS ARE LARGE
-  AND CLOSE - two chimneys, one thread of evening smoke. This size is the baseline of the whole
-  book's altimeter. The slit's inner sill is cut on a slope with dust on it. The bell rope runs up
-  the wall and disappears into the black.
-FEAR: nothing frightening on this page - this is the rhythm page, and 🔴 it is a REST. What it
-  shows: that the climb turns, that there is a world outside, and how big that world looks from
-  here. Everything it hides, it hides only by being a narrow band of light in a black shaft.
-CARRY: SIX steps - six countable lit treads. No feather. Nothing named. The rope is visible
-  running up the wall, still just scenery.
-SIZE CHAIN: none between animals. The roof size through this window is the reference for pages
-  6, 7, 9, 11 and 12 - fix it here.
-FINISH: the mouse, the lit treads it stands on and the sill with the roofs beyond it finished.
-  The wall immediately around the slit at the one-step-off-black value. 🔴 The rest of the shaft,
-  the soffits and the rope above are bare board - do not draw the courses of the wall.
-TONE: colour comes back only inside the band - the brown of the fur, the orange of the roof tiles.
-  Above and below the band the page returns to cold black. A light, turning rhythm: something is
-  going well.
-NO LETTERING anywhere in this image.
+LIGHT: 25% PAINTED. The low slit on the right throws one hard-edged band diagonally across the
+  stair. 🔴 IT CROSSES ABOUT SIX TREADS AND THEY ARE SEPARATELY COUNTABLE - each a pale wedge with
+  black between it and the next. Above and below, bare board; colour only inside the band.
+CAMERA: medium wide, eye level. The mouse left, the tall narrow slit in the right wall.
+SUBJECT: up onto a tread on all fours, turning only its HEAD to the window, one forepaw on the next
+  tread's edge, eyes round in the light, whiskers forward, mouth open calling out. Through the slit
+  🔴 TOWN ROOFS LARGE AND CLOSE: two chimneys, one thread of evening smoke.
+FEAR: nothing frightening - 🔴 this is the REST: the climb turns and there is a world outside.
+CARRY: SIX steps, six countable lit treads. 🔴 This roof size is the altimeter baseline for p6, p7,
+  p9, p11 and p12 - fix it here.
+FINISH: 2 (the mouse + the sill with the roofs beyond); lit treads finished, wall around the slit
+  at one-step-off-black. 🔴 Shaft, soffits and rope above are bare board.
 ```
 
 ### p4 — 어둠 속에서 저 혼자 움직이는 굵은 것 🔴 이 책에서 가장 어두운 쪽
 ```
-LIGHT: 🔴 2% PAINTED - THE DARKEST PAGE IN THE BOOK. There is no window on this page. The only
-  painted things are: the mouse's pale muzzle, belly and pressed-flat forepaws, and ONE THIN PALE
-  STROKE on the length of rope that has pulled away from the wall. That is all. 🔴 If this page is
-  not visibly darker than page 3 AND darker than page 5, the climb has no shape.
-CAMERA: medium, very low - the camera lies on the tread surface. The heavy rope hangs vertically
-  down the right side of the frame; the mouse is small at lower left, flattened on the stone
-  (about 1/10 of frame height).
-SUBJECT: MouseKit has its belly pressed to the tread, all four legs splayed, flattened. Only its
-  neck is lifted so it can look right at the rope. Both ears are laid back, the eyes are stretched
-  wide, every hair on its back is up, and its tail hangs stiff over the edge of the step below.
-  🔴 IT DOES NOT COVER ITS EYES - this animal goes rigid while LOOKING. Quadruped grade.
-SETTING: the middle run of the spiral, past the low slit, out of reach of any window.
-  🔴 BellRope hangs down the wall as a form at the ONE-STEP-OFF-BLACK value - present, but with
-  NOTHING described inside it: no twist, no fibres, no thickness that can be judged. One lower
-  length of it has swung slightly out from the wall. Dust on the step drifts one way and a single
-  straw rolls (the draught from above - the cause is on the page, but it must not be conspicuous).
-FEAR: 🔴 THIS PAGE HIDES WHAT IT IS. The rope is only ONE VALUE STEP off the bare board, so the
-  reader sees a large upright shape and cannot read its surface, its thickness or its top - the
-  black eats the end of it exactly as it ate the stair on page 1. What it shows: that it MOVED.
-  The single pale stroke on the length that has come off the wall is the only evidence, and it
-  must be small and low-contrast enough that the eye finds it a second later, not first.
-  🔴 DO NOT let the reader identify a rope here. That is page 5's job.
-CARRY: still six-and-a-bit steps - no lit treads to count on this page, which is itself the
-  point. No feather. Nothing named. 🔴 THIS IS THE SAME ROPE THAT LAY COILED ON THE FLOOR ON
-  PAGE 1 - draw it with the same weight, but do not help the reader notice that yet.
-SIZE CHAIN: 🔴 NONE. Do not let the rope's thickness be measured against the mouse here - the
-  dark makes any such comparison a lie. That comparison happens on page 5 and nowhere else.
-FINISH: the mouse finished. The one pale stroke on the swung-out length of rope finished.
-  The rest of the rope and the tread under the mouse at the one-step-off-black value, silhouette
-  only. 🔴 Everything else bare board. Do not describe the wall.
-TONE: forms exist only as edges between two very close darks. 🔴 The dark is NOT hazy, NOT blurred
-  and NOT a gradient - it is unpainted board, and the shapes in it are cut out of it by value
-  alone. The back of the neck going stiff. A quiet, slow, unexplained fright.
-NO LETTERING anywhere in this image.
+LIGHT: 🔴 2% PAINTED - THE DARKEST PAGE, no window. Painted: the pale muzzle, belly and flattened
+  forepaws, and ONE THIN PALE STROKE on the length of rope that has pulled away from the wall.
+  🔴 If it is not visibly darker than p3 and p5, the climb has no shape.
+CAMERA: medium, very low, the camera lying on the tread. The rope hangs vertically down the right;
+  the mouse small at lower left, 1/10 of frame height.
+SUBJECT: belly pressed to the stone, all four legs splayed, only the neck lifted to look at the
+  rope, ears back, eyes stretched wide, back fur up. 🔴 IT DOES NOT COVER ITS EYES - it goes rigid
+  while LOOKING. Dust drifts one way and a single straw rolls: the draught is on the page, quietly.
+FEAR: 🔴 HIDES WHAT IT IS - BellRope is ONE VALUE STEP off the bare board with nothing inside it
+  (no twist, no fibres, no readable thickness) and the black eats its top as it ate the stair on p1.
+  The pale stroke is the only evidence that it MOVED, found by the eye second, not first. 🔴 Do not
+  let the reader identify a rope here.
+CARRY: no countable treads, which is the point. 🔴 Same rope as the coil on p1, same weight - do
+  not help the reader see that yet, and measure nothing against the mouse in this dark.
+FINISH: 2 (the mouse + that one stroke); the rest at one-step-off-black, all else bare board.
 ```
 
 ### p5 — 코를 대 본다 · 위 놋빛 손톱까지 시선이 올라간다
 ```
-LIGHT: 10% PAINTED. A narrow slice of reflected light from far above slides down the wall and
-  catches ONE HAND'S BREADTH of the rope - exactly the piece the mouse's nose is touching - and
-  the mouse's face beside it. 🔴 And at the very top of the frame, in the black, ONE THUMBNAIL-
-  SIZED CHIP OF BRASS holds the light: the bell's lower rim, its first appearance in the book.
-  Two lit things, one directly above the other, with black between them.
-CAMERA: close-up, low angle. The mouse's head and the rope meet in the near foreground at lower
-  left; the rope runs straight UP the frame, narrowing, to the small brass chip at the top edge.
-SUBJECT: MouseKit is up on its hind legs, neck stretched long, and 🔴 THE TIP OF ITS NOSE IS
-  TOUCHING THE ROPE. One forepaw is laid carefully on the rope's side, the other is still folded
-  at its chest. Its eyes are half closed and its whiskers lie back along the rope's grain.
-  Quadruped grade - hind legs only because the forepaws are in use.
-SETTING: the same dark run of the spiral, right beside BellRope.
-FEAR: 🔴 THIS PAGE REVEALS IT, AND IT REVEALS IT BY TOUCH AND BY FOLLOWING. Inside the narrow lit
-  slice the rope's twist and its stray fibres are finished and unmistakable - it is hemp, it is
-  cold, it is a thing. Then the eye leaves the nose, rides the rope up the frame, and lands on the
-  brass chip at the top. 🔴 THAT ONE UNBROKEN UPWARD TRAVEL IS THE ENTIRE UNDERSTANDING OF THIS
-  PAGE - it has to be possible to make it without crossing anything else bright. Keep the middle
-  of the frame empty.
-CARRY: TWELVE steps - but there are no countable lit treads here, so the number lives in the text
-  only on this page and the picture carries the rope instead. No feather. 🔴 FIRST THING NAMED:
-  the rope. And the same rope goes down out of the bottom of the frame toward the floor coil.
-SIZE CHAIN: 🔴 THIS IS THE ROPE PAGE. The rope is AS THICK AS THE MOUSE'S OWN BODY, and the two
-  are TOUCHING at the same depth in the same slice of light, so the comparison is honest and
-  needs no explanation. Nothing else in the book may make this comparison.
-FINISH: the mouse's face, its forepaw and the one lit hand's breadth of rope finished. The brass
-  chip finished but tiny. The rest of the rope at the one-step-off-black value. 🔴 Everything else
-  bare board. Do not draw the wall behind the rope.
-TONE: focus exists only where the nose touches; going up, the rope becomes value alone. Cold and
-  coarse under the nose, then a short, quiet release. 🔴 The brass chip must be small enough to be
-  a promise and not an arrival.
-NO LETTERING anywhere in this image.
+LIGHT: 10% PAINTED. A narrow slice of reflected light catches ONE HAND'S BREADTH of rope - exactly
+  the piece the nose touches - and the face beside it. 🔴 At the very top, in the black, ONE
+  THUMBNAIL-SIZED CHIP OF BRASS: the bell's rim, first appearance. 🔴 Keep the middle empty.
+CAMERA: close-up, low angle. Head and rope meet at lower left; the rope runs straight UP the frame,
+  narrowing, to the brass chip at the top edge.
+SUBJECT: up on its hind legs, neck stretched long, 🔴 THE TIP OF ITS NOSE TOUCHING THE ROPE, one
+  forepaw laid carefully on its side, eyes half closed, whiskers back along the rope's grain.
+FEAR: 🔴 REVEALS IT BY TOUCH AND BY FOLLOWING - inside the lit slice the twist and stray fibres are
+  finished and unmistakable, then the eye rides the rope up to the brass. 🔴 That upward travel must
+  be possible without crossing anything else bright.
+CARRY: TWELVE steps but no countable treads. 🔴 FIRST THING NAMED: the rope, running down out of
+  frame toward the floor coil. 🔴 THE ROPE PAGE - it is AS THICK AS THE MOUSE'S OWN BODY and the two
+  are TOUCHING at one depth in one light; nothing else in the book makes this comparison.
+FINISH: 2 (the face and forepaw + the lit breadth of rope); the brass chip tiny, a promise and not
+  an arrival. The rest of the rope at one-step-off-black, everything else bare board.
 ```
 
 ### p6 — 푸드드득 · 검은 날개가 창을 덮는다 (소리 = 빛이 꺼지는 것)
 ```
-LIGHT: 18% PAINTED, AND THAT IS LESS THAN THE PAGE SHOULD HAVE. 🔴 THIS IS THE POINT OF THE PAGE:
-  the MIDDLE ARROW SLIT is throwing its band of light onto the stair, and a black wing has just
-  cut across it, so a big bite has been taken out of the lit shape and dropped onto the steps as
-  bare board. 🔴 SOUND IS DRAWN AS THE LIGHT GOING OUT. Do not draw motion blur, speed lines or
-  a flash - draw the brightest shape on the page being interrupted.
-CAMERA: medium wide, low angle from the tread surface looking up toward the slit. TowerPigeon
-  bursts out of the sill at upper right; MouseKit is flattened at lower left.
-SUBJECT: MouseKit is belly-down on the stone with BOTH FOREPAWS CLAMPED AROUND ITS HEAD and its
-  EYES SQUEEZED SHUT, ears flat, back fur up, and 🔴 its tail wound once right around its body.
-  Upper right - TowerPigeon in STATE A: a BLACK BACKLIT SILHOUETTE against the window, both wings
-  thrown to their widest, feet kicking off the sill, 🔴 THE BODY CROPPED BY THE TOP OF THE FRAME so
-  the whole bird is never seen. Nothing inside the silhouette is described. It does not speak.
-  Quadruped grade for the mouse; the pigeon is a real bird.
-SETTING: the middle run at the middle slit. The nest of dry grass and twigs is on the sill, pigeon
-  footprints in the sill dust. 🔴 Through the slit the TOWN ROOFS ARE NOTICEABLY SMALLER than
-  through the low slit on page 3.
-FEAR: 🔴 THIS PAGE HIDES THE BODY. The bird is unlit, cropped and moving, so the reader gets a
-  wingspan, a scatter and a hole punched in the light - not an animal. What it shows: that
-  something up here is alive and fast, and that it lives at the window.
-CARRY: about eighteen steps - the lit treads are partly eaten by the wing shadow, so they are NOT
-  countable on this page and must not be made countable. No feather yet. Named so far: the rope,
-  which runs up the middle of the frame behind everything.
-SIZE CHAIN: 🔴 NONE. The bird is cropped and backlit - it cannot be measured here. That comparison
-  is page 7's alone.
-FINISH: the mouse finished. The lit band on the stone and the few loose feathers floating in it
-  finished - 🔴 the scattered feathers are the only sharply described things in the air. The
-  pigeon is a flat black silhouette with NOTHING finished inside it. The sill and nest at the
-  one-step-off-black value. Everything else bare board.
-TONE: the page is built so that a bright thing turns dark for half a second. Half a second of
-  fright, the heart moving before the head does. 🔴 The reader must feel the light stop, not see
-  a blur.
-NO LETTERING anywhere in this image.
+LIGHT: 18% PAINTED, LESS THAN THE PAGE SHOULD HAVE - 🔴 the middle slit is throwing its band onto
+  the stair and a black wing has just cut across it, so a bite is taken out of the lit shape and
+  dropped on the steps as bare board. 🔴 SOUND IS DRAWN AS THE LIGHT GOING OUT: no motion blur, no
+  speed lines, no flash.
+CAMERA: medium wide, low from the tread up toward the slit; the pigeon bursts out at upper right,
+  the mouse flattened at lower left.
+SUBJECT: belly-down with BOTH FOREPAWS CLAMPED AROUND ITS HEAD, EYES SQUEEZED SHUT, ears flat,
+  🔴 tail wound once round its body. TowerPigeon in STATE A - a BLACK BACKLIT SILHOUETTE, wings at
+  their widest, feet kicking off the sill, 🔴 THE BODY CROPPED BY THE TOP OF THE FRAME so the whole
+  bird is never seen. 🔴 Through the slit the roofs are noticeably SMALLER than on p3.
+FEAR: 🔴 HIDES THE BODY - unlit, cropped and moving, so the reader gets a wingspan, a scatter and a
+  hole punched in the light, not an animal.
+CARRY: the lit treads are partly eaten and 🔴 must NOT be made countable here. Named: the rope.
+  🔴 The bird cannot be measured on this page.
+FINISH: 2 (the mouse + the lit band with the few loose feathers in it, the only sharply described
+  things in the air). The pigeon is flat black; sill and nest at one-step-off-black.
 ```
 
 ### p7 — 창빛 안에 셋 · 회분홍 깃털 첫 등장
 ```
-LIGHT: 32% PAINTED - the widest opening so far, and 🔴 IT IS THE SAME WINDOW AS THE PAGE BEFORE
-  WITH NOTHING BLOCKING IT. The middle slit's band lies whole and unbroken across the stair, and
-  everything on this page that matters is inside it: the pigeon, the falling feather and the mouse.
-  Same slit, same light, same angle as page 6 - only nothing is in the way now.
-CAMERA: medium, eye level. TowerPigeon settled on the sill at the right, MouseKit low at the left,
-  and the light band running between them with the feather coming down through it.
-SUBJECT: MouseKit is still lying down but has lowered one forepaw from its face and 🔴 HAS ONE EYE
-  OPEN, looking up at the sill. Its other forepaw is on the stone, one ear is half up.
-  Right - TowerPigeon in STATE B: standing on the sill in full light, WHOLE BODY VISIBLE, breast
-  puffed right up, neck pulled in, head cocked so one round eye looks down at the mouse. Wings
-  folded, tail out past the sill. It does not speak.
-  🔴 BOTH ANIMALS ARE IN A STARTLED POSTURE AT THE SAME TIME, and that overlap in one frame is the
-  whole content of the page - one is puffed up, the other is flat on the floor.
-SETTING: the same sill and nest. Town roofs small beyond it, as on page 6.
-FEAR: 🔴 THIS PAGE REVEALS IT, AND IT REVEALS IT BY LETTING THE LIGHT THROUGH. What was a black
-  interruption is now a lit, complete, slightly ridiculous bird. Nothing is hidden on this page.
-CARRY: TWENTY steps - the light band crosses the treads, and they are countable again. 🔴 THE
-  FEATHER ARRIVES: ONE DUSTY-PINK FEATHER comes down slantwise through the light band and is just
-  touching the stone in front of the mouse's forepaws. It is the only pink in the book and it will
-  be in the mouse's possession from here to the last page. Named so far: rope, pigeon.
-SIZE CHAIN: 🔴 THIS IS THE PIGEON PAGE. Bird and mouse are in the SAME BAND OF LIGHT at the SAME
-  depth, so the pigeon reads as several times the mouse and nothing has to be said about it.
-FINISH: the mouse, the pigeon, the falling feather and the lit stone finished. The sill and nest
-  half-finished - a handful of straws and twigs suggested, 🔴 NOT every straw drawn. The rope and
-  the shaft above and below are bare board.
-TONE: three things sit in one strip of light. The frightening thing has become a bird without
-  getting any smaller - awkward, funny and a small relief.
-NO LETTERING anywhere in this image.
+LIGHT: 32% PAINTED, and 🔴 IT IS THE SAME WINDOW AS THE PAGE BEFORE WITH NOTHING BLOCKING IT - same
+  slit, same angle, the band whole and unbroken, and everything that matters inside it.
+CAMERA: medium, eye level. The pigeon on the sill right, the mouse low left, the feather coming
+  down through the band between them.
+SUBJECT: MouseKit still lying down but has lowered one forepaw from its face and 🔴 HAS ONE EYE
+  OPEN, one ear half up. TowerPigeon in STATE B - on the sill in full light, WHOLE BODY VISIBLE,
+  breast puffed up, neck pulled in, head cocked so one round eye looks down at the mouse. It does
+  not speak. 🔴 BOTH ANIMALS ARE STARTLED AT ONCE, one puffed up and one flat on the floor.
+FEAR: 🔴 REVEALS IT BY LETTING THE LIGHT THROUGH - a black interruption becomes a lit, complete,
+  slightly ridiculous bird.
+CARRY: TWENTY steps, treads countable again. 🔴 THE FEATHER ARRIVES - ONE DUSTY-PINK FEATHER comes
+  down slantwise through the band, just touching the stone in front of the mouse's forepaws; the
+  only pink in the book, and his from here on. 🔴 THE PIGEON PAGE - bird and mouse in the same band
+  at the same depth, so it reads as several times the mouse with nothing said.
+FINISH: 2 (the mouse + the pigeon), plus the falling feather and the lit stone; sill and nest half,
+  a handful of straws and 🔴 not every straw. Rope and shaft bare board.
 ```
 
 ### p8 — 밝아졌는데 더 무섭다 🔴 그림자는 칠이 비켜 간 검정이다
 ```
-LIGHT: 45% PAINTED, and 🔴 FOR THE FIRST TIME THE LIGHT IS WARM. Red evening light comes down from
-  the top window and lays a broad EVENING-ORANGE #D9793C plane over the curved outer wall - the
-  first big warm area in the book. 🔴 AND THE SHADOW ON THAT WALL IS NOT PAINTED. It is the bare
-  board showing through where the orange did not go. The frightening thing is made of exactly the
-  same black the mouse has been climbing through for seven pages. Do not paint a grey or a dark
-  brown shadow; leave the board.
-CAMERA: wide, eye level. The curved wall fills the right of the frame with the dark shape on it;
-  MouseKit is small at lower left (about 1/10 of frame height).
-SUBJECT: MouseKit has just put one hind foot back DOWN ONTO THE STEP BELOW - a single step of
-  retreat - while its upper body still faces up, neck craned back, both forepaws frozen at its
-  chest, eyes stretched wide, mouth slightly open, tail tip caught on the lower step's edge. 🔴 The
-  pink feather is pressed between its forepaws and comes along. Quadruped grade.
-SETTING: the last turn of the spiral, just below the bell chamber. Evening at its reddest.
-  BellRope crosses the dark shape vertically, orange on either side of it.
-FEAR: 🔴 THIS PAGE HIDES WHAT CASTS IT. Rules for the shape, and they are the page:
-  it is round on top and flares out below; 🔴 its outline BREAKS AND STEPS wherever it crosses a
-  course of the masonry, so the silhouette cannot be completed by eye; and 🔴 its upper end RUNS
-  OUT OF THE TOP OF THE FRAME, so its true size is unknowable. 🔴 DO NOT MAKE THE EDGE SOFT, FUZZY,
-  BLURRED OR FADED to achieve this - the indeterminacy comes from the broken outline and the crop,
-  never from blur. And 🔴 DO NOT let it read as a bell. What it shows instead: that it grows as he
-  climbs, and that the brightest page so far is also the worst one.
-CARRY: about twenty-eight steps; the warm plane lights the treads below the shape so a run of them
-  is countable. Feather held between the forepaws. Named so far: rope, pigeon.
-SIZE CHAIN: none - 🔴 nothing on this page may be measured, because not knowing the size is the
-  page's whole content.
-FINISH: the mouse and the one tread under its feet finished. The orange wall plane finished as a
-  flat pass with three or four chisel strokes only. 🔴 The dark shape is FLAT BARE BOARD with
-  nothing inside it. The stair above and the shaft below are bare board.
-TONE: after seven dark pages the page finally opens and glows warm, and a black mass is sitting in
-  the middle of the glow. 🔴 Brighter and worse at the same time. One toe hesitating on the step
-  below.
-NO LETTERING anywhere in this image.
+LIGHT: 45% PAINTED and 🔴 FOR THE FIRST TIME WARM - red evening light lays a broad EVENING-ORANGE
+  plane over the curved outer wall. 🔴 THE SHADOW ON THAT WALL IS NOT PAINTED: it is bare board
+  where the orange did not go, so the frightening thing is the same black he has climbed through
+  for seven pages. Do not paint a grey or brown shadow.
+CAMERA: wide, eye level. The curved wall fills the right with the dark shape; the mouse small at
+  lower left, 1/10 of frame height.
+SUBJECT: one hind foot put back DOWN ONTO THE STEP BELOW - one step of retreat - while the upper
+  body still faces up, neck craned back, both forepaws frozen at the chest, eyes stretched wide.
+  🔴 The pink feather is pressed between his forepaws and comes along. BellRope crosses the dark
+  shape vertically, orange either side.
+FEAR: 🔴 HIDES WHAT CASTS IT, by three rules: round on top and flaring below; 🔴 its outline BREAKS
+  AND STEPS at every course of masonry so the silhouette cannot be completed by eye; 🔴 its upper
+  end RUNS OUT OF THE TOP OF THE FRAME so its size is unknowable. 🔴 The edge is never soft, fuzzy
+  or faded, and it must not read as a bell.
+CARRY: the warm plane lights a countable run of treads below the shape. Feather in the forepaws.
+  Named: rope, pigeon. 🔴 Measure nothing here - not knowing the size is the page.
+FINISH: 2 (the mouse + the orange plane, one flat pass with 3-4 chisel strokes). 🔴 The dark shape
+  is FLAT BARE BOARD with nothing inside it.
 ```
 
 ### p9 — 종이 해를 막고 섰다 (모양이 겹친다)
 ```
-LIGHT: 55% PAINTED. The TOP LOUVRED WINDOW is pouring the whole red sun straight in, so the upper
-  half of the frame is EVENING ORANGE and its hotter core #E9A860, and the lower half is still
-  black. 🔴 The mouse stands one tread below the line where the two halves meet. And 🔴 EXACTLY ONE
-  TREAD IS LIT ABOVE HIM - the last one - which is how this page says "thirty steps": one step
-  left, and it is bright.
+LIGHT: 55% PAINTED. The top louvred window pours the whole red sun in, so the upper half of the
+  frame is EVENING ORANGE and the lower half is still black. He stands one tread below the line
+  where they meet, and 🔴 EXACTLY ONE TREAD IS LIT ABOVE HIM - the last one - which is how the page
+  says "thirty steps".
 CAMERA: medium, low angle from behind and below the mouse, so the reader looks up with it.
-  Upper frame: the red window and the brass bell standing in front of it. Lower centre:
-  MouseKit seen from BEHIND.
-SUBJECT: MouseKit stands on the stair with its back to us, head tipped right back. 🔴 THE FEATHER
-  IS HELD BETWEEN BOTH FOREPAWS AGAINST ITS CHEST. Its tail hangs down to the step below. 🔴 We see
-  no face at all on this page - the craned neck and the pricked ears carry the whole action, and
-  the ONE THING this page is about is THE ANGLE OF THAT LIFTED HEAD. Quadruped grade.
-SETTING: the top of the spiral at the mouth of the bell chamber. The red sun comes through the
-  louvres; BrassBell hangs in its timber frame directly in front of it, cropped by the top of the
-  frame so only its lower part is in shot. BellRope comes down out of the bell and away to the
-  right - 🔴 the far end of the rope the mouse followed with its eyes on page 5. Through the louvres
-  the town roofs are VERY SMALL.
-FEAR: 🔴 THIS PAGE REVEALS IT BY MATCHING TWO SHAPES. The bell's silhouette against the red sun and
-  the dark shape still lying on the wall below are the SAME SHAPE, and both are in frame at once,
-  so the reader completes the sentence with no words: the thing on the wall is where the light
-  cannot get past the bell. 🔴 The shadow on the wall must now read as a legible bell shape - the
-  broken outline of page 8 resolves, because we can see the top of it here.
-CARRY: THIRTY steps - one lit tread remaining above. Feather held in both forepaws. 🔴 ALL THREE
-  NAMED as of this page: rope, pigeon, bell shadow. Roofs at their smallest yet.
-SIZE CHAIN: none yet - 🔴 the bell is cropped here, so it cannot be measured. Its measuring page
-  is page 10.
-FINISH: the mouse's back, the lit tread it is about to step on, the bell's lower part and the
-  louvred window finished. The wall shadow is BARE BOARD. The lower half of the frame is bare
-  board. 🔴 Do not describe the masonry inside the red plane beyond three or four chisel strokes.
-TONE: the top half of the page burns and the bottom half is still cold. The eye is thrown up into
-  a brightness that is almost too much to look at, with one step left in it.
-NO LETTERING anywhere in this image.
+SUBJECT: MouseKit with its back to us, head tipped right back, 🔴 THE FEATHER HELD BETWEEN BOTH
+  FOREPAWS AGAINST ITS CHEST. 🔴 No face at all on this page - the craned neck and pricked ears
+  carry everything. BrassBell hangs in its frame in front of the louvres, cropped by the top edge;
+  BellRope comes down out of it - 🔴 the far end of the rope he followed with his eyes on p5.
+FEAR: 🔴 REVEALS IT BY MATCHING TWO SHAPES - the bell against the red sun and the dark shape still
+  on the wall below are the SAME SHAPE, both in frame at once. 🔴 The wall shadow now reads as a
+  legible bell, because we can see the top of it here.
+CARRY: THIRTY steps, one lit tread left. 🔴 ALL THREE NAMED: rope, pigeon, bell shadow. Roofs at
+  their smallest yet. 🔴 The bell is cropped and cannot be measured; its page is p10.
+FINISH: 2 (the mouse's back + the bell's lower part with the window); the last lit tread finished.
+  🔴 The wall shadow and the lower half of the frame are BARE BOARD.
 ```
 
 ### p10 — 뎅 · 종실 🔴 밀도 배급 1/2 · 이 책에서 가장 밝은 쪽 (@image2)
 ```
-LIGHT: 🔴 70% PAINTED - THE BRIGHTEST PAGE IN THE BOOK, and the top of the ladder. Red evening
-  light comes in through louvres on all four sides, so the chamber is lit from several directions
-  at once and the brass of the bell is the hottest thing on the page. The two mice are small and
-  the light lies on their backs too. 🔴 Only the corners of the chamber and the mouth of the stair
-  behind them stay bare board.
-CAMERA: wide, low angle from the chamber floor. BrassBell fills most of the frame and overflows
-  the top of it. The two mice are small at lower right.
-SUBJECT: MouseKit has just set a foot on the last tread and is frozen exactly there, 🔴 BOTH
-  FOREPAWS CLAMPED HARD OVER BOTH EARS, eyes squeezed shut, shoulders hauled up, one hind foot
-  still on the step below, 🔴 with the pink feather squeezed between a forepaw and an ear so it
-  comes along. Beside it - MouseSister on all fours, 🔴 HER LONG TAIL LOOPED AROUND HER BROTHER'S
-  BACK, her own ears half back, her face tilted toward him. 🔴 She does not lift him, does not put
-  a paw around him, and is not saying anything - the tail is the entire gesture. Quadruped grade
-  for both.
-SETTING: the bell chamber. BrassBell is swung over to one side in its heavy timber frame and the
-  clapper has just struck; 🔴 ONE PALE STROKE spreads at the rim where it was hit - that stroke is
-  the whole "sound", and it is NOT a glow, NOT a ring of light and NOT a shockwave. BellRope is
-  pulled TAUT and whips up in a curve - the same rope that lies coiled on the floor thirty steps
-  below. Heavy timber beams, worn floor stone with old grooves.
-FEAR: 🔴 THIS PAGE HIDES NOTHING AND FRIGHTENS ANYWAY. Everything is visible, named and lit, and
-  the animal still has its ears covered and its eyes shut. 🔴 THIS IS NOT THE PAGE WHERE FEAR GOES
-  AWAY - the covered ears and the looped tail stuck together in one shape are its entire content.
-  Do not open his eyes and do not straighten him up.
-CARRY: 🔴 DENSITY PAGE 1 OF 2, AND THE DENSITY GOES INTO THE OBJECTS AND THE AIR, NEVER INTO THE
-  MASONRY. Take to finished: the bell, the timber frame and its iron straps, the whipping rope,
-  and 🔴 THE DUST AND LOOSE FEATHERS LIFTED INTO THE AIR ALL AT ONCE - many small painted pale dots
-  and flecks, put there with a brush, which is how the sound becomes visible. The chamber walls,
-  the louvres and the floor stay at half-finish or bare board. Feather held between paw and ear.
-  All three named. Roofs not visible from this angle.
-SIZE CHAIN: 🔴 THIS IS THE BELL PAGE. The bell alone is many tens of times the two mice put
-  together, and all three are in one frame in the same light - so the comparison is settled at a
-  glance. The bell overflows the frame; the mice are a smudge at the bottom right.
-FINISH: the two mice, the bell, the frame, the taut rope and the airborne dust finished. The last
-  tread and the floor immediately under the mice half-finished. 🔴 The walls, the four louvre
-  openings and the roof timbers above are bare board or one flat pass - do not draw every louvre
-  slat or every stone.
-TONE: the brass burns hottest and its warmth even lies on the two small backs. The air itself
-  looks pushed. 🔴 The page is the loudest and the brightest in the book, and the smallest thing in
-  it has its ears shut.
-NO LETTERING anywhere in this image.
+LIGHT: 🔴 70% PAINTED - THE BRIGHTEST PAGE AND THE TOP OF THE LADDER. Red light through louvres on
+  all four sides, the brass hottest, the light lying on the two small backs. 🔴 Only the chamber
+  corners and the mouth of the stair stay bare board.
+CAMERA: wide, low from the chamber floor. BrassBell fills most of the frame and overflows the top;
+  the two mice small at lower right.
+SUBJECT: MouseKit frozen with a foot on the last tread, 🔴 BOTH FOREPAWS CLAMPED HARD OVER BOTH
+  EARS, eyes squeezed shut, 🔴 the feather squeezed between a forepaw and an ear. Beside it
+  MouseSister on all fours with 🔴 HER LONG TAIL LOOPED AROUND HIS BACK, ears half back, face
+  tilted toward him - 🔴 she does not lift him, does not put a paw around him and says nothing.
+  The bell is swung over, the clapper just struck: 🔴 ONE PALE STROKE at the rim is the whole sound,
+  not a glow, not a ring of light. BellRope pulled TAUT and whipping up.
+FEAR: 🔴 HIDES NOTHING AND FRIGHTENS ANYWAY - all lit and named, and the animal still has its ears
+  covered and its eyes shut. 🔴 Do not open his eyes or straighten him up.
+CARRY: 🔴 THE BELL PAGE - the bell alone is many tens of times the two mice together, all three in
+  one frame in one light.
+FINISH: DENSITY RATION 1 of 2, into objects and air and never masonry - the bell, its timber frame
+  and straps, the taut rope, and 🔴 THE DUST AND FEATHERS LIFTED ALL AT ONCE as many small painted
+  pale dots, which is how the sound becomes visible. Do not draw every louvre slat.
 ```
 
 ### p11 — 소리와 소리 사이 · 귀는 아직 막은 채 (@image2)
 ```
-LIGHT: 60% PAINTED. 🔴 THE BRASS HAS WITHDRAWN AND THE OUTSIDE HAS COME IN: the hot brass plane is
-  gone from the middle of the frame, and what lights the page now is the low warm orange coming
-  through the west louvres from the town. Softer in value than page 10 but still wide open.
-  🔴 This is the quiet BETWEEN two strikes, and the quiet is drawn as the change of what the light
-  comes from - not as a dimming.
-CAMERA: medium, eye level. The two mice on the left; the louvred west opening and the evening town
-  beyond it on the right.
-SUBJECT: MouseKit 🔴 STILL HAS BOTH FOREPAWS CLAMPED OVER ITS EARS - do not lower them - but its
-  EYES ARE NOW WIDE OPEN, its head has turned to the right toward the opening and its mouth is
-  open in a grin. The feather is still squeezed between paw and ear. 🔴 The contradiction in one
-  face - two paws over the ears, two eyes wide open, mouth grinning - is the whole page.
-  Beside it, MouseSister still has her tail looped around his back and looks out of the same
-  opening with her eyes narrowed. Quadruped grade for both.
-SETTING: the bell chamber floor at the west louvres. 🔴 Beyond them the evening town is TINY -
-  roof tiles the size of a fingernail, one or two yellow windows just lit, fields and a river
-  cooling to red beyond. 🔴 Compare with page 3: this size, against the big close roofs of the low
-  slit, is the ONLY thing that says how far he has climbed. At the top edge of the frame the bell's
-  lower rim still hangs, swinging. The lifted dust is coming slowly back down as small painted
-  pale dots.
-FEAR: this page hides nothing. 🔴 What it shows is that BOTH THINGS ARE TRUE AT ONCE - it is still
-  frightening and it is beautiful. Do not resolve it in either direction: no relaxed pose, and no
-  cowering either.
-CARRY: at the top; no treads to count. Feather between paw and ear. All three named. 🔴 The town
-  roofs at their smallest - this is the altimeter's last reading.
-SIZE CHAIN: none - it was settled on the previous page.
-FINISH: the two mice, the louvre opening and the town beyond it finished - 🔴 but "finished" for
-  the town means a field of small painted roof shapes and two lit windows, NOT every tile.
-  The bell's rim at the top edge half-finished. The chamber behind them is bare board.
-TONE: the brass withdraws and the low warm orange of the outside takes its place, as though the
-  silence had turned into brightness. 🔴 Two covered ears and two wide-open eyes in one face.
-NO LETTERING anywhere in this image.
+LIGHT: 60% PAINTED. 🔴 THE BRASS HAS WITHDRAWN AND THE OUTSIDE HAS COME IN - the hot plane is gone
+  from the middle and the page is lit by low warm orange through the west louvres. 🔴 The quiet
+  between two strikes is a change in what the light comes FROM, not a dimming.
+CAMERA: medium, eye level. The two mice left; the louvred opening and the evening town right.
+SUBJECT: 🔴 STILL BOTH FOREPAWS CLAMPED OVER ITS EARS - do not lower them - but the EYES ARE NOW
+  WIDE OPEN, head turned toward the opening, mouth open in a grin, feather still between paw and
+  ear. 🔴 That contradiction in one face is the whole page. MouseSister still has her tail looped
+  round his back and looks out, eyes narrowed. The bell's rim still swings at the top edge; the
+  lifted dust comes back down as small painted dots.
+FEAR: nothing hidden. 🔴 BOTH THINGS ARE TRUE AT ONCE, frightening and beautiful - no relaxed pose
+  and no cowering.
+CARRY: no treads to count. 🔴 Beyond the louvres the town is TINY - roofs the size of a fingernail,
+  two windows just lit. Against p3's big close roofs this is the altimeter's last reading.
+FINISH: 2 (the two mice + the opening with the town beyond), where "finished" for the town means
+  small painted roof shapes, 🔴 not every tile. The chamber behind is bare board.
 ```
 
 ### p12 — 위에서 내려다본 계단 전체 🔴 뒤집힌 한 쌍 2/2 · 밀도 배급 2/2
 ```
-LIGHT: 40% PAINTED, AND THE PAINT IS THE PATH. 🔴 THE THREE WINDOWS ARE ALL IN FRAME AT ONCE, so
-  their three hard-edged pale wedges fall on the stair at three different heights, and between and
-  along them the TREADS THEMSELVES CATCH LIGHT so that the whole flight reads as A CHAIN OF PALE
-  WEDGES running from the top of the frame to the bottom. 🔴 The dark is now only the open well in
-  the middle - the hole we are looking down - and the wall side. Compare with page 1: the same
-  black, the same tower, but now the black is a channel and not a ceiling.
-CAMERA: wide, high angle from the bell-chamber floor looking straight DOWN the open well of the
-  spiral. The stair coils away from the top of the frame to the bottom and 🔴 THREE LEVELS ARE ALL
-  IN SHOT AT ONCE. MouseKit is small on the stair around the middle of the frame.
-  🔴 THIS IS THE INVERTED TWIN OF PAGE 1 AND IT IS NOT A MIRROR. On page 1 we saw only SOFFITS -
-  undersides stacked into one black mass with no end. Here we see only TREADS - walking surfaces,
-  every one of them, from top to bottom. 🔴 The spiral must wind THE SAME WAY as on page 1: do not
-  flip the image. And the path must have a VISIBLE END in this frame - the floor and the coiled
-  rope at the bottom - where page 1 had none.
-SUBJECT: MouseKit is running down on all fours: forepaws already on the lower tread, hind feet just
-  leaving the one above, body stretched long on a diagonal, ears laid back, tail up. 🔴 IT CARRIES
-  THE FEATHER IN ITS MOUTH, because it needs both forepaws. Eyes forward. Quadruped grade.
-  🔴 THE ONLY THING MOVING IN THIS PICTURE IS THE MOUSE. This is ONE MOMENT, not three - the three
-  places are simply where they always were.
-SETTING: the whole spiral seen from above. 🔴 All three named things are in frame, each at its own
-  level: high on the wall, the BELL SHADOW; at the middle, the pigeon's SILL with its nest, with
-  TowerPigeon sitting on it looking down at the descending mouse; low along the wall, the hanging
-  BELL ROPE - and at the very bottom of the frame, the ROPE COILED ON THE FLOOR. Through the three
-  slits, three sizes of town roof, largest at the bottom.
-FEAR: this page hides nothing at all. 🔴 What it shows is that a path whose names you know is
-  SHORT: the same thirty treads that were an unreadable black mass on page 1 fit into three spans
-  of the eye here. The proof is geometric, not emotional - 🔴 the sentence "already down?" is in
-  the text, and the picture's job is to make it obviously true.
-CARRY: 🔴 DENSITY PAGE 2 OF 2 - AND THE DENSITY IS ENTIRELY IN THE THREE NAMED THINGS AND THE THREE
-  PATCHES OF LIGHT. Take to finished: the three lit wedges, the bell shadow, the sill with nest and
-  pigeon, the hanging rope, the floor coil, and the mouse. 🔴 Take NOTHING ELSE above half-finish,
-  and above all do not draw the masonry - if the wall is described, the chain of lit treads stops
-  being the brightest thing and this page loses its whole job. Feather in the mouth. All three
-  named and all three visible at once.
-SIZE CHAIN: none. 🔴 Do not use this page to compare anything - the three levels are at three
-  different depths, so any comparison here would be a lie. The measuring pages were 5, 7 and 10.
-FINISH: as above. 🔴 The open well in the middle is BARE BOARD, and it is a passage, not a fog.
-TONE: 🔴 the frame is filled by a PATH and not by darkness. Three patches of light lie along it
-  like a rhythm and the eye runs from top to bottom in one slide. The light, dry clatter of claws
-  on stone.
-NO LETTERING anywhere in this image.
+LIGHT: 40% PAINTED, AND THE PAINT IS THE PATH. 🔴 ALL THREE WINDOWS ARE IN FRAME AT ONCE, their
+  wedges falling at three heights, and between them the TREADS THEMSELVES catch light so the flight
+  reads as A CHAIN OF PALE WEDGES from top to bottom. 🔴 The dark is now only the open well and the
+  wall side - the same black as p1, but a channel and not a ceiling.
+CAMERA: wide, high angle from the chamber floor straight DOWN the open well, 🔴 THREE LEVELS ALL IN
+  SHOT. 🔴 THE INVERTED TWIN OF P1, NOT A MIRROR: there only SOFFITS stacked into one endless mass,
+  here only TREADS, every one of them. 🔴 Wind the spiral THE SAME WAY as p1, never flipped, and
+  give the path a VISIBLE END - the floor and the coiled rope at the bottom.
+SUBJECT: running down on all fours, forepaws already on the lower tread, hind feet leaving the one
+  above, body stretched long, ears back, tail up. 🔴 IT CARRIES THE FEATHER IN ITS MOUTH, because it
+  needs both forepaws. 🔴 THE ONLY THING MOVING IS THE MOUSE - ONE MOMENT, not three.
+FEAR: nothing hidden. 🔴 A path whose names you know is SHORT: the thirty treads that were an
+  unreadable black mass on p1 fit into three spans of the eye.
+CARRY: 🔴 ALL THREE NAMED THINGS AT THEIR OWN LEVELS - high on the wall the BELL SHADOW, at the
+  middle the SILL with its nest and TowerPigeon looking down at him, low the hanging BELL ROPE, and
+  at the bottom the ROPE COILED ON THE FLOOR. Three roof sizes through the three slits. 🔴 Three
+  depths, so compare nothing here.
+FINISH: DENSITY RATION 2 of 2, entirely in those three named things, the three patches of light and
+  the mouse; 🔴 nothing else above half-finish and no masonry at all. 🔴 The open well is BARE
+  BOARD, a passage and not a fog.
 ```
 
 ### p13 — 계단은 아직 캄캄하고 무릎은 아직 떨린다 🔴 G군 착지
 ```
-LIGHT: 10% PAINTED - almost back to the first page. 🔴 THE STAIR IS EXACTLY AS BLACK AS IT WAS ON
-  PAGE 1: THE DARK HAS NOT SHRUNK. The only painted things are, in the near ground, the mouse and
-  the pink feather in a low warm light; the loose END of the rope beside it; and, far up at the top
-  of the frame, the same small chip of window light that was there on page 1.
-CAMERA: medium, eye level, horizontal at the mouse's own height. 🔴 NOT the floor-level upward shot
-  of page 1 - the camera has stood up, so the stair has moved off to one side and winds away into
-  the black rather than looming overhead. MouseKit at centre-left, the rope at the right.
-SUBJECT: MouseKit stands on the floor on its hind legs, head lifted to look up the stair. 🔴 BOTH
-  FOREPAWS HOLD THE DUSTY-PINK FEATHER AGAINST ITS CHEST. One hind knee is still trembling in fine
-  ticks and the dust under it shivers. Its eyes are wide and the corners of its mouth are slightly
-  up. Its tail lies loose and easy on the floor. 🔴 THE POSTURE MUST DIFFER FROM PAGE 1: there, the
-  forepaws were pressed empty against the chest and the TAIL trembled; here the forepaws hold a
-  feather and the tremble has retreated to one knee. MouseSister is still at the top, out of frame.
-  Quadruped grade - hind legs only because the forepaws are holding something.
-SETTING: the foot of the stair, the same place as page 1. BellRope lies coiled on the floor at the
-  right and 🔴 ONLY ITS LOOSE END IS STILL SWAYING - a slight, painted stir where page 1 had none.
-  Above it the stair winds up into black. Dry straws in the floor joints; the dust is scuffed all
-  over with mouse footprints.
-FEAR: 🔴 THIS PAGE PUTS THE DARK BACK. Nothing has been made safe: the shaft is unpainted board
-  again, the end of the path is invisible again, and the knee is still going. What it shows is only
-  this - the same animal, at the same place, holding something it did not have before, looking up
-  on purpose. 🔴 DO NOT light the stair, do not soften it, and do not steady the knee.
+LIGHT: 10% PAINTED. 🔴 THE STAIR IS EXACTLY AS BLACK AS ON P1; THE DARK HAS NOT SHRUNK. Painted:
+  the mouse and the feather in a low warm light, the loose END of the rope, and far up the same
+  small chip of window light that was there on p1. 🔴 The bright points have gone from two to one.
+CAMERA: medium, eye level at the mouse's own height. 🔴 NOT p1's floor-level upward shot - the
+  camera has stood up, so the stair moves off to one side and winds away instead of looming.
+SUBJECT: standing on its hind legs, head lifted to look up the stair, 🔴 BOTH FOREPAWS HOLDING THE
+  DUSTY-PINK FEATHER AGAINST ITS CHEST. One hind knee still trembles in fine ticks and the dust
+  under it shivers; eyes wide, mouth corners slightly up, tail loose. 🔴 THE POSTURE MUST DIFFER
+  FROM P1: there the forepaws were empty and the TAIL trembled; here they hold a feather and the
+  tremble has retreated to one knee. 🔴 ONLY THE ROPE'S LOOSE END IS STILL SWAYING, where p1 had
+  none. Dust scuffed with footprints.
+FEAR: 🔴 PUTS THE DARK BACK - the shaft is unpainted board again, the end of the path invisible
+  again, the knee still going. 🔴 Do not light the stair, soften it, or steady the knee.
 CARRY: zero steps again. 🔴 The feather is HELD IN BOTH FOREPAWS AND FULLY VISIBLE for the first
-  time since it was picked up - this is its last and clearest appearance. All three named, and two
-  of them are on this page (the rope in front of him, the dark above him). The stirring rope end is
-  the bell still fading.
-SIZE CHAIN: none.
-FINISH: the mouse and the feather finished. The loose swaying end of the rope and the floor
-  immediately under the mouse half-finished. 🔴 The stair, the wall and everything above are bare
-  board, exactly as on page 1 - no stone courses, no chisel marks.
-TONE: the stair side is as dark as it was at the beginning. In front of it, low warm light gathers
-  on one animal and one feather, so the page's bright points have gone from two to one. The eye
-  starts there, passes the stirring rope end, travels once up to the small chip of light at the top
-  and comes back. 🔴 A tremble left in the legs of someone who went all the way up and all the way
-  down, and a pair of eyes looking at where they are going tomorrow.
-NO LETTERING anywhere in this image.
+  time since it was picked up. The stirring rope end is the bell still fading.
+FINISH: 2 (the mouse + the feather); the swaying end and the floor under him half. 🔴 Stair and wall
+  are bare board exactly as on p1 - no stone courses, no chisel marks.
 ```
 
 ---
