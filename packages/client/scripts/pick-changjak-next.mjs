@@ -45,8 +45,23 @@ const METAPHOR = [
   //    a07「못 한 말들이 주머니에 하나씩 쌓여 걸을 수 없을 만큼 무거워진다」. 몸이 안 변할 뿐
   //    아이가 외워야 할 설정이 있다는 점은 a01 과 같다.
   /(말|비밀|생각|걱정|미안|거짓말)(들)?[이가은는]?.{0,16}(쌓여|쌓이|무거워|커지|넘쳐)/,
+  // 🔴 네 번째 얼굴 — **감정어 + 「~때마다」 + 물리 변화**. 앞의 셋은 변화의 *결과*를 열거해서
+  //    잡았고, 그래서 새 표현이 나올 때마다 뚫렸다(a15 가방에 돌을 넣는다 · a68 물속으로 한 뼘씩
+  //    내려간다 → 셋 다 통과). 열거로는 못 막는다. 이 함정의 골격은 결과가 아니라 **환산**이고,
+  //    환산의 표시가 「때마다」다 — 감정 하나 = 변화 하나를 외워야 읽힌다는 뜻이라서.
+  //    한 문장 안에 감정어와 「때마다」가 같이 있으면 뺀다. 과하게 걸러도 후보가 248권이라 싸다.
+  //    (감정어에 「울음·눈물」을 넣는 이유 = a69「참은 울음이 소금 알갱이가 된다」. 참은 감정을
+  //     세는 것이라 몸이 안 변해도 같은 환산이다.)
+  /(서운|화[가나]|속상|질투|미움|부끄|외로|슬픔|걱정|미안|샘[이나]|울음|눈물)[\s\S]{0,60}때\s*마다|때마다[\s\S]{0,60}(서운|속상|질투|미움|부끄|외로|울음|눈물)/,
 ];
 const isMetaphor = (s) => METAPHOR.some((re) => re.test(s));
+
+// 🔴 정규식이 못 잡는 것은 사람이 판정해 `_REJECTED.md` 에 적는다. 필터를 네 번 늘렸는데
+//    그때마다 새 표현으로 뚫렸다(가방에 돌 → 물속 한 뼘 → 소금 알갱이 → 파도 한 층).
+//    같은 병인데 결과가 매번 달라서, 결과를 열거하는 방식으로는 끝나지 않는다.
+const REJECTED = new Set(
+  (readFileSync(resolve(BOOKS, '_REJECTED.md'), 'utf8').match(/^([a-h]\d+)\s+—/gm) || []).map((s) => s.split(/\s/)[0])
+);
 
 const strip = (h) => h.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
 
@@ -86,6 +101,7 @@ for (const sec of plan.split(/(?=<h3[^>]*>)/)) {
     if (!VERIFIED.has(engine)) continue;
     if (writtenTitles.has(title)) continue;
     if (isMetaphor(summary)) continue;
+    if (REJECTED.has(g.toLowerCase() + String(no).padStart(2, '0'))) continue;
     pool.push({ group: g, no: Number(no), title, summary, engine, stage });
   }
 }

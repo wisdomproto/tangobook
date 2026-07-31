@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>B-19 산이 걸어온다 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · B · 상상·변신 · 19</div>
+  <h1>산이 걸어온다</h1>
+  <div class="sub">아침마다 어두운 봉우리가 한 걸음씩 가까이 와 있어요. 산이 걸어오는 걸까요?</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 오해와 반전</span>
+  <span>무대 · 알프스 산마을 끝 울타리 옆 풀밭</span>
+  <span>후렴 · "산이 또 한 걸음 왔어!" (p3·p5·p7 세 번 · 🔴 p10 에서 "산은 한 걸음도 안 왔잖아!" 로 뒤집힌다)</span>
+  <span class="q">12스프레드</span>
+  <span class="q">본문 560자 · 쪽당 47자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- <b>오해의 물리적 원인</b> = 산그늘의 끝은 계절이 가면 아침마다 한 걸음씩 산 쪽으로 물러난다. 새끼 마멋은 굴 앞에 서 있으므로 <b>그늘의 뾰족한 끝이 저를 향해 다가오는 쪽</b>에 있다. 그래서 「산이 걸어온다」로 읽힌다.<br>
+- <b>못 아는 이유도 판 안에 있다</b> — 그늘은 하루에 한 걸음씩만 움직이고, 마멋은 아침마다 잠깐 나와 보고 굴로 들어간다. p8 에서 <b>처음으로 안 들어가고 기다려서</b> 비로소 보인다.<br>
+- 🔴 <b>추론 없음.</b> 「그림자가 짧아졌다」를 아이가 머리로 풀 자리가 없다. p2·p5·p7 이 <b>완전히 같은 앵글·같은 거리의 같은 프레임</b>이고, 달라지는 것은 <b>흰 돌 개수와 경계선 위치 둘뿐</b>이라 눈으로 비교된다. 결정적 증거는 p9 한 장 — <b>가만히 선 앞발 위를 선이 넘어가서, 앞발만 노랗고 몸은 아직 푸른 회색</b>이다.<br>
+- 착지 = <b>그늘이 걷힘</b>. 마지막 대사는 교훈이 아니라 행동의 예고다("그럼 내가 한 걸음 갈게") — 산이 안 오니 제가 간다.<br>
+- 형제 권과의 분리: <b>b20</b>(지붕을 하나씩 덮는 그림자)은 그늘이 <b>덮어 오는</b> 이야기라 방향이 반대다. <b>b17</b>(산보다 커지고 싶었어)이 염소를 쓰므로 여기는 <b>마멋</b>으로 갔다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>아침이에요. 새끼 마멋이 굴 밖으로 폴짝 나왔어요.
+풀밭에 어두운 봉우리가 뾰족하게 누워 있어요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 아이레벨(카메라가 지면에 거의 붙은 마멋 눈높이) — 🔴 이 프레임이 p2·p5·p7·p12 에서 그대로 반복된다
+<b>장소·시간</b> 알프스 산마을 맨 끝, 나무 울타리 옆 풀밭. 해가 아직 산 능선 뒤에 있는 이른 아침, 공기가 서늘하다
+<b>인물</b> 화면 오른쪽 아래 — 새끼 마멋이 울타리 밑 굴 입구에서 막 뛰어나와 네 발로 착지, 등은 아직 그늘 속이고 고개만 왼쪽으로 돌려 풀밭의 뾰족한 어두운 끝을 본다 · 늙은 마멋은 굴 안이라 안 보인다
+<b>배경·소품</b> 화면 왼쪽 3분의 1 = 볕 든 노란 연두 풀밭, 오른쪽 3분의 2 = 푸른 회색 산그늘. 두 색의 경계가 <b>왼쪽을 향한 뾰족한 봉우리 모양</b> · 나무 울타리 세 칸 · 굴 입구 · 그 옆 납작바위 · 오른쪽 끝 멀리 산 능선 하나. 그 밖엔 아무것도 두지 않는다
+<b>톤</b> 그늘은 차가운 푸른 회색, 볕은 따뜻한 노란 연두. 화면에서 가장 또렷한 것은 두 색이 만나는 선이다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>새끼 마멋이 흰 돌 옆에 앞발을 댔어요.
+어두운 끝이 돌보다 이쪽에 와 있어요.
+"어? 어제는 저쪽이었는데."</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 🔴 p1 과 <b>완전히 같은 앵글·같은 거리의 같은 프레임</b>. 달라지는 것은 마멋의 위치와 경계선뿐이다
+<b>장소·시간</b> 같은 풀밭, 다음 날 같은 아침 시각. 볕이 왼쪽에서 조금 더 들어와 있다
+<b>인물</b> 화면 가운데 — 새끼 마멋이 흰 돌 하나 옆에 옆으로 서서 앞발 하나를 돌 위에 얹고, 고개를 들어 오른쪽의 어두운 끝을 본다. 눈이 동그랗게 커진 놀란 표정
+<b>배경·소품</b> 흰 돌 <b>한 개</b>(볕 속) · 그 돌보다 반 뼘 오른쪽에 뾰족한 어두운 끝 · 울타리 · 굴 입구 · 납작바위(그늘 속). 새 소품 없음
+<b>톤</b> 흰 돌 하나만 볕을 받아 하얗게 튄다. 나머지는 매체 그대로 조용히</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>새끼 마멋이 뒷발로 벌떡 서서 외쳤어요.
+"산이 또 한 걸음 왔어!"
+늙은 마멋은 코끝만 내밀어요.
+"볕 들면 나갈게."</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 · 로우앵글(풀 사이에서 올려다본다)
+<b>장소·시간</b> 같은 풀밭, 같은 아침. 마멋 뒤로 그늘이 넓게 깔려 있다
+<b>인물</b> 화면 왼쪽 — 새끼 마멋이 뒷발로 벌떡 서서 두 앞발을 배 앞에 모으고 입을 크게 벌려 외친다, 몸이 뒤로 살짝 젖혀졌다 · 화면 오른쪽 굴 입구 — 늙은 마멋의 <b>코끝만</b> 어둠 밖으로 나와 있다(눈은 아직 안 보인다)
+<b>배경·소품</b> 흰 돌 한 개 · 굴 입구 · 납작바위 · 울타리 기둥 하나. 풀 몇 포기만
+<b>톤</b> 아래는 서늘한 그늘, 위는 하늘의 옅은 빛. 외치는 입 주변만 마감을 올린다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>새끼 마멋이 흰 돌 하나를 앞발로 굴려 놓았어요.
+"여기가 오늘 자리."
+어두운 끝이 딱 거기까지 와 있어요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 클로즈업 · 지면에 붙은 로우앵글(앞발과 돌이 화면의 반)
+<b>장소·시간</b> 같은 풀밭, 같은 아침. 풀뿌리까지 보이는 거리
+<b>인물</b> 화면 오른쪽 — 새끼 마멋의 앞발 두 개가 흰 돌 하나를 밀어 경계선 바로 위에 놓는 순간. 발가락에 힘이 들어가 벌어져 있고, 얼굴은 프레임 위쪽에 반만 들어와 아래를 내려다본다
+<b>배경·소품</b> 방금 놓는 흰 돌(마감 반) · 화면 왼쪽 멀리 어제의 흰 돌 한 개(흐리게) · 풀줄기 서너 개. 그 외 비운다
+<b>톤</b> 돌이 경계선 위에 놓여 <b>왼쪽 반은 노랗고 오른쪽 반은 푸른 회색</b>이 되게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>다음 날 아침, 어두운 끝이 두 번째 돌을 넘었어요.
+새끼 마멋이 그 자리에 앞발을 붙였어요.
+"산이 또 한 걸음 왔어!"</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 🔴 p2 와 <b>똑같은 프레임</b>. 카메라를 한 뼘도 움직이지 않는다
+<b>장소·시간</b> 같은 풀밭, 하루 뒤 같은 아침 시각
+<b>인물</b> 화면 가운데 — 새끼 마멋이 두 번째 흰 돌에 앞발을 딱 붙이고 서서 오른쪽을 본다. 어깨가 굳고 꼬리가 뻣뻣하게 섰다
+<b>배경·소품</b> 흰 돌 <b>두 개</b>(둘 다 볕 속, 왼쪽이 첫 번째) · 두 번째 돌보다 오른쪽으로 한 걸음 더 온 뾰족한 어두운 끝 · 울타리 · 굴 입구에 늙은 마멋의 <b>눈까지</b>(코끝만이던 p3 보다 조금 더 나왔다) · 납작바위
+<b>톤</b> 볕 든 왼쪽이 p2 보다 눈에 띄게 넓어졌다. 그늘 쪽은 그대로 차갑게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>새끼 마멋이 엉덩방아를 찧었어요.
+"이러다 우리 굴까지 밟겠어!"
+늙은 마멋은 하품만 해요.
+"볕 오면 깨워 줘."</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 · 옆에서 본 사이드 컷
+<b>장소·시간</b> 같은 풀밭, 같은 아침. 그늘 안이라 색이 낮게 가라앉아 있다
+<b>인물</b> 화면 왼쪽 — 새끼 마멋이 뒷걸음치다 엉덩방아를 찧어 뒷다리가 앞으로 뻗고 두 앞발이 허공에 뜬 자세, 입이 벌어졌다 · 화면 오른쪽 굴 입구 — 늙은 마멋이 눈을 감고 크게 하품, 앞발은 아직 굴 안에
+<b>배경·소품</b> 흰 돌 두 개 · 어두운 끝 · 굴 입구 · 납작바위(아직 그늘 속). 풀 몇 포기
+<b>톤</b> 두 마리 사이가 텅 비어 있게. 어린 쪽만 마감을 올리고 늙은 쪽은 반만</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>또 다음 날 아침, 흰 돌 세 개를 하나씩 짚었어요.
+어두운 끝은 세 번째 돌보다 더 이쪽이에요.
+"산이 또 한 걸음 왔어!"</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 🔴 p2·p5 와 <b>똑같은 프레임</b>. 세 번째이자 마지막 비교 컷이다
+<b>장소·시간</b> 같은 풀밭, 또 하루 뒤 같은 아침 시각
+<b>인물</b> 화면 왼쪽에서 오른쪽으로 — 새끼 마멋이 흰 돌 세 개를 앞발로 하나씩 짚으며 걸어온 자세로 세 번째 돌 위에 앞발을 얹고 있다, 고개는 오른쪽 어두운 끝을 향한다
+<b>배경·소품</b> 흰 돌 <b>세 개</b>가 왼쪽에서 오른쪽으로 나란히(전부 볕 속) · 세 번째 돌보다 더 오른쪽, 이제 울타리 코앞까지 온 뾰족한 어두운 끝 · 울타리 · 굴 입구에 늙은 마멋의 <b>앞발까지</b> · 납작바위
+<b>톤</b> 볕 든 면적이 화면의 절반을 넘었다. 세 돌이 나란히 놓인 줄이 화면을 가로지른다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>새끼 마멋이 어두운 끝에 앞발을 딱 대고 섰어요.
+"오늘은 안 들어갈래. 여기서 딱 막을 거야."
+풀이 스윽 누웠어요.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 로우앵글 클로즈업 · 카메라가 지면에 완전히 붙어 경계선과 눈이 같은 높이
+<b>장소·시간</b> 같은 풀밭, 같은 아침. 바람이 한 번 지나간다
+<b>인물</b> 화면 가운데 — 새끼 마멋이 왼쪽(어두운 끝 쪽)을 보고 버티고 서서 앞발 두 개를 경계선에 딱 붙였다. 뒷다리를 벌려 힘을 주고 턱을 당긴 결연한 얼굴
+<b>배경·소품</b> 경계선 · 세 번째 흰 돌 하나 · 바람에 한쪽으로 누운 풀 몇 포기. 그 외 비운다
+<b>톤</b> 앞발과 경계선이 닿는 자리만 마감을 올린다. 배경은 바람의 획으로만</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>해가 능선 위로 쑥 올라왔어요.
+가만히 서 있는데 어두운 선이 앞발을 넘어갔어요.
+"어? 어어?"</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 초근접 클로즈업 · p8 과 같은 자리, 앞발만 크게
+<b>장소·시간</b> 같은 풀밭, 몇 분 뒤. 화면 오른쪽 끝 산 능선 위로 해가 막 얼굴을 내민다
+<b>인물</b> 화면 가운데 — 새끼 마멋의 <b>앞발 두 개는 이미 노란 볕 속, 배와 뒷다리는 아직 푸른 회색 그늘 속</b>. 발은 p8 과 똑같은 자리에 똑같이 붙어 있고 자세도 그대로인데, 선만 몸 밑으로 지나가는 중이다. 프레임 위쪽에 반쯤 들어온 얼굴은 눈이 커지고 입이 벌어졌다
+<b>배경·소품</b> 앞발 · 경계선 · 오른쪽 끝의 해 한 조각. 다른 것은 하나도 넣지 않는다
+<b>톤</b> 🔴 이 쪽의 명제는 「발은 안 움직였고 선이 움직였다」다. 발과 선의 대비를 최대로, 나머지는 다 죽인다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>새끼 마멋이 고개를 홱 돌려 산을 봤어요.
+"산은 한 걸음도 안 왔잖아!"
+"걸어간 건 그늘이야!"</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 어깨너머 · 마멋의 뒤통수 아래에서 산을 올려다본다
+<b>장소·시간</b> 같은 풀밭, 바로 다음 순간. 아침 볕이 산 어깨를 넘어온다
+<b>인물</b> 화면 아래 앞쪽 — 새끼 마멋의 뒤통수와 한쪽 뺨, 고개를 홱 오른쪽으로 돌려 귀가 뒤로 젖혀졌다. 앞발은 아직 그 자리에 붙어 있다
+<b>배경·소품</b> 화면 위쪽에 산 하나. <b>p1 과 같은 크기·같은 자리·같은 능선 모양</b>이라 한 뼘도 안 왔다는 것이 그 자리에서 읽힌다 · 울타리 기둥 하나가 오른쪽 아래에. 그 외 비운다
+<b>톤</b> 산은 아침 볕에 담담하게, 마멋 쪽만 마감을 올려 놀란 몸을 세운다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>흰 돌 세 개가 차례로 볕 속에 나왔어요.
+늙은 마멋이 바위에 배를 쭉 깔고 누웠어요.
+"아이고, 볕이다!"</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 · 살짝 위에서 내려다보는 하이앵글
+<b>장소·시간</b> 같은 풀밭, 조금 뒤. 볕이 굴 앞까지 들어왔다
+<b>인물</b> 화면 오른쪽 — 늙은 마멋이 납작바위 위로 올라와 배를 쭉 깔고 네 다리를 옆으로 늘어뜨린 채 눈을 감았다(p3~p7 내내 코끝·눈·앞발만 나와 있던 그 마멋이 처음으로 통째로) · 화면 왼쪽 — 새끼 마멋이 그쪽을 보며 앉아 있다
+<b>배경·소품</b> 흰 돌 세 개가 전부 볕 속 · 납작바위 · 굴 입구 · 울타리. 그늘은 화면 오른쪽 끝으로 밀려나 있다
+<b>톤</b> 노란 볕이 화면의 대부분을 차지한다. 늘어진 늙은 몸의 실루엣만 마감을 올린다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>그늘이 굴 앞에서도 걷혔어요.
+울타리도 풀밭도 노래졌어요.
+새끼 마멋이 산 쪽으로 한 걸음 걸었어요.
+"그럼 내가 한 걸음 갈게."</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 🔴 p1 과 <b>똑같은 와이드·아이레벨 프레임</b>. 첫 쪽과 나란히 놓고 보는 마지막 컷이다
+<b>장소·시간</b> 같은 풀밭, 같은 아침의 끝. 해가 능선 위로 완전히 올라왔다
+<b>인물</b> 화면 가운데 — 새끼 마멋이 오른쪽(산 쪽)으로 앞발 하나를 내디딘 자세, 뒷발은 아직 세 번째 돌 옆에 있다. 얼굴을 들어 산을 본다 · 화면 오른쪽 납작바위 위에 늙은 마멋이 그대로 늘어져 있다
+<b>배경·소품</b> 흰 돌 세 개 · 울타리 · 굴 입구 · 납작바위 — <b>p1 에서 푸른 회색이던 것이 전부 노란 볕 속에 있다</b> · 푸른 회색 그늘은 화면 맨 오른쪽 산기슭에만 얇게 남았다 · 멀리 산 능선(p1 과 같은 크기)
+<b>톤</b> 🔴 p1 과의 유일한 차이가 <b>그늘의 넓이</b>여야 한다. 산 크기·울타리 위치·돌 자리는 건드리지 않는다</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'b19',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 마멋(이름 없음)', '늙은 마멋(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bbd18e032e"></script>
+<script src="/changjak-core.js?v=47fd80bbd18e032e"></script>
+</body>
+</html>
