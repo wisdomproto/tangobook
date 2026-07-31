@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
+import { ActivityShell } from '../components/ActivityShell';
 
 export interface ListenChoice {
   /** 카드 구분자. 같은 라벨이 두 장일 수 있다(알파벳 단원의 Aa=apple / Aa=alligator). */
@@ -13,6 +15,14 @@ export interface ListenChoice {
   sound: string;
   /** 그림 (알파벳 단원은 없음) */
   imageUrl?: string;
+  /**
+   * **맞힌 뒤에만** 열리는 그림. 보기로는 글자만 깔고, 정답을 고르면 그 칸이 그림으로 뒤집힌다.
+   *
+   * 🔴 `imageUrl` 과 목적이 다르다 — 그건 처음부터 보이는 보기라 **정답을 알려준다**(복습에서 쓰면
+   *    들린 낱말의 그림이 늘 정답 칸에 있어 글자를 안 보고 통과한다). 이건 판정이 끝난 뒤에 열리므로
+   *    고르는 근거가 되지 않고, "내가 고른 게 이거였구나"를 확인시켜 준다.
+   */
+  revealImageUrl?: string;
   ttsUrl?: string;
 }
 
@@ -29,6 +39,12 @@ interface Props {
    *    3으로 두면 마지막 단어 하나가 통째로 안 나온다(받침 단원 '시장'이 그랬다).
    */
   choices?: number;
+  /**
+   * 한 줄에 놓을 카드 수. 미지정이면 장수로 정한다.
+   * 🔴 알파벳 단원은 **글자당 한 줄**이라 2 를 넘긴다 — 안 넘기면 넓은 화면에서 여섯 장이
+   *    한 줄로 늘어서서 "이 A 는 사과, 저 A 는 악어" 묶음이 안 보인다.
+   */
+  columns?: number;
   /**
    * 퀴즈 전에 **탐색 화면**을 먼저 보여줄지. 카드를 눌러 소리를 들어보고 「퀴즈」 버튼으로 넘어간다.
    * 복습은 되짚는 자리라 바로 퀴즈로 들어가므로 기본값은 false.
@@ -59,6 +75,17 @@ interface Props {
  */
 const REST_MS = 420;
 
+/**
+ * 「지금부터 문제다」 안내 — **두 진입로가 같은 소리를 쓴다**(탐색 후 「🎯 퀴즈」 버튼 · 바로 퀴즈).
+ *
+ * 🔴 안내는 **영어 단원에서도 한국어**다. `language` 는 배우는 내용의 언어일 뿐이고, "무엇을 하라"는
+ *    말은 아이가 알아듣는 말이어야 한다 — 파닉스 화면의 글자도 전부 한국어다. 영어 UI 로케일이
+ *    생기면 그때 `quiz-start-en.mp3` 로 가른다.
+ * 🔴 문장은 concat 으로 못 만든다(음절을 이어 붙이면 글자를 하나씩 읽는 소리가 된다).
+ *    Gemini TTS 로 구운 정적 자산 — `server/scripts/generate-activity-voice-prompts.mjs`.
+ */
+const QUIZ_START_SOUND = '/sounds/voice/quiz-start-ko.mp3';
+
 function shuffle<T>(arr: readonly T[]): T[] {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -82,6 +109,7 @@ export function WordListenChooseActivity({
   letter,
   language = 'korean',
   choices = 4,
+  columns,
   exploreFirst = false,
   revealImageOnTap = false,
   onJudge,
@@ -103,7 +131,21 @@ export function WordListenChooseActivity({
    *    아이 입장에선 버튼 하나 눌렀는데 화면이 딴 데로 간 셈이라, 같은 2×2 를 유지하고
    *    **문제만** 바뀌게 한다. 자리는 퀴즈 시작 때 한 번만 섞어 문제마다 튀지 않게 한다.
    */
-  const board = useMemo(() => items.slice(0, choices), [items, choices]);
+  /**
+   * 🔴 **판은 내용이 같으면 다시 만들지 않는다.**
+   *
+   * 호출부 6곳이 전부 `items={cards.map(...)}` 로 **렌더마다 새 배열**을 넘긴다. 배열 신원으로
+   * memo 를 걸면 `board → quizBoard → questions → current` 가 통째로 다시 계산되어,
+   *   ① 보기가 **매 렌더 다시 섞이고**(정답이 바뀐다)
+   *   ② 자동재생 effect 가 **다시 울린다**
+   * 실측: 복습 듣기 화면 진입 10ms 안에 `ㄹ·ㄹ·ㄷ·ㄹ` 네 번이 겹쳐 재생됐다 — 채널이 하나라
+   * 아이 귀엔 뭉개진 조각만 들린다. 호출부를 하나씩 고치면 다음 호출부에서 또 난다.
+   */
+  const itemsKey = items.map((i) => `${i.id ?? ''}|${i.label}|${i.sound}`).join('~');
+  const itemsRef = useRef(items);
+  itemsRef.current = items;
+  // 🔴 deps 는 `items` 신원이 아니라 **내용**(`itemsKey`) 이다 — 위 설명 참조.
+  const board = useMemo(() => itemsRef.current.slice(0, choices), [itemsKey, choices]);
   /**
    * 퀴즈 판 — **같은 라벨은 한 장만** 남긴다(무작위).
    *
@@ -129,10 +171,47 @@ export function WordListenChooseActivity({
   const [exploring, setExploring] = useState(exploreFirst);
   /** 지금 화면에 깔린 판 — 탐색은 전체, 퀴즈는 라벨당 한 장. */
   const shownBoard = exploring ? board : quizBoard;
-  /** 퀴즈 안내 음성이 나오는 중 — 끝나야 첫 문제가 나간다. */
-  const [starting, setStarting] = useState(false);
+  /**
+   * 카드 한 장의 크기 — **폭과 높이 중 작은 쪽**이 정한다.
+   *
+   * 🔴 예전엔 `grid-cols-N` + `w-full aspect-square` 라 카드가 **넓이만** 따라갔다. 1024×768 처럼
+   *    세로가 짧으면 두 줄이 통째로 넘쳐 제목이 위로 잘리고 「퀴즈」 버튼이 화면 밖으로 나갔다.
+   *    카드 아래 낱말 줄까지 얹히므로 두 줄일 때는 24vh 로 잡아야 문제·버튼 자리가 남는다.
+   */
+  const cols = columns ?? (shownBoard.length > 6 ? 4 : shownBoard.length > 4 ? 3 : 2);
+  const rows = Math.ceil(shownBoard.length / cols);
+  /**
+   * 🔴 세로 몫은 **줄 수로 나눈다** — 예전엔 `rows > 1` 을 전부 24vh 로 뭉뚱그렸다. 알파벳 단원이
+   *    글자당 한 줄(3줄)이 되자 카드만 601px 을 먹어 **「퀴즈」 버튼이 화면 밖(850px)으로** 나갔다.
+   *    46vh 는 문제줄(9rem)·「퀴즈」 버튼·gap 을 뺀 몫이다 — 1024×768 에서 3줄이 딱 들어오게 실측으로 맞췄다.
+   * 🔴 **2줄은 20vh**(2026-07-30) — 24vh 는 퀴즈 화면(🔊만) 기준이었는데, **탐색 화면엔 그 위에
+   *    「🎯 퀴즈」 버튼(2줄·92px)이 더 얹혀** 카드가 이미지(24vh)+낱말줄(52px)이 되면서 버튼이
+   *    화면 밖 30px 로 밀렸다(1024×768 실측). 낱말줄·버튼 자리를 빼면 20vh 에서 딱 fit(여유 0)이라,
+   *    폰트 로딩·줌에서 넘치지 않게 **19vh**(≈14px 마진)로 둔다.
+   */
+  const cardSize = `min(${Math.floor(80 / cols)}vw, ${rows === 1 ? 40 : rows === 2 ? 19 : Math.floor(46 / rows)}vh)`;
+  /**
+   * 퀴즈 안내 음성이 나오는 중 — 끝나야 첫 문제가 나간다.
+   *
+   * 🔴 **탐색 없이 들어오는 화면(복습)도 안내를 듣는다**(2026-07-30 사용자: "듣고 음절 맞추기도
+   *    누르자마자 문제 나오네"). 예전엔 안내가 「🎯 퀴즈」 버튼(`startQuiz`)에만 붙어 있어서,
+   *    `exploreFirst` 없이 바로 퀴즈로 들어오는 복습 듣기 2종은 **진입하자마자 문제**가 나갔다.
+   *    같은 컴포넌트인데 한쪽 경로에만 안내가 있었던 것 — 공용으로 만들었으면 두 진입로를 다 봐야 한다.
+   */
+  const [starting, setStarting] = useState(!exploreFirst);
   const [qIdx, setQIdx] = useState(0);
   const [wrong, setWrong] = useState<string | null>(null);
+  /**
+   * 방금 맞힌 카드 — 다음 문제로 넘어갈 때까지 초록으로 남는다.
+   * 🔴 오답만 빨갛게 흔들리고 **정답엔 아무 표시가 없었다**(2026-07-29). 소리는 났지만 아이가 누른
+   *    카드가 그 소리의 주인이라는 표시가 없어, 맞았는지 화면으로는 알 수가 없었다.
+   */
+  const [correct, setCorrect] = useState<string | null>(null);
+  /**
+   * 맞혀서 **그림이 열린** 카드 — 다음 문제로 넘어가도 그림인 채로 남는다.
+   * 남은 글자 칸이 곧 "아직 안 맞힌 것"이라 몇 개 남았는지가 그림으로 읽힌다(맞춘 카드=민트+✓ 와 같은 뜻).
+   */
+  const [revealed, setRevealed] = useState<Set<string>>(new Set());
   const [done, setDone] = useState(false);
   const wrongTimer = useRef<number | null>(null);
   const restTimer = useRef<number | null>(null);
@@ -162,10 +241,39 @@ export function WordListenChooseActivity({
 
   // 문제가 바뀌면 자동으로 한 번 들려준다 — 아이가 버튼을 찾아 누를 필요가 없게.
   // 🔴 단, 퀴즈 첫 문제는 **안내 음성이 끝난 뒤**(`starting`) 낸다 — 안 그러면 안내와 첫 문제가 겹친다.
+  // 🔴 **문제가 실제로 바뀐 때만** 울린다 — `current` 객체 신원이나 `say` 함수 신원에 걸면
+  //    부모가 리렌더될 때마다 같은 문제를 다시 읽어 소리가 겹친다(위 `itemsKey` 와 같은 사고).
+  const sayRef = useRef(say);
+  sayRef.current = say;
+  const answerKey = current ? idOf(current.answer) : '';
+  /** 안내 다음 첫 문제만 쉼을 두고 낸다 — 문제 사이는 정답 체인이 이미 쉬었다. */
+  const firstAskRef = useRef(true);
   useEffect(() => {
-    if (exploring || starting || done || !current) return;
-    say(current.answer);
-  }, [qIdx, exploring, starting, done, current, say]);
+    if (exploring || starting || done || !answerKey) return;
+    const answer = questions[qIdx]?.answer;
+    if (!answer) return;
+    if (firstAskRef.current) {
+      firstAskRef.current = false;
+      restTimer.current = window.setTimeout(() => sayRef.current(answer), REST_MS);
+      return;
+    }
+    sayRef.current(answer);
+  }, [qIdx, answerKey, exploring, starting, done]);
+
+  /**
+   * 진입 안내(탐색 없이 바로 퀴즈인 화면) — 한 번만, 끝나면 잠금 해제.
+   *
+   * 🔴 해제를 **타이머로 하지 않는다** — 언마운트 때 예약이 지워지면 `starting` 이 true 로 남아
+   *    판이 통째로 안 눌린다(글자 사냥에서 실제로 그랬다). 쉼은 위 첫 문제 쪽에서 준다.
+   * 🔴 `ref` 로 한 번만 — 개발 모드는 effect 를 두 번 실행하고, `playAudio` 는 앞 소리의 `src` 를
+   *    비우면서 그 콜백을 **끝난 것처럼** 부른다(안내가 잘린다).
+   */
+  const guidedRef = useRef(false);
+  useEffect(() => {
+    if (exploreFirst || guidedRef.current) return;
+    guidedRef.current = true;
+    playAudio(QUIZ_START_SOUND, () => setStarting(false));
+  }, [exploreFirst, playAudio]);
 
   // 나가는 도중 예약된 소리가 빈 화면에서 울리지 않게 둘 다 정리한다.
   useEffect(
@@ -178,7 +286,8 @@ export function WordListenChooseActivity({
 
   const handlePick = useCallback(
     (picked: ListenChoice) => {
-      if (done || !current || wrong) return;
+      // `correct` 가 남아 있는 동안은 정답 소리 체인이 도는 중이라 다음 탭을 받지 않는다.
+      if (done || !current || wrong || correct) return;
       if (idOf(picked) !== idOf(current.answer)) {
         onJudge?.(false, current.answer);
         playFeedbackSound(false);
@@ -187,6 +296,9 @@ export function WordListenChooseActivity({
         return;
       }
       onJudge?.(true, picked);
+      setCorrect(idOf(picked));
+      // 맞힌 칸은 글자 → 그림으로 뒤집힌다(그림이 주어진 경우).
+      if (picked.revealImageUrl) setRevealed((prev) => new Set(prev).add(idOf(picked)));
       const isLast = qIdx + 1 >= questions.length;
       if (isLast) setDone(true);
       // 🔴 한 단계씩 **콜백으로** 잇는다 — setTimeout 으로 길이를 가정하지 않는다.
@@ -199,7 +311,12 @@ export function WordListenChooseActivity({
             playCorrectSequence({ language: language === 'english' ? 'en' : 'ko' });
             return;
           }
-          playAudio('/sounds/game/correct.mp3', () => rest(() => setQIdx((i) => i + 1)));
+          playAudio('/sounds/game/correct.mp3', () =>
+            rest(() => {
+              setCorrect(null);
+              setQIdx((i) => i + 1);
+            })
+          );
         })
       );
     },
@@ -207,6 +324,7 @@ export function WordListenChooseActivity({
       done,
       current,
       wrong,
+      correct,
       qIdx,
       questions.length,
       onJudge,
@@ -232,11 +350,9 @@ export function WordListenChooseActivity({
   const startQuiz = useCallback(() => {
     setExploring(false);
     setStarting(true);
-    // 🔴 안내는 **영어 단원에서도 한국어**다. `language` 는 배우는 내용의 언어일 뿐이고,
-    //    "무엇을 하라"는 말은 아이가 알아듣는 말이어야 한다 — 파닉스 화면의 글자도 전부 한국어다
-    //    ('ABC 배우기'·'단어 연습'). 영어 UI 로케일이 생기면 그때 `quiz-start-en.mp3` 로 가른다.
-    playAudio('/sounds/voice/quiz-start-ko.mp3', () => rest(() => setStarting(false)));
-  }, [playAudio, rest]);
+    firstAskRef.current = true; // 안내 뒤 첫 문제엔 쉼을 준다(진입 경로와 같은 흐름).
+    playAudio(QUIZ_START_SOUND, () => setStarting(false));
+  }, [playAudio]);
 
   const restart = useCallback(() => {
     setQIdx(0);
@@ -249,21 +365,7 @@ export function WordListenChooseActivity({
   if (!current) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 overflow-hidden"
-      style={{
-        backgroundImage: "url('/images/phonics/study-bg.webp')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <button
-        onClick={onBack}
-        className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-      >
-        ← 돌아가기
-      </button>
-
+    <ActivityShell onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-5">
         {/* 🔎 탐색 — 눌러서 소리를 들어보고, 준비되면 퀴즈로.
             🔴 예전엔 들어오자마자 문제가 나왔다. 처음 보는 낱말을 소리만 듣고 고르라는 셈이라,
@@ -317,21 +419,19 @@ export function WordListenChooseActivity({
             딴 화면으로 간 것처럼 보였다. 바뀌는 건 **문제와 클릭 동작뿐**이다. */}
         {/* 🔴 열 수는 장수로 — 알파벳 단원은 글자 하나에 카드가 두 장이라 6장이 깔린다(3+3).
             2열로 두면 세 줄이 되어 아래가 화면 밖으로 밀린다. */}
+        {/* 🔴 `flex-wrap` 은 **폭이 남으면 안 접힌다** — 계산한 열 수(`cols`)가 무시돼 여섯 장이
+            한 줄로 늘어섰다. grid 로 두면 줄 수가 화면 폭과 무관하게 의도대로 선다. */}
         <div
-          className={[
-            'grid justify-center gap-4 sm:gap-6 w-full px-2',
-            // 🔴 8장(4글자 단원 × 2낱말)을 3열로 두면 세 줄이라 아래가 화면 밖으로 밀린다.
-            // 🔴 지금 깔린 판의 장수로 센다 — 퀴즈는 중복 라벨을 접어 장수가 줄어든다(6→3).
-            shownBoard.length > 6
-              ? 'grid-cols-4 max-w-4xl'
-              : shownBoard.length > 4
-                ? 'grid-cols-3 max-w-3xl'
-                : 'grid-cols-2 max-w-xl',
-          ].join(' ')}
+          className="grid justify-center gap-4 sm:gap-6 px-2"
+          style={{ gridTemplateColumns: `repeat(${cols}, max-content)` }}
         >
           {shownBoard.map((c) => (
             <button
               key={idOf(c)}
+              // 🔴 카드 크기는 **폭과 높이 둘 다** 본다(`min(vw, vh)`). `aspect-square` + `w-full` 만
+              //    두면 세로가 얼마든 정사각이 넓이를 따라가서, 1024×768 에서 제목이 위로 잘리고
+              //    「퀴즈」 버튼이 화면 밖으로 나갔다(계측으로 확인). 전체화면 활동의 공통 규칙이다.
+              style={{ width: cardSize }}
               // 🔴 탭음을 여기서 내지 않는다 — `GlobalUiSound` 위임 리스너가 **모든 버튼에 자동**으로
               //    붙인다. 직접 부르면 한 번 눌렀는데 두 번 난다(내가 낸 버그).
               onClick={() => {
@@ -346,15 +446,38 @@ export function WordListenChooseActivity({
               // 안내 음성 중엔 못 누른다 — 문제를 듣기도 전에 찍고 지나가는 걸 막는다.
               disabled={done || starting}
               className={[
-                'relative w-full rounded-3xl border-[6px] bg-white overflow-hidden shadow-soft transition',
-                wrong === idOf(c)
-                  ? 'border-coral-500 animate-shake'
-                  : 'border-white hover:shadow-pop active:scale-[0.97]',
+                'relative rounded-3xl border-[6px] bg-white overflow-hidden shadow-soft transition',
+                correct === idOf(c)
+                  ? 'border-success ring-4 ring-success/40 bg-success/10 scale-[1.03]'
+                  : wrong === idOf(c)
+                    ? 'border-coral-500 animate-shake'
+                    : 'border-white hover:shadow-pop active:scale-[0.97]',
               ].join(' ')}
             >
               {/* 🔴 글자 단원(영어 Book 1 알파벳)은 그림 없이 글자만 — 아직 단어 철자를 읽을 단계가 아니다.
                   그 외 단원은 그림 + 단어. 파닉스라 소리↔글자를 잇는 게 학습 목표다. */}
-              {c.imageUrl && (!revealImageOnTap || !exploring || opened.has(idOf(c))) ? (
+              {/* 맞힌 칸 — 글자가 옆으로 돌아 사라지고 그림이 돌아 들어온다(0.32초).
+                  🔴 `mode="wait"` 라 글자가 다 접힌 **뒤** 그림이 펴진다. 동시에 돌면 두 장이 겹쳐
+                     한순간 글자 위에 그림이 얹혀 보인다. */}
+              {revealed.has(idOf(c)) && c.revealImageUrl ? (
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div
+                    key="revealed"
+                    initial={{ rotateY: 90, opacity: 0 }}
+                    animate={{ rotateY: 0, opacity: 1 }}
+                    transition={{ duration: 0.32, ease: 'easeOut' }}
+                  >
+                    <img
+                      src={c.revealImageUrl}
+                      alt=""
+                      className="w-full aspect-square object-cover"
+                    />
+                    <span className="block py-2 text-xl sm:text-3xl font-black text-ink-800 break-keep">
+                      {c.label}
+                    </span>
+                  </motion.div>
+                </AnimatePresence>
+              ) : c.imageUrl && (!revealImageOnTap || !exploring || opened.has(idOf(c))) ? (
                 <>
                   <img src={c.imageUrl} alt="" className="w-full aspect-square object-cover" />
                   <span className="block py-2 text-xl sm:text-3xl font-black text-ink-800 break-keep">
@@ -401,7 +524,7 @@ export function WordListenChooseActivity({
               </button>
               <button
                 onClick={onBack}
-                className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg shadow-soft active:scale-[0.98] transition"
+                className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-pop active:scale-[0.98] transition"
               >
                 ← 돌아가기
               </button>
@@ -411,6 +534,6 @@ export function WordListenChooseActivity({
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
-    </div>
+    </ActivityShell>
   );
 }

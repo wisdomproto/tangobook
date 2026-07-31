@@ -1,8 +1,8 @@
 import { useCallback, useMemo, useState } from 'react';
-import { resolveTtsUrl } from '@/features/tts';
-import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
+import { useActivitySound } from '../hooks/useActivitySound';
+import { ActivityShell } from '../components/ActivityShell';
 
 interface Props {
   unitId: string;
@@ -41,7 +41,16 @@ export function ConsonantTapActivity({
   onBack,
 }: Props) {
   const [tapCounts, setTapCounts] = useState<number[]>(Array(CARDS).fill(0));
-  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  // 🔴 소리 순서(소리 → 쉼 → 띵동 → 쉼 → 다음)는 훅이 소유한다 — 활동마다 손으로 복사하면
+  //    쉼이 빠진 사본이 생긴다(실제로 활동 14개 중 6개가 그랬다).
+  const {
+    sayThenChime,
+    say: speak,
+    praiseVisible,
+  } = useActivitySound({
+    unitId,
+    prefix: 'consonant-tap',
+  });
   const [completed, setCompleted] = useState(false);
   const say = soundText ?? consonant;
 
@@ -57,11 +66,11 @@ export function ConsonantTapActivity({
     return Array.from({ length: CARDS }, (_, i) => pool[i % pool.length]);
   }, [words]);
 
-  // 🔴 데우는 텍스트는 **실제 읽는 텍스트** — 세 번째 탭은 낱말이 아니라 이어읽기(`ㄱ ㄱ 아기`)라
+  // 🔴 데우는 텍스트는 **실제 읽는 텍스트** — 세 번째 탭은 낱말이 아니라 이어읽기(`ㄱ 고기`)라
   //    낱말만 데우면 그 탭에서 서버 concat 왕복을 기다린다. 순서가 곧 우선순위(글자 먼저).
   usePhonicsTtsWarm(
     unitId,
-    useMemo(() => [say, ...cardWords.map((w) => `${say} ${say} ${w.word}`)], [say, cardWords]),
+    useMemo(() => [say, ...cardWords.map((w) => `${say} ${w.word}`)], [say, cardWords]),
     'consonant-tap'
   );
 
@@ -76,58 +85,32 @@ export function ConsonantTapActivity({
 
       const isCardComplete = next === TAPS_PER_CARD;
       /**
-       * 🔴 세 번째 탭은 **`ㄱ ㄱ 아기` 를 이어 읽는다** — 글자 소리에서 낱말로 건너가는 다리가
-       *    이 리듬이다(영어 `a a apple` 과 같은 형식). 예전엔 낱말만 읽어서 **누른 글자 소리가
-       *    아예 안 나고 그림만 튀어나왔다**(사용자 지적). 원인 둘: ①`text` 가 단어 하나뿐 ②단어만
-       *    녹음된 `card.ttsUrl` 이 먼저 잡혀 concat 경로로 못 갔다. 그래서 그 우선순위도 뺀다.
+       * 🔴 세 번째 탭은 **`ㄱ 고기`** — 누른 글자 소리 **한 번** 뒤에 낱말이 붙는다.
+       *
+       * 한때 `ㄱ ㄱ 고기`(영어 `a a apple` 형식)로 뒀는데, 세 번 누르는 활동이라 아이 귀엔
+       * **ㄱ 이 네 번** 들렸다(사용자 지적: "누른만큼만 읽어줘"). 카드당 탭 수가 곧 소리 수여야
+       * 세는 것과 들리는 것이 맞는다.
+       * 🔴 낱말만 녹음된 `card.ttsUrl` 을 먼저 쓰면 concat 경로로 못 가 **누른 글자 소리가 아예
+       *    안 난다** — 그래서 그 우선순위는 두지 않는다(예전 버그).
        */
       const card = cardWords[idx];
-      const text = isCardComplete && card ? `${say} ${say} ${card.word}` : say;
-      const url = await resolveTtsUrl({
-        text,
-        language: 'korean',
-        storybookId: unitId,
-        identifierPrefix: 'consonant-tap',
-      });
-
+      const text = isCardComplete && card ? `${say} ${card.word}` : say;
       const isAllDone = nextTaps.every((c) => c >= TAPS_PER_CARD);
 
       if (isCardComplete) {
-        // 카드 3 탭 완료: ㄱ TTS → 띵동 (per-card). 마지막 카드면 추가로 띵동 끝나면 칭찬.
         if (isAllDone) setCompleted(true);
-        const afterChime = isAllDone
-          ? () => playCorrectSequence({ language: 'ko', onDone: onComplete })
-          : undefined;
-        const playChime = () => playAudio('/sounds/game/correct.mp3', afterChime);
-        if (url) {
-          playAudio(url, playChime);
-        } else {
-          playChime();
-        }
+        // 카드 3 탭 완료: [글자·낱말 → 쉼 → 띵동] · 마지막 카드면 띵동 대신 칭찬.
+        void sayThenChime(text, isAllDone ? { praise: true, onDone: onComplete } : undefined);
         return;
       }
 
-      if (url) playAudio(url);
+      void speak(text);
     },
-    [completed, tapCounts, say, cardWords, unitId, playAudio, playCorrectSequence, onComplete]
+    [completed, tapCounts, say, cardWords, sayThenChime, speak, onComplete]
   );
 
   return (
-    <div
-      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 overflow-hidden"
-      style={{
-        backgroundImage: "url('/images/phonics/study-bg.webp')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <button
-        onClick={onBack}
-        className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-      >
-        ← 돌아가기
-      </button>
-
+    <ActivityShell onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-8">
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-black font-display text-ink-900 text-center break-keep">
           <span className="text-coral-600">{consonant}</span> 을 세 번씩 눌러봐!
@@ -188,6 +171,6 @@ export function ConsonantTapActivity({
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
-    </div>
+    </ActivityShell>
   );
 }

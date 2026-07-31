@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { resolveTtsUrl } from '@/features/tts';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
+import { ActivityShell } from '../components/ActivityShell';
 
 /** 읽어준 뒤 다음 글자까지의 쉼 (ms). 소리가 끝난 걸 확인한 뒤 넣으므로 길이 가정이 아니다. */
 const REST_MS = 450;
@@ -29,6 +31,8 @@ interface Props {
  */
 export function VowelWriteActivity({ unitId, vowels, onComplete, onBack }: Props) {
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  // 🔴 진입 안내 — 지시가 텍스트뿐이라 글 못 읽는 아이엔 통째로 무음이었다(쓰기 6종 공통).
+  useEntryGuide(ENTRY_GUIDE.write, playAudio);
   const [doneSet, setDoneSet] = useState<Set<number>>(new Set());
   const [currentIdx, setCurrentIdx] = useState(0);
   // 쉬는 동안 나가면 예약된 다음 카드·칭찬이 빈 화면에서 울린다.
@@ -88,21 +92,7 @@ export function VowelWriteActivity({ unitId, vowels, onComplete, onBack }: Props
   );
 
   return (
-    <div
-      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 overflow-hidden"
-      style={{
-        backgroundImage: "url('/images/phonics/study-bg.webp')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <button
-        onClick={onBack}
-        className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-      >
-        ← 돌아가기
-      </button>
-
+    <ActivityShell onBack={onBack}>
       {/* chip 줄 — 진행 + 클릭으로 임의 선택 */}
       <div className="flex flex-wrap justify-center gap-3 mb-4">
         {vowels.map((v, i) => {
@@ -142,6 +132,6 @@ export function VowelWriteActivity({ unitId, vowels, onComplete, onBack }: Props
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
-    </div>
+    </ActivityShell>
   );
 }

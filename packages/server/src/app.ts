@@ -275,6 +275,17 @@ export function createApp() {
       );
     }
 
+    // 🔴 저작도구 문서(기획서·회차 HTML·core.js·index/refs json)는 캐시하지 않는다.
+    //    파일명이 고정이라 해시 무효화가 없고, 응답에 Cache-Control 이 없으면 Cloudflare 가
+    //    Browser Cache TTL(4시간)을 붙인다 — 고쳐서 배포해도 4시간 동안 옛 화면이 뜬다.
+    //    실제로 붙여넣기 버그를 고친 뒤에도 캐시된 옛 core.js 가 돌아 「아직도 실패」로 보였다.
+    //    내부 저작 화면이라 트래픽이 없고, no-cache 는 ETag 재검증이라 대역폭도 거의 안 쓴다.
+    const AUTHORING =
+      /^\/(changjak|saenghwal|jeonrae|yuchiwon|tamheom|hangeul-tree|abc-tree)[\w-]*\.(html|js|json)$/;
+    app.use((req, res, next) => {
+      if (AUTHORING.test(req.path)) res.setHeader('Cache-Control', 'no-cache');
+      next();
+    });
     app.use(express.static(clientDist));
     // catch-all — SPA index.html. 단, 정적 index.html 의 canonical 은 홈 고정이라
     // 비-홈 라우트가 전부 "홈 복사본"으로 색인에서 빠진다. 비-홈 경로는 canonical 을

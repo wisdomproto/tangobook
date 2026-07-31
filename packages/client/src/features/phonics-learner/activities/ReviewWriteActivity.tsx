@@ -1,10 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
-import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { useActivitySound } from '../hooks/useActivitySound';
+import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import type { ReviewCardSource } from '../hooks/useReviewCardSources';
+import { ActivityShell } from '../components/ActivityShell';
 
 interface Props {
   unitId: string;
@@ -32,7 +34,21 @@ export function ReviewWriteActivity({
   onComplete,
   onBack,
 }: Props) {
-  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  // 🔴 소리 순서는 훅이 소유한다 — 예전엔 여기서 손으로 이어 붙여 **쉼이 통째로 빠져** 있었다.
+  const {
+    say: speak,
+    chime,
+    rest,
+    sayThenChime,
+    praiseVisible,
+    playAudio,
+  } = useActivitySound({
+    unitId,
+    language,
+    prefix: 'review-write',
+  });
+  // 진입 안내 — 이 화면은 그림 없는 카드(영어)면 소리가 곧 문제라, 안내가 끝난 뒤에 문제를 낸다.
+  const guiding = useEntryGuide(ENTRY_GUIDE.write, playAudio);
   const [idx, setIdx] = useState(0);
   const [done, setDone] = useState(false);
 
@@ -44,80 +60,79 @@ export function ReviewWriteActivity({
   );
 
   const current = sources[idx];
+  const sourcesRef = useRef(sources);
+  sourcesRef.current = sources;
 
-  const say = useCallback(
-    async (card: ReviewCardSource) => {
-      const url = await resolveTtsUrl({
-        text: card.word,
-        language,
-        storybookId: unitId,
-        identifierPrefix: 'review-write',
-      });
-      if (url) playAudio(url);
+  const say = useCallback((card: ReviewCardSource) => void speak(card.word), [speak]);
+
+  /**
+   * 그림이 없는 복습(영어)은 소리가 곧 문제다 — 카드가 바뀌면 자동으로 **한 번** 들려준다.
+   *
+   * 🔴 deps 에 `current`(부모가 렌더마다 새로 만드는 배열에서 파생)와 `say`(함수 신원)를 걸면
+   *    부모가 리렌더될 때마다 다시 울린다. 실측: 진입 직후 같은 소리가 **다섯 번** 겹쳤다
+   *    (StrictMode 의 이중 실행 2회로는 설명되지 않는 수). 채널이 하나라 아이 귀엔 한 조각만 남는다.
+   *    같은 사고를 `WordListenChooseActivity` 에서도 냈다 — **카드가 실제로 바뀐 때만** 울려야 한다.
+   */
+  const sayRef = useRef(say);
+  sayRef.current = say;
+  const wordKey = current && !current.imageUrl ? current.word : '';
+  useEffect(() => {
+    // 🔴 안내가 끝난 뒤에 문제를 낸다 — 예전엔 진입 104ms 에 **정답 글자부터** 읽고 안내는 없었다.
+    if (done || guiding || !wordKey) return;
+    const card = sourcesRef.current[idx];
+    if (card) sayRef.current(card);
+  }, [idx, wordKey, done, guiding]);
+
+  /**
+   * 한 글자를 다 쓰면 — 띵동 → **거기까지 이어읽기**(고 → 고기).
+   *
+   * 🔴 예전엔 이 콜백을 아예 안 넘겨서 **글자를 다 써도 아무 소리가 안 났다**. 낱말쓰기 게임
+   *    (`KoreanWordWritingPlayer`)에는 있는 배선인데 이 활동만 빠져 있었다 — 같은 `WordFillCanvas`
+   *    를 쓰면서 콜백 하나를 안 넘긴 것이라 화면만 봐선 안 보이고 **소리로만 드러나는** 종류의 구멍이다.
+   * 🔴 낱말을 **완성하는** 마지막 글자는 여기서 내지 않는다 — 바로 뒤 `handleWordDone` 이
+   *    [낱말 → 띵동 → 다음] 을 소유하므로, 여기서도 내면 한 채널에서 앞소리가 잘린다.
+   */
+  const handleSyllableDone = useCallback(
+    (syllable: string, index: number) => {
+      if (!current || index + 1 >= current.word.length) return;
+      void (async () => {
+        const blend = current.word.slice(0, index + 1);
+        const url =
+          (await resolveTtsUrl({
+            text: blend,
+            language,
+            storybookId: unitId,
+            identifierPrefix: 'review-write',
+          })) ??
+          (await resolveTtsUrl({
+            text: syllable,
+            language,
+            storybookId: unitId,
+            identifierPrefix: 'review-write',
+          }));
+        // 🔴 띵동 **먼저**, 쉬고, 읽기 — 한 채널이라 붙여 내면 앞소리가 잘리고 한 덩어리로 들린다.
+        chime(() => rest(() => void speak(blend, undefined, url)));
+      })();
     },
-    [language, unitId, playAudio]
+    [current, language, unitId, chime, rest, speak]
   );
 
-  // 그림이 없는 복습(영어)은 소리가 곧 문제다 — 카드가 바뀌면 자동으로 한 번 들려준다.
-  useEffect(() => {
-    if (done || !current || current.imageUrl) return;
-    say(current);
-  }, [idx, done, current, say]);
-
   /** 낱말을 다 쓰면 — 그 낱말을 읽어주고 띵동, 다음 그림으로. */
-  const handleWordDone = useCallback(async () => {
+  const handleWordDone = useCallback(() => {
     if (done || !current) return;
     const isLast = idx + 1 >= sources.length;
     if (isLast) setDone(true);
-
-    const url = await resolveTtsUrl({
-      text: current.word,
-      language,
-      storybookId: unitId,
-      identifierPrefix: 'review-write',
+    // [낱말 → 쉼 → 띵동 → 쉼 → 다음] · 마지막이면 띵동 대신 칭찬.
+    void sayThenChime(current.word, {
+      praise: isLast,
+      onDone: isLast ? onComplete : () => setIdx((i) => i + 1),
     });
-
-    const afterChime = () => {
-      if (isLast)
-        playCorrectSequence({
-          language: language === 'english' ? 'en' : 'ko',
-          onDone: onComplete,
-        });
-      else setIdx((i) => i + 1);
-    };
-    const playChime = () => playAudio('/sounds/game/correct.mp3', afterChime);
-    if (url) playAudio(url, playChime);
-    else playChime();
-  }, [
-    done,
-    current,
-    idx,
-    sources.length,
-    unitId,
-    language,
-    playAudio,
-    playCorrectSequence,
-    onComplete,
-  ]);
+  }, [done, current, idx, sources.length, sayThenChime, onComplete]);
 
   if (!current) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 overflow-hidden"
-      style={{
-        backgroundImage: "url('/images/phonics/study-bg.webp')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <button
-        onClick={onBack}
-        className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-      >
-        ← 돌아가기
-      </button>
-
+    <ActivityShell onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4">
         {/* 진행 dots — 몇 장 남았는지 그림으로 */}
         <div className="flex gap-2 sm:gap-3">
@@ -166,6 +181,7 @@ export function ReviewWriteActivity({
               key={`review-write-${idx}`}
               word={current.word}
               syllables={[...current.word]}
+              onSyllableDone={handleSyllableDone}
               onComplete={handleWordDone}
             />
           </div>
@@ -173,6 +189,6 @@ export function ReviewWriteActivity({
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
-    </div>
+    </ActivityShell>
   );
 }

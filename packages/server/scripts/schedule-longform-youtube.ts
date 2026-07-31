@@ -26,6 +26,8 @@ const GENRE_ORDER = ['paper3d', 'watercolor', 'collage'] as const;
 const NATURE_CATEGORY = /동물|곤충|공룡|우리 몸|우주와 자연|식물/;
 const CLASSIC_CATEGORY = /세계|명작/;
 const LIFE_CATEGORY = /생활동화/;
+// 🔴 책 데이터의 실제 category 값은 `전래 동화`(공백 포함).
+const FOLKTALE_CATEGORY = /전래/;
 
 const argv = process.argv.slice(2);
 const has = (f: string) => argv.includes(f);
@@ -37,11 +39,13 @@ const APPLY = has('--apply');
 const CLASSICS_ONLY = has('--classics-only');
 const NATURE_ONLY = has('--nature-only');
 const LIFE_ONLY = has('--life-only');
+const FOLKTALE_ONLY = has('--folktale-only');
 // "--*-only" 중 하나라도 있으면 그 트랙들만, 없으면 전 트랙.
-const ANY_ONLY = CLASSICS_ONLY || NATURE_ONLY || LIFE_ONLY;
+const ANY_ONLY = CLASSICS_ONLY || NATURE_ONLY || LIFE_ONLY || FOLKTALE_ONLY;
 const HOUR_CLASSIC = Number(val('--hour-classic', '1')); // UTC 01:00 ≈ KST 10:00
 const HOUR_NATURE = Number(val('--hour-nature', '7')); // UTC 07:00 ≈ KST 16:00
 const HOUR_LIFE = Number(val('--hour-life', '10')); // UTC 10:00 ≈ KST 19:00
+const HOUR_FOLKTALE = Number(val('--hour-folktale', '10'));
 const PRIVACY = val('--privacy', 'public');
 const LANG = val('--lang', 'ko');
 const CHANNEL_INTERNAL_ID = process.env.LONGFORM_YT_CHANNEL_ID || CHANNEL_BY_LANG[LANG];
@@ -125,6 +129,7 @@ async function main() {
   const classics: LongRow[][] = GENRE_ORDER.map(() => []); // paper3d, watercolor, collage 버킷
   const nature: LongRow[] = [];
   const life: LongRow[] = [];
+  const folktale: LongRow[] = [];
   const orphans: string[] = [];
 
   for (const r of (yrows ?? []) as any[]) {
@@ -157,7 +162,9 @@ async function main() {
       title,
     };
 
-    if (LIFE_CATEGORY.test(category)) {
+    if (FOLKTALE_CATEGORY.test(category)) {
+      folktale.push(row);
+    } else if (LIFE_CATEGORY.test(category)) {
       life.push(row);
     } else if (NATURE_CATEGORY.test(category)) {
       nature.push(row);
@@ -175,11 +182,13 @@ async function main() {
   for (const b of classics) b.sort((a, z) => a.title.localeCompare(z.title, 'ko'));
   nature.sort((a, z) => a.title.localeCompare(z.title, 'ko'));
   life.sort((a, z) => a.title.localeCompare(z.title, 'ko'));
+  folktale.sort((a, z) => a.title.localeCompare(z.title, 'ko'));
 
   // "--*-only" 지정 시 그 트랙만, 아니면 전 트랙.
   const classicOrdered = !ANY_ONLY || CLASSICS_ONLY ? classics.flat() : [];
   const natureOrdered = !ANY_ONLY || NATURE_ONLY ? nature : [];
   const lifeOrdered = !ANY_ONLY || LIFE_ONLY ? life : [];
+  const folktaleOrdered = !ANY_ONLY || FOLKTALE_ONLY ? folktale : [];
 
   // 4) 슬롯 배정 — 내일 00:00 UTC 부터 트랙별 day-index 1/일.
   const now = new Date();
@@ -199,12 +208,15 @@ async function main() {
   natureOrdered.forEach((row, i) =>
     plan.push({ row, when: slotAt(startDayMs, i, HOUR_NATURE), track: 'nature' })
   );
+  folktaleOrdered.forEach((row, i) =>
+    plan.push({ row, when: slotAt(startDayMs, i, HOUR_FOLKTALE), track: 'folktale' })
+  );
   lifeOrdered.forEach((row, i) =>
     plan.push({ row, when: slotAt(startDayMs, i, HOUR_LIFE), track: 'life' })
   );
 
   console.log(
-    `\n예약 계획 — 명작 ${classicOrdered.length}(paper3d ${classics[0].length}·수채 ${classics[1].length}·콜라주 ${classics[2].length}) · 자연 ${natureOrdered.length} · 생활동화 ${lifeOrdered.length} · lang=${LANG} · 채널 ${CHANNEL_INTERNAL_ID} · privacy=${PRIVACY}`
+    `\n예약 계획 — 명작 ${classicOrdered.length}(paper3d ${classics[0].length}·수채 ${classics[1].length}·콜라주 ${classics[2].length}) · 자연 ${natureOrdered.length} · 생활동화 ${lifeOrdered.length} · 전래 ${folktaleOrdered.length} · lang=${LANG} · 채널 ${CHANNEL_INTERNAL_ID} · privacy=${PRIVACY}`
   );
   if (orphans.length)
     console.log(

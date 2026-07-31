@@ -71,6 +71,15 @@ export function resolveSceneFromWord(
   style?: string
 ): WordScene | null {
   if (!storybook || !word) return null;
+  /**
+   * 🔴 **파닉스 단원에선 장면 리빌을 하지 않는다**(2026-07-29, 사용자 지시).
+   *
+   * 이 기능은 동화책 게임용이다 — 맞힌 단어가 나오는 그 책의 한 쪽을 보여준다. 파닉스 단원은
+   * 오래도록 `pages[].illustrationUrl` 이 비어 있어 자연히 안 떴는데, 한글 나무 삽화 245장을
+   * 넣은 순간 조건이 채워져 **파닉스 게임 도중 호리 동화가 잠깐 스쳤다**. 아이 입장에선 오류로
+   * 보인다. 막는 자리는 **여기 한 곳** — 호출부가 8개 플레이어라 거기서 막으면 하나씩 빠뜨린다.
+   */
+  if (storybook.type === 'phonics') return null;
   const ko = matchKeyObject(word, lang, storybook);
   if (!ko) return null;
   const pageNum = findValidatedPageNumber(

@@ -91,8 +91,8 @@ export function getAllEnglishUnits(): EnglishUnitSummary[] {
           // 한글과 같은 이유로 번호가 아니라 되짚는 글자 범위 (`Review 1` 은 무엇을 되짚는지 안 알려준다).
           unitTitle:
             letters.length > 1
-              ? `${letters[0]}~${letters[letters.length - 1]} Review`
-              : `${letters[0] ?? ''} Review`.trim(),
+              ? `${letters[0]}~${letters[letters.length - 1]} 복습`
+              : `${letters[0] ?? ''} 복습`.trim(),
           phonemes: letters,
           targetWords: group.flatMap((u) => u.targetWords),
           isReview: true,
@@ -134,6 +134,22 @@ function makeBook2UnitPlan(patterns: readonly VcPattern[]): ActivityPlan {
       section: 'learn',
       title: `${p.vc} 배우기`,
       emoji: '🔤',
+      required: true,
+      cvcPattern: { ...p },
+    });
+    /**
+     * 🔴 **써보기를 별도 카드로 둔다**(2026-07-29). 배우기 화면 안에도 Phase C 쓰기가 있지만,
+     *    단원 목록에서 보이지 않아 **아이도 부모도 「이 단원엔 쓰기가 없다」로 읽었다**.
+     *    한글 단원은 `ㄱ 배우기` → `ㄱ 써보기` 로 나뉘어 있어 영어만 다른 모양이었다.
+     *    (컴포넌트는 원래 있었는데 **어느 plan 에도 키가 없어 라우트로 도달조차 못 했다**.)
+     */
+    activities.push({
+      key: `cvc-write-${p.vc}`,
+      order: order++,
+      kind: 'cvc-pattern-write',
+      section: 'learn',
+      title: `${p.vc} 써보기`,
+      emoji: '✏️',
       required: true,
       cvcPattern: { ...p },
     });
@@ -213,17 +229,26 @@ function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
     required: true,
     letters,
   });
+  // ✏️ 글자 쓰기 — 대문자·소문자 캔버스 두 개. 배우기 화면 안 「써보기」 모달과 같은 일을 하지만,
+  //    단원 목록에 카드로 서야 아이가 「쓰는 차례」를 안다(한글 단원과 같은 모양).
+  activities.push({
+    key: 'letters-write',
+    order: order++,
+    kind: 'alphabet-letter-write',
+    section: 'learn',
+    title: `${letterListLabel} 써보기`,
+    emoji: '✏️',
+    required: true,
+    letters,
+  });
   // 4 games — wordFamilies 안 모든 단어 풀에서 어댑터가 픽업
   activities.push(
-    {
-      key: 'game-english-block',
-      order: order++,
-      kind: 'game-english-block',
-      section: 'play',
-      title: '영어 블록 게임',
-      emoji: '🧩',
-      required: false,
-    },
+    /**
+     * 🔴 **Book 1 에는 영어 블록 게임을 두지 않는다**(2026-07-29 사용자 지시).
+     *    이 권은 글자가 단위라 블록이 **한 칸**이고, 그 한 칸을 채우는 일은 바로 앞 「배우기 2」
+     *    (듣고 고르기)가 이미 시킨다 — 같은 과제를 게임 이름만 바꿔 한 번 더 하는 셈이었다.
+     *    Book 2 부터는 낱말을 통째로 조립하므로 그대로 둔다.
+     */
     {
       key: 'game-word-writing',
       order: order++,
@@ -357,11 +382,11 @@ function makeEnglishReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
   return {
     activities: [
       {
-        key: 'review-maze',
+        key: 'letter-hunt',
         order: 1,
-        kind: 'review-maze',
-        title: '길 따라가기',
-        emoji: '🌀',
+        kind: 'letter-hunt',
+        title: '글자 사냥',
+        emoji: '🔎',
         ...shared,
       },
       {
@@ -384,7 +409,7 @@ function makeEnglishReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
         key: 'review-match',
         order: 4,
         kind: 'review-match',
-        title: '짝 찾기',
+        title: '그림 짝 찾기',
         emoji: '🔗',
         ...shared,
       },
@@ -392,7 +417,7 @@ function makeEnglishReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
         key: 'review-word-listen',
         order: 5,
         kind: 'review-word-listen',
-        title: '듣고 단어 맞추기',
+        title: '듣고 낱말 맞추기',
         emoji: '🔊',
         ...shared,
       },

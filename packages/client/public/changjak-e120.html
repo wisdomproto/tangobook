@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>E-120 라라— 첨벙! — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · E · 웃음·말놀이 · 120</div>
+  <h1>라라— 첨벙!</h1>
+  <div class="sub">사공이 한 소절 부를 때마다 창문이 열리고 무언가가 물에 떨어져요</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 누적·반복</span>
+  <span>무대 · 베네치아 곤돌라 수로 (양옆이 통째로 창문 벽인 좁은 물길)</span>
+  <span>후렴 · "라라— 라랄라, 라라— 라랄라!" / 벌컥! / 첨벙!</span>
+  <span class="q">10스프레드</span>
+  <span class="q">본문 538자 · 쪽당 54자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+🔴 <b>후렴이 곧 사건이다.</b> 「라라— 라랄라」(원인) → 「벌컥!」(중간) → 「첨벙!」(결과) 세 박이 <b>매번 같은 순서로</b> 온다. 소리내어 읽는 어른이 첫 줄을 부르면 「벌컥」과 「첨벙」은 아이 몫이 된다 — 셋째 번(p5)에 「첨벙」이 세 번 연달아 나오는 것이 함께 외칠 자리를 크게 벌려 둔 것이다.<br>
+<br>
+🔴 <b>네 번째가 착지다.</b> p3·p4·p5 로 세 번 굳힌 규칙을 p7 에서 그대로 한 번 더 돌리는데, 이번엔 떨어지는 것이 <b>노래한 사람 자신의 모자</b>다. 아이는 이미 「첨벙!」을 외치고 나서야 그게 누구 것인지 본다. <b>차례가 돌아온 것</b>이지 벌을 받은 것이 아니다 — 그래서 뒤에 교훈이 붙을 자리가 없다.<br>
+<br>
+🔴 <b>쌓이는 것은 전부 사물이다.</b> 창문 안쪽 사람을 그리면 쪽마다 인물이 늘어난다. 창턱 위에 원래 있던 것만 떨어진다 — 빨랫줄의 양말 한 짝(p3) · 창턱의 물뿌리개(p4) · 접시에서 굴러 나온 레몬 셋(p5). 배 안에 <b>1 → 2 → 5</b> 로 쌓이고, ⚠️ <b>개수를 세는 문장은 안 쓴다</b>(레몬 「하나, 둘, 셋」은 그 쪽의 레몬을 세는 것이지 총계가 아니다). 세는 건 그림이 한다.<br>
+<br>
+🔴 <b>사공은 끝까지 모른다.</b> 「이 골목 창문들은 내 노래를 아주 좋아하거든요!」 — 창문이 왜 열리는지 이 책은 한 번도 설명하지 않는다. 4~6세는 반복되는 규칙을 그대로 받고, 어른 독자만 「시끄러워서 열어젖히는 것」을 읽는다. 웃음이 두 층으로 나뉘는 자리가 여기다. 🔴 p3~p7 내내 <b>수달은 위를 안 본다</b> — 물건이 떨어지는 걸 보는 건 생쥐와 독자뿐이다.<br>
+<br>
+🔴 <b>한 쪽이 한 순간이 되도록 「떨어지는 중」이 아니라 「막 떨어진 직후」로 통일했다.</b> 그래야 물보라(방금 일어난 일)와 앞발을 뻗는 생쥐(지금 하는 일)가 <b>한 프레임에 동시로</b> 들어간다. 「떨어졌다 → 건졌다」를 순차로 쓰면 매 쪽이 두 장이 된다. p9 도 같은 처리다 — 건져 올린 것은 <b>젖은 모자</b>라는 상태로 남기고, 그림은 씌우는 순간 하나다.<br>
+<br>
+🔴 <b>무대가 셋을 전부 만든다.</b> 좁은 수로라 양옆 벽이 통째로 창문이고, 창문 사이엔 빨랫줄이 걸려 있고, 창턱엔 화분과 접시가 놓인다. 배는 그 아래를 지나갈 수밖에 없다. 무대를 바꾸면 이 책은 성립하지 않는다.<br>
+<br>
+🔴 <b>10쪽이다.</b> 반복 셋 + 자기 차례 하나 + 도입 둘 + 뒤처리 둘. 반복을 넷으로 늘리면 p7 이 다섯째가 되어 「또야?」가 되고, 셋을 둘로 줄이면 아이가 함께 외칠 준비를 못 한다.<br>
+<br>
+🔴 <b>의인화 등급 10쪽 고정</b> — 둘 다 두 발로 서거나 앉고 <b>앞발을 손처럼</b> 쓴다(노 젓기·건지기·모자 붙잡기). 수달은 수염·앞발·꼬리, 생쥐는 앞발·귀·꼬리만 쓴다. 「손」이라는 말은 본문에 안 쓴다.<br>
+<br>
+🔴 <b>마지막 쪽에 교훈이 없다.</b> 후렴이 이번엔 <b>생쥐 입으로</b> 아주 작게 한 번 더 나오고, 수달이 모자를 꽉 붙잡는 데서 끝난다. 아무도 배우지 않았고 아무도 고치지 않았다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>좁은 물길에 곤돌라 한 척이 떠 가요.
+수달 사공이 긴 노를 저어요.
+낡은 밀짚모자를 꾹 눌러쓰고요.
+뒤에는 생쥐 손님이 앉았어요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 아이레벨(수면 높이) · 화면 아래 물 위의 긴 배, 위로 양옆에서 좁혀 오는 높은 벽
+<b>장소·시간</b> 건물 벽이 양쪽에서 바짝 붙은 좁은 물길. 이른 아침, 물이 아주 잔잔하다
+<b>인물</b> 화면 오른쪽 뱃머리 쪽 — <b>수달 사공</b>이 두 발로 서서 자기 키보다 긴 노를 두 앞발로 잡고 물을 밀어낸다, 몸이 앞으로 기울고 꼬리가 뒤로 곧게 뻗었다, 가로줄무늬 셔츠에 <b>낡은 밀짚모자를 눈썹까지 눌러썼다</b>(모자가 화면에서 또렷하게 보이는 자리), 입가에 흥이 오른 미소. 화면 왼쪽 배 뒤쪽 — <b>생쥐 손님</b>이 작은 나무 의자에 앉아 두 앞발을 무릎에 얹고 벽을 두리번거린다, 귀가 쫑긋 서 있다
+<b>배경·소품</b> 물때가 낀 벽돌 벽, 벽마다 줄줄이 달린 낡은 나무 덧창, 창문 사이에 가로질러 걸린 빨랫줄, 창턱의 작은 화분들, 저 앞에 낮은 아치 다리 하나, 수면에 흔들리며 비친 벽과 배. 🔴 <b>배 안은 텅 비어 있다</b>(여기서부터 물건이 쌓인다)
+<b>톤</b> 이른 아침의 낮고 조용한 빛. 물길 안쪽은 서늘하고 저 앞 아치 다리 너머만 밝게 열려 있어 배가 그쪽으로 흘러가는 흐름이 보이도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>"손님, 지금은 조용하지요?"
+수달이 목을 가다듬어요.
+"이 골목 창문들은 내 노래를 아주 좋아하거든요!"
+창문들은 아직 꼭 닫혀 있어요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 살짝 로우앵글 · 배 위의 수달을 아래에서 올려다보고, 그 뒤로 닫힌 창문 벽이 높이 솟는다
+<b>장소·시간</b> 같은 물길, 조금 더 안쪽. 같은 아침
+<b>인물</b> 화면 가운데 — <b>수달 사공</b>이 노를 겨드랑이에 낀 채 가슴을 활짝 펴고 목을 가다듬는다, 한 앞발을 목에 대고 다른 앞발을 위쪽 창문들을 향해 자랑스럽게 펼쳤다, 눈이 반달로 접히고 수염이 위로 솟았다. 화면 오른쪽 아래 — <b>생쥐 손님</b>이 의자에 앉은 채 고개를 젖혀 위를 본다, 귀 하나가 뒤로 접히고 눈이 동그랗다
+<b>배경·소품</b> 수달 뒤로 층층이 늘어선 <b>꼭 닫힌 나무 덧창들</b>(전부 걸쇠가 걸려 있다), 창문 사이 빨랫줄에 널린 빨래 몇, 창턱의 화분과 접시, 물에 비쳐 흔들리는 닫힌 창문들
+<b>톤</b> 아래에서 올려다봐 수달이 무대에 선 것처럼 크게. 🔴 창문 벽이 화면 위쪽을 가득 채우고 <b>하나도 열려 있지 않다</b>는 것이 다음 쪽의 「벌컥」을 기다리게 만들도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>"라라— 라랄라, 라라— 라랄라!"
+벌컥! 창문 하나가 열렸어요.
+첨벙! 빨간 양말 한 짝이 떨어졌어요.
+생쥐가 뱃전 너머로 앞발을 쭉 뻗어요.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 화면 왼쪽 위에 방금 열린 창문, 오른쪽 아래 물 위의 배
+<b>장소·시간</b> 같은 물길. 같은 아침
+<b>인물</b> 화면 오른쪽 — <b>수달 사공</b>이 노를 저으며 입을 크게 벌려 노래한다, 고개를 옆으로 흥겹게 기울였고 🔴 <b>위쪽 창문은 보지 않는다</b>, 꼬리가 박자를 맞춰 한쪽으로 휘었다. 화면 가운데 — <b>생쥐 손님</b>이 의자에서 일어나 뱃전에 배를 대고 몸을 반쯤 내밀어 두 앞발을 물 쪽으로 쭉 뻗는다, 꼬리가 균형을 잡느라 뒤로 곧게 섰다, 눈이 물 위 한 점에 딱 고정
+<b>배경·소품</b> 화면 왼쪽 위 — 나무 덧창 한 짝이 바깥으로 활짝 젖혀졌고 걸쇠가 덜렁거린다, 그 아래 빨랫줄이 아직 흔들린다. 물 위에 <b>빨간 양말 한 짝</b>이 막 떨어져 잔물결과 물방울이 사방으로 튀는 중, 배 안은 아직 비어 있다
+<b>톤</b> 열린 창문 한 짝과 물 위의 빨강이 화면에서 가장 또렷하게. 나머지 창문은 여전히 닫힌 채 어둡게 눌러 놓아 열린 하나가 튀도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>"라라— 라랄라, 라라— 라랄라!"
+벌컥! 이번엔 저쪽 창문이에요.
+첨벙! 파란 물뿌리개가 떨어졌어요.
+물이 가득 차서 낑낑, 무거워요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 · 로우앵글 · 뱃전에 매달린 생쥐를 물 가까이에서 올려다보고, 그 위로 반대편 벽의 열린 창문
+<b>장소·시간</b> 같은 물길, 조금 더 안쪽. 같은 아침
+<b>인물</b> 화면 아래 가운데 — <b>생쥐 손님</b>이 뱃전에 두 뒷발을 걸고 몸을 물 쪽으로 늘여 <b>파란 물뿌리개 손잡이를 두 앞발로 끌어당긴다</b>, 이가 앙다물리고 눈이 질끈 감겼다, 꼬리가 뱃전을 감아 버티는 중. 화면 오른쪽 뒤 — <b>수달 사공</b>이 여전히 입을 벌려 노래하며 노를 젓는다, 시선은 앞쪽 물길뿐
+<b>배경·소품</b> 화면 위 오른쪽 벽 — 방금 젖혀진 나무 덧창, 그 창턱에 물뿌리개가 놓여 있던 빈 자리와 흙 자국. 물 위엔 물뿌리개가 반쯤 잠긴 채 주둥이로 물을 콸콸 뿜고, 🔴 <b>배 안에는 아까 건진 빨간 양말 한 짝이 놓여 있다</b>(누적 1)
+<b>톤</b> 물 가까이에서 올려다봐 물뿌리개가 생쥐보다 커 보이도록. 파랑과 빨강이 배 근처에 모여 화면 아래쪽이 가장 또렷하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>"라라— 라랄라, 라라— 라랄라!"
+벌컥, 벌컥, 벌컥! 창문이 셋이나!
+첨벙! 첨벙! 첨벙!
+노란 레몬이 하나, 둘, 셋 굴러떨어져요.</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 와이드 · 하이앵글 · 열린 창문 높이에서 물길을 내려다봄 — 위쪽 세 창문과 아래 배가 한 화면에
+<b>장소·시간</b> 같은 물길. 해가 벽 위쪽에 닿은 아침
+<b>인물</b> 화면 아래 가운데 — <b>생쥐 손님</b>이 배 한복판에 서서 두 앞발을 활짝 벌리고 이리저리 몸을 돌린다, 어느 쪽으로 갈지 몰라 발이 엇갈렸고 귀가 양쪽으로 뻗쳤다, 입이 벌어졌다. 화면 아래 오른쪽 — <b>수달 사공</b>이 눈을 감고 고개를 뒤로 젖힌 채 제일 신나게 노래한다, 노를 쥔 앞발이 박자를 타고 들썩인다
+<b>배경·소품</b> 화면 위쪽 벽 — 나무 덧창 <b>세 짝이 한꺼번에 바깥으로 젖혀졌고</b>, 그중 한 창턱의 접시가 기울어 비었다. 물 위에 <b>노란 레몬 세 개</b>가 각각 물보라를 일으키며 통통 떠 있고 잔물결이 세 겹으로 퍼진다. 🔴 배 안에는 <b>빨간 양말 한 짝과 파란 물뿌리개</b>가 이미 놓여 있다(누적 2)
+<b>톤</b> 위에서 내려다봐 좁은 물길에 흩어진 레몬 셋의 자리가 한눈에 세어지도록. 노랑 셋이 어두운 물 위에서 가장 밝게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>배 안이 꽉 찼어요.
+생쥐는 물건들 사이에 파묻혔어요.
+"사공님, 이제 그만 부르면 안 될까요?"
+"무슨 소리! 제일 좋은 곡이 남았는데요!"</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨 · 배 안쪽만 바짝 당겨서
+<b>장소·시간</b> 배 안. 같은 아침
+<b>인물</b> 화면 가운데 — <b>생쥐 손님</b>이 물건 더미 사이에 끼어 앉아 얼굴만 겨우 내밀었다, 한 앞발로 물뿌리개를 밀어내고 다른 앞발은 레몬 하나를 껴안은 채, 눈썹이 팔자로 처지고 입이 애원하듯 벌어졌다. 화면 오른쪽 뒤 — <b>수달 사공</b>이 노를 짚고 뒤를 돌아보며 한 앞발을 번쩍 들어 「한 곡 더」를 알린다, 눈이 반짝이고 수염이 위로 뻗었다, 밀짚모자가 뒤로 살짝 밀려 있다
+<b>배경·소품</b> 배 바닥에 <b>빨간 양말 한 짝 · 파란 물뿌리개 · 노란 레몬 세 개</b>가 뒤엉켜 있고 물기가 배 안에 고였다(누적 5), 뱃전 너머로 벽과 열린 창문 몇이 잘려 보인다
+<b>톤</b> 배 안 물건들 쪽을 밝게 채워 좁고 빽빽한 느낌. 🔴 생쥐의 「그만」과 수달의 「한 곡 더」가 한 화면에서 정반대로 읽히도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>수달이 목을 쭉 빼고 제일 크게 불러요.
+"라라— 라랄라, 라라— 라랄라!"
+벌컥! 열린 창문이 모자를 툭 쳤어요.
+첨벙!</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 미디엄 와이드 · 로우앵글 · 배와 그 바로 옆 벽의 창문을 아래에서 올려다봄
+<b>장소·시간</b> 벽에 바짝 붙어 지나가는 물길. 같은 아침
+<b>인물</b> 화면 가운데 — <b>수달 사공</b>이 목을 앞으로 쭉 빼고 입을 한껏 벌려 노래한다, 눈은 꼭 감겼고 가슴이 부풀었다, 🔴 <b>머리 위가 비어 있다</b>(모자가 방금 벗겨졌는데 본인은 모른다). 화면 아래 왼쪽 — <b>생쥐 손님</b>이 물건 더미 위로 몸을 일으켜 두 앞발을 입에 대고 물 쪽을 본다, 눈이 접시처럼 커졌다
+<b>배경·소품</b> 화면 오른쪽 — 나무 덧창 한 짝이 벽에서 바깥으로 활짝 젖혀져 수달 머리 높이를 그대로 지나갔고 걸쇠가 흔들린다. 배 옆 물 위에 <b>밀짚모자</b>가 챙을 위로 하고 막 떨어져 물보라가 둥글게 퍼지는 중, 배 안엔 양말·물뿌리개·레몬 셋이 그대로
+<b>톤</b> 아래에서 올려다봐 젖혀진 창문과 빈 머리 위가 한 줄에 놓이도록. 물 위의 밀짚모자에 빛이 닿아 🔴 <b>노래하는 수달만 모르고 화면의 모두가 아는</b> 상태가 되게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>수달이 노래를 뚝 멈췄어요.
+머리 위를 더듬더듬.
+허전해요.
+"어? 내 모자!"</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 클로즈업 · 살짝 하이앵글 · 수달의 얼굴과 머리 위만
+<b>장소·시간</b> 같은 자리. 같은 아침
+<b>인물</b> 화면 가운데 — <b>수달 사공</b>이 벌어진 입을 그대로 둔 채 굳었다, 두 앞발을 머리 위에 얹고 정수리를 더듬는다, 눈이 위로 치켜떠졌고 수염이 축 처졌다, 젖은 머리털이 몇 가닥 삐죽 섰다
+<b>배경·소품</b> 어깨 너머로 흐릿하게 벽과 젖혀진 창문, 놓친 노가 겨드랑이에 비스듬히 걸려 있다, 화면 아래 가장자리에 물에 뜬 밀짚모자의 챙 한쪽이 살짝 들어와 있다
+<b>톤</b> 얼굴만 밝고 나머지는 부드럽게 눌러, 노랫소리가 뚝 끊긴 자리의 조용함이 화면 여백으로 느껴지도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>생쥐가 모자를 건져 올렸어요.
+발끝을 쭉— 수달 머리에 푹!
+주르륵, 물이 수달 코끝까지 흘러내려요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨 · 둘이 겹쳐 선 자리
+<b>장소·시간</b> 배 안. 같은 아침
+<b>인물</b> 화면 왼쪽 — <b>생쥐 손님</b>이 물건 더미 위에 올라서서 발끝을 세우고 두 앞발로 <b>흠뻑 젖은 밀짚모자를 수달 머리에 눌러 씌우는 중</b>이다, 팔이 최대한 위로 뻗었고 꼬리가 뒤로 균형을 잡는다, 입꼬리가 슬쩍 올라갔다. 화면 오른쪽 — <b>수달 사공</b>이 무릎을 굽혀 머리를 낮춰 주고 눈을 질끈 감았다, 어깨가 움츠러들었다
+<b>배경·소품</b> 모자 챙을 타고 물이 줄줄이 흘러 수달의 수염과 코끝에 방울로 맺히고 어깨가 젖어 색이 짙어진다, 발밑에 양말·물뿌리개·레몬 셋, 배 바닥에 고인 물이 흔들린다
+<b>톤</b> 둘이 닿는 자리(모자와 머리)가 화면에서 가장 밝게. 물방울이 또렷하게 보이도록 대비를 살리되 분위기는 부드럽게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>곤돌라가 스르르 미끄러져 가요.
+그때 뒤에서 생쥐가 조그맣게 불러요.
+"라라— 라랄라…"
+수달이 두 앞발로 모자를 꽉 붙잡았어요!</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 와이드 · 살짝 하이앵글 · 뒤에서 배를 따라가며 내려다봄, 앞쪽으로 아치 다리
+<b>장소·시간</b> 아치 다리 앞 물길. 해가 물길 안까지 들어온 아침
+<b>인물</b> 화면 앞쪽 — <b>수달 사공</b>이 노를 겨드랑이에 낀 채 <b>두 앞발로 젖은 밀짚모자 챙을 머리에 꽉 눌러 잡았다</b>, 어깨가 잔뜩 올라갔고 눈이 옆으로 굴러 위쪽 창문들을 살핀다, 수염이 뻣뻣하게 섰다. 화면 뒤쪽 — <b>생쥐 손님</b>이 물건 더미 사이에 앉아 두 앞발을 입가에 모으고 입을 동그랗게 벌려 아주 작게 노래한다, 눈이 장난스럽게 접혔다
+<b>배경·소품</b> 배 안에 여전히 <b>빨간 양말 한 짝 · 파란 물뿌리개 · 노란 레몬 세 개</b>(하나도 줄지 않았다), 양옆 벽의 덧창 몇 짝이 아직 젖혀진 채 흔들리고 몇 짝은 다시 닫혔다, 앞쪽 아치 다리 밑으로 밝은 물길이 이어진다
+<b>톤</b> 앞쪽 다리 너머가 환하고 지나온 뒤쪽은 부드럽게 어둡다. 🔴 <b>작게 부르는 입 하나와 모자를 붙잡은 앞발 둘</b>이 같은 화면에 있어, 다음에 무엇이 올지 아이가 먼저 알고 웃도록</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'e120',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['수달 사공(이름 없음)', '생쥐 손님(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=43defebe18a6c159"></script>
+<script src="/changjak-core.js?v=43defebe18a6c159"></script>
+</body>
+</html>

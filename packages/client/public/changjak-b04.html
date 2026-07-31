@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>B-04 그림자가 먼저 일어났다 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · B · 상상·변신 · 04</div>
+  <h1>그림자가 먼저 일어났다</h1>
+  <div class="sub">나보다 그림자가 먼저 깬 날, 하루가 통째로 뒤집혔어요</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 오해와 반전</span>
+  <span>무대 · 스페인 흰 마을 (회벽 좁은 골목·계단·빨래줄)</span>
+  <span class="q">10스프레드</span>
+  <span class="q">본문 650자 · 쪽당 65자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- <b>규칙은 하나다.</b> 「그림자가 저 혼자 움직인다」 — 이것만 받아들이면 나머지는 전부 그 결과다. 그늘에서 안 보이는 것도, 해가 기울면 길어지는 것도 아이가 마당에서 이미 겪은 일이라 외울 것이 아니다. c37 의 썰물과 같은 자리다.<br>
+- <b>그림자는 한마디도 안 한다.</b> 말을 시키는 순간 인물이 둘이 되고, 「따라다니다 보니」가 대화로 바뀐다. 그림자는 몸짓으로만 이끌고, 고양이는 그 몸짓을 제 마음대로 해석한다 — 그게 이 권의 오해 전부다.<br>
+- <b>오해는 술래잡기다.</b> 안 잡히면 아이는 「나 놀리는 거지」라고 믿는다. 어른의 「왜 저럴까」가 아니라 유아의 실제 반응이다. 그래서 p6 에서 고양이가 먼저 등을 돌린다 — 두고 간 게 아니라 <b>제가 돌아선 것</b>(a91 은 두고 갔다고 믿는 이야기였다, 여기선 반대다).<br>
+- 🔴 <b>독자가 고양이보다 먼저 아는 것 = 발끝.</b> 그림자는 벽을 타고 오르고 빨래 위에서 커지지만, 그 그림자는 <b>언제나 고양이 발밑에서 시작해 꺾여 올라간다</b>. 실제 좁은 골목에서 그렇게 보인다 — 무대가 곧 복선이다. 고양이는 높이 달아난 머리만 쫓고, 독자만 바닥의 이음을 본다.<br>
+- <b>반전은 사라짐으로 온다.</b> 아무도 사실을 설명해 주지 않는다(인물이 하나뿐이라 설명해 줄 입이 없고, 있어도 안 시킨다). 그늘에 들어가니 통째로 없어지고, 해로 나오니 발밑에서 나온다 — <b>세계가 두 쪽으로 답한다.</b><br>
+- <b>흰 마을이 일한다.</b> 새하얀 회벽이라 그림자가 유일한 어두운 것이 되고, 좁은 골목이라 벽을 타고 꺾이고, 계단이라 앞서가고, 빨래라 커지고, 그늘 골목이라 사라진다. 다른 무대였으면 이 이야기가 안 된다.<br>
+- <b>10쪽.</b> 쫓기(p3·p4·p5)를 한 쪽만 더 늘려도 「또 못 잡음」이 반복돼 늘어진다. 사라짐 → 되찾음 → 발끝 발견이 붙어 있어야 반전이 한 호흡으로 온다.<br>
+- <b>교훈으로 안 끝난다.</b> 마지막은 「~해야 해요」도 「이제 안 놓칠 거야」도 아니고, 하루 중 제일 멀리 뻗은 그림자한테 발을 톡 들어 보이는 장난이다. 그리고 <b>마지막 한 걸음도 그림자가 먼저 뗀다</b> — 제목이 그대로 회수된다.<br>
+- <b>빨강 악센트 1점 = 제라늄 화분.</b> 흰 벽·파란 문·남보라 그림자만 있는 화면에서 유일한 빨강이라, 쪽마다 하나씩만 놓아 시선이 골목 안쪽으로 흐르게 한다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>고양이는 아직 쿨쿨 자고 있었어요.
+그런데 하얀 벽에서, 그림자가 먼저 기지개를 쭈욱 켰어요.
+꼬리를 탁탁 털고, 벌떡 일어났어요.
+고양이는 그것도 모르고 코를 골았어요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 아래 잠든 고양이, 그 위 흰 벽에 일어선 그림자
+<b>장소·시간</b> 회벽 집 창가 바닥. 해가 막 올라온 이른 아침
+<b>인물</b> 화면 아래 왼쪽 — 고양이가 창가 바닥에 옆으로 누워 네 발을 앞으로 모으고 눈을 꼭 감았다, 배가 천천히 부풀고 입이 살짝 벌어져 잔다. 화면 위 벽 — 🔴 <b>같은 고양이의 그림자만</b> 두 앞발을 앞으로 쭉 뻗고 등을 활처럼 세워 기지개를 켠다, 꼬리가 위로 곧게 섰다(고양이 몸은 그대로 누워 있는데 그림자만 일어난 자세다). 🔴 그림자의 뒷발은 <b>바닥의 고양이 발끝에서</b> 시작해 벽으로 꺾여 올라간다
+<b>배경·소품</b> 새하얀 회벽, 파란 나무 창틀 사이로 들어온 아침 햇살 한 줄기, 창턱의 빨간 제라늄 화분, 바닥에 놓인 작은 물그릇
+<b>톤</b> 낮은 아침 해가 옆에서 길게 들어와 벽의 그림자가 크고 또렷하게. 고양이 쪽은 조용하고 부드럽게, 벽 쪽만 깨어 있는 것처럼</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>그림자가 스르륵, 파란 문 밖으로 나갔어요.
+"어? 야! 같이 가!"
+고양이는 화들짝 깨서 뛰쳐나갔어요.
+하얀 골목이 눈이 부시게 환했어요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 화면 왼쪽 문턱을 넘는 고양이, 오른쪽 골목 바닥으로 먼저 빠져나간 그림자
+<b>장소·시간</b> 파란 대문이 열린 집 앞. 해가 낮게 든 아침 골목
+<b>인물</b> 화면 왼쪽 — 고양이가 문턱을 앞발로 짚고 몸을 반쯤 내밀었다, 눈이 동그랗게 커지고 귀가 앞으로 쏠렸다, 뒷발은 아직 집 안에 있다. 화면 오른쪽 — 그림자가 벌써 골목 바닥을 미끄러져 나가는 중이다, 앞으로 기울어 성큼 걷는 자세. 🔴 그림자의 뒷발끝은 고양이 앞발에 그대로 이어져 한 줄로 붙어 있다
+<b>배경·소품</b> 활짝 열린 파란 나무문, 눈부시게 흰 회벽, 골목 바닥의 둥근 돌, 문 옆 벽에 걸린 빨간 제라늄 화분, 널린 빨래줄이 저 안쪽으로 이어진다
+<b>톤</b> 아침 해가 골목을 가로질러 바닥이 하얗게 튄다. 흰 벽·흰 바닥에서 그림자만 유일하게 어두워 눈이 그리로 가도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>그림자는 좁은 계단을 성큼성큼 올라가요.
+고양이는 헉헉, 네 발로 겨우 따라가요.
+"기다려! 오늘 왜 이래?"
+그림자는 돌아보지도 않아요.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 · 로우앵글 · 계단 아래에서 위를 올려다봄
+<b>장소·시간</b> 집과 집 사이 좁은 돌계단 골목. 같은 아침
+<b>인물</b> 화면 아래 — 고양이가 계단 두 칸을 한 번에 오르려 몸을 길게 늘였다, 입을 벌려 헉헉거리고 뒷발이 계단 모서리를 딛고 미끄러진다, 앞발을 위로 뻗어 부른다. 화면 위 — 그림자가 계단 위쪽 흰 벽에 붙어 성큼성큼 올라간다, 고개는 앞만 보고 한 번도 뒤를 안 본다. 🔴 그림자 발끝은 계단 아래 고양이 발에서 시작해 계단을 타고 위로 꺾여 이어진다
+<b>배경·소품</b> 양옆으로 바짝 붙은 흰 회벽, 닳은 돌계단, 계단참에 놓인 빨간 제라늄 화분 하나, 벽에 박힌 낡은 쇠고리
+<b>톤</b> 아래서 올려다봐 계단이 하늘까지 이어진 듯 길게. 위쪽이 밝고 아래가 살짝 어두워 그림자가 저 위로 멀어지는 것처럼 보이도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>빨래줄 아래를 지나는데,
+그림자가 하얀 천 위로 쑥 올라갔어요.
+펄럭, 펄럭 — 그림자가 집채만 해졌어요!
+"너... 언제 그렇게 커졌어?"</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 와이드 · 살짝 로우앵글 · 화면 아래 작은 고양이, 위쪽 흰 천을 가득 채운 커다란 그림자
+<b>장소·시간</b> 벽과 벽 사이에 빨래줄이 걸린 골목. 해가 높아지는 오전
+<b>인물</b> 화면 아래 가운데 — 고양이가 목을 뒤로 젖혀 위를 올려다본다, 네 발을 모으고 꼬리가 뻣뻣하게 섰다, 입이 벌어졌다(놀람과 못마땅함이 반씩). 화면 위 — 펄럭이는 흰 시트 위에 고양이 그림자가 아주 크게 비쳐 천이 흔들릴 때마다 몸이 늘었다 줄었다 한다, 앞발 하나를 크게 들었다. 🔴 그 그림자도 바닥의 고양이 발에서 시작해 벽을 타고 천으로 이어진다
+<b>배경·소품</b> 줄에 널린 흰 시트와 셔츠들, 하나만 빨간 스카프, 나무 빨래집게, 흰 회벽, 바닥에 흔들리는 빛무늬
+<b>톤</b> 천 뒤에서 해가 비쳐 천이 환하게 빛나고 그 위 그림자가 짙게. 고양이를 아주 작게 놓아 크기 차이가 한눈에</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>그림자는 벽을 타고 쭉쭉 올라갔어요.
+고양이가 폴짝 뛰어도 발이 안 닿아요.
+"너 나 놀리는 거지! 잡히면 알지!"
+고양이 꼬리가 부풀었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 아래 뛰어오르는 고양이, 위 벽 높은 곳의 그림자
+<b>장소·시간</b> 막다른 흰 벽 앞. 해가 더 오른 오전
+<b>인물</b> 화면 아래 — 고양이가 네 발을 모아 있는 힘껏 뛰어올랐다, 앞발을 벽에 대고 발톱을 세웠지만 그림자보다 한참 아래다, 귀가 뒤로 눕고 꼬리털이 부풀어 두 배가 됐다, 이빨을 보이며 외친다. 화면 위 — 그림자가 벽 높은 데서 태연히 옆으로 걸어간다, 잡히지 않을 만큼만 위에 있다
+<b>배경·소품</b> 높고 하얀 막다른 벽, 벽 위쪽의 작은 파란 창과 창턱의 빨간 제라늄, 바닥에 튄 흙 자국, 벽에 남은 고양이 발톱 자국 몇
+<b>톤</b> 벽면이 온통 하얗고 넓어 그림자와 고양이 사이의 빈 벽이 크게 보이도록. 손이 안 닿는 거리가 화면 절반</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>"그럼 혼자 놀아! 나 안 놀아!"
+고양이는 홱 돌아서 좁은 골목으로 들어갔어요.
+골목 안은 서늘하고 어둑어둑했어요.
+발소리만 또각또각 울렸어요.</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 뒤에서 본 고양이의 등, 그 앞으로 어두운 골목 안쪽
+<b>장소·시간</b> 해가 안 드는 아주 좁은 골목 입구. 같은 오전
+<b>인물</b> 화면 가운데 — 고양이가 등을 보이고 골목 안으로 걸어 들어간다, 고개를 푹 숙이고 꼬리를 축 늘어뜨렸다, 어깨가 뻣뻣하다(화가 나서 제가 먼저 돌아선 자세). 🔴 골목 안쪽으로 갈수록 그림자가 옅어지다가 그늘 경계에서 끊긴다
+<b>배경·소품</b> 양쪽 벽이 손 뻗으면 닿을 만큼 좁고, 위쪽으로만 하늘이 가늘게 보인다, 벽에 걸린 빨간 제라늄 화분이 골목 입구에 하나, 안쪽은 서늘한 돌바닥
+<b>톤</b> 화면 뒤쪽(골목 안)이 어둡고 앞쪽 입구만 밝다. 밝은 데서 어두운 데로 걸어 들어가는 것이 색으로 읽히도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>그런데... 그림자가 없어요.
+벽에도 없고, 바닥에도 없어요.
+"어디 갔어? 야, 어디 있어!"
+고양이 수염이 파르르 떨렸어요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨 · 사방을 두리번거리는 고양이
+<b>장소·시간</b> 그늘진 골목 한가운데. 같은 오전
+<b>인물</b> 화면 가운데 — 고양이가 몸을 낮추고 고개를 이리저리 돌린다, 한 앞발을 든 채 멈췄고 눈이 크게 떠졌다, 귀가 양옆으로 벌어지고 수염이 곤두섰다, 제 발밑을 내려다보는 중
+<b>배경·소품</b> 서늘한 회색 돌바닥과 흰 벽, 🔴 <b>어디에도 그림자가 없다</b> — 고양이 발밑도 말끔하다, 저 위 골목 틈으로 보이는 밝은 하늘 한 줄, 벽 아래 굴러다니는 마른 잎 몇
+<b>톤</b> 전체가 고르게 서늘하고 그늘져 명암이 없다. 그림자가 사라진 게 아니라 <b>그림자를 만들 빛이 없다</b>는 것이 화면에 있도록 — 없는 자리가 화면의 중심</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>고양이는 해가 쨍쨍한 광장으로 뛰어나갔어요.
+그때, 발밑에서 그림자가 스르륵 나왔어요.
+"있잖아! 여기 있었잖아!"
+고양이는 폴짝폴짝 뛰었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 와이드 · 하이앵글 · 위에서 내려다본 광장 바닥과 그 위 고양이·그림자
+<b>장소·시간</b> 흰 벽으로 둘러싸인 작은 광장. 해가 높이 뜬 한낮
+<b>인물</b> 화면 가운데 — 고양이가 골목에서 막 튀어나와 네 발로 폴짝 뛰어오른다, 꼬리가 위로 곧게 서고 입이 활짝 벌어졌다, 시선은 제 발밑을 향한다. 바로 아래 — 그림자가 발밑에서 짧고 또렷하게 나타나 고양이와 똑같이 뛰어오른 자세다
+<b>배경·소품</b> 햇빛에 하얗게 타는 광장 돌바닥, 가운데 낮은 돌우물, 둘레의 회벽 집들과 파란 문들, 우물가 빨간 제라늄 화분, 바닥에 튄 물자국
+<b>톤</b> 한낮의 정수리 해라 그림자가 짧고 진하다. 방금 나온 어두운 골목 입구를 화면 한쪽에 남겨 두어 어둠 → 빛의 이동이 한 화면에 보이도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>고양이가 앞발을 살짝 들어 봤어요.
+그림자도 앞발을 들었어요.
+꼬리를 흔드니 그림자 꼬리도 흔들려요.
+발끝이... 발끝이 딱 붙어 있어요!</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 클로즈업 · 하이앵글 · 위에서 내려다본 고양이의 앞발과 그림자의 앞발
+<b>장소·시간</b> 광장 한복판 돌바닥. 같은 한낮
+<b>인물</b> 화면 위쪽 — 고양이가 앞발 하나를 살짝 들어 올린 채 고개를 깊이 숙여 제 발밑을 들여다본다, 눈을 크게 뜨고 수염이 앞으로 쏠렸다, 꼬리가 옆으로 한 번 흔들리는 중. 화면 아래쪽 — 그림자가 똑같이 앞발을 들고 꼬리를 흔든다. 🔴 두 뒷발끝이 <b>한 점에서 딱 이어져 있는 것</b>이 화면 한가운데에 크게 보인다
+<b>배경·소품</b> 하얗게 마른 돌바닥의 결, 발 옆에 굴러온 작은 돌 하나, 화면 가장자리에 우물 밑동과 빨간 제라늄 화분
+<b>톤</b> 발이 닿은 그 한 점이 화면에서 가장 또렷하게. 주변은 밝게 날려 이어진 자리만 눈에 들어오도록 — 🔴 하루 종일 쫓아다닌 것이 처음부터 제 발에 붙어 있었다는 것이 이 한 컷의 전부</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>해가 낮아지자 그림자가 길어졌어요.
+골목 저 끝까지 쭈욱!
+고양이가 발을 톡 들자, 저 끝 그림자 발도 톡 들렸어요.
+"멀리 가도 소용없어. 넌 내 발에 있거든."
+그림자가 먼저 한 발 내디뎠어요. 고양이도 나란히 걸었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 화면 앞쪽 오른쪽에 고양이, 왼쪽 골목 끝까지 길게 뻗은 그림자
+<b>장소·시간</b> 흰 마을 골목, 해가 지붕 아래로 내려온 저녁
+<b>인물</b> 화면 오른쪽 앞 — 고양이가 앞발 하나를 톡 들어 올리고 고개를 옆으로 돌려 제 그림자 끝을 바라본다, 눈이 반달로 휘고 수염이 위로 올라갔다, 다른 발은 이미 앞으로 한 걸음 나가는 중. 화면 왼쪽 멀리 — 아주 길게 늘어난 그림자가 골목 끝 벽까지 닿아 있고, 그 끝의 앞발도 똑같이 톡 들려 있다. 🔴 하루 중 <b>가장 멀리 떨어졌는데</b> 발끝은 한 줄로 이어져 있다 — 고양이 발에서 골목 끝까지 끊긴 데 없이
+<b>배경·소품</b> 저녁 해에 노랗게 물든 흰 회벽, 파란 문마다 길게 드리운 그림자들, 골목 끝 벽에 걸린 빨간 제라늄 화분, 지붕 너머 낮아진 해, 바닥에 널린 돌의 결
+<b>톤</b> 낮은 저녁 해가 골목을 세로로 관통해 모든 것이 길어진다. 그림자 줄기가 화면을 가로질러 한 줄로 이어지는 것이 이 쪽의 전부 — 잡으려던 하루가 끝나고, 이제 나란히 간다</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'b04',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['흰 마을 고양이(이름 없음)', '고양이의 그림자(말하지 않는다)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=43defebe18a6c159"></script>
+<script src="/changjak-core.js?v=43defebe18a6c159"></script>
+</body>
+</html>

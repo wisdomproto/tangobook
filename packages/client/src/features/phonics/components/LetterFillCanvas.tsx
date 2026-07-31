@@ -306,42 +306,23 @@ export function LetterFillCanvas({
           onPointerUp={handlePointerUp}
           onPointerLeave={handlePointerUp}
         />
-        {/* 통과 시 반짝 ring + 체크마크 그려짐 (글자채점 피드백) */}
+        {/**
+         * 통과 시 **테두리만** 반짝인다.
+         *
+         * 🔴 예전엔 가운데에 큰 체크마크를 그렸는데, 아이가 방금 칠한 글자를 **정확히 그 위에서**
+         *    가렸다(사용자 지적: "체크 표시가 글자 위에 오니까 이상해"). 다 쓴 글자를 보여주는 게
+         *    이 화면의 보상이므로 그걸 덮으면 안 된다. 통과 신호는 테두리 + 띵동으로 충분하다.
+         */}
         <AnimatePresence>
           {result?.passed && (
-            <motion.div
+            <motion.span
               key="pass-fx"
-              className="pointer-events-none absolute inset-0 flex items-center justify-center"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              className="pointer-events-none absolute inset-0 rounded-xl ring-4 ring-emerald-400"
+              initial={{ opacity: 0.85, scale: 0.94 }}
+              animate={{ opacity: 0, scale: 1.05 }}
               exit={{ opacity: 0 }}
-            >
-              <motion.span
-                className="absolute inset-0 rounded-xl ring-4 ring-emerald-400"
-                initial={{ opacity: 0.85, scale: 0.94 }}
-                animate={{ opacity: 0, scale: 1.05 }}
-                transition={{ duration: 0.7, repeat: 1, ease: 'easeOut' }}
-              />
-              <motion.svg
-                className="w-2/5 h-2/5"
-                viewBox="0 0 48 48"
-                fill="none"
-                initial={{ scale: 0.6 }}
-                animate={{ scale: 1 }}
-                transition={{ type: 'spring', stiffness: 320, damping: 16, delay: 0.1 }}
-              >
-                <motion.path
-                  d="M11 25 L20 34 L37 14"
-                  stroke="#10b981"
-                  strokeWidth={6}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.4, delay: 0.18, ease: 'easeOut' }}
-                />
-              </motion.svg>
-            </motion.div>
+              transition={{ duration: 0.7, repeat: 1, ease: 'easeOut' }}
+            />
           )}
         </AnimatePresence>
       </div>

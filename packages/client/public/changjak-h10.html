@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>H-10 다리를 놓는 돌 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · H · 호기심·만들기·직업 · 10</div>
+  <h1>다리를 놓는 돌</h1>
+  <div class="sub">제 돌을 제일 잘 보이는 데 놓고 싶은데, 놓는 자리마다 미끄러져요</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 관찰과 성장</span>
+  <span>무대 · 보스니아 산골 개울의 작은 석교 놓는 자리 (개울 하나 · 반달 모양 나무 틀 · 양쪽에서 올라온 돌 두 줄 · 물가의 외바퀴 수레 — 열네 쪽 내내 이 개울가를 안 벗어난다)</span>
+  <span>후렴 · "여기 놓을래요!" (p4·p6·p9 세 번 · 🔴 매번 다른 자리에서 다른 자세로 외친다) → p11 에서 "여기밖에 없어요!" 로 뒤집힌다</span>
+  <span class="q">14스프레드</span>
+  <span class="q">본문 891자 · 쪽당 64자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- 🔴 <b>성장을 한 문장도 쓰지 않았다.</b> 「알게 됐어요」·「잘 보는 게 중요해요」·「기다릴 줄 알게 됐어요」 같은 줄이 하나도 없다. 마지막에 달라지는 것은 딱 하나, <b>다리 아래에 나무가 없다는 것</b>과 <b>누런 돌 한가운데 흰 돌 하나가 박혀 있다는 것</b>이다. p1 과 p14 를 나란히 놓으면 아이는 무엇이 바뀌었는지 안다 — 가운데가 뚫려 있던 자리에 제 돌이 있다.<br>
+- 🔴 <b>착지 카드 = 가운데 돌.</b> 제자리(h02)도 마지막 한 땀(h03)도 식음(h08)도 아니다. 수달은 열 쪽 내내 <b>제일 잘 보이는 자리</b>를 찾아다녔고, 남은 자리는 결국 꼭대기 한가운데 하나였다. p14 의 대사 <b>"제가 맨 마지막에 놓았는데!"</b> 가 순서를 말하고 그림이 위치를 보여 준다 — 둘이 만나는 자리가 착지다. 🔴 「제일 중요한 자리였어요」류 정리 문장은 없다.<br>
+- 🔴 <b>아치는 진짜 아치다.</b> ①돌은 사다리꼴이라 <b>위가 넓고 아래가 좁다</b> ②양쪽 물가에서 한 개씩 기대며 올라온다 ③다 올라올 때까지 <b>나무 틀이 다리를 들고 있다</b> ④맨 꼭대기 한 개를 마지막에 끼우면 돌끼리 서로 밀어 제 힘으로 선다 ⑤그제야 쐐기를 쳐서 나무 틀을 내린다. 마법도 소원도 없고, 아이가 그림에서 <b>한 군데</b>(하늘이 새는 구멍)를 눈으로 찾을 수 있다.<br>
+- 🔴 <b>어른이 「거긴 아니야」라고 알려 주지 않는다.</b> 스라소니의 말은 세 마디뿐이고 전부 <b>지금 하고 있는 일</b>이다 — "하나씩. 양쪽 똑같이."(공정) · "다시 놓으면 돼."(무너진 뒤) · "이제 나무를 빼도 돼."(끼운 뒤). 수달이 엉뚱한 데 놓을 때 한 번도 막지 않고, 힌트도 안 준다. p11 에서 스라소니가 하는 일은 <b>눈썹을 올리는 것</b>뿐이다.<br>
+- 🔴 <b>무너지는 쪽이 안 무섭다.</b> p7 에서 흘러내리는 돌은 세 개뿐이고, <b>나무 틀이 그걸 다 받아 낸다</b>(물에 빠지지도 않는다). 수달은 엉덩방아를 찧을 뿐이고 다치지 않는다. 다음 쪽에서 스라소니가 아래부터 차례차례 다시 얹으면 다리가 아까 모습으로 돌아온다 — <b>다시 놓으면 된다</b>는 것이 그림으로 먼저 보인다. 개울은 얕고(발목 높이) 주인공은 수달이라 물이 위험으로 읽히지 않는다.<br>
+- 🔴 <b>h02(같은 「관찰과 성장」·같은 공정 무대)와 정면으로 갈랐다.</b> ①h02 는 <b>있던 것을 되돌리는</b> 이야기(어제 넣은 바퀴가 반 칸 떠 있다 → 눌러 앉힌다)이고, 이 권은 <b>없던 것을 마지막으로 채우는</b> 이야기(구멍이 하나 남았다 → 끼운다) ②h02 의 아이는 처음부터 <b>보는 아이</b>라 세 번 다 보는 방법만 바꾸지만, 이 권의 아이는 세 번 다 <b>손으로</b> 놓아 보다가 p10 에서 처음으로 손을 놓고 눕는다 ③h02 는 어른이 못 찾는 이유가 <b>몸(키)</b>에 있었고, 여기는 아이가 못 찾는 이유가 <b>하고 싶은 일</b>에 있다(잘 보이는 자리를 찾고 있었으니 남은 자리를 찾을 생각이 없었다) ④착지도 다르다 — h02 는 멈춤↔움직임, 여기는 뚫린 가운데↔가운데 돌.<br>
+- 🔴 <b>h03·h08(같은 H 군 공정 이야기)과도 갈랐다.</b> h03 은 계절이 세 번 바뀌는 <b>누적</b>이고 h08 은 한 덩이가 식는 <b>몇 분</b>인데, 이 권은 <b>해가 기우는 한나절</b>이다. 후렴도 셋이 다르다 — "다 됐어요?/아직"(기다림) · "한 번만 더요!"(조급함) · <b>"여기 놓을래요!"</b>(고집). 그리고 h03·h08 은 물건 하나가 <b>만들어지는 공정</b>을 쌓아 보여 주지만, 이 권에서 공정은 p2 한 쪽으로 끝나고 나머지 열두 쪽은 전부 <b>자리 찾기</b>다.<br>
+- 🔴 <b>후렴이 착지의 부품이다.</b> "여기 놓을래요!"가 p4·p6·p9 에 세 번 나오고 p11 에서 같은 입으로 <b>"여기밖에 없어요!"</b> 가 된다. 고르는 말이 찾은 말이 된 것 — 교훈 문장 없이 이 한 줄이 착지 앞을 닫는다. 🔴 세 번의 "여기"가 매번 다른 자리(돌 등 위 · 맨 아래 · 나무 틀 바닥)라 같은 말이 세 번 반복돼도 화면이 안 겹친다.<br>
+- 🔴 <b>크기·모양 문구는 p12 한 쪽에만.</b> 「위가 넓고 아래가 좁아서」는 흰 돌과 구멍이 코앞에서 같이 보이는 그 쪽에서만 쓴다. p3·p4 에서도 돌은 사다리꼴이지만 <b>그림에만</b> 있다 — 다른 쪽에 적으면 원근이 뒤집어 소음이 된다.<br>
+- 🔴 <b>열네 쪽.</b> 무대(1) 공정(1) 흰 돌(1) 시도 셋과 그 결과(1+1 · 1+1+1 · 1) 관찰(1) 뒤집힘(1) 끼움(1) 나무 빼기(1) 착지(1). 첫 시도만 <b>얹는 쪽과 미끄러지는 쪽을 나눈</b> 이유는 「놓아 본다」는 행위를 아이가 한 번은 봐야 하기 때문이고, 나머지 두 시도는 결과 쪽만 둔다(전부 두 쪽씩이면 같은 리듬이 세 번 굴러 늘어진다). p12(끼움)와 p13(나무 빼기)을 합치면 「손을 떼도 안 빠진다」가 사라져 왜 나무를 뺄 수 있는지가 없어진다.<br>
+- 🔴 <b>장소는 개울가 하나.</b> 마을도 집도 그리지 않는다 — 뒤로 낮은 산등성이만 있고 카메라는 끝까지 개울을 안 벗어난다.<br>
+- 🔴 <b>의인화 등급 = 이족 · 앞발이 손 · 간단한 옷, 열네 쪽 고정.</b> 돌을 두 손으로 들고 수레를 밀어야 하는 무대라 사족이 불가능하다. 수달은 짧은 삼베 조끼, 스라소니는 허리에 연장 띠. 얼굴은 동물 그대로(수달 납작한 코와 긴 수염 · 스라소니 귀 끝 붓털과 짧은 꼬리)이고 사람 얼굴로 바꾸지 않는다. 🔴 <b>글자·숫자·간판 없음.</b>
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>개울 위에 나무 틀이 반달처럼 서 있어요.
+그 위로 돌이 양쪽에서 차곡차곡 올라왔어요.
+새끼 수달이 외바퀴 수레를 끙끙 밀고 왔어요.
+가운데는 아직 뻥 뚫려 있어요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 개울 건너편에서 다리 놓는 자리를 통째로 본다, 화면 오른쪽 물가에 수레를 미는 작은 수달
+<b>장소·시간</b> 보스니아 산골의 얕은 개울(발목 높이, 바닥 자갈이 비친다). 개울 위에 <b>굵은 통나무를 반달로 짜 올린 나무 틀</b>이 서 있고 아래를 통나무 기둥 넷과 나무 쐐기가 받친다, 그 위에 널판이 깔려 사람이 걸어 다닌다. 나무 틀을 따라 <b>누런 회색 돌이 양쪽 물가에서부터 한 줄씩 기대며 올라와 있고, 두 줄 사이 꼭대기만 비었다.</b> <b>이 자리와 구조는 열네 쪽 내내 같다.</b> 해가 높은 한낮
+<b>인물</b> 화면 오른쪽 물가 — 새끼 수달이 두 발로 서서 <b>외바퀴 수레 손잡이를 두 손으로 잡고 온몸으로 앞으로 민다</b>, 등이 앞으로 굽고 뒷발이 자갈을 딛어 미끄러지고, 짧은 삼베 조끼가 어깨에서 흘러내렸다, 입을 앙다물었다. 화면 가운데 나무 틀 위 — 늙은 스라소니가 돌 줄 앞에 서서 손등으로 이마를 훔친다, 허리 연장 띠에 나무 메가 걸렸다. 둘 다 이족 · 앞발이 손 · 간단한 옷
+<b>배경·소품</b> 🔴 두 돌 줄 사이 <b>꼭대기 한 군데가 비어 하늘이 그대로 보인다.</b> 수레에 누런 돌 대여섯 개, 물가 자갈밭에 나무 쐐기 몇 개. 뒤로 낮은 산등성이 하나. 글자·숫자·간판 없음
+<b>톤</b> 한낮 볕이 개울물에 부딪혀 에메랄드빛으로 밝고, 돌과 나무는 누런 회색과 젖은 갈색뿐이다. 🔴 <b>다리가 아직 이어지지 않았다는 것</b>이 꼭대기의 빈 하늘 한 조각으로 한눈에 읽히도록 — 그 빈자리가 화면 한가운데에 온다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>늙은 스라소니가 돌 하나를 두 손으로 들어 올렸어요.
+왼쪽 줄 맨 위에 툭, 얹었어요.
+"하나씩. 양쪽 똑같이."
+돌들이 서로 기대서 비스듬히 누워 있어요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 살짝 로우앵글(수달 키 높이에서 스라소니를 올려다본다) · 화면 가운데 위에 돌을 얹는 두 손, 아래 왼쪽에 올려다보는 수달
+<b>장소·시간</b> 같은 개울, 나무 틀 위 널판. 같은 한낮
+<b>인물</b> 화면 가운데 위 — 스라소니가 두 발을 벌려 버티고 <b>돌 하나를 가슴 높이로 들어 왼쪽 줄 맨 위 돌에 맞대어 내려놓는 참</b>이다, 팔이 무게에 곧게 늘어졌고 어깨가 올라갔으며 눈은 맞닿는 자리 한 곳만 본다. 화면 아래 왼쪽 — 수달이 수레에서 돌을 하나 내려 두 팔로 안은 채 고개를 젖혀 올려다본다, 발끝을 들었고 수염이 앞으로 뻗었다
+<b>배경·소품</b> 🔴 <b>양쪽 돌 줄이 정확히 같은 높이까지 올라와 있다</b> — 왼쪽 줄이 세 칸이면 오른쪽 줄도 세 칸이다. 🔴 돌들은 <b>서로 기대어 비스듬히 누웠고 평평한 자리가 한 군데도 없다.</b> 널판 위에 흘린 돌가루, 물가에 세워 둔 수레. 글자·숫자·간판 없음
+<b>톤</b> 위에서 쏟아지는 한낮 볕에 돌 윗면이 하얗게 뜨고 기댄 면마다 짙은 그늘이 진다. 🔴 <b>비스듬한 선이 화면을 가득 채우도록</b> — 눕고 기울고 겹친 것뿐이라 눈이 쉴 평평한 데가 없게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>수레에 돌이 딱 하나 남았어요.
+속살이 갓 드러나 유난히 하얀 돌이에요.
+"이건 제가 놓을래요! 제일 잘 보이는 데다가요!"
+수달이 흰 돌을 두 팔로 꼭 안았어요.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 · 화면 가득 흰 돌을 끌어안은 수달의 상반신
+<b>장소·시간</b> 같은 개울, 물가 수레 옆. 같은 한낮
+<b>인물</b> 화면 가운데 — 수달이 <b>두 팔을 돌 밑으로 넣어 배에 붙여 안았다</b>, 무게에 상체가 뒤로 젖혀지고 뒷발이 자갈에 박혔으며 볼이 돌에 눌렸다, 눈이 반짝이고 입이 크게 벌어져 외친다, 젖은 갈색 털이 뭉쳐 뾰족하다
+<b>배경·소품</b> 🔴 돌은 <b>위가 넓고 아래가 좁은 사다리꼴</b>이다(글에는 없다 — 그림에만 있다), 쪼갠 지 얼마 안 돼 앞면이 뽀얗게 희고 결이 거칠다, 🔴 그 흰 면에 <b>작은 조개 무늬 하나</b>가 박혀 있다. 뒤로 텅 빈 외바퀴 수레와 개울물. 글자·숫자·간판 없음
+<b>톤</b> 누런 회색과 젖은 갈색뿐인 화면에서 🔴 <b>이 돌의 흰 면만 밝다</b> — 이 책에서 흰 것은 이것 하나라는 규칙이 여기서 정해지도록. 볕이 흰 면에 바로 얹혀 조개 무늬 자국이 얕은 그림자로 도드라진다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>수달이 나무 틀 위로 조심조심 올라갔어요.
+왼쪽 돌 등에 흰 돌을 살며시 얹었어요.
+"여기 놓을래요!"
+손을 아주 조금 떼 봐요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 와이드 · 옆에서 · 화면 왼쪽에 널판에 엎드린 수달, 오른쪽 위로 비스듬히 올라간 돌 줄
+<b>장소·시간</b> 같은 개울, 나무 틀 위 널판. 같은 한낮
+<b>인물</b> 화면 왼쪽 — 수달이 <b>널판에 배를 붙이고 엎드려 두 팔을 앞으로 길게 뻗었다</b>, 두 손이 흰 돌을 왼쪽 줄 맨 위 돌 등에 올려놓고 <b>손가락만 살짝 들린 참</b>이다, 뒷발이 널판 끝에서 힘을 주고 꼬리가 뒤로 곧게 뻗었으며 눈이 돌 하나에만 붙었다, 입을 오므렸다. 화면 오른쪽 뒤 — 스라소니가 물가에 서서 이쪽을 보지만 다가오지 않는다
+<b>배경·소품</b> 🔴 흰 돌이 얹힌 자리는 <b>평평하지 않고 비스듬한 비탈</b>이다 — 돌 등이 개울 쪽으로 기울어 있고 흰 돌이 그 위에 얹혀 아래쪽 모서리만 닿았다. 그 너머 꼭대기 빈자리에 하늘. 널판, 아래 흐르는 개울물. 글자·숫자·간판 없음
+<b>톤</b> 볕이 옆에서 낮게 들어와 비탈면 전체에 같은 방향의 그늘을 긋는다. 🔴 <b>흰 돌이 얹힌 면의 기울기</b>가 화면에서 가장 또렷한 각도가 되도록 — 아직 아무 일도 안 일어났는데 이미 위태롭게 보이게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>또르르, 또르르.
+흰 돌이 비탈을 타고 미끄러져 내려가요.
+수달이 손을 뻗은 채 굳었어요.
+"어? 돌이 전부 비스듬해요!"</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 살짝 하이앵글 · 화면 위 왼쪽에 뻗은 두 손, 그 아래로 굴러 내려가는 흰 돌
+<b>장소·시간</b> 같은 나무 틀 위. 같은 한낮
+<b>인물</b> 화면 위 왼쪽 — 수달이 엎드린 자세 그대로 <b>두 손을 허공에 뻗은 채 굳었다</b>, 손가락이 활짝 벌어졌고 잡으려다 놓친 모양이다, 얼굴이 아래로 돌아가 눈이 커졌고 입이 벌어졌으며 수염이 뻗었다
+<b>배경·소품</b> 🔴 흰 돌이 <b>비탈진 돌 등을 타고 아래로 굴러 내려가는 중</b>이다 — 지나온 자리에 돌가루가 얇게 쓸린 자국이 남았고 모서리가 방금 한 번 튀었다. 🔴 그 아래는 <b>널판이 깔린 나무 틀</b>이라 떨어져도 물에 안 빠진다는 것이 화면에 보인다. 개울물은 화면 아래 가장자리에만. 글자·숫자·간판 없음
+<b>톤</b> 흰 돌이 화면에서 유일하게 밝고 움직이는 것이라 눈이 그것만 따라 내려간다. 🔴 <b>손과 돌 사이에 벌어진 빈 공간</b>이 이 쪽의 전부 — 닿지 않는 거리가 보이도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>수달이 물가로 첨벙첨벙 내려왔어요.
+맨 아래 돌은 반듯하게 박혀 있어요.
+"여기 놓을래요! 여기가 제일 먼저 밟는 데니까요!"
+수달이 그 돌을 두 손으로 잡아당겼어요.</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 · 로우앵글 · 화면 오른쪽에 쭈그린 수달의 뒷모습과 두 손, 그 앞에 다리가 시작되는 맨 아래 돌
+<b>장소·시간</b> 같은 개울, 왼쪽 물가에서 다리가 시작되는 자리. 해가 조금 기운 오후
+<b>인물</b> 화면 오른쪽 — 수달이 얕은 물에 뒷발을 담그고 <b>쭈그려 앉아 두 손으로 맨 아래 돌의 모서리를 붙잡고 몸 쪽으로 잡아당긴다</b>, 엉덩이를 뒤로 빼고 팔에 힘이 들어가 어깨가 올라갔으며 꼬리가 물에 잠겨 뻗었다, 뒷모습이라 얼굴은 안 보이고 버티는 등만 보인다. 화면 왼쪽 뒤 — 스라소니가 널판 위에서 이쪽을 내려다본다, 손을 뻗지 않는다
+<b>배경·소품</b> 🔴 맨 아래 돌만 <b>바닥에 반듯하게 놓여 있고</b>, 그 위로 돌들이 비스듬히 기대어 줄줄이 올라간다 — <b>밑돌 하나가 그 줄 전체를 받치고 있다는 것</b>이 한 화면에 보이도록. 방금 흰 돌이 떨어진 자리에 흰 돌이 놓여 있다. 개울물이 발목까지. 글자·숫자·간판 없음
+<b>톤</b> 아래서 올려다본 각도라 돌 줄이 화면 위로 높다랗게 뻗어 올라간다. 🔴 <b>당기는 두 손과 그 위에 얹힌 돌 줄이 하나로 이어져 보이도록</b> — 손끝의 힘이 어디까지 닿는지가 구도로 읽히게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>쓰르륵!
+위에 있던 돌 세 개가 줄줄이 미끄러져 내려와요.
+나무 틀이 돌을 다 받아 냈어요.
+"으앗!" 수달이 엉덩방아를 찧었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 다리 놓는 자리 전체가 한 화면에, 화면 아래 오른쪽에 주저앉은 수달
+<b>장소·시간</b> 같은 개울, 왼쪽 물가. 같은 오후
+<b>인물</b> 화면 아래 오른쪽 — 수달이 <b>얕은 물에 엉덩방아를 찧고 두 다리를 벌린 채 주저앉았다</b>, 손에 빼낸 돌이 아직 들려 있고 물이 사방으로 튄다, 눈과 입이 동그랗게 벌어졌으며 젖은 털이 얼굴에 붙었다. 화면 가운데 위 — 스라소니가 널판 위에서 몸을 돌려 아래를 보지만 뛰어오지는 않는다, 팔을 늘어뜨렸다
+<b>배경·소품</b> 🔴 밑돌이 빠진 자리 위로 <b>돌 세 개가 줄줄이 미끄러져 내려오는 중</b>이다 — 서로 붙은 채 비스듬히 흘러내리고 돌가루가 흩날린다. 🔴 그 아래 <b>널판 깔린 나무 틀이 돌을 그대로 받아 낸다</b>(물로 떨어지는 돌은 하나도 없다). 나머지 돌 줄은 그대로 얹혀 있다. 튄 물방울. 글자·숫자·간판 없음
+<b>톤</b> 흘러내리는 돌 셋과 흩날리는 돌가루에만 움직임을 몰아 두고 나머지는 조용하다. 🔴 <b>무섭지 않게</b> — 돌이 닿는 자리마다 넓고 튼튼한 나무가 받치고 있어, 떨어지는 것이 아니라 미끄러져 멈추는 것으로 보이도록. 볕은 밝고 물은 맑게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>스라소니가 돌을 하나씩 주워 올렸어요.
+아래부터 차례차례 제자리에 얹었어요.
+"다시 놓으면 돼."
+다리가 아까 모습으로 돌아왔어요.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 어깨너머(수달 쪽에서 스라소니의 두 손을 넘겨다본다) · 화면 가득 손과 돌
+<b>장소·시간</b> 같은 개울, 다리가 시작되는 자리. 같은 오후
+<b>인물</b> 화면 가운데 — 스라소니의 <b>두 손만</b> 프레임에 크게 든다, 한 손이 돌을 받쳐 들고 다른 손이 그 옆면을 아래 돌에 맞대어 밀어 붙이는 중이다, 손등에 흙과 돌가루가 앉았고 손가락 마디가 굵다. 화면 아래 가장자리 — 수달의 젖은 머리 뒤통수와 귀 하나만 걸린다(아직 물에 앉은 채 올려다본다)
+<b>배경·소품</b> 🔴 밑돌은 이미 제자리로 돌아갔고 그 위에 <b>한 개가 막 맞대어지는 참</b>, 나머지 두 개가 널판 위에 나란히 놓여 차례를 기다린다. 흰 돌은 옆쪽 널판에 굴러가 있다. 돌가루. 글자·숫자·간판 없음
+<b>톤</b> 오후 볕이 옆에서 들어와 맞닿는 두 돌의 이음매에 가느다란 그늘 한 줄을 긋는다. 🔴 서두르지 않는 손 — 힘이 아니라 <b>자리를 맞추는 손</b>으로 보이도록, 화면에 급한 것이 하나도 없게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>수달이 두 줄 사이 빈 데를 찾았어요.
+나무 틀 바닥에 흰 돌을 가만히 내려놓았어요.
+"여기 놓을래요! 여기는 안 미끄러지니까요!"
+그런데 돌 위가 텅 비었어요. 손가락이 쏙 들어가요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 · 화면 아래에 널판 위의 흰 돌, 그 위로 뻗은 수달의 한 손
+<b>장소·시간</b> 같은 개울, 두 돌 줄 사이 나무 틀 위. 해가 더 기운 오후
+<b>인물</b> 화면 오른쪽 — 수달이 <b>널판에 무릎을 꿇고 앉아 한 손을 흰 돌 위 허공에 넣었다</b>, 손가락 셋이 돌과 위쪽 돌 줄 사이 빈 공간을 그대로 통과해 흔들린다, 다른 손은 흰 돌 옆면을 짚었고 고개를 갸웃 기울였다, 눈썹이 가운데로 모이고 입이 작게 벌어졌다
+<b>배경·소품</b> 🔴 흰 돌이 <b>널판 바닥에 반듯하게 놓여 있고 위로는 아무것도 안 닿는다</b> — 돌 윗면과 위쪽 돌 줄 사이가 팔 하나만큼 비었다. 그 빈 공간이 화면 가운데를 차지한다. 널판 결, 아래로 흐르는 개울물. 글자·숫자·간판 없음
+<b>톤</b> 오후 볕이 비스듬히 들어와 흰 돌 윗면을 밝히고 그 위 빈 공간에는 아무 그림자도 안 진다. 🔴 <b>안 미끄러지지만 아무 데도 안 닿는다</b>는 것이 손가락이 들어간 빈틈 하나로 읽히도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>수달이 나무 틀 위에 벌러덩 누웠어요.
+위를 보니 아치 안쪽이 둥그렇게 이어져 있어요.
+돌, 돌, 돌… 그런데 한 군데가 환해요.
+수달이 눈을 깜빡깜빡했어요.</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 🔴 <b>익스트림 로우앵글(수달이 누워서 보는 시점)</b> · 화면 위쪽 전체가 아치 안쪽, 화면 아래 가장자리에 수달의 이마와 코끝
+<b>장소·시간</b> 같은 개울, 나무 틀 위 널판에 누운 자리. 같은 오후
+<b>인물</b> 화면 아래 가장자리 — 수달이 <b>널판에 등을 대고 벌러덩 누웠다</b>, 두 팔을 옆으로 늘어뜨렸고 젖은 꼬리가 널판에 축 펴졌으며, 프레임에는 이마와 코끝과 크게 뜬 눈 하나만 걸린다, 수염이 위를 향해 뻗었다
+<b>배경·소품</b> 🔴 화면 위쪽에 <b>아치 안쪽 곡선이 왼쪽 아래에서 오른쪽 아래로 둥글게 이어진다</b> — 사다리꼴 돌들의 좁은 아랫면이 부챗살처럼 나란히 늘어섰고 이음매마다 어두운 선이 지난다. 🔴 <b>그 줄 한가운데 꼭대기에만 돌이 없어 하늘이 환하게 새어 든다</b> — 아래가 좁고 위가 넓은 사다리꼴 구멍 하나다. 다른 데는 전부 막혔다. 글자·숫자·간판 없음
+<b>톤</b> 아치 안쪽은 그늘이라 어둡고 🔴 <b>구멍 하나만 새하얗게 빛난다</b> — 어두운 부챗살 한가운데에 밝은 조각 하나. 열 쪽 만에 처음으로 화면에서 눈이 갈 데가 딱 한 군데뿐이도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>"여기밖에 없어요!"
+수달이 벌떡 일어나 꼭대기를 가리켰어요.
+"구멍이 딱 하나예요! 한가운데요!"
+스라소니가 눈썹을 쓱 올렸어요.</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 · 로우앵글 · 화면 왼쪽에 벌떡 일어나 팔을 뻗은 수달, 오른쪽에 고개를 든 스라소니
+<b>장소·시간</b> 같은 개울, 나무 틀 위 널판. 같은 오후
+<b>인물</b> 화면 왼쪽 — 수달이 <b>널판 위에 벌떡 일어서서 한 팔을 곧게 위로 뻗어 꼭대기를 가리킨다</b>, 발끝이 들리고 몸이 뒤로 젖혀졌으며 꼬리가 위로 곧게 섰다, 입이 크게 벌어지고 눈이 반짝인다, 젖은 털이 아직 뭉쳐 있다. 화면 오른쪽 — 스라소니가 돌 줄 앞에서 고개를 들어 뻗은 손끝을 따라 위를 본다, <b>눈썹 한쪽이 올라갔고 그것 말고는 표정이 그대로다</b>(🔴 웃지도 설명하지도 않는다), 한 손은 아직 돌 위에 얹혀 있다
+<b>배경·소품</b> 🔴 뻗은 손끝 끝에 <b>꼭대기 빈자리와 그 너머 하늘 한 조각</b>. 널판 위에 놓인 흰 돌. 양쪽 돌 줄. 글자·숫자·간판 없음
+<b>톤</b> 오후 볕이 뒤에서 들어와 뻗은 팔과 세운 꼬리를 밝게 세운다. 🔴 <b>화면의 모든 선이 한 점(꼭대기 빈자리)으로 모이도록</b> — 앞 쪽에서 눈이 찾은 자리를 이번엔 손이 가리킨다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>수달이 흰 돌을 구멍에 대고 꾹 밀어 넣었어요.
+위가 넓고 아래가 좁아서 쏙 들어가 딱 걸렸어요.
+수달이 두 손을 살며시 뗐어요.
+안 미끄러져요. 그대로 있어요!</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 익스트림 클로즈업 · 살짝 로우앵글 · 화면 가득 꼭대기 구멍과 그 안에 들어간 흰 돌, 아래에 방금 떨어진 두 손
+<b>장소·시간</b> 같은 개울, 꼭대기 바로 앞. 같은 오후
+<b>인물</b> 화면 아래 — 🔴 <b>수달의 두 앞발만</b> 프레임에 든다, 손바닥이 아직 돌 아랫면 모양으로 오므라진 채 <b>돌에서 손가락 한 마디쯤 떨어져 멈췄다</b>, 손끝에 돌가루가 묻었고 마디에 힘이 남아 있다
+<b>배경·소품</b> 🔴 흰 돌이 <b>꼭대기 구멍에 끝까지 들어가 양옆 돌과 면이 맞았다</b> — 아래로 갈수록 좁아지는 구멍에 아래가 좁은 돌이 맞물려 <b>더 내려갈 데가 없다</b>, 양옆 이음매에 그늘 선이 얇게 지고 아래로 새던 하늘이 완전히 막혔다. 흰 면의 조개 무늬가 바깥을 향한다. 글자·숫자·간판 없음
+<b>톤</b> 누런 회색 돌들 사이에서 <b>갓 끼운 흰 면 하나만 환하다</b>. 🔴 열두 쪽 내내 미끄러지고 흘러내리고 헛돌던 것이 여기서 딱 멈춘다 — 화면 안에서 움직이는 것이 하나도 없고, 손만 조금 물러나 있도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>스라소니가 나무 쐐기를 나무 메로 툭툭 쳤어요.
+나무 틀이 스르르 내려앉았어요.
+돌들이 서로 꽉 밀며 자리를 잡았어요.
+"이제 나무를 빼도 돼."</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 화면 오른쪽에 쐐기를 치는 스라소니, 왼쪽 물가에 지켜보는 수달, 가운데에 돌 아치와 나무 틀
+<b>장소·시간</b> 같은 개울, 나무 틀 기둥 아래. 해가 낮아진 늦은 오후
+<b>인물</b> 화면 오른쪽 — 스라소니가 무릎을 굽혀 자세를 낮추고 <b>나무 메로 기둥 밑 쐐기를 옆에서 쳐 넣는 참</b>이다, 두 손으로 메 자루를 잡았고 어깨가 앞으로 나왔으며 눈은 쐐기 한 곳만 본다. 화면 왼쪽 물가 — 수달이 얕은 물에 서서 두 손을 입에 대고 위를 올려다본다, 발끝을 들고 꼬리가 물에 잠긴 채 굳었다, 눈이 크게 떠졌다
+<b>배경·소품</b> 🔴 나무 틀이 <b>한 뼘 내려앉아 돌 아치 아랫면과 나무 틀 사이에 가느다란 틈 한 줄이 벌어졌다</b> — 이제 돌은 나무에 안 얹혀 있고 저희끼리 맞물려 서 있다. 빠져나온 쐐기 한 개가 물에 떨어져 떠간다. 꼭대기 한가운데에 흰 돌. 글자·숫자·간판 없음
+<b>톤</b> 낮아진 볕이 개울을 따라 길게 눕고, 벌어진 틈 한 줄에만 어두운 선이 지난다. 🔴 <b>다리가 무엇에 얹혀 있는지가 바뀐 순간</b>이 그 틈 하나로 보이도록 — 아직 나무는 다 안 빠졌지만 다리는 이미 제 힘으로 서 있다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p14 · 본문</span>수달이 개울로 첨벙 내려가 뒤로 물러났어요.
+나무는 다 빠지고, 다리 아래로 초록 물이 훤히 흘러가요.
+누런 돌들 한가운데에 흰 돌이 딱 하나.
+"제가 맨 마지막에 놓았는데!"</div>
+  </div>
+  <div class="sc"><span class="n">p14 · SCENE</span><b>컷</b> 와이드 · 로우앵글 · 개울 한가운데 물속에서 다리를 올려다본다, 화면 아래 앞에 등을 보인 작은 수달
+<b>장소·시간</b> 같은 개울, 다리 아래쪽 물 한가운데. 해가 산등성이에 걸린 저녁
+<b>인물</b> 화면 아래 가운데 — 수달이 발목까지 오는 물에 서서 <b>등을 보인 채 고개를 한껏 젖혀 다리를 올려다본다</b>, 두 팔을 옆으로 늘어뜨렸고 젖은 꼬리가 물 위에 떠 있다, 얼굴은 안 보이고 곧게 선 귀와 젖혀진 고개만 보인다. 화면 오른쪽 물가 — 스라소니가 빼낸 통나무를 자갈밭으로 끌어 올리는 중이다, 이쪽을 보지 않는다
+<b>배경·소품</b> 🔴 <b>다리 아래가 텅 비었다</b> — 나무 틀도 기둥도 쐐기도 없고, 아치 밑으로 에메랄드빛 물과 건너편 물가가 훤히 보인다(p1 에서 나무로 빽빽하던 자리다). 🔴 <b>누런 회색 돌들 한가운데 꼭대기에 흰 돌이 딱 하나</b> 박혀 있고 저녁 볕이 그 면에만 걸린다. 물가 자갈밭에 눕혀진 통나무 몇, 뒤로 낮은 산등성이. 글자·숫자·간판 없음
+<b>톤</b> 저녁 볕이 낮게 들어와 돌 아치는 대부분 그늘에 잠기고 🔴 <b>꼭대기 흰 돌 한 점만 밝다</b> — 아래에서 올려다본 화면이라 그 한 점이 가장 높고 가장 가운데에 온다. 🔴 p1 과 정확히 반대인 화면: 그때는 가운데가 뚫려 있고 아래가 나무로 꽉 찼는데, 지금은 가운데가 채워지고 아래가 텅 비었다</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'h10',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 수달(이름 없음 · 석공 견습)', '늙은 스라소니 석공(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=43defebe18a6c159"></script>
+<script src="/changjak-core.js?v=43defebe18a6c159"></script>
+</body>
+</html>

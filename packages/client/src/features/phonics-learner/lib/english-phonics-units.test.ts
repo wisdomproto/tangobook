@@ -46,7 +46,7 @@ describe('english phonics units', () => {
     for (const r of reviews) {
       const acts = getEnglishActivityPlan(r.id).activities;
       expect(acts.map((a) => a.kind)).toEqual([
-        'review-maze',
+        'letter-hunt',
         'review-flip',
         'review-syllable-listen',
         'review-match',
@@ -71,10 +71,44 @@ describe('english phonics units', () => {
     expect(b2.map((c) => c.letter)).toEqual(['an', 'at', 'ap', 'ad', 'am']);
   });
 
+  /**
+   * 🔴 **쓰기 활동이 plan 에 있어야 라우트로 도달한다**(2026-07-29). 컴포넌트는 원래부터 있었고
+   *    호스트도 그 kind 를 다루고 있었는데, plan 이 키를 안 만들어서 **아무도 못 여는 화면**이었다.
+   *    한글 단원은 `배우기 → 써보기` 로 나뉘어 있어 영어만 쓰기 카드가 없는 모양이었다.
+   */
+  it('영어 단원에도 쓰기 카드가 있다 (Book 1 글자쓰기 · Book 2 패턴쓰기)', () => {
+    const b1 = getEnglishActivityPlan('en-b1-u01').activities;
+    const write = b1.find((a) => a.kind === 'alphabet-letter-write');
+    expect(write?.letters).toEqual(['A', 'B', 'C']);
+    // 배우기 다음에 온다 — 듣고 고르기까지 하고 나서 쓴다.
+    expect(b1.findIndex((a) => a.kind === 'alphabet-letter-write')).toBeGreaterThan(
+      b1.findIndex((a) => a.kind === 'alphabet-letter-learn')
+    );
+
+    const b2 = getEnglishActivityPlan('en-b2-u01').activities;
+    const writes = b2.filter((a) => a.kind === 'cvc-pattern-write');
+    expect(writes.length).toBe(b2.filter((a) => a.kind === 'cvc-pattern-learn').length);
+    // 패턴마다 [배우기 → 써보기] 짝이다.
+    expect(writes[0].cvcPattern?.vc).toBe(
+      b2.find((a) => a.kind === 'cvc-pattern-learn')!.cvcPattern?.vc
+    );
+  });
+
   it('Book 1 듣고 고르기는 글자만 쓴다 (단어 철자 X)', () => {
     const acts = getEnglishActivityPlan('en-b1-u01').activities;
     const listen = acts.find((a) => a.kind === 'word-listen-choose')!;
     // 🔴 보기를 flashcard 가 아니라 단원 글자에서 만든다 — 그래서 그림 자산 없이도 동작한다
     expect(listen.letters).toEqual(['A', 'B', 'C']);
+  });
+
+  /**
+   * 🔴 Book 1 은 글자가 단위라 블록이 한 칸이고, 그 한 칸 채우기는 바로 앞 「배우기 2」가 이미 시킨다.
+   *    Book 2 부터는 낱말을 통째로 조립하므로 남긴다.
+   */
+  it('영어 블록 게임은 Book 2 부터만 나온다', () => {
+    const b1 = getEnglishActivityPlan('en-b1-u01').activities.map((a) => a.kind);
+    expect(b1).not.toContain('game-english-block');
+    const b2 = getEnglishActivityPlan('en-b2-u01').activities.map((a) => a.kind);
+    expect(b2).toContain('game-english-block');
   });
 });

@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>C-02 소가 아는 길 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · C · 자연·계절·동물 · 02</div>
+  <h1>소가 아는 길</h1>
+  <div class="sub">안개가 덮인 산에서 나는 길을 잃었는데, 소는 안 잃었어요</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 관찰과 성장</span>
+  <span>무대 · 알프스 목초지 (해 질 녘 비탈)</span>
+  <span>후렴 · "나만 따라와!" (p1·p3·p4 개의 말) → p12 에서 "내일은 어디로 가?" 로 뒤집힌다</span>
+  <span class="q">12스프레드</span>
+  <span class="q">본문 681자 · 쪽당 57자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- 🔴 <b>이 권은 「관찰과 성장」 엔진 개통 시험작이다.</b> 이 엔진이 막혀 있던 이유는 하나 — <b>끝이 「배웠어요」로 흐른다</b>. 그래서 이 권은 성장을 <b>문장으로 한 줄도 쓰지 않는다.</b> 마지막 쪽에서 달라지는 것은 딱 하나, <b>개가 서 있는 자리</b>다(앞 → 뒤). 아이는 그림 두 장(p1·p12)만 나란히 놓아도 무엇이 바뀌었는지 안다.<br>
+- 🔴 <b>엔진 실행 = 같은 것을 세 번, 매번 다르게.</b> 「소가 우뚝 멈춰 코를 대는 것」 하나를 세 번 그린다. 바뀌는 건 소가 아니라 <b>개의 자리와 자세</b>다 — ①p3 소 앞에서 뱅뱅 돌며 짖는다(굼떠서 답답하다) ②p8 소 다리 옆에서 고개를 갸웃한다(이상하다) ③p9 소 옆에 나란히 코를 땅에 바짝 댄다(같이 본다). 🔴 <b>세 번이 다 다르게 그려진다</b> — e03 이 「같은 짓 세 번」으로 걸린 자리를 이렇게 피했다.<br>
+- 🔴 <b>소만 아는 표시는 전부 실제로 있는 것이다.</b> ①소들이 매일 몸을 비벼 이끼가 벗겨지고 반들반들해진 바위 ②거기 붙어 남은 밤색 털 몇 가닥 ③풀이 두 줄로 납작 눕고 발굽 자국이 줄지어 파인 좁은 소길. 마법도 육감도 없고, <b>아이가 그림에서 눈으로 찾을 수 있다.</b><br>
+- 🔴 <b>소는 말하지 않는다.</b> 소가 「여긴 내가 다니는 길이야」라고 한마디만 하면 이 권은 끝난다 — 관찰이 남의 설명으로 바뀌기 때문이다. 소는 음메 하고 낮게 울 뿐이고, <b>알아보는 일은 전부 개가 제 코로 한다.</b> (c37 의 불가사리·c60 의 엄마가 사실을 말해 주는 엔진과 여기가 갈린다.)<br>
+- 🔴 <b>안개는 날씨다.</b> ①보이는 거리가 줄고(p2 돌담이 중간에서 끊긴다) ②발밑만 남고(p5) ③소리가 먼저 오고(p6 저벅 소리 → 코가 나온다) ④바람에 걷힌다(p12). 넷 다 진짜다. 🔴 그리고 <b>안개는 개를 곤경에 넣는 장치일 뿐 답을 주지 않는다</b> — 답은 걷힌 뒤가 아니라 안개 한복판에서, 개가 땅에 코를 대는 순간에 나온다.<br>
+- 🔴 <b>c60(웨일스 언덕·안개)과 겹치지 않게 세 곳을 비틀었다.</b> ①<b>방울을 아예 안 쓴다</b>(c60 은 방울 소리를 따라간다 — 이 권의 표시는 소리가 아니라 <b>땅에 남은 자국</b>이다) ②c60 은 눈이 배신해서 마지막에 눈을 감지만, 이 권은 <b>눈이 처음으로 제 일을 한다</b> ③c60 은 잃어버린 무리를 되찾는 이야기, 이 권은 <b>줄곧 옆에 있던 상대를 다시 보는 이야기</b>다.<br>
+- 🔴 <b>후렴이 착지의 부품이다.</b> 「나만 따라와!」가 p1·p3·p4 에 세 번 나오고, p12 에서 같은 개의 입으로 <b>"내일은 어디로 가?"</b> 가 된다. 명령이 물음이 된 것 — 교훈 문장 없이 이 한 줄이 착지를 닫는다.<br>
+- 🔴 <b>착지 카드 = 따라가기가 뒤바뀜.</b> 안개가 걷혀 길이 훤히 보이는데도 개가 앞으로 안 나선다는 것이 핵심이다 — <b>따라갈 이유(안 보임)가 사라진 뒤에도 순서가 그대로</b>여야 바뀐 것이 바뀐 채로 읽힌다.<br>
+- 🔴 <b>12쪽.</b> 평상(1) 안개(1) 1회(1) 혼자 달림·길 잃음(2) 소가 옴·붙음(2) 2회(1) 3회(1) 뒤집힘(1) 뒤바뀜(1) 착지(1). p9(코를 대고 본다)와 p10(벌떡 일어나 외친다)은 <b>한 인물이 두 자세</b>라 한 쪽에 못 넣는다.<br>
+- 🔴 <b>장소는 비탈 하나.</b> 외양간도 집도 그리지 않는다 — p12 에 지붕이 저 아래 <b>보이기만</b> 하고 카메라는 끝까지 비탈에 있다.<br>
+- 🔴 <b>의인화 등급 고정</b> — 개도 소도 네 발이고 옷이 없다. 개는 말하고(짖고) 소는 음메만 한다. 개가 「일어선다」고 쓴 자리(p10)는 <b>앞발을 땅에서 떼는 정도</b>이지 두 발로 서는 것이 아니다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>"이쪽이야! 나만 따라와!"
+새끼 개가 앞장서서 폴짝폴짝 뛰어요.
+뒤에서 소가 저벅저벅 따라와요.
+해가 산 뒤로 슬슬 내려가요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 화면 왼쪽 앞에 앞장선 개, 오른쪽 뒤에 따라오는 소 — 🔴 <b>개가 앞, 소가 뒤라는 순서가 한눈에 읽히는 구도</b>(p12 에서 이 순서가 뒤집힌다)
+<b>장소·시간</b> 풀이 짧게 깔린 알프스 목초지 비탈, 아래로 완만하게 이어진다. 해가 산 능선에 걸린 저녁, 멀리 등성이까지 다 보인다
+<b>인물</b> 화면 왼쪽 앞 — 크림빛 흰 털에 회색 귀를 가진 새끼 개가 네 발로 통통 튀어 오르며 고개를 뒤로 돌려 짖는다, 앞다리 둘이 땅에서 떴고 꼬리가 위로 곧게 섰다, 입이 크게 벌어져 신났다. 화면 오른쪽 뒤 — 🔴 <b>밤색 등털의 소</b>가 고개를 반쯤 숙인 채 네 발로 천천히 걸어온다, 걸음 폭이 넓고 느긋하다, 귀 하나만 개 쪽으로 돌아갔다(🔴 목에 방울은 없다)
+<b>배경·소품</b> 비탈을 가로지르는 낮은 돌담, 여기저기 이끼 앉은 회색 바위 몇, 풀에 길게 누운 저녁 그림자, 아래쪽 골짜기는 아직 훤하다
+<b>톤</b> 낮게 깔린 주황빛 저녁 햇빛. 🔴 <b>소의 밤색 등이 화면에서 가장 따뜻하고 진한 색</b>이라 눈이 소에게 먼저 가고, 그 앞의 흰 개는 밝게 튄다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>골짜기에서 하얀 것이 스멀스멀 올라와요.
+안개예요.
+저 아래 돌담이 뚝 끊겼어요.
+"괜찮아, 내가 길을 아니까!"
+개가 코를 쳐들고 컹, 짖었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 화면 아래 절반이 이미 흰 안개, 위 절반은 아직 초록 비탈
+<b>장소·시간</b> 같은 비탈, 골짜기 쪽을 내려다보는 방향. 해가 막 넘어간 저녁
+<b>인물</b> 화면 가운데 왼쪽 — 개가 네 발로 버티고 서서 턱을 위로 쳐들고 짖는다, 앞가슴이 앞으로 나오고 꼬리가 뻣뻣하게 섰다, 입이 동그랗게 벌어졌다. 화면 오른쪽 뒤 — 소가 걸음을 멈추지 않고 그대로 아래를 향해 내려간다, 고개가 낮다
+<b>배경·소품</b> 🔴 <b>비탈을 가로지르던 돌담이 화면 가운데쯤에서 흰 안개에 먹혀 뚝 끊긴다</b>, 그 아래로는 아무것도 안 보인다, 풀 끝마다 물방울이 맺히기 시작한다, 위쪽 등성이는 아직 또렷하다
+<b>톤</b> 아래는 새하얗고 위는 젖은 초록. 🔴 <b>한 화면에 「보이는 쪽」과 「지워진 쪽」이 같이 있어야</b> 안개가 무엇을 하는지 아이가 안다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>소가 우뚝 멈췄어요.
+커다란 바위에 코를 대고 킁킁 맡아요.
+개는 소 앞에서 뱅뱅 돌며 짖었어요.
+"빨리 가자! 나만 따라오라니까!"</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 오른쪽에 멈춰 선 소와 바위, 왼쪽 앞에 뱅뱅 도는 개
+<b>장소·시간</b> 비탈 중턱 큰 바위 옆. 안개가 무릎 높이까지 올라온 저녁
+<b>인물</b> 화면 오른쪽 — 소가 네 발을 딱 짚고 멈춰 고개를 옆으로 숙여 바위에 코를 바짝 댄다, 콧구멍이 벌름거리고 눈이 반쯤 감겼다, 꼬리가 느리게 한 번 흔들린다. 화면 왼쪽 앞 — 개가 몸을 반으로 접듯 휘어 제자리를 돌며 소를 향해 짖는다, 앞발 한쪽이 들리고 귀가 뒤로 넘어갔다, 🔴 <b>바위 쪽은 쳐다보지도 않는다</b>
+<b>배경·소품</b> 🔴 <b>소가 코를 댄 바위 옆구리만 이끼가 벗겨져 반들반들 매끈하고, 거기 밤색 털 몇 가닥이 붙어 있다</b>(글에는 없다 — 그림에만 있는 단서), 바위 아래 풀이 짓눌려 흙이 드러났다, 개가 뱅뱅 돌며 남긴 어지러운 발자국, 발밑을 덮은 얕은 안개
+<b>톤</b> 바위의 벗겨진 자리와 밤색 털이 회색 화면에서 조용히 도드라지게 — 🔴 <b>독자만 보고 개는 못 보는 것</b>이라 크게 강조하지 말고 눈에 걸리기만 하도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>개는 혼자 앞으로 달려 나갔어요.
+"내가 먼저 갈게! 나만 따라오면 돼!"
+꼬리가 붕붕, 발이 통통 튀어요.
+하얀 안개가 개 앞을 스윽 덮었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 와이드 · 살짝 로우앵글 · 화면 왼쪽에서 오른쪽 아래로 달려 나가는 개, 그 앞은 흰 벽
+<b>장소·시간</b> 바위를 지나 아래로 이어지는 비탈. 안개가 가슴 높이까지 찬 저녁
+<b>인물</b> 화면 가운데 — 개가 네 발을 앞뒤로 쭉 뻗고 튀어 오르듯 달린다, 귀가 뒤로 날리고 꼬리가 크게 휘었다, 입을 벌리고 혀가 나왔다, 고개는 앞을 본다. 화면 왼쪽 끝 뒤 — 소의 뒷모습이 흐린 밤색 덩어리로 아주 조금 남아 있다(아직 바위 옆이다)
+<b>배경·소품</b> 🔴 <b>개가 달려 들어가는 화면 오른쪽은 이미 아무것도 없는 흰 벽</b>, 발밑 풀만 서너 가닥 또렷하다, 튀어 오른 물방울, 뒤로 남은 발자국 두어 개
+<b>톤</b> 왼쪽(소가 있는 쪽)은 아직 색이 조금 남고 오른쪽으로 갈수록 하얗게 지워진다. 🔴 <b>개가 색이 없는 쪽으로 스스로 들어간다</b>는 게 화면 구조로 읽히도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>개가 발을 딱 멈췄어요.
+보이는 건 발밑 풀 몇 가닥뿐이에요.
+고개를 홱 뒤로 돌렸어요.
+"어…? 아무것도 없잖아!"
+"어느 쪽이지?"</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 살짝 하이앵글 · 온통 흰 화면 한가운데 작은 개 하나
+<b>장소·시간</b> 비탈 어디쯤. 안개가 가장 짙은 몇 분, 시야는 두 걸음
+<b>인물</b> 화면 가운데 — 개가 네 발을 땅에 딱 붙이고 굳었다, 🔴 <b>몸은 앞을 향한 채 목만 홱 뒤로 꺾어</b> 지나온 쪽을 본다, 귀 두 개가 서로 다른 방향으로 돌아갔고 눈이 크게 떠졌다, 꼬리가 다리 사이로 내려갔다
+<b>배경·소품</b> 🔴 <b>화면의 거의 전부가 흰 안개다</b> — 개 발밑 젖은 풀 몇 가닥과 작은 돌 하나만 겨우 보이고, 한 발짝 너머는 아무것도 없다, 등털에 안개 물방울이 뽀얗게 맺혔다, 방금 찍힌 제 발자국 하나가 뒤쪽에서 흐릿하게 끊긴다
+<b>톤</b> 사방이 고르게 하얘서 위아래도 앞뒤도 없는 느낌. 🔴 <b>크림빛 흰 개가 흰 안개에 거의 묻혀</b> 몸의 테두리만 남도록 — 소의 밤색이 이 화면엔 없다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>저벅. 저벅.
+소리가 먼저 왔어요.
+하얀 안개에서 커다란 코가 쑥 나왔어요.
+"소야!"</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 · 로우앵글 · 화면 위쪽에서 안개를 뚫고 나오는 소의 얼굴, 아래에 작은 개
+<b>장소·시간</b> 같은 자리. 짙은 안개 속
+<b>인물</b> 화면 위 가운데 — 🔴 <b>소의 젖은 코와 얼굴 앞부분, 앞다리 윗부분만 안개 밖으로 나왔고 몸통과 등은 아직 흰 안개에 잠겨 흐리다</b>, 콧김이 하얗게 뻗고 큰 눈이 개를 내려다본다. 화면 아래 앞 — 개가 고개를 한껏 젖혀 올려다보며 네 발로 굳어 섰다, 귀가 번쩍 앞으로 서고 입이 벌어졌다, 꼬리가 이제 막 한 번 흔들리기 시작한다
+<b>배경·소품</b> 소의 발굽 넷이 젖은 풀을 깊이 눌러 자국이 파인다, 그 둘레로 밀려나는 안개 자락, 발밑 물기
+<b>톤</b> 🔴 <b>밤색 코가 흰 화면을 뚫고 들어온 유일한 따뜻한 색</b> — 이 쪽에서 색이 돌아온다. 아래서 올려다봐 소가 크고 개가 아주 작게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>개는 소 앞다리 사이로 쏙 파고들었어요.
+따뜻한 배에 얼굴을 부비부비.
+"나… 무서웠단 말이야."
+소가 음메— 하고 낮게 울었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 · 화면 가득 소의 앞다리 둘과 그 사이에 파고든 개
+<b>장소·시간</b> 같은 자리. 짙은 안개, 발밑만 보인다
+<b>인물</b> 화면 가운데 아래 — 개가 소의 두 앞다리 사이로 머리를 깊이 들이밀고 배에 얼굴을 비빈다, 눈을 꼭 감았고 귀가 납작하게 눕고 꼬리가 빠르게 흔들린다, 앞발 하나가 소의 발굽 위에 얹혔다. 화면 위 — 소가 고개를 아래로 길게 숙여 개의 등에 코를 대고 낮게 운다, 입이 조금 벌어졌다
+<b>배경·소품</b> 소의 밤색 배털과 개의 크림빛 털이 맞닿은 자리, 젖은 풀과 파인 발굽 자국, 둘을 둘러싼 흰 안개가 벽처럼 가깝다
+<b>톤</b> 둘이 닿은 자리가 가장 밝고 따뜻하게, 대비를 부드럽게 낮춰 숨이 놓이는 한 박이 되도록. 🔴 <b>화면에서 안개 아닌 것은 이 둘뿐</b></div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>그런데 소가 또 우뚝 멈췄어요.
+땅에 코를 대고 킁킁 맡아요.
+"지금은 안 돼! 빨리 가야 한단 말이야!"
+개가 고개를 갸웃했어요.
+"근데… 왜 자꾸 냄새를 맡지?"</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 오른쪽에 고개를 숙인 소, 왼쪽에 갸웃한 개 — 🔴 <b>p3 과 같은 사건인데 개의 자리와 자세가 다르다</b>(p3 은 소 앞에서 뱅뱅, 여기는 소 옆에서 멈춰 갸웃)
+<b>장소·시간</b> 비탈 아래쪽 어디쯤. 짙은 안개, 시야는 서너 걸음
+<b>인물</b> 화면 오른쪽 — 소가 네 발을 딱 짚고 멈춰 고개를 땅까지 내리고 코를 대 킁킁 맡는다, 콧구멍이 벌름거리고 귀가 앞으로 쏠렸다. 화면 왼쪽 — 개가 소 앞다리 옆에 나란히 서서 🔴 <b>고개를 한쪽으로 기울였다</b>, 입은 다물고 눈은 소의 코끝을 본다, 꼬리가 중간 높이에서 멈췄다, 앞발 하나가 들리다 만 채다
+<b>배경·소품</b> 🔴 <b>소가 코를 댄 자리 아래로 풀이 두 줄로 납작 눕고 그 위에 동그란 발굽 자국이 줄지어 파여 있다</b>(글에는 없다 — 그림에만 있는 단서), 옆에 이끼가 벗겨진 작은 바위 하나, 사방은 흰 안개
+<b>톤</b> 소의 코끝과 그 아래 눌린 풀 두 줄이 이 화면에서 가장 또렷하게. 🔴 <b>개의 시선이 처음으로 소의 코를 따라 아래로 내려간다</b>는 것이 눈동자 방향으로 읽히도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>개도 코를 땅에 바짝 댔어요.
+킁킁, 킁킁.
+풀이 두 줄로 납작 누웠어요.
+동그란 발자국이 줄줄이 파여 있어요.
+바위에는 밤색 털이 몇 가닥 붙어 있어요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 클로즈업 · 로우앵글에 가까운 땅 높이 · 화면 앞 가득 눌린 풀 두 줄과 발굽 자국, 그 위로 나란히 내려온 개의 코와 소의 코
+<b>장소·시간</b> 같은 자리. 짙은 안개, 보이는 것은 땅뿐
+<b>인물</b> 화면 왼쪽 — 개가 네 발을 벌리고 앞다리를 낮춰 코를 땅에 바짝 붙였다, 엉덩이가 들리고 꼬리가 위로 곧게 섰다, 눈은 뜬 채 자국 줄을 따라간다. 화면 오른쪽 위 — 소의 코와 아랫턱만 프레임에 들어와 같은 자리를 향해 내려와 있다, 🔴 <b>두 코가 같은 높이에 나란히</b>
+<b>배경·소품</b> 🔴 <b>풀이 두 줄로 납작 눌려 좁은 길처럼 이어지고, 그 안에 동그란 발굽 자국이 줄줄이 파여 안개 속으로 사라진다</b>, 길 옆에 이끼가 벗겨져 반들반들한 바위 하나와 🔴 <b>거기 붙은 밤색 털 몇 가닥</b>(p3 바위에 있던 것과 같은 색·같은 모양), 젖은 흙과 고인 물자국
+<b>톤</b> 땅만 또렷하고 위는 통째로 하얗다. 🔴 <b>밤색 털이 이 화면에서 유일한 색이고 소의 등털과 같은 색</b>이라, 글을 못 읽는 아이도 표시가 소에게서 온 것을 색으로 잇도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>개가 앞발을 번쩍 들었어요.
+"소야! 여기 길이 있어!"
+"네가 다닌 길이야!"
+꼬리가 세차게 흔들려요.</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 살짝 로우앵글 · 화면 왼쪽 앞에 앞발을 든 개, 오른쪽에 고개를 든 소
+<b>장소·시간</b> 같은 자리. 짙은 안개
+<b>인물</b> 화면 왼쪽 앞 — 개가 뒷발로 버티며 🔴 <b>앞발 둘을 땅에서 번쩍 들어 올렸다</b>(두 발로 서지는 않는다 — 뛰어오르는 순간이다), 고개를 소 쪽으로 돌려 입을 크게 벌리고 외친다, 귀가 앞으로 번쩍 서고 꼬리가 흔들려 잔상이 남는다, 눈이 반짝인다. 화면 오른쪽 — 소가 땅에서 고개를 들어 개를 본다, 귀 두 개가 다 개 쪽으로 돌아갔고 입을 우물거린다
+<b>배경·소품</b> 발밑에 여전히 눌린 풀 두 줄과 발굽 자국이 안개 속으로 이어지고, 옆에 반들반들한 바위와 밤색 털, 튀어 오른 물방울 몇
+<b>톤</b> 개의 얼굴과 들린 앞발이 가장 밝게. 🔴 <b>p5 에서 다리 사이로 내려갔던 꼬리가 여기서 제일 높이 올라가 있다</b> — 뒤집힘이 꼬리 높이로도 읽히도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>소가 그 길로 발을 뗐어요. 저벅, 저벅.
+이번엔 개가 뒤를 따라가요.
+발자국을 하나, 둘, 콩콩 밟으면서요.
+"천천히 가, 나 놓칠라!"</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 와이드 · 뒤에서 따라가는 시점 · 🔴 <b>화면 앞쪽에 소의 뒷모습, 그 뒤에 작은 개</b> — p1 의 순서가 여기서 처음 뒤집힌다
+<b>장소·시간</b> 눌린 풀길을 따라 내려가는 비탈. 안개가 조금 얇아진 저녁
+<b>인물</b> 화면 가운데 앞 — 소가 넓은 걸음으로 저벅저벅 내려간다, 뒷다리 하나가 들리고 꼬리가 한쪽으로 흔들린다, 등이 밤색으로 크게 화면을 차지한다. 화면 아래 뒤 — 개가 소의 꼬리 바로 뒤에서 콩콩 뛰듯 걷는다, 🔴 <b>코를 아래로 내리고 파인 발굽 자국을 하나씩 골라 밟는다</b>, 앞발 하나가 자국 한가운데에 딱 들어가 있다, 꼬리가 위로 섰다
+<b>배경·소품</b> 두 줄로 눌린 풀길이 화면 아래에서 위로 이어지고 그 위에 큰 발굽 자국과 그 안에 겹쳐 찍힌 작은 개 발자국, 길옆에 반들반들한 바위 하나가 지나간다, 안개가 얇아져 돌담 두어 칸이 보이기 시작한다
+<b>톤</b> 소의 밤색 등이 화면 한가운데를 채워 길잡이처럼 보이고, 그 뒤 작은 흰 개는 밝게. 🔴 <b>큰 자국 안에 작은 자국이 겹쳐 찍히는 것</b>이 이 쪽의 전부</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>바람이 휘잉— 안개를 걷어 갔어요.
+길이 훤히 다 보여요.
+그런데 개는 앞으로 안 나서요.
+소 꼬리 뒤에서 콩콩 걸으며 물었어요.
+"내일은 어디로 가?"</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 🔴 <b>p1 과 같은 비탈·같은 거리인데 앞뒤가 바뀌었다</b> — 화면 왼쪽 앞이 소, 그 뒤가 개
+<b>장소·시간</b> 같은 목초지 비탈, 아래쪽. 바람이 안개를 걷어 가는 순간, 해가 다 넘어가고 하늘만 아직 밝은 저녁
+<b>인물</b> 화면 왼쪽 앞 — 소가 네 발로 천천히 내려간다, 고개를 낮추고 귀 하나를 뒤로 돌려 개 쪽을 향한다, 밤색 등에 마지막 빛이 걸린다. 화면 오른쪽 뒤 — 개가 소 꼬리 바로 뒤에서 콩콩 따라 걸으며 고개를 위로 들어 묻는다, 입이 벌어지고 귀가 쫑긋 앞으로 섰다, 🔴 <b>앞으로 뛰어나가려는 자세가 아니다</b> — 네 발이 다 자국 안에 얌전히 놓였다
+<b>배경·소품</b> 🔴 <b>안개가 오른쪽에서 왼쪽으로 물러나며 걷힌 자리마다 초록 풀과 회색 돌담이 되살아난다</b> — 아까 뚝 끊겼던 돌담이 아래까지 쭉 이어지고, 눌린 풀 두 줄도 끝까지 훤히 보인다, 저 아래 골짜기에 목장 지붕이 작게 나타난다(카메라는 비탈에 그대로 있다), 길옆 반들반들한 바위 하나
+<b>톤</b> 걷힌 쪽이 확 밝고 가장자리에만 흰 자락이 남는다. 🔴 <b>길이 다 보이는데도 개가 뒤에 있다</b>는 것이 이 쪽의 전부 — p1 에서 앞장서 짖던 자리에 지금은 소가 있고, 개는 그 발자국 안을 걷는다</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'c02',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 개(이름 없음)', '소(이름 없음 · 🔴 말하지 않는다)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=43defebe18a6c159"></script>
+<script src="/changjak-core.js?v=43defebe18a6c159"></script>
+</body>
+</html>

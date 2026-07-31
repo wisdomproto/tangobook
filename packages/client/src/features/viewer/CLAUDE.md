@@ -29,6 +29,7 @@ features/viewer/
 
 ## 뷰어 동작
 
+- 🔴 **화면 잠금 방지 (`useWakeLock`, `@/lib/useWakeLock`, 2026-07-30)**: 뷰어는 나레이션(오디오)+이미지라 `<video>` 가 없어서, 유튜브와 달리 브라우저가 재생 중 화면을 끈다(사용자: "우리 동화 볼 때 자꾸 자동 화면 잠금"). ViewerContainer 최상단에서 `useWakeLock()` 로 Screen Wake Lock 을 잡는다(재생 여부 무관·단일/연속재생 공용). 탭 숨김→복귀 시 lock 이 자동 해제되므로 `visibilitychange` 로 재획득, API 없는 브라우저는 no-op. ⚠️ **자동 검증 불가**(패널 숨김 시 `request` 가 visibility 로 거부) — 태블릿 실측 필요.
 - **진입 시 TTS+이미지 버퍼링** → 완료 전 Mascot reading "준비 중" 로딩(`ttsReady` 게이트). `waitForTts` 는 **첫 페이지만** + `canplay`(readyState≥3) 대기(나머지 풀 백그라운드). **게이트엔 첫 페이지 이미지 로드(`new Image` onload)도 포함** — 음성/자막만 먼저 나오고 이미지가 늦게 뜨는 것 방지(`Promise.all([waitForTts, 첫이미지])`). **자동 넘김(`handleTtsEnded`)도 다음 페이지 이미지 onload 후 넘김**(캐시면 즉시, 상한 1.2s) → 빈 장면 방지. 완료 후 첫 페이지 + 자동재생(300ms). video/games/파닉스(비story) 는 버퍼링 skip.
 - TTS 끝나면 800ms 뒤 자동 페이지 넘김. **마지막 페이지** TTS 끝 or onNext → **RewardScreen/WordRevealScreen 오버레이** 표시(key_objects 있으면 WordReveal, 없으면 Reward). ⚠️ "BookDetailPage 자동 이동" 은 틀린 설명이었음(2026-07-01 정정).
 - **프리로드 풀 + 🔴 단일 재생 엘리먼트 (2026-07-16 in-app 브라우저 fix)**: `preloadTts` 가 현재+다음 페이지 TTS 를 풀(url→Audio)에 적재해 **HTTP 캐시 워밍**만 담당. **`playTts` 는 항상 하나의 재사용 엘리먼트(`ttsRef`)로 재생**(`ttsRef.src` 스왑) — 페이지마다 풀의 다른 Audio 를 재생하면 **인스타그램 등 인앱 WebView 가 제스처로 해금된 그 엘리먼트만 재생 허용**해서 2페이지째 차단→`ended` 미발화→자동넘김 멈춤(크롬/PWA 는 관대). 정상 뷰어 모드엔 stall-guard 없음(playlist 모드만). 이미지는 다음 5페이지 `new Image()`. TTS 는 immutable Cache-Control(재방문 캐시). → memory `inapp-browser-tts-and-mobile-fixes-2026-07-16` · `viewer-tts-buffering-2026-06-09`.

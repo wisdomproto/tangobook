@@ -25,7 +25,7 @@ import type {
   Storybook,
   DotKeypoint,
 } from '@tangobook/shared';
-import { decomposeWord, decomposeEnglishWord } from '@tangobook/shared';
+import { decomposeWord, decomposeEnglishWord, ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
 
 const MAX_ITEMS = 4;
 
@@ -178,6 +178,23 @@ function isAlphabetUnit(sb: Storybook): boolean {
   return /^en-b1-/.test(sb.id ?? '');
 }
 
+/**
+ * 알파벳 단원이 배우는 글자 — 블록 게임 하단 패널에 깔 목록.
+ *
+ * 🔴 **커리큘럼(`phonemes`)에서 가져온다.** 타겟 단어의 첫 글자로 뽑으면 그 단원 단어가 두 글자만
+ *    덮을 때 패널이 두 장이 되어 「ABC 배우기」인데 A 가 없다(실제로 그렇게 나왔다).
+ * 🔴 Book 2 부터는 **26자 전체**에서 고른다 — 그게 공부다(사용자 결정 2026-07-28). Book 1 만
+ *    3~4장으로 좁힌다: 아직 글자를 익히는 중이라 26자 훑기는 찾기 연습이 되어 버린다.
+ */
+function alphabetUnitLetters(sb: Storybook): string[] | undefined {
+  const id = sb.id ?? '';
+  for (const book of ENGLISH_PHONICS_CURRICULUM) {
+    const unit = book.units.find((u) => u.id === id);
+    if (unit) return unit.phonemes.map((p) => p.toLowerCase());
+  }
+  return undefined;
+}
+
 const ENGLISH_WORD_RE = /^[a-z]+$/i;
 const MAX_BLOCK_WORD_LEN = 6;
 
@@ -203,7 +220,9 @@ export function phonicsToEnglishBlockData(sb: Storybook): EnglishBlockData | nul
    * 🔴 패널 글자는 **단원 전체**에서 모은다 — `items` 는 이번 판에 뽑힌 4문제뿐이라
    *    b·c 만 걸리면 「ABC 배우기」인데 패널에 A 가 없다(실제로 그렇게 나왔다).
    */
-  const panelLetters = alphabet ? [...new Set(items.map((i) => i.word))].sort() : undefined;
+  const panelLetters = alphabet
+    ? (alphabetUnitLetters(sb) ?? [...new Set(items.map((i) => i.word))].sort())
+    : undefined;
   return {
     type: 'english-block',
     items: shuffle(items).slice(0, MAX_ITEMS),
