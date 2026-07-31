@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>F-05 아빠가 만든 이상한 저녁 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · F · 집·가족의 작은 사건 · 05</div>
+  <h1>아빠가 만든 이상한 저녁</h1>
+  <div class="sub">국은 짜고, 계란은 타고, 면은 다 붙었어요. 그런데 마지막 접시만 텅 비었어요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 누적·반복</span>
+  <span>무대 · 이탈리아 부엌</span>
+  <span>후렴 · "아빠, 이번엔 뭐예요?" (p2·p6·p9 세 번 · 늘 새 시도가 시작되는 쪽 앞머리 · 🔴 p12 에서 "아빠, 이거 더 없어요?" 로 바뀐다 — 이름을 묻는 말이 더 달라는 말이 된다)</span>
+  <span class="q">14스프레드</span>
+  <span class="q">본문 579자 · 쪽당 41자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- <b>실패를 나열하지 않았다.</b> 하나가 다음 것을 망친다 — 짠 국을 헹구려 물을 붓다 넘치고(p4·p5), 넘친 물의 김 때문에 계란 타는 걸 못 보고(p6·p7), 탄 냄새를 빼려 창가에 붙어 있는 동안 면이 붙는다(p8·p9). 아이가 추론할 것은 없다. 원인이 전부 화면 안에서 순서대로 일어난다.<br>
+- 🔴 <b>왜 마지막 것만 맛있는지 아무도 말하지 않는다.</b> 「애쓰지 않은 게 맛있다」는 문장은 한 줄도 없다. p14 에서 <b>가득한 접시 셋 옆에 빈 접시 하나</b>만 보여 준다.<br>
+- 불과 칼은 전부 아빠 손에 있고, 아기 오소리는 화덕 반대쪽 식탁 의자에서 한 번도 내려오지 않는다.<br>
+- 뒤집힘은 주인공(아기 오소리)의 대사다. p2·p6·p9 에서 세 번 <b>"이번엔 뭐예요?"</b> 하고 이름을 묻다가, p12 에서 이름은 묻지도 않고 <b>"더 없어요?"</b> 로 바뀐다.<br>
+- p11 의 빵·토마토는 p1 식탁 끝 바구니에 처음부터 놓여 있다. 아빠가 요리하는 내내 손도 안 댄 것이다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>"오늘 저녁은 아빠가 다 할게!"
+아빠 오소리가 앞치마 끈을 꽉 맸어요.
+아기 오소리는 의자 위로 폴짝 올라앉아요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 아이레벨, 부엌 한 칸이 통째로 들어오는 정면
+<b>장소·시간</b> 돌벽 이탈리아 시골집 부엌. 해가 막 기울기 시작한 저녁, 창문은 아직 밝다
+<b>인물</b> 화면 왼쪽 — 아빠 오소리가 장작 화덕 앞에 서서 두 앞발을 목 뒤로 올려 앞치마 끈을 매고 있다, 턱을 들고 자신만만한 표정. 화면 오른쪽 — 아기 오소리가 나무 식탁 의자에 앞발을 짚고 막 올라앉아 아빠 쪽으로 고개를 돌린다, 눈이 동그랗다
+<b>배경·소품</b> 장작 화덕 하나 · 그 위 빈 냄비 · 나무 식탁 하나 · 덧문 달린 창문 하나 · 천장에 마늘 다발. 🔴 식탁 끝에 토마토 세 알이 담긴 바구니와 빵 한 덩이(손도 안 댄 채, 이 권 내내 같은 자리)
+<b>톤</b> 창으로 든 저녁 빛이 식탁 위 토마토에만 빨갛게 고이고, 나머지는 돌벽의 미색 그대로</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>"아빠, 이번엔 뭐예요?"
+"국이지!"
+소금병을 톡톡 흔들자 뚜껑이 쏙 빠져요. 소금이 우르르—</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 클로즈업 · 살짝 위에서 냄비 속이 보이는 각도
+<b>장소·시간</b> 화덕 위 냄비 바로 앞. p1 에서 몇 분 뒤
+<b>인물</b> 화면 위쪽 — 아빠 오소리의 두 앞발만 크게 들어온다, 한 발은 소금병을 거꾸로 쥐고 톡톡 흔드는 중이고 뚜껑이 병에서 떨어져 나가 공중에 있다. 화면 오른쪽 아래 귀퉁이 — 아기 오소리의 귀 끝과 눈만 식탁 너머로 빼꼼
+<b>배경·소품</b> 김이 조금 오르는 냄비 하나 · 소금병 · 떨어지는 흰 소금 줄기. 그 밖은 비운다
+<b>톤</b> 화덕 불의 주황이 아래에서 올라오고, 쏟아지는 소금만 하얗게 밝다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>아빠가 국을 한 숟갈 맛봐요.
+"짜다!"
+숟가락을 든 채 혀를 쏙 내밀고 눈을 질끈 감아요.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨, 얼굴 정면
+<b>장소·시간</b> 같은 화덕 앞. 바로 다음 순간
+<b>인물</b> 화면 가운데 — 아빠 오소리가 혀를 쏙 내밀고 두 눈을 질끈 감았다, 한 앞발에는 아직 나무 숟가락이 들려 있고 다른 앞발은 목덜미에 가 있다. 화면 오른쪽 뒤 — 아기 오소리가 의자에 앉은 채 입을 벌리고 아빠를 본다
+<b>배경·소품</b> 나무 숟가락 · 냄비 가장자리. 배경은 돌벽 그대로
+<b>톤</b> 주황 불빛 하나로만 얼굴을 받친다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>아빠가 냄비에 물을 콸콸콸 부어요.
+하얀 거품이 가장자리까지 부글부글 차올라요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 · 살짝 로우앵글, 냄비 가장자리가 화면 아래를 가른다
+<b>장소·시간</b> 같은 화덕 앞. 잠시 뒤
+<b>인물</b> 화면 왼쪽 — 아빠 오소리가 두 앞발로 커다란 물주전자를 기울여 붓는다, 눈썹을 올리고 입을 오므린 「이러면 되겠지」 얼굴. 화면 오른쪽 아래 — 아기 오소리가 의자 등받이에 턱을 얹고 냄비 쪽을 본다
+<b>배경·소품</b> 물주전자 · 냄비 · 차오르는 흰 거품 테두리. 그 밖은 비운다
+<b>톤</b> 거품의 흰색이 화면에서 가장 밝다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>거품이 화덕 위로 쏴아—
+"으앗!"
+하얀 김이 확 피어올라 부엌이 뿌예요. 아빠가 두 팔로 얼굴을 가려요.</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 와이드 · 아이레벨 정면. p1 과 같은 구도(부엌이 하얗게 지워진 대조용)
+<b>장소·시간</b> 부엌 전체. 바로 다음 순간
+<b>인물</b> 화면 왼쪽 — 아빠 오소리가 두 앞발을 얼굴 앞에 X 자로 들어 올리고 상체를 뒤로 젖힌다, 귀가 뒤로 눕고 눈은 감겼다. 화면 오른쪽 — 아기 오소리가 의자 위에서 두 앞발로 식탁 모서리를 붙잡고 목을 쭉 뺀다
+<b>배경·소품</b> 화덕 위로 흘러넘친 물줄기 · 부엌 위쪽 절반을 채운 흰 김. 마늘 다발과 창문은 김에 반쯤 지워진다
+<b>톤</b> 화면 위 절반이 흰 김으로 날아가고, 아래쪽에만 주황 불빛이 남는다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>"아빠, 이번엔 뭐예요?"
+"계란!"
+뿌연 김 속에서 아빠가 팬에 계란을 톡 깨 넣어요.</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 · 아이레벨, 김 너머로 보는 어깨 뒤
+<b>장소·시간</b> 같은 화덕 앞. 김이 아직 걷히지 않은 때
+<b>인물</b> 화면 가운데 — 아빠 오소리가 한 앞발로 계란을 팬 가장자리에 톡 부딪쳐 깨고 있다, 김 때문에 눈을 가늘게 뜬 채. 화면 오른쪽 아래 — 아기 오소리는 김에 가려 귀 두 개만 보인다
+<b>배경·소품</b> 팬 하나 · 계란 껍데기 · 화면 전체를 덮은 흰 김. 다른 소품은 김 속에 지운다
+<b>톤</b> 온통 뿌연 흰색 · 팬 아래 주황만 겨우 비친다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>김이 걷히자 계란이 새까매요.
+"어? 어어!"
+아빠가 팬을 번쩍 들어 올려요. 치이익—</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 클로즈업 · 하이앵글, 팬 속이 정면으로 보인다
+<b>장소·시간</b> 같은 화덕 앞. 김이 걷힌 직후
+<b>인물</b> 화면 위 — 아빠 오소리가 두 앞발로 팬 손잡이를 잡고 번쩍 들어 올렸다, 입이 벌어지고 귀가 쫑긋 섰다
+<b>배경·소품</b> 팬 하나 · 가운데 새까맣게 탄 계란 두 알 · 팬에서 오르는 가느다란 검은 연기. 그 밖은 비운다
+<b>톤</b> 검은 계란이 화면에서 가장 진한 점 · 나머지는 밝게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>"냄새만 빼면 돼."
+아빠가 창문을 활짝 밀어 열어요. 탄 냄새가 스르르.
+등 뒤 냄비는 보글보글.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨, 아빠는 창가 앞쪽 · 화덕은 뒤쪽 깊이에
+<b>장소·시간</b> 부엌 창가. 잠시 뒤, 창밖 하늘이 조금 어두워졌다
+<b>인물</b> 화면 왼쪽 — 아빠 오소리가 이미 창가에 서서 두 앞발로 덧문을 바깥으로 밀어 연다, 얼굴은 창밖을 향하고 코를 킁킁 든다. 화면 오른쪽 — 아기 오소리가 의자에 앉아 아빠 등을 본다
+<b>배경·소품</b> 열린 덧문 하나 · 창밖 저녁 하늘 · 🔴 화면 안쪽 깊이에 뚜껑 없이 끓는 면 냄비(아무도 안 보고 있다) · 그 옆에 놓인 나무 주걱
+<b>톤</b> 창에서 든 서늘한 파란 빛과 안쪽 화덕의 주황이 화면을 좌우로 가른다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>"아빠, 이번엔 뭐예요?"
+"…면이었어."
+주걱을 들어 올리자 면이 한 덩어리로 딸려 올라와요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 로우앵글, 들어 올린 덩어리를 올려다본다
+<b>장소·시간</b> 같은 화덕 앞. 잠시 뒤
+<b>인물</b> 화면 가운데 — 아빠 오소리가 두 앞발로 나무 주걱을 들어 올린 자세, 어깨가 축 처지고 입꼬리가 내려갔다. 화면 오른쪽 아래 — 아기 오소리가 의자 위에서 고개를 위로 젖히고 그 덩어리를 본다
+<b>배경·소품</b> 나무 주걱 · 주걱 끝에 통째로 붙어 딸려 올라온 면 덩어리 · 그 아래 기울어진 냄비. 그 밖은 비운다
+<b>톤</b> 주황 불빛이 아래에서 올라와 덩어리의 윤곽만 만든다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>식탁에 접시가 셋. 짠 국, 까만 계란, 붙은 면.
+아빠가 털썩 앉아 앞치마로 이마를 닦아요.
+"…미안."</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 와이드 · 살짝 하이앵글, 식탁 상판이 넓게 보인다
+<b>장소·시간</b> 식탁. 창밖이 제법 어두워졌다
+<b>인물</b> 화면 왼쪽 — 아빠 오소리가 의자에 털썩 앉아 앞치마 자락을 끌어올려 이마를 닦는다, 눈이 반쯤 감겼다. 화면 오른쪽 — 아기 오소리가 두 앞발을 식탁에 올린 채 접시 셋을 차례로 본다
+<b>배경·소품</b> 🔴 접시 셋이 나란히, 셋 다 가득하다 — 국 · 까만 계란 · 붙은 면 덩어리. 식탁 끝에는 아직 손 안 댄 토마토 바구니와 빵 한 덩이. 그 밖은 비운다
+<b>톤</b> 저녁의 낮은 램프 빛 하나 · 접시 셋 위에 그림자가 길게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>아빠가 빵을 반으로 뚝 갈라 토마토를 쓱쓱 문질러요.
+올리브유가 반짝반짝.
+"이건 요리도 아니야."</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 클로즈업 · 하이앵글, 아빠의 두 앞발과 접시만
+<b>장소·시간</b> 같은 식탁 위. 바로 뒤
+<b>인물</b> 화면 가운데 — 아빠 오소리의 두 앞발. 한 발은 반으로 갈라진 빵을 접시에 누르고, 다른 발은 토마토 반쪽을 쥐고 빵 위를 쓱쓱 문지른다. 화면 위 귀퉁이에 아빠 턱선만 걸치고 표정은 안 보인다
+<b>배경·소품</b> 빈 접시 하나 · 반으로 갈라진 빵 · 토마토 반쪽 · 기울어진 올리브유 병에서 번진 기름 자국. 🔴 식탁 끝 바구니는 이제 비었다
+<b>톤</b> 램프 빛이 젖은 빵 표면에서만 반짝 튄다 · 빨강과 금색</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>아기 오소리 입가에 기름이 반짝반짝.
+빈 접시를 두 손으로 번쩍 들어요.
+"아빠, 이거 더 없어요?"</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 미디엄 · 아이레벨, 아기 오소리 정면
+<b>장소·시간</b> 같은 식탁. 바로 뒤
+<b>인물</b> 화면 가운데 — 아기 오소리가 두 앞발로 빈 접시를 얼굴 높이까지 번쩍 들어 올렸다, 입가와 콧등에 기름이 반짝이고 눈이 커다랗다, 몸이 앞으로 기울었다. 화면 왼쪽 뒤 — 아빠 오소리가 앉은 채 고개만 돌려 본다, 눈썹이 올라갔다
+<b>배경·소품</b> 빈 접시 하나(가운데에 기름 자국과 부스러기 몇 개) · 뒤쪽에 가득한 접시 셋. 그 밖은 비운다
+<b>톤</b> 램프 빛이 아이 얼굴과 빈 접시에만 모인다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>접시 위에 빵이 또 두 쪽.
+이번엔 아빠 것도 있어요.
+둘이 마주 앉아 우물우물, 우물우물.</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 와이드 투샷 · 아이레벨, 식탁을 사이에 두고 정면
+<b>장소·시간</b> 같은 식탁. 조금 뒤, 창밖은 어둡다
+<b>인물</b> 화면 왼쪽 — 아빠 오소리가 빵을 한입 물고 볼이 볼록하다, 앞치마는 아직 매고 있고 어깨 힘이 풀렸다. 화면 오른쪽 — 아기 오소리가 두 앞발로 빵을 잡고 크게 베어 문다, 발이 의자 아래에서 달랑거린다. 둘 다 씹는 중
+<b>배경·소품</b> 가운데 접시에 남은 빵 두 쪽 · 토마토 꼭지 몇 개. 가득한 접시 셋은 식탁 옆으로 밀려나 있다
+<b>톤</b> 램프 하나가 둘 사이 접시 위에 동그란 빛을 만든다 · 따뜻한 금색</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p14 · 본문</span>창밖이 어둑어둑해요.
+접시 셋은 그대로 가득해요. 빵 접시만 반들반들 비었어요.
+부스러기를 손가락으로 꾹 찍어요.</div>
+  </div>
+  <div class="sc"><span class="n">p14 · SCENE</span><b>컷</b> 클로즈업 · 하이앵글, 식탁 상판을 바로 위에서 내려다본다
+<b>장소·시간</b> 같은 식탁. 저녁이 다 됐다
+<b>인물</b> 화면 아래 — 아기 오소리의 앞발 하나만 들어온다, 집게손가락 끝으로 빈 접시 위 부스러기를 꾹 눌러 찍는 중. 그 옆으로 아빠 오소리의 앞발이 식탁에 편히 놓여 있다
+<b>배경·소품</b> 🔴 접시 넷이 한 화면에 — 국·계란·면 접시 셋은 처음 그대로 가득하고, 가운데 빵 접시 하나만 반들반들 비어 있다(부스러기 몇 개와 토마토 꼭지 하나). 그 밖은 비운다
+<b>톤</b> 램프 빛이 빈 접시 바닥에서 한 번 반짝 · 가득한 접시 셋은 그늘 쪽에</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'f05',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['아빠 오소리(이름 없음)', '아기 오소리(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb402129f3"></script>
+<script src="/changjak-core.js?v=47fd80bb402129f3"></script>
+</body>
+</html>

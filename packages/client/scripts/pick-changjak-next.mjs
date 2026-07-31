@@ -12,7 +12,7 @@
  *      다시 계산하므로 자연히 여러 군에 흩어진다.
  *   ② 엔진 = **검증된 것만**(누적·반복 · 오해와 반전). 나머지는 그 엔진으로 한 권 통과시킨 뒤 연다.
  *   ③ 은유 함정 제외 — 감정을 몸/사물의 변형으로 그리는 요약은 이 라인에서 죽었다(a01).
- *   ④ 무대 중복 회피 — 이미 쓴 책과 같은 무대는 뒤로 민다(그림체까지 닮는다).
+ *   ④ 무대·주인공 동물 중복 회피 — 같은 무대는 그림체까지 닮고, 같은 짐승이 몰리면 한 시리즈로 보인다.
  *   ⑤ 같은 조건이면 번호 오름차순 — 🔴 무작위를 쓰지 않는다. 같은 상태면 같은 답이 나와야 한다.
  */
 import { readFileSync, readdirSync } from 'node:fs';
@@ -81,9 +81,31 @@ for (const [, g, , n] of plan.matchAll(/<tr><td><b>([A-H])\s+([^<]+)<\/b><\/td><
   target[g] = Number(n);
 }
 
+// 🔴 주인공 동물도 무대와 같은 축이다. 무대만 피하고 동물은 안 봤더니 **새끼 염소가 셋 · 오소리가
+//    다섯**이 됐고, 배정 단계에서야 드러났다(그때는 원고가 이미 다 쓰여 못 되돌린다).
+//    이 라인은 「주인공은 동물」이 규칙이라 같은 짐승이 몰리면 라이브러리에서 한 시리즈로 보인다.
+const ANIMALS =
+  '다람쥐 토끼 여우 곰 늑대 사슴 고양이 강아지 개 생쥐 쥐 두더지 오소리 고슴도치 염소 양 소 말 돼지 닭 오리 거위 까치 까마귀 참새 제비 부엉이 올빼미 갈매기 백조 개구리 거북 달팽이 개미 나비 마멋 수달 비버 순록 박쥐 도마뱀 멧돼지 가마우지 도요새 황새 판다 늑대'
+    .split(' ');
+// 🔴 `includes` 로 세면 안 된다 — 「소」가 **소리·장소**를, 「개」가 **개구리·몇 개**를, 「쥐」가
+//    **생쥐·다람쥐**를 센다. 첫 계측에서 소 20 · 쥐 12 · 개 9 가 나왔고 전부 헛것이었다.
+//    한글은 띄어쓰기로 낱말이 안 갈리므로 **앞은 한글이 아니고 뒤는 조사**인 자리만 인정한다.
+// 🔴 조사만으로도 부족하다 — 「개」 6건 중 셋이 **열 개·네 개·여섯 개**(세는 단위)였고
+//    「말」 3건은 전부 **말(speech)** 이었다. 세는 말이 앞에 오면 짐승이 아니다.
+const COUNT_BEFORE = /(\d|[한두세네]|다섯|여섯|일곱|여덟|아홉|열|몇)\s*$/;
+const animalsIn = (str) =>
+  ANIMALS.filter((a) => {
+    const re = new RegExp(`(^|[^가-힣])(${a})(들)?[이가은는을를도의와과에게,.\s]`, 'g');
+    for (let m; (m = re.exec(str)); ) if (!COUNT_BEFORE.test(str.slice(0, m.index + m[1].length))) return true;
+    return false;
+  });
+// 🔴 「말」은 뺐다 — 이 라인의 요약에서 말(馬)로 쓰인 적이 한 번도 없고 전부 말(speech)이다.
+const DROP = new Set(['말']);
+
 // ── 이미 쓴 책 ─────────────────────────────────────────────
 const writtenTitles = new Set();
 const writtenStages = new Set();
+const animalUse = {};
 const written = {};
 for (const f of readdirSync(BOOKS).filter((f) => /^[a-h]\d+\.md$/.test(f))) {
   const g = f[0].toUpperCase();
@@ -94,6 +116,9 @@ for (const f of readdirSync(BOOKS).filter((f) => /^[a-h]\d+\.md$/.test(f))) {
   if (pick('title')) writtenTitles.add(pick('title'));
   // 무대는 「콘월 해변 (바위 조수웅덩이)」처럼 괄호가 붙으므로 앞부분만 본다
   if (pick('stage')) writtenStages.add(pick('stage').split(/[(（]/)[0].trim());
+  // 주인공 동물은 전용 필드가 없다 — 줄거리 필드 셋에 이름이 나온다
+  for (const a of animalsIn([pick('sub'), pick('premise'), pick('resolution')].join(' ')))
+    animalUse[a] = (animalUse[a] || 0) + 1;
 }
 
 // ── 후보 ───────────────────────────────────────────────────
@@ -135,8 +160,14 @@ for (let i = 0; i < N; i++) {
   let got = null;
   for (const g of order) {
     const inGroup = pool.filter((c) => c.group === g).sort((a, b) => a.no - b.no);
-    // ④ 무대가 겹치지 않는 것 우선, 없으면 겹쳐도 받는다
-    got = inGroup.find((c) => !takenStages.has(c.stage.split(/[(（]/)[0].trim())) || inGroup[0];
+    // ④ 무대·주인공 동물이 겹치지 않는 것 우선 → 무대만이라도 → 없으면 겹쳐도 받는다
+    const freshStage = (c) => !takenStages.has(c.stage.split(/[(（]/)[0].trim());
+    // 🔴 3권을 넘긴 동물만 피한다. 곰·토끼는 유럽 그림책의 기본 배역이라 0 으로 막으면 후보가 말라붙는다
+    const freshAnimal = (c) => animalsIn(c.title + ' ' + c.summary).every((a) => (animalUse[a] || 0) < 3);
+    got =
+      inGroup.find((c) => freshStage(c) && freshAnimal(c)) ||
+      inGroup.find(freshStage) ||
+      inGroup[0];
     if (got) break;
   }
   if (!got) break;
@@ -145,6 +176,7 @@ for (let i = 0; i < N; i++) {
   pool.splice(pool.indexOf(got), 1);
   counts[got.group] = (counts[got.group] || 0) + 1;
   takenStages.add(got.stage.split(/[(（]/)[0].trim());
+  for (const a of animalsIn(got.title + ' ' + got.summary)) animalUse[a] = (animalUse[a] || 0) + 1;
 }
 
 // ── 출력 ───────────────────────────────────────────────────

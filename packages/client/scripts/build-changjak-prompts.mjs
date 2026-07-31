@@ -34,15 +34,26 @@ for (const file of readdirSync(DOCS).filter((f) => /^changjak-.*prompts\.md$/.te
     // 🔴 정규식 lookahead 로 자르지 않는다 — `m` 플래그에서 `$` 가 줄 끝에 걸려 섹션이 첫 줄에서 끊긴다.
     //    h1/h2 경계로 문서를 쪼갠 뒤 머리로 고르는 편이 안 깨진다.
     const sections = md.split(/^(?=#{1,2}\s)/m);
+    // 🔴 `## E-07 §2.` 와 `## §2.` 를 **둘 다 받는다**. `_ANCHOR-SPEC.md` 의 파일 구조는 §2~§4 에
+    //    id 를 안 붙이는데 빌더는 붙은 것만 찾고 있었다 — 규격대로 쓴 네 권이 조용히 번들에서
+    //    빠졌다(파일은 멀쩡히 있는데 화면에만 안 뜬다). 한 파일에 책이 하나면 id 는 군더더기다.
     const slice = (sec) =>
-      sections.find((s) => new RegExp(`^##\\s+${grp}-${num}\\s+§${sec}\\.`).test(s)) || '';
+      sections.find((s) => new RegExp(`^##\\s+${grp}-${num}\\s+§${sec}\\.`).test(s)) ||
+      (ids.length === 1 ? sections.find((s) => new RegExp(`^##\\s+§${sec}\\.`).test(s)) : '') ||
+      '';
 
     const anchor = blocks(slice(2))[0] || '';
     const sheets = blocks(slice(3));
     const cutsSection = slice(4);
-    const cuts = [...cutsSection.matchAll(/^###\s+(p\d+)\s*—\s*(.*?)\n+```\n([\s\S]*?)```/gm)].map(
-      (m) => ({ page: m[1], title: m[2].trim(), prompt: m[3].trimEnd() })
-    );
+    // 🔴 머리의 제목은 **없어도 받는다**. 전엔 `### p1 — 제목` 을 요구해서 `### p1` 로 쓴 권이
+    //    컷 0개로 잡혔고, 그 한 권이 throw 하면서 **뒤 책이 전부 안 나왔다**(형식 불일치로 빌드가
+    //    통째로 멈춘 게 두 번째다). 제목은 화면 라벨일 뿐이고 코드펜스 첫 줄 `--- pN — 제목 ---`
+    //    에 어차피 또 있으니, 머리에 없으면 거기서 가져온다.
+    const cuts = [...cutsSection.matchAll(/^###\s+(p\d+)[^\n]*\n+```\n([\s\S]*?)```/gm)].map((m) => {
+      const head = /^###\s+p\d+\s*—\s*(.+)$/m.exec(m[0].split('\n')[0]);
+      const fence = new RegExp(`---\\s*${m[1]}\\s*—\\s*(.+?)\\s*---`).exec(m[2]);
+      return { page: m[1], title: (head?.[1] || fence?.[1] || '').trim(), prompt: m[2].trimEnd() };
+    });
 
     if (!anchor && !sheets.length && !cuts.length) continue;
     out[id] = { anchor, sheets, cuts };

@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>G-04 처음 가는 길 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · G · 용기·두려움 · 04</div>
+  <h1>처음 가는 길</h1>
+  <div class="sub">혼자 심부름 가는 길. 여기까지 와 봤다고 아는 표시를 하나씩 세어 봐요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 여정과 귀환</span>
+  <span>무대 · 프랑스 시골길 — 흙길이 한 번 굽는 굽이 하나</span>
+  <span>후렴 · "여기까진 와 봤어. 하나/둘/셋." + 그 표시를 손이나 발로 만진다 (p3 웅덩이 · p5 이정표 · p7 그루터기 세 번 · 🔴 p11 에서 처음 보는 파란 문에 손바닥을 얹고 "여기까지 와 봤어. …넷." 으로 뒤집힌다)</span>
+  <span class="q">14스프레드</span>
+  <span class="q">본문 614자 · 쪽당 44자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- <b>여정과 귀환을 굽이 하나로 잡았다.</b> 카메라가 벗어나는 쪽이 한 장도 없다 — 흙길이 왼쪽(집 쪽)에서 와서 화면 가운데에서 오른쪽으로 굽고, 굽이 안쪽에 웅덩이와 거위, 바깥에 꺾인 이정표, 굽이가 끝나는 자리에 부러진 나무, 그 너머 몇 걸음에 낮은 돌담과 파란 문. <b>p1 과 p14 의 와이드 한 장에 이 전부가 들어간다.</b> 아이가 넘은 「모르는 데」의 실제 폭은 화면으로 재면 손바닥만 하다.<br>
+- 🔴 <b>요약의 「경계」를 만질 수 있는 물건으로 바꿨다.</b> 경계는 마음속 선이 아니라 웅덩이·이정표·그루터기다. 세는 것도 추상적인 횟수가 아니라 <b>몸이 닿은 자리의 개수</b>여서, 발끝을 담그고 기둥을 두드리고 손바닥을 얹는 동작이 곧 「하나 · 둘 · 셋」이다.<br>
+- 🔴 <b>뒤집힘은 새 말이 아니라 같은 말이다.</b> p11 에서 염소는 처음 보는 문에 대고 늘 쓰던 문장을 그대로 쓴다. 만졌으니까 와 본 데다 — 이 아이가 실제로 하는 놀이지 추론이 아니다. 「용감해졌어요」류 문장은 한 줄도 없다.<br>
+- <b>무섭지 않게 잡은 장치 넷</b> — 낮이고, p8 에서 돌아보면 집 지붕에 연기가 있고, 거위가 처음부터 끝까지 화면 안에 남아 있고, 심부름 받은 바구니가 내내 품에 있다.<br>
+- 착지 카드 <b>표시를 지나침</b> — 갈 때는 표시마다 멈추고 만지고 셌는데, 올 때는 셋 다 그냥 지나간다. 마지막 쪽의 두 팔이 앞뒤로 비어 흔들리는 것이 그 증거다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>바구니를 두 팔로 꼭 안았어요.
+"파란 문에 걸어 두고 오면 돼."
+새끼 염소가 흙길에 첫발을 디뎠어요. 사박.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 염소 등 뒤 어깨 너머로 굽이 전체를 본다
+<b>장소·시간</b> 마른 흙길이 왼쪽에서 와서 화면 가운데에서 오른쪽으로 굽는 자리. 해가 높은 한낮
+<b>인물</b> 화면 앞쪽 가운데 아래 — 새끼 염소가 이쪽에 등을 보이고 서서 버들 바구니를 두 앞발로 가슴에 꼭 끌어안고 있다. 뒷다리 하나가 앞으로 나가 발굽이 흙에 막 닿았고, 귀 두 개가 앞쪽으로 쫑긋 서 있다
+<b>배경·소품</b> 바구니 손잡이에 매인 빨간 헝겊 리본 하나 · 화면 왼쪽 멀리 낮은 지붕과 가느다란 굴뚝 연기 · 길가에 마른 풀
+<b>톤</b> 한낮의 흰 햇빛. 그림자가 짧고, 길 말고는 거의 비어 있게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>첨벙! 굽이 안쪽 웅덩이에서 물이 튀었어요.
+염소가 우뚝 멈춰 섰어요.
+"어디 가?"
+"심부름."</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 웅덩이 수면 높이의 로우앵글
+<b>장소·시간</b> 굽이 안쪽에 고인 얕은 웅덩이. 같은 한낮
+<b>인물</b> 화면 왼쪽 — 새끼 염소가 걸음을 딱 멈추고 몸이 앞으로 살짝 기울어진 채 굳어 있다, 바구니는 여전히 가슴에. 화면 오른쪽 웅덩이 안 — 거위가 앉은 채 목만 길게 위로 빼서 염소 쪽을 보고 있다, 물갈퀴 하나가 물 밖으로 나와 있다
+<b>배경·소품</b> 튀어 오른 물방울 몇 알 · 웅덩이 수면에 비친 흰 하늘 한 조각
+<b>톤</b> 물 쪽만 밝게 반짝이고 흙길은 차분하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>염소가 발끝으로 웅덩이를 콕 찍었어요.
+"여기까진 와 봤어. 하나."
+동그란 물결이 밖으로 퍼졌어요.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 클로즈업 · 바로 위에서 내려다보는 하이앵글
+<b>장소·시간</b> 웅덩이 가장자리. 같은 한낮
+<b>인물</b> 화면 위쪽에서 내려온 염소의 앞발굽 하나가 물 표면에 발끝만 콕 닿아 있다. 화면 왼쪽 아래 귀퉁이에 거위의 흰 등과 물갈퀴가 조금 걸쳐 보인다
+<b>배경·소품</b> 발끝에서 퍼지는 동그란 물결 세 겹 · 물속 잔돌 몇 개
+<b>톤</b> 하늘을 담아 하얗게 빛나는 수면. 색은 이 한 장에서 거의 흰빛과 흙빛뿐</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>굽이 바깥에 이정표가 서 있어요.
+팔 하나가 뚝 꺾여서 땅만 가리켜요.
+염소가 고개를 갸웃 기울였어요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 · 아래에서 올려다보는 로우앵글, 이정표가 화면을 세로로 가른다
+<b>장소·시간</b> 굽이 바깥쪽 길가. 같은 한낮
+<b>인물</b> 화면 아래 오른쪽 — 새끼 염소가 이정표를 올려다보며 고개를 옆으로 기울이고 있다, 바구니를 안은 두 앞발은 그대로. 거위는 화면 밖
+<b>배경·소품</b> 나무 이정표 기둥 하나, 가로 팔이 밑동에서 꺾여 아래를 향해 늘어져 있다 · 팔에 글자는 없다
+<b>톤</b> 역광이라 이정표가 살짝 어둡게, 뒤 하늘은 밝게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>염소가 이정표 기둥을 톡톡 두드렸어요.
+"여기까진 와 봤어. 둘."
+손바닥에 까슬까슬한 나뭇결이 묻었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 옆에서 아이레벨
+<b>장소·시간</b> 이정표 밑동. 같은 한낮
+<b>인물</b> 화면 오른쪽 — 새끼 염소가 바구니를 한 팔로 옮겨 안고, 남은 앞발 하나로 기둥을 두드리고 있다. 입이 작게 벌어져 세는 중이고 눈은 제 앞발을 본다
+<b>배경·소품</b> 기둥 표면의 거친 결과 갈라진 틈 · 밑동에 붙은 마른 이끼 한 자락
+<b>톤</b> 나무의 마른 질감만 또렷하게, 뒤쪽 길은 흐리게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>굽이 끝에 부러진 나무가 누워 있어요.
+염소 걸음이 점점 느려졌어요.
+"여기가 끝이야."</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 와이드 · 살짝 높은 하이앵글로 굽이 전체
+<b>장소·시간</b> 굽이가 끝나는 자리. 같은 한낮
+<b>인물</b> 화면 가운데 왼쪽 — 새끼 염소가 아주 작게, 걸음 폭이 좁아진 자세로 서 있다. 뒷발 하나가 아직 뒤에 남아 있고 몸은 앞으로 안 나간다. 화면 왼쪽 아래 멀리 웅덩이 위에 거위의 흰 점
+<b>배경·소품</b> 밑동만 남은 그루터기 하나와 옆으로 누운 줄기 · 길이 그 뒤로 오른쪽으로 이어져 사라진다
+<b>톤</b> 넓고 조용하게. 사람도 집도 없고 길과 마른 풀만</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>염소가 그루터기에 손바닥을 스윽 얹었어요.
+"여기까진 와 봤어. 셋."
+그러고는 손을 가만히 뗐어요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 클로즈업 · 손 높이의 아이레벨
+<b>장소·시간</b> 그루터기 윗면. 같은 한낮
+<b>인물</b> 화면 가운데 — 새끼 염소의 앞발 하나가 그루터기 윗면에 활짝 펴져 얹혀 있다. 화면 왼쪽 위 귀퉁이에 염소의 턱과 아래로 내린 눈만 걸린다
+<b>배경·소품</b> 그루터기 단면의 나이테와 톱자국 · 갈라진 틈에 낀 흙 부스러기
+<b>톤</b> 나무 단면만 따뜻하게 밝고 둘레는 부드럽게 날린다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>염소가 뒤를 홱 돌아봤어요.
+저 멀리 우리 집 지붕에서 연기가 피어올라요.
+"거기서 뭐 해?"
+"…셋 다음이 없어."</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 · 염소 어깨 너머로 집 쪽을 함께 보는 구도
+<b>장소·시간</b> 부러진 나무 옆. 같은 한낮
+<b>인물</b> 화면 오른쪽 앞 — 새끼 염소가 몸은 앞을 향한 채 목만 뒤로 홱 돌려 왼쪽을 본다, 바구니는 두 팔에. 화면 왼쪽 가운데 멀리 웅덩이 안에서 거위가 목을 쭉 빼고 이쪽을 보며 소리치는 자세
+<b>배경·소품</b> 화면 왼쪽 끝 아주 작은 지붕 하나와 가느다란 굴뚝 연기 · 지나온 흙길이 그 사이를 잇는다
+<b>톤</b> 돌아본 쪽이 더 밝다. 집도 거위도 다 한 화면 안에 있어 멀지 않게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>염소가 앞발을 쭉 내밀었어요.
+"한 발."
+사박. 부러진 나무가 어깨 뒤로 넘어갔어요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 클로즈업 · 땅에 붙은 로우앵글
+<b>장소·시간</b> 부러진 나무를 막 지난 흙길. 같은 한낮
+<b>인물</b> 화면 가운데 — 새끼 염소의 앞발굽 하나가 새 흙 위에 방금 닿았고, 뒷발은 아직 그루터기 그림자 안에 있다. 화면 위쪽에 염소의 배와 바구니 밑바닥이 걸린다
+<b>배경·소품</b> 그루터기의 긴 그림자가 화면을 비스듬히 가르며 지나간다 · 발굽 옆 작은 자갈 두어 개
+<b>톤</b> 그림자 쪽은 서늘하고 발굽이 놓인 쪽은 햇빛. 경계선이 한 줄로 또렷하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>굽이를 돌자 낮은 돌담이 나왔어요.
+염소가 목을 길게 뺐어요.
+"저기가… 파란 문이야?"</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 와이드 · 염소 등 뒤에서 앞을 함께 보는 구도
+<b>장소·시간</b> 굽이를 막 돈 자리. 같은 한낮
+<b>인물</b> 화면 아래 왼쪽 — 새끼 염소가 이쪽에 등을 보이고 서서 목을 앞으로 길게 뺀 채 멈춰 있다, 귀가 앞으로 쏠렸다. 화면 왼쪽 뒤 멀리 웅덩이 위 거위의 흰 점이 아직 보인다
+<b>배경·소품</b> 무릎 높이 낮은 돌담이 오른쪽으로 이어지고 그 끝에 파란 나무문 하나 · 문에 글자는 없다
+<b>톤</b> 이 화면에서 파랑은 문 하나뿐. 나머지는 전부 흙빛과 마른 풀빛</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>염소가 다가가 문에 손바닥을 얹었어요.
+"여기까지 와 봤어. …넷."
+파란 칠이 손바닥에 서늘해요.</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 문과 나란한 옆면, 아이레벨
+<b>장소·시간</b> 파란 문 앞. 같은 한낮
+<b>인물</b> 화면 오른쪽 — 새끼 염소가 바구니를 한 팔로 안고 남은 앞발 하나를 파란 문판에 활짝 펴서 붙이고 있다. 눈은 제 손바닥을 보고, 입이 작게 벌어져 세는 중
+<b>배경·소품</b> 오래돼 군데군데 벗겨진 파란 칠 · 문고리 하나
+<b>톤</b> 파란 문판만 화면에서 가장 마감되고, 돌담과 길은 매체 그대로 성글게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>바구니를 문고리에 살그머니 걸었어요.
+빨간 리본이 달랑 흔들려요.
+"달걀 여섯 개, 여기요."
+삐거덕—</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 미디엄 · 살짝 위에서 내려다보는 하이앵글
+<b>장소·시간</b> 파란 문 앞. 같은 한낮
+<b>인물</b> 화면 왼쪽 아래 — 새끼 염소가 앞발을 위로 뻗어 바구니 손잡이를 문고리에서 막 놓는 참이다, 뒷발이 발끝으로 서 있다. 몸이 가벼워져 어깨가 내려간 자세
+<b>배경·소품</b> 문고리에 걸린 버들 바구니 하나와 거기 매인 빨간 헝겊 리본 · 살짝 열려 흔들리는 문틈 · 돌담 너머 저쪽에 굴뚝 연기 한 가닥
+<b>톤</b> 화면에서 가장 진한 색은 리본의 빨강 한 점</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>염소가 돌아서서 걸어요.
+부러진 나무가 옆으로 지나가요. 손을 안 뻗어요.
+바구니 없는 두 팔이 앞뒤로 흔들려요.</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 미디엄 와이드 · 옆에서 나란히 따라가는 구도
+<b>장소·시간</b> 부러진 나무를 지나는 흙길. 해가 아주 조금 기울었다
+<b>인물</b> 화면 가운데 — 새끼 염소가 옆모습으로 걸어간다, 두 앞발이 아무것도 안 안고 앞뒤로 벌어져 흔들린다. 시선은 앞(집 쪽)만 보고 그루터기 쪽으로 안 돌아간다
+<b>배경·소품</b> 화면 앞쪽을 가로질러 지나가는 그루터기와 누운 줄기 — 염소보다 앞에 있어 반쯤 걸쳐 지나간다
+<b>톤</b> 아까보다 그림자가 조금 길게. 걸음이 빨라 보이게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p14 · 본문</span>이정표도 지나고, 웅덩이도 지나요.
+"벌써 와?"
+"응. 파란 문까지."
+저 뒤 파란 문에서 빨간 점 하나가 흔들려요.</div>
+  </div>
+  <div class="sc"><span class="n">p14 · SCENE</span><b>컷</b> 와이드 · 정면에서 살짝 낮은 아이레벨, 굽이 전체가 한 장에
+<b>장소·시간</b> 굽이 하나. 오후로 넘어가는 한낮
+<b>인물</b> 화면 앞쪽 가운데 — 새끼 염소가 이쪽(집 쪽)을 향해 걸어온다, 두 앞발이 비어 흔들리고 이정표 기둥이 어깨 옆을 그냥 스쳐 지나간다, 손은 안 뻗는다. 화면 아래 왼쪽 웅덩이에서 거위가 목을 빼고 올려다본다
+<b>배경·소품</b> 왼쪽에 웅덩이, 오른쪽에 꺾인 이정표, 뒤쪽 굽이 끝에 그루터기, 그 너머 돌담 위 아주 작은 파란 문 · 그 문고리에 빨간 점 하나
+<b>톤</b> 처음(p1)과 같은 자리를 반대 방향에서 본 화면. 빨간 점은 손톱만 하지만 화면에서 유일한 빨강</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'g04',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 염소(이름 없음)', '웅덩이의 거위(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb402129f3"></script>
+<script src="/changjak-core.js?v=47fd80bb402129f3"></script>
+</body>
+</html>
