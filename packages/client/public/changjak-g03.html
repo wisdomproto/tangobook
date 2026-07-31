@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>G-03 천둥은 누가 치는 걸까 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · G · 용기·두려움 · 03</div>
+  <h1>천둥은 누가 치는 걸까</h1>
+  <div class="sub">천둥 소리가 무서워 난롯가로 나왔어요. 오는 사람마다 대답이 달라요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 교환·연쇄</span>
+  <span>무대 · 알프스 산장</span>
+  <span>후렴 · "그건 말이야—" (손님 여섯이 매번 같은 말로 시작해요 · p2·p3·p5·p6·p7·p8 · 🔴 p10 에서 담요 더미 속 마멋이 처음으로 그 말을 한다)</span>
+  <span class="q">12스프레드</span>
+  <span class="q">본문 595자 · 쪽당 50자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- <b>교환은 한 자리에서만 일어난다.</b> 손님을 따라 방을 옮겨 다니지 않는다 — 카메라는 열두 쪽 내내 난롯가 양탄자 한 장 위에 있고, 손님은 어둠에서 나왔다가 어둠으로 돌아간다. 쌓이는 것은 사슬이 아니라 <b>그 자리에 남는 담요</b>다.<br>
+- <b>설명 여섯 개는 전부 몸으로 한다.</b> 굴리기(오소리) · 털기(여우) · 뿔 맞대기(산양) · 날갯짓(부엉이) · 내리치기(개) · 발 구르기(소). 흉내 도구가 곧 제 담요라서, 흉내가 끝나면 담요가 마멋 위에 있다 — 주고 가는 장면을 따로 그릴 필요가 없다.<br>
+- 🔴 <b>천둥의 진짜 원인은 끝까지 안 나온다.</b> 여섯 개 중 맞은 것을 고르지도 않는다. 이 책의 일은 답이 아니라 그 자리에 남은 것이다.<br>
+- p10 뒤집힘 = 여섯 번 남의 입에서만 나오던 "그건 말이야—" 를 <b>마멋이 처음으로</b> 쓴다. 담요에 파묻혀 흔들 수 있는 것이 귀뿐이라, 일곱 번째 흉내는 귀로만 한다.<br>
+- p11 은 미는 순간까지, p12 는 이미 들어가 있는 상태. <b>들어가는 동작은 안 그린다</b>(두 순간이 된다).
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>우르르— 쾅!
+산장 창문이 덜컹거려요.
+마멋은 담요도 없이 난롯가에 웅크려요.
+"천둥은 누가 치는 걸까?"</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 살짝 위에서 내려다보는 하이앵글(작은 몸과 넓은 마루가 같이 보이게)
+<b>장소·시간</b> 알프스 산장 큰 방의 난롯가. 한밤중, 바깥은 비바람
+<b>인물</b> 화면 아래 가운데 — 새끼 마멋이 낡은 양탄자 끝에 등을 둥글게 말고 앉아 두 앞발로 양쪽 귀를 꼭 누른다. 눈은 크게 뜨고 창 쪽을 본다. 몸에 덮인 것이 하나도 없다
+<b>배경·소품</b> 왼쪽에 돌 난로와 주황 불 · 마멋 옆 양탄자 밖 맨 나무 바닥 한 뼘(빈 자리) · 오른쪽 뒤 작은 창에 푸른 번개빛 · 나머지 방은 어둠
+<b>톤</b> 주황 불빛이 마멋 한 마리에만 고이고, 창 쪽에서만 차가운 푸른빛이 들어온다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>오소리가 회색 담요를 말아요.
+"그건 말이야— 저 위에서 통을 굴리는 거야."
+데굴, 담요가 마멋 무릎으로 와요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 담요가 굴러오는 방향을 옆에서 보는 측면 구도
+<b>장소·시간</b> 같은 난롯가. 조금 뒤
+<b>인물</b> 화면 오른쪽 — 오소리가 몸을 앞으로 숙이고 두 앞발로 둥글게 만 회색 줄무늬 담요를 밀어 굴린다, 입을 벌리고 신나게 말하는 표정. 화면 왼쪽 — 마멋이 앉은 채 다리를 모으고 굴러오는 담요 뭉치를 본다, 무릎에 담요가 막 닿는 순간
+<b>배경·소품</b> 난로 불 · 양탄자 · 그 밖에는 어둠뿐
+<b>톤</b> 불빛이 굴러가는 담요 옆구리를 따라 길게 스친다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>여우가 붉은 담요를 팡팡 털어요.
+"그건 말이야— 구름이 이불을 터는 거야."
+털던 담요가 마멋 어깨에 툭 걸려요.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 약간 로우앵글(털리는 담요가 위쪽에 크게 걸리게)
+<b>장소·시간</b> 같은 난롯가
+<b>인물</b> 화면 위쪽 — 여우가 뒷발로 서서 붉은 격자 담요 두 귀를 잡고 팔을 활짝 벌려 터는 자세, 담요 한 자락이 아래로 늘어져 있다. 화면 아래 — 마멋이 무릎에 회색 담요를 얹은 채 고개를 젖혀 올려다보고, 붉은 담요 끝이 그 어깨에 막 걸린다
+<b>배경·소품</b> 난로 불 · 마멋 무릎의 회색 담요 · 어둠
+<b>톤</b> 아래에서 올라오는 불빛에 담요 결이 비쳐 붉게 물든다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>쾅!
+둘은 어느새 어둠 속으로 갔어요.
+마멋은 남은 담요 두 겹을 코까지 끌어올려요.
+"정말?"</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 와이드 · 하이앵글 · p1 과 같은 자리에서 같은 각도
+<b>장소·시간</b> 같은 난롯가. 방금
+<b>인물</b> 화면 아래 가운데 — 마멋 혼자. 앞발로 담요 두 겹(회색 아래, 붉은 격자 위) 끝을 잡아 코까지 끌어올리고 눈만 내놓는다. 눈동자는 어둠 쪽을 향한다
+<b>배경·소품</b> 난로 불 · 마멋 옆 빈 나무 바닥 한 뼘은 아직 그대로 · 오소리와 여우가 사라진 어둠(아무도 없다) · 창의 푸른빛
+<b>톤</b> 불빛 웅덩이가 p1 보다 작아 보이고 둘레 어둠이 넓다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>산양이 고개를 낮춰 뿔을 쿵 맞대 봐요.
+"그건 말이야— 저 위에서 뿔을 부딪치는 거야."
+갈색 담요가 등에서 미끄러져요.</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 클로즈업 · 로우앵글(굽은 뿔이 화면 위를 가로지르게)
+<b>장소·시간</b> 같은 난롯가
+<b>인물</b> 화면 오른쪽 — 큰뿔 산양이 목을 깊이 숙이고 굽은 뿔 끝을 난로 옆 나무 기둥에 쿵 대는 자세, 앞발 하나를 앞으로 내딛었다. 등에 걸쳐 있던 거친 갈색 담요가 목덜미를 지나 흘러내려 마멋 쪽으로 떨어진다. 화면 왼쪽 아래 — 마멋이 담요 두 겹 속에서 눈만 내놓고 뿔을 올려다본다
+<b>배경·소품</b> 난로 옆 나무 기둥 · 난로 불 · 어둠
+<b>톤</b> 뿔의 굵은 그림자가 천장 쪽으로 크게 뻗는다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>부엉이가 크림색 담요를 활짝 펴요.
+"그건 말이야— 아주 큰 새가 날개를 치는 거야."
+푸드덕, 담요가 마멋 머리에 앉아요.</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 위쪽을 넉넉히 비운 구도
+<b>장소·시간</b> 같은 난롯가
+<b>인물</b> 화면 가운데 위 — 부엉이가 난로 선반 위에 서서 얇은 크림색 담요를 두 날개로 활짝 펼쳐 든 자세, 담요 아래 귀퉁이가 아래로 흘러내린다. 화면 아래 — 마멋이 담요 세 겹 속에 앉아 있고, 크림색 담요 자락이 머리 위에 막 얹힌다. 눈을 찡긋 감는다
+<b>배경·소품</b> 돌 난로 선반 · 난로 불 · 마멋 몸의 담요 세 겹(회색·붉은 격자·갈색) · 어둠
+<b>톤</b> 펼친 담요가 불빛을 받아 반투명하게 밝고, 그 아래는 그늘</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>산장 개가 앞발을 번쩍 들어 쿵 내리쳐요.
+"그건 말이야— 지붕 위에서 장작을 패는 거야."
+남색 담요가 어깨에서 툭 떨어져요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 미디엄 · 로우앵글(들어 올린 앞발이 화면 꼭대기에 닿게)
+<b>장소·시간</b> 같은 난롯가
+<b>인물</b> 화면 오른쪽 — 덩치 큰 산장 개가 뒷발로 버티고 앞발 하나를 머리 위로 번쩍 들었다가 바닥으로 내리치는 자세, 입을 크게 벌리고 있다. 어깨에 두르고 있던 두꺼운 남색 담요가 한쪽으로 벗겨져 떨어지는 중. 화면 왼쪽 — 마멋이 담요 네 겹 속에서 고개만 돌려 본다
+<b>배경·소품</b> 난로 불 · 바닥 양탄자 · 어둠
+<b>톤</b> 앞발이 지나간 자리에 불빛이 잠깐 가려져 그림자가 크게 흔들린다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>늙은 소가 쿵, 쿵 발을 굴러요.
+"그건 말이야— 구름이 계단을 내려오는 거야."
+초록 담요가 맨 위에 얹혀 여섯 겹이 돼요.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 와이드 · 아이레벨(큰 소와 담요 더미가 한 화면에)
+<b>장소·시간</b> 같은 난롯가
+<b>인물</b> 화면 오른쪽 — 목에 낡은 방울을 단 늙은 소가 앞발을 하나씩 들었다 놓으며 바닥을 구르는 자세, 고개는 마멋 쪽으로 낮췄다. 등에 덮여 있던 초록 등덮개가 옆으로 미끄러져 마멋 위에 얹힌다. 화면 왼쪽 아래 — 마멋은 이제 담요 더미가 되어 코끝과 눈만 보인다
+<b>배경·소품</b> 소의 목방울 · 난로 불 · 색이 다 다른 담요 여섯 겹 · 어둠
+<b>톤</b> 담요 더미만 색이 층층이 밝고 소는 그림자 쪽에 크게 서 있다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>아주 작은 다람쥐가 담요 산 앞에 서요.
+"저기…"
+"천둥은 누가 치는 걸까?"
+다람쥐는 덜덜 떨며 앞발을 비벼요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 클로즈업 · 다람쥐 어깨 너머로 담요 더미를 보는 구도
+<b>장소·시간</b> 같은 난롯가
+<b>인물</b> 화면 앞쪽 아래 — 아주 작은 다람쥐가 등을 보이고 서서 두 앞발을 가슴 앞에 모아 싹싹 비빈다, 꼬리 끝이 떨린다. 몸에 아무것도 덮지 않았다. 화면 가운데 — 담요 여섯 겹 더미, 꼭대기 근처에 마멋의 눈 두 개
+<b>배경·소품</b> 난로 불 · 담요 여섯 겹 · 창의 푸른빛 · 어둠
+<b>톤</b> 다람쥐 쪽은 어둡고 담요 더미 쪽만 따뜻하게 밝다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>"그건 말이야—"
+담요 더미 속에서 마멋이 말해요.
+나온 귀 두 개가 펄럭펄럭 흔들려요.
+"저 위에서 누가 큰 이불을 덮는 거야."</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 클로즈업 · 로우앵글(담요 더미 꼭대기가 화면 위쪽에 오게)
+<b>장소·시간</b> 같은 난롯가
+<b>인물</b> 화면 위 가운데 — 담요 여섯 겹 밖으로 마멋의 귀 두 개만 쏙 나와 좌우로 펄럭이고(움직임 선), 그 아래로 눈이 반쯤 보인다. 화면 아래 — 다람쥐가 고개를 한껏 젖혀 그 귀를 올려다보며 입을 살짝 벌린다
+<b>배경·소품</b> 담요 여섯 겹(맨 위가 초록) · 난로 불 · 어둠
+<b>톤</b> 불빛이 아래에서 올라와 담요 층 사이사이에 선을 만든다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>마멋이 맨 위 초록 담요를 뒷발로 밀어요.
+"이건 네 거."
+"정말?"
+다람쥐가 담요 끝을 앞발로 꼭 잡아요.</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 · 하이앵글(미는 뒷발과 잡는 앞발이 한 화면에)
+<b>장소·시간</b> 같은 난롯가
+<b>인물</b> 화면 위 — 담요 더미 아래쪽에서 마멋의 뒷발 하나가 쑥 나와 맨 위 초록 담요 자락을 아래로 밀어 낸다. 화면 아래 — 다람쥐가 두 앞발로 그 담요 끝을 꼭 잡고 눈을 크게 뜬다, 아직 몸에 두르지는 않았다
+<b>배경·소품</b> 초록 담요 자락 · 그 아래 담요 다섯 겹 · 난로 불 · 어둠
+<b>톤</b> 두 발이 만나는 자리에만 불빛이 모인다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>난롯가에 담요 무더기가 둘이에요.
+다섯 겹 속엔 마멋, 초록 한 겹 속엔 다람쥐.
+둘은 귀만 내놓아요.
+우르르— 쾅!
+소리는 담요 밖에서 나요.</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 조금 멀리서(두 무더기와 창이 같이 들어오게)
+<b>장소·시간</b> 같은 난롯가. 밤이 더 깊어진 때
+<b>인물</b> 화면 가운데 왼쪽 — 담요 다섯 겹 더미 위로 마멋의 귀 두 개만 나와 있다. 그 옆 화면 오른쪽 — 초록 담요에 폭 싸인 다람쥐, 역시 귀 끝만 나와 있다. 둘 다 눈은 뜨고 난로 쪽을 본다
+<b>배경·소품</b> 난로 불 · 담요 무더기 둘이 양탄자와 그 옆 맨 나무 바닥까지 다 덮어 바닥이 안 보인다 · 오른쪽 뒤 창에 푸른 번개빛
+<b>톤</b> 창밖은 차갑고 푸르게, 담요 두 무더기 쪽은 두껍고 따뜻하게 — 두 빛이 방 가운데에서 만난다</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'g03',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 마멋(주인공)', '오소리 · 여우 · 큰뿔 산양 · 부엉이 · 산장 개 · 늙은 소(한 쪽씩 한 번)', '아주 작은 다람쥐'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bbd18e032e"></script>
+<script src="/changjak-core.js?v=47fd80bbd18e032e"></script>
+</body>
+</html>

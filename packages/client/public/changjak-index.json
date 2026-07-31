@@ -34,6 +34,22 @@
     "pages": 12
   },
   {
+    "file": "changjak-a08.html",
+    "label": "A-08 📗 여정과 귀환",
+    "title": "할머니가 두고 간 웃음",
+    "engine": "여정과 귀환",
+    "stage": "포르투갈 해변마을의 작은 빵집 안 (흰 회벽 · 파란 타일 두른 문과 화덕 · 바다 쪽 작은 창 · 굵은 나무 반죽대)",
+    "pages": 13
+  },
+  {
+    "file": "changjak-a09.html",
+    "label": "A-09 📗 관찰과 성장",
+    "title": "부끄럼쟁이 등불지기",
+    "engine": "관찰과 성장",
+    "stage": "영국 해안 등대 꼭대기 등롱실 한 칸",
+    "pages": 13
+  },
+  {
     "file": "changjak-a10.html",
     "label": "A-10 📗 누적·반복",
     "title": "기다리는 건 왜 이렇게 길까",
@@ -96,6 +112,22 @@
     "engine": "오해와 반전",
     "stage": "스페인 흰 마을 (회벽 좁은 골목·계단·빨래줄)",
     "pages": 10
+  },
+  {
+    "file": "changjak-b05.html",
+    "label": "B-05 📗 관찰과 성장",
+    "title": "벽지 속 정원",
+    "engine": "관찰과 성장",
+    "stage": "빈(Wien) 아파트",
+    "pages": 13
+  },
+  {
+    "file": "changjak-b06.html",
+    "label": "B-06 📗 소원의 대가",
+    "title": "구름을 굽는 빵집",
+    "engine": "소원의 대가",
+    "stage": "프랑스 시골 빵집 창가 작업대 (카메라가 이 한 칸을 안 벗어난다)",
+    "pages": 13
   },
   {
     "file": "changjak-b09.html",
@@ -258,6 +290,14 @@
     "pages": 12
   },
   {
+    "file": "changjak-e02.html",
+    "label": "E-02 📗 교환·연쇄",
+    "title": "딸꾹질을 옮기는 방법",
+    "engine": "교환·연쇄",
+    "stage": "이탈리아 광장 — 분수 하나 둘레에 과일 노점·벤치·성당 계단이 붙어 있는 한 자리",
+    "pages": 13
+  },
+  {
     "file": "changjak-e03.html",
     "label": "E-03 📗 누적·반복",
     "title": "이름이 너무 긴 개",
@@ -322,6 +362,14 @@
     "pages": 12
   },
   {
+    "file": "changjak-f04.html",
+    "label": "F-04 📗 교환·연쇄",
+    "title": "이사 가는 상자 속",
+    "engine": "교환·연쇄",
+    "stage": "프라하 구시가 꼭대기 층 아파트, 짐을 다 뺀 방 하나 (깊은 창턱 · 낮고 좁은 문 밖으로 나선 계단 · 마지막 상자 한 개)",
+    "pages": 14
+  },
+  {
     "file": "changjak-f06.html",
     "label": "F-06 📗 여정과 귀환",
     "title": "잠은 어디서 오나",
@@ -354,6 +402,14 @@
     "pages": 12
   },
   {
+    "file": "changjak-g03.html",
+    "label": "G-03 📗 교환·연쇄",
+    "title": "천둥은 누가 치는 걸까",
+    "engine": "교환·연쇄",
+    "stage": "알프스 산장",
+    "pages": 12
+  },
+  {
     "file": "changjak-g08.html",
     "label": "G-08 📗 소원의 대가",
     "title": "내 그림자가 따라와",
@@ -368,6 +424,14 @@
     "engine": "누적·반복",
     "stage": "프랑스 성당 종탑 (가운데가 뚫린 나선 돌계단 · 화살창 셋 · 꼭대기 종실)",
     "pages": 13
+  },
+  {
+    "file": "changjak-h01.html",
+    "label": "H-01 📗 관찰과 성장",
+    "title": "빵이 부푸는 동안",
+    "engine": "관찰과 성장",
+    "stage": "프랑스 빵집 창가 반죽대 한 칸",
+    "pages": 12
   },
   {
     "file": "changjak-h02.html",
