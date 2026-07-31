@@ -368,22 +368,22 @@ FINISH: 2 (the fox + the hollow it is sitting in). 0 lettering, 0 numerals.
 ### p10 — 내 발자국이 나보다 앞에 있어! 🔴 밀도 배급 · 판 ref · 가장 먼저 굽는다
 
 ```
-BAKE THIS PAGE FIRST OF ALL FOURTEEN, and it is THE ONE RATIONED PAGE. 🔴 If the rows read as drawn
-lines rather than as dents at three depths, nothing else is worth baking.
+BAKE THIS PAGE FIRST, and it is THE ONE RATIONED PAGE. 🔴 If the rows read as drawn lines rather
+than as dents at three depths, nothing else is worth baking.
 CAMERA: wide, slightly HIGH angle. FoxPost at the lower LEFT, the rows running away to the upper
-  RIGHT, the postbox at the end of them.
+  RIGHT, the postbox at their end.
 SUBJECT: FoxPost is still sitting - it has NOT stood up - one forepaw lifted to wipe its eye and
-  stopped halfway beside its face. Eyes wide, ears snapped forward.
+  stopped halfway. Eyes wide, ears snapped forward.
 PRESS: 🔴 THE PAYOFF. Three rows in one frame at TWO DEPTHS: back at the LEFT, ROW ① (three) and
   the rolled furrow, beside them ROW ② (five) - both HALF-FILLED, chalk rubbed over them into
   faint channels with no dark left. In front of the fox, running up to the RIGHT, 🔴 ROW ③ (seven),
-  FRESH - deep, dark-bottomed, crisp-lipped. 🔴 Which row to walk on is decided by the picture.
+  FRESH - deep, dark-bottomed, crisp-lipped. 🔴 The picture decides which row to walk on.
 SNOW: stopped, 0 chalk in the air. 🔴 The graphite lines are all back - after two pages at 0, that
-  is what "it cleared" looks like.
-WARM: 🔴 THE POSTBOX LARGE AND HARD-EDGED FOR THE FIRST TIME at the upper RIGHT; the lamp one small
+  is what "it cleared" looks like here.
+WARM: 🔴 THE POSTBOX LARGE AND HARD-EDGED FOR THE FIRST TIME at the upper RIGHT; the lamp a small
   point at the far LEFT. 🔴 They have swapped sizes since page 1.
-FINISH: 4 (fox + row ③ + the two older rows + postbox). 🔴 The eye walks up the seven dents one at
-  a time to the warm plate. 0 lettering.
+FINISH: 4 (fox + row ③ + two older rows + postbox). 🔴 The eye walks up the seven dents to the
+  warm plate. 0 lettering.
 ```
 
 ### p11 — 안 빠져! 하나도 안 빠져!
