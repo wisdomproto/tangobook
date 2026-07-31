@@ -72,8 +72,8 @@
 ```
 STYLE ANCHOR - changjak-flatplate   (a lamb and an old cormorant / a Normandy tidal causeway)
 
-Style: hard-edged flat colour planes, 4-6 year old picture book. Every single thing in the picture
-  is ONE flat plane of ONE colour with a crisp cut edge, laid down like a piece of coloured paper.
+Style: hard-edged flat colour planes, 4-6 year old picture book. Every thing in the picture is
+  ONE flat plane of ONE colour with a crisp cut edge, laid down like a piece of coloured paper.
   🔴 SHADING IS ZERO - no modelling, no gradient inside any shape, no cast shadow, no highlight.
   Depth is made only by overlap and by size.
 
@@ -84,8 +84,7 @@ RENDERING (finish hierarchy): 🔴 THIS VOLUME: ONE PLANE GROWS AND SWALLOWS ANO
   shine. 🔴 TO PUSH SOMETHING BACK, MERGE IT INTO THE PLANE BESIDE IT so it loses its own edge -
   never blur it, never fade it. FINISHED THINGS PER PAGE = 2 - the animal and the one thing it
   touches. Far village = at most 4 roof triangles, 0 windows, 0 doors. Rocks = 1 plane each, at
-  most 5 in a frame. Shells and weed = at most 6 marks. Hoofprints = small ovals, at most 14 in a
-  frame. DENSITY RATION = none; all fourteen pages stay at 2.
+  most 5 a frame. Shells and weed = at most 6 marks. Hoofprints = small ovals, at most 14. DENSITY RATION = none; all fourteen pages stay at 2.
 
 PALETTE: SILVER #C3CBCD - 🔴 the sky and the wet flats are ONE AND THE SAME COLOUR, so the path
   looks like the sky and vanishes when the water covers it · WATER #6F8794, one plane,
@@ -97,8 +96,8 @@ PALETTE: SILVER #C3CBCD - 🔴 the sky and the wet flats are ONE AND THE SAME CO
   or brown anywhere, not in a sunset, not in a rock pool. Evening = the same planes one step
   darker, never a new colour.
 
-CHARACTER DESIGN LANGUAGE: both animals are built from the same flat planes as the world - a body
-  is two or three cut shapes with the legs laid over it. 🔴 THERE ARE NO EYEBROWS AND NO
+CHARACTER DESIGN LANGUAGE: both animals are built from the same flat planes as the world:
+  two or three cut shapes with legs laid over. 🔴 THERE ARE NO EYEBROWS AND NO
   EXPRESSIONS: an eye is ONE small dark almond and its position is the only thing that moves in a
   face. All the acting is done by the WHOLE-BODY SILHOUETTE and by ear and neck angle. FIXED GRADE:
   the lamb walks on four hooves and lifts a forehoof only to splash or point, and holds nothing;
@@ -109,7 +108,7 @@ CANVAS: 16:9 double-page spread. One tidal causeway and the rock at its end, on 
   including on the lighthouse.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,
-  or a texture filter laid over the flat planes / never a soft or feathered edge, never a shadow,
+  or a texture filter over the flat planes / never a soft or feathered edge, never a shadow,
   never a reflection or a sparkle on water / not blurred, hazy, faded or spotlit / one sheet thick
   - no wool fibre, no felt fuzz, no stitching, no sculpted clay.
 ```
@@ -354,20 +353,19 @@ FINISH: 2 (the lamb + the ridge). Far dyke = a green strip with at most 4 roof t
 BAKE THIS PAGE FIRST OF ALL FOURTEEN. 🔴 The test of the book: a growing plane, a shrinking plane
 and a submerged shape in one frame. If the water arrives with a gradient, a reflection or a
 sparkle, nothing else is worth baking.
-CAMERA: medium, eye level. One flat rock in the middle of the frame with LambTide just landed on
-  it, water all round.
-SUBJECT: LambTide has landed with all four hooves gathered close together, knees still bent from
-  the jump, body tipped forward, head turned back over its shoulder, mouth calling, ears split one
-  forward one back. Posture: PLANTED. 🔴 A HOOF SITS AT EACH CORNER OF THE ROCK - the plate is
-  exactly the size of the four hooves together, and this page is where that is measured.
+CAMERA: medium, eye level. One flat rock in the middle of the frame, LambTide just landed on it,
+  water all round.
+SUBJECT: LambTide has landed with all four hooves gathered close together, knees still bent, body
+  tipped forward, head turned back over its shoulder, mouth calling. Posture: PLANTED. 🔴 A HOOF SITS AT EACH CORNER OF THE ROCK - the plate is
+  exactly the size of the four hooves together, measured here.
 WATER: 🔴 75% OF THE FRAME, one flat plane, one crisp edge all round the rock. 🔴 INSIDE IT, TOWARD
   THE LEFT, LIES ONE LONG DARK ROCK-COLOURED SHAPE - the ridge from page 8, now under water. Hard
-  edge, no ripple, no wobble, no shine. That shape is how this book says "it went".
-DRY: 🔴 THE SECOND OF THREE - the rock's top face in DRY PALE, one small plate. Against page 8: a
+  edge, no ripple, no shine. That shape is how this book says "it went".
+DRY: 🔴 THE SECOND OF THREE - the rock's top face in DRY PALE, one small plate. Against page 8, a
   long band has become a single plate.
 TOWER: small at the right with a black mark on it.
-FINISH: 2 (the lamb + the rock). Evening = the same planes one step darker; 🔴 no orange, gold or
-  pink anywhere. 0 lettering, 0 numerals.
+FINISH: 2 (the lamb + the rock). Evening = the same planes one step darker; 🔴 no orange or gold
+  anywhere. 0 lettering, 0 numerals.
 ```
 
 ### p10 — 목소리가 점점 작아져요
@@ -433,47 +431,40 @@ FINISH: 2 (the two heads). 🔴 To push the background back, merge the far water
 ### p13 — 내 발굽이 하나도 안 젖었어! 🔴 회수 · 두 번째로 굽는다
 
 ```
-BAKE THIS PAGE SECOND, right after page 9. It is the landing of the whole book.
+BAKE THIS PAGE SECOND, right after page 9 - the landing of the book.
 ATTACH THE APPROVED PAGE 3 RENDER for the green band.
-CAMERA: close-up, HIGH angle over the lamb's shoulder looking down past its own hooves at the water
-  below. The hooves and dry rock across the top, the band and the water across the bottom.
-SUBJECT: LambTide stands where it is and only drops its head to look down at its own feet, lifting
-  one forehoof and setting it down again - the rock under the lifted hoof is plainly the dry pale
-  plane. Ears straight up, the eye almond wide, mouth open. 🔴 IT DOES NOT JUMP UP OR RUN; it looks
-  down and that is all. At the right edge, only OldCormorant's black shoulder and bill tip, silent.
+CAMERA: close-up, HIGH angle over the lamb's shoulder looking down past its own hooves. Hooves and
+  dry rock across the top, the band and the water across the bottom.
+SUBJECT: LambTide only drops its head to look at its own feet, lifting one forehoof and setting it
+  down - the rock under the lifted hoof is plainly the dry pale plane. Ears up, eye almond wide,
+  mouth open. 🔴 IT DOES NOT JUMP UP OR RUN. At the right edge, OldCormorant's bill tip, silent.
 WATER: 🔴 THE PAYOFF. The WATER plane's edge sits exactly at the LOWER EDGE OF THE WEED GREEN BAND
-  and goes no further. Below the band the rock is the dark wet plane; above it, dry. 🔴 The edge is
-  the crispest line in the book - it is the answer, and it must not be soft anywhere along it.
-  Two dark submerged shapes are still visible out in the water.
-DRY: 🔴 A WIDE STRETCH OF DRY PALE ROCK BETWEEN THE BAND AND THE LAMB'S HOOVES, so that "the water
-  stopped a long way below" is read as a distance and not as a feeling.
-TOWER: out of frame. There is still no yellow anywhere.
+  and goes no further. Below the band the rock is the dark wet plane; above it, dry. 🔴 It must not
+  be soft anywhere along that edge - it is the answer to the book.
+DRY: 🔴 A WIDE STRETCH OF DRY PALE ROCK BETWEEN THE BAND AND THE HOOVES, so "the water stopped a
+  long way below" is read as a distance, not a feeling.
+TOWER: out of frame; still no yellow anywhere.
 FINISH: 2 (the hooves + the band). 🔴 The green band cuts the picture in two across the middle.
-  A few stars = at most 5 small marks in the sky plane. 0 lettering, 0 numerals.
+  Two dark submerged shapes still lie out in the water. Stars = at most 5. 0 lettering.
 ```
 
 ### p14 — 저기가 내가 걸어온 길이야 🔴 착지 · 노랑 첫 등장
 
 ```
 ATTACH THE APPROVED PAGE 1 AND PAGE 13 RENDERS.
-CAMERA: wide, slightly LOW angle. The two sitting together on the rock at the lower RIGHT, the
-  lighthouse above, 🔴 and the whole LEFT of the frame water with the low dyke beyond it - the same
-  long horizontal frame as page 1, where that space was a path.
-SUBJECT: LambTide sits with its hind legs folded and one forehoof raised, pointing out across the
-  water, neck stretched that way, ears forward, mouth open. Beside it OldCormorant sits with wings
-  fully folded, neck drawn down into its body, facing the same way. 🔴 THEIR BACKS ARE AT THE SAME
-  HEIGHT.
+CAMERA: wide, slightly LOW angle. The two on the rock at the lower RIGHT, the lighthouse above,
+  🔴 the whole LEFT of the frame water with the low dyke beyond - the same long horizontal frame
+  as page 1, where that space was a path.
+SUBJECT: LambTide sits with hind legs folded and one forehoof raised, pointing out across the
+  water, ears forward, mouth open. Beside it OldCormorant sits with wings folded and its neck
+  drawn in, facing the same way. 🔴 THEIR BACKS ARE AT THE SAME HEIGHT.
 WATER: 🔴 everything the lamb walked on is now one WATER plane, and inside it lie THE TWO DARK
-  SHAPES - the flat rock and the sand ridge - hard-edged, exactly where they were.
-DRY: the rock top under the two of them; the green band is under water now with only its upper
-  edge showing.
+  SHAPES - the flat rock and the sand ridge - exactly where they were.
+DRY: the rock top under them; the green band is under water, only its upper edge showing.
 TOWER: 🔴 THE FIRST YELLOW IN THE BOOK. The glass room is LAMP YELLOW and one straight yellow beam
-  crosses the water as a single flat shape - not a glow, not a haze, not a gradient, and it lights
-  nothing else. 🔴 AND EXACTLY ONE MORE: a small yellow square in one of the far roof shapes across
-  the water. 🔴 THE PAGE HAS TWO YELLOWS AND NO OTHERS, and the water fills the whole distance
-  between them.
-FINISH: 2 (the two animals + the beam). Stars = at most 8 marks. 0 lettering, 0 numerals, 0 name
-  plates on the lighthouse.
+  crosses the water as a single flat shape - not a glow, not a haze, and it lights nothing else. 🔴 AND ONE MORE: a small yellow square in one far roof shape across the water.
+  🔴 TWO YELLOWS AND NO OTHERS, and the water fills the distance between them.
+FINISH: 2 (the two animals + the beam). Stars = at most 8. 0 lettering, 0 name plates.
 ```
 
 ---

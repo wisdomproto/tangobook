@@ -62,44 +62,39 @@
 STYLE ANCHOR - changjak-canalfork   (a duckling and a coot / one fork of an Amsterdam canal)
 
 Style: fine ink line and TRANSPARENT WATERCOLOUR on cool white paper #F7F4EC, 4-6 year old picture
-  book, made in TWO STAGES - 🔴 the whole drawing is inked first with a fine even nib and allowed
-  to dry, then the colour is washed over it, so the line never dissolves and the wash may run past
-  the line without harm. 🔴 THERE IS NO WHITE PAINT ANYWHERE. Every bright thing - a sparkle on
-  water, a drop, the shine on a bill - is BARE PAPER left unpainted.
+  book, made in TWO STAGES - 🔴 the whole drawing is inked first with a fine even nib and dried,
+  then the colour is washed over it, so the line never dissolves and the wash may run past it.
+  🔴 THERE IS NO WHITE PAINT ANYWHERE. Every bright thing - a sparkle on water, a drop, the shine
+  on a bill - is BARE PAPER left unpainted.
 
 RENDERING (finish hierarchy): 🔴 VALUE IS THE NUMBER OF LAYERS, never a grey mixed in: sunlit = 1
-  wash, shaded = the SAME colour laid twice, under the bridge = three. Nothing is darker than three
-  and no shadow is a different hue. 🔴 THE TWO WATERS ARE THE SAME WATER IN TWO STATES and are made
+  wash, shaded = the SAME colour laid twice, under the bridge = three. Nothing is darker than three and no shadow is a
+  different hue. 🔴 THE TWO WATERS ARE THE SAME WATER IN TWO STATES and are made
   by opposite operations - the shaded lane is BUILT UP from separate dabbed green dots until the
   dots touch and become a raft; the sunlit lane is LEFT OUT, one thin wash with torn scraps of bare
   paper across it and 0 dots. 🔴 TO PUSH SOMETHING BACK, LEAVE THE INK LINE OFF IT and give it one
   flat wash only - never blur it, never fade it. FINISHED THINGS PER PAGE = 2 - the bird and the
-  one thing it touches or speaks to. Brick wall = at most 9 courses ruled near the water, 0 bricks
-  drawn above that. Houses = 1 outline each, at most 4 windows drawn in a whole frame. Bicycle = 1
-  outline, 0 spokes. Wooden posts = 3, each 1 outline with at most 4 grain lines. Ripples = at most
-  6 ink arcs. DENSITY RATION = none; all thirteen pages stay at 2.
+  one thing it touches or speaks to. Brick wall = at most 9 courses near the water, 0 above.
+  Houses = 1 outline each, at most 4 windows in a whole frame. Bicycle = 1 outline, 0 spokes.
+  Ripples = at most 6 ink arcs. DENSITY RATION = none; all thirteen pages stay at 2.
 
 PALETTE: paper #F7F4EC, the only white in the book · ink #232A2C, line only · canal water #4E5A50
   at one layer, #333D36 at two · brick #9C6C4E with waterline slime #5E6B52 · duckling yellow
-  #E9BA3E · 🔴 DUCKWEED GREEN #6E9B3E, the cause colour, always separate dabbed dots and never a
-  tint, a glaze or a wash · coot black #1E2226 with a bare-paper frontal shield · 🔴 GERANIUM RED
-  #BE3A2A, one pot on one windowsill, THE ONLY RED IN THE BOOK and never on a bird, a boat, a
-  flower or a roof. No purple, no orange, no pink, and no white paint of any kind.
+  #E9BA3E · 🔴 DUCKWEED GREEN #6E9B3E, the cause colour, always separate dabbed dots, never a tint
+  or a wash · coot black #1E2226 with a bare-paper frontal shield · 🔴 GERANIUM RED
+  #BE3A2A, one pot on one windowsill, THE ONLY RED IN THE BOOK and never on a bird, a boat or a
+  roof. No purple, orange or pink, and no white paint.
 
 CHARACTER DESIGN LANGUAGE: birds are birds. Ink contour first, then one or two washes inside it;
-  feathers are not drawn, only the outline shape and at most 5 wing lines. 🔴 A bird's eye is a
-  small ink ring with a dark centre and a lid line above it that can lower - there is no eyebrow
-  and no human expression, and the acting is done by NECK ANGLE and by how far the bill is opened.
-  The two silhouettes must separate at thumbnail size: the duckling is a small round yellow body
-  with a short bill, the coot is a taller upright black body with a bare-paper shield on its face.
-  FIXED GRADE: neither bird has hands. They peck, hold in the bill and point with the bill, and
-  nothing else. Feet are underwater and never drawn; effort shows as ripples only.
+  feathers are not drawn, only the outline and at most 5 wing lines. 🔴 A bird's eye is a small
+  ink ring with a dark centre and a lid line above it that can lower - no eyebrow, no human
+  expression, and the acting is done by NECK ANGLE and by how far the bill is opened. The two
+  silhouettes must separate at thumbnail size. FIXED GRADE: neither bird has hands. They peck,
+  hold in the bill and point with the bill, and nothing else. Feet are underwater and never drawn;
+  effort shows as ripples only.
 
 CANVAS: 16:9 double-page spread. One canal fork and nothing else on all thirteen pages. Bottom 18%
-  quiet for a caption. 🔴 No lettering, numerals, shop signs, house numbers or name plates anywhere
-  - this is a canal town and the temptation is constant. It is Amsterdam only because of narrow
-  leaning brick houses, a low arch bridge, a bicycle tied to a railing, wooden mooring posts and a
-  houseboat bow.
+  quiet for a caption. 🔴 No lettering, numerals, shop signs, house numbers or name plates.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,
   or a texture filter over the washes / never white paint, never a mixed grey shadow, never a
@@ -202,14 +197,12 @@ ALSO ON THIS SHEET: the underside of the arch with its curved brick and a lick o
 CAMERA: medium wide, VERY LOW eye level right at the water's surface. DucklingWeed swimming toward
   us at the lower middle, the canal running straight away from it into the depth of the frame.
 SUBJECT: DucklingWeed swims forward with its neck pushed out low and its bill near the water, eyes
-  fixed straight ahead into the distance; two lines of ripple open backward from its breast. Early
-  morning, the water dead calm.
+  fixed straight ahead; two lines of ripple open backward from its breast. Early morning, dead calm.
 WATERS: 🔴 NOT YET SPLIT - one single lane running away between the walls, two washes, quiet. Far
   back, small, the three mooring posts stand where the water begins to open into two; the reader
   can see it and the bird is looking straight past it.
-GREEN: 🔴 PLANTED - duckweed dots lie thick across the back of the neck and the middle of the back,
-  separate dabbed dots with yellow showing between them. It is the only green on this page and the
-  eye must land on it before anything else.
+GREEN: 🔴 PLANTED - duckweed dots lie thick across the neck and the middle of the back, separate
+  dabs with yellow showing between them. The only green on this page; the eye must land on it first.
 RED: the geranium pot small on its sill at the right, well back.
 FINISH: 2 (the duckling + the water it is parting). 🔴 Compose the frame INTO the depth, not
   across it, so that "the water is one line and there is nothing to choose" is the shape of the
@@ -219,23 +212,21 @@ FINISH: 2 (the duckling + the water it is parting). 🔴 Compose the frame INTO 
 ### p2 — 물길이 둘이잖아? 🔴 판 ref · 가장 먼저 굽는다
 
 ```
-BAKE THIS PAGE FIRST OF ALL THIRTEEN. 🔴 Pages 11 and 13 return to this exact framing, so this one
-render decides three pages, and the book stands or falls on the two waters reading as two states of
-one water rather than as two different pictures.
+BAKE THIS PAGE FIRST OF ALL THIRTEEN. 🔴 Pages 11 and 13 return to this exact framing, so this
+one render decides three pages, and the book stands or falls on the two waters reading as two
+states of one water rather than as two different pictures.
 CAMERA: wide, slightly HIGH angle. DucklingWeed stopped at the lower middle; the canal splits away
-  from it left and right so the frame is cut like a Y.
-SUBJECT: DucklingWeed has stopped dead on the water with its neck straight up and its bill slightly
-  raised, eyes looking at the gap BETWEEN the two lanes; the body has drifted a little further
-  forward than the stop, leaving one last ripple at the breast, and the tail is stiff.
-WATERS: 🔴 THE FRAME IS SPLIT EXACTLY IN HALF. LEFT - the lane runs under the low brick arch into
-  shade, two washes, and the surface is covered edge to edge with separate dabbed duckweed dots so
-  dense they touch and read as a thick raft. RIGHT - the lane opens between the houses with the
-  morning sun straight down it, ONE thin wash with torn scraps of BARE PAPER across it and 0 dots,
-  nothing floating on it at all. 🔴 Neither half may look better than the other.
-GREEN: on the duckling's back, the same green as the left lane's dots and made the same way.
-RED: the geranium on the sill at the right, exactly where the set sheet puts it.
-FINISH: 2 (the duckling + the fork). Posts = 3 outlines with a twig nest; bicycle = 1 outline, 0
-  spokes. 🔴 One small yellow point stopped between two equal halves. 0 lettering, 0 numerals.
+  left and right so the frame is cut like a Y.
+SUBJECT: DucklingWeed has stopped dead with its neck straight up and its bill slightly raised, eyes
+  on the gap BETWEEN the two lanes; the body has drifted a little past the stop, tail stiff.
+WATERS: 🔴 THE FRAME IS SPLIT EXACTLY IN HALF. LEFT - the lane runs under the low brick arch
+  into shade, two washes, covered edge to edge with dabbed duckweed dots so dense they touch and
+  read as a thick raft. RIGHT - the lane opens with the sun straight down it, ONE thin wash with
+  torn scraps of BARE PAPER and 0 dots. 🔴 Neither half may look better than the other.
+GREEN: on the duckling's back, the same green as the left lane's dots, made the same way.
+RED: the geranium on the sill at the right, where the set sheet puts it.
+FINISH: 2 (the duckling + the fork). 🔴 One small yellow point stopped between two equal halves.
+  0 lettering, 0 numerals.
 ```
 
 ### p3 — 물이 아무 데도 안 데려다줘요
@@ -365,16 +356,14 @@ BAKE THIS PAGE SECOND, right after page 2.
 CAMERA: medium wide, eye level. DucklingWeed near at the RIGHT with its head turned back; the mouth
   of the shaded lane at the far LEFT.
 SUBJECT: DucklingWeed keeps its body pointed away up the right lane and 🔴 TURNS ONLY ITS NECK,
-  bending it right over its shoulder so the bill aims straight left, both eyes wide open, neck
-  feathers standing, tail up.
+  bending it over its shoulder so the bill aims straight left, eyes wide, neck feathers up.
 WATERS: 🔴 THE FRAME TIPS FOR THE FIRST TIME. The LEFT is packed to the edges with the green raft
   under the arch, and its edge is CRUMBLING OUT INTO THE FORK - a line of single scraps drifting
   clear one after another (this is where page 3's circling scraps came from). The RIGHT stays one
   thin wash and bare paper, still empty. Page 2 divided the frame evenly; this one does not.
-GREEN: 🔴 THE WHOLE PAGE IS THIS - the dots on the duckling's back and the raft across the lane are
-  THE SAME GREEN, the same pigment at the same strength, and they are in one frame together. 🔴 The
-  writing never says they match; the colour does. Compose so the eye can jump from the back to the
-  raft in one movement.
+GREEN: 🔴 THE WHOLE PAGE IS THIS - the dots on the duckling's back and the raft across the lane
+  are THE SAME GREEN at the same strength, in one frame together. 🔴 The writing never says they
+  match; the colour does. Compose so the eye jumps from back to raft in one movement.
 RED: the geranium at the middle back, unchanged.
 FINISH: 2 (the duckling + the raft). Posts and coot stand between them, plain. 0 lettering.
 ```
@@ -425,8 +414,8 @@ FINISH: 2 (the duckling + the fork). 🔴 The picture is identical to page 2 and
 CAMERA: medium close-up, slightly HIGH angle. DucklingWeed in the middle pushing into the raft,
   just under the arch.
 SUBJECT: DucklingWeed pushes forward through the green, its breast shouldering the raft so 🔴 THE
-  WEED PARTS INTO TWO WINGS in front of it; neck low and forward, one scrap caught on the bill tip,
-  eyes bright, tail flicking. Scraps slide backward along its flanks.
+  WEED PARTS INTO TWO WINGS in front of it; neck low, one scrap caught on the bill tip, tail
+  flicking. Scraps slide backward along its flanks.
 WATERS: 🔴 THREE WASHES here - it is under the bridge, the deepest value in the book. The curved
   underside of the arch above, with a lick of reflected light left as BARE PAPER wavering across
   it. Behind the bird a narrow track of open dark water shows where it has passed, and the green is
@@ -436,8 +425,8 @@ GREEN: 🔴 THE PAYOFF OF THE CAUSE COLOUR - the dots on its back and the raft s
   along the back and shoulders. Twelve pages of carrying it, and here the animal and the cause are
   one colour.
 RED: the geranium clipped at the far edge behind, back at the bright fork.
-FINISH: 2 (the duckling + the parting weed). One submerged bicycle wheel as 1 outline under the
-  water. 🔴 Cool and enclosed, never gloomy. 0 lettering, 0 numerals.
+FINISH: 2 (the duckling + the parting weed). One submerged bicycle wheel as 1 outline.
+  🔴 Cool and enclosed, never gloomy. 0 lettering, 0 numerals.
 ```
 
 ### p13 — 이 물길은 내가 골랐어! 🔴 착지
@@ -445,20 +434,18 @@ FINISH: 2 (the duckling + the parting weed). One submerged bicycle wheel as 1 ou
 ```
 ATTACH THE APPROVED PAGE 2 RENDER. 🔴 Same place, same light, same framing, same props.
 CAMERA: wide, slightly HIGH angle - identical to page 2 and page 11.
-SUBJECT: DucklingWeed is small, well up the LEFT lane and still going away, but has turned its neck
-  back for one look at the fork, bill parted calling, eyes creased, tail up. 🔴 Above, MarshCoot
-  stands on the post IN EXACTLY THE POSE IT FIRST HAD, one foot up, combing its flank, not looking.
+SUBJECT: DucklingWeed is small, well up the LEFT lane and still going away, but has turned its
+  neck back for one look at the fork, bill parted calling. 🔴 Above, MarshCoot stands on the post
+  IN EXACTLY THE POSE IT FIRST HAD, one foot up, combing its flank, not looking.
 WATERS: 🔴 THE WHOLE PAGE IS THE DIFFERENCE BETWEEN THE TWO SURFACES. RIGHT - one thin wash and
   torn bare paper, 🔴 completely unmarked, exactly as on page 2. LEFT - the green raft with 🔴 ONE
-  PARTED TRACK running from just in front of the posts up to the duckling's tail, the weed closing
-  over it from the far end so the track narrows behind. 🔴 Compose so the eye crosses back and
-  forth between the two lanes and then settles on the SPOT IN FRONT OF THE POSTS where the track
-  begins - that is where having chosen is kept.
+  PARTED TRACK running from just in front of the posts to the duckling's tail, the weed closing over
+  it from the far end so it narrows behind. 🔴 Compose so the eye crosses between the two lanes
+  and settles on the SPOT IN FRONT OF THE POSTS where the track begins - choosing is kept there.
 GREEN: on its back, every dot still there.
 RED: 🔴 the geranium pot on the same sill in the same place it has held for thirteen pages.
-FINISH: 2 (the two water surfaces). Posts, twig nest, arch, bicycle, houseboat bow, all as on page
-  2 and no more finished than they were. 🔴 Neither lane looks better than the other, still.
-  0 lettering, 0 numerals, 0 signs.
+FINISH: 2 (the two water surfaces). Posts, arch, bicycle and houseboat bow all as on page 2 and no
+  more finished. 🔴 Neither lane looks better than the other, still. 0 lettering, 0 signs.
 ```
 
 ---
