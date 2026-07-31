@@ -47,32 +47,19 @@ for (const [id, slug] of Object.entries(slugOf)) {
   console.log(`  ${id} ← ${twin[0]} (공유 슬러그 ${slug})`);
 }
 
-// 🔴 **첫 장은 슬러그마다 달라야 한다.** 화면에 뜨는 건 `refs[0]` 한 장뿐이라, 두 권이 같은 그림을
-//    첫 장으로 가지면 **그리는 사람이 두 책을 같은 그림체로 그린다**(그 사람은 글보다 그림을 먼저 본다).
-//    담당 넷이 병렬로 고르니 같은 그림을 동시에 집는 건 막을 수 없다 — 실제로 한 배치에서
-//    `rolfe-dyslexia` 가 네 권, `virardi-instant` 가 네 권에 걸렸다. 후보를 셋씩 갖고 있으므로
-//    **안 쓰인 후보로 민다**. 정확도를 조금 잃지만, 같은 그림 두 장은 아무것도 안 알려 준다.
-//    ⚠️ 공유 슬러그(짝)는 **같은 그림을 써야 맞으므로** 슬러그 단위로 본다.
-const claimed = new Map(); // refId → slug
-const bumped = [];
-for (const [id, e] of Object.entries(db)) {
-  if (!e.refs?.length) continue;
-  const owner = claimed.get(e.refs[0].id);
-  if (!owner || owner === e.slug) {
-    claimed.set(e.refs[0].id, e.slug);
-    continue;
-  }
-  const alt = e.refs.findIndex((r, i) => i > 0 && !claimed.has(r.id));
-  if (alt < 0) {
-    bumped.push(`🔴 ${id}(${e.slug}) — 후보 셋이 전부 남에게 잡혔다. 첫 장이 ${owner} 와 겹친 채로 둔다`);
-    continue;
-  }
-  const [pick] = e.refs.splice(alt, 1);
-  e.refs.unshift(pick);
-  claimed.set(pick.id, e.slug);
-  bumped.push(`  ${id} 첫 장 → ${pick.id} (원래 것이 ${owner} 와 겹침)`);
+// 🔴 **첫 장 중복은 막지 않는다**(2026-08-01 결정). 앵커 100~150개로 1000권을 덮는 설계라
+//    한 그림체를 여러 권이 나눠 쓰는 게 정상이고, 그림은 **책이 아니라 앵커**를 가리킨다.
+//    한때 겹치면 다른 후보로 밀었는데, 99점 중 미사용이 23점까지 줄어 그 방식은 어차피
+//    다음 배치에서 막힌다. 겹치는 것을 **알려만 준다** — 같은 그림이 뜨는데 공정이 서로
+//    다르면 그건 배정이 틀린 것이므로, 그때만 손본다.
+const byRef = {};
+for (const [id, e] of Object.entries(db)) if (e.refs?.[0]) (byRef[e.refs[0].id] ||= []).push(`${id}(${e.slug})`);
+const shared = Object.entries(byRef).filter(([, v]) => v.length > 1);
+if (shared.length) {
+  console.log('
+첫 장을 나눠 쓰는 권 (공정이 같으면 정상)');
+  shared.forEach(([r, v]) => console.log(`  ${r} → ${v.join(' ')}`));
 }
-if (bumped.length) console.log('\n첫 장 중복 정리\n' + bumped.join('\n'));
 
 writeFileSync(TARGET, JSON.stringify(db, null, 2) + '\n');
 
