@@ -491,11 +491,11 @@ CAMERA: wide, slightly LOW angle. LEFT and near, the vole on the lip; RIGHT and 
 SUBJECT: left, VoleKid lying on the lip with 🔴 ITS HEAD LIFTED AND SWEEPING SLOWLY FROM LEFT TO
   RIGHT, both forepaws side by side on the gravel, eyes creased into half-moons, mouth open
   answering, only the tail tip in the dark. Right, PonyBay on the moss, head turned this way, mouth
-  open asking. 🔴 It is still entirely outside.
+  open asking. 🔴 Still entirely outside.
 WHITE: the plate rises off the vole's back and up the slope, hard-edged. 🔴 Below its back there is
-  no plate anywhere: the column, the moss, the pony and every ridge notch are sharp.
-GREEN: 🔴 THE BOUNDARY RUNS UNDER THE VOLE'S BODY - moss behind and below its belly, frosted grey
-  gravel from its forepaws forward. Page 2's line is repaid here; draw it hard.
+  no plate at all: the column, the moss, the pony and every ridge notch are sharp.
+GREEN: 🔴 THE BOUNDARY RUNS UNDER THE VOLE'S BODY - moss behind its belly, frosted grey gravel from
+  its forepaws forward. Page 2's line is repaid here; draw it hard.
 INSIDE: 🔴 on the threshold.
 FINISH: 2 (the vole + the boundary under it). 🔴 THE WARM THING AND THE CLEAR THING OVERLAP IN
   EXACTLY ONE PLACE AND THE ANIMAL IS IN IT. Sky = bare paper, 0 marks. 0 lettering, 0 numerals.

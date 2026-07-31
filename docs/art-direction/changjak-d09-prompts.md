@@ -63,50 +63,44 @@ STYLE ANCHOR - changjak-pressmark   (a fox cub / a Finnish farmyard at night in 
 
 Style: graphite PRESSED INTO a soft blue-grey board, 4-6 year old picture book. 🔴 A MARK IS NOT
   DRAWN ON THE SURFACE, IT IS PUSHED INTO IT: the tool dents the board, the dent throws a hard lip
-  on one rim, and the graphite gathers in the groove. Every contour, every footprint, every furrow
-  is one of these dents. The board's own blue-grey is the snow, the night and the air all at once,
-  and it is left completely untouched wherever nothing has happened.
+  on one rim, and the graphite gathers in the groove. Every contour, footprint and furrow is one
+  of these dents. The board's own blue-grey is the snow, the night and the air at once, left
+  untouched wherever nothing has happened.
 
-RENDERING (finish hierarchy): 🔴 TWO OPPOSITE OPERATIONS AND NOTHING ELSE. PRESSING goes DOWN into
-  the board and is permanent. CHALK goes ON TOP of it and is temporary. 🔴 CHALK LAID OVER A GROOVE
-  NEVER FILLS IT - the dent still shows through as a paler, softer channel. There are exactly THREE
-  DEPTHS and a child must be able to sort them: FRESH - deep groove, dark graphite in it, crisp
-  lip. HALF-FILLED - the same groove with chalk rubbed across the top, so it reads as a faint
-  channel with no dark in it. UNTOUCHED - plain board, 0 marks. 🔴 "Erased" is never blur and never
-  fade: it is CHALK LAID OVER, plus the graphite line count in that area dropped to 0. FINISHED
-  THINGS PER PAGE = 2 - the fox and the one thing it touches. Log wall = at most 7 log lines, 0
-  knots, 0 chinking. Icicles = at most 5. Roof snow = 1 pressed edge line. Sky = 0 marks, always.
-  Stars = at most 6 points and only after the wind drops. DENSITY RATION = page 10 only, where it
-  rises to 4 (the fox + the seven-print row + the two older rows + the postbox).
+RENDERING (finish hierarchy): 🔴 TWO OPPOSITE OPERATIONS. PRESSING goes DOWN into the board and
+  is permanent; CHALK goes ON TOP and is temporary. 🔴 CHALK LAID OVER A GROOVE
+  NEVER FILLS IT - the dent still shows through as a paler channel. THREE DEPTHS, and a child must
+  sort them: FRESH - deep groove, dark graphite in it, crisp lip. HALF-FILLED - chalk rubbed over
+  the top, a faint channel with no dark in it. UNTOUCHED - plain board, 0 marks. 🔴 "Erased" is
+  never blur and never fade: it is CHALK LAID OVER, plus the graphite line count there dropped to
+  0. FINISHED THINGS PER PAGE = 2 - the fox and the one thing it touches. Log wall = at most 7
+  lines. Icicles = at most 5. Sky = 0 marks. Stars = at most 6, and only after the wind drops.
+  DENSITY RATION = page 10 only, where it rises to 4.
 
-PALETTE: BOARD blue-grey #7C8894 - the snow, the night and the air, one colour and by far the most
-  of every page · GRAPHITE #2B3138 - lines and the dark that gathers in a fresh groove · CHALK
-  #DCE2E6 - the ONLY opaque thing in the book, and it is always snow that has just landed on top of
-  something · 🔴 ONE WARM #D2812C, the single accent, appearing in THREE APPLICATIONS whose sizes
-  are the distance gauge: RUBBED into a soft round pool (the lamp at the door, behind) · laid as a
-  SMALL HARD-EDGED PLATE (the postbox, ahead) · STROKED in short marks (the fox's own coat).
-  🔴 THE ENVELOPE HAS NO COLOUR OF ITS OWN: inside the lamp's pool the warm is rubbed thin over it
-  so it reads cream; outside the pool it is bare board with one pressed outline and nothing more.
-  No white paint, no red, no blue, no green, no yellow-as-a-second-warm anywhere.
+PALETTE: BOARD blue-grey #7C8894 - the snow, the night and the air at once, and most of every
+  page · GRAPHITE #2B3138 - lines and the dark that gathers in a fresh groove · CHALK #DCE2E6
+  - the ONLY opaque thing in the book, always snow just landed on top of something ·
+  🔴 ONE WARM #D2812C, the single accent, in THREE APPLICATIONS whose sizes are the distance gauge:
+  RUBBED into a soft round pool (the lamp, behind) · a SMALL HARD-EDGED PLATE (the postbox, ahead)
+  · STROKED in short marks (the fox). 🔴 THE ENVELOPE HAS NO COLOUR OF ITS OWN: inside the lamp's
+  pool the warm is rubbed thin over it so it reads cream; outside it is bare board with one pressed
+  outline. No white paint, no red, blue or green, and no second warm colour.
 
-CHARACTER DESIGN LANGUAGE: the animals are made the same way as the ground - a pressed contour with
-  the warm stroked inside it, and chalk on top wherever snow has settled. Each has a drawn eye with
-  a SEPARATE pressed brow above it; the brows do the acting and must lift, pull together and tilt
-  unevenly. 🔴 The silhouette is a low four-legged animal with a long muzzle, big triangular ears
-  and a heavy tail, and it must read at thumbnail size with the white envelope crossways in its
-  mouth. FIXED GRADE: walks on four legs and carries the letter in its mouth on every page; the
-  forepaws are used only for digging and for pushing the flap, and then it sits back or stands on
-  its hind legs. No clothes, no scarf, no fingers, no bag.
+CHARACTER DESIGN LANGUAGE: the animals are made like the ground - a pressed contour with the warm
+  stroked inside, chalk on top where snow has settled. Each has a drawn eye with a SEPARATE pressed
+  brow above it; the brows do the acting and must lift, pull together and tilt
+  unevenly. 🔴 The silhouette must read at thumbnail size with the envelope crossways in the
+  mouth. FIXED GRADE: four legs, and the letter in the mouth on every page; the forepaws are used
+  only for digging and for pushing the flap. No clothes, no scarf, no fingers.
 
-CANVAS: 16:9 double-page spread. One farmyard - a log house door with a lamp on its handle at one
-  end, an untouched snowfield, and a postbox on a low post at the other - on all fourteen pages.
-  Bottom 18% quiet for a caption. 🔴 No lettering, numerals, name plates or markers anywhere: the
-  envelope is COMPLETELY BLANK on both sides and the postbox carries nothing written at all.
+CANVAS: 16:9 double-page spread. One farmyard on all fourteen pages. Bottom 18% quiet for a
+  caption. 🔴 No lettering, numerals, name plates or markers anywhere: the envelope is COMPLETELY
+  BLANK on both sides.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,
-  or a texture filter over the board / never white paint, never a light beam, halo or glow round
-  the lamp / not blurred, hazy, faded or spotlit, and a groove is never softened out of existence /
-  one sheet thick - no wool fibre, no felt fuzz, no stitching, no sculpted clay.
+  or a texture filter over the board / never white paint, never a beam, halo or glow round the
+  lamp / not blurred, faded or spotlit, and a groove is never softened away / one sheet thick -
+  no wool fibre, no felt fuzz, no stitching, no sculpted clay.
 ```
 
 ---
@@ -201,23 +195,22 @@ SCENE token: SnowYardSet.
 ### p1 — 우체통까지 열 걸음이야 🔴 거리계 판 · 두 번째로 굽는다
 
 ```
-BAKE THIS PAGE SECOND, right after page 10 - it fixes the two warm sizes the whole book is measured
+BAKE THIS PAGE SECOND, right after page 10 - it fixes the two warm sizes the book is measured
 against.
-CAMERA: medium, eye level. The log doorway and MotherFox at the LEFT, FoxPost on the snow just
-  below, and far off at the RIGHT edge a small warm plate in the falling snow.
-SUBJECT: MotherFox stands on four legs on the wooden step with her neck stretched down, having just
-  put the blank envelope into the cub's jaws; one forepaw still rests by the lamp and her tail is
-  half inside the door. FoxPost stands below with its head up, the envelope gripped crossways,
-  ears pricked, eyes round, tail up.
-PRESS: 🔴 ZERO. The whole snowfield is plain board with not one mark on it, and that emptiness is
-  planted here to be collected on page 10.
-SNOW: chalk flecks slanting through the air only. Nothing has settled on the cub yet.
-WARM: 🔴 THE GAUGE IS SET HERE. At the LEFT, the lamp as a SOFT RUBBED ROUND POOL spilling onto
-  the snow, the size of a fox's head. At the far RIGHT, the postbox as a HARD-EDGED PLATE THE SIZE
-  OF A FINGERNAIL. Between them, the cub's own coat, stroked warm. 🔴 Same pigment, three sizes -
-  and the distance between the pool and the plate is what this book measures.
+CAMERA: medium, eye level. The log doorway and MotherFox at the LEFT, FoxPost on the snow below,
+  and far off at the RIGHT edge a small warm plate in the falling snow.
+SUBJECT: MotherFox stands on four legs on the step, neck stretched down, having just put the blank
+  envelope into the cub's jaws; one forepaw rests by the lamp, her tail half inside the door.
+  FoxPost stands below with its head up, the envelope gripped crossways, ears pricked, tail up.
+PRESS: 🔴 ZERO. The whole snowfield is plain board with not one mark on it - planted here to be
+  collected on page 10.
+SNOW: chalk flecks slanting through the air only; nothing has settled on the cub yet.
+WARM: 🔴 THE GAUGE IS SET HERE. At the LEFT, the lamp as a SOFT RUBBED ROUND POOL on the snow, the
+  size of a fox's head. At the far RIGHT, the postbox as a HARD-EDGED PLATE THE SIZE OF A
+  FINGERNAIL. Between them, the cub's coat, stroked warm. 🔴 Same pigment, three sizes, and the
+  distance between pool and plate is what this book measures.
 FINISH: 2 (the two foxes). The envelope is inside the pool, so the warm is rubbed thin across it
-  and it reads cream. Log wall = at most 7 lines; icicles at most 5. 0 lettering, 0 numerals.
+  and reads cream. 0 lettering.
 ```
 
 ### p2 — 하나! 둘! 셋—
@@ -375,28 +368,22 @@ FINISH: 2 (the fox + the hollow it is sitting in). 0 lettering, 0 numerals.
 ### p10 — 내 발자국이 나보다 앞에 있어! 🔴 밀도 배급 · 판 ref · 가장 먼저 굽는다
 
 ```
-BAKE THIS PAGE FIRST OF ALL FOURTEEN. 🔴 The test of the book: if the rows read as drawn lines
-rather than as dents at three different depths, nothing else is worth baking - and the landing has
-nothing to stand on.
-THE ONE RATIONED PAGE - everything the previous nine saved is spent here.
-CAMERA: wide, slightly HIGH angle. FoxPost sitting at the lower LEFT; the rows running from the
-  middle away to the upper RIGHT; the postbox at the end of them.
-SUBJECT: FoxPost is still sitting - it has NOT stood up - and has lifted one forepaw to wipe its
-  eye and stopped halfway, that paw still up beside its face, the other braced on the snow. Eyes
-  wide open, ears snapped forward, the envelope lifted again in its jaws.
-PRESS: 🔴 THE PAYOFF. Three rows in one frame at TWO DEPTHS: far back at the LEFT, ROW ① (three)
-  and the rolled furrow, and beside them ROW ② (five) - both HALF-FILLED, chalk rubbed across them
-  so they are faint pale channels with no dark left in them. And starting just in front of the fox
-  and running up to the RIGHT, 🔴 ROW ③ (seven), FRESH - deep, dark-bottomed, crisp-lipped, plainly
-  the newest thing on the page. 🔴 Which row to walk on is decided by the picture, not the words.
-SNOW: stopped. Chalk still lies on the fox's back; the air has 0 chalk in it. 🔴 The graphite lines
-  are all back, everywhere - after two pages at 0, that is what "it cleared" looks like here.
-WARM: 🔴 THE POSTBOX FOR THE FIRST TIME LARGE AND HARD-EDGED at the upper RIGHT, a snow cap on its
-  lid and its foot buried. The lamp is one small warm point at the far LEFT edge. 🔴 The two have
-  swapped sizes since page 1.
-FINISH: 4 instead of 2 (the fox + row ③ + the two older rows + the postbox). Stars = at most 6.
-  🔴 Compose so the eye starts at the face, walks up the seven dents one at a time and arrives at
-  the warm plate. That single sweep is the whole of this page. 0 lettering, 0 numerals.
+BAKE THIS PAGE FIRST OF ALL FOURTEEN, and it is THE ONE RATIONED PAGE. 🔴 If the rows read as drawn
+lines rather than as dents at three depths, nothing else is worth baking.
+CAMERA: wide, slightly HIGH angle. FoxPost at the lower LEFT, the rows running away to the upper
+  RIGHT, the postbox at the end of them.
+SUBJECT: FoxPost is still sitting - it has NOT stood up - one forepaw lifted to wipe its eye and
+  stopped halfway beside its face. Eyes wide, ears snapped forward.
+PRESS: 🔴 THE PAYOFF. Three rows in one frame at TWO DEPTHS: back at the LEFT, ROW ① (three) and
+  the rolled furrow, beside them ROW ② (five) - both HALF-FILLED, chalk rubbed over them into
+  faint channels with no dark left. In front of the fox, running up to the RIGHT, 🔴 ROW ③ (seven),
+  FRESH - deep, dark-bottomed, crisp-lipped. 🔴 Which row to walk on is decided by the picture.
+SNOW: stopped, 0 chalk in the air. 🔴 The graphite lines are all back - after two pages at 0, that
+  is what "it cleared" looks like.
+WARM: 🔴 THE POSTBOX LARGE AND HARD-EDGED FOR THE FIRST TIME at the upper RIGHT; the lamp one small
+  point at the far LEFT. 🔴 They have swapped sizes since page 1.
+FINISH: 4 (fox + row ③ + the two older rows + postbox). 🔴 The eye walks up the seven dents one at
+  a time to the warm plate. 0 lettering.
 ```
 
 ### p11 — 안 빠져! 하나도 안 빠져!
@@ -446,44 +433,38 @@ FINISH: 2 (the fox + the postbox). 🔴 No lettering, numerals or name plates on
 CAMERA: close-up, eye level at the height of the slot. FoxPost's raised body and face at the LEFT,
   the slot at the RIGHT.
 SUBJECT: FoxPost has stood right up on its hind legs and stretched as tall as it will go, one
-  forepaw pushing the metal flap upward and the other braced against the side for balance, its
-  muzzle pushing the envelope into the slot so the eyes are slightly crossed and one cheek is
-  squashed, tail swinging hard behind. 🔴 STANDING UP, ITS NOSE JUST REACHES THE SLOT - measured
-  here and nowhere else. This is the only page where the forepaws are used as hands.
-PRESS: almost nothing - the wind-scoured ground here takes no marks, which is why it can stand.
+  forepaw pushing the metal flap upward and the other braced against the side, its muzzle pushing
+  the envelope into the slot so the eyes are slightly crossed. 🔴 STANDING UP, ITS NOSE JUST
+  REACHES THE SLOT - measured here and nowhere else, and this is the only page where the forepaws
+  are used as hands.
+PRESS: almost nothing - the wind-scoured ground takes no marks, which is why it can stand.
 SNOW: a lump of snow tipping off the lifted flap; the coat is clean.
-WARM: 🔴 the postbox at its closest, filling the right of the frame; the fox's own warm right
-  against it, and the envelope, out of the lamp's reach, still bare board with one pressed
-  outline. The lamp is a distant point behind. 🔴 For the first time the two applications of the
-  warm are touching each other.
+WARM: 🔴 the postbox at its closest, filling the right of the frame; the fox's own warm against
+  it, and the envelope, out of the lamp's reach, still bare board with one pressed outline.
+  🔴 For the first time the two applications of the warm are touching each other.
 FINISH: 2 (the raised fox + the slot). 🔴 THE ENVELOPE IS HALF IN AND HALF OUT so that going in is
   readable in one look, and the inside of the slot is the darkest graphite on the page. Rivets and
-  worn paint = at most 3 marks. Stars = at most 6. 🔴 No lettering, numerals or name plates
-  anywhere, and the envelope is blank on both sides.
+  worn paint = at most 3 marks. 🔴 No lettering or name plates, and the envelope is blank.
 ```
 
 ### p14 — 거기 밟아! 내 발자국! 🔴 착지
 
 ```
 ATTACH THE APPROVED PAGE 1 AND PAGE 10 RENDERS.
-CAMERA: wide, HIGH angle looking down across the whole yard - 🔴 the same yard as page 1 seen from
-  the other end. FoxPost and the postbox at the lower RIGHT, the open door and MotherFox at the
-  upper LEFT, the rows running between them.
-SUBJECT: FoxPost stands on four legs by the postbox, turned back to the left, one forepaw lifted
-  and pointing at the row, mouth wide open calling, ears up, tail straight up, coat clean and warm
-  again. MotherFox comes along row ③ on four legs with one forepaw just landing inside a small
-  dent, head up, eyes creased. 🔴 She does not pick him up, carry him or lean over him.
+CAMERA: wide, HIGH angle across the whole yard - 🔴 the same yard as page 1 from the other end.
+  FoxPost and the postbox at the lower RIGHT, the open door and MotherFox at the upper LEFT.
+SUBJECT: FoxPost stands by the postbox, turned back to the left, one forepaw lifted and pointing at
+  the row, mouth wide open calling, tail straight up, coat clean again. MotherFox comes along row
+  ③ with one forepaw just landing inside a small dent, head up. 🔴 She does not pick him up.
 PRESS: 🔴 THE LANDING. Three or four places where HER BIG PRINT SITS OVER HIS SMALL ONE, hers twice
-  the size, both rims still readable, the small one held inside the big one. Beside that row lie
-  the half-filled row ② and row ① and the wide furrow, 🔴 so the whole field reads as a map of
-  everything that went wrong tonight, and none of it has been erased.
+  the size, both rims readable, the small one held inside the big one. Beside that row lie the
+  half-filled row ②, row ① and the wide furrow, 🔴 a map of tonight, none of it erased.
 SNOW: none falling, none on either animal. Stars = at most 6.
-WARM: 🔴 BOTH APPLICATIONS IN ONE FRAME AT LAST - the door pool spilling out across the snow as a
-  LONG rubbed shape of the same warm (🔴 not a beam, not a glow, no rays), and the postbox plate at
-  the lower right. On page 1 they sat at opposite edges with an empty field between them; here the
-  pressed rows run from one to the other.
-FINISH: 2 (the two foxes + the overlapping prints). 🔴 The night is still cold and the field is
-  still wide, and there is one path across it. 0 lettering, 0 numerals, 0 name plates.
+WARM: 🔴 BOTH APPLICATIONS IN ONE FRAME AT LAST - the door pool spilling across the snow as a LONG
+  rubbed shape of the same warm (🔴 not a beam, not a glow), and the postbox plate at the lower
+  right. On page 1 they sat at opposite edges with an empty field between.
+FINISH: 2 (the two foxes + the overlapping prints). 🔴 One path across a cold wide field.
+  0 lettering.
 ```
 
 ---
