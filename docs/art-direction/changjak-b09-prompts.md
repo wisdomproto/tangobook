@@ -163,18 +163,24 @@ COMPOSITION: low-information field first, subject second. The workshop is a smal
   🔴 Keep the bottom 18% of the image quiet and free of key subject matter (a caption band is laid
   over it later). Where the floor fills the frame, keep the bottom strip plain sawdust.
 
-FINISH HIERARCHY - read this twice. This is about how FINISHED each area is, NOT about opacity.
-  1. THE SQUIRREL, THE GUEST, THE BRASS PARTS AND THE MARKS IN THE SAWDUST = finished.
-  2. WHAT IS BEING HANDLED on that page (the walnut, the shaving slide, the lamp, the pocket) =
-     half-finished: one contour and one dragged pass.
-  3. EVERYTHING ELSE = A LOOSE UNFINISHED BRUSH SKETCH. A few open contour strokes and direction
-     drags over the bare panel, no fill, corners left unclosed, deliberately not carried to
-     completion - like the rough underpainting on a panel before the picture is built up.
+FINISH HIERARCHY - COUNTED, not described. Read this twice. This is about how FINISHED each area
+  is, NOT about opacity.
+  🔴 COUNT THE FINISHED THINGS BEFORE YOU PAINT. Every page has exactly THREE and never a fourth.
+  1. FINISHED (three) = the squirrel; the guest if he is in frame, and if he is not, the brass part
+     named in that page's CLOCK line takes his slot; and the marks in the sawdust.
+  2. HALF-FINISHED = 🔴 EXACTLY ONE OBJECT PER PAGE, named in that page's cut block - the thing
+     being handled. ONE contour and ONE dragged pass. Nothing described inside it.
+  3. EVERYTHING ELSE = 🔴 THREE BRUSH MARKS PER OBJECT, AND NEVER A SECOND PASS OVER ANY OF THEM.
+     A plank wall is ONE dragged pass plus TWO seams and it stops there. A ceiling beam is ONE
+     stroke. The window is THREE strokes. The spruce forest beyond it is TWO. 🔴 The carved
+     leaf-and-berry front of the clock case is FOUR marks for the WHOLE pattern - four marks, not
+     four leaves. A bench tool is ONE mark. Nothing in this zone carries a highlight, and nothing
+     in this zone is red.
   🔴 The background is NOT faded, NOT hazy, NOT blurred and NOT desaturated. It is simply NOT
   CARRIED TO COMPLETION. A dark rough brush stroke is correct; a pale finished line is wrong.
-  🔴 NEVER PAINT EVERY PLANK OF THE WALL, EVERY BEAM, EVERY ROOF TILE, EVERY CARVED LEAF ON THE
-  CLOCK CASE, OR EVERY GRAIN OF THE FLOOR. If the floor is carried to completion the scraped prints
-  vanish, and the prints are this book's only clue. That is the failure mode of this book.
+  🔴 THE TEST IS COUNTABLE: if more than FIVE things on the page are carried to completion, you
+  have painted a background. If the floor is carried to completion the scraped prints vanish, and
+  the prints are this book's only clue. That is the failure mode of this book.
 
 CHARACTER DESIGN: the two characters are built by opposite means and must never converge.
   THE SQUIRREL is alive: opaque loaded paint, no grain. Eyes are DRAWN - a dark rounded shape with a
