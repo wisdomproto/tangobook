@@ -55,9 +55,9 @@ function getCurriculumUnits(): EnglishUnitSummary[] {
 const REVIEW_CHUNK = 2;
 const MAX_REVIEW_CARDS = 8;
 
-/** 활동 plan 이 있는 레벨만 복습을 만든다 — Book 3~5 는 아직 학습 활동 자체가 없다. */
+/** 활동 plan 이 있는 레벨만 복습을 만든다(전 권). Book 3~5 는 낱말 기반 복습. */
 function reviewableLevels(): string[] {
-  return ['book1', 'book2'];
+  return ['book1', 'book2', 'book3', 'book4', 'book5'];
 }
 
 /**
@@ -79,9 +79,15 @@ export function getAllEnglishUnits(): EnglishUnitSummary[] {
       for (let i = 0; i < levelUnits.length; i += REVIEW_CHUNK) {
         groups.push(levelUnits.slice(i, i + REVIEW_CHUNK));
       }
+      // 🔴 꼬리가 1 단원이면 앞 묶음에 병합(단독 복습 방지) — Book 3 은 7단원이라 홀로 남는다.
+      if (groups.length >= 2 && groups[groups.length - 1].length < 2) {
+        const tail = groups.pop()!;
+        groups[groups.length - 1].push(...tail);
+      }
       groups.forEach((group, gi) => {
         const last = group[group.length - 1];
-        const letters = group.flatMap((u) => u.phonemes);
+        // 🔴 중복 제거 — Book 3 은 두 단원이 같은 phoneme(long-a)일 수 있어 "long-a~long-a" 가 됐다.
+        const letters = [...new Set(group.flatMap((u) => u.phonemes))];
         reviewAfter.set(last.id, {
           id: `en-b${last.levelIndex}-r${gi + 1}`,
           levelKey,
@@ -385,6 +391,25 @@ function reviewCardsFor(unitId: string): ReviewCard[] {
       matchPosition: 'cho' as const,
     }));
   }
+  // 🔴 **Book 3·4·5 = 낱말 카드**(2026-07-31). 이 권들은 철자 패턴(`_ake`·`bl_`·`ee`)이 저마다 달라
+  //    "글자/패턴 하나" 로 복습 카드를 만들기 어렵다. 대신 커리큘럼 낱말을 그대로 카드로 쓴다 —
+  //    `letter === word` 라 `pickWord`(startsWith)가 그 낱말을 정확히 집고, Book 2 복습 분기(낱말↔그림)가
+  //    그대로 동작한다(별도 호스트 분기 없이). 소리에 의존하는 「듣고 …」·글자 사냥은 plan 에서 뺀다.
+  const unit = getCurriculumUnits().find((u) => u.id === unitId);
+  if (
+    unit &&
+    (unit.levelKey === 'book3' || unit.levelKey === 'book4' || unit.levelKey === 'book5')
+  ) {
+    // 🔴 단원당 앞 4개만 — 복습은 2단원(또는 3)을 묶는데 한 단원이 8~16낱말이라, 전부 넣으면
+    //    slice(0,8) 에서 **첫 단원만** 담긴다(둘째 단원이 사라진다). 4개씩이면 두 단원이 다 들어온다.
+    return unit.targetWords.slice(0, 4).map((w) => ({
+      unitId,
+      letter: w,
+      syllable: w,
+      sound: w,
+      matchPosition: 'cho' as const,
+    }));
+  }
   return [];
 }
 
@@ -396,8 +421,11 @@ function reviewCardsFor(unitId: string): ReviewCard[] {
  *    Book 1 은 글자가 단위라 「듣고 낱말」(낱말 소리 → 첫 글자)도 화면·과제가 「듣고 글자」(#3)와 똑같이
  *    "🔊 듣고 알파벳 고르기"가 되고, 학습 「배우기 2」(낱말 듣고 글자)와도 겹친다. #3(낱소리 → 글자)만 남긴다.
  *    Book 2 는 「듣고 글자」=패턴(`an`) / 「듣고 낱말」=낱말(`can`)+그림이라 서로 다르므로 둘 다 유지(6종).
+ * 🔴 **Book 3·4·5 = 낱말 시각 복습 3종만**(2026-07-31): 카드가 낱말(`letter===word`)이라 글자 사냥·듣고
+ *    글자(글자 활동)는 안 맞고, 「듣고 …」는 소리에 의존하는데 일부 낱말이 재생시점 concat 무음이 될 수
+ *    있어 뺀다. 낱말↔그림 시각 활동(뒤집기·그림짝·낱말쓰기)만 남긴다 — 소리는 있으면 보너스.
  */
-function makeEnglishReviewPlan(cards: readonly ReviewCard[], isBook1: boolean): ActivityPlan {
+function makeEnglishReviewPlan(cards: readonly ReviewCard[], levelKey: string): ActivityPlan {
   const shared = { required: true, reviewCards: cards, section: 'play' as const };
   const all: ActivityDef[] = [
     {
@@ -449,8 +477,13 @@ function makeEnglishReviewPlan(cards: readonly ReviewCard[], isBook1: boolean): 
       ...shared,
     },
   ];
+  const isWordReview = levelKey === 'book3' || levelKey === 'book4' || levelKey === 'book5';
+  const WORD_KINDS = new Set(['review-flip', 'review-match', 'review-write']);
   const activities = all
-    .filter((a) => !(isBook1 && a.kind === 'review-word-listen'))
+    .filter((a) => {
+      if (isWordReview) return WORD_KINDS.has(a.kind); // 낱말 시각 3종만
+      return !(levelKey === 'book1' && a.kind === 'review-word-listen'); // Book 1 은 듣고 낱말 제외
+    })
     .map((a, i) => ({ ...a, order: i + 1 }));
   return { activities };
 }
@@ -460,7 +493,7 @@ function englishReviewPlans(): Record<string, ActivityPlan> {
   for (const u of getAllEnglishUnits()) {
     if (!u.isReview) continue;
     const cards = (u.coveredUnitIds ?? []).flatMap(reviewCardsFor).slice(0, MAX_REVIEW_CARDS);
-    if (cards.length) out[u.id] = makeEnglishReviewPlan(cards, u.levelKey === 'book1');
+    if (cards.length) out[u.id] = makeEnglishReviewPlan(cards, u.levelKey);
   }
   return out;
 }
