@@ -4,8 +4,9 @@
  * 데이터 source: `ENGLISH_PHONICS_CURRICULUM` (`@tangobook/shared`).
  * R2 storybook ID 는 `en-bN-uMM` 형식 (zero-pad).
  *
- * 활동 plan = Book 1·2 만 작성됨(Book 3~5 는 "활동 준비 중"). 복습 단원은 Book 1·2 에 2단원씩 파생.
- * 🔴 영어는 그림 자산이 아직 0장이라, 복습·듣고 고르기 모두 **글자만으로** 도는 형태로 짰다.
+ * 활동 plan = **Book 1~5 전 권**(2026-07-31). Book 1=알파벳 / Book 2=CVC 전용 「배우기」·「써보기」 /
+ *   Book 3~5=낱말 기반 재사용 플랜(듣고 고르기 + 게임 4종). 복습은 전 권에 붙는다(Book 3~5 는 낱말 복습).
+ * 데이터(단어 그림·keypoints·wordFamilies TTS)는 Book 3~5 도 완비 — ABC 나무 카드 연동 + TTS 백필 덕분.
  */
 import { ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
 import type { ActivityPlan, ActivityDef, ReviewCard } from './korean-phonics-units';
