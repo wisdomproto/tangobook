@@ -61,55 +61,46 @@
 STYLE ANCHOR - changjak-barnline   (a kitten and a puppy / a Paris stair landing)
 
 Style: THICK BLUNT INK SCRIBBLE over FLAT FILLS IN EXACTLY TWO COLOURS, on cream plaster paper
-  #EDE4D2, 4-6 year old picture book. The nib is broad and blunt and the hand is fast: every
-  contour is gone round TWO OR THREE TIMES, corners overrun, stroke ends shoot past. Nothing is
-  drawn once.
+  #EDE4D2, 4-6 year old picture book. The nib is broad and blunt, the hand fast: every contour
+  is gone round TWO OR THREE TIMES, corners overrun, stroke ends shoot past.
 
-RENDERING (finish hierarchy): 🔴 A SOUND IS DRAWN ONLY ON THE PLASTER, NEVER ON THE BOARD IT CAME
-  FROM. A noise is thick ink arcs springing OFF the wall face and curving away from it; no arc
-  touches an animal and 🔴 THE BOARD THAT MADE THE SOUND CARRIES 0 MARKS. 🔴 THE DIRECTION OF THIS
-  VOLUME: EVERY ARC LEAVES THE WALL AT THE HEIGHT OF THE BOARD BEING TRODDEN AND RUNS UP IT, and
-  what changes page to page is ARC LENGTH in tread-heights - a drawn-out sound is 3, a quick one is
-  1. Counts per level stay at 3 to 6; LENGTH carries the page and the NUMBER OF LEVELS carries the
-  pile-up. 🔴 Arcs fan and curve away from the wall - an arc that could be mistaken for a baluster is
-  drawn wrong - and 🔴 THE IRON RAIL NEVER CARRIES AN ARC. 🔴 THE ONE BOARD THAT NEVER MAKES A SOUND
-  IS THE ONE WITH THE FILL LEFT OFF. 🔴 SILENCE IS NEVER DRAWN: 0 sound letters, 0 speech marks, 0
-  bubbles, 0 dotted trails, 0 notes, 0 motion lines.
-  The plaster wall and the bottom board are BARE PAPER with scribbled contours and are never filled;
-  the kitten's stripes are the same ink scribbled solid and its white is bare paper.
+RENDERING (finish hierarchy): 🔴 A SOUND IS DRAWN ONLY ON THE PLASTER - thick ink arcs springing OFF
+  the wall face and curving away from it - and 🔴 THE BOARD THAT MADE IT CARRIES 0 MARKS. No arc
+  touches an animal. 🔴 THE DIRECTION OF THIS VOLUME: EVERY ARC LEAVES THE WALL AT THE HEIGHT OF THE
+  BOARD BEING TRODDEN AND RUNS UP IT, and ARC LENGTH in tread-heights is what changes - drawn-out 3,
+  quick 1, counts per level fixed at 3 to 6. LENGTH carries the page, LEVELS the pile-up.
+  🔴 Arcs fan and curve away from the wall; an arc that could be mistaken for a baluster is drawn
+  wrong, and 🔴 THE IRON RAIL NEVER CARRIES AN ARC. 🔴 THE ONE BOARD THAT NEVER MAKES A SOUND IS THE
+  ONE WITH THE FILL LEFT OFF. 🔴 SILENCE IS NEVER DRAWN: 0 sound letters, speech marks,
+  bubbles, dotted trails, notes or motion lines.
   FINISHED THINGS PER PAGE = 2 - the child whose foot is making the sound and the board under that
-  foot; the other child is contour and fill with 0 interior marks. DENSITY RATION = none; all twelve
+  foot; the other child is contour and fill, 0 interior marks. DENSITY RATION = none; all twelve
   pages stay at 2.
-  Counts: the five worn treads = 1 flat fill each, 0 grain marks - THE BOTTOM BOARD = 0 fill, a
-  square-cut contour that does not overrun, 4 ink NAIL RINGS (a ring of ink with the paper left
-  bright inside) and at most 3 grain strokes - rail = at most 11 straight balusters, same weight and
-  spacing every page - wall = at most 6 contour marks, 0 interior texture - dust = ink dots, at most
-  12 on a tread - A FOOTPRINT = one blunt sole outline with 4 toe dots. Push back by leaving the
-  fill off and drawing fewer strokes, never by blurring.
+  Counts: five worn treads = 1 flat fill each, 0 grain marks - THE BOTTOM BOARD = 0 fill, a
+  square-cut contour, 4 ink NAIL RINGS, at most 3 grain strokes - rail = at
+  most 11 straight balusters, same weight every page - wall = at most 6 contour marks, 0
+  interior texture - dust = ink dots, at most 12 on a tread - A FOOTPRINT = one blunt sole outline
+  with 4 toe dots. Push back by leaving the fill off and drawing fewer strokes.
 
 PALETTE: paper #EDE4D2 is the plaster, the kitten's white, both children's clothes and 🔴 THE BOTTOM
-  BOARD · ink #14161A (the line, the iron rail, the kitten's nine stripes, the nail rings) · FLAT
+  BOARD · ink #14161A (line, iron rail, the kitten's nine stripes, nail rings) · FLAT
   FILL 1, honey oak #6B4326 (THE FIVE WORN TREADS AND NOTHING ELSE) · FLAT FILL 2, warm red #A83A2E
-  (THE PUPPY AND NOTHING ELSE). No third fill, no grey, no blue, no gradient between the fills, and
-  🔴 NO FILL ON THE BOTTOM BOARD - being unfilled is the whole reason it is new.
+  (THE PUPPY AND NOTHING ELSE). No third fill, no grey, no blue, no gradient.
 
-CHARACTER DESIGN LANGUAGE: the two are made of the two things this book is made of - the kitten is
-  bare paper with ink stripes, the puppy is FILL 2 - so the pair reads at thumbnail size by value
-  alone. Each has a drawn eye with a SEPARATE ink brow above it, and the brows do the acting. 🔴 The
-  kitten keeps ALL NINE stripes on every page; on the unfilled bottom board they are the only thing
-  separating it from the boards. FIXED GRADE, twelve pages: both walk upright on their hind legs,
-  forepaws are hands, simple clothes in bare paper (kitten = bib shorts, puppy = striped scarf) and
-  🔴 BOTH ARE BAREFOOT ON EVERY PAGE - a sole has to meet wood. Faces stay cat and dog.
+CHARACTER DESIGN LANGUAGE: the kitten is bare paper with ink stripes, the puppy is FILL 2, the pair
+  reads by value alone; 🔴 the kitten keeps ALL NINE stripes on every page.
+  FIXED GRADE, twelve pages: both upright on their hind legs, forepaws are hands, simple
+  clothes in bare paper (kitten = bib shorts, puppy = striped scarf) and 🔴 BOTH ARE BAREFOOT ON
+  EVERY PAGE - a sole has to meet wood. Faces stay cat and dog.
 
-CANVAS: 16:9 double-page spread. One Paris stair landing - window, iron rail, SIX oak treads down to
-  the floor below - and nothing else on all twelve pages; positions never change. NO LETTERING,
-  NUMERALS OR SIGNS ANYWHERE.
+CANVAS: 16:9 double-page spread. One Paris stair landing, SIX oak treads down to the floor below,
+  nothing else; positions never change. NO LETTERING OR NUMERALS.
 
-NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,
-  or a texture filter over the flat fills / not blurred, hazy, faded or spotlit, and 🔴 no beam, pool
-  or patch of window light anywhere - this book has 0 shading / never a third filled colour and never
-  a shaded edge between the two / one sheet thick - no cardboard grain, no board texture, no wool
-  fibre, no felt fuzz, no stitching.
+NOT: no digital slickness - airbrush, gradient, glow, 3D CG, cel-shading, photographic or texture
+  filter over the flat fills / not blurred, hazy or spotlit; 🔴 no beam, pool or patch of window
+  light - this book has 0 shading / never a third filled colour and never a
+  shaded edge between the two / one sheet thick - no cardboard grain, board texture, wool fibre,
+  felt fuzz or stitching.
 ```
 
 ---
@@ -224,16 +215,15 @@ CAMERA: wide, child's eye level, the stair taken side on so 🔴 ALL SIX TREADS 
 SUBJECT: upper left, KittenStripe standing on the landing with its back to the window, one bare sole
   just set down flat with the toes splayed and the other heel still lifted, both forepaws stopped at
   its chest, head down at its own feet, ears forward, eyes round. Bipedal, forepaws as hands,
-  barefoot, bib shorts in bare paper.
+  barefoot, bib shorts.
 CREAK: 1 level - 5 arcs off the plaster at the height of the landing board, 3 tread-heights long,
   fanning and running UP the wall. 🔴 The landing board it is standing on carries 0 marks.
 TREAD: 🔴 THE PLANT - the bottom board whole and clear at the foot of the stair, 0 fill, square-cut
-  contour, 4 ink nail rings bright inside, 0 dust, 0 footprints. The five treads above it are filled
-  #6B4326. In the corner of the floor below, the sawn blackened old board leaning on the wall with
-  7 shavings under it. 🔴 The kitten does not look at any of it.
-RAIL: 11 balusters, straight and evenly spaced; 0 arcs on the rail. No forepaw on the handrail yet.
+  contour, 4 ink nail rings bright inside, 0 dust, 0 footprints. In the corner below, the sawn old
+  board on the wall with 7 shavings. 🔴 The kitten does not look at any of it.
+RAIL: 11 balusters, straight and evenly spaced; 0 arcs. No forepaw on the handrail yet.
 FINISH: 2 (the kitten + the landing board under its foot). Dust on the treads, 0 footprints
-  anywhere. Wall = at most 6 contour marks. 🔴 0 lettering, 0 numerals, 0 signs.
+  anywhere. 🔴 0 lettering, 0 numerals.
 ```
 
 ### p2 — 봐, 대답했지!
@@ -351,19 +341,19 @@ FINISH: 2 (the rubbing sole + the fifth tread). The rubbed track shows as bare f
 ### p8 — 봐, 다 대답했지! 🔴 두 번째로 굽는다
 
 ```
-BAKE THIS PAGE SECOND. Five levels ring at once and the bottom board stays at 0 - the hardest page.
+BAKE THIS PAGE SECOND. Five levels ring at once and the bottom board stays at 0.
 CAMERA: wide, child's eye level, the stair crossing the frame on the diagonal with all six treads in.
 SUBJECT: upper left, KittenStripe landed on the second tread, knees deep, both forepaws thrown up,
   tail straight up, eyes creased shut laughing. Lower right, PupRed landed on the fifth tread, knees
   deep, both forepaws flung wide, ears and scarf up, tongue out. 🔴 BOTH HAVE ALREADY LANDED - 0
   bodies in the air, all four soles flat on wood. Both bipedal, barefoot, forepaws as hands.
-CREAK: 🔴 5 LEVELS AT ONCE - 3 arcs at each of the first, second, third, fourth and fifth tread
-  heights, 🔴 each only 1 tread-height long, the shortest and the most in the book, stacked all the
-  way up the plaster. 🔴 ALL FIVE OF THOSE TREADS CARRY 0 MARKS.
+CREAK: 🔴 5 LEVELS AT ONCE - 3 arcs at each of the five tread heights, 🔴 each only 1 tread-
+  height long, the shortest and the most in the book, stacked up the plaster. 🔴 ALL FIVE OF THOSE
+  TREADS CARRY 0 MARKS.
 TREAD: 🔴 AT THE BOTTOM BOARD'S HEIGHT THERE ARE 0 ARCS AND 0 AIRBORNE DOTS. It is unfilled, its 4
-  nail rings bright, and the air round it is the only clear air on the page. Draw it plainly, with
+  nail rings bright, the air round it the only clear air on the page. Draw it plainly, with
   nothing pointing at it.
-RAIL: 11 balusters; 0 arcs on them. 🔴 Fifteen short arcs must still read as arcs beside them.
+RAIL: 11 balusters; 0 arcs on them. 🔴 Fifteen short arcs must still read as arcs.
 FINISH: 2 (the puppy + the fifth tread). 🔴 30 AIRBORNE INK DOTS over the five treads, counted, and
   0 below them. 12 FOOTPRINTS. 0 lettering, 0 numerals.
 ```
@@ -371,16 +361,16 @@ FINISH: 2 (the puppy + the fifth tread). 🔴 30 AIRBORNE INK DOTS over the five
 ### p9 — 어? 아무 말도 안 해
 
 ```
-CAMERA: medium, low. 🔴 The puppy stands on the unfilled bottom board at the centre; the kitten
-  leans out from the fifth tread at the upper left.
+CAMERA: medium, low. 🔴 The puppy on the unfilled bottom board at centre; the kitten leaning out
+  from the fifth tread, upper left.
 SUBJECT: centre, PupRed frozen in its landing on the bottom board - knees still bent, 🔴 THE TWO
   FOREPAWS THAT WERE THROWN UP STOPPED AWKWARDLY HALFWAY, only the ears and the scarf ends still up,
   head down at its own feet, eyes wide, mouth half open. Upper left, the kitten gripping the rail
   and leaning right out to look down, both ears bolt upright, mouth shut. Both bipedal, barefoot.
-CREAK: 🔴 0 ARCS ANYWHERE ON THIS PAGE - the first silent page. Do not replace them with anything:
-  no letters, no bubble, no dotted line, no wavy mark. The wall is bare paper with its 6 contour
+CREAK: 🔴 0 ARCS ANYWHERE ON THIS PAGE - the first silent page. Do not replace them with
+  anything: no letters, bubble, dotted line or wavy mark. The wall is bare paper with its 6 contour
   marks.
-TREAD: 🔴 the bottom board fills the lower third - 0 fill, square-cut contour that does not overrun,
+TREAD: 🔴 the bottom board fills the lower third - 0 fill, square-cut contour,
   4 ink nail rings bright beside the puppy's feet, joints tight with no gap, 0 dust and 0 footprints
   on it. The sawn old board and the shavings behind. 🔴 Neither child looks at any of it.
 RAIL: 7 balusters; 0 arcs.
@@ -431,23 +421,23 @@ FINISH: 2 (the two braced bodies + the board they are sitting on). The five trea
 ### p12 — 가만히 있었어요 🔴 착지
 
 ```
-CAMERA: wide, child's eye level, 🔴 EXACTLY PAGE ONE'S FRAME - the same six treads, the same window,
-  the same rail - but now the landing is empty and the two are down at the bottom.
-SUBJECT: lower centre, the two sitting side by side on the bottom board, 🔴 NOT MOVING AT ALL. The
-  puffed cheeks have gone down, shoulders dropped, four forepaws resting on four knees, four bare
-  feet flat on the floor below, both tails laid out and touching, still to the tip. 🔴 BOTH HAVE
-  THEIR EYES OPEN - this is not sleep. The kitten looks straight ahead, the puppy's eyes are slid
-  up at the stair. Sitting, the kitten is half a head taller. Both bipedal, barefoot.
-CREAK: 🔴 0 ARCS. 🔴 And no light: do not draw a beam, a band or a patch anywhere - this book has 0
-  shading, and an unfilled band across the treads would be read as a second new board.
-TREAD: 🔴 THE SHARPEST INK IN THE FRAME IS DOWN HERE - the unfilled board's square corners and its 4
-  nail rings, and beside it the saw teeth on the blackened old board and the 7 shavings under it.
-  🔴 Neither child has looked at any of it in twelve pages, and they do not now.
-RAIL: 11 balusters, the same weight and spacing as page one; 0 arcs. The brass nosing bar on the
-  third tread is still tipped and still.
+CAMERA: wide, child's eye level, 🔴 EXACTLY PAGE ONE'S FRAME - but the landing is empty and the
+  two are down at the bottom.
+SUBJECT: lower centre, the two sitting side by side on the bottom board, 🔴 NOT MOVING. The puffed
+  cheeks have gone down, shoulders dropped, four forepaws on four knees, four bare feet flat on the
+  floor below, both tails laid out and touching, still to the tip. 🔴 BOTH HAVE THEIR EYES OPEN -
+  this is not sleep. The kitten looks ahead, the puppy's eyes slid up at the stair. Sitting, the
+  kitten is half a head taller. Both bipedal, barefoot.
+CREAK: 🔴 0 ARCS. 🔴 No light: no beam, band or patch anywhere - an unfilled band would read as a
+  second new board.
+TREAD: 🔴 THE SHARPEST INK IN THE FRAME IS DOWN HERE - the unfilled board's square corners and 4
+  nail rings, and beside it the saw teeth on the old board and its 7 shavings. 🔴 Neither child
+  looks at any of it.
+RAIL: 11 balusters, same weight and spacing as page one; 0 arcs. The tipped brass nosing bar is
+  still.
 FINISH: 2 (the two still bodies + the board under them). 🔴 THE CLOCK IS THE COUNT: 12 FOOTPRINTS
-  left on the five treads where page one had 0, and 🔴 0 AIRBORNE DOTS - every dot is down on the
-  wood. Nothing in this picture is moving. 0 lettering, 0 numerals.
+  on the five treads where page one had 0, and 🔴 0 AIRBORNE DOTS. Nothing in this picture is
+  moving. 0 lettering, 0 numerals.
 ```
 
 ---

@@ -381,7 +381,7 @@ HOLE: the shaft is the frame's light - a narrowing strip of bare support with vi
   about a third of the frame at the top and a ninth at the bottom.
 SOUND: 🔴 5 RINGS, the most in the book - 3 spreading from his feet on the water and 🔴 2 MORE WHOSE
   CENTRES ARE ON THE BRICK WALL, which is the echo coming back. All five at the same brightness,
-  including the two out at 4 sheets. 0 wavy lines, 0 sound letters.
+  including the two at 4 sheets. 0 wavy lines, 0 letters.
 FINISH: 2 (the mole + the water round his feet). Brick = at most 6 cut courses. 0 lettering.
 ```
 
@@ -445,17 +445,14 @@ FINISH: 2 (the mole + the funnel he is setting down). Taut cord = one straight b
 CAMERA: wide, child's eye level, p1's stage from a lower eye height - the same trough, the same
   moss, the same cobbles.
 SUBJECT: centre, MoleCub and CrowBeak sitting side by side on the cobbles with 🔴 AN EAR EACH
-  AGAINST THE ONE FUNNEL - the mole's eyes shut and both shovel forepaws laid on its body, the crow's
-  head tipped sideways with the side of its head to the narrow end. Four legs / two feet, no
-  clothes, no fingers.
-DEPTH: 🔴 1 - the book ends one sheet thick. The grate is laid flat shut, and the only dark left in
-  the frame is 4 thin slots between its 5 bars, each carrying ONE sheet. Nothing is at 2 or deeper
-  anywhere on this page. 🔴 Both animals are at 0 - the first time they have shared a count since
-  page three.
+  AGAINST THE ONE FUNNEL - the mole's eyes shut and both shovel forepaws laid on its body, the
+  crow's head tipped sideways to the narrow end. Four legs / two feet, no clothes, no fingers.
+DEPTH: 🔴 1 - the book ends one sheet thick. The grate is laid flat shut and the only dark left is 4
+  thin slots between its 5 bars, each carrying ONE sheet; nothing is at 2 or deeper. 🔴 Both are at
+  0 - the first shared count since page three.
 HOLE: 🔴 THERE IS NO OPENING. The square is gone; the cobbles run unbroken across the frame.
-SOUND: 🔴 1 RING, INSIDE THE FUNNEL'S MOUTH - and 🔴 0 RINGS AT THE GRATE SLOTS. The only sound in
-  this picture is up here in the light, in the brass. That contrast is the ending; do not add a
-  ring anywhere else, and do not draw a wavy line, a letter or a speech mark.
+SOUND: 🔴 1 RING, INSIDE THE FUNNEL'S MOUTH - and 🔴 0 RINGS AT THE GRATE SLOTS. The only sound is
+  up here in the brass. Do not add a ring anywhere else, and no wavy line, letter or speech mark.
 FINISH: 2 (the two heads + the funnel between them). 🔴 PAY-OFF: THE FUNNEL STANDS UPRIGHT on the
   cobbles, wide mouth down, cord still wound on its neck and trailing - on page one it lay on its
   side. 0 lettering, 0 numerals.
