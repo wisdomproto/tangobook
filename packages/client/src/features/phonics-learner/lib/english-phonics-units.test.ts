@@ -24,11 +24,24 @@ describe('english phonics units', () => {
     ]);
   });
 
-  it('복습은 학습 활동이 있는 Book 1·2 에만 생긴다', () => {
-    // Book 3~5 는 학습 활동 자체가 없어 복습을 만들면 빈 복습이 된다
+  it('복습은 아직 Book 1·2 에만 (Book 3~5 복습은 후속)', () => {
+    // 🔴 Book 3~5 는 낱말 기반 학습 플랜은 있지만(아래), 복습 카드(reviewCardsFor)는 아직 없어
+    //    복습 단원은 만들지 않는다. 복습을 붙이려면 패턴별 복습 카드 설계가 먼저다.
     expect(reviews.every((r) => r.levelIndex <= 2)).toBe(true);
-    for (const u of units.filter((x) => x.levelIndex >= 3)) {
-      expect(getEnglishActivityPlan(u.id).activities).toHaveLength(0);
+  });
+
+  it('Book 3·4·5 는 낱말 기반 학습 플랜(듣고 고르기 + 게임 4종)이 있다', () => {
+    // 🔴 예전엔 "활동 준비 중"(0개)이었다. 단어 그림·keypoints·wordFamilies TTS 가 완비돼 있어
+    //    기존 컴포넌트를 재사용해 열었다(2026-07-31).
+    for (const u of units.filter((x) => x.levelIndex >= 3 && !x.isReview)) {
+      const kinds = getEnglishActivityPlan(u.id).activities.map((a) => a.kind);
+      expect(kinds).toEqual([
+        'word-listen-choose',
+        'game-english-block',
+        'game-word-writing',
+        'game-connect-dots',
+        'game-line-matching',
+      ]);
     }
   });
 
