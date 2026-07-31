@@ -49,6 +49,9 @@ features/viewer/
 - 문장 단위로 화면 리셋 (이전 문장 지우고 새 문장)
 - 문장 내에서 **단어(어절) progressive** — TTS `currentTime/duration` 비례
 - **Fallback**: ttsDuration 없으면 `text.length / 7 (chars/sec)` 추정. `isTtsPlaying`인 동안 자체 interval(100ms)로 elapsed 누적
+- 🔴 **줄바꿈 규칙은 글에 따라 다르다** (2026-07-29): `break-keep`(word-break: keep-all)은 **띄어쓰기가 있는 글**에만 맞다. 한국어는 낱말이 중간에 끊기는 걸 막아 주지만, **중국어처럼 공백이 없는 글은 문장 전체가 한 낱말로 취급돼 줄바꿈이 아예 안 되고 화면 밖으로 잘렸다**(신데렐라 zh 자막 실측). → `wrapClass(text)` = 공백 있으면 `break-keep`, 없으면 `break-words`(브라우저 기본 규칙). ⚠️ 줄바꿈(`
+`)은 공백으로 치지 않는다 — zh 본문에도 `
+` 은 있어서 그걸 세면 판정이 뒤집힌다. 브라우저 실측으로 `scrollWidth===clientWidth` 확인.
 - **inactive(TTS 정지/무음) = 페이지 전문 정적 표시** (2026-07-02) — 기존 빈 박스는 ⏸·무음 책·전체화면에서 "자막 안 보임" 원인이었음. progressive 는 재생 중에만.
 
 ## 라우팅 규칙 (ViewerContainer)

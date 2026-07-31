@@ -38,6 +38,15 @@ export default function BlogPostPage() {
 
   const cat = post?.category ? CAT_META[post.category] : undefined;
 
+  // 책 상세 링크 — 위/아래 CTA 가 같은 곳을 가리킨다.
+  // ⚠️ 비-ko 는 `/{lang}?to=…`(LangEntry) 그대로 둔다. 로그인 사용자는 자기 UI 언어를 유지하는 게
+  //    규칙이라 한국어로 열리는데, 그건 2026-07-13 에 정한 의도된 동작이다(사용자 확인 2026-07-29).
+  const bookHref = post?.storybookId
+    ? lang === 'ko'
+      ? `/library/${post.storybookId}`
+      : `/${lang}?to=${encodeURIComponent(`/library/${post.storybookId}`)}`
+    : null;
+
   return (
     <div className="relative flex min-h-dvh flex-col overflow-hidden bg-cream-50">
       <style>{PROSE_CSS}</style>
@@ -106,6 +115,22 @@ export default function BlogPostPage() {
                       {post.description}
                     </p>
                   )}
+                  {/* 🔴 맨 위 CTA (2026-07-29) — 아래까지 안 읽고 이탈하는 독자를 위해.
+                      본문 앞을 막지 않도록 **한 줄 바**로 두고, 닫는 제안은 하단 코랄 카드가 맡는다. */}
+                  {bookHref && (
+                    <Link
+                      to={bookHref}
+                      className="mt-5 flex items-center justify-between gap-3 rounded-2xl border border-coral-200 bg-coral-50 px-4 py-3 transition hover:bg-coral-100"
+                    >
+                      <span className="text-sm font-semibold text-ink-700 break-keep">
+                        {t('topCta')}
+                      </span>
+                      <span className="shrink-0 rounded-full bg-coral-500 px-4 py-1.5 text-xs font-bold text-white">
+                        {t('topCtaButton')}
+                      </span>
+                    </Link>
+                  )}
+
                   <div className="mt-6 h-px w-full bg-ink-100" />
                 </div>
 
@@ -120,11 +145,7 @@ export default function BlogPostPage() {
                   <p className="text-base font-bold text-ink-900 break-keep">{t('ctaTitle')}</p>
                   <p className="text-xs text-ink-600 break-keep">{t('ctaDesc')}</p>
                   <Link
-                    to={
-                      lang === 'ko'
-                        ? `/library/${post.storybookId}`
-                        : `/${lang}?to=${encodeURIComponent(`/library/${post.storybookId}`)}`
-                    }
+                    to={bookHref!}
                     className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-coral-500 px-6 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-coral-600"
                   >
                     {t('ctaButton')}
