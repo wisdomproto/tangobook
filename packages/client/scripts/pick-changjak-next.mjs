@@ -30,7 +30,16 @@ const asJson = args.includes('--json');
 //    후보를 볼 방법이 없었다. --engine 은 **그 한 권을 고르는 용도**다 — 통과하기 전엔 표를 고치지 마라.
 const engineArg = (args.find((a) => a.startsWith('--engine=')) || '').slice(9);
 
-const VERIFIED = new Set(engineArg ? [engineArg] : ['누적·반복', '오해와 반전']);
+// 🔴 열린 엔진은 **CLAUDE.md 의 엔진 표에서 읽는다**. 예전엔 여기 두 개를 손으로 박아 뒀는데,
+//    그 뒤 다섯 개가 더 열렸는데도(관찰과 성장·여정과 귀환·소원의 대가·교환·연쇄·옛이야기 비틀기)
+//    스크립트는 계속 두 개만 보고 있었다 — 후보가 227권으로 잡혀 **열린 엔진의 3/4 가 통째로
+//    안 보였다.** 표에 상태(✅ 열림 / ❌ 금지)가 이미 있으니 그걸 그대로 쓴다.
+const OPEN = new Set(
+  [...readFileSync(resolve(BOOKS, 'CLAUDE.md'), 'utf8').matchAll(/^\|\s*\*\*([^*|]+)\*\*\s*\|[^|]*\|\s*([^|]*)\|/gm)]
+    .filter((m) => m[2].includes('열림'))
+    .map((m) => m[1].trim())
+);
+const VERIFIED = engineArg ? new Set([engineArg]) : OPEN;
 
 // 🔴 은유 함정 — 「감정이 몸·사물을 바꾼다」는 요약. a01(부끄러우면 털이 빨개져)이 이 병으로 죽었다.
 //    4~6세는 그 치환을 못 읽는다. 규칙 깨기 엔진과 함께 이 라인의 두 실패 원인이다.
