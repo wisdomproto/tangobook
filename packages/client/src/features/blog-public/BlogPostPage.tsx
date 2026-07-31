@@ -13,6 +13,18 @@ import { PhonicsTryIt } from '@/features/phonics-learner/components/PhonicsTryIt
  */
 const TRY_IT_AFTER = 3;
 
+/**
+ * 파닉스 **허브** 글 — 단원 하나가 아니라 여러 단원을 묶는 안내다(받침 7편, 자음 15편…).
+ * 🔴 그래서 `storybookId` 가 가리키는 책이 없다. 책 CTA 를 그대로 쓰면 `/library/hub-batchim`
+ *    같은 죽은 링크가 된다 → 커리큘럼으로 보낸다. 맛보기 활동은 대표 단원 것을 얹는다.
+ */
+const HUB_DEMO_UNIT: Record<string, string> = {
+  'hub-jamo': 'kr-h1-u02',
+  'hub-batchim': 'kr-h2-u01',
+  'hub-ssangjaeum': 'kr-h3-u01',
+  'hub-order': 'kr-h1-u01',
+};
+
 const CAT_META: Record<string, { tKey: string; emoji: string; badge: string }> = {
   classic: { tKey: 'catClassic', emoji: '📖', badge: 'bg-coral-100 text-coral-600' },
   nature: { tKey: 'catNature', emoji: '🌿', badge: 'bg-mint-100 text-mint-600' },
@@ -50,17 +62,24 @@ export default function BlogPostPage() {
    * 웹앱이라 가능한 것이고, 스크린샷으로는 「두 글자가 합쳐지는 순간」을 전할 방법이 없다.
    * 🔴 한국어 글에만 — 활동 화면 글자가 전부 한국어라 영어 독자에겐 맞지 않는다.
    */
+  const hubUnit = post?.storybookId ? HUB_DEMO_UNIT[post.storybookId] : undefined;
   const phonicsUnit =
-    lang === 'ko' && post?.storybookId?.startsWith('kr-h') ? post.storybookId : null;
+    lang === 'ko' && post?.storybookId?.startsWith('kr-h')
+      ? post.storybookId
+      : lang === 'ko' && hubUnit
+        ? hubUnit
+        : null;
 
   // 책 상세 링크 — 위/아래 CTA 가 같은 곳을 가리킨다.
   // ⚠️ 비-ko 는 `/{lang}?to=…`(LangEntry) 그대로 둔다. 로그인 사용자는 자기 UI 언어를 유지하는 게
   //    규칙이라 한국어로 열리는데, 그건 2026-07-13 에 정한 의도된 동작이다(사용자 확인 2026-07-29).
-  const bookHref = post?.storybookId
-    ? lang === 'ko'
-      ? `/library/${post.storybookId}`
-      : `/${lang}?to=${encodeURIComponent(`/library/${post.storybookId}`)}`
-    : null;
+  const bookHref = hubUnit
+    ? '/library/phonics/korean' // 허브는 책이 아니라 커리큘럼으로
+    : post?.storybookId
+      ? lang === 'ko'
+        ? `/library/${post.storybookId}`
+        : `/${lang}?to=${encodeURIComponent(`/library/${post.storybookId}`)}`
+      : null;
 
   return (
     <div className="relative flex min-h-dvh flex-col overflow-hidden bg-cream-50">
@@ -138,10 +157,12 @@ export default function BlogPostPage() {
                       className="mt-5 flex items-center justify-between gap-3 rounded-2xl border border-coral-200 bg-coral-50 px-4 py-3 transition hover:bg-coral-100"
                     >
                       <span className="text-sm font-semibold text-ink-700 break-keep">
-                        {t('topCta')}
+                        {/* 허브는 책이 아니라 커리큘럼으로 보내므로 「들어보세요」가 맞지 않는다.
+                            허브 글은 한국어 전용이라 이 분기만 한국어를 직접 쓴다. */}
+                        {hubUnit ? '32단원 전부 무료로 열려 있어요' : t('topCta')}
                       </span>
                       <span className="shrink-0 rounded-full bg-coral-500 px-4 py-1.5 text-xs font-bold text-white">
-                        {t('topCtaButton')}
+                        {hubUnit ? '한글 파닉스 →' : t('topCtaButton')}
                       </span>
                     </Link>
                   )}
@@ -168,13 +189,19 @@ export default function BlogPostPage() {
               {/* 동화책 CTA */}
               {post.storybookId && (
                 <div className="mt-6 flex flex-col items-center gap-3 rounded-[2rem] border border-coral-200 bg-gradient-to-br from-coral-100 to-peach-200 p-7 text-center">
-                  <p className="text-base font-bold text-ink-900 break-keep">{t('ctaTitle')}</p>
-                  <p className="text-xs text-ink-600 break-keep">{t('ctaDesc')}</p>
+                  <p className="text-base font-bold text-ink-900 break-keep">
+                    {hubUnit ? '한글 파닉스 32단원 🌳' : t('ctaTitle')}
+                  </p>
+                  <p className="text-xs text-ink-600 break-keep">
+                    {hubUnit
+                      ? '모음 · 자음 · 받침 · 쌍자음 · 복잡한 모음까지 순서대로 열려 있어요.'
+                      : t('ctaDesc')}
+                  </p>
                   <Link
                     to={bookHref!}
                     className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-coral-500 px-6 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-coral-600"
                   >
-                    {t('ctaButton')}
+                    {hubUnit ? '한글 파닉스 시작하기 →' : t('ctaButton')}
                   </Link>
                 </div>
               )}
