@@ -73,14 +73,25 @@ function render({ meta, notes, pages }) {
   const body = pages
     .map(
       (p) =>
+        // 🔴 왼쪽 = 그린 컷(core.js 가 .pg-art 에 붙여넣기 상자를 꽂는다) + 그 아래 본문 / 오른쪽 = SCENE.
+        //    그림과 그 쪽 글이 한 눈에 같이 읽혀야 한다 — 예전엔 글·SCENE 이 나란하고 그림이 아래로 밀려
+        //    셋을 한 화면에서 못 봤다.
         `<div class="pg">\n` +
-        `  <div class="ko${p.ko ? '' : ' empty'}"><span class="n">${p.page} · 본문</span>${p.ko ? esc(p.ko) : '(글 없음 — 그림만)'}</div>\n` +
+        `  <div class="pg-l">\n` +
+        `    <div class="pg-art"></div>\n` +
+        `    <div class="ko${p.ko ? '' : ' empty'}"><span class="n">${p.page} · 본문</span>${p.ko ? esc(p.ko) : '(글 없음 — 그림만)'}</div>\n` +
+        `  </div>\n` +
         `  <div class="sc"><span class="n">${p.page} · SCENE</span>${scene(p.scene)}</div>\n` +
         `</div>`
     )
     .join('\n\n');
 
-  const noteBlocks = notes.map((n) => `<div class="note">\n${note(n)}\n</div>`);
+  // 🔴 note 는 편집 메모라 길다 — 접어 둔다. 펼쳐 두면 쪽 하나를 보러 왔을 때 그걸 지나쳐야 한다.
+  //    <details> 라 자바스크립트 없이 접히고, 브라우저 찾기(Ctrl+F)에도 안 걸린다는 점은 감수한다.
+  const noteBlocks = notes.map(
+    (n, i) =>
+      `<details class="note"${i === 0 ? '' : ''}>\n<summary>📝 편집 메모${notes.length > 1 ? ` ${i + 1}` : ''}</summary>\n<div class="note-body">\n${note(n)}\n</div>\n</details>`
+  );
   // 첫 note 는 머리(집필 과제), 나머지는 꼬리(검수 반영)로 — a04 수기본과 같은 배치
   const head = noteBlocks.length ? noteBlocks[0] + '\n\n' : '';
   const tail = noteBlocks.length > 1 ? '\n\n' + noteBlocks.slice(1).join('\n\n') : '';

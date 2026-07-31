@@ -63,13 +63,24 @@
     '.ep .meta span.q{background:#fff;border:1px solid #f0e0d2;color:#6b5d55}' +
     '.ep .pg{display:grid;grid-template-columns:1fr 1fr;gap:0;background:#f0e0d2;border:1px solid #f0e0d2;' +
     'border-radius:14px;overflow:hidden;margin-bottom:16px}' +
+    /* 왼쪽 칸 = 그린 컷 + 그 아래 본문. 그림이 위, 글이 아래로 붙어 한 눈에 같이 읽힌다 */
+    '.ep .pg-l{display:flex;flex-direction:column;background:#fff}' +
+    '.ep .pg-art{padding:12px 12px 0}' +
+    '.ep .pg-art:empty{display:none}' +
+    '.ep .pg-art .paste-box{margin-top:0}' +
     '.ep .ko,.ep .sc{background:#fff;padding:16px 18px}' +
+    '.ep .pg-l .ko{flex:1 1 auto}' +
     '.ep .ko{font-size:17px;line-height:1.95;white-space:pre-line;display:flex;flex-direction:column;justify-content:center}' +
     '.ep .sc{background:#fff8f0;font-size:12.5px;line-height:1.7;color:#6b5d55;white-space:pre-line}' +
     '.ep .sc b{color:#2b2320;font-weight:800}' +
     '.ep .n{display:block;font-size:11px;font-weight:800;color:#e85c3a;letter-spacing:.1em;margin-bottom:8px}' +
     '.ep .ko.empty{color:#b9a99c;font-size:13px;font-style:italic}' +
-    '.ep .note{font-size:13px;color:#6b5d55;background:#ffe8d9;border-radius:10px;padding:11px 15px;margin:20px 0}' +
+    '.ep .note{font-size:13px;color:#6b5d55;background:#ffe8d9;border-radius:10px;margin:20px 0}' +
+    '.ep .note>summary{cursor:pointer;padding:9px 15px;font-weight:800;color:#e85c3a;list-style:none;user-select:none}' +
+    '.ep .note>summary::-webkit-details-marker{display:none}' +
+    '.ep .note>summary::before{content:"▸ ";display:inline-block;transition:transform .12s}' +
+    '.ep .note[open]>summary::before{transform:rotate(90deg)}' +
+    '.ep .note .note-body{padding:0 15px 12px}' +
     '.ep .note b{color:#e85c3a}' +
     '.ep .pbar{background:#fff;border:1px solid #f0e0d2;border-radius:14px;padding:13px 16px;margin:0 0 22px;' +
     'display:flex;flex-wrap:wrap;gap:8px;align-items:center}' +
@@ -571,7 +582,8 @@ window.CJ_ANCHORS = fetch('/changjak-anchor-refs.json')
     (pg.querySelector('.sc') || pg).appendChild(mk('📋 ' + c.page + ' 컷 프롬프트 (앵커+시트 합성)', composed));
     var b = pasteBox(c.page, '🖼️ ' + c.page + ' 그린 컷 붙여넣기');
     boxes.push(b);
-    pg.appendChild(b);
+    // 🔴 왼쪽 칸 맨 위에 꽂는다 — 없으면(옛 빌드 HTML) 예전처럼 쪽 맨 아래.
+    (pg.querySelector('.pg-art') || pg).appendChild(b);
   });
 
   // 이미 올린 것 불러오기 — 🔴 박스를 다 만든 뒤에 채운다(순서를 뒤집으면 빈 박스가 남는다).
