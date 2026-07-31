@@ -56,8 +56,7 @@ const byRef = {};
 for (const [id, e] of Object.entries(db)) if (e.refs?.[0]) (byRef[e.refs[0].id] ||= []).push(`${id}(${e.slug})`);
 const shared = Object.entries(byRef).filter(([, v]) => v.length > 1);
 if (shared.length) {
-  console.log('
-첫 장을 나눠 쓰는 권 (공정이 같으면 정상)');
+  console.log('\n첫 장을 나눠 쓰는 권 (공정이 같으면 정상)');
   shared.forEach(([r, v]) => console.log(`  ${r} → ${v.join(' ')}`));
 }
 
