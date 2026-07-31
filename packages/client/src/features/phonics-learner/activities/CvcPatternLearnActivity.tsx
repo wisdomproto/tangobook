@@ -6,6 +6,7 @@ import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { ActivityShell } from '../components/ActivityShell';
+import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 
 interface Props {
   unitId: string;
@@ -44,9 +45,6 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
   const PHASE_A_ROWS = 3;
   const totalPhaseA = PHASE_A_ROWS * 3;
 
-  // VC 글자별 (예: 'an' → ['a','n']) — Phase C 에서 쓰기 캔버스
-  const vcLetters = useMemo(() => pattern.vc.split(''), [pattern.vc]);
-
   const playEnglish = useCallback(
     async (text: string, onEnded?: () => void) => {
       const url = await resolveTtsUrl({
@@ -83,6 +81,28 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
 
   /** Phase A 는 3줄이라 앞 3단어만 쓴다. */
   const phaseAWords = useMemo(() => cvcWords.slice(0, PHASE_A_ROWS), [cvcWords]);
+
+  /**
+   * 🔴 **낱말 전체를 쓴다 — 앞 자음까지**(2026-07-31 사용자: "A N 만 쓰지 말고 C 부터 쓰게").
+   *    예전엔 앞 자음(`can` 의 `c`)을 주어진 셀로 두고 `an` 만 캔버스였다. 이제 낱말의 모든 글자가
+   *    캔버스다. 글자는 낱말마다 다르므로(can/fan/man) **낱말별 글자 목록**으로 든다.
+   */
+  const wordLetters = useMemo(() => cvcWords.map((w) => w.word.split('')), [cvcWords]);
+
+  /**
+   * 🔴 **진입 시 발음 프리워밍**(2026-07-31 사용자: "버튼 누르면 소리가 늦게 나와"). 이 활동만 빠져 있어서
+   *    셀을 처음 누를 때마다 서버 왕복을 기다렸다(다른 파닉스 활동엔 다 있는 RULE). 재생과 **같은
+   *    prefix(`en-cvc`)·언어(english)** 로 데워야 탭 시 캐시가 맞는다 — Phase C 쓰기 소리도 같은
+   *    prefix 로 통일했다(예전엔 `cvc-write-*` 라 같은 글자를 서버가 두 번 만들었다).
+   *    순서 = 패턴 글자(a·n·an) → 낱말 글자(c·f·m…) → 낱말 전체, 곧 탭 우선순위.
+   */
+  const warmTexts = useMemo(() => {
+    const s = [pattern.vowel, pattern.consonant, pattern.vc];
+    for (const ls of wordLetters) s.push(...ls);
+    for (const w of cvcWords) s.push(w.word);
+    return [...new Set(s)].filter(Boolean);
+  }, [pattern, wordLetters, cvcWords]);
+  usePhonicsTtsWarm(unitId, warmTexts, 'en-cvc', 'english');
 
   /**
    * 🔴 소리와 소리 사이엔 쉼 — 콜백만 이으면 1~3ms 간격으로 붙어 한 덩어리로 들린다.
@@ -197,15 +217,18 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
   const [writeDone, setWriteDone] = useState<Set<string>>(new Set());
   const [writeCurrentWordIdx, setWriteCurrentWordIdx] = useState(0);
   const currentWriteWord = cvcWords[writeCurrentWordIdx];
+  const currentWriteLetters = wordLetters[writeCurrentWordIdx] ?? [];
   const currentWriteWordDone = useMemo(
-    () => vcLetters.every((_, l) => writeDone.has(`${writeCurrentWordIdx}-${l}`)),
-    [writeCurrentWordIdx, vcLetters, writeDone]
+    () =>
+      currentWriteLetters.length > 0 &&
+      currentWriteLetters.every((_, l) => writeDone.has(`${writeCurrentWordIdx}-${l}`)),
+    [writeCurrentWordIdx, currentWriteLetters, writeDone]
   );
   const allWriteComplete = useMemo(
     () =>
       cvcWords.length > 0 &&
-      cvcWords.every((_, w) => vcLetters.every((_, l) => writeDone.has(`${w}-${l}`))),
-    [cvcWords, vcLetters, writeDone]
+      wordLetters.every((ls, w) => ls.every((_, l) => writeDone.has(`${w}-${l}`))),
+    [cvcWords.length, wordLetters, writeDone]
   );
 
   // Phase C: 단어 완료 감지 → 단어 발음 + 다음 단어 / 전체 완료 시 칭찬 + onMarkComplete
@@ -222,7 +245,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
         text: cw.word,
         language: 'english',
         storybookId: unitId,
-        identifierPrefix: 'cvc-write-word',
+        identifierPrefix: 'en-cvc',
       });
       const after = () => {
         if (cancelled) return;
@@ -231,8 +254,8 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
           onMarkComplete();
           setTimeout(() => playCorrectSequence({ language: 'en' }), 400);
         } else {
-          const next = cvcWords.findIndex(
-            (_, w) => !vcLetters.every((_, l) => writeDone.has(`${w}-${l}`))
+          const next = wordLetters.findIndex(
+            (ls, w) => !ls.every((_, l) => writeDone.has(`${w}-${l}`))
           );
           if (next !== -1 && next !== writeCurrentWordIdx) {
             setTimeout(() => setWriteCurrentWordIdx(next), 500);
@@ -250,7 +273,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
     currentWriteWordDone,
     currentWriteWord,
     cvcWords,
-    vcLetters,
+    wordLetters,
     writeDone,
     writeCurrentWordIdx,
     allWriteComplete,
@@ -266,14 +289,14 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
     (wordIdx: number, letterIdx: number) => async (ok: boolean) => {
       if (!ok) return;
       if (writeDone.has(`${wordIdx}-${letterIdx}`)) return;
-      const letter = vcLetters[letterIdx];
+      const letter = wordLetters[wordIdx]?.[letterIdx];
 
       const letterUrl = letter
         ? await resolveTtsUrl({
             text: letter,
             language: 'english',
             storybookId: unitId,
-            identifierPrefix: 'cvc-write-letter',
+            identifierPrefix: 'en-cvc',
           })
         : undefined;
       // 띵동 → **쉼** → 글자. 붙여 내면 한 덩어리로 들린다.
@@ -289,7 +312,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
         return next;
       });
     },
-    [writeDone, vcLetters, unitId, playAudio]
+    [writeDone, wordLetters, unitId, playAudio]
   );
 
   // 행별 다음 누를 칸 highlight (Phase B 용)
@@ -450,13 +473,13 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
           </div>
         )}
 
-        {/* Phase C: VC 글자별 쓰기 — 현재 단어 이미지 + [consonant 셀][a canvas][n canvas] */}
+        {/* Phase C: 낱말 전체 쓰기 — 현재 단어 이미지 + 앞 자음부터 글자별 캔버스([c][a][n]) */}
         {phase === 'C' && currentWriteWord && (
           <div className="flex flex-col items-center gap-3 sm:gap-4">
             {/* chip 줄 — 4 단어 진척 */}
             <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
               {cvcWords.map((cw, w) => {
-                const wDone = vcLetters.every((_, l) => writeDone.has(`${w}-${l}`));
+                const wDone = (wordLetters[w] ?? []).every((_, l) => writeDone.has(`${w}-${l}`));
                 const active = writeCurrentWordIdx === w;
                 return (
                   <button
@@ -486,23 +509,9 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
                 className="w-[clamp(4rem,12vh,7rem)] h-[clamp(4rem,12vh,7rem)] object-cover rounded-3xl border-[4px] border-white shadow-pop"
               />
             )}
-            {/* 글자 행 */}
+            {/* 글자 행 — 🔴 앞 자음부터 낱말 전체를 쓴다(예전엔 자음이 주어진 셀이었다). */}
             <div className="flex flex-row items-stretch justify-center gap-3 sm:gap-4">
-              {/* 자음 — 코랄 단색 셀 */}
-              <div
-                className="h-[clamp(7rem,22vh,14rem)] w-[clamp(6rem,18vh,12rem)] rounded-[28px] border-[4px] flex items-center justify-center shadow-[0_8px_0_rgba(0,0,0,0.08),0_14px_28px_-8px_rgba(0,0,0,0.25)] bg-gradient-to-b from-coral-400 to-coral-500 border-coral-600 text-white"
-                style={{
-                  textShadow: '0 3px 0 rgba(0,0,0,0.18)',
-                  WebkitTextStroke: '1.5px rgba(255,255,255,0.5)',
-                  paintOrder: 'stroke fill',
-                }}
-              >
-                <span className="text-[clamp(3rem,14vh,9rem)] font-black leading-none">
-                  {currentWriteWord.consonantBefore}
-                </span>
-              </div>
-              {/* VC 글자별 canvas / done 셀 */}
-              {vcLetters.map((letter, l) => {
+              {currentWriteLetters.map((letter, l) => {
                 const letterDone = writeDone.has(`${writeCurrentWordIdx}-${l}`);
                 if (letterDone) {
                   return (

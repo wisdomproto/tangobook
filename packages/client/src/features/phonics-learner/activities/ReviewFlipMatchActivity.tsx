@@ -86,7 +86,8 @@ export function ReviewFlipMatchActivity({
   usePhonicsTtsWarm(
     unitId,
     useMemo(() => picked.map(wordOf), [picked, wordOf]),
-    'review-flip'
+    'review-flip',
+    language
   );
 
   const tiles = useMemo<Tile[]>(
