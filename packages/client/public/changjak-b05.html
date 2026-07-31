@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>B-05 벽지 속 정원 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · B · 상상·변신 · 05</div>
+  <h1>벽지 속 정원</h1>
+  <div class="sub">어젯밤엔 콘센트 옆이었는데, 오늘 아침엔 침대 기둥에 와 있어요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 관찰과 성장</span>
+  <span>무대 · 빈(Wien) 아파트</span>
+  <span>후렴 · 앞발을 대고 "여기까지." (p2 콘센트 옆 · p4 침대 기둥 첫째 마디 · p6 액자 아래 모서리 · p8 액자 위 모서리 — 🔴 매번 다른 물건에 같은 말 · p10 에서 "여기까지가… 없어요." 로 뒤집힌다)</span>
+  <span class="q">13스프레드</span>
+  <span class="q">본문 608자 · 쪽당 47자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- 🔴 <b>성장을 한 문장도 안 썼다.</b> 「자랐어요」·「커졌어요」·「길어졌어요」가 본문에 0회다. 대신 <b>재는 자리 넷을 한 벽에 세로로 세웠다</b> — 콘센트(걸레받이) → 침대 기둥 첫째 마디 → 액자 아래 모서리 → 액자 위 모서리. 넷 다 <b>원래 그 방에 있던 물건</b>이라 아이가 표시를 하거나 외울 것이 없다. 자란 것은 글이 아니라 <b>앞발이 닿는 높이</b>로만 보인다.<br>
+- <b>판타지 규칙은 하나</b>(벽지가 자란다)이고 아무도 이유를 말하지 않는다. 할머니는 끝까지 설명하지 않고, 아이도 「그러니까 밤에…」 하고 추론하지 않는다. <b>재기만 한다.</b><br>
+- <b>새로 온 데는 색이 또렷하다</b>는 단서는 글이 아니라 SCENE 에만 심었다(오래된 데=흐린 장미색 / 새 데=진분홍·짙은 초록). 아이가 어제와 오늘을 구별하는 근거가 그림 안에 있다.<br>
+- 착지 <b>「밖이 안이 됨」</b> — 이른 봄 빈이라 <b>밖은 처음부터 끝까지 잿빛</b>이다. 안뜰 담의 마른 덩굴은 p1 과 p13 이 똑같다(밖에서 아무것도 사라지지도 오지도 않았다 = 두 번째 규칙 없음). 뒤집히는 것은 <b>초록이 있는 쪽</b>뿐이다.<br>
+- 액자 속 <b>눌러 말린 꽃</b>은 상징을 설명하지 않는다. 재는 자리 ③④ 를 만들어 주는 물건이고, p6 에서 마른 꽃과 살아 있는 꽃이 한 화면에 갈릴 뿐이다.<br>
+- 한 쪽 = 한 순간 점검: p1(창을 봄)과 p2(몸을 돌려 벽을 봄)는 두 자세라 두 쪽으로 갈랐다. p12 는 할머니가 <b>문지방에서 굳은 한 자세</b>만이고, 통을 내려놓은 결과는 p13 배경(문간에 놓인 통)에 흔적으로 남겼다.<br>
+- 교훈 문장 없음. 마지막 두 마디는 창밖·창안을 각각 가리키는 <b>관찰</b>이다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>창밖은 잿빛이에요. 안뜰 담엔 마른 덩굴뿐이에요.
+새끼 오소리가 유리에 이마를 콩 대요.
+"…아직 아무것도 없네."</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 미디엄 · 어깨너머로 창을 향해, 아이레벨보다 살짝 낮게
+<b>장소·시간</b> 빈 아파트 꼭대기층 방 한 칸, 키 큰 창 앞. 이른 봄 해질 무렵
+<b>인물</b> 화면 오른쪽 아래 — 새끼 오소리가 창턱에 두 앞발을 얹고 유리에 이마를 붙이고 있다. 어깨가 축 내려갔고, 눈은 아래 안뜰을 향한다. 입은 다물었다
+<b>배경·소품</b> 창유리 너머 잿빛 회벽 안뜰과 담을 타고 오른 마른 덩굴 한 줄기 · 창턱에 빈 화분 하나 · 방 안쪽은 어둑해서 형태만
+<b>톤</b> 해질 무렵의 푸르스름한 빛이 창에서만 들어와 오소리 등에 얹힌다. 회색과 청회색뿐</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>머리맡 벽지는 오래돼서 바랬어요.
+콘센트 옆에 흐린 꽃이 콕 피어 있어요.
+오소리가 앞발을 대요. "여기까지."</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 클로즈업 · 벽과 나란한 정면
+<b>장소·시간</b> 같은 방, 침대 머리맡 벽. 같은 저녁, 등불을 켠 뒤
+<b>인물</b> 화면 왼쪽 — 새끼 오소리가 침대에 무릎 꿇고 앉아 상체를 벽 쪽으로 기울인다. 오른 앞발을 벽지에 활짝 펴서 붙였고, 눈은 앞발 옆 꽃 한 송이를 본다. 입술이 조금 벌어졌다
+<b>배경·소품</b> 걸레받이 위 낡은 놋쇠 콘센트(재는 자리 ①) · 바랜 크림 벽지의 흐린 장미색 꽃무늬 · 놋쇠 침대 기둥 아랫부분
+<b>톤</b> 침대 옆 작은 등불 하나. 빛이 벽 아래쪽에만 고여 콘센트와 꽃만 또렷하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>할머니가 문간에서 벽을 쓱 훑어봐요.
+"일요일에 이 벽지 뜯을 거야."
+오소리는 이불을 쓰윽 끌어올려요.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 와이드 · 문간 쪽에서 방을 보는 어깨너머
+<b>장소·시간</b> 같은 방, 문간. 같은 저녁, 잠자리에 들 때
+<b>인물</b> 화면 오른쪽 — 할머니 오소리가 문틀에 한 앞발을 얹고 서서 턱을 들고 벽을 훑는다. 앞치마 차림, 눈이 가늘다. 화면 왼쪽 — 새끼 오소리가 침대에 누워 두 앞발로 이불을 턱까지 끌어올린 채 눈만 벽 쪽으로 굴린다
+<b>배경·소품</b> 문틀 · 침대 · 머리맡 벽 전체(콘센트 옆 꽃 한 송이가 아주 작게) · 맨 마룻바닥
+<b>톤</b> 복도의 노란 불빛이 문에서 길게 들어오고 방 안은 어둡다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>아침이에요. 꽃은 침대 기둥 첫째 마디에 와 있어요.
+콘센트는 저 아래 그대로예요.
+오소리가 마디에 앞발을 톡 대요. "여기까지."</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 살짝 로우앵글로 벽을 올려다보게
+<b>장소·시간</b> 같은 벽. 다음 날 아침
+<b>인물</b> 화면 가운데 — 새끼 오소리가 이불 밖으로 상체를 내밀고 한 앞발로 놋쇠 침대 기둥을 붙잡고, 다른 앞발을 기둥 첫째 마디에 톡 대고 있다. 입이 조그맣게 벌어지고 눈이 커졌다
+<b>배경·소품</b> 놋쇠 침대 기둥의 첫째 마디(재는 자리 ②) · 그 아래 걸레받이의 콘센트(재는 자리 ①, 같은 화면에 함께) · 두 자리를 잇는 덩굴 한 줄기 — 아래쪽은 흐린 장미색, 새로 온 위쪽만 진분홍·짙은 초록으로 또렷하게
+<b>톤</b> 아침 햇살이 옆에서 들어와 벽을 비스듬히 훑는다. 벽지 결이 보일 만큼 밝게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>밤이에요. 오소리가 무릎에 턱을 괴고 벽을 봐요.
+"안 자고 볼 거야."
+꽃은 꼼짝도 안 해요. 눈꺼풀이 스르르—</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 · 정면 아이레벨
+<b>장소·시간</b> 같은 방. 깊은 밤
+<b>인물</b> 화면 왼쪽 — 새끼 오소리가 이불 위에 앉아 두 무릎을 세우고 그 위에 턱을 괸 채 벽을 노려본다. 눈꺼풀이 반쯤 내려왔고 고개가 한쪽으로 기울기 시작한다
+<b>배경·소품</b> 벽지 · 기둥 첫째 마디에 닿은 꽃 · 침대 옆 바닥에 벗어 둔 슬리퍼 한 짝
+<b>톤</b> 창으로 든 달빛 한 줄기만. 파랗고 조용하게, 그림자 경계가 부드럽게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>꽃은 액자 아래 모서리에 닿아 있어요.
+오소리가 모서리에 앞발을 대요. "여기까지."</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 클로즈업 · 정면
+<b>장소·시간</b> 같은 벽. 다음 날 아침
+<b>인물</b> 화면 오른쪽 — 새끼 오소리가 침대 위에 무릎으로 서서 팔을 위로 뻗어 액자 아래 모서리에 앞발을 대고 있다. 고개를 뒤로 젖혀 위를 보고, 다른 앞발은 균형을 잡느라 벽을 짚었다
+<b>배경·소품</b> 벽에 걸린 작은 액자 — 유리 안에 눌러 말린 갈색 꽃 한 송이가 바스락하게 · 액자 아래 모서리에 닿은 살아 있는 진분홍 꽃(재는 자리 ③) · 화면 아래쪽에 기둥 마디와 콘센트가 작게
+<b>톤</b> 아침빛. 액자 유리에 창이 하얗게 반사되어 마른 꽃과 벽지 꽃이 한 화면에서 갈린다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>할머니가 풀 통을 툭 내려놔요.
+오소리가 벽 앞에 팔을 쫙 벌리고 서요. "할머니, 이거 봐요!"
+"낡았지, 참."</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 와이드 · 방 가운데에서 아이레벨
+<b>장소·시간</b> 같은 방. 토요일 낮
+<b>인물</b> 화면 오른쪽 — 할머니 오소리가 허리를 굽혀 양철 풀 통을 마루에 내려놓는 자세, 시선은 통에 가 있다. 화면 왼쪽 — 새끼 오소리가 벽에 등을 붙이고 두 팔을 좌우로 쫙 벌린 채 할머니를 본다. 입을 크게 벌리고 외친다
+<b>배경·소품</b> 양철 풀 통과 그 안에 꽂힌 주걱 · 벽에 세워 둔 접은 신문지 뭉치 · 벽지 꽃(액자 아래 모서리까지)
+<b>톤</b> 낮의 흰 햇빛이 마루에 네모나게 떨어진다. 밝고 건조하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>꽃은 액자 위 모서리에 와 있어요.
+오소리가 침대에 서서 앞발을 쭈욱 뻗어요. "여기까지."</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 · 로우앵글
+<b>장소·시간</b> 같은 벽. 일요일 전날 아침
+<b>인물</b> 화면 가운데 — 새끼 오소리가 침대 매트리스 위에 두 발로 서서 발끝을 들고, 한 앞발을 쭈욱 위로 뻗어 액자 위 모서리에 댄다. 몸이 활처럼 늘어나고 시선은 제 앞발 끝
+<b>배경·소품</b> 액자 위 모서리(재는 자리 ④) · 액자 · 그 아래 기둥 첫째 마디 · 걸레받이 콘센트 — 넷이 한 세로줄로 화면에 다 들어온다 · 아래 세 자리를 지나온 부분은 흐린 장미색, 액자 위의 새로 온 부분만 진분홍·짙은 초록
+<b>톤</b> 아침빛이 벽 위쪽까지 올라와 있고 아래는 아직 그늘</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>내일이면 일요일이에요.
+오소리가 이불을 끌고 벽에 딱 붙어 누워요.
+"…내일이면 뜯는데."</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 하이앵글로 침대를 내려다봄
+<b>장소·시간</b> 같은 방. 토요일 밤
+<b>인물</b> 화면 아래 — 새끼 오소리가 벽에 옆구리를 딱 붙이고 모로 누워 이불을 코까지 끌어당겼다. 눈은 뜬 채 벽지 꽃을 마주 보고, 앞발 하나가 이불 밖으로 나와 벽에 닿아 있다
+<b>배경·소품</b> 벽지 · 문간 쪽 마루에 놓인 풀 통(작게) · 베개
+<b>톤</b> 어둡고 따뜻한 등불빛. 벽지 꽃이 아이 얼굴 바로 앞에서 반쯤만 보인다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>일요일 아침이에요. 오소리가 앞발을 벽에 대요.
+벽이 안 잡혀요. 앞발이 잎 사이로 쑥 들어가요.
+"여기까지가… 없어요."</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 클로즈업 · 뻗은 앞발 너머 어깨너머
+<b>장소·시간</b> 같은 자리. 일요일 아침
+<b>인물</b> 화면 오른쪽 — 새끼 오소리가 누운 채 팔을 뻗어 벽이 있던 자리에 앞발을 넣는다. 앞발이 잎 사이로 손목까지 들어갔고 발가락 사이로 잎이 삐져나온다. 눈이 동그랗게 커지고 입이 벌어졌다
+<b>배경·소품</b> 벽 대신 겹겹의 잎과 줄기 · 잎 사이로 놋쇠 콘센트 덮개만 반쯤 보인다 · 이불 끝
+<b>톤</b> 잎을 통과한 초록빛이 아이 얼굴에 얼룩덜룩 얹힌다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>방 안이 온통 초록이에요.
+침대 기둥엔 덩굴, 액자는 잎에 반쯤 덮였어요.
+오소리가 침대에 우뚝 서요. "와아…"</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 대형 와이드 · 문 쪽에서 방 전체를 보는 아이레벨
+<b>장소·시간</b> 같은 방. 일요일 아침
+<b>인물</b> 화면 가운데 — 새끼 오소리가 침대 매트리스 위에 두 발로 우뚝 서서 고개를 뒤로 젖히고 천장을 올려다본다. 두 팔은 몸 옆에 축 늘어졌다
+<b>배경·소품</b> 방 한 칸이 통째로 정원 — 놋쇠 침대 기둥을 감아 오른 덩굴 · 잎에 반쯤 덮인 액자 · 천장 몰딩까지 닿은 줄기 · 마루 틈에서 올라온 풀 · 진분홍 꽃이 곳곳에 · 콘센트만 잎 사이로 빼꼼
+<b>톤</b> 창에서 든 아침빛이 잎을 통과해 방 안이 온통 초록으로 젖는다. 이 권에서 가장 채운 화면</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>문이 열리고, 할머니가 풀 통을 든 채 멈춰 서요.
+주걱이 앞치마에서 삐죽 나와 있어요.
+"아이고…"</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 미디엄 · 방 안쪽에서 문간을 보는 아이레벨
+<b>장소·시간</b> 같은 방, 문간. 이어지는 순간
+<b>인물</b> 화면 가운데 — 할머니 오소리가 문지방을 한 발 넘은 자세 그대로 굳어 있다. 두 앞발로 풀 통 손잡이를 든 채 팔이 아래로 늘어졌고, 고개는 천장 쪽으로 들렸다. 입이 살짝 벌어졌다
+<b>배경·소품</b> 앞치마 주머니에서 삐죽 나온 주걱 · 문틀을 타고 넘어온 잎 몇 장 · 통 안의 마른 풀
+<b>톤</b> 복도의 회색빛과 방 안의 초록빛이 문틀에서 딱 갈린다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>창밖 담엔 마른 덩굴이 그대로예요.
+둘은 잎 사이에 나란히 앉아 창을 봐요. 사르락—
+"밖은 아직 겨울이에요." "여긴 아니고."</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 와이드 · 방 안쪽 잎 사이에서 창을 향해, 앞쪽에 잎이 걸린 프레임
+<b>장소·시간</b> 같은 방, 창가. 일요일 아침
+<b>인물</b> 화면 오른쪽 — 새끼 오소리와 할머니 오소리가 창턱 아래 나란히 앉아 있다. 새끼는 무릎을 세우고 유리 쪽으로 몸을 기울였고, 할머니는 한 팔을 새끼 어깨에 두른 채 같은 곳을 본다. 둘 다 옆얼굴
+<b>배경·소품</b> 창유리 너머 — p1 과 똑같은 잿빛 안뜰과 담의 마른 덩굴 한 줄기, 아무것도 안 바뀌었다 · 화면 앞쪽 4분의 3은 방 안의 초록 잎 · 문간에 놓인 그대로의 풀 통
+<b>톤</b> 밖은 회색, 안은 초록. 한 화면에서 두 색이 창틀을 경계로 정확히 갈린다</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'b05',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 오소리(이름 없음)', '할머니 오소리(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bbd18e032e"></script>
+<script src="/changjak-core.js?v=47fd80bbd18e032e"></script>
+</body>
+</html>

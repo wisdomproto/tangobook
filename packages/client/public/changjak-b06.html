@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>B-06 구름을 굽는 빵집 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · B · 상상·변신 · 06</div>
+  <h1>구름을 굽는 빵집</h1>
+  <div class="sub">구름이 부풀면 옆에 있던 것도 같이 가벼워져요. 마을이 통째로 떠오른 날.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 소원의 대가</span>
+  <span>무대 · 프랑스 시골 빵집 창가 작업대 (카메라가 이 한 칸을 안 벗어난다)</span>
+  <span>후렴 · "저것도 떴어요!" (p4·p6·p8 세 번) → p13 에서 "저것도… 내려앉았어요." 로 뒤집힌다 / "후— 우—" 몽실! (p3·p5)</span>
+  <span class="q">13스프레드</span>
+  <span class="q">본문 612자 · 쪽당 47자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+🔴 <b>대가를 물리로 바꿨다.</b> 소원 장치·주문·요정이 없다. 「부풀리면 그 <b>옆</b>도 같이 가벼워진다」를 두 번 목격시킨다 — p4 놋쇠 저울추, p6 옆집 이불과 화분. 아이가 외울 규칙이 아니라 눈으로 보는 성질이라, p7 양 아저씨 발굽과 p8 지붕이 뜨는 것도 설명 없이 그냥 읽힌다.<br>
+<br>
+🔴 <b>핵심은 무게가 아니라 「옆으로 옮는다」이다.</b> 무거운 걸 구름 <b>위에 얹지 않는다</b>. p11 에서 두더지는 흙을 구름과 구름 <b>사이에</b> 놓는다. 위에 얹으면 그냥 눌러 끈 것이고, 옆에 놓아야 p4·p6 에서 본 성질이 방향만 뒤집혀 한 번 더 도는 것이 된다.<br>
+<br>
+🔴 <b>창틀이 기준자다.</b> 마을이 떠오르는 이야기인데 카메라는 빵집 한 칸을 안 벗어난다. 떠오른 정도는 전부 <b>창틀 아래 가로선에 빨간 지붕 용마루가 얼마나 걸쳐 있는가</b>로만 읽힌다. p1 딱 걸림 → p6 이불이 선을 넘음 → p8 지붕이 통째로 선 위 → p10 화분 하나만 턱에 도로 → p13 지붕이 그 선에 앉음. 문장으로 높이를 재지 않는다.<br>
+<br>
+🔴 <b>두더지만 안 뜬다.</b> 젖은 흙 묻은 발이 p1 부터 그림에 있다(의자 발판의 자국 두 개). 양은 털이 부풀어 발굽이 뜨고, 두더지는 끝까지 바닥에 붙어 있다 — 그 대비가 p9 를 설명 없이 성립시킨다.<br>
+<br>
+⚠️ <b>추론을 안 시킨다.</b> p9 에서 발이 짚은 옆의 구름이 꺼지는 걸 보고, p10 에서 화분이 내려와 있는 걸 본다. p11 은 <b>본 것을 또 하는 것</b>이지 규칙을 알아낸 것이 아니다.<br>
+<br>
+⚠️ <b>화덕은 화면에 안 넣는다</b> — 같은 빵집 무대의 다른 권과 배치가 겹치지 않게 창가 쪽만 쓴다. 굽는 냄새·오븐 문·장작 없음.<br>
+<br>
+⚠️ <b>d03(젖어서 내려오는 열기구)과 원리가 붙지 않게</b> — 저쪽은 하늘 위에서 밖의 비가 해결하고, 이쪽은 방 안에서 아이가 옆자리에 놓는다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>빵집 창가에 아침 해가 들었어요.
+어린 두더지가 흙 묻은 앞발로 의자에 올라섰어요.
+"아저씨, 오늘은 뭘 구워요?"</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 미디엄 · 창을 옆에서 비스듬히 잡은 아이레벨
+<b>장소·시간</b> 시골 빵집 안, 창가 나무 작업대 앞. 해가 막 올라온 이른 아침
+<b>인물</b> 화면 왼쪽 앞 — 어린 두더지가 낮은 나무 의자 위에 두 발로 올라서서 작업대 위로 목을 뺀다, 앞발은 작업대 모서리에 얹었고 눈이 동그랗다. 오른쪽 뒤 — 양 아저씨가 앞치마 끈을 등 뒤로 묶는 중, 두더지 쪽으로 얼굴만 돌린다
+<b>배경·소품</b> 나무 작업대 · 놋쇠 저울과 접시에 얹힌 저울추 하나 · 밀가루 통 · 🔴 의자 발판에 젖은 흙 앞발 자국 두 개 · 창밖 옆집 빨간 지붕의 용마루가 창틀 아래 가로선에 딱 걸쳐 있다
+<b>톤</b> 낮은 아침 빛이 작업대 위에만 길게 들어오고 방 안쪽은 어둑하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>양 아저씨가 하얀 덩이를 작업대에 툭 올렸어요.
+두더지가 코를 쭈욱 내밀고 킁킁거렸어요.
+"반죽이 아니야. 구름이란다."</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 클로즈업 · 작업대 높이에서 수평으로
+<b>장소·시간</b> 같은 작업대 앞. 조금 뒤
+<b>인물</b> 화면 가운데 아래 — 두더지가 코끝을 하얀 덩이에 거의 닿을 만큼 내밀고 킁킁거린다, 앞발 둘은 작업대 위에 나란히 놓였다. 오른쪽 위 — 양 아저씨의 앞발굽이 덩이를 놓고 막 떨어지는 중, 얼굴은 화면 위쪽에 반만 들어온다
+<b>배경·소품</b> 하얗고 폭신한 덩이 하나 · 놋쇠 저울추 · 밀가루가 얇게 깔린 작업대. 그 밖엔 비운다
+<b>톤</b> 흰 것 하나에 빛이 몰리고 나머지는 매체 그대로</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>양 아저씨가 구름 위로 입김을 불었어요.
+"후— 우—"
+몽실! 구름이 주먹만큼 동그랗게 부풀었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 살짝 낮은 각도에서 올려다보며
+<b>장소·시간</b> 같은 자리. 바로 이어서
+<b>인물</b> 화면 오른쪽 — 양 아저씨가 입을 오므리고 덩이 쪽으로 고개를 숙여 분다, 볼이 살짝 들어가고 눈은 감았다. 왼쪽 — 두더지가 의자 위에서 두 앞발을 턱 밑에 모으고 올려다본다
+<b>배경·소품</b> 부푸는 하얀 덩이 하나 · 입김에 흩날리는 밀가루 몇 알. 그 밖엔 비운다
+<b>톤</b> 흰 덩이 둘레만 환하게, 배경은 조용히</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>옆에 놓인 놋쇠 저울추가 접시에서 스르르 떠올랐어요.
+두더지가 발끝을 들고 추를 콕 찔렀어요.
+"어? 저것도 떴어요!"</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 · 어깨너머 (두더지 뒤에서 작업대 쪽을 본다)
+<b>장소·시간</b> 같은 자리. 바로 이어서
+<b>인물</b> 화면 왼쪽 앞 — 두더지가 뒤꿈치를 들고 한쪽 앞발을 쭉 뻗어 공중의 저울추를 손끝으로 콕 찌른다, 입은 벌어졌다. 오른쪽 — 양 아저씨는 아직 덩이 쪽으로 고개를 숙인 채
+<b>배경·소품</b> 🔴 놋쇠 저울추가 빈 접시 한 뼘 위에 떠 있다(추와 접시가 같은 깊이에 나란히) · 부푼 하얀 덩이 하나
+<b>톤</b> 아침 빛에 놋쇠만 노랗게 반짝이고 나머지는 흰빛</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>양 아저씨가 볼을 크게 부풀려 다시 불었어요.
+"후— 우—"
+몽실, 몽실! 구름이 베개만큼 커졌어요.</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 정면보다 반 걸음 옆에서
+<b>장소·시간</b> 같은 자리. 조금 뒤
+<b>인물</b> 화면 오른쪽 — 양 아저씨가 두 볼을 빵빵하게 부풀리고 눈을 꼭 감은 채 분다, 앞발굽 둘은 작업대를 짚었다. 왼쪽 — 두더지가 의자 위에서 몸을 뒤로 젖히며 커지는 구름을 피한다
+<b>배경·소품</b> 베개만 해진 하얀 구름 둘 · 여전히 공중에 떠 있는 저울추
+<b>톤</b> 흰 것이 화면 절반을 먹고 빛도 거기서 나오는 것처럼</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>두더지가 창틀을 붙잡고 발돋움했어요.
+옆집 이불이 창틀 선 위로 두둥실 올라갔어요.
+"아저씨, 저것도 떴어요!"</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 · 창을 정면으로 마주 본 아이레벨
+<b>장소·시간</b> 창가. 바로 이어서
+<b>인물</b> 화면 아래 가운데 — 두더지가 창틀을 두 앞발로 붙잡고 뒷발끝으로 서서 창밖을 본다, 등이 잔뜩 늘어났다. 오른쪽 뒤 — 양 아저씨는 작업대 쪽을 향한 채 고개만 창으로 돌린다
+<b>배경·소품</b> 🔴 창틀 아래 가로선 · 그 선 위로 올라간 흰 이불 한 장과 흙 화분 하나 · 빨랫줄만 아래에 남아 있다 · 옆집 빨간 지붕 용마루는 아직 선에 걸쳐 있다
+<b>톤</b> 창밖은 환하고 방 안은 그림자 진 역광으로</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>양 아저씨 털이 부풀부풀 일어섰어요.
+뒷발굽이 바닥에서 한 뼘 떠올랐어요.
+"어이쿠!"
+두더지 발은 바닥에 딱 붙어 있었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 전신 미디엄 롱 · 조금 낮은 데서 올려다보며 (뜬 것과 붙은 것이 한 화면에)
+<b>장소·시간</b> 창가 작업대 옆. 바로 이어서
+<b>인물</b> 화면 오른쪽 — 양 아저씨의 털이 사방으로 부풀어 오르고 뒷발굽 둘이 바닥에서 한 뼘 떠 있다, 앞발굽으로 작업대를 붙잡고 놀란 얼굴. 왼쪽 — 두더지는 의자에서 내려와 바닥에 두 발을 딱 붙이고 서서 위를 본다, 앞발은 아래로 늘어뜨렸다
+<b>배경·소품</b> 🔴 두더지 발밑 바닥에 젖은 흙 자국 · 양 아저씨 발굽 아래는 빈 공기 · 공중의 저울추
+<b>톤</b> 바닥 쪽만 어둡고 위쪽이 밝아 뜬 느낌이 커지게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>창밖 빨간 지붕이 통째로 올라갔어요.
+두더지가 창틀을 두 발로 꽉 잡았어요.
+"아저씨! 마을이 떴어요!"</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 · 창을 정면으로 (p6 과 같은 구도)
+<b>장소·시간</b> 창가. 바로 이어서
+<b>인물</b> 화면 아래 가운데 — 두더지가 창틀을 두 앞발로 꽉 움켜쥐고 몸을 창에 바짝 붙였다, 입이 크게 벌어졌다. 오른쪽 위 — 양 아저씨의 발굽 끝만 화면에 들어온다(여전히 떠 있다)
+<b>배경·소품</b> 🔴 옆집 빨간 지붕이 통째로 창틀 아래 선 위로 올라가 창 한가운데에 있다 · 그 아래로 빈 하늘 · 이불과 화분은 더 높이
+<b>톤</b> 창밖이 눈부시게 밝고 창틀 안쪽은 실루엣으로</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>두더지가 뒷걸음질하다 젖은 앞발로 작업대를 쿵 짚었어요.
+바로 옆 구름이 푹— 꺼졌어요.
+"어어?"</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 클로즈업 · 작업대 위를 비스듬히 내려다보는 하이앵글
+<b>장소·시간</b> 작업대 위. 바로 이어서
+<b>인물</b> 화면 왼쪽 아래 — 두더지의 젖은 앞발 하나가 작업대를 짚어 진갈색 자국이 번진다, 얼굴은 화면 왼쪽 끝에서 반만 보이고 눈이 커졌다
+<b>배경·소품</b> 🔴 짚은 자국 바로 옆에서 하얀 구름 한 덩이가 주저앉아 납작해진다 · 그 옆 구름들은 아직 부푼 채 · 진갈색 흙 자국이 흰 밀가루 위에 또렷하게
+<b>톤</b> 흰 바닥에 진갈색 하나만 튀게, 나머지는 흐리게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>창밖 화분 하나가 창틀 턱에 톡 내려와 앉았어요.
+두더지가 제 앞발을 들어 들여다봤어요.</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 두더지 쪽으로 붙은 아이레벨
+<b>장소·시간</b> 창가. 바로 이어서
+<b>인물</b> 화면 가운데 — 두더지가 짚었던 앞발을 얼굴 앞까지 들어 올려 손바닥을 들여다본다, 다른 앞발은 아래로 내렸고 시선이 제 발에만 가 있다
+<b>배경·소품</b> 🔴 두더지 뒤 창틀 턱에 흙 화분 하나가 도로 얹혀 있다(두더지는 그쪽을 안 본다) · 창밖 지붕은 아직 선 위 · 앞발에 묻은 진갈색 흙
+<b>톤</b> 아침 빛이 들린 앞발에 모이게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>"제 발에 흙이 묻었어요!"
+두더지가 문가 흙을 한 줌씩 퍼다 구름 사이사이에 놓았어요.
+"이것도, 이것도!"</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 · 작업대를 옆에서 길게 훑는 아이레벨
+<b>장소·시간</b> 작업대 앞. 조금 뒤
+<b>인물</b> 화면 왼쪽 — 두더지가 두 앞발로 진갈색 흙을 한 줌 받쳐 들고 작업대 위로 몸을 기울인다, 뒷발은 의자에 다시 올라섰다. 오른쪽 위 — 양 아저씨가 공중에서 두 발굽을 허우적거리며 내려다본다
+<b>배경·소품</b> 🔴 부푼 흰 구름들 <b>사이사이</b>(위가 아니다)에 진갈색 흙 덩이가 하나씩 놓여 있다 · 문가에서 퍼 온 흙이 바닥에 조금 흘렀다 · 공중의 저울추
+<b>톤</b> 흰 줄과 갈색 점이 번갈아 놓인 띠처럼</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>구름들이 차례로 푹, 푹, 푹 꺼졌어요.
+저울추가 접시로 탕 떨어지고, 발굽이 바닥에 닿았어요.</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 미디엄 롱 · 방 한 칸이 다 들어오는 아이레벨
+<b>장소·시간</b> 창가 작업대. 바로 이어서
+<b>인물</b> 화면 오른쪽 — 양 아저씨의 뒷발굽 둘이 바닥에 막 닿아 무릎이 살짝 굽었다, 부풀었던 털이 도로 가라앉는 중. 왼쪽 — 두더지가 작업대 앞에 두 발로 서서 구름들을 본다, 앞발은 배 앞에 모았다
+<b>배경·소품</b> 🔴 납작해진 흰 덩이 셋과 그 사이의 진갈색 흙 · 접시 안에 도로 얹힌 놋쇠 저울추
+<b>톤</b> 빛이 아까보다 높아져 방 전체가 고르게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>창밖 빨간 지붕이 창틀 그 선까지 스르르 내려앉았어요.
+두더지가 창틀에 턱을 얹고 길게 숨을 내쉬었어요.
+"저것도… 내려앉았어요."</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 미디엄 · 창을 정면으로 (p6·p8 과 같은 구도)
+<b>장소·시간</b> 창가. 해가 조금 더 올라온 때
+<b>인물</b> 화면 아래 가운데 — 두더지가 창틀 위에 턱을 얹고 눈을 반쯤 감은 채 숨을 길게 내쉰다, 앞발 둘은 창틀에 나란히 늘어졌다. 오른쪽 뒤 — 양 아저씨가 작업대에 발굽을 얹고 창 쪽을 본다
+<b>배경·소품</b> 🔴 옆집 빨간 지붕 용마루가 창틀 아래 가로선에 p1 과 똑같이 걸쳐 있다 · 빨랫줄에 이불이 다시 늘어졌고 화분은 창틀 턱에 · 창틀에 남은 진갈색 앞발 자국 두 개
+<b>톤</b> 아침 빛이 창 안까지 넓게 들어와 따뜻하게</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'b06',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['어린 두더지(이름 없음)', '빵집 주인 양 아저씨(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bbd18e032e"></script>
+<script src="/changjak-core.js?v=47fd80bbd18e032e"></script>
+</body>
+</html>
