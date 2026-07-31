@@ -12,6 +12,32 @@
 
 ---
 
+## 진행 상태 (2026-07-14)
+
+> **브랜치:** `feat/naver-blog-publisher` (worktree `.worktrees/naver-blog`).
+>
+> **✅ Chunk 1 완료** — 네이버 DOM 무관 계층 전부 구현·검증:
+> - Task 1 puppeteer+gitignore · Task 2 Supabase 이력 테이블(`mkt_naver_blog_publications`, 원격 적용됨) · Task 3 `buildInjectionPlan`(TDD 4) · Task 4 `naver-session`(TDD 2) · Task 5 `publications.store` 멱등(TDD 2) · Task 6 `blog-source`(실 Supabase 스모크 통과).
+> - **🔴 소스 변경(실측 확정)**: 최초 설계의 R2 books blog 가 아니라 **마케팅 시스템 `mkt_blog_contents`/`mkt_blog_cards`** 가 실소스(152 블로그·이미지 720장·전부 draft). `blog-html.ts`/`blog-source.ts` 가 이 소스 기준으로 구현됨. 스펙 §소스변경 참조. 아래 Chunk 3 Task 8·9 의 `BlogPostV2`·R2 표현은 `BlogSource`(Supabase)로 대체해 읽을 것.
+> - server typecheck 전체 통과. 커밋 6개.
+>
+> **✅ 전 청크 완료 (2026-07-28)** — 발행까지 라이브. **14편 예약**(7/29~8/11 하루 1편 09:00).
+> - Chunk 2 = 로그인 PoC + 셀렉터 실측 완료 → 스펙 §12(에디터)·§13(발행 패널)·§14(달력).
+> - Chunk 3 = `publish-naver-blog.ts`(초안: 제목·본문·이미지) + `schedule-naver-drafts.ts`
+>   (임시저장 글을 열어 태그·공개설정·검색허용·예약 날짜) + 텔레그램 알림.
+> - 🔴 설계 가정 하나가 반증됐다: `input[type=file]` 이 없어 **filechooser 가로채기**로 갔다.
+> - 🔴 운용 = **2주치 14편**. 예약 시각은 흩어져도 작성 기록이 한날에 몰린다.
+>
+> 이하 원문(당시 대기 상태)은 이력으로 남긴다.
+>
+> **⏸ Chunk 2(PoC 실측)부터 = 사람 개입 대기** — 형이 네이버 로그인해야 진행.
+> - `packages/server/scripts/naver-poc.ts` **작성 완료**(login 자동감지 + measure 셀렉터 덤프). 아직 실행 안 함(로그인 미완).
+> - puppeteer Chromium 설치됨(`~/.cache/puppeteer`).
+> - **재개 절차**: ① `tsx scripts/naver-poc.ts login` → 뜬 창에서 형이 로그인 → `naver-session.json` 저장 ② `tsx scripts/naver-poc.ts measure <blogId>` → 스마트에디터 ONE iframe/제목/본문/이미지 셀렉터 실측(스크린샷 `out/naver/`) ③ 셀렉터를 스펙에 기록 → Chunk 3(`naver-blog-post.ts` writePost + `publish-naver-blog.ts` CLI + 문서).
+> - ⚠️ worktree 에 메인 `.env` 복사해둠(gitignore). 세션·이미지 주입 경로(파일 input vs 클립보드)는 PoC 에서 실측.
+
+---
+
 ## File Structure
 
 | 파일 | 책임 | 종류 |
