@@ -118,9 +118,9 @@ MATERIAL TRANSLATION (🔴 keep it printed and drawn - never photographic, never
   - THE FIELD IN DEPTH = the same stamp printed smaller and paler toward the horizon, in rows
     that run as clean diagonal bands. Distance is made by SIZE AND PALENESS OF THE STAMP,
     never by blur or fog.
-  - WET FUR = the flat fur plane with a few darker drawn strokes where the coat has clumped
-    and parted into points, plus two or three small drop shapes flicked off the tips.
-    NOT a shiny highlight, NOT a wet-plastic sheen, NOT rendered individual hairs.
+  - WET FUR = the flat fur plane with each clump drawn as THREE TO FIVE darker strokes, and AT
+    MOST TWELVE such strokes on the whole animal, plus two or three drop shapes off the tips.
+    Count them: the thirteenth stroke is fur texture. NOT a shiny highlight, NOT a plastic sheen.
   - SOAP FOAM = opaque white gouache pressed on with a small brush - one soft lump with three
     or four little bubble circles crowding its edge, and a faint grey line under it where it
     meets the fur. Matte, chalky, sitting ON TOP of everything else in the picture.
