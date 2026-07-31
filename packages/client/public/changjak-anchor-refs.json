@@ -1243,11 +1243,11 @@
     "slug": "changjak-darkcut",
     "refs": [
       {
-        "id": "boyd-flashlight",
-        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2015/FICTION/winner_flashlight_cover%20ok.jpg",
-        "artist": "Lizi Boyd",
-        "work": "Flashlight",
-        "award": "BolognaRagazzi Fiction 위너 2015",
+        "id": "klassen-hat",
+        "imageUrl": "https://covers.openlibrary.org/b/id/10207424-L.jpg",
+        "artist": "Jon Klassen",
+        "work": "This Is Not My Hat",
+        "award": "Kate Greenaway Medal 2014",
         "year": 2014
       },
       {
@@ -1259,15 +1259,15 @@
         "year": 2018
       },
       {
-        "id": "marais-tomber",
-        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_fiction_mention_2.jpg",
-        "artist": "Frédéric Marais",
-        "work": "Tomber 8 fois, se relever 9",
-        "award": "BolognaRagazzi 2026 Fiction",
-        "year": 2026
+        "id": "rascal-chaperon",
+        "imageUrl": "https://covers.openlibrary.org/b/id/2144880-L.jpg",
+        "artist": "Rascal",
+        "work": "Le petit chaperon rouge",
+        "award": "🔴 수상 미검증 — 벨기에 Pastel 스테디셀러(시장 검증)",
+        "year": 2002
       }
     ],
-    "neighbor": false
+    "neighbor": true
   },
   "a11": {
     "slug": "changjak-tilefield",
@@ -1303,12 +1303,12 @@
     "slug": "changjak-liftcolor",
     "refs": [
       {
-        "id": "ai-journey",
-        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2020/02/Journey1.jpg/original",
-        "artist": "Yunyun Ai",
-        "work": "Journey",
-        "award": "WIA 2020 Highly Commended",
-        "year": 2020
+        "id": "smith-smallcity",
+        "imageUrl": "https://covers.openlibrary.org/b/id/9181130-L.jpg",
+        "artist": "Sydney Smith",
+        "work": "Small in the City",
+        "award": "Kate Greenaway Medal 2021",
+        "year": 2021
       },
       {
         "id": "bouvier-spring",
@@ -1513,20 +1513,12 @@
     "slug": "changjak-twofields",
     "refs": [
       {
-        "id": "virardi-instant",
-        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/BRAW_toddler_mention_2.jpg",
-        "artist": "Liuna Virardi",
-        "work": "Un instant (A Moment)",
-        "award": "BolognaRagazzi 2026 Toddler",
-        "year": 2026
-      },
-      {
-        "id": "darme-coq",
-        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/coq_polyglotte.jpg",
-        "artist": "Marie Darme-Rizzo",
-        "work": "Le coq polyglotte",
-        "award": "BolognaRagazzi 2025 Toddler",
-        "year": 2025
+        "id": "lindenbaum-siv",
+        "imageUrl": "https://covers.openlibrary.org/b/id/6958154-L.jpg",
+        "artist": "Pija Lindenbaum",
+        "work": "Siv sover vilse (Siv Sleeps Over)",
+        "award": "Deutscher Jugendliteraturpreis 그림책 부문 수상 2012",
+        "year": 2011
       },
       {
         "id": "marais-tomber",
@@ -1535,6 +1527,14 @@
         "work": "Tomber 8 fois, se relever 9",
         "award": "BolognaRagazzi 2026 Fiction",
         "year": 2026
+      },
+      {
+        "id": "moriconi-lua",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/dia_de_lua.jpg",
+        "artist": "Renato Moriconi",
+        "work": "Dia de Lua (Moon Day)",
+        "award": "BolognaRagazzi 2024 Toddler",
+        "year": 2024
       }
     ],
     "neighbor": true
@@ -1543,12 +1543,12 @@
     "slug": "changjak-oneblock",
     "refs": [
       {
-        "id": "valousek-panacek",
-        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2019/images/premi/BRAW/winner_BRAW_BCBF_19.jpg",
-        "artist": "Chrudoš Valoušek",
-        "work": "Panáček, pecka, švestka, poleno a zase panáček",
-        "award": "BolognaRagazzi Fiction 위너 2019",
-        "year": 2018
+        "id": "younesi-wisdom",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/wisdom.jpg",
+        "artist": "Majid Zakeri Younesi",
+        "work": "House of Wisdom",
+        "award": "BolognaRagazzi 2025 Fiction",
+        "year": 2025
       },
       {
         "id": "rogaar-lucy",
@@ -1566,7 +1566,8 @@
         "award": "WIA 2024 Category Winner",
         "year": 2024
       }
-    ]
+    ],
+    "neighbor": true
   },
   "c04": {
     "slug": "changjak-onewet",
@@ -1842,12 +1843,12 @@
     "slug": "changjak-sixlayers",
     "refs": [
       {
-        "id": "virardi-instant",
-        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/BRAW_toddler_mention_2.jpg",
-        "artist": "Liuna Virardi",
-        "work": "Un instant (A Moment)",
-        "award": "BolognaRagazzi 2026 Toddler",
-        "year": 2026
+        "id": "panicha-interior",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2023/02/Overall.jpg/original",
+        "artist": "Beya Panicha",
+        "work": "(실내 · 개가 있는 오후)",
+        "award": "WIA 2023 Category Winner",
+        "year": 2023
       },
       {
         "id": "haugomat-atravers",
