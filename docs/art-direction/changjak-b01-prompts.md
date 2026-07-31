@@ -92,7 +92,7 @@ CHARACTER DESIGN LANGUAGE: drawn in the same graphite line as the box creases an
 CANVAS: 16:9 double-page spread. A Paris attic - the ceiling slopes down on both sides so you can
   only stand upright down the middle, exposed beams, ONE skylight in the LEFT slope, ONE low door in
   the RIGHT wall, wide floorboards, one bulb on a flex. 🔴 LEFT is the skylight and the sleeping
-  place, RIGHT is the door - that never flips. Bottom 18% quiet for a caption. No lettering,
+  place, RIGHT is the door - that never flips. No lettering,
   numerals, shipping marks or logos anywhere, and never on a box.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,

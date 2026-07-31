@@ -146,61 +146,49 @@
 STYLE ANCHOR - changjak-h03   (rabbit kit and old badger cobbler / Italian mountain shoe workshop)
 
 Style: a hand-printed picture-book page for 4-8 year olds, warm and honey-coloured. ONE Italian
-  mountain shoe workshop drawn thirteen times in which two things slowly grow - the work on the
-  shelf and the season in the window - and 🔴 THOSE TWO ARE THE ONLY VARIABLES. The room is fixed
-  by the WorkshopKit sheet (window RIGHT with one chestnut, bench under it, one shelf, brazier,
-  doorway LEFT); cameras change, the geometry does not - never mirror it, never add furniture.
+  mountain shoe workshop drawn thirteen times; 🔴 ONLY TWO THINGS CHANGE - the work on the shelf
+  and the season in the window. Geometry fixed by WorkshopKit (window RIGHT, doorway LEFT) - never
+  mirrored, no furniture added.
 
-RENDERING: broad printed colour areas made with a roller and a wide flat brush, then FINE LINES
-  laid over them with a small pointed brush and a pen nib. 🔴 THE ROOM IS PRINTED, NOT PAINTED -
-  flat areas of ONE BROWN INK laid once, twice or three times, stepping darker where one prints
-  over another. Edges are clean and slightly uneven, as a hand-inked block is; a hair of misregister
-  is welcome, softness is not. 🔴 ALL THE INFORMATION IS IN THE FINE LINES: tools, branches,
-  shavings, a leather cut edge, awl holes, tack heads and stitches are each one thin drawn mark on
-  top of a printed area, done one at a time. 🔴 ZERO SHADING AND ZERO MODELLING - depth is which
-  area printed over which, plus line - and sunlight is 🔴 ONE PRINTED PATCH OF THE SEASON'S COLOUR
-  ON THE FLOOR with a clean edge, never a glow, shaft or gradient.
-  FINISHED THINGS PER PAGE = 2 (the work in hand + the one tool doing it); the two figures are flat
-  printed areas with a few fine lines for face and hands; what they touch gets its area plus one or
-  two lines; everything else is A FLAT AREA WITH NOTHING INSIDE IT - not faded, not hazy, simply not
-  drawn. DENSITY RATION = pages 1 and 13, spent on the tool wall, the props and the chestnut.
-  Counts: wall, floor and beams = 0 marks · shaving = 2 fine curved lines · leather = 1 broken line
-  along the cut edge + 3-4 surface marks · the last = 4-5 lines running with the form · brazier =
-  3 fine lines, 0 glow · tacks and awl holes = countable dots · chestnut = the season's colour area
-  + a few branch lines, 0 leaves, 0 bark. 🔴 If the room gets described, the shelf stops being
-  readable, and the shelf is how this book counts.
+RENDERING: broad printed colour areas rolled flat, then FINE LINES over them with a pointed brush
+  and pen nib. 🔴 THE ROOM IS PRINTED, NOT PAINTED - flat areas of ONE BROWN INK laid once, twice
+  or three times, stepping darker where one prints over another; edges clean, slightly uneven.
+  🔴 ALL THE INFORMATION IS IN THE FINE LINES, each a thin drawn mark on a printed area. 🔴 ZERO
+  SHADING AND ZERO MODELLING - depth is which area printed over which, plus line - and sunlight is
+  ONE PRINTED PATCH OF THE SEASON'S COLOUR ON THE FLOOR, clean-edged. FINISHED THINGS PER PAGE = 2
+  (the work in hand + the one tool doing it); everything else is A FLAT AREA WITH NOTHING INSIDE
+  IT. DENSITY RATION = p1, p13, on the tool wall, props and chestnut. Counts: wall, floor and beams
+  = 0 marks · shaving = 2 fine curved lines · leather = 1 broken line along the cut edge + 3-4
+  surface marks · the last = 4-5 lines running with the form · brazier = 3 fine lines, 0 glow ·
+  tacks and awl holes = countable dots · chestnut = season colour + a few branch lines, 0 leaves,
+  0 bark.
 
 PALETTE: honey-cream board and lime wall #EDE6D6 · 🔴 ALL THE BROWN IS ONE INK IN THREE STEPS - one
-  pass #DCB27E (shavings, sill, fresh-cut wood), two #B58455 (upper leather, bench, shelf, apron),
-  three #6E4A2C (the wooden last, beams, brazier mouth, and the empty inside of the finished shoe).
-  Never mix a new brown. Thick sole leather = two passes plus one of the season yellow #B98B4A.
-  SEASON, on the window and its floor patch only: #D9B14E · #C4C6BF · #CFD3D2 · #E2E5E2 ·
-  #D8D4C2 · #A8C46B. 🔴 RED WAXED THREAD #B8322A IS THE ONLY RED AND IT IS A LINE, NOT A SPOT -
-  where it appears is what was done today, it gets longer, and on several pages there is none.
-  🔴 NO BLACK ANYWHERE - the darkest thing on any page is the brown printed three times.
+  pass #DCB27E (shavings, sill, fresh wood), two #B58455 (upper leather, bench, shelf, apron),
+  three #6E4A2C (wooden last, beams, brazier mouth, the inside of the finished shoe). Never mix a
+  new brown. Sole leather = two passes + one of season yellow #B98B4A. SEASON, on the window and
+  its floor patch only: #D9B14E · #C4C6BF · #CFD3D2 · #E2E5E2 · #D8D4C2 · #A8C46B. 🔴 RED WAXED
+  THREAD #B8322A IS THE ONLY RED AND IT IS A LINE, NOT A SPOT; it gets longer, and some pages have
+  none. 🔴 NO BLACK ANYWHERE.
 
-CHARACTER DESIGN LANGUAGE: 🔴 both figures are FLAT-FILLED with no modelling and 🔴 ALWAYS WORKING
-  OR WAITING, NEVER POSED FRONTALLY - knees grip the wood, weight goes into the knife, elbows swing
-  wide; the body tells you which stage this page is. Eyes are DRAWN, one small dark almond with a
-  SEPARATE brow stroke above - not dot-eyes, no catchlight. 🔴 FACES STAY ANIMAL: the badger's
-  striped face in three-pass brown, never black; the rabbit's long ears. 🔴 The badger's face barely
-  changes for thirteen pages - brows level, NEVER a knowing smile - and the rabbit does all the
-  acting, with its EARS as the second acting organ. Grade, fixed: upright on two legs, front paws as
-  hands, a leather apron and a loose baggy jumper, nothing else worn. 🔴 THE RABBIT'S FEET ARE BARE
-  UNTIL THE LAST PAGE.
+CHARACTER DESIGN LANGUAGE: 🔴 both figures are FLAT-FILLED and ALWAYS WORKING OR WAITING, NEVER
+  POSED FRONTALLY - knees grip the wood, weight goes into the knife, elbows swing wide. Eyes are
+  DRAWN, one small dark almond with a SEPARATE brow stroke above - not dot-eyes, no catchlight; the
+  badger's striped face is three-pass brown, never black. 🔴 His face barely changes for thirteen
+  pages - brows level, NEVER a knowing smile; the rabbit does all the acting, its EARS the second
+  acting organ. Grade: upright on two legs, front paws as hands, leather apron and baggy jumper.
+  🔴 THE RABBIT'S FEET ARE BARE UNTIL THE LAST PAGE.
 
-CANVAS: 16:9 double-page spread, 4-8 year old picture book. The frame is the room's own geometry -
-  add no ornamental border. Bottom 18% quiet for a caption. No lettering, numerals or calendar.
+CANVAS: 16:9 double-page spread, no ornamental border. No
+  lettering or numerals.
 
-NOT (rendering only): no digital slickness of any kind - airbrush, gradient, glow, 3D CG,
-  cel-shading, photographic, or a texture filter over flat colour (printed areas and drawn lines
-  must MAKE the picture) / no shading or modelling on any surface / no black ink, outline or shadow
-  / no rendered wood grain, hide texture, plaster or stone / no glow from the brazier, no light
-  shaft from the window / no wool felt, fuzzy fibre edge, fabric weave or real thread - 🔴 the
-  stitches here are DRAWN LINES.
+NOT (rendering only): no digital slickness - airbrush, gradient, glow, 3D CG, cel-shading,
+  photographic, texture filter over flat colour / no shading, modelling, black ink, outline or
+  shadow / no rendered wood grain, hide, plaster or stone, no brazier glow, no light shaft / no
+  felt, fabric weave or real thread - 🔴 the stitches are DRAWN LINES.
 ```
 
-**🔴 이 앵커의 네 불변 규칙 (매 컷 반복 확인)**
+**🔴 이 앵커의 세 관통 줄 + 손 규칙 (매 컷 반복 확인)**
 
 **규칙 A — 단계.** 컷마다 `STAGE:` 줄을 먼저 읽는다. 🔴 **선반(과 손 안)에 무엇이 있나 = 공정이 어디까지 왔나.** 이 줄이 누적 축 ①이다.
 
@@ -210,7 +198,7 @@ NOT (rendering only): no digital slickness of any kind - airbrush, gradient, glo
 
 **규칙 B — 계절.** 컷마다 `SEASON:` 줄을 읽는다. 🔴 **창 하나로 계절을 센다**(위 계절 규칙 표). 이 줄이 누적 축 ②이고, 🔴 **방 안에 계절색은 창과 바닥에 찍힌 색면 한 조각 말고는 없다.**
 
-**규칙 C — 손.** 컷마다 `HANDS:` 줄을 읽는다. 🔴 **화면에서 움직이는 손이 누구 것인가.** 열두 쪽이 오소리 손이고 **p11 딱 한 쪽만 토끼 손**이다. 🔴 **p7 은 아무도 일하지 않는 쪽**이다.
+**규칙 C — 손.** 별도 줄이 아니라 `SUBJECT:` 안에 든다(관통 줄 3개 상한). 🔴 **화면에서 움직이는 손이 누구 것인가** — 열두 쪽이 오소리 손이고 **p11 딱 한 쪽만 토끼 손**이며, 🔴 **p7 은 아무도 일하지 않는 쪽**이다.
 
 **규칙 D — 붉은 실.** 컷마다 `RED:` 줄을 읽는다. 🔴 **위치가 「오늘 한 일」이고 길이가 서사다.**
 
@@ -406,89 +394,80 @@ SCENE tokens: ToolWall, RedSkein, PaperPattern, WholeHide, BigOldShoes, SeasonWi
 
 ```
 STAGE: 🔴 NOTHING HAS BEEN MADE YET. The WholeHide hangs on the back wall, uncut and complete, the
-  largest flattest object in the picture, and 🔴 THE SHELF IS EMPTY - that empty shelf is the
-  baseline for the whole book and must be clearly visible.
+  largest flattest object in the picture. 🔴 THE SHELF IS EMPTY, clearly visible.
 SEASON: LATE AUTUMN #D9B14E - yellow leaves on the chestnut, a few burrs on the cobbles.
-HANDS: BadgerCobbler's at rest, one still holding a tool as he lifts only his head. RabbitKit's
-  two hands are gathered at its chest, holding nothing.
 CAMERA: wide, a little below child's eye level. The doorway with the small rabbit at the LEFT, the
-  whole workshop opening to the RIGHT. 🔴 This page fixes the room for all thirteen spreads.
+  whole workshop opening to the RIGHT.
 SUBJECT: in the doorway, RabbitKit throws its head right back to look up at the wall, one ear
-  folded back, mouth just open, and 🔴 ONE OF THE BIG HAND-ME-DOWN SHOES HAS SLIPPED OFF ITS HEEL
-  AND LIES ACROSS THE THRESHOLD with one bare foot flat on the floor beside it. Behind the bench,
-  BadgerCobbler sits low on his stool and lifts only his head, apron on, face loose and level.
-SETTING: the hide on its hook, the RedSkein on a nail, the ToolWall (two awls, curved knife,
-  pincers, hammer, five or six lasts largest to smallest), the empty shelf, the brazier. The autumn
-  FloorPatch crosses the floor with a clean edge and 🔴 its far end reaches the bare foot.
+  folded back, mouth just open, both hands gathered at its chest holding nothing, and 🔴 ONE OF THE
+  BIG HAND-ME-DOWN SHOES HAS SLIPPED OFF ITS HEEL AND LIES ACROSS THE THRESHOLD with one bare foot
+  flat on the floor beside it. Behind the bench, BadgerCobbler sits low on his stool, apron on, a
+  tool still in one hand, lifting only his head, face loose and level.
+SETTING: the RedSkein on a nail, the ToolWall with its row of lasts, the empty shelf, the brazier.
+  The autumn FloorPatch crosses the floor with a clean edge and 🔴 its far end reaches the bare foot.
 FINISH: DENSITY RATION 1 of 2 - tool wall, hide, skein, big shoes and chestnut finished with fine
   lines; bench and shelf half. 🔴 Walls, floor and beams flat, with NOTHING inside.
-RED: 🔴 the RedSkein on its nail, the only red on the page - a coil of fine drawn lines. This is
-  the plant: it becomes a line, then a row of stitches, then a ring.
+RED: 🔴 the RedSkein on its nail, the only red on the page - a coil of fine drawn lines.
 ```
 
 ### p2 — 발가락 앞에 한 마디를 더 그린다 🔴 심음 1/3
 
 ```
-STAGE: no shoe yet, but the FIRST OBJECT OF THE BOOK IS MADE HERE - the PaperPattern. 🔴 The shelf
-  is still empty.
+STAGE: no shoe yet, but the FIRST OBJECT OF THE BOOK IS MADE HERE - the PaperPattern, 🔴 the
+  outline of the foot drawn round it in a fine brown line and 🔴 A CLEARLY VISIBLE EMPTY GAP OF ONE
+  THUMB-WIDTH BETWEEN THE TOES AND THE DRAWN TOE-LINE, fixed here and seen again on p7 and p13.
+  A stub of pencil, one drawer open. 🔴 The shelf is still empty.
 SEASON: LATE AUTUMN, WEAKENING - at the top edge, the sill and the lower branches with 🔴 the
   leaves almost all gone.
-HANDS: 🔴 BadgerCobbler's, and ONLY his hands are in frame - the MEASURING state: one hand loops a
-  fine thread round the foot, the other holds a stub of pencil and 🔴 draws a line one thumb-width
-  clear of the toes.
 CAMERA: close-up, HIGH ANGLE straight down onto the workbench top; the paper and the bare foot
   fill the centre.
-SUBJECT: RabbitKit sits up on the bench with 🔴 ONE BARE HIND FOOT LAID FLAT ON THE PAPER, toes
-  slightly curled, the other leg hanging over the edge, leaning forward to look at its own foot so
-  🔴 both long ears spill forward into the frame.
-SETTING: 🔴 THE PAPER IS THE SUBJECT - the outline of the foot drawn round it in a fine brown line
-  and 🔴 BETWEEN THE TOES AND THE DRAWN TOE-LINE A CLEARLY VISIBLE EMPTY GAP OF ONE THUMB-WIDTH,
-  fixed here and looked at twice more (when the toes overshoot it, when they fill it). Also the stub
-  of pencil, one drawer pulled open.
+SUBJECT: 🔴 ONLY BADGERCOBBLER'S HANDS ARE IN FRAME, in the MEASURING state - one loops a fine
+  thread round the foot, the other holds a stub of pencil and 🔴 draws a line one thumb-width clear
+  of the toes. RabbitKit sits up on the bench with 🔴 ONE BARE HIND FOOT LAID FLAT ON THE PAPER,
+  toes slightly curled, the other leg hanging over the edge, leaning forward so 🔴 both long ears
+  spill forward into the frame.
 FINISH: 2 (the paper with its gap + the two hands and the thread); bench top half. 🔴 Everything
   past the bench edge is flat printed area - do not draw the room on this page.
 RED: 🔴 THE MEASURING THREAD IS THE RED WAXED THREAD - one fine strand off the wall skein, looped
-  once round the foot. The red touches the foot before it ever touches leather.
+  once round the foot.
 ```
 
 ### p3 — 나무토막을 깎는다 · 사각, 사각
 
 ```
 STAGE: 🔴 THE LAST IS BEING CARVED, held between the knees, not on the shelf yet - no longer a
-  square block: 🔴 ONE END HAS GONE ROUND AND SWELLED LIKE AN INSTEP. 🔴 The shelf is still empty.
+  square block: 🔴 ONE END HAS GONE ROUND AND SWELLED LIKE AN INSTEP. 🔴 WOOD SHAVINGS PILE UP at
+  his feet, each TWO FINE CURVED LINES, three or four more caught curling in the air; the
+  PaperPattern lies open on the bench. 🔴 The shelf is still empty.
 SEASON: GREY #C4C6BF - 🔴 the chestnut is bare branches only.
-HANDS: BadgerCobbler's, the CARVING state - both on the curved knife and the block, the knife
-  pulled at a slant, shoulders stooped, eyes on one spot.
 CAMERA: medium, child's eye level. The badger seated right, the rabbit left with its chin in its
   hands.
-SUBJECT: right, BadgerCobbler on the low stool with the block gripped between his knees, carving.
-  Left, RabbitKit with both elbows on the corner of the bench, chin in both hands, 🔴 BOTH EARS
-  FLOPPED FORWARD, eyes tracking the block, mouth just open on the question it has asked.
-SETTING: 🔴 WOOD SHAVINGS PILING UP at his feet, each TWO FINE CURVED LINES, three or four more
-  caught curling in the air. The PaperPattern lies open on the bench; the empty shelf behind.
+SUBJECT: right, BadgerCobbler on the low stool with the block gripped between his knees, in the
+  CARVING state - both hands on the curved knife and the block, the knife pulled at a slant,
+  shoulders stooped, eyes on one spot. Left, RabbitKit with both elbows on the corner of the bench,
+  chin in both hands, 🔴 BOTH EARS FLOPPED FORWARD, eyes tracking the block, mouth just open on the
+  question it has asked.
 FINISH: 2 (the block with the knife + 🔴 EVERY SHAVING, drawn one at a time); stool and bench edge
   half, walls and floor flat. 🔴 The shavings and the fresh-cut heart of the wood are the ONE-PASS
   brown, the palest thing on a page that is otherwise two- and three-pass.
-RED: none. 🔴 Keep the skein out of frame - the book goes two pages without red so that the
-  stitching page lands.
+RED: none. 🔴 Keep the skein out of frame.
 ```
 
 ### p4 — 종이 본을 대고 오린다 · 조각 다섯 장 · 첫눈 🔴 선반의 첫 물건
 
 ```
-STAGE: 🔴 TWO THINGS. The hide that hung on the wall is DOWN ON THE BENCH being cut - 🔴 FIVE CUT
-  PIECES lie beside it and 🔴 THE HIDE HAS FIVE SHAPES MISSING FROM IT AS HOLES, which is how the
-  reader knows it is the same hide. And 🔴 THE FINISHED WOODEN LAST IS ON THE SHELF FOR THE FIRST
-  TIME: the shelf is no longer empty, and from here it only gains.
+STAGE: 🔴 TWO THINGS. The hide that hung on the wall is DOWN ON THE BENCH being cut, the curved cut
+  running through it and the PaperPattern still pressed flat on it - 🔴 FIVE CUT PIECES lie stacked
+  beside it and 🔴 THE HIDE HAS FIVE SHAPES MISSING FROM IT AS HOLES. And 🔴 THE FINISHED WOODEN
+  LAST IS ON THE SHELF FOR THE FIRST TIME: the shelf is no longer empty, and from here it only
+  gains.
 SEASON: FIRST SNOW #CFD3D2 - 🔴 snow along the tops of the branches, the lower glass gone opaque.
-HANDS: BadgerCobbler's, the CUTTING state - one hand pressing the PaperPattern flat onto the
-  leather, the other drawing the curved knife toward the body in one straight pull, the arm loaded
-  so the apron drags against the bench edge.
 CAMERA: medium close-up, HIGH ANGLE obliquely down the bench top, the knife crossing the centre.
-SUBJECT: upper centre, BadgerCobbler bent over the work. Lower right, RabbitKit with both hands on
-  the bench lip and its nose almost on the leather, 🔴 one ear swung round toward the knife.
-SETTING: the hide with the curved cut running through it, the five pieces stacked neatly, the
-  pattern still pressed flat, and behind them 🔴 the LastBlock placed unmistakably ON the shelf.
+SUBJECT: upper centre, BadgerCobbler bent over the work in the CUTTING state - one hand pressing
+  the PaperPattern flat onto the leather, the other drawing the curved knife toward the body in one
+  straight pull, the arm loaded so the apron drags against the bench edge. Lower right, RabbitKit
+  with both hands on the bench lip and its nose almost on the leather, 🔴 one ear swung round
+  toward the knife.
 FINISH: 2 (the leather with its cut line and five pieces + the knife in the hands); shelf and
   LastBlock half, walls and floor flat.
 RED: none.
@@ -497,24 +476,21 @@ RED: none.
 ### p5 — 바늘 두 개가 한 구멍을 서로 반대로 지나간다 🔴 붉은 실 회수 1/4
 
 ```
-STAGE: 🔴 THE UPPER IS BEING SEWN, in his hands. On the shelf behind: the LastBlock plus a few cut
-  pieces not yet used. 🔴 The piece being worked is NOT on the shelf.
+STAGE: 🔴 THE UPPER IS BEING SEWN, in his hands - 🔴 an X of taut RED THREAD between the two needles
+  and behind it 🔴 A ROW OF CLOSE RED STITCHES ALREADY MADE along the seam, countable, with fine awl
+  holes dotted along the leather edge ahead of the stitching. On the shelf behind: the LastBlock
+  plus a few cut pieces. 🔴 The piece being worked is NOT on the shelf.
 SEASON: WINTER grey-white - snow lying on the branches, seen past the hands.
-HANDS: BadgerCobbler's, the SADDLE STITCHING state, and this is the page. 🔴 TWO NEEDLES ON ONE
-  THREAD - the left needle travelling AWAY from his body, the right coming TOWARD it, 🔴 THROUGH
-  THE SAME HOLE - so both arms are thrown wide and the thread is pulled taut between them. A wax
-  lump on the thread, an awl lying beside him.
 CAMERA: 🔴 CLOSE-UP OVER THE RABBIT'S SHOULDER, looking past it at the badger's two hands; hands,
   leather and thread fill the frame.
-SUBJECT: centre, the two hands holding two leather pieces face to face, arms flung wide. Lower
-  edge, only the top of RabbitKit's head and its two ear tips, seen from behind.
-SETTING: 🔴 an X of taut RED THREAD between the two needles, and behind it 🔴 A ROW OF CLOSE RED
-  STITCHES ALREADY MADE along the seam, countable. Fine awl holes dotted along the leather edge
-  ahead of the stitching.
+SUBJECT: centre, BadgerCobbler's two hands holding two leather pieces face to face in the SADDLE
+  STITCHING state - 🔴 TWO NEEDLES ON ONE THREAD, the left travelling AWAY from his body, the right
+  coming TOWARD it, 🔴 THROUGH THE SAME HOLE, so both arms are flung wide and the thread is taut
+  between them. A wax lump on the thread, an awl beside him. Lower edge, only the top of
+  RabbitKit's head and its two ear tips, seen from behind.
 FINISH: 2 (the hands with the two needles + the stitched seam with its awl holes); leather pieces
   half. 🔴 Everything past the hands is flat - do not draw the room.
-RED: 🔴 THE BIG RETURN OF THE PLANT - the wall skein has become a line in the leather, and 🔴 ALL
-  THE RED IN THE BOOK SO FAR IS CONCENTRATED IN A HAND'S SPAN AT THE CENTRE OF THIS PAGE.
+RED: 🔴 ALL THE RED IN THE BOOK SO FAR IS CONCENTRATED IN A HAND'S SPAN AT THE CENTRE OF THIS PAGE.
 ```
 
 ### p6 — 적신 가죽을 골에 씌워 당긴다 · 「아직. 마를 때까지.」
@@ -522,21 +498,17 @@ RED: 🔴 THE BIG RETURN OF THE PLANT - the wall skein has become a line in the 
 ```
 STAGE: 🔴 THE UPPER IS BEING PULLED OVER THE LAST - stretched tight over the wooden last, 🔴
   PRINTED ONE PASS DARKER because the leather is damp, its edges folded under the bottom and 🔴 A
-  RING OF SMALL DRAWN TACK HEADS going in one at a time: some already in, two held in his lips,
-  two on the bench. The red seam stitches are now stretched and clearly visible on the taut upper.
-SEASON: SNOWING - grey-white with 🔴 falling snow as a scatter of tiny board-coloured reserves, and
-  beyond the lane one chimney with a single fine line of smoke.
-HANDS: BadgerCobbler's, the LASTING state - standing, his weight going into the pincers as they
-  haul the damp leather edge down, the other hand tapping a tack with the light hammer, brow drawn
-  down with the effort.
+  RING OF SMALL DRAWN TACK HEADS: some already in, two held in his lips, two on the bench, the
+  pincers biting the leather edge, a shallow water bowl and a damp rag. The red seam stitches are
+  now stretched and clearly visible on the taut upper.
+SEASON: SNOWING - grey-white with 🔴 falling snow as a scatter of tiny board-coloured reserves.
 CAMERA: medium, slightly LOW ANGLE from beneath the bench, looking up at the hands and the shoe.
-SUBJECT: upper centre, BadgerCobbler standing and pulling. Lower left, RabbitKit crouched under the
-  bench with both hands round a bench leg, head tipped back, 🔴 EARS LAID FLAT BACK, eyes wide at
-  the force of the pull.
-SETTING: the pincers biting the leather edge, the small hammer, the drawn tack heads, a shallow
-  water bowl and a damp rag; the shelf behind.
+SUBJECT: upper centre, BadgerCobbler standing in the LASTING state - his weight going into the
+  pincers hauling the damp leather edge down, the other hand tapping a tack with the light hammer,
+  brow drawn down. Lower left, RabbitKit crouched under the bench with both hands round a bench leg,
+  head tipped back, 🔴 EARS LAID FLAT BACK, eyes wide at the force of the pull.
 FINISH: 2 (the shoe on the last + the pincers in the hands); bowl and rag half, walls and floor
-  flat. 🔴 The damp leather is the darkest thing in frame, so the eye sticks to it.
+  flat. 🔴 The damp leather is the darkest thing in frame.
 RED: the stretched seam stitches on the taut upper, longer than they looked on the page before.
 ```
 
@@ -544,26 +516,22 @@ RED: the stretched seam stitches on the taut upper, longer than they looked on t
 
 ```
 STAGE: 🔴 ZERO. The lasted shoe sits on the shelf exactly as it was left - tacks still in, leather
-  still damp-dark, the same angle - and 🔴 THERE IS NOTHING NEW ANYWHERE: not on the shelf, not on
-  the bench, not in anyone's hands. 🔴 The only page where the work does not move, and the whole
-  room has to look like that.
+  still damp-dark, same angle - and 🔴 NOTHING IS NEW ANYWHERE: not the shelf, not the bench, not
+  anyone's hands.
 SEASON: 🔴 WHITEOUT #E2E5E2 - THE PALEST, EMPTIEST WINDOW IN THE BOOK: the branches buried white and
-  🔴 the lane behind completely gone, so the room has almost no contrast at all.
-HANDS: 🔴 NOBODY IS WORKING. BadgerCobbler has his back to us at the far side of the room, occupied
-  with a DIFFERENT shoe, and does not look over. RabbitKit's hands have only smoothed a sheet of
-  paper flat on the floor.
+  🔴 the lane behind completely gone.
 CAMERA: wide, child's eye level. The whole quiet workshop; the rabbit small at the lower LEFT on
   the floor, the shelf at the upper RIGHT.
-SUBJECT: RabbitKit sits on the floor with 🔴 THE PAPER PATTERN SPREAD OUT AND ONE BARE HIND FOOT
-  LAID ON IT, and 🔴 ITS TOES OVERSHOOT THE DRAWN LINE BY A LITTLE. Head bent over its own foot,
-  🔴 both ears flopped forward, mouth small and open, brows pushed together. Today it did not ask.
+SUBJECT: 🔴 NOBODY IS WORKING. BadgerCobbler has his back to us at the far side, busy with a
+  DIFFERENT shoe, and does not look over. RabbitKit sits on the floor with 🔴 THE
+  PAPER PATTERN SPREAD OUT AND ONE BARE HIND FOOT LAID ON IT, and 🔴 ITS TOES OVERSHOOT THE DRAWN
+  LINE BY A LITTLE. Head bent over its own foot, 🔴 both ears flopped forward, mouth small and open,
+  brows pushed together.
 SETTING: 🔴 THE SAME SHEET AS ON PAGE 2, now with more creases - fine lines, countable. The whiteout
-  FloorPatch is the widest and palest of the book; the brazier burns low, its lines shorter.
-FINISH: 2 (the rabbit + the paper under its foot); the shoe on the shelf half. 🔴 THE ANCHOR'S
-  FLAT-BACKGROUND REFERENCE PLATE - walls, floor, beams and the far side of the room are flat areas
-  containing NOTHING AT ALL, not faded and not hazy.
-RED: unchanged - only the seam stitches on the shoe on the shelf. 🔴 No new red, because nothing
-  was done today.
+  FloorPatch is the widest and palest of the book; the brazier burns low.
+FINISH: 2 (the rabbit + the paper under its foot); the shoe on the shelf half. 🔴 Walls, floor,
+  beams and the far side are flat areas containing NOTHING AT ALL.
+RED: unchanged - only the seam stitches on the shoe on the shelf. 🔴 No new red.
 ```
 
 ### p8 — 제일 두꺼운 가죽을 자른다 · 눈이 녹는다
@@ -571,145 +539,122 @@ RED: unchanged - only the seam stitches on the shoe on the shelf. 🔴 No new re
 ```
 STAGE: 🔴 TWO CHANGES AFTER A PAGE OF NONE. On the shelf the lasted shoe now has 🔴 ITS TACKS
   PULLED OUT AND HAS DRIED, printed back one step paler. On the bench, 🔴 THE THICKEST LEATHER IN
-  THE BOOK is being cut for the sole, with a sole-shaped piece already cut lying beside it.
-SEASON: THAWING #D8D4C2, warmer than the winter plates - 🔴 A ROW OF DROPS HANGING AND FALLING FROM
-  THE BRANCHES, a wet mark under the eaves, the cobbles wet and visible again.
-HANDS: BadgerCobbler's, both on the knife handle, 🔴 HIS WEIGHT PRESSED DOWN INTO THE CUT, shoulders
-  low, eyes on the cut alone.
+  THE BOOK is being cut for the sole, a sole-shaped piece already cut lying beside it - 🔴 VISIBLY
+  THICKER AND STIFFER THAN EVERY OTHER PIECE, its cut section a distinctly thick edge with two fine
+  lines, its colour two-pass brown plus one pass of season yellow #B98B4A, yellower than the upper.
+SEASON: THAWING #D8D4C2 - 🔴 A ROW OF DROPS HANGING AND FALLING FROM THE BRANCHES, a wet mark under
+  the eaves, the cobbles wet again.
 CAMERA: close-up, child's eye level. Foreground the thick leather and the knife; behind, the window
   open and bright.
-SUBJECT: left, BadgerCobbler pressing the cut. Lower right, RabbitKit with both hands on the bench,
-  standing on tiptoe, neck craned, 🔴 ONE EAR SWUNG ROUND TOWARD THE WINDOW - it has heard the drip.
-SETTING: 🔴 THE SOLE LEATHER IS VISIBLY THICKER AND STIFFER THAN EVERY OTHER PIECE - its cut section
-  drawn as a distinctly thick edge with two fine lines, and its colour two-pass brown with one pass
-  of season yellow over it #B98B4A, so it is yellower than the upper. The dried shoe on the shelf.
+SUBJECT: left, BadgerCobbler with both hands on the knife handle, 🔴 HIS WEIGHT PRESSED DOWN INTO
+  THE CUT, shoulders low, eyes on the cut alone. Lower right, RabbitKit with both hands on the
+  bench, standing on tiptoe, neck craned, 🔴 ONE EAR SWUNG ROUND TOWARD THE WINDOW - it has heard
+  the drip.
 FINISH: 2 (the thick leather with its cut edge + the knife in the hands); the dried shoe half,
   walls and floor flat.
-RED: only the old seam stitches on the shelf. 🔴 The sole has no stitching yet - holding it back is
-  what makes the next page land.
+RED: only the old seam stitches on the shelf. 🔴 The sole has no stitching yet.
 ```
 
 ### p9 — 무릎에 끼우고 밑창을 빙 둘러 꿰맨다 🔴 봄 · 가장 밝은 쪽 · 붉은 실 회수 2/4
 
 ```
 STAGE: 🔴 THE SOLE IS ON AND BEING STITCHED - laid against the bottom of the dried shoe with 🔴 THE
-  RED STITCHING ABOUT HALF WAY ROUND ITS EDGE, countable. 🔴 The shelf is emptying, because the shoe
-  is on his knees.
+  RED STITCHING ABOUT HALF WAY ROUND ITS EDGE, countable; the awl, the wax lump, shavings and
+  leather scraps on the floor. 🔴 The shelf is empty, because the shoe is on his knees.
 SEASON: 🔴 SPRING #A8C46B - THE BRIGHTEST, MOST SATURATED WINDOW IN THE BOOK: new leaves and morning
   light on the wet cobbles.
-HANDS: the SOLE-STITCHING state, and 🔴 IT MUST NOT LOOK LIKE PAGE 5. There the leather was soft and
-  held in his hands at close range; here it is thick, so 🔴 an awl is pushed through FIRST to make
-  the hole and the needle follows, 🔴 THE SHOE IS CLAMPED BETWEEN BOTH KNEES, and 🔴 HIS ELBOWS SWING
-  WIDE SO THE WHOLE BODY PULLS THE THREAD.
-CAMERA: 🔴 MEDIUM WIDE, FULL FIGURE FROM THE SIDE (page 5 was an extreme close-up over a shoulder).
-  The window opens bright at the RIGHT.
-SUBJECT: left of centre, BadgerCobbler on the low stool, shoe between his knees, bent forward, one
-  hand pressing the awl, the other driving the needle through from the far side. Lower right,
-  RabbitKit sits on the floor hugging its knees, 🔴 EARS UP AND STILL, eyes following the thread
-  round. 🔴 This time it does not ask; its mouth is closed.
-SETTING: the awl, the wax lump, shavings and leather scraps on the floor.
+CAMERA: 🔴 MEDIUM WIDE, FULL FIGURE FROM THE SIDE. The window opens bright at the RIGHT.
+SUBJECT: left of centre, BadgerCobbler on the low stool in the SOLE-STITCHING state, which 🔴 MUST
+  NOT LOOK LIKE PAGE 5: the leather is thick, so 🔴 an awl is pushed through FIRST and the needle
+  follows, 🔴 THE SHOE IS CLAMPED BETWEEN BOTH KNEES, and 🔴 HIS ELBOWS SWING WIDE SO THE WHOLE BODY
+  PULLS THE THREAD. Lower right, RabbitKit sits on the floor hugging its knees, 🔴 EARS UP AND
+  STILL, eyes following the thread round, 🔴 mouth closed - this time it does not ask.
 FINISH: 2 (the shoe with 🔴 EVERY RED STITCH SO FAR + the awl and needle); stool and near floor half,
   walls flat. 🔴 The chestnut is the season colour plus a few branch lines - no individual leaves.
-RED: 🔴 HALF A RING - the thread is longer than it has ever been, and its length is how far the work
-  has come.
+RED: 🔴 HALF A RING - the thread is longer than it has ever been.
 ```
 
 ### p10 — 한 땀만 남기고 손을 멈춘다 · 「지금.」 🔴 붉은 실 회수 3/4
 
 ```
 STAGE: 🔴 THE RING IS ALMOST CLOSED AND ONE PLACE IS LEFT - the stitching has gone nearly all the
-  way round and 🔴 THERE IS ONE GAP, WITH TWO SMALL DRAWN AWL HOLES ALREADY MADE IN IT, so "only one
-  stitch left" is a fact the reader can see. 🔴 The shelf is now empty.
+  way round and 🔴 THERE IS ONE GAP, WITH TWO SMALL DRAWN AWL HOLES ALREADY MADE IN IT. 🔴 The shelf
+  is now empty.
 SEASON: SPRING - the green window behind them, unchanged from the page before.
-HANDS: 🔴 BADGERCOBBLER'S HANDS STOP. One has come off the work entirely and 🔴 HOLDS THE NEEDLE AND
-  ITS RED THREAD OUT ACROSS THE FRAME toward the rabbit; the other rests on the shoe. 🔴 RabbitKit's
-  hands have NOT taken it - they are stopped in mid-air in front of its chest.
 CAMERA: medium close-up, child's eye level. BadgerCobbler LEFT with the offered needle, RabbitKit
   RIGHT, frozen.
-SUBJECT: left, his arm reaching across the picture, 🔴 HIS FACE COMPLETELY UNCHANGED: brows level,
-  mouth a soft line, no smile, no wink, no look of doing a favour. Right, RabbitKit gone rigid where
-  it sits, both hands halted at the chest, 🔴 BOTH EARS BOLT UPRIGHT, eyes at their widest, going
-  back and forth between the needle and the badger's face.
+SUBJECT: left, 🔴 BADGERCOBBLER'S HANDS STOP - one has come off the work and HOLDS THE NEEDLE AND
+  ITS RED THREAD OUT ACROSS THE FRAME toward the rabbit, the other rests on the shoe, 🔴 HIS FACE
+  COMPLETELY UNCHANGED: brows level, mouth a soft line, no smile, no wink. Right, RabbitKit gone
+  rigid where it sits, 🔴 ITS HANDS HAVE NOT TAKEN IT - stopped in mid-air in front of its chest,
+  🔴 BOTH EARS BOLT UPRIGHT, eyes going back and forth between needle and badger's face.
 FINISH: 2 (the shoe with its ring, gap and two awl holes + the offered needle and both pairs of
   hands); stool half, shelf empty. 🔴 The wall must be EMPTY - the space between the two of them is
   the subject, and 🔴 ONE FINE RED LINE CROSSES IT.
-RED: 🔴 the almost-complete ring plus the single strand crossing the empty middle of the frame - the
-  longest the thread has looked so far.
+RED: 🔴 the almost-complete ring plus the single strand crossing the empty middle of the frame.
 ```
 
-### p11 — 토끼가 실을 힘껏 당긴다 🔴 착지 = 마지막 한 땀 · 유일하게 토끼 손이 움직이는 쪽
-
+### p11 — 토끼가 실을 힘껏 당긴다 🔴 착지 = 마지막 한 땀 · 유일하게 토끼 손이 움직이는 쪽 (🔴 이 컷을 마지막에 굽는다 — 승인된 p9·p10 을 함께 붙여야 실땀이 남겨 둔 그 자리에 들어간다)
 ```
-BAKE THIS CUT LAST, with the approved p9 and p10 attached, so the stitch falls in exactly the gap
-  that was left.
 STAGE: 🔴 THE LAST STITCH GOES IN AND THE RING CLOSES - the needle has just gone through the last
   hole and the thread is being pulled taut, so 🔴 THE LEATHER PUCKERS VERY SLIGHTLY AND THE STITCH
   LINES UP WITH THE ONES BEFORE IT.
 SEASON: SPRING, but 🔴 ONLY AS ONE THIN STRIP OF GREEN AT THE VERY EDGE OF THE FRAME.
-HANDS: 🔴 THE ONE PAGE WHERE THE MOVING HANDS ARE THE RABBIT'S, AND THAT IS THE WHOLE POINT OF THE
-  BOOK. One grips the needle awkwardly with the knuckles drawn tight, the other has wound the thread
-  round itself and hauls sideways; 🔴 the fingertips are drawn very slightly out of line - the
-  tremble. 🔴 AT THE BOTTOM EDGE, ONE OF BADGERCOBBLER'S HANDS IS MERELY STEADYING THE SHOE AND IS
-  NOT TOUCHING THE THREAD - deliberate restraint, not helping.
 CAMERA: 🔴 EXTREME CLOSE-UP, HIGH ANGLE - a hand's span of the sole and the hands on it fill the
-  frame. 🔴 NO FACES ARE IN THIS PICTURE AT ALL, and that absence is why the page exists.
-SUBJECT: the two rabbit hands and the thread. Nothing else.
-SETTING: leather grain, awl marks and stitches right under the reader's nose, drawn with the finest
-  lines in the book; a wax mark on the thread.
+  frame. 🔴 NO FACES ARE IN THIS PICTURE AT ALL.
+SUBJECT: 🔴 THE ONE PAGE WHERE THE MOVING HANDS ARE THE RABBIT'S. One grips the needle awkwardly
+  with the knuckles drawn tight, the other has wound the thread round itself and hauls sideways;
+  🔴 the fingertips are drawn very slightly out of line - the tremble. 🔴 AT THE BOTTOM EDGE, ONE OF
+  BADGERCOBBLER'S HANDS IS MERELY STEADYING THE SHOE AND IS NOT TOUCHING THE THREAD. Nothing else
+  is in frame.
+SETTING: leather grain, awl marks and stitches right under the reader's nose, the finest lines in
+  the book; a wax mark on the thread.
 FINISH: 🔴 EVERYTHING IN FRAME IS FINISHED - the only page in the book with no flat empty area.
-RED: 🔴 AT ITS DARKEST, CROSSING THE MIDDLE OF THE FRAME - the page the wall skein has been
-  travelling toward for eleven spreads.
+RED: 🔴 AT ITS DARKEST, CROSSING THE MIDDLE OF THE FRAME.
 ```
 
 ### p12 — 나무 발을 뽑아내니 구두 안이 텅 비었다 🔴 붉은 실 회수 4/4
 
 ```
 STAGE: 🔴 THE LAST IS OUT AND THE SHOE IS FINISHED. Its mouth is open toward us and 🔴 THE INSIDE IS
-  A FLAT THREE-PASS BROWN AREA - the darkest thing in the whole book, 🔴 and it is brown, not black.
-  Round the sole edge 🔴 THE RED RING IS COMPLETE and 🔴 EXACTLY ONE STITCH IN IT IS SLIGHTLY CROOKED.
-  Nobody points at it. The wooden last is out in his other hand, recognisably the block carved on p3.
+  A FLAT THREE-PASS BROWN AREA - the darkest thing in the book, 🔴 brown, not black. Round the sole
+  edge 🔴 THE RED RING IS COMPLETE and 🔴 EXACTLY ONE STITCH IN IT IS SLIGHTLY CROOKED; nobody points
+  at it. The wooden last is out in his other hand, recognisably the block carved on p3.
 SEASON: SPRING - the green window behind, new leaves.
-HANDS: BadgerCobbler's - one holding the shoe up, the other having just pulled the last out, the arm
-  tipped back a little from the effort.
 CAMERA: medium, child's eye level. The lifted shoe at centre, the pulled-out last at the left,
   RabbitKit at the lower right.
-SUBJECT: upper centre, BadgerCobbler holding the shoe up with the last above it, and 🔴 THE ONE
-  EXPRESSION HE MAKES IN THE WHOLE BOOK: the very slight lift at one corner of the mouth, nothing
-  more. Lower right, RabbitKit leans forward with both hands over its mouth, 🔴 EARS BOLT UPRIGHT,
-  eyes fixed on the dark inside of the shoe.
+SUBJECT: upper centre, BadgerCobbler holding the shoe up in one hand with the last in the other,
+  just pulled out, that arm tipped back a little, and 🔴 THE ONE EXPRESSION HE MAKES IN THE WHOLE
+  BOOK: the very slight lift at one corner of the mouth. Lower right,
+  RabbitKit leans forward with both hands over its mouth, 🔴 EARS BOLT UPRIGHT, eyes fixed on the
+  dark inside of the shoe.
 FINISH: 2 (the shoe with its complete ring, crooked stitch and open dark mouth + the last); his
-  hands half, walls and floor flat. 🔴 "EMPTY" IS SAID BY VALUE - the outside is a warm mid brown and
-  the inside is the three-pass dark, so 🔴 FOR THE FIRST TIME THERE IS A PLACE FOR A FOOT TO GO.
-RED: 🔴 THE COMPLETE RING - the sharpest, most legible line on the page and the longest the thread
-  will ever be, with one stitch a little out of true.
+  hands half, walls and floor flat. 🔴 "EMPTY" IS SAID BY VALUE - the outside a warm mid brown, the
+  inside the three-pass dark.
+RED: 🔴 THE COMPLETE RING - the sharpest line on the page, with one stitch a little out of true.
 ```
 
 ### p13 — 남겨 둔 자리에 발가락이 딱 찬다 🔴 심음 3/3 · 밀도 배급 2/2
 
 ```
-STAGE: 🔴 WORN. And 🔴 A NEW WHOLE HIDE IS BACK ON THE WALL HOOK, exactly where the first one hung -
-  not explained, not looked at by anybody.
-SEASON: 🔴 SPRING, SPILLED OUT OF THE WINDOW INTO THE WHOLE DOORWAY - past the door the square is
-  bright green, the wet cobbles catch the light, the chestnut is thick with new leaves.
-HANDS: BadgerCobbler's are 🔴 ALREADY ON SOMETHING ELSE; he has turned only his head to the door.
-  RabbitKit's are held a little out from its sides for balance as it walks.
-CAMERA: wide, 🔴 LOW ANGLE FROM FLOOR LEVEL LOOKING FROM INSIDE THE WORKSHOP OUT THROUGH THE DOORWAY
-  - the same doorway as page 1, from inside instead of outside.
-SUBJECT: right, in the doorway, RabbitKit 🔴 SEEN FROM BEHIND crossing the threshold: one foot in the
-  new shoe already down on the cobbles outside, the other still on the threshold with 🔴 THE HEEL
-  LIFTED, both hands out a little, 🔴 BOTH EARS BOLT UPRIGHT, head tipped down to look at its own
-  feet. 🔴 We do not see its face and do not need to. Back left, BadgerCobbler at the bench, head
-  turned to the door, hands already busy.
-SETTING: DENSITY RATION 2 of 2, mirroring page 1 - 🔴 THE BIG HAND-ME-DOWN SHOES, both of them, set
-  side by side just inside the threshold; 🔴 THE PAPER PATTERN, folded, beside them with its empty
-  one-thumb gap still drawn and still empty, 🔴 but the foot that fills it is now inside a shoe; the
-  new WholeHide back on its hook; the ToolWall with its lasts; and 🔴 the sole of the raised back
-  foot turned enough toward us that THE RED RING OF STITCHES IS VISIBLE.
-FINISH: the rabbit, the two shoes, the folded paper, the new hide and the chestnut finished;
-  threshold and bench half. 🔴 Walls, floor and beams flat; the square outside is ONE bright green
-  printed area with a few fine lines, not a described street.
-RED: 🔴 THE STITCH RING ON THE SOLE OF THE LIFTED FOOT, and 🔴 THE NEW SKEIN BACK ON ITS NAIL - the
-  book's first image and its last are the same red coil, and in between it became a shoe.
+STAGE: 🔴 WORN. And 🔴 A NEW WHOLE HIDE IS BACK ON THE WALL HOOK where the first one hung, looked at
+  by nobody.
+SEASON: 🔴 SPRING, SPILLED OUT OF THE WINDOW INTO THE WHOLE DOORWAY - the square beyond bright
+  green, cobbles wet, chestnut thick with new leaves.
+CAMERA: wide, 🔴 LOW ANGLE FROM FLOOR LEVEL LOOKING OUT THROUGH THE DOORWAY - the same doorway as
+  page 1, from inside instead of outside.
+SUBJECT: right, in the doorway, RabbitKit 🔴 SEEN FROM BEHIND crossing the threshold: one foot in
+  the new shoe already on the cobbles outside, the other on the threshold with 🔴 THE HEEL LIFTED,
+  hands out a little for balance, 🔴 BOTH EARS BOLT UPRIGHT, head tipped down to its own feet, face
+  not visible. Back left, BadgerCobbler at the bench, head turned to the door, 🔴 HIS HANDS ALREADY
+  ON SOMETHING ELSE.
+SETTING: mirroring page 1 - 🔴 BOTH BIG HAND-ME-DOWN SHOES side by side just inside the threshold;
+  🔴 THE PAPER PATTERN, folded, beside them with its one-thumb gap still drawn and still empty; the
+  ToolWall; and 🔴 the sole of the raised back foot turned enough toward us that THE RED RING OF
+  STITCHES IS VISIBLE.
+FINISH: DENSITY RATION 2 of 2, on the props above, the new hide and the chestnut; threshold and
+  bench half. 🔴 Walls, floor and beams flat; the square outside is ONE bright green printed area.
+RED: 🔴 THE RING ON THE LIFTED SOLE, and 🔴 THE NEW SKEIN BACK ON ITS NAIL.
 ```
 
 ---

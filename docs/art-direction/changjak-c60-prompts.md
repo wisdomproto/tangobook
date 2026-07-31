@@ -95,7 +95,7 @@ CHARACTER (sheets attached, obey them): EYES ARE HOLES - unprinted ovals in the 
  ACTING CHANNEL, named in every cut. ALWAYS ON FOUR LEGS, never upright, never gesturing, never
  holding anything - emotion is ears, body angle and the distance between bodies.
 
-CANVAS: 16:9 spread, one scene a page, bottom 18% quiet for a caption strip. No lettering, numerals or watermark.
+CANVAS: 16:9 spread, one scene a page, strip. No lettering, numerals or watermark.
 
 NOT: no digital slickness of any kind - airbrush, gradient, blur, depth-of-field, volumetric smoke,
  CG gloss, cel shading, photographic, or a texture filter over flat colour / not hazy, faded or out of

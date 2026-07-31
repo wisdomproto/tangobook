@@ -8,6 +8,10 @@
 //   node packages/server/scripts/attach-jeonrae-tts.mjs --lang=ko --apply
 //   node packages/server/scripts/attach-jeonrae-tts.mjs --lang=en --apply
 //   node packages/server/scripts/attach-jeonrae-tts.mjs --lang=ko --only="흥부와 놀부" --apply
+//   node packages/server/scripts/attach-jeonrae-tts.mjs --lang=ko --only="심청전,서동요" --apply   # 쉼표로 여러 편
+//   node packages/server/scripts/attach-jeonrae-tts.mjs --lang=en --src=<json> --apply            # 본문까지 이 파일에서
+// 🔴 en 은 두 가지로 쓴다: `--src` 를 주면 그 파일의 본문·영문제목까지 심고, 안 주면
+//    **이미 R2 에 있는 en 본문은 그대로 두고 ttsUrl 만** 붙인다(translate-apply 로 번역을 이미 넣은 경우).
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -19,12 +23,12 @@ import { loadEnv, listStorybookKeys, getJsonByKey, getStorybook, putStorybook, p
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CATEGORY = '전래 동화';
 const DESK = 'C:/Users/101024/OneDrive/Desktop/voicebox_samples';
-const EN_SRC = 'C:/Users/101024/AppData/Local/Temp/claude/C--projects-tangobook--claude-worktrees-folktale-editor2-setup-033eb6/77c679be-a08c-4c5a-ab36-b29be74d9a41/scratchpad/jeonrae-en-all.json';
 
 const args = parseArgs(process.argv.slice(2));
+const EN_SRC = args.src ?? null;
 const APPLY = args.flags.has('apply');
 const LANG = args.lang === 'en' ? 'en' : 'ko';
-const ONLY = args.only ? String(args.only) : null;
+const ONLY = args.only ? String(args.only).split(',').map((s) => s.trim()).filter(Boolean) : null;
 const safe = (s) => String(s ?? '').replace(/[\\/:*?"<>|]/g, '_').trim();
 
 loadEnv();
@@ -74,7 +78,7 @@ function findDir(title) {
 
 async function main() {
   const enMap = {};
-  if (LANG === 'en') {
+  if (LANG === 'en' && EN_SRC) {
     const arr = JSON.parse(fs.readFileSync(EN_SRC, 'utf-8'));
     for (const b of arr) enMap[b.title] = b;
   }
@@ -85,7 +89,7 @@ async function main() {
   for (const key of keys) {
     try { const b = await getJsonByKey(key); if (b && b.id && b.title && b.category === CATEGORY) books.push({ id: b.id, title: b.title }); } catch { /* skip */ }
   }
-  let list = ONLY ? books.filter((b) => b.title === ONLY) : books;
+  let list = ONLY ? books.filter((b) => ONLY.includes(b.title)) : books;
   console.log(`대상 ${list.length}권 · lang=${LANG}\n`);
 
   let totalOk = 0;
@@ -94,8 +98,8 @@ async function main() {
     const dir = findDir(bk.title);
     if (!dir) { warn.push(`"${bk.title}": ${LANG} wav 폴더 없음`); continue; }
     const wavs = fs.readdirSync(dir).filter((f) => /^page\d+\.wav$/.test(f)).sort();
-    const enBook = LANG === 'en' ? enMap[bk.title] : null;
-    if (LANG === 'en' && !enBook) { warn.push(`"${bk.title}": en 번역 텍스트 없음`); continue; }
+    const enBook = LANG === 'en' && EN_SRC ? enMap[bk.title] : null;
+    if (LANG === 'en' && EN_SRC && !enBook) { warn.push(`"${bk.title}": ${EN_SRC} 에 en 번역 없음`); continue; }
     console.log(`[${bk.title}] → ${bk.id} · wav ${wavs.length}개`);
     if (!APPLY) continue;
 
@@ -112,13 +116,16 @@ async function main() {
       } else {
         const url = await upload(`${bk.id}-tts-page${n}-en-vbox.mp3`, buf);
         page.translations = page.translations || {};
-        page.translations.en = { ...(page.translations.en || {}), text: enBook.pages[n - 1] ?? '', ttsUrl: url };
+        // --src 없으면 이미 있는 본문을 그대로 둔다 — 소리만 붙이러 온 것이므로 덮어쓰면 번역이 날아간다.
+        const text = enBook ? (enBook.pages[n - 1] ?? '') : (page.translations.en?.text ?? '');
+        if (!text.trim()) warn.push(`"${bk.title}" p${n}: en 본문 없음 (소리만 붙음)`);
+        page.translations.en = { ...(page.translations.en || {}), text, ttsUrl: url };
       }
       ok++;
     }
     if (LANG === 'en') {
       book.languages = Array.from(new Set([...(book.languages || ['ko']), 'en']));
-      book.titleTranslations = { ...(book.titleTranslations || {}), en: enBook.titleEn };
+      if (enBook) book.titleTranslations = { ...(book.titleTranslations || {}), en: enBook.titleEn };
     } else {
       book.languages = Array.from(new Set([...(book.languages || []), 'ko']));
     }

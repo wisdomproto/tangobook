@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>G-05 물이 무서운 오리 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · G · 용기·두려움 · 05</div>
+  <h1>물이 무서운 오리</h1>
+  <div class="sub">물에 들어갔다 하면 빙 돌아 계단으로 도로 올라와요. 물이 무서운 걸까요?</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 관찰과 성장</span>
+  <span>무대 · 네덜란드 운하 물가의 돌계단 한 자리 (물속으로 이어지는 좁은 돌계단 · 셋째 단 윗면까지 초록 물이끼가 낀 선 = 물이 늘 닿는 데 · 계단 옆에 뒤집어 놓은 작은 나무배 한 척. 카메라가 이 계단과 그 앞 물을 벗어나지 않는다)</span>
+  <span>후렴 · "지금 가요!" → 첨벙 → 빙그르르 (p3·p4·p5 에서 온전히 한 번 · p6·p7 은 물 위 동그란 자국 개수로만 · 🔴 p12 에서 "지금 가요!" 뒤에 빙그르르가 없다)</span>
+  <span class="q">13스프레드</span>
+  <span class="q">본문 562자 · 쪽당 43자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- <b>마음을 한 문장도 안 썼다.</b> 「무섭다」·「용감해졌다」는 물론이고 「망설여요」·「떨려요」도 없다. 새끼 오리가 어디에 서 있는지만 쓴다 — 뱃등 → 둘째 단 → 셋째 단 → 물속 → 둘째 단(세 번) → 계단 모서리 → 물속 → 계단 밖.<br>
+- <b>기준선은 매 쪽 같다</b>: 물은 셋째 단까지 차 있고 그 윗면까지 초록 물이끼가 낀다. 오리 발이 몇째 단에 있는지가 이 책의 온도계다.<br>
+- <b>안 들어가는 이유는 물리다.</b> 왼발 물갈퀴에 뱃바닥 칠이 굳어 발가락 둘이 붙었다 → 한쪽 발이 안 펴지니 한쪽으로만 돈다. 아이는 p1 부터 그 까만 덩이를 보고 있다(글은 p8 까지 말하지 않는다).<br>
+- 착지는 <b>발이 안 닿음</b>. p1~p11 이 전부 「발이 돌에 닿아 있는 그림」이라 마지막 한 장이 그 반대가 된다.<br>
+- 늙은 오리는 가르치지 않는다. 세어 주고("세 번째야"), 보고("그거 뭐야?"), 방법 하나를 말하고("돌에 대고 쓱쓱 문질러 봐"), 마지막엔 따라 말할 뿐이다("응, 안 닿아").
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>새끼 오리가 뒤집어 놓은 나무배 등을 타고 내려와요.
+툭, 툭, 쪼르르—
+까만 뱃등에 작은 발자국 두 줄이 났어요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 살짝 높은 데서 비스듬히 내려다보는 앵글
+<b>장소·시간</b> 네덜란드 운하 물가. 좁은 돌계단이 물속으로 이어지고, 계단 왼쪽에 작은 나무배 한 척이 배 밑을 하늘로 두고 뒤집혀 있다. 이른 아침, 물낯이 아직 잔잔하다
+<b>인물</b> 화면 왼쪽 위 — 새끼 오리가 뒤집힌 뱃등의 비탈을 발바닥으로 밀며 미끄러져 내려오는 중이다. 몸은 앞으로 기울고 두 물갈퀴는 앞으로 쭉 뻗었다. 🔴 <b>왼발 밑에 까만 덩이가 하나 붙어 있다</b>(엄지손톱만 하게, 뱃등 색과 같은 검정). 뒤로 뱃등에 작은 발자국 두 줄이 또렷하게 나 있다 / 화면 오른쪽 아래 물 위 — 늙은 오리가 등을 보인 채 천천히 떠 있다, 아직 이쪽을 안 본다
+<b>배경·소품</b> 뒤집힌 나무배(방금 새로 칠해 반들거리는 검정 밑바닥) · 돌계단 · 계단 위 녹슨 쇠고리 하나. 운하 건너편은 흐린 벽돌집 실루엣으로만
+<b>톤</b> 아침의 낮고 서늘한 빛. 초록물과 검정 뱃등의 대비만 또렷하고 나머지는 잠잠하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>계단은 물속으로 이어져요.
+물은 셋째 단까지 차 있어요.
+새끼 오리는 둘째 단에서 목을 쭉 빼고 물을 내려다봐요.
+"내려와! 여기야!"</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 계단 옆에서 본 옆모습, 물낯 높이의 로우 아이레벨
+<b>장소·시간</b> 같은 돌계단. 계단 단이 옆에서 층층이 다 보이는 자리
+<b>인물</b> 화면 오른쪽 — 새끼 오리가 <b>둘째 단</b> 마른 돌 위에 두 발로 서서 목을 앞으로 쭉 빼고 물낯을 내려다본다. 왼발은 몸 아래에 반쯤 가려 까만 덩이가 살짝만 보인다 / 화면 왼쪽 물 위 — 늙은 오리가 계단 쪽으로 몸을 돌린 채 부리를 벌리고 부른다, 물갈퀴 하나가 물속에서 뒤로 밀린다
+<b>배경·소품</b> 돌계단 넉 단 · 🔴 <b>셋째 단 윗면까지 초록 물이끼가 띠처럼 낀다</b>(물이 늘 닿는 선) · 그 위 둘째 단은 바싹 마른 회색. 뒤집힌 배는 화면 밖 왼쪽 위 귀퉁이에 한 조각만
+<b>톤</b> 물이끼 초록과 마른 돌 회색이 한 화면에서 가로줄로 갈린다. 그 선이 이 책 내내 같은 자리에 있다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>"지금 가요!"
+새끼 오리가 한 단 아래로 내려서요.
+셋째 단은 물이끼가 미끌미끌.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 계단 옆 아이레벨, 발 쪽으로 살짝 기운 구도
+<b>장소·시간</b> 같은 계단. 물이 찰방 넘나드는 셋째 단
+<b>인물</b> 화면 가운데 — 새끼 오리가 앞발 하나를 <b>셋째 단</b> 초록 물이끼 위에 딛고, 뒷발은 아직 둘째 단에 남아 몸이 계단 두 단에 걸쳐 있다. 물갈퀴가 이끼 위에서 옆으로 살짝 미끄러져 발가락이 벌어졌다. 부리는 벌어져 있다 / 늙은 오리는 화면 왼쪽 아래 물 위, 고개만 이쪽으로
+<b>배경·소품</b> 초록 물이끼 낀 셋째 단 · 발 옆으로 얇게 밀려 올라온 물 한 겹. 다른 소품 없음
+<b>톤</b> 이끼의 젖은 광택만 반짝이게. 나머지는 매체 그대로 조용히</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>첨벙!
+물이 가슴까지 차올라요.
+새끼 오리가 날개를 쫙 펴요.
+발이 계단에서 떨어져요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 · 물낯 높이의 정면 로우 앵글
+<b>장소·시간</b> 계단 바로 앞 물. 방금 몸이 들어간 순간
+<b>인물</b> 화면 가운데 — 새끼 오리가 물에 반쯤 잠겨 있다. 가슴까지 물이 오고 양 날개를 몸 밖으로 쫙 펼쳤다. 목은 위로 곧게 섰고 부리는 벌어져 있다. 물속으로 두 발이 비쳐 보이는데 어느 돌에도 안 닿고 떠 있다 / 늙은 오리는 화면 오른쪽 끝에 등만 걸친다
+<b>배경·소품</b> 몸 둘레로 퍼지는 물결 한 겹 · 뒤로 계단 셋째 단의 초록 띠. 그 외 없음
+<b>톤</b> 물보라 흰 점 몇 개만 밝게, 배경은 초록 한 판으로</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>빙그르르—
+오른발만 젓고 왼발은 가만히 있어요.
+한 바퀴, 두 바퀴.
+"어라?"</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 하이앵글 · 물낯을 거의 바로 위에서 내려다본다
+<b>장소·시간</b> 계단 앞 물 위. 도는 중
+<b>인물</b> 화면 가운데 — 새끼 오리가 물 위에서 몸을 왼쪽으로 기울인 채 돌고 있다. 물속으로 비치는 <b>오른발 물갈퀴는 활짝 펴져 뒤로 밀고, 왼발 물갈퀴는 발가락 둘이 붙은 채 그대로 멈춰 있다</b>. 고개는 제 꼬리 쪽으로 돌아가 있다 / 늙은 오리는 화면 아래쪽 물 위, 이쪽을 보고 떠 있다
+<b>배경·소품</b> 오리 둘레에 동그랗게 감기는 물결 한 줄 · 화면 위 귀퉁이에 계단 셋째 단 초록 띠 한 조각
+<b>톤</b> 위에서 본 초록 물낯 한 판. 도는 물결선 하나만 밝게 남긴다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>물 위에 동그란 자국이 하나 생겼어요.
+새끼 오리는 벌써 둘째 단이에요.
+몸을 부르르 털어요. 물방울이 사방으로 튀어요.
+"왜 도로 와?"</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 · 계단 옆 아이레벨
+<b>장소·시간</b> 같은 계단. 방금 물에서 나온 직후
+<b>인물</b> 화면 오른쪽 — 새끼 오리가 <b>둘째 단</b> 마른 돌 위에 서서 몸을 부르르 턴다. 깃이 사방으로 부풀고 물방울이 몸 둘레로 튄다. 두 발은 마른 돌을 딛고 있다 / 화면 왼쪽 물 위 — 늙은 오리가 부리를 벌린 채 계단 쪽으로 목을 뺀다
+<b>배경·소품</b> 물 위에 <b>동그랗게 감긴 물결 자국 하나</b>(아직 안 풀린 채로) · 셋째 단 초록 띠 · 둘째 단 마른 회색 돌에 젖은 발자국 두 개
+<b>톤</b> 튀는 물방울만 흰 점으로 밝게. 배경은 그대로</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>"세 번째야."
+물 위에 동그란 자국이 셋이에요.
+새끼 오리가 둘째 단에 배를 붙이고 앉아요.
+왼발이 앞으로 쑥 나와요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 계단 아래쪽에서 살짝 올려다보는 로우 앵글
+<b>장소·시간</b> 같은 계단. 세 번째로 올라온 뒤
+<b>인물</b> 화면 오른쪽 위 — 새끼 오리가 <b>둘째 단</b> 위에 배를 붙이고 앉았다. 몸이 낮게 눌리며 <b>왼발이 몸 앞으로 쑥 밀려 나와</b> 발바닥이 화면 쪽을 향한다. 🔴 왼발 물갈퀴 밑에 까만 덩이가 이제 또렷하게 보이고, 그 자리에서 발가락 둘이 붙어 있다 / 화면 왼쪽 아래 물 위 — 늙은 오리가 부리를 벌리고 있다
+<b>배경·소품</b> 물 위에 동그랗게 감긴 자국 <b>세 개</b>가 크기를 달리해 겹쳐 있다 · 셋째 단 초록 띠 · 젖은 발자국들
+<b>톤</b> 왼발 밑 검정 한 덩이가 화면에서 가장 진하게. 나머지는 흐리게 눌러 둔다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>늙은 오리가 계단 앞까지 헤엄쳐 와요.
+고개를 쭉 빼고 올려다봐요.
+"그거 뭐야?"
+"발 들어 봐."</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 · 늙은 오리 어깨 너머로 계단을 올려다보는 로우 앵글
+<b>장소·시간</b> 계단 바로 앞 물 위. 둘 사이가 가장 가까워진 순간
+<b>인물</b> 화면 아래 앞쪽 — 늙은 오리가 계단에 거의 닿을 만큼 붙어서 목을 위로 곧게 뻗고 부리 끝을 새끼 오리 왼발 쪽으로 향한다, 시선이 그 발 하나에 딱 걸려 있다 / 화면 위 — 새끼 오리가 둘째 단에 앉은 채 고개를 숙여 늙은 오리를 내려다본다. 왼발은 아직 앞으로 나와 있다
+<b>배경·소품</b> 셋째 단 초록 띠(두 오리 사이를 가로지른다) · 물 위 동그란 자국 셋의 남은 자락. 그 외 없음
+<b>톤</b> 시선 두 줄이 왼발 한 곳에서 만나게. 그 발만 밝고 둘레는 그늘</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>새끼 오리가 왼발을 들어 봐요.
+발가락 둘이 딱 붙어 있어요.
+쫙— 벌리려는데 안 벌어져요.
+"안 벌어져요!"</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 클로즈업 · 발 높이의 아이레벨
+<b>장소·시간</b> 같은 계단 둘째 단. 발을 들여다보는 순간
+<b>인물</b> 화면 가운데 — 새끼 오리가 몸을 한쪽으로 기울여 균형을 잡고 왼발을 몸 앞으로 높이 들었다. 목을 구부려 제 발을 바짝 들여다본다. 🔴 <b>오른발 물갈퀴는 활짝 펴져 마른 돌을 딛고 있고, 든 왼발은 발가락 둘이 까만 덩이에 붙어 벌어지지 않는다</b> — 두 발이 같은 화면 같은 깊이에 나란히 있어 편 것과 안 펴진 것이 바로 비교된다 / 늙은 오리는 화면 아래 귀퉁이에 머리만
+<b>배경·소품</b> 둘째 단 마른 돌 · 셋째 단 초록 띠 한 자락. 그 외 없음
+<b>톤</b> 두 발에만 마감을 몰아준다. 배경은 매체 그대로 비운다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>"돌에 대고 쓱쓱 문질러 봐."
+새끼 오리가 계단 모서리에 왼발을 대요.
+쓱, 쓱, 쓱—</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 계단 모서리와 같은 높이의 아이레벨
+<b>장소·시간</b> 같은 계단. 둘째 단과 셋째 단이 만나는 거친 모서리
+<b>인물</b> 화면 가운데 — 새끼 오리가 온몸을 앞으로 기울이고 <b>왼발 바닥을 계단 모서리에 대고 앞뒤로 밀고 있다</b>. 오른발과 두 날개로 몸을 버텨 자세가 비스듬하다. 부리는 다물고 목은 아래를 향한다. 까만 덩이가 아까보다 얇아지고 가장자리가 부슬부슬 일어난다 / 늙은 오리는 화면 왼쪽 물 위에서 지켜본다
+<b>배경·소품</b> 모서리 아래로 떨어진 까만 부스러기 몇 알 · 셋째 단 초록 띠. 그 외 없음
+<b>톤</b> 모서리의 거친 돌 결과 검은 부스러기만 또렷하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>툭.
+까만 덩이가 떨어져 물 위에 동동 떠요.
+발가락이 쫙 벌어져요.
+"다 벌어졌어!"</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 클로즈업 · 살짝 높은 아이레벨, 발과 물낯이 한 화면에
+<b>장소·시간</b> 같은 계단 모서리. 떨어진 직후
+<b>인물</b> 화면 위 — 새끼 오리가 왼발을 든 채 <b>발가락 셋이 활짝 벌어진 물갈퀴</b>를 제 눈앞에 펼쳐 보인다. 부리가 크게 벌어졌다. 오른발은 셋째 단 이끼를 딛고 있다 / 화면 아래 물 위 — 늙은 오리가 떠 있는 까만 덩이 옆에서 그것을 본다
+<b>배경·소품</b> 🔴 <b>까만 덩이가 물 위에 동동 떠 있다</b>(작고 납작하게, 안 가라앉는다) · 셋째 단 초록 띠. 그 외 없음
+<b>톤</b> 초록 물낯 위의 검정 한 점과 활짝 편 물갈퀴, 둘만 밝게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>"지금 가요!"
+첨벙!
+이번엔 빙그르르가 없어요.
+물살이 뒤로 길게 두 줄 나요.
+"어어—!"</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 와이드 · 물낯 높이의 정면 로우 앵글
+<b>장소·시간</b> 계단 앞 물. 곧게 나아가는 중
+<b>인물</b> 화면 왼쪽 아래 — 새끼 오리가 목을 앞으로 곧게 뻗고 몸을 낮춰 화면 오른쪽으로 나아간다. 물속에 비치는 <b>두 물갈퀴가 똑같이 활짝 펴져 번갈아 뒤로 민다</b> / 화면 왼쪽 끝 계단 앞 — 늙은 오리가 그 자리에 남아 부리를 벌리고 목을 든다
+<b>배경·소품</b> 오리 뒤로 <b>길게 뻗은 물살 두 줄</b>(동그란 자국이 아니다) · 뒤쪽에 계단과 셋째 단 초록 띠가 작아진 채로. 그 외 없음
+<b>톤</b> 앞으로 길게 늘어나는 물살선이 화면을 가른다. 이 책에서 처음으로 선이 곧다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>계단이 저만치 뒤에 있어요.
+발밑에는 초록 물뿐이에요.
+"여기는 발이 안 닿아요."
+"응, 안 닿아."</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 와이드 · 비스듬히 위에서 내려다보는 하이앵글 (물속이 조금 비친다)
+<b>장소·시간</b> 계단에서 배 한 척만큼 떨어진 물 위. 같은 아침의 조금 뒤
+<b>인물</b> 화면 가운데 — 새끼 오리가 물 위에 가만히 떠 있다. 🔴 <b>물속에 비치는 두 물갈퀴가 천천히 벌어졌다 오므라들 뿐, 어느 돌에도 안 닿는다.</b> 발 아래로는 초록물이 어둡게 깊어지다 아무것도 안 보이게 된다. 고개는 늙은 오리 쪽으로 살짝 돌아 있다 / 그 옆 — 늙은 오리가 나란히 떠 있다, 역시 발이 안 닿는다
+<b>배경·소품</b> 화면 위쪽 멀리 돌계단과 셋째 단 초록 띠가 작게 · 물 위 어딘가에 아직 떠 있는 까만 덩이 하나. 그 외 아무것도 없다 — 🔴 <b>화면 아래 절반은 발 닿을 것이 하나도 없는 초록물이어야 한다</b>
+<b>톤</b> 위에서 아래로 초록이 점점 짙어져 바닥이 안 보이게. 밝은 것은 두 오리 등뿐</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'g05',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 오리(이름 없음)', '늙은 오리(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb6da4ec44"></script>
+<script src="/changjak-core.js?v=47fd80bb6da4ec44"></script>
+</body>
+</html>

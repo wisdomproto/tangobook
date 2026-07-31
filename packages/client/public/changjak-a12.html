@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>A-12 심술쟁이 바람의 사과 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · A · 마음·감정 · 12</div>
+  <h1>심술쟁이 바람의 사과</h1>
+  <div class="sub">모자를 전부 날려 버리면 더 재밌을 줄 알았어요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 소원의 대가</span>
+  <span>무대 · 북해 바닷가 모자 가게 앞</span>
+  <span>후렴 · 휘잉— 붕! / 딸랑! 문이 열려요. / "또 너구나!" "안녕하세요!" — p2~p3 · p4~p5 두 번 원형 · 🔴 p8 은 문만 열리고 인사가 빠진다 · p9 는 문이 아예 안 열린다 · p14 에서 느낌표 없이 돌아온다</span>
+  <span class="q">14스프레드</span>
+  <span class="q">본문 594자 · 쪽당 42자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- <b>소원의 대가를 물리로 바꿨다.</b> 소원 장치·요정·주문이 없다. 바람이 세게 한 번 부는 것이 전부다. 아이가 보는 것은 딱 한 가지 성질 — <b>모자가 날아가면 문이 열린다.</b> p2~p3 와 p4~p5 에서 두 번 목격시키고, p7 에서 모자를 전부 없앤다. 그러면 p9 에서 <b>날릴 모자가 없으니 열릴 문도 없다.</b> 외울 규칙이 아니라 눈으로 보는 성질이다.<br>
+- <b>바람은 몸이 없다.</b> 그래서 바람은 화면에 한 번도 안 나오고 <b>날리는 것들로만</b> 보인다(모자·앞치마·그물). 몸을 가진 주인공은 차양 기둥 위의 어린 갈매기다 — 날개를 펴는 동작이 매번 바람을 부르는 몸동작이 된다.<br>
+- <b>제목의 「사과」는 말이 아니라 손이다.</b> 마지막 두 쪽에 미안하다는 문장을 한 줄도 안 썼다. 부리에서 앞발로 모자가 건너가는 것으로만 끝낸다.<br>
+- 인물 둘 · 장소 하나(가게 앞 자갈길 한 자리) — 진열대 · 파란 문 · 차양 기둥 · 옆 돌담 그물이 전부 한 프레임 안에 있어 카메라가 이 자리를 안 벗어난다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>모자 가게 앞 진열대에 모자가 줄줄이 놓여 있어요.
+갈매기가 차양 기둥 위에서 목을 쭉 빼요.
+"오늘도 잔뜩이네!"</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 살짝 낮은 아이레벨
+<b>장소·시간</b> 바닷가 자갈길 위 모자 가게 앞. 이른 아침, 바람이 막 일기 시작한 때
+<b>인물</b> 화면 오른쪽 위 — 어린 갈매기가 차양 기둥 꼭대기에 두 발로 서서 목을 아래로 길게 빼고 진열대를 내려다본다. 눈이 동그랗고 부리가 조금 벌어져 있다. 🔴 옷 없는 새 그대로다
+<b>배경·소품</b> 3단 나무 진열대에 밀짚모자와 파란 모자 대여섯 · 파란 가게 문 위 작은 놋종 · 오른쪽 낮은 돌담에 회색 마른 그물 한 폭(비어 있다) · 뒤로 잿빛 바다 한 줄
+<b>톤</b> 잿빛 아침빛. 색은 진열대 모자에만 고여 있다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>갈매기가 날개를 활짝— 착!
+휘잉, 바람이 홱 돌아요. 밀짚모자 하나가 붕 떠올라요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 기둥을 옆에서 보는 눈높이
+<b>장소·시간</b> 같은 자리, 몇 발짝 앞으로 당긴 프레임
+<b>인물</b> 화면 오른쪽 — 갈매기가 기둥 위에서 두 날개를 한껏 펼치고 가슴을 앞으로 내민 자세. 발가락이 기둥 끝을 꽉 쥐고 있다. 부리는 열려 있고 시선은 떠오르는 모자를 따라 왼쪽 위로
+<b>배경·소품</b> 화면 왼쪽 위로 노란 밀짚모자 하나가 기울어져 떠오른다 · 진열대 아래 자갈 몇 알 · 아직 닫힌 파란 문
+<b>톤</b> 회색 바탕에 노랑 하나. 바람은 그리지 않고 날리는 것으로만 보인다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>딸랑! 문이 열려요.
+수달 아주머니가 뛰어나와 모자를 덥석 잡아요.
+"또 너구나!"
+"안녕하세요!"</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 와이드 · 아이레벨
+<b>장소·시간</b> 같은 자리, 문 앞. 바로 다음 순간
+<b>인물</b> 화면 가운데 아래 — 수달 아주머니가 두 발로 서서 활짝 열린 문에서 한 발짝 나와 두 앞발로 밀짚모자를 가슴께에 덥석 안고, 턱을 들어 기둥 위를 올려다본다. 웃는 눈. 🔴 빨강 줄무늬 앞치마와 머릿수건만 걸쳤다 / 오른쪽 위 — 갈매기가 목을 쭉 빼고 마주 내려다본다
+<b>배경·소품</b> 활짝 열린 파란 문과 흔들리는 놋종 · 펄럭이는 앞치마 자락 · 돌담 위 빈 그물
+<b>톤</b> 문 안에서 새어 나온 따뜻한 노란빛이 두 얼굴 사이에만 걸친다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>"이번엔 파란 거!"
+갈매기가 목을 쑥 빼고 날개를 활짝— 착!
+파란 모자가 붕 떠올라요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 · 살짝 로우앵글(기둥을 올려다본다)
+<b>장소·시간</b> 같은 자리. 문이 막 닫힌 뒤
+<b>인물</b> 화면 위쪽 — 갈매기가 기둥 위에서 목을 앞으로 쑥 내밀고 두 날개를 다시 펼친다. p2 와 같은 자세지만 몸이 진열대 쪽으로 더 기울어 있다
+<b>배경·소품</b> 진열대 둘째 칸에서 파란 모자가 챙부터 들리며 떠오른다 · 닫힌 파란 문 · 돌담 위 빈 그물
+<b>톤</b> 잿빛 바탕에 파랑 하나. 그림자는 옅게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>딸랑! 또 문이 열려요.
+아주머니가 두 앞발로 모자를 덥석 안아요.
+"또 너구나!"
+"안녕하세요!"</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨
+<b>장소·시간</b> 같은 자리, 문 앞. 바로 다음 순간
+<b>인물</b> 화면 가운데 — 아주머니가 두 팔을 쫙 벌린 채 파란 모자를 품에 안고 한쪽 발을 앞으로 내디딘 자세. 고개는 위로 / 오른쪽 위 — 갈매기가 날개를 반쯤 접으며 아래를 본다
+<b>배경·소품</b> 열린 문과 흔들리는 놋종 · 뒤집힌 모자 챙 · 돌담 위 빈 그물
+<b>톤</b> p3 와 같은 노란 문빛. 두 번째라는 것이 반복되는 구도로 읽히게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>"저것도 날리면 재밌겠다!"
+갈매기가 바다 쪽으로 부리를 쭉 내밀어요.
+"바람아, 모자 다 가져가!"</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 · 옆모습, 눈높이
+<b>장소·시간</b> 같은 자리. 하늘이 한 겹 어두워지는 때
+<b>인물</b> 화면 오른쪽 — 갈매기가 기둥 위에서 몸을 바다 쪽으로 완전히 돌리고 목과 부리를 수평으로 쭉 내민다. 두 날개는 몸에 붙인 채, 발끝만 곧추섰다
+<b>배경·소품</b> 왼쪽 아래 진열대에 남은 모자들(노랑·파랑) · 수평선 위로 낮게 몰려오는 잿빛 구름 한 덩이 · 돌담 위 빈 그물
+<b>톤</b> 빛이 한 단계 내려앉는다. 바다 쪽이 어둡고 가게 쪽이 밝다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>우우웅— 큰 바람이 와요.
+모자가 한꺼번에 붕붕 날아가요.
+갈매기는 기둥을 꽉 붙잡고 웃어요.
+"다 간다!"</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 와이드 · 아이레벨
+<b>장소·시간</b> 같은 자리. 큰 바람이 몰아치는 한순간
+<b>인물</b> 화면 오른쪽 — 갈매기가 기둥을 두 발로 꽉 움켜쥐고 몸을 납작 붙인 채 부리를 벌리고 웃는다. 깃털이 전부 한 방향으로 눕는다
+<b>배경·소품</b> 화면을 가로질러 노랑·파랑 모자 예닐곱이 한꺼번에 오른쪽 위로 날아간다 · 텅 비어 가는 진열대 · 돌담 위 그물이 크게 부푼다
+<b>톤</b> 화면에서 색이 통째로 빠져나가는 장면. 날아가는 모자가 색의 전부</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>딸랑! 문이 열려요.
+아주머니가 텅 빈 진열대에 앞발을 얹어요.
+"안녕하세요!"
+아주머니는 위를 안 봐요.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨
+<b>장소·시간</b> 같은 자리. 바람이 지나간 직후
+<b>인물</b> 화면 가운데 — 아주머니가 문 앞에 서서 텅 빈 진열대 맨 윗칸에 한 앞발을 얹고 고개를 숙인 채 빈 칸을 본다. 시선이 위로 올라오지 않는다 / 오른쪽 위 — 갈매기가 목을 쭉 빼고 부리를 벌린 채 아주머니를 내려다본다
+<b>배경·소품</b> 열린 문 · 아무것도 없는 3단 진열대 · 🔴 화면 오른쪽 뒤 돌담 그물이 노랑·파랑으로 뒤덮여 파닥인다(작게, 초점 밖)
+<b>톤</b> 노란 문빛이 아주머니에게만 닿고 기둥 위는 잿빛에 남는다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>"한 번 더!"
+갈매기가 날개를 활짝— 착! 착!
+날아갈 모자가 없어요. 문은 그대로예요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 미디엄 · 기둥 옆 눈높이
+<b>장소·시간</b> 같은 자리. 조금 뒤
+<b>인물</b> 화면 오른쪽 — 갈매기가 두 날개를 있는 힘껏 펼친 자세. p2·p4 와 똑같은 자세인데 시선만 닫힌 문에 고정돼 있다
+<b>배경·소품</b> 굳게 닫힌 파란 문과 미동 없는 놋종 · 빈 진열대 · 🔴 뒤 돌담 그물의 모자들이 여전히 파닥인다(작게)
+<b>톤</b> 앞의 두 번과 같은 구도, 노란 문빛만 없다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>갈매기가 닫힌 문 앞 자갈에 앉아 있어요.
+부리를 자갈에 콕 대고 중얼거려요.
+"…문 열어 줄 모자가 없잖아."</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 로우앵글 클로즈업 · 자갈 높이에서
+<b>장소·시간</b> 같은 자리, 문턱 앞 자갈. 해가 구름에 들어간 때
+<b>인물</b> 화면 왼쪽 아래 — 갈매기가 자갈 위에 배를 붙이고 앉아 목을 접고 부리 끝을 젖은 자갈에 콕 대고 있다. 날개는 몸에 붙어 있다
+<b>배경·소품</b> 바로 뒤로 닫힌 파란 문의 아랫부분과 문턱 · 젖은 자갈 몇 알 · 진열대 다리
+<b>톤</b> 화면에서 가장 낮고 가장 조용한 쪽. 색이 거의 없다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>갈매기가 고개를 홱 돌려요.
+돌담 그물에 모자들이 파닥파닥 걸려 있어요.
+"저기 다 있잖아!"</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 와이드 · 아이레벨
+<b>장소·시간</b> 같은 자리. 바로 다음 순간
+<b>인물</b> 화면 왼쪽 아래 — 갈매기가 앉은 채 고개만 오른쪽으로 홱 돌려 목이 크게 꺾여 있다. 두 눈이 커지고 부리가 벌어진다
+<b>배경·소품</b> 🔴 화면 오른쪽을 가득 채운 돌담 그물 — 노란 밀짚모자와 파란 모자 예닐곱이 그물코에 걸려 챙만 파닥인다 · 그 너머 잿빛 바다
+<b>톤</b> 이 쪽에서 처음으로 색이 화면 오른쪽에 통째로 돌아온다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>갈매기가 돌담 위에 내려앉아요.
+그물에 걸린 밀짚모자를 부리로 꽉 물어요.
+그물코가 쭉 늘어나요.</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 어깨너머
+<b>장소·시간</b> 가게 옆 낮은 돌담 위
+<b>인물</b> 화면 가운데 — 갈매기가 돌담 위에 두 발로 서서 목을 아래로 숙이고 밀짚모자 챙을 부리로 물어 위로 당긴다. 날개를 반쯤 벌려 몸을 버티고, 그물이 모자 쪽으로 딸려 올라온다
+<b>배경·소품</b> 굵은 회색 그물코 · 물린 밀짚모자 하나 · 그 옆에 걸린 파란 모자
+<b>톤</b> 노랑이 화면 한가운데. 나머지는 회색 그물뿐</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>갈매기가 진열대 한가운데에 모자를 톡 놓아요.
+딸랑, 문이 열려요. 아주머니가 눈을 동그랗게 떠요.</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨
+<b>장소·시간</b> 같은 자리, 진열대 앞
+<b>인물</b> 화면 왼쪽 — 갈매기가 진열대 둘째 칸에 두 발로 내려서서 부리를 놓아 밀짚모자를 칸 한가운데에 내려놓는 순간 / 화면 오른쪽 — 아주머니가 반쯤 열린 문틈에서 앞발로 문을 잡은 채 눈을 동그랗게 뜨고 본다
+<b>배경·소품</b> 텅 빈 칸 가운데 놓인 밀짚모자 하나 · 흔들리는 놋종 · 뒤 돌담 그물에 아직 남은 모자들
+<b>톤</b> 문빛이 다시 새어 나와 진열대 가운데 모자에 닿는다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p14 · 본문</span>갈매기가 아주머니 앞발 위에 파란 모자를 살그머니 놓아 줘요.
+"또 너구나."
+"안녕하세요."</div>
+  </div>
+  <div class="sc"><span class="n">p14 · SCENE</span><b>컷</b> 클로즈업 · 두 손이 만나는 높이의 아이레벨
+<b>장소·시간</b> 문 앞 자갈. 구름이 걷혀 빛이 낮게 드는 때
+<b>인물</b> 화면 가운데 — 아주머니가 두 앞발을 나란히 펴서 내밀고, 갈매기가 그 위로 부리를 내려 파란 모자를 살그머니 내려놓는다. 🔴 모자는 부리와 앞발 사이에 걸쳐져 아직 양쪽에 닿아 있다. 두 얼굴은 화면 위쪽에 잘리듯 걸치고 모자가 화면 한가운데
+<b>배경·소품</b> 아주머니 앞치마의 빨강 줄무늬 한 자락 · 아래로 젖은 자갈 · 뒤로 다 채워진 진열대 아랫칸
+<b>톤</b> 낮은 저녁빛이 모자 챙 위에만 얹힌다. 화면에서 가장 마감된 것은 건네지는 모자</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'a12',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['어린 갈매기(이름 없음)', '모자 가게 수달 아주머니(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb6da4ec44"></script>
+<script src="/changjak-core.js?v=47fd80bb6da4ec44"></script>
+</body>
+</html>

@@ -103,7 +103,7 @@ CHARACTER DESIGN LANGUAGE: each body is a single bled silhouette, readable from 
   act. FIXED GRADE: both animals stay on four legs with no clothes, no fingers, no shoes. The
   pup barks and talks. The cow only lows - give it no open-mouth talking pose and no bell.
 
-CANVAS: 16:9 double-page spread, one scene, the bottom 18% left quiet for a caption. No text,
+CANVAS: 16:9 double-page spread, one scene, No text,
   letters, numerals, speech bubbles or watermark anywhere in the image.
 
 NOT: no digital slickness of any kind - airbrush, smooth gradient, glow, 3D CG, cel-shading,

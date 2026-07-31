@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>A-09 부끄럼쟁이 등불지기 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · A · 마음·감정 · 09</div>
+  <h1>부끄럼쟁이 등불지기</h1>
+  <div class="sub">밤마다 불을 켜고 얼른 숨어요. 그런데 숨을 데가 자꾸 줄어들어요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 관찰과 성장</span>
+  <span>무대 · 영국 해안 등대 꼭대기 등롱실 한 칸</span>
+  <span>후렴 · "누가 보면 어떡해." (p2·p4·p7 세 번 · 🔴 p11 에서 "이 불, 내가 켠 거야." 로 뒤집힌다)</span>
+  <span class="q">13스프레드</span>
+  <span class="q">본문 593자 · 쪽당 46자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- <b>성장을 한 문장도 쓰지 않았다.</b> 매 쪽 기준이 하나뿐이라 그것만 본다 — <b>바닥의 검은 그림자 자리</b>와 고슴도치가 그 안 어디쯤 있는가. p2 방 절반 → p5 램프 받침에 등 붙임 → p8 발바닥만 한 자리 위에 한 발 → p11 자리 밖. 「용감해졌어요」를 안 써도 자리가 다 말한다.<br>
+- 🔴 <b>숨을 데가 줄어드는 원인은 부끄러움이 아니다.</b> 배가 한 척 늘 때마다 그 배의 낮은 뱃불이 <b>다른 방향에서</b> 창을 넘어와 검은 자리를 깎는다. 원인이 매 쪽 화면 안에 길쭉한 빛으로 그려져 있고, 「부끄러움 하나 = 한 조각」 같은 환산은 없다.<br>
+- <b>p9 가 함정이자 시험이다.</b> 불이 사그라지면 검은 자리가 도로 넓어진다 — 숨을 데가 저절로 돌아온다. 고슴도치는 실제로 그 안에 앉는다. 그러니 p11 은 밀려 나온 게 아니라 <b>넓은 자리를 두고 나온 것</b>이다.<br>
+- 착지 카드 <b>「불 앞에 섬」</b>. p2 와 p13 은 같은 하이앵글 와이드 구도라 검은 자리의 크기와 고슴도치의 자리만 갈린다.<br>
+- 장소 = 등롱실 한 칸. 갈매기는 <b>열린 창턱 안쪽</b>에 앉아 카메라가 방을 안 나간다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>밤이에요. 고슴도치가 발끝을 들고 성냥을 심지에 대요.
+화르륵—
+"…켠다."</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 클로즈업 · 살짝 올려다보는 로우앵글
+<b>장소·시간</b> 등대 꼭대기 등롱실. 해가 다 진 밤의 첫 시간
+<b>인물</b> 화면 오른쪽 아래 — 고슴도치가 뒷발 끝만 들고 몸은 뒤로 뺀 채 앞발 하나만 길게 뻗어 성냥을 심지에 댄다. 눈은 반쯤 감고 얼굴은 불에서 비껴 돌렸다. 왼쪽 위 열린 창턱에 갈매기가 옆모습으로 앉아 이쪽을 본다
+<b>배경·소품</b> 놋쇠 램프의 심지와 유리통만 크게 · 그 뒤는 밤 남색 유리창
+<b>톤</b> 막 붙은 작은 주황 불꽃 하나만 밝고 나머지는 남색으로 잠긴다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>받침 밑이 새까매요. 고슴도치는 검은 자리에 폭 웅크려요.
+"오늘은 배가 없네." 갈매기가 말해요.
+"누가 보면 어떡해."</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 와이드 · 위에서 방 전체를 내려다보는 하이앵글
+<b>장소·시간</b> 같은 등롱실. 불이 다 붙은 직후
+<b>인물</b> 화면 가운데 놋쇠 램프 · 그 왼쪽으로 방 절반을 덮은 검은 그림자 자리, 그 한가운데에 고슴도치가 등을 둥글게 말고 앉아 있다. 코끝만 무릎 위로 나와 있고 눈은 바닥을 본다. 오른쪽 창턱 위 갈매기가 부리를 방 안쪽으로 돌리고 있다
+<b>배경·소품</b> 둥근 나무 바닥의 널 · 램프 받침 · 창턱 하나
+<b>톤</b> 램프에서 옆으로 뻗는 노란 빛과 바닥에 고인 검정, 딱 두 덩이</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>배 한 척이 서 있어요. 뱃불이 반짝!
+빛이 넘어와 검은 자리를 한 조각 잘라요.
+고슴도치가 고개를 돌려요.
+"한 척!"</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 · 고슴도치 어깨 너머로 창 쪽을 보는 각
+<b>장소·시간</b> 같은 등롱실. 조금 뒤
+<b>인물</b> 전경 왼쪽 아래 — 고슴도치가 앉은 채 고개만 창 쪽으로 홱 돌려 귀와 코가 같은 방향을 향한다. 눈이 동그랗다. 오른쪽 창턱 갈매기는 부리를 창밖으로 내밀고 있다
+<b>배경·소품</b> 창밖 저 아래 검은 바다 위 뱃불 점 하나 · 그 불에서 창을 넘어와 바닥에 길게 누운 노란 띠 하나 · 그 띠가 검은 자리의 오른쪽 귀퉁이를 사선으로 잘라 놓았다
+<b>톤</b> 남색 밤에 가는 노란 띠 하나가 사선으로 그어진다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>고슴도치가 잘린 쪽에서 발을 빼요. 가시를 납작 눕혀요.
+"누가 보면 어떡해."
+갈매기가 목만 갸웃해요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 클로즈업 · 바닥 가까이 낮게
+<b>장소·시간</b> 같은 등롱실. 곧바로 이어서
+<b>인물</b> 화면 아래 절반 — 고슴도치의 뒷발 하나가 노란 띠 위에서 검은 쪽으로 끌려 들어오는 중이고, 등의 가시가 물기 먹은 것처럼 납작하게 눕는다. 얼굴은 화면 위쪽 구석에 작게, 입을 다물었다. 화면 위 오른쪽 끝 창턱의 갈매기는 목을 옆으로 갸웃 기울인 실루엣
+<b>배경·소품</b> 나무 바닥 널의 결 · 노란 띠와 검정의 경계선 하나
+<b>톤</b> 경계선을 사이에 둔 노랑과 검정의 대비만</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>반대쪽 창에서도 빛이 와요. 검은 자리가 가운데로 좁아져요.
+"두 척!"
+고슴도치는 램프 받침에 등을 딱 붙여요.</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 · 방을 옆에서 가로지르는 아이레벨
+<b>장소·시간</b> 같은 등롱실. 조금 더 늦은 밤
+<b>인물</b> 화면 오른쪽 — 고슴도치가 놋쇠 받침에 등을 딱 붙이고 세로로 곧게 앉았다. 앞발 두 개를 가슴 앞에 모으고 눈은 새 빛이 들어온 쪽을 본다. 화면 왼쪽 위 창턱의 갈매기가 날개 하나를 반쯤 들어 창밖을 가리킨다
+<b>배경·소품</b> 서로 다른 두 창에서 들어온 길쭉한 노란 띠 둘이 바닥에서 X 로 겹친다 · 그 사이에 남은 검정이 가운데로 몰려 있다
+<b>톤</b> 노란 띠 둘, 남은 검정 하나. 셋 다 또렷한 모양으로</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>검은 자리가 이제 고슴도치보다 작아요.
+"발이 안 들어가."
+고슴도치가 앞발을 배 밑으로 접어 넣어요.</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 톱다운 · 바닥을 바로 위에서 내려다보는 각
+<b>장소·시간</b> 같은 등롱실. 곧바로 이어서
+<b>인물</b> 화면 가운데 — 위에서 본 고슴도치가 검은 자리보다 커서 등과 옆구리가 노란 띠 위로 삐져나와 있다. 앞발 두 개를 배 밑으로 접어 넣는 중이고 얼굴은 아래를 향한다. 화면 위 가장자리에 갈매기의 발 두 개와 창턱만 걸린다
+<b>배경·소품</b> 바닥 널 · 검은 자리의 남은 모양(찌그러진 조각) · 노란 띠 둘
+<b>톤</b> 위에서 본 평면. 검정 조각 하나가 화면의 중심</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>세 번째 빛이 비스듬히 들어와요.
+"세 척!"
+"누가 보면 어떡해."
+고슴도치가 코를 무릎에 파묻어요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아래에서 올려다보는 로우앵글
+<b>장소·시간</b> 같은 등롱실. 밤이 깊어진 때
+<b>인물</b> 화면 가운데 — 고슴도치가 무릎을 세워 안고 코를 무릎 사이에 깊이 파묻었다. 등만 카메라 쪽으로 크게, 가시 사이로 노란 빛이 걸린다. 화면 위 왼쪽 창턱의 갈매기가 부리를 벌리고 창밖을 본다
+<b>배경·소품</b> 세 번째 노란 띠가 앞의 둘과 다른 각도로 비스듬히 들어와 고슴도치의 등 옆을 스친다 · 램프 받침 아래쪽
+<b>톤</b> 아래에서 올려다본 각이라 램프가 화면 위에 크게 걸리고 빛이 인물 뒤에서 온다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>네 번째 빛이 겹치자 검은 자리가 발바닥만 해져요.
+"네 척!"
+고슴도치가 그 위에 한 발로 서서 흔들, 흔들.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 롱숏 · 방 반대편에서 본 아이레벨
+<b>장소·시간</b> 같은 등롱실. 한밤중
+<b>인물</b> 화면 가운데 조금 왼쪽 — 고슴도치가 발바닥만 한 검정 위에 뒷발 하나로 서서 몸이 좌우로 기울고, 앞발 두 개를 양옆으로 활짝 벌려 균형을 잡는다. 눈을 질끈 감았다. 오른쪽 창턱의 갈매기가 목을 길게 빼고 그 모습을 본다
+<b>배경·소품</b> 노란 띠 넷이 사방에서 들어와 바닥을 거의 다 덮었다 · 남은 검정은 발자국 하나 크기
+<b>톤</b> 바닥 전체가 노랗고 검정은 점 하나. 그 점 위에 인물</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>톡, 톡. 심지가 짧아져 불꽃이 낮아져요.
+검은 자리가 슬금슬금 넓어져요.
+고슴도치가 발을 내려놓고 그 안에 앉아요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 미디엄 · 램프와 인물을 한 화면에 넣는 아이레벨
+<b>장소·시간</b> 같은 등롱실. 밤이 가장 긴 시간
+<b>인물</b> 화면 오른쪽 아래 — 고슴도치가 들었던 발을 내려놓고 넓어진 검정 한가운데에 어깨를 늘어뜨리고 앉는다. 눈은 램프 쪽을 본다. 화면 왼쪽 위 창턱의 갈매기는 창밖으로 몸을 반쯤 기울였다
+<b>배경·소품</b> 유리통 안에서 낮아진 주황 불꽃 · 짧아진 심지 끝 · 노란 띠들이 흐려지며 물러난 자리에 도로 넓어진 검정
+<b>톤</b> 아까보다 어둡고 노랑이 묽다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>갈매기가 창밖으로 목을 빼요.
+"저 배가 뒤로 가."
+빛 하나가 스르르 빠져나가요.
+고슴도치가 검은 자리에서 고개를 들어요.</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 · 창턱 쪽을 보는 아이레벨
+<b>장소·시간</b> 같은 등롱실. 곧바로 이어서
+<b>인물</b> 화면 왼쪽 위 — 갈매기가 창턱에서 목을 창밖으로 길게 빼고 날개를 몸에 붙였다. 화면 오른쪽 아래 — 고슴도치가 넓어진 검정 안에 앉은 채 턱을 들어 창 쪽을 올려다본다. 귀가 쫑긋 섰다
+<b>배경·소품</b> 바닥의 노란 띠 하나가 창턱 쪽으로 미끄러져 반쯤 창밖으로 빠져나갔다 · 남은 띠 셋은 흐릿하다
+<b>톤</b> 빠져나가는 띠가 그리는 사선 하나가 가장 밝다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>고슴도치는 검은 자리 밖, 램프 바로 앞에 서 있어요.
+두 발이 바닥에 딱 붙어 있어요.
+"이 불, 내가 켠 거야."</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 · 정면 아이레벨
+<b>장소·시간</b> 같은 등롱실. 곧바로 이어서
+<b>인물</b> 화면 가운데 — 고슴도치가 램프 정면에 두 발을 바닥에 붙이고 섰다. 가시가 다시 곧게 서고 얼굴 전체에 낮은 불빛이 든다. 입을 벌려 말하는 중, 눈은 불을 똑바로 본다. 화면 뒤쪽 창턱의 갈매기는 작게, 이쪽을 본다
+<b>배경·소품</b> 인물 뒤 왼쪽에 아무도 없는 넓은 검은 자리 · 유리통 · 놋쇠 받침
+<b>톤</b> 인물 얼굴이 화면에서 가장 밝고 뒤의 검정은 텅 비었다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>두 앞발로 놋쇠 손잡이를 잡고 끼익, 돌려요.
+불꽃이 쑤욱 커져요.
+"우와!"</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 클로즈업 · 손잡이 높이의 아이레벨
+<b>장소·시간</b> 같은 등롱실. 곧바로 이어서
+<b>인물</b> 화면 왼쪽 — 고슴도치의 앞발 두 개가 놋쇠 손잡이를 함께 감아쥐고 돌린다. 어깨와 코끝까지만 프레임에 들어오고 눈은 불꽃을 본다. 화면 위 오른쪽 구석에 갈매기의 벌린 부리
+<b>배경·소품</b> 손잡이 · 올라온 심지 · 유리통 안에서 키가 커진 주황 불꽃
+<b>톤</b> 불꽃이 커지며 놋쇠에 노란 반사가 번진다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>바닥에 검은 자리가 없어요. 빛이 넷, 들어와요.
+"…안 숨어?"
+고슴도치는 대답 대신 불 쪽으로 한 발 더 다가서요.</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 와이드 · 위에서 방 전체를 내려다보는 하이앵글(p2 와 같은 구도)
+<b>장소·시간</b> 같은 등롱실. 새벽이 오기 전
+<b>인물</b> 화면 가운데 램프 · 그 바로 앞에 고슴도치가 두 발을 붙이고 서서 한 발을 램프 쪽으로 더 내밀었다. 등이 카메라를 향하고 얼굴은 불 쪽이다. 오른쪽 창턱의 갈매기가 부리를 방 안쪽으로 돌리고 있다
+<b>배경·소품</b> 바닥에 검정이 없다 · 사방에서 들어온 노란 띠 넷이 바닥에서 겹친다 · p2 와 같은 나무 널·받침·창턱
+<b>톤</b> 방 전체가 고르게 노랗고 그림자는 인물 발밑에만 짧게</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'a09',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['등불지기 고슴도치(이름 없음)', '창턱의 갈매기(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb6da4ec44"></script>
+<script src="/changjak-core.js?v=47fd80bb6da4ec44"></script>
+</body>
+</html>

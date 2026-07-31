@@ -93,8 +93,7 @@ CHARACTER DESIGN LANGUAGE: the animals are made like the ground - a pressed cont
   mouth. FIXED GRADE: four legs, and the letter in the mouth on every page; the forepaws are used
   only for digging and for pushing the flap. No clothes, no scarf, no fingers.
 
-CANVAS: 16:9 double-page spread. One farmyard on all fourteen pages. Bottom 18% quiet for a
-  caption. 🔴 No lettering, numerals, name plates or markers anywhere: the envelope is COMPLETELY
+CANVAS: 16:9 double-page spread. One farmyard on all fourteen pages. 🔴 No lettering, numerals, name plates or markers anywhere: the envelope is COMPLETELY
   BLANK on both sides.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,

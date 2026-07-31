@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>H-06 종이배 접는 법 백 가지 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · H · 호기심·만들기·직업 · 06</div>
+  <h1>종이배 접는 법 백 가지</h1>
+  <div class="sub">같은 종이 한 장을 접었다 폈다 해요. 백 번째엔 어떤 배가 나올까요?</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 누적·반복</span>
+  <span>무대 · 벨기에 레이스 공방 — 창가 작업대 한 자리 (둥근 레이스 베개 하나 · 놋쇠 실패 몇 개 · 크림색 종이 한 장 · 창틀 — 열세 쪽 내내 이 작업대를 안 벗어난다)</span>
+  <span>후렴 · "하나." → "둘." → "열둘." → "스물아홉." → "쉰다섯." → "아흔아홉." → "백." (할머니가 실패를 딸깍 놀리며 세어 준다 · 늘 쪽 끝머리 · 🔴 숫자만 건너뛰며 커지고 문장은 늘 한 낱말이다)</span>
+  <span class="q">13스프레드</span>
+  <span class="q">본문 601자 · 쪽당 46자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- <b>왜 종이가 한 장인가</b> — 백 척을 쌓으면 「백」은 보이지만 결말의 물리가 사라진다. 같은 종이를 되풀이해 접어야 자국이 쌓이고, 자국이 쌓여야 마지막에 종이가 스스로 접힌다. 그래서 배는 늘 한 척뿐이고 쌓이는 것은 <b>금</b>이다.<br>
+- <b>우연이 아니라 물리</b> — 첫 배만 빳빳한 새 종이에 앞발 옆날로 눌러 다졌다(p1). 나머지 아흔여덟 번은 보드라워진 종이라 자국이 흐리다. 백 번째에 손을 얹으면 종이는 <b>제일 깊은 금</b>을 따라 접힌다. 아이가 외울 규칙이 아니라 p12 에서 빛에 비춰 <b>눈으로 보는 것</b>이다.<br>
+- <b>추론 없음</b> — 다람쥐는 p11 에서 배를 눈앞에 들어 <b>모양을 알아볼 뿐</b>이고, p12 에서 굵은 금을 <b>손끝으로 만질 뿐</b>이다. 이유를 말하는 사람은 없다.<br>
+- 착지에 교훈 문장을 안 넣었다. 마지막 쪽은 창턱에 세운 배와 할머니의 "백." 한 낱말로 끝난다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>새 종이는 빳빳해서 손끝이 아팠어요.
+꾹— 꾹—. 다람쥐가 앞발 옆날로 접은 자리를 다졌어요.
+"다 됐다! 첫 번째 배!"</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 작업대 높이의 아이레벨, 살짝 옆에서
+<b>장소·시간</b> 벨기에 레이스 공방의 창가 작업대. 아침 해가 창틀 바로 안쪽까지만 들어온 때
+<b>인물</b> 화면 가운데 — 새끼 다람쥐가 작업대에 배를 깔고 엎드려, 오른 앞발 옆날을 갓 접은 뱃머리 선 위에 세로로 대고 꾹 누르고 있다. 어깨가 앞으로 쏠리고 볼이 살짝 부풀었다. 눈은 누르는 자리에 딱 붙어 있다. 화면 오른쪽 뒤 — 늙은 오소리 할머니가 둥근 레이스 베개를 무릎에 놓고 실패를 쥔 채, 고개만 다람쥐 쪽으로 살짝 기울여 곁눈으로 본다
+<b>배경·소품</b> 작업대 위 = 크림색 종이배 한 척(뾰족한 뱃머리) · 놋쇠 실패 세 개 · 둥근 레이스 베개 하나. 뒤는 창틀과 하얀 벽뿐. 🔴 종이·벽·소품 어디에도 글자나 숫자 없음
+<b>톤</b> 아침의 연노란 빛이 종이 위에만 얇게 얹혀, 갓 눌린 흰 금 한 줄이 가장 밝게 선다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>쫙—. 배를 도로 폈어요.
+종이 한가운데에 하얀 금이 열십자로 섰어요.
+"하나." 할머니가 실패를 딸깍 놀리며 세어 줬어요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 하이앵글 · 종이를 거의 위에서 내려다보는 부감
+<b>장소·시간</b> 같은 작업대. 아침 빛 그대로
+<b>인물</b> 화면 아래쪽 — 다람쥐가 두 앞발을 종이 양 끝에 벌려 얹고 팔을 쭉 편 채, 방금 펴진 종이를 내려다본다. 꼬리가 등 뒤로 곧게 섰다. 화면 위 귀퉁이 — 오소리 할머니의 앞발과 놋쇠 실패 하나만 프레임에 들어오고, 실패가 손가락 사이에서 반쯤 돌아가 있다
+<b>배경·소품</b> 작업대 위 = 활짝 펴진 크림색 종이 한 장(가운데 흰 금 두 줄이 열십자로) · 레이스 베개 가장자리. 그 밖에는 나뭇결뿐
+<b>톤</b> 위에서 내리는 아침빛. 종이는 밝고 작업대 나무는 반그늘이라, 흰 금 두 줄만 도드라진다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>같은 종이를 다시 접었더니 이번 건 납작했어요.
+"봐요, 납작배!"
+"둘."</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨, 정면보다 살짝 낮게
+<b>장소·시간</b> 같은 작업대. 아침 빛이 종이 앞머리까지 들어온 때
+<b>인물</b> 화면 왼쪽 — 다람쥐가 납작한 배를 두 앞발로 받쳐 들어 할머니 쪽으로 쑥 내민다. 몸이 앞으로 기울고 뒷발 하나가 발끝만 남아 들려 있다. 입이 활짝 벌어졌다. 화면 오른쪽 — 할머니가 실패를 쥔 앞발을 무릎에 얹은 채 눈만 배 쪽으로 내리깐다. 얼굴 줄무늬가 정면으로 보인다
+<b>배경·소품</b> 작업대 위 = 놋쇠 실패 두 개 · 레이스 베개. 배는 다람쥐 손 위에 있으므로 작업대 위는 비운다
+<b>톤</b> 낮게 든 아침빛. 배의 접힌 선들이 옆에서 걸린 빛에 얇게 도드라진다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>접고 펴고, 접고 펴고.
+종이에는 하얀 잔금이 자꾸 늘었어요.
+"열둘."</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 하이앵글 · 종이를 위에서 내려다보는 부감
+<b>장소·시간</b> 같은 작업대. 해가 조금 올라 빛이 작업대 앞머리까지 들어온 때
+<b>인물</b> 화면 가운데 — 다람쥐가 두 앞발을 종이 가운데에 겹쳐 얹고 몸을 앞으로 눌러, 방금 접은 조각배를 손바닥 밑에 깔고 있다. 귀가 앞으로 쏠렸다. 화면 오른쪽 위 — 할머니의 앞발과 실패 하나만 프레임 안에 들어와 있다
+<b>배경·소품</b> 작업대 위 = 손바닥 밑에서 반쯤 삐져나온 작은 종이배 하나 · 놋쇠 실패 두 개. 🔴 종이의 삐져나온 부분에 얇은 흰 잔금이 여럿, 그중 <b>한 줄만 눈에 띄게 굵고 하얗다</b>(글에는 없음)
+<b>톤</b> 아침빛이 조금 넓어졌다. 잔금은 대부분 희미하고, 굵은 한 줄만 빛을 받아 선명하다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>"돛도 달았어요!"
+다람쥐가 세모 조각을 톡 세웠어요.
+"스물아홉." 실패가 딸깍딸깍.</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 클로즈업 · 작업대 위 아이레벨, 배와 눈높이를 맞춘 낮은 앵글
+<b>장소·시간</b> 같은 작업대. 빛이 작업대 한가운데로 옮겨 온 낮
+<b>인물</b> 화면 왼쪽 아래 — 다람쥐의 앞발 하나만 크게 들어와, 검지 끝으로 배 등의 세모 돛을 톡 세우고 있다. 다람쥐 얼굴은 화면 왼쪽 가장자리에 반만 걸쳐 눈 하나와 벌어진 입이 보인다. 화면 오른쪽 뒤 — 할머니가 레이스 베개 위에서 실패 두 개를 서로 넘겨 잡는 자세, 시선은 제 손에
+<b>배경·소품</b> 작업대 위 = 돛 하나 세운 종이배 · 놋쇠 실패 두 개 · 레이스 베개 절반. 배경은 비운다
+<b>톤</b> 낮의 흰 빛이 위에서 곧게 내려 돛 옆에 짧은 그림자를 만든다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>그런데 종이가 말을 안 들어요.
+여기를 누르는데 저쪽이 스르륵 접혀요.
+"어? 여기가 아닌데!"</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 어깨너머, 다람쥐의 손과 종이가 같은 깊이에 놓이게
+<b>장소·시간</b> 같은 작업대. 낮 빛
+<b>인물</b> 화면 가운데 — 다람쥐가 오른 앞발로 종이의 <b>오른쪽 끝</b>을 꾹 누르고 있는데, 종이는 <b>왼쪽에서</b> 저 혼자 봉긋 접혀 올라와 있다. 눌린 쪽 어깨는 내려가고 반대쪽 어깨는 올라가 몸이 비뚤다. 눈썹이 한쪽만 올라가고 입이 동그랗다. 화면 오른쪽 가장자리 — 할머니의 회색 어깨와 귀 끝만 걸친다
+<b>배경·소품</b> 작업대 위 = 한쪽이 눌리고 반대쪽이 솟은 크림색 종이 한 장(잔금이 잔뜩, 그중 굵은 흰 줄 하나) · 실패 하나. 그 밖에는 비운다
+<b>톤</b> 낮 빛. 솟아오른 쪽 아래에만 삼각형 그늘이 생겨 「엉뚱한 데가 접혔다」가 그늘로 읽힌다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>엉뚱하게 접힌 종이를 다람쥐가 뒤집어 봤어요.
+뭉툭하지만 그것도 배였어요.
+"이것도 배네!" "쉰다섯."</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨
+<b>장소·시간</b> 같은 작업대. 빛이 작업대 가운데를 지나 안쪽으로 기운 오후
+<b>인물</b> 화면 가운데 — 다람쥐가 뭉툭한 배를 두 앞발로 잡아 <b>밑바닥이 보이게 뒤집어</b> 눈앞까지 들었다. 고개가 갸웃 기울고 한쪽 눈이 가늘어졌다. 화면 오른쪽 — 할머니가 실패를 든 채 고개를 들어 배를 본다. 입이 작게 벌어져 숫자를 대는 중
+<b>배경·소품</b> 작업대 위 = 놋쇠 실패 세 개 · 레이스 베개. 배는 손 위에 있다
+<b>톤</b> 오후의 노란빛이 옆에서 들어와 뒤집힌 배 밑바닥의 접힌 선들을 길게 훑는다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>종이는 이제 부슬부슬 보드라워졌어요.
+다람쥐가 손바닥으로 쓱— 쓸어 폈어요.
+잔금이 어찌나 많은지 세어지지도 않아요.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 하이앵글 · 종이를 위에서 내려다보는 부감, p2 와 같은 구도
+<b>장소·시간</b> 같은 작업대. 빛이 작업대 안쪽 끝까지 밀려간 늦은 오후
+<b>인물</b> 화면 아래 — 다람쥐가 오른 앞발 손바닥 전체를 종이에 붙이고 왼쪽에서 오른쪽으로 밀어 쓸고 있다. 팔이 다 펴지고 어깨가 종이 쪽으로 낮게 내려갔다. 눈은 반쯤 감겼다. 화면 위 귀퉁이 — 할머니의 앞발과 실패 하나, 실패는 멈춰 있다
+<b>배경·소품</b> 작업대 위 = 잔금이 온통 그물처럼 얽힌 크림색 종이 한 장. 🔴 흐릿한 잔금 수십 줄 가운데 <b>가운데를 세로로 가로지르는 굵고 하얀 금 한 줄만 또렷하다</b>(글에는 없음) · 실패 하나
+<b>톤</b> 늦은 오후의 낮고 주황한 빛이 옆에서 들어와, 얕은 잔금은 지워지고 깊은 한 줄만 그림자를 남긴다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>손끝이 발갛고 뜨끈했어요.
+다람쥐는 앞발을 후— 불고 다시 종이를 잡았어요.
+"아흔아홉."</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨, 얼굴과 앞발이 같은 깊이에
+<b>장소·시간</b> 같은 작업대. 창빛이 작업대를 다 건너가 벽으로 올라붙은 저녁 무렵
+<b>인물</b> 화면 가운데 — 다람쥐가 왼 앞발을 입가로 들어 올려 손끝에 후 불고, 오른 앞발은 벌써 종이 귀퉁이를 잡고 있다. 눈은 종이를 보고 있다. 손끝 살이 발갛다. 화면 오른쪽 — 할머니가 실패를 무릎에 내려놓고 다람쥐 쪽으로 몸을 조금 돌렸다
+<b>배경·소품</b> 작업대 위 = 잔금투성이 크림색 종이 한 장(굵은 흰 줄 하나) · 놋쇠 실패 세 개가 나란히 눕혀져 있다
+<b>톤</b> 저녁의 주황빛이 벽 위쪽에만 남아, 작업대는 따뜻한 그늘 속. 발간 손끝이 화면에서 제일 붉다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>백 번째예요.
+앞발을 종이 위에 얹기만 했는데, 착—.
+종이가 저 혼자 접혔어요.
+"어…?"</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 클로즈업 · 로우앵글에 가까운 낮은 아이레벨, 작업대 면과 거의 나란히
+<b>장소·시간</b> 같은 작업대. 저녁 그늘
+<b>인물</b> 화면 가운데 — 다람쥐의 오른 앞발이 아직 종이 위에 <b>얹힌 그대로</b>인데, 그 손바닥 밑에서 종이가 이미 배 모양으로 서 있다. 손가락은 하나도 굽지 않았다. 다람쥐의 얼굴이 화면 왼쪽 위에서 내려다보는데 눈이 크게 벌어지고 입이 작게 열렸다. 화면 오른쪽 가장자리 — 할머니의 어깨와 멈춘 실패
+<b>배경·소품</b> 작업대 위 = 저 혼자 접혀 선 종이배 한 척과 그 위에 얹힌 앞발. 그 밖에는 비운다
+<b>톤</b> 저녁의 낮은 주황빛이 옆에서 배의 뱃머리 선 한 줄만 밝게 걸치고 나머지는 그늘</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>다람쥐는 배를 두 앞발로 들어 눈앞까지 올렸어요.
+뱃머리도, 밑바닥도 아침에 접은 그 모양 그대로예요.
+"이거, 맨 처음 그 배잖아요!"</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨 정면
+<b>장소·시간</b> 같은 작업대. 저녁
+<b>인물</b> 화면 가운데 — 다람쥐가 배를 두 앞발로 받쳐 눈높이까지 들어 올렸다. 팔꿈치가 몸에 붙고 등이 곧게 섰다. 눈이 동그랗고 입이 크게 벌어졌다. 배의 뾰족한 뱃머리가 p1 과 같은 각도로 화면 왼쪽을 향한다. 화면 오른쪽 뒤 — 할머니가 처음으로 고개를 완전히 들어 배를 마주 본다
+<b>배경·소품</b> 작업대 위 = 놋쇠 실패 세 개 · 레이스 베개. 배경은 창틀과 벽뿐
+<b>톤</b> 저녁빛. 배가 두 얼굴 사이에서 가장 밝다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>할머니가 배를 창빛에 비춰 줬어요.
+잔금은 다 흐릿한데 한 줄만 하얗게 굵었어요.
+다람쥐가 그 금을 손끝으로 따라갔어요.
+"여기만 깊어요."</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨, 배를 역광으로 보는 각도
+<b>장소·시간</b> 같은 작업대. 창 쪽으로 든 저녁빛
+<b>인물</b> 화면 위쪽 — 할머니가 두 앞발로 배를 잡아 창 쪽으로 들어 올려 빛이 종이를 통과하게 하고 있다. 팔이 위로 뻗었다. 화면 아래쪽 — 다람쥐가 발끝으로 서서 검지 끝을 배 옆구리에 대고 굵은 금을 따라 위로 밀어 올린다. 눈이 손끝을 좇는다. 두 얼굴이 배를 사이에 두고 마주 본다
+<b>배경·소품</b> 배 하나 · 창틀 · 창밖의 흐린 하늘. 🔴 종이를 통과한 빛 속에 잔금 수십 줄이 흐릿하게 비치고 <b>굵은 흰 금 한 줄만 뚜렷한 선으로</b> 보인다. 작업대 소품은 프레임에서 뺀다
+<b>톤</b> 역광. 종이가 안에서부터 주황으로 밝고, 두 인물은 어두운 실루엣에 가깝다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>다람쥐는 배를 창턱에 세웠어요.
+저녁 빛이 배를 지나가자, 굵은 금 한 줄만 또렷하게 섰어요.
+"백." 할머니가 마지막으로 세었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 와이드 · 창틀과 나란한 아이레벨, 배를 옆에서
+<b>장소·시간</b> 같은 자리. 해가 창 아래로 내려앉기 직전
+<b>인물</b> 화면 오른쪽 — 다람쥐가 창턱 앞에 두 앞발을 창턱에 얹고 턱을 그 위에 괸 채 배를 옆에서 본다. 화면 왼쪽 뒤 — 할머니가 레이스 베개 위에 실패를 내려놓고 창 쪽을 본다. 둘 다 말없이 배 쪽을 향한다
+<b>배경·소품</b> 창턱 위 = 크림색 종이배 한 척뿐. 아래 작업대에 놋쇠 실패 세 개와 레이스 베개. 🔴 배를 통과한 저녁빛 속에서 잔금은 다 녹아 사라지고 <b>뱃머리에서 밑바닥까지 이어진 굵은 흰 금 한 줄만 선명하게 남아</b> 배를 세우고 있다
+<b>톤</b> 가장 낮은 주황빛이 창턱을 옆에서 훑어, 배 하나만 밝고 방 안은 따뜻한 어둠</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'h06',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 다람쥐(이름 없음)', '레이스 뜨는 늙은 오소리 할머니(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb6da4ec44"></script>
+<script src="/changjak-core.js?v=47fd80bb6da4ec44"></script>
+</body>
+</html>

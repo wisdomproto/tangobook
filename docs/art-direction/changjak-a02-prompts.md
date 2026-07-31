@@ -95,7 +95,7 @@ CHARACTER DESIGN LANGUAGE: animal faces, no clothes, no fingers, no shoes. A dar
   are doing something. The hedgehog's willow basket is BALANCED ON ITS BACK, never held. If a pose
   fails, change the squirrel.
 
-CANVAS: 16:9 double-page spread, 4-6 year old picture book. Bottom 18% quiet for a caption. No
+CANVAS: 16:9 double-page spread, 4-6 year old picture book. No
   lettering or numerals anywhere - no sign, price or nameplate; the bakery reads by its striped
   awning and the bread shapes in its window.
 

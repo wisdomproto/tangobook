@@ -140,6 +140,14 @@ HTML 로 붙인다. `node scripts/phonics-contact-sheet.mjs --base=http://localh
 - 뿌리는 `resolveTtsUrl`(`features/tts`) 이 **탭할 때마다 서버에 URL 을 다시 물었던 것** — 결과가 결정적인데도. 이제 **세션 캐시**(in-flight 공유, 실패는 캐시 안 함)라 데워둔 소리는 왕복 0. 게임·뷰어 등 모든 호출부가 함께 이득.
 - 게임처럼 진행률 게이트를 세우지 **않는다** — 파닉스는 첫 소리까지 아이가 할 일(카드 보기)이 있어 게이트가 진입만 느려 보이게 한다.
 - 배선 완료: 모음 듣기/쓰기 · 자음 누르기/쓰기 · 자음+모음. 실측 = 탭 시 네트워크 요청 0건.
+- 🔴 **영어 파닉스 활동 전수 배선 + 가드 테스트**(2026-07-31 사용자 "영어 파닉스 전부 진입 프리워밍 좀"):
+  한 화면씩 빠뜨려 반복 지적받았다. 마지막 구멍 = `CvcPatternWriteActivity`(warm 0), 공용 활동
+  (word-listen·review-flip·letter-hunt)은 `language` 를 안 넘겨 **영어에서 korean 으로 데워** 헛돌았다.
+  🔴 재생과 **같은 prefix·언어**로 데워야 캐시가 맞는다(CvcPatternLearn/Write 는 `en-cvc` 로 통일 —
+  같은 낱말을 서버가 두 번 안 만든다). 🔴 **복습 그림짝(`LineMatchingPlayer`)은 글자별로 데우는데 영어는
+  낱말 통째 키(`map.get(word)`)로 재생**해 헛돌았다 → 재생 경로에 맞춰 정렬. **가드**
+  `activities/english-phonics-warm.test.ts` = 영어 활동 소스에 `usePhonicsTtsWarm` 호출이 있는지 정적 검사
+  (directUrl 만 쓰는 `AlphabetLetterWrite` 제외). 새 영어 활동이 warm 을 빠뜨리면 CI 가 빨갛게 뜬다.
 - 🔴 **워밍은 순차로**(2026-07-27). 받침 익히기는 14짝 × 3텍스트 = 중복 제거해도 29건이다.
   병렬로 쏘면 아이가 가장 먼저 누르는 첫 글자가 스물몇 건 뒤에 줄을 선다. 호출부가 넘기는
   `[첫글자, 둘째글자, 이어읽기]` 순서가 곧 우선순위이므로 그 순서대로 하나씩 데운다.
@@ -304,12 +312,48 @@ features/phonics-learner/
 
 랜딩(`PhonicsLandingPage`)의 영어 카드가 다시 `<Link to="/library/phonics/english">` 다. 같은 날 「준비 중」 음영으로 닫았다가 테스트를 위해 되돌렸다 — **닫는 것도 여는 것도 그 카드 한 곳**이고, 라우트(`library/phonics/english/*`)와 Book 1~5 활동 코드는 닫혀 있는 동안에도 전부 살아 있었다.
 
-## 🏅 영어 복습 (2026-07-26) — 한글과 규칙이 다르다
+## 🔤 영어 Book 3·4·5 = 낱말 기반 재사용 (2026-07-31)
 
-`en-b1-r1~r4`, `en-b2-r1~r4` (8개). 가드 = `lib/english-phonics-units.test.ts`.
+Book 3(Magic-e 장모음 `_ake`) · Book 4(블렌드·이중자음 `bl_`·`ch`) · Book 5(모음팀·R모음 `ee`·`ar`) 23단원이
+예전엔 「활동 준비 중」(plan 0개)이었다. 🔴 **데이터는 이미 완비돼 있었다** — `phonicsConfig.targetWords` +
+flashcard 그림 + keypoints + `wordFamilies[].words[].ttsUrl`(ABC 나무 카드 연동·TTS 백필 덕분). 그래서
+**새 컴포넌트 없이** 열었다: `makeWordUnitPlan()` = 듣고 고르기(낱말) + 게임 4종(블록·낱말쓰기·낱말그리기·그림짝).
+
+- 🔴 **패턴 전용 「배우기」는 안 만들었다**(사용자 "먼저 재사용판으로") — Magic-e·블렌드·모음팀은 철자 구조가
+  달라 Book 2 의 CVC 전용 `CvcPatternLearn` 이 안 맞는다. 개념 배우기는 후속. 지금은 낱말 반복으로 익힌다.
+- 🔴 **듣고 고르기 = `letters` 없는 분기**(`EnglishPhonicsActivityPage`). Book 1 은 `activity.letters` 로
+  알파벳 카드를 만들지만, Book 3~5 는 letters 를 안 넘겨 **wordFamilies(낱말+ttsUrl) × findImageData(그림)**
+  로 낱말 카드를 만든다. 🔴 **발음은 flashcards 가 아니라 wordFamilies 에 있다**(flashcards 는 전 권 ttsUrl 0).
+- 🔴 **단어 TTS 백필**(2026-07-31, prod R2) — 23단원 중 9단원 29낱말이 비어 있었다. `phonics-library/concat`
+  은 **합성기가 아니라 라이브러리 조회**라 라이브러리에 있는 18개만 붙고, 없는 11개(`chime·pang·float`…)는
+  `/api/tts/generate provider=gemini` 로 합성. 🔴 **표준 스크립트(`generate-phonics-word-tts.mjs`)를 그대로
+  쓰면 안 된다** — Book 4/5 의 `blending.blend` 데이터가 깨져(`cri`·`plo`·`oyb`) "blend blend word"(cri cri
+  crab)로 구워진다. **낱말만** 합성했다. ⚠️ 기존 낱말도 같은 깨진 blend 로 구웠을 수 있어(재생 이상하면 그
+  단원 낱말-only 재생성). 🔴 Google TTS 는 prod 에서 API 비활성(403) → Gemini(짧은 낱말 간헐 무응답, 재시도).
+
+## 영어 파닉스 UI 손질 (2026-07-31 사용자 반복 피드백)
+
+- **ABC 배우기(`alphabet-letter-learn`)**: 아래 `[Aa🔊]`·`[Bb▶]` 버튼 **둘 다 제거** · 핫스팟 다 누르면
+  칭찬(`playCorrectSequence` onDone) 뒤 **자동으로 다음 글자**(마지막은 머묾) · 글자 소리는 **상단 활성 탭 재탭**.
+- **듣고 고르기 퀴즈(`word-listen-choose`)**: 퀴즈에서 **글자만**(그림 X) → 맞히면 그 카드가 **그림으로 뒤집힘**
+  - 아래 알파벳(`revealImageUrl` 를 Book 1 호출부에 배선, 렌더는 `exploring` 일 때만 탐색 그림 노출).
+- **ABC 써 보기(`alphabet-letter-write`)**: 통과 시 **풀스크린 팝업 대신 그 쓰기 칸이 그림으로**+아래 알파벳.
+- **CVC 배우기/써보기(`CvcPatternLearn`/`Write` Phase C)**: `an` 만 쓰던 걸 **앞 자음부터 낱말 전체**(c-a-n).
+- **Book 1 복습**: 「듣고 낱말」 제거(낱말 소리→첫 글자라 「듣고 글자」·「배우기 2」와 겹침). Book 2 는 6종 유지.
+
+## 🏅 영어 복습 (2026-07-26, 2026-07-31 전 권 확장) — 한글과 규칙이 다르다
+
+Book 1~5 전 권 **19개**(`en-b1-r1~r4`·`en-b2-r1~r4`·`en-b3-r1~r3`·`en-b4-r1~r4`·`en-b5-r1~r4`).
+가드 = `lib/english-phonics-units.test.ts`.
 
 - 🔴 **묶음이 2단원**(한글은 4). 영어는 한 단원이 글자·패턴을 3~4개씩 안고 있어 4단원을 묶으면 카드가 12~14장 깔린다. 2단원이면 5~8장으로 한글과 비슷한 밀도.
-- 🔴 **Book 1·2 에만** 만든다(`reviewableLevels`). Book 3~5 는 학습 활동 자체가 없어 복습만 생기면 빈 껍데기가 된다.
+- 🔴 **Book 3·4·5 복습 = 낱말 기반 시각 3종**(2026-07-31): 복습 카드 = 그 단원 낱말(`letter===word`)이라
+  `pickWord`(startsWith)가 그 낱말을 정확히 집고 **기존 Book 2 복습 분기(낱말↔그림)가 호스트 변경 0 으로 동작**.
+  플랜은 **뒤집기·그림짝·낱말쓰기**만(글자 사냥·듣기 제외 — 낱말엔 안 맞고, Gemini 로 채운 낱말은 재생시점
+  concat 무음이 될 수 있다). 🔴 **단원당 앞 4낱말씩**(`reviewCardsFor` slice) — 전부 넣으면 `slice(0,8)` 에서
+  첫 단원만 담긴다. 🔴 Book 3(7단원)은 **꼬리 1단원을 앞 묶음에 병합**(단독 복습 방지 → `long-o~long-u 복습`),
+  제목 phoneme **중복 제거**(`long-a~long-a`→`long-a`). 브라우저 검증(prod API): en-b3-r1 그림짝·뒤집기 정상.
+- ~~🔴 **Book 1·2 에만** 만든다~~ → **전 권**(`reviewableLevels` = book1~5, 2026-07-31).
 - ~~활동 2종뿐 — 짝 찾기 없음~~ → **한글과 같은 6종이 다 돈다**(2026-07-27 단어 카드 388장 연동 이후). 검수로 `en-b1-r1/review-match` 가 6쌍(A~F × alligator·bag·cap·desk·egg·fan) 정상 동작 확인(2026-07-29). 🔴 이 줄이 **낡은 채로 남아 「영어 복습엔 짝 찾기가 없다」고 두 번 오판하게 했다** — 전제(그림 0장)가 사라지면 그 전제로 쓴 문장도 같이 고칠 것.
 - **쓰기는 그림 대신 소리가 문제** — `ReviewWriteActivity` 가 `imageUrl` 없으면 🔊 버튼을 띄우고 카드가 바뀔 때 자동 재생한다. 자산 때문에 택한 형태지만 파닉스로는 오히려 정공법.
 - 카드 = Book 1 `{letter:'A', syllable:'a'}`(대/소문자 쌍) · Book 2 `{letter:'an'}`(VC 패턴). `matchPosition` 은 한글 전용 필드라 `'cho'` 로 채우고 안 쓴다.

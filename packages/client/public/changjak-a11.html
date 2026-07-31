@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>A-11 내가 안 그랬어 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · A · 마음·감정 · 11</div>
+  <h1>내가 안 그랬어</h1>
+  <div class="sub">깨진 화분 앞에서 까치가 발뺌해요. 그런데 소리칠수록 지붕이 자꾸 시끄러워져요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 누적·반복</span>
+  <span>무대 · 체코 지붕</span>
+  <span>후렴 · "내가 안 그랬어!" (p3·p7·p9 세 번 · 🔴 p11 에서 "…내가 그랬어." 로 뒤집힌다)</span>
+  <span class="q">13스프레드</span>
+  <span class="q">본문 608자 · 쪽당 47자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- 🔴 <b>세상이 마음에 반응하지 않는다.</b> 이웃이 느는 원인은 전부 화면 안에 있다 — 까치가 크게 외칠수록 <b>몸을 크게 쓰고</b>(발 구르기 → 날개 휘젓기 → 폴짝 → 두 날개 활짝), 그때마다 <b>기와가 흔들려 소리가 난다</b>. 새들은 그 기와 <b>바로 아래</b>에서 자고 있었다(처마 밑 참새 · 홈통 속 박새 · 다락 안 제비). 까치가 서 있는 자리가 곧 이웃들의 천장이다. 「변명 하나 = 이웃 하나」로 안 읽히게 수도 1·2·4 로 어긋냈고, 첫 이웃(비둘기)은 변명이 나오기 전부터 있다.<br>
+- <b>인물 둘</b> = 까치 · 늙은 비둘기. 참새·박새·제비는 <b>한 마디도 안 한다</b> — 이름도 없고 개별 성격도 없는 늘어나는 눈이다. 이 이야기의 압력은 말이 아니라 침묵이라 그편이 세다.<br>
+- <b>착지에 교훈 없음.</b> 마지막 쪽엔 대사도 없다. 까치는 아무 다짐도 안 하고, 처음으로 고개를 들 뿐이다. 창턱 화분 줄의 빈 한 자리는 추론이 아니라 <b>눈으로 맞춰 보는 것</b>이다 — 까치가 문 꽃과 줄 위의 꽃이 같은 빨강이라 아이가 색으로 짝짓는다.<br>
+- <b>장소 하나</b> = 지붕 한 면. 깨진 조각과 흙은 중턱, 굴러떨어진 꽃과 미끄러진 기와는 처마 끝. p11~p13 은 까치가 처마 끝에 있는 동안 자세만 바뀐다(내려가는 이동은 글에서 뺐다).
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>지붕 위에 화분이 깨져 있어요. 빨간 꽃 한 송이는 저 아래 처마 끝에 떨어져 있고요. 까치가 고개를 푹 숙이고, 발끝으로 흙을 슬쩍 밀어요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 지붕 비탈을 옆에서 보는 아이레벨. 화면 맨 위 귀퉁이는 다락 창턱에 잘려 있다
+<b>장소·시간</b> 붉은 기와가 비스듬히 깔린 지붕 한 면. 해가 막 올라온 이른 아침
+<b>인물</b> 화면 가운데 아래 — 까치가 깨진 화분 앞에 서 있다. 목을 완전히 숙여 부리가 기와에 닿을 듯하고, 시선은 제 발밑 흙더미에만 있다. 오른발 끝으로 쏟아진 흙을 옆으로 슬쩍 밀고 있고, 꼬리는 아래로 축 처졌다. 화면 위 굴뚝 위에는 늙은 비둘기가 눈을 감고 목을 몸에 파묻은 채 졸고 있다
+<b>배경·소품</b> 깨진 화분 조각 서넛과 쏟아진 검은 흙 한 무더기(중턱) · 저 아래 처마 끝에 옆으로 누운 빨간 꽃 한 송이 · 굴뚝 하나 · 🔴 화면 맨 위 귀퉁이에 다락 창턱 끄트머리와 빨간 화분 하나가 반쯤 잘려서 걸려 있다(까치는 그쪽을 안 본다)
+<b>톤</b> 낮게 깔린 아침 햇빛이 기와를 따라 길게 미끄러진다. 아직 아무 소리도 없는 고요</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>굴뚝 위에서 졸던 늙은 비둘기가 한쪽 눈을 슬며시 떠요.
+"그거… 네가 깼어?"</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 굴뚝 쪽을 살짝 올려다보는 로우앵글
+<b>장소·시간</b> 같은 지붕, 굴뚝 위. 바로 이어지는 순간
+<b>인물</b> 화면 오른쪽 위 — 늙은 비둘기가 굴뚝 벽돌 위에 앉은 그대로, 한쪽 눈만 반쯤 뜨고 까치 쪽을 내려다본다. 몸은 여전히 동그랗게 부풀린 채 움직이지 않는다. 화면 왼쪽 아래 — 까치가 밀던 발을 그대로 멈추고 굳어 있다. 부리는 다물렸고 눈만 옆으로 굴려 비둘기 쪽을 본다
+<b>배경·소품</b> 굴뚝 벽돌 · 깨진 조각과 흙 · 기와결
+<b>톤</b> 아침빛. 조용한데 공기가 한 칸 팽팽해진 느낌</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>까치가 발을 탁! 굴러요.
+"내가 안 그랬어!"
+발밑에서 기와 한 장이 달그락.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 · 아이레벨. 까치의 발과 기와가 화면 아래쪽에 크게 걸린다
+<b>장소·시간</b> 지붕 중턱. 바로 다음 순간
+<b>인물</b> 화면 가운데 — 까치가 가슴을 펴고 부리를 크게 벌려 외친다. 오른발이 기와를 막 내리찍은 자세로 발끝이 기와에 닿아 있고, 날개는 몸에 붙인 채 어깨만 위로 솟았다. 시선은 여전히 비둘기가 아니라 제 발밑 흙더미 쪽
+<b>배경·소품</b> 까치 발밑 기와 한 장이 살짝 들썩여 옆 기와와 어긋나 있다 · 깨진 조각과 흙 · 굴뚝 위 비둘기(작게)
+<b>톤</b> 아침빛. 소리 하나가 고요를 딱 깨뜨린 순간</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>소리가 난 바로 그 자리, 처마 밑에서 참새가 쏙 얼굴을 내밀어요. 까치가 날개로 깨진 조각을 슬쩍 가려요.
+"…뭘 봐."</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨. 들썩인 기와와 그 아래 처마 틈이 한 화면에 같이 들어온다
+<b>장소·시간</b> 지붕 중턱과 그 아래 처마. 바로 다음 순간
+<b>인물</b> 화면 오른쪽 아래 — 참새 한 마리가 처마 틈에서 머리만 쏙 내밀었다. 부리는 다물었고 눈이 동그랗게 까치를 향한다. 화면 왼쪽 — 까치가 몸을 옆으로 틀며 한쪽 날개를 아래로 펼쳐 깨진 조각을 덮는다. 부리는 삐죽 내밀었고 눈은 참새 쪽을 흘긴다
+<b>배경·소품</b> 들썩여 어긋난 기와 한 장 · 처마 틈 · 까치 날개에 반쯤 가려진 화분 조각
+<b>톤</b> 아침빛. 가리려는 몸짓 때문에 화면이 한쪽으로 기운다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>까치가 날개를 파닥파닥 휘저어요.
+"바람이 그랬어!"
+"휭— 하고 넘어간 거야!"
+기와가 여러 장 달그락달그락.</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 · 살짝 위에서 내려다보는 하이앵글. 흔들리는 기와 여러 장이 보이게
+<b>장소·시간</b> 지붕 중턱. 바로 다음 순간
+<b>인물</b> 화면 가운데 — 까치가 두 날개를 크게 휘저어 바람을 흉내 낸다. 깃털이 흩어지고 몸은 앞으로 기울었으며 부리는 활짝 벌어졌다. 두 발이 기와를 딛고 버티느라 발가락이 벌어져 있다. 화면 오른쪽 아래 — 참새가 목을 조금 더 빼고 그대로 본다
+<b>배경·소품</b> 까치 주변 기와 대여섯 장이 저마다 조금씩 어긋나 들썩인다 · 흙 위에 찍힌 까치 발자국 · 굴뚝 위 비둘기가 목을 길게 뺐다
+<b>톤</b> 아침빛. 화면 전체가 잘게 흔들리는 느낌</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>홈통 속에서 박새 둘이 툭 튀어나와요. 젖은 깃털을 부르르 털어요. 까치가 한 발짝 물러나요.
+"지붕이 왜 이렇게 시끄러워."</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨. 처마를 따라 달린 홈통이 화면을 가로지른다
+<b>장소·시간</b> 지붕 처마와 홈통. 바로 다음 순간
+<b>인물</b> 화면 오른쪽 아래 — 박새 두 마리가 홈통 위로 막 올라섰다. 한 마리는 몸을 부르르 털어 물방울이 사방으로 튀고, 다른 한 마리는 깃털이 젖어 납작한 채로 까치를 똑바로 본다. 둘 다 입은 다물었다. 화면 왼쪽 — 까치가 한쪽 발을 뒤로 옮겨 딛는 중이다. 어깨가 살짝 움츠러들고 부리는 다물렸다. 화면 오른쪽 위 굴뚝 — 늙은 비둘기가 앉은 자세 그대로 부리만 조금 벌려 중얼거린다. 시선은 까치가 아니라 들썩인 기와 쪽
+<b>배경·소품</b> 홈통 안에 고인 물 · 튀는 물방울 몇 · 처마 틈의 참새(그대로) · 어긋난 기와들
+<b>톤</b> 아침빛. 젖은 것 때문에 화면 오른쪽만 조금 차갑다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>까치가 폴짝 뛰어요.
+"고양이야! 고양이가 밀었어!"
+"내가 안 그랬어!"
+달그락달그락달그락, 지붕 저쪽 끝까지.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 와이드 · 로우앵글. 뛰어오른 까치가 하늘을 배경으로 뜨고, 지붕 면이 저 끝까지 보인다
+<b>장소·시간</b> 지붕 중턱. 바로 다음 순간
+<b>인물</b> 화면 가운데 — 까치가 두 발을 다 떼고 폴짝 뛰어오른 순간. 꼬리가 위로 젖혀지고 부리는 최대로 벌어졌으며 한쪽 날개가 옆을 가리키듯 뻗었다. 시선은 가리키는 쪽이 아니라 아래 기와에 있다. 화면 오른쪽 아래 — 참새와 박새 둘이 나란히 위를 본다
+<b>배경·소품</b> 지붕 저쪽 끝까지 기와가 줄줄이 어긋나 흔들리는 물결 · 어긋난 틈으로 보이는 검은 그늘 몇 줄 · 굴뚝 위 비둘기
+<b>톤</b> 아침빛. 소리가 지붕 끝까지 퍼져 나가는 넓은 화면</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>다락 창이 삐걱 열려요. 제비 넷이 줄줄이 나와 지붕마루에 앉아요. 까치가 목을 움츠려요.
+"…왜 자꾸 나와."</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 와이드 · 아이레벨. 지붕마루와 다락 창이 화면 위쪽을 채운다
+<b>장소·시간</b> 지붕마루와 다락 창. 바로 다음 순간
+<b>인물</b> 화면 위쪽 — 제비 네 마리가 다락 창에서 나와 지붕마루 위에 나란히 앉았다. 넷 다 같은 방향, 아래 까치 쪽을 본다. 아무도 입을 벌리지 않았다. 화면 아래 — 까치가 목을 어깨 사이로 쑥 집어넣고 몸을 작게 웅크렸다. 부리 끝만 위로 향해 있다
+<b>배경·소품</b> 🔴 반쯤 열린 다락 창 · 그 창턱에 빨간 화분들이 줄지어 놓인 것이 창틀에 반쯤 가려 언뜻 보인다(줄 가운데가 한 칸 비어 있는 것까지) · 지붕마루 기와 · 처마의 참새와 박새 둘
+<b>톤</b> 아침빛. 위쪽이 눈으로 꽉 차서 화면이 무겁게 내려앉는다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>까치가 두 날개를 활짝 펴고 소리쳐요.
+"다들 왜 쳐다봐!"
+"내가 안 그랬다니까!"
+발밑 기와 한 장이 쭈욱 미끄러져요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨. 까치의 몸이 화면 가장 크게 들어오고 발밑이 같이 보인다
+<b>장소·시간</b> 지붕 중턱. 바로 다음 순간
+<b>인물</b> 화면 가운데 — 까치가 두 날개를 최대로 활짝 펴고 목을 길게 빼 외친다. 부리 안이 다 보이도록 벌어졌고 두 발은 기와를 세게 딛어 발가락이 하얗게 벌어졌다. 눈은 위를 향하지 않고 정면 허공을 본다. 위와 옆의 새들은 자세를 하나도 안 바꾼 채 그대로 본다
+<b>배경·소품</b> 까치 오른발 아래 기와 한 장이 제자리에서 빠져 비탈을 따라 미끄러지는 중이다(뒤로 짧은 자국) · 어긋난 기와들 · 깨진 조각과 흙
+<b>톤</b> 아침빛. 가장 큰 소리의 순간인데 주변은 완전히 정지해 있다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>기와가 처마 끝에 대롱 걸려요. 지붕 위가 뚝 조용해져요. 까치도 부리를 벌린 채 굳어요.
+"…기와."</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 · 처마 끝을 옆에서 보는 아이레벨. 화면 아래는 기와 아래 허공
+<b>장소·시간</b> 지붕 처마 끝. 바로 다음 순간
+<b>인물</b> 화면 왼쪽 위 — 까치가 날개를 편 자세 그대로 굳었다. 부리는 벌어진 채 소리가 멈췄고 눈은 크게 벌어져 아래 기와를 본다. 화면 오른쪽 위 — 늙은 비둘기가 굴뚝에서 목을 길게 빼고 아래를 본다. 부리가 조금 벌어져 있다. 참새와 박새 둘, 제비 넷 모두 같은 곳을 본다
+<b>배경·소품</b> 🔴 처마 끝에 절반이 걸려 아래로 기운 기와 한 장(그 옆에 누운 빨간 꽃) · 홈통 · 기와 아래로 훤히 비는 허공
+<b>톤</b> 아침빛. 소리가 통째로 빠져나간 정적</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>까치가 처마 끝에 배를 딱 붙여요. 부리로 기와를 조심조심 밀어 올려요.
+"…내가 그랬어."
+"이것도, 화분도."</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 클로즈업 · 낮은 아이레벨. 까치의 부리와 기와가 화면 가운데를 채운다
+<b>장소·시간</b> 지붕 처마 끝. 바로 다음 순간
+<b>인물</b> 화면 가운데 — 까치가 배를 기와에 완전히 붙이고 납작 엎드렸다. 두 날개는 몸 옆으로 접어 붙였고 두 발은 위쪽 기와 틈을 꽉 잡았다. 부리 끝을 기울어진 기와 아래 모서리에 대고 위로 밀어 올리는 중이라 목에 힘이 들어가 깃털이 곤두섰다. 눈은 반쯤 감겼고 시선은 기와에만 있다
+<b>배경·소품</b> 밀려 올라가는 기와 한 장과 그 자리의 빈 틈 · 옆에 누운 빨간 꽃 · 홈통
+<b>톤</b> 아침빛. 화면이 아주 좁아지고 조용하다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>까치가 옆에 떨어진 빨간 꽃을 부리로 집어요. 흙이 후드득 떨어져요.
+"…응."</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨
+<b>장소·시간</b> 지붕 처마 끝. 바로 다음 순간
+<b>인물</b> 화면 가운데 — 까치가 몸을 반쯤 일으켜 앉은 자세로, 부리로 빨간 꽃의 줄기를 물어 조금 들어 올렸다. 목은 아직 숙인 채고 시선은 꽃뿌리에 있다. 화면 위쪽 멀리 — 늙은 비둘기가 굴뚝 위에서 부리를 조금 벌리고 아래를 본다
+<b>배경·소품</b> 물린 꽃뿌리에서 후드득 떨어지는 검은 흙 알갱이 · 제자리에 다시 들어간 기와 한 장 · 홈통
+<b>톤</b> 아침빛. 아까보다 공기가 한 칸 풀렸다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>까치가 꽃을 문 채 고개를 쭈욱 들어요. 다락 창턱에 빨간 화분이 줄지어 있어요. 그 줄 가운데 한 자리만 동그란 흙 자국을 남기고 비어 있어요.</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 와이드 · 🔴 강한 로우앵글. 처마 끝의 까치 뒤통수 너머로 지붕 비탈이 위로 쭉 뻗어 올라가고 화면 위쪽 끝에 다락 창턱이 있다
+<b>장소·시간</b> 지붕 처마 끝에서 다락 창을 올려다보는 방향. 바로 다음 순간
+<b>인물</b> 화면 아래 가운데 — 까치가 빨간 꽃을 문 채 목을 최대로 위로 뻗어 올렸다. 부리가 하늘을 향하고 가슴이 드러났으며 두 발은 처마 끝에 그대로 있다. 🔴 이 책에서 까치의 눈이 처음으로 발밑이 아니라 위를 향한다. 지붕마루의 제비 넷과 굴뚝의 비둘기는 화면 위쪽에 실루엣으로 작게 걸린다
+<b>배경·소품</b> 🔴 활짝 열린 다락 창턱에 빨간 제라늄 화분 여섯이 줄지어 놓여 있고, 줄 가운데 딱 한 칸이 비어 동그란 흙 자국만 남아 있다 · 그 빨강이 까치가 문 꽃의 빨강과 같다 · 그 아래로 이어지는 붉은 기와 비탈
+<b>톤</b> 조금 높아진 아침빛이 창턱 화분 줄에만 곧게 닿는다. 아래쪽 지붕은 아직 그늘. 조용하고 트인 느낌</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'a11',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['까치(이름 없음)', '늙은 비둘기(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb6da4ec44"></script>
+<script src="/changjak-core.js?v=47fd80bb6da4ec44"></script>
+</body>
+</html>

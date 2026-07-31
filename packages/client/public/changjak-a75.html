@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>A-75 양이 한 마리씩 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · A · 마음·감정 · 75</div>
+  <h1>양이 한 마리씩</h1>
+  <div class="sub">잠이 안 와서 양을 세요. 셀 때마다 한 마리가 또 들어와요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 누적·반복</span>
+  <span>무대 · 카르파티아 양치 마을</span>
+  <span>후렴 · "이제 진짜 잘 거야." (p1·p4·p7 세 번 · 🔴 p12 에서 "이제…" 로 끊긴다)</span>
+  <span class="q">12스프레드</span>
+  <span class="q">본문 497자 · 쪽당 41자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- 🔴 <b>양이 느는 이유는 마음이 아니라 빛이다.</b> 능선에 남은 노란 빛 띠가 줄어들고, 제 발밑이 그늘에 들어간 양이 비탈을 내려와 우리로 들어온다. 그래서 후렴 다음 쪽마다 양이 오지만 <b>개가 무슨 말을 하든 상관없이</b> 온다 — SCENE 마다 능선 위 남은 양 수와 띠 폭을 못박아, 다음에 올 양이 <b>직전 쪽 그림에 이미 비탈 위에 서 있게</b> 했다. 아이가 양이 어디서 오는지 본다.<br>
+- 세는 방법을 몸으로 만들었다 — 양 한 마리 = 지푸라기 한 가닥. 셈이 화면에 줄로 쌓이고, 마지막에 <b>양이 그 줄 위에 누워</b> 셀 것이 사라진다. 착지가 대사가 아니라 물체로 끝난다.<br>
+- 반복 첫 회(p3)는 지푸라기를 무는 행위를 통째로 한 쪽에 그린다.<br>
+- 장소 = 우리 문 옆 짚자리 하나. 카메라는 자리를 안 뜨고, 비탈과 능선은 그 자리에서 보이는 배경이다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>"이제 진짜 잘 거야."
+새끼 개가 짚 위에 몸을 동그랗게 말았어요.
+우리 안 양들은 벌써 조용해요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 짚자리 높이의 낮은 아이레벨
+<b>장소·시간</b> 산비탈 양우리 문 앞 짚자리. 해가 넘어가고 능선에만 빛이 남은 밤 초입
+<b>인물</b> 화면 앞쪽 오른편 — 새끼 양치기 개가 짚 위에 몸을 동그랗게 말고 꼬리로 앞발을 덮은 채 눈을 반쯤 감고 있다. 시선은 발끝 짚
+<b>배경·소품</b> 통나무 울타리 한 귀퉁이와 반쯤 열린 널문 · 우리 안에 누운 양 등 두엇의 둥근 실루엣 · 화면 뒤 비탈은 텅 비었고 🔴 능선 위 노란 빛 띠(세 뼘 폭)에 양 다섯 마리가 작은 실루엣으로 서 있다
+<b>톤</b> 아래는 남색으로 잠기고 능선만 노랗게 남은 하루 끝의 두 겹 빛</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>따가닥— 열린 문으로 양 한 마리가 쏙 들어왔어요.
+새끼 개가 고개를 번쩍 들었어요.
+"어? 아직 있었네."</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 개의 어깨너머로 문을 보는 각도
+<b>장소·시간</b> 같은 짚자리. 조금 더 어두워진 직후
+<b>인물</b> 화면 앞쪽 아래 — 새끼 개가 누운 채 목만 세워 고개를 번쩍 들었고 귀 두 짝이 문 쪽으로 돌아가 있다. 문지방 위 — 양 한 마리가 앞발을 짚에 막 디디며 몸을 들이민다
+<b>배경·소품</b> 널문 틈 · 발밑에 흩어진 짚 몇 가닥 · 🔴 능선 빛 띠는 두 뼘 반으로 줄었고 남은 양은 넷, 그중 하나가 이미 비탈 중턱을 내려오는 중이다
+<b>톤</b> 문 안쪽은 어둡고 문틈으로만 남은 빛이 가늘게 들어오는 대비</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>새끼 개는 지푸라기를 한 가닥 물어 앞발 옆에 톡 놓았어요.
+"하나."
+"이제 다 왔겠지."</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 클로즈업 · 앞발과 짚바닥만 크게, 위에서 살짝 내려다보기
+<b>장소·시간</b> 같은 짚자리. 바로 이어지는 순간
+<b>인물</b> 화면 가운데 — 새끼 개의 주둥이가 아래로 내려와 지푸라기 한 가닥을 막 놓았고, 입술이 아직 벌어져 있다. 앞발 두 짝이 나란히 놓여 그 옆에 지푸라기 한 가닥이 반듯하게 누워 있다
+<b>배경·소품</b> 짚바닥 · 지푸라기 한 가닥(이 권의 셈 도구) · 화면 위쪽 귀퉁이에 우리 문 아래턱만 살짝
+<b>톤</b> 낮은 각도의 마지막 잔광이 지푸라기 한 가닥에만 노랗게 얹힌다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>"이제 진짜 잘 거야."
+새끼 개가 눈을 감았어요.
+언덕 꼭대기 노란 빛이 한 뼘 줄었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 와이드 · 개를 앞에 두고 능선까지 담는 아이레벨
+<b>장소·시간</b> 같은 짚자리. 빛이 한 뼘 더 물러난 때
+<b>인물</b> 화면 앞쪽 오른편 — 새끼 개가 다시 몸을 말고 눈을 꼭 감았다. 코끝이 앞발 사이에 묻혀 있다
+<b>배경·소품</b> 앞발 옆 지푸라기 한 가닥 · 널문 · 🔴 능선 빛 띠는 한 뼘 반, 남은 양 넷 중 둘이 비탈 위쪽에서 아래로 걸음을 옮기는 중
+<b>톤</b> 화면 아래 절반이 남색으로 잠기고 위 띠만 노랗게 남는다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>따가닥, 따가닥— 이번엔 두 마리가 나란히 들어왔어요.
+새끼 개 귀가 쫑긋 섰어요.
+"또?"</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 · 로우앵글, 문지방을 올려다보는 각도
+<b>장소·시간</b> 같은 짚자리. 방금 이어지는 순간
+<b>인물</b> 화면 왼편 아래 — 새끼 개가 눈을 뜨고 귀 두 짝을 쫑긋 세웠다. 턱은 아직 짚에 붙어 있다. 문지방 위 — 양 두 마리가 어깨를 붙이고 나란히 들어서며 앞발을 짚에 내린다
+<b>배경·소품</b> 널문 · 앞발 옆 지푸라기 한 가닥 · 🔴 능선 빛 띠는 한 뼘, 남은 양은 둘
+<b>톤</b> 문틈 빛이 양 두 마리 등에만 가늘게 걸린다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>새끼 개는 지푸라기를 두 가닥 더 놓았어요.
+"둘, 셋."
+"또 세야 하잖아."
+지푸라기 줄이 길어졌어요.</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 클로즈업 · 앞발 옆을 위에서 내려다보기
+<b>장소·시간</b> 같은 짚자리. 바로 이어지는 순간
+<b>인물</b> 화면 가운데 아래 — 새끼 개가 주둥이를 내려 세 번째 지푸라기를 놓는 중이고, 앞발 한 짝이 앞서 놓은 두 가닥을 나란히 밀어 정돈하고 있다. 눈썹 쪽 털이 살짝 눌려 시무룩하다
+<b>배경·소품</b> 짚바닥 · 나란히 누운 지푸라기 세 가닥 · 화면 뒤쪽 흐릿하게 양 등 하나
+<b>톤</b> 빛이 거의 사라져 지푸라기 줄만 옅게 반짝인다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>"이제 진짜 잘 거야."
+새끼 개가 앞발에 턱을 얹었어요.
+언덕 빛은 이제 손바닥만 해요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 와이드 · 아이레벨, 화면 대부분이 어두운 비탈
+<b>장소·시간</b> 같은 짚자리. 능선 빛이 손바닥만 남은 때
+<b>인물</b> 화면 앞쪽 오른편 아래 — 새끼 개가 앞발 두 짝 위에 턱을 얹고 눈을 감았다. 몸은 지푸라기 줄 쪽으로 살짝 기울어 있다
+<b>배경·소품</b> 지푸라기 세 가닥 · 널문 · 🔴 능선 빛은 손바닥만, 그 안에 양 둘이 아직 서 있다
+<b>톤</b> 남색이 화면을 거의 다 덮고 능선 한 조각만 노랗다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>따가닥— 또 한 마리가 짚을 밟아요.
+새끼 개는 눈을 감은 채 앞발로 지푸라기를 슥 밀었어요.
+"넷…"</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 개와 문지방을 한 화면에, 낮은 아이레벨
+<b>장소·시간</b> 같은 짚자리. 같은 순간
+<b>인물</b> 화면 왼편 — 새끼 개는 눈을 감은 채 귀만 문 쪽으로 세우고, 앞발 하나로 네 번째 지푸라기를 옆으로 슥 밀어 줄에 붙이는 중이다. 화면 오른편 문지방 위 — 양 한 마리가 앞발로 짚을 밟는다
+<b>배경·소품</b> 지푸라기 네 가닥(마지막 하나는 아직 줄에서 조금 삐뚤다) · 널문
+<b>톤</b> 빛이 거의 없고 형태만 남는 어둠. 짚만 옅게 밝다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>새끼 개가 고개를 들었어요.
+마지막 빛 조각 위에 방울 단 양이 하나 서 있어요.
+"저기 하나 남았다."</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 와이드 · 개 뒤 낮은 자리에서 능선을 올려다보는 각도
+<b>장소·시간</b> 같은 짚자리. 능선에 빛 조각 하나만 남은 때
+<b>인물</b> 화면 앞쪽 아래 — 새끼 개가 목을 길게 빼고 고개를 들어 능선을 본다. 뒷다리는 여전히 짚에 접혀 있다. 화면 위쪽 멀리 — 놋방울을 목에 단 늙은 양이 마지막 빛 조각 안에 옆모습으로 서 있다
+<b>배경·소품</b> 지푸라기 네 가닥 · 텅 빈 비탈 · 🔴 능선 빛은 조각 하나뿐, 다른 양은 없다
+<b>톤</b> 아래는 캄캄하고 저 위 한 점만 노랗다. 두 밝기 사이 거리가 멀게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>빛 조각이 스르르 꺼졌어요.
+방울 양이 비탈을 딸랑딸랑 내려와요.
+"천천히 와도 돼."</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 와이드 · 비탈을 가로지르는 아이레벨
+<b>장소·시간</b> 같은 짚자리. 능선 빛이 막 사라진 직후
+<b>인물</b> 화면 오른편 아래 — 새끼 개가 지푸라기 한 가닥을 입에 문 채 앉은 자세로 기다린다. 꼬리 끝만 짚을 톡톡 친다. 화면 가운데 — 늙은 양이 비탈 중턱을 천천히 내려오며 목의 놋방울이 한쪽으로 기울어 있다
+<b>배경·소품</b> 놋방울 하나 · 지푸라기 네 가닥 · 능선은 이제 남색뿐
+<b>톤</b> 달빛도 없이 푸른 어둠. 방울만 놋빛으로 작게 반짝인다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>방울 양이 새끼 개 옆에 털썩 누웠어요.
+새끼 개가 앞발 옆을 봤어요.
+지푸라기 줄이 양 배 밑에 깔렸어요.
+"…다 덮었잖아."</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 클로즈업 · 둘을 옆에서 나란히, 짚 높이
+<b>장소·시간</b> 같은 짚자리. 바로 이어지는 순간
+<b>인물</b> 화면 오른편 — 늙은 양이 다리를 접고 새끼 개 옆에 몸을 붙여 누웠다. 화면 왼편 — 새끼 개가 고개를 숙여 제 앞발 옆을 들여다보고, 입은 아직 지푸라기를 문 채 벌어져 있다
+<b>배경·소품</b> 🔴 지푸라기 네 가닥이 양의 배 밑으로 들어가 끝만 삐죽 보인다 · 놋방울이 짚에 닿아 옆으로 눕는다
+<b>톤</b> 어둠 속에서 두 몸이 맞닿은 자리만 조금 따뜻하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>새끼 개가 물고 있던 지푸라기를 톡 내려놓았어요.
+"이제…"
+따뜻한 털에 코를 묻고 눈을 감았어요.</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 미디엄 · 조금 물러난 아이레벨, 문과 비탈까지 함께
+<b>장소·시간</b> 같은 짚자리. 밤
+<b>인물</b> 화면 가운데 — 새끼 개가 늙은 양의 옆구리 털에 코를 묻고 눈을 감았다. 입은 다물려 있고, 코앞 짚 위에 마지막 지푸라기 한 가닥이 물리지 않은 채 놓여 있다. 늙은 양은 눈을 뜬 채 앞을 본다
+<b>배경·소품</b> 지푸라기 한 가닥(개 코앞) · 양 배 밑에 깔려 보이지 않는 지푸라기 줄 · 반쯤 열린 널문 · 🔴 비탈과 능선 어디에도 양은 없다
+<b>톤</b> 전부 남색. 두 몸의 윤곽선만 아주 옅게 밝다</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'a75',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 양치기 개(이름 없음)', '놋방울을 단 늙은 양(이름 없음)', '우리 안팎의 양 무리(이름 없음 · 배경)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb6da4ec44"></script>
+<script src="/changjak-core.js?v=47fd80bb6da4ec44"></script>
+</body>
+</html>

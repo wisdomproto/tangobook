@@ -10,9 +10,11 @@ describe('english phonics units', () => {
   const lessons = units.filter((u) => !u.isReview);
   const reviews = units.filter((u) => u.isReview);
 
-  it('커리큘럼 39 단원 + 복습 8개', () => {
+  it('커리큘럼 39 단원 + 복습(전 권)', () => {
     expect(lessons).toHaveLength(39);
-    expect(reviews.map((r) => r.id)).toEqual([
+    // Book 1·2 = 4개씩 · Book 3(7단원, 꼬리 병합) = 3 · Book 4·5 = 4개씩 → 19
+    expect(reviews).toHaveLength(19);
+    expect(reviews.filter((r) => r.levelIndex <= 2).map((r) => r.id)).toEqual([
       'en-b1-r1',
       'en-b1-r2',
       'en-b1-r3',
@@ -24,11 +26,24 @@ describe('english phonics units', () => {
     ]);
   });
 
-  it('복습은 학습 활동이 있는 Book 1·2 에만 생긴다', () => {
-    // Book 3~5 는 학습 활동 자체가 없어 복습을 만들면 빈 복습이 된다
-    expect(reviews.every((r) => r.levelIndex <= 2)).toBe(true);
-    for (const u of units.filter((x) => x.levelIndex >= 3)) {
-      expect(getEnglishActivityPlan(u.id).activities).toHaveLength(0);
+  it('복습은 전 권(Book 1~5)에 생긴다', () => {
+    for (const lvl of [1, 2, 3, 4, 5]) {
+      expect(reviews.some((r) => r.levelIndex === lvl)).toBe(true);
+    }
+  });
+
+  it('Book 3·4·5 는 낱말 기반 학습 플랜(듣고 고르기 + 게임 4종)이 있다', () => {
+    // 🔴 예전엔 "활동 준비 중"(0개)이었다. 단어 그림·keypoints·wordFamilies TTS 가 완비돼 있어
+    //    기존 컴포넌트를 재사용해 열었다(2026-07-31).
+    for (const u of units.filter((x) => x.levelIndex >= 3 && !x.isReview)) {
+      const kinds = getEnglishActivityPlan(u.id).activities.map((a) => a.kind);
+      expect(kinds).toEqual([
+        'word-listen-choose',
+        'game-english-block',
+        'game-word-writing',
+        'game-connect-dots',
+        'game-line-matching',
+      ]);
     }
   });
 
@@ -36,28 +51,52 @@ describe('english phonics units', () => {
     for (const r of reviews) {
       const idx = units.findIndex((u) => u.id === r.id);
       expect(units[idx - 1].id).toBe(r.coveredUnitIds!.at(-1));
-      expect(r.coveredUnitIds).toHaveLength(2); // 🔴 영어 묶음 = 2단원 (한글은 4)
+      // 🔴 묶음 = 2단원 (Book 3 은 7단원이라 꼬리가 앞 묶음에 붙어 3단원 하나)
+      expect(r.coveredUnitIds!.length).toBeGreaterThanOrEqual(2);
+      expect(r.coveredUnitIds!.length).toBeLessThanOrEqual(3);
     }
   });
 
-  // 🔴 예전엔 2종뿐이었다("영어는 그림이 0장"). 단어 카드가 붙은 뒤로는 한글과 같은 6종이다 —
-  //    복습이 심심한 건 가짓수가 아니라 형식이 같아서라, 형식이 다른 활동을 늘어놓는다.
-  it('복습 활동은 한글과 같은 6종이고 카드는 8장을 넘지 않는다', () => {
+  // 🔴 복습 활동 구성: Book 2 = 6종 / Book 1 = 듣고낱말 뺀 5종 / Book 3~5 = 낱말 시각 3종.
+  it('복습 활동 = 권별로 다른 구성, 카드는 8장 이하 · 번호 연속', () => {
     for (const r of reviews) {
       const acts = getEnglishActivityPlan(r.id).activities;
-      expect(acts.map((a) => a.kind)).toEqual([
-        'letter-hunt',
-        'review-flip',
-        'review-syllable-listen',
-        'review-match',
-        'review-word-listen',
-        'review-write',
-      ]);
+      const kinds = acts.map((a) => a.kind);
+      if (r.levelIndex >= 3) {
+        // 낱말 기반 — 낱말↔그림 시각 활동만(글자 사냥·듣기 제외)
+        expect(kinds).toEqual(['review-flip', 'review-match', 'review-write']);
+      } else if (r.id.startsWith('en-b1')) {
+        expect(kinds).toEqual([
+          'letter-hunt',
+          'review-flip',
+          'review-syllable-listen',
+          'review-match',
+          'review-write',
+        ]);
+      } else {
+        expect(kinds).toEqual([
+          'letter-hunt',
+          'review-flip',
+          'review-syllable-listen',
+          'review-match',
+          'review-word-listen',
+          'review-write',
+        ]);
+      }
+      // order 는 1..N 연속이어야 한다.
+      expect(acts.map((a) => a.order)).toEqual(acts.map((_, i) => i + 1));
       for (const a of acts) {
         expect(a.reviewCards!.length).toBeGreaterThan(0);
         expect(a.reviewCards!.length).toBeLessThanOrEqual(8);
       }
     }
+  });
+
+  it('Book 3·4·5 복습 카드 = 낱말(letter===word, pickWord 가 그 낱말을 집도록)', () => {
+    const r = getEnglishActivityPlan('en-b3-r1').activities[0].reviewCards!;
+    expect(r.length).toBeGreaterThan(0);
+    expect(r.every((c) => c.letter === c.sound && c.syllable === c.letter)).toBe(true);
+    expect(r.map((c) => c.letter)).toContain('bake'); // en-b3-u01 sampleWords
   });
 
   it('Book 1 복습 카드는 대문자·소문자 쌍, Book 2 는 VC 패턴', () => {

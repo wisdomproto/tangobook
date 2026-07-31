@@ -80,12 +80,16 @@ function LineMatchingPlayerInner({
         void warmAudioUrl(it.ttsUrl);
         continue;
       }
-      for (const ch of it.word) {
-        const url = map.get(ch) ?? map.get(ch.toLowerCase());
+      // 🔴 **재생과 같은 키를 데운다.** 한글은 음절(글자)별로 읽으므로 글자별, 영어는 낱말 전체를
+      //    한 키로 읽으므로(`playWordTts`: `map.get(word)`) 낱말 전체다. 예전엔 영어도 글자별로 데워
+      //    영어 그림짝(복습)에서 정작 재생하는 낱말 키가 안 데워졌다.
+      const keys = lang === 'ko' ? [...it.word] : [it.word.toLowerCase()];
+      for (const k of keys) {
+        const url = map.get(k) ?? map.get(k.toLowerCase());
         if (url) void warmAudioUrl(url);
       }
     }
-  }, [items, phonicsLoading, phonicsMapRef]);
+  }, [items, phonicsLoading, phonicsMapRef, lang]);
 
   // 이미지는 원래 순서 유지, 단어만 셔플
   const imageOrder = useMemo(() => items.map((_, i) => i), [items]);

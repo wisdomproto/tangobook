@@ -69,7 +69,8 @@ export function LetterHuntActivity({
   usePhonicsTtsWarm(
     unitId,
     useMemo(() => cardsRef.current.map((c) => c.sound), [lettersKey]),
-    'letter-hunt'
+    'letter-hunt',
+    language
   );
 
   const card = hunt[round];

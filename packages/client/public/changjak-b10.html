@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>B-10 달빛 배달부 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · B · 상상·변신 · 10</div>
+  <h1>달빛 배달부</h1>
+  <div class="sub">밤마다 달을 한 통씩 배달해요. 그런데 오늘은 통이 자꾸 까매요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 누적·반복</span>
+  <span>무대 · 노르웨이 피오르의 작은 나무 선착장</span>
+  <span>후렴 · "달 하나, 배달 왔어요!" (p6·p7·p8 세 번 · 🔴 p12 부터는 안 나온다 — 나르기를 그만두니 배달할 것도 없다)</span>
+  <span class="q">15스프레드</span>
+  <span class="q">본문 631자 · 쪽당 42자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- <b>착지 카드 = 빈 통.</b> 채워지는 쪽으로 끝내면 카드가 「참」이 되어 버려서, 마지막 통 하나는 끝까지 비운 채 두고 <b>의자</b>로 바꿨다. p1 에서 어깨를 짓누르던 것이 p15 에서 깔고 앉는 것이 된다.<br>
+- <b>마법을 안 썼다.</b> 물을 뜨면 물에 달이 비친다 — 아이가 대야로 확인할 수 있는 물리다. 그래서 「외울 설정」이 없다. 달이 벼랑 뒤에 있으면 물이 까맣다는 것도 그림으로 보인다(p5 에서 벼랑 꼭대기만 하얗다).<br>
+- <b>왜 안 담기는지 두더지는 끝까지 안 따진다.</b> 추론을 시키면 규칙이 생긴다. 두더지가 하는 일은 담그고, 들여다보고, 휘젓고, 그만두는 것뿐이다.<br>
+- <b>장소 하나</b> — 카메라가 선착장 널 한 장을 안 벗어난다. 배 셋은 그 선착장에 묶여 있고, 벼랑과 마을은 배경이다.<br>
+- <b>단서는 그림에</b>: p1 부터 기둥 그림자가 선착장 끝자리를 덮고 있다. p14 에서 그 자리 통만 까만 이유를 글은 한 줄도 안 쓴다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>삐걱— 두더지가 젖은 판자 끝에 통 네 개를 내려놓아요.
+어깨가 뻐근해 두 팔을 빙글 돌려요.
+피오르 물은 아직 까매요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 물 높이에 가까운 로우앵글
+<b>장소·시간</b> 피오르 안쪽의 작은 나무 선착장. 해가 진 지 한참 된 밤
+<b>인물</b> 화면 오른쪽 판자 끝 — 두더지가 어깨에 멘 멜대를 막 내려놓고 허리를 펴는 중이다. 무릎이 아직 굽어 있고, 통 네 개가 판자 위에 놓이며 살짝 기울어 있다. 눈은 발밑 물을 본다
+<b>배경·소품</b> 젖어서 검게 번들거리는 판자 · 판자를 받친 굵은 나무 기둥 하나(그 그림자가 화면 왼쪽 끝자리를 길게 덮는다) · 양철 통 넷 · 뒤쪽 아주 멀리 벼랑 아래 붉은 지붕 한 점
+<b>톤</b> 빛이 거의 없는 남색 밤. 물은 완전히 까맣고, 판자에만 아주 옅은 반들거림</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>두더지가 판자에 배를 대고 두 팔을 쭉 뻗어요.
+첫 통을 물에 쑥 담가요.
+첨벙! 찬물이 통 안으로 밀려들어요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 두더지 어깨 너머로 물을 내려다보는 각
+<b>장소·시간</b> 같은 선착장 판자 끝. 몇 걸음 뒤
+<b>인물</b> 화면 가운데 아래 — 두더지가 배를 판자에 대고 엎드려 두 팔을 물속으로 뻗고 있다. 통 절반이 물에 잠겼고 물이 통 테두리를 넘어 들어간다. 어깨가 잔뜩 올라가 있다
+<b>배경·소품</b> 통 하나 · 물에 퍼지는 둥근 물결 · 판자 위에 남은 통 셋
+<b>톤</b> 까만 물 위에 물결 테두리만 아주 옅게 밝다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>통을 두 손으로 들어 올려 안을 들여다봐요.
+"어? 까맣네."
+물만 찰랑, 달은 없어요.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 클로즈업 · 통 위에서 거의 수직으로 내려다보는 탑다운
+<b>장소·시간</b> 같은 자리. 바로 이어서
+<b>인물</b> 화면 위쪽에 두더지 얼굴이 통 테두리 너머로 들어와 있다. 두 앞발이 통 양옆을 붙들고, 코끝이 통 안쪽으로 기울어 있다. 눈이 동그랗게 커진 표정
+<b>배경·소품</b> 양철 통 하나 가득 찬 물(완전히 까맣다) · 통 테두리에 맺힌 물방울 몇
+<b>톤</b> 통 안이 화면의 대부분이고 그 안은 순전히 검다. 테두리 금속만 아주 가늘게 빛난다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>맨 끝 배에서 늙은 거위가 목을 쭉 빼요.
+"오늘은 왜 늦어?"
+"달이 아직 안 왔어요."</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 롱 · 판자와 나란한 아이레벨
+<b>장소·시간</b> 같은 선착장. 왼쪽에 배 셋이 나란히 묶여 있다
+<b>인물</b> 화면 왼쪽 맨 끝 배 위 — 늙은 거위가 접은 날개 사이에서 목만 길게 빼 이쪽을 본다. 화면 오른쪽 — 두더지가 젖은 통을 안은 채 몸을 반쯤 거위 쪽으로 돌린다
+<b>배경·소품</b> 뱃머리 셋 · 배를 묶은 밧줄 두 가닥 · 두더지 발밑 물자국
+<b>톤</b> 어둡고 조용하다. 거위의 흰 몸이 화면에서 가장 밝은 것</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>두더지가 고개를 한껏 젖혀 벼랑을 올려다봐요.
+발끝이 판자 끝에서 달싹달싹.
+까만 벼랑 꼭대기만 하얗게 밝아요.</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 로우앵글 · 두더지 뒤통수 너머로 벼랑을 올려다보는 각
+<b>장소·시간</b> 같은 자리. 바로 이어서
+<b>인물</b> 화면 아래 가운데 — 두더지가 목을 완전히 젖히고 뒤로 살짝 기운다. 한쪽 앞발이 균형을 잡느라 옆으로 뻗어 있다
+<b>배경·소품</b> 화면을 세로로 가득 채운 벼랑 실루엣 · 그 꼭대기 테두리만 하얗게 밝다 · 벼랑 아래 붉은 지붕 한 점
+<b>톤</b> 화면의 9할이 검은 벼랑. 밝은 것은 꼭대기 가장자리 한 줄뿐</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>첫 배 뱃머리에 통을 턱 올려놓아요.
+"달 하나, 배달 왔어요!"
+통 안은 아직 까매요.</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 · 뱃머리 높이의 아이레벨
+<b>장소·시간</b> 첫 번째 배 앞. 조금 뒤
+<b>인물</b> 화면 오른쪽 — 두더지가 까치발을 들고 두 팔을 뻗어 통을 뱃머리에 막 올려놓았다. 통 바닥이 나무에 닿아 살짝 기울어 있고, 두더지 입이 크게 벌어져 있다
+<b>배경·소품</b> 첫 배 뱃머리 하나 · 그 위 통 하나 · 밧줄 한 가닥
+<b>톤</b> 어둡다. 젖은 양철 테두리만 가늘게 반짝</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>두 번째 배 뱃머리에도 통을 올려요.
+"달 하나, 배달 왔어요!"
+까만 통이 둘이에요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 미디엄 · 화면 왼쪽에 첫 배가 함께 들어오는 아이레벨
+<b>장소·시간</b> 두 번째 배 앞. 몇 걸음 옆
+<b>인물</b> 화면 가운데 — 두더지가 이번엔 통을 배에 얹고 두 앞발로 밀어 자리를 잡는 중이다. 뒷발 하나가 뒤로 쭉 뻗어 있다
+<b>배경·소품</b> 뱃머리 둘 · 그 위 통 둘(둘 다 안이 까맣다) · 밧줄
+<b>톤</b> 앞 쪽과 같은 밝기. 통 둘이 같은 높이에 나란하다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>세 번째 배 뱃머리에 세 번째 통.
+"달 하나, 배달 왔어요!"
+까만 통이 셋이 됐어요.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 롱 · 배 셋이 한 줄로 다 들어오는 아이레벨
+<b>장소·시간</b> 세 번째 배 앞. 몇 걸음 더 옆
+<b>인물</b> 화면 오른쪽 — 두더지가 마지막 통에서 앞발을 막 떼며 뒤로 한 발 물러선다. 고개는 통 쪽으로 남아 있다. 화면 왼쪽 끝 배 위 거위는 목을 접고 그쪽을 본다
+<b>배경·소품</b> 뱃머리 셋에 통 셋이 같은 간격으로 · 밧줄 세 가닥
+<b>톤</b> 통 셋이 나란히 까맣다. 아직 아무것도 밝아지지 않았다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>두더지가 종종종 돌아가 첫 통을 들여다봐요.
+"아직도 까매."
+까만 물만 그렁그렁해요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 클로즈업 · 통 테두리 너머 살짝 비스듬한 탑다운
+<b>장소·시간</b> 첫 배 뱃머리. 조금 뒤
+<b>인물</b> 화면 오른쪽 — 두더지가 뱃머리에 턱을 얹고 통 안을 코앞에서 들여다본다. 두 앞발이 뱃머리 나무를 꼭 붙들고 있고, 눈썹이 가운데로 몰려 있다
+<b>배경·소품</b> 통 하나와 그 안에 찰랑이는 까만 물 · 뱃머리 나뭇결
+<b>톤</b> 통 안이 화면 절반. 검다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>마지막 통을 물에 담가 팔이 빠지게 휘저어요.
+철벅, 철벅!
+"이러면 담기려나?"</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 · 옆에서 보는 아이레벨
+<b>장소·시간</b> 다시 선착장 판자 끝. 조금 뒤
+<b>인물</b> 화면 가운데 — 두더지가 무릎을 꿇고 통을 물에 반쯤 담근 채 두 팔로 크게 휘젓는다. 물이 튀어 얼굴과 가슴이 젖었고, 입이 옆으로 앙다물려 있다
+<b>배경·소품</b> 통 하나 · 사방으로 튀는 물방울 · 어지럽게 퍼지는 물결
+<b>톤</b> 튀는 물방울만 아주 옅게 밝고 나머지는 여전히 검다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>거위가 날개를 툭 접어요.
+"그만하고 앉아."
+"안 돼요. 오늘 밤은 더 어둡잖아요."</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 롱 · 둘이 같은 깊이에 나란히 들어오는 아이레벨
+<b>장소·시간</b> 선착장 판자 끝과 맨 끝 배. 바로 이어서
+<b>인물</b> 화면 왼쪽 배 위 — 거위가 펼쳤던 한쪽 날개를 몸에 붙이며 접는다. 화면 오른쪽 — 두더지가 젖은 통을 두 팔로 가슴에 꼭 안고 물을 등진 채 버티고 서 있다. 발끝이 물 쪽을 향해 있다
+<b>배경·소품</b> 배 한 척 · 통 하나 · 두더지 발밑에 번진 물자국
+<b>톤</b> 어둡다. 거위 흰 깃과 젖은 두더지 털 끝이 겨우 보인다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>두더지가 통을 판자에 탁 내려놓고 털썩 주저앉아요.
+두 다리를 물 쪽으로 축 늘어뜨려요.
+"그럼 안 나를래요. 통은 여기 둘게요."</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 미디엄 · 살짝 위에서 내려다보는 각
+<b>장소·시간</b> 선착장 끝자리, 기둥 그림자가 덮인 자리. 바로 이어서
+<b>인물</b> 화면 가운데 — 두더지가 판자에 그대로 주저앉아 두 다리를 물 쪽으로 늘어뜨렸다. 어깨가 축 내려가 있고, 한 앞발이 옆에 놓인 통 테두리에 얹혀 있다
+<b>배경·소품</b> 통 하나(기둥 그림자 안에 놓였다) · 굵은 나무 기둥 · 젖은 판자
+<b>톤</b> 화면에서 이 자리가 가장 어둡다. 그림자와 통이 한 덩어리로 보인다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>스르르— 하얀 달이 벼랑 위로 올라와요.
+두더지가 고개를 번쩍 들어요.
+"저기 봐." 거위가 물 쪽을 가리켜요.</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 와이드 · 벼랑과 물이 함께 들어오는 아이레벨
+<b>장소·시간</b> 같은 선착장. 달이 벼랑 꼭대기 위로 막 올라온 순간
+<b>인물</b> 화면 오른쪽 아래 — 앉은 두더지가 고개를 젖혀 벼랑 위를 본다. 화면 왼쪽 배 위 — 거위가 부리를 물 쪽으로 곧게 뻗어 가리킨다
+<b>배경·소품</b> 벼랑 꼭대기 위 하얀 달 하나 · 달에서 선착장까지 물 위로 곧게 뻗은 은빛 띠 · 뱃머리 셋
+<b>톤</b> 처음으로 흰빛이 들어온다. 은빛 띠 밖은 그대로 검다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p14 · 본문</span>뱃머리 통 셋이 하나씩 하얗게 차올라요.
+거위가 날개를 파닥파닥 쳐요.
+"찼다! 다 찼어!"
+두더지가 손가락으로 하나씩 짚어요. "하나, 둘, 셋…"</div>
+  </div>
+  <div class="sc"><span class="n">p14 · SCENE</span><b>컷</b> 롱 · 배 셋이 한 줄로 들어오는 아이레벨
+<b>장소·시간</b> 같은 선착장. 바로 이어서
+<b>인물</b> 화면 오른쪽 — 두더지가 일어서서 팔을 뻗어 통을 하나씩 손끝으로 짚어 간다. 몸이 앞으로 기울어 있다. 화면 왼쪽 배 위 — 거위가 목을 하늘로 뻗고 부리를 벌린다
+<b>배경·소품</b> 뱃머리 통 셋, 안에 하얀 달이 하나씩 앉아 있다 · 🔴 화면 맨 오른쪽 기둥 그림자 안의 통 하나는 그대로 까맣다 · 물 위 은빛 띠
+<b>톤</b> 흰 동그라미 셋이 화면에서 가장 밝다. 그림자 안 통만 검게 남는다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p15 · 본문</span>두더지가 마지막 통을 엎어 놓고 그 위에 폭 앉아요.
+"오늘은 여기 앉을래요."</div>
+  </div>
+  <div class="sc"><span class="n">p15 · SCENE</span><b>컷</b> 미디엄 · 뒤에서 본 아이레벨
+<b>장소·시간</b> 선착장 끝자리. 조금 뒤
+<b>인물</b> 화면 오른쪽 — 두더지가 엎어 놓은 통 위에 두 무릎을 모으고 앉아 물 쪽을 본다. 두 앞발을 무릎에 얹었고 어깨가 편안하게 내려가 있다. 화면 왼쪽 배 위 — 거위가 목을 날개에 파묻고 같은 쪽을 본다
+<b>배경·소품</b> 엎어진 빈 통 하나(바닥이 위로) · 저 앞 뱃머리 통 셋은 하얗게 차 있다 · 물 위 은빛 띠 · 벼랑 위 달
+<b>톤</b> 앞쪽은 하얗고, 두더지가 앉은 자리만 그대로 어둡다. 조용하고 편안하게</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'b10',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['두더지 배달부(이름 없음)', '늙은 거위(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb6da4ec44"></script>
+<script src="/changjak-core.js?v=47fd80bb6da4ec44"></script>
+</body>
+</html>

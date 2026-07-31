@@ -90,7 +90,7 @@ CHARACTER DESIGN LANGUAGE: the two mains must look HAND-DRAWN against cut paper 
 
 CANVAS: 16:9 double-page spread. A Flemish square corner - stepped-gable houses, one long low
   stone ledge, two flower buckets, fan-laid cobbles, a far belfry; ledge and buckets in the same
-  place on every page. Bottom 18% quiet for a caption. No lettering, numerals, signboards, house
+  place on every page. No lettering, numerals, signboards, house
   numbers, price cards or gilt writing anywhere.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading,

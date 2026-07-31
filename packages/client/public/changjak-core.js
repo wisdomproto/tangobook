@@ -992,25 +992,27 @@ window.CJ_ANCHORS = fetch('/changjak-anchor-refs.json')
     //    빈 칸 셋은 그리는 사람에게 아무것도 안 알려 준다 — 앵커를 골랐다는 사실 자체가 안 보인다.
     // 🔴 원본은 **한 장만** 놓는다. 셋을 나란히 놓으면 고르라는 뜻으로 읽힌다 —
     //    앵커는 하나고, 후보①이 그 하나다(열 권 전부 후보①이 뽑혔다). 2·3번 칸은 시트 붙일 자리로 비워 둔다.
+    // 🔴 **빈 칸을 그리지 않는다.** 예전엔 슬롯 셋을 늘 그려서 원본 한 장 옆에 「ref 2 없음 ·
+    //    ref 3 없음」이 붙어 있었다. 그 칸들은 그리는 사람에게 아무것도 안 알려 주면서
+    //    한 장뿐인 앵커를 「셋 중 하나」처럼 보이게 만든다. 붙여넣은 시트가 있으면 그것들을,
+    //    없으면 원본 한 장만 놓는다.
     var origin = (anchorRefs.refs || []).filter(function (r) { return r.imageUrl; })[0];
     var thumbs = '';
     for (var i = 1; i <= REFS; i++) {
       var k = slug + '-' + i;
-      var o = i === 1 ? origin : null;
-      if (images[k]) {
-        thumbs +=
-          '<a class="sb-th" href="' + images[k] + '" target="_blank" rel="noopener">' +
-          '<img loading="lazy" src="' + images[k] + '" alt="레퍼런스 ' + i + '" /></a>';
-      } else if (o) {
-        thumbs +=
-          '<a class="sb-th origin" href="' + o.imageUrl + '" target="_blank" rel="noopener" ' +
-          'title="' + (o.artist || '') + ' · ' + (o.work || '') + ' (' + (o.award || '') + ')">' +
-          '<img loading="lazy" src="' + o.imageUrl + '" alt="' + (o.work || '') + '" />' +
-          '<em>' + (anchorRefs.neighbor ? '앵커 아님 · 가까운 이웃' : '앵커 원본') + '</em></a>';
-      } else {
-        thumbs += '<div class="sb-th empty"><span>ref ' + i + ' 없음</span></div>';
-      }
+      if (!images[k]) continue;
+      thumbs +=
+        '<a class="sb-th" href="' + images[k] + '" target="_blank" rel="noopener">' +
+        '<img loading="lazy" src="' + images[k] + '" alt="레퍼런스 ' + i + '" /></a>';
     }
+    if (!images[slug + '-1'] && origin) {
+      thumbs =
+        '<a class="sb-th origin" href="' + origin.imageUrl + '" target="_blank" rel="noopener" ' +
+        'title="' + (origin.artist || '') + ' · ' + (origin.work || '') + ' (' + (origin.award || '') + ')">' +
+        '<img loading="lazy" src="' + origin.imageUrl + '" alt="' + (origin.work || '') + '" />' +
+        '<em>' + (anchorRefs.neighbor ? '앵커 아님 · 가까운 이웃' : '앵커 원본') + '</em></a>' + thumbs;
+    }
+    if (!thumbs) thumbs = '<div class="sb-th empty"><span>레퍼런스 없음</span></div>';
 
     body.innerHTML =
       '<div class="sb-refs">' + thumbs + '</div>' +

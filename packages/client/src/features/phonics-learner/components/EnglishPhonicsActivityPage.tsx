@@ -177,7 +177,9 @@ export default function EnglishPhonicsActivityPage() {
         id: `${label}-${w.word}`,
         label,
         sound: w.word,
+        // 탐색: 눌러서 그림을 연다. 퀴즈: 글자만 깔고 맞히면 이 그림으로 뒤집힌다(2026-07-31 사용자).
         imageUrl: w.imageUrl,
+        revealImageUrl: w.imageUrl,
         ...(w.ttsUrl ? { ttsUrl: w.ttsUrl } : {}),
       }));
     });
@@ -204,6 +206,52 @@ export default function EnglishPhonicsActivityPage() {
         onJudge={judgePhoneme}
         // 🔴 바로 퀴즈로 밀어넣지 않는다 — 먼저 눌러 소리를 들어보고 「🎯 퀴즈」 로 넘어간다
         //    (한글 「단어 연습」과 같은 순서. 처음 보는 걸 소리만 듣고 고르라면 찍기가 된다.)
+        exploreFirst
+        onMarkComplete={handleMarkComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+
+  // ── Book 3·4·5: 낱말 기반 듣고 고르기 (letters 없음 → 낱말 소리 듣고 그림 고르기) ──
+  if (activity.kind === 'word-listen-choose') {
+    const sb = storybookQuery.data as Storybook | undefined;
+    if (storybookQuery.isLoading || !sb) {
+      return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
+    }
+    // 🔴 발음은 flashcards 가 아니라 **wordFamilies** 에 있다(findImageData 는 그림·keypoints 만 준다).
+    //    낱말·발음은 wordFamilies 에서, 그림은 findImageData 에서 가져와 합친다.
+    const seen = new Set<string>();
+    const items = (sb.phonicsLesson?.wordFamilies ?? [])
+      .flatMap((f) => f.words ?? [])
+      .filter((w) => !!w.word && !seen.has(w.word) && !!seen.add(w.word))
+      .map((w) => {
+        const img = findImageData(sb, w.word);
+        return {
+          id: w.word,
+          label: w.word,
+          sound: w.word,
+          ...(img.imageUrl ? { imageUrl: img.imageUrl, revealImageUrl: img.imageUrl } : {}),
+          ...(w.ttsUrl ? { ttsUrl: w.ttsUrl } : {}),
+        };
+      })
+      .filter((it) => it.imageUrl);
+    if (items.length < 3) {
+      return (
+        <ActivityUnavailable
+          activity={activity}
+          onBack={backToUnit}
+          reason="낱말 그림이 필요해요"
+        />
+      );
+    }
+    return (
+      <WordListenChooseActivity
+        unitId={unitId}
+        language="english"
+        items={items}
+        choices={4}
+        columns={2}
         exploreFirst
         onMarkComplete={handleMarkComplete}
         onBack={backToUnit}

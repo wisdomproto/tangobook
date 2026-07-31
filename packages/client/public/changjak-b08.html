@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>B-08 눈사람이 두고 간 편지 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · B · 상상·변신 · 08</div>
+  <h1>눈사람이 두고 간 편지</h1>
+  <div class="sub">눈사람이 매일 조금씩 작아져요. 마지막 날 아침, 그 자리에는 눈사람의 것들이 놓여 있어요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 관찰과 성장</span>
+  <span>무대 · 동유럽 눈마을 — 집 마당의 나무 울타리 귀퉁이 한 자리</span>
+  <span>후렴 · "모자 삐뚤어졌어!" (p2 발끝을 한껏 들고 · p5 팔만 뻗어서 · p8 무릎을 굽히고 세 번 · 🔴 p11 에서 "모자, 이제 내가 쓸게." 로 뒤집힌다)</span>
+  <span class="q">13스프레드</span>
+  <span class="q">본문 602자 · 쪽당 46자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- 🔴 <b>요약의 「편지」를 통째로 버렸다.</b> 젖은 종이·녹은 글씨·문장 완성은 전부 <b>읽기와 추론</b>이라 4~6세와 이 라인의 통과 조건에 정면으로 부딪힌다. 눈사람이 두고 간 것은 글이 아니라 <b>제 몸에 달려 있던 물건들</b>이다. 종이는 한 장도 안 나오고, 「편지」라는 낱말도 본문에 없다(제목에만).<br>
+- 🔴 <b>성장·녹음을 한 문장도 안 썼다.</b> 「녹았어요」·「작아졌어요」·「봄이 왔어요」가 본문에 0회. 대신 <b>자가 두 개</b>다. ①나뭇가지 팔 끝이 닿는 <b>울타리 칸</b>(위→가운데→아래→풀 위) ②모자를 바로 씌우는 <b>아기 염소의 자세</b>(발끝을 들고→팔만 뻗어서→무릎을 굽히고→앉아서 집어 든다). 둘 다 같은 자리에서 재고, 둘 다 그림에 보인다.<br>
+- ⚠️ <b>슬픈 쪽으로 새기 쉬운 이야기</b>라 안전핀 셋을 박았다. ①이별의 말·울음·「가지 마」가 0회 ②p11 이 웃음 한 방울(모자가 눈까지 내려온다) ③마지막 화면에 <b>없어진 것이 아니라 손에 쥔 것</b>이 있다.<br>
+- 눈사람은 <b>말하지 않는 소품</b>이다. 인물은 아기 염소와 할머니 염소 둘.<br>
+- 착지 카드 <b>「손바닥에 옮김」</b> — 배정받은 카드. 디지스트 57장과 겹치지 않는다(「빈 손」·「제 것만 남김」과의 차이 = 여기서는 손이 비지 않고 <b>남의 것이 통째로 내 몸으로 자리를 옮긴다</b>).
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>울타리 옆에 눈사람이 서 있어요.
+아기 염소가 빨간 목도리를 풀어 둘러 줘요.
+"춥지? 이거 두르고 있어."</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 눈사람과 아기 염소가 같은 깊이에서 나란히
+<b>장소·시간</b> 눈 덮인 마당의 나무 울타리 귀퉁이. 서리가 아직 안 녹은 이른 아침
+<b>인물</b> 화면 오른쪽 — 아기 염소가 까치발로 서서 두 앞발을 눈사람 목께로 올린 채 빨간 목도리를 감는 중이다. 목도리 한쪽 끝이 아직 제 목에 걸려 있어 둘 사이에 붉은 줄이 이어져 있다. 눈은 눈사람 얼굴을 올려다본다
+<b>배경·소품</b> 나무 울타리 가로대 세 칸 — 🔴 눈사람의 오른쪽 나뭇가지 팔 끝이 <b>맨 위 칸</b>에 얹혀 있다. 눈사람 얼굴에 까만 단추 눈 둘, 회색 돌 코 하나, 머리에 갈색 털모자. 처마 끝 고드름 몇 개. 그 밖은 흰 여백
+<b>톤</b> 파르스름한 겨울 아침빛. 화면에서 붉은 것은 목도리 하나뿐</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>털모자가 한쪽으로 삐뚤어졌어요.
+"모자 삐뚤어졌어!"
+아기 염소가 발끝을 한껏 들고 똑바로 씌워요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 살짝 아래에서 올려다보는 로우앵글(모자가 높다는 것이 앵글로 읽히게)
+<b>장소·시간</b> 같은 울타리 귀퉁이. 해가 조금 오른 아침
+<b>인물</b> 화면 왼쪽 — 아기 염소가 뒷발 발끝으로 서서 등을 활처럼 젖히고 두 앞발을 머리 위로 쭉 뻗어 모자챙을 잡았다. 뒷굽이 눈에서 떠 있다. 입을 크게 벌린 채 위를 본다. 오른쪽 — 눈사람은 모자만 비뚜름하고 몸은 그대로
+<b>배경·소품</b> 울타리 가로대 셋 · 나뭇가지 팔 끝은 여전히 위 칸. 눈 위에 아기 염소 발자국 두 쌍. 그 밖은 여백
+<b>톤</b> 차갑고 맑은 빛. 목도리 붉은색만 또렷하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>처마 끝에서 물방울이 톡, 톡 떨어져요.
+아기 염소가 앞발로 받아 봐요.
+"차가워!"
+"빨래가 잘 마르겠구나."</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 화면을 처마(위)와 마당(아래)으로 나누어
+<b>장소·시간</b> 같은 마당. 처마 밑과 빨랫줄이 한 프레임에 들어오는 자리. 낮
+<b>인물</b> 화면 가운데 앞쪽 — 아기 염소가 한쪽 앞발을 오목하게 펴 들고 고개를 뒤로 젖혀 처마 끝을 올려다본다. 발바닥에 물방울 하나가 막 얹혔다. 화면 뒤쪽 오른편 — 할머니 염소가 빨랫줄에 회색 담요를 걸치며 어깨 너머로 아기 염소를 본다. 얼굴은 웃는 주름
+<b>배경·소품</b> 처마 끝 고드름이 짧아져 끝이 뭉툭하다 · 그 아래 눈이 파여 점점이 구멍 · 빨랫줄과 담요 한 장. 눈사람은 화면 왼쪽 가장자리에 어깨까지만
+<b>톤</b> 젖은 회색빛이 살짝 섞인 낮빛. 물방울에만 흰 하이라이트</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>나뭇가지 팔이 울타리 가운데 칸에 얹혀 있어요.
+아기 염소가 위 칸을 짚었다가 손을 내려요.
+"어제는 위 칸이었는데."</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 🔴 울타리 세 칸이 전부 보이게 옆에서
+<b>장소·시간</b> 같은 울타리 귀퉁이. 다음 날 아침
+<b>인물</b> 화면 왼쪽 — 아기 염소가 울타리 쪽으로 몸을 돌리고 한 앞발을 위 칸에 얹은 채 고개만 아래로 돌려 가운데 칸을 본다. 눈썹이 살짝 올라간 갸웃한 얼굴. 다른 앞발은 배 앞에 모으고 있다
+<b>배경·소품</b> 울타리 가로대 셋 — 🔴 눈사람의 나뭇가지 팔 끝이 <b>가운데 칸</b>에 얹혀 있다. 위 칸은 비어 있고 그 위에 얇은 물기 자국만 남았다. 눈사람 몸은 어제보다 어깨가 둥글다. 빨간 목도리 매듭이 아까보다 아래
+<b>톤</b> 아침 햇살이 울타리 가로대에 가로줄 그림자를 세 줄 던진다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>"모자 삐뚤어졌어!"
+눈사람 머리가 코앞이에요.
+뒤꿈치가 땅에 붙어 있어요.
+아기 염소가 팔만 쭉 뻗어 씌워요.</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨(p2 의 로우앵글이 여기서 평평해진다)
+<b>장소·시간</b> 같은 자리. 낮
+<b>인물</b> 화면 왼쪽 — 아기 염소가 두 뒷발을 눈에 붙인 채 서서 한 앞발만 앞으로 곧게 뻗어 모자챙을 누르고 있다. 뒤꿈치가 땅에 닿아 있고 등이 곧다. 눈사람 얼굴과 아기 염소 얼굴이 거의 같은 높이
+<b>배경·소품</b> 눈사람 머리와 어깨 · 까만 단추 눈 둘 · 돌 코. 뒤쪽에 울타리 가운데 칸 한 줄. 그 밖은 비운다
+<b>톤</b> 부드러운 한낮 빛. 눈 표면이 반짝이지 않고 촉촉하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>까만 단추 하나가 배에서 흘러내렸어요.
+"단추 떨어졌다!"
+아기 염소가 그 자리에 꾹 눌러 붙여요.</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 클로즈업 · 어깨 너머(아기 염소의 앞발과 눈사람 배만)
+<b>장소·시간</b> 같은 자리. 낮
+<b>인물</b> 화면 오른쪽 아래 — 아기 염소의 두 앞발이 들어온다. 한 발로 까만 단추를 잡고 눈사람 배에 대고 꾹 누르는 중. 다른 발은 눈사람 옆구리를 짚어 몸을 버틴다. 얼굴은 화면 가장자리에 반만, 입술을 앙다물고 있다
+<b>배경·소품</b> 눈사람 배에 단추가 미끄러져 내려온 세로 홈 자국 하나 · 그 아래 눈이 살짝 파였다 · 빨간 목도리 자락이 배 옆으로 늘어져 있다. 배경은 흰 여백
+<b>톤</b> 가까이서 본 눈 표면의 오돌토돌한 질감. 까만 단추와 붉은 목도리 두 색만</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>나뭇가지 팔이 울타리 아래 칸에 닿아 있어요.
+아기 염소가 배를 대고 쪼그려 앉아요.
+"이제 눈이 딱 맞네."</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 미디엄 · 🔴 로우앵글 · 눈사람과 아기 염소의 얼굴이 같은 높이에 오도록 낮게
+<b>장소·시간</b> 같은 울타리 귀퉁이. 다음 날 아침
+<b>인물</b> 화면 왼쪽 — 아기 염소가 뒷다리를 접고 쪼그려 앉아 배를 울타리 아래 가로대에 붙였다. 두 앞발은 무릎 앞 눈 위에 짚었고, 고개를 앞으로 내밀어 눈사람 얼굴을 정면으로 마주 본다
+<b>배경·소품</b> 울타리 가로대 셋 — 🔴 나뭇가지 팔 끝이 <b>아래 칸</b>에 닿아 있다. 위 칸·가운데 칸은 비었다. 눈사람 키가 낮고 둥글다. 마당 눈이 군데군데 갈라져 젖은 흙이 비친다
+<b>톤</b> 낮은 아침 해가 옆에서 들어와 둘의 그림자를 한 덩어리로 눕힌다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>"모자 삐뚤어졌어!"
+아기 염소가 무릎을 굽히고 씌워 줘요.
+"마당이 질척하구나."
+할머니 염소가 장화를 신어요.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 와이드 · 하이앵글(위에서 살짝 내려다본다 — p2 로우앵글의 반대)
+<b>장소·시간</b> 같은 마당. 낮
+<b>인물</b> 화면 가운데 — 아기 염소가 두 무릎을 굽히고 허리를 숙여 아래쪽에 있는 눈사람 머리에 모자를 씌우는 중. 등이 둥글게 말렸다. 화면 오른쪽 뒤 — 할머니 염소가 문지방에 앉아 한쪽 발에 검은 장화를 꿰고 있다. 시선은 제 발끝
+<b>배경·소품</b> 눈사람은 아기 염소 무릎께까지만 온다 · 그 둘레에 물이 고인 자리 · 마당 눈이 절반쯤 걷혀 젖은 흙과 자갈이 드러났다 · 장화 한 켤레. 그 밖은 비운다
+<b>톤</b> 흐린 봄빛. 젖은 흙의 갈색이 처음으로 화면에 들어온다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>빨간 목도리가 스르르 흘러내려요.
+"목도리 흘러내렸어."
+아기 염소가 다시 여며 매듭을 지어요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨
+<b>장소·시간</b> 같은 자리. 낮
+<b>인물</b> 화면 오른쪽 — 아기 염소가 몸을 깊이 숙이고 두 앞발로 빨간 목도리 양 끝을 잡아 맞물리는 중. 발끝에 힘이 들어가 발가락이 벌어졌다. 눈은 매듭만 본다
+<b>배경·소품</b> 눈사람 몸통 윗부분과 머리 · 목도리 한 자락이 젖은 흙 위로 늘어져 끝이 검게 젖었다 · 그 아래 흙에 붉은 물이 살짝 배었다. 배경은 여백
+<b>톤</b> 붉은색이 이 쪽에서 가장 진하다. 나머지는 회갈색</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>"안아도 돼?"
+아기 염소가 두 팔로 폭 안아요.
+앞발이 축축해져요.
+나뭇가지 팔은 풀 위에 있어요.</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 정면보다 살짝 옆에서
+<b>장소·시간</b> 같은 울타리 귀퉁이. 눈이 거의 걷힌 아침
+<b>인물</b> 화면 가운데 — 아기 염소가 무릎을 꿇고 앉아 두 앞발로 낮고 둥근 눈사람을 통째로 감싸 안았다. 뺨을 눈사람 머리에 붙이고 눈을 감았다. 앞발 안쪽 털이 젖어 색이 짙어졌다. 표정은 웃지도 울지도 않는 조용한 얼굴
+<b>배경·소품</b> 울타리 가로대 셋이 전부 비어 있다 — 🔴 나뭇가지 두 개가 <b>아래 칸보다 낮은 젖은 풀 위</b>에 나란히 놓여 있다 · 그 옆에 초록 풀잎 몇 가닥 · 마당에 눈은 흰 조각 몇 개만
+<b>톤</b> 맑은 아침빛. 젖은 것들이 전부 빛을 되받아 반짝인다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>아기 염소가 털모자를 제 머리에 푹 눌러써요.
+모자챙이 한쪽 눈까지 내려와요.
+"모자, 이제 내가 쓸게."</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨 · 정면
+<b>장소·시간</b> 같은 자리. 아침
+<b>인물</b> 화면 가운데 — 아기 염소가 갈색 털모자를 제 머리에 눌러썼다. 모자가 커서 챙이 눈까지 내려와 한쪽 눈만 삐죽 보인다. 두 앞발은 아직 모자 양옆을 잡고 있고, 입은 활짝 벌어졌다
+<b>배경·소품</b> 아기 염소 어깨 아래로 낮아진 눈사람 머리 한 덩이 · 그 위에 단추 하나가 아직 박혀 있다 · 울타리 아래 칸 한 줄. 그 밖은 비운다
+<b>톤</b> 이 쪽만 밝고 가볍게. 화면에서 처음으로 웃음이 나는 자리</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>눈사람 자리에 젖은 풀이 반짝여요.
+단추 둘, 돌 하나, 나뭇가지 둘, 목도리.
+아기 염소가 하나씩 주워요.</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 하이앵글 · 위에서 내려다보는 부감 · 🔴 놓인 것들이 눈사람 모양 그대로 배열된 것이 보이게
+<b>장소·시간</b> 같은 울타리 귀퉁이. 눈이 다 걷힌 아침
+<b>인물</b> 화면 아래쪽 — 아기 염소가 무릎을 꿇고 앉아 한 앞발로 까만 단추 하나를 막 집어 올린다. 다른 앞발은 이미 돌 하나를 쥐고 있다. 고개를 숙인 옆얼굴, 눈이 크게 떠 있다. 머리엔 갈색 털모자
+<b>배경·소품</b> 🔴 젖은 풀밭 위에 눈사람이 서 있던 모양 그대로 — 까만 단추 둘이 위쪽에 나란히, 회색 돌 하나가 그 아래, 나뭇가지 둘이 양옆으로, 빨간 목도리가 맨 아래 둥글게 놓여 있다 · 그 자리 풀만 눌려 납작하고 색이 짙다 · 울타리 가로대 셋. 그 밖은 비운다
+<b>톤</b> 아침 해가 낮게 들어와 젖은 풀 하나하나에 흰 테를 두른다. 밝고 맑게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>목도리는 목에, 모자는 머리에 있어요.
+단추 둘과 돌 하나는 앞발 안에 모여 있어요.
+"여기 다 있어."
+어깨가 울타리 위 칸에 닿아요.</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 🔴 p1 과 같은 구도·같은 거리(선 자리도 같다)
+<b>장소·시간</b> 같은 울타리 귀퉁이. 아침
+<b>인물</b> 화면 오른쪽 — 아기 염소가 p1 에서 눈사람이 서 있던 그 자리에 서 있다. 빨간 목도리를 목에 두르고 갈색 털모자를 썼다. 두 앞발을 배 앞에 오목하게 모아 까만 단추 둘과 회색 돌 하나를 담고 있고, 거기를 내려다본다. 입꼬리가 살짝 올라갔다
+<b>배경·소품</b> 나무 울타리 가로대 셋 — 🔴 아기 염소의 <b>어깨가 맨 위 칸에 닿아 있다</b>(p1 에서 눈사람의 나뭇가지 팔이 닿던 바로 그 칸) · 나뭇가지 두 개는 울타리 위 칸에 나란히 걸쳐 두었다 · 발밑은 초록 풀 · 마당에 눈은 없다
+<b>톤</b> 봄 아침의 환한 빛. 붉은 목도리가 p1 과 똑같이 화면에서 유일하게 강한 색</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'b08',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['아기 염소(이름 없음)', '할머니 염소(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb6da4ec44"></script>
+<script src="/changjak-core.js?v=47fd80bb6da4ec44"></script>
+</body>
+</html>

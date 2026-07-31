@@ -4,11 +4,12 @@
  * 데이터 source: `ENGLISH_PHONICS_CURRICULUM` (`@tangobook/shared`).
  * R2 storybook ID 는 `en-bN-uMM` 형식 (zero-pad).
  *
- * 활동 plan = Book 1·2 만 작성됨(Book 3~5 는 "활동 준비 중"). 복습 단원은 Book 1·2 에 2단원씩 파생.
- * 🔴 영어는 그림 자산이 아직 0장이라, 복습·듣고 고르기 모두 **글자만으로** 도는 형태로 짰다.
+ * 활동 plan = **Book 1~5 전 권**(2026-07-31). Book 1=알파벳 / Book 2=CVC 전용 「배우기」·「써보기」 /
+ *   Book 3~5=낱말 기반 재사용 플랜(듣고 고르기 + 게임 4종). 복습은 전 권에 붙는다(Book 3~5 는 낱말 복습).
+ * 데이터(단어 그림·keypoints·wordFamilies TTS)는 Book 3~5 도 완비 — ABC 나무 카드 연동 + TTS 백필 덕분.
  */
 import { ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
-import type { ActivityPlan, ReviewCard } from './korean-phonics-units';
+import type { ActivityPlan, ActivityDef, ReviewCard } from './korean-phonics-units';
 
 export interface EnglishUnitSummary {
   id: string; // 'en-b1-u01'
@@ -55,9 +56,9 @@ function getCurriculumUnits(): EnglishUnitSummary[] {
 const REVIEW_CHUNK = 2;
 const MAX_REVIEW_CARDS = 8;
 
-/** 활동 plan 이 있는 레벨만 복습을 만든다 — Book 3~5 는 아직 학습 활동 자체가 없다. */
+/** 활동 plan 이 있는 레벨만 복습을 만든다(전 권). Book 3~5 는 낱말 기반 복습. */
 function reviewableLevels(): string[] {
-  return ['book1', 'book2'];
+  return ['book1', 'book2', 'book3', 'book4', 'book5'];
 }
 
 /**
@@ -79,9 +80,15 @@ export function getAllEnglishUnits(): EnglishUnitSummary[] {
       for (let i = 0; i < levelUnits.length; i += REVIEW_CHUNK) {
         groups.push(levelUnits.slice(i, i + REVIEW_CHUNK));
       }
+      // 🔴 꼬리가 1 단원이면 앞 묶음에 병합(단독 복습 방지) — Book 3 은 7단원이라 홀로 남는다.
+      if (groups.length >= 2 && groups[groups.length - 1].length < 2) {
+        const tail = groups.pop()!;
+        groups[groups.length - 1].push(...tail);
+      }
       groups.forEach((group, gi) => {
         const last = group[group.length - 1];
-        const letters = group.flatMap((u) => u.phonemes);
+        // 🔴 중복 제거 — Book 3 은 두 단원이 같은 phoneme(long-a)일 수 있어 "long-a~long-a" 가 됐다.
+        const letters = [...new Set(group.flatMap((u) => u.phonemes))];
         reviewAfter.set(last.id, {
           id: `en-b${last.levelIndex}-r${gi + 1}`,
           levelKey,
@@ -280,6 +287,26 @@ function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
   return { activities };
 }
 
+// ─── Book 3·4·5 plan generator (낱말 단위 — Magic-e / 블렌드 / 모음팀) ───
+/**
+ * 🔴 **Book 3·4·5 는 낱말 기반 재사용 플랜**(2026-07-31). 이 권들은 철자 패턴이 저마다 달라서
+ *    (Magic-e 라임 `_ake` · 앞 블렌드 `bl_` · 모음팀 `ee`) Book 2 의 CVC 전용 「배우기」가 안 맞는다.
+ *    데이터(단어 그림·keypoints·wordFamilies TTS)는 이미 완비돼 있으므로, **기존 컴포넌트만 재사용**해
+ *    먼저 연다: 듣고 고르기(낱말) + 게임 4종. 패턴 개념을 가르치는 전용 「배우기」는 후속.
+ *  - `word-listen-choose` 는 `letters` 를 안 넘긴다 → 호스트가 **낱말 기반 분기**로 렌더한다
+ *    (Book 1 은 `letters` 가 있어 알파벳 분기).
+ */
+function makeWordUnitPlan(): ActivityPlan {
+  const games: ActivityDef[] = [
+    { key: 'word-listen-choose', order: 1, kind: 'word-listen-choose', section: 'learn', title: '듣고 고르기', emoji: '🔊', required: true }, // prettier-ignore
+    { key: 'game-english-block', order: 2, kind: 'game-english-block', section: 'play', title: '블록 게임', emoji: '🧩', required: false }, // prettier-ignore
+    { key: 'game-word-writing', order: 3, kind: 'game-word-writing', section: 'play', title: '낱말 쓰기', emoji: '🖍️', required: false }, // prettier-ignore
+    { key: 'game-dots', order: 4, kind: 'game-connect-dots', section: 'play', title: '낱말 그리기', emoji: '🔵', required: false }, // prettier-ignore
+    { key: 'game-line-matching', order: 5, kind: 'game-line-matching', section: 'play', title: '그림 짝 찾기', emoji: '🔗', required: false }, // prettier-ignore
+  ];
+  return { activities: games };
+}
+
 // Book 1 unit → 글자 (storybook title 과 일치)
 const BOOK1_LETTERS: Record<string, readonly string[]> = {
   'en-b1-u01': ['A', 'B', 'C'],
@@ -365,72 +392,101 @@ function reviewCardsFor(unitId: string): ReviewCard[] {
       matchPosition: 'cho' as const,
     }));
   }
+  // 🔴 **Book 3·4·5 = 낱말 카드**(2026-07-31). 이 권들은 철자 패턴(`_ake`·`bl_`·`ee`)이 저마다 달라
+  //    "글자/패턴 하나" 로 복습 카드를 만들기 어렵다. 대신 커리큘럼 낱말을 그대로 카드로 쓴다 —
+  //    `letter === word` 라 `pickWord`(startsWith)가 그 낱말을 정확히 집고, Book 2 복습 분기(낱말↔그림)가
+  //    그대로 동작한다(별도 호스트 분기 없이). 소리에 의존하는 「듣고 …」·글자 사냥은 plan 에서 뺀다.
+  const unit = getCurriculumUnits().find((u) => u.id === unitId);
+  if (
+    unit &&
+    (unit.levelKey === 'book3' || unit.levelKey === 'book4' || unit.levelKey === 'book5')
+  ) {
+    // 🔴 단원당 앞 4개만 — 복습은 2단원(또는 3)을 묶는데 한 단원이 8~16낱말이라, 전부 넣으면
+    //    slice(0,8) 에서 **첫 단원만** 담긴다(둘째 단원이 사라진다). 4개씩이면 두 단원이 다 들어온다.
+    return unit.targetWords.slice(0, 4).map((w) => ({
+      unitId,
+      letter: w,
+      syllable: w,
+      sound: w,
+      matchPosition: 'cho' as const,
+    }));
+  }
   return [];
 }
 
 /**
-/**
- * 영어 복습 plan — **한글과 같은 6종**.
+ * 영어 복습 plan — 한글과 같은 활동군(단어 카드가 붙은 뒤 2종 → 6종으로 늘렸다).
+ * 순서는 듣기와 눈 활동을 번갈아 — 듣기 둘을 붙여 놓으면 한 활동을 두 번 하는 걸로 느낀다.
  *
- * 🔴 예전엔 2종뿐이었다. 「영어는 flashcard 이미지가 0장」이라는 전제로 짠 건데,
- *    2026-07-27 단어 카드 362장이 붙으면서 그 전제가 사라졌다(사용자: "a~f review 너무 뭐가 없는데?").
- *    복습이 심심한 건 활동 가짓수가 아니라 **형식이 같아서**다 — 한글이 이미 푼 문제라 그 구성을 따른다.
- * 🔴 순서는 듣기와 눈 활동을 번갈아 — 듣기 둘을 붙여 놓으면 한 활동을 두 번 하는 걸로 느낀다.
+ * 🔴 **Book 1 에선 「듣고 낱말」을 뺀다**(2026-07-31 사용자: "5번 듣고 낱말도 알파벳 맞추기라 3번이랑 겹쳐").
+ *    Book 1 은 글자가 단위라 「듣고 낱말」(낱말 소리 → 첫 글자)도 화면·과제가 「듣고 글자」(#3)와 똑같이
+ *    "🔊 듣고 알파벳 고르기"가 되고, 학습 「배우기 2」(낱말 듣고 글자)와도 겹친다. #3(낱소리 → 글자)만 남긴다.
+ *    Book 2 는 「듣고 글자」=패턴(`an`) / 「듣고 낱말」=낱말(`can`)+그림이라 서로 다르므로 둘 다 유지(6종).
+ * 🔴 **Book 3·4·5 = 낱말 시각 복습 3종만**(2026-07-31): 카드가 낱말(`letter===word`)이라 글자 사냥·듣고
+ *    글자(글자 활동)는 안 맞고, 「듣고 …」는 소리에 의존하는데 일부 낱말이 재생시점 concat 무음이 될 수
+ *    있어 뺀다. 낱말↔그림 시각 활동(뒤집기·그림짝·낱말쓰기)만 남긴다 — 소리는 있으면 보너스.
  */
-function makeEnglishReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
+function makeEnglishReviewPlan(cards: readonly ReviewCard[], levelKey: string): ActivityPlan {
   const shared = { required: true, reviewCards: cards, section: 'play' as const };
-  return {
-    activities: [
-      {
-        key: 'letter-hunt',
-        order: 1,
-        kind: 'letter-hunt',
-        title: '글자 사냥',
-        emoji: '🔎',
-        ...shared,
-      },
-      {
-        key: 'review-flip',
-        order: 2,
-        kind: 'review-flip',
-        title: '뒤집기 짝 맞추기',
-        emoji: '🎴',
-        ...shared,
-      },
-      {
-        key: 'review-syllable-listen',
-        order: 3,
-        kind: 'review-syllable-listen',
-        title: '듣고 글자 맞추기',
-        emoji: '🎧',
-        ...shared,
-      },
-      {
-        key: 'review-match',
-        order: 4,
-        kind: 'review-match',
-        title: '그림 짝 찾기',
-        emoji: '🔗',
-        ...shared,
-      },
-      {
-        key: 'review-word-listen',
-        order: 5,
-        kind: 'review-word-listen',
-        title: '듣고 낱말 맞추기',
-        emoji: '🔊',
-        ...shared,
-      },
-      {
-        key: 'review-write',
-        order: 6,
-        kind: 'review-write',
-        title: '글자 쓰기',
-        emoji: '✏️',
-        ...shared,
-      },
-    ],
-  };
+  const all: ActivityDef[] = [
+    {
+      key: 'letter-hunt',
+      order: 0,
+      kind: 'letter-hunt',
+      title: '글자 사냥',
+      emoji: '🔎',
+      ...shared,
+    },
+    {
+      key: 'review-flip',
+      order: 0,
+      kind: 'review-flip',
+      title: '뒤집기 짝 맞추기',
+      emoji: '🎴',
+      ...shared,
+    },
+    {
+      key: 'review-syllable-listen',
+      order: 0,
+      kind: 'review-syllable-listen',
+      title: '듣고 글자 맞추기',
+      emoji: '🎧',
+      ...shared,
+    },
+    {
+      key: 'review-match',
+      order: 0,
+      kind: 'review-match',
+      title: '그림 짝 찾기',
+      emoji: '🔗',
+      ...shared,
+    },
+    {
+      key: 'review-word-listen',
+      order: 0,
+      kind: 'review-word-listen',
+      title: '듣고 낱말 맞추기',
+      emoji: '🔊',
+      ...shared,
+    },
+    {
+      key: 'review-write',
+      order: 0,
+      kind: 'review-write',
+      title: '글자 쓰기',
+      emoji: '✏️',
+      ...shared,
+    },
+  ];
+  const isWordReview = levelKey === 'book3' || levelKey === 'book4' || levelKey === 'book5';
+  const WORD_KINDS = new Set(['review-flip', 'review-match', 'review-write']);
+  const activities = all
+    .filter((a) => {
+      if (isWordReview) return WORD_KINDS.has(a.kind); // 낱말 시각 3종만
+      return !(levelKey === 'book1' && a.kind === 'review-word-listen'); // Book 1 은 듣고 낱말 제외
+    })
+    .map((a, i) => ({ ...a, order: i + 1 }));
+  return { activities };
 }
 
 function englishReviewPlans(): Record<string, ActivityPlan> {
@@ -438,10 +494,15 @@ function englishReviewPlans(): Record<string, ActivityPlan> {
   for (const u of getAllEnglishUnits()) {
     if (!u.isReview) continue;
     const cards = (u.coveredUnitIds ?? []).flatMap(reviewCardsFor).slice(0, MAX_REVIEW_CARDS);
-    if (cards.length) out[u.id] = makeEnglishReviewPlan(cards);
+    if (cards.length) out[u.id] = makeEnglishReviewPlan(cards, u.levelKey);
   }
   return out;
 }
+
+// Book 3·4·5 단원 id — 커리큘럼에서 파생(목록을 두 번 적지 않는다).
+const BOOK345_UNIT_IDS = getCurriculumUnits()
+  .filter((u) => u.levelKey === 'book3' || u.levelKey === 'book4' || u.levelKey === 'book5')
+  .map((u) => u.id);
 
 export const ENGLISH_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
   ...Object.fromEntries(
@@ -453,6 +514,8 @@ export const ENGLISH_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
       makeBook2UnitPlan(patterns),
     ])
   ),
+  // Book 3·4·5 — 낱말 기반 재사용 플랜(듣고 고르기 + 게임 4종).
+  ...Object.fromEntries(BOOK345_UNIT_IDS.map((id) => [id, makeWordUnitPlan()])),
   ...englishReviewPlans(),
 };
 

@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>C-12 안개 낀 아침의 소리들 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · C · 자연·계절·동물 · 12</div>
+  <h1>안개 낀 아침의 소리들</h1>
+  <div class="sub">안개 속에서 소리만 듣고 무엇이 있는지 맞혀요. 안개가 걷히니 전부 다른 것이었어요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 오해와 반전</span>
+  <span>무대 · 스코틀랜드 고원 — 보랏빛 헤더밭 비탈의 납작 바위 한 자리</span>
+  <span>후렴 · "쉿— 잘 들어 봐." (산토끼 · p3·p4·p6·p7 네 번 · 늘 쪽 앞머리 · 🔴 p9 에서 다섯 번째가 "쉿— 잘…" 하고 시작되다 만다)</span>
+  <span class="q">11스프레드</span>
+  <span class="q">본문 624자 · 쪽당 57자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- 🔴 <b>c02(알프스·안개)와 안개의 역할이 정반대다.</b> c02 에서 안개는 개를 곤경에 넣는 장치일 뿐이고 답은 안개 <b>한복판에서</b> 나온다(땅에 코를 대는 순간). 이 권은 반대로 <b>안개 속에서는 아무것도 안 풀리고, 걷힌 한 장이 전부를 말한다</b> — 「오해와 반전」의 통과 조건이 그것이라서다. 그 밖에도 c02 = 저녁·목초지·냄새·따라가기 뒤바뀜 / 이 권 = 아침·헤더밭·소리·하나만 맞음.<br>
+- 🔴 <b>독자도 같이 속아야 한다.</b> f03(할머니 부엌의 소리)은 아이가 눈을 감고 독자는 그림으로 답을 다 본다. 이 권은 <b>안개가 독자의 눈도 가린다</b> — p2~p8 의 <code>배경·소품</code> 이 거의 비어 있는 것은 예산을 아낀 게 아니라 <b>이 권의 물리 그 자체</b>다. 그려 넣으면 p9 가 죽는다.<br>
+- 🔴 <b>추론이 없다.</b> 아이가 단서 다섯을 모아서 풀 일이 없다. p9 한 장에 물방울 · 자갈 · 바위 틈 · 작은 새 · 양이 <b>한꺼번에 제자리에</b> 있고, 그게 답의 전부다.<br>
+- 🔴 <b>못 아는 이유가 글 안에 있다.</b> ①두 걸음 너머가 통째로 지워진다(p2) ②<b>바람 한 점 없다</b>(p2) — 이 한 줄이 「그럼 냄새로 알았을 텐데」를 막는다. 그리고 p9 에서 <b>처음 부는 그 바람이 안개를 쓸어 간다.</b> 조건과 해소가 같은 물건이다.<br>
+- 🔴 <b>양은 걸어서 다가온다.</b> p1 에 비탈 아래 헤더 너머 흰 것 하나로 멀리 있고, 안개 동안 풀을 뜯으며 올라와 p5 에는 두 걸음 옆이다. 그래서 부스럭 소리가 점점 커지고 p8 에 소리가 한꺼번에 몰리는 것이 <b>인과로 설명된다</b> — 겁주려고 몰아넣은 게 아니다.<br>
+- 🔴 <b>틀린 짐작마다 몸동작이 하나씩 붙는다.</b> ①귀 하나를 앞으로 돌린다(p3) ②뒷발로 땅을 쿵쿵 굴러 대답을 보낸다(p4 · 토끼의 실제 행동) ③앞발을 들었다 소리 없이 내린다(p5) ④상대 등 뒤로 고개를 밀어 넣는다(p6) ⑤두 앞발을 입가에 모으고 마주 외친다(p7). 다섯이 다 다른 자세라 말로만 짐작하는 쪽이 하나도 없다.<br>
+- 🔴 <b>후렴이 착지의 부품이다.</b> 「쉿— 잘 들어 봐.」가 네 번 나오고, p9 에서 다섯 번째가 <b>입이 벌어진 채 끊긴다.</b> 들을 것이 남지 않아서다 — 「이제 안 들어도 돼」 같은 줄을 안 쓰려고 문장 자체를 끊었다.<br>
+- 🔴 <b>소리의 주인은 전부 실제 스코틀랜드 고원의 것이다.</b> 젖은 헤더 끝에서 바위 웅덩이로 떨어지는 물방울 · 좁은 개울에서 물살에 굴러 부딪히는 자갈 · 두 바위 사이 틈을 지나는 바람 · 그리고 <b>굴뚝새</b> — 몸이 아주 작은데 울음이 대단히 큰 새다. 「제일 작은 것이 제일 크게 운다」는 지어낸 게 아니라 실제이고, 이 권의 반전이 그 사실 위에 서 있다. 양은 스코틀랜드 검은얼굴 양(흰 몸 · 까만 얼굴).<br>
+- 🔴 <b>p1 과 p9 가 같은 자리 같은 구도다.</b> 다섯이 처음부터 전부 거기 있었다는 것이 두 장을 나란히 놓기만 해도 읽힌다.<br>
+- 🔴 <b>착지에 교훈 문장이 없다.</b> 마지막 대사는 「나 너 맞혔다.」 한 줄이고, 그다음은 양의 「매에—」다. 누가 뭘 배웠다는 말도, 잘난 체하던 토끼를 나무라는 말도 없다 — 토끼는 그냥 귀가 내려가 있다.<br>
+- 🔴 <b>장소는 납작 바위 한 자리.</b> 카메라가 이 비탈을 안 벗어난다. p10 의 「두 걸음」도 이 안이다.<br>
+- 🔴 <b>의인화 등급 열한 쪽 고정</b> — 둘 다 네 발이고 옷이 없다. 앞발을 입가에 모으는 p7 도 네 발 짐승이 할 수 있는 정도(앞발 둘을 턱 앞으로 올리는 자세)로 그린다.<br>
+- 🔴 <b>열한 쪽.</b> 평상(1) 안개(1) 짐작 다섯(5) 몰림(1) 걷힘(1) 뒤집힘(1) 착지(1). p9(굳은 채 드러남)와 p10(앞으로 나선다)은 <b>한 인물이 두 자세</b>라 한 쪽에 못 넣는다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>"여긴 내 앞마당이야. 눈 감고도 다 알아."
+산토끼가 납작 바위 위로 폴짝 뛰어올랐어요.
+새끼 사슴은 보라색 헤더에 코를 박고 킁킁댔어요.
+해가 이제 막 올라와요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 화면 가운데에 납작 바위와 그 위의 산토끼, 아래쪽에 헤더에 코를 박은 새끼 사슴 — 🔴 <b>이 비탈 한 자리가 통째로 보이는 유일한 첫 장</b>(p9 에서 같은 구도로 돌아온다)
+<b>장소·시간</b> 스코틀랜드 고원의 완만한 비탈. 보랏빛 헤더가 발목까지 덮였고 가운데에 젖어서 새까만 납작 바위 하나, 그 앞을 손바닥 폭의 좁은 개울이 지나간다. 해가 능선 위로 이제 막 올라온 아침, 아래 골짜기까지 훤히 보인다
+<b>인물</b> 화면 가운데 — 회갈색 산토끼가 납작 바위 위로 막 뛰어올라 뒷발로 착지하는 중이다, 앞발 둘이 아직 공중에 떴고 긴 귀 두 개가 위로 곧게 섰다, 고개를 아래 사슴 쪽으로 돌려 입을 벌리고 말한다. 화면 왼쪽 아래 — 붉은 털의 새끼 사슴이 네 발을 벌리고 목을 낮춰 헤더 덤불에 코를 깊이 박았다, 등에 옅은 흰 점이 남아 있고 뿔은 아직 없다, 꼬리가 짧게 한 번 흔들린다
+<b>배경·소품</b> 🔴 <b>다섯이 전부 여기 있다</b> — ①납작 바위 위로 늘어진 젖은 헤더 가지 끝에 물방울이 맺혔고 그 아래 바위 웅덩이 ②좁은 개울 바닥에 잔 자갈이 깔렸다 ③바위 옆에 세워진 검은 바위 두 덩이 사이의 좁은 틈 ④그 바위 꼭대기에 아주 작은 갈색 새 한 마리가 앉아 있다 ⑤🔴 <b>저 아래 헤더밭 너머에 흰 것 하나</b>(멀어서 바위처럼 보인다). 멀리 능선, 이슬 맺힌 거미줄 한 장
+<b>톤</b> 낮게 비껴 드는 아침 햇빛에 헤더가 보라로 환하고 젖은 바위가 까맣게 번들거린다. 🔴 <b>다섯 개를 다 그리되 어느 것도 강조하지 않는다</b> — 눈에 걸리지 않고 그냥 거기 있도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>골짜기에서 하얀 것이 스멀스멀 올라왔어요.
+안개예요.
+두 걸음 너머가 통째로 사라졌어요.
+바람 한 점 없어요.
+새끼 사슴이 산토끼 옆에 바짝 붙었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 화면 아래 절반은 이미 흰 안개, 위 절반에 아직 보라 헤더가 조금 남았다
+<b>장소·시간</b> 같은 비탈, 골짜기 쪽을 보는 방향. 해가 올라오는 중인데 아래부터 지워지는 아침
+<b>인물</b> 화면 가운데 — 새끼 사슴이 네 발을 모아 산토끼 옆구리에 몸을 바짝 붙였다, 어깨가 산토끼 등에 닿았고 고개는 안개 쪽을 향한 채 귀 두 개가 앞으로 섰다, 앞다리 하나가 살짝 굽었다. 화면 가운데 왼쪽 — 산토끼가 납작 바위 위에서 네 발을 딱 짚고 코를 위로 쳐들었다, 수염이 벌어지고 귀 하나가 아래쪽으로 기울었다
+<b>배경·소품</b> 🔴 <b>아래에서 올라온 흰 안개가 화면의 절반을 이미 삼켰고, 아까 보이던 골짜기와 능선이 없다</b> — 발밑 헤더 서너 포기와 젖은 바위 모서리만 남는다, 풀 끝마다 물방울이 맺힌다, 🔴 <b>거미줄 한 장이 축 늘어져 조금도 안 흔들린다</b>(바람이 없다는 표시)
+<b>톤</b> 아래는 새하얗고 위는 젖은 보라. 🔴 <b>한 화면에 「보이는 쪽」과 「지워진 쪽」이 같이 있어야</b> 안개가 무엇을 하는지 아이가 안다. 공기가 딱 멈춘 느낌</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>"쉿— 잘 들어 봐."
+뚝. 뚝. 뚝.
+산토끼가 귀 하나를 앞으로 쓰윽 돌렸어요.
+"발소리야! 누가 걸어오고 있어!"
+새끼 사슴이 목을 길게 뺐어요.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 왼쪽에 귀를 돌린 산토끼, 오른쪽에 목을 뺀 새끼 사슴, 뒤는 통째로 흰 벽
+<b>장소·시간</b> 같은 납작 바위 위. 안개가 가장 짙어진 아침, 보이는 것은 두 걸음
+<b>인물</b> 화면 왼쪽 — 산토끼가 네 발로 낮게 엎드린 자세에서 🔴 <b>긴 귀 하나만 앞으로 쓰윽 돌리는 중이다</b>(귀 안쪽 털결이 그 방향으로 눕고 다른 귀는 위로 곧게 선 그대로), 코끝이 들리고 눈이 크게 떠졌다, 입이 벌어져 외친다. 화면 오른쪽 — 새끼 사슴이 네 발을 붙이고 선 채 🔴 <b>목을 앞으로 한껏 길게 뺐다</b>, 턱이 앞으로 나오고 귀 두 개가 소리 쪽으로 쏠렸다, 뒷다리는 그대로라 몸이 길게 늘어난 모양이다
+<b>배경·소품</b> 발밑 젖은 바위 표면과 헤더 두어 포기뿐. 🔴 <b>그 너머는 아무것도 없다 — 하얗다.</b> 등털에 안개 물방울이 뽀얗게 맺힌다
+<b>톤</b> 사방이 고르게 하얘서 앞뒤가 없다. 🔴 <b>화면에 형태가 있는 것은 이 둘뿐</b> — 소리가 어디서 나는지 독자도 못 보게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>"쉿— 잘 들어 봐."
+딸그락, 딸그락, 딸그락.
+산토끼가 뒷발로 땅을 쿵쿵 굴렀어요.
+"말발굽이야. 저 아래서 올라와!"</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 살짝 로우앵글(땅에 가깝게) · 화면 앞 가운데에 바위를 내리치는 산토끼의 뒷발, 뒤쪽에 새끼 사슴의 다리와 흐린 얼굴
+<b>장소·시간</b> 같은 납작 바위 위. 짙은 안개
+<b>인물</b> 화면 가운데 — 산토끼가 앞발 둘로 바위를 짚고 상체를 낮춘 채 🔴 <b>뒷발 두 개로 바위를 쿵 내리치는 중이다</b>(한 발은 이미 닿아 눌렸고 다른 발은 아직 들려 있다), 엉덩이가 들썩이고 귀 두 개가 뒤로 살짝 넘어갔다, 고개는 안개 쪽을 본다. 화면 뒤 오른쪽 — 새끼 사슴의 가는 앞다리 둘과 아래로 숙인 얼굴이 안개에 반쯤 흐려진 채 들어온다, 발굽이 소리에 놀라 한 발짝 뒤로 물러났다
+<b>배경·소품</b> 바위에 튀는 물방울 몇, 발이 닿은 자리에 번지는 젖은 자국. 🔴 <b>그 밖에는 흰 안개뿐</b>
+<b>톤</b> 아래에서 올려다봐 구르는 뒷발이 크고 힘차게. 🔴 <b>대답을 보내는데 돌아오는 것이 없다</b>는 게 뒤쪽의 텅 빈 흰색으로 읽히도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>부스럭. 부스럭. 우물우물.
+"…양 아니야?"
+새끼 사슴이 앞발을 들었다 소리 없이 내렸어요.
+"양? 양이 저렇게 크게 부스럭거려?"</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 오른쪽에 앞발을 든 새끼 사슴, 왼쪽에 고개를 돌린 산토끼 — 🔴 <b>둘 다 소리 나는 쪽(화면 오른쪽 밖)을 보지 않고 서로를 본다</b>
+<b>장소·시간</b> 같은 납작 바위 옆. 짙은 안개
+<b>인물</b> 화면 오른쪽 — 새끼 사슴이 🔴 <b>앞발 하나를 무릎 높이까지 들었다가 소리가 안 나게 천천히 내려놓는 중이다</b>(발굽이 헤더 위에 살짝 얹혔다), 목을 움츠려 어깨가 올라갔고 입이 아주 조금만 벌어져 작게 말한다, 귀 하나가 옆으로 처졌다. 화면 왼쪽 — 산토끼가 바위 위에서 몸을 홱 돌려 사슴을 마주 본다, 코끝을 앞으로 내밀고 수염이 벌어졌으며 입이 크게 벌어졌다, 앞발 하나가 바위를 짚고 다른 앞발은 사슴 쪽을 가리키듯 들렸다
+<b>배경·소품</b> 발밑 헤더 몇 포기와 바위 모서리. 🔴 <b>화면 오른쪽 끝, 두 걸음쯤 되는 자리에 아주 옅은 흰 덩어리 윤곽이 하나 떠 있다</b> — 안개보다 아주 조금 진할 뿐이고 테두리가 없다(글에는 없다 · 강조하지 않는다 · 다시 봐야 겨우 보이는 정도)
+<b>톤</b> 온통 흰 화면에 두 몸만 또렷하다. 🔴 <b>작게 말한 쪽과 크게 말한 쪽</b>이 입 벌린 크기와 몸 기울기로만 갈리도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>"쉿— 잘 들어 봐."
+후우—. 후우—.
+"숨소리야. 아주 커다란 게 숨을 쉬어."
+새끼 사슴이 산토끼 등 뒤로 고개를 쑥 밀어 넣었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 · 화면 가득 산토끼의 등과 그 뒤로 밀어 넣은 새끼 사슴의 얼굴
+<b>장소·시간</b> 같은 납작 바위 위. 짙은 안개
+<b>인물</b> 화면 가운데 — 산토끼가 앞을 향해 네 발로 버티고 서서 코를 위로 쳐들었다, 귀 두 개가 위로 곧게 서고 등털이 조금 곤두섰다, 고개만 옆으로 돌려 입을 벌리고 말한다. 화면 가운데 뒤 — 🔴 <b>새끼 사슴이 고개를 산토끼 등 뒤 겨드랑이 쪽으로 쑥 밀어 넣어 얼굴 절반만 보인다</b>, 드러난 한쪽 눈을 질끈 감았고 귀 하나가 납작하게 누웠다, 앞다리 둘이 몸 아래로 접혀 키가 낮아졌다
+<b>배경·소품</b> 두 몸이 닿은 자리, 젖은 바위 표면 한 뼘. 🔴 <b>나머지는 전부 흰 안개</b>
+<b>톤</b> 둘이 붙은 자리가 가장 진하고 가장자리로 갈수록 하얗게 풀린다. 🔴 <b>큰 것이 어디에도 안 보이는데 무섭다</b>는 것이 화면의 텅 빈 곳으로 오도록 — 그림자나 실루엣을 만들어 넣지 않는다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>"쉿— 잘 들어 봐."
+끼르르르—. 끼르르르—.
+산토끼가 두 앞발을 입가에 모으고 마주 외쳤어요.
+"거기 누구야아—!"
+아무도 대답하지 않았어요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 미디엄 · 살짝 로우앵글 · 화면 왼쪽 앞에 앞발을 입가에 모은 산토끼, 오른쪽 뒤에 귀를 세운 새끼 사슴
+<b>장소·시간</b> 같은 납작 바위 위. 짙은 안개
+<b>인물</b> 화면 왼쪽 앞 — 산토끼가 뒷발로 버티고 상체를 세워 🔴 <b>앞발 둘을 턱 앞으로 올려 입가에 나팔처럼 모았다</b>(네 발 짐승이 하는 정도로, 두 발로 서지는 않는다), 고개를 위로 젖히고 입을 크게 벌려 길게 외친다, 귀 두 개가 뒤로 넘어갔다, 목이 부풀었다. 화면 오른쪽 뒤 — 새끼 사슴이 네 발로 서서 귀 두 개를 위로 곧게 세우고 기다린다, 눈이 크게 떠졌고 입은 다물렸다, 앞발 하나가 들리다 만 채다
+<b>배경·소품</b> 발밑 바위와 헤더 두어 포기. 🔴 <b>외친 방향으로 안개가 조금도 안 움직인다</b> — 소리가 나갔는데 아무것도 안 돌아오는 흰 벽
+<b>톤</b> 아래에서 올려다봐 외치는 몸이 크게. 🔴 <b>다음 한 박이 텅 비어 있다</b>는 게 화면의 절반을 채운 아무것도 없는 흰색으로 읽히도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>뚝. 딸그락. 후우—. 끼르르르—. 부스럭.
+소리가 한꺼번에 몰려왔어요.
+둘은 등을 맞대고 딱 굳었어요.
+새끼 사슴 다리가 후들후들 떨려요.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 · 살짝 하이앵글 · 온통 흰 화면 한가운데 등을 맞댄 두 몸
+<b>장소·시간</b> 같은 납작 바위 위. 안개가 가장 짙은 몇 분
+<b>인물</b> 화면 가운데 — 산토끼와 새끼 사슴이 🔴 <b>등과 옆구리를 딱 맞대고 서로 반대쪽을 본다</b>, 산토끼는 네 발을 바위에 붙이고 귀 두 개를 서로 다른 방향으로 돌렸으며 눈이 튀어나올 듯 크다. 새끼 사슴은 네 다리를 곧게 뻗어 버티는데 🔴 <b>앞다리 하나가 눈에 보이게 후들후들 떨려 발굽 아래 물기가 잘게 흔들린다</b>, 목을 움츠렸고 귀가 뒤로 눕고 콧구멍이 벌름거린다
+<b>배경·소품</b> 두 몸이 딛고 선 바위 한 조각과 헤더 몇 포기. 🔴 <b>그 밖에는 전부 흰색이다 — 어느 쪽에도 형체를 넣지 않는다</b>
+<b>톤</b> 위에서 조금 내려다봐 둘이 흰 바닥 한가운데 작게 놓인다. 🔴 <b>다섯 소리가 사방에서 오는데 볼 것이 하나도 없다</b> — 이 쪽이 이 권에서 가장 비어 있어야 다음 장이 산다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>휘잉—.
+바람이 안개를 쓸어 갔어요.
+"쉿— 잘…"
+산토끼 입이 벌어진 채 멈췄어요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 🔴 <b>p1 과 같은 자리 같은 거리 같은 구도</b> — 화면 가운데 납작 바위 위에 굳은 두 몸, 그 둘레에 소리의 주인 다섯이 전부 제자리에
+<b>장소·시간</b> 같은 비탈. 바람이 오른쪽에서 왼쪽으로 안개를 쓸어 가는 순간, 해가 능선 위로 올라와 비껴 드는 아침
+<b>인물</b> 화면 가운데 — 산토끼가 아까 자세 그대로 굳었다, 🔴 <b>입이 「쉿」 모양으로 벌어진 채 멈췄고</b> 귀 두 개가 위로 곧게 선 그대로이며 눈이 크게 떠졌다, 앞발 하나가 들린 채 내려오지 못했다. 그 옆 — 새끼 사슴이 등을 맞댄 자세 그대로 고개만 오른쪽으로 돌렸다, 두 눈이 커지고 귀가 앞으로 번쩍 섰다, 떨던 앞다리가 멎었다
+<b>배경·소품</b> 🔴 <b>다섯이 한꺼번에 드러난다</b> — ①바로 옆 납작 바위 위로 늘어진 젖은 헤더 가지 끝에서 물방울 하나가 아래 바위 웅덩이로 떨어지는 중 ②발밑 좁은 개울에서 자갈 하나가 물살에 굴러 다른 돌에 막 닿는 중 ③옆에 선 검은 바위 두 덩이 사이 좁은 틈으로 안개 자락이 빨려 지나간다 ④그 바위 꼭대기에 아주 작은 갈색 새 한 마리가 꼬리를 곧추세우고 부리를 크게 벌리고 있다 ⑤🔴 <b>두 걸음 옆에 스코틀랜드 검은얼굴 양 한 마리</b> — 흰 몸이 물러나는 흰 안개에서 막 떨어져 나오는 중이라 <b>까만 얼굴과 굽은 뿔이 먼저 나왔고</b>, 입이 헤더를 물고 옆으로 우물거린다. 되살아난 보라 헤더밭과 아래 골짜기
+<b>톤</b> 걷힌 쪽이 확 밝고 왼쪽 가장자리에만 흰 자락이 남는다. 🔴 <b>다섯을 다 보여 주되 크기를 있는 그대로</b> — 물방울·자갈·새는 손톱만 하고 양만 두 몸만큼 크다. 이 한 장이 답의 전부이므로 화살표도 강조 테두리도 없이 그냥 다 놓여 있도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>새끼 사슴이 두 걸음 앞으로 나섰어요.
+헤더를 앞발로 쓰윽 헤쳤어요.
+"양이야! 진짜 양이 있었어!"</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 · 살짝 로우앵글 · 화면 왼쪽 앞에 앞으로 나선 새끼 사슴, 오른쪽에 고개를 든 양, 화면 뒤 오른쪽 위에 바위 위 산토끼
+<b>장소·시간</b> 같은 비탈, 납작 바위에서 두 걸음 나온 헤더밭. 안개가 다 물러난 아침
+<b>인물</b> 화면 왼쪽 앞 — 새끼 사슴이 🔴 <b>앞발 하나를 앞으로 뻗어 헤더 덤불을 옆으로 쓱 눌러 헤치는 중이다</b>(눌린 가지가 한쪽으로 휘었다), 뒷다리 하나가 아직 뒤에 남아 걸음 중간이고, 고개를 위로 들어 입을 크게 벌리고 외친다, 귀 두 개가 앞으로 번쩍 섰고 눈이 반짝인다. 화면 오른쪽 — 양이 헤더에서 얼굴을 들어 새끼 사슴을 본다, 까만 얼굴에 노란 눈, 입에 헤더 줄기가 반쯤 물려 삐죽 나왔고 턱이 옆으로 계속 움직인다. 화면 뒤 오른쪽 위 — 산토끼가 납작 바위 위에서 그대로 앉아 있고 🔴 <b>긴 귀 두 개가 아래로 축 내려왔다</b>, 입이 다물렸다
+<b>배경·소품</b> 헤쳐진 헤더 아래 드러난 젖은 흙, 양 발굽 둘레에 눌린 자국, 뒤로 개울과 검은 바위 틈, 바위 꼭대기의 작은 갈색 새. 아침 햇빛에 물방울이 반짝인다
+<b>톤</b> 아래에서 올려다봐 사슴과 양이 같은 깊이에 나란히 크게 놓인다. 🔴 <b>p8 에서 다리를 떨던 아이가 지금 제일 앞에 있다</b> — 자세만으로 뒤집힘이 읽히도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>뚝. 딸그락. 후우—. 끼르르르—. 우물우물.
+소리가 아까랑 똑같이 나요.
+그런데 하나도 안 커요.
+"나 너 맞혔다."
+"매에—."</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 화면 가운데에 양과 그 옆에 나란히 선 새끼 사슴, 그 둘레에 소리 내는 것 넷이 전부 손톱만 하게
+<b>장소·시간</b> 같은 비탈. 해가 능선 위로 완전히 올라온 아침
+<b>인물</b> 화면 가운데 — 새끼 사슴이 양 옆구리에 나란히 붙어 서서 🔴 <b>헤더를 한 입 뜯어 우물거린다</b>, 고개는 양 쪽으로 돌렸고 입가에 보라 꽃이 삐죽 물렸다, 귀 하나가 편하게 옆으로 누웠다. 그 옆 — 양이 고개를 들고 입을 벌려 운다, 까만 얼굴에 굽은 뿔, 몸이 화면에서 가장 크다. 화면 왼쪽 뒤 — 산토끼가 납작 바위 위에 배를 깔고 엎드렸다, 귀 두 개가 등 위로 납작하게 누웠고 앞발에 턱을 얹은 채 이쪽을 본다
+<b>배경·소품</b> 🔴 <b>소리 내는 것이 전부 화면 안에 있고 전부 작다</b> — 헤더 끝에서 바위 웅덩이로 떨어지는 물방울 하나 · 개울에서 굴러 부딪히는 자갈 하나 · 바람이 지나는 검은 바위 두 덩이 사이 좁은 틈 · 그 꼭대기에서 부리를 크게 벌린 아주 작은 갈색 새. 보라 헤더밭이 아래 골짜기까지 훤히 이어진다
+<b>톤</b> 아침 햇빛이 고르게 퍼져 그늘이 얕다. 🔴 <b>화면에서 큰 것은 양 하나뿐이다</b> — 넷은 눈으로 찾아야 보일 만큼 작게 그려서, 다섯 짐작 중 크기가 맞은 것이 딱 하나였다는 것이 글 없이 크기만으로 읽히도록. 조용하고 환한 아침</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'c12',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 붉은사슴(이름 없음)', '산토끼(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb6da4ec44"></script>
+<script src="/changjak-core.js?v=47fd80bb6da4ec44"></script>
+</body>
+</html>

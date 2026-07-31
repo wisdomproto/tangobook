@@ -31,7 +31,7 @@ interface Props {
  *   - 큰 일러스트 + 저작도구에서 만든 hotspots
  *   - hotspot 클릭 → 그 단어의 ttsUrl 재생 (multi-hotspot 지원)
  *   - 상단 글자 탭 (Aa / Bb / Cc) — 활성 글자 강조 (coral). 비활성 클릭 → 그 글자로 전환.
- *   - 글자 소리는 그림 아래 **큰 [Aa 🔊] 버튼**(상시) — 탭 재클릭도 같은 소리를 낸다
+ *   - 글자 소리는 **상단 활성 탭을 다시 탭**하면 난다(2026-07-31 아래 큰 버튼 제거 — 사용자)
  *
  * 누르며 듣는 자유 탐색 (영어 모르는 4-5세 입문자용) — 정답·오답이 없다.
  * 🔴 그래도 **한 글자를 다 눌러보면 완료로 친다**(`onMarkComplete`). 예전엔 prop 을 받아놓고
@@ -152,7 +152,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
   );
 
   /**
-   * 🔴 **진입 시 안내만** — 글자 소리는 큰 [Aa🔊] 버튼으로 아이가 눌러 듣는다(2026-07-30 사용자:
+   * 🔴 **진입 시 안내만** — 글자 소리는 상단 활성 탭을 다시 탭해 듣는다(2026-07-30 사용자:
    *    "들어가자 마자 애 음원 나온다 ㅡ.ㅡ"). 예전엔 진입하면 글자 소리를 자동 재생했는데
    *    (2026-07-29 "A 소리 못 듣고 나갈까 봐"), 다른 학습 화면(모음 듣기·자음 누르기)은 전부
    *    진입 자동재생 없이 탐색형("눌러서 들어봐")이라 ABC 배우기만 튀었다. **공용 훅으로 통일** —
@@ -173,6 +173,14 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
   useEffect(() => {
     if (allDone && spots.length > 0) markDone();
   }, [allDone, spots.length, markDone]);
+
+  /**
+   * 한 글자를 다 눌러보면 **자동으로 다음 글자로**(2026-07-31 사용자). 아래에 있던 「Bb ▶」 이동
+   * 버튼을 없애고 이 흐름으로 대체 — 마지막 글자면 그대로 머문다(「다 찾았어」 상태 유지).
+   */
+  const goNext = useCallback(() => {
+    setCurrentIdx((i) => (i < letters.length - 1 ? i + 1 : i));
+  }, [letters.length]);
 
   /**
    * 그림 클릭.
@@ -206,7 +214,8 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
             }
             scheduleTimer(() => {
               setTapped((t) => t + 1);
-              playCorrectSequence({ language: 'en' });
+              // 칭찬이 끝나면 다음 글자로 (마지막 글자면 goNext 가 그대로 머문다).
+              playCorrectSequence({ language: 'en', onDone: goNext });
             }, REST_MS);
           })
         );
@@ -217,7 +226,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
       playUi('tap');
       say(found.w.ttsUrl, () => playAudio('/sounds/game/correct.mp3'));
     },
-    [spots, allDone, current, tapped, say, playAudio, playCorrectSequence, scheduleTimer]
+    [spots, allDone, current, tapped, say, playAudio, playCorrectSequence, scheduleTimer, goNext]
   );
 
   // 글자 탭 클릭 — 활성이면 발음 재생, 비활성이면 그 글자로 전환 (모달 자동 닫기)
@@ -227,10 +236,12 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
         setCurrentIdx(idx);
         return;
       }
-      // 활성 글자 재클릭 = 글자 소리 (아래 큰 버튼과 같은 경로 — 예전엔 저작 음원이 없어 무음이었다)
+      // 활성 글자 재클릭 = 글자 소리. 아래 큰 버튼을 없앴으므로(2026-07-31) 이제 글자 소리를 듣는
+      // 유일한 길이자, 핫스팟 없는 글자(Book 1 에 많다)의 유일한 상호작용이라 여기서 완료로도 친다.
       void sayLetter();
+      markDone();
     },
-    [currentIdx, sayLetter]
+    [currentIdx, sayLetter, markDone]
   );
 
   // 단어는 자동 재생하지 않는다 — 눌러서 듣는 탐색이 이 화면의 성격이다.
@@ -414,44 +425,8 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
           </div>
         </div>
 
-        {/* 🔴 **써보기는 여기 없다**(2026-07-29) — 단원 목록의 「ABC 써보기」 카드가 맡는다.
-            예전엔 이 화면 안 모달이었는데, 그러면 단원 목록에서 쓰기가 안 보여
-            「이 단원엔 쓰기가 없다」로 읽힌다(한글 단원은 배우기/써보기가 나란한 카드다). */}
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          {/* 🔴 글자 소리 = 이 단원의 목표. **처음부터 끝까지** 큰 버튼으로 열어둔다 —
-              탭을 한 번 더 누르는 숨은 조작에만 맡겨두면 아이는 영영 못 듣는다. */}
-          {blending && (
-            <button
-              // 🔴 핫스팟이 없는 글자(Book 1 에 많다)는 이게 유일한 상호작용이라, 여기서도 완료로 친다.
-              onClick={() => {
-                void sayLetter();
-                markDone();
-              }}
-              className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-white ring-4 ring-coral-300 shadow-pop hover:-translate-y-0.5 active:translate-y-0.5 transition-transform"
-            >
-              <span className="font-display font-black leading-none text-3xl sm:text-4xl text-coral-500">
-                {upper}
-              </span>
-              <span className="font-display font-black leading-none text-3xl sm:text-4xl text-sky-500">
-                {lower}
-              </span>
-              <span className="text-2xl sm:text-3xl">🔊</span>
-            </button>
-          )}
-          {/* 다 찾은 뒤 갈 곳 — 없으면 아이가 상단 탭을 스스로 발견해야 한다. */}
-          {allDone && currentIdx < letters.length - 1 && (
-            <button
-              onClick={() => handleLetterTabClick(currentIdx + 1)}
-              className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-mint-400 text-white shadow-pop hover:-translate-y-0.5 active:translate-y-0.5 transition-transform text-lg sm:text-xl font-black"
-            >
-              <span className="inline-flex items-baseline">
-                <span>{(letters[currentIdx + 1] ?? '').toUpperCase()}</span>
-                <span>{(letters[currentIdx + 1] ?? '').toLowerCase()}</span>
-              </span>
-              <span>▶</span>
-            </button>
-          )}
-        </div>
+        {/* 🔴 아래 버튼(글자 소리 `[Aa🔊]`·다음 글자 `[Bb▶]`)은 없앴다(2026-07-31 사용자). 글자 소리는
+            상단 탭(활성 글자 재클릭), 다음 글자로의 이동은 **다 눌러보면 자동**(goNext)이 맡는다. */}
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
