@@ -441,8 +441,9 @@ ALT: 🔴 ZERO. Sight is completely reset - neither the ground nor the sky nor t
 LOAD: ZERO.
 CAMERA: medium close-up, child's eye level - one corner of the basket and the cat's face.
 SUBJECT: centre, BasketCat has put just its nose over the rim with both front paws laid side by side
- on it, eyes narrowed, peering forward, ears beginning to lay back as they wet. 🔴 The cat's face and
- the water beads are the ONLY places the covering layer was kept off, so they are the only sharp
+ on it, eyes narrowed, peering forward, ears beginning to lay back as they wet, beads standing on
+ its whiskers and nose tip. 🔴 The cat's face and those beads are the ONLY places the covering layer
+ was kept off, so they are the only sharp
  things in the frame - painted after the scumble, on top of it. One rope shows through a gap with a
  row of beads hanging from it; a trace of canvas above as one curve half buried.
 SWALLOW: at the right edge, mostly covered over - a hunched silhouette on the rim with feathers
