@@ -1,4 +1,14 @@
-import type { ReactNode } from 'react';
+import { createContext, useContext, type ReactNode } from 'react';
+
+/**
+ * 이 셸이 **전체화면이 아니라 남의 화면 속 상자**에 그려져야 하는가.
+ *
+ * 🔴 활동 13개에 prop 을 하나씩 뚫지 않으려고 컨텍스트로 뒀다. 기본값 `false` 라
+ *    학습 화면은 아무것도 안 바뀐다 — 블로그처럼 감싸는 쪽만 provider 를 켠다.
+ *    (공유 컴포넌트를 새 용도에 맞춰 고치면 원래 쓰던 13화면이 조용히 망가진다.)
+ */
+const EmbeddedContext = createContext(false);
+export const PhonicsEmbeddedProvider = EmbeddedContext.Provider;
 
 interface Props {
   onBack: () => void;
@@ -49,6 +59,7 @@ export function ActivityShell({
   background = 'study',
   children,
 }: Props) {
+  const embedded = useContext(EmbeddedContext);
   const back = (
     /**
      * 🔴 `shrink-0` 필수 — 옆에 `headerRight` 가 서면 flex 가 **뒤로가기부터 줄인다**. 영어 4글자
@@ -66,7 +77,11 @@ export function ActivityShell({
   return (
     <div
       className={[
-        'fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4',
+        // 🔴 embedded 는 **자기 상자 안에만** 그린다 — `fixed inset-0` 이면 블로그 글 위를 덮는다.
+        //    높이를 정해 주는 건 감싸는 쪽(`PhonicsTryIt`)이고, 여기선 그 높이를 채우기만 한다.
+        embedded
+          ? 'relative h-full w-full flex flex-col px-3 sm:px-4 py-3 rounded-[22px]'
+          : 'fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4',
         scroll ? 'overflow-y-auto' : 'overflow-hidden',
         BACKGROUND_CLASS[background],
       ]
@@ -74,7 +89,15 @@ export function ActivityShell({
         .join(' ')}
       style={background === 'study' ? STUDY_BG : undefined}
     >
-      {headerRight ? (
+      {/* 🔴 embedded 엔 「← 돌아가기」를 두지 않는다 — 돌아갈 데가 없고(블로그 글 안이다),
+          그 자리는 아래 CTA 가 맡는다. 활동이 넘긴 `onBack` 은 그대로 무시된다. */}
+      {embedded ? (
+        headerRight ? (
+          <div className="mb-2 min-w-0 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {headerRight}
+          </div>
+        ) : null
+      ) : headerRight ? (
         <div className="flex items-center justify-between gap-3 mb-3">
           {back}
           {/* 🔴 넘치는 쪽은 **오른쪽**이다 — 글자 탭이 많은 단원(STUV·WXYZ)은 줄여도 안 들어가므로

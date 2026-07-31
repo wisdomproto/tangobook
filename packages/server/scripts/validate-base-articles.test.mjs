@@ -28,13 +28,17 @@ describe('base-article 산출물 검증', () => {
       expect(art[k], `${file}: ${k} 누락`).toBeTruthy();
     }
     expect(file).toBe(`${art.storybookId}.json`);
-    expect(['classic', 'nature', 'life']).toContain(art.category);
-    const srcPath = path.join(VI_DIR, `${art.storybookId}.json`);
-    expect(fs.existsSync(srcPath), `${file}: 원본 동화책 없음`).toBe(true);
-    const src = JSON.parse(fs.readFileSync(srcPath, 'utf8'));
-    // life(생활동화)는 페이지수 버킷이 아니라 별개 콘텐츠 라인이라 페이지수 대조 대상이 아니다.
-    if (art.category !== 'life')
-      expect(art.category).toBe(classifyByPageCount((src.pages || []).length));
+    expect(['classic', 'nature', 'life', 'phonics']).toContain(art.category);
+    // 🔴 phonics 는 **동화책이 아니라 커리큘럼 단원**이다(id 가 `kr-h1-u02` 꼴). 번역 원본(vi)도
+    //    페이지수 버킷도 없으므로 그 두 검사에서 뺀다 — 나머지(필수 키·파일명·h2 5개)는 똑같이 받는다.
+    if (art.category !== 'phonics') {
+      const srcPath = path.join(VI_DIR, `${art.storybookId}.json`);
+      expect(fs.existsSync(srcPath), `${file}: 원본 동화책 없음`).toBe(true);
+      const src = JSON.parse(fs.readFileSync(srcPath, 'utf8'));
+      // life(생활동화)는 페이지수 버킷이 아니라 별개 콘텐츠 라인이라 페이지수 대조 대상이 아니다.
+      if (art.category !== 'life')
+        expect(art.category).toBe(classifyByPageCount((src.pages || []).length));
+    }
     const h2count = (art.body_html.match(/<h2/gi) || []).length;
     expect(h2count, `${file}: h2 섹션 ${h2count}개 (>=5 필요)`).toBeGreaterThanOrEqual(5);
   });

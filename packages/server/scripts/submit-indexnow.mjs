@@ -20,7 +20,11 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const envPath = path.join(__dirname, '..', '.env');
+// 워크트리에는 .env 가 없다 — 메인 체크아웃으로 폴백한다.
+const envPath = [
+  path.join(__dirname, '..', '.env'),
+  'C:/projects/tangobook/packages/server/.env',
+].find((f) => fs.existsSync(f));
 const envText = fs.readFileSync(envPath, 'utf-8');
 for (const line of envText.split(/\r?\n/)) {
   const m = line.match(/^([A-Z0-9_]+)=(.*)$/);
