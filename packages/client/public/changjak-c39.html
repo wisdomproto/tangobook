@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>C-39 벗길 외투가 없어서 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · C · 자연·계절·동물 · 39</div>
+  <h1>벗길 외투가 없어서</h1>
+  <div class="sub">북풍이 젖은 날개를 펴 보려고 후우우— 불어요. 그런데 날개는 더 착 붙어요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 옛이야기 비틀기</span>
+  <span>무대 · 아일랜드 대서양 절벽 — 절벽 끝 납작 바위 한 자리</span>
+  <span>후렴 · 후우우— / "펴져라!" / 날개는 더 착 붙어요 (p4·p6·p8 세 번 · 매번 "후우—" 가 한 자씩 길어지고 북풍은 늘 뺨을 부풀린 같은 자세다 · 🔴 p9 에서 "…더 셀 게 없어." 로 끊긴다)</span>
+  <span class="q">13스프레드</span>
+  <span class="q">본문 621자 · 쪽당 48자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- <b>원작 언급은 p2 의 "또" 한 마디</b>가 전부다. 북풍과 해가 겨뤘던 이야기를 모르는 아이에게는 그냥 바람이 새 앞에서 힘자랑을 하는 이야기로 읽힌다.<br>
+- <b>해는 한 마디도 안 한다.</b> 해가 말하면 「부드러운 쪽이 이긴다」가 되고, 그건 원작의 교훈이라 이 라인의 일이 아니다. 해는 구름이 갈라지면 나오는 것일 뿐이고, 마지막에 펴는 것도 해가 아니라 새다.<br>
+- 비틀림은 지식이 아니라 <b>몸의 성질</b>로만 굴러간다 — 젖은 깃은 눌리면 몸에 붙고, 추우면 오므리고, 마르면 부슬해진다. 아이가 외울 규칙도, 알아야 할 사실도 없다.<br>
+- 착지 카드 <b>「스스로 폄」</b>. 마지막 쪽에 문장으로 된 결론을 안 둔다. 마른 깃 소리, 한 발짝, 바위 위 그림자로 끝난다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>철썩— 파도가 절벽 아래에서 부서져요.
+납작한 바위 위에 가마우지가 웅크리고 있어요. 온몸이 흠뻑 젖어 물이 뚝, 뚝 떨어져요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 미디엄 풀샷 · 바위 높이에서 옆으로 보는 아이레벨
+<b>장소·시간</b> 대서양이 내려다보이는 절벽 끝, 젖은 납작 바위 한 자리. 흐린 아침
+<b>인물</b> 화면 오른쪽 아래 — 가마우지가 바위 위에 몸을 웅크리고 서 있다. 젖은 검은 깃이 기름처럼 반들거리고 두 날개는 옆구리에 딱 붙어 있다. 목을 짧게 접고 부리 끝은 바다 쪽을 향한다. 젖은 발가락이 바위를 꾹 딛고 있다. 🔴 왼쪽 날개 끝 깃 한 가닥에 굵은 물방울 한 알이 매달려 있다
+<b>배경·소품</b> 아래쪽에 흰 물보라 한 줄 · 바위 가장자리의 이끼 · 바위에 고인 작은 물자국. 그 밖엔 아무것도 두지 않는다
+<b>톤</b> 구름에 덮인 낮은 회색 빛. 물기 때문에 화면 전체가 차갑고 축축하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>휘이잉— 북풍이 바다 쪽에서 몰려와요.
+북풍이 뺨을 빵빵하게 부풀려요.
+"해야! 우리 또 겨뤄 볼까?"
+구름 뒤에 있는 해는 대답이 없어요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 와이드 · 바다 쪽에서 절벽을 향해 보는 아이레벨
+<b>장소·시간</b> 같은 바위 자리. p1 바로 다음
+<b>인물</b> 화면 왼쪽 위 — 북풍이 회색 구름 덩어리 같은 몸으로 비스듬히 날아 들어온다. 두 뺨을 크게 부풀리고 눈은 위쪽 구름을 흘겨본다. 두 팔은 뒤로 젖혀 바람을 모으는 자세. 화면 오른쪽 아래 — 가마우지는 p1 그대로 웅크린 채 고개만 살짝 북풍 쪽으로 돌린다
+<b>배경·소품</b> 구름 사이의 옅은 밝은 자리 하나(해가 있는 곳) · 눕기 시작하는 절벽 풀 몇 포기
+<b>톤</b> 회색과 흰색만. 바람이 오는 왼쪽이 밝고 오른쪽이 어둡게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>북풍이 가마우지 둘레를 빙 돌며 위아래로 훑어봐요.
+"어라? 벗길 외투가 없잖아."
+"그럼 저 날개, 내가 펴 줄게!"</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 · 살짝 위에서 내려다보는 하이앵글
+<b>장소·시간</b> 같은 바위 자리. 곧바로 이어서
+<b>인물</b> 화면 가운데 — 가마우지가 웅크린 채 눈만 굴려 북풍을 따라본다. 북풍이 새 둘레를 한 바퀴 도는 중이라 몸이 새 뒤에서 앞으로 휘어져 이어지고, 얼굴은 새의 어깨 옆까지 내려와 두 눈을 크게 뜨고 젖은 날개를 들여다본다. 손가락 하나로 날개 쪽을 가리킨다
+<b>배경·소품</b> 바위 위 물자국 · 이끼 · 왼쪽 날개 끝 물방울 한 알
+<b>톤</b> 회색 빛 그대로. 북풍이 도는 자리만 옅게 밝게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>후우우— 바람이 새를 덮쳐요.
+"펴져라!"
+그런데 젖은 날개가 옆구리에 착 붙어요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 옆에서 보는 아이레벨
+<b>장소·시간</b> 같은 바위 자리. 첫 바람
+<b>인물</b> 화면 왼쪽 — 북풍이 뺨을 부풀리고 입을 동그랗게 모아 분다. 화면 오른쪽 — 가마우지가 바람을 정면으로 받아 몸이 살짝 뒤로 기울지만 두 날개는 오히려 옆구리에 더 납작하게 눌려 붙는다. 눈을 질끈 감고 부리를 아래로 숙인다
+<b>배경·소품</b> 새 뒤로 눕는 풀 두어 포기 · 날개 아래로 흘러내리는 물줄기 한 가닥
+<b>톤</b> 차가운 회색. 바람 방향으로 화면 전체가 한쪽으로 쏠리게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>가마우지가 목을 어깨 사이로 쑥 집어넣어요.
+깃 사이로 찬 바람이 파고들어요.
+"추워."</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨
+<b>장소·시간</b> 같은 바위 자리. 바로 다음
+<b>인물</b> 화면 가운데 — 가마우지가 목을 어깨 사이로 집어넣어 몸이 동그란 덩어리처럼 된다. 두 날개는 여전히 몸에 붙은 채이고 발가락은 오므려 바위를 움켜쥔다. 눈은 반쯤 감기고 부리 끝이 가슴 털에 파묻힌다. 북풍은 화면 밖(왼쪽) — 눕는 깃으로만 있음을 안다
+<b>배경·소품</b> 젖은 바위 표면 · 깃 사이로 갈라진 물자국 몇 줄
+<b>톤</b> 푸른 기가 도는 회색. 추운 쪽으로</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>후우우우— 바람이 더 세져요.
+"펴져라!"
+깃 끝 물방울이 옆으로 촤악 날아가는데, 날개는 더 착 붙어요.</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 · 옆에서 보는 아이레벨. p4 와 같은 구도
+<b>장소·시간</b> 같은 바위 자리. 두 번째 바람
+<b>인물</b> 화면 왼쪽 — 북풍이 p4 와 같은 자세로 뺨을 더 크게 부풀린다. 화면 오른쪽 — 가마우지가 두 발로 버티며 몸을 낮춘다. 깃 끝에서 물방울들이 옆으로 길게 흩어져 날아간다. 🔴 왼쪽 날개 끝의 굵은 물방울 한 알만 그 자리에 그대로 매달려 있다. 두 날개는 앞 쪽보다 더 납작하게 붙어 있다
+<b>배경·소품</b> 옆으로 날아가는 물방울 줄기 · 완전히 누운 풀
+<b>톤</b> 회색이 더 짙어지고 화면 쏠림이 더 강하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>가마우지가 바위 틈으로 몸을 밀어 넣어요. 젖은 등이 동그랗게 말려요.
+"더 붙었어."</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 살짝 위에서 내려다보는 하이앵글
+<b>장소·시간</b> 같은 바위 자리. 바로 다음
+<b>인물</b> 화면 가운데 — 가마우지가 바위의 얕은 틈에 가슴을 밀어 넣고 등을 동그랗게 말고 있다. 두 날개는 몸에 붙어 등 위로 얇게 겹쳐지고, 부리만 틈 밖으로 조금 나와 있다. 눈은 위쪽(북풍 방향)을 흘겨본다
+<b>배경·소품</b> 바위 틈의 그늘 · 틈에 고인 물 · 이끼
+<b>톤</b> 틈 안은 어둡고 밖은 밝게. 몸을 감춘 쪽이 더 어둡게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>후우우우우— 풀이 다 눕고 물보라가 날아올라요.
+"펴져라! 이래도?"
+날개는 그대로 착.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 와이드 · 아래에서 살짝 올려다보는 로우앵글
+<b>장소·시간</b> 같은 바위 자리. 세 번째이자 가장 센 바람
+<b>인물</b> 화면 왼쪽 위 — 북풍이 몸을 크게 부풀려 화면 절반을 차지하고 두 팔을 앞으로 뻗어 분다. 화면 오른쪽 아래 — 가마우지가 바위 틈에 몸을 붙인 채 미동도 없다. 두 날개는 여전히 옆구리에 붙어 있다
+<b>배경·소품</b> 절벽 아래에서 솟구쳐 오르는 흰 물보라 한 덩이 · 완전히 누운 풀밭
+<b>톤</b> 가장 어둡고 가장 세찬 쪽. 흰 물보라만 밝게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>북풍의 뺨이 홀쭉해져요. 북풍이 풀밭에 털썩 주저앉아요.
+"…더 셀 게 없어."
+바람이 뚝 그쳐요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 미디엄 · 아이레벨
+<b>장소·시간</b> 같은 바위 자리. 바람이 그친 직후
+<b>인물</b> 화면 왼쪽 — 북풍이 홀쭉해진 얼굴로 풀밭에 주저앉아 두 팔을 옆으로 늘어뜨린다. 어깨가 축 처지고 입은 벌어진 채. 화면 오른쪽 — 가마우지가 바위 틈에서 고개를 조금 내밀고 북풍 쪽을 본다
+<b>배경·소품</b> 다시 일어서기 시작하는 풀 몇 포기 · 잔잔해진 바다 한 줄
+<b>톤</b> 바람이 멎어 화면 쏠림이 사라진다. 회색이 옅어지며 조용하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>구름이 스르르 갈라지고 해가 나와요.
+납작한 바위가 따끈따끈 데워져요. 가마우지가 눈을 가늘게 떠요.
+"…따뜻해."</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 풀샷 · 아이레벨
+<b>장소·시간</b> 같은 바위 자리. 볕이 막 들어온 순간
+<b>인물</b> 화면 오른쪽 — 가마우지가 볕이 든 바위 자리에 두 발을 딛고 서 있다(바위 틈은 이제 새 뒤에 비어 있다). 목이 조금 길어지고 눈을 가늘게 뜬 채 부리를 위로 든다. 두 날개는 아직 몸에 붙어 있다. 화면 왼쪽 아래 — 북풍은 주저앉은 자세 그대로 새 쪽을 본다
+<b>배경·소품</b> 갈라진 구름 사이의 노란 볕 한 줄기 · 볕이 닿아 마르기 시작하는 바위의 마른 얼룩
+<b>톤</b> 화면 오른쪽부터 노란 볕이 들어와 차가운 회색을 밀어낸다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>깃 사이에 매달렸던 물방울이 마르면서 몸이 가벼워져요.
+가마우지가 두 날개를 활짝— 스스로 펴요.
+"봐. 이렇게 펴는 거야."</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 풀샷 · 정면에서 보는 아이레벨
+<b>장소·시간</b> 같은 바위 자리. 볕이 든 지 조금 지난 뒤
+<b>인물</b> 화면 가운데 — 가마우지가 정면을 향해 두 날개를 좌우로 활짝 펴고 서 있다. 가슴을 내밀고 발가락을 넓게 벌려 바위를 딛는다. 깃이 부슬해져 잿빛으로 보이고 🔴 왼쪽 날개 끝 물방울이 있던 자리가 비어 있다. 부리는 살짝 벌어져 있고 시선은 북풍 쪽. 북풍은 화면 왼쪽 아래 귀퉁이에 앉은 채 올려다본다
+<b>배경·소품</b> 볕이 가득한 바위 · 바위에 남은 마른 물자국
+<b>톤</b> 노란 볕이 새의 펼친 날개 뒤에서 들어와 깃 가장자리를 밝게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>북풍이 눈이 동그래져서 코앞까지 다가와요.
+"내가 한 거야?"
+"아니."
+가마우지는 날개를 편 채 꼼짝도 안 해요.</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨
+<b>장소·시간</b> 같은 바위 자리. 바로 다음
+<b>인물</b> 화면 왼쪽 — 북풍이 얼굴을 새의 부리 앞까지 들이밀고 두 눈을 동그랗게 뜬다. 입이 작게 벌어져 있고 두 손은 무릎 위에 얹은 채. 화면 오른쪽 — 가마우지는 p11 자세 그대로 두 날개를 편 채 고개만 북풍 쪽으로 돌린다. 깃 하나 흔들리지 않는다
+<b>배경·소품</b> 볕 든 바위 · 새 발밑의 마른 자국
+<b>톤</b> 따뜻한 노란 빛. 두 얼굴 사이만 밝게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>마른 깃이 바스락, 소리를 내요.
+가마우지가 두 날개를 활짝 편 채 절벽 맨 끝에 서 있어요. 아까보다 한 발짝 앞이에요.
+바위 위에 커다란 날개 그림자가 펼쳐져요.</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 와이드 · 뒤쪽 살짝 옆에서 보는 아이레벨
+<b>장소·시간</b> 같은 바위 자리, 절벽 끝. 볕이 가장 좋은 때
+<b>인물</b> 화면 가운데 — 가마우지가 두 날개를 활짝 편 채 바위 맨 끝에 서 있다. 앞발 하나가 p12 보다 한 걸음 앞에 나가 있고 부리는 바다 쪽을 향한다. 깃이 다 말라 잿빛으로 부슬하다. 아무도 새를 건드리지 않는다. 북풍은 화면 왼쪽 멀리 풀밭에 그대로 앉아 있다
+<b>배경·소품</b> 바위 위에 크게 드리운 날개 그림자 · 반짝이는 회녹색 바다 · 다시 선 풀
+<b>톤</b> 노란 볕이 뒤에서 들어와 펼친 날개의 윤곽만 환하게. 조용하고 넓게</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'c39',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['가마우지(이름 없음)', '북풍(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb6da4ec44"></script>
+<script src="/changjak-core.js?v=47fd80bb6da4ec44"></script>
+</body>
+</html>
