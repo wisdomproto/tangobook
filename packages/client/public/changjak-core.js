@@ -548,7 +548,14 @@ window.CJ_ANCHORS = fetch('/changjak-anchor-refs.json')
     '\n\n[캐릭터 레퍼런스] 아래 @image 순서대로 위에서 승인한 캐릭터 시트를 첨부하세요. ' +
     '인물의 얼굴·비율·색은 시트와 100% 동일하게 유지합니다.\n' +
     P.sheets.map(function (s, i) { return '@image' + (i + 1) + ' = ' + sheetName(s, i); }).join('\n') +
-    '\n\n※ 각 컷은 위 스타일 앵커를 그대로 따르고 장면만 바꿉니다.\n\n' +
+    // 🔴 장수를 숫자로 못 박는다. 이게 없으면 모델이 한두 장을 빠뜨린다(a97 을 10장 주문해 9장이 왔다).
+    //    전래동화는 이 블록을 갖고 있고 40편 200장을 그대로 뽑았다 — 그쪽 문구를 그대로 가져온다.
+    '\n\n[출력 규칙]\n' +
+    '- 아래 ' + P.cuts.length + '개 장면을 각각 독립된 16:9 스프레드 일러스트로 그린다 (총 ' + P.cuts.length + '장, 쪽 순서대로).\n' +
+    '- 한 장도 건너뛰지 말고 ' + P.cuts.map(function (c) { return c.page; }).join('·') + ' 를 모두 그린다.\n' +
+    '- 같은 인물의 얼굴·비율·색은 모든 장면에서 동일하게 유지한다.\n' +
+    '- 그림 안에 글자·숫자·말풍선을 절대 넣지 않는다. 하단에 캡션용 여백을 남긴다.\n' +
+    '- 각 컷은 위 스타일 앵커를 그대로 따르고 장면만 바꾼다.\n\n' +
     P.cuts.map(composeCut).join('\n\n');
   var bb = document.createElement('div');
   bb.className = 'batch-bar';
@@ -591,11 +598,27 @@ window.CJ_ANCHORS = fetch('/changjak-anchor-refs.json')
     var pg = pgs[i];
     if (!pg) return;
     if (P) {
+      // 🔴 시트를 **전부** 선언한다. 예전엔 `@image1 = 캐릭터 시트` 한 줄만 넣었는데,
+      //    a97 은 시트가 셋이고 p10 은 @image2·@image3 를 부른다 — 붙일 자리를 안 알려 주니
+      //    모델이 참조 없이 엉뚱한 그림을 냈다(사용자가 p10 으로 p9 같은 그림을 받았다).
+      var refs = P.sheets
+        .map(function (s, k) { return '@image' + (k + 1) + ' = ' + sheetName(s, k); })
+        .join('\n');
+      // 🔴 컷이 「승인된 p제N 렌더」를 요구하면 그것도 붙일 자리를 만들어 준다.
+      var needPage = (c.prompt || '').match(/APPROVED PAGE (\d+) RENDER|p(\d+)\s*승인본/i);
+      if (needPage) {
+        refs +=
+          '\n@image' + (P.sheets.length + 1) + ' = 승인된 p' +
+          (needPage[1] || needPage[2]) + ' 렌더 (이 컷은 그 그림의 구도를 이어받는다)';
+      }
       var composed =
         P.anchor + '\n\n' +
-        '@image1 = 위 스타일로 승인된 캐릭터 시트. 인물은 시트를 그대로 따른다.\n\n' +
+        '[레퍼런스] 아래 @image 순서대로 첨부한다. 인물의 얼굴·비율·색은 시트와 100% 동일하게 유지한다.\n' +
+        refs + '\n\n' +
         composeCut(c);
-      (pg.querySelector('.sc') || pg).appendChild(mk('📋 ' + c.page + ' 컷 프롬프트 (앵커+시트 합성)', composed));
+      (pg.querySelector('.sc') || pg).appendChild(
+        mk('📋 ' + c.page + ' 컷 프롬프트' + (needPage ? ' (⚠️ p' + (needPage[1] || needPage[2]) + ' 승인본 필요)' : ''), composed)
+      );
     }
     var b = pasteBox(c.page, '🖼️ ' + c.page + ' 그린 컷 붙여넣기');
     boxes.push(b);
