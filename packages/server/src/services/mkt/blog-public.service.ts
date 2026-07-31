@@ -161,13 +161,7 @@ const SUPPORTED_BLOG_LANGS = ['ko', 'en', 'vi', 'zh', 'th'];
  * → 영어 블로그에서 눌러도 한국어 책/블로그로 간다. 서빙 시점에 다시 씀:
  *  - `/blog/<slug>`            → `/{lang}/blog/<slug>`
  *  - `/library/<id>/about`     → `/{lang}/library/<id>/about`
- *  - `/library/<id>`(책 상세)  → `/library/<id>?lang={lang}` (그 책만 그 언어로 연다)
- *
- * 🔴 책 상세는 예전에 `/{lang}?to=/library/<id>` 였는데 **로그인 사용자에게 한국어로 열렸다**
- *    (2026-07-29 신고). `LangEntry` 는 `hasExplicitUiLang() || account` 면 URL 언어를 무시한다 —
- *    `/en` 마케팅 링크 한 번에 한국어 계정이 영구 전환되던 걸 막으려고 2026-07-13 에 정한 규칙이고,
- *    그 규칙 자체는 옳다. 대신 **UI 언어를 건드리지 않고 그 책만 그 언어로 여는** 쪽으로 바꿨다:
- *    영어 글을 읽던 사람은 영어 책을 받고, 쓰던 UI 언어는 그대로 남는다.
+ *  - `/library/<id>`(책 상세)  → `/{lang}?to=/library/<id>` (LangEntry 가 언어 설정 후 이동)
  * origin(`https://(www.)tangobook.co.kr`)은 붙어 있든 없든 처리. 외부 링크는 손대지 않음.
  */
 export function localizeCardLinks(html: string, lang: string): string {
@@ -178,7 +172,7 @@ export function localizeCardLinks(html: string, lang: string): string {
     if (path === href && /^https?:/i.test(href)) return full; // 외부(다른 도메인) 링크
     if (/^\/blog\/[^/]/.test(path)) return `href="/${lang}${path}"`;
     if (/^\/library\/[^/]+\/about/.test(path)) return `href="/${lang}${path}"`;
-    if (/^\/library\/[^/]+$/.test(path)) return `href="${path}?lang=${lang}"`;
+    if (/^\/library\/[^/]+$/.test(path)) return `href="/${lang}?to=${encodeURIComponent(path)}"`;
     return full;
   });
 }
