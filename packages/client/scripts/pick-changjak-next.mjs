@@ -157,20 +157,32 @@ for (let i = 0; i < N; i++) {
     });
   if (!order.length) break;
 
+  // 🔴 **군을 먼저 포기하지 말고 조건을 먼저 지킨다.** 예전엔 군 하나 안에서 조건을 풀어 버려서
+  //    첫 군에 맞는 게 없으면 바로 「무대만」으로 내려갔고, 그래서 **오소리가 다섯 · 염소가 셋**이
+  //    됐다(두 배치 연속). 조건을 지킨 후보가 다른 군에 있으면 그 군을 쓰는 게 낫다 —
+  //    충족률은 어차피 다음 뽑기에서 다시 계산된다.
+    // 🔴 무대는 **부분 일치**로 본다. 완전 일치만 보다가 a42(「영국 해안 등대」)가 a09(「영국 해안
+  //    등대 꼭대기 등롱실 한 칸」)를 못 보고 통과했다 — 기획서 무대는 짧고 원고 frontmatter 는
+  //    쪽 배치까지 적어 늘어나므로 두 문자열이 같을 일이 애초에 드물다. 둘 다 고슴도치에 등대라
+  //    사실상 같은 책이 될 뻔했다.
+  const freshStage = (c) => {
+    const k = c.stage.split(/[(（]/)[0].trim();
+    return ![...takenStages].some((t) => t.includes(k) || k.includes(t));
+  };
+  // 🔴 3권을 넘긴 동물만 피한다. 곰·토끼는 유럽 그림책의 기본 배역이라 0 으로 막으면 후보가 말라붙는다
+  const freshAnimal = (c) => animalsIn(c.title + ' ' + c.summary).every((a) => (animalUse[a] || 0) < 3);
+
   let got = null;
   for (const g of order) {
+    const c = pool
+      .filter((x) => x.group === g)
+      .sort((a, b) => a.no - b.no)
+      .find((x) => freshStage(x) && freshAnimal(x));
+    if (c) { got = c; break; }
+  }
+  for (const g of !got ? order : []) {
     const inGroup = pool.filter((c) => c.group === g).sort((a, b) => a.no - b.no);
     // ④ 무대·주인공 동물이 겹치지 않는 것 우선 → 무대만이라도 → 없으면 겹쳐도 받는다
-    // 🔴 무대는 **부분 일치**로 본다. 완전 일치만 보다가 a42(「영국 해안 등대」)가 a09(「영국 해안
-    //    등대 꼭대기 등롱실 한 칸」)를 못 보고 통과했다 — 기획서 무대는 짧고 원고 frontmatter 는
-    //    쪽 배치까지 적어 늘어나므로 두 문자열이 같을 일이 애초에 드물다. 둘 다 고슴도치에 등대라
-    //    사실상 같은 책이 될 뻔했다.
-    const freshStage = (c) => {
-      const k = c.stage.split(/[(（]/)[0].trim();
-      return ![...takenStages].some((t) => t.includes(k) || k.includes(t));
-    };
-    // 🔴 3권을 넘긴 동물만 피한다. 곰·토끼는 유럽 그림책의 기본 배역이라 0 으로 막으면 후보가 말라붙는다
-    const freshAnimal = (c) => animalsIn(c.title + ' ' + c.summary).every((a) => (animalUse[a] || 0) < 3);
     got =
       inGroup.find((c) => freshStage(c) && freshAnimal(c)) ||
       inGroup.find(freshStage) ||
