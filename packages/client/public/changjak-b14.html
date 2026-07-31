@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>B-14 자라나는 의자 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · B · 상상·변신 · 14</div>
+  <h1>자라나는 의자</h1>
+  <div class="sub">앉을 때마다 의자가 쑤욱 자라요. 어느새 나보다 커졌어요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 누적·반복</span>
+  <span>무대 · 스웨덴 목공방</span>
+  <span>후렴 · "또 앉을래!" (p4·p6·p8 세 번 · 늘 오름 쪽 앞머리) / 톡 내려서자 삐거덕— 쑤욱— (p3·p5·p7·p9 네 번) · 🔴 p10 에서 "…밑에 앉을래!" 로 뒤집힌다</span>
+  <span class="q">13스프레드</span>
+  <span class="q">본문 649자 · 쪽당 50자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- <b>높이 기준은 화면 안 고정물로만 잰다</b> — 무릎 → 어깨 → 창턱 → 서까래. 글에 숫자가 없어도 그림에서 커지는 게 보이게. 의자는 처음 놓인 자리에서 한 번도 안 움직이므로 커지는 건 의자뿐이다.<br>
+- <b>규칙은 하나뿐이다</b> — 앉았다 내려서면 자란다. 왜 자라는지 아무도 말하지 않고, 할아버지는 끝까지 태연하다. 이유를 설명하는 순간 외울 설정이 하나 더 생긴다.<br>
+- 오름 쪽(p4·p6·p8)은 <b>막 올라앉은 자세 한 컷</b>으로 그린다. 오르는 과정은 「낑낑」·「까치발」로 흔적만 남긴다.<br>
+- 착지에서 규칙은 그대로 작동한다 — 밑에 앉아도 자란다. 문제였던 것이 그대로 지붕이 된다. 그걸 문장으로 정리하지 않는다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>"다 됐다."
+목수 할아버지가 갓 깎은 작은 의자를 툭 내려놓았어요.
+대팻밥 사이로 오소리가 쪼르르 달려왔어요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 오소리 눈높이보다 살짝 위의 아이레벨
+<b>장소·시간</b> 스웨덴 목공방 한 칸. 이른 아침 볕이 바닥을 낮게 훑는 때
+<b>인물</b> 화면 오른쪽 — 목수 무스 할아버지가 허리를 굽혀 작은 의자를 막 바닥에 내려놓고 두 손을 아직 등받이에서 떼는 중, 눈은 의자를 내려다본다. 화면 왼쪽 아래 — 새끼 오소리가 앞발을 뻗고 달려온다, 귀가 뒤로 눕고 입이 벌어져 있다. 🔴 의자와 오소리를 <b>같은 깊이</b>에 두어 등받이가 오소리 어깨쯤인 것이 한눈에 보이게
+<b>배경·소품</b> 벽에 같은 모양 대패 다섯이 나란히 걸림 · 바닥 오른쪽에 굴러다니는 나무토막 하나 · 발치의 대팻밥 무더기 · 창 하나
+<b>톤</b> 낮은 아침 볕. 갓 깎은 소나무의 크림색이 화면에서 가장 환하다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>"자, 앉아 보렴."
+오소리가 폴짝 뛰어 엉덩이를 붙였어요.
+발바닥 두 개가 바닥에 나란히 딱 닿았어요.
+"딱 맞아!"</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 정면 아이레벨
+<b>장소·시간</b> 같은 자리, 바로 이어서
+<b>인물</b> 화면 가운데 — 오소리가 방금 앉아 등받이에 등을 붙였고, 한쪽 뒷발은 아직 살짝 들려 있다, 눈이 동그랗고 입꼬리가 올라감. 화면 왼쪽 뒤 — 할아버지가 작업대에 한 손을 얹고 서서 내려다본다
+<b>배경·소품</b> 창턱이 오소리 등받이보다 훨씬 높은 것이 보이게 · 나무토막 하나 · 대팻밥
+<b>톤</b> 따뜻한 크림색과 나무 갈색. 그림자는 옅게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>오소리가 톡 내려선 순간이었어요.
+등 뒤에서 삐거덕— 쑤욱—
+의자가 저 혼자 한 뼘 자랐어요.
+"어? 커졌어!"</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 · 살짝 낮은 아이레벨
+<b>장소·시간</b> 같은 자리, 바로 다음 순간
+<b>인물</b> 화면 왼쪽 — 오소리가 두 발로 막 착지해 무릎이 굽은 채 몸을 반쯤 틀어 뒤를 돌아본다, 눈과 입이 크게 벌어짐. 화면 오른쪽 — 의자가 다리와 등받이를 위로 늘리는 중, 나뭇결이 살짝 늘어나 보인다. 🔴 앉는 자리가 이제 오소리 허리 위
+<b>배경·소품</b> 나무토막 하나 · 대팻밥 몇 조각이 진동에 튀어 오름 · 창턱
+<b>톤</b> 같은 볕. 의자 쪽만 반 톤 더 환하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>"또 앉을래!"
+오소리가 낑낑 배를 걸치고 올라앉았어요.
+이번엔 발이 바닥에 안 닿아요.
+발끝이 대롱대롱 떴어요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 · 정면 아이레벨
+<b>장소·시간</b> 같은 자리, 조금 뒤
+<b>인물</b> 화면 가운데 — 오소리가 막 올라앉아 몸이 아직 앞으로 기울었고 두 앞발로 앉는 자리 가장자리를 잡고 있다, 뒷발이 바닥에서 한 뼘쯤 떠 대롱거림, 이를 드러내고 웃는다. 화면 오른쪽 뒤 — 할아버지가 대패를 잡고 등을 반쯤 돌린 채 일한다
+<b>배경·소품</b> 나무토막 하나 · 대팻밥 · 창턱(아직 등받이보다 높다)
+<b>톤</b> 아침 볕이 조금 높아져 바닥 그림자가 짧아짐</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>오소리가 톡 내려서자 또 삐거덕—
+쑤욱, 쑤욱.
+앉는 자리가 오소리 어깨만큼 높아졌어요.
+"또 커졌잖아! 아까보다 더!"</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 · 아이레벨
+<b>장소·시간</b> 같은 자리, 바로 다음 순간
+<b>인물</b> 화면 왼쪽 — 오소리가 착지한 뒤 한 걸음 뒷걸음질 치며 고개를 든다, 앞발 하나가 뺨에 붙음. 화면 오른쪽 — 의자가 또 늘어나는 중. 🔴 앉는 자리 높이 = 오소리 어깨. 두 것을 <b>같은 깊이</b>에
+<b>배경·소품</b> 나무토막 하나 · 대팻밥 · 창턱
+<b>톤</b> 나무의 크림색이 점점 화면을 차지한다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>"또 앉을래!"
+오소리가 굴러다니던 나무토막을 딛고 올라앉았어요.
+딛고 온 나무토막이 저 아래에 조그맣게 있어요.</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 · 살짝 로우 앵글(오소리를 올려다보게)
+<b>장소·시간</b> 같은 자리, 조금 뒤
+<b>인물</b> 화면 가운데 — 오소리가 막 올라앉아 몸을 한쪽으로 기울인 채 아래를 내려다본다, 뒷발이 허공에서 흔들림. 화면 왼쪽 뒤 — 할아버지가 작업대 앞에서 대패를 민다
+<b>배경·소품</b> 오소리 발밑 저 아래 나무토막 하나가 덩그러니 · 대팻밥 · 창턱(등받이가 창턱에 거의 닿는다)
+<b>톤</b> 볕이 창을 통해 등받이 윗부분에 닿기 시작</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>톡 내려서자 삐거덕— 쑤욱—
+등받이가 창문보다 높아졌어요.
+"우와, 창문보다 커!"
+할아버지는 대패만 슥슥 밀었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 와이드 · 아이레벨
+<b>장소·시간</b> 같은 자리, 바로 다음 순간
+<b>인물</b> 화면 왼쪽 아래 — 오소리가 착지한 채 목을 뒤로 젖히고 두 앞발을 번쩍 든다. 화면 오른쪽 — 할아버지가 작업대에 몸을 숙이고 대패를 밀며 눈은 나무에 둔 채 태연하다. 화면 가운데 — 의자가 늘어나는 중, 🔴 <b>등받이 꼭대기가 창틀 윗선을 넘는다</b>
+<b>배경·소품</b> 창 하나 · 나무토막 하나 · 대팻밥 · 벽의 대패 다섯
+<b>톤</b> 창으로 든 볕이 등받이 꼭대기를 밝게 자른다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>"또 앉을래!"
+나무토막 위에 대팻밥 상자를 하나 더 얹었어요.
+까치발을 바짝 들자 엉덩이 끝이 겨우 닿았어요.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 · 로우 앵글
+<b>장소·시간</b> 같은 자리, 조금 뒤
+<b>인물</b> 화면 가운데 — 오소리가 나무토막+상자 위에서 까치발로 서서 엉덩이 끝만 앉는 자리에 걸친 채 두 앞발로 가장자리를 붙든다, 혀를 살짝 내밀고 힘쓰는 얼굴. 🔴 발은 아직 상자 위에 있다
+<b>배경·소품</b> 나무토막 위에 얹힌 대팻밥 상자(둘이 포개진 것이 또렷하게) · 흩어진 대팻밥 · 창
+<b>톤</b> 볕이 위로 올라가 바닥 쪽이 살짝 어둑해짐</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>톡 내려서자 삐거덕— 쑤욱— 쑤욱—
+등받이가 서까래에 닿았어요.
+"너무 높아!"
+"나도 저긴 못 앉겠구나."</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 와이드 · 로우 앵글(바닥 가까이에서 위를 본다)
+<b>장소·시간</b> 같은 자리, 바로 다음 순간
+<b>인물</b> 화면 왼쪽 — 오소리가 착지해 주저앉은 채 고개를 한껏 젖힌다. 화면 오른쪽 — 할아버지가 대패를 내려놓고 목을 뒤로 젖혀 올려다본다, 입이 벌어짐. 🔴 할아버지와 의자를 <b>같은 깊이</b>에 두어 등받이가 할아버지 뿔보다 한참 위인 것이 보이게
+<b>배경·소품</b> 천장 서까래에 닿은 등받이 꼭대기 · 나무토막+상자 · 대팻밥
+<b>톤</b> 위쪽은 볕, 바닥 쪽은 그늘. 세로로 길게 뻗은 화면</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>나무토막에 상자에 나무통까지 다 쌓았어요.
+그래도 앉는 자리는 저 위예요.
+오소리가 꼭대기에서 고개를 젖혔어요.
+"…밑에 앉을래!"</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 와이드 · 로우 앵글
+<b>장소·시간</b> 같은 자리, 조금 뒤
+<b>인물</b> 화면 가운데 — 오소리가 나무통 꼭대기에 두 발로 서서 균형을 잡느라 두 앞발을 벌리고 고개를 뒤로 젖힌다, 입이 조그맣게 벌어짐. 화면 오른쪽 뒤 — 할아버지가 작업대에 팔을 얹고 지켜본다
+<b>배경·소품</b> 나무토막 → 대팻밥 상자 → 나무통 순으로 포갠 탑(세 층이 또렷하게) · 저 위 앉는 자리 · 대팻밥
+<b>톤</b> 탑과 오소리는 그늘, 앉는 자리만 위에서 밝다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>오소리가 배를 깔고 의자 다리 사이로 쏙 기어들었어요.
+"여긴 서늘해!"
+대팻밥이 이불처럼 폭신폭신해요.</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 바닥에 놓인 카메라 · 정면
+<b>장소·시간</b> 같은 자리, 바로 다음
+<b>인물</b> 화면 가운데 — 오소리가 배를 바닥에 깔고 앞발로 대팻밥을 헤치며 의자 다리 사이로 머리와 어깨까지 들어간 자세, 뒷발과 꼬리는 아직 밖에 있다, 눈이 반짝임
+<b>배경·소품</b> 네 개의 굵은 의자 다리가 기둥처럼 화면을 나눔 · 다리 사이에 깔린 대팻밥 · 옆으로 밀린 탑
+<b>톤</b> 다리 안쪽은 서늘한 그늘, 바깥 바닥엔 볕. 두 색이 다리 선에서 갈린다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>오소리가 대팻밥 위에 폭 앉았어요.
+머리 위에서 삐거덕— 쑤욱—
+지붕이 저 혼자 쑥 높아졌어요.
+"우와, 방이다!"</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 미디엄 · 의자 밑에서 위를 보는 로우 앵글
+<b>장소·시간</b> 같은 자리, 바로 다음 순간
+<b>인물</b> 화면 가운데 — 오소리가 다리 사이에 두 무릎을 모으고 앉아 고개를 들고 두 앞발을 벌린다, 입이 크게 벌어짐. 머리 위 앉는 자리 판이 위로 멀어지는 중
+<b>배경·소품</b> 기둥 같은 네 다리와 머리 위의 널찍한 나무 판(지붕) · 폭신한 대팻밥 바닥 · 다리 사이로 보이는 바깥의 밝은 바닥
+<b>톤</b> 안은 꿀색 그늘, 다리 사이 틈으로 볕이 네 줄기 들어온다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>할아버지가 무릎을 꿇고 따뜻한 잔을 의자 밑으로 밀어 넣었어요.
+"나도 들어가도 되니?"
+오소리가 안쪽으로 쓱 비켜 앉았어요.</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 와이드 · 바닥 높이 아이레벨
+<b>장소·시간</b> 같은 자리, 조금 뒤. 볕이 한 뼘 더 높아진 오전
+<b>인물</b> 화면 오른쪽 — 커다란 할아버지가 두 무릎을 꿇고 몸을 한껏 낮춰 한 팔과 얼굴을 의자 다리 사이로 들이민다, 손에 김 나는 잔. 화면 왼쪽 안쪽 — 오소리가 엉덩이를 옆으로 밀어 자리를 비우며 두 앞발을 잔 쪽으로 내민다
+<b>배경·소품</b> 머리 위로 훌쩍 커진 의자 · 대팻밥 바닥 · 화면 구석에 흩어진 나무토막·상자·나무통
+<b>톤</b> 그늘 속 두 얼굴에 잔의 김이 오르고, 바깥 바닥엔 환한 볕</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'b14',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 오소리(이름 없음)', '목수 무스 할아버지(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=389176ebd18e032e"></script>
+<script src="/changjak-core.js?v=389176ebd18e032e"></script>
+</body>
+</html>

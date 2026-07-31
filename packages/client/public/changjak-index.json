@@ -42,12 +42,28 @@
     "pages": 12
   },
   {
+    "file": "changjak-a11.html",
+    "label": "A-11 📗 누적·반복",
+    "title": "내가 안 그랬어",
+    "engine": "누적·반복",
+    "stage": "체코 지붕",
+    "pages": 13
+  },
+  {
     "file": "changjak-a14.html",
     "label": "A-14 📗 교환·연쇄",
     "title": "인사하는 방법 열두 가지",
     "engine": "교환·연쇄",
     "stage": "벨기에 광장 서쪽 귀퉁이 (계단식 박공 지붕의 집들 · 벽을 따라 뻗은 낮은 돌턱 한 단 · 꽃 양동이 둘 · 부채꼴로 깔린 포석 — 아침 물청소로 젖어 미끄럽다. 카메라가 이 귀퉁이를 한 번도 안 벗어난다)",
     "pages": 13
+  },
+  {
+    "file": "changjak-a75.html",
+    "label": "A-75 📗 누적·반복",
+    "title": "양이 한 마리씩",
+    "engine": "누적·반복",
+    "stage": "카르파티아 양치 마을",
+    "pages": 12
   },
   {
     "file": "changjak-a97.html",
@@ -88,6 +104,22 @@
     "engine": "오해와 반전",
     "stage": "독일 검은 숲 마을의 작은 시계공방 (창 하나 · 작업대 하나 · 벽에 걸린 뻐꾸기시계 하나 · 바닥에 톱밥)",
     "pages": 11
+  },
+  {
+    "file": "changjak-b10.html",
+    "label": "B-10 📗 누적·반복",
+    "title": "달빛 배달부",
+    "engine": "누적·반복",
+    "stage": "노르웨이 피오르의 작은 나무 선착장",
+    "pages": 15
+  },
+  {
+    "file": "changjak-b14.html",
+    "label": "B-14 📗 누적·반복",
+    "title": "자라나는 의자",
+    "engine": "누적·반복",
+    "stage": "스웨덴 목공방",
+    "pages": 13
   },
   {
     "file": "changjak-c01.html",
@@ -216,6 +248,30 @@
     "engine": "누적·반복",
     "stage": "프랑스 빵집 작업실 (반죽대 하나 · 벽돌 오븐 · 밀가루 자루 · 높은 창 하나)",
     "pages": 12
+  },
+  {
+    "file": "changjak-e03.html",
+    "label": "E-03 📗 누적·반복",
+    "title": "이름이 너무 긴 개",
+    "engine": "누적·반복",
+    "stage": "영국 시골 목장의 앞마당 (낮은 돌담이 빙 둘러싼 한 마당)",
+    "pages": 13
+  },
+  {
+    "file": "changjak-e04.html",
+    "label": "E-04 📗 오해와 반전",
+    "title": "양말 한 짝은 어디로 가나",
+    "engine": "오해와 반전",
+    "stage": "스코틀랜드 돌집 부엌",
+    "pages": 13
+  },
+  {
+    "file": "changjak-e07.html",
+    "label": "E-07 📗 누적·반복",
+    "title": "줄줄이 소시지",
+    "engine": "누적·반복",
+    "stage": "독일 소시지 마을 광장",
+    "pages": 13
   },
   {
     "file": "changjak-e11.html",

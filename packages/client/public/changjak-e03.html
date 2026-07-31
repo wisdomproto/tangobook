@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>E-03 이름이 너무 긴 개 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · E · 웃음·말놀이 · 03</div>
+  <h1>이름이 너무 긴 개</h1>
+  <div class="sub">이름을 다 부르면 개는 벌써 딴 데 가 있어요. 오늘도 이름은 끝까지 못 가요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 누적·반복</span>
+  <span>무대 · 영국 시골 목장의 앞마당 (낮은 돌담이 빙 둘러싼 한 마당)</span>
+  <span>후렴 · "복슬복슬 까만양말 바람발 보리—!" (p2~p3 한 번 다 · p5 절반에서 끊김 · p7 후루룩 붙여서 · 🔴 p13 에서 "복슬복슬…" 첫 마디만 나오고 끝) + "…에도 없고" 목록이 p5·p8 로 한 칸씩 늘어난다</span>
+  <span class="q">13스프레드</span>
+  <span class="q">본문 585자 · 쪽당 45자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- <b>누적되는 것 두 가지</b> — ① 이름을 부르는 방식(다 부름 → 절반에서 끊김 → 후루룩 붙여 부름 → 첫 마디만) ② 개가 없던 자리 목록("물통에도 없고, 건초더미에도 없고, 사과나무 밑에도 없어!").<br>
+- 🔴 <b>부르는 행위를 먼저 그린다</b> — p2 는 이름을 다 부른 뒤가 아니라 <b>부르는 중</b>이다(입을 한껏 벌린 양 + 아직 화면 안에 있는 개). 부르는 걸 한 번은 보여 준 뒤라야 p3 의 빈자리가 웃기다.<br>
+- <b>못 만나는 이유가 물리로 화면에 있다</b> — 개는 낮은 돌담을 폴짝 넘고, 양은 담을 못 넘어 마당을 빙 돌아간다. 외울 규칙이 아니라 매 쪽 보이는 몸 차이다.<br>
+- <b>착지에 새 사실이 없다</b> — 「개가 먼저 가 있다」는 성질은 처음부터 끝까지 같다. 양이 부르기를 그만두자 그 성질이 그대로 「내가 갈 자리에 먼저 와 있다」가 된다. 규칙을 뒤집지 않고 <b>양의 자리만</b> 바꿨다.<br>
+- <b>p11 에 대사가 없는 것이 뜻이다</b> — 이 권에서 조용한 쪽은 여기 하나뿐이다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>돌담이 빙 둘러싼 마당이에요.
+새끼 양이 물통 옆에서 숨을 크게 들이마셨어요. 배가 볼록.
+이 개는 이름이 아주 길어요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 마당 전체가 들어오는 아이레벨, 살짝 멀리서
+<b>장소·시간</b> 낮은 마른돌담이 빙 둘러싼 목장 앞마당. 비 갠 아침, 잔디가 아직 짙게 젖어 있다
+<b>인물</b> 화면 왼쪽 앞 — 새끼 양이 나무 물통 옆에 네 발로 서서 가슴을 크게 부풀린 채 배가 볼록해졌다, 입은 아직 다물고 눈은 옆을 본다 / 그 바로 옆 — 흰 몸에 까만 발 네 짝인 개가 엉덩이를 붙이고 앉아 혀를 살짝 내밀고 양을 마주 본다
+<b>배경·소품</b> 나무 물통 하나 · 마당을 두른 회색 돌담 · 오른쪽 멀리 건초더미 한 채
+<b>톤</b> 젖은 초록과 회색 돌의 서늘한 아침빛, 넓고 조용하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>"복슬복슬 까만양말 바람—"
+양이 입을 한껏 벌렸어요.
+개는 귀를 쫑긋 세운 채 뒷다리를 슬쩍 들었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 둘을 옆에서 나란히 잡는 아이레벨
+<b>장소·시간</b> 같은 마당, 물통 앞. 아침 그대로
+<b>인물</b> 왼쪽 — 새끼 양이 목을 앞으로 쭉 빼고 입을 동그랗게 한껏 벌린 채 부르는 중, 앞발 하나가 땅에서 떠 있다 / 오른쪽 — 개가 두 귀를 쫑긋 세우고 얼굴은 양을 보는데 뒷다리 하나만 슬쩍 들려 담 쪽으로 향해 있다
+<b>배경·소품</b> 물통 · 뒤쪽 돌담 한 줄
+<b>톤</b> 아침빛, 소리가 커지는 쪽이 밝게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>"—발 보리!"
+이름이 겨우 끝났는데 물통 앞이 텅 비었어요.
+담 위로 까만 꼬리 끝만 쏙.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 와이드 · 아주 낮은 로우앵글, 빈 앞마당 너머로 담이 보이게
+<b>장소·시간</b> 같은 마당, 물통 앞
+<b>인물</b> 화면 왼쪽 — 새끼 양이 입을 다 벌린 채로 굳어 있고 눈만 담 쪽으로 돌아갔다 / 개는 몸이 없다 — 담 꼭대기 오른쪽 끝에 까만 꼬리 끝만 손가락만큼 남아 있다
+<b>배경·소품</b> 텅 빈 물통 앞 젖은 흙 · 회색 돌담
+<b>톤</b> 빈 자리가 넓게 느껴지도록 가운데를 비우고 밝게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>담은 너무 높아요. 양은 마당을 빙 둘러서 건초더미 앞까지 왔어요.
+꼭대기에 개가 떡하니 앉아 있어요.
+"찾았다!"</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 로우 · 양의 뒤쪽 어깨 너머로 건초더미 꼭대기를 올려다보게
+<b>장소·시간</b> 같은 마당, 오른쪽 건초더미 앞
+<b>인물</b> 화면 아래 앞 — 새끼 양이 헐레벌떡 멈춰 서서 고개를 위로 젖히고 입을 벌린다, 뒤쪽 젖은 잔디에 양의 발자국이 담을 따라 길게 나 있다 / 화면 위 — 개가 건초더미 꼭대기에 앞발을 모으고 떡하니 앉아 아래를 내려다본다
+<b>배경·소품</b> 건초더미 한 채 · 잔디에 난 발자국 줄
+<b>톤</b> 위쪽이 밝고 아래가 그늘져, 올려다보는 느낌으로</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>"복슬복슬 까만양말 바…"
+건초가 사르르 무너지고 꼭대기가 텅.
+"물통에도 없고, 건초더미에도 없고!"</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 와이드 · 건초더미 전체를 옆에서 잡는 아이레벨
+<b>장소·시간</b> 같은 마당, 건초더미 앞
+<b>인물</b> 화면 왼쪽 아래 — 새끼 양이 입을 반쯤 벌린 채 뒷걸음질로 목을 젖혔다 / 개는 없다 — 꼭대기가 비었고 건초 몇 가닥만 공중에 흩어져 내린다
+<b>배경·소품</b> 무너진 건초 자락 · 화면 구석 담 밑 그늘에 눌린 풀 자국과 까만 털 한 올
+<b>톤</b> 흩날리는 건초에만 빛이 걸리고 나머지는 차분하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>사과나무 그늘에 까만 발 네 짝이 쑥 보여요.
+양은 몸을 낮추고 살금살금 다가갔어요.
+"이번엔 빨리 부를 거야."</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 로우 · 땅에 붙은 눈높이, 그늘 안쪽을 들여다보는 각
+<b>장소·시간</b> 같은 마당, 담 안쪽에 선 늙은 사과나무 아래
+<b>인물</b> 화면 오른쪽 — 새끼 양이 배를 땅에 닿을 듯 낮추고 앞발 하나를 든 채 살금살금 다가간다, 입은 꾹 다물었다 / 화면 왼쪽 그늘 속 — 개의 몸은 어둠에 잠기고 까만 발 네 짝만 또렷하게 보인다
+<b>배경·소품</b> 사과나무 밑동 하나 · 그늘의 경계선
+<b>톤</b> 밖은 환하고 그늘은 짙게, 발 네 짝만 선명하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>"복슬복슬까만양말바람발보—"
+후루룩 불렀는데도 그늘이 텅 비었어요. 사과 한 알만 툭.
+"아직 안 끝났는데!"</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 와이드 · 사과나무 전체가 들어오는 아이레벨
+<b>장소·시간</b> 같은 마당, 사과나무 아래. 해가 조금 높아졌다
+<b>인물</b> 화면 오른쪽 — 새끼 양이 앞발을 다 뻗어 그늘로 들이밀고 입은 아직 벌린 채 굳어 있다 / 개는 없다 — 그늘 바닥이 비었고 그 한가운데로 붉은 사과 한 알이 막 떨어져 튄다
+<b>배경·소품</b> 사과나무 · 붉은 사과 한 알(이 쪽에만 나오는 유일한 붉은색)
+<b>톤</b> 그늘 바닥은 텅 비게, 붉은 사과 하나에만 눈이 가게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>"물통에도 없고, 건초더미에도 없고, 사과나무 밑에도 없어!"
+양은 돌담 밑에 털썩 주저앉았어요.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 하이앵글 와이드 · 마당을 위에서 내려다보며 세 자리가 한 화면에
+<b>장소·시간</b> 같은 마당. 해가 높아 그림자가 짧다
+<b>인물</b> 화면 가운데 아래 — 새끼 양이 돌담 밑에 뒷다리를 접고 털썩 주저앉아 고개만 들고 크게 외친다 / 개는 화면 어디에도 없다
+<b>배경·소품</b> 빈 물통 · 무너진 건초더미 · 사과나무 — 셋이 한 화면에 멀찍이 놓여 있다
+<b>톤</b> 정오의 납작한 빛, 넓은 마당에 양 하나만 작게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>양의 배가 헉헉 들썩였어요.
+발치 그늘에 눌린 풀 자국과 까만 털 한 뭉치가 있어요.
+"이제 숨이 하나도 안 남았어."</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 클로즈업 · 앉은 양의 옆구리와 발치를 낮게
+<b>장소·시간</b> 같은 마당, 돌담 바로 밑 그늘
+<b>인물</b> 화면 위쪽 — 새끼 양이 앉은 채 옆구리를 헉헉 들썩이고 입을 조금 벌려 숨을 쉰다, 눈은 앞을 본다(발치는 안 본다) / 개는 없다
+<b>배경·소품</b> 발치 그늘에 동그랗게 눌린 풀 자국 하나와 까만 털 한 뭉치 · 돌담 아랫돌
+<b>톤</b> 그늘 안은 서늘하게, 눌린 풀 자국에만 반사광 한 줄</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>"이름을 다 부르면 너는 벌써 딴 데 있잖아."
+양이 입을 꾹 다물고 네 발로 일어섰어요.
+"그럼 나도 안 부르고 갈래."</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 · 정면에 가까운 아이레벨, 일어서는 양을 가운데
+<b>장소·시간</b> 같은 마당, 돌담 밑. 낮
+<b>인물</b> 화면 가운데 — 새끼 양이 앞다리를 먼저 펴고 네 발로 막 일어서서 입을 한 일자로 꾹 다물었다, 시선은 담을 따라 저쪽 그늘 끝으로 향한다 / 개는 없다
+<b>배경·소품</b> 돌담 한 줄 · 담을 따라 이어지는 그늘 띠
+<b>톤</b> 담 그늘이 화면을 가로로 한 줄 긋고, 그 끝만 밝게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>양은 아무 소리도 내지 않았어요.
+발굽이 사각사각, 담 밑 그늘 쪽으로 걸어갔어요.</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 백샷 롱 · 양의 뒤를 따라가는 낮은 시점
+<b>장소·시간</b> 같은 마당, 돌담을 따라 난 그늘 띠. 낮
+<b>인물</b> 화면 가운데 — 새끼 양의 뒷모습, 네 발로 또박또박 걷는 중이라 뒷다리 하나가 들려 있다, 고개는 앞으로 곧게 · 입은 다문 채 / 개는 없다
+<b>배경·소품</b> 돌담 · 젖은 잔디에 눌리는 발굽 자국
+<b>톤</b> 소리가 없는 쪽이라 색을 줄이고, 그늘의 초록 회색만</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>그늘 안에 개가 벌써 배를 깔고 누워 있어요. 꼬리가 탁, 탁.
+양이 우뚝 멈춰 섰어요.
+"…벌써 와 있었네."</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 로우 · 그늘 안쪽에서 바깥을 보는 각, 개가 앞·양이 뒤
+<b>장소·시간</b> 같은 마당, 담 밑 그늘. 낮
+<b>인물</b> 화면 앞 — 개가 배를 땅에 깔고 앞발에 턱을 얹은 채 누워 눈만 위로 굴려 양을 본다, 꼬리 끝이 땅을 치고 있다 / 화면 뒤 — 새끼 양이 그늘 어귀에서 네 발을 딱 붙이고 우뚝 멈춰 섰다, 입이 조금 벌어졌다
+<b>배경·소품</b> 눌린 풀 자국(p9 의 그 자리) · 돌담 아랫돌
+<b>톤</b> 그늘 안은 서늘하고, 어귀에 선 양 쪽만 바깥빛이 닿게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>양이 개 옆에 나란히 앉았어요.
+"복슬복슬…"
+꼬리가 탁, 탁, 탁.
+이름은 오늘도 끝까지 못 갔어요.</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 와이드 · 정면 아이레벨, 둘을 나란히
+<b>장소·시간</b> 같은 마당, 담 밑 그늘. 오후로 넘어가는 낮
+<b>인물</b> 화면 왼쪽 — 새끼 양이 개 옆에 다리를 접고 나란히 앉아 입을 조금 벌려 첫 마디를 뗀다 / 화면 오른쪽 — 개가 그대로 누운 채 눈을 반쯤 감고 꼬리 끝만 땅을 세 번 친다
+<b>배경·소품</b> 돌담 한 줄 · 저 멀리 비어 있는 물통 하나
+<b>톤</b> 낮게 든 오후빛이 그늘 앞자락까지 들어와 따뜻하게</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'e03',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 양(이름 없음)', '이름이 아주 긴 개 — 흰 몸에 까만 발 네 짝인 목장 개'],
+};
+</script>
+<script src="/changjak-prompts.js?v=389176ebd18e032e"></script>
+<script src="/changjak-core.js?v=389176ebd18e032e"></script>
+</body>
+</html>

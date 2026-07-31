@@ -46,7 +46,14 @@ function check(id) {
   // 🔴 그리고 대사·의성어만 있는 쪽(e120 p5·g88 p3)은 나레이션이 없으니 위반이 아니다.
   const noAction = bodies
     .map((b, i) => [i + 1, stripDialog(b)])
-    .filter(([, n]) => n.replace(/[^가-힣]/g, '').length >= 12 && !/요[.!?,]|요\s*$/m.test(n))
+  // 🔴 이 항목은 **위반이 아니라 확인**이다. 그 쪽에 해요체가 한 줄도 없다는 뜻이고, 대개는
+  //    의도한 장치다 — e03 p5「건초가 사르르 무너지고 꼭대기가 텅.」· g88 p12「…지나서, 타다다닥.」
+  //    은 소리 내 읽을 때 박자를 주려고 일부러 그렇게 쓴 쪽이고 실제 그림책이 늘 쓴다.
+  //    🔴 자동으로 봐주게 만들려다 세 번 틀렸다 — 글자 수로 갈랐더니 47자짜리 g88 이 걸리고,
+  //    `[.!?]` 로 문장을 세었더니 의성어 느낌표가 문장 끝으로 읽혀 「발을 탁! 굴러요」가 쪼개졌고,
+  //    줄로 세었더니 한 문장을 세 줄에 나눠 쓴 쪽이 걸렸다. 판정이 사람 몫인 걸 기계에 미루면
+  //    그때마다 멀쩡한 쪽이 대신 걸린다. 48권에 둘이면 눈으로 보면 된다.
+    .filter(([, n]) => !/요[.!?,]|요\s*$/m.test(n))
     .map(([n]) => `p${n}`);
   const moral = (bodies[bodies.length - 1] || '').match(MORAL);
   const dialog = (text.match(/"[^"]+"/g) || []).length;
@@ -58,7 +65,7 @@ function check(id) {
   if (pages.length < 8 || pages.length > 20) bad.push(`쪽수 ${pages.length} (8~20)`);
   if (per < 40 || per > 75) bad.push(`쪽당 ${per}자 (40~75)`);
   if (dialog < 10) bad.push(`대사 ${dialog}개 (13~15 기준, 10 미만은 확인)`);
-  if (noAction.length) bad.push(`해요체 아닌 쪽 ${noAction.join(',')}`);
+  if (noAction.length) bad.push(`해요체 한 줄도 없는 쪽 ${noAction.join(",")} (장치면 확인만 하고 넘어간다)`);
   if (sceneMissing.length) bad.push(`SCENE 없는 쪽 ${sceneMissing.join(',')}`);
   if (moral) bad.push(`착지에 정리 문장 「${moral[0]}」`);
   if (!/^landing:/m.test(fm)) bad.push('frontmatter 에 landing 없음');
