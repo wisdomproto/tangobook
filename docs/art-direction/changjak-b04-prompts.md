@@ -131,57 +131,52 @@ STYLE ANCHOR - changjak-b04   (village cat and its shadow / Spanish whitewashed 
 
 MEDIUM: opaque flat colour in single passes, in the logic of a hand-pulled screen print - one
   colour, one pass, one flat area, a clean stated edge, then the next colour.
-  ZERO SHADING: no gradient, no soft edge, no blend, no bounce light, no half-tone, no darkening
-  at the foot of a wall. Every shape is one flat value edge to edge.
+  ZERO SHADING: no gradient, soft edge, blend, bounce light, half-tone, or darkening at the foot
+  of a wall. Every shape is one flat value edge to edge.
   THE WHITE WALL IS NOT PAINTED WHITE - it is the paper, left alone. Where two white planes meet,
   ONE thin line says so, never tone.
   THE SHADOW IS A CUT SHAPE: deep violet-indigo, fully opaque, matte, hard clean border, as if
   cut from paper and dropped on the page. It never fades, blurs, haloes, thins at the tip or goes
-  translucent; where it must stop it is cut straight off. Nothing painted is see-through.
-  NO OUTLINES ANYWHERE: a form exists because a flat colour area stops there. The only drawn
-  marks in the book are five on the cat's face and a few thin lines where one white plane turns.
-  Brush grain may show inside a fill and a pass may miss its edge by a hair - that misregister
-  is welcome, softness is not.
+  translucent; where it stops it is cut straight off. Nothing painted is see-through.
+  NO OUTLINES: a form exists because a flat colour area stops there. The only drawn marks in the
+  book are five on the cat's face and a few thin lines where one white plane turns into another.
+  Brush grain inside a fill and a pass missing its edge by a hair are welcome; softness is not.
 
 PALETTE: bare paper / lime wall #F2F1EC · shadow violet-indigo #3B3160 · shade plate #8A85A0
   (the same violet one step lighter, ONLY for ground or wall the sun cannot reach) · door blue
-  #3E7EA8 · geranium red #C8402F · cat grey-taupe #A9A29A, its ears, tail tip, paw tips and face
+  #3E7EA8 · geranium red #C8402F · cat grey-taupe #A9A29A, with ears, tail tip, paw tips and face
   marks in the shadow violet.
-  THE SHADOW IS THE DARKEST THING ON EVERY PAGE THAT HAS ONE. The cat and the door are middle
-  values, the ground is bare paper. The one warm saturated colour is the red, and it is one
-  object: a pot of geraniums (once a red scarf). No orange, pink, yellow, warm sunlight or
-  sunset anywhere, ever - not in the sky, not on the wall, not on the cat.
+  THE SHADOW IS THE DARKEST THING ON EVERY PAGE THAT HAS ONE; cat and door are middle values, the
+  ground is bare paper. The one warm saturated colour is the red, and it is one object: a pot of
+  geraniums (once a scarf). No orange, pink, yellow, warm sunlight or sunset anywhere.
 
 COUNTS (upper limits - count them): paint covers 10-20% of the page, bare paper the rest ·
   cobbles = at most 7 short thin violet arcs, never a paved surface · stair = 1 thin line per
   riser, 0 texture on any tread · door = 1 flat blue area + 2-3 plank lines · geranium = 1 red
-  mass + 1 green mass + 1 pot, 0 petals drawn · washing = bare paper shapes with 1 fold line and
-  1 hem line each, 3 peg marks · wall = 0 marks (0 plaster cracks, 0 stone joints, 0 tiles).
+  mass + 1 green mass + 1 pot, 0 petals · washing = bare paper shapes with 1 fold and 1 hem line
+  each and 3 peg marks · wall = 0 marks (0 plaster cracks, 0 stone joints, 0 tiles).
   FINISHED THINGS PER PAGE = 3: the cat, the shadow as one clean shape, and the ONE prop the cat
-  touches. DENSITY RATION = pages 2 and 8 only, and it is spent on PROPS, never on walls.
+  touches. DENSITY RATION = pages 2 and 8 only, spent on PROPS, never on walls.
 
-COMPOSITION: bare paper first, subject second. Real alley perspective - walls converging, stairs
-  climbing - built from flat shapes and thin lines, never from tone. The shadow's long axis is
-  usually the main diagonal. Cat about 1/6 to 1/7 of page height except on the two close pages;
-  bottom 18% quiet for a caption.
+COMPOSITION: bare paper first, subject second. Real alley perspective built from flat shapes and
+  thin lines, never from tone; the shadow's long axis is usually the main diagonal; cat about
+  1/6 of page height except on the two close pages; bottom 18% quiet for a caption.
 
 CHARACTER: the cat is a flat grey-taupe shape carrying exactly five drawn marks in the shadow
-  violet - ONE almond eye with a small reserve of bare paper round it, ONE separate brow stroke,
-  one mouth line, three whiskers (count as one mark). Not dot-eyes, no blush, no highlight, no
-  shading inside the body. Most acting is silhouette: bottle-brush tail, limp tail, tail straight
-  up, flattened body, ears back or forward.
+  violet - ONE almond eye with a reserve of bare paper round it, ONE separate brow stroke, one
+  mouth line, three whiskers. Not dot-eyes, no blush, no highlight, no shading in the body. Most
+  acting is silhouette: bottle-brush tail, limp tail, tail up, flattened body.
   THE SHADOW HAS NO FACE AT ALL and never speaks - its acting is posture and position only.
 
 SETTING: a white hill village in southern Spain - unornamented lime-washed walls, deep-blue
-  wooden doors and window frames, iron grilles, narrow stepped alleys, a small square with a low
-  stone well, washing lines strung wall to wall, geraniums hung on the walls. European.
-  16:9 double-page spread, 4-7 year old picture book. No lettering or numerals anywhere.
+  wooden doors and grilles, narrow stepped alleys, a small square with a low stone well, washing
+  lines wall to wall, geraniums on the walls. European. 16:9 double-page spread, 4-7 year old
+  picture book. No lettering or numerals anywhere.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading,
-  photographic, or a texture filter over flat colour (the flat passes must MAKE the shapes) /
-  no shading or modelling on any surface, no soft-edged, faded or translucent shadow, no outline
-  round any shape / no plaster, stucco or stone texture on the walls, no fully rendered
-  background / not felt, stitched fabric or sculpted clay.
+  photographic, or a texture filter over flat colour (the flat passes must MAKE the shapes) / no
+  shading or modelling on any surface, no soft-edged, faded or translucent shadow, no outline
+  round any shape / no plaster, stucco or stone texture on the walls / not felt or sculpted clay.
 ```
 
 **🔴 광원 스케줄 — 해 높이가 곧 그림자 길이다** (열 쪽에서 한 번도 안 흔들린다). 컷마다 `SUN:` `SHADOW:` `FEET:` `RED:` 를 먼저 읽는다.
@@ -202,29 +197,28 @@ NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-sha
 CHARACTER SHEET - AlleyCat   (bake FIRST, before any scene)
 
 Made the same way as the book: opaque flat colour in single passes on bare cool-white paper
-#F2F1EC, screen-print logic, hard stated edges, ZERO shading anywhere on the body. Do not render
-smoothly or add modelling just because there is no background. The body is ONE flat fill.
+#F2F1EC, hard stated edges, ZERO shading anywhere on the body, which is ONE flat fill. Do not
+render smoothly or add modelling just because there is no background.
 
-FACE: the head is part of the same flat fill. On it sit exactly five marks, all in the shadow
-  violet #3B3160 - ONE tipped almond eye with a small reserve of BARE PAPER round it so it does
-  not sink into the fill, ONE SEPARATE BROW STROKE above it (this stroke is the whole emotional
-  range), one short mouth line, three whiskers. Ears are flat violet triangles, nose one small
-  wedge. Not dot-eyes, no blush, no highlight, no inner-ear pink.
-BODY: cool grey-taupe #A9A29A, one flat pass, matte. Ear insides, tail tip and the four paw tips
-  in violet, so the silhouette has four small dark punctuation marks. Nothing else on the body -
-  no stripes, no patches, no fur texture, no belly tone. THE CAT IS A MIDDLE VALUE: clearly
-  lighter than the shadow and clearly darker than the paper. That gap is why the shadow is
-  findable.
+FACE: the head is part of the same flat fill. On it sit exactly five marks in the shadow violet
+  #3B3160 - ONE tipped almond eye with a small reserve of BARE PAPER round it so it does not sink
+  into the fill, ONE SEPARATE BROW STROKE above it (this stroke is the whole emotional range),
+  one mouth line, three whiskers. Ears are flat violet triangles, nose one small wedge. Not
+  dot-eyes, no blush, no highlight, no inner-ear pink.
+BODY: cool grey-taupe #A9A29A, one flat pass, matte, with ear insides, tail tip and four paw tips
+  in violet so the silhouette has four small dark punctuation marks. Nothing else - no stripes,
+  no patches, no fur texture, no belly tone. THE CAT IS A MIDDLE VALUE, clearly lighter than the
+  shadow and darker than the paper; that gap is why the shadow is findable.
 BUILD: a young adult village cat on four legs, lean, long-legged, long mobile tail, head about
   1/4 of standing height.
-TAIL IS THE ACTING ORGAN - bake five states as separate small silhouettes: relaxed low curve /
-  stiff and straight up / bottle-brush (twice as thick) / limp and dragging / hooked forward.
+TAIL IS THE ACTING ORGAN - bake five states as separate silhouettes: relaxed low curve / stiff
+  and straight up / bottle-brush (twice as thick) / limp and dragging / hooked forward.
 SHEET: full body from the side at child's eye level (the book's main angle) / three-quarter
   walking / a jump with both front paws up a wall / back view sitting, head down, tail limp /
   top-down looking at its own front paw; plus four close-ups carried by the brow and whiskers -
   startled, indignant (brow driven down and in, mouth open), frightened-searching (brow raised in
-  the middle, whiskers drawn as five off-parallel strokes instead of three), delighted (eye a
-  crescent, brow high). Plain bare paper, no scenery, no red, no cast shadow.
+  the middle, whiskers as five off-parallel strokes instead of three), delighted (eye a crescent,
+  brow high). Plain bare paper, no scenery, no red, no cast shadow.
   Test: at thumbnail size the four moods are still distinguishable.
 SCENE token: AlleyCat.
 ```
@@ -232,26 +226,26 @@ SCENE token: AlleyCat.
 ```
 CHARACTER SHEET - ShadowSelf   (bake SECOND, attach as @image2)
 
-Same medium. This is the second main character: ONE FLAT OPAQUE VIOLET-INDIGO SHAPE #3B3160 on
-bare paper, fully covered, matte, hard clean border, as if cut from paper and dropped down.
+Same medium. The second main character: ONE FLAT OPAQUE VIOLET-INDIGO SHAPE #3B3160 on bare
+paper, fully covered, matte, hard clean border, as if cut from paper and dropped down.
 
 THERE IS NOTHING INSIDE IT - no eye, mouth, whisker, ear line, darker core, lighter belly,
-  texture, gradient or transparency. Whatever is under it does not show through. It never speaks
-  and has no face: the drama is entirely POSTURE and POSITION. The border never softens, feathers
+  texture, gradient or transparency, and whatever is under it does not show through. It never
+  speaks and has no face: the drama is POSTURE and POSITION. The border never softens, feathers
   or fades, including at the far tip of a very long shadow; where it ends it is CUT STRAIGHT OFF.
-SHAPE LOGIC: the same animal as AlleyCat - same lean body, long tail, ear triangles - read as a
-  silhouette, and allowed to be in a completely different pose from the cat, because that is the
-  premise. It distorts as a real cast shadow does: stretched long by a low sun, kinked at a sharp
-  90° corner where floor meets wall and again at each stair riser, blown up enormous on a hanging
-  sheet. The kink is always a sharp corner, never a curve.
+SHAPE LOGIC: the same animal as AlleyCat read as a silhouette, and allowed to be in a completely
+  different pose from the cat, because that is the premise. It distorts as a real cast shadow
+  does: stretched long by a low sun, kinked at a sharp 90° corner where floor meets wall and
+  again at each riser, blown up enormous on a hanging sheet. The kink is a sharp corner, never
+  a curve.
 SHEET: seven states, each on bare paper with a small AlleyCat silhouette beside it at correct
-  relative scale - 1 stretching (front legs forward, back arched, tail up) / 2 striding ahead,
-  not looking back / 3 climbing stairs, kinked at each riser / 4 huge on cloth, about eight times
-  scale, one paw raised, its outline kinked into slow waves / 5 walking high on a wall, calm and
-  out of reach / 6 cut off dead at a straight shade border, the cut end perfectly flat / 7 short
-  and compact under the body, about a third of body length.
+  scale - 1 stretching (legs forward, back arched, tail up) / 2 striding ahead, not looking back
+  / 3 climbing stairs, kinked at each riser / 4 huge on cloth at about eight times scale, one paw
+  raised, outline kinked into slow waves / 5 walking high on a wall, calm and out of reach /
+  6 cut off dead at a straight shade border, the cut end perfectly flat / 7 short and compact
+  under the body, about a third of body length.
   Plus ONE joint detail drawn large: THE FOOT JOIN - a cat's back paw on the ground and the
-  shadow's back paw meeting it at exactly ONE POINT, tip to tip, no gap and no overlap. This
+  shadow's back paw meeting it at exactly ONE POINT, tip to tip, no gap and no overlap. It
   repeats on nine of the ten pages, so its geometry is decided here.
 SCENE token: ShadowSelf. Never write "shadow" alone.
 ```
@@ -262,22 +256,22 @@ CHARACTER SHEET - VillageKit   (bake THIRD, attach as @image3)
 Same medium - flat single passes on bare paper, hard edges, zero shading. Besides the shadow
 these are the only things in the book that get paint, so they are settled here.
 
-GERANIUM POT: 1 flat red mass #C8402F + 1 flat mid-green leaf mass + 1 small terracotta pot on
-  an iron ring. Drawn SMALL, about 1/10 of page height, and the only warm saturated thing in the
+GERANIUM POT: 1 flat red mass #C8402F + 1 flat mid-green leaf mass + 1 small terracotta pot on an
+  iron ring, drawn SMALL at about 1/10 of page height, and the only warm saturated thing in the
   book. 0 petals drawn, no shading, no glow.
 BLUE DOOR: 1 flat area #3E7EA8 + 2-3 thin darker plank lines + a small keyhole plate + a low
   stone step. Two states: closed, and open with the doorway behind it as one flat violet area.
-WINDOW: a small flat blue frame with an iron grille of 5 thin lines and 2 crossbars; behind it
-  one flat violet area.
+WINDOW: a small flat blue frame with a grille of 5 thin lines and 2 crossbars; behind it one flat
+  violet area.
 WASHING LINE: a thin line wall to wall with one sheet and two shirts, all BARE PAPER shapes with
-  1 fold line and 1 hem line each, 3 peg marks, plus ONE red scarf #C8402F (the page-four accent).
+  1 fold line and 1 hem line each, 3 peg marks, plus ONE red scarf #C8402F (the p4 accent).
 STONE WELL: a low flat cylinder of bare paper, 2 thin lines for the coping, 1 flat violet area
   for the dark mouth, an iron arch as 2 thin lines.
 STAIRS: bare paper treads separated by 1 thin violet line each. No shading on any tread, ever.
 COBBLES: at most 7 short thin violet arcs on bare paper. Never a full pavement.
-SHADE PLATE: the one extra tool - a flat area of the LIGHTER violet #8A85A0 for ground or wall
-  the sun does not reach, its border a straight or cleanly angled line decided by the
-  architecture. Bake one sample beside a full-dark shadow so the two values are never confused.
+SHADE PLATE: a flat area of the LIGHTER violet #8A85A0 for ground or wall the sun does not reach,
+  its border a straight or cleanly angled line decided by the architecture. Bake one sample beside
+  a full-dark shadow so the two values are never confused.
 SHEET: all of the above on plain bare paper at correct relative scale with a small AlleyCat
   silhouette for size. No scenery, no perspective, no extra colour.
 SCENE tokens: GeraniumPot, BlueDoor, WashingLine, StoneWell, ShadePlate.
@@ -295,20 +289,17 @@ SCENE tokens: GeraniumPot, BlueDoor, WashingLine, StoneWell, ShadePlate.
 
 ```
 SUN: very low early morning from off-frame LEFT through a window; the lit wedge on the floor is
-  bare paper stated by two thin violet lines.
-SHADOW: LARGE AND LONG, and the subject of the page. On the white wall above the sleeping cat,
-  ShadowSelf stands in a full STRETCH - front legs forward, back arched, tail straight up - while
-  the cat lies flat below. One flat violet shape, hard border, nothing inside it.
-CAMERA: medium, child's eye level. Lower third = floor with the sleeping cat at lower left; upper
-  two thirds = one enormous empty white wall carrying the shadow.
+  bare paper stated by two thin lines.
+SHADOW: LARGE AND LONG, and the subject. On the wall above the sleeping cat, ShadowSelf stands in
+  a full STRETCH - legs forward, back arched, tail straight up - one flat violet shape, empty.
+CAMERA: medium, eye level. Lower third = floor with the cat at lower left; upper two thirds = one
+  enormous empty white wall. The whitest, emptiest page: the floor sleeps, the wall is awake.
 SUBJECT: AlleyCat on its side by the window, four paws gathered, eye closed as one violet
-  crescent, mouth slightly open, tail in a low curve. Completely at rest.
-FEET: THE JOIN, AND THE PLANT OF THE BOOK. The shadow's hind paws begin at the sleeping cat's paw
-  tips, run a short way across the floor, turn a SHARP 90° corner at the wall and climb. One
-  unbroken shape. No gap, and never two separate shadows.
-FINISH: 3 (cat, shadow, the blue window frame with its grille). Wall and floor are BARE PAPER -
-  0 plaster, 0 joints, 0 skirting. The whitest, emptiest page: the floor sleeps, the wall is
-  awake. This page fixes the violet of all ten.
+  crescent, mouth slightly open, tail in a low curve.
+FEET: THE PLANT. The shadow begins at the sleeping cat's paw tips, runs across the floor, turns a
+  SHARP 90° corner at the wall and climbs. One unbroken shape - no gap, never two shadows.
+FINISH: 3 (cat, shadow, the blue window frame). Wall and floor bare paper, 0 marks. This page
+  fixes the violet of all ten.
 RED: GeraniumPot on the window ledge, small, upper left.
 ```
 
@@ -316,99 +307,94 @@ RED: GeraniumPot on the window ledge, small, upper left.
 
 ```
 SUN: low morning crossing the lane from the right; the whole floor glares as bare paper.
-SHADOW: LONG, and AHEAD of the cat - ShadowSelf already out in the lane, STRIDING, body leaning
+SHADOW: LONG, and AHEAD of the cat - ShadowSelf already out in the lane, STRIDING, leaning
   forward mid-step, stretched long toward the left of frame.
-CAMERA: medium wide, child's eye level down the lane; doorway left, lane running away right with
-  a slight vanishing point.
+CAMERA: medium wide, eye level down the lane; doorway left, lane running away right with a slight
+  vanishing point.
 SUBJECT: AlleyCat braces both front paws on the threshold and pushes half its body out, eye wide,
   brow high, whiskers forward, ears pricked, hind legs still inside. Startled.
-FEET: the shadow's hind paw tips touch the cat's front paw tips on the threshold, then the shape
-  runs into the lane in one unbroken piece. The cat is looking at the far end, not at the join.
-FINISH: DENSITY RATION 1 of 2 - the stage is learnt once, so 5 things are legible: cat, shadow,
-  the open BlueDoor with its flat violet doorway, the WashingLine deeper in (planting page four),
-  the GeraniumPot. Plus at most 7 cobble arcs. The walls stay bare paper with 0 marks.
+FEET: the shadow's hind paw tips touch the cat's front paw tips on the threshold, then run into
+  the lane in one unbroken piece. The cat looks at the far end, not at the join.
+FINISH: RATION 1 of 2, spent on props - 5 legible: cat, shadow, the open BlueDoor with its flat
+  violet doorway, the WashingLine deeper in (planting p4), the GeraniumPot. At most 7 cobble
+  arcs. Walls stay bare paper, 0 marks.
 RED: GeraniumPot beside the door.
 ```
 
 ### p3 — 계단을 성큼성큼 오르는데 돌아보지도 않는다
 
 ```
-SUN: low, from above and behind the stairs - the top of the flight is in full light, only the
-  lowest steps in shade.
-SHADOW: LONG AND CLIMBING. ShadowSelf strides up the white wall beside the upper steps, head
-  forward, never turned back; kinked at a sharp corner where floor meets wall and again at each
-  riser it crosses.
-CAMERA: medium, strong LOW ANGLE from the bottom of the flight - vertical, squeezed, breathless,
-  the small cat looming near while what it chases is small and high.
+SUN: low, above and behind the stairs - the top of the flight in full light, only the lowest
+  steps in shade.
+SHADOW: LONG AND CLIMBING - ShadowSelf strides up the white wall beside the upper steps, head
+  forward, never turned back, kinked where floor meets wall and again at each riser it crosses.
+CAMERA: medium, strong LOW ANGLE from the bottom of the flight. Vertical, squeezed, breathless.
 SUBJECT: AlleyCat stretched long trying to take two steps at once, mouth open panting, one front
   paw reaching up, a hind paw slipping off a stair edge, brow driven up.
-FEET: the join is at its lower hind paw on a step; the shape runs up over the stone and onto the
-  wall in one unbroken piece. It calls at the head of the shape and never looks at its own feet.
-SHADE PLATE: the lowest steps sit inside ONE flat plate #8A85A0 that ENDS at the clean edge of a
-  single riser. "Brighter at the top" is stated by how many steps are inside the plate.
+FEET: the join is at its lower hind paw on a step; the shape runs up over the stone onto the wall
+  in one piece. It calls at the head of the shape and never looks at its own feet.
+SHADE PLATE: the lowest steps sit inside ONE flat plate #8A85A0 ending at the clean edge of a
+  single riser - "brighter at the top" is how many steps are inside the plate, not a gradient.
 FINISH: 3 (cat, shadow, the steps under it). 1 thin line per riser, 0 texture on any tread.
-RED: GeraniumPot on the upper landing, placed high to pull the eye up the stairs.
+RED: GeraniumPot on the upper landing, high, to pull the eye up the stairs.
 ```
 
 ### p4 — 흰 천 위에서 집채만 해졌다
 
 ```
 SUN: mid-morning, higher, and BEHIND the hanging sheet, so the cloth is the brightest bare paper
-  on the page and the shadow is thrown onto it from behind.
-SHADOW: THE LARGEST IN THE BOOK - ShadowSelf scaled up about eight times on the sheet, one front
-  paw raised high, same flat violet and hard border but the border KINKED INTO SLOW WAVES by the
-  ripples. One moment only, at its biggest: do not try to show it growing and shrinking.
+  and the shadow is thrown onto it from behind.
+SHADOW: THE LARGEST IN THE BOOK - scaled up about eight times on the sheet, one front paw raised,
+  same flat violet and hard border but the border KINKED INTO SLOW WAVES by the ripples. One
+  moment only, at its biggest: do not show it growing and shrinking.
 CAMERA: wide, slightly low. Lower quarter = the tiny cat; upper three quarters = the laundry
   filling the frame wall to wall.
-SUBJECT: AlleyCat throws its head back to look up, four paws gathered, tail stiff and straight
-  up, mouth open, brow driven down while the eye is wide. Keep it about 1/8 of page height so
-  the size gap reads instantly.
-FEET: the join is the whole point - the shadow starts at the cat's paw tips on the cobbles, runs
-  a short way, turns a sharp corner up the wall and only THEN continues onto the cloth where it
-  balloons. One unbroken violet path from paw to giant, and the cat stares at the giant end.
-FINISH: 3 (cat, giant shadow, the sheet it lands on). Washing = 1 fold line and 1 hem line per
-  piece, 3 peg marks; walls and floor bare paper, at most 7 cobble arcs.
-RED: the red scarf on the washing line - this page's single warm spot. No geranium here.
+SUBJECT: AlleyCat throws its head back to look up, four paws gathered, tail stiff and straight up,
+  mouth open, brow driven down while the eye is wide. About 1/8 of page height, so the size gap
+  reads instantly.
+FEET: the shadow starts at the cat's paw tips on the cobbles, runs a short way, turns a sharp
+  corner up the wall and only THEN continues onto the cloth. One unbroken path from paw to giant.
+FINISH: 3 (cat, giant shadow, the sheet). Washing = 1 fold and 1 hem line per piece, 3 pegs;
+  walls and floor bare paper, at most 7 cobble arcs.
+RED: the red scarf on the line - this page's single warm spot. No geranium here.
 ```
 
 ### p5 — 뛰어도 발이 안 닿는다 · 벽이 통째로 비어 있다
 
 ```
 SUN: higher still, late morning from the upper left; the whole dead-end wall is in full light.
-SHADOW: MIDDLE LENGTH, HIGH ON THE WALL - ShadowSelf walks calmly sideways along the upper wall,
-  well out of reach, unhurried.
-CAMERA: medium, child's eye level, facing a tall blank wall that closes the alley and fills
-  almost the whole frame. The widest empty gap in the book.
-SUBJECT: AlleyCat has jumped with everything it has, front paws flat against the wall with claws
-  out as three tiny violet ticks, landing far below the shadow. Ears back, TAIL FULLY
-  BOTTLE-BRUSHED at twice its thickness, mouth open shouting, brow driven down and in. Furious.
-FEET: THE HARDEST JOIN IN THE BOOK. The cat is airborne, so the shadow starts at the cobbles
-  directly beneath it - not at its paws - runs up the base of the wall and continues to the
-  walking shape above. Still unbroken, still attached to the ground it left, which is exactly why
-  it cannot be reached. Do not detach the shadow into a free-floating shape.
-FINISH: 3 (cat, shadow, the high window with its GeraniumPot). THE BARE-WALL REFERENCE PLATE:
-  two thirds of the frame is bare paper with 0 marks in it - count the lines on this wall and the
-  answer is zero. Four claw ticks and two dirt arcs are the only extras.
+SHADOW: MIDDLE LENGTH, HIGH ON THE WALL - walking calmly sideways along the upper wall, well out
+  of reach, unhurried.
+CAMERA: medium, eye level, facing a tall blank wall that closes the alley and fills almost the
+  frame. The widest empty gap in the book.
+SUBJECT: AlleyCat has jumped with everything it has, front paws flat on the wall with claws out
+  as three tiny violet ticks, landing far below the shadow. Ears back, TAIL FULLY BOTTLE-BRUSHED
+  at twice its thickness, mouth open shouting, brow driven down and in. Furious.
+FEET: THE HARDEST JOIN. The cat is airborne, so the shadow starts at the cobbles directly beneath
+  it - not at its paws - runs up the base of the wall and continues to the walking shape above.
+  Still unbroken and still attached to the ground it left. Never a free-floating shape.
+FINISH: 3 (cat, shadow, the high window with its pot). THE BARE-WALL PLATE: two thirds of the
+  frame is bare paper with 0 marks - count the lines on this wall and the answer is zero. Four
+  claw ticks and two dirt arcs are the only extras.
 RED: GeraniumPot on the high ledge.
 ```
 
 ### p6 — 제가 먼저 홱 돌아서 어두운 골목으로 들어간다
 
 ```
-SUN: high morning, but it does not enter this alley at all - the lane mouth behind the cat is in
-  full light, the depth ahead of it is not.
-SHADOW: CUT OFF. ShadowSelf lies behind the cat in the lit lane mouth, and where the shade begins
-  the violet shape STOPS DEAD at a straight border, the cut end perfectly flat as if sliced. It
-  does not fade, thin, blur or trail. Only the part still in sunlight exists.
-CAMERA: medium wide, child's eye level from behind the cat, into the depth of a very narrow alley
-  where two bare walls almost touch and a thin strip of sky shows far above.
+SUN: high morning, but it does not enter this alley - the lane mouth behind the cat is in full
+  light, the depth ahead of it is not.
+SHADOW: CUT OFF. It lies behind the cat in the lit lane mouth and where the shade begins it STOPS
+  DEAD at a straight border, the cut end perfectly flat as if sliced. No fade, no thinning, no
+  trail. Only the part still in sunlight exists.
+CAMERA: medium wide, eye level from behind the cat into a very narrow alley where two bare walls
+  almost touch and a thin strip of sky shows far above.
 SUBJECT: AlleyCat walks away from us, back to camera, head down, TAIL LIMP AND DRAGGING,
   shoulders stiff. We cannot see its face and do not need to - it turned away first.
-FEET: the join still exists behind it, briefly: the shape leaves the paw tips, crosses the last
-  sunlit floor and is cut off at the shade border. Trace it and you see it did not run away; the
-  light ran out.
-SHADE PLATE: the far two thirds of the lane - floor and both walls - is ONE flat plate #8A85A0
-  with a cleanly angled border. Nothing is described inside it: 0 cobbles, 0 doors, 0 texture.
+FEET: the join exists behind it briefly - the shape leaves the paw tips, crosses the last sunlit
+  floor and is cut off at the shade border. It did not run away; the light ran out.
+SHADE PLATE: the far two thirds of the lane, floor and both walls, is ONE flat plate #8A85A0 with
+  a cleanly angled border and nothing inside it: 0 cobbles, 0 doors, 0 texture.
 FINISH: 3 (cat, the cut shadow, the lane mouth). Bright behind, flat and cool ahead, stated by
   ONE hard border and never by a gradient.
 RED: GeraniumPot at the lane mouth - the last red before it disappears.
@@ -417,45 +403,40 @@ RED: GeraniumPot at the lane mouth - the last red before it disappears.
 ### p7 — 그림자가 없다 🔴 어두운 것도 따뜻한 것도 없는 유일한 쪽 (@image2 를 붙이지 않는다)
 
 ```
-SUN: NONE. This alley gets no direct sun. No light direction anywhere, no lit wedge, no bright
-  edge, nothing casting anything.
-SHADOW: NONE. THERE IS NO CAST SHADOW ANYWHERE ON THIS PAGE - not under the cat, not on a wall,
-  not on the floor, not in the corner where walls meet. THE FLOOR BENEATH THE PAWS IS COMPLETELY
-  CLEAN. This is the reveal and it is made by SUBTRACTION: do not substitute a faint shadow, a
-  soft shadow, a small shadow or contact darkening under the paws.
-FEET: NO JOIN. The only page without one, and the empty paper under the paws is where the eye is
-  supposed to go.
-CAMERA: medium close-up, child's eye level, the cat alone in the middle of the alley.
+SUN: NONE. No light direction anywhere, no lit wedge, no bright edge, nothing casting anything.
+SHADOW: NONE. NO CAST SHADOW ANYWHERE ON THIS PAGE - not under the cat, not on a wall, not on the
+  floor, not in the corner where walls meet. THE FLOOR BENEATH THE PAWS IS COMPLETELY CLEAN. Do
+  not substitute a faint shadow, a soft one, a small one, or contact darkening under the paws.
+FEET: NO JOIN - the only page without one, and the empty paper under the paws is where the eye
+  is supposed to go.
+CAMERA: medium close-up, eye level, the cat alone in the middle of the alley.
 SUBJECT: AlleyCat dropped low, turning its head, one front paw lifted and stopped in the air, eye
   at its widest, brow raised in the middle, ears splayed, WHISKERS AS FIVE OFF-PARALLEL STROKES
-  INSTEAD OF THREE. Its head is angled DOWN, at the place where the shadow should be.
+  INSTEAD OF THREE. Head angled DOWN, at the place where the shadow should be.
 FINISH: 2 (the cat, and three or four dry leaves as small flat violet shapes). The WHOLE PAGE is
-  one flat ShadePlate #8A85A0 - floor and both walls, borders decided by the architecture, one
-  pass, nothing inside it - plus one thin strip of bright bare paper far above. It is NOT faded,
-  hazy or low-contrast rendering: it is one colour laid once. The flattest page in the book.
-RED: NONE. No geranium, no scarf, no terracotta, no warm spot of any kind. The only page with no
-  red, and the same page with no shadow - do not add a pot to "balance" the composition.
+  one flat ShadePlate #8A85A0 - floor and both walls, one pass, nothing inside it - plus one thin
+  strip of bright bare paper far above. Not faded, not hazy: one colour laid once.
+RED: NONE. The only page with no red, and the same page with no shadow - do not add a pot to
+  "balance" the composition.
 ```
 
 ### p8 — 광장으로 뛰어나오자 발밑에서 나왔다 🔴 밀도 배급 2/2
 
 ```
 SUN: HIGH NOON, directly overhead. Everything casts a short compact shadow straight down.
-SHADOW: THE SHORTEST AND MOST CONCENTRATED IN THE BOOK - ShadowSelf directly under AlleyCat,
-  about a third of body length, in the same mid-jump pose. Small on a glaring page, so it reads
-  as a compact unmistakable dark blot at the cat's feet.
+SHADOW: THE SHORTEST AND MOST CONCENTRATED - directly under AlleyCat, about a third of body
+  length, in the same mid-jump pose; small on a glaring page, so it reads as a compact
+  unmistakable dark blot at the cat's feet.
 CAMERA: wide, HIGH ANGLE down into a small square, the stone floor filling most of the frame so
-  we see cat and shadow together from above. The hottest, most open page.
+  cat and shadow are seen together from above. The hottest, most open page.
 SUBJECT: AlleyCat has burst out of the alley and jumped, all four paws off the ground, tail
-  straight up, mouth wide open, eye a crescent, brow high. Delighted, head tipped DOWN at its
-  own feet.
+  straight up, mouth wide open, eye a crescent, brow high, head tipped DOWN at its own feet.
 FEET: the join is directly under the body and impossible to miss - hind paw tips touching shadow
-  hind paw tips at one point, the two shapes doing the same jump. After a page with no shadow,
-  this join is the payoff.
-FINISH: DENSITY RATION 2 of 2, spent on props: cat, shadow, the StoneWell with its iron arch,
-  the ring of BlueDoors, the GeraniumPot, a water splash as two thin arcs, and at one frame edge
-  the dark alley mouth as a flat ShadePlate. Floor and walls stay bare paper - at most 7 cobble
-  arcs, and do not draw the stones of the square.
+  hind paw tips at one point, both doing the same jump. After a page with no shadow, this is the
+  payoff.
+FINISH: RATION 2 of 2, spent on props: cat, shadow, the StoneWell with its iron arch, the ring of
+  BlueDoors, the GeraniumPot, a water splash as two thin arcs, and at one frame edge the dark
+  alley mouth as a flat ShadePlate. At most 7 cobble arcs; do not draw the stones of the square.
 RED: GeraniumPot by the well.
 ```
 
@@ -463,20 +444,18 @@ RED: GeraniumPot by the well.
 
 ```
 SUN: high noon still, directly overhead - no direction, only the short shadow underneath.
-SHADOW: SHORT, seen from almost straight above as a compact violet shape under the cat, doing
+SHADOW: SHORT, seen from almost straight above as a compact violet shape under the cat doing
   exactly what the cat does - one front paw raised, tail swinging one way.
-CAMERA: CLOSE-UP, HIGH ANGLE, looking almost straight down at the cat's paws and the shadow's
-  paws. Much closer than any other page. The brightest page with the smallest dark shape.
+CAMERA: CLOSE-UP, HIGH ANGLE, almost straight down at the cat's paws and the shadow's paws. Much
+  closer than any other page. The brightest page with the smallest dark shape.
 SUBJECT: upper frame, AlleyCat with one front paw lifted a little, head bent right down to look
   under itself, eye wide, brow raised, whiskers forward. Lower frame, ShadowSelf with the same
   paw lifted and the same tail swing.
-FEET: THE PICTURE THE BOOK EXISTS FOR, AND THE LARGEST CLEANEST STATEMENT OF THE JOIN. Dead
-  centre, drawn big: one hind paw of the cat and one hind paw of the shadow meeting at EXACTLY
-  ONE POINT, tip to tip, no gap, no overlap, no third shape between them. THE JOIN REFERENCE
-  PLATE - the geometry fixed here is copied into the other eight pages.
+FEET: THE PICTURE THE BOOK EXISTS FOR. Dead centre, drawn big: one hind paw of the cat and one
+  hind paw of the shadow meeting at EXACTLY ONE POINT, tip to tip, no gap, no overlap, no third
+  shape between them. THE JOIN REFERENCE PLATE - this geometry is copied into the other eight.
 FINISH: 3 (the paws and the join, the shadow, one small pebble). The stone floor is bare paper
-  with 2-3 thin violet lines in total; do not draw the square, the stones or the far side. The
-  page is almost empty on purpose.
+  with 2-3 thin violet lines in total; do not draw the square, the stones or the far side.
 RED: GeraniumPot cropped at the frame edge, small, kept OUT of the centre.
 ```
 
@@ -484,28 +463,22 @@ RED: GeraniumPot cropped at the frame edge, small, kept OUT of the centre.
 
 ```
 SUN: LOW EVENING, below the roofline, raking down the alley from off-frame right. THE LIGHT IS
-  NOT WARM - no yellow, no orange, no golden hour, no sunset. Evening is stated by LENGTH and by
-  how much ground is inside the shade plate; nothing changes colour.
-SHADOW: THE LONGEST IN THE BOOK - ShadowSelf runs from the cat at near right all the way across
-  the frame to the far wall, ONE unbroken flat violet shape spanning the whole picture, kinked
-  once where floor meets far wall, its far front paw lifted in exactly the same small gesture as
-  the cat's. No thinning at the far tip.
-CAMERA: wide, child's eye level, looking down the length of the alley; cat at near right, the
-  alley running away left. Quiet, level, ordinary - the day is over and nobody learned anything.
-SUBJECT: AlleyCat with one front paw tapped up in the air, head turned aside to look down the
-  lane at the far end of its own shadow, eye a crescent, brow high, the other paw already a step
-  forward. Teasing, easy, pleased.
-FEET: THE LANDING. From the join at the near paw the reader follows ONE CONTINUOUS VIOLET LINE
-  to the far wall. The point is not that the shadow came back close - it went FURTHER than on any
-  page - it is that the two are still one piece. Not one break, not one lighter passage.
-SHADE PLATE: the lower third of the lane floor is inside one flat plate, the largest of the book
-  because the sun is lowest. Its border is a clean line.
+  NOT WARM - no yellow, orange, golden hour or sunset. Evening is stated by LENGTH and by how
+  much ground is inside the shade plate; nothing changes colour.
+SHADOW: THE LONGEST IN THE BOOK - it runs from the cat at near right across the whole frame to
+  the far wall, ONE unbroken flat violet shape, kinked once where floor meets far wall, its far
+  front paw lifted in exactly the same small gesture as the cat's. No thinning at the tip.
+CAMERA: wide, eye level down the length of the alley; cat at near right, alley running away left.
+  Quiet, level, ordinary - the day is over and nobody learned anything.
+SUBJECT: AlleyCat with one front paw tapped up in the air, head turned aside to look at the far
+  end of its own shadow, eye a crescent, brow high, the other paw already a step forward.
+FEET: THE LANDING. From the join at the near paw the reader follows ONE CONTINUOUS VIOLET LINE to
+  the far wall - not one break, not one lighter passage along its whole length.
 FINISH: 3 (cat, the long shadow, the nearest BlueDoor). Every door casts its own long shadow the
   same way - same sun, no exceptions. Walls and floor bare paper; the far wall is one flat plane
-  so that the shadow's tip and the red pot are the only things on it.
-RED: GeraniumPot at the far end, placed where the shadow's run ends so the eye travels the full
-  length of the join. Nowhere else - sky, walls and cat stay free of warm colour. This is the
-  single most likely place in the book for the palette to break.
+  so the shadow's tip and the red pot are the only things on it. Lower third = one shade plate.
+RED: GeraniumPot at the far end, where the shadow's run ends. Nowhere else - sky, walls and cat
+  stay free of warm colour. The most likely place in the book for the palette to break.
 ```
 
 ---

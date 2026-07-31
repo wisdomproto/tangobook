@@ -63,152 +63,63 @@
 ## C-60 §2. STYLE ANCHOR
 
 ```
-STYLE ANCHOR - changjak-fogplate  (young lamb / Welsh shepherd hill / fog / misunderstanding)
+STYLE ANCHOR - changjak-fogplate  (young lamb · Welsh shepherd hill · fog · misunderstanding)
+Hand-printed picture book, 4-6 years. Cool, damp, plain, un-slick.
 
-Style: a hand-printed picture-book page for 4-6 year olds. Cool, damp, plain and un-slick.
-  The book has one event - the fog came and took everything away, then the wind took the fog
-  away - so the PRINTING ITSELF has to carry it.
+MEDIUM: hand-pulled stencil / flat-plate printing. Every shape is a flat plane of ink laid through
+ a TORN paper stencil - no brush, no line, no crosshatch, no gradient. Ink is slightly uneven inside
+ a plane (mottle, a pinhole, a starved spot) and plates sit a hair out of register, so bare paper or
+ a doubled edge shows along some contours. Torn edges read as weather, not as geometry.
 
-MEDIUM: hand-pulled stencil / flat-plate printing. Every shape in this book is a flat plane of
-  ink laid down through a torn paper stencil. There is no brush, no pencil line, no crosshatch
-  and no gradient anywhere - a squeegee lays one even film of ink and nothing else.
-  Ink sits slightly uneven inside each plane (a faint mottle, a few pinholes, one or two spots
-  where the ink starved), and neighbouring plates sit a hair out of register so a thin sliver of
-  bare paper or a doubled edge shows along some contours. Stencil edges are TORN, not knife-cut -
-  soft, fibrous, slightly ragged - so a boundary reads as weather rather than as geometry.
+🔴 THE FOG IS A PRINTED PLATE, NOT A BLUR - semi-opaque pale ink #E8EBE6 pulled ON TOP of the
+ finished image. Each pull takes what is underneath one whole flat step toward the fog colour. It
+ cannot make a gradient, cannot soften an edge, cannot throw anything out of focus; it can only
+ cover. Every cut lists which zone is in which state:
+  FOG 0 = no plate. Full ink, full detail.
+  FOG 1 = one pull. Outline and markings still read; ALL interior description is gone.
+  FOG 2 = 🔴 ONLY THE OUTER SILHOUETTE - a soft pale-grey lump, no face, no legs separated, no bell,
+   no direction. You see THAT something is there, not WHAT. The misunderstanding lives here.
+  FOG 3 = NOTHING. Flat pale ink edge to edge - not faded, not dim, and no ghost of what was there.
+ 🔴 THE STEPS MUST BE COUNTABLE: where two states meet there is a hard torn edge, never a fade. If
+ the reader cannot point at the line where the fog begins, the page has failed.
 
-🔴 THE FOG IS A PRINTED PLATE, NOT A BLUR. This is the entire identity of the book.
-  The fog is a semi-opaque pale ink #E8EBE6 that is pulled ON TOP of the finished image. Each
-  pull takes whatever is underneath one whole flat step toward the fog colour. It CANNOT make a
-  gradient, it CANNOT soften an edge, it CANNOT throw anything out of focus - it can only cover.
-  There are exactly FOUR fog states, and every cut lists which state each zone is in:
+PALETTE - four inks on cool white paper: paper #F3F3EF · moss-green #6F7F5E · slate #4E5A5E · their
+ overlap, wet dark #38443F (the only shading in the book) · fog #E8EBE6 · shepherd's blue #2551B8 ·
+ eye ink #23282A. 🔴 EXACTLY ONE saturated colour exists - the shepherd's blue paint mark on
+ MotherEwe's back, nowhere else, not a flower, not the pony, not a pebble. 🔴 THE SKY IS NEVER BLUE;
+ even on the clear morning it is bare paper, and a blue sky kills the reveal. No teal, turquoise,
+ red, orange, pink or yellow anywhere.
+🔴 LittleLamb's fleece is UNPRINTED PAPER, brighter and cleaner than the slightly grey fog ink, so
+ she is the brightest object on every page and NEVER under a fog plate. The brass bell is the same
+ trick - a tiny hole of bare paper inside the slate collar. Both are printing facts, not lighting:
+ never add a highlight or a glow to achieve them.
 
-    FOG 0 = no fog plate at all. Full ink, full detail, full colour. The thing is simply there.
-    FOG 1 = one pull. The whole zone steps up toward pale. Outline and markings still read, but
-            all interior description (fleece texture, grass blades, stone joints) is GONE.
-            The zone is now a flat pale plane with a shape sitting in it.
-    FOG 2 = two pulls. 🔴 ONLY THE OUTER SILHOUETTE SURVIVES, as a soft pale-grey lump. No face,
-            no legs separated, no markings, no bell, no direction. The reader can see THAT
-            something is there and cannot tell WHAT it is. This is the state the whole
-            misunderstanding lives in.
-    FOG 3 = three pulls. NOTHING. Flat bare fog ink, edge to edge. Not a faded thing, not a
-            dim thing, not a soft thing - there is no thing. Do not draw a ghost of what used
-            to be there.
+🔴 FINISH, COUNTED - everything is flat planes, so count the planes.
+ 1. AT FOG 0 = finished. A sheep is THREE planes (bare-paper fleece, dark face, legs) plus five or
+    six curved stencil nicks for wool and two unprinted eye-holes. That is all the texture there is.
+ 2. WHAT SHE TOUCHES that page = ONE object, ONE plane, no interior.
+ 3. AT FOG 2 OR 3 = NOT PRINTED. A silhouette lump, or nothing.
+ 4. 🔴 EVERYTHING ELSE HAS A PLANE BUDGET: drystone wall = THREE courses, each ONE flat plane, never
+    a stone · a boulder = ONE plane + ONE darker overlap for lichen · a tuft of rushes = FOUR torn
+    nicks · the hawthorn = ONE crown + ONE trunk · the whole slope = ONE moss-green plane · the sky
+    = ZERO, it is bare paper. 🔴 More than SIX background planes means the fog was not used.
+ 🔴 DENSITY IS RATIONED TO p1 AND p10 - the only pages that may carry the flock, the wall, the
+ hawthorn and the far ridge at once, and there density means MORE PLANES OF THE SAME KIND (more
+ courses, more boulders, more ewes), never more planes inside one thing.
 
-  🔴 THE STEPS MUST BE COUNTABLE. Put a hard torn edge between two different fog states wherever
-  they meet in frame; never let one state fade into the next. If a reader cannot point at the
-  line where the fog begins, the page has failed.
-  🔴 FOG 3 IS THE HARDEST INSTRUCTION IN THIS BOOK. It is empty printed ink, not atmosphere.
-
-PALETTE: exactly four inks on cool white paper, and the ink count is enforced by the process.
-  Hex anchors: paper #F3F3EF / moss-green #6F7F5E / slate-grey #4E5A5E /
-    where green and slate overlap, wet dark #38443F (this is the ONLY shading that exists in
-    the book) / fog plate #E8EBE6 / shepherd's blue #2551B8 / darkest ink for eyes #23282A.
-  🔴 EXACTLY ONE saturated colour exists in this entire book: the shepherd's blue, and it belongs
-    to the paint mark on MotherEwe's back. It is nowhere else - not on the sky, not on a flower,
-    not on a ribbon, not on the pony, not on a single pebble. 🔴 THE SKY IS NEVER BLUE. Even on
-    the clear morning page the sky is bare paper. If the sky is blue, the reveal dies.
-  🔴 NO teal, NO turquoise, NO sea-blue-green, NO warm accent, NO red, NO orange, NO pink,
-    NO yellow anywhere (another book in this series owns the cool sea-green world).
-  Brass is NOT an ink. The bell glints because it is BARE UNPRINTED PAPER - a tiny hole of
-  paper left inside the slate plate. It is the second-brightest thing in the book.
-
-🔴 VALUE RULE - the lamb is bare paper: LittleLamb's fleece is UNPRINTED PAPER #F3F3EF, brighter
-  and cleaner than the fog ink #E8EBE6 which is slightly grey and slightly dirty. LittleLamb is
-  therefore the brightest object on every page, and is NEVER under a fog plate. This is how a
-  small white animal stays findable inside a white book, and it is a printing fact, not a
-  lighting effect. Do not put a highlight or a glow on her to achieve it.
-
-MATERIAL TRANSLATION (🔴 keep it printed - never photographic, never plastic, never woolly craft):
-  - FOG = flat pale ink pulled over the page. NOT airbrush, NOT a soft haze, NOT a blur, NOT a
-    depth-of-field effect, NOT smoke volumetrics, NOT a white gradient.
-  - WET FLEECE = a flat unprinted paper plane with a slate contour and FIVE OR SIX short curved
-    stencil nicks along the back and rump to say "wool". NOT every curl drawn, NOT fluffy
-    airbrushed fibre, 🔴 NOT felted wool, NOT a fabric or stop-motion puppet surface.
-  - MOSSY HILL = one flat moss-green plane; the wet patches are where the slate plate overlaps it
-    and turns #38443F. NOT painted blades of grass, NOT rendered turf.
-  - WET STONE (drystone wall, boulders) = flat slate planes with two or three darker overlap
-    shapes for the shaded joints and lichen. NOT specular highlight, NOT wet-plastic sheen,
-    NOT rendered rock texture.
-  - WATER DROPLETS on grass and fleece = tiny holes of BARE PAPER left unprinted. NOT white paint
-    dots, NOT lens sparkle.
-  - BRASS BELL = one small bare-paper shape inside the slate collar strap. NOT metallic gradient,
-    NOT chrome, NOT a shine.
-  - THE BLUE MARK = one flat, opaque, hard-edged blue plane, shaped like a hand-sized irregular
-    smear a shepherd sprayed on. It is the only fully saturated plane in the book.
-
-COMPOSITION: the empty printed field first, the subject second.
-  LittleLamb is tiny in frame on the wide pages (about 1/7 of page height) and comes forward only
-  on the close pages. Diagonals lead the eye. Never centre her in dead symmetry.
-  🔴 CAMERA MUST VARY - the cut list specifies shot, angle and placement for every page and the
-  same setup is never used twice in a row. Do not default to eye-level frontal rows.
-  Keep the bottom 18% of the image quiet and free of key subject matter (a caption band is laid
-  over it later).
-
-FINISH HIERARCHY - read this twice. This is about how FINISHED each area is, NOT about opacity.
-  1. WHATEVER IS AT FOG 0 = finished. Flat planes, contour, its markings, its face.
-  2. WHAT THAT THING TOUCHES on that page (the ledge under her feet, the one stone, the tuft of
-     grass she is eating) = half-finished: outer shape plus one plate, no interior description.
-  3. EVERYTHING AT FOG 2 OR 3 = NOT DRAWN. A silhouette lump, or nothing at all.
-  🔴 The fog field is NOT faded, NOT hazy, NOT blurred and NOT out of focus. It is simply COVERED.
-  A confident flat plane of pale ink is correct; a soft finished haze is wrong.
-  🔴 DENSITY IS RATIONED TO EXACTLY TWO PAGES - the clear morning (p1) and the moment the wind
-  tears the fog open (p10). Those are the only pages that may carry the whole flock, the wall,
-  the tree, the boulders and the far ridge at once. On every other page the fog has physically
-  removed the right to draw those things.
-
-CHARACTER DESIGN: sheep are built from FLAT STENCIL SHAPES, not from drawing.
-  A body is one plane. A face is one darker slate plane. 🔴 EYES ARE HOLES - two small unprinted
-  paper ovals left inside the dark face plane, so the eye reads as bright inside a dark shape.
-  A CLOSED eye is the opposite: no hole, and one short slate curve printed where the hole was.
-  This is required - the book ends on a closed-eyed face.
-  🔴 THE EARS ARE THE SECOND ACTING CHANNEL and they matter as much as the eyes: two flat ear
-  shapes whose ANGLE is the performance -
-    listening forward = both ears up and tipped forward, parallel
-    searching        = the two ears splayed, each aimed somewhere different
-    afraid           = both ears flat back along the skull
-    calm knowing     = both ears up, level, aimed the same way, still
-  A small dark muzzle plane, a short mouth line, and nothing else. No blush, no eyelashes, no
-  glossy catchlight, no human hands, no clothing.
-  🔴 SHEEP ARE ALWAYS ON FOUR LEGS in this book. They never stand up, never gesture, never hold
-  anything. Emotion is carried by ears, by body angle and by distance between bodies.
-  FACE SEPARATION (required): the bright eye-holes must sit inside a face plane that is clearly
-  darker than the fleece plane, so the face never sinks into one white mass. Test: at thumbnail
-  size the mood is still legible.
-
-SETTING: a Welsh hill farm - close-cropped sheep pasture on a long slope, low drystone walls
-  running across the contours, lichened grey boulders, rushes in the wet hollows, one
-  wind-bent hawthorn on the ridge. British upland, cool damp northern light.
-  NO alpine chalets, NO Asian motifs, NO tropical colour, NO sunset orange, NO barn interiors.
-
-FOG MAP (which fog states each spread contains - the cut blocks give the zones):
-  p1  FOG 0 everywhere            - the clear morning; all three clues planted; DENSITY PAGE
-  p2  FOG 0 near / 1 far / 2 at the top edge - the flock is already stepping away
-  p3  🔴 FOG 0 left | FOG 3 right, one torn edge down the middle of the frame
-  p4  FOG 3 everywhere except a hand-sized island of FOG 0 at her feet
-  p5  FOG 1 pony's front / 2 pony's hindquarters / 3 beyond
-  p6  FOG 0 her only / 1 the ground / 2 two courses of wall / 3 the rest
-  p7  🔴 ALL FOUR STATES IN ONE FRAME - this page is the anchor's fog reference plate
-  p8  FOG 1 the empty grass between them / 2 the flock / 3 above
-  p9  FOG 0 her and the boulder / 🔴 1 the big ewe (the first step back down) / 2 the other six
-  p10 🔴 THE FOG PLATE TEARS OPEN - FOG 3 to FOG 0 across one frame; DENSITY PAGE
-  p11 FOG 0 everywhere, one low FOG 1 band along the bottom edge
-  p12 FOG 0 her face / 1 below her knees / 🔴 2 the flock (the same state as p7)
-
-CANVAS: 16:9 double-page spread, 4-6 year old picture book.
-
-NOT: NOT digital airbrush / NOT smooth gradients / NOT blur / NOT depth-of-field / NOT
-  volumetric smoke or god-rays / NOT a soft hazy background (that is blur, not a printed plate)
-  / NOT glossy 3D CG render / NOT cel-shaded anime / NOT a paper-texture filter laid over flat
-  digital colour (the stencil must MAKE the shapes) / NOT photographic / NOT rendered rock or
-  fleece texture / NOT wet-plastic sheen / NOT metallic or chrome bell / NOT a blue sky /
-  NOT teal or turquoise anywhere / NOT any second saturated colour beyond the one blue mark /
-  NOT a fully rendered background / NOT every blade of grass, stone, curl of wool or droplet
-  drawn / NOT a uniform finish across the page / NOT sheep standing on two legs / NOT sheep
-  with hands or clothes / NOT breed-guide anatomical accuracy / NOT any lettering, numerals,
-  signage or numbers anywhere in the image / NOT wool felt, NOT felted or fuzzy fibre surfaces,
-  NOT stitched fabric, NOT sculpted clay, NOT stop-motion puppets (other lines own those) /
-  NOT dot-eyes on warm cream paper with a red thing on every page (that is another line).
+CHARACTER (sheets attached, obey them): 🔴 EYES ARE HOLES - unprinted ovals in the dark face plane;
+ a CLOSED eye is no hole at all, one short slate curve, and the book ends on a closed-eyed face.
+ 🔴 EAR ANGLE IS THE SECOND ACTING CHANNEL (the cut names it). 🔴 ALWAYS ON FOUR LEGS, never upright,
+ never gesturing, never holding anything - emotion is ears, body angle and distance between bodies.
+SETTING: a Welsh hill farm - cropped pasture on a long slope, low drystone walls across the
+ contours, lichened boulders, rushes in wet hollows, one wind-bent hawthorn on the ridge. Cool damp
+ northern light. European upland.
+CANVAS: 16:9 spread; keep the bottom 18% quiet (caption band).
+NOT: no digital slickness of any kind (airbrush, gradient, blur, depth-of-field, volumetric smoke,
+ CG gloss, cel shading, photo, a paper-texture filter over flat colour) / no wet sheen, no metallic
+ bell / no blue sky, no teal, no second saturated colour / 🔴 no lettering or numerals anywhere /
+ no felt, fuzzy fibre, stitched fabric, clay or stop-motion puppets - this book is the riskiest in
+ the line for that, because the subject is sheep.
 ```
 
 **🔴 이 앵커의 세 불변 규칙 (매 컷 반복 확인)**
@@ -374,323 +285,256 @@ Plain cool white paper, no lettering or numbers on the sheet, no blue anywhere.
 
 ## C-60 §4. 12컷
 
-각 컷은 `STYLE ANCHOR + @image1(어린 양) + @image4(안개 계단표) + 아래 블록` 으로 합성한다. 엄마·무리가 나오는 p1·p2·p7·p8·p9·p10·p11·p12 는 `@image2(MotherEwe)`, 무리가 나오는 쪽은 `@image3(HillCast)` 를 추가로 붙인다. 🔴 p1 승인본은 p10 의 ref 로, p7 승인본은 p8·p9·p12 의 ref 로 다시 붙인다.
+각 컷 = `STYLE ANCHOR + @image1(LittleLamb) + @image4(FogStepChart) + 아래 블록`. 엄마·무리가 나오는 쪽엔 `@image2(MotherEwe)`·`@image3(HillCast)` 를 더 붙인다. 🔴 p1 승인본은 p10 의 ref, p7 승인본은 p8·p9·p12 의 ref.
+🔴 컷은 **그 쪽의 변수만** 적는다 — 매체·팔레트·안개 4단·마감 상한·의인화 등급은 앵커와 시트가 들고 있다. 포즈·표정은 **시트 이름으로 부른다**.
 
 ### p1 — 일곱 마리와 파란 자국 🔴 심음 · 밀도 쪽 (안개 0겹 ref)
 ```
-FOG: 🔴 FOG 0 EVERYWHERE. The fog plate is not used on this page at all. This is one of only two
-  pages in the book where the whole world is visible, and the only page before the wind returns.
-CAMERA: medium wide, child's eye level, LittleLamb low at the left front, MotherEwe just ahead of
-  her at centre, the rest of the flock scattered behind and to the right.
-SUBJECT: centre - MotherEwe walks one step forward with her head down grazing, so the brass bell
-  on her slate collar strap swings out to one side. 🔴 The blue mark sits square on her back over
-  the shoulders, at full strength.
-  Left front - LittleLamb presses her body right against her mother's hind leg, head tipped up
-  looking at her, both ears bolt upright, tail a short flick.
-SETTING: a short-cropped hill pasture on a slope. A low drystone wall runs across the contour, a
-  few lichened grey boulders, and one wind-bent hawthorn on the ridge. Bare paper sky.
-CLUE: 🔴 ALL THREE CLUES ARE PLANTED HERE AND ONLY HERE AT FULL STRENGTH.
-  (1) the blue mark, unmissable; (2) the bell on the collar strap; (3) 🔴 SEVEN SHEEP - four adult
-  ewes, two half-grown lambs and MotherEwe - printed from the same stencil shape and spread apart
-  enough that a child can count them one by one. LittleLamb is NOT one of the seven, so there are
-  eight animals in frame. Do not overlap the flock into a mass; the count is the point.
-FINISH: 🔴 DENSITY PAGE (one of two). The flock, the wall, the boulders, the hawthorn and the far
-  ridge may all be present and finished. Even here, density means SHAPES, not description - the
-  wall is courses of flat slate blocks, not individual mortared stones.
-TONE: clear low morning light, cool and dry. Flat planes, high separation between the moss-green
-  ground and the slate stone. The brightest things are the bare-paper fleeces.
-BLUE: 🔴 FOG 0, FULL STRENGTH. The one saturated plane in the picture and the first thing the eye
-  lands on. Nowhere else - not the sky, not a flower, not a stone.
+FOG: 🔴 FOG 0 EVERYWHERE - the plate is not used at all. One of only two pages where the whole
+ world is visible.
+CAMERA: medium wide, child's eye level - LittleLamb low at the left front, MotherEwe just ahead of
+ her at centre, the rest of the flock scattered behind and right.
+SUBJECT: MotherEwe walks one step forward, head down grazing, so the bare-paper bell on her slate
+ collar swings out to one side; 🔴 the blue mark sits square on her back over the shoulders at full
+ strength. LittleLamb presses against her mother's hind leg, head tipped up, both ears bolt
+ upright, tail a short flick.
+CLUE: 🔴 ALL THREE PLANTED HERE AND ONLY HERE AT FULL STRENGTH - (1) the blue mark, unmissable;
+ (2) the bell; (3) 🔴 SEVEN SHEEP printed from the same stencil shape and spread far enough apart
+ that a child can count them one by one. LittleLamb is NOT one of the seven, so eight animals are
+ in frame. Do not overlap the flock into a mass; the count is the point.
+FINISH: 🔴 DENSITY 1/2 - flock, wall, boulders, hawthorn and far ridge may all be present. Even
+ here density is MORE PLANES OF THE SAME KIND: the wall is three courses of flat blocks, never
+ mortared stones. Bare paper sky.
+TONE: clear low morning, cool and dry; high separation between moss-green ground and slate stone,
+ and the brightest things are the bare-paper fleeces.
 ```
 
 ### p2 — 바위 밑 연한 풀 (무리가 이미 멀어진다)
 ```
-FOG: FOG 0 on LittleLamb and the boulder she is under. FOG 1 on the upper slope where the flock is.
-  🔴 FOG 2 along the very top edge of the frame, where something white is already lying low over the
-  ridge - a flat pale band with a torn lower edge, no shape inside it.
-CAMERA: medium, slightly high angle looking down, LittleLamb small at the bottom front, the flock
-  small and high in the frame - 🔴 a strong vertical gap between them.
-SUBJECT: bottom front - LittleLamb has her nose buried in a tuft of soft grass under a boulder,
-  only her back and her rump visible, face hidden in the grass. 🔴 SHE NEVER LOOKS UP. Her whole
-  body is aimed down and away from the slope.
-SETTING: a big lichened boulder with one bright tuft of moss-green grass in its shelter. Above her,
-  the bare slope runs up to the ridge.
-CLUE: 🔴 the seven are still countable but small and already at FOG 1 - shapes only, no faces, no
-  legs separated. One of them carries a tiny hard blue speck on its back.
-FINISH: LittleLamb and her tuft of grass finished. The boulder half-finished. 🔴 The whole slope
-  between her and the flock is one flat moss-green plane with nothing described in it - if that
-  field gets grass, stones and texture, the seven small shapes stop reading.
-TONE: same clear morning, but the frame is emptier and colder than p1. The size difference does the
-  work: she is tiny at the bottom, they are tiny at the top, and the middle is empty.
-BLUE: FOG 1, tiny - a hard blue speck, still clearly blue, clearly too far away to matter to her.
+FOG: FOG 0 on LittleLamb and her boulder · FOG 1 on the upper slope where the flock is · 🔴 FOG 2
+ along the very top edge, a flat pale band with a torn lower edge and no shape inside it.
+CAMERA: medium, slightly high angle - LittleLamb small at the bottom front, the flock small and
+ high, 🔴 a strong vertical gap between them.
+SUBJECT: LittleLamb has her nose buried in a tuft of grass under a boulder, only her back and rump
+ visible, face hidden. 🔴 SHE NEVER LOOKS UP; her whole body is aimed down and away from the slope.
+CLUE: the seven are still countable but small and at FOG 1 - shapes only, no faces, no legs
+ separated. One carries a tiny hard blue speck on its back, clearly too far away to matter to her.
+FINISH: LittleLamb and her tuft finished, the boulder half. 🔴 The whole slope between her and the
+ flock is ONE flat moss-green plane with nothing in it - give that field grass and stones and the
+ seven small shapes stop reading.
+TONE: same clear morning but emptier and colder than p1; the size difference does the work - tiny
+ at the bottom, tiny at the top, empty in the middle.
 ```
 
 ### p3 — 돌담이 중간에서 뚝 끊긴다 🔴 스텐실 경계
 ```
-FOG: 🔴 THE PAGE IS CUT IN HALF BY ONE TORN STENCIL EDGE.
-  LEFT HALF = FOG 0, fully printed: moss-green grass, slate wall courses, the boulder, LittleLamb.
-  RIGHT HALF = FOG 3, completely empty pale ink, edge to edge, nothing in it at all.
-  🔴 The boundary runs from the top of the frame down to the bottom on a slight diagonal, and the
-  drystone wall STOPS DEAD at that line mid-course - one stone is printed, the next one is simply
-  not there. No fade, no softening, no transition band. This single edge teaches the reader what
-  fog does in this book.
-CAMERA: wide, eye level, the fog edge moving right-to-left across the frame, LittleLamb small at
-  the lower left inside the clear half.
-SUBJECT: lower left - LittleLamb has lifted her face out of the grass and turned her body toward the
-  white edge, one blade of grass still in her mouth, both ears bolt forward, feet planted. She has
-  not moved yet.
-SETTING: the clear half holds grass, the running wall, one boulder with its top already cut off by
-  the fog edge. Water beads - tiny bare-paper holes - are beginning to sit on the grass tips.
+FOG: 🔴 THE PAGE IS CUT IN HALF BY ONE TORN STENCIL EDGE running top to bottom on a slight
+ diagonal. LEFT = FOG 0, fully printed. RIGHT = FOG 3, empty pale ink edge to edge with nothing in
+ it. 🔴 The drystone wall STOPS DEAD at that line mid-course - one stone is printed, the next is
+ simply not there. No fade, no softening, no transition band.
+CAMERA: wide, eye level, the fog edge moving right-to-left, LittleLamb small at the lower left
+ inside the clear half.
+SUBJECT: LittleLamb has lifted her face out of the grass and turned her body toward the white edge,
+ one blade of grass still in her mouth, both ears bolt forward, feet planted. She has not moved yet.
 CLUE: 🔴 none - the flock is already inside the FOG 3 half and is therefore NOT DRAWN. Do not put a
-  faint ghost of them in there. Their absence is the event.
-FINISH: LittleLamb and the grass at her feet finished. The wall and boulder half-finished. The right
-  half is bare flat ink - no texture, no mottling beyond the natural unevenness of the pull.
-TONE: 🔴 the whole page is one comparison: "drawn" against "covered". The clear half should look
-  ordinary and the covered half should look like a printing error that ate the world.
-BLUE: none.
+ faint ghost of them in there; their absence is the event.
+FINISH: LittleLamb and the grass at her feet finished; wall and boulder half. The right half is
+ bare flat ink - no texture beyond the natural unevenness of the pull. Water beads on the grass
+ tips are tiny holes of unprinted paper.
+TONE: 🔴 the whole page is one comparison, "drawn" against "covered" - the clear half ordinary, the
+ covered half like a printing error that ate the world.
 ```
 
 ### p4 — 아무도 없어요 (FOG 3 · 온통 흰 판)
 ```
-FOG: 🔴 FOG 3 ACROSS THE ENTIRE FRAME except one hand-sized island at her feet, which is FOG 0.
-  Everything past one step from her body is flat pale ink with nothing in it - no ground line, no
-  horizon, no sky, no up and no down. 🔴 THIS IS THE EMPTIEST PAGE IN THE BOOK and it must be
-  genuinely empty printed ink, not a soft white haze.
-CAMERA: medium close-up, eye level, LittleLamb alone near the centre but pushed slightly off-axis so
-  the emptiness is uneven around her.
-SUBJECT: LittleLamb has thrown her head back with her mouth wide open, calling. Her eyes are wide
-  bright holes, one foreleg is planted forward mid-step and her body has locked, and 🔴 HER TWO EARS
-  ARE SPLAYED IN DIFFERENT DIRECTIONS, each hunting a different way. Bare-paper droplets sit along
-  her back where the fog has wet her.
-SETTING: five or six blades of moss-green grass and one wet slate stone at her feet, and that is the
-  entire world of this page. The FOG 0 island has a torn edge and is no wider than she is.
-CLUE: 🔴 none, deliberately. The reader is now exactly as blind as she is - this is the one page
-  where the reader has no advantage, which is what makes the next pages work.
-FINISH: LittleLamb finished. The grass and stone half-finished. Nothing else exists to finish.
-TONE: no depth, no direction, no ground plane. Her call has nowhere to go - the flatness of the ink
-  IS the muffling. Keep her small enough that the empty ink dominates.
-BLUE: none.
+FOG: 🔴 FOG 3 ACROSS THE ENTIRE FRAME except one hand-sized FOG 0 island at her feet with a torn
+ edge, no wider than she is. Past one step from her body there is flat pale ink and nothing - no
+ ground line, no horizon, no sky, no up and no down. 🔴 THE EMPTIEST PAGE IN THE BOOK, and it must
+ be genuinely empty printed ink, not a soft white haze.
+CAMERA: medium close-up, eye level, LittleLamb alone near the centre but pushed off-axis so the
+ emptiness is uneven around her.
+SUBJECT: head thrown back, mouth wide open, calling. Eyes wide bright holes, one foreleg planted
+ forward mid-step, body locked, and 🔴 HER TWO EARS SPLAYED IN DIFFERENT DIRECTIONS, each hunting a
+ different way. Bare-paper droplets along her back where the fog has wet her.
+CLUE: 🔴 none, deliberately - the reader is now exactly as blind as she is, and that is what makes
+ the next pages work.
+FINISH: LittleLamb finished; five or six blades of grass and one wet slate stone at her feet half.
+ Nothing else exists to finish.
+TONE: no depth, no direction, no ground plane - her call has nowhere to go, and the flatness of the
+ ink IS the muffling. Keep her small enough that the empty ink dominates.
 ```
 
 ### p5 — 안개에서 나온 조랑말 (@image3)
 ```
-FOG: 🔴 HillPony IS DELIVERED IN THREE STATES AT ONCE - his head, neck and chest at FOG 1, his
-  barrel and hindquarters at FOG 2 (a soft lump with no legs), and everything beyond him at FOG 3.
-  LittleLamb stays FOG 0. The torn edges between his own body zones must be visible.
-CAMERA: medium, 🔴 LOW ANGLE from below, HillPony's lowered head filling the upper half of the frame,
-  LittleLamb tiny at the lower edge.
-SUBJECT: upper centre - HillPony has dropped his head deep into the picture to look down at her,
-  wet mane stuck flat to his forehead in three or four slate strands, breath a small bare-paper
-  puff. 🔴 His neck is twisted so his own head points back to the right side of the frame - he is
-  telling her a direction with his body, not with a hoof.
-  Lower edge - LittleLamb cranes her head all the way up, both ears forward, one hind leg stepped
-  back from the surprise she has not quite finished having.
-SETTING: wet grass and his four blunt hoof shapes at the bottom; nothing at all behind him.
-CLUE: 🔴 the deep right side of the frame is FOG 3 like the rest, but 🔴 SLIGHTLY BRIGHTER - because
-  no ground ink was printed under the fog there at all, so the pale plate sits straight on bare
-  paper. Nothing is visible in it. That faint brightening is the only sign of where the sound came
-  from, and it must not become a glow, a light beam or a shape.
-FINISH: HillPony's head and LittleLamb finished. The grass under them half-finished. His hindquarters
-  are a lump. Nothing behind.
-TONE: he is enormous and she is tiny, but he is not a threat - flat calm planes, eyes as low quiet
-  holes. The size contrast is scale, not menace.
-BLUE: none.
+FOG: 🔴 HillPony IS DELIVERED IN THREE STATES AT ONCE - head, neck and chest at FOG 1, barrel and
+ hindquarters at FOG 2 (a lump with no legs), everything beyond him FOG 3. The torn edges between
+ his own body zones must be visible. LittleLamb stays FOG 0.
+CAMERA: medium, 🔴 LOW ANGLE from below, his lowered head filling the upper half, LittleLamb tiny at
+ the lower edge.
+SUBJECT: HillPony has dropped his head deep into the picture to look down at her, wet mane stuck
+ flat to his forehead in three or four slate strands, breath a small bare-paper puff. 🔴 His neck is
+ twisted so his own head points back to the right of frame - he tells her a direction with his body,
+ not with a hoof. LittleLamb cranes all the way up, both ears forward, one hind leg stepped back.
+CLUE: 🔴 the deep right of frame is FOG 3 like the rest but SLIGHTLY BRIGHTER, because no ground ink
+ was printed under the fog there at all, so the pale plate sits straight on bare paper. Nothing is
+ visible in it. That faint brightening is the only sign of where the sound came from - never a
+ glow, a beam or a shape.
+FINISH: his head and LittleLamb finished, the grass under them half, his hindquarters a lump,
+ nothing behind.
+TONE: he is enormous and she is tiny but he is not a threat - flat calm planes, eyes as low quiet
+ holes. The size contrast is scale, not menace.
 ```
 
 ### p6 — 귀만 앞으로 (뒤에서 따라가는 시점)
 ```
-FOG: FOG 0 on LittleLamb only. FOG 1 on the ground for about two body-lengths around her feet.
-  FOG 2 on two courses of drystone wall at the left edge. 🔴 FOG 3 on everything ahead of her -
-  the entire upper two-thirds of the frame is flat empty ink.
+FOG: FOG 0 on LittleLamb only · FOG 1 on the ground about two body-lengths round her feet · FOG 2
+ on two courses of wall at the left edge · 🔴 FOG 3 on everything ahead - the upper two thirds of
+ the frame is flat empty ink.
 CAMERA: medium, 🔴 FROM BEHIND AND SLIGHTLY LOW, so we see her back and her two ears against the
-  white and share exactly what she can see, which is nothing.
-SUBJECT: lower centre - LittleLamb walking away from us into the fog, one foreleg reaching out to
-  test the ground before her weight goes on it, tail down. 🔴 BOTH EARS ARE BOLT FORWARD AND
-  PARALLEL - she is travelling by ear, not by eye, and the ears are the only aimed thing in the
-  picture.
-SETTING: small dark hoof prints pressed into the wet ground behind her, bare-paper beads on the
-  grass, and two courses of wall entering at the left and stopping where FOG 2 turns to FOG 3.
-CLUE: 🔴 NOTHING IS DRAWN AHEAD OF HER. Do not draw the bell, do not draw a sound, do not draw a
-  shape she is walking toward, do not draw a path. The direction of her ears is the only
-  information on this page.
-FINISH: LittleLamb finished, and she is the only finished thing. The ground under her half-finished.
-  The wall is a lump. Everything else is bare pale ink.
+ white and share exactly what she can see, which is nothing.
+SUBJECT: LittleLamb walks away from us into the fog, one foreleg reaching out to test the ground
+ before her weight goes on it, tail down. 🔴 BOTH EARS BOLT FORWARD AND PARALLEL - she travels by
+ ear, and the ears are the only aimed thing in the picture.
+CLUE: 🔴 NOTHING IS DRAWN AHEAD OF HER. No bell, no sound, no shape she is walking toward, no path.
+ The direction of her ears is the only information on this page.
+FINISH: LittleLamb is the only finished thing; the ground under her half; the wall is a lump; small
+ dark hoof prints and bare-paper beads behind her. Everything else is bare pale ink.
 TONE: the world exists for one step around her and stops. Keep the FOG 1 ground band low and narrow
-  so the empty ink presses down from above.
-BLUE: none.
+ so the empty ink presses down from above.
 ```
 
 ### p7 — 회색 덩어리 일곱 🔴 안개 계단 ref (@image2 · @image3)
 ```
-FOG: 🔴 ALL FOUR STATES IN ONE FRAME - THIS PAGE IS THE ANCHOR'S FOG REFERENCE PLATE, and it must
-  be baked and approved before p8, p9 and p12.
-    FOG 0 - LittleLamb at the lower left front.
-    FOG 1 - the ground for one body-length around her, and the last two courses of the wall.
-    FOG 2 - 🔴 FlockSeven: seven soft pale-grey lumps standing in the middle distance, printed from
-      the SAME single stencil shape as the seven on page 1, but now with no faces, no legs
-      separated, no bells and no direction. They are heads-down grazing shapes, and they read
-      BIGGER and rounder than they really are.
-    FOG 3 - everything behind and above them: flat empty ink.
-  🔴 The torn edges between the four states must be findable. This page is the whole book in one
-  picture.
-CAMERA: wide, eye level, LittleLamb tiny in the lower-left front corner, the seven lumps across the
-  middle of the frame, deep empty ink above.
-SUBJECT: lower left - LittleLamb has stopped and dropped her whole body low, mouth shut tight, ears
-  starting to lie back, eyes wide bright holes fixed ahead. 🔴 She is the smallest thing in the
-  picture and the lumps ahead are swollen - the size difference IS the misunderstanding.
-SETTING: wet grass at her feet, the drystone wall ending at the FOG 2 boundary. Nothing else.
-CLUE: 🔴 TWO CLUES ARE HERE AND BOTH MUST BE ALMOST INVISIBLE.
-  (1) SEVEN - the same stencil, printed seven times, countable if the reader bothers to count.
-  (2) 🔴 on one lump near the middle, a faint bluish stain that could just as easily be a patch of
-  fog, and a single very small bare-paper glint beside it where the bell is. 🔴 DO NOT MAKE THESE
-  READABLE. If a child can tell that lump is her mother on this page, the story is over. The test
-  is: an adult who already knows can find them; a first-time reader cannot.
-FINISH: LittleLamb finished and nothing else on the page is. The lumps are silhouettes with no
-  interior. 🔴 Do not describe grass, stones or fleece anywhere past her feet - the fog has taken
-  away the right to draw them.
-TONE: cold, flat, still. The reader's eye should go to the biggest shapes first and then find the
-  smallest, brightest thing in the corner.
-BLUE: 🔴 FOG 2 - a ghost. Same mark, same place, same ink, two pale films on top of it.
+FOG: 🔴 ALL FOUR STATES IN ONE FRAME - bake and approve this before p8, p9 and p12. FOG 0
+ LittleLamb, lower left front · FOG 1 the ground one body-length round her and the last two courses
+ of wall · FOG 2 🔴 FlockSeven, seven soft pale-grey lumps in the middle distance, printed from the
+ SAME stencil as the seven on p1 but with no faces, no legs separated, no bells and no direction,
+ heads-down grazing shapes that read BIGGER and rounder than they really are · FOG 3 everything
+ behind and above. The torn edges between the four must be findable.
+CAMERA: wide, eye level - LittleLamb tiny in the lower-left corner, the seven lumps across the
+ middle, deep empty ink above.
+SUBJECT: she has stopped and dropped her whole body low, mouth shut tight, ears starting to lie
+ back, eyes wide bright holes fixed ahead. 🔴 She is the smallest thing in the picture and the lumps
+ ahead are swollen - the size difference IS the misunderstanding.
+CLUE: 🔴 TWO CLUES, BOTH ALMOST INVISIBLE - (1) SEVEN, the same stencil printed seven times,
+ countable if the reader bothers; (2) on one lump near the middle a faint bluish stain that could
+ as easily be a patch of fog, and one very small bare-paper glint beside it. 🔴 DO NOT MAKE THESE
+ READABLE. An adult who already knows can find them; a first-time reader cannot. If a child can
+ tell that lump is her mother, the story is over.
+FINISH: LittleLamb and nothing else. The lumps are silhouettes with no interior; describe no grass,
+ stone or fleece past her feet.
+TONE: cold, flat, still - the eye goes to the biggest shapes first, then finds the smallest and
+ brightest thing in the corner.
 ```
 
 ### p8 — 사이의 빈자리 (@image2 · @image3)
 ```
-FOG: FOG 0 on LittleLamb. 🔴 FOG 1 on the wide empty grass between her and the flock (the fog has
-  thinned one step since p7 and the wall line is now visible running up the slope). FOG 2 still on
-  the seven. FOG 3 above the ridge line.
-CAMERA: wide, slightly high angle, LittleLamb small at the bottom of the frame, the seven small and
-  high, 🔴 and the empty grass between them takes up half the picture.
-SUBJECT: bottom centre - LittleLamb walks with her head down and her back rounded, feet dragging,
-  ears half-back. 🔴 HER EYES ARE AIMED AT THE GROUND UNDER THE FLOCK'S FEET, NOT AT THEIR BODIES -
-  she is following, not looking.
-  Upper - the seven lumps climb the slope in a loose line, all seen from behind.
-SETTING: bare wet pasture, the drystone wall line reappearing as it climbs, bare-paper beads on the
-  grass.
-CLUE: 🔴 the blue stain is on one of the retreating backs and is now more findable than on p7 because
-  the fog has thinned one step - but 🔴 SHE IS NOT LOOKING AT THEIR BACKS. That is the cruelty of
-  this page and it must be visible in her eyeline. 🔴 The big ewe has NOT turned yet - all seven are
-  still pure rear views. Save the turn for p9.
-FINISH: LittleLamb finished. The grass immediately under her half-finished. 🔴 THE EMPTY BAND BETWEEN
-  THEM MUST STAY EMPTY - one flat plane, no tufts, no stones, no flowers. That emptiness is the
-  subject of the page.
-TONE: 🔴 the gap between the small bright animal and the grey group is the composition. Nearest and
-  loneliest at once.
-BLUE: FOG 2, ghost, on a back that is walking away.
+FOG: FOG 0 LittleLamb · 🔴 FOG 1 the wide empty grass between her and the flock (the fog has thinned
+ one step since p7 and the wall line is visible again running up the slope) · FOG 2 still on the
+ seven · FOG 3 above the ridge.
+CAMERA: wide, slightly high angle - LittleLamb small at the bottom, the seven small and high, 🔴 the
+ empty grass between them taking up half the picture.
+SUBJECT: she walks with her head down and her back rounded, feet dragging, ears half-back. 🔴 HER
+ EYES ARE AIMED AT THE GROUND UNDER THE FLOCK'S FEET, NOT AT THEIR BODIES - she is following, not
+ looking. Above, the seven lumps climb the slope in a loose line, all seen from behind.
+CLUE: the blue stain on one retreating back is now more findable than on p7 because the fog thinned
+ one step - but 🔴 SHE IS NOT LOOKING AT THEIR BACKS, and that must be visible in her eyeline. 🔴 The
+ big ewe has NOT turned yet; all seven are still pure rear views. Save the turn for p9.
+FINISH: LittleLamb finished, the grass under her half. 🔴 THE EMPTY BAND BETWEEN THEM STAYS EMPTY -
+ one flat plane, no tufts, no stones, no flowers. That emptiness is the subject.
+TONE: the gap between the small bright animal and the grey group is the composition - nearest and
+ loneliest at once.
 ```
 
 ### p9 — 부르는 얼굴과 숨는 얼굴 (@image2)
 ```
-FOG: FOG 0 on LittleLamb and the boulder she is behind. 🔴 FOG 1 ON MOTHEREWE - the first time
-  anything in the flock steps back down the fog ladder, and the reader must feel the change: her
-  shape, her collar strap, her bell and her blue mark all become readable in a way they were not on
-  p7 or p8. FOG 2 still on the other six behind her. FOG 3 beyond.
-CAMERA: medium, eye level, 🔴 the two of them facing each other across the frame - MotherEwe at the
-  left in the fog, LittleLamb at the right front behind a boulder.
-SUBJECT: left - MotherEwe has STOPPED. Her body still faces uphill but her head and neck are twisted
-  back over her shoulder toward us, neck stretched long, mouth open calling. 🔴 The bell swings
-  forward on the strap and the blue mark sits square on her back at FOG 1.
-  Right front - LittleLamb is pressed flat against the back of a lichened boulder, forelegs tucked
-  under her, 🔴 only her head edging past the stone so that ONE bright eye-hole shows, both ears flat
-  back along her skull.
-SETTING: the lichened boulder, flattened grass behind it, and six grey lumps strung out up the slope
-  behind MotherEwe.
-CLUE: 🔴 THE THIRD CLUE LANDS HERE - among seven identical shapes, ONE HAS TURNED. Her silhouette is
-  the only one in the book facing a different way from the rest, and the reader gets it instantly
-  while the lamb does not. 🔴 Count check: one turned ewe + six lumps = seven.
+FOG: FOG 0 LittleLamb and her boulder · 🔴 FOG 1 ON MOTHEREWE, the first time anything in the flock
+ steps back down the ladder - her shape, her collar strap, her bell and her blue mark all become
+ readable in a way they were not on p7 or p8 · FOG 2 still on the other six · FOG 3 beyond.
+CAMERA: medium, eye level, 🔴 the two facing each other across the frame - MotherEwe at the left in
+ the fog, LittleLamb at the right front behind a boulder, on one horizontal eyeline so the miss is
+ exact.
+SUBJECT: MotherEwe has STOPPED - body still facing uphill but head and neck twisted back over her
+ shoulder toward us, neck stretched long, mouth open calling, bell swung forward on the strap.
+ LittleLamb is pressed flat against the back of the boulder, forelegs tucked under her, 🔴 only her
+ head edging past the stone so ONE bright eye-hole shows, both ears flat back along her skull.
+CLUE: 🔴 THE THIRD CLUE LANDS - among seven identical shapes, ONE HAS TURNED. Her silhouette is the
+ only one in the book facing a different way from the rest, and the reader gets it instantly while
+ the lamb does not. Count check: one turned ewe + six lumps = seven.
 FINISH: 🔴 MotherEwe is the only thing in the fog that is half-finished; the other six stay lumps.
-  LittleLamb and the boulder finished. Nothing else.
-TONE: 🔴 A CALLING FACE AND A HIDING FACE ARE IN THE SAME FRAME LOOKING STRAIGHT AT EACH OTHER AND
-  NEITHER KNOWS. Put them on one horizontal eyeline so the miss is exact. This is the saddest page
-  and it must be quiet - no drama in the light, only in the two postures.
-BLUE: 🔴 FOG 1 - one step stronger than p7 and p8. Still not enough for the lamb, already enough for
-  the reader. Do not take it all the way to full strength; that belongs to the next page.
+ LittleLamb and the boulder finished. Nothing else.
+TONE: 🔴 a calling face and a hiding face in the same frame looking straight at each other, and
+ neither knows. The saddest page, and it must be quiet - no drama in the light, only in the two
+ postures. The blue is one step stronger than p7: already enough for the reader, still not enough
+ for the lamb. Do not take it to full strength; that belongs to the next page.
 ```
 
 ### p10 — 안개 판이 찢어진다 🔴 회수 · 밀도 쪽 (@image2 · @image3)
 ```
-FOG: 🔴 THE FOG PLATE TEARS OPEN ACROSS THE FRAME. On this page the pale ink is physically pulling
-  away from right to left along ONE long torn edge: the left and centre are now FOG 0 - full ink,
-  full colour, everything back - while a ragged band of FOG 2 and FOG 3 still clings to the top and
-  the far right corner. 🔴 The torn edge is the biggest shape in the composition. No fade, no
-  gradient, no dissolve - a hard fibrous rip with the world printed on one side of it.
-CAMERA: wide, eye level, 🔴 the wind moving right-to-left, LittleLamb bursting out at the right,
-  MotherEwe and the flock revealed at the left.
-SUBJECT: right - LittleLamb has launched out from behind the boulder, forelegs stretched forward, all
-  four feet off the ground, eyes wide bright holes, mouth open, both ears straight up.
-  Left - MotherEwe, now fully printed, head turned toward her, eyes meeting hers. 🔴 THE BLUE MARK
-  ON HER BACK IS AT FULL STRENGTH FOR THE FIRST TIME SINCE PAGE 1 and the bare-paper bell is bright
-  on its strap.
-SETTING: 🔴 DENSITY PAGE (the second and last). Everything the fog took comes back inside one frame:
-  moss-green pasture, the drystone wall running whole across the slope, the lichened boulders, the
-  hawthorn on the ridge, and the other six ewes surfacing one after another out of the retreating
-  band. Bare paper sky.
-CLUE: 🔴 ALL THREE CLUES ARE REDEEMED ON THIS PAGE - the blue mark at full strength (p1), the count
-  (MotherEwe + six = seven, matching p1 and p7), and the ewe who kept turning back (p9) now facing
-  her outright.
-FINISH: MotherEwe, LittleLamb and the ground between them finished. The flock and the wall
-  half-finished, and 🔴 the ones still under the retreating band stay lumps until the tear passes
-  them - the page should show the recovery happening, not completed.
-TONE: 🔴 the single loudest page in the book. The eye must land on the blue first, then travel left
-  to right along the tear. Everything on the cleared side is crisper and more saturated than any
-  page since p1; the clinging band stays flat and dead.
-BLUE: 🔴 FOG 0, FULL STRENGTH. This is the payoff of the plant on page 1 - the same ink, the same
-  mark, the same size, with nothing on top of it for the first time in nine pages.
+FOG: 🔴 THE PLATE TEARS OPEN ACROSS THE FRAME. The pale ink is physically pulling away right to
+ left along ONE long torn edge: left and centre are now FOG 0, full ink and full colour, while a
+ ragged band of FOG 2 and FOG 3 still clings to the top and the far right corner. 🔴 The torn edge
+ is the biggest shape in the composition - a hard fibrous rip with the world printed on one side of
+ it. No fade, no gradient, no dissolve.
+CAMERA: wide, eye level, the wind moving right-to-left - LittleLamb bursting out at the right,
+ MotherEwe and the flock revealed at the left.
+SUBJECT: LittleLamb has launched out from behind the boulder, forelegs stretched forward, all four
+ feet off the ground, eyes wide bright holes, mouth open, both ears straight up. MotherEwe, now
+ fully printed, head turned toward her, eyes meeting hers. 🔴 THE BLUE MARK IS AT FULL STRENGTH FOR
+ THE FIRST TIME SINCE PAGE 1 and the bare-paper bell is bright on its strap.
+CLUE: 🔴 ALL THREE REDEEMED - the blue mark at full strength (p1), the count (MotherEwe + six =
+ seven, matching p1 and p7), and the ewe who kept turning back (p9) now facing her outright.
+FINISH: 🔴 DENSITY 2/2 - everything the fog took comes back in one frame: pasture, the drystone wall
+ whole across the slope, the boulders, the hawthorn, and the other six surfacing one after another
+ out of the retreating band. Bare paper sky. 🔴 The ones still under the band stay lumps until the
+ tear passes them - show the recovery happening, not completed.
+TONE: 🔴 the loudest page in the book. The eye lands on the blue first, then travels left to right
+ along the tear; the cleared side is crisper than any page since p1 and the clinging band stays
+ flat and dead.
 ```
 
 ### p11 — 여기 있었어, 바로 뒤에 (@image2 · @image3)
 ```
-FOG: FOG 0 everywhere, with one low band of FOG 1 lying along the very bottom edge of the frame
-  where the last of the fog is draining off downhill. Nothing in the frame is at FOG 2 or 3.
+FOG: FOG 0 everywhere, with one low band of FOG 1 along the very bottom edge where the last of the
+ fog drains off downhill. Nothing is at FOG 2 or 3.
 CAMERA: 🔴 medium close-up, eye level, closer than any page so far - the two bodies fill the frame.
-SUBJECT: centre - LittleLamb has driven her head in under MotherEwe's neck between her forelegs and
-  buried her face there. 🔴 Her eyes are CLOSED - no eye-holes, one short printed curve each - and
-  her tail is a quick flick. 🔴 Both animals on four legs.
-  MotherEwe has lowered her head onto the lamb's back, muzzle down against her; the strap hangs
-  forward and the bare-paper bell rests against the lamb's forehead. The blue mark is clear on her
-  back.
-SETTING: pressed wet grass under the two of them, the other six grazing again a little way behind,
-  the drystone wall whole, a thin FOG 1 band running away downhill.
-CLUE: 🔴 count check - six behind + MotherEwe = seven. Keep them small and unemphatic; this page is
-  about two bodies touching.
-FINISH: the two of them finished. The grass under their feet half-finished. The six behind are
-  simple shapes. The wall is courses, not stones.
-TONE: 🔴 the quietest page. Reduce the number of separate shapes in frame rather than reducing the
-  contrast - stillness here comes from having almost nothing else in the picture. The place where
-  the two bodies meet is the centre of the composition.
-BLUE: FOG 0, full strength, but 🔴 no longer the loudest thing - it sits under her mother's turned
-  head rather than facing the reader. The reveal has already happened.
+SUBJECT: LittleLamb has driven her head in under MotherEwe's neck between her forelegs and buried
+ her face there. 🔴 Her eyes are CLOSED - no eye-holes, one short printed curve each - and her tail
+ is a quick flick. MotherEwe has lowered her head onto the lamb's back, muzzle down; the strap hangs
+ forward and the bare-paper bell rests against the lamb's forehead. Both on four legs.
+CLUE: count check - six grazing again a little way behind + MotherEwe = seven. Keep them small and
+ unemphatic; this page is about two bodies touching. The blue is clear but 🔴 no longer the loudest
+ thing, sitting under her mother's turned head rather than facing the reader.
+FINISH: the two of them finished, the grass under their feet half, the six behind simple shapes,
+ the wall three courses.
+TONE: 🔴 the quietest page. Reduce the NUMBER of separate shapes in frame rather than the contrast -
+ stillness here comes from having almost nothing else in the picture, and the place where the two
+ bodies meet is the centre of the composition.
 ```
 
 ### p12 — 눈을 감고 귀를 세운다 🔴 착지 (@image1 · @image2)
 ```
-FOG: FOG 0 on LittleLamb's head and shoulders. FOG 1 from below her knees down, where the evening
-  fog is rising again. 🔴 FOG 2 on the flock behind her - EXACTLY THE SAME STATE AS PAGE 7, the same
-  soft pale lumps with no faces and no direction. FOG 3 above the ridge.
-  🔴 THIS RHYME IS THE POINT OF THE PAGE: the fog is doing precisely what it did before, and the
-  only thing that has changed is her. Do not make this fog gentler, thinner or prettier than p7's.
-CAMERA: 🔴 CLOSE-UP, eye level, her face and her two ears filling the front of the frame - the
-  closest shot in the book and the only one where she is large.
-SUBJECT: LittleLamb stands square on four legs, still. 🔴 HER EYES ARE CLOSED - no bright eye-holes
-  anywhere on her face, just one short printed slate curve where each hole used to be. 🔴 BOTH EARS
-  ARE UP, LEVEL AND AIMED THE SAME WAY, parallel and steady. Her muzzle is lifted very slightly and
-  her mouth line is easy. This is a knowing face, not a searching one.
-  🔴 Her closed eyes and her two ears must be the sharpest, most finished shapes on the page.
-SETTING: behind her, evening fog risen to knee height with the flock as pale lumps inside it, the
-  low drystone wall, and the hawthorn on the ridge as one flat dark shape.
-CLUE: 🔴 on one of the lumps, the faint blue stain and one tiny bare-paper glint - the same ghost as
-  p7, at the same fog state, drawn with the same restraint. The reader now knows what it is and so
-  does she, and neither needs to see it.
-FINISH: her head and ears finished. The ground at her feet half-finished. The flock are lumps. 🔴 Do
-  not add anything to the background to make the ending feel warmer - the ending is in her face.
-TONE: low evening light. 🔴 THE FOG INK IS THE SAME INK, but the ground and stone planes underneath
-  it are printed one step deeper, so the page reads settled rather than cold. 🔴 NO ORANGE, NO WARM
-  SKY, NO SUNSET - the palette does not break on the last page. Warmth here means a deeper, quieter
-  moss-green, not a new colour.
-BLUE: FOG 1... 🔴 NO - FOG 2, the same as p7. Correction is deliberate: the last page must NOT give
-  the blue back. She does not need to see it. One faint stain, nothing more.
+FOG: FOG 0 her head and shoulders · FOG 1 from below her knees down, where the evening fog is
+ rising again · 🔴 FOG 2 on the flock behind her, EXACTLY THE SAME STATE AS PAGE 7, the same soft
+ pale lumps with no faces and no direction · FOG 3 above the ridge. 🔴 The rhyme is the point: the
+ fog does precisely what it did before and the only thing that has changed is her. Do not make this
+ fog gentler, thinner or prettier than p7's.
+CAMERA: 🔴 CLOSE-UP, eye level - her face and two ears filling the front of the frame, the closest
+ shot in the book and the only one where she is large.
+SUBJECT: she stands square on four legs, still. 🔴 HER EYES ARE CLOSED - no bright eye-holes anywhere
+ on her face, one short printed slate curve where each hole used to be. 🔴 BOTH EARS UP, LEVEL AND
+ AIMED THE SAME WAY, parallel and steady; muzzle lifted very slightly, mouth line easy. A knowing
+ face, not a searching one.
+CLUE: on one of the lumps, the faint blue stain and one tiny bare-paper glint - the same ghost as
+ p7, at the same fog state, drawn with the same restraint. 🔴 The last page does NOT give the blue
+ back. She does not need to see it; neither does the reader.
+FINISH: 🔴 her closed eyes and her two ears are the sharpest, most finished shapes on the page. The
+ ground at her feet half; the flock are lumps; the hawthorn one flat dark shape. Add nothing to the
+ background to make the ending feel warmer - the ending is in her face.
+TONE: low evening. 🔴 THE FOG INK IS THE SAME INK, but the ground and stone planes underneath it are
+ printed one step deeper, so the page reads settled rather than cold. 🔴 NO ORANGE, NO WARM SKY, NO
+ SUNSET - warmth here means a deeper, quieter moss-green, not a new colour.
 ```
-
----
 
 ## 첫 렌더 검수 체크리스트 (6항목)
 

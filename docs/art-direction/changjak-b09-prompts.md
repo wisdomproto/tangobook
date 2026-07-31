@@ -310,254 +310,206 @@ SCENE tokens: CuckooClock, LeafPendulum, ChainWeight, SmallHook, BenchLamp.
 ## B-09 §4. 11컷
 
 각 컷 = `STYLE ANCHOR + @image1(SquirrelKit) + @image2(CuckooGuest) + @image3(ClockKit) + 아래 블록`.
-🔴 컷은 **변수만** 적는다 — 방·기계·마감 규칙·팔레트는 앵커와 시트가 이미 들고 있다.
+🔴 컷은 **그 쪽의 변수만** 적는다 — 방·기계·마감 규칙·팔레트·의인화 등급·글자 금지는 앵커와 시트가 이미 들고 있다. 포즈·표정은 **시트 이름으로 부른다**(다시 묘사하면 시트를 이기려 든다). 되풀이해 적으면 그 안에서 변수가 묻힌다.
 
 ### p1 — 째깍 소리가 멈춘 저녁, 반쯤 열린 문
 ```
-CAMERA: wide, LOW from the sawdust up the right wall. SquirrelKit small at bottom centre (1/6 of
+CAMERA: wide, LOW from the sawdust up the right wall - SquirrelKit small at bottom centre (1/6 of
  frame height), the clock large high right, window and bench left.
-SUBJECT: SquirrelKit upright, head tipped right back at the clock, both forepaws cupped EMPTY at
- her chest, tail straight up, ears pricked, mouth just open. 🔴 No guest in this picture.
-AIM: no guest yet - a long band of low sun crosses the sawdust and its far end stops exactly at the
- base of the clock.
-TRACKS: 🔴 NONE. The only clean floor in the book. Light band, a scatter of curled shavings.
-CLOCK: door STUCK HALF OPEN · chains slack, both weights sunk, one touching the floor · 🔴 the LEAF
- PENDULUM LIES IN THE SAWDUST under the case and the hook above it is EMPTY · gears still.
-GLAZE: A. Dust hangs motionless in the light band.
-FINISH: half = the bench top and the light band.
-TONE: 🔴 THE SILENCE IS IN THE PICTURE - nothing moves, nothing tilts as if swinging, and the one
- thing that should hang is lying down. Her red pocket stitch is flat and slack. NO NUMERALS.
+SUBJECT: SquirrelKit upright, head tipped right back at the clock, forepaws cupped EMPTY at her
+ chest, tail straight up, ears pricked. No guest in this picture.
+AIM: no guest yet, and 🔴 THE FLOOR IS CLEAN - the only page with no prints. A band of low sun
+ crosses the sawdust and stops exactly at the clock's base. A few curled shavings.
+CLOCK: door half open · chains slack, both weights sunk, one on the floor · 🔴 pendulum lying in the
+ sawdust, hook EMPTY · gears still.
+GLAZE A. FINISH: half = the bench top and the light band.
+TONE: 🔴 nothing moves, nothing tilts as if swinging, and the one thing that should hang is lying
+ down. Red pocket stitch flat. NO NUMERALS.
 ```
 
 ### p2 — 사슬을 타고 조르르
 ```
 CAMERA: medium, EYE LEVEL with the descending guest - chains right, SquirrelKit frozen at the left.
-SUBJECT: CuckooGuest grips ONE chain with both feet and slides down, stiff wings held out sideways
- for balance, beak OPEN, grain lengthwise - 🔴 the only moving thing in the picture. SquirrelKit has
- both forepaws pressed flat to her mouth and gone rigid: eyes wide, brows high, tail bristled to its
- widest, one hind foot half a step back.
-AIM: he is still ON the clock, so the aim is the shortest it will ever be - eye and beak point DOWN
- at the floor directly beneath the case.
-TRACKS: none - his feet have not touched the floor.
-CLOCK: door STUCK HALF OPEN at the same angle · chains slack, weights sunk · his chain swings just
- enough for ONE doubled edge · pendulum still lying in the sawdust, hook empty.
-GLAZE: A. The low sun catches the brass chain, the brightest hard edge in frame.
-FINISH: half = the clock's carved base and the fallen pendulum.
-TONE: a still room with one small thing coming down through it, silently - no burst lines, no
- sparkle. Her red pocket stitch is still flat. NO NUMERALS.
+SUBJECT: CuckooGuest grips ONE chain with both feet and slides down, wings out sideways for balance,
+ beak OPEN, grain lengthwise - 🔴 the only moving thing here. SquirrelKit = the sheet's STARTLED
+ pose, both forepaws flat to her mouth, tail bristled, one hind foot back.
+AIM: he is still ON the clock, so the aim is the shortest it will be - eye and beak point DOWN at
+ the floor beneath the case. No prints yet; his feet have not touched the floor.
+CLOCK: door half open · chains slack, weights sunk, his chain swinging with ONE doubled edge ·
+ pendulum still in the sawdust, hook empty.
+GLAZE A; the chain is the brightest hard edge in frame. FINISH: half = the carved base, the pendulum.
+TONE: a still room with one small thing coming down through it, silently. NO NUMERALS.
 ```
 
 ### p3 — 제일 좋은 호두를 내밀었는데
 ```
-CAMERA: medium close-up, EYE LEVEL, both low on the sawdust beside the bench legs. SquirrelKit
- left, CuckooGuest right. 🔴 THEIR FACES DO NOT MEET.
-SUBJECT: SquirrelKit crouches on her heels and holds one walnut out in BOTH forepaws, pushed right
- up close, eyes crescent, mouth open in a pleased grin - she is certain this is a good present.
- CuckooGuest stands in front of it without looking: 🔴 neck STRETCHED LONG and low past her, eye,
- beak and both sets of toes all turned to the upper right, short tail twitching, beak closed.
-AIM: body, neck, eye and both feet point past her to the clock base at the frame edge. Nothing
- about him is turned toward the walnut.
-TRACKS: 🔴 mark ① is created here - three-toed prints scraped behind his feet running right toward
- the clock, all toes one way. They are BEHIND HER BACK: she cannot see them, the reader can.
-CLOCK: only its wooden base in frame, chains slack behind it, weights sunk. The pendulum is still
- in the sawdust off frame right - do not show it hooked.
-GLAZE: A. The light pools yellow exactly where their eyes fail to meet.
-FINISH: half = the walnut, the shells and the bench leg.
-TONE: warm, generous and completely one-sided. The floor is the only thing that knows the answer.
+CAMERA: medium close-up, EYE LEVEL, both low on the sawdust by the bench legs - SquirrelKit left,
+ CuckooGuest right. 🔴 THEIR FACES DO NOT MEET.
+SUBJECT: SquirrelKit crouches on her heels holding one walnut out in BOTH forepaws, pushed right up
+ close, eyes crescent, mouth open in a pleased grin. CuckooGuest stands in front of it without
+ looking - neck STRETCHED LONG and low past her, eye, beak and both sets of toes turned to the
+ upper right, tail twitching, beak closed.
+AIM: body, neck, eye and both feet point past her to the clock base at the frame edge; nothing about
+ him is turned toward the walnut. 🔴 Mark ① is created - prints scraped behind his feet running
+ right toward the clock, all toes one way, BEHIND HER BACK so only the reader sees them.
+CLOCK: only its wooden base in frame, chains slack, weights sunk. The pendulum is off frame right,
+ still in the sawdust - do not show it hooked.
+GLAZE A; the light pools where their eyes fail to meet. FINISH: half = walnut, shells, bench leg.
+TONE: warm, generous and completely one-sided; the floor is the only thing that knows the answer.
 ```
 
 ### p4 — 손이 멈추고, 주머니로
 ```
-CAMERA: 🔴 CLOSE-UP, straight-down HIGH ANGLE onto the sawdust under the clock. NO FACES AT ALL -
- the scraped prints and two forepaws fill the picture.
-SUBJECT: 🔴 ONLY SQUIRRELKIT'S TWO FOREPAWS, large. One has just lifted the leaf pendulum by its
- long neck and STOPPED in mid-air, fingers half slack, knuckles pale where the grip tightened and
- then stopped deciding. The other holds the mouth of the apron pocket wide open at the bottom of
- the frame. Two paws, two different jobs, one picture. At the very top edge, only CuckooGuest's two
- feet and the tip of his tail, standing still.
-AIM: 🔴 his toes at the top edge point out of frame toward the clock and the print line runs the
- same way across the picture. He is aiming even when only his feet are visible.
-TRACKS: mark ① crosses the whole frame bottom to top · 🔴 beside the pendulum lies the SHALLOW
- LEAF-SHAPED HOLLOW where it had been lying, bare panel showing through it, pointing the same way.
-CLOCK: only a sunken weight and its slack chain in frame. The pendulum is in her paw, in the air,
- NOT on its hook.
-GLAZE: A, falling straight down; the pocket's inside is the one dark hole in a bright picture.
-FINISH: half = the pocket cloth. The angle has removed the background - bare sawdust, nothing else.
-TONE: 🔴 ONE STOPPED MOMENT, and that stillness does the whole job of hesitation without a face and
- without a word. Honey sawdust, a brass leaf, and the ONLY RED IN THE BOOK pulled into a wide oval.
+CAMERA: 🔴 CLOSE-UP, straight-down HIGH ANGLE onto the sawdust under the clock. NO FACES AT ALL.
+SUBJECT: 🔴 ONLY SQUIRRELKIT'S TWO FOREPAWS, large - sheet hand-study 4. One has just lifted the
+ leaf pendulum by its long neck and STOPPED in mid-air, fingers half slack, knuckles pale where the
+ grip tightened and then stopped deciding; the other holds the mouth of the apron pocket wide open
+ at the bottom of the frame. At the top edge, only the guest's two feet and tail tip.
+AIM: his toes at the top edge point out of frame toward the clock and mark ① runs the same way
+ across the picture. Beside the pendulum lies the SHALLOW LEAF-SHAPED HOLLOW where it had been
+ lying, bare panel showing through it, pointing the same way.
+CLOCK: only a sunken weight and its slack chain in frame; the pendulum is in her paw, NOT hooked.
+GLAZE A, straight down; the pocket's inside is the one dark hole. FINISH: half = the pocket cloth,
+ and the angle has removed the background - bare sawdust, nothing else.
+TONE: 🔴 one stopped moment doing the whole job of hesitation without a face or a word, and the ONLY
+ RED IN THE BOOK pulled into a wide open oval at the bottom of the frame.
 ```
 
 ### p5 — 톱니를 굴려 줬는데, 총총총 걸어가 버렸다
 ```
-CAMERA: wide, EYE LEVEL. Left half crowded with everything she has laid out, right half almost
+CAMERA: wide, EYE LEVEL - left half crowded with everything she has laid out, right half almost
  empty except one small departing back.
-SUBJECT: SquirrelKit lies flat at the left rolling a brass gear wheel away with one paw and standing
- a curled shaving up into a slide with the other, tail straight up, mouth wide open, eyes following
- the gear - 🔴 she is not looking at the guest. Right, CuckooGuest walks away 🔴 WITH HIS BACK TO US,
- beak pushed forward, feet stepping quickly, the whole body leaning toward the clock base. He does
- not look back once and his face is not visible.
-AIM: the lean is the aim on this page - body and both feet at the clock base, right edge.
-TRACKS: mark ① still there, shallower now · 🔴 mark ② is created, a second line running parallel to
- it to the same place. Two lines, one destination.
-CLOCK: door STUCK HALF OPEN, small at upper right · chains slack, weights sunk · hook empty, and
- 🔴 the pendulum is no longer on the floor - it is in her pocket, which BULGES with the red stitch
- line pulled taut into the shape of the leaf.
-GLAZE: B, lamp not lit yet; gears and shavings throw long low shadows, the forest beyond the window
- has gone dark with one band of red-tinged sky.
-FINISH: half = the rolling gear, the shaving slide and the scattered walnut shells - 🔴 not one of
- them eaten.
-TONE: 🔴 THE DISTANCE BETWEEN EFFORT AND MISS IS THE WIDTH OF THE PAGE.
+SUBJECT: SquirrelKit lies flat at the left rolling a brass gear wheel with one paw and standing a
+ curled shaving into a slide with the other, tail straight up, mouth wide, eyes on the gear - not
+ looking at the guest. Right, CuckooGuest walks away 🔴 WITH HIS BACK TO US, beak pushed forward,
+ stepping quickly, whole body leaning at the clock base. He never looks back; no face.
+AIM: the lean is the aim - body and both feet at the clock base, right edge. Mark ① shallower now,
+ and 🔴 mark ② created parallel to it, to the same place.
+CLOCK: door half open, small at upper right · chains slack, weights sunk · hook empty, and 🔴 THE
+ PENDULUM IS IN HER POCKET, which BULGES with the red stitch pulled taut into its shape.
+GLAZE B, lamp not lit; long low shadows, the forest gone dark. FINISH: half = the rolling gear, the
+ shaving slide and the scattered shells, not one of them eaten.
+TONE: 🔴 the distance between effort and miss is the width of the page.
 ```
 
 ### p6 — 발자국은 언제나 한 곳을 가리켰다 🔴 밀도 배급 1/2
 ```
-CAMERA: medium wide, HIGH ANGLE tilted down so the floor is most of the picture. SquirrelKit upper
+CAMERA: medium wide, HIGH ANGLE tilted down so the floor is most of the picture - SquirrelKit upper
  left, the clock base lower right.
-SUBJECT: SquirrelKit stands with both forepaws on her hips, head tipped to one side, easy crescent
- eyes, tail hanging loose - the comfortable face of somebody whose guess has just been confirmed.
- CuckooGuest sits directly under the clock base, both feet together, stiff wings pressed to his
- sides, 🔴 neck tipped right back so beak and eye point straight up at the half-open door above him.
-AIM: straight up at the door - and every line of prints on the floor points at the spot he is
- sitting on. The aim and the plant meet on this page.
-TRACKS: 🔴 THE PAYOFF. FOUR separate lines of three-toed prints cross the floor from four different
- directions and every one ENDS AT THE SAME POINT under the clock. The lines are countable and the
- toes always point toward that point; older lines shallow and half-refilled, the newest deep with
- sharp scraped ridges. 🔴 That meeting point is the brightest, cleanest place in the picture.
-CLOCK: door STUCK HALF OPEN at the top right edge · chains slack, weights sunk to the floor · hook
- empty. Her pocket still bulges, the red stitch line still taut.
-GLAZE: B, and 🔴 THE BENCH LAMP IS NOW LIT - one small warm pool from the upper left, so every
- scraped print has a tiny shadow on one side and the toe direction is unmistakable.
-FINISH: 🔴 DENSITY BUDGET 1/2, SPENT ON THE FLOOR ALONE - the four print lines plus the dropped
- shells and shaving fragments, finished enough to be counted. Walls, beams, bench and window stay
- at three marks each. A floor carried to completion makes this page nothing. NO NUMERALS.
-TONE: 🔴 SHE IS READING HIS BACK AND THE READER IS READING THE FLOOR.
+SUBJECT: SquirrelKit, forepaws on her hips, head tipped, crescent eyes, tail loose - the face of a
+ guess just confirmed. CuckooGuest sits right under the clock base, feet together, wings to his
+ sides, neck tipped right back so beak and eye point straight up at the half-open door.
+AIM: 🔴 FOUR separate lines of three-toed prints cross the floor from four directions and every one
+ ENDS AT THE SAME POINT under the clock, where he is sitting. Countable, toes always pointing in;
+ older lines shallow and half-refilled, the newest deep. That point is the cleanest place in frame.
+CLOCK: door half open top right · chains slack, weights on the floor · hook empty. Her pocket still
+ bulges, stitch taut.
+GLAZE B and 🔴 THE BENCH LAMP IS NOW LIT - one small warm pool from upper left, so every scraped
+ print has a tiny shadow on one side and the toe direction is unmistakable.
+FINISH: 🔴 DENSITY 1/2, SPENT ON THE FLOOR ALONE - the four print lines plus dropped shells and
+ shaving fragments, finished enough to be counted. Walls, beams, bench, window stay at three marks.
+TONE: 🔴 she is reading his back and the reader is reading the floor. NO NUMERALS.
 ```
 
 ### p7 — 사슬을 잡고 폴짝, 자꾸 미끄러졌다
 ```
-CAMERA: medium, LOW from the floor up past the hanging chain. CuckooGuest up in the centre and
- 🔴 a large empty height left above him.
-SUBJECT: CuckooGuest has both feet wrapped round one chain, hauling himself up, stiff wings beating
- hard but 🔴 THE GRAIN RUNS STRAIGHT DOWN THEM AND THEY CATCH NO AIR - they never spread and never
- bend. One foot has slipped so the chain swings out sideways; beak open, neck stretched up at the
- door. From the bottom of the frame SquirrelKit's two forepaws reach up and close round his body to
- bring him down, her face tipped up at the lower edge with the brows pulled in and up - 🔴 she is
- protecting, not stopping him; no cross or angry face anywhere.
-AIM: 🔴 up, at the door, and this page states it most plainly - he is trying to climb to it. The
- empty height between his beak and the door is the whole composition.
-TRACKS: the old lines below, plus 🔴 a SCUFFED PATCH under the chain where slipping feet have
- smeared prints away - a ragged swept scrape.
-CLOCK: door STUCK HALF OPEN, high and plainly out of his reach · chains slack and swinging with ONE
- doubled edge · weights sunk · hook empty, the pendulum still in her pocket, which bulges with its
- taut red stitch line at the bottom edge of the frame.
-GLAZE: C, from low down at the left, so the lower picture is lit and the height above him goes dark
- bare panel. No glow, no beams.
-FINISH: half = the clock's lower carving and the scuffed patch.
-TONE: 🔴 WHERE HE WANTS TO GO IS AT THE TOP AND HER HANDS ARE AT THE BOTTOM, and the gap between
- them is drawn as empty height.
+CAMERA: medium, LOW from the floor up past the hanging chain, CuckooGuest up in the centre with
+ 🔴 a large empty height above him.
+SUBJECT: CuckooGuest has both feet round one chain hauling himself up, stiff wings beating hard but
+ 🔴 THE GRAIN RUNS STRAIGHT DOWN THEM AND THEY CATCH NO AIR - never spreading, never bending. One
+ foot has slipped so the chain swings out; beak open, neck stretched up at the door. From the
+ bottom, SquirrelKit's two forepaws reach up and close round his body to bring him down, her face
+ tipped up at the lower edge, brows in and up - protecting, not angry.
+AIM: up at the door; the empty height between his beak and it is the whole composition. Under the
+ chain, a SCUFFED PATCH where slipping feet smeared prints away - a ragged swept scrape.
+CLOCK: door half open, high and out of reach · chains slack, swinging with ONE doubled edge ·
+ weights sunk · hook empty, pendulum still in her bulging pocket at the bottom edge.
+GLAZE C from low left; the height above him goes dark bare panel. FINISH: half = the clock's lower
+ carving and the scuffed patch.
+TONE: 🔴 where he wants to go is at the top and her hands are at the bottom.
 ```
 
 ### p8 — 손님이 흔들이를 물고 나와 제자리에 놓았다 🔴 반전
 ```
-CAMERA: medium close-up, EYE LEVEL, low on the floor. Left, the apron lying on the sawdust with its
- pocket gaping. Right, CuckooGuest standing on the leaf pendulum. Behind, in shadow, the squirrel.
-SUBJECT: CuckooGuest stands with both feet flat on the pendulum where it lies at the clock base.
- 🔴 FOR THE FIRST TIME IN THE BOOK HIS HEAD IS TURNED STRAIGHT TO CAMERA AND HIS EYE LOOKS DIRECTLY
- AT HER: neck upright, beak closed, wings flat to his sides. His face is EXACTLY as on every other
- page - only the direction has changed. Not pleading, not cross: waiting. Behind and left, in the
- dark, SquirrelKit stands frozen, both forepaws stopped half raised holding nothing, eyes as wide as
- they go, tail bristled, mouth a closed line pulled down.
-AIM: 🔴 achieved. He is standing on the thing he has pointed at for seven pages, and his eye is now
- the only aim in the frame.
-TRACKS: 🔴 the evidence is written on the floor - ONE DRAGGED GROOVE runs from the mouth of the
- fallen pocket to the clock base with a line of prints beside it going the same way. Every earlier
- line is still there. Nobody has to be told who moved it.
-CLOCK: door STUCK HALF OPEN above · chains slack, weights still sunk · 🔴 THE PENDULUM IS BACK IN
- PLACE ON THE FLOOR directly under the EMPTY HOOK, not hooked yet · gears still.
-GLAZE: C. 🔴 Only one hand's width of floor at the clock base is lit, with the pendulum and the bird
- inside that light; everything else falls back into brown darkness, and the one who did the hiding
- is standing in the dark.
-FINISH: half = the apron cloth and the clock base. In the dark the squirrel is contour plus one
- pass, her eyes and the pale patch on her chest kept as the two light points that let her read.
-TONE: 🔴 THE DAY TURNS OVER WITH BRIGHTNESS, NOT WITH A FACE. What is in the light is the thing that
- was hidden, and the only red in frame is an empty pocket lying on the floor.
+CAMERA: medium close-up, EYE LEVEL, low on the floor - left, the apron lying on the sawdust with its
+ pocket gaping; right, CuckooGuest on the leaf pendulum; behind, in shadow, the squirrel.
+SUBJECT: CuckooGuest stands with both feet flat on the pendulum at the clock base. 🔴 FOR THE FIRST
+ TIME HIS HEAD IS TURNED STRAIGHT TO CAMERA AND HIS EYE LOOKS AT HER: neck upright, beak closed,
+ wings flat. Same face as every page - only the direction changed. Not pleading, not cross:
+ waiting. Behind him in the dark, SquirrelKit = the sheet's FROZEN pose, forepaws stopped half
+ raised holding nothing.
+AIM: achieved - he stands on the thing he has pointed at for seven pages. 🔴 ONE DRAGGED GROOVE runs
+ from the mouth of the fallen pocket to the clock base with a line of prints beside it going the
+ same way; every earlier line remains. Nobody has to be told who moved it.
+CLOCK: door half open above · chains slack, weights sunk · 🔴 pendulum BACK IN PLACE ON THE FLOOR
+ directly under the EMPTY HOOK, not hooked yet · gears still.
+GLAZE C - only one hand's width of floor at the clock base is lit, with the pendulum and the bird
+ inside that light; the one who did the hiding stands in the dark.
+FINISH: half = the apron cloth and the clock base; in the dark the squirrel is contour plus one
+ pass, her eyes and pale chest the two light points that let her read.
+TONE: the day turns over with brightness, not with a face; the only red in frame is an empty pocket.
 ```
 
 ### p9 — 사슬을 당기고, 고리에 끼워 톡
 ```
-CAMERA: 🔴 EXTREME CLOSE-UP, EYE LEVEL, right inside the open bottom of the clock case. The brass
- works fill the frame. NO FACES AT ALL.
-SUBJECT: 🔴 ONLY SQUIRRELKIT'S TWO FOREPAWS. One holds the leaf pendulum by its long neck and is
- fitting that neck onto the SMALL BRASS HOOK, knuckles pale with care; the other paw's fingertip is
- just giving the flat of the leaf A SMALL PUSH, and that fingertip is very slightly shaky. At the
- very bottom edge, only the top of CuckooGuest's head and his beak, tipped up to watch inside.
-AIM: his beak at the bottom edge points up INTO the case - for the first time his aim and her hands
- point at the same thing.
-TRACKS: out of frame.
-CLOCK: 🔴 THE MACHINE, DRAWN HARD - several BRASS GEARS visibly meshed with ONE TOOTH CAUGHT IN THE
- ACT OF STEPPING OVER, the small open brass hook right up close and unmistakable, and 🔴 THE CHAIN
- NOW STRAIGHT AND TAUT WITH THE PINECONE WEIGHT RISEN HIGH where before it lay on the floor. The
- leaf has just begun to move: ONE doubled edge on its far side and TWO small lamp glints, and
- nothing else - no blur, no arcs, no radiating lines.
-GLAZE: C, low and warm, sliding along the brass.
-FINISH: 🔴 the sharpest picture in the book - paws, pendulum, hook, meshed gears and taut chain all
- finished and hard-edged. Half = the apron and empty pocket at the frame edge.
-TONE: 🔴 THE TICK HAS TO BE AUDIBLE IN A STILL PICTURE, and it is made only by the tooth caught
- mid-step, the doubled edge of the leaf and the risen weight - a hand that hid something all day
- pushing it back to work.
+CAMERA: 🔴 EXTREME CLOSE-UP, EYE LEVEL, inside the open bottom of the case. Brass fills the frame.
+ NO FACES.
+SUBJECT: 🔴 ONLY SQUIRRELKIT'S TWO FOREPAWS - sheet hand-study 5. One holds the leaf pendulum by its
+ neck and is fitting that neck onto the SMALL BRASS HOOK, knuckles pale with care; the other's
+ fingertip gives the flat of the leaf A SMALL PUSH, and that fingertip is very slightly shaky. At
+ the bottom edge, only the top of the guest's head and beak, tipped up to watch inside.
+AIM: his beak points up INTO the case - for the first time his aim and her hands agree.
+CLOCK: 🔴 DRAWN HARD - several BRASS GEARS visibly meshed with ONE TOOTH CAUGHT MID-STEP, the small
+ open hook right up close, and THE CHAIN NOW STRAIGHT AND TAUT WITH THE PINECONE WEIGHT RISEN HIGH
+ where it lay on the floor before. The leaf has just begun to move: ONE doubled edge on its far side
+ and TWO small lamp glints, nothing else.
+GLAZE C, sliding along the brass. FINISH: 🔴 the sharpest picture in the book - paws, pendulum, hook,
+ meshed gears and taut chain all hard-edged; half = the apron and empty pocket at the frame edge.
+TONE: the tick must be audible in a still picture, and only the caught tooth, the doubled edge and
+ the risen weight make it.
 ```
 
 ### p10 — 두 손으로 받쳐 올렸다
 ```
-CAMERA: medium close-up, LOW ANGLE from below the clock's small door, looking steeply up. Her two
+CAMERA: medium close-up, LOW ANGLE from below the clock's small door, looking steeply up - her two
  raised paws and the guest crossing the threshold fill the centre.
-SUBJECT: SquirrelKit clings to the side of the case with her hind feet braced and her body pressed
- to the wood, both forepaws stretched right up to hold the guest's feet from underneath; her arms
- straight, her tail swinging down as a counterweight, her face turned up and set with effort -
- 🔴 neither smiling nor crying. CuckooGuest has ONE FOOT ALREADY OVER THE THRESHOLD and the other
- still standing in her palm, body leaning in, neck going in, one stiff wing PROPPED against the door
- frame - propped, not flapping.
-AIM: 🔴 reached. His body points into the doorway and he is entering it. This is the last page his
- aim is needed.
-TRACKS: far below and small - the print lines, the dragged groove, and the apron with its flat red
- stitch line lying there.
-CLOCK: 🔴 door OPEN AND BEING DRAWN SHUT, the THIN BRASS WIRE from the back of the door running taut
- into the works, so the machine is closing it and not a hand · chains taut, weights high · below,
- the leaf pendulum SWINGING with ONE doubled edge.
-GLAZE: C from low down - her palms and the threshold are the only warm-lit things, and the inside of
- the doorway stays deep dark.
-FINISH: half = the carved face of the clock, leaves suggested, never leaf by leaf. NO NUMERALS.
-TONE: 🔴 THE HEIGHT THAT WAS TOO BIG ON P7 IS EXACTLY ONE PAIR OF HANDS WIDE HERE, and nothing says
- so but the posture and the angle.
+SUBJECT: SquirrelKit clings to the side of the case, hind feet braced, body pressed to the wood,
+ both forepaws stretched right up to hold the guest's feet from underneath; arms straight, tail
+ swinging down as a counterweight, face turned up and set with effort - 🔴 neither smiling nor
+ crying. CuckooGuest has ONE FOOT ALREADY OVER THE THRESHOLD and the other still in her palm, body
+ leaning in, neck going in, one stiff wing PROPPED against the door frame - propped, not flapping.
+AIM: reached - he points into the doorway and is entering it. Far below and small, the print lines,
+ the dragged groove, and the apron with its flat red stitch lying there.
+CLOCK: 🔴 door OPEN AND BEING DRAWN SHUT, the THIN BRASS WIRE from its back running taut into the
+ works so the machine closes it, not a hand · chains taut, weights high · below, the pendulum
+ SWINGING with ONE doubled edge.
+GLAZE C from low down - her palms and the threshold are the only lit things. FINISH: half = the
+ carved face of the clock, leaves suggested, never leaf by leaf. NO NUMERALS.
+TONE: 🔴 the height that was too big on p7 is exactly one pair of hands wide here.
 ```
 
 ### p11 — 「뻐꾹!」 다람쥐가 두 손을 입에 모았다 🔴 밀도 배급 2/2 · p1 의 정반대 상태
 ```
-🔴 BAKE THIS LAST and attach the approved p1 as a reference: the SAME ROOM AND NOT MIRRORED -
- window and bench left, clock high right - and only the machine has changed.
-CAMERA: wide, EYE LEVEL, the whole workshop in one frame. Upper right, the wide-open door with the
- guest leaning out; lower left, SquirrelKit. The two sit on a diagonal.
-SUBJECT: SquirrelKit stands on both hind legs on the bench top, head tipped back, 🔴 BOTH FOREPAWS
- CUPPED ROUND HER MOUTH LIKE A LITTLE TRUMPET, calling up at the clock; eyes crescent, front teeth
- showing, tail straight up. 🔴 She is NOT reaching for him - the hands that grabbed are at her mouth.
- CuckooGuest leans half out of the wide-open door with his beak OPEN, both feet still inside the
- threshold, wings just slightly out, 🔴 his eye turned DOWN at her - the second and last time he
- looks at her, and again a turn of the head, not an expression.
-AIM: over. Both are aimed at each other and nothing else in the picture points anywhere.
-TRACKS: 🔴 ALL the print lines and the dragged groove are STILL ON THE FLOOR, still converging under
- the clock. The whole day has stayed in the sawdust and nothing has been swept.
-CLOCK: 🔴 EXACTLY THE OPPOSITE OF P1 IN ALL THREE VALUES - door WIDE OPEN with the wire drawn taut
- inside · chains STRAIGHT AND TAUT with both pinecone weights HIGH under the case · the leaf
- pendulum HOOKED and TILTED WELL OVER TO ONE SIDE mid-swing, ONE doubled edge behind it.
-GLAZE: C, one low lamp; the room sinks into warm brown and the open door and the bird in it are the
- brightest things. The apron hangs over the bench corner, pocket flat and empty, its red stitch line
- catching one point of lamplight. The window is black with the lamp and the clock reflected in it.
-FINISH: 🔴 DENSITY BUDGET 2/2, SPENT ON THE BENCH TOOLS AND THE FLOOR MARKS ONLY. Walls, beams,
- ceiling and window frame stay at three marks each - painting the walls buries the floor, and the
- floor is the record of the day. NO NUMERALS ON THE CLOCK FACE.
-TONE: 🔴 THE ROOM IS RUNNING AGAIN AND THE PICTURE MUST SAY SO WITHOUT A SOUND - the weights are up,
- the leaf is over on one side, dust is stirring in the lamp pool. Everything that was lying down on
- p1 is hanging and moving.
+🔴 BAKE LAST, with the approved p1 attached: the SAME ROOM AND NOT MIRRORED - window and bench left,
+ clock high right - and only the machine has changed.
+CAMERA: wide, EYE LEVEL, the whole workshop. Upper right, the wide-open door with the guest leaning
+ out; lower left, SquirrelKit on the bench top. The two sit on a diagonal.
+SUBJECT: SquirrelKit stands head tipped back, 🔴 BOTH FOREPAWS CUPPED ROUND HER MOUTH LIKE A LITTLE
+ TRUMPET, calling up; eyes crescent, front teeth showing, tail straight up. She is NOT reaching for
+ him. CuckooGuest leans half out of the open door, beak OPEN, both feet still inside the threshold,
+ wings slightly out, his eye turned DOWN at her - the last time he looks at her, and again a turn of
+ the head, not an expression.
+AIM: over - both are aimed at each other and nothing else points anywhere. 🔴 ALL the print lines and
+ the dragged groove are STILL THERE, converging under the clock; nothing has been swept.
+CLOCK: 🔴 THE OPPOSITE OF P1 IN ALL THREE VALUES - door WIDE OPEN with the wire taut inside · chains
+ STRAIGHT AND TAUT, both weights HIGH under the case · pendulum HOOKED and TILTED WELL OVER
+ mid-swing with ONE doubled edge behind it.
+GLAZE C, one low lamp; the room sinks into warm brown, the open door brightest. The apron hangs over
+ the bench corner, pocket flat and empty, its red stitch catching one point of lamplight.
+FINISH: 🔴 DENSITY 2/2, SPENT ON THE BENCH TOOLS AND THE FLOOR MARKS ONLY. Walls, beams, ceiling and
+ window frame stay at three marks each. NO NUMERALS ON THE CLOCK FACE.
+TONE: 🔴 the room is running again and the picture says so without a sound - weights up, leaf over to
+ one side, dust stirring in the lamp pool.
 ```
 
 ## B-09 §5. 첫 렌더 검수 6항목 (하나라도 걸리면 문구가 아니라 ref 를 바꾼다 — §5.1 교훈)

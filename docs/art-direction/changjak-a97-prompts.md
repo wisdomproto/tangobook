@@ -225,7 +225,8 @@ FINISH: 2 (head and paw + near spike); second spike and settling bee get one pri
 BAKE THIS PAGE FIRST OF ALL TEN - it defines the printed field for the book.
 CAMERA: wide, HIGH ANGLE down onto the rows so the field reads as a pattern; flat noon light.
 SUBJECT: centre, BunnyWet on the earth track, head turning one way then the other, one paw
-  half-raised toward a flower and stopped there, one ear sideways. Small, low in frame.
+  half-raised toward a flower and stopped there, one ear sideways. Small, low in frame, its own
+  footprints scuffed about the track in a messy loop.
 BEES: THE PLANT. Bees sit thickly over the whole frame as a dense even TEXTURE of single dark
   marks; around the rabbit a clean EMPTY CIRCLE one hand-span wide with not one bee in it,
   obvious across a room, broken paths pointing OUTWARD from its rim. No bee gets a face, legs
