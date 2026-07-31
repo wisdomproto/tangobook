@@ -70,88 +70,53 @@
 ## E-120 §2. STYLE ANCHOR
 
 ```
-STYLE ANCHOR - changjak-canalsong  (otter ferryman · narrow Venetian canal · a song that knocks
-                                    things into the water)
-Hand-cut paper picture book, 4-6 years. Flat, crisp-edged, funny in RHYTHM and quiet in COLOUR.
+STYLE ANCHOR - changjak-canalsong   (otter ferryman / narrow Venetian canal / a song that knocks
 
-MEDIUM: opaque flat colour CUT OUT WITH SCISSORS and laid down as overlapping pieces, the way a
- poster is built from sheets of plain coloured paper. Every shape is made by a CUT EDGE - no drawn
- contour anywhere. The cuts are crisp but slightly uneven, the way scissors wobble; never a vector
- path. Colour inside a piece is COMPLETELY FLAT - zero shading, gradient, highlight, drop shadow or
- glow - and one piece a step darker than its neighbour is the only modelling in the book. A faint
- dry paper grain shows in the fills. LINE exists only as PRINTED PATTERN on top of a flat piece:
- concentric arcs, thin parallel rules, small repeated ticks; pattern never outlines a shape. 🔴 The
- stock is PLAIN MATTE COLOURED PAPER - not photographs, newsprint, fabric or textured craft paper.
+Style: a hand-cut paper picture-book page for 4-6 year olds - flat, crisp-edged, funny in RHYTHM and
+  quiet in COLOUR. One very narrow Venetian side canal drawn ten times: 🔴 the walls squeeze the
+  frame, the sky is a thin slot, and every page is THREE BANDS - walls / almost-empty canal air /
+  water and the long black gondola. Morning sun only on the wall tops.
 
-🔴 THE THREE-BEAT SHAPE LANGUAGE - THE IDENTITY OF THE BOOK. The refrain is always the same three
- beats in the same order: sing -> a shutter BANGS open -> something SPLASHES in. Each beat owns ONE
- shape, used for nothing else:
-  BEAT 1 SING   = an open MOUTH OVAL, solid dark. 🔴 ITS SIZE IS THE VOLUME. Two or three thin
-   half-circle SOUND ARCS may spread up from it.
-  BEAT 2 BANG   = a TILTED TRAPEZOID, one shutter leaf thrown out off the wall - the only slanted
-   shape in a wall of upright rectangles, its latch loose as one small dark tick.
-  BEAT 3 SPLASH = CONCENTRIC RINGS where the thing landed, plus round drops cut from pale paper.
- 🔴 When beats share a page they must ALL be readable AT ONCE, so the eye walks mouth -> tilted
- shutter -> rings and reads the whole refrain off one picture. 🔴 Never invent a fourth shape family:
- no starbursts, speed lines, impact stars, motion blur or musical notes.
+RENDERING: opaque flat colour CUT OUT WITH SCISSORS, overlapping pieces; every shape is a CUT EDGE -
+  🔴 no drawn contour anywhere, crisp but slightly uneven, never a vector path. Colour inside a piece
+  is COMPLETELY FLAT - 0 shading, 0 gradient, 0 highlight, 0 drop shadow; a piece one step darker
+  than its neighbour is the only modelling. Faint dry paper grain in the fills. LINE exists only as
+  PRINTED PATTERN and never outlines a shape. 🔴 THE REFRAIN OWNS THREE SHAPES AND NO FOURTH: sing =
+  a solid dark MOUTH OVAL, 🔴 SIZE = VOLUME, + 2-3 thin half-circle sound arcs · bang = the TILTED
+  TRAPEZOID of an open shutter, the only slanted shape on the wall · splash = CONCENTRIC RINGS +
+  round pale drops. No starbursts, speed lines or musical notes. 🔴 THE WALLS ARE FULL OF SHAPES AND
+  EMPTY OF INFORMATION - one rectangle repeated. 🔴 ELEVEN KINDS OF PIECE AND NO TWELFTH - eight on
+  the WindowWall sheet plus water plane, ripple rule and ring; no balcony, awning, drainpipe or
+  second shutter design, and obey the sheet's 4-mark closed window and empty black hole.
+  Counts: far water = 1 plane + 3 rules ·
+  sky slot = 1 plane, empty. FINISHED THINGS PER PAGE = 2 (the animals + the fallen things of that
+  page). DENSITY RATION = p5 (three windows) + a half ration on p6, ONLY on the objects in the boat,
+  never the walls.
 
-PALETTE - a low-saturation cool stage carrying EXACTLY THREE saturated colours; the stage (walls,
- shutters, water, boat, both animals) is desaturated and nothing on it is bright: upper wall #C9C2B4
- · lower wall #8E9AA0 · deep shade #55636A · closed shutter #6E7A6A · window interior #2B3338 ·
- water #4F6B66 · ripple #7A968E · gondola #332C26 · pale paper #F2EFE6 · otter #7C7468 · mouse
- #ADA79C.
- 🔴 THE ONLY SATURATED COLOURS ARE THE THREE FALLEN THINGS: RED #C8392B one sock · BLUE #2F6FA8 one
- watering can · YELLOW #E8B325 three lemons. Nowhere else - no red flowers, no blue sky, no blue
- water, no yellow lamplight, no coloured washing, no terracotta. A child counts 1, then 1+1, then
- 1+1+3 in the boat, so each colour stays unique, flat and identical on every page.
- 🔴 THE STRAW HAT IS NOT A FOURTH COLOUR, IT IS THE BRIGHTEST VALUE - dry #F0E6CC, almost
- unsaturated, the LIGHTEST thing anywhere; wet #D8CBA8, one step darker, same hue. The loot is found
- by SATURATION and the hat by BRIGHTNESS and the two systems never mix. Never make the hat yellow,
- gold, orange or warm; if it competes with the lemons, both jokes break.
+PALETTE - a low-saturation cool stage carrying EXACTLY THREE saturated colours: upper wall #C9C2B4 · lower wall #8E9AA0 · deep shade #55636A · shutter #6E7A6A · black
+  hole #2B3338 · water #4F6B66 · ripple #7A968E · gondola #332C26 · pale paper #F2EFE6 · otter
+  #7C7468 · mouse #ADA79C. 🔴 THE ONLY SATURATED COLOURS ARE THE THREE FALLEN THINGS: RED #C8392B one
+  sock · BLUE #2F6FA8 one watering can · YELLOW #E8B325 three lemons - nowhere else, each flat and
+  identical on every page. 🔴 THE STRAW HAT IS THE BRIGHTEST VALUE, NOT A FOURTH COLOUR - dry
+  #F0E6CC, wet #D8CBA8 one step darker, same hue. Loot is found by SATURATION, the hat by BRIGHTNESS.
 
-🔴 FINISH, COUNTED - AND THIS BACKGROUND CANNOT BE EMPTIED: the window walls ARE the stage. So it is
- emptied the other way - 🔴 FULL OF SHAPES AND EMPTY OF INFORMATION, because it is ONE rectangle
- repeated. Count the KINDS of piece, not the pieces.
- 🔴 ELEVEN KINDS AND NO TWELFTH: wall band · closed-window rectangle · tilted trapezoid · near-black
- hole · laundry rule · pegged pale rectangle · stone pot · pale plate · water plane · ripple rule ·
- concentric ring. A twelfth - a balcony, an awning, a drainpipe, a different shutter design -
- destroys the book, because the tilted trapezoid stops being the only odd shape.
- 1. THE TWO ANIMALS AND THE FALLEN THINGS = finished. 2. WHAT THEY TOUCH OR WHAT JUST HAPPENED that
- page = ONE object, main pieces cut, no small detail. 3. 🔴 ONE CLOSED WINDOW IS EXACTLY FOUR MARKS -
- rectangle, two louvre rules, one latch tick - on every window, every page, every distance; an OPEN
- one is that rectangle as a NEAR-BLACK EMPTY HOLE with one leaf swung out, and 🔴 THE HOLE STAYS
- EMPTY (no face, figure, room or light; at most one small pale hand shape at its edge). Obey the
- WindowWall sheet. 4. FAR WATER = ONE plane + THREE horizontal rules; the sky slot = ONE plane, empty.
- 🔴 DENSITY IS RATIONED TO ONE PAGE (three windows) plus a half ration spent ONLY on the objects
- piled in the boat, never on the walls. 🔴 TEST: cover the boat with your thumb - if any part of the
- wall is more interesting than any other, the BANG has nowhere to happen.
+CHARACTER DESIGN LANGUAGE: EYES = a cut pale oval with a solid dark disc, and 🔴 THE DISC'S POSITION
+  IS THE LOOKING - the otter's stays at the FRONT, down the canal, or shut to a curved line, and it
+  does not look up until the story is over. MOUTH = a dark oval whose SIZE IS THE SINGING VOLUME.
+  🔴 That is the whole acting system - no eyebrows, no blush, no drawn smile. Both stand on two legs,
+  front paws as hands, never four.
 
-COMPOSITION - THREE BANDS every time: TOP the window walls closing in from both sides (BEAT 2) ·
- MIDDLE the canal air, kept almost empty because the thing has already fallen through it · BOTTOM
- the water and the long boat (BEAT 3). Two pages break the bands on purpose - the rest between
- verses. 🔴 THE CANAL IS NARROW: the walls squeeze the frame and the sky is a thin slot, because a
- wide canal puts the windows out of reach of the boat and the premise dies.
+CANVAS: 16:9 double-page spread. Bottom 18% quiet for a caption. 🔴 No lettering or numerals -
+  no house numbers, shop signs, boat names or musical notes.
 
-CHARACTER (sheets attached, obey them): EYES = a cut pale oval with a solid dark disc, and the
- DISC'S POSITION is the looking - 🔴 the otter's is always at the FRONT, aimed down the canal, or
- shut to a curved line, and it does not look up until the story is over. MOUTH = a dark oval on the
- otter whose SIZE IS THE SINGING VOLUME. 🔴 That is the whole acting system - no eyebrows, no blush,
- no drawn smile. Both stand on two legs and use front paws as hands, never four legs.
-
-SETTING: a very narrow Venetian side canal - stucco walls rising straight out of the water on both
- sides, rows of louvred shutters, laundry lines overhead, sills with pots and plates, a low stone
- arch bridge ahead, one long black gondola with a single standing rower. Early morning, sun only on
- the top of the walls. No crowds, no other boats, no palazzo facades, no lagoon, no holiday colour.
-CANVAS: 16:9 spread; keep the bottom 18% quiet (caption band).
-NOT: 🔴 no lettering, numerals, house numbers, shop signs, boat names or musical notes anywhere (five
- language editions) / no drawn outlines / no digital slickness of any kind (airbrush, gradient, drop
- shadow, CG gloss, cel shading, photo, a paper-texture filter over flat colour) / no mirror
- reflection, caustics, sparkle, metal shine on the prow or wet sheen on stone / no fourth saturated
- colour, no yellow hat, no terracotta / no people or rooms inside the windows / no wide canal / no
- felt, stitching, clay or anything three-dimensional.
+NOT (rendering only): no drawn outlines, and no digital slickness - airbrush, gradient, drop shadow,
+  CG gloss, cel-shading, photographic, or a paper-texture filter over flat colour / no reflection,
+  caustics, sparkle, metal shine or wet sheen / no fourth saturated colour, no yellow hat, no people
+  inside the windows / plain matte coloured paper - not photographs, newsprint, fabric, felt or
+  anything 3-D.
 ```
 
-**🔴 이 앵커의 네 불변 규칙 (매 컷 반복 확인)**
+**🔴 이 앵커의 관통 줄 3개 (매 컷 반복 확인)**
 
 **규칙 A — 박자표.** 컷마다 `BEAT:` 줄을 **먼저** 읽는다. 그 쪽이 세 박 중 어디에 있는지, 어느 도형이 화면에 있어야 하는지가 거기 있다.
 
@@ -159,7 +124,7 @@ NOT: 🔴 no lettering, numerals, house numbers, shop signs, boat names or music
 |---|---|---|---|---|---|---|---|---|---|
 | 박자 전(노 젓는 리듬만) | 들숨(1박 직전) | 🔴 1·2·3박 전부 | 1·2·3박 전부 | 🔴 1박 + **2박 ×3 + 3박 ×3** | 쉼(창문 안 보임) | 🔴 1·2·3박 전부 — **차례가 자기에게** | 🔴 **박자가 끊김**(입은 최대인데 아치 0) | 간주(박자 없음) | 🔴 1박만, 아주 작게(생쥐) |
 
-**규칙 B — 창문 계수.** 컷마다 `WINDOWS:` 줄을 읽는다. 열린 창은 **기울어진 사다리꼴 + 새까만 구멍**이라 개수가 즉시 세어져야 한다.
+**규칙 B — 창문 계수.** 별도 줄이 아니라 `BEAT:` 줄 안에 든다(2박 = 열린 창). 열린 창은 **기울어진 사다리꼴 + 새까만 구멍**이라 개수가 즉시 세어져야 한다.
 
 | p1 | p2 | p3 | p4 | p5 | p6 | p7 | p8 | p9 | p10 |
 |---|---|---|---|---|---|---|---|---|---|
@@ -343,251 +308,191 @@ SCENE tokens: ClosedWindow, OpenWindow, WindowWall.
 
 ### p1 — 좁은 물길, 텅 빈 배 (무대 ref)
 ```
-BEAT: before the song - no mouth oval, no tilted shutter, no rings. The only rhythm is the oar and
- the long line of the boat. 🔴 This page must feel QUIET so the first BANG lands.
-CAMERA: wide, child's eye level right down at the water, so the boat runs across the frame low and
- the two walls tower and lean in from both sides.
-SUBJECT: right, at the prow, OtterFerryman stands on two legs with both front paws on the long oar,
- body leaning forward, tail stretched straight back; mouth = the CLOSED thin line but the eyes are
- pleased, discs forward down the canal. Left, at the stern, MousePassenger sits on a small wooden
- stool with both paws on its knees, head turned, ears up, looking at the walls.
-WINDOWS: 🔴 ALL CLOSED - rows of identical olive rectangles flush with both walls, every latch in
- place. Laundry lines cross overhead. Nothing is tilted anywhere in this picture.
-LOOT: 🔴 NONE. The bottom of the boat is empty, bare dark planking, and it must read as deliberately
- empty because everything is going to pile up there.
-HAT: on the otter's head and the LIGHTEST shape in frame; place it where nothing else pale sits.
+BEAT: before the song - no mouth oval, no tilted shutter, no rings, and 🔴 ALL WINDOWS CLOSED: rows
+ of identical olive rectangles flush with both walls, every latch in place, nothing tilted anywhere.
+ The only rhythm is the oar and the long line of the boat.
+CAMERA: wide, child's eye level right down at the water, so the boat runs low across the frame and
+ both walls tower and lean in.
+SUBJECT: right, at the prow, OtterFerryman stands with both front paws on the long oar, body leaning
+ forward, tail stretched straight back; mouth = the CLOSED thin line, eye discs forward down the
+ canal. Left, at the stern, MousePassenger sits on a small wooden stool, both paws on its knees, head
+ turned, ears up, looking at the walls. Laundry lines cross overhead.
+LOOT: 🔴 NONE. The bottom of the boat is bare dark planking, deliberately empty.
+HAT: on the otter's head and the LIGHTEST shape in frame; put nothing else pale near it.
 FINISH: both animals and the boat finished; the nearest window rows and the waterline strip half.
- Upper walls, far bridge and far water are large plain fields with the window rectangle repeating.
-TONE: early morning, sun only on the top band of the walls, the whole lower canal in cool shade. A
- bright slot of sky above and bright water beyond the arch, so the boat reads as drifting from shade
- toward light.
+ Sun only on the top band, a bright slot of sky above and bright water beyond the arch.
 ```
 
 ### p2 — 창문은 하나도 안 열려 있다 (들숨)
 ```
-BEAT: the in-breath, one beat before the song. 🔴 Nothing has happened yet and the picture's job is
- to make the reader expect a BANG.
-CAMERA: medium, slightly low angle looking UP at the otter from the water, the wall of closed windows
- rising steeply behind and above it.
+BEAT: the in-breath, one beat before the song - no shutter, no rings. 🔴 EVERY WINDOW CLOSED, AND
+ THAT IS THE PAGE: a grid of identical olive rectangles, every latch tick in place, nothing tilted,
+ no black holes; a reader should count a dozen shut windows and find no exception.
+CAMERA: medium, slightly low angle looking UP at the otter, the wall of closed windows rising steeply
+ behind and above.
 SUBJECT: centre, OtterFerryman has tucked the oar under one arm, chest thrown out, one front paw at
- its throat and the other flung up and open toward the windows, presenting them; mouth = the SMALL
- "clearing" oval, eyes squeezed to curved lines with pride. Lower right, MousePassenger on the stool
- with its head tipped all the way back, discs rolled up, one ear folded back.
-WINDOWS: 🔴 EVERY WINDOW CLOSED, AND THAT IS THE POINT OF THE PAGE - a grid of identical olive
- rectangles, every latch tick in place, nothing tilted, no black holes. The reader should be able to
- count a dozen shut windows and find no exception anywhere.
+ its throat and the other flung up toward the windows, presenting them; mouth = the SMALL clearing
+ oval, eyes squeezed to curved lines. Lower right, MousePassenger on the stool, head tipped all the
+ way back, discs rolled up, one ear folded back.
 LOOT: none. Boat still empty.
 HAT: on the head, tipped back a little by the proud posture. Still the brightest shape.
-FINISH: the otter finished; the nearest column of windows and the sill objects half. The upper wall
- is the repeated rectangle on two plain fields - no brickwork, no shutter detail, no sky detail.
-TONE: low even morning shade. Because the low angle makes the otter big and the wall bigger, the
- emptiness above it should feel loaded.
+FINISH: the otter finished; the nearest column of windows and the sill objects half - no brickwork,
+ no shutter detail, no sky detail. Low even morning shade, the emptiness above the otter loaded.
 ```
 
 ### p3 — 첫 벌컥 · 빨간 양말 (세 박이 처음으로 한 화면에)
 ```
-BEAT: 🔴 ALL THREE BEATS VISIBLE AT ONCE, and this page teaches the reader how to read the rest of
- the book. The eye path must run mouth oval (upper right) -> tilted shutter (upper left) ->
- concentric rings (lower centre). Lay the three along one clear diagonal.
+BEAT: 🔴 ALL THREE BEATS AT ONCE, on one clear diagonal so the eye runs mouth oval (upper right) ->
+ tilted shutter (upper left) -> concentric rings (lower centre). 🔴 EXACTLY ONE WINDOW OPEN, upper
+ left - black hole + one tilted trapezoid swung out, latch hanging loose, the laundry line beneath it
+ still swinging; every other window closed, nothing else tilted.
 CAMERA: medium wide, eye level - the freshly opened window upper left, the boat lower right.
-SUBJECT: right, OtterFerryman rows with the mouth at the MEDIUM oval and two thin sound arcs
- spreading up from it, head tipped happily to one side, tail swung to one side on the beat. 🔴 ITS
- EYE DISCS STAY FORWARD - it does not look up. Centre, MousePassenger is off the stool, belly on the
- gunwale, both front paws stretched down toward the water, tail straight out for balance, discs
- locked on one point in the water.
-WINDOWS: 🔴 EXACTLY ONE OPEN, upper left - near-black hole plus one tilted trapezoid swung out, latch
- hanging loose, the laundry line beneath it still swinging. Every other window on both walls is the
- same closed rectangle and nothing else is tilted.
-LOOT: 🔴 ZERO IN THE BOAT. RedSock has just landed on the water with three concentric rings spreading
- from it and pale drops thrown up around it - the first saturated colour the book has shown, and the
- strongest colour note on the page.
-HAT: on the head, brightest value, sitting clearly enough that the reader registers it again.
+SUBJECT: right, OtterFerryman rows with the mouth at the MEDIUM oval and two thin sound arcs rising,
+ head tipped happily to one side, tail swung on the beat. 🔴 ITS EYE DISCS STAY FORWARD - it does not
+ look up. Centre, MousePassenger is off the stool, belly on the gunwale, both front paws stretched
+ down toward the water, tail straight out, discs locked on one point in the water.
+LOOT: 🔴 ZERO IN THE BOAT. RedSock has just landed on the water with three concentric rings and pale
+ drops thrown up around it - the first saturated colour the book has shown.
+HAT: on the head, brightest value, clear enough that the reader registers it again.
 FINISH: the two animals, the open window and the rings finished; boat and swinging laundry line half.
- The rest of both walls is the repeated rectangle on plain fields.
-TONE: the open window and the red sock are the two loudest things - press every other window darker
- and flatter so the one tilted shutter jumps out.
+ 🔴 Press every other window darker and flatter so the one tilted shutter jumps out.
 ```
 
 ### p4 — 저쪽 창문 · 파란 물뿌리개 (누적 1 → 2)
 ```
-BEAT: all three beats again, same order but MIRRORED across the canal - the shutter is on the
- opposite wall. 🔴 The repetition is the joke, so keep the three shapes identical to the previous
- page and change only where they sit.
-CAMERA: medium, low angle from close to the water, looking up at the mouse hanging over the side with
- the opposite wall's open window above and behind it.
-SUBJECT: lower centre, MousePassenger has both hind feet hooked on the gunwale and its body stretched
- down over the water, both front paws dragging BlueCan up by its handle, teeth set, eyes squeezed
- shut, tail wrapped round the gunwale. Upper right and behind, OtterFerryman keeps rowing, mouth at
- the MEDIUM oval with two sound arcs, eye discs forward down the canal.
-WINDOWS: 🔴 EXACTLY ONE OPEN, on the OPPOSITE wall from the previous page - black hole, one tilted
- trapezoid, loose latch. On the sill beside it, the plain gap where the can stood with one small ring
- of soil left behind. All other windows closed.
-LOOT: 🔴 ONE IN THE BOAT - RedSock lies in the bottom, clearly visible and the same red as before.
- BlueCan is still in the water, half sunk, a fan of pale water rules pouring from its spout, one ring
- set still spreading.
-HAT: on the head. Even with the sky behind, keep the hat the lightest shape - if the sky slot goes
- brighter than the hat, darken the sky, not the hat.
+BEAT: all three beats again, same order but MIRRORED across the canal - keep the three shapes
+ identical to the page before, change only where they sit. 🔴 EXACTLY ONE WINDOW OPEN, on the
+ OPPOSITE wall - black hole, one tilted trapezoid, loose latch; on the sill beside it the plain gap
+ where the can stood, one small ring of soil. All other windows closed.
+CAMERA: medium, low angle from close to the water, up at the mouse hanging over the side with the
+ opposite wall's open window above and behind it.
+SUBJECT: lower centre, MousePassenger has both hind feet hooked on the gunwale, body stretched down
+ over the water, both front paws dragging BlueCan up by its handle, teeth set, eyes squeezed shut,
+ tail wrapped round the gunwale. Upper right and behind, OtterFerryman keeps rowing, mouth at the
+ MEDIUM oval with two sound arcs, eye discs forward.
+LOOT: 🔴 ONE IN THE BOAT - RedSock in the bottom, the same red as before. BlueCan is still in the
+ water, half sunk, a fan of pale water rules pouring from its spout, one ring set still spreading.
+HAT: on the head. 🔴 If the sky slot goes brighter than the hat, darken the sky, not the hat.
 FINISH: the mouse, the can and the water around it finished; the boat's edge and the sock half. The
- wall above is plain fields with the repeated window rectangle.
-TONE: the low viewpoint makes the watering can look almost as big as the mouse. Blue and red sit
- close together low in the frame, so the bottom of the picture is where the eye goes.
+ low viewpoint makes the can look almost as big as the mouse, and blue and red sit close together low
+ in the frame.
 ```
 
 ### p5 — 창문 셋이 한꺼번에 · 레몬 셋 (🔴 밀도 배급 · 세 박 최대 · 판 ref)
 ```
 BEAT: 🔴 THE BIGGEST BAR IN THE SONG - one mouth oval at its LARGEST, THREE tilted shutters, THREE
- separate sets of concentric rings. This is the page the reader shouts along with, so all seven
- shapes must be countable at a glance: 1 mouth, 3 tilts, 3 ring sets.
-CAMERA: wide, high angle from the height of the open windows, looking steeply down into the canal so
- the three open shutters on the upper wall and the whole boat below are in one frame.
-SUBJECT: lower centre, MousePassenger stands in the middle of the boat with both front paws thrown
- wide, feet crossed mid-turn, ears splayed, mouth a small open oval - it cannot decide which way to
- go. Lower right, OtterFerryman sings at its loudest: mouth at the LARGEST oval, three sound arcs,
- eyes shut to curved lines, head thrown back, the oar paw bouncing on the beat. 🔴 Still not looking
- up.
-WINDOWS: 🔴 EXACTLY THREE OPEN along the upper wall - three near-black holes and three tilted
- trapezoids in a row, latches swinging; on one sill a pale plate tipped and empty. Every other window
- on both walls stays the same closed rectangle so the three read instantly.
-LOOT: 🔴 TWO IN THE BOAT - RedSock and BlueCan, clearly separate, the same colours as before. On the
- water lie THREE YellowLemons cut at three slightly different sizes and angles, each with its own
- set of rings, the three ring sets overlapping into each other, pale drops scattered around all three.
-HAT: on the head, seen from above as a full pale disc - at this angle the brightest shape, reading as
- a small bright circle among all the counting.
+ separate ring sets, all seven shapes countable at a glance. 🔴 EXACTLY THREE WINDOWS OPEN in a row
+ along the upper wall - three black holes, three trapezoids, latches swinging, one sill plate tipped
+ and empty; every other window stays the same closed rectangle.
+CAMERA: wide, high angle from the height of the open windows, steeply down into the canal so the
+ three shutters and the whole boat are in one frame.
+SUBJECT: lower centre, MousePassenger stands mid-boat with both front paws thrown wide, feet crossed
+ mid-turn, ears splayed, mouth a small open oval. Lower right, OtterFerryman sings at its loudest:
+ mouth at the LARGEST oval, three sound arcs, eyes shut to curved lines, head thrown back, the oar paw
+ bouncing on the beat. 🔴 Still not looking up.
+LOOT: 🔴 TWO IN THE BOAT - RedSock and BlueCan, clearly separate. On the water lie THREE YellowLemons
+ cut at slightly different sizes and angles, each with its own ring set, the three overlapping, pale
+ drops around all three.
+HAT: seen from above as a full pale disc - at this angle the brightest shape.
 FINISH: 🔴 DENSITY IS SPENT HERE. Both animals, all three lemons, all three ring sets and all three
- open windows finished; boat and tipped plate half. 🔴 The two walls and the far water stay the
- emptiest surfaces in the book - plain fields with the repeated window rectangle. Density on this
- page means MORE COUNTABLE OBJECTS, never a more described wall.
-TONE: the highest, most open light so far, the sun reaching further down the walls. Three yellows on
- dark green water are the brightest colour event in the ten pages.
+ open windows finished; boat and tipped plate half. 🔴 Density here means MORE COUNTABLE OBJECTS,
+ never a described wall. The most open light so far.
 ```
 
 ### p6 — 배 안이 꽉 찼다 (쉼 · 소품 반쪽 슬롯)
 ```
-BEAT: 🔴 THE REST BETWEEN VERSES - no tilted shutter, no rings, and the band structure is broken on
- purpose because we are inside the boat. The only beat shape present is the otter's mouth, at the
- SMALL oval because it is talking, not singing.
-CAMERA: medium close-up, eye level, pulled right in on the inside of the boat so the gunwales crop
- both sides of the frame.
+BEAT: 🔴 THE REST BETWEEN VERSES - no tilted shutter, no rings, and the band structure is broken
+ because we are inside the boat. The only beat shape is the otter's mouth, at the SMALL oval: it is
+ talking, not singing. Only a cropped slice of wall above the gunwale - no countable row here.
+CAMERA: medium close-up, eye level, right inside the boat so the gunwales crop both sides.
 SUBJECT: centre, MousePassenger is wedged in the pile with only its head and one paw showing, pushing
  BlueCan away with that paw and clutching one YellowLemon with the other, ears flattened, mouth a
- small pleading oval, discs turned up toward the otter. Right and behind, OtterFerryman leans on the
- oar and turns back to look, one front paw raised with a single claw up - "one more song" - eyes
- bright, mouth the SMALL oval, whiskers up. 🔴 The two postures must read as exact opposites in one
- frame: one body says stop, one says again.
-WINDOWS: only a cropped slice above the gunwale - part of one tilted shutter, enough to say the wall
- is still there. Do not compose a countable row on this page.
-LOOT: 🔴 FIVE, AND THIS IS THE PAGE WHERE THE READER COUNTS THEM - RedSock (1), BlueCan (1) and
- YellowLemons (3) tangled in the bottom of the boat with a shallow pool of water and a few pale
- drops. 🔴 They overlap but every one stays separately countable; cut the three lemons at different
- sizes and angles so they never merge into one yellow mass. Judgement: can a child point at each five?
-HAT: on the head, pushed back a little by the turn. Still the lightest shape - keep the pale drops in
- the boat smaller and duller than the hat.
-FINISH: 🔴 HALF RATION, SPENT ONLY ON THE FIVE OBJECTS. Both animals and the five finished; the boat
- planking and pooled water half; the cropped wall above is one plain field with one window shape.
-TONE: close, crowded, warm-ish in value only (still no warm hue) - tight and full after the wide-open
- page before it.
+ small pleading oval, discs up at the otter. Right and behind, OtterFerryman leans on the oar and
+ turns back, one front paw raised with a single claw up, mouth the SMALL oval. 🔴 The two postures
+ read as exact opposites: one body says stop, one says again.
+LOOT: 🔴 FIVE, AND THIS IS WHERE THE READER COUNTS THEM - RedSock (1), BlueCan (1) and YellowLemons
+ (3) tangled in the bottom with a shallow pool and a few pale drops. 🔴 They overlap but each stays
+ separately countable; cut the three lemons at different sizes and angles so they never merge.
+HAT: on the head, pushed back by the turn - keep the pale drops in the boat smaller and duller.
+FINISH: 🔴 HALF RATION, SPENT ONLY ON THE FIVE OBJECTS. Both animals and the five finished; planking
+ and pooled water half; the cropped wall one plain field with one window shape.
 ```
 
 ### p7 — 창문이 모자를 툭 쳤다 (🔴 차례가 자기에게)
 ```
-BEAT: 🔴 ALL THREE BEATS, the fourth time and the last - and the shapes are the same as the first
- three times, which is exactly why the switch works. Mouth at its LARGEST with three sound arcs, ONE
- tilted shutter, ONE set of rings. The reader shouts SPLASH before noticing what fell.
-CAMERA: medium wide, low angle from close to the water looking up along the wall, so the thrown
- shutter and the top of the otter's head lie on one line.
+BEAT: 🔴 ALL THREE BEATS, the fourth and last time, the shapes exactly as before - mouth at its
+ LARGEST with three sound arcs, ONE tilted shutter, ONE ring set. 🔴 EXACTLY ONE WINDOW OPEN, right
+ of frame, AT HEAD HEIGHT - its trapezoid sweeping out at the level the otter's head just passed
+ through, latch still swinging. 🔴 Shutter and bare head sit on one readable line, so the cause is
+ visible without a word.
+CAMERA: medium wide, low angle from close to the water looking up along the wall.
 SUBJECT: centre, OtterFerryman has its neck stretched forward and up, chest swelled, eyes shut to
  curved lines, mouth at the LARGEST oval with three sound arcs rising. 🔴 THE TOP OF ITS HEAD IS BARE
- - the hat has just been knocked off and the animal has no idea. Lower left, MousePassenger has
- climbed onto the pile, both front paws clapped over its own mouth, eyes wide, discs down at the water.
-WINDOWS: 🔴 EXACTLY ONE OPEN, right of frame, and it is open at HEAD HEIGHT - its tilted trapezoid
- sweeping out across the frame at exactly the level the otter's head just passed through, latch still
- swinging. 🔴 The shutter and the bare head must sit on one readable line so the cause is visible
- without a single word.
-LOOT: five in the boat, unchanged, visible along the bottom of the frame. The hat is in the water and
- is NOT loot yet.
-HAT: 🔴 THE BRIGHTEST SHAPE HAS MOVED - no longer on the head, it lies on the dark water as a pale
- disc at the centre of the rings, the lightest thing in the picture, and the empty top of the head is
- now the darkest part of the otter. 🔴 Do not put any other pale object near the hat on this page.
+ - the hat has just been knocked off and it has no idea. Lower left, MousePassenger has climbed onto
+ the pile, both front paws clapped over its own mouth, eyes wide, discs down at the water.
+LOOT: five in the boat, unchanged, along the bottom of the frame. The hat is NOT loot yet.
+HAT: 🔴 THE BRIGHTEST SHAPE HAS MOVED - it lies on the dark water as a pale disc at the centre of the
+ rings, the lightest thing in the picture, and the empty top of the head is now the darkest part of
+ the otter. 🔴 No other pale object anywhere near it on this page.
 FINISH: the otter, the thrown shutter, the hat and its rings finished; the mouse and the boat half.
- Both walls stay plain fields with the repeated rectangle.
-TONE: everyone in the picture knows except the one who is singing - build that by putting the
- brightest shape and the widest-open shape at opposite ends of the frame with the tilted shutter on
- the line between them.
 ```
 
 ### p8 — 머리 위가 허전하다 (박자가 끊긴 자리)
 ```
 BEAT: 🔴 THE BEAT BREAKS. The mouth oval is still at its LARGEST, held open and caught, but there are
- NO SOUND ARCS beside it at all - that absence is the silence. No tilted shutter in focus, no rings.
- The band structure is broken on purpose, the second and last time.
+ NO SOUND ARCS beside it at all - that absence is the silence. No rings; the one window over the
+ shoulder is reduced to a plain tilted shape and must NOT be countable. The band structure is broken
+ on purpose, the second and last time.
 CAMERA: close-up, slightly high angle, on the otter's head and the paws on top of it. The narrowest
  framing in the book.
 SUBJECT: centre, OtterFerryman frozen with the mouth still hanging open at full size, both front paws
- laid flat on the bare top of its head, patting. 🔴 The eye discs are rolled UP - the first time in
- the book its eyes leave the canal ahead - whiskers drooping, a few strands of head fur sticking up
- as three thin printed rules. Over the shoulder, a plain slice of wall with one tilted shutter kept
- simple and undescribed; the oar lies slanted under one arm, forgotten.
-WINDOWS: one, over the shoulder, reduced to a plain tilted shape. Do not make it countable here -
- this page is about a face.
+ laid flat on the bare top of its head, patting. 🔴 The eye discs are rolled UP - the first time its
+ eyes leave the canal ahead - whiskers drooping, a few strands of head fur as three thin printed
+ rules. The oar lies slanted under one arm, forgotten.
 LOOT: five, out of frame. Do not try to include them.
 HAT: 🔴 ALMOST GONE FROM THE PICTURE - only one edge of the pale brim enters at the very bottom of the
- frame, floating. The brightest thing in the book has been pushed to the border, and that is the
- whole composition of this page.
-FINISH: the head and the two paws finished; the oar and the shoulder half; everything behind is one
- or two plain cut fields with nothing described.
-TONE: the head is the lightest-valued area and everything around it is pressed down and simple, so
- the page feels as quiet as the missing sound. 🔴 No new colour anywhere.
+ frame, floating. The brightest thing in the book has been pushed to the border.
+FINISH: the head and the two paws finished; the oar and the shoulder half; everything behind one or
+ two plain cut fields with nothing described. 🔴 No new colour anywhere.
 ```
 
 ### p9 — 젖은 모자를 푹 씌워 준다
 ```
-BEAT: the interlude - no beat shapes at all. No sound arcs, no tilted shutter, no rings. The song is
- over and the picture is doing one physical action instead.
+BEAT: the interlude - no beat shapes at all. No sound arcs, no tilted shutter, no rings; windows out
+ of frame. The song is over and the picture does one physical action instead.
 CAMERA: medium close-up, eye level, the two animals overlapping in the middle of the boat.
 SUBJECT: left, MousePassenger stands on top of the pile, up on tiptoe with both front paws stretched
- as high as they go, pressing the soaked StrawHat down onto the otter's head, tail straight out for
- balance, mouth curled into a small pleased oval. Right, OtterFerryman has bent its knees to lower
- its head, eyes squeezed shut to curved lines, shoulders hunched, mouth back to the CLOSED thin line.
- Water runs off the brim as three or four thin pale rules and gathers into round pale drops at the
- whiskers and nose tip; the shoulders are cut a step darker where soaked.
-WINDOWS: out of frame.
+ as high as they go, pressing the soaked StrawHat onto the otter's head, tail straight out, mouth a
+ small pleased oval. Right, OtterFerryman has bent its knees to lower its head, eyes squeezed shut to
+ curved lines, shoulders hunched, mouth back to the CLOSED thin line. Water runs off the brim as
+ three or four thin pale rules and gathers into round drops at the whiskers and nose tip; the
+ shoulders are cut a step darker where soaked.
 LOOT: five at their feet - RedSock, BlueCan and the three YellowLemons, still separately countable
  under the pile.
-HAT: 🔴 THE WET VERSION, one step darker than dry, sagging slightly at the brim. It is back on the
- head and still the lightest shape on the page, but visibly duller than on the first page - that
- single tonal step is how the reader knows it has been in the canal.
-FINISH: the two animals and the hat finished; the pile under them and the falling drops half; the
- boat and everything past the gunwale are plain fields.
-TONE: the two heads meeting is the lightest area; press the rest down gently. Keep the drops crisp
- and countable rather than atmospheric.
+HAT: 🔴 THE WET VERSION, one step darker than dry, sagging at the brim, back on the head and still
+ the lightest shape but visibly duller than on page one.
+FINISH: the two animals and the hat finished; the pile under them and the falling drops half. Keep
+ the drops crisp and countable, not atmospheric.
 ```
 
 ### p10 — 다시 한 소절, 아주 작게 (착지)
 ```
-BEAT: 🔴 BEAT 1 ONLY, AND IT IS TINY - one small mouth oval on the MOUSE with two very small sound
- arcs. There is no tilted shutter yet and no rings yet, 🔴 and the whole joke is that the reader knows
- they are coming. Leave the top band with room for them.
-CAMERA: medium wide, slightly high angle from behind and above, following the boat as it slides
- toward the low arch bridge ahead.
-SUBJECT: front of the boat, OtterFerryman has the oar tucked under one arm and 🔴 BOTH FRONT PAWS
- CLAMPED DOWN ON THE HAT BRIM, pulling it hard onto its head, shoulders up around its ears, whiskers
- stiff, mouth a closed line, and 🔴 THE EYE DISCS SLID ALL THE WAY TO ONE SIDE, UP AT THE WINDOWS -
- the first and only time in the book it looks up. Behind it, MousePassenger sits among the five
- objects with both front paws cupped at its mouth, singing a tiny oval with two small arcs, eyes
- crescent with mischief.
-WINDOWS: 🔴 A MIXED WALL - a few shutters still hang out as tilted trapezoids with black holes behind
- them, a few have gone back to closed rectangles. That mix says the street is still loaded. Do not
- open a new one on this page.
-LOOT: 🔴 FIVE, AND NOT ONE HAS BEEN REMOVED - RedSock, BlueCan and the three YellowLemons sit in the
- boat exactly as before, all five countable. 🔴 Nothing is tidied, nothing returned, nobody has
- learned anything.
-HAT: the wet version, one step darker, clamped down under two paws. Still the lightest shape in the
- frame, and now it is being held.
-FINISH: both animals, the five objects and the hat finished; the near water and the boat half. The
- walls, the arch and the far water are plain cut fields with the repeated window rectangle.
-TONE: brighter ahead through the arch, cooler and quieter behind. 🔴 Warmer here means a paler, more
- open grey - NOT a warm hue, NOT golden light, NOT sunset. This is the likeliest place in the book
- for a fourth colour to break the palette.
+BEAT: 🔴 BEAT 1 ONLY, AND TINY - one small mouth oval on the MOUSE with two very small sound arcs. No
+ tilted shutter yet and no rings yet; leave the top band with room for them. 🔴 A MIXED WALL - a few
+ shutters still hang out as trapezoids with black holes behind them, a few have gone back to closed
+ rectangles. Do not open a new one here.
+CAMERA: medium wide, slightly high angle from behind and above, the boat sliding toward the low arch
+ ahead.
+SUBJECT: front of the boat, OtterFerryman has the oar under one arm and 🔴 BOTH FRONT PAWS CLAMPED
+ DOWN ON THE HAT BRIM, pulling it hard onto its head, shoulders up around its ears, mouth a closed
+ line, and 🔴 THE EYE DISCS SLID ALL THE WAY TO ONE SIDE, UP AT THE WINDOWS - the first and only
+ time in the book it looks up. Behind it, MousePassenger sits among the five objects with both front
+ paws cupped at its mouth, singing a tiny oval, eyes crescent with mischief.
+LOOT: 🔴 FIVE, AND NOT ONE HAS BEEN REMOVED - all five countable, nothing tidied, nothing returned.
+HAT: the wet version, one step darker, clamped under two paws - still the lightest shape, now held.
+FINISH: both animals, the five objects and the hat finished; the near water and the boat half.
+ Brighter ahead through the arch, cooler behind - 🔴 warmer means a paler, more open grey, NOT a
+ warm hue and NOT golden light. 🔴 The likeliest page for a fourth colour to break the palette.
 ```
 
 ## 첫 렌더 검수 체크리스트 (6항목)

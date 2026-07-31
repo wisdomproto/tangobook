@@ -124,7 +124,7 @@ RENDERING: oil or heavy gouache on a pale cool-primed board with a slight tooth;
   Four processes. 1 SCRUBBED THIN = the sky, wide passes, almost no load, primer breathing through.
   2 🔴 IMPASTO = the three cargo objects and nothing else, loaded paint left standing in ridges -
   the only paint with HEIGHT. 3 🔴 SCUMBLED OVER (p7) = dry OPAQUE pale paint dragged over the
-  finished picture with a stiff brush, skipping on the tooth. 4 🔴 GLAZED (p8) = ONE thin cool
+  finished picture with a stiff brush, skipping. 4 🔴 GLAZED (p8) = ONE thin cool
   grey-blue TRANSPARENT film over the whole picture, sinking every colour one step. 🔴 BOTH ARE
   LAYERS PUT ON TOP AND OPPOSITE - the cloud HIDES, the rain SINKS; neither is blur, fog, wipe or
   scrape, and neither changes the light. FINISHED THINGS PER PAGE = 2 (the cat + the one thing it
@@ -132,10 +132,9 @@ RENDERING: oil or heavy gouache on a pale cool-primed board with a slight tooth;
   nothing inside it - 0 clouds, 0 wisps, 0 shafts, 0 other birds · 🔴 land = FIVE FLAT BLOCKS AND NO
   SIXTH (gold, green, one silver thread, one clay-red cluster, one line of poplars) - 0 roofs,
   0 cows, 0 furrows. DENSITY RATION = p2, p9 - SEVEN NAMED THINGS in the land, no eighth. 🔴 DENSE
-  IS NOT THICK - the land may be busy but never has height; the empty sky is not faded, simply NOT
-  DRAWN.
+  IS NOT THICK - the land may be busy but never has height; the empty sky is simply NOT DRAWN.
 
-PALETTE - a pale cool field plus three saturated cargo colours that leave and come back: high sky
+PALETTE - a pale cool field plus three saturated cargo colours that leave and return: high sky
   #D6E2E6 · lower sky #A9C6D8 · wheat gold #D3A84E · green field #7E8F5A · silver river #B9C4C2 ·
   roof clay #A8543C · willow #C2A377 · canvas cream #E4DCC8 (wet #B7AD97) · rain glaze #7E8C93 ·
   🔴 CARGO: ochre sandbag #C08A3E · enamel-blue kettle #2F6FA8 · red check blanket #C2382C. 🔴 THE
@@ -150,7 +149,7 @@ CHARACTER DESIGN LANGUAGE: drawn almond eye + a SEPARATE brow stroke - no dot-ey
   scrubbed. Setting: European (French) farmland - wheat, green squares, a silver river with a stone
   bridge, red clay roofs, poplars, an apple tree, a pebble stream, cows.
 
-CANVAS: 16:9 double-page spread. Bottom 18% quiet for a caption. No lettering or numerals anywhere.
+CANVAS: 16:9 double-page spread. Bottom 18% quiet for a caption. No lettering or numerals.
 
 NOT (rendering only): no digital slickness - airbrush, gradient, CG gloss, cel-shading,
   photographic, or a texture filter over flat colour / no rendered clouds, volumetric light or god
@@ -158,7 +157,7 @@ NOT (rendering only): no digital slickness - airbrush, gradient, CG gloss, cel-s
   orange sky / no scraped or wiped passages, no felt, stitching or clay.
 ```
 
-**🔴 이 앵커의 네 불변 규칙 (매 컷 반복 확인)**
+**🔴 이 앵커의 관통 줄 3개 + 공정 규칙 (매 컷 반복 확인)**
 
 **규칙 A — 고도.** 컷마다 `ALT:` 줄을 먼저 읽는다. 🔴 **고도계는 아래 풍경의 크기 하나뿐**이고, 그 크기가 서사다.
 
@@ -172,7 +171,7 @@ NOT (rendering only): no digital slickness - airbrush, gradient, CG gloss, cel-s
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | 3 | 3 | 2(+낙하 1) | 1(+낙하 1) | 0(+비행 1) | 🔴 **0** | 0 | 0 | 0 | 0 | 🔴 **땅에 3** | 등에 1 + 땅에 2 |
 
-**규칙 C — 공정.** 컷마다 `PAINT:` 줄을 읽는다. 이 줄이 그 쪽의 표면을 결정하고, 표면이 이 책의 사건을 결정한다. 🔴 **p7(불투명 스컴블로 덮기)과 p8(투명 글레이즈로 가라앉히기)가 이 앵커의 두 선언이고 서로 반대다.**
+**규칙 C — 공정.** 별도 줄이 아니라 컷의 `FINISH:` 안에 든다(관통 줄 3개 상한). 이 줄이 그 쪽의 표면을 결정하고, 표면이 이 책의 사건을 결정한다. 🔴 **p7(불투명 스컴블로 덮기)과 p8(투명 글레이즈로 가라앉히기)가 이 앵커의 두 선언이고 서로 반대다.**
 
 **규칙 D — 제비.** 컷마다 `SWALLOW:` 줄을 읽는다. 🔴 **제비는 p2 부터 계속 있는데 고양이는 p6 까지 한 번도 안 본다** — 어른 독자만 「저 새는 알면서 구경했구나」를 읽는다. p1 에는 없다.
 
@@ -293,15 +292,15 @@ SCENE tokens: SandBag, BlueKettle, RedBlanket, WillowBasket.
 
 ### p1 — 바구니 안이 세상의 전부다 🔴 임파스토 셋 기준판
 ```
-ALT: 🔴 UNKNOWN, AND THAT IS THE POINT - not one scrap of what is outside the basket is visible. No
- horizon, no land, no cloud, no sky past the rim.
+ALT: 🔴 UNKNOWN - not one scrap of what is outside the basket is visible. No horizon, no land, no
+ cloud, no sky past the rim.
 LOAD: 🔴 THREE. SandBag, BlueKettle and RedBlanket side by side on the basket floor.
 CAMERA: medium close-up, tipped slightly down, the woven inside of a big willow basket filling the
  whole frame.
 SUBJECT: centre, BasketCat is just waking on the folded RedBlanket - both front paws pushed forward,
- back arched high in a stretch, eyes still half shut, mouth wide open, only the tail tip cocked. At
- the upper right edge the head is beginning to rise toward the rim. A rope bundle coiled against the
- basket wall, a wooden ladle hooked on the rim, thick ropes running out of the top of the frame.
+ back arched high in a stretch, eyes still half shut, mouth wide open, tail tip cocked, the head
+ beginning to rise toward the rim. A rope bundle coiled against the basket wall, a wooden ladle
+ hooked on the rim, thick ropes running out of the top of the frame.
 SWALLOW: 🔴 none. It has not appeared yet.
 FINISH: 🔴 THE ANCHOR'S IMPASTO REFERENCE PLATE - the three loaded ridge-standing masses fixed here
  are the only thick paint in the book and every later page matches this height. Everything else is
@@ -311,8 +310,8 @@ FINISH: 🔴 THE ANCHOR'S IMPASTO REFERENCE PLATE - the three loaded ridge-stand
 
 ### p2 — 온통 하늘이다 🔴 고도 기준점 · 밀도 배급 1/2 · 회색 구름 심음
 ```
-ALT: 🔴 HIGH, THE MEASURING PAGE - the size of a roof and the size of a cow are decided here and
- every later altitude is read against it.
+ALT: 🔴 HIGH, THE MEASURING PAGE - the size of a roof and of a cow are decided here and every later
+ altitude is read against it.
 LOAD: THREE, still in the basket at the lower left.
 CAMERA: wide, HIGH ANGLE. Basket and cat in the lower left corner only; everything else is sky and
  the land far below.
@@ -340,18 +339,16 @@ SUBJECT: centre, BasketCat frozen in the follow-through of the push - leaning ag
  front paws out over the edge, hind legs extended, back taut, eyes round as it looks down after the
  bag. Below, the SandBag tumbling end over end with one thin ochre thread of sand streaming from a
  corner; the ropes hauled taut, the canvas above bulging.
-SWALLOW: upper right, a little apart, flying level alongside and watching the cat. 🔴 The cat is not
- looking at it.
+SWALLOW: upper right, flying level alongside, watching the cat. 🔴 The cat is not looking at it.
 FINISH: cat and falling bag finished, the rim and taut ropes half. 🔴 The falling SandBag is the
- thickest, most loaded paint on the page and its spilling sand is thin; 🔴 it is the most legible
- thing on the page because it is the thickest. The patchwork below is a few flat blocks of gold and
- green, not drawn fields; the sky is three passes.
+ thickest paint on the page and its spilling sand is thin, so it is also the most legible thing.
+ The patchwork below is a few flat blocks of gold and green; the sky is three passes.
 ```
 
 ### p4 — 밧줄을 당겼더니 주전자가 떨어졌다
 ```
-ALT: HIGHER STILL. 🔴 The river has thinned to a single silver thread and the patchwork has gone soft
- and colour-only. Nothing on the ground is identifiable.
+ALT: HIGHER STILL. 🔴 The river has thinned to a single silver thread and the patchwork gone soft and
+ colour-only. Nothing on the ground is identifiable.
 LOAD: 🔴 ONE left (RedBlanket) + ONE falling. Two thick masses on the page.
 CAMERA: medium, child's eye level - the outside wall of the basket and the falling kettle in one
  frame.
@@ -360,8 +357,7 @@ SUBJECT: left, BasketCat with hind paws planted on the basket floor and both fro
  line showing, brows driven down, tail stiff out behind, claws snagged in the rope. The BlueKettle
  has just come free of an outside hook, lid swinging open, falling, a few drops flung out as small
  reserves of pale primer; the empty hook swings.
-SWALLOW: perched on a rope higher in the frame, head cocked, looking down at the straining cat.
- 🔴 The cat is not looking at it.
+SWALLOW: perched on a rope higher up, head cocked, looking down. 🔴 The cat is not looking at it.
 FINISH: cat and falling kettle finished, the rope in its paws and the empty hook half, everything
  else thin. 🔴 THE KETTLE IS RAISED BY THICKNESS, NOT BY LIGHT - it and the sky are both blue and
  they separate because one has height and the other has almost no paint. No highlight, no backlight.
@@ -369,16 +365,15 @@ FINISH: cat and falling kettle finished, the rope in its paws and the empty hook
 
 ### p5 — 담요를 부쳤더니 바람이 채 갔다 🔴 두꺼운 빨강의 마지막 쪽
 ```
-ALT: LEVEL WITH THE CLOUDS. 🔴 Several white cloud masses now lie BENEATH the basket and through the
- gaps the ground is nothing but soft colour, no shape at all.
+ALT: LEVEL WITH THE CLOUDS. 🔴 White cloud masses now lie BENEATH the basket and through the gaps
+ the ground is soft colour, no shape at all.
 LOAD: 🔴 ZERO left in the basket + ONE flying away. One thick mass on the page, and it is leaving.
 CAMERA: medium wide, slightly HIGH ANGLE from above the rim, so the emptying basket floor is visible.
 SUBJECT: centre, BasketCat stretched long with both front paws thrown up after the blanket it has
  just lost, one hind paw hooked on the rim - the sheet's DISMAY face, mouth open, whiskers swept
  back, ears laid flat by the wind. The RedBlanket billows away like a kite with one corner curled.
  🔴 The basket floor is EMPTY: only the rope bundle and two bare hooks.
-SWALLOW: upper right, coasting easily alongside the flying blanket, unhurried. 🔴 The cat is not
- looking at it.
+SWALLOW: upper right, coasting alongside the flying blanket, unhurried. 🔴 The cat is not looking.
 FINISH: cat and flying blanket finished, the rim and empty hooks half, sky and clouds wide thin
  passes only. 🔴 The RedBlanket is the last loaded ridged paint for five pages - give it the most
  physical statement in the book so far. 🔴 After this page the surface of the book goes flat.
@@ -395,18 +390,17 @@ SUBJECT: lower left, BasketCat has dropped onto the bare floor and sits slumped,
  between its front paws, ears sagging sideways, tail flat, shoulders down. Bare willow weave, the
  three pressed marks, the swinging hook, the coiled rope. Past the rim, white.
 SWALLOW: 🔴 IT SPEAKS - the only time in the book. Upper right, perched on the rim on both feet, head
- tilted, beak just parted. Still a plain bird: no pointing, no gesture, no upright stance.
+ tilted, beak just parted. Still a plain bird: no pointing, no gesture, not upright.
 FINISH: 🔴 THE THINNEST PAGE IN THE BOOK and the anchor's LOW-INFORMATION FIELD REFERENCE PLATE.
  NO thick paint anywhere - not one ridge, not one loaded stroke. Cat and bird finished, the three
  pressed marks and near weave half, everything else one thin pass, nothing described past the rim.
- 🔴 IT MUST NOT LOOK LIKE AN UNFINISHED PAGE: no red, no saturated blue, no ochre, only pale willow
- and white, but the weave confident and the sky an assured wide sweep.
+ 🔴 IT MUST NOT LOOK UNFINISHED: no red, no saturated blue, no ochre, only pale willow and white,
+ but the weave confident and the sky an assured sweep.
 ```
 
 ### p7 — 구름 속 · 아무것도 안 보인다 🔴 덮은 판
 ```
-ALT: 🔴 ZERO. Sight is completely reset - neither the ground nor the sky nor the balloon above
- exists as a describable thing.
+ALT: 🔴 ZERO - neither ground nor sky nor the balloon above exists as a describable thing.
 LOAD: ZERO.
 CAMERA: medium close-up, child's eye level - one corner of the basket and the cat's face.
 SUBJECT: centre, BasketCat has put just its nose over the rim with both front paws laid side by side
@@ -435,26 +429,23 @@ SUBJECT: in the basket at centre, BasketCat in its WET STATE - fur stuck flat in
  darker with a row of small dabs along its lower edge; the ropes sag with one darker stroke along
  each underside; shallow water slops in the basket floor.
 SWALLOW: on the rim, shaking water off with wings half open, feathers spiked.
-FINISH: 🔴 GLAZED - the picture is painted normally and then ONE thin cool grey-blue film is laid
- over the WHOLE frame, so every colour goes one step deeper and heavier at once. 🔴 It blurs nothing,
- changes no hue and pools nowhere; do not darken by mixing grey INTO the colours and do not add a
- shadow. Cat finished, sagging ropes and wet canvas edge half, cloud floor and far land thin passes.
+FINISH: 🔴 GLAZED - painted normally, then ONE thin cool grey-blue film laid over the WHOLE frame so
+ every colour goes one step deeper at once. 🔴 It blurs nothing, changes no hue and pools nowhere; do
+ not mix grey INTO the colours and do not add a shadow. Cat finished, sagging ropes and wet canvas edge half, cloud floor and far land thin passes.
  🔴 The heaviest-looking page in the book. One shaft out of the cloud gap rakes the balloon 🔴 as a
  slightly less glazed band, never as a god ray.
 ```
 
 ### p9 — 밀밭이 커진다 🔴 고도 회수 · 밀도 배급 2/2
 ```
-ALT: 🔴 LOW, AND THIS IS THE PAYOFF OF THE MEASURING PAGE - the SAME land as page two, only bigger.
- Attach the approved page-two render as a reference and change only scale.
+ALT: 🔴 LOW - the SAME land as p2, only bigger. Attach the approved p2 render and change only scale.
 LOAD: ZERO.
 CAMERA: wide, HIGH ANGLE - the basket small in the upper left corner, the lower half of the frame
  filled with farmland.
-SUBJECT: upper left, BasketCat leans far out over the rim on both front paws, wet fur clumped into
- spikes, whiskers pricked up, mouth wide open, tail straight up - the sheet's GLEE face. The shadow
- of the balloon lies broad across the wheat as one softly scrubbed dark passage, not a hard shape.
-SWALLOW: beside the cat, flying level, looking the same way it does. For the first time they are
- looking at the same thing.
+SUBJECT: upper left, BasketCat leans far out over the rim on both front paws, wet fur in spikes,
+ whiskers pricked up, mouth wide open, tail straight up - the sheet's GLEE face. The balloon's shadow
+ lies broad across the wheat as one softly scrubbed dark passage, not a hard shape.
+SWALLOW: beside the cat, flying level, 🔴 for the first time looking at the same thing it does.
 FINISH: 🔴 DENSITY 2/2 - SEVEN NAMED THINGS AND NO EIGHTH: single furrows in the wheat, ripples on
  the river, individual stones in the bridge, two dairy cows lifting their heads to look up, an apple
  tree, a stream at a field edge, the red-roofed village larger at the right. 🔴 NO IMPASTO - dense is
@@ -471,9 +462,9 @@ CAMERA: medium wide, child's eye level AT WHEAT-EAR HEIGHT - the just-landed bas
  beside it.
 SUBJECT: centre, BasketCat has just stepped down onto the ground on all four legs and presses one
  front paw into the soil, back slightly humped, tail curled into a question mark, eyes wide, looking
- down at its own feet, a few wheat ears stuck in its wet fur. The willow basket is tipped over with
- the wet canvas sagging and folding down over it, a round flattened patch in the wheat, ears and
- chaff still in the air, ropes trailing on the ground.
+ down at its own feet, wheat ears stuck in its wet fur. The willow basket is tipped over with the wet
+ canvas sagging over it, a round flattened patch in the wheat, chaff still in the air, ropes
+ trailing.
 SWALLOW: upper right, turning one low circle over the basket rim.
 FINISH: cat and near flattened wheat finished, the collapsing canvas and tipped basket half, the far
  field, tree and village thin quick passes. The wheat is thin and dense; the glaze still sits on the
@@ -500,21 +491,20 @@ FINISH: 🔴 NOT A DENSITY PAGE. The three objects are finished as thick masses 
 
 ### p12 — 담요를 두르고 앉았는데 빈 열기구가 다시 떠오른다 🔴 착지 = 들어옴
 ```
-ALT: GROUND in the foreground; 🔴 the empty balloon RISING behind - a low thing and a high thing at
- once.
+ALT: GROUND in front, 🔴 the empty balloon RISING behind - a low thing and a high thing at once.
 LOAD: 🔴 ONE ON THE CAT (RedBlanket, round its shoulders) + TWO still lying in the field.
 CAMERA: medium wide, child's eye level - foreground left the cat, behind and right the rising balloon.
 SUBJECT: foreground left, BasketCat sits leaning against a wheat sheaf, both front paws holding the
  RedBlanket closed round its shoulders, 🔴 the sheet's SIDEWAYS SMIRK: one eye half closed, the other
- rolled upward at the balloon, one corner of the mouth pulled crooked. Its tail sticks out from under
- the blanket and taps the ground; steam rises off its wet back as a few thin pale streaks. Behind,
- the balloon 🔴 EMPTY, swollen again and lifting away, ropes trailing, the basket tilted so its bare
- floor shows; below it the round flattened patch. The BlueKettle still on the pebble bank, the
- SandBag still in the wheat.
+ rolled up at the balloon, one corner of the mouth crooked. Its tail sticks out from under the
+ blanket and taps the ground; steam rises off its wet back as a few thin pale streaks. Behind, the
+ balloon 🔴 EMPTY, swollen again and lifting away, ropes trailing, the basket tilted so its bare
+ floor shows; below it the flattened patch. The BlueKettle still on the pebble bank, the SandBag
+ still in the wheat.
 SWALLOW: on top of a wheat sheaf beside the cat, facing the same way it is.
 FINISH: cat and blanket finished, the wheat sheaf and tilted basket half, the rising balloon broad
- flat panels, the sky one thin sweep. 🔴 The RedBlanket is the only loaded paint in the foreground;
- the kettle and sandbag are further off and painted thinner. 🔴 EVENING IS MADE by laying the wheat's
+ flat panels, the sky one thin sweep. 🔴 The RedBlanket is the only loaded paint in front; the kettle
+ and sandbag are further off and thinner. 🔴 EVENING IS MADE by laying the wheat's
  ochre a second time and scrubbing the sky paler - NOT by adding gold, orange or sunset colour.
 ```
 
