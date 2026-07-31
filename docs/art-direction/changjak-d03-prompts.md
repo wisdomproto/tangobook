@@ -113,70 +113,54 @@
 ## D-03 §2. STYLE ANCHOR
 
 ```
-STYLE ANCHOR - changjak-d03  (cat in a balloon basket · French farmland from the air · throwing
-                              things out)
-Hand-painted picture book, 4-6 years. High, airy, wide open, un-slick. A book about weight, so
- THE PAINT ITSELF carries the weight.
+STYLE ANCHOR - changjak-d03   (cat in a balloon basket / French farmland from the air)
 
-MEDIUM: oil or heavy gouache on a pale cool-primed board with a slight tooth - 🔴 SMOOTH AND PRIMED,
- NO WOOD GRAIN, NO SUPPORT PATTERN. Four processes, each owning particular pages:
- 1 SCRUBBED THIN (the sky, all twelve pages) - long wide passes with almost no load, primer
-   breathing through, flat and almost empty but clearly PAINTED.
- 2 🔴 IMPASTO (the three cargo objects and nothing else) - loaded paint left standing so the ridges
-   cast their own tiny real edges. The only places in the book where paint has HEIGHT.
- 3 🔴 SCUMBLED OVER (the cloud page) - dry OPAQUE pale paint dragged across the finished picture with
-   a stiff brush, skipping on the tooth so a rope, a rim and a curve of canvas show through the gaps.
-   A LAYER PUT ON TOP - not blur, not fog, not wiped, not scraped.
- 4 🔴 GLAZED (the wet pages) - ONE thin cool grey-blue TRANSPARENT film over the whole finished
-   picture, so every colour under it sinks one step at once. Even, blurring nothing, changing no hue.
- 🔴 A FILM COVERS A WHOLE PAGE EXACTLY TWICE AND THE TWO ARE OPPOSITES: the cloud is OPAQUE and HIDES,
- the rain is TRANSPARENT and SINKS. Never swap them and never use either to change the light. The
- brush may smear a form rather than describe it; only the cat and the swallow are tightened.
+Style: a hand-painted picture-book page for 4-6 year olds, high and airy. A book about weight, so
+  🔴 THE PAINT ITSELF CARRIES THE WEIGHT: the narrative variable is THICKNESS, NOT HUE - never
+  brighten a page to feel light or darken one to feel heavy. 🔴 ALTITUDE IS STATED BY THE SIZE OF
+  THE LAND AND NOTHING ELSE - no altimeter, dial or marker in the sky. High = the land small and
+  simple; low = the land large and busy.
+
+RENDERING: oil or heavy gouache on a pale cool-primed board with a slight tooth; 🔴 no wood grain
+  or support pattern. Four processes. 1 SCRUBBED THIN = the sky, every page, wide passes with almost
+  no load, primer breathing through. 2 🔴 IMPASTO = the three cargo objects and nothing else, loaded
+  paint left standing so the ridges cast their own edges - the only paint with HEIGHT. 3 🔴 SCUMBLED
+  OVER, p7 only = dry OPAQUE pale paint dragged over the finished picture with a stiff brush,
+  skipping on the tooth; a layer PUT ON TOP, not blur, fog, wipe or scrape. 4 🔴 GLAZED, p8 only =
+  ONE thin cool grey-blue TRANSPARENT film over the whole picture, sinking every colour one step,
+  blurring nothing and changing no hue. 🔴 THE TWO FILMS ARE OPPOSITES - the cloud HIDES, the rain
+  SINKS; never swap them, never use either to change the light. FINISHED THINGS PER PAGE = 2 (the
+  cat + the one thing it touches or loses); the swallow stays three or four strokes. Counts: 🔴 sky
+  = THREE WIDE PASSES and nothing inside it - 0 clouds, 0 wisps, 0 shafts, 0 other birds · 🔴 land =
+  FIVE FLAT BLOCKS AND NO SIXTH (gold, green, one silver thread, one clay-red cluster, one line of
+  poplars) - 0 roofs, 0 cows, 0 furrows · what the cat touches = one contour, one pass. DENSITY
+  RATION = p2, p9, which get SEVEN NAMED THINGS in the land and no eighth; even there the sky stays
+  at three passes. 🔴 DENSE IS NOT THICK - the land may be busy but never has height; the empty sky
+  is not faded, simply NOT DRAWN.
 
 PALETTE - a pale cool field with exactly three saturated cargo colours that leave and come back:
- high sky #D6E2E6 · lower sky #A9C6D8 · wheat gold #D3A84E · green field #7E8F5A · silver river
- #B9C4C2 · roof clay #A8543C · willow #C2A377 · canvas cream #E4DCC8 (wet #B7AD97) · rain glaze
- #7E8C93 · cat grey #9A958D · swallow back #2A3644, throat #C97A46 ·
- 🔴 CARGO: ochre sandbag #C08A3E · enamel-blue kettle #2F6FA8 · red check blanket #C2382C.
- 🔴 THE THREE CARGO COLOURS ARE THE ONLY SATURATED COLOURS AND THE ONLY THICK PAINT. When an object
- leaves, its colour leaves with it: after the third one goes there is NO red, NO saturated blue and
- NO ochre anywhere - not on the basket, the balloon, the cat or the sky - and no thick paint either.
- The page goes thin and pale, and that emptiness is the point.
- 🔴 THE NARRATIVE VARIABLE IS THICKNESS, NOT HUE. Never brighten a page to feel light or darken one
- to feel heavy. Light = fewer thick strokes left on the board. Heavy = one glaze over everything.
+  high sky #D6E2E6 · lower sky #A9C6D8 · wheat gold #D3A84E · green field #7E8F5A · silver river
+  #B9C4C2 · roof clay #A8543C · willow #C2A377 · canvas cream #E4DCC8 (wet #B7AD97) · rain glaze
+  #7E8C93 · 🔴 CARGO: ochre sandbag #C08A3E · enamel-blue kettle #2F6FA8 · red check blanket
+  #C2382C. 🔴 THE THREE CARGO COLOURS ARE THE ONLY SATURATED COLOURS AND THE ONLY THICK PAINT; when
+  an object leaves its colour leaves with it, so after the third goes there is NO red, NO saturated
+  blue and NO ochre anywhere, and no thick paint either.
 
-🔴 ALTITUDE IS STATED BY THE SIZE OF THE LAND AND BY NOTHING ELSE - no altimeter, no dial, no marker
- in the sky. High = the land small and simple; low = the land large and busy.
+CHARACTER DESIGN LANGUAGE: drawn almond eye + a SEPARATE brow stroke - no dot-eyes, no outline, no
+  halo, no highlight. 🔴 THE CAT IS ON FOUR LEGS AND SITS LIKE A CAT BUT ITS FRONT PAWS WORK LIKE
+  HANDS - it pushes, hauls a rope, flaps and wears a blanket; never upright, never fingers. 🔴 THE
+  SWALLOW IS A PLAIN BIRD that never points or gestures, and its strokes always run ACROSS the
+  direction that page's sky was scrubbed. Setting: French farmland from the air then from within -
+  gold wheat, green squares, a silver river with a stone bridge, red clay roofs, poplars, an apple
+  tree, a pebble stream, dairy cows; European.
 
-🔴 FINISH, COUNTED. 1. cat and swallow = finished, tightened with the small stiff brush. 2. the three
- cargo objects = finished as thick masses, form stated by the loaded stroke and not by drawn detail.
- 3. what the cat touches that page = ONE object, one contour and one pass.
- 4. 🔴 THE SKY = THREE WIDE PASSES FOR THE WHOLE PAGE AND NOTHING INSIDE IT - zero clouds, wisps,
-    light shafts or other birds. A fourth pass means you are describing it.
- 5. 🔴 THE LAND, on the ten pages that are not measuring pages = FIVE FLAT BLOCKS OF COLOUR AND NO
-    SIXTH: gold block, green block, one silver thread, one clay-red cluster, one dark line of
-    poplars. No roof separated, no cow, no furrow, no ripple.
- 🔴 The two measuring pages (2 and 9) get SEVEN NAMED THINGS in the land and no eighth, listed in
- those cuts - and even there the sky stays at three passes. 🔴 DENSE IS NOT THICK: the land may be
- busy but must never have height, or it becomes a fourth thick thing and the counting on page eleven
- collapses. The empty sky is NOT faded or blurred, it is simply NOT DESCRIBED.
+CANVAS: 16:9 double-page spread. Bottom 18% quiet for a caption. No lettering or numerals anywhere.
 
-CHARACTER (sheets attached, obey them): drawn almond eye + a SEPARATE brow stroke, no dot-eyes.
- 🔴 THE CAT IS ON FOUR LEGS AND SITS LIKE A CAT BUT ITS FRONT PAWS WORK LIKE HANDS - it pushes, hauls
- a rope, flaps and wears a blanket; never upright, never fingers. 🔴 THE SWALLOW IS A PLAIN BIRD that
- never points or gestures, and its three or four strokes always run ACROSS the direction that page's
- sky was scrubbed - the only device keeping it findable. No outline, no halo, no highlight.
-SETTING: French farmland from the air and then from within - gold wheat, green squares, a winding
- silver river with a stone bridge, a village of red clay roofs, poplars, an apple tree, a pebble-bank
- stream, dairy cows. European; no tropical planting, no Asian architecture.
-CANVAS: 16:9 spread; keep the bottom 18% quiet (caption band).
-NOT: no digital slickness of any kind (airbrush, gradient, CG gloss, cel shading, photo, a canvas-
- texture filter over flat colour) / no rendered clouds, volumetric light, god rays, lens flare /
- no thick paint anywhere except the three cargo objects / no fourth saturated colour / no golden-
- hour orange sky / no wood grain or support pattern (the board is smooth) / no scraped, scratched
- or wiped passages (the cloud is laid ON TOP) / no glaze used to change the light or time of day
- (the one glaze here is rain) / 🔴 no lettering or numerals anywhere / no felt, stitching, visible
- thread, fuzzy fibre or clay - this is paint, however thick.
+NOT (rendering only): no digital slickness - airbrush, gradient, CG gloss, cel-shading,
+  photographic, or a canvas-texture filter over flat colour / no rendered clouds, volumetric light,
+  god rays or lens flare / no thick paint except the three cargo objects, no fourth saturated
+  colour, no golden-hour orange sky / no scraped or wiped passages, no glaze used to change the
+  light or time of day / no felt, stitching, visible thread or clay - this is paint, however thick.
 ```
 
 **🔴 이 앵커의 네 불변 규칙 (매 컷 반복 확인)**

@@ -89,51 +89,47 @@
 ## B-09 §2. STYLE ANCHOR
 
 ```
-STYLE ANCHOR - changjak-werkstatt  (squirrel · carved cuckoo guest · Black Forest clock workshop)
-Hand-painted picture book, 4-6 years. Warm, wooden, lamplit. A workshop, not a fairyland.
+STYLE ANCHOR - changjak-werkstatt   (a squirrel and a carved cuckoo guest / a clock workshop)
 
-MEDIUM: oil and opaque gouache DIRECTLY ON A PLANK OF HONEY WORKSHOP WOOD. Thin GLAZE = air,
- distance, light. DRAGGED OPAQUE PAINT = solids, every edge made by the paint running out and never
- by a clean line; the floor a pale honey scumble. 🔴 SCRAPED BACK = every footprint and dragged
- trail, that scumble scraped away so the bare plank shows through, a ridge of pushed paint beside
- it. BRASS last, opaque, hard edge - the only hard-edged thing in the book. Grain shows only where
- paint is thin or scraped, always along the planks; no wood-texture filter over the picture.
-🔴 ALIVE = OPAQUE · MADE = GRAIN SHOWING THROUGH. The guest is ONE thin glaze, grain running through
- his body and lengthwise along each wing - that is why he cannot fly. The squirrel is loaded opaque
- paint with no grain anywhere.
+Style: oil and opaque gouache painted DIRECTLY ON A PLANK OF HONEY WORKSHOP WOOD, 4-6 year old
+  picture book. Thin GLAZE = air and distance; DRAGGED OPAQUE PAINT = solids, edges made by the
+  paint running out, never by a clean line. Grain shows only where paint is thin or scraped, always
+  along the planks.
+
+RENDERING (finish hierarchy): 🔴 THIS VOLUME: ALIVE = OPAQUE · MADE = GRAIN SHOWING THROUGH. The
+  guest is ONE thin glaze, grain through his body and lengthwise along each wing, which is why he
+  cannot fly; the squirrel is loaded opaque paint, no grain. 🔴 SCRAPED BACK = every footprint and
+  dragged trail, the pale floor scumble scraped away to bare plank. NOTHING IS EVER SWEPT AWAY.
+  Brass is laid last, opaque, the only hard-edged thing in the book; a moving thing carries ONE
+  doubled edge and nothing else. FINISHED THINGS PER PAGE = 3: squirrel, guest (off frame,
+  that cut's brass part instead), sawdust marks. ONE half-finished = the object that cut names,
+  one contour + one dragged pass. 🔴 EVERYTHING ELSE GETS THREE BRUSH MARKS AND NO SECOND PASS -
+  wall = 1 pass + 2 seams · beam = 1 · window = 3 · forest = 2 · the case's carved leaf-and-berry
+  front = 4 marks for the whole pattern, not four leaves · bench tool = 1. A FINISHED FLOOR ERASES
+  THE PRINTS. DENSITY RATION = pages 6 and 11 only, on floor marks and bench tools.
 
 PALETTE - brown monochrome plus one red: plank #A9743C (air, distance, THE GUEST'S BODY, every
- scraped print) · walnut #4A2E1C (beams, case, bench) · sawdust #E4C489 (floor, shavings) · brass
- #C9A227 / #EFD98A (gears, chain, weights, pendulum, hook, tools) · red #C2352A = the stitched
- thread edging the apron pocket, and NOTHING ELSE IS RED. Sawdust lightest, guest middle, walnut
- darkest. GLAZE = one film over the whole page, never a new colour and never a beam: A warm yellow
- afternoon · B cold blue-grey evening · C orange lamplight from low, window near black.
+  scraped print) · walnut #4A2E1C (beams, case, bench) · sawdust #E4C489 (floor, shavings) · brass
+  #C9A227 / #EFD98A (gears, chain, weights, pendulum, hook, tools) · red #C2352A = the stitched
+  thread edging the apron pocket, and NOTHING ELSE IS RED. 🔴 VALUE LADDER: sawdust lightest,
+  guest middle, walnut darkest. GLAZE = one film over the whole page, never a new colour, never a
+  beam: A warm yellow afternoon · B cold blue-grey evening · C orange lamplight from low, window
+  near black. Temperature only, no going back.
 
-🔴 THE AIM: every page, the guest's body, eye and footprints point at the base of the clock; the
- squirrel never sees it, the reader always does. A FOOTPRINT is a three-toed mark, same shape and
- size every time, toes pointing the way he walked, so a line can be counted. Nothing is swept away.
+CHARACTER DESIGN LANGUAGE: the squirrel's eyes are DRAWN - a dark rounded shape with a SEPARATE brow
+  stroke above - not dot-eyes, no blush, no catchlight. 🔴 THE GUEST HAS NO EXPRESSION AT ALL
+  AND MUST NEVER BE GIVEN ONE: the same carved face on all eleven pages, and everything he says done
+  by turning his head, eye, feet and stiff wings. FIXED GRADE: the squirrel is bipedal, forepaws for
+  hands, one apron and nothing else; the guest is a carved bird who never gestures, speaks or flies,
+  and whose wings never bend or beat air.
 
-🔴 FINISH, COUNTED. THREE finished things per page - squirrel, guest (off frame, the brass part in
- that cut's CLOCK line takes his slot), the marks in the sawdust. ONE half-finished: the object that
- cut names, one contour and one dragged pass. EVERYTHING ELSE GETS THREE BRUSH MARKS AND NO SECOND
- PASS - wall = one pass + two seams · beam = one stroke · window = three · forest = two · 🔴 the
- carved leaf-and-berry front of the case = FOUR marks for the whole pattern, not four leaves · a
- bench tool = one mark. No highlight, no red back there. A finished floor erases the prints, and
- the prints are this book's only clue.
+CANVAS: 16:9 double-page spread. ONE ROOM FOR ELEVEN PAGES - window and workbench left, the carved
+  cuckoo clock high right, sawdust underfoot, spruce beyond the glass. Black Forest, European.
+  Bottom 18% quiet for a caption. 🔴 No lettering, numerals or clock numbers anywhere.
 
-CHARACTER (sheets attached, obey them): squirrel = drawn eye + SEPARATE brow, bipedal, forepaws as
- hands, one apron, no dot-eyes. 🔴 THE GUEST'S FACE NEVER CHANGES - only the direction of his head,
- eye, feet and stiff wings does. He never gestures, speaks or flies.
-SETTING: one room, eleven pages - window and workbench left, the carved cuckoo clock high right with
- two chains and pinecone brass weights, sawdust underfoot, spruce beyond the glass. Black Forest
- hand tools, European. Every cut states the machine's state; a moving thing carries ONE doubled
- edge behind it and nothing else.
-
-CANVAS: 16:9 spread; keep the bottom 18% quiet (caption band).
-NOT: no digital slickness of any kind (airbrush, gradient, CG gloss, cel shading, photo, texture
- filter over flat colour) / no flare, bloom, god-rays, motion blur / no fifth colour / 🔴 no
- lettering, numerals or clock numbers anywhere / no grain on the squirrel / no felt, stitching or
- clay (other lines own those).
+NOT: no digital slickness of any kind - airbrush, gradient, CG gloss, cel shading, photographic, or
+  a wood-texture filter over the picture / no flare, bloom, god-rays or motion blur / no fifth
+  colour, no grain on the squirrel / not a photograph of a carved object, no felt, stitching, clay.
 ```
 
 ### 🔴 이 앵커의 네 불변 규칙 (매 컷 네 줄로 반복 확인)
@@ -338,7 +334,7 @@ AIM: he is still ON the clock, so the aim is the shortest it will be - eye and b
 CLOCK: door half open · chains slack, weights sunk, his chain swinging with ONE doubled edge ·
  pendulum still in the sawdust, hook empty.
 GLAZE A; the chain is the brightest hard edge in frame. FINISH: half = the carved base, the pendulum.
-TONE: a still room with one small thing coming down through it, silently. NO NUMERALS.
+TONE: NO NUMERALS.
 ```
 
 ### p3 — 제일 좋은 호두를 내밀었는데
@@ -355,7 +351,6 @@ AIM: body, neck, eye and both feet point past her to the clock base at the frame
 CLOCK: only its wooden base in frame, chains slack, weights sunk. The pendulum is off frame right,
  still in the sawdust - do not show it hooked.
 GLAZE A; the light pools where their eyes fail to meet. FINISH: half = walnut, shells, bench leg.
-TONE: warm, generous and completely one-sided; the floor is the only thing that knows the answer.
 ```
 
 ### p4 — 손이 멈추고, 주머니로
@@ -371,8 +366,7 @@ AIM: his toes at the top edge point out of frame toward the clock and mark ① r
 CLOCK: only a sunken weight and its slack chain in frame; the pendulum is in her paw, NOT hooked.
 GLAZE A, straight down; the pocket's inside is the one dark hole. FINISH: half = the pocket cloth,
  and the angle has removed the background - bare sawdust, nothing else.
-TONE: 🔴 one stopped moment doing the whole job of hesitation without a face or a word, and the ONLY
- RED IN THE BOOK pulled into a wide open oval at the bottom of the frame.
+TONE: 🔴 THE ONLY RED IN THE BOOK, pulled into a wide open oval at the bottom of the frame.
 ```
 
 ### p5 — 톱니를 굴려 줬는데, 총총총 걸어가 버렸다
@@ -389,7 +383,6 @@ CLOCK: door half open, small at upper right · chains slack, weights sunk · hoo
  PENDULUM IS IN HER POCKET, which BULGES with the red stitch pulled taut into its shape.
 GLAZE B, lamp not lit; long low shadows, the forest gone dark. FINISH: half = the rolling gear, the
  shaving slide and the scattered shells, not one of them eaten.
-TONE: 🔴 the distance between effort and miss is the width of the page.
 ```
 
 ### p6 — 발자국은 언제나 한 곳을 가리켰다 🔴 밀도 배급 1/2
@@ -408,7 +401,7 @@ GLAZE B and 🔴 THE BENCH LAMP IS NOW LIT - one small warm pool from upper left
  print has a tiny shadow on one side and the toe direction is unmistakable.
 FINISH: 🔴 DENSITY 1/2, SPENT ON THE FLOOR ALONE - the four print lines plus dropped shells and
  shaving fragments, finished enough to be counted. Walls, beams, bench, window stay at three marks.
-TONE: 🔴 she is reading his back and the reader is reading the floor. NO NUMERALS.
+TONE: NO NUMERALS.
 ```
 
 ### p7 — 사슬을 잡고 폴짝, 자꾸 미끄러졌다
@@ -426,28 +419,26 @@ CLOCK: door half open, high and out of reach · chains slack, swinging with ONE 
  weights sunk · hook empty, pendulum still in her bulging pocket at the bottom edge.
 GLAZE C from low left; the height above him goes dark bare panel. FINISH: half = the clock's lower
  carving and the scuffed patch.
-TONE: 🔴 where he wants to go is at the top and her hands are at the bottom.
 ```
 
 ### p8 — 손님이 흔들이를 물고 나와 제자리에 놓았다 🔴 반전
 ```
-CAMERA: medium close-up, EYE LEVEL, low on the floor - left, the apron lying on the sawdust with its
- pocket gaping; right, CuckooGuest on the leaf pendulum; behind, in shadow, the squirrel.
+CAMERA: medium close-up, EYE LEVEL, low on the floor - left the apron with its pocket gaping, right
+ CuckooGuest on the leaf pendulum, behind in shadow the squirrel.
 SUBJECT: CuckooGuest stands with both feet flat on the pendulum at the clock base. 🔴 FOR THE FIRST
  TIME HIS HEAD IS TURNED STRAIGHT TO CAMERA AND HIS EYE LOOKS AT HER: neck upright, beak closed,
- wings flat. Same face as every page - only the direction changed. Not pleading, not cross:
- waiting. Behind him in the dark, SquirrelKit = the sheet's FROZEN pose, forepaws stopped half
- raised holding nothing.
-AIM: achieved - he stands on the thing he has pointed at for seven pages. 🔴 ONE DRAGGED GROOVE runs
- from the mouth of the fallen pocket to the clock base with a line of prints beside it going the
- same way; every earlier line remains. Nobody has to be told who moved it.
+ wings flat. Same face as every page - only the direction changed. Behind him in the dark,
+ SquirrelKit = the sheet's FROZEN pose, forepaws half raised holding nothing.
+AIM: achieved - he stands on what he has pointed at all book. 🔴 ONE DRAGGED GROOVE runs from
+ the mouth of the fallen pocket to the clock base with a line of prints beside it going the same
+ way; every earlier line remains.
 CLOCK: door half open above · chains slack, weights sunk · 🔴 pendulum BACK IN PLACE ON THE FLOOR
  directly under the EMPTY HOOK, not hooked yet · gears still.
-GLAZE C - only one hand's width of floor at the clock base is lit, with the pendulum and the bird
- inside that light; the one who did the hiding stands in the dark.
+GLAZE C - only one hand's width of floor at the clock base is lit, the pendulum and the bird inside
+ it; the squirrel in the dark.
 FINISH: half = the apron cloth and the clock base; in the dark the squirrel is contour plus one
- pass, her eyes and pale chest the two light points that let her read.
-TONE: the day turns over with brightness, not with a face; the only red in frame is an empty pocket.
+ pass, her eyes and pale chest the only light points.
+TONE: the only red in frame is the empty pocket.
 ```
 
 ### p9 — 사슬을 당기고, 고리에 끼워 톡
@@ -465,8 +456,6 @@ CLOCK: 🔴 DRAWN HARD - several BRASS GEARS visibly meshed with ONE TOOTH CAUGH
  and TWO small lamp glints, nothing else.
 GLAZE C, sliding along the brass. FINISH: 🔴 the sharpest picture in the book - paws, pendulum, hook,
  meshed gears and taut chain all hard-edged; half = the apron and empty pocket at the frame edge.
-TONE: the tick must be audible in a still picture, and only the caught tooth, the doubled edge and
- the risen weight make it.
 ```
 
 ### p10 — 두 손으로 받쳐 올렸다
@@ -485,31 +474,26 @@ CLOCK: 🔴 door OPEN AND BEING DRAWN SHUT, the THIN BRASS WIRE from its back ru
  SWINGING with ONE doubled edge.
 GLAZE C from low down - her palms and the threshold are the only lit things. FINISH: half = the
  carved face of the clock, leaves suggested, never leaf by leaf. NO NUMERALS.
-TONE: 🔴 the height that was too big on p7 is exactly one pair of hands wide here.
 ```
 
 ### p11 — 「뻐꾹!」 다람쥐가 두 손을 입에 모았다 🔴 밀도 배급 2/2 · p1 의 정반대 상태
 ```
-🔴 BAKE LAST, with the approved p1 attached: the SAME ROOM AND NOT MIRRORED - window and bench left,
+🔴 BAKE LAST with the approved p1 attached: the SAME ROOM, NOT MIRRORED - window and bench left,
  clock high right - and only the machine has changed.
-CAMERA: wide, EYE LEVEL, the whole workshop. Upper right, the wide-open door with the guest leaning
- out; lower left, SquirrelKit on the bench top. The two sit on a diagonal.
-SUBJECT: SquirrelKit stands head tipped back, 🔴 BOTH FOREPAWS CUPPED ROUND HER MOUTH LIKE A LITTLE
- TRUMPET, calling up; eyes crescent, front teeth showing, tail straight up. She is NOT reaching for
- him. CuckooGuest leans half out of the open door, beak OPEN, both feet still inside the threshold,
- wings slightly out, his eye turned DOWN at her - the last time he looks at her, and again a turn of
- the head, not an expression.
-AIM: over - both are aimed at each other and nothing else points anywhere. 🔴 ALL the print lines and
- the dragged groove are STILL THERE, converging under the clock; nothing has been swept.
-CLOCK: 🔴 THE OPPOSITE OF P1 IN ALL THREE VALUES - door WIDE OPEN with the wire taut inside · chains
+CAMERA: wide, EYE LEVEL, the whole workshop. Upper right the open door with the guest leaning out,
+ lower left SquirrelKit on the bench top, the two on a diagonal.
+SUBJECT: SquirrelKit = sheet hand-study 6, calling up; eyes crescent, teeth showing, tail straight
+ up. 🔴 She is NOT reaching for him. CuckooGuest leans half out of the open door, beak OPEN, both
+ feet still inside the threshold, wings slightly out, eye turned DOWN at her.
+AIM: over - both aimed at each other. 🔴 ALL the print lines and the dragged groove are STILL THERE,
+ converging under the clock.
+CLOCK: 🔴 THE OPPOSITE OF P1 IN ALL THREE VALUES - door WIDE OPEN, wire taut inside · chains
  STRAIGHT AND TAUT, both weights HIGH under the case · pendulum HOOKED and TILTED WELL OVER
- mid-swing with ONE doubled edge behind it.
-GLAZE C, one low lamp; the room sinks into warm brown, the open door brightest. The apron hangs over
- the bench corner, pocket flat and empty, its red stitch catching one point of lamplight.
-FINISH: 🔴 DENSITY 2/2, SPENT ON THE BENCH TOOLS AND THE FLOOR MARKS ONLY. Walls, beams, ceiling and
- window frame stay at three marks each. NO NUMERALS ON THE CLOCK FACE.
-TONE: 🔴 the room is running again and the picture says so without a sound - weights up, leaf over to
- one side, dust stirring in the lamp pool.
+ mid-swing with ONE doubled edge.
+GLAZE C, one low lamp; the room sinks to warm brown, the open door brightest, dust in the lamp pool.
+ The apron hangs on the bench corner, pocket flat and empty, red stitch catching one lamp point.
+FINISH: 🔴 DENSITY 2/2, ON BENCH TOOLS AND FLOOR MARKS ONLY; everything else at three marks.
+ NO NUMERALS.
 ```
 
 ## B-09 §5. 첫 렌더 검수 6항목 (하나라도 걸리면 문구가 아니라 ref 를 바꾼다 — §5.1 교훈)
