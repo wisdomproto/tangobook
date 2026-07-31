@@ -8,7 +8,7 @@
  * 🔴 영어는 그림 자산이 아직 0장이라, 복습·듣고 고르기 모두 **글자만으로** 도는 형태로 짰다.
  */
 import { ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
-import type { ActivityPlan, ReviewCard } from './korean-phonics-units';
+import type { ActivityPlan, ActivityDef, ReviewCard } from './korean-phonics-units';
 
 export interface EnglishUnitSummary {
   id: string; // 'en-b1-u01'
@@ -369,68 +369,70 @@ function reviewCardsFor(unitId: string): ReviewCard[] {
 }
 
 /**
-/**
- * 영어 복습 plan — **한글과 같은 6종**.
+ * 영어 복습 plan — 한글과 같은 활동군(단어 카드가 붙은 뒤 2종 → 6종으로 늘렸다).
+ * 순서는 듣기와 눈 활동을 번갈아 — 듣기 둘을 붙여 놓으면 한 활동을 두 번 하는 걸로 느낀다.
  *
- * 🔴 예전엔 2종뿐이었다. 「영어는 flashcard 이미지가 0장」이라는 전제로 짠 건데,
- *    2026-07-27 단어 카드 362장이 붙으면서 그 전제가 사라졌다(사용자: "a~f review 너무 뭐가 없는데?").
- *    복습이 심심한 건 활동 가짓수가 아니라 **형식이 같아서**다 — 한글이 이미 푼 문제라 그 구성을 따른다.
- * 🔴 순서는 듣기와 눈 활동을 번갈아 — 듣기 둘을 붙여 놓으면 한 활동을 두 번 하는 걸로 느낀다.
+ * 🔴 **Book 1 에선 「듣고 낱말」을 뺀다**(2026-07-31 사용자: "5번 듣고 낱말도 알파벳 맞추기라 3번이랑 겹쳐").
+ *    Book 1 은 글자가 단위라 「듣고 낱말」(낱말 소리 → 첫 글자)도 화면·과제가 「듣고 글자」(#3)와 똑같이
+ *    "🔊 듣고 알파벳 고르기"가 되고, 학습 「배우기 2」(낱말 듣고 글자)와도 겹친다. #3(낱소리 → 글자)만 남긴다.
+ *    Book 2 는 「듣고 글자」=패턴(`an`) / 「듣고 낱말」=낱말(`can`)+그림이라 서로 다르므로 둘 다 유지(6종).
  */
-function makeEnglishReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
+function makeEnglishReviewPlan(cards: readonly ReviewCard[], isBook1: boolean): ActivityPlan {
   const shared = { required: true, reviewCards: cards, section: 'play' as const };
-  return {
-    activities: [
-      {
-        key: 'letter-hunt',
-        order: 1,
-        kind: 'letter-hunt',
-        title: '글자 사냥',
-        emoji: '🔎',
-        ...shared,
-      },
-      {
-        key: 'review-flip',
-        order: 2,
-        kind: 'review-flip',
-        title: '뒤집기 짝 맞추기',
-        emoji: '🎴',
-        ...shared,
-      },
-      {
-        key: 'review-syllable-listen',
-        order: 3,
-        kind: 'review-syllable-listen',
-        title: '듣고 글자 맞추기',
-        emoji: '🎧',
-        ...shared,
-      },
-      {
-        key: 'review-match',
-        order: 4,
-        kind: 'review-match',
-        title: '그림 짝 찾기',
-        emoji: '🔗',
-        ...shared,
-      },
-      {
-        key: 'review-word-listen',
-        order: 5,
-        kind: 'review-word-listen',
-        title: '듣고 낱말 맞추기',
-        emoji: '🔊',
-        ...shared,
-      },
-      {
-        key: 'review-write',
-        order: 6,
-        kind: 'review-write',
-        title: '글자 쓰기',
-        emoji: '✏️',
-        ...shared,
-      },
-    ],
-  };
+  const all: ActivityDef[] = [
+    {
+      key: 'letter-hunt',
+      order: 0,
+      kind: 'letter-hunt',
+      title: '글자 사냥',
+      emoji: '🔎',
+      ...shared,
+    },
+    {
+      key: 'review-flip',
+      order: 0,
+      kind: 'review-flip',
+      title: '뒤집기 짝 맞추기',
+      emoji: '🎴',
+      ...shared,
+    },
+    {
+      key: 'review-syllable-listen',
+      order: 0,
+      kind: 'review-syllable-listen',
+      title: '듣고 글자 맞추기',
+      emoji: '🎧',
+      ...shared,
+    },
+    {
+      key: 'review-match',
+      order: 0,
+      kind: 'review-match',
+      title: '그림 짝 찾기',
+      emoji: '🔗',
+      ...shared,
+    },
+    {
+      key: 'review-word-listen',
+      order: 0,
+      kind: 'review-word-listen',
+      title: '듣고 낱말 맞추기',
+      emoji: '🔊',
+      ...shared,
+    },
+    {
+      key: 'review-write',
+      order: 0,
+      kind: 'review-write',
+      title: '글자 쓰기',
+      emoji: '✏️',
+      ...shared,
+    },
+  ];
+  const activities = all
+    .filter((a) => !(isBook1 && a.kind === 'review-word-listen'))
+    .map((a, i) => ({ ...a, order: i + 1 }));
+  return { activities };
 }
 
 function englishReviewPlans(): Record<string, ActivityPlan> {
@@ -438,7 +440,7 @@ function englishReviewPlans(): Record<string, ActivityPlan> {
   for (const u of getAllEnglishUnits()) {
     if (!u.isReview) continue;
     const cards = (u.coveredUnitIds ?? []).flatMap(reviewCardsFor).slice(0, MAX_REVIEW_CARDS);
-    if (cards.length) out[u.id] = makeEnglishReviewPlan(cards);
+    if (cards.length) out[u.id] = makeEnglishReviewPlan(cards, u.levelKey === 'book1');
   }
   return out;
 }
