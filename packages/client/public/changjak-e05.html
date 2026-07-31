@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>E-05 치즈에 구멍이 난 진짜 이유 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · E · 웃음·말놀이 · 05</div>
+  <h1>치즈에 구멍이 난 진짜 이유</h1>
+  <div class="sub">구멍이 왜 났는지 다들 알려 주겠대요. 그런데 말할 때마다 치즈가 줄어요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 교환·연쇄</span>
+  <span>무대 · 스위스 치즈창고</span>
+  <span>후렴 · "봐, 이렇게!" / 아삭— (p3·p4·p5·p7·p8·p9 여섯 번 · 🔴 p10 에서 새끼 생쥐는 "봐" 없이 아삭만 하고, p11 에는 아삭이 없다) · 질문 "구멍이 왜 났을까?" 는 p1·p6·p12</span>
+  <span class="q">12스프레드</span>
+  <span class="q">본문 593자 · 쪽당 49자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- 🔴 <b>g03(천둥은 누가 치는 걸까)과 방향을 반대로 잡았다.</b> g03 은 설명하러 온 손님이 제 담요를 <b>놓고 가서 쌓이고</b>, 주인공은 점점 덮인다. e05 는 설명하는 입이 <b>물고 가서 줄어든다</b>. 손님이 어둠에서 나왔다 사라지는 회전문도 안 쓴다 — 큰 생쥐 셋은 p2 부터 끝까지 같은 궤짝 위에 있고, 화면에서 없어지는 것은 인물이 아니라 치즈뿐이다.<br>
+- 🔴 <b>설명 = 흉내 = 무는 자세를 한 몸으로 합쳤다.</b> 파는 시늉은 얼굴째 파고드는 자세라 그 코가 치즈에 박혀 있고, 부는 시늉은 볼이 빵빵해야 하니 이미 한 입 물고 있고, 방울 흉내는 입을 동그랗게 오므린 그 입이 치즈를 물고 있다. 그래서 「설명한다」와 「베어 문다」가 두 순간으로 갈라지지 않는다.<br>
+- 🔴 <b>진짜 이유는 끝까지 안 나온다.</b> 여섯 개 중 맞은 것을 고르지도 않는다. 마지막 질문에 아무도 대답하지 않는 것이 이 책의 끝이다.<br>
+- <b>줄어드는 것을 글이 아니라 빛으로 심었다.</b> 등불은 치즈 뒤에 있다. p1 에는 치즈가 빛을 통째로 막고, p9 부터 구멍으로 빛이 새고, p12 에는 다 통과한다. 아이는 치즈가 얼마나 줄었는지 <b>빛으로</b> 본다.<br>
+- p6 뒤집힘 준비 = 못 안던 치즈를 안게 된다. p10 뒤집힘 = 묻기만 하던 새끼 생쥐가 처음으로 제 이빨을 댄다. 설명하는 쪽이 되는 게 아니라 <b>먹는 쪽</b>이 된다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>치즈 창고에 커다란 치즈가 있어요.
+옆구리에 구멍이 뽕, 뽕, 뽕.
+새끼 생쥐가 코를 대요.
+"구멍이 왜 났을까?"</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 치즈를 옆에서 통째로 보는 측면 구도
+<b>장소·시간</b> 스위스 산골 치즈 저장고 맨 아래 선반 앞. 서늘한 저녁, 창은 없다
+<b>인물</b> 화면 오른쪽 아래 — 새끼 생쥐가 뒷발로 서서 둥근 치즈 옆구리의 구멍 하나에 코끝을 바싹 대고 안을 들여다본다, 두 앞발은 치즈에 얹었다. 치즈는 새끼 생쥐 키의 두 배쯤 되는 수레바퀴꼴이라 안아 볼 엄두가 안 난다
+<b>배경·소품</b> 두꺼운 나무 선반 한 칸 · 그 위 치즈 한 덩이(옆구리에 검은 구멍 셋) · 치즈 <b>뒤쪽</b> 저만치에 작은 등불 하나 · 등불빛이 치즈에 통째로 막혀 선반 위에 커다란 그림자 한 덩이 · 나머지는 어둠
+<b>톤</b> 주황 등불이 치즈 테두리에만 얇게 걸리고, 구멍 속은 새까맣다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>큰 생쥐 셋이 궤짝 위에 서 있어요.
+"그건 쉽지!"
+"우리가 알지!"
+셋이 가슴을 쭉 펴요.
+궤짝이 삐걱 흔들려요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 살짝 로우앵글(궤짝 위 셋이 올려다보이게)
+<b>장소·시간</b> 같은 선반 앞. 방금
+<b>인물</b> 화면 위 왼쪽 — 큰 생쥐 셋이 뒤집힌 나무 궤짝 위에 나란히 서서 저마다 가슴을 앞으로 쭉 내밀고 있다. 첫째는 앞발을 허리에, 둘째는 턱을 치켜들고, 셋째는 꼬리를 빳빳이 세웠다. 화면 아래 오른쪽 — 새끼 생쥐가 치즈에 기댄 채 고개를 젖혀 셋을 올려다본다
+<b>배경·소품</b> 뒤집힌 나무 궤짝 하나 · 선반 위 치즈(아직 통째, 구멍 셋) · 뒤쪽 등불 · 어둠
+<b>톤</b> 등불이 셋의 등 뒤에서 와서 셋은 실루엣에 가깝고, 치즈 쪽만 밝다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>첫째가 얼굴째 치즈에 파고들어요.
+앞발이 벅벅, 벅벅.
+"봐, 이렇게! 벌레가 파고든 거야."
+아삭— 치즈가 한 입 작아져요.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨 · 파고드는 얼굴과 치즈 옆구리가 화면을 채우게
+<b>장소·시간</b> 같은 선반 앞
+<b>인물</b> 화면 가운데 — 첫째 생쥐가 치즈 옆구리에 얼굴을 반쯤 박고 두 앞발로 치즈 표면을 벅벅 긁는 자세, 뒷발은 선반을 딛고 엉덩이가 들렸다. 박힌 입이 치즈를 물고 있어 입가에 노란 부스러기. 화면 왼쪽 끝 — 새끼 생쥐가 두 앞발을 모으고 그 입을 본다
+<b>배경·소품</b> 치즈 위쪽 가장자리에 새로 파인 반달 자국 하나 · 흩어진 노란 부스러기 몇 알 · 뒤쪽 등불 · 어둠
+<b>톤</b> 파인 자국 안쪽만 그늘지고 나머지 치즈는 매끈하게 밝다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>둘째가 볼을 빵빵하게 부풀려요.
+후우— 부는 시늉이에요.
+"봐, 이렇게! 바람이 안에서 부는 거야."
+아삭— 또 한 입 작아져요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 · 부푼 볼이 화면 절반을 차지하게
+<b>장소·시간</b> 같은 선반 앞
+<b>인물</b> 화면 오른쪽 — 둘째 생쥐가 치즈 반대쪽 옆구리에 입을 붙인 채 두 볼을 터질 듯 부풀리고 눈을 꼭 감았다, 두 앞발로 치즈를 감싸 쥐었다. 부푼 볼 안에 든 것이 치즈라 입가가 불룩하다. 화면 왼쪽 아래 — 새끼 생쥐가 고개를 갸웃 기울인다
+<b>배경·소품</b> 치즈 반대쪽 가장자리에 새 반달 자국 · 앞서 파인 자국 하나 · 뒤쪽 등불 · 어둠
+<b>톤</b> 볼 쪽에 빛이 모이고 치즈 뒤편은 어둡다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>셋째가 입을 동그랗게 오므려요.
+"봐, 이렇게! 물방울이 갇힌 거야."
+아삭— 또 한 입.
+치즈가 눈에 띄게 낮아져요.</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 · 살짝 하이앵글(낮아진 치즈 윗면이 보이게)
+<b>장소·시간</b> 같은 선반 앞
+<b>인물</b> 화면 가운데 위 — 셋째 생쥐가 치즈 윗면에 올라앉아 입을 동그랗게 오므린 채 치즈 모서리를 물고 있다, 두 앞발도 동그랗게 마주 모아 방울 모양을 만들어 보인다. 화면 아래 — 새끼 생쥐가 발끝을 들고 윗면을 넘겨다본다
+<b>배경·소품</b> 치즈 윗면 모서리의 새 자국 · 양옆 자국 둘 · 낮아진 치즈 높이 = 새끼 생쥐 키의 한 배 반 · 뒤쪽 등불 · 어둠
+<b>톤</b> 위에서 오는 빛은 없고, 뒤쪽 등불이 치즈 윤곽선만 그린다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>새끼 생쥐가 치즈를 두 팔로 안아 봐요.
+앞발 끝이 톡 닿아요.
+치즈가 반이나 작아졌어요.
+"어? 닿네."
+"구멍이 왜 났을까?"</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · p1 과 같은 자리에서 같은 각도(치즈가 얼마나 작아졌는지 대조되게)
+<b>장소·시간</b> 같은 선반 앞
+<b>인물</b> 화면 오른쪽 — 새끼 생쥐가 치즈를 두 팔로 빙 둘러 껴안은 자세, 반대쪽으로 돌아간 두 앞발 끝이 서로 톡 닿아 있다. 뺨을 치즈에 붙이고 눈은 위로 굴려 궤짝 쪽을 본다
+<b>배경·소품</b> 치즈(구멍 셋 + 파인 자국 셋, 처음 크기의 반) · 궤짝 위 큰 생쥐 셋이 서로 눈짓하는 뒷모습 · 뒤쪽 등불빛이 치즈 옆으로 조금 새어 나오기 시작 · 어둠
+<b>톤</b> 치즈 오른쪽 가장자리에 등불빛이 얇은 선으로 걸린다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>첫째가 이번엔 더 깊이 파고들어요.
+"아니야, 여기야. 봐, 이렇게!"
+아삭—.
+치즈 한쪽이 푹 꺼져요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 클로즈업 · 로우앵글 · 파고든 몸통이 화면을 가로지르게
+<b>장소·시간</b> 같은 선반 앞
+<b>인물</b> 화면 가운데 — 첫째 생쥐가 치즈에 머리와 어깨까지 밀어 넣어 몸 반쪽만 밖에 나와 있고, 뒷발이 허공을 찬다. 화면 오른쪽 아래 — 새끼 생쥐가 앞발 하나를 들어 말리려다 만 자세로 멈춰 있다
+<b>배경·소품</b> 치즈 옆구리가 크게 꺼져 안쪽 결이 드러난 자리 · 발밑에 노란 부스러기 무더기 · 뒤쪽 등불 · 어둠
+<b>톤</b> 꺼진 자리 안쪽이 깊게 그늘지고, 그 그늘 끝에 등불빛 한 점이 비친다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>둘째가 첫째를 옆으로 밀어요.
+후우— 볼이 다시 빵빵해요.
+"거긴 아니지. 봐, 이렇게!"
+아삭—.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 미는 어깨와 물린 입이 한 화면에
+<b>장소·시간</b> 같은 선반 앞
+<b>인물</b> 화면 왼쪽 — 둘째 생쥐가 어깨로 첫째를 옆으로 밀어내면서 그대로 꺼진 자리에 입을 붙여 볼을 빵빵하게 부풀린다. 화면 오른쪽 — 밀려난 첫째가 엉덩방아를 찧고 앉아 입을 벌린다. 화면 앞쪽 아래 — 새끼 생쥐가 두 귀를 뒤로 눕히고 본다
+<b>배경·소품</b> 치즈가 이제 새끼 생쥐 키만 하다 · 구멍 셋이 서로 이어져 큰 구멍 하나가 되기 직전 · 뒤쪽 등불 · 어둠
+<b>톤</b> 치즈 뒤에서 새어 나온 빛이 둘의 등을 갈라 놓는다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>셋째가 둘 사이로 머리를 쑥 넣어요.
+"둘 다 아니야. 봐, 이렇게!"
+아삭—.
+등불빛이 구멍으로 새어 나와요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 · 구멍 뒤에서 오는 빛이 화면 가운데 오게
+<b>장소·시간</b> 같은 선반 앞
+<b>인물</b> 화면 가운데 — 셋째 생쥐가 첫째와 둘째 사이로 머리를 쑥 밀어 넣어 남은 치즈살을 입에 물었다, 두 앞발로 양옆 형들의 어깨를 짚었다. 첫째와 둘째는 양쪽으로 밀려 얼굴만 프레임에 걸린다. 화면 아래 — 새끼 생쥐가 입을 벌린 채 위를 본다
+<b>배경·소품</b> 🔴 치즈 구멍마다 주황빛이 꽉 차 있다(뒤쪽 등불이 처음으로 통과) · 치즈살은 손가락 두 마디 두께 · 부스러기 무더기 · 어둠
+<b>톤</b> 구멍 안쪽이 바깥보다 밝다 — 빛과 어둠이 p1 과 정반대다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>"나도 볼래."
+새끼 생쥐가 처음으로 이빨을 대요.
+아삭—.
+부스러기가 코끝에 붙어요.
+셋이 눈을 동그랗게 떠요.</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 살짝 로우앵글 · 작은 입과 남은 치즈살이 화면 가운데
+<b>장소·시간</b> 같은 선반 앞
+<b>인물</b> 화면 가운데 아래 — 새끼 생쥐가 뒷발로 서서 남은 얇은 치즈살에 이빨을 대고 물고 있다, 두 앞발로 그 조각을 잡았고 눈은 감았다. 화면 위 — 큰 생쥐 셋이 입을 다물고 눈을 동그랗게 뜬 채 아래를 내려다본다
+<b>배경·소품</b> 손톱만큼 남은 마지막 치즈살 · 그 둘레는 이미 뚫린 구멍들 · 구멍 속 주황빛 · 어둠
+<b>톤</b> 등불빛이 뚫린 자리로 쏟아져 새끼 생쥐 얼굴을 아래에서 비춘다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>아삭 소리가 그쳤어요.
+"어…"
+넷이 입을 다물고 봐요.
+치즈가 종잇장처럼 얇아요.
+빛이 그 사이로 지나가요.</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 넷과 남은 것이 한 화면에
+<b>장소·시간</b> 같은 선반 앞. 조금 뒤
+<b>인물</b> 화면 왼쪽에 큰 생쥐 셋이 나란히, 화면 오른쪽에 새끼 생쥐가 — 넷 다 입을 다물고 볼이 불룩한 채 선반 위 한 자리를 본다. 앞발은 다 내려놓았고 움직이는 것이 없다
+<b>배경·소품</b> 종잇장처럼 얇아진 치즈 테두리 · 그 사이로 통과한 빛줄기 · 선반 위 노란 부스러기 · 뒤쪽 등불 · 어둠
+<b>톤</b> 얇은 치즈가 빛을 머금어 반투명하게 노랗고, 넷은 그 빛 앞에서 어둡다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>선반 위에 구멍만 남았어요.
+구멍마다 눈이 하나씩 붙어 있어요.
+"그래서 구멍은 왜 났어?"
+"몰라."
+넷은 우물우물해요.</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · p1 과 같은 자리에서 같은 각도(비율이 뒤집힌 것이 보이게)
+<b>장소·시간</b> 같은 선반 앞. 저녁이 더 깊어진 때
+<b>인물</b> 화면 가운데 — 얇은 구멍 테두리 고리만 남은 자리 뒤에서 생쥐 넷이 구멍마다 눈 하나씩을 붙이고 이쪽을 본다, 볼은 아직 불룩하고 넷 다 입을 우물거린다. 새끼 생쥐 눈은 맨 아래 구멍
+<b>배경·소품</b> 🔴 치즈살은 없고 구멍 테두리만 남은 고리 · 뒤쪽 등불빛이 구멍을 다 통과해 선반 위에 동그란 빛점이 흩어져 있다(p1 의 커다란 그림자 한 덩이가 있던 자리) · 노란 부스러기 · 어둠
+<b>톤</b> p1 에서 검었던 구멍 속이 전부 주황이고, 밝고 어두운 자리가 통째로 뒤바뀌었다</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'e05',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 생쥐(주인공)', '큰 생쥐 셋(첫째·둘째·셋째', '이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb402129f3"></script>
+<script src="/changjak-core.js?v=47fd80bb402129f3"></script>
+</body>
+</html>

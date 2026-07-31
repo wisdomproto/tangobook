@@ -66,6 +66,14 @@
     "pages": 13
   },
   {
+    "file": "changjak-a12.html",
+    "label": "A-12 📗 소원의 대가",
+    "title": "심술쟁이 바람의 사과",
+    "engine": "소원의 대가",
+    "stage": "북해 바닷가 모자 가게 앞",
+    "pages": 14
+  },
+  {
     "file": "changjak-a14.html",
     "label": "A-14 📗 교환·연쇄",
     "title": "인사하는 방법 열두 가지",
@@ -130,6 +138,14 @@
     "pages": 13
   },
   {
+    "file": "changjak-b08.html",
+    "label": "B-08 📗 관찰과 성장",
+    "title": "눈사람이 두고 간 편지",
+    "engine": "관찰과 성장",
+    "stage": "동유럽 눈마을 — 집 마당의 나무 울타리 귀퉁이 한 자리",
+    "pages": 13
+  },
+  {
     "file": "changjak-b09.html",
     "label": "B-09 📗 오해와 반전",
     "title": "시계 속에서 온 손님",
@@ -178,6 +194,22 @@
     "pages": 12
   },
   {
+    "file": "changjak-c03.html",
+    "label": "C-03 📗 교환·연쇄",
+    "title": "도토리 은행",
+    "engine": "교환·연쇄",
+    "stage": "독일 참나무숲",
+    "pages": 13
+  },
+  {
+    "file": "changjak-c04.html",
+    "label": "C-04 📗 누적·반복",
+    "title": "늦잠 자는 봄",
+    "engine": "누적·반복",
+    "stage": "동유럽 들판",
+    "pages": 12
+  },
+  {
     "file": "changjak-c06.html",
     "label": "C-06 📗 여정과 귀환",
     "title": "철새의 이름표",
@@ -223,6 +255,14 @@
     "title": "우리 무리가 아니야",
     "engine": "오해와 반전",
     "stage": "웨일스 양치기 언덕",
+    "pages": 12
+  },
+  {
+    "file": "changjak-d01.html",
+    "label": "D-01 📗 여정과 귀환",
+    "title": "산 너머엔 뭐가 있어?",
+    "engine": "여정과 귀환",
+    "stage": "알프스 산마을 위 능선 꼭대기 (돌무더기 하나가 선 평평한 한 자리 — 카메라가 이 꼭대기를 벗어나지 않는다. 오르는 길은 한 번도 안 나오고, 마을은 p11·p12 배경에만 들어온다)",
     "pages": 12
   },
   {
@@ -314,6 +354,14 @@
     "pages": 13
   },
   {
+    "file": "changjak-e05.html",
+    "label": "E-05 📗 교환·연쇄",
+    "title": "치즈에 구멍이 난 진짜 이유",
+    "engine": "교환·연쇄",
+    "stage": "스위스 치즈창고",
+    "pages": 12
+  },
+  {
     "file": "changjak-e07.html",
     "label": "E-07 📗 누적·반복",
     "title": "줄줄이 소시지",
@@ -370,6 +418,14 @@
     "pages": 14
   },
   {
+    "file": "changjak-f05.html",
+    "label": "F-05 📗 누적·반복",
+    "title": "아빠가 만든 이상한 저녁",
+    "engine": "누적·반복",
+    "stage": "이탈리아 부엌",
+    "pages": 14
+  },
+  {
     "file": "changjak-f06.html",
     "label": "F-06 📗 여정과 귀환",
     "title": "잠은 어디서 오나",
@@ -408,6 +464,14 @@
     "engine": "교환·연쇄",
     "stage": "알프스 산장",
     "pages": 12
+  },
+  {
+    "file": "changjak-g04.html",
+    "label": "G-04 📗 여정과 귀환",
+    "title": "처음 가는 길",
+    "engine": "여정과 귀환",
+    "stage": "프랑스 시골길 — 흙길이 한 번 굽는 굽이 하나",
+    "pages": 14
   },
   {
     "file": "changjak-g08.html",

@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>D-01 산 너머엔 뭐가 있어? — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · D · 모험·여정 · 01</div>
+  <h1>산 너머엔 뭐가 있어?</h1>
+  <div class="sub">산꼭대기에 올라섰어요. 산 너머엔 뭐가 있을까요?</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 여정과 귀환</span>
+  <span>무대 · 알프스 산마을 위 능선 꼭대기 (돌무더기 하나가 선 평평한 한 자리 — 카메라가 이 꼭대기를 벗어나지 않는다. 오르는 길은 한 번도 안 나오고, 마을은 p11·p12 배경에만 들어온다)</span>
+  <span>후렴 · "산 너머엔 뭐가 있어?" / "…또 산이야." (p2·p4·p7 세 번 · 🔴 p1 은 묻기만 하고 답이 없다 · p11~p12 에서 같은 질문에 답이 "…우리 집이야." 로 바뀐다)</span>
+  <span class="q">12스프레드</span>
+  <span class="q">본문 526자 · 쪽당 44자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- 🔴 <b>여정과 귀환인데 장소가 하나</b> — 해법은 a02 의 「광장 한 바퀴」와 같은 자리에서 찾았다. 여기서는 <b>돌무더기 한 바퀴</b>다. 오르는 과정을 한 쪽도 안 그리고, 카메라는 평평한 꼭대기 한 자리를 안 벗어난다. 움직이는 것은 <b>염소가 서는 가장자리</b>뿐이고, 그때마다 화면 밖 사방이 통째로 달라진다.<br>
+- 🔴 <b>추론 없음.</b> 아이가 풀어야 할 것이 하나도 없다. 염소는 세 쪽에서 보고, 한 쪽을 안 봤다는 것을 제 입으로 말하고(p10), 돌아본다. 「저 산 너머에도 또 산이 있겠지」 같은 짐작을 시키지 않는다 — 매번 <b>눈앞에 그 산이 있다</b>.<br>
+- ⚠️ <b>「우리 마을이 제일 예쁘다」를 아무도 말하지 않는다.</b> 예쁘다·좋다·최고 같은 말이 본문에 한 번도 없다. 마지막 두 쪽은 <b>지붕에 볕이 들고 굴뚝 연기가 곧게 올라가는 것</b>만 그린다. 그림이 하는 일을 글이 가로채면 교훈이 된다.<br>
+- <b>b19(산이 걸어온다)와의 분리</b> — 그쪽도 알프스이고 「산이 가까워 보인다」가 사건이라 정면으로 부딪힌다. 그래서 여기엔 <b>착시가 한 줄도 없다.</b> b19 는 그늘 경계와 흰 돌 세 개를 <b>세는</b> 책이고 카메라가 산을 계속 마주 본다. 이 책은 세는 것이 없고, 카메라가 <b>사방으로 등을 돌리는</b> 책이다. 무대도 b19 는 마을 끝 울타리 옆(산 아래), 여기는 능선 꼭대기(산 위)다. 짐승도 마멋 ↔ 염소로 갈랐다.<br>
+- <b>c02(알프스 목초지·소와 개)와도</b> 무대 성격이 다르다 — 그쪽은 안개 속 풀밭의 길, 여기는 아무것도 가리지 않는 맑은 꼭대기다.<br>
+- <b>의인화 등급 = 사족 + 방울 하나.</b> 옷도 두 발 서기도 없다. 염소는 네 발로 걷고 물건은 입으로 문다(p9).<br>
+- 까마귀는 <b>한 마디도 말이 아닌 소리("까악")만</b> 낸다. 안내도 설명도 하지 않고 돌만 옮겨 앉는다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>염소가 마지막 돌을 폴짝 밟고 능선 꼭대기에 올라섰어요.
+숨이 하얗게 나와요.
+"산 너머엔 뭐가 있어?"</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 로우앵글(꼭대기 바닥 높이에서 올려다본다) — 하늘이 화면의 3분의 2
+<b>장소·시간</b> 알프스 마을 위 능선 꼭대기. 돌무더기 하나가 선 평평한 자리. 해가 막 높아진 늦은 아침, 공기가 차서 숨이 하얗다
+<b>인물</b> 화면 왼쪽 아래 — 새끼 염소가 네 발로 마지막 바위를 딛고 막 올라선 자세, 뒷발 하나는 아직 아래 바위 위에 있고 앞발 둘은 꼭대기 흙을 밟았다. 고개를 들어 화면 오른쪽 바깥을 본다. 옷은 없고 목에 놋쇠 방울 하나 · 화면 오른쪽 — 돌무더기 꼭대기 돌에 까마귀 한 마리가 등을 보이고 앉아 바깥을 본다
+<b>배경·소품</b> 염소 키의 두 배쯤 되는 돌무더기 하나 · 바람에 한쪽으로 누운 마른 풀 · 돌 틈에 남은 눈 한 조각. 그 밖엔 하늘만. 🔴 마을은 화면 밖(카메라 뒤쪽)이다
+<b>톤</b> 높은 데의 맑고 찬 빛. 하늘은 옅게 비우고, 염소의 앞발과 방울만 마감을 올린다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>염소가 저쪽 끝에 앞발을 짚고 목을 쭈욱 뺐어요.
+"산 너머엔 뭐가 있어?"
+"…또 산이야."</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 어깨너머(염소의 등 뒤 낮은 곳에서 염소가 보는 쪽을 같이 본다)
+<b>장소·시간</b> 같은 꼭대기, 같은 아침. 북쪽 가장자리
+<b>인물</b> 화면 아래 앞쪽 — 새끼 염소가 가장자리 바위에 앞발 두 개를 짚고 목을 앞으로 길게 뺐다, 뒷다리는 뒤로 곧게 뻗어 몸이 길어졌다. 귀가 앞으로 쫑긋 섰다
+<b>배경·소품</b> 발밑에서 뚝 떨어지는 골짜기 하나 · 그 건너에 똑같은 높이의 산 하나가 정면으로 서 있다 · 가장자리 바위 · 마른 풀 몇 포기. 그 외 비운다
+<b>톤</b> 골짜기는 푸른 회색 그늘, 건너 산은 볕을 받아 밝게. 화면에서 가장 또렷한 것은 뻗은 목의 선이다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>까마귀 한 마리가 돌 하나를 건너 폴짝 옮겨 앉았어요.
+"까악!"
+염소가 그쪽으로 고개를 들었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 로우앵글(마른 풀 사이에서 돌무더기를 올려다본다)
+<b>장소·시간</b> 같은 꼭대기, 바로 다음 순간
+<b>인물</b> 화면 위쪽 — 까마귀가 돌무더기의 한 돌에서 옆 돌로 막 내려앉는 자세, 두 날개를 반쯤 펼치고 발가락이 돌을 딛는 중이다, 부리를 벌려 운다 · 화면 아래 오른쪽 — 새끼 염소가 네 발로 선 채 고개만 위로 들어 까마귀를 본다, 방울이 턱 아래에서 앞으로 쏠렸다
+<b>배경·소품</b> 돌무더기의 돌 서너 개(마감 반) · 하늘 · 마른 풀 끝. 그 외 비운다
+<b>톤</b> 검은 새와 회색 돌만 세우고 나머지는 매체 그대로. 하늘은 흰 여백에 가깝게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>염소가 하얀 쪽 가장자리에 앞발을 딱 붙였어요.
+"산 너머엔 뭐가 있어?"
+"…또 산이야. 저 산은 하얘!"</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 와이드 · 사이드 컷(염소를 옆에서 보고, 그 앞으로 화면이 트인다)
+<b>장소·시간</b> 같은 꼭대기, 조금 뒤. 서쪽 가장자리
+<b>인물</b> 화면 왼쪽 — 새끼 염소가 서쪽 가장자리에 앞발 두 개를 딱 붙이고 서서 입을 벌려 외친다, 꼬리가 위로 바짝 섰다. 네 발로 선 자세
+<b>배경·소품</b> 화면 오른쪽 멀리 — 눈을 덮어쓴 하얀 산 하나가 화면 밖으로 이어진다 · 그 앞에 낮은 능선 하나 · 발밑 마른 풀. 그 외 비운다. 🔴 마을은 여전히 화면 밖이다
+<b>톤</b> 흰 산이 화면에서 가장 밝고, 염소가 선 꼭대기는 누런 마른 풀빛. 두 색만으로 화면을 나눈다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>휘잉— 바람이 등을 밀었어요.
+염소가 네 다리를 딱 벌리고 버텼어요.
+"안 넘어져!"</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨(염소 눈높이, 카메라가 지면에 가깝게)
+<b>장소·시간</b> 같은 꼭대기, 바람이 한 번 크게 지나가는 순간
+<b>인물</b> 화면 가운데 — 새끼 염소가 네 다리를 넓게 벌리고 발굽으로 흙을 눌러 버틴다, 몸의 털과 귀가 전부 한쪽으로 눕고 턱을 당겼다. 목의 방울이 옆으로 튀어 올라 있다
+<b>배경·소품</b> 한 방향으로 통째로 누운 마른 풀 · 돌무더기 아랫돌 하나. 그 외 비운다
+<b>톤</b> 바람의 방향을 화면의 모든 획으로 통일한다. 염소의 벌린 네 다리만 그 방향을 거스른다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>까마귀가 또 폴짝, 반대쪽 돌로 옮겨 앉았어요.
+"까악, 까악."
+염소가 그쪽으로 고개를 돌리자 방울이 딸랑 흔들렸어요.</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 · 하이앵글(돌무더기 위쪽에서 비스듬히 내려다본다)
+<b>장소·시간</b> 같은 꼭대기, 조금 뒤. 바람이 잦아들었다
+<b>인물</b> 화면 위 왼쪽 — 까마귀가 돌무더기 동쪽 돌에 발을 모으고 앉아 부리를 벌린다, 꽁지가 아래로 처졌다 · 화면 아래 오른쪽 — 새끼 염소가 네 발은 그대로 두고 고개만 왼쪽으로 돌린 자세, 목의 놋쇠 방울이 목 옆으로 밀려 흔들리는 중이다
+<b>배경·소품</b> 돌무더기 · 놋쇠 방울(마감 반) · 마른 풀. 그 외 비운다
+<b>톤</b> 방울의 노란빛이 화면에서 유일하게 따뜻한 점이 되게. 나머지는 회색과 누런빛</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>염소가 그쪽 끝에서 목을 길게 뺐어요.
+"산 너머엔 뭐가 있어?"
+"…또 산이야. 산이 몇 개야!"</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 와이드 · 아이레벨(염소를 화면 왼쪽 끝에 작게 두고 오른쪽을 통째로 연다)
+<b>장소·시간</b> 같은 꼭대기, 조금 뒤. 동쪽 가장자리
+<b>인물</b> 화면 왼쪽 끝 아래 — 새끼 염소가 동쪽 가장자리에 서서 목을 앞으로 길게 뺀다, 앞발 하나가 바위 끝에 반쯤 걸쳐 있다. 작게 그리되 윤곽은 또렷하게
+<b>배경·소품</b> 화면 오른쪽 전부 — 산 능선이 겹겹이 뒤로 물러나며 옅어진다(세 겹 이상) · 가장자리 바위 하나. 그 외 비운다
+<b>톤</b> 뒤로 갈수록 푸른 회색이 옅어지는 겹으로만 깊이를 만든다. 하늘과 산의 경계는 흐리게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>염소가 돌무더기 옆에 털썩 주저앉았어요.
+발굽에 마른 풀이 잔뜩 묻었어요.
+"다리 아파."</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 사이드 컷
+<b>장소·시간</b> 같은 꼭대기, 해가 높아진 낮
+<b>인물</b> 화면 가운데 — 새끼 염소가 앞다리를 접고 뒷다리를 옆으로 흘려 주저앉은 자세, 고개를 숙여 제 앞발을 본다, 귀가 옆으로 처졌다 · 화면 오른쪽 위 돌무더기 꼭대기에 까마귀가 등을 보이고 앉아 있다
+<b>배경·소품</b> 돌무더기 아랫부분 · 염소 발굽에 낀 마른 풀 몇 가닥(마감 반) · 흙바닥. 그 외 비운다
+<b>톤</b> 낮의 높은 빛이라 그림자가 짧고 바로 아래에 고인다. 화면 전체를 조용하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>염소가 발밑의 납작한 돌을 하나 콕 물었어요.
+돌무더기 꼭대기에 톡 얹었어요.
+돌무더기가 한 뼘 높아졌어요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 클로즈업 · 로우앵글(돌무더기 꼭대기를 올려다본다)
+<b>장소·시간</b> 같은 꼭대기, 바로 다음 순간
+<b>인물</b> 화면 아래 — 새끼 염소가 앞발을 아랫돌에 걸치고 목을 위로 뻗어, 입에 문 납작한 돌을 꼭대기에 막 내려놓는 순간. 입술이 벌어지고 돌이 돌무더기 면에 닿아 있다
+<b>배경·소품</b> 돌무더기 꼭대기 돌 서너 개 · 방금 얹는 납작한 돌 하나(마감 최고) · 하늘. 까마귀는 이 쪽에 없다
+<b>톤</b> 얹히는 돌 하나에만 마감을 몰아준다. 하늘은 비운다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>염소가 돌무더기 꼭대기에 앞발을 올리고 목을 세웠어요.
+"저기도 산, 저기도 산, 저기도 산…"
+"어? 그럼 뒤는?"</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 · 로우앵글(아래에서 올려다봐 염소가 꼭대기 위로 솟아 보이게)
+<b>장소·시간</b> 같은 꼭대기, 같은 낮
+<b>인물</b> 화면 가운데 — 새끼 염소가 앞발 두 개를 돌무더기 중턱에 올리고 목을 위로 곧게 세운 자세, 눈이 크게 열리고 귀 한쪽이 뒤로 젖혀졌다. 뒷발은 땅을 딛은 채다 · 까마귀는 돌무더기 꼭대기에서 염소를 내려다본다
+<b>배경·소품</b> 돌무더기 · 세 방향 멀리 산 능선이 화면 양 끝에 조금씩 걸린다 · 마른 풀. 그 외 비운다
+<b>톤</b> 이 쪽의 명제는 「한 쪽을 아직 안 봤다」다. 화면 양 끝의 산은 흐리게 죽이고 젖혀진 귀와 세운 목만 마감을 올린다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>염소가 몸을 돌려 올라온 쪽을 보고 섰어요.
+저 아래 골짜기에 조그만 지붕들이 모여 있어요.
+"산 너머엔—"</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 🔴 와이드 · 어깨너머 — <b>이 책에서 처음으로 카메라가 반대쪽을 향한다.</b> 앞쪽 열 쪽이 내내 등지고 있던 방향이다
+<b>장소·시간</b> 같은 꼭대기, 같은 낮. 마을 쪽 가장자리
+<b>인물</b> 화면 아래 앞쪽 — 새끼 염소가 몸이 반쯤 돌아간 채 멈춘 자세, 뒷다리는 아직 산 쪽을 향하고 앞몸과 고개만 아래쪽 골짜기를 향한다. 목의 방울이 아직 뒤로 흔들린 채 · 화면 왼쪽 위 돌무더기 — 까마귀가 처음으로 마을 쪽 돌에 앉아 있다
+<b>배경·소품</b> 발밑에서 아래로 내려가는 비탈 · 골짜기 바닥에 손톱만 한 지붕 여남은 채가 붉은 갈색으로 모여 있다 · 그 사이로 흰 길 하나. 🔴 붉은 갈색은 이 책에서 여기 처음 나온다
+<b>톤</b> 위쪽 꼭대기는 찬 회색, 아래 골짜기만 따뜻하게. 두 온도를 화면 가운데에서 나눈다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>염소가 그쪽을 보고 다리를 접고 앉았어요.
+지붕마다 볕이 들고 굴뚝 연기가 곧게 올라가요.
+"…우리 집이야."</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 와이드 · 어깨너머 — 🔴 p11 과 같은 방향, 카메라만 한 걸음 뒤로 물러난다
+<b>장소·시간</b> 같은 꼭대기, 조금 뒤. 바람이 멎어 연기가 곧게 선다
+<b>인물</b> 화면 아래 가운데 — 새끼 염소가 마을 쪽을 향해 앞다리를 접고 앉은 자세, 몸이 이제 완전히 그쪽으로 돌아갔다. 고개를 조금 숙이고 귀는 편하게 옆으로 · 화면 왼쪽 — 까마귀도 마을 쪽 돌에 앉아 같은 데를 본다. 둘 다 뒷모습이다
+<b>배경·소품</b> 골짜기 바닥의 붉은 갈색 지붕 여남은 채 · 지붕마다 든 볕 · 굴뚝 하나에서 곧게 오르는 흰 연기 한 줄 · 돌무더기 모서리 · 마른 풀. 산은 화면 뒤로 넘어가 안 보인다
+<b>톤</b> 화면에서 가장 밝고 따뜻한 것이 골짜기 아래 지붕들이 되게. 꼭대기와 두 뒷모습은 실루엣에 가깝게 낮춘다</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'd01',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 염소(이름 없음)', '까마귀 한 마리(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb402129f3"></script>
+<script src="/changjak-core.js?v=47fd80bb402129f3"></script>
+</body>
+</html>

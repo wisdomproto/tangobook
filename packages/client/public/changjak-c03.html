@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>C-03 도토리 은행 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · C · 자연·계절·동물 · 03</div>
+  <h1>도토리 은행</h1>
+  <div class="sub">맡긴 도토리를 찾으러 오면 늘 다른 게 나와요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 교환·연쇄</span>
+  <span>무대 · 독일 참나무숲</span>
+  <span>후렴 · "여기요!" / "…이건 내 게 아닌데." (p4·p6·p9 세 번 · 늘 앞발이 구멍에서 쑥 나오는 자리에서 · 🔴 p11 에서 "찾았어! 여기도, 여기도— 전부 다!" 로 뒤집힌다)</span>
+  <span class="q">13스프레드</span>
+  <span class="q">본문 628자 · 쪽당 48자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- <b>은행을 설명하지 않는다.</b> '은행'·'맡아 주기'·'이자' 같은 말은 본문에 한 번도 안 나온다. 아이가 보는 건 <b>밑동 구멍 하나</b>뿐이고, 규칙은 p1 대사 한 마디로 끝난다 — "여기 맡기면 안 잃어버려!" 외울 설정이 없다.<br>
+- <b>사슬을 안 만든다</b>(a03 이 연 방식). 교환은 늘 <b>같은 구멍 앞에서 둘을 맞바꾸는 것</b>이고, 자리가 안 바뀌니 무대도 안 바뀐다. 쌓이는 건 사슬이 아니라 <b>흙 속에 묻힌 개수</b>다.<br>
+- <b>겨울은 p10 한 쪽이 통째로 맡는다.</b> 계절이 넘어가는 것은 두 순간이라, 눈 쌓인 밑동과 잠든 다람쥐 한 자세만 그리고 다음 쪽에서 눈이 녹아 있다. 글에 「겨울이 지나고」 같은 이음말을 안 쓴다.<br>
+- <b>추론이 없다</b> — 싹이 도토리에서 왔다는 걸 아이가 짐작할 필요가 없다. p12 에서 흙이 들리며 뿌리 끝의 <b>갈라진 도토리 껍질이 그대로 보인다</b>.<br>
+- 장소는 참나무 밑동 한 자리. 카메라가 밑동 둘레를 안 벗어난다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>참나무 밑동에 구멍이 하나 있어요.
+다람쥐가 앞발로 구멍 속을 쓱쓱 쓸어 내요.
+"여기 맡기면 안 잃어버려!"</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 미디엄 · 구멍과 눈높이를 맞춘 아이레벨 정면
+<b>장소·시간</b> 커다란 참나무 밑동. 어른 무릎 높이에 주먹만 한 둥근 구멍이 하나 뚫려 있다. 가을 아침, 볕이 아직 낮다
+<b>인물</b> 화면 가운데 왼쪽 — 붉은 다람쥐가 뒷발로 흙을 딛고 서서 오른 앞발을 구멍 안으로 팔꿈치까지 넣고 있다. 몸은 구멍 쪽으로 기울고 꼬리는 뒤로 크게 부풀어 균형을 잡는다. 고개만 정면으로 돌려 눈을 반짝 뜨고 입을 벌린 채 말한다. 옷은 입지 않았고 네발짐승 그대로, 앞발만 손처럼 쓴다
+<b>배경·소품</b> 밑동의 세로로 갈라진 껍질 결 · 구멍 아래 흙바닥에 마른 참나무 잎 서너 장. 그 밖의 나무와 숲은 그리지 않고 종이 색으로 비운다
+<b>톤</b> 낮은 가을 아침 빛이 구멍 입구에만 옅게 닿아 안쪽이 까맣게 깊어 보이게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>아기 멧돼지가 코를 대고 도토리 셋을 구멍에 쏙쏙 밀어 넣어요.
+줄무늬 등이 들썩들썩해요.
+"이거, 맡길게."</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 살짝 옆에서 본 아이레벨(구멍이 화면 오른쪽, 멧돼지 옆모습이 왼쪽)
+<b>장소·시간</b> 같은 참나무 밑동, 같은 아침
+<b>인물</b> 화면 왼쪽 앞 — 아기 멧돼지가 네발로 서서 코끝을 구멍 아래턱에 바짝 붙이고 도토리를 밀어 넣는 중이다. 등의 연한 줄무늬가 힘을 주느라 위로 솟고 뒷다리가 뻗어 있다. 눈은 도토리를 내려다본다. 화면 오른쪽 구멍 위 — 다람쥐가 구멍 가장자리를 두 앞발로 붙잡고 위에서 몸을 숙여 들여다본다
+<b>배경·소품</b> 구멍 턱에 걸린 도토리 한 알(깍정이가 붙어 있다) · 멧돼지 앞발 옆에 아직 안 민 도토리 두 알
+<b>톤</b> 같은 아침 빛. 도토리 갈색과 나무 갈색이 한 가족처럼 붙어 보이게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>다람쥐가 밑동 둘레 흙을 앞발로 톡톡 덮어요.
+도토리 셋이 흙 속에서 반쯤 보이고, 파낸 흙은 옆에 소복해요.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 클로즈업 · 위에서 비스듬히 내려다보는 하이앵글(땅바닥이 화면의 대부분)
+<b>장소·시간</b> 참나무 밑동 바로 옆 흙바닥. 아침 볕이 조금 높아졌다
+<b>인물</b> 화면 위쪽 — 다람쥐가 네발로 웅크리고 두 앞발을 나란히 모아 흙을 덮어 누르는 자세. 얼굴은 흙을 향해 숙였고 꼬리는 뒤에서 아치를 그린다. 코끝에 흙가루가 조금 묻어 있다
+<b>배경·소품</b> 🔴 얕게 판 흙자리에 도토리 셋이 나란히 눕고 위쪽 절반이 아직 드러나 있다(이 세 알이 마지막 쪽까지 이어진다) · 그 왼쪽에 파낸 흙 한 무더기 · 흙에 박힌 뾰족한 회색 돌 하나(자리 표시) · 마른 잎 두 장
+<b>톤</b> 흙 갈색 위에 도토리 갈색. 화면에서 가장 또렷하게 마감되는 것은 도토리 셋</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>며칠 뒤, 앞발이 구멍에서 쑥 나와요.
+앞발 위엔 이끼 붙은 도토리 한 알.
+"여기요!"
+"…이건 내 게 아닌데."</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 정면(구멍과 앞발이 화면 가운데)
+<b>장소·시간</b> 같은 밑동, 며칠 지난 늦은 오후
+<b>인물</b> 화면 가운데 — 구멍에서 다람쥐의 앞발 하나가 손바닥을 위로 편 채 불쑥 나와 도토리 한 알을 받쳐 들고 있다. 구멍 안쪽 어둠에 다람쥐의 두 눈과 벌린 입이 희미하게 보인다. 화면 오른쪽 아래 — 아기 멧돼지가 앞발을 모으고 앉아 코를 내밀어 도토리에 가까이 대고, 눈썹 자리를 찡그리며 고개를 한쪽으로 갸웃한다
+<b>배경·소품</b> 도토리 옆구리에 붙은 초록 아닌 회녹색 이끼 한 조각(남의 것이라는 표) · 구멍 아래 흙에 멧돼지 앞발자국 두 개
+<b>톤</b> 오후 볕이 옆에서 들어와 앞발과 도토리에만 닿고 구멍 안은 어둡게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>다람쥐가 밑동 둘레를 코부터 박고 헤집어요.
+낙엽이 훌훌 날리고 코끝이 흙투성이예요.
+"어디 묻었더라?"</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 · 땅에 카메라를 붙인 로우앵글(다람쥐 얼굴이 렌즈 쪽으로 온다)
+<b>장소·시간</b> 밑동 둘레 흙바닥. 같은 오후
+<b>인물</b> 화면 가운데 — 다람쥐가 앞발 두 개로 흙을 뒤로 차내며 코와 이마를 흙에 박고 있다. 엉덩이는 높고 꼬리는 곧추섰다. 눈은 반쯤 감겼고 코끝·이마·수염에 흙이 잔뜩 묻었다. 입은 말하느라 벌어져 있다
+<b>배경·소품</b> 뒤로 튀는 흙알갱이 몇 · 공중에 뜬 마른 참나무 잎 세 장 · 화면 구석에 p3 의 뾰족한 회색 돌(다람쥐는 그걸 안 보고 있다)
+<b>톤</b> 주황빛 낙엽과 흙먼지. 배경은 흙색 워시로만</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>또 앞발이 쑥 나와요.
+이번엔 아주 통통한 도토리 한 알이에요.
+"여기요!"
+"…이건 내 게 아닌데."</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 클로즈업 · p4 와 똑같은 정면 구도(후렴이라 구도를 반복한다)
+<b>장소·시간</b> 같은 밑동. 볕이 조금 더 기운 오후
+<b>인물</b> 화면 가운데 — 구멍에서 나온 다람쥐의 앞발이 이번엔 눈에 띄게 큰 도토리를 받쳐 들고 있다. 구멍 안 두 눈이 자신만만하게 반달로 휘었다. 화면 오른쪽 아래 — 멧돼지가 앞발 하나를 살짝 든 채 도토리 쪽으로 목을 빼고, 입은 삐죽 나왔다
+<b>배경·소품</b> 도토리 하나뿐(p4 의 이끼는 없고 대신 매끈하고 굵다) · 구멍 아래 흙에 늘어난 앞발자국
+<b>톤</b> p4 보다 한 뼘 낮아진 볕. 앞발과 도토리만 마감</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>멧돼지가 그걸 받아 아그작 깨물어요.
+볼이 불룩하고 코끝엔 부스러기가 묻어요.
+"그래도 맛있다!"</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 옆모습 아이레벨
+<b>장소·시간</b> 구멍 아래 흙바닥. 같은 오후
+<b>인물</b> 화면 가운데 — 아기 멧돼지가 앉아서 앞발 두 개로 통통한 도토리를 잡고 옆니로 깨문다. 한쪽 볼이 불룩 부풀고 눈은 기분 좋게 감겼다. 코끝과 입가에 노란 부스러기. 화면 왼쪽 위 구멍에서 다람쥐가 얼굴만 내밀고 그 소리를 듣고 있다
+<b>배경·소품</b> 발밑에 떨어진 도토리 껍질 조각 두어 개 · 밑동 껍질 결
+<b>톤</b> 따뜻한 오후 빛. 부스러기의 노랑이 화면에서 유일하게 밝은 점</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>발밑에 새 도토리가 우수수 떨어져 있어요.
+멧돼지가 그걸 코로 모아 구멍에 밀어 넣어요.
+"이것도 맡길게!"</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 · 살짝 높은 아이레벨(땅과 구멍이 같이 보이게)
+<b>장소·시간</b> 같은 밑동. 가을이 깊어 잎이 많이 진 날, 흐린 낮
+<b>인물</b> 화면 가운데 아래 — 멧돼지가 코를 땅에 붙인 채 도토리들을 한 줄로 밀어 모으고 있다. 앞다리는 벌리고 어깨에 힘이 들어갔다. 눈은 도토리 줄을 따라간다. 화면 위 구멍 가장자리 — 다람쥐가 두 앞발을 턱 밑에 모으고 내려다본다
+<b>배경·소품</b> 흙 위에 흩어진 도토리 예닐곱 알(반복해 찍은 듯 같은 모양) · 마른 잎이 땅을 반쯤 덮었다 · 구멍 턱에 이미 올라간 도토리 두 알
+<b>톤</b> 흐린 날의 고른 빛. 갈색만으로 채운 화면</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>앞발이 또 쑥.
+이번엔 쪼그맣고 쭈글쭈글한 도토리 한 알이에요.
+"여기요!"
+"…이것도 내 게 아닌데."</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 클로즈업 · p4·p6 과 똑같은 정면 구도(세 번째 반복)
+<b>장소·시간</b> 같은 밑동. 해가 짧아진 늦은 오후
+<b>인물</b> 화면 가운데 — 구멍에서 나온 앞발 위에 아주 작고 쭈글쭈글한 도토리 한 알이 놓여 있다. 앞발이 살짝 흔들리듯 기울고, 구멍 안 두 눈은 눈꺼풀이 처져 겸연쩍다. 화면 오른쪽 아래 — 멧돼지가 코를 도토리에 거의 붙이고 눈을 크게 뜬 채 입을 다물고 있다
+<b>배경·소품</b> 도토리 한 알 · 흙바닥에 마른 잎. 그 외 비운다
+<b>톤</b> 붉게 낮아진 볕. 앞발 위 도토리만 또렷하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>밑동 앞까지 눈이 소복소복 쌓여요.
+구멍 앞엔 발자국 하나 없어요.
+다람쥐는 구멍 속에서 꼬리를 얼굴까지 감고 눈을 감아요.</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 정면(p1 과 같은 자리에서 본 밑동)
+<b>장소·시간</b> 같은 참나무 밑동. 눈 오는 한낮, 소리가 없는 시간
+<b>인물</b> 화면 가운데 구멍 안 — 다람쥐가 몸을 동그랗게 말고 꼬리를 얼굴 위까지 끌어 덮은 채 눈을 감고 있다. 코끝만 꼬리 밖으로 나와 있다. 다른 인물은 없다
+<b>배경·소품</b> 구멍 아래턱까지 차오른 눈 · 밑동 껍질 결마다 얹힌 흰 눈 줄 · 흙바닥은 전부 눈에 덮여 발자국 하나 없다 · p3 의 뾰족한 돌 꼭대기만 눈 위로 조금 나와 있다
+<b>톤</b> 푸른 기 도는 흰빛. 화면에서 갈색이 남은 곳은 구멍 안쪽뿐</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>눈이 녹은 밑동 둘레에 뾰족한 초록 싹들이 쏙쏙 올라와 있어요.
+다람쥐가 앞발로 싹을 하나하나 짚어요.
+"찾았어! 여기도, 여기도— 전부 다!"</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 · p3 과 같은 하이앵글(그때 흙을 덮던 그 자리를 다시 내려다본다)
+<b>장소·시간</b> 젖은 흙이 드러난 밑동 둘레. 봄 아침, 공기가 맑다
+<b>인물</b> 화면 가운데 — 다람쥐가 뒷발로 서서 한 앞발을 쭉 뻗어 싹 하나를 짚고, 다른 앞발은 옆 싹을 가리킨다. 고개를 들고 입을 크게 벌려 외친다. 꼬리는 뒤로 시원하게 펴졌다
+<b>배경·소품</b> 🔴 흙에서 올라온 뾰족한 초록 싹 — p3 에서 도토리 셋을 묻은 자리에 셋이 나란히, 그 둘레에 다섯쯤 더 · 각 싹은 두 장의 어린 잎이 아직 반쯤 접혀 있다 · 뾰족한 회색 돌은 싹들 사이에 그대로 · 녹다 남은 눈 한 조각
+<b>톤</b> 봄 아침의 맑은 빛. 🔴 이 권에서 초록이 처음 나오는 쪽이라 싹만 진하게 마감하고 흙은 워시로</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>멧돼지가 싹 하나를 입에 물고 끙— 당겨요.
+흙이 조금 들리고, 그 아래 반으로 갈라진 도토리가 보여요.
+"안 빠져!"</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 클로즈업 · 땅에 붙인 로우앵글(뿌리 쪽이 화면 가운데로 오게)
+<b>장소·시간</b> 같은 흙자리. 같은 봄 아침
+<b>인물</b> 화면 가운데 — 아기 멧돼지가 싹의 줄기를 입에 물고 뒷다리로 버티며 뒤로 당긴다. 목에 힘이 들어가 주름이 잡히고 앞다리는 뻗대며 흙을 판다. 눈은 질끈 감았다. 화면 오른쪽 — 다람쥐가 앞발을 든 채 놀란 눈으로 본다
+<b>배경·소품</b> 🔴 살짝 들린 흙 아래로 흰 뿌리가 보이고 그 끝에 반으로 갈라진 도토리 껍질이 매달려 있다(이 쪽의 사건은 이것 하나) · 튀어 오른 흙알갱이 몇
+<b>톤</b> 아침 빛이 옆에서 들어와 들린 흙 밑을 밝힌다. 뿌리 끝 도토리 껍질이 가장 또렷하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>둘이 나란히 앉아 싹들을 봐요.
+다람쥐가 구멍 앞 흙을 앞발로 톡톡 눌러 줘요.
+제일 큰 싹이 구멍 바로 옆에서 잎을 활짝 펴요.
+"여기 두자."</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 와이드 미디엄 · 아이레벨 정면(p1·p10 과 같은 자리에서 본 밑동)
+<b>장소·시간</b> 참나무 밑동과 그 둘레. 봄 아침, 볕이 밑동 아래까지 들어온다
+<b>인물</b> 화면 오른쪽 — 다람쥐가 앉아서 한 앞발로 구멍 앞 흙을 톡톡 누른다. 고개는 옆의 싹 쪽을 향한다. 화면 왼쪽 — 아기 멧돼지가 나란히 앉아 코를 들고 같은 싹을 본다. 둘 다 등을 이쪽으로 반쯤 돌린 뒷모습에 가깝다
+<b>배경·소품</b> 🔴 구멍은 비어 있고 아무것도 나오지 않는다 · 구멍 바로 옆에서 제일 큰 싹이 두 잎을 활짝 폈다 · 그 둘레로 작은 싹 일고여덟이 밑동을 반원으로 둘러쌌다 · 뾰족한 회색 돌 하나
+<b>톤</b> 낮고 따뜻한 봄 빛. 화면에서 마감된 것은 두 짐승과 제일 큰 싹 하나, 나머지 싹들은 같은 모양의 반복으로</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'c03',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['붉은 다람쥐(이름 없음)', '아기 멧돼지(줄무늬 새끼', '이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb402129f3"></script>
+<script src="/changjak-core.js?v=47fd80bb402129f3"></script>
+</body>
+</html>
