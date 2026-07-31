@@ -40,19 +40,26 @@ describe('english phonics units', () => {
     }
   });
 
-  // 🔴 예전엔 2종뿐이었다("영어는 그림이 0장"). 단어 카드가 붙은 뒤로는 한글과 같은 6종이다 —
-  //    복습이 심심한 건 가짓수가 아니라 형식이 같아서라, 형식이 다른 활동을 늘어놓는다.
-  it('복습 활동은 한글과 같은 6종이고 카드는 8장을 넘지 않는다', () => {
+  // 🔴 Book 2 는 6종. Book 1 은 「듣고 낱말」을 뺀 5종 — 낱말 소리→첫 글자라 화면·과제가 「듣고 글자」(#3)와
+  //    똑같이 "🔊 듣고 알파벳 고르기"가 되고 학습 「배우기 2」와도 겹친다(2026-07-31 사용자 지적).
+  it('복습 활동 = Book 2 는 6종 / Book 1 은 듣고낱말 뺀 5종, 카드는 8장 이하', () => {
     for (const r of reviews) {
       const acts = getEnglishActivityPlan(r.id).activities;
-      expect(acts.map((a) => a.kind)).toEqual([
-        'letter-hunt',
-        'review-flip',
-        'review-syllable-listen',
-        'review-match',
-        'review-word-listen',
-        'review-write',
-      ]);
+      const isBook1 = r.id.startsWith('en-b1');
+      expect(acts.map((a) => a.kind)).toEqual(
+        isBook1
+          ? ['letter-hunt', 'review-flip', 'review-syllable-listen', 'review-match', 'review-write']
+          : [
+              'letter-hunt',
+              'review-flip',
+              'review-syllable-listen',
+              'review-match',
+              'review-word-listen',
+              'review-write',
+            ]
+      );
+      // order 는 1..N 연속이어야 한다(듣고 낱말을 빼도 번호가 비지 않게).
+      expect(acts.map((a) => a.order)).toEqual(acts.map((_, i) => i + 1));
       for (const a of acts) {
         expect(a.reviewCards!.length).toBeGreaterThan(0);
         expect(a.reviewCards!.length).toBeLessThanOrEqual(8);
