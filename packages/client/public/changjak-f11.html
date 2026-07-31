@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>F-11 빨래가 마르는 동안 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · F · 집·가족의 작은 사건 · 11</div>
+  <h1>빨래가 마르는 동안</h1>
+  <div class="sub">담요가 마를 때까지 골목에서 기다려요. 밑으로 지나갈 때마다 몸이 조금씩 달라져요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 관찰과 성장</span>
+  <span>무대 · 그리스 골목 — 흰 회벽 두 집 사이에 걸린 빨랫줄 아래 한 자리</span>
+  <span>후렴 · "지나갔다!" (p2 배를 자갈에 붙이고 · p5 무릎으로 엉금엉금 · p8 고개만 꾸벅 세 번 · 🔴 p10 에서 "이제 안 지나갈래요." 로 뒤집힌다 — 그냥 서서 지나갈 수 있게 된 바로 다음 쪽이다)</span>
+  <span class="q">13스프레드</span>
+  <span class="q">본문 670자 · 쪽당 52자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- <b>마른다는 말을 한 번도 안 쓴다.</b> 대신 <b>염소가 담요 밑을 지나가는 자세</b>로만 잰다(배 → 무릎 → 고개 → 그냥 서기). 자가 아이 몸이라 외울 설정이 없다.<br>
+- h01(빵이 부푸는 동안)과 뼈대가 같아 <b>자를 통째로 갈았다.</b> h01 은 그릇 안쪽 파란 줄에 손가락을 대는 책이고, 여기서는 손가락을 아예 안 쓴다 — 재는 것이 온몸이다. h01 의 창살 그림자(옮겨 가는 그늘)도 이 권에는 없다.<br>
+- 요약이 「골목에서 일어나는 일들」이라 나열로 흐르기 쉬운 권이다. 그래서 <b>일어나는 일을 전부 빨랫줄 아래 한 자리에 묶고</b>, 물방울·바람·매미·양말이 전부 같은 것 하나(담요가 가벼워지는 것)를 다르게 알려 주게 했다. 물방울은 자갈의 하얀 금 위에 까만 동그라미로 떨어지고, 바람은 담요를 부풀리고, 양말은 담요 옆에서 같이 마른다.<br>
+- <b>c02 통과 방식</b> — 성장은 한 문장도 안 적혀 있다. p9 에서 담요 끝이 귀 위로 떠서 <b>그냥 서서 지나갈 수 있게 된 바로 그때</b> 지나가기를 그만두는 것이 증거다(조건이 없어졌는데도 행동이 바뀐다).<br>
+- 그림의 단서 두 줄은 글에 안 쓴다 — ①담요의 짙은 젖은 띠가 위에서부터 좁아진다 ②빨랫줄 처짐이 쪽마다 얕아진다. 글은 자세만 말하고 그림이 이유를 들고 있다.<br>
+- 착지에 교훈 문장 없음. 마지막 쪽은 볕 냄새와 하얗게 드러난 회칠 금으로 끝난다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>할머니가 젖은 담요를 빨랫줄에 척 넘겼어요.
+줄이 축 내려앉았어요.
+새끼 염소가 아랫단을 받쳐 들었어요.
+"낮잠은 이 담요에서 잘래요."
+"그럼 기다려야지."</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 골목 바닥 가까이에서 올려다보는 아이레벨
+<b>장소·시간</b> 그리스 골목, 흰 회벽 두 집 사이에 걸린 빨랫줄 아래. 이른 오후, 볕이 골목 한쪽 벽에만 닿는다
+<b>인물</b> 화면 오른쪽 뒤 — 할머니 염소가 두 팔을 머리 위로 올려 붉은 줄무늬 담요를 빨랫줄 너머로 넘기는 자세, 시선은 줄. 화면 왼쪽 앞 — 새끼 염소가 담요 아랫단을 두 손바닥으로 받쳐 들고 팔이 아래로 눌려 있다, 고개는 담요를 올려다본다
+<b>배경·소품</b> 붉은 줄무늬 담요(위에서 아래까지 통째로 짙은 자줏빛으로 젖어 있다) · 깊게 처진 빨랫줄 · 담요 밑단이 자갈 사이 하얀 회칠 금을 덮고 있다 · 흰 회벽과 파란 문 하나. 그 밖은 비운다
+<b>톤</b> 오후의 흰 빛, 벽이 화면에서 가장 밝고 젖은 담요만 무겁게 어둡다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>새끼 염소가 담요 밑으로 기어들어 갔어요.
+배를 자갈에 착 붙이고 납작— 납작—
+"지나갔다!"
+등이 축축하게 반질거렸어요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 클로즈업 · 자갈 바닥에 카메라를 놓은 아주 낮은 앵글
+<b>장소·시간</b> 같은 빨랫줄 아래. 이른 오후
+<b>인물</b> 화면 가운데 — 새끼 염소가 배를 자갈에 붙인 채 앞발로 바닥을 짚고 몸을 끌어 나온다, 머리와 앞발은 담요 밖으로 나왔고 뒷발은 아직 담요 밑에 있다, 입이 벌어져 있고 눈은 앞을 본다. 화면 오른쪽 끝 위 — 할머니 염소의 발과 치맛단만 걸친다
+<b>배경·소품</b> 축 처진 담요 밑단이 염소 등을 누르듯 닿아 있다 · 등에 남은 젖은 자국 · 하얀 회칠 금은 담요에 덮여 안 보인다 · 자갈 몇 알 · 파란 문 아랫부분
+<b>톤</b> 담요 밑은 어둑하고 빠져나온 얼굴 쪽만 밝다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>뚝. 담요 끝에서 물방울이 떨어졌어요.
+자갈 사이 하얀 금 위에 까만 동그라미가 생겼어요.
+염소가 그 위에 발바닥을 살짝 댔어요.
+"차가워요."</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 클로즈업 · 자갈 바닥을 비스듬히 내려다보는 앵글
+<b>장소·시간</b> 같은 자리, 담요 밑단 바로 아래. 이른 오후
+<b>인물</b> 화면 아래 가운데 — 새끼 염소가 한쪽 무릎을 세우고 앉아 발바닥 하나를 까만 물자국 위에 살짝 얹는다, 고개를 숙여 제 발끝을 본다
+<b>배경·소품</b> 담요 밑단에서 막 떨어져 공중에 있는 물방울 하나 · 자갈 사이 하얀 회칠 금과 그 위에 크게 번진 까만 물자국 · 담요 아랫부분(짙은 자줏빛) · 자갈. 그 밖은 없다
+<b>톤</b> 마른 자갈은 뜨겁게 희고 물자국만 까맣게, 두 색만 남는다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>할머니가 담요 옆에 양말 한 켤레를 널었어요.
+매미가 맴— 맴— 울었어요.
+염소는 담벼락 그늘에 쪼그리고 앉았어요.
+"저기 앉으면 시원해."</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 · 골목을 옆에서 보는 아이레벨
+<b>장소·시간</b> 같은 빨랫줄 아래. 오후, 볕이 세다
+<b>인물</b> 화면 오른쪽 — 할머니 염소가 빨랫줄에 짧은 양말 한 켤레를 나란히 집게로 무는 자세, 한 팔이 위로 뻗어 있다. 화면 왼쪽 — 새끼 염소가 흰 벽 아래 그늘에 두 무릎을 안고 쪼그려 앉아 담요 밑단 쪽을 본다
+<b>배경·소품</b> 붉은 줄무늬 담요(위쪽 절반이 밝아지고 아래쪽만 짙다) · 양말 한 켤레와 나무 집게 · 조금 얕아진 빨랫줄 · 하얀 회칠 금이 담요 밑단 끝에서 살짝 보이기 시작한다 · 흰 벽에 진 좁은 그늘
+<b>톤</b> 골목 가운데는 눈부시고 벽 밑 그늘만 파랗게 서늘하다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>염소가 다시 담요 밑으로 들어갔어요.
+이번엔 무릎으로 엉금엉금 기었어요.
+"지나갔다!"
+배에는 물이 안 묻었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 클로즈업 · p2 와 똑같은 낮은 앵글, 똑같은 거리
+<b>장소·시간</b> 같은 빨랫줄 아래. 오후
+<b>인물</b> 화면 가운데 — 새끼 염소가 두 무릎과 두 손으로 바닥을 짚고 등을 둥글게 만 채 담요 밑을 빠져나온다, 배가 자갈에서 떠 있고 상반신은 담요 밖, 뒷발만 담요 밑에 있다, 고개를 들어 앞을 본다
+<b>배경·소품</b> 담요 밑단이 염소 등 위로 한 뼘쯤 떠 있다 · 마른 배와 깨끗한 자갈 · 하얀 회칠 금이 절반쯤 드러났다 · 그 위 까만 물자국은 아직 있다 · 파란 문 아랫부분
+<b>톤</b> p2 와 같은 빛. 달라진 것은 등과 담요 사이에 생긴 틈 하나뿐이다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>휘잉— 골목으로 바람이 들어왔어요.
+담요가 불룩 부풀어 배처럼 됐어요.
+"할머니, 담요가 날아가요!"
+"집게가 꽉 물고 있어."</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 와이드 · 담요를 아래에서 올려다보는 로우앵글
+<b>장소·시간</b> 같은 빨랫줄 아래. 오후, 바람이 한 줄기 지나간다
+<b>인물</b> 화면 왼쪽 아래 — 새끼 염소가 두 팔을 옆으로 활짝 벌리고 고개를 뒤로 젖혀 부푼 담요를 올려다본다. 화면 오른쪽 — 할머니 염소가 벽에 등을 기대고 서서 손차양을 만들어 담요 쪽을 본다
+<b>배경·소품</b> 붉은 줄무늬 담요가 배처럼 불룩 부풀고 아랫단이 옆으로 날려 있다 · 나무 집게 두 개가 담요 윗단을 물고 있다 · 옆에서 같이 날리는 양말 한 켤레 · 하얀 회칠 금이 훤히 드러난다
+<b>톤</b> 부푼 담요 뒤로 볕이 비쳐 붉은 줄무늬가 환하게 살아난다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>자갈 위 까만 동그라미가 작아져 있었어요.
+염소가 아까 그 자리에 또 발바닥을 댔어요.
+"어? 따뜻해요."</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 클로즈업 · p3 과 똑같은 각도, 똑같은 거리
+<b>장소·시간</b> 같은 자리, 담요 밑단 아래. 오후
+<b>인물</b> 화면 아래 가운데 — 새끼 염소가 p3 과 같은 자세로 무릎을 세우고 앉아 같은 자리에 발바닥을 얹는다, 이번엔 눈이 동그래져 발끝을 본다
+<b>배경·소품</b> 하얀 회칠 금 위 까만 물자국이 손톱만 하게 줄어 있다 · 마른 자갈 · 위쪽 가장자리에 담요 밑단(밑단 쪽만 짙다) · 떨어지는 물방울은 없다
+<b>톤</b> p3 과 같은 두 색인데 까만 것이 훨씬 작아져 화면이 거의 다 희다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>염소가 세 번째로 담요 밑에 들어갔어요.
+이번엔 고개만 꾸벅 숙이고 걸었어요.
+"지나갔다!"
+등이 담요를 쓱 스쳤는데 물이 안 묻었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 클로즈업 · p2·p5 와 똑같은 낮은 앵글, 똑같은 거리
+<b>장소·시간</b> 같은 빨랫줄 아래. 늦은 오후로 넘어가는 때
+<b>인물</b> 화면 가운데 — 새끼 염소가 두 발로 서서 고개만 앞으로 숙인 채 담요 밑을 걸어 나온다, 상체는 담요 밖이고 등이 담요 밑단에 살짝 스친다, 한 손은 앞으로 뻗어 있다
+<b>배경·소품</b> 담요 밑단이 염소 등 높이에 걸린다 · 마른 등 · 하얀 회칠 금이 다 드러났고 물자국은 아주 옅다 · 파란 문 아랫부분
+<b>톤</b> p2·p5 와 같은 빛. 담요 밑 어둑함이 얕아져 얼굴 전체가 밝다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>염소가 담요 밑에 똑바로 서 보았어요.
+담요 끝이 귀 위에서 살랑 흔들렸어요.
+"닿지도 않아요."</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 미디엄 · 염소를 옆에서 보는 아이레벨, 머리와 담요 밑단이 한 프레임에
+<b>장소·시간</b> 같은 빨랫줄 아래. 늦은 오후
+<b>인물</b> 화면 가운데 — 새끼 염소가 담요 바로 밑에 두 발을 모으고 똑바로 서서 두 팔을 옆에 붙인 채 눈만 위로 굴려 담요 끝을 본다, 귀가 쫑긋 서 있다
+<b>배경·소품</b> 붉은 줄무늬 담요 — 짙은 자줏빛은 밑단 한 줄에만 남았다 · 담요 끝과 염소 귀 사이에 한 뼘 틈 · 거의 팽팽해진 빨랫줄 · 하얀 회칠 금 · 옆의 마른 양말 한 켤레
+<b>톤</b> 낮아진 볕이 담요를 통과해 염소 얼굴에 붉은빛을 얹는다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>염소가 손끝으로 담요 끝을 톡 건드렸어요.
+"이제 안 지나갈래요."
+"제가 걷을래요."</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 살짝 아래에서 올려다보는 앵글
+<b>장소·시간</b> 같은 빨랫줄 아래. 늦은 오후
+<b>인물</b> 화면 가운데 — 새끼 염소가 발끝을 세우고 한 손을 위로 뻗어 손끝으로 담요 끝을 톡 건드린다, 몸이 길게 늘어나 있고 시선은 담요 윗단 집게 쪽. 화면 오른쪽 뒤 — 할머니 염소가 벽에서 등을 떼며 이쪽으로 고개를 돌린다
+<b>배경·소품</b> 담요 밑단과 뻗은 손끝 · 담요 윗단을 문 나무 집게 두 개 · 팽팽한 빨랫줄 · 하얀 회칠 금. 그 밖은 비운다
+<b>톤</b> 늦은 볕이 뻗은 팔을 따라 길게 흐른다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>염소가 발끝을 콩 세우고 집게를 뺐어요.
+딸깍. 딸깍.
+할머니가 담요 반대쪽 끝을 잡아 주었어요.
+"하나 남았다."</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 · 빨랫줄 높이에 맞춘 정면
+<b>장소·시간</b> 같은 빨랫줄 아래. 늦은 오후
+<b>인물</b> 화면 왼쪽 — 새끼 염소가 발끝을 한껏 세우고 두 손으로 나무 집게 하나를 벌려 빼는 자세, 혀끝이 살짝 나오고 눈은 집게에. 화면 오른쪽 — 할머니 염소가 담요 반대쪽 끝을 한 손으로 붙잡아 늘어지지 않게 받치고 새끼 염소를 본다
+<b>배경·소품</b> 빨랫줄에 남은 집게 한 개 · 빠진 집게 두 개(하나는 손에, 하나는 자갈 위) · 붉은 줄무늬 담요 · 하얀 회칠 금 · 옆의 마른 양말 한 켤레
+<b>톤</b> 해가 골목 벽 위쪽에만 남아 아래는 부드럽게 그늘진다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>마지막 집게가 딸깍 빠졌어요.
+담요가 스르르 내려왔어요.
+염소가 두 팔을 활짝 벌려 받았어요.</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 미디엄 · 살짝 위에서 내려다보는 앵글
+<b>장소·시간</b> 같은 빨랫줄 아래. 늦은 오후
+<b>인물</b> 화면 가운데 — 새끼 염소가 두 팔을 활짝 벌린 채 위를 보고 서 있다, 흘러내리는 담요가 벌린 팔 위에 막 얹히는 중이다. 화면 오른쪽 — 할머니 염소가 잡고 있던 담요 끝을 놓아 주는 손
+<b>배경·소품</b> 벌어진 채 손끝에 걸린 마지막 나무 집게 · 흘러내리는 붉은 줄무늬 담요 · 빈 빨랫줄이 위로 튕겨 팽팽하다 · 하얀 회칠 금 · 자갈
+<b>톤</b> 내려오는 담요가 늦은 볕을 가려 염소 얼굴에 붉은 그늘이 잠깐 진다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>염소가 담요를 걷어 가슴에 꼭 안았어요.
+얼굴을 푹 묻었어요.
+"볕 냄새가 나요."
+자갈 사이 하얀 금이 다시 하얬어요.</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 와이드 · p1 과 같은 자리, 같은 낮은 아이레벨
+<b>장소·시간</b> 같은 빨랫줄 아래. 해가 골목 끝으로 넘어가는 늦은 오후
+<b>인물</b> 화면 왼쪽 앞 — 새끼 염소가 붉은 줄무늬 담요를 두 팔로 통째로 안고 얼굴을 담요에 푹 묻은 자세, 담요 자락이 발등까지 내려와 있다. 화면 오른쪽 뒤 — 할머니 염소가 빈 빨랫줄 아래에서 이쪽을 보고 서 있다
+<b>배경·소품</b> 아무것도 걸리지 않은 빈 빨랫줄과 집게 세 개 · 자갈 사이 하얀 회칠 금이 물자국 없이 훤하게 드러나 있다 · 흰 회벽과 파란 문 하나 · 마른 양말 한 켤레가 할머니 팔에. 그 밖은 비운다
+<b>톤</b> 골목 전체가 따뜻한 살구빛으로 물들고, 화면에서 가장 밝은 것은 안긴 담요와 그 아래 하얀 금 한 줄이다</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'f11',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 염소(이름 없음)', '할머니 염소(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb6da4ec44"></script>
+<script src="/changjak-core.js?v=47fd80bb6da4ec44"></script>
+</body>
+</html>
