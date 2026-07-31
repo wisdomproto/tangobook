@@ -39,57 +39,47 @@
 ## C-37 §2. STYLE ANCHOR
 
 ```
-STYLE ANCHOR - changjak-tidepool   (young crab / Cornish rock pool)
+STYLE ANCHOR - changjak-tidepool   (a young crab / a Cornish rock pool)
 
-MEDIUM: ink and gouache WASH on cool grey-toned toothed paper #E4E5DF, laid with a soft round
-  brush. Shapes are made by a wash running out or drying, never by a clean line.
-  THE WETNESS OF THE PAINT TRACKS THE TIDE, and that is the identity of the book:
+Style: ink and gouache WASH on cool grey-toned toothed paper #E4E5DF, laid with a soft round brush,
+  4-6 year old picture book. Shapes are made by a wash running out or drying, never by a clean line.
+
+RENDERING (finish hierarchy): 🔴 THIS VOLUME: THE WETNESS OF THE PAINT TRACKS THE TIDE.
   WATER-PRESENT pages are worked WET-IN-WET - colour bleeds into damp paper, edges melt, washes
-  pool and granulate as they dry; the page looks saturated and soft-edged.
-  WATER-GONE pages are worked DRY-BRUSH - the brush skips over the tooth, colour sits thin and
-  grainy, bare paper shows through the middle of every stroke, edges scratch and break off; the
-  page itself looks parched.
+  pool and granulate as they dry. WATER-GONE pages are worked DRY-BRUSH - the brush skips over the
+  tooth, colour sits thin and grainy, bare paper shows through the middle of every stroke, edges
+  scratch and break off; the page looks parched.
+  FINISHED THINGS PER PAGE = 2 - the crab and the ONE thing it touches or speaks to. Seaweed =
+  4 wash strokes a clump, 0 strands drawn. Ripples = 3-4 darker strokes on the water, 0 elsewhere.
+  Barnacle colony = at most 9 grey dots and half-rings, never drawn one by one. Mudflat and open
+  sand = 2 brush passes and bare paper, 0 pebbles, 0 shells, 0 ripples, 0 footprints. Bubbles and
+  spray = tiny circles of BARE PAPER painted round, never white dots.
+  DENSITY RATION = page 6 only, where it rises to 3, spent on the two characters - NEVER the flat.
 
-PALETTE: paper #E4E5DF · wet rock #6B7A80 · crevice #45535A · dry mudflat #C7C9C2 · water
-  #4E8C8A · bright shallow #7FB6AE · seaweed olive #5B7A4E · starfish red #C43A2B.
-  EXACTLY ONE warm saturated colour exists, a brick-red, and it belongs to the OLD STARFISH on
-  ONE page only. On the other nine there is no red, orange, pink or warm accent anywhere - not
-  on the crab, the weed, the sky, a shell or a pebble. Do not sprinkle warmth for variety.
-  THE NARRATIVE COLOUR IS VALUE, NOT HUE. Water-present = brighter, more saturated blue-green
-  with deeper darks. Water-gone = pale, chalky, desaturated silver-grey with the contrast
-  squeezed flat. If the wet pages and the dry pages look the same brightness, the book failed.
+PALETTE: paper #E4E5DF · wet rock #6B7A80 · crevice #45535A · dry mudflat #C7C9C2 · water #4E8C8A ·
+  bright shallow #7FB6AE · seaweed olive #5B7A4E · starfish red #C43A2B. 🔴 EXACTLY ONE warm
+  saturated colour exists, a brick-red, and it belongs to the OLD STARFISH on ONE page only; on the
+  other nine there is no red, orange, pink or warm accent anywhere - not on the crab, the weed, the
+  sky or a pebble. 🔴 THE NARRATIVE COLOUR IS VALUE, NOT HUE: water-present = brighter,
+  more saturated blue-green with deeper darks; water-gone = pale, chalky, desaturated silver-grey
+  with the contrast squeezed flat.
 
-COUNTS (upper limits - count them): seaweed = 4 wash strokes a clump, 0 strands drawn · ripples
-  = 3-4 darker strokes on the water, 0 elsewhere · barnacle colony on a rock wall = at most 9
-  grey dots and half-rings, never drawn one by one · mudflat and open sand = 2 brush passes and
-  bare paper, 0 pebbles, 0 shells, 0 ripples, 0 footprints · bubbles and spray = tiny circles of
-  BARE PAPER reserved by painting round them, never white dots.
-  FINISHED THINGS PER PAGE = 2: the crab, and the ONE thing it touches or speaks to (a ledge, the
-  periwinkle, a puddle). DENSITY RATION = page 6 only, where it rises to 3, and it is spent on
-  the two characters - NEVER on the flat.
+CHARACTER DESIGN LANGUAGE: no face on the shell. Two EYE-STALKS rise from the carapace, each ending
+  in a small dark oval, and 🔴 THE ANGLE OF THE TWO STALKS IS THE ENTIRE EXPRESSION SYSTEM - not
+  dot-eyes on a face, no blush, no catchlight. The stalks read apart from the shell in VALUE at
+  thumbnail size. FIXED GRADE: every creature stays an animal - the crab walks sideways on eight
+  legs, wears and carries nothing, and its claws only point, droop and wave.
 
-COMPOSITION: vast negative space first, subject second. The crab is about 1/7 of page height on
-  the wide pages and comes forward only on the close pages; on wide pages the receded sea is a
-  single bright silver line high in the frame with a huge quiet mudflat beneath it. Diagonals
-  lead the eye, never dead symmetry; bottom 18% quiet for a caption.
+CANVAS: 16:9 double-page spread. A Cornish rocky shore tide pool - blue-grey rock shelves,
+  barnacles and periwinkles, green weed, wet sand, a wide low mudflat and the distant sea. British
+  Atlantic, cool northern light. Vast negative space first, subject second; the crab is about 1/7 of
+  page height on the wide pages and comes forward only on the close pages. Diagonals lead the eye,
+  never dead symmetry. Bottom 18% quiet for a caption. No lettering or numerals anywhere.
 
-CHARACTER: no face on the shell. Two EYE-STALKS rise from the carapace, each ending in a small
-  dark oval, and THE ANGLE OF THE TWO STALKS IS THE ENTIRE EXPRESSION SYSTEM. Not dot-eyes on a
-  face. Two claws, eight legs, a round low carapace, a cool shore-crab grey-green that never
-  competes with the red. The stalks read apart from the shell in VALUE at thumbnail size.
-
-SETTING: a Cornish rocky shore tide pool - blue-grey rock shelves, barnacles and periwinkles,
-  green weed, wet sand, a wide low mudflat and the distant sea. British Atlantic, cool northern
-  light. 16:9 double-page spread, 4-6 year old picture book. No lettering or numerals anywhere.
-
-TIDE MAP: p1 WET · p2 DRY (the plant) · p3 DRY · p4 DRY · p5 DRY · p6 DRIEST (the reveal) ·
-  p7 DRY · p8 DRY GROUND WITH ONE WET EDGE · p9 WET · p10 WET, mirror of p1.
-
-NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading,
-  photographic, or a paper-texture filter over flat colour (the wash must MAKE the shapes) / no
-  glassy mirror reflection, wet-plastic sheen on rock, metallic mudflat, rendered caustics or
-  sparkle / no fully rendered background and no hazy, blurry or faded one (blur is not the same
-  as un-painted) / not felt, stitched fabric or sculpted clay.
+NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,
+  or a paper-texture filter over flat colour / no glassy mirror reflection, wet-plastic sheen on
+  rock, metallic mudflat, rendered caustics or sparkle / no fully rendered background, and no hazy
+  or blurred one either / not felt, stitched fabric or sculpted clay.
 ```
 
 **🔴 매 컷 확인하는 세 줄** — 컷마다 `TIDE:` `SEA:` `RED:` 를 먼저 읽는다. 이 책의 반전 장치는 **같은 은빛 바다가 화면에서 커지는 것** 하나뿐이다.
@@ -201,7 +191,7 @@ SEA: THE PLANT, AND THE POINT OF THE PAGE. High in the frame, far behind the cra
   reader and clearly outside the crab's attention. Do not enlarge it, do not draw waves in it,
   do not put the stalks anywhere near it.
 FINISH: 2 (crab + the cracked bed under its feet). The mudflat is bare paper with 2 flat dry
-  passes: 0 pebbles, 0 ripples, 0 shells. Describe that field and the silver line disappears.
+  passes: 0 pebbles, 0 ripples, 0 shells.
 RED: none. Chalky, flat, drained - the page should look thirsty.
 ```
 
@@ -262,22 +252,21 @@ RED: none.
 
 ```
 TIDE: THE DRIEST PAGE IN THE BOOK. Hard dry-brush everywhere, the mudflat mostly bare paper with
-  two dragged passes. This page doubles as the anchor's DRY reference plate.
+  two dragged passes.
 CAMERA: wide, high angle from the top of the tallest rock, opening steeply to the right. The
   composition splits in half: rock and characters hold the left, sea and mudflat the right.
 SUBJECT: left, on the rock top, LittleCrab up on the tips of its legs with both eye-stalks
   stretched as far as they go toward the distance, claws sunk down and forgotten, body completely
-  still - the moment it understands. Beside it on the rock face, OldStarfish lies with five arms
-  spread flat and one lifted a little toward the crab, speaking slowly.
-SEA: THE PAYOFF OF THE PLANT ON PAGE 2. The same silver sea that was one thin line now runs broad
-  and bright across the right half - same silver, same horizon height, same paint, only bigger.
-  Nothing may compete with it. Several small dry pools sit on the flat as pale rings.
-FINISH: RATION - 3 instead of 2 (crab, OldStarfish, the rock top under them), and it is spent on
-  the two characters. The mudflat and the sea stay the emptiest surfaces in the book: two dry
-  passes and bare paper.
-RED: THE ONLY RED IN THE BOOK. OldStarfish is opaque brick-red #C43A2B, matte, fully covered. The
-  eye lands on it first and then travels out to the silver sea. Not one speck of red or orange
-  anywhere else, and no warm glow bleeding onto the rock beneath it.
+  still. Beside it on the rock face, OldStarfish lies with five arms spread flat and one lifted a
+  little toward the crab, speaking slowly.
+SEA: the same silver sea that was one thin line on page 2 now runs broad and bright across the
+  right half - same silver, same horizon height, same paint, only bigger. Several small dry pools
+  sit on the flat as pale rings.
+FINISH: RATION - 3 instead of 2 (crab, OldStarfish, the rock top under them). The mudflat and the
+  sea stay the emptiest surfaces in the book.
+RED: THE ONLY RED IN THE BOOK. OldStarfish is opaque brick-red #C43A2B, matte, and the eye lands on
+  it before it travels out to the sea. Not one speck of red or orange anywhere else, and no warm
+  glow bleeding onto the rock beneath it.
 ```
 
 ### p7 — 기다리는 뒷모습
@@ -340,8 +329,8 @@ RED: none. The value swings all the way back: placed beside the reveal page, the
 ```
 TIDE: WET, matching the first page exactly.
 CAMERA: EXACTLY THE SAME CAMERA AS PAGE 1 - same round pool, same slightly overhead child's eye
-  level, same size and placement in frame. Attach the approved first-page render as a reference
-  and change only what is listed below. These two pages must read as the same picture twice.
+  level, same size and placement in frame. Attach the approved first-page render as a reference and
+  change only what is listed below.
 SUBJECT: LittleCrab sits on the rim of the full pool at centre. THE ONE CHANGE: its body is turned
   to the RIGHT, toward the sea outside the frame, both eye-stalks aimed that way together, calm
   and level, one claw raised in a small wave, a few contented bubbles of bare paper at its mouth.
@@ -351,9 +340,8 @@ SEA: returned right up beside the pool - at the right edge of the frame the wate
   close, so pool and sea read as connected, not separated.
 FINISH: 2 (crab + the rim). The water at the right edge is one bright wash; everything else as on
   the first page, unpainted field.
-RED: none. Low late-afternoon light lies long across the rock, warmer in value but still inside
-  the cool palette - warm light here means a paler, softer grey, NOT an orange sky. The sunset
-  temptation is the single most likely place for the palette to break.
+RED: none. Low late-afternoon light lies long across the rock, warmer in value but still inside the
+  cool palette - warm light here means a paler, softer grey, NOT an orange sky.
 ```
 
 ---
@@ -367,7 +355,7 @@ RED: none. Low late-afternoon light lies long across the rock, warmer in value b
 | 1 | 🔴 **p6(마른 판)과 p9(젖은 판)를 나란히 놓았을 때 「물이 나갔다 왔다」가 값만으로 읽히나.** 이게 이 책의 핵심 판정이다 | 마른 판을 더 창백·건조하게 다시 굽는다. 두 판이 확정되기 전엔 나머지 8컷을 굽지 마라 |
 | 2 | **빨강이 p6 밖으로 샜나.** p1~p5·p7~p10 에 주황·빨강·분홍이 한 점이라도 있으면 실패(특히 p10 노을·게의 집게 끝) | PALETTE 의 "no red anywhere else" 뒤에 실제로 샌 사물을 이름으로 못 박고 재시도. 2회 실패면 **빨강 없는 승인 컷을 ref 로 먼저 확보**하고 p6 을 마지막에 굽는다 |
 | 3 | 🔴 **p2 의 은빛 바다 선이 보이나, 그리고 게가 그걸 안 보나.** 안 보이면 반전이 통째로 사라지고, 게가 보면 이야기가 뒤집힌다 | 갯벌을 더 비운다(자갈·조개·물결을 그리면 선이 묻힌다). 그래도 안 되면 p6 승인본을 ref 로 붙여 「같은 바다, 더 작게」로 지시 |
-| 4 | 🔴 **물·바위가 사진·플라스틱으로 회귀했나.** 유리 거울 반사, 젖은 플라스틱 광택, 금속 갯벌, 렌즈 반짝임이면 MATERIAL TRANSLATION 실패 | 문구 튜닝 금지. **워시의 종이결과 붓 마른 자국이 보이는 승인 컷 1장을 확보해 ref 로 고정**하고 나머지를 그 뒤에 뽑는다 |
+| 4 | 🔴 **물·바위가 사진·플라스틱으로 회귀했나.** 유리 거울 반사, 젖은 플라스틱 광택, 금속 갯벌, 렌즈 반짝임이면 앵커 `RENDERING` 실패 | 문구 튜닝 금지. **워시의 종이결과 붓 마른 자국이 보이는 승인 컷 1장을 확보해 ref 로 고정**하고 나머지를 그 뒤에 뽑는다 |
 | 5 | **p1 과 p10 이 같은 그림인가.** 나란히 놓아 웅덩이 크기·각도·위치가 같은지 본다. 다르면 이 권의 착지가 사라진다 | p1 승인본을 **p10 의 ref 로 첨부**해서 다시 굽는다(문구로 카메라를 재현시키려 하지 말 것) |
 
 부수: **게가 매끈한 CG 로 회귀했나**(§2.4 최대 실패 모드) — 눈에 하이라이트 점이 있거나 껍질에 광택이 있으면 장면을 고치지 말고 **시트를 다시 굽는다**. 시트가 안 되면 장면은 절대 안 된다.

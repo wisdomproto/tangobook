@@ -93,22 +93,21 @@
 STYLE ANCHOR - changjak-delft   (puppy big brother / new baby / Dutch house / a gaze)
 
 Style: a hand-painted picture-book page for 4-6 year olds - cool, clean, geometric. A winter
-  morning in ONE Dutch room drawn twelve times; the map is fixed by the RoomKit sheet and never
-  changes, only the camera moves. Legible before pretty, never cute-glossy.
+  morning in ONE Dutch room drawn twelve times: RoomKit fixes the map and only the camera moves.
 
-RENDERING: painted the way a hand-painted tin-glazed tile is painted, on a smooth white glazed
+RENDERING: painted the way a hand-painted tin-glazed tile is, on a smooth white glazed
   surface. ONE cobalt contour stroke laid once / FLAT FILL inside it in one pass to a hard edge /
   the RED added last as a separate colour. EXACTLY TWO COBALT DENSITIES, mid and double-laid dark -
   never a third, never a gradient, NO SHADING. Bright = bare white ground; dark = ONE flat
   mid-cobalt film with a hard edge over whatever is under it, the chequer reading through it.
   FINISHED THINGS PER PAGE = 2 (the brother + the one thing he touches or looks at); all else keeps
-  its contour with NO FILL - unpainted, which is not faded, hazy or blurred. DENSITY RATION = pages
-  1 and 7, where the room's objects go to recognisable and no further. Counts: wall tiles alternate
-  between EXACTLY 2 motifs, ship and windmill · plaster = 0 marks · each floor square = 0 marks
-  inside · outdoors = 0 after p2.
+  its contour with NO FILL - unpainted, not faded or blurred. DENSITY RATION = pages 1 and 7, where
+  the room's objects go to recognisable and no further. Counts: wall tiles alternate between EXACTLY
+  2 motifs, ship and windmill · plaster = 0 marks · each floor square = 0 marks inside · outdoors =
+  0 after p2.
   🔴 THE FLOOR IS THE RULER - chequered tiles all one size, straight receding rows, one-point
   perspective, the lattice printing same-sized white squares on them. Steps are counted in squares:
-  never tilt, warp, blur or resize them, and compare two things only at one depth.
+  never tilt, warp or resize them, and compare two things only at one depth.
 
 PALETTE: white #F1EDE3 = ground, walls, pale squares, swaddling, lit squares · cobalt #2E5C9A and
   dark #1D3A63 = every contour, every cool object, every shade film · black #16181B = dark squares,
@@ -116,25 +115,22 @@ PALETTE: white #F1EDE3 = ground, walls, pale squares, swaddling, lit squares · 
   puppies and nothing else · red #C8412B = the knitted scarf and one dropped strand of its wool,
   THE ONLY RED ON ANY PAGE. No fifth colour, no fire glow, no sunset.
 
-CHARACTER DESIGN LANGUAGE: a puppy's eye = a round disc of bare white ground, ONE cobalt-black
-  pupil in it, one upper-lid line, and 🔴 THE PUPIL'S POSITION IS THE ACTING. The brother adds a
+CHARACTER DESIGN LANGUAGE: a puppy's eye = a round disc of bare white ground with ONE cobalt-black
+  pupil and one upper-lid line, and 🔴 THE PUPIL'S POSITION IS THE ACTING. The brother adds a
   separate brow stroke and a mouth line; the baby has no brows and no expression - one pupil
-  position, one head angle, on p12 one gripping hand. No dot-eyes, no catchlight. 🔴 THE ADULTS
-  HAVE NO FACES on any page, at any size, in any reflection: black clothing masses with almost
-  nothing inside, flat cobalt hands and knees, and they never speak. Grade: the brother upright on
-  hind legs, forepaws as hands, wearing one thing, the scarf. 🔴 THREE DIRECTIONS ON EVERY CUT -
-  her pupils on the red scarf wherever it is; the adults all aimed into the cradle, therefore
-  always pointing somewhere else than she looks, last page included; the brother at a third thing,
-  usually wrong. 🔴 EYE LEVEL - eleven pages he is LOWER than the baby and every adult part comes
-  DOWN from above; on p12 his chin is on the rail and the two faces are one height and one size.
+  position and one head angle. No dot-eyes, no catchlight. 🔴 THE ADULTS HAVE NO FACES on any page,
+  at any size, in any reflection - black clothing masses with almost nothing inside, flat cobalt
+  hands and knees. Grade: the brother upright on hind legs, forepaws as hands, wearing one thing,
+  the scarf. 🔴 THREE DIRECTIONS ON EVERY CUT - her pupils on the red scarf wherever it is, the
+  adults always into the cradle (last page included), the brother at a third thing. 🔴 EYE LEVEL -
+  for eleven pages he is LOWER than the baby and every adult part comes DOWN from above; only on
+  p12 are the two faces one height and one size.
 
-CANVAS: 16:9 double-page spread, 4-6 year old picture book. Bottom 18% quiet for a caption. No
-  lettering or numerals anywhere.
+CANVAS: 16:9 double-page spread. Bottom 18% quiet for a caption. No lettering or numerals anywhere.
 
 NOT (rendering only): no digital slickness of any kind - airbrush, gradient, glow, 3D CG,
-  cel-shading, photographic, or a texture filter over flat colour (the brush must MAKE the shapes)
-  / no shading, modelling, rounded highlight or soft-edged shadow / not blurred or soft-focus / no
-  felt, stitching, yarn fibre or fabric weave.
+  cel-shading, photographic, or a texture filter over flat colour / no shading, modelling, highlight
+  or soft-edged shadow / not blurred or soft-focus / no felt, stitching or yarn fibre.
 ```
 
 ### 🔴 이 앵커의 네 불변 규칙 (매 컷 네 줄로 반복 확인)
@@ -517,17 +513,17 @@ FINISH: 2 (the brother + her eyes and the small hand); rail half.
 
 ### p12 — 나무 턱에 턱을 걸쳤어요. 아기가 목도리 끝을 꽉 잡았어요 🔴 착지
 ```
-BAKE THIS CUT LAST - eleven pages of camera height arrive here.
+BAKE THIS CUT LAST.
 CAMERA: close-up, EYE LEVEL AT THE CRADLE RAIL. Left his face with his chin on the rail, right
   BabyPup's face. 🔴 THE TWO FACES SIDE BY SIDE, SAME HEIGHT, SAME SIZE.
 SUBJECT: posture 8 - lower jaw laid on the carved rail, both forepaws hooked over its edge, eye
   discs narrowed to crescents, ears easy, nose reaching a little toward her. She has turned her
   head to face him, mouth open in a laugh, and 🔴 ONE SMALL OAT HAND HAS COME OUT OVER THE RAIL
   GRIPPING THE END OF THE RED SCARF. 🔴 At the top edge, adult sleeves and hems HAVE STEPPED BACK
-  but are still angled toward the cradle - no face, ever, and that is not corrected here.
+  but are still angled toward the cradle - no face, ever.
 GAZE: the two pairs of pupils meet dead centre, for the first and only time.
-LEVEL: 🔴 THE SAME - one height, one size, one frame, and 🔴 the same oat colour, so they read as
-  the same kind of creature while every adult part is black and at the edge.
+LEVEL: 🔴 THE SAME - one height, one size, one frame, and the same oat colour, while every adult
+  part is black and at the edge.
 SCARF: 🔴 the end has gone OVER the rail into the cradle and is held in her fist - one red line
   between the two faces, the only thing touching them both.
 GRID: one lit square lies across the rail between them, hard-edged.
