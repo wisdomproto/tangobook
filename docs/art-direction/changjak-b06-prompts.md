@@ -102,7 +102,7 @@ CHARACTER DESIGN LANGUAGE: 🔴 THE SHEEP IS MADE OF THE SAME RAISED PAPER AS TH
   with a SEPARATE brow stroke above - not dot-eyes, no catchlight. Grade: upright on two legs, front
   paws and hooves work as hands. Sheep = a plain apron. Mole = a plain smock. No other clothes.
 
-CANVAS: 16:9 double-page spread, no ornamental border. Bottom 18% quiet for a caption. 🔴 NO
+CANVAS: 16:9 double-page spread, no ornamental border. 🔴 NO
   LETTERING OR NUMERALS ANYWHERE - no shop sign, no scale markings, no sack print, no chalkboard.
 
 NOT (rendering only): no digital slickness - airbrush, gradient, glow, 3D CG, cel-shading,

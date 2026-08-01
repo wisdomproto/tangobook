@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>D-08 돌아오지 않는 연 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · D · 모험·여정 · 08</div>
+  <h1>돌아오지 않는 연</h1>
+  <div class="sub">줄이 끊긴 연을 언덕에서 기다려요. 연은 안 오는데 줄이 혼자 당겨져요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 여정과 귀환</span>
+  <span>무대 · 포르투갈 언덕 꼭대기 — 마른돌 담 한 자락 옆</span>
+  <span>후렴 · "저기! 하얀 거!" / "구름이야." (p6·p8·p10 세 번 · 늘 앞발로 차양을 만들며 · 🔴 p10 에서 차양을 내리고 "…하얀 거 아니네." 로 끝난다)</span>
+  <span class="q">14스프레드</span>
+  <span class="q">본문 630자 · 쪽당 45자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- <b>연을 쫓아가지 않는다.</b> 카메라는 열네 쪽 내내 언덕 꼭대기 마른돌 담 한 자락 옆에 붙어 있다. 연은 p1~p4 에만, 그것도 하늘 어디쯤의 빨간 점으로만 보인다. 개가 가장 크게 움직이는 p12 도 담 위에 올라서는 것까지다.<br>
+- <b>오는 것은 위로가 아니다.</b> 새끼 염소는 말을 안 하고, 아무도 그것이 연을 대신한다고 말하지 않는다. 개의 첫 반응은 반가움이 아니라 <code>"야! 그건 내 줄이야!"</code> 다. 염소는 대사도 의지도 없어 인물로 세지 않았다(줄을 씹는 물리 현상에 가깝다) — 그래서 <code>cast</code> 는 둘이다.<br>
+- <b>단서는 그림에만.</b> p5 부터 끊긴 줄 끝이 오른쪽 가시덤불에 들어가 있고 쪽마다 짧아진다. 개는 내내 하늘만 보므로 글은 그 줄을 한 번도 안 짚는다.<br>
+- <b>기다리는 동안의 몸</b>을 쪽마다 하나씩 만들었다 — 버티는 뒷발(p1) · 밀리는 앞발(p2) · 엉덩방아(p3) · 발끝 세우기(p4) · 무릎에 얹기(p5) · 차양(p6·p8) · 풀 뽑아 끊기(p7) · 반 바퀴만 감기(p9) · 차양 내리기(p10) · 얼레 누르기(p11) · 담에 올라서기(p12) · 팔 돌려 감기(p13) · 입에서 빼내기(p14).<br>
+- 착지에는 교훈이 없다. 마지막 쪽 문장은 감긴 얼레의 <b>무게</b>로만 끝난다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>"높다! 더 높이!"
+새끼 개가 뒷발로 흙을 딛고 빨간 얼레를 꽉 잡았어요.
+줄이 하늘로 쭉— 빨간 연이 펄럭펄럭.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 아래에서 살짝 올려다보는 로우 앵글(하늘이 화면의 삼분의 이)
+<b>장소·시간</b> 포르투갈 언덕 꼭대기, 마른돌 담 한 자락 옆. 바람이 센 이른 오후
+<b>인물</b> 화면 아래쪽 왼편 — 새끼 양치기 개가 두 뒷발을 앞뒤로 벌려 흙을 딛고 몸을 뒤로 젖힌 채, 두 앞발로 빨간 나무 얼레를 배 앞에 꽉 끌어안고 있다. 턱을 한껏 들어 하늘을 본다. 그 오른쪽 조금 뒤 — 새끼 당나귀가 네 발로 서서 귀 두 개를 쫑긋 세우고 같은 쪽 하늘을 본다
+<b>배경·소품</b> 무릎 높이 마른돌 담이 화면을 가로로 한 번 끊는다 · 바람에 한쪽으로 누운 누런 마른 풀 · 오른쪽 끝에 낮은 가시덤불 하나 · 하늘 높이 작게 빨간 연 하나와 거기까지 이어진 흰 줄 한 가닥 · 저 아래 멀리 흰 벽에 붉은 지붕 집 몇 채와 바다 한 줄
+<b>톤</b> 대서양의 마르고 밝은 빛 · 그림자가 짧고 또렷하게 · 바람이 눈에 보일 만큼 풀이 한 방향으로</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>휘잉—
+바람이 커지자 개의 앞발이 흙에 주욱 밀렸어요.
+"꽉 잡아!"
+당나귀가 개의 등을 이마로 받쳐 주었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 옆에서 보는 아이레벨(둘의 몸이 나란히 한 줄로 기운다)
+<b>장소·시간</b> 같은 자리, 같은 오후. 바람이 한 단계 세진 순간
+<b>인물</b> 화면 왼쪽 — 새끼 개가 온몸을 뒤로 눕히다시피 기울이고, 두 앞발이 흙 위에서 미끄러져 발가락 앞에 짧은 흙 자국 두 줄이 파였다. 귀와 볼살이 뒤로 밀려 있고 눈은 가늘게 떴다. 바로 뒤 — 새끼 당나귀가 앞발을 앞으로 뻗어 버티며 이마를 개의 등에 대고 밀어 준다
+<b>배경·소품</b> 마른돌 담 · 눕는 마른 풀 · 화면 위쪽 모서리로 팽팽하게 빠져나가는 흰 줄 한 가닥 · 오른쪽 가시덤불
+<b>톤</b> 밝고 마른 빛에 바람 소리가 얹힌 느낌 · 풀과 털이 전부 한 방향</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>툭.
+줄이 끊기고 개는 엉덩방아를 쿵 찧었어요.
+얼레가 무릎 위로 데구르르.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 · 살짝 위에서 내려다보는 하이 앵글
+<b>장소·시간</b> 같은 자리. 바로 다음 순간
+<b>인물</b> 화면 가운데 — 새끼 개가 엉덩이를 흙에 붙이고 주저앉아 두 뒷다리가 앞으로 뻗어 있다. 두 앞발은 아직 얼레를 잡던 모양 그대로 허공에 떠 있고, 빨간 얼레가 무릎 위로 굴러 얹혔다. 눈과 입이 동그랗게 벌어졌다. 오른쪽 — 당나귀가 받치던 자세 그대로 앞으로 한 걸음 고꾸라져 목을 쭉 뺐다
+<b>배경·소품</b> 흙바닥 · 끊긴 흰 줄이 개의 앞발 앞 풀밭에 스르르 늘어지기 시작한다 · 마른돌 담 한 자락
+<b>톤</b> 팽팽하던 것이 갑자기 헐거워진 느낌 · 빛은 그대로 밝고 바람만 남는다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>"…어디 갔어?"
+개가 벌떡 일어나 발끝을 세웠어요.
+빨간 점이 점점 작아지더니 하늘에 폭 삼켜졌어요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 와이드 · 등 뒤에서 보는 로우 앵글(개의 뒤통수와 하늘이 같이 보인다)
+<b>장소·시간</b> 같은 자리. 조금 지난 뒤
+<b>인물</b> 화면 아래 가운데 — 새끼 개가 두 뒷발 끝으로 서서 키를 최대한 늘이고 목을 완전히 젖혔다. 한 앞발은 끊긴 줄 끝을 손가락에 두 바퀴 감아 쥐었고, 다른 앞발은 힘없이 내려와 있다. 그 옆 — 당나귀도 고개를 들었지만 귀 하나가 벌써 옆으로 눕는다
+<b>배경·소품</b> 하늘이 화면의 대부분 · 오른쪽 위 아주 작게 빨간 점 하나(연) · 개의 손에서 풀밭으로 늘어진 흰 줄 · 마른돌 담 · 가시덤불
+<b>톤</b> 넓고 텅 빈 파랑 · 화면 안 빨강이 저 작은 점과 발치의 얼레 둘뿐</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>개는 돌담에 걸터앉아 얼레를 무릎에 얹었어요.
+끊긴 줄이 풀밭 위로 길게 늘어졌어요.
+"바람이 도로 데려다줄 거야."</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 와이드 · 옆에서 보는 아이레벨
+<b>장소·시간</b> 같은 자리. 해가 아직 높은 오후
+<b>인물</b> 화면 왼쪽 — 새끼 개가 마른돌 담에 걸터앉아 두 뒷발을 담 아래로 늘어뜨리고, 빨간 얼레를 두 앞발로 무릎 위에 얹어 안았다. 턱은 여전히 위를 향한다. 오른쪽 — 당나귀가 담에 엉덩이를 기대고 서서 꼬리로 옆구리를 한 번 친다
+<b>배경·소품</b> 마른돌 담 · 개의 무릎에서 흘러내린 흰 줄이 풀밭을 가로질러 화면 오른쪽 가시덤불 속으로 들어간다(줄 끝은 안 보인다) · 누런 마른 풀 · 멀리 흰 마을 지붕
+<b>톤</b> 마른 오후 빛 · 조용하고 넓게 · 움직이는 것은 풀뿐</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>앞발로 차양을 만들고 눈을 가늘게 떴어요.
+"저기! 하얀 거!"
+"구름이야."
+당나귀는 하품을 했어요.</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨(둘의 얼굴이 나란히)
+<b>장소·시간</b> 같은 자리. 조금 더 지난 오후
+<b>인물</b> 화면 왼쪽 — 새끼 개가 담에 앉은 채 한 앞발을 이마에 딱 붙여 차양을 만들고 눈을 가늘게 떠서 하늘 한 곳을 노려본다. 다른 앞발은 무릎 위 빨간 얼레를 누르고 있다. 오른쪽 — 당나귀가 입을 크게 벌려 하품하며 눈을 감았다
+<b>배경·소품</b> 하늘 높이 흰 구름 한 덩이 · 마른돌 담 · 풀밭을 가로질러 오른쪽 가시덤불로 들어가는 흰 줄(p5 보다 조금 짧다) · 덤불 잎이 아주 살짝 흔들린다
+<b>톤</b> 밝은 대낮 빛 · 흰 구름 하나만 도드라지게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>개는 마른 풀을 한 줌 뽑아 아삭아삭 끊었어요.
+풀은 자꾸 줄어드는데, 하늘은 아까랑 똑같아요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 클로즈업 · 어깨너머로 내려다보는 하이 앵글(앞발과 풀이 화면 가운데)
+<b>장소·시간</b> 같은 자리. 해가 조금 옮겨 간 오후
+<b>인물</b> 화면 가운데 — 새끼 개의 두 앞발이 담 아래 풀을 한 줌 잡아 뽑고, 한 가닥을 입에 물어 아삭 끊는다. 발치에 끊어 놓은 풀 도막이 여남은 개 쌓였다. 위쪽 화면 밖으로 개의 턱과 위를 향한 눈만 걸친다. 뒤쪽 흐릿하게 당나귀의 다리 넷
+<b>배경·소품</b> 뽑힌 마른 풀 도막 더미 · 무릎 옆에 놓인 빨간 얼레 · 옆으로 지나가는 흰 줄 한 가닥 · 흙과 작은 돌
+<b>톤</b> 낮은 채도의 누런 빛 · 가까이 있는 것만 마감하고 뒤는 매체 그대로</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>"저기! 하얀 거!"
+개가 반대쪽으로 앞발 차양을 옮겼어요.
+"갈매기야."</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 · 반대편에서 보는 아이레벨(p6 과 좌우가 뒤집힌 구도)
+<b>장소·시간</b> 같은 자리. 오후가 더 지난 뒤
+<b>인물</b> 화면 오른쪽 — 새끼 개가 담 위에서 몸을 반대쪽으로 틀고 다른 앞발을 이마에 붙여 차양을 만들었다. 등이 앞으로 굽었고 꼬리가 담 위에 늘어졌다. 왼쪽 — 당나귀가 고개도 안 들고 눈만 그쪽으로 굴린다
+<b>배경·소품</b> 하늘에 흰 갈매기 한 마리 · 마른돌 담 · 가시덤불로 들어가는 흰 줄(p6 보다 또 짧다) · 누런 마른 풀
+<b>톤</b> 조금 낮아진 빛 · 그림자가 아까보다 길게 눕는다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>당나귀가 풀밭에 벌러덩 누웠어요.
+"안 가?"
+"안 가."
+개는 얼레를 반 바퀴만 감아 보았어요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 미디엄 와이드 · 아주 낮은 로우 앵글(누운 당나귀 높이에서)
+<b>장소·시간</b> 같은 자리. 늦은 오후로 넘어가는 참
+<b>인물</b> 화면 아래 — 새끼 당나귀가 등을 대고 벌러덩 누워 네 다리를 위로 접었다. 화면 위 담 쪽 — 새끼 개가 앉은 채 빨간 얼레를 두 앞발로 잡고 반 바퀴만 조심스레 돌린다. 눈은 여전히 하늘
+<b>배경·소품</b> 마른돌 담 · 당나귀 등 밑에 눌린 풀 · 개의 얼레에서 나가 오른쪽 덤불로 들어가는 흰 줄(눈에 띄게 짧아졌다) · 하늘은 비었다
+<b>톤</b> 노랗게 기운 오후 빛 · 아무 일도 안 일어나는 넓은 정적</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>"저기! 하얀 거!"
+"빨래야. 아까부터 저기 걸려 있었어."
+개는 차양을 만들던 앞발을 무릎에 툭 내렸어요.
+"…하얀 거 아니네."</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨(개의 얼굴과 내려오는 앞발이 화면 가운데)
+<b>장소·시간</b> 같은 자리. 빛이 한 번 더 낮아진 오후
+<b>인물</b> 화면 가운데 — 새끼 개가 이마에 붙였던 앞발을 무릎 위 빨간 얼레에 툭 내려놓는 참이다. 팔이 반쯤 내려와 있고 귀 두 개가 옆으로 눕는다. 입은 다물고 눈꺼풀이 반쯤 내려왔다. 아래 구석 — 당나귀가 누운 채 개를 본다
+<b>배경·소품</b> 저 아래 멀리 마을 집 사이 빨랫줄에 흰 천 몇 장 · 마른돌 담 · 개의 무릎에서 나가 오른쪽 덤불로 들어가는 흰 줄(가장 짧다) · 덤불 잎이 한 번 크게 흔들린다
+<b>톤</b> 낮고 노란 빛 · 하늘 쪽 채도를 한 단 떨어뜨려 볼 것이 없다는 느낌으로</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>사르륵—
+무릎 위 얼레가 저 혼자 도르르 돌았어요.
+개가 두 앞발로 얼레를 꾹 눌렀어요.</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 클로즈업 · 무릎 높이에서 보는 아이레벨
+<b>장소·시간</b> 같은 자리. 바로 다음 순간
+<b>인물</b> 화면 가운데 — 새끼 개의 무릎 위에서 빨간 얼레가 돌아가고, 개의 두 앞발이 위에서 얼레를 꾹 눌러 멈추려 한다. 화면 위쪽에 걸친 개의 얼굴은 처음으로 하늘이 아니라 아래를 향해 있고 눈이 크게 열렸다
+<b>배경·소품</b> 돌아가는 빨간 얼레와 거기서 팽팽하게 당겨져 오른쪽으로 빠져나가는 흰 줄 · 담의 돌 몇 개 · 발치의 마른 풀
+<b>톤</b> 좁고 가까운 화면 · 얼레의 빨강만 또렷하게 마감</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>개가 돌담 위로 폴짝 올라섰어요.
+줄 끝 풀숲에서 새끼 염소가 줄을 우물우물 씹고 있었어요.
+"야! 그건 내 줄이야!"</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 와이드 · 담 위 개의 어깨너머로 덤불을 보는 앵글
+<b>장소·시간</b> 같은 자리. 곧바로 이어서
+<b>인물</b> 화면 왼쪽 — 새끼 개가 마른돌 담 위에 네 발로 올라서서 목을 앞으로 쭉 빼고 입을 크게 벌려 소리친다. 한 앞발이 담 끝을 딛고 앞으로 나가 있다. 아래 — 당나귀가 몸을 반쯤 일으켜 같은 쪽을 본다
+<b>배경·소품</b> 화면 오른쪽 가시덤불 옆에 새끼 염소 한 마리가 네 발로 서서 흰 줄을 입에 물고 우물우물 씹는다(작게, 화면 구석에) · 담에서 염소까지 이어진 팽팽한 흰 줄 · 누런 마른 풀
+<b>톤</b> 낮은 노란 빛 · 개와 염소를 같은 깊이에 두어 크기가 바르게 읽히게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>개가 팔을 크게 돌려 줄을 감았어요.
+한 바퀴, 두 바퀴, 세 바퀴.
+염소가 사각사각 씹으면서 저벅저벅 건너왔어요.
+"…이건 오네."</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 미디엄 와이드 · 옆에서 보는 아이레벨(개와 염소가 화면 양 끝에 같은 깊이로)
+<b>장소·시간</b> 같은 자리. 곧바로 이어서
+<b>인물</b> 화면 왼쪽 — 새끼 개가 담에 다시 걸터앉아 한 앞발로 얼레를 잡고 다른 앞발을 크게 원을 그리며 돌려 줄을 감는다. 입꼬리가 한쪽만 올라갔다. 오른쪽 — 새끼 염소가 줄을 입에 문 채 네 발로 풀밭을 밟으며 개 쪽으로 걸어온다. 그 아래 — 당나귀가 일어나 앉아 고개를 돌린다
+<b>배경·소품</b> 개와 염소 사이에서 줄어드는 흰 줄 · 반쯤 감긴 빨간 얼레 · 염소 발밑에 눌린 마른 풀 · 마른돌 담
+<b>톤</b> 늦은 오후의 따뜻한 빛 · 하늘은 여전히 비어 있게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p14 · 본문</span>얼레에 줄이 가득 감겼어요.
+개는 마지막 한 뼘을 염소 입에서 살살 빼냈어요.
+하늘은 텅 비었고, 무릎 위 빨간 얼레는 묵직해요.</div>
+  </div>
+  <div class="sc"><span class="n">p14 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 살짝 내려다보는 하이 앵글(무릎과 얼레가 화면 가운데)
+<b>장소·시간</b> 같은 자리. 오후의 끝
+<b>인물</b> 화면 가운데 — 새끼 개가 담에 앉아 두 앞발로 줄이 가득 감긴 빨간 얼레를 무릎 위에 안고, 한 앞발 손가락으로 마지막 남은 줄 한 뼘을 염소 입에서 살살 빼내는 참이다. 눈은 얼레를 본다. 바로 옆 — 새끼 염소가 담에 붙어 앉아 입을 우물거린다. 뒤쪽 — 당나귀가 서서 아래 마을 쪽을 본다
+<b>배경·소품</b> 줄이 가득 감겨 두툼해진 빨간 얼레 · 그 끝에 아무것도 매달려 있지 않은 짧은 줄 한 뼘 · 마른돌 담 · 누런 마른 풀 · 화면 위쪽은 아무것도 없는 하늘
+<b>톤</b> 낮고 따뜻한 빛이 무릎 위 얼레에만 모이게 · 하늘 쪽은 넓고 조용하게 비워서</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'd08',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 양치기 개(이름 없음)', '새끼 당나귀(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb72294d10"></script>
+<script src="/changjak-core.js?v=47fd80bb72294d10"></script>
+</body>
+</html>

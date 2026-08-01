@@ -93,8 +93,7 @@ CHARACTER DESIGN LANGUAGE: birds are birds. Ink contour first, then one or two w
   hold in the bill and point with the bill, and nothing else. Feet are underwater and never drawn;
   effort shows as ripples only.
 
-CANVAS: 16:9 double-page spread. One canal fork and nothing else on all thirteen pages. Bottom 18%
-  quiet for a caption. 🔴 No lettering, numerals, shop signs, house numbers or name plates.
+CANVAS: 16:9 double-page spread. One canal fork and nothing else on all thirteen pages. 🔴 No lettering, numerals, shop signs, house numbers or name plates.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,
   or a texture filter over the washes / never white paint, never a mixed grey shadow, never a

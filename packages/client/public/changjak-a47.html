@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>A-47 저녁 바위만 붉으면 좋겠어 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · A · 마음·감정 · 47</div>
+  <h1>저녁 바위만 붉으면 좋겠어</h1>
+  <div class="sub">해질 무렵에만 붉어지는 바위가 늘 붉어졌어요. 이제 아무도 저녁이 온 걸 몰라요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 소원의 대가</span>
+  <span>무대 · 돌로미티 바위산 — 양 우리 문 앞 돌계단 한 자리</span>
+  <span>후렴 · "붉어요! 지금이에요!" (p5·p7·p9 세 번 · 늘 계단 턱에 앞발을 척 올리고 목을 빼는 같은 자세 · 🔴 p11 에서 "그늘이 지금 왔어요!" 로 뒤집힌다)</span>
+  <span class="q">14스프레드</span>
+  <span class="q">본문 633자 · 쪽당 45자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- 🔴 <b>소원 장치·주문·요정 없음.</b> p4 는 계단에 턱을 얹고 혼잣말을 할 뿐이고, p5 는 그냥 붉다. 아무도 이유를 말하지 않는다.<br>
+- 🔴 <b>대가는 물리로 두 번 목격.</b> ①한낮에도 붉으니 늙은 개가 한낮에 짖고 → 양들이 풀을 반만 먹고 갇힌다(p6~p8) ②저녁엔 이미 짖은 뒤라 안 짖고 → 양 셋이 언덕에 남는다(p9~p10). 붉은 것은 신호였고, 신호가 늘 켜져 있으면 그걸 보고 하던 일이 같이 무너진다.<br>
+- 🔴 <b>색이 사건이라 밤낮이 안 읽힌다.</b> 시간은 전부 다른 것으로 잰다 — <b>계단을 올라오는 그늘의 칸</b>(p1 둘째 · p2 셋째 · p6 밑동 · p9 첫째 · p11 셋째) · 산바람 · 바위틈으로 들어가는 까마귀 · 해의 높이 · 이슬.<br>
+- <b>되돌리지 않는다.</b> 마지막 쪽에서도 바위는 붉다. 아이가 바꾼 것은 바위가 아니라 <b>무엇을 보고 저녁을 아는가</b>뿐이다.<br>
+- 장소는 계단 한 자리. 초지·언덕·양떼는 전부 이 자리에서 보이는 것으로만 그린다.<br>
+- p12 의 짖는 자세는 p3 늙은 개의 자세와 똑같이 그린다(글로는 말하지 않는다).
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>돌계단 꼭대기에 새끼 개가 턱을 얹고 있어요.
+앞산 바위는 아직 밍밍한 회색이에요.
+"언제 붉어져요?"</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 계단 꼭대기에서 바위벽을 함께 보는 어깨 너머, 개의 눈높이
+<b>장소·시간</b> 돌로미티 초지 끝, 돌로 쌓은 양 우리 문 앞의 낮은 돌계단 다섯 칸. 해가 아직 서쪽 능선 위에 남은 늦은 오후
+<b>인물</b> 화면 앞쪽 오른편 아래 — 새끼 양치기 개가 계단 꼭대기 평평한 자리에 배를 깔고 엎드려 턱을 앞발 위에 툭 얹고 있다. 귀는 축 처지고 눈만 정면 바위벽으로 향한다. 그 왼쪽 뒤 — 늙은 양치기 개가 문기둥에 등을 기대고 앉아 눈을 반쯤 감고 같은 쪽을 본다
+<b>배경·소품</b> 정면 멀리 톱니처럼 솟은 회색 바위벽(화면 위 절반) · 그 아래 초록 초지 · 계단 다섯 칸 · 🔴 아래에서 올라온 푸른 그늘이 둘째 칸까지 와 있고, 셋째 칸의 이끼 낀 자국은 아직 마른 채 드러나 있다
+<b>톤</b> 해가 낮아 빛이 옆에서 길게 들어오는 늦은 오후. 바위는 정보 없는 회색, 화면에서 가장 마감된 것은 새끼 개의 턱과 셋째 칸 이끼</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>해가 능선 뒤로 넘어가자 바위가 발갛게 물들어요.
+새끼 개가 벌떡 일어서요.
+"우와! 불붙었어요!"</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 와이드 · 같은 자리, 같은 방향(p1 과 완전히 같은 프레임)
+<b>장소·시간</b> 같은 돌계단. 해가 서쪽 능선 뒤로 막 넘어간 몇 분
+<b>인물</b> 화면 앞쪽 오른편 — 새끼 개가 네 발로 벌떡 일어서서 가슴을 펴고 정면 바위벽을 올려다본다. 꼬리가 위로 곧게 서고 입이 벌어져 있다. 왼쪽 뒤 — 늙은 개는 앉은 자세 그대로 눈만 뜬다
+<b>배경·소품</b> 정면 바위벽이 위에서부터 장밋빛으로 물들어 있다 · 초지는 이미 빛이 빠져 어둑한 초록 · 🔴 계단의 푸른 그늘이 <b>이끼 낀 셋째 칸에 딱 닿아 있다</b>(글에는 없다. 그림에만 심는다)
+<b>톤</b> 하늘은 아직 밝은데 땅은 어둑한 저녁 초입. 화면에서 붉은 것은 바위 하나뿐</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>늙은 개가 목을 쭉 빼고 짖어요. 왕! 왕!
+저쪽에서 양들이 줄줄이 걸어와요.
+"붉으면 부르는 거야."</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 · 계단 꼭대기에서 초지 쪽으로 몸을 돌린 옆모습, 아이레벨
+<b>장소·시간</b> 같은 계단. p2 바로 뒤, 바위가 아직 붉은 동안
+<b>인물</b> 화면 왼쪽 — 늙은 개가 앞발을 계단 턱에 딛고 목을 위로 쭉 뽑아 입을 크게 벌리고 짖는다. 눈은 초지 쪽. 화면 오른쪽 — 새끼 개가 그 옆에 서서 늙은 개의 벌어진 입을 올려다본다, 귀가 앞으로 쫑긋
+<b>배경·소품</b> 초지 저편에서 양떼가 한 줄로 이어져 계단 쪽으로 걸어온다(작게, 매체 그대로) · 오른쪽 뒤 우리의 나무 문이 활짝 열려 있다 · 정면 바위벽은 붉게
+<b>톤</b> 저녁의 낮고 따뜻한 빛. 소리가 나는 쪽(늙은 개의 목과 벌어진 입)만 또렷하게 마감</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>붉은빛이 스르르 꺼져요. 바위가 도로 회색이에요.
+새끼 개가 턱을 툭 얹어요.
+"저 붉은 거, 안 꺼지면 좋겠다."</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 계단 꼭대기, 개의 눈높이보다 살짝 낮게
+<b>장소·시간</b> 같은 계단. 붉은빛이 다 빠진 직후의 푸른 저녁
+<b>인물</b> 화면 가운데 — 새끼 개가 다시 배를 깔고 엎드려 턱을 계단 턱에 툭 얹고 있다. 눈꺼풀이 반쯤 내려오고 입꼬리가 처졌다. 시선은 회색이 된 바위벽. 화면 왼쪽 끝 — 늙은 개의 뒷다리와 꼬리만, 우리 안으로 들어가는 중
+<b>배경·소품</b> 정면 바위벽은 다시 특징 없는 회색 · 계단은 이미 전부 그늘에 잠겼다 · 닫히는 나무 문 한 자락
+<b>톤</b> 빛이 다 빠져 색이 얕아진 푸른 저녁. 화면에서 마감된 것은 새끼 개의 얼굴 하나</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>다음 날 아침에도 바위가 붉어요.
+새끼 개가 계단 턱에 앞발을 척 올리고 목을 빼요.
+"붉어요! 지금이에요!"</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 와이드 · p1·p2 와 같은 프레임
+<b>장소·시간</b> 같은 계단. 해가 동쪽 낮은 데서 막 올라온 이른 아침
+<b>인물</b> 화면 오른편 — 새끼 개가 계단 꼭대기 턱에 앞발 두 개를 척 올리고 목을 앞으로 길게 빼고 있다. 꼬리는 붕붕 흔들려 잔상처럼 두 겹. 왼쪽 뒤 — 늙은 개가 문 앞에 웅크린 채 고개를 들고 눈만 크게 껌뻑인다, 귀 하나가 반만 섰다
+<b>배경·소품</b> 정면 바위벽이 장밋빛(저녁과 똑같은 색) · 🔴 그런데 그림자는 전부 반대쪽으로 짧게 눕고 초지 풀끝마다 이슬이 반짝인다 · 계단에는 그늘이 한 칸도 없다
+<b>톤</b> 아침의 맑고 노란 빛. 색은 저녁인데 빛의 방향이 아침이라 어긋나 보이게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>한낮인데 바위는 그대로 붉어요.
+"붉으면… 부르는 건데."
+늙은 개가 목을 빼고 짖어요. 왕! 왕!</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 · 계단을 옆에서 보는 로우 앵글, 하늘이 넓게
+<b>장소·시간</b> 같은 계단. 해가 머리 꼭대기에 온 한낮
+<b>인물</b> 화면 왼쪽 — 늙은 개가 앞발을 딛고 목을 뽑아 짖는다, 고개가 아직 살짝 기울어 있고 눈썹 쪽 털이 찌푸려졌다. 화면 오른쪽 — 새끼 개가 엉덩이를 붙이고 앉아 늙은 개를 올려다본다, 귀 하나가 뒤로 젖혀졌다
+<b>배경·소품</b> 🔴 계단 다섯 칸 어디에도 그늘이 없고 맨 밑동에만 손바닥만 한 검은 그늘이 붙어 있다 · 정면 바위벽은 붉게 · 하늘 높은 데 해 · 초지 풀이 빳빳하게 서 있다
+<b>톤</b> 정오의 하얗고 센 빛. 그림자가 발밑에 뭉쳐 있어 시간이 읽히게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>양들이 우르르 언덕을 내려와요. 매애— 매애—
+새끼 개가 또 목을 빼요.
+"붉어요! 지금이에요!"</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 와이드 · 계단 꼭대기에서 초지·언덕 쪽을 보는 어깨 너머
+<b>장소·시간</b> 같은 계단. p6 바로 뒤의 한낮
+<b>인물</b> 화면 앞쪽 오른편 아래 — 새끼 개가 계단 턱에 앞발 두 개를 올리고 목을 길게 뺀 p5 와 똑같은 자세, 입이 벌어지고 꼬리가 곧게 섰다. 화면 왼쪽 아래 귀퉁이 — 늙은 개의 등과 뒷다리만, 문 쪽으로 몸을 돌린 채
+<b>배경·소품</b> 언덕 비탈을 양떼가 뭉쳐서 내려온다(중간 깊이, 앞줄 두어 마리만 반쯤 마감) · 열린 나무 문 · 정면 바위벽은 붉게 · 계단 밑동의 작은 그늘
+<b>톤</b> 한낮의 센 빛에 먼지가 뿌옇게 뜬다. 마감은 새끼 개의 앞발까지만</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>덜컹, 문이 닫혀요. 해는 아직 머리 꼭대기에 있어요.
+"왜 울어요?"
+"풀을 반밖에 못 먹었잖니."</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 닫힌 문살 앞, 개의 눈높이
+<b>장소·시간</b> 같은 계단 위. 문이 막 닫힌 한낮
+<b>인물</b> 화면 오른쪽 — 새끼 개가 닫힌 문 앞에 서서 고개를 기울이고 문살 사이를 들여다본다, 한쪽 앞발이 문살에 얹혔다. 화면 왼쪽 — 늙은 개가 문고리 옆에 앉아 눈을 내리깔고 있다, 꼬리가 바닥에 늘어졌다
+<b>배경·소품</b> 닫힌 나무 문살 · 문살 사이로 양들의 코와 뜬 눈 몇 개가 밀려 나온다 · 그림자가 딱 발밑으로만 짧고 진하게 진다 · 화면 귀퉁이에 붉은 바위벽 한 자락
+<b>톤</b> 정오의 그림자 없는 하얀 빛. 화면에서 가장 마감된 것은 문살에 눌린 양의 코 하나</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>산바람이 등털을 싹 눕혀요. 까마귀들이 바위틈으로 쏙 들어가요.
+"붉어요! 지금이에요!"
+늙은 개는 코를 파묻고 꿈쩍도 안 해요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 와이드 · p1·p2·p5 와 같은 프레임
+<b>장소·시간</b> 같은 계단. 해가 능선 뒤로 넘어간 저녁
+<b>인물</b> 화면 오른편 — 새끼 개가 계단 턱에 앞발 두 개를 올리고 목을 뺀 똑같은 자세, 등털이 바람에 한쪽으로 싹 눕고 귀가 뒤로 날린다. 왼쪽 뒤 — 늙은 개가 문 앞에 몸을 둥글게 말고 코를 뒷다리 사이에 파묻은 채 잔다
+<b>배경·소품</b> 정면 바위벽은 아침·낮과 똑같은 붉은색 · 🔴 바위틈으로 까마귀 예닐곱이 한 마리씩 빨려들듯 들어간다 · 초지 풀이 전부 한 방향으로 누웠다 · 계단 첫째 칸에 푸른 그늘이 막 올라붙었다
+<b>톤</b> 색은 낮과 같은데 공기만 차가워진 저녁. 바람의 방향(누운 풀·눕는 털)이 시간을 대신 말하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>언덕 꼭대기에 양 세 마리가 서 있어요.
+어둑해지는데 아무도 안 불러요.
+"이러다 못 내려와요!"</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 와이드 · 계단 꼭대기에서 언덕을 올려다보는 로우 앵글
+<b>장소·시간</b> 같은 계단. p9 보다 조금 더 지난 저녁
+<b>인물</b> 화면 아래 오른쪽 — 새끼 개가 계단 위에서 몸을 반쯤 일으켜 뒷발로 서고 앞발을 허공에 든 채 언덕 쪽으로 목을 늘인다, 눈이 크게 떠졌고 입은 아직 다물려 있다. 화면 아래 왼쪽 — 잠든 늙은 개의 둥근 등만
+<b>배경·소품</b> 언덕 꼭대기 능선에 양 세 마리가 점처럼 나란히 서 있다(작게, 매체 그대로) · 초지가 아래에서부터 푸르게 어두워진다 · 정면 바위벽은 여전히 붉게
+<b>톤</b> 아래는 어둡고 위만 밝은 저녁. 🔴 붉은 바위가 화면에서 유일하게 밝은데, 아무 도움이 안 되는 밝음으로 읽히게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>새끼 개가 발밑을 봐요.
+푸른 그늘이 이끼 낀 셋째 칸에 닿아 있어요.
+"붉은 건 아침부터였고요, 그늘이 지금 왔어요!"</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 클로즈업 · 계단 세 칸과 앞발을 위에서 내려다보는 하이 앵글
+<b>장소·시간</b> 같은 계단. p10 바로 뒤
+<b>인물</b> 화면 위쪽 — 새끼 개가 고개를 푹 숙여 제 앞발과 계단을 내려다본다, 코끝이 셋째 칸 가까이 내려오고 눈이 한 점에 모였다. 귀가 앞으로 쏠렸다
+<b>배경·소품</b> 🔴 계단 세 칸만 크게 — 첫째·둘째 칸은 푸른 그늘에 잠겼고 그늘의 경계선이 <b>이끼 낀 셋째 칸 자국에 정확히 걸쳐 있다</b>(p2 와 같은 자리) · 넷째 칸부터는 아직 마른 돌빛 · 화면 위 귀퉁이에 붉은 바위벽이 아주 조금만
+<b>톤</b> 발밑만 보이는 좁은 시야. 마감은 그늘의 경계선과 이끼 자국 하나에 몰아준다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>새끼 개가 가슴을 부풀리고 목을 힘껏 빼요. 왕! 왕! 와왕!
+늙은 개가 고개를 들고 귀를 쫑긋 세워요.</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 미디엄 · 옆에서 보는 로우 앵글, 하늘을 등지게
+<b>장소·시간</b> 같은 계단. p11 바로 뒤
+<b>인물</b> 화면 왼쪽 — 새끼 개가 뒷발에 힘을 주고 앞발을 계단 턱에 딛고 목을 하늘 쪽으로 최대한 뽑아 입을 크게 벌린다, 가슴이 부풀고 꼬리가 곧게 섰다(🔴 p3 의 늙은 개와 똑같은 자세). 화면 오른쪽 아래 — 잠에서 깬 늙은 개가 고개를 들고 두 귀를 위로 쫑긋 세운다, 눈이 새끼 개를 향한다
+<b>배경·소품</b> 계단 · 문기둥 · 언덕 능선 한 자락 · 화면 뒤쪽 붉은 바위벽은 흐리게
+<b>톤</b> 저녁의 푸른빛 속에서 두 몸의 실루엣만 또렷하게. 소리를 그리는 쪽이라 배경은 거의 비운다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>양 세 마리가 그늘을 밟고 터벅터벅 내려와요.
+새끼 개 꼬리가 살랑살랑 흔들려요.
+"오늘은 네가 알았네."</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 미디엄 와이드 · 계단 꼭대기에서 초지 쪽, 아이레벨
+<b>장소·시간</b> 같은 계단. 해가 다 넘어간 저녁
+<b>인물</b> 화면 왼쪽 — 새끼 개가 계단 턱에 앞발을 얹은 채 다가오는 양들을 지켜본다, 꼬리가 낮게 좌우로 흔들려 잔상이 진다. 화면 오른쪽 — 늙은 개가 일어서서 문고리 쪽으로 몸을 돌리다 말고 새끼 개를 곁눈으로 본다, 입이 조금 벌어져 있다
+<b>배경·소품</b> 양 세 마리가 앞뒤로 줄지어 초지의 푸른 그늘 위를 밟고 온다(중간 깊이, 다리와 발굽만 반쯤 마감) · 열린 나무 문 · 정면 바위벽은 그대로 붉게
+<b>톤</b> 땅은 다 그늘에 잠기고 바위만 붉은 저녁. 그늘 위를 밟는 발굽이 눈에 들어오게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p14 · 본문</span>밤이 와도 바위는 붉어요. 이제 아무 말도 안 해요.
+새끼 개는 셋째 칸 이끼에 앞발을 얹어요.
+그늘이 오는 쪽을 봐요.</div>
+  </div>
+  <div class="sc"><span class="n">p14 · SCENE</span><b>컷</b> 와이드 · p1·p2·p5·p9 와 같은 프레임
+<b>장소·시간</b> 같은 계단. 별이 나온 밤
+<b>인물</b> 화면 오른편 — 새끼 개가 계단을 세 칸 내려와 이끼 낀 셋째 칸 위에 앞발 두 개를 척 얹고 앉아 있다. 얼굴은 바위벽이 아니라 🔴 <b>초지 저편, 그늘이 건너오는 쪽</b>을 향한다. 눈은 반쯤 감기고 귀는 편안하게 옆으로. 화면 왼쪽 뒤 — 늙은 개가 문 안쪽에서 같은 방향으로 고개를 내밀고 있다
+<b>배경·소품</b> 정면 바위벽이 밤인데도 붉게 떠 있다(하늘은 검고 별이 떴다) · 초지는 온통 검푸른 그늘 · 계단 셋째 칸의 이끼 자국과 그 위에 얹힌 앞발 두 개
+<b>톤</b> 검은 밤하늘 · 이유 없이 붉은 바위 · 그 붉음이 화면에서 가장 밝은데 아무것도 알려 주지 않게. 마감은 앞발과 이끼 자국에만</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'a47',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 양치기 개(이름 없음)', '늙은 양치기 개(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb72294d10"></script>
+<script src="/changjak-core.js?v=47fd80bb72294d10"></script>
+</body>
+</html>

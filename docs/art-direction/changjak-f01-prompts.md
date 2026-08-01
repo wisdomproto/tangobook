@@ -92,7 +92,7 @@ CHARACTER DESIGN LANGUAGE: every animal is one closed brush contour with the fil
 CANVAS: 16:9 double-page spread. One German cottage bedroom and nothing else on all twelve pages:
   a low wooden bed against the left wall with one big thick eiderdown, a bellied tile stove at its
   foot, a small lattice window opposite, a wide plank floor, a two-finger draught gap under the
-  door. These positions never change. Bottom 18% quiet for a caption. NO LETTERING OR NUMERALS
+  door. These positions never change. NO LETTERING OR NUMERALS
   ANYWHERE.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,

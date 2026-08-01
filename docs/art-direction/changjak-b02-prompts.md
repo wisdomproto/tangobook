@@ -91,7 +91,7 @@ CHARACTER DESIGN LANGUAGE: the animals are cut out of the black like everything 
 CANVAS: 16:9 double-page spread. The narrow triangular space under a London staircase - treads
   slanting down overhead, the ceiling dropping toward the back, one small wooden door low in the
   short wall, worn floorboards, one gap between two treads that the light comes through. 🔴 The door
-  is LEFT and the puppy comes in from the RIGHT on every page. Bottom 18% quiet for a caption. No
+  is LEFT and the puppy comes in from the RIGHT on every page. No
   lettering, numerals, wallpaper, newspaper, pictures or signage anywhere.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,

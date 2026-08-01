@@ -103,7 +103,7 @@ CHARACTER DESIGN LANGUAGE: both stand on two legs, forepaws are hands, one simpl
 CANVAS: 16:9 double-page spread. One bakery workroom, the same on all twelve pages: a heavy wooden
   table across the middle, an arched brick oven in the back wall, a bread basket on a shelf beside
   it, one tall window at the RIGHT, an open flour sack at the LEFT, a blue enamel bucket under the
-  table, the ochre dough lump at the table's RIGHT end. Bottom 18% quiet for a caption. No
+  table, the ochre dough lump at the table's RIGHT end. No
   lettering, numerals, price cards or shop signs anywhere.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,

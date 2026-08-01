@@ -144,8 +144,7 @@ CHARACTER DESIGN LANGUAGE: eyes are DRAWN, not dotted - a small dark almond with
   Grade: every animal is a QUADRUPED, rising onto the hind legs only to use the forepaws; no
   clothes, no fingers. The pigeon never speaks.
 
-CANVAS: 16:9 double-page spread. Verticals dominate; shapes run out of the top and bottom. Bottom
-  18% quiet for a caption. No lettering or numerals anywhere.
+CANVAS: 16:9 double-page spread. Verticals dominate; shapes run out of the top and bottom. No lettering or numerals anywhere.
 
 NOT (rendering only): no digital slickness - airbrush, gradient, glow, bloom, halo, god-rays,
   sparkle, 3D CG, cel-shading, photographic, or a texture filter over flat colour / darkness is

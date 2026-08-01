@@ -66,8 +66,7 @@ he stands on two legs. Dog, goose, goat, cat and the five ducks are plain
 four-legged / bird animals - 0 clothing, 0 props, natural posture. Eyes = 2 flat
 dots. The five ducks are ONE shape repeated 5 times, identical, 0 variation.
 
-CANVAS: 16:9 double-page spread, horizontal. Keep the bottom 12% quiet for a
-caption. NO letters, numbers, signs, shop names or lettering of any kind - the
+CANVAS: 16:9 double-page spread, horizontal. NO letters, numbers, signs, shop names or lettering of any kind - the
 awning is stripes only, the pole is bare wood.
 
 NOT (rendering only): no outline around any shape; no airbrush, gradients, gloss

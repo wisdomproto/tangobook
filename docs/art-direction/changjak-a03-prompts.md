@@ -91,7 +91,7 @@ CHARACTER DESIGN LANGUAGE: animal faces, no human ones. An eye is a shape of BAR
   wearing one thing, the apron. 🔴 THE BEAR NEVER LOOKS AT THE KITTEN except while handing a cup
   over, and NEVER at the sill. If a pose fails, change the kitten.
 
-CANVAS: 16:9 double-page spread, 4-6 year old picture book. Bottom 18% quiet for a caption. No
+CANVAS: 16:9 double-page spread, 4-6 year old picture book. No
   lettering or numerals anywhere - no flavour label, price or writing on tub, cup or awning.
 
 NOT (rendering only): no digital slickness of any kind - airbrush, gradient, glow, 3D CG,

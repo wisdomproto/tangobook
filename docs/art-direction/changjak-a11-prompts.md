@@ -76,7 +76,7 @@ CHARACTER DESIGN LANGUAGE: all birds are REAL BIRDS - no clothes, no hands, no h
   drawn brow so the face can act; no dot-eyes, no catchlight. If a pose fails, make the magpie's
   body bigger in frame - never give it hands.
 
-CANVAS: 16:9 double-page spread. Bottom 18% left quiet for a caption. NO lettering, numerals,
+CANVAS: 16:9 double-page spread. NO lettering, numerals,
   house numbers, signage, weather-vane letters or letterforms anywhere.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading,

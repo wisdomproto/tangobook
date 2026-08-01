@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>A-45 물에 비친 나를 지워 줘 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · A · 마음·감정 · 45</div>
+  <h1>물에 비친 나를 지워 줘</h1>
+  <div class="sub">물에 비친 얼굴이 자꾸 흔들려서 이상해요. 지워 버리고 싶어요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 소원의 대가</span>
+  <span>무대 · 할슈타트 소금호수의 나무 선착장 한 자리 (낡은 널판 바닥 · 물에 박힌 말뚝 둘과 감긴 밧줄 · 옆에 매인 작은 나무 배의 뱃머리 · 세워 둔 여분 널판 한 장 · 소금이 굳은 나무 물통 하나 · 물 건너 가파른 산과 뾰족한 지붕 마을이 통째로 거꾸로 비친다 — 열세 쪽 내내 이 자리를 안 나간다)</span>
+  <span>후렴 · "또 이상해졌어!" (p2·p3·p7 세 번 · 🔴 p13 에서 "우리 둘 다 늘어났다!" 로 뒤집힌다)</span>
+  <span class="q">13스프레드</span>
+  <span class="q">본문 658자 · 쪽당 51자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- 🔴 <b>「제 모습이 마음에 안 든다」를 마음으로 안 썼다.</b> 수달은 못생겼다고도 싫다고도 하지 않는다. 물결이 지나가면 얼굴이 <b>늘어나고 코가 둘로 갈라지는 것</b>뿐이고, 아이가 하는 일은 그 <b>흔들림을 고치는 것</b>이다(물을 다림질하듯 펴 본다 → 안 되니까 지운다). 감정 환산이 없으니 외모를 나무라거나 위로하는 어른도 필요 없고, 실제로 한 명도 안 나온다. 인물은 또래 둘뿐이다.<br>
+- 🔴 <b>대가를 물리로 바꿨다(h08·g08 계승).</b> 소원 장치도 요정도 주문도 없다. 대가는 <b>「비친 것을 없애면, 물에 비쳐야만 찾을 수 있던 것도 같이 없어진다」</b>이고 아이는 그것을 <b>두 번 목격한다</b> — ①p4~p5 물을 휘젓자 제 얼굴과 함께 흰 거위도 흩어지고, 거위 몸은 뱃머리 뒤라 목소리만 나고 어디 있는지 모른다 ②p8~p10 널판으로 덮자 그 자리는 아주 안 비치는데, 하필 거위가 그 널판 그늘 밑에 있어서 물에도 없고 눈에도 없다. 둘째가 첫째보다 크고(잠깐 ↔ 아주) 오래간다.<br>
+- 🔴 <b>첫째 목격은 되돌아오고 둘째는 안 되돌아온다.</b> p6 에서 물결이 저절로 잦아들어 거위가 도로 비치기 때문에 수달은 p7 에서 <b>더 확실한 방법</b>을 찾는다 — 이 되돌아옴이 없으면 시도가 두 번 반복되는 이유가 없다.<br>
+- 🔴 <b>인과는 수달 제 입으로 못박는다.</b> 「이제 안 비쳐!」(p8) · 「지우면 안 돼! 비쳐야 널 찾잖아!」(p11) 둘 다 수달의 말이다. 거위는 제가 본 것과 부르는 말만 하고 설명해 주지 않는다.<br>
+- 🔴 <b>단서는 글이 아니라 그림에 심는다.</b> p1 물속에 흰 거위가 이미 비쳐 있고(몸은 안 보인다), p8 에서 거위가 널판 그늘 밑으로 헤엄쳐 들어가는 것은 <b>그림에만</b> 있다. 독자는 p9 부터 「저기 있잖아!」를 알고 수달만 모른다.<br>
+- 🔴 <b>최저점은 p10 이고 거기엔 대사가 없다.</b> 널판 가에 턱을 붙이고 밑을 들여다보는데 컴컴하고, 물 어디에도 흰 것이 없다. 원하던 일(안 비침)을 완전히 이룬 쪽이 가장 조용하다.<br>
+- 🔴 <b>g08(「내 그림자가 따라와」)과 정면으로 갈랐다.</b> 같은 소원의 대가지만 ①<b>없애려는 것</b>(발밑 그림자 ↔ 물에 비친 얼굴) ②<b>없애려는 이유</b>(무서워서 ↔ 흔들려서 이상해서) ③<b>없애는 방법</b>(그늘로 들어감 ↔ 물을 휘젓고 널판으로 덮음 — 남의 그늘이 아니라 <b>제 손으로 하는 일</b>) ④<b>대가</b>(제 등이 시린 것 ↔ <b>친구를 잃는 것</b>) ⑤<b>무대</b>(볕과 벽 ↔ 물과 널판) ⑥<b>착지</b>(해가 낮아져 저 혼자 길어짐 ↔ 두 얼굴이 나란히 비침). c37 과도 겹치지 않는다 — 거기는 물이 없어지는 이야기(오해와 반전)이고 여기는 물이 내내 그대로 있다.<br>
+- 🔴 <b>할슈타트가 없으면 이 이야기가 안 된다.</b> 산에 둘러싸여 바람이 안 드는 호수라 물이 유리처럼 서고, 그래서 <b>비친 것이 사람 찾는 지도 노릇</b>을 한다. 선착장 널판이 낮아 엎드리면 코가 물에 닿을 만큼 가깝고, 매인 배와 말뚝이 몸을 가려 <b>물에만 비치는 자리</b>를 만든다. 여분 널판 한 장이 그 자리에 세워져 있어서 아이 힘으로 밀어 띄울 수 있다. 다른 무대면 다섯 쪽이 성립하지 않는다.<br>
+- 🔴 <b>흰 것은 거위 하나뿐이다.</b> 소금 물통은 무대 정체(소금호수)라 남기되 <b>젖은 회백색 얼룩</b>으로 낮췄다 — 물 위에서 흰 것을 찾는 것이 이 책의 사건이라, 순백이 둘이면 눈이 갈린다.<br>
+- 🔴 <b>의인화 등급 고정</b> — 둘 다 네발·물새 그대로, 옷·신발 없음. 수달은 앞발을 쓸 때만 하나를 든다. 글자·숫자·간판 없음(건너편 마을은 멀리 실루엣).<br>
+- 🔴 <b>열세 쪽.</b> 흔들림 셋(발견·펴기·다시 돌아옴), 지우기 둘(휘젓기·덮기), 대가 넷(목소리만 남·도로 비침·못 찾음·컴컴함), 뒤집힘 하나, 열림 하나, 착지 하나. p5 와 p6 을 붙이면 「못 찾음」과 「찾음」이 한 그림에 눌려 첫 목격이 사라지고, p9 와 p10 을 붙이면 부르는 자세와 들여다보는 자세가 겹쳐 최저점이 안 내려간다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>새끼 수달이 선착장 널판에 배를 깔고 엎드렸어요.
+물이 유리처럼 잔잔해요.
+물속에 수달 하나, 그 옆에 흰 거위 하나가 비쳐요.
+"안녕, 나."</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 미디엄 · 하이앵글 · 화면 위쪽에 널판 위에 엎드린 수달, 화면 아래 절반이 통째로 물에 비친 상
+<b>장소·시간</b> 할슈타트 소금호수의 낡은 나무 선착장 끝 — 널판이 물에서 한 뼘 남짓 낮게 떠 있고, 물에 박힌 말뚝 둘에 밧줄이 감겼으며, 화면 오른쪽에 작은 나무 배의 뱃머리가 매여 있다. 화면 왼쪽 뒤에 여분 널판 한 장이 벽에 기대 세워져 있고 그 옆에 젖은 회백색 소금이 굳은 나무 물통 하나. <b>이 자리와 물건 자리는 열세 쪽 내내 같다.</b> 바람 한 점 없는 이른 아침
+<b>인물</b> 화면 위쪽 — 새끼 수달이 널판에 배를 깔고 길게 엎드려 턱을 널판 가장자리 밖으로 내밀었다, 두 앞발을 턱 아래 모아 널판을 짚었고 눈을 동그랗게 뜨고 바로 아래 물을 내려다보며, 수염이 앞으로 뻗고 입이 조금 벌어져 말한다, 뒷다리와 굵은 꼬리가 널판 위에 늘어졌다. 네발 그대로 · 옷·신발 없음. 🔴 <b>거위의 몸은 뱃머리 뒤에 가려 화면에 안 보인다</b>
+<b>배경·소품</b> 🔴 <b>물이 조금도 안 흔들려 유리판처럼 서 있다</b> — 물속에 수달의 얼굴이 위와 똑같은 크기로 또렷하게 거꾸로 있고, <b>그 옆에 흰 거위 하나가 나란히 비쳐 있다</b>(비친 것만 있고 몸은 없다 — 독자만 보는 단서다). 물 저 안쪽으로 검푸른 산과 뾰족한 지붕들이 통째로 거꾸로 잠겨 있다. 말뚝과 감긴 밧줄, 배 뱃머리, 세워 둔 여분 널판, 소금 굳은 나무통. 글자·숫자·간판 없음
+<b>톤</b> 물빛이 화면 아래 절반을 짙은 초록으로 채우고 그 위에 흰 것 하나가 유일하게 밝다 — 🔴 <b>위의 얼굴과 아래의 얼굴이 자로 잰 듯 똑같아서, 이 쪽에서 물은 「또 하나의 화면」이다.</b> 소리가 하나도 안 나는 이른 아침의 고요</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>그때 물결 한 줄이 스르륵 지나갔어요.
+얼굴이 쭈욱 늘어나고 귀가 넷이 됐어요.
+"또 이상해졌어!"
+수달이 앞발로 널판을 탁 짚었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 클로즈업 · 하이앵글 · 물 위 얼굴과 물 아래 늘어난 얼굴이 한 화면에 위아래로
+<b>장소·시간</b> 같은 선착장 끝. 같은 이른 아침
+<b>인물</b> 화면 위 — 수달이 엎드린 채 목을 앞으로 더 빼고 얼굴을 물 가까이 내렸다, <b>앞발 하나를 들어 널판을 탁 짚었고</b> 발톱 밑에서 널판 먼지가 톡 튄다, 두 눈이 크게 벌어지고 눈썹 자리가 위로 올라갔으며 입이 벌어져 외친다, 수염이 좌우로 뻗쳤다. 네발 그대로 · 옷·신발 없음
+<b>배경·소품</b> 🔴 <b>물결 한 줄이 화면을 가로로 지나가는 중이다</b> — 그 줄이 지나간 자리에서 비친 얼굴이 <b>세로로 쭈욱 늘어나고, 귀 하나가 물결 마루에서 잘려 둘로 보여 귀가 넷이 되었다</b>(얼굴은 부서지지 않고 늘어나기만 한다). 물결 줄 바깥쪽 물은 아직 잔잔해서 산이 또렷하고, <b>흰 거위가 비친 자리도 아직 안 흔들린다.</b> 말뚝 밑동에 물결이 닿아 잔주름이 인다. 글자·숫자·간판 없음
+<b>톤</b> 흔들린 띠와 안 흔들린 물이 한 화면에 나란히 있어 <b>무엇이 달라졌는지가 견줘서 읽힌다</b> — 🔴 늘어난 것은 얼굴 하나뿐이고 나머지는 그대로다. 물결이 지나가는 짧은 어수선함</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>수달이 물을 살살 폈어요. 다림질하듯이.
+그런데 앞발이 지나간 자리마다 물결이 더 생겨요.
+"또 이상해졌어!"</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 하이앵글 · 화면 왼쪽 위에 수달의 어깨와 얼굴, 화면 오른쪽 아래로 넓게 퍼진 물과 앞발
+<b>장소·시간</b> 같은 선착장 끝, 널판 가장자리. 같은 이른 아침
+<b>인물</b> 화면 왼쪽 위 — 수달이 널판에 엎드린 채 <b>앞발 하나를 물에 얹어 옆으로 쓸어 편다</b>, 손바닥을 활짝 펴 수면에 납작하게 붙였고 어깨가 앞으로 기울어 목이 길게 나왔으며, 눈이 제 앞발 끝을 바짝 좇고 입이 다물렸다가 벌어져 외친다, 다른 앞발은 널판을 붙잡아 몸을 버틴다. 네발 그대로 · 옷·신발 없음
+<b>배경·소품</b> 🔴 <b>앞발이 지나간 자리마다 잔물결이 부채꼴로 새로 퍼진다</b> — 펴려던 자리가 오히려 가장 어지럽고, 그 물결이 바깥으로 나가며 비친 얼굴을 조각조각 접었다 폈다 한다. 물결이 닿은 곳까지는 산 그림자가 잘게 끊기고, 아직 안 닿은 화면 구석 물만 유리처럼 서 있다. 말뚝에 감긴 밧줄이 물에 닿아 잔주름을 만든다. 글자·숫자·간판 없음
+<b>톤</b> 손이 닿은 데서 바깥으로 번지는 둥근 무늬가 화면을 가득 채운다 — 🔴 <b>고치려는 손이 곧 흔들림의 원인</b>이라는 것이 부채꼴 하나로 보이도록. 애쓸수록 어지러워지는 답답함</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>"그럼 지워 버릴 거야!"
+수달이 두 앞발로 물을 첨벙첨벙 휘저었어요.
+물속 얼굴이 산산이 흩어졌어요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 · 살짝 로우앵글(물 높이 가까이에서) · 화면 가운데에 몸을 앞으로 내민 수달과 튀어 오르는 물
+<b>장소·시간</b> 같은 선착장 끝. 같은 이른 아침
+<b>인물</b> 화면 가운데 — 수달이 널판 끝에 상체를 내밀고 <b>두 앞발을 물속에 넣어 크게 휘젓는다</b>, 앞발 둘이 서로 반대 방향으로 벌어졌고 어깨가 물에 닿을 만큼 낮으며, 뒷발로 널판을 꽉 딛고 꼬리를 위로 곧게 세워 균형을 잡는다, 눈을 질끈 감다시피 하고 입이 크게 벌어져 외치며 수염에 물방울이 맺혔다. 네발 그대로 · 옷·신발 없음
+<b>배경·소품</b> 🔴 <b>물 전체가 부서져 아무것도 안 비친다</b> — 얼굴도, 산도, 지붕도, <b>흰 거위가 비쳤던 자리도 함께 흩어졌다</b>(흰 조각 몇 개만 물결 사이에 잘게 남는다). 물방울이 널판 위로 튀어 짙은 점을 만들고, 밧줄과 말뚝이 물살에 잠겼다 나왔다 한다. 배 뱃머리가 물결에 조금 들썩인다. 글자·숫자·간판 없음
+<b>톤</b> 화면 아래가 온통 깨진 초록으로 뒤엎여 방금까지 있던 「또 하나의 화면」이 사라졌다 — 🔴 <b>없애는 데 성공한 쪽이고, 없어진 것이 얼굴만이 아니라는 것이 흩어진 흰 조각으로만 보인다.</b> 물이 튀는 요란함</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>"어? 거위야, 어디 있어?"
+배 뒤에서 목소리만 났어요.
+"나 여기 있는데!"
+수달이 목을 쭉 빼고 두리번거렸어요.</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 화면 왼쪽에 목을 뺀 수달, 화면 오른쪽에 배 뱃머리, 그 뒤는 안 보인다
+<b>장소·시간</b> 같은 선착장 끝. 같은 이른 아침
+<b>인물</b> 화면 왼쪽 — 수달이 널판 위에 앞발을 짚고 상체를 세워 <b>목을 있는 힘껏 앞으로 쭉 빼고 고개를 좌우로 돌린다</b>, 젖은 앞발에서 물이 뚝뚝 떨어지고 두 귀가 쫑긋 섰으며, 눈이 크게 열려 물 위를 훑고 입이 벌어져 부른다, 꼬리가 널판 위에서 좌우로 한 번 쓸린다. 네발 그대로 · 옷·신발 없음. 🔴 <b>거위는 뱃머리에 완전히 가려 몸이 한 조각도 안 보인다</b>
+<b>배경·소품</b> 🔴 <b>물은 아직 다 깨져 있어 아무것도 안 비친다</b> — p1 에서 흰 거위가 비쳐 있던 자리에 지금은 부서진 초록만 있다. 화면 오른쪽 나무 배가 옆으로 매여 있고 그 뒤쪽은 프레임에서 완전히 가려진다(🔴 몸을 가리는 것이 화면에 있어야 「목소리만 난다」가 성립한다). 말뚝, 감긴 밧줄, 널판 위에 튄 물자국. 글자·숫자·간판 없음
+<b>톤</b> 넓은 물과 배 하나가 화면을 갈라 놓고, 찾는 얼굴만 밝다 — 🔴 <b>물이 안 비치니까 있는 줄은 아는데 어디인지 모른다</b>는 것이 텅 빈 초록으로 읽히도록. 대답은 들리는데 눈이 갈 데가 없는 어리둥절함</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>물결이 스르르 잦아들었어요.
+흰 거위가 물속에 도로 비쳤어요.
+"거기 있었네!"
+수달이 앞발로 그 자리를 콕 짚었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 클로즈업 · 하이앵글 · 화면 위 가장자리에 수달의 앞발과 얼굴 아래쪽, 화면 대부분이 다시 잔잔해진 물
+<b>장소·시간</b> 같은 선착장 끝. 같은 이른 아침
+<b>인물</b> 화면 위 가장자리 — 수달이 엎드린 채 <b>앞발 하나를 뻗어 물에 비친 흰 것 바로 위를 콕 짚는다</b>, 발끝이 수면에 닿을락 말락 하고 손가락 하나만 폈으며, 아래로 숙인 얼굴에서 두 눈이 그 자리에 딱 멈췄고 입이 벌어져 말한다, 다른 앞발은 널판을 짚어 몸을 지탱한다. 네발 그대로 · 옷·신발 없음
+<b>배경·소품</b> 🔴 <b>물이 가장자리부터 다시 서서 비친 것이 돌아왔다</b> — 화면 가운데 아래에 <b>흰 거위가 아까 그 자리에 그대로 비쳐 있고</b>(몸은 여전히 뱃머리 뒤라 안 보인다), 산과 지붕도 다시 거꾸로 잠겼다. 물결은 화면 바깥쪽에만 몇 줄 남아 잔주름을 만든다. 짚은 앞발 그림자가 물 위에 작게 얹힌다. 글자·숫자·간판 없음
+<b>톤</b> 깨져 있던 초록이 도로 매끈해지며 흰 것 하나가 다시 화면에서 제일 밝다 — 🔴 <b>찾은 것은 눈이 아니라 물이다</b>(수달은 배 뒤를 못 보고 물만 봤다). 짚은 발끝 하나로 시선이 모이는 안도</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>그런데 수달 얼굴도 같이 돌아왔어요.
+수달이 코를 물 가까이 내렸어요.
+물결 한 줄에 코가 두 개로 갈라져요.
+"또 이상해졌어!"</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 클로즈업 · 하이앵글 · 물에 닿을 듯 내려온 코와 그 아래 갈라진 코가 위아래로 마주 본다
+<b>장소·시간</b> 같은 선착장 끝. 같은 이른 아침
+<b>인물</b> 화면 위 — 수달이 널판에 배를 붙이고 <b>코끝을 물에서 한 뼘도 안 되는 데까지 내렸다</b>, 두 앞발로 널판 가장자리를 꽉 잡아 몸을 앞으로 기울였고 어깨가 솟았으며, 눈이 아래로 몰려 제 코를 보려 하고 입이 벌어져 외치며 수염이 아래로 처졌다. 네발 그대로 · 옷·신발 없음
+<b>배경·소품</b> 🔴 <b>물결 한 줄이 코가 비친 자리를 정확히 지나 코 하나가 둘로 어긋나 보인다</b> — 위쪽 반과 아래쪽 반이 옆으로 밀려 겹치지 않는다(얼굴 나머지는 멀쩡해서 어긋난 데가 한눈에 보인다). 같은 물결이 흰 거위 비친 자리도 스치지만 <b>거기는 아직 안 어긋난다.</b> 말뚝 밑동의 잔주름, 물 저 안쪽 거꾸로 잠긴 산. 글자·숫자·간판 없음
+<b>톤</b> 얼굴을 크게 잡아 어긋난 코 하나가 화면 한가운데에 오도록 — 🔴 <b>되돌아온 것이 반가움이 아니라 다시 온 문제</b>라는 것이 같은 후렴으로 읽힌다. 코앞까지 내려온 물의 서늘함</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>수달이 세워 둔 널판을 물 위로 쓱 밀었어요.
+널판 밑은 컴컴하고 아무것도 안 비쳐요.
+"이제 안 비쳐!"</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 와이드 · 살짝 하이앵글 · 화면 왼쪽에서 오른쪽으로 물 위에 얹힌 널판, 그 뒤에서 미는 수달
+<b>장소·시간</b> 같은 선착장 끝. 같은 이른 아침
+<b>인물</b> 화면 왼쪽 — 수달이 뒷발로 널판 바닥을 딛고 <b>두 앞발로 여분 널판의 끝을 밀어 물 위로 내보낸다</b>, 등이 활처럼 굽고 뒷다리가 뒤로 쭉 뻗었으며 발톱이 나무를 긁는다, 이를 앙다물어 볼이 부풀고 눈은 밀려 나가는 널판 끝을 좇으며, 꼬리가 뒤로 곧게 뻗어 힘을 받친다. 네발 그대로 · 옷·신발 없음
+<b>배경·소품</b> 🔴 <b>넓은 널판 한 장이 물 위에 얹혀 그 밑이 통째로 컴컴하다</b> — 널판이 덮은 자리에는 산도 지붕도 얼굴도 하나도 안 비치고, 덮이지 않은 둘레 물만 여전히 또렷하게 비친다(덮인 데와 안 덮인 데가 한 화면에 나란히 있어야 한다). 🔴 <b>글에는 없다 — 화면 오른쪽 아래, 흰 거위가 물에 떠서 널판이 만든 그늘 밑으로 헤엄쳐 들어가는 중이다</b>(꽁지 끝과 물살 자국만 널판 밖에 남았다. 독자만 본다). 말뚝, 밧줄, 소금 굳은 나무통. 글자·숫자·간판 없음
+<b>톤</b> 매끈하던 초록 위에 잿빛 갈색 판이 크게 얹혀 화면 절반이 죽는다 — 🔴 <b>덮은 자리가 넓을수록 「또 하나의 화면」이 그만큼 없어진다</b>는 것이 면적으로 보이도록. 힘을 쓰는 몸의 부산함과 판 밑의 갑작스러운 어둠</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>"거위야, 이것 봐!"
+"어디 봐?"
+목소리는 나는데 흰 것이 안 보여요.
+수달이 널판 끝까지 종종 걸어갔어요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 화면 왼쪽에 종종 걷는 수달, 화면 오른쪽으로 넓게 떠 있는 널판
+<b>장소·시간</b> 같은 선착장 끝. 같은 이른 아침
+<b>인물</b> 화면 왼쪽 — 수달이 네발로 <b>선착장 널판 끝까지 종종 걸어간다</b>, 앞발 하나가 공중에 든 걸음 중간이고 몸이 앞으로 기울었으며, 목을 길게 빼고 고개를 물 쪽으로 돌려 수면을 훑는다, 두 귀가 소리 나는 쪽으로 돌아갔고 입이 벌어져 부르며 꼬리가 뒤에서 한 번 흔들린다. 네발 그대로 · 옷·신발 없음
+<b>배경·소품</b> 🔴 <b>물 위 어디에도 흰 것이 없다</b> — 널판이 덮지 않은 초록 물에는 산과 지붕만 또렷하게 거꾸로 잠겨 있고, 널판 밑은 컴컴해서 아무것도 안 보인다(🔴 흰 거위를 한 조각도 그리지 마라. 그늘 밑 물에 아주 옅은 물살 자국 하나만 남는다). 널판 가장자리에 물이 찰랑 부딪는 자리, 말뚝과 밧줄, 소금 굳은 나무통. 글자·숫자·간판 없음
+<b>톤</b> 초록과 잿빛 갈색뿐이라 화면에서 흰 것이 완전히 빠졌다 — 🔴 <b>p1·p6 에서 눈이 곧장 가던 그 밝은 점이 없다</b>는 것이 색만으로 읽히도록. 대답은 가까운데 눈이 자꾸 헛도는 조바심</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>수달이 널판 가에 턱을 붙이고 밑을 들여다봤어요.
+컴컴해서 아무것도 안 보여요.
+물에도 흰 것이 하나도 없어요.</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨(수면 바로 위 높이) · 화면 아래로 널판의 두꺼운 옆면과 그 밑 어둠, 화면 위에 널판에 붙인 수달의 얼굴
+<b>장소·시간</b> 같은 선착장 끝, 떠 있는 널판 가장자리. 같은 이른 아침
+<b>인물</b> 화면 위 — 수달이 배를 널판에 납작하게 붙이고 <b>턱을 널판 가장자리에 얹은 채 고개를 옆으로 기울여 판 밑을 들여다본다</b>, 한쪽 뺨이 나무에 눌려 찌그러졌고 앞발 하나가 판 가장자리를 잡았으며, 두 눈이 어둠 속으로 바짝 좁혀지고 입이 다물렸다, 귀가 앞으로 기울고 꼬리가 멈춰 늘어졌다. 네발 그대로 · 옷·신발 없음
+<b>배경·소품</b> 🔴 <b>널판 밑이 통째로 컴컴하고 그 안에 아무것도 안 보인다</b> — 물과 나무가 만나는 선만 겨우 밝고 안쪽은 형체가 없다. 널판 바깥쪽 물에는 산과 지붕이 여전히 또렷하게 비친다(🔴 잘 비치는 데와 아무것도 없는 데가 한 화면에 붙어 있다). 널판 옆면의 젖은 나뭇결과 물이끼, 물이 판에 부딪는 잔주름. 글자·숫자·간판 없음
+<b>톤</b> 화면 아래 절반이 검게 눌리고 위쪽 얼굴만 옅게 밝다 — 🔴 <b>원하던 대로 아주 안 비치게 된 쪽이 이 책에서 가장 조용하다.</b> 대사가 한 줄도 없이 들여다보는 눈 하나만 남는 정지</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>"지우면 안 돼! 비쳐야 널 찾잖아!"
+수달이 두 앞발로 널판을 힘껏 밀어냈어요.</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 · 살짝 로우앵글 · 화면 오른쪽에 몸 전체로 미는 수달, 화면 왼쪽에 밀리기 시작한 널판
+<b>장소·시간</b> 같은 선착장 끝. 같은 이른 아침
+<b>인물</b> 화면 오른쪽 — 수달이 선착장 널판에 뒷발을 단단히 딛고 <b>두 앞발을 떠 있는 널판에 대고 바깥쪽으로 힘껏 민다</b>, 어깨가 앞으로 쏟아지고 등이 일직선으로 뻗었으며 뒷다리가 뒤로 밀려 나무를 긁는다, 눈을 크게 뜨고 입을 활짝 벌려 외치며 수염이 뒤로 눕고 꼬리가 위로 튀었다. 네발 그대로 · 옷·신발 없음
+<b>배경·소품</b> 🔴 <b>널판이 밀리기 시작해 이쪽 가장자리에 물이 한 뼘 열렸다</b> — 열린 그 좁은 띠에만 하늘빛이 다시 들어와 밝고, 나머지는 아직 널판 밑 어둠이다(🔴 열린 띠가 아직 좁아서 흰 것은 안 보인다). 밀린 널판 앞쪽으로 물이 낮게 밀려 나가며 주름이 진다. 말뚝과 밧줄, 배 뱃머리. 글자·숫자·간판 없음
+<b>톤</b> 어둡던 화면에 밝은 띠 하나가 처음 생겨 눈이 거기로 간다 — 🔴 <b>지우려던 방향과 정확히 반대로 몸이 쓰인다</b>는 것이 자세로 읽히도록. 온몸으로 밀어내는 급함</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>널판이 스르륵 미끄러져 나갔어요.
+수달이 목을 쭉 뻗었어요.
+널판이 비켜난 자리에 흰 거위가 쑥 드러났어요.
+"거기 있었구나!"</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 미디엄 와이드 · 하이앵글 · 화면 왼쪽으로 미끄러져 나가는 널판, 그 오른쪽에 넓게 열린 물과 흰 거위
+<b>장소·시간</b> 같은 선착장 끝. 같은 이른 아침
+<b>인물</b> 화면 오른쪽 위 — 수달이 선착장 가장자리에서 <b>목을 앞으로 쭉 뻗어 열린 물 위로 내밀었다</b>, 앞발 둘이 아직 앞으로 뻗은 채 밀던 자세 그대로이고 몸은 앞으로 쏠렸으며, 두 눈이 활짝 열려 흰 것에 딱 붙었고 입이 벌어져 외친다, 귀가 번쩍 섰다. 화면 가운데 아래 — <b>새끼 흰 거위가 물 위에 떠서 고개를 돌려 수달을 올려다본다</b>, 목을 부드럽게 굽히고 부리를 조금 벌렸으며 물갈퀴가 물속에서 천천히 젓는다. 둘 다 네발·물새 그대로 · 옷·신발 없음
+<b>배경·소품</b> 🔴 <b>널판이 비켜난 자리로 빛이 들어와 그 아래가 훤해졌다</b> — 흰 거위의 몸과 <b>바로 그 아래 물에 거꾸로 비친 흰 거위</b>가 함께 보인다(몸과 비친 것이 처음으로 한 화면에 같이 있다). 미끄러져 나가는 널판이 화면 왼쪽 가장자리를 지나며 물살 자국을 길게 남긴다. 말뚝, 밧줄, 소금 굳은 나무통. 글자·숫자·간판 없음
+<b>톤</b> 잿빛 갈색 판이 빠져나가며 초록 물이 도로 넓어지고, 그 한가운데 흰 것 둘이 위아래로 겹쳐 가장 밝다 — 🔴 <b>덮은 것을 치운 만큼 정확히 다시 보인다.</b> 눈이 판을 따라 왼쪽으로 갔다가 열린 자리로 되돌아오는 시원함</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>둘이 널판에 나란히 엎드렸어요.
+물속에도 둘이 나란히 엎드려 있어요.
+물결 한 줄이 스르륵 지나가요.
+두 얼굴이 같이 쭈욱 늘어났어요.
+"우리 둘 다 늘어났다!"</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 미디엄 · 하이앵글 · 🔴 p1 과 <b>같은 자리·같은 각도</b>, 다만 위에도 아래에도 둘씩이다
+<b>장소·시간</b> 같은 선착장 끝, 같은 널판 가장자리. 해가 조금 올라온 아침
+<b>인물</b> 화면 위 — 수달과 흰 거위가 <b>어깨를 붙이고 나란히 널판에 엎드려</b> 둘 다 턱을 가장자리 밖으로 내밀고 아래를 내려다본다, 수달은 두 앞발을 턱 아래 모았고 눈이 반달로 휘며 입이 벌어져 외치고, 거위는 목을 낮게 굽혀 부리를 물 쪽으로 내리고 한쪽 눈으로 수면을 본다, 수달 꼬리와 거위 꽁지가 널판 위에 나란히 놓였다. 둘 다 네발·물새 그대로 · 옷·신발 없음
+<b>배경·소품</b> 🔴 <b>물속에도 두 얼굴이 나란히 거꾸로 있고, 물결 한 줄이 그 둘을 한꺼번에 지나가 둘 다 세로로 쭈욱 늘어났다</b> — 늘어난 정도가 똑같고 늘어난 방향도 같다(🔴 하나만 늘어나면 이 쪽이 죽는다. 둘을 반드시 한 물결 위에 얹어라). 물결 바깥쪽에는 산과 지붕이 또렷하게 잠겨 있고, 🔴 <b>덮여 있던 널판은 저 옆 물 위에 한가하게 떠 있다.</b> 말뚝과 감긴 밧줄, 소금 굳은 나무통. 글자·숫자·간판 없음
+<b>톤</b> 아침 해가 조금 올라와 물빛이 p1 보다 밝고, 흰 것 하나가 아니라 <b>위아래로 넷이 짝을 지어</b> 화면을 채운다 — 🔴 <b>p1 은 혼자 제 얼굴 하나를 들여다봤고, 여기는 둘이 나란히 있고 물속에도 둘이 나란히 있다.</b> 늘어난 것을 아무도 고치려 들지 않는 느긋한 아침</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'a45',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 수달(이름 없음)', '새끼 흰 거위(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb72294d10"></script>
+<script src="/changjak-core.js?v=47fd80bb72294d10"></script>
+</body>
+</html>

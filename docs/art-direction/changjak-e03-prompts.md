@@ -52,7 +52,7 @@ CHARACTER DESIGN LANGUAGE
 Quadruped farm animals. No clothing, no collar, no held objects, no props. Bodies are built from grain running the way the coat runs: along the back, down the legs, out along the muzzle. Eye = one small flat #1E1C1A mark; there are no whisker lines, no eyebrows, no drawn mouth - an open mouth is a gap left free of strokes with a small #1E1C1A mark inside. The dog's four paws are the only surfaces finished as solid flat black, and they must stay readable at thumbnail size.
 
 CANVAS
-16:9 double-page spread. Keep the lower 12% quiet for a caption. No letters, numbers, signs or symbols anywhere in this book.
+16:9 double-page spread. No letters, numbers, signs or symbols anywhere in this book.
 
 NOT (rendering only)
 - 0 contour lines: no ink, pencil or brush outline around any form

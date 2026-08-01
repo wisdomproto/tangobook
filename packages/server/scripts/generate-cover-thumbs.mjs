@@ -24,20 +24,28 @@ import { fileURLToPath } from 'node:url';
 const __dir = path.dirname(fileURLToPath(import.meta.url));
 
 // .env 로드 (R2 자격증명)
-for (const line of fs.readFileSync(path.join(__dir, '..', '.env'), 'utf-8').split('\n')) {
+// 워크트리에는 .env 가 없다 — 메인 체크아웃으로 폴백한다.
+const ENV_FILE = [
+  path.join(__dir, '..', '.env'),
+  'C:/projects/tangobook/packages/server/.env',
+].find((f) => fs.existsSync(f));
+for (const line of fs.readFileSync(ENV_FILE, 'utf-8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/);
   if (m) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '');
 }
 
-const { S3Client, GetObjectCommand, PutObjectCommand, HeadObjectCommand } = await import(
-  '@aws-sdk/client-s3'
-);
+const { S3Client, GetObjectCommand, PutObjectCommand, HeadObjectCommand, ListObjectsV2Command } =
+  await import('@aws-sdk/client-s3');
 const sharp = (await import('sharp')).default;
 
 const args = process.argv.slice(2);
 const APPLY = args.includes('--apply');
 const FORCE = args.includes('--force');
 const LIMIT = Number((args.find((a) => a.startsWith('--limit=')) || '').split('=')[1] || 0);
+// 🔴 표지 전용이 아니다 — `--prefix=` 를 주면 목록 API 대신 **R2 를 그 접두사로 훑어** 굽는다.
+//    (파닉스 블로그의 동화 미리보기가 4.4MB 쪽 삽화를 188px 로 그리고 있었다.)
+//    예: --prefix=comic-assets/hangeul-tree- --apply
+const PREFIX = (args.find((a) => a.startsWith('--prefix=')) || '').split('=')[1] || null;
 
 const BUCKET = process.env.R2_BUCKET_NAME;
 const PUBLIC_URL = (process.env.R2_PUBLIC_URL ?? '').replace(/\/$/, '');
@@ -77,7 +85,27 @@ async function exists(key) {
   }
 }
 
+/** `--prefix=` 모드 — R2 를 그 접두사로 훑어 이미지 key 를 모은다(썸네일 자신은 제외). */
+async function keysByPrefix(prefix) {
+  const out = [];
+  let token;
+  do {
+    const page = await s3.send(
+      new ListObjectsV2Command({ Bucket: BUCKET, Prefix: prefix, ContinuationToken: token })
+    );
+    for (const o of page.Contents ?? [])
+      if (!o.Key.startsWith(THUMB_PREFIX) && /\.(webp|png|jpe?g)$/i.test(o.Key)) out.push(o.Key);
+    token = page.IsTruncated ? page.NextContinuationToken : undefined;
+  } while (token);
+  return out;
+}
+
 async function main() {
+  if (PREFIX) {
+    const keys = await keysByPrefix(PREFIX);
+    console.log(`접두사 ${PREFIX} → R2 key ${keys.length}`);
+    return run(LIMIT ? keys.slice(0, LIMIT) : keys);
+  }
   // 라이브 목록 API 에서 표지 URL 수집 — 저장 데이터가 아니라 "실제로 화면에 쓰이는" 표지만.
   const origin = process.env.THUMB_SOURCE_ORIGIN || 'https://www.tangobook.co.kr';
   console.log(`목록 로딩: ${origin}/api/storybooks`);
@@ -105,9 +133,11 @@ async function main() {
   }
 
   const keys = [...urls].map(keyFromUrl).filter(Boolean);
-  const targets = LIMIT ? keys.slice(0, LIMIT) : keys;
   console.log(`표지 URL ${urls.size} · R2 key ${keys.length}${LIMIT ? ` (limit ${LIMIT})` : ''}`);
+  return run(LIMIT ? keys.slice(0, LIMIT) : keys);
+}
 
+async function run(targets) {
   if (!APPLY) {
     console.log('\nDry-run. --apply 로 실제 생성.');
     return;

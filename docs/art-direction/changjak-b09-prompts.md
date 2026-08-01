@@ -124,8 +124,7 @@ CHARACTER DESIGN LANGUAGE: the squirrel's eyes are DRAWN - a dark rounded shape 
   and whose wings never bend or beat air.
 
 CANVAS: 16:9 double-page spread. ONE ROOM FOR ELEVEN PAGES - window and workbench left, the carved
-  cuckoo clock high right, sawdust underfoot, spruce beyond the glass. Black Forest, European.
-  Bottom 18% quiet for a caption. 🔴 No lettering, numerals or clock numbers anywhere.
+  cuckoo clock high right, sawdust underfoot, spruce beyond the glass. Black Forest, European. 🔴 No lettering, numerals or clock numbers anywhere.
 
 NOT: no digital slickness of any kind - airbrush, gradient, CG gloss, cel shading, photographic, or
   a wood-texture filter over the picture / no flare, bloom, god-rays or motion blur / no fifth

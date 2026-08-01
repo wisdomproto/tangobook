@@ -93,7 +93,7 @@ CHARACTER DESIGN LANGUAGE: both animals are built from the same two things as th
 CANVAS: 16:9 double-page spread. One small Nordic spruce clearing and nothing else, on all twelve
   pages: one big spruce with a black burrow mouth at its base, one small frozen puddle two paces in
   front, a wall of black spruce all round, wet moss and leaves underfoot. NO SNOW EVER LIES ON THE
-  GROUND - it melts on wet moss. Bottom 18% quiet for a caption. No lettering, numerals, markers,
+  GROUND - it melts on wet moss. No lettering, numerals, markers,
   name tags or scales anywhere.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,

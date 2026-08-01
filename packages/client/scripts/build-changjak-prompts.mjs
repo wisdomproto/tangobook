@@ -26,7 +26,12 @@ for (const file of readdirSync(DOCS).filter((f) => /^changjak-.*prompts\.md$/.te
 
   // 책 단위로 자른다: "## A-04 §1." 같은 머리에서 회차 id 를 얻는다
   // 🔴 A 군 전용이었다 — b·c·g … 군 책이 조용히 통째로 빠졌다. 전 주제군(A~H)을 받는다.
-  const ids = [...new Set([...md.matchAll(/^##\s+([A-H])-(\d+)\s+§/gm)].map((m) => m[1].toLowerCase() + m[2]))];
+  // 🔴 `## A-13 §1.` 과 `## a13 §1.` 을 **둘 다 받는다**. 대문자+하이픈만 찾다가 열 권이 통째로
+  //    번들에서 빠졌다 — 파일은 멀쩡한데 화면에만 안 뜬다. 형식 불일치로 빌드가 막힌 게 세 번째라
+  //    (컷 머리의 제목, §2~§4 의 id, 그리고 이것) 표기 차이는 파서가 흡수한다.
+  const ids = [
+    ...new Set([...md.matchAll(/^##\s+([A-Ha-h])-?(\d+)\s+§/gm)].map((m) => m[1].toLowerCase() + m[2])),
+  ];
 
   for (const id of ids) {
     const grp = id[0].toUpperCase();
@@ -38,7 +43,7 @@ for (const file of readdirSync(DOCS).filter((f) => /^changjak-.*prompts\.md$/.te
     //    id 를 안 붙이는데 빌더는 붙은 것만 찾고 있었다 — 규격대로 쓴 네 권이 조용히 번들에서
     //    빠졌다(파일은 멀쩡히 있는데 화면에만 안 뜬다). 한 파일에 책이 하나면 id 는 군더더기다.
     const slice = (sec) =>
-      sections.find((s) => new RegExp(`^##\\s+${grp}-${num}\\s+§${sec}\\.`).test(s)) ||
+      sections.find((s) => new RegExp(`^##\\s+${grp}-?${num}\\s+§${sec}\\.`, 'i').test(s)) ||
       (ids.length === 1 ? sections.find((s) => new RegExp(`^##\\s+§${sec}\\.`).test(s)) : '') ||
       '';
 

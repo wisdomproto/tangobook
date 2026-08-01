@@ -1,0 +1,46 @@
+{
+  "storybookId": "hub-order",
+  "seo_title": "4~7세 한글 떼기 — 32단원 전체 순서",
+  "primary_keyword": "한글떼기",
+  "secondary_keywords": ["한글공부", "한글학습지", "한글 가르치기", "5세 한글", "한글 순서"],
+  "url_slug": "hangul-teaching-order-guide",
+  "meta_description": "모음 1 · 자음 14 · 받침 7 · 쌍자음 5 · 복잡한 모음 5. 서른두 단원을 어떤 순서로, 왜 그 순서로 가는지와 각 단계에서 아이가 막히는 지점을 정리했습니다.",
+  "sections": [
+    {
+      "text_html": "<h2>서른두 단원, 다섯 묶음</h2><p>한글은 끝없이 이어지는 것처럼 보이지만 실제로는 <strong>다섯 묶음</strong>입니다.</p><ul><li><strong>모음</strong> 1단원 — ㅏ · ㅑ · ㅓ · ㅕ · ㅗ · ㅛ · ㅜ · ㅠ · ㅡ · ㅣ</li><li><strong>자음</strong> 14단원 — ㄱ부터 ㅎ까지</li><li><strong>받침</strong> 7단원 — 소리 나는 받침은 일곱뿐입니다</li><li><strong>쌍자음</strong> 5단원 — ㄲ · ㄸ · ㅃ · ㅆ · ㅉ</li><li><strong>복잡한 모음</strong> 5단원 — ㅐ · ㅔ · ㅚ · ㅟ · ㅘ 등</li></ul><p>여기에 중간중간 <strong>복습 단원 일곱</strong>이 끼어 있습니다. 앞에서 배운 글자를 형식이 다른 놀이(글자 사냥 · 뒤집기 짝 맞추기 · 듣고 고르기)로 다시 만납니다.</p><p>다 합쳐 서른두 단원. <em>끝이 보이는 분량</em>입니다.</p>",
+      "image_prompt": "한글 파닉스 단원 목록 화면",
+      "alt": "한글 파닉스 32단원 목록",
+      "caption": "서른두 단원이 차례로 열려 있습니다"
+    },
+    {
+      "text_html": "<h2>왜 이 순서일까요</h2><p>순서에는 이유가 있습니다.</p><p><strong>① 모음이 먼저</strong> — 모음은 혼자서도 소리가 납니다. ㄱ은 혼자 두면 아무것도 아니지만 ㅏ는 그 자체로 「아」입니다. 게다가 자음 단원 열넷이 전부 <em>그 자음 × 모음 열 개</em>라, 첫 단원의 모음을 열네 번 다시 씁니다.</p><p><strong>② 자음은 소리 나는 자리끼리</strong> — ㄴ과 ㄷ은 혀 자리가 같고, ㅁ과 ㅂ은 입술 자리가 같습니다. 이웃해 두면 서로가 설명이 됩니다.</p><p><strong>③ 받침은 자음 다음</strong> — 첫소리 자리에 무엇이 오는지 알아야 그 <em>아래</em>에 뭘 더 붙이는지 이해가 됩니다.</p><p><strong>④ 쌍자음·복잡한 모음은 마지막</strong> — 둘 다 일상에서 덜 쓰이고, 소리 구별이 어른도 어렵습니다. 앞의 스물둘이 탄탄하면 아이는 이미 웬만한 그림책을 읽습니다.</p>",
+      "image_prompt": "모음 활동 화면",
+      "alt": "모음 활동 화면",
+      "caption": "첫 단원은 모음입니다"
+    },
+    {
+      "text_html": "<h2>단계마다 다른 벽이 있습니다</h2><p>어디서 막히느냐가 단계마다 다릅니다. 미리 아시면 당황하지 않습니다.</p><ul><li><strong>모음</strong> — ㅑ · ㅕ · ㅛ · ㅠ가 어렵습니다. 앞에 짧은 「이」가 붙은 소리라 한 박자에 두 가지를 해야 합니다</li><li><strong>자음</strong> — <em>이름을 소리로 착각</em>하는 것이 가장 큰 함정입니다. 「기역」이라고 알려주면 아이가 「기역아」를 읽습니다. 소리는 「그」입니다</li><li><strong>받침</strong> — 받침을 빼고 읽습니다(「강」→「가」). 아직 귀에 안 들어온 것이지 글자를 몰라서가 아닙니다</li><li><strong>쌍자음</strong> — 「세게 해」라고 하면 거센소리(ㅋ·ㅌ·ㅍ)가 나옵니다. 된소리는 바람이 아니라 <em>목의 힘</em>입니다</li><li><strong>복잡한 모음</strong> — ㅐ와 ㅔ는 <em>요즘 한국어에서 소리가 같습니다.</em> 못 가르는 게 정상이고 외우는 수밖에 없습니다</li></ul>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    },
+    {
+      "text_html": "<h2>단계별 안내</h2><p><strong>1단계 · 모음</strong><br/>👉 <a href=\"/blog/hangul-vowels-teaching-first\">모음 먼저 가르치기</a></p><p><strong>2단계 · 자음 열넷</strong><br/>👉 <a href=\"/blog/hangul-jamo-order-guide\">한글 자음 모음 순서 — 열다섯 단원</a></p><ul><li><a href=\"/blog/hangul-consonant-giyeok-teaching\">ㄱ</a></li><li><a href=\"/blog/hangul-consonant-nieun-teaching\">ㄴ</a></li><li><a href=\"/blog/hangul-consonant-digeut-teaching\">ㄷ</a></li><li><a href=\"/blog/hangul-consonant-rieul-teaching\">ㄹ</a></li><li><a href=\"/blog/hangul-consonant-mieum-teaching\">ㅁ</a></li><li><a href=\"/blog/hangul-consonant-bieup-teaching\">ㅂ</a></li><li><a href=\"/blog/hangul-consonant-siot-teaching\">ㅅ</a></li><li><a href=\"/blog/hangul-consonant-ieung-teaching\">ㅇ</a></li><li><a href=\"/blog/hangul-consonant-jieut-teaching\">ㅈ</a></li><li><a href=\"/blog/hangul-consonant-chieut-teaching\">ㅊ</a></li><li><a href=\"/blog/hangul-consonant-kieuk-teaching\">ㅋ</a></li><li><a href=\"/blog/hangul-consonant-tieut-teaching\">ㅌ</a></li><li><a href=\"/blog/hangul-consonant-pieup-teaching\">ㅍ</a></li><li><a href=\"/blog/hangul-consonant-hieut-teaching\">ㅎ</a></li></ul><p><strong>3단계 · 받침 일곱</strong><br/>👉 <a href=\"/blog/hangul-batchim-guide\">받침 가르치기 — 일곱 개면 끝납니다</a></p><ul><li><a href=\"/blog/hangul-batchim-ieung-teaching\">받침 ㅇ</a></li><li><a href=\"/blog/hangul-batchim-giyeok-teaching\">받침 ㄱ</a></li><li><a href=\"/blog/hangul-batchim-nieun-teaching\">받침 ㄴ</a></li><li><a href=\"/blog/hangul-batchim-rieul-teaching\">받침 ㄹ</a></li><li><a href=\"/blog/hangul-batchim-siot-teaching\">받침 ㅅ</a></li><li><a href=\"/blog/hangul-batchim-mieum-teaching\">받침 ㅁ</a></li><li><a href=\"/blog/hangul-batchim-bieup-teaching\">받침 ㅂ</a></li></ul><p><strong>4단계 · 쌍자음 다섯</strong><br/>👉 <a href=\"/blog/hangul-double-consonant-guide\">쌍자음(된소리) 가르치기</a></p><ul><li><a href=\"/blog/hangul-double-consonant-ssanggiyeok-teaching\">ㄲ</a></li><li><a href=\"/blog/hangul-double-consonant-ssangdigeut-teaching\">ㄸ</a></li><li><a href=\"/blog/hangul-double-consonant-ssangbieup-teaching\">ㅃ</a></li><li><a href=\"/blog/hangul-double-consonant-ssangsiot-teaching\">ㅆ</a></li><li><a href=\"/blog/hangul-double-consonant-ssangjieut-teaching\">ㅉ</a></li></ul><p><strong>5단계 · 복잡한 모음 다섯</strong></p><ul><li><a href=\"/blog/hangul-vowel-ae-e-teaching\">ㅐ·ㅔ 가르치기</a></li><li><a href=\"/blog/hangul-vowel-ye-oe-teaching\">ㅖ·ㅚ 가르치기</a></li><li><a href=\"/blog/hangul-vowel-wi-ui-teaching\">ㅟ·ㅢ 가르치기</a></li><li><a href=\"/blog/hangul-vowel-wa-wae-teaching\">ㅘ·ㅙ 가르치기</a></li><li><a href=\"/blog/hangul-vowel-wo-we-ui-teaching\">ㅝ·ㅞ·ㅢ 가르치기</a></li></ul>",
+      "image_prompt": "낱말 게임 화면",
+      "alt": "낱말 게임 화면",
+      "caption": "단원마다 낱말 놀이 다섯 가지"
+    },
+    {
+      "text_html": "<h2>학습지 대신 무엇을 하면 될까요</h2><p>한글 학습지는 대개 <strong>쓰기</strong> 중심입니다. 칸을 채우는 일이지요. 그런데 네다섯 살에게 먼저 필요한 것은 손이 아니라 <strong>귀</strong>입니다.</p><p>「가」를 백 번 쓴 아이가 「고」를 못 읽는 일이 흔합니다. 글자를 <em>그림으로</em> 외웠기 때문입니다. ㄱ이 「그」 소리라는 걸 모르면 새 조합 앞에서 멈춥니다.</p><p>집에서 하실 수 있는 것은 의외로 간단합니다.</p><ul><li><strong>거울 앞에서 모음</strong> — 아 · 에 · 이 · 오 · 우. 입 모양이 다섯 번 바뀝니다</li><li><strong>코 막기</strong> — 「느」 하다 코를 막으면 「드」. 혀는 그대로입니다</li><li><strong>휴지 조각</strong> — 「즈」와 「츠」. 거센소리에만 날립니다</li><li><strong>이름 찾기</strong> — 아이 이름에 든 글자부터. 가장 열심히 봅니다</li></ul><p>하루 5분이면 충분합니다. 오래 앉히는 것보다 <em>매일 짧게</em>가 훨씬 낫습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    },
+    {
+      "text_html": "<h2>언제 시작하면 좋을까요</h2><p><strong>정해진 나이는 없습니다.</strong> 다만 아이가 글자에 관심을 보이기 시작하면(간판을 가리키거나 자기 이름을 알아보면) 그때가 좋은 신호입니다.</p><p>대개 <strong>네 살에서 여섯 살 사이</strong>에 시작합니다. 일곱 살에 시작해도 늦지 않습니다 — 오히려 손 근육이 자라 쓰기가 훨씬 수월합니다.</p><p><strong>순서를 다 지키지 않아도 됩니다.</strong> 아이 이름에 받침이 있다면 받침부터, 좋아하는 동물 이름에 ㅋ이 있다면 ㅋ부터 하셔도 됩니다. 순서는 권장일 뿐 규칙이 아닙니다.</p><p>탱고북 한글 파닉스 서른두 단원은 <strong>전부 열려 있습니다.</strong> 잠긴 단원 없이 아무 데서나 시작할 수 있습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

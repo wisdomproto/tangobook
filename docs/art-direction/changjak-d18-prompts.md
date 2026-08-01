@@ -97,8 +97,7 @@ CHARACTER DESIGN LANGUAGE: shapes read from silhouette at thumbnail size; an eye
 
 CANVAS: 16:9 double-page spread. One low earth mound and its slope, a small steaming pool in front
   of it, bright moss over the pool rim and the slope, then frosted grey gravel and black sand out
-  to low snow-capped hills. The camera never leaves the ground between mound and pool. Bottom 18%
-  quiet for a caption. No lettering, numerals, signposts or cairns anywhere.
+  to low snow-capped hills. The camera never leaves the ground between mound and pool. No lettering, numerals, signposts or cairns anywhere.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,
   or volumetric fog (the steam is a PRINTED PLATE with a hard edge, never a soft haze) / not blurred

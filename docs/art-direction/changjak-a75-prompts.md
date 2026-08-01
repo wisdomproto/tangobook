@@ -76,7 +76,7 @@ CHARACTER DESIGN LANGUAGE: all animals are FOUR-LEGGED and unclothed - no standi
   dark rounded eye with a SEPARATE drawn brow so the face can act; no dot-eyes, no catchlight. If
   a pose fails, lower the camera - never change the grade.
 
-CANVAS: 16:9 double-page spread. Bottom 18% left quiet for a caption. NO lettering, numerals,
+CANVAS: 16:9 double-page spread. NO lettering, numerals,
   signage, brand or letterform anywhere - not on the gate, the fence or the bell.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, bloom, 3D CG, cel-shading,

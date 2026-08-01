@@ -47,6 +47,19 @@ for (const [id, slug] of Object.entries(slugOf)) {
   console.log(`  ${id} ← ${twin[0]} (공유 슬러그 ${slug})`);
 }
 
+// 🔴 **첫 장 중복은 막지 않는다**(2026-08-01 결정). 앵커 100~150개로 1000권을 덮는 설계라
+//    한 그림체를 여러 권이 나눠 쓰는 게 정상이고, 그림은 **책이 아니라 앵커**를 가리킨다.
+//    한때 겹치면 다른 후보로 밀었는데, 99점 중 미사용이 23점까지 줄어 그 방식은 어차피
+//    다음 배치에서 막힌다. 겹치는 것을 **알려만 준다** — 같은 그림이 뜨는데 공정이 서로
+//    다르면 그건 배정이 틀린 것이므로, 그때만 손본다.
+const byRef = {};
+for (const [id, e] of Object.entries(db)) if (e.refs?.[0]) (byRef[e.refs[0].id] ||= []).push(`${id}(${e.slug})`);
+const shared = Object.entries(byRef).filter(([, v]) => v.length > 1);
+if (shared.length) {
+  console.log('\n첫 장을 나눠 쓰는 권 (공정이 같으면 정상)');
+  shared.forEach(([r, v]) => console.log(`  ${r} → ${v.join(' ')}`));
+}
+
 writeFileSync(TARGET, JSON.stringify(db, null, 2) + '\n');
 
 const missing = Object.keys(slugOf).filter((id) => !db[id]);

@@ -126,7 +126,7 @@ CHARACTER DESIGN LANGUAGE: a puppy's eye = a round disc of bare white ground wit
   for eleven pages he is LOWER than the baby and every adult part comes DOWN from above; only on
   p12 are the two faces one height and one size.
 
-CANVAS: 16:9 double-page spread. Bottom 18% quiet for a caption. No lettering or numerals anywhere.
+CANVAS: 16:9 double-page spread. No lettering or numerals anywhere.
 
 NOT (rendering only): no digital slickness of any kind - airbrush, gradient, glow, 3D CG,
   cel-shading, photographic, or a texture filter over flat colour / no shading, modelling, highlight

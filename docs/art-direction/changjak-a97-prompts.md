@@ -89,7 +89,7 @@ COUNTS (upper limits - count them): spike = 1 stem + 5-7 short marks, never an e
   0 described buildings. Depth = the same stamp smaller and paler, never blur.
 
 COMPOSITION: rows as strong diagonals, rabbit set OFF a row, about 1/6 of page height except on
-  close pages; bottom 18% quiet for a caption.
+  close pages;
 
 CHARACTER: a dark rounded eye with a SEPARATE drawn brow above it so the face can act - not
   dot-eyes; muzzle and whiskers 2-3 strokes; eyes read apart from the fur in value at thumbnail

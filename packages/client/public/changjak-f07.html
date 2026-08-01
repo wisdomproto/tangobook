@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>F-07 먹기 싫은 초록색 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · F · 집·가족의 작은 사건 · 07</div>
+  <h1>먹기 싫은 초록색</h1>
+  <div class="sub">접시에서 초록만 골라 던졌어요. 텃밭의 초록도 몽땅 뽑아 던졌고요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 오해와 반전</span>
+  <span>무대 · 영국 텃밭 한 뙈기 — 이랑 몇 줄과 귀퉁이 나무 상자</span>
+  <span>후렴 · "초록은 싫어!" / 툭— (p2·p5·p7 세 번 · 🔴 늘 등 뒤로 던지는 자세에서 나온다 · p11 부터는 안 나온다)</span>
+  <span class="q">12스프레드</span>
+  <span class="q">본문 667자 · 쪽당 56자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- 🔴 <b>반전을 머리로 풀게 하지 않았다.</b> 오소리는 단서를 모으지 않는다. 잎을 쥐고 등 뒤로 던지는 자세 하나 때문에 뿌리가 늘 시야 밖으로 날아갔고, p10 에서 <b>몸을 한 번 돌리는 것</b>만으로 전부 보인다. 아이가 하는 일은 보는 것뿐이다.<br>
+- 🔴 <b>가르치는 어른이 없다.</b> 인물은 오소리와 울새 둘. 울새는 말을 안 하고, 벌레 냄새를 따라 더미 쪽으로 자꾸 옮겨 앉는 것만으로 마지막에 오소리의 고개를 돌려 놓는다.<br>
+- 🔴 <b>먹는 장면이 없고 접시는 p3 에서 끝난다.</b> 요약의 「마음이 바뀐다」를 문장으로 쓰지 않았다 — 마지막 화면은 접시가 아니라 <b>빈 이랑</b>이고, 오소리가 하는 일은 파인 자리에 발끝을 대 보는 것뿐이다.<br>
+- 못 아는 이유를 글에 두 번 박아 두었다(p3 「이랑 쪽으로 목을 쭉」 · p7 「오소리 눈은 이랑 쪽에만」).<br>
+- 밭은 비울 수 없는 무대라 <b>반복으로 비웠다</b> — 같은 잎 모양을 도장처럼 줄줄이, 이랑은 평행선 몇 줄. 마감은 오소리와 그 쪽에서 만지는 한 포기에만 준다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>텃밭 귀퉁이 나무 상자 위에 점심 접시가 놓여 있어요.
+새끼 오소리가 포크로 접시를 콕콕 뒤져요.
+"주황색은 좋아. 노란색도 좋아."
+"초록색은… 싫어."</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 접시 바로 위에서 살짝 비스듬히 내려다보는 앵글
+<b>장소·시간</b> 텃밭 귀퉁이, 뒤집어 놓은 나무 상자가 식탁이 된 자리. 해가 높은 한낮
+<b>인물</b> 화면 오른쪽 아래 — 새끼 오소리가 상자 앞에 무릎을 대고 앉아 포크 끝으로 접시 속을 헤집는다. 코를 접시 가까이 들이밀고 눈은 초록 쪽에만 붙어 있다. 왼쪽 뒤 — 울새 한 마리가 상자 모서리에 앉아 접시를 내려다본다
+<b>배경·소품</b> 접시 하나(주황 당근 조각·노란 감자·초록 완두가 섞여 있다) · 포크 · 상자 아래 흙바닥. 화면 위쪽 절반은 초록 이랑이 흐릿하게 줄만
+<b>톤</b> 한낮의 흰 빛. 접시 안의 세 색만 또렷하고 나머지는 조용하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>오소리 앞발에 초록 완두가 한 줌 쥐여 있어요.
+뒤도 안 보고 등 뒤로 툭—
+"초록은 싫어!"
+울새가 상자 모서리에서 고개를 갸웃해요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 옆에서 본 아이레벨(던지는 팔이 화면을 가로지른다)
+<b>장소·시간</b> 같은 상자 앞. 곧바로 이어지는 순간
+<b>인물</b> 화면 왼쪽 — 오소리가 상체를 앞으로 숙인 채 오른팔을 어깨 위로 넘겨 등 뒤로 완두를 뿌리는 자세. 얼굴은 접시 쪽을 향해 있어 뒤가 안 보인다. 화면 왼쪽 위 — 울새가 상자 모서리에서 고개를 옆으로 갸웃
+<b>배경·소품</b> 흩어져 날아가는 초록 완두 몇 알 · 상자 뒤 흙바닥에 초록이 조금 떨어져 쌓이기 시작한 자리 · 접시
+<b>톤</b> 밝고 가벼운 빛. 던지는 팔의 궤적만 강하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>접시가 반들반들 비었어요.
+오소리가 상자 위에 올라서서 이랑 쪽으로 목을 쭉 빼요.
+"어라? 저기도 온통 초록이잖아."
+"다 없애 버려야지."</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 롱숏 · 오소리 어깨 너머로 이랑을 함께 보는 뒤쪽 사분의 삼 각도
+<b>장소·시간</b> 상자 위. 같은 낮
+<b>인물</b> 화면 아래쪽 가운데 — 오소리가 상자 위에 두 발로 올라서서 목을 앞으로 길게 빼고 이랑을 본다. 앞발 하나가 눈썹 위에 얹혀 있다. 등 뒤(화면 아래 모서리)는 잘려 안 보인다
+<b>배경·소품</b> 초록 잎이 도장처럼 줄줄이 반복되는 이랑 세 줄 · 빈 접시 · 상자
+<b>톤</b> 초록이 화면의 대부분을 덮는 낮의 빛. 이랑은 같은 잎 모양의 반복으로만 채운다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>오소리가 초록 잎을 두 손으로 꽉 잡고 뒤로 넘어가듯 당겨요.
+영차— 쑥!
+흙이 후드득 떨어져요.
+"하나 없앴다!"</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 · 낮은 로우앵글(흙바닥 높이에서 올려다본다)
+<b>장소·시간</b> 첫째 이랑 앞. 조금 뒤
+<b>인물</b> 화면 가운데 — 오소리가 두 앞발로 초록 잎 밑동을 움켜쥐고 몸을 뒤로 젖혀 버틴다. 두 발이 흙에 깊이 박히고 꼬리가 뒤로 뻗었다. 얼굴은 잎만 본다. 화면 오른쪽 아래 — 울새가 파헤쳐진 흙을 콕 쪼아 본다
+<b>배경·소품</b> 막 들리는 초록 포기 하나(뿌리 쪽은 아직 흙 속) · 흩날리는 흙알 · 이랑 줄
+<b>톤</b> 아래에서 올려다보는 힘찬 빛. 잡힌 잎 한 포기만 마감하고 나머지 이랑은 반복</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>오소리는 잎만 쥔 채 팔을 뒤로 휙 넘겨요.
+툭—
+"초록은 싫어!"
+울새가 더미 쪽으로 콩콩 뛰어가요.</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 · 옆에서 본 아이레벨, 화면 오른쪽 끝에 더미 밑동이 걸린다
+<b>장소·시간</b> 첫째 이랑 앞. 곧바로 이어지는 순간
+<b>인물</b> 화면 왼쪽 — 오소리가 잎 끝만 쥐고 팔을 어깨 뒤로 크게 넘긴 자세. 시선은 다음 포기를 향해 이랑 쪽에 고정. 화면 오른쪽 아래 — 울새가 더미 쪽으로 두 발 모아 콩콩 뛴다
+<b>배경·소품</b> 화면 오른쪽 끝 더미 밑동 — 초록 잎 무더기 사이로 <b>주황색 끝 하나</b>가 삐죽 나와 있다(오소리 등 뒤라 오소리에게는 안 보인다) · 이랑 줄
+<b>톤</b> 낮은 오후로 기울기 시작한 빛. 화면 오른쪽 끝 주황 하나만 색이 튄다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>둘째 줄 잎은 훨씬 커요.
+오소리가 엉덩이를 뒤로 빼고 두 발을 딱 버텨요.
+"이건 왜 이렇게 무거워!"
+찌릇! 울새가 흙을 콕콕 쪼아요.</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 클로즈업 · 정면보다 살짝 옆, 힘주는 얼굴과 앞발이 함께 들어오게
+<b>장소·시간</b> 둘째 이랑. 조금 뒤
+<b>인물</b> 화면 가운데 — 오소리가 큰 잎 두 장을 겨드랑이에 낄 만큼 끌어안고 엉덩이를 뒤로 뺀 채 두 발로 버틴다. 눈을 질끈 감고 이가 보이게 힘을 준다. 화면 아래 오른쪽 — 울새가 방금 파인 흙에 부리를 박는다
+<b>배경·소품</b> 반쯤 들린 큰 포기 하나 · 벌어진 흙 틈 · 이랑 줄
+<b>톤</b> 힘이 몰린 순간의 진한 그림자. 오소리와 그가 안은 한 포기만 마감</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>오소리가 어깨 너머로 휙 던져요. 툭—
+"초록은 싫어!"
+뒤에서 더미가 자꾸 높아지는데
+오소리 눈은 이랑 쪽에만 있어요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 와이드 · 정면 아이레벨보다 조금 높은 자리에서, 화면을 왼쪽 오소리 / 오른쪽 더미로 나눠 보여 준다
+<b>장소·시간</b> 둘째 이랑과 상자 사이. 같은 오후
+<b>인물</b> 화면 왼쪽 — 오소리가 어깨 너머로 팔을 넘긴 자세 그대로 고개는 이랑 쪽으로 완전히 돌아가 있다. 몸과 시선이 정반대
+<b>배경·소품</b> 화면 오른쪽 — 오소리 키만큼 쌓인 초록 더미. 옆구리에 <b>빨강 하나, 하양 둘</b>이 잎 사이로 나와 있다 · 날아가는 중인 초록 포기 하나 · 이랑 줄
+<b>톤</b> 오후의 비스듬한 빛이 더미 옆구리를 비춘다. 더미 쪽 색만 살짝 밝게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>이랑 끝에 초록 한 포기가 남았어요.
+오소리가 발끝을 세워 잎 끝을 잡아요.
+"너까지만!"
+꼬리가 파르르 떨려요.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 낮은 로우앵글, 화면 위쪽에 잎 끝이 오게
+<b>장소·시간</b> 셋째 이랑 맨 끝. 해가 눈에 띄게 낮아진 때
+<b>인물</b> 화면 가운데 — 오소리가 뒷발 끝으로 서서 앞발 두 개를 위로 뻗어 잎 끝을 겨우 붙잡았다. 꼬리가 곧게 서서 떨린다. 눈은 잎 끝만
+<b>배경·소품</b> 마지막 초록 포기 하나 · 이미 갈색이 된 이랑 두 줄 · 파인 자리들
+<b>톤</b> 낮아진 해가 옆에서 길게 든다. 마지막 한 포기에만 빛이 걸리게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>이랑에 초록이 하나도 없어요.
+오소리가 흙 묻은 두 손을 허리에 척 얹어요.
+"봐, 초록이 하나도 없지!"
+갈색 줄이 나란히 반들거려요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 롱숏 · 이랑 끝에서 이랑을 따라 보는 낮은 아이레벨
+<b>장소·시간</b> 다 뽑힌 이랑. 늦은 오후
+<b>인물</b> 화면 왼쪽 앞 — 오소리가 다리를 벌리고 서서 흙 묻은 두 앞발을 허리에 얹고 가슴을 편다. 얼굴은 이랑 끝을 향한다. 화면 오른쪽 뒤 — 울새가 더미 옆구리에 올라서 있다
+<b>배경·소품</b> 갈색 줄만 남은 이랑 세 줄 · 파인 자리들 · 화면 오른쪽 뒤 더미(잎 사이로 주황·빨강·하양이 여럿, 초점 밖으로 흐리게)
+<b>톤</b> 노랗게 낮아진 빛. 이랑의 갈색이 화면 대부분을 차지하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>찌릇, 찌릇!
+울새가 어느새 더미 꼭대기에 앉아 있어요.
+"거긴 왜 가?"
+오소리가 흙 묻은 손을 털며 몸을 홱 돌려요.</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 · 오소리 뒤쪽에서 본 사분의 삼 각도(돌아가는 어깨가 앞, 더미는 아직 화면 밖 오른쪽)
+<b>장소·시간</b> 이랑과 더미 사이. 곧바로 이어지는 순간
+<b>인물</b> 화면 가운데 — 오소리가 상체를 오른쪽으로 비틀며 고개를 먼저 돌린다. 두 앞발을 마주 대고 흙을 털던 중이라 손가락이 벌어져 있다. 눈이 크게 열렸다. 화면 오른쪽 위 끝 — 울새가 더미 꼭대기에 앉아 이쪽을 본다
+<b>배경·소품</b> 빈 이랑 줄 · 더미는 아직 가장자리만 걸린다
+<b>톤</b> 저녁으로 기우는 빛. 돌아가는 몸의 방향이 읽히게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>초록 잎마다 끝에 뭐가 매달려 있어요.
+주황, 빨강, 하양, 또 주황.
+오소리가 잎 하나를 두 손으로 들어 올려요.
+"이거… 내가 좋아하는 거잖아!"
+"너, 여기 붙어 있었어?"</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 와이드 · 더미를 정면으로 마주 보는 아이레벨. 이 권에서 더미가 통째로 보이는 첫 컷
+<b>장소·시간</b> 더미 앞. 같은 저녁
+<b>인물</b> 화면 아래 가운데 — 오소리가 초록 잎 하나를 두 손으로 머리 위까지 들어 올려 눈앞에 대고 본다. 잎 끝에 흙 묻은 주황 당근이 통째로 매달려 있다. 입이 벌어졌다. 화면 위 오른쪽 — 울새가 더미 꼭대기에 그대로 앉아 있다
+<b>배경·소품</b> 더미 전체 — 초록 잎 수십 장, 그 끝마다 주황 당근·빨강 비트·하얀 무가 하나씩 달려 있다. 이 쪽에서는 더미가 화면의 주인공이다
+<b>톤</b> 저녁 해가 더미를 정면으로 비춘다. 초록 위에 주황·빨강·하양이 흩뿌려진 것처럼 보이게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>오소리가 빈 이랑 앞에 쪼그려 앉아 있어요.
+초록 한 잎 없이 갈색 줄만 나란해요.
+오소리가 파인 자리에 발끝을 살짝 대 봐요.
+"여기 있었구나."</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 와이드 롱숏 · 이랑을 가로질러 보는 낮은 아이레벨. p3 과 같은 이랑을 정반대 상태로
+<b>장소·시간</b> 빈 이랑. 해가 거의 다 내려간 저녁
+<b>인물</b> 화면 왼쪽 아래 작게 — 오소리가 이랑 옆에 쪼그려 앉아 한쪽 뒷발 끝을 파인 자리에 살짝 넣어 본다. 고개는 이랑을 따라 멀리까지 향해 있다. 화면 오른쪽 끝 — 울새가 흙 위에 내려앉아 같은 쪽을 본다
+<b>배경·소품</b> 초록이 하나도 없는 갈색 이랑 세 줄과 파인 자리들. 그것 말고는 아무것도 없다
+<b>톤</b> 저녁의 낮고 긴 빛. 화면 전체가 갈색과 흙빛뿐이라 앞 쪽들의 초록이 사라진 것이 한눈에 읽히게</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'f07',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 오소리(이름 없음)', '울새 한 마리(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb72294d10"></script>
+<script src="/changjak-core.js?v=47fd80bb72294d10"></script>
+</body>
+</html>

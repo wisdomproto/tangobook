@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>B-12 지도에 없는 골목 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · B · 상상·변신 · 12</div>
+  <h1>지도에 없는 골목</h1>
+  <div class="sub">매일 지나는 계단 벽에 오늘은 어두운 틈이 하나 더 있어요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 여정과 귀환</span>
+  <span>무대 · 리스본 계단골목의 모퉁이 한 자리</span>
+  <span>후렴 · 톡, 톡 — 앞발로 노란 타일 띠를 짚어요 (p1·p12·p14 세 번 · 🔴 p2 에서만 짚던 손이 멈춘다)</span>
+  <span class="q">14스프레드</span>
+  <span class="q">본문 577자 · 쪽당 41자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- 🔴 <b>카메라가 모퉁이 한 자리에서 안 움직인다.</b> 골목 안은 언제나 <b>입구 너머로 보이기만</b> 한다(p6~p9 는 망원으로 입구 안쪽을 크게 잡되 카메라는 그 자리 그대로). 아저씨의 화덕 귀퉁이나 연기가 늘 화면 앞자락에 남아 있어서, 안에 들어간 쪽도 같은 프레임 안이다.<br>
+- 🔴 <b>규칙을 아무도 말하지 않는다.</b> 「한 번만」·「오늘만」 같은 말은 한 줄도 없다. 아이는 모르고 들어갔다가 나온 뒤 <b>벽이 이어져 있는 것을 눈으로 볼 뿐</b>이다. 판타지 규칙은 그것 하나다.<br>
+- 🔴 <b>안쪽은 무섭지 않다.</b> 낮이고, 안에 있는 것은 위협이 아니라 <b>그냥 다른 것</b>이다 — 벽 색이 다르고(파랑), 냄새가 다르고(비누), 저 끝으로 지나가는 것이 다르다(노란 전차).<br>
+- 아저씨는 끝까지 <b>안 돌아본다.</b> 못 본 것을 억지로 설명하지 않게 하려고 그렇게 뒀다. p13 의 "여긴 늘 벽이야" 는 규칙이 아니라 <b>지금 그가 보고 있는 것</b>이다.<br>
+- 착지에 교훈 문장 없음. 마지막 쪽은 벽에 등을 붙이고 정어리를 먹는 그림 하나다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>"아저씨, 안녕하세요!"
+새끼 고양이가 계단 맨 위에서 앞발로 노란 타일 띠를 톡, 톡 짚어요.
+"오늘도 지나가는구나."</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 화면 왼쪽 벽과 오른쪽 화덕 사이로 계단이 아래로 빠지는 구도
+<b>장소·시간</b> 리스본 계단골목의 모퉁이 한 자리. 볕이 곧게 내려앉는 이른 오후
+<b>인물</b> 화면 왼쪽 위 — 새끼 고양이(회색 줄무늬, 목에 헐렁한 빨간 스카프)가 두 발로 서서 계단 맨 위 칸에 발을 딛고, 오른 앞발을 벽의 노란 타일 띠에 얹은 채 고개만 오른쪽으로 돌려 인사한다. 눈은 반달, 입꼬리가 올라가 있다 / 화면 오른쪽 아래 앞자락 — 늙은 갈색 개 아저씨(회청색 앞치마 하나)가 낮은 걸상에 앉아 집게를 든 채 고양이 쪽으로 턱을 든다
+<b>배경·소품</b> 크림색 벽을 따라 어깨 높이로 지나가는 노란 타일 띠(끊긴 데 없이 계단 끝까지) · 작은 숯화덕과 정어리 · 모자이크 돌계단
+<b>톤</b> 따뜻한 크림과 노랑. 볕이 계단 위쪽만 데우고 화덕 쪽엔 옅은 연기가 고여 있다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>그런데 오늘은 노란 띠가 중간에서 뚝 끊겨 있어요.
+"어라?"
+고양이가 앞발을 든 채로 멈춰요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 벽을 정면으로 받는 각
+<b>장소·시간</b> 같은 자리, 같은 시간
+<b>인물</b> 화면 가운데 왼쪽 — 고양이가 세 걸음쯤 내려온 자리에서 몸이 굳었다. 짚으려던 오른 앞발이 벽에 닿지 못하고 공중에 뜬 채, 귀가 앞으로 쫑긋 서고 눈이 동그랗다. 꼬리는 뻣뻣하게 위로 / 화면 오른쪽 아래 귀퉁이 — 아저씨의 앞치마 자락과 연기만 걸린다
+<b>배경·소품</b> 노란 타일 띠가 딱 거기서 끊기고, 그 아래로 사람 하나 지날 만한 어두운 틈 · 틈 속은 아직 어둡기만 하다 · 돌계단
+<b>톤</b> 바깥은 그대로 밝은 크림·노랑, 틈만 서늘한 남색으로 파여 있다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>"아저씨, 저기 골목 있었어요?"
+고양이가 꼬리 끝으로 끊긴 자리를 가리켜요.
+"벽 말이냐? 벽은 벽이지."</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 롱 · 아저씨의 어깨 너머로 벽을 보는 각
+<b>장소·시간</b> 같은 자리, 같은 시간
+<b>인물</b> 화면 앞자락 오른쪽 — 아저씨의 등과 어깨가 크게 걸리고, 그는 <b>끝까지 벽 쪽으로 고개를 안 돌린 채</b> 집게로 정어리를 뒤집는다 / 그 너머 왼쪽 — 고양이가 아저씨 쪽으로 얼굴을 돌린 채 꼬리 끝만 뒤로 뻗어 끊긴 자리를 가리킨다. 뒷발은 아직 계단에
+<b>배경·소품</b> 화덕 위 정어리 두 마리 · 피어오르는 연기 한 줄기 · 벽의 끊긴 자리
+<b>톤</b> 앞자락은 연기 때문에 흐리고, 벽 쪽만 또렷하다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>고양이가 목을 쭈욱 빼고 끊긴 자리 안을 들여다봐요.
+안쪽 벽은 온통 파래요.
+"우와, 파랗다."</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 살짝 로우앵글 · 입구가 화면 오른쪽을 가득 채운다
+<b>장소·시간</b> 같은 자리, 같은 시간
+<b>인물</b> 화면 왼쪽 — 고양이가 발은 바깥 돌바닥에 그대로 둔 채 목만 길게 빼서 얼굴을 입구 안으로 들이민다. 수염이 앞으로 쏠리고 눈이 커진다. 빨간 스카프는 아직 바깥쪽에 / 화면 아래 귀퉁이 — 아저씨의 화덕 연기 한 자락
+<b>배경·소품</b> 입구 안쪽에 드러난 파란 아줄레주 벽 · 그 위로 비스듬히 드는 밝은 빛 · 바깥의 노란 타일 띠 끊긴 끝
+<b>톤</b> 왼쪽 절반은 따뜻한 크림, 오른쪽 절반은 서늘한 파랑. 한 화면에서 두 색이 딱 갈린다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>앞발 하나를 안쪽 돌바닥에 살그머니 얹어요.
+돌이 반들반들해요.
+수염이 파르르 떨려요.</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 클로즈업 · 하이앵글 · 발치만
+<b>장소·시간</b> 같은 자리, 같은 시간
+<b>인물</b> 화면 가운데 — 고양이의 앞발 하나가 입구 안쪽 돌바닥에 얹혀 있고, 나머지 세 발은 아직 바깥 돌바닥에 있다. 화면 위쪽에 턱과 떨리는 수염 끝이 조금 걸린다
+<b>배경·소품</b> 바깥의 거친 모자이크 돌 · 안쪽의 반들반들 닳은 돌 · 둘이 맞닿는 선 하나
+<b>톤</b> 발 하나만 파란 그늘에 들어가 색이 바뀌어 있다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>고양이가 쏙 들어가 서요.
+빨래가 낮게 걸려 있어서 고개를 폭 숙여요.
+"여기, 빨래가 낮네."</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · <b>입구 틀이 화면 가장자리를 액자처럼 두른다</b>(카메라는 모퉁이 그대로)
+<b>장소·시간</b> 같은 자리에서 입구 너머를 본다. 같은 시간
+<b>인물</b> 액자 한가운데 — 고양이가 안쪽에 두 발로 서서 목을 움츠리고 고개를 폭 숙인 채 위를 올려다본다. 등이 둥글게 말린다 / 화면 맨 아래 앞자락 — 바깥 화덕에서 올라온 연기 한 줄
+<b>배경·소품</b> 낮게 늘어진 빨랫줄과 흰 빨래 몇 장 · 파란 아줄레주 벽 · 창턱의 화분 하나
+<b>톤</b> 안쪽은 흰 빨래에 반사된 밝고 서늘한 빛, 액자 테두리(바깥)만 따뜻하다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>파란 타일에 뺨을 꾹 대 봐요.
+"차가워."
+바깥에서는 정어리 연기가 폴폴 나요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 · 망원으로 입구 안쪽만 크게(카메라 위치는 그대로)
+<b>장소·시간</b> 같은 자리에서 입구 너머를 본다. 같은 시간
+<b>인물</b> 화면 오른쪽 — 고양이가 파란 벽에 뺨을 붙이고 눈을 꼭 감았다. 두 앞발은 벽에 나란히 대고 있다 / 화면 왼쪽 세로 띠 — 입구 밖 크림색 벽과 연기가 얇게 걸려 있다
+<b>배경·소품</b> 파란 아줄레주 무늬 · 뺨이 닿은 자리 · 얇게 걸린 연기
+<b>톤</b> 화면 대부분이 파랑. 왼쪽 가장자리 한 뼘만 노랑</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>저 끝이 환해요.
+노란 전차 한 대가 스윽 지나가요.
+"저거 봐! 노랗다!"
+고양이가 폴짝 뛰어요.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 롱 · 아이레벨 · 입구 틀 안으로 골목 안쪽 끝까지 뚫려 보이는 깊은 구도
+<b>장소·시간</b> 같은 자리에서 입구 너머를 본다. 같은 시간
+<b>인물</b> 화면 가운데 작게 — 고양이가 두 발이 다 뜨도록 폴짝 뛰며 앞발 하나를 저 끝으로 뻗는다. 빨간 스카프가 위로 날린다 / 화면 아래 앞자락 — 아저씨의 화덕 귀퉁이
+<b>배경·소품</b> 골목 저 끝 환한 네모 · 그 네모를 가로지르는 노란 전차 한 대 · 빨랫줄
+<b>톤</b> 가운데 저 끝이 가장 밝고, 그쪽으로 노랑이 한 번 스친다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>빨랫줄에서 노란 양말 한 짝이 팔랑, 코끝을 스쳐요.
+고양이가 코를 킁킁해요.
+"비누 냄새다."</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 살짝 로우앵글 · 망원으로 입구 안쪽(카메라 위치는 그대로)
+<b>장소·시간</b> 같은 자리에서 입구 너머를 본다. 같은 시간
+<b>인물</b> 화면 가운데 — 고양이가 고개를 들고 코끝을 위로 향한 채 눈을 가늘게 뜬다. 앞발 하나는 양말을 향해 반쯤 들려 있다
+<b>배경·소품</b> 코끝을 스치는 노란 양말 한 짝 · 그 옆 흰 빨래 · 파란 벽
+<b>톤</b> 밝고 뽀얗다. 노란 양말 하나만 또렷하다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>"얘야, 정어리 다 됐다!"
+뒤에서 아저씨 목소리가 들려요.
+고양이가 홱 돌아봐요.</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 입구 틀 너머 안쪽, 고양이가 이쪽(카메라)을 향해 돌아선 각
+<b>장소·시간</b> 같은 자리에서 입구 너머를 본다. 같은 시간
+<b>인물</b> 액자 한가운데 — 고양이가 상체를 홱 틀어 이쪽을 본다. 귀 하나가 뒤로 젖혀지고 꼬리가 크게 휜다 / 화면 오른쪽 아래 앞자락 — 아저씨가 접시를 든 채 이쪽 등만 보인다(여전히 벽 쪽은 안 본다)
+<b>배경·소품</b> 입구 틀 · 접시 위 정어리 두 마리 · 흔들리는 빨래 한 장
+<b>톤</b> 안쪽 파랑과 앞자락 노랑이 정면으로 마주 본다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>고양이가 폴짝, 밖으로 나와 서요.
+"가요!"
+발밑 돌바닥이 해에 데워져 따끈해요.</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 벽을 옆에서 스치듯 보는 각
+<b>장소·시간</b> 같은 자리, 같은 시간
+<b>인물</b> 화면 왼쪽 — 고양이가 바깥 돌바닥에 두 발로 착 내려서서 아저씨 쪽으로 얼굴을 돌린다. 꼬리가 위로 곧게 서고 스카프가 아직 흔들린다 / 화면 오른쪽 — 아저씨가 접시를 든 채 걸상 쪽으로 몸을 낮춘다
+<b>배경·소품</b> 볕에 데워진 모자이크 돌바닥 · 접시 · 벽(입구 자리는 화면 밖 왼쪽으로 살짝 잘려 아직 안 보인다)
+<b>톤</b> 다시 온통 따뜻한 크림과 노랑</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>고양이가 그 자리에 앞발을 톡, 톡 짚어 봐요.
+노란 타일 띠가 끊긴 데 없이 이어져요.
+"어? 여기 골목 있었는데."</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 미디엄 롱 · 아이레벨 · <b>p2 와 똑같은 구도</b>
+<b>장소·시간</b> 같은 자리, 같은 시간
+<b>인물</b> 화면 가운데 왼쪽 — p2 에서 손이 멈췄던 바로 그 자리에서 고양이가 오른 앞발을 벽에 딱 붙이고 있다. 얼굴은 벽에 바싹 붙어 옆으로 돌아가 있고, 귀가 한쪽만 내려간다 / 화면 오른쪽 아래 앞자락 — 아저씨의 앞치마와 연기
+<b>배경·소품</b> 노란 타일 띠가 계단 끝까지 <b>한 줄로 이어져 있다</b> · 어두운 틈이 있던 자리엔 같은 크림색 벽과 같은 타일 · 돌계단
+<b>톤</b> p2 와 같은 빛인데 서늘한 남색만 사라지고 없다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>아저씨가 접시를 계단에 내려놓아요.
+"여긴 늘 벽이야. 어서 앉아."
+고양이가 벽을 한 번 더 쓸어 봐요.</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 미디엄 · 살짝 하이앵글 · 둘이 한 화면에
+<b>장소·시간</b> 같은 자리, 같은 시간
+<b>인물</b> 화면 오른쪽 — 아저씨가 무릎을 굽혀 접시를 계단 칸에 내려놓으며 고양이 쪽으로 손짓한다 / 화면 왼쪽 — 고양이가 아저씨 쪽으로 몸은 향한 채 앞발만 뒤로 남겨 벽을 천천히 쓸어 본다
+<b>배경·소품</b> 계단에 놓인 접시와 정어리 두 마리 · 노란 타일 띠 · 걸상
+<b>톤</b> 연기가 옅어지고 볕이 계단 칸에 곧게 내려앉는다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p14 · 본문</span>고양이가 벽에 등을 콕 붙이고 앉아 정어리를 먹어요.
+노란 타일 띠는 계단 끝까지 쭉 이어져요.</div>
+  </div>
+  <div class="sc"><span class="n">p14 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · p1 과 같은 구도, 카메라만 조금 낮다
+<b>장소·시간</b> 같은 자리, 같은 시간
+<b>인물</b> 화면 왼쪽 아래 — 고양이가 벽에 등을 붙이고 계단에 앉아 두 앞발로 정어리를 들고 먹는다. 꼬리 끝이 계단 아래로 늘어져 까딱인다 / 화면 오른쪽 — 아저씨가 걸상에 앉아 빈 화덕에 부채질을 한다
+<b>배경·소품</b> 고양이 어깨 뒤로 지나가는 노란 타일 띠(계단 끝까지 <b>한 번도 안 끊긴다</b>) · 접시 · 숯화덕
+<b>톤</b> 온통 따뜻한 크림·노랑. 파랑은 화면 어디에도 없다</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'b12',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 고양이(이름 없음)', '정어리 굽는 늙은 개 아저씨(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb72294d10"></script>
+<script src="/changjak-core.js?v=47fd80bb72294d10"></script>
+</body>
+</html>

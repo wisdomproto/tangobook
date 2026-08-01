@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>C-05 튤립이 다 팔린 날 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · C · 자연·계절·동물 · 05</div>
+  <h1>튤립이 다 팔린 날</h1>
+  <div class="sub">튤립이 한 다발씩 팔려 나가요. 양동이에 물이 점점 더 보여요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 관찰과 성장</span>
+  <span>무대 · 네덜란드 꽃시장</span>
+  <span>후렴 · "여기까지 물이에요!" (p3 앞발 하나 · p6 앞발 두 개 · p8 앞발이 양동이 바닥에 닿음 세 번 · 늘 같은 가운데 양동이 · 🔴 p11 에서 "이건 물에 안 세울래요." 로 뒤집힌다)</span>
+  <span class="q">13스프레드</span>
+  <span class="q">본문 583자 · 쪽당 45자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- <b>「줄었어요」를 안 쓴다.</b> 파는 이야기라 숫자를 세고 싶어지는데, 세는 대신 <b>늘 같은 가운데 양동이 하나에 앞발을 넣어 잰다</b> — 앞발 하나(p3) → 앞발 두 개(p6) → 앞발이 바닥에 닿음(p8). 줄어든 것은 튤립인데 화면에서 커지는 것은 물이다.<br>
+- <b>인물은 둘뿐.</b> 사는 이는 한 번도 화면에 안 들어온다 — 거위가 다발을 프레임 오른쪽 끝 밖으로 내밀 뿐이다. 시장 사람들은 뒤쪽 띠에 <b>같은 실루엣의 반복</b>으로만 있고 얼굴도 손도 없다(꽉 찼는데 정보는 0).<br>
+- <b>c03 과 정반대로 끝난다.</b> c03 은 흙을 파서 그 아래를 보여 주고 초록 싹으로 끝났다. 이 권은 <b>덮어서 안 보이게 하고</b> 끝나며, 마지막 두 쪽에 초록이 한 점도 없다. 자라는 장면도, 다음 봄도 안 나온다.<br>
+- <b>g03「덮여 있음」과 다르다</b> — 저기선 주인공이 담요에 덮이고, 여기선 주인공이 <b>제 앞발로 덮는다</b>. 마지막 화면에 남는 것은 앞발 자국 둘.<br>
+- <b>추론이 없다.</b> 알맹이가 흙에서 나오는 걸 p10 에서 눈으로 보고(구덩이가 그대로 남는다), p12~p13 에서 그 구덩이에 도로 넣는다. 아이가 짐작할 일이 없다.<br>
+- 장소는 좌판 한 칸. 카메라가 좌판 위(양동이)와 좌판 밑(흙상자) 사이만 오간다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>양동이 다섯이 꽉 차서 물이 안 보여요.
+오소리가 튤립 다발을 꾹 눌러 세워요.
+"오늘도 꽉 찼어요!"</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 미디엄 · 좌판 상판과 눈높이를 맞춘 아이레벨 정면
+<b>장소·시간</b> 네덜란드 꽃시장의 좌판 한 칸. 상판 위에 아연 양동이 다섯이 한 줄로 놓였다. 이른 아침, 볕이 아직 낮고 나무 상판이 젖어 있다
+<b>인물</b> 화면 가운데 왼쪽 — 새끼 오소리가 뒷발로 서서 상판에 배를 붙이고, 두 앞발을 가운데 양동이 안 튤립 다발 위에 얹어 아래로 꾹 누른다. 어깨가 올라가고 등이 둥글게 말렸다. 눈은 다발 꼭대기를 보고 입을 벌려 말한다. 옷은 안 입었고 네발짐승 그대로, 앞발만 손처럼 쓴다. 화면 오른쪽 — 꽃 파는 늙은 거위가 목을 세우고 양동이 줄 뒤에 서 있다
+<b>배경·소품</b> 🔴 좌판 밑 얕은 나무 흙상자 — 검은 흙 위로 갈색 알맹이 하나의 꼭대기가 조금 나와 있다(화면 아래 모서리, 둘 다 그쪽을 안 본다) · 양동이 다섯은 튤립으로 꽉 차 물이 한 군데도 안 보인다 · 뒤쪽 띠에 같은 모양의 회색 실루엣 대여섯을 반복해 찍어 사람 물결로만(얼굴·손 없음)
+<b>톤</b> 낮은 아침 빛. 화면에서 가장 진한 색은 튤립 빨강 한 덩어리</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>거위가 종이에 싼 다발을 좌판 밖으로 내밀어요.
+사각사각, 종이 소리가 나요.
+"한 다발 나갔어."</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 좌판을 옆에서 본 아이레벨(양동이 줄이 왼쪽, 프레임 오른쪽 끝이 열려 있다)
+<b>장소·시간</b> 같은 좌판. 볕이 조금 높아진 아침
+<b>인물</b> 화면 오른쪽 — 늙은 거위가 목을 길게 뻗어 종이로 싼 튤립 다발을 프레임 오른쪽 끝 밖으로 내민다. 부리로 종이 목을 물었고 한쪽 날개는 상판을 짚었다. 눈은 프레임 밖을 향한다. 화면 왼쪽 아래 — 오소리가 상판 모서리를 두 앞발로 붙잡고 발끝을 들어 그쪽을 본다
+<b>배경·소품</b> 종이에 싸인 다발 하나(빨간 꽃머리만 종이 위로 나와 있다) · 양동이 다섯 중 왼쪽 끝 하나만 꽃이 조금 성기다 · 상판에 물 자국 몇 · 뒤쪽 회색 실루엣 반복
+<b>톤</b> 아침 빛이 종이 위에서 하얗게 튄다. 사는 이는 프레임 밖이라 안 그린다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>오소리가 가운데 양동이에 앞발 하나를 넣어요.
+줄기 사이로 물이 동그랗게 보여요.
+"여기까지 물이에요!"</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 클로즈업 · 양동이 입구를 비스듬히 내려다보는 하이앵글
+<b>장소·시간</b> 같은 좌판, 가운데 양동이 하나. 아침 볕이 물에 닿는다
+<b>인물</b> 화면 가운데 — 오소리가 앞발 하나를 줄기 틈으로 밀어 넣어 손바닥을 물에 담근다. 다른 앞발은 양동이 테두리를 잡았고 몸은 옆으로 기울었다. 고개를 들고 입을 크게 벌려 외친다. 볼이 양동이 테에 눌린다
+<b>배경·소품</b> 🔴 줄기들 한가운데에 동그란 물 자리 하나(앞발 하나가 겨우 들어갈 넓이) · 물에 뜬 잎 조각 하나 · 양동이 겉면의 세로 골 · 그 밖은 종이 색으로 비운다
+<b>톤</b> 물 위에 아침 빛 고리 하나. 화면에서 마감된 것은 앞발과 물 자리</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>오소리가 옆 양동이에서 줄기를 한 움큼 들어 올려요.
+물방울이 뚝뚝 떨어져요.
+"괜찮아요, 이러면 또 꽉 차요!"</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 정면(양동이 둘이 한 화면에)
+<b>장소·시간</b> 같은 좌판. 볕이 조금 더 높은 오전
+<b>인물</b> 화면 가운데 — 오소리가 두 앞발로 튤립 줄기를 한 움큼 감싸 쥐고 가슴 높이까지 들어 올린 채 멈춰 있다. 뒷발은 발끝으로 서고 배는 상판에 눌렸다. 얼굴은 들어 올린 줄기 쪽을 향하고 입은 벌어졌다. 화면 오른쪽 뒤 — 거위가 고개만 돌려 본다
+<b>배경·소품</b> 들린 줄기 끝에서 떨어지는 물방울 서넛 · 왼쪽 양동이는 꽃머리가 눈에 띄게 적다 · 상판에 번진 젖은 자국 하나
+<b>톤</b> 오전의 고른 빛. 들린 줄기 다발만 진하게, 나머지 양동이는 매체 그대로</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>거위가 또 한 다발을 종이로 돌돌 말아요.
+좌판엔 젖은 잎 두 장이 붙어 있어요.
+"또 나갔어."</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 상판 위를 비스듬히 본 하이앵글
+<b>장소·시간</b> 같은 좌판 상판. 해가 높아진 낮 직전
+<b>인물</b> 화면 위쪽 — 늙은 거위가 상판에 펼친 종이 한 장 위에서 튤립 다발을 부리로 눌러 굴려 말고 있다. 목이 낮게 굽고 양 날개 끝이 종이 양옆을 눌렀다. 눈은 종이 끝을 따라간다. 오소리는 화면 아래 모서리에 등만 조금 걸친다
+<b>배경·소품</b> 반쯤 말린 종이와 그 안의 빨간 꽃머리 · 🔴 상판에 납작하게 붙은 젖은 잎 두 장 · 잘린 줄기 끝동강 하나
+<b>톤</b> 밝은 낮 빛. 종이의 흰색과 잎의 초록이 나란히</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>빈 양동이 둘이 옆으로 누워 있어요.
+오소리가 앞발 두 개를 물 위에 나란히 대요.
+"여기까지 물이에요!"</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 클로즈업 · p3 과 똑같이 양동이 입구를 내려다보는 하이앵글(후렴이라 구도를 반복한다)
+<b>장소·시간</b> 같은 가운데 양동이. 볕이 곧게 내리는 한낮
+<b>인물</b> 화면 가운데 — 오소리가 두 앞발을 나란히 붙여 물 위에 얹었다. 팔꿈치가 벌어지고 어깨를 앞으로 밀어 상체를 양동이 위로 기울였다. 고개를 들고 외치는 입. 눈은 반짝 크게 떴다
+<b>배경·소품</b> 🔴 물 자리가 두 앞발이 다 들어갈 만큼 넓어졌고 줄기는 양동이 벽 쪽에만 남았다 · 화면 뒤쪽 상판에 빈 양동이 둘이 옆으로 누워 입구가 이쪽을 본다 · 누운 양동이 밑에 물 자국 동그라미 둘
+<b>톤</b> 한낮의 곧은 빛. 물 자리가 화면에서 가장 밝게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>거위가 빈 양동이를 좌판 밑으로 내려놔요.
+오소리가 손잡이를 얼른 붙잡아요.
+"그건 두세요!"
+"자리가 좁잖니."</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 미디엄 · 좌판 옆에서 본 아이레벨(상판과 좌판 밑이 한 화면에)
+<b>장소·시간</b> 같은 좌판. 볕이 기울기 시작한 오후 초입
+<b>인물</b> 화면 가운데 — 늙은 거위가 목으로 빈 양동이의 손잡이를 걸어 상판 아래로 내리는 중이라 양동이가 상판과 바닥 사이 허공에 떠 있다. 목이 아래로 길게 늘어졌다. 화면 왼쪽 — 오소리가 뒷발로 서서 두 앞발로 그 손잡이 반대쪽을 붙잡고 제 쪽으로 당긴다. 발뒤꿈치가 들리고 입은 크게 벌어졌다
+<b>배경·소품</b> 손잡이 하나를 사이에 둔 빈 양동이 · 좌판 밑 그늘 · 🔴 흙상자 위 갈색 알맹이 꼭대기가 그 그늘 속에 그대로 있다
+<b>톤</b> 오후 볕이 상판 위만 밝히고 좌판 밑은 그늘. 매달린 양동이 테두리에 빛 한 줄</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>마지막 양동이에 줄기가 셋 남았어요.
+오소리 앞발이 쑥 들어가 바닥에 닿아요.
+"…여기까지 물이에요."</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 클로즈업 · p3·p6 과 똑같은 하이앵글(세 번째 반복)
+<b>장소·시간</b> 같은 가운데 양동이. 볕이 낮아진 오후
+<b>인물</b> 화면 가운데 — 오소리의 앞발 하나가 어깨까지 양동이 안으로 들어가 바닥에 닿았다. 팔이 곧게 뻗어 팔꿈치가 양동이 입구 아래로 사라졌다. 고개는 옆으로 눕혀 볼이 양동이 테에 붙었고, 입은 조금만 벌어졌다. 눈꺼풀이 반쯤 내려왔다
+<b>배경·소품</b> 🔴 양동이 안에 줄기 셋만 벽에 기대 서 있고 나머지는 전부 물 · 물 밑에 가라앉은 잎 한 장 · 그 밖은 비운다
+<b>톤</b> 낮아진 볕이 옆에서 들어와 양동이 안쪽 벽까지 닿는다. 물이 화면의 대부분</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>마지막 다발이 종이에 싸여 나가요.
+오소리가 텅 빈 좌판에 앞발을 얹어요.
+"이제 하나도 없어요."</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 와이드 미디엄 · p1 과 같은 자리에서 본 아이레벨 정면
+<b>장소·시간</b> 같은 좌판. 볕이 붉게 길어진 늦은 오후
+<b>인물</b> 화면 가운데 — 오소리가 텅 빈 상판 위에 두 앞발을 나란히 펴 얹고 그 위에 턱을 괴려다 만 자세로 서 있다. 어깨가 내려앉고 꼬리가 축 처졌다. 눈은 상판 끝을 따라간다. 화면 오른쪽 — 거위가 목을 뻗어 종이에 싼 다발을 프레임 오른쪽 끝 밖으로 내보내는 중이라 종이 끝동만 화면에 걸린다
+<b>배경·소품</b> 🔴 상판 위가 통째로 비었다 — 양동이도 꽃도 없고 물 자국 동그라미 다섯만 남았다 · 상판에 붙은 젖은 잎 두 장 · 뒤쪽 회색 실루엣이 p1 보다 성기다
+<b>톤</b> 붉고 낮은 오후 빛. 화면에 빨강이 남은 곳은 프레임 끝의 종이 다발뿐</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>거위가 흙상자에서 꺼낸 갈색 알맹이를 오소리 앞에 놔요.
+마른 흙이 툭툭 떨어져요.
+"이건 안 팔았어."
+"이건 꽃이 아닌데요."</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 상판 높이에서 본 아이레벨
+<b>장소·시간</b> 빈 좌판 상판. 같은 늦은 오후
+<b>인물</b> 화면 오른쪽 — 늙은 거위가 부리로 갈색 알맹이를 상판 위에 막 내려놓아 알맹이가 상판에 닿았고 부리는 아직 그 위에 있다. 목이 낮게 굽었다. 화면 왼쪽 — 오소리가 상판에 턱을 붙이고 눈만 크게 떠 알맹이를 코앞에서 본다. 두 앞발은 상판 위에 얌전히 모았고 코끝이 알맹이에 거의 닿는다
+<b>배경·소품</b> 🔴 상판 위 갈색 알맹이 하나(양파처럼 둥글고 껍질이 마른 종이 같다. 초록은 한 점도 없다) · 알맹이에서 떨어진 마른 흙가루 몇 · 화면 아래 모서리 좌판 밑 흙상자에 알맹이가 나온 자리의 얕은 구덩이 하나가 그대로 남아 있다
+<b>톤</b> 낮은 오후 빛이 옆에서 들어와 알맹이 껍질의 결을 살린다. 화면에서 마감된 것은 알맹이 하나</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>오소리가 알맹이를 두 앞발로 감싸 쥐어요.
+등은 양동이 쪽, 코끝은 흙상자 쪽이에요.
+"이건 물에 안 세울래요."</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 · 좌판 옆에서 본 아이레벨(상판이 위, 좌판 밑 흙상자가 아래)
+<b>장소·시간</b> 같은 좌판. 해가 더 낮아진 저녁 직전
+<b>인물</b> 화면 가운데 — 오소리가 두 앞발로 갈색 알맹이를 가슴 앞에 감싸 쥔 채 몸을 아래로 돌려 등이 상판 쪽을 향한다. 어깨 너머로 양동이가 보이고 코끝과 눈은 좌판 밑 흙상자를 곧게 향한다. 뒷발 한쪽이 이미 좌판 밑을 향해 한 걸음 내려섰다. 입은 다물다 만 채 말한다. 화면 위 — 거위는 목만 화면에 걸치고 그 눈이 오소리를 따라간다
+<b>배경·소품</b> 오소리 등 뒤 상판 위에 물 담긴 양동이 하나(그가 안 보는 쪽) · 화면 아래 흙상자의 검은 흙과 얕은 구덩이 · 상판 밑면의 나뭇결
+<b>톤</b> 저녁 직전의 낮고 긴 빛. 위쪽 물은 차갑게, 아래쪽 흙은 따뜻하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>오소리가 두 앞발로 흙을 끌어 덮어요.
+갈색 알맹이가 이만큼만 남고 흙에 묻혀요.
+"덮어 줄게."</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 클로즈업 · 흙상자를 비스듬히 내려다보는 하이앵글(흙이 화면의 대부분)
+<b>장소·시간</b> 좌판 밑 나무 흙상자 안. 같은 저녁 직전
+<b>인물</b> 화면 위쪽 — 오소리가 흙상자 앞에 웅크리고 두 앞발을 구덩이 양옆에 벌려 붙여 흙을 가운데로 끌어 모으는 중이다. 앞발 사이로 흙이 밀려 두 줄 고랑이 생겼다. 얼굴은 흙을 향해 깊이 숙였고 코끝에 흙가루가 묻었다. 등이 둥글게 말리고 꼬리는 뒤로 낮게 뻗었다
+<b>배경·소품</b> 🔴 구덩이 속에 누운 갈색 알맹이 — 흙이 이미 옆구리까지 올라와 꼭대기 한 뼘만 보인다 · 앞발이 밀어 놓은 흙 두 줄 · 흙상자 나무 테두리 한 변 · 그 밖은 비운다
+<b>톤</b> 저녁 빛이 흙상자 안까지 낮게 들어온다. 검은 흙이 화면에서 가장 진하고, 남은 알맹이 꼭대기가 가장 밝다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>오소리가 흙 위를 꾹, 꾹 눌러요.
+흙상자엔 앞발 자국 둘만 남아요.
+거위가 그 자리를 가만히 봐요.</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 클로즈업 · p12 와 같은 하이앵글, 조금 더 물러난 자리
+<b>장소·시간</b> 좌판 밑 흙상자. 저녁, 시장이 조용해진 시간
+<b>인물</b> 화면 위쪽 — 오소리가 두 앞발을 흙 위에 나란히 펴 얹고 체중을 실어 누른다. 팔이 곧게 펴지고 어깨가 귀 옆까지 올라갔다. 눈은 제 앞발 사이를 본다. 입은 다물었다. 화면 오른쪽 위 — 늙은 거위가 목을 길게 내려뜨려 같은 자리를 내려다본다. 둘 다 몸이 움직이지 않는다
+<b>배경·소품</b> 🔴 평평해진 검은 흙 — 알맹이는 하나도 안 보이고 앞발 자국 둘만 나란히 눌려 있다(p1 에 꼭대기가 나와 있던 바로 그 자리) · 흙상자 나무 테두리 · 상판 위 빈 양동이 하나의 밑동만 화면 위 끝에 걸린다 · 초록은 화면에 한 점도 없다
+<b>톤</b> 저녁의 낮고 따뜻한 빛이 흙 위 앞발 자국 두 개의 가장자리에만 그림자를 만든다. 화면에서 마감된 것은 눌린 흙과 자국 둘</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'c05',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 오소리(이름 없음)', '꽃 파는 늙은 거위(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb72294d10"></script>
+<script src="/changjak-core.js?v=47fd80bb72294d10"></script>
+</body>
+</html>

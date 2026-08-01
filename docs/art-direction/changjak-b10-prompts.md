@@ -92,7 +92,7 @@ CHARACTER DESIGN LANGUAGE: 🔴 TWO DIFFERENT GRADES, held for fifteen pages. Th
   SEPARATE brow stroke - not dot-eyes, no catchlight. 🔴 THE MOLE'S SHOULDERS ARE THE ACTING PART -
   hauled up and tight for twelve pages, dropped and easy on the last.
 
-CANVAS: 16:9 double-page spread, no ornamental border. Bottom 18% quiet for a caption. No lettering
+CANVAS: 16:9 double-page spread, no ornamental border. No lettering
   or numerals anywhere - not on the pails, the boats or the ropes.
 
 NOT (rendering only): no digital slickness - airbrush, gradient, glow, 3D CG, cel-shading,

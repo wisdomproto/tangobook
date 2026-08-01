@@ -77,7 +77,7 @@ CHARACTER DESIGN LANGUAGE: both rabbits are bipedal, front paws used as hands, s
   SEPARATE drawn brow above it so the face can act. No dot-eyes, no catchlight, no human nose,
   no shoes. If a pose fails, change the rabbit's pose, never the grade.
 
-CANVAS: 16:9 double-page spread. Bottom 18% left quiet for a caption. NO lettering, numerals,
+CANVAS: 16:9 double-page spread. NO lettering, numerals,
   signage, shop sign, price, date or letterform anywhere - not on sacks, tins, the oven mouth,
   the door or the window.
 

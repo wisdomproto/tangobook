@@ -76,7 +76,7 @@ CHARACTER DESIGN LANGUAGE: the hedgehog is bipedal, forepaws used as hands, wear
   turn its neck, open its beak and half-lift ONE wing, nothing else. If a pose fails, change the
   hedgehog's pose, never the grade.
 
-CANVAS: 16:9 double-page spread. Bottom 18% left quiet for a caption. NO lettering, numerals,
+CANVAS: 16:9 double-page spread. NO lettering, numerals,
   signage, dial faces, chart marks or letterforms anywhere - not on the lamp, the frames or the
   glass.
 

@@ -99,7 +99,7 @@ CHARACTER DESIGN LANGUAGE: both animals are the same soot brown as the room with
   turns in both hands; nothing burns, breaks or sparks.
 
 CANVAS: 16:9 double-page spread. One workshop, identical on all thirteen pages and fixed by the
-  FurnaceRoom sheet. Bottom 18% quiet for a caption. No lettering, numerals or signs,
+  FurnaceRoom sheet. No lettering, numerals or signs,
   including outside the window.
 
 NOT: no digital slickness - airbrush, gradient, glow, lens flare, bloom, 3D CG, cel-shading,

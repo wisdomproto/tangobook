@@ -97,8 +97,7 @@ CHARACTER DESIGN LANGUAGE: bear faces - round ears, short muzzle, a small drawn 
   water. The grandmother wears a fleece waistcoat and an apron, both in the pale wood wash; 🔴 THE
   CUB WEARS NOTHING ON ANY PAGE. The cub is a third of her height. No shoes, no fingers.
 
-CANVAS: 16:9 double-page spread. One cabin room, unchanged for twelve pages. Bottom 18% quiet for a
-  caption. No lettering, numerals or signs anywhere.
+CANVAS: 16:9 double-page spread. One cabin room, unchanged for twelve pages. No lettering, numerals or signs anywhere.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,
   or a paper-texture filter over flat colour / NO WHITE PAINT AND NO GOUACHE - pale means fewer

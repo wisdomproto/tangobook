@@ -104,7 +104,7 @@ CHARACTER DESIGN LANGUAGE: animal faces, never human ones. A dark rounded eye wi
   rectangular pupils. The mother is a fully grown St Bernard, head about one fifth of her height,
   twice the pup in every dimension. If a pose fails, change the pup.
 
-CANVAS: 16:9 double-page spread, 4-6 year old picture book. Bottom 18% quiet for a caption. No
+CANVAS: 16:9 double-page spread, 4-6 year old picture book. No
   lettering or numerals anywhere - no name board, clock face, destination board, timetable or
   number. Time is told by sun height, shadow length and lamps.
 
