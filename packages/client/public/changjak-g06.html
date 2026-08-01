@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>G-06 제일 높은 가지 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · G · 용기·두려움 · 06</div>
+  <h1>제일 높은 가지</h1>
+  <div class="sub">제일 높은 가지까지 올라가 보려고 해요. 그런데 올라가도 그건 계속 저 위에 있어요</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 관찰과 성장</span>
+  <span>무대 · 북유럽 숲 — 오래된 가문비나무 한 그루의 줄기 바깥(옹이 · 빈 둥지 · 부러진 가지 그루터기)</span>
+  <span>후렴 · "제일 높은 가지, 저기야!" (p1·p4·p8 세 번 · 늘 앞발 하나를 머리 위로 쭉 뻗어 가리키는 자세에서 · 🔴 p12 에서 같은 앞발이 처음으로 아래를 가리키며 "너, 저기 있네!" 로 뒤집힌다)</span>
+  <span class="q">13스프레드</span>
+  <span class="q">본문 592자 · 쪽당 46자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- <b>마음을 한 문장도 안 쓴다.</b> 무서웠다·신났다·아쉬웠다가 한 줄도 없다. 이 권이 재는 것은 <b>몸이 어디 있는가</b> 하나뿐이고, 그걸 매 쪽 <b>같은 기준 셋</b>(옹이 · 빈 둥지 · 부러진 그루터기)과 <b>가지 굵기</b>에 댄다. 성장은 「올라갔다」가 아니라 <b>같은 앞발에 감기는 가지가 점점 가늘어지는 것</b>으로만 보인다.<br>
+- 🔴 <b>g88 과 세는 것이 다르다.</b> g88 은 계단 칸을 <b>숫자로 더해 올라간다</b>(한 칸 → 서른 칸). 여기는 숫자가 한 번도 안 나오고, 대신 <b>줄어드는 것</b>을 잰다 — 두 앞발로도 안 감기던 가지가 한 앞발에 감기고, 끝내 몸을 못 받친다. 하나는 쌓이고 하나는 가늘어진다.<br>
+- 🔴 <b>높이가 무서움으로 새지 않게</b> 세 가지를 고정했다. ①<b>낮이다</b> — 오를수록 잎이 성글어져 화면이 밝아진다(어두워지지 않는다) ②<b>아래에 순록이 내내 있다</b> — 말은 세 마디뿐이고 아무것도 설명하지 않지만 프레임에서 사라지지 않는다 ③<b>떨어지는 장면이 없다.</b> 떨어지는 것은 솔방울 하나와 잎뿐이고, 다람쥐 몸은 한 번도 나무에서 안 떨어진다. p11 의 휨도 추락이 아니라 <b>가지가 내려앉는 것</b>이다.<br>
+- <b>아무도 설명해 주지 않는다.</b> 순록은 "거기까지?"·"떨어졌다!"·"조심해—" 세 마디가 전부다. 「위에 또 있을 거야」·「너무 가늘어서 안 돼」 같은 말을 순록이 해 버리면 이 책은 p1 에서 끝난다. 가지가 가늘다는 것은 <b>다람쥐 앞발이 감기면서</b> 알려진다.<br>
+- <b>제일 높은 가지는 끝까지 저 위에 있다.</b> 마지막 쪽에서도 안 닿는다 — 나무는 그대로다. 바뀐 것은 <b>다람쥐 고개가 향한 방향</b> 하나뿐이고, 그래서 마지막 화면은 위가 아니라 아래를 담는다. 🔴 「그래도 괜찮아요」·「높이보다 중요한 건」 같은 문장은 한 줄도 안 넣는다.<br>
+- <b>e09 와 같은 북유럽 숲이지만 배치가 정반대다.</b> e09 는 나무 <b>구멍 안</b>(사방이 막힌 한 칸)이고 이 권은 줄기 <b>바깥</b>(사방이 트인 허공)이다. 카메라가 한 번도 안으로 안 들어간다.<br>
+- <b>열세 쪽.</b> 기준 셋에 각각 「닿는 쪽 / 재는 쪽」 두 쪽씩 여섯, 앞에 둘(가리킴·첫 굵기), 사이에 둘(솔방울·바람), 꼭대기 둘(트임·휨), 뒤집힘 한 쪽, 착지 한 쪽. 굵기 재는 쪽을 빼면 「그냥 계속 올라가는 이야기」가 되고, 더 늘리면 같은 리듬이 네 번째로 돌아온다.<br>
+- <b>의인화 등급 = 사족 그대로, 열세 쪽 고정.</b> 다람쥐는 앞발을 쓸 때만 뒷발로 서거나 앉는다. 옷·손가락·직립 없음. 순록도 사족. 글자·숫자 요소 없음(번역판마다 다시 그리게 된다).
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>"제일 높은 가지, 저기야!"
+새끼 다람쥐가 앞발을 위로 쭉 뻗어요.
+순록이 이끼를 우물우물 씹다 고개를 들어요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 로우 앵글 · 밑동 앞 이끼 높이에서 위를 올려다본다. 다람쥐는 화면 아래 가운데에 작게, 줄기가 화면 위로 곧게 뻗어 가지 층이 겹겹이 포개진다
+<b>장소·시간</b> 북유럽 숲 — 오래된 가문비나무 한 그루의 밑동. 회갈색 세로결 껍질, 줄기에서 층층이 돌려난 가지, 밑동 둘레에 회백색 순록이끼와 낮은 월귤 덤불. 이 나무 한 그루와 그 둘레가 열세 쪽 내내 같은 장소다. 맑은 늦여름 오전
+<b>인물</b> 화면 아래 가운데 — 새끼 다람쥐가 이끼 위에 뒷발로 서서 <b>앞발 하나를 머리 위로 쭉 뻗어 저 위 한 곳을 가리킨다</b>, 다른 앞발은 가슴 앞에 모았고 꼬리가 등 뒤로 곧게 섰으며 고개를 한껏 젖혀 시선이 프레임 위쪽 끝을 향한다. 화면 아래 오른쪽 — 순록이 네 발로 서서 이끼에 코를 박고 씹다가 목을 반쯤 들어 같은 쪽을 본다, 뿔 한 짝이 줄기에 닿을 듯 가깝고 흰 목털이 늘어졌다. 🔴 <b>순록 어깨높이가 다람쥐 키의 여러 배</b> — 둘이 같은 바닥, 같은 깊이에 있어 여기서 크기가 정해진다. 사족 그대로 — 옷·손가락·직립 없음
+<b>배경·소품</b> 🔴 <b>기준 셋이 이 한 장에 다 들어온다</b> — 밑동에서 조금 위에 사람 눈처럼 생긴 회백색 <b>옹이</b> 하나, 그보다 위 가지 갈래에 마른 풀로 얽힌 <b>빈 둥지</b> 하나, 더 위 줄기에서 하얗게 마른 <b>부러진 가지 그루터기</b> 하나. 그 위로는 잎이 빽빽해 꼭대기가 안 보인다. 이끼 위에 지난해 솔방울 몇 개, 월귤 붉은 열매 몇 알. 글자·숫자·문자 요소 없음
+<b>톤</b> 아래쪽은 잎 그늘의 짙은 초록이고 위로 갈수록 잎 사이 빛이 늘어 흰빛으로 열린다 — 눈이 다람쥐 발밑에서 출발해 뻗은 앞발을 따라 위로 미끄러진다. 뻗은 앞발 끝이 향한 자리 한 군데만 잎 틈으로 환하다. 이끼의 마른 냄새가 날 것 같은 아침의 서늘함</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>다람쥐가 첫 가지를 두 앞발로 감싸 봐요.
+앞발 끝이 한참 모자라요.
+"이건 나보다 굵어."</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 · 화면을 가로지르는 굵은 가지 하나와 거기 매달린 다람쥐 상반신이 화면 가운데
+<b>장소·시간</b> 같은 가문비나무, 밑동에서 처음 뻗은 굵은 아래 가지 위. 맑은 늦여름 오전
+<b>인물</b> 화면 가운데 — 다람쥐가 가지에 배를 대고 <b>두 앞발을 최대로 벌려 가지를 감싸 안았는데 앞발 끝이 서로 한참 못 닿는다</b>, 뒷발 둘은 가지 아래쪽 껍질에 발톱을 박아 걸었고 볼이 가지 껍질에 눌려 한쪽으로 밀렸다, 시선은 감싼 앞발 쪽을 본다. 🔴 <b>가지 굵기 ↔ 앞발 길이가 맞닿아 있어 여기서만 정확히 견줘진다</b> — 못 닿는 간격이 다람쥐 머리통만큼 벌어져 있다. 순록은 프레임 밖(아래). 사족 그대로 — 옷·손가락·직립 없음
+<b>배경·소품</b> 껍질의 세로결과 마른 송진 방울이 코앞에서 크게 보인다. 가지 위에 붙은 초록 이끼 한 줌, 짧은 바늘잎 다발 몇. 화면 뒤로 짙은 초록 잎 그늘이 부드럽게 풀려 있고 그 사이로 옹이 위쪽 테두리가 흐리게 걸린다. 글자·숫자·문자 요소 없음
+<b>톤</b> 초록 그늘 속에서 껍질의 회갈색과 다람쥐 적갈색만 또렷하다 — 화면에서 가장 마감된 것이 <b>못 닿은 두 앞발 끝</b>이라 눈이 그 틈으로 간다. 나무를 껴안았을 때 뺨에 오는 서늘하고 까슬한 감촉</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>줄기에 눈처럼 생긴 옹이가 있어요.
+다람쥐가 그 위에 배를 착 붙여요.
+"지금 옹이 위!"</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 오른쪽에 줄기가 세로로 서고, 옹이와 그 바로 위에 붙은 다람쥐가 화면 가운데
+<b>장소·시간</b> 같은 나무 줄기, 옹이가 있는 자리. 맑은 늦여름 오전
+<b>인물</b> 화면 가운데 — 다람쥐가 줄기에 네 발톱을 박고 <b>배를 껍질에 착 붙인 채 옹이 바로 위 한 뼘에 멈춰 있다</b>, 목만 위로 빼서 시선이 줄기를 타고 올라가고 꼬리는 아래로 곧게 늘어져 옹이 테두리를 스친다, 입이 벌어져 외치는 중. 🔴 <b>얼굴도 앞발도 아래를 향하지 않는다.</b> 사족 그대로 — 옷·손가락·직립 없음
+<b>배경·소품</b> 사람 눈처럼 생긴 회백색 <b>옹이</b>가 다람쥐 몸통만 하게 줄기에 박혀 있고 둘레에 굳은 송진이 테를 둘렀다(🔴 기준 ① — p13 에서 다시 보인다). 화면 아래 멀리, 잎 사이로 순록의 등과 뿔 한 짝이 반쯤 가려 보인다(작아졌다, 그러나 프레임에 있다). 위로는 가지 층이 겹쳐 둥지가 아직 안 보인다. 글자·숫자·문자 요소 없음
+<b>톤</b> 잎 틈으로 든 빛 조각이 옹이 테두리에만 걸려 그것이 화면에서 유일하게 밝은 표시가 된다 — 다람쥐 몸은 그 표시 바로 위에 얹혀 있어 「지금 여기」가 눈으로 읽힌다. 아직 초록 그늘이 화면의 대부분</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>사각사각, 아까 가리킨 가지에 올라섰어요.
+그런데 그 위에 가지가 또 있어요.
+"제일 높은 가지, 저기야!"</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 와이드 · 로우 앵글(다람쥐 발치 조금 아래에서 함께 올려다본다) · 다람쥐는 화면 아래 왼쪽 가지 위, 화면 위쪽으로 다음 가지가 가로질러 놓인다
+<b>장소·시간</b> 같은 나무, 밑동에서 세어 위쪽의 굵은 가지 하나 — p1 에서 땅에서 가리켰던 바로 그 가지. 맑은 늦여름 오전
+<b>인물</b> 화면 아래 왼쪽 — 다람쥐가 가지 위에 네 발로 올라선 채 <b>뒷발로 몸을 세우고 앞발 하나를 다시 머리 위로 쭉 뻗어 가리킨다</b>, 다른 앞발은 가지 껍질을 짚었고 꼬리가 크게 부풀어 뒤로 휘었으며 고개가 한껏 젖혀졌다. 🔴 <b>자세가 p1 과 똑같다 — 자리만 위로 옮겨졌다.</b> 순록은 프레임 밖(아래). 사족 그대로 — 옷·손가락·직립 없음
+<b>배경·소품</b> 다람쥐가 딛고 선 가지는 발밑에서 넓고 편평하다. 그 위 한 층에 <b>다음 가지가 화면을 가로질러</b> 놓이고, 그 너머로 또 한 층이 흐리게 겹친다 — 층이 계속된다는 것이 겹친 가지 수로만 보인다. 방금 지나온 옹이가 화면 아래 가장자리에 잘려 걸린다. 흩어진 바늘잎이 가지 위에 쌓였다. 글자·숫자·문자 요소 없음
+<b>톤</b> 가리킨 앞발 끝 위쪽에 잎 틈 빛이 하나 열려 있는데, 그 빛 너머로 가지가 <b>하나 더</b> 놓여 있는 것이 같이 보인다 — 목표와 그 위의 것이 한 화면에 겹치는 것이 이 쪽의 전부다. 초록이 조금 옅어지고 흰빛이 늘기 시작한다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>가지 사이에 빈 둥지가 있어요.
+다람쥐 몸이 둥지랑 나란해요.
+가지를 감싸니 앞발 끝이 딱 맞물려요.
+"여기는 딱 맞아."</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨 · 화면 왼쪽에 가지를 감싼 다람쥐, 오른쪽 같은 높이에 빈 둥지. 둘이 나란히 놓인다
+<b>장소·시간</b> 같은 나무, 가지 갈래에 얹힌 빈 둥지 옆. 맑은 늦여름 오전
+<b>인물</b> 화면 왼쪽 — 다람쥐가 가지에 배를 대고 <b>두 앞발로 감싸는데 이번엔 앞발 끝이 서로 딱 맞물린다</b>, 발톱 끝이 서로 닿아 고리가 되었고 뒷발은 가지 아래를 걸었으며 고개는 둥지 쪽으로 살짝 돌아갔다. 🔴 <b>가지 굵기 ↔ 앞발이 맞닿은 쪽</b> — p2 에서 벌어졌던 간격이 여기서 0 이 되었고, 두 쪽 다 같은 자세라 눈으로 바로 견줘진다. 순록은 프레임 밖(아래). 사족 그대로 — 옷·손가락·직립 없음
+<b>배경·소품</b> 화면 오른쪽 가지 갈래에 마른 풀·이끼·잔가지로 얽은 <b>빈 둥지</b> 하나가 다람쥐와 <b>정확히 같은 높이</b>에 놓인다(🔴 기준 ② · 새는 없다, 안에 마른 깃털 한 장과 바늘잎만). 둥지 아래로 가지가 아래층으로 내려가고 그 아래 잎 그늘. 글자·숫자·문자 요소 없음
+<b>톤</b> 빛이 옆에서 들어와 둥지 테두리와 맞물린 앞발 끝, 두 군데를 같은 밝기로 만든다 — 화면이 좌우로 딱 갈리고 그 둘이 나란해서 「같은 높이」가 자로 잰 것처럼 읽힌다. 마른 풀 냄새가 날 듯한 따뜻한 오전 빛</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>툭. 솔방울 하나가 저 혼자 떨어져요.
+"떨어졌다!"
+순록이 코를 대요.
+다람쥐는 위만 봐요.</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 와이드 · 아이레벨보다 살짝 높게 · 화면 위쪽 가지에 다람쥐, 화면 아래쪽 멀리 바닥에 순록. 세로로 긴 화면이 위아래로 나뉜다
+<b>장소·시간</b> 같은 나무 — 둥지보다 한 층 위 가지와 저 아래 밑동 이끼가 한 화면에 든다. 맑은 늦여름 오전
+<b>인물</b> 화면 위쪽 — 다람쥐가 가지 위에 네 발로 서서 <b>고개를 위로 든 채 그대로 있다</b>, 앞발 하나가 다음 가지 모서리에 얹혔고 귀가 뒤로 살짝 눕고 꼬리가 뒤로 뻗었다. 🔴 <b>소리가 났는데도 아래를 안 본다 — 고개는 위 그대로.</b> 화면 아래쪽 멀리 — 순록이 이끼 위에 멎은 솔방울에 코를 대고 목을 길게 숙였다, 뿔이 앞으로 기울었고 몸은 잎에 반쯤 가려 <b>코와 뿔만 또렷하다</b>(작아졌다). 사족 그대로 — 옷·손가락·직립 없음
+<b>배경·소품</b> 회백색 이끼 바닥 위에 갈색 <b>솔방울 하나</b>가 막 굴러 멎었고 그 옆 이끼가 눌려 자국이 났다(떨어진 것은 소리로만 지나가고 화면엔 멎은 자리만 있다). 두 층 사이는 짙은 초록 잎으로 채워져 위아래가 얼마나 먼지가 잎의 두께로 보인다. 다람쥐 발밑 가지에 바늘잎이 쌓였다. 글자·숫자·문자 요소 없음
+<b>톤</b> 위쪽은 밝고 아래쪽은 그늘이라 한 화면 안에서 두 밝기가 갈린다 — 그 사이 초록의 두께가 이 쪽의 거리다. 아래에 누가 있다는 것이 눈으로 확인되지만 다람쥐는 그쪽을 안 본다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>슝— 바람이 지나가요.
+가지가 출렁, 다람쥐도 출렁.
+발톱 여덟 개를 꽉 박고 붙어 있어요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 미디엄 · 살짝 기울인 아이레벨(카메라도 함께 기운다) · 화면 가운데 가지가 사선으로 휘고 그 위에 납작 붙은 다람쥐
+<b>장소·시간</b> 같은 나무, 둥지보다 위 가지 위. 바람 한 줄기가 지나가는 맑은 늦여름 오전
+<b>인물</b> 화면 가운데 — 다람쥐가 가지에 <b>배를 착 붙이고 네 발 발톱을 전부 껍질에 박았다</b>, 다리가 몸 옆으로 넓게 벌어졌고 꼬리가 몸을 따라 눕고 바람에 털이 한 방향으로 쓸린다, 눈은 반쯤 감기고 수염이 뒤로 넘어갔으며 시선은 여전히 가지 앞쪽 위를 본다. 순록은 프레임 밖(아래). 사족 그대로 — 옷·손가락·직립 없음
+<b>배경·소품</b> 가문비 바늘잎 다발이 전부 한 방향으로 쓸리고, 마른 잎과 바늘잎이 화면을 가로질러 아래로 쏟아진다. 뒤쪽 가지 층들도 같은 방향으로 기울어 나무 전체가 한 번 기운 것이 보인다. 빈 둥지가 화면 아래 가장자리에서 흔들리지 않고 그대로 얹혀 있다(단단히 얽혀 있다). 글자·숫자·문자 요소 없음
+<b>톤</b> 잎이 쓸리며 빛이 한꺼번에 들어와 화면이 순간 밝아진다 — 어두워지는 쪽이 아니다. 흩날리는 잎만 흐릿하고 박힌 발톱 여덟 개는 또렷해서 눈이 거기 멎는다. 밀렸다가 곧 돌아오는 한 번의 출렁임</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>부러진 가지 그루터기에 뒷발을 디뎌요.
+잎이 성글어져 하늘이 조금 보여요.
+"제일 높은 가지, 저기야!"</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 와이드 · 로우 앵글 · 다람쥐가 화면 아래 가운데, 그 위로 가늘어진 가지 몇 층과 그 사이로 열린 흰 하늘 조각들
+<b>장소·시간</b> 같은 나무, 하얗게 마른 부러진 가지 그루터기가 있는 높이. 맑은 늦여름 오전
+<b>인물</b> 화면 아래 가운데 — 다람쥐가 <b>하얗게 마른 그루터기 단면에 뒷발 둘을 디디고 서서 앞발 하나를 머리 위로 쭉 뻗어 가리킨다</b>, 다른 앞발은 줄기를 짚었고 꼬리가 뒤로 부풀었으며 고개가 젖혀졌다. 🔴 <b>p1·p4 와 같은 자세 세 번째 — 자리만 또 위로 옮겨졌다.</b> 순록은 프레임 밖(아래). 사족 그대로 — 옷·손가락·직립 없음
+<b>배경·소품</b> 부러진 가지의 <b>하얗게 마른 단면</b>이 다람쥐 두 뒷발을 얹을 만큼 넓다(🔴 기준 ③ · 가장자리에 껍질이 벗겨져 나뭇결이 드러났다). 위쪽 가지들은 아래층보다 눈에 띄게 가늘고 바늘잎이 성글어 <b>흰 하늘 조각이 잎 사이로 여럿 뚫려 보인다</b>. 가리킨 방향 끝에 가지 하나가 또 가로놓인다. 글자·숫자·문자 요소 없음
+<b>톤</b> 초록이 확 옅어지고 흰빛이 화면의 절반을 차지한다 — 아래 세 쪽보다 밝다. 흰 그루터기와 흰 하늘 조각이 같은 밝기라 다람쥐 적갈색 몸이 화면에서 가장 진한 색으로 남는다. 잎을 벗어나기 직전의 트인 공기</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>가지가 가늘어져 한 앞발에 쏙 감겨요.
+다람쥐가 배를 붙이고 천천히 나아가요.
+"조심해—" 순록 목소리가 조그마해요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 · 화면을 사선으로 가로지르는 가는 가지와 그것을 쥔 앞발 하나가 화면 앞쪽 가운데
+<b>장소·시간</b> 같은 나무, 그루터기보다 위쪽의 가는 가지 위. 맑은 늦여름 오전
+<b>인물</b> 화면 가운데 — 다람쥐가 가는 가지에 배를 붙이고 <b>앞발 하나로 가지를 한 번에 쏙 감아쥐었다</b>, 감은 앞발가락 끝이 서로 겹칠 만큼 남고 다른 앞발은 앞쪽 가지를 짚어 몸을 밀며, 뒷발은 뒤에 붙어 있고 꼬리가 뒤로 길게 균형을 잡는다, 시선은 가지 끝 앞쪽. 🔴 <b>굵기 ↔ 앞발이 세 번째로 맞닿는 쪽</b> — p2 는 못 닿았고 p5 는 맞물렸고 여기는 <b>남는다.</b> 사족 그대로 — 옷·손가락·직립 없음
+<b>배경·소품</b> 가는 가지의 껍질이 얇고 매끈하며 바늘잎 다발이 드문드문 달렸다. 화면 뒤는 거의 흰 하늘이고, 그 아래쪽 구석에 초록 잎 덩어리 사이로 <b>아주 작은 갈색 점 하나</b> — 순록의 등이다(뿔은 이제 안 읽힌다). 아래로 내려가는 가지 층 몇이 흐리게 겹친다. 글자·숫자·문자 요소 없음
+<b>톤</b> 배경이 밝아 가지와 앞발이 검은 실루엣에 가깝게 또렷해진다 — 화면에서 마감된 것은 <b>감아쥔 앞발 하나</b>뿐이다. 소리가 멀어진 높이의 조용함, 바람이 잦아든 사이</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>잎이 끝나고 하늘이 확 트여요.
+그 위에 가지가 딱 하나 남았어요.
+"하나 남았다!"
+다람쥐가 앞발을 쭉 뻗어요.</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 · 로우 앵글 · 화면 대부분이 흰 하늘, 아래 가장자리에 다람쥐, 그 위에 가는 가지 하나가 가로놓인다
+<b>장소·시간</b> 같은 나무의 위쪽 — 바늘잎 층이 끝나고 하늘이 통째로 열리는 자리. 맑은 늦여름 오전
+<b>인물</b> 화면 아래 — 다람쥐가 가는 가지 위에 뒷발로 서서 <b>앞발 하나를 위로 쭉 뻗는다</b>, 뻗은 앞발 끝과 위 가지 사이가 다람쥐 몸 하나만큼 남았고, 다른 앞발은 발밑 가지를 꽉 쥐었으며 꼬리가 위로 곧게 섰고 고개가 젖혀졌다. 🔴 <b>여기서는 가리키는 게 아니라 닿으려고 뻗는다</b> — 앞발이 펼쳐졌고 손끝(발끝)이 위를 향해 활짝 벌어졌다. 사족 그대로 — 옷·손가락·직립 없음
+<b>배경·소품</b> 위쪽에 <b>가는 가지 하나</b>가 화면을 가로지르고 그 위로는 아무것도 없이 흰 하늘뿐이다 — 이 가지가 이 나무에서 몸이 닿을 수 있는 마지막 것이고, 그보다 위에 줄기 끝이 가늘게 솟아 있다. 저 멀리 아래로 다른 나무들의 뾰족한 우듬지가 낮게 깔린다. 바늘잎 몇 다발만 남아 성글다. 글자·숫자·문자 요소 없음
+<b>톤</b> 화면의 팔 할이 흰 하늘이라 이 권에서 가장 밝다 — 지금까지 초록이 하던 일을 흰빛이 대신한다. 남은 색은 적갈색 몸과 회갈색 가지 둘뿐이라 눈이 뻗은 앞발과 위 가지 사이의 <b>빈 틈</b>에 멎는다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>앞발을 얹자 가지가 스르르 휘어요.
+휘고 또 휘어서 다람쥐 몸이 아래로 처져요.
+"어어—"</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 가운데에서 가지가 활처럼 아래로 굽고, 그 끝에 다람쥐가 매달려 처진다
+<b>장소·시간</b> 같은 나무의 마지막 가는 가지. 맑은 늦여름 오전
+<b>인물</b> 화면 가운데 — 다람쥐가 <b>두 앞발을 위 가지에 얹은 채 몸이 아래로 처졌다</b>, 뒷발은 아직 아래 가지에 걸렸고 배가 길게 늘어졌으며 꼬리가 아래로 곧게 떨어졌다, 눈이 동그랗게 커지고 입이 조금 벌어졌으며 시선은 얹은 앞발 쪽. 🔴 <b>떨어지지 않는다 — 네 발이 다 무언가에 닿아 있다.</b> 🔴 굵기 ↔ 몸무게가 맞닿는 마지막 쪽: 앞발이 감기고도 남던 가지가 여기서 <b>몸 하나를 못 버틴다.</b> 사족 그대로 — 옷·손가락·직립 없음
+<b>배경·소품</b> 가는 가지가 활처럼 굽어 곡선이 화면을 가로지르고, 그 끝의 바늘잎 다발이 아래로 쏠려 매달렸다. 흰 하늘이 배경 전부이고, 아래 가장자리에 방금 딛고 있던 굵은 가지가 곧게 놓여 <b>굽은 가지와 곧은 가지가 한 화면에서 대비된다.</b> 글자·숫자·문자 요소 없음
+<b>톤</b> 흰 배경에 굽은 선 하나와 처진 몸 하나뿐이라 화면이 거의 비었다 — 이 권에서 가장 단순한 장면이다. 아래로 향한 곡선이 눈을 처음으로 화면 아래쪽으로 끌어내린다(고개는 아직 위지만 몸은 이미 아래를 향했다). 천천히 내려앉는 무게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>다람쥐가 굵은 가지에 앉아 있어요.
+고개가 처음으로 아래로 내려가요.
+"너, 저기 있네!"
+"여기 있지!"
+앞발도 아래를 가리켜요.</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 왼쪽 굵은 가지 위에 앉은 다람쥐, 화면 아래 오른쪽으로 열린 초록 아래 세상
+<b>장소·시간</b> 같은 나무, 마지막 가는 가지 바로 아래의 굵고 편평한 가지 위. 맑은 늦여름 오전
+<b>인물</b> 화면 왼쪽 — 다람쥐가 굵은 가지 위에 <b>뒷발을 접고 앉아 고개를 아래로 숙였다</b>, <b>앞발 하나를 아래로 쭉 뻗어 가리키고</b> 다른 앞발로 가지를 짚었으며 꼬리가 가지 옆으로 늘어져 아래로 흔들린다, 입이 벌어져 외치는 중이고 귀가 앞으로 섰다. 🔴 <b>p1·p4·p8 에서 위를 가리키던 그 앞발이 같은 자세 그대로 아래를 향한다 — 팔의 각도만 뒤집혔다.</b> 화면 아래 멀리 — 순록이 목을 위로 젖혀 이쪽을 올려다보며 입을 벌렸다, 흰 목털이 위에서 봐도 밝게 보인다. 사족 그대로 — 옷·손가락·직립 없음
+<b>배경·소품</b> 다람쥐가 앉은 굵은 가지가 발밑에서 넓고 단단하다. 그 위쪽 가장자리에 방금 그 <b>가는 가지가 아직 조금 휜 채</b> 걸려 있고, 그보다 위 하늘은 프레임 밖으로 나간다. 아래로는 초록 잎층이 층층이 열려 그 사이로 회백색 이끼 바닥과 순록이 보인다. 글자·숫자·문자 요소 없음
+<b>톤</b> 지금까지 화면 위쪽에 있던 밝은 데(흰 하늘)가 프레임 밖으로 빠지고, <b>아래쪽 초록이 처음으로 화면의 주인이 된다</b> — 시선이 열두 쪽 만에 방향을 바꾼다. 가리킨 앞발 끝과 올려다보는 흰 목털이 화면 대각선 양 끝에서 서로를 맞본다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>그루터기도 둥지도 옹이도 저 아래 한 줄로 있어요.
+순록은 솔방울만 해요.
+"조금만 더 보고 갈게!"
+제일 높은 가지는 아직 저 위예요.</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 와이드 · 하이 앵글(다람쥐 어깨 너머로 나무 아래를 통째로 내려다본다) · 화면 앞쪽 아래 가장자리에 다람쥐의 등과 뻗은 앞발, 그 아래로 줄기와 가지 층이 화면 끝까지 이어져 내려간다
+<b>장소·시간</b> 같은 나무, p12 와 같은 굵은 가지 위. 해가 조금 높아진 늦여름 오전
+<b>인물</b> 화면 앞쪽 아래 — 다람쥐가 굵은 가지에 <b>배를 붙이고 턱을 가지에 얹은 채 아래를 내려다본다</b>, 두 앞발을 가지 앞쪽에 나란히 걸쳤고 꼬리가 등 위로 둥글게 말렸으며 귀가 앞으로 섰고 입가가 조금 올라갔다. 🔴 자세가 p1 과 정반대다 — p1 은 뒷발로 서서 고개를 젖히고 앞발이 위였고, 여기는 배를 붙이고 고개를 숙였고 앞발이 아래다. 화면 아래 끝 — 순록이 이끼 위에서 위를 올려다보는데 <b>몸 전체가 솔방울 하나만 하다</b>(🔴 p1 에서 다람쥐 키의 여러 배였다 — 같은 순록이다). 사족 그대로 — 옷·손가락·직립 없음
+<b>배경·소품</b> 🔴 <b>지나온 것 넷이 한 줄로 다 보인다</b> — 바로 아래에 하얗게 마른 <b>그루터기</b>, 그 아래 가지 갈래의 <b>빈 둥지</b>, 더 아래 줄기의 눈처럼 생긴 <b>옹이</b>, 맨 아래 회백색 이끼 <b>밑동</b>과 그 위 갈색 솔방울 하나. 넷이 줄기를 따라 위에서 아래로 일직선에 놓인다. 화면 <b>위쪽 가장자리에는 그 가는 가지 끝이 조금 걸려</b> 있고 그 위 흰 하늘은 잘려 안 보인다 — 제일 높은 가지는 여전히 프레임 밖 위에 있다. 글자·숫자·문자 요소 없음
+<b>톤</b> 아래로 갈수록 초록이 짙어지고 앞쪽 다람쥐와 바로 아래 그루터기만 또렷하며 밑동은 부드럽게 풀린다 — 눈이 다람쥐 턱에서 출발해 넷을 차례로 밟고 솔방울만 한 순록에서 멎는다. 🔴 화면 어디에도 위를 보는 것이 없다. 다 올라온 몸이 가지에 얹혀 쉬는 무게, 그리고 오래 내려다보는 눈</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'g06',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 다람쥐(이름 없음)', '순록(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=47fd80bb72294d10"></script>
+<script src="/changjak-core.js?v=47fd80bb72294d10"></script>
+</body>
+</html>
