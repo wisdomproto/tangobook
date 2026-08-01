@@ -14,6 +14,7 @@ const MUST_WARM = [
   'CvcPatternLearnActivity',
   'CvcPatternWriteActivity',
   'WordListenChooseActivity',
+  'WordFamilyLearnActivity',
   'ReviewFlipMatchActivity',
   'LetterHuntActivity',
   'ReviewWriteActivity',

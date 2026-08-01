@@ -142,6 +142,7 @@ export type ActivityKind =
   | 'vowel-blend-listen'
   | 'vowel-blend-write'
   | 'word-listen-choose'
+  | 'word-family-learn'
   | 'letter-hunt'
   | 'review-flip'
   | 'review-syllable-listen'

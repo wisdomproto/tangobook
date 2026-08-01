@@ -252,6 +252,7 @@ features/phonics-learner/
 | `vowel-blend-listen` / `vowel-blend-write`                                                                    | VowelSyllablePickerActivity(`mode`)         | `vowels, blendConsonants` — 모음 선택 → 자음 음절 만들기/쓰기 (한글4)              |
 | `cvc-pattern-learn`                                                                                           | CvcPatternLearnActivity                     | `cvcPattern: { vowel, consonant, vc }` — 한 활동 안 Phase A→B→C (배우기·단어·쓰기) |
 | `cvc-pattern-write`                                                                                           | `CvcPatternWriteActivity` (2026-07-29 부활) | 패턴마다 `cvc-write-{vc}` 카드                                                     |
+| `word-family-learn`                                                                                           | `WordFamilyLearnActivity` (2026-08-01)      | Book 3·4·5 배우기 — `pattern` 낱말 나란히 + 공통 철자 강조 (Listen and repeat)     |
 | `game-korean-block` / `game-english-block` / `game-word-writing` / `game-connect-dots` / `game-line-matching` | 기존 게임 플레이어                          | `phonics-game-adapter` 가 빌드                                                     |
 
 ## TTS
@@ -317,13 +318,18 @@ features/phonics-learner/
 Book 3(Magic-e 장모음 `_ake`) · Book 4(블렌드·이중자음 `bl_`·`ch`) · Book 5(모음팀·R모음 `ee`·`ar`) 23단원이
 예전엔 「활동 준비 중」(plan 0개)이었다. 🔴 **데이터는 이미 완비돼 있었다** — `phonicsConfig.targetWords` +
 flashcard 그림 + keypoints + `wordFamilies[].words[].ttsUrl`(ABC 나무 카드 연동·TTS 백필 덕분). 그래서
-**새 컴포넌트 없이** 열었다: `makeWordUnitPlan(unit)` = **패턴(word family)마다 배우기+써보기** + 게임 3종.
+`makeWordUnitPlan(unit)` = **패턴(word family)마다 배우기+써보기** + 게임 3종.
 
-- 🔴 **익히기 = 패턴마다 배우기(듣고 고르기)+써보기(낱말 쓰기)**(2026-07-31 사용자 "북2 참고해서 익히기 늘려").
-  Book 2 가 VC 패턴마다 배우기·써보기를 두듯, 커리큘럼 패턴(`_ake`·`bl_`·`ee`)마다 둘씩. 활동에 `pattern` 을
-  달고 호스트가 그 패턴 낱말만 고른다 — `wordMatchesPattern`(`_x`=끝소리/`x_`=첫소리/`x`=포함: `_ake`→bake·cake,
-  `bl_`→black·blade, `ee`→bee·feet). 듣고 고르기·낱말 쓰기(gameData) 둘 다 필터. 작은 패밀리(`-ape`=cape·tape
-  2낱말)는 **2택 퀴즈**로 성립(가드 `<2`). CvcPatternLearn 은 CVC 전용이라 안 쓴다.
+- 🔴 **배우기 = 낱말가족 배우기(`WordFamilyLearnActivity`, 2026-08-01)** — 이퓨처 「Learn: Listen and repeat」
+  대응. 사용자: "`-ake 배우기`가 이게 맞아? book2 `an 배우기` 봐바." → 처음엔 배우기 자리에 **듣고 고르기 퀴즈**
+  (`word-listen-choose`)를 넣었는데, 이퓨처 분석(§1·§4)상 **Learn = Listen and repeat**(패턴+낱말을 보여주며
+  듣는 _가르치기_)이고 **듣고 고르기는 별개 활동**(갭 D, 시험)이다 — 거꾸로였다. 새 컴포넌트는 그 패턴 낱말을
+  나란히 놓고 **공통 철자만 코랄로 강조**(bake·cake — `ake` 강조 / black·blade — `bl` 강조 / feet — `ee` 강조)해
+  눌러 듣는다. 다 들으면 칭찬+완료, 그 뒤 자유놀이. 🔴 Book 2 의 `cvc-pattern-learn` 은 **CVC 전용**(자음+라임)
+  이라 Magic-e·앞 블렌드·모음팀에 안 맞아 못 쓴다(그래서 낱말가족용 새 컴포넌트가 필요했다).
+- 강조 자리 = `patternHighlight(word, pattern)`(`_x`→끝 / `x_`→앞 / `x`→포함 위치, 매칭 안 되면 `[0,0]`).
+  낱말 필터는 `wordMatchesPattern`. 작은 패밀리(`-ape`=cape·tape 2낱말)도 나란히 성립(가드 `<2`).
+- 써보기(`game-word-writing`)는 그대로 그 패턴 낱말만 필터(gameData).
 - ⚠️ 커리큘럼 `patterns` 와 storybook `wordFamilies` 인덱스가 안 맞는다(u06 커리큘럼 2 vs wf 6) → 인덱스가
   아니라 **낱말 매칭**으로 고른다(u06 `_ng` 가 ang/ing/ong 를 다 잡는다).
 - 🔴 **듣고 고르기 = `letters` 없는 분기**(`EnglishPhonicsActivityPage`). Book 1 은 `activity.letters` 로
