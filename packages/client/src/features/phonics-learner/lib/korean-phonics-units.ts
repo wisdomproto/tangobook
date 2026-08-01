@@ -276,6 +276,12 @@ export interface ActivityDef {
   letters?: readonly string[];
   /** vowel-blend-* (한글4 복잡한 모음) 활동용 — 이 음절들에 붙일 자음 (ㄱ~ㅎ). 모음을 고른 뒤 자음 음절을 만든다. */
   blendConsonants?: ReadonlyArray<string>;
+  /**
+   * 영어 Book 3·4·5 낱말 활동용 — 이 활동이 다루는 철자 패턴(`_ake`·`bl_`·`ee`).
+   * 있으면 호스트가 그 패턴에 맞는 **낱말만** 골라 듣고 고르기/써보기를 만든다(Book 2 가 패턴별로
+   * 배우기·써보기를 두는 것과 같은 모양). 매칭 = `_x`=끝소리 / `x_`=첫소리 / `x`=포함.
+   */
+  pattern?: string;
 }
 
 export interface ActivityPlan {

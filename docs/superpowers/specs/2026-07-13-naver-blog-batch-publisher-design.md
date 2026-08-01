@@ -1,12 +1,19 @@
 # 네이버 블로그 이미지 포함 배치 발행기 — 설계
 
 - 날짜: 2026-07-13
-- 상태: 설계 승인 대기
+- 상태: 구현 중 (Chunk 1 진행)
 - 관련: `features/blog`, `features/marketing`, `packages/server/scripts/render-book-reels.ts`(패턴 참조)
+
+> ## ⚠️ 2026-07-14 소스 변경 (구현 중 실측으로 확정)
+> 최초 설계는 발행 소스를 R2 `books/{bid}/marketing/blog/{postId}.json`(`BlogPostV2`)로 가정했으나, **실제 완비된 블로그 152개는 Supabase 마케팅 시스템**(`mkt_blog_contents` + `mkt_blog_cards`)에 있다(각 8섹션 = 1,216 카드, 이미지 720장, 전부 `status='draft'`·미발행). 따라서 **발행 소스를 Supabase 로 변경**한다.
+> - **소스 테이블**: `mkt_blog_contents`(발행 단위: id·content_id·title·primary_keyword·secondary_keywords·status) + `mkt_blog_cards`(섹션: `card_type='text'`, `content` jsonb `{ text: HTML, url: 이미지, caption, alt }`, `sort_order`).
+> - **본문이 이미 HTML**(`<h2><p><strong>`) → 주입 블록에 `html` kind 추가. heading/text 분리 불필요.
+> - **이력 매핑**: `book_id = mkt_blog_contents.content_id`, `post_id = mkt_blog_contents.id`, `language = 'ko'` → §5.2 이력 테이블 스키마 **그대로 재사용**.
+> - **유닛 경계 재조정**: `blog-source.ts`(Supabase I/O → `BlogSource`) → `blog-html.ts`(순수 `BlogSource → InjectionPlan`). §4·§5·§10 의 `BlogPostV2` 표현은 이 `BlogSource`(Supabase)로 대체해 읽는다.
 
 ## 1. 목적 (왜)
 
-각 책의 마케팅 블로그 글(`books/{bid}/marketing/blog/{postId}.json`)을 **네이버 블로그로 옮겨 발행**한다. 텍스트는 복붙으로 해결되지만 **이미지를 일일이 다운로드→업로드하는 수작업이 진짜 페인포인트**다. 이 도구의 핵심 가치는 **이미지 업로드 자동화**이며, 텍스트는 그와 함께 실려 들어간다.
+마케팅 시스템의 블로그 글(Supabase `mkt_blog_contents`/`mkt_blog_cards`, 위 소스 변경 참조)을 **네이버 블로그로 옮겨 발행**한다. 텍스트는 복붙으로 해결되지만 **이미지를 일일이 다운로드→업로드하는 수작업이 진짜 페인포인트**다. 이 도구의 핵심 가치는 **이미지 업로드 자동화**이며, 텍스트는 그와 함께 실려 들어간다.
 
 규모: 공개 블로그 글 152개를 **대량·지속 발행**. 신간이 나올 때마다 새 글을 계속 밀어낸다.
 
@@ -155,3 +162,90 @@ PoC 셀렉터를 `naver-blog-post.ts`로 정착 + `blog-html.ts`(TDD) + `naver-p
 - 파일 input 주입 vs 클립보드 붙여넣기 중 무엇이 되는가?
 - 임시저장 후 재편집 URL을 이력에 저장 가능한가(멱등 강화)?
 - 이미지 캡션을 에디터에 넣을 수 있는가, 넣을 가치가 있는가?
+
+---
+
+## §12 스마트에디터 ONE 실측 (2026-07-28, `naver-measure2.ts`)
+
+세션 재사용 ✅ — 저장된 쿠키로 글쓰기 화면까지 로그인 상태 유지 확인.
+
+### 프레임
+에디터는 **`mainFrame` iframe 안**에 있다 (`PostWriteForm.naver?blogId=...`).
+최상위 page 에서 셀렉터를 찾으면 아무것도 안 나온다 — 반드시 이 프레임을 잡고 들어가야 한다.
+로딩이 느려서 `[contenteditable="true"]` 가 생길 때까지 폴링해야 한다(4초 고정 대기로는 빈손).
+
+### 셀렉터
+| 대상 | 셀렉터 |
+|---|---|
+| 제목 | `.se-title-text` (내부 `.se-text-paragraph`) |
+| 본문 | `.se-text-paragraph` (제목 다음 것) |
+| 사진 추가 | `button.se-image-toolbar-button` |
+| 저장(임시) | `button.save_btn__bzc5B` |
+| 발행 | `button.publish_btn__m9KHH` |
+| 예약 발행 | `button.reserve_btn__Km5Xh` — **예약 기능 실재 확인** |
+
+🔴 **상단 버튼 클래스는 CSS-module 해시**(`__bzc5B`)라 네이버 배포 때마다 바뀔 수 있다.
+→ 발행기는 클래스가 아니라 **버튼 텍스트(`저장`·`발행`)로 찾고**, 클래스는 폴백으로만 쓸 것.
+
+### 🔴 이미지 주입 — `input[type=file]` 이 **없다**
+`fileInputs: []`. 사진 버튼이 DOM 파일 input 이 아니라 **네이티브 파일 다이얼로그**를 연다.
+→ 설계 가정("파일 input 1순위")이 반증됐다. puppeteer 는 `page.on('filechooser')` 로
+그 다이얼로그를 가로채 `fileChooser.accept([경로])` 할 수 있다. **이 경로로 간다.**
+클립보드 붙여넣기는 폴백.
+
+### 예약 발행
+버튼이 실재하므로 **한 세션에 여러 편을 각각 다른 시각으로 예약**할 수 있다.
+→ CLI 에 `--schedule` 을 넣어 주 1회 실행으로 7편을 하루 간격 예약하는 운용이 가능.
+
+## §13 발행 패널 실측 (2026-07-28, `naver-measure-publish.ts`)
+
+상단 「발행」은 패널을 여는 버튼이고, 실제 발행은 패널 안 `button.confirm_btn__WEaBq` 다.
+측정은 **빈 문서**로 했다 — 제목이 없으면 네이버가 발행을 막으므로 오조작해도 글이 안 나간다.
+
+| 항목 | 셀렉터 |
+|---|---|
+| 카테고리 | `button.selectbox_button__jb1Dt` (기본값이 첫 카테고리) |
+| 태그 | `input#tag-input` (최대 30개) |
+| 공개 = 전체공개 | `input#open_public` (radio `open_type`, 그 외 neighbor/both/private) |
+| **검색 허용** | `input#publish-option-search` |
+| 그 외 옵션 | `#publish-option-{comment,sympathy,scrap,outside}` |
+| 발행 시간 = 현재 | `input#radio_time1` (`now`) |
+| **발행 시간 = 예약** | `input#radio_time2` (`pre`) |
+| 예약 날짜 | `input.input_date__QmA0s` — 형식 `2026. 07. 28` |
+| 예약 시 | `select.hour_option__J_heO` (00~23) |
+| 예약 분 | `select.minute_option__Vb3xB` |
+| 확정 발행 | `button.confirm_btn__WEaBq` |
+| 예약 목록 열기 | `button.reserve_btn__Km5Xh` (`예약 발행 N건`) |
+
+🔴 **예약 날짜·시간 입력은 `#radio_time2` 를 켠 뒤에만 DOM 에 나타난다.** 라디오를 켜지 않고
+찾으면 없다고 나온다(1차 측정이 그랬다).
+
+🔴 **분은 10분 단위만 고를 수 있다** — 00/10/20/30/40/50. 임의 분(예: 09:07)은 못 넣는다.
+
+### 운용 한도 (사용자 실측 보고 기준, 공식 문서 아님)
+- 예약 발행글 **100개** · 임시저장 **300개** 상한.
+- 🔴 그래도 한 세션에 100편을 밀어넣으면 안 된다 — 예약 시각은 흩어져도 **작성 기록이 한날에
+  몰린다**. 2주치 14편 정도가 상한선으로 보인다.
+
+## §14 예약 날짜 = jQuery UI datepicker (2026-07-28 해결)
+
+🔴 `input.input_date__QmA0s` 는 **readOnly** 다. 네이티브 value setter 도, 타이핑도 안 먹는다 —
+값이 오늘로 남고 네이버가 「현재 시간 이후로 설정해주세요」로 거부한다. 이걸로 두 번 헛돌았다.
+
+실제 위젯은 **jQuery UI datepicker**:
+
+| 대상 | 셀렉터 |
+|---|---|
+| 위젯 | `.ui-datepicker` (날짜 입력 클릭 시 열림) |
+| 현재 연 / 월 | `.ui-datepicker-year` / `.ui-datepicker-month` (`2026` / `7월`) |
+| 다음 달 | `.ui-datepicker-next` (막히면 `ui-state-disabled` 붙음) |
+| 날짜 셀 | `td:not(.ui-state-disabled) > button` |
+
+지난 날짜는 `td.ui-state-disabled` + 버튼에 `pointer-events:none` 이라 클릭이 안 먹는다 →
+반드시 `:not(.ui-state-disabled)` 로 걸러야 한다.
+
+절차 = 입력 클릭 → 연·월이 목표와 다르면 `.ui-datepicker-next` 클릭(반복) → 날짜 버튼 클릭.
+실측: `2026.07.28` → 내일 `07.29` ✓ / +20일 `08.17` ✓ (7월→8월 이동 포함).
+
+🔴 셀을 못 찾는다고 나오면 **달력이 닫혀 있는지** 먼저 보라. 조회 전에 입력을 두 번 클릭하면
+토글로 닫힌다 — 그것 때문에 네 번 헛짚었다.

@@ -2,7 +2,11 @@ import { useCallback, useMemo, type ReactNode, useRef } from 'react';
 import type { GameTypeId } from '@tangobook/shared';
 import { PhonicsGameGate } from './PhonicsGameGate';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { getEnglishActivityPlan, getEnglishUnit } from '../lib/english-phonics-units';
+import {
+  getEnglishActivityPlan,
+  getEnglishUnit,
+  wordMatchesPattern,
+} from '../lib/english-phonics-units';
 import { shuffleReviewCards } from '../lib/korean-phonics-units';
 import type { ActivityDef } from '../lib/korean-phonics-units';
 import { markActivityCompleted } from '../lib/progress-store';
@@ -224,6 +228,8 @@ export default function EnglishPhonicsActivityPage() {
     const seen = new Set<string>();
     const items = (sb.phonicsLesson?.wordFamilies ?? [])
       .flatMap((f) => f.words ?? [])
+      // 🔴 패턴별 배우기 — 그 패턴에 속하는 낱말만(`activity.pattern`). 없으면 단원 전체.
+      .filter((w) => !activity.pattern || wordMatchesPattern(w.word, activity.pattern))
       .filter((w) => !!w.word && !seen.has(w.word) && !!seen.add(w.word))
       .map((w) => {
         const img = findImageData(sb, w.word);
@@ -236,7 +242,8 @@ export default function EnglishPhonicsActivityPage() {
         };
       })
       .filter((it) => it.imageUrl);
-    if (items.length < 3) {
+    // 패턴 배우기는 2낱말이어도 성립(1 of 2 고르기) — 단원 전체는 3+.
+    if (items.length < (activity.pattern ? 2 : 3)) {
       return (
         <ActivityUnavailable
           activity={activity}
@@ -492,7 +499,31 @@ export default function EnglishPhonicsActivityPage() {
     );
   }
   if (activity.kind === 'game-word-writing') {
-    const gameData = memoGame(() => phonicsToEnglishWordWritingData(storybook));
+    const gameData = memoGame(() => {
+      // 🔴 패턴별 써보기(Book 3·4·5 익히기) — 그 패턴 낱말만. 없으면 단원 전체(Book 2 게임).
+      if (!activity.pattern) return phonicsToEnglishWordWritingData(storybook);
+      const seen = new Set<string>();
+      const items = (storybook.phonicsLesson?.wordFamilies ?? [])
+        .flatMap((f) => f.words ?? [])
+        .filter(
+          (w) =>
+            !!w.word &&
+            wordMatchesPattern(w.word, activity.pattern!) &&
+            !seen.has(w.word) &&
+            !!seen.add(w.word)
+        )
+        .map((w) => {
+          const img = findImageData(storybook, w.word);
+          return {
+            word: w.word,
+            displayWord: w.word,
+            referenceImageUrl: img.imageUrl ?? '',
+            ...(img.imageUrl ? { imageUrl: img.imageUrl } : {}),
+            ...(w.ttsUrl ? { ttsUrl: w.ttsUrl } : {}),
+          };
+        });
+      return items.length ? { type: 'english-word-writing' as const, items } : null;
+    });
     if (!gameData)
       return (
         <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 부족해요" />

@@ -240,6 +240,17 @@ ContentFlow AI 마케팅 자동화 SaaS 이식 — **전 단계(Phase 0~5) 완�
 - **정규/광고 콘텐츠 탭 + 광고 릴스 발행(2026-07-12)**: 콘텐츠 목록을 **정규/광고 탭**으로 분리(`mkt_contents.content_kind` regular|ad, ui-store 영속). 광고 콘텐츠는 `ContentTabs`가 **릴스+카드뉴스만** 노출(기본 릴스) — 릴스 업로드+`ReelsPublishDialog` 재사용해 IG/FB/쇼츠 발행. 광고 릴스 시드 헬퍼 `scripts/upload-ad-reel-assets.ts`(R2 업로드) + `mkt_publish_records`(channel=instagram, scheduled_at=now) 직접 삽입 → **프로덕션 스케줄러가 발행**(로컬 enc키 불필요). 🔴 **발행 파이프라인 hardening 3건**: ①`getBundle` 60s 캐시+3회 재시도(tick당 연타 시 간헐 null "Meta 연결 없음" 방지) ②IG 릴스 폴링 60s→~3분(큰 mp4 처리) ③**폴링 5s 간격·transient 15s 백오프**(짧은 간격 연타가 Meta 앱 요청한도 `(#4) Application request limit reached` 트립 → 상태 못 읽어 헛타임아웃). → memory `marketing-ad-tab-publish-2026-07-12`.
   상세 → [features/marketing/CLAUDE.md](packages/client/src/features/marketing/CLAUDE.md) · memory `marketing-port-contentflow-2026-06-07.md`.
 
+## 📗 네이버 블로그 (blog.naver.com/tangobooks, 2026-07-28 개설·발행 시작)
+
+마케팅 블로그 196편을 네이버로 내보내는 채널. 세팅·자산 = `docs/marketing/naver/`([SETUP.md](docs/marketing/naver/SETUP.md) + 커버·프로필), 생성기 `generate-naver-blog-assets.mjs`(OG 생성기 포크 — sharp+번들 Pretendard, AI 생성 X). **발행기는 별도 워크트리** `.worktrees/naver-blog`(브랜치 `feat/naver-blog-publisher`).
+
+- 🔴 **발행 순서 = 검색량 순**(글 길이 아님 — 1,500자는 업계 통용치일 뿐 네이버 공식 수치가 아니다). 책별 월간 검색량 = `measure-book-keywords.mjs` → `scripts/_data/naver-volumes.json`(분기 1회 갱신). 🔴 **검색 의도가 다른 키워드는 뒤로 민다**(수박·딸기·문어·오리·고양이·강아지 = 값·요리·분양 찾는 어른 검색. 판단이지 실측 아님). 라인 순서 = **자연관찰 96,120 → 전래 23,550(중간 경쟁 최다) → 명작 82,300(전부 높음)**.
+- **블로그 카드 확장** `expand-blog-cards.mjs` — 시딩이 기본글(`mkt_base_articles`)의 섹션을 버렸던 걸 되살린다(생성 호출 0). 자연 101편 755→1,368자 · 명작 51편 755→1,397자. 🔴 **생활동화는 대상 아님**(이미 93점, 분량·제목 다 충분). 🔴 기본글 형식이 두 가지(제목-본문 사이가 빈 줄 vs 줄바꿈 하나)라 파서가 둘 다 받아야 한다.
+- **네이버용 채점** `score-naver-seo.mjs` — `verify-blog-seo.mjs`는 **우리 웹 블로그 기준**이라 네이버 판정과 다르다. 자연 90점 · 명작 83점 · 생활 93점. 감점은 사실상 본문 길이 하나.
+- **발행기**(naver-blog 워크트리): `publish-naver-blog.ts`(초안 생성 — 제목·본문·이미지) · `schedule-naver-drafts.ts`(임시저장 글을 열어 태그·공개설정·검색허용·**예약 날짜**까지) · 이력 `mkt_naver_blog_publications`(멱등). 결과는 **텔레그램**으로(`telegram-setup.mjs`, env `TELEGRAM_BOT_TOKEN`/`TELEGRAM_CHAT_ID`).
+- 🔴 **한 세션에 몰아넣지 말 것** — 예약 시각은 흩어져도 **작성 기록이 한날에 몰린다**. 2주치(14편)가 상한선. 예약 상한 100개·임시저장 300개(사용자 실측). ⚠️ 네이버 약관은 자동화 수단 이용을 금지한다 — 감수할 리스크는 사용자 판단.
+- 셀렉터 실측은 스펙 §12~§14(`docs/superpowers/specs/2026-07-13-naver-blog-batch-publisher-design.md`). 🔴 **판단·운용은 `naver-blog-manager` 에이전트 경유**(`.claude/agents/`) — 이미 틀린 판단 11개를 들고 시작한다. → memory `naver-blog`
+
 ## 마케팅 자료
 
 `docs/marketing/` — 키워드 리서치·통합·전략 파이프라인. 상세 → [docs/marketing/README.md](docs/marketing/README.md).

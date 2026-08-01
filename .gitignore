@@ -107,3 +107,7 @@ packages/client/public/_wia-refs/
 packages/server/scripts/_word-card-cache/
 packages/server/scripts/_keyobject-cache/
 scratch/
+
+# 네이버 블로그 로컬 세션 (절대 커밋 금지)
+naver-session.json
+packages/server/naver-session.json
