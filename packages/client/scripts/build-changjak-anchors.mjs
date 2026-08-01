@@ -24,7 +24,11 @@ const strip = (s) => s.replace(/\*\*/g, '').replace(/🔴/g, '').replace(/`/g, '
 // 🔴 클러스터는 프롬프트 파일에서 읽으면 안 된다 — 그 안엔 형제 권을 비교하는 표가 있어서
 //    첫 등장이 남의 클러스터다(h08=C6 인데 C2 로, c08=C9 인데 C4 로 읽혔다).
 //    배정표가 41권 전부의 배정을 갖고 있으니 거기서 읽는다.
-const assign = readFileSync(join(DIR, 'changjak-assign-31.md'), 'utf8');
+// 🔴 배정표는 여러 장이다(-04 -08 -08b -16 -16b -31). 한 장만 읽으면 나머지 배치의 권이 전부 '?' 로 남는다.
+const assign = readdirSync(DIR)
+  .filter((f) => /^changjak-assign-.*\.md$/.test(f))
+  .map((f) => readFileSync(join(DIR, f), 'utf8'))
+  .join('\n');
 const CLUSTER = {};
 for (const m of assign.matchAll(/\|\s*\*{0,2}([a-h]\d+)\*{0,2}[^|]*\|[^|]*\|?\s*\*\*(C(?:10|[1-9]))\*\*/g)) {
   CLUSTER[m[1]] = m[2];

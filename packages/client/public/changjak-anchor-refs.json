@@ -2637,5 +2637,123 @@
       }
     ],
     "neighbor": true
+  },
+  "c39": {
+    "slug": "changjak-onewet",
+    "refs": [
+      {
+        "id": "au-blue-tomato",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/01/AmberAu_thebluetomato_image-1.png/original",
+        "artist": "Amber Au",
+        "work": "The Blue Tomato",
+        "award": "WIA 2024 Highly Commended",
+        "year": 2024
+      },
+      {
+        "id": "ai-journey",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2020/02/Journey1.jpg/original",
+        "artist": "Yunyun Ai",
+        "work": "Journey",
+        "award": "WIA 2020 Highly Commended",
+        "year": 2020
+      },
+      {
+        "id": "frankel-bosque",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2022/Premi/BRAW/winners/QUE_TIENE_UN_BOSQUE_Low.jpg",
+        "artist": "Yael Frankel",
+        "work": "¿Qué tiene un bosque?",
+        "award": "BolognaRagazzi 2022 Fiction",
+        "year": 2022
+      }
+    ],
+    "neighbor": true
+  },
+  "d23": {
+    "slug": "changjak-canalfork",
+    "refs": [
+      {
+        "id": "butler-borders",
+        "imageUrl": "https://covers.openlibrary.org/b/id/10838996-L.jpg",
+        "artist": "George Butler",
+        "work": "Drawn Across Borders",
+        "award": "CILIP Kate Greenaway Medal 숏리스트 2022",
+        "year": 2021
+      },
+      {
+        "id": "smith-townsea",
+        "imageUrl": "https://covers.openlibrary.org/b/id/11610229-L.jpg",
+        "artist": "Sydney Smith",
+        "work": "Town Is by the Sea",
+        "award": "Kate Greenaway Medal 2018",
+        "year": 2018
+      },
+      {
+        "id": "bauer-angel",
+        "imageUrl": "https://covers.openlibrary.org/b/id/516530-L.jpg",
+        "artist": "Jutta Bauer",
+        "work": "Grandpa's Angel",
+        "award": "HCA Illustrator Award 2010",
+        "year": 2010
+      }
+    ]
+  },
+  "g42": {
+    "slug": "changjak-twobeams",
+    "refs": [
+      {
+        "id": "karski-tutu",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/i_will_catch_you.jpg",
+        "artist": "Piotr Karski",
+        "work": "Złapię cię! Tutu i pojazdy",
+        "award": "BolognaRagazzi 2024 Toddler",
+        "year": 2024
+      },
+      {
+        "id": "matoso-desenha",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/desenha.jpg",
+        "artist": "Madalena Matoso",
+        "work": "Desenha tudo o que quiseres",
+        "award": "BolognaRagazzi 2024 Toddler",
+        "year": 2024
+      },
+      {
+        "id": "icinori-issunboshi",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2014/ISSUN_BOSHI_menzione_Fiction_BRAW2014.jpg",
+        "artist": "Icinori (Mayumi Otero & Raphael Urwiller)",
+        "work": "Issun Bôshi",
+        "award": "BolognaRagazzi Fiction 특별언급 2014",
+        "year": 2013
+      }
+    ],
+    "neighbor": true
+  },
+  "h50": {
+    "slug": "changjak-finishshift",
+    "refs": [
+      {
+        "id": "volk-grimm",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_cat_speciale_menzione_2.jpg",
+        "artist": "Julie Völk",
+        "work": "Zur Zeit, wo das Wünschen noch geholfen hat (Grimm)",
+        "award": "BolognaRagazzi 2026 Special (Fables & Fairytales)",
+        "year": 2026
+      },
+      {
+        "id": "morris-lostwords",
+        "imageUrl": "https://covers.openlibrary.org/b/id/10452126-L.jpg",
+        "artist": "Jackie Morris",
+        "work": "The Lost Words",
+        "award": "Kate Greenaway Medal 2019",
+        "year": 2019
+      },
+      {
+        "id": "gamon-boucle",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/Boucle_dor_en_chemin.jpg",
+        "artist": "Caroline Gamon",
+        "work": "Boucle d'or en chemin (Let's Go, Goldilocks!)",
+        "award": "BolognaRagazzi 2025 Fiction",
+        "year": 2025
+      }
+    ]
   }
 }
