@@ -236,24 +236,27 @@ export default function HangulLandingPage() {
         </p>
         {/* 🔴 브랜드명을 쓰지 않는다 — 가격만으로 충분히 구체적이고, 남의 상표를 우리 랜딩에
             올릴 이유가 없다. 수치는 2026-08-01 공개 정보 기준. */}
+        {/* 🔴 「앱에는 책이 없다」고 쓰지 않는다 — 단계별 읽기책을 넣은 앱이 실제로 있다(사용자 지적).
+            정확한 대비는 **책의 종류**다: 발음 연습용 리더 vs 이야기로 읽는 그림책. */}
         <ul className="!mt-5 space-y-2">
           <li className="rounded-2xl border border-ink-100 bg-white/70 px-4 py-3">
-            <strong className="text-ink-900">글자만 가르치는 앱</strong>
+            <strong className="text-ink-900">글자를 가르치는 앱</strong>
             <span className="ml-2 text-sm text-ink-500 break-keep">
-              월 몇천 원~3만 원. 대신 <em>읽을 책이 없습니다.</em>
+              월 3만 원 이하. 책이 있어도 대개 <em>발음 연습용 단계별 읽기책</em>입니다.
             </span>
           </li>
           <li className="rounded-2xl border border-ink-100 bg-white/70 px-4 py-3">
             <strong className="text-ink-900">패드를 묶어 파는 방문 판매</strong>
             <span className="ml-2 text-sm text-ink-500 break-keep">
-              책까지 들어 있지만 <em>월 8만~14만 원에 1~2년 약정</em>입니다.
+              그림책까지 들어 있지만 <em>월 8만~14만 원에 1~2년 약정</em>입니다.
             </span>
           </li>
         </ul>
         <p className="!mt-5">
           탱고북은 그 사이입니다. <strong>같은 앱 안에</strong> 파닉스 {FACTS.phonicsUnits}단원과
-          동화책 {FACTS.books}권이 들어 있고, <strong>패드도 약정도 없습니다.</strong> 오늘 ㄱ을
-          배웠으면, 오늘 ㄱ이 나오는 이야기를 읽습니다.
+          세계 명작·전래 동화·자연 관찰 <strong>{FACTS.books}권</strong>이 들어 있고,{' '}
+          <strong>패드도 약정도 없습니다.</strong> 읽기 연습용으로 만든 짧은 글이 아니라, 아이가
+          그냥 좋아서 보는 이야기입니다.
         </p>
       </Section>
 

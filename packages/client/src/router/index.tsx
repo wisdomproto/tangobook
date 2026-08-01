@@ -17,6 +17,7 @@ import {
   StrategyPage,
   MonitoringPage,
   AdsPage,
+  LandingsPage,
   FeedbackPage,
   PipelinePage,
 } from '../features/marketing';
@@ -543,6 +544,7 @@ export const router = createBrowserRouter([
           { path: 'competitors', element: <CompetitorsPage /> },
           { path: 'strategy', element: <StrategyPage /> },
           { path: 'ads', element: <AdsPage /> },
+          { path: 'landings', element: <LandingsPage /> },
           { path: 'feedback', element: <FeedbackPage /> },
           { path: 'pipeline', element: <PipelinePage /> },
           { path: 'members', element: <MembersDashboardPage embedded /> },
