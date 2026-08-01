@@ -5,7 +5,7 @@
  * R2 storybook ID 는 `en-bN-uMM` 형식 (zero-pad).
  *
  * 활동 plan = **Book 1~5 전 권**(2026-07-31). Book 1=알파벳 / Book 2=CVC 「배우기」·「써보기」/패턴 /
- *   Book 3~5=**패턴(`_ake`·`bl_`·`ee`)마다 배우기(듣고 고르기)+써보기(낱말 쓰기)** + 게임 3종. 복습은 전 권.
+ *   Book 3~5=**패턴(`_ake`·`bl_`·`ee`)마다 낱말가족 배우기(Listen and repeat)+써보기(낱말 쓰기)** + 게임 3종. 복습은 전 권.
  * 데이터(단어 그림·keypoints·wordFamilies TTS)는 Book 3~5 도 완비 — ABC 나무 카드 연동 + TTS 백필 덕분.
  */
 import { ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
@@ -337,8 +337,9 @@ export function patternHighlight(word: string, pattern: string): [number, number
 /**
  * 🔴 **Book 3·4·5 익히기 = 패턴마다 배우기 + 써보기**(2026-07-31 사용자 "북2 참고해서 익히기 늘려").
  *    Book 2 가 VC 패턴마다 `배우기`+`써보기` 를 두듯, 여기도 커리큘럼 패턴(`_ake`·`bl_`·`ee`)마다
- *    **듣고 고르기(배우기) + 낱말 쓰기(써보기)** — 둘 다 `pattern` 을 달고 호스트가 그 패턴 낱말만 고른다.
- *    나머지(블록·낱말그리기·그림짝)는 단원 전체 게임.
+ *    **낱말가족 배우기(`word-family-learn`, Listen and repeat) + 낱말 쓰기(써보기)** — 둘 다 `pattern` 을
+ *    달고 호스트가 그 패턴 낱말만 고른다. 배우기는 처음엔 듣고 고르기 퀴즈였으나 이퓨처 §4(Learn=
+ *    Listen and repeat) 대로 교정(2026-08-01, `WordFamilyLearnActivity`). 나머지 게임은 단원 전체.
  */
 function makeWordUnitPlan(unit: EnglishUnitSummary): ActivityPlan {
   const activities: ActivityDef[] = [];
