@@ -66,6 +66,7 @@ import SubscribePage from '../features/payment/pages/SubscribePage';
 import PaymentSuccessPage from '../features/payment/pages/PaymentSuccessPage';
 import PaymentFailPage from '../features/payment/pages/PaymentFailPage';
 import { InviteLandingPage, InviteFriendsPage, ReferralRewardToast } from '../features/payment';
+import HangulLandingPage from '../pages/HangulLandingPage';
 import { GlobalUiSound } from '../components/GlobalUiSound';
 import { GuestEventAdopter } from '@/features/learning/components/GuestEventAdopter';
 import { MetaPixelTracker } from '../components/MetaPixelTracker';
@@ -98,6 +99,17 @@ export const router = createBrowserRouter([
     ),
     children: [
       { index: true, element: <Navigate to="/library" replace /> },
+      // 광고 랜딩(상세페이지) — AppShell 밖 풀화면. 네이버·메타 광고의 도착지.
+      // 🔴 게이트로 감싸지 않는다 — 광고를 눌러 온 사람에게 첫 화면이 가입 벽이면 그대로 나간다.
+      //    본문 안 「직접 해보기」가 계정 없이 도는 것도 같은 이유다.
+      {
+        path: 'hangul',
+        element: (
+          <ErrorBoundary>
+            <HangulLandingPage />
+          </ErrorBoundary>
+        ),
+      },
       // 친구 초대 랜딩 — AppShell 밖 풀화면 (따뜻한 환영 + 코드 저장 + 가입 CTA)
       {
         path: 'invite/:code',
