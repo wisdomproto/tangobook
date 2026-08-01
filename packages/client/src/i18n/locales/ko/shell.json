@@ -36,6 +36,7 @@
     "parentMode": "부모님 모드"
   },
   "header": {
+    "menu": "메뉴",
     "openMenu": "메뉴 열기",
     "closeMenu": "메뉴 닫기",
     "switchChild": "{{name}} — 아이 바꾸기",

@@ -36,6 +36,7 @@
     "parentMode": "โหมดผู้ปกครอง"
   },
   "header": {
+    "menu": "เมนู",
     "openMenu": "เปิดเมนู",
     "closeMenu": "ปิดเมนู",
     "switchChild": "{{name}} — เปลี่ยนเด็ก",

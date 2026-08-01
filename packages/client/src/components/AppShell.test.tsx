@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -36,6 +36,13 @@ function renderShell() {
   );
 }
 
+/**
+ * 축 라벨은 사이드바와 하단 탭바(모바일, 2026-08-01)에 **둘 다** 나온다 → 전역 getByText 는
+ * "Found multiple elements" 로 죽는다. 이 스위트는 사이드바의 노출 규칙을 재는 것이므로
+ * 사이드바로 범위를 좁힌다(탭바는 같은 목록을 쓰므로 여기서 규칙이 지켜지면 탭바도 같다).
+ */
+const sidebar = () => within(document.querySelector('aside') as HTMLElement);
+
 describe('AppShell sidebar axis visibility', () => {
   beforeEach(() => {
     vi.restoreAllMocks();
@@ -45,26 +52,38 @@ describe('AppShell sidebar axis visibility', () => {
     setup(null);
     renderShell();
     // 일반 노출 3축 — 파닉스는 유닛 전부 공개되며 2026-07-23 부활했다.
-    expect(screen.getByText('동화책')).toBeInTheDocument();
-    expect(screen.getByText('어휘 게임')).toBeInTheDocument();
-    expect(screen.getByText('파닉스')).toBeInTheDocument();
+    expect(sidebar().getByText('동화책')).toBeInTheDocument();
+    expect(sidebar().getByText('어휘 게임')).toBeInTheDocument();
+    expect(sidebar().getByText('파닉스')).toBeInTheDocument();
     expect(screen.queryByText('연속재생')).toBeNull(); // 사이드바에서 제거 — 메인화면 「묶어 보기」로 이전
     expect(screen.queryByText('부모 메뉴')).toBeNull(); // 로그인 시만
-    expect(screen.queryByText('어휘')).toBeNull(); // devOnly
+    expect(sidebar().queryByText('어휘')).toBeNull(); // devOnly
     expect(screen.queryByText('학습 게임')).toBeNull(); // devOnly
+  });
+
+  it('하단 탭바(모바일)에 사이드바와 같은 축 + 「메뉴」가 있다', () => {
+    setup(null);
+    renderShell();
+    const bar = within(screen.getByRole('navigation', { name: '메뉴' }));
+    expect(bar.getByText('동화책')).toBeInTheDocument();
+    expect(bar.getByText('파닉스')).toBeInTheDocument();
+    // 드로어(부모 작업)로 가는 「메뉴」 탭 — 예전 헤더 햄버거를 대신한다.
+    expect(bar.getByText('메뉴')).toBeInTheDocument();
+    // '준비 중'(어휘)은 링크가 아니라 탭바에 넣지 않는다.
+    expect(bar.queryByText('어휘')).toBeNull();
   });
 
   it('일반 부모 계정 → 학습 리포팅은 바로 노출, 나머지 부모 작업은 접이식 안', () => {
     setup({ email: 'someparent@example.com' });
     renderShell();
-    expect(screen.getByText('동화책')).toBeInTheDocument();
+    expect(sidebar().getByText('동화책')).toBeInTheDocument();
     expect(screen.queryByText('연속재생')).toBeNull();
     // 학습 리포팅은 접이식 밖으로 승격(2026-07-25) — 접힌 상태에서도 보인다.
     expect(screen.getByText('학습 리포팅')).toBeInTheDocument();
     // 나머지 부모 작업은 여전히 접이식 안이라 접힌 상태에선 렌더되지 않는다.
     expect(screen.getByText('부모 메뉴')).toBeInTheDocument();
     expect(screen.queryByText('친구 초대')).toBeNull();
-    expect(screen.queryByText('어휘')).toBeNull(); // devOnly
+    expect(sidebar().queryByText('어휘')).toBeNull(); // devOnly
     expect(screen.queryByText('학습 게임')).toBeNull(); // devOnly
   });
 
@@ -81,10 +100,10 @@ describe('AppShell sidebar axis visibility', () => {
   it('개발자 계정(kil210@tangobook.co.kr) → 개발자 전용 축(어휘·학습 게임)까지 표시', () => {
     setup({ email: 'kil210@tangobook.co.kr' });
     renderShell();
-    expect(screen.getByText('동화책')).toBeInTheDocument();
+    expect(sidebar().getByText('동화책')).toBeInTheDocument();
     expect(screen.queryByText('연속재생')).toBeNull(); // 메인화면으로 이전
-    expect(screen.getByText('파닉스')).toBeInTheDocument();
-    expect(screen.getByText('어휘')).toBeInTheDocument();
-    expect(screen.getByText('학습 게임')).toBeInTheDocument();
+    expect(sidebar().getByText('파닉스')).toBeInTheDocument();
+    expect(sidebar().getByText('어휘')).toBeInTheDocument();
+    expect(sidebar().getByText('학습 게임')).toBeInTheDocument();
   });
 });

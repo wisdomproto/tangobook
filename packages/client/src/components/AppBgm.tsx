@@ -122,7 +122,8 @@ export function AppBgm() {
       data-sound="toggle"
       aria-label={bgmOff ? t('bgm.turnOn') : t('bgm.turnOff')}
       title={bgmOff ? t('bgm.turnOn') : t('bgm.turnOff')}
-      className="fixed bottom-4 right-4 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-xl shadow-pop backdrop-blur-sm transition hover:scale-105 active:scale-95"
+      // 모바일은 하단 탭바(56px + safe-area) 위로 띄운다 — 안 그러면 「메뉴」 탭을 깔고 앉는다.
+      className="fixed bottom-[calc(72px+env(safe-area-inset-bottom))] right-4 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-xl shadow-pop backdrop-blur-sm transition hover:scale-105 active:scale-95 md:bottom-4"
     >
       {bgmOff ? '🔇' : '🎵'}
     </button>

@@ -36,6 +36,7 @@
     "parentMode": "Parent Mode"
   },
   "header": {
+    "menu": "Menu",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "switchChild": "{{name}} — Switch child",
