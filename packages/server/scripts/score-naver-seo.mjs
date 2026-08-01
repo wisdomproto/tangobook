@@ -16,7 +16,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-for (const line of fs.readFileSync(path.join(__dirname, '..', '.env'), 'utf-8').split(/\r?\n/)) {
+for (const line of fs.readFileSync([path.join(__dirname, '..', '.env'), 'C:/projects/tangobook/packages/server/.env'].find((p) => fs.existsSync(p)), 'utf-8').split(/\r?\n/)) {
   const m = line.match(/^([A-Z0-9_]+)\s*=\s*(.*)$/);
   if (m) process.env[m[1]] = m[2].trim().replace(/^["']|["']$/g, '');
 }
