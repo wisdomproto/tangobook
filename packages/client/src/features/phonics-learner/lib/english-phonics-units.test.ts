@@ -32,18 +32,26 @@ describe('english phonics units', () => {
     }
   });
 
-  it('Book 3·4·5 는 낱말 기반 학습 플랜(듣고 고르기 + 게임 4종)이 있다', () => {
-    // 🔴 예전엔 "활동 준비 중"(0개)이었다. 단어 그림·keypoints·wordFamilies TTS 가 완비돼 있어
-    //    기존 컴포넌트를 재사용해 열었다(2026-07-31).
+  it('Book 3·4·5 = 패턴마다 배우기+써보기 + 게임 3종 (2026-07-31)', () => {
     for (const u of units.filter((x) => x.levelIndex >= 3 && !x.isReview)) {
-      const kinds = getEnglishActivityPlan(u.id).activities.map((a) => a.kind);
-      expect(kinds).toEqual([
-        'word-listen-choose',
+      const acts = getEnglishActivityPlan(u.id).activities;
+      const learn = acts.filter((a) => a.section === 'learn');
+      const play = acts.filter((a) => a.section === 'play');
+      // 익히기 = 패턴마다 (듣고 고르기 배우기, 낱말 쓰기 써보기) — Book 2 와 같은 모양
+      expect(u.patterns.length).toBeGreaterThan(0);
+      expect(learn).toHaveLength(u.patterns.length * 2);
+      for (let i = 0; i < u.patterns.length; i++) {
+        expect(learn[i * 2].kind).toBe('word-listen-choose');
+        expect(learn[i * 2].pattern).toBe(u.patterns[i]);
+        expect(learn[i * 2 + 1].kind).toBe('game-word-writing');
+        expect(learn[i * 2 + 1].pattern).toBe(u.patterns[i]);
+      }
+      expect(play.map((a) => a.kind)).toEqual([
         'game-english-block',
-        'game-word-writing',
         'game-connect-dots',
         'game-line-matching',
       ]);
+      expect(acts.map((a) => a.order)).toEqual(acts.map((_, i) => i + 1));
     }
   });
 

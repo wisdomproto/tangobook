@@ -19,6 +19,8 @@ export interface EnglishUnitSummary {
   unitIndexInLevel: number;
   unitTitle: string; // 'Unit 01: Aa Bb Cc'
   phonemes: string[];
+  /** 철자 패턴(`_ake`·`bl_`·`ee`) — Book 3·4·5 익히기를 패턴별로 나눈다. */
+  patterns: string[];
   targetWords: string[];
   /** 복습 단원인가 (커리큘럼에 없는 파생 단원). */
   isReview?: boolean;
@@ -41,6 +43,7 @@ function getCurriculumUnits(): EnglishUnitSummary[] {
         unitIndexInLevel: i + 1,
         unitTitle: u.title,
         phonemes: [...u.phonemes],
+        patterns: [...(u.patterns ?? [])],
         targetWords: [...(u.sampleWords ?? [])],
       });
     }
@@ -101,6 +104,7 @@ export function getAllEnglishUnits(): EnglishUnitSummary[] {
               ? `${letters[0]}~${letters[letters.length - 1]} 복습`
               : `${letters[0] ?? ''} 복습`.trim(),
           phonemes: letters,
+          patterns: [],
           targetWords: group.flatMap((u) => u.targetWords),
           isReview: true,
           coveredUnitIds: group.map((u) => u.id),
@@ -296,15 +300,44 @@ function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
  *  - `word-listen-choose` 는 `letters` 를 안 넘긴다 → 호스트가 **낱말 기반 분기**로 렌더한다
  *    (Book 1 은 `letters` 가 있어 알파벳 분기).
  */
-function makeWordUnitPlan(): ActivityPlan {
-  const games: ActivityDef[] = [
-    { key: 'word-listen-choose', order: 1, kind: 'word-listen-choose', section: 'learn', title: '듣고 고르기', emoji: '🔊', required: true }, // prettier-ignore
-    { key: 'game-english-block', order: 2, kind: 'game-english-block', section: 'play', title: '블록 게임', emoji: '🧩', required: false }, // prettier-ignore
-    { key: 'game-word-writing', order: 3, kind: 'game-word-writing', section: 'play', title: '낱말 쓰기', emoji: '🖍️', required: false }, // prettier-ignore
-    { key: 'game-dots', order: 4, kind: 'game-connect-dots', section: 'play', title: '낱말 그리기', emoji: '🔵', required: false }, // prettier-ignore
-    { key: 'game-line-matching', order: 5, kind: 'game-line-matching', section: 'play', title: '그림 짝 찾기', emoji: '🔗', required: false }, // prettier-ignore
-  ];
-  return { activities: games };
+/** 패턴 표기 — `_ake`→`-ake`(끝) · `bl_`→`bl-`(앞) · `ee`→`ee`(포함). 카드 제목/매칭에 쓴다. */
+export function patternLabel(p: string): string {
+  const core = p.replace(/_/g, '');
+  if (p.startsWith('_')) return `-${core}`;
+  if (p.endsWith('_')) return `${core}-`;
+  return core;
+}
+
+/** 낱말이 그 철자 패턴에 속하나 — `_x`=끝소리 / `x_`=첫소리 / `x`=포함. */
+export function wordMatchesPattern(word: string, pattern: string): boolean {
+  const core = pattern.replace(/_/g, '').toLowerCase();
+  if (!core) return false;
+  const w = word.toLowerCase();
+  if (pattern.startsWith('_')) return w.endsWith(core);
+  if (pattern.endsWith('_')) return w.startsWith(core);
+  return w.includes(core);
+}
+
+/**
+ * 🔴 **Book 3·4·5 익히기 = 패턴마다 배우기 + 써보기**(2026-07-31 사용자 "북2 참고해서 익히기 늘려").
+ *    Book 2 가 VC 패턴마다 `배우기`+`써보기` 를 두듯, 여기도 커리큘럼 패턴(`_ake`·`bl_`·`ee`)마다
+ *    **듣고 고르기(배우기) + 낱말 쓰기(써보기)** — 둘 다 `pattern` 을 달고 호스트가 그 패턴 낱말만 고른다.
+ *    나머지(블록·낱말그리기·그림짝)는 단원 전체 게임.
+ */
+function makeWordUnitPlan(unit: EnglishUnitSummary): ActivityPlan {
+  const activities: ActivityDef[] = [];
+  let order = 1;
+  for (const p of unit.patterns) {
+    const label = patternLabel(p);
+    activities.push({ key: `learn-${p}`, order: order++, kind: 'word-listen-choose', section: 'learn', title: `${label} 배우기`, emoji: '🔊', required: true, pattern: p }); // prettier-ignore
+    activities.push({ key: `write-${p}`, order: order++, kind: 'game-word-writing', section: 'learn', title: `${label} 써보기`, emoji: '🖍️', required: false, pattern: p }); // prettier-ignore
+  }
+  activities.push(
+    { key: 'game-english-block', order: order++, kind: 'game-english-block', section: 'play', title: '블록 게임', emoji: '🧩', required: false }, // prettier-ignore
+    { key: 'game-dots', order: order++, kind: 'game-connect-dots', section: 'play', title: '낱말 그리기', emoji: '🔵', required: false }, // prettier-ignore
+    { key: 'game-line-matching', order, kind: 'game-line-matching', section: 'play', title: '그림 짝 찾기', emoji: '🔗', required: false } // prettier-ignore
+  );
+  return { activities };
 }
 
 // Book 1 unit → 글자 (storybook title 과 일치)
@@ -499,10 +532,10 @@ function englishReviewPlans(): Record<string, ActivityPlan> {
   return out;
 }
 
-// Book 3·4·5 단원 id — 커리큘럼에서 파생(목록을 두 번 적지 않는다).
-const BOOK345_UNIT_IDS = getCurriculumUnits()
-  .filter((u) => u.levelKey === 'book3' || u.levelKey === 'book4' || u.levelKey === 'book5')
-  .map((u) => u.id);
+// Book 3·4·5 단원 — 커리큘럼에서 파생(목록을 두 번 적지 않는다). 패턴별 배우기·써보기라 unit 을 넘긴다.
+const BOOK345_UNITS = getCurriculumUnits().filter(
+  (u) => u.levelKey === 'book3' || u.levelKey === 'book4' || u.levelKey === 'book5'
+);
 
 export const ENGLISH_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
   ...Object.fromEntries(
@@ -514,8 +547,8 @@ export const ENGLISH_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
       makeBook2UnitPlan(patterns),
     ])
   ),
-  // Book 3·4·5 — 낱말 기반 재사용 플랜(듣고 고르기 + 게임 4종).
-  ...Object.fromEntries(BOOK345_UNIT_IDS.map((id) => [id, makeWordUnitPlan()])),
+  // Book 3·4·5 — 패턴별 배우기·써보기 + 게임 3종.
+  ...Object.fromEntries(BOOK345_UNITS.map((u) => [u.id, makeWordUnitPlan(u)])),
   ...englishReviewPlans(),
 };
 
