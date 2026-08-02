@@ -1,6 +1,7 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
+import { warmAudioUrl } from '@/features/games/hooks/useGamePrefetch';
 import { ActivityShell } from '../components/ActivityShell';
 import { useActivitySound } from '../hooks/useActivitySound';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
@@ -8,6 +9,8 @@ import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 export interface FamilyWord {
   word: string;
   imageUrl?: string;
+  /** 저작 녹음(R2). 🔴 영어는 이게 있으면 이걸 그대로 읽는다 — 서버 concat 은 라이브러리에 없으면 무음이다. */
+  ttsUrl?: string;
 }
 
 interface Props {
@@ -45,10 +48,38 @@ export function WordFamilyLearnActivity({
     prefix: 'en-family',
   });
 
-  // 🔴 재생과 같은 prefix·언어로 데운다(탭이 resolveTtsUrl(word) 로 재생하므로 낱말을 데우면 맞는다).
+  /** 낱말별 저작 녹음 — 탭이 이걸 directUrl 로 그대로 재생한다(있을 때). */
+  const ttsByWord = useMemo(() => {
+    const m = new Map<string, string>();
+    for (const w of words) if (w.ttsUrl) m.set(w.word, w.ttsUrl);
+    return m;
+  }, [words]);
+
+  // 🔴 탭은 authored ttsUrl 을 그대로 읽으므로 **그 mp3 URL 을** 데운다(첫 탭 즉시 재생).
+  //    ttsUrl 없는 낱말만 concat 폴백이라, 그건 usePhonicsTtsWarm 이 낱말 텍스트로 데운다(가드도 만족).
+  const ttsUrls = useMemo(
+    () => words.map((w) => w.ttsUrl).filter((u): u is string => !!u),
+    [words]
+  );
+  useEffect(() => {
+    let alive = true;
+    void (async () => {
+      for (const url of ttsUrls) {
+        if (!alive) return;
+        try {
+          await warmAudioUrl(url);
+        } catch {
+          /* 한 건 실패가 나머지를 막지 않는다 */
+        }
+      }
+    })();
+    return () => {
+      alive = false;
+    };
+  }, [ttsUrls]);
   usePhonicsTtsWarm(
     unitId,
-    useMemo(() => words.map((w) => w.word), [words]),
+    useMemo(() => words.filter((w) => !w.ttsUrl).map((w) => w.word), [words]),
     'en-family',
     'english'
   );
@@ -66,18 +97,22 @@ export function WordFamilyLearnActivity({
         if (next.size >= words.length) willAll = true;
         return next;
       });
-      // 낱말을 읽어주고, 마지막 하나가 채워지면(그리고 처음이면) 칭찬 → 완료.
-      say(word, () => {
-        if (willAll && !doneRef.current) {
-          doneRef.current = true;
-          rest(() => {
-            playCorrectSequence({ language: 'en' });
-            onMarkComplete();
-          });
-        }
-      });
+      // 낱말을 읽어주고(저작 녹음 우선), 마지막 하나가 채워지면(그리고 처음이면) 칭찬 → 완료.
+      say(
+        word,
+        () => {
+          if (willAll && !doneRef.current) {
+            doneRef.current = true;
+            rest(() => {
+              playCorrectSequence({ language: 'en' });
+              onMarkComplete();
+            });
+          }
+        },
+        ttsByWord.get(word)
+      );
     },
-    [say, rest, playCorrectSequence, onMarkComplete, words.length]
+    [say, rest, playCorrectSequence, onMarkComplete, words.length, ttsByWord]
   );
 
   const dots = (
