@@ -60,10 +60,19 @@ const REVIEW_PAIRS = 4;
  *   - 한글블록 / 낱말쓰기: 텍스트만으로 작동 (이미지 없어도 OK)
  *   - 매칭 / 점잇기: 이미지/keypoints 필수 → 부족 시 "이미지가 필요해요" 안내
  */
-export default function KoreanPhonicsActivityPage() {
-  const { unitId = '', activityKey = '' } = useParams<{ unitId: string; activityKey: string }>();
-  const navigate = useNavigate();
+/**
+ * 🔴 라우트 결합은 **여기 둘뿐**이다 — `useParams` 로 받는 id 와 「나가기」가 가는 곳.
+ *    그 둘을 prop 으로 빼면 이 파일 전체(활동 9종 + 게임 4종 배선)를 라우터 밖에서도 쓴다.
+ *    광고 랜딩(`/hangul`)이 활동을 진짜로 돌리는 게 그 방식이다 — 배선을 복사하면 갈라진다.
+ */
+export interface KoreanPhonicsActivityProps {
+  unitId: string;
+  activityKey: string;
+  /** 「← 돌아가기」와 활동 완료 후 이동. 임베드는 갈 데가 없으므로 아무것도 안 한다. */
+  onExit: () => void;
+}
 
+export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPhonicsActivityProps) {
   const unit = getKoreanUnit(unitId);
   const plan = getActivityPlan(unitId);
   const activity: ActivityDef | undefined = useMemo(
@@ -118,10 +127,7 @@ export default function KoreanPhonicsActivityPage() {
     return gameMemoRef.current.data as T;
   };
 
-  const backToUnit = useCallback(
-    () => navigate(`/library/phonics/korean/${unitId}`),
-    [navigate, unitId]
-  );
+  const backToUnit = onExit;
 
   /**
    * 🔴 **활동을 마치면 학습 이벤트를 남긴다** (2026-07-27).
@@ -613,4 +619,18 @@ function ActivityUnavailable({
       </div>
     </div>
   );
+}
+
+/**
+ * `/library/phonics/korean/:unitId/:activityKey` — 라우트 껍데기.
+ * 파라미터를 읽어 위 컴포넌트에 넘기고, 나가기는 단원 화면으로 보낸다.
+ */
+export default function KoreanPhonicsActivityPage() {
+  const { unitId = '', activityKey = '' } = useParams<{ unitId: string; activityKey: string }>();
+  const navigate = useNavigate();
+  const onExit = useCallback(
+    () => navigate(`/library/phonics/korean/${unitId}`),
+    [navigate, unitId]
+  );
+  return <KoreanPhonicsActivity unitId={unitId} activityKey={activityKey} onExit={onExit} />;
 }
