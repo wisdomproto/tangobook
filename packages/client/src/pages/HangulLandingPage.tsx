@@ -189,6 +189,43 @@ function Stat({ value, label }: { value: string; label: string }) {
   );
 }
 
+/**
+ * 랜딩 사진 — **분위기만** 맡는다.
+ *
+ * 🔴 캡션을 달지 않는다. 캡션이 붙으면 주장이 되고, 주장이 붙으면 없는 후기처럼 읽힌다.
+ *    (경쟁사는 얼굴 사진 + `mis***님` + 후기 문장을 붙이지만 우리는 그 후기가 없다.)
+ * 🔴 화면 속 UI 가 안 보이는 컷만 쓴다 — AI 가 만든 가짜 앱 화면이 우리 화면인 척하면 안 된다.
+ *    진짜 화면은 이 페이지에서 **살아서 돌고 있다**(활동 9개 + 동화책).
+ * 🔴 `width`/`height` 를 반드시 준다 — 안 주면 사진이 도착할 때 아래 글이 밀린다(CLS).
+ */
+function Photo({
+  src,
+  alt,
+  w,
+  h,
+  eager,
+  className = '',
+}: {
+  src: string;
+  alt: string;
+  w: number;
+  h: number;
+  eager?: boolean;
+  className?: string;
+}) {
+  return (
+    <img
+      src={`/landing/hangul/${src}.webp`}
+      alt={alt}
+      width={w}
+      height={h}
+      loading={eager ? 'eager' : 'lazy'}
+      decoding="async"
+      className={`w-full rounded-3xl object-cover shadow-sm ${className}`}
+    />
+  );
+}
+
 function Section({
   eyebrow,
   title,
@@ -232,37 +269,52 @@ export default function HangulLandingPage() {
       {/* ── ① 히어로 ─────────────────────────────────────────── */}
       <header className="relative overflow-hidden bg-gradient-to-b from-peach-100 via-peach-50 to-cream-50 px-4 pb-10 pt-12 sm:px-6 sm:pb-14 sm:pt-16">
         <div className="pointer-events-none absolute -right-20 -top-16 h-64 w-64 rounded-full bg-coral-100/60 blur-3xl" />
-        <div className="relative mx-auto max-w-3xl text-center">
-          <p className="text-xs font-bold tracking-wide text-coral-500 sm:text-sm">
-            4~7세 한글떼기 · 파닉스
-          </p>
-          <h1 className="mt-3 font-display text-[28px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:text-[42px]">
-            한글 파닉스 {FACTS.phonicsUnits}단원과
-            <br />
-            동화책 {FACTS.books}권이 한 곳에
-          </h1>
-          <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-ink-700 break-keep sm:text-lg">
-            글자를 배우는 앱은 많습니다. 배운 글자로{' '}
-            <strong className="text-coral-600">바로 읽을 책</strong>까지 있으면 대개 패드를 사고
-            약정을 겁니다. 탱고북은 <strong className="text-coral-600">둘 다 앱 안에</strong> 있고,
-            패드도 약정도 없습니다.
-          </p>
+        {/* 🔴 md 부터 2열 — 사진을 글 아래 깔면 CTA 가 접힘선 밑으로 밀린다(3:2 라 768px 폭에서
+            높이가 512px). 옆에 두면 빈 오른쪽이 채워지면서 CTA 는 그대로 위에 남는다. */}
+        <div className="relative mx-auto grid max-w-5xl items-center gap-8 text-center md:grid-cols-[1fr_minmax(0,420px)] md:gap-10 md:text-left">
+          <div className="min-w-0">
+            <p className="text-xs font-bold tracking-wide text-coral-500 sm:text-sm">
+              4~7세 한글떼기 · 파닉스
+            </p>
+            <h1 className="mt-3 font-display text-[28px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:text-[42px]">
+              한글 파닉스 {FACTS.phonicsUnits}단원과
+              <br />
+              동화책 {FACTS.books}권이 한 곳에
+            </h1>
+            <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-ink-700 break-keep sm:text-lg md:mx-0">
+              글자를 배우는 앱은 많습니다. 배운 글자로{' '}
+              <strong className="text-coral-600">바로 읽을 책</strong>까지 있으면 대개 패드를 사고
+              약정을 겁니다. 탱고북은 <strong className="text-coral-600">둘 다 앱 안에</strong>{' '}
+              있고, 패드도 약정도 없습니다.
+            </p>
 
-          <div className="mx-auto mt-7 grid max-w-lg grid-cols-3 gap-2 sm:gap-3">
-            <Stat value={`${FACTS.koreanUnits}단원`} label="한글 파닉스" />
-            <Stat value={`${FACTS.englishUnits}단원`} label="영어 파닉스" />
-            <Stat value={`${FACTS.books}권`} label="동화책" />
+            <div className="mx-auto mt-7 grid max-w-lg grid-cols-3 gap-2 sm:gap-3 md:mx-0">
+              <Stat value={`${FACTS.koreanUnits}단원`} label="한글 파닉스" />
+              <Stat value={`${FACTS.englishUnits}단원`} label="영어 파닉스" />
+              <Stat value={`${FACTS.books}권`} label="동화책" />
+            </div>
+
+            <Link
+              to={SIGNUP}
+              className="mt-7 inline-flex min-h-[52px] items-center rounded-full bg-coral-500 px-8 text-base font-bold text-white shadow-md transition hover:bg-coral-600"
+            >
+              무료로 시작하기
+            </Link>
+            <p className="mt-3 text-xs text-ink-500 break-keep">
+              설치 없이 브라우저에서 바로 · 아래에서 먼저 해볼 수 있어요
+            </p>
           </div>
 
-          <Link
-            to={SIGNUP}
-            className="mt-7 inline-flex min-h-[52px] items-center rounded-full bg-coral-500 px-8 text-base font-bold text-white shadow-md transition hover:bg-coral-600"
-          >
-            무료로 시작하기
-          </Link>
-          <p className="mt-3 text-xs text-ink-500 break-keep">
-            설치 없이 브라우저에서 바로 · 아래에서 먼저 해볼 수 있어요
-          </p>
+          {/* 🔴 엄마가 화면이 아니라 **아이 얼굴**을 본다 — 이 페이지가 파는 게 「아이가 스스로
+              한다」라서, 시선이 아이에게 있어야 그 얘기가 된다. */}
+          <Photo
+            src="hero"
+            alt="엄마와 아이가 소파에 앉아 태블릿을 함께 보고 있다"
+            w={1200}
+            h={800}
+            eager
+            className="mx-auto max-w-sm md:max-w-none"
+          />
         </div>
       </header>
 
@@ -280,6 +332,15 @@ export default function HangulLandingPage() {
           이거나, 책까지 들어 있지만 <strong>학습 패드를 묶어 파는 방문 판매</strong>
           거나.
         </p>
+        {/* 🔴 슬프면 안 된다 — 죄책감을 파는 광고가 되면 부모가 방어한다. 「할 게 없어서 멈춘
+            아이」이고, 뒤 책장이 **비어 있는 것**이 이 컷의 논지다(읽을 게 없다). */}
+        <Photo
+          src="problem"
+          alt="학습지를 앞에 두고 턱을 괸 채 딴 곳을 보는 아이"
+          w={1000}
+          h={755}
+          className="!mt-6"
+        />
         {/* 🔴 브랜드명을 쓰지 않는다 — 가격만으로 충분히 구체적이고, 남의 상표를 우리 랜딩에
             올릴 이유가 없다. 수치는 2026-08-01 공개 정보 기준. */}
         {/* 🔴 「앱에는 책이 없다」고 쓰지 않는다 — 단계별 읽기책을 넣은 앱이 실제로 있다(사용자 지적).
@@ -310,14 +371,28 @@ export default function HangulLandingPage() {
       <section className="px-4 pb-2 sm:px-6">
         <div className="mx-auto max-w-3xl">
           <div className="rounded-3xl border border-coral-200 bg-white/60 p-4 sm:p-6">
-            <p className="text-xs font-bold tracking-wide text-coral-500">단원 하나가 이만큼</p>
-            <h2 className="mt-1 font-display text-[22px] font-extrabold text-ink-900 break-keep sm:text-[28px]">
-              「ㄱ」 단원을 통째로 열어 두었습니다
-            </h2>
-            <p className="mt-2 text-sm text-ink-600 break-keep">
-              스크린샷이 아닙니다. 아래 아홉 개는 <strong>앱에서 도는 그 화면 그대로</strong>이고,
-              가입하지 않아도 지금 눌러볼 수 있습니다. 서른두 단원이 전부 이렇게 생겼습니다.
-            </p>
+            <div className="sm:flex sm:items-center sm:gap-6">
+              <div className="min-w-0">
+                <p className="text-xs font-bold tracking-wide text-coral-500">단원 하나가 이만큼</p>
+                <h2 className="mt-1 font-display text-[22px] font-extrabold text-ink-900 break-keep sm:text-[28px]">
+                  「ㄱ」 단원을 통째로 열어 두었습니다
+                </h2>
+                <p className="mt-2 text-sm text-ink-600 break-keep">
+                  스크린샷이 아닙니다. 아래 아홉 개는 <strong>앱에서 도는 그 화면 그대로</strong>
+                  이고, 가입하지 않아도 지금 눌러볼 수 있습니다. 서른두 단원이 전부 이렇게
+                  생겼습니다.
+                </p>
+              </div>
+              {/* 🔴 얼굴 없이 손만 — 바로 아래에 진짜 쓰기 활동이 붙으므로, 사진은 「손으로
+                  쓴다」는 동작만 전하고 화면은 실물에 양보한다. */}
+              <Photo
+                src="tracing"
+                alt="태블릿 화면에 손가락으로 글자를 따라 쓰는 아이 손"
+                w={800}
+                h={800}
+                className="mx-auto mt-4 max-w-[200px] sm:mx-0 sm:mt-0 sm:w-40 sm:max-w-none sm:shrink-0"
+              />
+            </div>
 
             <p className="mt-7 inline-flex items-center gap-2 rounded-full bg-coral-500 px-4 py-1.5 text-sm font-bold text-white">
               📖 익히기 · 글자
@@ -368,6 +443,13 @@ export default function HangulLandingPage() {
           영어 파닉스도 <strong>{FACTS.englishUnits}단원</strong> 같이 있습니다. 알파벳 소리부터
           CVC까지, 한글과 같은 방식입니다.
         </p>
+        <Photo
+          src="siblings"
+          alt="두 아이가 바닥에 앉아 태블릿 하나를 같이 보고 있다"
+          w={1000}
+          h={667}
+          className="!mt-6"
+        />
         <Link
           to="/library/phonics/korean"
           className="!mt-5 inline-flex min-h-[44px] items-center rounded-full border-2 border-coral-500 px-6 text-sm font-bold text-coral-600 transition hover:bg-coral-50"
@@ -400,6 +482,15 @@ export default function HangulLandingPage() {
           그림체를 바꿔 가며 볼 수 있습니다. 이야기를 이어서 틀어두는 「묶어 보기」도 있어 재울 때
           씁니다.
         </p>
+        {/* 🔴 부모가 프레임에 없다 — 「묶어 보기」의 쓰임이 *부모가 손을 떼는 것*이라 그게
+            그림이어야 한다. */}
+        <Photo
+          src="bedtime"
+          alt="잠자리에 누워 머리맡 태블릿에서 나오는 동화를 듣는 아이"
+          w={1200}
+          h={675}
+          className="!mt-6"
+        />
         <p className="!mt-6">
           이것도 <strong>직접 읽어보실 수 있습니다.</strong> 카테고리를 눌러 그 라인의 책을 바꿔
           가며 들어보세요. 「낱말 게임」으로 넘기면 <em>그 책에 나온 낱말</em>로 바로 게임합니다.
@@ -440,6 +531,15 @@ export default function HangulLandingPage() {
           가입이 부담스러우시면 <strong>게스트로 30일</strong> 먼저 써보셔도 됩니다. 다만 게스트는
           학습 기록이 남지 않아, 아이가 어디까지 했는지 볼 수 없습니다.
         </p>
+        {/* 🔴 아이가 작게, 부모가 크게 — 이 섹션은 결제를 결정하는 부모에게 하는 말이라
+            시선의 주인이 부모여야 한다. */}
+        <Photo
+          src="parent"
+          alt="아이가 거실에서 태블릿을 보는 동안 식탁에서 차를 마시는 엄마"
+          w={1000}
+          h={755}
+          className="!mt-6"
+        />
         <div className="!mt-7 flex flex-col items-center gap-3 rounded-3xl border border-coral-200 bg-gradient-to-br from-coral-100 to-peach-200 p-6 text-center sm:p-8">
           <p className="font-display text-lg font-extrabold text-ink-900 break-keep sm:text-2xl">
             오늘 ㄱ을 배우고, 오늘 ㄱ이 나오는 책을 읽어요
