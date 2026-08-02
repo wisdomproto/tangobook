@@ -327,8 +327,30 @@ export function AppShell() {
               isLibraryRoot ? 'max-w-[1600px] mx-auto px-3 sm:px-6 md:px-8' : 'px-3 sm:px-7'
             )}
           >
-            {/* 왼쪽: 페이지 타이틀(모바일 햄버거는 하단 탭바 「메뉴」로 이동, 2026-08-01) */}
+            {/* 왼쪽: ⚙️ 부모 메뉴(모바일) + 페이지 타이틀 */}
             <div className="flex items-center gap-2 md:gap-3 min-w-0">
+              {/* 🔴 톱니바퀴 = 드로어(부모 작업) 진입. 축 3개는 하단 탭바가 맡으므로 이 버튼은
+                  더 이상 "메뉴 전부"가 아니라 **부모 영역**만 뜻한다 — 아이 엄지가 닿는 아래가
+                  아니라 위 모서리에 두는 이유도 같다(2026-08-01, 예전 ☰ 자리). */}
+              <button
+                onClick={() => setDrawerOpen(true)}
+                className="md:hidden w-10 h-10 rounded-full bg-white/90 shadow-soft text-ink-700 flex items-center justify-center flex-shrink-0"
+                aria-label={t('header.openMenu')}
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 008.6 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 8.6a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z" />
+                </svg>
+              </button>
               {/* 🔴 모바일 헤더엔 로고를 두지 않는다(2026-07-25) — 375px 에서 설치·프로필
                   칩과 함께 놓기엔 좁다. 로고와 홈 이동은 드로어 상단에 그대로 있다. */}
               {/* 라이브러리 루트는 페이지 타이틀이 없다 → 그 자리에 프로모를 얹어
@@ -391,7 +413,6 @@ export function AppShell() {
             label: t(a.labelKey),
             end: a.end,
           }))}
-          onOpenMenu={() => setDrawerOpen(true)}
         />
       )}
 
@@ -449,17 +470,15 @@ const COLOR_IDLE: Record<AxisColor, string> = {
 
 /**
  * 모바일 하단 탭바 — 축 전환을 한 번에 (2026-08-01).
- * 🔴 예전엔 축을 바꾸려면 ☰ 를 열어 드로어에서 골라야 했다(두 번). 축이 3개뿐이라 탭바가 맞고,
- *    ☰ 가 사라지면서 375px 헤더 한 줄의 압박도 같이 풀린다(언어·설치·로그인이 자리를 얻는다).
- *    부모 작업(리포팅·초대·설정·건의·로그아웃)은 그대로 드로어 — 아이 손이 한 번에 닿으면 안 되는
- *    것들이라 「메뉴」 탭 뒤에 둔다.
+ * 🔴 예전엔 축을 바꾸려면 ☰ 를 열어 드로어에서 골라야 했다(두 번). 축이 3개뿐이라 탭바가 맞다.
+ * 🔴 **아래엔 아이 축만 둔다** — 부모 작업(리포팅·초대·설정·건의·로그아웃) 진입은 헤더 좌상단
+ *    ⚙️(`md:hidden`). 아이 엄지가 닿는 자리에 부모 메뉴를 두지 않고, 톱니바퀴 자체가 "여긴 설정"
+ *    이라는 신호라 예전 햄버거보다 뜻이 분명하다.
  */
 function BottomTabBar({
   axes,
-  onOpenMenu,
 }: {
   axes: { to: string; iconSrc: string; label: string; end: boolean }[];
-  onOpenMenu: () => void;
 }) {
   const { t } = useTranslation('shell');
   return (
@@ -483,16 +502,6 @@ function BottomTabBar({
           <span className="text-[11px] leading-none break-keep text-center">{a.label}</span>
         </NavLink>
       ))}
-      <button
-        type="button"
-        onClick={onOpenMenu}
-        className="flex-1 min-h-[56px] flex flex-col items-center justify-center gap-0.5 py-1.5 font-black text-ink-500"
-      >
-        <span aria-hidden className="text-[22px] leading-none">
-          ☰
-        </span>
-        <span className="text-[11px] leading-none">{t('header.menu')}</span>
-      </button>
     </nav>
   );
 }

@@ -61,16 +61,18 @@ describe('AppShell sidebar axis visibility', () => {
     expect(screen.queryByText('학습 게임')).toBeNull(); // devOnly
   });
 
-  it('하단 탭바(모바일)에 사이드바와 같은 축 + 「메뉴」가 있다', () => {
+  it('하단 탭바(모바일)엔 아이 축만 — 부모 진입은 헤더 톱니바퀴', () => {
     setup(null);
     renderShell();
     const bar = within(screen.getByRole('navigation', { name: '메뉴' }));
     expect(bar.getByText('동화책')).toBeInTheDocument();
     expect(bar.getByText('파닉스')).toBeInTheDocument();
-    // 드로어(부모 작업)로 가는 「메뉴」 탭 — 예전 헤더 햄버거를 대신한다.
-    expect(bar.getByText('메뉴')).toBeInTheDocument();
+    // 🔴 아이 엄지가 닿는 아래엔 부모 메뉴 진입을 두지 않는다 — 드로어는 헤더 ⚙️ 로만 연다.
+    expect(bar.queryByText('메뉴')).toBeNull();
+    expect(bar.queryByRole('button')).toBeNull();
     // '준비 중'(어휘)은 링크가 아니라 탭바에 넣지 않는다.
     expect(bar.queryByText('어휘')).toBeNull();
+    expect(screen.getByLabelText('메뉴 열기')).toBeInTheDocument();
   });
 
   it('일반 부모 계정 → 학습 리포팅은 바로 노출, 나머지 부모 작업은 접이식 안', () => {
