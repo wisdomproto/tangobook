@@ -175,7 +175,11 @@ export default function EnglishPhonicsActivityPage() {
       .filter((w) => !seen.has(w.word) && !!seen.add(w.word))
       .map((w) => {
         const img = findImageData(sb, w.word);
-        return { word: w.word, ...(img.imageUrl ? { imageUrl: img.imageUrl } : {}) };
+        return {
+          word: w.word,
+          ...(img.imageUrl ? { imageUrl: img.imageUrl } : {}),
+          ...(w.ttsUrl ? { ttsUrl: w.ttsUrl } : {}),
+        };
       });
     if (words.length < 2) {
       return (
