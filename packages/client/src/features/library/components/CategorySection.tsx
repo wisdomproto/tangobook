@@ -12,6 +12,8 @@ interface CategorySectionProps {
   onShowMore?: () => void;
   /** 타이틀 오른쪽(권수 배지 옆) 커스텀 노드 — 예: 세계명작 그림풍 선택기 */
   headerExtra?: ReactNode;
+  /** 'paper' = 종이톤 밴드. 표지 자체가 밝은 크림인 라인(전래 동화)이 배경에 녹는 걸 막는다. */
+  tone?: 'paper';
 }
 
 /** 카테고리 행 — 넷플릭스식 가로 캐러셀.
@@ -26,12 +28,23 @@ export function CategorySection({
   limit = 8,
   onShowMore,
   headerExtra,
+  tone,
 }: CategorySectionProps) {
   const { t } = useTranslation('library');
   const visible = books.slice(0, limit);
   const hasMore = books.length > limit;
   return (
-    <section className="mb-6 sm:mb-10">
+    <section
+      className={
+        tone === 'paper'
+          ? // 🔴 종이톤 밴드 — 점눈이 그림체(전래 동화)는 표지 배경이 **밝은 크림 종이**라
+            // 페이지 그라데이션(cream-50 → peach-100)에 녹는다. 표지를 다시 굽는 대신
+            // 그 줄만 결이 다른 밴드로 감싸 "이 라인은 다른 결"을 의도로 만든다.
+            // 좌우 음수 마진은 안쪽 행(-mx-4 px-4)이 상쇄하므로 표지 시작 위치는 그대로다.
+            'mb-6 sm:mb-10 -mx-4 px-4 py-4 sm:-mx-6 sm:px-6 sm:py-5 md:-mx-8 md:px-8 bg-cream-100/70'
+          : 'mb-6 sm:mb-10'
+      }
+    >
       <header className="flex flex-wrap items-center justify-between mb-3 sm:mb-4 px-1 gap-2">
         <h2 className="text-xl sm:text-3xl font-black text-ink-900 font-display flex items-center gap-2 sm:gap-3 min-w-0 truncate">
           <span className="shrink-0">{icon}</span>
