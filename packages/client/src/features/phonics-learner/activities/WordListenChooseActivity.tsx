@@ -371,6 +371,10 @@ export function WordListenChooseActivity({
     setWrong(null);
     setDone(false);
     setStarting(false);
+    // 🔴 `correct` 를 반드시 비운다 — 마지막 문제 분기가 `setCorrect(null)` 없이 return 해서 정답 id 가
+    //    남아 있다. 안 비우면 restart 후 `handlePick` 가드(`... || correct || ...`)에 걸려 **모든 탭이
+    //    막히고**(판이 통째로 먹통), 그 카드가 pre-mint 로 뜬다(game-reviewer 실측).
+    setCorrect(null);
     setSolved(new Set());
     setRevealed(new Set());
     setExploring(exploreFirst);
