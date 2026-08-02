@@ -10,6 +10,8 @@ export const ENTRY_GUIDE = {
   hunt: '/sounds/voice/hunt-start-ko.mp3',
   /** 쓰기 — "반짝이는 칸에 써 봐!" */
   write: '/sounds/voice/write-start-ko.mp3',
+  /** ABC 써보기 — 대·소문자 두 칸을 한꺼번에 보여줘 "반짝이는 칸" 이 없다 → "따라 써 봐!" */
+  writeAbc: '/sounds/voice/write-abc-ko.mp3',
 } as const;
 
 /**

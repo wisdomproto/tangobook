@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import { useActivitySound } from '../hooks/useActivitySound';
-import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import type { ReviewCardSource } from '../hooks/useReviewCardSources';
@@ -55,18 +54,15 @@ export function ReviewWriteActivity({
     rest,
     sayThenChime,
     praiseVisible,
-    playAudio,
   } = useActivitySound({
     unitId,
     language,
     prefix: 'review-write',
   });
-  // 진입 안내 — 이 화면은 그림 없는 카드(영어)면 소리가 곧 문제라, 안내가 끝난 뒤에 문제를 낸다.
-  const guiding = useEntryGuide(ENTRY_GUIDE.write, playAudio);
   const [idx, setIdx] = useState(0);
   const [done, setDone] = useState(false);
-  /** 다 써서 그림이 열린 카드들 (revealImageOnComplete 모드). */
-  const [revealedIdx, setRevealedIdx] = useState<ReadonlySet<number>>(() => new Set());
+  /** 다 쓴 카드들 — 캔버스를 잠그고(다시 못 씀) reveal 모드면 그림을 연다. */
+  const [writtenIdx, setWrittenIdx] = useState<ReadonlySet<number>>(() => new Set());
 
   usePhonicsTtsWarm(
     unitId,
@@ -98,11 +94,11 @@ export function ReviewWriteActivity({
   // 🔴 reveal 모드는 문제 소리를 자동재생하지 않는다 — 캔버스 글자가 곧 문제다(사용자: 쓰기 전 "c c cat" 금지).
   const wordKey = current && !current.imageUrl && !revealImageOnComplete ? current.word : '';
   useEffect(() => {
-    // 🔴 안내가 끝난 뒤에 문제를 낸다 — 예전엔 진입 104ms 에 **정답 글자부터** 읽고 안내는 없었다.
-    if (done || guiding || !wordKey) return;
+    // 그림 없는 카드(한글 등)는 소리가 곧 문제라 카드가 바뀌면 한 번 들려준다.
+    if (done || !wordKey) return;
     const card = sourcesRef.current[idx];
     if (card) sayRef.current(card);
-  }, [idx, wordKey, done, guiding]);
+  }, [idx, wordKey, done]);
 
   /**
    * 한 글자를 다 쓰면 — 띵동 → **거기까지 이어읽기**(고 → 고기).
@@ -143,8 +139,9 @@ export function ReviewWriteActivity({
     if (done || !current) return;
     const isLast = idx + 1 >= sources.length;
     if (isLast) setDone(true);
-    // 🔴 다 쓰면 그 카드 그림을 연다 — 소리(아래)가 나는 동안 아이가 "정답 그림"을 본다.
-    if (revealImageOnComplete) setRevealedIdx((prev) => new Set(prev).add(idx));
+    // 🔴 다 쓰는 **즉시 이 카드를 잠근다** — 캔버스를 완성 글자로 바꿔 소리 나는 동안 **다시 못 쓰게**
+    //    한다(사용자: "멘트 읽어주는 동안 그 글자 다시 쓰게 돼있어. 그냥 정답처리 해야지"). reveal 모드면 그림도 연다.
+    setWrittenIdx((prev) => new Set(prev).add(idx));
     // [낱말 → 쉼 → 띵동 → 쉼 → 다음] · 마지막이면 띵동 대신 칭찬.
     // 🔴 완성 소리도 "c c cat"(soundWord/soundUrl) — 쓴 글자(C)가 아니라 낱말을 들려준다.
     void sayThenChime(current.soundWord ?? current.word, {
@@ -152,7 +149,7 @@ export function ReviewWriteActivity({
       onDone: isLast ? onComplete : () => setIdx((i) => i + 1),
       ...(current.soundUrl ? { directUrl: current.soundUrl } : {}),
     });
-  }, [done, current, idx, sources.length, sayThenChime, onComplete, revealImageOnComplete]);
+  }, [done, current, idx, sources.length, sayThenChime, onComplete]);
 
   if (!current) return null;
 
@@ -183,7 +180,7 @@ export function ReviewWriteActivity({
           {/* 문제 칸 — ①reveal 모드: 다 쓰기 전엔 ❓, 완성하면 그림(정답 그림 보상).
               ②그림 상시(한글): 그림. ③그림 없음(영어 Book2~5): 🔊 소리가 문제. */}
           <div className="relative w-40 h-40 sm:w-56 sm:h-56 rounded-3xl bg-white border-[6px] border-white shadow-pop overflow-hidden shrink-0">
-            {current.imageUrl && (!revealImageOnComplete || revealedIdx.has(idx)) ? (
+            {current.imageUrl && (!revealImageOnComplete || writtenIdx.has(idx)) ? (
               <img
                 src={current.imageUrl}
                 alt={current.word}
@@ -206,13 +203,25 @@ export function ReviewWriteActivity({
           </div>
 
           <div className="w-full max-w-2xl">
-            <WordFillCanvas
-              key={`review-write-${idx}`}
-              word={current.word}
-              syllables={[...current.word]}
-              onSyllableDone={handleSyllableDone}
-              onComplete={handleWordDone}
-            />
+            {writtenIdx.has(idx) ? (
+              // 🔴 다 썼으면 캔버스를 **완성 글자(민트)로 잠근다** — 소리 나는 동안 다시 못 쓴다(정답처리).
+              <div className="flex items-center justify-center gap-2 rounded-[28px] border-[6px] border-mint-400 bg-mint-100 py-8 sm:py-10 shadow-pop">
+                <span className="font-display font-black leading-none text-mint-600 text-[clamp(4rem,18vh,10rem)]">
+                  {current.word}
+                </span>
+                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-mint-500 text-white text-2xl font-black shadow-pop ring-4 ring-white">
+                  ✓
+                </span>
+              </div>
+            ) : (
+              <WordFillCanvas
+                key={`review-write-${idx}`}
+                word={current.word}
+                syllables={[...current.word]}
+                onSyllableDone={handleSyllableDone}
+                onComplete={handleWordDone}
+              />
+            )}
           </div>
         </div>
       </div>
