@@ -23,7 +23,10 @@ const navGroups = [
   },
   {
     label: '유료 마케팅',
-    items: [{ to: '/marketing/ads', icon: '📢', label: '광고 관리' }],
+    items: [
+      { to: '/marketing/ads', icon: '📢', label: '광고 관리' },
+      { to: '/marketing/landings', icon: '🎯', label: '광고 랜딩' },
+    ],
   },
   {
     label: '분석',
