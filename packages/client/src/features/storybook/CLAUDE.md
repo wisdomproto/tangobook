@@ -90,10 +90,13 @@ _copyImpl(id, taskId?)         // 실제 동작
 
 ## 카테고리/폴더
 
-- per-tab 폴더 상태 (`foldersByTab`): 한 탭이 자기 폴더 목록 + 활성 폴더
-- 폴더 = `Storybook.folder` 필드 (자유 텍스트)
-- 카테고리 = `Storybook.category` 필드 (제한 enum)
-- 드래그-앤-드롭으로 카드를 폴더로 이동 (`@dnd-kit/core`)
+🔴 **2026-08-01 부터 「폴더」= 라이브러리 카테고리(`Storybook.category`) 하나뿐이다.** `folder` 필드는 안 쓴다.
+
+- 예전엔 사이드바가 `folder`(자유 텍스트), 라이브러리가 `category` 로 묶어 **두 이름이 따로 놀았다** — 실측 407권 중 **238권 불일치**: `완성` 48권(folder 가 작업 상태로 쓰임)·`자연관찰(꽃과 풀)` 등 13폴더가 라이브러리 8카테고리로 합쳐짐·backup 67권은 folder 없음. 그래서 folder 를 그대로 카테고리로 승격하는 건 **불가**(라이브러리에 "완성" 섹션이 생기고 식물 친구들이 3개로 쪼개진다) → 반대 방향(category 정본)으로 통일했다.
+- 사이드바 그룹 목록 = `typeFiltered` 의 `category` 집합 + per-tab 커스텀(`foldersByTab`). **정렬은 가나다순이 아니라 R2 `LibraryConfig.categoryOrder`**(`makeCategoryComparator`) — 저작 화면이 학습자 화면과 같은 순서를 본다.
+- **⋮⋮ 손잡이 드래그 = 카테고리 순서 변경 → R2 즉시 저장**(적용 버튼 없음). 행 자체는 책을 받는 droppable 이라 별도 `SortableContext` 없이 같은 `folder:` 드롭 타깃을 재사용한다(`active.id` 가 `cat:` 로 시작하면 reorder). 저장 시 **활성 탭 밖 카테고리는 보존**해서 병합.
+- 책 카드 드래그 = `category` 패치. 이름 변경 = 그 카테고리 책 전부 + `categoryOrder`/`categoryList` 동시 갱신. **삭제는 비어 있을 때만**(책이 든 채 지우면 학습자 화면에서 섹션이 통째로 사라진다).
+- ⚠️ 남은 찌꺼기: `SidebarCard` 점메뉴의 「카테고리 변경」 목록은 아직 store(`categoriesByTab`) 목록을 본다 — 쓰는 필드는 같은 `category` 라 동작은 정상.
 
 ## 진입점
 

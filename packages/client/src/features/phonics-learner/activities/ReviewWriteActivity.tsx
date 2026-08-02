@@ -8,9 +8,15 @@ import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import type { ReviewCardSource } from '../hooks/useReviewCardSources';
 import { ActivityShell } from '../components/ActivityShell';
 
+/**
+ * 쓰기 칸에 넣을 낱말은 `word`, 소리는 `soundWord`/`soundUrl` 로 **분리**할 수 있다.
+ * 🔴 영어 Book 1 은 **글자(C)를 쓰지만 소리는 낱말("c c cat")** 이라 둘이 다르다. 없으면 word 를 읽는다.
+ */
+type WriteSource = ReviewCardSource & { soundWord?: string; soundUrl?: string };
+
 interface Props {
   unitId: string;
-  sources: ReadonlyArray<ReviewCardSource>;
+  sources: ReadonlyArray<WriteSource>;
   language?: 'korean' | 'english';
   onComplete: () => void;
   onBack: () => void;
@@ -63,7 +69,11 @@ export function ReviewWriteActivity({
   const sourcesRef = useRef(sources);
   sourcesRef.current = sources;
 
-  const say = useCallback((card: ReviewCardSource) => void speak(card.word), [speak]);
+  // 🔴 쓰는 글자(`word`)와 읽는 소리가 다를 수 있다 — Book 1 은 C 를 쓰고 "c c cat" 을 듣는다.
+  const say = useCallback(
+    (card: WriteSource) => void speak(card.soundWord ?? card.word, undefined, card.soundUrl),
+    [speak]
+  );
 
   /**
    * 그림이 없는 복습(영어)은 소리가 곧 문제다 — 카드가 바뀌면 자동으로 **한 번** 들려준다.
@@ -123,9 +133,11 @@ export function ReviewWriteActivity({
     const isLast = idx + 1 >= sources.length;
     if (isLast) setDone(true);
     // [낱말 → 쉼 → 띵동 → 쉼 → 다음] · 마지막이면 띵동 대신 칭찬.
-    void sayThenChime(current.word, {
+    // 🔴 완성 소리도 "c c cat"(soundWord/soundUrl) — 쓴 글자(C)가 아니라 낱말을 들려준다.
+    void sayThenChime(current.soundWord ?? current.word, {
       praise: isLast,
       onDone: isLast ? onComplete : () => setIdx((i) => i + 1),
+      ...(current.soundUrl ? { directUrl: current.soundUrl } : {}),
     });
   }, [done, current, idx, sources.length, sayThenChime, onComplete]);
 

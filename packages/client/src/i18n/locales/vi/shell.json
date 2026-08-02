@@ -36,6 +36,7 @@
     "parentMode": "Chế độ phụ huynh"
   },
   "header": {
+    "menu": "Menu",
     "openMenu": "Mở menu",
     "closeMenu": "Đóng menu",
     "switchChild": "{{name}} — Đổi bé",

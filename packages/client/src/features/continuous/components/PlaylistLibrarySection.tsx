@@ -30,9 +30,11 @@ export function PlaylistLibrarySection() {
   const { data: books } = useStorybooks();
   const deletePlaylist = useDeletePlaylist();
   const catLabel = useCategoryLabel();
-  // 🔴 기본 펼침(2026-07-27). 접어뒀던 건 묶음이 3권짜리라 자리값을 못 했기 때문인데,
-  //    이제 카테고리 통째(최대 48권·2시간 35분)라 책 목록보다 먼저 보일 값이 있다.
-  const [open, setOpen] = useState(true);
+  // 🔴 기본 접힘(2026-08-01). 이 값은 세 번째 뒤집힘이다 — 접힘(자리값 못 함) → 펼침
+  //    (2026-07-27, 묶음이 카테고리 통째가 되면서) → 다시 접힘. 이번 근거는 묶음의 값어치가
+  //    아니라 **첫 화면 자리**다: 375px 세로에서 펼친 박스가 313px, 접힘선 위 41% 를 먹어
+  //    첫 책 표지가 화면 77% 지점에서야 나왔다. 되돌리기 전에 375px 로 재 볼 것.
+  const [open, setOpen] = useState(false);
 
   const bundles = useMemo(() => buildCategoryBundles(books ?? []), [books]);
 
@@ -113,7 +115,7 @@ export function PlaylistLibrarySection() {
             <button
               type="button"
               onClick={() => navigate('/continuous/new')}
-              className="w-64 shrink-0 flex flex-col items-center justify-center gap-2 rounded-3xl bg-coral-500 px-5 py-6 text-center shadow-pop transition hover:bg-coral-600 active:scale-[0.98]"
+              className="w-52 shrink-0 sm:w-64 flex flex-col items-center justify-center gap-2 rounded-3xl bg-coral-500 px-5 py-6 text-center shadow-pop transition hover:bg-coral-600 active:scale-[0.98]"
             >
               <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/25 text-3xl font-black text-white">
                 +
@@ -127,7 +129,7 @@ export function PlaylistLibrarySection() {
             </button>
           )}
           {mySets.map((p) => (
-            <div key={p.id} className="w-64 shrink-0">
+            <div key={p.id} className="w-52 shrink-0 sm:w-64">
               <PlaylistCard
                 name={p.name}
                 bookCount={p.bookIds.length}
@@ -143,7 +145,7 @@ export function PlaylistLibrarySection() {
           {bundles.map((bundle) => {
             const name = catLabel(bundle.category);
             return (
-              <div key={bundle.category} className="w-64 shrink-0">
+              <div key={bundle.category} className="w-52 shrink-0 sm:w-64">
                 <PlaylistCard
                   name={name}
                   bookCount={bundle.bookIds.length}
