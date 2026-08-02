@@ -449,14 +449,21 @@ export function WordListenChooseActivity({
               // 안내 음성 중엔 못 누른다 — 문제를 듣기도 전에 찍고 지나가는 걸 막는다.
               disabled={done || starting}
               className={[
-                'relative rounded-3xl border-[6px] bg-white overflow-hidden shadow-soft transition',
+                'relative rounded-3xl border-[6px] overflow-hidden shadow-soft transition',
+                // 🔴 맞힌 칸 = **민트 채움**(2026-08-02). 예전엔 `bg-success/10`(10% 초록)이라 흰 카드에서
+                //    거의 안 보였다(사용자: "맞춘거 하이라이트가 안되네"). 뒤집기·글자쓰기의 민트 성공색과 통일.
                 correct === idOf(c)
-                  ? 'border-success ring-4 ring-success/40 bg-success/10 scale-[1.03]'
+                  ? 'border-mint-500 bg-mint-100 ring-4 ring-mint-300 scale-[1.03]'
                   : wrong === idOf(c)
-                    ? 'border-coral-500 animate-shake'
-                    : 'border-white hover:shadow-pop active:scale-[0.97]',
+                    ? 'border-coral-500 bg-white animate-shake'
+                    : 'border-white bg-white hover:shadow-pop active:scale-[0.97]',
               ].join(' ')}
             >
+              {correct === idOf(c) && (
+                <span className="absolute top-1.5 right-1.5 z-10 inline-flex items-center justify-center w-8 h-8 rounded-full bg-mint-500 text-white text-lg font-black shadow-pop ring-2 ring-white">
+                  ✓
+                </span>
+              )}
               {/* 🔴 글자 단원(영어 Book 1 알파벳)은 그림 없이 글자만 — 아직 단어 철자를 읽을 단계가 아니다.
                   그 외 단원은 그림 + 단어. 파닉스라 소리↔글자를 잇는 게 학습 목표다. */}
               {/* 맞힌 칸 — 글자가 옆으로 돌아 사라지고 그림이 돌아 들어온다(0.32초).
