@@ -49,7 +49,19 @@ export function PhonicsTryIt({ unitId, activityKey, title, height }: Props) {
   if (!activity) return null; // 없는 활동은 조용히 접는다
 
   return (
-    <div className="my-7 overflow-hidden rounded-[26px] border border-coral-200 bg-white shadow-sm">
+    /**
+     * 🔴 **상자를 뷰포트 폭으로 흘린다**(2026-08-01 사용자: "짤려 보이는데").
+     *    활동은 칸 크기를 `min(Nvw, Mvh)` 로 잡는다(전체화면 활동의 전사 규칙). `vw` 는 상자가
+     *    아니라 **뷰포트**를 재므로, 1280px 화면의 718px 상자 안에서는 1280 기준으로 그려진
+     *    격자가 그대로 잘린다(글자 사냥 6열 중 마지막이 잘려 나갔다). `dvh` 와 똑같은 종류의
+     *    함정이고, 고칠 곳은 활동이 아니라 **상자**다 — 활동 13개와 게임 플레이어는 동화책
+     *    게임과 공유하는 코드라 손대면 그쪽이 깨진다.
+     *    `margin-left: calc(50% - 50vw)` = 가운데 정렬된 컨테이너를 뚫고 전체 폭으로.
+     */
+    <div
+      className="my-7 overflow-hidden border-y border-coral-200 bg-white shadow-sm sm:rounded-[26px] sm:border-x"
+      style={{ width: '100vw', marginLeft: 'calc(50% - 50vw)' }}
+    >
       <div className="flex items-center justify-between gap-3 border-b border-ink-100 px-5 py-3">
         <span className="text-sm font-bold text-ink-800 break-keep">
           {title ?? `${activity.emoji} ${activity.title}`}

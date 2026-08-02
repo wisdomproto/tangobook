@@ -122,19 +122,43 @@ const GA_PLAY = [
   { key: 'game-line-matching', h: 620 },
 ];
 
-/** 스크롤에 따라 나타나는 하단 고정 CTA — 첫 화면에서는 히어로 버튼이 있으니 숨긴다. */
+/**
+ * 스크롤에 따라 나타나는 하단 고정 CTA — 첫 화면에서는 히어로 버튼이 있으니 숨긴다.
+ *
+ * 🔴 **체험 상자가 화면에 있으면 숨는다**(2026-08-01). 상자들이 뷰포트 높이만큼 크기 때문에
+ *    고정 바가 그 아래를 덮는다 — 실제로 그림 짝 찾기의 마지막 줄과 게임 버튼을 가렸다.
+ *    「직접 해보세요」라고 해놓고 그 화면을 가리는 건 앞뒤가 안 맞는다.
+ */
 function StickyCta() {
   const [show, setShow] = useState(false);
+  const [blocked, setBlocked] = useState(false);
   useEffect(() => {
     const onScroll = () => setShow(window.scrollY > 560);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+
+    // 상자가 화면 아래쪽(고정 바가 앉는 자리)을 차지하는지 본다.
+    const boxes = document.querySelectorAll('div.my-7');
+    const io = new IntersectionObserver(
+      (entries) => {
+        const hit = new Set<Element>();
+        entries.forEach((e) => (e.isIntersecting ? hit.add(e.target) : hit.delete(e.target)));
+        setBlocked(entries.some((e) => e.isIntersecting) || hit.size > 0);
+      },
+      // 화면 아래 120px 만 관심 대상 — 상자가 거기 걸치면 바를 내린다.
+      { rootMargin: `-${Math.max(0, window.innerHeight - 120)}px 0px 0px 0px` }
+    );
+    boxes.forEach((b) => io.observe(b));
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      io.disconnect();
+    };
   }, []);
+  const visible = show && !blocked;
   return (
     <div
       className={`fixed inset-x-0 bottom-0 z-50 border-t border-coral-200 bg-cream-50/95 px-4 py-3 backdrop-blur transition-transform duration-300 sm:px-6 ${
-        show ? 'translate-y-0' : 'translate-y-full'
+        visible ? 'translate-y-0' : 'translate-y-full'
       }`}
     >
       <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
