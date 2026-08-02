@@ -18,6 +18,13 @@ interface Props {
   unitId: string;
   sources: ReadonlyArray<WriteSource>;
   language?: 'korean' | 'english';
+  /**
+   * 🔴 그림을 **다 쓴 뒤에 보여준다**(2026-08-02 사용자: "그림한번 보여줘야지 정답 맞추면").
+   *    켜면 쓰는 동안엔 ❓ 이고, 낱말을 완성하면 그림이 열린다. 이때 **문제 소리를 자동재생하지 않는다**
+   *    ("아직 쓰지도 않았는데 c c cat 이지랄" — 글자는 캔버스가 보여주므로 소리 프롬프트가 필요 없다).
+   *    끄면(한글 등) 예전대로 그림을 상시 노출하고 소리가 문제다.
+   */
+  revealImageOnComplete?: boolean;
   onComplete: () => void;
   onBack: () => void;
 }
@@ -37,6 +44,7 @@ export function ReviewWriteActivity({
   unitId,
   sources,
   language = 'korean',
+  revealImageOnComplete = false,
   onComplete,
   onBack,
 }: Props) {
@@ -57,6 +65,8 @@ export function ReviewWriteActivity({
   const guiding = useEntryGuide(ENTRY_GUIDE.write, playAudio);
   const [idx, setIdx] = useState(0);
   const [done, setDone] = useState(false);
+  /** 다 써서 그림이 열린 카드들 (revealImageOnComplete 모드). */
+  const [revealedIdx, setRevealedIdx] = useState<ReadonlySet<number>>(() => new Set());
 
   usePhonicsTtsWarm(
     unitId,
@@ -85,7 +95,8 @@ export function ReviewWriteActivity({
    */
   const sayRef = useRef(say);
   sayRef.current = say;
-  const wordKey = current && !current.imageUrl ? current.word : '';
+  // 🔴 reveal 모드는 문제 소리를 자동재생하지 않는다 — 캔버스 글자가 곧 문제다(사용자: 쓰기 전 "c c cat" 금지).
+  const wordKey = current && !current.imageUrl && !revealImageOnComplete ? current.word : '';
   useEffect(() => {
     // 🔴 안내가 끝난 뒤에 문제를 낸다 — 예전엔 진입 104ms 에 **정답 글자부터** 읽고 안내는 없었다.
     if (done || guiding || !wordKey) return;
@@ -132,6 +143,8 @@ export function ReviewWriteActivity({
     if (done || !current) return;
     const isLast = idx + 1 >= sources.length;
     if (isLast) setDone(true);
+    // 🔴 다 쓰면 그 카드 그림을 연다 — 소리(아래)가 나는 동안 아이가 "정답 그림"을 본다.
+    if (revealImageOnComplete) setRevealedIdx((prev) => new Set(prev).add(idx));
     // [낱말 → 쉼 → 띵동 → 쉼 → 다음] · 마지막이면 띵동 대신 칭찬.
     // 🔴 완성 소리도 "c c cat"(soundWord/soundUrl) — 쓴 글자(C)가 아니라 낱말을 들려준다.
     void sayThenChime(current.soundWord ?? current.word, {
@@ -139,7 +152,7 @@ export function ReviewWriteActivity({
       onDone: isLast ? onComplete : () => setIdx((i) => i + 1),
       ...(current.soundUrl ? { directUrl: current.soundUrl } : {}),
     });
-  }, [done, current, idx, sources.length, sayThenChime, onComplete]);
+  }, [done, current, idx, sources.length, sayThenChime, onComplete, revealImageOnComplete]);
 
   if (!current) return null;
 
@@ -167,16 +180,20 @@ export function ReviewWriteActivity({
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
-          {/* 문제 — 그림이 있으면 그림, 없으면 소리.
-              🔴 영어 단원은 아직 단어 그림이 0장이라 소리로 낸다. 자산 때문에 택한 형태지만
-                 "소리를 듣고 글자를 쓴다"는 파닉스로는 오히려 정공법이라 그대로 둔다. */}
+          {/* 문제 칸 — ①reveal 모드: 다 쓰기 전엔 ❓, 완성하면 그림(정답 그림 보상).
+              ②그림 상시(한글): 그림. ③그림 없음(영어 Book2~5): 🔊 소리가 문제. */}
           <div className="relative w-40 h-40 sm:w-56 sm:h-56 rounded-3xl bg-white border-[6px] border-white shadow-pop overflow-hidden shrink-0">
-            {current.imageUrl ? (
+            {current.imageUrl && (!revealImageOnComplete || revealedIdx.has(idx)) ? (
               <img
                 src={current.imageUrl}
                 alt={current.word}
                 className="w-full h-full object-cover"
               />
+            ) : revealImageOnComplete ? (
+              // 🔴 쓰는 동안엔 ❓ — 소리 프롬프트 없이 캔버스 글자를 보고 쓴다. 다 쓰면 그림이 열린다.
+              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-peach-100 to-cream-50 text-6xl sm:text-7xl">
+                ❓
+              </div>
             ) : (
               <button
                 onClick={() => say(current)}

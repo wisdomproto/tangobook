@@ -456,10 +456,11 @@ export default function EnglishPhonicsActivityPage() {
         <ReviewWriteActivity
           unitId={unitId}
           language="english"
+          // 🔴 글자(C)를 쓰되 소리는 낱말("c c cat"), 그림은 다 쓴 뒤에 연다(imageUrl 유지 + reveal 모드).
+          revealImageOnComplete
           sources={reviewSources.map((s) => ({
             ...s,
             word: s.letter,
-            imageUrl: '',
             ...(s.word ? { soundWord: s.word } : {}),
             ...(s.ttsUrl ? { soundUrl: s.ttsUrl } : {}),
           }))}

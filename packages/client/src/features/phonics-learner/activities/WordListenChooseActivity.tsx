@@ -211,6 +211,12 @@ export function WordListenChooseActivity({
    */
   const [correct, setCorrect] = useState<string | null>(null);
   /**
+   * 🔴 **맞힌 카드는 민트로 남는다**(2026-08-02 사용자: "정답 맞추면 색깔 그냥 칠한채로 냅둬야지").
+   *    예전엔 `correct` 하나뿐이라 소리가 끝나면 색이 사라져, 몇 개 맞췄는지 화면에 안 남았다.
+   *    문제 하나당 카드 하나가 정답이라, 다 풀면 판이 전부 민트가 되어 "다 맞췄다"가 그림으로 읽힌다.
+   */
+  const [solved, setSolved] = useState<Set<string>>(new Set());
+  /**
    * 맞혀서 **그림이 열린** 카드 — 다음 문제로 넘어가도 그림인 채로 남는다.
    * 남은 글자 칸이 곧 "아직 안 맞힌 것"이라 몇 개 남았는지가 그림으로 읽힌다(맞춘 카드=민트+✓ 와 같은 뜻).
    */
@@ -290,7 +296,8 @@ export function WordListenChooseActivity({
   const handlePick = useCallback(
     (picked: ListenChoice) => {
       // `correct` 가 남아 있는 동안은 정답 소리 체인이 도는 중이라 다음 탭을 받지 않는다.
-      if (done || !current || wrong || correct) return;
+      // 이미 맞힌 카드(민트)는 다시 눌러도 무시 — 오답 흔들림이 나지 않게.
+      if (done || !current || wrong || correct || solved.has(idOf(picked))) return;
       if (idOf(picked) !== idOf(current.answer)) {
         onJudge?.(false, current.answer);
         playFeedbackSound(false);
@@ -300,6 +307,7 @@ export function WordListenChooseActivity({
       }
       onJudge?.(true, picked);
       setCorrect(idOf(picked));
+      setSolved((prev) => new Set(prev).add(idOf(picked)));
       // 맞힌 칸은 글자 → 그림으로 뒤집힌다(그림이 주어진 경우).
       if (picked.revealImageUrl) setRevealed((prev) => new Set(prev).add(idOf(picked)));
       const isLast = qIdx + 1 >= questions.length;
@@ -328,6 +336,7 @@ export function WordListenChooseActivity({
       current,
       wrong,
       correct,
+      solved,
       qIdx,
       questions.length,
       onJudge,
@@ -362,6 +371,8 @@ export function WordListenChooseActivity({
     setWrong(null);
     setDone(false);
     setStarting(false);
+    setSolved(new Set());
+    setRevealed(new Set());
     setExploring(exploreFirst);
   }, [exploreFirst]);
 
@@ -446,20 +457,21 @@ export function WordListenChooseActivity({
                 void say(c);
               }}
               aria-label={c.label}
-              // 안내 음성 중엔 못 누른다 — 문제를 듣기도 전에 찍고 지나가는 걸 막는다.
-              disabled={done || starting}
+              // 안내 음성 중엔 못 누른다 · 이미 맞힌 카드도 못 누른다(민트로 남는다).
+              disabled={done || starting || solved.has(idOf(c))}
               className={[
                 'relative rounded-3xl border-[6px] overflow-hidden shadow-soft transition',
-                // 🔴 맞힌 칸 = **민트 채움**(2026-08-02). 예전엔 `bg-success/10`(10% 초록)이라 흰 카드에서
-                //    거의 안 보였다(사용자: "맞춘거 하이라이트가 안되네"). 뒤집기·글자쓰기의 민트 성공색과 통일.
-                correct === idOf(c)
+                // 🔴 맞힌 칸 = **민트 채움으로 남는다**(2026-08-02). 예전엔 `bg-success/10`(10% 초록)이라
+                //    흰 카드에서 거의 안 보였고, `correct` 하나뿐이라 소리가 끝나면 색이 사라졌다
+                //    (사용자: "정답 맞추면 색깔 그냥 칠한채로 냅둬야지"). `solved` 로 계속 민트.
+                correct === idOf(c) || solved.has(idOf(c))
                   ? 'border-mint-500 bg-mint-100 ring-4 ring-mint-300 scale-[1.03]'
                   : wrong === idOf(c)
                     ? 'border-coral-500 bg-white animate-shake'
                     : 'border-white bg-white hover:shadow-pop active:scale-[0.97]',
               ].join(' ')}
             >
-              {correct === idOf(c) && (
+              {(correct === idOf(c) || solved.has(idOf(c))) && (
                 <span className="absolute top-1.5 right-1.5 z-10 inline-flex items-center justify-center w-8 h-8 rounded-full bg-mint-500 text-white text-lg font-black shadow-pop ring-2 ring-white">
                   ✓
                 </span>
