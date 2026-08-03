@@ -26,8 +26,7 @@ const only = process.argv[2];
 const PAST_END = /(았|었|했|이)다[.!?」\s]*$/;
 const stripDialog = (s) => s.replace(/"[^"]*"/g, '');
 
-// 착지에 붙으면 안 되는 정리·교훈 문장
-const MORAL = /(배웠어요|깨달았|알게 됐어요|안 돼요\.|해야 해요|사이좋게|고맙다고|미안하다고 해|용감해졌|자신감|나누면)/;
+// 🔴 교훈 검사는 **없앴다**(2026-08-01). 금지에서 권장으로 뒤집혔다 — 한 편에 하나, 착지에.
 
 function check(id) {
   const md = readFileSync(join(SRC, `${id}.md`), 'utf8').replace(/\r\n/g, '\n');
@@ -55,7 +54,6 @@ function check(id) {
   //    그때마다 멀쩡한 쪽이 대신 걸린다. 48권에 둘이면 눈으로 보면 된다.
     .filter(([, n]) => !/요[.!?,]|요\s*$/m.test(n))
     .map(([n]) => `p${n}`);
-  const moral = (bodies[bodies.length - 1] || '').match(MORAL);
   const dialog = (text.match(/"[^"]+"/g) || []).length;
   const per = pages.length ? Math.round(chars / pages.length) : 0;
   const sceneMissing = pages.map((p, i) => (/^### SCENE/m.test(p) ? null : `p${i + 1}`)).filter(Boolean);
@@ -63,11 +61,14 @@ function check(id) {
   const bad = [];
   if (past.length) bad.push(`~았다 종결 ${past.length}건 → ${past[0].slice(0, 40)}`);
   if (pages.length < 8 || pages.length > 20) bad.push(`쪽수 ${pages.length} (8~20)`);
-  if (per < 40 || per > 75) bad.push(`쪽당 ${per}자 (40~75)`);
+  // 🔴 상한을 75 → 95 로 올렸다(2026-08-01). 75 를 지키려고 작가들이 **조사를 빼고 명사를 붙여**
+  //    압축했고, 그래서 「바닥 햇빛」·「햇빛 위로 그림자」 같은 없는 말이 나왔다. 문장이 우리 네 라인
+  //    중 가장 짧았던 것(4.94어절 vs 호리 6.00)이 그 압축의 자국이다. 길이가 문제가 아니라
+  //    **압축이 문제**였다.
+  if (per < 40 || per > 95) bad.push(`쪽당 ${per}자 (40~95)`);
   if (dialog < 10) bad.push(`대사 ${dialog}개 (13~15 기준, 10 미만은 확인)`);
   if (noAction.length) bad.push(`해요체 한 줄도 없는 쪽 ${noAction.join(",")} (장치면 확인만 하고 넘어간다)`);
   if (sceneMissing.length) bad.push(`SCENE 없는 쪽 ${sceneMissing.join(',')}`);
-  if (moral) bad.push(`착지에 정리 문장 「${moral[0]}」`);
   if (!/^landing:/m.test(fm)) bad.push('frontmatter 에 landing 없음');
 
   return { id, pages: pages.length, chars, per, dialog, bad };
