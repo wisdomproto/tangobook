@@ -194,8 +194,11 @@ function Stat({ value, label }: { value: string; label: string }) {
  *
  * 🔴 캡션을 달지 않는다. 캡션이 붙으면 주장이 되고, 주장이 붙으면 없는 후기처럼 읽힌다.
  *    (경쟁사는 얼굴 사진 + `mis***님` + 후기 문장을 붙이지만 우리는 그 후기가 없다.)
- * 🔴 화면 속 UI 가 안 보이는 컷만 쓴다 — AI 가 만든 가짜 앱 화면이 우리 화면인 척하면 안 된다.
- *    진짜 화면은 이 페이지에서 **살아서 돌고 있다**(활동 9개 + 동화책).
+ * 🔴 태블릿 화면에 **AI 가 그린 UI 를 두지 않는다** — 가짜 화면이 우리 화면인 척하면 안 되고,
+ *    한글 글자도 깨져 나온다. 화면을 보여줄 땐 앱을 실제로 띄워 찍어 원근 합성한다
+ *    (`packages/server/scripts/composite-screen-into-photo.mjs`, 지금은 `tracing` 한 장).
+ *    나머지는 화면이 안 보이는 컷이라 그대로 두고, 진짜 화면은 이 페이지에서
+ *    **살아서 돌고 있다**(활동 9개 + 동화책).
  * 🔴 `width`/`height` 를 반드시 준다 — 안 주면 사진이 도착할 때 아래 글이 밀린다(CLS).
  */
 function Photo({
@@ -371,28 +374,25 @@ export default function HangulLandingPage() {
       <section className="px-4 pb-2 sm:px-6">
         <div className="mx-auto max-w-3xl">
           <div className="rounded-3xl border border-coral-200 bg-white/60 p-4 sm:p-6">
-            <div className="sm:flex sm:items-center sm:gap-6">
-              <div className="min-w-0">
-                <p className="text-xs font-bold tracking-wide text-coral-500">단원 하나가 이만큼</p>
-                <h2 className="mt-1 font-display text-[22px] font-extrabold text-ink-900 break-keep sm:text-[28px]">
-                  「ㄱ」 단원을 통째로 열어 두었습니다
-                </h2>
-                <p className="mt-2 text-sm text-ink-600 break-keep">
-                  스크린샷이 아닙니다. 아래 아홉 개는 <strong>앱에서 도는 그 화면 그대로</strong>
-                  이고, 가입하지 않아도 지금 눌러볼 수 있습니다. 서른두 단원이 전부 이렇게
-                  생겼습니다.
-                </p>
-              </div>
-              {/* 🔴 얼굴 없이 손만 — 바로 아래에 진짜 쓰기 활동이 붙으므로, 사진은 「손으로
-                  쓴다」는 동작만 전하고 화면은 실물에 양보한다. */}
-              <Photo
-                src="tracing"
-                alt="태블릿 화면에 손가락으로 글자를 따라 쓰는 아이 손"
-                w={800}
-                h={800}
-                className="mx-auto mt-4 max-w-[200px] sm:mx-0 sm:mt-0 sm:w-40 sm:max-w-none sm:shrink-0"
-              />
-            </div>
+            <p className="text-xs font-bold tracking-wide text-coral-500">단원 하나가 이만큼</p>
+            <h2 className="mt-1 font-display text-[22px] font-extrabold text-ink-900 break-keep sm:text-[28px]">
+              「ㄱ」 단원을 통째로 열어 두었습니다
+            </h2>
+            <p className="mt-2 text-sm text-ink-600 break-keep">
+              스크린샷이 아닙니다. 아래 아홉 개는 <strong>앱에서 도는 그 화면 그대로</strong>이고,
+              가입하지 않아도 지금 눌러볼 수 있습니다. 서른두 단원이 전부 이렇게 생겼습니다.
+            </p>
+            {/* 🔴 이 한 장에만 **진짜 앱 화면이 합성돼 있다**(「반짝이는 칸에 ㄱ 써봐!」).
+                태블릿 화면 면이 카메라를 향한 유일한 컷이라 그렇다 — 나머지 다섯 장은 화면이
+                반대쪽을 보거나 뒤판만 보여 넣을 면이 없다. 합성 = `composite-screen-into-photo.mjs`.
+                작게 쓰면 합성한 보람이 없으므로 전체 폭 3:2 로 둔다. */}
+            <Photo
+              src="tracing"
+              alt="태블릿에 뜬 「반짝이는 칸에 ㄱ 써봐!」 화면을 손가락으로 따라 쓰는 아이"
+              w={1200}
+              h={800}
+              className="mt-5"
+            />
 
             <p className="mt-7 inline-flex items-center gap-2 rounded-full bg-coral-500 px-4 py-1.5 text-sm font-bold text-white">
               📖 익히기 · 글자

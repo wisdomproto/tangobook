@@ -139,7 +139,7 @@ from a window behind them creating a soft rim. Screen content not visible.
 |---|---|---|
 | `hero.webp` | ① 히어로 **우측 열**(md+) | 420×280 / 모바일은 CTA 아래 358×239 |
 | `problem.webp` | ② 문제 제기, 두 번째 문단 뒤 | 768×580 |
-| `tracing.webp` | ③ 「ㄱ 단원」 헤더 우측(sm+) | 160×160 |
+| `tracing.webp` | ③ 「ㄱ 단원」 헤더 아래 **전체 폭** | 718×479 · **진짜 앱 화면 합성** |
 | `siblings.webp` | ④ 파닉스 커리큘럼 끝 | 768×512 |
 | `bedtime.webp` | ⑤ 「재울 때 씁니다」 바로 뒤 | 768×432 |
 | `parent.webp` | ⑦ 베타 안내, CTA 박스 앞 | 768×580 |
@@ -147,6 +147,54 @@ from a window behind them creating a soft rim. Screen content not visible.
 🔴 **히어로는 옆에 두지 아래에 두지 않는다**(데스크탑) — 3:2 라 768px 폭이면 높이가 512px 이
 되어 CTA 가 접힘선 밑으로 밀린다. 모바일은 1열이라 어차피 CTA 아래로 가는데, 그건 CTA 를
 먼저 보여주므로 오히려 맞다.
+
+## 🖥 태블릿 화면에 진짜 앱 화면 합성 (2026-08-02)
+
+사용자 지적: 「이미지들에 우리 제품 화면이 아예 없으니까 이상하네」. 맞다 — 태블릿이 전부
+빈 채로 빛나서 스톡 사진처럼 읽혔다.
+
+도구 = `packages/server/scripts/composite-screen-into-photo.mjs`
+(ImageMagick `-distort Perspective` + sharp. 새 의존성 없음.)
+
+```bash
+# 1) 화면 네 귀퉁이 찾기 — 열마다 「켜진 화면」 픽셀의 위·아래 경계를 찍어 준다
+node packages/server/scripts/composite-screen-into-photo.mjs --probe <photo.png>
+
+# 2) 합성 (quad = 스크린샷의 좌상·우상·우하·좌하가 갈 자리)
+node packages/server/scripts/composite-screen-into-photo.mjs \
+  <photo.png> <screenshot.png> out.png '[[-199,864],[650,698],[1080,795],[400,1023]]' 1.0
+```
+
+- 🔴 **AI 에게 화면을 그리게 하지 않는다.** 앱을 실제로 띄워 찍은 스크린샷을 원근 변환해 얹는다.
+  가짜 화면이 우리 화면인 척하면 안 되고, AI 는 한글 글자를 깨뜨린다.
+- 🔴 **손·손가락 오려내기를 손으로 하지 않는다.** 「켜진 화면」 픽셀만 남긴 마스크를 워프
+  알파에 곱하면 손가락·베젤·둥근 모서리·반사가 저절로 위에 남는다.
+- 🔴 **UI 를 그냥 얹으면 스티커로 보인다.** 원본 화면을 `soft-light` 로 다시 덮어 번들거림과
+  빛 감쇠를 되살린다.
+- ⚠️ **여섯 장 중 `tracing` 한 장에만 넣을 수 있었다.** 나머지는 태블릿 화면 면이 카메라를
+  향하지 않는다 — 히어로·베타 부모는 화면이 반대쪽, 재우기는 뒤판, 형제는 거의 옆날.
+  기하학의 문제라 편집으로 못 만든다.
+
+### 화면을 더 넣고 싶으면 — 「합성용 플레이트」로 새로 뽑는다
+
+아래처럼 **화면 면이 카메라를 향하고, 화면 안이 비어 있는** 컷을 받으면 그 자리에 진짜
+앱 화면을 넣을 수 있다. 공통 스타일 블록은 그대로 앞에 붙인다.
+
+```
+… (공통 스타일) …
+The tablet screen faces the camera at a gentle angle so the full screen
+rectangle is visible and unobstructed — all four corners of the screen within
+frame. The screen displays a COMPLETELY BLANK flat light-grey surface: no
+text, no icons, no images, no reflections across the screen. Natural room
+light, no harsh glare on the glass.
+```
+
+여기에 장면만 갈아 끼운다:
+1. **엄마와 아이가 소파에서 함께** — 태블릿을 카메라 쪽으로 살짝 눕혀 든다(히어로 대체).
+2. **아이가 바닥에서 혼자** — 태블릿을 앞에 세워 두고 위에서 내려다본 앵글.
+3. **형제가 태블릿 하나를 나눠 봄** — 정면에서 약간 위, 화면이 카메라를 향함.
+
+🔴 「blank light-grey」를 꼭 넣을 것. 뭐라도 그려 놓으면 그걸 지우는 일이 먼저 생긴다.
 
 ## 넣을 때 규칙
 
