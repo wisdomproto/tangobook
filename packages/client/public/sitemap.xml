@@ -6,91 +6,97 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.tangobook.co.kr/</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/phonics/korean</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.tangobook.co.kr/hangul</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.tangobook.co.kr/vocabulary</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/blog</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/guide/classics</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/guide/nature</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/en/guide/classics</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/en/guide/nature</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vi/guide/classics</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vi/guide/nature</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/zh/guide/classics</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/zh/guide/nature</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/th/guide/classics</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/th/guide/nature</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

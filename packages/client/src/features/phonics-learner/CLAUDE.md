@@ -41,6 +41,11 @@
 - **블록 게임** = 한 칸(첫 글자) · **낱말 쓰기** = 한 글자 · **그림 짝 찾기** = 그림↔글자
 - **낱말 그리기** = 완성하면 글자를 크게 세우고 `b b book` 클립을 읽는다(`ConnectTheDotsItem.letter`·`ttsUrl`)
 - 단어와 그림은 "그 글자로 시작한다"는 맥락으로만 남는다 — 없애지 말 것.
+- 🔴 **성공음 = "글자 글자 낱말"(a a apple) 저작 녹음으로 통일**(2026-08-02 사용자: "B1 전체적으로 통일되게").
+  그 녹음은 **`wordFamilies[].words[].ttsUrl`**(3~4초 블렌드)에 있고, `flashcards[].ttsUrl` 은 비어 있거나
+  밋밋한 낱말이라, 게임이 완성 시 concat 으로 "bat"(0.6초)만 읽었다. → **`findImageData` 가 wordFamilies
+  ttsUrl 을 flashcard 보다 우선**(`wordFamilyTts`). 이게 게임 4종·복습 전부에 흐른다(복습은 `useReviewCardSources`
+  가 같은 lookup). 🔴 flashcard 에 낱말 녹음이 있어도 wordFamilies 가 이긴다 — 안 그러면 통일이 깨진다.
 - 🔴 **`ConnectTheDotsPlayer` 에 `lang` 을 넘기지 않으면 한국어로 읽는다** — 영어 단원인데 정답을
   한글로 읽어주던 버그가 그것이었다.
 
@@ -252,6 +257,7 @@ features/phonics-learner/
 | `vowel-blend-listen` / `vowel-blend-write`                                                                    | VowelSyllablePickerActivity(`mode`)         | `vowels, blendConsonants` — 모음 선택 → 자음 음절 만들기/쓰기 (한글4)              |
 | `cvc-pattern-learn`                                                                                           | CvcPatternLearnActivity                     | `cvcPattern: { vowel, consonant, vc }` — 한 활동 안 Phase A→B→C (배우기·단어·쓰기) |
 | `cvc-pattern-write`                                                                                           | `CvcPatternWriteActivity` (2026-07-29 부활) | 패턴마다 `cvc-write-{vc}` 카드                                                     |
+| `word-family-learn`                                                                                           | `WordFamilyLearnActivity` (2026-08-01)      | Book 3·4·5 배우기 — `pattern` 낱말 나란히 + 공통 철자 강조 (Listen and repeat)     |
 | `game-korean-block` / `game-english-block` / `game-word-writing` / `game-connect-dots` / `game-line-matching` | 기존 게임 플레이어                          | `phonics-game-adapter` 가 빌드                                                     |
 
 ## TTS
@@ -317,13 +323,18 @@ features/phonics-learner/
 Book 3(Magic-e 장모음 `_ake`) · Book 4(블렌드·이중자음 `bl_`·`ch`) · Book 5(모음팀·R모음 `ee`·`ar`) 23단원이
 예전엔 「활동 준비 중」(plan 0개)이었다. 🔴 **데이터는 이미 완비돼 있었다** — `phonicsConfig.targetWords` +
 flashcard 그림 + keypoints + `wordFamilies[].words[].ttsUrl`(ABC 나무 카드 연동·TTS 백필 덕분). 그래서
-**새 컴포넌트 없이** 열었다: `makeWordUnitPlan(unit)` = **패턴(word family)마다 배우기+써보기** + 게임 3종.
+`makeWordUnitPlan(unit)` = **패턴(word family)마다 배우기+써보기** + 게임 3종.
 
-- 🔴 **익히기 = 패턴마다 배우기(듣고 고르기)+써보기(낱말 쓰기)**(2026-07-31 사용자 "북2 참고해서 익히기 늘려").
-  Book 2 가 VC 패턴마다 배우기·써보기를 두듯, 커리큘럼 패턴(`_ake`·`bl_`·`ee`)마다 둘씩. 활동에 `pattern` 을
-  달고 호스트가 그 패턴 낱말만 고른다 — `wordMatchesPattern`(`_x`=끝소리/`x_`=첫소리/`x`=포함: `_ake`→bake·cake,
-  `bl_`→black·blade, `ee`→bee·feet). 듣고 고르기·낱말 쓰기(gameData) 둘 다 필터. 작은 패밀리(`-ape`=cape·tape
-  2낱말)는 **2택 퀴즈**로 성립(가드 `<2`). CvcPatternLearn 은 CVC 전용이라 안 쓴다.
+- 🔴 **배우기 = 낱말가족 배우기(`WordFamilyLearnActivity`, 2026-08-01)** — 이퓨처 「Learn: Listen and repeat」
+  대응. 사용자: "`-ake 배우기`가 이게 맞아? book2 `an 배우기` 봐바." → 처음엔 배우기 자리에 **듣고 고르기 퀴즈**
+  (`word-listen-choose`)를 넣었는데, 이퓨처 분석(§1·§4)상 **Learn = Listen and repeat**(패턴+낱말을 보여주며
+  듣는 _가르치기_)이고 **듣고 고르기는 별개 활동**(갭 D, 시험)이다 — 거꾸로였다. 새 컴포넌트는 그 패턴 낱말을
+  나란히 놓고 **공통 철자만 코랄로 강조**(bake·cake — `ake` 강조 / black·blade — `bl` 강조 / feet — `ee` 강조)해
+  눌러 듣는다. 다 들으면 칭찬+완료, 그 뒤 자유놀이. 🔴 Book 2 의 `cvc-pattern-learn` 은 **CVC 전용**(자음+라임)
+  이라 Magic-e·앞 블렌드·모음팀에 안 맞아 못 쓴다(그래서 낱말가족용 새 컴포넌트가 필요했다).
+- 강조 자리 = `patternHighlight(word, pattern)`(`_x`→끝 / `x_`→앞 / `x`→포함 위치, 매칭 안 되면 `[0,0]`).
+  낱말 필터는 `wordMatchesPattern`. 작은 패밀리(`-ape`=cape·tape 2낱말)도 나란히 성립(가드 `<2`).
+- 써보기(`game-word-writing`)는 그대로 그 패턴 낱말만 필터(gameData).
 - ⚠️ 커리큘럼 `patterns` 와 storybook `wordFamilies` 인덱스가 안 맞는다(u06 커리큘럼 2 vs wf 6) → 인덱스가
   아니라 **낱말 매칭**으로 고른다(u06 `_ng` 가 ang/ing/ong 를 다 잡는다).
 - 🔴 **듣고 고르기 = `letters` 없는 분기**(`EnglishPhonicsActivityPage`). Book 1 은 `activity.letters` 로
@@ -559,7 +570,7 @@ Book 1 데이터 정리 (2026-05-21):
 - 🔴 **복습은 게임만 넣는다. 익히기 금지.** 처음엔 「다시 듣기」를 첫 활동으로 뒀는데 그게 학습 단원 듣기와 **같은 컴포넌트·같은 그림**이라 복습 전체가 유닛 축약판으로 보였다(사용자: "너무 심심하다"). 지금은 **형식이 전부 다르다** — 글자 사냥(`letter-hunt`) / 기억해서 맞추기(`review-flip`) / 듣고 고르기(`review-syllable-listen`·`review-word-listen`) / 알아보고 잇기(`review-match`) / 손으로 쓰기(`review-write`).
 - 🔴 **공용 프리미티브 2개 — 새 활동은 이걸 쓴다**(2026-07-29): ①**`hooks/useActivitySound.ts`** = 소리 순서(`say`/`chime`/`rest`/**`sayThenChime`**=소리→쉼→띵동→쉼→다음, `praise:true` 면 띵동 대신 칭찬). ②**`components/ActivityShell.tsx`** = 전체화면+배경+「← 돌아가기」(`headerRight` 슬롯·`scroll`·`background`). 🔴 **규칙을 문서에 적는 것으로는 안 된다** — 「소리 사이 쉼 400~450ms」가 memory RULES 에까지 있었는데 활동 14개 중 **8개만** 지키고 있었다(나머지는 1~3ms 로 붙어 났고, 거기엔 같은 날 내가 쓴 코드도 있었다). 🔴 **본문은 셸이 안 정한다** — 활동마다 gap·정렬이 달라 안쪽까지 묶으면 하나 고칠 때 나머지 12개가 흔들린다. 🔴 **타일 크기·피드백 상태는 일부러 안 묶었다** — 격자가 활동마다 달라 한 공식으로 묶으면 실측해 맞춘 값이 깨지고, 피드백은 훅으로 묶어도 **부르는 걸 잊으면 표시가 없는 건 똑같다**. → memory `phonics-shared-primitives-2026-07-29`
 - 🔴 **Book 1 복습 6종은 전부 「글자」를 거친다**(2026-07-29 사용자: "알파벳 공부가 중요한건 알지?"). 검수해보니 둘이 낱말 활동이라 **알파벳을 안 보고도 통과**할 수 있었다.
-  · **뒤집기** = `letterFace` prop → 카드 앞면이 **글자 쌍(`Cc`)**, 짝은 글자↔그림. 낱말은 그림 칸 **아래 라벨**로 남고 맞히면 낱말을 읽어준다(**과제는 글자, 보상은 낱말**). 🔴 **카드를 뒤집으면 그 글자 소리**를 낸다 — 안 그러면 글자가 주인공인 화면에서 그 소리를 한 번도 안 들려준다(8장 다 뒤집어도 재생 0회였다).
+  · **뒤집기** = `letterFace` prop → 카드 앞면이 **글자 쌍(`Cc`)**, 짝은 글자↔그림. 낱말은 그림 칸 **아래 라벨**로 남고 맞히면 낱말을 읽어준다(**과제는 글자, 보상은 낱말**). 🔴 **맞히기 전엔 무음**(2026-08-02 사용자: "정답 맞추기 전까지는 알파벳 읽어주지마" — 07-29 의 "뒤집으면 글자 소리" 를 뒤집음). 맞혔을 때 나는 "c c cup" 안에 글자 소리가 이미 있어 중복이었다. 소리는 **성공의 보상**으로만.
   · **듣고 단어** = 보기가 글자(`Aa`)뿐, 소리는 낱말 → **낱말 듣고 첫 글자 고르기**.
   · 나머지 넷(사냥·듣고 글자·짝 찾기·글자 쓰기)은 원래 글자 활동.
   🔴 **Book 2 는 그대로** — 거긴 패턴(`_am`)이 **낱말 안**에 있어 글자면으로 바꾸면 틀린 곳을 가리킨다. 분기는 `unitId.startsWith('en-b1')` 로 **호출부**가 정한다(컴포넌트가 추측하지 않는다).

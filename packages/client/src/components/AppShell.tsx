@@ -152,6 +152,13 @@ export function AppShell() {
     await signOut();
   };
 
+  // 사이드바(데스크탑)와 하단 탭바(모바일)가 같은 축 목록을 본다 — 한쪽만 늘어나는 일 방지.
+  const shownAxes = PRIMARY_AXES.filter(
+    (a) => (!a.devOnly || isDevEmail(account?.email)) && (!a.authOnly || !!session)
+  );
+  // 탭바엔 '준비 중'(링크 아님)은 넣지 않는다.
+  const visibleAxes = shownAxes.filter((a) => !a.comingSoon);
+
   const sidebarContent = (
     <>
       {/* 로고 영역 — 사이드바 좌상단. 헤더 height(80px) 와 정렬. */}
@@ -168,9 +175,7 @@ export function AppShell() {
       {/* 아이 zone — 동화책(아이가 매일 만지는 유일한 것) + 파닉스 / 어휘 / 학습 게임 (개발자 전용).
           부모 작업(리포팅·초대·연속재생·설정)은 위계를 정직하게 하려고 하단 부모 영역으로 분리. 2026-07-07. */}
       <nav className="flex-1 min-h-0 overflow-y-auto w-full flex flex-col gap-2.5 items-center pt-5 pb-5">
-        {PRIMARY_AXES.filter(
-          (a) => (!a.devOnly || isDevEmail(account?.email)) && (!a.authOnly || !!session)
-        ).map((axis) => (
+        {shownAxes.map((axis) => (
           <PrimaryNavButton key={axis.to} {...axis} label={t(axis.labelKey)} />
         ))}
       </nav>
@@ -322,29 +327,32 @@ export function AppShell() {
               isLibraryRoot ? 'max-w-[1600px] mx-auto px-3 sm:px-6 md:px-8' : 'px-3 sm:px-7'
             )}
           >
-            {/* 왼쪽: 모바일 햄버거 + 페이지 타이틀 */}
+            {/* 왼쪽: ⚙️ 부모 메뉴(모바일) + 페이지 타이틀 */}
             <div className="flex items-center gap-2 md:gap-3 min-w-0">
+              {/* 🔴 톱니바퀴 = 드로어(부모 작업) 진입. 축 3개는 하단 탭바가 맡으므로 이 버튼은
+                  더 이상 "메뉴 전부"가 아니라 **부모 영역**만 뜻한다 — 아이 엄지가 닿는 아래가
+                  아니라 위 모서리에 두는 이유도 같다(2026-08-01, 예전 ☰ 자리). */}
               <button
                 onClick={() => setDrawerOpen(true)}
-                className="md:hidden w-10 h-10 rounded-full bg-white/90 shadow-soft text-ink-700 flex items-center justify-center flex-shrink-0 pointer-events-auto"
+                className="md:hidden w-10 h-10 rounded-full bg-white/90 shadow-soft text-ink-700 flex items-center justify-center flex-shrink-0"
                 aria-label={t('header.openMenu')}
               >
                 <svg
-                  width="22"
-                  height="22"
+                  width="20"
+                  height="20"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2.5"
+                  strokeWidth="2"
                   strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
-                  <line x1="3" y1="6" x2="21" y2="6" />
-                  <line x1="3" y1="12" x2="21" y2="12" />
-                  <line x1="3" y1="18" x2="21" y2="18" />
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 008.6 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 8.6a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z" />
                 </svg>
               </button>
-              {/* 🔴 모바일 헤더엔 로고를 두지 않는다(2026-07-25) — 375px 에서 햄버거·설치·프로필
-                  칩과 함께 놓기엔 좁다. 로고와 홈 이동은 드로어(☰) 상단에 그대로 있다. */}
+              {/* 🔴 모바일 헤더엔 로고를 두지 않는다(2026-07-25) — 375px 에서 설치·프로필
+                  칩과 함께 놓기엔 좁다. 로고와 홈 이동은 드로어 상단에 그대로 있다. */}
               {/* 라이브러리 루트는 페이지 타이틀이 없다 → 그 자리에 프로모를 얹어
                   헤더 버튼들과 같은 한 줄로 만든다(별도 배너 밴드 제거, 2026-07-25). */}
               {isLibraryRoot && <PromoBanner />}
@@ -389,10 +397,24 @@ export function AppShell() {
           </div>
         </header>
 
-        <main className="flex-1 overflow-auto">
+        {/* 하단 탭바(모바일) 높이만큼 아래 여백 — 마지막 줄이 탭바에 가리지 않게. */}
+        <main className="flex-1 overflow-auto pb-[calc(56px+env(safe-area-inset-bottom))] md:pb-0">
           <Outlet />
         </main>
       </div>
+
+      {/* 드로어가 열리면 탭바는 숨긴다 — 드로어 안에도 같은 축 3개가 있어 한 화면에 두 번
+          나오고, 오버레이(z-40)와 같은 층이라 탭바만 안 어두워져 떠 보인다. */}
+      {!drawerOpen && (
+        <BottomTabBar
+          axes={visibleAxes.map((a) => ({
+            to: a.to,
+            iconSrc: a.iconSrc,
+            label: t(a.labelKey),
+            end: a.end,
+          }))}
+        />
+      )}
 
       {/* 건의하기 모달 — 부모 영역 "건의하기" 버튼에서 호출 */}
       <FeedbackDialog open={feedbackOpen} onClose={() => setFeedbackOpen(false)} />
@@ -445,6 +467,44 @@ const COLOR_IDLE: Record<AxisColor, string> = {
   amber: 'bg-warn/20 text-ink-900 hover:bg-warn/30',
   violet: 'bg-violet-100 text-violet-600 hover:bg-violet-200',
 };
+
+/**
+ * 모바일 하단 탭바 — 축 전환을 한 번에 (2026-08-01).
+ * 🔴 예전엔 축을 바꾸려면 ☰ 를 열어 드로어에서 골라야 했다(두 번). 축이 3개뿐이라 탭바가 맞다.
+ * 🔴 **아래엔 아이 축만 둔다** — 부모 작업(리포팅·초대·설정·건의·로그아웃) 진입은 헤더 좌상단
+ *    ⚙️(`md:hidden`). 아이 엄지가 닿는 자리에 부모 메뉴를 두지 않고, 톱니바퀴 자체가 "여긴 설정"
+ *    이라는 신호라 예전 햄버거보다 뜻이 분명하다.
+ */
+function BottomTabBar({
+  axes,
+}: {
+  axes: { to: string; iconSrc: string; label: string; end: boolean }[];
+}) {
+  const { t } = useTranslation('shell');
+  return (
+    <nav
+      className="md:hidden fixed bottom-0 inset-x-0 z-40 flex items-stretch border-t border-ink-100 bg-cream-50/95 backdrop-blur-sm pb-[env(safe-area-inset-bottom)]"
+      aria-label={t('header.menu')}
+    >
+      {axes.map((a) => (
+        <NavLink
+          key={a.to}
+          to={a.to}
+          end={a.end}
+          className={({ isActive }) =>
+            cn(
+              'flex-1 min-h-[56px] flex flex-col items-center justify-center gap-0.5 py-1.5 font-black transition-colors',
+              isActive ? 'text-coral-600' : 'text-ink-500'
+            )
+          }
+        >
+          <AppIcon src={a.iconSrc} size={26} alt="" />
+          <span className="text-[11px] leading-none break-keep text-center">{a.label}</span>
+        </NavLink>
+      ))}
+    </nav>
+  );
+}
 
 function PrimaryNavButton({
   to,

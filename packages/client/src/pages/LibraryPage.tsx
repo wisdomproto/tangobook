@@ -568,6 +568,9 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
               title={displayCategory(cat)}
               books={books.map(applyGenreCover)}
               headerExtra={cat === '세계 명작' ? genreSelector : undefined}
+              // 🔴 카테고리 키는 R2 데이터 값 그대로(`전래 동화`, 띄어쓰기 포함) — 표시명이
+              // 아니라 원본 키로 비교한다. 이 라인만 표지가 밝은 크림(점눈이 그림체)이라 녹는다.
+              tone={cat === '전래 동화' ? 'paper' : undefined}
               onShowMore={() => {
                 setFilters({ category: cat, reading: false }, { push: true });
                 window.scrollTo({ top: 0, behavior: 'smooth' });

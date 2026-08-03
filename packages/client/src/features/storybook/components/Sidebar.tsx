@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import {
   DndContext,
   DragOverlay,
+  useDraggable,
   useDroppable,
   type DragEndEvent,
   type DragStartEvent,
@@ -10,6 +11,7 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
+import { arrayMove } from '@dnd-kit/sortable';
 import {
   useStorybooks,
   useDeleteStorybook,
@@ -24,7 +26,36 @@ import { SidebarCard } from './SidebarCard';
 import { DeleteConfirmModal } from './DeleteConfirmModal';
 import { CategoryManagerModal } from './CategoryManagerModal';
 import { VocabularyUnitSidebarList } from '@/features/vocabulary-unit';
+import {
+  useLibraryConfig,
+  useUpdateLibraryConfig,
+} from '@/features/library/hooks/useLibraryConfig';
+import { makeCategoryComparator } from '@/features/library/lib/category-order';
 
+/** 카테고리 순서 드래그 손잡이 — 행 자체는 책을 받는 droppable 이라 손잡이만 draggable. */
+function ReorderGrip({ category }: { category: string }) {
+  const { attributes, listeners, setNodeRef } = useDraggable({ id: `cat:${category}` });
+  return (
+    <span
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      onClick={(e) => e.stopPropagation()}
+      className="absolute left-0 top-1/2 -translate-y-1/2 cursor-grab px-1 text-slate-300 hover:text-violet-500 active:cursor-grabbing dark:text-slate-600"
+      title="드래그해서 순서 바꾸기 (라이브러리 노출 순서)"
+    >
+      ⋮⋮
+    </span>
+  );
+}
+
+/**
+ * 사이드바 카테고리 행.
+ * 🔴 예전엔 `Storybook.folder`(자유 텍스트)로 묶었고 라이브러리는 `category` 로 묶어서 두 이름이
+ *    따로 놀았다(실측 407권 중 238권이 불일치 — '완성' 48권처럼 folder 가 작업 상태로 쓰이거나,
+ *    자연관찰 13폴더가 라이브러리 8카테고리로 합쳐지는 식). 2026-08-01 부터 **category 가 정본**이고
+ *    folder 필드는 안 쓴다.
+ */
 function DroppableFolder({
   folderId,
   label,
@@ -34,6 +65,7 @@ function DroppableFolder({
   onClick,
   onDelete,
   onRename,
+  reorderable,
 }: {
   folderId: string;
   label: string;
@@ -43,6 +75,7 @@ function DroppableFolder({
   onClick: () => void;
   onDelete?: () => void;
   onRename?: (newName: string) => void;
+  reorderable?: boolean;
 }) {
   const { setNodeRef, isOver: dropping } = useDroppable({ id: `folder:${folderId}` });
   const highlighted = isOver || dropping;
@@ -107,7 +140,7 @@ function DroppableFolder({
       ) : (
         <button
           onClick={onClick}
-          className={`w-full text-left px-2 py-1 rounded text-xs flex items-center gap-1.5 transition-colors ${
+          className={`w-full text-left ${reorderable ? 'pl-5 pr-2' : 'px-2'} py-1 rounded text-xs flex items-center gap-1.5 transition-colors ${
             highlighted
               ? 'bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 ring-2 ring-violet-400'
               : isActive
@@ -132,6 +165,7 @@ function DroppableFolder({
           <span className="ml-auto text-[10px] text-slate-400 dark:text-slate-500">{count}</span>
         </button>
       )}
+      {!editing && reorderable && <ReorderGrip category={label} />}
       {!editing && hovered && (onRename || onDelete) && (
         <div className="absolute right-1 top-1/2 -translate-y-1/2 flex items-center gap-0.5">
           {onRename && (
@@ -229,6 +263,8 @@ export function Sidebar() {
   const [newFolderName, setNewFolderName] = useState('');
   const [draggingId, setDraggingId] = useState<string | null>(null);
   const [showCategoryManager, setShowCategoryManager] = useState(false);
+  const { data: libConfig } = useLibraryConfig();
+  const updateLibConfig = useUpdateLibraryConfig();
 
   // 타입별 카테고리 목록 (사용자 정의 가능)
   const categories = useMemo(() => {
@@ -254,25 +290,30 @@ export function Sidebar() {
     return [];
   }, [storybooks, typeFilter]);
 
-  // Extract unique folders from type-filtered storybooks + custom folders
-  const folders = useMemo(() => {
-    const set = new Set<string>();
-    typeFiltered.forEach((s) => {
-      if (s.folder) set.add(s.folder);
-    });
-    customFolders.forEach((f) => set.add(f));
-    return Array.from(set).sort((a, b) => a.localeCompare(b, 'ko'));
-  }, [typeFiltered, customFolders]);
-
-  // Folder counts (scoped to active type)
-  const folderCounts = useMemo(() => {
+  // 카테고리 권수 (활성 타입 탭 기준)
+  const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {};
     typeFiltered.forEach((s) => {
-      const f = s.folder || '';
-      counts[f] = (counts[f] || 0) + 1;
+      const c = s.category || '';
+      counts[c] = (counts[c] || 0) + 1;
     });
     return counts;
   }, [typeFiltered]);
+
+  // 폴더 = 라이브러리 카테고리(정본). 이름·순서 모두 학습자 화면과 같은 것을 본다.
+  const folders = useMemo(() => {
+    const set = new Set<string>();
+    typeFiltered.forEach((s) => {
+      if (s.category) set.add(s.category);
+    });
+    customFolders.forEach((f) => set.add(f));
+    // 🔴 정렬은 가나다순이 아니라 R2 categoryOrder — 라이브러리에 보이는 순서 그대로 저작한다.
+    //    order 에 없는 카테고리는 권수 desc(comparator 폴백)로 뒤에 붙는다.
+    const cmp = makeCategoryComparator(libConfig?.categoryOrder);
+    return Array.from(set).sort((a, b) =>
+      cmp(a, b, categoryCounts[a] ?? 0, categoryCounts[b] ?? 0)
+    );
+  }, [typeFiltered, customFolders, libConfig?.categoryOrder, categoryCounts]);
 
   // /editor2 mode — variant 카운트 (base id → 자식 variant 개수)
   const variantCountByBaseId = useMemo(() => {
@@ -296,9 +337,9 @@ export function Sidebar() {
     // Folder filter
     if (folder !== 'all') {
       if (folder === '__none__') {
-        list = list.filter((s) => !s.folder);
+        list = list.filter((s) => !s.category);
       } else {
-        list = list.filter((s) => s.folder === folder);
+        list = list.filter((s) => s.category === folder);
       }
     }
 
@@ -379,6 +420,11 @@ export function Sidebar() {
     setDraggingId(event.active.id as string);
   };
 
+  /** 카테고리 순서 저장 — 적용 버튼 없이 즉시 R2 반영(사용자 결정, 2026-08-01). */
+  const saveCategoryOrder = (next: string[]) => {
+    updateLibConfig.mutate({ ...(libConfig ?? {}), categoryOrder: next });
+  };
+
   const handleDragEnd = (event: DragEndEvent) => {
     setDraggingId(null);
     const { active, over } = event;
@@ -386,29 +432,48 @@ export function Sidebar() {
 
     const overId = over.id as string;
     if (!overId.startsWith('folder:')) return;
-
     const targetFolder = overId.replace('folder:', '');
-    // "전체"에 드롭하면 무시
-    if (targetFolder === 'all') return;
 
-    const storybookId = active.id as string;
+    // ① 카테고리 손잡이(⋮⋮) 드래그 = 순서 바꾸기. 행 자체는 책을 받는 droppable 이라
+    //    같은 `folder:` 타깃을 재사용한다(별도 SortableContext 불필요).
+    const activeId = active.id as string;
+    if (activeId.startsWith('cat:')) {
+      const from = activeId.slice(4);
+      if (targetFolder === 'all' || targetFolder === '__none__' || targetFolder === from) return;
+      // 화면에 보이는 순서(folders)를 옮긴 뒤, 저장된 전체 order 에 그 결과를 반영한다.
+      // ⚠️ folders 는 활성 탭의 카테고리만이라 다른 탭 카테고리를 지우면 안 된다 → 병합.
+      const oldIdx = folders.indexOf(from);
+      const newIdx = folders.indexOf(targetFolder);
+      if (oldIdx === -1 || newIdx === -1) return;
+      const moved = arrayMove(folders, oldIdx, newIdx);
+      const stored = libConfig?.categoryOrder ?? [];
+      const untouched = stored.filter((c) => !folders.includes(c));
+      saveCategoryOrder([...moved, ...untouched]);
+      return;
+    }
+
+    // ② 책 드래그 = 카테고리 이동
+    if (targetFolder === 'all') return;
+    const storybookId = activeId;
     const sb = storybooks?.find((s) => s.id === storybookId);
     if (!sb) return;
 
-    // "__none__" → remove folder, else set folder
-    const newFolder = targetFolder === '__none__' ? undefined : targetFolder;
-    if (sb.folder === newFolder || (!sb.folder && !newFolder)) return;
+    const newCategory = targetFolder === '__none__' ? undefined : targetFolder;
+    if (sb.category === newCategory || (!sb.category && !newCategory)) return;
 
-    patchMutation.mutate({ id: storybookId, patch: { folder: newFolder } });
+    patchMutation.mutate({ id: storybookId, patch: { category: newCategory } });
   };
 
   const handleDeleteFolder = (folderName: string) => {
-    // 해당 폴더의 모든 동화책을 미분류로 변경
-    const inFolder = storybooks?.filter((s) => s.folder === folderName) ?? [];
-    inFolder.forEach((s) => {
-      patchMutation.mutate({ id: s.id, patch: { folder: undefined } });
-    });
+    const inFolder = storybooks?.filter((s) => s.category === folderName) ?? [];
+    // 🔴 라이브러리 노출 카테고리라 책이 든 채로 지우면 학습자 화면에서 섹션이 통째로 사라진다.
+    //    비운 뒤에만 지운다(= /library-master 의 deleteCategory 와 같은 규칙).
+    if (inFolder.length > 0) {
+      alert(`'${folderName}' 에 책 ${inFolder.length}권이 있어요. 비워야 삭제할 수 있어요.`);
+      return;
+    }
     removeCustomFolder(folderName);
+    saveCategoryOrder((libConfig?.categoryOrder ?? []).filter((c) => c !== folderName));
     if (folder === folderName) setFolder('all');
   };
 
@@ -416,13 +481,18 @@ export function Sidebar() {
     const trimmed = newName.trim();
     if (!trimmed || trimmed === oldName) return;
     if (folders.includes(trimmed)) {
-      alert('이미 같은 이름의 폴더가 있어요.');
+      alert('이미 같은 이름의 카테고리가 있어요.');
       return;
     }
-    // 해당 폴더의 모든 동화책 folder 필드 일괄 변경 (R2 저장)
-    const inFolder = storybooks?.filter((s) => s.folder === oldName) ?? [];
+    // 해당 카테고리의 모든 책 category 일괄 변경 (R2 저장) + 순서 목록의 이름도 함께
+    updateLibConfig.mutate({
+      ...(libConfig ?? {}),
+      categoryOrder: (libConfig?.categoryOrder ?? []).map((c) => (c === oldName ? trimmed : c)),
+      categoryList: (libConfig?.categoryList ?? []).map((c) => (c === oldName ? trimmed : c)),
+    });
+    const inFolder = storybooks?.filter((s) => s.category === oldName) ?? [];
     inFolder.forEach((s) => {
-      patchMutation.mutate({ id: s.id, patch: { folder: trimmed } });
+      patchMutation.mutate({ id: s.id, patch: { category: trimmed } });
     });
     // 사용자 정의 폴더 + 활성 폴더 동기화
     renameCustomFolder(oldName, trimmed);
@@ -580,17 +650,20 @@ export function Sidebar() {
               </div>
             </div>
 
-            {/* 폴더 */}
+            {/* 카테고리 = 라이브러리 노출 단위(정본). 순서는 ⋮⋮ 드래그 → R2 즉시 저장. */}
             <div className="px-3 pb-2">
               <div className="flex items-center justify-between mb-1">
-                <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">
-                  폴더
+                <span
+                  className="text-[11px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide"
+                  title="라이브러리(학습자 화면)에 보이는 카테고리와 같은 것입니다. ⋮⋮ 를 끌면 노출 순서가 바뀝니다."
+                >
+                  카테고리
                 </span>
                 <button
                   onClick={() => setShowNewFolder(!showNewFolder)}
                   className="text-[11px] text-violet-500 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 font-medium"
                 >
-                  + 새 폴더
+                  + 새 카테고리
                 </button>
               </div>
               {showNewFolder && (
@@ -601,7 +674,7 @@ export function Sidebar() {
                     onKeyDown={(e) =>
                       e.key === 'Enter' && !e.nativeEvent.isComposing && handleCreateFolder()
                     }
-                    placeholder="폴더 이름"
+                    placeholder="카테고리 이름"
                     className="flex-1 px-2 py-1 text-xs border border-slate-200 rounded focus:ring-1 focus:ring-violet-500 outline-none dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
                     autoFocus
                   />
@@ -628,19 +701,20 @@ export function Sidebar() {
                     key={f}
                     folderId={f}
                     label={f}
-                    count={folderCounts[f] ?? 0}
+                    count={categoryCounts[f] ?? 0}
                     isActive={folder === f}
                     isOver={false}
+                    reorderable
                     onClick={() => setFolder(f)}
                     onDelete={() => handleDeleteFolder(f)}
                     onRename={(newName) => handleRenameFolder(f, newName)}
                   />
                 ))}
-                {(folderCounts[''] ?? 0) > 0 && (
+                {(categoryCounts[''] ?? 0) > 0 && (
                   <DroppableFolder
                     folderId="__none__"
                     label="미분류"
-                    count={folderCounts[''] ?? 0}
+                    count={categoryCounts[''] ?? 0}
                     isActive={folder === '__none__'}
                     isOver={false}
                     onClick={() => setFolder('__none__')}

@@ -6,6 +6,8 @@ import {
   getEnglishActivityPlan,
   getEnglishUnit,
   wordMatchesPattern,
+  patternLabel,
+  patternHighlight,
 } from '../lib/english-phonics-units';
 import { shuffleReviewCards } from '../lib/korean-phonics-units';
 import type { ActivityDef } from '../lib/korean-phonics-units';
@@ -15,6 +17,7 @@ import { CvcPatternWriteActivity } from '../activities/CvcPatternWriteActivity';
 import { AlphabetLetterLearnActivity } from '../activities/AlphabetLetterLearnActivity';
 import { AlphabetLetterWriteActivity } from '../activities/AlphabetLetterWriteActivity';
 import { WordListenChooseActivity } from '../activities/WordListenChooseActivity';
+import { WordFamilyLearnActivity } from '../activities/WordFamilyLearnActivity';
 import { VowelListenActivity } from '../activities/VowelListenActivity';
 import { ReviewWriteActivity } from '../activities/ReviewWriteActivity';
 import { LetterHuntActivity } from '../activities/LetterHuntActivity';
@@ -154,6 +157,44 @@ export default function EnglishPhonicsActivityPage() {
           ← 단원으로
         </Link>
       </div>
+    );
+  }
+
+  // 🔤 낱말가족 배우기 (Book 3·4·5) — 그 패턴 낱말들을 나란히 놓고 공통 철자를 강조해 듣는다.
+  //    이퓨처 「Learn: Listen and repeat」 대응 — Book 2 의 cvc-pattern-learn 이 CVC 전용이라 못 쓴다.
+  if (activity.kind === 'word-family-learn' && activity.pattern) {
+    const sb = storybookQuery.data as Storybook | undefined;
+    if (storybookQuery.isLoading || !sb) {
+      return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
+    }
+    const pattern = activity.pattern;
+    const seen = new Set<string>();
+    const words = (sb.phonicsLesson?.wordFamilies ?? [])
+      .flatMap((f) => f.words ?? [])
+      .filter((w) => !!w.word && wordMatchesPattern(w.word, pattern))
+      .filter((w) => !seen.has(w.word) && !!seen.add(w.word))
+      .map((w) => {
+        const img = findImageData(sb, w.word);
+        return {
+          word: w.word,
+          ...(img.imageUrl ? { imageUrl: img.imageUrl } : {}),
+          ...(w.ttsUrl ? { ttsUrl: w.ttsUrl } : {}),
+        };
+      });
+    if (words.length < 2) {
+      return (
+        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 부족해요" />
+      );
+    }
+    return (
+      <WordFamilyLearnActivity
+        unitId={unitId}
+        patternLabel={patternLabel(pattern)}
+        highlightOf={(word) => patternHighlight(word, pattern)}
+        words={words}
+        onMarkComplete={handleMarkComplete}
+        onBack={backToUnit}
+      />
     );
   }
 
@@ -378,6 +419,8 @@ export default function EnglishPhonicsActivityPage() {
             word: s.letter,
             imageUrl: s.imageUrl,
             imageLabel: s.word,
+            // 🔴 맞히면 "b b bag" 저작 녹음을 읽는다 — 없으면 LineMatchingPlayer 가 글자 소리로 폴백.
+            ...(s.ttsUrl ? { ttsUrl: s.ttsUrl } : {}),
           })),
         }}
       />
@@ -399,6 +442,33 @@ export default function EnglishPhonicsActivityPage() {
     );
   }
   if (activity.kind === 'review-write' && reviewCards.length) {
+    /**
+     * 🔴 Book 1 은 **글자(C)를 쓰지만 소리는 낱말 "c c cat"** — reviewSources 로 대표 낱말·저작 녹음을
+     *    얻어 쓰기 대상(letter)과 소리(word/ttsUrl)를 분리한다. 다른 권은 기존대로 글자/패턴을 읽는다.
+     */
+    if (isBook1) {
+      if (reviewLoading) {
+        return (
+          <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />
+        );
+      }
+      return (
+        <ReviewWriteActivity
+          unitId={unitId}
+          language="english"
+          // 🔴 글자(C)를 쓰되 소리는 낱말("c c cat"), 그림은 다 쓴 뒤에 연다(imageUrl 유지 + reveal 모드).
+          revealImageOnComplete
+          sources={reviewSources.map((s) => ({
+            ...s,
+            word: s.letter,
+            ...(s.word ? { soundWord: s.word } : {}),
+            ...(s.ttsUrl ? { soundUrl: s.ttsUrl } : {}),
+          }))}
+          onComplete={handleComplete}
+          onBack={backToUnit}
+        />
+      );
+    }
     return (
       <ReviewWriteActivity
         unitId={unitId}

@@ -5,7 +5,7 @@
  * R2 storybook ID 는 `en-bN-uMM` 형식 (zero-pad).
  *
  * 활동 plan = **Book 1~5 전 권**(2026-07-31). Book 1=알파벳 / Book 2=CVC 「배우기」·「써보기」/패턴 /
- *   Book 3~5=**패턴(`_ake`·`bl_`·`ee`)마다 배우기(듣고 고르기)+써보기(낱말 쓰기)** + 게임 3종. 복습은 전 권.
+ *   Book 3~5=**패턴(`_ake`·`bl_`·`ee`)마다 낱말가족 배우기(Listen and repeat)+써보기(낱말 쓰기)** + 게임 3종. 복습은 전 권.
  * 데이터(단어 그림·keypoints·wordFamilies TTS)는 Book 3~5 도 완비 — ABC 나무 카드 연동 + TTS 백필 덕분.
  */
 import { ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
@@ -319,17 +319,34 @@ export function wordMatchesPattern(word: string, pattern: string): boolean {
 }
 
 /**
+ * 낱말 안에서 **공통 철자 패턴이 앉는 자리** `[start, end)` — 배우기에서 그 글자만 코랄로 강조한다.
+ * `_ake`→끝(bake 의 1~4) · `bl_`→앞(black 의 0~2) · `ee`→처음 나오는 위치(feet 의 1~3).
+ * 매칭이 안 되면 `[0, 0]`(강조 없음).
+ */
+export function patternHighlight(word: string, pattern: string): [number, number] {
+  const core = pattern.replace(/_/g, '').toLowerCase();
+  const w = word.toLowerCase();
+  if (!core) return [0, 0];
+  if (pattern.startsWith('_'))
+    return w.endsWith(core) ? [w.length - core.length, w.length] : [0, 0];
+  if (pattern.endsWith('_')) return w.startsWith(core) ? [0, core.length] : [0, 0];
+  const i = w.indexOf(core);
+  return i >= 0 ? [i, i + core.length] : [0, 0];
+}
+
+/**
  * 🔴 **Book 3·4·5 익히기 = 패턴마다 배우기 + 써보기**(2026-07-31 사용자 "북2 참고해서 익히기 늘려").
  *    Book 2 가 VC 패턴마다 `배우기`+`써보기` 를 두듯, 여기도 커리큘럼 패턴(`_ake`·`bl_`·`ee`)마다
- *    **듣고 고르기(배우기) + 낱말 쓰기(써보기)** — 둘 다 `pattern` 을 달고 호스트가 그 패턴 낱말만 고른다.
- *    나머지(블록·낱말그리기·그림짝)는 단원 전체 게임.
+ *    **낱말가족 배우기(`word-family-learn`, Listen and repeat) + 낱말 쓰기(써보기)** — 둘 다 `pattern` 을
+ *    달고 호스트가 그 패턴 낱말만 고른다. 배우기는 처음엔 듣고 고르기 퀴즈였으나 이퓨처 §4(Learn=
+ *    Listen and repeat) 대로 교정(2026-08-01, `WordFamilyLearnActivity`). 나머지 게임은 단원 전체.
  */
 function makeWordUnitPlan(unit: EnglishUnitSummary): ActivityPlan {
   const activities: ActivityDef[] = [];
   let order = 1;
   for (const p of unit.patterns) {
     const label = patternLabel(p);
-    activities.push({ key: `learn-${p}`, order: order++, kind: 'word-listen-choose', section: 'learn', title: `${label} 배우기`, emoji: '🔊', required: true, pattern: p }); // prettier-ignore
+    activities.push({ key: `learn-${p}`, order: order++, kind: 'word-family-learn', section: 'learn', title: `${label} 배우기`, emoji: '🔊', required: true, pattern: p }); // prettier-ignore
     activities.push({ key: `write-${p}`, order: order++, kind: 'game-word-writing', section: 'learn', title: `${label} 써보기`, emoji: '🖍️', required: false, pattern: p }); // prettier-ignore
   }
   activities.push(

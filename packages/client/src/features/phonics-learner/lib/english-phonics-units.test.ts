@@ -1,5 +1,19 @@
 import { describe, it, expect } from 'vitest';
-import { getAllEnglishUnits, getEnglishActivityPlan } from './english-phonics-units';
+import {
+  getAllEnglishUnits,
+  getEnglishActivityPlan,
+  patternHighlight,
+} from './english-phonics-units';
+
+describe('patternHighlight — 낱말 안 공통 철자 자리', () => {
+  it('끝소리 `_ake` 는 뒤를, 앞소리 `bl_` 는 앞을, 포함 `ee` 는 나온 위치를 잡는다', () => {
+    expect('bake'.slice(...patternHighlight('bake', '_ake'))).toBe('ake');
+    expect('black'.slice(...patternHighlight('black', 'bl_'))).toBe('bl');
+    expect('feet'.slice(...patternHighlight('feet', 'ee'))).toBe('ee');
+    // 매칭 안 되면 강조 없음.
+    expect(patternHighlight('dog', '_ake')).toEqual([0, 0]);
+  });
+});
 
 /**
  * 영어 파닉스 단원·복습 가드.
@@ -37,11 +51,11 @@ describe('english phonics units', () => {
       const acts = getEnglishActivityPlan(u.id).activities;
       const learn = acts.filter((a) => a.section === 'learn');
       const play = acts.filter((a) => a.section === 'play');
-      // 익히기 = 패턴마다 (듣고 고르기 배우기, 낱말 쓰기 써보기) — Book 2 와 같은 모양
+      // 익히기 = 패턴마다 (낱말가족 배우기, 낱말 쓰기 써보기) — Book 2 와 같은 모양
       expect(u.patterns.length).toBeGreaterThan(0);
       expect(learn).toHaveLength(u.patterns.length * 2);
       for (let i = 0; i < u.patterns.length; i++) {
-        expect(learn[i * 2].kind).toBe('word-listen-choose');
+        expect(learn[i * 2].kind).toBe('word-family-learn');
         expect(learn[i * 2].pattern).toBe(u.patterns[i]);
         expect(learn[i * 2 + 1].kind).toBe('game-word-writing');
         expect(learn[i * 2 + 1].pattern).toBe(u.patterns[i]);

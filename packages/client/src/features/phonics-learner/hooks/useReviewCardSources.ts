@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useQueries } from '@tanstack/react-query';
 import { decomposeHangul, type Storybook } from '@tangobook/shared';
 import { storybookApi } from '@/features/storybook/api/storybook.api';
+import { wordFamilyTts } from '../lib/phonics-game-adapter';
 import type { ReviewCard } from '../lib/korean-phonics-units';
 
 export interface ReviewCardSource extends ReviewCard {
@@ -9,6 +10,12 @@ export interface ReviewCardSource extends ReviewCard {
   word: string;
   /** 대표 단어 그림 (없으면 빈 문자열) */
   imageUrl: string;
+  /**
+   * 대표 단어의 **저작 녹음**(`wordFamilies[].words[].ttsUrl`) — 영어 Book 1 은 "c c cat" 형식이다.
+   * 🔴 복습이 성공(맞춤·완성)했을 때 이걸 읽어 **글자 글자 낱말**로 통일한다(뒤집기·그림짝·쓰기).
+   *    없으면(한글 등) undefined → 호출부가 낱말 텍스트를 concat 으로 읽는 기존 동작.
+   */
+  ttsUrl?: string;
 }
 
 /** 단어의 각 음절에서 그 자리(초/중/종) 글자를 뽑는다. */
@@ -107,7 +114,10 @@ export function useReviewCardSources(cards: ReadonlyArray<ReviewCard>): {
       cards.map((c, i) => {
         const sb = results[i]?.data as Storybook | undefined;
         const otherLetters = cards.filter((o) => o.unitId !== c.unitId).map((o) => o.letter);
-        return { ...c, ...pickWord(sb, c, otherLetters) };
+        const picked = pickWord(sb, c, otherLetters);
+        // 🔴 대표 낱말의 저작 녹음("c c cat") — 복습 성공음을 Book 1 「a a apple」 형식으로 통일한다.
+        const ttsUrl = sb && picked.word ? wordFamilyTts(sb, picked.word) : undefined;
+        return { ...c, ...picked, ...(ttsUrl ? { ttsUrl } : {}) };
       }),
     // 🔴 `results` 를 의존성에 넣으면 안 된다 — 매 렌더 새 배열이라 sources 가 계속 새로 만들어지고,
     //    이 배열을 prop 으로 받는 활동의 프리워밍 effect 가 끝없이 다시 돈다.

@@ -80,15 +80,22 @@ beforeEach(() => {
   vi.clearAllMocks();
 });
 
-/** 헤더 토글. 🔴 기본이 **펼침**이라(2026-07-27) 이걸 부르면 접힌다 — 내용 검증엔 부를 필요가 없다. */
+/** 헤더 토글. 🔴 기본이 **접힘**이라(2026-08-01) 내용 검증 전엔 이걸 한 번 불러 펼쳐야 한다. */
 function toggleSection() {
   fireEvent.click(screen.getByRole('button', { name: /묶어 보기/ }));
+}
+
+/** 내용(카드)을 보는 테스트용 — 렌더 후 펼친 상태. */
+function renderExpanded() {
+  const r = renderSection();
+  toggleSection();
+  return r;
 }
 
 describe('PlaylistLibrarySection', () => {
   it('게스트에게도 카테고리 묶음이 보인다', () => {
     mockAuth.account = null;
-    renderSection();
+    renderExpanded();
     expect(screen.getByText(/묶어 보기/)).toBeInTheDocument();
     expect(screen.getByText('공룡 친구들')).toBeInTheDocument();
     expect(screen.getByText('식물 친구들')).toBeInTheDocument();
@@ -102,35 +109,36 @@ describe('PlaylistLibrarySection', () => {
   });
 
   it('로그인 사용자도 같은 묶음을 본다', () => {
-    renderSection();
+    renderExpanded();
     expect(screen.getByText('공룡 친구들')).toBeInTheDocument();
     expect(screen.getByText('식물 친구들')).toBeInTheDocument();
   });
 
-  // 🔴 묶음이 3권이던 시절엔 접혀 있었다. 카테고리 통째가 되면서 첫 화면에 보일 값이 생겼다.
-  it('기본이 펼침이다 (묶음이 바로 보인다)', () => {
+  // 🔴 세 번째 뒤집힘(2026-08-01): 접힘 → 07-27 펼침 → 접힘. 이번 근거는 묶음의 값어치가 아니라
+  //    첫 화면 자리 — 375px 세로에서 펼친 박스가 313px(접힘선 위 41%)를 먹었다.
+  it('기본이 접힘이다 (헤더만 보인다)', () => {
     renderSection();
     expect(screen.getByText(/묶어 보기/)).toBeInTheDocument();
-    expect(screen.getByText('공룡 친구들')).toBeInTheDocument();
+    expect(screen.queryByText('공룡 친구들')).toBeNull();
   });
 
-  it('헤더를 누르면 접히고, 다시 누르면 펼쳐진다', () => {
+  it('헤더를 누르면 펼쳐지고, 다시 누르면 접힌다', () => {
     renderSection();
     toggleSection();
-    expect(screen.queryByText('공룡 친구들')).toBeNull();
-    toggleSection();
     expect(screen.getByText('공룡 친구들')).toBeInTheDocument();
+    toggleSection();
+    expect(screen.queryByText('공룡 친구들')).toBeNull();
   });
 
   it('로그인 + 내 세트 0개 → 묶음과 "이어재생 만들기" CTA 가 함께 보인다', () => {
     mockPlaylists.data = [];
-    renderSection();
+    renderExpanded();
     expect(screen.getByText('공룡 친구들')).toBeInTheDocument();
     expect(screen.getByText('이어재생 만들기')).toBeInTheDocument();
   });
 
   it('만들기 카드는 행 맨 앞(묶음보다 앞)에 온다', () => {
-    renderSection();
+    renderExpanded();
     const create = screen.getByText('이어재생 만들기');
     const bundle = screen.getByText('공룡 친구들');
     // DOCUMENT_POSITION_FOLLOWING(4) = bundle 이 create 뒤에 있다
@@ -141,7 +149,7 @@ describe('PlaylistLibrarySection', () => {
     mockPlaylists.data = [
       { id: 'x1', name: '밤 동화 세트', bookIds: ['d1', 'd2'], language: 'ko' },
     ];
-    renderSection();
+    renderExpanded();
     expect(screen.getByText('공룡 친구들')).toBeInTheDocument();
     expect(screen.getByText('밤 동화 세트')).toBeInTheDocument();
     // 별도 "내가 만든 세트" 소제목 행은 사라졌다
@@ -150,12 +158,12 @@ describe('PlaylistLibrarySection', () => {
 
   it('묶음 카드에는 삭제 버튼이 없다(저장된 세트가 아니므로)', () => {
     mockPlaylists.data = [];
-    renderSection();
+    renderExpanded();
     expect(screen.queryByLabelText('공룡 친구들 세트 삭제')).toBeNull();
   });
 
   it('묶음 수정 → 책 목록을 실은 빌더로 이동한다', () => {
-    renderSection();
+    renderExpanded();
     fireEvent.click(screen.getByLabelText('공룡 친구들 세트 편집'));
     expect(mockNavigate).toHaveBeenCalledWith(
       expect.stringContaining('/continuous/new?books=d1%2Cd2%2Cd3')

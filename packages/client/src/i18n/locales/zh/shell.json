@@ -36,6 +36,7 @@
     "parentMode": "家长模式"
   },
   "header": {
+    "menu": "菜单",
     "openMenu": "打开菜单",
     "closeMenu": "关闭菜单",
     "switchChild": "{{name}} — 切换孩子",
