@@ -7,6 +7,7 @@ import { useActivitySound } from '../hooks/useActivitySound';
 import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
+import { resolveTtsUrl } from '@/features/tts';
 import {
   patternLabel as makePatternLabel,
   patternHighlightRanges,
@@ -61,7 +62,7 @@ function Highlighted({
 export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete, onBack }: Props) {
   const label = makePatternLabel(pattern);
   const labelRanges = patternHighlightRanges(label, pattern);
-  const { say, rest, playCorrectSequence, praiseVisible, playAudio } = useActivitySound({
+  const { say, rest, chime, playCorrectSequence, praiseVisible, playAudio } = useActivitySound({
     unitId,
     language: 'english',
     prefix: 'en-family',
@@ -146,6 +147,35 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   const writeWord = words[writeIdx];
   const writeLetters = useMemo(() => (writeWord ? [...writeWord.word] : []), [writeWord]);
 
+  // 🔴 한 글자 쓸 때마다 **지금까지 이어읽기**(f → fl → fla) — 사용자: "쓸 때마다 안 읽어줘?".
+  //    마지막 글자는 handleWriteComplete 가 낱말 전체를 읽으므로 여기서 건너뛴다(소리 겹침 방지).
+  const handleWriteLetter = useCallback(
+    (letter: string, index: number) => {
+      if (writeDoneRef.current || index + 1 >= writeLetters.length) return;
+      void (async () => {
+        const blend = writeLetters.slice(0, index + 1).join('');
+        const url =
+          (await resolveTtsUrl({
+            text: blend,
+            language: 'english',
+            storybookId: unitId,
+            identifierPrefix: 'en-family',
+          })) ??
+          (await resolveTtsUrl({
+            text: letter,
+            language: 'english',
+            storybookId: unitId,
+            identifierPrefix: 'en-family',
+          }));
+        // 띵동 먼저, 끝나면 이어읽기(한 채널이라 동시에 내면 앞소리가 잘린다).
+        chime(() => {
+          if (url) playAudio(url);
+        });
+      })();
+    },
+    [writeLetters, unitId, chime, playAudio]
+  );
+
   const handleWriteComplete = useCallback(() => {
     if (writeDoneRef.current) return;
     writeDoneRef.current = true;
@@ -219,6 +249,7 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
                 key={writeIdx}
                 word={writeWord.word}
                 syllables={writeLetters}
+                onSyllableDone={handleWriteLetter}
                 onComplete={handleWriteComplete}
               />
             </div>
