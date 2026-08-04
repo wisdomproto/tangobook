@@ -462,12 +462,23 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
                     tone="right"
                     wide
                   />
+                  {/* 🔴 그림은 **행을 다 누른 뒤에** 나온다(사용자: "c an can 다 누르면 그때 캔 이미지").
+                      자리는 미리 잡아(빈 슬롯) 완성 전후로 칸 정렬이 흔들리지 않게 한다. */}
                   {cw.imageUrl && (
-                    <img
-                      src={cw.imageUrl}
-                      alt={cw.word}
-                      className="w-[clamp(3.5rem,11vh,6rem)] h-[clamp(3.5rem,11vh,6rem)] object-cover rounded-2xl border-[4px] border-white shadow-pop"
-                    />
+                    <div className="w-[clamp(3.5rem,11vh,6rem)] h-[clamp(3.5rem,11vh,6rem)] shrink-0">
+                      {phaseBPressed.has(`${r}-0`) &&
+                        phaseBPressed.has(`${r}-1`) &&
+                        phaseBPressed.has(`${r}-2`) && (
+                          <motion.img
+                            initial={{ scale: 0, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+                            src={cw.imageUrl}
+                            alt={cw.word}
+                            className="w-full h-full object-cover rounded-2xl border-[4px] border-white shadow-pop"
+                          />
+                        )}
+                    </div>
                   )}
                 </div>
               ))
