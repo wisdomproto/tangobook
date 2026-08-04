@@ -3,10 +3,23 @@ import { useState } from 'react';
 /**
  * `/marketing/landings` — 광고 랜딩(상세페이지) 관리.
  *
- * 🔴 랜딩 자체를 이 셸 안에 그리지 않는다. 마케팅 셸은 다크 지원 운영 대시보드이고
- *    랜딩은 cream 고정에 자체 헤더·푸터·하단 고정 CTA 를 갖는 **독립 문서**다.
- *    같은 트리에 넣으면 배경·폰트·스크롤이 서로를 밟는다 → **iframe 으로 미리보기**만 한다.
- *    (광고 도착지는 어차피 공개 URL 이라 그 URL 을 그대로 띄우는 게 실제와 가장 가깝다.)
+ * 🔴 **랜딩을 이 화면에 미리보기로 띄우지 않는다 — iframe 도 안 된다**(2026-08-02 실측).
+ *    iframe 으로 `/hangul` 을 띄우면 그건 **같은 앱의 두 번째 인스턴스**다. 두 인스턴스가
+ *    같은 Supabase 인증 저장소를 공유해 토큰 갱신이 서로를 건드리고, 그때마다 마케팅 셸의
+ *    인증 가드가 다시 마운트되고 → iframe 이 새로 만들어져 앱이 또 부팅되고 → 무한 루프.
+ *    프로덕션 실측: **iframe 이 15초에 60번 다시 로드**(초당 4번), 셸 전체가 초당 두 번 교체.
+ *    화면이 계속 깜빡이는 걸로 보였다. 인증 말고도 BGM·오디오·서비스워커가 전부 두 벌이 된다.
+ *    → **새 탭으로 연다.** 광고 도착지는 어차피 공개 URL 이고, 진짜 조건에서 봐야 맞다.
+ *
+ * ## 새 랜딩을 추가하는 법
+ *
+ * 1. 랜딩 페이지를 만들고(`pages/…LandingPage.tsx`) 라우터에 공개 경로로 등록한다.
+ * 2. 아래 `LANDINGS` 에 항목 하나를 추가한다 — **그게 전부다.** 둘 이상이 되면 상단에
+ *    슬러그 칩이 저절로 뜨고 전환된다(하나뿐일 땐 칩을 숨긴다).
+ * 3. `keywords` 는 눈대중으로 적지 말고 실측한다:
+ *    `npx tsx packages/server/scripts/naver-volume.ts 키워드1 키워드2 …`
+ * 4. `notes` 에는 **결정과 그 근거**를 쓴다. 광고를 돌리는 사람이 소재를 맞추려면
+ *    「무료를 안 썼다」가 아니라 「검색량이 180이라 안 썼다」를 알아야 한다.
  */
 
 interface Landing {
@@ -67,7 +80,6 @@ function CopyButton({ text, label }: { text: string; label: string }) {
 }
 
 export function LandingsPage() {
-  const [device, setDevice] = useState<'mobile' | 'desktop'>('mobile');
   const [active, setActive] = useState(LANDINGS[0].slug);
   const landing = LANDINGS.find((l) => l.slug === active) ?? LANDINGS[0];
   const url = `${SITE}${landing.slug}`;
@@ -80,19 +92,6 @@ export function LandingsPage() {
           <p className="mt-0.5 text-xs text-muted-foreground break-keep">
             광고 소재에서 보낼 도착지. 여기 URL 을 그대로 씁니다.
           </p>
-        </div>
-        <div className="flex items-center gap-1 rounded-lg border border-border p-0.5">
-          {(['mobile', 'desktop'] as const).map((d) => (
-            <button
-              key={d}
-              onClick={() => setDevice(d)}
-              className={`rounded-md px-3 py-1 text-xs font-medium ${
-                device === d ? 'bg-accent' : 'text-muted-foreground hover:bg-accent/50'
-              }`}
-            >
-              {d === 'mobile' ? '📱 모바일' : '🖥 데스크탑'}
-            </button>
-          ))}
         </div>
       </header>
 
@@ -113,33 +112,25 @@ export function LandingsPage() {
       )}
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_380px]">
-        {/* 미리보기 — 배포본이 아니라 **지금 이 서버**를 띄운다(로컬에서 고치면 바로 보인다). */}
-        <div className="rounded-xl border border-border bg-card p-3">
-          <div className="mb-2 flex flex-wrap items-center gap-2">
-            <code className="min-w-0 flex-1 truncate rounded bg-muted px-2 py-1 text-xs">
+        <div className="rounded-xl border border-border bg-card p-4">
+          <div className="flex flex-wrap items-center gap-2">
+            <code className="min-w-0 flex-1 truncate rounded bg-muted px-2 py-1.5 text-xs">
               {url}
             </code>
             <CopyButton text={url} label="URL 복사" />
-            <a
-              href={landing.slug}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-md border border-border px-2.5 py-1 text-xs font-medium hover:bg-accent"
-            >
-              새 탭 ↗
-            </a>
           </div>
-          <div className="flex justify-center overflow-hidden rounded-lg bg-muted/40 p-3">
-            <iframe
-              key={device}
-              src={landing.slug}
-              title={`${landing.slug} 미리보기`}
-              className="rounded-md border border-border bg-white"
-              style={
-                device === 'mobile' ? { width: 390, height: 780 } : { width: '100%', height: 780 }
-              }
-            />
-          </div>
+          <a
+            href={url}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-3 flex min-h-[44px] w-full items-center justify-center rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground hover:opacity-90"
+          >
+            새 탭에서 열기 ↗
+          </a>
+          <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground break-keep">
+            여기에 미리보기를 띄우지 않습니다 — 랜딩은 이 앱과 같은 코드라, 안에 끼워 넣으면 앱이 두
+            벌 돌면서 화면이 깜빡입니다. 새 탭이 광고 도착지와 같은 조건이기도 합니다.
+          </p>
         </div>
 
         <aside className="flex flex-col gap-4">
