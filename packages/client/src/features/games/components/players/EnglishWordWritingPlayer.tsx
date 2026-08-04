@@ -51,7 +51,12 @@ export function EnglishWordWritingPlayer({
   const gameStyle = useGameStyle(sourceStorybook);
 
   const currentItem = items[currentIndex];
-  const letters = useMemo(() => lettersOf(currentItem.word), [currentItem.word]);
+  // 🔴 Book 1 은 낱말 전체(apple)를 그리되 **첫 글자(a)만** 채점한다(`traceWord`) — 나머지는 회색 가이드로
+  //    남아 낱말이 화면에 보인다. traceWord 없으면(Book 2~) 낱말 전체를 쓴다.
+  const letters = useMemo(
+    () => (currentItem.traceWord ? lettersOf(currentItem.traceWord) : lettersOf(currentItem.word)),
+    [currentItem.word, currentItem.traceWord]
+  );
 
   // 🔴 진입 안내 음성 — 화면엔 "글자를 따라 써봐" 글자가 있는데 음성이 없어 파닉스 쓰기 활동과
   //    어긋났다(사용자: "어디서는 따라 써봐 멘트 나오고 어디서는 안 나오네"). 한 번만 재생한다.
