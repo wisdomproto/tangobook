@@ -59,9 +59,9 @@ function TryItShell({
 }) {
   const chipOn =
     tone === 'mint'
-      ? 'border-mint-500 bg-mint-50 text-mint-600'
+      ? 'border-mint-500 bg-mint-50 text-mint-700'
       : 'border-amber-500 bg-amber-50 text-amber-600';
-  const btn = tone === 'mint' ? 'bg-mint-500 hover:bg-mint-600' : 'bg-amber-500 hover:bg-amber-600';
+  const btn = tone === 'mint' ? 'bg-mint-500 hover:bg-mint-800' : 'bg-amber-600 hover:bg-amber-700';
   return (
     /* 🔴 파닉스 상자와 같은 이유로 뷰포트 폭 — 뷰어·게임이 `vw`/`dvh` 로 크기를 잡는다. */
     <div
@@ -71,8 +71,8 @@ function TryItShell({
       style={{ width: '100vw', marginLeft: 'calc(50% - 50vw)' }}
     >
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-ink-100 px-5 py-3">
-        <span className="text-sm font-bold text-ink-800 break-keep">{label}</span>
-        <span className="shrink-0 rounded-full bg-ink-50 px-3 py-1 text-[11px] font-bold text-ink-500">
+        <span className="text-lg font-extrabold text-ink-800 break-keep">{label}</span>
+        <span className="shrink-0 rounded-full bg-ink-50 px-3 py-1 text-xs font-bold text-ink-600">
           실제 앱 화면
         </span>
       </div>
@@ -83,8 +83,8 @@ function TryItShell({
           <button
             key={b.id}
             onClick={() => setBookId(b.id)}
-            className={`min-h-[36px] shrink-0 rounded-full border px-3 text-xs font-semibold transition ${
-              b.id === bookId ? chipOn : 'border-ink-100 text-ink-500 hover:bg-cream-50'
+            className={`min-h-[44px] shrink-0 rounded-full border px-3 text-xs font-semibold transition ${
+              b.id === bookId ? chipOn : 'border-ink-100 text-ink-600 hover:bg-cream-50'
             }`}
           >
             {b.cat}
@@ -95,10 +95,10 @@ function TryItShell({
       {children}
 
       <div className="flex flex-col items-center gap-2 bg-cream-50 px-5 py-4 text-center">
-        <p className="text-xs text-ink-500 break-keep">{footer}</p>
+        <p className="text-xs text-ink-600 break-keep">{footer}</p>
         <Link
           to="/library"
-          className={`rounded-full px-5 py-2 text-sm font-bold text-white shadow-sm transition ${btn}`}
+          className={`inline-flex min-h-[44px] items-center rounded-full px-5 text-sm font-bold text-white shadow-sm transition ${btn}`}
         >
           동화책 전체 보기 →
         </Link>
@@ -202,7 +202,7 @@ export function HangulWordGameTryIt() {
                 onBack={() => {}}
               />
             ) : (
-              <div className="flex h-full items-center justify-center text-sm text-ink-400">
+              <div className="flex h-full items-center justify-center text-sm text-ink-600">
                 불러오는 중…
               </div>
             )}

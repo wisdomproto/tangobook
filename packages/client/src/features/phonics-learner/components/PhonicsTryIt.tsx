@@ -63,10 +63,10 @@ export function PhonicsTryIt({ unitId, activityKey, title, height }: Props) {
       style={{ width: '100vw', marginLeft: 'calc(50% - 50vw)' }}
     >
       <div className="flex items-center justify-between gap-3 border-b border-ink-100 px-5 py-3">
-        <span className="text-sm font-bold text-ink-800 break-keep">
+        <span className="text-lg font-extrabold text-ink-800 break-keep">
           {title ?? `${activity.emoji} ${activity.title}`}
         </span>
-        <span className="shrink-0 rounded-full bg-coral-50 px-3 py-1 text-[11px] font-bold text-coral-600">
+        <span className="shrink-0 rounded-full bg-coral-50 px-3 py-1 text-xs font-bold text-coral-600">
           실제 학습 화면
         </span>
       </div>
@@ -99,14 +99,14 @@ export function PhonicsTryIt({ unitId, activityKey, title, height }: Props) {
       </div>
 
       <div className="flex flex-col items-center gap-2 bg-cream-50 px-5 py-4 text-center">
-        <p className="text-xs text-ink-500 break-keep">
+        <p className="text-xs text-ink-600 break-keep">
           {done
             ? '다 하셨네요. 아이와 함께면 소리까지 들으며 할 수 있어요.'
             : '앱에서는 이 활동이 단원마다 아홉 가지씩 이어집니다.'}
         </p>
         <Link
           to={`/library/phonics/korean/${unitId}`}
-          className="rounded-full bg-coral-500 px-5 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-coral-600"
+          className="rounded-full bg-coral-700 px-5 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-coral-800"
         >
           앱에서 이어서 하기 →
         </Link>

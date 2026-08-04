@@ -81,13 +81,13 @@ const STAGES: { label: string; count: string; detail: string; tone: string }[] =
     label: '자음',
     count: '14단원',
     detail: 'ㄱ부터 ㅎ까지, 자음 하나에 음절 열 개씩',
-    tone: 'bg-coral-100 text-coral-600',
+    tone: 'bg-coral-100 text-coral-700',
   },
   {
     label: '받침',
     count: '7단원',
     detail: '소리 나는 받침은 일곱뿐입니다',
-    tone: 'bg-mint-100 text-mint-600',
+    tone: 'bg-mint-100 text-mint-700',
   },
   {
     label: '쌍자음',
@@ -99,7 +99,7 @@ const STAGES: { label: string; count: string; detail: string; tone: string }[] =
     label: '복잡한 모음',
     count: '5단원',
     detail: 'ㅐ ㅔ ㅚ ㅟ ㅘ …',
-    tone: 'bg-coral-100 text-coral-600',
+    tone: 'bg-coral-100 text-coral-700',
   },
 ];
 
@@ -168,11 +168,11 @@ function StickyCta() {
       <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
         <p className="min-w-0 text-[13px] font-semibold text-ink-700 break-keep sm:text-sm">
           가입하면 1년 무료{' '}
-          <span className="text-coral-600">· 이후 월 {PLANS.month1.amount.toLocaleString()}원</span>
+          <span className="text-coral-700">· 이후 월 {PLANS.month1.amount.toLocaleString()}원</span>
         </p>
         <Link
           to={SIGNUP}
-          className="flex min-h-[44px] shrink-0 items-center rounded-full bg-coral-500 px-5 text-sm font-bold text-white shadow-sm transition hover:bg-coral-600"
+          className="flex min-h-[44px] shrink-0 items-center rounded-full bg-coral-700 px-5 text-sm font-bold text-white shadow-sm transition hover:bg-coral-800"
         >
           무료로 시작하기
         </Link>
@@ -184,10 +184,10 @@ function StickyCta() {
 function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div className="flex flex-col items-center gap-1 rounded-2xl bg-white/70 px-3 py-4">
-      <span className="font-display text-2xl font-extrabold text-coral-600 sm:text-3xl">
+      <span className="font-display text-2xl font-extrabold text-coral-700 sm:text-3xl">
         {value}
       </span>
-      <span className="text-center text-[11px] font-semibold text-ink-500 break-keep sm:text-xs">
+      <span className="text-center text-xs font-semibold text-ink-600 break-keep sm:text-xs">
         {label}
       </span>
     </div>
@@ -249,9 +249,9 @@ function CurriculumUnits() {
     <div className="!mt-6 space-y-3">
       {levels.map(([key, name]) => (
         <div key={key} className="rounded-2xl border border-ink-100 bg-white/70 p-4">
-          <p className="text-xs font-bold text-coral-500 break-keep">
+          <p className="text-xs font-bold text-coral-700 break-keep">
             {name}
-            <span className="ml-2 font-semibold text-ink-400">
+            <span className="ml-2 font-semibold text-ink-600">
               {units.filter((u) => u.levelKey === key && !u.isReview).length}단원
               {units.filter((u) => u.levelKey === key && u.isReview).length > 0 &&
                 ` + 복습 ${units.filter((u) => u.levelKey === key && u.isReview).length}`}
@@ -264,7 +264,7 @@ function CurriculumUnits() {
                 <span
                   key={u.id}
                   className={`rounded-full px-2.5 py-1 text-xs break-keep ${
-                    u.isReview ? 'bg-mint-100 font-bold text-mint-600' : 'bg-cream-100 text-ink-700'
+                    u.isReview ? 'bg-mint-100 font-bold text-mint-700' : 'bg-cream-100 text-ink-700'
                   }`}
                 >
                   {u.isReview ? '🏅 ' : ''}
@@ -334,7 +334,7 @@ function BookWall() {
           </Link>
         ))}
       </div>
-      <p className="!mt-2 text-center text-xs text-ink-400 break-keep">
+      <p className="!mt-2 text-center text-xs text-ink-600 break-keep">
         이 열두 권은 {FACTS.books}권 중 열두 권입니다.
       </p>
     </>
@@ -351,15 +351,15 @@ function Section({
   children: ReactNode;
 }) {
   return (
-    <section className="px-4 py-10 sm:px-6 sm:py-14">
+    <section className="px-4 py-12 sm:px-6 sm:py-14">
       <div className="mx-auto max-w-3xl">
         {eyebrow && (
-          <p className="mb-2 text-xs font-bold tracking-wide text-coral-500">{eyebrow}</p>
+          <p className="mb-2 text-xs font-bold tracking-wide text-coral-700">{eyebrow}</p>
         )}
-        <h2 className="font-display text-[22px] font-extrabold leading-snug text-ink-900 break-keep sm:text-[28px]">
+        <h2 className="font-display text-[26px] font-extrabold leading-snug text-ink-900 break-keep sm:text-[32px]">
           {title}
         </h2>
-        <div className="mt-4 space-y-4 text-[15px] leading-relaxed text-ink-700 break-keep sm:text-base">
+        <div className="mt-4 space-y-4 text-[15px] leading-relaxed text-ink-700 break-keep sm:text-[16px]">
           {children}
         </div>
       </div>
@@ -388,7 +388,7 @@ export default function HangulLandingPage() {
             높이가 512px). 옆에 두면 빈 오른쪽이 채워지면서 CTA 는 그대로 위에 남는다. */}
         <div className="relative mx-auto grid max-w-3xl items-center gap-8 text-center md:grid-cols-[1fr_minmax(0,300px)] md:gap-10 md:text-left">
           <div className="min-w-0">
-            <p className="text-xs font-bold tracking-wide text-coral-500 sm:text-sm">
+            <p className="text-xs font-bold tracking-wide text-coral-700 sm:text-sm">
               4~7세 한글떼기 · 파닉스
             </p>
             <h1 className="mt-3 font-display text-[28px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:text-[42px]">
@@ -396,10 +396,10 @@ export default function HangulLandingPage() {
               <br />
               동화책 {FACTS.books}권이 한 곳에
             </h1>
-            <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-ink-700 break-keep sm:text-lg md:mx-0">
+            <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-ink-700 break-keep sm:text-[18px] md:mx-0">
               글자를 배우는 앱은 많습니다. 배운 글자로{' '}
-              <strong className="text-coral-600">바로 읽을 책</strong>까지 있으면 대개 패드를 사고
-              약정을 겁니다. 탱고북은 <strong className="text-coral-600">둘 다 앱 안에</strong>{' '}
+              <strong className="text-coral-700">바로 읽을 책</strong>까지 있으면 대개 패드를 사고
+              약정을 겁니다. 탱고북은 <strong className="text-coral-700">둘 다 앱 안에</strong>{' '}
               있고, 패드도 약정도 없습니다.
             </p>
 
@@ -411,11 +411,11 @@ export default function HangulLandingPage() {
 
             <Link
               to={SIGNUP}
-              className="mt-7 inline-flex min-h-[52px] items-center rounded-full bg-coral-500 px-8 text-base font-bold text-white shadow-md transition hover:bg-coral-600"
+              className="mt-7 inline-flex min-h-[52px] items-center rounded-full bg-coral-700 px-8 text-base font-bold text-white shadow-md transition hover:bg-coral-800"
             >
               무료로 시작하기
             </Link>
-            <p className="mt-3 text-xs text-ink-500 break-keep">
+            <p className="mt-3 text-xs text-ink-600 break-keep">
               지금 가입하면 1년 무료 · 이후에도 월 {PLANS.month1.amount.toLocaleString()}원,
               약정·위약금 없음
             </p>
@@ -465,13 +465,13 @@ export default function HangulLandingPage() {
         <ul className="!mt-5 space-y-2">
           <li className="rounded-2xl border border-ink-100 bg-white/70 px-4 py-3">
             <strong className="text-ink-900">글자를 가르치는 앱</strong>
-            <span className="ml-2 text-sm text-ink-500 break-keep">
+            <span className="ml-2 text-sm text-ink-600 break-keep">
               월 3만 원 이하. 책이 있어도 대개 <em>발음 연습용 단계별 읽기책</em>입니다.
             </span>
           </li>
           <li className="rounded-2xl border border-ink-100 bg-white/70 px-4 py-3">
             <strong className="text-ink-900">패드를 묶어 파는 방문 판매</strong>
-            <span className="ml-2 text-sm text-ink-500 break-keep">
+            <span className="ml-2 text-sm text-ink-600 break-keep">
               그림책까지 들어 있지만 <em>월 8만~14만 원에 1~2년 약정</em>입니다.
             </span>
           </li>
@@ -485,11 +485,11 @@ export default function HangulLandingPage() {
       </Section>
 
       {/* ── ③ 직접 해보기 (평점·후기 자리) ───────────────────── */}
-      <section className="px-4 pb-2 sm:px-6">
+      <section className="px-4 py-12 sm:px-6 sm:py-14">
         <div className="mx-auto max-w-3xl">
           <div className="rounded-3xl border border-coral-200 bg-white/60 p-4 sm:p-6">
-            <p className="text-xs font-bold tracking-wide text-coral-500">단원 하나가 이만큼</p>
-            <h2 className="mt-1 font-display text-[22px] font-extrabold text-ink-900 break-keep sm:text-[28px]">
+            <p className="text-xs font-bold tracking-wide text-coral-700">단원 하나가 이만큼</p>
+            <h2 className="mt-1 font-display text-[26px] font-extrabold text-ink-900 break-keep sm:text-[32px]">
               「ㄱ」 단원을 통째로 열어 두었습니다
             </h2>
             <p className="mt-2 text-sm text-ink-600 break-keep">
@@ -508,14 +508,14 @@ export default function HangulLandingPage() {
               className="mt-5"
             />
 
-            <p className="mt-7 inline-flex items-center gap-2 rounded-full bg-coral-500 px-4 py-1.5 text-sm font-bold text-white">
+            <p className="mt-7 inline-flex items-center gap-2 rounded-full bg-coral-700 px-5 py-2 text-lg font-extrabold text-white">
               📖 익히기 · 글자
             </p>
             {GA_LEARN.map((a) => (
               <PhonicsTryIt key={a.key} unitId={GA_UNIT} activityKey={a.key} height={a.h} />
             ))}
 
-            <p className="mt-8 inline-flex items-center gap-2 rounded-full bg-mint-500 px-4 py-1.5 text-sm font-bold text-white">
+            <p className="mt-8 inline-flex items-center gap-2 rounded-full bg-mint-700 px-5 py-2 text-lg font-extrabold text-white">
               🎮 낱말 놀이 · 낱말
             </p>
             {GA_PLAY.map((a) => (
@@ -543,7 +543,7 @@ export default function HangulLandingPage() {
               </span>
               <span className="min-w-0">
                 <strong className="text-ink-900">{s.label}</strong>
-                <span className="ml-2 text-sm text-ink-500 break-keep">{s.detail}</span>
+                <span className="ml-2 text-sm text-ink-600 break-keep">{s.detail}</span>
               </span>
             </li>
           ))}
@@ -571,7 +571,7 @@ export default function HangulLandingPage() {
         />
         <Link
           to="/library/phonics/korean"
-          className="!mt-5 inline-flex min-h-[44px] items-center rounded-full border-2 border-coral-500 px-6 text-sm font-bold text-coral-600 transition hover:bg-coral-50"
+          className="!mt-5 inline-flex min-h-[44px] items-center rounded-full border-2 border-coral-500 px-6 text-sm font-bold text-coral-700 transition hover:bg-coral-50"
         >
           커리큘럼 전체 보기 →
         </Link>
@@ -600,7 +600,7 @@ export default function HangulLandingPage() {
               className="inline-flex items-center gap-1.5 rounded-full border border-ink-100 bg-white/70 px-3 py-1.5 text-sm text-ink-700 break-keep"
             >
               {name}
-              <strong className="text-coral-600">{n}</strong>
+              <strong className="text-coral-700">{n}</strong>
             </span>
           ))}
         </div>
@@ -680,7 +680,7 @@ export default function HangulLandingPage() {
           아이가 무엇을 했는지 <strong>부모 화면에 그대로 남습니다.</strong> 어떤 글자에서 자꾸
           멈추는지, 어떤 낱말을 다시 보면 좋은지 — 밤에 한 번 열어보면 오늘 뭘 했는지 보입니다.
         </p>
-        <p className="text-sm text-ink-500">
+        <p className="text-sm text-ink-600">
           가입이 부담스러우시면 <strong>게스트로 30일</strong> 먼저 써보셔도 됩니다. 다만 게스트는
           학습 기록이 남지 않아, 아이가 어디까지 했는지 볼 수 없습니다.
         </p>
@@ -700,11 +700,11 @@ export default function HangulLandingPage() {
           <p className="text-sm text-ink-600 break-keep">설치 없이 브라우저에서 바로 시작합니다.</p>
           <Link
             to={SIGNUP}
-            className="mt-1 inline-flex min-h-[52px] items-center rounded-full bg-coral-500 px-8 text-base font-bold text-white shadow-md transition hover:bg-coral-600"
+            className="mt-1 inline-flex min-h-[52px] items-center rounded-full bg-coral-700 px-8 text-base font-bold text-white shadow-md transition hover:bg-coral-800"
           >
             1년 무료로 시작하기 →
           </Link>
-          <Link to="/library" className="text-xs font-semibold text-ink-500 underline">
+          <Link to="/library" className="text-xs font-semibold text-ink-600 underline">
             먼저 둘러볼래요
           </Link>
         </div>
