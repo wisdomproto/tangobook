@@ -42,8 +42,11 @@ const STATIC_ROUTES = [
   '/library',
   '/library/phonics/korean',
   '/vocabulary',
-  '/blog',
+  '/hangul',
 ];
+// 🔴 `/blog` 는 넣지 않는다 — 서버가 `blogListHandler` 로 이미 SSR 한다(app.ts). 구워 봐야
+//    그 핸들러가 먼저 잡아 영영 안 쓰이고, 매니페스트에 담기면 246KB 를 헛되이 물고 있는다.
+//    같은 이유로 `/library/:id`(about SSR)·`/guide/*` 도 대상이 아니다.
 
 const PREVIEW_PORT = 4173;
 const API_ORIGIN = (process.env.PRERENDER_API_ORIGIN || 'https://www.tangobook.co.kr').replace(/\/$/, '');
@@ -131,11 +134,54 @@ async function installApiProxy(page, baseUrl) {
   });
 }
 
+/**
+ * #root 안에 남은 **눈에 보이는 글자 수** — 무엇이 구워졌는지 판정하는 유일한 기준.
+ *
+ * 🔴 이 가드가 없으면 API 가 안 닿는 채로 구워진 **에러 화면**("연결이 안 돼 와이파이를…")이
+ *    그대로 배포된다(실측: 그렇게 구워졌다). 빈 화면보다 나쁘다 — 고장난 앱으로 보인다.
+ *    문구를 찍어 거르지 않는 이유 = i18n 이 바뀌면 조용히 통과한다. **양**으로 잰다.
+ * 🔴 실측 두 점 사이에 둔 값이다 — 오프라인 에러 92자 / 정상 파닉스 단원 목록 360자
+ *    (그 화면은 글자·숫자뿐이라 짧다). 400 이었을 때 멀쩡한 파닉스를 떨어뜨렸다.
+ *    ponytail: 라우트 무관 단일 임계값. 특정 화면이 오탐되면 그때 라우트별로 나눈다.
+ */
+const MIN_TEXT = 250;
+
+function visibleTextLength(html) {
+  const rootAt = html.indexOf('<div id="root"');
+  const body = rootAt === -1 ? html : html.slice(rootAt);
+  return body
+    .replace(/<script[\s\S]*?<\/script>/g, '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim().length;
+}
+
 async function prerenderRoute(browser, baseUrl, route, { isBook = false } = {}) {
   const page = await browser.newPage();
   await page.setViewport({ width: 1280, height: 800 });
 
-  if (isBook) await installApiProxy(page, baseUrl);
+  /**
+   * 🔴 **진입 게이트를 굽지 않는다.** `AppShell` 은 미로그인 + 게스트 창 미시작이면
+   *    `EntryGate` 오버레이를 띄운다 — 그대로 구우면 이미 게스트/로그인인 방문자까지
+   *    첫 1초 동안 「가입하시겠어요?」를 보게 된다. 게스트 앵커를 심어 그 상태를 피한다.
+   *    처음 오는 사람은 React 가 마운트하면서 곧바로 게이트를 띄우므로 잃는 게 없다.
+   * ⚠️ 로컬은 `.env.local` 이 없어 `isConfigured=false` → 게이트가 원래 안 뜬다.
+   *    이 줄의 효과는 **Supabase 키가 들어가는 Docker 빌드에서만** 드러난다.
+   */
+  await page.evaluateOnNewDocument(() => {
+    try {
+      // 🔴 둘 다 필요하다 — 앵커(창 시작)만 심으면 「아직 안 골랐다」로 남아 게이트가 그대로 뜬다
+      //    (`guest-mode.ts` 의 KEY_CHOICE / KEY_STARTED).
+      localStorage.setItem('tb_entry_choice', 'guest');
+      localStorage.setItem('tb_guest_started_at', new Date().toISOString());
+    } catch {
+      /* storage 막힘 — 게이트가 구워질 뿐 치명적이지 않다 */
+    }
+  });
+
+  // 🔴 정적 라우트도 API 를 물려준다 — `/library` 는 책 목록이 없으면 오프라인 에러를 그린다.
+  //    데이터가 들어간 채로 구우면 표지·카테고리가 HTML 에 담겨 이미지도 즉시 받기 시작한다.
+  await installApiProxy(page, baseUrl);
 
   await page.goto(`${baseUrl}${route}`, {
     waitUntil: 'domcontentloaded',
@@ -151,12 +197,25 @@ async function prerenderRoute(browser, baseUrl, route, { isBook = false } = {}) 
     }
     await new Promise((r) => setTimeout(r, 500));
   } else {
-    // useSeo / useEffect 실행 대기 (React 18 마이크로태스크 큐 flush + 한 프레임)
-    await new Promise((r) => setTimeout(r, 1500));
+    // 🔴 고정 sleep 이 아니라 **글자가 찰 때까지** 기다린다 — API 응답이 늦으면 sleep 은
+    //    스켈레톤을 굽는다(고정 1.5s 였을 때 `/library` 가 그래서 에러 화면으로 구워졌다).
+    await page
+      .waitForFunction(
+        (min) =>
+          ((document.getElementById('root')?.innerText || '').replace(/\s+/g, ' ').trim().length >=
+          min),
+        { timeout: 15000 },
+        MIN_TEXT
+      )
+      .catch(() => {});
+    await new Promise((r) => setTimeout(r, 800));
   }
 
   const html = await page.content();
   await page.close();
+
+  const len = visibleTextLength(html);
+  if (len < MIN_TEXT) throw new Error(`내용 부족 (${len}자 < ${MIN_TEXT}) — 에러/스켈레톤 화면 의심`);
 
   const routePath = route === '/' ? '' : route.replace(/^\//, '');
   const outDir = route === '/' ? distDir : path.join(distDir, routePath);
@@ -209,10 +268,20 @@ async function main() {
   let browser;
   let ok = 0;
   let fail = 0;
+  /**
+   * 서버가 읽을 매니페스트 — **실제로 구워진 정적 라우트만** 담는다.
+   * 🔴 이 목록이 없으면 서버(app.ts)는 프리렌더본을 아예 안 쓴다(= 예전 동작).
+   *    라우트 목록을 서버에 하드코딩하지 않는 이유 = 여기서 하나 지우면 서버가 없는 파일을 찾는다.
+   * about/블로그는 서버가 이미 SSR 로 그리므로 담지 않는다(수백 개를 메모리에 들 이유 없음).
+   */
+  const served = [];
   try {
     console.log('[prerender] puppeteer launch...');
     browser = await puppeteer.launch({
       headless: true,
+      // 🔴 Docker 이미지는 `PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true` 로 설치하므로 puppeteer 가
+      //    번들 Chrome 을 갖고 있지 않다 — 시스템 chromium 경로를 넘겨야 뜬다(Remotion 과 같은 값).
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || process.env.CHROMIUM_PATH || undefined,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
 
@@ -220,6 +289,7 @@ async function main() {
       try {
         await prerenderRoute(browser, baseUrl, route);
         ok++;
+        if (route !== '/') served.push(route);
       } catch (e) {
         fail++;
         console.warn(`✗ ${route} — ${e.message}`);
@@ -247,7 +317,8 @@ async function main() {
       }
     }
 
-    console.log(`[prerender] 완료. 성공 ${ok} / 실패 ${fail}`);
+    await fs.writeFile(path.join(distDir, 'prerendered.json'), JSON.stringify(served), 'utf-8');
+    console.log(`[prerender] 완료. 성공 ${ok} / 실패 ${fail} · 매니페스트 ${served.length}`);
   } finally {
     if (browser) await browser.close();
     // vite preview server close

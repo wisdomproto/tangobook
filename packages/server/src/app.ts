@@ -1,4 +1,5 @@
 import path from 'path';
+import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'url';
 import express from 'express';
 
@@ -286,6 +287,41 @@ export function createApp() {
       if (AUTHORING.test(req.path)) res.setHeader('Cache-Control', 'no-cache');
       next();
     });
+    /**
+     * 프리렌더된 HTML 우선 서빙 — **첫 화면이 번들보다 먼저 그려지게 한다.**
+     *
+     * 🔴 CSR 라우트는 1MB 짜리 entry 번들이 도착해야 비로소 첫 글자가 나온다
+     *    (모바일 4G·cold cache 실측 FCP 10.5s, 같은 조건 SSR 책 페이지는 1.7s).
+     *    `scripts/prerender.mjs` 가 빌드 때 구워 둔 `dist/<route>/index.html` 을 그대로 보내면
+     *    번들 도착 전에 화면이 뜬다. React 는 마운트하며 그 DOM 을 갈아끼운다(빈 화면 → 내용이
+     *    아니라 내용 → 내용이라 깜빡임이 아니다).
+     * 🔴 **`express.static` 보다 먼저** 둔다 — static 은 `/library` 를 디렉터리로 보고
+     *    `/library/` 로 301 을 쏜다(왕복 하나 + URL 변경).
+     * 🔴 매니페스트가 없으면(=프리렌더 안 돌았으면) 이 블록은 통째로 비활성 — 예전 동작 그대로다.
+     */
+    const prerendered: Record<string, string> = {};
+    try {
+      const routes: string[] = JSON.parse(
+        readFileSync(path.join(clientDist, 'prerendered.json'), 'utf-8')
+      );
+      for (const r of routes) {
+        prerendered[r] = readFileSync(
+          path.join(clientDist, r.replace(/^\//, ''), 'index.html'),
+          'utf-8'
+        );
+      }
+      console.log(`[prerender] ${routes.length}개 라우트 정적 HTML 서빙: ${routes.join(' ')}`);
+    } catch {
+      /* 프리렌더 산출물 없음 — SPA 폴백 */
+    }
+    app.use((req, res, next) => {
+      const html = req.method === 'GET' ? prerendered[req.path] : undefined;
+      if (!html) return next();
+      // 🔴 해시 붙은 자산을 참조하므로 캐시하면 배포 후 깨진 자산을 가리킬 수 있다 → 매번 재검증.
+      res.setHeader('Cache-Control', 'no-cache');
+      res.type('html').send(html);
+    });
+
     app.use(express.static(clientDist));
     // catch-all — SPA index.html. 단, 정적 index.html 의 canonical 은 홈 고정이라
     // 비-홈 라우트가 전부 "홈 복사본"으로 색인에서 빠진다. 비-홈 경로는 canonical 을
