@@ -63,6 +63,23 @@
 | **e07** (같은 슬러그) | ○ **의도한 공유** | 공정 문단 동일 · 팔레트 hex 넷과 관통 줄 셋이 다르다 |
 | **a14**(자갈 광장) 류 반복 단위 | ✕ | 이 책엔 셀 수 있는 반복 단위가 0 이다(바늘잎·껍질결·비늘 전부 안 그린다) |
 
+### 🔴 2026-08-04 수정 — 사용자 메모는 「이미지 다시 그릴 것」 한 줄뿐이었다
+
+무엇이 틀렸는지는 안 적혀 있어서, 프롬프트를 다시 읽고 **쪽마다 흔들릴 수 있는 자리 넷**을 찾아 수치로 못박았다. 넷 다 **「값이 있다고 적어 놓고 그 값을 쪽에는 안 준 자리」**다.
+
+| # | 흔들리던 자리 | 왜 흔들렸나 | 못박은 것 |
+|---|---|---|---|
+| 1 | 🔴 **밝기 사다리가 13쪽 중 4쪽에만 있었다** | 이 권의 요구 4 와 검수 6번이 「오를수록 밝아진다 · p10 이 가장 밝다」인데, **하늘 비율을 적어 둔 컷이 p1(0%)·p8(50%)·p10(80%) 셋뿐**이었다. 나머지 열 쪽은 초록이 얼마나 남았는지 모델이 매번 새로 정했고, 그러면 **사다리 자체가 그림에 없다** | 열세 쪽 전부에 **하늘 비율**을 적었다(아래 표). `TreeKit` 패널 C 도 그 사다리의 네 지점으로 맞췄다 |
+| 2 | 🔴 **p9 와 p10 이 서로 모순이었다** | p9 는 「하늘이 화면을 거의 다 채운다」, p10 은 「80%」인데 TONE 은 p10 이 가장 밝다고 했다 — **p9 가 p10 보다 밝아지는 지시**였다 | p9 = 75% · p10 = 90%. 사다리가 p10 에서 정점을 찍고 p11 85 → p12 45 → p13 25 로 내려온다 |
+| 3 | 🔴 **굵기 눈금이 「머리통」뿐이라 클로즈업이 아닌 쪽에서는 못 잰다** | 재는 네 쪽(p2·p5·p9·p11)은 같은 거리라 괜찮지만, p1·p3·p13 은 넓은 화면이라 다람쥐 머리가 작게 찍혀 **「3.0 머리통」이 화면마다 다른 굵기**가 된다 | 재는 네 쪽에서 **머리 폭 = 화면 세로의 10%** 로 고정 → 3.0 = 30% · 2.0 = 20% · 0.8 = 8% · 0.5 = 5%. 나머지 쪽은 **앞 쪽보다 가늘다**만 지킨다 |
+| 4 | 🔴 **순록 0.02 는 자리가 없으면 사라진다** | 화면 세로의 2% = 손톱만 한 점인데 **어디 있는지**가 p9 에만 「lower corner」로 있고 나머지는 없다. 검수 4번(「열세 쪽 중 여섯 쪽에 있고 쪽마다 작아지나」)을 판정할 수가 없다 | 순록이 있는 여섯 쪽 전부에 **화면 가로 %와 세로 %** 를 적었다 |
+
+**🔴 하늘 비율 사다리(화면 면적 대비, 열세 쪽 전부 컷의 SETTING 줄에 적혀 있다)**
+
+| p1 | p2 | p3 | p4 | p5 | p6 | p7 | p8 | p9 | p10 | p11 | p12 | p13 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0% | 5 | 10 | 20 | 30 | 40 | 55 | 65 | 75 | 🔴 **90** | 85 | 45 | 25 |
+
 ### 🔴 대본과 어긋나는 곳 (대본 수정 불필요 — 컷에서만 분기)
 
 1. **관통 줄 이름** — 배정표는 `BOUGH:` `SWAY:` `DOWN:` 이었다. 🔴 `SWAY:` 를 **`DEER:`** 로 바꿨다 — 흔들림은 p7 한 쪽뿐이고, 쪽마다 못박아야 하는 것은 **순록의 크기**(배정표 자신의 주의점 = 거리 측정기)다. 관통 줄은 여전히 셋이다.
@@ -91,9 +108,13 @@ pass, edges frayed where the brush ran dry; the branch reads as swellings and
 narrowings along that same pass, never as separate drawn objects. No other mark
 on the page is a brush stroke - branches behind are flat colour shapes.
 🔴 THE GAUGE IS THE WIDTH OF THAT STROKE, stated on every page in squirrel-head
-widths, and it only ever gets thinner. Bodies = cut-flat colour, 0 fur strokes, 0
-whiskers. Face = at most 4 marks (2 eyes, 1 nose, 1 mouth).
-FINISHED THINGS PER PAGE = 2 (the squirrel + the stroke).
+widths, and it only ever gets thinner. 🔴 ON THE FOUR MEASURING PAGES THE CAMERA
+IS IDENTICAL AND A SQUIRREL HEAD IS 10% OF THE FRAME HEIGHT, so 3.0 heads = 30%
+of the frame height, 2.0 = 20%, 0.8 = 8%, 0.5 = 5%. Elsewhere the only rule is
+that it is thinner than the page before. 🔴 THE PAGE ALSO STATES HOW MUCH OF THE
+FRAME IS PALE SKY, and that number only rises until p10 and then falls back.
+Bodies = cut-flat colour, 0 fur strokes, 0 whiskers. Face = at most 4 marks
+(2 eyes, 1 nose, 1 mouth). FINISHED THINGS PER PAGE = 2 (the squirrel + the stroke).
 DENSITY RATION = p1 and p13 only. There FINISHED THINGS = 5, because those two
 pages hold the three landmarks and the reader counts them; on the other eleven
 pages the landmarks are flat colour at 0 detail.
@@ -211,7 +232,9 @@ Flat poster-plate style, 0 outlines - see anchor changjak-tautline.
 Panel A - 🔴 THE STROKE LADDER: one dark-brown #6B4530 bristle-loaded brush pass
 drawn EIGHT times in a row, near-vertical, each one thinner than the last -
 widths 3.0 / 2.5 / 2.0 / 1.8 / 1.5 / 1.2 / 0.8 / 0.5 squirrel-head widths, with
-a squirrel head shape laid beside each for scale. Every pass has frayed dry edges
+a squirrel head shape laid beside each for scale. 🔴 Draw that head at 10% of the
+sheet's height, so the eight passes measure 30 / 25 / 20 / 18 / 15 / 12 / 8 / 5%
+of it - that is the only place the gauge is ever converted. Every pass has frayed dry edges
 where the bristles ran out. 🔴 At 0.5 the pass is drawn a second time BENT INTO A
 BOW, the way it goes when weight is put on it.
 Panel B - THE THREE LANDMARKS, drawn straight on as FLAT CUT SHAPES, never as
@@ -221,8 +244,9 @@ an EMPTY NEST of flat #DCE3DE lodged in a fork, with one flat feather and 0 eggs
 two hind feet. 🔴 These three keep the same shape and the same order on the trunk
 for thirteen pages - knot lowest, nest middle, stump highest.
 Panel C - THE CROWN: the green plane #3E5244 drawn four times as one flat shape
-with the pale sky #DCE3DE cut into it - 0% sky, 20% sky, 50% sky, 85% sky. 🔴 NO
-NEEDLES ANYWHERE IN ANY OF THE FOUR. Beside them, one flat spruce cone #D8A23A.
+with the pale sky #DCE3DE cut into it - 🔴 0% sky, 30%, 65%, 90%, the four points
+of the book's brightness ladder (p1, p5, p8, p10). 🔴 NO NEEDLES ANYWHERE IN ANY
+OF THE FOUR. Beside them, one flat spruce cone #D8A23A.
 Panel D - THE GROUND: one flat pale #DCE3DE lichen plane with a low flat
 #3E5244 shrub band, and 0 individual leaves, 0 berries drawn as separate marks -
 at most 5 dark dots in total.
@@ -243,8 +267,8 @@ No text.
 BOUGH: the one stroke is THE TRUNK - a near-vertical #6B4530 pass 3.0 heads wide
 running from the bottom edge clear off the top of the frame, dry-frayed at both
 long edges. Branch layers behind it are flat colour shapes, 0 strokes.
-DEER: 0.35 of the frame height, lower right, standing on the SAME ground at the
-SAME depth as the squirrel - the size of the two is fixed here (sheet posture a,
+DEER: 0.35 of the frame height, at 78% across the frame and standing on the
+SAME ground at the SAME depth as the squirrel - the size of the two is fixed here (sheet posture a,
 head half raised).
 DOWN: no. Head thrown back, one forepaw straight overhead.
 CAMERA: wide, low angle from lichen height looking up the trunk.
@@ -253,8 +277,8 @@ stretched straight up pointing off the top of the frame, tail up (sheet posture
 a).
 SETTING: 🔴 DENSITY RATION PAGE - FINISHED THINGS = 5: the squirrel, the knot,
 the nest, the stump, the reindeer. The three landmarks sit on the trunk in order
-(knot lowest, nest, stump highest) as flat cut shapes. Crown = 0% sky, one green
-plane. Ground = pale lichen with at most 5 dark dots.
+(knot lowest, nest, stump highest) as flat cut shapes. 🔴 SKY = 0% OF THE FRAME,
+one unbroken green plane - the darkest page in the book. Ground = pale lichen with at most 5 dark dots.
 TONE: green fills the lower frame and one pale gap opens where the paw points -
 flat colour only, no glow. GRADE: four-legged, 0 clothing, 0 fingers.
 
@@ -264,9 +288,9 @@ flat colour only, no glow. GRADE: four-legged, 0 clothing, 0 fingers.
 
 ```
 BOUGH: 🔴 THE FIRST MEASUREMENT. One near-horizontal-to-diagonal #6B4530 pass
-3.0 heads wide crossing the frame, dry-frayed edges - and the squirrel's two
-forepaws stretched round it DO NOT MEET, the gap exactly ONE HEAD wide. That gap
-is the most finished thing on the page.
+3.0 heads = 30% OF THE FRAME HEIGHT wide, crossing the frame, dry-frayed edges -
+and the squirrel's two forepaws stretched round it DO NOT MEET, the gap exactly
+ONE HEAD wide. That gap is the most finished thing on the page.
 DEER: out of frame (script). 0 reindeer anywhere.
 DOWN: no. Eyes on its own forepaws, head level.
 CAMERA: close-up, eye level, the branch crossing the middle of the frame. 🔴 Fix
@@ -274,9 +298,9 @@ this distance - p5, p9 and p11 repeat it exactly.
 SUBJECT: CENTRE - SquirrelKit belly on the branch, both forepaws stretched round
 it and not meeting, hind claws hooked under, cheek pressed flat to the bark
 (sheet posture b).
-SETTING: green plane behind at 0 detail - 0 needles, 0 twigs, 0 bark grain. The
-top rim of the knot enters the lower edge as a flat pale shape. FINISHED THINGS
-= 2 (the unmet paw gap, the stroke).
+SETTING: green plane behind at 0 detail - 0 needles, 0 twigs, 0 bark grain.
+🔴 SKY = 5% of the frame. The top rim of the knot enters the lower edge as a flat
+pale shape. FINISHED THINGS = 2 (the unmet paw gap, the stroke).
 TONE: bark brown and squirrel rust are the only saturated things; everything
 behind is one flat green. GRADE: four-legged, 0 clothing, 0 fingers.
 
@@ -287,8 +311,8 @@ behind is one flat green. GRADE: four-legged, 0 clothing, 0 fingers.
 ```
 BOUGH: the one stroke is the TRUNK again, near-vertical, 3.0 heads wide, running
 off the top of the frame; it stands in the right half of the picture.
-DEER: 0.12 of the frame height, low in the frame, back and one antler showing
-through the green plane, the rest cut off by it (sheet posture a).
+DEER: 0.12 of the frame height, at 20% across the frame and low in it, back and
+one antler showing through the green plane, the rest cut off by it (sheet posture a).
 DOWN: no. 🔴 The neck cranes upward, the tail hangs straight down but the head
 and both forepaws are on the trunk or above.
 CAMERA: medium, eye level, trunk running vertically down the right of the frame.
@@ -297,7 +321,7 @@ claws in, halted one hand above the knot, mouth open, tail hanging past the
 knot's rim.
 SETTING: the KNOT as a flat pale #DCE3DE eye-shape ringed by a darker flat
 collar, as wide as the squirrel's body (landmark 1 - it comes back on p13). Above
-it, layered green shapes hide the nest. FINISHED THINGS = 2 (squirrel, knot).
+it, layered green shapes hide the nest. 🔴 SKY = 10% of the frame. FINISHED THINGS = 2 (squirrel, knot).
 TONE: one pale patch of sky falls on the knot's rim and it is a flat hard-edged
 shape, 0 glow - it is the only bright mark in a green frame. GRADE: four-legged, 0 clothing, 0 fingers.
 
@@ -318,7 +342,7 @@ SUBJECT: LOWER LEFT - SquirrelKit up on its hind legs on the branch, one forepaw
 stretched overhead pointing, the other flat on the bark, tail bushed out behind
 (sheet posture a).
 SETTING: the knot cut off by the lower edge of the frame. Green plane at 0
-detail. FINISHED THINGS = 2 (squirrel, the stroke he stands on).
+detail. 🔴 SKY = 20% of the frame. FINISHED THINGS = 2 (squirrel, the stroke he stands on).
 TONE: the green is a shade thinner than p3 and one pale gap opens past his paw,
 with the next branch lying across that gap. GRADE: four-legged, 0 clothing, 0 fingers.
 
@@ -327,7 +351,8 @@ with the next branch lying across that gap. GRADE: four-legged, 0 clothing, 0 fi
 ### p5 — "여기는 딱 맞아." 🔴 굵기 두 번째 측정
 
 ```
-BOUGH: one #6B4530 pass 2.0 heads wide, and 🔴 THE TWO FORE PAWS MEET EXACTLY -
+BOUGH: one #6B4530 pass 2.0 heads = 20% OF THE FRAME HEIGHT wide, and 🔴 THE TWO
+FORE PAWS MEET EXACTLY -
 claw tips touching, the gap now 0. p2's gap was one head; lay the two side by
 side.
 DEER: out of frame (script).
@@ -338,7 +363,7 @@ claw tips touching, hind claws hooked under, head turned right (sheet posture c)
 SETTING: RIGHT, at exactly the same height - the EMPTY NEST, a flat #DCE3DE
 shape of dry grass lodged in a fork, one flat feather inside, 0 birds, 0 eggs
 (landmark 2). 🔴 The nest and the squirrel sit level, so the page reads as a
-ruler laid flat. FINISHED THINGS = 2 (the meeting paws, the nest).
+ruler laid flat. 🔴 SKY = 30% of the frame. FINISHED THINGS = 2 (the meeting paws, the nest).
 TONE: pale light from the side falls equally on the nest rim and the meeting
 paws - two flat marks of the same brightness, nothing else lit. GRADE: four-legged, 0 clothing, 0 fingers.
 
@@ -350,7 +375,8 @@ paws - two flat marks of the same brightness, nothing else lit. GRADE: four-legg
 BOUGH: one #6B4530 pass 1.8 heads wide, near-vertical, high in the frame - the
 branch he stands on, with a flat shape of the next branch above where his paw
 rests.
-DEER: 🔴 0.08 of the frame height, low in the frame, nose lowered to the ground,
+DEER: 🔴 0.08 of the frame height, at 65% across the frame and low in it, nose
+lowered to the ground,
 antlers tipped forward, body half cut by the green plane so only muzzle and
 antlers read (sheet posture b).
 DOWN: 🔴 no - THIS IS THE PAGE THAT TESTS IT. A sound comes from below and the
@@ -360,7 +386,7 @@ SUBJECT: UPPER - SquirrelKit on all fours on the branch, head up, one forepaw
 laid on the edge of the next branch, tail out behind. LOWER FAR - the reindeer
 with its nose at ONE flat rust #D8A23A pine cone stopped on the lichen.
 SETTING: between the two halves, one thick green plane - its depth is the whole
-distance of the page. FINISHED THINGS = 2 (the squirrel, the cone).
+distance of the page. 🔴 SKY = 40% of the frame. FINISHED THINGS = 2 (the squirrel, the cone).
 TONE: the upper half pale, the lower half green; both flat, hard-edged, 0
 gradient between them. GRADE: four-legged, 0 clothing, 0 fingers.
 
@@ -378,7 +404,8 @@ CAMERA: medium, tilted eye level, the whole frame leaning one way.
 SUBJECT: CENTRE - SquirrelKit flat along the branch, all four sets of claws dug
 in, legs splayed wide, tail laid along the body, fur pressed one way as a FLAT
 shape, not strokes (sheet posture e).
-SETTING: at most 9 flat leaf and needle-cluster shapes blowing across the frame -
+SETTING: 🔴 SKY = 55% of the frame. At most 9 flat leaf and needle-cluster shapes
+blowing across it -
 🔴 count them, and give them 0 motion blur, 0 speed lines. Branch layers behind
 lean the same way as flat shapes. The nest sits in the lower edge, 🔴 not moving.
 FINISHED THINGS = 2 (the dug-in claws, the leaning stroke).
@@ -401,8 +428,8 @@ SUBJECT: LOWER CENTRE - SquirrelKit standing with both hind feet on the dry end
 of the BROKEN STUMP, one forepaw stretched overhead pointing, the other on the
 trunk, tail bushed (sheet posture a).
 SETTING: the STUMP as a flat pale #DCE3DE disc broad enough for two hind feet,
-its bark edge a flat darker rim (landmark 3). Crown = 50% sky - pale shapes cut
-right through the green. FINISHED THINGS = 2 (the squirrel on the stump, the
+its bark edge a flat darker rim (landmark 3). 🔴 SKY = 65% of the frame - pale
+shapes cut right through the green. FINISHED THINGS = 2 (the squirrel on the stump, the
 stump).
 TONE: 🔴 the palest page so far; the pale stump and the pale sky are the SAME
 value, so the rust body is the darkest saturated thing in frame. GRADE: four-legged, 0 clothing, 0 fingers.
@@ -412,20 +439,21 @@ value, so the rust body is the darkest saturated thing in frame. GRADE: four-leg
 ### p9 — "조심해—" 🔴 가는 획 기준판
 
 ```
-BOUGH: 🔴 THE THIRD MEASUREMENT. One #6B4530 pass 0.8 heads wide crossing the
+BOUGH: 🔴 THE THIRD MEASUREMENT. One #6B4530 pass 0.8 heads = 8% OF THE FRAME
+HEIGHT wide, crossing the
 frame on a diagonal, and ONE forepaw wraps right round it with the toes
 OVERLAPPING - p2 could not meet, p5 met, here it has slack. The wrapped paw is
 the only finished thing on the page.
-DEER: 🔴 0.02 of the frame height - ONE small dark blob in the lower corner where
-the green plane still shows, 0 legs and 0 antlers readable, and it is still in
-frame.
+DEER: 🔴 0.02 of the frame height, at 12% across the frame and 6% up from the
+bottom edge - ONE small dark blob where the green plane still shows, 0 legs and
+0 antlers readable, and it is still in frame.
 DOWN: no. Eyes on the branch ahead.
 CAMERA: close-up, eye level, exactly p2's and p5's distance.
 SUBJECT: CENTRE FRONT - SquirrelKit belly on the thin branch, one forepaw wrapped
 round it with toes overlapping, the other forepaw pushing on the branch ahead,
 tail stretched straight back for balance (sheet posture d).
-SETTING: sky fills nearly all of the frame as one flat pale plane; a few branch
-layers below are flat colour shapes. 0 needles drawn. FINISHED THINGS = 2.
+SETTING: 🔴 SKY = 75% of the frame, one flat pale plane; a few branch layers
+below are flat colour shapes. 0 needles drawn. FINISHED THINGS = 2.
 TONE: on the pale plane the brown pass and the rust paw read hard and dark
 without any black being used. GRADE: four-legged, 0 clothing, 0 fingers.
 
@@ -442,12 +470,13 @@ DEER: out of frame (script).
 DOWN: no. Head thrown back, one forepaw stretched up with the mitt OPEN - 🔴 he
 is not pointing here, he is reaching; the gap between paw and branch is one body
 long.
-CAMERA: medium, low angle, 80% of the frame pale sky.
+CAMERA: medium, low angle.
 SUBJECT: LOWER EDGE - SquirrelKit on its hind legs on the thin branch, one
 forepaw reaching up and open, the other gripping under its feet, tail straight
 up.
-SETTING: far below, other treetops as flat #3E5244 triangles lying low. At most 5
-flat needle-cluster shapes left on the branch. FINISHED THINGS = 2 (the open paw,
+SETTING: 🔴 SKY = 90% of the frame, the highest reading in the book. Far below,
+other treetops as flat #3E5244 triangles lying low. At most 5 flat needle-cluster
+shapes left on the branch. FINISHED THINGS = 2 (the open paw,
 the branch above it).
 TONE: 🔴 the brightest page in the book - pale plane everywhere, only two
 colours left, and the eye stops in the EMPTY GAP between paw and branch. GRADE: four-legged, 0 clothing, 0 fingers.
@@ -457,7 +486,8 @@ colours left, and the eye stops in the EMPTY GAP between paw and branch. GRADE: 
 ### p11 — "어어—" 🔴 마지막 측정
 
 ```
-BOUGH: 🔴 THE LAST MEASUREMENT. The 0.5-head pass BENDS INTO A BOW across the
+BOUGH: 🔴 THE LAST MEASUREMENT. The 0.5-head = 5%-OF-FRAME-HEIGHT pass BENDS INTO
+A BOW across the
 frame under his weight - one stroke still, curving down, its far end frayed
 thinnest. Along the lower edge, the thick branch he just left lies STRAIGHT as a
 flat shape, so bent and straight are seen together.
@@ -469,8 +499,8 @@ SUBJECT: CENTRE - SquirrelKit with both forepaws laid on the bending branch and
 its body sagging below, hind claws still hooked on the branch beneath, belly
 stretched long, tail dropped straight down, eyes round, mouth just open. 🔴 ALL
 FOUR FEET ARE ON SOMETHING - nothing falls on this page.
-SETTING: pale plane behind, 0 other shapes. At most 3 flat needle clusters hang
-from the bent end. FINISHED THINGS = 2 (the bow, the hanging body).
+SETTING: 🔴 SKY = 85% of the frame, 0 other shapes in it. At most 3 flat needle
+clusters hang from the bent end. FINISHED THINGS = 2 (the bow, the hanging body).
 TONE: the emptiest page in the book - one curve, one body, one straight shape
 below. GRADE: four-legged, 0 clothing, 0 fingers.
 
@@ -483,7 +513,8 @@ BOUGH: one #6B4530 pass 2.5 heads wide, near-horizontal, thick and steady - 🔴
 the width jumps back up, the only time it does. Along the upper edge, the thin
 bent branch still shows a little curve as a flat shape, and the sky above it is
 cut off by the frame.
-DEER: 0.05 of the frame height, lower right, neck thrown back, head up, mouth
+DEER: 0.05 of the frame height, at 80% across the frame and 10% up from the
+bottom edge, neck thrown back, head up, mouth
 open, pale throat mane bright (sheet posture c).
 DOWN: 🔴 YES - FIRST TIME. He sits and bends his head down, and ONE FOREPAW
 POINTS DOWN in the same shape it used overhead on p1, p4 and p8 - only the arm
@@ -493,7 +524,7 @@ SUBJECT: LEFT - SquirrelKit sitting on the thick branch, hind legs folded, head
 bent down, one forepaw pointing down, the other on the bark, tail hanging over
 the side (sheet posture f).
 SETTING: below, the green plane opens in flat layers and the pale lichen ground
-shows through with the reindeer on it. FINISHED THINGS = 2 (the pointing paw,
+shows through with the reindeer on it. 🔴 SKY = 45% of the frame, down from 85. FINISHED THINGS = 2 (the pointing paw,
 the reindeer's raised head).
 TONE: 🔴 the pale plane leaves the top of the frame and GREEN BECOMES THE OWNER
 OF THE PAGE for the first time; the two lit things sit at opposite corners of the
@@ -507,7 +538,8 @@ diagonal. GRADE: four-legged, 0 clothing, 0 fingers.
 BOUGH: one #6B4530 pass 3.0 heads wide running from the near edge DOWN and away,
 the trunk seen from above. 🔴 Along the TOP edge, the thin bent branch's end
 still hangs in - and the highest branch is out of frame above it, unseen.
-DEER: 🔴 0.03 - at the bottom edge, exactly one pine-cone wide, head up. Bake it
+DEER: 🔴 0.03 - at 50% across the frame and right at the bottom edge, exactly one
+pine-cone wide, head up. Bake it
 against the cone from the sheet; the same reindeer was 0.35 on p1.
 DOWN: yes. Chin laid on the branch, both forepaws over the front edge, eyes down.
 🔴 Nothing in this frame looks up except the reindeer.
@@ -516,7 +548,7 @@ SUBJECT: NEAR LOWER EDGE - SquirrelKit belly on the thick branch, chin on it,
 both forepaws hanging over, tail curled over its back, mouth corners up (sheet
 posture g). 🔴 Exactly the reverse of p1's posture.
 SETTING: 🔴 DENSITY RATION PAGE - FINISHED THINGS = 5: the squirrel, the stump,
-the nest, the knot, the base with one rust pine cone. The four landmarks fall in
+the nest, the knot, the base with one rust pine cone. 🔴 SKY = 25% of the frame. The four landmarks fall in
 ONE STRAIGHT LINE down the trunk in that order, each a flat cut shape.
 TONE: green deepens downward; the base is given NO finish (flat colour, hard
 edge, 0 detail) so the eye walks the four marks and stops at the reindeer. GRADE: four-legged, 0 clothing, 0 fingers.
@@ -530,6 +562,7 @@ edge, 0 detail) so the eye walks the four marks and stops at the reindeer. GRADE
 1. **획이 몇 개인가 → 정확히 1.** 두 번째 붓 자국이 보이면 재굽기(f11 은 0, 이 책은 1).
 2. **바늘잎을 그렸나** — 잎 한 개라도 보이면 실패. 초록은 평칠 한 판이다.
 3. **굵기가 값으로 읽히나** — p2·p5·p9·p11 을 나란히 놓고 **앞발과 가지의 관계**가 못 닿음 → 맞물림 → 남음 → 휨 인지.
-4. **순록이 열세 쪽 중 여섯 쪽에 있고 쪽마다 작아지나**(0.35 → 0.03). 🔴 대본이 프레임 밖이라 한 쪽에 넣지 마라.
+4. **순록이 열세 쪽 중 여섯 쪽에 있고 쪽마다 작아지나**(0.35 → 0.03). 🔴 대본이 프레임 밖이라 한 쪽에 넣지 마라. 🔴 **자리까지 맞나**(2026-08-04) — p1 78% · p3 20% · p6 65% · p9 12% · p12 80% · p13 50%. 0.02 짜리는 자리가 안 맞으면 **그냥 없어진다.**
 5. **p1~p11 에 아래를 보는 것이 하나도 없나.**
-6. **위로 갈수록 밝아지나** — p10 이 이 책에서 가장 밝고, 어두워지는 쪽이 하나도 없나. 그리고 **제일 높은 가지는 p13 에서도 프레임 밖인가.**
+6. **위로 갈수록 밝아지나** — 🔴 **열세 장을 늘어놓고 하늘 비율을 눈으로 재라**(0·5·10·20·30·40·55·65·75·**90**·85·45·25). 한 쪽이라도 앞 쪽보다 어두우면 p10 까지의 사다리가 죽는다. 그리고 **제일 높은 가지는 p13 에서도 프레임 밖인가.**
+7. 🔴 **굵기를 화면 세로로 재라**(2026-08-04) — p2 30% · p5 20% · p9 8% · p11 5%. 네 쪽은 같은 거리라 **자를 그대로 대고 잴 수 있다.** 「좀 가늘어 보인다」로 판정하지 마라.

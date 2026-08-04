@@ -61,6 +61,26 @@
 🔴 부호 = **+ 오른쪽으로 기욺 / − 왼쪽으로 기욺.** 문지방은 벽과 같이 기울므로 **+ 면 물건이 오른쪽으로, − 면 왼쪽으로 굴러간다.**
 🔴 **p1 은 한쪽만 기운 상태(+6 / 0)이고 p14 는 서로를 향해 같은 만큼 기운 상태(+3 / −3)다.** 이 대칭이 착지이고, 그래서 도토리와 구슬이 가운데에서 만난다.
 
+**🔴 2026-08-04 수정 — 각도·간격·고양이 자리를 눈대중에서 수치로 바꿨다(사용자 메모: 「두 집 간의 간격, 페이지마다 집의 기울기, 고양이의 위치」).** 「+6°」·「손가락」·「frame left」는 **그릴 사람에게는 값이 아니다.** 아래 세 환산표를 컷마다 그대로 적어 둔다.
+
+**① 기울기 = 벽 윗변이 밑변에서 옆으로 밀린 양** (집 제 폭 기준. 🔴 **프레임의 좌우 가장자리가 참된 수직선**이고 그것에 대고 잰다.)
+
+| 각도 | 0 | ±1 | ±2 | ±3 | ±4 | +6 |
+|---|---|---|---|---|---|---|
+| **윗변 밀림** | 0 | 제 폭의 1/40(실낱만큼) | 1/20 | 🔴 **1/12** | 1/10 | 🔴 **1/6** |
+
+**② 간격 = 두 안쪽 기둥 사이 지지면 띠의 폭** (프레임 가로폭 기준 · 문 폭 대비 둘 다 적는다)
+
+| 이름 | 실낱 | 손가락 | 손바닥 |
+|---|---|---|---|
+| **띠 폭** | 프레임 가로의 **0.5%** = 문 폭의 1/20 | **2.5%** = 문 폭의 1/4 | 🔴 **7%** = 문 폭에 가깝다 |
+
+**③ 고양이 자리** — 컷마다 CAMERA 줄에 **프레임 가로에서 몇 %** 지점인지 적는다(왼쪽 가장자리 0%, 오른쪽 100%).
+
+| p1 | p2 | p3 | p4 | p5 | p6 | p7 | p8 | p9 | p10 | p11 | p12 | p13 | p14 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 25 | 35 | 20 | 30 | 25 | 45 | 30 | 20 | 40 | 🔴 **8** | 35 | 20 | 15 | 25 |
+
 ---
 
 ## A-50 §2. STYLE ANCHOR
@@ -69,46 +89,44 @@
 STYLE ANCHOR - changjak-keystone   (a kitten and the badger next door / an Alsace lane, two houses leaning)
 
 Style: cut paper, 4-6 year old picture book, on a grey-blue ground. 🔴 NO PIECE EVER OVERLAPS
-  ANOTHER PIECE. Every shape is cut with scissors and set down edge to edge, and 🔴 THE HAIRLINE OF
-  GROUND SHOWING BETWEEN TWO PIECES IS THE ONLY LINE IN THIS BOOK. There is no brush, no pencil, no
-  outline and no shading. 🔴 EXACTLY TWO HOUSES ON EVERY PAGE; what changes is the ANGLE each is
-  set at and the WIDTH of ground between them - hairline, finger, palm, finger, hairline. That is
-  the clock.
+  ANOTHER. Every shape is cut with scissors and set edge to edge, and 🔴 THE HAIRLINE OF GROUND
+  BETWEEN TWO PIECES IS THE ONLY LINE IN THIS BOOK. No brush, no pencil, no outline, no shading.
+  🔴 EXACTLY TWO HOUSES ON EVERY PAGE; what changes is the ANGLE of each and the WIDTH of ground
+  between them - hairline, finger, palm, finger, hairline. That is the clock.
 
 RENDERING (finish hierarchy): 🔴 THIS VOLUME: THE CUT PIECES LEAN ON EACH OTHER AND STAND UP BY
-  THEMSELVES. 🔴 THE TIMBER FRAMING IS NEVER A DRAWN BAND - each house is a plaster panel set edge
-  to edge with dark TIMBER pieces, and a post is simply the edge of a dark piece. 🔴 THE GROUND
-  SHOWS THROUGH IN THREE WIDTHS AND THEY ARE THE SAME THING: a hairline between two pieces
-  pressing on each other, a finger, and a palm. Evening is 🔴 THE SAME PIECES SWAPPED FOR ONE STEP
-  DARKER PAPER. FINISHED THINGS PER PAGE = 2. Pieces per house = at most 6 (plaster, roof, two
-  timber strips, door, sill). Gravel = at most 24 cut stones in the near band, 0 beyond.
-  Plaster flecks = at most 9. DENSITY RATION = page 13, and 🔴 THERE THE DENSITY IS COUNT, NOT
-  FINISH - one fleck repeated. All fourteen stay at finish 2.
+  THEMSELVES. 🔴 THE TIMBER FRAMING IS NEVER A DRAWN BAND - a post is simply the edge of a dark
+  piece. 🔴 MEASURE THE LEAN AGAINST THE FRAME'S LEFT AND RIGHT EDGES, WHICH ARE TRUE VERTICALS,
+  AND STATE IT AS HOW FAR A WALL'S TOP EDGE IS PUSHED SIDEWAYS FROM ITS BASE, IN FRACTIONS OF THAT
+  HOUSE'S OWN WIDTH: 0 · 1/40 · 1/20 · 1/12 · 1/10 · 1/6. 🔴 THE GROUND SHOWS THROUGH IN THREE
+  WIDTHS AND THEY ARE THE SAME THING: HAIRLINE = 0.5% of the frame's width, FINGER = 2.5%, PALM =
+  7%. Evening is 🔴 THE SAME PIECES SWAPPED FOR ONE STEP DARKER PAPER. FINISHED THINGS PER PAGE = 2.
+  Pieces per house = at most 6 (plaster, roof, two timber strips, door, sill). Gravel = at most 24
+  cut stones in the near band, 0 beyond. Plaster flecks = at most 9. DENSITY RATION = page 13, and
+  🔴 THERE THE DENSITY IS COUNT, NOT FINISH - one fleck repeated. All fourteen stay at finish 2.
 
-PALETTE: GROUND #5B6E7E, the sheet everything is laid on - 🔴 the sky, and also every gap between
-  two pieces, at any width · OUR PLASTER #F1E9D8, laid paper with a visible grain, left house ·
-  THEIR PLASTER #DFB6A9, right house · TIMBER #4A3323, the dark framing and both doors -
-  🔴 pieces, never drawn lines · TIMBER INNER #2F2118, one step darker, an open doorway's inside
-  and a wall face turned away (a different face, not a shadow) · GRAVEL #9A8C77 · CAT #C0A98A ·
-  BADGER #6F6A62 with a #F1E9D8 face stripe. 🔴 ONE ACCENT: GERANIUM #C8532E - at most 3 petal
-  pieces in one window box, the only saturated piece in the book, and 🔴 IT TILTS WITH ITS HOUSE.
-  No other red, orange, yellow, gold or green.
+PALETTE: GROUND #5B6E7E, the sheet everything is laid on - 🔴 the sky, and every gap between two
+  pieces at any width · OUR PLASTER #F1E9D8, left house · THEIR PLASTER #DFB6A9, right house ·
+  TIMBER #4A3323, the framing and both doors - 🔴 pieces, never drawn lines · TIMBER INNER #2F2118,
+  an open doorway's inside and a wall face turned away (a different face, not a shadow) · GRAVEL
+  #9A8C77 · CAT #C0A98A · BADGER #6F6A62 with a #F1E9D8 face stripe. 🔴 ONE ACCENT: GERANIUM
+  #C8532E - at most 3 petal pieces in one window box, and 🔴 IT TILTS WITH ITS HOUSE. No other red,
+  orange, yellow, gold or green.
 
 CHARACTER DESIGN LANGUAGE: both animals are cut from the same papers as the world, two or three
-  pieces with limbs beside them. An eye is one small dark cut disc with no eyebrow and no
-  expression; the acting is the WHOLE-BODY SILHOUETTE - the spread of the legs, the line of the
-  back, the tail. FIXED GRADE, fourteen pages: upright on two legs, front paws as hands, faces kept
-  animal, 🔴 NO CLOTHES ON EITHER. 🔴 NEITHER ONE EVER POINTS AT A WALL, WARNS OR EXPLAINS - they
-  push, hold on and look.
+  pieces with limbs beside them. An eye is one small dark cut disc, no eyebrow, no expression; the
+  acting is the WHOLE-BODY SILHOUETTE - the spread of the legs, the line of the back, the tail.
+  FIXED GRADE, fourteen pages: upright on two legs, front paws as hands, faces kept animal, 🔴 NO
+  CLOTHES ON EITHER. 🔴 NEITHER ONE EVER POINTS AT A WALL, WARNS OR EXPLAINS - they push, hold on
+  and look.
 
-CANVAS: 16:9 double-page spread. One lane, fixed for all fourteen pages by AlleySet.
-  🔴 The camera never leaves the two doorways and never goes indoors. No lettering or numerals.
+CANVAS: 16:9 double-page spread. One lane, fixed for all fourteen pages by AlleySet. 🔴 The camera
+  never leaves the two doorways and never goes indoors. No lettering or numerals.
 
-NOT: no digital slickness - airbrush, gradient, glow, 3D CG, cel-shading, photographic,
-  or a paper-texture filter over flat colour (the papers must be REAL cut sheets) / no drawn line,
-  outline or brush mark - every line here is a gap between two pieces / never a shadow,
-  light shaft or shine / ONE SHEET THICK - no stitching, thread, wool, needle felting or
-  fabric weave.
+NOT: no digital slickness - airbrush, gradient, glow, 3D CG, cel-shading, photographic or a
+  paper-texture filter over flat colour (the papers must be REAL cut sheets) / no drawn line,
+  outline or brush mark - every line here is a gap between two pieces / never a shadow, light shaft
+  or shine / ONE SHEET THICK - no stitching, thread, wool or fabric weave.
 ```
 
 ---
@@ -235,30 +253,32 @@ ALSO: a shutter shut and the same shutter swung open (TIMBER INNER inside face) 
 
 ```
 BAKE THIS PAGE SECOND, right after page 8. 🔴 It fixes the lane for all fourteen spreads.
-LEAN: 🔴 LEFT HOUSE +6, tipped right, its top corner resting on the right house. RIGHT HOUSE 0,
-  upright. Its sill tips right with it, so 🔴 THE ACORN ROLLS RIGHT - it sits two thirds of the way
-  along the left sill and 🔴 THE PLACE IT WAS SET DOWN IS PLAINLY EMPTY. No motion line, no trail.
-GAP: 🔴 A HAIRLINE - the two inner timber pieces touch all the way up, so the GROUND shows between
-  them as one thread. Between every other pair of pieces, the same thread at the same width.
-BEAM: 🔴 ONE LINE. At thumbnail size the two dark posts read as a single post. Plant it here.
-CAMERA: wide, eye level, straight on, both lower storeys and both sills in one look, roofs cut off
-  by the top of the frame.
+LEAN: 🔴 LEFT +6 = ITS TOP EDGE PUSHED RIGHT BY ONE SIXTH OF ITS OWN WIDTH, its top corner resting
+  on the right house. RIGHT 0 = a true vertical against the frame edge. The left sill tips right
+  with its wall, so 🔴 THE ACORN ROLLS RIGHT - two thirds of the way along that sill, and 🔴 THE
+  PLACE IT WAS SET DOWN IS PLAINLY EMPTY. No motion line, no trail.
+GAP: 🔴 A HAIRLINE = 0.5% of the frame's width, a twentieth of a door - the two inner timber pieces
+  touch all the way up, and every other pair of pieces shows the same thread.
+BEAM: 🔴 ONE LINE. At thumbnail size the two dark posts read as one. Plant it here.
+CAMERA: wide, eye level, straight on, both lower storeys and both sills, roofs cut off by the top
+  of the frame. 🔴 CatKit at 25% across the frame from the left edge.
 SUBJECT: CatKit CROUCHED at the left sill, one forepaw stretched out and just let go, head turned
-  to follow the acorn, mouth open. No badger on this page.
-SETTING: morning set. Gravel band at most 24 stones. The window box with at most 3 GERANIUM petal
-  pieces, 🔴 TIPPED RIGHT WITH ITS HOUSE.
-FINISH: 2 (the cat + the acorn). 🔴 Page 14 is this frame with both houses even.
-  Upright on two legs, no clothes. 0 lettering.
+  after the acorn, mouth open. No badger on this page.
+SETTING: morning set. Gravel at most 24 stones. The window box with at most 3 GERANIUM petals,
+  🔴 TIPPED RIGHT WITH ITS HOUSE.
+FINISH: 2 (the cat + the acorn). 🔴 Page 14 is this frame with both houses even. Upright on two
+  legs, no clothes. 0 lettering.
 ```
 
 ### p2 — 또 닫혔잖아
 
 ```
-LEAN: LEFT +6, RIGHT 0, unchanged. 🔴 The left door hangs in a frame that is tipped right, which is
-  why it has swung to by itself; nothing is drawn to say so.
-GAP: a hairline, at the right edge of the frame.
+LEAN: LEFT +6 (top edge pushed right by 1/6 of its width), RIGHT 0, unchanged. 🔴 The left door
+  hangs in a frame tipped right, which is why it has swung to by itself; nothing is drawn to say so.
+GAP: a hairline (0.5% of the frame's width), at the right edge of the frame.
 BEAM: one line.
-CAMERA: medium, slightly low, the left house's door filling the right of the frame.
+CAMERA: medium, slightly low, the left house's door filling the right of the frame. 🔴 CatKit at 35%
+  across the frame.
 SUBJECT: CatKit STARTLED - half turned to the door, both forepaws up at the chest, shoulders
   pulled in, ears back, 🔴 THE TAIL CUT AS A FAT BOTTLE-BRUSH SHAPE, not drawn hairs. Eyes on the
   door.
@@ -272,11 +292,13 @@ FINISH: 2 (the cat's bristled tail + the shut door). One dark post at the frame 
 ### p3 — 오늘만 세 번째야
 
 ```
-LEAN: LEFT +6, RIGHT 0. 🔴 The acorn has already rolled RIGHT off the left sill and is out on the
-  gravel at the badger's feet; the right sill, being level, holds its marble dead still.
-GAP: a hairline.
+LEAN: LEFT +6 (top edge pushed right by 1/6 of its width), RIGHT 0 (true vertical). 🔴 The acorn has
+  already rolled RIGHT off the left sill and is out on the gravel at the badger's feet; the right
+  sill, being level, holds its marble dead still.
+GAP: a hairline (0.5% of the frame's width).
 BEAM: one line.
-CAMERA: medium wide, eye level, both sills in one frame.
+CAMERA: medium wide, eye level, both sills in one frame. 🔴 CatKit at 20% across the frame,
+  BadgerKit at 75%.
 SUBJECT: at frame right BadgerKit STOPPING A ROLLING THING - one forepaw pressed down on the acorn
   against the gravel, head turned up and to the left. At frame left CatKit LEANING OVER A SILL,
   both forepaws planted on it, body pushed forward, looking across.
@@ -289,13 +311,14 @@ FINISH: 2 (the badger's pinning paw with the acorn under it + the cat's two fore
 ### p4 — 우리 집만 똑바로 서 줘 🔴 후렴 1/2 · 미는 자세 A
 
 ```
-LEAN: 🔴 LEFT +4 (it was +6), RIGHT -1. The left house has come up two degrees and the right one
-  has begun to tip LEFT. 🔴 The change is only the angle - no force lines, no strain marks, no
-  emphasis of any kind.
-GAP: a FINGER, opening from the top down. Here it is at the very top of the frame and not the
-  subject.
+LEAN: 🔴 LEFT +4 = top edge pushed RIGHT by 1/10 of its width (it was 1/6). RIGHT -1 = top edge
+  pushed LEFT by 1/40, a sliver. 🔴 The change is only the angle - no force lines, no strain marks,
+  no emphasis of any kind.
+GAP: a FINGER = 2.5% of the frame's width, a quarter of a door, opening from the top down. Here it
+  is at the very top of the frame and not the subject.
 BEAM: 🔴 TWO LINES now, for the first time in the book.
-CAMERA: medium, low angle, the left wall rising out of the top of the frame.
+CAMERA: medium, low angle, the left wall rising out of the top of the frame. 🔴 CatKit at 30% across
+  the frame.
 SUBJECT: CatKit BACK-PUSH - spine and the back of the head flat against the plaster, both hind
   feet dug into the gravel, knees bent hard, eyes shut, mouth wide, tail stiff out behind.
 SETTING: morning set. Plaster flecks off the eave = at most 9 separate small cut pieces in a
@@ -307,13 +330,14 @@ FINISH: 2 (the cat's braced hind feet in the gravel + the two dark posts with a 
 ### p5 — 창문이 왜 열려 🔴 첫 목격
 
 ```
-LEAN: LEFT +4, RIGHT -1. 🔴 The right house's own frames are now off plumb, which is why its
-  shutter has swung open by itself. Nothing is drawn to explain it.
-GAP: 🔴 A FINGER OF GROUND BETWEEN THE TWO INNER TIMBER PIECES, DEAD CENTRE OF THE FRAME, running
-  from the top down. 🔴 It is the same sheet as the sky above it - not a painted strip of blue and
-  not lit. It reads as bright because it is the only cool piece in a warm frame.
+LEAN: LEFT +4 (1/10 right), RIGHT -1 (1/40 left). 🔴 The right house's own frames are now off plumb,
+  which is why its shutter has swung open by itself. Nothing is drawn to explain it.
+GAP: 🔴 A FINGER = 2.5% OF THE FRAME'S WIDTH, DEAD CENTRE, running from the top down. 🔴 It is the
+  same sheet as the sky above it - not a painted strip of blue and not lit. It reads as bright
+  because it is the only cool piece in a warm frame.
 BEAM: two lines.
-CAMERA: medium close-up, eye level, the place where the two houses meet in the middle of the frame.
+CAMERA: medium close-up, eye level, the meeting place in the middle of the frame. 🔴 CatKit at 25%
+  across the frame, BadgerKit at 70%.
 SUBJECT: at lower right BadgerKit LOOKING STRAIGHT UP, neck thrown right back, both forepaws
   together at the belly. At frame left CatKit off the wall, body still square to it, head turned
   toward him.
@@ -326,12 +350,13 @@ FINISH: 2 (the finger of GROUND between the posts + the open shutter's inner fac
 ### p6 — 조금만 더
 
 ```
-LEAN: LEFT +4, RIGHT -1. 🔴 The sill still tips right, so the acorn has rolled right AGAIN - but
-  only as far as the far lip, where it has stopped. 🔴 That shorter roll is the page: less tip,
-  less travel. The place it started is empty.
+LEAN: LEFT +4 (1/10 right), RIGHT -1. 🔴 The sill still tips right, so the acorn has rolled right
+  AGAIN - but only as far as the far lip, where it has stopped. 🔴 That shorter roll is the page:
+  less tip, less travel. The place it started is empty.
 GAP: out of frame.
 BEAM: out of frame.
-CAMERA: close-up, high angle looking down at the left sill; the sill and one acorn fill the frame.
+CAMERA: close-up, high angle down at the left sill; the sill and one acorn fill the frame. 🔴 CatKit
+  at 45% across the frame.
 SUBJECT: CatKit FLAT OUT on the sill, nose almost touching the acorn, both forepaws planted either
   side of it, eyes on it alone.
 SETTING: near midday set. The sill is one TIMBER piece with a visible grain and 🔴 0 wood-grain
@@ -344,12 +369,13 @@ FINISH: 2 (the acorn + the cat's nose). Nothing else in frame.
 ### p7 — 우리 집만 똑바로 서 줘 🔴 후렴 2/2 · 미는 자세 A 낮게
 
 ```
-LEAN: 🔴 LEFT +1 (coming upright), RIGHT -3 (tipping further LEFT). 🔴 The two move together and
-  in opposite directions - that is the whole engine of the book and it is never said in words.
-GAP: opening past a finger toward a palm, top of frame.
+LEAN: 🔴 LEFT +1 = top edge pushed right by only 1/40, nearly upright. RIGHT -3 = top edge pushed
+  LEFT by 1/12. 🔴 The two move together and in opposite directions - that is the whole engine of
+  the book and it is never said in words.
+GAP: 4.5% of the frame's width, past a finger and short of a palm, top of frame.
 BEAM: two lines, clearly apart now.
 CAMERA: 🔴 THE SAME PLACE AND DIRECTION AS p4 - medium, low angle, the left wall rising out of the
-  top of the frame. Only the angles and the pose differ.
+  top of the frame; only the angles and the pose differ. 🔴 CatKit at 30% across the frame, as on p4.
 SUBJECT: CatKit BACK-PUSH LOW - crouched further down than on p4, spine, the back of the head AND
   the forehead against the plaster, hind legs straight out, gravel pushed up between the toes,
   teeth set.
@@ -363,15 +389,16 @@ FINISH: 2 (the cat's straightened hind legs + the pushed-up gravel at its feet).
 
 ```
 BAKE THIS PAGE FIRST. 🔴 It fixes the widest GROUND band and the two loose things for the book.
-LEAN: 🔴 LEFT 0, upright for the first time. RIGHT -4, the widest lean in the book. 🔴 THE RIGHT
-  SILL NOW TIPS LEFT, SO THE MARBLE ROLLS LEFT, toward the cat - it lies out on the gravel to the
-  left of the right sill, and 🔴 the place on that sill where it sat is plainly empty. The acorn
-  stands still on the level left sill.
-GAP: 🔴 A PALM OF GROUND BETWEEN THE TWO INNER TIMBER PIECES - the widest in the book, running the
+LEAN: 🔴 LEFT 0 - a true vertical against the frame edge, upright for the first time. RIGHT -4 =
+  top edge pushed LEFT by 1/10 of its width, the widest lean in the book. 🔴 THE RIGHT SILL NOW
+  TIPS LEFT, SO THE MARBLE ROLLS LEFT, toward the cat - it lies out on the gravel left of the right
+  sill, and 🔴 the place on that sill where it sat is plainly empty. The acorn stands still.
+GAP: 🔴 A PALM = 7% OF THE FRAME'S WIDTH, about a door wide - the widest in the book, running the
   full height of the frame, 🔴 THE SAME SHEET AS THE SKY, unpainted and unlit. Set beside p1: same
-  material, one thread against one palm.
+  material, 0.5% against 7%.
 BEAM: two lines, far apart.
-CAMERA: medium wide, eye level, both sills and the gravel between them.
+CAMERA: medium wide, eye level, both sills and the gravel between them. 🔴 CatKit at 20% across the
+  frame, BadgerKit at 80%.
 SUBJECT: at frame right BadgerKit REACHING - flat on the stomach, both forearms stretched out to
   the left, hind feet braced on his own sill, eyes on the marble. At frame left CatKit standing at
   its wall, turned to look across.
@@ -383,11 +410,13 @@ FINISH: 2 (the palm-wide band of GROUND + the marble out on the gravel).
 ### p9 — 하나도 안 굴러가
 
 ```
-LEAN: 🔴 LEFT 0 - LEVEL. The sill is flat, so 🔴 THE ACORN STANDS DEAD CENTRE ON IT AND DOES NOT
-  ROLL EITHER WAY. The left door hangs plumb and stays wide open by itself.
+LEAN: 🔴 LEFT 0 - LEVEL, a true vertical against the frame edge, top edge pushed 0. The sill is
+  flat, so 🔴 THE ACORN STANDS DEAD CENTRE ON IT AND DOES NOT ROLL EITHER WAY. The left door hangs
+  plumb and stays wide open by itself.
 GAP: out of frame at the right edge.
 BEAM: out of frame.
-CAMERA: medium, slightly low, the whole cat in frame with the left house's door behind.
+CAMERA: medium, slightly low, the whole cat in frame with the left house's door behind. 🔴 CatKit at
+  40% across the frame.
 SUBJECT: CatKit UP ON TWO, both forearms thrown straight overhead, heels lifted, mouth wide, tail
   bolt upright.
 SETTING: early afternoon set. 🔴 THE LEFT DOOR STANDS WIDE OPEN AND STILL, its inside face cut in
@@ -400,13 +429,13 @@ FINISH: 2 (the acorn standing centred on the level sill + the cat's lifted heels
 ### p10 — 문이 자꾸 열려
 
 ```
-LEAN: LEFT 0, RIGHT -4. 🔴 The right house leans over toward the cat's side, so its door swings
-  open on its own and the badger is holding it. Anything loose on his sill would roll LEFT; his
-  sill is empty now.
-GAP: a palm, at the left of the frame.
+LEAN: LEFT 0 (true vertical), RIGHT -4 (top edge pushed left by 1/10). 🔴 The right house leans over
+  toward the cat's side, so its door swings open on its own and the badger is holding it. Anything
+  loose on his sill would roll LEFT; his sill is empty now.
+GAP: a palm (7% of the frame's width), at the left of the frame.
 BEAM: two lines.
-CAMERA: medium wide, eye level, 🔴 the right house taking most of the frame and only the cat's
-  edge at the far left.
+CAMERA: medium wide, eye level, 🔴 the right house taking most of the frame. 🔴 CatKit at 8% across
+  the frame - only its edge at the far left - BadgerKit at 65%.
 SUBJECT: at frame right BadgerKit HOLDING A DOOR - both palms flat on the door face, heels dug
   into the gravel, the whole body slanted back away from it, mouth open. At the far left edge
   CatKit, body still square to its own house, only the head turned right.
@@ -420,11 +449,13 @@ FINISH: 2 (the badger's flat palms on the door + the door's open inner face).
 ### p11 — 우리 집아 도로 기대 🔴 뒤집힘 · 미는 자세 B
 
 ```
-LEAN: 🔴 LEFT 0 → +1, going back the way it came. RIGHT -4, not yet moved. 🔴 The cat is now on
-  THE OTHER SIDE of its own wall and pushing the opposite way; that reversal is the page.
-GAP: still a PALM, and the cat's eyes are on it.
+LEAN: 🔴 LEFT +1 = top edge pushed right by 1/40, going back the way it came. RIGHT -4 (1/10 left),
+  not yet moved. 🔴 The cat is now on THE OTHER SIDE of its own wall and pushing the opposite way;
+  that reversal is the page.
+GAP: still a PALM (7% of the frame's width), and the cat's eyes are on it.
 BEAM: two lines.
-CAMERA: 🔴 THE SAME WALL AS p4 and p7, medium, low angle, BUT FROM THE OTHER SIDE OF IT.
+CAMERA: 🔴 THE SAME WALL AS p4 and p7, medium, low angle, BUT FROM THE OTHER SIDE OF IT. 🔴 CatKit
+  at 35% across the frame.
 SUBJECT: CatKit SHOULDER-PUSH - facing the plaster, both palms flat on it, one shoulder set
   against it, one hind leg stretched far back into the gravel, eyes on the gap between the houses.
   🔴 THE MIRROR OF ITS POSE ON p4 AND p7 - set the three side by side and the body has turned
@@ -437,11 +468,12 @@ FINISH: 2 (the cat's two flat palms on the plaster + the palm-wide band of GROUN
 ### p12 — 나도 밀게
 
 ```
-LEAN: 🔴 LEFT +2, RIGHT -3 - both are now tipping TOWARD each other, and the tops are closing.
-GAP: 🔴 A FINGER - narrowed from a palm. Same sheet, one width down.
+LEAN: 🔴 LEFT +2 = top edge pushed RIGHT by 1/20. RIGHT -3 = top edge pushed LEFT by 1/12. Both are
+  now tipping TOWARD each other and the tops are closing.
+GAP: 🔴 A FINGER - 2.5% of the frame's width, narrowed from 7%. Same sheet, one width down.
 BEAM: two lines, close.
 CAMERA: wide, eye level, straight on, 🔴 both animals in one frame each pushing their own wall
-  toward the other.
+  toward the other. 🔴 CatKit at 20% across the frame, BadgerKit at 78%.
 SUBJECT: at frame left CatKit SHOULDER-PUSH, palms flat on its own plaster, pushing right. At
   frame right BadgerKit SHOULDER-PUSH, the mirror image, palms flat on his own plaster, pushing
   left. 🔴 Both with a hind leg stretched back and eyes shut. Neither one touches the other's
@@ -455,13 +487,13 @@ FINISH: 2 (the two pairs of braced hind feet + the finger of GROUND at the top).
 ### p13 — 다시 한 줄이 됐어요 🔴 밀도 배급 · p5 와 같은 구도
 
 ```
-LEAN: 🔴 LEFT +3, RIGHT -3 - even, each leaning the same amount toward the other, their top
-  corners meeting.
-GAP: 🔴 ZERO. The two inner timber pieces touch again and the GROUND between them is a HAIRLINE.
-  The palm-wide band is gone from the frame entirely.
+LEAN: 🔴 LEFT +3 AND RIGHT -3 - each top edge pushed 1/12 of its own width TOWARD the other, the
+  same amount both ways, their top corners meeting.
+GAP: 🔴 ZERO - back to a HAIRLINE, 0.5% of the frame's width. The two inner timber pieces touch
+  again and the 7% band is gone from the frame entirely.
 BEAM: 🔴 ONE LINE AGAIN - at thumbnail size a single dark post, exactly as on p1.
-CAMERA: 🔴 THE FRAME OF p5 - medium close-up, eye level, the meeting place dead centre. Only the
-  width of the ground differs.
+CAMERA: 🔴 THE FRAME OF p5 - medium close-up, eye level, the meeting place dead centre; only the
+  width of the ground differs. 🔴 CatKit at 15% across the frame, BadgerKit at 85%.
 SUBJECT: at the lower left and lower right corners, CatKit and BadgerKit each still shoulder-set
   against their own wall, 🔴 heads tipped up to look at the join. Neither points at it.
 SETTING: late afternoon set. 🔴 DENSITY RATION - plaster flecks thrown off the meeting, at most 9
@@ -475,20 +507,21 @@ FINISH: 2 (the joined dark post + the two upturned faces). 🔴 Finish stays at 
 
 ```
 BAKE THIS PAGE THIRD, right after page 1. 🔴 Same frame as p1, both houses even instead of one.
-LEAN: 🔴 LEFT +3, RIGHT -3 - the two walls lean toward each other and meet at the top. 🔴 BOTH
-  SILLS TIP INWARD, so the acorn rolls RIGHT off the left sill and the marble rolls LEFT off the
-  right one, and 🔴 THE TWO OF THEM LIE TOUCHING ON THE GRAVEL EXACTLY BETWEEN THE TWO DOORWAYS.
-  Both sills are plainly empty. No motion lines.
-GAP: 🔴 ZERO - a hairline between the two posts, the whole height.
-BEAM: 🔴 ONE LINE, as on p1 - but there one house leaned on the other, and here both lean the
-  same amount toward each other.
+LEAN: 🔴 LEFT +3 AND RIGHT -3 - each top edge pushed 1/12 of its own width TOWARD the other, meeting
+  at the top. 🔴 BOTH SILLS TIP INWARD, so the acorn rolls RIGHT off the left sill and the marble
+  rolls LEFT off the right one, and 🔴 THE TWO LIE TOUCHING ON THE GRAVEL EXACTLY BETWEEN THE TWO
+  DOORWAYS. Both sills plainly empty. No motion lines.
+GAP: 🔴 ZERO - a hairline (0.5%) between the two posts, the whole height.
+BEAM: 🔴 ONE LINE, as on p1 - but there one house leaned on the other (1/6 and 0), here both lean
+  the same (1/12 and 1/12).
 CAMERA: 🔴 THE EXACT FRAME OF p1 - wide, eye level, straight on, both lower storeys and both sills.
+  🔴 CatKit at 25% across the frame as on p1, BadgerKit at 75%.
 SUBJECT: CatKit SITTING on the left sill, tail curled round its front feet, head down toward the
   middle. BadgerKit SITTING on the right sill in the same pose, looking at the same spot.
-SETTING: 🔴 THE EVENING SET - every piece swapped for its one-step-darker warm paper, and 🔴 OUR
-  PLASTER AND THEIR PLASTER ARE NOW CUT FROM THE SAME ORANGE SHEET.
-FINISH: 2 (the acorn and the marble touching + the joined post above them).
-  Both upright on two legs, faces animal, no clothes. 0 lettering.
+SETTING: 🔴 THE EVENING SET - every piece swapped for its one-step-darker warm paper, and 🔴 BOTH
+  PLASTERS ARE NOW CUT FROM THE SAME ORANGE SHEET.
+FINISH: 2 (the acorn and the marble touching + the joined post above them). Both upright on two
+  legs, faces animal, no clothes. 0 lettering.
 ```
 
 ---
@@ -499,5 +532,6 @@ FINISH: 2 (the acorn and the marble touching + the joined post above them).
 2. 🔴 **어느 쪽에서든 조각이 겹쳤나.** 한 장이라도 겹치면 이 앵커가 아니다(d12 가 그 반대편 책이다).
 3. 🔴 **목조 골조를 그렸나.** 회벽 위에 선이 한 획이라도 있으면 다시 굽는다 — 골조는 어두운 조각의 **가장자리**여야 한다.
 4. 🔴 **틈이 세 폭으로만 나타나나**(실낱 / 손가락 / 손바닥). 그리고 그것이 **하늘과 같은 종이**인가 — 파랗게 칠했거나 밝혀 놓았으면 처방 1 위반이다.
+4-b. 🔴 **자로 재라**(2026-08-04 추가). ① **틈 폭** = 프레임 가로의 0.5 / 2.5 / 7% 인가 — 눈으로 「좁다·넓다」가 아니라 **p1 과 p8 을 같은 크기로 놓고 띠 폭을 재서 14배 차이**가 나는지 본다. ② **기울기** = 프레임 세로 가장자리에 대고 **벽 윗변이 밑변에서 얼마나 밀렸나**를 재서 표(0·1/40·1/20·1/12·1/10·1/6)와 맞는지. 🔴 두 벽이 **같은 쪽으로** 기울었으면 그 쪽은 통째로 실패다(부호가 반대여야 한다). ③ **고양이 자리** = 프레임 가로 %가 표와 맞나 — 특히 **p10 은 8%**(가장자리에 겨우 걸린다)이고 여기가 어긋나면 「오소리 쪽 이야기」라는 것이 안 읽힌다.
 5. 🔴 **그림자·볕이 한 군데라도 있나.** 있으면 그건 「한 단 어두운 종이로 갈아 붙인 다른 면」으로 다시 만든다.
 6. **원본 h10 첫 렌더와 나란히 놓는다** — 판정 한 줄 = 「조각이 **늘어나며 구멍이 좁아지나**(h10) ↔ **둘로 고정이고 틈만 오가나**(a50)」, 그리고 악센트가 **무늬 없는 흰 조각 ↔ 제라늄 빨강 한 점**인가.

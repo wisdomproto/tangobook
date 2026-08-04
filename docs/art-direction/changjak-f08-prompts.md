@@ -46,6 +46,15 @@
 | 2 | 무대 「**초록** 타일 난로와 **주황** 불빛」(bodyColors) | 🔴 초록 난로가 있으면 물속 풀물이 「그중 하나」가 된다 | 타일을 **채도 뺀 회록 #7E8A78** 로 눌러 초록 자리를 비우고, 불은 **손톱만 한 아궁이 입 하나**(#C4622A)로만. 🔴 **번지는 불빛·수면 반사광을 그리지 않는다** |
 | 3 | p12 「속이 막혀 있다는 것이 **밝기와 깊이**로만 읽히도록」 | 어둡게 하면 「밤이라서」로 읽힌다 | 🔴 값이 아니라 **침전**이다 — 물이 **탁해져** 밑이 안 비치는 것이고, 같은 쪽 통 밖 마루와 벽은 p1 과 같은 밝기다 |
 
+**🔴 2026-08-04 수정 — 사용자 메모가 「이미지 다시 그려야 함」 한 줄이라 무엇이 틀렸는지는 안 적혀 있었다.** 프롬프트를 다시 읽고 **쪽마다 흔들릴 수 있는 자리 넷**을 찾아 개수와 위치로 못박았다. 넷 다 「값이 있는 척했지만 실은 값이 없던 자리」다.
+
+| # | 흔들리던 자리 | 왜 흔들렸나 | 못박은 것 |
+|---|---|---|---|
+| 1 | 🔴 **네 색이 통 안 어디에 있나** | 자리를 적어 둔 쪽이 **p8 하나뿐**이었다. p3·p5·p6·p7 은 「몸에서 번져 나온다」고만 해서 새 색이 들어올 때마다 앞 색들이 **매번 다른 자리로 옮겨졌고**, 그러면 p8 의 「넷이 각자 제자리에」와 p10 의 「그 넷이 섞인다」가 **앞 쪽들과 이어지지 않는다** | **자리를 고정**: 황토 = 왼쪽 아래 · 초록 = 왼쪽 위 · 붉음 = 가운데를 가로지르는 실 · 노랑 = 오른쪽 구슬. 앵커·시트 B·컷 전부에 같은 말로 |
+| 2 | 🔴 **나뭇결 눈금이 분수였다** | 「반쪽 / 절반 / 1/4 / 조금 / 얼룩으로만」은 **셀 수 없다**(§규격 「형용사 대신 개수 상한」 위반). 이 책의 착지가 「나뭇결이 하나도 안 보인다」인데 그 자를 못 읽었다 | 통 안 나뭇결을 **정확히 6줄**로 고정하고, 쪽마다 **읽히는 줄 수**로 적는다 — 6·6·3·3·3·2·1·0·0·0·0·0 |
+| 3 | 🔴 **통 치수와 수면 높이가 없었다** | 「chest-high to the cub」한 줄뿐이라 통의 **지름**이 쪽마다 달라졌고(위에서 본 p8 은 수면이 화면을 꽉 채운다), 물이 얼마나 차 있는지도 없어 통 안쪽 벽이 보이는 넓이가 매번 달랐다 | **통 지름 = 아기 곰의 키** · 테 2줄, 위 테는 전에서 손 하나 아래 · **수면 = p2~p8 전에서 두 뼘 아래 / p9 넘침 / p10~ 한 뼘 아래** |
+| 4 | **의자가 돌아다녔다** | 방 시트는 난로·의자를 오른쪽에 뒀는데 p4 만 왼쪽이다 | 시트에 **의자 = 오른쪽 벤치 옆**으로 고정하고, p4 는 「할머니가 통 왼쪽으로 **끌어다 놓았다**」로 명시 — 표류가 아니라 한 번의 동작 |
+
 **밀도 배급**: 🔴 **없다.** 열두 쪽 전부 `FINISHED THINGS PER PAGE = 2`. p1 에 얼룩 넷을 다 심어야 하지만 넷은 **한 몸 위**에 있어 마감 하나에 들어간다.
 
 **의인화 등급**: 둘 다 **이족 · 앞발이 손**(물을 젓고 떠야 한다) · 얼굴은 곰 그대로. 🔴 **할머니만 옷을 입고 아기 곰은 열두 쪽 내내 알몸이다.** 신발·손가락 없음.
@@ -55,7 +64,7 @@
 | | p1 | p2 | p3 | p4 | p5 | p6 | p7 | p8 | p9 | p10 | p11 | p12 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | **WATER**(통 안 색 수) | 0 | 0 | 1 누렁 | 1 | 2 +초록 | 3 +붉음 | 🔴 **4 +노랑** | 🔴 **4, 넷이 다 따로** | 4, 흔들림 | 🔴 **섞인다** | 1 섞인 것 | 1 섞인 것 |
-| **GRAIN**(통 바닥 나뭇결) | 🔴 **전부** | 전부 | 반쪽만 | 반쪽만 | 절반 | 1/4 | 조금 | 얼룩으로만 | 없음 | 0 | 0 | 🔴 **0** |
+| **GRAIN**(읽히는 나뭇결 줄 수 / 6) | 🔴 **6** | 6 | 3 | 3 | 3 | 2 | 1 | 0(얼룩만) | 0 | 0 | 0 | 🔴 **0** |
 | **STAINS**(몸의 얼룩) | 4 | 4 | 3 | 3 | 2 | 1 | 🔴 **0** | 0 | 0 | 0 | 0 | 0 |
 
 ---
@@ -68,41 +77,43 @@ STYLE ANCHOR - changjak-tubwater   (a bear cub and its grandmother / a Slovenian
 Style: watercolour on cold-pressed cream paper #F0E7D8, ages 4-6. One room, one wooden tub, one
   evening, twelve pages - and the only place colour is ever allowed is inside that tub.
 
-RENDERING: 🔴 THE DIRECTION OF THIS VOLUME IS COLOUR PUT INTO ONE BODY OF WATER, ONE AT A TIME.
-  Each new colour is dropped into water still wet on the paper; it pushes the colour beside it and
-  keeps its own wet edge, so up to four sit in one tub without mixing. 🔴 TRANSPARENT = THE PAPER
-  SHOWS THROUGH AND THE TUB'S GRAIN LINES CAN BE READ THROUGH THE WATER. 🔴 STIRRED = the four
-  pigments cross, drop sediment, go muddy #6B5238 and turn OPAQUE, and no grain shows. That is the
-  ONLY way anything in this book becomes opaque; nothing is ever covered or lightened with white.
-  THE ROOM IS ONE PALE WOOD WASH, at most 2 coats, and carries no saturated colour at all.
-  FINISHED THINGS PER PAGE = 2 (the cub + the water, or the cub + the one part of itself it is
-  dipping). DENSITY RATION = none.
-  Counts: log wall = at most 5 wash bands, 0 knots - floor = 4 board lines - stove = 1 shape + 3
-  tile lines - tub = 2 hoop bands + at most 6 grain lines - things floating on the water = at most
-  9 small marks - fur = 0 hairs. Push a thing back by giving it ONE coat and no line, never by
-  blurring, softening or fading it.
+RENDERING: 🔴 COLOUR PUT INTO ONE BODY OF WATER, ONE AT A TIME. Each new colour is dropped into
+  water still wet on the paper; it pushes the colour beside it and keeps its own wet edge, so four
+  sit in one tub without mixing. 🔴 EACH OF THE FOUR HAS ONE FIXED PLACE AND KEEPS IT FROM THE PAGE
+  IT ARRIVES UNTIL THE STIR: OCHRE = LOWER LEFT · GREEN = UPPER LEFT · RED = THREADS ACROSS THE
+  MIDDLE · YELLOW = BEADS AT THE RIGHT. Never rearranged. 🔴 TRANSPARENT = THE TUB'S GRAIN LINES CAN
+  BE READ THROUGH THE WATER, and the gauge is HOW MANY OF THE SIX ARE STILL READABLE - 6, 3, 2, 1,
+  0, counted on every page, never a fraction. 🔴 STIRRED = the four cross, drop sediment, go muddy
+  #6B5238 and turn OPAQUE, 0 grain. That is the ONLY way anything here becomes opaque; nothing is
+  covered or lightened with white. THE ROOM IS ONE PALE WOOD WASH, at most 2 coats, and carries no
+  saturated colour. FINISHED THINGS PER PAGE = 2. DENSITY RATION = none. Counts: log wall = at most
+  5 wash bands, 0 knots · floor = 4 board lines · stove = 1 shape + 3 tile lines · 🔴 tub = 2 hoops
+  + EXACTLY 6 grain lines · floating things = at most 9 marks · fur = 0 hairs. Push a thing back
+  with ONE coat and no line.
 
 PALETTE: paper #F0E7D8, and the tub's bare inner wood IS this paper - pale wood wash #C9A87C -
   floor #B8956A - stove tile, DESATURATED grey-green #7E8A78 - one small stove mouth #C4622A -
-  window night #3E4C63 - cub coat #7C5B3E.
-  🔴 THE FOUR, AND THEY EXIST ONLY INSIDE THE TUB: MUD OCHRE #A8792F - GRASS GREEN #4F7A38 - BERRY
-  RED #B03A3A - HONEY YELLOW #E0A63A. Each enters on one page and never leaves. 🔴 NOTHING OUTSIDE
-  THE TUB MAY CARRY ANY OF THE FOUR - no green stove, no red cloth, no yellow lamplight, no ochre
-  floor patch, and no firelight spilling across the room. The stains on the cub are these same four
-  as DRY DULL FLAT marks; they go into the water and become the bright ones.
+  window night #3E4C63 - cub coat #7C5B3E. 🔴 THE FOUR, AND THEY EXIST ONLY INSIDE THE TUB: MUD
+  OCHRE #A8792F - GRASS GREEN #4F7A38 - BERRY RED #B03A3A - HONEY YELLOW #E0A63A. Each enters on
+  one page and never leaves. 🔴 NOTHING OUTSIDE THE TUB MAY CARRY ANY OF THE FOUR - no green stove,
+  no red cloth, no yellow lamplight, no firelight spilling across the room. The stains on the cub
+  are these same four as DRY DULL FLAT marks.
 
 CHARACTER DESIGN LANGUAGE: bear faces - round ears, short muzzle, a small drawn eye with a SEPARATE
-  brow stroke above it so the face can act; no dot-eyes, no catchlight. FIXED GRADE, all twelve
-  pages: both stand on two legs and use their forepaws as hands, because they must stir and scoop
-  water. The grandmother wears a fleece waistcoat and an apron, both in the pale wood wash; 🔴 THE
-  CUB WEARS NOTHING ON ANY PAGE. The cub is a third of her height. No shoes, no fingers.
+  brow stroke above it; no dot-eyes, no catchlight. FIXED GRADE, twelve pages: both stand on two
+  legs and use their forepaws as hands. The grandmother wears a fleece waistcoat and an apron, both
+  in the pale wood wash; 🔴 THE CUB WEARS NOTHING ON ANY PAGE. The cub is a third of her height. No
+  shoes, no fingers.
 
-CANVAS: 16:9 double-page spread. One cabin room, unchanged for twelve pages. No lettering, numerals or signs anywhere.
+CANVAS: 16:9 double-page spread, one room for twelve pages, fixed by CabinRoom - 🔴 doorway LEFT,
+  tub in the MIDDLE, stove and bench and stool RIGHT, window at the BACK, never mirrored. 🔴 THE TUB
+  IS AS WIDE ACROSS AS THE CUB IS TALL and its rim reaches the standing cub's chest; the surface
+  sits TWO HANDS BELOW THE RIM up to p8, goes over on p9, ONE HAND BELOW from p10. No lettering.
 
-NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading, photographic,
-  or a paper-texture filter over flat colour / NO WHITE PAINT AND NO GOUACHE - pale means fewer
-  coats, and opaque means mixed pigment / nothing blurred, hazy, out of focus or spotlit - a wash
-  edge is hard where it dried / no felt, wool, stitching or sculpted clay.
+NOT: no digital slickness - airbrush, gradient, glow, 3D CG, cel-shading, photographic or a
+  paper-texture filter / NO WHITE PAINT AND NO GOUACHE - pale means fewer coats, opaque means mixed
+  pigment / nothing blurred, hazy or spotlit - a wash edge is hard where it dried / no felt, wool,
+  stitching or clay.
 ```
 
 ---
@@ -116,9 +127,9 @@ A test board, no characters. Watercolour on cold-pressed cream paper #F0E7D8.
 
 A · TRANSPARENT: a short run of wood grain lines drawn on the paper with one thin clear wash laid
   over them. 🔴 EVERY GRAIN LINE IS STILL READABLE THROUGH IT. This is the tub on page 1.
-B · THE FOUR SIDE BY SIDE IN ONE POOL: one pool with MUD OCHRE #A8792F dropped in at the left,
-  GRASS GREEN #4F7A38 beside it, BERRY RED #B03A3A run across them as several thin threads, and
-  HONEY YELLOW #E0A63A as a few round beads at the right. 🔴 THEY TOUCH AND DO NOT MIX - each keeps
+B · THE FOUR SIDE BY SIDE IN ONE POOL, 🔴 IN THE PLACES THEY KEEP FOR THE WHOLE BOOK: MUD OCHRE
+  #A8792F in the LOWER LEFT, GRASS GREEN #4F7A38 in the UPPER LEFT, BERRY RED #B03A3A as thin
+  threads ACROSS THE MIDDLE, HONEY YELLOW #E0A63A as round beads at the RIGHT. 🔴 THEY TOUCH AND DO NOT MIX - each keeps
   a hard wet edge where it pushed the next, and grain lines are still readable under the thin
   parts. Draw this at four steps: one colour, two, three, four.
 C · 🔴 STIRRED: the same pool after a stir - the four crossed into ONE muddy #6B5238, OPAQUE, and
@@ -138,15 +149,17 @@ Same make as the book. Do not render it richly just because nobody is in it: �
 ONE PALE WOOD WASH AND CARRIES NO SATURATED COLOUR ANYWHERE.
 
 THE PLACE: one room in a Slovenian forest cabin - log walls (at most 5 wash bands, 0 knots), low
-  ceiling beams, a plank floor (4 board lines). At the RIGHT a big tiled stove in DESATURATED
-  grey-green #7E8A78 with a wooden bench in front of it and a large iron kettle steaming on top;
+  ceiling beams, a plank floor (4 board lines). At the RIGHT a big tiled stove in DESATURATED grey-green
+  #7E8A78 with a wooden bench in front of it, 🔴 THE LOW STOOL BESIDE THE BENCH ON THAT SAME RIGHT
+  SIDE, and a large iron kettle steaming on top;
   🔴 the fire shows ONLY as one thumbnail-sized mouth #C4622A - no glow, no cast light, no warm
   patch on the floor. In the MIDDLE of the floor, ONE HOOPED TUB of pale new wood, chest-high to
   the cub. At the BACK one window, and past it dark forest and a stream in night blue #3E4C63. At
   the LEFT a doorway. Nothing else exists in this book but a folded towel on the bench, a ladle and
   dried herbs on a wall peg, an empty basket on the sill and a low stool.
-🔴 THE TUB, THREE STATES, drawn large: (i) empty and dry - the inner wall and floor boards are BARE
-  PAPER with at most 6 fine grain lines, and this is what the whole book is measured against; (ii)
+🔴 THE TUB: as wide across as the cub is tall, its rim at the standing cub's chest, 2 hoop bands,
+  the upper one a hand below the rim. THREE STATES, drawn large: (i) empty and dry - the inner wall
+  and floor boards are BARE PAPER with EXACTLY 6 fine grain lines, the ruler of the whole book; (ii)
   full of clear water - every one of those grain lines still readable through it; (iii) full of
   opaque muddy #6B5238 - inner wall gone, 0 grain lines, and two dried rings left on the wood where
   the water stood.
@@ -217,7 +230,7 @@ SUBJECT: centre, BearCub standing on two legs beside the tub, both forepaws clas
   both forepaws, looking only at the spout.
 WATER: 🔴 NONE OF THE FOUR. Clear water over bare paper, one thin coat, nothing floating on it, a
   little steam off the top.
-GRAIN: 🔴 EVERY GRAIN LINE OF THE TUB'S INNER WALL AND FLOOR IS READABLE THROUGH THE WATER.
+GRAIN: 🔴 ALL SIX GRAIN LINES READABLE THROUGH THE WATER - the maximum, and what p12 loses.
 STAINS: 4.
 FINISH: 2 (the cub + the water in the tub). 🔴 The water is the brightest and emptiest thing in the
   frame, so the eye lands there first and then moves to the cub's four marks. The ochre prints run
@@ -235,7 +248,7 @@ SUBJECT: right, BearCub with both forepaws hooked over the rim, one hind leg lif
   is warm, ears forward. Top edge of frame, only GranBear's forepaws and apron, tipping the kettle
   so a thin line of hot water runs in. 🔴 She says nothing.
 WATER: 🔴 STILL NONE OF THE FOUR. Rings push out from the entering foot to the tub wall.
-GRAIN: all readable - the water is clear.
+GRAIN: 6 of 6 readable - the water is clear.
 STAINS: 4. 🔴 The dried mud round that ankle has gone dark and stiff where it met the water AND IS
   NOT RUNNING YET - not one thread of ochre is loose in the tub.
 FINISH: 2 (the entering foot + the water). 🔴 The subject is the point where the toes touch. Say so
@@ -252,11 +265,11 @@ SUBJECT: top edge, BearCub bent right over the rim with both forepaws gripping i
   touching the water, eyes round, mouth open shouting, both ears pushed forward. Centre, under the
   water, one foot still down and 🔴 THE OTHER LIFTED CLEAR WITH ITS SOLE TURNED TOWARD US AND THE
   TOES QUITE CLEAN. GranBear out of frame.
-WATER: 🔴 ONE COLOUR - MUD OCHRE #A8792F billowing out from the sunk foot in soft rolling clouds,
-  filling the water slowly, with a clear billowing edge between the stained side and the clear
-  side. Fine grit settling near the bottom, a few specks floating for the first time.
-GRAIN: 🔴 HALF THE TUB - gone where the ochre reached, still readable on the clear side. That
-  boundary is the sharpest thing on the page.
+WATER: 🔴 ONE COLOUR - MUD OCHRE #A8792F billowing out from the sunk foot and 🔴 SETTLING INTO ITS
+  FIXED PLACE, THE LOWER LEFT OF THE TUB, with a clear billowing edge against the clear side. Fine
+  grit near the bottom, a few specks floating for the first time.
+GRAIN: 🔴 3 OF 6 - gone on the ochre side, still readable on the clear side. That boundary is the
+  sharpest thing on the page.
 STAINS: 3 (flank green, forepaw red, nose yellow - all still dry and dull).
 FINISH: 2 (the two feet + the cloud round them). Firelight is NOT on the water; the stove is out of
   frame. Everything above the rim = one coat. 0 lettering, 0 numerals.
@@ -271,11 +284,11 @@ SUBJECT: right, BearCub with both forepaws braced on the rim and 🔴 ITS BELLY 
   SLIDING FORWARD SO THE BELLY IS ABOUT TO MEET THE WATER - one hind foot just off the floor, body
   tipped down, mouth wide open shouting, eyes on the water, ears blown back. 🔴 THE GREEN SMEARS
   AND THE STUCK GRASS BLADES ON ITS FLANK ARE FULLY VISIBLE AND STILL DRY - they have not touched
-  the water yet. Left, GranBear on the stool with knitting on her knees, hands working, glancing
-  sideways, eye corners creased. She says nothing.
-WATER: 🔴 ONE COLOUR still - ochre throughout, cloudy. It slaps the tub wall where the belly lands
-  and a few drops go over onto the floor.
-GRAIN: half the tub, as page 3, and one wet ring is now marked on the inner wall.
+  the water yet. Left, GranBear 🔴 has pulled the low stool round from the stove side to the near
+  LEFT of the tub - the one page it is not on the right - and knits, glancing sideways.
+WATER: 🔴 ONE COLOUR still - ochre in the LOWER LEFT as on p3, unmoved. It slaps the tub wall where
+  the belly lands and a few drops go over onto the floor.
+GRAIN: 3 of 6, as page 3, and one wet ring is now marked on the inner wall.
 STAINS: 3.
 FINISH: 2 (the sliding body + the water it is entering). 🔴 The right half of the frame is busy and
   the left half is still - one page, two speeds. Grit floating on the surface. Room = one coat,
@@ -292,11 +305,11 @@ SUBJECT: centre, BearCub sitting in the tub, upper body folded forward, 🔴 ONE
   OWN BELLY AND FLANK, caught mid-stroke, the other braced on the rim; chin down on its chest,
   mouth open shouting, one ear tipped toward the water. 🔴 WHERE THE PAW HAS PASSED, THE COAT IS
   PLAIN BROWN AND THE GREEN IS GONE; ahead of it the smear is still there.
-WATER: 🔴 TWO COLOURS, TOUCHING AND NOT MIXED - the ochre where it was, and GRASS GREEN #4F7A38
-  rolling out from the belly, each keeping its own wet edge. 🔴 PUT THAT BOUNDARY ACROSS THE MIDDLE
-  OF THE FRAME so a child sees at one glance that they are still two. Torn leaf scraps floating,
+WATER: 🔴 TWO COLOURS, TOUCHING AND NOT MIXED - 🔴 THE OCHRE STILL IN THE LOWER LEFT, and GRASS
+  GREEN #4F7A38 rolling out from the belly into ITS fixed place, THE UPPER LEFT, each keeping its
+  own wet edge. 🔴 PUT THAT BOUNDARY ACROSS THE FRAME so a child sees they are still two. Torn leaf scraps floating,
   grit among them.
-GRAIN: about half gone.
+GRAIN: 3 of 6 - the three on the clear right side.
 STAINS: 2 (red forepaw, yellow nose - both dry).
 FINISH: 2 (the rubbing forepaw + the two-coloured water). 🔴 Nothing outside the tub is green.
   0 lettering, 0 numerals.
@@ -311,11 +324,11 @@ SUBJECT: centre, BearCub sitting in the tub with 🔴 BOTH FOREPAWS IN THE WATER
   TO SIDE, elbows out, shoulders bouncing, the paw tips trailing. Top, its open mouth and lifted
   cheeks, eyes down on its own paws, ears straight up. 🔴 THE RED INSIDE ITS FOREPAWS AND ROUND ITS
   MOUTH IS THINNING AS IT WASHES - only the nose yellow is untouched.
-WATER: 🔴 THREE COLOURS. BERRY RED #B03A3A unwinds off the swinging paws as several long thin
-  threads that cross the ochre and the green 🔴 WITHOUT MIXING WITH EITHER - each thread keeps a
-  hard edge and its far end is clearly readable. A few tiny seeds new on the surface, with leaf
+WATER: 🔴 THREE COLOURS. BERRY RED #B03A3A unwinds off the swinging paws as long thin threads 🔴 IN
+  ITS FIXED PLACE, ACROSS THE MIDDLE, crossing the lower-left ochre and the upper-left green 🔴
+  WITHOUT MIXING WITH EITHER - each thread keeps a hard edge and a readable far end. A few tiny seeds new on the surface, with leaf
   scraps and grit shaking beside them. The water slaps the tub wall.
-GRAIN: about a quarter left, low on the far wall.
+GRAIN: 2 of 6, low on the far wall.
 STAINS: 1 (the nose tip).
 FINISH: 2 (the swinging forepaws + the red threads). 🔴 The busiest page in the book - but the
   threads must stay countable, so keep the room to one coat with no line. 0 lettering.
@@ -331,11 +344,11 @@ SUBJECT: centre, BearCub with its neck stretched right out and its body leaning 
   straight to hold it there. Above, one eye rolled down to squint at its own nose, the mouth corner
   pulled into a grin, one ear folded forward. 🔴 THE STICKY YELLOW IS COMING OFF THE NOSE AS IT
   TOUCHES, so the nose tip is half clean - this is the last stain in the book.
-WATER: 🔴 FOUR COLOURS. HONEY YELLOW #E0A63A draws off the nose in one thin sagging thread and
-  spreads in a thin film that 🔴 LIES ON TOP OF THE OTHER THREE WITHOUT MIXING. Round yellow beads
-  sit on the surface like oil, with seeds, leaf scraps and grit beside them. Small rings ring out
+WATER: 🔴 FOUR COLOURS. HONEY YELLOW #E0A63A draws off the nose in one thin sagging thread 🔴 INTO
+  ITS FIXED PLACE, THE RIGHT OF THE TUB, and 🔴 LIES ON TOP OF THE OTHER THREE WITHOUT MIXING.
+  Round yellow beads sit on the surface like oil, with seeds, leaf scraps and grit beside them. Small rings ring out
   from where the nose touches.
-GRAIN: only a little left, and only close to the near wall.
+GRAIN: 1 of 6, on the near wall.
 STAINS: 🔴 0 - and that is the point of the page.
 FINISH: 2 (the nose tip + the yellow coming off it). The closest crop in the book: surface ripples
   and the nose fur read at full size. 0 lettering, 0 numerals.
@@ -351,9 +364,9 @@ CAMERA: extreme close-up, HIGH angle straight down; the surface fills the whole 
 SUBJECT: top edge, BearCub's nose bridge and both eyes come into frame, eyes wide with the pupils
   turned down, mouth just open so a sound escapes; its breath puts one small set of ripples in one
   corner. 🔴 IT DIPS NOTHING AND STIRS NOTHING - the only page where it does nothing.
-WATER: 🔴 FOUR, ALL SEPARATE, EACH IN ITS OWN PART OF ONE SURFACE - LOWER LEFT a billowing ochre
-  cloud; above it torn green leaf scraps floating in a green patch; ACROSS THE MIDDLE the thin red
-  threads; RIGHT a group of round yellow beads. 🔴 EVERY ONE OF THE FOUR HAS A CLEAR EDGE OF ITS
+WATER: 🔴 FOUR, ALL SEPARATE, EACH IN THE PLACE IT TOOK WHEN IT ARRIVED - LOWER LEFT the ochre
+  cloud; UPPER LEFT the green patch with torn leaf scraps in it; ACROSS THE MIDDLE the red threads;
+  RIGHT the round yellow beads. 🔴 EVERY ONE OF THE FOUR HAS A CLEAR EDGE OF ITS
   OWN AND NONE OF THEM CROSSES INTO ANOTHER. This page is the reason the reader knows later what
   got mixed.
 GRAIN: 🔴 guessed at only as a faint mottling - no line is readable any more.
@@ -372,10 +385,10 @@ SUBJECT: centre, BearCub 🔴 SITTING RIGHT DOWN INTO THE WATER WITH ITS KNEES F
   screwed shut, mouth wide open shouting, wet ears laid back. 🔴 NOT ONE STAIN ANYWHERE ON IT.
   Lower right, GranBear on her stool with both hind feet snatched up high and the knitting held
   clear in both forepaws, eyes round.
-WATER: 🔴 STILL FOUR, but thrown about - the clouds and threads and beads are shoved and stretched
-  and 🔴 STILL NOT MIXED. Water goes over the rim all at once and breaks into drops in the air,
+WATER: 🔴 STILL FOUR IN THE SAME FOUR PLACES, but thrown about - shoved and stretched and 🔴 STILL
+  NOT MIXED. Water goes over the rim all at once and breaks into drops in the air,
   carrying leaf scraps and seeds out onto the floor with it.
-GRAIN: none - the water is too full and too disturbed.
+GRAIN: 0 of 6 - the water is too full and too disturbed.
 STAINS: 0.
 FINISH: 2 (the sinking body + the water going over the rim). 🔴 Things fly UP on one side and pull
   BACK on the other; that opposition is the page. A second wet ring is left higher on the inner
@@ -396,7 +409,7 @@ WATER: 🔴 THE MIXING PAGE. One big whirl; the four are pulled out long from th
   inward - the ochre's end tinted green, the green's end wrapping the red threads, the yellow beads
   stretched into long streaks along the spiral. 🔴 THE EDGES ARE STILL THERE BUT EVERY ONE OF THEM
   IS NOW CURVED. Leaf scraps and seeds ride the same spiral round.
-GRAIN: 🔴 nothing at all.
+GRAIN: 🔴 0 of 6.
 STAINS: 0.
 FINISH: 2 (the two sweeping forepaws + the turning water). 🔴 EVERY SHAPE IN THE FRAME WINDS TOWARD
   ONE POINT AT THE CENTRE, so the pulling-in is legible from composition alone. Water heaped up one
@@ -416,7 +429,7 @@ WATER: 🔴 ONE COLOUR AND ONE ONLY - muddy #6B5238, OPAQUE, in the cupped paws;
   can be picked out in it. Thin threads of it run out between the paws and fall to the surface
   below, 🔴 WHICH IS THE SAME ONE COLOUR - the handful and the tubful must read as the same
   material, top and bottom of the frame. One leaf scrap and one seed still float down there.
-GRAIN: 0.
+GRAIN: 0 of 6.
 STAINS: 0.
 FINISH: 2 (the cupped forepaws + the water in them). 🔴 Push the background back by giving it ONE
   coat and no line - do not blur it. Drops standing on the backs of the paws, matte, 🔴 with no
@@ -435,8 +448,8 @@ SUBJECT: left, BearCub sitting in the tub with its lower jaw laid on the wooden 
   toward the tub. 🔴 She does not call or hurry it.
 WATER: 🔴 ONE COLOUR, SETTLED AND STILL, OPAQUE. Leaf scraps and seeds collected in one corner of
   the surface.
-GRAIN: 🔴 ZERO. Not one line of the inner wall or the floor of the tub can be read through the
-  water. 🔴 THIS IS THE WHOLE PAGE - the room is exactly as bright as on page 1 and only the water
+GRAIN: 🔴 0 OF 6. Not one line of the inner wall or the floor can be read through the water.
+  🔴 THIS IS THE WHOLE PAGE - the room is exactly as bright as on page 1 and only the water
   has stopped being see-through. Do not darken the room to say it.
 STAINS: 0.
 FINISH: 2 (the cub's face + the water). Two dried rings on the inner wall; a wide spill mark on the
@@ -456,6 +469,8 @@ FINISH: 2 (the cub's face + the water). Two dried rings on the inner wall; a wid
 | 2 | 🔴 **p1 의 나뭇결이 물을 통해 다 읽히나.** 안 읽히면 p12 가 잃을 것이 없다 | `TubWater` 의 **A** 를 @image 로 붙여 p1 만 다시. 🔴 **p1 이 승인되기 전에 다른 컷을 굽지 마라** |
 | 3 | 🔴 **p8 의 넷이 정말 안 섞였나.** 하나라도 이웃과 번져 있으면 p10 의 섞임과 p11 의 「딱 하나」가 값을 잃는다 | `TubWater` 의 **B**(네 단계)를 붙여 p8 만 재시도. 문구 튜닝 금지 |
 | 4 | 🔴 **p11·p12 의 물이 「어두운 것」인가 「탁한 것」인가.** 그냥 어둡게 칠했으면 실패 — 밤이라서로 읽힌다 | `TubWater` 의 **C**(B 와 나란히 놓은 판)를 붙이고, `THE DIFFERENCE MUST READ AS SEDIMENT, NOT DARKNESS` 를 그 컷 맨 위로 올린다 |
+| 4-b | 🔴 **네 색이 열두 쪽 내내 같은 자리에 있나**(2026-08-04 추가). p3·p5·p6·p7·p8·p9 를 나란히 놓고 **황토가 늘 왼쪽 아래인지**만 본다. 한 쪽이라도 옮겨 다니면 p8 의 셈과 p10 의 섞임이 앞과 안 이어진다 | 자리를 옮긴 컷만 다시 굽되 `TubWater` **B**(자리 고정판)를 @image 로 붙인다 |
+| 4-c | 🔴 **나뭇결을 세어 본다** — 6·6·3·3·3·2·1·0·0·0·0·0. 「대충 흐릿하다」면 실패다. 그리고 **통 지름이 아기 곰 키만 한가 · 수면이 전에서 두 뼘 아래인가**(p9 만 넘친다) | `CabinRoom` 의 통 세 상태를 다시 굽는다 |
 | 5 | 🔴 **얼룩 개수가 표와 맞나.** p1 = 4 · p3 = 3 · p5 = 2 · p6 = 1 · p7 = 0. 한 쪽이라도 어긋나면 「어디 갔었는지」가 물빛과 안 맞는다 | 열두 컷을 표로 놓고 센다. 그 컷만 다시 굽되 `BearCub` 의 **스테인 사다리**를 @image 로 붙인다 |
 | 6 | **흰 물감·하이라이트가 들어왔나** — 김·물방울·젖은 털에 흰 점이 찍히기 쉽다 | NOT 의 `NO WHITE PAINT AND NO GOUACHE` 만 남기고 재시도. 물방울은 **안 칠한 종이**이지 흰 점이 아니다 |
 

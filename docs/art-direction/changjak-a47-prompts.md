@@ -1,490 +1,540 @@
 # 창작동화 1000 — A-47 앵커 + 삽화 프롬프트
 
-> art-director 산출물 (2026-08-01). 배정 근거 = `changjak-assign-08b.md` §1 · §2 · §3.1 · §3.5 · 규격 = `_ANCHOR-SPEC.md`.
-> 🔴 **대본 SSOT 는 `docs/changjak-books/a47.md`.** 아래 14컷은 그 SCENE 콘티를 그림 지시로 옮긴 번역본이다. 대본은 한 글자도 안 고쳤다.
-> 🔴 **이미지 생성은 여기서 하지 않는다.** 사용자가 GPT 로 굽는다. 작가 실명은 한 글자도 안 들어간다.
-> 🔴 **앵커 슬러그는 `changjak-g88` 그대로다** — 신규 민팅이 아니라 **팔레트·관통 줄·방향 한 줄만 바꾼 변주**다. 공정 문단(RENDERING · CHARACTER DESIGN LANGUAGE · CANVAS · NOT)은 g88 원본 그대로이고, 앵커 원본 그림도 그대로 물려받는다.
-> 🔴 **실행 순서**: ① `StairSet`(🔴 **이끼 낀 셋째 칸 + 가장자리가 딱 선 그늘 + 안 칠한 바위벽** = 이 책의 시계) → ② `PupKit` → ③ `OldDog` → ④ `FlockKit` → ⑤ **p11**(그늘 경계가 이끼에 정확히 걸친 쪽 = 판 ref) → ⑥ **p1**(무대 고정) → ⑦ **p14**(착지) → ⑧ 나머지 열한 컷.
+> 대본 SSOT 는 `docs/changjak-books/a47.md`. **대본은 한 글자도 안 고친다**(결함은 아래 처방표에서 그림으로만 교정).
+> 규격 = `_ANCHOR-SPEC.md` · 겹침 대조 = `_ANCHORS.md`.
+> 🔴 **옛 앵커(슬러그 `changjak-g88` 의 a47 변주)는 폐기했다.** 제목이 「해가 안 지면 좋겠어」로 바뀌고 본문이 새로 쓰이면서 **붉은 바위가 통째로 사라졌다** — 로즈 면·`GLOW` 미터·「밝은데 아무 도움이 안 되는 밝음」이 전부 그 바위에 매달려 있었다. 같은 id 라고 되살리지 마라.
+> 🔴 **이미지 생성은 여기서 하지 않는다** · 🔴 **작가 실명 0**.
+> 🔴 **실행 순서**: ① 시트 넷(**FoldSet** → PupKit → OldDog → FlockKit) → ② **p6**(겹이 0인 쪽 = 해가 멈춘 쪽) → ③ **p14**(4겹 = 반대쪽 끝) → ④ **p1**(무대 고정 · p3 의 짝) → ⑤ 그 셋을 ref 로 나머지. 🔴 **p6 을 먼저 굽는다** — 「아무것도 안 얹은 화면」이 어떻게 생겼는지가 안 서면 마지막 쪽의 검정이 그냥 밤이 된다.
 
 ---
 
-## A-47 §1. 앵커 배정
+## a47 §1. 앵커 배정
 
-**권**: `a47` 「저녁 바위만 붉으면 좋겠어」 (14쪽 · 5~7세 · 주제군 **A 마음·감정** · 엔진 **소원의 대가** · 무대 돌로미티 양 우리 문 앞 돌계단 한 자리 · 주인공 새끼 양치기 개 + 늙은 양치기 개)
+**권**: `a47` 「해가 안 지면 좋겠어」 (14쪽 · 5~7세 · 주제군 **A 마음·감정** · 엔진 **소원의 대가** · 무대 돌로미티 바위산 양 우리 앞 한 자리 · 주인공 새끼 양치기 개 + 늙은 양치기 개)
 
-**한 줄**: 어둠은 칠하지 않은 판이고, **로즈와 그늘 둘 다 그 위에 얹은 불투명 한 겹**이며, 마감된 것은 얹힌 것뿐이다. 🔴 **날 이틀째(p5~p14)부터 로즈 띠는 한 방향으로만 밀려 올라가고 다시는 안 내려온다.** 앵커 슬러그 `changjak-g88` — **재사용**(배정표 지정).
+**클러스터**: **C9** · **슬러그**: `changjak-layerdark` — 🔴 **재사용**(원본 g01, 신규 민팅 아님). 공정 문단은 원본 그대로이고 **팔레트·관통 줄·방향 한 줄만** 이 권 것이다. 앵커 원본 그림도 그대로 물려받는다.
 
-**이 권이 그림에 요구하는 것** 넷.
+**한 줄**: 무늬 없는 반투명 판을 **겹쳐 붙여 어둠을 만든다. 겹수가 곧 값이다.** 🔴 **그런데 아홉 쪽 동안 한 장도 안 얹힌다** — 해가 안 내려가서 화면이 계속 맨 지지면이고, 겹은 **새끼 개가 문을 밀 때 비로소** 쌓이기 시작해 그 뒤로는 **한 번도 안 줄어든다.**
 
-1. 🔴 **회색을 색으로 만들면 안 된다.** p1·p4 의 「밍밍한 회색 바위」는 색이 아니라 **안 칠한 상태**여야 한다. 그래야 p5 이후 「바위가 늘 붉다」가 **칠이 안 걷힌 것**으로 읽히고, 소원의 대가가 화면에서 뺄셈 없이 눈에 보인다.
-2. 🔴 **시간을 빛으로 못 잰다.** 색이 사건이라 밤낮이 안 읽히는 책이다(대본 note). 그래서 시계를 **아래에서 올라오는 그늘의 칸**으로 옮겼다 — p1 둘째 · p2 셋째 · p6 밑동 · p9 첫째 · p11 셋째. 그늘은 **드리운 그림자가 아니라 얹은 색면**이라 칸에 딱 걸린다.
-3. 🔴 **로즈 면은 화면에서 가장 크지만 마감 대상이 아니다.** p10 「유일하게 밝은데 아무 도움이 안 되는 밝음」이 이 권의 명제다 → `FINISHED THINGS PER PAGE = 2` 에 바위벽은 **열네 쪽 내내 한 번도 안 들어간다.**
-4. 🔴 **카메라가 계단 한 자리를 안 벗어난다.** 능선 파노라마 컷을 만들면 이 책이 아니라 g88 이 된다(§3.5).
+**🔴 이 권이 그림에 요구하는 것** 셋.
 
-**🔴 원본 g88 과 갈린 축 = 면적이 되돌아오나.** g88 은 밝은 면적이 3%→70%→10% 로 **올라갔다 내려오는** 책이다. a47 은 **로즈 띠의 밑변이 한 방향으로만 올라간다** — 줄어든 자리를 아래에서 올라온 그늘이 메우고, 밝은 띠가 화면 위로 밀려 올라가다 끝난다. 🔴 그리고 **담색 한 겹(회백) ↔ 장미붉음 한 겹**이다. 회색을 섞어 흐리지 마라. 그늘은 검정이 아니라 **청보라**여야 「먼저 온 것」이 색으로 읽힌다.
+1. 🔴 **「잠이 안 온다」를 색이 아니라 개수로 말해야 한다.** 아이가 세는 것은 밝기가 아니라 **얹힌 판이 몇 장인가**다. p6~p10 이 **0장**이라 눈이 쉴 데가 한 군데도 없고, p14 의 **4장**이 그 반대다. 칠하는 매체였다면 「밝은 그림 다섯 장」이 됐을 자리다.
+2. 🔴 **밖의 그늘로는 아무도 못 잔다는 것이 매체의 사실이어야 한다.** 그래서 판을 둘로 갈랐다 — **밖 그늘 = 파란 판, 언제나 정확히 한 겹, 절대 안 쌓임** / **우리 안 어둠 = 갈색-검정 판, 이것만 쌓인다.** 풀밭을 다 덮어도 한 겹은 한 겹이다.
+3. 🔴 **해가 안 움직이는 것을 오려낸 조각 하나로 증명한다.** 정오에 선 짐승 발밑의 그늘은 **제 발만 한 파란 조각 하나**이고, p6·p7·p8·p9·p10 에 **같은 조각이 같은 자리에** 놓인다. 시계가 멈췄다는 말을 아무도 안 하는데 화면이 다섯 번 같은 조각을 보여 준다.
 
-**🔴 형제 권 충돌.**
+**🔴 형제 권과 갈린 축** (첫 렌더에서 세어진다)
 
-| 대상 | 갈림 |
-|---|---|
-| **g88**(원본 · 계단) | 계단이 **세는 대상**(칸을 더한다)이고 오른다 ↔ a47 의 계단은 **서 있는 자리**이고 한 칸도 안 오른다. 세는 것은 계단이 아니라 **벽의 로즈 면적**이라 계단은 화면 아래 모서리에서 잘린 두 칸이면 족하다 |
-| **e12**(계단) | 저쪽은 소리를 튕긴 획으로 그리는 선+평칠 책. 여기는 **획이 거의 없다**(마감은 칠이 멈춘 자리) |
-| **d01 · b19 · a75**(알프스) | 무대가 붙는다 → 갈림 = **카메라가 문 앞 프레임을 안 벗어난다.** 산은 늘 잘린 벽면이다 |
-| **a50 · c15**(같은 배치 · 소원의 대가) | 손동작이 다르다 — a47 **얹는다** / a50 **오린다** / c15 **빨아들인다**. 🔴 a47 의 청보라를 c15 밤에 빌려주지 마라 |
-| 호리 **니들펠트** | ✕ — NOT 절의 `no wool felt, stitched fabric or sculpted clay` |
-| 전래동화 **점눈이** | ✕ — 종이색이 밝은 크림 ↔ **near-black board**, 선이 색연필 낙서 ↔ **거의 없음** |
+| 대상 | 갈린 축 | 판정 |
+|---|---|---|
+| **g01** `changjak-layerdark`(원본) | **겹이 언제 얹히나** | g01 = 열세 쪽 내내 얹혀 있고 0겹은 예외 한 자리(달빛 네모) / 🔴 **a47 = 아홉 쪽이 통째로 0겹**이고 겹은 문을 밀 때부터 쌓인다 — **정확히 반대 방향** |
+| **d12** `changjak-layerdark` | **화면이 어떻게 갈리나** | d12 = 위·아래 두 구역이 고정 / **a47 = 안·밖 두 구역이고 그 경계가 문 하나**, 그 문이 움직인다 |
+| **c60** `changjak-fogplate`(겹수를 값으로 쓰는 또 한 권) | **무엇으로 만들었나** | c60 = 인쇄로 **찍은 밝은 안개판**(시야) / **a47 = 가위로 오려 붙인 어두운 판**(잠). 잉크가 한 방울도 없다 |
+| **g08** `changjak-drypaper`(같은 정수리 해 · 같은 발밑 그림자) | **그 그림자가 무엇인가** | g08 = 손가락으로 **문질러 만든 가루 덩어리**, 지울 수 있다 / **a47 = 가위로 오린 조각**이고, 다섯 쪽 동안 **같은 조각 하나**가 안 움직인다 |
+| **d01 · b19 · a75**(알프스) | 카메라 | 저쪽은 산을 넘는다 / **a47 은 문 앞 한 자리를 열네 쪽 내내 안 벗어나고**, 바위산은 늘 잘린 벽면이다 |
+| 호리 **니들펠트** | ✕ | 콜라주는 **두께가 붙는 순간** 호리다 — `NOT` 절 `ONE SHEET THICK`(보풀·바늘땀·실 0) |
+| 전래 **점눈이** | ✕ | 지지면이 밝은 크림 종이지만 **매체가 오려 붙임이고 그린 선이 0**, 빨강도 0 |
 
-**🔴 대본 SCENE 처방 7건** — 대본은 고치지 않고 컷에서 분기한다.
+**🔴 대본 SCENE 처방 5건** — 대본은 안 고치고 컷에서 분기한다.
 
 | # | 대본 | 문제 | 그림 처방 |
 |---|---|---|---|
-| 1 | p1·p4 「밍밍한 **회색** 바위」 | 이 매체에 회색이 없다 | 🔴 회색 = **안 칠한 상태**(ONE STEP OFF BLACK 실루엣, 안이 비었다). 사건 = p5 이후 다시는 그 상태로 안 돌아간다 |
-| 2 | p2 「위에서부터 장밋빛으로 **물들어**」 | 그라데이션 유혹 | 🔴 로즈는 **가장자리가 딱 선 한 겹**. 「물듦」 = 칠해진 면의 **밑변이 어디냐**일 뿐이다 |
-| 3 | p1 「빛이 옆에서 길게」 · p5 「그림자가 반대쪽으로 짧게」 · p6·p8 「발밑에 뭉쳐」 | 이 앵커엔 **드리운 그림자가 없다** | 🔴 그림자 = **칠이 안 닿아 판이 남은 자리**의 모양. 방향은 **칠한 면의 어느 쪽 가장자리가 잘렸나**로만 말한다 |
-| 4 | p7 「먼지가 **뿌옇게** 뜬다」 | 흐림 = 이 앵커의 금지 | 🔴 먼지 = **칠한 점 최대 9개**. 번짐·반짝임 0 |
-| 5 | p5 「꼬리가 **잔상처럼 두 겹**」 · p13 「잔상이 진다」 | 한 쪽 = 한 순간 | 🔴 꼬리는 **한 자세**. p5 위로 곧게 · p13 낮게 한쪽으로. 속도선·잔상 0 |
-| 6 | p10 「유일하게 밝은데 아무 도움이 안 되는 밝음」 | 처방이 아니라 **값**이다 | 🔴 마감 위계로 온다 — 로즈 면은 가장 큰 칠이지만 `FINISH 2` 에 안 들어간다(마감 = 새끼 개 + 능선의 양 셋) |
-| 7 | p9 「까마귀 예닐곱이 **빨려들듯**」 | 동작선 유혹 | 🔴 까마귀 = 날개 1 + 부리 1 짜리 실루엣 **최대 7마리**, 전부 **한 자세**로 바위틈 앞에 흩어져 놓인다 |
+| 1 | p6 「꼬리가 **흐릿하게 겹쳐** 보인다」 | 오린 종이에 잔상이 없다 | 🔴 꼬리는 **한 자세**. 도는 것은 발밑에 **둥글게 밟힌 조각 하나**로 말한다. 속도선·이중상 0 |
+| 2 | p7 「새끼 개가 초점 밖에서 **흐릿하게 늘어진다**」 | 오린 종이에 초점이 없다 | 🔴 뒤로 미는 것은 **조각을 작게 오리고 마감에서 빼는 것**이다(`FINISH 2` 밖). 흐림 금지 |
+| 3 | p10 「배경이 온통 **하얗게 날아가** 있다 / 눈두덩이 **붉게** 비친다」 | 빨강이 0인 책이다 | 🔴 배경 = **지지면 그대로, 오린 조각 0개**. 이 책에서 조각이 얼굴 하나뿐인 유일한 쪽이고, 붉은 비침은 안 그린다 |
+| 4 | p12 「**밀수록** 우리 안이 **더 깜깜해져요**」 | 그라데이션 유혹 | 🔴 미는 동안 **판이 한 장 더 얹힌다**. 한 화면에 **2겹과 3겹이 같이** 있고 그 사이에 **가위 자국**이 보인다 |
+| 5 | p14 「**따뜻한 갈색기를 띤** 검정」 | 검정 물감을 쓰기 쉽다 | 🔴 같은 갈색-검정 판 **넷이 겹친 것**이다. 겹칠수록 따뜻해진다 — 새 색을 만들지 마라 |
 
-**밀도 배급**: 🔴 **p11 · p14 두 쪽**, 그리고 **이끼 자국과 앞발에만** 준다. 바위벽·석축에는 어느 쪽에서도 안 준다. 이 권의 사건 크기는 「손톱만 한 것 하나가 바뀐다」(그늘 경계가 이끼에 닿는다)라 나머지는 조용해야 한다.
+**밀도 배급**: 🔴 **없다.** 열네 쪽 전부 `FINISHED THINGS PER PAGE = 2`. 화면에 두는 것이 다섯뿐이고 전부 오린 색면이라(정보량 0) 배경에 쓸 예산이 애초에 없다.
 
-**의인화 등급**: 🔴 **사족 고정 · 옷 없음 · 손가락 없음.** 앞발을 쓸 때만 뒷발로 반쯤 일어선다. 양과 까마귀는 말하지 않는다.
+**의인화 등급 (열네 쪽 고정)**: 🔴 **사족 그대로 · 옷·목걸이·손가락 없음.** 새끼 개는 문을 **코와 어깨로** 밀고 앞발로는 안 민다. 양과 늙은 개는 앞발을 안 쓰고, 양은 말하지 않는다.
 
-**🔴 매 컷 확인하는 세 줄** — `GLOW:`(로즈가 화면의 몇 %이고 띠의 **밑변**이 어디인가) · `SHADE:`(청보라가 화면 아래에서 몇 %까지 올라왔나 = 시계) · `STEP:`(이끼 낀 셋째 칸이 마른 채인가 · 경계가 걸쳤나 · 앞발 밑인가).
+**🔴 컷 관통 줄 3개** — 컷마다 `SHADE:` `SHEETS:` `GATE:` 를 먼저 읽는다.
 
 | | p1 | p2 | p3 | p4 | p5 | p6 | p7 | p8 | p9 | p10 | p11 | p12 | p13 | p14 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| **GLOW** | 🔴 **0** | 26 | 24 | 🔴 **0** | 30 | 30 | 28 | 6 | 26 | 24 | 4 | 10 | 22 | 20 |
-| **SHADE** | 8 | 14 | 20 | 55 | 🔴 **0** | 2 | 3 | 4 | 10 | 22 | 30 | 38 | 46 | 🔴 **60** |
-| **STEP** | 마른 채 | 🔴 **경계가 걸침** | 그늘 아래 | 잠김 | 마른 채 | 마른 채 | 마른 채 | 프레임 밖 | 마른 채 | 마른 채 | 🔴 **경계가 걸침** | 프레임 밖 | 그늘 아래 | 🔴 **앞발 밑** |
+| **SHADE**(파랑 한 겹 %) | 3 | 8 | 🔴 **40** | 45 | 틈 안 2 | 🔴 **2** | 2 | 2 | 2 | 🔴 **0** | 프레임 밖 | 밖 | 2 | 문살 밖 |
+| **SHEETS**(우리 안 겹수) | 0 | 0 | 0 | 0 | 🔴 **3** | 0 | 0 | 0 | 0 | 0 | 2 | 🔴 **2와 3** | 3 | 🔴 **4** |
+| **GATE** | 활짝 | 활짝 | 활짝 | 활짝 | 🔴 **닫힘** | 활짝 | 활짝 | 활짝 | 활짝 | 프레임 밖 | 반쯤 | 밀리는 중 | 좁은 틈 | 🔴 **닫힘** |
 
-🔴 `SHADE` 는 **날 이틀째(p5~p14) 동안 한 번도 안 내려간다.** p1~p4 는 첫날 하루 저녁이라 따로 논다.
-
----
-
-## A-47 §2. STYLE ANCHOR
-
-```
-STYLE ANCHOR - changjak-g88   (a shepherd pup / a stone stair at a fold gate / a rock that stays red)
-
-Style: a hand-painted picture-book page for 5-7 year olds, dark and low - one Dolomite rock
-  face seen from one five-tread stone stair, fourteen times, no signage. 🔴 THE CAMERA NEVER
-  LEAVES THE STAIR: the rock is always a cropped wall in the gate frame, never a ridge
-  panorama. 🔴 ON DAY TWO (p5-p14) THE ROSE ONLY EVER GETS PUSHED UP AND NEVER COMES BACK DOWN -
-  the blue-violet shade rises from the bottom of the frame and takes the floor of the rose with it.
-
-RENDERING: opaque rose and pale gouache plus soft pastel worked ON a near-black board.
-  🔴 THE DARK IS NOT PAINTED - bare board, left alone; nothing is shaded down. 🔴 ROSE AND SHADE
-  ARE BOTH SHAPES, NOT GLOWS: where either goes down it goes down opaque with a HARD cut edge; it
-  never fades, blooms or haloes. Grain stays visible inside the painted shapes. Almost no contour -
-  form is where the paint stops; line only on the faces, the moss mark and a crow's wing. FINISHED
-  THINGS PER PAGE = 2 (the pup + the one thing it looks at or stands on); a form present but
-  unpainted is ONE STEP OFF BLACK, silhouette with nothing inside it; everything else is BARE
-  BOARD. DENSITY RATION = p11, p14, on the moss mark and the forepaws, never on the rock.
-  Counts: tread = 1 pale pass + 3-4 chisel strokes · stone courses = 0 · moss mark = 1 shape + 4-6
-  strokes, the only marked stone in the book · rock = 0 cracks, 0 strata. 🔴 SHADE
-  LINE (% of frame the blue-violet has climbed, obey exactly; p5-p14 ONLY GOES UP): p1 8 | p2 14 |
-  p3 20 | p4 55 | p5 0 | p6 2 | p7 3 | p8 4 | p9 10 | p10 22 | p11 30 | p12 38 | p13 46 | p14 60.
-
-PALETTE: BOARD BLACK (never painted) #1C2130 = void, night sky, all unreached · RISEN SHADE
-  #3A4256, blue-violet, laid opaque with a hard edge - 🔴 a colour, never black and never a cast
-  shadow · ROSE #E0715A = the rock face and nothing else in this book · PALE #C9B79C = sun on
-  stone and gate · MEADOW #6E7A55, one flat plane · PUP FUR #8E7E68, OLD DOG FUR #6B6055,
-  EYE INK #14161A. 🔴 No red, orange, yellow or purple, no green but the meadow, no blue but the
-  shade, and never grey the rose down - rose and shade meet at a cut edge.
-
-CHARACTER DESIGN LANGUAGE: eyes are DRAWN, not dotted - a small dark almond with a SEPARATE brow
-  stroke above, on the pale muzzle. 🔴 VALUE RULE - belly, muzzle front and inner ears stay PALE
-  #C9B79C whether or not light is on them; a painting rule, never a rim light, glow or catchlight.
-  Grade: every animal is a QUADRUPED, rising onto the hind legs only to use the forepaws; no
-  clothes, no fingers. The sheep and the crows never speak.
-
-CANVAS: 16:9 double-page spread. Horizontals dominate; the rock runs out of the top and both sides.
-  No lettering or numerals.
-
-NOT (rendering only): no digital slickness - airbrush, gradient, glow, bloom, halo, god-rays,
-  sparkle, 3D CG, cel-shading, photographic, or a texture filter over flat colour / darkness is
-  bare board, NOT a black gradient, vignette, fog, haze or blur / no rendered stone or metal,
-  chrome, mirror reflection or specular highlight / no wool felt, stitched fabric or sculpted clay.
-```
+🔴 `SHEETS` 는 p11 부터 **한 번도 안 내려간다.** 그리고 **자로 그은 곧은 가장자리는 문이 있는 쪽(p5·p11·p12·p13·p14)에만** 있다 — 나머지 아홉 쪽에는 곧은 선이 한 줄도 없다.
 
 ---
 
-## A-47 §3. 캐릭터 시트 (🔴 StairSet 을 가장 먼저)
+## a47 §2. STYLE ANCHOR
 
 ```
-CHARACTER SHEET - StairSet   (bake FIRST - this book is this stair and this shade edge)
+STYLE ANCHOR - changjak-layerdark   (a shepherd pup / a stone fold gate on a Dolomite pasture, on
+the day the sun would not go down)
 
-The place, empty of animals, on the near-black board. No animals anywhere on this sheet.
+Style: cut-paper collage, ages 5-7. One fold gate on a high pasture, fourteen pages, camera never
+leaves the ground in front of it. DARKNESS IS NOT PAINTED - IT IS STACKED.
 
-THE PLACE, fixed for fourteen pages: a dry-stone fold wall with a plank gate, and one flight of
-  FIVE low stone treads running up to the gate sill, seen from the flat top of the stair. Beyond it
-  one flat MEADOW #6E7A55 plane, one hill shoulder, and 🔴 THE ROCK FACE FILLING THE UPPER HALF -
-  a toothed wall shape with 0 cracks and 0 strata inside it. 🔴 Draw the crossing once, wide, from
-  the gate.
-🔴 THE ROCK, TWO STATES AT ONE SIZE, side by side - this is the whole book:
-  A · UNPAINTED: the same wall shape as ONE STEP OFF BLACK #1C2130, a flat silhouette with nothing
-    inside it. 🔴 This is what the story calls "grey". It is not a colour, it is bare board.
-  B · ROSE: the same shape filled flat with ROSE #E0715A, opaque, one pass, 🔴 ITS LOWER EDGE A
-    HARD STRAIGHT CUT, no fade at the bottom and no glow at the top.
-  🔴 Set A and B together: the only difference is that paint is on or off.
-🔴 THE SHADE LADDER, four plates at one size, the stair seen from the same low angle: RISEN SHADE
-  #3A4256 laid flat over the stone up to the foot of the stair · up to the FIRST tread · up to the
-  SECOND tread · up to the THIRD tread. 🔴 In every plate its top edge is a HARD CUT straight
-  across the stone, and below it the stone is not darkened, it is simply this colour. Above it,
-  PALE #C9B79C where the sun is and BARE BOARD where it is not.
-🔴 THE THIRD TREAD, LARGE: the moss mark - one irregular shape plus 4-6 short strokes, 🔴 THE ONLY
-  MARKED STONE IN THE BOOK - shown three times: dry with the shade a hand below it · 🔴 WITH THE
-  SHADE EDGE LYING EXACTLY ALONG THE MARK · fully under the shade.
-Also: the plank gate open and shut, the gate post, a dew plane on the meadow, and 🔴 the same stair
-  and rock at night - board black sky with at most 12 painted star dots, rose still on.
-0 lettering, 0 numerals. SCENE token: StairSet.
+RENDERING
+THE DIRECTION OF THIS VOLUME: FOR NINE PAGES NOTHING IS LAID AT ALL. The sun will not go down, so
+p6-p10 are bare support with no sheet anywhere except one small piece, and the eye has nowhere to
+rest. Sheets begin only when the pup pushes the gate, and from there the count ONLY GOES UP.
+TWO SHEETS, TWO JOBS, NEVER MIXED. NIGHT SHEET #2A2320, warm brown-black, translucent, plain: INSIDE
+THE FOLD ONLY, and the only sheet that stacks - 0 = bare support #F4F2EA · 2 = gate half open · 3 =
+gate pushed to · 4 = the shut fold on the last page, the darkest thing in the book. BLUE SHADE SHEET
+#4A5670, cool blue: OUTDOORS ONLY, ALWAYS EXACTLY ONE LAYER, NEVER STACKED - a shadow is one sheet
+whether it covers a whole meadow or a pawful of stone.
+EVERY SHEET SHOWS ITS SCISSOR OR TORN EDGE where it crosses the one below, so a child can count the
+steps, and THE SHEETS CARRY NO PATTERN AT ALL.
+THE SAME SMALL PIECE: the shade under a standing animal at noon is one blue piece the size of its
+own feet, and it is THE IDENTICAL PIECE IN THE IDENTICAL PLACE on p6, p7, p8, p9 and p10.
+THE SUN is a disc of BARE SUPPORT cut into the sky shape, showing only by its scissor edge, pinned
+at top centre from p6 and never moving again. THE ONLY RULED STRAIGHT EDGES BELONG TO THE GATE;
+everything else is cut freehand.
+Objects are ONE OPAQUE CUT SHAPE EACH, laid under the sheets; nothing is shaded, outlined, textured
+or brushed. Push a thing back by LAYING ONE MORE SHEET ON IT or by cutting it smaller, never by
+blurring. FINISHED THINGS PER PAGE = 2 (the pup + the one thing it touches or looks at). DENSITY
+RATION = none.
+THE FRAME HOLDS FIVE THINGS AND NOTHING ELSE: dry-stone wall = 1 shape + at most 5 stone cuts · the
+plank gate = 1 shape + 4 plank cuts · meadow = 1 flat shape, 0 blades · hill shoulder = 1 shape ·
+rock face = 1 toothed shape, 0 cracks. Also: sheep = 1 body shape + 2 legs, at most 7 in a frame, 0
+wool curls · dry grass = at most 6 strips.
+
+PALETTE: support and sun #F4F2EA · night sheet #2A2320, the only one that stacks · blue shade sheet
+#4A5670, always one layer · pale sky #E3E6E0 · meadow #7C8A55 · stone and planks #BCB2A0 · pup
+#C9A97E · old dog #8C7A63 · sheep #EFEAE0. No red, orange, yellow or black paint anywhere; the
+warmth of the last page is four layers of the same brown-black sheet, never a new colour.
+
+CHARACTER DESIGN LANGUAGE: every animal is a cut shape that must read from silhouette alone; at
+thumbnail the pup is a TALL THIN shape and the old dog a LOW HEAVY one. FIXED GRADE, fourteen pages:
+all QUADRUPEDS, no clothes, no collars, no fingers; the pup pushes the gate with nose and shoulder,
+never with a paw.
+
+CANVAS: 16:9 double-page spread. One patch of ground in front of one gate. No lettering or numerals.
+
+NOT: no digital slickness - airbrush, gradient, glow, 3D CG, cel-shading, photographic or a texture
+filter (the sheets must be REAL cut paper) / no painted black and no brushed shadow - dark is layers
+/ ONE SHEET THICK: no wool, felt fuzz, stitching or needle felting / nothing blurred or doubled.
 ```
+
+---
+
+## a47 §3. 캐릭터 시트 (🔴 FoldSet 을 가장 먼저)
+
+### 시트 1 — FoldSet
+
+```
+CHARACTER SHEET - FoldSet   (bake FIRST - this book is this gate and these layers)
+
+Medium: STYLE ANCHOR changjak-layerdark - cut translucent sheets over opaque cut shapes, 0 drawn
+lines. No animals anywhere on this sheet.
+
+THE PLACE, fixed for fourteen pages: a dry-stone fold wall with one plank gate in it, the patch of
+meadow in front of the gate, one hill shoulder behind, and a toothed rock face cropped along the
+top. Cut it once, wide, from the meadow side. Nothing else is ever in this frame.
+THE NIGHT-SHEET LADDER, four plates at one size, the same corner inside the fold each time: 0 layers
+(bare support, the gate wide open) · 2 layers (gate half open) · 3 layers (gate pushed to) · 4 layers
+(gate shut, the darkest plate in the book). In every plate the SCISSOR EDGE of each added sheet is
+visible where it crosses the one below, and the dark stays a WARM BROWN-BLACK, never a cold black.
+THE BLUE SHADE PLATE, three at one size, all ONE LAYER ONLY: a piece the size of a paw laid at the
+foot of the wall · the same single sheet cut long and laid right across the meadow · the same single
+sheet stopped halfway. The value must be identical in all three - a big shadow is not a darker
+shadow.
+THE FOOT PIECE, large: one blue piece the size of an animal's own four feet, cut once. It is reused
+unchanged on five pages, so cut it here and keep it.
+THE GATE, four plates: wide open against the wall · half open with a band of bare support lying
+across the ground inside · pushed to, that band narrowed to a hand's width · shut, with 4 plank cuts
+and thin gaps between them letting narrow strips of bare support through. These are the only ruled
+straight edges in the book.
+THE SUN: a disc of bare support cut into the pale sky shape, shown twice - low at the western ridge,
+and pinned at the top centre of the frame.
+0 lettering, 0 numerals. SCENE token: FoldSet.
+```
+
+### 시트 2 — PupKit
 
 ```
 CHARACTER SHEET - PupKit   (bake SECOND, attach as @image2)
 
-A young shepherd pup, PUP FUR #8E7E68, painted the same way as everything else - opaque paint on
-bare board, hard edges, almost no contour. Plain board, no scenery.
+A young shepherd pup, PUP #C9A97E, made the same way as everything else - opaque cut shapes on bare
+support, scissor edges, 0 drawn lines. Plain support, no scenery.
 
-BODY: leggy and half-grown, a big blunt head for its body, ears that flop forward at the tip, a
-  thick straight tail. 🔴 VALUE RULE - belly, muzzle front and inner ears stay PALE #C9B79C on
-  EVERY plate, lit or not. Eyes are DRAWN: a small dark almond with a separate brow stroke above.
-  🔴 QUADRUPED. It has no fingers, no clothes and no collar.
-🔴 THE POSTURE LADDER, seven at one size in a row:
-  1 LYING - flat on the belly, chin dropped onto both forepaws, ears down, eyes up.
-  2 UP ON FOUR - chest out, tail bolt upright, mouth open, looking up.
-  3 🔴 THE REFRAIN, front view and side view - BOTH FOREPAWS PLANTED ON THE LIP OF A TREAD, hind
-    feet on the ground, neck stretched far forward, mouth open. 🔴 THIS ONE POSE IS USED UNCHANGED
-    ON p5, p7 AND p9 - bake it twice as large as the others and do not vary it.
-  4 SITTING - haunches down, head tipped up, one ear folded back.
-  5 HALF UP - hind legs straight, both forepaws lifted clear into the air, neck stretched, eyes
-    wide, mouth SHUT.
-  6 NOSE DOWN - head dropped between the forelegs, muzzle almost on the stone, both eyes drawn to
-    one point, ears pushed forward.
-  7 🔴 BARKING FULL OUT - hind legs braced, both forepaws on the tread lip, chest swelled, neck
-    thrown up and back, mouth wide. 🔴 This must be the same shape as OldDog's barking plate.
-🔴 THE TWO FOREPAWS, LARGE: both set flat and square on a mossy tread, pale undersides showing.
-Tail: three plates only - bolt upright · straight out and stiff · low and swung to one side. 🔴 No
-  motion lines, no double image, no blur on any of them.
+BODY: leggy and half-grown, a big blunt head, ear tips that flop forward, a thick straight tail. Eye
+= a small cut disc with a darker centre and a SEPARATE short cut shape above it for a brow. Belly,
+muzzle front and inner ear are lighter cut shapes. QUADRUPED, no collar, no clothes, no fingers.
+THE POSTURE LADDER, eight at one size:
+  1 THE LEAP - all four feet clear of the ground, hind legs stretched back, forelegs folded to the
+    chest, ears up, mouth wide, tail straight up. THIS ONE SHAPE IS USED UNCHANGED ON p1, p2 AND p6
+    - cut it twice as large as the others and do not vary it.
+  2 STOPPED DEAD - all four feet down, one foreleg still half lifted, head turned, ears pricked,
+    mouth shut, tail level.
+  3 SULKING - head dropped, lower lip pushed forward, eyes turned up, ears back, tail low.
+  4 SITTING - haunches down, head tipped up, one ear folded.
+  5 AT THE SLIT - standing square at a gate, nose and one eye pressed into a narrow gap, one
+    foreleg against the planks, ears back.
+  6 YAWNING - four feet apart, mouth open wide, tongue curled, eyes shut, both hind knees turned
+    slightly inward.
+  7 LYING - flat on the belly, chin laid on both forepaws, one hind leg pushed out sideways, eyes
+    half shut, ears easy.
+  8 PUSHING - braced on four feet with nose and forehead against a plank, hind legs stretched back,
+    shoulders forward, back straight, eyes open, ears up.
+  9 BARKING FULL OUT - forepaws planted forward, chest swelled, neck thrown up and back, mouth wide.
+    THIS MUST BE THE SAME SILHOUETTE AS OldDog's barking plate, only smaller and thinner.
+Plus one close-up: the face alone, both eyes SCREWED SHUT with the brow shapes pushed together and
+the ears flat.
+Tail: three plates - straight up · straight out · low and swung to one side. No motion lines, no
+double image on any of them.
 0 lettering, 0 numerals. SCENE token: PupKit.
 ```
+
+### 시트 3 — OldDog
 
 ```
 CHARACTER SHEET - OldDog   (bake THIRD, attach as @image3)
 
-The old shepherd dog, OLD DOG FUR #6B6055, same make as PupKit - attach the approved PupKit sheet
-so the two are painted by one hand and the size between them is settled. Plain board.
+The old shepherd dog, OLD DOG #8C7A63, same make as PupKit - attach the approved PupKit sheet so the
+two are cut by one hand and the size between them is settled. Plain support.
 
-BUILD: heavy, deep-chested and low, a broad grey muzzle, one ear that never comes fully up, loose
-  skin at the throat. 🔴 AT THUMBNAIL SIZE HE IS A LOW HEAVY BAR AND THE PUP IS A TALL THIN ONE -
-  never confuse them. Same VALUE RULE, same drawn eye with a brow stroke. 🔴 QUADRUPED, no collar.
-🔴 THE WORKING LADDER, six at one size:
-  1 🔴 BARKING - forepaws on the tread lip, chest swelled, neck thrown up and back, mouth wide.
-    🔴 Bake this large: the pup copies this exact shape on p12, so it must be one silhouette.
-  2 SITTING AGAINST A POST - eyes half shut, weight on one hip.
-  3 CURLED ASLEEP - nose pushed in between the hind legs, a closed ring, no face showing.
-  4 HEAD UP, BOTH EARS PRICKED - lying, ears the only thing that has moved.
-  5 SITTING BY A LATCH - eyes lowered, tail slack on the ground.
-  6 WALKING AWAY - only hindquarters and tail, the rest already past the frame edge.
-🔴 HIS FACE DOES NOT INSTRUCT. He never points with his muzzle, never nudges the pup, never leans
-  over it. On ONE plate only he looks sideways at the pup with his mouth a little open - that is
-  his entire range, and it is not a smile.
+BUILD: heavy, deep-chested and low, a broad muzzle, one ear that never comes fully up, loose skin at
+the throat. AT THUMBNAIL SIZE HE IS A LOW HEAVY SHAPE AND THE PUP IS A TALL THIN ONE. Same cut-disc
+eye with a separate brow shape. QUADRUPED, no collar, no clothes, no fingers.
+THE WORKING LADDER, six at one size:
+  1 BARKING - forepaws planted forward, chest swelled, neck thrown up and back, mouth wide. Cut this
+    one large: the pup copies this exact silhouette later, so it must be one shape.
+  2 SEATED, LOOKING WEST - haunches down, chin lifted, eyes narrowed, both forepaws set together.
+  3 SQUINTING UP - head back, both eyes cut to thin slits, brow shapes bunched, tail hanging slack.
+  4 STUMBLING - one foreleg slid out sideways so the shoulder drops, the other three braced, neck
+    hanging low.
+  5 HEAD UP, EARS PRICKED - lying, the ears the only thing that has moved.
+  6 LYING ON HIS SIDE - eyes shut, head turned a little toward the pup, mouth slightly open.
+HIS FACE DOES NOT INSTRUCT. He never points with his muzzle, never nudges the pup, never leans over
+it. On plate 6 alone he looks toward the pup with his mouth a little open - that is his whole range
+and it is not a smile.
 0 lettering, 0 numerals. SCENE token: OldDog.
 ```
 
+### 시트 4 — FlockKit
+
 ```
-CHARACTER SHEET - FlockKit   (bake FOURTH, attach as @image4 only on p3, p7, p8, p9, p10, p13)
+CHARACTER SHEET - FlockKit   (bake FOURTH, attach as @image4 only on p4, p8, p13, p14)
 
-Sheep and crows as repeated painted shapes on bare board. 🔴 These are counts, not portraits.
-
-SHEEP: one body shape plus two legs, PALE #C9B79C where the sun is on them and ONE STEP OFF BLACK
-  where it is not. 🔴 0 wool curls, 0 faces beyond one dark eye dot, 0 individual fleece marks.
-  Four plates: a LINE of them walking, at most 9 · a CLUMP pouring down a slope, at most 9, the
-  front two half finished and the rest as shapes · THREE standing apart in a row · MUZZLES pressed
-  through gate slats, at most 5, 🔴 one of them finished and the rest shapes.
-CROWS: a wing shape plus a beak, board black. 🔴 At most 7 in a frame, all in ONE pose, scattered
-  in front of a crack in the rock. 🔴 No motion lines, no trailing dots, nothing being sucked in.
-HOOVES ON SHADE: one small plate - four legs and hooves standing on flat RISEN SHADE #3A4256, the
-  hooves finished and the bodies not.
+Sheep as repeated cut shapes on bare support. THESE ARE COUNTS, NOT PORTRAITS: one body shape plus
+two legs, SHEEP #EFEAE0, 0 wool curls, 0 individual fleece marks, no face beyond one small dark eye
+disc. At most 7 in any frame.
+Four plates:
+  A LINE of them coming down a slope, at most 7, walking one behind another, only the front one
+    finished and the rest left as shapes.
+  STANDING AWAKE - four or five upright, legs stiff and straight, eyes open, and TWO of them with
+    the knees cut half bent as if they had begun to lie down and straightened again.
+  PUSHING THROUGH A GAP - three crowding at a narrow opening, shoulders overlapping, the leading
+    one's back already under a night sheet and darker than the rest.
+  LYING - knees folded, bodies settled, at most 5, all under the same night sheets.
+THE FOOT PIECE: one plate showing four sheep feet standing on the single blue shade piece, the same
+piece used under the dogs - the feet finished, the bodies not.
 0 lettering, 0 numerals. SCENE token: FlockKit.
 ```
 
 ---
 
-## A-47 §4. 14컷
+## a47 §4. 14컷
 
-각 컷 = `STYLE ANCHOR + @image1(StairSet) + @image2(PupKit) + 아래 블록`.
-늙은 개가 나오는 **p1·p3·p4·p5·p6·p8·p9·p10·p12·p13·p14** 에 `@image3(OldDog)`, 양·까마귀가 나오는 **p3·p7·p8·p9·p10·p13** 에 `@image4(FlockKit)` 를 추가로 붙인다.
-🔴 **p11 → p1 → p14 순으로 먼저** 굽는다. p2~p10 은 p1 승인본을, p12·p13 은 p11 승인본을 함께 붙인다.
+각 컷 = `STYLE ANCHOR + @image1(FoldSet) + @image2(PupKit) + 아래 블록`.
+늙은 개가 나오는 **p1·p2·p3·p4·p5·p6·p7·p8·p9·p11·p13·p14** 에 `@image3(OldDog)`, 양이 나오는 **p4·p8·p13·p14** 에 `@image4(FlockKit)` 를 더 붙인다.
+🔴 **p6 → p14 → p1** 순으로 먼저 굽고, 나머지는 그 셋을 ref 로. **p3 은 반드시 p1 승인본을 붙여** 같은 프레임으로.
 
-### p1 — 언제 붉어져요 🔴 무대 고정 · 두 번째로 굽는다
-
-```
-BAKE THIS PAGE SECOND, right after page 11. 🔴 It fixes the stair and the rock for all fourteen.
-GLOW: 🔴 0% ROSE. The rock is a form present but UNPAINTED - ONE STEP OFF BLACK #1C2130, a flat
-  toothed silhouette with nothing inside it. 🔴 That unpainted state is this book's "grey", and
-  after p5 the rock never returns to it.
-SHADE: 8% - the blue-violet has climbed to the SECOND tread and stops there with a HARD CUT edge
-  straight across the stone. Above it, PALE on the top treads.
-STEP: 🔴 THE THIRD TREAD IS DRY AND CARRIES ITS MOSS MARK, a hand's width above the shade edge.
-  Nothing in the frame points at it.
-CAMERA: wide, at the eye level of a lying dog, from the flat top of the stair over its shoulder;
-  the rock fills the upper half, the meadow a band, the stair the near corner.
-SUBJECT: PupKit posture 1, flat on its belly at the top, chin dropped onto both forepaws, ears
-  down, eyes on the rock. Behind and to the left, OldDog posture 2 against the gate post, eyes
-  half shut, facing the same way.
-FINISH: 2 (the pup's chin + the moss mark). Meadow = one flat plane, 0 sheep. Late sun = PALE on
-  the gate and the top treads only. Quadrupeds, no clothes, no fingers. 0 lettering.
-```
-
-### p2 — 불붙었어요 🔴 심는 쪽 · 그늘 경계가 이끼에 처음 걸린다
+### p1 — 더 놀래요 🔴 무대 고정 · 세 번째로 굽는다
 
 ```
-GLOW: 🔴 26% ROSE, first appearance - the whole rock shape filled flat and opaque, one pass, 🔴 ITS
-  LOWER EDGE A HARD STRAIGHT CUT where the rock meets the meadow. No fade at the bottom, no glow
-  at the top, no light on anything else in the frame.
-SHADE: 14% - up to the THIRD tread. Meadow now BARE BOARD, not darkened, simply not painted.
-STEP: 🔴 THE SHADE EDGE LIES EXACTLY ALONG THE MOSS MARK, touching it and going no further. 🔴 The
-  page never mentions this and no one looks at it - it is planted, not shown.
-CAMERA: 🔴 THE EXACT FRAME OF p1 - same width, same height, same crop of the rock. Only the paint
-  and the two animals differ.
-SUBJECT: PupKit posture 2, up on all four feet, chest out, tail bolt upright, mouth open, head
-  back to look at the rock. OldDog posture 2 unmoved behind, but his eyes are now open.
-FINISH: 2 (the pup + the moss mark with the edge on it). 🔴 The rock is the largest painted area
-  and is NOT one of the two. Quadrupeds, no clothes, no fingers. 0 lettering.
+--- p1 — 더 놀래요 ---
+🔴 FIX THE PLACE HERE: p3 repeats this exact framing, so settle the wall, the gate, the hill and the
+crop of the rock now.
+SHADE: 3% - one blue piece under the pup, short and thrown out to one side. ONE layer.
+SHEETS: 0. Nothing is laid anywhere on this page.
+GATE: wide open against the wall, its plank edges the only ruled straight lines in the frame.
+CAMERA: medium wide, very low, at the height of the grass; the pup at centre, the fold wall and the
+open gate behind at frame right.
+SUBJECT: PupKit posture 1 THE LEAP - all four feet clear of the ground, hind legs stretched back,
+forelegs folded up, ears up, mouth wide open, tail straight up. Behind at frame right, OldDog plate
+2 seated by the gate post with his chin lifted, facing the same way.
+SETTING: meadow = one flat shape, 0 blades; at most 5 trodden cuts where his feet left the ground.
+Sky = one pale shape, the sun disc low and out of frame. Rock cropped along the top, 0 cracks.
+FINISH: 2 - the leaping pup and the piece of shade under him. Wall, gate, hill and rock are flat cut
+shapes only. Quadrupeds, no clothes, no fingers. 0 lettering.
+TONE: bright, open and unlaid. The only cut edge that means anything is the small blue piece.
 ```
 
-### p3 — 붉으면 부르는 거야
+### p2 — 벌써요?
 
 ```
-GLOW: 24% ROSE, the rock cropped to the frame's right, still flat and opaque, lower edge a hard
-  cut. PALE on the gate planks, nothing else lit.
-SHADE: 20% - the shade has taken the whole stair and the near meadow; the moss mark is under it
-  and no longer readable. Everything beyond is BARE BOARD.
-STEP: under the shade, unmarked.
-CAMERA: medium, eye level, turned along the stair top toward the meadow, both dogs in profile.
-SUBJECT: at frame left OldDog plate 1 BARKING - forepaws on the tread lip, chest swelled, neck
-  thrown up and back, mouth wide, eyes on the meadow. At frame right PupKit posture 4, sitting,
-  head tipped up, ears pushed forward, watching the open mouth. 🔴 The bark is not drawn: nothing
-  leaves his mouth, no lines, no marks.
-SETTING: FlockKit SHEEP LINE far out on the meadow, at most 9, walking toward the stair as
-  unfinished shapes. The plank gate stands open behind at the right.
-FINISH: 2 (OldDog's neck and open mouth + the pup's ears). Sheep and gate = shapes only.
-  Quadrupeds, no clothes, no fingers. 0 lettering.
+--- p2 — 벌써요? ---
+SHADE: 8% - both animals' shade pieces cut longer and thrown sideways, and 🔴 still ONE layer, the
+same value as the small piece on p1. A longer shadow is not a darker shadow.
+SHEETS: 0.
+GATE: wide open.
+CAMERA: medium, eye level; OldDog at frame left, PupKit at frame right, the western ridge low behind
+them.
+SUBJECT: OldDog plate 2, seated with his chin lifted and his head turned to the ridge, eyes
+narrowed, mouth a little open, one ear turned back toward the pup. At frame right PupKit posture 3
+SULKING - head dropped, lower lip pushed forward, eyes turned up at the old dog, ears back, tail
+low.
+SETTING: 🔴 the sun disc - bare support cut into the pale sky - sits on the western ridge with about
+a hand's width of it still above the line. Meadow one flat shape. Gate open behind.
+FINISH: 2 - the pup's pushed-out lip and the old dog's lifted chin. Everything else is a flat shape.
+Quadrupeds, no clothes, no fingers. 0 lettering.
+TONE: late and level. Two long blue pieces lying the same way across an otherwise bare page.
 ```
 
-### p4 — 안 꺼지면 좋겠다 🔴 로즈가 마지막으로 꺼지는 쪽
+### p3 — 그늘이 길게 누워요 🔴 p1 승인본을 붙여 같은 구도로
 
 ```
-GLOW: 🔴 0% ROSE. The rock has gone back to UNPAINTED - ONE STEP OFF BLACK, nothing inside it.
-  🔴 This is the last page in the book where that is true.
-SHADE: 55% - the shade has taken the stair, the gate and the near meadow; the hill shoulder above
-  is BARE BOARD. Its top edge is still a hard cut, now high in the frame.
-STEP: deep under the shade, invisible.
-CAMERA: medium close-up, slightly below the pup's eye level, the top tread running across the
-  frame; the rock is a low band along the top.
-SUBJECT: PupKit posture 1 again but slack - flat on its belly, chin dropped onto the lip of the
-  tread, eyelids half down, mouth corners low, eyes on the unpainted rock. At the far left edge,
-  OldDog plate 6 - hindquarters and tail only, already going in through the gate.
-SETTING: one gate plank swinging to, PALE gone from it.
-FINISH: 2 (the pup's face + the tread lip under its chin). Nothing else is painted.
-  Quadruped, no clothes, no fingers. 0 lettering.
+--- p3 — 그늘이 길게 누워요 ---
+🔴 ATTACH THE APPROVED p1 AND REPEAT ITS FRAMING EXACTLY.
+SHADE: 🔴 40% - ONE blue sheet cut in a single long piece and laid over the whole near meadow from
+the bottom of the frame up, with the pup's own shade running off the edge inside it. 🔴 ONE LAYER,
+the same value as the paw-sized piece on p1 - it is bigger, not deeper.
+SHEETS: 0.
+GATE: wide open.
+CAMERA: the p1 frame - medium wide, very low, at grass height.
+SUBJECT: PupKit posture 2 STOPPED DEAD, all four feet down with one foreleg still half lifted, head
+turned to the ridge, both ears pricked forward, mouth shut, tail level. Behind at frame right,
+OldDog on his feet, half turned toward the gate.
+SETTING: 🔴 the sun disc is gone from the sky - the ridge line has no cut disc above it now, and the
+pale sky shape above the shade is the brightest thing left. The meadow is one flat shape under one
+sheet.
+FINISH: 2 - the pup stopped mid-stride and the scissor edge of the shade sheet where it crosses the
+meadow. Quadrupeds, no clothes, no fingers. 0 lettering.
+TONE: the sharpest thing in the picture is that one cut edge running across the ground.
 ```
 
-### p5 — 다음 날 아침에도 붉어요 🔴 후렴 1/3
+### p4 — 이리 와
 
 ```
-GLOW: 30% ROSE - the rock is filled exactly as on p2, the same colour, the same flat pass. 🔴 The
-  paint does not know it is morning.
-SHADE: 🔴 0% - there is no blue-violet anywhere on the stair. PALE now covers the meadow, the
-  treads and the gate, and 🔴 the unpainted board is left at the OPPOSITE side of every form from
-  p1 and short. That reversal is the only thing saying morning.
-STEP: dry, its moss mark in full PALE, no edge near it.
-CAMERA: 🔴 THE EXACT FRAME OF p1 and p2.
-SUBJECT: PupKit posture 3, THE REFRAIN, unchanged - both forepaws planted on the lip of the tread,
-  hind feet down, neck stretched far forward, mouth open. Tail bolt upright, 🔴 ONE POSITION ONLY,
-  no double image and no motion lines. Behind at the left, OldDog crouched at the gate, head
-  lifted, one ear half up, eyes wide open.
-SETTING: dew = at most 24 painted PALE dots along the top of the meadow plane, 0 sparkles.
-FINISH: 2 (the pup's stretched neck + the dew line). Rock not finished.
-  Quadrupeds, no clothes, no fingers. 0 lettering.
+--- p4 — 이리 와 ---
+SHADE: 45% - the same single blue sheet, cut a little further up the meadow. Still ONE layer.
+SHEETS: 0 - the gate is open and the inside of the fold is not dark yet.
+GATE: wide open at frame right.
+CAMERA: medium wide, eye level, along the ground toward the meadow; both dogs in profile.
+SUBJECT: at frame left OldDog plate 1 BARKING - forepaws planted forward, chest swelled, neck thrown
+up and back, mouth wide, eyes on the hill. 🔴 The bark is not drawn: nothing leaves his mouth, no
+lines and no marks. At frame right PupKit posture 4 SITTING, head tipped up, ears forward, watching
+the open mouth.
+SETTING: FlockKit A LINE coming down the hill shoulder, at most 7, one behind another, only the
+front one finished. Fold wall and open gate behind.
+FINISH: 2 - the old dog's thrown-back neck and the one finished sheep at the head of the line. The
+rest of the flock stays a row of shapes. Quadrupeds, no clothes, no fingers. 0 lettering.
+TONE: evening, all of it under one blue sheet, with the gate standing open as the only bright gap.
 ```
 
-### p6 — 한낮인데 그대로 붉어요
+### p5 — 덜컹, 문이 닫혔어요 🔴 겹이 처음 얹히는 쪽
 
 ```
-GLOW: 30% ROSE, unchanged from p5, the rock cropped left of centre.
-SHADE: 🔴 2% - the ONLY blue-violet in the whole frame is a palm-sized patch clamped at the very
-  foot of the stair, hard-edged, touching the bottom stone. Everywhere else the stone and the
-  meadow are PALE and MEADOW. 🔴 That one small patch is the clock and it must be tiny.
-STEP: dry, in full PALE, far above the patch.
-CAMERA: medium, low angle from beside the stair, 🔴 the sky taking the upper third as BARE BOARD.
-SUBJECT: at frame left OldDog plate 1 BARKING, but 🔴 his head is still tipped a little to one
-  side and the fur above his eyes is drawn into a knot - the bark is not certain. At frame right
-  PupKit posture 4, sitting, one ear folded back, looking up at him.
-SETTING: the meadow plane flat and stiff, 0 blades. Gate open.
-FINISH: 2 (OldDog's knotted brow + the shade patch at the foot). 🔴 Do not finish the rock even
-  though it is the largest paint. Quadrupeds, no clothes, no fingers. 0 lettering.
+--- p5 — 덜컹, 문이 닫혔어요 ---
+SHADE: only in the slit - a strip of the same single blue sheet with pale sky above it, seen through
+one narrow gap between planks. 2% of the frame.
+SHEETS: 🔴 3 - the whole inside of the fold, laid three times over. This is the first dark in the
+book, and here it reads as the thing he is shut in by.
+GATE: 🔴 SHUT, and the camera is inside. The plank cuts run right across the frame - the first ruled
+straight edges in this book.
+CAMERA: close-up, eye level, the shut gate filling the picture; one narrow gap a little off centre.
+SUBJECT: PupKit posture 5 AT THE SLIT - standing square with his nose and one eye pressed into the
+gap, one foreleg against a plank, ears back, mouth a little open. Only that eye and the tip of the
+nose are in the gap; the rest of him lies under the three sheets.
+SETTING: at the lower corner, the backs of OldDog and three sheep as shapes under the same sheets,
+no faces. Dry grass = at most 6 strips.
+FINISH: 2 - the pressed nose and the strip of meadow inside the gap. Quadrupeds, no clothes, no
+fingers. 0 lettering.
+TONE: 🔴 the darkest page so far and the brightest thing in it is a gap a finger wide. Nobody has
+said the dark is good yet - here it is only what he is behind.
 ```
 
-### p7 — 붉어요 지금이에요 🔴 후렴 2/3
+### p6 — 해가 그대로예요 🔴 0겹 · 가장 먼저 굽는다
 
 ```
-GLOW: 28% ROSE, the rock cropped along the top of the frame.
-SHADE: 3% - the same small patch at the foot of the stair, no bigger.
-STEP: dry, in PALE, unremarked.
-CAMERA: wide, from the stair top over the pup's shoulder toward the meadow and the hill.
-SUBJECT: PupKit posture 3, THE REFRAIN, 🔴 THE IDENTICAL SHAPE USED ON p5 - both forepaws on the
-  tread lip, neck stretched, mouth open, tail bolt upright. At the lower left corner, OldDog's
-  back and hind legs only, already turned toward the gate.
-SETTING: FlockKit SHEEP CLUMP pouring down the hill at middle depth, at most 9 - the front two
-  half finished, the rest shapes. Gate open at the right. Dust = at most 9 painted PALE dots low
-  over the slope, 🔴 dots, never a haze, never a smear.
-FINISH: 2 (the pup's forepaws on the lip + the two front sheep). Everything past them is shape.
-  Quadrupeds, no clothes, no fingers. 0 lettering.
+--- p6 — 해가 그대로예요 ---
+🔴 BAKE THIS PAGE FIRST. It settles what a page with nothing laid on it looks like, and it cuts THE
+FOOT PIECE that five pages will reuse.
+SHADE: 🔴 2% - one blue piece exactly the size of the pup's four feet, clamped under him. 🔴 THIS IS
+THE PIECE. Cut it once here; p7, p8, p9 and p10 use the same piece in the same place, unchanged.
+SHEETS: 0 - not one sheet anywhere in the frame.
+GATE: wide open, unremarked.
+CAMERA: medium wide, low angle so the sky takes the upper half.
+SUBJECT: PupKit posture 1 THE LEAP reused - chasing his own tail, all four feet off the ground, head
+thrown back to look up, mouth wide. 🔴 The tail is in ONE position and the spinning is said by a
+round trodden patch under him, at most 6 cuts, never by a second tail or a curved line. At the lower
+left corner, OldDog's two forepaws and hanging chin only.
+SETTING: 🔴 the sun - a disc of bare support cut into the pale sky - pinned at the TOP CENTRE of the
+frame. Fix its position here; it does not move again for four pages. Meadow one flat shape.
+FINISH: 2 - the pup and the foot-sized piece of shade. Quadrupeds, no clothes, no fingers. 0
+lettering.
+TONE: 🔴 nothing is laid, so there is nowhere on this page for a child's eye to rest. That is the
+whole trouble of the book, and it starts here.
 ```
 
-### p8 — 풀을 반밖에 못 먹었잖니
+### p7 — 안 내려가네
 
 ```
-GLOW: 🔴 6% ROSE - only a corner of the rock shows past the gate at the top right of the frame.
-  🔴 The event is off the page here and the page is still about it.
-SHADE: 4% - a short hard-edged patch clamped under each animal and under the gate post, and
-  nowhere else. Noon.
-STEP: out of frame.
-CAMERA: medium close-up at the shut gate, at dog eye level, the plank slats running across the
-  whole frame.
-SUBJECT: at frame right PupKit standing square at the gate, head tipped, one forepaw laid flat on
-  a slat, looking through. At frame left OldDog plate 5, sitting by the latch, eyes lowered, tail
-  slack on the ground.
-SETTING: FlockKit MUZZLES pressed out between the slats, at most 5 - 🔴 exactly one of them
-  finished, the rest shapes. The gate itself PALE, its inside BARE BOARD.
-FINISH: 2 (the one finished muzzle + the pup's forepaw on the slat). 🔴 The rock corner is not one
-  of the two. Quadrupeds, no clothes, no fingers. 0 lettering.
+--- p7 — 안 내려가네 ---
+SHADE: 2% - the same foot piece, now under the old dog, cut to his feet. No larger than on p6.
+SHEETS: 0.
+GATE: wide open, far behind.
+CAMERA: medium close-up, slightly low; the old dog's head fills the middle.
+SUBJECT: OldDog plate 3 SQUINTING UP - head back, both eyes cut to thin slits, the brow shapes
+bunched, mouth a little open, forepaws planted, and 🔴 his tail hanging slack. Behind him PupKit,
+🔴 cut noticeably smaller and left unfinished, still running - pushed back by size and by finish,
+never by blurring.
+SETTING: 🔴 the sun disc is in EXACTLY the position it holds on p6 - lay the two pages side by side
+and it has not moved a hair. Pale sky, one hill shape, rock cropped along the top.
+FINISH: 2 - the squinted eyes and the slack tail. The pup is not one of the two. Quadrupeds, no
+clothes, no fingers. 0 lettering.
+TONE: high hard light with nothing laid under it. The only shape carrying any weight is a face.
 ```
 
-### p9 — 붉어요 지금이에요 🔴 후렴 3/3 · 바람이 시간을 말한다
+### p8 — 아무도 안 누워요
 
 ```
-GLOW: 26% ROSE - 🔴 the same colour and the same flat pass as p5 and p6. Nothing about the paint
-  has changed since morning; that is the whole complaint of the page.
-SHADE: 10% - the blue-violet has come back and taken the FIRST tread, its top edge a hard cut
-  across the stone. The meadow beyond is BARE BOARD again.
-STEP: dry, two treads above the edge.
-CAMERA: 🔴 THE EXACT FRAME OF p1, p2 and p5.
-SUBJECT: PupKit posture 3, THE REFRAIN, the identical shape - but 🔴 the back fur is laid flat one
-  way and both ears are blown back. At the left, OldDog plate 3 curled asleep at the gate, nose
-  pushed in, no face showing.
-SETTING: FlockKit CROWS in front of a crack in the rock, at most 7, 🔴 all in one pose, scattered,
-  0 motion lines and nothing being sucked in. The meadow plane cut into one long lean, all one way.
-FINISH: 2 (the pup's laid-flat back + the crack in the rock with the crows at it).
-  Quadrupeds, no clothes, no fingers. 0 lettering.
+--- p8 — 아무도 안 누워요 ---
+SHADE: 2% - the same foot piece under every animal, 🔴 all of them the same size, none of them
+longer than another.
+SHEETS: 0 - the gate stands open and the inside of the fold is as bright as the meadow.
+GATE: wide open, the inside plainly visible and plainly no use.
+CAMERA: medium wide, eye level; the standing sheep across the middle, the backs of the two dogs low
+at frame right.
+SUBJECT: at the lower right PupKit from behind and slightly to the side, head lifted toward the
+flock, mouth open, one ear turned to the old dog beside him; OldDog seated with his eyes half shut
+and his shoulders dropped.
+SETTING: FlockKit STANDING AWAKE - five sheep upright on stiff straight legs, eyes open, and 🔴 TWO
+of them with the knees cut half bent, caught between lying down and standing up again. Not one of
+them is lying down.
+FINISH: 2 - one sheep's half-bent knee and the pup's lifted head. The other four stay shapes.
+Quadrupeds, no clothes, no fingers. 0 lettering.
+TONE: an even, unlaid page with a row of animals standing in it. Even the fold, which ought to be
+the dark place, has nothing laid in it.
 ```
 
-### p10 — 이러다 못 내려와요 🔴 밝은데 아무 도움이 안 된다
+### p9 — 하아암
 
 ```
-GLOW: 24% ROSE - the rock across the top, 🔴 THE LARGEST AND BRIGHTEST PAINT IN THE FRAME AND NOT
-  ONE OF THE FINISHED THINGS. It tells nobody anything and the page must show that by leaving it
-  flat while the small things get the finish.
-SHADE: 22% - risen off the stair and across the near meadow, its hard edge now a long horizontal
-  low in the frame; everything below it RISEN SHADE, everything above BARE BOARD.
-STEP: dry, just above the edge, at the bottom of the frame.
-CAMERA: medium wide, low angle from the stair top looking UP the hill; the ridge line high.
-SUBJECT: PupKit posture 5 - hind legs straight, both forepaws lifted clear into the air, neck
-  stretched toward the hill, eyes wide, 🔴 MOUTH STILL SHUT. At the lower left, only OldDog's
-  round sleeping back.
-SETTING: FlockKit THREE SHEEP standing apart in a row on the ridge, small, PALE against bare
-  board.
-FINISH: 2 (the pup's lifted forepaws + the three sheep on the ridge).
-  Quadrupeds, no clothes, no fingers. 0 lettering.
+--- p9 — 하아암 ---
+SHADE: 2% - the same foot piece under each dog, unmoved.
+SHEETS: 0.
+GATE: wide open.
+CAMERA: medium, eye level; OldDog at frame left, PupKit at frame right.
+SUBJECT: at frame left OldDog plate 4 STUMBLING - one foreleg slid out sideways so the shoulder
+drops, the other three braced, neck hanging, eyes half shut. At frame right PupKit posture 6
+YAWNING - four feet apart, mouth open wide, tongue curled, eyes shut, 🔴 both hind knees cut turned
+slightly inward, tail low.
+SETTING: 🔴 the sun disc still in the same pinned position, and the foot pieces still the same size.
+Behind them the sheep are still standing, cut small and left as shapes.
+FINISH: 2 - the slipped foreleg and the buckled hind knee. Quadrupeds, no clothes, no fingers. 0
+lettering.
+TONE: nothing has changed on the page except the animals, and they have got worse. The picture is
+as bright as it was four pages ago.
 ```
 
-### p11 — 그늘이 지금 왔어요 🔴 판 ref · 가장 먼저 굽는다 · 밀도 배급 1/2
+### p10 — 눈꺼풀 안까지 환해요 🔴 조각이 하나뿐인 쪽
 
 ```
-BAKE THIS PAGE FIRST. 🔴 It fixes the hard cut edge of the shade and the moss mark for the book.
-GLOW: 🔴 4% ROSE - a sliver of the rock in the very top corner and no more. The thing that has
-  been filling the frame for six pages is nearly gone from it.
-SHADE: 30% of the frame, but the frame is only three treads: 🔴 THE FIRST AND SECOND TREADS ARE
-  FLAT RISEN SHADE #3A4256 AND THE EDGE OF THAT COLOUR LIES EXACTLY ALONG THE MOSS MARK ON THE
-  THIRD - a straight cut, no fade, no soft side, no shadow shape from anything. The fourth tread
-  up is dry PALE stone.
-STEP: 🔴 THE MOSS MARK, the density ration of this book - one shape plus 4-6 short strokes, the
-  most finished thing in fourteen pages, with the colour edge sitting on it. Same stone, same mark
-  as p2.
-CAMERA: close-up, high angle straight down at three treads and the pup's forepaws; nothing else.
-SUBJECT: PupKit posture 6 - head dropped between the forelegs, muzzle almost on the stone, both
-  eyes drawn to one point, ears pushed forward.
-FINISH: 2 (the moss mark with the edge on it + the two forepaws). 🔴 DENSITY RATION - spend it
-  here and only on those two. Quadruped, no clothes, no fingers. 0 lettering.
+--- p10 — 눈꺼풀 안까지 환해요 ---
+SHADE: 🔴 0% - there is no blue piece anywhere on this page. It is the only page in the book with no
+shade at all.
+SHEETS: 0.
+GATE: out of frame.
+CAMERA: extreme close-up, eye level; the pup's face fills the whole picture.
+SUBJECT: PupKit close-up plate - both eyes SCREWED SHUT with the brow shapes pushed hard together,
+the nose wrinkled, both ears cut flat back, mouth open a little. At the bottom corner, the two
+forepaws crossed.
+SETTING: 🔴 BARE SUPPORT AND NOTHING ELSE BEHIND HIM - not one cut shape, not one sheet, not one
+edge. This is the only page in the book where the entire picture is a single cut shape on the
+support. Do not add a sky shape, a horizon, a blade of grass or a warm tint on the eyelids.
+FINISH: 2 - the two shut eyes and the crossed forepaws. Quadruped, no clothes, no fingers. 0
+lettering.
+TONE: 🔴 shutting his eyes does not help, and the page says it by having nothing laid over any part
+of it. The whitest, emptiest picture in the book.
 ```
 
-### p12 — 왕 왕 와왕 🔴 자세가 p3 의 늙은 개다
+### p11 — 구석이 어둑해요 🔴 겹이 다시 붙는 쪽
 
 ```
-GLOW: 10% ROSE - the rock is 🔴 a flat unfinished band far back behind the two bodies, cropped
-  small. Do not detail it here.
-SHADE: 38% - the shade has taken the stair and the gate post; both animals stand in it, and 🔴 the
-  colour is on them too, flat, not a darkening.
-STEP: out of frame.
-CAMERA: medium, low angle from beside the stair, both animals against BARE BOARD sky.
-SUBJECT: at frame left PupKit posture 7 BARKING FULL OUT - hind legs braced, both forepaws on the
-  tread lip, chest swelled, neck thrown up and back, mouth wide. 🔴 THIS SILHOUETTE MUST MATCH
-  OldDog's barking shape on p3 - same line of the back, same throw of the neck, smaller body. At
-  the lower right, OldDog plate 4, head up off the ground, BOTH EARS PRICKED, eyes on the pup.
-SETTING: gate post and one ridge shoulder as shapes. 🔴 Nothing leaves the pup's mouth.
-FINISH: 2 (the pup's thrown-back neck + OldDog's two pricked ears). The rest is bare board.
-  Quadrupeds, no clothes, no fingers. 0 lettering.
+--- p11 — 구석이 어둑해요 ---
+SHADE: out of frame; the camera is inside the fold.
+SHEETS: 🔴 2 - the corner under the wall carries two night sheets, and the scissor edge of the
+second one runs across the floor on a slant. 🔴 From this page the count never goes down again.
+GATE: half open at frame right, and a band of BARE SUPPORT lies across the ground beside it, edged
+straight by the planks.
+CAMERA: medium, slightly high; the half-open gate and its band of light at frame right, the dim
+corner at frame left.
+SUBJECT: PupKit posture 7 LYING - flat on his belly in the corner, chin laid on both forepaws, one
+hind leg pushed out sideways, 🔴 the face loose and both eyes half shut, ears easy. The whole of him
+is under the two sheets.
+SETTING: dry grass = at most 6 strips. Fold wall = 1 shape with at most 5 stone cuts. Nothing else
+is in here.
+FINISH: 2 - the loosened face and the scissor edge crossing the floor. Quadruped, no clothes, no
+fingers. 0 lettering.
+TONE: half the picture is bare support and half is two sheets deep, and the dog is in the deep half.
+The straight edge of the light comes from the gate and from nothing else.
 ```
 
-### p13 — 오늘은 네가 알았네
+### p12 — 여기는 깜깜해요!
 
 ```
-GLOW: 22% ROSE, the rock cropped along the top, flat.
-SHADE: 46% - the whole meadow and the whole stair are RISEN SHADE now, one flat field with its
-  hard top edge running at the foot of the rock.
-STEP: under the shade, unmarked.
-CAMERA: medium wide, eye level from the stair top toward the meadow.
-SUBJECT: at frame left PupKit with both forepaws on the tread lip, watching the sheep come; 🔴 the
-  tail in ONE position, low and swung to one side - no double image, no motion lines. At frame
-  right OldDog on his feet, half turned to the latch, looking back at the pup out of the corner of
-  his eye, mouth a little open. 🔴 That is his whole range and it is not a smile.
-SETTING: FlockKit HOOVES ON SHADE - three sheep in single file walking over the flat blue-violet,
-  🔴 the legs and hooves finished and the bodies left as shapes. Gate open.
-FINISH: 2 (the hooves standing on the shade + the pup's tail). Quadrupeds, no clothes, no fingers.
-  0 lettering.
+--- p12 — 여기는 깜깜해요! ---
+SHADE: outdoors, out of frame.
+SHEETS: 🔴 2 AND 3 IN ONE PICTURE - a third night sheet has been laid over the part of the floor the
+gate has already covered, and 🔴 the scissor edge between two layers and three is plainly visible
+across the middle of the frame. That edge is the pushing.
+GATE: being pushed to; the band of bare support beside it has narrowed to about two hands' width,
+straight-edged.
+CAMERA: medium close-up, eye level; the moving gate and the narrowing band at frame right, the pup
+at frame left.
+SUBJECT: PupKit posture 8 PUSHING - braced on four feet with nose and forehead against a plank, hind
+legs stretched back, shoulders forward, back straight, eyes open, ears up, mouth open to speak. 🔴
+He pushes with his nose and shoulder, never with a paw.
+SETTING: at most 4 scored cuts in the earth where his hind claws have dragged. Dry grass at most 6
+strips.
+FINISH: 2 - his braced forehead against the plank and the narrowing band of light. Quadruped, no
+clothes, no fingers. 0 lettering.
+TONE: 🔴 the page is darker on the side he has already covered and lighter where the band still is,
+and the two are separated by a cut edge, not a fade.
 ```
 
-### p14 — 그늘이 오는 쪽 🔴 착지 · 밀도 배급 2/2 · 세 번째로 굽는다
+### p13 — 들어와요!
 
 ```
-BAKE THIS PAGE THIRD, right after page 1. 🔴 It is the same frame as p1 with the paint reversed.
-GLOW: 🔴 20% ROSE - the rock is still filled, flat and opaque, 🔴 the brightest thing on a black
-  sheet at night, and it says nothing. Its lower edge sits high in the frame now, pushed up there
-  by the shade, and it has nowhere left to go.
-SHADE: 🔴 60% - the meadow, the stair and the gate are all RISEN SHADE up to the foot of the rock.
-  The sky is BOARD BLACK with at most 12 painted star dots, 0 sparkles.
-STEP: 🔴 THE MOSS MARK WITH BOTH FOREPAWS SET FLAT ON IT - the second density ration. Same stone
-  as p2 and p11.
-CAMERA: 🔴 THE EXACT FRAME OF p1, p2, p5 and p9.
-SUBJECT: PupKit has come three treads DOWN and sits on the mossy third tread, both forepaws set
-  square on the mark, 🔴 ITS HEAD TURNED AWAY FROM THE ROCK, facing out across the meadow toward
-  the side the shade comes from. Eyes half shut, ears easy and sideways. At the left, OldDog's
-  head out through the gate, pointed the same way.
-FINISH: 2 (the two forepaws on the moss mark + the pup's turned head). 🔴 The rock is the largest
-  and brightest paint in the frame and is not finished. Quadrupeds, no clothes, no fingers.
-  0 lettering.
+--- p13 — 들어와요! ---
+SHADE: 2% outside - the same foot piece under the sheep out on the meadow, unchanged since p6.
+SHEETS: 3 inside the fold; outside the gate, 0 - bare support.
+GATE: open only a narrow gap, and 🔴 the value splits exactly on its ruled edge: bare support on one
+side, three sheets on the other, with nothing in between.
+CAMERA: medium wide, slightly low; the pup at frame left, the gap and the sheep at centre, OldDog
+behind at frame right.
+SUBJECT: at frame left PupKit posture 9 BARKING FULL OUT - forepaws planted forward, chest swelled,
+neck thrown up and back, mouth wide. 🔴 THIS SILHOUETTE MUST MATCH OldDog's barking shape on p4 -
+same line of the back, same throw of the neck, smaller and thinner body. At frame right OldDog plate
+5, head lifted off the ground with BOTH EARS PRICKED, eyes on the pup. 🔴 Nothing leaves the pup's
+mouth.
+SETTING: FlockKit PUSHING THROUGH A GAP - three sheep crowding at the opening, 🔴 the leading one's
+back already under the night sheets and darker than the two behind it.
+FINISH: 2 - the pup's thrown-back neck and the back of the sheep crossing into the dark. Quadrupeds,
+no clothes, no fingers. 0 lettering.
+TONE: white outside, brown-black inside, and the join is a straight cut down the gate post.
 ```
 
----
+### p14 — 깜깜해야 잠이 폭 와요 🔴 착지 · 두 번째로 굽는다
 
-## 첫 렌더 검수 체크리스트 (6항목)
-
-1. 🔴 **p1 과 p14 를 나란히 놓는다** — 같은 프레임이고, 바위는 **안 칠함 ↔ 칠함**, 그늘은 **둘째 칸 ↔ 초지 전체**, 개의 얼굴은 **바위 쪽 ↔ 반대쪽**. 넷 다 뒤집혔나.
-2. 🔴 **p5~p14 의 `SHADE` 값이 한 번도 안 내려갔나.** 한 쪽이라도 내려가면 이 권의 계기판이 죽는다.
-3. 🔴 **그늘의 위 가장자리가 어느 쪽에서든 부드럽나.** 부드러우면 그건 드리운 그림자다 — 이 앵커엔 그림자가 없다.
-4. 🔴 **p2 · p11 · p14 의 이끼 자국이 같은 돌인가**, 그리고 p2·p11 에서 경계가 **정확히 그 위에** 걸쳤나.
-5. 🔴 **바위벽이 어느 쪽에서든 `FINISH 2` 에 들어갔나.** 들어갔으면 「밝은데 아무 도움이 안 됨」이 무너진다. 그리고 **금이나 지층이 그려졌으면** 다시 굽는다.
-6. **원본 g88 첫 렌더와 나란히 놓는다** — 판정 한 줄 = 「밝은 면적이 **갔다 돌아오나**(g88) ↔ **한 방향으로만 밀려 올라가나**(a47)」, 그리고 한 겹이 **회백 ↔ 장미붉음**인가.
+```
+--- p14 — 깜깜해야 잠이 폭 와요 ---
+🔴 BAKE THIS PAGE SECOND, right after p6. The two of them are the ends of this book's count.
+SHADE: outdoors, out of frame - the day outside is only readable through the planks.
+SHEETS: 🔴 4 - the deepest in the book, the whole inside of the fold laid four times over, warm
+brown-black, and every added sheet still showing its own scissor edge.
+GATE: shut. Thin strips of BARE SUPPORT come through the gaps between the planks and lie across the
+floor.
+CAMERA: wide, eye level, from inside; 🔴 the middle of the frame is one mass of four-layer dark and
+the bodies in it are shapes, not portraits.
+SUBJECT: PupKit posture 7 LYING on the dry grass, chin on both forepaws, 🔴 this time both eyes fully
+shut, his body half dissolved into the layers so only the line of his back reads. Beside him OldDog
+plate 6, lying on his side with his eyes shut and his head turned a little toward the pup, mouth
+slightly open. Around them FlockKit LYING, at most 5, knees folded, all under the same sheets.
+SETTING: 🔴 ONE OF THE PALE STRIPS FROM THE PLANK GAPS STOPS JUST SHORT OF THE PUP'S FOREPAWS - the
+only thing on the page saying it is still broad daylight outside. Dry grass at most 6 strips, stone
+wall at most 5 cuts. 0 stars, 0 lamps, 0 moon.
+FINISH: 2 - the pup's shut eye and the pale strip that stops at his paws. 🔴 The four-layer dark is
+the largest thing in the frame and is NOT one of the two. Quadrupeds, no clothes, no fingers. 0
+lettering.
+TONE: 🔴 the first restful page in fourteen. Warm from four layers of the same brown-black sheet,
+never from a new colour, and dark enough that a child can see why they are all asleep in it.
+```
