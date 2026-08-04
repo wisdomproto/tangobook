@@ -137,7 +137,14 @@ function makeBook2UnitPlan(patterns: readonly VcPattern[]): ActivityPlan {
   const activities: import('./korean-phonics-units').ActivityDef[] = [];
   let order = 1;
   for (const p of patterns) {
-    // 1 활동 / VC — CvcPatternLearn 안에 Phase A (배우기) + B (단어) + C (써보기) 통합.
+    /**
+     * 1 활동 / VC — CvcPatternLearn 하나가 Phase A (배우기) → B (단어) → C (써보기)까지 흐른다.
+     * 🔴 **써보기를 별도 카드로 두지 않는다**(2026-08-04 사용자: "배우기랑 써보기를 합치자,
+     *    배우기 다음에 써보기 나오는 걸로"). 2026-07-29 엔 「목록에 쓰기가 안 보인다」고 별도 카드를
+     *    뒀는데, 배우기 카드가 이미 마지막 Phase C 에서 `${vc} 써보기` 화면으로 이어지므로 중복이었다
+     *    (같은 쓰기를 두 번). 배우기 하나로 합쳐 배우기→단어→써보기를 한 흐름으로 둔다.
+     *    (`cvc-pattern-write` 컴포넌트/kind 는 보존 — 호스트 분기는 남겨 두되 plan 에서만 뺀다.)
+     */
     activities.push({
       key: `cvc-${p.vc}`,
       order: order++,
@@ -145,22 +152,6 @@ function makeBook2UnitPlan(patterns: readonly VcPattern[]): ActivityPlan {
       section: 'learn',
       title: `${p.vc} 배우기`,
       emoji: '🔤',
-      required: true,
-      cvcPattern: { ...p },
-    });
-    /**
-     * 🔴 **써보기를 별도 카드로 둔다**(2026-07-29). 배우기 화면 안에도 Phase C 쓰기가 있지만,
-     *    단원 목록에서 보이지 않아 **아이도 부모도 「이 단원엔 쓰기가 없다」로 읽었다**.
-     *    한글 단원은 `ㄱ 배우기` → `ㄱ 써보기` 로 나뉘어 있어 영어만 다른 모양이었다.
-     *    (컴포넌트는 원래 있었는데 **어느 plan 에도 키가 없어 라우트로 도달조차 못 했다**.)
-     */
-    activities.push({
-      key: `cvc-write-${p.vc}`,
-      order: order++,
-      kind: 'cvc-pattern-write',
-      section: 'learn',
-      title: `${p.vc} 써보기`,
-      emoji: '✏️',
       required: true,
       cvcPattern: { ...p },
     });
