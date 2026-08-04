@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+import { PLANS } from '@tangobook/shared';
 import { useSeo } from '@/lib/useSeo';
 import { SiteFooter } from '@/components/SiteFooter';
 import { PhonicsTryIt } from '@/features/phonics-learner/components/PhonicsTryIt';
@@ -388,7 +389,7 @@ export default function HangulLandingPage() {
       >
         <p>
           자음과 모음을 다 배운 아이에게 필요한 건 다음 진도가 아니라 <strong>읽을 거리</strong>
-          입니다. 방금 배운 「ㄱ」이 「고기」에서 다시 나와야 그 글자가 손에 남습니다.
+          입니다. 글자를 소리로 떼고 나면, 그다음은 그 글자로 된 낱말과 문장을 만나는 일입니다.
         </p>
         <p>
           그런데 지금 고를 수 있는 건 대개 둘 중 하나입니다. 글자만 가르치는 <strong>앱</strong>
@@ -423,10 +424,10 @@ export default function HangulLandingPage() {
           </li>
         </ul>
         <p className="!mt-5">
-          탱고북은 그 사이입니다. <strong>같은 앱 안에</strong> 파닉스 {FACTS.phonicsUnits}단원과
-          세계 명작·전래 동화·자연 관찰 <strong>{FACTS.books}권</strong>이 들어 있고,{' '}
-          <strong>패드도 약정도 없습니다.</strong> 읽기 연습용으로 만든 짧은 글이 아니라, 아이가
-          그냥 좋아서 보는 이야기입니다.
+          탱고북은 둘 중 어느 쪽도 아닙니다. <strong>같은 앱 안에</strong> 파닉스{' '}
+          {FACTS.phonicsUnits}단원과 세계 명작·전래 동화·자연 관찰 <strong>{FACTS.books}권</strong>
+          이 들어 있고, <strong>패드도 약정도 없습니다.</strong> 읽기 연습용으로 만든 짧은 글이
+          아니라, 아이가 그냥 좋아서 보는 이야기입니다.
         </p>
       </Section>
 
@@ -610,6 +611,13 @@ export default function HangulLandingPage() {
           결제 정보를 넣지 않습니다. 카드도 등록하지 않습니다. 아이 화면에{' '}
           <strong>광고가 뜨지 않습니다.</strong>
         </p>
+        <p>
+          <strong>1년이 지나면 월 {PLANS.month1.amount.toLocaleString()}원</strong>입니다
+          {PLANS.month1.originalAmount
+            ? ` (정가 ${PLANS.month1.originalAmount.toLocaleString()}원, 오픈 기념 반값)`
+            : ''}
+          . 그때 계속 쓸지 정하시면 됩니다. 패드값도, 약정도, 위약금도 없습니다.
+        </p>
         <p className="text-sm text-ink-500">
           가입이 부담스러우시면 <strong>게스트로 30일</strong> 먼저 써보셔도 됩니다. 다만 게스트는
           학습 기록이 남지 않아, 아이가 어디까지 했는지 볼 수 없습니다.
@@ -625,7 +633,7 @@ export default function HangulLandingPage() {
         />
         <div className="!mt-7 flex flex-col items-center gap-3 rounded-3xl border border-coral-200 bg-gradient-to-br from-coral-100 to-peach-200 p-6 text-center sm:p-8">
           <p className="font-display text-lg font-extrabold text-ink-900 break-keep sm:text-2xl">
-            오늘 ㄱ을 배우고, 오늘 ㄱ이 나오는 책을 읽어요
+            파닉스로 글자를 떼고, 동화책으로 낱말과 문장을 익혀요
           </p>
           <p className="text-sm text-ink-600 break-keep">설치 없이 브라우저에서 바로 시작합니다.</p>
           <Link
