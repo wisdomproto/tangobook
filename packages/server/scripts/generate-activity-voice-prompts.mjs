@@ -50,6 +50,8 @@ const PROMPTS = [
   { name: 'vowel-pick-ko', text: '어떤 모음을 골라봐?', language: 'korean' },
   // 뒤집기 짝 맞추기 — 같은 짝을 찾는다(화면 문구 "같은 짝을 찾아봐!").
   { name: 'flip-match-ko', text: '같은 짝을 찾아봐!', language: 'korean' },
+  // 낱말 그림 그리기(점잇기) — 모양 안을 색칠한다(화면 문구 "모양 안을 모두 칠해봐!").
+  { name: 'paint-shape-ko', text: '모양 안을 모두 칠해봐!', language: 'korean' },
 ];
 
 async function generate({ name, text, language }) {

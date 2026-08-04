@@ -86,12 +86,21 @@ function ConnectTheDotsPlayer({
   const drawMaskRef = useRef<() => void>(() => {}); // reset effect 가 매 렌더 재실행되지 않게 (아래서 최신 drawMask 주입)
   const revealTimerRef = useRef<number | null>(null); // 완성본 감상 후 칭찬 시퀀스 예약 타이머
 
-  const { playCorrectSequence, praiseVisible } = useGameAudio();
+  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   const logGame = useGameLogger();
 
   const [searchParams] = useSearchParams();
   // 어휘 게임은 prop 으로 lang 전달(vi/zh/th 포함). 책 뷰어 registry 경로는 `?lang`(ko/en) 폴백.
   const viewerLang: Lang = propLang ?? (searchParams.get('lang') === 'en' ? 'en' : 'ko');
+
+  // 🔴 진입 안내 음성 — 화면의 "모양 안을 모두 칠해봐!" 에 맞는 음성(사용자: "이건 멘트 안 나오는데").
+  //    안내음은 한국어라 **한국어 UI(ko/en 콘텐츠)일 때만** 낸다 — vi/zh/th 어휘 게임엔 안 맞다.
+  const guidedRef = useRef(false);
+  useEffect(() => {
+    if (guidedRef.current || (viewerLang !== 'ko' && viewerLang !== 'en')) return;
+    guidedRef.current = true;
+    playAudio('/sounds/voice/paint-shape-ko.mp3');
+  }, [playAudio, viewerLang]);
 
   const { data: storybook } = useStorybook(storybookId);
   const gameStyle = useGameStyle(storybook);
