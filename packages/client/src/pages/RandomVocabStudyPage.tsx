@@ -110,18 +110,22 @@ export default function RandomVocabStudyPage() {
       <main className="px-4 sm:px-8 pt-4 pb-6 max-w-[1600px] mx-auto">
         {/* AppShell 안(사이드바·상단 헤더 공유)이라 자체 뒤로/홈 헤더는 두지 않는다. 2026-07-24.
             대신 책 안내 카드 우측에 🎲 다른 책 + 언어 선택을 모은다. */}
-        <div className="mb-5 flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-soft">
+        {/* 🔴 한 줄로 접는다(2026-08-04) — 375px 에서 이 chrome 이 3행 136px 을 먹어 접힘선의
+            31% 였다. 그리고 책 이름은 **누를 수 없는 정보**인데 흰 카드(bg-white·shadow-soft)를
+            입고 있어서 옆의 눌러지는 단어 카드와 재질이 같았다 → 카드 옷을 벗겨 "흰 카드 = 누를
+            수 있는 것"으로 뜻을 하나로 만든다. */}
+        <div className="mb-4 flex items-center gap-2 sm:gap-3">
+          <div className="flex min-w-0 flex-1 items-center gap-2">
             {book?.coverImage && (
               <img
                 src={book.coverImage}
                 alt=""
                 aria-hidden
-                className="h-14 w-14 shrink-0 rounded-xl object-cover shadow-sm"
+                className="h-8 w-8 shrink-0 rounded-lg object-cover"
               />
             )}
-            <span className="font-display text-lg font-black leading-tight text-ink-900 break-keep sm:text-xl">
-              📖 {book?.titleTranslations?.[i18n.language] ?? book?.title}
+            <span className="truncate font-display text-base font-black leading-tight text-ink-900 sm:text-lg">
+              {book?.titleTranslations?.[i18n.language] ?? book?.title}
             </span>
           </div>
           <button
@@ -136,10 +140,10 @@ export default function RandomVocabStudyPage() {
               sessionBookId = next;
               setSeed((s) => s + 1);
             }}
-            className="shrink-0 rounded-full bg-white px-4 py-2.5 shadow-soft text-sm sm:text-base font-black text-ink-700 hover:shadow-pop transition break-keep min-h-[44px]"
+            className="shrink-0 rounded-full border-2 border-ink-100 px-3 py-2 text-sm font-black text-ink-700 transition hover:border-coral-300 hover:text-coral-600 break-keep min-h-[44px] sm:px-4"
             aria-label={t('vocabHub.anotherBookAria')}
           >
-            🎲 {t('vocabHub.anotherBook')}
+            🎲 <span className="hidden sm:inline">{t('vocabHub.anotherBook')}</span>
           </button>
           {/* 언어 선택 — 칩 5개는 모바일에서 가로 오버플로우/줄바꿈이 지저분해 드롭박스로 압축. */}
           {availableLangs.length > 1 && (
