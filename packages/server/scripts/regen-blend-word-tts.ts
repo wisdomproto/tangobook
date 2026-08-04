@@ -12,7 +12,9 @@ import { R2Repository } from '../src/repositories/r2.repository.js';
 
 const APPLY = process.argv.includes('--apply');
 const unitArg = process.argv.find((a) => a.startsWith('--unit='))?.split('=')[1];
-const UNITS = unitArg ? [unitArg] : Array.from({ length: 8 }, (_, i) => `en-b4-u0${i + 1}`);
+const book = process.argv.find((a) => a.startsWith('--book='))?.split('=')[1] ?? '4';
+// Book 4 = 블렌드/이중자음, Book 5 = 모음팀(ee·ea…) — 둘 다 [타겟소리][낱말] 로 굽는다(같은 깨짐).
+const UNITS = unitArg ? [unitArg] : Array.from({ length: 8 }, (_, i) => `en-b${book}-u0${i + 1}`);
 const CONCAT_API = 'https://www.tangobook.co.kr/api/phonics-library/concat';
 
 const GEN_API = 'https://www.tangobook.co.kr/api/tts/generate';
