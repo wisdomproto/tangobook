@@ -183,12 +183,16 @@ async function prerenderRoute(browser, baseUrl, route, { isBook = false } = {}) 
    * ⚠️ 로컬은 `.env.local` 이 없어 `isConfigured=false` → 게이트가 원래 안 뜬다.
    *    이 줄의 효과는 **Supabase 키가 들어가는 Docker 빌드에서만** 드러난다.
    */
+  await page.setExtraHTTPHeaders({ 'Accept-Language': 'ko-KR,ko;q=0.9' });
   await page.evaluateOnNewDocument(() => {
     try {
-      // 🔴 둘 다 필요하다 — 앵커(창 시작)만 심으면 「아직 안 골랐다」로 남아 게이트가 그대로 뜬다
-      //    (`guest-mode.ts` 의 KEY_CHOICE / KEY_STARTED).
-      localStorage.setItem('tb_entry_choice', 'guest');
-      localStorage.setItem('tb_guest_started_at', new Date().toISOString());
+      // 🔴 `'auth'` 로 심는다 — 게이트를 막는 건 **선택했다는 사실**이고(`needsGate` 는
+      //    choice===null 일 때만 참), `'guest'` 로 심으면 게스트 창까지 시작돼 모든 방문자가
+      //    첫 1초 동안 「게스트 30일 남음」이라는 **사실 아닌 문구**를 보게 된다(실측).
+      localStorage.setItem('tb_entry_choice', 'auth');
+      // 🔴 언어를 못 박는다 — 도커 컨테이너엔 로케일이 없어 헤드리스 크롬이 en-US 로 잡히고,
+      //    그대로 구우면 한국 방문자가 영어 화면을 먼저 본다(실측: 배포본이 영어로 구워졌다).
+      localStorage.setItem('tangobook-ui-lang', 'ko');
     } catch {
       /* storage 막힘 — 게이트가 구워질 뿐 치명적이지 않다 */
     }
@@ -212,18 +216,30 @@ async function prerenderRoute(browser, baseUrl, route, { isBook = false } = {}) 
     }
     await new Promise((r) => setTimeout(r, 500));
   } else {
-    // 🔴 고정 sleep 이 아니라 **글자가 찰 때까지** 기다린다 — API 응답이 늦으면 sleep 은
-    //    스켈레톤을 굽는다(고정 1.5s 였을 때 `/library` 가 그래서 에러 화면으로 구워졌다).
-    await page
-      .waitForFunction(
-        (min) =>
-          ((document.getElementById('root')?.innerText || '').replace(/\s+/g, ' ').trim().length >=
-          min),
-        { timeout: 15000 },
-        MIN_TEXT
-      )
-      .catch(() => {});
-    await new Promise((r) => setTimeout(r, 800));
+    /**
+     * 🔴 **글자 수가 멈출 때까지** 기다린다 — 「N자 넘으면 됨」으로 재면 안 된다.
+     *    껍데기(헤더+푸터)만으로 417자가 나오는 화면이 있어서, 책이 도착하기도 전에
+     *    조건을 만족해 **표지 0장짜리 라이브러리**가 구워져 배포됐다(실측).
+     *    한국어에선 껍데기가 그 밑이라 로컬에선 우연히 제대로 기다렸고, 그래서 못 봤다.
+     */
+    let last = -1;
+    let stable = 0;
+    for (let i = 0; i < 40; i++) {
+      const n = await page
+        .evaluate(
+          () =>
+            (document.getElementById('root')?.innerText || '').replace(/\s+/g, ' ').trim().length
+        )
+        .catch(() => -1);
+      if (n === last) {
+        stable++;
+        if (stable >= 2 && n >= MIN_TEXT) break; // 1초간 안 늘면 다 그려진 것으로 본다
+      } else {
+        stable = 0;
+        last = n;
+      }
+      await new Promise((r) => setTimeout(r, 500));
+    }
   }
 
   const html = await page.content();
@@ -231,6 +247,10 @@ async function prerenderRoute(browser, baseUrl, route, { isBook = false } = {}) 
 
   const len = visibleTextLength(html);
   if (len < MIN_TEXT) throw new Error(`내용 부족 (${len}자 < ${MIN_TEXT}) — 에러/스켈레톤 화면 의심`);
+  // 🔴 한국어인지 확인 — 배포본이 통째로 영어로 구워진 적이 있다(컨테이너 로케일 없음).
+  //    빌드 로그엔 ✓ 만 찍혀서 서빙된 HTML 을 열어 보기 전엔 몰랐다.
+  const hangul = (html.match(/[가-힣]/g) || []).length;
+  if (hangul < 30) throw new Error(`한글이 ${hangul}자뿐 — 영어로 구워진 듯(로케일 확인)`);
   if (gateNeedle && html.includes(gateNeedle)) {
     // 🔴 실제로 이렇게 구워졌었다 — localStorage 씨앗의 키가 하나 모자랐다(앵커만 심고
     //    선택 플래그를 안 심음). 키가 또 바뀌면 조용히 재발하므로 여기서 빌드를 떨어뜨린다.

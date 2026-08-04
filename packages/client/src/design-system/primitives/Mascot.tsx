@@ -1,6 +1,13 @@
-import { useEffect, useState, type CSSProperties } from 'react';
-import Lottie from 'lottie-react';
+import { useEffect, useState, lazy, Suspense, type CSSProperties } from 'react';
 import { cn } from '@/lib/cn';
+
+/**
+ * 🔴 **lottie-web 300KB 를 첫 화면에서 뺀다**(2026-08-04). 이 프리미티브가 앱 전체에서
+ * 유일한 lottie 사용처인데 정적 import 라, 호리가 안 나오는 화면까지 전부 지고 있었다
+ * (첫 화면이 받던 vendor 1,059KB 중 28%). 애니메이션 JSON 은 어차피 `fetch` 로 늦게 받고
+ * png·이모지 폴백도 이미 있으니, 라이브러리도 같이 늦게 받으면 된다.
+ */
+const Lottie = lazy(() => import('lottie-react'));
 
 export type MascotState =
   | 'idle'
@@ -93,9 +100,31 @@ export function Mascot({
 
   const sizeStyle: CSSProperties = { width: px, height: px };
 
+  const emoji = (
+    <span
+      role="img"
+      aria-hidden="true"
+      style={{
+        ...sizeStyle,
+        fontSize: px * 0.85,
+        lineHeight: 1,
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      {MASCOT_EMOJI_FALLBACK[state]}
+    </span>
+  );
+
   const content = (() => {
     if (stage === 'lottie' && lottieData) {
-      return <Lottie animationData={lottieData} loop={loop} style={sizeStyle} />;
+      // 청크가 오는 동안엔 이모지 — 빈 칸이 생기면 옆 글자가 밀린다.
+      return (
+        <Suspense fallback={emoji}>
+          <Lottie animationData={lottieData} loop={loop} style={sizeStyle} />
+        </Suspense>
+      );
     }
     if (stage === 'png') {
       return (
@@ -109,22 +138,7 @@ export function Mascot({
       );
     }
     // stage === 'emoji' or lottie still loading
-    return (
-      <span
-        role="img"
-        aria-hidden="true"
-        style={{
-          ...sizeStyle,
-          fontSize: px * 0.85,
-          lineHeight: 1,
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        {MASCOT_EMOJI_FALLBACK[state]}
-      </span>
-    );
+    return emoji;
   })();
 
   return (
