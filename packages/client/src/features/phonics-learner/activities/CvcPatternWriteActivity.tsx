@@ -33,8 +33,8 @@ interface CvcWord {
 export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBack }: Props) {
   const storybookQuery = useStorybook(unitId);
   const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
-  // 🔴 진입 안내 — 지시가 텍스트뿐이라 글 못 읽는 아이엔 통째로 무음이었다(쓰기 6종 공통).
-  useEntryGuide(ENTRY_GUIDE.write, playAudio);
+  // 🔴 진입 안내 — 낱말 전체(c/a/n)를 한꺼번에 보여줘 "반짝이는 칸" 이 없다 → "글자를 따라 써 봐!"(사용자 지적).
+  useEntryGuide(ENTRY_GUIDE.writeTrace, playAudio);
 
   const cvcWords = useMemo<CvcWord[]>(() => {
     const sb = storybookQuery.data;

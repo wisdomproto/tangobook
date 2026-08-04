@@ -35,11 +35,11 @@ const PROMPTS = [
   { name: 'tap-sparkle-ko', text: '반짝이는 곳을 눌러봐!', language: 'korean' },
   // 글자 사냥 — 들어가자마자 목표 글자가 떠서, 무엇을 하라는 건지 없이 문제부터 나왔다.
   { name: 'hunt-start-ko', text: '같은 글자를 모두 찾아봐!', language: 'korean' },
-  // 쓰기 6종 — 지시가 전부 텍스트뿐이라 글 못 읽는 아이에겐 통째로 무음이었다.
+  // 쓰기 — **반짝이는 칸이 있는 화면만**(한글 자음 쓰기 = 짝 중 활성 칸이 코랄로 반짝인다).
   { name: 'write-start-ko', text: '반짝이는 칸에 써 봐!', language: 'korean' },
-  // ABC 써보기 — 대문자·소문자 두 칸을 한꺼번에 보여줘서 "반짝이는 칸" 이 없다(멘트 불일치).
-  // 🔴 짧은 "따라 써 봐!" 는 Gemini TTS 품질이 들쭉날쭉 → 다른 안내처럼 온전한 문장으로.
-  { name: 'write-abc-ko', text: '글자를 따라 써 봐!', language: 'korean' },
+  // 쓰기 — **낱말/글자 전체를 한꺼번에 보여주는 화면**(ABC 써보기·영어 CVC 써보기·모음 쓰기).
+  // "반짝이는 칸" 이 없어 그 멘트가 어긋난다(사용자 지적). 화면 문구("따라써봐")와도 일치.
+  { name: 'write-trace-ko', text: '글자를 따라 써 봐!', language: 'korean' },
 ];
 
 async function generate({ name, text, language }) {

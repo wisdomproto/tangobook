@@ -8,10 +8,10 @@ export const ENTRY_GUIDE = {
   tap: '/sounds/voice/tap-sparkle-ko.mp3',
   /** 글자 사냥 — "같은 글자를 모두 찾아봐!" */
   hunt: '/sounds/voice/hunt-start-ko.mp3',
-  /** 쓰기 — "반짝이는 칸에 써 봐!" */
+  /** 쓰기(반짝이는 칸 있음 — 한글 자음 쓰기) — "반짝이는 칸에 써 봐!" */
   write: '/sounds/voice/write-start-ko.mp3',
-  /** ABC 써보기 — 대·소문자 두 칸을 한꺼번에 보여줘 "반짝이는 칸" 이 없다 → "따라 써 봐!" */
-  writeAbc: '/sounds/voice/write-abc-ko.mp3',
+  /** 쓰기(낱말/글자 전체를 한꺼번에 — ABC·영어 CVC·모음 쓰기, 반짝이는 칸 없음) — "글자를 따라 써 봐!" */
+  writeTrace: '/sounds/voice/write-trace-ko.mp3',
 } as const;
 
 /**
