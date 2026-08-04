@@ -461,7 +461,8 @@ export default function EnglishPhonicsActivityPage() {
           sources={reviewSources.map((s) => ({
             ...s,
             word: s.letter,
-            ...(s.word ? { soundWord: s.word } : {}),
+            // 🔴 글자(a)를 쓰고, 완성하면 낱말 전체(apple)를 보여준다(사용자: "한 글자 쓰면 나머지 단어 다 나와야").
+            ...(s.word ? { soundWord: s.word, revealWord: s.word } : {}),
             ...(s.ttsUrl ? { soundUrl: s.ttsUrl } : {}),
           }))}
           onComplete={handleComplete}

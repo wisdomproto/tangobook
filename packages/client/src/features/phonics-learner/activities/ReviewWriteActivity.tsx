@@ -11,7 +11,15 @@ import { ActivityShell } from '../components/ActivityShell';
  * 쓰기 칸에 넣을 낱말은 `word`, 소리는 `soundWord`/`soundUrl` 로 **분리**할 수 있다.
  * 🔴 영어 Book 1 은 **글자(C)를 쓰지만 소리는 낱말("c c cat")** 이라 둘이 다르다. 없으면 word 를 읽는다.
  */
-type WriteSource = ReviewCardSource & { soundWord?: string; soundUrl?: string };
+type WriteSource = ReviewCardSource & {
+  soundWord?: string;
+  soundUrl?: string;
+  /**
+   * 🔴 다 쓴 뒤 보여줄 **낱말 전체**(영어 Book 1: 글자 `a` 를 쓰지만 완성하면 `apple` 을 보여준다 —
+   *    "한 글자 쓰면 나머지 단어가 다 나와야" 한다는 사용자 요청). 없으면 쓴 글자(`word`)를 그대로 보여준다.
+   */
+  revealWord?: string;
+};
 
 interface Props {
   unitId: string;
@@ -206,8 +214,20 @@ export function ReviewWriteActivity({
             {writtenIdx.has(idx) ? (
               // 🔴 다 썼으면 캔버스를 **완성 글자(민트)로 잠근다** — 소리 나는 동안 다시 못 쓴다(정답처리).
               <div className="flex items-center justify-center gap-2 rounded-[28px] border-[6px] border-mint-400 bg-mint-100 py-8 sm:py-10 shadow-pop">
-                <span className="font-display font-black leading-none text-mint-600 text-[clamp(4rem,18vh,10rem)]">
-                  {current.word}
+                {/* 🔴 다 쓰면 낱말 전체를 보여준다 — 쓴 글자는 코랄, 나머지는 민트(Book 1: `a` 쓰면 `apple`). */}
+                <span className="font-display font-black leading-none text-[clamp(4rem,18vh,10rem)]">
+                  {current.revealWord && current.revealWord !== current.word ? (
+                    <>
+                      <span className="text-coral-500">
+                        {current.revealWord.slice(0, current.word.length)}
+                      </span>
+                      <span className="text-mint-600">
+                        {current.revealWord.slice(current.word.length)}
+                      </span>
+                    </>
+                  ) : (
+                    <span className="text-mint-600">{current.word}</span>
+                  )}
                 </span>
                 <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-mint-500 text-white text-2xl font-black shadow-pop ring-4 ring-white">
                   ✓
