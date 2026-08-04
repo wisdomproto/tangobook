@@ -1,4 +1,6 @@
 import { useCallback, useState } from 'react';
+import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { ConsonantBlendListenActivity } from './ConsonantBlendListenActivity';
 import { ConsonantWriteActivity } from './ConsonantWriteActivity';
 import { ActivityShell } from '../components/ActivityShell';
@@ -36,6 +38,10 @@ export function VowelSyllablePickerActivity({
 }: Props) {
   const [picked, setPicked] = useState<string | null>(vowels.length === 1 ? vowels[0].vowel : null);
   const [made, setMade] = useState<ReadonlySet<string>>(() => new Set());
+  // 진입 안내 — 선택 화면 문구 "어떤 모음으로 만들까?" 에 맞는 음성. 모음이 하나뿐(자동 선택)이면
+  //    선택 화면을 안 보여주므로 건너뛴다(그땐 자식 활동이 자기 안내를 낸다).
+  const { playAudio } = useGameAudio();
+  useEntryGuide(ENTRY_GUIDE.vowelPick, playAudio, { skip: picked !== null });
 
   const finish = useCallback(
     (v: string) => {

@@ -34,8 +34,8 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
   const storybookQuery = useStorybook(unitId);
   const sb = storybookQuery.data as Storybook | undefined;
   const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
-  // 🔴 진입 안내 — 지시가 텍스트뿐이라 글 못 읽는 아이엔 통째로 무음이었다(쓰기 6종 공통).
-  useEntryGuide(ENTRY_GUIDE.write, playAudio);
+  // 🔴 진입 안내 — 대·소문자 두 칸을 한꺼번에 보여줘 "반짝이는 칸" 이 없다 → "글자를 따라 써 봐!"(사용자 지적).
+  useEntryGuide(ENTRY_GUIDE.writeTrace, playAudio);
   const systemSounds = sb?.systemSounds;
 
   // 글자별 (대문자/소문자) 통과 트래킹

@@ -49,6 +49,11 @@
 | 4 | p3 「빨래가 잘 마르겠구나」 장면의 처마·빨랫줄·담요 | 소품이 늘면 「그린 것은 다섯뿐」이 깨진다 | 🔴 이 쪽에만 **담요 한 장과 줄 한 줄**을 허용하고, 처마는 **선 두 줄**로 끝낸다. 고드름 = 3개 이하 |
 | 5 | p12 「눈사람이 서 있던 모양 그대로 배열」 | 여기서 새로 그리면 다섯이 안 맞는다 | 🔴 **TheFive 승인본을 그대로 눕힌다.** 각도만 바꾸고 모양·색·획 수는 한 획도 안 바꾼다 |
 
+**🔴 2026-08-04 수정 — 눈사람과 나뭇가지가 쪽마다 다르게 나왔다(사용자 실측: 「생김새를 자세히 묘사할 필요 · 페이지마다 다르거나 잘 안 보임」).** 원인은 앵커의 뜻이 아니라 **치수가 한 번도 안 적혀 있었다는 것**이다. 눈사람은 안 그리는 게 맞지만, **안 그리는 것에도 크기와 비례는 있어야 한다** — 그런데 열세 쪽 어디에도 「공이 몇 개인지, 얼마나 큰지, 끊긴 가로대가 얼마나 넓은지」가 없었다. 나뭇가지도 `one line + at most 2 twigs` 뿐이라 길이·굵기·가지 위치·좌우 구별이 전부 모델 몫이었다. 고친 것 셋:
+- 🔴 **눈사람 = 공 두 개, 수치로.** 아래 공 = 오소리 머리 두 개 폭 · 위 공 = 그 2/3 · 목 없음 · 셋째 공 없음 · **끊긴 가로대의 폭 = 아래 공의 폭**. 열세 쪽 내내 같은 모양이고 **작아지기만** 한다(전체 → 2/3 → 1/3 → 낮은 둔덕 → 한 덩이 → 없음). 컷의 `RAIL:` 줄에 쪽마다 적어 뒀다(관통 줄은 셋 그대로).
+- 🔴 **나뭇가지 = 곧은 선 하나 + 잔가지 정확히 둘**(끝 가까이 위로 하나 · 가운데 아래로 하나). 길이 = 아래 공의 폭 · 굵기 = 가로대 모서리. **왼팔이 잔가지 하나만큼 길고 늘 위로, 오른팔은 늘 아래로** — 이 좌우 구별이 「같은 한 쌍」임을 알아보게 하는 유일한 장치다.
+- 🔴 **시트에 판 하나를 더했다**(`TheFive` 플레이트 2b = 네 크기 나열). 안 보이던 이유가 **작아질 때 비례가 무너진 것**이라 크기 사다리를 시트에서 먼저 확정한다.
+
 **밀도 배급**: 🔴 **없다.** 열세 쪽 전부 `FINISHED THINGS PER PAGE = 2`. 사건이 **단추 하나 · 칸 한 줄**이라 마당을 채우면 그 하나가 안 보인다.
 
 **의인화 등급**(13쪽 고정): 두 염소 모두 **두 발로 서고 앞발이 손**, 얼굴은 염소 그대로. **아기 염소는 아무것도 안 걸친다** — p1 에서 제 목의 빨간 목도리를 풀어 주고, p11 부터 모자, p13 에 목도리가 도로 목에 온다. 할머니 염소는 **짙은 숄 하나**, p8 에만 검은 장화.
@@ -69,45 +74,46 @@
 STYLE ANCHOR - changjak-fivemarks   (a kid goat and her grandmother / a fence corner in an East
 European snow village)
 
-Style: a cold white sheet with a fine tooth, 4-6 year old picture book, and 🔴 THE BARE SHEET IS
-  THE SNOW AND IS ALSO THE SNOWMAN. Everything drawn is laid on it in flat opaque paint with a
-  blunt dry brush, one coat thick, and there is very little of it.
+Style: a cold white sheet with a fine tooth, 4-6 year old picture book, and 🔴 THE BARE SHEET IS THE
+  SNOW AND IS ALSO THE SNOWMAN. Everything drawn is laid on it in flat opaque paint with a blunt
+  dry brush, one coat thick, and there is very little of it.
 
 RENDERING (finish hierarchy): 🔴 THIS VOLUME: THE SNOW AND THE SNOWMAN HAVE 0 STROKES ON THEM - no
   outline, no contour, no shading, no sparkle, no stippling, no texture. 🔴 THE ONLY THINGS DRAWN
-  IN THIS BOOK ARE: the five belongings (brown hat, red scarf, two black buttons, one grey stone,
-  two sticks), the fence (three rails and one corner post), and the two goats. Nothing else is ever
-  added - no houses, trees, distant village, falling snow or clouds. 🔴 THE SNOWMAN IS
-  READ THREE WAYS AND ONLY THREE: the fence rails BREAK where he stands, ONE FLAT COLD-GREY SHADOW
-  lies at his foot, and the five belongings sit on him. Counts: each rail = one flat band with at
-  most 2 grain marks · scarf = one flat shape + at most 3 fold marks · hat = one flat shape + one
-  band, 0 fibre marks · buttons = 2 flat discs, 0 highlights · stone = one flat shape, 0 marks ·
-  each stick = one line + at most 2 twigs · goat fur = at most 6 marks along the outline · icicles
-  = at most 3. FINISHED THINGS PER PAGE = 2. DENSITY RATION = none; all thirteen pages stay at 2.
+  IN THIS BOOK ARE: the five belongings (hat, scarf, two buttons, one stone, two stick arms), the
+  fence (three rails and one corner post), and the two goats. Nothing else - no houses, trees,
+  village, falling snow or clouds. 🔴 THE SNOWMAN IS READ THREE WAYS AND ONLY THREE: the rails BREAK
+  where he stands, ONE FLAT COLD-GREY SHADOW lies at his foot, and the five sit on him. 🔴 SO HIS
+  SHAPE IS FIXED BY NUMBERS: TWO STACKED BALLS, the lower two badger-heads wide, the upper two
+  thirds of it, straight on top, no neck, no third ball, and the break in the rail is exactly as
+  wide as the lower ball. 🔴 Same shape on every page, only smaller - copy TheFive plate 2.
+  Counts: each rail = one flat band, at most 2 grain marks · scarf = one shape + at most 3 folds ·
+  hat = one shape + one band, 0 fibre marks · buttons = 2 discs, 0 highlights · stone = one shape,
+  0 marks · 🔴 each stick arm = ONE straight line with EXACTLY TWO twigs, from plate E · goat fur =
+  at most 6 marks on the outline · icicles = at most 3. FINISHED THINGS PER PAGE = 2. DENSITY
+  RATION = none.
 
-PALETTE: PAPER #F4F5F6, 🔴 unpainted - the snow, the snowman and the empty rest of the page
-  alike · COLD GREY #9FB0BC, for the one flat shadow shape and the shaded side of a drawn thing ·
-  WET WOOD #3A332C for the fence, the buttons and the goats' eyes · SCARF RED
-  #C0342E, 🔴 the one strong colour, the same single object on all thirteen pages · HAT BROWN
-  #7A6248, which is also the wet earth that first enters at the bottom of the frame on p8 · GRASS
-  #6E8A52, 🔴 which does not exist before p10. No blue sky, yellow sun or pink light.
+PALETTE: PAPER #F4F5F6, 🔴 unpainted - the snow, the snowman and the empty rest of the page alike ·
+  COLD GREY #9FB0BC, the one flat shadow shape · WET WOOD #3A332C for the fence, the stick arms,
+  the buttons and the goats' eyes · SCARF RED #C0342E, 🔴 the one strong colour and the same single
+  object on all thirteen pages · HAT BROWN #7A6248, also the wet earth that first enters at the
+  bottom of the frame on p8 · GRASS #6E8A52, 🔴 which does not exist before p10. No blue sky, yellow
+  sun or pink light.
 
 CHARACTER DESIGN LANGUAGE: flat painted shapes with a clean edge; no fur rendering. An eye is one
   dark almond with a small pale horizontal slit for a goat pupil, no eyebrow; 🔴 the acting is the
   WHOLE-BODY SILHOUETTE - how high the heels are, how bent the knees are, how far the arms reach.
-  FIXED GRADE, thirteen pages: both goats stand on two legs with front paws as hands, faces kept
-  animal. 🔴 THE KID WEARS NOTHING - the red scarf leaves her neck on p1 and comes back to it on
-  p13, the hat arrives on p11, nothing else. The grandmother wears one dark shawl, and black boots
-  on p8 only.
+  FIXED GRADE, thirteen pages: both goats stand on two legs with front paws as hands, faces animal.
+  🔴 THE KID WEARS NOTHING - the red scarf leaves her neck on p1 and comes back on p13, the hat
+  arrives on p11, nothing else. The grandmother wears one dark shawl, and black boots on p8 only.
 
 CANVAS: 16:9 double-page spread. One place - a snowy yard's fence corner, fixed by the
   FenceCorner sheet. No lettering, numerals or signs anywhere.
 
-NOT: 🔴 no wool, no felted fuzz, no fibre edge, no stitching, no needle-felt look anywhere - every
-  surface is flat paper and flat paint / no outline, edge, shading, sparkle or stipple on the snow
-  or the snowman - if he has a closed contour the page is wrong / no digital slickness - airbrush,
-  gradient, glow, bloom, 3D CG, cel-shading, photographic, or a texture filter / nothing blurred,
-  hazy or spotlit.
+NOT: 🔴 no wool, felted fuzz, fibre edge, stitching or needle-felt look anywhere - every surface is
+  flat paper and flat paint / no outline, edge, shading, sparkle or stipple on the snow or the
+  snowman - if he has a closed contour the page is wrong / no digital slickness - airbrush,
+  gradient, glow, 3D CG, cel-shading, photographic or texture filter / nothing blurred or spotlit.
 ```
 
 ---
@@ -128,11 +134,25 @@ copy them onto every page.
     fringed ends.
   C · two black buttons, WET WOOD #3A332C, flat discs with 0 holes drawn and 0 highlights.
   D · one grey stone, COLD GREY #9FB0BC, one flat rounded shape, 0 marks.
-  E · two bare sticks, WET WOOD, one line each with at most 2 twigs, one longer than the other.
-🔴 PLATE 2 - WORN, ON NOTHING: the same five arranged as they sit on a snowman - hat on top, two
-  buttons in a vertical pair, stone below them, scarf round where a neck would be, the two sticks
-  out to the sides - 🔴 WITH NO SNOWMAN DRAWN UNDER THEM AT ALL. The paper between them is left
-  completely bare. This plate is the proof of the rule.
+  E · 🔴 THE TWO STICK ARMS, DRAWN BIG - this is the thing that came back different on every page,
+    so fix it here. Each is ONE straight bare line in WET WOOD, no bend and no fork at the base,
+    as long as the snowman's lower ball is wide and as thick as a fence rail's edge, with EXACTLY
+    TWO twigs and no more: one twig forking UPWARD a thumb from the tip, one shorter twig pointing
+    DOWNWARD at its middle. 🔴 THE LEFT ARM IS ONE TWIG-LENGTH LONGER THAN THE RIGHT AND ALWAYS
+    TILTS UP; THE RIGHT ONE ALWAYS TILTS DOWN - that difference is how the reader knows it is the
+    same pair on every page. 0 leaves, 0 buds, 0 bark texture, 0 mittens.
+🔴 PLATE 2 - WORN, ON NOTHING, AND THIS PLATE FIXES HIS SHAPE: arrange the five exactly as they sit
+  on a snowman that is 🔴 TWO STACKED BALLS - a lower ball two badger-heads wide and an upper ball
+  two thirds of that, straight on top of it, no neck, no third ball. Hat sitting on the very top of
+  the upper ball, tipped a little; TWO buttons one above the other down the middle of the LOWER
+  ball, a hand apart; the stone below them, a hand lower again; the scarf across the join between
+  the two balls with both fringed ends hanging down the left; the two stick arms pushed into the
+  LOWER ball at the height of the upper button, left arm tilting up and right arm tilting down.
+  🔴 DRAW NO SNOWMAN UNDER ANY OF IT - the paper between the pieces is left completely bare. This
+  plate is the proof of the rule and the only place his proportions are ever stated.
+🔴 PLATE 2b - THE SAME ARRANGEMENT AT FOUR SIZES, in a row: full height / two thirds / one third /
+  a low mound holding only the two buttons and the stone. 🔴 The pieces keep the same size relative
+  to each other in the first three; only in the fourth do the hat and sticks come off.
 🔴 PLATE 3 - LAID DOWN: the same five lying flat on wet grass in that same arrangement, seen from
   above: the two buttons at the top, the stone below them, the two sticks out to the sides, the
   scarf coiled at the bottom, 🔴 and the grass directly under the arrangement pressed flat and one
@@ -225,10 +245,11 @@ CAMERA: wide, eye level, from the side. 🔴 The kid and the snowman stand at th
 SUBJECT: KidGoat at the RIGHT, up on the tips of her hooves, both front paws raised to where a neck
   would be, winding the red scarf. 🔴 ONE END OF THE SCARF IS STILL ROUND HER OWN NECK, so a red
   line runs between the two of them. She is looking up at a face.
-RAIL: 🔴 THE TOP RAIL - a stick tip rests on the topmost rail, and 🔴 all three rails BREAK over a
-  tall width just left of her. 🔴 The paper in that gap is completely bare: 0 outline, 0 contour,
-  0 shading, 0 sparkle. Brown hat, two black buttons and a grey stone sit on that bare paper in
-  the arrangement from TheFive plate 2.
+RAIL: 🔴 THE TOP RAIL - the LEFT stick tip rests on the topmost rail, and 🔴 all three rails BREAK
+  over a width exactly equal to the lower ball. 🔴 FULL HEIGHT: two stacked balls, plate 2
+  proportions, the top of the upper ball level with the top rail. 🔴 The paper in that gap is
+  completely bare: 0 outline, 0 contour, 0 shading, 0 sparkle. Hat, two buttons and stone sit on
+  that bare paper exactly as on TheFive plate 2.
 POSTURE: reaching up on tiptoe with both arms, wrapping.
 WHITE: about 60% of the frame is bare sheet. One flat COLD GREY shadow lies at the foot of the gap.
   At most 3 icicles at the top edge. 🔴 Nothing else is drawn - no house, no trees, no sky.
@@ -241,8 +262,8 @@ FINISH: 2 (the kid + the red scarf). 0 lettering, 0 numerals.
 CAMERA: medium, LOW angle looking up, so the hat sits high in the frame.
 SUBJECT: KidGoat at the LEFT in 🔴 POSTURE 1 TIPTOE - back arched, both arms straight overhead, a
   paw on each side of the hat brim, 🔴 BOTH HEELS CLEARLY OFF THE GROUND, mouth wide open, eyes up.
-RAIL: TOP RAIL still - the stick tip on the topmost rail, all three rails broken over the same tall
-  width as p1.
+RAIL: TOP RAIL still - the LEFT stick tip on the topmost rail, all three rails broken over the same
+  width as p1. 🔴 FULL HEIGHT, the same two balls, unchanged.
 POSTURE: 🔴 1 TIPTOE. The hat sits askew on the bare paper, tipped to one side; everything below it
   is unpainted.
 WHITE: about 60%. Two pairs of small hoof prints are drawn in the snow as 🔴 flat COLD GREY marks,
@@ -258,8 +279,9 @@ CAMERA: medium wide, eye level, the frame split by the eaves line into roof abov
 SUBJECT: KidGoat at the front centre, one front paw held out flat and cupped, head tipped back, 🔴
   ONE DROP ON THE PAD. Behind at the RIGHT, GranGoat in HANGING WASHING, a grey blanket over one
   arm, head turned back over her shoulder, laugh creases as at most 3 marks.
-RAIL: the fence is out of frame on this page - 🔴 the snowman appears only at the LEFT EDGE, cut off
-  at shoulder height, as bare paper with the red scarf and one stick end showing.
+RAIL: the fence is out of frame - 🔴 the snowman appears only at the LEFT EDGE, cut off at the join
+  between his two balls, as bare paper with the red scarf across that join and the RIGHT stick arm
+  showing, tilting down. Still FULL HEIGHT, only cropped.
 POSTURE: standing, one paw cupped - not a hat posture.
 WHITE: about 55%. 🔴 The one page where extra props are allowed, and only these: one washing line,
   one grey blanket, the eaves as TWO LINES, and at most 3 icicles whose tips are blunt. Below the
@@ -275,9 +297,10 @@ CAMERA: medium, eye level, straight from the side 🔴 so that all three rails a
 SUBJECT: KidGoat at the LEFT, turned to the fence, one front paw laid flat ON THE TOP RAIL, head
   turned down to look at the middle rail, the other paw held at her belly, one eyebrow-less eye
   wide in a puzzled tilt of the head.
-RAIL: 🔴 THE MIDDLE RAIL - the stick tip now rests on the middle rail. 🔴 THE TOP RAIL RUNS
-  UNBROKEN across the frame and a thin wet mark is left along it. The break now reaches only from
-  the middle rail down. The scarf knot sits lower than on p1.
+RAIL: 🔴 THE MIDDLE RAIL - the LEFT stick tip now rests on the middle rail. 🔴 THE TOP RAIL RUNS
+  UNBROKEN across the frame and a thin wet mark is left along it; the break reaches only from the
+  middle rail down. 🔴 TWO THIRDS HEIGHT - the same two balls at plate-2 proportions, both smaller,
+  so the scarf across their join sits lower than on p1.
 POSTURE: hand on the top rail, head turned down - the gap between her paw and the stick is the
   whole point of the page.
 WHITE: about 50%. Three flat grey shadow bars fall from the three rails onto the snow. Nothing else.
@@ -291,7 +314,8 @@ CAMERA: medium close-up, eye level - 🔴 the low angle of p2 has flattened out.
   the same height in the frame.
 SUBJECT: KidGoat at the LEFT in 🔴 POSTURE 2 ARM ONLY - standing square, back straight, 🔴 BOTH
   HEELS FLAT ON THE GROUND, one arm reaching straight forward to press the hat brim down.
-RAIL: one length of the middle rail behind them, unbroken where it passes at the far right.
+RAIL: one length of the middle rail behind them, unbroken where it passes at the far right. 🔴 TWO
+  THIRDS HEIGHT, as p4 - the upper ball with the hat on it fills the near frame.
 POSTURE: 🔴 2 ARM ONLY. Compare with p2: the same act, no tiptoe.
 WHITE: about 55%. The head and shoulders of the snowman are bare paper carrying the hat, two
   buttons and the stone; 🔴 no contour is drawn where the white meets the white background - the
@@ -307,7 +331,8 @@ CAMERA: close-up over the shoulder - only the kid's two front paws and a belly's
   paper. 🔴 Closeness is made by SIZE ALONE, not by any added surface detail.
 SUBJECT: KidGoat's two front paws enter at the lower RIGHT: one presses a black button flat against
   the bare paper, the other braces beside it. Her face is half cut by the frame edge, mouth set.
-RAIL: not in frame.
+RAIL: not in frame. 🔴 TWO THIRDS HEIGHT still - this is a crop of the LOWER ball only, so no edge
+  of him is visible anywhere in the frame.
 POSTURE: both paws at the belly, pressing.
 WHITE: about 70% - the emptiest page in the book. 🔴 On the bare paper there is ONE MARK ONLY: a
   short vertical COLD GREY groove where the button slid down, and a small dip at its lower end. 0
@@ -322,8 +347,9 @@ CAMERA: medium, 🔴 LOW angle, dropped so that the two faces sit at the same he
 SUBJECT: KidGoat at the LEFT squatting - hind legs folded, belly against the bottom rail, both
   front paws planted on the snow in front of her knees, head pushed forward to face something
   directly.
-RAIL: 🔴 THE BOTTOM RAIL - the stick tip touches the lowest rail. 🔴 THE TOP AND MIDDLE RAILS BOTH
-  RUN UNBROKEN; only the bottom one is interrupted, over a short width.
+RAIL: 🔴 THE BOTTOM RAIL - the LEFT stick tip touches the lowest rail. 🔴 THE TOP AND MIDDLE RAILS
+  BOTH RUN UNBROKEN; only the bottom one is interrupted, over a short width. 🔴 ONE THIRD HEIGHT,
+  still the same two balls.
 POSTURE: squatting with the belly on the rail - lower than her own knees.
 WHITE: about 45%. The yard is cracking: at most 5 flat HAT BROWN #7A6248 patches of wet earth show
   through, 🔴 each one a plain shape with a hard edge, all of them low in the frame. One flat grey
@@ -338,9 +364,9 @@ CAMERA: medium wide, 🔴 HIGH angle looking slightly down - the exact opposite 
 SUBJECT: KidGoat at the centre in 🔴 POSTURE 3 KNEES BENT - both knees bent, back rounded over,
   both arms reaching DOWNWARD to set the hat on something at her knee height. At the RIGHT behind
   her, GranGoat on the doorstep in PULLING ON A BOOT, eyes on her own hoof.
-RAIL: 🔴 ALL THREE RAILS RUN UNBROKEN END TO END. The snowman no longer reaches even the bottom
-  rail; what is left of him is a low bare mound at her knees, carrying the two buttons and the
-  stone.
+RAIL: 🔴 ALL THREE RAILS RUN UNBROKEN END TO END. 🔴 THE UPPER BALL IS GONE - what is left is ONE
+  LOW MOUND at her knees carrying the two buttons and the stone, with 🔴 THE TWO STICK ARMS STILL
+  PUSHED INTO IT and now hanging BELOW the bottom rail, left one up and right one down as always.
 POSTURE: 🔴 3 KNEES BENT.
 WHITE: about 35%. 🔴 WET EARTH ENTERS THE BOOK HERE: the bottom third of the frame is HAT BROWN
   #7A6248 flat ground with at most 7 small stones, and the snow above it is a torn-edged bare
@@ -354,7 +380,7 @@ FINISH: 2 (the stooping kid + the low mound with the hat). 0 lettering, 0 numera
 CAMERA: close-up, eye level.
 SUBJECT: KidGoat at the RIGHT, bent deep over, both front paws holding the two ends of the red
   scarf and drawing them together, toes spread with the effort, eyes on the knot only.
-RAIL: not in frame.
+RAIL: not in frame. 🔴 A LOW MOUND, as p8 - the two stick arms still in it, left up and right down.
 POSTURE: bent deep, both paws at the knot.
 WHITE: about 30%. Above the scarf, a bare mound with the buttons and stone; below, wet brown ground
   fills the lower half. 🔴 One end of the scarf lies across the mud and its last hand's length is
@@ -371,8 +397,9 @@ CAMERA: medium, eye level, slightly off the front.
 SUBJECT: KidGoat at the centre in 🔴 POSTURE 4 KNEELING - down on both knees, both arms right round
   a low round mound, cheek laid against the top of it, eyes shut, 🔴 A QUIET FACE THAT IS NEITHER
   SMILING NOR CRYING. The inside of her forelegs is one value darker where it is wet.
-RAIL: 🔴 ALL THREE RAILS UNBROKEN, and 🔴 THE TWO STICKS NOW LIE ON THE WET GRASS BELOW THE BOTTOM
-  RAIL, side by side. This is the lowest reading of the ruler.
+RAIL: 🔴 ALL THREE RAILS UNBROKEN, and 🔴 THE TWO STICK ARMS HAVE FALLEN OUT OF THE MOUND AND LIE ON
+  THE WET GRASS BELOW THE BOTTOM RAIL, side by side, the longer left one still the longer of the
+  two. This is the lowest reading of the ruler. The mound is round and low, no upper ball.
 POSTURE: 🔴 4 KNEELING, arms round.
 WHITE: about 25%. 🔴 GRASS ENTERS THE BOOK HERE: a few blades of GRASS #6E8A52 beside the sticks,
   at most 9 in all. The snow is down to a handful of torn white shapes on brown ground. Wet things
@@ -388,7 +415,8 @@ SUBJECT: KidGoat at the centre with the brown hat pulled down onto her own head,
   OVER ONE EYE so only the other eye shows, both front paws still holding the sides of it, mouth
   wide open. 🔴 This is the one page in the book that is funny; play it with the hat too big and
   nothing else.
-RAIL: one length of the bottom rail behind her, unbroken.
+RAIL: one length of the bottom rail behind her, unbroken. 🔴 A SINGLE LOW LUMP left, no stick arms
+  in it any more.
 POSTURE: both paws at her own head - the refrain has turned over.
 WHITE: about 40% (a close view). Below her shoulder a single low bare lump remains with 🔴 ONE
   BUTTON STILL SET IN IT. Everything else is left empty.
@@ -403,7 +431,8 @@ CAMERA: 🔴 HIGH angle straight down over the ground, so that the arrangement r
 SUBJECT: KidGoat at the bottom of the frame in 🔴 POSTURE 5 PICKING UP - kneeling, one paw lifting
   a black button between the pads, the other already holding the grey stone, head down in profile,
   eye wide, the brown hat on her head.
-RAIL: 🔴 ALL THREE RAILS UNBROKEN at the top of the frame. Nothing interrupts them now.
+RAIL: 🔴 ALL THREE RAILS UNBROKEN at the top of the frame. Nothing interrupts them now, and there
+  is no mound left at all.
 POSTURE: 🔴 5 PICKING UP.
 WHITE: 🔴 20%, AND NONE OF IT IS SNOW - there is not one patch of snow left in the frame. The
   ground is wet GRASS #6E8A52 and brown earth. 🔴 THE FIVE LIE IN THE SNOWMAN'S ARRANGEMENT, copied
@@ -419,17 +448,26 @@ FINISH: 2 (the lifting paw with the button + the flattened patch). Low sun: 🔴
 ```
 CAMERA: medium, eye level, from the side - 🔴 THE EXACT FRAMING AND DISTANCE OF p1. Attach the
   approved p1 render and copy the camera line for line.
-SUBJECT: KidGoat at the RIGHT, standing 🔴 IN THE PLACE WHERE THE SNOWMAN STOOD ON p1: the red
-  scarf round her neck, the brown hat on her head, both front paws cupped together at her chest
-  holding the two black buttons and the grey stone, her head bent to look into her own paws, the
-  corner of her mouth just up.
-RAIL: 🔴 THE TOP RAIL AGAIN - and 🔴 THIS TIME THE BREAK IS MADE BY HER OWN SHOULDER, which reaches
-  the topmost rail exactly where the stick tip lay on p1. 🔴 The gap is the same height as p1 and
-  is now filled by a painted body instead of bare paper: that swap is the whole ending. The two
-  sticks are laid across the top rail beside her.
+SUBJECT: KidGoat at the RIGHT, standing 🔴 IN THE PLACE WHERE THE SNOWMAN STOOD ON p1: scarf round
+  her neck, hat on her head, both front paws cupped at her chest holding the two buttons and the
+  stone, head bent to look into her own paws, the corner of her mouth just up.
+RAIL: 🔴 THE TOP RAIL AGAIN - 🔴 THIS TIME THE BREAK IS MADE BY HER OWN SHOULDER, which reaches the
+  topmost rail exactly where the LEFT stick tip lay on p1. 🔴 The gap is the same width as p1 and is
+  now filled by a painted body instead of bare paper: that swap is the ending. The two stick arms
+  are laid across the top rail beside her, left one still the longer.
 POSTURE: standing square, paws cupped - she is not reaching for anything.
 WHITE: about 20%, and 🔴 NO SNOW ANYWHERE. Green grass underfoot, brown earth below it, the bare
   sheet only above the fence line.
 FINISH: 2 (the kid carrying all five + her shoulder against the top rail). 🔴 The red scarf is once
   again the only strong colour in the frame, exactly as on p1. 0 lettering, 0 numerals.
 ```
+
+---
+
+## 첫 렌더 검수 체크리스트 (2026-08-04 추가)
+
+1. 🔴 **눈사람에 닫힌 윤곽이 그어졌나.** 한 획이라도 있으면 이 권이 아니다(첫 판정문).
+2. 🔴 **열세 장을 나란히 놓고 「같은 눈사람인가」를 본다** — 공이 셋이 됐거나, 위 공이 아래 공보다 커졌거나, 목이 생겼거나, 쪽마다 비례가 다르면 실패. 처방 = 컷을 고치지 말고 **`TheFive` 플레이트 2·2b 를 다시 굽고** 승인본을 @image1 로 붙인다.
+3. 🔴 **나뭇가지 팔이 같은 한 쌍인가** — 잔가지가 둘인가(셋·넷이면 실패) · **왼쪽이 더 길고 위로, 오른쪽이 아래로**인가 · 굵기가 가로대 모서리만 한가(실처럼 가늘어 안 보이면 실패). 그리고 **p10 에서 풀 위에 누운 둘이 p1 의 그 둘과 같은 길이 차이**를 갖는가.
+4. **끊긴 가로대의 폭이 아래 공의 폭과 같나** — 이게 이 책의 자다. 폭이 쪽마다 제멋대로면 키가 줄어드는 것이 안 읽힌다.
+5. **눈 위에 마크가 생겼나** — 발자국(p2, 최대 4)·단추 홈(p6)·그림자 띠 말고는 0이다.

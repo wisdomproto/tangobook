@@ -39,6 +39,8 @@
 | 2 | p3·p5·p10 톤 「배경이 부드럽게 풀린다 / 흐리고 / 흐려」 | 오린 종이에는 흐림이라는 수단이 없다. 흐리게 하면 콜라주가 아니라 사진이 된다 | **오린 쌍의 수를 줄이고, 더 작게 오리고, 밝은 회색 한 단으로 내린다.** 초점이 아니라 **개수와 값**으로 뒤로 민다 |
 | 3 | p13 「쌍 열둘 + 앞쪽에 열셋째」 | 열셋을 다 마감하면 이 권의 마감 위계가 마지막 쪽에서 무너진다 | 🔴 **밀도 배급 쪽**으로 지정 — 여기서만 마감을 3 으로 올린다(오소리 + 염소 + 앞쪽 한 쌍). 뒤의 열둘은 끝까지 오린 실루엣 |
 
+**🔴 2026-08-04 수정 — 장소가 쪽마다 달랐다(사용자 실측).** 원인은 그림체가 아니라 **무대의 좌표가 어디에도 없었다는 것**이다. 앵커 CANVAS 는 「ledge and buckets in the same place on every page」라고만 했고 **그 자리가 어디인지는 한 번도 안 적었으며**, `SquareSet` 시트도 「FIXED PROPS (same position on every page)」로 끝났다. 컷은 카메라만 말했다 → 쪽마다 모델이 광장을 새로 지었다. 고친 것 셋: ① **앵커 CANVAS 에 평면도를 못박았다**(집·돌턱 왼쪽 · 꽃 양동이 돌턱 앞끝 · 광장은 오른쪽으로 열림 · 종탑 오른쪽 위 · **좌우 반전 금지**) ② **`SquareSet` 시트가 그 평면도를 네 카메라로 굽는다**(a 넓게 눈높이 / b 오소리 눈높이 로우 / c 돌턱 두 걸음 앞 미디엄 클로즈업 / d 박공 높이 부감) ③ **열세 컷 전부가 그 넷 중 하나를 이름으로 부른다** — 컷이 새 카메라를 발명하지 않는다.
+
 **밀도 배급(§2.10·§2.12)**: 13쪽 중 **p13 한 장**. 나머지 열두 쪽은 `FINISHED THINGS PER PAGE = 2` 고정. 🔴 p2·p13 은 화면이 쌍으로 가득하지만 **밀도가 아니라 개수**다 — 쌍 하나를 예쁘게 그리면 세는 일이 죽는다.
 
 **의인화 등급**: 둘 다 **사족**. 네 발로 걷고 **앞발을 쓸 때만** 앉거나 뒷발로 선다(톡 건드리기·발끝 서기·돌턱 짚기). 옷·손가락·신발 없음. 배경 이웃도 전부 사족이고 **입을 한 번도 안 연다**. 🔴 포즈가 안 되면 등급을 바꾸지 말고 카메라를 바꾼다.
@@ -60,27 +62,26 @@
 STYLE ANCHOR - changjak-cobblepairs   (badger cub and goat kid / a Flemish square corner)
 
 Style: cut-paper collage on coarse grey-beige board, 4-6 year old picture book. The floor is ONE
-  hand-printed cobble plate - a small fan-shaped block inked and pressed over and over BY HAND,
-  so angle, pressure and ink load differ arc to arc, some heavy and wet, some starved and grainy
-  with the board through them, overlaps deepening into a third tone. Every neighbour is paper CUT
-  WITH SCISSORS and glued down: a flat silhouette, one solid colour, a visible cut edge, a thin
-  shadow where it lifts. ONLY the two main animals are drawn by hand, in crayon and pencil,
-  straight onto the board.
+  hand-printed cobble plate - a small fan-shaped block inked and pressed over and over BY HAND, so
+  angle, pressure and ink load differ arc to arc, some heavy and wet, some starved and grainy,
+  overlaps deepening into a third tone. Every neighbour is paper CUT WITH SCISSORS and glued down:
+  a flat silhouette, one solid colour, a visible cut edge. ONLY the two main animals are drawn by
+  hand, in crayon and pencil, straight onto the board.
 
-RENDERING (finish hierarchy): FINISHED THINGS PER PAGE = 2 - the badger and the goat. Nothing
-  else gets a contour. A cut pair has 0 interior marks: 0 eyes, 0 fur, 0 faces, 0 pattern, 0
-  outline drawing - it is known by outline and gesture alone, so a square packed with pairs still
-  carries almost no information. House = 1 stepped-gable shape, at most 2 window rectangles and 1
-  shutter rectangle, 0 bricks, 0 roof tiles, 0 drainpipes. Ledge = 1 long strip + 1 darker strip
-  under it. Bucket = 1 shape + at most 7 yellow dots. Belfry = 1 far silhouette. Cobbles come only
-  from the printed plate. DENSITY RATION = page 13 only, where finished things rise to 3. Depth =
-  the same cut shape smaller and one grey step paler, never blur.
+RENDERING (finish hierarchy): FINISHED THINGS PER PAGE = 2 - the badger and the goat. Nothing else
+  gets a contour. A cut pair has 0 interior marks: 0 eyes, 0 fur, 0 faces, 0 pattern, 0 outline
+  drawing - it is known by outline and gesture alone, so a square packed with pairs still carries
+  almost no information. House = 1 stepped-gable shape, at most 2 window rectangles and 1 shutter
+  rectangle, 0 bricks, 0 tiles, 0 drainpipes. Ledge = 1 long strip + 1 darker strip under it.
+  Bucket = 1 shape + at most 7 yellow dots. Belfry = 1 far silhouette. Cobbles come only from the
+  printed plate. DENSITY RATION = page 13 only, where finished things rise to 3. Depth = the same
+  cut shape smaller and one grey step paler, never blur.
 
 PALETTE: board #B9B3A6 · cobble wet #5F5E58, drying #8B857A, dry #A8A196 · houses #C7B49A and
-  #AC9880 · shutter #9E5344 (muted, never saturated) · ledge #7C766B · moss #6E7A4C · goat cream
-  #E4DBC6, horn #8A6A46 · badger fur #EDE8DE, stripe #23211E · cut pairs in four greys #6F6A62
-  #857F76 #9A948A #B0A99E. ACCENT: flower yellow #E8B93C is the only saturated colour anywhere
-  and belongs to nothing but the buckets. No other yellow, no orange, no pink, no blue.
+  #AC9880 · shutter #9E5344 (muted) · ledge #7C766B · moss #6E7A4C · goat cream #E4DBC6, horn
+  #8A6A46 · badger fur #EDE8DE, stripe #23211E · cut pairs in four greys #6F6A62 #857F76 #9A948A
+  #B0A99E. ACCENT: flower yellow #E8B93C is the only saturated colour anywhere and belongs to
+  nothing but the buckets. No other yellow, no orange, no pink, no blue.
 
 CHARACTER DESIGN LANGUAGE: the two mains must look HAND-DRAWN against cut paper - crayon grain
   visible, contour left open in places, no cut edge on them. Each has a drawn eye with a SEPARATE
@@ -88,10 +89,12 @@ CHARACTER DESIGN LANGUAGE: the two mains must look HAND-DRAWN against cut paper 
   only sit up or rise on the hind legs to use a forepaw. No clothes, no fingers, no shoes. Every
   background neighbour is a quadruped, is cut paper, and never opens its mouth.
 
-CANVAS: 16:9 double-page spread. A Flemish square corner - stepped-gable houses, one long low
-  stone ledge, two flower buckets, fan-laid cobbles, a far belfry; ledge and buckets in the same
-  place on every page. No lettering, numerals, signboards, house
-  numbers, price cards or gilt writing anywhere.
+CANVAS: 16:9 double-page spread. 🔴 ONE CORNER OF ONE FLEMISH SQUARE, NEVER LEFT AND NEVER
+  MIRRORED. Fixed plan on all thirteen pages: stepped-gable houses along the LEFT and running back
+  · the stone ledge along the foot of that left wall · the TWO flower buckets at its NEAR end,
+  lower left · the square opening to the RIGHT · the far belfry above the rooftops at the upper
+  RIGHT. 🔴 Only the camera's distance, height and tilt change - the ledge is never on the right and
+  the belfry never on the left. No lettering, numerals, signboards, house numbers or gilt writing.
 
 NOT: no digital slickness of any kind - airbrush, gradient, glow, 3D CG, cel-shading,
   photographic, or a texture filter over flat colour (the cut edge and printed grain must MAKE the
@@ -177,6 +180,16 @@ CHARACTER SHEET - SquareSet   (bake FOURTH - the stage, used on every page)
 The corner of the square, empty of animals, exactly as it will sit on all thirteen pages.
 Same make: hand-printed cobble plate, cut-paper buildings, no hand drawing anywhere here.
 
+🔴 THE PLAN, FIXED AND NEVER MIRRORED - draw it once, straight on, from the middle of the square:
+  the row of stepped-gable houses along the LEFT and running back; the stone ledge along the foot
+  of that left wall, starting at the near edge of the frame and running away from the camera; the
+  TWO flower buckets at the NEAR end of the ledge, lower left; open square to the RIGHT; the far
+  belfry above the rooftops at the upper RIGHT. 🔴 Deliver this plan FOUR TIMES on the sheet at the
+  four cameras the book uses, with every prop in the same place in all four: (a) wide at eye level
+  (b) wide from a badger's own eye height, low (c) medium close-up at eye level, two paces from the
+  ledge (d) wide from gable height looking down across the square at a slant. 🔴 Those four are the
+  only cameras in the book, and the thirteen pages are cut from them.
+
 GROUND: one small fan-shaped cobble block printed over and over by hand across the whole floor
   - angle, pressure and ink load differ arc to arc, overlaps deepening into a third tone.
   Print it three times on this sheet at the three states: WET #5F5E58 with the gable shapes
@@ -203,8 +216,9 @@ SCALE: the ledge is HALF the badger's height and a bucket comes up to its chest 
 ### p1 — 광장 귀퉁이에 내려서다
 
 ```
-CAMERA: wide, LOW angle at the badger's own eye height, the corner at lower LEFT and the square
-  opening away to the RIGHT. Early light still only on the far rooftops; the whole floor in shade.
+CAMERA: 🔴 SquareSet camera (b), never mirrored - ledge and buckets LEFT, square open RIGHT, belfry
+  upper RIGHT. Wide, low, at the badger's own eye height. Early light still only on the far
+  rooftops; the whole floor in shade.
 SUBJECT: BadgerCub has just dropped onto the cobbles and stopped dead on all fours, the four
   short legs braced apart with one forepaw skidded sideways, muzzle lifted, eyes round, mouth
   wide open shouting, blunt tail flicked straight up. Small against a very wide square - that
@@ -221,8 +235,8 @@ FINISH: 2 (badger + the cobble plate). Houses 1 shape each, buckets 1 shape + 7 
 
 ```
 BAKE THIS PAGE FIRST OF ALL THIRTEEN - it defines the printed plate and the cut pairs for the book.
-CAMERA: wide, eye level, the square laid out ACROSS the frame; BadgerCub small in the lower
-  RIGHT corner with its back to us.
+CAMERA: 🔴 SquareSet camera (a), never mirrored - ledge and buckets LEFT, square open RIGHT, belfry
+  upper RIGHT. Wide, eye level; BadgerCub small in the lower RIGHT corner with its back to us.
 SUBJECT: BadgerCub sits on all fours with its back turned, head cranked LEFT to scan the square,
   neck stretched long, both ears pricked forward, tail flat to the ground, a sliver of open
   mouth showing past the cheek. A flower bucket stands beside it at the SAME DEPTH and comes up
@@ -240,8 +254,9 @@ FINISH: 2 (badger + the bucket). 0 signboards, 0 numerals.
 
 ```
 ATTACH THE APPROVED PAGE 2 RENDER as the plate reference.
-CAMERA: medium, eye level, BadgerCub LEFT and GoatKid RIGHT, facing each other at THE SAME DEPTH
-  and the same size on the page - every later height claim is measured off this picture.
+CAMERA: 🔴 SquareSet camera (c), never mirrored - ledge and buckets LEFT, belfry upper RIGHT. Medium,
+  eye level, BadgerCub LEFT and GoatKid RIGHT at THE SAME DEPTH and the same size on the page -
+  every later height claim is measured off this picture.
 SUBJECT: BadgerCub on all fours, weight rocked back, head up and staring at the thing in front
   of its nose, eyes pulled toward the middle, one brow creased, one ear tipped sideways, tail
   dropped low. GoatKid in posture A - neck dropped, round forehead pushed forward and held, blunt
@@ -259,8 +274,9 @@ FINISH: 2 (the two animals). 0 lettering.
 ### p4 — 앞발로 이마를 톡
 
 ```
-CAMERA: close-up, eye level. The goat's forehead and the badger's forepaw fill the middle;
-  BadgerCub's face at the LEFT edge, GoatKid's head centre-right.
+CAMERA: 🔴 SquareSet camera (c) cropped in, never mirrored. Close-up, eye level. The goat's forehead
+  and the badger's forepaw fill the middle; BadgerCub's face at the LEFT edge, GoatKid's head
+  centre-right.
 SUBJECT: BadgerCub sits up on its haunches, chest raised, ONE forepaw stretched right out to tap
   the goat's forehead with the toe tips, toes slightly spread, the other forepaw held awkwardly
   at its chest; mouth wide, eyes blown open, ears up. GoatKid frozen in posture A, blinking slow
@@ -276,8 +292,8 @@ FINISH: 2 (the touching paw and the pressed forehead swirl are where the finish 
 ### p5 — 발끝으로 쭈욱
 
 ```
-CAMERA: medium close-up, slightly LOW angle. BadgerCub LEFT stretched tall, GoatKid's lowered
-  head RIGHT, the two foreheads at THE SAME DEPTH.
+CAMERA: 🔴 SquareSet camera (c) dropped low, never mirrored. Medium close-up. BadgerCub LEFT
+  stretched tall, GoatKid's lowered head RIGHT, the two foreheads at THE SAME DEPTH.
 SUBJECT: BadgerCub up on the tips of its hind toes, body stretched as long as it will go, neck
   pushed out and forehead leading, back bowed like a bow, both forepaws thrown wide for balance,
   eyes screwed shut, muzzle wrinkled, tail straight out behind. Its hind pads are sliding apart
@@ -293,8 +309,8 @@ FINISH: 2 (badger + the goat's lowered head). Ledge and buckets cut, 0 lettering
 ### p6 — 미끌, 철퍼덕
 
 ```
-CAMERA: medium, slightly HIGH angle. BadgerCub down in the lower middle, GoatKid still standing
-  above it, unchanged.
+CAMERA: 🔴 SquareSet camera (c) raised a little, never mirrored. Medium. BadgerCub down in the lower
+  middle, GoatKid still standing above it, unchanged.
 SUBJECT: BadgerCub sits flat on the wet stone, both hind legs shot forward, both forepaws thrown
   up in the air, back tipping backward and caught, eyes rolled up, mouth open, both ears flipped
   sideways, tail pinned underneath. GoatKid holds posture A without moving one hair and only
@@ -311,8 +327,8 @@ FINISH: 2 (badger + the two skid streaks). 0 lettering, 0 numerals.
 
 ```
 ATTACH THE APPROVED PAGE 3 RENDER - this page is its exact reversal.
-CAMERA: medium wide, eye level, BadgerCub LEFT up on the stone ledge and GoatKid RIGHT down on
-  the cobbles, both at THE SAME DEPTH so the swap reads in one look.
+CAMERA: 🔴 SquareSet camera (a), never mirrored - ledge LEFT, square open RIGHT. Medium wide, eye
+  level, BadgerCub LEFT up on the ledge and GoatKid RIGHT on the cobbles, both at THE SAME DEPTH.
 SUBJECT: BadgerCub stands square on the ledge with its chest out, looking down, both forepaws
   set on the front edge, chin lifted, eyes creased into half-moons, mouth open laughing, tail
   straight up. GoatKid on the stones, neck craned up, eyes wide, horn tips aimed at the sky.
@@ -330,8 +346,8 @@ FINISH: 2 (badger + the ledge under it). 0 signboards, 0 numerals, 0 gilt writin
 ### p8 — 뿔 사이에 쏙
 
 ```
-CAMERA: close-up, slightly LOW angle. GoatKid's head and both horns rise into the upper frame
-  and the badger's face is buried between them.
+CAMERA: 🔴 SquareSet camera (c) cropped in and dropped low, never mirrored. GoatKid's head and both
+  horns rise into the upper frame and the badger's face is buried between them.
 SUBJECT: BadgerCub leaned in from the ledge and overshot - its white face has gone straight past
   the forehead and is buried between the two horns, pressed into the hair so that only the muzzle
   pokes out sideways and the eyes are not visible at all. One forepaw grips each horn; the hind
@@ -350,8 +366,8 @@ FINISH: 2 (the buried face + the horn the paw grips). The hair sprayed out betwe
 ### p9 — 염소가 무릎을 접는다
 
 ```
-CAMERA: medium, eye level. GoatKid RIGHT down low, BadgerCub LEFT crouched on the ledge, with a
-  slanting empty lane of floor open between them.
+CAMERA: 🔴 SquareSet camera (c), never mirrored - ledge LEFT. GoatKid RIGHT down low, BadgerCub LEFT
+  crouched on the ledge, with a slanting empty lane of floor open between them.
 SUBJECT: GoatKid in posture B - front legs folded at the knee, chest on the stones, rump still
   high, neck stretched forward, round forehead held low, horns level with the ground, eyes up,
   mouth just open to speak, tail flicking. BadgerCub crouched on all fours on the ledge, rump
@@ -369,8 +385,8 @@ FINISH: 2 (the two animals). 🔴 Keep the slanting lane between them empty of c
 ### p10 — 네 발이 붕 떴다
 
 ```
-CAMERA: medium wide, eye level. BadgerCub airborne in the middle of the frame, GoatKid's lowered
-  head at lower RIGHT.
+CAMERA: 🔴 SquareSet camera (a), never mirrored - ledge LEFT, square open RIGHT. Medium wide, eye
+  level. BadgerCub airborne in the middle of the frame, GoatKid's lowered head at lower RIGHT.
 SUBJECT: BadgerCub has kicked off the ledge and is completely off the ground - all four feet
   clear, forepaws thrown forward, hind legs trailing, the body stretched long, head tucked so the
   forehead leads. 🔴 The body is tipped a little too far forward, so the NOSE is out ahead of the
@@ -390,8 +406,8 @@ FINISH: 2 (badger + its one shadow). 0 lettering.
 ### p11 — 콕! 턱 밑에 코가 박히다
 
 ```
-CAMERA: close-up, slightly LOW angle. GoatKid's chin and throat fill the upper frame; the badger's
-  face is driven in underneath.
+CAMERA: 🔴 SquareSet camera (c) cropped in and dropped low, never mirrored. GoatKid's chin and
+  throat fill the upper frame; the badger's face is driven in underneath.
 SUBJECT: BadgerCub has gone down on its front, slid along on its belly and buried its nose in the
   soft hair under the goat's chin - both forepaws planted on the floor beside the goat's front
   legs, hind legs trailing, back pressed low, eyes round, muzzle wrinkled. Above, GoatKid in
@@ -410,8 +426,8 @@ FINISH: 2 (the buried face + the thrown-back chin). 0 lettering.
 
 ```
 ATTACH THE APPROVED PAGE 3 RENDER - the same two bodies in the SAME SPOT, positions swapped.
-CAMERA: medium close-up, eye level. BadgerCub LEFT sitting up, GoatKid RIGHT come down low, at the
-  same two-paces-from-the-ledge spot as page 3 with the props in the same places.
+CAMERA: 🔴 SquareSet camera (c), never mirrored - the exact spot of page 3, props in the same
+  places. BadgerCub LEFT sitting up, GoatKid RIGHT come down low.
 SUBJECT: BadgerCub sits up on its haunches with its chin thrown up, both forepaws clasped at its
   belly, shoulders hunched high, eyes squeezed shut, mouth wide laughing, stub tail slapping the
   stones. GoatKid folds its front legs and lowers its whole body to push its OWN nose up under the
@@ -429,8 +445,8 @@ FINISH: 2 (the two interlocked bodies). 0 lettering, 0 numerals.
 
 ```
 THE ONE RATIONED PAGE. Attach the approved page 2 render so the plate and the pairs are one make.
-CAMERA: wide, HIGH angle from gable height looking down across the whole square at a slant.
-  BadgerCub and GoatKid sit side by side on the ledge at the lower LEFT, small.
+CAMERA: 🔴 SquareSet camera (d), never mirrored - from gable height looking down across the square
+  at a slant, ledge LEFT and belfry upper RIGHT. The two sit side by side on the ledge, lower LEFT.
 SUBJECT: the two sit shoulder to shoulder facing out - BadgerCub on its haunches with one forepaw
   raised to point across the square, mouth wide, tail up; GoatKid with all four legs folded under,
   neck craned that way, eyes wide, horns tipped forward.
@@ -458,6 +474,7 @@ FINISH: 3, not 2 (badger + goat + ThirteenthPair) - the only page where it rises
 | 3 | 🔴 **p3 과 p7 을 나란히 놓았을 때 높이 차가 정확히 뒤집혔나** | 문구 튜닝 금지. **p3 승인본을 @image 로 붙여** p7 을 다시 굽는다 |
 | 4 | 🔴 **노랑이 꽃 말고 어디 있나** — 특히 덧창·햇빛·염소 털 | 샌 사물을 이름으로 못 박아 NOT 에 추가. 2회 실패면 **노랑 없는 승인 컷(p5·p10)을 먼저 확보**하고 꽃이 든 쪽을 그 뒤에 굽는다 |
 | 5 | **포석이 「손으로 찍은 판」인가 「벡터 벽지」인가.** 완벽히 균일하면 실패 | `SquareSet` 시트의 세 상태(젖음·마르는 중·마름)를 ref 로 다시 붙인다. 낱개의 압력·각도·잉크량이 제각각이고 겹친 자리에 제3의 톤이 있어야 한다 |
+| 0 | 🔴 **열세 장을 나란히 놓고 「같은 자리인가」부터 본다**(2026-08-04 추가). 돌턱이 오른쪽으로 갔거나, 꽃 양동이가 반대편이거나, 종탑이 왼쪽에 있거나, 계단 박공 집이 광장 건너편에 있으면 실패다 | 컷 문구를 늘리지 말고 **`SquareSet` 시트를 네 카메라로 다시 굽고**, 그 승인본을 @image4 로 붙여 어긋난 쪽만 다시 굽는다 |
 | 6 | **글씨가 들어왔나** — 길드 하우스 금박·간판·집 번호 | 인물이 크게 나오는 쪽마다 `0 signboards, 0 numerals, 0 gilt writing` 이 실제로 그 컷에 있는지 확인. 빠진 컷이 있으면 컷에 넣는다(p1 에만 있으면 안 따라간다) |
 
 부수: **판지가 두꺼워졌나 · 보풀·바늘땀이 보이나** — 그 순간 호리 니들펠트 라인이다. 장면이 아니라 `SquareSet` 시트를 다시 굽는다.

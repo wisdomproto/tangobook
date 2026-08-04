@@ -50,6 +50,18 @@ if (typeof window !== 'undefined') {
   trackStandaloneOnce();
 }
 
+/**
+ * 모바일(터치) 기기인지. 설치 안내(PWA)와 TV 미러링 안내가 **같은 기준**을 쓴다 —
+ * 둘 다 "폰·태블릿에서만 뜻이 있는 안내"라 판정이 갈리면 한쪽만 안 보이는 일이 생긴다.
+ */
+export function isTouchDevice(): boolean {
+  if (typeof window === 'undefined') return false;
+  return (
+    !!window.matchMedia?.('(pointer: coarse)').matches ||
+    (typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0)
+  );
+}
+
 /** 설치 프롬프트가 준비됐는지 (Chrome/Android/데스크탑). */
 export function canInstall(): boolean {
   return deferred !== null;

@@ -4,6 +4,7 @@ import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
+import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
 import { ActivityShell } from '../components/ActivityShell';
 
 export interface ListenChoice {
@@ -86,6 +87,8 @@ const REST_MS = 420;
  *    Gemini TTS 로 구운 정적 자산 — `server/scripts/generate-activity-voice-prompts.mjs`.
  */
 const QUIZ_START_SOUND = '/sounds/voice/quiz-start-ko.mp3';
+/** 탐색 진입 안내 — 화면의 "눌러서 들어봐!" 텍스트에 맞는 음성(퀴즈 전 카드를 눌러 소리를 들어보는 단계). */
+const EXPLORE_START_SOUND = '/sounds/voice/listen-explore-ko.mp3';
 
 function shuffle<T>(arr: readonly T[]): T[] {
   const a = [...arr];
@@ -126,6 +129,8 @@ export function WordListenChooseActivity({
     'word-listen',
     language
   );
+  // 삽화도 음원처럼 진입 시 데운다 — 안 하면 카드가 뜬 뒤 그림이 한 박자 늦게 뜬다(게임과 동일 프리미티브).
+  usePreloadImages(useMemo(() => items.flatMap((w) => [w.imageUrl, w.revealImageUrl]), [items]));
 
   /**
    * 화면에 깔리는 카드 — **탐색과 퀴즈가 같은 판**을 쓴다.
@@ -211,6 +216,12 @@ export function WordListenChooseActivity({
    */
   const [correct, setCorrect] = useState<string | null>(null);
   /**
+   * 🔴 **맞힌 카드는 민트로 남는다**(2026-08-02 사용자: "정답 맞추면 색깔 그냥 칠한채로 냅둬야지").
+   *    예전엔 `correct` 하나뿐이라 소리가 끝나면 색이 사라져, 몇 개 맞췄는지 화면에 안 남았다.
+   *    문제 하나당 카드 하나가 정답이라, 다 풀면 판이 전부 민트가 되어 "다 맞췄다"가 그림으로 읽힌다.
+   */
+  const [solved, setSolved] = useState<Set<string>>(new Set());
+  /**
    * 맞혀서 **그림이 열린** 카드 — 다음 문제로 넘어가도 그림인 채로 남는다.
    * 남은 글자 칸이 곧 "아직 안 맞힌 것"이라 몇 개 남았는지가 그림으로 읽힌다(맞춘 카드=민트+✓ 와 같은 뜻).
    */
@@ -273,9 +284,16 @@ export function WordListenChooseActivity({
    */
   const guidedRef = useRef(false);
   useEffect(() => {
-    if (exploreFirst || guidedRef.current) return;
+    if (guidedRef.current) return;
     guidedRef.current = true;
-    playAudio(QUIZ_START_SOUND, () => setStarting(false));
+    if (exploreFirst) {
+      // 🔴 탐색 진입 — "눌러서 들어봐!" 안내(사용자: "여기도 멘트가 없네"). 잠금은 없다 — 아이는
+      //    바로 카드를 눌러 소리를 들어봐도 된다. 퀴즈 시작음은 「🎯 퀴즈」 버튼에서 따로 난다.
+      playAudio(EXPLORE_START_SOUND);
+    } else {
+      // 탐색 없이 바로 퀴즈인 화면(복습 듣기) — 안내가 끝나야 첫 문제가 나간다.
+      playAudio(QUIZ_START_SOUND, () => setStarting(false));
+    }
   }, [exploreFirst, playAudio]);
 
   // 나가는 도중 예약된 소리가 빈 화면에서 울리지 않게 둘 다 정리한다.
@@ -290,7 +308,8 @@ export function WordListenChooseActivity({
   const handlePick = useCallback(
     (picked: ListenChoice) => {
       // `correct` 가 남아 있는 동안은 정답 소리 체인이 도는 중이라 다음 탭을 받지 않는다.
-      if (done || !current || wrong || correct) return;
+      // 이미 맞힌 카드(민트)는 다시 눌러도 무시 — 오답 흔들림이 나지 않게.
+      if (done || !current || wrong || correct || solved.has(idOf(picked))) return;
       if (idOf(picked) !== idOf(current.answer)) {
         onJudge?.(false, current.answer);
         playFeedbackSound(false);
@@ -300,6 +319,7 @@ export function WordListenChooseActivity({
       }
       onJudge?.(true, picked);
       setCorrect(idOf(picked));
+      setSolved((prev) => new Set(prev).add(idOf(picked)));
       // 맞힌 칸은 글자 → 그림으로 뒤집힌다(그림이 주어진 경우).
       if (picked.revealImageUrl) setRevealed((prev) => new Set(prev).add(idOf(picked)));
       const isLast = qIdx + 1 >= questions.length;
@@ -328,6 +348,7 @@ export function WordListenChooseActivity({
       current,
       wrong,
       correct,
+      solved,
       qIdx,
       questions.length,
       onJudge,
@@ -362,6 +383,12 @@ export function WordListenChooseActivity({
     setWrong(null);
     setDone(false);
     setStarting(false);
+    // 🔴 `correct` 를 반드시 비운다 — 마지막 문제 분기가 `setCorrect(null)` 없이 return 해서 정답 id 가
+    //    남아 있다. 안 비우면 restart 후 `handlePick` 가드(`... || correct || ...`)에 걸려 **모든 탭이
+    //    막히고**(판이 통째로 먹통), 그 카드가 pre-mint 로 뜬다(game-reviewer 실측).
+    setCorrect(null);
+    setSolved(new Set());
+    setRevealed(new Set());
     setExploring(exploreFirst);
   }, [exploreFirst]);
 
@@ -446,20 +473,21 @@ export function WordListenChooseActivity({
                 void say(c);
               }}
               aria-label={c.label}
-              // 안내 음성 중엔 못 누른다 — 문제를 듣기도 전에 찍고 지나가는 걸 막는다.
-              disabled={done || starting}
+              // 안내 음성 중엔 못 누른다 · 이미 맞힌 카드도 못 누른다(민트로 남는다).
+              disabled={done || starting || solved.has(idOf(c))}
               className={[
                 'relative rounded-3xl border-[6px] overflow-hidden shadow-soft transition',
-                // 🔴 맞힌 칸 = **민트 채움**(2026-08-02). 예전엔 `bg-success/10`(10% 초록)이라 흰 카드에서
-                //    거의 안 보였다(사용자: "맞춘거 하이라이트가 안되네"). 뒤집기·글자쓰기의 민트 성공색과 통일.
-                correct === idOf(c)
+                // 🔴 맞힌 칸 = **민트 채움으로 남는다**(2026-08-02). 예전엔 `bg-success/10`(10% 초록)이라
+                //    흰 카드에서 거의 안 보였고, `correct` 하나뿐이라 소리가 끝나면 색이 사라졌다
+                //    (사용자: "정답 맞추면 색깔 그냥 칠한채로 냅둬야지"). `solved` 로 계속 민트.
+                correct === idOf(c) || solved.has(idOf(c))
                   ? 'border-mint-500 bg-mint-100 ring-4 ring-mint-300 scale-[1.03]'
                   : wrong === idOf(c)
                     ? 'border-coral-500 bg-white animate-shake'
                     : 'border-white bg-white hover:shadow-pop active:scale-[0.97]',
               ].join(' ')}
             >
-              {correct === idOf(c) && (
+              {(correct === idOf(c) || solved.has(idOf(c))) && (
                 <span className="absolute top-1.5 right-1.5 z-10 inline-flex items-center justify-center w-8 h-8 rounded-full bg-mint-500 text-white text-lg font-black shadow-pop ring-2 ring-white">
                   ✓
                 </span>

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { WordWritingData } from '@tangobook/shared';
@@ -27,6 +27,8 @@ function syllablesOf(word: string): string[] {
 }
 
 const REST_MS = 450; // 마지막 음절 재생 완료 후 단어를 읽기 전 '쉬는' 간격
+/** 진입 안내 — 화면의 "글자를 따라 써봐" 텍스트에 맞는 음성(파닉스 쓰기 활동과 같은 정적 자산). */
+const WRITE_GUIDE_SOUND = '/sounds/voice/write-trace-ko.mp3';
 
 export function KoreanWordWritingPlayer({
   storybookId,
@@ -51,6 +53,14 @@ export function KoreanWordWritingPlayer({
 
   const currentItem = items[currentIndex];
   const syllables = useMemo(() => syllablesOf(currentItem.word), [currentItem.word]);
+
+  // 🔴 진입 안내 음성 — 파닉스 쓰기 활동과 통일(사용자: "어디서는 따라 써봐 멘트 나오고 어디서는 안 나오네").
+  const guidedRef = useRef(false);
+  useEffect(() => {
+    if (guidedRef.current) return;
+    guidedRef.current = true;
+    playAudio(WRITE_GUIDE_SOUND);
+  }, [playAudio]);
 
   const emitFinalResults = useCallback(
     (finalPassed: boolean[]) => {
@@ -204,8 +214,9 @@ export function KoreanWordWritingPlayer({
               className="h-[clamp(4rem,20vh,18rem)] w-auto object-contain drop-shadow-[0_6px_8px_rgba(0,0,0,0.15)]"
             />
           )}
+          {/* 🔴 "색칠해봐"→"따라 써봐" 로 통일 — 앱의 나머지 쓰기 화면·음성이 전부 "따라 써봐"다. */}
           <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-ink-900">
-            {t('writingGame.paintPrompt')}
+            {t('writingGame.tracePrompt')}
           </p>
         </div>
 

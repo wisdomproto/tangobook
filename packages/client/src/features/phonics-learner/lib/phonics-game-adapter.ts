@@ -264,10 +264,13 @@ export function phonicsToEnglishWordWritingData(sb: Storybook): WordWritingData 
   const alphabet = isAlphabetUnit(sb);
   const items: WordWritingItem[] = targetWords.map((w) => {
     const extra = findImageData(sb, w);
-    const target = alphabet ? (w[0] ?? w).toLowerCase() : w;
+    // 🔴 Book 1 은 **낱말 전체(apple)를 그리되 첫 글자(a)만** 쓴다 — 한 글자를 쓰면 낱말이 화면에 있다.
+    //    예전엔 word 를 글자 하나로 줄여 낱말이 아예 안 보였다(사용자: "한개 알파벳 쓰면 단어가 나와야지").
+    const drawWord = w.toLowerCase();
     return {
-      word: target,
-      displayWord: target,
+      word: drawWord,
+      displayWord: drawWord,
+      ...(alphabet ? { traceWord: (w[0] ?? w).toLowerCase() } : {}),
       ...(extra.imageUrl ? { imageUrl: extra.imageUrl } : {}),
       referenceImageUrl: extra.imageUrl ?? '',
       ...(extra.ttsUrl ? { ttsUrl: extra.ttsUrl } : {}),

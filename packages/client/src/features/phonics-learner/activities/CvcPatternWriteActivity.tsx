@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
@@ -23,6 +23,24 @@ interface CvcWord {
   sentence?: string;
 }
 
+/** 칸 폭 — 캔버스·대기 칸·완료 칸이 다 이걸 쓴다(한 글자로 읽히게 같은 크기). */
+const TILE = 'min(32vw,28vh,18rem)';
+/** 대기 칸 글자 크기 — `LetterFillCanvas` 가 캔버스에 `0.85em` 으로 그리므로 칸 폭×0.85 로 맞춘다. */
+const TILE_FONT = `calc(${TILE} * 0.85)`;
+/** 대기 칸 = 캔버스와 똑같이 생긴 판(흰 바탕 + 회색 글자). 차이는 색이 아니라 **반짝임**이다. */
+const IDLE_TILE_CLASS =
+  'shrink-0 aspect-square rounded-3xl border-[5px] border-white bg-white/70 flex items-center justify-center font-display font-black text-[#e5e7eb] shadow-soft leading-none';
+
+/** 지금 쓸 칸 — 캔버스를 감싸고 **반짝이는 테두리**를 얹는다(정사각 영역에만). */
+function WriteCell({ children }: { children: ReactNode }) {
+  return (
+    <div className="relative shrink-0" style={{ width: TILE }}>
+      {children}
+      <span className="pointer-events-none absolute inset-x-0 top-0 aspect-square rounded-xl ring-4 ring-coral-400 animate-pulse" />
+    </div>
+  );
+}
+
 /**
  * 영어 CVC 쓰기 액티비티 — VC 글자별 분리 canvas (book2 unit1+).
  *
@@ -33,7 +51,7 @@ interface CvcWord {
 export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBack }: Props) {
   const storybookQuery = useStorybook(unitId);
   const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
-  // 🔴 진입 안내 — 지시가 텍스트뿐이라 글 못 읽는 아이엔 통째로 무음이었다(쓰기 6종 공통).
+  // 🔴 진입 안내 — 이제 **지금 쓸 칸만 반짝이고 순서대로**(C→A→N) 쓴다 → "반짝이는 칸에 써 봐!"(한글 자음 쓰기와 동일).
   useEntryGuide(ENTRY_GUIDE.write, playAudio);
 
   const cvcWords = useMemo<CvcWord[]>(() => {
@@ -74,6 +92,10 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
   const [currentWordIdx, setCurrentWordIdx] = useState(0);
 
   const currentWordLetters = wordLetters[currentWordIdx] ?? [];
+  // 🔴 지금 쓸 글자 = 앞에서부터 첫 미완 — 이 칸만 캔버스로 열어 순서(C→A→N)를 강제한다.
+  const currentLetterIdx = currentWordLetters.findIndex(
+    (_, l) => !done.has(`${currentWordIdx}-${l}`)
+  );
   // 현재 단어의 모든 글자 완료 여부
   const currentWordDone = useMemo(
     () =>
@@ -248,27 +270,36 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
                 />
               )}
 
-              {/* 글자 행 — 🔴 앞 자음부터 낱말 전체를 쓴다(예전엔 자음이 주어진 셀이었다) */}
-              <div className="flex flex-row items-stretch justify-center gap-3 sm:gap-4">
-                {/* 통과 안 했으면 canvas, 통과 시 success 셀 */}
+              {/* 글자 행 — 🔴 **앞부터 순서대로**(C→A→N) 쓴다(2026-08-02 사용자: "아무거나 시작할 수
+                  있잖아"). 지금 쓸 칸만 반짝이는 캔버스, 이미 쓴 칸은 민트, 아직 차례 아닌 칸은 회색 대기 판.
+                  `items-start` — 캔버스 아래 진척물로 래퍼가 자라도 옆 칸과 글자 높이가 안 어긋난다. */}
+              <div className="flex flex-row items-start justify-center gap-3 sm:gap-4">
                 {currentWordLetters.map((letter, l) => {
-                  const letterDone = done.has(`${currentWordIdx}-${l}`);
-                  if (letterDone) {
+                  if (done.has(`${currentWordIdx}-${l}`)) {
                     return <DoneCell key={l} label={letter} />;
                   }
+                  // 지금 쓸 칸 = 앞에서부터 첫 미완 글자. 그 뒤 칸은 아직 차례가 아니다(안 써진다).
+                  if (l !== currentLetterIdx) {
+                    return (
+                      <div
+                        key={l}
+                        className={IDLE_TILE_CLASS}
+                        style={{ width: TILE, fontSize: TILE_FONT }}
+                      >
+                        {letter}
+                      </div>
+                    );
+                  }
                   return (
-                    <div key={l} className="w-[min(32vw,28vh,18rem)] shrink-0">
-                      {/* 🔴 이 화면만 `LetterWritingCanvas` + `threshold={20}` 이었다 — 세로 직선 두 개만
-                          그어도 `n` 이 통과했다(실측). 나머지 쓰기 12곳은 전부 `LetterFillCanvas` 99% 다.
-                          plan 에 키가 없어 아무도 못 열던 화면이라 기준 통일에서 빠져 있었다.
-                          🔴 숫자는 넘기지 않는다 — 기준은 `LetterFillCanvas.DEFAULT_THRESHOLD` 한 곳에만. */}
+                    // 🔴 기준은 `LetterFillCanvas.DEFAULT_THRESHOLD`(99%) 한 곳 — 숫자 안 넘긴다.
+                    <WriteCell key={l}>
                       <LetterFillCanvas
                         key={`${currentWordIdx}-${l}-${letter}`}
                         letter={letter}
                         onResult={makeHandleLetter(currentWordIdx, l)}
                         autoCheck
                       />
-                    </div>
+                    </WriteCell>
                   );
                 })}
               </div>

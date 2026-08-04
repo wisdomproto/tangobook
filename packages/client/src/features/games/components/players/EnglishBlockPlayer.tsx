@@ -275,10 +275,21 @@ function EnglishBlockPlayerInner({
    */
   const sayWordRef = useRef(sayWord);
   sayWordRef.current = sayWord;
+
+  // 🔴 진입 안내 음성 — "블록으로 단어를 만들어봐!" 를 한 번 낸다(사용자: 화면마다 멘트 통일).
+  //    알파벳 판은 낱말도 들려주므로 **안내가 끝난 뒤** 낱말이 나오게 순서를 맞춘다(겹침 방지).
+  const guidedRef = useRef(false);
+  const [guideDone, setGuideDone] = useState(false);
   useEffect(() => {
-    if (!isAlphabetRound) return;
+    if (guidedRef.current) return;
+    guidedRef.current = true;
+    playAudio('/sounds/voice/block-make-ko.mp3', () => setGuideDone(true));
+  }, [playAudio]);
+  useEffect(() => {
+    // 알파벳 판은 문제가 바뀌면 낱말을 한 번 들려준다 — 단, **첫 라운드는 안내가 끝난 뒤**.
+    if (!isAlphabetRound || !guideDone) return;
     void sayWordRef.current();
-  }, [currentIndex, isAlphabetRound]);
+  }, [currentIndex, isAlphabetRound, guideDone]);
 
   // 정답 자동 체크 — 모든 slot 이 target 과 일치하면 "확인" 버튼 없이 정답 처리.
   // 오답 분기는 자동 발동 X (사용자가 확인 누를 때만 wrong slot 표시).

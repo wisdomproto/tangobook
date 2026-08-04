@@ -26,13 +26,16 @@ vi.mock('@/features/phonics/components/WordFillCanvas', () => ({
   WordFillCanvas: ({
     syllables,
     onSyllableDone,
+    onComplete,
   }: {
     syllables: string[];
     onSyllableDone?: (s: string, i: number) => void;
+    onComplete?: () => void;
   }) => (
     <div>
       <span>{`0/${syllables.length}`}</span>
       <button onClick={() => onSyllableDone?.(syllables[0], 0)}>첫 글자 완성</button>
+      <button onClick={() => onComplete?.()}>낱말 완성</button>
     </div>
   ),
 }));
@@ -84,14 +87,34 @@ describe('ReviewWriteActivity', () => {
   });
 
   /**
-   * 🔴 진입 안내 — 이 화면은 그림 없는 카드(영어)면 **소리가 곧 문제**라, 안내 없이 열면
-   *    아이는 방금 난 소리가 "따라 써야 할 글자"인지 알 수 없다(검수에서 잡힌 결함).
+   * 🔴 진입 안내 **없음**(2026-08-02 사용자: "글자 쓰기에서 멘트 없애"). 예전엔 `write-start-ko`
+   *    ("반짝이는 칸에 써 봐!")를 냈는데, 이 화면엔 반짝이는 칸이 없어 멘트가 어긋났다. 캔버스에 뜬
+   *    글자가 곧 문제라 안내가 필요 없다. → 진입 시 `/sounds/voice/` 안내를 하나도 내지 않는다.
    */
-  it('들어오면 무엇을 하라는 안내부터 나온다', () => {
+  it('들어오면 안내 음성을 내지 않는다', () => {
     playAudio.mockClear();
     render(
       <ReviewWriteActivity unitId="u1" sources={SOURCES} onComplete={vi.fn()} onBack={vi.fn()} />
     );
-    expect(String(playAudio.mock.calls[0][0])).toContain('write-start-ko');
+    const guides = playAudio.mock.calls
+      .map((c) => String(c[0]))
+      .filter((u) => u.includes('/sounds/voice/'));
+    expect(guides).toHaveLength(0);
+  });
+
+  /**
+   * 🔴 낱말을 다 쓰면 **즉시 잠긴다** — 캔버스가 완성 글자로 바뀌어 소리 나는 동안 다시 못 쓴다
+   *    (사용자: "멘트 읽어주는 동안 그 글자 다시 쓰게 돼있어. 그냥 정답처리 해야지").
+   */
+  it('낱말을 완성하면 캔버스가 잠긴다(다시 못 씀)', () => {
+    render(
+      <ReviewWriteActivity unitId="u1" sources={SOURCES} onComplete={vi.fn()} onBack={vi.fn()} />
+    );
+    expect(screen.getByText('낱말 완성')).toBeTruthy();
+    fireEvent.click(screen.getByText('낱말 완성'));
+    // 캔버스(그리고 그 버튼들)가 사라지고 완성 글자 + ✓ 만 남는다.
+    expect(screen.queryByText('낱말 완성')).toBeNull();
+    expect(screen.queryByText('첫 글자 완성')).toBeNull();
+    expect(screen.getByText('✓')).toBeTruthy();
   });
 });

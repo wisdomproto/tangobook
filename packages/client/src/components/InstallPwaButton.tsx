@@ -6,16 +6,8 @@ import {
   promptInstall,
   isStandalone,
   isIos,
+  isTouchDevice,
 } from '@/lib/pwa-install';
-
-/** 모바일(터치) 기기인지 — beforeinstallprompt 가 없어도 설치 안내를 띄우기 위한 신호. */
-function isTouchDevice(): boolean {
-  if (typeof window === 'undefined') return false;
-  return (
-    !!window.matchMedia?.('(pointer: coarse)').matches ||
-    (typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0)
-  );
-}
 
 /**
  * 설치 affordance 를 보여줄지 여부 + iOS/네이티브프롬프트 플래그 (구독형).

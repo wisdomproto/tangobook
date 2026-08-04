@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { WordWritingData } from '@tangobook/shared';
@@ -26,6 +26,8 @@ function lettersOf(word: string): string[] {
 }
 
 const REST_MS = 450; // 마지막 글자 재생 완료 후 단어를 읽기 전 '쉬는' 간격
+/** 진입 안내 — 화면의 "글자를 따라 써봐" 텍스트에 맞는 음성(파닉스 쓰기 활동과 같은 정적 자산). */
+const WRITE_GUIDE_SOUND = '/sounds/voice/write-trace-ko.mp3';
 
 export function EnglishWordWritingPlayer({
   storybookId,
@@ -49,7 +51,21 @@ export function EnglishWordWritingPlayer({
   const gameStyle = useGameStyle(sourceStorybook);
 
   const currentItem = items[currentIndex];
-  const letters = useMemo(() => lettersOf(currentItem.word), [currentItem.word]);
+  // 🔴 Book 1 은 낱말 전체(apple)를 그리되 **첫 글자(a)만** 채점한다(`traceWord`) — 나머지는 회색 가이드로
+  //    남아 낱말이 화면에 보인다. traceWord 없으면(Book 2~) 낱말 전체를 쓴다.
+  const letters = useMemo(
+    () => (currentItem.traceWord ? lettersOf(currentItem.traceWord) : lettersOf(currentItem.word)),
+    [currentItem.word, currentItem.traceWord]
+  );
+
+  // 🔴 진입 안내 음성 — 화면엔 "글자를 따라 써봐" 글자가 있는데 음성이 없어 파닉스 쓰기 활동과
+  //    어긋났다(사용자: "어디서는 따라 써봐 멘트 나오고 어디서는 안 나오네"). 한 번만 재생한다.
+  const guidedRef = useRef(false);
+  useEffect(() => {
+    if (guidedRef.current) return;
+    guidedRef.current = true;
+    playAudio(WRITE_GUIDE_SOUND);
+  }, [playAudio]);
 
   const emitFinalResults = useCallback(
     (finalPassed: boolean[]) => {

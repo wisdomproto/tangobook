@@ -222,3 +222,54 @@ export function getKoreanSyllableUrl(text: string): Promise<string | undefined> 
   }
   return sharedKoMapPromise.then((m) => m.get(text));
 }
+
+// ── 영어 낱 토큰 조회 (한글 getKoreanSyllableUrl 과 대칭) ─────────────────────
+let sharedEnMap: Map<string, string> | null = null;
+let sharedEnMapPromise: Promise<Map<string, string>> | null = null;
+
+/**
+ * 서버 `downloadSound` 와 **같은 후보 순서**로 map 을 뒤진다 — 소리를 바꾸지 않고 왕복만 없앤다.
+ * 원본 → 소문자 → 같은 글자 압축('Aa'→'a') → 하이픈/아포스트로피 제거('yo-yo'→'yoyo').
+ * (우선순위 mod_phonics→mod_english 는 `buildPhonicsMap` 의 module 순서로 이미 반영.)
+ */
+export function lookupEnglishSound(map: Map<string, string>, text: string): string | undefined {
+  const cands = [text];
+  const lower = text.toLowerCase();
+  if (lower !== text) cands.push(lower);
+  const uniq = Array.from(new Set(lower));
+  if (uniq.length === 1 && uniq[0] !== lower) cands.push(uniq[0]);
+  const stripped = lower.replace(/[^a-z0-9]/g, '');
+  if (stripped && stripped !== text) cands.push(stripped);
+  for (const c of cands) {
+    const u = map.get(c);
+    if (u) return u;
+  }
+  return undefined;
+}
+
+/**
+ * 영어 낱글자/패턴/낱말 → R2 mp3 URL. **React 훅 밖에서도** 쓴다.
+ *
+ * 🔴 `e`·`an`·`cat` 은 라이브러리에 **이미 mp3 가 있다**(mod_phonics 3424 + mod_english 5288).
+ *    그런데 영어 파닉스는 그걸 안 보고 매번 서버 concat(~800ms 왕복)을 불렀다 — 한글은 진작
+ *    `getKoreanSyllableUrl` 로 직행하는데 영어만 빠져 있어, 글자 사냥 방해꾼·복습 낱글자 등
+ *    워밍 목록에서 새는 소리가 전부 늦게 났다. 공백 있는 이어읽기만 진짜 concat 이 필요하다.
+ */
+export function getEnglishPhonemeUrl(text: string): Promise<string | undefined> {
+  if (sharedEnMap) return Promise.resolve(lookupEnglishSound(sharedEnMap, text));
+  if (!sharedEnMapPromise) {
+    const cached = loadCachedLibrary();
+    sharedEnMapPromise = cached
+      ? Promise.resolve(buildPhonicsMap(cached, ['mod_phonics', 'mod_english']))
+      : fetchLibShared()
+          .then((lib) => {
+            saveCachedLibrary(lib);
+            return buildPhonicsMap(lib, ['mod_phonics', 'mod_english']);
+          })
+          .catch(() => new Map<string, string>());
+    void sharedEnMapPromise.then((m) => {
+      sharedEnMap = m;
+    });
+  }
+  return sharedEnMapPromise.then((m) => lookupEnglishSound(m, text));
+}

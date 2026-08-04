@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useActivitySound } from '../hooks/useActivitySound';
+import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import type { ReviewCardSource } from '../hooks/useReviewCardSources';
@@ -75,7 +76,10 @@ export function ReviewFlipMatchActivity({
     playFeedbackSound,
     playCorrectSequence,
     praiseVisible,
+    playAudio,
   } = useActivitySound({ unitId, language, prefix: 'review-flip' });
+  // 진입 안내 — 화면의 "같은 짝을 찾아봐!" 에 맞는 음성.
+  useEntryGuide(ENTRY_GUIDE.flipMatch, playAudio);
 
   const picked = useMemo(() => sources.slice(0, PAIRS), [sources]);
 
