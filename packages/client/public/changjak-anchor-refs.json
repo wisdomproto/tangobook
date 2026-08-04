@@ -1240,31 +1240,31 @@
     "neighbor": true
   },
   "a09": {
-    "slug": "changjak-darkcut",
+    "slug": "changjak-grainstroke",
     "refs": [
       {
-        "id": "klassen-hat",
-        "imageUrl": "https://covers.openlibrary.org/b/id/10207424-L.jpg",
-        "artist": "Jon Klassen",
-        "work": "This Is Not My Hat",
-        "award": "Kate Greenaway Medal 2014",
-        "year": 2014
+        "id": "tao-noodle",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2023/01/Xiaoweitao_Amusement-part-at-home_image2.jpg/original",
+        "artist": "Xiaowei Tao",
+        "work": "Amusement park at home",
+        "award": "WIA 2023 Highly Commended",
+        "year": 2023
       },
       {
-        "id": "haugomat-atravers",
-        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2019/images/premi/BRAW/A_travers_BRAW_BCBF_19.jpg",
-        "artist": "Tom Haugomat",
-        "work": "À travers",
-        "award": "BolognaRagazzi Fiction 특별언급 2019",
-        "year": 2018
+        "id": "lane-tribe",
+        "imageUrl": "https://covers.openlibrary.org/b/id/7442605-L.jpg",
+        "artist": "Lane Smith",
+        "work": "There Is a Tribe of Kids",
+        "award": "Kate Greenaway Medal 2017",
+        "year": 2017
       },
       {
-        "id": "rascal-chaperon",
-        "imageUrl": "https://covers.openlibrary.org/b/id/2144880-L.jpg",
-        "artist": "Rascal",
-        "work": "Le petit chaperon rouge",
-        "award": "🔴 수상 미검증 — 벨기에 Pastel 스테디셀러(시장 검증)",
-        "year": 2002
+        "id": "brooks-fox",
+        "imageUrl": "https://covers.openlibrary.org/b/id/2106916-L.jpg",
+        "artist": "Ron Brooks",
+        "work": "Fox",
+        "award": "Deutscher Jugendliteraturpreis 그림책 부문 수상 2004 (Fuchs)",
+        "year": 2000
       }
     ],
     "neighbor": true
@@ -2373,33 +2373,34 @@
     "neighbor": true
   },
   "a47": {
-    "slug": "changjak-g88",
+    "slug": "changjak-layerdark",
     "refs": [
       {
-        "id": "rogaar-lucy",
-        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_fiction_mention_1.jpg",
-        "artist": "Karst-Janneke Rogaar",
-        "work": "Lucy en Donker (Lucy and Dark)",
-        "award": "BolognaRagazzi 2026 Fiction",
-        "year": 2026
+        "id": "boyd-flashlight",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2015/FICTION/winner_flashlight_cover%20ok.jpg",
+        "artist": "Lizi Boyd",
+        "work": "Flashlight",
+        "award": "BolognaRagazzi Fiction 위너 2015",
+        "year": 2014
       },
       {
-        "id": "pinfold-blackdog",
-        "imageUrl": "https://covers.openlibrary.org/b/id/7372759-L.jpg",
-        "artist": "Levi Pinfold",
-        "work": "Black Dog",
-        "award": "Kate Greenaway Medal 2013",
-        "year": 2013
+        "id": "robinson-milo",
+        "imageUrl": "https://covers.openlibrary.org/b/id/15229799-L.jpg",
+        "artist": "Christian Robinson",
+        "work": "Milo Imagines the World",
+        "award": "CILIP Kate Greenaway Medal 숏리스트 2022",
+        "year": 2021
       },
       {
-        "id": "gwilym-tigers",
-        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2025/02/1-Yuliya-Gwilym.jpg/original",
-        "artist": "Yuliya Gwilym",
-        "work": "(호랑이와 유령 동물)",
-        "award": "WIA 2025 Highly Commended",
-        "year": 2025
+        "id": "keats-snowyday",
+        "imageUrl": "https://covers.openlibrary.org/b/id/10134995-L.jpg",
+        "artist": "Ezra Jack Keats",
+        "work": "The Snowy Day",
+        "award": "Caldecott Medal 1963",
+        "year": 1962
       }
-    ]
+    ],
+    "neighbor": true
   },
   "a50": {
     "slug": "changjak-keystone",

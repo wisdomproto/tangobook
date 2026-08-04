@@ -2,7 +2,7 @@
 
 > 대본 SSOT 는 `docs/changjak-books/a09.md`. **대본은 한 글자도 안 고친다**(결함은 아래 처방표에서 그림으로만 교정).
 > 규격 = `_ANCHOR-SPEC.md` · 겹침 대조 = `_ANCHORS.md`.
-> 🔴 **옛 앵커 `changjak-darkcut` 은 폐기했다.** 본문이 새로 쓰여 「배 한 척 = 빛 하나 = 바닥의 검은 자리가 한 조각 잘린다」가 통째로 사라졌다 — 그 앵커의 전제 넷(빛 개수·잘린 조각·검정 면적·배)이 지금 본문에 하나도 없다. 같은 id 라고 되살리지 마라.
+> 🔴 **옛 앵커 `darkcut` 은 폐기했다**(슬러그 전체는 `_ANCHORS.md` 이력에만 남긴다 — 여기 적으면 원장 생성기가 죽은 슬러그를 이 권의 것으로 읽는다). 본문이 새로 쓰여 「배 한 척 = 빛 하나 = 바닥의 검은 자리가 한 조각 잘린다」가 통째로 사라졌다 — 그 앵커의 전제 넷(빛 개수·잘린 조각·검정 면적·배)이 지금 본문에 하나도 없다. 같은 id 라고 되살리지 마라.
 > 🔴 **이미지 생성은 여기서 하지 않는다** · 🔴 **작가 실명 0**.
 > 🔴 **실행 순서**: ① 시트 셋(**LampRoom** → QuillKeeper → SillGull) → ② **p3**(불이 꺼진 쪽 = 획이 가장 적은 쪽) → ③ **p7**(불이 가장 큰 쪽 = 반대쪽 끝) → ④ **p2**(방 와이드 · p13 의 짝) → ⑤ 그 셋을 ref 로 나머지 → ⑥ **p13 은 반드시 p2 승인본을 붙여** 같은 구도로. 🔴 **p3 을 먼저 굽는다** — 「불이 없을 때 이 방이 어떻게 생겼나」가 안 서면 열세 쪽이 전부 뜻을 잃는다.
 
@@ -71,22 +71,22 @@ are and which way they run.
 
 RENDERING (finish hierarchy)
 Contour lines = 0; no form is enclosed by a line.
-STROKE DIRECTION IS THE WIND, AND ONE PAGE HAS ONE DIRECTION: on a windy page every stroke in the
-room lies the same way at the same angle - flame, smoke, ash, floor, quills - and on a still page
-every stroke stands upright. Where the gust has passed, the strokes stand up again and the wind is
-left only in the ash, at most 9 dots blown to one side.
+STROKE DIRECTION IS THE WIND, AND ONE PAGE HAS ONE DIRECTION: on a windy page every stroke - flame,
+smoke, ash, floor, quills - lies the same way at the same angle; on a still page every stroke stands
+upright. Where the gust has passed the strokes stand up again and the wind is left only in the ash,
+at most 9 dots blown to one side.
 THE ONE PLACE WHOSE DIRECTION DISAGREES with its surroundings is the floor behind the hedgehog's
 back, on p8 and p9 only: upright strokes in a laid-over field, the size of his own body.
 LIGHT IS STROKES AND NIGHT IS BARE BOARD: where no brush has been it is dark, and when the fire is
-out the only strokes anywhere in the room are the four window openings.
-FINISHED THINGS PER PAGE = 2 - the hedgehog and the one thing it touches or looks at; everything
-else is broken grain. DENSITY RATION = none.
+out the only strokes in the room are the four openings.
+FINISHED THINGS PER PAGE = 2 - the hedgehog and the one thing it touches or looks at; the rest is
+broken grain. DENSITY RATION = none.
 THE ROOM HOLDS FIVE THINGS AND NOTHING ELSE, EVER: iron brazier = one mass of grain + at most 5
 strokes · four square unglazed openings = 3 straight strokes each · one wooden box = at most 6
 strokes · the matchbox · the stair hole. Also: sea in an opening = one direction of laid strokes, 0
 waves · a boat = a gap in that grain plus 1 yellow mark, never a drawn boat · smoke = exactly 1
-stroke · sparks and blown ash = at most 9 dots · spent matches = at most 3 marks · wall = at most 7
-strokes a page · quills = 9-14 strokes, never individual hairs, lying or standing with the flame.
+stroke · spent matches = at most 3 marks · wall = at most 7 strokes a page · quills = 9-14 strokes,
+never individual hairs, lying or standing with the flame.
 
 PALETTE
 #14171C the board - this room's night, showing through every stroke and never covered · #D9822B fire
@@ -102,7 +102,7 @@ legs, no clothes, no shoes, no fingers. The hedgehog rises on his hind legs ONLY
 the gull talks but never leaves its sill and never uses a wing as a hand.
 
 CANVAS
-16:9 double-page spread. No letters, numbers, signage or symbols anywhere in this book.
+16:9 double-page spread. No letters, numbers or signage anywhere in this book.
 
 NOT (rendering only)
 - no digital slickness - airbrush, gradient, glow, halo round the flame, 3D CG, cel-shading,
@@ -471,21 +471,19 @@ the same weight - outside and inside are looking straight at each other.
 
 ```
 --- p13 — 이제 안 숨네 ---
-🔴 ATTACH THE APPROVED p2 AND REPEAT ITS FRAMING EXACTLY - same width, same brazier, same box, same
-sill. Only two things differ: where the strokes are, and where he stands.
-WIND: 0. Every stroke in the room stands upright, including the smoke off the embers.
-FIRE: burnt down to embers - a low mass of orange grain inside the brazier, warm and small.
+🔴 ATTACH THE APPROVED p2 AND REPEAT ITS FRAMING EXACTLY - same brazier, same box, same sill.
+WIND: 0. Every stroke stands upright, including the smoke off the embers.
+FIRE: burnt down to embers - a low mass of orange grain in the brazier, warm and small.
 SEAT: 🔴 squared up in front of the brazier on both feet, one step nearer it than on p11.
 CAMERA: wide, eye level, the p2 frame.
-SUBJECT: QuillKeeper standing on both flat feet facing the brazier, forepaws easy at his sides,
-back straight, quills standing, eyes half shut, mouth open a little to answer. Not curled, not
-hidden, and not in a new place. SillGull on the sill at frame right with his beak turned into the
-room, exactly as on p2.
+SUBJECT: QuillKeeper standing on both flat feet facing the brazier, forepaws easy at his sides, back
+straight, quills standing, eyes half shut, mouth open a little to answer. Not curled and not hidden.
+SillGull on the sill at frame right, beak turned into the room, exactly as on p2.
 SETTING: 🔴 PALE #E9E4D6 GRAIN COMES IN THROUGH ALL FOUR OPENINGS AND REACHES EVERY PART OF THE
 ROOM, INCLUDING THE FLOOR BEHIND THE BOX. For twelve pages that patch was bare board; now it has
 strokes in it and is empty. Far out through one opening, one small boat mark going away. Empty
-matchbox and three spent matches on the floor.
+matchbox and three spent matches.
 FINISH: 2 - QuillKeeper and the embers. Quadruped grade, no clothes, no fingers. 0 lettering.
 TONE: 🔴 the first page with worked grain in every corner. Put it beside p2 and two things have
-changed: the floor behind the box has strokes on it, and he is standing where he used to hide.
+changed: the floor behind the box has strokes on it, and he stands where he used to hide.
 ```

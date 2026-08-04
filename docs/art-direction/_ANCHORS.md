@@ -8,14 +8,14 @@
 ## 클러스터별
 
 - **C1** (11) — b01 · b08 · b12 · b14 · c15 · d15 · e01 · f07 · f11 · g08 · h06
-- **C2** (11) — c01 · c23 · d08 · e03 · e07 · e11 · e12 · f01 · f05 · g05 · g06
+- **C2** (12) — a09 · c01 · c23 · d08 · e03 · e07 · e11 · e12 · f01 · f05 · g05 · g06
 - **C3** (10) — a03 · a08 · a13 · a44 · b02 · c03 · c60 · d18 · g03 · g42
 - **C4** (11) — a45 · b04 · b19 · b53 · d04 · e120 · f02 · f10 · g04 · h01 · h02
 - **C5** (11) — a10 · a11 · a97 · b05 · c05 · c06 · d05 · e10 · f03 · h03 · h50
-- **C6** (10) — a02 · a09 · a12 · a47 · b06 · c37 · d09 · e09 · g88 · h08
+- **C6** (8) — a02 · a12 · b06 · c37 · d09 · e09 · g88 · h08
 - **C7** (9) — a05 · b09 · d01 · d03 · d07 · d23 · e02 · g02 · h05
 - **C8** (9) — a75 · b10 · c02 · c04 · c10 · c12 · c39 · f06 · f08
-- **C9** (11) — a14 · a50 · b13 · c08 · d10 · d12 · e04 · e05 · f04 · g01 · h10
+- **C9** (12) — a14 · a47 · a50 · b13 · c08 · d10 · d12 · e04 · e05 · f04 · g01 · h10
 
 ## 앵커 표
 
@@ -25,7 +25,7 @@
 | a03 | C3 | `changjak-gelato` | 실크스크린 논리의 평면 잉크 4도, 겹친 데서 다섯째 색이 생기고, 흰 컵은 잉크가 안 닿은 맨 종이다. 앵커 슬러그 changjak-gelato — 신규 민팅. | #F4F0E6 #F0C13A #7FA054 #D2402B | RENDERING·DISTANCES·FACE·BODY |
 | a05 | C7 | `changjak-nightboard` | 어두운 청회 종이 위 목탄·소프트파스텔, 밝은 것은 전부 목탄을 지우개로 들어낸 자리(감산)이고, 소리를 끄려면 그 자리를 다시 문질러 덮는다. 앵커 슬러그 changjak-nightboard — 신규 민팅 · g02 와 공유 | #343B45 #C6A469 #191D23 #6C7683 | RENDERING·BODY·FACE·SHEET |
 | a08 | C3 | `changjak-floursift` | 꿀빛 나무판 위에 체로 뿌린 흰 가루가 화면의 흰 것 전부이고, 마스크로 가린 손바닥 두 자리에만 안 앉아 판이 드러난다. 앵커 슬러그 changjak-floursift — C3 신규 민팅. | #A9BFC4 #3A6EA5 #C79A5C #F7F4ED | FACE·FUR·CLOTHES·FLOUR |
-| a09 | C6 | `changjak-darkcut` | 가는 마른 갈필 획이 화면의 전부이고 윤곽선이 0이다. 획의 방향이 바람이고, 한 쪽에는 방향이 하나뿐이다 — 불꽃·연기·재·바닥결·가시가 다 같은 각도로 눕는다. 그리고 획이 있는 자리가 빛, 붓이 안 간 자리가 밤이다. | #E9E4D6 #14171C #D9822B #2C4368 | CLOTHES·WIND·FIRE·SEAT |
+| a09 | C2 | `changjak-grainstroke` | 가는 마른 갈필 획이 화면의 전부이고 윤곽선이 0이다. 획의 방향이 바람이고, 한 쪽에는 방향이 하나뿐이다 — 불꽃·연기·재·바닥결·가시가 다 같은 각도로 눕는다. 그리고 획이 있는 자리가 빛, 붓이 안 간 자리가 밤이다. | #E9E4D6 #14171C #D9822B #2C4368 | CLOTHES·WIND·FIRE·SEAT |
 | a10 | C5 | `changjak-platform` | 매 쪽 같은 자리의 승강장 프레임(세로 셋이 화면을 늘 같은 자리에서 세 칸으로 자르고, 위엔 손으로 판 처마 장식, 아래엔 눈 띠 한 줄이 세 칸을 관통한다) + 그 안은 불투명 평칠. 앵커 슬러그 changjak-platform — 신규 | #F2F1EC #93A2B4 #566374 #2C3A4E | RENDERING·FACE·COAT·BUILD |
 | a11 | C5 | `changjak-tilefield` | 붉은 기와를 손으로 찍은 반복 도장 필드(꽉 찼는데 정보 0)로 깔고, 그 위에 늘어나는 눈만 손으로 그린다. 앵커 슬러그 changjak-tilefield — C5 신규 민팅. | #B3603C #C8262A #EFEAE0 #1D1B1A | FACE·PLUMAGE·FEET·ALL |
 | a12 | C6 | `changjak-liftcolor` | 젖은 회색 단색조가 종이를 한 뼘도 안 남기고 덮고, 채도를 가진 것은 「지금 들려 있는 것」뿐이다 — 땅·선반·앞발에 닿는 순간 그 물건은 회색이 된다. 앵커 슬러그 changjak-liftcolor — 신규 민팅(배정표 지정, 변경 없음). | #B4B0A8 #6C737A #3E464C #E8B93C | BODY·FACE·BUILD·CLOTHES |
@@ -33,7 +33,7 @@
 | a14 | C9 | `changjak-cobblepairs` | 손으로 찍은 포석 판 + 가위로 오려 붙인 이웃 실루엣 열둘(내부 정보 0) + 주인공 둘만 손으로 그린다. 앵커 슬러그 changjak-cobblepairs — 신규 민팅(배정표 지정, 변경 없음). | #B9B3A6 #9E5344 #5F5E58 #8B857A | FACE·BUILD·SHEET·GROUND |
 | a44 | C3 | `changjak-sandscrape` | 마른 회백 모래층을 긁어 아래 젖은 짙은 층을 드러낸다. 화면의 모든 선이 파인 자국이고, 얹힌 것은 호박뿐이다. | #D8D2C6 #6E6355 #34434A #E0A32E | FACE·ACTING·GRADE·SHEET |
 | a45 | C4 | `changjak-flatplate` | 하드에지 평면 색면 · 음영 0. 비친 것은 초록 물 평면 안에 놓인 창백한 도형 한 장이고, 그 도형이 온전한가 · 늘어났나 · 조각났나 · 없나 · 널판에 덮였나가 이 책의 전부다. | #21372E #8C7C68 #F6F4EE #2C4A3C | BODY·FACE·REFLECT·WHITE |
-| a47 | C6 | `changjak-g88` | 무늬 없는 반투명 판을 겹쳐 붙여 어둠을 만든다. 겹수가 곧 값이다. 그런데 아홉 쪽 동안 한 장도 안 얹힌다 — 해가 안 내려가서 화면이 계속 맨 지지면이고, 겹은 새끼 개가 문을 밀 때 비로소 쌓이기 시작해 그 뒤로는 한 번도 안 줄어 | #2A2320 #F4F2EA #4A5670 #E3E6E0 | BODY·BUILD·SHADE·SHEETS |
+| a47 | C9 | `changjak-layerdark` | 무늬 없는 반투명 판을 겹쳐 붙여 어둠을 만든다. 겹수가 곧 값이다. 그런데 아홉 쪽 동안 한 장도 안 얹힌다 — 해가 안 내려가서 화면이 계속 맨 지지면이고, 겹은 새끼 개가 문을 밀 때 비로소 쌓이기 시작해 그 뒤로는 한 번도 안 줄어 | #2A2320 #F4F2EA #4A5670 #E3E6E0 | BODY·BUILD·SHADE·SHEETS |
 | a50 | C9 | `changjak-keystone` | 오린 종이. 어느 조각도 다른 조각 위에 안 겹치고 모서리끼리만 맞닿아 서로 기대어 선다. 조각 사이로 비치는 지지면 한 줄이 이 책의 유일한 선이고, 그 한 줄이 실낱 → 손가락 → 손바닥 → 손가락 → 실낱으로 갔다 돌아온다. 앵커 슬러그 ch | #5B6E7E #F1E9D8 #DFB6A9 #4A3323 | BODY·EYES·BUILD·FACE |
 | a75 | C8 | `changjak-ridgewash` | 젖은 남색 워시가 위에서 아래로 한 방향으로 내려오며 능선의 노란 띠를 먹는다. 마른 획은 앞발 옆 지푸라기뿐이다. 앵커 슬러그 changjak-ridgewash — C8 신규 민팅. | #E0B65C #C8A768 #A9812F #1E2A44 | FACE·COAT·FLEECE·BELL |
 | a97 | C5 | `changjak-lavender` | 손으로 찍은 반복 스텐실 라벤더 판(=밀도는 높은데 정보는 0인 필드) + 그 위에 손으로 그린 인물 + 화면에서 순백 불투명은 비누 거품뿐, 따뜻한 채도는 꽃가루뿐. 앵커 슬러그 changjak-lavender — 신규 민팅. | #E9E6E4 #4A4058 #D8CFC2 #B9AE9E | COMPOSITION·CHARACTER·FACE·FUR |

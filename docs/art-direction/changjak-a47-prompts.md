@@ -2,7 +2,7 @@
 
 > 대본 SSOT 는 `docs/changjak-books/a47.md`. **대본은 한 글자도 안 고친다**(결함은 아래 처방표에서 그림으로만 교정).
 > 규격 = `_ANCHOR-SPEC.md` · 겹침 대조 = `_ANCHORS.md`.
-> 🔴 **옛 앵커(슬러그 `changjak-g88` 의 a47 변주)는 폐기했다.** 제목이 「해가 안 지면 좋겠어」로 바뀌고 본문이 새로 쓰이면서 **붉은 바위가 통째로 사라졌다** — 로즈 면·`GLOW` 미터·「밝은데 아무 도움이 안 되는 밝음」이 전부 그 바위에 매달려 있었다. 같은 id 라고 되살리지 마라.
+> 🔴 **옛 앵커(`g88` 변주)는 폐기했다**(슬러그 전체는 여기 안 적는다 — 원장 생성기가 죽은 슬러그를 이 권의 것으로 읽는다). 제목이 「해가 안 지면 좋겠어」로 바뀌고 본문이 새로 쓰이면서 **붉은 바위가 통째로 사라졌다** — 로즈 면·`GLOW` 미터·「밝은데 아무 도움이 안 되는 밝음」이 전부 그 바위에 매달려 있었다. 같은 id 라고 되살리지 마라.
 > 🔴 **이미지 생성은 여기서 하지 않는다** · 🔴 **작가 실명 0**.
 > 🔴 **실행 순서**: ① 시트 넷(**FoldSet** → PupKit → OldDog → FlockKit) → ② **p6**(겹이 0인 쪽 = 해가 멈춘 쪽) → ③ **p14**(4겹 = 반대쪽 끝) → ④ **p1**(무대 고정 · p3 의 짝) → ⑤ 그 셋을 ref 로 나머지. 🔴 **p6 을 먼저 굽는다** — 「아무것도 안 얹은 화면」이 어떻게 생겼는지가 안 서면 마지막 쪽의 검정이 그냥 밤이 된다.
 
@@ -73,20 +73,19 @@ RENDERING
 THE DIRECTION OF THIS VOLUME: FOR NINE PAGES NOTHING IS LAID AT ALL. The sun will not go down, so
 p6-p10 are bare support with no sheet anywhere except one small piece, and the eye has nowhere to
 rest. Sheets begin only when the pup pushes the gate, and from there the count ONLY GOES UP.
-TWO SHEETS, TWO JOBS, NEVER MIXED. NIGHT SHEET #2A2320, warm brown-black, translucent, plain: INSIDE
-THE FOLD ONLY, and the only sheet that stacks - 0 = bare support #F4F2EA · 2 = gate half open · 3 =
-gate pushed to · 4 = the shut fold on the last page, the darkest thing in the book. BLUE SHADE SHEET
+TWO SHEETS, TWO JOBS, NEVER MIXED. NIGHT SHEET #2A2320, warm brown-black, translucent: INSIDE THE
+FOLD ONLY, and the only sheet that stacks - 0 = bare support #F4F2EA · 2 = gate half open · 3 = gate
+pushed to · 4 = the shut fold on the last page, the darkest thing in the book. BLUE SHADE SHEET
 #4A5670, cool blue: OUTDOORS ONLY, ALWAYS EXACTLY ONE LAYER, NEVER STACKED - a shadow is one sheet
 whether it covers a whole meadow or a pawful of stone.
-EVERY SHEET SHOWS ITS SCISSOR OR TORN EDGE where it crosses the one below, so a child can count the
-steps, and THE SHEETS CARRY NO PATTERN AT ALL.
+EVERY SHEET SHOWS ITS SCISSOR OR TORN EDGE where it crosses the one below, and THE SHEETS CARRY NO
+PATTERN AT ALL.
 THE SAME SMALL PIECE: the shade under a standing animal at noon is one blue piece the size of its
-own feet, and it is THE IDENTICAL PIECE IN THE IDENTICAL PLACE on p6, p7, p8, p9 and p10.
+own feet, and it is THE IDENTICAL PIECE IN THE IDENTICAL PLACE on p6-p10.
 THE SUN is a disc of BARE SUPPORT cut into the sky shape, showing only by its scissor edge, pinned
-at top centre from p6 and never moving again. THE ONLY RULED STRAIGHT EDGES BELONG TO THE GATE;
-everything else is cut freehand.
+at top centre from p6 and never moving again. THE ONLY RULED STRAIGHT EDGES BELONG TO THE GATE.
 Objects are ONE OPAQUE CUT SHAPE EACH, laid under the sheets; nothing is shaded, outlined, textured
-or brushed. Push a thing back by LAYING ONE MORE SHEET ON IT or by cutting it smaller, never by
+or brushed. Push a thing back by LAYING ONE MORE SHEET ON IT or cutting it smaller, never by
 blurring. FINISHED THINGS PER PAGE = 2 (the pup + the one thing it touches or looks at). DENSITY
 RATION = none.
 THE FRAME HOLDS FIVE THINGS AND NOTHING ELSE: dry-stone wall = 1 shape + at most 5 stone cuts · the
@@ -97,18 +96,17 @@ wool curls · dry grass = at most 6 strips.
 PALETTE: support and sun #F4F2EA · night sheet #2A2320, the only one that stacks · blue shade sheet
 #4A5670, always one layer · pale sky #E3E6E0 · meadow #7C8A55 · stone and planks #BCB2A0 · pup
 #C9A97E · old dog #8C7A63 · sheep #EFEAE0. No red, orange, yellow or black paint anywhere; the
-warmth of the last page is four layers of the same brown-black sheet, never a new colour.
+warmth of the last page is four layers of one brown-black sheet, never a new colour.
 
-CHARACTER DESIGN LANGUAGE: every animal is a cut shape that must read from silhouette alone; at
-thumbnail the pup is a TALL THIN shape and the old dog a LOW HEAVY one. FIXED GRADE, fourteen pages:
-all QUADRUPEDS, no clothes, no collars, no fingers; the pup pushes the gate with nose and shoulder,
-never with a paw.
+CHARACTER DESIGN LANGUAGE: at thumbnail the pup is a TALL THIN shape and the old dog a LOW HEAVY
+one. FIXED GRADE, fourteen pages: all QUADRUPEDS, no clothes, no collars, no fingers; the pup pushes
+the gate with nose and shoulder, never with a paw.
 
-CANVAS: 16:9 double-page spread. One patch of ground in front of one gate. No lettering or numerals.
+CANVAS: 16:9 double-page spread. No lettering or numerals.
 
 NOT: no digital slickness - airbrush, gradient, glow, 3D CG, cel-shading, photographic or a texture
-filter (the sheets must be REAL cut paper) / no painted black and no brushed shadow - dark is layers
-/ ONE SHEET THICK: no wool, felt fuzz, stitching or needle felting / nothing blurred or doubled.
+filter (the sheets must be REAL cut paper) / no painted black and no brushed shadow - dark is
+layers / ONE SHEET THICK: no wool, felt fuzz or stitching / nothing blurred or doubled.
 ```
 
 ---
@@ -517,24 +515,20 @@ TONE: white outside, brown-black inside, and the join is a straight cut down the
 
 ```
 --- p14 — 깜깜해야 잠이 폭 와요 ---
-🔴 BAKE THIS PAGE SECOND, right after p6. The two of them are the ends of this book's count.
-SHADE: outdoors, out of frame - the day outside is only readable through the planks.
-SHEETS: 🔴 4 - the deepest in the book, the whole inside of the fold laid four times over, warm
-brown-black, and every added sheet still showing its own scissor edge.
-GATE: shut. Thin strips of BARE SUPPORT come through the gaps between the planks and lie across the
-floor.
+🔴 BAKE THIS PAGE SECOND, right after p6. The two are the ends of this book's count.
+SHADE: out of frame - the day outside is readable only through the planks.
+SHEETS: 🔴 4, the deepest in the book: the whole inside of the fold laid four times over, every added
+sheet still showing its scissor edge.
+GATE: shut. Thin strips of BARE SUPPORT come through the gaps between the planks.
 CAMERA: wide, eye level, from inside; 🔴 the middle of the frame is one mass of four-layer dark and
 the bodies in it are shapes, not portraits.
 SUBJECT: PupKit posture 7 LYING on the dry grass, chin on both forepaws, 🔴 this time both eyes fully
-shut, his body half dissolved into the layers so only the line of his back reads. Beside him OldDog
-plate 6, lying on his side with his eyes shut and his head turned a little toward the pup, mouth
-slightly open. Around them FlockKit LYING, at most 5, knees folded, all under the same sheets.
-SETTING: 🔴 ONE OF THE PALE STRIPS FROM THE PLANK GAPS STOPS JUST SHORT OF THE PUP'S FOREPAWS - the
-only thing on the page saying it is still broad daylight outside. Dry grass at most 6 strips, stone
-wall at most 5 cuts. 0 stars, 0 lamps, 0 moon.
-FINISH: 2 - the pup's shut eye and the pale strip that stops at his paws. 🔴 The four-layer dark is
-the largest thing in the frame and is NOT one of the two. Quadrupeds, no clothes, no fingers. 0
-lettering.
-TONE: 🔴 the first restful page in fourteen. Warm from four layers of the same brown-black sheet,
-never from a new colour, and dark enough that a child can see why they are all asleep in it.
+shut, half dissolved into the layers so only the line of his back reads. Beside him OldDog plate 6
+on his side, eyes shut, head turned a little toward the pup. Around them FlockKit LYING, at most 5,
+knees folded, under the same sheets.
+SETTING: 🔴 ONE PALE STRIP FROM THE PLANK GAPS STOPS JUST SHORT OF THE PUP'S FOREPAWS - the only
+thing saying it is still broad daylight outside. 0 stars, 0 lamps.
+FINISH: 2 - the pup's shut eye and the strip that stops at his paws. 🔴 The four-layer dark is the
+largest thing in the frame and is NOT one of the two. Quadrupeds, no clothes. 0 lettering.
+TONE: 🔴 the first restful page in fourteen, dark enough that a child can see why they are asleep.
 ```
