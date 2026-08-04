@@ -6,6 +6,10 @@ import { ActivityShell } from '../components/ActivityShell';
 import { useActivitySound } from '../hooks/useActivitySound';
 import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
+import {
+  patternLabel as makePatternLabel,
+  patternHighlightRanges,
+} from '../lib/english-phonics-units';
 
 export interface FamilyWord {
   word: string;
@@ -16,13 +20,31 @@ export interface FamilyWord {
 
 interface Props {
   unitId: string;
-  /** 표기 라벨 — `-ake` / `bl-` / `ee`. 헤더에 크게 띄운다. */
-  patternLabel: string;
-  /** 낱말 안에서 공통 철자가 앉는 자리 `[start, end)`. */
-  highlightOf: (word: string) => [number, number];
+  /** 철자 패턴 — `_ame`·`bl_`·`ee`. 라벨·강조를 이걸로 파생한다. */
+  pattern: string;
   words: ReadonlyArray<FamilyWord>;
   onMarkComplete: () => void;
   onBack: () => void;
+}
+
+/** 글자별로 강조 — 범위 안이면 코랄, 밖이면 회색. 🔴 매직 e 는 모음·끝 e 두 곳이 떨어져 있어 범위가 둘이다. */
+function Highlighted({
+  text,
+  ranges,
+}: {
+  text: string;
+  ranges: ReadonlyArray<readonly [number, number]>;
+}) {
+  const on = (i: number) => ranges.some(([s, e]) => i >= s && i < e);
+  return (
+    <>
+      {[...text].map((ch, i) => (
+        <span key={i} className={on(i) ? 'text-coral-500' : 'text-ink-400'}>
+          {ch}
+        </span>
+      ))}
+    </>
+  );
 }
 
 /**
@@ -35,14 +57,9 @@ interface Props {
  *
  * 다 들으면 칭찬 + 완료. 그 뒤엔 아무 낱말이나 눌러 다시 듣는다(자유놀이).
  */
-export function WordFamilyLearnActivity({
-  unitId,
-  patternLabel,
-  highlightOf,
-  words,
-  onMarkComplete,
-  onBack,
-}: Props) {
+export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete, onBack }: Props) {
+  const label = makePatternLabel(pattern);
+  const labelRanges = patternHighlightRanges(label, pattern);
   const { say, rest, playCorrectSequence, praiseVisible, playAudio } = useActivitySound({
     unitId,
     language: 'english',
@@ -138,19 +155,18 @@ export function WordFamilyLearnActivity({
           <div
             className="text-5xl sm:text-6xl md:text-7xl font-black font-display"
             style={{
-              color: '#FF7A3C',
               WebkitTextStroke: 'clamp(2px, 0.4vh, 4px) white',
               paintOrder: 'stroke fill',
             }}
           >
-            {patternLabel}
+            <Highlighted text={label} ranges={labelRanges} />
           </div>
           <p className="mt-1 text-lg sm:text-xl font-black text-ink-600">낱말을 눌러 들어봐!</p>
         </div>
 
         <div className="flex flex-col gap-3 sm:gap-4 w-full max-w-2xl">
           {words.map((w) => {
-            const [s, e] = highlightOf(w.word);
+            const ranges = patternHighlightRanges(w.word, pattern);
             const done = heard.has(w.word);
             return (
               <motion.button
@@ -174,11 +190,9 @@ export function WordFamilyLearnActivity({
                     🔊
                   </span>
                 )}
-                {/* 🔴 공통 철자만 코랄 — 나머지는 잉크. "같은 자리에 같은 글자" 가 눈에 들어온다. */}
+                {/* 🔴 강조 글자만 코랄 — 매직 e 는 모음·끝 e 두 곳(가운데 자음은 회색), 그 외는 패턴 한 덩어리. */}
                 <span className="flex-1 text-left text-5xl sm:text-6xl font-black font-display lowercase tracking-tight">
-                  <span className="text-ink-400">{w.word.slice(0, s)}</span>
-                  <span className="text-coral-500">{w.word.slice(s, e)}</span>
-                  <span className="text-ink-400">{w.word.slice(e)}</span>
+                  <Highlighted text={w.word} ranges={ranges} />
                 </span>
                 {done && (
                   <span className="absolute -top-2 -right-2 inline-flex items-center justify-center w-8 h-8 rounded-full bg-success text-white text-lg font-black shadow-pop ring-2 ring-white">

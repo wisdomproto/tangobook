@@ -325,6 +325,40 @@ export function patternHighlight(word: string, pattern: string): [number, number
   return i >= 0 ? [i, i + core.length] : [0, 0];
 }
 
+const VOWELS = new Set(['a', 'e', 'i', 'o', 'u']);
+
+/**
+ * 매직 e 패턴인가 — `_ake`·`_ame`·`_ine`·`_ope`·`_ube` … `_` + **모음+자음+e**(끝소리 라임, 코어 3글자).
+ * 🔴 Book 3 전용. Book 4 블렌드(`bl_`)·Book 5 모음팀(`ee`)은 붙어 있는 한 덩어리라 여기 안 걸린다.
+ */
+export function isMagicEPattern(pattern: string): boolean {
+  if (!pattern.startsWith('_')) return false;
+  const core = pattern.slice(1).toLowerCase();
+  return core.length === 3 && VOWELS.has(core[0]) && !VOWELS.has(core[1]) && core[2] === 'e';
+}
+
+/**
+ * 강조할 글자 자리들(여러 곳 가능).
+ * 🔴 **매직 e = [모음, 끝 e] 두 곳**(사용자: "am+e→ame, 끝 e가 모음을 길게"). 가운데 자음은 회색.
+ *    game → a·e 만 코랄. 통째로 "ame" 를 칠하면 그 e 의 역할(매직)이 안 보인다.
+ * 그 외(블렌드·모음팀·CVC 라임)는 붙어 있는 한 덩어리 → 범위 하나.
+ */
+export function patternHighlightRanges(word: string, pattern: string): [number, number][] {
+  if (isMagicEPattern(pattern)) {
+    const w = word.toLowerCase();
+    const core = pattern.slice(1).toLowerCase();
+    if (!w.endsWith(core)) return [];
+    const vowel = w.length - core.length; // 라임 첫 글자 = 모음
+    const magicE = w.length - 1; // 끝 글자 = 매직 e
+    return [
+      [vowel, vowel + 1],
+      [magicE, magicE + 1],
+    ];
+  }
+  const [s, e] = patternHighlight(word, pattern);
+  return s === e ? [] : [[s, e]];
+}
+
 /**
  * 🔴 **Book 3·4·5 익히기 = 패턴마다 배우기 + 써보기**(2026-07-31 사용자 "북2 참고해서 익히기 늘려").
  *    Book 2 가 VC 패턴마다 `배우기`+`써보기` 를 두듯, 여기도 커리큘럼 패턴(`_ake`·`bl_`·`ee`)마다

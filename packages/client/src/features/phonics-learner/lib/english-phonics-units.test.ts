@@ -3,7 +3,38 @@ import {
   getAllEnglishUnits,
   getEnglishActivityPlan,
   patternHighlight,
+  isMagicEPattern,
+  patternHighlightRanges,
 } from './english-phonics-units';
+
+describe('매직 e = 모음 + 끝 e 두 곳 강조', () => {
+  it('Book 3 매직 e(`_ame`·`_ake`·`_ube`)만 매직으로 본다', () => {
+    expect(isMagicEPattern('_ame')).toBe(true);
+    expect(isMagicEPattern('_ake')).toBe(true);
+    expect(isMagicEPattern('_ube')).toBe(true);
+    // Book 2 CVC 라임 · Book 4 블렌드 · Book 5 모음팀은 아니다
+    expect(isMagicEPattern('_an')).toBe(false); // 끝 e 없음
+    expect(isMagicEPattern('bl_')).toBe(false);
+    expect(isMagicEPattern('ee')).toBe(false);
+    expect(isMagicEPattern('_ng')).toBe(false);
+  });
+
+  it('매직 e 는 모음과 끝 e 두 자리, 가운데 자음은 뺀다 — game → a·e', () => {
+    const r = patternHighlightRanges('game', '_ame');
+    expect(r).toEqual([
+      [1, 2], // a
+      [3, 4], // 끝 e
+    ]);
+    // m(2) 은 강조 안 됨
+    expect(r.some(([s, e]) => 2 >= s && 2 < e)).toBe(false);
+  });
+
+  it('매직 e 아닌 패턴은 붙어 있는 한 덩어리(범위 하나)', () => {
+    expect(patternHighlightRanges('black', 'bl_')).toEqual([[0, 2]]); // bl
+    expect(patternHighlightRanges('feet', 'ee')).toEqual([[1, 3]]); // ee
+    expect(patternHighlightRanges('ring', '_ng')).toEqual([[2, 4]]); // ng
+  });
+});
 
 describe('patternHighlight — 낱말 안 공통 철자 자리', () => {
   it('끝소리 `_ake` 는 뒤를, 앞소리 `bl_` 는 앞을, 포함 `ee` 는 나온 위치를 잡는다', () => {
