@@ -77,7 +77,7 @@ describe('english phonics units', () => {
     }
   });
 
-  it('Book 3·4·5 = 패턴마다 배우기 하나(써보기 내장) + 게임 3종 (2026-08-04)', () => {
+  it('Book 3·4·5 = 패턴마다 배우기 하나(써보기 내장) + 게임 4종 (2026-08-04)', () => {
     for (const u of units.filter((x) => x.levelIndex >= 3 && !x.isReview)) {
       const acts = getEnglishActivityPlan(u.id).activities;
       const learn = acts.filter((a) => a.section === 'learn');
@@ -89,9 +89,11 @@ describe('english phonics units', () => {
         expect(learn[i].kind).toBe('word-family-learn');
         expect(learn[i].pattern).toBe(u.patterns[i]);
       }
+      // 🔴 낱말 쓰기는 learn(패턴별 써보기)이 아니라 play 게임으로만 — Book 2 와 같은 4종 구성.
       expect(learn.some((a) => a.kind === 'game-word-writing')).toBe(false);
       expect(play.map((a) => a.kind)).toEqual([
         'game-english-block',
+        'game-word-writing',
         'game-connect-dots',
         'game-line-matching',
       ]);

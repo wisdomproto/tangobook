@@ -375,6 +375,7 @@ function makeWordUnitPlan(unit: EnglishUnitSummary): ActivityPlan {
   }
   activities.push(
     { key: 'game-english-block', order: order++, kind: 'game-english-block', section: 'play', title: '블록 게임', emoji: '🧩', required: false }, // prettier-ignore
+    { key: 'game-word-writing', order: order++, kind: 'game-word-writing', section: 'play', title: '낱말 쓰기', emoji: '🖍️', required: false }, // prettier-ignore
     { key: 'game-dots', order: order++, kind: 'game-connect-dots', section: 'play', title: '낱말 그리기', emoji: '🔵', required: false }, // prettier-ignore
     { key: 'game-line-matching', order, kind: 'game-line-matching', section: 'play', title: '그림 짝 찾기', emoji: '🔗', required: false } // prettier-ignore
   );

@@ -85,26 +85,16 @@ export function VocabularyStudyContent({
 
   return (
     <>
-      {/* 단어 sub-section — 시안 따라 큰 헤딩 + 큰 카드. 탭하면 단어 상세 모달. */}
-      <section className="mb-4">
-        <div className="flex items-baseline gap-3 mb-2 px-1">
-          <h2 className="text-2xl lg:text-3xl font-black font-display text-ink-900 flex items-center gap-2">
-            <span>📚</span>
-            <span>{t('study.wordsHeading')}</span>
-          </h2>
-          <span className="text-sm font-bold text-ink-500">{t('study.wordsHint')}</span>
-        </div>
-        <WordPreviewBanner words={unit.words} lang={lang} onWordClick={setSelectedWord} />
-      </section>
-
-      {/* 게임 sub-section — 시안 따라 큰 헤딩 + 큰 카드 grid 2x2 */}
-      <section>
+      {/* 🔴 게임이 먼저다(2026-08-04) — 이 화면의 목적은 게임이고 단어 카드는 참고다. 예전엔
+          두 섹션 헤딩 규격이 똑같은 채로 단어가 위에 있어서, 375px 접힘선(하단 탭바 때문에 812 가
+          아니라 755px) 위 57% 를 헤더·책 정보·단어가 먹고 게임 카드는 4장 중 2장만 보였다. */}
+      <section className="mb-6">
         <div className="flex items-baseline gap-3 mb-2 px-1">
           <h2 className="text-2xl lg:text-3xl font-black font-display text-ink-900 flex items-center gap-2">
             <span>🎮</span>
             <span>{t('study.gamesHeading')}</span>
           </h2>
-          <span className="text-sm font-bold text-ink-500">{t('study.gamesHint')}</span>
+          <span className="text-sm font-bold text-ink-700">{t('study.gamesHint')}</span>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
           {games.map((g, i) => (
@@ -112,11 +102,26 @@ export function VocabularyStudyContent({
               key={g.id}
               game={g}
               index={i}
+              // 🔴 「첫 번째」가 아니라 「첫 번째 **가능한**」 카드가 CTA — 1번이 비활성(데이터 없음)인
+              //    단원에서 index===0 으로 잡으면 회색 카드가 CTA 자리를 차지해 화면에 CTA 가 0개가 된다.
+              primary={i === games.findIndex((x) => x.available)}
               done={false}
               onPlay={() => g.available && setActiveGame(g.id)}
             />
           ))}
         </div>
+      </section>
+
+      {/* 단어 sub-section — 탭하면 단어 상세 모달. 게임 아래 참고 자리. */}
+      <section>
+        <div className="flex items-baseline gap-3 mb-2 px-1">
+          <h2 className="text-2xl lg:text-3xl font-black font-display text-ink-900 flex items-center gap-2">
+            <span>📚</span>
+            <span>{t('study.wordsHeading')}</span>
+          </h2>
+          <span className="text-sm font-bold text-ink-700">{t('study.wordsHint')}</span>
+        </div>
+        <WordPreviewBanner words={unit.words} lang={lang} onWordClick={setSelectedWord} />
       </section>
 
       {/* 게임 모달 — full screen, VocabSourceProvider wrap */}
@@ -231,20 +236,30 @@ function WordPreviewBanner({ words, lang, onWordClick }: WordPreviewBannerProps)
 function GameCard({
   game,
   index,
+  primary,
   done,
   onPlay,
 }: {
   game: VocabGameOption;
   index: number;
+  /**
+   * 🔴 이 카드 하나만 coral 채움(2026-08-04) — 4장이 전부 CTA 색이면 CTA 가 없는 것과 같다.
+   * coral 은 디자인 시스템에서 메인 CTA 전용인데 이 화면은 그걸 4번 썼고, 그래서 "처음이면
+   * 1번부터" 라는 **글자로** 서열을 때우고 있었다. 이제 색이 그 말을 대신하고, 번호는 순서를
+   * 거드는 역할만 한다. 어느 카드가 primary 인지는 호출부가 정한다(비활성 카드 회피).
+   */
+  primary: boolean;
   done: boolean;
   onPlay: () => void;
 }) {
   const { t } = useTranslation('games');
-  // 좌상단 번호 배지 — "처음이면 1번부터" 결정 마비 해소. 모든 state 공통.
+  // 좌상단 번호 배지 — 채움 카드 위에선 흰 배지, 흰 카드 위에선 coral 배지(둘 다 배경과 대비).
   const numberBadge = (
     <span
       aria-hidden
-      className="absolute top-3 left-3 w-8 h-8 rounded-full bg-white text-coral-600 text-sm font-black flex items-center justify-center shadow-soft ring-2 ring-coral-200/50 z-10"
+      className={`absolute top-3 left-3 w-8 h-8 rounded-full text-sm font-black flex items-center justify-center shadow-soft z-10 ${
+        primary ? 'bg-white text-coral-600 ring-2 ring-coral-200/50' : 'bg-coral-100 text-coral-600'
+      }`}
     >
       {index + 1}
     </span>
@@ -265,9 +280,13 @@ function GameCard({
     </div>
   );
 
-  // 우끝 → 화살표 흰 동그라미
+  // 우끝 → 화살표 동그라미 (채움 카드=흰 원 / 흰 카드=coral 연한 원)
   const arrowCircle = (
-    <div className="w-12 h-12 rounded-full bg-white/95 flex items-center justify-center flex-shrink-0 shadow-soft">
+    <div
+      className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
+        primary ? 'bg-white/95 shadow-soft' : 'bg-coral-100'
+      }`}
+    >
       <span className="text-2xl text-coral-600 font-black">→</span>
     </div>
   );
@@ -312,22 +331,31 @@ function GameCard({
   }
 
   // 활성 — Duolingo 식 푸시 버튼 (가로 layout): 좌 큰 일러스트 / 가운데 제목+부제 / 우 → 화살표.
+  // 크기·터치 타깃은 4~7세 기준으로 검증된 값이라 그대로 두고, **색만** 서열을 만든다.
   return (
     <button
       onClick={onPlay}
-      className="relative rounded-3xl p-3 lg:p-4 min-h-[120px] flex items-center gap-3 lg:gap-4 bg-gradient-to-b from-coral-400 to-coral-500 text-white shadow-[0_6px_0_#B73A1F,0_8px_20px_rgba(255,94,58,0.35)] hover:shadow-[0_9px_0_#B73A1F,0_12px_24px_rgba(255,94,58,0.45)] hover:-translate-y-0.5 active:shadow-[0_2px_0_#B73A1F,0_3px_6px_rgba(255,94,58,0.3)] active:translate-y-1 transition-all duration-100 ease-out text-left"
+      className={`relative rounded-3xl p-3 lg:p-4 min-h-[120px] flex items-center gap-3 lg:gap-4 hover:-translate-y-0.5 active:translate-y-1 transition-all duration-100 ease-out text-left ${
+        primary
+          ? 'bg-gradient-to-b from-coral-400 to-coral-500 text-white shadow-[0_6px_0_#B73A1F,0_8px_20px_rgba(255,94,58,0.35)] hover:shadow-[0_9px_0_#B73A1F,0_12px_24px_rgba(255,94,58,0.45)] active:shadow-[0_2px_0_#B73A1F,0_3px_6px_rgba(255,94,58,0.3)]'
+          : 'bg-white text-ink-900 shadow-[0_5px_0_#EDE1D4,0_6px_14px_rgba(63,47,36,0.10)] hover:shadow-[0_7px_0_#EDE1D4,0_10px_18px_rgba(63,47,36,0.14)] active:shadow-[0_2px_0_#EDE1D4,0_3px_6px_rgba(63,47,36,0.10)]'
+      }`}
     >
       {numberBadge}
       {leftIllustration()}
       <div className="flex-1 flex flex-col items-start gap-1 min-w-0">
         <span
           className="text-xl lg:text-2xl font-black font-display"
-          style={{ textShadow: '0 2px 0 rgba(167, 50, 25, 0.4)' }}
+          style={primary ? { textShadow: '0 2px 0 rgba(167, 50, 25, 0.4)' } : undefined}
         >
           {game.label}
         </span>
         {game.subtitle && (
-          <span className="text-xs lg:text-sm font-bold text-white/90">{game.subtitle}</span>
+          <span
+            className={`text-xs lg:text-sm font-bold ${primary ? 'text-white' : 'text-ink-600'}`}
+          >
+            {game.subtitle}
+          </span>
         )}
       </div>
       {arrowCircle}
