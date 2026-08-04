@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { usePlaylistStore } from '../store/playlist.store';
+import { TvMirrorButton } from '@/components/TvMirrorButton';
 import { cn } from '@/lib/cn';
 
 const SPEED_OPTIONS = [0.75, 1, 1.25] as const;
@@ -76,13 +77,18 @@ export function ContinuousControls() {
           <span className="font-display text-lg font-black text-white break-keep">
             {total > 0 ? t('continuous.progress', { total, current }) : t('continuous.playing')}
           </span>
-          <button
-            type="button"
-            onClick={() => setVisible(false)}
-            className="rounded-full bg-white/15 px-3 py-1 text-xs font-bold text-white/80 break-keep"
-          >
-            {t('continuous.hide')}
-          </button>
+          <div className="flex items-center gap-2">
+            {/* 🔴 시작 전에만 — 「틀어놓고 본다」가 이 화면의 쓰임이라 TV 안내가 여기 있는 게 맞고,
+                재생 중에 띄우면 컨트롤을 열 때마다 소음이 된다. 데스크톱에선 스스로 null. */}
+            {!started && <TvMirrorButton />}
+            <button
+              type="button"
+              onClick={() => setVisible(false)}
+              className="rounded-full bg-white/15 px-3 py-1 text-xs font-bold text-white/80 break-keep"
+            >
+              {t('continuous.hide')}
+            </button>
+          </div>
         </div>
 
         {/* 일시정지 / 재생 */}

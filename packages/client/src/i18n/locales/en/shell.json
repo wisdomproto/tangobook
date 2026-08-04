@@ -62,5 +62,14 @@
     "close": "Close",
     "thanks": "Thank you for your feedback!",
     "error": "Couldn't send. Please try again in a moment."
+  },
+  "tv": {
+    "button": "Watch on TV",
+    "title": "See it big on TV",
+    "iosStep1": "Swipe down from the top-right corner to open Control Center",
+    "iosStep2": "Tap Screen Mirroring and pick your TV",
+    "aosStep1": "Open the ⋮ menu at the top right of Chrome",
+    "aosStep2": "Tap Cast and pick your TV",
+    "note": "Sound and text come through on the TV, and reading progress is still saved."
   }
 }

@@ -62,5 +62,14 @@
     "close": "Đóng",
     "thanks": "Cảm ơn góp ý quý báu của bạn!",
     "error": "Gửi không thành công. Vui lòng thử lại sau giây lát."
+  },
+  "tv": {
+    "button": "Xem trên TV",
+    "title": "Xem lớn trên TV",
+    "iosStep1": "Vuốt xuống từ góc trên bên phải để mở Trung tâm điều khiển",
+    "iosStep2": "Chạm Phản chiếu màn hình rồi chọn TV của bạn",
+    "aosStep1": "Mở menu ⋮ ở góc trên bên phải của Chrome",
+    "aosStep2": "Chạm Truyền (Cast) rồi chọn TV của bạn",
+    "note": "Âm thanh và chữ vẫn hiện trên TV, và tiến độ đọc vẫn được lưu."
   }
 }
