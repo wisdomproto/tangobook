@@ -147,6 +147,22 @@ async function installApiProxy(page, baseUrl) {
 const MIN_TEXT = 250;
 
 /**
+ * 라우트별 최소 글자 수 — **껍데기만 구워지는 걸 막는 유일한 장치**.
+ *
+ * 🔴 공통 임계값 하나로는 못 잡는다. `/library` 는 헤더+푸터만으로 315자가 나와서
+ *    MIN_TEXT(250)를 넘겨 **표지 0장짜리 라이브러리가 두 번 배포됐다**. 반면 파닉스 단원
+ *    목록은 글자·숫자뿐이라 정상인데도 360자다. 그래서 "그 화면이 다 그려졌을 때의 실측값"
+ *    을 라우트마다 적어 둔다(실측의 6~7할).
+ * 🔴 못 채우면 **굽지 않는다** — 매니페스트에 안 들어가고 그 라우트는 예전 SPA 동작으로
+ *    돌아간다. 반쪽짜리를 배포하느니 느린 편이 낫다.
+ */
+const MIN_BY_ROUTE = {
+  '/library': 900, // 실측 1,231 (표지 105장)
+  '/hangul': 3000, // 실측 4,881
+  '/vocabulary': 4000, // 실측 7,243
+};
+
+/**
  * 진입 게이트 헤드라인(ko) — 구워졌는지 판정할 지문. 못 읽으면 검사를 건너뛴다(빌드는 계속).
  * i18n 파일에서 읽는 이유 = 문구를 여기에 베껴 두면 문구가 바뀔 때 검사가 조용히 죽는다.
  */
@@ -172,6 +188,7 @@ function visibleTextLength(html) {
 }
 
 async function prerenderRoute(browser, baseUrl, route, { isBook = false } = {}) {
+  const minText = MIN_BY_ROUTE[route] ?? MIN_TEXT;
   const page = await browser.newPage();
   await page.setViewport({ width: 1280, height: 800 });
 
@@ -222,6 +239,10 @@ async function prerenderRoute(browser, baseUrl, route, { isBook = false } = {}) 
      *    조건을 만족해 **표지 0장짜리 라이브러리**가 구워져 배포됐다(실측).
      *    한국어에선 껍데기가 그 밑이라 로컬에선 우연히 제대로 기다렸고, 그래서 못 봤다.
      */
+    // 🔴 **요청이 끝나기를 먼저 기다린다.** 글자 수만 보면 API 응답이 날아오는 중에도
+    //    껍데기가 「안정적」이라 그대로 찍힌다(그래서 표지 0장으로 배포됐다).
+    await page.waitForNetworkIdle({ idleTime: 1000, timeout: 25000 }).catch(() => {});
+
     let last = -1;
     let stable = 0;
     for (let i = 0; i < 40; i++) {
@@ -233,7 +254,7 @@ async function prerenderRoute(browser, baseUrl, route, { isBook = false } = {}) 
         .catch(() => -1);
       if (n === last) {
         stable++;
-        if (stable >= 2 && n >= MIN_TEXT) break; // 1초간 안 늘면 다 그려진 것으로 본다
+        if (stable >= 2 && n >= minText) break; // 1초간 안 늘면 다 그려진 것으로 본다
       } else {
         stable = 0;
         last = n;
@@ -246,7 +267,7 @@ async function prerenderRoute(browser, baseUrl, route, { isBook = false } = {}) 
   await page.close();
 
   const len = visibleTextLength(html);
-  if (len < MIN_TEXT) throw new Error(`내용 부족 (${len}자 < ${MIN_TEXT}) — 에러/스켈레톤 화면 의심`);
+  if (len < minText) throw new Error(`내용 부족 (${len}자 < ${minText}) — 껍데기/에러 화면 의심`);
   // 🔴 한국어인지 확인 — 배포본이 통째로 영어로 구워진 적이 있다(컨테이너 로케일 없음).
   //    빌드 로그엔 ✓ 만 찍혀서 서빙된 HTML 을 열어 보기 전엔 몰랐다.
   const hangul = (html.match(/[가-힣]/g) || []).length;
@@ -281,9 +302,13 @@ async function main() {
 
   let bookRoutes = PRERENDER_BOOKS ? (await aboutRoutesFromSitemap()).slice(0, BOOK_LIMIT) : [];
   let blogRoutes = PRERENDER_BOOKS ? await blogRoutesFromSitemap() : [];
+  // 🔴 **항상 프로브하고 로그를 남긴다.** 정적 라우트도 API 데이터로 굽기 때문에, 안 닿으면
+  //    표지 없는 라이브러리가 나온다. 예전엔 about/blog 가 있을 때만 재서, 빌드 로그만 보고는
+  //    "왜 표지가 비었나"를 알 수 없었다.
+  const apiOk = await probeApi();
+  console.log(`[prerender] API(${API_ORIGIN}) ${apiOk ? '도달 ✓' : '도달 불가 ✗ — 데이터 없이 구워짐'}`);
   if (bookRoutes.length || blogRoutes.length) {
-    // API 도달성 프로브 — 안 닿으면 API 필요한 페이지(about·blog) 전체 스킵 (헛도는 timeout 방지)
-    const reachable = await probeApi();
+    const reachable = apiOk;
     if (reachable) {
       console.log(
         `[prerender] 동화책 about ${bookRoutes.length} + 블로그 ${blogRoutes.length}개 — API 프록시: ${API_ORIGIN}`
