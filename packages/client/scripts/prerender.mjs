@@ -273,8 +273,18 @@ async function prerenderRoute(browser, baseUrl, route, { isBook = false } = {}) 
     }
   }
 
-  const html = await page.content();
+  let html = await page.content();
   await page.close();
+
+  /**
+   * 🔴 **표지 주소를 뺀다.** 프리렌더본의 일은 *글자를 빨리 그리는 것*이지 이미지를 미리
+   *    받는 게 아니다. 표지 105장이 박힌 채로 내보냈더니 HTML 이 20KB→105KB 가 되고
+   *    브라우저가 그 이미지들을 곧바로 받으러 가면서, 정작 첫 페인트가 기다리는 CSS 가
+   *    2.7s → 4.6s 로 밀려 **FCP 4.3s → 10.6s 로 되레 나빠졌다**(실측).
+   *    `loading="lazy"` 는 이미 붙어 있지만 초기 뷰포트 근처는 그래도 받는다.
+   *    src 를 지우면 알트 텍스트(책 제목)가 먼저 보이고, React 가 마운트하며 제대로 채운다.
+   */
+  html = html.replace(/(<img\b[^>]*?)\s+src="[^"]*"/g, '$1');
 
   const len = visibleTextLength(html);
   if (len < MIN_TEXT) throw new Error(`내용 부족 (${len}자 < ${MIN_TEXT}) — 에러/빈 화면 의심`);
