@@ -146,6 +146,21 @@ async function installApiProxy(page, baseUrl) {
  */
 const MIN_TEXT = 250;
 
+/**
+ * 진입 게이트 헤드라인(ko) — 구워졌는지 판정할 지문. 못 읽으면 검사를 건너뛴다(빌드는 계속).
+ * i18n 파일에서 읽는 이유 = 문구를 여기에 베껴 두면 문구가 바뀔 때 검사가 조용히 죽는다.
+ */
+const gateNeedle = await (async () => {
+  try {
+    const j = JSON.parse(
+      await fs.readFile(path.join(clientRoot, 'src/i18n/locales/ko/access.json'), 'utf-8')
+    );
+    return j?.entryGate?.title || null;
+  } catch {
+    return null;
+  }
+})();
+
 function visibleTextLength(html) {
   const rootAt = html.indexOf('<div id="root"');
   const body = rootAt === -1 ? html : html.slice(rootAt);
@@ -216,6 +231,11 @@ async function prerenderRoute(browser, baseUrl, route, { isBook = false } = {}) 
 
   const len = visibleTextLength(html);
   if (len < MIN_TEXT) throw new Error(`내용 부족 (${len}자 < ${MIN_TEXT}) — 에러/스켈레톤 화면 의심`);
+  if (gateNeedle && html.includes(gateNeedle)) {
+    // 🔴 실제로 이렇게 구워졌었다 — localStorage 씨앗의 키가 하나 모자랐다(앵커만 심고
+    //    선택 플래그를 안 심음). 키가 또 바뀌면 조용히 재발하므로 여기서 빌드를 떨어뜨린다.
+    throw new Error('진입 게이트가 구워짐 — evaluateOnNewDocument 의 guest-mode 키를 확인할 것');
+  }
 
   const routePath = route === '/' ? '' : route.replace(/^\//, '');
   const outDir = route === '/' ? distDir : path.join(distDir, routePath);
