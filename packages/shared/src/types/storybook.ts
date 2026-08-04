@@ -407,6 +407,12 @@ export interface WordWritingItem {
   imageUrl?: string;
   referenceImageUrl: string;
   ttsUrl?: string;
+  /**
+   * 채점(따라쓰기) 대상 글자 — 없으면 `word` 전체를 쓴다.
+   * 🔴 영어 Book 1 은 **낱말 전체(`apple`)를 그리되 첫 글자(`a`)만** 쓰게 한다 — 한 글자를 쓰면
+   *    낱말 전체가 화면에 있다(글자가 단위인 권이라 낱말 통째 쓰기는 아직 못 하는 일).
+   */
+  traceWord?: string;
 }
 export interface WordWritingData {
   type: 'korean-word-writing' | 'english-word-writing';

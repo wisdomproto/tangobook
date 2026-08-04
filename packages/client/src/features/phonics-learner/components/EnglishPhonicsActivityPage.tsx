@@ -419,6 +419,8 @@ export default function EnglishPhonicsActivityPage() {
             word: s.letter,
             imageUrl: s.imageUrl,
             imageLabel: s.word,
+            // 🔴 맞히면 "b b bag" 저작 녹음을 읽는다 — 없으면 LineMatchingPlayer 가 글자 소리로 폴백.
+            ...(s.ttsUrl ? { ttsUrl: s.ttsUrl } : {}),
           })),
         }}
       />
@@ -440,6 +442,34 @@ export default function EnglishPhonicsActivityPage() {
     );
   }
   if (activity.kind === 'review-write' && reviewCards.length) {
+    /**
+     * 🔴 Book 1 은 **글자(C)를 쓰지만 소리는 낱말 "c c cat"** — reviewSources 로 대표 낱말·저작 녹음을
+     *    얻어 쓰기 대상(letter)과 소리(word/ttsUrl)를 분리한다. 다른 권은 기존대로 글자/패턴을 읽는다.
+     */
+    if (isBook1) {
+      if (reviewLoading) {
+        return (
+          <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />
+        );
+      }
+      return (
+        <ReviewWriteActivity
+          unitId={unitId}
+          language="english"
+          // 🔴 글자(C)를 쓰되 소리는 낱말("c c cat"), 그림은 다 쓴 뒤에 연다(imageUrl 유지 + reveal 모드).
+          revealImageOnComplete
+          sources={reviewSources.map((s) => ({
+            ...s,
+            word: s.letter,
+            // 🔴 글자(a)를 쓰고, 완성하면 낱말 전체(apple)를 보여준다(사용자: "한 글자 쓰면 나머지 단어 다 나와야").
+            ...(s.word ? { soundWord: s.word, revealWord: s.word } : {}),
+            ...(s.ttsUrl ? { soundUrl: s.ttsUrl } : {}),
+          }))}
+          onComplete={handleComplete}
+          onBack={backToUnit}
+        />
+      );
+    }
     return (
       <ReviewWriteActivity
         unitId={unitId}

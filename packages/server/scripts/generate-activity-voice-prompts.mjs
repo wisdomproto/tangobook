@@ -35,8 +35,27 @@ const PROMPTS = [
   { name: 'tap-sparkle-ko', text: '반짝이는 곳을 눌러봐!', language: 'korean' },
   // 글자 사냥 — 들어가자마자 목표 글자가 떠서, 무엇을 하라는 건지 없이 문제부터 나왔다.
   { name: 'hunt-start-ko', text: '같은 글자를 모두 찾아봐!', language: 'korean' },
-  // 쓰기 6종 — 지시가 전부 텍스트뿐이라 글 못 읽는 아이에겐 통째로 무음이었다.
+  // 쓰기 — **반짝이는 칸이 있는 화면만**(한글 자음 쓰기 = 짝 중 활성 칸이 코랄로 반짝인다).
   { name: 'write-start-ko', text: '반짝이는 칸에 써 봐!', language: 'korean' },
+  // 쓰기 — **낱말/글자 전체를 한꺼번에 보여주는 화면**(ABC 써보기·영어 CVC 써보기·모음 쓰기).
+  // "반짝이는 칸" 이 없어 그 멘트가 어긋난다(사용자 지적). 화면 문구("따라써봐")와도 일치.
+  { name: 'write-trace-ko', text: '글자를 따라 써 봐!', language: 'korean' },
+  // 듣고 고르기 **탐색** 진입 — 퀴즈 전에 카드를 눌러 소리를 들어보는 단계(화면 문구 "눌러서 들어봐!").
+  { name: 'listen-explore-ko', text: '눌러서 들어봐!', language: 'korean' },
+  // 모음 듣기 — 순서대로 카드를 눌러 소리를 듣는 단계(화면 문구 "순서대로 눌러봐!").
+  { name: 'order-listen-ko', text: '순서대로 눌러봐!', language: 'korean' },
+  // 자음 배우기 — 글자를 세 번씩 눌러 소리를 듣는다(화면 문구 "○을 세 번씩 눌러봐!").
+  { name: 'consonant-tap-ko', text: '세 번씩 눌러봐!', language: 'korean' },
+  // 모음 고르기 — 어떤 모음으로 음절을 만들지 고른다(화면 문구 "어떤 모음으로 만들까?").
+  { name: 'vowel-pick-ko', text: '어떤 모음을 골라봐?', language: 'korean' },
+  // 뒤집기 짝 맞추기 — 같은 짝을 찾는다(화면 문구 "같은 짝을 찾아봐!").
+  { name: 'flip-match-ko', text: '같은 짝을 찾아봐!', language: 'korean' },
+  // 낱말 그림 그리기(점잇기) — 그림 안을 색칠한다(화면 문구 "그림을 색칠해봐!").
+  { name: 'paint-shape-ko', text: '그림을 색칠해봐!', language: 'korean' },
+  // 그림 짝 찾기 — 그림과 단어를 짝짓는다.
+  { name: 'line-match-ko', text: '그림과 짝을 찾아봐!', language: 'korean' },
+  // 블록 게임 — 글자 블록으로 단어를 만든다.
+  { name: 'block-make-ko', text: '블록으로 단어를 만들어봐!', language: 'korean' },
 ];
 
 async function generate({ name, text, language }) {

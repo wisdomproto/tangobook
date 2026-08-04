@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type MouseEvent } from 'react';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
 import { useEntryGuide } from '../hooks/useEntryGuide';
 import { resolveTtsUrl } from '@/features/tts';
 import type { Storybook } from '@tangobook/shared';
@@ -50,6 +51,14 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
   const wordFamily = sb?.phonicsLesson?.wordFamilies?.[currentIdx];
 
   const illustrationUrl = blending?.illustrationUrl ?? blending?.exampleWordImageUrl;
+  // 이 단원 **모든 글자**의 삽화를 미리 데운다 — 탭 전환 때도 즉시 뜨게(게임과 동일 프리미티브).
+  usePreloadImages(
+    useMemo(
+      () =>
+        (sb?.phonicsLesson?.blending ?? []).map((b) => b.illustrationUrl ?? b.exampleWordImageUrl),
+      [sb]
+    )
+  );
   const upper = (letters[currentIdx] ?? blending?.vowel ?? '').toUpperCase();
   const lower = upper.toLowerCase();
   const blend = blending?.blend ?? `${upper}${lower}`;

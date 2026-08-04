@@ -185,7 +185,24 @@ async function main() {
   folktale.sort((a, z) => a.title.localeCompare(z.title, 'ko'));
 
   // "--*-only" 지정 시 그 트랙만, 아니면 전 트랙.
-  const classicOrdered = !ANY_ONLY || CLASSICS_ONLY ? classics.flat() : [];
+  // `--priority=id,id` = 그 책들을 지정 순서대로 맨 앞에 배치(나머지는 기존 순서 유지).
+  // 🔴 왜: 기본 순서는 **그림체 버킷**(paper3d 전부 → 수채 전부 → 콜라주 전부)이라, 책당 그림체가
+  //    1종뿐인 편성에서는 아무 의미 없는 정렬이 되면서 수요 큰 작품이 뒤로 밀린다. 첫 2주가
+  //    효과 측정 구간이므로, 검증된 승자와 가장 가까운 작품을 앞에 둔다.
+  const PRIORITY = val('--priority', '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const classicFlat = classics.flat();
+  const classicOrdered =
+    !ANY_ONLY || CLASSICS_ONLY
+      ? [
+          ...PRIORITY.map((id) => classicFlat.find((r) => r.bookId === id)).filter(
+            (r): r is (typeof classicFlat)[number] => !!r
+          ),
+          ...classicFlat.filter((r) => !PRIORITY.includes(r.bookId)),
+        ]
+      : [];
   const natureOrdered = !ANY_ONLY || NATURE_ONLY ? nature : [];
   const lifeOrdered = !ANY_ONLY || LIFE_ONLY ? life : [];
   const folktaleOrdered = !ANY_ONLY || FOLKTALE_ONLY ? folktale : [];

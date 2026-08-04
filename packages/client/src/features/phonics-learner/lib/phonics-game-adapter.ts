@@ -43,31 +43,59 @@ function shuffle<T>(arr: readonly T[]): T[] {
  * Phonics 책 저작도구는 핵심단어 탭에서 `flashcards[]` 에 imageUrl 을 저장 — flashcards 를 먼저 본다.
  * 일반 책 호환을 위해 `key_objects[]` 도 fallback.
  */
+/**
+ * 낱말의 **저작 녹음**(`wordFamilies[].words[].ttsUrl`) — 영어 Book 1 은 "b b bat" 형식이다.
+ *
+ * 🔴 그림·keypoints 는 `flashcards` 에 있지만 **낱말 음원은 wordFamilies 에** 있다(flashcards.ttsUrl 은
+ *    전 권 비어 있다). 이걸 안 보면 게임이 완성 시 concat 으로 밋밋하게 "bat" 만 읽는다(사용자 지적:
+ *    "b b bat 이런식으로 나와줘"). 없으면(한글·Book 2 등) undefined → 호출부가 기존대로 concat.
+ */
+export function wordFamilyTts(sb: Storybook, word: string): string | undefined {
+  if (!word) return undefined;
+  const w = word.toLowerCase();
+  const lesson = (sb as unknown as { phonicsLesson?: { wordFamilies?: unknown[] } }).phonicsLesson;
+  for (const fam of (lesson?.wordFamilies ?? []) as Array<{
+    words?: Array<{ word?: string; ttsUrl?: string }>;
+  }>) {
+    for (const wd of fam.words ?? []) {
+      if ((wd.word ?? '').toLowerCase() === w && wd.ttsUrl) return wd.ttsUrl;
+    }
+  }
+  return undefined;
+}
+
 export function findImageData(
   sb: Storybook,
   word: string
 ): { imageUrl?: string; ttsUrl?: string; keypoints?: DotKeypoint[] } {
   const asAny = (x: unknown): Record<string, unknown> => x as Record<string, unknown>;
+  let imageUrl: string | undefined;
+  let ttsUrl: string | undefined;
+  let keypoints: DotKeypoint[] | undefined;
   // 1) flashcards 우선 (phonics 책 저작도구가 여기에 저장)
   const cards = (sb.flashcards ?? []).map(asAny);
   const card = cards.find(
     (c) => c['word'] === word || c['localWord'] === word || c['korean'] === word
   );
   if (card) {
-    const imageUrl =
-      (card['imageUrl'] as string | undefined) ?? (card['url'] as string | undefined);
-    const ttsUrl = card['ttsUrl'] as string | undefined;
-    const keypoints = card['keypoints'] as DotKeypoint[] | undefined;
-    if (imageUrl || ttsUrl || keypoints) return { imageUrl, ttsUrl, keypoints };
+    imageUrl = (card['imageUrl'] as string | undefined) ?? (card['url'] as string | undefined);
+    ttsUrl = card['ttsUrl'] as string | undefined;
+    keypoints = card['keypoints'] as DotKeypoint[] | undefined;
   }
   // 2) key_objects fallback (일반 storybook 호환)
-  const koList = (sb.key_objects ?? []).map(asAny);
-  const ko = koList.find((k) => k['name'] === word || k['korean'] === word);
-  if (!ko) return {};
-  const koImageUrl = (ko['imageUrl'] as string | undefined) ?? (ko['url'] as string | undefined);
-  const koTtsUrl = ko['ttsUrl'] as string | undefined;
-  const koKeypoints = ko['keypoints'] as DotKeypoint[] | undefined;
-  return { imageUrl: koImageUrl, ttsUrl: koTtsUrl, keypoints: koKeypoints };
+  if (!imageUrl && !ttsUrl && !keypoints) {
+    const koList = (sb.key_objects ?? []).map(asAny);
+    const ko = koList.find((k) => k['name'] === word || k['korean'] === word);
+    if (ko) {
+      imageUrl = (ko['imageUrl'] as string | undefined) ?? (ko['url'] as string | undefined);
+      ttsUrl = ko['ttsUrl'] as string | undefined;
+      keypoints = ko['keypoints'] as DotKeypoint[] | undefined;
+    }
+  }
+  // 🔴 낱말 음원은 **wordFamilies 의 "글자 글자 낱말"(a a apple)을 우선**한다 — flashcard 에 밋밋한
+  //    낱말 녹음("apple")이 있어도 그걸 이겨야 Book 1 이 전체적으로 통일된다(사용자: "b b bat 이런식으로").
+  //    wordFamilies 에 없으면(한글·Book 2 등) flashcard/key_objects 녹음이나 concat 폴백 그대로.
+  return { imageUrl, ttsUrl: wordFamilyTts(sb, word) ?? ttsUrl, keypoints };
 }
 
 export function phonicsToKoreanBlockData(sb: Storybook): KoreanBlockData | null {
@@ -236,10 +264,13 @@ export function phonicsToEnglishWordWritingData(sb: Storybook): WordWritingData 
   const alphabet = isAlphabetUnit(sb);
   const items: WordWritingItem[] = targetWords.map((w) => {
     const extra = findImageData(sb, w);
-    const target = alphabet ? (w[0] ?? w).toLowerCase() : w;
+    // 🔴 Book 1 은 **낱말 전체(apple)를 그리되 첫 글자(a)만** 쓴다 — 한 글자를 쓰면 낱말이 화면에 있다.
+    //    예전엔 word 를 글자 하나로 줄여 낱말이 아예 안 보였다(사용자: "한개 알파벳 쓰면 단어가 나와야지").
+    const drawWord = w.toLowerCase();
     return {
-      word: target,
-      displayWord: target,
+      word: drawWord,
+      displayWord: drawWord,
+      ...(alphabet ? { traceWord: (w[0] ?? w).toLowerCase() } : {}),
       ...(extra.imageUrl ? { imageUrl: extra.imageUrl } : {}),
       referenceImageUrl: extra.imageUrl ?? '',
       ...(extra.ttsUrl ? { ttsUrl: extra.ttsUrl } : {}),

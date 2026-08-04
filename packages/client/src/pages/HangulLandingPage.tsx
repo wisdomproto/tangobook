@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSeo } from '@/lib/useSeo';
 import { SiteFooter } from '@/components/SiteFooter';
 import { PhonicsTryIt } from '@/features/phonics-learner/components/PhonicsTryIt';
+import { HangulBookTryIt } from './HangulBookTryIt';
 
 /**
  * `/hangul` — 광고 랜딩(상세페이지). 네이버·메타 광고의 도착지.
@@ -100,19 +101,64 @@ const STAGES: { label: string; count: string; detail: string; tone: string }[] =
 
 const SIGNUP = '/login?mode=signup';
 
-/** 스크롤에 따라 나타나는 하단 고정 CTA — 첫 화면에서는 히어로 버튼이 있으니 숨긴다. */
+/**
+ * 랜딩이 통째로 여는 단원 — ㄱ(한글1 두 번째).
+ * 🔴 **스크린샷을 쓰지 않는다**(2026-08-01 사용자: "찍어서 가지고 오지말고 아예 구현을 하라니까").
+ *    아홉 개가 전부 앱에서 도는 그 컴포넌트다. 배선은 `KoreanPhonicsActivity` 하나를 재사용한다.
+ * 🔴 높이는 활동마다 다르다 — 격자가 큰 게임은 500px 이면 아래가 잘린다.
+ */
+const GA_UNIT = 'kr-h1-u02';
+const GA_LEARN = [
+  { key: 'consonant-tap', h: 520 },
+  { key: 'blend-listen', h: 520 },
+  { key: 'consonant-write', h: 560 },
+  { key: 'letter-hunt', h: 620 },
+];
+const GA_PLAY = [
+  { key: 'word-listen-choose', h: 620 },
+  { key: 'game-dots', h: 620 },
+  { key: 'game-korean-block', h: 680 },
+  { key: 'game-word-writing', h: 620 },
+  { key: 'game-line-matching', h: 620 },
+];
+
+/**
+ * 스크롤에 따라 나타나는 하단 고정 CTA — 첫 화면에서는 히어로 버튼이 있으니 숨긴다.
+ *
+ * 🔴 **체험 상자가 화면에 있으면 숨는다**(2026-08-01). 상자들이 뷰포트 높이만큼 크기 때문에
+ *    고정 바가 그 아래를 덮는다 — 실제로 그림 짝 찾기의 마지막 줄과 게임 버튼을 가렸다.
+ *    「직접 해보세요」라고 해놓고 그 화면을 가리는 건 앞뒤가 안 맞는다.
+ */
 function StickyCta() {
   const [show, setShow] = useState(false);
+  const [blocked, setBlocked] = useState(false);
   useEffect(() => {
     const onScroll = () => setShow(window.scrollY > 560);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+
+    // 상자가 화면 아래쪽(고정 바가 앉는 자리)을 차지하는지 본다.
+    const boxes = document.querySelectorAll('div.my-7');
+    const io = new IntersectionObserver(
+      (entries) => {
+        const hit = new Set<Element>();
+        entries.forEach((e) => (e.isIntersecting ? hit.add(e.target) : hit.delete(e.target)));
+        setBlocked(entries.some((e) => e.isIntersecting) || hit.size > 0);
+      },
+      // 화면 아래 120px 만 관심 대상 — 상자가 거기 걸치면 바를 내린다.
+      { rootMargin: `-${Math.max(0, window.innerHeight - 120)}px 0px 0px 0px` }
+    );
+    boxes.forEach((b) => io.observe(b));
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      io.disconnect();
+    };
   }, []);
+  const visible = show && !blocked;
   return (
     <div
       className={`fixed inset-x-0 bottom-0 z-50 border-t border-coral-200 bg-cream-50/95 px-4 py-3 backdrop-blur transition-transform duration-300 sm:px-6 ${
-        show ? 'translate-y-0' : 'translate-y-full'
+        visible ? 'translate-y-0' : 'translate-y-full'
       }`}
     >
       <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
@@ -264,14 +310,28 @@ export default function HangulLandingPage() {
       <section className="px-4 pb-2 sm:px-6">
         <div className="mx-auto max-w-3xl">
           <div className="rounded-3xl border border-coral-200 bg-white/60 p-4 sm:p-6">
-            <h2 className="font-display text-lg font-extrabold text-ink-900 break-keep sm:text-2xl">
-              말로 설명하기 어려우니, 직접 해보세요
+            <p className="text-xs font-bold tracking-wide text-coral-500">단원 하나가 이만큼</p>
+            <h2 className="mt-1 font-display text-[22px] font-extrabold text-ink-900 break-keep sm:text-[28px]">
+              「ㄱ」 단원을 통째로 열어 두었습니다
             </h2>
             <p className="mt-2 text-sm text-ink-600 break-keep">
-              아래는 스크린샷이 아니라 <strong>실제 학습 화면</strong>입니다. 가입하지 않아도 지금
-              눌러볼 수 있어요. ㄱ과 모음을 차례로 누르면 두 글자가 합쳐집니다.
+              스크린샷이 아닙니다. 아래 아홉 개는 <strong>앱에서 도는 그 화면 그대로</strong>이고,
+              가입하지 않아도 지금 눌러볼 수 있습니다. 서른두 단원이 전부 이렇게 생겼습니다.
             </p>
-            <PhonicsTryIt unitId="kr-h1-u02" />
+
+            <p className="mt-7 inline-flex items-center gap-2 rounded-full bg-coral-500 px-4 py-1.5 text-sm font-bold text-white">
+              📖 익히기 · 글자
+            </p>
+            {GA_LEARN.map((a) => (
+              <PhonicsTryIt key={a.key} unitId={GA_UNIT} activityKey={a.key} height={a.h} />
+            ))}
+
+            <p className="mt-8 inline-flex items-center gap-2 rounded-full bg-mint-500 px-4 py-1.5 text-sm font-bold text-white">
+              🎮 낱말 놀이 · 낱말
+            </p>
+            {GA_PLAY.map((a) => (
+              <PhonicsTryIt key={a.key} unitId={GA_UNIT} activityKey={a.key} height={a.h} />
+            ))}
           </div>
         </div>
       </section>
@@ -340,12 +400,11 @@ export default function HangulLandingPage() {
           그림체를 바꿔 가며 볼 수 있습니다. 이야기를 이어서 틀어두는 「묶어 보기」도 있어 재울 때
           씁니다.
         </p>
-        <Link
-          to="/library"
-          className="!mt-5 inline-flex min-h-[44px] items-center rounded-full border-2 border-coral-500 px-6 text-sm font-bold text-coral-600 transition hover:bg-coral-50"
-        >
-          동화책 둘러보기 →
-        </Link>
+        <p className="!mt-6">
+          이것도 <strong>직접 읽어보실 수 있습니다.</strong> 카테고리를 눌러 그 라인의 책을 바꿔
+          가며 들어보세요. 「낱말 게임」으로 넘기면 <em>그 책에 나온 낱말</em>로 바로 게임합니다.
+        </p>
+        <HangulBookTryIt />
       </Section>
 
       {/* ── ⑥ 실측 숫자 ───────────────────────────────────────── */}

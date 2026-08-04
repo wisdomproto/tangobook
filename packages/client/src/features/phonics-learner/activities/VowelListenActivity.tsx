@@ -7,6 +7,7 @@ import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { useLogEvent } from '@/features/learning/hooks/useLogEvent';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
+import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { ActivityShell } from '../components/ActivityShell';
 
 interface VowelItem {
@@ -46,6 +47,8 @@ export function VowelListenActivity({
   onBack,
 }: Props) {
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
+  // 진입 안내 — 첫 단계 화면 문구 "순서대로 눌러봐!" 에 맞는 음성.
+  useEntryGuide(ENTRY_GUIDE.orderListen, playAudio);
   const logEvent = useLogEvent();
   /**
    * 🔴 모음 퀴즈 판정을 남긴다 — 복잡한 모음 레벨(한글4)은 자음×모음 표가 없어서

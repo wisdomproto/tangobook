@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { useLogSyllable } from '../hooks/useLogSyllable';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
@@ -76,6 +77,8 @@ export function ConsonantBlendListenActivity({
   );
 
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  // 진입 안내 — 화면의 "반짝이는 글자를 눌러봐!" 에 맞는 음성(반짝임 있는 화면 공용).
+  useEntryGuide(ENTRY_GUIDE.tap, playAudio);
   const prefix = isCoda ? 'coda-blend' : 'consonant-blend';
 
   // 낱글자 + 이어읽기까지 전부 데운다 — 합쳐지는 순간 무음이면 "정답 느낌"이 사라진다.

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useActivitySound } from '../hooks/useActivitySound';
+import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import type { ReviewCardSource } from '../hooks/useReviewCardSources';
@@ -75,7 +76,10 @@ export function ReviewFlipMatchActivity({
     playFeedbackSound,
     playCorrectSequence,
     praiseVisible,
+    playAudio,
   } = useActivitySound({ unitId, language, prefix: 'review-flip' });
+  // 진입 안내 — 화면의 "같은 짝을 찾아봐!" 에 맞는 음성.
+  useEntryGuide(ENTRY_GUIDE.flipMatch, playAudio);
 
   const picked = useMemo(() => sources.slice(0, PAIRS), [sources]);
 
@@ -115,8 +119,11 @@ export function ReviewFlipMatchActivity({
     []
   );
 
+  // 🔴 맞히면 **저작 녹음**("c c cup")을 읽는다 — Book 1 은 낱말 텍스트를 concat 하면 밋밋한 "cup" 이
+  //    되므로, wordFamilies 의 「글자 글자 낱말」 mp3(`card.ttsUrl`)를 directUrl 로 그대로 재생한다.
   const say = useCallback(
-    (card: ReviewCardSource, onEnded?: () => void) => void speak(wordOf(card), onEnded),
+    (card: ReviewCardSource, onEnded?: () => void) =>
+      void speak(wordOf(card), onEnded, card.ttsUrl),
     [speak, wordOf]
   );
 
@@ -125,12 +132,9 @@ export function ReviewFlipMatchActivity({
       if (locked || open.includes(tile.id) || matched.has(tile.card.letter)) return;
       const next = [...open, tile.id];
       setOpen(next);
-      /**
-       * 🔴 **글자를 뒤집으면 그 글자 소리를 들려준다**(2026-07-29 검수). 글자면 모드에서 카드 8장을
-       *    다 뒤집어도 알파벳 소리가 한 번도 안 났다 — 나머지 다섯 활동은 전부 글자 소리를 낸다.
-       *    (짝을 맞췄을 때 나는 낱말 소리는 그대로 — 과제는 글자, 보상은 낱말.)
-       */
-      if (letterFace && tile.face === 'letter') void speak(tile.card.sound);
+      // 🔴 **맞히기 전엔 아무 소리도 안 낸다**(2026-08-02 사용자: "정답 맞추기 전까지는 알파벳 읽어주지마").
+      //    예전엔 글자를 뒤집을 때마다 그 글자 소리를 냈는데, 맞혔을 때 나는 "c c cup" 안에 글자 소리가
+      //    이미 들어 있어 중복이었다. 소리는 **성공의 보상**으로만 낸다(다른 복습 활동과 통일).
       if (next.length < 2) return;
 
       const [a, b] = next.map((id) => tiles.find((t) => t.id === id)!);
@@ -174,8 +178,6 @@ export function ReviewFlipMatchActivity({
       matched,
       tiles,
       say,
-      speak,
-      letterFace,
       rest,
       picked.length,
       playCorrectSequence,

@@ -1,7 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
+import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
 import { useActivitySound } from '../hooks/useActivitySound';
+import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { ActivityShell } from '../components/ActivityShell';
 
 interface Props {
@@ -47,10 +49,13 @@ export function ConsonantTapActivity({
     sayThenChime,
     say: speak,
     praiseVisible,
+    playAudio,
   } = useActivitySound({
     unitId,
     prefix: 'consonant-tap',
   });
+  // 진입 안내 — 화면의 "○을 세 번씩 눌러봐!" 에 맞는 음성.
+  useEntryGuide(ENTRY_GUIDE.consonantTap, playAudio);
   const [completed, setCompleted] = useState(false);
   const say = soundText ?? consonant;
 
@@ -73,6 +78,8 @@ export function ConsonantTapActivity({
     useMemo(() => [say, ...cardWords.map((w) => `${say} ${w.word}`)], [say, cardWords]),
     'consonant-tap'
   );
+  // 세 번째 탭에 뜨는 낱말 그림 — 미리 데워 팝인 방지(게임과 동일 프리미티브).
+  usePreloadImages(useMemo(() => words.map((w) => w.imageUrl), [words]));
 
   const handleTap = useCallback(
     async (idx: number) => {
