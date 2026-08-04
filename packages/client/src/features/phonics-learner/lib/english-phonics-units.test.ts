@@ -3,7 +3,38 @@ import {
   getAllEnglishUnits,
   getEnglishActivityPlan,
   patternHighlight,
+  isMagicEPattern,
+  patternHighlightRanges,
 } from './english-phonics-units';
+
+describe('매직 e = 모음 + 끝 e 두 곳 강조', () => {
+  it('Book 3 매직 e(`_ame`·`_ake`·`_ube`)만 매직으로 본다', () => {
+    expect(isMagicEPattern('_ame')).toBe(true);
+    expect(isMagicEPattern('_ake')).toBe(true);
+    expect(isMagicEPattern('_ube')).toBe(true);
+    // Book 2 CVC 라임 · Book 4 블렌드 · Book 5 모음팀은 아니다
+    expect(isMagicEPattern('_an')).toBe(false); // 끝 e 없음
+    expect(isMagicEPattern('bl_')).toBe(false);
+    expect(isMagicEPattern('ee')).toBe(false);
+    expect(isMagicEPattern('_ng')).toBe(false);
+  });
+
+  it('매직 e 는 모음과 끝 e 두 자리, 가운데 자음은 뺀다 — game → a·e', () => {
+    const r = patternHighlightRanges('game', '_ame');
+    expect(r).toEqual([
+      [1, 2], // a
+      [3, 4], // 끝 e
+    ]);
+    // m(2) 은 강조 안 됨
+    expect(r.some(([s, e]) => 2 >= s && 2 < e)).toBe(false);
+  });
+
+  it('매직 e 아닌 패턴은 붙어 있는 한 덩어리(범위 하나)', () => {
+    expect(patternHighlightRanges('black', 'bl_')).toEqual([[0, 2]]); // bl
+    expect(patternHighlightRanges('feet', 'ee')).toEqual([[1, 3]]); // ee
+    expect(patternHighlightRanges('ring', '_ng')).toEqual([[2, 4]]); // ng
+  });
+});
 
 describe('patternHighlight — 낱말 안 공통 철자 자리', () => {
   it('끝소리 `_ake` 는 뒤를, 앞소리 `bl_` 는 앞을, 포함 `ee` 는 나온 위치를 잡는다', () => {
@@ -137,7 +168,7 @@ describe('english phonics units', () => {
    *    호스트도 그 kind 를 다루고 있었는데, plan 이 키를 안 만들어서 **아무도 못 여는 화면**이었다.
    *    한글 단원은 `배우기 → 써보기` 로 나뉘어 있어 영어만 쓰기 카드가 없는 모양이었다.
    */
-  it('영어 단원에도 쓰기 카드가 있다 (Book 1 글자쓰기 · Book 2 패턴쓰기)', () => {
+  it('Book 1 은 별도 글자쓰기 카드 · Book 2 는 배우기 안에서 써보기까지', () => {
     const b1 = getEnglishActivityPlan('en-b1-u01').activities;
     const write = b1.find((a) => a.kind === 'alphabet-letter-write');
     expect(write?.letters).toEqual(['A', 'B', 'C']);
@@ -146,13 +177,11 @@ describe('english phonics units', () => {
       b1.findIndex((a) => a.kind === 'alphabet-letter-learn')
     );
 
+    // 🔴 Book 2 는 써보기를 **별도 카드로 두지 않는다**(2026-08-04 사용자: "배우기랑 써보기를 합치자").
+    //    cvc-pattern-learn 하나가 Phase A(배우기)→B(단어)→C(써보기)까지 흐른다.
     const b2 = getEnglishActivityPlan('en-b2-u01').activities;
-    const writes = b2.filter((a) => a.kind === 'cvc-pattern-write');
-    expect(writes.length).toBe(b2.filter((a) => a.kind === 'cvc-pattern-learn').length);
-    // 패턴마다 [배우기 → 써보기] 짝이다.
-    expect(writes[0].cvcPattern?.vc).toBe(
-      b2.find((a) => a.kind === 'cvc-pattern-learn')!.cvcPattern?.vc
-    );
+    expect(b2.filter((a) => a.kind === 'cvc-pattern-write').length).toBe(0);
+    expect(b2.some((a) => a.kind === 'cvc-pattern-learn')).toBe(true);
   });
 
   it('Book 1 듣고 고르기는 글자만 쓴다 (단어 철자 X)', () => {

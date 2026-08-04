@@ -6,8 +6,6 @@ import {
   getEnglishActivityPlan,
   getEnglishUnit,
   wordMatchesPattern,
-  patternLabel,
-  patternHighlight,
 } from '../lib/english-phonics-units';
 import { shuffleReviewCards } from '../lib/korean-phonics-units';
 import type { ActivityDef } from '../lib/korean-phonics-units';
@@ -189,8 +187,7 @@ export default function EnglishPhonicsActivityPage() {
     return (
       <WordFamilyLearnActivity
         unitId={unitId}
-        patternLabel={patternLabel(pattern)}
-        highlightOf={(word) => patternHighlight(word, pattern)}
+        pattern={pattern}
         words={words}
         onMarkComplete={handleMarkComplete}
         onBack={backToUnit}
