@@ -196,9 +196,10 @@ function Stat({ value, label }: { value: string; label: string }) {
  *    (경쟁사는 얼굴 사진 + `mis***님` + 후기 문장을 붙이지만 우리는 그 후기가 없다.)
  * 🔴 태블릿 화면에 **AI 가 그린 UI 를 두지 않는다** — 가짜 화면이 우리 화면인 척하면 안 되고,
  *    한글 글자도 깨져 나온다. 화면을 보여줄 땐 앱을 실제로 띄워 찍어 원근 합성한다
- *    (`packages/server/scripts/composite-screen-into-photo.mjs`, 지금은 `tracing` 한 장).
- *    나머지는 화면이 안 보이는 컷이라 그대로 두고, 진짜 화면은 이 페이지에서
- *    **살아서 돌고 있다**(활동 9개 + 동화책).
+ *    (`packages/server/scripts/composite-screen-into-photo.mjs`). 지금 화면이 든 사진은
+ *    `hero`(책장) · `reading`(뷰어) · `tracing`(ㄱ 써보기) 셋. 나머지 넷은 태블릿 화면 면이
+ *    카메라를 향하지 않아 넣을 자리가 없다. 진짜 화면은 이 페이지에서 **살아서도 돌고 있다**
+ *    (활동 9개 + 동화책).
  * 🔴 `width`/`height` 를 반드시 준다 — 안 주면 사진이 도착할 때 아래 글이 밀린다(CLS).
  */
 function Photo({
@@ -308,11 +309,12 @@ export default function HangulLandingPage() {
             </p>
           </div>
 
-          {/* 🔴 엄마가 화면이 아니라 **아이 얼굴**을 본다 — 이 페이지가 파는 게 「아이가 스스로
-              한다」라서, 시선이 아이에게 있어야 그 얘기가 된다. */}
+          {/* 🔴 태블릿에 **진짜 라이브러리 화면이 합성돼 있다** — 세계 명작 48권·전래 동화 40권·
+              호리네 생활동화 43권이 표지째로 보인다. 헤드라인의 「266권」을 글이 아니라 그림이
+              한 번 더 말한다. 합성 = `composite-screen-into-photo.mjs`. */}
           <Photo
             src="hero"
-            alt="엄마와 아이가 소파에 앉아 태블릿을 함께 보고 있다"
+            alt="엄마가 든 태블릿의 탱고북 책장을 아이가 손가락으로 가리키고 있다"
             w={1200}
             h={800}
             eager
@@ -465,6 +467,15 @@ export default function HangulLandingPage() {
           <strong>{FACTS.categories}개 카테고리</strong>입니다. {FACTS.narrated}권은 한국어
           나레이션이 처음부터 끝까지 들어 있어, 글자를 아직 못 읽는 아이도 혼자 봅니다.
         </p>
+        {/* 🔴 화면에 **진짜 뷰어**가 합성돼 있다(백설공주 + 자막 한 줄). 바로 윗줄이
+            「글자를 아직 못 읽는 아이도 혼자 봅니다」라, 그 문장을 그림이 그대로 보여준다. */}
+        <Photo
+          src="reading"
+          alt="거실 바닥에 혼자 앉아 태블릿으로 백설공주를 읽어주는 화면을 보는 아이"
+          w={1200}
+          h={900}
+          className="!mt-6"
+        />
         <div className="!mt-5 flex flex-wrap gap-2">
           {CATEGORIES.map(([name, n]) => (
             <span

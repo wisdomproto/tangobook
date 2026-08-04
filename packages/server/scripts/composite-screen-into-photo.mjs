@@ -24,8 +24,59 @@ import { execFileSync } from 'node:child_process';
 
 const W = 1200;
 
-/** 켜진 화면 = 밝고 따뜻하고 채도 낮은 면. 살색은 `g-b` 로 걸러진다. */
-const isScreen = (r, g, b) => r > 235 && g > 205 && b > 155 && r - b < 95 && g - b > 30;
+/**
+ * 화면 면을 어떻게 알아보나 — 사진 종류가 두 가지다.
+ * - 기본: **켜진 따뜻한 화면**(실제로 뭔가 띄워 놓고 찍힌 컷). 살색은 `g-b` 로 걸러진다.
+ * - `--plate`: **합성용 플레이트**(화면을 일부러 비워 회색으로 뽑은 컷). 밝고 **무채색**인 면.
+ *   크림 벽·나무 바닥은 R-B 가 20 이상이라 저절로 빠지고, 흰 커튼은 상한으로 뺀다.
+ */
+const PLATE = process.argv.includes('--plate');
+const isScreen = PLATE
+  ? (r, g, b) => {
+      const hi = Math.max(r, g, b);
+      const lo = Math.min(r, g, b);
+      return hi >= 150 && hi <= 240 && hi - lo <= 14;
+    }
+  : (r, g, b) => r > 235 && g > 205 && b > 155 && r - b < 95 && g - b > 30;
+
+/**
+ * 🔴 **플레이트는 임계값만으로 못 딴다** — 비워 둔 회색 화면과 회색 소파·커튼이 같은 색이라
+ *    마스크가 방 절반을 먹는다. 화면 안 한 점(`--seed x,y`)에서 같은 색으로 **번져 나가면**
+ *    붙어 있지 않은 소파는 애초에 닿지 않는다.
+ */
+function floodMask(rgb, W, H, [sx, sy], tol = 26) {
+  const at = (p) => p * 3;
+  const c = [rgb[at(sy * W + sx)], rgb[at(sy * W + sx) + 1], rgb[at(sy * W + sx) + 2]];
+  const near = (p) => {
+    const i = at(p);
+    return (
+      Math.abs(rgb[i] - c[0]) <= tol &&
+      Math.abs(rgb[i + 1] - c[1]) <= tol &&
+      Math.abs(rgb[i + 2] - c[2]) <= tol
+    );
+  };
+  const m = Buffer.alloc(W * H);
+  const stack = [sy * W + sx];
+  m[stack[0]] = 255;
+  while (stack.length) {
+    const p = stack.pop();
+    const x = p % W;
+    const y = (p / W) | 0;
+    for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+      const nx = x + dx;
+      const ny = y + dy;
+      if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
+      const np = ny * W + nx;
+      if (m[np] || !near(np)) continue;
+      m[np] = 255;
+      stack.push(np);
+    }
+  }
+  return m;
+}
+
+const seedArg = process.argv.find((a) => a.startsWith('--seed='));
+const SEED = seedArg ? seedArg.slice(7).split(',').map(Number) : null;
 
 async function loadBase(photo) {
   const base = await sharp(photo).resize({ width: W }).removeAlpha().toBuffer();
@@ -35,14 +86,16 @@ async function loadBase(photo) {
 }
 
 if (process.argv[2] === '--probe') {
-  const { H, rgb } = await loadBase(process.argv[3]);
+  const { H, rgb } = await loadBase(process.argv.slice(3).find((a) => !a.startsWith('--')));
+  const seeded = SEED ? floodMask(rgb, W, H, SEED) : null;
   console.log('   x  ymin  ymax');
   for (let x = 0; x < W; x += 25) {
     let lo = null;
     let hi = null;
-    for (let y = Math.floor(H * 0.3); y < H; y++) {
+    for (let y = 0; y < H; y++) {
       const i = (y * W + x) * 3;
-      if (!isScreen(rgb[i], rgb[i + 1], rgb[i + 2])) continue;
+      const on = seeded ? seeded[y * W + x] : isScreen(rgb[i], rgb[i + 1], rgb[i + 2]);
+      if (!on) continue;
       if (lo === null) lo = y;
       hi = y;
     }
@@ -51,16 +104,23 @@ if (process.argv[2] === '--probe') {
   process.exit(0);
 }
 
-const [photo, shot, out, quadArg, opacityArg] = process.argv.slice(2);
+const [photo, shot, out, quadArg, opacityArg] = process.argv
+  .slice(2)
+  .filter((a) => !a.startsWith('--'));
 const OPACITY = Number(opacityArg ?? 1);
 const { base, H, rgb } = await loadBase(photo);
 
-const m = Buffer.alloc(W * H);
-for (let y = Math.floor(H * 0.3); y < H; y++)
-  for (let x = 0; x < W; x++) {
-    const i = (y * W + x) * 3;
-    if (isScreen(rgb[i], rgb[i + 1], rgb[i + 2])) m[y * W + x] = 255;
-  }
+let m;
+if (SEED) {
+  m = floodMask(rgb, W, H, SEED);
+} else {
+  m = Buffer.alloc(W * H);
+  for (let y = Math.floor(H * 0.3); y < H; y++)
+    for (let x = 0; x < W; x++) {
+      const i = (y * W + x) * 3;
+      if (isScreen(rgb[i], rgb[i + 1], rgb[i + 2])) m[y * W + x] = 255;
+    }
+}
 
 // 🔴 임계값만 쓰면 테이블 하이라이트·손끝 반사가 점점이 섞여 화면 밖에 「모래」가 뿌려진다.
 //    열기(Open)로 점을 지우고 닫기(Close)로 구멍을 메운다. 손가락 구멍은 크므로 살아남는다.
