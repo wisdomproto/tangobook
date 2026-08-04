@@ -6,6 +6,7 @@ import { ActivityShell } from '../components/ActivityShell';
 import { useActivitySound } from '../hooks/useActivitySound';
 import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
+import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 import {
   patternLabel as makePatternLabel,
   patternHighlightRanges,
@@ -108,6 +109,13 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
 
   const [heard, setHeard] = useState<Set<string>>(new Set());
   const doneRef = useRef(false);
+  /**
+   * 🔴 배우기(Listen&repeat) 뒤에 **써보기**가 이어진다(2026-08-04 사용자: "배우기랑 써보기를 합치자").
+   *    Book 2 의 cvc-pattern-learn 이 A→B→C 로 흐르는 것과 같은 모양 — 여기선 learn → write 두 단계.
+   */
+  const [phase, setPhase] = useState<'learn' | 'write'>('learn');
+  const [writeIdx, setWriteIdx] = useState(0);
+  const writeDoneRef = useRef(false);
 
   const handleTap = useCallback(
     (word: string) => {
@@ -119,23 +127,47 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
         if (next.size >= words.length) willAll = true;
         return next;
       });
-      // 낱말을 읽어주고(저작 녹음 우선), 마지막 하나가 채워지면(그리고 처음이면) 칭찬 → 완료.
+      // 낱말을 읽어주고(저작 녹음 우선), 마지막 하나가 채워지면 칭찬 → **써보기 단계로**.
       say(
         word,
         () => {
           if (willAll && !doneRef.current) {
             doneRef.current = true;
-            rest(() => {
-              playCorrectSequence({ language: 'en' });
-              onMarkComplete();
-            });
+            rest(() => playCorrectSequence({ language: 'en', onDone: () => setPhase('write') }));
           }
         },
         ttsByWord.get(word)
       );
     },
-    [say, rest, playCorrectSequence, onMarkComplete, words.length, ttsByWord]
+    [say, rest, playCorrectSequence, words.length, ttsByWord]
   );
+
+  // ── 써보기 단계 — 낱말 전체를 한 글자씩 쓰고, 다 쓰면 그 낱말을 읽어준 뒤 다음 낱말 ──
+  const writeWord = words[writeIdx];
+  const writeLetters = useMemo(() => (writeWord ? [...writeWord.word] : []), [writeWord]);
+
+  const handleWriteComplete = useCallback(() => {
+    if (writeDoneRef.current) return;
+    writeDoneRef.current = true;
+    const w = words[writeIdx];
+    if (!w) return;
+    const isLast = writeIdx + 1 >= words.length;
+    // 🔴 다 쓰면 낱말 읽기 → (마지막이면 칭찬 → 완료 / 아니면 쉼 → 다음 낱말). onEnded 체인이라 안 잘린다.
+    say(
+      w.word,
+      () => {
+        if (isLast) {
+          playCorrectSequence({ language: 'en', onDone: onMarkComplete });
+        } else {
+          rest(() => {
+            writeDoneRef.current = false;
+            setWriteIdx((i) => i + 1);
+          });
+        }
+      },
+      ttsByWord.get(w.word)
+    );
+  }, [words, writeIdx, say, rest, playCorrectSequence, onMarkComplete, ttsByWord]);
 
   const dots = (
     <div className="flex items-center gap-1.5">
@@ -147,6 +179,55 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
       ))}
     </div>
   );
+
+  // ── 써보기 화면 — 낱말 전체를 한 글자씩 쓴다(매직 e 는 모음·끝 e 가 코랄로 남는다) ──
+  if (phase === 'write' && writeWord) {
+    const writeDots = (
+      <div className="flex items-center gap-1.5">
+        {words.map((w, i) => (
+          <span
+            key={w.word}
+            className={`w-3 h-3 rounded-full ${i < writeIdx ? 'bg-mint-400' : i === writeIdx ? 'bg-coral-400 ring-2 ring-coral-200' : 'bg-white/70 ring-2 ring-white'}`}
+          />
+        ))}
+      </div>
+    );
+    return (
+      <ActivityShell onBack={onBack} headerRight={writeDots}>
+        <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-3 sm:gap-4">
+          <div
+            className="text-3xl sm:text-4xl font-black font-display"
+            style={{
+              WebkitTextStroke: 'clamp(1.5px, 0.3vh, 3px) white',
+              paintOrder: 'stroke fill',
+            }}
+          >
+            <Highlighted text={label} ranges={labelRanges} />
+          </div>
+          <p className="text-lg sm:text-xl font-black text-ink-600">따라 써봐!</p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 w-full">
+            {writeWord.imageUrl && (
+              <img
+                src={writeWord.imageUrl}
+                alt={writeWord.word}
+                draggable={false}
+                className="w-[clamp(3.5rem,14vh,8rem)] h-[clamp(3.5rem,14vh,8rem)] object-cover rounded-3xl border-[6px] border-white shadow-pop shrink-0"
+              />
+            )}
+            <div className="w-full max-w-2xl">
+              <WordFillCanvas
+                key={writeIdx}
+                word={writeWord.word}
+                syllables={writeLetters}
+                onComplete={handleWriteComplete}
+              />
+            </div>
+          </div>
+        </div>
+        <FeedbackOverlay kind="correct" visible={praiseVisible} />
+      </ActivityShell>
+    );
+  }
 
   return (
     <ActivityShell onBack={onBack} headerRight={dots}>

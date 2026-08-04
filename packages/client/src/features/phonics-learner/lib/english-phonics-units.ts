@@ -360,11 +360,11 @@ export function patternHighlightRanges(word: string, pattern: string): [number, 
 }
 
 /**
- * 🔴 **Book 3·4·5 익히기 = 패턴마다 배우기 + 써보기**(2026-07-31 사용자 "북2 참고해서 익히기 늘려").
- *    Book 2 가 VC 패턴마다 `배우기`+`써보기` 를 두듯, 여기도 커리큘럼 패턴(`_ake`·`bl_`·`ee`)마다
- *    **낱말가족 배우기(`word-family-learn`, Listen and repeat) + 낱말 쓰기(써보기)** — 둘 다 `pattern` 을
- *    달고 호스트가 그 패턴 낱말만 고른다. 배우기는 처음엔 듣고 고르기 퀴즈였으나 이퓨처 §4(Learn=
- *    Listen and repeat) 대로 교정(2026-08-01, `WordFamilyLearnActivity`). 나머지 게임은 단원 전체.
+ * 🔴 **Book 3·4·5 익히기 = 패턴마다 배우기 하나**(2026-08-04 사용자 "배우기랑 써보기 합치자").
+ *    `WordFamilyLearnActivity` 가 **배우기(Listen and repeat) → 써보기(낱말 쓰기)** 두 단계로 흐른다
+ *    (Book 2 의 cvc-pattern-learn 이 A→B→C 로 흐르는 것과 같은 모양). 예전엔 써보기를 별도 카드
+ *    (`game-word-writing`)로 뒀는데(2026-07-31), 한 활동 안에서 이어지도록 합쳤다. 배우기는 이퓨처
+ *    §4(Learn=Listen and repeat) 대로 교정된 것(2026-08-01). 나머지 게임은 단원 전체.
  */
 function makeWordUnitPlan(unit: EnglishUnitSummary): ActivityPlan {
   const activities: ActivityDef[] = [];
@@ -372,7 +372,6 @@ function makeWordUnitPlan(unit: EnglishUnitSummary): ActivityPlan {
   for (const p of unit.patterns) {
     const label = patternLabel(p);
     activities.push({ key: `learn-${p}`, order: order++, kind: 'word-family-learn', section: 'learn', title: `${label} 배우기`, emoji: '🔊', required: true, pattern: p }); // prettier-ignore
-    activities.push({ key: `write-${p}`, order: order++, kind: 'game-word-writing', section: 'learn', title: `${label} 써보기`, emoji: '🖍️', required: false, pattern: p }); // prettier-ignore
   }
   activities.push(
     { key: 'game-english-block', order: order++, kind: 'game-english-block', section: 'play', title: '블록 게임', emoji: '🧩', required: false }, // prettier-ignore
