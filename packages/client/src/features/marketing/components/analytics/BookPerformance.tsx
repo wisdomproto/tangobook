@@ -77,7 +77,11 @@ export function BookPerformance({ books, others, websiteUrl }: BookPerformancePr
                           {b.views.toLocaleString()}
                         </span>
                       </span>
-                      <span className="break-keep">체류 {formatDuration(b.avgDuration)}</span>
+                      {/* 🔴 「조회당」을 붙인다 — 세션 평균으로 오해하면 숫자를 잘못 읽는다.
+                          이 값은 `userEngagementDuration ÷ 조회수`(서버 `mapTopBooks`). */}
+                      <span className="break-keep">
+                        조회당 체류 {formatDuration(b.avgDuration)}
+                      </span>
                     </div>
                   </div>
                 </a>
