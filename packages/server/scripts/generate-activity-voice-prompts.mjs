@@ -40,6 +40,8 @@ const PROMPTS = [
   // 쓰기 — **낱말/글자 전체를 한꺼번에 보여주는 화면**(ABC 써보기·영어 CVC 써보기·모음 쓰기).
   // "반짝이는 칸" 이 없어 그 멘트가 어긋난다(사용자 지적). 화면 문구("따라써봐")와도 일치.
   { name: 'write-trace-ko', text: '글자를 따라 써 봐!', language: 'korean' },
+  // 듣고 고르기 **탐색** 진입 — 퀴즈 전에 카드를 눌러 소리를 들어보는 단계(화면 문구 "눌러서 들어봐!").
+  { name: 'listen-explore-ko', text: '눌러서 들어봐!', language: 'korean' },
 ];
 
 async function generate({ name, text, language }) {
