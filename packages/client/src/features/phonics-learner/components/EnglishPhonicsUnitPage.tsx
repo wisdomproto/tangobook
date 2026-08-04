@@ -251,8 +251,11 @@ function ActivityCard({
       <div
         className={`relative z-10 flex-1 min-h-0 flex items-center justify-center my-1 group-hover:scale-105 transition-transform duration-200 ${showDone ? 'opacity-50' : ''}`}
       >
-        {activity.kind === 'alphabet-letter-learn' && activity.letters ? (
+        {(activity.kind === 'alphabet-letter-learn' || activity.kind === 'word-listen-choose') &&
+        activity.letters ? (
           // ABC/DEF/... 배우기 — 대문자만, coral·sky 번갈아.
+          // 🔴 배우기 2(word-listen-choose)도 Book 1 이면 letters 를 갖는다 → 배우기 1·써보기와 같이
+          //    글자를 보여준다(아이콘 하나만 튀지 않게). Book 2 는 letters 가 없어 아래 아이콘 분기로 간다.
           (() => {
             const ls = activity.letters!.map((L) => L.toUpperCase());
             return (
