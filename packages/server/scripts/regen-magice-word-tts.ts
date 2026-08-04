@@ -3,8 +3,9 @@
 // 🔴 매직-e 는 "e 가 모음을 이름대로 말하게 한다"(a_e → 모음 a 가 '에이'). 그래서 낱말만 읽던 걸
 //    (사용자 지적) 장모음(모음이 제 이름을 말하는 소리) + 낱말로 바꾼다 — Book 4/5 [블렌드][낱말]과 대칭.
 //    장모음 이름 = long-a→"ay"(에이) · long-i→"eye"(아이) · long-o→"oh"(오) · long-u→"you"(유).
-//    라이브러리엔 장모음 낱글자 이름 클립이 없어(ai/oa 는 있지만 i/u 없음) 한 목소리로 통일하려고
-//    **Gemini 로 통 문장** "ay cave" 를 굽는다(Book 5 라이브러리 없는 낱말 폴백과 같은 경로).
+//    🔴 **라이브러리 concat 으로 굽는다**(pre-recorded 클립 이어붙이기, 일관됨) — Gemini 통문장은
+//    프리픽스를 들쭉날쭉 읽어("ay"→/oʊ/, 앞소리 누락) 탈락했다. 라이브러리엔 ay·eye·oh·you 클립이
+//    이미 있어 concat "ay cave" 가 "에이 케이브" 로 나온다(낱말이 없을 때만 Gemini 폴백).
 //
 //   npx tsx packages/server/scripts/regen-magice-word-tts.ts --unit=en-b3-u01 --sample   # 1개만 dry
 //   npx tsx packages/server/scripts/regen-magice-word-tts.ts                              # dry-run 전체
