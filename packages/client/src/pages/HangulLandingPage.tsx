@@ -113,17 +113,38 @@ const SIGNUP = '/login?mode=signup';
  */
 const GA_UNIT = 'kr-h1-u02';
 const GA_LEARN = [
-  { key: 'consonant-tap', h: 520 },
-  { key: 'blend-listen', h: 520 },
-  { key: 'consonant-write', h: 560 },
-  { key: 'letter-hunt', h: 620 },
+  { key: 'consonant-tap', h: 520, note: '글자 이름이 아니라 소리를 먼저 귀에 넣습니다.' },
+  {
+    key: 'blend-listen',
+    h: 520,
+    note: '두 글자가 합쳐지는 순간을 눈으로 봅니다 — 이게 읽기의 출발입니다.',
+  },
+  {
+    key: 'consonant-write',
+    h: 560,
+    note: '손이 기억합니다. 눈으로 본 글자를 획순대로 따라 씁니다.',
+  },
+  {
+    key: 'letter-hunt',
+    h: 620,
+    note: '비슷하게 생긴 글자 사이에서 찾아냅니다 — 매 탭이 판단입니다.',
+  },
 ];
 const GA_PLAY = [
-  { key: 'word-listen-choose', h: 620 },
-  { key: 'game-dots', h: 620 },
-  { key: 'game-korean-block', h: 680 },
-  { key: 'game-word-writing', h: 620 },
-  { key: 'game-line-matching', h: 620 },
+  {
+    key: 'word-listen-choose',
+    h: 620,
+    note: '소리만 듣고 고릅니다. 눈이 아니라 귀로 하는 유일한 활동입니다.',
+  },
+  { key: 'game-dots', h: 620, note: '낱말이 가리키는 것을 직접 그려 봅니다.' },
+  { key: 'game-korean-block', h: 680, note: '자음과 모음을 모아 낱말 하나를 만듭니다.' },
+  { key: 'game-word-writing', h: 620, note: '낱말 전체를 왼쪽부터 차례로 씁니다.' },
+  {
+    key: 'game-line-matching',
+    h: 620,
+    note: '여기까지가 「ㄱ」 한 단원입니다. 서른두 단원이 전부 이렇게 생겼습니다.',
+    cta: true,
+  },
 ];
 
 /**
@@ -158,15 +179,18 @@ function StickyCta() {
       io.disconnect();
     };
   }, []);
-  const visible = show && !blocked;
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-50 border-t border-coral-200 bg-cream-50/95 px-4 py-3 backdrop-blur transition-transform duration-300 sm:px-6 ${
-        visible ? 'translate-y-0' : 'translate-y-full'
-      }`}
+      className={`fixed inset-x-0 bottom-0 z-50 border-t border-coral-200 bg-cream-50/95 px-4 backdrop-blur transition-all duration-300 sm:px-6 ${
+        show ? 'translate-y-0' : 'translate-y-full'
+      } ${blocked ? 'py-1.5' : 'py-3'}`}
     >
       <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
-        <p className="min-w-0 text-[13px] font-semibold text-ink-700 break-keep sm:text-sm">
+        <p
+          className={`min-w-0 text-[13px] font-semibold text-ink-700 break-keep sm:text-sm ${
+            blocked ? 'hidden' : ''
+          }`}
+        >
           가입하면 1년 무료{' '}
           <span className="text-coral-700">· 이후 월 {PLANS.month1.amount.toLocaleString()}원</span>
         </p>
@@ -484,48 +508,7 @@ export default function HangulLandingPage() {
         </p>
       </Section>
 
-      {/* ── ③ 직접 해보기 (평점·후기 자리) ───────────────────── */}
-      <section className="px-4 py-12 sm:px-6 sm:py-14">
-        <div className="mx-auto max-w-3xl">
-          <div className="rounded-3xl border border-coral-200 bg-white/60 p-4 sm:p-6">
-            <p className="text-xs font-bold tracking-wide text-coral-700">단원 하나가 이만큼</p>
-            <h2 className="mt-1 font-display text-[26px] font-extrabold text-ink-900 break-keep sm:text-[32px]">
-              「ㄱ」 단원을 통째로 열어 두었습니다
-            </h2>
-            <p className="mt-2 text-sm text-ink-600 break-keep">
-              스크린샷이 아닙니다. 아래 아홉 개는 <strong>앱에서 도는 그 화면 그대로</strong>이고,
-              가입하지 않아도 지금 눌러볼 수 있습니다. 서른두 단원이 전부 이렇게 생겼습니다.
-            </p>
-            {/* 🔴 이 한 장에만 **진짜 앱 화면이 합성돼 있다**(「반짝이는 칸에 ㄱ 써봐!」).
-                태블릿 화면 면이 카메라를 향한 유일한 컷이라 그렇다 — 나머지 다섯 장은 화면이
-                반대쪽을 보거나 뒤판만 보여 넣을 면이 없다. 합성 = `composite-screen-into-photo.mjs`.
-                작게 쓰면 합성한 보람이 없으므로 전체 폭 3:2 로 둔다. */}
-            <Photo
-              src="tracing"
-              alt="태블릿에 뜬 「반짝이는 칸에 ㄱ 써봐!」 화면을 손가락으로 따라 쓰는 아이"
-              w={1200}
-              h={800}
-              className="mt-5"
-            />
-
-            <p className="mt-7 inline-flex items-center gap-2 rounded-full bg-coral-700 px-5 py-2 text-lg font-extrabold text-white">
-              📖 익히기 · 글자
-            </p>
-            {GA_LEARN.map((a) => (
-              <PhonicsTryIt key={a.key} unitId={GA_UNIT} activityKey={a.key} height={a.h} />
-            ))}
-
-            <p className="mt-8 inline-flex items-center gap-2 rounded-full bg-mint-700 px-5 py-2 text-lg font-extrabold text-white">
-              🎮 낱말 놀이 · 낱말
-            </p>
-            {GA_PLAY.map((a) => (
-              <PhonicsTryIt key={a.key} unitId={GA_UNIT} activityKey={a.key} height={a.h} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── ④ 파닉스 커리큘럼 ─────────────────────────────────── */}
+      {/* ── ③ 파닉스 커리큘럼 (데모보다 먼저 — 아래 데모가 32개 중 하나임을 알고 보게) ─────────────────────────────────── */}
       <Section eyebrow="한글 파닉스" title="이름이 아니라 소리부터, 서른두 단원">
         <p>
           「기역」은 글자의 <em>이름</em>이지 소리가 아닙니다. 「기역, 아」를 읽으면 「기역아」가
@@ -576,6 +559,60 @@ export default function HangulLandingPage() {
           커리큘럼 전체 보기 →
         </Link>
       </Section>
+
+      {/* ── ④ 직접 해보기 — 그 32단원 중 「ㄱ」 하나를 통째로 ───────────────────── */}
+      <section className="px-4 py-12 sm:px-6 sm:py-14">
+        <div className="mx-auto max-w-3xl">
+          <div className="rounded-3xl border border-coral-200 bg-white/60 p-4 sm:p-6">
+            <p className="text-xs font-bold tracking-wide text-coral-700">단원 하나가 이만큼</p>
+            <h2 className="mt-1 font-display text-[26px] font-extrabold text-ink-900 break-keep sm:text-[32px]">
+              「ㄱ」 단원을 통째로 열어 두었습니다
+            </h2>
+            <p className="mt-2 text-sm text-ink-600 break-keep">
+              스크린샷이 아닙니다. 아래 아홉 개는 <strong>앱에서 도는 그 화면 그대로</strong>이고,
+              가입하지 않아도 지금 눌러볼 수 있습니다. 서른두 단원이 전부 이렇게 생겼습니다.
+            </p>
+            {/* 🔴 이 한 장에만 **진짜 앱 화면이 합성돼 있다**(「반짝이는 칸에 ㄱ 써봐!」).
+                태블릿 화면 면이 카메라를 향한 유일한 컷이라 그렇다 — 나머지 다섯 장은 화면이
+                반대쪽을 보거나 뒤판만 보여 넣을 면이 없다. 합성 = `composite-screen-into-photo.mjs`.
+                작게 쓰면 합성한 보람이 없으므로 전체 폭 3:2 로 둔다. */}
+            <Photo
+              src="tracing"
+              alt="태블릿에 뜬 「반짝이는 칸에 ㄱ 써봐!」 화면을 손가락으로 따라 쓰는 아이"
+              w={1200}
+              h={800}
+              className="mt-5"
+            />
+
+            <p className="mt-7 inline-flex items-center gap-2 rounded-full bg-coral-700 px-5 py-2 text-lg font-extrabold text-white">
+              📖 익히기 · 글자
+            </p>
+            {GA_LEARN.map((a) => (
+              <PhonicsTryIt
+                key={a.key}
+                unitId={GA_UNIT}
+                activityKey={a.key}
+                height={a.h}
+                note={a.note}
+              />
+            ))}
+
+            <p className="mt-8 inline-flex items-center gap-2 rounded-full bg-mint-700 px-5 py-2 text-lg font-extrabold text-white">
+              🎮 낱말 놀이 · 낱말
+            </p>
+            {GA_PLAY.map((a) => (
+              <PhonicsTryIt
+                key={a.key}
+                unitId={GA_UNIT}
+                activityKey={a.key}
+                height={a.h}
+                note={a.note}
+                cta={'cta' in a && a.cta}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ── ⑤ 동화책 ──────────────────────────────────────────── */}
       <Section eyebrow="동화책" title={`${FACTS.books}권, ${FACTS.pages.toLocaleString()}쪽`}>

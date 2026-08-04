@@ -28,6 +28,16 @@ interface Props {
   title?: string;
   /** 상자 높이 — 격자가 큰 게임은 더 필요하다. */
   height?: number;
+  /**
+   * 이 활동이 무엇을 기르는지 한 줄. 🔴 **상자마다 달라야 한다**(2026-08-02 측정 리뷰) —
+   * 같은 문장이 아홉 번 반복되면 두 번째부터 안 읽히고, 아홉 화면이 리듬이 아니라 벽이 된다.
+   */
+  note?: string;
+  /**
+   * 「앱에서 이어서 하기」 버튼을 이 상자에 둘지. 🔴 **기본은 안 둔다** — 같은 링크 아홉 개는
+   * 선택지가 아니라 소음이다. 구간 마지막 상자에만 하나.
+   */
+  cta?: boolean;
 }
 
 /** 「합쳐지는 순간」 = 이 단원을 한 장면으로 보여주는 활동. 레벨마다 kind 가 다르다. */
@@ -38,7 +48,7 @@ const BLEND_KINDS = [
   'vowel-listen',
 ];
 
-export function PhonicsTryIt({ unitId, activityKey, title, height }: Props) {
+export function PhonicsTryIt({ unitId, activityKey, title, height, note, cta }: Props) {
   const [done, setDone] = useState(false);
 
   const plan = getActivityPlan(unitId);
@@ -102,14 +112,16 @@ export function PhonicsTryIt({ unitId, activityKey, title, height }: Props) {
         <p className="text-xs text-ink-600 break-keep">
           {done
             ? '다 하셨네요. 아이와 함께면 소리까지 들으며 할 수 있어요.'
-            : '앱에서는 이 활동이 단원마다 아홉 가지씩 이어집니다.'}
+            : (note ?? '앱에서는 이 활동이 단원마다 아홉 가지씩 이어집니다.')}
         </p>
-        <Link
-          to={`/library/phonics/korean/${unitId}`}
-          className="rounded-full bg-coral-700 px-5 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-coral-800"
-        >
-          앱에서 이어서 하기 →
-        </Link>
+        {cta && (
+          <Link
+            to={`/library/phonics/korean/${unitId}`}
+            className="inline-flex min-h-[44px] items-center rounded-full bg-coral-700 px-5 text-sm font-bold text-white shadow-sm transition hover:bg-coral-800"
+          >
+            앱에서 이어서 하기 →
+          </Link>
+        )}
       </div>
     </div>
   );
