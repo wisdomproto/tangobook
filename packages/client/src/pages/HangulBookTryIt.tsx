@@ -145,12 +145,21 @@ export function HangulBookTryIt() {
  * 🔴 네 게임이 **같은 낱말**을 서로 다른 방식으로 다룬다(그림↔말 / 글자 조립 / 윤곽 따라 그리기 /
  *    획 따라 쓰기). 그게 이 묶음의 논지라 문구로도 말한다.
  */
+/**
+ * 🔴 **넷 다 두지 않는다**(2026-08-02 2차 리뷰). 파닉스 구간이 이미 같은 게임 넷을 보여주기
+ *    때문에, 여기서 또 넷을 보여주면 **같은 게임을 두 번씩** 보게 된다 — 두 번째 「따라 쓰기」에서
+ *    독자는 읽기를 멈추고 넘기기 시작하고, 그 상태로 마지막 CTA 에 도착한다.
+ * 🔴 뺀 것 중 **한글 블록**은 특히 여기서 나쁘다 — 동화책 낱말은 자모가 다 열려
+ *    **40칸 키보드**가 펼쳐진다(파닉스판은 네 칸). 「우리 애는 못 하겠다」로 읽힌다.
+ * 🔴 남긴 둘 = 설명이 필요 없는 것(그림 짝) + 다른 앱에 없는 것(낱말 그리기).
+ */
 const BOOK_GAMES: { id: GameTypeId; label: string; how: string }[] = [
   { id: 'korean-line-matching', label: '🎯 그림 짝 찾기', how: '그림과 낱말을 이어 봅니다' },
-  { id: 'korean-block', label: '🧱 한글 블록', how: '자음·모음을 모아 낱말을 만듭니다' },
   { id: 'connect-the-dots', label: '✏️ 낱말 그리기', how: '낱말이 가리키는 그림을 그려 봅니다' },
-  { id: 'korean-word-writing', label: '📝 낱말 쓰기', how: '획을 따라 낱말을 직접 씁니다' },
 ];
+
+/** 상자로는 안 띄우고 한 줄로만 알리는 나머지 — 있다는 사실만 전한다. */
+const BOOK_GAMES_MORE = '🧱 한글 블록 · 📝 낱말 쓰기';
 
 export function HangulWordGameTryIt() {
   const books = BOOKS_BY_CATEGORY.filter((b) => b.words > 0);
@@ -175,7 +184,7 @@ export function HangulWordGameTryIt() {
           footer={
             i === 0
               ? `「${picked.title}」에 나온 낱말 ${picked.words}개로 놉니다 — 책마다 낱말이 다릅니다.`
-              : '같은 낱말을 방식만 바꿔 다시 만납니다. 그래서 외우지 않아도 남습니다.'
+              : `같은 낱말을 ${BOOK_GAMES_MORE} 로도 만납니다. 방식만 바꿔 다시 만나서, 외우지 않아도 남습니다.`
           }
         >
           <div
