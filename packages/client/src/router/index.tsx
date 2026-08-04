@@ -2,8 +2,18 @@ import { lazy, Suspense } from 'react';
 import { createBrowserRouter, Navigate, Outlet, useParams } from 'react-router-dom';
 import { GuestGate } from '../features/access/components/GuestGate';
 import { ErrorBoundary } from '@/design-system';
-import { AppLayout } from '../components/AppLayout';
-import { AppLayoutV2 } from '../components/AppLayoutV2';
+/**
+ * 🔴 **저작도구 레이아웃은 lazy 다**(2026-08-04). `AppLayout`/`AppLayoutV2` 는 이름만 레이아웃이지
+ *    실제로는 저작도구 전체(`EditorContent`·`EditorPanelV2`·`VocabularyUnitEditor`·편집 사이드바)를
+ *    끌고 온다. 라우터 맨 위에서 정적 import 라 **아이가 동화책 한 권 열 때도 통째로 받았다**
+ *    (dnd-kit 이 첫 화면 번들에 있던 것도 이 경로다). `/editor` `/editor2` 는 우리만 쓴다.
+ */
+const AppLayout = lazy(() =>
+  import('../components/AppLayout').then((m) => ({ default: m.AppLayout }))
+);
+const AppLayoutV2 = lazy(() =>
+  import('../components/AppLayoutV2').then((m) => ({ default: m.AppLayoutV2 }))
+);
 import { AppShell } from '../components/AppShell';
 /**
  * 🔴 **마케팅 스튜디오는 lazy 다**(2026-08-04). 운영자 전용 화면인데 즉시 import 였고,
@@ -25,70 +35,97 @@ const AdsPage = lazy(() => M().then((m) => ({ default: m.AdsPage })));
 const LandingsPage = lazy(() => M().then((m) => ({ default: m.LandingsPage })));
 const FeedbackPage = lazy(() => M().then((m) => ({ default: m.FeedbackPage })));
 const PipelinePage = lazy(() => M().then((m) => ({ default: m.PipelinePage })));
+/**
+ * 🔴 **첫 화면에 필요한 것만 즉시 import 한다**(2026-08-04).
+ *
+ * 여기 있는 것 = 블로그·광고에서 사람이 실제로 도착하는 곳(`/library`, `/library/:id`).
+ * 나머지는 전부 `lazy` — 정적 import 였을 때 뷰어·게임·파닉스·저작도구·결제가 **전부 한 덩어리**로
+ * 묶여, 책 한 권 열려던 사람이 3MB 를 받고 나서야 「책 읽기」를 볼 수 있었다.
+ * 실측(4G·CPU 4배, 장수풍뎅이 책): SSR 줄글 2.1s → **버튼 등장 10.9s**.
+ *
+ * 🔴 `HangulLandingPage` 도 lazy 다 — 광고 랜딩이 뷰어·게임 컴포넌트를 실제로 마운트해서,
+ *    즉시 import 면 그 둘이 통째로 첫 화면 번들에 실린다.
+ */
 import LibraryPage from '../pages/LibraryPage';
-import GamesHubPage from '../pages/GamesHubPage';
-import RandomBlockGamePage from '../pages/RandomBlockGamePage';
-import RandomVocabStudyPage from '../pages/RandomVocabStudyPage';
+const GamesHubPage = lazy(() => import('../pages/GamesHubPage'));
+const RandomBlockGamePage = lazy(() => import('../pages/RandomBlockGamePage'));
+const RandomVocabStudyPage = lazy(() => import('../pages/RandomVocabStudyPage'));
 
 function EditorV2BidRedirect() {
   const { bid } = useParams();
   return <Navigate to={`/editor2/${bid}`} replace />;
 }
 import BookDetailPage from '../pages/BookDetailPage';
-import BookSeoPage from '../pages/BookSeoPage';
-import GuideHubPage from '../pages/GuideHubPage';
-import CurriculumMasterPage from '../pages/CurriculumMasterPage';
-import LibraryMasterPage from '../pages/LibraryMasterPage';
+const BookSeoPage = lazy(() => import('../pages/BookSeoPage'));
+const GuideHubPage = lazy(() => import('../pages/GuideHubPage'));
+const CurriculumMasterPage = lazy(() => import('../pages/CurriculumMasterPage'));
+const LibraryMasterPage = lazy(() => import('../pages/LibraryMasterPage'));
 const LetterStrokeBulkEditorPage = lazy(() => import('../pages/LetterStrokeBulkEditorPage'));
 const KoreanJamoStrokeBulkEditorPage = lazy(
   () => import('../pages/KoreanJamoStrokeBulkEditorPage')
 );
-import LetterFillDemoPage from '../pages/LetterFillDemoPage';
-import ConnectTheDotsDemoPage from '../pages/ConnectTheDotsDemoPage';
-import ViewerPage from '../pages/ViewerPage';
+const LetterFillDemoPage = lazy(() => import('../pages/LetterFillDemoPage'));
+const ConnectTheDotsDemoPage = lazy(() => import('../pages/ConnectTheDotsDemoPage'));
+const ViewerPage = lazy(() => import('../pages/ViewerPage'));
 import { LangEntry } from '../pages/LangEntry';
-import BlogListPage from '../features/blog-public/BlogListPage';
-import BlogPostPage from '../features/blog-public/BlogPostPage';
+const BlogListPage = lazy(() => import('../features/blog-public/BlogListPage'));
+const BlogPostPage = lazy(() => import('../features/blog-public/BlogPostPage'));
 import NotFoundPage from '../pages/NotFoundPage';
 import LoginCallback from '../pages/LoginCallback';
 import LoginPage from '../features/auth/components/LoginPage';
 import { AuthProvider } from '../features/auth/context/AuthContext';
-import ParentHomePage from '../features/auth/pages/ParentHomePage';
-import ParentReportsPage from '../features/auth/pages/ParentReportsPage';
-import ParentProfilesPage from '../features/auth/pages/ParentProfilesPage';
-import ParentSettingsPage from '../features/auth/pages/ParentSettingsPage';
-import { VocabularyHubPage, VocabularyStudyPage } from '../features/vocabulary-unit';
+const ParentHomePage = lazy(() => import('../features/auth/pages/ParentHomePage'));
+const ParentReportsPage = lazy(() => import('../features/auth/pages/ParentReportsPage'));
+const ParentProfilesPage = lazy(() => import('../features/auth/pages/ParentProfilesPage'));
+const ParentSettingsPage = lazy(() => import('../features/auth/pages/ParentSettingsPage'));
+const VU = () => import('../features/vocabulary-unit');
+const VocabularyHubPage = lazy(() => VU().then((m) => ({ default: m.VocabularyHubPage })));
+const VocabularyStudyPage = lazy(() => VU().then((m) => ({ default: m.VocabularyStudyPage })));
 // 🔴 lazy 필수: @tangobook/remotion(Player + loadFont 사이드이펙트 15개)을 통째로 끌고 와서
 // 정적 import 시 메인 번들 비대 + 모든 페이지에서 Noto Sans KR 폰트 요청 124개 발생.
 const MosquitoEbookPage = lazy(() => import('../features/ebook-mosquito/pages/MosquitoEbookPage'));
-import {
-  PhonicsLandingPage,
-  KoreanPhonicsStudyPage,
-  KoreanPhonicsActivityPage,
-  EnglishPhonicsStudyPage,
-  EnglishPhonicsActivityPage,
-} from '../features/phonics-learner';
-import { ContinuousHomePage, ContinuousBuilder, ContinuousPlayPage } from '../features/continuous';
-import SubscribePage from '../features/payment/pages/SubscribePage';
-import PaymentSuccessPage from '../features/payment/pages/PaymentSuccessPage';
-import PaymentFailPage from '../features/payment/pages/PaymentFailPage';
-import { InviteLandingPage, InviteFriendsPage, ReferralRewardToast } from '../features/payment';
-import HangulLandingPage from '../pages/HangulLandingPage';
+const PL = () => import('../features/phonics-learner');
+const PhonicsLandingPage = lazy(() => PL().then((m) => ({ default: m.PhonicsLandingPage })));
+const KoreanPhonicsStudyPage = lazy(() =>
+  PL().then((m) => ({ default: m.KoreanPhonicsStudyPage }))
+);
+const KoreanPhonicsActivityPage = lazy(() =>
+  PL().then((m) => ({ default: m.KoreanPhonicsActivityPage }))
+);
+const EnglishPhonicsStudyPage = lazy(() =>
+  PL().then((m) => ({ default: m.EnglishPhonicsStudyPage }))
+);
+const EnglishPhonicsActivityPage = lazy(() =>
+  PL().then((m) => ({ default: m.EnglishPhonicsActivityPage }))
+);
+const CO = () => import('../features/continuous');
+const ContinuousHomePage = lazy(() => CO().then((m) => ({ default: m.ContinuousHomePage })));
+const ContinuousBuilder = lazy(() => CO().then((m) => ({ default: m.ContinuousBuilder })));
+const ContinuousPlayPage = lazy(() => CO().then((m) => ({ default: m.ContinuousPlayPage })));
+const SubscribePage = lazy(() => import('../features/payment/pages/SubscribePage'));
+const PaymentSuccessPage = lazy(() => import('../features/payment/pages/PaymentSuccessPage'));
+const PaymentFailPage = lazy(() => import('../features/payment/pages/PaymentFailPage'));
+/* 🔴 `ReferralRewardToast` 만 즉시 — 라우트가 아니라 루트에 상시 마운트되는 토스트다. */
+import { ReferralRewardToast } from '../features/payment';
+const PAY = () => import('../features/payment');
+const InviteLandingPage = lazy(() => PAY().then((m) => ({ default: m.InviteLandingPage })));
+const InviteFriendsPage = lazy(() => PAY().then((m) => ({ default: m.InviteFriendsPage })));
+const HangulLandingPage = lazy(() => import('../pages/HangulLandingPage'));
 import { GlobalUiSound } from '../components/GlobalUiSound';
 import { GuestEventAdopter } from '@/features/learning/components/GuestEventAdopter';
 import { MetaPixelTracker } from '../components/MetaPixelTracker';
 import { AnalyticsControl } from '../components/AnalyticsControl';
 import { ParentGate } from '../features/auth/components/ParentGate';
 import { RequireAuthed } from '../features/auth/guards/RequireAuthed';
-import TermsPage from '../pages/legal/TermsPage';
+const TermsPage = lazy(() => import('../pages/legal/TermsPage'));
 const OpsDashboardPage = lazy(() =>
   import('../features/ops').then((m) => ({ default: m.OpsDashboardPage }))
 );
 const MembersDashboardPage = lazy(() =>
   import('../features/members').then((m) => ({ default: m.MembersDashboardPage }))
 );
-import PrivacyPage from '../pages/legal/PrivacyPage';
-import RefundPolicyPage from '../pages/legal/RefundPolicyPage';
+const PrivacyPage = lazy(() => import('../pages/legal/PrivacyPage'));
+const RefundPolicyPage = lazy(() => import('../pages/legal/RefundPolicyPage'));
 
 export const router = createBrowserRouter([
   {

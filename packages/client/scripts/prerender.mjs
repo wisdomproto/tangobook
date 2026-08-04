@@ -42,26 +42,37 @@ const STATIC_ROUTES = [
   '/library',
   '/library/phonics/korean',
   '/vocabulary',
-  '/blog',
+  '/hangul',
 ];
+// 🔴 `/blog` 는 넣지 않는다 — 서버가 `blogListHandler` 로 이미 SSR 한다(app.ts). 구워 봐야
+//    그 핸들러가 먼저 잡아 영영 안 쓰이고, 매니페스트에 담기면 246KB 를 헛되이 물고 있는다.
+//    같은 이유로 `/library/:id`(about SSR)·`/guide/*` 도 대상이 아니다.
 
 const PREVIEW_PORT = 4173;
 const API_ORIGIN = (process.env.PRERENDER_API_ORIGIN || 'https://www.tangobook.co.kr').replace(/\/$/, '');
 const PRERENDER_BOOKS = process.env.PRERENDER_BOOKS !== '0';
 const BOOK_LIMIT = process.env.PRERENDER_BOOK_LIMIT ? Number(process.env.PRERENDER_BOOK_LIMIT) : Infinity;
 
+/**
+ * 프록시/프로브가 쓰는 헤더 — 🔴 **User-Agent 를 준다**. Cloudflare 는 UA 없는 데이터센터
+ * 요청을 봇으로 보고 막을 수 있고, 그러면 빌드에서만 책 목록이 안 와 표지 없는 화면이 구워진다.
+ */
+const PROXY_HEADERS = {
+  accept: 'application/json',
+  'user-agent': 'Mozilla/5.0 (compatible; TangobookPrerender/1.0; +https://www.tangobook.co.kr)',
+};
+
 /** API_ORIGIN 이 응답하는지 짧게 확인. about prerender 가능 여부 판단. */
 async function probeApi() {
   try {
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), 8000);
-    const r = await fetch(`${API_ORIGIN}/api/storybooks`, {
-      headers: { accept: 'application/json' },
-      signal: ctrl.signal,
-    });
+    const r = await fetch(`${API_ORIGIN}/api/storybooks`, { headers: PROXY_HEADERS, signal: ctrl.signal });
     clearTimeout(t);
+    if (!r.ok) console.warn(`[prerender] API 응답 ${r.status}`);
     return r.ok;
-  } catch {
+  } catch (e) {
+    console.warn(`[prerender] API 요청 실패: ${e.message}`);
     return false;
   }
 }
@@ -114,7 +125,7 @@ async function installApiProxy(page, baseUrl) {
     if (apiIdx !== -1 && url.startsWith(baseUrl)) {
       const target = API_ORIGIN + url.slice(apiIdx);
       try {
-        const r = await fetch(target, { headers: { accept: 'application/json' } });
+        const r = await fetch(target, { headers: PROXY_HEADERS });
         const body = Buffer.from(await r.arrayBuffer());
         const headers = {};
         r.headers.forEach((v, k) => {
@@ -131,11 +142,92 @@ async function installApiProxy(page, baseUrl) {
   });
 }
 
+/**
+ * #root 안에 남은 **눈에 보이는 글자 수** — 무엇이 구워졌는지 판정하는 유일한 기준.
+ *
+ * 🔴 이 가드가 없으면 API 가 안 닿는 채로 구워진 **에러 화면**("연결이 안 돼 와이파이를…")이
+ *    그대로 배포된다(실측: 그렇게 구워졌다). 빈 화면보다 나쁘다 — 고장난 앱으로 보인다.
+ *    문구를 찍어 거르지 않는 이유 = i18n 이 바뀌면 조용히 통과한다. **양**으로 잰다.
+ * 🔴 실측 두 점 사이에 둔 값이다 — 오프라인 에러 92자 / 정상 파닉스 단원 목록 360자
+ *    (그 화면은 글자·숫자뿐이라 짧다). 400 이었을 때 멀쩡한 파닉스를 떨어뜨렸다.
+ *    ponytail: 라우트 무관 단일 임계값. 특정 화면이 오탐되면 그때 라우트별로 나눈다.
+ */
+const MIN_TEXT = 250;
+
+/**
+ * 라우트별 최소 글자 수 — **껍데기만 구워지는 걸 막는 유일한 장치**.
+ *
+ * 🔴 공통 임계값 하나로는 못 잡는다. `/library` 는 헤더+푸터만으로 315자가 나와서
+ *    MIN_TEXT(250)를 넘겨 **표지 0장짜리 라이브러리가 두 번 배포됐다**. 반면 파닉스 단원
+ *    목록은 글자·숫자뿐이라 정상인데도 360자다. 그래서 "그 화면이 다 그려졌을 때의 실측값"
+ *    을 라우트마다 적어 둔다(실측의 6~7할).
+ * 🔴 못 채우면 **굽되 크게 경고한다**(2026-08-04 재판단). 처음엔 거부했는데, 그러면 데이터를
+ *    못 받은 빌드에서 `/library` 가 통째로 프리렌더를 잃어 **흰 화면 10초**로 돌아간다(실측).
+ *    데이터 없는 껍데기는 고장 화면이 아니라 **앱이 원래 그리는 로딩 상태**이고, 그것만으로도
+ *    첫 글자가 10.6초 → 4.3초였다. 진짜 고장(에러/빈 화면)은 아래 `MIN_TEXT` 가 여전히 막는다.
+ */
+const MIN_BY_ROUTE = {
+  '/library': 900, // 실측 1,231 (표지 105장)
+  '/hangul': 3000, // 실측 4,881
+  '/vocabulary': 4000, // 실측 7,243
+};
+
+/**
+ * 진입 게이트 헤드라인(ko) — 구워졌는지 판정할 지문. 못 읽으면 검사를 건너뛴다(빌드는 계속).
+ * i18n 파일에서 읽는 이유 = 문구를 여기에 베껴 두면 문구가 바뀔 때 검사가 조용히 죽는다.
+ */
+const gateNeedle = await (async () => {
+  try {
+    const j = JSON.parse(
+      await fs.readFile(path.join(clientRoot, 'src/i18n/locales/ko/access.json'), 'utf-8')
+    );
+    return j?.entryGate?.title || null;
+  } catch {
+    return null;
+  }
+})();
+
+function visibleTextLength(html) {
+  const rootAt = html.indexOf('<div id="root"');
+  const body = rootAt === -1 ? html : html.slice(rootAt);
+  return body
+    .replace(/<script[\s\S]*?<\/script>/g, '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim().length;
+}
+
 async function prerenderRoute(browser, baseUrl, route, { isBook = false } = {}) {
+  const minText = MIN_BY_ROUTE[route] ?? MIN_TEXT;
   const page = await browser.newPage();
   await page.setViewport({ width: 1280, height: 800 });
 
-  if (isBook) await installApiProxy(page, baseUrl);
+  /**
+   * 🔴 **진입 게이트를 굽지 않는다.** `AppShell` 은 미로그인 + 게스트 창 미시작이면
+   *    `EntryGate` 오버레이를 띄운다 — 그대로 구우면 이미 게스트/로그인인 방문자까지
+   *    첫 1초 동안 「가입하시겠어요?」를 보게 된다. 게스트 앵커를 심어 그 상태를 피한다.
+   *    처음 오는 사람은 React 가 마운트하면서 곧바로 게이트를 띄우므로 잃는 게 없다.
+   * ⚠️ 로컬은 `.env.local` 이 없어 `isConfigured=false` → 게이트가 원래 안 뜬다.
+   *    이 줄의 효과는 **Supabase 키가 들어가는 Docker 빌드에서만** 드러난다.
+   */
+  await page.setExtraHTTPHeaders({ 'Accept-Language': 'ko-KR,ko;q=0.9' });
+  await page.evaluateOnNewDocument(() => {
+    try {
+      // 🔴 `'auth'` 로 심는다 — 게이트를 막는 건 **선택했다는 사실**이고(`needsGate` 는
+      //    choice===null 일 때만 참), `'guest'` 로 심으면 게스트 창까지 시작돼 모든 방문자가
+      //    첫 1초 동안 「게스트 30일 남음」이라는 **사실 아닌 문구**를 보게 된다(실측).
+      localStorage.setItem('tb_entry_choice', 'auth');
+      // 🔴 언어를 못 박는다 — 도커 컨테이너엔 로케일이 없어 헤드리스 크롬이 en-US 로 잡히고,
+      //    그대로 구우면 한국 방문자가 영어 화면을 먼저 본다(실측: 배포본이 영어로 구워졌다).
+      localStorage.setItem('tangobook-ui-lang', 'ko');
+    } catch {
+      /* storage 막힘 — 게이트가 구워질 뿐 치명적이지 않다 */
+    }
+  });
+
+  // 🔴 정적 라우트도 API 를 물려준다 — `/library` 는 책 목록이 없으면 오프라인 에러를 그린다.
+  //    데이터가 들어간 채로 구우면 표지·카테고리가 HTML 에 담겨 이미지도 즉시 받기 시작한다.
+  await installApiProxy(page, baseUrl);
 
   await page.goto(`${baseUrl}${route}`, {
     waitUntil: 'domcontentloaded',
@@ -151,12 +243,61 @@ async function prerenderRoute(browser, baseUrl, route, { isBook = false } = {}) 
     }
     await new Promise((r) => setTimeout(r, 500));
   } else {
-    // useSeo / useEffect 실행 대기 (React 18 마이크로태스크 큐 flush + 한 프레임)
-    await new Promise((r) => setTimeout(r, 1500));
+    /**
+     * 🔴 **글자 수가 멈출 때까지** 기다린다 — 「N자 넘으면 됨」으로 재면 안 된다.
+     *    껍데기(헤더+푸터)만으로 417자가 나오는 화면이 있어서, 책이 도착하기도 전에
+     *    조건을 만족해 **표지 0장짜리 라이브러리**가 구워져 배포됐다(실측).
+     *    한국어에선 껍데기가 그 밑이라 로컬에선 우연히 제대로 기다렸고, 그래서 못 봤다.
+     */
+    // 🔴 **요청이 끝나기를 먼저 기다린다.** 글자 수만 보면 API 응답이 날아오는 중에도
+    //    껍데기가 「안정적」이라 그대로 찍힌다(그래서 표지 0장으로 배포됐다).
+    await page.waitForNetworkIdle({ idleTime: 1000, timeout: 25000 }).catch(() => {});
+
+    let last = -1;
+    let stable = 0;
+    for (let i = 0; i < 40; i++) {
+      const n = await page
+        .evaluate(
+          () =>
+            (document.getElementById('root')?.innerText || '').replace(/\s+/g, ' ').trim().length
+        )
+        .catch(() => -1);
+      if (n === last) {
+        stable++;
+        if (stable >= 2 && n >= minText) break; // 1초간 안 늘면 다 그려진 것으로 본다
+      } else {
+        stable = 0;
+        last = n;
+      }
+      await new Promise((r) => setTimeout(r, 500));
+    }
   }
 
-  const html = await page.content();
+  let html = await page.content();
   await page.close();
+
+  /**
+   * 🔴 **표지 주소를 뺀다.** 프리렌더본의 일은 *글자를 빨리 그리는 것*이지 이미지를 미리
+   *    받는 게 아니다. 표지 105장이 박힌 채로 내보냈더니 HTML 이 20KB→105KB 가 되고
+   *    브라우저가 그 이미지들을 곧바로 받으러 가면서, 정작 첫 페인트가 기다리는 CSS 가
+   *    2.7s → 4.6s 로 밀려 **FCP 4.3s → 10.6s 로 되레 나빠졌다**(실측).
+   *    `loading="lazy"` 는 이미 붙어 있지만 초기 뷰포트 근처는 그래도 받는다.
+   *    src 를 지우면 알트 텍스트(책 제목)가 먼저 보이고, React 가 마운트하며 제대로 채운다.
+   */
+  html = html.replace(/(<img\b[^>]*?)\s+src="[^"]*"/g, '$1');
+
+  const len = visibleTextLength(html);
+  if (len < MIN_TEXT) throw new Error(`내용 부족 (${len}자 < ${MIN_TEXT}) — 에러/빈 화면 의심`);
+  if (len < minText) console.warn(`  ⚠ ${route} 데이터 없이 껍데기만 (${len}자 < ${minText}) — API 도달 여부 확인`);
+  // 🔴 한국어인지 확인 — 배포본이 통째로 영어로 구워진 적이 있다(컨테이너 로케일 없음).
+  //    빌드 로그엔 ✓ 만 찍혀서 서빙된 HTML 을 열어 보기 전엔 몰랐다.
+  const hangul = (html.match(/[가-힣]/g) || []).length;
+  if (hangul < 30) throw new Error(`한글이 ${hangul}자뿐 — 영어로 구워진 듯(로케일 확인)`);
+  if (gateNeedle && html.includes(gateNeedle)) {
+    // 🔴 실제로 이렇게 구워졌었다 — localStorage 씨앗의 키가 하나 모자랐다(앵커만 심고
+    //    선택 플래그를 안 심음). 키가 또 바뀌면 조용히 재발하므로 여기서 빌드를 떨어뜨린다.
+    throw new Error('진입 게이트가 구워짐 — evaluateOnNewDocument 의 guest-mode 키를 확인할 것');
+  }
 
   const routePath = route === '/' ? '' : route.replace(/^\//, '');
   const outDir = route === '/' ? distDir : path.join(distDir, routePath);
@@ -182,9 +323,13 @@ async function main() {
 
   let bookRoutes = PRERENDER_BOOKS ? (await aboutRoutesFromSitemap()).slice(0, BOOK_LIMIT) : [];
   let blogRoutes = PRERENDER_BOOKS ? await blogRoutesFromSitemap() : [];
+  // 🔴 **항상 프로브하고 로그를 남긴다.** 정적 라우트도 API 데이터로 굽기 때문에, 안 닿으면
+  //    표지 없는 라이브러리가 나온다. 예전엔 about/blog 가 있을 때만 재서, 빌드 로그만 보고는
+  //    "왜 표지가 비었나"를 알 수 없었다.
+  const apiOk = await probeApi();
+  console.log(`[prerender] API(${API_ORIGIN}) ${apiOk ? '도달 ✓' : '도달 불가 ✗ — 데이터 없이 구워짐'}`);
   if (bookRoutes.length || blogRoutes.length) {
-    // API 도달성 프로브 — 안 닿으면 API 필요한 페이지(about·blog) 전체 스킵 (헛도는 timeout 방지)
-    const reachable = await probeApi();
+    const reachable = apiOk;
     if (reachable) {
       console.log(
         `[prerender] 동화책 about ${bookRoutes.length} + 블로그 ${blogRoutes.length}개 — API 프록시: ${API_ORIGIN}`
@@ -209,10 +354,20 @@ async function main() {
   let browser;
   let ok = 0;
   let fail = 0;
+  /**
+   * 서버가 읽을 매니페스트 — **실제로 구워진 정적 라우트만** 담는다.
+   * 🔴 이 목록이 없으면 서버(app.ts)는 프리렌더본을 아예 안 쓴다(= 예전 동작).
+   *    라우트 목록을 서버에 하드코딩하지 않는 이유 = 여기서 하나 지우면 서버가 없는 파일을 찾는다.
+   * about/블로그는 서버가 이미 SSR 로 그리므로 담지 않는다(수백 개를 메모리에 들 이유 없음).
+   */
+  const served = [];
   try {
     console.log('[prerender] puppeteer launch...');
     browser = await puppeteer.launch({
       headless: true,
+      // 🔴 Docker 이미지는 `PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true` 로 설치하므로 puppeteer 가
+      //    번들 Chrome 을 갖고 있지 않다 — 시스템 chromium 경로를 넘겨야 뜬다(Remotion 과 같은 값).
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || process.env.CHROMIUM_PATH || undefined,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
 
@@ -220,6 +375,7 @@ async function main() {
       try {
         await prerenderRoute(browser, baseUrl, route);
         ok++;
+        if (route !== '/') served.push(route);
       } catch (e) {
         fail++;
         console.warn(`✗ ${route} — ${e.message}`);
@@ -247,7 +403,8 @@ async function main() {
       }
     }
 
-    console.log(`[prerender] 완료. 성공 ${ok} / 실패 ${fail}`);
+    await fs.writeFile(path.join(distDir, 'prerendered.json'), JSON.stringify(served), 'utf-8');
+    console.log(`[prerender] 완료. 성공 ${ok} / 실패 ${fail} · 매니페스트 ${served.length}`);
   } finally {
     if (browser) await browser.close();
     // vite preview server close
