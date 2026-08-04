@@ -4,6 +4,7 @@ import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { warmAudioUrl } from '@/features/games/hooks/useGamePrefetch';
 import { ActivityShell } from '../components/ActivityShell';
 import { useActivitySound } from '../hooks/useActivitySound';
+import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 
 export interface FamilyWord {
@@ -42,11 +43,13 @@ export function WordFamilyLearnActivity({
   onMarkComplete,
   onBack,
 }: Props) {
-  const { say, rest, playCorrectSequence, praiseVisible } = useActivitySound({
+  const { say, rest, playCorrectSequence, praiseVisible, playAudio } = useActivitySound({
     unitId,
     language: 'english',
     prefix: 'en-family',
   });
+  // 진입 안내 — 화면의 "낱말을 눌러 들어봐!" 에 맞는 음성(사용자: 화면마다 멘트 통일).
+  useEntryGuide(ENTRY_GUIDE.listenExplore, playAudio);
 
   /** 낱말별 저작 녹음 — 탭이 이걸 directUrl 로 그대로 재생한다(있을 때). */
   const ttsByWord = useMemo(() => {

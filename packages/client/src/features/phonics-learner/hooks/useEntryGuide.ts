@@ -12,6 +12,16 @@ export const ENTRY_GUIDE = {
   write: '/sounds/voice/write-start-ko.mp3',
   /** 쓰기(낱말/글자 전체를 한꺼번에 — ABC·영어 CVC·모음 쓰기, 반짝이는 칸 없음) — "글자를 따라 써 봐!" */
   writeTrace: '/sounds/voice/write-trace-ko.mp3',
+  /** 눌러서 들어보는 탐색 — "눌러서 들어봐!" (듣고 고르기 탐색·낱말가족 배우기). */
+  listenExplore: '/sounds/voice/listen-explore-ko.mp3',
+  /** 순서대로 눌러 듣기 — "순서대로 눌러봐!" (모음 듣기 순서 단계). */
+  orderListen: '/sounds/voice/order-listen-ko.mp3',
+  /** 자음 배우기 — "세 번씩 눌러봐!" */
+  consonantTap: '/sounds/voice/consonant-tap-ko.mp3',
+  /** 모음 고르기 — "어떤 모음을 골라봐?" */
+  vowelPick: '/sounds/voice/vowel-pick-ko.mp3',
+  /** 뒤집기 짝 맞추기 — "같은 짝을 찾아봐!" */
+  flipMatch: '/sounds/voice/flip-match-ko.mp3',
 } as const;
 
 /**

@@ -42,6 +42,14 @@ const PROMPTS = [
   { name: 'write-trace-ko', text: '글자를 따라 써 봐!', language: 'korean' },
   // 듣고 고르기 **탐색** 진입 — 퀴즈 전에 카드를 눌러 소리를 들어보는 단계(화면 문구 "눌러서 들어봐!").
   { name: 'listen-explore-ko', text: '눌러서 들어봐!', language: 'korean' },
+  // 모음 듣기 — 순서대로 카드를 눌러 소리를 듣는 단계(화면 문구 "순서대로 눌러봐!").
+  { name: 'order-listen-ko', text: '순서대로 눌러봐!', language: 'korean' },
+  // 자음 배우기 — 글자를 세 번씩 눌러 소리를 듣는다(화면 문구 "○을 세 번씩 눌러봐!").
+  { name: 'consonant-tap-ko', text: '세 번씩 눌러봐!', language: 'korean' },
+  // 모음 고르기 — 어떤 모음으로 음절을 만들지 고른다(화면 문구 "어떤 모음으로 만들까?").
+  { name: 'vowel-pick-ko', text: '어떤 모음을 골라봐?', language: 'korean' },
+  // 뒤집기 짝 맞추기 — 같은 짝을 찾는다(화면 문구 "같은 짝을 찾아봐!").
+  { name: 'flip-match-ko', text: '같은 짝을 찾아봐!', language: 'korean' },
 ];
 
 async function generate({ name, text, language }) {

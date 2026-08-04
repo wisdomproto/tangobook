@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { useActivitySound } from '../hooks/useActivitySound';
+import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { ActivityShell } from '../components/ActivityShell';
 
 interface Props {
@@ -47,10 +48,13 @@ export function ConsonantTapActivity({
     sayThenChime,
     say: speak,
     praiseVisible,
+    playAudio,
   } = useActivitySound({
     unitId,
     prefix: 'consonant-tap',
   });
+  // 진입 안내 — 화면의 "○을 세 번씩 눌러봐!" 에 맞는 음성.
+  useEntryGuide(ENTRY_GUIDE.consonantTap, playAudio);
   const [completed, setCompleted] = useState(false);
   const say = soundText ?? consonant;
 
