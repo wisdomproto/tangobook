@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
-import { warmAudioUrl } from '@/features/games/hooks/useGamePrefetch';
+import { warmAudioUrl, usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
 import { ActivityShell } from '../components/ActivityShell';
 import { useActivitySound } from '../hooks/useActivitySound';
 import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
@@ -86,6 +86,8 @@ export function WordFamilyLearnActivity({
     'en-family',
     'english'
   );
+  // 낱말 그림(있는 것만) — 음원처럼 진입 시 데운다(게임과 동일 프리미티브).
+  usePreloadImages(useMemo(() => words.map((w) => w.imageUrl), [words]));
 
   const [heard, setHeard] = useState<Set<string>>(new Set());
   const doneRef = useRef(false);

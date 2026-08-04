@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
+import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
 import { useActivitySound } from '../hooks/useActivitySound';
 import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { ActivityShell } from '../components/ActivityShell';
@@ -77,6 +78,8 @@ export function ConsonantTapActivity({
     useMemo(() => [say, ...cardWords.map((w) => `${say} ${w.word}`)], [say, cardWords]),
     'consonant-tap'
   );
+  // 세 번째 탭에 뜨는 낱말 그림 — 미리 데워 팝인 방지(게임과 동일 프리미티브).
+  usePreloadImages(useMemo(() => words.map((w) => w.imageUrl), [words]));
 
   const handleTap = useCallback(
     async (idx: number) => {

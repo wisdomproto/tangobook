@@ -4,6 +4,7 @@ import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
+import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
 import { ActivityShell } from '../components/ActivityShell';
 
 export interface ListenChoice {
@@ -128,6 +129,8 @@ export function WordListenChooseActivity({
     'word-listen',
     language
   );
+  // 삽화도 음원처럼 진입 시 데운다 — 안 하면 카드가 뜬 뒤 그림이 한 박자 늦게 뜬다(게임과 동일 프리미티브).
+  usePreloadImages(useMemo(() => items.flatMap((w) => [w.imageUrl, w.revealImageUrl]), [items]));
 
   /**
    * 화면에 깔리는 카드 — **탐색과 퀴즈가 같은 판**을 쓴다.

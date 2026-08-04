@@ -276,6 +276,19 @@ features/phonics-learner/
 자음+단어 시퀀스는 공백을 0.3s 무음으로 — 예: `"ㄱ ㄱ 고기"` → ㄱ → 0.3s → ㄱ → 0.3s → 고기.
 이 **공백 있는 텍스트만** concat 이 필요하다.
 
+🔴 **영어도 라이브러리 직행 — 한글과 대칭**(2026-08-04). 예전엔 영어 `resolveTtsUrl` 이
+`directUrl → concat`(서버 ~800ms 왕복)뿐이라, **낱글자 `e` 하나도 매번 서버를 왕복**했다.
+한글은 진작 `getKoreanSyllableUrl` 로 직행하는데 영어만 그 경로가 없어서, **글자 사냥 방해꾼**
+(o·c·a·b… `soundOf` 로 런타임 해석 — 워밍 목록에 없다)·복습 낱글자처럼 워밍이 빠뜨린 소리가
+전부 늦게 났다("왜 자꾸 발생하나"의 진짜 뿌리 = 영어에 직행 경로 부재 + 파닉스는 로딩게이트 없음).
+라이브러리(`mod_phonics` 3424 + `mod_english` 5288)엔 낱글자·패턴·낱말이 **이미 다 있다** →
+`getEnglishPhonemeUrl`(`usePhonicsMap`)이 **서버 `downloadSound` 와 같은 우선순위**
+(`mod_phonics`→`mod_english`, 후보 폴백 소문자·`Aa`→`a`·하이픈 제거)로 직행. `resolveTtsUrl`
+영어 분기가 **공백 없는 토큰**이면 concat 전에 이걸 먼저 본다(directUrl 은 여전히 최우선 —
+`a a apple` 블렌드 보존). 실측(en-b1-r1 글자 사냥): concat **0건**, 방해꾼 탭 `mod_phonics/*.mp3`
+**1~6ms**(전 ~800ms). 🔴 **소리는 안 바뀐다** — 단일 토큰이면 서버 concat 도 같은 라이브러리
+mp3 한 개를 뽑던 것이라 왕복만 없앤 것. 가드 = `games/hooks/lookupEnglishSound.test.ts`.
+
 🔴 **받침은 화면 글자와 읽는 소리가 다르다** — `BlendPair.secondSound`(`lib/blend-pairs.ts`).
 `ㅇ` 을 그대로 읽히면 음원이 없어 **무음**이라, ㅡ 를 붙인 형태(ㅇ→으·ㄱ→그·ㄴ→느)로 읽는다.
 프리워밍 목록도 반드시 `secondSound` 로 — 화면 글자를 데우면 정작 재생하는 소리는 안 데워진다.
