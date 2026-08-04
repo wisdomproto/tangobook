@@ -260,6 +260,13 @@ function KoreanBlockPlayerInner({
   const [grid, setGrid] = useState<(string | null)[][]>(() => initGrid());
 
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
+  // 🔴 진입 안내 음성 — "블록으로 단어를 만들어봐!" 한 번(사용자: 화면마다 멘트 통일).
+  const guidedRef = useRef(false);
+  useEffect(() => {
+    if (guidedRef.current) return;
+    guidedRef.current = true;
+    playAudio('/sounds/voice/block-make-ko.mp3');
+  }, [playAudio]);
   // 정답 후 "그 단어가 나오는 동화 장면 + 나레이션" 리빌 (소스 동화책 있을 때만).
   const { data: sourceStorybook } = useStorybook(storybookId);
   const gameStyle = useGameStyle(sourceStorybook);

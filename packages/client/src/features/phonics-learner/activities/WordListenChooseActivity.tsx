@@ -86,6 +86,8 @@ const REST_MS = 420;
  *    Gemini TTS 로 구운 정적 자산 — `server/scripts/generate-activity-voice-prompts.mjs`.
  */
 const QUIZ_START_SOUND = '/sounds/voice/quiz-start-ko.mp3';
+/** 탐색 진입 안내 — 화면의 "눌러서 들어봐!" 텍스트에 맞는 음성(퀴즈 전 카드를 눌러 소리를 들어보는 단계). */
+const EXPLORE_START_SOUND = '/sounds/voice/listen-explore-ko.mp3';
 
 function shuffle<T>(arr: readonly T[]): T[] {
   const a = [...arr];
@@ -279,9 +281,16 @@ export function WordListenChooseActivity({
    */
   const guidedRef = useRef(false);
   useEffect(() => {
-    if (exploreFirst || guidedRef.current) return;
+    if (guidedRef.current) return;
     guidedRef.current = true;
-    playAudio(QUIZ_START_SOUND, () => setStarting(false));
+    if (exploreFirst) {
+      // 🔴 탐색 진입 — "눌러서 들어봐!" 안내(사용자: "여기도 멘트가 없네"). 잠금은 없다 — 아이는
+      //    바로 카드를 눌러 소리를 들어봐도 된다. 퀴즈 시작음은 「🎯 퀴즈」 버튼에서 따로 난다.
+      playAudio(EXPLORE_START_SOUND);
+    } else {
+      // 탐색 없이 바로 퀴즈인 화면(복습 듣기) — 안내가 끝나야 첫 문제가 나간다.
+      playAudio(QUIZ_START_SOUND, () => setStarting(false));
+    }
   }, [exploreFirst, playAudio]);
 
   // 나가는 도중 예약된 소리가 빈 화면에서 울리지 않게 둘 다 정리한다.
