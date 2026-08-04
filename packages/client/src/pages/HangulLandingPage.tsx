@@ -167,7 +167,8 @@ function StickyCta() {
     >
       <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
         <p className="min-w-0 text-[13px] font-semibold text-ink-700 break-keep sm:text-sm">
-          지금은 베타 기간 — 가입하면 <span className="text-coral-600">1년 무료</span>
+          가입하면 1년 무료{' '}
+          <span className="text-coral-600">· 이후 월 {PLANS.month1.amount.toLocaleString()}원</span>
         </p>
         <Link
           to={SIGNUP}
@@ -248,7 +249,14 @@ function CurriculumUnits() {
     <div className="!mt-6 space-y-3">
       {levels.map(([key, name]) => (
         <div key={key} className="rounded-2xl border border-ink-100 bg-white/70 p-4">
-          <p className="text-xs font-bold text-coral-500 break-keep">{name}</p>
+          <p className="text-xs font-bold text-coral-500 break-keep">
+            {name}
+            <span className="ml-2 font-semibold text-ink-400">
+              {units.filter((u) => u.levelKey === key && !u.isReview).length}단원
+              {units.filter((u) => u.levelKey === key && u.isReview).length > 0 &&
+                ` + 복습 ${units.filter((u) => u.levelKey === key && u.isReview).length}`}
+            </span>
+          </p>
           <div className="mt-2 flex flex-wrap gap-1.5">
             {units
               .filter((u) => u.levelKey === key)
@@ -276,16 +284,60 @@ function CurriculumUnits() {
  * 🔴 `BookCover` 를 쓴다(직접 `<img>` X) — 512px 썸네일로 유도해 준다. 원본은 장당 125KB 라
  *    서른 장이면 4MB 다.
  */
+/**
+ * 동화책 **표지벽**. 권수만 적으면 안 믿긴다 — 표지를 깔면 그 자리에서 확인된다.
+ *
+ * 🔴 **API 순서 그대로 자르지 않는다**(2026-08-02 리뷰). `slice(0,40)` 이었을 땐 가장 최근에
+ *    넣은 전래동화 시즌2가 벽을 통째로 먹어 **세계 명작이 한 장도 없었다** — 아는 제목이
+ *    하나도 없으면 「266권」이 「내가 모르는 책 266권」이 된다. 아는 이야기부터 세운다.
+ * 🔴 **선두 번호를 떼고 보여준다** — 「15. 편지 배달 왔어요」는 저작도구 정렬용 번호다.
+ * 🔴 **눌리게 한다.** 벽지처럼 흘려보내면 2.5화면을 눈으로만 지나간다.
+ * 🔴 **셀에 `aspect-video`** — 없으면 표지가 도착할 때까지 셀 높이가 0이라 페이지가
+ *    3,000px 자라며 읽던 줄이 밀려 내려간다(실측).
+ */
+const WALL_FIRST = ['백설공주', '신데렐라', '인어공주', '흥부', '해와 달', '콩쥐', '심청', '토끼'];
+
 function BookWall() {
   const { data } = useStorybooks();
-  const books = (data ?? []).filter((b) => b.type !== 'phonics').slice(0, 40);
-  if (books.length === 0) return null;
+  /**
+   * 🔴 **난이도 변형본을 뺀다** — `백설공주 (L4)` 처럼 같은 이야기의 레벨 변형이 함께 오면
+   *    벽에 같은 제목이 두 번 선다(실측). 제목에서 선두 번호와 `(L4)` 를 떼고 중복을 없앤다.
+   */
+  const seen = new Set<string>();
+  const books = (data ?? []).filter((b) => {
+    const t = (b.title ?? '')
+      .replace(/^\s*\d+\.\s*/, '')
+      .replace(/\s*\(L\d+\)\s*$/, '')
+      .trim();
+    if (!t || seen.has(t)) return false;
+    seen.add(t);
+    return true;
+  });
+  /** 🔴 `WALL_FIRST` 순서대로 세운다 — 필터만 하면 API 순서가 남아 아는 제목이 뒤로 밀린다. */
+  const rank = (b: (typeof books)[number]) =>
+    WALL_FIRST.findIndex((k) => (b.title ?? '').includes(k));
+  const known = books.filter((b) => rank(b) >= 0).sort((a, b) => rank(a) - rank(b));
+  const rest = books.filter((b) => rank(b) < 0);
+  const wall = [...known, ...rest].slice(0, 12);
+  if (wall.length === 0) return null;
   return (
-    <div className="!mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
-      {books.map((b) => (
-        <BookCover key={b.id} book={b} lang="ko" loading="lazy" className="rounded-xl" />
-      ))}
-    </div>
+    <>
+      <div className="!mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
+        {wall.map((b) => (
+          <Link
+            key={b.id}
+            to={`/library/${b.id}`}
+            className="aspect-video overflow-hidden rounded-xl bg-cream-100"
+            title={(b.title ?? '').replace(/^\s*\d+\.\s*/, '').replace(/\s*\(L\d+\)\s*$/, '')}
+          >
+            <BookCover book={b} lang="ko" loading="lazy" className="h-full" />
+          </Link>
+        ))}
+      </div>
+      <p className="!mt-2 text-center text-xs text-ink-400 break-keep">
+        이 열두 권은 {FACTS.books}권 중 열두 권입니다.
+      </p>
+    </>
   );
 }
 
@@ -317,7 +369,7 @@ function Section({
 
 export default function HangulLandingPage() {
   useSeo({
-    title: '한글 파닉스 71단원 + 동화책 266권 — 탱고북',
+    title: `한글 파닉스 ${FACTS.koreanUnits}단원 + 동화책 ${FACTS.books}권 — 탱고북`,
     description:
       '자음·모음부터 받침·쌍자음까지 한글 파닉스 32단원, 영어 파닉스 39단원. 그리고 배운 글자로 바로 읽는 동화책 266권. 4~7세 한글떼기, 지금은 베타 기간이라 가입하면 1년 무료입니다.',
     path: '/hangul',
@@ -340,7 +392,7 @@ export default function HangulLandingPage() {
               4~7세 한글떼기 · 파닉스
             </p>
             <h1 className="mt-3 font-display text-[28px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:text-[42px]">
-              한글 파닉스 {FACTS.phonicsUnits}단원과
+              한글 파닉스 {FACTS.koreanUnits}단원과
               <br />
               동화책 {FACTS.books}권이 한 곳에
             </h1>
@@ -364,7 +416,8 @@ export default function HangulLandingPage() {
               무료로 시작하기
             </Link>
             <p className="mt-3 text-xs text-ink-500 break-keep">
-              설치 없이 브라우저에서 바로 · 아래에서 먼저 해볼 수 있어요
+              지금 가입하면 1년 무료 · 이후에도 월 {PLANS.month1.amount.toLocaleString()}원,
+              약정·위약금 없음
             </p>
           </div>
 
