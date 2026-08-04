@@ -412,7 +412,7 @@ export default function HangulLandingPage() {
             높이가 512px). 옆에 두면 빈 오른쪽이 채워지면서 CTA 는 그대로 위에 남는다. */}
         <div className="relative mx-auto grid max-w-3xl items-center gap-8 text-center md:grid-cols-[1fr_minmax(0,300px)] md:gap-10 md:text-left">
           <div className="min-w-0">
-            <p className="text-xs font-bold tracking-wide text-coral-700 sm:text-sm">
+            <p className="inline-flex rounded-full bg-coral-100 px-4 py-1.5 text-sm font-extrabold text-coral-700 sm:text-base">
               4~7세 한글떼기 · 파닉스
             </p>
             <h1 className="mt-3 font-display text-[28px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:text-[42px]">
@@ -532,6 +532,11 @@ export default function HangulLandingPage() {
           ))}
         </ul>
         <CurriculumUnits />
+        <p className="!mt-6">
+          <strong>다섯 살이면 대개 여기서 시작합니다.</strong> 한 단원은 활동 아홉 개로 나뉘어 있어{' '}
+          <strong>한 번에 다 할 필요가 없습니다.</strong> 하나만 하고 꺼도 되고, 어디까지 했는지는
+          남습니다.
+        </p>
         <p className="!mt-6">
           사이사이 <strong>복습 단원 일곱</strong>이 끼어 있어, 배운 글자를 형식이 다른 놀이(글자
           사냥 · 뒤집기 짝 맞추기 · 듣고 고르기)로 다시 만납니다. 단원마다 익히기 네 가지와 낱말
