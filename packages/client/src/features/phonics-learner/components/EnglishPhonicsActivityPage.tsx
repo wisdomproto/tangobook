@@ -460,8 +460,10 @@ export default function EnglishPhonicsActivityPage() {
           revealImageOnComplete
           sources={reviewSources.map((s) => ({
             ...s,
-            word: s.letter,
-            // 🔴 글자(a)를 쓰고, 완성하면 낱말 전체(apple)를 보여준다(사용자: "한 글자 쓰면 나머지 단어 다 나와야").
+            // 🔴 **소문자로** 쓴다 — 완성하면 나오는 낱말(apple)이 소문자라 대문자 'A' 를 쓰면 어긋난다
+            //    (사용자: "쓰는 건 대문자인데 정답 단어는 소문자로 나오네"). `letter` 는 키/라벨용이라 그대로 둔다.
+            word: s.letter.toLowerCase(),
+            // 완성하면 낱말 전체(apple)를 보여준다 — 첫 글자(소문자)가 방금 쓴 글자와 같다.
             ...(s.word ? { soundWord: s.word, revealWord: s.word } : {}),
             ...(s.ttsUrl ? { soundUrl: s.ttsUrl } : {}),
           }))}
