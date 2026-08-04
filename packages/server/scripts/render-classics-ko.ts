@@ -1,19 +1,21 @@
-// 전 명작 × 메인 3그림체 × 한국어(ko) 롱폼 오디오북 일괄 렌더 러너.
+// 전 명작 × 그림체 × 언어 롱폼 오디오북 일괄 렌더 러너.
 //
-// 각 (book, style, ko) 조합을 render-book-audiobooks.ts 서브프로세스로 순차 렌더한다.
+// 각 (book, style, lang) 조합을 render-book-audiobooks.ts 서브프로세스로 순차 렌더한다.
 // 서브프로세스 격리 = 150+ 렌더에서 Chromium 메모리 누수 방지. 재개 가능(이미 등록된 조합 스킵).
 //
+// 🔴 로컬 서버(:3500)가 필요한데, 프로덕션 `.env` 로 띄우면 발행 스케줄러가 같이 돈다.
+//    반드시 `DISABLE_PUBLISH_SCHEDULER=1` 로 띄울 것(안 그러면 중복 업로드 — 실측 2026-07-28).
+//
 // 사용:
-//   pnpm --filter @tangobook/server exec tsx scripts/render-classics-ko.ts --dry-run   # 조합 목록만
-//   pnpm --filter @tangobook/server exec tsx scripts/render-classics-ko.ts --limit=5   # 앞 5개만
-//   pnpm --filter @tangobook/server exec tsx scripts/render-classics-ko.ts             # 전체(수십 시간)
-//   pnpm --filter @tangobook/server exec tsx scripts/render-classics-ko.ts --force     # 완료분도 재렌더
+//   … --dry-run              # 조합 목록만
+//   … --limit=5              # 앞 5개만
+//   … --force                # 완료분도 재렌더
+//   … --lang=en --one-style  # 영어, 책당 그림체 1종(해시로 고정 선택)
 import 'dotenv/config';
 import { spawnSync } from 'node:child_process';
 import { fetchStorybook, loadGenreMap } from '../src/services/reel/reel-targets.js';
 import { getSupabaseAdmin } from '../src/providers/supabase-admin.provider.js';
 
-const LANG = 'ko';
 const GENRES = ['watercolor', 'paper3d', 'collage']; // 메인 3그림체
 const API = process.env.TTS_API_ORIGIN || 'http://localhost:3500';
 
@@ -38,13 +40,41 @@ async function fetchPublicClassicIds(): Promise<string[]> {
 
 const argv = process.argv.slice(2);
 const has = (f: string) => argv.includes(f);
+// 🔴 `--flag value` 와 `--flag=value` 를 **둘 다** 받는다. indexOf 만 쓰면 `--lang=en` 을
+//    에러 없이 조용히 무시하고 ko 로 헛렌더한다(render-nature-ko.ts 에서 실제로 겪은 버그).
 const val = (f: string) => {
+  const eq = argv.find((a) => a.startsWith(`${f}=`));
+  if (eq) return eq.slice(f.length + 1);
   const i = argv.indexOf(f);
   return i >= 0 ? argv[i + 1] : undefined;
 };
 const DRY = has('--dry-run');
 const FORCE = has('--force');
 const LIMIT = Number(val('--limit') || 0);
+const LANG = val('--lang') || 'ko';
+/**
+ * `--books=id,id` = 그 책만. 완료 판정(mkt_youtube_contents)은 이 파이프라인으로 올린 것만 알기
+ * 때문에, **파이프라인 밖에서 이미 발행된 책**(영어 명작 20편)을 빼려면 명시적으로 지정해야 한다.
+ */
+const ONLY = (val('--books') || '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
+/**
+ * `--one-style` = 책마다 그림체 **1종만** 렌더한다.
+ *
+ * 왜(2026-07-28): 같은 이야기를 3그림체로 3번 올리면 유튜브 「inauthentic content」 정책이 말하는
+ * "같은 상황 반복"에 가깝다. 한국 채널은 이 이유로 135→48 로 줄였다.
+ * 🔴 고르는 방식은 **bookId 해시**다 — Math.random 이면 재개할 때마다 다른 그림체를 골라
+ *    이미 렌더한 것을 못 알아보고 중복 렌더한다.
+ */
+const ONE_STYLE = has('--one-style');
+
+function pickOne<T>(bookId: string, arr: T[]): T {
+  let h = 0;
+  for (const ch of bookId) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  return arr[h % arr.length];
+}
 
 interface Combo {
   bookId: string;
@@ -55,7 +85,11 @@ interface Combo {
 
 async function main() {
   const genreMap = await loadGenreMap(); // styleId -> slug
-  const bookIds = await fetchPublicClassicIds();
+  const allIds = await fetchPublicClassicIds();
+  const bookIds = ONLY.length ? allIds.filter((id) => ONLY.includes(id)) : allIds;
+  if (ONLY.length && bookIds.length !== ONLY.length) {
+    console.warn(`⚠️ --books ${ONLY.length}개 중 공개 명작에서 찾은 건 ${bookIds.length}개`);
+  }
   console.log(
     `명작 ${bookIds.length}권 · 그림체 매핑 ${Object.keys(genreMap).length}개 · lang=${LANG}${FORCE ? ' · FORCE' : ''}`
   );
@@ -91,19 +125,23 @@ async function main() {
     }
     const styleAssets = book?.styleAssets ?? {};
     const styles = Object.keys(styleAssets);
-    let picked = 0;
-    for (const genre of GENRES) {
-      // 그 장르에 매핑된 style 중 페이지 삽화가 실제로 있는 것만 (photographic 등 삽화 없는 style 제외).
-      const styleId = styles.find(
+    // 그 장르에 매핑된 style 중 페이지 삽화가 실제로 있는 것만 (photographic 등 삽화 없는 style 제외).
+    const available = GENRES.map((genre) => ({
+      genre,
+      styleId: styles.find(
         (s) =>
           genreMap[s] === genre && Object.keys(styleAssets[s]?.pageIllustrations ?? {}).length > 0
-      );
-      if (!styleId) continue;
-      picked++;
+      ),
+    })).filter((x): x is { genre: string; styleId: string } => !!x.styleId);
+
+    if (!available.length) {
+      noMapping.push(book?.title ?? bookId);
+      continue;
+    }
+    for (const { genre, styleId } of ONE_STYLE ? [pickOne(bookId, available)] : available) {
       if (done.has(`${bookId}|${styleId}|${LANG}`)) continue;
       combos.push({ bookId, styleId, genre, title: book.title ?? bookId });
     }
-    if (picked === 0) noMapping.push(book?.title ?? bookId);
   }
 
   let list = combos;
