@@ -322,6 +322,20 @@ export function createApp() {
       res.type('html').send(html);
     });
 
+    /**
+     * 🔴 **해시 붙은 자산은 영구 캐시**(2026-08-04). `/assets/index-Cwgs879A.js` 처럼 파일명에
+     *    내용 해시가 있어 **내용이 바뀌면 이름이 바뀐다** — 즉 재검증할 이유가 원리상 없다.
+     *    그런데 우리가 헤더를 안 줘서 Cloudflare 가 기본 4시간을 붙였고, 실측 `cf-cache-status`
+     *    가 `REVALIDATED` 였다 = 엣지에 있어도 **매번 원본까지 왕복**(요청당 ~700ms).
+     *    `immutable` 을 주면 HIT 로 바뀌어 그 왕복이 사라진다. 첫 페인트가 CSS 왕복을
+     *    기다리고 있으므로(실측 CSS 도착 2.7s) 여기가 지금 가장 큰 남은 병목이다.
+     * ⚠️ `/assets` 밖(폰트·이미지·저작 문서)에는 주지 않는다 — 그쪽은 이름이 고정이라
+     *    영구 캐시하면 고쳐도 안 바뀐다(위 AUTHORING no-cache 주석과 같은 이유).
+     */
+    app.use(
+      '/assets',
+      express.static(path.join(clientDist, 'assets'), { immutable: true, maxAge: '1y' })
+    );
     app.use(express.static(clientDist));
     // catch-all — SPA index.html. 단, 정적 index.html 의 canonical 은 홈 고정이라
     // 비-홈 라우트가 전부 "홈 복사본"으로 색인에서 빠진다. 비-홈 경로는 canonical 을

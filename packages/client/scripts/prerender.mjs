@@ -53,18 +53,26 @@ const API_ORIGIN = (process.env.PRERENDER_API_ORIGIN || 'https://www.tangobook.c
 const PRERENDER_BOOKS = process.env.PRERENDER_BOOKS !== '0';
 const BOOK_LIMIT = process.env.PRERENDER_BOOK_LIMIT ? Number(process.env.PRERENDER_BOOK_LIMIT) : Infinity;
 
+/**
+ * 프록시/프로브가 쓰는 헤더 — 🔴 **User-Agent 를 준다**. Cloudflare 는 UA 없는 데이터센터
+ * 요청을 봇으로 보고 막을 수 있고, 그러면 빌드에서만 책 목록이 안 와 표지 없는 화면이 구워진다.
+ */
+const PROXY_HEADERS = {
+  accept: 'application/json',
+  'user-agent': 'Mozilla/5.0 (compatible; TangobookPrerender/1.0; +https://www.tangobook.co.kr)',
+};
+
 /** API_ORIGIN 이 응답하는지 짧게 확인. about prerender 가능 여부 판단. */
 async function probeApi() {
   try {
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), 8000);
-    const r = await fetch(`${API_ORIGIN}/api/storybooks`, {
-      headers: { accept: 'application/json' },
-      signal: ctrl.signal,
-    });
+    const r = await fetch(`${API_ORIGIN}/api/storybooks`, { headers: PROXY_HEADERS, signal: ctrl.signal });
     clearTimeout(t);
+    if (!r.ok) console.warn(`[prerender] API 응답 ${r.status}`);
     return r.ok;
-  } catch {
+  } catch (e) {
+    console.warn(`[prerender] API 요청 실패: ${e.message}`);
     return false;
   }
 }
@@ -117,7 +125,7 @@ async function installApiProxy(page, baseUrl) {
     if (apiIdx !== -1 && url.startsWith(baseUrl)) {
       const target = API_ORIGIN + url.slice(apiIdx);
       try {
-        const r = await fetch(target, { headers: { accept: 'application/json' } });
+        const r = await fetch(target, { headers: PROXY_HEADERS });
         const body = Buffer.from(await r.arrayBuffer());
         const headers = {};
         r.headers.forEach((v, k) => {
@@ -153,8 +161,10 @@ const MIN_TEXT = 250;
  *    MIN_TEXT(250)를 넘겨 **표지 0장짜리 라이브러리가 두 번 배포됐다**. 반면 파닉스 단원
  *    목록은 글자·숫자뿐이라 정상인데도 360자다. 그래서 "그 화면이 다 그려졌을 때의 실측값"
  *    을 라우트마다 적어 둔다(실측의 6~7할).
- * 🔴 못 채우면 **굽지 않는다** — 매니페스트에 안 들어가고 그 라우트는 예전 SPA 동작으로
- *    돌아간다. 반쪽짜리를 배포하느니 느린 편이 낫다.
+ * 🔴 못 채우면 **굽되 크게 경고한다**(2026-08-04 재판단). 처음엔 거부했는데, 그러면 데이터를
+ *    못 받은 빌드에서 `/library` 가 통째로 프리렌더를 잃어 **흰 화면 10초**로 돌아간다(실측).
+ *    데이터 없는 껍데기는 고장 화면이 아니라 **앱이 원래 그리는 로딩 상태**이고, 그것만으로도
+ *    첫 글자가 10.6초 → 4.3초였다. 진짜 고장(에러/빈 화면)은 아래 `MIN_TEXT` 가 여전히 막는다.
  */
 const MIN_BY_ROUTE = {
   '/library': 900, // 실측 1,231 (표지 105장)
@@ -267,7 +277,8 @@ async function prerenderRoute(browser, baseUrl, route, { isBook = false } = {}) 
   await page.close();
 
   const len = visibleTextLength(html);
-  if (len < minText) throw new Error(`내용 부족 (${len}자 < ${minText}) — 껍데기/에러 화면 의심`);
+  if (len < MIN_TEXT) throw new Error(`내용 부족 (${len}자 < ${MIN_TEXT}) — 에러/빈 화면 의심`);
+  if (len < minText) console.warn(`  ⚠ ${route} 데이터 없이 껍데기만 (${len}자 < ${minText}) — API 도달 여부 확인`);
   // 🔴 한국어인지 확인 — 배포본이 통째로 영어로 구워진 적이 있다(컨테이너 로케일 없음).
   //    빌드 로그엔 ✓ 만 찍혀서 서빙된 HTML 을 열어 보기 전엔 몰랐다.
   const hangul = (html.match(/[가-힣]/g) || []).length;
