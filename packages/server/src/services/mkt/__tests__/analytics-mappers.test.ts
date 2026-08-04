@@ -223,7 +223,9 @@ describe('체류시간에서 책 고르는 화면 제외', () => {
 });
 
 describe('mapTopBooks (group GA4 page rows by book + split non-book pages)', () => {
-  // dims [pagePath, pageTitle], metrics [screenPageViews, activeUsers, sessions, averageSessionDuration]
+  // dims [pagePath, pageTitle], metrics [screenPageViews, activeUsers, sessions, userEngagementDuration]
+  // 🔴 4번째는 **그 쪽에서 실제로 머문 총 초**다(세션 평균이 아니라). 세션 평균은 세션 단위라
+  //    쪽으로 못 가르고, 한 쪽만 보고 나간 세션은 길이가 0 이라 「체류 0:00」이 찍혔다.
   const report = ga4Report([
     { d: ['/library/100', '신데렐라 | 탱고북'], m: ['300', '200', '250', '120'] },
     { d: ['/viewer/100', '신데렐라'], m: ['100', '80', '90', '200'] },
@@ -233,14 +235,14 @@ describe('mapTopBooks (group GA4 page rows by book + split non-book pages)', () 
     { d: ['/library', '라이브러리'], m: ['50', '40', '45', '20'] },
   ]);
 
-  it('aggregates all paths of a book (views/users/sessions summed, duration session-weighted)', () => {
+  it('aggregates all paths of a book and gives dwell per page view', () => {
     const { books } = mapTopBooks(report);
     expect(books[0].bookId).toBe('100');
     expect(books[0].views).toBe(420); // 300+100+20
     expect(books[0].users).toBe(295); // 200+80+15
     expect(books[0].sessions).toBe(358); // 250+90+18
-    // weighted avg = (120*250 + 200*90 + 30*18) / 358 = 48540 / 358
-    expect(books[0].avgDuration).toBeCloseTo(48540 / 358, 3);
+    // 조회 1회당 체류 = 머문 초 합 / 조회 합 = (120+200+30) / 420
+    expect(books[0].avgDuration).toBeCloseTo(350 / 420, 3);
     // representative title = the highest-view row's title
     expect(books[0].title).toBe('신데렐라 | 탱고북');
   });
