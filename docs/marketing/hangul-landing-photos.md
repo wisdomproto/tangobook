@@ -140,7 +140,7 @@ from a window behind them creating a soft rim. Screen content not visible.
 | `hero.webp` | ① 히어로 **우측 열**(md+) | 420×280 · **라이브러리 화면 합성** |
 | `problem.webp` | ② 문제 제기, 두 번째 문단 뒤 | 768×580 |
 | `tracing.webp` | ③ 「ㄱ 단원」 헤더 아래 **전체 폭** | 718×479 · **진짜 앱 화면 합성** |
-| `siblings.webp` | ④ 파닉스 커리큘럼 끝 | 768×512 |
+| `siblings.webp` | ④ 파닉스 커리큘럼 끝 | 768×512 · **단원 화면 합성** |
 | `reading.webp` | ⑤ 「혼자 봅니다」 바로 뒤 | 768×576 · **뷰어 화면 합성** |
 | `bedtime.webp` | ⑤ 「재울 때 씁니다」 바로 뒤 | 768×432 |
 | `parent.webp` | ⑦ 베타 안내, CTA 박스 앞 | 768×580 |
