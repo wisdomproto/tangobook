@@ -1,9 +1,9 @@
 import { useMemo, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import type { Storybook } from '@tangobook/shared';
+import type { GameTypeId, Storybook } from '@tangobook/shared';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { ViewerContainer } from '@/features/viewer/components/ViewerContainer';
-import { VocabularyStudyContent } from '@/features/vocabulary-unit/components/VocabularyStudyContent';
+import { GameOverlay } from '@/features/vocabulary-unit/components/VocabularyStudyContent';
 import { deriveStorybookUnit } from '@/features/vocabulary-unit/lib/derive-storybook-unit';
 
 /**
@@ -136,39 +136,70 @@ export function HangulBookTryIt() {
   );
 }
 
-/** 🎮 낱말 게임 — 핵심단어가 있는 책만(0 인 책은 게임판이 비어 있다). */
+/**
+ * 🎮 동화책 낱말 게임 — **게임 하나에 상자 하나**.
+ *
+ * 🔴 목록 화면(카드 넷)을 보여주지 않는다(2026-08-02 사용자: "각 게임을 따로 보여줘").
+ *    카드 넷은 「메뉴」로 보이지 무엇을 하는 게임인지는 안 보인다. 파닉스 상자 아홉 개와
+ *    같은 원리 — 눌러서 해 보게 한다.
+ * 🔴 네 게임이 **같은 낱말**을 서로 다른 방식으로 다룬다(그림↔말 / 글자 조립 / 윤곽 따라 그리기 /
+ *    획 따라 쓰기). 그게 이 묶음의 논지라 문구로도 말한다.
+ */
+const BOOK_GAMES: { id: GameTypeId; label: string; how: string }[] = [
+  { id: 'korean-line-matching', label: '🎯 그림 짝 찾기', how: '그림과 낱말을 이어 봅니다' },
+  { id: 'korean-block', label: '🧱 한글 블록', how: '자음·모음을 모아 낱말을 만듭니다' },
+  { id: 'connect-the-dots', label: '✏️ 낱말 그리기', how: '낱말이 가리키는 그림을 그려 봅니다' },
+  { id: 'korean-word-writing', label: '📝 낱말 쓰기', how: '획을 따라 낱말을 직접 씁니다' },
+];
+
 export function HangulWordGameTryIt() {
   const books = BOOKS_BY_CATEGORY.filter((b) => b.words > 0);
   const [bookId, setBookId] = useState(books[0].id);
   const picked = books.find((b) => b.id === bookId) ?? books[0];
 
   const book = useStorybook(bookId).data as Storybook | undefined;
-  /** 🔴 책이 오기 전엔 만들지 않는다 — 빈 단원을 넘기면 게임 카드가 0개로 뜬다. */
+  /** 🔴 책이 오기 전엔 만들지 않는다 — 빈 단원을 넘기면 게임판이 0개로 뜬다. */
   const unit = useMemo(() => (book ? deriveStorybookUnit(book) : null), [book]);
 
   return (
-    <TryItShell
-      tone="amber"
-      label={`🎮 낱말 게임 · 「${picked.title}」에 나온 낱말 ${picked.words}개`}
-      books={books}
-      bookId={bookId}
-      setBookId={setBookId}
-      footer="그 책에 나온 낱말로 바로 게임합니다 — 책마다 낱말이 다릅니다."
-    >
-      <div
-        className="relative w-full overflow-hidden bg-cream-50"
-        style={{ height: '100dvh', transform: 'translateZ(0)' }}
-      >
-        {unit && book ? (
-          <div className="h-full overflow-y-auto px-4 py-4">
-            <VocabularyStudyContent key={bookId} unit={unit} storybook={book} lang="ko" />
+    <>
+      {BOOK_GAMES.map((g, i) => (
+        <TryItShell
+          key={g.id}
+          tone="amber"
+          label={`${g.label} · ${g.how}`}
+          /* 책 칩은 첫 상자에만 — 네 상자마다 붙으면 같은 줄이 네 번 반복된다. */
+          books={i === 0 ? books : []}
+          bookId={bookId}
+          setBookId={setBookId}
+          footer={
+            i === 0
+              ? `「${picked.title}」에 나온 낱말 ${picked.words}개로 놉니다 — 책마다 낱말이 다릅니다.`
+              : '같은 낱말을 방식만 바꿔 다시 만납니다. 그래서 외우지 않아도 남습니다.'
+          }
+        >
+          <div
+            className="relative w-full overflow-hidden bg-cream-50"
+            style={{ height: '100dvh', transform: 'translateZ(0)' }}
+          >
+            {unit && book ? (
+              <GameOverlay
+                key={`${bookId}-${g.id}`}
+                unit={unit}
+                game={g.id}
+                lang="ko"
+                storybook={book}
+                onComplete={() => {}}
+                onBack={() => {}}
+              />
+            ) : (
+              <div className="flex h-full items-center justify-center text-sm text-ink-400">
+                불러오는 중…
+              </div>
+            )}
           </div>
-        ) : (
-          <div className="flex h-full items-center justify-center text-sm text-ink-400">
-            불러오는 중…
-          </div>
-        )}
-      </div>
-    </TryItShell>
+        </TryItShell>
+      ))}
+    </>
   );
 }

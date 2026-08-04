@@ -577,6 +577,11 @@ export default function HangulLandingPage() {
           이것도 <strong>직접 읽어보실 수 있습니다.</strong> 카테고리를 눌러 그 라인의 책을 바꿔
           가며 들어보세요. 「낱말 게임」으로 넘기면 <em>그 책에 나온 낱말</em>로 바로 게임합니다.
         </p>
+        <p className="!mt-6">
+          그리고 <strong>그 책에 나온 낱말</strong>로 그 자리에서 놉니다. 같은 낱말을 그림으로
+          만나고, 글자로 조립하고, 따라 그리고, 손으로 씁니다 —{' '}
+          <strong>한 낱말을 네 가지 방식으로</strong> 만나기 때문에 외우지 않아도 남습니다.
+        </p>
         <BookWall />
         <HangulBookTryIt />
         <HangulWordGameTryIt />
@@ -617,6 +622,10 @@ export default function HangulLandingPage() {
             ? ` (정가 ${PLANS.month1.originalAmount.toLocaleString()}원, 오픈 기념 반값)`
             : ''}
           . 그때 계속 쓸지 정하시면 됩니다. 패드값도, 약정도, 위약금도 없습니다.
+        </p>
+        <p>
+          아이가 무엇을 했는지 <strong>부모 화면에 그대로 남습니다.</strong> 어떤 글자에서 자꾸
+          멈추는지, 어떤 낱말을 다시 보면 좋은지 — 밤에 한 번 열어보면 오늘 뭘 했는지 보입니다.
         </p>
         <p className="text-sm text-ink-500">
           가입이 부담스러우시면 <strong>게스트로 30일</strong> 먼저 써보셔도 됩니다. 다만 게스트는
