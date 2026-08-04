@@ -94,12 +94,14 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
    *    셀을 처음 누를 때마다 서버 왕복을 기다렸다(다른 파닉스 활동엔 다 있는 RULE). 재생과 **같은
    *    prefix(`en-cvc`)·언어(english)** 로 데워야 탭 시 캐시가 맞는다 — Phase C 쓰기 소리도 같은
    *    prefix 로 통일했다(예전엔 `cvc-write-*` 라 같은 글자를 서버가 두 번 만들었다).
-   *    순서 = 패턴 글자(a·n·an) → 낱말 글자(c·f·m…) → 낱말 전체, 곧 탭 우선순위.
+   * 🔴 순서 = 패턴 글자(a·n·an) → **낱말 전체(can·fan·man)** → 낱말 글자(c·f·m…). Phase A 는
+   *    한 줄을 완성하면(3탭) 바로 낱말을 읽으므로 낱말이 큐 뒤에 있으면 늦는다(사용자: "can 이 너무
+   *    늦게 나와"). 낱말을 패턴 바로 뒤로 올린다. 낱말 글자는 Phase C(쓰기)라 나중이라도 된다.
    */
   const warmTexts = useMemo(() => {
     const s = [pattern.vowel, pattern.consonant, pattern.vc];
-    for (const ls of wordLetters) s.push(...ls);
     for (const w of cvcWords) s.push(w.word);
+    for (const ls of wordLetters) s.push(...ls);
     return [...new Set(s)].filter(Boolean);
   }, [pattern, wordLetters, cvcWords]);
   usePhonicsTtsWarm(unitId, warmTexts, 'en-cvc', 'english');
