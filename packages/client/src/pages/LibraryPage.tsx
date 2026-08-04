@@ -12,6 +12,7 @@ import {
 } from '@/features/library';
 import { useCategoryLabel } from '@/features/library/lib/category-i18n';
 import { PlaylistLibrarySection } from '@/features/continuous';
+import { FirstReadCard } from '@/features/library/components/FirstReadCard';
 import { StateScreen, SkeletonBookCard, Chip } from '@/design-system';
 import { SiteFooter } from '@/components/SiteFooter';
 import { useSeo } from '@/lib/useSeo';
@@ -437,6 +438,11 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
   return (
     <div className="bg-gradient-to-b from-cream-50 to-peach-100 min-h-full">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 pt-5 md:pt-6 pb-6">
+        {/* 🔴 첫 방문자용 「한 권 들어보기」 — 라이브러리까지 오고도 아무것도 안 누르고 나가는
+            사람이 많았다. 표지가 424px 아래에 있고 위쪽 강조 버튼은 전부 계정/설치라, 누를 것
+            하나를 맨 위에 둔다. 한 번 열면 다시 안 뜬다. 필터·검색 중에는 방해가 되므로 뺀다. */}
+        {type === 'storybook' && !activeCategory && !search && <FirstReadCard />}
+
         {/* 묶어 보기 — 검색/필터보다 위 (2026-07-24 사용자 요청). 게스트·로그인 동일 노출, 기본 펼침. */}
         {type === 'storybook' && <PlaylistLibrarySection />}
 

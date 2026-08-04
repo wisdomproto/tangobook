@@ -57,5 +57,11 @@
     "editAria": "编辑 {{name}} 列表",
     "deleteAria": "删除 {{name}} 列表",
     "mySets": "我的列表"
+  },
+  "firstRead": {
+    "title": "第一次来？先听一本吧",
+    "body": "点一下就会从头到尾读给孩子听。还不认字也没关系。",
+    "cta": "▶ 现在就听",
+    "dismiss": "暂时不用"
   }
 }
