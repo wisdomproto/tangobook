@@ -50,8 +50,8 @@ const PROMPTS = [
   { name: 'vowel-pick-ko', text: '어떤 모음을 골라봐?', language: 'korean' },
   // 뒤집기 짝 맞추기 — 같은 짝을 찾는다(화면 문구 "같은 짝을 찾아봐!").
   { name: 'flip-match-ko', text: '같은 짝을 찾아봐!', language: 'korean' },
-  // 낱말 그림 그리기(점잇기) — 모양 안을 색칠한다(화면 문구 "모양 안을 모두 칠해봐!").
-  { name: 'paint-shape-ko', text: '모양 안을 모두 칠해봐!', language: 'korean' },
+  // 낱말 그림 그리기(점잇기) — 그림 안을 색칠한다(화면 문구 "그림을 색칠해봐!").
+  { name: 'paint-shape-ko', text: '그림을 색칠해봐!', language: 'korean' },
   // 그림 짝 찾기 — 그림과 단어를 짝짓는다.
   { name: 'line-match-ko', text: '그림과 짝을 찾아봐!', language: 'korean' },
   // 블록 게임 — 글자 블록으로 단어를 만든다.
