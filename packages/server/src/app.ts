@@ -184,6 +184,9 @@ export function createApp() {
           const { readFile } = await import('node:fs/promises');
           cachedIndexHtml = await readFile(path.join(clientDist, 'index.html'), 'utf-8');
         }
+        // 🔴 SSR 경로에도 Link 를 붙인다 — 블로그에서 오는 사람이 도착하는 게 바로 이 책 페이지다.
+        if (cachedIndexLink === null) cachedIndexLink = linkHeaderOf(cachedIndexHtml);
+        if (cachedIndexLink) res.setHeader('Link', cachedIndexLink);
         res
           .setHeader('Cache-Control', 'public, max-age=300')
           .type('html')
@@ -314,11 +317,44 @@ export function createApp() {
     } catch {
       /* 프리렌더 산출물 없음 — SPA 폴백 */
     }
+    /**
+     * `Link: rel=preload` 헤더 — **Cloudflare Early Hints(103)의 재료**.
+     *
+     * 🔴 Early Hints 는 대시보드에서 켜는 것만으로는 아무 일도 안 한다. Cloudflare 는 **원본 응답에
+     *    담긴 `Link` 헤더를 모아** 다음 방문자에게 103 으로 먼저 보낸다. 헤더가 없으면 보낼 게 없다.
+     * 🔴 이게 노리는 것 = **왕복 하나를 통째로 없애기**. 지금은 HTML 을 받아 파싱해야 CSS 를
+     *    발견하고, 그제서야 또 한 번 왕복한다(실측: HTML 첫 바이트 0.7s → CSS 도착 2.7s).
+     *    103 을 먼저 받으면 브라우저가 HTML 을 기다리는 동안 CSS·JS 를 받기 시작한다.
+     * 자산 목록은 HTML 에서 뽑는다 — 빌드마다 해시가 바뀌므로 적어 두면 곧 썩는다.
+     */
+    const linkHeaderOf = (html: string): string =>
+      [
+        ...new Set(
+          [...html.matchAll(/(?:href|src)="(\/assets\/[^"]+\.(?:js|css))"/g)].map((m) => m[1])
+        ),
+      ]
+        /**
+         * 🔴 `crossorigin` 필수. vite 는 `<script type="module" crossorigin>` 로 내보내는데,
+         *    preload 힌트에 이게 없으면 **CORS 모드가 달라 캐시가 안 맞아 같은 파일을 두 번 받는다**
+         *    (1MB 번들을 두 번 = 고치려던 것보다 나빠진다). 스타일시트도 `crossorigin` 이라 동일.
+         * ⚠️ Cloudflare Early Hints 는 `preload` 와 `preconnect` 만 103 으로 보낸다 —
+         *    `modulepreload` 로 적으면 무시된다.
+         */
+        .map(
+          (h) => `<${h}>; rel=preload; as=${h.endsWith('.css') ? 'style' : 'script'}; crossorigin`
+        )
+        .join(', ');
+
+    const prerenderedLink: Record<string, string> = {};
+    for (const [r, html] of Object.entries(prerendered)) prerenderedLink[r] = linkHeaderOf(html);
+    let cachedIndexLink: string | null = null;
+
     app.use((req, res, next) => {
       const html = req.method === 'GET' ? prerendered[req.path] : undefined;
       if (!html) return next();
       // 🔴 해시 붙은 자산을 참조하므로 캐시하면 배포 후 깨진 자산을 가리킬 수 있다 → 매번 재검증.
       res.setHeader('Cache-Control', 'no-cache');
+      if (prerenderedLink[req.path]) res.setHeader('Link', prerenderedLink[req.path]);
       res.type('html').send(html);
     });
 
@@ -347,6 +383,8 @@ export function createApp() {
           const { readFile } = await import('node:fs/promises');
           cachedIndexHtml = await readFile(path.join(clientDist, 'index.html'), 'utf-8');
         }
+        if (cachedIndexLink === null) cachedIndexLink = linkHeaderOf(cachedIndexHtml);
+        if (cachedIndexLink) res.setHeader('Link', cachedIndexLink);
         res.type('html').send(selfCanonicalizeHtml(cachedIndexHtml, req.path));
       } catch {
         res.sendFile(path.join(clientDist, 'index.html'));
