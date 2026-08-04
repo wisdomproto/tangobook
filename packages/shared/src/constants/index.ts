@@ -525,7 +525,7 @@ export const ENGLISH_PHONICS_CURRICULUM = [
     units: [
       {
         id: 'en-b5-u01',
-        title: 'Unit 01: ee ea (/iː/)',
+        title: 'Unit 01: ee ea',
         phonemes: ['ee', 'ea'],
         patterns: ['ee', 'ea'],
         sampleWords: [
@@ -545,7 +545,7 @@ export const ENGLISH_PHONICS_CURRICULUM = [
       },
       {
         id: 'en-b5-u02',
-        title: 'Unit 02: oa ow (/oʊ/)',
+        title: 'Unit 02: oa ow',
         phonemes: ['oa', 'ow'],
         patterns: ['oa', 'ow'],
         sampleWords: [
@@ -564,7 +564,7 @@ export const ENGLISH_PHONICS_CURRICULUM = [
       },
       {
         id: 'en-b5-u03',
-        title: 'Unit 03: ai ay (/eɪ/)',
+        title: 'Unit 03: ai ay',
         phonemes: ['ai', 'ay'],
         patterns: ['ai', 'ay'],
         sampleWords: [
@@ -584,7 +584,7 @@ export const ENGLISH_PHONICS_CURRICULUM = [
       },
       {
         id: 'en-b5-u04',
-        title: 'Unit 04: oi oy (/ɔɪ/)',
+        title: 'Unit 04: oi oy',
         phonemes: ['oi', 'oy'],
         patterns: ['oi', 'oy'],
         sampleWords: [
@@ -604,7 +604,7 @@ export const ENGLISH_PHONICS_CURRICULUM = [
       },
       {
         id: 'en-b5-u05',
-        title: 'Unit 05: ow ou (/aʊ/)',
+        title: 'Unit 05: ow ou',
         phonemes: ['ow', 'ou'],
         patterns: ['ow', 'ou'],
         sampleWords: [
@@ -624,7 +624,7 @@ export const ENGLISH_PHONICS_CURRICULUM = [
       },
       {
         id: 'en-b5-u06',
-        title: 'Unit 06: ir er ur (/ɜːr/)',
+        title: 'Unit 06: ir er ur',
         phonemes: ['ir', 'er', 'ur'],
         patterns: ['ir', 'er', 'ur'],
         sampleWords: [
@@ -664,7 +664,7 @@ export const ENGLISH_PHONICS_CURRICULUM = [
       },
       {
         id: 'en-b5-u08',
-        title: 'Unit 08: oo (/ʊ/ & /uː/)',
+        title: 'Unit 08: oo',
         phonemes: ['oo'],
         patterns: ['oo'],
         sampleWords: [
