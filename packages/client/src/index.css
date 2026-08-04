@@ -1,16 +1,10 @@
-/* Pretendard Variable — 한국 모던 앱 표준 (Toss/당근/KakaoBank). 가변 폰트 38KB. */
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css');
-
-/* NanumSquareRound — 둥근 한글체 (헤딩/디스플레이, 4-5세 친화) */
-@import url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound/nanumsquareround.css');
-
-/* 다국어 어휘 게임(블록·따라쓰기) 글리프 — zh 간체 / th 타이.
-   Google Fonts 가 unicode-range 서브셋으로 필요한 조각만 내려줌(용량 관리). */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;700&display=swap');
-
-/* Cover-title overlay fonts (per-language, see shared/cover-fonts.ts) */
-@import url('https://fonts.googleapis.com/css2?family=Jua&family=Baloo+2:wght@700;800&family=ZCOOL+KuaiLe&family=Noto+Sans+JP:wght@700;900&family=Noto+Sans+Thai:wght@700;900&display=swap');
+/*
+ * 🔴 **폰트 `@import` 를 여기서 없앴다**(2026-08-04). `index.html` head 의 `<link>` 로 옮겼다.
+ *    `@import` 는 이 CSS 가 도착한 뒤에야 발견돼 요청이 한 단계 뒤로 밀리고, 그동안 렌더가
+ *    멈춘다. 4G·보급형 폰 실측에서 첫 글자가 11.4초였고 그중 폰트 CSS 5개(160KB, 외부 3곳)가
+ *    한 몫이었다 — 첫 화면은 한국어인데 중국어(Noto SC 61KB)·표지용(101KB)까지 기다렸다.
+ *    한국어 본문 2종만 블로킹, 나머지는 비블로킹으로 head 에 있다.
+ */
 
 /* Marketing feature — scope-isolated OKLCH tokens (never touches global :root) */
 @import './features/marketing/theme/marketing-tokens.css';

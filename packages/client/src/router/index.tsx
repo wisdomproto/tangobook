@@ -5,22 +5,26 @@ import { ErrorBoundary } from '@/design-system';
 import { AppLayout } from '../components/AppLayout';
 import { AppLayoutV2 } from '../components/AppLayoutV2';
 import { AppShell } from '../components/AppShell';
-import {
-  MarketingLayout,
-  ContentPage,
-  SettingsPage,
-  IdeasPage,
-  PublishPage,
-  SiteAnalysisPage,
-  MetaAnalyticsPage,
-  CompetitorsPage,
-  StrategyPage,
-  MonitoringPage,
-  AdsPage,
-  LandingsPage,
-  FeedbackPage,
-  PipelinePage,
-} from '../features/marketing';
+/**
+ * 🔴 **마케팅 스튜디오는 lazy 다**(2026-08-04). 운영자 전용 화면인데 즉시 import 였고,
+ *    TipTap 에디터·recharts·캔버스까지 통째로 **아이 첫 화면 번들에 실려** 왔다.
+ *    4G·보급형 폰 실측: 단일 번들 1,205KB, 첫 글자 11.4초. 부모도 아이도 안 여는 코드다.
+ */
+const M = () => import('../features/marketing');
+const MarketingLayout = lazy(() => M().then((m) => ({ default: m.MarketingLayout })));
+const ContentPage = lazy(() => M().then((m) => ({ default: m.ContentPage })));
+const SettingsPage = lazy(() => M().then((m) => ({ default: m.SettingsPage })));
+const IdeasPage = lazy(() => M().then((m) => ({ default: m.IdeasPage })));
+const PublishPage = lazy(() => M().then((m) => ({ default: m.PublishPage })));
+const SiteAnalysisPage = lazy(() => M().then((m) => ({ default: m.SiteAnalysisPage })));
+const MetaAnalyticsPage = lazy(() => M().then((m) => ({ default: m.MetaAnalyticsPage })));
+const CompetitorsPage = lazy(() => M().then((m) => ({ default: m.CompetitorsPage })));
+const StrategyPage = lazy(() => M().then((m) => ({ default: m.StrategyPage })));
+const MonitoringPage = lazy(() => M().then((m) => ({ default: m.MonitoringPage })));
+const AdsPage = lazy(() => M().then((m) => ({ default: m.AdsPage })));
+const LandingsPage = lazy(() => M().then((m) => ({ default: m.LandingsPage })));
+const FeedbackPage = lazy(() => M().then((m) => ({ default: m.FeedbackPage })));
+const PipelinePage = lazy(() => M().then((m) => ({ default: m.PipelinePage })));
 import LibraryPage from '../pages/LibraryPage';
 import GamesHubPage from '../pages/GamesHubPage';
 import RandomBlockGamePage from '../pages/RandomBlockGamePage';
@@ -35,8 +39,10 @@ import BookSeoPage from '../pages/BookSeoPage';
 import GuideHubPage from '../pages/GuideHubPage';
 import CurriculumMasterPage from '../pages/CurriculumMasterPage';
 import LibraryMasterPage from '../pages/LibraryMasterPage';
-import LetterStrokeBulkEditorPage from '../pages/LetterStrokeBulkEditorPage';
-import KoreanJamoStrokeBulkEditorPage from '../pages/KoreanJamoStrokeBulkEditorPage';
+const LetterStrokeBulkEditorPage = lazy(() => import('../pages/LetterStrokeBulkEditorPage'));
+const KoreanJamoStrokeBulkEditorPage = lazy(
+  () => import('../pages/KoreanJamoStrokeBulkEditorPage')
+);
 import LetterFillDemoPage from '../pages/LetterFillDemoPage';
 import ConnectTheDotsDemoPage from '../pages/ConnectTheDotsDemoPage';
 import ViewerPage from '../pages/ViewerPage';
@@ -75,8 +81,12 @@ import { AnalyticsControl } from '../components/AnalyticsControl';
 import { ParentGate } from '../features/auth/components/ParentGate';
 import { RequireAuthed } from '../features/auth/guards/RequireAuthed';
 import TermsPage from '../pages/legal/TermsPage';
-import { OpsDashboardPage } from '../features/ops';
-import { MembersDashboardPage } from '../features/members';
+const OpsDashboardPage = lazy(() =>
+  import('../features/ops').then((m) => ({ default: m.OpsDashboardPage }))
+);
+const MembersDashboardPage = lazy(() =>
+  import('../features/members').then((m) => ({ default: m.MembersDashboardPage }))
+);
 import PrivacyPage from '../pages/legal/PrivacyPage';
 import RefundPolicyPage from '../pages/legal/RefundPolicyPage';
 
