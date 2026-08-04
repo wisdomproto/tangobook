@@ -76,6 +76,8 @@ export default function EnglishPhonicsActivityPage() {
   const reviewCards = useMemo(() => shuffleReviewCards(activity?.reviewCards ?? []), [activity]);
   /** Book 1 = 글자가 목표인 권. 낱말은 첫 글자만 크게 쓴다. */
   const isBook1 = unitId.startsWith('en-b1');
+  /** Book 2 복습 카드의 letter 는 **패턴("ap")** 이라, 쓰기는 대표 낱말("cap")로 한다(Book 3~5 는 letter 가 이미 낱말). */
+  const isBook2 = unitId.startsWith('en-b2');
   const { sources: reviewSources, isLoading: reviewLoading } = useReviewCardSources(reviewCards);
 
   const storybookQuery = useStorybook(unitId);
@@ -469,6 +471,25 @@ export default function EnglishPhonicsActivityPage() {
         />
       );
     }
+    if (isBook2) {
+      // 🔴 Book 2 복습은 letter 가 패턴("ap")이라 그걸 쓰면 낱말이 아니다 — reviewSources 의 대표 낱말
+      //    ("cap")을 써서 **낱말 전체**를 쓰게 한다(사용자: "ap 만 하지 말고 낱말을 써야지").
+      if (reviewLoading) {
+        return (
+          <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />
+        );
+      }
+      return (
+        <ReviewWriteActivity
+          unitId={unitId}
+          language="english"
+          sources={reviewSources.map((s) => ({ ...s, word: s.word || s.letter, imageUrl: '' }))}
+          onComplete={handleComplete}
+          onBack={backToUnit}
+        />
+      );
+    }
+    // Book 3·4·5 = letter 가 이미 낱말(`bake`)이라 그대로 쓴다.
     return (
       <ReviewWriteActivity
         unitId={unitId}

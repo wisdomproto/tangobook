@@ -547,7 +547,8 @@ function makeEnglishReviewPlan(cards: readonly ReviewCard[], levelKey: string): 
       key: 'review-write',
       order: 0,
       kind: 'review-write',
-      title: '글자 쓰기',
+      // 🔴 Book 1 만 글자 한 자를 쓴다 → "글자 쓰기". Book 2~5 는 낱말 전체를 쓰므로 "낱말 쓰기".
+      title: levelKey === 'book1' ? '글자 쓰기' : '낱말 쓰기',
       emoji: '✏️',
       ...shared,
     },
