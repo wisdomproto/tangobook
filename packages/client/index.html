@@ -142,18 +142,25 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/innks/NanumSquareRound/nanumsquareround.css"
     />
-    <link
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+Thai:wght@400;700&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
-      href="https://fonts.googleapis.com/css2?family=Jua&family=Baloo+2:wght@700;800&family=ZCOOL+KuaiLe&family=Noto+Sans+JP:wght@700;900&family=Noto+Sans+Thai:wght@700;900&display=swap"
-    />
+    <!--
+      🔴 **첫 페인트가 끝난 뒤에 받는다**(2026-08-04). `media="print"` 는 렌더를 막지는 않지만
+         브라우저가 곧바로 받으러 간다 — 4G 실측에서 이 둘(101KB + 61KB)이 FCP 전에 내려와
+         정작 필요한 우리 CSS·HTML 의 대역폭을 가져갔다. 중국어·태국어 글리프와 표지용
+         장식 폰트라, **한국어 첫 화면에는 한 글자도 안 쓴다**.
+    -->
+    <script>
+      addEventListener('load', function () {
+        [
+          'https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+Thai:wght@400;700&display=swap',
+          'https://fonts.googleapis.com/css2?family=Jua&family=Baloo+2:wght@700;800&family=ZCOOL+KuaiLe&family=Noto+Sans+JP:wght@700;900&family=Noto+Sans+Thai:wght@700;900&display=swap',
+        ].forEach(function (href) {
+          var l = document.createElement('link');
+          l.rel = 'stylesheet';
+          l.href = href;
+          document.head.appendChild(l);
+        });
+      });
+    </script>
 
     <!-- JSON-LD: Organization + WebSite (전역 fallback) -->
     <script type="application/ld+json">
