@@ -345,6 +345,12 @@ flashcard 그림 + keypoints + `wordFamilies[].words[].ttsUrl`(ABC 나무 카드
   나란히 놓고 **공통 철자만 코랄로 강조**(bake·cake — `ake` 강조 / black·blade — `bl` 강조 / feet — `ee` 강조)해
   눌러 듣는다. 다 들으면 칭찬+완료, 그 뒤 자유놀이. 🔴 Book 2 의 `cvc-pattern-learn` 은 **CVC 전용**(자음+라임)
   이라 Magic-e·앞 블렌드·모음팀에 안 맞아 못 쓴다(그래서 낱말가족용 새 컴포넌트가 필요했다).
+- 🔴 **매직-e 낱말 음원 = `[장모음 이름] [낱말]`**(2026-08-04, `scripts/regen-magice-word-tts.ts`) — 예전엔
+  낱말만 읽어(사용자: "그냥 케이브라고만 읽어주는데?") 매직-e 를 안 가르쳤다. e 가 모음을 **이름대로 말하게**
+  하므로 `cave`→"A cave"(에이 케이브)·`bike`→"I bike"·`bone`→"Oh bone"·`cube`→"U cube". 🔴 **concat(라이브러리
+  클립 이어붙이기)로 굽는다** — Gemini 통문장은 프리픽스를 들쭉날쭉 읽어(`ay`→/oʊ/, 앞소리 누락) 탈락했고,
+  라이브러리엔 `ay`(장-a)·`eye`·`oh`·`you` 클립이 이미 있다. 장모음은 커리큘럼 phonemes 가 아니라 **낱말의
+  모음(`_VCe`)에서 직접** 판정(storybook 에 phonemes 없어도 안전). Book 4/5 `[블렌드][낱말]`과 대칭.
 - 강조 자리 = `patternHighlight(word, pattern)`(`_x`→끝 / `x_`→앞 / `x`→포함 위치, 매칭 안 되면 `[0,0]`).
   낱말 필터는 `wordMatchesPattern`. 작은 패밀리(`-ape`=cape·tape 2낱말)도 나란히 성립(가드 `<2`).
 - 써보기(`game-word-writing`)는 그대로 그 패턴 낱말만 필터(gameData).
