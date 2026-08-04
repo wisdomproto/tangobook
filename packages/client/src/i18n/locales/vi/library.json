@@ -57,5 +57,11 @@
     "editAria": "Chỉnh sửa bộ {{name}}",
     "deleteAria": "Xóa bộ {{name}}",
     "mySets": "Bộ của tôi"
+  },
+  "firstRead": {
+    "title": "Lần đầu ghé thăm? Nghe thử một cuốn",
+    "body": "Chạm vào là sách được đọc to từ đầu đến cuối. Bé chưa biết chữ cũng không sao.",
+    "cta": "▶ Nghe ngay",
+    "dismiss": "Để sau"
   }
 }

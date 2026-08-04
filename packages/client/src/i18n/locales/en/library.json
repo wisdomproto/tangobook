@@ -57,5 +57,11 @@
     "editAria": "Edit {{name}} set",
     "deleteAria": "Delete {{name}} set",
     "mySets": "My sets"
+  },
+  "firstRead": {
+    "title": "First time here? Listen to one book",
+    "body": "Tap and it reads the whole book aloud. Your child does not need to read yet.",
+    "cta": "▶ Listen now",
+    "dismiss": "No thanks"
   }
 }

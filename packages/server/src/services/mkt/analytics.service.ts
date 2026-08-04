@@ -70,7 +70,7 @@ export interface GA4BookRow {
   views: number;
   users: number;
   sessions: number;
-  avgDuration: number; // session-weighted average, seconds
+  avgDuration: number; // 조회 1회당 체류(초) = userEngagementDuration / screenPageViews
 }
 /** 동화책별 인기 = books (grouped) + others (non-book pages: landing/library hub/games…). */
 export interface GA4TopBooksResult {
@@ -258,8 +258,15 @@ export function extractBookId(pathRaw: string): string | null {
 
 /**
  * Group GA4 page rows (dims [pagePath, pageTitle], metrics [views, users,
- * sessions, avgSessionDuration]) by book id. Non-book rows are returned
- * separately as `others` (GA4TopPage shape). Book duration is session-weighted.
+ * sessions, userEngagementDuration]) by book id. Non-book rows are returned
+ * separately as `others` (GA4TopPage shape).
+ *
+ * 🔴 **체류는 `userEngagementDuration` ÷ 조회수**다(2026-08-04). 예전엔
+ *    `averageSessionDuration` 을 세션 가중했는데, 그건 **세션 단위** 지표라 쪽으로 못 가른다 —
+ *    GA4 는 세션 길이를 「마지막 이벤트 − 첫 이벤트」로 재므로 **한 쪽만 보고 나간 세션은 0초**다.
+ *    그래서 블로그로 들어와 책 한 권만 본 방문자가 전부 「체류 0:00」으로 찍혔고, 값이 하나도
+ *    안 갈리는 게(모든 책이 0:00) 행동이 아니라 계측이라는 신호였다.
+ *    `getOverview` 는 이미 이 지표로 바꿔 놓고 책별 표만 안 바꿨던 것.
  */
 export function mapTopBooks(report: GA4Report, bookLimit = 15, otherLimit = 8): GA4TopBooksResult {
   const byBook = new Map<
@@ -268,7 +275,7 @@ export function mapTopBooks(report: GA4Report, bookLimit = 15, otherLimit = 8): 
       views: number;
       users: number;
       sessions: number;
-      durWeighted: number;
+      engagementSec: number;
       title: string;
       topViews: number;
     }
@@ -281,7 +288,7 @@ export function mapTopBooks(report: GA4Report, bookLimit = 15, otherLimit = 8): 
     const views = int(r.metricValues?.[0]?.value);
     const users = int(r.metricValues?.[1]?.value);
     const sessions = int(r.metricValues?.[2]?.value);
-    const avgDur = flt(r.metricValues?.[3]?.value);
+    const engagementSec = flt(r.metricValues?.[3]?.value);
 
     const bookId = extractBookId(path);
     if (!bookId) {
@@ -292,14 +299,14 @@ export function mapTopBooks(report: GA4Report, bookLimit = 15, otherLimit = 8): 
       views: 0,
       users: 0,
       sessions: 0,
-      durWeighted: 0,
+      engagementSec: 0,
       title: '',
       topViews: -1,
     };
     acc.views += views;
     acc.users += users;
     acc.sessions += sessions;
-    acc.durWeighted += avgDur * sessions;
+    acc.engagementSec += engagementSec;
     // Representative title = the title of this book's highest-traffic path.
     if (title && views > acc.topViews) {
       acc.title = title;
@@ -315,7 +322,9 @@ export function mapTopBooks(report: GA4Report, bookLimit = 15, otherLimit = 8): 
       views: a.views,
       users: a.users,
       sessions: a.sessions,
-      avgDuration: a.sessions > 0 ? a.durWeighted / a.sessions : 0,
+      // 조회 1회당 머문 초. 🔴 세션이 아니라 **조회수**로 나눈다 — 한 세션이 그 책의 여러 쪽을
+      // 볼 수 있고(상세→뷰어), 우리가 알고 싶은 건 「한 번 열었을 때 얼마나 머무는가」다.
+      avgDuration: a.views > 0 ? a.engagementSec / a.views : 0,
     }))
     .sort((x, y) => y.views - x.views)
     .slice(0, bookLimit);
@@ -458,7 +467,8 @@ export async function getTopBooks(cfg: ResolvedGa4, period: Period): Promise<GA4
       { name: 'screenPageViews' },
       { name: 'activeUsers' },
       { name: 'sessions' },
-      { name: 'averageSessionDuration' },
+      // 🔴 세션 평균이 아니라 **쪽별 참여 시간**. 위 `mapTopBooks` 주석 참고.
+      { name: 'userEngagementDuration' },
     ],
     dimensions: [{ name: 'pagePath' }, { name: 'pageTitle' }],
     orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],

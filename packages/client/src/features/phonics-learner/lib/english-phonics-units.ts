@@ -137,7 +137,14 @@ function makeBook2UnitPlan(patterns: readonly VcPattern[]): ActivityPlan {
   const activities: import('./korean-phonics-units').ActivityDef[] = [];
   let order = 1;
   for (const p of patterns) {
-    // 1 활동 / VC — CvcPatternLearn 안에 Phase A (배우기) + B (단어) + C (써보기) 통합.
+    /**
+     * 1 활동 / VC — CvcPatternLearn 하나가 Phase A (배우기) → B (단어) → C (써보기)까지 흐른다.
+     * 🔴 **써보기를 별도 카드로 두지 않는다**(2026-08-04 사용자: "배우기랑 써보기를 합치자,
+     *    배우기 다음에 써보기 나오는 걸로"). 2026-07-29 엔 「목록에 쓰기가 안 보인다」고 별도 카드를
+     *    뒀는데, 배우기 카드가 이미 마지막 Phase C 에서 `${vc} 써보기` 화면으로 이어지므로 중복이었다
+     *    (같은 쓰기를 두 번). 배우기 하나로 합쳐 배우기→단어→써보기를 한 흐름으로 둔다.
+     *    (`cvc-pattern-write` 컴포넌트/kind 는 보존 — 호스트 분기는 남겨 두되 plan 에서만 뺀다.)
+     */
     activities.push({
       key: `cvc-${p.vc}`,
       order: order++,
@@ -145,22 +152,6 @@ function makeBook2UnitPlan(patterns: readonly VcPattern[]): ActivityPlan {
       section: 'learn',
       title: `${p.vc} 배우기`,
       emoji: '🔤',
-      required: true,
-      cvcPattern: { ...p },
-    });
-    /**
-     * 🔴 **써보기를 별도 카드로 둔다**(2026-07-29). 배우기 화면 안에도 Phase C 쓰기가 있지만,
-     *    단원 목록에서 보이지 않아 **아이도 부모도 「이 단원엔 쓰기가 없다」로 읽었다**.
-     *    한글 단원은 `ㄱ 배우기` → `ㄱ 써보기` 로 나뉘어 있어 영어만 다른 모양이었다.
-     *    (컴포넌트는 원래 있었는데 **어느 plan 에도 키가 없어 라우트로 도달조차 못 했다**.)
-     */
-    activities.push({
-      key: `cvc-write-${p.vc}`,
-      order: order++,
-      kind: 'cvc-pattern-write',
-      section: 'learn',
-      title: `${p.vc} 써보기`,
-      emoji: '✏️',
       required: true,
       cvcPattern: { ...p },
     });
@@ -334,12 +325,46 @@ export function patternHighlight(word: string, pattern: string): [number, number
   return i >= 0 ? [i, i + core.length] : [0, 0];
 }
 
+const VOWELS = new Set(['a', 'e', 'i', 'o', 'u']);
+
 /**
- * 🔴 **Book 3·4·5 익히기 = 패턴마다 배우기 + 써보기**(2026-07-31 사용자 "북2 참고해서 익히기 늘려").
- *    Book 2 가 VC 패턴마다 `배우기`+`써보기` 를 두듯, 여기도 커리큘럼 패턴(`_ake`·`bl_`·`ee`)마다
- *    **낱말가족 배우기(`word-family-learn`, Listen and repeat) + 낱말 쓰기(써보기)** — 둘 다 `pattern` 을
- *    달고 호스트가 그 패턴 낱말만 고른다. 배우기는 처음엔 듣고 고르기 퀴즈였으나 이퓨처 §4(Learn=
- *    Listen and repeat) 대로 교정(2026-08-01, `WordFamilyLearnActivity`). 나머지 게임은 단원 전체.
+ * 매직 e 패턴인가 — `_ake`·`_ame`·`_ine`·`_ope`·`_ube` … `_` + **모음+자음+e**(끝소리 라임, 코어 3글자).
+ * 🔴 Book 3 전용. Book 4 블렌드(`bl_`)·Book 5 모음팀(`ee`)은 붙어 있는 한 덩어리라 여기 안 걸린다.
+ */
+export function isMagicEPattern(pattern: string): boolean {
+  if (!pattern.startsWith('_')) return false;
+  const core = pattern.slice(1).toLowerCase();
+  return core.length === 3 && VOWELS.has(core[0]) && !VOWELS.has(core[1]) && core[2] === 'e';
+}
+
+/**
+ * 강조할 글자 자리들(여러 곳 가능).
+ * 🔴 **매직 e = [모음, 끝 e] 두 곳**(사용자: "am+e→ame, 끝 e가 모음을 길게"). 가운데 자음은 회색.
+ *    game → a·e 만 코랄. 통째로 "ame" 를 칠하면 그 e 의 역할(매직)이 안 보인다.
+ * 그 외(블렌드·모음팀·CVC 라임)는 붙어 있는 한 덩어리 → 범위 하나.
+ */
+export function patternHighlightRanges(word: string, pattern: string): [number, number][] {
+  if (isMagicEPattern(pattern)) {
+    const w = word.toLowerCase();
+    const core = pattern.slice(1).toLowerCase();
+    if (!w.endsWith(core)) return [];
+    const vowel = w.length - core.length; // 라임 첫 글자 = 모음
+    const magicE = w.length - 1; // 끝 글자 = 매직 e
+    return [
+      [vowel, vowel + 1],
+      [magicE, magicE + 1],
+    ];
+  }
+  const [s, e] = patternHighlight(word, pattern);
+  return s === e ? [] : [[s, e]];
+}
+
+/**
+ * 🔴 **Book 3·4·5 익히기 = 패턴마다 배우기 하나**(2026-08-04 사용자 "배우기랑 써보기 합치자").
+ *    `WordFamilyLearnActivity` 가 **배우기(Listen and repeat) → 써보기(낱말 쓰기)** 두 단계로 흐른다
+ *    (Book 2 의 cvc-pattern-learn 이 A→B→C 로 흐르는 것과 같은 모양). 예전엔 써보기를 별도 카드
+ *    (`game-word-writing`)로 뒀는데(2026-07-31), 한 활동 안에서 이어지도록 합쳤다. 배우기는 이퓨처
+ *    §4(Learn=Listen and repeat) 대로 교정된 것(2026-08-01). 나머지 게임은 단원 전체.
  */
 function makeWordUnitPlan(unit: EnglishUnitSummary): ActivityPlan {
   const activities: ActivityDef[] = [];
@@ -347,10 +372,10 @@ function makeWordUnitPlan(unit: EnglishUnitSummary): ActivityPlan {
   for (const p of unit.patterns) {
     const label = patternLabel(p);
     activities.push({ key: `learn-${p}`, order: order++, kind: 'word-family-learn', section: 'learn', title: `${label} 배우기`, emoji: '🔊', required: true, pattern: p }); // prettier-ignore
-    activities.push({ key: `write-${p}`, order: order++, kind: 'game-word-writing', section: 'learn', title: `${label} 써보기`, emoji: '🖍️', required: false, pattern: p }); // prettier-ignore
   }
   activities.push(
     { key: 'game-english-block', order: order++, kind: 'game-english-block', section: 'play', title: '블록 게임', emoji: '🧩', required: false }, // prettier-ignore
+    { key: 'game-word-writing', order: order++, kind: 'game-word-writing', section: 'play', title: '낱말 쓰기', emoji: '🖍️', required: false }, // prettier-ignore
     { key: 'game-dots', order: order++, kind: 'game-connect-dots', section: 'play', title: '낱말 그리기', emoji: '🔵', required: false }, // prettier-ignore
     { key: 'game-line-matching', order, kind: 'game-line-matching', section: 'play', title: '그림 짝 찾기', emoji: '🔗', required: false } // prettier-ignore
   );
@@ -523,13 +548,17 @@ function makeEnglishReviewPlan(cards: readonly ReviewCard[], levelKey: string): 
       key: 'review-write',
       order: 0,
       kind: 'review-write',
-      title: '글자 쓰기',
+      // 🔴 Book 1 만 글자 한 자를 쓴다 → "글자 쓰기". Book 2~5 는 낱말 전체를 쓰므로 "낱말 쓰기".
+      title: levelKey === 'book1' ? '글자 쓰기' : '낱말 쓰기',
       emoji: '✏️',
       ...shared,
     },
   ];
   const isWordReview = levelKey === 'book3' || levelKey === 'book4' || levelKey === 'book5';
-  const WORD_KINDS = new Set(['review-flip', 'review-match', 'review-write']);
+  // 🔴 듣고 낱말 추가(2026-08-04) — 예전엔 뺐다("Gemini 낱말이 재생 때 concat 무음일 수 있다"). Book 4/5
+  //    음원을 [블렌드/모음팀 + 낱말] 로 다시 구워 무음이 사라져서, 낱말 듣기가 이제 성립한다.
+  //    (듣고 글자·글자 사냥은 여전히 제외 — 낱말 단위 권엔 글자 활동이 안 맞는다.)
+  const WORD_KINDS = new Set(['review-flip', 'review-match', 'review-word-listen', 'review-write']);
   const activities = all
     .filter((a) => {
       if (isWordReview) return WORD_KINDS.has(a.kind); // 낱말 시각 3종만

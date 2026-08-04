@@ -6,8 +6,6 @@ import {
   getEnglishActivityPlan,
   getEnglishUnit,
   wordMatchesPattern,
-  patternLabel,
-  patternHighlight,
 } from '../lib/english-phonics-units';
 import { shuffleReviewCards } from '../lib/korean-phonics-units';
 import type { ActivityDef } from '../lib/korean-phonics-units';
@@ -78,6 +76,8 @@ export default function EnglishPhonicsActivityPage() {
   const reviewCards = useMemo(() => shuffleReviewCards(activity?.reviewCards ?? []), [activity]);
   /** Book 1 = 글자가 목표인 권. 낱말은 첫 글자만 크게 쓴다. */
   const isBook1 = unitId.startsWith('en-b1');
+  /** Book 2 복습 카드의 letter 는 **패턴("ap")** 이라, 쓰기는 대표 낱말("cap")로 한다(Book 3~5 는 letter 가 이미 낱말). */
+  const isBook2 = unitId.startsWith('en-b2');
   const { sources: reviewSources, isLoading: reviewLoading } = useReviewCardSources(reviewCards);
 
   const storybookQuery = useStorybook(unitId);
@@ -189,8 +189,7 @@ export default function EnglishPhonicsActivityPage() {
     return (
       <WordFamilyLearnActivity
         unitId={unitId}
-        patternLabel={patternLabel(pattern)}
-        highlightOf={(word) => patternHighlight(word, pattern)}
+        pattern={pattern}
         words={words}
         onMarkComplete={handleMarkComplete}
         onBack={backToUnit}
@@ -460,8 +459,10 @@ export default function EnglishPhonicsActivityPage() {
           revealImageOnComplete
           sources={reviewSources.map((s) => ({
             ...s,
-            word: s.letter,
-            // 🔴 글자(a)를 쓰고, 완성하면 낱말 전체(apple)를 보여준다(사용자: "한 글자 쓰면 나머지 단어 다 나와야").
+            // 🔴 **소문자로** 쓴다 — 완성하면 나오는 낱말(apple)이 소문자라 대문자 'A' 를 쓰면 어긋난다
+            //    (사용자: "쓰는 건 대문자인데 정답 단어는 소문자로 나오네"). `letter` 는 키/라벨용이라 그대로 둔다.
+            word: s.letter.toLowerCase(),
+            // 완성하면 낱말 전체(apple)를 보여준다 — 첫 글자(소문자)가 방금 쓴 글자와 같다.
             ...(s.word ? { soundWord: s.word, revealWord: s.word } : {}),
             ...(s.ttsUrl ? { soundUrl: s.ttsUrl } : {}),
           }))}
@@ -470,6 +471,25 @@ export default function EnglishPhonicsActivityPage() {
         />
       );
     }
+    if (isBook2) {
+      // 🔴 Book 2 복습은 letter 가 패턴("ap")이라 그걸 쓰면 낱말이 아니다 — reviewSources 의 대표 낱말
+      //    ("cap")을 써서 **낱말 전체**를 쓰게 한다(사용자: "ap 만 하지 말고 낱말을 써야지").
+      if (reviewLoading) {
+        return (
+          <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />
+        );
+      }
+      return (
+        <ReviewWriteActivity
+          unitId={unitId}
+          language="english"
+          sources={reviewSources.map((s) => ({ ...s, word: s.word || s.letter, imageUrl: '' }))}
+          onComplete={handleComplete}
+          onBack={backToUnit}
+        />
+      );
+    }
+    // Book 3·4·5 = letter 가 이미 낱말(`bake`)이라 그대로 쓴다.
     return (
       <ReviewWriteActivity
         unitId={unitId}

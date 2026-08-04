@@ -1,0 +1,229 @@
+/**
+ * 사진 속 태블릿 화면에 **진짜 앱 화면**을 입힌다 (랜딩 사진용).
+ *
+ * 🔴 AI 로 화면을 그리지 않는다 — 앱을 실제로 띄워 찍은 스크린샷을 원근 변환해 얹는다.
+ *    AI 가 그린 한글 UI 는 글자가 깨지고, 무엇보다 우리 화면이 아니다.
+ * 🔴 손·손가락은 화면 **앞**에 있다 → 「켜진 화면」 픽셀만 남긴 마스크를 워프 알파에 곱하면
+ *    손가락·베젤·둥근 모서리가 저절로 위에 남는다. 오려내기를 손으로 하지 않는다.
+ * 🔴 **화면 면이 카메라를 향한 사진에만 쓸 수 있다.** 태블릿 뒤판·모서리만 보이는 컷
+ *    (히어로·재우기·부모 사진)은 넣을 면 자체가 없다 — 그런 사진은 그냥 둔다.
+ *
+ * 사용:
+ *   node scripts/composite-screen-into-photo.mjs --probe <photo>
+ *     → 열마다 화면 픽셀의 위·아래 경계를 찍어 준다. ymin 이 최소인 x = 위 꼭짓점,
+ *       ymax 가 최대인 x = 아래 꼭짓점, 둘이 만나는 오른쪽 끝 = 오른 꼭짓점.
+ *       프레임 밖으로 나간 꼭짓점은 두 모서리 직선을 연장해 교점으로 구한다.
+ *
+ *   node scripts/composite-screen-into-photo.mjs <photo> <screenshot> <out.png> \
+ *     '[[x,y],[x,y],[x,y],[x,y]]' [opacity]
+ *     → quad 순서 = 스크린샷의 **좌상·우상·우하·좌하**가 각각 갈 자리.
+ *       위아래가 뒤집혀 나오면 배열을 두 칸 돌리면 된다(cyclic).
+ */
+import sharp from 'sharp';
+import { execFileSync } from 'node:child_process';
+
+const W = 1200;
+
+/**
+ * 화면 면을 어떻게 알아보나 — 사진 종류가 두 가지다.
+ * - 기본: **켜진 따뜻한 화면**(실제로 뭔가 띄워 놓고 찍힌 컷). 살색은 `g-b` 로 걸러진다.
+ * - `--plate`: **합성용 플레이트**(화면을 일부러 비워 회색으로 뽑은 컷). 밝고 **무채색**인 면.
+ *   크림 벽·나무 바닥은 R-B 가 20 이상이라 저절로 빠지고, 흰 커튼은 상한으로 뺀다.
+ */
+const PLATE = process.argv.includes('--plate');
+const isScreen = PLATE
+  ? (r, g, b) => {
+      const hi = Math.max(r, g, b);
+      const lo = Math.min(r, g, b);
+      return hi >= 150 && hi <= 240 && hi - lo <= 14;
+    }
+  : (r, g, b) => r > 235 && g > 205 && b > 155 && r - b < 95 && g - b > 30;
+
+/**
+ * 🔴 **플레이트는 임계값만으로 못 딴다** — 비워 둔 회색 화면과 회색 소파·커튼이 같은 색이라
+ *    마스크가 방 절반을 먹는다. 화면 안 한 점(`--seed x,y`)에서 같은 색으로 **번져 나가면**
+ *    붙어 있지 않은 소파는 애초에 닿지 않는다.
+ */
+function floodMask(rgb, W, H, [sx, sy], tol = 26) {
+  const at = (p) => p * 3;
+  const c = [rgb[at(sy * W + sx)], rgb[at(sy * W + sx) + 1], rgb[at(sy * W + sx) + 2]];
+  const near = (p) => {
+    const i = at(p);
+    return (
+      Math.abs(rgb[i] - c[0]) <= tol &&
+      Math.abs(rgb[i + 1] - c[1]) <= tol &&
+      Math.abs(rgb[i + 2] - c[2]) <= tol
+    );
+  };
+  const m = Buffer.alloc(W * H);
+  const stack = [sy * W + sx];
+  m[stack[0]] = 255;
+  while (stack.length) {
+    const p = stack.pop();
+    const x = p % W;
+    const y = (p / W) | 0;
+    for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+      const nx = x + dx;
+      const ny = y + dy;
+      if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
+      const np = ny * W + nx;
+      if (m[np] || !near(np)) continue;
+      m[np] = 255;
+      stack.push(np);
+    }
+  }
+  return m;
+}
+
+/**
+ * 🔴 **꼭짓점을 눈대중으로 잡지 말 것**(2026-08-02, 히어로가 이 때문에 틀렸다).
+ *    quad 가 화면보다 작으면 그 틈으로 **회색 플레이트가 테두리처럼 비친다**(왼쪽 15px 모자라
+ *    회색 띠가 남았다). 크면 UI 가 그만큼 잘린다. 어느 쪽도 눈으로는 잘 안 보인다.
+ *    → 마스크에서 **볼록껍질을 구하고 사각형이 될 때까지 꼭짓점을 지워** 네 점을 뽑는다.
+ *    (지울 때마다 넓이가 가장 덜 변하는 점을 고른다 = 모서리의 자잘한 요철부터 사라진다.)
+ */
+function quadFromMask(mask, W, H) {
+  const pts = [];
+  for (let y = 0; y < H; y++) {
+    let lo = -1;
+    let hi = -1;
+    for (let x = 0; x < W; x++)
+      if (mask[y * W + x]) {
+        if (lo < 0) lo = x;
+        hi = x;
+      }
+    if (lo >= 0) pts.push([lo, y], [hi, y]);
+  }
+  if (pts.length < 4) throw new Error('마스크가 비었다 — seed 좌표를 확인할 것');
+  const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+  pts.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const half = (arr) => {
+    const h = [];
+    for (const p of arr) {
+      while (h.length >= 2 && cross(h[h.length - 2], h[h.length - 1], p) <= 0) h.pop();
+      h.push(p);
+    }
+    return h;
+  };
+  let hull = [...half(pts).slice(0, -1), ...half([...pts].reverse()).slice(0, -1)];
+  while (hull.length > 4) {
+    let best = 0;
+    let bestLoss = Infinity;
+    for (let i = 0; i < hull.length; i++) {
+      const a = hull[(i - 1 + hull.length) % hull.length];
+      const c = hull[(i + 1) % hull.length];
+      const loss = Math.abs(cross(a, hull[i], c));
+      if (loss < bestLoss) {
+        bestLoss = loss;
+        best = i;
+      }
+    }
+    hull.splice(best, 1);
+  }
+  // 좌상 → 우상 → 우하 → 좌하 순으로 돌려놓는다(스크린샷 모서리 순서와 맞춘다).
+  const cx = hull.reduce((s2, p) => s2 + p[0], 0) / 4;
+  const cy = hull.reduce((s2, p) => s2 + p[1], 0) / 4;
+  return hull
+    .map((p) => ({ p, a: Math.atan2(p[1] - cy, p[0] - cx) }))
+    .sort((u, v) => u.a - v.a)
+    .map((u) => u.p.map(Math.round));
+}
+
+const seedArg = process.argv.find((a) => a.startsWith('--seed='));
+const SEED = seedArg ? seedArg.slice(7).split(',').map(Number) : null;
+
+async function loadBase(photo) {
+  const base = await sharp(photo).resize({ width: W }).removeAlpha().toBuffer();
+  const H = (await sharp(base).metadata()).height;
+  const { data } = await sharp(base).raw().toBuffer({ resolveWithObject: true });
+  return { base, H, rgb: data };
+}
+
+if (process.argv[2] === '--corners') {
+  const { H, rgb } = await loadBase(process.argv.slice(3).find((a) => !a.startsWith('--')));
+  if (!SEED) throw new Error('--corners 는 --seed=x,y 가 필요하다');
+  console.log(JSON.stringify(quadFromMask(floodMask(rgb, W, H, SEED), W, H)));
+  process.exit(0);
+}
+
+if (process.argv[2] === '--probe') {
+  const { H, rgb } = await loadBase(process.argv.slice(3).find((a) => !a.startsWith('--')));
+  const seeded = SEED ? floodMask(rgb, W, H, SEED) : null;
+  console.log('   x  ymin  ymax');
+  for (let x = 0; x < W; x += 25) {
+    let lo = null;
+    let hi = null;
+    for (let y = 0; y < H; y++) {
+      const i = (y * W + x) * 3;
+      const on = seeded ? seeded[y * W + x] : isScreen(rgb[i], rgb[i + 1], rgb[i + 2]);
+      if (!on) continue;
+      if (lo === null) lo = y;
+      hi = y;
+    }
+    console.log(String(x).padStart(4), String(lo).padStart(5), String(hi).padStart(5));
+  }
+  process.exit(0);
+}
+
+const [photo, shot, out, quadArg, opacityArg] = process.argv
+  .slice(2)
+  .filter((a) => !a.startsWith('--'));
+const OPACITY = Number(opacityArg ?? 1);
+const { base, H, rgb } = await loadBase(photo);
+
+let m;
+if (SEED) {
+  m = floodMask(rgb, W, H, SEED);
+} else {
+  m = Buffer.alloc(W * H);
+  for (let y = Math.floor(H * 0.3); y < H; y++)
+    for (let x = 0; x < W; x++) {
+      const i = (y * W + x) * 3;
+      if (isScreen(rgb[i], rgb[i + 1], rgb[i + 2])) m[y * W + x] = 255;
+    }
+}
+
+// 🔴 임계값만 쓰면 테이블 하이라이트·손끝 반사가 점점이 섞여 화면 밖에 「모래」가 뿌려진다.
+//    열기(Open)로 점을 지우고 닫기(Close)로 구멍을 메운다. 손가락 구멍은 크므로 살아남는다.
+const maskFile = `${out}.mask.png`;
+await sharp(m, { raw: { width: W, height: H, channels: 1 } }).png().toFile(maskFile);
+execFileSync('magick', [maskFile, '-morphology', 'Open', 'Disk:3',
+  '-morphology', 'Close', 'Disk:2', '-blur', '0x1.2', maskFile]);
+// 🔴 PNG 왕복·blur 는 1채널을 3채널로 늘려 내보낸다 — 그대로 `mask[p]` 로 읽으면 인덱스가
+//    어긋나 알파가 통째로 0 이 되고 화면이 빈 채로 나온다. stride 로 읽는다.
+const maskRaw = await sharp(maskFile).raw().toBuffer();
+const stride = maskRaw.length / (W * H);
+const mask = (p) => maskRaw[p * stride];
+
+const s = await sharp(shot).metadata();
+const q = JSON.parse(quadArg);
+const pts = [[0, 0], [s.width, 0], [s.width, s.height], [0, s.height]]
+  .map((p, i) => `${p[0]},${p[1]} ${q[i][0]},${q[i][1]}`)
+  .join('  ');
+const warpFile = `${out}.warp.png`;
+execFileSync('magick', [shot, '-alpha', 'set', '-virtual-pixel', 'transparent',
+  '-set', 'option:distort:viewport', `${W}x${H}+0+0`, '-distort', 'Perspective', pts, warpFile]);
+
+// 🔴 알파는 raw 픽셀로 직접 곱한다 — sharp `joinChannel` 도 IM `CopyOpacity` 도 이 조합에서
+//    알파로 안 잡혀 사진이 통째로 검게 나왔다. 애매한 단계를 두지 않는다.
+const warp = await sharp(warpFile).ensureAlpha().raw().toBuffer();
+for (let p = 0; p < W * H; p++) warp[p * 4 + 3] = (warp[p * 4 + 3] * mask(p) * OPACITY) / 255;
+
+// 🔴 UI 를 그냥 얹으면 「스티커」로 보인다 — 원본 화면의 번들거림·빛 감쇠·손끝 반사를
+//    soft-light 로 다시 덮어 그 빛 속에 앉힌다.
+const glare = Buffer.alloc(W * H * 4);
+for (let p = 0; p < W * H; p++) {
+  glare[p * 4] = rgb[p * 3];
+  glare[p * 4 + 1] = rgb[p * 3 + 1];
+  glare[p * 4 + 2] = rgb[p * 3 + 2];
+  glare[p * 4 + 3] = (mask(p) * 0.5) | 0;
+}
+
+await sharp(base)
+  .composite([
+    { input: warp, raw: { width: W, height: H, channels: 4 }, blend: 'over' },
+    { input: glare, raw: { width: W, height: H, channels: 4 }, blend: 'soft-light' },
+  ])
+  .png()
+  .toFile(out);
+console.log(`${out} · ${W}x${H} · opacity ${OPACITY}`);

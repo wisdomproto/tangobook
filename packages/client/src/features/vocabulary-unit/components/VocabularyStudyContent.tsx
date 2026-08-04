@@ -367,7 +367,13 @@ function GameCard({
    GameOverlay — 게임 모달 (VocabSourceProvider wrap)
    ───────────────────────────────────────────────────────────────────── */
 
-function GameOverlay({
+/**
+ * 게임 한 판을 전체화면으로 띄우는 오버레이.
+ * 🔴 `export` 인 이유 — 랜딩(`/hangul`)이 **게임을 하나씩 따로** 얹는다. 목록 화면(카드 넷)을
+ *    보여주면 「무엇을 하는 게임인지」가 아니라 「메뉴」가 보인다(2026-08-02 사용자 요청).
+ *    앱 안에서는 여전히 `VocabularyStudyContent` 가 카드 → 이 오버레이 순서로 쓴다.
+ */
+export function GameOverlay({
   unit,
   game,
   lang,
