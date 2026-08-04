@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 import { useSeo } from '@/lib/useSeo';
 import { SiteFooter } from '@/components/SiteFooter';
 import { PhonicsTryIt } from '@/features/phonics-learner/components/PhonicsTryIt';
-import { HangulBookTryIt } from './HangulBookTryIt';
+import { HangulBookTryIt, HangulWordGameTryIt } from './HangulBookTryIt';
+import { getAllKoreanUnits } from '@/features/phonics-learner/lib/korean-phonics-units';
+import { useStorybooks } from '@/features/storybook/hooks/useStorybooks';
+import { BookCover } from '@/design-system/primitives/BookCover';
 
 /**
  * `/hangul` — 광고 랜딩(상세페이지). 네이버·메타 광고의 도착지.
@@ -230,6 +233,61 @@ function Photo({
   );
 }
 
+/**
+ * 한글 파닉스 **전 단원 목록**. 요약 다섯 줄만 두면 「32단원」이 숫자로만 남는다 —
+ * 단원 이름을 다 펼쳐야 분량이 눈에 보인다(2026-08-02 사용자: "있는 거 다 자랑해야해").
+ * 🔴 목록을 손으로 적지 않는다 — 앱이 쓰는 커리큘럼(`getAllKoreanUnits`)을 그대로 읽어서,
+ *    단원이 늘면 이 화면도 같이 늘어난다. 복습 단원은 배지로 구분한다.
+ */
+function CurriculumUnits() {
+  const units = getAllKoreanUnits();
+  const levels = [...new Map(units.map((u) => [u.levelKey, u.levelName])).entries()];
+  const clean = (t: string) => t.replace(/^unit\s*\d+\s*:\s*/i, '');
+  return (
+    <div className="!mt-6 space-y-3">
+      {levels.map(([key, name]) => (
+        <div key={key} className="rounded-2xl border border-ink-100 bg-white/70 p-4">
+          <p className="text-xs font-bold text-coral-500 break-keep">{name}</p>
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {units
+              .filter((u) => u.levelKey === key)
+              .map((u) => (
+                <span
+                  key={u.id}
+                  className={`rounded-full px-2.5 py-1 text-xs break-keep ${
+                    u.isReview ? 'bg-mint-100 font-bold text-mint-600' : 'bg-cream-100 text-ink-700'
+                  }`}
+                >
+                  {u.isReview ? '🏅 ' : ''}
+                  {clean(u.unitTitle)}
+                </span>
+              ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * 동화책 **표지벽**. 권수만 적으면 안 믿긴다 — 표지를 깔면 그 자리에서 확인된다.
+ * 🔴 목록을 박아 두지 않는다 — 라이브러리 API 를 그대로 읽으므로 책이 늘면 벽도 늘어난다.
+ * 🔴 `BookCover` 를 쓴다(직접 `<img>` X) — 512px 썸네일로 유도해 준다. 원본은 장당 125KB 라
+ *    서른 장이면 4MB 다.
+ */
+function BookWall() {
+  const { data } = useStorybooks();
+  const books = (data ?? []).filter((b) => b.type !== 'phonics').slice(0, 40);
+  if (books.length === 0) return null;
+  return (
+    <div className="!mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
+      {books.map((b) => (
+        <BookCover key={b.id} book={b} lang="ko" loading="lazy" className="rounded-xl" />
+      ))}
+    </div>
+  );
+}
+
 function Section({
   eyebrow,
   title,
@@ -275,7 +333,7 @@ export default function HangulLandingPage() {
         <div className="pointer-events-none absolute -right-20 -top-16 h-64 w-64 rounded-full bg-coral-100/60 blur-3xl" />
         {/* 🔴 md 부터 2열 — 사진을 글 아래 깔면 CTA 가 접힘선 밑으로 밀린다(3:2 라 768px 폭에서
             높이가 512px). 옆에 두면 빈 오른쪽이 채워지면서 CTA 는 그대로 위에 남는다. */}
-        <div className="relative mx-auto grid max-w-5xl items-center gap-8 text-center md:grid-cols-[1fr_minmax(0,420px)] md:gap-10 md:text-left">
+        <div className="relative mx-auto grid max-w-3xl items-center gap-8 text-center md:grid-cols-[1fr_minmax(0,300px)] md:gap-10 md:text-left">
           <div className="min-w-0">
             <p className="text-xs font-bold tracking-wide text-coral-500 sm:text-sm">
               4~7세 한글떼기 · 파닉스
@@ -436,6 +494,7 @@ export default function HangulLandingPage() {
             </li>
           ))}
         </ul>
+        <CurriculumUnits />
         <p className="!mt-6">
           사이사이 <strong>복습 단원 일곱</strong>이 끼어 있어, 배운 글자를 형식이 다른 놀이(글자
           사냥 · 뒤집기 짝 맞추기 · 듣고 고르기)로 다시 만납니다. 단원마다 익히기 네 가지와 낱말
@@ -517,7 +576,9 @@ export default function HangulLandingPage() {
           이것도 <strong>직접 읽어보실 수 있습니다.</strong> 카테고리를 눌러 그 라인의 책을 바꿔
           가며 들어보세요. 「낱말 게임」으로 넘기면 <em>그 책에 나온 낱말</em>로 바로 게임합니다.
         </p>
+        <BookWall />
         <HangulBookTryIt />
+        <HangulWordGameTryIt />
       </Section>
 
       {/* ── ⑥ 실측 숫자 ───────────────────────────────────────── */}

@@ -75,6 +75,60 @@ function floodMask(rgb, W, H, [sx, sy], tol = 26) {
   return m;
 }
 
+/**
+ * 🔴 **꼭짓점을 눈대중으로 잡지 말 것**(2026-08-02, 히어로가 이 때문에 틀렸다).
+ *    quad 가 화면보다 작으면 그 틈으로 **회색 플레이트가 테두리처럼 비친다**(왼쪽 15px 모자라
+ *    회색 띠가 남았다). 크면 UI 가 그만큼 잘린다. 어느 쪽도 눈으로는 잘 안 보인다.
+ *    → 마스크에서 **볼록껍질을 구하고 사각형이 될 때까지 꼭짓점을 지워** 네 점을 뽑는다.
+ *    (지울 때마다 넓이가 가장 덜 변하는 점을 고른다 = 모서리의 자잘한 요철부터 사라진다.)
+ */
+function quadFromMask(mask, W, H) {
+  const pts = [];
+  for (let y = 0; y < H; y++) {
+    let lo = -1;
+    let hi = -1;
+    for (let x = 0; x < W; x++)
+      if (mask[y * W + x]) {
+        if (lo < 0) lo = x;
+        hi = x;
+      }
+    if (lo >= 0) pts.push([lo, y], [hi, y]);
+  }
+  if (pts.length < 4) throw new Error('마스크가 비었다 — seed 좌표를 확인할 것');
+  const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+  pts.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const half = (arr) => {
+    const h = [];
+    for (const p of arr) {
+      while (h.length >= 2 && cross(h[h.length - 2], h[h.length - 1], p) <= 0) h.pop();
+      h.push(p);
+    }
+    return h;
+  };
+  let hull = [...half(pts).slice(0, -1), ...half([...pts].reverse()).slice(0, -1)];
+  while (hull.length > 4) {
+    let best = 0;
+    let bestLoss = Infinity;
+    for (let i = 0; i < hull.length; i++) {
+      const a = hull[(i - 1 + hull.length) % hull.length];
+      const c = hull[(i + 1) % hull.length];
+      const loss = Math.abs(cross(a, hull[i], c));
+      if (loss < bestLoss) {
+        bestLoss = loss;
+        best = i;
+      }
+    }
+    hull.splice(best, 1);
+  }
+  // 좌상 → 우상 → 우하 → 좌하 순으로 돌려놓는다(스크린샷 모서리 순서와 맞춘다).
+  const cx = hull.reduce((s2, p) => s2 + p[0], 0) / 4;
+  const cy = hull.reduce((s2, p) => s2 + p[1], 0) / 4;
+  return hull
+    .map((p) => ({ p, a: Math.atan2(p[1] - cy, p[0] - cx) }))
+    .sort((u, v) => u.a - v.a)
+    .map((u) => u.p.map(Math.round));
+}
+
 const seedArg = process.argv.find((a) => a.startsWith('--seed='));
 const SEED = seedArg ? seedArg.slice(7).split(',').map(Number) : null;
 
@@ -83,6 +137,13 @@ async function loadBase(photo) {
   const H = (await sharp(base).metadata()).height;
   const { data } = await sharp(base).raw().toBuffer({ resolveWithObject: true });
   return { base, H, rgb: data };
+}
+
+if (process.argv[2] === '--corners') {
+  const { H, rgb } = await loadBase(process.argv.slice(3).find((a) => !a.startsWith('--')));
+  if (!SEED) throw new Error('--corners 는 --seed=x,y 가 필요하다');
+  console.log(JSON.stringify(quadFromMask(floodMask(rgb, W, H, SEED), W, H)));
+  process.exit(0);
 }
 
 if (process.argv[2] === '--probe') {
