@@ -138,18 +138,6 @@ const NONES: { icon: string; t: string; d: string }[] = [
   { icon: '🚫', t: '약정·설치 없음', d: '패드도 약정도 없어요' },
 ];
 
-/**
- * 히어로 상단 한글 모티프 — 이미지 자산 없이 **자모 타일**로 "한글 파닉스"를 한눈에 보인다
- * (2026-08-05 사용자: "윗부분에 뭔가 한글 관련 그림"). STAGES 색을 재사용하고, 장식이라
- * `aria-hidden`. AI 가 그린 그림을 안 쓰는 것과 같은 이유 — 자모는 텍스트라 안 깨진다.
- */
-const HANGUL_MOTIF = ['ㄱ', 'ㄴ', 'ㄷ', 'ㅏ', 'ㅑ', 'ㅓ', '가', '나', '다', '라'];
-const MOTIF_TONES = [
-  'bg-coral-100 text-coral-700',
-  'bg-peach-200 text-ink-800',
-  'bg-mint-100 text-mint-700',
-];
-
 const SIGNUP = '/login?mode=signup';
 
 /**
@@ -473,54 +461,58 @@ function BookWall() {
 }
 
 /**
- * 히어로 상단 모티프 — **파닉스(자모) + 다양한 동화책(실제 표지)** 를 한 줄로(2026-08-05 사용자:
- * "파닉스랑 다양한 동화책을 표현하는 그림이 있는게 나을거 같다"). 헤드라인 「한글 파닉스 + 다양한
- * 동화책」을 글자·표지로 한 번 더 말한다.
- * 🔴 AI 그림을 그리지 않는다 — 자모는 텍스트, 표지는 라이브러리 실물이라 안 깨지고 안 낡는다.
- * 🔴 표지는 아는 이야기부터(WALL_PREFER) + 표지 있는 storybook 만 — 벽과 같은 규칙.
+ * 히어로 상단 — **동화책 표지 슬라이더**(2026-08-05 사용자: "동화책 표지를 뽑아와서 카테고리별로
+ * 슬라이딩으로 볼수 있게"). 라이브러리 실물 표지를 카테고리별로 묶어 자동으로 흘려보낸다.
+ * 🔴 **가볍게 한다**(사용자: "페이지가 너무 무거워질거 같기도") — 512 썸네일(장당 ~28KB)만,
+ *    카테고리당 2장까지, 최대 14장. `BookCover` 가 표지 URL 에서 512 썸네일을 유도하고 lazy 로 받는다.
+ * 🔴 AI 그림 아님 — 실물이라 안 깨지고, 책이 늘면 자동으로 는다.
+ * 🔴 파닉스 슬라이더를 하나 더 얹지 않는다 — 이미지가 두 배가 된다(무게). 파닉스는 헤드라인·스탯이
+ *    말하고, 전용 일러스트가 생기면 그때 히어로에 한 장으로 얹는다.
  */
-function HeroMotif() {
+function CoverSlider() {
   const { data } = useStorybooks();
+  const perCat = new Map<string, number>();
   const seen = new Set<string>();
-  const covers = (data ?? [])
-    .filter((b) => b.coverImage && !b.type)
-    .filter((b) => {
-      const t = (b.title ?? '')
-        .replace(/^\s*\d+\.\s*/, '')
-        .replace(/\s*\(L\d+\)\s*$/, '')
-        .trim();
-      if (!t || seen.has(t)) return false;
-      seen.add(t);
-      return true;
-    })
-    .sort((a, b) => {
-      const rank = (x: NonNullable<typeof data>[number]) => {
-        const i = WALL_PREFER.findIndex((k) => (x.title ?? '').includes(k));
-        return i < 0 ? WALL_PREFER.length : i;
-      };
-      return rank(a) - rank(b);
-    })
-    .slice(0, 4);
+  const covers: NonNullable<typeof data> = [];
+  for (const b of data ?? []) {
+    if (!b.coverImage || b.type) continue;
+    const t = (b.title ?? '')
+      .replace(/^\s*\d+\.\s*/, '')
+      .replace(/\s*\(L\d+\)\s*$/, '')
+      .trim();
+    if (!t || seen.has(t)) continue;
+    const c = b.category ?? '';
+    if ((perCat.get(c) ?? 0) >= 2) continue; // 한 카테고리가 슬라이더를 독차지하지 않게
+    perCat.set(c, (perCat.get(c) ?? 0) + 1);
+    seen.add(t);
+    covers.push(b);
+    if (covers.length >= 14) break;
+  }
+  if (covers.length < 6) return null;
+  // 🔴 이음매 없는 무한 슬라이드 — 같은 목록을 두 벌 이어 붙이고 -50% 로 흘린다. 각 표지에 `mr-3`
+  //    를 줘 마지막 장에도 여백이 있어야 -50% 가 정확히 한 벌만큼 이동해 튀지 않는다.
+  const loop = [...covers, ...covers];
   return (
     <div
       aria-hidden
-      className="relative mx-auto mb-7 flex max-w-3xl flex-wrap items-center justify-center gap-1.5"
+      className="relative mb-7 overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_7%,#000_93%,transparent)]"
     >
-      {HANGUL_MOTIF.slice(0, 4).map((c, i) => (
-        <span
-          key={c}
-          className={`flex h-11 w-11 items-center justify-center rounded-xl font-display text-xl font-extrabold shadow-sm ${
-            MOTIF_TONES[i % MOTIF_TONES.length]
-          } ${i % 2 ? 'rotate-3' : '-rotate-3'}`}
-        >
-          {c}
-        </span>
-      ))}
-      {covers.map((b) => (
-        <div key={b.id} className="aspect-video h-11 overflow-hidden rounded-lg shadow-sm sm:h-12">
-          <BookCover book={b} lang="ko" loading="lazy" className="h-full w-full" />
-        </div>
-      ))}
+      <div className="hero-cover-track flex w-max">
+        {loop.map((b, i) => (
+          <div
+            key={`${b.id}-${i}`}
+            className="mr-3 aspect-video h-16 shrink-0 overflow-hidden rounded-xl shadow-sm sm:h-20"
+          >
+            <BookCover book={b} lang="ko" loading="lazy" className="h-full w-full" />
+          </div>
+        ))}
+      </div>
+      <style>{`
+        .hero-cover-track { animation: hero-cover-slide 40s linear infinite; }
+        .hero-cover-track:hover { animation-play-state: paused; }
+        @keyframes hero-cover-slide { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+        @media (prefers-reduced-motion: reduce) { .hero-cover-track { animation: none; } }
+      `}</style>
     </div>
   );
 }
@@ -578,7 +570,7 @@ export default function HangulLandingPage() {
             className="h-16 w-auto sm:h-20"
           />
         </Link>
-        <HeroMotif />
+        <CoverSlider />
         {/* 🔴 md 부터 2열 — 사진을 글 아래 깔면 CTA 가 접힘선 밑으로 밀린다(3:2 라 768px 폭에서
             높이가 512px). 옆에 두면 빈 오른쪽이 채워지면서 CTA 는 그대로 위에 남는다. */}
         <div className="relative mx-auto grid max-w-3xl items-center gap-8 text-center md:grid-cols-[1fr_minmax(0,300px)] md:gap-10 md:text-left">
