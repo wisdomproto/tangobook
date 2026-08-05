@@ -197,14 +197,16 @@ function StickyCta() {
             blocked ? 'hidden' : ''
           }`}
         >
-          가입하면 1년 무료{' '}
-          <span className="text-coral-700">· 이후 월 {PLANS.month1.amount.toLocaleString()}원</span>
+          <span className="text-ink-400 line-through">
+            월 {PLANS.month1.originalAmount?.toLocaleString()}원
+          </span>{' '}
+          <span className="text-coral-700">월 {PLANS.month1.amount.toLocaleString()}원</span>
         </p>
         <Link
           to={SIGNUP}
           className="flex min-h-[44px] shrink-0 items-center rounded-full bg-coral-700 px-5 text-sm font-bold text-white shadow-sm transition hover:bg-coral-800"
         >
-          무료로 시작하기
+          한달 무료 체험
         </Link>
       </div>
     </div>
@@ -451,7 +453,7 @@ export default function HangulLandingPage() {
   useSeo({
     title: `한글 파닉스 ${FACTS.koreanUnits}단원 + 동화책 ${FACTS.books}권 — 탱고북`,
     description:
-      '자음·모음부터 받침·쌍자음까지 한글 파닉스 32단원, 영어 파닉스 39단원. 그리고 배운 글자로 바로 읽는 동화책 266권. 4~7세 한글떼기, 지금은 베타 기간이라 가입하면 1년 무료입니다.',
+      '자음·모음부터 받침·쌍자음까지 한글 파닉스 32단원, 영어 파닉스 39단원. 그리고 배운 글자로 바로 읽는 동화책 266권. 4~7세 한글떼기. 한 달 무료로 써 보고 정하세요.',
     path: '/hangul',
     // 🔴 나이 키워드는 5·6세에 몰려 있다(실측 2026-08-01): 5세한글공부 1,140 · 6세한글공부 940 ·
     //    7세 290 · 4세 220 · 3세 60. 제품은 4~7세가 맞지만, 그 표현만 쓰면 2,080 을 못 받는다.
@@ -493,11 +495,11 @@ export default function HangulLandingPage() {
               to={SIGNUP}
               className="mt-7 inline-flex min-h-[52px] items-center rounded-full bg-coral-700 px-8 text-base font-bold text-white shadow-md transition hover:bg-coral-800"
             >
-              무료로 시작하기
+              한달 무료 체험
             </Link>
             <p className="mt-3 text-xs text-ink-600 break-keep">
-              지금 가입하면 1년 무료 · 이후에도 월 {PLANS.month1.amount.toLocaleString()}원,
-              약정·위약금 없음
+              월 {PLANS.month1.originalAmount?.toLocaleString()}원 → 할인 월{' '}
+              {PLANS.month1.amount.toLocaleString()}원
             </p>
           </div>
 
@@ -544,12 +546,11 @@ export default function HangulLandingPage() {
       </Section>
 
       {/* ── ③ 파닉스 커리큘럼 (데모보다 먼저 — 아래 데모가 32개 중 하나임을 알고 보게) ─────────────────────────────────── */}
-      <Section eyebrow="한글 파닉스" title="이름이 아니라 소리부터, 서른두 단원">
-        <p>
-          「기역」은 글자의 <em>이름</em>이지 소리가 아닙니다. 「기역, 아」를 읽으면 「기역아」가
-          되지 「가」가 되지 않습니다. 탱고북은 소리(「그」)부터 알려주고, 그 소리가 모음을 만나
-          글자가 되는 과정을 눈으로 보여줍니다.
-        </p>
+      {/* 🔴 **가르치는 법을 설명하지 않는다**(2026-08-05 사용자: "이런 얘기는 안 해도 됨.
+          그냥 우리가 이걸 컨텐츠를 가지고 있다고만 언급하면 됨"). 「기역은 이름이지 소리가
+          아니다」는 우리끼리 옳은 얘기고, 부모가 이 자리에서 궁금한 건 **뭐가 얼마나 있나**다.
+          제목도 「이름이 아니라 소리부터」에는 정작 **한글**이 안 들어 있었다. */}
+      <Section eyebrow="한글 파닉스" title={`한글 파닉스 ${FACTS.koreanUnits}단원`}>
         <ul className="!mt-6 space-y-2">
           {STAGES.map((s) => (
             <li
@@ -566,20 +567,11 @@ export default function HangulLandingPage() {
             </li>
           ))}
         </ul>
-        <CurriculumUnits />
+        {/* 🔴 **단원 칩 전체 목록(`CurriculumUnits`)과 설명 세 문단을 지웠다**(2026-08-05 사용자).
+            32개를 다 늘어놓으면 위 다섯 줄 요약과 같은 말을 두 번 하는 셈이고, 화면 두 개 분량이
+            지나가는 동안 아래 「직접 해보기」가 그만큼 멀어진다. 컴포넌트는 남겨 뒀다. */}
         <p className="!mt-6">
-          <strong>다섯 살이면 대개 여기서 시작합니다.</strong> 한 단원은 활동 아홉 개로 나뉘어 있어{' '}
-          <strong>한 번에 다 할 필요가 없습니다.</strong> 하나만 하고 꺼도 되고, 어디까지 했는지는
-          남습니다.
-        </p>
-        <p className="!mt-6">
-          사이사이 <strong>복습 단원 일곱</strong>이 끼어 있어, 배운 글자를 형식이 다른 놀이(글자
-          사냥 · 뒤집기 짝 맞추기 · 듣고 고르기)로 다시 만납니다. 단원마다 익히기 네 가지와 낱말
-          놀이 다섯 가지가 이어집니다.
-        </p>
-        <p>
-          영어 파닉스도 <strong>{FACTS.englishUnits}단원</strong> 같이 있습니다. 알파벳 소리부터
-          CVC까지, 한글과 같은 방식입니다.
+          영어 파닉스 <strong>{FACTS.englishUnits}단원</strong>도 같이 들어 있습니다.
         </p>
         {/* 🔴 화면에 **진짜 단원 화면**이 합성돼 있다 — 위 「익히기」 넷, 아래 「낱말 놀이」
             다섯. 바로 윗줄이 그 문장이라 글과 그림이 같은 것을 가리킨다.
@@ -744,21 +736,28 @@ export default function HangulLandingPage() {
       </section>
 
       {/* ── ⑦ 혜택 (여기서 처음 등장) ─────────────────────────── */}
-      <Section eyebrow="지금은 베타 기간" title="가입하면 1년 동안 무료입니다">
+      <Section eyebrow="요금" title="한 달 무료로 써 보고 정하세요">
+        {/* 🔴 **「1년 무료」를 말하지 않는다**(2026-08-05 사용자). 실제로는 베타 기간 가입자에게
+            1년이 열리지만(`features/access`), 광고 문구는 **한 달 체험 + 할인가**로만 말한다 —
+            받는 혜택이 말한 것보다 크므로 과장이 아니라 과소 주장이다. 오퍼를 접어도 문구를
+            고칠 필요가 없다는 게 이 표현의 값어치다. */}
         <p>
-          탱고북은 아직 베타입니다. 그래서 <strong>지금 가입하는 분은 1년 동안 전부 무료</strong>로
-          쓰십니다. 파닉스도, 동화책 {FACTS.books}권도, 게임도 잠긴 것 없이 열려 있습니다.
+          <strong>한 달 동안 전부 무료</strong>로 쓰십니다. 파닉스도, 동화책 {FACTS.books}권도,
+          게임도 잠긴 것 없이 열려 있습니다.
         </p>
         <p>
           결제 정보를 넣지 않습니다. 카드도 등록하지 않습니다. 아이 화면에{' '}
           <strong>광고가 뜨지 않습니다.</strong>
         </p>
         <p>
-          <strong>1년이 지나면 월 {PLANS.month1.amount.toLocaleString()}원</strong>입니다
-          {PLANS.month1.originalAmount
-            ? ` (정가 ${PLANS.month1.originalAmount.toLocaleString()}원, 오픈 기념 반값)`
-            : ''}
-          . 그때 계속 쓸지 정하시면 됩니다. 패드값도, 약정도, 위약금도 없습니다.
+          체험이 끝나면{' '}
+          <span className="text-ink-400 line-through">
+            월 {PLANS.month1.originalAmount?.toLocaleString()}원
+          </span>{' '}
+          <strong className="text-coral-700">
+            할인 월 {PLANS.month1.amount.toLocaleString()}원
+          </strong>
+          입니다. 그때 계속 쓸지 정하시면 됩니다.
         </p>
         <p>
           아이가 무엇을 했는지 <strong>부모 화면에 그대로 남습니다.</strong> 어떤 글자에서 자꾸
@@ -786,7 +785,7 @@ export default function HangulLandingPage() {
             to={SIGNUP}
             className="mt-1 inline-flex min-h-[52px] items-center rounded-full bg-coral-700 px-8 text-base font-bold text-white shadow-md transition hover:bg-coral-800"
           >
-            1년 무료로 시작하기 →
+            한달 무료 체험 →
           </Link>
           <Link to="/library" className="text-xs font-semibold text-ink-600 underline">
             먼저 둘러볼래요
