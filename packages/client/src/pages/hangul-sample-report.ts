@@ -11,29 +11,38 @@ import type { LearningEvent, StorybookSummary } from '@tangobook/shared';
  */
 
 // 자음×모음 스프레드 — 정답 수(n)로 마스터리 단계를 만든다(많을수록 익힘, 최근일수록 높음).
-const SYLL: { c: string; v: string; n: number }[] = [
-  // 익힘(초록) — 6회 이상
-  { c: 'ㄱ', v: 'ㅏ', n: 6 },
-  { c: 'ㄴ', v: 'ㅏ', n: 6 },
-  { c: 'ㄷ', v: 'ㅏ', n: 6 },
-  { c: 'ㄹ', v: 'ㅏ', n: 6 },
-  { c: 'ㄱ', v: 'ㅗ', n: 6 },
-  { c: 'ㄴ', v: 'ㅗ', n: 5 },
-  { c: 'ㄷ', v: 'ㅗ', n: 5 },
-  // 연습 중(진한 코랄) — 3회
-  { c: 'ㄱ', v: 'ㅑ', n: 3 },
-  { c: 'ㄴ', v: 'ㅑ', n: 3 },
-  { c: 'ㄷ', v: 'ㅕ', n: 3 },
-  { c: 'ㄹ', v: 'ㅓ', n: 3 },
-  { c: 'ㄱ', v: 'ㅛ', n: 2 },
-  { c: 'ㄴ', v: 'ㅜ', n: 2 },
-  // 봄(연한 코랄) — 1회
-  { c: 'ㄱ', v: 'ㅓ', n: 1 },
-  { c: 'ㄴ', v: 'ㅓ', n: 1 },
-  { c: 'ㄱ', v: 'ㅜ', n: 1 },
-  { c: 'ㄷ', v: 'ㅜ', n: 1 },
-  { c: 'ㄱ', v: 'ㅡ', n: 1 },
+// 한글1 자음(14) × 모음(10) = 140칸.
+// 🔴 랜딩은 **활동 중인 아이**를 보여줘야 한다 — 격자가 텅 비면(대부분 안 봄) "안 하는 앱"으로 읽힌다.
+//    셀 몇 개만 채우던 걸(안 봄 115/140) 바꿔, 진도처럼 **대부분을 채운다**: 앞 자음·기본 모음일수록
+//    익힘, 뒤로 갈수록 옅게. 결정적 얼룩(jitter)으로 자연스럽게.
+const CONSONANTS = [
+  'ㄱ',
+  'ㄴ',
+  'ㄷ',
+  'ㄹ',
+  'ㅁ',
+  'ㅂ',
+  'ㅅ',
+  'ㅇ',
+  'ㅈ',
+  'ㅊ',
+  'ㅋ',
+  'ㅌ',
+  'ㅍ',
+  'ㅎ',
 ];
+const VOWELS = ['ㅏ', 'ㅑ', 'ㅓ', 'ㅕ', 'ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ', 'ㅣ'];
+
+/** (자음 index, 모음 index) → 정답 횟수(0=안 봄 … 6=익힘). 진도 그라데이션 + 결정적 얼룩. */
+function sampleCount(ci: number, vi: number): number {
+  const progress = 1 - (ci / CONSONANTS.length) * 0.62 - (vi / VOWELS.length) * 0.24;
+  const jitter = ((ci * 7 + vi * 5) % 10) / 10; // 0..0.9, 결정적
+  const score = progress - jitter * 0.3;
+  if (score > 0.6) return 6; // 익힘
+  if (score > 0.4) return 3; // 연습 중
+  if (score > 0.24) return 1; // 봄
+  return 0; // 안 봄(뒤쪽 일부)
+}
 
 // 동화책에서 만난 낱말 — 여러 책에 겹쳐도 좋다(「외 N권」이 그렇게 뜬다).
 const WORDS = ['고기', '사과', '나무', '바다', '오리', '토끼', '구름', '꽃'];
@@ -57,16 +66,19 @@ export function buildSampleReportEvents(storybooks: StorybookSummary[]): Learnin
       ...e,
     });
 
-  // ① 파닉스 음절 — 격자를 칠한다.
-  for (const s of SYLL) {
-    for (let i = 0; i < s.n; i++) {
-      push({
-        event_type: 'syllable_correct',
-        metadata: { source: 'phonics', lang: 'ko', consonant: s.c, vowel: s.v },
-        created_at: ago(i % 3), // 최근 3일 안 — 시간 감쇠가 크지 않게
-      });
-    }
-  }
+  // ① 파닉스 음절 — 격자를 진도처럼 채운다(대부분 봄~익힘, 뒤쪽 일부만 안 봄).
+  CONSONANTS.forEach((c, ci) =>
+    VOWELS.forEach((v, vi) => {
+      const n = sampleCount(ci, vi);
+      for (let i = 0; i < n; i++) {
+        push({
+          event_type: 'syllable_correct',
+          metadata: { source: 'phonics', lang: 'ko', consonant: c, vowel: v },
+          created_at: ago(i % 3), // 최근 3일 안 — 시간 감쇠가 크지 않게
+        });
+      }
+    })
+  );
   // ② 파닉스 단원 방문 — 진도(📖 N/M unit) 표시.
   for (const u of ['kr-h1-u02', 'kr-h1-u03', 'kr-h1-u04', 'kr-h1-u05', 'kr-h1-u06']) {
     push({
