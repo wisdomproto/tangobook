@@ -70,16 +70,19 @@ export default function BlogPostPage() {
         ? hubUnit
         : null;
 
-  // 책 상세 링크 — 위/아래 CTA 가 같은 곳을 가리킨다.
+  // 위/아래 CTA 링크 — 파닉스는 **동화 뷰어가 아니라 학습 페이지**로 보낸다(사용자 2026-08-01).
+  //   허브 → 커리큘럼 랜딩 / 파닉스 단원 → 그 단원 학습 페이지 / 그 외 → 동화책 상세.
   // ⚠️ 비-ko 는 `/{lang}?to=…`(LangEntry) 그대로 둔다. 로그인 사용자는 자기 UI 언어를 유지하는 게
   //    규칙이라 한국어로 열리는데, 그건 2026-07-13 에 정한 의도된 동작이다(사용자 확인 2026-07-29).
   const bookHref = hubUnit
     ? '/library/phonics/korean' // 허브는 책이 아니라 커리큘럼으로
-    : post?.storybookId
-      ? lang === 'ko'
-        ? `/library/${post.storybookId}`
-        : `/${lang}?to=${encodeURIComponent(`/library/${post.storybookId}`)}`
-      : null;
+    : phonicsUnit
+      ? `/library/phonics/korean/${phonicsUnit}` // 파닉스 단원 → 그 단원 학습 화면
+      : post?.storybookId
+        ? lang === 'ko'
+          ? `/library/${post.storybookId}`
+          : `/${lang}?to=${encodeURIComponent(`/library/${post.storybookId}`)}`
+        : null;
 
   return (
     <div className="relative flex min-h-dvh flex-col overflow-hidden bg-cream-50">
@@ -157,12 +160,16 @@ export default function BlogPostPage() {
                       className="mt-5 flex items-center justify-between gap-3 rounded-2xl border border-coral-200 bg-coral-50 px-4 py-3 transition hover:bg-coral-100"
                     >
                       <span className="text-sm font-semibold text-ink-700 break-keep">
-                        {/* 허브는 책이 아니라 커리큘럼으로 보내므로 「들어보세요」가 맞지 않는다.
-                            허브 글은 한국어 전용이라 이 분기만 한국어를 직접 쓴다. */}
-                        {hubUnit ? '32단원 전부 무료로 열려 있어요' : t('topCta')}
+                        {/* 파닉스(허브·단원)는 동화가 아니라 학습으로 보내므로 「이야기/그림책」 카피가
+                            맞지 않는다. 파닉스 글은 한국어 전용이라 이 분기만 한국어를 직접 쓴다. */}
+                        {hubUnit
+                          ? '32단원 전부 무료로 열려 있어요'
+                          : phonicsUnit
+                            ? '이 단원, 앱에서 직접 눌러보며 익혀요'
+                            : t('topCta')}
                       </span>
                       <span className="shrink-0 rounded-full bg-coral-500 px-4 py-1.5 text-xs font-bold text-white">
-                        {hubUnit ? '한글 파닉스 →' : t('topCtaButton')}
+                        {hubUnit ? '한글 파닉스 →' : phonicsUnit ? '파닉스 배우기 →' : t('topCtaButton')}
                       </span>
                     </Link>
                   )}
@@ -186,22 +193,32 @@ export default function BlogPostPage() {
                 </div>
               </article>
 
-              {/* 동화책 CTA */}
+              {/* 하단 CTA — 파닉스는 학습, 그 외는 동화책 */}
               {post.storybookId && (
                 <div className="mt-6 flex flex-col items-center gap-3 rounded-[2rem] border border-coral-200 bg-gradient-to-br from-coral-100 to-peach-200 p-7 text-center">
                   <p className="text-base font-bold text-ink-900 break-keep">
-                    {hubUnit ? '한글 파닉스 32단원 🌳' : t('ctaTitle')}
+                    {hubUnit
+                      ? '한글 파닉스 32단원 🌳'
+                      : phonicsUnit
+                        ? '한글 파닉스로 직접 배워보세요 🌳'
+                        : t('ctaTitle')}
                   </p>
                   <p className="text-xs text-ink-600 break-keep">
                     {hubUnit
                       ? '모음 · 자음 · 받침 · 쌍자음 · 복잡한 모음까지 순서대로 열려 있어요.'
-                      : t('ctaDesc')}
+                      : phonicsUnit
+                        ? '듣고, 쓰고, 놀면서 이 단원을 앱에서 익혀요.'
+                        : t('ctaDesc')}
                   </p>
                   <Link
                     to={bookHref!}
                     className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-coral-500 px-6 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-coral-600"
                   >
-                    {hubUnit ? '한글 파닉스 시작하기 →' : t('ctaButton')}
+                    {hubUnit
+                      ? '한글 파닉스 시작하기 →'
+                      : phonicsUnit
+                        ? '파닉스 배우기 →'
+                        : t('ctaButton')}
                   </Link>
                 </div>
               )}

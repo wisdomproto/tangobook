@@ -41,6 +41,12 @@ const FACTS = {
   koreanUnits: 32,
   englishUnits: 39,
   wordCards: 519,
+  /**
+   * 동화책에서 배우는 **서로 다른** 낱말 수(2026-08-05 전수 실측).
+   * 🔴 총합 1,918 이 아니라 **중복 제거 823** 을 쓴다 — 같은 낱말이 여러 책에 나오는데
+   *    그걸 다 더하면 아이가 배우는 낱말 수가 두 배 넘게 부풀려진다.
+   */
+  vocabWords: 823,
   categories: 13,
   /** ko+en+vi+zh+th 제목 번역을 모두 가진 책. 「5개 언어」는 이 숫자로만 말한다. */
   fiveLangBooks: 191,
@@ -319,7 +325,41 @@ function CurriculumUnits() {
  * 🔴 **셀에 `aspect-video`** — 없으면 표지가 도착할 때까지 셀 높이가 0이라 페이지가
  *    3,000px 자라며 읽던 줄이 밀려 내려간다(실측).
  */
-const WALL_FIRST = ['백설공주', '신데렐라', '인어공주', '흥부', '해와 달', '콩쥐', '심청', '토끼'];
+/**
+ * 벽에 세울 15권의 **카테고리 할당**(2026-08-05 사용자: "절반을 명작동화로, 전래·자연·생활 골고루").
+ *
+ * 🔴 예전엔 제목 키워드 목록(`['백설공주',…,'토끼']`)으로 골랐다. 그러니 **`토끼` 하나가 네 권**을
+ *    끌어왔고(토끼의 재판·토끼와 자라·토끼와 거북이·자연관찰 「토끼」) 벽 절반이 토끼가 됐다.
+ *    무엇을 보여줄지는 제목이 아니라 **라인**으로 정한다.
+ * 🔴 자연관찰은 카테고리가 여럿이다(곤충·하늘/바다/육지 동물·공룡 「…친구들」) — 이름 하나로
+ *    못 잡으므로 접미사로 묶는다.
+ */
+const WALL_QUOTA: { n: number; match: (category: string) => boolean; spread?: boolean }[] = [
+  { n: 7, match: (c) => c === '세계 명작' },
+  { n: 3, match: (c) => c === '전래 동화' },
+  // 🔴 자연은 **카테고리를 흩어서** 뽑는다 — API 순서대로면 세 칸이 전부 「육지 동물 친구들」이라
+  //    자연관찰 라인이 동물 한 종류처럼 보인다(실측).
+  { n: 3, match: (c) => c.endsWith('친구들'), spread: true },
+  { n: 2, match: (c) => c === '생활동화' },
+];
+
+/**
+ * 그 라인에서 **먼저 세울 제목**. 🔴 순서만 정하고 **선택은 카테고리가 한다** — 예전처럼 제목
+ * 목록으로 전체에서 고르면 `토끼` 하나가 네 권(재판·자라·거북이·자연관찰)을 끌어와 벽 절반을
+ * 차지했다. 여기서는 같은 라인 안에서만 앞으로 당기므로 그 사고가 구조적으로 안 난다.
+ * (API 순서는 이름값 순이 아니다 — 전래 세 칸이 반쪽이·두더지의 혼인·구렁덩덩 새선비였다.)
+ */
+const WALL_PREFER = [
+  '백설공주',
+  '신데렐라',
+  '인어공주',
+  '흥부',
+  '심청',
+  '콩쥐',
+  '해와 달',
+  '헨젤',
+  '빨간모자',
+];
 
 function BookWall() {
   const { data } = useStorybooks();
@@ -337,12 +377,28 @@ function BookWall() {
     seen.add(t);
     return true;
   });
-  /** 🔴 `WALL_FIRST` 순서대로 세운다 — 필터만 하면 API 순서가 남아 아는 제목이 뒤로 밀린다. */
-  const rank = (b: (typeof books)[number]) =>
-    WALL_FIRST.findIndex((k) => (b.title ?? '').includes(k));
-  const known = books.filter((b) => rank(b) >= 0).sort((a, b) => rank(a) - rank(b));
-  const rest = books.filter((b) => rank(b) < 0);
-  const wall = [...known, ...rest].slice(0, 12);
+  /**
+   * 🔴 **표지가 있는 책만 세운다** — 없으면 `BookCover` 가 📖 이모지로 떨어져 벽에 빈 칸이 생긴다
+   *    (실측: 열두 칸 중 하나가 그랬다). 벽의 일은 "이만큼 있다"를 보여주는 것이라 빈 칸은 반대말이다.
+   */
+  const wall = WALL_QUOTA.flatMap(({ n, match, spread }) => {
+    const pool = books.filter((b) => b.coverImage && match(b.category ?? ''));
+    const rank = (b: (typeof pool)[number]) => {
+      const i = WALL_PREFER.findIndex((k) => (b.title ?? '').includes(k));
+      return i < 0 ? WALL_PREFER.length : i;
+    };
+    const sorted = [...pool].sort((a, b) => rank(a) - rank(b));
+    if (!spread) return sorted.slice(0, n);
+    // 카테고리를 하나씩 돌아가며 — 다 돌고도 모자라면 남은 것으로 채운다.
+    const used = new Set<string>();
+    const picked = sorted.filter((b) => {
+      const c = b.category ?? '';
+      if (used.has(c)) return false;
+      used.add(c);
+      return true;
+    });
+    return [...picked, ...sorted.filter((b) => !picked.includes(b))].slice(0, n);
+  });
   if (wall.length === 0) return null;
   return (
     <>
@@ -359,7 +415,7 @@ function BookWall() {
         ))}
       </div>
       <p className="!mt-2 text-center text-xs text-ink-600 break-keep">
-        이 열두 권은 {FACTS.books}권 중 열두 권입니다.
+        이 열다섯 권은 {FACTS.books}권 중 열다섯 권입니다.
       </p>
     </>
   );
@@ -569,27 +625,21 @@ export default function HangulLandingPage() {
       <section className="px-4 py-12 sm:px-6 sm:py-14">
         <div className="mx-auto max-w-3xl">
           <div className="rounded-3xl border border-coral-200 bg-white/60 p-4 sm:p-6">
-            <p className="text-xs font-bold tracking-wide text-coral-700">단원 하나가 이만큼</p>
+            <p className="text-xs font-bold tracking-wide text-coral-700">한글 파닉스 · 32단원</p>
             <h2 className="mt-1 font-display text-[26px] font-extrabold text-ink-900 break-keep sm:text-[32px]">
-              「ㄱ」 단원을 통째로 열어 두었습니다
+              「ㄱ」 단원 학습 샘플
             </h2>
+            {/* 🔴 자랑하지 않는다 — 「스크린샷이 아닙니다」·「통째로 열어 두었습니다」는
+                변명처럼 읽힌다. 아래에 진짜 화면이 도니까 그게 스스로 증명한다. */}
             <p className="mt-2 text-sm text-ink-600 break-keep">
-              스크린샷이 아닙니다. 아래 아홉 개는 <strong>앱에서 도는 그 화면 그대로</strong>이고,
-              가입하지 않아도 지금 눌러볼 수 있습니다. 서른두 단원이 전부 이렇게 생겼습니다.
+              실제 앱 화면입니다. 지금 바로 눌러볼 수 있습니다.
             </p>
-            {/* 🔴 이 한 장에만 **진짜 앱 화면이 합성돼 있다**(「반짝이는 칸에 ㄱ 써봐!」).
-                태블릿 화면 면이 카메라를 향한 유일한 컷이라 그렇다 — 나머지 다섯 장은 화면이
-                반대쪽을 보거나 뒤판만 보여 넣을 면이 없다. 합성 = `composite-screen-into-photo.mjs`.
-                작게 쓰면 합성한 보람이 없으므로 전체 폭 3:2 로 둔다. */}
-            <Photo
-              src="tracing"
-              alt="태블릿에 뜬 「반짝이는 칸에 ㄱ 써봐!」 화면을 손가락으로 따라 쓰는 아이"
-              w={1200}
-              h={800}
-              className="mt-5"
-            />
-
-            <p className="mt-7 inline-flex items-center gap-2 rounded-full bg-coral-700 px-5 py-2 text-lg font-extrabold text-white">
+            {/* 🔴 여기엔 연출 사진을 두지 않는다(2026-08-05). `tracing.webp`(합성본)를 크게
+                깔았었는데, ①비스듬히 놓인 태블릿이라 화면 글자가 안 읽혀 **「ㄱ 샘플」이라고
+                말해 주지 못하고** ②진짜로 눌러볼 화면이 바로 아래인데 그 앞을 800px 이 막았다.
+                이 구간의 일은 분위기가 아니라 **빨리 만지게 하는 것**이다.
+                (합성본 자체는 `public/landing/hangul/tracing.webp` 에 남아 있다.) */}
+            <p className="mt-5 inline-flex items-center gap-2 rounded-full bg-coral-700 px-5 py-2 text-lg font-extrabold text-white">
               📖 익히기 · 글자
             </p>
             {GA_LEARN.map((a) => (
@@ -700,11 +750,12 @@ export default function HangulLandingPage() {
             앱에 실제로 들어 있는 것만 적었습니다. 콘텐츠는 계속 늘고 있어서, 이 숫자는 오늘
             기준으로 가장 적은 값입니다.
           </p>
-          <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <Stat value={FACTS.pages.toLocaleString()} label="동화책 쪽수" />
-            <Stat value={`${FACTS.narrated}/${FACTS.books}`} label="나레이션 완비" />
-            <Stat value={`${FACTS.wordCards}장`} label="파닉스 낱말 카드" />
-            <Stat value="5개" label="읽을 수 있는 언어" />
+          <div className="mt-5 grid grid-cols-2 gap-3">
+            {/* 🔴 숫자는 둘만(2026-08-05 사용자). 넷을 늘어놓으면 어느 것도 안 남는다 —
+                「쪽수·나레이션 완비·낱말 카드·언어 수」는 우리가 자랑하고 싶은 것이지
+                부모가 궁금한 것이 아니다. 부모가 재는 건 **얼마나 있고, 뭘 배우나** 둘이다. */}
+            <Stat value={`${FACTS.books}권`} label="동화책" />
+            <Stat value={`${FACTS.vocabWords}개`} label="배우는 낱말" />
           </div>
         </div>
       </section>

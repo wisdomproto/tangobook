@@ -5,6 +5,7 @@ import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { ViewerContainer } from '@/features/viewer/components/ViewerContainer';
 import { GameOverlay } from '@/features/vocabulary-unit/components/VocabularyStudyContent';
 import { deriveStorybookUnit } from '@/features/vocabulary-unit/lib/derive-storybook-unit';
+import { EmbedStage } from '@/features/phonics-learner/components/EmbedStage';
 
 /**
  * 랜딩 안에서 **동화책을 실제로 읽고, 그 책의 낱말 게임까지** 해보는 상자.
@@ -63,12 +64,11 @@ function TryItShell({
       : 'border-amber-500 bg-amber-50 text-amber-600';
   const btn = tone === 'mint' ? 'bg-mint-500 hover:bg-mint-800' : 'bg-amber-600 hover:bg-amber-700';
   return (
-    /* 🔴 파닉스 상자와 같은 이유로 뷰포트 폭 — 뷰어·게임이 `vw`/`dvh` 로 크기를 잡는다. */
+    /* 🔴 파닉스 상자와 같이 페이지 폭을 지킨다 — 잘림은 EmbedStage 축소로 푼다. */
     <div
-      className={`my-7 overflow-hidden border-y bg-white shadow-sm sm:rounded-[26px] sm:border-x ${
+      className={`my-7 overflow-hidden rounded-[26px] border bg-white shadow-sm ${
         tone === 'mint' ? 'border-mint-200' : 'border-amber-200'
       }`}
-      style={{ width: '100vw', marginLeft: 'calc(50% - 50vw)' }}
     >
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-ink-100 px-5 py-3">
         <span className="text-lg font-extrabold text-ink-800 break-keep">{label}</span>
@@ -121,17 +121,10 @@ export function HangulBookTryIt() {
       setBookId={setBookId}
       footer="화면을 한 번 누르면 나레이션이 시작됩니다. 264권이 이렇게 읽힙니다."
     >
-      <div
-        className="relative w-full overflow-hidden bg-cream-50"
-        /**
-         * 🔴 **높이를 정하지 않고 뷰포트에 맞춘다.** 뷰어 안쪽이 `100dvh` 라 상자를 620 으로
-         *    두면 아래 232px 가 그냥 잘린다(실측). 낮추는 대신 맞춘다.
-         */
-        style={{ height: '100dvh', transform: 'translateZ(0)' }}
-      >
-        {/* 🔴 `key` 로 remount — 책을 바꾸면 뷰어 내부 상태(페이지·재생)가 남으면 안 된다. */}
+      {/* 🔴 `key` 로 remount — 책을 바꾸면 뷰어 내부 상태(페이지·재생)가 남으면 안 된다. */}
+      <EmbedStage height="100dvh">
         <ViewerContainer key={bookId} storybookId={bookId} />
-      </div>
+      </EmbedStage>
     </TryItShell>
   );
 }
@@ -187,10 +180,7 @@ export function HangulWordGameTryIt() {
               : `같은 낱말을 ${BOOK_GAMES_MORE} 로도 만납니다. 방식만 바꿔 다시 만나서, 외우지 않아도 남습니다.`
           }
         >
-          <div
-            className="relative w-full overflow-hidden bg-cream-50"
-            style={{ height: '100dvh', transform: 'translateZ(0)' }}
-          >
+          <EmbedStage height="100dvh">
             {unit && book ? (
               <GameOverlay
                 key={`${bookId}-${g.id}`}
@@ -206,7 +196,7 @@ export function HangulWordGameTryIt() {
                 불러오는 중…
               </div>
             )}
-          </div>
+          </EmbedStage>
         </TryItShell>
       ))}
     </>

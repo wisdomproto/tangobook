@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PhonicsEmbeddedProvider } from './ActivityShell';
+import { EmbedStage } from './EmbedStage';
 import { KoreanPhonicsActivity } from './KoreanPhonicsActivityPage';
 import { getActivityPlan } from '../lib/korean-phonics-units';
 
@@ -60,18 +61,13 @@ export function PhonicsTryIt({ unitId, activityKey, title, height, note, cta }: 
 
   return (
     /**
-     * 🔴 **상자를 뷰포트 폭으로 흘린다**(2026-08-01 사용자: "짤려 보이는데").
-     *    활동은 칸 크기를 `min(Nvw, Mvh)` 로 잡는다(전체화면 활동의 전사 규칙). `vw` 는 상자가
-     *    아니라 **뷰포트**를 재므로, 1280px 화면의 718px 상자 안에서는 1280 기준으로 그려진
-     *    격자가 그대로 잘린다(글자 사냥 6열 중 마지막이 잘려 나갔다). `dvh` 와 똑같은 종류의
-     *    함정이고, 고칠 곳은 활동이 아니라 **상자**다 — 활동 13개와 게임 플레이어는 동화책
-     *    게임과 공유하는 코드라 손대면 그쪽이 깨진다.
-     *    `margin-left: calc(50% - 50vw)` = 가운데 정렬된 컨테이너를 뚫고 전체 폭으로.
+     * 🔴 **상자는 페이지 폭을 지킨다**(2026-08-05 사용자: "가로폭을 맞춰야지. 크기를 줄이더라도").
+     *    예전엔 `width:100vw + margin-left:calc(50% - 50vw)` 로 컨테이너를 뚫고 전폭으로 흘렸다 —
+     *    활동이 `vw` 로 칸을 재서 좁은 상자 안에선 격자가 잘렸기 때문이다. 그런데 그러면 **이 상자만
+     *    페이지보다 넓어** 위아래 카드와 가로선이 어긋난다. 이제 잘림은 `EmbedStage` 가 축소로 풀고,
+     *    상자는 다른 섹션과 같은 폭을 쓴다.
      */
-    <div
-      className="my-7 overflow-hidden border-y border-coral-200 bg-white shadow-sm sm:rounded-[26px] sm:border-x"
-      style={{ width: '100vw', marginLeft: 'calc(50% - 50vw)' }}
-    >
+    <div className="my-7 overflow-hidden rounded-[26px] border border-coral-200 bg-white shadow-sm">
       <div className="flex items-center justify-between gap-3 border-b border-ink-100 px-5 py-3">
         <span className="text-lg font-extrabold text-ink-800 break-keep">
           {title ?? `${activity.emoji} ${activity.title}`}
@@ -92,12 +88,8 @@ export function PhonicsTryIt({ unitId, activityKey, title, height, note, cta }: 
           블록은 바꿔도 **`dvh` 는 끝까지 뷰포트 값**이다. 그래서 상자를 낮추면 아래(확인 버튼)가
           그냥 잘린다 — 390px 실측 플레이어 844 vs 상자 764. 낮추는 대신 **상자를 그 높이에 맞춘다**.
           플레이어를 고치지 않는 이유 = 동화책 게임과 공유하는 코드다. */}
-      <div
-        className="relative w-full overflow-hidden"
-        style={{
-          height: activity.kind.startsWith('game-') ? '100dvh' : `min(${height ?? 500}px, 88dvh)`,
-          transform: 'translateZ(0)',
-        }}
+      <EmbedStage
+        height={activity.kind.startsWith('game-') ? '100dvh' : `min(${height ?? 500}px, 88dvh)`}
       >
         <PhonicsEmbeddedProvider value>
           <KoreanPhonicsActivity
@@ -106,7 +98,7 @@ export function PhonicsTryIt({ unitId, activityKey, title, height, note, cta }: 
             onExit={() => setDone(true)}
           />
         </PhonicsEmbeddedProvider>
-      </div>
+      </EmbedStage>
 
       <div className="flex flex-col items-center gap-2 bg-cream-50 px-5 py-4 text-center">
         <p className="text-xs text-ink-600 break-keep">
