@@ -910,10 +910,16 @@ export default function HangulLandingPage() {
           </h2>
           <div className="mt-4 space-y-4 text-[15px] leading-relaxed text-ink-700 break-keep sm:text-[16px]">
             <p>
-              특히 <strong>파닉스는 글자마다 익힘 정도를 계산</strong>합니다. 맞힌 비율, 마지막으로
-              본 뒤 흐른 시간(잊어버림), 시도한 횟수를 함께 반영해 —{' '}
-              <strong>자음 × 모음 격자</strong>로 어느 글자가{' '}
-              <strong>익힘 · 연습 중 · 봄 · 안 봄</strong>인지 한눈에 드러납니다.
+              특히 <strong>파닉스는 글자마다 익힘 점수를 계산</strong>합니다. 세 가지를 함께 봐요 —
+              ① <strong>맞힌 비율</strong>, ② <strong>연습한 횟수</strong>, ③{' '}
+              <strong>마지막으로 본 뒤 흐른 시간</strong>.
+            </p>
+            <p>
+              세 번째가 핵심이에요. 사람은 시간이 지나면 잊어버리니까,{' '}
+              <strong>오래 안 본 글자는 점수가 서서히 내려가고 다시 만나면 올라갑니다</strong>
+              (망각곡선). 그래서 <strong>자음 × 모음 격자</strong>가{' '}
+              <strong>안 봄 · 봄 · 연습 중 · 익힘</strong> 네 단계로 칠해지고, 지금 어떤 글자를 더
+              봐주면 좋은지 한눈에 보입니다.
             </p>
           </div>
 
