@@ -1040,8 +1040,42 @@ window.CJ_ANCHORS = fetch('/changjak-anchor-refs.json')
     '.ep .ko-body:focus{background:#fff6ec;box-shadow:0 0 0 2px #ffc7b0}' +
     '.ep .ko-tag{position:absolute;top:6px;right:8px;font-size:10.5px;font-weight:800;opacity:0;transition:opacity .15s;pointer-events:none}' +
     '.ep .ko-tag.on{opacity:1}' +
-    '.ep .ko-tag.saving{color:#c98b62}.ep .ko-tag.saved{color:#4f8a6b}.ep .ko-tag.err{color:#c9705a;pointer-events:auto}';
+    '.ep .ko-tag.saving{color:#c98b62}.ep .ko-tag.saved{color:#4f8a6b}.ep .ko-tag.err{color:#c9705a;pointer-events:auto}' +
+    '.ep .dl-bar{display:flex;justify-content:center;margin:0 0 20px}';
   document.head.appendChild(st);
+
+  // 전체 본문 다운로드 — 제목 + 쪽별 본문(현재 편집·오버레이 반영)을 .txt 로.
+  var title = ((document.querySelector('.ep .hero h1') || {}).textContent || ep.id).trim();
+  function buildText() {
+    var out = title + '\n\n';
+    document.querySelectorAll('.ep .ko').forEach(function (ko) {
+      var n = ko.querySelector('.n');
+      var page = n ? (n.textContent.split('·')[0] || '').trim() : '';
+      if (!/^p\d{1,3}$/.test(page)) return;
+      var b = ko.querySelector('.ko-body');
+      var text = b ? b.innerText.replace(/\s+$/, '') : '';
+      out += page + '\n' + text + '\n\n';
+    });
+    return out.replace(/\n+$/, '\n');
+  }
+  var meta = document.querySelector('.ep .meta');
+  if (meta) {
+    var bar = document.createElement('div');
+    bar.className = 'dl-bar';
+    var dl = document.createElement('button');
+    dl.type = 'button';
+    dl.className = 'pbtn hot';
+    dl.textContent = '📄 본문 전체 다운로드';
+    dl.addEventListener('click', function () {
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([buildText()], { type: 'text/plain;charset=utf-8' }));
+      a.download = ep.id + ' ' + title + '.txt';
+      a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+    });
+    bar.appendChild(dl);
+    meta.parentNode.insertBefore(bar, meta.nextSibling);
+  }
 
   var kos = [];
   document.querySelectorAll('.ep .ko').forEach(function (ko) {
