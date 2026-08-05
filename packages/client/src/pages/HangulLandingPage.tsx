@@ -569,27 +569,21 @@ export default function HangulLandingPage() {
       <section className="px-4 py-12 sm:px-6 sm:py-14">
         <div className="mx-auto max-w-3xl">
           <div className="rounded-3xl border border-coral-200 bg-white/60 p-4 sm:p-6">
-            <p className="text-xs font-bold tracking-wide text-coral-700">단원 하나가 이만큼</p>
+            <p className="text-xs font-bold tracking-wide text-coral-700">한글 파닉스 · 32단원</p>
             <h2 className="mt-1 font-display text-[26px] font-extrabold text-ink-900 break-keep sm:text-[32px]">
-              「ㄱ」 단원을 통째로 열어 두었습니다
+              「ㄱ」 단원 학습 샘플
             </h2>
+            {/* 🔴 자랑하지 않는다 — 「스크린샷이 아닙니다」·「통째로 열어 두었습니다」는
+                변명처럼 읽힌다. 아래에 진짜 화면이 도니까 그게 스스로 증명한다. */}
             <p className="mt-2 text-sm text-ink-600 break-keep">
-              스크린샷이 아닙니다. 아래 아홉 개는 <strong>앱에서 도는 그 화면 그대로</strong>이고,
-              가입하지 않아도 지금 눌러볼 수 있습니다. 서른두 단원이 전부 이렇게 생겼습니다.
+              실제 앱 화면입니다. 지금 바로 눌러볼 수 있습니다.
             </p>
-            {/* 🔴 이 한 장에만 **진짜 앱 화면이 합성돼 있다**(「반짝이는 칸에 ㄱ 써봐!」).
-                태블릿 화면 면이 카메라를 향한 유일한 컷이라 그렇다 — 나머지 다섯 장은 화면이
-                반대쪽을 보거나 뒤판만 보여 넣을 면이 없다. 합성 = `composite-screen-into-photo.mjs`.
-                작게 쓰면 합성한 보람이 없으므로 전체 폭 3:2 로 둔다. */}
-            <Photo
-              src="tracing"
-              alt="태블릿에 뜬 「반짝이는 칸에 ㄱ 써봐!」 화면을 손가락으로 따라 쓰는 아이"
-              w={1200}
-              h={800}
-              className="mt-5"
-            />
-
-            <p className="mt-7 inline-flex items-center gap-2 rounded-full bg-coral-700 px-5 py-2 text-lg font-extrabold text-white">
+            {/* 🔴 여기엔 연출 사진을 두지 않는다(2026-08-05). `tracing.webp`(합성본)를 크게
+                깔았었는데, ①비스듬히 놓인 태블릿이라 화면 글자가 안 읽혀 **「ㄱ 샘플」이라고
+                말해 주지 못하고** ②진짜로 눌러볼 화면이 바로 아래인데 그 앞을 800px 이 막았다.
+                이 구간의 일은 분위기가 아니라 **빨리 만지게 하는 것**이다.
+                (합성본 자체는 `public/landing/hangul/tracing.webp` 에 남아 있다.) */}
+            <p className="mt-5 inline-flex items-center gap-2 rounded-full bg-coral-700 px-5 py-2 text-lg font-extrabold text-white">
               📖 익히기 · 글자
             </p>
             {GA_LEARN.map((a) => (
