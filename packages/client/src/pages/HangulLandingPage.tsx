@@ -112,6 +112,77 @@ const STAGES: { label: string; count: string; detail: string; tone: string }[] =
 ];
 
 /**
+ * ③ 커리큘럼 「능력 축」 뷰 — 벤치마킹 2차 §4-2(투두한글: 같은 커리큘럼을 여정+능력 **두 겹**으로
+ * 시각화 = "전문적"의 정체). 위 STAGES(단계·여정) 옆에 이 매트릭스(무엇이 언제 자라나)를 겹친다.
+ * 🔴 신규 데이터 아님 — 32단원을 능력별로 다시 자른 것(자모15·받침7·쌍자음+복잡모음10, 낱말·쓰기는 전 범위).
+ */
+const TOTAL_UNITS = 32;
+const CURRICULUM_AXES: { label: string; from: number; to: number; bar: string }[] = [
+  { label: '자음 · 모음', from: 1, to: 15, bar: 'bg-coral-400' },
+  { label: '받침', from: 16, to: 22, bar: 'bg-mint-500' },
+  { label: '쌍자음 · 복잡한 모음', from: 23, to: 32, bar: 'bg-coral-300' },
+  { label: '낱말 읽기', from: 1, to: 32, bar: 'bg-mint-400' },
+  { label: '글자 쓰기', from: 1, to: 32, bar: 'bg-coral-300' },
+];
+
+function CurriculumMatrix() {
+  return (
+    <div className="!mt-5 rounded-3xl border border-ink-100 bg-white/70 p-4 sm:p-5">
+      <p className="mb-3 text-sm font-bold text-ink-800 break-keep">
+        같은 32단원을 <span className="text-coral-700">능력별로 보면</span> 이렇게 자라요
+      </p>
+      <div className="space-y-2">
+        {CURRICULUM_AXES.map((a) => {
+          const left = ((a.from - 1) / TOTAL_UNITS) * 100;
+          const width = ((a.to - a.from + 1) / TOTAL_UNITS) * 100;
+          return (
+            <div
+              key={a.label}
+              className="grid grid-cols-[5.5rem_1fr_2.5rem] items-center gap-2 sm:grid-cols-[8.5rem_1fr_3rem]"
+            >
+              <span className="text-[11px] font-semibold text-ink-700 break-keep sm:text-xs">
+                {a.label}
+              </span>
+              <div className="relative h-3 rounded-full bg-cream-100">
+                <div
+                  className={`absolute inset-y-0 rounded-full ${a.bar}`}
+                  style={{ left: `${left}%`, width: `${width}%` }}
+                />
+              </div>
+              <span className="text-right text-[10px] font-bold text-ink-500">
+                {a.from}–{a.to}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+      <div className="mt-1.5 flex justify-between px-1 text-[10px] font-semibold text-ink-400">
+        <span>1단원</span>
+        <span>32단원</span>
+      </div>
+      <p className="mt-3 text-xs text-ink-500 break-keep">
+        낱말 읽기 · 글자 쓰기는 <strong>모든 단원</strong>에 함께 있어요 — 낱말은 동화책과
+        이어집니다.
+      </p>
+    </div>
+  );
+}
+
+/** ⑦ 무료체험 마찰 제거 FAQ — 벤치마킹 2차 §4-5(투두 FAQ 아코디언). 답이 전부 「없음」이라 강점. */
+const FAQS: { q: string; a: string }[] = [
+  {
+    q: '설치해야 하나요?',
+    a: '아니요. 브라우저에서 바로 열려요 — 태블릿도, 폰도, 거실 TV도 그대로 화면이 됩니다.',
+  },
+  {
+    q: '체험이 끝나면 자동으로 결제되나요?',
+    a: '아니요. 카드를 등록하지 않아 저절로 결제될 일이 없어요. 계속 쓸지는 그때 직접 정합니다.',
+  },
+  { q: '약정이 있나요?', a: '없습니다. 언제든 그만둘 수 있어요.' },
+  { q: '아이가 둘이어도 되나요?', a: '됩니다. 아이마다 학습 기록이 따로 쌓여요.' },
+];
+
+/**
  * ② 「왜 탱고북인가」 넘버링 포인트 — 벤치마킹 §4-1(2026-08-05).
  * 🔴 경쟁사(핑크퐁·웅진)가 공통으로 이유를 Point 01~05로 번호 매긴다 — **정보를 번호로 매기는 것
  *    자체가 페이지를 「체계적/전문적」으로 보이게 하는 최대 장치**다. 흩어져 있던 메시지 기둥을
@@ -771,11 +842,13 @@ export default function HangulLandingPage() {
         </div>
       </header>
 
-      {/* ── ② 왜 탱고북인가 — 넘버링 포인트 (벤치마킹 §4-1) ───────── */}
-      {/* 🔴 흩어져 있던 메시지 기둥을 Point 01~04로 모았다. 정보를 번호로 매기는 것 자체가
-          「체계적」으로 읽히는 최대 장치(경쟁사 공통). 상세 증거는 ③④⑤가 이어서 보여준다. */}
-      <Section eyebrow="왜 탱고북인가" title="배우고, 그 글자로 바로 읽습니다">
-        <ol className="!mt-6 space-y-3">
+      {/* ── ② 왜 탱고북인가 — 질문형 넘버링 (벤치마킹 §4-1 + 2차 §4-1) ───────── */}
+      {/* 🔴 제목을 **부모 질문형**으로(2차 벤치마킹: 투두 "읽기독립, 어떻게 가능한가요?"). 넘버링만
+          두는 것보다 부모 머릿속 질문("우리 애가 혼자 읽게 될까?")을 헤드라인으로 삼는 게 한 수 위.
+          그 답을 Point 01~04 가 준다. */}
+      <Section eyebrow="왜 탱고북인가" title="우리 아이, 혼자 읽게 될까요?">
+        <p>탱고북은 이렇게 그 길을 만듭니다:</p>
+        <ol className="!mt-5 space-y-3">
           {POINTS.map((p, i) => (
             <li
               key={p.t}
@@ -819,12 +892,20 @@ export default function HangulLandingPage() {
           아니다」는 우리끼리 옳은 얘기고, 부모가 이 자리에서 궁금한 건 **뭐가 얼마나 있나**다.
           제목도 「이름이 아니라 소리부터」에는 정작 **한글**이 안 들어 있었다. */}
       <Section eyebrow="한글 파닉스" title={`한글 파닉스 ${FACTS.koreanUnits}단원`}>
-        <ul className="!mt-6 space-y-2">
-          {STAGES.map((s) => (
+        {/* 뷰 1 — 단계(여정). 자음·모음 → 받침 → 쌍자음 → 복잡한 모음, 번호로 밟는 길. */}
+        <p>
+          자음·모음에서 시작해 받침·쌍자음·복잡한 모음까지, <strong>다섯 단계</strong>로 차근차근
+          밟아요. 한 단원은 <strong>하루 10~15분 분량</strong>이에요.
+        </p>
+        <ol className="!mt-5 space-y-2">
+          {STAGES.map((s, i) => (
             <li
               key={s.label}
               className="flex items-center gap-3 rounded-2xl border border-ink-100 bg-white/70 px-4 py-3"
             >
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-coral-700 text-xs font-extrabold text-white">
+                {i + 1}
+              </span>
               <span className={`shrink-0 rounded-full px-3 py-1 text-xs font-bold ${s.tone}`}>
                 {s.count}
               </span>
@@ -834,7 +915,9 @@ export default function HangulLandingPage() {
               </span>
             </li>
           ))}
-        </ul>
+        </ol>
+        {/* 뷰 2 — 능력 축 매트릭스(같은 32단원을 "무엇이 언제 자라나"로). 두 겹이 "체계적"의 정체. */}
+        <CurriculumMatrix />
         {/* 🔴 **단원 칩 전체 목록(`CurriculumUnits`)과 설명 세 문단을 지웠다**(2026-08-05 사용자).
             32개를 다 늘어놓으면 위 다섯 줄 요약과 같은 말을 두 번 하는 셈이고, 화면 두 개 분량이
             지나가는 동안 아래 「직접 해보기」가 그만큼 멀어진다. 컴포넌트는 남겨 뒀다. */}
@@ -1047,9 +1130,11 @@ export default function HangulLandingPage() {
             <StorybookReportSection events={sampleEvents} storybooks={storybooks ?? []} lang="ko" />
           </ReportCard>
 
+          {/* 🔴 벤치마킹 2차 §4-4 — 경쟁사는 리포트 「스크린샷 이미지」를 보여준다. 우리 건 이
+              페이지에서 **실제로 돌아가는 리포트 컴포넌트**다(숫자만 예시). 그 격차를 못박는다. */}
           <p className="!mt-4 text-center text-sm text-ink-600 break-keep">
-            위 화면은 <strong>예시</strong>예요. 가입하면 <strong>우리 아이가 한 것만</strong> 여기
-            차곡차곡 쌓입니다.
+            위 두 화면은 <strong>캡처가 아니라 실제로 돌아가는 리포트</strong>예요 — 숫자만 예시고,
+            가입하면 <strong>우리 아이가 한 것만</strong> 채워집니다.
           </p>
         </div>
       </section>
@@ -1087,6 +1172,24 @@ export default function HangulLandingPage() {
           가입이 부담스러우시면 <strong>게스트로 30일</strong> 먼저 써보셔도 됩니다. 다만 게스트는
           학습 기록이 남지 않아, 아이가 어디까지 했는지 볼 수 없습니다.
         </p>
+        {/* 🔴 무료체험 마찰 제거 FAQ(벤치마킹 2차 §4-5) — 투두는 CTA 옆 FAQ 아코디언으로 전환
+            장벽을 없앤다. 우리는 답이 전부 「없음/아니요」라 오히려 안심으로 판다. */}
+        <div className="!mt-6 space-y-2">
+          {FAQS.map((f) => (
+            <details
+              key={f.q}
+              className="group rounded-2xl border border-ink-100 bg-white/70 px-4 py-3"
+            >
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-bold text-ink-800 break-keep">
+                {f.q}
+                <span className="shrink-0 text-lg font-bold text-coral-500 transition group-open:rotate-45">
+                  ＋
+                </span>
+              </summary>
+              <p className="mt-2 text-sm text-ink-600 break-keep">{f.a}</p>
+            </details>
+          ))}
+        </div>
         {/* 🔴 아이가 작게, 부모가 크게 — 이 섹션은 결제를 결정하는 부모에게 하는 말이라
             시선의 주인이 부모여야 한다. */}
         <Photo
