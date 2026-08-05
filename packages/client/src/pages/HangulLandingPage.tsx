@@ -711,15 +711,19 @@ export default function HangulLandingPage() {
         <CoverSlider />
         {/* 🔴 md 부터 2열 — 사진을 글 아래 깔면 CTA 가 접힘선 밑으로 밀린다(3:2 라 768px 폭에서
             높이가 512px). 옆에 두면 빈 오른쪽이 채워지면서 CTA 는 그대로 위에 남는다. */}
-        <div className="relative mx-auto grid max-w-3xl items-center gap-8 text-center md:grid-cols-[1fr_minmax(0,360px)] md:gap-10 md:text-left">
+        <div className="relative mx-auto grid max-w-3xl items-center gap-8 text-center md:grid-cols-[1fr_minmax(0,320px)] md:gap-10 md:text-left">
           <div className="min-w-0">
             <p className="inline-flex rounded-full bg-coral-100 px-4 py-1.5 text-sm font-extrabold text-coral-700 sm:text-base">
               4~7세 한글떼기 · 파닉스
             </p>
+            {/* 🔴 강제 줄바꿈(`<br/>`)을 뺐다(2026-08-05 사용자: "줄바꿈 이거 맞아?") — 텍스트 열이
+                좁으면 「한글 파닉스 32단원과」가 이미 두 줄로 접히는데 그 위에 br 까지 얹혀 「한 / 곳에」
+                가 고아로 떨어졌다. 자연 줄바꿈에 맡기고, 「한 곳에」만 nowrap 으로 붙여 둔다.
+                🔴 핵심어 「한글 파닉스」·「다양한 동화책」은 코랄로 하이라이트(사용자 요청). */}
             <h1 className="mt-3 font-display text-[28px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:text-[42px]">
-              한글 파닉스 {FACTS.koreanUnits}단원과
-              <br />
-              다양한 동화책이 한 곳에
+              <span className="text-coral-700">한글 파닉스</span> {FACTS.koreanUnits}단원과{' '}
+              <span className="text-coral-700">다양한 동화책</span>이{' '}
+              <span className="whitespace-nowrap">한 곳에</span>
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-ink-700 break-keep sm:text-[18px] md:mx-0">
               글자를 배우는 앱은 많습니다. 배운 글자로{' '}

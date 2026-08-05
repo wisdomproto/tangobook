@@ -123,8 +123,15 @@ export function HangulBookTryIt() {
       footer="화면을 한 번 누르면 나레이션이 시작됩니다. 264권이 이렇게 읽힙니다."
     >
       {/* 🔴 `key` 로 remount — 책을 바꾸면 뷰어 내부 상태(페이지·재생)가 남으면 안 된다. */}
+      {/* 🔴 `embed`(2026-08-05 사용자) — ①`noAutoStart`: 탭 게이트의 5초 자동 시작을 끈다(랜딩에선
+          탭해야만 재생, 스크롤하다 갑자기 소리 나지 않게). ②`style:'paper-craft'`: 표지·페이지를
+          페이퍼 아트로 고정(그 스타일 없는 책은 base 로 폴백). 뷰어 기본 동작은 안 건드린다. */}
       <EmbedStage height="100dvh">
-        <ViewerContainer key={bookId} storybookId={bookId} />
+        <ViewerContainer
+          key={bookId}
+          storybookId={bookId}
+          embed={{ style: 'paper-craft', noAutoStart: true }}
+        />
       </EmbedStage>
     </TryItShell>
   );
