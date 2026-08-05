@@ -94,8 +94,12 @@ export function findImageData(
   }
   // 🔴 낱말 음원은 **wordFamilies 의 "글자 글자 낱말"(a a apple)을 우선**한다 — flashcard 에 밋밋한
   //    낱말 녹음("apple")이 있어도 그걸 이겨야 Book 1 이 전체적으로 통일된다(사용자: "b b bat 이런식으로").
-  //    wordFamilies 에 없으면(한글·Book 2 등) flashcard/key_objects 녹음이나 concat 폴백 그대로.
-  return { imageUrl, ttsUrl: wordFamilyTts(sb, word) ?? ttsUrl, keypoints };
+  // 🔴 **단, 영어 파닉스(en-*)에만.** 한글 단원도 wordFamilies ttsUrl 을 갖지만(자음 익히기용
+  //    이어읽기 "가 가 고기") 그건 낱말의 대표음이 아니다 — 낱말 연습·게임에서 낱말을 부를 땐
+  //    평범한 "고기"여야 한다. 예전엔 이 우선이 영어 전용인 줄 알고 무조건 걸었는데, 한글에도
+  //    wordFamilies 가 있어 "고기" 를 눌렀더니 "가 가 고기" 로 읽혔다(2026-08-05 사용자 지적).
+  const blendTts = /^en-/.test(sb.id ?? '') ? wordFamilyTts(sb, word) : undefined;
+  return { imageUrl, ttsUrl: blendTts ?? ttsUrl, keypoints };
 }
 
 export function phonicsToKoreanBlockData(sb: Storybook): KoreanBlockData | null {
