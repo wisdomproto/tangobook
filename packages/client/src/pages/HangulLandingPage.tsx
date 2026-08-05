@@ -472,6 +472,59 @@ function BookWall() {
   );
 }
 
+/**
+ * 히어로 상단 모티프 — **파닉스(자모) + 다양한 동화책(실제 표지)** 를 한 줄로(2026-08-05 사용자:
+ * "파닉스랑 다양한 동화책을 표현하는 그림이 있는게 나을거 같다"). 헤드라인 「한글 파닉스 + 다양한
+ * 동화책」을 글자·표지로 한 번 더 말한다.
+ * 🔴 AI 그림을 그리지 않는다 — 자모는 텍스트, 표지는 라이브러리 실물이라 안 깨지고 안 낡는다.
+ * 🔴 표지는 아는 이야기부터(WALL_PREFER) + 표지 있는 storybook 만 — 벽과 같은 규칙.
+ */
+function HeroMotif() {
+  const { data } = useStorybooks();
+  const seen = new Set<string>();
+  const covers = (data ?? [])
+    .filter((b) => b.coverImage && !b.type)
+    .filter((b) => {
+      const t = (b.title ?? '')
+        .replace(/^\s*\d+\.\s*/, '')
+        .replace(/\s*\(L\d+\)\s*$/, '')
+        .trim();
+      if (!t || seen.has(t)) return false;
+      seen.add(t);
+      return true;
+    })
+    .sort((a, b) => {
+      const rank = (x: NonNullable<typeof data>[number]) => {
+        const i = WALL_PREFER.findIndex((k) => (x.title ?? '').includes(k));
+        return i < 0 ? WALL_PREFER.length : i;
+      };
+      return rank(a) - rank(b);
+    })
+    .slice(0, 4);
+  return (
+    <div
+      aria-hidden
+      className="relative mx-auto mb-7 flex max-w-3xl flex-wrap items-center justify-center gap-1.5"
+    >
+      {HANGUL_MOTIF.slice(0, 4).map((c, i) => (
+        <span
+          key={c}
+          className={`flex h-11 w-11 items-center justify-center rounded-xl font-display text-xl font-extrabold shadow-sm ${
+            MOTIF_TONES[i % MOTIF_TONES.length]
+          } ${i % 2 ? 'rotate-3' : '-rotate-3'}`}
+        >
+          {c}
+        </span>
+      ))}
+      {covers.map((b) => (
+        <div key={b.id} className="aspect-video h-11 overflow-hidden rounded-lg shadow-sm sm:h-12">
+          <BookCover book={b} lang="ko" loading="lazy" className="h-full w-full" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function Section({
   eyebrow,
   title,
@@ -515,22 +568,17 @@ export default function HangulLandingPage() {
       {/* ── ① 히어로 ─────────────────────────────────────────── */}
       <header className="relative overflow-hidden bg-gradient-to-b from-peach-100 via-peach-50 to-cream-50 px-4 pb-10 pt-12 sm:px-6 sm:pb-14 sm:pt-16">
         <div className="pointer-events-none absolute -right-20 -top-16 h-64 w-64 rounded-full bg-coral-100/60 blur-3xl" />
-        {/* 한글 자모 모티프 — 헤드라인 위에서 "이게 한글 파닉스다"를 한눈에. */}
-        <div
-          aria-hidden
-          className="relative mx-auto mb-7 flex max-w-3xl flex-wrap justify-center gap-1.5"
-        >
-          {HANGUL_MOTIF.map((c, i) => (
-            <span
-              key={i}
-              className={`flex h-9 w-9 items-center justify-center rounded-xl font-display text-lg font-extrabold shadow-sm sm:h-11 sm:w-11 sm:text-xl ${
-                MOTIF_TONES[i % MOTIF_TONES.length]
-              } ${i % 2 ? 'rotate-3' : '-rotate-3'}`}
-            >
-              {c}
-            </span>
-          ))}
-        </div>
+        {/* 🔴 로고를 큼지막하게 맨 위에(2026-08-05 사용자) — 브랜드가 먼저다. width/height 로 CLS 방지. */}
+        <Link to="/library" aria-label="탱고북 홈" className="relative mx-auto mb-5 block w-fit">
+          <img
+            src="/logo/logo-kr.webp"
+            alt="탱고북"
+            width={1774}
+            height={887}
+            className="h-16 w-auto sm:h-20"
+          />
+        </Link>
+        <HeroMotif />
         {/* 🔴 md 부터 2열 — 사진을 글 아래 깔면 CTA 가 접힘선 밑으로 밀린다(3:2 라 768px 폭에서
             높이가 512px). 옆에 두면 빈 오른쪽이 채워지면서 CTA 는 그대로 위에 남는다. */}
         <div className="relative mx-auto grid max-w-3xl items-center gap-8 text-center md:grid-cols-[1fr_minmax(0,300px)] md:gap-10 md:text-left">
@@ -569,16 +617,9 @@ export default function HangulLandingPage() {
               {PLANS.month1.amount.toLocaleString()}원{' '}
               <span className="font-semibold text-coral-700">(베타오픈 기간)</span>
             </p>
-            {/* 🔴 히어로 신뢰 신호 1개(2026-08-05 벤치마킹 §4-5). 경쟁사는 히어로에 대표 신뢰
-                신호를 하나 둔다(핑크퐁 "교사 추천"·웅진 "AI 1등"). 우리가 규칙상 쓸 수 있는
-                유일무이한 신호 = "이 페이지에서 진짜 앱이 돈다"(스크린샷 아님).
-                🔴 "아래는 · 지금 눌러볼" 은 뺐다(2026-08-05 사용자) — 진짜 데모는 한참 밑이라
-                바로 아래인 척 오해를 줬다. "지금 눌러보세요"는 데모(④) 자리에 이미 있으니
-                여기선 사실 진술만 한다. 살아 있다는 신호는 손가락 대신 깜빡이는 점으로. */}
-            <p className="mx-auto mt-4 inline-flex items-center gap-1.5 rounded-full bg-white/80 px-3 py-1.5 text-xs font-bold text-coral-700 break-keep md:mx-0">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-coral-500" />이 페이지에서 진짜
-              앱이 돌아갑니다 — 스크린샷이 아니에요
-            </p>
+            {/* 🔴 히어로의 "진짜 앱 화면" 배지는 뺐다(2026-08-05 사용자, 두 번째 요청) — 진짜 데모는
+                한참 밑이라 히어로에서 약속하면 헛돈다. "진짜 앱 화면입니다 — 지금 눌러보세요"는
+                데모(④) 자리에 그대로 있어 그 신호는 안 잃는다. */}
           </div>
 
           {/* 🔴 태블릿에 **진짜 라이브러리 화면이 합성돼 있다** — 세계 명작·전래 동화·호리네
