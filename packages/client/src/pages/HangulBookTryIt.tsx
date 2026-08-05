@@ -72,7 +72,8 @@ function TryItShell({
     >
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-ink-100 px-5 py-3">
         <span className="text-lg font-extrabold text-ink-800 break-keep">{label}</span>
-        <span className="shrink-0 rounded-full bg-ink-50 px-3 py-1 text-xs font-bold text-ink-600">
+        <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-ink-800 px-3 py-1.5 text-xs font-extrabold text-white">
+          <span className="h-2 w-2 animate-pulse rounded-full bg-white" />
           실제 앱 화면
         </span>
       </div>

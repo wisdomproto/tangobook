@@ -72,7 +72,10 @@ export function PhonicsTryIt({ unitId, activityKey, title, height, note, cta }: 
         <span className="text-lg font-extrabold text-ink-800 break-keep">
           {title ?? `${activity.emoji} ${activity.title}`}
         </span>
-        <span className="shrink-0 rounded-full bg-coral-50 px-3 py-1 text-xs font-bold text-coral-600">
+        {/* 🔴 **꽉 찬 색으로**(2026-08-05) — 연한 배지는 본문과 섞여 「그냥 라벨」로 지나간다.
+            상자마다 이게 붙어야 아홉 개가 전부 살아 있는 화면이라는 게 눈으로 읽힌다. */}
+        <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-coral-700 px-3 py-1.5 text-xs font-extrabold text-white">
+          <span className="h-2 w-2 animate-pulse rounded-full bg-white" />
           실제 학습 화면
         </span>
       </div>

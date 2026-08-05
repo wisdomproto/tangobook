@@ -516,52 +516,31 @@ export default function HangulLandingPage() {
       </header>
 
       {/* ── ② 문제 제기 ───────────────────────────────────────── */}
-      <Section
-        eyebrow="왜 둘이 같이 있어야 하나"
-        title="글자를 뗐는데 읽을 게 없으면, 금방 잊습니다"
-      >
+      {/* 🔴 **경쟁사 비교와 죄책감 프레임을 걷어냈다**(2026-08-05 사용자: "그냥 한글 학습,
+          동화 컨텐츠 있다 … 이정도로 깔끔하게"). 예전엔 「글자를 뗐는데 읽을 게 없으면 금방
+          잊습니다」로 시작해 앱 vs 방문 판매를 가격까지 들어 비교했다. 남의 상품을 설명하느라
+          우리 것을 늦게 말하고, 「잊습니다」는 부모를 불안하게 해 방어하게 만든다.
+          이 자리의 일은 **무엇이 있고 그걸로 뭘 하는지** 한 번에 말하는 것이다. */}
+      <Section eyebrow="무엇이 들어 있나" title="한글을 떼고, 그 글자로 읽습니다">
         <p>
-          자음과 모음을 다 배운 아이에게 필요한 건 다음 진도가 아니라 <strong>읽을 거리</strong>
-          입니다. 글자를 소리로 떼고 나면, 그다음은 그 글자로 된 낱말과 문장을 만나는 일입니다.
+          한글 파닉스 <strong>{FACTS.koreanUnits}단원</strong>으로 글자와 소리를 배우고, 동화책{' '}
+          <strong>{FACTS.books}권</strong>으로 그 글자를 낱말과 이야기 속에서 다시 만납니다. 배우는
+          곳과 읽는 곳이 <strong>같은 앱 안에</strong> 있습니다.
         </p>
-        <p>
-          그런데 지금 고를 수 있는 건 대개 둘 중 하나입니다. 글자만 가르치는 <strong>앱</strong>
-          이거나, 책까지 들어 있지만 <strong>학습 패드를 묶어 파는 방문 판매</strong>
-          거나.
-        </p>
-        {/* 🔴 슬프면 안 된다 — 죄책감을 파는 광고가 되면 부모가 방어한다. 「할 게 없어서 멈춘
-            아이」이고, 뒤 책장이 **비어 있는 것**이 이 컷의 논지다(읽을 게 없다). */}
-        <Photo
-          src="problem"
-          alt="학습지를 앞에 두고 턱을 괸 채 딴 곳을 보는 아이"
-          w={1000}
-          h={755}
-          className="!mt-6"
-        />
-        {/* 🔴 브랜드명을 쓰지 않는다 — 가격만으로 충분히 구체적이고, 남의 상표를 우리 랜딩에
-            올릴 이유가 없다. 수치는 2026-08-01 공개 정보 기준. */}
-        {/* 🔴 「앱에는 책이 없다」고 쓰지 않는다 — 단계별 읽기책을 넣은 앱이 실제로 있다(사용자 지적).
-            정확한 대비는 **책의 종류**다: 발음 연습용 리더 vs 이야기로 읽는 그림책. */}
         <ul className="!mt-5 space-y-2">
           <li className="rounded-2xl border border-ink-100 bg-white/70 px-4 py-3">
-            <strong className="text-ink-900">글자를 가르치는 앱</strong>
+            <strong className="text-ink-900">한글 파닉스 · {FACTS.koreanUnits}단원</strong>
             <span className="ml-2 text-sm text-ink-600 break-keep">
-              월 3만 원 이하. 책이 있어도 대개 <em>발음 연습용 단계별 읽기책</em>입니다.
+              모음 · 자음 · 받침 · 쌍자음 · 복잡한 모음
             </span>
           </li>
           <li className="rounded-2xl border border-ink-100 bg-white/70 px-4 py-3">
-            <strong className="text-ink-900">패드를 묶어 파는 방문 판매</strong>
+            <strong className="text-ink-900">동화책 · {FACTS.books}권</strong>
             <span className="ml-2 text-sm text-ink-600 break-keep">
-              그림책까지 들어 있지만 <em>월 8만~14만 원에 1~2년 약정</em>입니다.
+              낱말 {FACTS.vocabWords}개를 만나고, 읽어 주는 목소리로 읽는 습관을 들입니다
             </span>
           </li>
         </ul>
-        <p className="!mt-5">
-          탱고북은 둘 중 어느 쪽도 아닙니다. <strong>같은 앱 안에</strong> 파닉스{' '}
-          {FACTS.phonicsUnits}단원과 세계 명작·전래 동화·자연 관찰 <strong>{FACTS.books}권</strong>
-          이 들어 있고, <strong>패드도 약정도 없습니다.</strong> 읽기 연습용으로 만든 짧은 글이
-          아니라, 아이가 그냥 좋아서 보는 이야기입니다.
-        </p>
       </Section>
 
       {/* ── ③ 파닉스 커리큘럼 (데모보다 먼저 — 아래 데모가 32개 중 하나임을 알고 보게) ─────────────────────────────────── */}
@@ -629,10 +608,14 @@ export default function HangulLandingPage() {
             <h2 className="mt-1 font-display text-[26px] font-extrabold text-ink-900 break-keep sm:text-[32px]">
               「ㄱ」 단원 학습 샘플
             </h2>
-            {/* 🔴 자랑하지 않는다 — 「스크린샷이 아닙니다」·「통째로 열어 두었습니다」는
-                변명처럼 읽힌다. 아래에 진짜 화면이 도니까 그게 스스로 증명한다. */}
-            <p className="mt-2 text-sm text-ink-600 break-keep">
-              실제 앱 화면입니다. 지금 바로 눌러볼 수 있습니다.
+            {/* 🔴 **이 한 줄이 이 페이지에서 가장 센 주장이다**(2026-08-05 사용자: "엄청 강조해서
+                보여줘야지. 폰트 크기나 색깔 다 똑같이 나오니까 실제 앱인지 느낌이 안 와").
+                본문과 같은 회색 작은 글씨로 두면 그냥 설명문 한 줄로 읽히고 지나간다 —
+                아래 아홉 개가 스크린샷이 아니라는 걸 **읽기 전에 눈으로** 알아야 한다.
+                그래서 색·크기·테두리를 다르게 주고 손가락을 깜빡인다. */}
+            <p className="mt-3 inline-flex items-center gap-2 rounded-full border-2 border-coral-300 bg-coral-50 px-4 py-2.5 text-[15px] font-extrabold text-coral-700 break-keep sm:text-lg">
+              <span className="animate-pulse text-xl sm:text-2xl">👆</span>
+              진짜 앱 화면입니다 — 지금 눌러보세요
             </p>
             {/* 🔴 여기엔 연출 사진을 두지 않는다(2026-08-05). `tracing.webp`(합성본)를 크게
                 깔았었는데, ①비스듬히 놓인 태블릿이라 화면 글자가 안 읽혀 **「ㄱ 샘플」이라고
