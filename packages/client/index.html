@@ -17,8 +17,13 @@
       if (window.__tbInternal) window['ga-disable-G-XENG7XW959'] = true;
     </script>
 
-    <!-- Google Analytics 4 (gtag.js) — 향상된 측정으로 SPA 라우트 이동 자동 추적 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XENG7XW959"></script>
+    <!--
+      Google Analytics 4 (gtag.js) — 향상된 측정으로 SPA 라우트 이동 자동 추적.
+      🔴 **첫 페인트 뒤에 붙인다**(2026-08-04 실측). 예전엔 head 에서 바로 받아
+         gtag 104KB 대의 서드파티가 앱 번들보다 **먼저 회선을 썼고**, 4G·보급형 폰에서
+         첫 글자가 11.4초에 나왔다. `gtag()` 는 dataLayer 에 밀어 넣기만 하므로
+         스크립트가 늦게 와도 **호출은 큐에 쌓였다가 그대로 전송된다** — 측정 손실 없음.
+    -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -26,6 +31,12 @@
       }
       gtag('js', new Date());
       gtag('config', 'G-XENG7XW959');
+      addEventListener('load', () => {
+        const g = document.createElement('script');
+        g.async = true;
+        g.src = 'https://www.googletagmanager.com/gtag/js?id=G-XENG7XW959';
+        document.head.appendChild(g);
+      });
     </script>
 
     <!-- Meta Pixel (tangonote2 dataset) — 초기 PageView. SPA 라우트 이동은 MetaPixelTracker 가 재발화. -->
@@ -40,11 +51,15 @@
         n.loaded = !0;
         n.version = '2.0';
         n.queue = [];
-        t = b.createElement(e);
-        t.async = !0;
-        t.src = v;
-        s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s);
+        // 🔴 스크립트 자체는 **load 이후**에 받는다 — `fbq()` 는 큐에 쌓이므로 유실 없음.
+        //    head 에서 바로 받던 시절 `fbevents.js` 104KB 가 앱 번들 앞을 막았다.
+        addEventListener('load', function () {
+          t = b.createElement(e);
+          t.async = !0;
+          t.src = v;
+          s = b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t, s);
+        });
       })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
       if (!window.__tbInternal) {
         fbq('init', '1580220763664630');
@@ -109,6 +124,43 @@
     <!-- Preconnect (R2 자산) -->
     <link rel="preconnect" href="https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev" crossorigin />
     <link rel="dns-prefetch" href="https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev" />
+
+    <!--
+      폰트 — 🔴 **`index.css` 의 `@import` 에서 여기로 옮겼다**(2026-08-04).
+      `@import` 는 CSS 가 도착한 *뒤에야* 발견되므로 요청이 한 단계 뒤로 밀리고,
+      그동안 렌더가 멈춘다. head 의 `<link>` 는 프리로드 스캐너가 즉시 집어 간다.
+      🔴 한국어 본문 2종만 블로킹으로 두고, **zh/th·표지용 5종(160KB)은 비블로킹**이다 —
+         첫 화면은 한국어인데 중국어 글리프를 기다리고 있었다.
+    -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/innks/NanumSquareRound/nanumsquareround.css"
+    />
+    <!--
+      🔴 **첫 페인트가 끝난 뒤에 받는다**(2026-08-04). `media="print"` 는 렌더를 막지는 않지만
+         브라우저가 곧바로 받으러 간다 — 4G 실측에서 이 둘(101KB + 61KB)이 FCP 전에 내려와
+         정작 필요한 우리 CSS·HTML 의 대역폭을 가져갔다. 중국어·태국어 글리프와 표지용
+         장식 폰트라, **한국어 첫 화면에는 한 글자도 안 쓴다**.
+    -->
+    <script>
+      addEventListener('load', function () {
+        [
+          'https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+Thai:wght@400;700&display=swap',
+          'https://fonts.googleapis.com/css2?family=Jua&family=Baloo+2:wght@700;800&family=ZCOOL+KuaiLe&family=Noto+Sans+JP:wght@700;900&family=Noto+Sans+Thai:wght@700;900&display=swap',
+        ].forEach(function (href) {
+          var l = document.createElement('link');
+          l.rel = 'stylesheet';
+          l.href = href;
+          document.head.appendChild(l);
+        });
+      });
+    </script>
 
     <!-- JSON-LD: Organization + WebSite (전역 fallback) -->
     <script type="application/ld+json">

@@ -57,6 +57,13 @@ ENV VITE_TOSS_CLIENT_KEY=$VITE_TOSS_CLIENT_KEY
 
 RUN pnpm build
 
+# 정적 라우트 프리렌더 — 첫 화면을 번들 없이 그리게 한다(app.ts 「프리렌더된 HTML 우선」 참조).
+# 🔴 실패해도 배포는 계속한다 — 프리렌더는 최적화지 필수가 아니고, 매니페스트가 없으면
+#    서버가 알아서 예전 SPA 폴백으로 돈다.
+# 🔴 PRERENDER_BOOKS=0 — about/블로그 900여 장은 서버가 이미 SSR 로 그린다(굽는 데만 수십 분).
+RUN PRERENDER_BOOKS=0 pnpm --filter client prerender \
+    || echo "[prerender] 실패 — SPA 폴백으로 계속 (첫 화면은 느려짐)"
+
 # tsc가 복사하지 않는 비-TS 파일 복사
 RUN cp packages/server/prompt_guide.md packages/server/dist/server/prompt_guide.md \
     && mkdir -p packages/server/dist/server/scripts \

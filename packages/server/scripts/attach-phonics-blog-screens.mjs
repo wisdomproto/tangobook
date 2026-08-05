@@ -36,9 +36,11 @@ const IDS = (arg('--ids') || '').split(',').map((s) => s.trim()).filter(Boolean)
 const DRY = argv.includes('--dry-run');
 if (!SHOTS || !IDS.length) throw new Error('--shots <디렉터리> --ids <단원id,…> 가 필요합니다');
 
-/** 스크린샷 → 블로그 섹션 index. 32편이 같은 6섹션 구조를 쓰므로 고정이다. */
+/** 스크린샷 → 블로그 섹션 index. 32편이 같은 6섹션 구조를 쓰므로 고정이다.
+ *  🔴 §0 은 이제 `attach-phonics-blog-hero.mjs` 가 **유닛 1쪽 삽화**로 채운다(대표 썸네일).
+ *  예전엔 `1-unit`(활동 선택 메뉴 스크린샷)이 §0 이었는데 목록 썸네일이 버튼 그리드라 지저분했다.
+ *  메뉴 스크린샷은 정보량이 가장 적어 아예 뺐고, 활동·게임 스크린샷만 본문(§1·§3)에 남긴다. */
 const SLOT = [
-  { suffix: '1-unit', section: 0 },
   { suffix: '2-activity', section: 1 },
   { suffix: '3-game', section: 3 },
 ];

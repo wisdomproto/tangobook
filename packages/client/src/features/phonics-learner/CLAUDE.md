@@ -336,7 +336,7 @@ mp3 한 개를 뽑던 것이라 왕복만 없앤 것. 가드 = `games/hooks/look
 Book 3(Magic-e 장모음 `_ake`) · Book 4(블렌드·이중자음 `bl_`·`ch`) · Book 5(모음팀·R모음 `ee`·`ar`) 23단원이
 예전엔 「활동 준비 중」(plan 0개)이었다. 🔴 **데이터는 이미 완비돼 있었다** — `phonicsConfig.targetWords` +
 flashcard 그림 + keypoints + `wordFamilies[].words[].ttsUrl`(ABC 나무 카드 연동·TTS 백필 덕분). 그래서
-`makeWordUnitPlan(unit)` = **패턴(word family)마다 배우기+써보기** + 게임 3종.
+`makeWordUnitPlan(unit)` = **패턴(word family)마다 배우기(써보기 내장)** + 게임 4종(블록·낱말 쓰기·낱말 그리기·그림 짝 찾기).
 
 - 🔴 **배우기 = 낱말가족 배우기(`WordFamilyLearnActivity`, 2026-08-01)** — 이퓨처 「Learn: Listen and repeat」
   대응. 사용자: "`-ake 배우기`가 이게 맞아? book2 `an 배우기` 봐바." → 처음엔 배우기 자리에 **듣고 고르기 퀴즈**
@@ -345,9 +345,18 @@ flashcard 그림 + keypoints + `wordFamilies[].words[].ttsUrl`(ABC 나무 카드
   나란히 놓고 **공통 철자만 코랄로 강조**(bake·cake — `ake` 강조 / black·blade — `bl` 강조 / feet — `ee` 강조)해
   눌러 듣는다. 다 들으면 칭찬+완료, 그 뒤 자유놀이. 🔴 Book 2 의 `cvc-pattern-learn` 은 **CVC 전용**(자음+라임)
   이라 Magic-e·앞 블렌드·모음팀에 안 맞아 못 쓴다(그래서 낱말가족용 새 컴포넌트가 필요했다).
+- 🔴 **매직-e 낱말 음원 = `[장모음 이름] [낱말]`**(2026-08-04, `scripts/regen-magice-word-tts.ts`) — 예전엔
+  낱말만 읽어(사용자: "그냥 케이브라고만 읽어주는데?") 매직-e 를 안 가르쳤다. e 가 모음을 **이름대로 말하게**
+  하므로 `cave`→"A cave"(에이 케이브)·`bike`→"I bike"·`bone`→"Oh bone"·`cube`→"U cube". 🔴 **concat(라이브러리
+  클립 이어붙이기)로 굽는다** — Gemini 통문장은 프리픽스를 들쭉날쭉 읽어(`ay`→/oʊ/, 앞소리 누락) 탈락했고,
+  라이브러리엔 `ay`(장-a)·`eye`·`oh`·`you` 클립이 이미 있다. 장모음은 커리큘럼 phonemes 가 아니라 **낱말의
+  모음(`_VCe`)에서 직접** 판정(storybook 에 phonemes 없어도 안전). Book 4/5 `[블렌드][낱말]`과 대칭.
 - 강조 자리 = `patternHighlight(word, pattern)`(`_x`→끝 / `x_`→앞 / `x`→포함 위치, 매칭 안 되면 `[0,0]`).
   낱말 필터는 `wordMatchesPattern`. 작은 패밀리(`-ape`=cape·tape 2낱말)도 나란히 성립(가드 `<2`).
-- 써보기(`game-word-writing`)는 그대로 그 패턴 낱말만 필터(gameData).
+- 🔴 **써보기 = play 게임 「낱말 쓰기」(2026-08-04)**. 배우기 안(learn→write)에도 쓰기가 있지만, 낱말 쓰기를
+  **게임 목록에도** 둔다(Book 2 와 동일 4종 구성 — Book 3/4/5 만 3종이라 사용자가 "왜 낱말쓰기 없어?" 지적).
+  play 의 `game-word-writing` 은 pattern 없이 호출 → 호스트가 단원 전체 단어로 굴린다(Book 2 와 같은 경로).
+  🔴 새 레벨 generator 를 백지에서 짜면 형제 레벨 게임을 빠뜨리니 play 섹션 kind 목록을 형제와 대조할 것.
 - ⚠️ 커리큘럼 `patterns` 와 storybook `wordFamilies` 인덱스가 안 맞는다(u06 커리큘럼 2 vs wf 6) → 인덱스가
   아니라 **낱말 매칭**으로 고른다(u06 `_ng` 가 ang/ing/ong 를 다 잡는다).
 - 🔴 **듣고 고르기 = `letters` 없는 분기**(`EnglishPhonicsActivityPage`). Book 1 은 `activity.letters` 로
