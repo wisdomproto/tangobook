@@ -109,6 +109,35 @@ const STAGES: { label: string; count: string; detail: string; tone: string }[] =
   },
 ];
 
+/**
+ * ② 「왜 탱고북인가」 넘버링 포인트 — 벤치마킹 §4-1(2026-08-05).
+ * 🔴 경쟁사(핑크퐁·웅진)가 공통으로 이유를 Point 01~05로 번호 매긴다 — **정보를 번호로 매기는 것
+ *    자체가 페이지를 「체계적/전문적」으로 보이게 하는 최대 장치**다. 흩어져 있던 메시지 기둥을
+ *    여기로 모으고, ③④⑤는 각 포인트의 「증거」로 남긴다.
+ */
+const POINTS: { t: string; d: string }[] = [
+  {
+    t: '배우고, 그 글자로 바로 읽습니다',
+    d: `한글 파닉스 ${FACTS.koreanUnits}단원으로 글자와 소리를 배우고, 그 글자를 다양한 동화책에서 낱말과 이야기로 다시 만납니다. 배우는 곳과 읽는 곳이 같은 앱 안에 있습니다.`,
+  },
+  {
+    t: '한 낱말을 네 가지 방식으로',
+    d: '동화책마다 독후활동 게임이 붙어 있습니다. 같은 낱말을 그림으로 만나고, 글자로 조립하고, 따라 그리고, 손으로 씁니다 — 외우지 않아도 남습니다.',
+  },
+  {
+    t: '읽은 게 글자 공부로 돌아옵니다',
+    d: '동화책에서 「고기」를 맞히면 파닉스 표의 고·기 칸이 같이 올라갑니다. 책을 읽은 게 글자 진도로 쌓입니다.',
+  },
+];
+
+/** ②의 04번 — 「없는 것」 아이콘 세트. 벤치마킹 §4-3(핑크퐁 구독특징 4아이콘 구조). */
+const NONES: { icon: string; t: string; d: string }[] = [
+  { icon: '📵', t: '광고 없음', d: '아이 화면에 광고가 안 떠요' },
+  { icon: '🔓', t: '전체 개방', d: '잠긴 것 없이 다 열려요' },
+  { icon: '📺', t: 'TV·폰·태블릿', d: '설치 없이 브라우저에서' },
+  { icon: '🚫', t: '약정·설치 없음', d: '패드도 약정도 없어요' },
+];
+
 const SIGNUP = '/login?mode=signup';
 
 /**
@@ -213,7 +242,12 @@ function StickyCta() {
   );
 }
 
-function Stat({ value, label }: { value: string; label: string }) {
+/**
+ * 🔴 `note` = 숫자 밑 **근거 각주**(2026-08-05 벤치마킹). 경쟁사가 "78%(2026.5 기준)"처럼
+ *    수치에 기준을 붙여 전문적으로 보이게 한다. 우리는 후기가 없어 이 각주가 후기 대체재다
+ *    — "직접 세어 검증 가능"이라 신뢰 축이 다르다.
+ */
+function Stat({ value, label, note }: { value: string; label: string; note?: string }) {
   return (
     <div className="flex flex-col items-center gap-1 rounded-2xl bg-white/70 px-3 py-4">
       <span className="font-display text-2xl font-extrabold text-coral-700 sm:text-3xl">
@@ -222,6 +256,9 @@ function Stat({ value, label }: { value: string; label: string }) {
       <span className="text-center text-xs font-semibold text-ink-600 break-keep sm:text-xs">
         {label}
       </span>
+      {note && (
+        <span className="text-center text-[10px] leading-snug text-ink-400 break-keep">{note}</span>
+      )}
     </div>
   );
 }
@@ -417,7 +454,7 @@ function BookWall() {
         ))}
       </div>
       <p className="!mt-2 text-center text-xs text-ink-600 break-keep">
-        이 열다섯 권은 {FACTS.books}권 중 열다섯 권입니다.
+        여기 보이는 건 그중 일부입니다.
       </p>
     </>
   );
@@ -451,9 +488,9 @@ function Section({
 
 export default function HangulLandingPage() {
   useSeo({
-    title: `한글 파닉스 ${FACTS.koreanUnits}단원 + 동화책 ${FACTS.books}권 — 탱고북`,
+    title: `한글 파닉스 ${FACTS.koreanUnits}단원 + 다양한 동화책 — 탱고북`,
     description:
-      '자음·모음부터 받침·쌍자음까지 한글 파닉스 32단원, 영어 파닉스 39단원. 그리고 배운 글자로 바로 읽는 동화책 266권. 4~7세 한글떼기. 한 달 무료로 써 보고 정하세요.',
+      '자음·모음부터 받침·쌍자음까지 한글 파닉스 32단원, 영어 파닉스 39단원. 그리고 배운 글자로 바로 읽는 생활동화·세계명작·전래동화·자연관찰 동화책이 매달 늘어납니다. 4~7세 한글떼기. 한 달 무료로 써 보고 정하세요.',
     path: '/hangul',
     // 🔴 나이 키워드는 5·6세에 몰려 있다(실측 2026-08-01): 5세한글공부 1,140 · 6세한글공부 940 ·
     //    7세 290 · 4세 220 · 3세 60. 제품은 4~7세가 맞지만, 그 표현만 쓰면 2,080 을 못 받는다.
@@ -476,7 +513,7 @@ export default function HangulLandingPage() {
             <h1 className="mt-3 font-display text-[28px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:text-[42px]">
               한글 파닉스 {FACTS.koreanUnits}단원과
               <br />
-              동화책 {FACTS.books}권이 한 곳에
+              다양한 동화책이 한 곳에
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-ink-700 break-keep sm:text-[18px] md:mx-0">
               글자를 배우는 앱은 많습니다. 배운 글자로{' '}
@@ -488,7 +525,9 @@ export default function HangulLandingPage() {
             <div className="mx-auto mt-7 grid max-w-lg grid-cols-3 gap-2 sm:gap-3 md:mx-0">
               <Stat value={`${FACTS.koreanUnits}단원`} label="한글 파닉스" />
               <Stat value={`${FACTS.englishUnits}단원`} label="영어 파닉스" />
-              <Stat value={`${FACTS.books}권`} label="동화책" />
+              {/* 🔴 동화책은 권수를 안 세운다(2026-08-05 사용자: "지금 숫자는 많은게 아냐").
+                  카테고리 수로 다양성을 말한다 — 권수보다 강하고 늘어나도 낡지 않는다. */}
+              <Stat value={`${FACTS.categories}개`} label="동화책 카테고리" />
             </div>
 
             <Link
@@ -501,10 +540,17 @@ export default function HangulLandingPage() {
               월 {PLANS.month1.originalAmount?.toLocaleString()}원 → 할인 월{' '}
               {PLANS.month1.amount.toLocaleString()}원
             </p>
+            {/* 🔴 히어로 신뢰 신호 1개(2026-08-05 벤치마킹 §4-5). 경쟁사는 히어로에 대표 신뢰
+                신호를 하나 둔다(핑크퐁 "교사 추천"·웅진 "AI 1등"). 우리가 규칙상 쓸 수 있는
+                유일무이한 신호 = "이 페이지에서 진짜 앱이 돈다"(스크린샷 아님). */}
+            <p className="mx-auto mt-4 inline-flex items-center gap-1.5 rounded-full bg-white/80 px-3 py-1.5 text-xs font-bold text-coral-700 break-keep md:mx-0">
+              <span className="animate-pulse">👆</span> 아래는 진짜 앱 화면입니다 — 지금 눌러볼 수
+              있어요
+            </p>
           </div>
 
-          {/* 🔴 태블릿에 **진짜 라이브러리 화면이 합성돼 있다** — 세계 명작 48권·전래 동화 40권·
-              호리네 생활동화 43권이 표지째로 보인다. 헤드라인의 「266권」을 글이 아니라 그림이
+          {/* 🔴 태블릿에 **진짜 라이브러리 화면이 합성돼 있다** — 세계 명작·전래 동화·호리네
+              생활동화가 표지째로 깔려 있다. 헤드라인의 「다양한 동화책」을 글이 아니라 그림이
               한 번 더 말한다. 합성 = `composite-screen-into-photo.mjs`. */}
           <Photo
             src="hero"
@@ -517,32 +563,46 @@ export default function HangulLandingPage() {
         </div>
       </header>
 
-      {/* ── ② 문제 제기 ───────────────────────────────────────── */}
-      {/* 🔴 **경쟁사 비교와 죄책감 프레임을 걷어냈다**(2026-08-05 사용자: "그냥 한글 학습,
-          동화 컨텐츠 있다 … 이정도로 깔끔하게"). 예전엔 「글자를 뗐는데 읽을 게 없으면 금방
-          잊습니다」로 시작해 앱 vs 방문 판매를 가격까지 들어 비교했다. 남의 상품을 설명하느라
-          우리 것을 늦게 말하고, 「잊습니다」는 부모를 불안하게 해 방어하게 만든다.
-          이 자리의 일은 **무엇이 있고 그걸로 뭘 하는지** 한 번에 말하는 것이다. */}
-      <Section eyebrow="무엇이 들어 있나" title="한글을 떼고, 그 글자로 읽습니다">
-        <p>
-          한글 파닉스 <strong>{FACTS.koreanUnits}단원</strong>으로 글자와 소리를 배우고, 동화책{' '}
-          <strong>{FACTS.books}권</strong>으로 그 글자를 낱말과 이야기 속에서 다시 만납니다. 배우는
-          곳과 읽는 곳이 <strong>같은 앱 안에</strong> 있습니다.
-        </p>
-        <ul className="!mt-5 space-y-2">
-          <li className="rounded-2xl border border-ink-100 bg-white/70 px-4 py-3">
-            <strong className="text-ink-900">한글 파닉스 · {FACTS.koreanUnits}단원</strong>
-            <span className="ml-2 text-sm text-ink-600 break-keep">
-              모음 · 자음 · 받침 · 쌍자음 · 복잡한 모음
-            </span>
+      {/* ── ② 왜 탱고북인가 — 넘버링 포인트 (벤치마킹 §4-1) ───────── */}
+      {/* 🔴 흩어져 있던 메시지 기둥을 Point 01~04로 모았다. 정보를 번호로 매기는 것 자체가
+          「체계적」으로 읽히는 최대 장치(경쟁사 공통). 상세 증거는 ③④⑤가 이어서 보여준다. */}
+      <Section eyebrow="왜 탱고북인가" title="배우고, 그 글자로 바로 읽습니다">
+        <ol className="!mt-6 space-y-3">
+          {POINTS.map((p, i) => (
+            <li
+              key={p.t}
+              className="flex gap-4 rounded-2xl border border-ink-100 bg-white/70 p-4 sm:p-5"
+            >
+              <span className="shrink-0 font-display text-2xl font-extrabold leading-none text-coral-300 sm:text-3xl">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <span className="min-w-0">
+                <strong className="block text-ink-900 break-keep">{p.t}</strong>
+                <span className="mt-1 block text-sm text-ink-600 break-keep">{p.d}</span>
+              </span>
+            </li>
+          ))}
+          {/* 04 — 「없는 것」 아이콘 세트 (item #3) */}
+          <li className="rounded-2xl border border-ink-100 bg-white/70 p-4 sm:p-5">
+            <div className="flex items-center gap-4">
+              <span className="shrink-0 font-display text-2xl font-extrabold leading-none text-coral-300 sm:text-3xl">
+                04
+              </span>
+              <strong className="text-ink-900 break-keep">설치도, 약정도, 광고도 없습니다</strong>
+            </div>
+            <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+              {NONES.map((n) => (
+                <div key={n.t} className="rounded-xl bg-cream-100 px-2 py-3 text-center">
+                  <div className="text-2xl">{n.icon}</div>
+                  <strong className="mt-1 block text-xs text-ink-900 break-keep">{n.t}</strong>
+                  <span className="mt-0.5 block text-[11px] leading-snug text-ink-600 break-keep">
+                    {n.d}
+                  </span>
+                </div>
+              ))}
+            </div>
           </li>
-          <li className="rounded-2xl border border-ink-100 bg-white/70 px-4 py-3">
-            <strong className="text-ink-900">동화책 · {FACTS.books}권</strong>
-            <span className="ml-2 text-sm text-ink-600 break-keep">
-              낱말 {FACTS.vocabWords}개를 만나고, 읽어 주는 목소리로 읽는 습관을 들입니다
-            </span>
-          </li>
-        </ul>
+        </ol>
       </Section>
 
       {/* ── ③ 파닉스 커리큘럼 (데모보다 먼저 — 아래 데모가 32개 중 하나임을 알고 보게) ─────────────────────────────────── */}
@@ -645,10 +705,19 @@ export default function HangulLandingPage() {
       </section>
 
       {/* ── ⑤ 동화책 ──────────────────────────────────────────── */}
-      <Section eyebrow="동화책" title={`${FACTS.books}권, ${FACTS.pages.toLocaleString()}쪽`}>
+      {/* 🔴 **쪽수·권수를 앞세우지 않는다**(2026-08-05 사용자: "쪽수 이런건 뭐하러 얘기해 의미없게").
+          부모가 궁금한 건 3,835쪽이 아니라 **뭐가 다양하게 있고, 책마다 뭘 하고, 계속 느나**다.
+          그래서 제목·본문을 라인 다양성 + 책마다 독후활동 게임 + 매달 증가로 바꿨다. */}
+      <Section eyebrow="동화책" title="다양한 동화책이 매달 늘어납니다">
         <p>
-          세계 명작과 전래 동화, 자연 관찰, 그리고 아기호랑이 호리가 나오는 창작 시리즈까지{' '}
-          <strong>{FACTS.categories}개 카테고리</strong>입니다. {FACTS.narrated}권은 한국어
+          생활동화 · 세계 명작 · 전래 동화 · 자연 관찰, 그리고 아기호랑이 호리가 나오는 창작
+          시리즈까지 <strong>{FACTS.categories}개 카테고리</strong>입니다. 아이 취향이 어디에 있든
+          볼 책이 있고, <strong>매달 새 동화책이 늘어납니다</strong> — 익숙해질 때쯤 다음 달에 또
+          새로 읽을 게 생깁니다.
+        </p>
+        <p>
+          그리고 <strong>동화책마다 독후활동 게임</strong>이 붙어 있습니다. 다 읽고 나면 그 책에
+          나온 낱말로 어휘를 익히는 게임이 그 자리에서 열립니다. {FACTS.narrated}권은 한국어
           나레이션이 처음부터 끝까지 들어 있어, 글자를 아직 못 읽는 아이도 혼자 봅니다.
         </p>
         {/* 🔴 화면에 **진짜 뷰어**가 합성돼 있다(백설공주 + 자막 한 줄). 바로 윗줄이
@@ -706,9 +775,9 @@ export default function HangulLandingPage() {
           돌아옵니다.
         </p>
         <p className="!mt-6">
-          그리고 <strong>그 책에 나온 낱말</strong>로 그 자리에서 놉니다. 같은 낱말을 그림으로
-          만나고, 글자로 조립하고, 따라 그리고, 손으로 씁니다 —{' '}
-          <strong>한 낱말을 네 가지 방식으로</strong> 만나기 때문에 외우지 않아도 남습니다.
+          그 독후활동 게임에서 같은 낱말을{' '}
+          <strong>그림으로 만나고, 글자로 조립하고, 따라 그리고, 손으로 씁니다</strong> — 한 낱말을
+          네 가지 방식으로 만나기 때문에 외우지 않아도 남습니다.
         </p>
         <BookWall />
         <HangulBookTryIt />
@@ -726,11 +795,19 @@ export default function HangulLandingPage() {
             기준으로 가장 적은 값입니다.
           </p>
           <div className="mt-5 grid grid-cols-2 gap-3">
-            {/* 🔴 숫자는 둘만(2026-08-05 사용자). 넷을 늘어놓으면 어느 것도 안 남는다 —
-                「쪽수·나레이션 완비·낱말 카드·언어 수」는 우리가 자랑하고 싶은 것이지
-                부모가 궁금한 것이 아니다. 부모가 재는 건 **얼마나 있고, 뭘 배우나** 둘이다. */}
-            <Stat value={`${FACTS.books}권`} label="동화책" />
-            <Stat value={`${FACTS.vocabWords}개`} label="배우는 낱말" />
+            {/* 🔴 **동화책 권수는 안 세운다**(2026-08-05 사용자: "지금 숫자는 많은게 아냐").
+                권수는 아직 자랑거리가 아니고 늘어나기만 한다 — 대신 **배우는 실체**(낱말·파닉스
+                단원)를 세우고, 각 숫자에 근거 각주를 붙여 "검증 가능한 숫자"로 만든다(§4-2). */}
+            <Stat
+              value={`${FACTS.vocabWords}개`}
+              label="동화책에서 배우는 낱말"
+              note="중복 제외 · 2026-08 실측"
+            />
+            <Stat
+              value={`${FACTS.phonicsUnits}단원`}
+              label="한글·영어 파닉스"
+              note={`한글 ${FACTS.koreanUnits} + 영어 ${FACTS.englishUnits}`}
+            />
           </div>
         </div>
       </section>
@@ -742,8 +819,8 @@ export default function HangulLandingPage() {
             받는 혜택이 말한 것보다 크므로 과장이 아니라 과소 주장이다. 오퍼를 접어도 문구를
             고칠 필요가 없다는 게 이 표현의 값어치다. */}
         <p>
-          <strong>한 달 동안 전부 무료</strong>로 쓰십니다. 파닉스도, 동화책 {FACTS.books}권도,
-          게임도 잠긴 것 없이 열려 있습니다.
+          <strong>한 달 동안 전부 무료</strong>로 쓰십니다. 파닉스도, 동화책도, 게임도 잠긴 것 없이
+          열려 있습니다.
         </p>
         <p>
           결제 정보를 넣지 않습니다. 카드도 등록하지 않습니다. 아이 화면에{' '}
