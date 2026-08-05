@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { PLANS } from '@tangobook/shared';
 import { useSeo } from '@/lib/useSeo';
@@ -8,6 +8,8 @@ import { HangulBookTryIt, HangulWordGameTryIt } from './HangulBookTryIt';
 import { getAllKoreanUnits } from '@/features/phonics-learner/lib/korean-phonics-units';
 import { useStorybooks } from '@/features/storybook/hooks/useStorybooks';
 import { BookCover } from '@/design-system/primitives/BookCover';
+import { PhonicsReportSection, StorybookReportSection } from '@/features/learning';
+import { buildSampleReportEvents } from './hangul-sample-report';
 
 /**
  * `/hangul` — 광고 랜딩(상세페이지). 네이버·메타 광고의 도착지.
@@ -543,7 +545,28 @@ function Section({
   );
 }
 
+/**
+ * 학습 현황 상자 — 진짜 부모 리포트 컴포넌트를 얹되 **「예시」임을 밝힌다**.
+ * 🔴 이 화면들은 예시 데이터다(계정·아이 없는 방문자). 라벨을 안 달면 실제 아이 기록으로 오인한다.
+ */
+function ReportCard({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div className="!mt-6 rounded-3xl border border-ink-100 bg-cream-50 p-3 shadow-sm sm:p-4">
+      <div className="mb-2 flex items-center justify-between gap-3 px-1">
+        <span className="text-base font-extrabold text-ink-800 break-keep">{title}</span>
+        <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-ink-100 px-3 py-1 text-xs font-bold text-ink-500">
+          예시 화면
+        </span>
+      </div>
+      {children}
+    </div>
+  );
+}
+
 export default function HangulLandingPage() {
+  const { data: storybooks } = useStorybooks();
+  // 🔴 랜딩에서 진짜 리포트 컴포넌트를 라이브로 보여주기 위한 예시 이벤트 — 계정·아이가 없어서다.
+  const sampleEvents = useMemo(() => buildSampleReportEvents(storybooks ?? []), [storybooks]);
   useSeo({
     title: `한글 파닉스 ${FACTS.koreanUnits}단원 + 다양한 동화책 — 탱고북`,
     description:
@@ -870,6 +893,46 @@ export default function HangulLandingPage() {
               note={`한글 ${FACTS.koreanUnits} + 영어 ${FACTS.englishUnits}`}
             />
           </div>
+        </div>
+      </section>
+
+      {/* ── ⑥.5 부모가 보는 학습 현황 (파닉스 = 과학적 평가 자랑) ─── */}
+      {/* 🔴 진짜 부모 리포트 컴포넌트(`Phonics/StorybookReportSection`)를 **예시 데이터**로 라이브
+          렌더 — 활동을 라이브로 얹는 것과 같은 방식이다. 파닉스는 글자마다 마스터리를 계산하는 게
+          이 제품의 무기라, 그 격자를 실제로 보여주는 게 가장 센 자랑이다(2026-08-05 사용자). */}
+      <section className="px-4 py-12 sm:px-6 sm:py-14">
+        <div className="mx-auto max-w-3xl">
+          <p className="mb-2 text-xs font-bold tracking-wide text-coral-700">
+            부모가 보는 학습 현황
+          </p>
+          <h2 className="font-display text-[26px] font-extrabold leading-snug text-ink-900 break-keep sm:text-[32px]">
+            아이가 무엇을 배웠는지, 글자 하나까지 보여드려요
+          </h2>
+          <div className="mt-4 space-y-4 text-[15px] leading-relaxed text-ink-700 break-keep sm:text-[16px]">
+            <p>
+              특히 <strong>파닉스는 글자마다 익힘 정도를 계산</strong>합니다. 맞힌 비율, 마지막으로
+              본 뒤 흐른 시간(잊어버림), 시도한 횟수를 함께 반영해 —{' '}
+              <strong>자음 × 모음 격자</strong>로 어느 글자가{' '}
+              <strong>익힘 · 연습 중 · 봄 · 안 봄</strong>인지 한눈에 드러납니다.
+            </p>
+          </div>
+
+          <ReportCard title="🔤 파닉스 학습 현황">
+            <PhonicsReportSection
+              events={sampleEvents}
+              storybooks={storybooks ?? []}
+              defaultLang="ko"
+            />
+          </ReportCard>
+
+          <ReportCard title="📖 동화책 학습 현황">
+            <StorybookReportSection events={sampleEvents} storybooks={storybooks ?? []} lang="ko" />
+          </ReportCard>
+
+          <p className="!mt-4 text-center text-sm text-ink-600 break-keep">
+            위 화면은 <strong>예시</strong>예요. 가입하면 <strong>우리 아이가 한 것만</strong> 여기
+            차곡차곡 쌓입니다.
+          </p>
         </div>
       </section>
 
