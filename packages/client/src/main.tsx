@@ -30,8 +30,11 @@ if (!root) throw new Error('Root element not found');
  *    CSS 2.7s / FCP 4.6s). 양보하면 그 사이에 프리렌더본이 그려진다.
  *    프리렌더가 없는 라우트에도 손해가 없다 — 그릴 게 없으면 그냥 한 프레임이다.
  */
-const mount = () =>
-  createRoot(root).render(
+let mounted = false;
+const mount = () => {
+  if (mounted) return;
+  mounted = true;
+  return createRoot(root).render(
     <StrictMode>
       <QueryClientProvider client={queryClient}>
         {/* 🔴 lazy 라우트(마케팅·운영·회원·획 편집기)를 위한 최상위 경계. fallback 은 비워 둔다 —
@@ -44,5 +47,11 @@ const mount = () =>
       </QueryClientProvider>
     </StrictMode>
   );
+};
 
 requestAnimationFrame(() => setTimeout(mount, 0));
+// 🔴 rAF 는 **보이지 않는 탭에서 안 돈다** — 백그라운드 탭으로 열거나 헤드리스로 띄우면 위 콜백이
+//    영영 안 불려 앱이 통째로 안 뜬다(실측: `visibilityState:'hidden'` 에서 root 자식 0).
+//    한 프레임 양보는 첫 페인트를 위한 최적화지 마운트 조건이 아니므로, 프레임이 안 오면 시간으로
+//    깨운다. 보이는 탭에서는 rAF 가 먼저 이겨 최적화가 그대로 유지된다(`mounted` 가드로 1회만).
+setTimeout(mount, 300);

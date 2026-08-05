@@ -13,6 +13,11 @@ interface TitleIntroProps {
   titleTtsUrl?: string;
   /** true = 연속재생 2번째+ (오디오 해금됨 → 자동 낭독). false = 첫 책/개별 (탭 후 낭독). */
   autoPlay: boolean;
+  /**
+   * 화면 아래를 다른 UI 가 덮고 있나(연속재생 컨트롤 바). true 면 인트로를 **위쪽 절반**에 두어
+   * 안내가 그 바에 잘리지 않게 한다. 🔴 화면 전체 기준 가운데 정렬이면 바가 안내를 삼킨다.
+   */
+  bottomSheet?: boolean;
   /** 낭독 종료(또는 탭+폴백) 후 첫 페이지로 진행. */
   onComplete: () => void;
   /** 사용자 음량 계수. */
@@ -30,6 +35,7 @@ export function TitleIntro({
   title,
   titleTtsUrl,
   autoPlay,
+  bottomSheet = false,
   onComplete,
   volumeGain = 1,
 }: TitleIntroProps) {
@@ -119,7 +125,13 @@ export function TitleIntro({
           `absolute bottom-14` 라 연속재생 컨트롤 바(화면 아래 37%)에 통째로 가려서, 시작 화면에
           "무엇을 눌러야 하는지"가 아무 데도 없었다. 제목 바로 아래면 어디를 눌러야 할지가 곧 보인다
           (화면 전체가 눌리지만, 눈이 갈 곳은 제목이다). */}
-      <div className="relative z-10 flex flex-col items-center gap-4 px-6">
+      {/* 🔴 아래에 컨트롤 바가 깔리면(bottomSheet) 남는 자리는 위쪽 절반뿐이다 — `pb-[45vh]` 로
+          블록을 그 안으로 올린다. 바가 없으면(단일 책 뷰어) 종전대로 화면 한가운데. */}
+      <div
+        className={`relative z-10 flex flex-col items-center gap-4 px-6 ${
+          bottomSheet ? 'pb-[45vh]' : ''
+        }`}
+      >
         <div className="max-w-[88%] rounded-2xl border border-white/25 bg-ink-900/45 px-5 py-4 backdrop-blur-md sm:px-8 sm:py-5">
           <h1 className="text-center font-display text-3xl font-black text-white break-keep drop-shadow-lg sm:text-4xl">
             {title}

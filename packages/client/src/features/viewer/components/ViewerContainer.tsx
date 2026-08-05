@@ -837,6 +837,9 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
           title={introTitle}
           titleTtsUrl={introTitleTts}
           volumeGain={introVolume}
+          // 🔴 연속재생은 아래에 컨트롤 바(속도·슬립·다음 책)가 깔린다 — 인트로가 화면 전체 기준으로
+          //    가운데 정렬되면 그 바가 안내를 덮는다. 인트로는 자기 위에 뭐가 있는지 모르므로 알려준다.
+          bottomSheet={!!playlist}
           onComplete={handleIntroStart}
         />
       )}
