@@ -45,6 +45,7 @@ import comicFeedbackRoutes from './routes/comic-feedback.routes.js';
 import comicAssetsRoutes from './routes/comic-assets.routes.js';
 import saenghwalStatusRoutes from './routes/saenghwal-status.routes.js';
 import saenghwalMemoRoutes from './routes/saenghwal-memo.routes.js';
+import changjakTextRoutes from './routes/changjak-text.routes.js';
 import contentApprovalRoutes from './routes/content-approval.routes.js';
 import contentPipelineRoutes from './routes/content-pipeline.routes.js';
 
@@ -116,6 +117,7 @@ export function createApp() {
   app.use('/api/comic-assets', comicAssetsRoutes);
   app.use('/api/saenghwal-status', saenghwalStatusRoutes);
   app.use('/api/saenghwal-memo', saenghwalMemoRoutes);
+  app.use('/api/changjak-text', changjakTextRoutes);
   app.use('/api/content-approval', contentApprovalRoutes);
   app.use('/api/content-pipeline', contentPipelineRoutes);
 

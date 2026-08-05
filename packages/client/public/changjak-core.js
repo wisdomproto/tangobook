@@ -1023,3 +1023,88 @@ window.CJ_ANCHORS = fetch('/changjak-anchor-refs.json')
   });
   }
 })();
+
+/* 본문 인라인 편집 — 브라우저에서 각 쪽 본문(.ko)을 고쳐 R2 에 저장한다.
+ * 🔴 SSOT 인 HTML 파일은 안 바뀐다. 오버레이만 얹으므로 editor2 연동에는 반영되지 않는다(화면 표시 전용).
+ * 저장 = PUT /api/changjak-text/<id> {page,text} · 로드 = GET → {p1:text,…}. 빈 값이면 원본 복귀. */
+(function () {
+  var ep = window.CJ_EPISODE;
+  if (!ep || !ep.id) return;
+  var API = '/api/changjak-text/' + ep.id;
+
+  var st = document.createElement('style');
+  st.textContent =
+    '.ep .ko{position:relative}' +
+    '.ep .ko-body{white-space:pre-wrap;outline:none;border-radius:8px;margin:-4px -6px;padding:4px 6px;transition:background .12s}' +
+    '.ep .ko-body:hover{background:#fff6ec}' +
+    '.ep .ko-body:focus{background:#fff6ec;box-shadow:0 0 0 2px #ffc7b0}' +
+    '.ep .ko-tag{position:absolute;top:6px;right:8px;font-size:10.5px;font-weight:800;opacity:0;transition:opacity .15s;pointer-events:none}' +
+    '.ep .ko-tag.on{opacity:1}' +
+    '.ep .ko-tag.saving{color:#c98b62}.ep .ko-tag.saved{color:#4f8a6b}.ep .ko-tag.err{color:#c9705a;pointer-events:auto}';
+  document.head.appendChild(st);
+
+  var kos = [];
+  document.querySelectorAll('.ep .ko').forEach(function (ko) {
+    if (ko.dataset.editable || ko.classList.contains('empty')) return;
+    var n = ko.querySelector('.n');
+    if (!n) return;
+    var page = (n.textContent.split('·')[0] || '').trim(); // "p1 · 본문" → "p1"
+    if (!/^p\d{1,3}$/.test(page)) return;
+    ko.dataset.editable = '1';
+
+    var bodyEl = document.createElement('div');
+    bodyEl.className = 'ko-body';
+    var node = n.nextSibling;
+    while (node) { var next = node.nextSibling; bodyEl.appendChild(node); node = next; }
+    ko.appendChild(bodyEl);
+    bodyEl.contentEditable = 'plaintext-only';
+
+    var tag = document.createElement('span');
+    tag.className = 'ko-tag';
+    ko.appendChild(tag);
+
+    var base = bodyEl.innerText.replace(/\s+$/, ''); // 원본 (오버레이 적용 전)
+    var saved = base;
+    var timer = null;
+
+    function flash(cls, txt) {
+      tag.className = 'ko-tag on ' + cls;
+      tag.textContent = txt;
+      if (cls === 'saved') setTimeout(function () { tag.className = 'ko-tag'; }, 1400);
+    }
+    function save() {
+      var text = bodyEl.innerText.replace(/\s+$/, '');
+      if (text === saved) return;
+      var payload = text === base ? '' : text; // 원본과 같으면 오버레이 해제
+      flash('saving', '저장 중…');
+      fetch(API, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ page: page, text: payload }),
+      })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function () { saved = text; flash('saved', '저장됨 ✓'); })
+        .catch(function () { flash('err', '저장 실패 — 다시'); });
+    }
+    bodyEl.addEventListener('input', function () {
+      clearTimeout(timer);
+      timer = setTimeout(save, 900);
+    });
+    bodyEl.addEventListener('blur', function () { clearTimeout(timer); save(); });
+    tag.addEventListener('click', function () { if (tag.classList.contains('err')) save(); });
+
+    // 로드된 오버레이를 얹는다 — 클로저의 saved 까지 갱신해 첫 blur 에 헛 저장이 안 나가게.
+    kos.push({ page: page, applyOverride: function (text) { bodyEl.innerText = text; saved = text.replace(/\s+$/, ''); } });
+  });
+
+  if (!kos.length) return;
+  fetch(API + '?t=' + Date.now())
+    .then(function (r) { return r.json(); })
+    .then(function (j) {
+      var data = (j && j.data) || {};
+      kos.forEach(function (k) {
+        if (typeof data[k.page] === 'string' && data[k.page] !== '') k.applyOverride(data[k.page]);
+      });
+    })
+    .catch(function () {});
+})();
