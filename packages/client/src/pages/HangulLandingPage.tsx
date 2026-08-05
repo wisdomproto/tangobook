@@ -636,6 +636,26 @@ function MasteryExplainer() {
           <strong>올라갑니다</strong> — 지금 어떤 글자를 더 봐주면 좋은지 한눈에 보여요.
         </figcaption>
       </figure>
+
+      {/* 🔴 연동 — 이 점수는 파닉스 활동만이 아니라 **동화책 읽기·독후활동에서도** 쌓인다.
+          코드상 `groupBySyllable` 이 한글 낱말 이벤트(word_exposed/correct)를 `decomposeWord` 로
+          쪼개 그 글자 칸에 얹는다(source 안 가림). 이게 파닉스↔동화책이 하나로 이어지는 실체다. */}
+      <div className="mt-4 rounded-2xl bg-cream-50 p-3 text-center sm:p-4">
+        <p className="mb-2 text-xs font-bold text-ink-500">이 점수는 두 곳에서 함께 쌓여요</p>
+        <div className="flex flex-wrap items-center justify-center gap-1.5 text-sm font-bold text-ink-700">
+          <span className="rounded-full bg-white px-3 py-1.5 shadow-sm break-keep">
+            🔤 파닉스 활동
+          </span>
+          <span className="text-ink-400">＋</span>
+          <span className="rounded-full bg-white px-3 py-1.5 shadow-sm break-keep">
+            📖 동화책 읽기 · 독후활동
+          </span>
+        </div>
+        <p className="mt-2 text-sm text-ink-600 break-keep">
+          동화책에서 <strong>「고기」</strong>를 읽고 맞히면 <strong>고 · 기 글자 점수</strong>가
+          함께 올라가요 — 파닉스와 동화책이 <strong>하나로 이어집니다.</strong>
+        </p>
+      </div>
     </div>
   );
 }
