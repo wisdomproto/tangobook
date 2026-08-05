@@ -244,15 +244,12 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
     setTimeout(fire, NEXT_IMG_CAP_MS); // 상한 — 이미지가 안 와도 넘어감
   }, [pages, hasKeyObjects, playlist]);
 
-  // 기본 BGM 폴백 — 저작 BGM 없는 책은 기본 트랙 5곡 중 책 ID 해시로 고정 선택
-  // (같은 책 = 항상 같은 곡). 자산: public/sounds/bgm/default-{1..5}.mp3 (90s 루프).
-  const bgmUrl = useMemo(() => {
-    if (storybook?.backgroundMusicUrl) return storybook.backgroundMusicUrl;
-    if (!storybook) return undefined;
-    let h = 0;
-    for (let i = 0; i < storybook.id.length; i++) h = (h * 31 + storybook.id.charCodeAt(i)) | 0;
-    return `/sounds/bgm/default-${(Math.abs(h) % 5) + 1}.mp3`;
-  }, [storybook]);
+  // 🔴 기본 BGM 폴백 폐지(2026-08-05) — 저작 BGM 이 **없는 책은 그냥 조용하다**.
+  //    예전엔 `default-{1..5}.mp3` 를 책 ID 해시로 깔았는데, 나레이션 위에 계속 얹혀
+  //    시끄럽다는 판단(사용자). 저작자가 넣은 `backgroundMusicUrl` 만 재생한다.
+  //    BGM 이 없으면 `hasBgm=false` 라 툴바 버튼이 자동으로 비활성되고, `toggleBgm` 은
+  //    오디오 엘리먼트가 없어 no-op 이므로 호출부(탭 게이트 시작)는 그대로 둬도 안전하다.
+  const bgmUrl = storybook?.backgroundMusicUrl;
 
   const audio = useAudioPlayer({
     backgroundMusicUrl: bgmUrl,
