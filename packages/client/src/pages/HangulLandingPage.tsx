@@ -211,6 +211,29 @@ const NONES: { icon: string; t: string; d: string }[] = [
   { icon: '🚫', t: '약정·설치 없음', d: '패드도 약정도 없어요' },
 ];
 
+/**
+ * ⑤ 동화책이 기르는 것 — **어휘·문해력**(2026-08-05 사용자: "동화책에 어휘 문해력 이런걸 좀 강조").
+ * 🔴 동화책을 "재미"가 아니라 **파닉스 다음의 학습 단계**로 세운다(벤치마킹 2차: 투두 "기초 문해력
+ *    다지기"). 재미로만 두면 부모에겐 부록처럼 읽힌다 — 여기서 어휘가 늘고 읽는 힘이 자란다.
+ */
+const BOOK_GROWS: { icon: string; t: string; d: string }[] = [
+  {
+    icon: '📚',
+    t: '어휘',
+    d: `책마다 새 낱말을 만나고, 독후활동으로 한 낱말을 네 가지 방식으로 익혀요. 지금까지 ${FACTS.vocabWords}개.`,
+  },
+  {
+    icon: '📖',
+    t: '문해력',
+    d: '낱말이 이야기 속에서 어떻게 쓰이는지 만나고 또 만나며, 읽고 이해하는 힘이 자라요.',
+  },
+  {
+    icon: '🎧',
+    t: '읽는 습관',
+    d: `${FACTS.narrated}권은 나레이션이 처음부터 끝까지 있어, 글자를 아직 못 읽어도 매일 한 권.`,
+  },
+];
+
 const SIGNUP = '/login?mode=signup';
 
 /**
@@ -999,17 +1022,29 @@ export default function HangulLandingPage() {
       {/* 🔴 **쪽수·권수를 앞세우지 않는다**(2026-08-05 사용자: "쪽수 이런건 뭐하러 얘기해 의미없게").
           부모가 궁금한 건 3,835쪽이 아니라 **뭐가 다양하게 있고, 책마다 뭘 하고, 계속 느나**다.
           그래서 제목·본문을 라인 다양성 + 책마다 독후활동 게임 + 매달 증가로 바꿨다. */}
-      <Section eyebrow="동화책" title="다양한 동화책이 매달 늘어납니다">
+      <Section eyebrow="동화책 · 어휘와 문해력" title="읽을수록 어휘와 문해력이 자라요">
         <p>
-          생활동화 · 세계 명작 · 전래 동화 · 자연 관찰, 그리고 아기호랑이 호리가 나오는 창작
-          시리즈까지 <strong>{FACTS.categories}개 카테고리</strong>입니다. 아이 취향이 어디에 있든
-          볼 책이 있고, <strong>매달 새 동화책이 늘어납니다</strong> — 익숙해질 때쯤 다음 달에 또
-          새로 읽을 게 생깁니다.
+          글자를 뗐다고 끝이 아니에요. 낱말을 <strong>이야기 속에서</strong> 만나고 또 만나며{' '}
+          <strong>어휘가 늘고</strong>, 읽고 이해하는 힘(<strong>문해력</strong>)이 자랍니다.
         </p>
-        <p>
-          그리고 <strong>동화책마다 독후활동 게임</strong>이 붙어 있습니다. 다 읽고 나면 그 책에
-          나온 낱말로 어휘를 익히는 게임이 그 자리에서 열립니다. {FACTS.narrated}권은 한국어
-          나레이션이 처음부터 끝까지 들어 있어, 글자를 아직 못 읽는 아이도 혼자 봅니다.
+        {/* 동화책이 기르는 것 — 어휘·문해력·읽는 습관(2026-08-05 사용자 강조). 재미가 아니라 학습. */}
+        <div className="!mt-5 grid gap-3 sm:grid-cols-3">
+          {BOOK_GROWS.map((g) => (
+            <div key={g.t} className="rounded-2xl border border-ink-100 bg-white/70 p-4">
+              <div className="text-2xl">{g.icon}</div>
+              <strong className="mt-1 block text-ink-900">{g.t}</strong>
+              <span className="mt-1 block text-sm text-ink-600 break-keep">{g.d}</span>
+            </div>
+          ))}
+        </div>
+        <p className="!mt-6">
+          그리고 이 낱말들을 <strong>동화책마다 독후활동 게임</strong>으로 익혀요 — 다 읽고 나면 그
+          책에 나온 낱말로 게임이 그 자리에서 열립니다.
+        </p>
+        <p className="!mt-6">
+          라인도 다양해요. 생활동화 · 세계 명작 · 전래 동화 · 자연 관찰, 그리고 아기호랑이 호리가
+          나오는 창작 시리즈까지 <strong>{FACTS.categories}개 카테고리</strong>. 아이 취향이 어디에
+          있든 볼 책이 있고, <strong>매달 새 동화책이 늘어납니다</strong>.
         </p>
         {/* 🔴 섹션 문을 **동화책 표지벽**으로 연다(2026-08-05 사용자: "처음에 아이 사진이 아니라
             동화책 리스트가 쭉 나오는게 … 그 아래 아이+tv 사진이 나오니까"). 아래 TV 컷이 이미
