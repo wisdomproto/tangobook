@@ -138,6 +138,18 @@ const NONES: { icon: string; t: string; d: string }[] = [
   { icon: '🚫', t: '약정·설치 없음', d: '패드도 약정도 없어요' },
 ];
 
+/**
+ * 히어로 상단 한글 모티프 — 이미지 자산 없이 **자모 타일**로 "한글 파닉스"를 한눈에 보인다
+ * (2026-08-05 사용자: "윗부분에 뭔가 한글 관련 그림"). STAGES 색을 재사용하고, 장식이라
+ * `aria-hidden`. AI 가 그린 그림을 안 쓰는 것과 같은 이유 — 자모는 텍스트라 안 깨진다.
+ */
+const HANGUL_MOTIF = ['ㄱ', 'ㄴ', 'ㄷ', 'ㅏ', 'ㅑ', 'ㅓ', '가', '나', '다', '라'];
+const MOTIF_TONES = [
+  'bg-coral-100 text-coral-700',
+  'bg-peach-200 text-ink-800',
+  'bg-mint-100 text-mint-700',
+];
+
 const SIGNUP = '/login?mode=signup';
 
 /**
@@ -503,6 +515,22 @@ export default function HangulLandingPage() {
       {/* ── ① 히어로 ─────────────────────────────────────────── */}
       <header className="relative overflow-hidden bg-gradient-to-b from-peach-100 via-peach-50 to-cream-50 px-4 pb-10 pt-12 sm:px-6 sm:pb-14 sm:pt-16">
         <div className="pointer-events-none absolute -right-20 -top-16 h-64 w-64 rounded-full bg-coral-100/60 blur-3xl" />
+        {/* 한글 자모 모티프 — 헤드라인 위에서 "이게 한글 파닉스다"를 한눈에. */}
+        <div
+          aria-hidden
+          className="relative mx-auto mb-7 flex max-w-3xl flex-wrap justify-center gap-1.5"
+        >
+          {HANGUL_MOTIF.map((c, i) => (
+            <span
+              key={i}
+              className={`flex h-9 w-9 items-center justify-center rounded-xl font-display text-lg font-extrabold shadow-sm sm:h-11 sm:w-11 sm:text-xl ${
+                MOTIF_TONES[i % MOTIF_TONES.length]
+              } ${i % 2 ? 'rotate-3' : '-rotate-3'}`}
+            >
+              {c}
+            </span>
+          ))}
+        </div>
         {/* 🔴 md 부터 2열 — 사진을 글 아래 깔면 CTA 가 접힘선 밑으로 밀린다(3:2 라 768px 폭에서
             높이가 512px). 옆에 두면 빈 오른쪽이 채워지면서 CTA 는 그대로 위에 남는다. */}
         <div className="relative mx-auto grid max-w-3xl items-center gap-8 text-center md:grid-cols-[1fr_minmax(0,300px)] md:gap-10 md:text-left">
@@ -538,14 +566,18 @@ export default function HangulLandingPage() {
             </Link>
             <p className="mt-3 text-xs text-ink-600 break-keep">
               월 {PLANS.month1.originalAmount?.toLocaleString()}원 → 할인 월{' '}
-              {PLANS.month1.amount.toLocaleString()}원
+              {PLANS.month1.amount.toLocaleString()}원{' '}
+              <span className="font-semibold text-coral-700">(베타오픈 기간)</span>
             </p>
             {/* 🔴 히어로 신뢰 신호 1개(2026-08-05 벤치마킹 §4-5). 경쟁사는 히어로에 대표 신뢰
                 신호를 하나 둔다(핑크퐁 "교사 추천"·웅진 "AI 1등"). 우리가 규칙상 쓸 수 있는
-                유일무이한 신호 = "이 페이지에서 진짜 앱이 돈다"(스크린샷 아님). */}
+                유일무이한 신호 = "이 페이지에서 진짜 앱이 돈다"(스크린샷 아님).
+                🔴 "아래는 · 지금 눌러볼" 은 뺐다(2026-08-05 사용자) — 진짜 데모는 한참 밑이라
+                바로 아래인 척 오해를 줬다. "지금 눌러보세요"는 데모(④) 자리에 이미 있으니
+                여기선 사실 진술만 한다. 살아 있다는 신호는 손가락 대신 깜빡이는 점으로. */}
             <p className="mx-auto mt-4 inline-flex items-center gap-1.5 rounded-full bg-white/80 px-3 py-1.5 text-xs font-bold text-coral-700 break-keep md:mx-0">
-              <span className="animate-pulse">👆</span> 아래는 진짜 앱 화면입니다 — 지금 눌러볼 수
-              있어요
+              <span className="h-2 w-2 animate-pulse rounded-full bg-coral-500" />이 페이지에서 진짜
+              앱이 돌아갑니다 — 스크린샷이 아니에요
             </p>
           </div>
 
@@ -720,16 +752,12 @@ export default function HangulLandingPage() {
           나온 낱말로 어휘를 익히는 게임이 그 자리에서 열립니다. {FACTS.narrated}권은 한국어
           나레이션이 처음부터 끝까지 들어 있어, 글자를 아직 못 읽는 아이도 혼자 봅니다.
         </p>
-        {/* 🔴 화면에 **진짜 뷰어**가 합성돼 있다(백설공주 + 자막 한 줄). 바로 윗줄이
-            「글자를 아직 못 읽는 아이도 혼자 봅니다」라, 그 문장을 그림이 그대로 보여준다. */}
-        <Photo
-          src="reading"
-          alt="거실 바닥에 혼자 앉아 태블릿으로 백설공주를 읽어주는 화면을 보는 아이"
-          w={1200}
-          h={900}
-          className="!mt-6"
-        />
-        <div className="!mt-5 flex flex-wrap gap-2">
+        {/* 🔴 섹션 문을 **동화책 표지벽**으로 연다(2026-08-05 사용자: "처음에 아이 사진이 아니라
+            동화책 리스트가 쭉 나오는게 … 그 아래 아이+tv 사진이 나오니까"). 아래 TV 컷이 이미
+            아이+뷰어를 보여주므로 첫 아이 사진(reading.webp)은 중복이라 뺐다 — 리스트로 문을 연다.
+            (reading.webp 는 public/landing/hangul/ 에 남아 있다.) */}
+        <BookWall />
+        <div className="!mt-6 flex flex-wrap gap-2">
           {CATEGORIES.map(([name, n]) => (
             <span
               key={name}
@@ -779,7 +807,6 @@ export default function HangulLandingPage() {
           <strong>그림으로 만나고, 글자로 조립하고, 따라 그리고, 손으로 씁니다</strong> — 한 낱말을
           네 가지 방식으로 만나기 때문에 외우지 않아도 남습니다.
         </p>
-        <BookWall />
         <HangulBookTryIt />
         <HangulWordGameTryIt />
       </Section>
@@ -834,7 +861,8 @@ export default function HangulLandingPage() {
           <strong className="text-coral-700">
             할인 월 {PLANS.month1.amount.toLocaleString()}원
           </strong>
-          입니다. 그때 계속 쓸지 정하시면 됩니다.
+          <span className="text-coral-700"> (베타오픈 기간)</span>입니다. 그때 계속 쓸지 정하시면
+          됩니다.
         </p>
         <p>
           아이가 무엇을 했는지 <strong>부모 화면에 그대로 남습니다.</strong> 어떤 글자에서 자꾸
