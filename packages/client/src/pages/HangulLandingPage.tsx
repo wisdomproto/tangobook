@@ -546,6 +546,101 @@ function Section({
 }
 
 /**
+ * 파닉스 마스터리 모델을 **글 대신 그림으로**(2026-08-05 사용자: "글로 어쩌구 보다 그림이랑 같이").
+ *
+ * 🔴 실제 공식(`lib/mastery.ts`)을 그대로 그린다 — 세 요소(정답률 × 연습 × 시간) + 망각곡선
+ *    (`exp(-경과일/30)` = 오래 안 보면 내려가고 다시 보면 올라감) + 4단계 색 띠.
+ * 🔴 색은 격자와 **같은 값**(`CELL_COLOR`)이어야 아래 라이브 격자와 이어진다:
+ *    안 봄 ink-100 / 봄 coral-200 / 연습 중 coral-400 / 익힘 success. SVG 라 hex 직접.
+ */
+const MASTERY_BANDS = [
+  { label: '익힘', color: '#5CC99F' },
+  { label: '연습 중', color: '#FF7A59' },
+  { label: '봄', color: '#FFBFA8' },
+  { label: '안 봄', color: '#EDE1D4' },
+];
+// 익힘 점수의 시간 궤적 — 연습으로 올라가 익힘에 닿고 → 안 보는 동안 내려가 → 다시 보면 올라간다.
+const MASTERY_CURVE = '46,126 72,98 98,58 122,30 160,50 200,74 232,94 258,42 300,28 350,26';
+
+function MasteryExplainer() {
+  return (
+    <div className="!mt-6 rounded-3xl border border-ink-100 bg-white/80 p-4 shadow-sm sm:p-5">
+      <div className="flex flex-wrap items-center justify-center gap-1.5 text-sm font-bold text-ink-700">
+        <span className="rounded-full bg-cream-100 px-3 py-1.5 break-keep">🎯 맞힌 비율</span>
+        <span className="text-ink-400">×</span>
+        <span className="rounded-full bg-cream-100 px-3 py-1.5 break-keep">🔁 연습 횟수</span>
+        <span className="text-ink-400">×</span>
+        <span className="rounded-full bg-cream-100 px-3 py-1.5 break-keep">⏳ 안 본 시간</span>
+        <span className="text-ink-400">=</span>
+        <span className="rounded-full bg-coral-100 px-3 py-1.5 text-coral-700 break-keep">
+          익힘 점수
+        </span>
+      </div>
+      <figure className="mt-4">
+        <svg
+          viewBox="0 0 360 168"
+          className="w-full"
+          role="img"
+          aria-label="익힘 점수가 연습으로 올라갔다가 안 보는 동안 내려가고 다시 보면 올라가는 망각곡선"
+        >
+          {MASTERY_BANDS.map((b, i) => {
+            const y = 14 + i * 32;
+            return (
+              <g key={b.label}>
+                <rect x={46} y={y} width={306} height={30} rx={4} fill={b.color} opacity={0.4} />
+                <text
+                  x={42}
+                  y={y + 20}
+                  textAnchor="end"
+                  fontSize={9}
+                  fontWeight={700}
+                  fill="#6b5d52"
+                >
+                  {b.label}
+                </text>
+              </g>
+            );
+          })}
+          {/* 흰 후광 + 진한 선 — 색 띠 위에서도 곡선이 또렷하게. */}
+          <polyline
+            points={MASTERY_CURVE}
+            fill="none"
+            stroke="#ffffff"
+            strokeWidth={6}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <polyline
+            points={MASTERY_CURVE}
+            fill="none"
+            stroke="#5a4632"
+            strokeWidth={3}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <circle cx={122} cy={30} r={4} fill="#5CC99F" stroke="#fff" strokeWidth={2} />
+          <circle cx={232} cy={94} r={4} fill="#FFBFA8" stroke="#fff" strokeWidth={2} />
+          <circle cx={350} cy={26} r={4} fill="#5CC99F" stroke="#fff" strokeWidth={2} />
+          <text x={84} y={160} textAnchor="middle" fontSize={9} fontWeight={700} fill="#8a7c70">
+            연습 ↑
+          </text>
+          <text x={190} y={160} textAnchor="middle" fontSize={9} fontWeight={700} fill="#8a7c70">
+            안 보는 동안 ↓
+          </text>
+          <text x={300} y={160} textAnchor="middle" fontSize={9} fontWeight={700} fill="#8a7c70">
+            다시 봄 ↑
+          </text>
+        </svg>
+        <figcaption className="mt-1 text-center text-sm text-ink-600 break-keep">
+          오래 안 본 글자는 점수가 <strong>서서히 내려가고</strong>, 다시 만나면{' '}
+          <strong>올라갑니다</strong> — 지금 어떤 글자를 더 봐주면 좋은지 한눈에 보여요.
+        </figcaption>
+      </figure>
+    </div>
+  );
+}
+
+/**
  * 학습 현황 상자 — 진짜 부모 리포트 컴포넌트를 얹되 **「예시」임을 밝힌다**.
  * 🔴 이 화면들은 예시 데이터다(계정·아이 없는 방문자). 라벨을 안 달면 실제 아이 기록으로 오인한다.
  */
@@ -910,18 +1005,11 @@ export default function HangulLandingPage() {
           </h2>
           <div className="mt-4 space-y-4 text-[15px] leading-relaxed text-ink-700 break-keep sm:text-[16px]">
             <p>
-              특히 <strong>파닉스는 글자마다 익힘 점수를 계산</strong>합니다. 세 가지를 함께 봐요 —
-              ① <strong>맞힌 비율</strong>, ② <strong>연습한 횟수</strong>, ③{' '}
-              <strong>마지막으로 본 뒤 흐른 시간</strong>.
-            </p>
-            <p>
-              세 번째가 핵심이에요. 사람은 시간이 지나면 잊어버리니까,{' '}
-              <strong>오래 안 본 글자는 점수가 서서히 내려가고 다시 만나면 올라갑니다</strong>
-              (망각곡선). 그래서 <strong>자음 × 모음 격자</strong>가{' '}
-              <strong>안 봄 · 봄 · 연습 중 · 익힘</strong> 네 단계로 칠해지고, 지금 어떤 글자를 더
-              봐주면 좋은지 한눈에 보입니다.
+              특히 <strong>파닉스는 글자마다 익힘 점수를 계산</strong>해, 자음 × 모음 격자를{' '}
+              <strong>안 봄 · 봄 · 연습 중 · 익힘</strong> 네 단계로 칠합니다. 점수는 이렇게 나요:
             </p>
           </div>
+          <MasteryExplainer />
 
           <ReportCard title="🔤 파닉스 학습 현황">
             <PhonicsReportSection
