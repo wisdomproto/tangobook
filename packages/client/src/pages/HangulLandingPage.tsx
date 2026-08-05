@@ -573,7 +573,7 @@ export default function HangulLandingPage() {
         <CoverSlider />
         {/* 🔴 md 부터 2열 — 사진을 글 아래 깔면 CTA 가 접힘선 밑으로 밀린다(3:2 라 768px 폭에서
             높이가 512px). 옆에 두면 빈 오른쪽이 채워지면서 CTA 는 그대로 위에 남는다. */}
-        <div className="relative mx-auto grid max-w-3xl items-center gap-8 text-center md:grid-cols-[1fr_minmax(0,300px)] md:gap-10 md:text-left">
+        <div className="relative mx-auto grid max-w-3xl items-center gap-8 text-center md:grid-cols-[1fr_minmax(0,360px)] md:gap-10 md:text-left">
           <div className="min-w-0">
             <p className="inline-flex rounded-full bg-coral-100 px-4 py-1.5 text-sm font-extrabold text-coral-700 sm:text-base">
               4~7세 한글떼기 · 파닉스
@@ -614,14 +614,15 @@ export default function HangulLandingPage() {
                 데모(④) 자리에 그대로 있어 그 신호는 안 잃는다. */}
           </div>
 
-          {/* 🔴 태블릿에 **진짜 라이브러리 화면이 합성돼 있다** — 세계 명작·전래 동화·호리네
-              생활동화가 표지째로 깔려 있다. 헤드라인의 「다양한 동화책」을 글이 아니라 그림이
-              한 번 더 말한다. 합성 = `composite-screen-into-photo.mjs`. */}
+          {/* 🔴 히어로 오른쪽 = **한글 파닉스 일러스트**(2026-08-05 사용자 제작). 니들펠트 아기호랑이가
+              ㄱㄴㄷ·가나다 블록을 갖고 논다 — 헤드라인의 「한글 파닉스」를 그림이 한 번 더 말한다.
+              「다양한 동화책」은 위 CoverSlider(표지 슬라이더)가 맡으므로 여기선 파닉스.
+              (실물 사진 hero.webp 는 public/landing/hangul/ 에 보존.) */}
           <Photo
-            src="hero"
-            alt="엄마가 든 태블릿의 탱고북 책장을 아이가 손가락으로 가리키고 있다"
-            w={1200}
-            h={800}
+            src="phonics"
+            alt="아기호랑이가 가·나·다 한글 블록을 갖고 노는 그림"
+            w={1400}
+            h={788}
             eager
             className="mx-auto max-w-sm md:max-w-none"
           />
