@@ -35,16 +35,13 @@
     "title": "欢迎来到 Tangobook！",
     "sub": "和孩子一起读的 AI 绘本",
     "guestBtn": "以访客身份浏览",
-    "guestNote": "免费 30 天 · 不保存学习记录",
+    "guestNote": "30 天免费 · 学习记录保存在本机",
     "signupBtn": "注册 — 免费 1 年",
     "signupNote": "所有绘本免费 1 年 · 学习记录安全保存",
     "loginBtn": "我已有账号",
     "expiredTitle": "访客 30 天已结束",
     "expiredSub": "注册后可免费畅读所有绘本 1 年，学习记录也会安全保存。",
     "guestDays": "访客 · 剩余 {{days}} 天",
-    "guestConfirmTitle": "要以访客身份开始吗？",
-    "guestConfirmBody": "已读绘本和学习记录不会被保存。30 天后需要注册才能继续阅读。",
-    "guestConfirmContinue": "好，以访客身份开始",
     "back": "返回"
   },
   "betaOffer": "内测期间注册，免费使用 1 年！"

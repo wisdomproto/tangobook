@@ -291,6 +291,14 @@ export function createApp() {
     // 비-홈 라우트가 전부 "홈 복사본"으로 색인에서 빠진다. 비-홈 경로는 canonical 을
     // 자기 자신으로 재작성해 서빙(selfCanonicalizeHtml). 실패 시 원본 index.html 폴백.
     app.get('/{*path}', async (req, res) => {
+      // 🔴 빌드 자산(/assets/*)이 없으면 **404** 다 — SPA 폴백으로 index.html 을 돌려주면
+      //    `200 + text/html` 이 나가고, 브라우저는 그걸 JS 모듈로 파싱하려다
+      //    "Failed to fetch dynamically imported module" 로 죽는다(2026-08-05 실측: 배포 후
+      //    옛 탭이 사라진 청크를 요청한 경우). 정직한 404 여야 클라의 자동 새로고침 폴백도 돈다.
+      if (req.path.startsWith('/assets/')) {
+        res.status(404).type('text/plain').send('Not Found');
+        return;
+      }
       try {
         const { selfCanonicalizeHtml } = await import('./services/seo-ssr.service.js');
         if (!cachedIndexHtml) {

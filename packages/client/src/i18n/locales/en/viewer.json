@@ -9,7 +9,8 @@
   },
   "tapToStart": {
     "title": "Tap to start",
-    "subtitle": "Tap the screen once and the story begins"
+    "subtitle": "Tap the screen once and the story begins",
+    "countdown": "Starting in {{seconds}}s · tap to start now"
   },
   "advancing": "Next page",
   "fullscreen": {

@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+/** 손을 안 대도 이야기가 시작되기까지의 시간. */
+const AUTO_START_SECONDS = 5;
+
 interface TitleIntroProps {
   /** 표지 이미지 (현재 그림체·언어). 없으면 어두운 배경만. */
   coverUrl?: string;
@@ -34,6 +37,11 @@ export function TitleIntro({
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const doneRef = useRef(false);
   const [narrating, setNarrating] = useState(false);
+  /**
+   * 자동 시작까지 남은 초 (탭 게이트 모드에서만). null = 카운트다운 안 함(자동재생 모드이거나,
+   * 자동 시작이 브라우저에 막혀 다시 손 탭을 기다리는 상태).
+   */
+  const [countdown, setCountdown] = useState<number | null>(autoPlay ? null : AUTO_START_SECONDS);
 
   const complete = () => {
     if (doneRef.current) return;
@@ -41,9 +49,18 @@ export function TitleIntro({
     onComplete();
   };
 
-  const startNarration = () => {
+  /**
+   * @param viaGesture 사용자가 직접 눌렀나. 🔴 이 구분이 핵심 —
+   *   손으로 눌렀는데 재생이 실패하면 그건 **음원 문제**라 그냥 진행하는 게 맞지만,
+   *   카운트다운이 자동으로 부른 `play()` 가 거부되는 건 **브라우저 autoplay 차단**이라
+   *   진행하면 안 된다. 그대로 넘기면 페이지 TTS 도 막힌 채 무음으로 흐르고, 연속재생의
+   *   stall-guard 가 무음 책을 순식간에 넘겨 「다 읽었어요」로 직행한다(기록된 버그).
+   *   → 막히면 카운트다운을 걷고 탭 게이트로 되돌아간다. 탭은 제스처 안이라 항상 재생된다.
+   */
+  const startNarration = (viaGesture: boolean) => {
     if (narrating || doneRef.current) return;
     setNarrating(true);
+    setCountdown(null);
     if (!titleTtsUrl) {
       // 폴백: 낭독 음원 없음 → 잠깐 표지+제목 보여주고 진행.
       window.setTimeout(complete, 1400);
@@ -55,20 +72,38 @@ export function TitleIntro({
     audio.addEventListener('ended', complete);
     // 로드/재생 실패 시에도 멈추지 않게 폴백 진행.
     audio.addEventListener('error', () => window.setTimeout(complete, 600));
-    audio.play().catch(() => window.setTimeout(complete, 600));
+    audio.play().catch(() => {
+      if (viaGesture) {
+        window.setTimeout(complete, 600);
+        return;
+      }
+      audioRef.current = null;
+      setNarrating(false); // 탭 게이트 복귀 — 카운트다운은 다시 걸지 않는다(무한 재시도 방지).
+    });
   };
 
   useEffect(() => {
-    if (autoPlay) startNarration();
+    if (autoPlay) startNarration(false);
     return () => {
       audioRef.current?.pause();
     };
   }, []);
 
+  // 자동 시작 카운트다운 — 부모가 아이 옆에 없어도 이야기가 시작되게 한다.
+  useEffect(() => {
+    if (countdown === null) return;
+    if (countdown <= 0) {
+      startNarration(false);
+      return;
+    }
+    const id = window.setTimeout(() => setCountdown((s) => (s === null ? null : s - 1)), 1000);
+    return () => window.clearTimeout(id);
+  }, [countdown]);
+
   return (
     <div
       role={autoPlay ? undefined : 'button'}
-      onClick={autoPlay ? undefined : startNarration}
+      onClick={autoPlay ? undefined : () => startNarration(true)}
       className="absolute inset-0 z-50 flex items-center justify-center overflow-hidden bg-ink-900"
     >
       {coverUrl && (
@@ -80,26 +115,33 @@ export function TitleIntro({
       )}
       <div className="absolute inset-0 bg-gradient-to-b from-ink-900/45 via-transparent to-ink-900/65" />
 
-      {/* 제목 (글래스 필) */}
-      <div className="relative z-10 mx-6 max-w-[88%] rounded-2xl border border-white/25 bg-ink-900/45 px-5 py-4 sm:px-8 sm:py-5 backdrop-blur-md">
-        <h1 className="text-center font-display text-3xl font-black text-white break-keep drop-shadow-lg sm:text-4xl">
-          {title}
-        </h1>
-      </div>
-
-      {/* 탭 유도 (수동 모드, 낭독 시작 전에만) */}
-      {!autoPlay && !narrating && (
-        <div className="absolute bottom-14 z-10 flex flex-col items-center gap-2">
-          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-coral-500 text-white shadow-soft animate-pulse">
-            <svg className="ml-0.5 h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </span>
-          <span className="text-sm font-bold text-white/90 break-keep">
-            {t('tapToStart.subtitle')}
-          </span>
+      {/* 🔴 제목 + 탭 유도를 **한 덩어리**로 가운데 둔다(2026-08-04) — 예전엔 유도가
+          `absolute bottom-14` 라 연속재생 컨트롤 바(화면 아래 37%)에 통째로 가려서, 시작 화면에
+          "무엇을 눌러야 하는지"가 아무 데도 없었다. 제목 바로 아래면 어디를 눌러야 할지가 곧 보인다
+          (화면 전체가 눌리지만, 눈이 갈 곳은 제목이다). */}
+      <div className="relative z-10 flex flex-col items-center gap-4 px-6">
+        <div className="max-w-[88%] rounded-2xl border border-white/25 bg-ink-900/45 px-5 py-4 backdrop-blur-md sm:px-8 sm:py-5">
+          <h1 className="text-center font-display text-3xl font-black text-white break-keep drop-shadow-lg sm:text-4xl">
+            {title}
+          </h1>
         </div>
-      )}
+
+        {/* 탭 유도 (수동 모드, 낭독 시작 전에만) */}
+        {!autoPlay && !narrating && (
+          <div className="flex flex-col items-center gap-2">
+            <span className="flex h-16 w-16 items-center justify-center rounded-full bg-coral-500 text-white shadow-soft animate-pulse">
+              <svg className="ml-0.5 h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </span>
+            <span className="text-center text-sm font-bold text-white break-keep drop-shadow">
+              {countdown !== null && countdown > 0
+                ? t('tapToStart.countdown', { seconds: countdown })
+                : t('tapToStart.subtitle')}
+            </span>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

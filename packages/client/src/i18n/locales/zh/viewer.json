@@ -9,7 +9,8 @@
   },
   "tapToStart": {
     "title": "点击开始",
-    "subtitle": "轻点一下屏幕，故事就开始啦"
+    "subtitle": "轻点一下屏幕，故事就开始啦",
+    "countdown": "{{seconds}} 秒后开始 · 点击立即开始"
   },
   "advancing": "下一页",
   "fullscreen": {

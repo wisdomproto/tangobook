@@ -46,6 +46,7 @@ import BlogPostPage from '../features/blog-public/BlogPostPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import LoginCallback from '../pages/LoginCallback';
 import LoginPage from '../features/auth/components/LoginPage';
+import { RouteErrorScreen } from '@/components/RouteErrorScreen';
 import { AuthProvider } from '../features/auth/context/AuthContext';
 import ParentHomePage from '../features/auth/pages/ParentHomePage';
 import ParentReportsPage from '../features/auth/pages/ParentReportsPage';
@@ -83,6 +84,11 @@ import RefundPolicyPage from '../pages/legal/RefundPolicyPage';
 export const router = createBrowserRouter([
   {
     path: '/',
+    // 🔴 배포 직후 옛 탭이 사라진 청크를 요청하면 여기로 떨어진다. React Router 기본 화면
+    //    ("Unexpected Application Error!")은 아이·부모 누구에게도 뜻이 없고, 실제 해법은
+    //    새로고침 한 번뿐이라 자동으로 한다. Vite 의 `vite:preloadError` 가 안 잡는 경로
+    //    (정적 청크 그래프 실패)까지 덮으려면 이 자리가 필요하다.
+    errorElement: <RouteErrorScreen />,
     element: (
       <AuthProvider>
         <Outlet />

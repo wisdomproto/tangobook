@@ -9,7 +9,8 @@
   },
   "tapToStart": {
     "title": "탭해서 시작하기",
-    "subtitle": "화면을 한 번 누르면 이야기가 시작돼요"
+    "subtitle": "화면을 한 번 누르면 이야기가 시작돼요",
+    "countdown": "{{seconds}}초 뒤에 시작해요 · 눌러서 바로 시작"
   },
   "advancing": "다음 장",
   "fullscreen": {

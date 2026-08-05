@@ -35,16 +35,13 @@
     "title": "Welcome to Tangobook!",
     "sub": "AI picture books to read with your child",
     "guestBtn": "Browse as guest",
-    "guestNote": "30 days free · Learning progress is not saved",
+    "guestNote": "30 days free · progress is saved on this device",
     "signupBtn": "Sign up — 1 year free",
     "signupNote": "Every story free for 1 year · Progress saved safely",
     "loginBtn": "I already have an account",
     "expiredTitle": "Your 30 guest days are over",
     "expiredSub": "Sign up to enjoy every story free for 1 year, with your progress saved safely.",
     "guestDays": "Guest · {{days}} days left",
-    "guestConfirmTitle": "Start as a guest?",
-    "guestConfirmBody": "Books you read and learning progress won’t be saved. After 30 days you’ll need an account to keep reading.",
-    "guestConfirmContinue": "Yes, start as a guest",
     "back": "Back"
   },
   "betaOffer": "Sign up during the beta and get 1 year free!"

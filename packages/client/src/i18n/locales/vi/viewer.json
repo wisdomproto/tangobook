@@ -9,7 +9,8 @@
   },
   "tapToStart": {
     "title": "Chạm để bắt đầu",
-    "subtitle": "Chạm vào màn hình một lần để câu chuyện bắt đầu"
+    "subtitle": "Chạm vào màn hình một lần để câu chuyện bắt đầu",
+    "countdown": "Bắt đầu sau {{seconds}} giây · chạm để bắt đầu ngay"
   },
   "advancing": "Trang tiếp",
   "fullscreen": {
