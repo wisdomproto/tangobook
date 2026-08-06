@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
-import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
+import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { ActivityShell } from '../components/ActivityShell';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
+import { patternHighlight } from '../lib/english-phonics-units';
 
 interface Props {
   unitId: string;
@@ -215,34 +216,60 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
     [phase, cvcWords, pattern.vc, totalPhaseB, playEnglish, playAudio, playCorrectSequence]
   );
 
-  // ── Phase C: VC 글자별 쓰기 (4 단어 × 2 글자 = 8 캔버스) ──
-  const [writeDone, setWriteDone] = useState<Set<string>>(new Set());
+  // ── Phase C: 낱말 써보기 — **패턴(라임) 먼저** 한 글자씩(WordFillCanvas, Book 3/4/5 와 통일) ──
   const [writeCurrentWordIdx, setWriteCurrentWordIdx] = useState(0);
   const currentWriteWord = cvcWords[writeCurrentWordIdx];
   const currentWriteLetters = wordLetters[writeCurrentWordIdx] ?? [];
-  const currentWriteWordDone = useMemo(
-    () =>
-      currentWriteLetters.length > 0 &&
-      currentWriteLetters.every((_, l) => writeDone.has(`${writeCurrentWordIdx}-${l}`)),
-    [writeCurrentWordIdx, currentWriteLetters, writeDone]
-  );
-  const allWriteComplete = useMemo(
-    () =>
-      cvcWords.length > 0 &&
-      wordLetters.every((ls, w) => ls.every((_, l) => writeDone.has(`${w}-${l}`))),
-    [cvcWords.length, wordLetters, writeDone]
+
+  /**
+   * 🔴 **쓰는 순서 = 라임 먼저**(2026-08-06 사용자: "can 을 a,n,c 순서로"). 라임(`_an` = 위치 [1,2])을
+   *    먼저, 그다음 앞 자음. 소리는 시각 순서로 쌓아 읽는다(a→애·an→앤·can→캔).
+   */
+  const writeOrder = useMemo(() => {
+    if (!currentWriteWord) return [] as number[];
+    const [s, e] = patternHighlight(currentWriteWord.word, `_${pattern.vc}`);
+    const first: number[] = [];
+    const rest: number[] = [];
+    for (let i = 0; i < currentWriteLetters.length; i++) (i >= s && i < e ? first : rest).push(i);
+    return first.length ? [...first, ...rest] : rest;
+  }, [currentWriteWord, currentWriteLetters, pattern.vc]);
+  const writtenRef = useRef<number[]>([]);
+  const wordDoneRef = useRef(false);
+
+  // 한 칸 쓸 때마다 지금까지 쓴 칸을 **시각 순서로** 이어읽는다(애 → 앤 / a → ak → ake).
+  // 낱말을 완성하는 마지막 칸의 onSyllableDone 은 WordFillCanvas 가 생략한다(onComplete 가 낱말을 읽음).
+  const handleWriteAccum = useCallback(
+    (_letter: string, index: number) => {
+      if (wordDoneRef.current) return;
+      if (!writtenRef.current.includes(index)) writtenRef.current.push(index);
+      const soFar = [...writtenRef.current]
+        .sort((a, b) => a - b)
+        .map((i) => currentWriteLetters[i])
+        .join('');
+      void (async () => {
+        const url = await resolveTtsUrl({
+          text: soFar,
+          language: 'english',
+          storybookId: unitId,
+          identifierPrefix: 'en-cvc',
+        });
+        // 띵동 먼저, 끝나면 이어읽기(단일 채널이라 동시에 내면 앞소리가 잘린다).
+        playAudio('/sounds/game/correct.mp3', () => {
+          if (url) playAudio(url);
+        });
+      })();
+    },
+    [currentWriteLetters, unitId, playAudio]
   );
 
-  // Phase C: 단어 완료 감지 → 단어 발음 + 다음 단어 / 전체 완료 시 칭찬 + onMarkComplete
-  useEffect(() => {
-    if (phase !== 'C') return;
-    if (!currentWriteWordDone) return;
-    let cancelled = false;
-    (async () => {
-      await new Promise((r) => setTimeout(r, 500));
-      if (cancelled) return;
-      const cw = currentWriteWord;
-      if (!cw) return;
+  // 낱말 완성 → 낱말 읽기 → (마지막이면 칭찬 + onMarkComplete / 아니면 쉼 → 다음 낱말).
+  const handleWriteWordDone = useCallback(() => {
+    if (wordDoneRef.current) return;
+    wordDoneRef.current = true;
+    const cw = cvcWords[writeCurrentWordIdx];
+    if (!cw) return;
+    const isLast = writeCurrentWordIdx + 1 >= cvcWords.length;
+    void (async () => {
       const wordUrl = await resolveTtsUrl({
         text: cw.word,
         language: 'english',
@@ -250,72 +277,22 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
         identifierPrefix: 'en-cvc',
       });
       const after = () => {
-        if (cancelled) return;
-        if (allWriteComplete) {
+        if (isLast) {
           setPhase('done');
           onMarkComplete();
           setTimeout(() => playCorrectSequence({ language: 'en' }), 400);
         } else {
-          const next = wordLetters.findIndex(
-            (ls, w) => !ls.every((_, l) => writeDone.has(`${w}-${l}`))
-          );
-          if (next !== -1 && next !== writeCurrentWordIdx) {
-            setTimeout(() => setWriteCurrentWordIdx(next), 500);
-          }
+          setTimeout(() => {
+            wordDoneRef.current = false;
+            writtenRef.current = [];
+            setWriteCurrentWordIdx((i) => i + 1);
+          }, 500);
         }
       };
       if (wordUrl) playAudio(wordUrl, after);
       else after();
     })();
-    return () => {
-      cancelled = true;
-    };
-  }, [
-    phase,
-    currentWriteWordDone,
-    currentWriteWord,
-    cvcWords,
-    wordLetters,
-    writeDone,
-    writeCurrentWordIdx,
-    allWriteComplete,
-    unitId,
-    playAudio,
-    playCorrectSequence,
-    onMarkComplete,
-  ]);
-
-  // 한 글자 통과 핸들러 — 띵동 → 글자 음가 → 상태 업데이트
-  // (LetterFillCanvas paint mode — threshold 도달 시 onResult(true) 호출)
-  const makeHandleWriteLetter = useCallback(
-    (wordIdx: number, letterIdx: number) => async (ok: boolean) => {
-      if (!ok) return;
-      if (writeDone.has(`${wordIdx}-${letterIdx}`)) return;
-      const letter = wordLetters[wordIdx]?.[letterIdx];
-
-      const letterUrl = letter
-        ? await resolveTtsUrl({
-            text: letter,
-            language: 'english',
-            storybookId: unitId,
-            identifierPrefix: 'en-cvc',
-          })
-        : undefined;
-      // 띵동 → **쉼** → 글자. 붙여 내면 한 덩어리로 들린다.
-      const playLetter = () => {
-        if (letterUrl) rest(() => playAudio(letterUrl));
-      };
-      playAudio('/sounds/game/correct.mp3', playLetter);
-
-      setWriteDone((prev) => {
-        if (prev.has(`${wordIdx}-${letterIdx}`)) return prev;
-        const next = new Set(prev);
-        next.add(`${wordIdx}-${letterIdx}`);
-        return next;
-      });
-    },
-    [writeDone, wordLetters, unitId, playAudio]
-  );
+  }, [cvcWords, writeCurrentWordIdx, unitId, playAudio, playCorrectSequence, onMarkComplete]);
 
   // 행별 다음 누를 칸 highlight (Phase B 용)
   const phaseBNextKey = useMemo(() => {
@@ -339,7 +316,8 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
   const restart = useCallback(() => {
     setPhaseAPressed(new Set());
     setPhaseBPressed(new Set());
-    setWriteDone(new Set());
+    writtenRef.current = [];
+    wordDoneRef.current = false;
     setWriteCurrentWordIdx(0);
     setPhase('A');
   }, []);
@@ -492,7 +470,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
             {/* chip 줄 — 4 단어 진척 */}
             <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
               {cvcWords.map((cw, w) => {
-                const wDone = (wordLetters[w] ?? []).every((_, l) => writeDone.has(`${w}-${l}`));
+                const wDone = w < writeCurrentWordIdx;
                 const active = writeCurrentWordIdx === w;
                 return (
                   <button
@@ -514,45 +492,27 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
                 );
               })}
             </div>
-            {/* 단어 이미지 */}
-            {currentWriteWord.imageUrl && (
-              <img
-                src={currentWriteWord.imageUrl}
-                alt={currentWriteWord.word}
-                className="w-[clamp(4rem,12vh,7rem)] h-[clamp(4rem,12vh,7rem)] object-cover rounded-3xl border-[4px] border-white shadow-pop"
-              />
-            )}
-            {/* 글자 행 — 🔴 앞 자음부터 낱말 전체를 쓴다(예전엔 자음이 주어진 셀이었다). */}
-            <div className="flex flex-row items-stretch justify-center gap-3 sm:gap-4">
-              {currentWriteLetters.map((letter, l) => {
-                const letterDone = writeDone.has(`${writeCurrentWordIdx}-${l}`);
-                if (letterDone) {
-                  return (
-                    <div
-                      key={l}
-                      className="w-[clamp(7rem,22vh,14rem)] h-[clamp(7rem,22vh,14rem)] shrink-0 rounded-[28px] border-[4px] flex items-center justify-center shadow-pop bg-gradient-to-b from-mint-300 to-mint-400 border-mint-500 text-white relative"
-                      style={{ textShadow: '0 3px 0 rgba(0,0,0,0.18)' }}
-                    >
-                      <span className="text-[clamp(3rem,14vh,9rem)] font-black leading-none">
-                        {letter}
-                      </span>
-                      <span className="absolute -top-3 -right-3 inline-flex items-center justify-center w-9 h-9 rounded-full bg-success text-white text-xl font-black shadow-pop ring-4 ring-white">
-                        ✓
-                      </span>
-                    </div>
-                  );
-                }
-                return (
-                  <div key={l} className="w-[clamp(7rem,22vh,14rem)] shrink-0">
-                    <LetterFillCanvas
-                      key={`${writeCurrentWordIdx}-${l}-${letter}`}
-                      letter={letter}
-                      onResult={makeHandleWriteLetter(writeCurrentWordIdx, l)}
-                      autoCheck
-                    />
-                  </div>
-                );
-              })}
+            {/* 🔴 라임 먼저 한 글자씩(WordFillCanvas order) — 지금 쓸 칸이 코랄로 밝고, 소리는 시각
+                순서로 쌓여 읽힌다(애 → 앤 → 캔). Book 3/4/5 익히기 써보기와 같은 컴포넌트·규칙. */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 w-full">
+              {currentWriteWord.imageUrl && (
+                <img
+                  src={currentWriteWord.imageUrl}
+                  alt={currentWriteWord.word}
+                  draggable={false}
+                  className="w-[clamp(3.5rem,14vh,8rem)] h-[clamp(3.5rem,14vh,8rem)] object-cover rounded-3xl border-[6px] border-white shadow-pop shrink-0"
+                />
+              )}
+              <div className="w-full max-w-2xl">
+                <WordFillCanvas
+                  key={writeCurrentWordIdx}
+                  word={currentWriteWord.word}
+                  syllables={currentWriteLetters}
+                  order={writeOrder}
+                  onSyllableDone={handleWriteAccum}
+                  onComplete={handleWriteWordDone}
+                />
+              </div>
             </div>
           </div>
         )}
