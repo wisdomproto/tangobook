@@ -1,7 +1,7 @@
-import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useCallback, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
-import { warmAudioUrl, usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
+import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
 import { ActivityShell } from '../components/ActivityShell';
 import { useActivitySound } from '../hooks/useActivitySound';
 import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
@@ -102,40 +102,14 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
     [words, pattern]
   );
 
-  /** 낱말별 저작 녹음 — 낱말 칸이 이걸 directUrl 로 그대로 재생한다(있을 때). */
-  const ttsByWord = useMemo(() => {
-    const m = new Map<string, string>();
-    for (const w of words) if (w.ttsUrl) m.set(w.word, w.ttsUrl);
-    return m;
-  }, [words]);
-
-  // 🔴 낱말 칸은 authored ttsUrl 을 directUrl 로 읽으므로 **그 mp3 URL 을** 데운다(첫 탭 즉시 재생).
-  const ttsUrls = useMemo(
-    () => words.map((w) => w.ttsUrl).filter((u): u is string => !!u),
-    [words]
+  // 🔴 낱말 칸은 **그냥 낱말**을 읽는다("bake" — 2026-08-06 사용자: "bake 누르면 그냥 베이크. 지금
+  //    에이크 베이크라고 읽어 어색"). 매직-e 소리는 앞 조각([b][ake])이 이미 가르쳤다. wordFamilies 의
+  //    저작 ttsUrl("A bake")은 **게임 성공음 전용**이라 이 화면에선 안 쓴다.
+  //    → 조각 소리(concat)와 낱말(plain)을 텍스트로 데운다.
+  const warmTexts = useMemo(
+    () => [...new Set([...rows.flatMap((r) => r.segs), ...words.map((w) => w.word)])],
+    [rows, words]
   );
-  useEffect(() => {
-    let alive = true;
-    void (async () => {
-      for (const url of ttsUrls) {
-        if (!alive) return;
-        try {
-          await warmAudioUrl(url);
-        } catch {
-          /* 한 건 실패가 나머지를 막지 않는다 */
-        }
-      }
-    })();
-    return () => {
-      alive = false;
-    };
-  }, [ttsUrls]);
-  // 🔴 조각 소리(자음·라임)는 concat 이라 텍스트로 데운다 + ttsUrl 없는 낱말도(가드 만족).
-  const warmTexts = useMemo(() => {
-    const segs = rows.flatMap((r) => r.segs);
-    const noTts = words.filter((w) => !w.ttsUrl).map((w) => w.word);
-    return [...new Set([...segs, ...noTts])];
-  }, [rows, words]);
   usePhonicsTtsWarm(unitId, warmTexts, 'en-family', 'english');
   // 낱말 그림(있는 것만) — 음원처럼 진입 시 데운다(게임과 동일 프리미티브).
   usePreloadImages(useMemo(() => words.map((w) => w.imageUrl), [words]));
@@ -170,8 +144,6 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
       const row = rows[wi];
       if (!row) return;
       const key = `${wi}-${ci}`;
-      const isWordCell = ci === row.cells.length - 1;
-      const directUrl = isWordCell ? ttsByWord.get(row.word) : undefined;
 
       let willWord = false;
       let willAll = false;
@@ -184,21 +156,18 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
         return next;
       });
 
-      // 조각/낱말 소리 → (전부 끝나면 칭찬→써보기 / 그 낱말이 끝나면 띵동, 그림은 상태로 이미 떴다)
-      say(
-        row.cells[ci],
-        () => {
-          if (willAll && !doneRef.current) {
-            doneRef.current = true;
-            rest(() => playCorrectSequence({ language: 'en', onDone: () => setPhase('write') }));
-          } else if (willWord) {
-            rest(() => chime());
-          }
-        },
-        directUrl
-      );
+      // 조각/낱말 소리(낱말 칸도 그냥 낱말 — directUrl 없이 resolve) → (전부 끝나면 칭찬→써보기 /
+      //  그 낱말이 끝나면 띵동, 그림은 상태로 이미 떴다)
+      say(row.cells[ci], () => {
+        if (willAll && !doneRef.current) {
+          doneRef.current = true;
+          rest(() => playCorrectSequence({ language: 'en', onDone: () => setPhase('write') }));
+        } else if (willWord) {
+          rest(() => chime());
+        }
+      });
     },
-    [rows, ttsByWord, say, rest, chime, playCorrectSequence]
+    [rows, say, rest, chime, playCorrectSequence]
   );
 
   // ── 써보기 단계 — 낱말 전체를 한 글자씩 쓰고, 다 쓰면 그 낱말을 읽어준 뒤 다음 낱말 ──
@@ -240,22 +209,18 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
     const w = words[writeIdx];
     if (!w) return;
     const isLast = writeIdx + 1 >= words.length;
-    // 🔴 다 쓰면 낱말 읽기 → (마지막이면 칭찬 → 완료 / 아니면 쉼 → 다음 낱말). onEnded 체인이라 안 잘린다.
-    say(
-      w.word,
-      () => {
-        if (isLast) {
-          playCorrectSequence({ language: 'en', onDone: onMarkComplete });
-        } else {
-          rest(() => {
-            writeDoneRef.current = false;
-            setWriteIdx((i) => i + 1);
-          });
-        }
-      },
-      ttsByWord.get(w.word)
-    );
-  }, [words, writeIdx, say, rest, playCorrectSequence, onMarkComplete, ttsByWord]);
+    // 🔴 다 쓰면 **그냥 낱말**을 읽는다(학습 화면과 통일 — 매직-e 소리는 조각이 가르쳤다). onEnded 체인.
+    say(w.word, () => {
+      if (isLast) {
+        playCorrectSequence({ language: 'en', onDone: onMarkComplete });
+      } else {
+        rest(() => {
+          writeDoneRef.current = false;
+          setWriteIdx((i) => i + 1);
+        });
+      }
+    });
+  }, [words, writeIdx, say, rest, playCorrectSequence, onMarkComplete]);
 
   const dots = (
     <div className="flex items-center gap-1.5">
