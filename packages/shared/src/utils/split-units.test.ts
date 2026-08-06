@@ -29,6 +29,16 @@ describe('splitUnits', () => {
     expect(splitUnits('mèo', 'vi')).toEqual(['m', 'è', 'o']);
   });
 
+  it('병음(拼音): 성조 부호는 모음에 합쳐진 채 한 유닛 (NFC) — 성조 축 보존', () => {
+    // 병음은 라틴 문자열이라 코드포인트 분해. 🔴 성조 부호(ā á ǎ à)가 **합자(precomposed)**로
+    // 남아야 성조가 모음에서 안 떨어진다(vi 선례). combining 마크로 쪼개지면 타일이 깨진다.
+    expect(splitUnits('mā', 'zh')).toEqual(['m', 'ā']);
+    expect(splitUnits('mǎ', 'zh')).toEqual(['m', 'ǎ']);
+    // 성조 글자는 길이 1(합자) — 'a' + combining caron(2 코드포인트)이 아니다.
+    expect(splitUnits('mǎ', 'zh')[1]).toBe('ǎ'); // ǎ precomposed
+    expect(splitUnits('mǎ', 'zh')[1]!.length).toBe(1);
+  });
+
   it('빈 문자열/공백은 빈 배열', () => {
     expect(splitUnits('', 'zh')).toEqual([]);
     expect(splitUnits('   ', 'vi')).toEqual([]);

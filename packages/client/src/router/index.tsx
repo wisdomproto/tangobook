@@ -99,6 +99,12 @@ const EnglishPhonicsStudyPage = lazy(() =>
 const EnglishPhonicsActivityPage = lazy(() =>
   PL().then((m) => ({ default: m.EnglishPhonicsActivityPage }))
 );
+const ChinesePhonicsStudyPage = lazy(() =>
+  PL().then((m) => ({ default: m.ChinesePhonicsStudyPage }))
+);
+const ChinesePhonicsActivityPage = lazy(() =>
+  PL().then((m) => ({ default: m.ChinesePhonicsActivityPage }))
+);
 const CO = () => import('../features/continuous');
 const ContinuousHomePage = lazy(() => CO().then((m) => ({ default: m.ContinuousHomePage })));
 const ContinuousBuilder = lazy(() => CO().then((m) => ({ default: m.ContinuousBuilder })));
@@ -297,6 +303,38 @@ export const router = createBrowserRouter([
           <GuestGate>
             <ErrorBoundary>
               <EnglishPhonicsActivityPage />
+            </ErrorBoundary>
+          </GuestGate>
+        ),
+      },
+      {
+        // 중국어 병음 파닉스 학습 모드 — AppShell 밖 풀화면 (좌 Level1~ + 우 unit body)
+        path: 'library/phonics/chinese',
+        element: (
+          <GuestGate>
+            <ErrorBoundary>
+              <ChinesePhonicsStudyPage />
+            </ErrorBoundary>
+          </GuestGate>
+        ),
+      },
+      {
+        path: 'library/phonics/chinese/:unitId',
+        element: (
+          <GuestGate>
+            <ErrorBoundary>
+              <ChinesePhonicsStudyPage />
+            </ErrorBoundary>
+          </GuestGate>
+        ),
+      },
+      {
+        // 중국어 병음 파닉스 액티비티 — 풀화면. AppShell 밖.
+        path: 'library/phonics/chinese/:unitId/:activityKey',
+        element: (
+          <GuestGate>
+            <ErrorBoundary>
+              <ChinesePhonicsActivityPage />
             </ErrorBoundary>
           </GuestGate>
         ),

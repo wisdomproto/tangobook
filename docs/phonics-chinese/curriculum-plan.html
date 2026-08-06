@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>중국어 병음 파닉스 커리큘럼 기획서</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>拼</text></svg>">
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
+:root{
+  --accent:#c8102e; --accent2:#e8a13a;
+  --bg:#fbfaf7; --surface:#ffffff; --ink:#20242c; --muted:#6b7280; --line:#ece8e1;
+  --code-bg:#f4f2ee; --th:#fbf1ef; --zebra:#faf9f6;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#15171c; --surface:#1c1f26; --ink:#e6e8ec; --muted:#9aa1ac; --line:#2b2f39;
+  --code-bg:#22262f; --th:#2a2028; --zebra:#1f232b;
+}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:'Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;
+  font-size:16px;line-height:1.72;-webkit-font-smoothing:antialiased;word-break:keep-all}
+.hero{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;padding:44px 24px 40px}
+.hero-in{max-width:1080px;margin:0 auto}
+.badge{display:inline-block;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.35);
+  border-radius:999px;padding:4px 14px;font-size:13px;font-weight:600;letter-spacing:.02em;margin-bottom:14px}
+.hero h1{margin:0;font-size:clamp(24px,4.4vw,38px);font-weight:800;line-height:1.25}
+.hero p{margin:10px 0 0;opacity:.92;font-size:15px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:230px 1fr;gap:40px}
+@media(max-width:860px){.wrap{grid-template-columns:1fr;padding:0 18px}.toc{display:none}}
+.toc{position:sticky;top:20px;align-self:start;max-height:calc(100vh - 40px);overflow:auto;
+  padding:22px 0;font-size:13.5px}
+.toc h4{margin:0 0 10px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.toc a{display:block;color:var(--muted);text-decoration:none;padding:5px 12px;border-left:2px solid transparent;
+  border-radius:0 6px 6px 0;line-height:1.4}
+.toc a:hover{color:var(--ink);background:var(--surface)}
+.toc a.active{color:var(--accent);border-left-color:var(--accent);background:var(--surface);font-weight:600}
+.doc{background:var(--surface);border:1px solid var(--line);border-radius:16px;
+  padding:14px 40px 48px;margin:-22px 0 60px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+@media(max-width:860px){.doc{padding:8px 22px 36px;margin:24px 0 40px}}
+.doc h2{font-size:23px;font-weight:800;margin:44px 0 16px;padding-top:20px;border-top:1px solid var(--line)}
+.doc h2:first-of-type{border-top:0;margin-top:20px}
+.doc h2::before{content:'';display:inline-block;width:5px;height:22px;background:var(--accent);
+  border-radius:3px;vertical-align:-3px;margin-right:12px}
+.doc h3{font-size:17.5px;font-weight:700;margin:30px 0 12px;color:var(--accent)}
+.doc h1{font-size:26px;margin:8px 0 4px}
+.doc p{margin:14px 0}
+.doc a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent}
+.doc a:hover{border-bottom-color:var(--accent)}
+.doc ul,.doc ol{padding-left:22px}.doc li{margin:6px 0}
+.doc blockquote{margin:18px 0;padding:12px 18px;background:var(--code-bg);
+  border-left:4px solid var(--accent2);border-radius:0 10px 10px 0;color:var(--muted);font-size:14.5px}
+.doc blockquote p{margin:4px 0}
+.doc code{background:var(--code-bg);padding:2px 6px;border-radius:5px;font-size:.88em;
+  font-family:'SF Mono',ui-monospace,Menlo,Consolas,monospace}
+.doc pre{background:var(--code-bg);border:1px solid var(--line);border-radius:12px;padding:16px 18px;
+  overflow:auto;font-size:13px;line-height:1.6}
+.doc pre code{background:none;padding:0}
+.tbl{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:12px}
+.doc table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+.doc th,.doc td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+.doc th{background:var(--th);font-weight:700;white-space:nowrap}
+.doc tbody tr:nth-child(even){background:var(--zebra)}
+.doc tbody tr:last-child td{border-bottom:0}
+.doc hr{border:0;border-top:1px solid var(--line);margin:34px 0}
+.doc strong{font-weight:700}
+footer{max-width:1080px;margin:0 auto;padding:0 24px 50px;color:var(--muted);font-size:12.5px;text-align:center}
+</style>
+</head>
+<body>
+<div class="hero"><div class="hero-in">
+  <span class="badge">拼音 · 중국어 파닉스</span>
+  <h1>중국어 병음 파닉스 커리큘럼 기획서</h1>
+  <p>탱고북 파닉스 커리큘럼 기획서 · 2026-08-06</p>
+</div></div>
+<div class="wrap">
+  <nav class="toc"><h4>목차</h4><div id="toc"></div></nav>
+  <main class="doc" id="doc"></main>
+</div>
+<footer>탱고북 · 내부 기획 문서 (조사·기획 · 코드 미변경)</footer>
+
+<script type="text/plain" id="src"># 중국어 병음(拼音) 파닉스 — 정식 커리큘럼 기획서
+
+> 2026-08-06 · **상위 기획 문서**(확정판). 근거·조사 원본은 [feasibility.md](feasibility.md)·[curriculum-draft.md](curriculum-draft.md).
+> 코드 미변경 — 기획만. 유닛 표는 사람이 검토·수정하기 쉬운 마크다운 표.
+
+## 🔴 관통 원칙 — 소리 먼저, 한자는 낱말에서만
+
+**병음(声母·韵母·声调)을 순수하게 소리로 먼저 익힌 뒤, 단어 연습 단계에서만 한자를 병기한다.**
+
+- **글자·소리·블렌딩·성조 학습 구간 = 병음만**(+그림). 한자 노출 없음.
+- **낱말 활동(단어 카드·낱말 연습·낱말 게임) = 병음 + 한자 병기** — 표기 규격 **위 병음 / 아래 한자**
+  (拼音 위, 汉字 아래). "이 소리가 이런 낱말이 된다"를 보여주는 자리에서만 한자가 등장.
+- 이 원칙이 아래 모든 유닛·활동·자산을 관통한다. 유닛 표에 **소리 유닛(한자 X) vs 낱말 활동(한자 병기)**을
+  열로 명시한다.
+- (이것이 feasibility 결정표 "한자 노출 여부"의 확정 답 = **소리는 A(병음만), 낱말만 B(병음+한자 병기)**.)
+
+## 1. 개요 / 포지셔닝
+
+**영어(ABC)·한글·(일본어) 파닉스와 나란한 라인.** 사이드바 파닉스 랜딩에 카드 하나 추가.
+
+- **타겟 = 글로벌 아이(한국 아이 포함), 안내는 각자 UI 언어를 따라간다** — 영어 파닉스와 완전히 같은
+  포지션(i18n 은 영어 파닉스 baseline 그대로, 병음 전용 하드코딩 없음). L2 한국 아이 힌트로 xlsx 한글
+  발음 표기(마·파·짜…)를 옵션 노출 검토.
+- **설계 전제: 병음 = 성모(声母)+운모(韵母) 블렌딩 → 영어 CVC·한글 자음+모음 합치기와 동형.** 가나(모라)와
+  달리 **blend 가 있다** → **blend 활동을 뺄 게 아니라 그대로 물린다**(영어 CVC 활동 세트가 원형).
+- **유일한 새 축 = 성조(声调).** mā má mǎ mà 처럼 같은 음절이 성조로 뜻이 갈린다. 이것만 신규 설계.
+- **인프라 3종이 이미 있다** — `zh`(中文简体) 등록됨 · Noto SC/ZCOOL 폰트 있음 · 성조 정확한
+  `cmn-CN-Chirp3-HD-Leda` TTS 검증됨(낱단어 0.83~0.98). 신규 언어 중 재사용률 최고.
+
+## 2. 데이터 스키마 (한/영과 동일)
+
+`packages/shared/src/constants/index.ts` 에 `CHINESE_PHONICS_CURRICULUM` 추가 — `ENGLISH_PHONICS_CURRICULUM`
+과 같은 형태. plan 은 `lib/chinese-phonics-units.ts`(영어 fork)가 커리큘럼에서 파생(유닛 목록 이중 기재 X).
+
+```ts
+{ level, name, description, units: [
+  { id, title, phonemes: string[], patterns: string[], sampleWords: string[], blending: [...] }
+]}
+// 소리 유닛 예(한자 없음): { id:'zh-l2-u01', title:'성모 b p m f', phonemes:['b','p','m','f'],
+//   patterns:['initial+final blend'], sampleWords:[], blending:[{initial:'b',final:'a',syllable:'bà'}...] }
+// 낱말은 별도 단어카드 데이터에서 { pinyin:'māma', hanzi:'妈妈', gloss:'엄마', imageUrl } 로 병기.
+```
+
+🔴 **병음은 zh 한자 유닛과 다른 표시 축** — `splitUnits('zh')` 는 한자 1자=1유닛이라 병음 라틴 문자열엔
+안 맞는다. 병음 타일은 코드포인트(NFC 성조 글자 유지, vi 선례)로 쪼갠다. 착수 시 작은 분기(§6).
+
+## 3. 전체 레벨·유닛 구조 (확정)
+
+**근거(순서 = 국가표준 + YouTube 벤치마크 이중 확인):** ① 部编版(人教版) 一年级上册 汉语拼音 13과 표준
+배열. ② 유튜브 인기 병음 콘텐츠 실측(조회수, 2026-08-06, 상세 [curriculum-draft.md §벤치마크]) — Little Fox
+**bpmf Song 4.68M** · 叻叻果叮 **声母歌 3.53M** · 韻母歌 3.12M · Pinkfong **单韵母歌 1.66M**·**声调歌 1.11M** ·
+蟹蟹中文「23个声母」 등이 **전부 单韵母 선두 → 성조 독립 도입 → 声母 bpmf/dtnl 묶음 → 整体认读音节** 순서를
+지지해 우리 5레벨 구조와 수렴. 🔴 **BabyBus 본체엔 병음 전용 시리즈가 없다**(儿歌·한자·영어 ABC 중심)라
+병음 벤치마크는 Little Fox·Pinkfong·ladladkid 등 전문 채널이 강함. **근거(음절 실재·한글 근사음):**
+`중국어발음표.xlsx` 발음표·한글표기 시트. **근거(낱말):** 유아 상용어 초안(글자당 대표 낱말은 벤치마크로
+확정 못 함 — 노래 가사 미제공, §6).
+
+복습 배치 = 한글 규칙(`chunkForReview`) 그대로 자동 파생.
+
+> 표 열: **소리 학습(병음만)** = phonemes/blending, **낱말 활동(병음+한자 병기)** = 타겟 낱말.
+
+### Level 1 — 단운모 + 성조 (3 유닛)
+
+소리 유닛 = 병음 글자·성조만(한자 X). 낱말은 소리 확인용 최소.
+
+| 유닛ID | 타겟 운모(소리·병음만) | 성조 | 낱말(병음+한자 병기) | 비고 |
+| --- | --- | --- | --- | --- |
+| zh-l1-u01 | a o e | ā á ǎ à | é 鹅(거위) | 단운모 앞 3 |
+| zh-l1-u02 | i u ü | ī í ǐ ì | yī 一 · wǔ 五 · yú 鱼 | 단운모 뒤 3(y/w 철자) |
+| zh-l1-u03 | **성조 집중**(a) | ā á ǎ à = 妈麻马骂 | (성조 전용, 낱말 X) | 🔴 성조 도입 유닛 |
+
+### Level 2 — 성모 + 블렌딩 (6 유닛)  ← 영어 CVC 의 자리
+
+성모 21개를 4묶음으로, 배운 단운모와 **블렌딩**(소리 유닛=병음 음절만). 낱말에서만 한자 병기.
+
+| 유닛ID | 타겟 성모(소리·병음만) | 블렌딩 예(음절) | 낱말(병음+한자 병기) | 근거 |
+| --- | --- | --- | --- | --- |
+| zh-l2-u01 | b p m f | bà bǐ mā mǐ | bàba 爸爸 · māma 妈妈 · mǐ 米 | 부편판 3과 |
+| zh-l2-u02 | d t n l | dà tù nǐ lù | dà 大 · tù 兔 · nǐ 你 | 부편판 4과 |
+| zh-l2-u03 | g k h | gē kǒu hé | gēge 哥哥 · hé 河 · kǒu 口 | 부편판 5과 |
+| zh-l2-u04 | j q x | jī qì xī | jī 鸡 · xī 西 | 부편판 6과 · j/q/x+ü=u |
+| zh-l2-u05 | z c s | zì sì | zì 字 · sì 四 | 부편판 7과 |
+| zh-l2-u06 | zh ch sh r | chī shī rì | chī 吃 · shī 狮 · rì 日 | 부편판 8과 · 권설음 |
+
+### Level 3 — 복운모 (3 유닛)
+
+성모 + 복운모 블렌딩(소리=병음만).
+
+| 유닛ID | 타겟 운모(소리·병음만) | 블렌딩 예 | 낱말(병음+한자 병기) | 근거 |
+| --- | --- | --- | --- | --- |
+| zh-l3-u01 | ai ei ui | mǎi bēi shuǐ | shuǐ 水 · bēizi 杯子 | 부편판 9과 |
+| zh-l3-u02 | ao ou iu | māo gǒu niú | māo 猫 · gǒu 狗 · niú 牛 | 부편판 10과 |
+| zh-l3-u03 | ie üe er | yè yuè ěr | yuè 月 · ěr 耳 · yè 叶 | 부편판 11과 · üe 철자 |
+
+### Level 4 — 비운모 (2 유닛)
+
+-n·-ng 운모(병음의 유일한 음절말 자음).
+
+| 유닛ID | 타겟 운모(소리·병음만) | 블렌딩 예 | 낱말(병음+한자 병기) | 근거 |
+| --- | --- | --- | --- | --- |
+| zh-l4-u01 | an en in un ün (前鼻) | shān mén yún | shān 山 · mén 门 · yún 云 | 부편판 12과 |
+| zh-l4-u02 | ang eng ing ong (後鼻) | yáng dēng xióng | yáng 羊 · dēng 灯 · xióng 熊 | 부편판 13과 |
+
+🔴 前鼻(-n)↔後鼻(-ng) 은 한국 아이에게 둘 다 "ㅇ 받침"으로 들려 어렵다 → 듣고 고르기로 변별 강화.
+
+### Level 5 — 整体认读音节 + 복습 (3 유닛)
+
+성모+운모로 안 쪼개고 **통째로 읽는 음절 16개**.
+
+| 유닛ID | 타겟 음절(소리·병음만) | 성격 | 근거 |
+| --- | --- | --- | --- |
+| zh-l5-u01 | zhi chi shi ri · zi ci si | 권설/치음 통독 | 整体认读 7 |
+| zh-l5-u02 | yi wu yu · ye yue yuan · yin yun ying | zero-initial 통독 | 整体认读 9 · zip 음원 있음 |
+| zh-l5-u03 | **성조·음절 종합 복습** | 게임만(익히기 X) | 한글 복습 선례 |
+
+- **합계 = 5레벨 17유닛**(성모23·운모24·성조4·통독16 전 범위). 타겟 낱말 ~40개.
+
+## 4. 활동 매핑 (기존 phonics-learner 재사용)
+
+병음 유닛 = **영어 CVC(Book2+) 활동 세트와 동형**(블렌딩 유지). 성조만 신규.
+
+| 활동(kind) | 병음에서 | 한자 노출 | 근거 |
+| --- | --- | --- | --- |
+| `cvc-pattern-learn` (배우기: 성모+운모 블렌딩) | ✅ **재사용** — 성모+운모→음절(병음만) | ❌ 소리 구간 | 영어 CVC 동형. b+à→bà |
+| `consonant-tap` / `consonant-blend-listen` (자음 누르고 합치기) | ✅ **재사용** — 성모 소리·블렌딩 | ❌ | 한글 합치기 동형 |
+| `alphabet-letter-write` (따라쓰기) | ✅ **재사용** — 병음 글자 쓰기 | ❌ | `LetterFillCanvas`(라틴, 폰트 있음) |
+| `letter-hunt` (글자 사냥) | ✅ **재사용** — 병음 사이 목표 글자 찾기 | ❌ | 모양 변별 |
+| `word-listen-choose` (낱말 연습·듣고 고르기) | ✅ **재사용** — 낱말 소리→[그림+병음+한자] 고르기 | ✅ **병기** | 🔴 보기 카드 = 병음 위/한자 아래 |
+| 게임 `game-connect-dots`(낱말 그리기)·`game-word-writing`(낱말 쓰기)·`game-line-matching`(그림 짝) | ✅ **재사용** — 낱말 단위 | ✅ **병기** | 카드에 병음+한자. splitUnits 병음 타일 |
+| `game-english-block`/`game-korean-block` (블록) | ✅ **재사용 검토** — 성모/운모 블록 조립 | ❌(병음 블록) | 블렌딩 있어 블록 학습가 유효(가나와 다름) |
+| **성조 듣고 고르기** (신규-개조) | 🆕 **`word-listen-choose` 개조** — 소리(mā)→성조 4종 보기 | ❌ | 병음만의 축. §3 u03·u05-u03 |
+| **성조 곡선 트레이스** (신규) | 🆕 **가벼운 신규 컴포넌트** — 1성 평·2성↗·3성∨·4성↘ | ❌ | 손동작 성조 원형. 소규모 |
+| `review-*` 6종 | ✅ **재사용** — 복습 유닛(게임만) | 낱말 게임만 병기 | 한글 복습 규칙 그대로 |
+
+**소리 학습 구간(Level 1~5 익히기)엔 한자가 한 글자도 안 나온다.** 한자는 낱말 연습·단어카드·낱말
+게임에서만, 병음 위·한자 아래로.
+
+**유닛 활동 흐름(초안, 영어 CVC 미러):** 배우기(성모+운모 블렌딩, 병음만) → 성조 듣고 고르기 →
+따라쓰기 → 글자 사냥 → [낱말 놀이: 낱말 연습·낱말 그리기·낱말 쓰기·그림 짝 — 여기부터 한자 병기].
+
+## 5. 자산 소요 (물량)
+
+| 자산 | 물량(초안) | 비고 |
+| --- | --- | --- |
+| **병음 음원 클립** | **≈120** (초급 음절 × 성조) | 🔴 **Google TTS `cmn-CN-Chirp3-HD-Leda` 로 통일**(성조 검증됨) → R2 `mod_chinese` 직행. 낱 음절 직행 필수(파닉스는 로딩게이트 없음) |
+| **성조 음원** | 위에 포함(음절당 4성) | 키 = `{음절}{성조 1-4}`(zip 명명 `ma3` 과 동일) |
+| **zip(사용자 제공)** | 파일럿/백업만 | 🔴 **n~z 절반뿐**(part-1 a~m 없음, bà·mā·dà 전부 0) → 초급 커버 불가. 성우 톤 비교용, 섞지 말고 TTS 로 통일 |
+| **단어카드 이미지** | **≈40** (유닛당 2~4 사물어) | 🔴 규격 = **병음 위 / 한자 아래 / 그림**. rembg keypoints·link 스크립트 재사용(한/영 검증). 한자는 Noto SC 로 앱 렌더(별도 자산 불요) |
+| **폰트** | 0 (이미 있음) | ✅ Noto Sans SC(body)·ZCOOL KuaiLe(display) `index.css` 등록됨. 병음 라틴+성조 부호도 커버 |
+| **진입 안내 음성** | 기존 재사용 | UI 로케일 따라감(영어 파닉스 동일) |
+| **서버 배관** | 소 diff | `PhonicsAudioCategory`+`mod_chinese` · `resolveTtsUrl` `'zh'` 직행 분기 · `getChineseSyllableUrl`(한/영 대칭). google-tts zh 무변경 |
+
+## 6. 남은 결정 · 리스크
+
+**빌드 착수 전 확정:**
+- 🔴 **성조 범위·순서 — 미확정.** 기본값 = **1성·4성(평·하강, 대비 큼) → 2성·3성(상승·V, 변별 어려움)**,
+  경성은 뒤 레벨. **파일럿 후 조정**(4~5세 2성↔3성 변별 실측 전엔 확정 X).
+- **정체/간체** — **간체**(zh=中文简体). 한자 병기 규격(낱말 활동)에만 실효.
+- **현지 낱말 1차 확인 — 순서는 해소, 개별 낱말은 남음.** ✅ **레벨·유닛 순서는 YouTube 벤치마크로 이중
+  확인 완료**(2026-08-06, curriculum-draft §벤치마크 — 单韵母→성조→声母 bpmf/dtnl→整体认读 수렴). 🔴 **남은
+  것 = 글자당 대표 낱말** — 병음 노래 영상은 가사 자막 미제공·설명란은 마케팅 문구뿐이라 성모/운모별 대표
+  낱말(a→? b→?)은 못 뽑았다. §3 낱말은 여전히 유아 상용어 초안 → **현지 교재 또는 노래 영상 화면 캡처**로
+  낱말별 "근거: [출처]" 부착이 남는다.
+
+**빌드 중 실측:**
+- 🔴 **낱 음절 발음 품질** — cmn-CN Chirp3-HD 가 낱단어 검증됐으나 **성조별 낱 음절**(mā vs mǎ)을
+  파일럿(L1 단운모 a o e × 4성)으로 실측 후 라이브러리 직행 확정. zip 톤과 A/B 비교.
+- **병음 표시 축 분기** — `splitUnits` 의 zh(한자) 와 병음(라틴) 이 다른 게임을 타므로 병음 유닛을 zh 한자
+  처리와 섞지 않는다(작은 분기).
+
+**보류/후속:**
+- **가타카나식 확장** 없음(병음은 라틴 단일). **성조 sandhi(3성 연속 변조)** 는 유아 라인 범위 밖.
+- **한자 문해 라인**(妈妈 중심)은 병음 파닉스가 아님 → 별도 프로젝트.
+
+## 7. 단계별 로드맵
+
+1. **결정 잠금** — §6 성조 순서(파일럿 후) · 현지 낱말 확인 + §3 유닛 표 검토.
+2. **Level 1 데이터화** — `CHINESE_PHONICS_CURRICULUM` L1(단운모+성조 3유닛) shared 에 작성.
+3. **음원 파일럿** — a o e × 4성(12클립) Google TTS 생성·품질 실측 → `mod_chinese` 직행 경로 + 서버 배관 확정.
+4. **plan + 호스트** — `chinese-phonics-units.ts`(영어 CVC fork, blend 유지) + `ChinesePhonics*Page` + 랜딩 카드.
+   🔴 **plan 등록·랜딩 카드·호스트 분기까지 한 번에** — 안 하면 라우트 도달 불가(죽은 코드, 한/영 반복 함정).
+5. **성조 활동 파일럿** — "성조 듣고 고르기"(`word-listen-choose` 개조) 1종 → 4~5세 변별 UX 실측 →
+   성조 순서(§6) 확정.
+6. **단어카드(한자 병기)** — L2 사물어 이미지 생성(사용자, 병음 위/한자 아래 규격) → link/keypoints 스크립트.
+7. **game-reviewer 검수** — API 서버부터, **바꾼 게 흐르는 전 화면**(유닛 게임·복습까지) 실제 플레이.
+   성공 시 재생 URL·길이·성조 정확도 확인. 🔴 소리 구간에 한자가 새지 않는지도 확인.
+8. **Level 2(성모 블렌딩) → 3 → 4 → 5** 순으로 반복.
+
+## 관련 파일
+
+- 스키마·plan 파생: `packages/shared/src/constants/index.ts`(`ENGLISH_PHONICS_CURRICULUM` = CVC blend 원형) · `packages/client/src/features/phonics-learner/lib/english-phonics-units.ts`(성모+운모 fork 원형)
+- 음원/폰트/TTS(이미 있음): `packages/server/src/providers/google-tts.provider.ts`(`VOICE_BY_LANG.zh`=`cmn-CN-Chirp3-HD-Leda`) · `packages/client/src/index.css` L83·L90(Noto SC/ZCOOL) · `packages/server/src/services/phonics-library.service.ts` · `packages/shared/src/types/storybook.ts`(`PhonicsAudioCategory`)
+- 타일 분해: `packages/shared/src/utils/split-units.ts`(vi 성조 NFC 선례 · zh 한자 1자=1유닛)
+- 1차 자료: `중국어발음표.xlsx`(성모/운모/철자규칙/한글표기) · `중국어+발음mp3(2).zip`(n~z 절반, `{음절}{성조}.mp3`)
+- 조사 원본: [feasibility.md](feasibility.md) · [curriculum-draft.md](curriculum-draft.md)
+</script>
+<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+<script>
+  const src=document.getElementById('src').textContent;
+  marked.setOptions({gfm:true,breaks:false});
+  const doc=document.getElementById('doc');
+  doc.innerHTML=marked.parse(src);
+  // wrap tables for horizontal scroll on mobile
+  doc.querySelectorAll('table').forEach(t=>{const w=document.createElement('div');w.className='tbl';t.replaceWith(w);w.appendChild(t)});
+  // build TOC from h2
+  const toc=document.getElementById('toc');const hs=[...doc.querySelectorAll('h2')];
+  hs.forEach((h,i)=>{const id='s'+i;h.id=id;const a=document.createElement('a');
+    a.href='#'+id;a.textContent=h.textContent.replace(/^\d+\.\s*/,'');toc.appendChild(a)});
+  const links=[...toc.querySelectorAll('a')];
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){
+    const i=hs.indexOf(e.target);links.forEach(l=>l.classList.remove('active'));
+    if(links[i])links[i].classList.add('active')}})},{rootMargin:'-10% 0px -80% 0px'});
+  hs.forEach(h=>obs.observe(h));
+  document.title="중국어 병음 파닉스 커리큘럼 기획서";
+</script>
+</body>
+</html>

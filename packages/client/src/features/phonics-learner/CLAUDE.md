@@ -4,6 +4,15 @@
 
 저작도구의 `features/phonics/` (=AlphabetCardTab 등 편집기) 와 **별개** 모듈. 이쪽은 학습자 학습 흐름.
 
+## 🌏 신규 언어 라인 — 일본어(가나)·중국어(병음) (2026-08-06)
+
+한글·영어에 이어 3·4번째 언어 조사·기획 + 중국어 L1 빌드 착수. **상세·결정·근거 = memory `phonics-japanese-chinese-2026-08-06` · 기획서 `docs/phonics-{japanese,chinese}/`**.
+
+- 🔴 **가나 = 모라 음절 → blend 없음** = 영어 Book1(통글자=소리) 동형. **중국어 병음 = 성모+운모 blend 있음** = 영어 CVC 동형 + **성조가 유일한 새 축**(`splitUnits` 가 베트남어 성조글자 NFC 선례로 흡수, 음원 키 `{음절}{성조}`). 재사용률 중국어>일본어.
+- **중국어 병음 L1 MVP = 빌드됨(WIP·미커밋)** — 단운모 6 + 성조 3유닛. `Chinese{Study,Unit,Activity}Page` · `lib/chinese-phonics-units.ts`(plan 생성기) · `lib/pinyin-audio.ts` · `CHINESE_PHONICS_CURRICULUM`(shared). 🔴 **새 활동 0개** — 전부 `WordListenChooseActivity` 재사용(글자만 보기=Book1 경로, 성조 유닛=4성 보기=듣고 성조 고르기). 랜딩 병음 카드(拼) + 라우트 3개(GuestGate) 한 번에. 성조 순서 **1→2→3→4**.
+- 🔴 **음원 미완** — 새 bake 없이 기존 `resolveUnitTtsUrl(hanzi,'zh')` 재사용인데 **cmn-CN 은 병음이 아니라 한자를 읽는다**(`PINYIN_TTS_HANZI` 매핑). 성조유닛(妈麻马骂)만 정확·**단운모는 성조 근사**(啊哦鹅…). 정확한 단운모 음원엔 사전녹음 병음클립 필요 — 사용자 zip 은 (2)편 성모 n~z뿐(a/o/e·ma 없음, i/u/ü=yi/wu/yu만 있음). game-reviewer 검수 중.
+- 일본어는 기획서만(빌드 미착수). 요음/촉음/장음·가타카나는 후속. 일본어 폰트(Noto Sans JP)는 index.css 미등록(착수 시 추가).
+
 ## 🔴 i18n 미착수 — 나중에 한 번에 옮긴다 (2026-07-30 사용자 확인: "지금은 그대로 기록만")
 
 이 모듈의 화면 글자·안내 음성은 **전부 한국어 하드코딩**이다. 앱의 나머지는 i18n(5개 언어 × 11 ns)인데 **파닉스만 그 밖에** 있다. 지금 대상이 *한국 아이*라 의도된 상태지만, 해외 오픈 때 옮길 것을 알고 남긴다.

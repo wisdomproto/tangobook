@@ -3,4 +3,6 @@ export { default as KoreanPhonicsStudyPage } from './components/KoreanPhonicsStu
 export { default as KoreanPhonicsActivityPage } from './components/KoreanPhonicsActivityPage';
 export { default as EnglishPhonicsStudyPage } from './components/EnglishPhonicsStudyPage';
 export { default as EnglishPhonicsActivityPage } from './components/EnglishPhonicsActivityPage';
+export { default as ChinesePhonicsStudyPage } from './components/ChinesePhonicsStudyPage';
+export { default as ChinesePhonicsActivityPage } from './components/ChinesePhonicsActivityPage';
 // KoreanPhonicsUnitPage / EnglishPhonicsUnitPage 는 StudyPage 내부에서 embedded prop 으로만 사용 (standalone 라우트 X).

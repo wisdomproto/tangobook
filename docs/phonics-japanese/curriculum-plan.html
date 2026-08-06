@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>일본어(가나) 파닉스 커리큘럼 기획서</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>あ</text></svg>">
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
+:root{
+  --accent:#e0574d; --accent2:#f29a6b;
+  --bg:#fbfaf7; --surface:#ffffff; --ink:#20242c; --muted:#6b7280; --line:#ece8e1;
+  --code-bg:#f4f2ee; --th:#fbf1ef; --zebra:#faf9f6;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#15171c; --surface:#1c1f26; --ink:#e6e8ec; --muted:#9aa1ac; --line:#2b2f39;
+  --code-bg:#22262f; --th:#2a2028; --zebra:#1f232b;
+}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:'Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;
+  font-size:16px;line-height:1.72;-webkit-font-smoothing:antialiased;word-break:keep-all}
+.hero{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;padding:44px 24px 40px}
+.hero-in{max-width:1080px;margin:0 auto}
+.badge{display:inline-block;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.35);
+  border-radius:999px;padding:4px 14px;font-size:13px;font-weight:600;letter-spacing:.02em;margin-bottom:14px}
+.hero h1{margin:0;font-size:clamp(24px,4.4vw,38px);font-weight:800;line-height:1.25}
+.hero p{margin:10px 0 0;opacity:.92;font-size:15px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:230px 1fr;gap:40px}
+@media(max-width:860px){.wrap{grid-template-columns:1fr;padding:0 18px}.toc{display:none}}
+.toc{position:sticky;top:20px;align-self:start;max-height:calc(100vh - 40px);overflow:auto;
+  padding:22px 0;font-size:13.5px}
+.toc h4{margin:0 0 10px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.toc a{display:block;color:var(--muted);text-decoration:none;padding:5px 12px;border-left:2px solid transparent;
+  border-radius:0 6px 6px 0;line-height:1.4}
+.toc a:hover{color:var(--ink);background:var(--surface)}
+.toc a.active{color:var(--accent);border-left-color:var(--accent);background:var(--surface);font-weight:600}
+.doc{background:var(--surface);border:1px solid var(--line);border-radius:16px;
+  padding:14px 40px 48px;margin:-22px 0 60px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+@media(max-width:860px){.doc{padding:8px 22px 36px;margin:24px 0 40px}}
+.doc h2{font-size:23px;font-weight:800;margin:44px 0 16px;padding-top:20px;border-top:1px solid var(--line)}
+.doc h2:first-of-type{border-top:0;margin-top:20px}
+.doc h2::before{content:'';display:inline-block;width:5px;height:22px;background:var(--accent);
+  border-radius:3px;vertical-align:-3px;margin-right:12px}
+.doc h3{font-size:17.5px;font-weight:700;margin:30px 0 12px;color:var(--accent)}
+.doc h1{font-size:26px;margin:8px 0 4px}
+.doc p{margin:14px 0}
+.doc a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent}
+.doc a:hover{border-bottom-color:var(--accent)}
+.doc ul,.doc ol{padding-left:22px}.doc li{margin:6px 0}
+.doc blockquote{margin:18px 0;padding:12px 18px;background:var(--code-bg);
+  border-left:4px solid var(--accent2);border-radius:0 10px 10px 0;color:var(--muted);font-size:14.5px}
+.doc blockquote p{margin:4px 0}
+.doc code{background:var(--code-bg);padding:2px 6px;border-radius:5px;font-size:.88em;
+  font-family:'SF Mono',ui-monospace,Menlo,Consolas,monospace}
+.doc pre{background:var(--code-bg);border:1px solid var(--line);border-radius:12px;padding:16px 18px;
+  overflow:auto;font-size:13px;line-height:1.6}
+.doc pre code{background:none;padding:0}
+.tbl{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:12px}
+.doc table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+.doc th,.doc td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+.doc th{background:var(--th);font-weight:700;white-space:nowrap}
+.doc tbody tr:nth-child(even){background:var(--zebra)}
+.doc tbody tr:last-child td{border-bottom:0}
+.doc hr{border:0;border-top:1px solid var(--line);margin:34px 0}
+.doc strong{font-weight:700}
+footer{max-width:1080px;margin:0 auto;padding:0 24px 50px;color:var(--muted);font-size:12.5px;text-align:center}
+</style>
+</head>
+<body>
+<div class="hero"><div class="hero-in">
+  <span class="badge">日本語 · 가나 파닉스</span>
+  <h1>일본어(가나) 파닉스 커리큘럼 기획서</h1>
+  <p>탱고북 파닉스 커리큘럼 기획서 · 2026-08-06</p>
+</div></div>
+<div class="wrap">
+  <nav class="toc"><h4>목차</h4><div id="toc"></div></nav>
+  <main class="doc" id="doc"></main>
+</div>
+<footer>탱고북 · 내부 기획 문서 (조사·기획 · 코드 미변경)</footer>
+
+<script type="text/plain" id="src"># 일본어(가나) 파닉스 — 정식 커리큘럼 기획서
+
+> 2026-08-06 · **상위 기획 문서**(확정판). 근거·조사 원본은 [feasibility.md](feasibility.md)·[curriculum-draft.md](curriculum-draft.md).
+> 코드 미변경 — 기획만. 유닛 표는 사람이 검토·수정하기 쉬운 마크다운 표.
+
+## 1. 개요 / 포지셔닝
+
+**영어(ABC)·한글 파닉스와 나란한 3번째 언어 라인.** 사이드바 파닉스 랜딩에 한글·영어 옆 카드 하나 추가.
+
+- **타겟 = 글로벌 아이(한국 아이 포함), 안내는 각자 UI 언어를 따라간다** — **기존 영어 파닉스와 완전히 같은
+  포지션**(영어를 배우는 대상이 한국 아이만이 아니듯, 일본어도 UI 로케일이 안내를 결정). i18n 은 영어
+  파닉스가 지금 하는 방식 그대로가 baseline(deferred i18n 상태 유지). **일본어 전용 하드코딩 없음.**
+- **설계 전제: 가나 = 모라(mora) 음절 문자 → blend 없음.** 각 가나 = 하나의 온전한 소리(か=/ka/). 한글의
+  자음+모음 조합도, 영어의 CVC 블렌딩도 **없다**. 학습 = 글자↔소리 짝 + 낱말 읽기.
+  → **구조상 영어 Book 1(글자 단위, 통글자=소리)과 동형** — 그 활동 세트를 그대로 물린다.
+
+## 2. 데이터 스키마 (한/영과 동일)
+
+`packages/shared/src/constants/index.ts` 에 `JAPANESE_PHONICS_CURRICULUM` 추가 — `ENGLISH_PHONICS_CURRICULUM`
+과 같은 형태. plan 은 `lib/japanese-phonics-units.ts`(한/영 fork)가 커리큘럼에서 파생(유닛 목록 이중 기재 X).
+
+```ts
+{ level, name, description, units: [
+  { id, title, phonemes: string[], patterns: string[], sampleWords: string[], blending: [] }  // blending 항상 빈 배열
+]}
+// 예: { id:'ja-l1-u02', title:'Unit 02: か행', phonemes:['か','き','く','け','こ'],
+//      patterns:['gojuon-row'], sampleWords:['かに','きりん','くま','けむし','こま'], blending:[] }
+```
+
+## 3. 전체 레벨·유닛 구조 (확정)
+
+**근거(벤치마크, 상세 [curriculum-draft.md §2]):** L2 가이드(Tofugu)·JP-native 상위 조회 노래(しまじろう/베네세
+13.4M · MEWch 3.9M · KidsMusicTime 2.3M · BabyBus 1.3M) **전부 오십음(あいうえお)순·행 단위·모음 선두**.
+→ **오십음순 · 1행=1유닛 · 모음 유닛 선두 · 청음→탁음→특수음 레벨링.**
+
+복습 배치 = 한글 규칙(`chunkForReview`: 레벨 안 유닛 묶음마다, 꼬리≤2는 앞에 합침) 그대로 자동 파생.
+
+### Level 1 — 청음 46 + ん  (10 유닛 + 복습 3)
+
+활동 타입 = **glyph**(통글자, 영어 Book1 형).
+
+| 유닛ID | 타겟 가나 | 타겟 단어(그 가나로 시작) | 비고 |
+| --- | --- | --- | --- |
+| ja-l1-u01 | あ い う え お | あり(개미)・いぬ(개)・うさぎ(토끼)・えび(새우)・おに(도깨비) | 모음 유닛(선두) |
+| ja-l1-u02 | か き く け こ | かに(게)・きりん(기린)・くま(곰)・けむし(애벌레)・こま(팽이) | |
+| ja-l1-u03 | さ し す せ そ | さかな(물고기)・しか(사슴)・すいか(수박)・せみ(매미)・そら(하늘) | し=shi |
+| ja-l1-u04 | た ち つ て と | たこ(문어)・ちず(지도)・つき(달)・て(손)・とり(새) | ち=chi, つ=tsu |
+| **복습 1** | あ~た (20자) | — | 게임만 |
+| ja-l1-u05 | な に ぬ ね の | なす(가지)・にじ(무지개)・ぬいぐるみ(인형)・ねこ(고양이)・のり(김) | |
+| ja-l1-u06 | は ひ ふ へ ほ | はな(꽃)・ひこうき(비행기)・ふね(배)・へび(뱀)・ほし(별) | ふ=fu |
+| ja-l1-u07 | ま み む め も | まり(공)・みかん(귤)・むし(벌레)・めがね(안경)・もも(복숭아) | |
+| ja-l1-u08 | や ゆ よ | やま(산)・ゆき(눈)・よる(밤) | 3자 |
+| **복습 2** | な~や (18자) | — | 게임만 |
+| ja-l1-u09 | ら り る れ ろ | らくだ(낙타)・りんご(사과)・れもん(레몬)・ろうそく(양초) | 🔸る=재인(어두어 희소) |
+| ja-l1-u10 | わ を ん | わに(악어) / **ん**=ぱん·みかん·きりん(끝소리) | 🔸を=조사(재인), ん=어두 불가→끝소리 |
+| **복습 3** | ら~ん (8자) | — | 게임만 |
+
+- **合 46자** = 5×7 + や3 + ら5 + わを2 + ん1. ✓
+- 🔸 **재인(recognition-only) 가나** — `を`(조사 전용)·`る`/`ぬ`(어두 유아어 희소)는 타겟 단어 대신 **읽기
+  재인**. `ん`은 어두 불가라 **끝소리**(ぱん·みかん)로 가르친다 — 실제 교재 관습, 억지 단어 금지.
+
+### Level 2 — 탁음·반탁음 25  (5 유닛 + 복습 1)
+
+근거: 전 교재가 **청음 46 완료 후** 탁점 도입("같은 글자에 점 두 개"). 활동 타입 = glyph.
+
+| 유닛ID | 타겟 가나 | 타겟 단어(초안·재선정 필요) |
+| --- | --- | --- |
+| ja-l2-u01 | が ぎ ぐ げ ご | 🔸어두어 희소 → 재선정(§5). かぎ(열쇠)·めがね 등 **낱말 속 노출** 병행 검토 |
+| ja-l2-u02 | ざ じ ず ぜ ぞ | ぞう(코끼리)・じてんしゃ(자전거)・ざぶとん(방석) |
+| ja-l2-u03 | だ ぢ づ で ど | だるま(달마)・でんしゃ(전차)・どんぐり(도토리) · ぢ/づ=재인 |
+| ja-l2-u04 | ば び ぶ べ ぼ | ばなな(바나나)・びわ(비파)・ぶどう(포도)・ぼうし(모자) |
+| ja-l2-u05 | ぱ ぴ ぷ ぺ ぽ (반탁음) | ぱんだ(판다)・ぴあの(피아노)・ぷりん(푸딩)・ぽけっと(주머니) |
+| **복습 4** | 탁·반탁 25자 | 게임만 |
+
+### Level 3 — 특수음 (요음·촉음·장음)  🔴 후속(MVP 제외 권장)
+
+근거: 요음(2글자=1소리)·촉음(소리 없는 작은っ)·장음(추상)이 4~5세엔 어렵다 — 한글이 복잡한 모음·받침을
+뒤 레벨로 뺀 것과 같은 판단. **MVP = Level 1~2(청음+탁음). Level 3 은 그 뒤.**
+
+- 요음 33 (きゃきゅきょ…) — base 자음별 3~4 유닛으로 묶음. 🔴 타일 단위 = 코드포인트로 き·ゃ 가 쪼개지므로
+  요음까지 넣으면 그 한 곳만 결합 처리(태국어 grapheme 선례) 필요.
+- 촉음っ · 장음ー = 개념 유닛 각 1(낱말 안에서 "작게 멈춤"·"길게").
+- ※ ん(발음)은 어두 불가라 Level 1 u10 에서 **끝소리로 이미 도입** — 별도 유닛 불필요.
+
+### 가타카나 라인 — 별도 레벨(후속)
+
+히라가나 먼저·가타카나 나중(외래어). **같은 오십음 뼈대·같은 음원, 글자 자산만 교체.** 히라가나 라인 완성
+후 병렬 레벨로 붙인다(공수 2배 아님). MVP 범위 밖.
+
+## 4. 활동 매핑 (기존 phonics-learner 재사용)
+
+가나 유닛 = **영어 Book1(glyph) 활동 세트와 동형**. 재사용/삭제:
+
+| 활동(kind) | 가나에서 | 근거 |
+| --- | --- | --- |
+| `alphabet-letter-learn` (통글자 눌러 소리 듣기) | ✅ **재사용** — 가나 눌러 모라 소리 | Book1 「배우기」와 동일. BabyBus「どこのおと」(어느 소리?)와 동형 |
+| `alphabet-letter-write` (통글자 따라쓰기) | ✅ **재사용** — 가나 획 쓰기 | `LetterFillCanvas`(영/한/일 통일). 폰트만 물리면 채점 동작 |
+| `word-listen-choose` (듣고 고르기) | ✅ **재사용** — 낱말 소리→[그림+글자] 고르기 | BabyBus「なまえさがし」와 동형. 🔴 Book1처럼 보기에 낱말 철자 X(글자만) |
+| `letter-hunt` (글자 사냥) | ✅ **재사용** — 오십음 사이 목표 가나 찾기 | 모양 변별. BabyBus 이름찾기 계열 |
+| 게임 `game-connect-dots`(낱말 그리기)·`game-word-writing`(낱말 쓰기)·`game-line-matching`(그림 짝) | ✅ **재사용** | `splitUnits(word,'ja')`=코드포인트=가나 타일 정확 |
+| `game-english-block`/`game-korean-block`(블록 게임) | ⚠️ **Book1처럼 뺄지 검토** — 가나 낱말은 짧고(2~3모라) 블록 조립 학습가가 약함 | Book1도 블록 게임 없음(2026-07-29). 넣으려면 kana 어댑터 분기 |
+| **blend 계열 전부** — `consonant-tap`·`consonant-blend-listen`·`coda-blend-listen`·`vowel-blend-*`·`cvc-pattern-*`·`word-family-learn` | ❌ **삭제** — 가나엔 조합·라임·CVC 없음 | 설계 전제(모라=blend 없음) |
+| `review-*` 6종 (사냥·뒤집기·듣고음절·그림짝·듣고낱말·낱말쓰기) | ✅ **재사용** — 복습 유닛 | 한글 복습 규칙 그대로("복습=게임만, 익히기 금지") |
+
+**유닛 활동 흐름(초안, Book1 미러):** 배우기(가나 눌러 소리) → 듣고 고르기 → 따라쓰기 → 글자 사냥 →
+[낱말 놀이: 낱말 그리기·낱말 쓰기·그림 짝]. 🔴 Book1 이 「듣고 낱말」을 「듣고 글자」와 중복이라 뺀 것처럼,
+가나도 중복 활동은 뺀다.
+
+## 5. 자산 소요 (물량)
+
+| 자산 | 물량(초안) | 비고 |
+| --- | --- | --- |
+| **가나 음원 클립** | **≈104** (청음 46 + 탁·반탁 25 + 요음 33) | MVP(L1+L2)만이면 **71**. blend 없어 concat 거의 불필요 → R2 `mod_japanese` 직행 라이브러리 |
+| **단어카드 이미지** | **≈55** (L1 ~50 + L2 재선정분) | 유닛당 3~5 사물어. rembg keypoints·link 스크립트 재사용(한/영 검증됨) |
+| **폰트** | 1 (Noto Sans JP) | 🔴 `index.css` 에 ja 폰트 **미등록** — zh/th 처럼 `[lang='ja']` 규칙 추가. 현재 가나는 한국어 글꼴 폴백(자형 어색 가능) |
+| **진입 안내 음성** | 기존 자산 재사용 | UI 로케일 따라감(영어 파닉스와 동일) — ja 전용 신규 불필요 |
+| **서버 배관** | 소 diff | `PhonicsAudioCategory`+`mod_japanese` · `parseKey`·`downloadSound` 우선순위 · `resolveTtsUrl` 언어 유니온 `'japanese'` · `getJapaneseMoraUrl` 직행(한글 대칭) |
+
+## 6. 남은 결정 · 리스크
+
+**빌드 착수 전 확정:**
+- **탁음 어두 단어 재선정**(§3 Level2) — が·ざ·だ 어두 유아어가 청음보다 적다. 옵션: (a) 어두어로 채운다
+  (b) 청음 낱말 속에서 노출(かぎ·めがね) (c) 일부 재인. → **혼합** 권장, 표 확정은 사람 검토.
+- **블록 게임 포함 여부**(§4) — Book1 미포함 선례. 가나 기본 = 미포함, 원하면 어댑터 분기.
+
+**빌드 중 실측:**
+- 🔴 **낱 모라 발음 품질** — "き" 같은 1글자 발음. Gemini TTS 짧은 CJK 무응답 이력 → **104(또는 71) 클립을
+  한 번 구워 라이브러리 직행**(Google Chirp3-HD ja 보이스 추가 또는 성우). 파일럿 1행(あ행 5클립)으로 확정.
+- 🔴 **일본어 폰트 실기기 확인** — 미등록 시 조용히 폴백(에러 없음, 팔레트 램프 함정과 같은 부류).
+
+**보류/후속:**
+- **KUMON식 획수순(쓰기 쉬운 글자 먼저)** 대안 — 웹 근거 확보 실패. 확보한 근거 전부 오십음순 지지 →
+  오십음순으로 가되, 소스 재확보되면 재검토.
+- **요음 타일 결합**(§3 Level3) · **가타카나 라인** — Level 3 이후.
+
+## 7. 단계별 로드맵
+
+1. **결정 잠금** — §6 착수 전 항목(탁음 단어·블록 게임 여부) 사람 확정 + §3 유닛 표 검토.
+2. **Level 1 데이터화** — `JAPANESE_PHONICS_CURRICULUM` L1(청음 10유닛) shared 에 작성.
+3. **음원 파일럿** — あ행 5클립 생성·품질 실측 → 라이브러리 직행 경로 확정 + 서버 `mod_japanese` 배관.
+4. **폰트** — `index.css` Noto Sans JP 추가, 실기기 자형 확인.
+5. **plan + 호스트** — `japanese-phonics-units.ts`(Book1 fork, blend 제거) + `JapanesePhonics*Page` + 랜딩 카드.
+   🔴 **plan 등록·랜딩 카드·호스트 분기까지 한 번에** — 안 하면 라우트 도달 불가(죽은 코드, 한/영 반복 함정).
+6. **단어카드** — L1 사물어 이미지 생성(사용자) → link/keypoints 스크립트.
+7. **game-reviewer 검수** — API 서버부터, **바꾼 게 흐르는 전 화면**(유닛 게임·복습까지) 실제 플레이. 성공 시
+   재생 URL·길이 확인.
+8. **Level 2(탁음) → Level 3(특수음) → 가타카나** 순으로 반복.
+
+## 관련 파일
+
+- 스키마·plan 파생: `packages/shared/src/constants/index.ts` · `packages/client/src/features/phonics-learner/lib/{korean,english}-phonics-units.ts` (Book1 plan generator `makeBook1UnitPlan` = 가나 fork 원형)
+- 음원/폰트/TTS: `packages/server/src/services/phonics-library.service.ts` · `packages/client/src/index.css`(ja 폰트 없음) · `packages/client/src/features/tts/resolveTtsUrl.ts` · `packages/server/src/providers/gemini-tts.provider.ts`(`ja:'ja-JP'` 있음)
+- 조사 원본: [feasibility.md](feasibility.md) · [curriculum-draft.md](curriculum-draft.md)
+</script>
+<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+<script>
+  const src=document.getElementById('src').textContent;
+  marked.setOptions({gfm:true,breaks:false});
+  const doc=document.getElementById('doc');
+  doc.innerHTML=marked.parse(src);
+  // wrap tables for horizontal scroll on mobile
+  doc.querySelectorAll('table').forEach(t=>{const w=document.createElement('div');w.className='tbl';t.replaceWith(w);w.appendChild(t)});
+  // build TOC from h2
+  const toc=document.getElementById('toc');const hs=[...doc.querySelectorAll('h2')];
+  hs.forEach((h,i)=>{const id='s'+i;h.id=id;const a=document.createElement('a');
+    a.href='#'+id;a.textContent=h.textContent.replace(/^\d+\.\s*/,'');toc.appendChild(a)});
+  const links=[...toc.querySelectorAll('a')];
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){
+    const i=hs.indexOf(e.target);links.forEach(l=>l.classList.remove('active'));
+    if(links[i])links[i].classList.add('active')}})},{rootMargin:'-10% 0px -80% 0px'});
+  hs.forEach(h=>obs.observe(h));
+  document.title="일본어(가나) 파닉스 커리큘럼 기획서";
+</script>
+</body>
+</html>

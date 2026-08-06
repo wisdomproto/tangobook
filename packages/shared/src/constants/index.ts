@@ -1287,9 +1287,50 @@ export const KOREAN_PHONICS_CURRICULUM = [
   },
 ] as const;
 
-export type PhonicsLanguage = 'english' | 'korean';
+/**
+ * 중국어 병음(拼音) 파닉스 커리큘럼 — 기획서(docs/phonics-chinese/curriculum-plan.md) 기반.
+ *
+ * 🔴 **MVP = Level 1 만**(단운모 6 + 성조 도입). L2~L5(성모 블렌딩·복운모·비운모·整体认读)는 후속이며
+ *    같은 스키마로 이어붙인다. 소리 학습 구간은 **병음만**(한자 없음) — 한자 병기는 낱말 활동에서만
+ *    (L1 엔 낱말 활동 없음). 배열 근거 = 部编版 순서 + YouTube 벤치마크(단운모 선두 → 성조 → 성모).
+ * 🔴 성조 순서 = 1→2→3→4(숫자 순, 결정 잠금 2026-08-06). `sampleWords` = **표시용 병음**(성조부호 포함).
+ */
+export const CHINESE_PHONICS_CURRICULUM = [
+  {
+    level: 'level1',
+    name: 'Level 1: 단운모 + 성조',
+    description: '병음 단운모 a o e i u ü 와 4성',
+    units: [
+      {
+        id: 'zh-l1-u01',
+        title: 'Unit 01: a o e',
+        phonemes: ['a', 'o', 'e'],
+        patterns: ['single final'],
+        sampleWords: ['a', 'o', 'e'],
+      },
+      {
+        id: 'zh-l1-u02',
+        title: 'Unit 02: i u ü',
+        phonemes: ['i', 'u', 'ü'],
+        patterns: ['single final'],
+        sampleWords: ['i', 'u', 'ü'],
+      },
+      {
+        id: 'zh-l1-u03',
+        // 성조 도입 — 같은 소리 ma 를 4성으로: mā má mǎ mà(妈 麻 马 骂)
+        title: 'Unit 03: 성조 mā má mǎ mà',
+        phonemes: ['ma'],
+        patterns: ['tones'],
+        sampleWords: ['mā', 'má', 'mǎ', 'mà'],
+      },
+    ],
+  },
+] as const;
+
+export type PhonicsLanguage = 'english' | 'korean' | 'chinese';
 export type EnglishPhonicsLevel = (typeof ENGLISH_PHONICS_CURRICULUM)[number]['level'];
 export type KoreanPhonicsLevel = (typeof KOREAN_PHONICS_CURRICULUM)[number]['level'];
+export type ChinesePhonicsLevel = (typeof CHINESE_PHONICS_CURRICULUM)[number]['level'];
 
 /** 한글 숲 친구들 — 유닛별 기본 스토리 테마 + 등장 캐릭터 (12지신) */
 export const KOREAN_UNIT_STORY_DEFAULTS: Record<
