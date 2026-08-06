@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PhonicsEmbeddedProvider } from './ActivityShell';
 import { EmbedStage } from './EmbedStage';
@@ -51,6 +51,34 @@ const BLEND_KINDS = [
 
 export function PhonicsTryIt({ unitId, activityKey, title, height, note, cta }: Props) {
   const [done, setDone] = useState(false);
+  const boxRef = useRef<HTMLDivElement>(null);
+
+  /**
+   * **도달률 계측** — 이 상자가 화면에 들어오면 GA4 로 한 번 쏜다(2026-08-06).
+   *
+   * 🔴 상자를 몇 개 둘지가 계속 **판단**이었다("아홉은 많다"). 랜딩이 28.4화면인데 어디서
+   *    사람이 멈추는지 아무도 모르는 채로 자르고 붙였다 — 다음엔 **숫자로** 자르려고 남긴다.
+   * 🔴 `once` 로 잠근다 — 스크롤을 오르내리면 같은 상자가 수십 번 쏜다.
+   * 🔴 `gtag` 가 없으면 조용히 아무것도 안 한다(광고차단·개발 환경). 계측이 화면을 깨뜨리면 안 된다.
+   */
+  const sent = useRef(false);
+  useEffect(() => {
+    const el = boxRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (sent.current || !entries.some((e) => e.isIntersecting)) return;
+        sent.current = true;
+        (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag?.('event', 'tryit_view', {
+          activity: activityKey ?? 'auto',
+          unit: unitId,
+        });
+      },
+      { threshold: 0.3 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [activityKey, unitId]);
 
   const plan = getActivityPlan(unitId);
   const activity = activityKey
@@ -67,7 +95,10 @@ export function PhonicsTryIt({ unitId, activityKey, title, height, note, cta }: 
      *    페이지보다 넓어** 위아래 카드와 가로선이 어긋난다. 이제 잘림은 `EmbedStage` 가 축소로 풀고,
      *    상자는 다른 섹션과 같은 폭을 쓴다.
      */
-    <div className="my-7 overflow-hidden rounded-[26px] border border-coral-200 bg-white shadow-sm">
+    <div
+      ref={boxRef}
+      className="my-7 overflow-hidden rounded-[26px] border border-coral-200 bg-white shadow-sm"
+    >
       <div className="flex items-center justify-between gap-3 border-b border-ink-100 px-5 py-3">
         <span className="text-lg font-extrabold text-ink-800 break-keep">
           {title ?? `${activity.emoji} ${activity.title}`}
