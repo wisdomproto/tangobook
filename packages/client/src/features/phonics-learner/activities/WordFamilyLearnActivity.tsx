@@ -189,30 +189,44 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
     [rows, say, rest, chime, playCorrectSequence]
   );
 
-  // ── 써보기 단계 — 낱말 전체를 한 글자씩 쓰고, 다 쓰면 그 낱말을 읽어준 뒤 다음 낱말 ──
+  // ── 써보기 단계 — **패턴(라임) 먼저** 한 글자씩 쓰고, 다 쓰면 낱말을 읽어준 뒤 다음 낱말 ──
   const writeWord = words[writeIdx];
   const writeLetters = useMemo(() => (writeWord ? [...writeWord.word] : []), [writeWord]);
 
-  // 🔴 한 글자 쓸 때마다 **지금까지 이어읽기**(f → fl → fla) — 사용자: "쓸 때마다 안 읽어줘?".
-  //    마지막 글자는 handleWriteComplete 가 낱말 전체를 읽으므로 여기서 건너뛴다(소리 겹침 방지).
+  /**
+   * 🔴 **쓰는 순서 = 패턴 먼저**(2026-08-06 사용자: "can 을 a,n,c 순서로. bake 는 a,k,e,b").
+   *    `patternHighlight` 자리를 먼저(시각 순서), 그다음 나머지. `can`(_an)→`[1,2,0]` · `bake`(_ake)→
+   *    `[1,2,3,0]` · `black`(bl_)→`[0,1,2,3,4]`(패턴이 앞이라 좌→우) · `feet`(ee)→`[1,2,0,3]`.
+   */
+  const writeOrder = useMemo(() => {
+    if (!writeWord) return [] as number[];
+    const [s, e] = patternHighlight(writeWord.word, pattern);
+    const pat: number[] = [];
+    const rest: number[] = [];
+    for (let i = 0; i < writeWord.word.length; i++) (i >= s && i < e ? pat : rest).push(i);
+    return pat.length ? [...pat, ...rest] : rest;
+  }, [writeWord, pattern]);
+  // 지금까지 쓴 칸(인덱스) — 시각 순서로 이어읽기용. 낱말이 바뀌면 리셋(handleWriteComplete).
+  const writtenRef = useRef<number[]>([]);
+
+  // 🔴 한 칸 쓸 때마다 **지금까지 쓴 칸을 시각 순서로 이어읽는다**(can: a→애·an→앤 / bake: a→ak→ake).
+  //    낱말을 완성하는 마지막 칸의 onSyllableDone 은 WordFillCanvas 가 생략하므로(onComplete 가 낱말을
+  //    읽어 겹침 방지), 여기선 중간 칸만 온다.
   const handleWriteLetter = useCallback(
-    (letter: string, index: number) => {
-      if (writeDoneRef.current || index + 1 >= writeLetters.length) return;
+    (_letter: string, index: number) => {
+      if (writeDoneRef.current) return;
+      if (!writtenRef.current.includes(index)) writtenRef.current.push(index);
+      const soFar = [...writtenRef.current]
+        .sort((a, b) => a - b)
+        .map((i) => writeLetters[i])
+        .join('');
       void (async () => {
-        const blend = writeLetters.slice(0, index + 1).join('');
-        const url =
-          (await resolveTtsUrl({
-            text: blend,
-            language: 'english',
-            storybookId: unitId,
-            identifierPrefix: 'en-family',
-          })) ??
-          (await resolveTtsUrl({
-            text: letter,
-            language: 'english',
-            storybookId: unitId,
-            identifierPrefix: 'en-family',
-          }));
+        const url = await resolveTtsUrl({
+          text: soFar,
+          language: 'english',
+          storybookId: unitId,
+          identifierPrefix: 'en-family',
+        });
         // 띵동 먼저, 끝나면 이어읽기(한 채널이라 동시에 내면 앞소리가 잘린다).
         chime(() => {
           if (url) playAudio(url);
@@ -238,6 +252,7 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
           onMarkComplete();
         } else {
           writeDoneRef.current = false;
+          writtenRef.current = []; // 다음 낱말은 처음부터 이어읽기
           setWriteIdx((i) => i + 1);
         }
       },
@@ -294,6 +309,7 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
                 key={writeIdx}
                 word={writeWord.word}
                 syllables={writeLetters}
+                order={writeOrder}
                 onSyllableDone={handleWriteLetter}
                 onComplete={handleWriteComplete}
               />
