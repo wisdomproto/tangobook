@@ -12,6 +12,7 @@ import {
   patternLabel as makePatternLabel,
   patternHighlight,
   patternHighlightRanges,
+  isMagicEPattern,
 } from '../lib/english-phonics-units';
 
 export interface FamilyWord {
@@ -64,15 +65,32 @@ type Row = {
   segs: string[];
   patCellIdx: number; // 패턴 조각이 몇 번째 칸인지(색용)
   cells: string[]; // 조각들 + 낱말
+  magicE: boolean; // 매직-e = 대비형(연결자 전부 →)
 };
 function splitRow(word: string, imageUrl: string | undefined, pattern: string): Row {
+  // 🔴 매직-e = **대비형** `[ak] → [ake] → [word]`(2026-08-06 사용자: e 붙기 전/후 소리 비교).
+  //    라이브러리(mod_phonics)에 짧은 rime(ak)·긴 rime(ake) 클립이 세트로 있어 각 칸이 그 소리를 낸다.
+  //    'ak'(/æk/) 를 누르면 짧은 소리, 'ake'(/eɪk/) 를 누르면 e 가 바꾼 긴 소리 → 'bake' 낱말.
+  if (isMagicEPattern(pattern)) {
+    const [s, e] = patternHighlight(word, pattern);
+    const rime = word.slice(s, e); // "ake"
+    const rimeShort = rime.slice(0, -1); // "ak" (묵음 e 뺀 것)
+    return { word, imageUrl, segs: [rimeShort, rime], patCellIdx: 1, cells: [rimeShort, rime, word], magicE: true }; // prettier-ignore
+  }
   const [s, e] = patternHighlight(word, pattern);
   const pat = word.slice(s, e);
-  if (!pat) return { word, imageUrl, segs: [word], patCellIdx: 0, cells: [word] };
+  if (!pat) return { word, imageUrl, segs: [word], patCellIdx: 0, cells: [word], magicE: false };
   const before = s > 0 ? word.slice(0, s) : '';
   const after = e < word.length ? word.slice(e) : '';
   const segs = [before, pat, after].filter(Boolean);
-  return { word, imageUrl, segs, patCellIdx: before ? 1 : 0, cells: [...segs, word] };
+  return {
+    word,
+    imageUrl,
+    segs,
+    patCellIdx: before ? 1 : 0,
+    cells: [...segs, word],
+    magicE: false,
+  };
 }
 
 /**
@@ -320,7 +338,7 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
                     : 'left';
                 return (
                   <Fragment key={ci}>
-                    {ci > 0 && <Connector char={isWordCell ? '→' : '+'} />}
+                    {ci > 0 && <Connector char={row.magicE || isWordCell ? '→' : '+'} />}
                     <Cell
                       label={cell}
                       pressed={pressed.has(`${wi}-${ci}`)}

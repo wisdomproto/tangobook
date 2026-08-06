@@ -359,6 +359,13 @@ flashcard 그림 + keypoints + `wordFamilies[].words[].ttsUrl`(ABC 나무 카드
   나란히 놓고 **공통 철자만 코랄로 강조**(bake·cake — `ake` 강조 / black·blade — `bl` 강조 / feet — `ee` 강조)해
   눌러 듣는다. 다 들으면 칭찬+완료, 그 뒤 자유놀이. 🔴 Book 2 의 `cvc-pattern-learn` 은 **CVC 전용**(자음+라임)
   이라 Magic-e·앞 블렌드·모음팀에 안 맞아 못 쓴다(그래서 낱말가족용 새 컴포넌트가 필요했다).
+- 🔴 **매직-e 배우기 = 대비형 `[ak] → [ake] → [bake]`**(2026-08-06 사용자) — 조각을 눌러 e 붙기 전/후 소리를
+  비교(`ak`=/æk/·`ake`=/eɪk/) 후 낱말. `WordFamilyLearnActivity.splitRow` 의 `isMagicEPattern` 분기(Book 4/5 는
+  `[before][pattern][after]` 그대로). 🔴 **라이브러리(`mod_phonics`)에 짧은/긴 rime 클립이 세트로 있다** —
+  `ak`·`ake`·`in`·`ine`·`ub`·`ube`… Book 3 rime 46개(짧은 23+긴 23) 전부 R2 200. `say("ak")` 가
+  getEnglishPhonemeUrl 로 `mod_phonics/ak.mp3` 직행. 🔴 **whisper 로 짧은 rime 을 검증하지 말 것** — 고립된
+  /æk/ 를 "Fuck"·"Act" 로, /ɪn/ 을 "n" 으로 오인식한다(클립은 멀쩡한데 "음원이 깨졌다"고 오판해 헛돌았다).
+  낱말 칸은 여전히 plain 낱말(bake) — 매직-e 소리는 조각이 가르친다.
 - 🔴 **매직-e 낱말 음원 = `[장모음 이름] [낱말]`**(2026-08-04, `scripts/regen-magice-word-tts.ts`) — 예전엔
   낱말만 읽어(사용자: "그냥 케이브라고만 읽어주는데?") 매직-e 를 안 가르쳤다. e 가 모음을 **이름대로 말하게**
   하므로 `cave`→"A cave"(에이 케이브)·`bike`→"I bike"·`bone`→"Oh bone"·`cube`→"U cube". 🔴 **concat(라이브러리
