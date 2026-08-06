@@ -173,16 +173,25 @@ export function WordFillCanvas({
         }
       }
     }
+    const newlyDone: number[] = [];
     for (let i = 0; i < ranges.length; i++) {
       if (doneRef.current[i]) continue;
       if (ranges[i].guide > 0 && painted[i] / ranges[i].guide >= threshold) {
-        doneRef.current[i] = true;
-        // 완성해도 자동 재도색하지 않는다 (요청) — 사용자가 칠한 emerald 그대로 유지.
-        setDoneCount(doneRef.current.filter(Boolean).length);
-        onSyllableDone?.(syllables[i], i);
+        doneRef.current[i] = true; // 완성해도 자동 재도색 X — 사용자가 칠한 emerald 그대로.
+        newlyDone.push(i);
       }
     }
-    if (doneRef.current.every(Boolean) && !completedRef.current) {
+    if (newlyDone.length) setDoneCount(doneRef.current.filter(Boolean).length);
+    const allDone = doneRef.current.every(Boolean);
+    // 🔴 이 evaluate 에서 낱말이 **완성되면** 이번에 새로 끝난 글자의 개별 이어읽기(onSyllableDone)는
+    //    내지 않는다 — onComplete 가 낱말 전체를 읽으므로 같은 채널에서 겹친다(한 획으로 마지막 두
+    //    칸을 몰아 칠할 때 `bak`+`bake`+띵동이 같은 ms 에 났다, 2026-08-06 검수). 완성이 아니면 이어읽기.
+    //    소비자는 어차피 마지막 글자 이어읽기를 스킵하므로(게임 플레이어=microtask defer, 배우기=index
+    //    체크) 마지막 글자의 onSyllableDone 을 안 내는 것은 동작 불변이다.
+    if (!allDone) {
+      for (const i of newlyDone) onSyllableDone?.(syllables[i], i);
+    }
+    if (allDone && !completedRef.current) {
       completedRef.current = true;
       onComplete?.();
     }
