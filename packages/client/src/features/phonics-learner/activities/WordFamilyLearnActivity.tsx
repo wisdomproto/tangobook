@@ -89,11 +89,12 @@ function splitRow(word: string, imageUrl: string | undefined, pattern: string): 
 export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete, onBack }: Props) {
   const label = makePatternLabel(pattern);
   const labelRanges = patternHighlightRanges(label, pattern);
-  const { say, rest, chime, playCorrectSequence, praiseVisible, playAudio } = useActivitySound({
-    unitId,
-    language: 'english',
-    prefix: 'en-family',
-  });
+  const { say, rest, chime, sayThenChime, playCorrectSequence, praiseVisible, playAudio } =
+    useActivitySound({
+      unitId,
+      language: 'english',
+      prefix: 'en-family',
+    });
   // 진입 안내 — 화면의 "낱말을 눌러 들어봐!" 에 맞는 음성(사용자: 화면마다 멘트 통일).
   useEntryGuide(ENTRY_GUIDE.listenExplore, playAudio);
 
@@ -209,18 +210,21 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
     const w = words[writeIdx];
     if (!w) return;
     const isLast = writeIdx + 1 >= words.length;
-    // 🔴 다 쓰면 **그냥 낱말**을 읽는다(학습 화면과 통일 — 매직-e 소리는 조각이 가르쳤다). onEnded 체인.
-    say(w.word, () => {
-      if (isLast) {
-        playCorrectSequence({ language: 'en', onDone: onMarkComplete });
-      } else {
-        rest(() => {
+    // 🔴 다 쓰면 **그냥 낱말**을 읽고(매직-e 소리는 조각이 가르쳤다) → **띵동/칭찬** → 다음 낱말.
+    //    sayThenChime = 읽기→쉼→(띵동 or 칭찬)→쉼→onDone. 예전엔 낱말만 읽고 조용히 넘어가
+    //    다음 단어로 갈 때 효과음이 없었다(2026-08-06 사용자 지적).
+    sayThenChime(w.word, {
+      praise: isLast,
+      onDone: () => {
+        if (isLast) {
+          onMarkComplete();
+        } else {
           writeDoneRef.current = false;
           setWriteIdx((i) => i + 1);
-        });
-      }
+        }
+      },
     });
-  }, [words, writeIdx, say, rest, playCorrectSequence, onMarkComplete]);
+  }, [words, writeIdx, sayThenChime, onMarkComplete]);
 
   const dots = (
     <div className="flex items-center gap-1.5">
