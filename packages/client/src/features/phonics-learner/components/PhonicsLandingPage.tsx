@@ -1,14 +1,20 @@
 import { Link } from 'react-router-dom';
+import { useAuth } from '@/features/auth/context/AuthContext';
+import { isDevEmail } from '@/config/dev';
 
 /**
  * /library/phonics — 한글/영어 파닉스 선택 페이지.
  *
- * AppShell 안에서 렌더 — 헤더 (파닉스 타이틀) + 본문 (2 카드). 한글·영어 둘 다 진입 가능.
+ * AppShell 안에서 렌더 — 헤더 (파닉스 타이틀) + 본문. 한글·영어는 공개.
+ * 🔴 중국어 병음은 아직 기획단계(WIP)라 **dev-only** — 라우트·코드는 살려 두되 카드만 개발자에게만
+ *    보인다(2026-08-06 사용자: "아직 기획단계인데 오버햇네"). 열 땐 `isDev` 조건만 지우면 된다.
  *
  * 디자인 (2026-05-20): 코랄/블루 큰 컬러 카드 + 거대 character + 데코 blob.
  * BookDetailPage ModeCard 톤과 일관.
  */
 export default function PhonicsLandingPage() {
+  const { account } = useAuth();
+  const isDev = isDevEmail(account?.email);
   return (
     <div className="px-4 sm:px-6 py-6 max-w-[1200px] mx-auto">
       <h1 className="text-2xl sm:text-3xl md:text-4xl font-black font-display text-ink-900 mb-1">
@@ -109,48 +115,50 @@ export default function PhonicsLandingPage() {
           </div>
         </Link>
 
-        {/* 중국어 병음 파닉스 — emerald 톤. 전용 마스코트 자산 전 임시 拼 글리프. */}
-        <Link
-          to="/library/phonics/chinese"
-          className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-600 shadow-soft hover:shadow-pop active:scale-[0.99] transition aspect-[4/3] md:aspect-[5/4] p-6 sm:p-8 text-white flex flex-col justify-between"
-        >
-          <div
-            aria-hidden
-            className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-white/15 blur-2xl"
-          />
-          <div
-            aria-hidden
-            className="absolute -bottom-16 -left-10 w-40 h-40 rounded-full bg-emerald-300/30 blur-2xl"
-          />
-          <div className="relative flex items-center justify-between">
-            <span className="px-3 py-1 rounded-full bg-white/25 backdrop-blur-sm text-xs sm:text-sm font-black tracking-wide">
-              拼音
-            </span>
-            <span className="px-3 py-1 rounded-full bg-white/25 backdrop-blur-sm text-xs sm:text-sm font-black">
-              4-7세
-            </span>
-          </div>
-          <div className="relative flex items-end justify-between gap-4">
-            <div className="flex-1 min-w-0">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-display leading-tight break-keep">
-                중국어 병음
-              </h2>
-              <p className="text-xs sm:text-sm md:text-base font-bold mt-1 text-white/90 break-keep">
-                성모 · 운모 · 성조를 소리로
-              </p>
-              <div className="mt-3 sm:mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-emerald-600 font-black text-sm sm:text-base shadow-soft group-hover:shadow-pop transition">
-                시작하기
-                <span className="text-base sm:text-lg">→</span>
-              </div>
-            </div>
-            <span
+        {/* 중국어 병음 파닉스 — emerald 톤. 🔴 WIP(기획단계) → dev-only. 전용 마스코트 자산 전 임시 拼 글리프. */}
+        {isDev && (
+          <Link
+            to="/library/phonics/chinese"
+            className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-600 shadow-soft hover:shadow-pop active:scale-[0.99] transition aspect-[4/3] md:aspect-[5/4] p-6 sm:p-8 text-white flex flex-col justify-between"
+          >
+            <div
               aria-hidden
-              className="text-6xl sm:text-7xl md:text-8xl font-black font-display shrink-0 drop-shadow-[0_8px_20px_rgba(0,0,0,0.3)] group-hover:scale-105 transition -mr-1"
-            >
-              拼
-            </span>
-          </div>
-        </Link>
+              className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-white/15 blur-2xl"
+            />
+            <div
+              aria-hidden
+              className="absolute -bottom-16 -left-10 w-40 h-40 rounded-full bg-emerald-300/30 blur-2xl"
+            />
+            <div className="relative flex items-center justify-between">
+              <span className="px-3 py-1 rounded-full bg-white/25 backdrop-blur-sm text-xs sm:text-sm font-black tracking-wide">
+                拼音
+              </span>
+              <span className="px-3 py-1 rounded-full bg-white/25 backdrop-blur-sm text-xs sm:text-sm font-black">
+                4-7세
+              </span>
+            </div>
+            <div className="relative flex items-end justify-between gap-4">
+              <div className="flex-1 min-w-0">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-display leading-tight break-keep">
+                  중국어 병음
+                </h2>
+                <p className="text-xs sm:text-sm md:text-base font-bold mt-1 text-white/90 break-keep">
+                  성모 · 운모 · 성조를 소리로
+                </p>
+                <div className="mt-3 sm:mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-emerald-600 font-black text-sm sm:text-base shadow-soft group-hover:shadow-pop transition">
+                  시작하기
+                  <span className="text-base sm:text-lg">→</span>
+                </div>
+              </div>
+              <span
+                aria-hidden
+                className="text-6xl sm:text-7xl md:text-8xl font-black font-display shrink-0 drop-shadow-[0_8px_20px_rgba(0,0,0,0.3)] group-hover:scale-105 transition -mr-1"
+              >
+                拼
+              </span>
+            </div>
+          </Link>
+        )}
       </div>
     </div>
   );
