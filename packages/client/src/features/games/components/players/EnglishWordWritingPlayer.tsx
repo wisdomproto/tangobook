@@ -13,6 +13,10 @@ import { resolveTtsUrl } from '@/features/tts';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
 import { useStorybook } from '@/features/storybook';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
+import {
+  patternHighlight,
+  wordMatchesPattern,
+} from '@/features/phonics-learner/lib/english-phonics-units';
 
 /**
  * 영어 단어 따라쓰기 — 단어 전체를 한 번에 표시(WordFillCanvas)하고 **글자 단위**로 색칠 채점.
@@ -58,6 +62,26 @@ export function EnglishWordWritingPlayer({
     [currentItem.word, currentItem.traceWord]
   );
 
+  /**
+   * 🔴 **쓰는 순서 = 패턴 먼저**(2026-08-06 사용자: "낱말쓰기 게임도 순서 익히기처럼"). 익히기 써보기와
+   *    같은 규칙 — 단원 패턴이 낱말에 있으면 그 자리를 먼저(시각 순서), 그다음 나머지. bake→`[1,2,3,0]`.
+   *    파닉스 단원이 아니거나(패턴 없음) Book 1(첫 글자만) 이면 좌→우(undefined).
+   */
+  const writeOrder = useMemo(() => {
+    if (currentItem.traceWord) return undefined;
+    const patterns = sourceStorybook?.phonicsConfig?.targetPatterns ?? [];
+    const pat = patterns.find((p) => wordMatchesPattern(currentItem.word, p));
+    if (!pat) return undefined;
+    const [s, e] = patternHighlight(currentItem.word, pat);
+    if (s >= e) return undefined;
+    const first: number[] = [];
+    const rest: number[] = [];
+    for (let i = 0; i < letters.length; i++) (i >= s && i < e ? first : rest).push(i);
+    return [...first, ...rest];
+  }, [currentItem.word, currentItem.traceWord, sourceStorybook, letters]);
+  // 지금까지 쓴 칸(인덱스) — 시각 순서로 이어읽기용. 낱말 바뀌면 리셋(advanceToNext).
+  const writtenRef = useRef<number[]>([]);
+
   // 🔴 진입 안내 음성 — 화면엔 "글자를 따라 써봐" 글자가 있는데 음성이 없어 파닉스 쓰기 활동과
   //    어긋났다(사용자: "어디서는 따라 써봐 멘트 나오고 어디서는 안 나오네"). 한 번만 재생한다.
   const guidedRef = useRef(false);
@@ -87,6 +111,7 @@ export function EnglishWordWritingPlayer({
         onComplete(score, items.length * 100);
       } else {
         completedRef.current = false;
+        writtenRef.current = []; // 다음 낱말은 처음부터 이어읽기
         setCurrentIndex((i) => i + 1);
       }
     },
@@ -99,12 +124,17 @@ export function EnglishWordWritingPlayer({
   const handleLetterDone = useCallback(
     (letter: string, index: number) => {
       lastLetterRef.current = letter;
+      if (!writtenRef.current.includes(index)) writtenRef.current.push(index);
       queueMicrotask(() => {
         if (completedRef.current) return; // 마지막 글자 = handleWordComplete 가 처리
         void (async () => {
-          // 🔴 낱글자가 아니라 **여기까지 이어 읽기** — b → ba → bat.
-          //    파닉스 라이브러리에 그 블렌드가 있으면 그걸 쓰고, 없으면 방금 쓴 음소만 읽는다.
-          const blend = letters.slice(0, index + 1).join('');
+          // 🔴 낱글자가 아니라 **지금까지 쓴 칸을 시각 순서로 이어 읽기** — 쓰는 순서(order)가 패턴
+          //    먼저라도 소리는 왼→오른쪽 누적으로: bake = a → ak → ake. 라이브러리에 그 블렌드가 있으면
+          //    그걸(ak·ake), 없으면 방금 쓴 음소만.
+          const blend = [...writtenRef.current]
+            .sort((a, b) => a - b)
+            .map((i) => letters[i])
+            .join('');
           const url =
             (await resolveTtsUrl({
               text: blend,
@@ -228,6 +258,7 @@ export function EnglishWordWritingPlayer({
               key={currentIndex}
               word={currentItem.word}
               syllables={letters}
+              order={writeOrder}
               onSyllableDone={handleLetterDone}
               onComplete={handleWordComplete}
             />
