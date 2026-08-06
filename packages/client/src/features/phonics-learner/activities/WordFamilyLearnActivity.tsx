@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { warmAudioUrl, usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
@@ -10,6 +10,7 @@ import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import {
   patternLabel as makePatternLabel,
+  patternHighlight,
   patternHighlightRanges,
 } from '../lib/english-phonics-units';
 
@@ -50,14 +51,40 @@ function Highlighted({
 }
 
 /**
+ * 한 낱말을 **소리 조각**으로 쪼갠다 — Book 2 CVC 배우기와 같은 `[자음]+[운모]→[낱말]` 구조.
+ * `patternHighlight` 이 낱말 안 패턴 자리(연속 구간)를 주므로 앞/패턴/뒤로 가른다.
+ *   · 매직-e `_ake`: bake → `[b] [ake]` (뒤 없음)
+ *   · 블렌드 `bl_`:  black → `[bl] [ack]`(앞 없음)
+ *   · 모음팀 `ee`:   feet → `[f] [ee] [t]`
+ * cells = 조각들 + **낱말 전체**(마지막 칸). 조각을 다 누르면 이미지가 오른쪽에 뜬다.
+ */
+type Row = {
+  word: string;
+  imageUrl?: string;
+  segs: string[];
+  patCellIdx: number; // 패턴 조각이 몇 번째 칸인지(색용)
+  cells: string[]; // 조각들 + 낱말
+};
+function splitRow(word: string, imageUrl: string | undefined, pattern: string): Row {
+  const [s, e] = patternHighlight(word, pattern);
+  const pat = word.slice(s, e);
+  if (!pat) return { word, imageUrl, segs: [word], patCellIdx: 0, cells: [word] };
+  const before = s > 0 ? word.slice(0, s) : '';
+  const after = e < word.length ? word.slice(e) : '';
+  const segs = [before, pat, after].filter(Boolean);
+  return { word, imageUrl, segs, patCellIdx: before ? 1 : 0, cells: [...segs, word] };
+}
+
+/**
  * 🔊 낱말가족 배우기 — 이퓨처 「Learn: Listen and repeat」의 낱말가족 버전(2026-08-01).
  *
- * 🔴 Book 2 의 `cvc-pattern-learn` 은 CVC 전용(자음+라임)이라 Magic-e(`-ake`)·앞 블렌드(`bl-`)·
- *    모음팀(`ee`)에 안 맞는다. 그래서 세 유형을 **한 화면**으로: 낱말들을 나란히 놓고 **공통 철자만
- *    코랄로 강조**해 "같은 자리에 같은 글자" 를 눈으로 보여주고, 눌러서 그 낱말을 듣는다.
- *    (예전엔 이 자리에 듣고 고르기 퀴즈를 뒀는데 그건 배우기가 아니라 시험이었다 — 사용자 지적.)
+ * 🔴 **소리 조각으로 나눠 듣는다**(2026-08-06 사용자: "b 랑 ake, bake 따로 놓고 각각 눌러보게, 다 누르면
+ *    이미지"). 예전엔 `[그림][낱말]` 한 줄이라 오른쪽이 비고, 낱말을 통째로만 들려줬다. 이제 Book 2 CVC
+ *    배우기와 같은 `[b]+[ake]→[bake]` 구조 — 조각을 각각 눌러 듣고(자음 /b/·라임 /eɪk/·낱말 "A bake"),
+ *    그 낱말 조각을 다 누르면 오른쪽에 그림이 튀어나온다. Book 2 `cvc-pattern-learn` 은 CVC 전용이라
+ *    (`a+n→an` 격자) 못 쓰고, 여기선 `patternHighlight` 로 낱말을 앞/패턴/뒤로 갈라 어떤 유형이든 쪼갠다.
  *
- * 다 들으면 칭찬 + 완료. 그 뒤엔 아무 낱말이나 눌러 다시 듣는다(자유놀이).
+ * 다 들으면 칭찬 → **써보기 단계**로 이어진다.
  */
 export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete, onBack }: Props) {
   const label = makePatternLabel(pattern);
@@ -70,15 +97,19 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   // 진입 안내 — 화면의 "낱말을 눌러 들어봐!" 에 맞는 음성(사용자: 화면마다 멘트 통일).
   useEntryGuide(ENTRY_GUIDE.listenExplore, playAudio);
 
-  /** 낱말별 저작 녹음 — 탭이 이걸 directUrl 로 그대로 재생한다(있을 때). */
+  const rows = useMemo(
+    () => words.map((w) => splitRow(w.word, w.imageUrl, pattern)),
+    [words, pattern]
+  );
+
+  /** 낱말별 저작 녹음 — 낱말 칸이 이걸 directUrl 로 그대로 재생한다(있을 때). */
   const ttsByWord = useMemo(() => {
     const m = new Map<string, string>();
     for (const w of words) if (w.ttsUrl) m.set(w.word, w.ttsUrl);
     return m;
   }, [words]);
 
-  // 🔴 탭은 authored ttsUrl 을 그대로 읽으므로 **그 mp3 URL 을** 데운다(첫 탭 즉시 재생).
-  //    ttsUrl 없는 낱말만 concat 폴백이라, 그건 usePhonicsTtsWarm 이 낱말 텍스트로 데운다(가드도 만족).
+  // 🔴 낱말 칸은 authored ttsUrl 을 directUrl 로 읽으므로 **그 mp3 URL 을** 데운다(첫 탭 즉시 재생).
   const ttsUrls = useMemo(
     () => words.map((w) => w.ttsUrl).filter((u): u is string => !!u),
     [words]
@@ -99,16 +130,18 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
       alive = false;
     };
   }, [ttsUrls]);
-  usePhonicsTtsWarm(
-    unitId,
-    useMemo(() => words.filter((w) => !w.ttsUrl).map((w) => w.word), [words]),
-    'en-family',
-    'english'
-  );
+  // 🔴 조각 소리(자음·라임)는 concat 이라 텍스트로 데운다 + ttsUrl 없는 낱말도(가드 만족).
+  const warmTexts = useMemo(() => {
+    const segs = rows.flatMap((r) => r.segs);
+    const noTts = words.filter((w) => !w.ttsUrl).map((w) => w.word);
+    return [...new Set([...segs, ...noTts])];
+  }, [rows, words]);
+  usePhonicsTtsWarm(unitId, warmTexts, 'en-family', 'english');
   // 낱말 그림(있는 것만) — 음원처럼 진입 시 데운다(게임과 동일 프리미티브).
   usePreloadImages(useMemo(() => words.map((w) => w.imageUrl), [words]));
 
-  const [heard, setHeard] = useState<Set<string>>(new Set());
+  // 눌린 칸 — `${wordIdx}-${cellIdx}`. 한 낱말의 모든 칸이 눌리면 그림이 뜨고, 전부 눌리면 써보기로.
+  const [pressed, setPressed] = useState<Set<string>>(new Set());
   const doneRef = useRef(false);
   /**
    * 🔴 배우기(Listen&repeat) 뒤에 **써보기**가 이어진다(2026-08-04 사용자: "배우기랑 써보기를 합치자").
@@ -118,29 +151,54 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   const [writeIdx, setWriteIdx] = useState(0);
   const writeDoneRef = useRef(false);
 
-  const handleTap = useCallback(
-    (word: string) => {
+  const wordDone = useCallback(
+    (wi: number) => rows[wi]?.cells.every((_, ci) => pressed.has(`${wi}-${ci}`)) ?? false,
+    [rows, pressed]
+  );
+
+  const nextKey = useMemo(() => {
+    for (let wi = 0; wi < rows.length; wi++) {
+      for (let ci = 0; ci < rows[wi].cells.length; ci++) {
+        if (!pressed.has(`${wi}-${ci}`)) return `${wi}-${ci}`;
+      }
+    }
+    return null;
+  }, [rows, pressed]);
+
+  const handleCell = useCallback(
+    (wi: number, ci: number) => {
+      const row = rows[wi];
+      if (!row) return;
+      const key = `${wi}-${ci}`;
+      const isWordCell = ci === row.cells.length - 1;
+      const directUrl = isWordCell ? ttsByWord.get(row.word) : undefined;
+
+      let willWord = false;
       let willAll = false;
-      setHeard((prev) => {
-        if (prev.has(word)) return prev;
+      setPressed((prev) => {
+        if (prev.has(key)) return prev; // 재탭은 소리만(완료 재발동 X)
         const next = new Set(prev);
-        next.add(word);
-        if (next.size >= words.length) willAll = true;
+        next.add(key);
+        if (row.cells.every((_, c) => next.has(`${wi}-${c}`))) willWord = true;
+        if (rows.every((r, w) => r.cells.every((_, c) => next.has(`${w}-${c}`)))) willAll = true;
         return next;
       });
-      // 낱말을 읽어주고(저작 녹음 우선), 마지막 하나가 채워지면 칭찬 → **써보기 단계로**.
+
+      // 조각/낱말 소리 → (전부 끝나면 칭찬→써보기 / 그 낱말이 끝나면 띵동, 그림은 상태로 이미 떴다)
       say(
-        word,
+        row.cells[ci],
         () => {
           if (willAll && !doneRef.current) {
             doneRef.current = true;
             rest(() => playCorrectSequence({ language: 'en', onDone: () => setPhase('write') }));
+          } else if (willWord) {
+            rest(() => chime());
           }
         },
-        ttsByWord.get(word)
+        directUrl
       );
     },
-    [say, rest, playCorrectSequence, words.length, ttsByWord]
+    [rows, ttsByWord, say, rest, chime, playCorrectSequence]
   );
 
   // ── 써보기 단계 — 낱말 전체를 한 글자씩 쓰고, 다 쓰면 그 낱말을 읽어준 뒤 다음 낱말 ──
@@ -201,10 +259,10 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
 
   const dots = (
     <div className="flex items-center gap-1.5">
-      {words.map((w) => (
+      {rows.map((r, wi) => (
         <span
-          key={w.word}
-          className={`w-3 h-3 rounded-full ${heard.has(w.word) ? 'bg-mint-400' : 'bg-white/70 ring-2 ring-white'}`}
+          key={r.word}
+          className={`w-3 h-3 rounded-full ${wordDone(wi) ? 'bg-mint-400' : 'bg-white/70 ring-2 ring-white'}`}
         />
       ))}
     </div>
@@ -273,51 +331,137 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
           >
             <Highlighted text={label} ranges={labelRanges} />
           </div>
-          <p className="mt-1 text-lg sm:text-xl font-black text-ink-600">낱말을 눌러 들어봐!</p>
+          <p className="mt-1 text-lg sm:text-xl font-black text-ink-600">
+            소리 조각을 눌러 들어봐!
+          </p>
         </div>
 
-        <div className="flex flex-col gap-3 sm:gap-4 w-full max-w-2xl">
-          {words.map((w) => {
-            const ranges = patternHighlightRanges(w.word, pattern);
-            const done = heard.has(w.word);
-            return (
-              <motion.button
-                key={w.word}
-                onClick={() => handleTap(w.word)}
-                whileTap={{ scale: 0.97 }}
-                className={[
-                  'relative flex items-center gap-4 sm:gap-6 min-h-[44px] px-4 sm:px-6 py-3 rounded-[28px] border-[4px] shadow-pop transition',
-                  done ? 'bg-mint-100 border-mint-400' : 'bg-white border-white',
-                ].join(' ')}
-              >
-                {w.imageUrl ? (
-                  <img
-                    src={w.imageUrl}
-                    alt={w.word}
-                    draggable={false}
-                    className="w-[clamp(3.5rem,10vh,6rem)] h-[clamp(3.5rem,10vh,6rem)] object-cover rounded-2xl bg-cream-50 shrink-0"
-                  />
-                ) : (
-                  <span className="w-[clamp(3.5rem,10vh,6rem)] h-[clamp(3.5rem,10vh,6rem)] rounded-2xl bg-cream-50 shrink-0 flex items-center justify-center text-4xl">
-                    🔊
-                  </span>
-                )}
-                {/* 🔴 강조 글자만 코랄 — 매직 e 는 모음·끝 e 두 곳(가운데 자음은 회색), 그 외는 패턴 한 덩어리. */}
-                <span className="flex-1 text-left text-5xl sm:text-6xl font-black font-display lowercase tracking-tight">
-                  <Highlighted text={w.word} ranges={ranges} />
-                </span>
-                {done && (
-                  <span className="absolute -top-2 -right-2 inline-flex items-center justify-center w-8 h-8 rounded-full bg-success text-white text-lg font-black shadow-pop ring-2 ring-white">
-                    ✓
-                  </span>
-                )}
-              </motion.button>
-            );
-          })}
+        <div className="flex flex-col gap-3 sm:gap-4 w-full max-w-4xl">
+          {rows.map((row, wi) => (
+            <div
+              key={row.word}
+              className="flex flex-row items-center justify-center gap-2 sm:gap-3"
+            >
+              {row.cells.map((cell, ci) => {
+                const isWordCell = ci === row.cells.length - 1;
+                const tone: CellTone = isWordCell
+                  ? 'right'
+                  : row.segs.length > 1 && ci === row.patCellIdx
+                    ? 'middle'
+                    : 'left';
+                return (
+                  <Fragment key={ci}>
+                    {ci > 0 && <Connector char={isWordCell ? '→' : '+'} />}
+                    <Cell
+                      label={cell}
+                      pressed={pressed.has(`${wi}-${ci}`)}
+                      isNext={nextKey === `${wi}-${ci}`}
+                      onClick={() => handleCell(wi, ci)}
+                      tone={tone}
+                      wide={isWordCell}
+                    />
+                  </Fragment>
+                );
+              })}
+              {/* 🔴 그림은 그 낱말 조각을 **다 누른 뒤**에 나온다(사용자: "다 누르면 이미지").
+                  자리는 미리 잡아(빈 슬롯) 완성 전후로 칸 정렬이 흔들리지 않게 한다. */}
+              {row.imageUrl && (
+                <div className="w-[clamp(3rem,11vh,5.5rem)] h-[clamp(3rem,11vh,5.5rem)] shrink-0">
+                  {wordDone(wi) && (
+                    <motion.img
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+                      src={row.imageUrl}
+                      alt={row.word}
+                      draggable={false}
+                      className="w-full h-full object-cover rounded-2xl border-[4px] border-white shadow-pop"
+                    />
+                  )}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
     </ActivityShell>
+  );
+}
+
+function Connector({ char }: { char: '+' | '→' }) {
+  return (
+    <span
+      className="text-2xl sm:text-3xl md:text-4xl font-black select-none shrink-0"
+      style={{ color: '#A68155' }}
+      aria-hidden
+    >
+      {char}
+    </span>
+  );
+}
+
+type CellTone = 'left' | 'middle' | 'right';
+
+/** Book 2 배우기와 같은 소리 조각 칸(색=자리, 흰 글자+outline, 다음 칸은 펄스+👆). */
+function Cell({
+  label,
+  pressed,
+  isNext,
+  onClick,
+  tone,
+  wide,
+}: {
+  label: string;
+  pressed: boolean;
+  isNext: boolean;
+  onClick: () => void;
+  tone: CellTone;
+  wide?: boolean;
+}) {
+  const bgByTone: Record<CellTone, string> = {
+    left: 'bg-gradient-to-b from-coral-400 to-coral-500 border-coral-600',
+    middle: 'bg-gradient-to-b from-warn to-amber-400 border-amber-500',
+    right: 'bg-gradient-to-b from-mint-300 to-mint-400 border-mint-500',
+  };
+  return (
+    <motion.button
+      onClick={onClick}
+      animate={isNext ? { scale: [1, 1.08, 1] } : { scale: 1 }}
+      transition={isNext ? { duration: 1.2, repeat: Infinity } : { duration: 0.3 }}
+      className={[
+        'relative h-[clamp(3.5rem,12vh,6.5rem)] rounded-[24px] border-[4px] flex items-center justify-center shadow-[0_8px_0_rgba(0,0,0,0.08),0_14px_28px_-8px_rgba(0,0,0,0.25)] text-white active:scale-[0.95] transition-shadow font-black',
+        wide ? 'min-w-[clamp(6rem,20vh,12rem)] px-4' : 'px-[clamp(0.75rem,2vh,1.5rem)]',
+        bgByTone[tone],
+        pressed
+          ? 'ring-4 ring-success/60'
+          : isNext
+            ? 'ring-[6px] ring-coral-300 shadow-[0_0_30px_rgba(255,94,58,0.5)]'
+            : '',
+      ].join(' ')}
+      style={{
+        textShadow: '0 3px 0 rgba(0,0,0,0.18)',
+        WebkitTextStroke: '1.5px rgba(255,255,255,0.5)',
+        paintOrder: 'stroke fill',
+      }}
+    >
+      <span className="text-3xl sm:text-4xl md:text-5xl whitespace-nowrap lowercase drop-shadow-[0_2px_3px_rgba(0,0,0,0.15)]">
+        {label}
+      </span>
+      {pressed && (
+        <span className="absolute -top-2 -right-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-success text-white text-sm font-black shadow-pop ring-2 ring-white">
+          ✓
+        </span>
+      )}
+      {isNext && !pressed && (
+        <span
+          aria-hidden
+          className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-3xl animate-bounce"
+        >
+          👆
+        </span>
+      )}
+    </motion.button>
   );
 }
