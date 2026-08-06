@@ -325,6 +325,27 @@ export function patternHighlight(word: string, pattern: string): [number, number
   return i >= 0 ? [i, i + core.length] : [0, 0];
 }
 
+/**
+ * 🔴 **패턴 먼저 쓰는 순서**(2026-08-06) — 낱말에서 패턴(라임/모음팀/블렌드) 자리를 먼저(시각 순서),
+ * 그다음 나머지. `bake`(_ake)→`[1,2,3,0]`(a,k,e,b) · `can`(_an)→`[1,2,0]` · `black`(bl_)→`[0,1,2,3,4]`.
+ * 매칭 패턴이 없으면 `undefined`(좌→우 기본). 익히기·낱말쓰기 게임·복습이 모두 이걸 쓴다(순서 통일).
+ */
+export function patternWriteOrder(word: string, patterns: readonly string[]): number[] | undefined {
+  const pat = patterns.find((p) => wordMatchesPattern(word, p));
+  if (!pat) return undefined;
+  const [s, e] = patternHighlight(word, pat);
+  if (s >= e) return undefined;
+  const first: number[] = [];
+  const rest: number[] = [];
+  for (let i = 0; i < word.length; i++) (i >= s && i < e ? first : rest).push(i);
+  return [...first, ...rest];
+}
+
+/** 단원(id)의 커리큘럼 패턴 목록 — 복습이 낱말별 쓰는 순서를 구할 때 쓴다. */
+export function getUnitPatterns(unitId: string): string[] {
+  return [...(getCurriculumUnits().find((u) => u.id === unitId)?.patterns ?? [])];
+}
+
 const VOWELS = new Set(['a', 'e', 'i', 'o', 'u']);
 
 /**

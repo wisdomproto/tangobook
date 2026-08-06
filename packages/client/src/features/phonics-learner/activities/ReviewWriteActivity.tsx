@@ -19,6 +19,8 @@ type WriteSource = ReviewCardSource & {
    *    "한 글자 쓰면 나머지 단어가 다 나와야" 한다는 사용자 요청). 없으면 쓴 글자(`word`)를 그대로 보여준다.
    */
   revealWord?: string;
+  /** 🔴 쓰는 순서(패턴 먼저) — 익히기·게임과 통일. 없으면 좌→우(한글 등). */
+  order?: number[];
 };
 
 interface Props {
@@ -82,6 +84,8 @@ export function ReviewWriteActivity({
   const current = sources[idx];
   const sourcesRef = useRef(sources);
   sourcesRef.current = sources;
+  // 지금까지 쓴 칸(인덱스) — 시각 순서로 이어읽기용. 카드 바뀌면 리셋(handleWordDone).
+  const writtenRef = useRef<number[]>([]);
 
   // 🔴 쓰는 글자(`word`)와 읽는 소리가 다를 수 있다 — Book 1 은 C 를 쓰고 "c c cat" 을 듣는다.
   const say = useCallback(
@@ -119,9 +123,15 @@ export function ReviewWriteActivity({
    */
   const handleSyllableDone = useCallback(
     (syllable: string, index: number) => {
-      if (!current || index + 1 >= current.word.length) return;
+      if (!current) return;
+      // 🔴 지금까지 쓴 칸을 **시각 순서로** 이어읽는다 — 좌→우면 고→고기, 패턴 먼저면 a→ak→ake.
+      //    낱말을 완성하는 마지막 칸은 WordFillCanvas 가 생략(handleWordDone 이 낱말을 읽음).
+      if (!writtenRef.current.includes(index)) writtenRef.current.push(index);
+      const blend = [...writtenRef.current]
+        .sort((a, b) => a - b)
+        .map((i) => current.word[i])
+        .join('');
       void (async () => {
-        const blend = current.word.slice(0, index + 1);
         const url =
           (await resolveTtsUrl({
             text: blend,
@@ -154,7 +164,12 @@ export function ReviewWriteActivity({
     // 🔴 완성 소리도 "c c cat"(soundWord/soundUrl) — 쓴 글자(C)가 아니라 낱말을 들려준다.
     void sayThenChime(current.soundWord ?? current.word, {
       praise: isLast,
-      onDone: isLast ? onComplete : () => setIdx((i) => i + 1),
+      onDone: isLast
+        ? onComplete
+        : () => {
+            writtenRef.current = []; // 다음 카드는 처음부터 이어읽기
+            setIdx((i) => i + 1);
+          },
       ...(current.soundUrl ? { directUrl: current.soundUrl } : {}),
     });
   }, [done, current, idx, sources.length, sayThenChime, onComplete]);
@@ -238,6 +253,7 @@ export function ReviewWriteActivity({
                 key={`review-write-${idx}`}
                 word={current.word}
                 syllables={[...current.word]}
+                order={current.order}
                 onSyllableDone={handleSyllableDone}
                 onComplete={handleWordDone}
               />

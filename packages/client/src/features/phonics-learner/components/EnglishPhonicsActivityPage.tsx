@@ -6,6 +6,8 @@ import {
   getEnglishActivityPlan,
   getEnglishUnit,
   wordMatchesPattern,
+  patternWriteOrder,
+  getUnitPatterns,
 } from '../lib/english-phonics-units';
 import { shuffleReviewCards } from '../lib/korean-phonics-units';
 import type { ActivityDef } from '../lib/korean-phonics-units';
@@ -483,7 +485,16 @@ export default function EnglishPhonicsActivityPage() {
         <ReviewWriteActivity
           unitId={unitId}
           language="english"
-          sources={reviewSources.map((s) => ({ ...s, word: s.word || s.letter, imageUrl: '' }))}
+          sources={reviewSources.map((s) => {
+            const word = s.word || s.letter;
+            return {
+              ...s,
+              word,
+              imageUrl: '',
+              // 🔴 패턴 먼저 쓰기 — 익히기·게임과 통일(각 낱말의 단원 패턴으로 순서 계산).
+              order: patternWriteOrder(word, getUnitPatterns(s.unitId)),
+            };
+          })}
           onComplete={handleComplete}
           onBack={backToUnit}
         />
@@ -494,7 +505,12 @@ export default function EnglishPhonicsActivityPage() {
       <ReviewWriteActivity
         unitId={unitId}
         language="english"
-        sources={reviewCards.map((c) => ({ ...c, word: c.letter, imageUrl: '' }))}
+        sources={reviewCards.map((c) => ({
+          ...c,
+          word: c.letter,
+          imageUrl: '',
+          order: patternWriteOrder(c.letter, getUnitPatterns(c.unitId)),
+        }))}
         onComplete={handleComplete}
         onBack={backToUnit}
       />
