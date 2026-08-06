@@ -55,6 +55,11 @@
   밋밋한 낱말이라, 게임이 완성 시 concat 으로 "bat"(0.6초)만 읽었다. → **`findImageData` 가 wordFamilies
   ttsUrl 을 flashcard 보다 우선**(`wordFamilyTts`). 이게 게임 4종·복습 전부에 흐른다(복습은 `useReviewCardSources`
   가 같은 lookup). 🔴 flashcard 에 낱말 녹음이 있어도 wordFamilies 가 이긴다 — 안 그러면 통일이 깨진다.
+  - 🔴 **단, 이 우선은 영어(`en-*`)에만**(2026-08-05). 한글 단원도 wordFamilies ttsUrl 을 갖는데(자음
+    익히기용 이어읽기 "가 가 고기"), 그게 낱말 연습·게임의 낱말 소리를 덮어써 "고기"를 눌렀더니 "가 가
+    고기"로 읽혔다. `findImageData` 가 `/^en-/` 일 때만 wordFamilyTts 를 얹는다 — 한글은 flashcard
+    빈값→`resolveTtsUrl` 평범한 낱말로 폴백. "한글엔 wordFamilies 없음" 가정이 틀렸던 것. 가드
+    `phonics-game-adapter.test.ts`.
 - 🔴 **`ConnectTheDotsPlayer` 에 `lang` 을 넘기지 않으면 한국어로 읽는다** — 영어 단원인데 정답을
   한글로 읽어주던 버그가 그것이었다.
 

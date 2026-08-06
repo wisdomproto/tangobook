@@ -40,6 +40,7 @@ features/viewer/
 - **음량 3단계 (2026-07-02, 전역)**: `settings.volume: low(0.35)/mid(0.7)/high(1)` (`VOLUME_GAIN`) — TTS 직접, BGM 은 저작자 `backgroundMusicVolume` × 계수. 툴바 🔊→🔉→🔈 순환. `useAudioPlayer({ volumeGain })`, 재생 중에도 즉시 반영.
 - 🔴 **기본 BGM 폴백 폐지 (2026-08-05)**: 저작 `backgroundMusicUrl` **없는 책은 조용하다**. 예전엔 `/sounds/bgm/default-{1..5}.mp3` 를 책 ID 해시로 깔았는데 나레이션 위에 계속 얹혀 시끄러웠다(사용자 판단). `bgmUrl = storybook?.backgroundMusicUrl` 뿐이라 `hasBgm=false` → 툴바 BGM 버튼 자동 비활성, `toggleBgm` 은 no-op. ⚠️ 같은 음원을 쓰는 **게임 장면 리빌(`SceneReveal`)·단어 상세 모달**은 볼륨 0.16 이라 **그대로 둔다**(2026-08-05 확인).
 - **그림체 resolution**: `?style` → 없으면 **`defaultStyle`(대표)** → `artStyle` 폴백 (2026-07-02: 연속재생 등 style 미지정 진입이 라이브러리 표지와 같은 그림체로 재생).
+- 🔴 **`embed?:{style, noAutoStart}` prop (2026-08-05)** — 랜딩(`/hangul`) 임베드 전용. `style`=그림체 강제(`urlStyle` 최우선, `?style`·`defaultStyle` 보다 앞), `noAutoStart`=`TitleIntro` 의 **5초 자동 시작 카운트다운(`AUTO_START_SECONDS`) 끄기**(탭해야만 재생). 뷰어 라우트는 옵셔널이라 무변경. `HangulBookTryIt` 이 `paper-craft` + 탭재생으로 쓴다.
 - 홈 버튼 → `/library` · 뒤로 버튼 → 책 상세(`/library/:id`)
 - **풀스크린 좌상단 뒤로가기 (2026-07-16)**: 컨트롤 숨김(풀스크린 기본) 상태에 **좌상단 상시 ← 버튼**(→`/library/:id` 책 상세) — 우상단 🏠✕ 와 대칭. 없으면 인앱 브라우저(인스타) 하단 뒤로 눌러 앱 이탈. `!playlist && !controlsVisible` 조건.
 

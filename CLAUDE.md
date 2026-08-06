@@ -120,6 +120,7 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 - 오디오북 (Remotion) → [features/audiobook/CLAUDE.md](packages/client/src/features/audiobook/CLAUDE.md)
 - 파닉스 (저작) → [features/phonics/CLAUDE.md](packages/client/src/features/phonics/CLAUDE.md)
 - 파닉스 학습자 → [features/phonics-learner/CLAUDE.md](packages/client/src/features/phonics-learner/CLAUDE.md). **🔎 화면 전수 검토** = `node packages/client/scripts/phonics-contact-sheet.mjs --base=… --units=99` — 전 단원을 크롤해 251화면을 찍고 계측(자산 4xx·손이 못 닿는 요소·소리 타이밍)해 한 장의 HTML 로. 🔴 **깨끗한 신호는 「클릭 없이 진입했을 때의 자동재생」**뿐이고, **집계는 증거가 아니다**(첫 판 134건이 거의 전부 헛것). 🔴 **파닉스는 언제나 무료**(`PHONICS_ALWAYS_FREE`, 획득 채널이라 진입 게이트도 안 띄운다 — 가입 유인은 잠금이 아니라 학습 기록).
+- **`/hangul` 광고 랜딩** (`pages/HangulLandingPage.tsx`) — 네이버·메타 광고 도착지. 🔴 **스크린샷 아닌 진짜 컴포넌트를 라이브로 얹는다**(활동·뷰어·부모 리포트). 벤치마킹 2회로 구조 설계(넘버링·커리큘럼 2겹 뷰·FAQ·표지 슬라이더·망각곡선 SVG). 🔴 문구 규칙(무료 헤드라인·마감일·비교표·N배·감수흉내 금지 / 히어로 가격 유지)·`FACTS` 실측값. → memory `hangul-landing-build-2026-08-05` · `hangul-landing-benchmark-todo-2026-08-05`
 - 마케팅 (블로그/카드뉴스) → [features/blog/CLAUDE.md](packages/client/src/features/blog/CLAUDE.md)
 - 마케팅 플랫폼 (ContentFlow 포트, /marketing) → [features/marketing/CLAUDE.md](packages/client/src/features/marketing/CLAUDE.md)
 - Auth (Supabase) → [features/auth/CLAUDE.md](packages/client/src/features/auth/CLAUDE.md). **온보딩 UX**(가입 이메일확인 대기화면·부모/자녀 프레이밍·인라인 에러·아이 2명+ ProfilePicker 게이트+헤더 전환칩) → memory `ux-review-2026-07-01`.
