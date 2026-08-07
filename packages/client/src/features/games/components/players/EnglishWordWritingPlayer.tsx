@@ -29,7 +29,6 @@ function lettersOf(word: string): string[] {
   return letters.length > 0 ? letters : [...word];
 }
 
-const REST_MS = 450; // 마지막 글자 재생 완료 후 단어를 읽기 전 '쉬는' 간격
 /** 진입 안내 — 화면의 "글자를 따라 써봐" 텍스트에 맞는 음성(파닉스 쓰기 활동과 같은 정적 자산). */
 const WRITE_GUIDE_SOUND = '/sounds/voice/write-trace-ko.mp3';
 
@@ -47,10 +46,9 @@ export function EnglishWordWritingPlayer({
   const [passed, setPassed] = useState<boolean[]>(() => items.map(() => false));
   const [scene, setScene] = useState<WordScene | null>(null);
   const completedRef = useRef(false);
-  const lastLetterRef = useRef(''); // 가장 마지막에 완성한 글자 — 완성 시 이 글자 → 쉼 → 단어 순서로 재생
   const pendingPassedRef = useRef<boolean[] | null>(null);
   const logGame = useGameLogger();
-  const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
+  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   const { data: sourceStorybook } = useStorybook(storybookId);
   const gameStyle = useGameStyle(sourceStorybook);
 
@@ -123,7 +121,6 @@ export function EnglishWordWritingPlayer({
   // onSyllableDone 직후 onComplete 가 동기로 불리므로, microtask 로 미뤄 completedRef 로 판별한다.
   const handleLetterDone = useCallback(
     (letter: string, index: number) => {
-      lastLetterRef.current = letter;
       if (!writtenRef.current.includes(index)) writtenRef.current.push(index);
       queueMicrotask(() => {
         if (completedRef.current) return; // 마지막 글자 = handleWordComplete 가 처리
@@ -157,8 +154,9 @@ export function EnglishWordWritingPlayer({
     [storybookId, playAudio, letters]
   );
 
-  // 모든 글자 완성 → [마지막 글자 → 쉼 → 단어 → 칭찬] 순서로 재생 후 장면 리빌 → 다음 단어.
-  // 각 단계는 onEnded 콜백으로 이어 붙여 음원 길이에 상관없이 잘리거나 겹치지 않는다.
+  // 모든 글자 완성 → **낱말만** 읽고 → 칭찬 → 장면 리빌 → 다음 단어.
+  // 🔴 이어읽기(a→at)가 이미 누적 소리를 냈으므로 여기서 마지막 글자를 다시 읽으면 "a at t hat" 처럼
+  //    군더더기가 붙는다(2026-08-07 사용자: "그냥 a, at, hat"). 완성 = 낱말 하나로 끝낸다.
   const handleWordComplete = useCallback(() => {
     if (completedRef.current) return;
     completedRef.current = true;
@@ -172,57 +170,33 @@ export function EnglishWordWritingPlayer({
         directUrl: currentItem.ttsUrl,
         identifierPrefix: 'wwrite-en',
       });
-      // 마지막 글자 (여러 글자 단어일 때만 — 1글자면 단어와 같으므로 생략)
-      const lastLetter = lastLetterRef.current || letters[letters.length - 1];
-      const lastLetterUrl =
-        letters.length > 1
-          ? await resolveTtsUrl({
-              text: lastLetter,
-              language: 'english',
-              storybookId,
-              identifierPrefix: 'wwrite-en',
-            })
-          : undefined;
-
-      // 단어 끝까지 재생 후 → 칭찬(ttsUrl 없이 = 칭찬 파트만) → 장면 리빌/다음
-      const playWordThenPraise = () => {
-        playAudio(wordUrl, () => {
-          playCorrectSequence({
-            language: 'en',
-            onDone: () => {
-              const s = resolveSceneFromWord(
-                currentItem.word,
-                'en',
-                sourceStorybook,
-                gameStyle.selectedStyle
-              );
-              if (s) {
-                pendingPassedRef.current = newPassed;
-                setScene(s);
-              } else {
-                advanceToNext(newPassed);
-              }
-            },
-          });
+      playAudio(wordUrl, () => {
+        playCorrectSequence({
+          language: 'en',
+          onDone: () => {
+            const s = resolveSceneFromWord(
+              currentItem.word,
+              'en',
+              sourceStorybook,
+              gameStyle.selectedStyle
+            );
+            if (s) {
+              pendingPassedRef.current = newPassed;
+              setScene(s);
+            } else {
+              advanceToNext(newPassed);
+            }
+          },
         });
-      };
-
-      if (lastLetterUrl) {
-        // 마지막 글자 끝까지 → 쉬고 → 단어
-        playAudio(lastLetterUrl, () => scheduleTimer(playWordThenPraise, REST_MS));
-      } else {
-        playWordThenPraise();
-      }
+      });
     })();
   }, [
     passed,
     currentIndex,
     currentItem,
     storybookId,
-    letters,
     playAudio,
     playCorrectSequence,
-    scheduleTimer,
     sourceStorybook,
     gameStyle.selectedStyle,
     advanceToNext,
