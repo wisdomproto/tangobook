@@ -40,7 +40,7 @@ interface CvcWord {
  */
 export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBack }: Props) {
   const storybookQuery = useStorybook(unitId);
-  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  const { playAudio, playCorrectSequence, praiseVisible, stopAll } = useGameAudio();
 
   // ── Phase A: VC 학습 ──
   const [phaseAPressed, setPhaseAPressed] = useState<Set<string>>(new Set());
@@ -126,6 +126,15 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
     if (restRef.current) clearTimeout(restRef.current);
     restRef.current = setTimeout(fn, REST_MS);
   }, []);
+
+  /**
+   * 🔴 **장 전환 시 큐 비우기**(2026-08-06 사용자: 빠르게 누르면 소리가 쌓이는데 「다음」 누르면 다음
+   *    장은 처음부터). useGameAudio 의 재생·예약 + 로컬 `rest` 타이머까지 지운다.
+   */
+  const clearQueue = useCallback(() => {
+    stopAll();
+    if (restRef.current) clearTimeout(restRef.current);
+  }, [stopAll]);
 
   const handlePhaseACell = useCallback(
     (row: number, col: number) => {
@@ -296,14 +305,17 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
           }, 500);
         }
       };
-      // 🔴 낱말 → 쉼 → (예문 텍스트 띄우고 + 예문 읽기) → 다음. 예문 없으면 바로 다음.
+      // 🔴 낱말 → **띵동(완성 축하)** → 쉼 → (예문 텍스트+소리) → 다음. 예문 없으면 띵동 → 다음.
+      //    2026-08-06 사용자: 예문 넣으면서 완성 효과음이 빠졌다("사이에 효과음이 없어").
       const afterWord = () => {
-        if (cw.sentence && sentenceUrl) {
-          setShownSentence(cw.sentence);
-          rest(() => playAudio(sentenceUrl, advance));
-        } else {
-          advance();
-        }
+        playAudio('/sounds/game/correct.mp3', () => {
+          if (cw.sentence && sentenceUrl) {
+            setShownSentence(cw.sentence);
+            rest(() => playAudio(sentenceUrl, advance));
+          } else {
+            advance();
+          }
+        });
       };
       if (wordUrl) playAudio(wordUrl, afterWord);
       else afterWord();
@@ -330,6 +342,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
   }, [phaseAPressed]);
 
   const restart = useCallback(() => {
+    clearQueue(); // 진행 중 소리·예약 비우고 처음부터
     setPhaseAPressed(new Set());
     setPhaseBPressed(new Set());
     writtenRef.current = [];
@@ -337,7 +350,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
     setShownSentence(null);
     setWriteCurrentWordIdx(0);
     setPhase('A');
-  }, []);
+  }, [clearQueue]);
 
   return (
     <ActivityShell onBack={onBack}>
@@ -410,7 +423,10 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
               🔁 다시 해보기
             </button>
             <button
-              onClick={() => setPhase('B')}
+              onClick={() => {
+                clearQueue(); // 🔴 큐에 쌓인 소리 비우고 다음 장은 처음부터
+                setPhase('B');
+              }}
               className="px-8 py-4 rounded-full bg-coral-500 text-white font-black text-2xl sm:text-3xl shadow-pop hover:scale-[1.02] active:scale-[0.98] transition"
             >
               다음 →

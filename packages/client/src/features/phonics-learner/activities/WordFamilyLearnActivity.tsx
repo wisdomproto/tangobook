@@ -271,16 +271,20 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
           setWriteIdx((i) => i + 1);
         }
       };
-      say(w.word, () => {
-        if (w.sentence && sentenceUrl) {
-          setShownSentence(w.sentence);
-          rest(() => playAudio(sentenceUrl, afterSentence));
-        } else {
-          afterSentence();
-        }
-      });
+      // 🔴 낱말 → **띵동(완성 축하)** → 쉼 → (예문 텍스트+소리) → 다음. 2026-08-06 사용자: 예문 넣으며
+      //    빠졌던 완성 효과음 복구("사이에 효과음이 없어").
+      say(w.word, () =>
+        chime(() => {
+          if (w.sentence && sentenceUrl) {
+            setShownSentence(w.sentence);
+            rest(() => playAudio(sentenceUrl, afterSentence));
+          } else {
+            afterSentence();
+          }
+        })
+      );
     })();
-  }, [words, writeIdx, unitId, say, rest, playAudio, playCorrectSequence, onMarkComplete]);
+  }, [words, writeIdx, unitId, say, chime, rest, playAudio, playCorrectSequence, onMarkComplete]);
 
   const dots = (
     <div className="flex items-center gap-1.5">
