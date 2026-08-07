@@ -6,6 +6,7 @@ import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { ActivityShell } from '../components/ActivityShell';
+import { SentenceText } from '../components/SentenceText';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { patternHighlight } from '../lib/english-phonics-units';
 
@@ -560,24 +561,6 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
     </ActivityShell>
-  );
-}
-
-/** 예문 텍스트 — 타겟 낱말만 코랄로 강조(대소문자 무시, 단어 경계). */
-function SentenceText({ sentence, word }: { sentence: string; word: string }) {
-  const parts = sentence.split(new RegExp(`(\\b${word}\\b)`, 'ig'));
-  return (
-    <>
-      {parts.map((p, i) =>
-        p.toLowerCase() === word.toLowerCase() ? (
-          <span key={i} className="text-coral-500">
-            {p}
-          </span>
-        ) : (
-          <span key={i}>{p}</span>
-        )
-      )}
-    </>
   );
 }
 

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
 import { ActivityShell } from '../components/ActivityShell';
+import { SentenceText } from '../components/SentenceText';
 import { useActivitySound } from '../hooks/useActivitySound';
 import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
@@ -20,6 +21,8 @@ export interface FamilyWord {
   imageUrl?: string;
   /** 저작 녹음(R2). 🔴 영어는 이게 있으면 이걸 그대로 읽는다 — 서버 concat 은 라이브러리에 없으면 무음이다. */
   ttsUrl?: string;
+  /** 예문 — 써보기에서 낱말을 완성하면 텍스트+소리로 보여준다(flashcard.sentence). */
+  sentence?: string;
 }
 
 interface Props {
@@ -107,12 +110,11 @@ function splitRow(word: string, imageUrl: string | undefined, pattern: string): 
 export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete, onBack }: Props) {
   const label = makePatternLabel(pattern);
   const labelRanges = patternHighlightRanges(label, pattern);
-  const { say, rest, chime, sayThenChime, playCorrectSequence, praiseVisible, playAudio } =
-    useActivitySound({
-      unitId,
-      language: 'english',
-      prefix: 'en-family',
-    });
+  const { say, rest, chime, playCorrectSequence, praiseVisible, playAudio } = useActivitySound({
+    unitId,
+    language: 'english',
+    prefix: 'en-family',
+  });
   // 진입 안내 — 화면의 "낱말을 눌러 들어봐!" 에 맞는 음성(사용자: 화면마다 멘트 통일).
   useEntryGuide(ENTRY_GUIDE.listenExplore, playAudio);
 
@@ -143,6 +145,8 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   const [phase, setPhase] = useState<'learn' | 'write'>('learn');
   const [writeIdx, setWriteIdx] = useState(0);
   const writeDoneRef = useRef(false);
+  // 🔴 낱말을 다 쓰면 보여줄 예문 텍스트(Book 2 써보기와 통일, 2026-08-06).
+  const [shownSentence, setShownSentence] = useState<string | null>(null);
 
   const wordDone = useCallback(
     (wi: number) => rows[wi]?.cells.every((_, ci) => pressed.has(`${wi}-${ci}`)) ?? false,
@@ -242,22 +246,37 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
     const w = words[writeIdx];
     if (!w) return;
     const isLast = writeIdx + 1 >= words.length;
-    // 🔴 다 쓰면 **그냥 낱말**을 읽고(매직-e 소리는 조각이 가르쳤다) → **띵동/칭찬** → 다음 낱말.
-    //    sayThenChime = 읽기→쉼→(띵동 or 칭찬)→쉼→onDone. 예전엔 낱말만 읽고 조용히 넘어가
-    //    다음 단어로 갈 때 효과음이 없었다(2026-08-06 사용자 지적).
-    sayThenChime(w.word, {
-      praise: isLast,
-      onDone: () => {
+    void (async () => {
+      const sentenceUrl = w.sentence
+        ? await resolveTtsUrl({
+            text: w.sentence,
+            language: 'english',
+            storybookId: unitId,
+            identifierPrefix: 'en-family',
+          })
+        : undefined;
+      // 🔴 낱말 읽기 → (예문 텍스트 띄우고 + 예문 읽기) → (마지막이면 칭찬+완료 / 아니면 다음 낱말).
+      //    Book 2 써보기와 통일 — 예문은 여기(써보기 완성)에서만 준다. onEnded 체인이라 안 잘린다.
+      const afterSentence = () => {
         if (isLast) {
-          onMarkComplete();
+          playCorrectSequence({ language: 'en', onDone: onMarkComplete });
         } else {
           writeDoneRef.current = false;
-          writtenRef.current = []; // 다음 낱말은 처음부터 이어읽기
+          writtenRef.current = [];
+          setShownSentence(null);
           setWriteIdx((i) => i + 1);
         }
-      },
-    });
-  }, [words, writeIdx, sayThenChime, onMarkComplete]);
+      };
+      say(w.word, () => {
+        if (w.sentence && sentenceUrl) {
+          setShownSentence(w.sentence);
+          rest(() => playAudio(sentenceUrl, afterSentence));
+        } else {
+          afterSentence();
+        }
+      });
+    })();
+  }, [words, writeIdx, unitId, say, rest, playAudio, playCorrectSequence, onMarkComplete]);
 
   const dots = (
     <div className="flex items-center gap-1.5">
@@ -315,6 +334,16 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
               />
             </div>
           </div>
+          {/* 🔴 낱말을 다 쓰면 예문 텍스트(타겟 낱말 코랄) — 소리도 같이. Book 2 써보기와 통일. */}
+          {shownSentence && (
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-800 text-center max-w-3xl break-keep px-4"
+            >
+              <SentenceText sentence={shownSentence} word={writeWord.word} />
+            </motion.p>
+          )}
         </div>
         <FeedbackOverlay kind="correct" visible={praiseVisible} />
       </ActivityShell>
