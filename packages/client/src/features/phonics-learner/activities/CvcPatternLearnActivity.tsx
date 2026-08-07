@@ -189,37 +189,30 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
         return next;
       });
 
-      const playSentence = (after?: () => void) => {
-        if (cw.sentence) {
-          playEnglish(cw.sentence, after);
-        } else {
-          after?.();
-        }
-      };
-
       const afterTts = () => {
         if (willRowComplete) {
-          // 소리 끝 → 쉼 → 띵동 → 예문 발음 → (마지막 행이면) Phase C 로 자동 진입
+          // 🔴 예문은 여기서 안 읽는다(2026-08-06 사용자) — 써보기에서 낱말을 완성하면 그때 예문
+          //    (텍스트+소리)을 준다. 여기선 소리 끝 → 쉼 → 띵동 → (마지막 행이면) Phase C 로 자동 진입.
           rest(() =>
             playAudio('/sounds/game/correct.mp3', () => {
-              playSentence(() => {
-                if (willAllComplete) {
-                  setTimeout(() => setPhase('C'), 600);
-                }
-              });
+              if (willAllComplete) {
+                setTimeout(() => setPhase('C'), 600);
+              }
             })
           );
         }
       };
       playEnglish(text, afterTts);
     },
-    [phase, cvcWords, pattern.vc, totalPhaseB, playEnglish, playAudio, playCorrectSequence]
+    [phase, cvcWords, pattern.vc, totalPhaseB, playEnglish, playAudio]
   );
 
   // ── Phase C: 낱말 써보기 — **패턴(라임) 먼저** 한 글자씩(WordFillCanvas, Book 3/4/5 와 통일) ──
   const [writeCurrentWordIdx, setWriteCurrentWordIdx] = useState(0);
   const currentWriteWord = cvcWords[writeCurrentWordIdx];
   const currentWriteLetters = wordLetters[writeCurrentWordIdx] ?? [];
+  // 🔴 낱말을 다 쓰면 보여줄 예문(텍스트) — 2026-08-06 사용자: "예문은 써보기에서 맞추면, 텍스트도".
+  const [shownSentence, setShownSentence] = useState<string | null>(null);
 
   /**
    * 🔴 **쓰는 순서 = 라임 먼저**(2026-08-06 사용자: "can 을 a,n,c 순서로"). 라임(`_an` = 위치 [1,2])을
@@ -276,7 +269,15 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
         storybookId: unitId,
         identifierPrefix: 'en-cvc',
       });
-      const after = () => {
+      const sentenceUrl = cw.sentence
+        ? await resolveTtsUrl({
+            text: cw.sentence,
+            language: 'english',
+            storybookId: unitId,
+            identifierPrefix: 'en-cvc',
+          })
+        : undefined;
+      const advance = () => {
         if (isLast) {
           setPhase('done');
           onMarkComplete();
@@ -285,14 +286,24 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
           setTimeout(() => {
             wordDoneRef.current = false;
             writtenRef.current = [];
+            setShownSentence(null);
             setWriteCurrentWordIdx((i) => i + 1);
           }, 500);
         }
       };
-      if (wordUrl) playAudio(wordUrl, after);
-      else after();
+      // 🔴 낱말 → 쉼 → (예문 텍스트 띄우고 + 예문 읽기) → 다음. 예문 없으면 바로 다음.
+      const afterWord = () => {
+        if (cw.sentence && sentenceUrl) {
+          setShownSentence(cw.sentence);
+          rest(() => playAudio(sentenceUrl, advance));
+        } else {
+          advance();
+        }
+      };
+      if (wordUrl) playAudio(wordUrl, afterWord);
+      else afterWord();
     })();
-  }, [cvcWords, writeCurrentWordIdx, unitId, playAudio, playCorrectSequence, onMarkComplete]);
+  }, [cvcWords, writeCurrentWordIdx, unitId, playAudio, playCorrectSequence, onMarkComplete, rest]);
 
   // 행별 다음 누를 칸 highlight (Phase B 용)
   const phaseBNextKey = useMemo(() => {
@@ -318,6 +329,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
     setPhaseBPressed(new Set());
     writtenRef.current = [];
     wordDoneRef.current = false;
+    setShownSentence(null);
     setWriteCurrentWordIdx(0);
     setPhase('A');
   }, []);
@@ -514,6 +526,16 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
                 />
               </div>
             </div>
+            {/* 🔴 낱말을 다 쓰면 예문 텍스트 — 타겟 낱말은 코랄(소리도 같이 재생). */}
+            {shownSentence && (
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-800 text-center max-w-3xl break-keep px-4"
+              >
+                <SentenceText sentence={shownSentence} word={currentWriteWord.word} />
+              </motion.p>
+            )}
           </div>
         )}
 
@@ -538,6 +560,24 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
     </ActivityShell>
+  );
+}
+
+/** 예문 텍스트 — 타겟 낱말만 코랄로 강조(대소문자 무시, 단어 경계). */
+function SentenceText({ sentence, word }: { sentence: string; word: string }) {
+  const parts = sentence.split(new RegExp(`(\\b${word}\\b)`, 'ig'));
+  return (
+    <>
+      {parts.map((p, i) =>
+        p.toLowerCase() === word.toLowerCase() ? (
+          <span key={i} className="text-coral-500">
+            {p}
+          </span>
+        ) : (
+          <span key={i}>{p}</span>
+        )
+      )}
+    </>
   );
 }
 
