@@ -495,7 +495,8 @@ export default function EnglishPhonicsActivityPage() {
             return {
               ...s,
               word,
-              imageUrl: '',
+              // 🔴 그림을 프롬프트로 보여준다(2026-08-07 사용자: "이미지도 나와줘야지") — 그림(jam)을
+              //    보고 낱말을 쓴다. `...s` 의 대표 낱말 그림(s.imageUrl)이 곧 그 낱말이라 일치한다.
               // 🔴 패턴 먼저 쓰기 + 이어읽기 규칙 — 익히기·게임과 통일(각 낱말의 단원 패턴으로).
               order: patternWriteOrder(word, patterns),
               pattern: patterns.find((p) => wordMatchesPattern(word, p)),

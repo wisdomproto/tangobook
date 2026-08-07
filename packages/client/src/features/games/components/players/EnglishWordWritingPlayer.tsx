@@ -158,11 +158,14 @@ export function EnglishWordWritingPlayer({
     const newPassed = passed.map((v, i) => (i === currentIndex ? true : v));
     setPassed(newPassed);
     void (async () => {
+      // 🔴 완성음은 **낱말 하나**(a→an→fan). Book 1(traceWord)만 "a a apple" 저작 블렌드를 쓰고,
+      //    Book 2+ 는 directUrl(wordFamilies 3.9s CVC 블렌드)을 버리고 plain 낱말로 읽는다
+      //    (2026-08-07 사용자: "a an fan 이렇게만"). Book 2 wordFamilies 녹음은 게임 성공음 전용이 아니다.
       const wordUrl = await resolveTtsUrl({
         text: currentItem.word,
         language: 'english',
         storybookId,
-        directUrl: currentItem.ttsUrl,
+        directUrl: currentItem.traceWord ? currentItem.ttsUrl : undefined,
         identifierPrefix: 'wwrite-en',
       });
       playAudio(wordUrl, () => {
