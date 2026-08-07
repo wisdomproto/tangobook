@@ -378,6 +378,20 @@ flashcard 그림 + keypoints + `wordFamilies[].words[].ttsUrl`(ABC 나무 카드
   **게임 목록에도** 둔다(Book 2 와 동일 4종 구성 — Book 3/4/5 만 3종이라 사용자가 "왜 낱말쓰기 없어?" 지적).
   play 의 `game-word-writing` 은 pattern 없이 호출 → 호스트가 단원 전체 단어로 굴린다(Book 2 와 같은 경로).
   🔴 새 레벨 generator 를 백지에서 짜면 형제 레벨 게임을 빠뜨리니 play 섹션 kind 목록을 형제와 대조할 것.
+- 🔴 **써보기 = 패턴 먼저 쓰기 + 쌓이는 소리 + 예문**(2026-08-06 사용자 통일 요청) — Book 2·3·4·5 익히기
+  써보기·낱말쓰기 게임·복습 낱말쓰기가 **전부 같은 규칙**:
+  · **쓰는 순서 = 패턴(라임/모음팀) 자리 먼저, 그다음 나머지**(시각 순서). `can`(_an)→a,n,c · `bake`(\_ake)→
+  a,k,e,b · `black`(bl_)→b,l,a,c,k(패턴이 앞이라 좌→우) · `feet`(ee)→e,e,f,t. 규칙 한 곳 = **`patternWriteOrder`**
+  (+`getUnitPatterns`, `english-phonics-units.ts`). `WordFillCanvas` 에 **`order` prop**(cell 인덱스 배열) —
+  지금 쓸 칸은 오른쪽 덮개 대신 **코랄 링**으로만 표시(끝난·다음 칸이 좌우로 흩어짐).
+  · **소리 = 지금까지 쓴 칸을 시각 순서로 이어읽기**(a→애·an→앤 / a→ak→ake). 낱말을 완성하는 마지막 칸의
+  `onSyllableDone` 은 `WordFillCanvas.evaluate()` 가 **생략**한다(onComplete 가 낱말을 읽으므로 겹침 방지 —
+  한 획으로 두 칸 완성 시 `bak`+`bake`+띵동 겹치던 버그, game-reviewer 발견).
+  · **예문은 써보기 완성에서만**(텍스트+소리, `SentenceText` 공용 컴포넌트, 타겟 낱말 코랄). 🔴 예전엔 Book 2
+  **낱말 익히기(Phase B)** 행 완성 때 예문을 **소리만** 냈는데, 텍스트가 없어 "갑자기 다시 c an can 읽는" 버그로
+  오해받았다(실제론 "I have a can" 예문). → Phase B 예문 제거, 써보기 완성 시 텍스트와 함께. flashcard.sentence
+  를 낱말 매칭으로 가져온다(Book 3/4/5 flashcard 전부 예문 보유). 🔴 **whisper 로 짧은 rime/소리를 검증 말 것** —
+  고립된 /æk/ 를 "Fuck"·"Act" 로 오인식해 "음원 깨졌다"고 오판했었다(클립은 멀쩡).
 - ⚠️ 커리큘럼 `patterns` 와 storybook `wordFamilies` 인덱스가 안 맞는다(u06 커리큘럼 2 vs wf 6) → 인덱스가
   아니라 **낱말 매칭**으로 고른다(u06 `_ng` 가 ang/ing/ong 를 다 잡는다).
 - 🔴 **듣고 고르기 = `letters` 없는 분기**(`EnglishPhonicsActivityPage`). Book 1 은 `activity.letters` 로
