@@ -251,6 +251,11 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
         .sort((a, b) => a - b)
         .map((i) => currentWriteLetters[i])
         .join('');
+      // 🔴 **낱글자 하나는 안 읽는다**(2026-08-06 사용자: "an, man 만") — 의미 덩어리(2글자+)만. 띵동은 유지.
+      if (soFar.length < 2) {
+        playAudio('/sounds/game/correct.mp3');
+        return;
+      }
       void (async () => {
         const url = await resolveTtsUrl({
           text: soFar,

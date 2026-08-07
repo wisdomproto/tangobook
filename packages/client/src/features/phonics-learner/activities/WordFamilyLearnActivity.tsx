@@ -226,6 +226,11 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
         .sort((a, b) => a - b)
         .map((i) => writeLetters[i])
         .join('');
+      // 🔴 **낱글자 하나는 안 읽는다**(2026-08-06 사용자) — 라임/낱말 같은 의미 덩어리(2글자+)만. 띵동은 유지.
+      if (soFar.length < 2) {
+        chime();
+        return;
+      }
       void (async () => {
         const url = await resolveTtsUrl({
           text: soFar,
