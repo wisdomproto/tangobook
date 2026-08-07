@@ -16,6 +16,7 @@ import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 import {
   patternHighlight,
   wordMatchesPattern,
+  writeStepRead,
 } from '@/features/phonics-learner/lib/english-phonics-units';
 
 /**
@@ -65,18 +66,20 @@ export function EnglishWordWritingPlayer({
    *    같은 규칙 — 단원 패턴이 낱말에 있으면 그 자리를 먼저(시각 순서), 그다음 나머지. bake→`[1,2,3,0]`.
    *    파닉스 단원이 아니거나(패턴 없음) Book 1(첫 글자만) 이면 좌→우(undefined).
    */
-  const writeOrder = useMemo(() => {
+  const writePattern = useMemo(() => {
     if (currentItem.traceWord) return undefined;
     const patterns = sourceStorybook?.phonicsConfig?.targetPatterns ?? [];
-    const pat = patterns.find((p) => wordMatchesPattern(currentItem.word, p));
-    if (!pat) return undefined;
-    const [s, e] = patternHighlight(currentItem.word, pat);
+    return patterns.find((p) => wordMatchesPattern(currentItem.word, p));
+  }, [currentItem.word, currentItem.traceWord, sourceStorybook]);
+  const writeOrder = useMemo(() => {
+    if (!writePattern) return undefined;
+    const [s, e] = patternHighlight(currentItem.word, writePattern);
     if (s >= e) return undefined;
     const first: number[] = [];
     const rest: number[] = [];
     for (let i = 0; i < letters.length; i++) (i >= s && i < e ? first : rest).push(i);
     return [...first, ...rest];
-  }, [currentItem.word, currentItem.traceWord, sourceStorybook, letters]);
+  }, [currentItem.word, writePattern, letters]);
   // 지금까지 쓴 칸(인덱스) — 시각 순서로 이어읽기용. 낱말 바뀌면 리셋(advanceToNext).
   const writtenRef = useRef<number[]>([]);
 
@@ -120,30 +123,22 @@ export function EnglishWordWritingPlayer({
   // handleWordComplete 가 [마지막 글자 → 쉼 → 단어 → 칭찬] 체인을 소유한다(음원 겹침 방지).
   // onSyllableDone 직후 onComplete 가 동기로 불리므로, microtask 로 미뤄 completedRef 로 판별한다.
   const handleLetterDone = useCallback(
-    (letter: string, index: number) => {
+    (_letter: string, index: number) => {
       if (!writtenRef.current.includes(index)) writtenRef.current.push(index);
       queueMicrotask(() => {
         if (completedRef.current) return; // 마지막 글자 = handleWordComplete 가 처리
+        if (!writePattern) return; // 패턴 없음(Book 1 등) = 중간 읽기 없음
+        // 🔴 무엇을 읽을지는 공용 규칙(writeStepRead) 한 곳에서: Book2 `a→at` · Book3 매직-e `ak→ake`
+        //    · Book4/5 블렌드/모음팀 `cl`·`ee`. 무음 스텝(온셋 등)은 소리 없이 지나간다.
+        const readText = writeStepRead(currentItem.word, writePattern, writtenRef.current, index, storybookId); // prettier-ignore
+        if (!readText) return;
         void (async () => {
-          // 🔴 지금까지 쓴 칸을 **시각 순서로 이어 읽기**(man: a→an / bake: a→ak→ake). 낱글자도 읽는다
-          //    (2026-08-06 사용자: "a 따라썼는데 안 읽어줘"). 블렌드가 라이브러리에 없으면 방금 쓴 음소.
-          const blend = [...writtenRef.current]
-            .sort((a, b) => a - b)
-            .map((i) => letters[i])
-            .join('');
-          const url =
-            (await resolveTtsUrl({
-              text: blend,
-              language: 'english',
-              storybookId,
-              identifierPrefix: 'wwrite-en',
-            })) ??
-            (await resolveTtsUrl({
-              text: letter,
-              language: 'english',
-              storybookId,
-              identifierPrefix: 'wwrite-en',
-            }));
+          const url = await resolveTtsUrl({
+            text: readText,
+            language: 'english',
+            storybookId,
+            identifierPrefix: 'wwrite-en',
+          });
           // 🔴 띵동 **먼저**, 끝나면 읽기 — 한 채널이라 동시에 내면 앞소리가 잘린다.
           playAudio('/sounds/game/correct.mp3', () => {
             if (url) playAudio(url);
@@ -151,7 +146,7 @@ export function EnglishWordWritingPlayer({
         })();
       });
     },
-    [storybookId, playAudio, letters]
+    [storybookId, playAudio, currentItem.word, writePattern]
   );
 
   // 모든 글자 완성 → **낱말만** 읽고 → 칭찬 → 장면 리빌 → 다음 단어.

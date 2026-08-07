@@ -14,6 +14,7 @@ import {
   patternHighlight,
   patternHighlightRanges,
   isMagicEPattern,
+  writeStepRead,
 } from '../lib/english-phonics-units';
 
 export interface FamilyWord {
@@ -215,20 +216,18 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   // 지금까지 쓴 칸(인덱스) — 시각 순서로 이어읽기용. 낱말이 바뀌면 리셋(handleWriteComplete).
   const writtenRef = useRef<number[]>([]);
 
-  // 🔴 한 칸 쓸 때마다 **지금까지 쓴 칸을 시각 순서로 이어읽는다**(can: a→애·an→앤 / bake: a→ak→ake).
-  //    낱말을 완성하는 마지막 칸의 onSyllableDone 은 WordFillCanvas 가 생략하므로(onComplete 가 낱말을
-  //    읽어 겹침 방지), 여기선 중간 칸만 온다.
+  // 🔴 한 칸 쓸 때마다 무엇을 읽을지는 **공용 규칙(writeStepRead)** 한 곳에서: Book3 매직-e `ak→ake`
+  //    · Book4/5 블렌드/모음팀 `cl`·`ee`(패턴 한 덩어리만). 무음 스텝(온셋 등)은 소리 없이 지나간다.
+  //    낱말을 완성하는 마지막 칸의 onSyllableDone 은 WordFillCanvas 가 생략(onComplete 가 낱말을 읽음).
   const handleWriteLetter = useCallback(
     (_letter: string, index: number) => {
-      if (writeDoneRef.current) return;
+      if (writeDoneRef.current || !writeWord) return;
       if (!writtenRef.current.includes(index)) writtenRef.current.push(index);
-      const soFar = [...writtenRef.current]
-        .sort((a, b) => a - b)
-        .map((i) => writeLetters[i])
-        .join('');
+      const readText = writeStepRead(writeWord.word, pattern, writtenRef.current, index, unitId);
+      if (!readText) return;
       void (async () => {
         const url = await resolveTtsUrl({
-          text: soFar,
+          text: readText,
           language: 'english',
           storybookId: unitId,
           identifierPrefix: 'en-family',
@@ -239,7 +238,7 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
         });
       })();
     },
-    [writeLetters, unitId, chime, playAudio]
+    [writeWord, pattern, unitId, chime, playAudio]
   );
 
   const handleWriteComplete = useCallback(() => {

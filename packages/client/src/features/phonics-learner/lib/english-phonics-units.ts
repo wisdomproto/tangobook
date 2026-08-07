@@ -346,6 +346,36 @@ export function getUnitPatterns(unitId: string): string[] {
   return [...(getCurriculumUnits().find((u) => u.id === unitId)?.patterns ?? [])];
 }
 
+/**
+ * 🔴 써보기 이어읽기 — 한 칸을 쓸 때 무엇을 읽어줄지(`null`=무음). 2026-08-07 사용자 규칙:
+ *  · Book 2 CVC(`_at`): 라임을 쌓아 읽되 **첫 낱글자도 읽는다** — `a → at`(그 뒤 낱말은 완성에서).
+ *  · Book 3 매직-e(`_ake`): 라임을 쌓되 **첫 낱글자는 건너뛴다** — `ak → ake`(짧은→긴 라임, e 효과).
+ *  · Book 4·5 블렌드/모음팀(`cl_`·`ee`): 이미 배운 한 덩어리라 **패턴 완성 때 한 번만** — `cl`·`ee`.
+ * 패턴 밖 글자(온셋 등)는 무음 — 낱말은 완성 시(onComplete)에 한 번 읽는다. 쓰는 순서가
+ * `patternWriteOrder`(패턴 먼저·좌→우)라 패턴 칸은 늘 좌→우로 쌓인다. 익히기·낱말쓰기 게임·복습이
+ * 이 한 함수를 공유한다(갈라지지 않게).
+ */
+export function writeStepRead(
+  word: string,
+  pattern: string,
+  writtenSoFar: readonly number[],
+  justWrote: number,
+  unitId: string
+): string | null {
+  const [s, e] = patternHighlight(word, pattern);
+  if (s >= e || justWrote < s || justWrote >= e) return null; // 패턴 밖 = 무음
+  const written = writtenSoFar.filter((i) => i >= s && i < e);
+  const book = Number(/^en-b(\d)/.exec(unitId)?.[1] ?? 0);
+  if (book >= 4) return written.length === e - s ? word.slice(s, e).toLowerCase() : null;
+  if (book === 3 && written.length < 2) return null; // 매직-e = 첫 낱글자 건너뜀
+  return written
+    .slice()
+    .sort((a, b) => a - b)
+    .map((i) => word[i])
+    .join('')
+    .toLowerCase();
+}
+
 const VOWELS = new Set(['a', 'e', 'i', 'o', 'u']);
 
 /**

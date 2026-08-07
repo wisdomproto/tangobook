@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
+import { writeStepRead } from '../lib/english-phonics-units';
 import { useActivitySound } from '../hooks/useActivitySound';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
@@ -21,6 +22,8 @@ type WriteSource = ReviewCardSource & {
   revealWord?: string;
   /** 🔴 쓰는 순서(패턴 먼저) — 익히기·게임과 통일. 없으면 좌→우(한글 등). */
   order?: number[];
+  /** 🔴 영어 패턴(있으면 이어읽기 규칙을 익히기·게임과 통일 — Book3 `ak→ake` / Book4·5 `cl`·`ee`). */
+  pattern?: string;
 };
 
 interface Props {
@@ -124,9 +127,31 @@ export function ReviewWriteActivity({
   const handleSyllableDone = useCallback(
     (syllable: string, index: number) => {
       if (!current) return;
-      // 🔴 지금까지 쓴 칸을 **시각 순서로** 이어읽는다 — 좌→우면 고→고기, 패턴 먼저면 a→ak→ake.
-      //    낱말을 완성하는 마지막 칸은 WordFillCanvas 가 생략(handleWordDone 이 낱말을 읽음).
+      // 낱말을 완성하는 마지막 칸은 WordFillCanvas 가 생략(handleWordDone 이 낱말을 읽음).
       if (!writtenRef.current.includes(index)) writtenRef.current.push(index);
+      // 🔴 영어 패턴 단원은 익히기·게임과 **같은 규칙**(writeStepRead): Book3 `ak→ake` · Book4/5 `cl`·`ee`.
+      //    무음 스텝(온셋 등)은 소리 없이 지나간다. 한글·Book1(패턴 없음)은 아래 이어읽기(고→고기) 그대로.
+      if (current.pattern) {
+        const readText = writeStepRead(
+          current.word,
+          current.pattern,
+          writtenRef.current,
+          index,
+          current.unitId
+        );
+        if (!readText) return;
+        void (async () => {
+          const url = await resolveTtsUrl({
+            text: readText,
+            language,
+            storybookId: unitId,
+            identifierPrefix: 'review-write',
+          });
+          chime(() => rest(() => void speak(readText, undefined, url)));
+        })();
+        return;
+      }
+      // 🔴 지금까지 쓴 칸을 **시각 순서로** 이어읽는다 — 좌→우면 고→고기.
       const blend = [...writtenRef.current]
         .sort((a, b) => a - b)
         .map((i) => current.word[i])

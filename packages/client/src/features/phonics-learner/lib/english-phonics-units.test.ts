@@ -5,7 +5,40 @@ import {
   patternHighlight,
   isMagicEPattern,
   patternHighlightRanges,
+  patternWriteOrder,
+  writeStepRead,
 } from './english-phonics-units';
+
+// 쓰는 순서(patternWriteOrder)대로 한 칸씩 쓰며 이어읽기 소리를 모은다(null=무음은 뺀다).
+function readSequence(word: string, pattern: string, unitId: string): string[] {
+  const order = patternWriteOrder(word, [pattern]) ?? word.split('').map((_, i) => i);
+  const written: number[] = [];
+  const reads: string[] = [];
+  for (const idx of order) {
+    written.push(idx);
+    const r = writeStepRead(word, pattern, written, idx, unitId);
+    if (r) reads.push(r);
+  }
+  return reads;
+}
+
+describe('writeStepRead — 써보기 이어읽기 규칙 (2026-08-07)', () => {
+  it('Book 2 CVC 는 첫 낱글자 포함해 라임을 쌓는다 (a → at)', () => {
+    expect(readSequence('hat', '_at', 'en-b2-u01')).toEqual(['a', 'at']);
+  });
+  it('Book 3 매직-e 는 첫 낱글자를 건너뛴다 (ak → ake)', () => {
+    expect(readSequence('rake', '_ake', 'en-b3-u01')).toEqual(['ak', 'ake']);
+  });
+  it('Book 4/5 블렌드·모음팀은 패턴 한 덩어리만 (cl / br / ee)', () => {
+    expect(readSequence('clam', 'cl_', 'en-b4-u01')).toEqual(['cl']);
+    expect(readSequence('brake', 'br_', 'en-b4-u02')).toEqual(['br']);
+    expect(readSequence('green', 'ee', 'en-b5-u01')).toEqual(['ee']);
+  });
+  it('패턴 밖 글자(온셋 등)는 무음', () => {
+    // rake: 마지막 r(온셋)은 null — 완성 시 낱말을 읽으므로 이어읽기엔 안 낀다
+    expect(writeStepRead('rake', '_ake', [1, 2, 3, 0], 0, 'en-b3-u01')).toBeNull();
+  });
+});
 
 describe('매직 e = 모음 + 끝 e 두 곳 강조', () => {
   it('Book 3 매직 e(`_ame`·`_ake`·`_ube`)만 매직으로 본다', () => {

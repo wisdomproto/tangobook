@@ -491,12 +491,14 @@ export default function EnglishPhonicsActivityPage() {
           language="english"
           sources={reviewSources.map((s) => {
             const word = s.word || s.letter;
+            const patterns = getUnitPatterns(s.unitId);
             return {
               ...s,
               word,
               imageUrl: '',
-              // 🔴 패턴 먼저 쓰기 — 익히기·게임과 통일(각 낱말의 단원 패턴으로 순서 계산).
-              order: patternWriteOrder(word, getUnitPatterns(s.unitId)),
+              // 🔴 패턴 먼저 쓰기 + 이어읽기 규칙 — 익히기·게임과 통일(각 낱말의 단원 패턴으로).
+              order: patternWriteOrder(word, patterns),
+              pattern: patterns.find((p) => wordMatchesPattern(word, p)),
             };
           })}
           onComplete={handleComplete}
@@ -509,12 +511,16 @@ export default function EnglishPhonicsActivityPage() {
       <ReviewWriteActivity
         unitId={unitId}
         language="english"
-        sources={reviewCards.map((c) => ({
-          ...c,
-          word: c.letter,
-          imageUrl: '',
-          order: patternWriteOrder(c.letter, getUnitPatterns(c.unitId)),
-        }))}
+        sources={reviewCards.map((c) => {
+          const patterns = getUnitPatterns(c.unitId);
+          return {
+            ...c,
+            word: c.letter,
+            imageUrl: '',
+            order: patternWriteOrder(c.letter, patterns),
+            pattern: patterns.find((p) => wordMatchesPattern(c.letter, p)),
+          };
+        })}
         onComplete={handleComplete}
         onBack={backToUnit}
       />
