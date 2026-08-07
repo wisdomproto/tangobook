@@ -127,24 +127,26 @@ export function EnglishWordWritingPlayer({
       if (!writtenRef.current.includes(index)) writtenRef.current.push(index);
       queueMicrotask(() => {
         if (completedRef.current) return; // 마지막 글자 = handleWordComplete 가 처리
-        // 🔴 지금까지 쓴 칸을 시각 순서로 누적(man: a→an / bake: a→ak→ake).
-        const blend = [...writtenRef.current]
-          .sort((a, b) => a - b)
-          .map((i) => letters[i])
-          .join('');
-        // 🔴 **낱글자 하나는 안 읽는다**(2026-08-06 사용자: "an, man 만 나오면 돼. ㄴ 는 왜 나와?") —
-        //    라임/낱말 같은 **의미 덩어리(2글자+)** 만 읽는다. 띵동은 매 칸 유지(완성 피드백).
-        if (blend.length < 2) {
-          playAudio('/sounds/game/correct.mp3');
-          return;
-        }
         void (async () => {
-          const url = await resolveTtsUrl({
-            text: blend,
-            language: 'english',
-            storybookId,
-            identifierPrefix: 'wwrite-en',
-          });
+          // 🔴 지금까지 쓴 칸을 **시각 순서로 이어 읽기**(man: a→an / bake: a→ak→ake). 낱글자도 읽는다
+          //    (2026-08-06 사용자: "a 따라썼는데 안 읽어줘"). 블렌드가 라이브러리에 없으면 방금 쓴 음소.
+          const blend = [...writtenRef.current]
+            .sort((a, b) => a - b)
+            .map((i) => letters[i])
+            .join('');
+          const url =
+            (await resolveTtsUrl({
+              text: blend,
+              language: 'english',
+              storybookId,
+              identifierPrefix: 'wwrite-en',
+            })) ??
+            (await resolveTtsUrl({
+              text: letter,
+              language: 'english',
+              storybookId,
+              identifierPrefix: 'wwrite-en',
+            }));
           // 🔴 띵동 **먼저**, 끝나면 읽기 — 한 채널이라 동시에 내면 앞소리가 잘린다.
           playAudio('/sounds/game/correct.mp3', () => {
             if (url) playAudio(url);
