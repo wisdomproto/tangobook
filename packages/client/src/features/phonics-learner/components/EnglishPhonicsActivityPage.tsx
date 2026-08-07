@@ -177,15 +177,14 @@ export default function EnglishPhonicsActivityPage() {
       .filter((w) => !seen.has(w.word) && !!seen.add(w.word))
       .map((w) => {
         const img = findImageData(sb, w.word);
-        // 🔴 예문은 flashcard 에 있다(써보기 완성 시 보여줌) — 낱말 매칭(대소문자 무시).
-        const sentence = sb.flashcards?.find(
-          (f) => f.word?.toLowerCase() === w.word.toLowerCase()
-        )?.sentence;
+        // 🔴 예문(텍스트+자연음원)은 flashcard 에 있다 — 낱말 매칭(대소문자 무시).
+        const fc = sb.flashcards?.find((f) => f.word?.toLowerCase() === w.word.toLowerCase());
         return {
           word: w.word,
           ...(img.imageUrl ? { imageUrl: img.imageUrl } : {}),
           ...(w.ttsUrl ? { ttsUrl: w.ttsUrl } : {}),
-          ...(sentence ? { sentence } : {}),
+          ...(fc?.sentence ? { sentence: fc.sentence } : {}),
+          ...(fc?.sentenceTtsUrl ? { sentenceTtsUrl: fc.sentenceTtsUrl } : {}),
         };
       });
     if (words.length < 2) {

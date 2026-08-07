@@ -23,6 +23,8 @@ export interface FamilyWord {
   ttsUrl?: string;
   /** 예문 — 써보기에서 낱말을 완성하면 텍스트+소리로 보여준다(flashcard.sentence). */
   sentence?: string;
+  /** 예문 **자연 음원**(Gemini). 🔴 문장은 이걸로 읽는다 — concat 은 음소로 이어붙여 "이 해브 애 캔" 이 된다. */
+  sentenceTtsUrl?: string;
 }
 
 interface Props {
@@ -247,11 +249,13 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
     if (!w) return;
     const isLast = writeIdx + 1 >= words.length;
     void (async () => {
+      // 🔴 예문은 **자연 음원(sentenceTtsUrl) 우선** — 없으면 concat 폴백(음소 이어붙이기라 어색).
       const sentenceUrl = w.sentence
         ? await resolveTtsUrl({
             text: w.sentence,
             language: 'english',
             storybookId: unitId,
+            directUrl: w.sentenceTtsUrl,
             identifierPrefix: 'en-family',
           })
         : undefined;

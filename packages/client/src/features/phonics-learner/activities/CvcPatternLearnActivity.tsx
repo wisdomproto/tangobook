@@ -23,6 +23,7 @@ interface CvcWord {
   consonantBefore: string; // 'c'
   imageUrl?: string;
   sentence?: string;
+  sentenceTtsUrl?: string; // 예문 자연 음원(Gemini) — 문장은 concat 말고 이걸로.
 }
 
 /**
@@ -77,6 +78,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
       const out: CvcWord = { word, consonantBefore };
       if (f.imageUrl) out.imageUrl = f.imageUrl;
       if (f.sentence) out.sentence = f.sentence;
+      if (f.sentenceTtsUrl) out.sentenceTtsUrl = f.sentenceTtsUrl;
       return out;
     });
   }, [storybookQuery.data, pattern.vc]);
@@ -270,11 +272,13 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
         storybookId: unitId,
         identifierPrefix: 'en-cvc',
       });
+      // 🔴 예문은 **자연 음원(sentenceTtsUrl) 우선** — concat 은 "이 해브 애 캔" 처럼 음소로 이어붙인다.
       const sentenceUrl = cw.sentence
         ? await resolveTtsUrl({
             text: cw.sentence,
             language: 'english',
             storybookId: unitId,
+            directUrl: cw.sentenceTtsUrl,
             identifierPrefix: 'en-cvc',
           })
         : undefined;
