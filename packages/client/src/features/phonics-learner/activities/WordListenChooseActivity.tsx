@@ -272,11 +272,12 @@ export function WordListenChooseActivity({
   const say = useCallback(
     async (w: ListenChoice, onEnded?: () => void) => {
       if (w.soundUrls?.length) {
-        // 🔴 **탐색 = 4성 순서**(운모 놀이판, 같은 운모의 성조 비교) / **퀴즈 = 대표음(1성) 하나만**.
-        //    교안 퀴즈도 "4성 음원 중 1개 재생" — 퀴즈에서 시퀀스를 내면 한 문제가 ~6초로 길고
-        //    탐색과 구분이 안 된다(듣고 고르는 건 운모 하나이지 성조 비교가 아니다).
+        // 🔴 **탐색 = 시퀀스 전부**(단운모 4성 성조 비교 / 병음조합 블렌드 bō→ā→bā) /
+        //    **퀴즈 = 목표음 하나만**. 교안 퀴즈도 "음원 중 1개 재생" — 퀴즈에서 시퀀스를 내면 한 문제가
+        //    길고 탐색과 구분이 안 된다. 🔴 퀴즈 음은 `ttsUrl`(음절 bā) 우선 — 병음조합은 soundUrls[0] 이
+        //    성모 citation(bō)이라 그걸 내면 정답이 아닌 소리를 묻게 된다. 단운모는 ttsUrl==soundUrls[0](1성)라 무변.
         if (exploring) playSequence(w.soundUrls, onEnded);
-        else playAudio(w.soundUrls[0], onEnded);
+        else playAudio(w.ttsUrl || w.soundUrls[0], onEnded);
         return;
       }
       const url =

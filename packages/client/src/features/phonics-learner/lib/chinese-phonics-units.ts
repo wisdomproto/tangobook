@@ -40,6 +40,33 @@ export interface PinyinCard {
 /** 단운모 → tone-1(고평조) 부호 — 소릿결을 들려주는 「배우기」의 발음 키. */
 const TONE1: Record<string, string> = { a: 'ā', o: 'ō', e: 'ē', i: 'ī', u: 'ū', ü: 'ǖ' };
 
+/**
+ * 성모 citation(L2 결합음) — 병음조합(拼读) 블렌드의 **첫 클립**(bō pō mō fó dē…).
+ * 🔴 대부분 1성이지만 fó·tè·né 는 2/4성 — `fō·tē·nē`(1성)는 표준 중국어에 없어 녹음 부재(L2 와 동일).
+ */
+const INITIAL_CITATION: Record<string, string> = {
+  b: 'bō', p: 'pō', m: 'mō', f: 'fó',
+  d: 'dē', t: 'tè', n: 'né', l: 'lē',
+  g: 'gē', k: 'kē', h: 'hē',
+  j: 'jī', q: 'qī', x: 'xī',
+}; // prettier-ignore
+
+/** j/q/x 뒤 'u' 표기 → 실제 ü. 운모 클립은 ü 계열(jú 의 운모 = ǘ). 성조부호 그대로 옮긴다. */
+const U_TO_UMLAUT: Record<string, string> = { u: 'ü', ū: 'ǖ', ú: 'ǘ', ǔ: 'ǚ', ù: 'ǜ' };
+
+/**
+ * 병음조합 블렌드 클립 = **[성모 citation, 운모, 음절]**(bā → ['bō','ā','bā']). 교안 대본 "bō → ā → bā".
+ * 운모 = 음절에서 성모(첫 글자, L3 는 전부 1자 성모)를 뺀 나머지 + 그 음절 성조. j/q/x + u 는 ü 로 변환.
+ * 🔴 세 클립 전부 `mod_chinese` 에 실존(HEAD 200 확인). 소리는 `getChineseSyllableUrl` 로 직행(새 bake 0).
+ */
+export function blendClips(syllable: string): string[] {
+  const s = syllable.normalize('NFC');
+  const initial = s[0];
+  let rime = s.slice(1);
+  if ('jqx'.includes(initial) && rime.length === 1 && U_TO_UMLAUT[rime]) rime = U_TO_UMLAUT[rime];
+  return [INITIAL_CITATION[initial] ?? s, rime, s];
+}
+
 /** 단운모별 4성 부호 — 「성조 듣고 고르기」의 보기 라벨(소리는 음절, 보기는 성조 부호). */
 const TONE_MARKS: Record<string, string[]> = {
   a: ['ā', 'á', 'ǎ', 'à'],
@@ -89,6 +116,14 @@ export function isInitialUnit(unitId: string): boolean {
   return getChineseUnit(unitId)?.patterns.includes('initial') ?? false;
 }
 
+/**
+ * 병음조합(拼读) 유닛인가 — 카드 = 음절(sampleWords), 소리 = 블렌드 3클립(`blendClips`)을 순서로.
+ * 배우기(탐색=3클립 블렌드)와 듣고 고르기(퀴즈=음절 하나) 두 활동뿐 — 따라쓰기·글자 사냥 없음.
+ */
+export function isBlendUnit(unitId: string): boolean {
+  return getChineseUnit(unitId)?.patterns.includes('blend') ?? false;
+}
+
 /** 성모 유닛 카드 — label=성모 글자, sound=결합 음절(bō). 배우기·쓰기·사냥이 같은 모양을 쓴다. */
 function initialCards(u: ChineseUnitSummary): PinyinCard[] {
   return u.phonemes.map((p, i) => ({ label: p, sound: u.targetWords[i] ?? p }));
@@ -105,6 +140,9 @@ export function getChineseUnitCards(unitId: string): PinyinCard[] {
     return u.targetWords.map((w) => ({ label: w, sound: w }));
   }
   if (isInitialUnit(unitId)) return initialCards(u);
+  // 병음조합 — 카드 = 음절(방어용: 쓰기·사냥 없어 실제로는 안 불린다). 소리는 음절 하나.
+  if (isBlendUnit(unitId))
+    return u.targetWords.map((w) => ({ label: w, sound: w.normalize('NFC') }));
   // 단운모 — 보이는 건 낱 모음, 소리는 tone-1(소릿결).
   return u.phonemes.map((p) => ({ label: p, sound: TONE1[p] ?? p }));
 }
@@ -121,6 +159,14 @@ export function getChineseListenCards(unitId: string): PinyinCard[] {
   if (!u) return [];
   if (isToneUnit(unitId)) {
     return u.targetWords.map((w) => ({ label: w, sound: w }));
+  }
+  // 병음조합 배우기 — 음절 카드. 누르면 블렌드 3클립(성모 citation → 운모 → 음절)을 순서로.
+  // 🔴 sound = 음절(NFC, sounds[2]) — 호스트가 ttsBySound[sound] 로 퀴즈 음절 URL 을 찾으므로 clips 와 같은 정규화.
+  if (isBlendUnit(unitId)) {
+    return u.targetWords.map((w) => {
+      const clips = blendClips(w);
+      return { label: w, sound: clips[2], sounds: clips };
+    });
   }
   // 성모 = 낱 소리 하나(bō). 4성 시퀀스는 단운모(운모 놀이판)에서만.
   if (isInitialUnit(unitId)) return initialCards(u);
@@ -220,11 +266,33 @@ function makeTonePlan(): ActivityPlan {
 }
 
 /**
+ * 병음조합(拼读) plan = 배우기(블렌드 탐색) + 듣고 고르기(음절 퀴즈). 둘 다 word-listen-choose.
+ * 🔴 `listen-choose` 만 `exploreFirst`(호스트가 key 로 가름) — 배우기는 눌러 블렌드를 듣고, 듣고 고르기는 바로 퀴즈.
+ */
+function makeBlendPlan(): ActivityPlan {
+  return {
+    activities: [
+      LISTEN_FIRST,
+      {
+        key: 'listen-quiz',
+        order: 2,
+        kind: 'word-listen-choose',
+        section: 'learn',
+        title: '듣고 고르기',
+        emoji: '🎧',
+        required: true,
+      },
+    ],
+  };
+}
+
+/**
  * 유닛 → plan. 성조 유닛 = 배우기 + 성조 고르기 / 그 외(단운모·성모) = 배우기 + 따라쓰기 + 사냥.
  * 🔴 성모에 2글자(zh/ch/sh)가 섞이면 따라쓰기를 빼고 배우기·사냥만 둔다(위 `makeNoWritePlan`).
  */
 function planForUnit(u: ChineseUnitSummary): ActivityPlan {
   if (u.patterns.includes('tones')) return makeTonePlan();
+  if (u.patterns.includes('blend')) return makeBlendPlan();
   if (u.phonemes.some((p) => p.length > 1)) return makeNoWritePlan();
   return makeSingleFinalPlan();
 }

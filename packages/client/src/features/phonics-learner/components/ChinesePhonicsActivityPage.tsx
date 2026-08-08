@@ -6,6 +6,7 @@ import {
   getChineseToneChoiceCards,
   getChineseUnit,
   getChineseUnitCards,
+  isBlendUnit,
   isToneUnit,
   type PinyinCard,
 } from '../lib/chinese-phonics-units';
@@ -170,7 +171,8 @@ export default function ChinesePhonicsActivityPage() {
       ...(seq.length > 1 ? { soundUrls: seq } : {}),
     };
   });
-  const columns = isToneUnit(unitId) ? 2 : Math.min(items.length, 3);
+  // 성조·병음조합 = 2×2 격자(4장). 그 외(단운모·성모)는 장수로.
+  const columns = isToneUnit(unitId) || isBlendUnit(unitId) ? 2 : Math.min(items.length, 3);
   return (
     <WordListenChooseActivity
       unitId={unitId}
@@ -180,8 +182,9 @@ export default function ChinesePhonicsActivityPage() {
       items={items}
       choices={items.length}
       columns={columns}
-      // 성조 「고르기」는 되짚는 자리라 바로 퀴즈, 「배우기」는 먼저 눌러 탐색.
-      exploreFirst={activityKey !== 'tone-choose'}
+      // 🔴 「배우기」(listen-choose)만 탐색 먼저 — 병음조합 배우기는 눌러 블렌드를 듣고, 성조/병음조합
+      //    「고르기」(tone-choose·listen-quiz)는 되짚는 자리라 바로 퀴즈.
+      exploreFirst={activityKey === 'listen-choose'}
       onMarkComplete={handleMarkComplete}
       onBack={backToUnit}
     />

@@ -1385,6 +1385,46 @@ export const CHINESE_PHONICS_CURRICULUM = [
       },
     ],
   },
+  {
+    // 🔴 Level 3 병음조합(拼读) — 성모 + 단운모가 어떻게 합쳐 소리 나는지(bō → ā → bā). 카드 = 음절
+    //    (sampleWords), 소리 = 원어민 블렌드 3클립(성모 citation → 운모 → 음절)을 순서로. 한자·그림 없이
+    //    병음 음절만(한자·낱말은 L4). 성모 묶음(L2)과 결을 맞춘 4유닛, 유닛당 4음절. 🔴 전 음절·클립이
+    //    `mod_chinese` 에 실존(HEAD 200 확인) — 억지로 없는 조합을 넣지 않는다(声韵母表 `×` 칸).
+    level: 'level3',
+    name: 'Level 3: 병음조합',
+    description: '성모 + 단운모 → 음절 拼读 (bō → ā → bā)',
+    units: [
+      {
+        id: 'zh-l3-u01',
+        title: 'Unit 01: b p m f 조합',
+        phonemes: ['b', 'p', 'm', 'f'],
+        patterns: ['blend'],
+        sampleWords: ['bā', 'pí', 'mā', 'fā'],
+      },
+      {
+        id: 'zh-l3-u02',
+        title: 'Unit 02: d t n l 조합',
+        phonemes: ['d', 't', 'n', 'l'],
+        patterns: ['blend'],
+        sampleWords: ['dà', 'tù', 'nǐ', 'lù'],
+      },
+      {
+        id: 'zh-l3-u03',
+        title: 'Unit 03: g k h 조합',
+        phonemes: ['g', 'k', 'h'],
+        patterns: ['blend'],
+        sampleWords: ['gā', 'gǔ', 'kǎ', 'hǔ'],
+      },
+      {
+        id: 'zh-l3-u04',
+        // j/q/x + u 표기는 실제 ü — 운모 클립은 ü 계열(jú→ǘ·xǔ→ǚ). blendClips 가 변환.
+        title: 'Unit 04: j q x 조합',
+        phonemes: ['j', 'q', 'x'],
+        patterns: ['blend'],
+        sampleWords: ['jú', 'qí', 'xǐ', 'xǔ'],
+      },
+    ],
+  },
 ] as const;
 
 export type PhonicsLanguage = 'english' | 'korean' | 'chinese';
