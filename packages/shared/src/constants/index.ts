@@ -1330,6 +1330,61 @@ export const CHINESE_PHONICS_CURRICULUM = [
       },
     ],
   },
+  {
+    // 🔴 Level 2 성모(声母) — 성모 글자를 기본운모와 결합한 citation 소리로 익힌다(bō pō mō…). 카드 =
+    //    성모 글자(phonemes), 소리 = 결합 음절(sampleWords). 성조 4성 시퀀스가 아니라 **낱 소리 하나**다.
+    //    🔴 대부분 1성이지만 **fó·tè·né 는 2/4성** — `fō·tē·nē`(1성)는 표준 중국어에 없는 음절이라
+    //    원어민 녹음 라이브러리에도 없다(fó 2성·tè 4성·né 2성만 실존). 카드는 성모 글자만 보이므로
+    //    성조 차이는 화면에 안 드러나고 /f/·/t/·/n/ 초성은 그대로 들린다. 음원은 `mod_chinese` 에 전부 있다.
+    level: 'level2',
+    name: 'Level 2: 성모',
+    description: '성모 b p m f … zh ch sh r — 기본운모 결합음(bō pō dē jī zhī)',
+    units: [
+      {
+        id: 'zh-l2-u01',
+        title: 'Unit 01: b p m f',
+        phonemes: ['b', 'p', 'm', 'f'],
+        patterns: ['initial'],
+        sampleWords: ['bō', 'pō', 'mō', 'fó'],
+      },
+      {
+        id: 'zh-l2-u02',
+        title: 'Unit 02: d t n l',
+        phonemes: ['d', 't', 'n', 'l'],
+        patterns: ['initial'],
+        sampleWords: ['dē', 'tè', 'né', 'lē'],
+      },
+      {
+        id: 'zh-l2-u03',
+        title: 'Unit 03: g k h',
+        phonemes: ['g', 'k', 'h'],
+        patterns: ['initial'],
+        sampleWords: ['gē', 'kē', 'hē'],
+      },
+      {
+        id: 'zh-l2-u04',
+        title: 'Unit 04: j q x',
+        phonemes: ['j', 'q', 'x'],
+        patterns: ['initial'],
+        sampleWords: ['jī', 'qī', 'xī'],
+      },
+      {
+        id: 'zh-l2-u05',
+        title: 'Unit 05: z c s',
+        phonemes: ['z', 'c', 's'],
+        patterns: ['initial'],
+        sampleWords: ['zī', 'cī', 'sī'],
+      },
+      {
+        id: 'zh-l2-u06',
+        // 권설음 — zh/ch/sh 는 2글자라 LetterFillCanvas(한 글자 캔버스)에 안 맞아 따라쓰기 생략.
+        title: 'Unit 06: zh ch sh r',
+        phonemes: ['zh', 'ch', 'sh', 'r'],
+        patterns: ['initial'],
+        sampleWords: ['zhī', 'chī', 'shī', 'rì'],
+      },
+    ],
+  },
 ] as const;
 
 export type PhonicsLanguage = 'english' | 'korean' | 'chinese';

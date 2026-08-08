@@ -80,6 +80,16 @@ const ENGLISH_LOOKALIKES: Record<string, string[]> = {
   z: ['s', 'n', 'x'],
 };
 
+/**
+ * 병음 권설 성모(声母) — zh/ch/sh 는 2글자라 영어/모음 규칙에 안 걸린다. 진짜 혼동쌍(같은 권설 계열
+ * 서로 + 대응 치음 z/c/s)을 방해꾼으로. 단일 글자 성모(b/p/d/q·z/c/s…)는 영어 모양 혼동표가 이미 덮는다.
+ */
+const CHINESE_LOOKALIKES: Record<string, string[]> = {
+  zh: ['ch', 'sh', 'z'],
+  ch: ['sh', 'zh', 'c'],
+  sh: ['zh', 'ch', 's'],
+};
+
 /** 영어 word family(at·an…) 방해꾼을 만들 때 갈아 끼우는 조각. */
 const EN_VOWELS = ['a', 'e', 'i', 'o', 'u'];
 const EN_ENDINGS = ['t', 'n', 'p', 'd', 'g', 'm', 'b', 'ck'];
@@ -89,7 +99,10 @@ const EN_ENDINGS = ['t', 'n', 'p', 'd', 'g', 'm', 'b', 'ck'];
  * 영어 word family(`at`)는 모음·끝소리를 갈아 끼운 것(`et`·`an`)이 곧 진짜 혼동 대상이다.
  */
 export function lookalikesOf(letter: string): string[] {
-  const direct = KOREAN_LOOKALIKES[letter] ?? ENGLISH_LOOKALIKES[letter.toLowerCase()];
+  const direct =
+    KOREAN_LOOKALIKES[letter] ??
+    CHINESE_LOOKALIKES[letter.toLowerCase()] ??
+    ENGLISH_LOOKALIKES[letter.toLowerCase()];
   // 영어 복습 카드는 대문자('A')로 온다 — 판에 소문자만 깔리면 목표와 다른 글자로 보인다.
   if (direct) return /^[A-Z]$/.test(letter) ? direct.map((d) => d.toUpperCase()) : direct;
 

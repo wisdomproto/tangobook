@@ -82,6 +82,19 @@ export function isToneUnit(unitId: string): boolean {
 }
 
 /**
+ * 성모(声母) 유닛인가 — 카드 = 성모 글자(phonemes), 소리 = 결합 citation 음절(sampleWords, 낱 소리 하나).
+ * 🔴 단운모처럼 4성 시퀀스를 붙이지 않는다 — 성모는 한 소리(bō)로만 들려준다.
+ */
+export function isInitialUnit(unitId: string): boolean {
+  return getChineseUnit(unitId)?.patterns.includes('initial') ?? false;
+}
+
+/** 성모 유닛 카드 — label=성모 글자, sound=결합 음절(bō). 배우기·쓰기·사냥이 같은 모양을 쓴다. */
+function initialCards(u: ChineseUnitSummary): PinyinCard[] {
+  return u.phonemes.map((p, i) => ({ label: p, sound: u.targetWords[i] ?? p }));
+}
+
+/**
  * 「듣고 배우기」 카드. 단운모 유닛은 낱 모음(a·o·e, 소리=tone-1 ā·ō·ē), 성조 유닛은 4성 음절(mā·má·mǎ·mà).
  */
 export function getChineseUnitCards(unitId: string): PinyinCard[] {
@@ -91,6 +104,7 @@ export function getChineseUnitCards(unitId: string): PinyinCard[] {
     // 성조 유닛 — sampleWords 가 곧 4성 음절이고 라벨·소리가 같다.
     return u.targetWords.map((w) => ({ label: w, sound: w }));
   }
+  if (isInitialUnit(unitId)) return initialCards(u);
   // 단운모 — 보이는 건 낱 모음, 소리는 tone-1(소릿결).
   return u.phonemes.map((p) => ({ label: p, sound: TONE1[p] ?? p }));
 }
@@ -108,6 +122,8 @@ export function getChineseListenCards(unitId: string): PinyinCard[] {
   if (isToneUnit(unitId)) {
     return u.targetWords.map((w) => ({ label: w, sound: w }));
   }
+  // 성모 = 낱 소리 하나(bō). 4성 시퀀스는 단운모(운모 놀이판)에서만.
+  if (isInitialUnit(unitId)) return initialCards(u);
   return u.phonemes.map((p) => {
     const marks = TONE_MARKS[p];
     return {
@@ -168,6 +184,24 @@ function makeSingleFinalPlan(): ActivityPlan {
   };
 }
 
+const HUNT = {
+  key: 'hunt',
+  order: 3,
+  kind: 'letter-hunt',
+  section: 'learn',
+  title: '글자 사냥',
+  emoji: '🔎',
+  required: false,
+} as const;
+
+/**
+ * 따라쓰기를 뺀 성모 plan(zh/ch/sh 처럼 2글자 성모) — 배우기 + 글자 사냥.
+ * `LetterFillCanvas` 는 한 글자 캔버스라 2글자 성모를 못 쓴다(배우기·사냥은 글자 수와 무관).
+ */
+function makeNoWritePlan(): ActivityPlan {
+  return { activities: [LISTEN_FIRST, { ...HUNT, order: 2 }] };
+}
+
 function makeTonePlan(): ActivityPlan {
   return {
     activities: [
@@ -185,11 +219,18 @@ function makeTonePlan(): ActivityPlan {
   };
 }
 
+/**
+ * 유닛 → plan. 성조 유닛 = 배우기 + 성조 고르기 / 그 외(단운모·성모) = 배우기 + 따라쓰기 + 사냥.
+ * 🔴 성모에 2글자(zh/ch/sh)가 섞이면 따라쓰기를 빼고 배우기·사냥만 둔다(위 `makeNoWritePlan`).
+ */
+function planForUnit(u: ChineseUnitSummary): ActivityPlan {
+  if (u.patterns.includes('tones')) return makeTonePlan();
+  if (u.phonemes.some((p) => p.length > 1)) return makeNoWritePlan();
+  return makeSingleFinalPlan();
+}
+
 export const CHINESE_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = Object.fromEntries(
-  getAllChineseUnits().map((u) => [
-    u.id,
-    u.patterns.includes('tones') ? makeTonePlan() : makeSingleFinalPlan(),
-  ])
+  getAllChineseUnits().map((u) => [u.id, planForUnit(u)])
 );
 
 export function getChineseActivityPlan(unitId: string): ActivityPlan {

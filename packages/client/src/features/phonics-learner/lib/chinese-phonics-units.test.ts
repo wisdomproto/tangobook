@@ -6,17 +6,30 @@ import {
   getChineseRequiredActivities,
   getChineseToneChoiceCards,
   getChineseUnitCards,
+  isInitialUnit,
   isToneUnit,
 } from './chinese-phonics-units';
 
 describe('중국어 병음 파닉스 L1 (교안 순서: 성조 먼저)', () => {
-  it('L1 = 성조(u01) → 단운모 a o e(u02) → 단운모 i u ü(u03)', () => {
+  it('L1(성조 먼저) → L2 성모 6유닛 순서', () => {
     const units = getAllChineseUnits();
-    expect(units.map((u) => u.id)).toEqual(['zh-l1-u01', 'zh-l1-u02', 'zh-l1-u03']);
-    // 🔴 첫 유닛 = 성조, 나머지 둘 = 단운모.
+    expect(units.map((u) => u.id)).toEqual([
+      'zh-l1-u01',
+      'zh-l1-u02',
+      'zh-l1-u03',
+      'zh-l2-u01',
+      'zh-l2-u02',
+      'zh-l2-u03',
+      'zh-l2-u04',
+      'zh-l2-u05',
+      'zh-l2-u06',
+    ]);
+    // 🔴 L1 첫 유닛 = 성조, 나머지 둘 = 단운모. L2 는 전부 성모(단운모/성조 아님).
     expect(isToneUnit('zh-l1-u01')).toBe(true);
     expect(isToneUnit('zh-l1-u02')).toBe(false);
-    expect(isToneUnit('zh-l1-u03')).toBe(false);
+    expect(isInitialUnit('zh-l1-u02')).toBe(false);
+    expect(isInitialUnit('zh-l2-u01')).toBe(true);
+    expect(isToneUnit('zh-l2-u01')).toBe(false);
   });
 
   // 🔴 plan 이 없으면 라우트로 도달해도 죽은 코드 — 모든 유닛이 도달 가능한 plan 을 갖는지.
@@ -85,5 +98,40 @@ describe('중국어 병음 파닉스 L1 (교안 순서: 성조 먼저)', () => {
     ]);
     // 단운모 유닛엔 성조 고르기 카드가 없다.
     expect(getChineseToneChoiceCards('zh-l1-u02')).toEqual([]);
+  });
+
+  // ── L2 성모 ──────────────────────────────────────────────────────────────
+  // 🔴 성모 카드 = 글자(b) → 결합음(bō), 낱 소리 하나(4성 시퀀스 없음).
+  it('성모 배우기·쓰기·사냥 카드 = 성모 글자 라벨 + 결합음(단일)', () => {
+    expect(getChineseListenCards('zh-l2-u01')).toEqual([
+      { label: 'b', sound: 'bō' },
+      { label: 'p', sound: 'pō' },
+      { label: 'm', sound: 'mō' },
+      // 🔴 fó(2성) — fō(1성)는 실존 음절이 아니라 녹음 부재. 성모 글자만 보여 성조차는 안 드러남.
+      { label: 'f', sound: 'fó' },
+    ]);
+    // 배우기·쓰기·사냥이 같은 모양(시퀀스 없음).
+    expect(getChineseUnitCards('zh-l2-u01')).toEqual(getChineseListenCards('zh-l2-u01'));
+    expect(getChineseUnitCards('zh-l2-u04').map((c) => c.sound)).toEqual(['jī', 'qī', 'xī']);
+  });
+
+  it('단일 글자 성모 유닛 = 배우기 + 따라쓰기 + 글자 사냥', () => {
+    for (const id of ['zh-l2-u01', 'zh-l2-u02', 'zh-l2-u03', 'zh-l2-u04', 'zh-l2-u05']) {
+      const kinds = getChineseActivityPlan(id).activities.map((a) => a.kind);
+      expect(kinds).toEqual(['word-listen-choose', 'vowel-write', 'letter-hunt']);
+    }
+  });
+
+  // 🔴 zh/ch/sh 2글자 성모 유닛 = LetterFillCanvas 못 씀 → 따라쓰기 생략(배우기·사냥만).
+  it('권설 성모 유닛(u06) = 배우기 + 글자 사냥(따라쓰기 없음)', () => {
+    const kinds = getChineseActivityPlan('zh-l2-u06').activities.map((a) => a.kind);
+    expect(kinds).toEqual(['word-listen-choose', 'letter-hunt']);
+    expect(getChineseUnitCards('zh-l2-u06').map((c) => c.label)).toEqual(['zh', 'ch', 'sh', 'r']);
+    expect(getChineseUnitCards('zh-l2-u06').map((c) => c.sound)).toEqual([
+      'zhī',
+      'chī',
+      'shī',
+      'rì',
+    ]);
   });
 });

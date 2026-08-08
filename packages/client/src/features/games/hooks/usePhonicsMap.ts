@@ -10,7 +10,7 @@ type ModuleKey = 'mod_korean' | 'mod_phonics' | 'mod_english' | 'mod_chinese';
 // 라이브러리 schema 변경 시 CACHE_KEY 뒤 v 숫자 bump → 옛 캐시 자동 무효.
 // ─────────────────────────────────────────────────────────────────
 // v2: mod_chinese(병음) 카테고리 추가 — v1 캐시엔 없어 병음이 무음이므로 키를 올려 1회 재fetch.
-const CACHE_KEY = 'tangobook-phonics-library-v2';
+const CACHE_KEY = 'tangobook-phonics-library-v3';
 // 캐시가 이만큼 신선하면 백그라운드 refresh 스킵 — 게임 재진입마다 ~8s list fetch 반복 방지.
 const CACHE_FRESH_MS = 10 * 60 * 1000; // 10분
 
