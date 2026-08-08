@@ -12,7 +12,8 @@ import { ActivityShell } from '../components/ActivityShell';
 interface Props {
   unitId: string;
   cards: ReadonlyArray<ReviewCard>;
-  language?: 'korean' | 'english';
+  // 'zh' = 병음 — 목표 글자 소리는 `card.sound`(ā·ō) 를 `mod_chinese` 직행으로 읽는다.
+  language?: 'korean' | 'english' | 'zh';
   onComplete: () => void;
   onBack: () => void;
 }

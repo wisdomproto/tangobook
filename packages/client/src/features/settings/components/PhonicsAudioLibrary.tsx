@@ -6,6 +6,7 @@ type Library = {
   mod_phonics: PhonicsAudioItem[];
   mod_english: PhonicsAudioItem[];
   mod_korean: PhonicsAudioItem[];
+  mod_chinese: PhonicsAudioItem[];
 };
 
 /** FileSystemEntry에서 재귀적으로 모든 .mp3 File을 수집 */
@@ -47,6 +48,7 @@ export function PhonicsAudioLibrary() {
     mod_phonics: [],
     mod_english: [],
     mod_korean: [],
+    mod_chinese: [],
   });
   const [activeTab, setActiveTab] = useState<PhonicsAudioCategory>('mod_phonics');
   const [uploading, setUploading] = useState(false);
@@ -63,7 +65,8 @@ export function PhonicsAudioLibrary() {
   const fetchLibrary = useCallback(async () => {
     try {
       const data = await settingsApi.getPhonicsLibrary();
-      setLibrary(data);
+      // mod_chinese 는 API 응답에서 optional(옛 서버 호환) — 없으면 빈 배열로 채운다.
+      setLibrary({ mod_chinese: [], ...data });
     } catch {
       /* silent */
     }
@@ -212,6 +215,7 @@ export function PhonicsAudioLibrary() {
     { key: 'mod_phonics', label: 'MOD Phonics' },
     { key: 'mod_english', label: 'MOD English' },
     { key: 'mod_korean', label: 'MOD Korean' },
+    { key: 'mod_chinese', label: 'MOD Chinese' },
   ];
 
   return (

@@ -2,23 +2,31 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   getChineseActivityPlan,
+  getChineseToneChoiceCards,
   getChineseUnit,
   getChineseUnitCards,
   isToneUnit,
+  type PinyinCard,
 } from '../lib/chinese-phonics-units';
-import type { ActivityDef } from '../lib/korean-phonics-units';
+import type { ActivityDef, ReviewCard } from '../lib/korean-phonics-units';
 import { markActivityCompleted } from '../lib/progress-store';
-import { resolveChinesePinyinAudio } from '../lib/pinyin-audio';
+import { getChineseSyllableUrl } from '@/features/games/hooks/usePhonicsMap';
 import { WordListenChooseActivity } from '../activities/WordListenChooseActivity';
+import { VowelWriteActivity } from '../activities/VowelWriteActivity';
+import { LetterHuntActivity } from '../activities/LetterHuntActivity';
 import { useLogEvent } from '@/features/learning/hooks/useLogEvent';
 
 /**
  * /library/phonics/chinese/:unitId/:activityKey — 병음 활동 호스트.
  *
- * L1 은 유닛마다 「듣고 고르기」 하나뿐 → `WordListenChooseActivity` 재사용(글자만 보기, 그림 없음).
- * 🔴 발음은 진입 시 **한 번에 resolve**(= 프리워밍) — `resolveChinesePinyinAudio` 가 zh 런타임 TTS
- *    (`/api/tts/vocab-unit`, Google cmn-CN + R2 캐시)로 대표 한자를 읽어 URL 을 준다. 각 카드가
- *    `ttsUrl` 로 그 URL 을 들고 있어 탭 시 왕복 0(첫 마운트에서만 생성). 안내·칭찬은 한국어(`language`).
+ * 활동은 전부 기존 컴포넌트 재사용(새 컴포넌트 0):
+ *  - `word-listen-choose` = 듣고 배우기 / 성조 듣고 고르기(성조 유닛)
+ *  - `vowel-write` = 병음 따라쓰기(LetterFillCanvas 라틴)
+ *  - `letter-hunt` = 글자 사냥(병음 모양 변별)
+ *
+ * 🔴 발음 = 원어민 녹음(`mod_chinese`) 직행. `getChineseSyllableUrl(sound)` 로 URL 을 미리 뽑아
+ *    `ttsUrl` 로 넘긴다(word-listen·write). 글자 사냥은 컴포넌트가 `resolveTtsUrl(zh)` 로 직접 읽는다.
+ * 🔴 안내·칭찬은 한국어(아이가 알아듣는 말) — 병음은 소리(카드)로만 등장한다.
  */
 export default function ChinesePhonicsActivityPage() {
   const { unitId = '', activityKey = '' } = useParams<{ unitId: string; activityKey: string }>();
@@ -29,27 +37,36 @@ export default function ChinesePhonicsActivityPage() {
     () => plan.activities.find((a) => a.key === activityKey),
     [plan, activityKey]
   );
-  const cards = useMemo(() => getChineseUnitCards(unitId), [unitId]);
 
-  // 진입 시 카드 발음을 전부 resolve(프리워밍) → ttsUrl 로 넘긴다. resolve 전엔 로딩.
-  const [items, setItems] = useState<
-    { id: string; label: string; sound: string; ttsUrl?: string }[] | null
-  >(null);
+  /** 이 활동이 쓰는 카드 — 성조 고르기는 성조 부호 보기, 나머지는 단운모/음절. */
+  const cards: PinyinCard[] = useMemo(() => {
+    if (activityKey === 'tone-choose') return getChineseToneChoiceCards(unitId);
+    return getChineseUnitCards(unitId);
+  }, [unitId, activityKey]);
+
+  // 진입 시 카드 발음을 전부 resolve(프리워밍) → sound→URL 맵. resolve 전엔 로딩.
+  // 🔴 글자 사냥은 여기서 안 데운다 — `resolveTtsUrl(zh)` 가 방해꾼까지 런타임에 읽는다.
+  const needsPreresolve = activity?.kind !== 'letter-hunt';
+  const [ttsBySound, setTtsBySound] = useState<Record<string, string> | null>(null);
   useEffect(() => {
+    if (!needsPreresolve) {
+      setTtsBySound({});
+      return;
+    }
     let alive = true;
+    setTtsBySound(null);
     void (async () => {
-      const resolved = await Promise.all(
-        cards.map(async (c) => {
-          const ttsUrl = await resolveChinesePinyinAudio(c.pinyin);
-          return { id: c.pinyin, label: c.label, sound: c.label, ...(ttsUrl ? { ttsUrl } : {}) };
-        })
+      const entries = await Promise.all(
+        cards.map(async (c) => [c.sound, await getChineseSyllableUrl(c.sound)] as const)
       );
-      if (alive) setItems(resolved);
+      if (alive) {
+        setTtsBySound(Object.fromEntries(entries.filter(([, url]) => url) as [string, string][]));
+      }
     })();
     return () => {
       alive = false;
     };
-  }, [cards]);
+  }, [cards, needsPreresolve]);
 
   const backToUnit = useCallback(
     () => navigate(`/library/phonics/chinese/${unitId}`),
@@ -83,7 +100,27 @@ export default function ChinesePhonicsActivityPage() {
     );
   }
 
-  if (!items) {
+  // 글자 사냥 — 병음 낱 글자를 ReviewCard 로 (letter=보이는 글자, sound=성조 발음).
+  if (activity.kind === 'letter-hunt') {
+    const huntCards: ReviewCard[] = cards.map((c) => ({
+      unitId,
+      letter: c.label,
+      syllable: c.label,
+      sound: c.sound,
+      matchPosition: 'cho',
+    }));
+    return (
+      <LetterHuntActivity
+        unitId={unitId}
+        cards={huntCards}
+        language="zh"
+        onComplete={handleMarkComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+
+  if (!ttsBySound) {
     return (
       <div className="fixed inset-0 z-[60] flex flex-col items-center justify-center gap-3 bg-gradient-to-b from-cream-50 to-peach-100 text-center">
         <div className="text-6xl">{activity.emoji}</div>
@@ -93,17 +130,42 @@ export default function ChinesePhonicsActivityPage() {
     );
   }
 
-  // 성조 유닛 = 4장(2×2) / 단운모 = 3장(한 줄). 보기 수 = 카드 수(마지막 카드가 빠지지 않게).
+  // 병음 따라쓰기 — 쓰는 글자는 낱 모음(label), 읽는 소리는 tone-1 녹음(ttsUrl).
+  if (activity.kind === 'vowel-write') {
+    return (
+      <VowelWriteActivity
+        unitId={unitId}
+        language="zh"
+        vowels={cards.map((c) => ({
+          vowel: c.label,
+          syllable: c.label,
+          ttsUrl: ttsBySound[c.sound],
+        }))}
+        onComplete={handleMarkComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+
+  // 듣고 배우기 / 성조 듣고 고르기 — 성조 유닛 4장(2×2) / 단운모 3장(한 줄).
+  const items = cards.map((c) => ({
+    id: c.label,
+    label: c.label,
+    sound: c.sound,
+    ...(ttsBySound[c.sound] ? { ttsUrl: ttsBySound[c.sound] } : {}),
+  }));
   const columns = isToneUnit(unitId) ? 2 : Math.min(items.length, 3);
   return (
     <WordListenChooseActivity
       unitId={unitId}
-      // 🔴 안내·칭찬은 한국어(아이가 알아듣는 말) — `language` 는 그 용도. 병음 발음은 카드 `ttsUrl` 이 든다.
-      language="korean"
+      // 🔴 콘텐츠 소리 = 병음(`zh`) → warm·폴백이 라이브러리 직행(korean 이면 concat 400).
+      //    안내·칭찬은 여전히 한국어 — 칭찬은 `en` 만 가르고 `zh` 는 `ko` 로 매핑된다.
+      language="zh"
       items={items}
       choices={items.length}
       columns={columns}
-      exploreFirst
+      // 성조 「고르기」는 되짚는 자리라 바로 퀴즈, 「배우기」는 먼저 눌러 탐색.
+      exploreFirst={activityKey !== 'tone-choose'}
       onMarkComplete={handleMarkComplete}
       onBack={backToUnit}
     />

@@ -32,7 +32,11 @@ interface Props {
   items: ReadonlyArray<ListenChoice>;
   /** 이 단원이 배우는 글자 — 문제 쪽에 함께 보여준다. */
   letter?: string;
-  language?: 'korean' | 'english';
+  /**
+   * **콘텐츠 소리**의 언어(warm·resolve). 안내·칭찬은 별개다 — 칭찬은 `en` 만 가르고 나머지는 `ko`
+   * (병음 `zh` 도 한국어 칭찬). 병음은 `'zh'` 를 넘겨야 warm/폴백이 라이브러리 직행(korean 이면 concat 400).
+   */
+  language?: 'korean' | 'english' | 'zh';
   /**
    * 판에 깔리는 카드 수 = 한 문제의 보기 수(탐색·퀴즈가 같은 판을 쓴다).
    *

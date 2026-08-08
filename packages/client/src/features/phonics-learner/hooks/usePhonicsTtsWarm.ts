@@ -16,7 +16,7 @@ export function usePhonicsTtsWarm(
   unitId: string,
   texts: ReadonlyArray<string>,
   identifierPrefix: string,
-  language: 'korean' | 'english' = 'korean'
+  language: 'korean' | 'english' | 'zh' = 'korean'
 ) {
   // 배열 아이덴티티가 아니라 내용으로 재실행을 판단한다(호출부가 useMemo 를 안 써도 안전).
   // 구분자는 개행 — 발음 텍스트에 공백이 들어가는 경우가 있다("ㄱ ㄱ 고기").
