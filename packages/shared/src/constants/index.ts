@@ -1499,6 +1499,52 @@ export const CHINESE_PHONICS_CURRICULUM = [
       },
     ],
   },
+  {
+    // 🔴 Level 6 비운모(鼻韵母) — 성모 + 비운모 블렌딩. L3/L5 와 **같은 메커니즘**(patterns 'blend').
+    //    코드 변경 0 — blendClips 가 [성모 citation, 비운모, 음절] 3클립을 뽑고 전 클립이 mod_chinese 에
+    //    실존(HEAD 200 전수 확인, 18/18 OK). 🔴 **성모 단자음 + 순수 비운모만** — blendClips 는 s.slice(1)
+    //    을 운모로 떼므로, jiāng·guān 처럼 개운모(iang·uan)가 낀 음절은 bare rime 클립(iāng·uān)이 없어
+    //    제외한다(an en in un ün / ang eng ing ong 9종만 bare 클립 존재). jūn·qún 은 jqx+u=ü → blendClips
+    //    가 운모 첫 글자를 ü 로 바꿔 ǖn·ǘn 클립을 찾는다(L3 와 동일). 前鼻(-n) 2유닛 · 後鼻(-ng) 2유닛으로
+    //    나눠 -n↔-ng 변별을 돕는다. 한자·그림·게임 없이 병음 소리만(비운모 낱말은 후속).
+    level: 'level6',
+    name: 'Level 6: 비운모',
+    description: '성모 + 비운모 → 음절 (fàn · mén · fēng · dōng)',
+    units: [
+      {
+        id: 'zh-l6-u01',
+        // 前鼻 an en — bàn 半 · fàn 饭 · mén 门 · fēn 分
+        title: 'Unit 01: an en 조합',
+        phonemes: ['an', 'en'],
+        patterns: ['blend'],
+        sampleWords: ['bàn', 'fàn', 'mén', 'fēn'],
+      },
+      {
+        id: 'zh-l6-u02',
+        // 前鼻 in un ün — xīn 心 · jīn 金 · kūn 昆 · dūn 蹲 · jūn 军 · qún 裙
+        title: 'Unit 02: in un ün 조합',
+        phonemes: ['in', 'un', 'ün'],
+        patterns: ['blend'],
+        sampleWords: ['xīn', 'jīn', 'kūn', 'dūn', 'jūn', 'qún'],
+      },
+      {
+        id: 'zh-l6-u03',
+        // 後鼻 ang eng — fáng 房 · tāng 汤 · dēng 灯 · fēng 风
+        title: 'Unit 03: ang eng 조합',
+        phonemes: ['ang', 'eng'],
+        patterns: ['blend'],
+        sampleWords: ['fáng', 'tāng', 'dēng', 'fēng'],
+      },
+      {
+        id: 'zh-l6-u04',
+        // 後鼻 ing ong — xīng 星 · bīng 冰 · hóng 红 · lóng 龙
+        title: 'Unit 04: ing ong 조합',
+        phonemes: ['ing', 'ong'],
+        patterns: ['blend'],
+        sampleWords: ['xīng', 'bīng', 'hóng', 'lóng'],
+      },
+    ],
+  },
 ] as const;
 
 export type PhonicsLanguage = 'english' | 'korean' | 'chinese';

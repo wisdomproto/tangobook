@@ -38,6 +38,10 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       'zh-l5-u01',
       'zh-l5-u02',
       'zh-l5-u03',
+      'zh-l6-u01',
+      'zh-l6-u02',
+      'zh-l6-u03',
+      'zh-l6-u04',
     ]);
     // 🔴 L1 첫 유닛 = 성조, 나머지 둘 = 단운모. L2 는 전부 성모. L3 는 전부 병음조합(blend).
     expect(isToneUnit('zh-l1-u01')).toBe(true);
@@ -48,6 +52,10 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
     expect(isBlendUnit('zh-l3-u01')).toBe(true);
     expect(isBlendUnit('zh-l2-u01')).toBe(false);
     expect(isBlendUnit('zh-l1-u01')).toBe(false);
+    // L5 복운모·L6 비운모도 블렌드(같은 메커니즘).
+    expect(isBlendUnit('zh-l5-u01')).toBe(true);
+    expect(isBlendUnit('zh-l6-u01')).toBe(true);
+    expect(isBlendUnit('zh-l6-u04')).toBe(true);
   });
 
   // 🔴 plan 이 없으면 라우트로 도달해도 죽은 코드 — 모든 유닛이 도달 가능한 plan(첫 활동 word-listen-choose)을 갖는지.
@@ -268,6 +276,46 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       { label: 'jiě', sound: 'jiě', sounds: ['jī', 'iě', 'jiě'] },
       { label: 'xué', sound: 'xué', sounds: ['xī', 'üé', 'xué'] },
       { label: 'xuě', sound: 'xuě', sounds: ['xī', 'üě', 'xuě'] },
+    ]);
+  });
+
+  // ── L6 비운모(鼻韵母) ─────────────────────────────────────────────────────
+  // 🔴 L3/L5 와 같은 blend 메커니즘 — 유닛 데이터만 추가, 코드 변경 0. 前鼻 2유닛 · 後鼻 2유닛.
+  it('L6 = 비운모 blend 유닛 4개(前鼻 2 + 後鼻 2), 각 배우기 + 듣고 고르기', () => {
+    for (const id of ['zh-l6-u01', 'zh-l6-u02', 'zh-l6-u03', 'zh-l6-u04']) {
+      expect(isBlendUnit(id)).toBe(true);
+      expect(isToneUnit(id)).toBe(false);
+      expect(isWordUnit(id)).toBe(false);
+      expect(getChineseActivityPlan(id).activities.map((a) => a.key)).toEqual([
+        'listen-choose',
+        'listen-quiz',
+      ]);
+    }
+  });
+
+  // 🔴 비운모 배우기 카드 = 음절 + 블렌드 3클립(성모 citation → 비운모 → 음절). bare 비운모 클립만 실존.
+  //    jūn·qún = jqx 뒤 u→ü → 클립 ǖn·ǘn(ün 계열). 전 클립 mod_chinese 실존(18/18 HEAD 200 확인).
+  it('비운모 배우기 카드 = 음절 라벨 + 블렌드 3클립 (an/en/in/un/ün/ang/eng/ing/ong)', () => {
+    expect(getChineseListenCards('zh-l6-u01')).toEqual([
+      { label: 'bàn', sound: 'bàn', sounds: ['bō', 'àn', 'bàn'] },
+      { label: 'fàn', sound: 'fàn', sounds: ['fó', 'àn', 'fàn'] },
+      { label: 'mén', sound: 'mén', sounds: ['mō', 'én', 'mén'] },
+      { label: 'fēn', sound: 'fēn', sounds: ['fó', 'ēn', 'fēn'] },
+    ]);
+    // 🔴 kūn/dūn = un 그대로 / jūn·qún = jqx 뒤 u→ü (ǖn·ǘn).
+    expect(getChineseListenCards('zh-l6-u02')).toEqual([
+      { label: 'xīn', sound: 'xīn', sounds: ['xī', 'īn', 'xīn'] },
+      { label: 'jīn', sound: 'jīn', sounds: ['jī', 'īn', 'jīn'] },
+      { label: 'kūn', sound: 'kūn', sounds: ['kē', 'ūn', 'kūn'] },
+      { label: 'dūn', sound: 'dūn', sounds: ['dē', 'ūn', 'dūn'] },
+      { label: 'jūn', sound: 'jūn', sounds: ['jī', 'ǖn', 'jūn'] },
+      { label: 'qún', sound: 'qún', sounds: ['qī', 'ǘn', 'qún'] },
+    ]);
+    expect(getChineseListenCards('zh-l6-u04')).toEqual([
+      { label: 'xīng', sound: 'xīng', sounds: ['xī', 'īng', 'xīng'] },
+      { label: 'bīng', sound: 'bīng', sounds: ['bō', 'īng', 'bīng'] },
+      { label: 'hóng', sound: 'hóng', sounds: ['hē', 'óng', 'hóng'] },
+      { label: 'lóng', sound: 'lóng', sounds: ['lē', 'óng', 'lóng'] },
     ]);
   });
 });
