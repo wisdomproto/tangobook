@@ -1545,6 +1545,54 @@ export const CHINESE_PHONICS_CURRICULUM = [
       },
     ],
   },
+  {
+    // 🔴 Level 7 整体认读(통독 음절) — 성모+운모로 안 쪼개지는 whole-read 16음절. blend 가 아니라 새 pattern
+    //    'whole': 배우기가 그 음절의 4성을 순서로 들려주고(단운모 운모 놀이판과 같은 리듬) 듣고 고르기로 변별한다.
+    //    쓰기·사냥 없음(다글자+성조부호라 캔버스 밖 — zh/ch/sh 성모와 같은 이유). 전 성조 클립 mod_chinese 실존
+    //    (64/64 HEAD 200 확인). 교재 표준 5묶음: zhi chi shi ri / zi ci si / yi wu yu / ye yue yuan / yin yun ying.
+    //    phonemes = whole 음절(카드/소리 키), sampleWords = tone-1 참조용. 🔴 복습(게임형)은 후속 — 한글 복습 호스트
+    //    포팅이 필요한 별개 작업이라 여기 통독까지만 넣는다.
+    level: 'level7',
+    name: 'Level 7: 통독 음절',
+    description: '整体认读 whole-read 음절 (zhi · yi · yue · ying)',
+    units: [
+      {
+        id: 'zh-l7-u01',
+        title: 'Unit 01: zhi chi shi ri',
+        phonemes: ['zhi', 'chi', 'shi', 'ri'],
+        patterns: ['whole'],
+        sampleWords: ['zhī', 'chī', 'shī', 'rī'],
+      },
+      {
+        id: 'zh-l7-u02',
+        title: 'Unit 02: zi ci si',
+        phonemes: ['zi', 'ci', 'si'],
+        patterns: ['whole'],
+        sampleWords: ['zī', 'cī', 'sī'],
+      },
+      {
+        id: 'zh-l7-u03',
+        title: 'Unit 03: yi wu yu',
+        phonemes: ['yi', 'wu', 'yu'],
+        patterns: ['whole'],
+        sampleWords: ['yī', 'wū', 'yū'],
+      },
+      {
+        id: 'zh-l7-u04',
+        title: 'Unit 04: ye yue yuan',
+        phonemes: ['ye', 'yue', 'yuan'],
+        patterns: ['whole'],
+        sampleWords: ['yē', 'yuē', 'yuān'],
+      },
+      {
+        id: 'zh-l7-u05',
+        title: 'Unit 05: yin yun ying',
+        phonemes: ['yin', 'yun', 'ying'],
+        patterns: ['whole'],
+        sampleWords: ['yīn', 'yūn', 'yīng'],
+      },
+    ],
+  },
 ] as const;
 
 export type PhonicsLanguage = 'english' | 'korean' | 'chinese';

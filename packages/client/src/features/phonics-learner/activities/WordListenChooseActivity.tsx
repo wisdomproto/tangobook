@@ -256,6 +256,14 @@ export function WordListenChooseActivity({
   const [done, setDone] = useState(false);
   const wrongTimer = useRef<number | null>(null);
   const restTimer = useRef<number | null>(null);
+  /**
+   * 재생 세대(generation) — 새 소리가 시작될 때마다 +1. 시퀀스의 각 스텝(다음 클립·쉼 타이머)이
+   * 자기 세대를 붙잡고, 세대가 바뀌면 즉시 멈춘다.
+   * 🔴 `restTimer` clear 만으로는 부족하다 — 클립이 **재생 중**(다음 스텝 타이머 예약 전)일 때 다른 카드를
+   *    누르면 `playAudio` 가 앞 클립의 `src` 를 비워 `onEnded` 를 **취소로도** 부른다(memory 규칙). 그러면
+   *    옛 시퀀스의 다음 스텝이 되살아나 두 음절(4성 시퀀스 ~6초)이 핑퐁했다. 세대 가드로 되살아남을 막는다.
+   */
+  const seqGenRef = useRef(0);
 
   /** 소리가 **끝난 뒤** 잠깐 쉬고 다음으로 — 길이를 가정하는 게 아니라 사이를 벌리는 것이다. */
   const rest = useCallback((fn: () => void) => {
@@ -271,17 +279,36 @@ export function WordListenChooseActivity({
   const playSequence = useCallback(
     (urls: string[], onEnded?: () => void) => {
       if (restTimer.current) clearTimeout(restTimer.current);
+      const gen = (seqGenRef.current += 1);
       const step = (i: number) => {
         playAudio(urls[i], () => {
+          if (gen !== seqGenRef.current) return; // 새 소리가 시작됨 — 취소로 불린 onEnded 는 되살아나지 않는다
           if (i + 1 >= urls.length) {
             onEnded?.();
             return;
           }
-          restTimer.current = window.setTimeout(() => step(i + 1), REST_MS);
+          restTimer.current = window.setTimeout(() => {
+            if (gen !== seqGenRef.current) return;
+            step(i + 1);
+          }, REST_MS);
         });
       };
       if (urls.length) step(0);
       else onEnded?.();
+    },
+    [playAudio]
+  );
+
+  /**
+   * 새 소리를 처음부터 — **진행 중이던 시퀀스를 무효화**(세대 +1)하고 대기 타이머를 지운 뒤 재생.
+   * 🔴 시퀀스를 끊는 모든 진입점(탐색 카드→퀴즈 버튼·안내·다시하기)이 이걸 통과해야, 인터럽트된
+   *    탐색 시퀀스의 되살아난 클립이 안내 위에 새어나오지 않는다(퀴즈 전환 1클립 누수 방지).
+   */
+  const playFresh = useCallback(
+    (url: string, onEnded?: () => void) => {
+      seqGenRef.current += 1;
+      if (restTimer.current) clearTimeout(restTimer.current);
+      playAudio(url, onEnded);
     },
     [playAudio]
   );
@@ -294,7 +321,7 @@ export function WordListenChooseActivity({
         //    길고 탐색과 구분이 안 된다. 🔴 퀴즈 음은 `ttsUrl`(음절 bā) 우선 — 병음조합은 soundUrls[0] 이
         //    성모 citation(bō)이라 그걸 내면 정답이 아닌 소리를 묻게 된다. 단운모는 ttsUrl==soundUrls[0](1성)라 무변.
         if (exploring) playSequence(w.soundUrls, onEnded);
-        else playAudio(w.ttsUrl || w.soundUrls[0], onEnded);
+        else playFresh(w.ttsUrl || w.soundUrls[0], onEnded); // 퀴즈·탐색→퀴즈 전환: 시퀀스 무효화 후 단일 클립
         return;
       }
       const url =
@@ -305,10 +332,10 @@ export function WordListenChooseActivity({
           storybookId: unitId,
           identifierPrefix: 'word-listen',
         }));
-      if (url) playAudio(url, onEnded);
+      if (url) playFresh(url, onEnded);
       else onEnded?.();
     },
-    [playAudio, playSequence, unitId, language, exploring]
+    [playFresh, playSequence, unitId, language, exploring]
   );
 
   // 문제가 바뀌면 자동으로 한 번 들려준다 — 아이가 버튼을 찾아 누를 필요가 없게.
@@ -433,10 +460,13 @@ export function WordListenChooseActivity({
     setExploring(false);
     setStarting(true);
     firstAskRef.current = true; // 안내 뒤 첫 문제엔 쉼을 준다(진입 경로와 같은 흐름).
-    playAudio(QUIZ_START_SOUND, () => setStarting(false));
-  }, [playAudio]);
+    // 🔴 playFresh — 탐색 카드 시퀀스(~6초)가 재생 중일 때 눌리므로, 안내 위로 옛 음절 조각이 새지 않게 무효화.
+    playFresh(QUIZ_START_SOUND, () => setStarting(false));
+  }, [playFresh]);
 
   const restart = useCallback(() => {
+    seqGenRef.current += 1; // 재생 중이던 시퀀스를 무효화(다시하기 도중 옛 소리 되살아남 방지)
+    if (restTimer.current) clearTimeout(restTimer.current);
     setQIdx(0);
     setWrong(null);
     setDone(false);

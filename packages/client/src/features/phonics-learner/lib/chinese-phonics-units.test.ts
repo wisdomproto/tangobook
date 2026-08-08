@@ -11,6 +11,7 @@ import {
   isBlendUnit,
   isInitialUnit,
   isToneUnit,
+  isWholeUnit,
   isWordUnit,
   L4_WORDS,
 } from './chinese-phonics-units';
@@ -42,6 +43,11 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       'zh-l6-u02',
       'zh-l6-u03',
       'zh-l6-u04',
+      'zh-l7-u01',
+      'zh-l7-u02',
+      'zh-l7-u03',
+      'zh-l7-u04',
+      'zh-l7-u05',
     ]);
     // 🔴 L1 첫 유닛 = 성조, 나머지 둘 = 단운모. L2 는 전부 성모. L3 는 전부 병음조합(blend).
     expect(isToneUnit('zh-l1-u01')).toBe(true);
@@ -316,6 +322,36 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       { label: 'bīng', sound: 'bīng', sounds: ['bō', 'īng', 'bīng'] },
       { label: 'hóng', sound: 'hóng', sounds: ['hē', 'óng', 'hóng'] },
       { label: 'lóng', sound: 'lóng', sounds: ['lē', 'óng', 'lóng'] },
+    ]);
+  });
+
+  // ── L7 整体认读(통독 음절) ────────────────────────────────────────────────
+  // 🔴 blend 가 아닌 whole — 배우기가 그 음절의 4성 시퀀스(단운모 놀이판과 같은 리듬), plan 은 blend 형(배우기+듣고 고르기).
+  it('L7 = 通读 whole 유닛 5개, 각 배우기 + 듣고 고르기 (쓰기·사냥 없음)', () => {
+    for (const id of ['zh-l7-u01', 'zh-l7-u02', 'zh-l7-u03', 'zh-l7-u04', 'zh-l7-u05']) {
+      expect(isWholeUnit(id)).toBe(true);
+      expect(isBlendUnit(id)).toBe(false);
+      expect(isToneUnit(id)).toBe(false);
+      expect(isWordUnit(id)).toBe(false);
+      expect(getChineseActivityPlan(id).activities.map((a) => a.key)).toEqual([
+        'listen-choose',
+        'listen-quiz',
+      ]);
+    }
+  });
+
+  // 🔴 通读 배우기 카드 = whole 음절 라벨 + 그 음절 4성 시퀀스(sound=tone-1). blend 3클립 아님.
+  it('通读 배우기 카드 = whole 음절 라벨 + 4성 시퀀스 (zhi chi shi ri / ye yue yuan)', () => {
+    expect(getChineseListenCards('zh-l7-u01')).toEqual([
+      { label: 'zhi', sound: 'zhī', sounds: ['zhī', 'zhí', 'zhǐ', 'zhì'] },
+      { label: 'chi', sound: 'chī', sounds: ['chī', 'chí', 'chǐ', 'chì'] },
+      { label: 'shi', sound: 'shī', sounds: ['shī', 'shí', 'shǐ', 'shì'] },
+      { label: 'ri', sound: 'rī', sounds: ['rī', 'rí', 'rǐ', 'rì'] },
+    ]);
+    expect(getChineseListenCards('zh-l7-u04')).toEqual([
+      { label: 'ye', sound: 'yē', sounds: ['yē', 'yé', 'yě', 'yè'] },
+      { label: 'yue', sound: 'yuē', sounds: ['yuē', 'yué', 'yuě', 'yuè'] },
+      { label: 'yuan', sound: 'yuān', sounds: ['yuān', 'yuán', 'yuǎn', 'yuàn'] },
     ]);
   });
 });

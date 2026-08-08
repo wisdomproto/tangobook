@@ -110,6 +110,19 @@ const TONE_MARKS: Record<string, string[]> = {
   ü: ['ǖ', 'ǘ', 'ǚ', 'ǜ'],
 }; // ponytail: L1 성조 유닛(ma)만 씀 — 필요할 때 성모 유닛에서 재사용
 
+/**
+ * 整体认读(통독) 16음절 × 4성 — L7. 성모+운모로 안 쪼개지는 whole-read 음절이라 blendClips 를 못 쓴다.
+ * 배우기가 **4성을 순서로** 들려준다(단운모 운모 놀이판과 같은 리듬). 전 성조 클립 mod_chinese 실존(64/64 확인).
+ * 쓰기·사냥은 없다 — 다글자+성조부호라 캔버스 밖(2글자 성모 zh/ch/sh 와 같은 이유). 그래서 plan 은 blend 형(배우기+듣고 고르기).
+ */
+const WHOLE_READ_TONES: Record<string, string[]> = {
+  zhi: ['zhī', 'zhí', 'zhǐ', 'zhì'], chi: ['chī', 'chí', 'chǐ', 'chì'], shi: ['shī', 'shí', 'shǐ', 'shì'], ri: ['rī', 'rí', 'rǐ', 'rì'],
+  zi: ['zī', 'zí', 'zǐ', 'zì'], ci: ['cī', 'cí', 'cǐ', 'cì'], si: ['sī', 'sí', 'sǐ', 'sì'],
+  yi: ['yī', 'yí', 'yǐ', 'yì'], wu: ['wū', 'wú', 'wǔ', 'wù'], yu: ['yū', 'yú', 'yǔ', 'yù'],
+  ye: ['yē', 'yé', 'yě', 'yè'], yue: ['yuē', 'yué', 'yuě', 'yuè'], yuan: ['yuān', 'yuán', 'yuǎn', 'yuàn'],
+  yin: ['yīn', 'yín', 'yǐn', 'yìn'], yun: ['yūn', 'yún', 'yǔn', 'yùn'], ying: ['yīng', 'yíng', 'yǐng', 'yìng'],
+}; // prettier-ignore
+
 export function getAllChineseUnits(): ChineseUnitSummary[] {
   const out: ChineseUnitSummary[] = [];
   for (const level of CHINESE_PHONICS_CURRICULUM) {
@@ -166,6 +179,14 @@ export function isWordUnit(unitId: string): boolean {
   return getChineseUnit(unitId)?.patterns.includes('word') ?? false;
 }
 
+/**
+ * 整体认读(통독) 유닛인가 — 카드 = whole-read 음절(phonemes: zhi·yi·yue…), 배우기 소리 = 그 음절 4성 시퀀스.
+ * blend 처럼 배우기 + 듣고 고르기 두 활동(쓰기·사냥 없음 — 다글자+성조부호라 캔버스 밖).
+ */
+export function isWholeUnit(unitId: string): boolean {
+  return getChineseUnit(unitId)?.patterns.includes('whole') ?? false;
+}
+
 /** 성모 유닛 카드 — label=성모 글자, sound=결합 음절(bō). 배우기·쓰기·사냥이 같은 모양을 쓴다. */
 function initialCards(u: ChineseUnitSummary): PinyinCard[] {
   return u.phonemes.map((p, i) => ({ label: p, sound: u.targetWords[i] ?? p }));
@@ -182,6 +203,9 @@ export function getChineseUnitCards(unitId: string): PinyinCard[] {
     return u.targetWords.map((w) => ({ label: w, sound: w }));
   }
   if (isInitialUnit(unitId)) return initialCards(u);
+  // 通读(整体认读) — 카드 = whole-read 음절 라벨(방어용: 쓰기·사냥 없어 실제로는 안 불린다). 소리는 tone-1.
+  if (isWholeUnit(unitId))
+    return u.phonemes.map((p) => ({ label: p, sound: WHOLE_READ_TONES[p]?.[0] ?? p }));
   // 병음조합 — 카드 = 음절(방어용: 쓰기·사냥 없어 실제로는 안 불린다). 소리는 음절 하나.
   if (isBlendUnit(unitId))
     return u.targetWords.map((w) => ({ label: w, sound: w.normalize('NFC') }));
@@ -208,6 +232,13 @@ export function getChineseListenCards(unitId: string): PinyinCard[] {
     return u.targetWords.map((w) => {
       const clips = blendClips(w);
       return { label: w, sound: clips[2], sounds: clips };
+    });
+  }
+  // 通读(整体认读) 배우기 — 카드 = whole-read 음절(zhi·yi…), 누르면 그 음절 4성을 순서로(운모 놀이판과 같은 리듬).
+  if (isWholeUnit(unitId)) {
+    return u.phonemes.map((p) => {
+      const tones = WHOLE_READ_TONES[p];
+      return { label: p, sound: tones?.[0] ?? p, ...(tones ? { sounds: tones } : {}) };
     });
   }
   // 성모 = 낱 소리 하나(bō). 4성 시퀀스는 단운모(운모 놀이판)에서만.
@@ -376,7 +407,8 @@ function makeWordPlan(): ActivityPlan {
 function planForUnit(u: ChineseUnitSummary): ActivityPlan {
   if (u.patterns.includes('tones')) return makeTonePlan();
   if (u.patterns.includes('word')) return makeWordPlan();
-  if (u.patterns.includes('blend')) return makeBlendPlan();
+  // 通读(整体认读) = blend 와 같은 배우기 + 듣고 고르기(쓰기·사냥 없음).
+  if (u.patterns.includes('whole') || u.patterns.includes('blend')) return makeBlendPlan();
   if (u.phonemes.some((p) => p.length > 1)) return makeNoWritePlan();
   return makeSingleFinalPlan();
 }
