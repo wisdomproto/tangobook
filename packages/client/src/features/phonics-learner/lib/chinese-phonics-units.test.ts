@@ -35,6 +35,9 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       'zh-l4-u01',
       'zh-l4-u02',
       'zh-l4-u03',
+      'zh-l5-u01',
+      'zh-l5-u02',
+      'zh-l5-u03',
     ]);
     // 🔴 L1 첫 유닛 = 성조, 나머지 둘 = 단운모. L2 는 전부 성모. L3 는 전부 병음조합(blend).
     expect(isToneUnit('zh-l1-u01')).toBe(true);
@@ -218,5 +221,53 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
         expect(hanziFor(w)).toBe(info.hanzi);
       }
     }
+  });
+
+  // ── L5 복운모(复韵母) ─────────────────────────────────────────────────────
+  // 🔴 L3 병음조합과 100% 같은 메커니즘 — blend 유닛이라 plan·카드가 같은 경로를 탄다(유닛 데이터만 추가).
+  it('L5 = 복운모 blend 유닛 3개, 각 배우기 + 듣고 고르기(L3 와 동일)', () => {
+    for (const id of ['zh-l5-u01', 'zh-l5-u02', 'zh-l5-u03']) {
+      expect(isBlendUnit(id)).toBe(true);
+      expect(isToneUnit(id)).toBe(false);
+      expect(isWordUnit(id)).toBe(false);
+      const plan = getChineseActivityPlan(id);
+      expect(plan.activities.map((a) => a.kind)).toEqual([
+        'word-listen-choose',
+        'word-listen-choose',
+      ]);
+      expect(plan.activities.map((a) => a.key)).toEqual(['listen-choose', 'listen-quiz']);
+      expect(getChineseRequiredActivities(id)).toEqual(['listen-choose', 'listen-quiz']);
+    }
+  });
+
+  // 🔴 복운모 배우기 카드 = 음절 + 블렌드 3클립(성모 citation → 복운모 → 음절). 전 클립 mod_chinese 실존.
+  it('복운모 배우기 카드 = 음절 라벨 + 블렌드 3클립 (ai ei ui / ao ou iu)', () => {
+    expect(getChineseListenCards('zh-l5-u01')).toEqual([
+      { label: 'mǎi', sound: 'mǎi', sounds: ['mō', 'ǎi', 'mǎi'] },
+      { label: 'bái', sound: 'bái', sounds: ['bō', 'ái', 'bái'] },
+      { label: 'bēi', sound: 'bēi', sounds: ['bō', 'ēi', 'bēi'] },
+      { label: 'fēi', sound: 'fēi', sounds: ['fó', 'ēi', 'fēi'] },
+      { label: 'guì', sound: 'guì', sounds: ['gē', 'uì', 'guì'] },
+      { label: 'duì', sound: 'duì', sounds: ['dē', 'uì', 'duì'] },
+    ]);
+    expect(getChineseListenCards('zh-l5-u02')).toEqual([
+      { label: 'māo', sound: 'māo', sounds: ['mō', 'āo', 'māo'] },
+      { label: 'hǎo', sound: 'hǎo', sounds: ['hē', 'ǎo', 'hǎo'] },
+      { label: 'gǒu', sound: 'gǒu', sounds: ['gē', 'ǒu', 'gǒu'] },
+      { label: 'tóu', sound: 'tóu', sounds: ['tè', 'óu', 'tóu'] },
+      // 🔴 iu(niú·liù)는 i 가 운모 첫 글자라 뒤 u 는 진짜 u — ü 로 안 바꾼다.
+      { label: 'niú', sound: 'niú', sounds: ['né', 'iú', 'niú'] },
+      { label: 'liù', sound: 'liù', sounds: ['lē', 'iù', 'liù'] },
+    ]);
+  });
+
+  // 🔴 üe(xué·xuě)는 j/q/x 뒤 운모 첫 글자 u = 실제 ü → 클립 üé·üě(ué 는 R2 부재). ie 는 변환 없음.
+  it('복운모 üe 배우기 = 운모 첫 글자 u→ü 변환 (ie üe)', () => {
+    expect(getChineseListenCards('zh-l5-u03')).toEqual([
+      { label: 'xiě', sound: 'xiě', sounds: ['xī', 'iě', 'xiě'] },
+      { label: 'jiě', sound: 'jiě', sounds: ['jī', 'iě', 'jiě'] },
+      { label: 'xué', sound: 'xué', sounds: ['xī', 'üé', 'xué'] },
+      { label: 'xuě', sound: 'xuě', sounds: ['xī', 'üě', 'xuě'] },
+    ]);
   });
 });

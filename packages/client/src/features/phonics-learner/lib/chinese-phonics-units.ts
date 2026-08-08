@@ -86,15 +86,17 @@ const INITIAL_CITATION: Record<string, string> = {
 const U_TO_UMLAUT: Record<string, string> = { u: 'ü', ū: 'ǖ', ú: 'ǘ', ǔ: 'ǚ', ù: 'ǜ' };
 
 /**
- * 병음조합 블렌드 클립 = **[성모 citation, 운모, 음절]**(bā → ['bō','ā','bā']). 교안 대본 "bō → ā → bā".
- * 운모 = 음절에서 성모(첫 글자, L3 는 전부 1자 성모)를 뺀 나머지 + 그 음절 성조. j/q/x + u 는 ü 로 변환.
- * 🔴 세 클립 전부 `mod_chinese` 에 실존(HEAD 200 확인). 소리는 `getChineseSyllableUrl` 로 직행(새 bake 0).
+ * 병음조합·복운모 블렌드 클립 = **[성모 citation, 운모, 음절]**(bā → ['bō','ā','bā'], māo → ['mō','āo','māo']).
+ * 교안 대본 "bō → ā → bā". 운모 = 음절에서 성모(첫 글자, L3/L5 는 전부 1자 성모)를 뺀 나머지 + 그 음절 성조.
+ * 🔴 j/q/x 뒤 **운모 첫 글자 u 는 실제 ü** → ü 계열로 변환(jú→ǘ · xué→üé). 단 iu(jiǔ)는 i 가 첫 글자라
+ *    그 u 는 진짜 u — **첫 글자만** 본다(예전 `rime.length===1` 특례를 일반화, L3 결과는 불변).
+ * 🔴 세 클립 전부 `mod_chinese` 에 실존(HEAD 200 전수 확인). 소리는 `getChineseSyllableUrl` 로 직행(새 bake 0).
  */
 export function blendClips(syllable: string): string[] {
   const s = syllable.normalize('NFC');
   const initial = s[0];
   let rime = s.slice(1);
-  if ('jqx'.includes(initial) && rime.length === 1 && U_TO_UMLAUT[rime]) rime = U_TO_UMLAUT[rime];
+  if ('jqx'.includes(initial) && U_TO_UMLAUT[rime[0]]) rime = U_TO_UMLAUT[rime[0]] + rime.slice(1);
   return [INITIAL_CITATION[initial] ?? s, rime, s];
 }
 

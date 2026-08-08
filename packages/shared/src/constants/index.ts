@@ -1459,6 +1459,46 @@ export const CHINESE_PHONICS_CURRICULUM = [
       },
     ],
   },
+  {
+    // 🔴 Level 5 복운모(复韵母) — 성모 + 복운모 블렌딩. **L3(병음조합)과 100% 같은 메커니즘**:
+    //    카드 = 음절(sampleWords), 소리 = 원어민 블렌드 3클립(성모 citation → 복운모 → 음절). patterns
+    //    'blend' 를 공유하므로 plan·isBlendUnit·getChineseListenCards 가 L3 와 똑같이 처리한다(유닛 데이터만 추가).
+    //    한자·그림·게임 없이 병음 소리만(복운모 낱말은 후속). 교안 3묶음: ai ei ui / ao ou iu / ie üe (er).
+    //    🔴 **성모 붙은 진짜 블렌드만** — y/w 로 시작하는 整体认读(yè·yuè·yóu·wěi…)와 er(儿·성모 결합 불가)은
+    //    제외한다(성모가 없어 블렌드가 성립 안 함 → L7 통독). 🔴 전 음절·복운모 final 클립이 `mod_chinese`
+    //    (1394)에 실존(HEAD 200 전수 확인). 성모는 blendClips 가 s.slice(1) 로 운모를 떼므로 **1글자 성모만**
+    //    (b p m f d t n l g k h j q x) — shuǐ·chuī 같은 2글자 성모(sh·ch)는 못 쪼개니 넣지 않는다.
+    level: 'level5',
+    name: 'Level 5: 복운모',
+    description: '성모 + 복운모 → 음절 (māo · gǒu · niú · mǎi)',
+    units: [
+      {
+        id: 'zh-l5-u01',
+        // ai ei ui — mǎi 买 · bái 白 · bēi 杯 · fēi 飞 · guì 贵 · duì 对 (shuǐ 는 sh 2글자라 제외)
+        title: 'Unit 01: ai ei ui 조합',
+        phonemes: ['ai', 'ei', 'ui'],
+        patterns: ['blend'],
+        sampleWords: ['mǎi', 'bái', 'bēi', 'fēi', 'guì', 'duì'],
+      },
+      {
+        id: 'zh-l5-u02',
+        // ao ou iu — māo 猫 · hǎo 好 · gǒu 狗 · tóu 头 · niú 牛 · liù 六
+        title: 'Unit 02: ao ou iu 조합',
+        phonemes: ['ao', 'ou', 'iu'],
+        patterns: ['blend'],
+        sampleWords: ['māo', 'hǎo', 'gǒu', 'tóu', 'niú', 'liù'],
+      },
+      {
+        id: 'zh-l5-u03',
+        // ie üe — xiě 写 · jiě 姐 · xué 学 · xuě 雪. er(儿)은 성모 결합이 없는 整体认读 운모라 제외(L7).
+        // 🔴 xué·xuě 는 j/q/x 뒤 u=ü — blendClips 가 운모 첫 글자를 ü 로 바꿔 클립 üé·üě 를 찾는다.
+        title: 'Unit 03: ie üe 조합',
+        phonemes: ['ie', 'üe'],
+        patterns: ['blend'],
+        sampleWords: ['xiě', 'jiě', 'xué', 'xuě'],
+      },
+    ],
+  },
 ] as const;
 
 export type PhonicsLanguage = 'english' | 'korean' | 'chinese';
