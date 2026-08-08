@@ -1,13 +1,13 @@
 /**
  * 중국어 병음(拼音) 파닉스 학습자 메타 — 한/영 평행 구조.
  *
- * 🔴 **MVP = Level 1**(단운모 6 + 성조 3유닛). 소리 유닛이라 삽화가 없다 — 활동은 전부 기존 컴포넌트
- *    재사용이다(새 컴포넌트 0):
- *      · 단운모 유닛(u01·u02): 듣고 배우기(`word-listen-choose`) → 따라쓰기(`vowel-write`) → 글자 사냥(`letter-hunt`)
- *      · 성조 유닛(u03): 듣고 배우기(4성) → 성조 듣고 고르기(`word-listen-choose`, 성조 부호 보기)
+ * 🔴 **MVP = Level 1**(성조 + 단운모, 3유닛 — 교안 순서). 소리 유닛이라 삽화가 없다 — 활동은 전부
+ *    기존 컴포넌트 재사용이다(새 컴포넌트 0):
+ *      · 성조 유닛(u01): 듣고 배우기(a 4성 ā á ǎ à) → 성조 듣고 고르기(`word-listen-choose`, 성조 부호 보기)
+ *      · 단운모 유닛(u02 a o e · u03 i u ü): 듣고 배우기(각 모음 4성 순서) → 따라쓰기(`vowel-write`) → 글자 사냥(`letter-hunt`)
  *
- * 🔴 **음원 = 원어민 녹음 직행**(`mod_chinese`). 카드의 `sound` 가 곧 R2 조회 키다:
- *    단운모는 **tone-1**(a→ā) 로 소릿결을 들려주고, 성조 유닛은 음절 4성(mā·má·mǎ·mà)을 들려준다.
+ * 🔴 **음원 = 원어민 녹음 직행**(`mod_chinese`). 카드의 `sound`(단일)·`sounds`(4성 시퀀스)가 곧 R2 조회 키다:
+ *    단운모 배우기는 모음의 **4성을 순서로**(운모 놀이판) 들려주고, 쓰기·사냥은 tone-1 글자, 성조 유닛은 a 4성.
  *    호스트가 `getChineseSyllableUrl(sound)` 로 URL 을 미리 뽑아 활동에 `ttsUrl` 로 넘긴다.
  *    L2~L5(성모 블렌딩·게임)는 후속.
  */
@@ -30,6 +30,11 @@ export interface ChineseUnitSummary {
 export interface PinyinCard {
   label: string;
   sound: string;
+  /**
+   * 「배우기」에서 이 카드를 누르면 **순서로** 들려줄 소리들(단운모 4성 ā á ǎ à). 없으면 `sound` 하나만.
+   * 🔴 교안 운모 놀이판 = 그 운모의 4성을 순서로 들려줌(성조 비교). `sound` 는 tone-1(warm·라벨용).
+   */
+  sounds?: string[];
 }
 
 /** 단운모 → tone-1(고평조) 부호 — 소릿결을 들려주는 「배우기」의 발음 키. */
@@ -91,7 +96,30 @@ export function getChineseUnitCards(unitId: string): PinyinCard[] {
 }
 
 /**
- * 「성조 듣고 고르기」 카드(성조 유닛 전용) — 소리는 음절 4성(mā…), 보기는 **성조 부호**(ā á ǎ à).
+ * 「배우기」(듣고 배우기) 카드 — write/hunt(`getChineseUnitCards`)와 **갈린다**.
+ *
+ * 🔴 성조 유닛(u01) = 4성 카드(ā á ǎ à, label=sound). 🔴 단운모 유닛(u02·u03) = 낱 모음 카드지만
+ *    누르면 **그 모음의 4성을 순서로**(`sounds`) 들려준다 — 운모 놀이판(성조 비교). 쓰기·사냥은
+ *    낱 모음 글자 하나가 목표라 `getChineseUnitCards`(4성 안 붙음)를 그대로 쓴다.
+ */
+export function getChineseListenCards(unitId: string): PinyinCard[] {
+  const u = getChineseUnit(unitId);
+  if (!u) return [];
+  if (isToneUnit(unitId)) {
+    return u.targetWords.map((w) => ({ label: w, sound: w }));
+  }
+  return u.phonemes.map((p) => {
+    const marks = TONE_MARKS[p];
+    return {
+      label: p,
+      sound: marks?.[0] ?? TONE1[p] ?? p, // tone-1 — warm·라벨·폴백용
+      ...(marks ? { sounds: marks } : {}),
+    };
+  });
+}
+
+/**
+ * 「성조 듣고 고르기」 카드(성조 유닛 전용) — 소리는 음절 4성(u01 은 ā á ǎ à), 보기는 **성조 부호**.
  * 들은 성조를 부호에 짝지어 "성조가 뜻을 가른다"를 익힌다.
  */
 export function getChineseToneChoiceCards(unitId: string): PinyinCard[] {

@@ -25,6 +25,12 @@ export interface ListenChoice {
    */
   revealImageUrl?: string;
   ttsUrl?: string;
+  /**
+   * 한 장을 누르면 **순서로** 재생할 URL 들(병음 단운모 4성 ā á ǎ à — 운모 놀이판, 성조 비교).
+   * 있으면 `ttsUrl`/`sound` 대신 이 시퀀스를 소리 사이 쉼(REST_MS)을 두고 이어 재생한다.
+   * 🔴 한글/영어 호출부는 넘기지 않는다(단일 재생 그대로) — 병음 단운모 「배우기」에서만 쓴다.
+   */
+  soundUrls?: string[];
 }
 
 interface Props {
@@ -241,8 +247,38 @@ export function WordListenChooseActivity({
 
   const current = questions[qIdx];
 
+  /**
+   * 여러 소리를 **순서로**(사이 쉼 REST_MS) 이어 재생 — 병음 단운모 4성(운모 놀이판).
+   * 🔴 새 시퀀스가 시작되면 이전 시퀀스의 대기 타이머를 지운다(연타 시 옛 성조가 겹치지 않게).
+   */
+  const playSequence = useCallback(
+    (urls: string[], onEnded?: () => void) => {
+      if (restTimer.current) clearTimeout(restTimer.current);
+      const step = (i: number) => {
+        playAudio(urls[i], () => {
+          if (i + 1 >= urls.length) {
+            onEnded?.();
+            return;
+          }
+          restTimer.current = window.setTimeout(() => step(i + 1), REST_MS);
+        });
+      };
+      if (urls.length) step(0);
+      else onEnded?.();
+    },
+    [playAudio]
+  );
+
   const say = useCallback(
     async (w: ListenChoice, onEnded?: () => void) => {
+      if (w.soundUrls?.length) {
+        // 🔴 **탐색 = 4성 순서**(운모 놀이판, 같은 운모의 성조 비교) / **퀴즈 = 대표음(1성) 하나만**.
+        //    교안 퀴즈도 "4성 음원 중 1개 재생" — 퀴즈에서 시퀀스를 내면 한 문제가 ~6초로 길고
+        //    탐색과 구분이 안 된다(듣고 고르는 건 운모 하나이지 성조 비교가 아니다).
+        if (exploring) playSequence(w.soundUrls, onEnded);
+        else playAudio(w.soundUrls[0], onEnded);
+        return;
+      }
       const url =
         w.ttsUrl ||
         (await resolveTtsUrl({
@@ -254,7 +290,7 @@ export function WordListenChooseActivity({
       if (url) playAudio(url, onEnded);
       else onEnded?.();
     },
-    [playAudio, unitId, language]
+    [playAudio, playSequence, unitId, language, exploring]
   );
 
   // 문제가 바뀌면 자동으로 한 번 들려준다 — 아이가 버튼을 찾아 누를 필요가 없게.

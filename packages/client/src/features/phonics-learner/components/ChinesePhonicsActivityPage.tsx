@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   getChineseActivityPlan,
+  getChineseListenCards,
   getChineseToneChoiceCards,
   getChineseUnit,
   getChineseUnitCards,
@@ -38,15 +39,25 @@ export default function ChinesePhonicsActivityPage() {
     [plan, activityKey]
   );
 
-  /** 이 활동이 쓰는 카드 — 성조 고르기는 성조 부호 보기, 나머지는 단운모/음절. */
+  /**
+   * 이 활동이 쓰는 카드 — 활동 종류로 갈린다:
+   *  - 성조 고르기 = 성조 부호 보기(`getChineseToneChoiceCards`)
+   *  - 듣고 배우기 = 4성 카드(성조 유닛) / 낱 모음+4성 순서(`getChineseListenCards`)
+   *  - 따라쓰기·글자 사냥 = 낱 모음 글자 하나(`getChineseUnitCards`)
+   */
   const cards: PinyinCard[] = useMemo(() => {
     if (activityKey === 'tone-choose') return getChineseToneChoiceCards(unitId);
+    if (activity?.kind === 'word-listen-choose') return getChineseListenCards(unitId);
     return getChineseUnitCards(unitId);
-  }, [unitId, activityKey]);
+  }, [unitId, activityKey, activity?.kind]);
 
-  // 진입 시 카드 발음을 전부 resolve(프리워밍) → sound→URL 맵. resolve 전엔 로딩.
+  // 진입 시 카드 발음을 전부 resolve(프리워밍) → sound→URL 맵. 4성 순서(`sounds`)까지 포함. resolve 전엔 로딩.
   // 🔴 글자 사냥은 여기서 안 데운다 — `resolveTtsUrl(zh)` 가 방해꾼까지 런타임에 읽는다.
   const needsPreresolve = activity?.kind !== 'letter-hunt';
+  const soundsToResolve = useMemo(
+    () => Array.from(new Set(cards.flatMap((c) => (c.sounds?.length ? c.sounds : [c.sound])))),
+    [cards]
+  );
   const [ttsBySound, setTtsBySound] = useState<Record<string, string> | null>(null);
   useEffect(() => {
     if (!needsPreresolve) {
@@ -57,7 +68,7 @@ export default function ChinesePhonicsActivityPage() {
     setTtsBySound(null);
     void (async () => {
       const entries = await Promise.all(
-        cards.map(async (c) => [c.sound, await getChineseSyllableUrl(c.sound)] as const)
+        soundsToResolve.map(async (s) => [s, await getChineseSyllableUrl(s)] as const)
       );
       if (alive) {
         setTtsBySound(Object.fromEntries(entries.filter(([, url]) => url) as [string, string][]));
@@ -66,7 +77,7 @@ export default function ChinesePhonicsActivityPage() {
     return () => {
       alive = false;
     };
-  }, [cards, needsPreresolve]);
+  }, [soundsToResolve, needsPreresolve]);
 
   const backToUnit = useCallback(
     () => navigate(`/library/phonics/chinese/${unitId}`),
@@ -148,12 +159,17 @@ export default function ChinesePhonicsActivityPage() {
   }
 
   // 듣고 배우기 / 성조 듣고 고르기 — 성조 유닛 4장(2×2) / 단운모 3장(한 줄).
-  const items = cards.map((c) => ({
-    id: c.label,
-    label: c.label,
-    sound: c.sound,
-    ...(ttsBySound[c.sound] ? { ttsUrl: ttsBySound[c.sound] } : {}),
-  }));
+  // 🔴 단운모 카드는 `sounds`(4성)를 순서로 재생 — 미리 resolve 한 URL 을 `soundUrls` 로 넘긴다.
+  const items = cards.map((c) => {
+    const seq = (c.sounds ?? []).map((s) => ttsBySound[s]).filter(Boolean);
+    return {
+      id: c.label,
+      label: c.label,
+      sound: c.sound,
+      ...(ttsBySound[c.sound] ? { ttsUrl: ttsBySound[c.sound] } : {}),
+      ...(seq.length > 1 ? { soundUrls: seq } : {}),
+    };
+  });
   const columns = isToneUnit(unitId) ? 2 : Math.min(items.length, 3);
   return (
     <WordListenChooseActivity

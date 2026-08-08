@@ -1288,40 +1288,45 @@ export const KOREAN_PHONICS_CURRICULUM = [
 ] as const;
 
 /**
- * 중국어 병음(拼音) 파닉스 커리큘럼 — 기획서(docs/phonics-chinese/curriculum-plan.md) 기반.
+ * 중국어 병음(拼音) 파닉스 커리큘럼 — 탱고 교안 기반(docs/phonics-chinese/curriculum-from-gyoan.md §3).
  *
- * 🔴 **MVP = Level 1 만**(단운모 6 + 성조 도입). L2~L5(성모 블렌딩·복운모·비운모·整体认读)는 후속이며
- *    같은 스키마로 이어붙인다. 소리 학습 구간은 **병음만**(한자 없음) — 한자 병기는 낱말 활동에서만
- *    (L1 엔 낱말 활동 없음). 배열 근거 = 部编版 순서 + YouTube 벤치마크(단운모 선두 → 성조 → 성모).
+ * 🔴 **순서 = 성조 → 단운모**(교안: "중국어 학습의 첫 시작으로, 성조 발음을 듣고 구분"). 가장 쉬운 운모
+ *    `a` 로 4성(ā á ǎ à)을 먼저 익힌 뒤 단운모로 간다.
+ * 🔴 **단운모는 tone-1 만이 아니라 각 4성** — 운모 놀이판이 그 운모의 4성을 순서로 들려준다(성조 비교).
+ *    음원은 `mod_chinese` 에 ā á ǎ à / ō ó ǒ ò … 전체 업로드 완료.
+ * 🔴 **MVP = Level 1 만**. L2~(성모·拼读·단어·복운모·비운모·整体认读)는 후속이며 같은 스키마로 이어붙인다.
+ *    소리 학습 구간은 **병음만**(한자 없음) — 한자 병기는 낱말 활동에서만(L1 엔 낱말 활동 없음).
  * 🔴 성조 순서 = 1→2→3→4(숫자 순, 결정 잠금 2026-08-06). `sampleWords` = **표시용 병음**(성조부호 포함).
  */
 export const CHINESE_PHONICS_CURRICULUM = [
   {
     level: 'level1',
-    name: 'Level 1: 단운모 + 성조',
-    description: '병음 단운모 a o e i u ü 와 4성',
+    name: 'Level 1: 성조 + 단운모',
+    description: '병음 4성 과 단운모 a o e i u ü',
     units: [
       {
         id: 'zh-l1-u01',
-        title: 'Unit 01: a o e',
+        // 성조 认识声调 — 중국어 학습의 첫 시작. 가장 쉬운 운모 a 로 4성: ā á ǎ à(啊 · 4성)
+        title: 'Unit 01: 성조 ā á ǎ à',
+        phonemes: ['a'],
+        patterns: ['tones'],
+        sampleWords: ['ā', 'á', 'ǎ', 'à'],
+      },
+      {
+        id: 'zh-l1-u02',
+        // 단운모 — 각 모음을 4성 전부로 들려준다(ā á ǎ à / ō ó ǒ ò / ē é ě è)
+        title: 'Unit 02: a o e',
         phonemes: ['a', 'o', 'e'],
         patterns: ['single final'],
         sampleWords: ['a', 'o', 'e'],
       },
       {
-        id: 'zh-l1-u02',
-        title: 'Unit 02: i u ü',
+        id: 'zh-l1-u03',
+        // 단운모 — 각 모음을 4성 전부로(ī í ǐ ì / ū ú ǔ ù / ǖ ǘ ǚ ǜ)
+        title: 'Unit 03: i u ü',
         phonemes: ['i', 'u', 'ü'],
         patterns: ['single final'],
         sampleWords: ['i', 'u', 'ü'],
-      },
-      {
-        id: 'zh-l1-u03',
-        // 성조 도입 — 같은 소리 ma 를 4성으로: mā má mǎ mà(妈 麻 马 骂)
-        title: 'Unit 03: 성조 mā má mǎ mà',
-        phonemes: ['ma'],
-        patterns: ['tones'],
-        sampleWords: ['mā', 'má', 'mǎ', 'mà'],
       },
     ],
   },
