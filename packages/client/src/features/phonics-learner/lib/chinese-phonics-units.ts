@@ -41,6 +41,37 @@ export interface PinyinCard {
 const TONE1: Record<string, string> = { a: 'ā', o: 'ō', e: 'ē', i: 'ī', u: 'ū', ü: 'ǖ' };
 
 /**
+ * Level 4 낱말(1음절 CV) — 병음 → { 한자, 뜻, 삽화 슬러그 }.
+ *
+ * 🔴 커리큘럼(`sampleWords`)은 소리 목록(병음)만 들고, 한자·뜻·삽화 슬러그는 여기 SSOT 다.
+ *    낱말 카드는 **병음 위 / 한자 아래**(가르치는 소리는 병음, 한자는 그 낱말의 글자). 뜻(한국어)은
+ *    삽화가 이미 보여주므로 카드엔 안 쓴다(참조·문서용).
+ * 🔴 storybook 생성 스크립트(`create-chinese-l4-storybooks.mjs`)와 **같은 표를 본다** — 스크립트가
+ *    `phonics-word-cards/` 삽화와 `mod_chinese` 음원을 이 매핑으로 flashcard 에 물린다.
+ */
+export const L4_WORDS: Record<string, { hanzi: string; gloss: string; slug: string }> = {
+  mǐ: { hanzi: '米', gloss: '쌀', slug: 'mi_rice' },
+  mǎ: { hanzi: '马', gloss: '말', slug: 'ma_horse' },
+  mù: { hanzi: '木', gloss: '나무', slug: 'mu_tree' },
+  tù: { hanzi: '兔', gloss: '토끼', slug: 'tu_rabbit' },
+  lù: { hanzi: '鹿', gloss: '사슴', slug: 'lu_deer' },
+  jī: { hanzi: '鸡', gloss: '닭', slug: 'ji_chicken' },
+  shī: { hanzi: '狮', gloss: '사자', slug: 'shi_lion' },
+  rì: { hanzi: '日', gloss: '해', slug: 'ri_sun' },
+  chī: { hanzi: '吃', gloss: '먹다', slug: 'chi_eat' },
+  hé: { hanzi: '河', gloss: '강', slug: 'he_river' },
+  hǔ: { hanzi: '虎', gloss: '호랑이', slug: 'hu_tiger' },
+  gǔ: { hanzi: '鼓', gloss: '북', slug: 'gu_drum' },
+  é: { hanzi: '鹅', gloss: '거위', slug: 'e_goose' },
+  sì: { hanzi: '四', gloss: '넷', slug: 'si_four' },
+};
+
+/** 병음 → 한자(카드 아래 병기). 없으면 undefined(병음만). */
+export function hanziFor(pinyin: string): string | undefined {
+  return L4_WORDS[pinyin.normalize('NFC')]?.hanzi;
+}
+
+/**
  * 성모 citation(L2 결합음) — 병음조합(拼读) 블렌드의 **첫 클립**(bō pō mō fó dē…).
  * 🔴 대부분 1성이지만 fó·tè·né 는 2/4성 — `fō·tē·nē`(1성)는 표준 중국어에 없어 녹음 부재(L2 와 동일).
  */
@@ -122,6 +153,15 @@ export function isInitialUnit(unitId: string): boolean {
  */
 export function isBlendUnit(unitId: string): boolean {
   return getChineseUnit(unitId)?.patterns.includes('blend') ?? false;
+}
+
+/**
+ * 단어(单词) 유닛인가 — 카드 = 낱말(병음 위 + 한자 아래) + 삽화. 소리 학습(L1~L3)이 아니라
+ * **낱말 놀이**(낱말 연습 + 게임 2종)라 storybook(삽화·keypoints·mod_chinese 음원)을 읽는다.
+ * 🔴 L1~L3(성조·단운모·성모·병음조합)과 달리 익히기 카드가 없다 — 활동이 전부 낱말 기반이다.
+ */
+export function isWordUnit(unitId: string): boolean {
+  return getChineseUnit(unitId)?.patterns.includes('word') ?? false;
 }
 
 /** 성모 유닛 카드 — label=성모 글자, sound=결합 음절(bō). 배우기·쓰기·사냥이 같은 모양을 쓴다. */
@@ -287,11 +327,53 @@ function makeBlendPlan(): ActivityPlan {
 }
 
 /**
- * 유닛 → plan. 성조 유닛 = 배우기 + 성조 고르기 / 그 외(단운모·성모) = 배우기 + 따라쓰기 + 사냥.
+ * 단어(L4) plan = 「낱말 놀이」(section play) = 낱말 연습 + 낱말 그리기 + 그림 짝 찾기.
+ * 🔴 익히기(learn) 활동이 없다 — 소리는 L1~L3 에서 배웠고 여기선 낱말을 논다.
+ * 🔴 게임 kind 는 한/영과 같은 수집기 게임 id 로 매핑된다(`game-connect-dots`·`game-line-matching`).
+ *    낱말 쓰기·블록은 뺀다 — 병음은 다글자+성조부호라 `LetterFillCanvas` 밖이고, 블록은 병음에 안 맞는다.
+ */
+function makeWordPlan(): ActivityPlan {
+  return {
+    activities: [
+      {
+        key: 'word-practice',
+        order: 1,
+        kind: 'word-listen-choose',
+        section: 'play',
+        title: '낱말 연습',
+        emoji: '🔊',
+        required: true,
+      },
+      {
+        key: 'draw',
+        order: 2,
+        kind: 'game-connect-dots',
+        section: 'play',
+        title: '낱말 그리기',
+        emoji: '🎨',
+        required: false,
+      },
+      {
+        key: 'match',
+        order: 3,
+        kind: 'game-line-matching',
+        section: 'play',
+        title: '그림 짝 찾기',
+        emoji: '🃏',
+        required: false,
+      },
+    ],
+  };
+}
+
+/**
+ * 유닛 → plan. 성조 유닛 = 배우기 + 성조 고르기 / 병음조합 = 배우기 + 듣고 고르기 /
+ * 단어(L4) = 낱말 놀이(연습+게임 2) / 그 외(단운모·성모) = 배우기 + 따라쓰기 + 사냥.
  * 🔴 성모에 2글자(zh/ch/sh)가 섞이면 따라쓰기를 빼고 배우기·사냥만 둔다(위 `makeNoWritePlan`).
  */
 function planForUnit(u: ChineseUnitSummary): ActivityPlan {
   if (u.patterns.includes('tones')) return makeTonePlan();
+  if (u.patterns.includes('word')) return makeWordPlan();
   if (u.patterns.includes('blend')) return makeBlendPlan();
   if (u.phonemes.some((p) => p.length > 1)) return makeNoWritePlan();
   return makeSingleFinalPlan();

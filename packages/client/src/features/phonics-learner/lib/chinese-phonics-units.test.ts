@@ -5,14 +5,18 @@ import {
   getChineseListenCards,
   getChineseRequiredActivities,
   getChineseToneChoiceCards,
+  getChineseUnit,
   getChineseUnitCards,
+  hanziFor,
   isBlendUnit,
   isInitialUnit,
   isToneUnit,
+  isWordUnit,
+  L4_WORDS,
 } from './chinese-phonics-units';
 
 describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () => {
-  it('L1(성조 먼저) → L2 성모 6유닛 → L3 병음조합 4유닛 순서', () => {
+  it('L1(성조 먼저) → L2 성모 6유닛 → L3 병음조합 4유닛 → L4 단어 3유닛 순서', () => {
     const units = getAllChineseUnits();
     expect(units.map((u) => u.id)).toEqual([
       'zh-l1-u01',
@@ -28,6 +32,9 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       'zh-l3-u02',
       'zh-l3-u03',
       'zh-l3-u04',
+      'zh-l4-u01',
+      'zh-l4-u02',
+      'zh-l4-u03',
     ]);
     // 🔴 L1 첫 유닛 = 성조, 나머지 둘 = 단운모. L2 는 전부 성모. L3 는 전부 병음조합(blend).
     expect(isToneUnit('zh-l1-u01')).toBe(true);
@@ -40,13 +47,15 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
     expect(isBlendUnit('zh-l1-u01')).toBe(false);
   });
 
-  // 🔴 plan 이 없으면 라우트로 도달해도 죽은 코드 — 모든 유닛이 도달 가능한 plan 을 갖는지.
-  it('모든 유닛의 plan 첫 활동 = 듣고 배우기(word-listen-choose, required)', () => {
+  // 🔴 plan 이 없으면 라우트로 도달해도 죽은 코드 — 모든 유닛이 도달 가능한 plan(첫 활동 word-listen-choose)을 갖는지.
+  it('모든 유닛의 plan 첫 활동 = 듣기/낱말 연습(word-listen-choose, required)', () => {
     for (const u of getAllChineseUnits()) {
       const plan = getChineseActivityPlan(u.id);
       expect(plan.activities.length).toBeGreaterThan(0);
-      expect(getChineseRequiredActivities(u.id)).toContain('listen-choose');
       expect(plan.activities[0].kind).toBe('word-listen-choose');
+      // 소리 유닛(L1~L3)=listen-choose / 단어 유닛(L4)=word-practice — 둘 다 required 로 도달 가능.
+      const requiredKey = isWordUnit(u.id) ? 'word-practice' : 'listen-choose';
+      expect(getChineseRequiredActivities(u.id)).toContain(requiredKey);
     }
   });
 
@@ -179,5 +188,35 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       { label: 'xǐ', sound: 'xǐ', sounds: ['xī', 'ǐ', 'xǐ'] },
       { label: 'xǔ', sound: 'xǔ', sounds: ['xī', 'ǚ', 'xǔ'] },
     ]);
+  });
+
+  // ── L4 단어(单词) ─────────────────────────────────────────────────────────
+  it('L4 = 단어 유닛(word) 3개, 각 낱말 놀이(연습 + 그리기 + 짝 찾기)', () => {
+    for (const id of ['zh-l4-u01', 'zh-l4-u02', 'zh-l4-u03']) {
+      expect(isWordUnit(id)).toBe(true);
+      expect(isToneUnit(id)).toBe(false);
+      expect(isBlendUnit(id)).toBe(false);
+      const plan = getChineseActivityPlan(id);
+      // 🔴 plan 에 게임 kind 가 없으면 라우트로 도달해도 죽은 코드 — 낱말 그리기·짝 찾기 포함 확인.
+      expect(plan.activities.map((a) => a.kind)).toEqual([
+        'word-listen-choose',
+        'game-connect-dots',
+        'game-line-matching',
+      ]);
+      // 전부 「낱말 놀이」 섹션(익히기 없음 — 소리는 L1~L3 에서 배웠다).
+      expect(plan.activities.every((a) => a.section === 'play')).toBe(true);
+      expect(getChineseRequiredActivities(id)).toEqual(['word-practice']);
+    }
+  });
+
+  it('L4 낱말은 전부 한자·삽화 슬러그를 가진다(카드에 병기 · 삽화 매칭)', () => {
+    for (const id of ['zh-l4-u01', 'zh-l4-u02', 'zh-l4-u03']) {
+      const words = getChineseUnit(id)!.targetWords;
+      for (const w of words) {
+        const info = L4_WORDS[w.normalize('NFC')];
+        expect(info, `${w} 매핑 누락`).toBeTruthy();
+        expect(hanziFor(w)).toBe(info.hanzi);
+      }
+    }
   });
 });

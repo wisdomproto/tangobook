@@ -33,7 +33,11 @@ import { spawnSync } from 'node:child_process';
 import crypto from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { loadEnv, getStorybook, putStorybook, parseArgs } from './translation-core.mjs';
-import { KOREAN_PHONICS_CURRICULUM, ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
+import {
+  KOREAN_PHONICS_CURRICULUM,
+  ENGLISH_PHONICS_CURRICULUM,
+  CHINESE_PHONICS_CURRICULUM,
+} from '@tangobook/shared';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const args = parseArgs(process.argv.slice(2));
@@ -228,9 +232,11 @@ export async function keypointsFromMask(maskBuf, { points = POINTS, alpha = ALPH
  * 배열로 박아둬서, 영어 카드가 들어와도 이 스크립트가 쳐다보지 않았다. 카드 없는 유닛은
  * 아래 루프가 `imageUrl` 없음으로 알아서 건너뛴다.
  */
-const UNIT_IDS = [...KOREAN_PHONICS_CURRICULUM, ...ENGLISH_PHONICS_CURRICULUM].flatMap((level) =>
-  level.units.map((u) => u.id)
-);
+const UNIT_IDS = [
+  ...KOREAN_PHONICS_CURRICULUM,
+  ...ENGLISH_PHONICS_CURRICULUM,
+  ...CHINESE_PHONICS_CURRICULUM,
+].flatMap((level) => level.units.map((u) => u.id));
 
 /**
  * 동화책 모드 — 카테고리의 모든 책에서 `keyObjectImages[]` 를 카드로 본다.
@@ -359,6 +365,8 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   // 2) rembg 로 알파 마스크 일괄 생성 (세션 1회)
   const py = spawnSync('python', [path.join(__dirname, '_rembg_masks.py'), imgDir, maskDir], {
     stdio: ['ignore', 'inherit', 'inherit'],
+    // 🔴 카드 파일명에 병음 성조부호(mù)가 있으면 Windows cp949 콘솔이 print 에서 죽는다 — UTF-8 강제.
+    env: { ...process.env, PYTHONIOENCODING: 'utf-8' },
   });
   if (py.status !== 0) {
     console.error('rembg 실패 — `pip install "rembg[cpu,cli]"` 확인');

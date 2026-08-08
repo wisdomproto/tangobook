@@ -1425,6 +1425,40 @@ export const CHINESE_PHONICS_CURRICULUM = [
       },
     ],
   },
+  {
+    // 🔴 Level 4 단어(单词) — 1음절 CV 낱말(병음 + 한자 병기). L3(병음조합 CV) 뒤라 아이가 읽는 건 CV
+    //    뿐이다(복운모·비운모 낱말은 L5/L6). 🔴 소리 학습 구간(L1~L3)엔 한자가 0 이고, **한자는 여기
+    //    낱말에서만** 병기한다(병음 위 / 한자 아래). `sampleWords` = 표시용 병음(성조부호), 한자·뜻·삽화
+    //    슬러그는 학습자 `chinese-phonics-units.ts` 의 `L4_WORDS` 가 든다(커리큘럼은 소리 목록만).
+    //    🔴 음원 = `mod_chinese/{병음}.mp3` 직행(mǐ·tù·jī… 전부 실존). 삽화·keypoints 는 storybook
+    //    (`zh-l4-u0N`)에 붙는다. 유닛은 성모 결로 느슨히 묶은 4~5낱말씩 3유닛.
+    level: 'level4',
+    name: 'Level 4: 단어',
+    description: '1음절 CV 낱말 — 병음 + 한자 (mǐ 米 · tù 兔 · jī 鸡)',
+    units: [
+      {
+        id: 'zh-l4-u01',
+        title: 'Unit 01: mǐ mǎ mù tù lù',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['mǐ', 'mǎ', 'mù', 'tù', 'lù'],
+      },
+      {
+        id: 'zh-l4-u02',
+        title: 'Unit 02: jī shī rì chī',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['jī', 'shī', 'rì', 'chī'],
+      },
+      {
+        id: 'zh-l4-u03',
+        title: 'Unit 03: hé hǔ gǔ é sì',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['hé', 'hǔ', 'gǔ', 'é', 'sì'],
+      },
+    ],
+  },
 ] as const;
 
 export type PhonicsLanguage = 'english' | 'korean' | 'chinese';

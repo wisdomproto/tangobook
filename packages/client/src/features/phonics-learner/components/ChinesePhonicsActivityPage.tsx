@@ -1,18 +1,30 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import type { GameTypeId, Storybook } from '@tangobook/shared';
 import {
   getChineseActivityPlan,
   getChineseListenCards,
   getChineseToneChoiceCards,
   getChineseUnit,
   getChineseUnitCards,
+  hanziFor,
   isBlendUnit,
   isToneUnit,
+  isWordUnit,
   type PinyinCard,
 } from '../lib/chinese-phonics-units';
 import type { ActivityDef, ReviewCard } from '../lib/korean-phonics-units';
 import { markActivityCompleted } from '../lib/progress-store';
 import { getChineseSyllableUrl } from '@/features/games/hooks/usePhonicsMap';
+import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
+import {
+  phonicsToWordChoices,
+  phonicsToLineMatchingData,
+  phonicsToConnectTheDotsData,
+} from '../lib/phonics-game-adapter';
+import { PhonicsGameGate } from './PhonicsGameGate';
+import { LineMatchingPlayer } from '@/features/games/components/players/LineMatchingPlayer';
+import { ConnectTheDotsPlayer } from '@/features/games/components/players/ConnectTheDotsPlayer';
 import { WordListenChooseActivity } from '../activities/WordListenChooseActivity';
 import { VowelWriteActivity } from '../activities/VowelWriteActivity';
 import { LetterHuntActivity } from '../activities/LetterHuntActivity';
@@ -39,6 +51,20 @@ export default function ChinesePhonicsActivityPage() {
     () => plan.activities.find((a) => a.key === activityKey),
     [plan, activityKey]
   );
+
+  // 단어(L4) 유닛은 삽화·keypoints·mod_chinese 음원이 storybook 에 있다 — 낱말 연습·게임이 그걸 읽는다.
+  // 소리 유닛(L1~L3)은 storybook 이 없으므로 fetch 하지 않는다(undefined → 훅이 쉰다).
+  const wordUnit = isWordUnit(unitId);
+  const storybookQuery = useStorybook(wordUnit ? unitId : undefined);
+  const storybook = storybookQuery.data as Storybook | undefined;
+  // 🔴 게임 데이터는 **한 번만** 뽑는다 — 어댑터가 내부에서 shuffle().slice(0,4) 하므로 렌더마다 부르면
+  //    다른 낱말이 뽑혀 진입 게이트 자산 키가 바뀌고 판이 리셋된다(Korean 과 같은 memo).
+  const gameMemoRef = useRef<{ key: string; data: unknown } | null>(null);
+  const memoGame = <T,>(build: () => T): T => {
+    const key = `${unitId}:${activityKey}:${storybookQuery.dataUpdatedAt}`;
+    if (gameMemoRef.current?.key !== key) gameMemoRef.current = { key, data: build() };
+    return gameMemoRef.current.data as T;
+  };
 
   /**
    * 이 활동이 쓰는 카드 — 활동 종류로 갈린다:
@@ -98,6 +124,29 @@ export default function ChinesePhonicsActivityPage() {
     }
   }, [unitId, activityKey, logEvent]);
 
+  // 게임은 완료 후 단원으로 돌아간다(익히기 활동은 자체 「돌아가기」 UI 를 노출해 머문다).
+  const handleGameComplete = useCallback(() => {
+    handleMarkComplete();
+    backToUnit();
+  }, [handleMarkComplete, backToUnit]);
+
+  // 낱말 연습 카드 — storybook flashcards(그림 있는 타겟 낱말) + 한자 병기. 병음 위 / 한자 아래.
+  // 🔴 발음(ttsUrl)은 flashcard 의 mod_chinese 직행 URL — say() 가 그걸 우선하므로 concat 왕복이 없다.
+  const wordItems = useMemo(
+    () =>
+      storybook
+        ? phonicsToWordChoices(storybook).map((w) => ({
+            id: w.word,
+            label: w.word,
+            sublabel: hanziFor(w.word),
+            sound: w.word,
+            imageUrl: w.imageUrl,
+            ...(w.ttsUrl ? { ttsUrl: w.ttsUrl } : {}),
+          }))
+        : [],
+    [storybook]
+  );
+
   if (!unit || !activity) {
     return (
       <div className="px-6 py-6 max-w-[800px] mx-auto">
@@ -110,6 +159,98 @@ export default function ChinesePhonicsActivityPage() {
         </Link>
       </div>
     );
+  }
+
+  // ── 단어(L4) 유닛 = 낱말 놀이(낱말 연습 + 게임 2종). storybook 로드 후 렌더. ──────────────
+  if (wordUnit) {
+    if (storybookQuery.isLoading || !storybook) {
+      return (
+        <div className="fixed inset-0 z-[60] flex flex-col items-center justify-center gap-3 bg-gradient-to-b from-cream-50 to-peach-100 text-center">
+          <div className="text-6xl">{activity.emoji}</div>
+          <h2 className="text-2xl sm:text-3xl font-black text-ink-900">{activity.title}</h2>
+          <p className="text-base font-bold text-ink-500">불러오는 중…</p>
+        </div>
+      );
+    }
+
+    // 낱말 연습 — 그림 + 병음 위/한자 아래, 소리 듣고 고르기. 그림은 상시(낱말 학습이라 그림이 근거).
+    if (activity.kind === 'word-listen-choose') {
+      if (wordItems.length < 2) {
+        return (
+          <ChineseUnavailable
+            activity={activity}
+            onBack={backToUnit}
+            reason="낱말 그림이 필요해요"
+          />
+        );
+      }
+      return (
+        <WordListenChooseActivity
+          unitId={unitId}
+          language="zh"
+          items={wordItems}
+          choices={wordItems.length}
+          exploreFirst
+          onMarkComplete={handleMarkComplete}
+          onBack={backToUnit}
+        />
+      );
+    }
+
+    // 게임 — 진입 게이트로 감싸 이번 판 자산을 다 데운 뒤 시작(한/영과 같은 경로).
+    const commonProps = {
+      storybookId: unitId,
+      difficulty: 'medium' as const,
+      onComplete: handleGameComplete,
+      onBack: backToUnit,
+    };
+    const gate = (game: GameTypeId, gameData: object, node: ReactNode) => (
+      <PhonicsGameGate
+        game={game}
+        gameData={gameData as { type: string; items?: Array<Record<string, unknown>> }}
+        storybook={storybook}
+        storybookId={unitId}
+        lang="zh"
+      >
+        {node}
+      </PhonicsGameGate>
+    );
+
+    if (activity.kind === 'game-line-matching') {
+      const gameData = memoGame(() => phonicsToLineMatchingData(storybook));
+      if (!gameData)
+        return (
+          <ChineseUnavailable
+            activity={activity}
+            onBack={backToUnit}
+            reason="낱말 그림이 필요해요"
+          />
+        );
+      // 🔴 lang="zh" — 낱말(병음)은 flashcard.ttsUrl(mod_chinese 직행)로 재생, 칭찬은 한국어.
+      return gate(
+        'english-line-matching',
+        gameData,
+        <LineMatchingPlayer {...commonProps} gameData={gameData} lang="zh" />
+      );
+    }
+    if (activity.kind === 'game-connect-dots') {
+      const gameData = memoGame(() => phonicsToConnectTheDotsData(storybook));
+      if (!gameData)
+        return (
+          <ChineseUnavailable
+            activity={activity}
+            onBack={backToUnit}
+            reason="낱말 그림과 점이 필요해요"
+          />
+        );
+      // 🔴 lang="zh" — 완성 시 병음 낱말을 읽는다(안 넘기면 한국어로 읽는 기존 버그).
+      return gate(
+        'connect-the-dots',
+        gameData,
+        <ConnectTheDotsPlayer {...commonProps} gameData={gameData} lang="zh" />
+      );
+    }
+    return <ChineseUnavailable activity={activity} onBack={backToUnit} reason="아직 준비 중" />;
   }
 
   // 글자 사냥 — 병음 낱 글자를 ReviewCard 로 (letter=보이는 글자, sound=성조 발음).
@@ -188,5 +329,30 @@ export default function ChinesePhonicsActivityPage() {
       onMarkComplete={handleMarkComplete}
       onBack={backToUnit}
     />
+  );
+}
+
+/** 게임 데이터(그림·keypoints)가 아직 없을 때 — 막다른 길 대신 안내 + 「돌아가기」. */
+function ChineseUnavailable({
+  activity,
+  onBack,
+  reason,
+}: {
+  activity: ActivityDef;
+  onBack: () => void;
+  reason: string;
+}) {
+  return (
+    <div className="fixed inset-0 z-[60] flex flex-col items-center justify-center gap-3 bg-gradient-to-b from-cream-50 to-peach-100 text-center px-6">
+      <div className="text-6xl">{activity.emoji}</div>
+      <h2 className="text-2xl sm:text-3xl font-black text-ink-900">{activity.title}</h2>
+      <p className="text-base font-bold text-ink-600">{reason}</p>
+      <button
+        onClick={onBack}
+        className="mt-2 px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black shadow-soft"
+      >
+        ← 돌아가기
+      </button>
+    </div>
   );
 }

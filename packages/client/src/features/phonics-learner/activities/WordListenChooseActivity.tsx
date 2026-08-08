@@ -10,8 +10,13 @@ import { ActivityShell } from '../components/ActivityShell';
 export interface ListenChoice {
   /** 카드 구분자. 같은 라벨이 두 장일 수 있다(알파벳 단원의 Aa=apple / Aa=alligator). */
   id?: string;
-  /** 보기 라벨 — 단어(고기) 또는 알파벳(Aa) */
+  /** 보기 라벨 — 단어(고기) 또는 알파벳(Aa). 병음은 성조부호 포함(mǐ). */
   label: string;
+  /**
+   * 라벨 **아래**에 작게 병기하는 글자 — 병음 낱말의 한자(米). 병음 위 / 한자 아래.
+   * 🔴 한글/영어 호출부는 넘기지 않는다(라벨만). 중국어 낱말 카드에서만 쓴다.
+   */
+  sublabel?: string;
   /** 발음할 텍스트 */
   sound: string;
   /** 그림 (알파벳 단원은 없음) */
@@ -99,6 +104,18 @@ const REST_MS = 420;
 const QUIZ_START_SOUND = '/sounds/voice/quiz-start-ko.mp3';
 /** 탐색 진입 안내 — 화면의 "눌러서 들어봐!" 텍스트에 맞는 음성(퀴즈 전 카드를 눌러 소리를 들어보는 단계). */
 const EXPLORE_START_SOUND = '/sounds/voice/listen-explore-ko.mp3';
+
+/** 카드 밑줄 라벨 — 병음(위) + 한자(아래). 한자가 없으면 라벨 한 줄만(한글/영어 무변경). */
+function CardLabel({ label, sublabel }: { label: string; sublabel?: string }) {
+  return (
+    <span className="block py-2 leading-tight break-keep">
+      <span className="block text-xl sm:text-3xl font-black text-ink-800">{label}</span>
+      {sublabel && (
+        <span className="block text-2xl sm:text-4xl font-black text-coral-600">{sublabel}</span>
+      )}
+    </span>
+  );
+}
 
 function shuffle<T>(arr: readonly T[]): T[] {
   const a = [...arr];
@@ -551,17 +568,13 @@ export function WordListenChooseActivity({
                       alt=""
                       className="w-full aspect-square object-cover"
                     />
-                    <span className="block py-2 text-xl sm:text-3xl font-black text-ink-800 break-keep">
-                      {c.label}
-                    </span>
+                    <CardLabel label={c.label} sublabel={c.sublabel} />
                   </motion.div>
                 </AnimatePresence>
               ) : c.imageUrl && (!revealImageOnTap || (exploring && opened.has(idOf(c)))) ? (
                 <>
                   <img src={c.imageUrl} alt="" className="w-full aspect-square object-cover" />
-                  <span className="block py-2 text-xl sm:text-3xl font-black text-ink-800 break-keep">
-                    {c.label}
-                  </span>
+                  <CardLabel label={c.label} sublabel={c.sublabel} />
                 </>
               ) : (
                 // 🔴 글자 크기는 길이에 따라 — 좁은 화면에서 3글자를 큰 글꼴로 두면 두 줄로 접혀 잘린다.

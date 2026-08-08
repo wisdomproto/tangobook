@@ -30,6 +30,7 @@ export default function ChinesePhonicsUnitPage({ embedded = false }: { embedded?
   }
 
   const learnActivities = plan.activities.filter((a) => a.section === 'learn');
+  const playActivities = plan.activities.filter((a) => a.section === 'play');
 
   return (
     <div className="px-4 sm:px-6 pt-10 sm:pt-14 pb-5 sm:pb-6 max-w-[1200px] mx-auto">
@@ -57,14 +58,28 @@ export default function ChinesePhonicsUnitPage({ embedded = false }: { embedded?
         </div>
       ) : (
         <div className="flex flex-col gap-5 sm:gap-6">
-          <ActivitySection
-            unitId={unitId}
-            title="익히기"
-            subtitle="듣고 배워요"
-            emoji="📖"
-            activities={learnActivities}
-            completed={completed}
-          />
+          {learnActivities.length > 0 && (
+            <ActivitySection
+              unitId={unitId}
+              title="익히기"
+              subtitle="듣고 배워요"
+              emoji="📖"
+              tone="learn"
+              activities={learnActivities}
+              completed={completed}
+            />
+          )}
+          {playActivities.length > 0 && (
+            <ActivitySection
+              unitId={unitId}
+              title="낱말 놀이"
+              subtitle="놀면서 익혀요"
+              emoji="🎲"
+              tone="play"
+              activities={playActivities}
+              completed={completed}
+            />
+          )}
         </div>
       )}
     </div>
@@ -76,6 +91,7 @@ function ActivitySection({
   title,
   subtitle,
   emoji,
+  tone,
   activities,
   completed,
 }: {
@@ -83,13 +99,24 @@ function ActivitySection({
   title: string;
   subtitle: string;
   emoji: string;
+  tone: 'learn' | 'play';
   activities: ActivityDef[];
   completed: string[];
 }) {
+  // 익히기 = peach / 낱말 놀이 = mint (한/영 파닉스 단원과 같은 색 규칙).
+  const panel =
+    tone === 'learn'
+      ? 'from-peach-100/80 via-peach-50/70 to-cream-50/60 border-peach-200/70'
+      : 'from-mint-100/80 via-mint-50/70 to-cream-50/60 border-mint-200/70';
+  const peg = tone === 'learn' ? 'from-coral-500 to-coral-400' : 'from-mint-500 to-mint-400';
   return (
-    <section className="relative rounded-[32px] border-2 bg-gradient-to-br from-peach-100/80 via-peach-50/70 to-cream-50/60 border-peach-200/70 backdrop-blur-sm shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)] px-4 sm:px-5 pt-10 sm:pt-12 pb-5 sm:pb-6">
+    <section
+      className={`relative rounded-[32px] border-2 bg-gradient-to-br ${panel} backdrop-blur-sm shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)] px-4 sm:px-5 pt-10 sm:pt-12 pb-5 sm:pb-6`}
+    >
       <div className="absolute -top-5 left-5 sm:left-6">
-        <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-gradient-to-r from-coral-500 to-coral-400 shadow-pop border-[3px] border-white">
+        <div
+          className={`inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-gradient-to-r ${peg} shadow-pop border-[3px] border-white`}
+        >
           <span className="text-2xl sm:text-3xl drop-shadow-sm">{emoji}</span>
           <span className="text-lg sm:text-xl md:text-2xl font-black font-display text-white">
             {title}

@@ -133,6 +133,10 @@ function ConnectTheDotsPlayer({
       // vi/zh/th
       const tr = ko?.nameTranslations?.[viewerLang]?.trim();
       if (tr) return { text: tr, lang: viewerLang };
+      // 🔴 파닉스 storybook 은 key_objects 가 없다(낱말이 flashcards 에 있고 objectName 이 이미 그 언어
+      //    표기 = 병음). 어휘 게임은 key_object 를 찾되 번역만 없는 것(ko 존재)이라 여전히 스킵된다
+      //    — 즉 영어로 새지 않는다. objectName(병음)을 그대로 읽고, 소리는 item.ttsUrl(mod_chinese 직행).
+      if (!ko) return { text: en, lang: viewerLang };
       return null;
     },
     [viewerLang, storybook]
