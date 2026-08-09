@@ -150,24 +150,36 @@ function ActivitySection({
           <span className="text-sm sm:text-base font-black text-white/90">· {subtitle}</span>
         </div>
       </div>
-      {/* 🔴 grid 가 아니라 flex-wrap + justify-center — 고정 열 수는 장수가 열보다 적을 때
-          카드를 왼쪽에 몰고 오른쪽을 비운다. 폭은 카드 쪽에서 준다(한글판과 같은 규칙). */}
-      <div className="flex flex-wrap justify-center gap-4 sm:gap-6 lg:gap-8">
-        {activities.map((act) => (
-          <ActivityCard
-            key={act.key}
-            unitId={unitId}
-            activity={act}
-            done={completed.includes(act.key)}
-            widthClass={activities.length === 6 ? SIX_CARD_WIDTH : DEFAULT_CARD_WIDTH}
-            // 🔴 6장(복습)은 3+3 이 **한 화면에** 들어와야 한다(사용자 2026-08-09). 캡을 키워 33.3%→3장으로
-            //    만들되(기본 13rem 이면 208px 로 눌려 4+2), 카드는 **정사각**(한글 파닉스와 동일)으로 낮춘다
-            //    — aspect-[5/6](세로 1.2배)이면 두 줄이 화면 밖으로 밀린다.
-            maxWClass={activities.length === 6 ? 'max-w-[18rem]' : 'max-w-[13rem]'}
-            aspectClass={activities.length === 6 ? 'aspect-square' : 'aspect-[5/6]'}
-          />
-        ))}
-      </div>
+      {/* 🔴 6장(복습)은 **grid-cols-3 + 폭 제한 컨테이너**로 3+3 을 한 화면에 넣는다(사용자 2026-08-09
+          "아래 잘림"). flex-wrap 은 넓은 화면에서 3열을 유지하려면 카드가 커져 세로로 넘쳤다 — grid 는
+          열 수를 폭과 분리하므로 카드를 작게(정사각) 고정할 수 있다. 그 외(≤5장)는 기존 flex-wrap. */}
+      {activities.length === 6 ? (
+        <div className="mx-auto grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 max-w-[min(100%,44rem)]">
+          {activities.map((act) => (
+            <ActivityCard
+              key={act.key}
+              unitId={unitId}
+              activity={act}
+              done={completed.includes(act.key)}
+              widthClass="w-full"
+              maxWClass="max-w-none"
+              aspectClass="aspect-square"
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-wrap justify-center gap-4 sm:gap-6 lg:gap-8">
+          {activities.map((act) => (
+            <ActivityCard
+              key={act.key}
+              unitId={unitId}
+              activity={act}
+              done={completed.includes(act.key)}
+              widthClass={DEFAULT_CARD_WIDTH}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }
@@ -196,14 +208,6 @@ const KIND_ICON_URL: Partial<Record<ActivityDef['kind'], string>> = {
  */
 const DEFAULT_CARD_WIDTH =
   'w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)] md:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.5rem)] xl:w-[calc(20%-1.6rem)]';
-
-/**
- * 6장짜리 섹션(복습 게임)은 **3+3**. 기본 폭이면 lg 4장·xl 5장이라 마지막 한 장이 혼자 남아
- * 덤처럼 보인다 — 영어 복습이 2종에서 6종으로 늘면서 이 화면도 그 상태가 됐다(사용자 지적).
- * 좁은 화면(md 이하)은 그대로 2장씩: 3장으로 쪼개면 카드가 100px 대가 된다.
- */
-const SIX_CARD_WIDTH =
-  'w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)] md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1.34rem)] xl:w-[calc(33.333%-1.34rem)]';
 
 function ActivityCard({
   unitId,
