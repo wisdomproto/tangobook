@@ -87,6 +87,15 @@ export function LetterHuntActivity({
       targets: TARGETS,
     });
   }, [round, lettersKey]);
+  // 🔴 칸 글자 크기 = 판에서 가장 긴 토큰 기준. 한 글자(Book 2)는 크게, 3~4글자 패턴(Book 3~5)은 줄여
+  //    칸(14vw/13vh)을 안 넘게. 폭 usable≈12vw·11vh, 글자폭≈0.6em → font ≤ usable/(len×0.6).
+  const cellFont = useMemo(() => {
+    // 0.7 = 굵은 글자 넓은 글립(m·w) 여유. usable 폭 ≈ 11vw·10vh(테두리 8px 뺀 값).
+    const maxLen = Math.max(1, ...board.map((t) => t.length));
+    const fVw = Math.min(8, 11 / (maxLen * 0.7));
+    const fVh = Math.min(7, 10 / (maxLen * 0.7));
+    return `min(${fVw.toFixed(1)}vw, ${fVh.toFixed(1)}vh)`;
+  }, [board]);
 
   /**
    * 칸에 적힌 글자 → **읽을 소리**. 목표 칸은 카드가 소리를 갖고 있지만(모음 `ㅏ`→`아`),
@@ -268,12 +277,14 @@ export function LetterHuntActivity({
                 aria-label={ch}
                 className={[
                   // 🔴 칸은 vw 만 보면 안 된다 — 전체화면이라 높이가 먼저 모자란다.
-                  'w-[min(14vw,13vh)] h-[min(14vw,13vh)] rounded-2xl border-[4px] flex items-center justify-center font-black transition',
-                  'text-[min(8vw,7vh)] leading-none',
+                  'w-[min(14vw,13vh)] h-[min(14vw,13vh)] rounded-2xl border-[4px] flex items-center justify-center font-black transition leading-none overflow-hidden',
                   got
                     ? 'bg-mint-500 border-mint-500 text-white scale-95'
                     : 'bg-white border-white text-ink-900 active:scale-95',
                 ].join(' ')}
+                // 🔴 칸 글자 크기는 **판에서 가장 긴 토큰**에 맞춘다 — Book 2 는 한 글자(an/at)라 크게,
+                //    Book 3~5 는 3~4글자 패턴(ane·ack)이라 그대로 두면 칸을 넘친다(사용자 2026-08-09).
+                style={{ fontSize: cellFont }}
               >
                 {ch}
               </button>
