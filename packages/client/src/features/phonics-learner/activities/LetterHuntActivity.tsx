@@ -195,17 +195,19 @@ export function LetterHuntActivity({
           }
           say(card.sound, () =>
             scheduleTimer(() => {
-              if (isLast) {
-                playCorrectSequence({
-                  language: language === 'english' ? 'en' : 'ko',
-                  onDone: onComplete,
-                });
-                return;
-              }
-              // 라운드가 넘어가면 위 effect 가 새 글자를 읽는다.
-              foundRef.current = [];
-              setFound([]);
-              setRound((r) => r + 1);
+              // 🔴 글자를 다 찾으면 **칭찬** — 마지막이면 그 뒤 완료, 아니면 다음 글자로(2026-08-09 사용자:
+              //    "다 찾고 넘어갈 때 효과음/칭찬이 없어"). 예전엔 조용히 넘어가 라운드를 끝낸 티가 안 났다.
+              playCorrectSequence({
+                language: language === 'english' ? 'en' : 'ko',
+                onDone: isLast
+                  ? onComplete
+                  : () => {
+                      // 라운드가 넘어가면 위 effect 가 새 글자를 읽는다.
+                      foundRef.current = [];
+                      setFound([]);
+                      setRound((r) => r + 1);
+                    },
+              });
             }, REST_MS)
           );
         }, REST_MS)

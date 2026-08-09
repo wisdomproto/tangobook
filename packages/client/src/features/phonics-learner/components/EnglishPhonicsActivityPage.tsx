@@ -8,7 +8,6 @@ import {
   wordMatchesPattern,
   patternWriteOrder,
   getUnitPatterns,
-  reviewHuntToken,
 } from '../lib/english-phonics-units';
 import { shuffleReviewCards } from '../lib/korean-phonics-units';
 import type { ActivityDef } from '../lib/korean-phonics-units';
@@ -84,18 +83,27 @@ export default function EnglishPhonicsActivityPage() {
   /**
    * 🔴 글자 사냥·듣고 글자는 **패턴**(ake/bl/ee)을 찾게 한다 — Book 2 가 an/at 를 찾는 것과 같은 결.
    * Book 3~5 복습 카드는 낱말(`bake`)이라 그대로 쓰면 "rake 찾기"가 된다(사용자 지적 2026-08-09).
-   * 낱말→패턴 토큰으로 바꾸고 중복 패턴은 합친다(방해꾼 = 형제 패턴 ame·ane…). Book 1/2 는 그대로.
+   *
+   * 🔴 패턴은 **커버하는 단원들의 커리큘럼 패턴 전체**에서 뽑는다 — 복습 낱말 4개(bake·cake·lake…)는
+   *    같은 rime(ake) 으로 뭉쳐 2~3개뿐이라 듣고 글자 보기가 3개로 모자랐다(사용자: "4개 나와야"). 단원
+   *    패턴(`_ake`·`_ame`·`_ane`·`_ape`…)에서 코어만 떼면 rime 이 넉넉해 보기 4개·방해꾼도 형제 패턴이 된다.
    */
   const isWordBook = /^en-b[345]/.test(unitId);
   const patternCards = useMemo(() => {
     if (!isWordBook) return reviewCards;
+    const units = [...new Set(reviewCards.map((c) => c.unitId))];
     const seen = new Set<string>();
-    return reviewCards.flatMap((c) => {
-      const tok = reviewHuntToken(c.letter, c.unitId);
-      if (seen.has(tok)) return [];
-      seen.add(tok);
-      return [{ ...c, letter: tok, syllable: tok, sound: tok }];
-    });
+    const out = units.flatMap((uid) =>
+      getUnitPatterns(uid).flatMap((p) => {
+        const tok = p.replace(/_/g, '').toLowerCase();
+        if (!tok || seen.has(tok)) return [];
+        seen.add(tok);
+        return [
+          { unitId: uid, letter: tok, syllable: tok, sound: tok, matchPosition: 'cho' as const },
+        ];
+      })
+    );
+    return out.length ? shuffleReviewCards(out) : reviewCards;
   }, [isWordBook, reviewCards]);
   const { sources: reviewSources, isLoading: reviewLoading } = useReviewCardSources(reviewCards);
 
