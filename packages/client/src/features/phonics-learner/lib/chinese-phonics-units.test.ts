@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
+  CHANT_URLS,
   getAllChineseUnits,
   getChineseActivityPlan,
   getChineseListenCards,
@@ -208,14 +209,15 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
     expect(plan.activities.map((a) => a.kind)).toEqual([
       'word-listen-choose',
       'word-listen-choose',
+      'chant',
     ]);
-    expect(plan.activities.map((a) => a.key)).toEqual(['listen-choose', 'tone-choose']);
+    expect(plan.activities.map((a) => a.key)).toEqual(['listen-choose', 'tone-choose', 'chant']);
   });
 
   it('단운모 유닛(u02·u03) = 듣고 배우기 + 따라쓰기 + 글자 사냥', () => {
     for (const id of ['zh-l1-u02', 'zh-l1-u03']) {
       const kinds = getChineseActivityPlan(id).activities.map((a) => a.kind);
-      expect(kinds).toEqual(['word-listen-choose', 'vowel-write', 'letter-hunt']);
+      expect(kinds).toEqual(['word-listen-choose', 'vowel-write', 'letter-hunt', 'chant']);
     }
   });
 
@@ -279,14 +281,14 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
   it('단일 글자 성모 유닛 = 배우기 + 따라쓰기 + 글자 사냥', () => {
     for (const id of ['zh-l2-u01', 'zh-l2-u02', 'zh-l2-u03', 'zh-l2-u04', 'zh-l2-u05']) {
       const kinds = getChineseActivityPlan(id).activities.map((a) => a.kind);
-      expect(kinds).toEqual(['word-listen-choose', 'vowel-write', 'letter-hunt']);
+      expect(kinds).toEqual(['word-listen-choose', 'vowel-write', 'letter-hunt', 'chant']);
     }
   });
 
   // 🔴 zh/ch/sh 2글자 성모 유닛 = LetterFillCanvas 못 씀 → 따라쓰기 생략(배우기·사냥만).
   it('권설 성모 유닛(u06) = 배우기 + 글자 사냥(따라쓰기 없음)', () => {
     const kinds = getChineseActivityPlan('zh-l2-u06').activities.map((a) => a.kind);
-    expect(kinds).toEqual(['word-listen-choose', 'letter-hunt']);
+    expect(kinds).toEqual(['word-listen-choose', 'letter-hunt', 'chant']);
     expect(getChineseUnitCards('zh-l2-u06').map((c) => c.label)).toEqual(['zh', 'ch', 'sh', 'r']);
     expect(getChineseUnitCards('zh-l2-u06').map((c) => c.sound)).toEqual([
       'zhī',
@@ -304,8 +306,10 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       expect(plan.activities.map((a) => a.kind)).toEqual([
         'word-listen-choose',
         'word-listen-choose',
+        'chant',
       ]);
-      expect(plan.activities.map((a) => a.key)).toEqual(['listen-choose', 'listen-quiz']);
+      expect(plan.activities.map((a) => a.key)).toEqual(['listen-choose', 'listen-quiz', 'chant']);
+      // required 는 chant(required:false)를 안 센다.
       expect(getChineseRequiredActivities(id)).toEqual(['listen-choose', 'listen-quiz']);
     }
   });
@@ -369,11 +373,11 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       expect(isBlendUnit(id)).toBe(false);
       const plan = getChineseActivityPlan(id);
       // 🔴 plan 에 게임 kind 가 없으면 라우트로 도달해도 죽은 코드 — 낱말 그리기·짝 찾기 포함 확인.
-      expect(plan.activities.map((a) => a.kind)).toEqual([
-        'word-listen-choose',
-        'game-connect-dots',
-        'game-line-matching',
-      ]);
+      //    🎵 찬트가 있는 단원(L4·L8)은 맨 끝에 chant 가 붙는다(L5·L6 낱말 유닛엔 없음).
+      const gameKinds = ['word-listen-choose', 'game-connect-dots', 'game-line-matching'];
+      expect(plan.activities.map((a) => a.kind)).toEqual(
+        CHANT_URLS[id] ? [...gameKinds, 'chant'] : gameKinds
+      );
       expect(plan.activities.every((a) => a.section === 'play')).toBe(true);
       expect(getChineseRequiredActivities(id)).toEqual(['word-practice']);
     }
@@ -403,8 +407,10 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       expect(plan.activities.map((a) => a.kind)).toEqual([
         'word-listen-choose',
         'word-listen-choose',
+        'chant',
       ]);
-      expect(plan.activities.map((a) => a.key)).toEqual(['listen-choose', 'listen-quiz']);
+      expect(plan.activities.map((a) => a.key)).toEqual(['listen-choose', 'listen-quiz', 'chant']);
+      // required 는 chant(required:false)를 안 센다.
       expect(getChineseRequiredActivities(id)).toEqual(['listen-choose', 'listen-quiz']);
     }
   });
@@ -450,6 +456,7 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       expect(getChineseActivityPlan(id).activities.map((a) => a.key)).toEqual([
         'listen-choose',
         'listen-quiz',
+        'chant',
       ]);
     }
   });
@@ -508,5 +515,38 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       { label: 'yue', sound: 'yuē', sounds: ['yuē', 'yué', 'yuě', 'yuè'] },
       { label: 'yuan', sound: 'yuān', sounds: ['yuān', 'yuán', 'yuǎn', 'yuàn'] },
     ]);
+  });
+
+  // ── 🎵 유닛송(찬트) 스텝 ────────────────────────────────────────────────────
+  it('CHANT_URLS 는 32개 단원(복습·L7 제외), 전부 유닛 목록에 존재', () => {
+    const ids = Object.keys(CHANT_URLS);
+    expect(ids.length).toBe(32);
+    const allIds = new Set(getAllChineseUnits().map((u) => u.id));
+    for (const id of ids) expect(allIds.has(id), `${id} 없는 단원`).toBe(true);
+    // 복습·L7(통독)엔 찬트가 없다.
+    expect(ids.some((id) => id.endsWith('-r1'))).toBe(false);
+    expect(ids.some((id) => id.startsWith('zh-l7'))).toBe(false);
+  });
+
+  // 🔴 plan 에 안 붙이면 라우트로 도달해도 죽은 코드 — CHANT 있는 단원은 마지막 활동이 chant 여야 한다.
+  it('CHANT_URLS 있는 단원 = plan 마지막 활동이 chant (kind·section·required·order)', () => {
+    for (const u of getAllChineseUnits()) {
+      const plan = getChineseActivityPlan(u.id);
+      const last = plan.activities[plan.activities.length - 1];
+      if (CHANT_URLS[u.id]) {
+        expect(last.kind, `${u.id} 마지막이 chant 아님`).toBe('chant');
+        expect(last.key).toBe('chant');
+        expect(last.section).toBe('play');
+        expect(last.required).toBe(false);
+        expect(last.order).toBe(plan.activities.length); // 1-based 마지막 순서
+        expect(last.emoji).toBe('🎵');
+      } else {
+        // 복습·L7 등 CHANT 없는 단원엔 chant 활동이 없다.
+        expect(
+          plan.activities.some((a) => a.kind === 'chant'),
+          `${u.id} 엔 chant 없어야`
+        ).toBe(false);
+      }
+    }
   });
 });

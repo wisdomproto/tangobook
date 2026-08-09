@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } fro
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import type { GameTypeId, Storybook } from '@tangobook/shared';
 import {
+  CHANT_URLS,
   getChineseActivityPlan,
   getChineseListenCards,
   getChineseToneChoiceCards,
@@ -31,6 +32,7 @@ import { ConnectTheDotsPlayer } from '@/features/games/components/players/Connec
 import { WordListenChooseActivity } from '../activities/WordListenChooseActivity';
 import { VowelWriteActivity } from '../activities/VowelWriteActivity';
 import { LetterHuntActivity } from '../activities/LetterHuntActivity';
+import { ChantActivity } from '../activities/ChantActivity';
 import { useLogEvent } from '@/features/learning/hooks/useLogEvent';
 
 /**
@@ -199,6 +201,21 @@ export default function ChinesePhonicsActivityPage() {
           ← 단원으로
         </Link>
       </div>
+    );
+  }
+
+  // ── 🎵 노래(찬트) = 마무리 노래 듣기. 소리·낱말 유닛 어디에나 붙으므로 wordUnit 분기보다 먼저. ──
+  if (activity.kind === 'chant') {
+    const urls = CHANT_URLS[unitId];
+    if (!urls?.length)
+      return <ChineseUnavailable activity={activity} onBack={backToUnit} reason="노래가 없어요" />;
+    return (
+      <ChantActivity
+        unitId={unitId}
+        urls={urls}
+        onMarkComplete={handleMarkComplete}
+        onBack={backToUnit}
+      />
     );
   }
 

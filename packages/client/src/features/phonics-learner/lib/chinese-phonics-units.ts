@@ -14,6 +14,89 @@
 import { CHINESE_PHONICS_CURRICULUM } from '@tangobook/shared';
 import type { ActivityDef, ActivityPlan } from './korean-phonics-units';
 
+/**
+ * 🎵 유닛송(찬트) — 탱고 교안의 마무리. 단원 id → 전문 녹음 mp3 URL 배열(R2 `phonics-chant/`).
+ *
+ * 🔴 한 단원이 여러 곡일 수 있다(zh-l1-u02 = 운모 a/o/e 3곡). 복습·L7(통독)엔 없다(맵에 없으면 자동 제외).
+ * 🔴 이 맵에 있는 단원만 plan 맨 끝에 `chant` 스텝이 붙는다(`withChant`) — 없으면 죽은 라우트가 안 생긴다.
+ */
+export const CHANT_URLS: Record<string, string[]> = {
+  'zh-l1-u01': ['https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/sd_song.mp3'],
+  'zh-l1-u02': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/ym_song_1a.mp3',
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/ym_song_2o.mp3',
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/ym_song_3e.mp3',
+  ],
+  'zh-l1-u03': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/ym_song_4i.mp3',
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/ym_song_5u.mp3',
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/ym_song_6v.mp3',
+  ],
+  'zh-l2-u01': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/sm_song_1bpmf.mp3',
+  ],
+  'zh-l2-u02': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/sm_song_2dtnl.mp3',
+  ],
+  'zh-l2-u03': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/sm_song_3gkh.mp3',
+  ],
+  'zh-l2-u04': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/sm_song_4jqx.mp3',
+  ],
+  'zh-l2-u05': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/sm_song_6zcs.mp3',
+  ],
+  'zh-l2-u06': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/sm_song_5zhchshr.mp3',
+  ],
+  'zh-l3-u01': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/py_song_witha.mp3',
+  ],
+  'zh-l3-u02': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/py_song_witha.mp3',
+  ],
+  'zh-l3-u03': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/py_song_witha.mp3',
+  ],
+  'zh-l3-u04': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/py_song_withv.mp3',
+  ],
+  'zh-l4-u01': ['https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/word1_song.mp3'],
+  'zh-l4-u02': ['https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/word1_song.mp3'],
+  'zh-l4-u03': ['https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/word1_song.mp3'],
+  'zh-l4-u04': ['https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/word1_song.mp3'],
+  'zh-l5-u01': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/fy_song_1aieiui_1.mp3',
+  ],
+  'zh-l5-u02': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/fy_song_2aoouiu_1.mp3',
+  ],
+  'zh-l5-u03': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/fy_song_3ieveer_1.mp3',
+  ],
+  'zh-l6-u01': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/by_song_1n_1.mp3',
+  ],
+  'zh-l6-u02': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/by_song_1n_1.mp3',
+  ],
+  'zh-l6-u03': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/by_song_2ng_1.mp3',
+  ],
+  'zh-l6-u04': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/by_song_2ng_1.mp3',
+  ],
+  'zh-l8-u01': ['https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/word2_song.mp3'],
+  'zh-l8-u02': ['https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/word2_song.mp3'],
+  'zh-l8-u03': ['https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/word2_song.mp3'],
+  'zh-l8-u04': ['https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/word2_song.mp3'],
+  'zh-l8-u05': ['https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/word2_song.mp3'],
+  'zh-l8-u06': ['https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/word2_song.mp3'],
+  'zh-l8-u07': ['https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/word2_song.mp3'],
+  'zh-l8-u08': ['https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/word2_song.mp3'],
+};
+
 export interface ChineseUnitSummary {
   id: string; // 'zh-l1-u01'
   levelKey: string; // 'level1'
@@ -670,8 +753,31 @@ function planForUnit(u: ChineseUnitSummary): ActivityPlan {
   return makeSingleFinalPlan();
 }
 
+/**
+ * plan 맨 끝에 🎵 노래(찬트) 스텝을 붙인다 — `CHANT_URLS[u.id]` 가 있을 때만.
+ * 🔴 복습(isReview)엔 안 붙인다(맵에도 없지만 이중 방어). 죽은 라우트가 안 생기도록 order 는 마지막.
+ */
+function withChant(u: ChineseUnitSummary, plan: ActivityPlan): ActivityPlan {
+  const urls = CHANT_URLS[u.id];
+  if (u.isReview || !urls?.length) return plan;
+  return {
+    activities: [
+      ...plan.activities,
+      {
+        key: 'chant',
+        order: plan.activities.length + 1,
+        kind: 'chant',
+        section: 'play',
+        title: '노래',
+        emoji: '🎵',
+        required: false,
+      },
+    ],
+  };
+}
+
 export const CHINESE_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = Object.fromEntries(
-  getAllChineseUnits().map((u) => [u.id, planForUnit(u)])
+  getAllChineseUnits().map((u) => [u.id, withChant(u, planForUnit(u))])
 );
 
 export function getChineseActivityPlan(unitId: string): ActivityPlan {
