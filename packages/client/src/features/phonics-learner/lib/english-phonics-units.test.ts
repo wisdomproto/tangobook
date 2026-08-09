@@ -125,7 +125,6 @@ describe('english phonics units', () => {
       // 🔴 낱말 쓰기는 learn(패턴별 써보기)이 아니라 play 게임으로만 — Book 2 와 같은 4종 구성.
       expect(learn.some((a) => a.kind === 'game-word-writing')).toBe(false);
       expect(play.map((a) => a.kind)).toEqual([
-        'game-english-block',
         'game-word-writing',
         'game-connect-dots',
         'game-line-matching',
@@ -230,14 +229,11 @@ describe('english phonics units', () => {
     expect(listen.letters).toEqual(['A', 'B', 'C']);
   });
 
-  /**
-   * 🔴 Book 1 은 글자가 단위라 블록이 한 칸이고, 그 한 칸 채우기는 바로 앞 「배우기 2」가 이미 시킨다.
-   *    Book 2 부터는 낱말을 통째로 조립하므로 남긴다.
-   */
-  it('영어 블록 게임은 Book 2 부터만 나온다', () => {
-    const b1 = getEnglishActivityPlan('en-b1-u01').activities.map((a) => a.kind);
-    expect(b1).not.toContain('game-english-block');
-    const b2 = getEnglishActivityPlan('en-b2-u01').activities.map((a) => a.kind);
-    expect(b2).toContain('game-english-block');
+  /** 🔴 영어 블록 게임은 전 권에서 뺀다 (2026-08-09 사용자). */
+  it('영어 블록 게임은 어느 단원에도 없다', () => {
+    for (const u of units.filter((x) => !x.isReview)) {
+      const kinds = getEnglishActivityPlan(u.id).activities.map((a) => a.kind);
+      expect(kinds).not.toContain('game-english-block');
+    }
   });
 });
