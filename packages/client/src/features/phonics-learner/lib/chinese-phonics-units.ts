@@ -103,6 +103,55 @@ export const L4_WORDS: Record<string, { hanzi: string; gloss: string; slug: stri
   zhōng: { hanzi: '钟', gloss: '시계', slug: 'zhong_clock' },
   chóng: { hanzi: '虫', gloss: '벌레', slug: 'chong_bug' },
   táng: { hanzi: '糖', gloss: '사탕', slug: 'tang_candy' },
+  // L8 2음절 낱말(双音节词) — 탱고 8단계, 원어민 녹음(mod_chinese). 그림 되는 구체 낱말만.
+  hǎibiān: { hanzi: '海边', gloss: '바닷가', slug: 'haibian' },
+  táidēng: { hanzi: '台灯', gloss: '스탠드', slug: 'taideng' },
+  wàitào: { hanzi: '外套', gloss: '코트', slug: 'waitao' },
+  àixīn: { hanzi: '爱心', gloss: '사랑', slug: 'aixin' },
+  bēizi: { hanzi: '杯子', gloss: '컵', slug: 'beizi' },
+  hēibǎn: { hanzi: '黑板', gloss: '칠판', slug: 'heiban' },
+  léishēng: { hanzi: '雷声', gloss: '천둥소리', slug: 'leisheng' },
+  mèimèi: { hanzi: '妹妹', gloss: '여동생', slug: 'meimei' },
+  wěiba: { hanzi: '尾巴', gloss: '꼬리', slug: 'weiba' },
+  shuǐguǒ: { hanzi: '水果', gloss: '과일', slug: 'shuiguo' },
+  huǒtuǐ: { hanzi: '火腿', gloss: '햄', slug: 'huotui' },
+  lǎorén: { hanzi: '老人', gloss: '노인', slug: 'laoren' },
+  xiǎomāo: { hanzi: '小猫', gloss: '고양이', slug: 'xiaomao' },
+  sháozi: { hanzi: '勺子', gloss: '숟가락', slug: 'shaozi' },
+  zǎoshàng: { hanzi: '早上', gloss: '아침', slug: 'zaoshang' },
+  jīròu: { hanzi: '鸡肉', gloss: '닭고기', slug: 'jirou' },
+  liǔshù: { hanzi: '柳树', gloss: '버드나무', slug: 'liushu' },
+  nǎiniú: { hanzi: '奶牛', gloss: '젖소', slug: 'nainiu' },
+  zúqiú: { hanzi: '足球', gloss: '축구공', slug: 'zuqiu' },
+  jiějiě: { hanzi: '姐姐', gloss: '언니', slug: 'jiejie' },
+  tiělù: { hanzi: '铁路', gloss: '철도', slug: 'tielu' },
+  húdié: { hanzi: '蝴蝶', gloss: '나비', slug: 'hudie' },
+  xuěhuā: { hanzi: '雪花', gloss: '눈꽃', slug: 'xuehua' },
+  èrhú: { hanzi: '二胡', gloss: '얼후', slug: 'erhu' },
+  ěrduǒ: { hanzi: '耳朵', gloss: '귀', slug: 'erduo' },
+  jīdàn: { hanzi: '鸡蛋', gloss: '달걀', slug: 'jidan' },
+  wǔfàn: { hanzi: '午饭', gloss: '점심 식사', slug: 'wufan' },
+  yǔsǎn: { hanzi: '雨伞', gloss: '우산', slug: 'yusan' },
+  wǎncān: { hanzi: '晚餐', gloss: '저녁 식사', slug: 'wancan' },
+  yǎnjīng: { hanzi: '眼睛', gloss: '눈', slug: 'yanjing' },
+  shùgēn: { hanzi: '树根', gloss: '나무뿌리', slug: 'shugen' },
+  ménkǒu: { hanzi: '门口', gloss: '입구', slug: 'menkou' },
+  zhěntou: { hanzi: '枕头', gloss: '베개', slug: 'zhentou' },
+  jīnyú: { hanzi: '金鱼', gloss: '금붕어', slug: 'jinyu' },
+  gāngqín: { hanzi: '钢琴', gloss: '피아노', slug: 'gangqin' },
+  jiǎngpǐn: { hanzi: '奖品', gloss: '상품', slug: 'jiangpin' },
+  lúnchuán: { hanzi: '轮船', gloss: '기선', slug: 'lunchuan' },
+  zhúsǔn: { hanzi: '竹笋', gloss: '죽순', slug: 'zhusun' },
+  qúnzi: { hanzi: '裙子', gloss: '치마', slug: 'qunzi' },
+  jūnrén: { hanzi: '军人', gloss: '군인', slug: 'junren' },
+  miányáng: { hanzi: '绵羊', gloss: '면양', slug: 'mianyang' },
+  bīngxiāng: { hanzi: '冰箱', gloss: '냉장고', slug: 'bingxiang' },
+  jǐngshuǐ: { hanzi: '井水', gloss: '우물물', slug: 'jingshui' },
+  huāpíng: { hanzi: '花瓶', gloss: '꽃병', slug: 'huaping' },
+  xīngxīng: { hanzi: '星星', gloss: '별', slug: 'xingxing' },
+  nóngmín: { hanzi: '农民', gloss: '농민', slug: 'nongmin' },
+  piáochóng: { hanzi: '瓢虫', gloss: '무당벌레', slug: 'piaochong' },
+  hóngbāo: { hanzi: '红包', gloss: '촌지', slug: 'hongbao' },
 };
 
 /** 병음 → 한자(카드 아래 병기). 없으면 undefined(병음만). */
@@ -565,23 +614,41 @@ export function isReviewUnit(unitId: string): boolean {
  *  ⑤ 성조 듣고 고르기 — 낱말 소리를 듣고 그 성조 부호 고르기 (한글엔 없는 병음 고유 축)
  * 🔴 듣기(③·⑤)를 붙여 두지 않는다 — 사이에 눈으로 보는 ④를 끼운다(한글 복습과 같은 배치 규칙).
  */
-function makeChineseReviewPlan(): ActivityPlan {
-  const play = (
-    order: number,
-    key: string,
-    kind: ActivityDef['kind'],
-    title: string,
-    emoji: string
-  ): ActivityDef => ({ order, key, kind, section: 'play', title, emoji, required: true });
-  return {
-    activities: [
-      play(1, 'letter-hunt', 'letter-hunt', '글자 사냥', '🔎'),
-      play(2, 'review-flip', 'review-flip', '뒤집기 짝 맞추기', '🎴'),
-      play(3, 'review-word-listen', 'review-word-listen', '듣고 낱말 맞추기', '🔊'),
-      play(4, 'review-match', 'review-match', '그림 짝 찾기', '🔗'),
-      play(5, 'tone-choice', 'tone-choice-review', '성조 듣고 고르기', '🎵'),
-    ],
-  };
+/**
+ * 병음 음절 수 — 모음 덩어리(연속 모음)의 개수. 단음절=1, 2음절 낱말=2.
+ * 🔴 성모·코다(n·ng)가 음절을 가르고, 우리 낱말엔 모음-모음 음절 경계가 없어(海鸥 류 없음) 이 계수가 정확하다.
+ *    NFD 로 풀어 성조·다이어레시스 결합부호를 지운 뒤 base 모음의 연속 덩어리를 센다.
+ */
+export function syllableCount(pinyin: string): number {
+  const base = pinyin.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  let count = 0;
+  let inV = false;
+  for (const ch of base) {
+    const isV = 'aeiouüv'.includes(ch);
+    if (isV && !inV) count++;
+    inV = isV;
+  }
+  return count || 1;
+}
+
+/**
+ * 복습 plan. 🔴 `monosyllabic` = 낱말이 **단음절**일 때만 「글자 사냥」·「성조 듣고 고르기」를 넣는다.
+ * 둘 다 **낱글자/짧은 토큰 + 단일 성조** 전용이라 2음절 낱말(L8)엔 안 맞는다:
+ *  · 글자 사냥 = 7~8자 병음이 타일에 안 들어가 넘치고, 성조 변이 방해꾼은 mod_chinese 에 녹음이 없어 무음.
+ *  · 성조 고르기 = 2음절은 성조가 하나가 아니라 `withTone` 이 첫 성조를 지워 깨진다.
+ * 그래서 2음절 복습 = 뒤집기 + 듣고 낱말 + 그림 짝(그림 기반 3종)만.
+ */
+function makeChineseReviewPlan(monosyllabic: boolean): ActivityPlan {
+  const activities: ActivityDef[] = [];
+  let order = 0;
+  const play = (key: string, kind: ActivityDef['kind'], title: string, emoji: string) =>
+    activities.push({ order: ++order, key, kind, section: 'play', title, emoji, required: true });
+  if (monosyllabic) play('letter-hunt', 'letter-hunt', '글자 사냥', '🔎');
+  play('review-flip', 'review-flip', '뒤집기 짝 맞추기', '🎴');
+  play('review-word-listen', 'review-word-listen', '듣고 낱말 맞추기', '🔊');
+  play('review-match', 'review-match', '그림 짝 찾기', '🔗');
+  if (monosyllabic) play('tone-choice', 'tone-choice-review', '성조 듣고 고르기', '🎵');
+  return { activities };
 }
 
 /**
@@ -590,7 +657,11 @@ function makeChineseReviewPlan(): ActivityPlan {
  * 🔴 성모에 2글자(zh/ch/sh)가 섞이면 따라쓰기를 빼고 배우기·사냥만 둔다(위 `makeNoWritePlan`).
  */
 function planForUnit(u: ChineseUnitSummary): ActivityPlan {
-  if (u.isReview) return makeChineseReviewPlan();
+  // 🔴 복습 성조 활동은 단음절 낱말일 때만 — 2음절(L8)은 성조가 하나가 아니라 뺀다.
+  if (u.isReview)
+    return makeChineseReviewPlan(
+      u.targetWords.length > 0 && u.targetWords.every((w) => syllableCount(w) === 1)
+    );
   if (u.patterns.includes('tones')) return makeTonePlan();
   if (u.patterns.includes('word')) return makeWordPlan();
   // 通读(整体认读) = blend 와 같은 배우기 + 듣고 고르기(쓰기·사냥 없음).

@@ -1645,6 +1645,73 @@ export const CHINESE_PHONICS_CURRICULUM = [
       },
     ],
   },
+  {
+    // 🔴 Level 8 2음절 낱말(双音节词) — 탱고 시나리오 8단계 "단어 놀이판"(1음절→2음절 명시 진행). 현대 중국어
+    //    낱말 대부분이 2음절이라 실용성이 크다. 🔴 **원어민 녹음 직행**(`/tangoch/word2/` → mod_chinese,
+    //    경성까지 정확 — `upload-chinese-word2-audio.mjs`). 그림 되는 구체 낱말 48개만(추상어 重要·迅速 제외).
+    //    낱말 유닛(pattern 'word')이라 「낱말 놀이」(연습+그리기+짝) + 복습이 자동으로 붙는다.
+    level: 'level8',
+    name: 'Level 8: 2음절 낱말',
+    description: '双音节词 — 원어민 녹음 (hǎibiān 海边 · xīngxīng 星星 · húdié 蝴蝶)',
+    units: [
+      {
+        id: 'zh-l8-u01',
+        title: 'Unit 01: 海边台灯外套爱心杯子黑板',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['hǎibiān', 'táidēng', 'wàitào', 'àixīn', 'bēizi', 'hēibǎn'],
+      },
+      {
+        id: 'zh-l8-u02',
+        title: 'Unit 02: 雷声妹妹尾巴水果火腿老人',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['léishēng', 'mèimèi', 'wěiba', 'shuǐguǒ', 'huǒtuǐ', 'lǎorén'],
+      },
+      {
+        id: 'zh-l8-u03',
+        title: 'Unit 03: 小猫勺子早上鸡肉柳树奶牛',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['xiǎomāo', 'sháozi', 'zǎoshàng', 'jīròu', 'liǔshù', 'nǎiniú'],
+      },
+      {
+        id: 'zh-l8-u04',
+        title: 'Unit 04: 足球姐姐铁路蝴蝶雪花二胡',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['zúqiú', 'jiějiě', 'tiělù', 'húdié', 'xuěhuā', 'èrhú'],
+      },
+      {
+        id: 'zh-l8-u05',
+        title: 'Unit 05: 耳朵鸡蛋午饭雨伞晚餐眼睛',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['ěrduǒ', 'jīdàn', 'wǔfàn', 'yǔsǎn', 'wǎncān', 'yǎnjīng'],
+      },
+      {
+        id: 'zh-l8-u06',
+        title: 'Unit 06: 树根门口枕头金鱼钢琴奖品',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['shùgēn', 'ménkǒu', 'zhěntou', 'jīnyú', 'gāngqín', 'jiǎngpǐn'],
+      },
+      {
+        id: 'zh-l8-u07',
+        title: 'Unit 07: 轮船竹笋裙子军人绵羊冰箱',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['lúnchuán', 'zhúsǔn', 'qúnzi', 'jūnrén', 'miányáng', 'bīngxiāng'],
+      },
+      {
+        id: 'zh-l8-u08',
+        title: 'Unit 08: 井水花瓶星星农民瓢虫红包',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['jǐngshuǐ', 'huāpíng', 'xīngxīng', 'nóngmín', 'piáochóng', 'hóngbāo'],
+      },
+    ],
+  },
 ] as const;
 
 export type PhonicsLanguage = 'english' | 'korean' | 'chinese';

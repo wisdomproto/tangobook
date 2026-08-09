@@ -14,6 +14,7 @@ import {
   isToneUnit,
   isWholeUnit,
   isWordUnit,
+  syllableCount,
   toneMarkOf,
   withTone,
   L4_WORDS,
@@ -61,6 +62,15 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       'zh-l7-u03',
       'zh-l7-u04',
       'zh-l7-u05',
+      'zh-l8-u01',
+      'zh-l8-u02',
+      'zh-l8-u03',
+      'zh-l8-u04',
+      'zh-l8-u05',
+      'zh-l8-u06',
+      'zh-l8-u07',
+      'zh-l8-u08',
+      'zh-l8-r1', // 🏅 L8 2음절 낱말 복습
     ]);
     // 🔴 L1 첫 유닛 = 성조, 나머지 둘 = 단운모. L2 는 전부 성모. L3 는 전부 병음조합(blend).
     expect(isToneUnit('zh-l1-u01')).toBe(true);
@@ -83,9 +93,9 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       const plan = getChineseActivityPlan(u.id);
       expect(plan.activities.length, `${u.id} plan 비어 있음`).toBeGreaterThan(0);
       if (u.isReview) {
-        // 복습은 소스(storybook) 없이도 도달 가능한 letter-hunt 로 시작한다.
-        expect(plan.activities[0].kind).toBe('letter-hunt');
-        expect(getChineseRequiredActivities(u.id)).toContain('letter-hunt');
+        // 단음절 복습은 소스 없이 도달 가능한 letter-hunt 로 시작 / 2음절(L8)은 글자 사냥을 빼 review-flip 로 시작.
+        const monosyllabic = u.targetWords.every((w) => syllableCount(w) === 1);
+        expect(plan.activities[0].kind).toBe(monosyllabic ? 'letter-hunt' : 'review-flip');
         continue;
       }
       expect(plan.activities[0].kind).toBe('word-listen-choose');
@@ -99,7 +109,18 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
   it('복습 = 레벨별 낱말 유닛 묶음(L4·L5·L6 각 1개), 마지막 낱말 유닛 뒤에 삽입', () => {
     const units = getAllChineseUnits();
     const reviews = units.filter((u) => u.isReview);
-    expect(reviews.map((u) => u.id)).toEqual(['zh-l4-r1', 'zh-l5-r1', 'zh-l6-r1']);
+    expect(reviews.map((u) => u.id)).toEqual(['zh-l4-r1', 'zh-l5-r1', 'zh-l6-r1', 'zh-l8-r1']);
+    // L8 2음절 낱말 8유닛 → 복습 하나(그림 있는 낱말 유닛이라 청킹됨).
+    expect(units.find((u) => u.id === 'zh-l8-r1')!.coveredUnitIds).toEqual([
+      'zh-l8-u01',
+      'zh-l8-u02',
+      'zh-l8-u03',
+      'zh-l8-u04',
+      'zh-l8-u05',
+      'zh-l8-u06',
+      'zh-l8-u07',
+      'zh-l8-u08',
+    ]);
     // coveredUnitIds = 그 레벨의 낱말 유닛 전부.
     expect(units.find((u) => u.id === 'zh-l4-r1')!.coveredUnitIds).toEqual([
       'zh-l4-u01',
@@ -124,7 +145,7 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
     expect(isReviewUnit('zh-l4-u01')).toBe(false);
   });
 
-  it('복습 plan = 게임 5종(사냥·뒤집기·듣고 낱말·짝 찾기·성조 고르기), 전부 play', () => {
+  it('단음절 복습(L4·L5·L6) plan = 게임 5종(사냥·뒤집기·듣고 낱말·짝 찾기·성조 고르기), 전부 play', () => {
     for (const id of ['zh-l4-r1', 'zh-l5-r1', 'zh-l6-r1']) {
       const plan = getChineseActivityPlan(id);
       expect(plan.activities.map((a) => a.kind)).toEqual([
@@ -138,6 +159,28 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       // 🔴 letter-hunt 는 소스(storybook) 없이 도달 가능해야 한다 — required 에 있고 첫 활동이다.
       expect(plan.activities[0].kind).toBe('letter-hunt');
     }
+  });
+
+  // 🔴 2음절 복습(L8)은 글자 사냥·성조 고르기를 뺀다 — 둘 다 낱글자/단일성조 전용이라 2음절에 안 맞는다
+  //    (7~8자 병음이 타일 넘침 + 성조 변이 방해꾼 무음 / withTone 이 첫 성조 지움). 그림 기반 3종만.
+  it('2음절 복습(zh-l8-r1) plan = 그림 기반 3종(글자 사냥·성조 고르기 없음)', () => {
+    const plan = getChineseActivityPlan('zh-l8-r1');
+    expect(plan.activities.map((a) => a.kind)).toEqual([
+      'review-flip',
+      'review-word-listen',
+      'review-match',
+    ]);
+    expect(plan.activities.some((a) => a.kind === 'letter-hunt')).toBe(false);
+    expect(plan.activities.some((a) => a.kind === 'tone-choice-review')).toBe(false);
+  });
+
+  it('syllableCount: 단음절=1 / 2음절=2 (성모·코다가 음절을 가른다)', () => {
+    expect(syllableCount('māo')).toBe(1);
+    expect(syllableCount('xióng')).toBe(1);
+    expect(syllableCount('shuǐ')).toBe(1);
+    expect(syllableCount('hǎibiān')).toBe(2);
+    expect(syllableCount('wěiba')).toBe(2); // 경성(둘째 무표기)도 2음절
+    expect(syllableCount('àixīn')).toBe(2); // 모음 시작 음절도 성모/코다로 갈림
   });
 
   it('toneMarkOf: 병음 낱말 → 성조 부호 (nucleus + 실제 성조)', () => {
@@ -296,7 +339,7 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
     .filter((u) => isWordUnit(u.id))
     .map((u) => u.id);
 
-  it('낱말 유닛(word)은 L4 3 + L4확장 1 + L5 3 + L6 3 = 10개', () => {
+  it('낱말 유닛(word)은 L4 4 + L5 3 + L6 3 + L8 8(2음절) = 18개', () => {
     expect(wordUnitIds).toEqual([
       'zh-l4-u01',
       'zh-l4-u02',
@@ -308,6 +351,14 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       'zh-l6-u05',
       'zh-l6-u06',
       'zh-l6-u07',
+      'zh-l8-u01',
+      'zh-l8-u02',
+      'zh-l8-u03',
+      'zh-l8-u04',
+      'zh-l8-u05',
+      'zh-l8-u06',
+      'zh-l8-u07',
+      'zh-l8-u08',
     ]);
   });
 
