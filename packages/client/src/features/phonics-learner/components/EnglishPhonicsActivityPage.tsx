@@ -8,6 +8,7 @@ import {
   wordMatchesPattern,
   patternWriteOrder,
   getUnitPatterns,
+  reviewHuntToken,
 } from '../lib/english-phonics-units';
 import { shuffleReviewCards } from '../lib/korean-phonics-units';
 import type { ActivityDef } from '../lib/korean-phonics-units';
@@ -80,6 +81,22 @@ export default function EnglishPhonicsActivityPage() {
   const isBook1 = unitId.startsWith('en-b1');
   /** Book 2 복습 카드의 letter 는 **패턴("ap")** 이라, 쓰기는 대표 낱말("cap")로 한다(Book 3~5 는 letter 가 이미 낱말). */
   const isBook2 = unitId.startsWith('en-b2');
+  /**
+   * 🔴 글자 사냥·듣고 글자는 **패턴**(ake/bl/ee)을 찾게 한다 — Book 2 가 an/at 를 찾는 것과 같은 결.
+   * Book 3~5 복습 카드는 낱말(`bake`)이라 그대로 쓰면 "rake 찾기"가 된다(사용자 지적 2026-08-09).
+   * 낱말→패턴 토큰으로 바꾸고 중복 패턴은 합친다(방해꾼 = 형제 패턴 ame·ane…). Book 1/2 는 그대로.
+   */
+  const isWordBook = /^en-b[345]/.test(unitId);
+  const patternCards = useMemo(() => {
+    if (!isWordBook) return reviewCards;
+    const seen = new Set<string>();
+    return reviewCards.flatMap((c) => {
+      const tok = reviewHuntToken(c.letter, c.unitId);
+      if (seen.has(tok)) return [];
+      seen.add(tok);
+      return [{ ...c, letter: tok, syllable: tok, sound: tok }];
+    });
+  }, [isWordBook, reviewCards]);
   const { sources: reviewSources, isLoading: reviewLoading } = useReviewCardSources(reviewCards);
 
   const storybookQuery = useStorybook(unitId);
@@ -317,12 +334,13 @@ export default function EnglishPhonicsActivityPage() {
   //    한글과 같은 6종을 돌린다(사용자: "a~f review 너무 뭐가 없는데?").
 
   // 🎧 듣고 글자 맞추기 — 카드에 글자·발음이 들어 있어 storybook 을 안 기다린다.
-  if (activity.kind === 'review-syllable-listen' && reviewCards.length) {
+  //    🔴 Book 3~5 는 패턴 카드(ake/bl/ee) — 낱말이면 「듣고 낱말」과 겹치고 소리도 라이브러리에 없다.
+  if (activity.kind === 'review-syllable-listen' && patternCards.length) {
     return (
       <WordListenChooseActivity
         unitId={unitId}
         language="english"
-        items={reviewCards.map((c) => ({ label: c.syllable, sound: c.sound }))}
+        items={patternCards.map((c) => ({ label: c.syllable, sound: c.sound }))}
         choices={REVIEW_CHOICES}
         onMarkComplete={handleMarkComplete}
         onBack={backToUnit}
@@ -332,11 +350,12 @@ export default function EnglishPhonicsActivityPage() {
 
   // 🔎 글자 사냥 — 글자만 쓰는 활동이라 단어 그림을 기다리지 않는다.
   //    영어는 Book 2 가 word family(at·an)라 방해꾼도 같은 꼴로 만들어진다(모음·끝소리 교체).
-  if (activity.kind === 'letter-hunt' && reviewCards.length) {
+  //    🔴 Book 3~5 는 패턴 카드(ake/bl/ee)를 찾는다 — 낱말(rake)이 아니라(사용자 2026-08-09).
+  if (activity.kind === 'letter-hunt' && patternCards.length) {
     return (
       <LetterHuntActivity
         unitId={unitId}
-        cards={reviewCards}
+        cards={patternCards}
         language="english"
         onComplete={handleComplete}
         onBack={backToUnit}

@@ -7,6 +7,7 @@ import {
   patternHighlightRanges,
   patternWriteOrder,
   writeStepRead,
+  reviewHuntToken,
 } from './english-phonics-units';
 
 // 쓰는 순서(patternWriteOrder)대로 한 칸씩 쓰며 이어읽기 소리를 모은다(null=무음은 뺀다).
@@ -37,6 +38,20 @@ describe('writeStepRead — 써보기 이어읽기 규칙 (2026-08-07)', () => {
   it('패턴 밖 글자(온셋 등)는 무음', () => {
     // rake: 마지막 r(온셋)은 null — 완성 시 낱말을 읽으므로 이어읽기엔 안 낀다
     expect(writeStepRead('rake', '_ake', [1, 2, 3, 0], 0, 'en-b3-u01')).toBeNull();
+  });
+});
+
+describe('reviewHuntToken — 글자 사냥/듣고 글자는 낱말이 아닌 패턴 (2026-08-09)', () => {
+  it('Book 3 매직-e 는 rime 만 (rake→ake, bake→ake)', () => {
+    expect(reviewHuntToken('rake', 'en-b3-u01')).toBe('ake');
+    expect(reviewHuntToken('bake', 'en-b3-u01')).toBe('ake');
+  });
+  it('Book 4 블렌드는 앞 덩어리 (clam→cl), Book 5 모음팀은 그 팀 (green→ee)', () => {
+    expect(reviewHuntToken('clam', 'en-b4-u01')).toBe('cl');
+    expect(reviewHuntToken('green', 'en-b5-u01')).toBe('ee');
+  });
+  it('매칭 패턴이 없으면 낱말 그대로(폴백)', () => {
+    expect(reviewHuntToken('xyz', 'en-b3-u01')).toBe('xyz');
   });
 });
 

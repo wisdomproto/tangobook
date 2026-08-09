@@ -338,6 +338,19 @@ export function getUnitPatterns(unitId: string): string[] {
 }
 
 /**
+ * 🔴 낱말의 **찾을/들을 패턴 토큰** — 글자 사냥·듣고 글자가 Book 3~5 에서 **낱말(`bake`)이 아니라
+ * 패턴(`ake`)** 을 다루게 한다(2026-08-09 사용자: "rake 가 아니라 ake 찾게 해야지". Book 2 가 an/at 를
+ * 찾는 것과 같은 결). `bake`+`_ake`→`ake` · `black`+`bl_`→`bl` · `feet`+`ee`→`ee`. 매칭 패턴이 없으면 낱말.
+ * rime/블렌드/모음팀 클립은 `mod_phonics` 에 있어 소리도 라이브러리 직행(낱말은 404 나던 것도 해결).
+ */
+export function reviewHuntToken(word: string, unitId: string): string {
+  const p = getUnitPatterns(unitId).find((pp) => wordMatchesPattern(word, pp));
+  if (!p) return word.toLowerCase();
+  const [s, e] = patternHighlight(word, p);
+  return s < e ? word.slice(s, e).toLowerCase() : word.toLowerCase();
+}
+
+/**
  * 🔴 써보기 이어읽기 — 한 칸을 쓸 때 무엇을 읽어줄지(`null`=무음). 사용자 규칙:
  *  · Book 2 CVC(`_at`): 라임을 쌓아 읽되 **첫 낱글자도 읽는다** — `a → at`(그 뒤 낱말은 완성에서).
  *  · Book 3 매직-e(`_ake`): 라임을 쌓아 읽되 **첫 낱글자도 읽는다** — `a → ak → ake`(2026-08-09 사용자:
