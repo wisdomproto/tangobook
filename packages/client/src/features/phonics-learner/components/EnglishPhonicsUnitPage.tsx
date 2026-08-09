@@ -160,9 +160,11 @@ function ActivitySection({
             activity={act}
             done={completed.includes(act.key)}
             widthClass={activities.length === 6 ? SIX_CARD_WIDTH : DEFAULT_CARD_WIDTH}
-            // 🔴 6장(복습)은 캡을 키워야 33.3% 가 실제로 3장이 된다 — 기본 13rem 캡이면 넓은 화면에서
-            //    카드가 208px 로 눌려 4+2 로 깨진다(사용자 지적 2026-08-09).
-            maxWClass={activities.length === 6 ? 'max-w-[20rem]' : 'max-w-[13rem]'}
+            // 🔴 6장(복습)은 3+3 이 **한 화면에** 들어와야 한다(사용자 2026-08-09). 캡을 키워 33.3%→3장으로
+            //    만들되(기본 13rem 이면 208px 로 눌려 4+2), 카드는 **정사각**(한글 파닉스와 동일)으로 낮춘다
+            //    — aspect-[5/6](세로 1.2배)이면 두 줄이 화면 밖으로 밀린다.
+            maxWClass={activities.length === 6 ? 'max-w-[18rem]' : 'max-w-[13rem]'}
+            aspectClass={activities.length === 6 ? 'aspect-square' : 'aspect-[5/6]'}
           />
         ))}
       </div>
@@ -209,12 +211,14 @@ function ActivityCard({
   done,
   widthClass = DEFAULT_CARD_WIDTH,
   maxWClass = 'max-w-[13rem]',
+  aspectClass = 'aspect-[5/6]',
 }: {
   unitId: string;
   activity: ActivityDef;
   done: boolean;
   widthClass?: string;
   maxWClass?: string;
+  aspectClass?: string;
 }) {
   const isLearn = activity.section === 'learn';
   // 🔴 **게임도 끝내면 ✓** — 한글은 2026-07-27 에 고쳤는데 영어만 `isLearn &&` 가 남아 있었다.
@@ -238,7 +242,7 @@ function ActivityCard({
     <Link
       to={`/library/phonics/english/${unitId}/${activity.key}`}
       // 🔴 flex 아이템이라 폭을 직접 준다 — 안 주면 카드가 내용만큼 오그라든다.
-      className={`group relative block aspect-[5/6] ${widthClass} ${maxWClass} rounded-[28px] border-[5px] p-3 sm:p-4 transition-all duration-200 active:scale-[0.97] hover:-translate-y-1 hover:rotate-[0.5deg] hover:shadow-[0_18px_40px_-12px_rgba(255,94,58,0.4)] shadow-[0_8px_24px_-10px_rgba(255,94,58,0.25)] flex flex-col overflow-hidden ${cardClass}`}
+      className={`group relative block ${aspectClass} ${widthClass} ${maxWClass} rounded-[28px] border-[5px] p-3 sm:p-4 transition-all duration-200 active:scale-[0.97] hover:-translate-y-1 hover:rotate-[0.5deg] hover:shadow-[0_18px_40px_-12px_rgba(255,94,58,0.4)] shadow-[0_8px_24px_-10px_rgba(255,94,58,0.25)] flex flex-col overflow-hidden ${cardClass}`}
     >
       <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/60 to-transparent pointer-events-none" />
       {showDone && (
