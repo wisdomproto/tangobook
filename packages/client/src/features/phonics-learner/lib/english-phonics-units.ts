@@ -355,7 +355,8 @@ export function reviewHuntToken(word: string, unitId: string): string {
  *  · Book 2 CVC(`_at`): 라임을 쌓아 읽되 **첫 낱글자도 읽는다** — `a → at`(그 뒤 낱말은 완성에서).
  *  · Book 3 매직-e(`_ake`): 라임을 쌓아 읽되 **첫 낱글자도 읽는다** — `a → ak → ake`(2026-08-09 사용자:
  *    "a 썼는데 a 를 안 읽어줌" — 예전엔 첫 글자를 건너뛰어 첫 칸을 써도 무음이었다. Book 2 와 통일).
- *  · Book 4·5 블렌드/모음팀(`cl_`·`ee`): 이미 배운 한 덩어리라 **패턴 완성 때 한 번만** — `cl`·`ee`.
+ *  · Book 4·5 블렌드/모음팀(`bl_`·`ee`): 패턴 글자도 **한 자씩 쌓아 읽는다** — `b → bl` · `e → ee`
+ *    (2026-08-09 사용자: "b 소리가 안 나네" — 예전엔 패턴이 다 채워질 때만 읽어 첫 칸이 무음이었다).
  * 패턴 밖 글자(온셋 등)는 무음 — 낱말은 완성 시(onComplete)에 한 번 읽는다. 쓰는 순서가
  * `patternWriteOrder`(패턴 먼저·좌→우)라 패턴 칸은 늘 좌→우로 쌓인다. 익히기·낱말쓰기 게임·복습이
  * 이 한 함수를 공유한다(갈라지지 않게).
@@ -370,8 +371,6 @@ export function writeStepRead(
   const [s, e] = patternHighlight(word, pattern);
   if (s >= e || justWrote < s || justWrote >= e) return null; // 패턴 밖 = 무음
   const written = writtenSoFar.filter((i) => i >= s && i < e);
-  const book = Number(/^en-b(\d)/.exec(unitId)?.[1] ?? 0);
-  if (book >= 4) return written.length === e - s ? word.slice(s, e).toLowerCase() : null;
   return written
     .slice()
     .sort((a, b) => a - b)

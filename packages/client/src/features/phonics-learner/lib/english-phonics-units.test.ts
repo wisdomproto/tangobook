@@ -30,10 +30,10 @@ describe('writeStepRead — 써보기 이어읽기 규칙 (2026-08-07)', () => {
   it('Book 3 매직-e 도 첫 낱글자를 읽는다 (a → ak → ake, 2026-08-09)', () => {
     expect(readSequence('rake', '_ake', 'en-b3-u01')).toEqual(['a', 'ak', 'ake']);
   });
-  it('Book 4/5 블렌드·모음팀은 패턴 한 덩어리만 (cl / br / ee)', () => {
-    expect(readSequence('clam', 'cl_', 'en-b4-u01')).toEqual(['cl']);
-    expect(readSequence('brake', 'br_', 'en-b4-u02')).toEqual(['br']);
-    expect(readSequence('green', 'ee', 'en-b5-u01')).toEqual(['ee']);
+  it('Book 4/5 블렌드·모음팀도 한 자씩 쌓아 읽는다 (c→cl / b→br / e→ee, 2026-08-09)', () => {
+    expect(readSequence('clam', 'cl_', 'en-b4-u01')).toEqual(['c', 'cl']);
+    expect(readSequence('brake', 'br_', 'en-b4-u02')).toEqual(['b', 'br']);
+    expect(readSequence('green', 'ee', 'en-b5-u01')).toEqual(['e', 'ee']);
   });
   it('패턴 밖 글자(온셋 등)는 무음', () => {
     // rake: 마지막 r(온셋)은 null — 완성 시 낱말을 읽으므로 이어읽기엔 안 낀다
