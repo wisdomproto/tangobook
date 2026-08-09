@@ -338,9 +338,10 @@ export function getUnitPatterns(unitId: string): string[] {
 }
 
 /**
- * 🔴 써보기 이어읽기 — 한 칸을 쓸 때 무엇을 읽어줄지(`null`=무음). 2026-08-07 사용자 규칙:
+ * 🔴 써보기 이어읽기 — 한 칸을 쓸 때 무엇을 읽어줄지(`null`=무음). 사용자 규칙:
  *  · Book 2 CVC(`_at`): 라임을 쌓아 읽되 **첫 낱글자도 읽는다** — `a → at`(그 뒤 낱말은 완성에서).
- *  · Book 3 매직-e(`_ake`): 라임을 쌓되 **첫 낱글자는 건너뛴다** — `ak → ake`(짧은→긴 라임, e 효과).
+ *  · Book 3 매직-e(`_ake`): 라임을 쌓아 읽되 **첫 낱글자도 읽는다** — `a → ak → ake`(2026-08-09 사용자:
+ *    "a 썼는데 a 를 안 읽어줌" — 예전엔 첫 글자를 건너뛰어 첫 칸을 써도 무음이었다. Book 2 와 통일).
  *  · Book 4·5 블렌드/모음팀(`cl_`·`ee`): 이미 배운 한 덩어리라 **패턴 완성 때 한 번만** — `cl`·`ee`.
  * 패턴 밖 글자(온셋 등)는 무음 — 낱말은 완성 시(onComplete)에 한 번 읽는다. 쓰는 순서가
  * `patternWriteOrder`(패턴 먼저·좌→우)라 패턴 칸은 늘 좌→우로 쌓인다. 익히기·낱말쓰기 게임·복습이
@@ -358,7 +359,6 @@ export function writeStepRead(
   const written = writtenSoFar.filter((i) => i >= s && i < e);
   const book = Number(/^en-b(\d)/.exec(unitId)?.[1] ?? 0);
   if (book >= 4) return written.length === e - s ? word.slice(s, e).toLowerCase() : null;
-  if (book === 3 && written.length < 2) return null; // 매직-e = 첫 낱글자 건너뜀
   return written
     .slice()
     .sort((a, b) => a - b)

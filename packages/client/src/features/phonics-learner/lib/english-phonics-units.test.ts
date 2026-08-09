@@ -26,8 +26,8 @@ describe('writeStepRead — 써보기 이어읽기 규칙 (2026-08-07)', () => {
   it('Book 2 CVC 는 첫 낱글자 포함해 라임을 쌓는다 (a → at)', () => {
     expect(readSequence('hat', '_at', 'en-b2-u01')).toEqual(['a', 'at']);
   });
-  it('Book 3 매직-e 는 첫 낱글자를 건너뛴다 (ak → ake)', () => {
-    expect(readSequence('rake', '_ake', 'en-b3-u01')).toEqual(['ak', 'ake']);
+  it('Book 3 매직-e 도 첫 낱글자를 읽는다 (a → ak → ake, 2026-08-09)', () => {
+    expect(readSequence('rake', '_ake', 'en-b3-u01')).toEqual(['a', 'ak', 'ake']);
   });
   it('Book 4/5 블렌드·모음팀은 패턴 한 덩어리만 (cl / br / ee)', () => {
     expect(readSequence('clam', 'cl_', 'en-b4-u01')).toEqual(['cl']);
