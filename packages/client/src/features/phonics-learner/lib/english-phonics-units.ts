@@ -597,16 +597,10 @@ function makeEnglishReviewPlan(cards: readonly ReviewCard[], levelKey: string): 
       ...shared,
     },
   ];
-  const isWordReview = levelKey === 'book3' || levelKey === 'book4' || levelKey === 'book5';
-  // 🔴 듣고 낱말 추가(2026-08-04) — 예전엔 뺐다("Gemini 낱말이 재생 때 concat 무음일 수 있다"). Book 4/5
-  //    음원을 [블렌드/모음팀 + 낱말] 로 다시 구워 무음이 사라져서, 낱말 듣기가 이제 성립한다.
-  //    (듣고 글자·글자 사냥은 여전히 제외 — 낱말 단위 권엔 글자 활동이 안 맞는다.)
-  const WORD_KINDS = new Set(['review-flip', 'review-match', 'review-word-listen', 'review-write']);
+  // 🔴 Book 2~5 는 **모두 6종**(2026-08-09 사용자). 예전엔 Book 3~5 를 낱말 4종으로 줄였는데,
+  //    Book 2 와 개수를 맞춘다. Book 1 만 듣고 낱말 제외(낱말 소리→첫 글자라 「듣고 글자」와 겹침).
   const activities = all
-    .filter((a) => {
-      if (isWordReview) return WORD_KINDS.has(a.kind); // 낱말 시각 3종만
-      return !(levelKey === 'book1' && a.kind === 'review-word-listen'); // Book 1 은 듣고 낱말 제외
-    })
+    .filter((a) => !(levelKey === 'book1' && a.kind === 'review-word-listen'))
     .map((a, i) => ({ ...a, order: i + 1 }));
   return { activities };
 }

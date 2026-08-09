@@ -143,20 +143,12 @@ describe('english phonics units', () => {
     }
   });
 
-  // 🔴 복습 활동 구성: Book 2 = 6종 / Book 1 = 듣고낱말 뺀 5종 / Book 3~5 = 낱말 4종(듣고 낱말 포함).
+  // 🔴 복습 활동 구성: Book 2~5 = 6종 동일 / Book 1 = 듣고낱말 뺀 5종 (2026-08-09).
   it('복습 활동 = 권별로 다른 구성, 카드는 8장 이하 · 번호 연속', () => {
     for (const r of reviews) {
       const acts = getEnglishActivityPlan(r.id).activities;
       const kinds = acts.map((a) => a.kind);
-      if (r.levelIndex >= 3) {
-        // 낱말 기반 — 낱말↔그림 시각 3종 + 듣고 낱말(음원 복구 후, 글자 사냥·듣고 글자 제외)
-        expect(kinds).toEqual([
-          'review-word-listen',
-          'review-write',
-          'review-flip',
-          'review-match',
-        ]);
-      } else if (r.id.startsWith('en-b1')) {
+      if (r.id.startsWith('en-b1')) {
         expect(kinds).toEqual([
           'letter-hunt',
           'review-syllable-listen',
