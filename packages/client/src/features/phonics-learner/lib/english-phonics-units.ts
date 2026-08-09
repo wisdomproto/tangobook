@@ -351,32 +351,35 @@ export function reviewHuntToken(word: string, unitId: string): string {
 }
 
 /**
- * 🔴 써보기 이어읽기 — 한 칸을 쓸 때 무엇을 읽어줄지(`null`=무음). 사용자 규칙:
- *  · Book 2 CVC(`_at`): 라임을 쌓아 읽되 **첫 낱글자도 읽는다** — `a → at`(그 뒤 낱말은 완성에서).
- *  · Book 3 매직-e(`_ake`): 라임을 쌓아 읽되 **첫 낱글자도 읽는다** — `a → ak → ake`(2026-08-09 사용자:
- *    "a 썼는데 a 를 안 읽어줌" — 예전엔 첫 글자를 건너뛰어 첫 칸을 써도 무음이었다. Book 2 와 통일).
- *  · Book 4·5 블렌드/모음팀(`bl_`·`ee`): 패턴 글자도 **한 자씩 쌓아 읽는다** — `b → bl` · `e → ee`
- *    (2026-08-09 사용자: "b 소리가 안 나네" — 예전엔 패턴이 다 채워질 때만 읽어 첫 칸이 무음이었다).
- * 패턴 밖 글자(온셋 등)는 무음 — 낱말은 완성 시(onComplete)에 한 번 읽는다. 쓰는 순서가
- * `patternWriteOrder`(패턴 먼저·좌→우)라 패턴 칸은 늘 좌→우로 쌓인다. 익히기·낱말쓰기 게임·복습이
- * 이 한 함수를 공유한다(갈라지지 않게).
+ * 🔴 써보기 이어읽기 — 한 칸을 쓸 때 무엇을 읽어줄지(`null`=무음). **있는 조각은 다 읽는다**
+ * (2026-08-09 사용자: "파닉스 음원 있는 건 다 읽어줘. bla 도. 없어서 안 읽는 건 인정"):
+ *  ① **앞에서부터 연속으로 채워졌으면** 그 접두사를 읽는다 — 패턴이 앞인 Book 4(`bl_`)는 쓰는 순서가
+ *     곧 시각 순서라 `b → bl → bla → blac` 가 된다. 조각이 라이브러리에 있으면 `resolveTtsUrl` 이
+ *     읽고(공백 없는 토큰=직행), 없으면 `404 → null → 무음`. 낱말이 다 차면 `null`(onComplete 가 읽음).
+ *  ② 접두사가 아니면(패턴이 **끝·가운데**) 패턴 안 글자만 쌓아 읽는다 — Book 2 `a → at` · Book 3
+ *     `a → ak → ake` · Book 5 `e → ee`. 온셋 등 패턴 밖은 무음(낱말은 완성 시 한 번).
+ * 익히기·낱말쓰기 게임·복습이 이 한 함수를 공유한다(갈라지지 않게).
  */
 export function writeStepRead(
   word: string,
   pattern: string,
   writtenSoFar: readonly number[],
   justWrote: number,
-  unitId: string
+  _unitId?: string
 ): string | null {
+  const w = word.toLowerCase();
+  const sorted = [...writtenSoFar].sort((a, b) => a - b);
+  // ① 시각 접두사(0 부터 연속) — 있으면 그대로. 낱말 완성은 onComplete 가 읽으므로 null.
+  if (sorted.every((v, i) => v === i))
+    return sorted.length >= w.length ? null : w.slice(0, sorted.length);
+  // ② 패턴 안 글자만 쌓아 읽는다(끝·가운데 패턴).
   const [s, e] = patternHighlight(word, pattern);
-  if (s >= e || justWrote < s || justWrote >= e) return null; // 패턴 밖 = 무음
-  const written = writtenSoFar.filter((i) => i >= s && i < e);
-  return written
-    .slice()
+  if (s >= e || justWrote < s || justWrote >= e) return null;
+  return writtenSoFar
+    .filter((i) => i >= s && i < e)
     .sort((a, b) => a - b)
-    .map((i) => word[i])
-    .join('')
-    .toLowerCase();
+    .map((i) => w[i])
+    .join('');
 }
 
 const VOWELS = new Set(['a', 'e', 'i', 'o', 'u']);

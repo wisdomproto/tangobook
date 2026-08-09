@@ -30,10 +30,14 @@ describe('writeStepRead — 써보기 이어읽기 규칙 (2026-08-07)', () => {
   it('Book 3 매직-e 도 첫 낱글자를 읽는다 (a → ak → ake, 2026-08-09)', () => {
     expect(readSequence('rake', '_ake', 'en-b3-u01')).toEqual(['a', 'ak', 'ake']);
   });
-  it('Book 4/5 블렌드·모음팀도 한 자씩 쌓아 읽는다 (c→cl / b→br / e→ee, 2026-08-09)', () => {
-    expect(readSequence('clam', 'cl_', 'en-b4-u01')).toEqual(['c', 'cl']);
-    expect(readSequence('brake', 'br_', 'en-b4-u02')).toEqual(['b', 'br']);
-    expect(readSequence('green', 'ee', 'en-b5-u01')).toEqual(['e', 'ee']);
+  it('앞 패턴(Book 4)은 접두사를 쭉 쌓아 읽는다 (b→bl→bla→blac, 2026-08-09)', () => {
+    // 🔴 있는 조각은 다 읽는다 — 없는 조각(blac 등)은 재생 시점에 무음(사용자 인정).
+    expect(readSequence('black', 'bl_', 'en-b4-u01')).toEqual(['b', 'bl', 'bla', 'blac']);
+    expect(readSequence('clam', 'cl_', 'en-b4-u01')).toEqual(['c', 'cl', 'cla']);
+    expect(readSequence('brake', 'br_', 'en-b4-u02')).toEqual(['b', 'br', 'bra', 'brak']);
+  });
+  it('끝·가운데 패턴은 패턴만, 접두사가 되면 그때 접두사 (Book 5 green → e→ee→gree)', () => {
+    expect(readSequence('green', 'ee', 'en-b5-u01')).toEqual(['e', 'ee', 'gree']);
   });
   it('패턴 밖 글자(온셋 등)는 무음', () => {
     // rake: 마지막 r(온셋)은 null — 완성 시 낱말을 읽으므로 이어읽기엔 안 낀다
