@@ -696,6 +696,19 @@ export function getChineseToneChoiceCards(unitId: string): PinyinCard[] {
   return u.targetWords.map((w, i) => ({ label: marks[i] ?? w, sound: w }));
 }
 
+/**
+ * 🔴 단운모(a o e / i u ü) 성조 듣고 고르기 낱말 — 탱고 원본의 **운모 Quiz(그 모음의 4성 변별)** 대응
+ * (2026-08-09 사용자: "단운모에서도 성조 공부 해야지"). `ToneChoiceReviewActivity` 가 문항마다 그 모음의
+ * 4성을 보기로 내므로, 모음을 성조 붙인 형태로 넘긴다. **4문항 = 4성 전부**(성조 major, 모음 순회) —
+ * 모든 성조를 한 번씩 겪되 4~7세에 길지 않게. 음원(ā·ó·ě·à …)은 배우기가 이미 쓰는 `mod_chinese` 실존.
+ */
+export function getSingleFinalToneWords(unitId: string): { word: string; ttsUrl?: string }[] {
+  const u = getChineseUnit(unitId);
+  if (!u || !u.patterns.includes('single final')) return [];
+  const vowels = u.phonemes;
+  return [1, 2, 3, 4].map((n, i) => ({ word: withTone(vowels[i % vowels.length], n) }));
+}
+
 // ── 활동 plan ─────────────────────────────────────────────────────────────────
 // 🔴 plan 에 없으면 라우트로 도달해도 죽은 코드다(한/영 반복 함정). 유닛 종류로 갈린다.
 const LISTEN_FIRST = {
@@ -708,30 +721,29 @@ const LISTEN_FIRST = {
   required: true,
 } as const;
 
-function makeSingleFinalPlan(): ActivityPlan {
-  return {
-    activities: [
-      LISTEN_FIRST,
-      {
-        key: 'write',
-        order: 2,
-        kind: 'vowel-write',
-        section: 'learn',
-        title: '따라쓰기',
-        emoji: '✏️',
-        required: true,
-      },
-      {
-        key: 'hunt',
-        order: 3,
-        kind: 'letter-hunt',
-        section: 'learn',
-        title: '글자 사냥',
-        emoji: '🔎',
-        required: false,
-      },
-    ],
-  };
+/**
+ * 배우기 + (단운모면 성조 듣고 고르기) + 따라쓰기 + 글자 사냥.
+ * 🔴 성조 퀴즈는 **단운모(a o e / i u ü)만** — 탱고 운모 Quiz(그 모음의 4성 변별). 성모(bō…)는 성조가
+ *    citation 하나라 성조 변별이 안 되므로 뺀다. planForUnit 이 `single final` 패턴일 때만 true 를 준다.
+ */
+function makeSingleFinalPlan(toneQuiz: boolean): ActivityPlan {
+  const activities: ActivityDef[] = [LISTEN_FIRST];
+  if (toneQuiz)
+    activities.push({
+      key: 'tone-choice',
+      order: 2,
+      kind: 'tone-choice-review',
+      section: 'learn',
+      title: '성조 듣고 고르기',
+      emoji: '🎵',
+      required: true,
+    });
+  const writeOrder = activities.length + 1;
+  activities.push(
+    { key: 'write', order: writeOrder, kind: 'vowel-write', section: 'learn', title: '따라쓰기', emoji: '✏️', required: true }, // prettier-ignore
+    { key: 'hunt', order: writeOrder + 1, kind: 'letter-hunt', section: 'learn', title: '글자 사냥', emoji: '🔎', required: false } // prettier-ignore
+  );
+  return { activities };
 }
 
 const HUNT = {
@@ -903,7 +915,8 @@ function planForUnit(u: ChineseUnitSummary): ActivityPlan {
   )
     return makeBlendPlan();
   if (u.phonemes.some((p) => p.length > 1)) return makeNoWritePlan();
-  return makeSingleFinalPlan();
+  // 🔴 단운모(single final)만 성조 퀴즈 — 성모(initial)는 성조가 하나라 뺀다.
+  return makeSingleFinalPlan(u.patterns.includes('single final'));
 }
 
 /**

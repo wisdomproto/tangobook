@@ -6,6 +6,7 @@ import {
   getChineseListenCards,
   getChineseRequiredActivities,
   getChineseToneChoiceCards,
+  getSingleFinalToneWords,
   getChineseUnit,
   getChineseUnitCards,
   hanziFor,
@@ -233,10 +234,17 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
     expect(plan.activities.map((a) => a.key)).toEqual(['listen-choose', 'tone-choose', 'chant']);
   });
 
-  it('단운모 유닛(u02·u03) = 듣고 배우기 + 따라쓰기 + 글자 사냥', () => {
+  it('단운모 유닛(u02·u03) = 듣고 배우기 + 성조 듣고 고르기 + 따라쓰기 + 글자 사냥', () => {
     for (const id of ['zh-l1-u02', 'zh-l1-u03']) {
       const kinds = getChineseActivityPlan(id).activities.map((a) => a.kind);
-      expect(kinds).toEqual(['word-listen-choose', 'vowel-write', 'letter-hunt', 'chant']);
+      // 🔴 성조 퀴즈(tone-choice-review)는 단운모만 — 탱고 운모 Quiz(그 모음의 4성) 대응(2026-08-09).
+      expect(kinds).toEqual([
+        'word-listen-choose',
+        'tone-choice-review',
+        'vowel-write',
+        'letter-hunt',
+        'chant',
+      ]);
     }
   });
 
@@ -278,8 +286,16 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       { label: 'ǎ', sound: 'ǎ' },
       { label: 'à', sound: 'à' },
     ]);
-    // 단운모 유닛엔 성조 고르기 카드가 없다.
+    // 🔴 단운모 성조 퀴즈는 `getChineseToneChoiceCards`(성조 유닛 전용)가 아니라 `getSingleFinalToneWords`.
     expect(getChineseToneChoiceCards('zh-l1-u02')).toEqual([]);
+  });
+
+  // 🔴 단운모 성조 듣고 고르기 낱말 = 4성 전부(성조 major·모음 순회). ToneChoiceReviewActivity 가 보기를 만든다.
+  it('단운모 성조 퀴즈 낱말(getSingleFinalToneWords) = 4성 × 모음 순회', () => {
+    expect(getSingleFinalToneWords('zh-l1-u02').map((w) => w.word)).toEqual(['ā', 'ó', 'ě', 'à']);
+    expect(getSingleFinalToneWords('zh-l1-u03').map((w) => w.word)).toEqual(['ī', 'ú', 'ǚ', 'ì']);
+    // 성모 유닛엔 없다(성조 하나).
+    expect(getSingleFinalToneWords('zh-l2-u01')).toEqual([]);
   });
 
   // ── L2 성모 ──────────────────────────────────────────────────────────────

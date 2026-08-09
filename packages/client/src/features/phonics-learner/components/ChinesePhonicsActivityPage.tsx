@@ -8,6 +8,7 @@ import {
   getChineseToneChoiceCards,
   getChineseUnit,
   getChineseUnitCards,
+  getSingleFinalToneWords,
   hanziFor,
   isBlendUnit,
   isCombineUnit,
@@ -312,6 +313,31 @@ export default function ChinesePhonicsActivityPage() {
     return <ChineseUnavailable activity={activity} onBack={backToUnit} reason="아직 준비 중" />;
   }
 
+  // 🎵 성조 듣고 고르기 — 낱말 소리를 듣고 **그 낱말의 4성 변이**(āáǎà·māo máo mǎo mào) 중 원래 것을 고른다.
+  //    🔴 복습(reviewUnit)뿐 아니라 **단운모 학습(learn)** 에서도 쓴다 — 그래서 복습 블록 밖. 단운모는
+  //    모음×4성 낱말(`getSingleFinalToneWords`), 복습은 되짚는 낱말(reviewSources).
+  if (activity.kind === 'tone-choice-review') {
+    const words = reviewUnit
+      ? reviewSources.filter((s) => s.word).slice(0, REVIEW_CHOICES)
+      : getSingleFinalToneWords(unitId);
+    if (words.length < 2)
+      return (
+        <ChineseUnavailable
+          activity={activity}
+          onBack={backToUnit}
+          reason="성조를 뽑을 낱말이 필요해요"
+        />
+      );
+    return (
+      <ToneChoiceReviewActivity
+        unitId={unitId}
+        words={words.map((s) => ({ word: s.word, ...(s.ttsUrl ? { ttsUrl: s.ttsUrl } : {}) }))}
+        onMarkComplete={handleMarkComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+
   // ── 복습 단원 = 게임 5종(낱말 유닛의 그림·병음·mod_chinese 음원을 되짚는다) ─────────────────
   if (reviewUnit) {
     // 🔎 글자 사냥 — 소스 없이 낱말(병음)만으로 즉시 렌더(그림 없는 단원에서도 돈다).
@@ -411,28 +437,6 @@ export default function ChinesePhonicsActivityPage() {
               ...(s.ttsUrl ? { ttsUrl: s.ttsUrl } : {}),
             })),
           }}
-        />
-      );
-    }
-
-    // 🎵 성조 듣고 고르기 — 낱말 소리를 듣고 **그 낱말의 4성 변이**(māo·máo·mǎo·mào) 중 원래 낱말을
-    //    고른다. 문항마다 보기가 그 낱말의 4형이라 성조만 변별한다(모음 confound 없음).
-    if (activity.kind === 'tone-choice-review') {
-      const words = reviewSources.filter((s) => s.word).slice(0, REVIEW_CHOICES);
-      if (words.length < 2)
-        return (
-          <ChineseUnavailable
-            activity={activity}
-            onBack={backToUnit}
-            reason="성조를 뽑을 낱말이 필요해요"
-          />
-        );
-      return (
-        <ToneChoiceReviewActivity
-          unitId={unitId}
-          words={words.map((s) => ({ word: s.word, ...(s.ttsUrl ? { ttsUrl: s.ttsUrl } : {}) }))}
-          onMarkComplete={handleMarkComplete}
-          onBack={backToUnit}
         />
       );
     }
