@@ -9,6 +9,7 @@ import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
+import { playUi } from '@/lib/uiSound';
 import {
   patternLabel as makePatternLabel,
   patternHighlight,
@@ -216,26 +217,27 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   // 지금까지 쓴 칸(인덱스) — 시각 순서로 이어읽기용. 낱말이 바뀌면 리셋(handleWriteComplete).
   const writtenRef = useRef<number[]>([]);
 
-  // 🔴 한 칸 쓸 때마다 무엇을 읽을지는 **공용 규칙(writeStepRead)** 한 곳에서: Book3 매직-e `ak→ake`
-  //    · Book4/5 블렌드/모음팀 `cl`·`ee`(패턴 한 덩어리만). 무음 스텝(온셋 등)은 소리 없이 지나간다.
+  // 🔴 한 칸 쓸 때마다 무엇을 읽을지는 **공용 규칙(writeStepRead)** 한 곳에서(접두사·패턴 누적).
   //    낱말을 완성하는 마지막 칸의 onSyllableDone 은 WordFillCanvas 가 생략(onComplete 가 낱말을 읽음).
+  // 🔴 **읽을 게 없어도 무음은 안 된다**(2026-08-09 사용자: "없다고 아예 무음이니 이상, 뾱 소리라도").
+  //    읽을 조각이 있으면 띵동→읽기, 없으면 가벼운 확인음(`tap`)만.
   const handleWriteLetter = useCallback(
     (_letter: string, index: number) => {
       if (writeDoneRef.current || !writeWord) return;
       if (!writtenRef.current.includes(index)) writtenRef.current.push(index);
       const readText = writeStepRead(writeWord.word, pattern, writtenRef.current, index, unitId);
-      if (!readText) return;
       void (async () => {
-        const url = await resolveTtsUrl({
-          text: readText,
-          language: 'english',
-          storybookId: unitId,
-          identifierPrefix: 'en-family',
-        });
+        const url = readText
+          ? await resolveTtsUrl({
+              text: readText,
+              language: 'english',
+              storybookId: unitId,
+              identifierPrefix: 'en-family',
+            })
+          : undefined;
         // 띵동 먼저, 끝나면 이어읽기(한 채널이라 동시에 내면 앞소리가 잘린다).
-        chime(() => {
-          if (url) playAudio(url);
-        });
+        if (url) chime(() => playAudio(url));
+        else playUi('tap'); // 읽을 조각이 없으면 뾱(확인음)만
       })();
     },
     [writeWord, pattern, unitId, chime, playAudio]
