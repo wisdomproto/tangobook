@@ -71,6 +71,12 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       'zh-l8-u06',
       'zh-l8-u07',
       'zh-l8-u08',
+      'zh-l8-u09',
+      'zh-l8-u10',
+      'zh-l8-u11',
+      'zh-l8-u12',
+      'zh-l8-u13',
+      'zh-l8-u14',
       'zh-l8-r1', // 🏅 L8 2음절 낱말 복습
     ]);
     // 🔴 L1 첫 유닛 = 성조, 나머지 둘 = 단운모. L2 는 전부 성모. L3 는 전부 병음조합(blend).
@@ -121,6 +127,12 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       'zh-l8-u06',
       'zh-l8-u07',
       'zh-l8-u08',
+      'zh-l8-u09',
+      'zh-l8-u10',
+      'zh-l8-u11',
+      'zh-l8-u12',
+      'zh-l8-u13',
+      'zh-l8-u14',
     ]);
     // coveredUnitIds = 그 레벨의 낱말 유닛 전부.
     expect(units.find((u) => u.id === 'zh-l4-r1')!.coveredUnitIds).toEqual([
@@ -343,7 +355,7 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
     .filter((u) => isWordUnit(u.id))
     .map((u) => u.id);
 
-  it('낱말 유닛(word)은 L4 4 + L5 3 + L6 3 + L8 8(2음절) = 18개', () => {
+  it('낱말 유닛(word)은 L4 4 + L5 3 + L6 3 + L8 14(2음절) = 24개', () => {
     expect(wordUnitIds).toEqual([
       'zh-l4-u01',
       'zh-l4-u02',
@@ -363,6 +375,12 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       'zh-l8-u06',
       'zh-l8-u07',
       'zh-l8-u08',
+      'zh-l8-u09',
+      'zh-l8-u10',
+      'zh-l8-u11',
+      'zh-l8-u12',
+      'zh-l8-u13',
+      'zh-l8-u14',
     ]);
   });
 
@@ -518,9 +536,9 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
   });
 
   // ── 🎵 유닛송(찬트) 스텝 ────────────────────────────────────────────────────
-  it('CHANT_URLS 는 32개 단원(복습·L7 제외), 전부 유닛 목록에 존재', () => {
+  it('CHANT_URLS 는 38개 단원(복습·L7 제외), 전부 유닛 목록에 존재', () => {
     const ids = Object.keys(CHANT_URLS);
-    expect(ids.length).toBe(32);
+    expect(ids.length).toBe(38);
     const allIds = new Set(getAllChineseUnits().map((u) => u.id));
     for (const id of ids) expect(allIds.has(id), `${id} 없는 단원`).toBe(true);
     // 복습·L7(통독)엔 찬트가 없다.
