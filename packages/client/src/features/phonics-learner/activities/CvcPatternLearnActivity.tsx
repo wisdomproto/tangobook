@@ -83,9 +83,6 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
     });
   }, [storybookQuery.data, pattern.vc]);
 
-  /** Phase A 는 3줄이라 앞 3단어만 쓴다. */
-  const phaseAWords = useMemo(() => cvcWords.slice(0, PHASE_A_ROWS), [cvcWords]);
-
   /**
    * 🔴 **낱말 전체를 쓴다 — 앞 자음까지**(2026-07-31 사용자: "A N 만 쓰지 말고 C 부터 쓰게").
    *    예전엔 앞 자음(`can` 의 `c`)을 주어진 셀로 두고 `an` 만 캔버스였다. 이제 낱말의 모든 글자가
@@ -157,22 +154,17 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
 
       const afterTts = () => {
         if (!willRowComplete) return;
-        // 행을 완성하면 그 줄의 타겟 단어가 오른쪽에 나타난다 — 띵동 뒤에 쉬고 그 단어를 읽는다.
-        // 🔴 `an` 만 세 줄 반복하면 무엇을 배우는 건지 안 보인다. 줄마다 다른 단어가 붙어야
-        //    "an 이 들어간 낱말"이 눈에 들어온다.
-        const word = phaseAWords[row]?.word;
-        // 🔴 글자 소리 끝 → **쉼** → 띵동. 실측 간격이 0ms 라 한 덩어리로 들렸다(띵동→낱말은 정상이었다).
+        // 줄을 완성하면 띵동만 — `an` 을 순수하게 배운다(타겟 단어는 안 붙인다, 2026-08-09 사용자).
+        // 🔴 글자 소리 끝 → **쉼** → 띵동. 실측 간격이 0ms 라 한 덩어리로 들렸다.
         rest(() =>
           playAudio('/sounds/game/correct.mp3', () => {
-            if (word) rest(() => playEnglish(word, willAllComplete ? afterWord : undefined));
-            else if (willAllComplete) afterWord();
+            if (willAllComplete) rest(() => playCorrectSequence({ language: 'en' }));
           })
         );
       };
-      const afterWord = () => rest(() => playCorrectSequence({ language: 'en' }));
       playEnglish(text, afterTts);
     },
-    [phase, pattern, totalPhaseA, phaseAWords, playEnglish, playAudio, playCorrectSequence, rest]
+    [phase, pattern, totalPhaseA, playEnglish, playAudio, playCorrectSequence, rest]
   );
 
   const phaseADone = phaseAPressed.size >= totalPhaseA;
@@ -398,16 +390,6 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
                   onClick={() => handlePhaseACell(r, 2)}
                   tone="right"
                 />
-                {/* 줄을 완성하면 그 줄의 타겟 단어가 여기 나타나며 읽어준다.
-                    🔴 **자리는 항상 차지한다** — 나타날 때 생기면 세 줄이 통째로 밀린다. */}
-                <PhaseAWordSlot
-                  word={phaseAWords[r]}
-                  revealed={[0, 1, 2].every((c) => phaseAPressed.has(`${r}-${c}`))}
-                  onClick={() => {
-                    const w = phaseAWords[r]?.word;
-                    if (w) playEnglish(w);
-                  }}
-                />
               </div>
             ))}
           </div>
@@ -597,49 +579,6 @@ function Connector({ char }: { char: '+' | '→' }) {
 }
 
 type CellTone = 'left' | 'middle' | 'right';
-
-/**
- * Phase A 줄 끝의 타겟 단어 — 줄을 완성해야 보인다.
- * 🔴 안 보일 때도 **자리를 지킨다**(`invisible`) — 나타날 때 줄이 밀리면 방금 누른 칸이 움직인다.
- * 단어가 없는 줄(저작 데이터 부족)은 자리도 만들지 않는다.
- */
-function PhaseAWordSlot({
-  word,
-  revealed,
-  onClick,
-}: {
-  word?: CvcWord;
-  revealed: boolean;
-  onClick: () => void;
-}) {
-  if (!word) return null;
-  return (
-    <button
-      type="button"
-      onClick={revealed ? onClick : undefined}
-      aria-hidden={!revealed}
-      className={`flex flex-col items-center gap-1 shrink-0 transition-opacity duration-300 ${
-        revealed ? 'opacity-100' : 'invisible opacity-0'
-      }`}
-    >
-      {word.imageUrl ? (
-        <img
-          src={word.imageUrl}
-          alt={word.word}
-          draggable={false}
-          className="h-[clamp(3.5rem,12vh,6.5rem)] w-[clamp(3.5rem,12vh,6.5rem)] rounded-3xl object-cover bg-white shadow-pop ring-4 ring-white"
-        />
-      ) : (
-        <span className="h-[clamp(3.5rem,12vh,6.5rem)] w-[clamp(3.5rem,12vh,6.5rem)] rounded-3xl bg-white shadow-pop ring-4 ring-white flex items-center justify-center text-4xl">
-          🔊
-        </span>
-      )}
-      <span className="font-display font-black text-ink-800 text-xl sm:text-2xl leading-none">
-        {word.word}
-      </span>
-    </button>
-  );
-}
 
 function Cell({
   label,
