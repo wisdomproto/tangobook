@@ -10,6 +10,7 @@ import {
   getChineseUnitCards,
   hanziFor,
   isBlendUnit,
+  isCombineUnit,
   isToneUnit,
   isWordUnit,
   type PinyinCard,
@@ -508,6 +509,9 @@ export default function ChinesePhonicsActivityPage() {
       language="zh"
       items={items}
       choices={items.length}
+      // 🔴 병음조합(L3)은 성모를 탐색에 전부 깔되(놀이판) 퀴즈만 6장으로 줄인다 — u05(17) 17지선다 방지.
+      //    성조·복운모 등 작은 판은 미지정(퀴즈=판 전체, 기존 동작 불변).
+      quizChoices={isCombineUnit(unitId) ? Math.min(items.length, 6) : undefined}
       columns={columns}
       // 🔴 「배우기」(listen-choose)만 탐색 먼저 — 병음조합 배우기는 눌러 블렌드를 듣고, 성조/병음조합
       //    「고르기」(tone-choose·listen-quiz)는 되짚는 자리라 바로 퀴즈.

@@ -56,6 +56,14 @@ interface Props {
    */
   choices?: number;
   /**
+   * **퀴즈 판만** 이 수로 캡한다(탐색 판은 `choices` 전부 유지).
+   *
+   * 🔴 병음조합(L3)은 탐색에서 성모를 전부 깔아야 하는데(놀이판 = 성모 × 4성 학습), 그대로 퀴즈로
+   *    가면 u05(성모 17개)가 17지선다가 된다. 탐색은 다 보여주고 퀴즈만 랜덤 부분집합으로 줄인다.
+   *    미지정이면 퀴즈도 판 전체(기존 동작 불변).
+   */
+  quizChoices?: number;
+  /**
    * 한 줄에 놓을 카드 수. 미지정이면 장수로 정한다.
    * 🔴 알파벳 단원은 **글자당 한 줄**이라 2 를 넘긴다 — 안 넘기면 넓은 화면에서 여섯 장이
    *    한 줄로 늘어서서 "이 A 는 사과, 저 A 는 악어" 묶음이 안 보인다.
@@ -140,6 +148,7 @@ export function WordListenChooseActivity({
   letter,
   language = 'korean',
   choices = 4,
+  quizChoices,
   columns,
   exploreFirst = false,
   revealImageOnTap = false,
@@ -191,10 +200,12 @@ export function WordListenChooseActivity({
   const quizBoard = useMemo(() => {
     const byLabel = new Map<string, ListenChoice[]>();
     for (const c of board) byLabel.set(c.label, [...(byLabel.get(c.label) ?? []), c]);
-    return shuffle(
+    const uniq = shuffle(
       [...byLabel.values()].map((same) => same[Math.floor(Math.random() * same.length)])
     );
-  }, [board]);
+    // 🔴 퀴즈만 캡한다 — 탐색 판(board)은 그대로. 병음조합 17지선다 방지.
+    return quizChoices ? uniq.slice(0, quizChoices) : uniq;
+  }, [board, quizChoices]);
   // 문제 순서 — 퀴즈 판에 깔린 것을 한 번씩(탐색 판이 아니다 — 안 깔린 카드가 정답이 되면 못 고른다).
   const questions = useMemo(() => shuffle(quizBoard).map((answer) => ({ answer })), [quizBoard]);
 

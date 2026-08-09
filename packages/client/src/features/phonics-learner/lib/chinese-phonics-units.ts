@@ -50,16 +50,23 @@ export const CHANT_URLS: Record<string, string[]> = {
   'zh-l2-u06': [
     'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/sm_song_5zhchshr.mp3',
   ],
+  // 🔴 L3 = 6 모음 유닛(a/o/e/i/u/ü) → 모음별 병음조합 동요 1:1 매핑(R2 실존).
   'zh-l3-u01': [
     'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/py_song_witha.mp3',
   ],
   'zh-l3-u02': [
-    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/py_song_witha.mp3',
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/py_song_witho.mp3',
   ],
   'zh-l3-u03': [
-    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/py_song_witha.mp3',
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/py_song_withe.mp3',
   ],
   'zh-l3-u04': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/py_song_withi.mp3',
+  ],
+  'zh-l3-u05': [
+    'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/py_song_withu.mp3',
+  ],
+  'zh-l3-u06': [
     'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/py_song_withv.mp3',
   ],
   'zh-l4-u01': ['https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-chant/word1_song.mp3'],
@@ -407,6 +414,80 @@ const WHOLE_READ_TONES: Record<string, string[]> = {
   yin: ['yīn', 'yín', 'yǐn', 'yìn'], yun: ['yūn', 'yún', 'yǔn', 'yùn'], ying: ['yīng', 'yíng', 'yǐng', 'yìng'],
 }; // prettier-ignore
 
+/**
+ * L3 병음조합(拼读) — **모음별**로 각 성모의 실존 4성 음절. 카드 = 성모(c), 누르면 그 성모+모음의 4성을
+ * 순서로(단운모 놀이판과 같은 리듬, 축만 "모음 고정·성모 순회"). sound = syl[0](대개 tone-1, 없으면 첫 실존 성조).
+ *
+ * 🔴 **실존 음절만** 담는다 — generate-all-4 로 만들지 않는다. 표준 중국어에 없는 성조(p+a 의 pǎ, m+u 의 mū)는
+ *    빼서 무음을 막는다. 전 음절이 `mod_chinese` 에 실존하므로 `getChineseSyllableUrl` 로 직행(새 concat 0).
+ */
+export const COMBINE_SYLLABLES: Record<string, Array<{ c: string; syl: string[] }>> = {
+  a: [
+    { c: 'b', syl: ['bā', 'bá', 'bǎ', 'bà'] },
+    { c: 'p', syl: ['pā', 'pá', 'pà'] },
+    { c: 'm', syl: ['mā', 'má', 'mǎ', 'mà'] },
+    { c: 'f', syl: ['fā', 'fá', 'fǎ', 'fà'] },
+    { c: 'd', syl: ['dā', 'dá', 'dǎ', 'dà'] },
+    { c: 't', syl: ['tā', 'tǎ', 'tà'] },
+    { c: 'n', syl: ['nā', 'ná', 'nǎ', 'nà'] },
+    { c: 'l', syl: ['lā', 'lá', 'lǎ', 'là'] },
+    { c: 'g', syl: ['gā', 'gá', 'gǎ', 'gà'] },
+    { c: 'h', syl: ['hā', 'há', 'hǎ', 'hà'] },
+    { c: 'zh', syl: ['zhā', 'zhá', 'zhǎ', 'zhà'] },
+    { c: 'ch', syl: ['chā', 'chá', 'chǎ', 'chà'] },
+    { c: 'sh', syl: ['shā', 'shá', 'shǎ', 'shà'] },
+  ],
+  o: [
+    { c: 'b', syl: ['bō', 'bó', 'bǒ', 'bò'] },
+    { c: 'p', syl: ['pō', 'pó', 'pǒ', 'pò'] },
+    { c: 'm', syl: ['mō', 'mó', 'mǒ', 'mò'] },
+  ],
+  e: [
+    { c: 'g', syl: ['gē', 'gé', 'gě', 'gè'] },
+    { c: 'k', syl: ['kē', 'ké', 'kě', 'kè'] },
+    { c: 'h', syl: ['hē', 'hé', 'hè'] },
+    { c: 'zh', syl: ['zhē', 'zhé', 'zhě', 'zhè'] },
+    { c: 'ch', syl: ['chē', 'chě', 'chè'] },
+    { c: 'sh', syl: ['shē', 'shé', 'shě', 'shè'] },
+  ],
+  i: [
+    { c: 'b', syl: ['bī', 'bí', 'bǐ', 'bì'] },
+    { c: 'p', syl: ['pī', 'pí', 'pǐ', 'pì'] },
+    { c: 'm', syl: ['mī', 'mí', 'mǐ', 'mì'] },
+    { c: 'd', syl: ['dī', 'dí', 'dǐ', 'dì'] },
+    { c: 't', syl: ['tī', 'tí', 'tǐ', 'tì'] },
+    { c: 'n', syl: ['nī', 'ní', 'nǐ', 'nì'] },
+    { c: 'l', syl: ['lī', 'lí', 'lǐ', 'lì'] },
+    { c: 'j', syl: ['jī', 'jí', 'jǐ', 'jì'] },
+    { c: 'q', syl: ['qī', 'qí', 'qǐ', 'qì'] },
+    { c: 'x', syl: ['xī', 'xí', 'xǐ', 'xì'] },
+  ],
+  u: [
+    { c: 'b', syl: ['bū', 'bú', 'bǔ', 'bù'] },
+    { c: 'p', syl: ['pū', 'pú', 'pǔ', 'pù'] },
+    { c: 'm', syl: ['mú', 'mǔ', 'mù'] },
+    { c: 'f', syl: ['fū', 'fú', 'fǔ', 'fù'] },
+    { c: 'd', syl: ['dū', 'dú', 'dǔ', 'dù'] },
+    { c: 't', syl: ['tū', 'tú', 'tǔ', 'tù'] },
+    { c: 'n', syl: ['nú', 'nǔ', 'nù'] },
+    { c: 'l', syl: ['lū', 'lú', 'lǔ', 'lù'] },
+    { c: 'g', syl: ['gū', 'gú', 'gǔ', 'gù'] },
+    { c: 'k', syl: ['kū', 'kǔ', 'kù'] },
+    { c: 'h', syl: ['hū', 'hú', 'hǔ', 'hù'] },
+    { c: 'zh', syl: ['zhū', 'zhú', 'zhǔ', 'zhù'] },
+    { c: 'ch', syl: ['chū', 'chú', 'chǔ', 'chù'] },
+    { c: 'sh', syl: ['shū', 'shú', 'shǔ', 'shù'] },
+    { c: 'z', syl: ['zū', 'zú', 'zǔ'] },
+    { c: 'c', syl: ['cū', 'cú', 'cù'] },
+    { c: 's', syl: ['sū', 'sú', 'sù'] },
+  ],
+  ü: [
+    { c: 'j', syl: ['jū', 'jú', 'jǔ', 'jù'] },
+    { c: 'q', syl: ['qū', 'qú', 'qǔ', 'qù'] },
+    { c: 'x', syl: ['xū', 'xú', 'xǔ', 'xù'] },
+  ],
+};
+
 /** 커리큘럼 단원만 (복습 제외) — 복습 묶음을 만드는 원본. */
 function getCurriculumUnits(): ChineseUnitSummary[] {
   const out: ChineseUnitSummary[] = [];
@@ -497,6 +578,15 @@ export function isBlendUnit(unitId: string): boolean {
 }
 
 /**
+ * 병음조합(拼读, L3) 유닛인가 — 카드 = 성모 글자(COMBINE_SYLLABLES[모음]), 누르면 그 성모+모음의 4성 시퀀스.
+ * blend(L5/L6 복운모)와 **다르다**: blend 는 음절 카드+3클립 블렌드, combine 은 성모 카드+4성 놀이판(축=모음 고정).
+ * plan 은 blend 와 같은 배우기 + 듣고 고르기(makeBlendPlan) 두 활동.
+ */
+export function isCombineUnit(unitId: string): boolean {
+  return getChineseUnit(unitId)?.patterns.includes('combine') ?? false;
+}
+
+/**
  * 단어(单词) 유닛인가 — 카드 = 낱말(병음 위 + 한자 아래) + 삽화. 소리 학습(L1~L3)이 아니라
  * **낱말 놀이**(낱말 연습 + 게임 2종)라 storybook(삽화·keypoints·mod_chinese 음원)을 읽는다.
  * 🔴 L1~L3(성조·단운모·성모·병음조합)과 달리 익히기 카드가 없다 — 활동이 전부 낱말 기반이다.
@@ -532,7 +622,13 @@ export function getChineseUnitCards(unitId: string): PinyinCard[] {
   // 通读(整体认读) — 카드 = whole-read 음절 라벨(방어용: 쓰기·사냥 없어 실제로는 안 불린다). 소리는 tone-1.
   if (isWholeUnit(unitId))
     return u.phonemes.map((p) => ({ label: p, sound: WHOLE_READ_TONES[p]?.[0] ?? p }));
-  // 병음조합 — 카드 = 음절(방어용: 쓰기·사냥 없어 실제로는 안 불린다). 소리는 음절 하나.
+  // 병음조합(拼读) — 카드 = 성모(방어용: 쓰기·사냥 없어 실제로는 안 불린다). 소리는 syl[0](tone-1).
+  if (isCombineUnit(unitId))
+    return (COMBINE_SYLLABLES[u.phonemes[0]] ?? []).map(({ c, syl }) => ({
+      label: c,
+      sound: syl[0],
+    }));
+  // 복운모 블렌드 — 카드 = 음절(방어용). 소리는 음절 하나.
   if (isBlendUnit(unitId))
     return u.targetWords.map((w) => ({ label: w, sound: w.normalize('NFC') }));
   // 단운모 — 보이는 건 낱 모음, 소리는 tone-1(소릿결).
@@ -552,7 +648,16 @@ export function getChineseListenCards(unitId: string): PinyinCard[] {
   if (isToneUnit(unitId)) {
     return u.targetWords.map((w) => ({ label: w, sound: w }));
   }
-  // 병음조합 배우기 — 음절 카드. 누르면 블렌드 3클립(성모 citation → 운모 → 음절)을 순서로.
+  // 병음조합(拼读) 배우기 — 성모 카드. 누르면 그 성모+모음의 실존 4성 시퀀스(단운모 놀이판과 같은 리듬).
+  // 🔴 sound = syl[0] — 「듣고 고르기」 퀴즈가 그 음절을 문제로 읽고, 보기(라벨)는 성모다(모음 고정).
+  if (isCombineUnit(unitId)) {
+    return (COMBINE_SYLLABLES[u.phonemes[0]] ?? []).map(({ c, syl }) => ({
+      label: c,
+      sound: syl[0],
+      sounds: syl,
+    }));
+  }
+  // 복운모 블렌드(L5/L6) 배우기 — 음절 카드. 누르면 블렌드 3클립(성모 citation → 운모 → 음절)을 순서로.
   // 🔴 sound = 음절(NFC, sounds[2]) — 호스트가 ttsBySound[sound] 로 퀴즈 음절 URL 을 찾으므로 clips 와 같은 정규화.
   if (isBlendUnit(unitId)) {
     return u.targetWords.map((w) => {
@@ -790,8 +895,13 @@ function planForUnit(u: ChineseUnitSummary): ActivityPlan {
     );
   if (u.patterns.includes('tones')) return makeTonePlan();
   if (u.patterns.includes('word')) return makeWordPlan();
-  // 通读(整体认读) = blend 와 같은 배우기 + 듣고 고르기(쓰기·사냥 없음).
-  if (u.patterns.includes('whole') || u.patterns.includes('blend')) return makeBlendPlan();
+  // 병음조합(combine, L3) · 복운모/비운모(blend, L5/L6) · 通读(whole, L7) = 배우기 + 듣고 고르기(쓰기·사냥 없음).
+  if (
+    u.patterns.includes('whole') ||
+    u.patterns.includes('blend') ||
+    u.patterns.includes('combine')
+  )
+    return makeBlendPlan();
   if (u.phonemes.some((p) => p.length > 1)) return makeNoWritePlan();
   return makeSingleFinalPlan();
 }

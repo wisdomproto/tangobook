@@ -10,6 +10,7 @@ import {
   getChineseUnitCards,
   hanziFor,
   isBlendUnit,
+  isCombineUnit,
   isInitialUnit,
   isReviewUnit,
   isToneUnit,
@@ -38,6 +39,8 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       'zh-l3-u02',
       'zh-l3-u03',
       'zh-l3-u04',
+      'zh-l3-u05',
+      'zh-l3-u06',
       'zh-l4-u01',
       'zh-l4-u02',
       'zh-l4-u03',
@@ -79,13 +82,17 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       'zh-l8-u14',
       'zh-l8-r1', // 🏅 L8 2음절 낱말 복습
     ]);
-    // 🔴 L1 첫 유닛 = 성조, 나머지 둘 = 단운모. L2 는 전부 성모. L3 는 전부 병음조합(blend).
+    // 🔴 L1 첫 유닛 = 성조, 나머지 둘 = 단운모. L2 는 전부 성모. L3 는 전부 병음조합(combine, blend 와 구분).
     expect(isToneUnit('zh-l1-u01')).toBe(true);
     expect(isToneUnit('zh-l1-u02')).toBe(false);
     expect(isInitialUnit('zh-l1-u02')).toBe(false);
     expect(isInitialUnit('zh-l2-u01')).toBe(true);
     expect(isToneUnit('zh-l2-u01')).toBe(false);
-    expect(isBlendUnit('zh-l3-u01')).toBe(true);
+    // 🔴 L3 = combine(모음별 성모 4성), blend 아님. blend 는 L5/L6 복운모·비운모 전용.
+    expect(isCombineUnit('zh-l3-u01')).toBe(true);
+    expect(isCombineUnit('zh-l3-u06')).toBe(true);
+    expect(isBlendUnit('zh-l3-u01')).toBe(false);
+    expect(isCombineUnit('zh-l5-u01')).toBe(false);
     expect(isBlendUnit('zh-l2-u01')).toBe(false);
     expect(isBlendUnit('zh-l1-u01')).toBe(false);
     // L5 복운모·L6 비운모도 블렌드(같은 메커니즘).
@@ -310,10 +317,20 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
     ]);
   });
 
-  // ── L3 병음조합(拼读) ──────────────────────────────────────────────────────
-  // 🔴 plan = 배우기(listen-choose, 블렌드 탐색) + 듣고 고르기(listen-quiz, 음절 퀴즈). 둘 다 word-listen-choose.
-  it('병음조합 4유닛 = 배우기 + 듣고 고르기(둘 다 word-listen-choose)', () => {
-    for (const id of ['zh-l3-u01', 'zh-l3-u02', 'zh-l3-u03', 'zh-l3-u04']) {
+  // ── L3 병음조합(拼读) — 모음별 성모 4성(combine) ─────────────────────────────
+  // 🔴 plan = 배우기(listen-choose, 성모 4성 놀이판 탐색) + 듣고 고르기(listen-quiz, 성모 퀴즈). 둘 다 word-listen-choose.
+  it('병음조합 6유닛(a/o/e/i/u/ü) = 배우기 + 듣고 고르기(둘 다 word-listen-choose)', () => {
+    for (const id of [
+      'zh-l3-u01',
+      'zh-l3-u02',
+      'zh-l3-u03',
+      'zh-l3-u04',
+      'zh-l3-u05',
+      'zh-l3-u06',
+    ]) {
+      expect(isCombineUnit(id)).toBe(true);
+      expect(isBlendUnit(id)).toBe(false);
+      expect(isWordUnit(id)).toBe(false);
       const plan = getChineseActivityPlan(id);
       expect(plan.activities.map((a) => a.kind)).toEqual([
         'word-listen-choose',
@@ -326,28 +343,52 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
     }
   });
 
-  // 🔴 배우기 카드 = 음절 + 블렌드 3클립(성모 citation → 운모 → 음절). 소리는 라이브러리 직행(HEAD 200 확인).
-  it('병음조합 배우기 카드 = 음절 라벨 + 블렌드 3클립', () => {
-    expect(getChineseListenCards('zh-l3-u01')).toEqual([
-      { label: 'bā', sound: 'bā', sounds: ['bō', 'ā', 'bā'] },
-      { label: 'pí', sound: 'pí', sounds: ['pō', 'í', 'pí'] },
-      { label: 'mā', sound: 'mā', sounds: ['mō', 'ā', 'mā'] },
-      { label: 'fā', sound: 'fā', sounds: ['fó', 'ā', 'fā'] },
+  // 🔴 배우기 카드 = 성모 라벨 + 그 성모+모음의 실존 4성 시퀀스. sound = syl[0]. 전 음절 mod_chinese 직행.
+  it('병음조합 배우기 카드 = 성모 라벨 + 4성 시퀀스 (a 유닛 = 13 성모)', () => {
+    const a = getChineseListenCards('zh-l3-u01');
+    expect(a.map((c) => c.label)).toEqual([
+      'b',
+      'p',
+      'm',
+      'f',
+      'd',
+      't',
+      'n',
+      'l',
+      'g',
+      'h',
+      'zh',
+      'ch',
+      'sh',
     ]);
-    // d/t/n/l citation 은 fó·tè·né 처럼 비-1성 섞임(L2 매핑). 운모는 음절 성조 그대로.
+    expect(a[0]).toEqual({ label: 'b', sound: 'bā', sounds: ['bā', 'bá', 'bǎ', 'bà'] });
+    // 🔴 실존 음절만 — p+a 는 pǎ 가 없어 3성. generate-all-4 가 아니라 실측 표.
+    expect(a[1]).toEqual({ label: 'p', sound: 'pā', sounds: ['pā', 'pá', 'pà'] });
+  });
+
+  // o 유닛(3 성모)·ü 유닛(3 성모) = 전 카드 검증.
+  it('병음조합 o·ü 유닛 배우기 카드', () => {
     expect(getChineseListenCards('zh-l3-u02')).toEqual([
-      { label: 'dà', sound: 'dà', sounds: ['dē', 'à', 'dà'] },
-      { label: 'tù', sound: 'tù', sounds: ['tè', 'ù', 'tù'] },
-      { label: 'nǐ', sound: 'nǐ', sounds: ['né', 'ǐ', 'nǐ'] },
-      { label: 'lù', sound: 'lù', sounds: ['lē', 'ù', 'lù'] },
+      { label: 'b', sound: 'bō', sounds: ['bō', 'bó', 'bǒ', 'bò'] },
+      { label: 'p', sound: 'pō', sounds: ['pō', 'pó', 'pǒ', 'pò'] },
+      { label: 'm', sound: 'mō', sounds: ['mō', 'mó', 'mǒ', 'mò'] },
     ]);
-    // 🔴 j/q/x + u 표기 = 실제 ü → 운모 클립은 ü 계열(jú→ǘ · xǔ→ǚ). i 운모(qí·xǐ)는 그대로.
-    expect(getChineseListenCards('zh-l3-u04')).toEqual([
-      { label: 'jú', sound: 'jú', sounds: ['jī', 'ǘ', 'jú'] },
-      { label: 'qí', sound: 'qí', sounds: ['qī', 'í', 'qí'] },
-      { label: 'xǐ', sound: 'xǐ', sounds: ['xī', 'ǐ', 'xǐ'] },
-      { label: 'xǔ', sound: 'xǔ', sounds: ['xī', 'ǚ', 'xǔ'] },
+    expect(getChineseListenCards('zh-l3-u06')).toEqual([
+      { label: 'j', sound: 'jū', sounds: ['jū', 'jú', 'jǔ', 'jù'] },
+      { label: 'q', sound: 'qū', sounds: ['qū', 'qú', 'qǔ', 'qù'] },
+      { label: 'x', sound: 'xū', sounds: ['xū', 'xú', 'xǔ', 'xù'] },
     ]);
+  });
+
+  // 🔴 sound = syl[0] 은 tone-1 이 아닐 수 있다 — m+u 는 mū 가 없어 syl[0]='mú'(2성).
+  it('병음조합 u 유닛 = syl[0] 이 tone-1 아닌 성모 포함 (m→mú)', () => {
+    const u = getChineseListenCards('zh-l3-u05');
+    expect(u.length).toBe(17);
+    expect(u.find((c) => c.label === 'm')).toEqual({
+      label: 'm',
+      sound: 'mú',
+      sounds: ['mú', 'mǔ', 'mù'],
+    });
   });
 
   // ── 낱말 유닛(单词) — L4 CV + L5/L6 복운모·비운모 구체 낱말 ─────────────────────
@@ -536,9 +577,9 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
   });
 
   // ── 🎵 유닛송(찬트) 스텝 ────────────────────────────────────────────────────
-  it('CHANT_URLS 는 38개 단원(복습·L7 제외), 전부 유닛 목록에 존재', () => {
+  it('CHANT_URLS 는 40개 단원(복습·L7 제외), 전부 유닛 목록에 존재', () => {
     const ids = Object.keys(CHANT_URLS);
-    expect(ids.length).toBe(38);
+    expect(ids.length).toBe(40);
     const allIds = new Set(getAllChineseUnits().map((u) => u.id));
     for (const id of ids) expect(allIds.has(id), `${id} 없는 단원`).toBe(true);
     // 복습·L7(통독)엔 찬트가 없다.
