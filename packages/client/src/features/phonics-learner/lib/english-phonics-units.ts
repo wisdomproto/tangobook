@@ -545,6 +545,7 @@ function reviewCardsFor(unitId: string): ReviewCard[] {
  */
 function makeEnglishReviewPlan(cards: readonly ReviewCard[], levelKey: string): ActivityPlan {
   const shared = { required: true, reviewCards: cards, section: 'play' as const };
+  // 🔴 순서 = 글자 사냥 → 듣고 글자 → 듣고 낱말 → 낱말 쓰기 → 뒤집기 → 그림 짝 (2026-08-09 사용자 지정).
   const all: ActivityDef[] = [
     {
       key: 'letter-hunt',
@@ -555,27 +556,11 @@ function makeEnglishReviewPlan(cards: readonly ReviewCard[], levelKey: string): 
       ...shared,
     },
     {
-      key: 'review-flip',
-      order: 0,
-      kind: 'review-flip',
-      title: '뒤집기 짝 맞추기',
-      emoji: '🎴',
-      ...shared,
-    },
-    {
       key: 'review-syllable-listen',
       order: 0,
       kind: 'review-syllable-listen',
       title: '듣고 글자 맞추기',
       emoji: '🎧',
-      ...shared,
-    },
-    {
-      key: 'review-match',
-      order: 0,
-      kind: 'review-match',
-      title: '그림 짝 찾기',
-      emoji: '🔗',
       ...shared,
     },
     {
@@ -593,6 +578,22 @@ function makeEnglishReviewPlan(cards: readonly ReviewCard[], levelKey: string): 
       // 🔴 Book 1 만 글자 한 자를 쓴다 → "글자 쓰기". Book 2~5 는 낱말 전체를 쓰므로 "낱말 쓰기".
       title: levelKey === 'book1' ? '글자 쓰기' : '낱말 쓰기',
       emoji: '✏️',
+      ...shared,
+    },
+    {
+      key: 'review-flip',
+      order: 0,
+      kind: 'review-flip',
+      title: '뒤집기 짝 맞추기',
+      emoji: '🎴',
+      ...shared,
+    },
+    {
+      key: 'review-match',
+      order: 0,
+      kind: 'review-match',
+      title: '그림 짝 찾기',
+      emoji: '🔗',
       ...shared,
     },
   ];

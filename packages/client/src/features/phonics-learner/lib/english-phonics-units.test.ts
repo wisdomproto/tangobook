@@ -151,27 +151,27 @@ describe('english phonics units', () => {
       if (r.levelIndex >= 3) {
         // 낱말 기반 — 낱말↔그림 시각 3종 + 듣고 낱말(음원 복구 후, 글자 사냥·듣고 글자 제외)
         expect(kinds).toEqual([
-          'review-flip',
-          'review-match',
           'review-word-listen',
           'review-write',
+          'review-flip',
+          'review-match',
         ]);
       } else if (r.id.startsWith('en-b1')) {
         expect(kinds).toEqual([
           'letter-hunt',
-          'review-flip',
           'review-syllable-listen',
-          'review-match',
           'review-write',
+          'review-flip',
+          'review-match',
         ]);
       } else {
         expect(kinds).toEqual([
           'letter-hunt',
-          'review-flip',
           'review-syllable-listen',
-          'review-match',
           'review-word-listen',
           'review-write',
+          'review-flip',
+          'review-match',
         ]);
       }
       // order 는 1..N 연속이어야 한다.
