@@ -377,53 +377,84 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
           </p>
         </div>
 
-        <div className="flex flex-col gap-3 sm:gap-4 w-full max-w-4xl">
-          {rows.map((row, wi) => (
-            <div
-              key={row.word}
-              className="flex flex-row items-center justify-center gap-2 sm:gap-3"
-            >
-              {row.cells.map((cell, ci) => {
-                const isWordCell = ci === row.cells.length - 1;
-                const tone: CellTone = isWordCell
-                  ? 'right'
-                  : row.segs.length > 1 && ci === row.patCellIdx
-                    ? 'middle'
-                    : 'left';
-                return (
-                  <Fragment key={ci}>
-                    {ci > 0 && <Connector char={row.magicE || isWordCell ? '→' : '+'} />}
-                    <Cell
-                      label={cell}
-                      pressed={pressed.has(`${wi}-${ci}`)}
-                      isNext={nextKey === `${wi}-${ci}`}
-                      onClick={() => handleCell(wi, ci)}
-                      tone={tone}
-                      wide={isWordCell}
-                    />
-                  </Fragment>
+        {rows[0]?.magicE ? (
+          // 매직-e: [짧은 rime][긴 rime] → [낱말] — 행마다 조각 수가 같아 flex 로도 열이 맞는다.
+          <div className="flex flex-col gap-3 sm:gap-4 w-full max-w-4xl">
+            {rows.map((row, wi) => (
+              <div
+                key={row.word}
+                className="flex flex-row items-center justify-center gap-2 sm:gap-3"
+              >
+                {row.cells.map((cell, ci) => {
+                  const isWordCell = ci === row.cells.length - 1;
+                  const tone: CellTone = isWordCell
+                    ? 'right'
+                    : ci === row.patCellIdx
+                      ? 'middle'
+                      : 'left';
+                  return (
+                    <Fragment key={ci}>
+                      {ci > 0 && <Connector char="→" />}
+                      <Cell
+                        label={cell}
+                        pressed={pressed.has(`${wi}-${ci}`)}
+                        isNext={nextKey === `${wi}-${ci}`}
+                        onClick={() => handleCell(wi, ci)}
+                        tone={tone}
+                        wide={isWordCell}
+                      />
+                    </Fragment>
+                  );
+                })}
+                <WordImage row={row} show={wordDone(wi)} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          // 🔴 Book 4/5: [앞][패턴][뒤] → [낱말] — 조각 수가 달라도 **하나의 grid** 로 열을 맞춘다
+          //    (2026-08-09 사용자 "ee 기준으로 줄 맞춰"). 빈 앞/뒤 조각은 빈 칸으로 두어 열이 안 밀린다.
+          <div
+            className="grid items-center justify-center gap-x-2 sm:gap-x-3 gap-y-3 sm:gap-y-4"
+            style={{ gridTemplateColumns: 'repeat(7, auto) auto' }}
+          >
+            {rows.map((row, wi) => {
+              const beforeIdx = row.patCellIdx === 1 ? 0 : -1;
+              const afterIdx = row.patCellIdx + 1 < row.segs.length ? row.patCellIdx + 1 : -1;
+              const wordIdx = row.cells.length - 1;
+              const seg = (idx: number, tone: CellTone) =>
+                idx >= 0 ? (
+                  <Cell
+                    label={row.cells[idx]}
+                    pressed={pressed.has(`${wi}-${idx}`)}
+                    isNext={nextKey === `${wi}-${idx}`}
+                    onClick={() => handleCell(wi, idx)}
+                    tone={tone}
+                  />
+                ) : (
+                  <span aria-hidden />
                 );
-              })}
-              {/* 🔴 그림은 그 낱말 조각을 **다 누른 뒤**에 나온다(사용자: "다 누르면 이미지").
-                  자리는 미리 잡아(빈 슬롯) 완성 전후로 칸 정렬이 흔들리지 않게 한다. */}
-              {row.imageUrl && (
-                <div className="w-[clamp(3rem,11vh,5.5rem)] h-[clamp(3rem,11vh,5.5rem)] shrink-0">
-                  {wordDone(wi) && (
-                    <motion.img
-                      initial={{ scale: 0, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ type: 'spring', stiffness: 400, damping: 18 }}
-                      src={row.imageUrl}
-                      alt={row.word}
-                      draggable={false}
-                      className="w-full h-full object-cover rounded-2xl border-[4px] border-white shadow-pop"
-                    />
-                  )}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+              return (
+                <Fragment key={row.word}>
+                  {seg(beforeIdx, 'left')}
+                  <Connector char="+" invisible={beforeIdx < 0} />
+                  {seg(row.patCellIdx, 'middle')}
+                  <Connector char="+" invisible={afterIdx < 0} />
+                  {seg(afterIdx, 'left')}
+                  <Connector char="→" />
+                  <Cell
+                    label={row.cells[wordIdx]}
+                    pressed={pressed.has(`${wi}-${wordIdx}`)}
+                    isNext={nextKey === `${wi}-${wordIdx}`}
+                    onClick={() => handleCell(wi, wordIdx)}
+                    tone="right"
+                    wide
+                  />
+                  <WordImage row={row} show={wordDone(wi)} />
+                </Fragment>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
@@ -431,10 +462,30 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   );
 }
 
-function Connector({ char }: { char: '+' | '→' }) {
+/** 낱말 오른쪽 그림 — 조각을 다 누르면 나온다. 자리는 미리 잡아(빈 슬롯) 정렬이 안 흔들린다. */
+function WordImage({ row, show }: { row: Row; show: boolean }) {
+  if (!row.imageUrl) return <span aria-hidden />;
+  return (
+    <div className="w-[clamp(3rem,11vh,5.5rem)] h-[clamp(3rem,11vh,5.5rem)] shrink-0">
+      {show && (
+        <motion.img
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+          src={row.imageUrl}
+          alt={row.word}
+          draggable={false}
+          className="w-full h-full object-cover rounded-2xl border-[4px] border-white shadow-pop"
+        />
+      )}
+    </div>
+  );
+}
+
+function Connector({ char, invisible }: { char: '+' | '→'; invisible?: boolean }) {
   return (
     <span
-      className="text-2xl sm:text-3xl md:text-4xl font-black select-none shrink-0"
+      className={`text-2xl sm:text-3xl md:text-4xl font-black select-none shrink-0 ${invisible ? 'invisible' : ''}`}
       style={{ color: '#A68155' }}
       aria-hidden
     >
