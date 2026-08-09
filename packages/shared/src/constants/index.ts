@@ -1457,6 +1457,14 @@ export const CHINESE_PHONICS_CURRICULUM = [
         patterns: ['word'],
         sampleWords: ['hé', 'hǔ', 'gǔ', 'é', 'sì'],
       },
+      {
+        // 단운모/통독 확장 낱말 — zhū 猪 · shū 书 · yú 鱼 · yǔ 雨 · yī 衣 (삽화·mod_chinese 음원 실존).
+        id: 'zh-l4-u04',
+        title: 'Unit 04: zhū shū yú yǔ yī',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['zhū', 'shū', 'yú', 'yǔ', 'yī'],
+      },
     ],
   },
   {
@@ -1496,6 +1504,28 @@ export const CHINESE_PHONICS_CURRICULUM = [
         phonemes: ['ie', 'üe'],
         patterns: ['blend'],
         sampleWords: ['xiě', 'jiě', 'xué', 'xuě'],
+      },
+      // 🔴 복운모 낱말 유닛 — 배운 복운모가 든 구체 낱말(삽화·mod_chinese 음원). 「낱말 놀이」 게임 + 복습 substrate.
+      {
+        id: 'zh-l5-u04',
+        title: 'Unit 04: 동물 (māo gǒu niú hǎi bāo)',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['māo', 'gǒu', 'niú', 'hǎi', 'bāo'],
+      },
+      {
+        id: 'zh-l5-u05',
+        title: 'Unit 05: 사물 (shuǐ bēi qiú nǎi)',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['shuǐ', 'bēi', 'qiú', 'nǎi'],
+      },
+      {
+        id: 'zh-l5-u06',
+        title: 'Unit 06: 자연 (yè xié yuè xuě)',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['yè', 'xié', 'yuè', 'xuě'],
       },
     ],
   },
@@ -1542,6 +1572,28 @@ export const CHINESE_PHONICS_CURRICULUM = [
         phonemes: ['ing', 'ong'],
         patterns: ['blend'],
         sampleWords: ['xīng', 'bīng', 'hóng', 'lóng'],
+      },
+      // 🔴 비운모 낱말 유닛 — 배운 비운모가 든 구체 낱말(삽화·mod_chinese 음원). 「낱말 놀이」 게임 + 복습 substrate.
+      {
+        id: 'zh-l6-u05',
+        title: 'Unit 05: 자연 (shān mén yún yáng)',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['shān', 'mén', 'yún', 'yáng'],
+      },
+      {
+        id: 'zh-l6-u06',
+        title: 'Unit 06: 사물 (dēng xīng bīng píng)',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['dēng', 'xīng', 'bīng', 'píng'],
+      },
+      {
+        id: 'zh-l6-u07',
+        title: 'Unit 07: 사물 (xióng zhōng chóng táng)',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['xióng', 'zhōng', 'chóng', 'táng'],
       },
     ],
   },

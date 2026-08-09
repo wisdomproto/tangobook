@@ -332,7 +332,9 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   }
   for (const unitId of CATEGORY ? [] : UNIT_IDS) {
     if (ONLY && unitId !== ONLY) continue;
-    const sb = await getStorybook(unitId);
+    // 🔴 소리 유닛(중국어 L1~L3·L5~L7 성조·운모·성모·블렌드·통독)은 storybook 이 없다 — 스킵.
+    const sb = await getStorybook(unitId).catch(() => null);
+    if (!sb) continue;
     for (const card of sb.flashcards ?? []) {
       if (!card.imageUrl) continue;
       /**

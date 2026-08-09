@@ -41,15 +41,17 @@ export interface PinyinCard {
 const TONE1: Record<string, string> = { a: 'ā', o: 'ō', e: 'ē', i: 'ī', u: 'ū', ü: 'ǖ' };
 
 /**
- * Level 4 낱말(1음절 CV) — 병음 → { 한자, 뜻, 삽화 슬러그 }.
+ * 낱말 유닛 낱말 — 병음 → { 한자, 뜻, 삽화 슬러그 }. (L4 CV + L5/L6 복운모·비운모 구체 낱말 + 단운모/통독 확장.)
  *
  * 🔴 커리큘럼(`sampleWords`)은 소리 목록(병음)만 들고, 한자·뜻·삽화 슬러그는 여기 SSOT 다.
  *    낱말 카드는 **병음 위 / 한자 아래**(가르치는 소리는 병음, 한자는 그 낱말의 글자). 뜻(한국어)은
  *    삽화가 이미 보여주므로 카드엔 안 쓴다(참조·문서용).
- * 🔴 storybook 생성 스크립트(`create-chinese-l4-storybooks.mjs`)와 **같은 표를 본다** — 스크립트가
- *    `phonics-word-cards/` 삽화와 `mod_chinese` 음원을 이 매핑으로 flashcard 에 물린다.
+ * 🔴 storybook 생성 스크립트(`create-chinese-{l4,word}-storybooks.mjs`)와 **같은 표를 본다** —
+ *    스크립트가 `phonics-word-cards/` 삽화와 `mod_chinese` 음원을 이 매핑으로 flashcard 에 물린다.
+ * 🔴 중국어는 단음절어라 음절이 곧 낱말이다(māo猫·shān山) — 그림 되는 구체 낱말만 여기 든다(추상 半·分 제외).
  */
 export const L4_WORDS: Record<string, { hanzi: string; gloss: string; slug: string }> = {
+  // L4 단운모 CV
   mǐ: { hanzi: '米', gloss: '쌀', slug: 'mi_rice' },
   mǎ: { hanzi: '马', gloss: '말', slug: 'ma_horse' },
   mù: { hanzi: '木', gloss: '나무', slug: 'mu_tree' },
@@ -64,6 +66,39 @@ export const L4_WORDS: Record<string, { hanzi: string; gloss: string; slug: stri
   gǔ: { hanzi: '鼓', gloss: '북', slug: 'gu_drum' },
   é: { hanzi: '鹅', gloss: '거위', slug: 'e_goose' },
   sì: { hanzi: '四', gloss: '넷', slug: 'si_four' },
+  // L4 확장(단운모/통독)
+  zhū: { hanzi: '猪', gloss: '돼지', slug: 'zhu_pig' },
+  shū: { hanzi: '书', gloss: '책', slug: 'shu_book' },
+  yú: { hanzi: '鱼', gloss: '물고기', slug: 'yu_fish' },
+  yǔ: { hanzi: '雨', gloss: '비', slug: 'yu_rain' },
+  yī: { hanzi: '衣', gloss: '옷', slug: 'yi_clothes' },
+  // L5 복운모 낱말
+  māo: { hanzi: '猫', gloss: '고양이', slug: 'test_mao_cat' },
+  gǒu: { hanzi: '狗', gloss: '개', slug: 'gou_dog' },
+  niú: { hanzi: '牛', gloss: '소', slug: 'niu_cow' },
+  hǎi: { hanzi: '海', gloss: '바다', slug: 'hai_sea' },
+  bāo: { hanzi: '包', gloss: '가방', slug: 'bao_bag' },
+  shuǐ: { hanzi: '水', gloss: '물', slug: 'shui_water' },
+  bēi: { hanzi: '杯', gloss: '컵', slug: 'beizi_cup' },
+  qiú: { hanzi: '球', gloss: '공', slug: 'qiu_ball' },
+  nǎi: { hanzi: '奶', gloss: '우유', slug: 'nai_milk' },
+  yè: { hanzi: '叶', gloss: '잎', slug: 'ye_leaf' },
+  xié: { hanzi: '鞋', gloss: '신발', slug: 'xie_shoe' },
+  yuè: { hanzi: '月', gloss: '달', slug: 'yue_moon' },
+  xuě: { hanzi: '雪', gloss: '눈', slug: 'xue_snow' },
+  // L6 비운모 낱말
+  shān: { hanzi: '山', gloss: '산', slug: 'shan_mountain' },
+  mén: { hanzi: '门', gloss: '문', slug: 'men_door' },
+  yún: { hanzi: '云', gloss: '구름', slug: 'yun_cloud' },
+  yáng: { hanzi: '羊', gloss: '양', slug: 'yang_sheep' },
+  dēng: { hanzi: '灯', gloss: '등', slug: 'deng_lantern' },
+  xīng: { hanzi: '星', gloss: '별', slug: 'xing_star' },
+  bīng: { hanzi: '冰', gloss: '얼음', slug: 'bing_ice' },
+  píng: { hanzi: '瓶', gloss: '병', slug: 'ping_bottle' },
+  xióng: { hanzi: '熊', gloss: '곰', slug: 'xiong_bear' },
+  zhōng: { hanzi: '钟', gloss: '시계', slug: 'zhong_clock' },
+  chóng: { hanzi: '虫', gloss: '벌레', slug: 'chong_bug' },
+  táng: { hanzi: '糖', gloss: '사탕', slug: 'tang_candy' },
 };
 
 /** 병음 → 한자(카드 아래 병기). 없으면 undefined(병음만). */

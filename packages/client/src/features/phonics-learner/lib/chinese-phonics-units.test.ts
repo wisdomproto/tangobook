@@ -36,13 +36,20 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       'zh-l4-u01',
       'zh-l4-u02',
       'zh-l4-u03',
+      'zh-l4-u04',
       'zh-l5-u01',
       'zh-l5-u02',
       'zh-l5-u03',
+      'zh-l5-u04',
+      'zh-l5-u05',
+      'zh-l5-u06',
       'zh-l6-u01',
       'zh-l6-u02',
       'zh-l6-u03',
       'zh-l6-u04',
+      'zh-l6-u05',
+      'zh-l6-u06',
+      'zh-l6-u07',
       'zh-l7-u01',
       'zh-l7-u02',
       'zh-l7-u03',
@@ -207,9 +214,28 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
     ]);
   });
 
-  // ── L4 단어(单词) ─────────────────────────────────────────────────────────
-  it('L4 = 단어 유닛(word) 3개, 각 낱말 놀이(연습 + 그리기 + 짝 찾기)', () => {
-    for (const id of ['zh-l4-u01', 'zh-l4-u02', 'zh-l4-u03']) {
+  // ── 낱말 유닛(单词) — L4 CV + L5/L6 복운모·비운모 구체 낱말 ─────────────────────
+  const wordUnitIds = getAllChineseUnits()
+    .filter((u) => isWordUnit(u.id))
+    .map((u) => u.id);
+
+  it('낱말 유닛(word)은 L4 3 + L4확장 1 + L5 3 + L6 3 = 10개', () => {
+    expect(wordUnitIds).toEqual([
+      'zh-l4-u01',
+      'zh-l4-u02',
+      'zh-l4-u03',
+      'zh-l4-u04',
+      'zh-l5-u04',
+      'zh-l5-u05',
+      'zh-l5-u06',
+      'zh-l6-u05',
+      'zh-l6-u06',
+      'zh-l6-u07',
+    ]);
+  });
+
+  it('낱말 유닛 = 낱말 놀이(연습 + 그리기 + 짝 찾기), 전부 play 섹션', () => {
+    for (const id of wordUnitIds) {
       expect(isWordUnit(id)).toBe(true);
       expect(isToneUnit(id)).toBe(false);
       expect(isBlendUnit(id)).toBe(false);
@@ -220,19 +246,20 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
         'game-connect-dots',
         'game-line-matching',
       ]);
-      // 전부 「낱말 놀이」 섹션(익히기 없음 — 소리는 L1~L3 에서 배웠다).
       expect(plan.activities.every((a) => a.section === 'play')).toBe(true);
       expect(getChineseRequiredActivities(id)).toEqual(['word-practice']);
     }
   });
 
-  it('L4 낱말은 전부 한자·삽화 슬러그를 가진다(카드에 병기 · 삽화 매칭)', () => {
-    for (const id of ['zh-l4-u01', 'zh-l4-u02', 'zh-l4-u03']) {
+  it('낱말 유닛 낱말은 전부 한자·삽화 슬러그를 가진다(카드에 병기 · 삽화 매칭)', () => {
+    for (const id of wordUnitIds) {
       const words = getChineseUnit(id)!.targetWords;
+      expect(words.length, `${id} 낱말 없음`).toBeGreaterThan(0);
       for (const w of words) {
         const info = L4_WORDS[w.normalize('NFC')];
         expect(info, `${w} 매핑 누락`).toBeTruthy();
-        expect(hanziFor(w)).toBe(info.hanzi);
+        expect(hanziFor(w)).toBe(info!.hanzi);
+        expect(info!.slug, `${w} 슬러그 없음`).toBeTruthy();
       }
     }
   });

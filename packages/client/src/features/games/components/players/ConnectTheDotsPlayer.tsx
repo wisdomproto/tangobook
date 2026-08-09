@@ -153,9 +153,12 @@ function ConnectTheDotsPlayer({
       const ko = storybook?.key_objects?.find(
         (k) => k.name?.toLowerCase() === objLower || k.nameEn?.toLowerCase() === objLower
       );
-      const directUrl =
+      const keyObjTts =
         ko?.ttsUrls?.[target.lang] ?? (target.lang === 'ko' ? ko?.ttsUrl : undefined);
-      out.push({ text: target.text, directUrl });
+      // 🔴 완성음(`triggerComplete`)이 `it.ttsUrl`(파닉스 = mod_chinese/mod_phonics 직행)을 우선하므로
+      //    프리워밍도 같은 URL 을 데운다 — 예전엔 key_object 만 봐서 파닉스(key_objects 없음)가 concat
+      //    'english' 경로로 새 병음/한글을 못 찾아 400 실패했고 완성음도 안 데워졌다(game-reviewer 발견).
+      out.push({ text: target.text, directUrl: it.ttsUrl ?? keyObjTts });
     }
     return out;
   }, [items, resolveSpeakTarget, storybook]);
