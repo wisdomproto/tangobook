@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { composeHangul } from '@tangobook/shared';
 import { resolveTtsUrl } from '@/features/tts';
+import { playUi } from '@/lib/uiSound';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
@@ -14,6 +15,11 @@ interface Props {
   cards: ReadonlyArray<ReviewCard>;
   // 'zh' = 병음 — 목표 글자 소리는 `card.sound`(ā·ō) 를 `mod_chinese` 직행으로 읽는다.
   language?: 'korean' | 'english' | 'zh';
+  /**
+   * 🔴 방해꾼을 **이 풀에서만** 뽑는다(2026-08-09 사용자) — `lookalikesOf` 의 가짜 조합(oe·ae) 대신
+   * 실제로 배우는 rime(ee·ea·oa…). 넘기면 lookalikes 를 안 섞는다. 미지정이면 기존 lookalikes 동작.
+   */
+  distractors?: readonly string[];
   onComplete: () => void;
   onBack: () => void;
 }
@@ -40,6 +46,7 @@ export function LetterHuntActivity({
   unitId,
   cards,
   language = 'korean',
+  distractors,
   onComplete,
   onBack,
 }: Props) {
@@ -75,18 +82,27 @@ export function LetterHuntActivity({
   );
 
   const card = hunt[round];
+  const distractorsKey = (distractors ?? []).join('|');
+  const distractorsRef = useRef(distractors);
+  distractorsRef.current = distractors;
   // 🔴 판은 라운드가 바뀔 때만 새로 짠다 — 렌더마다 만들면 누를 때마다 글자가 춤춘다.
   const board = useMemo(() => {
     const list = cardsRef.current.slice(0, MAX_ROUNDS);
     const target = list[round];
     if (!target) return [];
+    const pool = distractorsRef.current;
+    // 🔴 방해꾼 풀이 오면 그것만(진짜 배우는 rime) — 가짜 조합(oe·ae)을 안 섞는다.
+    const others = pool
+      ? pool.filter((c) => c !== target.letter)
+      : list.filter((c) => c.letter !== target.letter).map((c) => c.letter);
     return buildHuntBoard({
       target: target.letter,
-      others: list.filter((c) => c.letter !== target.letter).map((c) => c.letter),
+      others,
       size: SIZE,
       targets: TARGETS,
+      noLookalikes: !!pool,
     });
-  }, [round, lettersKey]);
+  }, [round, lettersKey, distractorsKey]);
   // 🔴 칸 글자 크기 = 판에서 가장 긴 토큰 기준. 한 글자(Book 2)는 크게, 3~4글자 패턴(Book 3~5)은 줄여
   //    칸(14vw/13vh)을 안 넘게. 폭 usable≈12vw·11vh, 글자폭≈0.6em → font ≤ usable/(len×0.6).
   const cellFont = useMemo(() => {
@@ -127,7 +143,13 @@ export function LetterHuntActivity({
         storybookId: unitId,
         identifierPrefix: 'letter-hunt',
       });
-      playAudio(url, onEnded);
+      // 🔴 라이브러리에 없는 방해꾼(oe·eck·eb…)은 무음이라 "왜 얜 소리가 안 나?" 가 된다
+      //    (2026-08-09 사용자). 읽을 게 없으면 가벼운 뾱(tap)이라도 내고 체인은 이어간다.
+      if (url) playAudio(url, onEnded);
+      else {
+        playUi('tap');
+        onEnded?.();
+      }
     },
     [language, unitId, playAudio]
   );

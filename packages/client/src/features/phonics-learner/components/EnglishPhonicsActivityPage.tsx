@@ -8,6 +8,7 @@ import {
   wordMatchesPattern,
   patternWriteOrder,
   getUnitPatterns,
+  englishRimePool,
 } from '../lib/english-phonics-units';
 import { shuffleReviewCards } from '../lib/korean-phonics-units';
 import type { ActivityDef } from '../lib/korean-phonics-units';
@@ -365,6 +366,8 @@ export default function EnglishPhonicsActivityPage() {
         unitId={unitId}
         cards={patternCards}
         language="english"
+        // 🔴 낱말 기반 권은 방해꾼을 **커리큘럼 rime**(ee·ea·oa…)에서만 — 가짜 조합(oe·ae) 무음 방지.
+        distractors={isWordBook ? englishRimePool() : undefined}
         onComplete={handleComplete}
         onBack={backToUnit}
       />

@@ -176,10 +176,13 @@ export function buildHuntBoard(opts: {
   size?: number;
   targets?: number;
   rand?: () => number;
+  /** 🔴 `others` 만으로 방해꾼을 채운다 — `lookalikesOf` 의 가짜 조합(oe·ae…)을 안 섞는다. */
+  noLookalikes?: boolean;
 }): string[] {
-  const { target, others = [], size = 18, targets = 5, rand = Math.random } = opts;
+  const { target, others = [], size = 18, targets = 5, rand = Math.random, noLookalikes } = opts;
   const need = Math.max(0, size - targets);
-  const pool = [...new Set([...lookalikesOf(target), ...others])].filter((c) => c && c !== target);
+  const base = noLookalikes ? others : [...lookalikesOf(target), ...others];
+  const pool = [...new Set(base)].filter((c) => c && c !== target);
   const fill: string[] = [];
   if (pool.length) {
     // 헷갈리는 짝부터 한 바퀴 다 쓰고, 모자라면 다시 돈다(같은 글자가 두 번 나와도 무방).

@@ -338,6 +338,27 @@ export function getUnitPatterns(unitId: string): string[] {
 }
 
 /**
+ * 🔴 **글자 사냥 방해꾼 풀 = 커리큘럼 전체 rime**(2026-08-09 사용자: "방해꾼을 다른 데서 배우는 걸로").
+ * `lookalikesOf` 는 모음/끝소리를 무작위 교체해 `oe`·`ae`·`ie` 같은 **안 배우는 가짜 조합**을 만들고,
+ * 그런 토큰은 라이브러리에 없어 눌러도 무음이었다. 대신 실제로 배우는 rime(ee·ea·oa·ow·ake·bl…)만
+ * 방해꾼으로 쓴다 — 전부 음원이 있고(대부분) 파닉스적으로도 진짜 헷갈릴 짝이다. 낱글자(Book1)는 뺀다.
+ */
+let _rimePool: string[] | null = null;
+export function englishRimePool(): string[] {
+  if (_rimePool) return _rimePool;
+  const set = new Set<string>();
+  for (const u of getCurriculumUnits()) {
+    for (const p of u.patterns) {
+      const core = p.replace(/_/g, '').toLowerCase();
+      if (core.length >= 2) set.add(core);
+    }
+  }
+  for (const pats of Object.values(BOOK2_PATTERNS)) for (const p of pats) set.add(p.vc);
+  _rimePool = [...set];
+  return _rimePool;
+}
+
+/**
  * 🔴 낱말의 **찾을/들을 패턴 토큰** — 글자 사냥·듣고 글자가 Book 3~5 에서 **낱말(`bake`)이 아니라
  * 패턴(`ake`)** 을 다루게 한다(2026-08-09 사용자: "rake 가 아니라 ake 찾게 해야지". Book 2 가 an/at 를
  * 찾는 것과 같은 결). `bake`+`_ake`→`ake` · `black`+`bl_`→`bl` · `feet`+`ee`→`ee`. 매칭 패턴이 없으면 낱말.
