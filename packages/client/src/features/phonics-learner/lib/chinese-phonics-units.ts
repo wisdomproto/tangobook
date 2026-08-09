@@ -12,7 +12,7 @@
  *    L2~L5(성모 블렌딩·게임)는 후속.
  */
 import { CHINESE_PHONICS_CURRICULUM } from '@tangobook/shared';
-import type { ActivityPlan } from './korean-phonics-units';
+import type { ActivityDef, ActivityPlan } from './korean-phonics-units';
 
 export interface ChineseUnitSummary {
   id: string; // 'zh-l1-u01'
@@ -24,6 +24,10 @@ export interface ChineseUnitSummary {
   phonemes: string[];
   patterns: string[];
   targetWords: string[];
+  /** 복습 단원인가 (커리큘럼에 없는 파생 단원). 낱말 유닛만 레벨별로 묶어 만든다. */
+  isReview?: boolean;
+  /** 복습 단원이 되짚는 낱말 유닛 ID 들 — 호스트가 이걸로 storybook(그림·음원)을 로드한다. */
+  coveredUnitIds?: string[];
 }
 
 /** 화면에 깔리는 병음 카드 한 장 — `label`=보이는 병음, `sound`=발음(mp3) 조회 키. */
@@ -145,6 +149,76 @@ const TONE_MARKS: Record<string, string[]> = {
   ü: ['ǖ', 'ǘ', 'ǚ', 'ǜ'],
 }; // ponytail: L1 성조 유닛(ma)만 씀 — 필요할 때 성모 유닛에서 재사용
 
+/** NFD 성조 결합부호 → 성조 번호(1~4). 경성(무표기)은 없음. 코드포인트로 명시(눈에 안 보이는 결합문자 함정 회피). */
+const TONE_COMBINING: Record<string, number> = {
+  '̄': 1, // macron ˉ 고평
+  '́': 2, // acute ˊ 상승
+  '̌': 3, // caron ˇ 하강상승
+  '̀': 4, // grave ˋ 하강
+};
+const COMBINING_DIAERESIS = '̈'; // ü 의 ¨
+
+/**
+ * 병음 낱말 → 그 낱말이 실제로 낸 **성조 부호**(māo → 'ā'). 「성조 듣고 고르기」의 정답.
+ *
+ * NFD 로 풀어 성조 결합부호를 찾고, 그 앞의 모음(nucleus)에 같은 성조를 얹은 부호를 돌려준다.
+ * ü(u+¨)는 다이어레시스가 붙은 u 로 감지해 ü 성조표를 쓴다. 성조가 없으면(경성) undefined.
+ */
+export function toneMarkOf(pinyin: string): string | undefined {
+  let nucleus = '';
+  let hasDiaeresis = false;
+  let tone = 0;
+  for (const ch of pinyin.normalize('NFD')) {
+    if (/[aeiou]/i.test(ch)) {
+      nucleus = ch.toLowerCase();
+      hasDiaeresis = false;
+    } else if (ch === COMBINING_DIAERESIS) {
+      hasDiaeresis = true;
+    } else if (TONE_COMBINING[ch]) {
+      tone = TONE_COMBINING[ch];
+      break;
+    }
+  }
+  if (!nucleus || !tone) return undefined;
+  const key = hasDiaeresis && nucleus === 'u' ? 'ü' : nucleus;
+  return TONE_MARKS[key]?.[tone - 1];
+}
+
+const VOWELS = new Set(['a', 'e', 'i', 'o', 'u']);
+
+/**
+ * 병음 낱말의 nucleus(성조가 얹히는 모음)에 성조 `n`(1~4)을 얹은 형태 — 「성조 듣고 고르기」의 4형 보기.
+ *   withTone('māo', 2) → 'máo' · withTone('niú', 3) → 'niǔ'(iu 는 성조가 u) · withTone('shuǐ', 4) → 'shuì'.
+ *
+ * NFD 로 풀어 기존 성조부호를 떼고, 성조가 얹혔던 모음(없으면 마지막 모음) 자리에 새 성조를 얹는다.
+ * nucleus 판정은 `toneMarkOf` 와 같은 규칙(성조부호가 얹힌 모음 = tone-bearing).
+ */
+export function withTone(pinyin: string, n: number): string {
+  const base: string[] = [];
+  const diaeresis = new Set<number>(); // base 인덱스 → ü(u+¨)
+  let toneVowel = -1;
+  let lastVowel = -1;
+  for (const ch of pinyin.normalize('NFD')) {
+    if (VOWELS.has(ch.toLowerCase())) {
+      base.push(ch);
+      lastVowel = base.length - 1;
+    } else if (ch === COMBINING_DIAERESIS) {
+      if (lastVowel >= 0) diaeresis.add(lastVowel);
+    } else if (TONE_COMBINING[ch]) {
+      toneVowel = lastVowel; // 기존 성조부호는 버린다(base 에 안 넣는다)
+    } else {
+      base.push(ch);
+    }
+  }
+  const idx = toneVowel >= 0 ? toneVowel : lastVowel;
+  if (idx < 0) return pinyin;
+  const key = diaeresis.has(idx) && base[idx].toLowerCase() === 'u' ? 'ü' : base[idx].toLowerCase();
+  const toned = TONE_MARKS[key]?.[n - 1];
+  if (!toned) return pinyin;
+  base[idx] = toned; // TONE_MARKS 는 ü 성조까지 합자(ǖǘǚǜ)라 다이어레시스를 따로 안 붙인다
+  return base.join('').normalize('NFC');
+}
+
 /**
  * 整体认读(통독) 16음절 × 4성 — L7. 성모+운모로 안 쪼개지는 whole-read 음절이라 blendClips 를 못 쓴다.
  * 배우기가 **4성을 순서로** 들려준다(단운모 운모 놀이판과 같은 리듬). 전 성조 클립 mod_chinese 실존(64/64 확인).
@@ -158,7 +232,8 @@ const WHOLE_READ_TONES: Record<string, string[]> = {
   yin: ['yīn', 'yín', 'yǐn', 'yìn'], yun: ['yūn', 'yún', 'yǔn', 'yùn'], ying: ['yīng', 'yíng', 'yǐng', 'yìng'],
 }; // prettier-ignore
 
-export function getAllChineseUnits(): ChineseUnitSummary[] {
+/** 커리큘럼 단원만 (복습 제외) — 복습 묶음을 만드는 원본. */
+function getCurriculumUnits(): ChineseUnitSummary[] {
   const out: ChineseUnitSummary[] = [];
   for (const level of CHINESE_PHONICS_CURRICULUM) {
     const levelIndex = Number(String(level.level).replace(/\D/g, '')) || 0;
@@ -176,6 +251,47 @@ export function getAllChineseUnits(): ChineseUnitSummary[] {
         targetWords: [...(u.sampleWords ?? [])],
       });
     }
+  }
+  return out;
+}
+
+/**
+ * 모든 병음 unit + 복습 단원을 학습 순서대로.
+ *
+ * 🔴 **복습 = 낱말 유닛만 레벨별로 묶는다**(소리 유닛은 그림이 없어 복습 게임 대상이 아니다).
+ *    한 레벨의 낱말 유닛(L4 u01~u04 · L5 u04~u06 · L6 u05~u07)을 그 레벨의 **마지막 낱말 유닛 뒤에**
+ *    한 복습 단원으로 끼운다(한글과 동일 — 사이드바에서 단원처럼 보인다).
+ * 🔴 여기선 `isWordUnit`(=getChineseUnit→getAllChineseUnits 재귀)를 부르지 않는다 — `patterns` 를 직접 본다.
+ */
+export function getAllChineseUnits(): ChineseUnitSummary[] {
+  const base = getCurriculumUnits();
+  // 레벨별 마지막 낱말 유닛 id → 그 뒤에 붙일 복습 단원
+  const reviewAfter = new Map<string, ChineseUnitSummary>();
+  for (const level of CHINESE_PHONICS_CURRICULUM) {
+    const levelKey = String(level.level);
+    const wordUnits = base.filter((u) => u.levelKey === levelKey && u.patterns.includes('word'));
+    if (!wordUnits.length) continue;
+    const last = wordUnits[wordUnits.length - 1];
+    reviewAfter.set(last.id, {
+      id: `zh-l${last.levelIndex}-r1`,
+      levelKey,
+      levelName: level.name,
+      levelIndex: last.levelIndex,
+      unitIndexInLevel: last.unitIndexInLevel, // 사이드바는 복습에 🏅 를 쓰므로 번호는 안 보인다
+      unitTitle: '복습',
+      phonemes: [],
+      patterns: ['review'],
+      targetWords: wordUnits.flatMap((u) => u.targetWords),
+      isReview: true,
+      coveredUnitIds: wordUnits.map((u) => u.id),
+    });
+  }
+
+  const out: ChineseUnitSummary[] = [];
+  for (const u of base) {
+    out.push(u);
+    const review = reviewAfter.get(u.id);
+    if (review) out.push(review);
   }
   return out;
 }
@@ -434,12 +550,47 @@ function makeWordPlan(): ActivityPlan {
   };
 }
 
+/** 복습 단원인가 — 낱말 유닛만 레벨별로 묶은 파생 단원(그림·음원이 있어야 게임이 성립). */
+export function isReviewUnit(unitId: string): boolean {
+  return getChineseUnit(unitId)?.isReview ?? false;
+}
+
 /**
- * 유닛 → plan. 성조 유닛 = 배우기 + 성조 고르기 / 병음조합 = 배우기 + 듣고 고르기 /
+ * 복습 단원 plan — 🔴 **게임만 넣는다**(한글 복습과 동일 규칙). 낱말 유닛의 그림·병음·mod_chinese
+ * 음원을 되짚어, 형식이 다른 다섯 활동으로 논다:
+ *  ① 글자 사냥 — 헷갈리는 병음(같은 음절 다른 성조·혼동 운모) 사이에서 목표 병음 찾기 (모양·성조 변별)
+ *  ② 뒤집기 짝 맞추기 — 병음 ↔ 그림 기억 인출
+ *  ③ 듣고 낱말 맞추기 — 낱말 소리를 듣고 병음 4개 중 고르기 (소리→글자)
+ *  ④ 그림 짝 찾기 — 병음 ↔ 그림 잇기
+ *  ⑤ 성조 듣고 고르기 — 낱말 소리를 듣고 그 성조 부호 고르기 (한글엔 없는 병음 고유 축)
+ * 🔴 듣기(③·⑤)를 붙여 두지 않는다 — 사이에 눈으로 보는 ④를 끼운다(한글 복습과 같은 배치 규칙).
+ */
+function makeChineseReviewPlan(): ActivityPlan {
+  const play = (
+    order: number,
+    key: string,
+    kind: ActivityDef['kind'],
+    title: string,
+    emoji: string
+  ): ActivityDef => ({ order, key, kind, section: 'play', title, emoji, required: true });
+  return {
+    activities: [
+      play(1, 'letter-hunt', 'letter-hunt', '글자 사냥', '🔎'),
+      play(2, 'review-flip', 'review-flip', '뒤집기 짝 맞추기', '🎴'),
+      play(3, 'review-word-listen', 'review-word-listen', '듣고 낱말 맞추기', '🔊'),
+      play(4, 'review-match', 'review-match', '그림 짝 찾기', '🔗'),
+      play(5, 'tone-choice', 'tone-choice-review', '성조 듣고 고르기', '🎵'),
+    ],
+  };
+}
+
+/**
+ * 유닛 → plan. 복습 = 게임 5종 / 성조 유닛 = 배우기 + 성조 고르기 / 병음조합 = 배우기 + 듣고 고르기 /
  * 단어(L4) = 낱말 놀이(연습+게임 2) / 그 외(단운모·성모) = 배우기 + 따라쓰기 + 사냥.
  * 🔴 성모에 2글자(zh/ch/sh)가 섞이면 따라쓰기를 빼고 배우기·사냥만 둔다(위 `makeNoWritePlan`).
  */
 function planForUnit(u: ChineseUnitSummary): ActivityPlan {
+  if (u.isReview) return makeChineseReviewPlan();
   if (u.patterns.includes('tones')) return makeTonePlan();
   if (u.patterns.includes('word')) return makeWordPlan();
   // 通读(整体认读) = blend 와 같은 배우기 + 듣고 고르기(쓰기·사냥 없음).

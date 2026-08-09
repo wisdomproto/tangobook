@@ -14,6 +14,9 @@ import {
   type PinyinCard,
 } from '../lib/chinese-phonics-units';
 import type { ActivityDef, ReviewCard } from '../lib/korean-phonics-units';
+import { useChineseReviewSources } from '../hooks/useChineseReviewSources';
+import { ReviewFlipMatchActivity } from '../activities/ReviewFlipMatchActivity';
+import { ToneChoiceReviewActivity } from '../activities/ToneChoiceReviewActivity';
 import { markActivityCompleted } from '../lib/progress-store';
 import { getChineseSyllableUrl } from '@/features/games/hooks/usePhonicsMap';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
@@ -42,6 +45,20 @@ import { useLogEvent } from '@/features/learning/hooks/useLogEvent';
  *    `ttsUrl` 로 넘긴다(word-listen·write). 글자 사냥은 컴포넌트가 `resolveTtsUrl(zh)` 로 직접 읽는다.
  * 🔴 안내·칭찬은 한국어(아이가 알아듣는 말) — 병음은 소리(카드)로만 등장한다.
  */
+/** 복습 듣기의 보기 수 — 보기가 병음·성조부호(그림 X)라 학습 단원(3장)보다 하나 더. */
+const REVIEW_CHOICES = 4;
+/** 복습 짝 맞추기의 쌍 수 — 4~7세 한 화면 한계(한/영 복습과 동일). */
+const REVIEW_PAIRS = 4;
+
+function shuffleArr<T>(arr: ReadonlyArray<T>): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 export default function ChinesePhonicsActivityPage() {
   const { unitId = '', activityKey = '' } = useParams<{ unitId: string; activityKey: string }>();
   const navigate = useNavigate();
@@ -57,6 +74,30 @@ export default function ChinesePhonicsActivityPage() {
   const wordUnit = isWordUnit(unitId);
   const storybookQuery = useStorybook(wordUnit ? unitId : undefined);
   const storybook = storybookQuery.data as Storybook | undefined;
+
+  // 복습 단원 — 되짚는 낱말 유닛들의 그림·음원을 로드한다(early return 앞에서 호출 — 훅 순서 고정).
+  // 🔴 unit 은 렌더마다 새 객체라 coveredUnitIds 신원이 매번 바뀐다 → id 목록(내용)으로 안정화한다.
+  const reviewUnit = !!unit?.isReview;
+  const coveredKey = (unit?.coveredUnitIds ?? []).join(',');
+  const coveredIds = useMemo(() => (coveredKey ? coveredKey.split(',') : []), [coveredKey]);
+  const { sources: rawReviewSources, isLoading: reviewLoading } =
+    useChineseReviewSources(coveredIds);
+  // 🔴 진입당 한 번만 섞는다 — 렌더마다 섞으면 뒤집기 판이 춤춘다(한글 복습과 같은 규칙).
+  const reviewSources = useMemo(() => shuffleArr(rawReviewSources), [rawReviewSources]);
+  // 🔎 글자 사냥 판 — 낱말(병음)만으로 즉시. 소스(storybook)를 안 기다린다.
+  const reviewHuntCards = useMemo<ReviewCard[]>(
+    () =>
+      reviewUnit
+        ? shuffleArr(unit?.targetWords ?? []).map((w) => ({
+            unitId,
+            letter: w,
+            syllable: w,
+            sound: w,
+            matchPosition: 'cho' as const,
+          }))
+        : [],
+    [reviewUnit, coveredKey, unitId]
+  );
   // 🔴 게임 데이터는 **한 번만** 뽑는다 — 어댑터가 내부에서 shuffle().slice(0,4) 하므로 렌더마다 부르면
   //    다른 낱말이 뽑혀 진입 게이트 자산 키가 바뀌고 판이 리셋된다(Korean 과 같은 memo).
   const gameMemoRef = useRef<{ key: string; data: unknown } | null>(null);
@@ -250,6 +291,134 @@ export default function ChinesePhonicsActivityPage() {
         <ConnectTheDotsPlayer {...commonProps} gameData={gameData} lang="zh" />
       );
     }
+    return <ChineseUnavailable activity={activity} onBack={backToUnit} reason="아직 준비 중" />;
+  }
+
+  // ── 복습 단원 = 게임 5종(낱말 유닛의 그림·병음·mod_chinese 음원을 되짚는다) ─────────────────
+  if (reviewUnit) {
+    // 🔎 글자 사냥 — 소스 없이 낱말(병음)만으로 즉시 렌더(그림 없는 단원에서도 돈다).
+    if (activity.kind === 'letter-hunt') {
+      return (
+        <LetterHuntActivity
+          unitId={unitId}
+          cards={reviewHuntCards}
+          language="zh"
+          onComplete={handleGameComplete}
+          onBack={backToUnit}
+        />
+      );
+    }
+    // 나머지 4종 = 되짚는 낱말의 그림·음원이 필요하다(그림·음원 프리로드 후 렌더).
+    if (reviewLoading) {
+      return (
+        <div className="fixed inset-0 z-[60] flex flex-col items-center justify-center gap-3 bg-gradient-to-b from-cream-50 to-peach-100 text-center">
+          <div className="text-6xl">{activity.emoji}</div>
+          <h2 className="text-2xl sm:text-3xl font-black text-ink-900">{activity.title}</h2>
+          <p className="text-base font-bold text-ink-500">불러오는 중…</p>
+        </div>
+      );
+    }
+    const withImage = reviewSources.filter((s) => s.imageUrl);
+
+    // 🎴 뒤집기 짝 맞추기 — 병음(글자면) ↔ 그림. letterFace=false 라 앞면이 병음 낱말이다.
+    if (activity.kind === 'review-flip') {
+      if (withImage.length < 3)
+        return (
+          <ChineseUnavailable
+            activity={activity}
+            onBack={backToUnit}
+            reason="낱말 그림이 필요해요"
+          />
+        );
+      return (
+        <ReviewFlipMatchActivity
+          unitId={unitId}
+          language="zh"
+          sources={withImage}
+          onComplete={handleGameComplete}
+          onBack={backToUnit}
+        />
+      );
+    }
+
+    // 🔊 듣고 낱말 맞추기 — 낱말 소리를 듣고 병음 4개 중 고르기. 그림은 **맞힌 뒤에만**(소리→글자 방향).
+    if (activity.kind === 'review-word-listen') {
+      const words = reviewSources.filter((s) => s.word);
+      if (words.length < 3)
+        return (
+          <ChineseUnavailable activity={activity} onBack={backToUnit} reason="낱말이 필요해요" />
+        );
+      return (
+        <WordListenChooseActivity
+          unitId={unitId}
+          language="zh"
+          items={words.map((s) => ({
+            id: s.word,
+            label: s.word,
+            sublabel: s.hanzi,
+            sound: s.word,
+            revealImageUrl: s.imageUrl,
+            ...(s.ttsUrl ? { ttsUrl: s.ttsUrl } : {}),
+          }))}
+          choices={REVIEW_CHOICES}
+          onMarkComplete={handleMarkComplete}
+          onBack={backToUnit}
+        />
+      );
+    }
+
+    // 🔗 그림 짝 찾기 — 병음 ↔ 그림. lang="zh" — 낱말 소리는 flashcard ttsUrl(mod_chinese) 직행.
+    if (activity.kind === 'review-match') {
+      if (withImage.length < 3)
+        return (
+          <ChineseUnavailable
+            activity={activity}
+            onBack={backToUnit}
+            reason="낱말 그림이 필요해요"
+          />
+        );
+      return (
+        <LineMatchingPlayer
+          storybookId={unitId}
+          difficulty="easy"
+          lang="zh"
+          onComplete={handleGameComplete}
+          onBack={backToUnit}
+          gameData={{
+            type: 'korean-line-matching',
+            items: withImage.slice(0, REVIEW_PAIRS).map((s) => ({
+              word: s.word,
+              imageUrl: s.imageUrl,
+              imageLabel: s.word,
+              ...(s.ttsUrl ? { ttsUrl: s.ttsUrl } : {}),
+            })),
+          }}
+        />
+      );
+    }
+
+    // 🎵 성조 듣고 고르기 — 낱말 소리를 듣고 **그 낱말의 4성 변이**(māo·máo·mǎo·mào) 중 원래 낱말을
+    //    고른다. 문항마다 보기가 그 낱말의 4형이라 성조만 변별한다(모음 confound 없음).
+    if (activity.kind === 'tone-choice-review') {
+      const words = reviewSources.filter((s) => s.word).slice(0, REVIEW_CHOICES);
+      if (words.length < 2)
+        return (
+          <ChineseUnavailable
+            activity={activity}
+            onBack={backToUnit}
+            reason="성조를 뽑을 낱말이 필요해요"
+          />
+        );
+      return (
+        <ToneChoiceReviewActivity
+          unitId={unitId}
+          words={words.map((s) => ({ word: s.word, ...(s.ttsUrl ? { ttsUrl: s.ttsUrl } : {}) }))}
+          onMarkComplete={handleMarkComplete}
+          onBack={backToUnit}
+        />
+      );
+    }
+
     return <ChineseUnavailable activity={activity} onBack={backToUnit} reason="아직 준비 중" />;
   }
 

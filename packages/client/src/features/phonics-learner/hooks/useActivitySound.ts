@@ -13,7 +13,8 @@ export const REST_MS = 430;
 
 interface Options {
   unitId: string;
-  language?: 'korean' | 'english';
+  /** 콘텐츠 소리의 언어. 안내·칭찬은 별개(칭찬은 `en` 만 가르고 `zh`·`korean` 은 `ko`). */
+  language?: 'korean' | 'english' | 'zh';
   /** concat 캐시 키 접두사 — 활동마다 다르게(`consonant-tap`·`review-write`…). */
   prefix: string;
 }

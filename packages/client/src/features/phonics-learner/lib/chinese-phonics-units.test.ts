@@ -10,9 +10,12 @@ import {
   hanziFor,
   isBlendUnit,
   isInitialUnit,
+  isReviewUnit,
   isToneUnit,
   isWholeUnit,
   isWordUnit,
+  toneMarkOf,
+  withTone,
   L4_WORDS,
 } from './chinese-phonics-units';
 
@@ -37,12 +40,14 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       'zh-l4-u02',
       'zh-l4-u03',
       'zh-l4-u04',
+      'zh-l4-r1', // 🏅 L4 낱말 복습 — 마지막 낱말 유닛 뒤에 삽입
       'zh-l5-u01',
       'zh-l5-u02',
       'zh-l5-u03',
       'zh-l5-u04',
       'zh-l5-u05',
       'zh-l5-u06',
+      'zh-l5-r1', // 🏅 L5 낱말 복습
       'zh-l6-u01',
       'zh-l6-u02',
       'zh-l6-u03',
@@ -50,6 +55,7 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       'zh-l6-u05',
       'zh-l6-u06',
       'zh-l6-u07',
+      'zh-l6-r1', // 🏅 L6 낱말 복습
       'zh-l7-u01',
       'zh-l7-u02',
       'zh-l7-u03',
@@ -71,16 +77,87 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
     expect(isBlendUnit('zh-l6-u04')).toBe(true);
   });
 
-  // 🔴 plan 이 없으면 라우트로 도달해도 죽은 코드 — 모든 유닛이 도달 가능한 plan(첫 활동 word-listen-choose)을 갖는지.
-  it('모든 유닛의 plan 첫 활동 = 듣기/낱말 연습(word-listen-choose, required)', () => {
+  // 🔴 plan 이 없으면 라우트로 도달해도 죽은 코드 — 모든 유닛이 도달 가능한 plan 을 갖는지.
+  it('모든 유닛의 plan 첫 활동이 도달 가능(소리·낱말=word-listen-choose / 복습=letter-hunt)', () => {
     for (const u of getAllChineseUnits()) {
       const plan = getChineseActivityPlan(u.id);
-      expect(plan.activities.length).toBeGreaterThan(0);
+      expect(plan.activities.length, `${u.id} plan 비어 있음`).toBeGreaterThan(0);
+      if (u.isReview) {
+        // 복습은 소스(storybook) 없이도 도달 가능한 letter-hunt 로 시작한다.
+        expect(plan.activities[0].kind).toBe('letter-hunt');
+        expect(getChineseRequiredActivities(u.id)).toContain('letter-hunt');
+        continue;
+      }
       expect(plan.activities[0].kind).toBe('word-listen-choose');
       // 소리 유닛(L1~L3)=listen-choose / 단어 유닛(L4)=word-practice — 둘 다 required 로 도달 가능.
       const requiredKey = isWordUnit(u.id) ? 'word-practice' : 'listen-choose';
       expect(getChineseRequiredActivities(u.id)).toContain(requiredKey);
     }
+  });
+
+  // ── 복습 단원(낱말 유닛만 레벨별 청킹) ─────────────────────────────────────────
+  it('복습 = 레벨별 낱말 유닛 묶음(L4·L5·L6 각 1개), 마지막 낱말 유닛 뒤에 삽입', () => {
+    const units = getAllChineseUnits();
+    const reviews = units.filter((u) => u.isReview);
+    expect(reviews.map((u) => u.id)).toEqual(['zh-l4-r1', 'zh-l5-r1', 'zh-l6-r1']);
+    // coveredUnitIds = 그 레벨의 낱말 유닛 전부.
+    expect(units.find((u) => u.id === 'zh-l4-r1')!.coveredUnitIds).toEqual([
+      'zh-l4-u01',
+      'zh-l4-u02',
+      'zh-l4-u03',
+      'zh-l4-u04',
+    ]);
+    expect(units.find((u) => u.id === 'zh-l5-r1')!.coveredUnitIds).toEqual([
+      'zh-l5-u04',
+      'zh-l5-u05',
+      'zh-l5-u06',
+    ]);
+    expect(units.find((u) => u.id === 'zh-l6-r1')!.coveredUnitIds).toEqual([
+      'zh-l6-u05',
+      'zh-l6-u06',
+      'zh-l6-u07',
+    ]);
+    // 소리 유닛(L1~L3·L7)은 그림이 없어 복습 대상이 아니다.
+    expect(reviews.some((u) => u.levelIndex === 1 || u.levelIndex === 7)).toBe(false);
+    // isReviewUnit 판정.
+    expect(isReviewUnit('zh-l4-r1')).toBe(true);
+    expect(isReviewUnit('zh-l4-u01')).toBe(false);
+  });
+
+  it('복습 plan = 게임 5종(사냥·뒤집기·듣고 낱말·짝 찾기·성조 고르기), 전부 play', () => {
+    for (const id of ['zh-l4-r1', 'zh-l5-r1', 'zh-l6-r1']) {
+      const plan = getChineseActivityPlan(id);
+      expect(plan.activities.map((a) => a.kind)).toEqual([
+        'letter-hunt',
+        'review-flip',
+        'review-word-listen',
+        'review-match',
+        'tone-choice-review',
+      ]);
+      expect(plan.activities.every((a) => a.section === 'play')).toBe(true);
+      // 🔴 letter-hunt 는 소스(storybook) 없이 도달 가능해야 한다 — required 에 있고 첫 활동이다.
+      expect(plan.activities[0].kind).toBe('letter-hunt');
+    }
+  });
+
+  it('toneMarkOf: 병음 낱말 → 성조 부호 (nucleus + 실제 성조)', () => {
+    expect(toneMarkOf('māo')).toBe('ā'); // 1성, nucleus a
+    expect(toneMarkOf('niú')).toBe('ú'); // 2성 — iu 는 성조가 u 에 얹힌다
+    expect(toneMarkOf('shuǐ')).toBe('ǐ'); // 3성 — ui 는 성조가 i 에 얹힌다
+    expect(toneMarkOf('mù')).toBe('ù'); // 4성, nucleus u
+    expect(toneMarkOf('lǚ')).toBe('ǚ'); // 3성, nucleus ü(u+¨)
+  });
+
+  it('withTone: 낱말 nucleus 성조를 1~4 로 바꾼 4형 (성조만 변별, 모음 confound 없음)', () => {
+    // 한 낱말의 4형은 서로 다르고, 성조부호만 다르다.
+    expect([1, 2, 3, 4].map((n) => withTone('māo', n))).toEqual(['māo', 'máo', 'mǎo', 'mào']);
+    // iu 는 성조가 u 에, ui 는 i 에 얹힌다.
+    expect(withTone('niú', 3)).toBe('niǔ');
+    expect(withTone('shuǐ', 4)).toBe('shuì');
+    // 원래 낱말 = 그 실제 성조를 얹은 형(정답이 4형 안에 있다).
+    expect(withTone('mù', 4)).toBe('mù');
+    // ü 낱말도 합자 성조로.
+    expect(withTone('lǚ', 2)).toBe('lǘ');
   });
 
   it('성조 유닛(u01) = 듣고 배우기 + 성조 듣고 고르기', () => {

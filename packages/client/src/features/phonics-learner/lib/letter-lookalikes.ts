@@ -94,6 +94,37 @@ const CHINESE_LOOKALIKES: Record<string, string[]> = {
 const EN_VOWELS = ['a', 'e', 'i', 'o', 'u'];
 const EN_ENDINGS = ['t', 'n', 'p', 'd', 'g', 'm', 'b', 'ck'];
 
+/** 병음 성조표 — 각 행 [base, 1성, 2성, 3성, 4성]. 성조 변이 방해꾼을 만들 때 부호를 갈아 끼운다. */
+const PINYIN_TONE_ROWS = ['aāáǎà', 'oōóǒò', 'eēéěè', 'iīíǐì', 'uūúǔù', 'üǖǘǚǜ'];
+const PINYIN_TONE_RE = /[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ]/;
+
+/**
+ * 병음 낱말의 **성조·운모 혼동** 방해꾼 — 사전에 없으니 **구성으로** 만든다(교재의 진짜 혼동 대상):
+ *  · 같은 음절 다른 성조 (māo ↔ máo ↔ mǎo ↔ mào) — 성조부호만 교체
+ *  · 비운모 n/ng 혼동 (shān ↔ shāng, xīng ↔ xīn) — 끝의 g 추가/제거
+ */
+export function pinyinLookalikes(word: string): string[] {
+  const out: string[] = [];
+  const chars = [...word.normalize('NFC')];
+  // 성조 변이 — 성조가 얹힌 모음을 찾아 나머지 3성으로 교체.
+  for (let i = 0; i < chars.length; i++) {
+    const row = PINYIN_TONE_ROWS.find((r) => r.indexOf(chars[i]) > 0);
+    if (!row) continue;
+    const cur = row.indexOf(chars[i]); // 1..4
+    for (let t = 1; t <= 4; t++) {
+      if (t === cur) continue;
+      const c = [...chars];
+      c[i] = row[t];
+      out.push(c.join(''));
+    }
+    break;
+  }
+  // 비운모 혼동 — ng ↔ n.
+  if (word.endsWith('ng')) out.push(word.slice(0, -1));
+  else if (word.endsWith('n')) out.push(word + 'g');
+  return out;
+}
+
 /**
  * `letter` 와 헷갈리는 글자들. 사전에 없으면 모양이 아니라 **구성으로** 만든다:
  * 영어 word family(`at`)는 모음·끝소리를 갈아 끼운 것(`et`·`an`)이 곧 진짜 혼동 대상이다.
@@ -105,6 +136,12 @@ export function lookalikesOf(letter: string): string[] {
     ENGLISH_LOOKALIKES[letter.toLowerCase()];
   // 영어 복습 카드는 대문자('A')로 온다 — 판에 소문자만 깔리면 목표와 다른 글자로 보인다.
   if (direct) return /^[A-Z]$/.test(letter) ? direct.map((d) => d.toUpperCase()) : direct;
+
+  // 병음 낱말(성조부호 有) — 성조 변이 + 비운모 n/ng 혼동으로 구성한다.
+  if (PINYIN_TONE_RE.test(letter)) {
+    const py = pinyinLookalikes(letter);
+    if (py.length) return py;
+  }
 
   // 영어 word family — 'at' → 'et','it','an','ap' …
   const m = letter.toLowerCase().match(/^([aeiou])(.+)$/);

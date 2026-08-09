@@ -9,7 +9,7 @@ import { ActivityShell } from '../components/ActivityShell';
 interface Props {
   unitId: string;
   sources: ReadonlyArray<ReviewCardSource>;
-  language?: 'korean' | 'english';
+  language?: 'korean' | 'english' | 'zh';
   /**
    * 카드 앞면을 **낱말이 아니라 글자**로 — 영어 Book 1 처럼 **글자가 목표**인 권.
    * 🔴 낱말↔그림으로 짝을 지으면 알파벳을 한 번도 안 거치고 통과할 수 있다(사용자 지적:

@@ -150,6 +150,7 @@ export type ActivityKind =
   | 'review-listen'
   | 'review-match'
   | 'review-write'
+  | 'tone-choice-review'
   | 'cvc-pattern-learn'
   | 'cvc-pattern-write'
   | 'alphabet-letter-learn'
