@@ -64,9 +64,23 @@ const REVIEW_CHOICES = 4;
  */
 const REVIEW_PAIRS = 4;
 
-export default function EnglishPhonicsActivityPage() {
-  const { unitId = '', activityKey = '' } = useParams<{ unitId: string; activityKey: string }>();
-  const navigate = useNavigate();
+/**
+ * 🔴 **페이지에서 컴포넌트를 떼어냈다**(2026-08-10). 광고 랜딩(`PhonicsTryIt`)이 학습 화면을
+ *    상자 안에 그대로 얹으려면 `useParams` 가 아니라 **props 로 받는 컴포넌트**여야 한다.
+ *    한글은 진작 `KoreanPhonicsActivity` 로 갈라져 있었고 영어만 페이지 하나였다 —
+ *    같은 모양으로 맞춘다. 라우트는 아래 얇은 기본 export 가 그대로 맡는다.
+ */
+export interface EnglishPhonicsActivityProps {
+  unitId: string;
+  activityKey: string;
+  onExit: () => void;
+}
+
+export function EnglishPhonicsActivity({
+  unitId,
+  activityKey,
+  onExit,
+}: EnglishPhonicsActivityProps) {
   const unit = getEnglishUnit(unitId);
   const plan = getEnglishActivityPlan(unitId);
   const activity: ActivityDef | undefined = useMemo(
@@ -125,10 +139,7 @@ export default function EnglishPhonicsActivityPage() {
     return gameMemoRef.current.data as T;
   };
 
-  const backToUnit = useCallback(
-    () => navigate(`/library/phonics/english/${unitId}`),
-    [navigate, unitId]
-  );
+  const backToUnit = onExit;
   /**
    * 🔴 **활동을 마치면 학습 이벤트를 남긴다** (2026-07-27).
    * 예전엔 파닉스 학습 화면이 이벤트를 **하나도** 안 보냈다. 진척은 localStorage 에만 쌓여서,
@@ -774,4 +785,15 @@ function ActivityUnavailable({
       </div>
     </div>
   );
+}
+
+/** 라우트 `/library/phonics/english/:unitId/:activityKey` — 위 컴포넌트에 params 를 넘길 뿐이다. */
+export default function EnglishPhonicsActivityPage() {
+  const { unitId = '', activityKey = '' } = useParams<{ unitId: string; activityKey: string }>();
+  const navigate = useNavigate();
+  const onExit = useCallback(
+    () => navigate(`/library/phonics/english/${unitId}`),
+    [navigate, unitId]
+  );
+  return <EnglishPhonicsActivity unitId={unitId} activityKey={activityKey} onExit={onExit} />;
 }

@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { PhonicsEmbeddedProvider } from './ActivityShell';
 import { EmbedStage } from './EmbedStage';
 import { KoreanPhonicsActivity } from './KoreanPhonicsActivityPage';
+import { EnglishPhonicsActivity } from './EnglishPhonicsActivityPage';
 import { getActivityPlan } from '../lib/korean-phonics-units';
+import { getEnglishActivityPlan } from '../lib/english-phonics-units';
 
 /**
  * 블로그·랜딩 안에서 **진짜 학습 활동을 직접 해보는** 상자.
@@ -39,6 +41,11 @@ interface Props {
    * 선택지가 아니라 소음이다. 구간 마지막 상자에만 하나.
    */
   cta?: boolean;
+  /**
+   * 어느 파닉스인가. 🔴 **plan 과 호스트가 한 벌로 갈린다** — 한쪽만 바꾸면 영어 단원 id 로
+   * 한글 plan 을 뒤져 활동을 못 찾고 상자가 **조용히 사라진다**(`if (!activity) return null`).
+   */
+  language?: 'korean' | 'english';
 }
 
 /** 「합쳐지는 순간」 = 이 단원을 한 장면으로 보여주는 활동. 레벨마다 kind 가 다르다. */
@@ -49,7 +56,15 @@ const BLEND_KINDS = [
   'vowel-listen',
 ];
 
-export function PhonicsTryIt({ unitId, activityKey, title, height, note, cta }: Props) {
+export function PhonicsTryIt({
+  unitId,
+  activityKey,
+  title,
+  height,
+  note,
+  cta,
+  language = 'korean',
+}: Props) {
   const [done, setDone] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
 
@@ -80,7 +95,8 @@ export function PhonicsTryIt({ unitId, activityKey, title, height, note, cta }: 
     return () => io.disconnect();
   }, [activityKey, unitId]);
 
-  const plan = getActivityPlan(unitId);
+  const isEnglish = language === 'english';
+  const plan = isEnglish ? getEnglishActivityPlan(unitId) : getActivityPlan(unitId);
   const activity = activityKey
     ? plan.activities.find((a) => a.key === activityKey)
     : plan.activities.find((a) => BLEND_KINDS.includes(a.kind));
@@ -126,11 +142,19 @@ export function PhonicsTryIt({ unitId, activityKey, title, height, note, cta }: 
         height={activity.kind.startsWith('game-') ? '100dvh' : `min(${height ?? 500}px, 88dvh)`}
       >
         <PhonicsEmbeddedProvider value>
-          <KoreanPhonicsActivity
-            unitId={unitId}
-            activityKey={activity.key}
-            onExit={() => setDone(true)}
-          />
+          {isEnglish ? (
+            <EnglishPhonicsActivity
+              unitId={unitId}
+              activityKey={activity.key}
+              onExit={() => setDone(true)}
+            />
+          ) : (
+            <KoreanPhonicsActivity
+              unitId={unitId}
+              activityKey={activity.key}
+              onExit={() => setDone(true)}
+            />
+          )}
         </PhonicsEmbeddedProvider>
       </EmbedStage>
 
@@ -142,7 +166,7 @@ export function PhonicsTryIt({ unitId, activityKey, title, height, note, cta }: 
         </p>
         {cta && (
           <Link
-            to={`/library/phonics/korean/${unitId}`}
+            to={`/library/phonics/${isEnglish ? 'english' : 'korean'}/${unitId}`}
             className="inline-flex min-h-[44px] items-center rounded-full bg-coral-700 px-5 text-sm font-bold text-white shadow-sm transition hover:bg-coral-800"
           >
             앱에서 이어서 하기 →
