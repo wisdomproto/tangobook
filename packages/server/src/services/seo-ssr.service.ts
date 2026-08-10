@@ -42,6 +42,23 @@ export function hasAboutLang(storybook: Storybook, lang: string): boolean {
   return Boolean(sb.titleTranslations?.[lang] && sb.parentGuideTranslations?.[lang]);
 }
 
+/**
+ * `/:lang/...` 요청인데 그 언어 변형이 없을 때 무엇을 할지.
+ *
+ * 🔴 절대 SPA 셸을 200 으로 흘려보내지 않는다 — catch-all 이 거기에 self-canonical 을 박아
+ * "고유 페이지"라고 주장하게 되고, 내용은 모든 셸과 같으니 구글이 중복으로 떨군다
+ * (GSC "중복 페이지, 사용자와 다른 표준을 선택함" 306건의 정체, 2026-08-10).
+ * ko 원본이 있으면 그리로 301 해 신호를 모으고, 없으면 null → 404 UI.
+ */
+export function missingLangVariant(
+  lang: string,
+  koPath: string,
+  koExists: boolean
+): { redirect: string } | null {
+  if (lang === 'ko') return null; // ko 가 없다면 그건 진짜 404 다
+  return koExists ? { redirect: koPath } : null;
+}
+
 const LEVEL_INFO: Record<ReadingLevel, { label: string; age: string; min: number; max: number }> = {
   L1: { label: '씨앗', age: '3~4세', min: 3, max: 4 },
   L2: { label: '새싹', age: '4~6세', min: 4, max: 6 },

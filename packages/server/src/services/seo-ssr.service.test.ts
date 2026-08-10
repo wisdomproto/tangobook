@@ -7,6 +7,7 @@ import {
   renderBlogListSeo,
   renderHubSeo,
   hasAboutLang,
+  missingLangVariant,
   HUBS,
 } from './seo-ssr.service.js';
 import type { Storybook } from '@tangobook/shared';
@@ -426,5 +427,22 @@ describe('selfCanonicalizeHtml', () => {
   it('escapes quotes in the pathname to prevent attribute breakout', () => {
     const out = selfCanonicalizeHtml(INDEX_HTML, '/x"><script>');
     expect(out).not.toContain('/x"><script>');
+  });
+});
+
+describe('missingLangVariant — 언어 변형이 없을 때', () => {
+  // 🔴 이 셋이 깨지면 /:lang 셸이 다시 200 으로 나가고 GSC 중복이 재발한다.
+  it('ko 원본이 있으면 그리로 301', () => {
+    expect(missingLangVariant('en', '/library/1/about', true)).toEqual({
+      redirect: '/library/1/about',
+    });
+  });
+
+  it('ko 원본도 없으면 404 (null)', () => {
+    expect(missingLangVariant('en', '/blog/x', false)).toBeNull();
+  });
+
+  it('ko 요청 자체는 리다이렉트하지 않는다 — 그건 진짜 404', () => {
+    expect(missingLangVariant('ko', '/blog/x', true)).toBeNull();
   });
 });

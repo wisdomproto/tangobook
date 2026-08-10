@@ -170,15 +170,29 @@ export function createApp() {
     // SEO SSR-lite — about/블로그/허브 페이지에 meta/JSON-LD/본문 주입 (네이버 Yeti 등
     // JS 미실행 크롤러 대응). 실패 시 SPA 폴백. 상세 → seo-ssr.service.ts.
     let cachedIndexHtml: string | null = null;
+    /**
+     * 🔴 build 가 `{ redirect }` 를 주면 301 — 그 언어 변형이 없다는 뜻이다.
+     *
+     * 예전엔 null 만 있었고 그때 `next()` 로 SPA 셸을 200 으로 내보냈는데, catch-all 이
+     * 그 셸에 **self-canonical** 을 박아서 `/en/library/:id/about` 같은 URL 이 "고유 페이지"라고
+     * 주장했다. 내용은 모든 셸과 같으니 구글은 "중복 — 사용자와 다른 표준 선택"으로 떨궜다.
+     * 번역이 없으면 ko 원본으로 신호를 모으는 게 맞다.
+     */
     const sendSeo = async (
       res: express.Response,
       next: express.NextFunction,
-      build: () => Promise<import('./services/seo-ssr.service.js').AboutSeo | null>
+      build: () => Promise<
+        import('./services/seo-ssr.service.js').AboutSeo | null | { redirect: string }
+      >
     ) => {
       try {
         const seo = await build();
         if (!seo) {
           next(); // SPA 가 404 UI 처리
+          return;
+        }
+        if ('redirect' in seo) {
+          res.redirect(301, seo.redirect);
           return;
         }
         const { injectAboutSeo } = await import('./services/seo-ssr.service.js');
@@ -193,8 +207,11 @@ export function createApp() {
           .setHeader('Cache-Control', 'public, max-age=300')
           .type('html')
           .send(injectAboutSeo(cachedIndexHtml, seo));
-      } catch {
-        next(); // 어떤 실패든 SPA 폴백 — SEO 주입이 서비스를 죽이면 안 됨
+      } catch (err) {
+        // 🔴 조용히 삼키면 "SSR 이 되는 줄 알았는데 안 되는" 상태를 아무도 모른다.
+        // 폴백은 유지하되(SEO 주입이 서비스를 죽이면 안 된다) 이유는 남긴다.
+        console.warn(`[seo-ssr] ${res.req.originalUrl} 폴백:`, (err as Error).message);
+        next();
       }
     };
 
@@ -203,11 +220,15 @@ export function createApp() {
       (langFromPath: boolean) =>
       (req: express.Request, res: express.Response, next: express.NextFunction) =>
         sendSeo(res, next, async () => {
-          const { renderAboutSeo, hasAboutLang } = await import('./services/seo-ssr.service.js');
+          const { renderAboutSeo, hasAboutLang, missingLangVariant } =
+            await import('./services/seo-ssr.service.js');
           const { StorybookService } = await import('./services/storybook.service.js');
           const lang = langFromPath ? String(req.params.lang) : 'ko';
           const storybook = await StorybookService.getById(req.params.id as string);
-          if (!storybook || !hasAboutLang(storybook, lang)) return null;
+          if (!storybook) return null;
+          // 책은 있는데 그 언어 번역만 없다 → ko 원본으로 301 (ko about 은 언제나 있다).
+          if (!hasAboutLang(storybook, lang))
+            return missingLangVariant(lang, `/library/${storybook.id}/about`, true);
           return renderAboutSeo(storybook, lang);
         });
     app.get('/library/:id/about', aboutHandler(false));
@@ -242,8 +263,13 @@ export function createApp() {
           const { getPublishedBlog, blogLangs } =
             await import('./services/mkt/blog-public.service.js');
           const lang = langFromPath ? String(req.params.lang) : 'ko';
-          const post = await getPublishedBlog(String(req.params.slug), lang);
-          if (!post) return null;
+          const slug = String(req.params.slug);
+          const post = await getPublishedBlog(slug, lang);
+          if (!post) {
+            const { missingLangVariant } = await import('./services/seo-ssr.service.js');
+            const koExists = lang !== 'ko' && Boolean(await getPublishedBlog(slug, 'ko'));
+            return missingLangVariant(lang, `/blog/${encodeURIComponent(slug)}`, koExists);
+          }
           return renderBlogSeo(post, lang, await blogLangs(post.slug));
         });
     app.get('/blog/:slug', blogHandler(false));
@@ -253,10 +279,13 @@ export function createApp() {
       (langFromPath: boolean) =>
       (req: express.Request, res: express.Response, next: express.NextFunction) =>
         sendSeo(res, next, async () => {
-          const { renderHubSeo, HUBS, hubLangs } = await import('./services/seo-ssr.service.js');
+          const { renderHubSeo, HUBS, hubLangs, missingLangVariant } =
+            await import('./services/seo-ssr.service.js');
           const hub = HUBS[req.params.hub as keyof typeof HUBS];
           const lang = langFromPath ? String(req.params.lang) : 'ko';
-          if (!hub || !hubLangs().includes(lang)) return null;
+          if (!hub) return null;
+          if (!hubLangs().includes(lang))
+            return missingLangVariant(lang, `/guide/${req.params.hub}`, true);
           const { StorybookService } = await import('./services/storybook.service.js');
           // sitemap 과 동일한 공개 기준: variant(__L\d) 제외 + storybook 타입 + 공개
           const books = (await StorybookService.list()).filter(
