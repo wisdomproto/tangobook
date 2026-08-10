@@ -118,6 +118,8 @@ const PAY = () => import('../features/payment');
 const InviteLandingPage = lazy(() => PAY().then((m) => ({ default: m.InviteLandingPage })));
 const InviteFriendsPage = lazy(() => PAY().then((m) => ({ default: m.InviteFriendsPage })));
 const HangulLandingPage = lazy(() => import('../pages/HangulLandingPage'));
+/** 영어 파닉스 광고 랜딩 — 같은 이유로 lazy(뷰어·게임을 실제로 마운트한다). */
+const EnglishLandingPage = lazy(() => import('../pages/EnglishLandingPage'));
 import { GlobalUiSound } from '../components/GlobalUiSound';
 import { GuestEventAdopter } from '@/features/learning/components/GuestEventAdopter';
 import { MetaPixelTracker } from '../components/MetaPixelTracker';
@@ -167,6 +169,14 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <HangulLandingPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'english',
+        element: (
+          <ErrorBoundary>
+            <EnglishLandingPage />
           </ErrorBoundary>
         ),
       },
