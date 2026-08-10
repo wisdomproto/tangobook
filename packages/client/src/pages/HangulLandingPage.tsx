@@ -624,7 +624,12 @@ function Section({
     <section className="px-4 py-12 sm:px-6 sm:py-14">
       <div className="mx-auto max-w-3xl">
         {eyebrow && (
-          <p className="mb-2 text-xs font-bold tracking-wide text-coral-700">{eyebrow}</p>
+          /* 🔴 **라벨을 키운다**(2026-08-10 사용자: "이게 메인 제목인거 같은데 왜 글씨가 제일 작아?").
+             12px 는 각주 크기라 섹션 이름이 아니라 곁다리로 읽혔다. 제목보다는 확실히 작게 두되
+             본문과 같은 무게로 올린다 — 순서는 [섹션 이름] → [질문 제목] 그대로다. */
+          <p className="mb-2 text-sm font-extrabold tracking-wide text-coral-700 sm:text-base">
+            {eyebrow}
+          </p>
         )}
         <h2 className="font-display text-[26px] font-extrabold leading-snug text-ink-900 break-keep sm:text-[32px]">
           {title}
@@ -812,7 +817,10 @@ export default function HangulLandingPage() {
                 좁으면 「한글 파닉스 32단원과」가 이미 두 줄로 접히는데 그 위에 br 까지 얹혀 「한 / 곳에」
                 가 고아로 떨어졌다. 자연 줄바꿈에 맡기고, 「한 곳에」만 nowrap 으로 붙여 둔다.
                 🔴 핵심어 「한글 파닉스」·「다양한 동화책」은 코랄로 하이라이트(사용자 요청). */}
-            <h1 className="mt-3 font-display text-[28px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:text-[42px]">
+            {/* 🔴 **데스크탑에선 한 줄**(2026-08-10 사용자). 42px 로는 24자가 약 924px 이라 max-w-3xl(768px)을
+                넘어 세 줄로 접혔다 — 제목이 세 줄이면 첫인상이 「길다」가 된다. sm 이상에서만
+                크기를 낮추고 `nowrap` 을 건다. 모바일은 그대로 접힌다(375px 에 한 줄은 불가능). */}
+            <h1 className="mt-3 font-display text-[28px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:whitespace-nowrap sm:text-[28px] md:text-[32px]">
               <span className="text-coral-700">한글 파닉스</span> {FACTS.koreanUnits}단원과{' '}
               <span className="text-coral-700">다양한 동화책</span>이{' '}
               <span className="whitespace-nowrap">한 곳에</span>
@@ -838,10 +846,11 @@ export default function HangulLandingPage() {
             >
               한달 무료 체험
             </Link>
+            {/* 🔴 **할인가를 히어로에서 빼고 정가만**(2026-08-10 사용자). 첫 화면에서 「→ 할인 →
+                (베타오픈 기간)」까지 읽히면 값을 세 번 말하는 셈이고, 「베타」가 미완성으로도 읽힌다.
+                할인은 ⑦ 요금에서 한 번만 꺼낸다 — 거기까지 읽은 사람에겐 결정을 뒤집는 정보다. */}
             <p className="mt-3 text-xs text-ink-600 break-keep">
-              월 {PLANS.month1.originalAmount?.toLocaleString()}원 → 할인 월{' '}
-              {PLANS.month1.amount.toLocaleString()}원{' '}
-              <span className="font-semibold text-coral-700">(베타오픈 기간)</span>
+              월 {PLANS.month1.originalAmount?.toLocaleString()}원
             </p>
             {/* 🔴 히어로의 "진짜 앱 화면" 배지는 뺐다(2026-08-05 사용자, 두 번째 요청) — 진짜 데모는
                 한참 밑이라 히어로에서 약속하면 헛돈다. "진짜 앱 화면입니다 — 지금 눌러보세요"는
