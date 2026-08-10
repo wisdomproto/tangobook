@@ -863,6 +863,36 @@ function makeBlendPlan(): ActivityPlan {
 }
 
 /**
+ * 병음조합(L3) plan — 🔴 **성모마다 익히기 카드 하나**(2026-08-10 사용자: "익히기를 b f m p 각각 나눠서").
+ * `b 배우기`·`p 배우기`… 를 차례로 하고 **마지막에 그룹 전체를 되짚는 「듣고 고르기」**(사용자 최초 설명:
+ * "f m p 다 각각 해야해. 그 다음 b f m p 블렌딩 리뷰"). 한 카드 = 그 성모의 모음 줄 전부(bā bá bǎ bà / bō…).
+ * 예전엔 배우기 한 장에 성모 탭을 넣었는데, 단원 화면에 카드가 2장뿐이라 무엇을 몇 개 배우는지 안 보였다.
+ */
+function makeCombinePlan(unitId: string): ActivityPlan {
+  const groups = getCombineGroups(unitId);
+  const activities: ActivityDef[] = groups.map((g, i) => ({
+    key: `learn-${g.c}`,
+    order: i + 1,
+    kind: 'word-listen-choose',
+    section: 'learn',
+    title: `${g.c} 배우기`,
+    emoji: '🔊',
+    required: true,
+    consonant: g.c,
+  }));
+  activities.push({
+    key: 'listen-quiz',
+    order: activities.length + 1,
+    kind: 'word-listen-choose',
+    section: 'learn',
+    title: '듣고 고르기',
+    emoji: '🎧',
+    required: true,
+  });
+  return { activities };
+}
+
+/**
  * 단어(L4) plan = 「낱말 놀이」(section play) = 낱말 연습 + 낱말 그리기 + 그림 짝 찾기.
  * 🔴 익히기(learn) 활동이 없다 — 소리는 L1~L3 에서 배웠고 여기선 낱말을 논다.
  * 🔴 게임 kind 는 한/영과 같은 수집기 게임 id 로 매핑된다(`game-connect-dots`·`game-line-matching`).
@@ -967,13 +997,10 @@ function planForUnit(u: ChineseUnitSummary): ActivityPlan {
     );
   if (u.patterns.includes('tones')) return makeTonePlan();
   if (u.patterns.includes('word')) return makeWordPlan();
-  // 병음조합(combine, L3) · 복운모/비운모(blend, L5/L6) · 通读(whole, L7) = 배우기 + 듣고 고르기(쓰기·사냥 없음).
-  if (
-    u.patterns.includes('whole') ||
-    u.patterns.includes('blend') ||
-    u.patterns.includes('combine')
-  )
-    return makeBlendPlan();
+  // 🔴 병음조합(combine, L3) = **성모마다 익히기 카드** + 그룹 듣고 고르기(makeCombinePlan).
+  if (u.patterns.includes('combine')) return makeCombinePlan(u.id);
+  // 복운모/비운모(blend, L5/L6) · 通读(whole, L7) = 배우기 + 듣고 고르기(쓰기·사냥 없음).
+  if (u.patterns.includes('whole') || u.patterns.includes('blend')) return makeBlendPlan();
   if (u.phonemes.some((p) => p.length > 1)) return makeNoWritePlan();
   // 🔴 단운모(single final)만 성조 퀴즈 — 성모(initial)는 성조가 하나라 뺀다.
   return makeSingleFinalPlan(u.patterns.includes('single final'));

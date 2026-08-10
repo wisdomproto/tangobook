@@ -116,8 +116,12 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
         continue;
       }
       expect(plan.activities[0].kind).toBe('word-listen-choose');
-      // 소리 유닛(L1~L3)=listen-choose / 단어 유닛(L4)=word-practice — 둘 다 required 로 도달 가능.
-      const requiredKey = isWordUnit(u.id) ? 'word-practice' : 'listen-choose';
+      // 단어(L4)=word-practice / 병음조합(L3)=성모별 `learn-{성모}` / 그 외 소리 유닛=listen-choose.
+      const requiredKey = isWordUnit(u.id)
+        ? 'word-practice'
+        : isCombineUnit(u.id)
+          ? `learn-${u.phonemes[0]}`
+          : 'listen-choose';
       expect(getChineseRequiredActivities(u.id)).toContain(requiredKey);
     }
   });
@@ -350,13 +354,19 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       expect(isCombineUnit(id)).toBe(true);
       expect(isBlendUnit(id)).toBe(false);
       expect(isWordUnit(id)).toBe(false);
+      // 🔴 익히기 = **성모마다 한 카드**(`learn-b`·`learn-p`…) + 마지막에 그룹 「듣고 고르기」
+      //    (2026-08-10 사용자: "익히기를 b f m p 각각 나눠서"). 카드 수 = 그 그룹 성모 수 + 1.
       const plan = getChineseActivityPlan(id);
-      expect(plan.activities.map((a) => a.kind)).toEqual([
-        'word-listen-choose',
-        'word-listen-choose',
+      const consonants = getCombineGroups(id).map((g) => g.c);
+      expect(consonants.length).toBeGreaterThan(2);
+      expect(plan.activities.map((a) => a.key)).toEqual([
+        ...consonants.map((c) => `learn-${c}`),
+        'listen-quiz',
       ]);
-      expect(plan.activities.map((a) => a.key)).toEqual(['listen-choose', 'listen-quiz']);
-      expect(getChineseRequiredActivities(id)).toEqual(['listen-choose', 'listen-quiz']);
+      expect(plan.activities.every((a) => a.kind === 'word-listen-choose')).toBe(true);
+      // 익히기 카드는 그 성모를 실어 보낸다(호스트가 그 묶음만 넘긴다).
+      expect(plan.activities.slice(0, -1).map((a) => a.consonant)).toEqual(consonants);
+      expect(getChineseRequiredActivities(id)).toEqual(plan.activities.map((a) => a.key));
       // 🔴 제목에 대표 모음을 적지 않는다 — 이제 성모마다 붙는 모음을 전부 배운다("(a 블렌딩)" 제거).
       expect(getChineseUnit(id)!.unitTitle).not.toMatch(/블렌딩/);
     }

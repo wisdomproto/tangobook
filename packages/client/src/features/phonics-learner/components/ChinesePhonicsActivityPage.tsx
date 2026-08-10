@@ -489,16 +489,23 @@ export default function ChinesePhonicsActivityPage() {
   // 🔴 격자(WordListenChoose)로는 못 그린다 — 줄마다 성조 수가 달라(pā pá pà = 3 · né nè = 2) 고정 열
   //    격자에 쏟으면 성조 묶음이 줄을 넘어 쪼개진다. 「듣고 고르기」(listen-quiz)는 그대로 아래 격자
   //    (보기 = 성모 라벨, 문제 = 그 성모의 음절 하나).
-  if (isCombineUnit(unitId) && activityKey === 'listen-choose' && combineGroups.length) {
-    return (
-      <PinyinToneRowsActivity
-        unitId={unitId}
-        groups={combineGroups}
-        ttsBySound={ttsBySound}
-        onMarkComplete={handleMarkComplete}
-        onBack={backToUnit}
-      />
-    );
+  // 🔴 익히기는 **성모마다 한 카드**(`learn-b`·`learn-p`…, 2026-08-10 사용자) — 그 성모 묶음만 넘긴다.
+  //    옛 `listen-choose`(성모 탭 한 장) 경로도 남겨 둔다(다른 combine 유닛·북마크 호환).
+  if (isCombineUnit(unitId) && combineGroups.length) {
+    const only = activity.consonant
+      ? combineGroups.filter((g) => g.c === activity.consonant)
+      : null;
+    if (only?.length || activityKey === 'listen-choose') {
+      return (
+        <PinyinToneRowsActivity
+          unitId={unitId}
+          groups={only?.length ? only : combineGroups}
+          ttsBySound={ttsBySound}
+          onMarkComplete={handleMarkComplete}
+          onBack={backToUnit}
+        />
+      );
+    }
   }
 
   // 병음 따라쓰기 — 쓰는 글자는 낱 모음(label), 읽는 소리는 tone-1 녹음(ttsUrl).
