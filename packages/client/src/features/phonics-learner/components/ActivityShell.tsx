@@ -10,6 +10,14 @@ import { createContext, useContext, type ReactNode } from 'react';
 const EmbeddedContext = createContext(false);
 export const PhonicsEmbeddedProvider = EmbeddedContext.Provider;
 
+/**
+ * 지금 이 화면이 **광고 랜딩 상자 안**인지. 🔴 게임 쪽(`features/games`)도 알아야 한다 —
+ * 전체화면 전제로 만든 장치(가로 회전 요구·「🏠 홈」)가 상자 안에서는 틀린 행동이 되기 때문이다.
+ */
+export function usePhonicsEmbedded() {
+  return useContext(EmbeddedContext);
+}
+
 interface Props {
   onBack: () => void;
   /**

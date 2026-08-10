@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { usePhonicsEmbedded } from '../../phonics-learner/components/ActivityShell';
 
 /**
  * 게임 공용 헤더 — 시안 톤 (둥둥 떠있는 흰 wash 카드).
@@ -28,6 +29,7 @@ interface GameHeaderProps {
 export function GameHeader({ title, current, total, onBack, rightExtra }: GameHeaderProps) {
   const { t } = useTranslation('games');
   const navigate = useNavigate();
+  const embedded = usePhonicsEmbedded();
   return (
     <header className="h-[clamp(2.75rem,9vh,6rem)] flex items-center justify-between gap-[clamp(0.5rem,1.5vh,1rem)] shrink-0 mb-[clamp(0.125rem,1vh,1.5rem)] bg-white/60 backdrop-blur-sm shadow-soft rounded-3xl px-[clamp(0.75rem,1.5vw,1.5rem)] mx-2 mt-1.5">
       <button
@@ -50,15 +52,19 @@ export function GameHeader({ title, current, total, onBack, rightExtra }: GameHe
       {/* 우측 그룹 — 그림체 선택(옵션) + 🏠 홈. 좌 버튼과 폭 균형 겸용. */}
       <div className="flex items-center gap-2 shrink-0">
         {rightExtra}
-        <button
-          onClick={() => navigate('/library')}
-          aria-label={t('header.homeAria')}
-          title={t('header.homeAria')}
-          className="px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.375rem,1.25vh,0.75rem)] rounded-full bg-peach-100 text-ink-900 font-black text-[clamp(0.875rem,2vh,1.25rem)] shadow-soft hover:shadow-pop transition flex items-center gap-2"
-        >
-          <span>🏠</span>
-          <span className="hidden sm:inline">{t('header.home')}</span>
-        </button>
+        {/* 🔴 **광고 랜딩 상자 안에서는 숨긴다**(2026-08-10 game-reviewer) — 도착지에서 CTA 가
+            아닌 유일한 이탈구였다. 미로그인 방문자는 /library 에서 진입 게이트를 만나 문맥을 잃는다. */}
+        {!embedded && (
+          <button
+            onClick={() => navigate('/library')}
+            aria-label={t('header.homeAria')}
+            title={t('header.homeAria')}
+            className="px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.375rem,1.25vh,0.75rem)] rounded-full bg-peach-100 text-ink-900 font-black text-[clamp(0.875rem,2vh,1.25rem)] shadow-soft hover:shadow-pop transition flex items-center gap-2"
+          >
+            <span>🏠</span>
+            <span className="hidden sm:inline">{t('header.home')}</span>
+          </button>
+        )}
       </div>
     </header>
   );

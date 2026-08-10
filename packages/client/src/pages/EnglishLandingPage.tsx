@@ -91,7 +91,15 @@ const POINTS: { t: string; d: string }[] = [
   },
 ];
 
-/** ④ 「c + an → can」 단원 — Book 2 첫 단원. 네 개만 둔다(같은 형식이 이어지면 리듬이 사라진다). */
+/**
+ * ④ 「c + an → can」 단원 — Book 2 첫 단원. 네 개만 둔다(같은 형식이 이어지면 리듬이 사라진다).
+ *
+ * 🔴 **키는 그 단원 plan 에 실제로 있는 것이어야 한다** — 없으면 `PhonicsTryIt` 이
+ *    `if (!activity) return null` 로 **에러 없이 상자를 지운다**. 처음엔 `game-english-block` 을
+ *    넣었다가 상자가 4개가 아니라 3개로 떴다(game-reviewer 실측) — 영어 블록 게임은
+ *    2026-08-09 에 **전 권에서 빠졌고 가드 테스트까지 있다**(`english-phonics-units.test.ts`).
+ *    en-b2-u01 의 play 는 낱말 쓰기·낱말 그리기·그림 짝 셋이다.
+ */
 const TRY_UNIT = 'en-b2-u01';
 const TRY_LEARN = [
   {
@@ -102,11 +110,11 @@ const TRY_LEARN = [
 ];
 const TRY_PLAY = [
   { key: 'game-dots', h: 620, note: '낱말이 가리키는 것을 직접 그려 봅니다.' },
-  { key: 'game-english-block', h: 680, note: '글자를 모아 낱말 하나를 만듭니다.' },
+  { key: 'game-word-writing', h: 620, note: '낱말 전체를 왼쪽부터 차례로 씁니다.' },
   {
     key: 'game-line-matching',
     h: 620,
-    note: `이 단원엔 써보기와 낱말 쓰기가 더 있습니다. ${FACTS.englishUnits}단원이 전부 이렇게 생겼습니다.`,
+    note: `${FACTS.englishUnits}단원이 전부 이렇게 생겼습니다.`,
     cta: true,
   },
 ];

@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePhonicsEmbedded } from '../../phonics-learner/components/ActivityShell';
 
 /**
  * 모바일 가로 강제 gate — 세로(portrait) + 모바일(`pointer: coarse`) 일 때 회전 prompt 표시.
@@ -14,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 export function MobileLandscapeGate({ children }: { children: ReactNode }) {
   const { t } = useTranslation('games');
   const [show, setShow] = useState(false);
+  const embedded = usePhonicsEmbedded();
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -42,7 +44,14 @@ export function MobileLandscapeGate({ children }: { children: ReactNode }) {
     }
   };
 
-  if (!show) return <>{children}</>;
+  /**
+   * 🔴 **상자 안에서는 게이트를 띄우지 않는다**(2026-08-10 game-reviewer). 광고 랜딩의 게임 상자가
+   *    375px 세로에서 **불투명 검은 벽**이 됐다(실측: 상자 3개 중 2개가 z-[1000] 오버레이).
+   *    히어로가 "지금 눌러보세요"라고 약속한 직후 만질 수 없는 화면을 내미는 셈이다.
+   *    상자는 이미 뷰포트 폭에 맞춰 축소(`EmbedStage`)되므로 가로로 돌릴 이유도 없다 —
+   *    이 게이트는 **전체화면으로 들어온 아이**를 위한 것이다.
+   */
+  if (embedded || !show) return <>{children}</>;
 
   return (
     <>
