@@ -111,63 +111,6 @@ const STAGES: { label: string; count: string; detail: string; tone: string }[] =
   },
 ];
 
-/**
- * ③ 커리큘럼 「능력 축」 뷰 — 벤치마킹 2차 §4-2(투두한글: 같은 커리큘럼을 여정+능력 **두 겹**으로
- * 시각화 = "전문적"의 정체). 위 STAGES(단계·여정) 옆에 이 매트릭스(무엇이 언제 자라나)를 겹친다.
- * 🔴 신규 데이터 아님 — 32단원을 능력별로 다시 자른 것(자모15·받침7·쌍자음+복잡모음10, 낱말·쓰기는 전 범위).
- */
-const TOTAL_UNITS = 32;
-const CURRICULUM_AXES: { label: string; from: number; to: number; bar: string }[] = [
-  { label: '자음 · 모음', from: 1, to: 15, bar: 'bg-coral-400' },
-  { label: '받침', from: 16, to: 22, bar: 'bg-mint-500' },
-  { label: '쌍자음 · 복잡한 모음', from: 23, to: 32, bar: 'bg-coral-300' },
-  { label: '낱말 읽기', from: 1, to: 32, bar: 'bg-mint-400' },
-  { label: '글자 쓰기', from: 1, to: 32, bar: 'bg-coral-300' },
-];
-
-function CurriculumMatrix() {
-  return (
-    <div className="!mt-5 rounded-3xl border border-ink-100 bg-white/70 p-4 sm:p-5">
-      <p className="mb-3 text-sm font-bold text-ink-800 break-keep">
-        같은 32단원을 <span className="text-coral-700">능력별로 보면</span> 이렇게 자라요
-      </p>
-      <div className="space-y-2">
-        {CURRICULUM_AXES.map((a) => {
-          const left = ((a.from - 1) / TOTAL_UNITS) * 100;
-          const width = ((a.to - a.from + 1) / TOTAL_UNITS) * 100;
-          return (
-            <div
-              key={a.label}
-              className="grid grid-cols-[5.5rem_1fr_2.5rem] items-center gap-2 sm:grid-cols-[8.5rem_1fr_3rem]"
-            >
-              <span className="text-[11px] font-semibold text-ink-700 break-keep sm:text-xs">
-                {a.label}
-              </span>
-              <div className="relative h-3 rounded-full bg-cream-100">
-                <div
-                  className={`absolute inset-y-0 rounded-full ${a.bar}`}
-                  style={{ left: `${left}%`, width: `${width}%` }}
-                />
-              </div>
-              <span className="text-right text-[10px] font-bold text-ink-500">
-                {a.from}–{a.to}
-              </span>
-            </div>
-          );
-        })}
-      </div>
-      <div className="mt-1.5 flex justify-between px-1 text-[10px] font-semibold text-ink-400">
-        <span>1단원</span>
-        <span>32단원</span>
-      </div>
-      <p className="mt-3 text-xs text-ink-500 break-keep">
-        낱말 읽기 · 글자 쓰기는 <strong>모든 단원</strong>에 함께 있어요 — 낱말은 동화책과
-        이어집니다.
-      </p>
-    </div>
-  );
-}
-
 /** ⑦ 무료체험 마찰 제거 FAQ — 벤치마킹 2차 §4-5(투두 FAQ 아코디언). 답이 전부 「없음」이라 강점. */
 const FAQS: { q: string; a: string }[] = [
   {
@@ -947,24 +890,16 @@ export default function HangulLandingPage() {
           ))}
         </ol>
         {/* 뷰 2 — 능력 축 매트릭스(같은 32단원을 "무엇이 언제 자라나"로). 두 겹이 "체계적"의 정체. */}
-        <CurriculumMatrix />
+
         {/* 🔴 **단원 칩 전체 목록(`CurriculumUnits`)과 설명 세 문단을 지웠다**(2026-08-05 사용자).
             32개를 다 늘어놓으면 위 다섯 줄 요약과 같은 말을 두 번 하는 셈이고, 화면 두 개 분량이
             지나가는 동안 아래 「직접 해보기」가 그만큼 멀어진다. 컴포넌트는 남겨 뒀다. */}
         <p className="!mt-6">
           영어 파닉스 <strong>{FACTS.englishUnits}단원</strong>도 같이 들어 있습니다.
         </p>
-        {/* 🔴 화면에 **진짜 단원 화면**이 합성돼 있다 — 위 「익히기」 넷, 아래 「낱말 놀이」
-            다섯. 바로 윗줄이 그 문장이라 글과 그림이 같은 것을 가리킨다.
-            🔴 카메라가 **아이들 뒤**에 있다 — 앞에서 찍으면 아이가 화면 뒤에 앉아 못 보는 걸
-            보는 그림이 된다(첫 플레이트가 그랬다). */}
-        <Photo
-          src="siblings"
-          alt="두 아이가 스탠드에 세운 태블릿의 한글 파닉스 단원 화면을 함께 보고 있다"
-          w={1200}
-          h={800}
-          className="!mt-6"
-        />
+        {/* 🔴 여기엔 연출 사진을 두지 않는다(2026-08-10 사용자). 바로 아래가 「직접 해보기」라
+            **진짜 화면이 곧 나오는데** 그 앞에 태블릿 사진을 800px 깔면 도달만 늦어진다.
+            (합성본은 `public/landing/hangul/siblings.webp` 에 남아 있다.) */}
         <Link
           to="/library/phonics/korean"
           className="!mt-5 inline-flex min-h-[44px] items-center rounded-full border-2 border-coral-500 px-6 text-sm font-bold text-coral-700 transition hover:bg-coral-50"
