@@ -10,9 +10,16 @@ interface Props {
   events: LearningEvent[];
   storybooks: StorybookSummary[];
   defaultLang?: Lang;
+  /** 한글 격자에서 그릴 레벨 — 랜딩 예시용. 부모 리포트는 안 넘긴다(전 레벨). */
+  koLevelIds?: string[];
 }
 
-export function PhonicsReportSection({ events, storybooks, defaultLang = 'ko' }: Props) {
+export function PhonicsReportSection({
+  events,
+  storybooks,
+  defaultLang = 'ko',
+  koLevelIds,
+}: Props) {
   const [lang, setLang] = useState<Lang>(defaultLang);
   const filtered = events.filter((e) => !e.metadata?.lang || e.metadata.lang === lang);
 
@@ -31,7 +38,7 @@ export function PhonicsReportSection({ events, storybooks, defaultLang = 'ko' }:
           {/* 색이 무슨 뜻인지 표 위에서 한 번 — 없으면 회색과 코랄의 차이를 부모가 추론해야 한다. */}
           <MasteryLegendCard />
           {lang === 'ko' ? (
-            <KoreanPhonicsHeatmap events={filtered} storybooks={storybooks} />
+            <KoreanPhonicsHeatmap events={filtered} storybooks={storybooks} levelIds={koLevelIds} />
           ) : (
             <EnglishPhonicsSkillTree events={filtered} storybooks={storybooks} />
           )}

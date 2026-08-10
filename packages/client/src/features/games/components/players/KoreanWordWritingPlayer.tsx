@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { WordWritingData } from '@tangobook/shared';
 import { decomposeWord } from '@tangobook/shared';
 import { GameHeader } from '../GameHeader';
 import { useGameAudio } from '../../hooks/useGameAudio';
+import { useGameEntryGuide } from '../../hooks/useGameEntryGuide';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
@@ -55,12 +56,7 @@ export function KoreanWordWritingPlayer({
   const syllables = useMemo(() => syllablesOf(currentItem.word), [currentItem.word]);
 
   // 🔴 진입 안내 음성 — 파닉스 쓰기 활동과 통일(사용자: "어디서는 따라 써봐 멘트 나오고 어디서는 안 나오네").
-  const guidedRef = useRef(false);
-  useEffect(() => {
-    if (guidedRef.current) return;
-    guidedRef.current = true;
-    playAudio(WRITE_GUIDE_SOUND);
-  }, [playAudio]);
+  useGameEntryGuide(WRITE_GUIDE_SOUND, playAudio);
 
   const emitFinalResults = useCallback(
     (finalPassed: boolean[]) => {

@@ -5,7 +5,7 @@ import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
-import { ActivityShell } from '../components/ActivityShell';
+import { ActivityShell, usePhonicsEmbedded } from '../components/ActivityShell';
 
 export interface ListenChoice {
   /** 카드 구분자. 같은 라벨이 두 장일 수 있다(알파벳 단원의 Aa=apple / Aa=alligator). */
@@ -379,10 +379,19 @@ export function WordListenChooseActivity({
    *    비우면서 그 콜백을 **끝난 것처럼** 부른다(안내가 잘린다).
    */
   const guidedRef = useRef(false);
+  /**
+   * 🔴 **광고 랜딩 상자에선 안내를 내지 않는다**(2026-08-10 사용자). 이 활동만 `useEntryGuide`
+   *    를 안 쓰고 자기 effect 를 들고 있어서(두 갈래라) 임베드 게이트가 빠져 있었다 — 페이지를
+   *    열면 「눌러서 들어봐!」가 저절로 울렸다. 잠금(`starting`)은 안내가 풀어주므로 **건너뛸 땐
+   *    여기서 바로 푼다**(안 그러면 퀴즈 진입로가 영영 안 열린다).
+   */
+  const embedded = usePhonicsEmbedded();
   useEffect(() => {
     if (guidedRef.current) return;
     guidedRef.current = true;
-    if (exploreFirst) {
+    if (embedded) {
+      setStarting(false);
+    } else if (exploreFirst) {
       // 🔴 탐색 진입 — "눌러서 들어봐!" 안내(사용자: "여기도 멘트가 없네"). 잠금은 없다 — 아이는
       //    바로 카드를 눌러 소리를 들어봐도 된다. 퀴즈 시작음은 「🎯 퀴즈」 버튼에서 따로 난다.
       playAudio(EXPLORE_START_SOUND);
@@ -390,7 +399,7 @@ export function WordListenChooseActivity({
       // 탐색 없이 바로 퀴즈인 화면(복습 듣기) — 안내가 끝나야 첫 문제가 나간다.
       playAudio(QUIZ_START_SOUND, () => setStarting(false));
     }
-  }, [exploreFirst, playAudio]);
+  }, [embedded, exploreFirst, playAudio]);
 
   // 나가는 도중 예약된 소리가 빈 화면에서 울리지 않게 둘 다 정리한다.
   useEffect(

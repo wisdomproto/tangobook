@@ -138,15 +138,30 @@ const FAQS: { q: string; a: string }[] = [
  * 🔴 마지막 「돌아옴」은 노드가 아니라 **닫는 화살표**다 — 노드 넷을 나란히 두면 순환이 아니라
  *    그냥 4단계 절차가 된다.
  */
-const CYCLE: { icon: string; t: string; d: string }[] = [
+/**
+ * 🔴 **그림이 먼저, 글은 한 줄**(2026-08-10 사용자: "우리꺼 너무 글로 되어 있잖아" — 벤치마크
+ *    투두한글이 이 자리를 4:3 일러스트 카드 넉 장으로 설명한다). 이모지 하나로는 「무엇을 하는
+ *    화면인지」가 안 보인다 — 각 칸에 **그 장면 사진**을 얹는다.
+ * 🔴 사진은 **이미 있는 것**을 쓴다: 파닉스 쓰기 화면(tracing) · 동화 읽는 화면(reading) ·
+ *    낱말 놀이 카드가 보이는 단원 화면(siblings). 히어로가 쓰는 phonics.webp 는 **안 쓴다**
+ *    (같은 그림이 한 화면에 두 번 나오면 같은 얘기를 두 번 하는 것으로 읽힌다).
+ */
+const CYCLE: { photo: string; alt: string; t: string; d: string }[] = [
   {
-    icon: '🔤',
+    photo: 'tracing',
+    alt: '아이가 태블릿 화면의 ㄴ 글자를 손가락으로 따라 쓰고 있다',
     t: '글자를 배워요',
     d: `한글 파닉스 ${FACTS.koreanUnits}단원 — 자음·모음부터 받침까지 소리로`,
   },
-  { icon: '📖', t: '그 글자로 읽어요', d: '배운 글자를 동화책에서 낱말과 이야기로 다시 만나요' },
   {
-    icon: '🎮',
+    photo: 'reading',
+    alt: '아이가 태블릿으로 백설공주 동화를 자막과 함께 보고 있다',
+    t: '그 글자로 읽어요',
+    d: '배운 글자를 동화책에서 낱말과 이야기로 다시 만나요',
+  },
+  {
+    photo: 'siblings',
+    alt: '두 아이가 파닉스 단원 화면의 「낱말 놀이」 카드를 보고 있다',
     t: '독후활동으로 익혀요',
     d: '한 낱말을 그림 · 조립 · 따라 그리기 · 손글씨 네 가지로',
   },
@@ -582,7 +597,7 @@ function CoverSlider() {
  * 건데 구분이 안 지어져 있어"). 굵은 가로선 + 큰 이름으로 페이지를 두 덩어리로 끊는다.
  * 🔴 배너가 이름을 맡으므로 **그 아래 섹션은 eyebrow 를 비운다** — 이름을 두 번 말하지 않는다.
  */
-function ServiceBanner({ n, name, tagline }: { n: number; name: string; tagline: string }) {
+function ServiceBanner({ n, name, tagline }: { n: number; name: string; tagline?: string }) {
   return (
     <div className="px-4 pt-14 sm:px-6">
       <div className="mx-auto max-w-3xl border-t-4 border-coral-300 pt-7">
@@ -590,7 +605,9 @@ function ServiceBanner({ n, name, tagline }: { n: number; name: string; tagline:
         <h2 className="mt-1 font-display text-[28px] font-extrabold text-ink-900 break-keep sm:text-[36px]">
           {name}
         </h2>
-        <p className="mt-2 text-[15px] text-ink-600 break-keep sm:text-base">{tagline}</p>
+        {tagline && (
+          <p className="mt-2 text-[15px] text-ink-600 break-keep sm:text-base">{tagline}</p>
+        )}
       </div>
     </div>
   );
@@ -628,6 +645,35 @@ function Section({
 }
 
 /**
+ * 📹 30초 영상 — 파닉스가 실제로 어떻게 흘러가는지(2026-08-10 사용자, 벤치마크 투두한글이
+ * 페이지 중간중간을 영상으로 설명한다).
+ *
+ * 🔴 **새로 만들지 않는다** — 이미 만들어 IG 에 올린 카테고리 광고 릴스(`ad-reel-phonics.mp4`,
+ *    38.8초·9:16·실제 앱 화면 녹화)를 그대로 쓴다.
+ * 🔴 **자동재생하지 않는다**(`preload="none"` + poster). 이 페이지의 규칙이 「아무것도 안 눌렀는데
+ *    소리가 나지 않는다」이고, 8MB 를 스크롤만 해도 받게 하면 첫 화면이 느려진다.
+ * 🔴 포스터는 **앱 화면이 나오는 14초 지점**을 뽑았다 — 첫 프레임(타이틀 카드)은 「1년 무료」를
+ *    말하는데, 이 페이지는 그 표현을 일부러 안 쓴다(⑦ 요금 주석 참조).
+ */
+function PhonicsReel() {
+  return (
+    <figure className="!mt-7">
+      <video
+        className="mx-auto w-full max-w-[280px] rounded-3xl bg-ink-900 shadow-sm"
+        controls
+        preload="none"
+        playsInline
+        poster="/landing/hangul/phonics-reel-poster.webp"
+        src="/landing/hangul/phonics-reel.mp4"
+      />
+      <figcaption className="mt-2 text-center text-sm text-ink-600 break-keep">
+        ▶ 30초 영상 — 아이가 「ㄱ」 단원을 어떻게 배우는지 보실 수 있어요.
+      </figcaption>
+    </figure>
+  );
+}
+
+/**
  * ② 파닉스 ↔ 동화책 순환 그림.
  * 🔴 화살표는 **한 글자를 회전**시켜 쓴다(`rotate-90 sm:rotate-0`) — 모바일은 세로로 쌓이니 ↓ 가
  *    맞는데, `max-sm:` 계열 변형은 이 프로젝트에서 아예 생성되지 않는다(`screens.short:{raw}` 가
@@ -647,14 +693,26 @@ function LearnReadCycle() {
                 →
               </span>
             )}
-            <div className="rounded-2xl bg-cream-100 p-4 text-center">
-              <div className="text-3xl">{c.icon}</div>
-              <strong className="mt-1.5 block font-display text-base font-extrabold text-ink-900 break-keep sm:text-lg">
-                {c.t}
-              </strong>
-              <span className="mt-1 block text-[13px] leading-snug text-ink-600 break-keep">
-                {c.d}
-              </span>
+            <div className="overflow-hidden rounded-2xl bg-cream-100 text-center">
+              {/* 🔴 사진은 카드 **맨 위 전폭**, 비율 고정(4:3) — 셋의 원본 비율이 제각각이라
+                  `object-cover` 로 잘라 맞춰야 세 칸의 높이가 같다. */}
+              <img
+                src={`/landing/hangul/${c.photo}.webp`}
+                alt={c.alt}
+                loading="lazy"
+                decoding="async"
+                /* 🔴 모바일은 **16:9**(세로로 셋이 쌓여서 4:3 이면 이 구간만 2화면을 먹는다),
+                   `sm` 부터 4:3 — 가로로 셋이 서면 높이가 문제되지 않고 사진도 더 크게 보인다. */
+                className="aspect-video w-full object-cover sm:aspect-[4/3]"
+              />
+              <div className="p-3 sm:p-4">
+                <strong className="block font-display text-base font-extrabold text-ink-900 break-keep sm:text-lg">
+                  {c.t}
+                </strong>
+                <span className="mt-1 block text-[13px] leading-snug text-ink-600 break-keep">
+                  {c.d}
+                </span>
+              </div>
             </div>
           </Fragment>
         ))}
@@ -994,6 +1052,7 @@ export default function HangulLandingPage() {
         >
           커리큘럼 전체 보기 →
         </Link>
+        <PhonicsReel />
       </Section>
 
       {/* ── ④ 직접 해보기 — 그 32단원 중 「ㄱ」 하나를 통째로 ───────────────────── */}
@@ -1052,11 +1111,9 @@ export default function HangulLandingPage() {
       {/* 🔴 **쪽수·권수를 앞세우지 않는다**(2026-08-05 사용자: "쪽수 이런건 뭐하러 얘기해 의미없게").
           부모가 궁금한 건 3,835쪽이 아니라 **뭐가 다양하게 있고, 책마다 뭘 하고, 계속 느나**다.
           그래서 제목·본문을 라인 다양성 + 책마다 독후활동 게임 + 매달 증가로 바꿨다. */}
-      <ServiceBanner
-        n={2}
-        name="탱고북 동화책"
-        tagline="뗀 글자로 바로 읽습니다. 읽을수록 어휘와 문해력이 자랍니다."
-      />
+      {/* 🔴 tagline 없음(2026-08-10 사용자) — 「읽을수록 어휘와 문해력이 자랍니다」가 **바로 아래
+          섹션 제목과 같은 말**이라 배너 밑에 같은 문장이 두 줄로 이어져 있었다. */}
+      <ServiceBanner n={2} name="탱고북 동화책" />
       <Section title="읽을수록 어휘와 문해력이 자라요">
         <p>
           글자를 뗐다고 끝이 아니에요. 낱말을 <strong>이야기 속에서</strong> 만나고 또 만나며{' '}
@@ -1181,10 +1238,13 @@ export default function HangulLandingPage() {
           <MasteryExplainer />
 
           <ReportCard title="🔤 파닉스 학습 현황">
+            {/* 🔴 **한글1 하나만**(2026-08-10 사용자) — 넷을 다 깔면 예시 데이터가 없는 레벨 셋이
+                회색으로 이어져, 자랑하려던 격자가 「대부분 비어 있다」로 읽힌다. */}
             <PhonicsReportSection
               events={sampleEvents}
               storybooks={storybooks ?? []}
               defaultLang="ko"
+              koLevelIds={['hangul1']}
             />
           </ReportCard>
 

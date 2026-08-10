@@ -9,6 +9,7 @@ import type {
 } from '@tangobook/shared';
 import { warmAudioUrl } from '../../hooks/useGamePrefetch';
 import { useGameAudio } from '../../hooks/useGameAudio';
+import { useGameEntryGuide } from '../../hooks/useGameEntryGuide';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { GameResultScreen } from '../GameResultScreen';
 import { GamePlayerLayout } from '../GamePlayerLayout';
@@ -111,12 +112,10 @@ function LineMatchingPlayerInner({
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
   // 🔴 진입 안내 음성 — "그림과 짝을 찾아봐!". 안내음은 한국어라 **한국어 UI(ko/en)일 때만**
   //    낸다 — vi/zh/th 어휘 게임도 이 플레이어를 쓴다.
-  const guidedRef = useRef(false);
-  useEffect(() => {
-    if (guidedRef.current || (lang !== 'ko' && lang !== 'en')) return;
-    guidedRef.current = true;
-    playAudio('/sounds/voice/line-match-ko.mp3');
-  }, [playAudio, lang]);
+  useGameEntryGuide(
+    lang === 'ko' || lang === 'en' ? '/sounds/voice/line-match-ko.mp3' : null,
+    playAudio
+  );
   const isTutorialPlaying = useTutorialIsPlaying();
   const { highlightImageIdx, highlightWordIdx } = useTutorialHighlight();
   const expected = useTutorialExpected();

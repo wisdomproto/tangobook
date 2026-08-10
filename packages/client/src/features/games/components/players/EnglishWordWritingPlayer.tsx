@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { WordWritingData } from '@tangobook/shared';
 import { GameHeader } from '../GameHeader';
 import { useGameAudio } from '../../hooks/useGameAudio';
+import { useGameEntryGuide } from '../../hooks/useGameEntryGuide';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
@@ -85,12 +86,7 @@ export function EnglishWordWritingPlayer({
 
   // 🔴 진입 안내 음성 — 화면엔 "글자를 따라 써봐" 글자가 있는데 음성이 없어 파닉스 쓰기 활동과
   //    어긋났다(사용자: "어디서는 따라 써봐 멘트 나오고 어디서는 안 나오네"). 한 번만 재생한다.
-  const guidedRef = useRef(false);
-  useEffect(() => {
-    if (guidedRef.current) return;
-    guidedRef.current = true;
-    playAudio(WRITE_GUIDE_SOUND);
-  }, [playAudio]);
+  useGameEntryGuide(WRITE_GUIDE_SOUND, playAudio);
 
   const emitFinalResults = useCallback(
     (finalPassed: boolean[]) => {

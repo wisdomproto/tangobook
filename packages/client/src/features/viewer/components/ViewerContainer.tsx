@@ -254,7 +254,11 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
   //    시끄럽다는 판단(사용자). 저작자가 넣은 `backgroundMusicUrl` 만 재생한다.
   //    BGM 이 없으면 `hasBgm=false` 라 툴바 버튼이 자동으로 비활성되고, `toggleBgm` 은
   //    오디오 엘리먼트가 없어 no-op 이므로 호출부(탭 게이트 시작)는 그대로 둬도 안전하다.
-  const bgmUrl = storybook?.backgroundMusicUrl;
+  //    🔴 **임베드(광고 랜딩 상자)에서는 BGM 을 아예 안 켠다**(2026-08-10 사용자). BGM 은
+  //    `useAudioPlayer` 가 **마운트 시 바로** 재생하므로, 상자가 화면에 붙는 순간 아무도 아무것도
+  //    안 눌렀는데 음악이 나온다(`noAutoStart` 는 나레이션만 막는다). 여기서 비우면 `hasBgm=false`
+  //    라 툴바 버튼도 자동으로 꺼지고 `toggleBgm` 은 no-op 이라 다른 경로는 그대로다.
+  const bgmUrl = embed ? undefined : storybook?.backgroundMusicUrl;
 
   const audio = useAudioPlayer({
     backgroundMusicUrl: bgmUrl,

@@ -48,6 +48,18 @@ interface Props {
   language?: 'korean' | 'english';
 }
 
+/**
+ * **상자 높이를 못 정하는 활동** — `100dvh` 로 띄운다.
+ *
+ * 🔴 게임(`game-*`)은 플레이어가 인라인 `height: 100dvh` 를 쓰고, **듣고 고르기**는 카드를
+ *    `min(Nvw, Mvh)` 로 잰다. `transform` 이 `inset-0` 의 컨테이닝 블록은 바꿔도 **`vh`·`dvh` 는
+ *    끝까지 뷰포트 값**이라, 상자를 620px 로 낮추면 그 안에서 720px 기준으로 그려진 내용의
+ *    아래가 그냥 잘린다(실측 1280×720: 내용 649 vs 상자 620 — 「🎯 퀴즈」 버튼이 16px 잘렸다).
+ * 🔴 숫자를 키워 덮지 말 것 — 내용 높이가 **뷰포트 높이에 비례**하므로 더 긴 화면에서 또 잘린다.
+ *    상자를 뷰포트 높이에 맞추면 안팎 기준이 같아져 어느 화면에서도 안 잘린다.
+ */
+const VIEWPORT_SIZED = (kind: string) => kind.startsWith('game-') || kind === 'word-listen-choose';
+
 /** 「합쳐지는 순간」 = 이 단원을 한 장면으로 보여주는 활동. 레벨마다 kind 가 다르다. */
 const BLEND_KINDS = [
   'consonant-blend-listen',
@@ -133,13 +145,10 @@ export function PhonicsTryIt({
              플레이어도 전체화면이라, 그냥 얹으면 **랜딩 전체를 덮는다**. 변환된 조상은 그
              아래 `fixed` 의 컨테이닝 블록이 되므로 상자 안에 갇힌다. 활동 13개와 게임
              플레이어를 하나도 안 건드리고 되는 유일한 방법이다(그것들은 동화책 게임과 공유한다). */}
-      {/* 🔴 **게임은 상자 높이를 못 정한다.** 게임 플레이어(`ConnectTheDots`·`WordWriting`·
-          `LineMatching`)는 인라인 `height: 100dvh` 를 쓰는데, `transform` 이 `inset-0` 의 컨테이닝
-          블록은 바꿔도 **`dvh` 는 끝까지 뷰포트 값**이다. 그래서 상자를 낮추면 아래(확인 버튼)가
-          그냥 잘린다 — 390px 실측 플레이어 844 vs 상자 764. 낮추는 대신 **상자를 그 높이에 맞춘다**.
-          플레이어를 고치지 않는 이유 = 동화책 게임과 공유하는 코드다. */}
+      {/* 높이 규칙은 위 `VIEWPORT_SIZED` 주석 참조. 플레이어·활동을 고치지 않는 이유 =
+          동화책 게임과 공유하는 코드다. */}
       <EmbedStage
-        height={activity.kind.startsWith('game-') ? '100dvh' : `min(${height ?? 500}px, 88dvh)`}
+        height={VIEWPORT_SIZED(activity.kind) ? '100dvh' : `min(${height ?? 500}px, 88dvh)`}
       >
         <PhonicsEmbeddedProvider value>
           {isEnglish ? (

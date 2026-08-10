@@ -9,6 +9,7 @@ import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { useGameAudio } from '../../hooks/useGameAudio';
+import { useGameEntryGuide } from '../../hooks/useGameEntryGuide';
 import { usePrewarmWordTts } from '../../hooks/useGamePrefetch';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { SceneReveal } from '../SceneReveal';
@@ -95,12 +96,10 @@ function ConnectTheDotsPlayer({
 
   // 🔴 진입 안내 음성 — 화면의 "모양 안을 모두 칠해봐!" 에 맞는 음성(사용자: "이건 멘트 안 나오는데").
   //    안내음은 한국어라 **한국어 UI(ko/en 콘텐츠)일 때만** 낸다 — vi/zh/th 어휘 게임엔 안 맞다.
-  const guidedRef = useRef(false);
-  useEffect(() => {
-    if (guidedRef.current || (viewerLang !== 'ko' && viewerLang !== 'en')) return;
-    guidedRef.current = true;
-    playAudio('/sounds/voice/paint-shape-ko.mp3');
-  }, [playAudio, viewerLang]);
+  useGameEntryGuide(
+    viewerLang === 'ko' || viewerLang === 'en' ? '/sounds/voice/paint-shape-ko.mp3' : null,
+    playAudio
+  );
 
   const { data: storybook } = useStorybook(storybookId);
   const gameStyle = useGameStyle(storybook);
