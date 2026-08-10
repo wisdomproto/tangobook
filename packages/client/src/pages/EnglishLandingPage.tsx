@@ -127,6 +127,26 @@ const WALL_QUOTA: { n: number; match: (c: string) => boolean; spread?: boolean }
   { n: 2, match: (c) => c === '생활동화' },
 ];
 
+/**
+ * 서비스 구분 배너 — 🔴 이 랜딩은 **서비스 둘**을 판다(파닉스 · 동화책). 배너 없이 섹션만
+ * 이어 놓으면 어디부터 다른 서비스인지 안 보인다(2026-08-10 사용자: "2개 서비스 설명하는
+ * 건데 구분이 안 지어져 있어"). 굵은 가로선 + 큰 이름으로 페이지를 두 덩어리로 끊는다.
+ * 🔴 배너가 이름을 맡으므로 **그 아래 섹션은 eyebrow 를 비운다** — 이름을 두 번 말하지 않는다.
+ */
+function ServiceBanner({ n, name, tagline }: { n: number; name: string; tagline: string }) {
+  return (
+    <div className="px-4 pt-14 sm:px-6">
+      <div className="mx-auto max-w-3xl border-t-4 border-coral-300 pt-7">
+        <p className="text-xs font-bold tracking-wide text-ink-400">서비스 {n}</p>
+        <h2 className="mt-1 font-display text-[28px] font-extrabold text-ink-900 break-keep sm:text-[36px]">
+          {name}
+        </h2>
+        <p className="mt-2 text-[15px] text-ink-600 break-keep sm:text-base">{tagline}</p>
+      </div>
+    </div>
+  );
+}
+
 function Section({
   eyebrow,
   title,
@@ -293,7 +313,12 @@ export default function EnglishLandingPage() {
       </Section>
 
       {/* ── ③ 커리큘럼 2겹(여정 + 능력 축) ─────────────────────── */}
-      <Section eyebrow="영어 파닉스" title={`영어 파닉스 ${FACTS.englishUnits}단원`}>
+      <ServiceBanner
+        n={1}
+        name="탱고북 영어 파닉스"
+        tagline="알파벳 소리부터 매직 e 까지, 소리로 글자를 뗍니다."
+      />
+      <Section title={`영어 파닉스 ${FACTS.englishUnits}단원`}>
         {/* 뷰 1 — 다섯 권을 순서대로 밟는 길 */}
         <ol className="!mt-5 space-y-2">
           {BOOKS.map((s, i) => (
@@ -354,7 +379,7 @@ export default function EnglishLandingPage() {
         <div className="mx-auto max-w-3xl">
           <div className="rounded-3xl border border-coral-200 bg-white/60 p-4 sm:p-6">
             <p className="text-xs font-bold tracking-wide text-coral-700">
-              영어 파닉스 · {FACTS.englishUnits}단원
+              탱고북 영어 파닉스 · {FACTS.englishUnits}단원
             </p>
             <h2 className="mt-1 font-display text-[26px] font-extrabold text-ink-900 break-keep sm:text-[32px]">
               「c + an → can」 단원 학습 샘플
@@ -396,7 +421,12 @@ export default function EnglishLandingPage() {
       </section>
 
       {/* ── ⑤ 동화책 — 숫자가 아니라 표지로 ─────────────────────── */}
-      <Section eyebrow="동화책 · 어휘와 독해력" title="읽을수록 어휘와 독해력이 자라요">
+      <ServiceBanner
+        n={2}
+        name="탱고북 동화책"
+        tagline="뗀 글자로 바로 읽습니다. 읽을수록 어휘와 독해력이 자랍니다."
+      />
+      <Section title="읽을수록 어휘와 독해력이 자라요">
         <p>
           파닉스를 뗐다고 끝이 아닙니다. 낱말을 <strong>이야기 속에서</strong> 만나고 또 만나며{' '}
           <strong>어휘가 늘고</strong>, 읽고 이해하는 힘(<strong>독해력</strong>)이 자랍니다.

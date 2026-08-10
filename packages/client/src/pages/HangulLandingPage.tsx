@@ -60,6 +60,11 @@ const FACTS = {
   multiStyleBooks: 48,
 };
 
+/**
+ * 🔴 **공식 서비스 이름**(2026-08-10 사용자 확정) — 「탱고북 한글 파닉스」·「탱고북 영어 파닉스」·
+ *    「탱고북 동화책」. 섹션 이름표를 이 셋으로 통일한다. 예전 「동화책 · 어휘와 문해력」처럼
+ *    **설명을 이름 자리에 두지 않는다** — 어휘·문해력은 아래 제목과 본문이 이미 말한다.
+ */
 /** 공개 카테고리 — 권수 desc. 라이브러리 실측(2026-08-01). */
 const CATEGORIES: [string, number][] = [
   ['세계 명작', 48],
@@ -570,6 +575,26 @@ function CoverSlider() {
   );
 }
 
+/**
+ * 서비스 구분 배너 — 🔴 이 랜딩은 **서비스 둘**을 판다(파닉스 · 동화책). 배너 없이 섹션만
+ * 이어 놓으면 어디부터 다른 서비스인지 안 보인다(2026-08-10 사용자: "2개 서비스 설명하는
+ * 건데 구분이 안 지어져 있어"). 굵은 가로선 + 큰 이름으로 페이지를 두 덩어리로 끊는다.
+ * 🔴 배너가 이름을 맡으므로 **그 아래 섹션은 eyebrow 를 비운다** — 이름을 두 번 말하지 않는다.
+ */
+function ServiceBanner({ n, name, tagline }: { n: number; name: string; tagline: string }) {
+  return (
+    <div className="px-4 pt-14 sm:px-6">
+      <div className="mx-auto max-w-3xl border-t-4 border-coral-300 pt-7">
+        <p className="text-xs font-bold tracking-wide text-ink-400">서비스 {n}</p>
+        <h2 className="mt-1 font-display text-[28px] font-extrabold text-ink-900 break-keep sm:text-[36px]">
+          {name}
+        </h2>
+        <p className="mt-2 text-[15px] text-ink-600 break-keep sm:text-base">{tagline}</p>
+      </div>
+    </div>
+  );
+}
+
 function Section({
   eyebrow,
   title,
@@ -780,8 +805,8 @@ export default function HangulLandingPage() {
                 넘어 세 줄로 접혔다 — 제목이 세 줄이면 첫인상이 「길다」가 된다. sm 이상에서만
                 크기를 낮추고 `nowrap` 을 건다. 모바일은 그대로 접힌다(375px 에 한 줄은 불가능). */}
             <h1 className="mt-3 font-display text-[28px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:whitespace-nowrap sm:text-[28px] md:text-[32px]">
-              <span className="text-coral-700">한글 파닉스</span> {FACTS.koreanUnits}단원과{' '}
-              <span className="text-coral-700">다양한 동화책</span>이{' '}
+              <span className="text-coral-700">탱고북 한글 파닉스</span>와{' '}
+              <span className="text-coral-700">탱고북 동화책</span>이{' '}
               <span className="whitespace-nowrap">한 곳에</span>
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-ink-700 break-keep sm:text-[18px] md:mx-0">
@@ -791,12 +816,23 @@ export default function HangulLandingPage() {
               있고, 패드도 약정도 없습니다.
             </p>
 
-            <div className="mx-auto mt-7 grid max-w-lg grid-cols-3 gap-2 sm:gap-3 md:mx-0">
-              <Stat value={`${FACTS.koreanUnits}단원`} label="한글 파닉스" />
-              <Stat value={`${FACTS.englishUnits}단원`} label="영어 파닉스" />
-              {/* 🔴 동화책은 권수를 안 세운다(2026-08-05 사용자: "지금 숫자는 많은게 아냐").
-                  카테고리 수로 다양성을 말한다 — 권수보다 강하고 늘어나도 낡지 않는다. */}
-              <Stat value={`${FACTS.categories}개`} label="동화책 카테고리" />
+            {/* 🔴 **숫자 칸 셋을 서비스 두 장으로**(2026-08-10 사용자). 「32단원·39단원·13개」는
+                ①「단원 수로 파는 건 없어 보이고」 ②영어 파닉스는 `/english` 로 따로 파는데 여기
+                끼어 있었고 ③동화책 카테고리 수는 첫 화면에서 뜬금없다. 이 자리의 일은 **이 페이지가
+                파는 게 둘이라는 것**을 먼저 말하는 것이고, 아래 서비스 배너 ①② 와 짝을 맞춘다. */}
+            <div className="mx-auto mt-7 grid max-w-lg grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3 md:mx-0">
+              {[
+                { n: 1, name: '탱고북 한글 파닉스', d: '소리로 글자를 뗍니다' },
+                { n: 2, name: '탱고북 동화책', d: '뗀 글자로 바로 읽습니다' },
+              ].map((x) => (
+                <div key={x.n} className="rounded-2xl bg-white/70 px-4 py-3 text-left">
+                  <span className="text-xs font-bold text-ink-400">{x.n}</span>
+                  <strong className="mt-0.5 block font-display text-lg font-extrabold text-coral-700 break-keep">
+                    {x.name}
+                  </strong>
+                  <span className="mt-0.5 block text-sm text-ink-600 break-keep">{x.d}</span>
+                </div>
+              ))}
             </div>
 
             <Link
@@ -808,7 +844,7 @@ export default function HangulLandingPage() {
             {/* 🔴 **할인가를 히어로에서 빼고 정가만**(2026-08-10 사용자). 첫 화면에서 「→ 할인 →
                 (베타오픈 기간)」까지 읽히면 값을 세 번 말하는 셈이고, 「베타」가 미완성으로도 읽힌다.
                 할인은 ⑦ 요금에서 한 번만 꺼낸다 — 거기까지 읽은 사람에겐 결정을 뒤집는 정보다. */}
-            <p className="mt-3 text-xs text-ink-600 break-keep">
+            <p className="mt-3 text-base font-semibold text-ink-700 break-keep sm:text-lg">
               월 {PLANS.month1.originalAmount?.toLocaleString()}원
             </p>
             {/* 🔴 히어로의 "진짜 앱 화면" 배지는 뺐다(2026-08-05 사용자, 두 번째 요청) — 진짜 데모는
@@ -880,7 +916,12 @@ export default function HangulLandingPage() {
           그냥 우리가 이걸 컨텐츠를 가지고 있다고만 언급하면 됨"). 「기역은 이름이지 소리가
           아니다」는 우리끼리 옳은 얘기고, 부모가 이 자리에서 궁금한 건 **뭐가 얼마나 있나**다.
           제목도 「이름이 아니라 소리부터」에는 정작 **한글**이 안 들어 있었다. */}
-      <Section eyebrow="한글 파닉스" title={`한글 파닉스 ${FACTS.koreanUnits}단원`}>
+      <ServiceBanner
+        n={1}
+        name="탱고북 한글 파닉스"
+        tagline="자음·모음부터 받침·쌍자음까지, 소리로 글자를 뗍니다."
+      />
+      <Section title={`한글 파닉스 ${FACTS.koreanUnits}단원`}>
         {/* 뷰 1 — 단계(여정). 자음·모음 → 받침 → 쌍자음 → 복잡한 모음, 번호로 밟는 길. */}
         <p>
           자음·모음에서 시작해 받침·쌍자음·복잡한 모음까지, <strong>다섯 단계</strong>로 차근차근
@@ -980,7 +1021,12 @@ export default function HangulLandingPage() {
       {/* 🔴 **쪽수·권수를 앞세우지 않는다**(2026-08-05 사용자: "쪽수 이런건 뭐하러 얘기해 의미없게").
           부모가 궁금한 건 3,835쪽이 아니라 **뭐가 다양하게 있고, 책마다 뭘 하고, 계속 느나**다.
           그래서 제목·본문을 라인 다양성 + 책마다 독후활동 게임 + 매달 증가로 바꿨다. */}
-      <Section eyebrow="동화책 · 어휘와 문해력" title="읽을수록 어휘와 문해력이 자라요">
+      <ServiceBanner
+        n={2}
+        name="탱고북 동화책"
+        tagline="뗀 글자로 바로 읽습니다. 읽을수록 어휘와 문해력이 자랍니다."
+      />
+      <Section title="읽을수록 어휘와 문해력이 자라요">
         <p>
           글자를 뗐다고 끝이 아니에요. 낱말을 <strong>이야기 속에서</strong> 만나고 또 만나며{' '}
           <strong>어휘가 늘고</strong>, 읽고 이해하는 힘(<strong>문해력</strong>)이 자랍니다.
@@ -1009,17 +1055,9 @@ export default function HangulLandingPage() {
             아이+뷰어를 보여주므로 첫 아이 사진(reading.webp)은 중복이라 뺐다 — 리스트로 문을 연다.
             (reading.webp 는 public/landing/hangul/ 에 남아 있다.) */}
         <BookWall />
-        <div className="!mt-6 flex flex-wrap gap-2">
-          {CATEGORIES.map(([name, n]) => (
-            <span
-              key={name}
-              className="inline-flex items-center gap-1.5 rounded-full border border-ink-100 bg-white/70 px-3 py-1.5 text-sm text-ink-700 break-keep"
-            >
-              {name}
-              <strong className="text-coral-700">{n}</strong>
-            </span>
-          ))}
-        </div>
+        {/* 🔴 카테고리 칩 13개 목록은 뺐다(2026-08-10 사용자) — 바로 위 표지벽이 이미 다양성을
+            보여주는데 이름·권수를 또 늘어놓으면 같은 말을 두 번 하고, 아래 문단이 「13개
+            카테고리」로 한 번 더 말한다. `CATEGORIES` 상수는 그 문단이 아직 쓴다. */}
         <p className="!mt-6">
           <strong>{FACTS.fiveLangBooks}권</strong>은 한국어·영어·베트남어·중국어·태국어 다섯 언어로
           읽을 수 있고, 세계 명작 등 <strong>{FACTS.multiStyleBooks}권</strong>은 같은 이야기를
