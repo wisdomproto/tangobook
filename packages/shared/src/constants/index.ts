@@ -1386,57 +1386,58 @@ export const CHINESE_PHONICS_CURRICULUM = [
     ],
   },
   {
-    // 🔴 Level 3 병음조합(拼读) — **성모 그룹별**(L2 와 같은 그룹)로 각 성모를 정해진 모음과 결합해 4성으로
-    //    배운다(拼读 놀이판). 카드 = 성모 글자(sampleWords), 소리 = 그 성모+모음의 실존 4성 시퀀스(ā á ǎ à).
-    //    축이 "성모 그룹 고정 · 성모 순회 · 각 성모 4성"이라, pattern 은 blend(L5/L6 복운모)와 구분되는 `combine`.
-    //    🔴 모음 규칙 = **'a' 기본**, 'a' 와 안 붙는 성모 그룹(j q x · z c s · zh ch sh r)만 **'i'**(표준 citation).
-    //    🔴 성조가 이 레벨의 새 축. 🔴 4성이 다 실존하지 않는 성모가 있다(p+a = pā pá pà, pǎ 없음 / k+a =
-    //    kā kǎ) → 학습자 `COMBINE_SYLLABLES` 표가 유닛별로 실존 음절만 담는다(억지 4성 생성 X, 무음 방지).
+    // 🔴 Level 3 병음조합(拼读) — **성모 그룹별**(L2 와 같은 그룹)로 각 성모를 **붙는 모음 전부**와 결합해
+    //    4성으로 배운다(拼读 놀이판). 화면 한 줄 = `b + a` → [bā][bá][bǎ][bà], 줄이 성모×모음마다 하나.
+    //    축이 "성모 그룹 고정 · 성모 순회 · 모음 순회 · 각 4성"이라, pattern 은 blend(L5/L6 복운모)와 구분되는 `combine`.
+    //    🔴 **모음을 하나로 고정하지 않는다**(2026-08-10 사용자: "왜 b p m f 는 a 블렌딩만 해?") — 대표 모음
+    //    하나만 배우면 그 성모가 내는 소리의 1/4 만 겪는다. 그래서 title 에도 모음을 안 적는다(여러 개다).
+    //    🔴 성조가 이 레벨의 새 축. 🔴 4성이 다 실존하지 않는 조합이 있다(p+a = pā pá pà, pǎ 없음 / k+a =
+    //    kā kǎ) → 학습자 `COMBINE_SYLLABLES` 표(72줄 257음절, 전부 mod_chinese 실존)가 실존 음절만 담는다.
     //    한자·그림 없이 병음 음절만(한자·낱말은 L4). 6 성모 그룹 유닛.
     level: 'level3',
     name: 'Level 3: 병음조합',
-    description: '성모 그룹별 4성 拼读 (b p m f + a → bā bá bǎ bà · j q x + i → jī jí jǐ jì)',
+    description: '성모 × 붙는 모음 전부 × 4성 拼读 (b + a → bā bá bǎ bà · b + o → bō bó bǒ bò)',
     units: [
       {
         id: 'zh-l3-u01',
-        title: 'Unit 01: b p m f (a 블렌딩)',
+        title: 'Unit 01: b p m f',
         phonemes: ['b', 'p', 'm', 'f'],
         patterns: ['combine'],
         sampleWords: ['b', 'p', 'm', 'f'],
       },
       {
         id: 'zh-l3-u02',
-        title: 'Unit 02: d t n l (a 블렌딩)',
+        title: 'Unit 02: d t n l',
         phonemes: ['d', 't', 'n', 'l'],
         patterns: ['combine'],
         sampleWords: ['d', 't', 'n', 'l'],
       },
       {
         id: 'zh-l3-u03',
-        title: 'Unit 03: g k h (a 블렌딩)',
+        title: 'Unit 03: g k h',
         phonemes: ['g', 'k', 'h'],
         patterns: ['combine'],
         sampleWords: ['g', 'k', 'h'],
       },
       {
         id: 'zh-l3-u04',
-        title: 'Unit 04: j q x (i 블렌딩)',
+        title: 'Unit 04: j q x',
         phonemes: ['j', 'q', 'x'],
         patterns: ['combine'],
         sampleWords: ['j', 'q', 'x'],
       },
       {
         id: 'zh-l3-u05',
-        // z c s + i = zi ci si(舌尖前 whole-read 계열이지만 여기선 성모+i 조합으로 배운다).
-        title: 'Unit 05: z c s (i 블렌딩)',
+        // z c s + a/e/i/u (zi ci si 는 舌尖前 whole-read 계열이지만 여기선 성모+운모 조합으로 배운다).
+        title: 'Unit 05: z c s',
         phonemes: ['z', 'c', 's'],
         patterns: ['combine'],
         sampleWords: ['z', 'c', 's'],
       },
       {
         id: 'zh-l3-u06',
-        // zh ch sh r + i = zhi chi shi ri(舌尖後). r+i = rī rí rǐ rì 실존.
-        title: 'Unit 06: zh ch sh r (i 블렌딩)',
+        // zh ch sh r + a/e/i/u(舌尖後). r 은 a 와 안 붙어 e/i/u 3줄.
+        title: 'Unit 06: zh ch sh r',
         phonemes: ['zh', 'ch', 'sh', 'r'],
         patterns: ['combine'],
         sampleWords: ['zh', 'ch', 'sh', 'r'],

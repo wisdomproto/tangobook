@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import {
   CHANT_URLS,
+  COMBINE_SYLLABLES,
+  getCombineGroups,
   getAllChineseUnits,
   getChineseActivityPlan,
   getChineseListenCards,
@@ -355,53 +357,93 @@ describe('중국어 병음 파닉스 L1~L3 (교안 순서: 성조 먼저)', () =
       ]);
       expect(plan.activities.map((a) => a.key)).toEqual(['listen-choose', 'listen-quiz']);
       expect(getChineseRequiredActivities(id)).toEqual(['listen-choose', 'listen-quiz']);
+      // 🔴 제목에 대표 모음을 적지 않는다 — 이제 성모마다 붙는 모음을 전부 배운다("(a 블렌딩)" 제거).
+      expect(getChineseUnit(id)!.unitTitle).not.toMatch(/블렌딩/);
     }
+    expect(getChineseUnit('zh-l3-u01')!.unitTitle).toBe('Unit 01: b p m f');
   });
 
-  // 🔴 배우기 카드 = 성모 라벨 + 그 성모+모음의 실존 4성 시퀀스. sound = syl[0]. 전 음절 mod_chinese 직행.
-  // u01 b p m f · u02 d t n l = 'a' 블렌딩.
-  it('병음조합 u01(b p m f)·u02(d t n l) 배우기 카드 = 성모 라벨 + a 블렌딩 4성 시퀀스', () => {
-    expect(getChineseListenCards('zh-l3-u01')).toEqual([
-      { label: 'b', sound: 'bā', sounds: ['bā', 'bá', 'bǎ', 'bà'] },
-      // 🔴 실존 음절만 — p+a 는 pǎ 가 없어 3성. generate-all-4 가 아니라 실측 표.
-      { label: 'p', sound: 'pā', sounds: ['pā', 'pá', 'pà'] },
-      { label: 'm', sound: 'mā', sounds: ['mā', 'má', 'mǎ', 'mà'] },
-      { label: 'f', sound: 'fā', sounds: ['fā', 'fá', 'fǎ', 'fà'] },
+  // 🔴 **성모 × 붙는 모음 전부 × 실존 성조**(2026-08-10 사용자: "왜 b p m f 는 a 블렌딩만 해?").
+  //    한 줄(CombineRow) = 화면의 한 줄. 유닛별 줄 수는 성모가 실제로 붙는 모음 수의 합이다.
+  it('병음조합 표 = 성모 × 붙는 모음 전부 (72줄 257음절, 유닛별 줄 수 고정)', () => {
+    const counts = Object.fromEntries(
+      Object.entries(COMBINE_SYLLABLES).map(([id, rows]) => [id, rows.length])
+    );
+    expect(counts).toEqual({
+      'zh-l3-u01': 14,
+      'zh-l3-u02': 17,
+      'zh-l3-u03': 9,
+      'zh-l3-u04': 6,
+      'zh-l3-u05': 11,
+      'zh-l3-u06': 15,
+    });
+    const rows = Object.values(COMBINE_SYLLABLES).flat();
+    expect(rows.length).toBe(72);
+    expect(rows.reduce((n, r) => n + r.syl.length, 0)).toBe(257);
+    // 🔴 실존 음절만 — 억지 4성 생성 X(없는 성조는 무음이다). 줄마다 1~4개.
+    for (const r of rows) {
+      expect(r.syl.length, `${r.c}+${r.v}`).toBeGreaterThan(0);
+      expect(r.syl.length, `${r.c}+${r.v}`).toBeLessThanOrEqual(4);
+      // 모든 음절이 그 성모로 시작한다(줄과 소리가 어긋나면 화면이 거짓말을 한다).
+      for (const s of r.syl) expect(s.startsWith(r.c), `${s} ∉ ${r.c}`).toBe(true);
+    }
+    // b + a/o/i/u — 대표 모음 하나가 아니다.
+    expect(COMBINE_SYLLABLES['zh-l3-u01'].filter((r) => r.c === 'b').map((r) => r.v)).toEqual([
+      'a',
+      'o',
+      'i',
+      'u',
     ]);
-    expect(getChineseListenCards('zh-l3-u02')).toEqual([
-      { label: 'd', sound: 'dā', sounds: ['dā', 'dá', 'dǎ', 'dà'] },
-      { label: 't', sound: 'tā', sounds: ['tā', 'tǎ', 'tà'] },
-      { label: 'n', sound: 'nā', sounds: ['nā', 'ná', 'nǎ', 'nà'] },
-      { label: 'l', sound: 'lā', sounds: ['lā', 'lá', 'lǎ', 'là'] },
+    // 실존 성조만: p+a 는 pǎ 없음 · k+a 는 kā kǎ 뿐 · f+o 는 fó 하나뿐이라 줄 자체가 없다.
+    expect(COMBINE_SYLLABLES['zh-l3-u01'].find((r) => r.c === 'p' && r.v === 'a')!.syl).toEqual([
+      'pā',
+      'pá',
+      'pà',
     ]);
+    expect(COMBINE_SYLLABLES['zh-l3-u03'].find((r) => r.c === 'k' && r.v === 'a')!.syl).toEqual([
+      'kā',
+      'kǎ',
+    ]);
+    expect(COMBINE_SYLLABLES['zh-l3-u01'].some((r) => r.c === 'f' && r.v === 'o')).toBe(false);
   });
 
-  // u03 g k h = 'a' 블렌딩. 🔴 k+a = kā kǎ 만 실존(2성·4성 없음).
-  it('병음조합 u03(g k h) 배우기 카드 = k 는 2성만(kā kǎ)', () => {
-    expect(getChineseListenCards('zh-l3-u03')).toEqual([
-      { label: 'g', sound: 'gā', sounds: ['gā', 'gá', 'gǎ', 'gà'] },
-      { label: 'k', sound: 'kā', sounds: ['kā', 'kǎ'] },
-      { label: 'h', sound: 'hā', sounds: ['hā', 'há', 'hǎ', 'hà'] },
-    ]);
+  // 🔴 배우기 화면(`PinyinToneRowsActivity`)이 읽는 묶음 — 성모 하나가 모음 줄들을 안는다.
+  it('getCombineGroups = 성모별 묶음(줄 순서 유지 + 전 음절 이어붙임)', () => {
+    const g = getCombineGroups('zh-l3-u01');
+    expect(g.map((x) => x.c)).toEqual(['b', 'p', 'm', 'f']);
+    expect(g[0].rows.map((r) => r.v)).toEqual(['a', 'o', 'i', 'u']);
+    expect(g[0].rows[0].syl).toEqual(['bā', 'bá', 'bǎ', 'bà']);
+    expect(g[0].syllables.length).toBe(16); // 4줄 × 4성
+    expect(g[3].rows.map((r) => r.v)).toEqual(['a', 'u']); // f 는 a·u 두 줄뿐
+    // 2글자 성모도 그대로 묶인다(zh ch sh r).
+    expect(getCombineGroups('zh-l3-u06').map((x) => x.c)).toEqual(['zh', 'ch', 'sh', 'r']);
+    expect(getCombineGroups('zh-l1-u01')).toEqual([]); // combine 아닌 유닛은 빈 배열
   });
 
-  // u04 j q x · u05 z c s · u06 zh ch sh r = 'i' 블렌딩(a 와 안 붙는 성모 그룹, 표준 citation).
-  it('병음조합 u04(j q x)·u05(z c s)·u06(zh ch sh r) 배우기 카드 = i 블렌딩 4성 시퀀스', () => {
-    expect(getChineseListenCards('zh-l3-u04')).toEqual([
-      { label: 'j', sound: 'jī', sounds: ['jī', 'jí', 'jǐ', 'jì'] },
-      { label: 'q', sound: 'qī', sounds: ['qī', 'qí', 'qǐ', 'qì'] },
-      { label: 'x', sound: 'xī', sounds: ['xī', 'xí', 'xǐ', 'xì'] },
+  // 🔴 「듣고 고르기」 퀴즈 카드 = **성모 하나에 카드 하나**(보기 라벨 = 성모, 문제 = 그 성모의 음절).
+  //    `sounds` = 그 성모의 전 음절 — 호스트가 이 목록으로 재생 URL 을 한 번에 resolve 한다(배우기와 공유).
+  it('병음조합 배우기·퀴즈 카드 = 성모별 1장 (sound=첫 음절, sounds=그 성모 전 음절)', () => {
+    const cards = getChineseListenCards('zh-l3-u01');
+    expect(cards.map((c) => c.label)).toEqual(['b', 'p', 'm', 'f']);
+    expect(cards.map((c) => c.sound)).toEqual(['bā', 'pā', 'mā', 'fā']);
+    expect(cards.map((c) => c.sounds!.length)).toEqual([16, 15, 15, 8]);
+    expect(cards[0].sounds!.slice(0, 5)).toEqual(['bā', 'bá', 'bǎ', 'bà', 'bō']);
+    // i 로 시작하는 그룹(j q x)·2글자 성모 그룹도 같은 모양.
+    expect(getChineseListenCards('zh-l3-u04').map((c) => c.sound)).toEqual(['jī', 'qī', 'xī']);
+    expect(getChineseListenCards('zh-l3-u06').map((c) => c.label)).toEqual(['zh', 'ch', 'sh', 'r']);
+    // r 은 a 와 안 붙어 첫 줄이 e — 표의 첫 음절이 그대로 문제 소리다.
+    expect(getChineseListenCards('zh-l3-u06').map((c) => c.sound)).toEqual([
+      'zhā',
+      'chā',
+      'shā',
+      'rě',
     ]);
-    expect(getChineseListenCards('zh-l3-u05')).toEqual([
-      { label: 'z', sound: 'zī', sounds: ['zī', 'zí', 'zǐ', 'zì'] },
-      { label: 'c', sound: 'cī', sounds: ['cī', 'cí', 'cǐ', 'cì'] },
-      { label: 's', sound: 'sī', sounds: ['sī', 'sí', 'sǐ', 'sì'] },
-    ]);
-    expect(getChineseListenCards('zh-l3-u06')).toEqual([
-      { label: 'zh', sound: 'zhī', sounds: ['zhī', 'zhí', 'zhǐ', 'zhì'] },
-      { label: 'ch', sound: 'chī', sounds: ['chī', 'chí', 'chǐ', 'chì'] },
-      { label: 'sh', sound: 'shī', sounds: ['shī', 'shí', 'shǐ', 'shì'] },
-      { label: 'r', sound: 'rī', sounds: ['rī', 'rí', 'rǐ', 'rì'] },
+    // 쓰기·사냥 카드(방어용)는 시퀀스 없이 라벨+소리만.
+    expect(getChineseUnitCards('zh-l3-u01')).toEqual([
+      { label: 'b', sound: 'bā' },
+      { label: 'p', sound: 'pā' },
+      { label: 'm', sound: 'mā' },
+      { label: 'f', sound: 'fā' },
     ]);
   });
 

@@ -8,6 +8,7 @@ import {
   getChineseToneChoiceCards,
   getChineseUnit,
   getChineseUnitCards,
+  getCombineGroups,
   getSingleFinalToneWords,
   hanziFor,
   isBlendUnit,
@@ -32,6 +33,7 @@ import { PhonicsGameGate } from './PhonicsGameGate';
 import { LineMatchingPlayer } from '@/features/games/components/players/LineMatchingPlayer';
 import { ConnectTheDotsPlayer } from '@/features/games/components/players/ConnectTheDotsPlayer';
 import { WordListenChooseActivity } from '../activities/WordListenChooseActivity';
+import { PinyinToneRowsActivity } from '../activities/PinyinToneRowsActivity';
 import { VowelWriteActivity } from '../activities/VowelWriteActivity';
 import { LetterHuntActivity } from '../activities/LetterHuntActivity';
 import { ChantActivity } from '../activities/ChantActivity';
@@ -40,10 +42,13 @@ import { useLogEvent } from '@/features/learning/hooks/useLogEvent';
 /**
  * /library/phonics/chinese/:unitId/:activityKey — 병음 활동 호스트.
  *
- * 활동은 전부 기존 컴포넌트 재사용(새 컴포넌트 0):
- *  - `word-listen-choose` = 듣고 배우기 / 성조 듣고 고르기(성조 유닛)
+ * 활동은 대부분 기존 컴포넌트 재사용:
+ *  - `word-listen-choose` = 듣고 배우기 / 성조 듣고 고르기(성조 유닛) / 병음조합 듣고 고르기
  *  - `vowel-write` = 병음 따라쓰기(LetterFillCanvas 라틴)
  *  - `letter-hunt` = 글자 사냥(병음 모양 변별)
+ *
+ * 🔴 예외 하나 = **병음조합(L3) 배우기 `PinyinToneRowsActivity`**(2026-08-10). 4성 줄을 화면에 깔아야 하는데
+ *    줄마다 성조 수가 달라(pā pá pà = 3) 고정 열 격자로는 묶음이 쪼개진다 — 그래서 줄을 그리는 화면이 필요했다.
  *
  * 🔴 발음 = 원어민 녹음(`mod_chinese`) 직행. `getChineseSyllableUrl(sound)` 로 URL 을 미리 뽑아
  *    `ttsUrl` 로 넘긴다(word-listen·write). 글자 사냥은 컴포넌트가 `resolveTtsUrl(zh)` 로 직접 읽는다.
@@ -122,6 +127,12 @@ export default function ChinesePhonicsActivityPage() {
     if (activity?.kind === 'word-listen-choose') return getChineseListenCards(unitId);
     return getChineseUnitCards(unitId);
   }, [unitId, activityKey, activity?.kind]);
+
+  // 병음조합(L3) 배우기 판 — 성모별 묶음(모음 줄들). 🔴 렌더마다 새 배열이면 자식 memo 가 깨지므로 여기서 한 번.
+  const combineGroups = useMemo(
+    () => (isCombineUnit(unitId) ? getCombineGroups(unitId) : []),
+    [unitId]
+  );
 
   // 진입 시 카드 발음을 전부 resolve(프리워밍) → sound→URL 맵. 4성 순서(`sounds`)까지 포함. resolve 전엔 로딩.
   // 🔴 글자 사냥은 여기서 안 데운다 — `resolveTtsUrl(zh)` 가 방해꾼까지 런타임에 읽는다.
@@ -474,6 +485,22 @@ export default function ChinesePhonicsActivityPage() {
     );
   }
 
+  // ── 병음조합(拼读) 배우기 = 성모 탭 + 그 성모의 4성 줄(`b + a` → bā bá bǎ bà) ────────────
+  // 🔴 격자(WordListenChoose)로는 못 그린다 — 줄마다 성조 수가 달라(pā pá pà = 3 · né nè = 2) 고정 열
+  //    격자에 쏟으면 성조 묶음이 줄을 넘어 쪼개진다. 「듣고 고르기」(listen-quiz)는 그대로 아래 격자
+  //    (보기 = 성모 라벨, 문제 = 그 성모의 음절 하나).
+  if (isCombineUnit(unitId) && activityKey === 'listen-choose' && combineGroups.length) {
+    return (
+      <PinyinToneRowsActivity
+        unitId={unitId}
+        groups={combineGroups}
+        ttsBySound={ttsBySound}
+        onMarkComplete={handleMarkComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+
   // 병음 따라쓰기 — 쓰는 글자는 낱 모음(label), 읽는 소리는 tone-1 녹음(ttsUrl).
   if (activity.kind === 'vowel-write') {
     return (
@@ -503,8 +530,15 @@ export default function ChinesePhonicsActivityPage() {
       ...(seq.length > 1 ? { soundUrls: seq } : {}),
     };
   });
-  // 성조·병음조합 = 2×2 격자(4장). 그 외(단운모·성모)는 장수로.
-  const columns = isToneUnit(unitId) || isBlendUnit(unitId) ? 2 : Math.min(items.length, 3);
+  // 성조·복운모 = 2×2 격자(4장). 🔴 병음조합(combine) 「듣고 고르기」는 **성모를 한 줄에**(3~4장,
+  //    2026-08-10 사용자) — `min(n,3)` 이면 b p m f 가 3+1 로 접혀 f 만 다음 줄로 떨어진다.
+  //    (배우기는 위에서 `PinyinToneRowsActivity` 로 빠지므로 여기 오는 combine 은 퀴즈뿐이다.)
+  const columns =
+    isToneUnit(unitId) || isBlendUnit(unitId)
+      ? 2
+      : isCombineUnit(unitId)
+        ? items.length
+        : Math.min(items.length, 3);
   return (
     <WordListenChooseActivity
       unitId={unitId}
@@ -513,8 +547,8 @@ export default function ChinesePhonicsActivityPage() {
       language="zh"
       items={items}
       choices={items.length}
-      // 🔴 병음조합(L3)은 성모를 탐색에 전부 깔되(놀이판) 퀴즈만 6장으로 줄인다 — u05(17) 17지선다 방지.
-      //    성조·복운모 등 작은 판은 미지정(퀴즈=판 전체, 기존 동작 불변).
+      // 🔴 병음조합(L3) 퀴즈 보기는 성모 3~4개라 캡이 사실상 안 걸리지만, 성모가 늘어도 6지선다를
+      //    넘지 않게 상한만 둔다. 성조·복운모 등은 미지정(퀴즈=판 전체, 기존 동작 불변).
       quizChoices={isCombineUnit(unitId) ? Math.min(items.length, 6) : undefined}
       columns={columns}
       // 🔴 「배우기」(listen-choose)만 탐색 먼저 — 병음조합 배우기는 눌러 블렌드를 듣고, 성조/병음조합

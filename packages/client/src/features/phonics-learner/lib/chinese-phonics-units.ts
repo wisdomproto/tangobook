@@ -329,6 +329,18 @@ const COMBINING_DIAERESIS = '̈'; // ü 의 ¨
  * NFD 로 풀어 성조 결합부호를 찾고, 그 앞의 모음(nucleus)에 같은 성조를 얹은 부호를 돌려준다.
  * ü(u+¨)는 다이어레시스가 붙은 u 로 감지해 ü 성조표를 쓴다. 성조가 없으면(경성) undefined.
  */
+/**
+ * 병음 음절 → **성조 번호**(bā→1 · bá→2 · bǎ→3 · bà→4 · 경성→0).
+ * 🔴 L3 배우기가 줄을 **성조 1~4 고정 열**로 깔 때 쓴다 — 없는 성조(pǎ)를 빈 칸으로 남겨야
+ *    「어느 성조가 없는지」와 「같은 성조끼리」가 눈으로 읽힌다(가운데 정렬이면 열이 어긋난다).
+ */
+export function toneNumberOf(pinyin: string): number {
+  for (const ch of pinyin.normalize('NFD')) {
+    if (TONE_COMBINING[ch]) return TONE_COMBINING[ch];
+  }
+  return 0;
+}
+
 export function toneMarkOf(pinyin: string): string | undefined {
   let nucleus = '';
   let hasDiaeresis = false;
@@ -398,49 +410,139 @@ const WHOLE_READ_TONES: Record<string, string[]> = {
 }; // prettier-ignore
 
 /**
- * L3 병음조합(拼读) — **성모 그룹별**(L2 와 같은 그룹, `unitId` 키)로 각 성모의 실존 4성 음절. 카드 =
- * 성모(c), 누르면 그 성모+모음의 4성을 순서로(단운모 놀이판과 같은 리듬, 축 = "성모 그룹 고정·성모 순회").
- * sound = syl[0](대개 tone-1, 없으면 첫 실존 성조).
+ * L3 병음조합(拼读) — **성모 그룹별**(L2 와 같은 그룹, `unitId` 키) × **그 성모와 붙는 모음 전부** × 실존 4성.
+ * 한 줄(`CombineRow`)이 곧 화면의 한 줄이다 — `b + a` → `[bā][bá][bǎ][bà]`.
  *
- * 🔴 모음 규칙 = **'a' 기본**, 'a' 와 안 붙는 성모 그룹(j q x · z c s · zh ch sh r)만 **'i'**(표준 citation).
- * 🔴 **실존 음절만** 담는다 — generate-all-4 로 만들지 않는다. 표준 중국어에 없는 성조(p+a 의 pǎ, k+a 의
- *    ké/kè)는 빼서 무음을 막는다. 전 음절이 `mod_chinese` 에 실존하므로 `getChineseSyllableUrl` 로 직행(새 concat 0).
+ * 🔴 **모음을 하나로 고정하지 않는다**(2026-08-10 사용자: "왜 b p m f 는 a 블렌딩만 해?"). 예전엔 성모마다
+ *    대표 모음 하나(a 또는 i)만 배웠는데, 그러면 그 성모가 실제로 내는 소리의 1/4 만 겪는다. 붙는 모음은
+ *    전부 배운다(u01 = 14줄 · u02 = 17줄 · u03 = 9 · u04 = 6 · u05 = 11 · u06 = 15 = **총 72줄 257음절**).
+ * 🔴 **실존 음절만** 담는다 — generate-all-4 로 만들지 않는다. 표준 중국어에 없는 성조(p+a 의 pǎ · k+a 의
+ *    ká/kà · f+o 는 fó 하나뿐)는 빼서 무음을 막는다. **전 257음절이 `mod_chinese` 에 실존**(라이브러리 인덱스
+ *    대조 완료)하므로 `getChineseSyllableUrl` 로 직행한다(새 concat 0).
  */
-export const COMBINE_SYLLABLES: Record<string, Array<{ c: string; syl: string[] }>> = {
+export interface CombineRow {
+  /** 성모 — b·zh. 같은 성모가 모음마다 한 줄씩 여러 번 나온다. */
+  c: string;
+  /** 그 성모와 붙는 운모(표기 그대로 — jū 는 소리가 ü 지만 쓸 땐 u). */
+  v: string;
+  /** 그 성모+모음의 **실존** 성조 음절(1~4성 중 있는 것만). */
+  syl: string[];
+}
+
+export const COMBINE_SYLLABLES: Record<string, CombineRow[]> = {
   'zh-l3-u01': [
-    { c: 'b', syl: ['bā', 'bá', 'bǎ', 'bà'] },
-    { c: 'p', syl: ['pā', 'pá', 'pà'] },
-    { c: 'm', syl: ['mā', 'má', 'mǎ', 'mà'] },
-    { c: 'f', syl: ['fā', 'fá', 'fǎ', 'fà'] },
+    { c: 'b', v: 'a', syl: ['bā', 'bá', 'bǎ', 'bà'] },
+    { c: 'b', v: 'o', syl: ['bō', 'bó', 'bǒ', 'bò'] },
+    { c: 'b', v: 'i', syl: ['bī', 'bí', 'bǐ', 'bì'] },
+    { c: 'b', v: 'u', syl: ['bū', 'bú', 'bǔ', 'bù'] },
+    { c: 'p', v: 'a', syl: ['pā', 'pá', 'pà'] },
+    { c: 'p', v: 'o', syl: ['pō', 'pó', 'pǒ', 'pò'] },
+    { c: 'p', v: 'i', syl: ['pī', 'pí', 'pǐ', 'pì'] },
+    { c: 'p', v: 'u', syl: ['pū', 'pú', 'pǔ', 'pù'] },
+    { c: 'm', v: 'a', syl: ['mā', 'má', 'mǎ', 'mà'] },
+    { c: 'm', v: 'o', syl: ['mō', 'mó', 'mǒ', 'mò'] },
+    { c: 'm', v: 'i', syl: ['mī', 'mí', 'mǐ', 'mì'] },
+    { c: 'm', v: 'u', syl: ['mú', 'mǔ', 'mù'] },
+    { c: 'f', v: 'a', syl: ['fā', 'fá', 'fǎ', 'fà'] },
+    { c: 'f', v: 'u', syl: ['fū', 'fú', 'fǔ', 'fù'] },
   ],
   'zh-l3-u02': [
-    { c: 'd', syl: ['dā', 'dá', 'dǎ', 'dà'] },
-    { c: 't', syl: ['tā', 'tǎ', 'tà'] },
-    { c: 'n', syl: ['nā', 'ná', 'nǎ', 'nà'] },
-    { c: 'l', syl: ['lā', 'lá', 'lǎ', 'là'] },
+    { c: 'd', v: 'a', syl: ['dā', 'dá', 'dǎ', 'dà'] },
+    { c: 'd', v: 'e', syl: ['dē', 'dé'] },
+    { c: 'd', v: 'i', syl: ['dī', 'dí', 'dǐ', 'dì'] },
+    { c: 'd', v: 'u', syl: ['dū', 'dú', 'dǔ', 'dù'] },
+    { c: 't', v: 'a', syl: ['tā', 'tǎ', 'tà'] },
+    { c: 't', v: 'i', syl: ['tī', 'tí', 'tǐ', 'tì'] },
+    { c: 't', v: 'u', syl: ['tū', 'tú', 'tǔ', 'tù'] },
+    { c: 'n', v: 'a', syl: ['nā', 'ná', 'nǎ', 'nà'] },
+    { c: 'n', v: 'e', syl: ['né', 'nè'] },
+    { c: 'n', v: 'i', syl: ['nī', 'ní', 'nǐ', 'nì'] },
+    { c: 'n', v: 'u', syl: ['nú', 'nǔ', 'nù'] },
+    { c: 'n', v: 'ü', syl: ['nǚ', 'nǜ'] },
+    { c: 'l', v: 'a', syl: ['lā', 'lá', 'lǎ', 'là'] },
+    { c: 'l', v: 'e', syl: ['lē', 'lè'] },
+    { c: 'l', v: 'i', syl: ['lī', 'lí', 'lǐ', 'lì'] },
+    { c: 'l', v: 'u', syl: ['lū', 'lú', 'lǔ', 'lù'] },
+    { c: 'l', v: 'ü', syl: ['lǘ', 'lǚ', 'lǜ'] },
   ],
   'zh-l3-u03': [
-    { c: 'g', syl: ['gā', 'gá', 'gǎ', 'gà'] },
-    { c: 'k', syl: ['kā', 'kǎ'] },
-    { c: 'h', syl: ['hā', 'há', 'hǎ', 'hà'] },
+    { c: 'g', v: 'a', syl: ['gā', 'gá', 'gǎ', 'gà'] },
+    { c: 'g', v: 'e', syl: ['gē', 'gé', 'gě', 'gè'] },
+    { c: 'g', v: 'u', syl: ['gū', 'gú', 'gǔ', 'gù'] },
+    { c: 'k', v: 'a', syl: ['kā', 'kǎ'] },
+    { c: 'k', v: 'e', syl: ['kē', 'ké', 'kě', 'kè'] },
+    { c: 'k', v: 'u', syl: ['kū', 'kǔ', 'kù'] },
+    { c: 'h', v: 'a', syl: ['hā', 'há', 'hǎ', 'hà'] },
+    { c: 'h', v: 'e', syl: ['hē', 'hé', 'hè'] },
+    { c: 'h', v: 'u', syl: ['hū', 'hú', 'hǔ', 'hù'] },
   ],
   'zh-l3-u04': [
-    { c: 'j', syl: ['jī', 'jí', 'jǐ', 'jì'] },
-    { c: 'q', syl: ['qī', 'qí', 'qǐ', 'qì'] },
-    { c: 'x', syl: ['xī', 'xí', 'xǐ', 'xì'] },
+    { c: 'j', v: 'i', syl: ['jī', 'jí', 'jǐ', 'jì'] },
+    { c: 'j', v: 'u', syl: ['jū', 'jú', 'jǔ', 'jù'] },
+    { c: 'q', v: 'i', syl: ['qī', 'qí', 'qǐ', 'qì'] },
+    { c: 'q', v: 'u', syl: ['qū', 'qú', 'qǔ', 'qù'] },
+    { c: 'x', v: 'i', syl: ['xī', 'xí', 'xǐ', 'xì'] },
+    { c: 'x', v: 'u', syl: ['xū', 'xú', 'xǔ', 'xù'] },
   ],
   'zh-l3-u05': [
-    { c: 'z', syl: ['zī', 'zí', 'zǐ', 'zì'] },
-    { c: 'c', syl: ['cī', 'cí', 'cǐ', 'cì'] },
-    { c: 's', syl: ['sī', 'sí', 'sǐ', 'sì'] },
+    { c: 'z', v: 'a', syl: ['zā', 'zá', 'zǎ'] },
+    { c: 'z', v: 'e', syl: ['zé', 'zè'] },
+    { c: 'z', v: 'i', syl: ['zī', 'zí', 'zǐ', 'zì'] },
+    { c: 'z', v: 'u', syl: ['zū', 'zú', 'zǔ'] },
+    { c: 'c', v: 'a', syl: ['cā', 'cǎ', 'cà'] },
+    { c: 'c', v: 'i', syl: ['cī', 'cí', 'cǐ', 'cì'] },
+    { c: 'c', v: 'u', syl: ['cū', 'cú', 'cù'] },
+    { c: 's', v: 'a', syl: ['sā', 'sǎ', 'sà'] },
+    { c: 's', v: 'e', syl: ['sē', 'sè'] },
+    { c: 's', v: 'i', syl: ['sī', 'sí', 'sǐ', 'sì'] },
+    { c: 's', v: 'u', syl: ['sū', 'sú', 'sù'] },
   ],
   'zh-l3-u06': [
-    { c: 'zh', syl: ['zhī', 'zhí', 'zhǐ', 'zhì'] },
-    { c: 'ch', syl: ['chī', 'chí', 'chǐ', 'chì'] },
-    { c: 'sh', syl: ['shī', 'shí', 'shǐ', 'shì'] },
-    { c: 'r', syl: ['rī', 'rí', 'rǐ', 'rì'] },
+    { c: 'zh', v: 'a', syl: ['zhā', 'zhá', 'zhǎ', 'zhà'] },
+    { c: 'zh', v: 'e', syl: ['zhē', 'zhé', 'zhě', 'zhè'] },
+    { c: 'zh', v: 'i', syl: ['zhī', 'zhí', 'zhǐ', 'zhì'] },
+    { c: 'zh', v: 'u', syl: ['zhū', 'zhú', 'zhǔ', 'zhù'] },
+    { c: 'ch', v: 'a', syl: ['chā', 'chá', 'chǎ', 'chà'] },
+    { c: 'ch', v: 'e', syl: ['chē', 'chě', 'chè'] },
+    { c: 'ch', v: 'i', syl: ['chī', 'chí', 'chǐ', 'chì'] },
+    { c: 'ch', v: 'u', syl: ['chū', 'chú', 'chǔ', 'chù'] },
+    { c: 'sh', v: 'a', syl: ['shā', 'shá', 'shǎ', 'shà'] },
+    { c: 'sh', v: 'e', syl: ['shē', 'shé', 'shě', 'shè'] },
+    { c: 'sh', v: 'i', syl: ['shī', 'shí', 'shǐ', 'shì'] },
+    { c: 'sh', v: 'u', syl: ['shū', 'shú', 'shǔ', 'shù'] },
+    { c: 'r', v: 'e', syl: ['rě', 'rè'] },
+    { c: 'r', v: 'i', syl: ['rī', 'rí', 'rǐ', 'rì'] },
+    { c: 'r', v: 'u', syl: ['rú', 'rǔ', 'rù'] },
   ],
 };
+
+/** 성모 하나가 안는 것 — 그 성모의 모음 줄들과, 그 줄들을 이은 전체 음절 목록(프리워밍·퀴즈용). */
+export interface CombineGroup {
+  c: string;
+  rows: Array<{ v: string; syl: string[] }>;
+  syllables: string[];
+}
+
+/**
+ * `COMBINE_SYLLABLES`(줄 목록) → **성모별 묶음**. 표는 `[{c,v,syl}]` 평면이라 화면(성모 탭)과
+ * 퀴즈(성모 보기) 둘 다 성모로 묶어 써야 한다 — 묶는 규칙을 두 군데 복사하지 않게 여기 한 곳.
+ * 순서는 표 순서 그대로(커리큘럼 성모 순 b p m f …).
+ */
+export function getCombineGroups(unitId: string): CombineGroup[] {
+  const out: CombineGroup[] = [];
+  const byInitial = new Map<string, CombineGroup>();
+  for (const { c, v, syl } of COMBINE_SYLLABLES[unitId] ?? []) {
+    let g = byInitial.get(c);
+    if (!g) {
+      g = { c, rows: [], syllables: [] };
+      byInitial.set(c, g);
+      out.push(g);
+    }
+    g.rows.push({ v, syl });
+    g.syllables.push(...syl);
+  }
+  return out;
+}
 
 /** 커리큘럼 단원만 (복습 제외) — 복습 묶음을 만드는 원본. */
 function getCurriculumUnits(): ChineseUnitSummary[] {
@@ -576,12 +678,9 @@ export function getChineseUnitCards(unitId: string): PinyinCard[] {
   // 通读(整体认读) — 카드 = whole-read 음절 라벨(방어용: 쓰기·사냥 없어 실제로는 안 불린다). 소리는 tone-1.
   if (isWholeUnit(unitId))
     return u.phonemes.map((p) => ({ label: p, sound: WHOLE_READ_TONES[p]?.[0] ?? p }));
-  // 병음조합(拼读) — 카드 = 성모(방어용: 쓰기·사냥 없어 실제로는 안 불린다). 소리는 syl[0](tone-1).
+  // 병음조합(拼读) — 카드 = 성모(방어용: 쓰기·사냥 없어 실제로는 안 불린다). 소리는 첫 줄 첫 음절.
   if (isCombineUnit(unitId))
-    return (COMBINE_SYLLABLES[unitId] ?? []).map(({ c, syl }) => ({
-      label: c,
-      sound: syl[0],
-    }));
+    return getCombineGroups(unitId).map((g) => ({ label: g.c, sound: g.syllables[0] }));
   // 복운모 블렌드 — 카드 = 음절(방어용). 소리는 음절 하나.
   if (isBlendUnit(unitId))
     return u.targetWords.map((w) => ({ label: w, sound: w.normalize('NFC') }));
@@ -602,13 +701,20 @@ export function getChineseListenCards(unitId: string): PinyinCard[] {
   if (isToneUnit(unitId)) {
     return u.targetWords.map((w) => ({ label: w, sound: w }));
   }
-  // 병음조합(拼读) 배우기 — 성모 카드. 누르면 그 성모+모음의 실존 4성 시퀀스(단운모 놀이판과 같은 리듬).
-  // 🔴 sound = syl[0] — 「듣고 고르기」 퀴즈가 그 음절을 문제로 읽고, 보기(라벨)는 성모다(그룹의 모음 고정).
+  /**
+   * 병음조합(拼读) — **성모 하나 = 카드 하나**(모음 줄들을 합친다).
+   *
+   * 🔴 「배우기」는 이 카드를 안 쓴다 — 4성 줄을 화면에 깔아야 해서 `PinyinToneRowsActivity`
+   *    (성모 탭 + 그 성모의 모음별 4성 줄)가 `getCombineGroups` 를 직접 읽는다.
+   *    여기서 만드는 건 **「듣고 고르기」 퀴즈용**: 보기 라벨 = 성모, 문제 소리 = 그 성모의 음절 하나
+   *    (`sound` = 첫 줄 tone-1). `sounds` 는 그 성모의 **전 음절**이라 호스트 프리워밍이 이 목록으로
+   *    247음절 URL 을 한 번에 resolve 한다(배우기 화면이 쓰는 그 맵).
+   */
   if (isCombineUnit(unitId)) {
-    return (COMBINE_SYLLABLES[unitId] ?? []).map(({ c, syl }) => ({
-      label: c,
-      sound: syl[0],
-      sounds: syl,
+    return getCombineGroups(unitId).map((g) => ({
+      label: g.c,
+      sound: g.syllables[0],
+      sounds: g.syllables,
     }));
   }
   // 복운모 블렌드(L5/L6) 배우기 — 음절 카드. 누르면 블렌드 3클립(성모 citation → 운모 → 음절)을 순서로.
