@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { Fragment, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { PLANS } from '@tangobook/shared';
 import { useSeo } from '@/lib/useSeo';
@@ -131,27 +131,28 @@ const FAQS: { q: string; a: string }[] = [
 ];
 
 /**
- * ② 「왜 탱고북인가」 넘버링 포인트 — 벤치마킹 §4-1(2026-08-05).
- * 🔴 경쟁사(핑크퐁·웅진)가 공통으로 이유를 Point 01~05로 번호 매긴다 — **정보를 번호로 매기는 것
- *    자체가 페이지를 「체계적/전문적」으로 보이게 하는 최대 장치**다. 흩어져 있던 메시지 기둥을
- *    여기로 모으고, ③④⑤는 각 포인트의 「증거」로 남긴다.
+ * ② 파닉스 ↔ 동화책 **순환** — 넘버링 목록(구 `POINTS` 01~03)을 그림으로 바꿨다(2026-08-10 사용자).
+ * 🔴 세 항목이 사실 **한 바퀴**였다: 배운다 → 그 글자로 읽는다 → 독후활동으로 익힌다 → 그게 다시
+ *    글자 진도로 돌아온다. 번호를 매기면 서로 무관한 자랑 셋으로 읽히고, 이 페이지의 유일한
+ *    구조적 주장(배우는 곳과 읽는 곳이 하나)이 글 속에 묻힌다.
+ * 🔴 마지막 「돌아옴」은 노드가 아니라 **닫는 화살표**다 — 노드 넷을 나란히 두면 순환이 아니라
+ *    그냥 4단계 절차가 된다.
  */
-const POINTS: { t: string; d: string }[] = [
+const CYCLE: { icon: string; t: string; d: string }[] = [
   {
-    t: '배우고, 그 글자로 바로 읽습니다',
-    d: `한글 파닉스 ${FACTS.koreanUnits}단원으로 글자와 소리를 배우고, 그 글자를 다양한 동화책에서 낱말과 이야기로 다시 만납니다. 배우는 곳과 읽는 곳이 같은 앱 안에 있습니다.`,
+    icon: '🔤',
+    t: '글자를 배워요',
+    d: `한글 파닉스 ${FACTS.koreanUnits}단원 — 자음·모음부터 받침까지 소리로`,
   },
+  { icon: '📖', t: '그 글자로 읽어요', d: '배운 글자를 동화책에서 낱말과 이야기로 다시 만나요' },
   {
-    t: '한 낱말을 네 가지 방식으로',
-    d: '동화책마다 독후활동 게임이 붙어 있습니다. 같은 낱말을 그림으로 만나고, 글자로 조립하고, 따라 그리고, 손으로 씁니다 — 외우지 않아도 남습니다.',
-  },
-  {
-    t: '읽은 게 글자 공부로 돌아옵니다',
-    d: '동화책에서 「고기」를 맞히면 파닉스 표의 고·기 칸이 같이 올라갑니다. 책을 읽은 게 글자 진도로 쌓입니다.',
+    icon: '🎮',
+    t: '독후활동으로 익혀요',
+    d: '한 낱말을 그림 · 조립 · 따라 그리기 · 손글씨 네 가지로',
   },
 ];
 
-/** ②의 04번 — 「없는 것」 아이콘 세트. 벤치마킹 §4-3(핑크퐁 구독특징 4아이콘 구조). */
+/** ②의 「없는 것」 아이콘 세트. 벤치마킹 §4-3(핑크퐁 구독특징 4아이콘 구조). */
 const NONES: { icon: string; t: string; d: string }[] = [
   { icon: '📵', t: '광고 없음', d: '아이 화면에 광고가 안 떠요' },
   { icon: '🔓', t: '전체 개방', d: '잠긴 것 없이 다 열려요' },
@@ -627,6 +628,54 @@ function Section({
 }
 
 /**
+ * ② 파닉스 ↔ 동화책 순환 그림.
+ * 🔴 화살표는 **한 글자를 회전**시켜 쓴다(`rotate-90 sm:rotate-0`) — 모바일은 세로로 쌓이니 ↓ 가
+ *    맞는데, `max-sm:` 계열 변형은 이 프로젝트에서 아예 생성되지 않는다(`screens.short:{raw}` 가
+ *    Tailwind 의 max-* 를 통째로 막는다). 그래서 모바일 base(회전) → `sm:` 에서 원위치.
+ */
+function LearnReadCycle() {
+  return (
+    <div className="!mt-6 rounded-3xl border border-coral-200 bg-white/70 p-4 sm:p-5">
+      <div className="grid items-stretch gap-2 sm:grid-cols-[1fr_auto_1fr_auto_1fr] sm:gap-3">
+        {CYCLE.map((c, i) => (
+          <Fragment key={c.t}>
+            {i > 0 && (
+              <span
+                aria-hidden
+                className="self-center justify-self-center rotate-90 text-2xl font-extrabold text-coral-400 sm:rotate-0"
+              >
+                →
+              </span>
+            )}
+            <div className="rounded-2xl bg-cream-100 p-4 text-center">
+              <div className="text-3xl">{c.icon}</div>
+              <strong className="mt-1.5 block font-display text-base font-extrabold text-ink-900 break-keep sm:text-lg">
+                {c.t}
+              </strong>
+              <span className="mt-1 block text-[13px] leading-snug text-ink-600 break-keep">
+                {c.d}
+              </span>
+            </div>
+          </Fragment>
+        ))}
+      </div>
+      {/* 닫는 화살표 — 여기가 「순환」의 실체다. 실제로 그렇게 동작한다(`groupBySyllable` 이 한글
+          낱말 이벤트를 글자로 쪼개 파닉스 칸에 얹는다). ↩ 는 위 첫 칸으로 되돌아감을 가리킨다. */}
+      <div className="mt-3 flex items-center gap-3 rounded-2xl border-2 border-dashed border-coral-300 bg-coral-50 px-4 py-3">
+        <span aria-hidden className="shrink-0 text-2xl font-extrabold text-coral-700">
+          ↩
+        </span>
+        <p className="text-[14px] leading-snug text-ink-700 break-keep sm:text-[15px]">
+          그리고 <strong className="text-coral-700">읽은 게 다시 글자 진도로 돌아옵니다</strong> —
+          동화책에서 <strong>「고기」</strong>를 맞히면 파닉스 표의 <strong>고 · 기</strong> 칸이
+          함께 올라가요.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/**
  * 파닉스 마스터리 모델을 **글 대신 그림으로**(2026-08-05 사용자: "글로 어쩌구 보다 그림이랑 같이").
  *
  * 🔴 실제 공식(`lib/mastery.ts`)을 그대로 그린다 — 세 요소(정답률 × 연습 × 시간) + 망각곡선
@@ -865,50 +914,6 @@ export default function HangulLandingPage() {
         </div>
       </header>
 
-      {/* ── ② 왜 탱고북인가 — 질문형 넘버링 (벤치마킹 §4-1 + 2차 §4-1) ───────── */}
-      {/* 🔴 제목을 **부모 질문형**으로(2차 벤치마킹: 투두 "읽기독립, 어떻게 가능한가요?"). 넘버링만
-          두는 것보다 부모 머릿속 질문("우리 애가 혼자 읽게 될까?")을 헤드라인으로 삼는 게 한 수 위.
-          그 답을 Point 01~04 가 준다. */}
-      <Section eyebrow="왜 탱고북인가" title="우리 아이, 혼자 읽게 될까요?">
-        <p>탱고북은 이렇게 그 길을 만듭니다:</p>
-        <ol className="!mt-5 space-y-3">
-          {POINTS.map((p, i) => (
-            <li
-              key={p.t}
-              className="flex gap-4 rounded-2xl border border-ink-100 bg-white/70 p-4 sm:p-5"
-            >
-              <span className="shrink-0 font-display text-2xl font-extrabold leading-none text-coral-300 sm:text-3xl">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <span className="min-w-0">
-                <strong className="block text-ink-900 break-keep">{p.t}</strong>
-                <span className="mt-1 block text-sm text-ink-600 break-keep">{p.d}</span>
-              </span>
-            </li>
-          ))}
-          {/* 04 — 「없는 것」 아이콘 세트 (item #3) */}
-          <li className="rounded-2xl border border-ink-100 bg-white/70 p-4 sm:p-5">
-            <div className="flex items-center gap-4">
-              <span className="shrink-0 font-display text-2xl font-extrabold leading-none text-coral-300 sm:text-3xl">
-                04
-              </span>
-              <strong className="text-ink-900 break-keep">설치도, 약정도, 광고도 없습니다</strong>
-            </div>
-            <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
-              {NONES.map((n) => (
-                <div key={n.t} className="rounded-xl bg-cream-100 px-2 py-3 text-center">
-                  <div className="text-2xl">{n.icon}</div>
-                  <strong className="mt-1 block text-xs text-ink-900 break-keep">{n.t}</strong>
-                  <span className="mt-0.5 block text-[11px] leading-snug text-ink-600 break-keep">
-                    {n.d}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </li>
-        </ol>
-      </Section>
-
       {/* ── ③ 파닉스 커리큘럼 (데모보다 먼저 — 아래 데모가 32개 중 하나임을 알고 보게) ─────────────────────────────────── */}
       {/* 🔴 **가르치는 법을 설명하지 않는다**(2026-08-05 사용자: "이런 얘기는 안 해도 됨.
           그냥 우리가 이걸 컨텐츠를 가지고 있다고만 언급하면 됨"). 「기역은 이름이지 소리가
@@ -919,6 +924,34 @@ export default function HangulLandingPage() {
         name="탱고북 한글 파닉스"
         tagline="자음·모음부터 받침·쌍자음까지, 소리로 글자를 뗍니다."
       />
+
+      {/* ── ② 왜 탱고북인가 — 파닉스↔동화책 순환 그림 ─────────────────────────
+          🔴 제목은 **부모 질문형** 유지(2차 벤치마킹: 투두 "읽기독립, 어떻게 가능한가요?").
+          🔴 위치 = **파닉스 배너 뒤**(2026-08-10 사용자). 히어로 바로 다음에 두면 아직 아무것도
+             못 본 사람에게 「우리는 이렇게 합니다」를 먼저 읽히는 셈이었다. 서비스 1 을 연 직후에
+             두면 그림 속 「글자를 배워요」가 방금 읽은 배너를 그대로 가리킨다. */}
+      <Section eyebrow="왜 탱고북인가" title="우리 아이, 혼자 읽게 될까요?">
+        <p>
+          탱고북에선 배우는 곳과 읽는 곳이 <strong>한 바퀴로 이어집니다:</strong>
+        </p>
+        <LearnReadCycle />
+        <div className="!mt-6 rounded-2xl border border-ink-100 bg-white/70 p-4 sm:p-5">
+          <strong className="block text-ink-900 break-keep">
+            그리고 설치도, 약정도, 광고도 없습니다
+          </strong>
+          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+            {NONES.map((n) => (
+              <div key={n.t} className="rounded-xl bg-cream-100 px-2 py-3 text-center">
+                <div className="text-2xl">{n.icon}</div>
+                <strong className="mt-1 block text-xs text-ink-900 break-keep">{n.t}</strong>
+                <span className="mt-0.5 block text-[11px] leading-snug text-ink-600 break-keep">
+                  {n.d}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
       <Section title={`한글 파닉스 ${FACTS.koreanUnits}단원`}>
         {/* 뷰 1 — 단계(여정). 자음·모음 → 받침 → 쌍자음 → 복잡한 모음, 번호로 밟는 길. */}
         <p>
