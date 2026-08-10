@@ -805,15 +805,13 @@ export default function HangulLandingPage() {
                 넘어 세 줄로 접혔다 — 제목이 세 줄이면 첫인상이 「길다」가 된다. sm 이상에서만
                 크기를 낮추고 `nowrap` 을 건다. 모바일은 그대로 접힌다(375px 에 한 줄은 불가능). */}
             <h1 className="mt-3 font-display text-[28px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:whitespace-nowrap sm:text-[28px] md:text-[32px]">
-              <span className="text-coral-700">탱고북 한글 파닉스</span>와{' '}
-              <span className="text-coral-700">탱고북 동화책</span>이{' '}
-              <span className="whitespace-nowrap">한 곳에</span>
+              <span className="text-coral-700">한글을 떼고</span>, 그 글자로{' '}
+              <span className="text-coral-700">동화책을 읽어요</span>
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-ink-700 break-keep sm:text-[18px] md:mx-0">
-              글자를 배우는 앱은 많습니다. 배운 글자로{' '}
-              <strong className="text-coral-700">바로 읽을 책</strong>까지 있으면 대개 패드를 사고
-              약정을 겁니다. 탱고북은 <strong className="text-coral-700">둘 다 앱 안에</strong>{' '}
-              있고, 패드도 약정도 없습니다.
+              자음·모음부터 받침까지 <strong className="text-coral-700">소리로 한글을 떼고</strong>,
+              뗀 글자로 <strong className="text-coral-700">동화책을 바로 읽습니다.</strong> 배우는
+              곳과 읽는 곳이 같은 앱 안에 있어요. 설치도 약정도 없습니다.
             </p>
 
             {/* 🔴 **숫자 칸 셋을 서비스 두 장으로**(2026-08-10 사용자). 「32단원·39단원·13개」는
@@ -822,8 +820,8 @@ export default function HangulLandingPage() {
                 파는 게 둘이라는 것**을 먼저 말하는 것이고, 아래 서비스 배너 ①② 와 짝을 맞춘다. */}
             <div className="mx-auto mt-7 grid max-w-lg grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3 md:mx-0">
               {[
-                { n: 1, name: '탱고북 한글 파닉스', d: '소리로 글자를 뗍니다' },
-                { n: 2, name: '탱고북 동화책', d: '뗀 글자로 바로 읽습니다' },
+                { n: 1, name: '한글 파닉스', d: '자음·모음부터 받침까지 소리로' },
+                { n: 2, name: '동화책', d: '뗀 글자로 매일 한 권씩' },
               ].map((x) => (
                 <div key={x.n} className="rounded-2xl bg-white/70 px-4 py-3 text-left">
                   <span className="text-xs font-bold text-ink-400">{x.n}</span>

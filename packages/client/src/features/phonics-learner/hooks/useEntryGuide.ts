@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { usePhonicsEmbedded } from '../components/ActivityShell';
 
 /** 활동 진입 안내 음성 — 자산은 `public/sounds/voice/`, 생성기는 `generate-activity-voice-prompts.mjs`. */
 export const ENTRY_GUIDE = {
@@ -40,7 +41,14 @@ export function useEntryGuide(
   playAudio: (url?: string, onEnded?: () => void) => void,
   opts: { skip?: boolean } = {}
 ): boolean {
-  const skip = opts.skip ?? false;
+  /**
+   * 🔴 **광고 랜딩 상자 안에서는 안내를 재생하지 않는다**(2026-08-10 사용자: "페이지 열자마자
+   *    한글 게임 소리가 나는데?"). 학습 화면에선 글을 못 읽는 아이에게 지시를 전하는 유일한
+   *    수단이지만, 랜딩은 **아무것도 안 눌렀는데 소리가 나는 것** 자체가 사고다 — 상자가 여럿이라
+   *    스크롤만 해도 안내가 겹쳐 울린다. `guiding` 은 false 로 시작하므로 화면 잠금도 안 걸린다.
+   */
+  const embedded = usePhonicsEmbedded();
+  const skip = embedded || (opts.skip ?? false);
   const [guiding, setGuiding] = useState(!skip);
   const tokenRef = useRef(0);
 
