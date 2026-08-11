@@ -450,7 +450,7 @@ function StickyCta() {
     >
       {/* 🔴 **가격을 쓰지 않는다**(2026-08-11 사용자, 세 번째 지적) — 히어로에서 지웠는데
           하단 바와 요금 문단에 사본이 남아 있었다. 파는 건 「한 달 무료」 하나다. */}
-      <div className="mx-auto flex max-w-3xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1280px] items-center justify-center gap-3">
+      <div className="mx-auto flex max-w-3xl lg:max-w-5xl xl:max-w-6xl items-center justify-center gap-3">
         <Link
           to={SIGNUP}
           className="flex min-h-[44px] shrink-0 items-center rounded-full bg-coral-700 px-5 text-base font-bold text-white shadow-sm transition hover:bg-coral-800"
@@ -477,7 +477,7 @@ function Stat({ value, label, note }: { value: string; label: string; note?: str
         {label}
       </span>
       {note && (
-        <span className="text-center text-[12px] leading-snug text-ink-400 break-keep">{note}</span>
+        <span className="text-center text-[14px] leading-snug text-ink-400 break-keep">{note}</span>
       )}
     </div>
   );
@@ -642,7 +642,7 @@ function LineSections() {
         return (
           <div key={l.name}>
             <div className="flex items-baseline gap-2">
-              <h3 className="font-display text-2xl font-extrabold text-ink-900 break-keep sm:text-3xl lg:text-[33px] xl:text-[38px]">
+              <h3 className="font-display text-2xl font-extrabold text-ink-900 break-keep sm:text-3xl lg:text-[30px] xl:text-[34px]">
                 {l.name}
               </h3>
               <span className="text-base font-bold text-coral-700">{l.n}권</span>
@@ -668,7 +668,7 @@ function LineSections() {
                 </Link>
               ))}
             </div>
-            <p className="mt-2 text-base text-ink-600 break-keep lg:text-lg xl:text-[20px]">
+            <p className="mt-2 text-base text-ink-600 break-keep lg:text-lg xl:text-[18px]">
               {l.d}
             </p>
           </div>
@@ -697,15 +697,15 @@ function LineSections() {
 function ServiceBanner({ n, name, tagline }: { n: number; name: string; tagline?: string }) {
   return (
     <div className="mt-14 bg-gradient-to-br from-coral-500 to-coral-700 px-4 py-10 text-center sm:px-6 sm:py-12">
-      <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1280px]">
+      <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl">
         <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-white/25 font-display text-2xl font-extrabold text-white sm:h-12 sm:w-12 sm:text-3xl">
           {n}
         </span>
-        <h2 className="mt-4 font-display text-[35px] font-extrabold leading-tight text-white break-keep sm:text-[50px] xl:text-[61px]">
+        <h2 className="mt-4 font-display text-[30px] font-extrabold leading-tight text-white break-keep sm:text-[40px] xl:text-[46px]">
           {name}
         </h2>
         {tagline && (
-          <p className="mx-auto mt-3 max-w-xl text-[18px] leading-relaxed text-white/85 break-keep sm:text-lg">
+          <p className="mx-auto mt-3 max-w-xl text-[16px] leading-relaxed text-white/85 break-keep sm:text-lg">
             {tagline}
           </p>
         )}
@@ -727,7 +727,7 @@ function Section({
 }) {
   return (
     <section className="px-4 py-12 sm:px-6 sm:py-14">
-      <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1280px]">
+      <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl">
         {eyebrow && (
           /* 🔴 **라벨을 키운다**(2026-08-10 사용자: "이게 메인 제목인거 같은데 왜 글씨가 제일 작아?").
              12px 는 각주 크기라 섹션 이름이 아니라 곁다리로 읽혔다. 제목보다는 확실히 작게 두되
@@ -736,10 +736,10 @@ function Section({
             {eyebrow}
           </p>
         )}
-        <h2 className="font-display text-[31px] font-extrabold leading-snug text-ink-900 break-keep sm:text-[38px] lg:text-[45px]">
+        <h2 className="font-display text-[28px] font-extrabold leading-snug text-ink-900 break-keep sm:text-[34px] lg:text-[40px]">
           {title}
         </h2>
-        <div className="mt-5 space-y-5 text-[18px] leading-relaxed text-ink-700 break-keep sm:text-[19px] lg:space-y-6 lg:text-[22px] lg:leading-[1.8] xl:text-[25px]">
+        <div className="mt-5 space-y-5 text-[16px] leading-relaxed text-ink-700 break-keep sm:text-[17px] lg:space-y-6 lg:text-[20px] lg:leading-[1.8] xl:text-[22px]">
           {children}
         </div>
       </div>
@@ -783,7 +783,7 @@ function LearnReadCycle() {
                 <strong className="block font-display text-lg font-extrabold text-ink-900 break-keep sm:text-xl">
                   {c.t}
                 </strong>
-                <span className="mt-1 block text-[15px] leading-snug text-ink-600 break-keep">
+                <span className="mt-1 block text-[14px] leading-snug text-ink-600 break-keep">
                   {c.d}
                 </span>
               </div>
@@ -797,7 +797,7 @@ function LearnReadCycle() {
         <span aria-hidden className="shrink-0 text-3xl font-extrabold text-coral-700">
           ↩
         </span>
-        <p className="text-[17px] leading-snug text-ink-700 break-keep sm:text-[18px]">
+        <p className="text-[15px] leading-snug text-ink-700 break-keep sm:text-[16px]">
           그리고 <strong className="text-coral-700">읽은 게 다시 글자 진도로 돌아옵니다</strong> —
           동화책에서 「고기」를 맞히면 파닉스 표의 고 · 기 칸이 함께 올라가요.
         </p>
@@ -847,16 +847,16 @@ export default function HangulLandingPage() {
             본문 폭(896px)은 **글줄 길이** 기준이라 프로즈엔 맞지만, 첫인상 영역까지 그 규칙을
             먹이니 1920~2560 에서 크림색 여백 위에 콘텐츠가 섬처럼 떴다. 히어로만 xl 부터 넓히고
             글자도 한 단계 더 올린다 — 본문은 안 따라간다(글줄이 길어지면 읽기가 나빠진다). */}
-        <div className="relative mx-auto max-w-3xl text-center lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1280px]">
+        <div className="relative mx-auto max-w-3xl text-center lg:max-w-5xl xl:max-w-6xl">
           <p className="inline-flex rounded-full bg-coral-100 px-4 py-1.5 text-base font-extrabold text-coral-700 sm:text-lg xl:px-5 xl:py-2 xl:text-xl">
             4~7세 한글파닉스 · 동화책
           </p>
           {/* 🔴 **데스크탑에선 한 줄**(2026-08-10). 42px 로는 24자가 본문 폭(896px)을 넘어 세 줄로 접혔다. */}
-          <h1 className="mt-3 font-display text-[33px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:whitespace-nowrap sm:text-[35px] md:text-[42px] xl:text-[54px]">
+          <h1 className="mt-3 font-display text-[30px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:whitespace-nowrap sm:text-[32px] md:text-[38px] xl:text-[49px]">
             <span className="text-coral-700">한글 파닉스</span>를 배우고{' '}
             <span className="text-coral-700">스스로 동화책을 읽어요</span>
           </h1>
-          <p className="mx-auto mt-4 max-w-xl text-[18px] leading-relaxed text-ink-700 break-keep sm:text-[21px] lg:max-w-3xl lg:text-[24px] xl:max-w-4xl xl:text-[27px] 2xl:text-[30px]">
+          <p className="mx-auto mt-4 max-w-xl text-[16px] leading-relaxed text-ink-700 break-keep sm:text-[19px] lg:max-w-3xl lg:text-[22px] xl:max-w-4xl xl:text-[24px] 2xl:text-[27px]">
             자음·모음부터 받침까지 <strong className="text-coral-700">소리로 한글을 떼고</strong>,
             뗀 글자로 <strong className="text-coral-700">동화책을 바로 읽습니다.</strong> 배우는
             곳과 읽는 곳이 같은 앱 안에 있어요.
@@ -886,7 +886,7 @@ export default function HangulLandingPage() {
 
           <Link
             to={SIGNUP}
-            className="mt-8 inline-flex min-h-[68px] items-center rounded-full bg-coral-700 px-12 text-2xl font-extrabold text-white shadow-lg transition hover:bg-coral-800 xl:mt-10 xl:min-h-[104px] xl:px-20 xl:text-[35px]"
+            className="mt-8 inline-flex min-h-[68px] items-center rounded-full bg-coral-700 px-12 text-2xl font-extrabold text-white shadow-lg transition hover:bg-coral-800 xl:mt-10 xl:min-h-[104px] xl:px-20 xl:text-[32px]"
           >
             한달 무료 체험
           </Link>
@@ -946,7 +946,7 @@ export default function HangulLandingPage() {
                 <strong className="block font-display text-xl font-extrabold text-ink-900 break-keep lg:text-2xl xl:text-3xl">
                   {w.t}
                 </strong>
-                <span className="mt-1.5 block text-base leading-snug text-ink-600 break-keep lg:text-lg xl:text-[20px]">
+                <span className="mt-1.5 block text-base leading-snug text-ink-600 break-keep lg:text-lg xl:text-[18px]">
                   {w.d}
                 </span>
               </div>
@@ -982,7 +982,7 @@ export default function HangulLandingPage() {
               </span>
               <span className="min-w-0">
                 <strong className="text-ink-900 xl:text-xl">{s.label}</strong>
-                <span className="ml-2 text-base text-ink-600 break-keep lg:text-lg xl:text-[20px]">
+                <span className="ml-2 text-base text-ink-600 break-keep lg:text-lg xl:text-[18px]">
                   {s.detail}
                 </span>
               </span>
@@ -1009,17 +1009,17 @@ export default function HangulLandingPage() {
       </Section>
 
       {/* ── ④ 직접 해보기 — 그 32단원 중 「ㄱ」 하나를 통째로 ───────────────────── */}
-      {/* 🔴 **상한 1280px**(2026-08-11 사용자: "가로폭이 너무 넓은 거 같은데") — 1600 까지 늘렸더니
-          26px 본문이 한 줄에 60자를 넘어 눈이 줄 끝에서 처음으로 돌아오지 못했다. 전 섹션 공통 상한.
+      {/* 🔴 **상한 1152px**(2026-08-11 사용자, 두 번 좁힘) — 1600 에선 본문이 한 줄 60자를 넘어
+          눈이 줄 끝에서 다음 줄 앞을 못 찾았다. 1280 도 넓다 하여 xl 상한 하나로 통일. 전 섹션 공통.
           🔴 **데모 상자는 글 폭을 따르지 않는다**(2026-08-11 사용자: "낱말이 너무 작아 보여").
           `EmbedStage` 는 안쪽을 **100vw 로 그린 뒤 상자 폭/뷰포트 폭** 만큼 축소한다 — 즉
           **화면이 넓어질수록 앱 화면이 더 작아진다**(2000px 에서 1024px 상자면 0.51배). 글 폭에
           가둔 게 원인이라, 여기만 화면을 따라 넓힌다(2000px → 1600px 상자 → 0.8배). */}
       <section className="px-4 py-12 sm:px-6 sm:py-14">
-        <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1280px]">
+        <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl">
           <div className="rounded-3xl border border-coral-200 bg-white/60 p-4 sm:p-6">
             <p className="text-sm font-bold tracking-wide text-coral-700">한글 파닉스 · 32단원</p>
-            <h2 className="mt-1 font-display text-[31px] font-extrabold text-ink-900 break-keep sm:text-[38px]">
+            <h2 className="mt-1 font-display text-[28px] font-extrabold text-ink-900 break-keep sm:text-[34px]">
               「ㄱ」 단원 학습 샘플
             </h2>
             {/* 🔴 **이 한 줄이 이 페이지에서 가장 센 주장이다**(2026-08-05 사용자: "엄청 강조해서
@@ -1027,7 +1027,7 @@ export default function HangulLandingPage() {
                 본문과 같은 회색 작은 글씨로 두면 그냥 설명문 한 줄로 읽히고 지나간다 —
                 아래 아홉 개가 스크린샷이 아니라는 걸 **읽기 전에 눈으로** 알아야 한다.
                 그래서 색·크기·테두리를 다르게 주고 손가락을 깜빡인다. */}
-            <p className="mt-3 inline-flex items-center gap-2 rounded-full border-2 border-coral-300 bg-coral-50 px-4 py-2.5 text-[18px] font-extrabold text-coral-700 break-keep sm:text-xl">
+            <p className="mt-3 inline-flex items-center gap-2 rounded-full border-2 border-coral-300 bg-coral-50 px-4 py-2.5 text-[16px] font-extrabold text-coral-700 break-keep sm:text-xl">
               <span className="animate-pulse text-2xl sm:text-3xl">👆</span>
               진짜 앱 화면입니다 — 지금 눌러보세요
             </p>
@@ -1074,7 +1074,7 @@ export default function HangulLandingPage() {
         </p>
         <LineSections />
         {/* 읽기만 하고 끝나지 않는다 — 어휘·문해력·독후활동. 여기부터가 「그래서 뭐가 자라나」. */}
-        <h3 className="!mt-10 font-display text-[26px] font-extrabold text-ink-900 break-keep sm:text-[31px]">
+        <h3 className="!mt-10 font-display text-[23px] font-extrabold text-ink-900 break-keep sm:text-[28px]">
           읽을수록 어휘와 문해력이 자라요
         </h3>
         <div className="!mt-4 grid gap-3 sm:grid-cols-3">
@@ -1084,7 +1084,7 @@ export default function HangulLandingPage() {
               <strong className="mt-3 block font-display text-xl font-extrabold text-ink-900 lg:text-2xl xl:text-3xl">
                 {g.t}
               </strong>
-              <span className="mt-1 block text-base text-ink-600 break-keep lg:text-lg xl:text-[20px]">
+              <span className="mt-1 block text-base text-ink-600 break-keep lg:text-lg xl:text-[18px]">
                 {g.d}
               </span>
             </div>
@@ -1123,7 +1123,7 @@ export default function HangulLandingPage() {
 
       {/* ── ⑥ 실측 숫자 ───────────────────────────────────────── */}
       <section className="px-4 py-8 sm:px-6">
-        <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1280px] rounded-3xl bg-gradient-to-br from-mint-50 to-cream-50 p-5 sm:p-8">
+        <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl rounded-3xl bg-gradient-to-br from-mint-50 to-cream-50 p-5 sm:p-8">
           <h2 className="font-display text-xl font-extrabold text-ink-900 break-keep sm:text-3xl">
             숫자는 있는 그대로입니다
           </h2>
@@ -1179,7 +1179,7 @@ export default function HangulLandingPage() {
                 <strong className="mt-2 block text-sm text-ink-900 break-keep lg:text-base xl:text-lg">
                   {n.t}
                 </strong>
-                <span className="mt-0.5 block text-[13px] leading-snug text-ink-600 break-keep lg:text-sm xl:text-base">
+                <span className="mt-0.5 block text-[14px] leading-snug text-ink-600 break-keep lg:text-sm xl:text-base">
                   {n.d}
                 </span>
               </div>
