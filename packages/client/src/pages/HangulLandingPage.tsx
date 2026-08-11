@@ -939,13 +939,6 @@ export default function HangulLandingPage() {
           >
             한달 무료 체험
           </Link>
-          {/* 🔴 **값은 문장으로**(2026-08-11 사용자: "월 9,900원은 뭐냐"). 버튼 밑에 금액만 굵게
-              떠 있으니 그게 체험료인지 정가인지 알 수 없었다. 무엇을 안 내도 되는지까지 한 줄로
-              적고 크기를 낮춘다 — 히어로에서 값을 숨기지 않는 건 그대로다(가격 투명성이 우리 무기).
-              할인가는 여기서 말하지 않는다(⑦ 요금에서 한 번만). */}
-          <p className="mt-3 text-sm text-ink-500 break-keep xl:text-base">
-            카드 등록 없이 시작 · 체험이 끝나면 월 {PLANS.month1.originalAmount?.toLocaleString()}원
-          </p>
         </div>
       </header>
 
