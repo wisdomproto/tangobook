@@ -80,7 +80,13 @@ interface LibraryPageProps {
  *
  * 매핑에 없는 카테고리 (`우리 몸 이야기`·legacy 등) 는 이모지 fallback.
  */
-const CATEGORY_SPRITE_URL = '/icons/category/sprite.webp';
+/**
+ * 🔴 **384px 판을 쓴다**(2026-08-11). 원본은 1536×1536(466KB)인데 셀은 화면에서 **22~32px** 로
+ *    그려진다 — 3배 밀도로도 96px 이면 충분하다. 실측(프로덕션 /library · 4G · CPU 4배):
+ *    이 한 장이 959ms 에 출발해 **18.7초**까지 회선을 붙잡아, 표지·로고가 전부 그 뒤에 섰다.
+ *    원본은 `sprite.webp` 로 남겨 둔다(더 큰 자리에 쓸 일이 생기면 그때 판을 하나 더 굽는다).
+ */
+const CATEGORY_SPRITE_URL = '/icons/category/sprite-384.webp';
 const CATEGORY_SPRITE_MAP: Record<string, [number, number]> = {
   '세계 명작': [0, 0],
   '전래 동화': [1, 0],
