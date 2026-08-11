@@ -342,26 +342,23 @@ function HeroServiceCard({
  *    세 줄이면 9/16 = 정확히 카드 비율이다(2열·4열이면 잘리거나 남는다).
  * 🔴 **라인을 섞어 뽑는다**(명작·전래·자연·생활) — 한 라인에서 아홉 장을 뽑으면 「명작만 있는
  *    앱」으로 읽힌다. 아래 ⑤ 라인 카드와 같은 규칙(`LINES`)을 본다.
+ * 🔴 **구워 둔 한 장을 쓴다**(2026-08-11 사용자: "로딩이 좀 시간이 걸리네"). 예전엔 여기서
+ *    `useStorybooks()` 로 목록을 받고 표지 아홉 장을 각각 받았다 — 첫 화면에서 제일 먼저 보이는
+ *    칸이 **API 1건 + 이미지 9건**을 기다리느라 제일 늦게 찼다. 첫인상 영역은 데이터가 필요 없다.
+ *    다시 구우려면 `node packages/server/scripts/bake-hero-book-grid.mjs`(고르는 규칙은 그 안에
+ *    그대로 있다) — **책이 늘어도 자동으로 안 바뀐다**는 게 이 방식의 값이자 대가다.
  */
 function HeroBookCover() {
-  const { data } = useStorybooks();
-  const books = data ?? [];
-  const picked: typeof books = [];
-  for (let round = 0; round < 3; round++) {
-    for (const l of LINES) {
-      const b = books.find((x) => x.coverImage && l.match(x.category ?? '') && !picked.includes(x));
-      if (b && picked.length < 9) picked.push(b);
-    }
-  }
-  if (picked.length < 9) return <div className="aspect-video w-full bg-cream-100" />;
   return (
-    <div className="grid aspect-video w-full grid-cols-3 gap-px bg-cream-200">
-      {picked.map((b) => (
-        <div key={b.id} className="aspect-video overflow-hidden bg-cream-100">
-          <BookCover book={b} lang="ko" className="h-full w-full" />
-        </div>
-      ))}
-    </div>
+    <img
+      src="/landing/hangul/books.webp"
+      alt="세계 명작·전래 동화·호리 시리즈·자연 관찰 표지 아홉 장"
+      width={1200}
+      height={675}
+      loading="eager"
+      fetchPriority="high"
+      className="aspect-video w-full object-cover"
+    />
   );
 }
 
