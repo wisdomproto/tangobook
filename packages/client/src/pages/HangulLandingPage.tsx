@@ -1100,7 +1100,6 @@ export default function HangulLandingPage() {
         >
           커리큘럼 전체 보기 →
         </Link>
-        <PhonicsReel />
       </Section>
 
       {/* ── ④ 직접 해보기 — 그 32단원 중 「ㄱ」 하나를 통째로 ───────────────────── */}
@@ -1136,6 +1135,10 @@ export default function HangulLandingPage() {
               />
             ))}
           </div>
+          {/* 🔴 **영상은 파닉스 설명의 맨 끝**(2026-08-11 사용자). 커리큘럼 목록 밑에 뒀더니
+              「32단원이 이렇다」 다음에 영상, 그 다음에 다시 진짜 화면 둘이라 같은 얘기를 세 번
+              하는 순서였다. 직접 눌러본 뒤에 놓으면 「방금 만진 게 이렇게 흘러간다」가 된다. */}
+          <PhonicsReel />
         </div>
       </section>
 
