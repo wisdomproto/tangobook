@@ -741,16 +741,30 @@ function BookWall() {
  * 건데 구분이 안 지어져 있어"). 굵은 가로선 + 큰 이름으로 페이지를 두 덩어리로 끊는다.
  * 🔴 배너가 이름을 맡으므로 **그 아래 섹션은 eyebrow 를 비운다** — 이름을 두 번 말하지 않는다.
  */
+/**
+ * 서비스 표제 — 🔴 **색 밴드로 장을 가른다**(2026-08-11 사용자: "제목인데 제목인 느낌이 안 나네,
+ * 그냥 검정색 텍스트로 쓰니까").
+ *
+ * 예전엔 얇은 코랄 선 + 검은 글씨라, 크림 배경 위에서 **아래 본문 소제목들과 같은 무게**였다.
+ * 이 페이지는 서비스가 둘이고 그 경계가 구조의 전부인데, 경계를 선 하나로만 그으니
+ * 스크롤하다 보면 어디서 다음 이야기가 시작되는지 안 보였다.
+ * 🔴 **전폭 밴드**(좌우 여백 없이)여야 장 표지로 읽힌다 — 안쪽에 가두면 또 하나의 카드가 된다.
+ * 🔴 번호는 원 배지가 맡으므로 「서비스 N」 라벨을 따로 쓰지 않는다(같은 말 두 번).
+ */
 function ServiceBanner({ n, name, tagline }: { n: number; name: string; tagline?: string }) {
   return (
-    <div className="px-4 pt-14 sm:px-6">
-      <div className="mx-auto max-w-3xl border-t-4 border-coral-300 pt-7">
-        <p className="text-xs font-bold tracking-wide text-ink-400">서비스 {n}</p>
-        <h2 className="mt-1 font-display text-[28px] font-extrabold text-ink-900 break-keep sm:text-[36px]">
+    <div className="mt-14 bg-gradient-to-br from-coral-500 to-coral-700 px-4 py-10 text-center sm:px-6 sm:py-12">
+      <div className="mx-auto max-w-3xl">
+        <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-white/25 font-display text-xl font-extrabold text-white sm:h-12 sm:w-12 sm:text-2xl">
+          {n}
+        </span>
+        <h2 className="mt-4 font-display text-[30px] font-extrabold leading-tight text-white break-keep sm:text-[42px]">
           {name}
         </h2>
         {tagline && (
-          <p className="mt-2 text-[15px] text-ink-600 break-keep sm:text-base">{tagline}</p>
+          <p className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-white/85 break-keep sm:text-base">
+            {tagline}
+          </p>
         )}
       </div>
     </div>
@@ -896,13 +910,17 @@ export default function HangulLandingPage() {
       <header className="relative overflow-hidden bg-gradient-to-b from-peach-100 via-peach-50 to-cream-50 px-4 pb-10 pt-12 sm:px-6 sm:pb-14 sm:pt-16">
         <div className="pointer-events-none absolute -right-20 -top-16 h-64 w-64 rounded-full bg-coral-100/60 blur-3xl" />
         {/* 🔴 로고를 큼지막하게 맨 위에(2026-08-05 사용자) — 브랜드가 먼저다. width/height 로 CLS 방지. */}
+        {/* 🔴 **로고를 크게**(2026-08-11 사용자: "너무 작다 확 키워"). 64/80px 은 앱 헤더 크기라
+            광고 랜딩 첫 화면에선 각주처럼 보였다 — 광고를 보고 들어온 사람이 처음 확인하는 건
+            "여기가 어디냐"다. 2:1 비율이라 144px 이면 폭 288px, 375px 화면에서도 넉넉하다.
+            🔴 이만큼 키워도 **모바일 CTA 는 접힘선 위**(812px 화면에서 하단 692px). */}
         <Link to="/library" aria-label="탱고북 홈" className="relative mx-auto mb-5 block w-fit">
           <img
             src="/logo/logo-kr.webp"
             alt="탱고북"
             width={1774}
             height={887}
-            className="h-16 w-auto sm:h-20"
+            className="h-28 w-auto sm:h-32 md:h-36"
           />
         </Link>
         {/* 🔴 **표지 슬라이더를 없앴다**(2026-08-11 사용자). 로고 바로 아래에서 표지 열넷이 계속
