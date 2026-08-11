@@ -321,6 +321,18 @@ async function prerenderRoute(browser, baseUrl, route, { isBook = false } = {}) 
   );
   if (dropped.length) console.log(`  ↩ 런타임 주입 태그 ${dropped.length}개 제거: ${dropped.join(' ')}`);
 
+  /**
+   * 🔴 **프리렌더된 라우트에선 엔트리 JS 가 CSS·첫 화면 그림에 회선을 양보한다**(2026-08-11).
+   *    글자는 이미 이 HTML 에 있으므로 번들이 먼저 도착할 이유가 없다. 실측 A/B(4G · CPU 4배 ·
+   *    2회씩): FCP 4,556·4,628 → 4,376·4,460 · 히어로 2,468·2,376 → 2,020·2,018 ·
+   *    번들 완료는 +100ms 뿐. 작지만 방향이 일정하고 공짜다.
+   * 🔴 **프리렌더본에만** 붙인다 — 구워지지 않은 라우트는 JS 가 곧 화면이라 양보하면 안 된다.
+   */
+  html = html.replace(
+    /(<script type="module"[^>]*?)(\s+src="\/assets\/index-)/,
+    '$1 fetchpriority="low"$2'
+  );
+
   const len = visibleTextLength(html);
   if (len < MIN_TEXT) throw new Error(`내용 부족 (${len}자 < ${MIN_TEXT}) — 에러/빈 화면 의심`);
   if (len < minText) console.warn(`  ⚠ ${route} 데이터 없이 껍데기만 (${len}자 < ${minText}) — API 도달 여부 확인`);
