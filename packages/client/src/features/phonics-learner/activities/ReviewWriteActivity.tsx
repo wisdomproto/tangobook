@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
+import { writeStepRead } from '../lib/english-phonics-units';
 import { useActivitySound } from '../hooks/useActivitySound';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
@@ -19,6 +21,10 @@ type WriteSource = ReviewCardSource & {
    *    "한 글자 쓰면 나머지 단어가 다 나와야" 한다는 사용자 요청). 없으면 쓴 글자(`word`)를 그대로 보여준다.
    */
   revealWord?: string;
+  /** 🔴 쓰는 순서(패턴 먼저) — 익히기·게임과 통일. 없으면 좌→우(한글 등). */
+  order?: number[];
+  /** 🔴 영어 패턴(있으면 이어읽기 규칙을 익히기·게임과 통일 — Book3 `ak→ake` / Book4·5 `cl`·`ee`). */
+  pattern?: string;
 };
 
 interface Props {
@@ -55,6 +61,7 @@ export function ReviewWriteActivity({
   onComplete,
   onBack,
 }: Props) {
+  const { t } = useTranslation('phonics');
   // 🔴 소리 순서는 훅이 소유한다 — 예전엔 여기서 손으로 이어 붙여 **쉼이 통째로 빠져** 있었다.
   const {
     say: speak,
@@ -82,6 +89,8 @@ export function ReviewWriteActivity({
   const current = sources[idx];
   const sourcesRef = useRef(sources);
   sourcesRef.current = sources;
+  // 지금까지 쓴 칸(인덱스) — 시각 순서로 이어읽기용. 카드 바뀌면 리셋(handleWordDone).
+  const writtenRef = useRef<number[]>([]);
 
   // 🔴 쓰는 글자(`word`)와 읽는 소리가 다를 수 있다 — Book 1 은 C 를 쓰고 "c c cat" 을 듣는다.
   const say = useCallback(
@@ -119,9 +128,37 @@ export function ReviewWriteActivity({
    */
   const handleSyllableDone = useCallback(
     (syllable: string, index: number) => {
-      if (!current || index + 1 >= current.word.length) return;
+      if (!current) return;
+      // 낱말을 완성하는 마지막 칸은 WordFillCanvas 가 생략(handleWordDone 이 낱말을 읽음).
+      if (!writtenRef.current.includes(index)) writtenRef.current.push(index);
+      // 🔴 영어 패턴 단원은 익히기·게임과 **같은 규칙**(writeStepRead): Book3 `ak→ake` · Book4/5 `cl`·`ee`.
+      //    무음 스텝(온셋 등)은 소리 없이 지나간다. 한글·Book1(패턴 없음)은 아래 이어읽기(고→고기) 그대로.
+      if (current.pattern) {
+        const readText = writeStepRead(
+          current.word,
+          current.pattern,
+          writtenRef.current,
+          index,
+          current.unitId
+        );
+        if (!readText) return;
+        void (async () => {
+          const url = await resolveTtsUrl({
+            text: readText,
+            language,
+            storybookId: unitId,
+            identifierPrefix: 'review-write',
+          });
+          chime(() => rest(() => void speak(readText, undefined, url)));
+        })();
+        return;
+      }
+      // 🔴 지금까지 쓴 칸을 **시각 순서로** 이어읽는다 — 좌→우면 고→고기.
+      const blend = [...writtenRef.current]
+        .sort((a, b) => a - b)
+        .map((i) => current.word[i])
+        .join('');
       void (async () => {
-        const blend = current.word.slice(0, index + 1);
         const url =
           (await resolveTtsUrl({
             text: blend,
@@ -154,7 +191,12 @@ export function ReviewWriteActivity({
     // 🔴 완성 소리도 "c c cat"(soundWord/soundUrl) — 쓴 글자(C)가 아니라 낱말을 들려준다.
     void sayThenChime(current.soundWord ?? current.word, {
       praise: isLast,
-      onDone: isLast ? onComplete : () => setIdx((i) => i + 1),
+      onDone: isLast
+        ? onComplete
+        : () => {
+            writtenRef.current = []; // 다음 카드는 처음부터 이어읽기
+            setIdx((i) => i + 1);
+          },
       ...(current.soundUrl ? { directUrl: current.soundUrl } : {}),
     });
   }, [done, current, idx, sources.length, sayThenChime, onComplete]);
@@ -202,7 +244,7 @@ export function ReviewWriteActivity({
             ) : (
               <button
                 onClick={() => say(current)}
-                aria-label="다시 듣기"
+                aria-label={t('common.listenAgain')}
                 className="w-full h-full flex items-center justify-center bg-coral-500 text-white text-6xl sm:text-7xl active:scale-[0.97] transition"
               >
                 🔊
@@ -238,6 +280,7 @@ export function ReviewWriteActivity({
                 key={`review-write-${idx}`}
                 word={current.word}
                 syllables={[...current.word]}
+                order={current.order}
                 onSyllableDone={handleSyllableDone}
                 onComplete={handleWordDone}
               />

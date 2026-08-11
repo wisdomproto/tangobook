@@ -22,6 +22,8 @@ interface TitleIntroProps {
   onComplete: () => void;
   /** 사용자 음량 계수. */
   volumeGain?: number;
+  /** true 면 탭 게이트의 5초 자동 시작 카운트다운을 끈다 — 탭해야만 시작(랜딩 임베드용). */
+  noAutoStart?: boolean;
 }
 
 /**
@@ -38,6 +40,7 @@ export function TitleIntro({
   bottomSheet = false,
   onComplete,
   volumeGain = 1,
+  noAutoStart = false,
 }: TitleIntroProps) {
   const { t } = useTranslation('viewer');
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -47,7 +50,9 @@ export function TitleIntro({
    * 자동 시작까지 남은 초 (탭 게이트 모드에서만). null = 카운트다운 안 함(자동재생 모드이거나,
    * 자동 시작이 브라우저에 막혀 다시 손 탭을 기다리는 상태).
    */
-  const [countdown, setCountdown] = useState<number | null>(autoPlay ? null : AUTO_START_SECONDS);
+  const [countdown, setCountdown] = useState<number | null>(
+    autoPlay || noAutoStart ? null : AUTO_START_SECONDS
+  );
 
   const complete = () => {
     if (doneRef.current) return;

@@ -1,17 +1,24 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'framer-motion';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
-import { ActivityShell } from '../components/ActivityShell';
+import { ActivityShell, usePhonicsEmbedded } from '../components/ActivityShell';
+import { ENTRY_GUIDE, voiceUrl, praiseLang } from '../hooks/useEntryGuide';
 
 export interface ListenChoice {
   /** 카드 구분자. 같은 라벨이 두 장일 수 있다(알파벳 단원의 Aa=apple / Aa=alligator). */
   id?: string;
-  /** 보기 라벨 — 단어(고기) 또는 알파벳(Aa) */
+  /** 보기 라벨 — 단어(고기) 또는 알파벳(Aa). 병음은 성조부호 포함(mǐ). */
   label: string;
+  /**
+   * 라벨 **아래**에 작게 병기하는 글자 — 병음 낱말의 한자(米). 병음 위 / 한자 아래.
+   * 🔴 한글/영어 호출부는 넘기지 않는다(라벨만). 중국어 낱말 카드에서만 쓴다.
+   */
+  sublabel?: string;
   /** 발음할 텍스트 */
   sound: string;
   /** 그림 (알파벳 단원은 없음) */
@@ -25,6 +32,12 @@ export interface ListenChoice {
    */
   revealImageUrl?: string;
   ttsUrl?: string;
+  /**
+   * 한 장을 누르면 **순서로** 재생할 URL 들(병음 단운모 4성 ā á ǎ à — 운모 놀이판, 성조 비교).
+   * 있으면 `ttsUrl`/`sound` 대신 이 시퀀스를 소리 사이 쉼(REST_MS)을 두고 이어 재생한다.
+   * 🔴 한글/영어 호출부는 넘기지 않는다(단일 재생 그대로) — 병음 단운모 「배우기」에서만 쓴다.
+   */
+  soundUrls?: string[];
 }
 
 interface Props {
@@ -32,7 +45,11 @@ interface Props {
   items: ReadonlyArray<ListenChoice>;
   /** 이 단원이 배우는 글자 — 문제 쪽에 함께 보여준다. */
   letter?: string;
-  language?: 'korean' | 'english';
+  /**
+   * **콘텐츠 소리**의 언어(warm·resolve). 안내·칭찬은 별개다 — 칭찬은 `en` 만 가르고 나머지는 `ko`
+   * (병음 `zh` 도 한국어 칭찬). 병음은 `'zh'` 를 넘겨야 warm/폴백이 라이브러리 직행(korean 이면 concat 400).
+   */
+  language?: 'korean' | 'english' | 'zh';
   /**
    * 판에 깔리는 카드 수 = 한 문제의 보기 수(탐색·퀴즈가 같은 판을 쓴다).
    *
@@ -40,6 +57,14 @@ interface Props {
    *    3으로 두면 마지막 단어 하나가 통째로 안 나온다(받침 단원 '시장'이 그랬다).
    */
   choices?: number;
+  /**
+   * **퀴즈 판만** 이 수로 캡한다(탐색 판은 `choices` 전부 유지).
+   *
+   * 🔴 병음조합(L3)은 탐색에서 성모를 전부 깔아야 하는데(놀이판 = 성모 × 4성 학습), 그대로 퀴즈로
+   *    가면 u05(성모 17개)가 17지선다가 된다. 탐색은 다 보여주고 퀴즈만 랜덤 부분집합으로 줄인다.
+   *    미지정이면 퀴즈도 판 전체(기존 동작 불변).
+   */
+  quizChoices?: number;
   /**
    * 한 줄에 놓을 카드 수. 미지정이면 장수로 정한다.
    * 🔴 알파벳 단원은 **글자당 한 줄**이라 2 를 넘긴다 — 안 넘기면 넓은 화면에서 여섯 장이
@@ -86,9 +111,21 @@ const REST_MS = 420;
  * 🔴 문장은 concat 으로 못 만든다(음절을 이어 붙이면 글자를 하나씩 읽는 소리가 된다).
  *    Gemini TTS 로 구운 정적 자산 — `server/scripts/generate-activity-voice-prompts.mjs`.
  */
-const QUIZ_START_SOUND = '/sounds/voice/quiz-start-ko.mp3';
+const QUIZ_START_SOUND = ENTRY_GUIDE.quiz;
 /** 탐색 진입 안내 — 화면의 "눌러서 들어봐!" 텍스트에 맞는 음성(퀴즈 전 카드를 눌러 소리를 들어보는 단계). */
-const EXPLORE_START_SOUND = '/sounds/voice/listen-explore-ko.mp3';
+const EXPLORE_START_SOUND = ENTRY_GUIDE.listenExplore;
+
+/** 카드 밑줄 라벨 — 병음(위) + 한자(아래). 한자가 없으면 라벨 한 줄만(한글/영어 무변경). */
+function CardLabel({ label, sublabel }: { label: string; sublabel?: string }) {
+  return (
+    <span className="block py-2 leading-tight break-keep">
+      <span className="block text-xl sm:text-3xl font-black text-ink-800">{label}</span>
+      {sublabel && (
+        <span className="block text-2xl sm:text-4xl font-black text-coral-600">{sublabel}</span>
+      )}
+    </span>
+  );
+}
 
 function shuffle<T>(arr: readonly T[]): T[] {
   const a = [...arr];
@@ -113,6 +150,7 @@ export function WordListenChooseActivity({
   letter,
   language = 'korean',
   choices = 4,
+  quizChoices,
   columns,
   exploreFirst = false,
   revealImageOnTap = false,
@@ -120,6 +158,7 @@ export function WordListenChooseActivity({
   onMarkComplete,
   onBack,
 }: Props) {
+  const { t } = useTranslation('phonics');
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
 
   // 🔴 language 를 넘겨야 영어 단원에서 데운 캐시가 탭과 맞는다(안 넘기면 korean 으로 데워 헛돈다).
@@ -164,10 +203,12 @@ export function WordListenChooseActivity({
   const quizBoard = useMemo(() => {
     const byLabel = new Map<string, ListenChoice[]>();
     for (const c of board) byLabel.set(c.label, [...(byLabel.get(c.label) ?? []), c]);
-    return shuffle(
+    const uniq = shuffle(
       [...byLabel.values()].map((same) => same[Math.floor(Math.random() * same.length)])
     );
-  }, [board]);
+    // 🔴 퀴즈만 캡한다 — 탐색 판(board)은 그대로. 병음조합 17지선다 방지.
+    return quizChoices ? uniq.slice(0, quizChoices) : uniq;
+  }, [board, quizChoices]);
   // 문제 순서 — 퀴즈 판에 깔린 것을 한 번씩(탐색 판이 아니다 — 안 깔린 카드가 정답이 되면 못 고른다).
   const questions = useMemo(() => shuffle(quizBoard).map((answer) => ({ answer })), [quizBoard]);
 
@@ -229,6 +270,14 @@ export function WordListenChooseActivity({
   const [done, setDone] = useState(false);
   const wrongTimer = useRef<number | null>(null);
   const restTimer = useRef<number | null>(null);
+  /**
+   * 재생 세대(generation) — 새 소리가 시작될 때마다 +1. 시퀀스의 각 스텝(다음 클립·쉼 타이머)이
+   * 자기 세대를 붙잡고, 세대가 바뀌면 즉시 멈춘다.
+   * 🔴 `restTimer` clear 만으로는 부족하다 — 클립이 **재생 중**(다음 스텝 타이머 예약 전)일 때 다른 카드를
+   *    누르면 `playAudio` 가 앞 클립의 `src` 를 비워 `onEnded` 를 **취소로도** 부른다(memory 규칙). 그러면
+   *    옛 시퀀스의 다음 스텝이 되살아나 두 음절(4성 시퀀스 ~6초)이 핑퐁했다. 세대 가드로 되살아남을 막는다.
+   */
+  const seqGenRef = useRef(0);
 
   /** 소리가 **끝난 뒤** 잠깐 쉬고 다음으로 — 길이를 가정하는 게 아니라 사이를 벌리는 것이다. */
   const rest = useCallback((fn: () => void) => {
@@ -237,8 +286,58 @@ export function WordListenChooseActivity({
 
   const current = questions[qIdx];
 
+  /**
+   * 여러 소리를 **순서로**(사이 쉼 REST_MS) 이어 재생 — 병음 단운모 4성(운모 놀이판).
+   * 🔴 새 시퀀스가 시작되면 이전 시퀀스의 대기 타이머를 지운다(연타 시 옛 성조가 겹치지 않게).
+   */
+  const playSequence = useCallback(
+    (urls: string[], onEnded?: () => void) => {
+      if (restTimer.current) clearTimeout(restTimer.current);
+      const gen = (seqGenRef.current += 1);
+      const step = (i: number) => {
+        playAudio(urls[i], () => {
+          if (gen !== seqGenRef.current) return; // 새 소리가 시작됨 — 취소로 불린 onEnded 는 되살아나지 않는다
+          if (i + 1 >= urls.length) {
+            onEnded?.();
+            return;
+          }
+          restTimer.current = window.setTimeout(() => {
+            if (gen !== seqGenRef.current) return;
+            step(i + 1);
+          }, REST_MS);
+        });
+      };
+      if (urls.length) step(0);
+      else onEnded?.();
+    },
+    [playAudio]
+  );
+
+  /**
+   * 새 소리를 처음부터 — **진행 중이던 시퀀스를 무효화**(세대 +1)하고 대기 타이머를 지운 뒤 재생.
+   * 🔴 시퀀스를 끊는 모든 진입점(탐색 카드→퀴즈 버튼·안내·다시하기)이 이걸 통과해야, 인터럽트된
+   *    탐색 시퀀스의 되살아난 클립이 안내 위에 새어나오지 않는다(퀴즈 전환 1클립 누수 방지).
+   */
+  const playFresh = useCallback(
+    (url: string, onEnded?: () => void) => {
+      seqGenRef.current += 1;
+      if (restTimer.current) clearTimeout(restTimer.current);
+      playAudio(url, onEnded);
+    },
+    [playAudio]
+  );
+
   const say = useCallback(
     async (w: ListenChoice, onEnded?: () => void) => {
+      if (w.soundUrls?.length) {
+        // 🔴 **탐색 = 시퀀스 전부**(단운모 4성 성조 비교 / 병음조합 블렌드 bō→ā→bā) /
+        //    **퀴즈 = 목표음 하나만**. 교안 퀴즈도 "음원 중 1개 재생" — 퀴즈에서 시퀀스를 내면 한 문제가
+        //    길고 탐색과 구분이 안 된다. 🔴 퀴즈 음은 `ttsUrl`(음절 bā) 우선 — 병음조합은 soundUrls[0] 이
+        //    성모 citation(bō)이라 그걸 내면 정답이 아닌 소리를 묻게 된다. 단운모는 ttsUrl==soundUrls[0](1성)라 무변.
+        if (exploring) playSequence(w.soundUrls, onEnded);
+        else playFresh(w.ttsUrl || w.soundUrls[0], onEnded); // 퀴즈·탐색→퀴즈 전환: 시퀀스 무효화 후 단일 클립
+        return;
+      }
       const url =
         w.ttsUrl ||
         (await resolveTtsUrl({
@@ -247,10 +346,10 @@ export function WordListenChooseActivity({
           storybookId: unitId,
           identifierPrefix: 'word-listen',
         }));
-      if (url) playAudio(url, onEnded);
+      if (url) playFresh(url, onEnded);
       else onEnded?.();
     },
-    [playAudio, unitId, language]
+    [playFresh, playSequence, unitId, language, exploring]
   );
 
   // 문제가 바뀌면 자동으로 한 번 들려준다 — 아이가 버튼을 찾아 누를 필요가 없게.
@@ -283,18 +382,27 @@ export function WordListenChooseActivity({
    *    비우면서 그 콜백을 **끝난 것처럼** 부른다(안내가 잘린다).
    */
   const guidedRef = useRef(false);
+  /**
+   * 🔴 **광고 랜딩 상자에선 안내를 내지 않는다**(2026-08-10 사용자). 이 활동만 `useEntryGuide`
+   *    를 안 쓰고 자기 effect 를 들고 있어서(두 갈래라) 임베드 게이트가 빠져 있었다 — 페이지를
+   *    열면 「눌러서 들어봐!」가 저절로 울렸다. 잠금(`starting`)은 안내가 풀어주므로 **건너뛸 땐
+   *    여기서 바로 푼다**(안 그러면 퀴즈 진입로가 영영 안 열린다).
+   */
+  const embedded = usePhonicsEmbedded();
   useEffect(() => {
     if (guidedRef.current) return;
     guidedRef.current = true;
-    if (exploreFirst) {
+    if (embedded) {
+      setStarting(false);
+    } else if (exploreFirst) {
       // 🔴 탐색 진입 — "눌러서 들어봐!" 안내(사용자: "여기도 멘트가 없네"). 잠금은 없다 — 아이는
       //    바로 카드를 눌러 소리를 들어봐도 된다. 퀴즈 시작음은 「🎯 퀴즈」 버튼에서 따로 난다.
-      playAudio(EXPLORE_START_SOUND);
+      playAudio(voiceUrl(EXPLORE_START_SOUND));
     } else {
       // 탐색 없이 바로 퀴즈인 화면(복습 듣기) — 안내가 끝나야 첫 문제가 나간다.
-      playAudio(QUIZ_START_SOUND, () => setStarting(false));
+      playAudio(voiceUrl(QUIZ_START_SOUND), () => setStarting(false));
     }
-  }, [exploreFirst, playAudio]);
+  }, [embedded, exploreFirst, playAudio]);
 
   // 나가는 도중 예약된 소리가 빈 화면에서 울리지 않게 둘 다 정리한다.
   useEffect(
@@ -331,7 +439,7 @@ export function WordListenChooseActivity({
         rest(() => {
           if (isLast) {
             onMarkComplete();
-            playCorrectSequence({ language: language === 'english' ? 'en' : 'ko' });
+            playCorrectSequence({ language: praiseLang() });
             return;
           }
           playAudio('/sounds/game/correct.mp3', () =>
@@ -375,10 +483,13 @@ export function WordListenChooseActivity({
     setExploring(false);
     setStarting(true);
     firstAskRef.current = true; // 안내 뒤 첫 문제엔 쉼을 준다(진입 경로와 같은 흐름).
-    playAudio(QUIZ_START_SOUND, () => setStarting(false));
-  }, [playAudio]);
+    // 🔴 playFresh — 탐색 카드 시퀀스(~6초)가 재생 중일 때 눌리므로, 안내 위로 옛 음절 조각이 새지 않게 무효화.
+    playFresh(voiceUrl(QUIZ_START_SOUND), () => setStarting(false));
+  }, [playFresh]);
 
   const restart = useCallback(() => {
+    seqGenRef.current += 1; // 재생 중이던 시퀀스를 무효화(다시하기 도중 옛 소리 되살아남 방지)
+    if (restTimer.current) clearTimeout(restTimer.current);
     setQIdx(0);
     setWrong(null);
     setDone(false);
@@ -404,15 +515,15 @@ export function WordListenChooseActivity({
         <div className="flex flex-col items-center gap-3 min-h-[7rem] sm:min-h-[9rem] justify-center">
           {exploring ? (
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-900 text-center break-keep">
-              눌러서 들어봐!
+              {t('common.tapToListen')}
             </h2>
           ) : starting ? (
             // 안내 음성이 나오는 동안 같은 문구를 화면에도 — 소리를 못 듣는 상황에서도 전달된다.
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-coral-600 text-center break-keep animate-pulse">
-              🎧 잘 듣고 맞춰봐!
+              {t('common.listenCarefully')}
             </h2>
           ) : done ? (
-            <p className="text-3xl sm:text-5xl font-black text-ink-900">모두 맞췄어!</p>
+            <p className="text-3xl sm:text-5xl font-black text-ink-900">{t('common.allCorrect')}</p>
           ) : (
             <>
               <div className="flex gap-2">
@@ -434,7 +545,7 @@ export function WordListenChooseActivity({
                 )}
                 <button
                   onClick={() => say(current.answer)}
-                  aria-label="다시 듣기"
+                  aria-label={t('common.listenAgain')}
                   className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-coral-500 text-white text-4xl sm:text-5xl shadow-pop hover:scale-[1.03] active:scale-[0.97] transition animate-pulse"
                 >
                   🔊
@@ -510,17 +621,13 @@ export function WordListenChooseActivity({
                       alt=""
                       className="w-full aspect-square object-cover"
                     />
-                    <span className="block py-2 text-xl sm:text-3xl font-black text-ink-800 break-keep">
-                      {c.label}
-                    </span>
+                    <CardLabel label={c.label} sublabel={c.sublabel} />
                   </motion.div>
                 </AnimatePresence>
               ) : c.imageUrl && (!revealImageOnTap || (exploring && opened.has(idOf(c)))) ? (
                 <>
                   <img src={c.imageUrl} alt="" className="w-full aspect-square object-cover" />
-                  <span className="block py-2 text-xl sm:text-3xl font-black text-ink-800 break-keep">
-                    {c.label}
-                  </span>
+                  <CardLabel label={c.label} sublabel={c.sublabel} />
                 </>
               ) : (
                 // 🔴 글자 크기는 길이에 따라 — 좁은 화면에서 3글자를 큰 글꼴로 두면 두 줄로 접혀 잘린다.
@@ -543,28 +650,28 @@ export function WordListenChooseActivity({
             onClick={startQuiz}
             className="px-10 py-4 rounded-full bg-coral-500 text-white shadow-pop active:scale-[0.98] transition flex flex-col items-center leading-tight"
           >
-            <span className="font-black text-2xl sm:text-3xl">🎯 퀴즈</span>
+            <span className="font-black text-2xl sm:text-3xl">{t('wordListen.quizBtn')}</span>
             <span className="font-bold text-sm sm:text-base text-white/90 break-keep">
-              듣고 맞춰보기
+              {t('wordListen.quizSub')}
             </span>
           </button>
         )}
 
         {!exploring && done && (
           <div className="flex flex-col items-center gap-4">
-            <p className="text-3xl sm:text-5xl font-black text-ink-900">모두 맞췄어!</p>
+            <p className="text-3xl sm:text-5xl font-black text-ink-900">{t('common.allCorrect')}</p>
             <div className="flex flex-wrap items-center justify-center gap-3">
               <button
                 onClick={restart}
                 className="px-8 py-4 rounded-full bg-coral-500 text-white font-black text-2xl shadow-pop active:scale-[0.98] transition"
               >
-                🔁 다시 해보기
+                {t('common.retry')}
               </button>
               <button
                 onClick={onBack}
                 className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-pop active:scale-[0.98] transition"
               >
-                ← 돌아가기
+                {t('common.back')}
               </button>
             </div>
           </div>

@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { PhonicsEmbeddedProvider } from './ActivityShell';
 import { EmbedStage } from './EmbedStage';
 import { KoreanPhonicsActivity } from './KoreanPhonicsActivityPage';
+import { EnglishPhonicsActivity } from './EnglishPhonicsActivityPage';
 import { getActivityPlan } from '../lib/korean-phonics-units';
+import { getEnglishActivityPlan } from '../lib/english-phonics-units';
+import { activityTitle } from '../lib/activity-title';
 
 /**
  * 블로그·랜딩 안에서 **진짜 학습 활동을 직접 해보는** 상자.
@@ -39,7 +43,25 @@ interface Props {
    * 선택지가 아니라 소음이다. 구간 마지막 상자에만 하나.
    */
   cta?: boolean;
+  /**
+   * 어느 파닉스인가. 🔴 **plan 과 호스트가 한 벌로 갈린다** — 한쪽만 바꾸면 영어 단원 id 로
+   * 한글 plan 을 뒤져 활동을 못 찾고 상자가 **조용히 사라진다**(`if (!activity) return null`).
+   */
+  language?: 'korean' | 'english';
 }
+
+/**
+ * **상자 높이를 못 정하는 활동** — `100dvh` 로 띄운다.
+ *
+ * 🔴 게임(`game-*`)은 플레이어가 인라인 `height: 100dvh` 를 쓰고, **듣고 고르기**는 카드를
+ *    `min(Nvw, Mvh)` 로 잰다. `transform` 이 `inset-0` 의 컨테이닝 블록은 바꿔도 **`vh`·`dvh` 는
+ *    끝까지 뷰포트 값**이라, 상자를 620px 로 낮추면 그 안에서 720px 기준으로 그려진 내용의
+ *    아래가 그냥 잘린다(실측 1280×720: 내용 649 vs 상자 620 — 「🎯 퀴즈」 버튼이 16px 잘렸다).
+ * 🔴 숫자를 키워 덮지 말 것 — 내용 높이가 **뷰포트 높이에 비례**하므로 더 긴 화면에서 또 잘린다.
+ *    상자를 뷰포트 높이에 맞추면 안팎 기준이 같아져 어느 화면에서도 안 잘린다.
+ */
+const VIEWPORT_SIZED = (kind: string) =>
+  kind.startsWith('game-') || kind === 'word-listen-choose' || kind === 'letter-hunt';
 
 /** 「합쳐지는 순간」 = 이 단원을 한 장면으로 보여주는 활동. 레벨마다 kind 가 다르다. */
 const BLEND_KINDS = [
@@ -49,10 +71,48 @@ const BLEND_KINDS = [
   'vowel-listen',
 ];
 
-export function PhonicsTryIt({ unitId, activityKey, title, height, note, cta }: Props) {
+export function PhonicsTryIt({
+  unitId,
+  activityKey,
+  title,
+  height,
+  note,
+  cta,
+  language = 'korean',
+}: Props) {
+  const { t } = useTranslation('phonics');
   const [done, setDone] = useState(false);
+  const boxRef = useRef<HTMLDivElement>(null);
 
-  const plan = getActivityPlan(unitId);
+  /**
+   * **도달률 계측** — 이 상자가 화면에 들어오면 GA4 로 한 번 쏜다(2026-08-06).
+   *
+   * 🔴 상자를 몇 개 둘지가 계속 **판단**이었다("아홉은 많다"). 랜딩이 28.4화면인데 어디서
+   *    사람이 멈추는지 아무도 모르는 채로 자르고 붙였다 — 다음엔 **숫자로** 자르려고 남긴다.
+   * 🔴 `once` 로 잠근다 — 스크롤을 오르내리면 같은 상자가 수십 번 쏜다.
+   * 🔴 `gtag` 가 없으면 조용히 아무것도 안 한다(광고차단·개발 환경). 계측이 화면을 깨뜨리면 안 된다.
+   */
+  const sent = useRef(false);
+  useEffect(() => {
+    const el = boxRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (sent.current || !entries.some((e) => e.isIntersecting)) return;
+        sent.current = true;
+        (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag?.('event', 'tryit_view', {
+          activity: activityKey ?? 'auto',
+          unit: unitId,
+        });
+      },
+      { threshold: 0.3 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [activityKey, unitId]);
+
+  const isEnglish = language === 'english';
+  const plan = isEnglish ? getEnglishActivityPlan(unitId) : getActivityPlan(unitId);
   const activity = activityKey
     ? plan.activities.find((a) => a.key === activityKey)
     : plan.activities.find((a) => BLEND_KINDS.includes(a.kind));
@@ -60,6 +120,10 @@ export function PhonicsTryIt({ unitId, activityKey, title, height, note, cta }: 
   if (!activity) return null; // 없는 활동은 조용히 접는다
 
   return (
+    /* 🔴 **모바일은 화면 끝까지**(2026-08-11 사용자: "게임부분이 문제겠군") — `EmbedStage` 가
+         상자 폭/뷰포트 폭으로 줄이므로, 375px 에서 좌우 16px 패딩 안에 두면 0.82배로 **실제 폰보다
+         작은 앱**이 된다. 패딩 밖으로 흘리면 배율이 1.0 이 되어 아이 손에 쥐어줄 화면과 같은 크기다.
+         호스트 셋(랜딩·영어 랜딩·블로그)이 다 `px-4` 라 컴포넌트에서 한 번만 흘린다. */
     /**
      * 🔴 **상자는 페이지 폭을 지킨다**(2026-08-05 사용자: "가로폭을 맞춰야지. 크기를 줄이더라도").
      *    예전엔 `width:100vw + margin-left:calc(50% - 50vw)` 로 컨테이너를 뚫고 전폭으로 흘렸다 —
@@ -67,13 +131,19 @@ export function PhonicsTryIt({ unitId, activityKey, title, height, note, cta }: 
      *    페이지보다 넓어** 위아래 카드와 가로선이 어긋난다. 이제 잘림은 `EmbedStage` 가 축소로 풀고,
      *    상자는 다른 섹션과 같은 폭을 쓴다.
      */
-    <div className="my-7 overflow-hidden rounded-[26px] border border-coral-200 bg-white shadow-sm">
+    <div
+      ref={boxRef}
+      className="my-7 -mx-4 overflow-hidden rounded-3xl border border-coral-200 bg-white shadow-sm sm:mx-0"
+    >
       <div className="flex items-center justify-between gap-3 border-b border-ink-100 px-5 py-3">
-        <span className="text-lg font-extrabold text-ink-800 break-keep">
-          {title ?? `${activity.emoji} ${activity.title}`}
+        <span className="text-xl font-extrabold text-ink-800 break-keep lg:text-2xl">
+          {title ?? `${activity.emoji} ${activityTitle(t, activity)}`}
         </span>
-        <span className="shrink-0 rounded-full bg-coral-50 px-3 py-1 text-xs font-bold text-coral-600">
-          실제 학습 화면
+        {/* 🔴 **꽉 찬 색으로**(2026-08-05) — 연한 배지는 본문과 섞여 「그냥 라벨」로 지나간다.
+            상자마다 이게 붙어야 아홉 개가 전부 살아 있는 화면이라는 게 눈으로 읽힌다. */}
+        <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-coral-700 px-3 py-1.5 text-sm font-extrabold text-white">
+          <span className="h-2 w-2 animate-pulse rounded-full bg-white" />
+          {t('tryIt.badge')}
         </span>
       </div>
 
@@ -83,35 +153,38 @@ export function PhonicsTryIt({ unitId, activityKey, title, height, note, cta }: 
              플레이어도 전체화면이라, 그냥 얹으면 **랜딩 전체를 덮는다**. 변환된 조상은 그
              아래 `fixed` 의 컨테이닝 블록이 되므로 상자 안에 갇힌다. 활동 13개와 게임
              플레이어를 하나도 안 건드리고 되는 유일한 방법이다(그것들은 동화책 게임과 공유한다). */}
-      {/* 🔴 **게임은 상자 높이를 못 정한다.** 게임 플레이어(`ConnectTheDots`·`WordWriting`·
-          `LineMatching`)는 인라인 `height: 100dvh` 를 쓰는데, `transform` 이 `inset-0` 의 컨테이닝
-          블록은 바꿔도 **`dvh` 는 끝까지 뷰포트 값**이다. 그래서 상자를 낮추면 아래(확인 버튼)가
-          그냥 잘린다 — 390px 실측 플레이어 844 vs 상자 764. 낮추는 대신 **상자를 그 높이에 맞춘다**.
-          플레이어를 고치지 않는 이유 = 동화책 게임과 공유하는 코드다. */}
+      {/* 높이 규칙은 위 `VIEWPORT_SIZED` 주석 참조. 플레이어·활동을 고치지 않는 이유 =
+          동화책 게임과 공유하는 코드다. */}
       <EmbedStage
-        height={activity.kind.startsWith('game-') ? '100dvh' : `min(${height ?? 500}px, 88dvh)`}
+        height={VIEWPORT_SIZED(activity.kind) ? '100dvh' : `min(${height ?? 500}px, 88dvh)`}
       >
         <PhonicsEmbeddedProvider value>
-          <KoreanPhonicsActivity
-            unitId={unitId}
-            activityKey={activity.key}
-            onExit={() => setDone(true)}
-          />
+          {isEnglish ? (
+            <EnglishPhonicsActivity
+              unitId={unitId}
+              activityKey={activity.key}
+              onExit={() => setDone(true)}
+            />
+          ) : (
+            <KoreanPhonicsActivity
+              unitId={unitId}
+              activityKey={activity.key}
+              onExit={() => setDone(true)}
+            />
+          )}
         </PhonicsEmbeddedProvider>
       </EmbedStage>
 
       <div className="flex flex-col items-center gap-2 bg-cream-50 px-5 py-4 text-center">
-        <p className="text-xs text-ink-600 break-keep">
-          {done
-            ? '다 하셨네요. 아이와 함께면 소리까지 들으며 할 수 있어요.'
-            : (note ?? '앱에서는 이 활동이 단원마다 아홉 가지씩 이어집니다.')}
+        <p className="text-sm text-ink-600 break-keep lg:text-base">
+          {done ? t('tryIt.done') : (note ?? t('tryIt.note'))}
         </p>
         {cta && (
           <Link
-            to={`/library/phonics/korean/${unitId}`}
-            className="inline-flex min-h-[44px] items-center rounded-full bg-coral-700 px-5 text-sm font-bold text-white shadow-sm transition hover:bg-coral-800"
+            to={`/library/phonics/${isEnglish ? 'english' : 'korean'}/${unitId}`}
+            className="inline-flex min-h-[44px] items-center rounded-full bg-coral-700 px-5 text-base font-bold text-white shadow-sm transition hover:bg-coral-800"
           >
-            앱에서 이어서 하기 →
+            {t('tryIt.cta')}
           </Link>
         )}
       </div>

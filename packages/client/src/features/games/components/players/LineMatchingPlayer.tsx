@@ -9,6 +9,7 @@ import type {
 } from '@tangobook/shared';
 import { warmAudioUrl } from '../../hooks/useGamePrefetch';
 import { useGameAudio } from '../../hooks/useGameAudio';
+import { useGameEntryGuide } from '../../hooks/useGameEntryGuide';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { GameResultScreen } from '../GameResultScreen';
 import { GamePlayerLayout } from '../GamePlayerLayout';
@@ -31,6 +32,7 @@ import { shuffle } from '../../utils/shuffle';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
 import { cn } from '@/lib/cn';
 import { FirstLetterWord } from '@/features/phonics-learner/components/FirstLetterWord';
+import { ENTRY_GUIDE, voiceUrl } from '@/features/phonics-learner/hooks/useEntryGuide';
 
 interface LineMatchingPlayerProps extends GamePlayerProps {
   lang: Lang;
@@ -109,14 +111,9 @@ function LineMatchingPlayerInner({
   const gameStyle = useGameStyle(sourceStorybook);
 
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
-  // 🔴 진입 안내 음성 — "그림과 짝을 찾아봐!". 안내음은 한국어라 **한국어 UI(ko/en)일 때만**
-  //    낸다 — vi/zh/th 어휘 게임도 이 플레이어를 쓴다.
-  const guidedRef = useRef(false);
-  useEffect(() => {
-    if (guidedRef.current || (lang !== 'ko' && lang !== 'en')) return;
-    guidedRef.current = true;
-    playAudio('/sounds/voice/line-match-ko.mp3');
-  }, [playAudio, lang]);
+  // 🔴 진입 안내 음성 — "그림과 짝을 찾아봐!"(`games:guide.lineMatch`). 언어는 **UI 언어**이지
+  //    콘텐츠 언어가 아니다(`voiceUrl`) — vi/zh/th 어휘 게임도 이 플레이어를 쓴다.
+  useGameEntryGuide(voiceUrl(ENTRY_GUIDE.lineMatch), playAudio);
   const isTutorialPlaying = useTutorialIsPlaying();
   const { highlightImageIdx, highlightWordIdx } = useTutorialHighlight();
   const expected = useTutorialExpected();
@@ -290,6 +287,19 @@ function LineMatchingPlayerInner({
     const area = areaRef.current;
     if (!area) return;
     const areaRect = area.getBoundingClientRect();
+    /**
+     * 🔴 **조상에 `transform: scale` 이 있으면 좌표를 되돌려야 한다**(2026-08-11 사용자: "선이
+     *    똑바로 연결이 안 되는데").
+     *
+     * `getBoundingClientRect()` 는 변환이 **적용된** 화면 좌표를 준다. 그런데 선을 그리는 SVG 는
+     * 그 변환 **안쪽**에 있어서 로컬(변환 전) 좌표계를 쓴다 — 두 좌표계를 섞으면 선이 실제
+     * 거리의 s 배만 그려져 허공에서 끝난다(랜딩 임베드 실측: s=0.55, `area` 는 화면상 748px 인데
+     * 로컬로는 1368px). 앱에서는 s=1 이라 안 드러났고 상자에 넣으면서 생긴 문제다.
+     * 🔴 배율을 `EmbedStage` 에서 받아오지 않는다 — **자기 요소로 잰다**(레이아웃 폭 대비 화면 폭).
+     *    누가 어디서 변환을 걸든 이 계산은 맞고, 변환이 없으면 1 이라 기존 동작 그대로다.
+     */
+    const scale = area.offsetWidth > 0 ? areaRect.width / area.offsetWidth : 1;
+    const local = (v: number) => (scale > 0 ? v / scale : v);
     const result: typeof lines = [];
 
     // 매칭 완료 — success 색
@@ -301,12 +311,12 @@ function LineMatchingPlayerInner({
       const wordRect = wordEl.getBoundingClientRect();
       result.push({
         from: {
-          x: imgRect.right - areaRect.left,
-          y: imgRect.top + imgRect.height / 2 - areaRect.top,
+          x: local(imgRect.right - areaRect.left),
+          y: local(imgRect.top + imgRect.height / 2 - areaRect.top),
         },
         to: {
-          x: wordRect.left - areaRect.left,
-          y: wordRect.top + wordRect.height / 2 - areaRect.top,
+          x: local(wordRect.left - areaRect.left),
+          y: local(wordRect.top + wordRect.height / 2 - areaRect.top),
         },
         color: '#5CC99F',
         key: `m-${m.itemIdx}`,
@@ -322,12 +332,12 @@ function LineMatchingPlayerInner({
         const wordRect = wordEl.getBoundingClientRect();
         result.push({
           from: {
-            x: imgRect.right - areaRect.left,
-            y: imgRect.top + imgRect.height / 2 - areaRect.top,
+            x: local(imgRect.right - areaRect.left),
+            y: local(imgRect.top + imgRect.height / 2 - areaRect.top),
           },
           to: {
-            x: wordRect.left - areaRect.left,
-            y: wordRect.top + wordRect.height / 2 - areaRect.top,
+            x: local(wordRect.left - areaRect.left),
+            y: local(wordRect.top + wordRect.height / 2 - areaRect.top),
           },
           color: '#FF5E3A',
           key: 'active',

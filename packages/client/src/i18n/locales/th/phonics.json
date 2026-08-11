@@ -1,0 +1,230 @@
+{
+  "common": {
+    "back": "← กลับ",
+    "backToUnit": "← กลับไปที่บทเรียน",
+    "backToUnitList": "← รายการบทเรียน",
+    "backToPicker": "← เลือกโฟนิกส์",
+    "backToPickerLong": "← กลับไปหน้าเลือกโฟนิกส์",
+    "backToKorean": "← กลับไปโฟนิกส์ฮันกึล",
+    "backToEnglish": "← กลับไปโฟนิกส์ภาษาอังกฤษ",
+    "backToChinese": "← กลับไปโฟนิกส์พินอิน",
+    "home": "หน้าแรก",
+    "close": "ปิด",
+    "loading": "กำลังโหลด…",
+    "retry": "🔁 ลองอีกครั้ง",
+    "next": "ถัดไป →",
+    "quizStart": "🎯 เริ่มเกมทายกัน!",
+    "listenAgain": "ฟังอีกครั้ง",
+    "listenAgainBtn": "🔊 ฟังอีกครั้ง",
+    "listenCarefully": "🎧 ฟังดี ๆ แล้วทายเลย!",
+    "tapToListen": "แตะเพื่อฟังเลย!",
+    "allCorrect": "ถูกหมดเลย!",
+    "wellDone": "เก่งมาก!",
+    "passed": "✓ ผ่าน",
+    "done": "✓ เสร็จแล้ว",
+    "comingSoon": "เร็ว ๆ นี้",
+    "unknownUnit": "ไม่พบบทเรียนนี้",
+    "unknownActivity": "ไม่พบกิจกรรมนี้",
+    "noUnitsYet": "ยังไม่มีบทเรียนให้เรียนนะ",
+    "noActivitiesYet": "บทเรียนนี้ยังไม่มีกิจกรรมนะ",
+    "unitTab": "บทเรียน",
+    "unitPicker": "เลือกบทเรียน",
+    "phonics": "โฟนิกส์"
+  },
+  "section": {
+    "learn": "มาเรียนกัน",
+    "learnSubtitleWrite": "ฟังแล้วเขียนตาม",
+    "learnSubtitleListen": "ฟังแล้วเรียนรู้",
+    "wordPlay": "เล่นกับคำ",
+    "wordPlaySubtitle": "เล่นไปเรียนไป",
+    "games": "เล่นเกม",
+    "gamesSubtitle": "เรียนสนุก ๆ"
+  },
+  "unavailable": {
+    "needWordImages": "ต้องมีรูปของคำ",
+    "needWords": "ต้องมีคำ",
+    "needMoreWords": "คำยังไม่พอ",
+    "needWordDots": "ต้องมีรูปของคำและจุดลากเส้น",
+    "needToneWords": "ต้องมีคำสำหรับฝึกวรรณยุกต์",
+    "noChant": "ยังไม่มีเพลง",
+    "comingSoon": "กำลังเตรียมอยู่"
+  },
+  "landing": {
+    "title": "เรียนโฟนิกส์",
+    "subtitle": "อยากเรียนตัวอักษรแบบไหนดีคะ แตะการ์ดเพื่อเริ่มได้เลย",
+    "start": "เริ่มเรียน",
+    "ageRange": "อายุ 4-7 ปี",
+    "koreanChip": "ฮันกึล",
+    "koreanTitle": "โฟนิกส์ฮันกึล",
+    "koreanDesc": "สระ · พยัญชนะ · ตัวสะกด ทีละขั้น",
+    "koreanAlt": "โฮริ โฟนิกส์ฮันกึล",
+    "englishTitle": "โฟนิกส์ภาษาอังกฤษ",
+    "englishDesc": "ตั้งแต่เสียงตัวอักษรไปจนถึงคำเต็ม",
+    "englishAlt": "โฮริ โฟนิกส์ภาษาอังกฤษ",
+    "chineseTitle": "พินอินภาษาจีน",
+    "chineseDesc": "พยัญชนะต้น · สระ · วรรณยุกต์ เรียนด้วยเสียง"
+  },
+  "study": {
+    "koreanLead": "ฮันกึล",
+    "englishLead": "ภาษาอังกฤษ",
+    "chineseLead": "พินอิน",
+    "englishComingSoonNote": "กิจกรรมโฟนิกส์ภาษาอังกฤษกำลังจะมาแล้วนะ! ✨"
+  },
+  "hub": {
+    "title": "โฟนิกส์ฮันกึล",
+    "subtitle": "เรียนจบทีละบท แล้วบทต่อไปก็จะเปิดออกมา",
+    "noPlan": "กำลังเตรียมกิจกรรม"
+  },
+  "seo": {
+    "koreanTitle": "เรียนโฟนิกส์ฮันกึล — Tangobook",
+    "koreanDescription": "เรียนพยัญชนะ สระ และตัวสะกดของภาษาเกาหลี ด้วยการ์ดและเกมที่เหมาะกับเด็กเริ่มต้นวัย 4-5 ปี โฟนิกส์ฮันกึลที่เชื่อมกับคำศัพท์ในนิทานโดยอัตโนมัติ",
+    "koreanKeywords": "โฟนิกส์ฮันกึล, เรียนภาษาเกาหลี, พยัญชนะสระเกาหลี, ตัวสะกดภาษาเกาหลี, ผสมคำภาษาเกาหลี, ภาษาเกาหลีสำหรับเด็ก 4 ขวบ, ภาษาเกาหลีสำหรับเด็ก 5 ขวบ, ภาษาเกาหลีสำหรับเด็ก 6 ขวบ, Tangobook",
+    "koreanJsonLdName": "เรียนโฟนิกส์ฮันกึล",
+    "koreanJsonLdDescription": "ชุดบทเรียนพยัญชนะ สระ การผสมเสียง และตัวสะกดของภาษาเกาหลี",
+    "educationalLevel": "ปฐมวัย",
+    "educationalUse": "การอ่านภาษาเกาหลี, โฟนิกส์, การเรียนคำศัพท์"
+  },
+  "level": {
+    "hangul1": "ฮันกึล 1: พยางค์พื้นฐาน",
+    "hangul2": "ฮันกึล 2: ตัวสะกด",
+    "hangul3": "ฮันกึล 3: พยัญชนะคู่",
+    "hangul4": "ฮันกึล 4: สระประสม",
+    "zhL1": "ระดับ 1: วรรณยุกต์ + สระเดี่ยว",
+    "zhL2": "ระดับ 2: พยัญชนะต้น",
+    "zhL3": "ระดับ 3: การผสมพินอิน",
+    "zhL4": "ระดับ 4: คำศัพท์",
+    "zhL5": "ระดับ 5: สระประสม",
+    "zhL6": "ระดับ 6: สระเสียงนาสิก",
+    "zhL7": "ระดับ 7: พยางค์อ่านรวม",
+    "zhL8": "ระดับ 8: คำสองพยางค์"
+  },
+  "unit": {
+    "review": "ทบทวน",
+    "reviewOne": "ทบทวน {{letter}}",
+    "reviewRange": "ทบทวน {{first}}~{{last}}",
+    "reviewCodaOne": "ทบทวนตัวสะกด {{letter}}",
+    "reviewCodaRange": "ทบทวนตัวสะกด {{first}}~{{last}}",
+    "vowelsLearn": "เรียนสระ",
+    "lettersLearn": "เรียน {{letters}}",
+    "codaLearn": "เรียนตัวสะกด {{letter}}",
+    "zhTones": "วรรณยุกต์ {{letters}}",
+    "zhCombo": "ผสม {{letters}}",
+    "zhAnimals": "สัตว์ ({{words}})",
+    "zhObjects": "สิ่งของ ({{words}})",
+    "zhNature": "ธรรมชาติ ({{words}})"
+  },
+  "activity": {
+    "letterHunt": "ล่าตัวอักษร",
+    "wordWriting": "เขียนคำ",
+    "letterWriting": "เขียนตัวอักษร",
+    "wordDrawing": "วาดคำ",
+    "pictureMatch": "จับคู่รูปภาพ",
+    "koreanBlock": "เกมบล็อกฮันกึล",
+    "wordPractice": "ฝึกคำ",
+    "flipMatch": "พลิกการ์ดจับคู่",
+    "syllableListen": "ฟังแล้วเลือกพยางค์",
+    "letterListen": "ฟังแล้วเลือกตัวอักษร",
+    "wordListen": "ฟังแล้วเลือกคำ",
+    "vowelListen": "ฟังสระ {{n}}",
+    "vowelWrite": "เขียนสระ",
+    "syllableMake": "ประกอบพยางค์",
+    "syllableWrite": "เขียนพยางค์",
+    "consonantLearn": "เรียน {{letter}}",
+    "consonantBlend": "{{letter}} + สระ",
+    "consonantWrite": "เขียน {{letter}}",
+    "codaLearn": "เรียนตัวสะกด {{letter}}",
+    "codaWrite": "เขียนตัวสะกด {{letter}}",
+    "patternLearn": "เรียน {{pattern}}",
+    "lettersLearn1": "เรียน {{letters}} 1",
+    "lettersLearn2": "เรียน {{letters}} 2",
+    "lettersWrite": "เขียน {{letters}}",
+    "listenLearn": "ฟังแล้วเรียนรู้",
+    "listenChoose": "ฟังแล้วเลือก",
+    "toneChoice": "ฟังวรรณยุกต์แล้วเลือก",
+    "trace": "เขียนตาม",
+    "chant": "เพลง"
+  },
+  "alphabetLearn": {
+    "noData": "ยังไม่มีข้อมูลการ์ดการเรียน",
+    "noImage": "การ์ดนี้ยังไม่มีรูป",
+    "playLetterSound": "ฟังเสียงตัวอักษร",
+    "switchTo": "เปลี่ยนไปที่ {{letters}}",
+    "tapLetterHint": "🔊 แตะตัวอักษรด้านบนเพื่อฟังเสียงเลย!",
+    "tapSparkle": "🔊 แตะตรงที่กะพริบเลย!",
+    "foundAll": "🎉 เจอครบแล้ว! แตะเพื่อฟังอีกครั้งได้เลย"
+  },
+  "alphabetWrite": {
+    "title": "มาเขียนกัน",
+    "titleShort": "เขียน",
+    "upper": "ตัวพิมพ์ใหญ่ {{letter}}",
+    "lower": "ตัวพิมพ์เล็ก {{letter}}",
+    "hint": "ลองเขียนตามทั้งตัวพิมพ์ใหญ่และตัวพิมพ์เล็กนะ ผ่านทั้งสองแบบแล้วจะไปตัวอักษรถัดไป",
+    "paintInside": "ระบายสีข้างในตัวอักษรเลย!"
+  },
+  "chant": {
+    "title": "มาฟังเพลงกัน!",
+    "prev": "เพลงก่อนหน้า",
+    "next": "เพลงถัดไป",
+    "play": "เล่น",
+    "pause": "หยุดชั่วคราว",
+    "heard": "ฟังจบแล้ว",
+    "heardDone": "✓ ฟังจบแล้ว"
+  },
+  "blend": {
+    "makeSyllable": "ประกอบ {{syllable}}",
+    "makeSyllableDone": "ประกอบ {{syllable}} (เสร็จแล้ว)",
+    "meet": "สองเสียงมาเจอกันแล้ว!",
+    "tapSparkle": "แตะตัวอักษรที่กะพริบเลย!"
+  },
+  "consonantTap": {
+    "hint": "แตะอันละสามครั้งนะ!",
+    "cardLabel": "การ์ด {{letter}} ใบที่ {{n}}"
+  },
+  "write": {
+    "writeSyllable": "เขียน {{syllable}}",
+    "trace": "✏️ เขียนตามเลย!",
+    "meet": "สองตัวอักษรมาเจอกันแล้ว!",
+    "sparkleCell": "✏️ เขียนในช่องที่กะพริบเลย!",
+    "noStrokes": "กรุณาสร้างเส้นลากในเครื่องมือสร้างเนื้อหา"
+  },
+  "cvc": {
+    "learn": "เรียน {{pattern}}",
+    "words": "เรียนคำ {{pattern}}",
+    "write": "เขียน {{pattern}}",
+    "noWordsInEditor": "ไม่มีคำ {{pattern}} ในเครื่องมือสร้างเนื้อหา",
+    "noWords": "ไม่มีคำ {{pattern}}"
+  },
+  "hunt": {
+    "prompt": "หาตัวอักษรนี้ให้ครบเลย!",
+    "done": "เจอครบแล้ว!",
+    "letterSound": "ฟังเสียง {{letter}}"
+  },
+  "flip": {
+    "prompt": "หาคู่ที่เหมือนกันเลย!",
+    "allMatched": "จับคู่ครบแล้ว!",
+    "flip": "พลิกการ์ด"
+  },
+  "vowelListen": {
+    "inOrder": "แตะตามลำดับเลย!",
+    "readyForQuiz": "เก่งมาก! มาลองเล่นเกมทายกันไหม?",
+    "pickSound": "🔊 เลือกเสียงที่ได้ยินเลย!"
+  },
+  "vowelPicker": {
+    "makePrompt": "จะประกอบกับสระตัวไหนดี?",
+    "writePrompt": "จะเขียนสระตัวไหนดี?"
+  },
+  "wordFamily": {
+    "trace": "เขียนตามเลย!",
+    "tapChunks": "แตะชิ้นส่วนเสียงเพื่อฟังเลย!"
+  },
+  "wordListen": {
+    "quizBtn": "🎯 เกมทาย",
+    "quizSub": "ฟังแล้วทาย"
+  },
+  "tryIt": {
+    "badge": "หน้าจอเรียนจริง",
+    "done": "ลองครบแล้วค่ะ ในแอป เด็ก ๆ จะได้ทำกิจกรรมนี้พร้อมฟังเสียงไปด้วย",
+    "note": "ในแอป แต่ละบทเรียนจะมีกิจกรรมแบบนี้ต่อกันเก้ากิจกรรม",
+    "cta": "เรียนต่อในแอป →"
+  }
+}

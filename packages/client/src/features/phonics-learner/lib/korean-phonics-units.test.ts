@@ -158,8 +158,26 @@ describe('korean phonics activity plans', () => {
     // 🔴 `복습 1` 은 무엇을 복습하는지 안 알려준다 — 사이드바·단원 화면이 같은 unitTitle 을 쓴다.
     expect(reviews.map((r) => r.unitTitle)).toContain('ㄱ~ㄹ 복습');
     for (const r of reviews) {
-      expect(r.unitTitle).toBe(`${r.phonemes[0]}~${r.phonemes.at(-1)} 복습`);
+      // 🔴 받침 복습은 phoneme 이 '받침ㅇ' 이라 그대로 쓰면 번역문 안에 한국어가 박힌다
+      //    (태국어 UI 에서 `ทบทวน 받침ㅇ~받침ㄹ`). 「받침」은 UI 어휘 → 틀로 빼고 글자만 보간.
+      const letters = r.phonemes.map((p) => p.replace('받침', ''));
+      const coda = r.levelKey === 'hangul2' ? '받침 ' : '';
+      expect(r.unitTitle).toBe(`${coda}${letters[0]}~${letters.at(-1)} 복습`);
+      expect(r.unitTitleVars).toEqual({ first: letters[0], last: letters.at(-1) });
     }
+  });
+
+  it('단원·레벨 제목은 i18n 키를 들고 있다 — 사이드바가 UI 언어로 그린다', () => {
+    for (const u of units) {
+      expect(u.unitTitleKey, u.id).toBeTruthy();
+      expect(u.levelNameKey, u.id).toBe(`level.${u.levelKey}`);
+    }
+    // 🔴 콘텐츠 글자는 번역하지 않고 보간 변수로 남는다.
+    const coda = units.find((u) => u.id === 'kr-h2-u01')!;
+    expect(coda.unitTitleKey).toBe('unit.codaLearn');
+    expect(coda.unitTitleVars).toEqual({ letter: 'ㅇ' }); // '받침ㅇ' 아님
+    expect(units.find((u) => u.id === 'kr-h1-u01')!.unitTitleKey).toBe('unit.vowelsLearn');
+    expect(units.find((u) => u.id === 'kr-h1-u02')!.unitTitleVars).toEqual({ letter: 'ㄱ' });
   });
 
   it('복습은 게임만 — 익히기 활동이 없다', () => {

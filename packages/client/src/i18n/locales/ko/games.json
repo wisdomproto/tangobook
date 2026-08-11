@@ -123,10 +123,17 @@
     "scoreRetry": "다시 해볼까요?",
     "clear": "지우기",
     "rewrite": "다시 쓰기",
-    "nextWord": "다음 단어"
+    "nextWord": "다음 단어",
+    "goal": "목표 {{pct}}%",
+    "progress": "{{done}}/{{total}} 글자 완성",
+    "check": "확인"
   },
   "landscapeGate": {
     "title": "가로로 돌려주세요!",
     "sub": "게임은 가로 모드에서 더 잘 보여요."
+  },
+  "guide": {
+    "lineMatch": "그림과 짝을 찾아봐!",
+    "blockMake": "블록으로 단어를 만들어봐!"
   }
 }

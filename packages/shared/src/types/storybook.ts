@@ -4,7 +4,7 @@ import type { Lang } from './learning-events.js';
 export type StorybookType = 'storybook' | 'phonics';
 
 // === 파닉스 음원 라이브러리 (글로벌) ===
-export type PhonicsAudioCategory = 'mod_phonics' | 'mod_english' | 'mod_korean';
+export type PhonicsAudioCategory = 'mod_phonics' | 'mod_english' | 'mod_korean' | 'mod_chinese';
 
 export interface PhonicsAudioItem {
   sound: string;

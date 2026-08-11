@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /** 소리 사이 쉼 (ms). 콜백으로 끝을 확인한 뒤 넣는 것이라 길이 가정이 아니다. */
 const REST_MS = 420;
@@ -7,7 +8,7 @@ import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { useLogEvent } from '@/features/learning/hooks/useLogEvent';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
-import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
+import { useEntryGuide, ENTRY_GUIDE, voiceUrl, praiseLang } from '../hooks/useEntryGuide';
 import { ActivityShell } from '../components/ActivityShell';
 
 interface VowelItem {
@@ -46,6 +47,7 @@ export function VowelListenActivity({
   onMarkComplete,
   onBack,
 }: Props) {
+  const { t } = useTranslation('phonics');
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
   // 진입 안내 — 첫 단계 화면 문구 "순서대로 눌러봐!" 에 맞는 음성.
   useEntryGuide(ENTRY_GUIDE.orderListen, playAudio);
@@ -127,7 +129,7 @@ export function VowelListenActivity({
         // 마지막 모음 — 음원이 다 재생된 후에야 칭찬 시작 (요 발음 잘리지 않게)
         playVowel(vowels[idx].sound ?? vowels[idx].vowel, () => {
           setListenedAll(true);
-          playCorrectSequence({ language: language === 'english' ? 'en' : 'ko' });
+          playCorrectSequence({ language: praiseLang() });
         });
       } else {
         playVowel(vowels[idx].sound ?? vowels[idx].vowel);
@@ -158,7 +160,7 @@ export function VowelListenActivity({
     //    문제인 줄도 모른 채 흘려듣는다. 안내 음성이 끝나고 쉰 뒤에 첫 문제.
     //    안내는 영어 단원에서도 한국어다(무엇을 하라는 말은 아이가 알아듣는 말이어야 한다).
     setStarting(true);
-    playAudio('/sounds/voice/quiz-start-ko.mp3', () => {
+    playAudio(voiceUrl(ENTRY_GUIDE.quiz), () => {
       if (advanceRef.current) clearTimeout(advanceRef.current);
       advanceRef.current = window.setTimeout(() => setStarting(false), REST_MS);
     });
@@ -183,7 +185,7 @@ export function VowelListenActivity({
           playFeedbackSound(true);
           setPhase('done');
           onMarkComplete();
-          playCorrectSequence({ language: language === 'english' ? 'en' : 'ko' });
+          playCorrectSequence({ language: praiseLang() });
         } else {
           // 🔴 띵동이 **끝난 뒤 쉬고** 다음 문제 — 예전엔 정답과 동시에 다음 음원이 나가서
           //    맞췄다는 느낌도 없이 문제가 지나갔다(콜백으로 끝을 확인하므로 길이 가정 아님).
@@ -198,8 +200,8 @@ export function VowelListenActivity({
         judgeVowel(false, vowels[quizCurrent].vowel);
         playFeedbackSound(false);
         setWrongIdx(idx);
-        const t = window.setTimeout(() => setWrongIdx(null), 600);
-        wrongAudioRef.current = t;
+        const timer = window.setTimeout(() => setWrongIdx(null), 600);
+        wrongAudioRef.current = timer;
       }
     },
     [
@@ -240,11 +242,12 @@ export function VowelListenActivity({
 
   const isListenPhase = phase === 'listen';
   const promptText = useMemo(() => {
-    if (isListenPhase && !listenedAll) return '순서대로 눌러봐!';
-    if (isListenPhase && listenedAll) return '잘했어! 이제 퀴즈를 풀어볼까?';
-    if (phase === 'quiz') return starting ? '🎧 잘 듣고 맞춰봐!' : '🔊 들리는 소리를 골라봐!';
-    return '모두 맞췄어!';
-  }, [isListenPhase, listenedAll, phase, starting]);
+    if (isListenPhase && !listenedAll) return t('vowelListen.inOrder');
+    if (isListenPhase && listenedAll) return t('vowelListen.readyForQuiz');
+    if (phase === 'quiz')
+      return starting ? t('common.listenCarefully') : t('vowelListen.pickSound');
+    return t('common.allCorrect');
+  }, [isListenPhase, listenedAll, phase, starting, t]);
 
   return (
     <ActivityShell onBack={onBack} scroll>
@@ -320,13 +323,13 @@ export function VowelListenActivity({
               onClick={resetListen}
               className="px-6 py-3 rounded-full bg-white border-2 border-coral-300 text-coral-600 font-black text-lg sm:text-xl shadow-soft hover:shadow-pop active:scale-[0.98] transition"
             >
-              🔁 다시 해보기
+              {t('common.retry')}
             </button>
             <button
               onClick={startQuiz}
               className="px-8 py-4 rounded-full bg-coral-500 text-white font-black text-2xl sm:text-3xl shadow-pop hover:scale-[1.02] active:scale-[0.98] transition"
             >
-              🎯 퀴즈 시작!
+              {t('common.quizStart')}
             </button>
           </div>
         )}
@@ -336,7 +339,7 @@ export function VowelListenActivity({
             onClick={() => playVowel(vowels[quizCurrent].sound ?? vowels[quizCurrent].vowel)}
             className="px-6 py-3 rounded-full bg-white shadow-soft text-ink-700 font-black text-lg"
           >
-            🔊 다시 듣기
+            {t('common.listenAgainBtn')}
           </button>
         )}
 
@@ -346,13 +349,13 @@ export function VowelListenActivity({
               onClick={restartAll}
               className="px-8 py-4 rounded-full bg-coral-500 text-white font-black text-2xl sm:text-3xl shadow-pop hover:scale-[1.02] active:scale-[0.98] transition"
             >
-              🔁 다시 해보기
+              {t('common.retry')}
             </button>
             <button
               onClick={onBack}
               className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-pop active:scale-[0.98] transition"
             >
-              ← 돌아가기
+              {t('common.back')}
             </button>
           </div>
         )}

@@ -17,6 +17,7 @@ import {
 } from './EnglishBlockTutorial/EnglishBlockTutorial.context';
 import { EnglishBlockTutorial } from './EnglishBlockTutorial/EnglishBlockTutorial';
 import { useGameAudio } from '../../hooks/useGameAudio';
+import { useGameEntryGuide } from '../../hooks/useGameEntryGuide';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
 import { useGameStyle } from '../GameStyleChip';
@@ -26,6 +27,7 @@ import { useStorybook } from '@/features/storybook';
 import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { useGameLogger } from '@/features/learning';
 import { cn } from '@/lib/cn';
+import { ENTRY_GUIDE, voiceUrl } from '@/features/phonics-learner/hooks/useEntryGuide';
 
 interface LetterBlock {
   id: string;
@@ -278,13 +280,8 @@ function EnglishBlockPlayerInner({
 
   // 🔴 진입 안내 음성 — "블록으로 단어를 만들어봐!" 를 한 번 낸다(사용자: 화면마다 멘트 통일).
   //    알파벳 판은 낱말도 들려주므로 **안내가 끝난 뒤** 낱말이 나오게 순서를 맞춘다(겹침 방지).
-  const guidedRef = useRef(false);
   const [guideDone, setGuideDone] = useState(false);
-  useEffect(() => {
-    if (guidedRef.current) return;
-    guidedRef.current = true;
-    playAudio('/sounds/voice/block-make-ko.mp3', () => setGuideDone(true));
-  }, [playAudio]);
+  useGameEntryGuide(voiceUrl(ENTRY_GUIDE.blockMake), playAudio, () => setGuideDone(true));
   useEffect(() => {
     // 알파벳 판은 문제가 바뀌면 낱말을 한 번 들려준다 — 단, **첫 라운드는 안내가 끝난 뒤**.
     if (!isAlphabetRound || !guideDone) return;

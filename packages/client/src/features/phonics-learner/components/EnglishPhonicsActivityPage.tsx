@@ -1,4 +1,5 @@
 import { useCallback, useMemo, type ReactNode, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { GameTypeId } from '@tangobook/shared';
 import { PhonicsGameGate } from './PhonicsGameGate';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -6,10 +7,14 @@ import {
   getEnglishActivityPlan,
   getEnglishUnit,
   wordMatchesPattern,
+  patternWriteOrder,
+  getUnitPatterns,
+  englishRimePool,
 } from '../lib/english-phonics-units';
 import { shuffleReviewCards } from '../lib/korean-phonics-units';
 import type { ActivityDef } from '../lib/korean-phonics-units';
 import { markActivityCompleted } from '../lib/progress-store';
+import { activityTitle } from '../lib/activity-title';
 import { CvcPatternLearnActivity } from '../activities/CvcPatternLearnActivity';
 import { CvcPatternWriteActivity } from '../activities/CvcPatternWriteActivity';
 import { AlphabetLetterLearnActivity } from '../activities/AlphabetLetterLearnActivity';
@@ -61,9 +66,24 @@ const REVIEW_CHOICES = 4;
  */
 const REVIEW_PAIRS = 4;
 
-export default function EnglishPhonicsActivityPage() {
-  const { unitId = '', activityKey = '' } = useParams<{ unitId: string; activityKey: string }>();
-  const navigate = useNavigate();
+/**
+ * 🔴 **페이지에서 컴포넌트를 떼어냈다**(2026-08-10). 광고 랜딩(`PhonicsTryIt`)이 학습 화면을
+ *    상자 안에 그대로 얹으려면 `useParams` 가 아니라 **props 로 받는 컴포넌트**여야 한다.
+ *    한글은 진작 `KoreanPhonicsActivity` 로 갈라져 있었고 영어만 페이지 하나였다 —
+ *    같은 모양으로 맞춘다. 라우트는 아래 얇은 기본 export 가 그대로 맡는다.
+ */
+export interface EnglishPhonicsActivityProps {
+  unitId: string;
+  activityKey: string;
+  onExit: () => void;
+}
+
+export function EnglishPhonicsActivity({
+  unitId,
+  activityKey,
+  onExit,
+}: EnglishPhonicsActivityProps) {
+  const { t } = useTranslation('phonics');
   const unit = getEnglishUnit(unitId);
   const plan = getEnglishActivityPlan(unitId);
   const activity: ActivityDef | undefined = useMemo(
@@ -78,6 +98,31 @@ export default function EnglishPhonicsActivityPage() {
   const isBook1 = unitId.startsWith('en-b1');
   /** Book 2 복습 카드의 letter 는 **패턴("ap")** 이라, 쓰기는 대표 낱말("cap")로 한다(Book 3~5 는 letter 가 이미 낱말). */
   const isBook2 = unitId.startsWith('en-b2');
+  /**
+   * 🔴 글자 사냥·듣고 글자는 **패턴**(ake/bl/ee)을 찾게 한다 — Book 2 가 an/at 를 찾는 것과 같은 결.
+   * Book 3~5 복습 카드는 낱말(`bake`)이라 그대로 쓰면 "rake 찾기"가 된다(사용자 지적 2026-08-09).
+   *
+   * 🔴 패턴은 **커버하는 단원들의 커리큘럼 패턴 전체**에서 뽑는다 — 복습 낱말 4개(bake·cake·lake…)는
+   *    같은 rime(ake) 으로 뭉쳐 2~3개뿐이라 듣고 글자 보기가 3개로 모자랐다(사용자: "4개 나와야"). 단원
+   *    패턴(`_ake`·`_ame`·`_ane`·`_ape`…)에서 코어만 떼면 rime 이 넉넉해 보기 4개·방해꾼도 형제 패턴이 된다.
+   */
+  const isWordBook = /^en-b[345]/.test(unitId);
+  const patternCards = useMemo(() => {
+    if (!isWordBook) return reviewCards;
+    const units = [...new Set(reviewCards.map((c) => c.unitId))];
+    const seen = new Set<string>();
+    const out = units.flatMap((uid) =>
+      getUnitPatterns(uid).flatMap((p) => {
+        const tok = p.replace(/_/g, '').toLowerCase();
+        if (!tok || seen.has(tok)) return [];
+        seen.add(tok);
+        return [
+          { unitId: uid, letter: tok, syllable: tok, sound: tok, matchPosition: 'cho' as const },
+        ];
+      })
+    );
+    return out.length ? shuffleReviewCards(out) : reviewCards;
+  }, [isWordBook, reviewCards]);
   const { sources: reviewSources, isLoading: reviewLoading } = useReviewCardSources(reviewCards);
 
   const storybookQuery = useStorybook(unitId);
@@ -97,10 +142,7 @@ export default function EnglishPhonicsActivityPage() {
     return gameMemoRef.current.data as T;
   };
 
-  const backToUnit = useCallback(
-    () => navigate(`/library/phonics/english/${unitId}`),
-    [navigate, unitId]
-  );
+  const backToUnit = onExit;
   /**
    * 🔴 **활동을 마치면 학습 이벤트를 남긴다** (2026-07-27).
    * 예전엔 파닉스 학습 화면이 이벤트를 **하나도** 안 보냈다. 진척은 localStorage 에만 쌓여서,
@@ -149,12 +191,12 @@ export default function EnglishPhonicsActivityPage() {
   if (!unit || !activity) {
     return (
       <div className="px-6 py-6 max-w-[800px] mx-auto">
-        <p className="text-base font-bold text-ink-700">알 수 없는 활동입니다.</p>
+        <p className="text-base font-bold text-ink-700">{t('common.unknownActivity')}</p>
         <Link
           to={`/library/phonics/english/${unitId}`}
           className="inline-block mt-3 text-coral-600 font-black underline"
         >
-          ← 단원으로
+          {t('common.backToUnit')}
         </Link>
       </div>
     );
@@ -165,7 +207,7 @@ export default function EnglishPhonicsActivityPage() {
   if (activity.kind === 'word-family-learn' && activity.pattern) {
     const sb = storybookQuery.data as Storybook | undefined;
     if (storybookQuery.isLoading || !sb) {
-      return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
+      return <ActivityLoading activity={activity} onBack={backToUnit} />;
     }
     const pattern = activity.pattern;
     const seen = new Set<string>();
@@ -175,15 +217,23 @@ export default function EnglishPhonicsActivityPage() {
       .filter((w) => !seen.has(w.word) && !!seen.add(w.word))
       .map((w) => {
         const img = findImageData(sb, w.word);
+        // 🔴 예문(텍스트+자연음원)은 flashcard 에 있다 — 낱말 매칭(대소문자 무시).
+        const fc = sb.flashcards?.find((f) => f.word?.toLowerCase() === w.word.toLowerCase());
         return {
           word: w.word,
           ...(img.imageUrl ? { imageUrl: img.imageUrl } : {}),
           ...(w.ttsUrl ? { ttsUrl: w.ttsUrl } : {}),
+          ...(fc?.sentence ? { sentence: fc.sentence } : {}),
+          ...(fc?.sentenceTtsUrl ? { sentenceTtsUrl: fc.sentenceTtsUrl } : {}),
         };
       });
     if (words.length < 2) {
       return (
-        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 부족해요" />
+        <ActivityUnavailable
+          activity={activity}
+          onBack={backToUnit}
+          reason="unavailable.needMoreWords"
+        />
       );
     }
     return (
@@ -261,7 +311,7 @@ export default function EnglishPhonicsActivityPage() {
   if (activity.kind === 'word-listen-choose') {
     const sb = storybookQuery.data as Storybook | undefined;
     if (storybookQuery.isLoading || !sb) {
-      return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
+      return <ActivityLoading activity={activity} onBack={backToUnit} />;
     }
     // 🔴 발음은 flashcards 가 아니라 **wordFamilies** 에 있다(findImageData 는 그림·keypoints 만 준다).
     //    낱말·발음은 wordFamilies 에서, 그림은 findImageData 에서 가져와 합친다.
@@ -288,7 +338,7 @@ export default function EnglishPhonicsActivityPage() {
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="낱말 그림이 필요해요"
+          reason="unavailable.needWordImages"
         />
       );
     }
@@ -311,12 +361,13 @@ export default function EnglishPhonicsActivityPage() {
   //    한글과 같은 6종을 돌린다(사용자: "a~f review 너무 뭐가 없는데?").
 
   // 🎧 듣고 글자 맞추기 — 카드에 글자·발음이 들어 있어 storybook 을 안 기다린다.
-  if (activity.kind === 'review-syllable-listen' && reviewCards.length) {
+  //    🔴 Book 3~5 는 패턴 카드(ake/bl/ee) — 낱말이면 「듣고 낱말」과 겹치고 소리도 라이브러리에 없다.
+  if (activity.kind === 'review-syllable-listen' && patternCards.length) {
     return (
       <WordListenChooseActivity
         unitId={unitId}
         language="english"
-        items={reviewCards.map((c) => ({ label: c.syllable, sound: c.sound }))}
+        items={patternCards.map((c) => ({ label: c.syllable, sound: c.sound }))}
         choices={REVIEW_CHOICES}
         onMarkComplete={handleMarkComplete}
         onBack={backToUnit}
@@ -326,12 +377,15 @@ export default function EnglishPhonicsActivityPage() {
 
   // 🔎 글자 사냥 — 글자만 쓰는 활동이라 단어 그림을 기다리지 않는다.
   //    영어는 Book 2 가 word family(at·an)라 방해꾼도 같은 꼴로 만들어진다(모음·끝소리 교체).
-  if (activity.kind === 'letter-hunt' && reviewCards.length) {
+  //    🔴 Book 3~5 는 패턴 카드(ake/bl/ee)를 찾는다 — 낱말(rake)이 아니라(사용자 2026-08-09).
+  if (activity.kind === 'letter-hunt' && patternCards.length) {
     return (
       <LetterHuntActivity
         unitId={unitId}
-        cards={reviewCards}
+        cards={patternCards}
         language="english"
+        // 🔴 낱말 기반 권은 방해꾼을 **커리큘럼 rime**(ee·ea·oa…)에서만 — 가짜 조합(oe·ae) 무음 방지.
+        distractors={isWordBook ? englishRimePool() : undefined}
         onComplete={handleComplete}
         onBack={backToUnit}
       />
@@ -344,7 +398,7 @@ export default function EnglishPhonicsActivityPage() {
     activity.kind === 'review-match'
   ) {
     if (reviewLoading) {
-      return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
+      return <ActivityLoading activity={activity} onBack={backToUnit} />;
     }
     const withImage = reviewSources.filter((s) => s.imageUrl);
     if (withImage.length < 3) {
@@ -352,7 +406,7 @@ export default function EnglishPhonicsActivityPage() {
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="낱말 그림이 필요해요"
+          reason="unavailable.needWordImages"
         />
       );
     }
@@ -447,9 +501,7 @@ export default function EnglishPhonicsActivityPage() {
      */
     if (isBook1) {
       if (reviewLoading) {
-        return (
-          <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />
-        );
+        return <ActivityLoading activity={activity} onBack={backToUnit} />;
       }
       return (
         <ReviewWriteActivity
@@ -475,15 +527,25 @@ export default function EnglishPhonicsActivityPage() {
       // 🔴 Book 2 복습은 letter 가 패턴("ap")이라 그걸 쓰면 낱말이 아니다 — reviewSources 의 대표 낱말
       //    ("cap")을 써서 **낱말 전체**를 쓰게 한다(사용자: "ap 만 하지 말고 낱말을 써야지").
       if (reviewLoading) {
-        return (
-          <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />
-        );
+        return <ActivityLoading activity={activity} onBack={backToUnit} />;
       }
       return (
         <ReviewWriteActivity
           unitId={unitId}
           language="english"
-          sources={reviewSources.map((s) => ({ ...s, word: s.word || s.letter, imageUrl: '' }))}
+          sources={reviewSources.map((s) => {
+            const word = s.word || s.letter;
+            const patterns = getUnitPatterns(s.unitId);
+            return {
+              ...s,
+              word,
+              // 🔴 그림을 프롬프트로 보여준다(2026-08-07 사용자: "이미지도 나와줘야지") — 그림(jam)을
+              //    보고 낱말을 쓴다. `...s` 의 대표 낱말 그림(s.imageUrl)이 곧 그 낱말이라 일치한다.
+              // 🔴 패턴 먼저 쓰기 + 이어읽기 규칙 — 익히기·게임과 통일(각 낱말의 단원 패턴으로).
+              order: patternWriteOrder(word, patterns),
+              pattern: patterns.find((p) => wordMatchesPattern(word, p)),
+            };
+          })}
           onComplete={handleComplete}
           onBack={backToUnit}
         />
@@ -494,7 +556,16 @@ export default function EnglishPhonicsActivityPage() {
       <ReviewWriteActivity
         unitId={unitId}
         language="english"
-        sources={reviewCards.map((c) => ({ ...c, word: c.letter, imageUrl: '' }))}
+        sources={reviewCards.map((c) => {
+          const patterns = getUnitPatterns(c.unitId);
+          return {
+            ...c,
+            word: c.letter,
+            imageUrl: '',
+            order: patternWriteOrder(c.letter, patterns),
+            pattern: patterns.find((p) => wordMatchesPattern(c.letter, p)),
+          };
+        })}
         onComplete={handleComplete}
         onBack={backToUnit}
       />
@@ -553,7 +624,7 @@ export default function EnglishPhonicsActivityPage() {
 
   // ── 게임 활동 ──
   if (!storybook) {
-    return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
+    return <ActivityLoading activity={activity} onBack={backToUnit} />;
   }
 
   const commonProps = {
@@ -581,7 +652,11 @@ export default function EnglishPhonicsActivityPage() {
     const gameData = memoGame(() => phonicsToEnglishBlockData(storybook));
     if (!gameData)
       return (
-        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 부족해요" />
+        <ActivityUnavailable
+          activity={activity}
+          onBack={backToUnit}
+          reason="unavailable.needMoreWords"
+        />
       );
     return gate(
       'english-block',
@@ -617,7 +692,11 @@ export default function EnglishPhonicsActivityPage() {
     });
     if (!gameData)
       return (
-        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 부족해요" />
+        <ActivityUnavailable
+          activity={activity}
+          onBack={backToUnit}
+          reason="unavailable.needMoreWords"
+        />
       );
     return gate(
       'english-word-writing',
@@ -632,7 +711,7 @@ export default function EnglishPhonicsActivityPage() {
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="낱말 그림이 필요해요"
+          reason="unavailable.needWordImages"
         />
       );
     return gate(
@@ -653,7 +732,7 @@ export default function EnglishPhonicsActivityPage() {
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="낱말 그림과 점이 필요해요"
+          reason="unavailable.needWordDots"
         />
       );
     return gate(
@@ -664,30 +743,27 @@ export default function EnglishPhonicsActivityPage() {
     );
   }
 
-  return <ActivityUnavailable activity={activity} onBack={backToUnit} reason="아직 준비 중" />;
+  return (
+    <ActivityUnavailable activity={activity} onBack={backToUnit} reason="unavailable.comingSoon" />
+  );
 }
 
-function ActivityLoading({
-  title,
-  emoji,
-  onBack,
-}: {
-  title: string;
-  emoji: string;
-  onBack: () => void;
-}) {
+function ActivityLoading({ activity, onBack }: { activity: ActivityDef; onBack: () => void }) {
+  const { t } = useTranslation('phonics');
   return (
     <div className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-gradient-to-b from-cream-50 to-peach-100 overflow-hidden">
       <button
         onClick={onBack}
         className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
       >
-        ← 돌아가기
+        {t('common.back')}
       </button>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center text-center gap-3">
-        <div className="text-6xl">{emoji}</div>
-        <h2 className="text-2xl sm:text-3xl font-black text-ink-900">{title}</h2>
-        <p className="text-base font-bold text-ink-500">불러오는 중…</p>
+        <div className="text-6xl">{activity.emoji}</div>
+        <h2 className="text-2xl sm:text-3xl font-black text-ink-900">
+          {activityTitle(t, activity)}
+        </h2>
+        <p className="text-base font-bold text-ink-500">{t('common.loading')}</p>
       </div>
     </div>
   );
@@ -700,21 +776,36 @@ function ActivityUnavailable({
 }: {
   activity: ActivityDef;
   onBack: () => void;
+  /** `phonics` 네임스페이스 키(`unavailable.*`) — 문구는 로케일이 갖는다. */
   reason: string;
 }) {
+  const { t } = useTranslation('phonics');
   return (
     <div className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-gradient-to-b from-cream-50 to-peach-100 overflow-hidden">
       <button
         onClick={onBack}
         className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
       >
-        ← 돌아가기
+        {t('common.back')}
       </button>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center text-center gap-3">
         <div className="text-6xl">{activity.emoji}</div>
-        <h2 className="text-2xl sm:text-3xl font-black text-ink-900">{activity.title}</h2>
-        <p className="text-base font-bold text-ink-600">{reason}</p>
+        <h2 className="text-2xl sm:text-3xl font-black text-ink-900">
+          {activityTitle(t, activity)}
+        </h2>
+        <p className="text-base font-bold text-ink-600">{t(reason)}</p>
       </div>
     </div>
   );
+}
+
+/** 라우트 `/library/phonics/english/:unitId/:activityKey` — 위 컴포넌트에 params 를 넘길 뿐이다. */
+export default function EnglishPhonicsActivityPage() {
+  const { unitId = '', activityKey = '' } = useParams<{ unitId: string; activityKey: string }>();
+  const navigate = useNavigate();
+  const onExit = useCallback(
+    () => navigate(`/library/phonics/english/${unitId}`),
+    [navigate, unitId]
+  );
+  return <EnglishPhonicsActivity unitId={unitId} activityKey={activityKey} onExit={onExit} />;
 }

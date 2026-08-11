@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
@@ -42,6 +43,7 @@ export function ConsonantTapActivity({
   onComplete,
   onBack,
 }: Props) {
+  const { t } = useTranslation('phonics');
   const [tapCounts, setTapCounts] = useState<number[]>(Array(CARDS).fill(0));
   // 🔴 소리 순서(소리 → 쉼 → 띵동 → 쉼 → 다음)는 훅이 소유한다 — 활동마다 손으로 복사하면
   //    쉼이 빠진 사본이 생긴다(실제로 활동 14개 중 6개가 그랬다).
@@ -120,7 +122,7 @@ export function ConsonantTapActivity({
     <ActivityShell onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-8">
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-black font-display text-ink-900 text-center break-keep">
-          <span className="text-coral-600">{consonant}</span> 을 세 번씩 눌러봐!
+          {t('consonantTap.hint')}
         </h2>
 
         <div className="grid grid-cols-3 gap-4 sm:gap-6 w-full max-w-3xl">
@@ -139,7 +141,11 @@ export function ConsonantTapActivity({
                     ? 'bg-success/15 border-success'
                     : 'bg-white border-coral-300 hover:shadow-pop active:scale-[0.96]',
                 ].join(' ')}
-                aria-label={done && word ? word.word : `${consonant} ${i + 1}번 카드`}
+                aria-label={
+                  done && word
+                    ? word.word
+                    : t('consonantTap.cardLabel', { letter: consonant, n: i + 1 })
+                }
               >
                 {/* 🔴 글자와 그림을 **한 카드에 같이 두지 않는다** — 셋(글자·그림·낱말)을 욱여넣으면
                     카드가 지저분하고 375px 에선 그림이 눌려 사라진다. 세 번 다 누르면

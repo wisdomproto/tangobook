@@ -1,0 +1,230 @@
+{
+  "common": {
+    "back": "← Quay lại",
+    "backToUnit": "← Về bài học",
+    "backToUnitList": "← Danh sách bài học",
+    "backToPicker": "← Chọn phonics",
+    "backToPickerLong": "← Về trang chọn phonics",
+    "backToKorean": "← Về phonics tiếng Hàn",
+    "backToEnglish": "← Về phonics tiếng Anh",
+    "backToChinese": "← Về phonics Pinyin",
+    "home": "Trang chủ",
+    "close": "Đóng",
+    "loading": "Đang tải…",
+    "retry": "🔁 Thử lại nào",
+    "next": "Tiếp →",
+    "quizStart": "🎯 Bắt đầu đố vui!",
+    "listenAgain": "Nghe lại",
+    "listenAgainBtn": "🔊 Nghe lại",
+    "listenCarefully": "🎧 Nghe kỹ rồi đoán nhé!",
+    "tapToListen": "Bấm để nghe nhé!",
+    "allCorrect": "Đúng hết rồi!",
+    "wellDone": "Giỏi lắm!",
+    "passed": "✓ Đạt",
+    "done": "✓ Xong",
+    "comingSoon": "Sắp có",
+    "unknownUnit": "Không tìm thấy bài học này.",
+    "unknownActivity": "Không tìm thấy hoạt động này.",
+    "noUnitsYet": "Chưa có bài học nào để học đâu.",
+    "noActivitiesYet": "Bài học này chưa có hoạt động nào.",
+    "unitTab": "Bài học",
+    "unitPicker": "Chọn bài học",
+    "phonics": "Phonics"
+  },
+  "section": {
+    "learn": "Học nào",
+    "learnSubtitleWrite": "Nghe rồi viết theo",
+    "learnSubtitleListen": "Nghe rồi học",
+    "wordPlay": "Chơi với từ",
+    "wordPlaySubtitle": "Vừa chơi vừa học",
+    "games": "Chơi game",
+    "gamesSubtitle": "Học thật vui"
+  },
+  "unavailable": {
+    "needWordImages": "Cần tranh của từ",
+    "needWords": "Cần có từ",
+    "needMoreWords": "Chưa đủ từ",
+    "needWordDots": "Cần tranh và các chấm của từ",
+    "needToneWords": "Cần từ để luyện thanh điệu",
+    "noChant": "Chưa có bài hát",
+    "comingSoon": "Đang chuẩn bị"
+  },
+  "landing": {
+    "title": "Học Phonics",
+    "subtitle": "Bé muốn học chữ nào? Chạm vào thẻ để bắt đầu.",
+    "start": "Bắt đầu",
+    "ageRange": "4-7 tuổi",
+    "koreanChip": "Hangul",
+    "koreanTitle": "Phonics tiếng Hàn",
+    "koreanDesc": "Nguyên âm · phụ âm · phụ âm cuối, từng bước một",
+    "koreanAlt": "Hori phonics tiếng Hàn",
+    "englishTitle": "Phonics tiếng Anh",
+    "englishDesc": "Từ âm chữ cái đến trọn cả từ",
+    "englishAlt": "Hori phonics tiếng Anh",
+    "chineseTitle": "Pinyin tiếng Trung",
+    "chineseDesc": "Thanh mẫu · vận mẫu · thanh điệu, học bằng tai"
+  },
+  "study": {
+    "koreanLead": "Tiếng Hàn",
+    "englishLead": "Tiếng Anh",
+    "chineseLead": "Pinyin",
+    "englishComingSoonNote": "Các hoạt động phonics tiếng Anh sắp ra mắt rồi! ✨"
+  },
+  "hub": {
+    "title": "Phonics tiếng Hàn",
+    "subtitle": "Hoàn thành từng bài học thì bài tiếp theo sẽ mở ra.",
+    "noPlan": "Hoạt động đang chuẩn bị"
+  },
+  "seo": {
+    "koreanTitle": "Học phonics tiếng Hàn — Tangobook",
+    "koreanDescription": "Học phụ âm, nguyên âm và phụ âm cuối tiếng Hàn bằng thẻ và trò chơi thân thiện với bé mới bắt đầu 4-5 tuổi. Phonics tiếng Hàn kết nối tự động với từ vựng trong truyện tranh.",
+    "koreanKeywords": "phonics tiếng Hàn, học tiếng Hàn, phụ âm nguyên âm tiếng Hàn, phụ âm cuối tiếng Hàn, ghép vần tiếng Hàn, tiếng Hàn cho bé 4 tuổi, tiếng Hàn cho bé 5 tuổi, tiếng Hàn cho bé 6 tuổi, Tangobook",
+    "koreanJsonLdName": "Học phonics tiếng Hàn",
+    "koreanJsonLdDescription": "Bộ sưu tập bài học về phụ âm, nguyên âm, ghép vần và phụ âm cuối tiếng Hàn",
+    "educationalLevel": "Mầm non",
+    "educationalUse": "Đọc tiếng Hàn, phonics, học từ vựng"
+  },
+  "level": {
+    "hangul1": "Hangul 1: Âm tiết cơ bản",
+    "hangul2": "Hangul 2: Phụ âm cuối",
+    "hangul3": "Hangul 3: Phụ âm đôi",
+    "hangul4": "Hangul 4: Nguyên âm phức",
+    "zhL1": "Cấp 1: Thanh điệu + Nguyên âm đơn",
+    "zhL2": "Cấp 2: Phụ âm đầu",
+    "zhL3": "Cấp 3: Ghép phiên âm",
+    "zhL4": "Cấp 4: Từ vựng",
+    "zhL5": "Cấp 5: Nguyên âm kép",
+    "zhL6": "Cấp 6: Vần mũi",
+    "zhL7": "Cấp 7: Âm tiết đọc nguyên",
+    "zhL8": "Cấp 8: Từ hai âm tiết"
+  },
+  "unit": {
+    "review": "Ôn tập",
+    "reviewOne": "Ôn tập {{letter}}",
+    "reviewRange": "Ôn tập {{first}}~{{last}}",
+    "reviewCodaOne": "Ôn tập phụ âm cuối {{letter}}",
+    "reviewCodaRange": "Ôn tập phụ âm cuối {{first}}~{{last}}",
+    "vowelsLearn": "Học nguyên âm",
+    "lettersLearn": "Học {{letters}}",
+    "codaLearn": "Học phụ âm cuối {{letter}}",
+    "zhTones": "Thanh điệu {{letters}}",
+    "zhCombo": "Ghép {{letters}}",
+    "zhAnimals": "Động vật ({{words}})",
+    "zhObjects": "Đồ vật ({{words}})",
+    "zhNature": "Thiên nhiên ({{words}})"
+  },
+  "activity": {
+    "letterHunt": "Săn chữ",
+    "wordWriting": "Viết từ",
+    "letterWriting": "Viết chữ",
+    "wordDrawing": "Vẽ từ",
+    "pictureMatch": "Ghép tranh",
+    "koreanBlock": "Game xếp khối Hangul",
+    "wordPractice": "Luyện từ",
+    "flipMatch": "Lật thẻ tìm cặp",
+    "syllableListen": "Nghe và chọn âm tiết",
+    "letterListen": "Nghe và chọn chữ",
+    "wordListen": "Nghe và chọn từ",
+    "vowelListen": "Nghe nguyên âm {{n}}",
+    "vowelWrite": "Viết nguyên âm",
+    "syllableMake": "Ghép âm tiết",
+    "syllableWrite": "Viết âm tiết",
+    "consonantLearn": "Học {{letter}}",
+    "consonantBlend": "{{letter}} + nguyên âm",
+    "consonantWrite": "Viết {{letter}}",
+    "codaLearn": "Học phụ âm cuối {{letter}}",
+    "codaWrite": "Viết phụ âm cuối {{letter}}",
+    "patternLearn": "Học {{pattern}}",
+    "lettersLearn1": "Học {{letters}} 1",
+    "lettersLearn2": "Học {{letters}} 2",
+    "lettersWrite": "Viết {{letters}}",
+    "listenLearn": "Nghe và học",
+    "listenChoose": "Nghe và chọn",
+    "toneChoice": "Nghe và chọn thanh điệu",
+    "trace": "Viết theo",
+    "chant": "Bài hát"
+  },
+  "alphabetLearn": {
+    "noData": "Chưa có dữ liệu thẻ học",
+    "noImage": "Thẻ học này chưa có tranh",
+    "playLetterSound": "Nghe phát âm của chữ",
+    "switchTo": "Chuyển sang {{letters}}",
+    "tapLetterHint": "🔊 Bấm vào chữ ở trên để nghe âm nhé!",
+    "tapSparkle": "🔊 Bấm vào chỗ lấp lánh nhé!",
+    "foundAll": "🎉 Tìm hết rồi! Bấm để nghe lại nhé"
+  },
+  "alphabetWrite": {
+    "title": "Viết nào",
+    "titleShort": "Viết nào",
+    "upper": "{{letter}} viết hoa",
+    "lower": "{{letter}} viết thường",
+    "hint": "Hãy viết theo chữ hoa và chữ thường. Qua được cả hai thì bé sẽ sang chữ tiếp theo.",
+    "paintInside": "Tô màu bên trong chữ nhé!"
+  },
+  "chant": {
+    "title": "Cùng nghe bài hát nào!",
+    "prev": "Bài trước",
+    "next": "Bài tiếp",
+    "play": "Phát",
+    "pause": "Tạm dừng",
+    "heard": "Nghe xong rồi",
+    "heardDone": "✓ Nghe xong rồi"
+  },
+  "blend": {
+    "makeSyllable": "Ghép {{syllable}}",
+    "makeSyllableDone": "Ghép {{syllable}} (xong)",
+    "meet": "Hai âm gặp nhau rồi!",
+    "tapSparkle": "Bấm vào chữ lấp lánh nhé!"
+  },
+  "consonantTap": {
+    "hint": "Bấm mỗi cái ba lần nhé!",
+    "cardLabel": "Thẻ {{letter}} số {{n}}"
+  },
+  "write": {
+    "writeSyllable": "Viết {{syllable}}",
+    "trace": "✏️ Viết theo nhé!",
+    "meet": "Hai chữ gặp nhau rồi!",
+    "sparkleCell": "✏️ Viết vào ô lấp lánh nhé!",
+    "noStrokes": "Hãy tạo nét chữ trong công cụ soạn thảo"
+  },
+  "cvc": {
+    "learn": "Học {{pattern}}",
+    "words": "Học từ {{pattern}}",
+    "write": "Viết {{pattern}}",
+    "noWordsInEditor": "Trong công cụ soạn thảo chưa có từ {{pattern}}.",
+    "noWords": "Chưa có từ {{pattern}}."
+  },
+  "hunt": {
+    "prompt": "Tìm hết chữ này nhé!",
+    "done": "Tìm hết rồi!",
+    "letterSound": "Nghe âm {{letter}}"
+  },
+  "flip": {
+    "prompt": "Tìm cặp giống nhau nhé!",
+    "allMatched": "Ghép đúng hết rồi!",
+    "flip": "Lật thẻ"
+  },
+  "vowelListen": {
+    "inOrder": "Bấm theo thứ tự nhé!",
+    "readyForQuiz": "Giỏi lắm! Giờ mình thử đố vui nhé?",
+    "pickSound": "🔊 Chọn âm bé vừa nghe nhé!"
+  },
+  "vowelPicker": {
+    "makePrompt": "Mình ghép với nguyên âm nào nhỉ?",
+    "writePrompt": "Mình viết nguyên âm nào nhỉ?"
+  },
+  "wordFamily": {
+    "trace": "Viết theo nhé!",
+    "tapChunks": "Bấm vào các mảnh âm để nghe nhé!"
+  },
+  "wordListen": {
+    "quizBtn": "🎯 Đố vui",
+    "quizSub": "Nghe rồi đoán"
+  },
+  "tryIt": {
+    "badge": "Màn hình học thật",
+    "done": "Vậy là xong. Trong ứng dụng, bé còn được nghe âm thanh khi làm hoạt động này.",
+    "note": "Trong ứng dụng, mỗi bài học có chín hoạt động như thế này nối tiếp nhau.",
+    "cta": "Học tiếp trong ứng dụng →"
+  }
+}

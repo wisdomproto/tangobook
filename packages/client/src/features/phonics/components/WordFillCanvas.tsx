@@ -1,5 +1,6 @@
 import { useRef, useCallback, useEffect, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import { feedDrawLoop } from '@/lib/uiSound';
 
 /**
@@ -38,6 +39,12 @@ interface WordFillCanvasProps {
    * 자유 색칠이 필요한 화면만 `false`.
    */
   sequential?: boolean;
+  /**
+   * 🔴 **쓰는 순서**(cell 인덱스 배열). 미지정 시 왼→오른쪽(`[0,1,2,…]`). 파닉스는 **패턴(라임) 먼저**
+   * 쓰게 한다 — `can` 은 `[1,2,0]`(a→n→c), `bake` 는 `[1,2,3,0]`(a→k→e→b). 이땐 오른쪽 덮개 대신
+   * 지금 칸만 코랄로 밝힌다(끝난 칸·다음 칸이 좌우로 흩어지므로). `syllables` 는 여전히 시각 순서다.
+   */
+  order?: number[];
 }
 
 export function WordFillCanvas({
@@ -48,7 +55,9 @@ export function WordFillCanvas({
   threshold = 0.99,
   fontFamily,
   sequential = true,
+  order,
 }: WordFillCanvasProps) {
+  const { t } = useTranslation('games');
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isDrawingRef = useRef(false);
   const lastPointRef = useRef<{ x: number; y: number } | null>(null);
@@ -63,9 +72,15 @@ export function WordFillCanvas({
   const [doneCount, setDoneCount] = useState(0);
   // 하이라이트를 그리려면 렌더가 범위를 알아야 한다 — ref 와 같은 값을 state 로도 둔다.
   const [ranges, setRanges] = useState<Array<{ start: number; end: number }>>([]);
-  /** 지금 쓸 칸 = 아직 안 끝난 첫 칸. 순차가 아니면 제한 없음(null). */
-  const activeIdx = sequential ? doneCount : null;
-  const activeRange = activeIdx !== null ? ranges[activeIdx] : undefined;
+  /** 지금 쓸 칸. `order` 있으면 그 순서의 다음 칸, 아니면 왼→오른쪽 첫 미완 칸. 순차 아니면 없음(null). */
+  const activeIdx = order
+    ? doneCount < order.length
+      ? order[doneCount]
+      : null
+    : sequential
+      ? doneCount
+      : null;
+  const activeRange = activeIdx != null ? ranges[activeIdx] : undefined;
 
   const drawGuide = useCallback(() => {
     const canvas = canvasRef.current;
@@ -173,16 +188,25 @@ export function WordFillCanvas({
         }
       }
     }
+    const newlyDone: number[] = [];
     for (let i = 0; i < ranges.length; i++) {
       if (doneRef.current[i]) continue;
       if (ranges[i].guide > 0 && painted[i] / ranges[i].guide >= threshold) {
-        doneRef.current[i] = true;
-        // 완성해도 자동 재도색하지 않는다 (요청) — 사용자가 칠한 emerald 그대로 유지.
-        setDoneCount(doneRef.current.filter(Boolean).length);
-        onSyllableDone?.(syllables[i], i);
+        doneRef.current[i] = true; // 완성해도 자동 재도색 X — 사용자가 칠한 emerald 그대로.
+        newlyDone.push(i);
       }
     }
-    if (doneRef.current.every(Boolean) && !completedRef.current) {
+    if (newlyDone.length) setDoneCount(doneRef.current.filter(Boolean).length);
+    const allDone = doneRef.current.every(Boolean);
+    // 🔴 이 evaluate 에서 낱말이 **완성되면** 이번에 새로 끝난 글자의 개별 이어읽기(onSyllableDone)는
+    //    내지 않는다 — onComplete 가 낱말 전체를 읽으므로 같은 채널에서 겹친다(한 획으로 마지막 두
+    //    칸을 몰아 칠할 때 `bak`+`bake`+띵동이 같은 ms 에 났다, 2026-08-06 검수). 완성이 아니면 이어읽기.
+    //    소비자는 어차피 마지막 글자 이어읽기를 스킵하므로(게임 플레이어=microtask defer, 배우기=index
+    //    체크) 마지막 글자의 onSyllableDone 을 안 내는 것은 동작 불변이다.
+    if (!allDone) {
+      for (const i of newlyDone) onSyllableDone?.(syllables[i], i);
+    }
+    if (allDone && !completedRef.current) {
       completedRef.current = true;
       onComplete?.();
     }
@@ -202,7 +226,10 @@ export function WordFillCanvas({
     // 🔴 순차 모드에선 지금 칸 밖은 아예 칠해지지 않는다 — 덮개는 보기용일 뿐이고,
     //    실제 차단은 여기 clip 이 한다(안 그러면 덮개 위로 문질러 다음 글자가 채워진다).
     if (sequential) {
-      const r = rangesRef.current[doneRef.current.findIndex((d) => !d)];
+      // 지금 쓸 칸 = order 의 다음 칸(있으면) / 없으면 왼→오른쪽 첫 미완 칸. 그 칸에서만 칠해진다.
+      const dn = doneRef.current.filter(Boolean).length;
+      const ai = order ? order[dn] : doneRef.current.findIndex((d) => !d);
+      const r = ai != null && ai >= 0 ? rangesRef.current[ai] : undefined;
       if (!r) {
         ctx.restore();
         return;
@@ -268,12 +295,16 @@ export function WordFillCanvas({
         {activeRange && (
           <>
             {/* 🔴 **아직 안 쓴 오른쪽만 덮는다** — 왼쪽(이미 끝낸 글자)까지 덮으면 애써 칠한 초록이
-                회색으로 눌려, 다 쓴 글자가 안 쓴 글자와 똑같아 보인다. 끝낸 것은 그대로 보여준다. */}
-            <div
-              aria-hidden
-              className="absolute inset-y-0 right-0 z-10 pointer-events-none bg-cream-50/90 backdrop-grayscale transition-all duration-300"
-              style={{ width: `${((CANVAS_W - activeRange.end) / CANVAS_W) * 100}%` }}
-            />
+                회색으로 눌려, 다 쓴 글자가 안 쓴 글자와 똑같아 보인다. 끝낸 것은 그대로 보여준다.
+                🔴 `order`(패턴 먼저) 모드에선 끝난 칸·다음 칸이 좌우로 흩어져 오른쪽 덮개가 맞지 않으니
+                덮지 않고 코랄 링으로만 지금 칸을 가리킨다. */}
+            {!order && (
+              <div
+                aria-hidden
+                className="absolute inset-y-0 right-0 z-10 pointer-events-none bg-cream-50/90 backdrop-grayscale transition-all duration-300"
+                style={{ width: `${((CANVAS_W - activeRange.end) / CANVAS_W) * 100}%` }}
+              />
+            )}
             {/* 지금 칸 = 코랄 테두리 + 아래 굵은 밑줄. 깜빡임까지 더해 눈이 바로 여기로 온다. */}
             <div
               aria-hidden
@@ -307,7 +338,7 @@ export function WordFillCanvas({
       </div>
       {syllables.length > 1 && (
         <p className="text-base sm:text-lg font-black text-ink-500">
-          {doneCount}/{syllables.length} 글자 완성
+          {t('writingGame.progress', { done: doneCount, total: syllables.length })}
         </p>
       )}
     </div>

@@ -15,7 +15,7 @@ import { useCallback, useEffect, useState } from 'react';
 const STORAGE_KEY = 'phonics-progress';
 const RECENT_UNIT_KEY = 'phonics-recent-unit';
 
-export type PhonicsLang = 'korean' | 'english';
+export type PhonicsLang = 'korean' | 'english' | 'chinese';
 
 /** 마지막 학습한 unit ID 저장/조회 — 사이드바 진입 시 default 단원으로 사용. */
 export function markRecentUnit(lang: PhonicsLang, unitId: string): void {

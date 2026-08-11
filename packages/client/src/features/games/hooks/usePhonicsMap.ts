@@ -2,14 +2,15 @@ import { useRef, useEffect, useState, type MutableRefObject } from 'react';
 import { settingsApi } from '@/features/settings/api/settings.api';
 import { expandKoreanFinalAliases, type PhonicsAudioItem } from '@tangobook/shared';
 
-type ModuleKey = 'mod_korean' | 'mod_phonics' | 'mod_english';
+type ModuleKey = 'mod_korean' | 'mod_phonics' | 'mod_english' | 'mod_chinese';
 
 // ─────────────────────────────────────────────────────────────────
 // localStorage 캐싱 — 매 게임 진입 시 spinner 안 뜨도록
 // TTL 없음 (무한). 캐시 hit 이면 spinner 스킵 + 백그라운드 silent refresh 로 항상 fresh.
 // 라이브러리 schema 변경 시 CACHE_KEY 뒤 v 숫자 bump → 옛 캐시 자동 무효.
 // ─────────────────────────────────────────────────────────────────
-const CACHE_KEY = 'tangobook-phonics-library-v1';
+// v2: mod_chinese(병음) 카테고리 추가 — v1 캐시엔 없어 병음이 무음이므로 키를 올려 1회 재fetch.
+const CACHE_KEY = 'tangobook-phonics-library-v3';
 // 캐시가 이만큼 신선하면 백그라운드 refresh 스킵 — 게임 재진입마다 ~8s list fetch 반복 방지.
 const CACHE_FRESH_MS = 10 * 60 * 1000; // 10분
 
@@ -17,6 +18,8 @@ interface PhonicsLibrary {
   mod_phonics: PhonicsAudioItem[];
   mod_english: PhonicsAudioItem[];
   mod_korean: PhonicsAudioItem[];
+  // 병음(拼音) — 나중에 추가. 옛 응답/캐시엔 없을 수 있어 optional(buildPhonicsMap 가 방어).
+  mod_chinese?: PhonicsAudioItem[];
 }
 
 function isValidLib(lib: unknown): lib is PhonicsLibrary {
@@ -272,4 +275,36 @@ export function getEnglishPhonemeUrl(text: string): Promise<string | undefined> 
     });
   }
   return sharedEnMapPromise.then((m) => lookupEnglishSound(m, text));
+}
+
+// ── 병음(拼音) 낱 음절 조회 (한글 getKoreanSyllableUrl 과 대칭) ─────────────────
+let sharedZhMap: Map<string, string> | null = null;
+let sharedZhMapPromise: Promise<Map<string, string>> | null = null;
+
+/**
+ * 병음 음절(성조부호 포함) → R2 mp3 URL. **React 훅 밖에서도** 쓴다.
+ *
+ * 🔴 `ā`·`ō`·`mā` 는 R2 `mod_chinese` 에 **원어민 녹음 mp3** 로 올라가 있다(성조 정확). 예전엔
+ *    cmn-CN TTS 가 병음이 아니라 대표 한자를 읽어 성조가 근사였는데, 사전녹음이라 직행한다.
+ *    한글/영어와 같은 라이브러리 맵 경로 — 첫 조회만 목록 fetch, 이후 캐시.
+ */
+export function getChineseSyllableUrl(text: string): Promise<string | undefined> {
+  // 성조 부호는 NFC 단일 코드포인트로 통일한다 — 소스/R2 키가 NFD 로 갈리면 조회가 조용히 miss.
+  const key = text.normalize('NFC');
+  if (sharedZhMap) return Promise.resolve(sharedZhMap.get(key));
+  if (!sharedZhMapPromise) {
+    const cached = loadCachedLibrary();
+    sharedZhMapPromise = cached
+      ? Promise.resolve(buildPhonicsMap(cached, ['mod_chinese']))
+      : fetchLibShared()
+          .then((lib) => {
+            saveCachedLibrary(lib);
+            return buildPhonicsMap(lib, ['mod_chinese']);
+          })
+          .catch(() => new Map<string, string>());
+    void sharedZhMapPromise.then((m) => {
+      sharedZhMap = m;
+    });
+  }
+  return sharedZhMapPromise.then((m) => m.get(key));
 }

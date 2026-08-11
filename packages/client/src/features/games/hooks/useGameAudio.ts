@@ -23,6 +23,9 @@ export function useGameAudio() {
   const pendingTimersRef = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
   // 언어별 칭찬 음원 풀 (SystemSoundLanguage → url[]). 플레이어가 language 지정 시 해당 pool만.
   const [correctPools, setCorrectPools] = useState<Record<string, string[]>>({});
+  // 🔴 세대 토큰 — `stopAll()` 이 올리면 진행 중이던 재생 체인의 onEnded 가 다음 걸 트리거하지 않는다.
+  //    (오디오를 pause/src='' 하면 'error'→finish 가 도는데, 그때 세대가 어긋나면 콜백을 안 부른다.)
+  const genRef = useRef(0);
 
   // 시스템 칭찬 음원 라이브러리 자동 로드
   useEffect(() => {
@@ -51,11 +54,14 @@ export function useGameAudio() {
     }
     const audio = new Audio(url);
     allAudiosRef.current.add(audio);
+    const gen = genRef.current;
     let done = false;
     const finish = () => {
       if (done) return;
       done = true;
       allAudiosRef.current.delete(audio);
+      // 🔴 stopAll() 이후 취소된 재생이면 onEnded(체인의 다음 소리)를 부르지 않는다.
+      if (gen !== genRef.current) return;
       onEnded?.();
     };
     audio.addEventListener('ended', finish);
@@ -75,6 +81,29 @@ export function useGameAudio() {
 
   // 칭찬 애니메이션 오버레이 상태
   const [praiseVisible, setPraiseVisible] = useState(false);
+
+  /**
+   * 🔴 진행 중인 **모든 재생·예약을 즉시 비운다**(2026-08-06 사용자: 빠르게 누르면 소리가 큐에 쌓이는데
+   *    「다음」을 누르면 다음 장은 처음부터 시작하게). 세대를 올려 진행 중 체인의 onEnded 를 무효화하고
+   *    (오디오 pause 시 'error'→finish 가 다음 걸 트리거하는 함정 회피), 예약 타이머·오디오를 다 지운다.
+   */
+  const stopAll = useCallback(() => {
+    genRef.current++;
+    pendingTimersRef.current.forEach((id) => clearTimeout(id));
+    pendingTimersRef.current.clear();
+    allAudiosRef.current.forEach((a) => {
+      try {
+        a.pause();
+        a.src = '';
+        a.load();
+      } catch {
+        /* ignore */
+      }
+    });
+    allAudiosRef.current.clear();
+    lastAudioRef.current = null;
+    setPraiseVisible(false);
+  }, []);
 
   const scheduleTimer = useCallback((fn: () => void, ms: number) => {
     const id = setTimeout(() => {
@@ -173,5 +202,7 @@ export function useGameAudio() {
     praiseVisible,
     /** 언마운트 시 자동 정리되는 setTimeout — 오디오 사이 의도적 '쉬는' 간격 등에 사용. */
     scheduleTimer,
+    /** 진행 중인 재생·예약을 즉시 비운다(장 전환 시). */
+    stopAll,
   };
 }

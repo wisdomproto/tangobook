@@ -6,6 +6,7 @@ import { ViewerContainer } from '@/features/viewer/components/ViewerContainer';
 import { GameOverlay } from '@/features/vocabulary-unit/components/VocabularyStudyContent';
 import { deriveStorybookUnit } from '@/features/vocabulary-unit/lib/derive-storybook-unit';
 import { EmbedStage } from '@/features/phonics-learner/components/EmbedStage';
+import { PhonicsEmbeddedProvider } from '@/features/phonics-learner/components/ActivityShell';
 
 /**
  * 랜딩 안에서 **동화책을 실제로 읽고, 그 책의 낱말 게임까지** 해보는 상자.
@@ -64,15 +65,19 @@ function TryItShell({
       : 'border-amber-500 bg-amber-50 text-amber-600';
   const btn = tone === 'mint' ? 'bg-mint-500 hover:bg-mint-800' : 'bg-amber-600 hover:bg-amber-700';
   return (
-    /* 🔴 파닉스 상자와 같이 페이지 폭을 지킨다 — 잘림은 EmbedStage 축소로 푼다. */
+    /* 🔴 **넓은 화면에선 글 폭 밖으로 넓힌다**(2026-08-11 사용자: "낱말이 너무 작아 보여").
+       `EmbedStage` 는 안쪽을 100vw 로 그린 뒤 **상자 폭/뷰포트 폭**만큼 줄이므로, 글 폭(896px)에
+       가두면 1920 화면에서 0.47배가 되어 앱 글자가 절반 크기로 보인다. 좌우 대칭 음수 마진이라
+       가운데는 유지되고, 값은 그 브레이크포인트 뷰포트에 들어가도록 잡았다(1280→1088·1536→1280). */
     <div
-      className={`my-7 overflow-hidden rounded-[26px] border bg-white shadow-sm ${
+      className={`my-7 -mx-4 overflow-hidden rounded-3xl border bg-white shadow-sm sm:mx-0 ${
         tone === 'mint' ? 'border-mint-200' : 'border-amber-200'
       }`}
     >
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-ink-100 px-5 py-3">
-        <span className="text-lg font-extrabold text-ink-800 break-keep">{label}</span>
-        <span className="shrink-0 rounded-full bg-ink-50 px-3 py-1 text-xs font-bold text-ink-600">
+        <span className="text-xl font-extrabold text-ink-800 break-keep">{label}</span>
+        <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-ink-800 px-3 py-1.5 text-sm font-extrabold text-white">
+          <span className="h-2 w-2 animate-pulse rounded-full bg-white" />
           실제 앱 화면
         </span>
       </div>
@@ -83,7 +88,7 @@ function TryItShell({
           <button
             key={b.id}
             onClick={() => setBookId(b.id)}
-            className={`min-h-[44px] shrink-0 rounded-full border px-3 text-xs font-semibold transition ${
+            className={`min-h-[44px] shrink-0 rounded-full border px-3 text-sm font-semibold transition ${
               b.id === bookId ? chipOn : 'border-ink-100 text-ink-600 hover:bg-cream-50'
             }`}
           >
@@ -95,10 +100,10 @@ function TryItShell({
       {children}
 
       <div className="flex flex-col items-center gap-2 bg-cream-50 px-5 py-4 text-center">
-        <p className="text-xs text-ink-600 break-keep">{footer}</p>
+        <p className="text-sm text-ink-600 break-keep">{footer}</p>
         <Link
           to="/library"
-          className={`inline-flex min-h-[44px] items-center rounded-full px-5 text-sm font-bold text-white shadow-sm transition ${btn}`}
+          className={`inline-flex min-h-[44px] items-center rounded-full px-5 text-base font-bold text-white shadow-sm transition ${btn}`}
         >
           동화책 전체 보기 →
         </Link>
@@ -122,8 +127,18 @@ export function HangulBookTryIt() {
       footer="화면을 한 번 누르면 나레이션이 시작됩니다. 264권이 이렇게 읽힙니다."
     >
       {/* 🔴 `key` 로 remount — 책을 바꾸면 뷰어 내부 상태(페이지·재생)가 남으면 안 된다. */}
-      <EmbedStage height="100dvh">
-        <ViewerContainer key={bookId} storybookId={bookId} />
+      {/* 🔴 `embed`(2026-08-05 사용자) — ①`noAutoStart`: 탭 게이트의 5초 자동 시작을 끈다(랜딩에선
+          탭해야만 재생, 스크롤하다 갑자기 소리 나지 않게). ②`style:'paper-craft'`: 표지·페이지를
+          페이퍼 아트로 고정(그 스타일 없는 책은 base 로 폴백). 뷰어 기본 동작은 안 건드린다. */}
+      {/* 🔴 **모바일은 가로형 상자**(2026-08-11) — 책 화면이 16:9 라 세로 상자에 넣으면 표지가
+          꽉 차 잘리고, 본문 쪽은 위아래로 블러 여백만 커진다. `64vw` 는 375px 에서 240px — 그림(16:9)이
+          위아래 검은 여백 없이 딱 들어오는 값이다. 데스크탑에선 `100dvh` 가 작아 그대로 세로를 다 쓴다. */}
+      <EmbedStage height="min(100dvh, 64vw)">
+        <ViewerContainer
+          key={bookId}
+          storybookId={bookId}
+          embed={{ style: 'paper-craft', noAutoStart: true }}
+        />
       </EmbedStage>
     </TryItShell>
   );
@@ -144,15 +159,18 @@ export function HangulBookTryIt() {
  *    독자는 읽기를 멈추고 넘기기 시작하고, 그 상태로 마지막 CTA 에 도착한다.
  * 🔴 뺀 것 중 **한글 블록**은 특히 여기서 나쁘다 — 동화책 낱말은 자모가 다 열려
  *    **40칸 키보드**가 펼쳐진다(파닉스판은 네 칸). 「우리 애는 못 하겠다」로 읽힌다.
- * 🔴 남긴 둘 = 설명이 필요 없는 것(그림 짝) + 다른 앱에 없는 것(낱말 그리기).
+ * 🔴 남긴 둘 = 설명이 필요 없는 것(그림 짝) + **손으로 쓰는 것**(낱말 쓰기).
+ *    낱말 그리기(색칠)를 뒤에 뒀다가 **낱말 쓰기로 바꿨다**(2026-08-10 사용자) — 색칠은 낱말을
+ *    안 쓰고도 끝나서 동화책 구간이 「보고 고르는 것」으로만 끝났다. 파닉스 구간이 글자 한 자
+ *    쓰기(`ㄱ 써보기`)로 끝나므로, 여기선 **낱말 전체 쓰기**가 그 다음 단계로 읽힌다.
  */
 const BOOK_GAMES: { id: GameTypeId; label: string; how: string }[] = [
   { id: 'korean-line-matching', label: '🎯 그림 짝 찾기', how: '그림과 낱말을 이어 봅니다' },
-  { id: 'connect-the-dots', label: '✏️ 낱말 그리기', how: '낱말이 가리키는 그림을 그려 봅니다' },
+  { id: 'korean-word-writing', label: '📝 낱말 쓰기', how: '그 책에 나온 낱말을 손으로 씁니다' },
 ];
 
 /** 상자로는 안 띄우고 한 줄로만 알리는 나머지 — 있다는 사실만 전한다. */
-const BOOK_GAMES_MORE = '🧱 한글 블록 · 📝 낱말 쓰기';
+const BOOK_GAMES_MORE = '🧱 한글 블록 · ✏️ 낱말 그리기';
 
 export function HangulWordGameTryIt() {
   const books = BOOKS_BY_CATEGORY.filter((b) => b.words > 0);
@@ -180,23 +198,29 @@ export function HangulWordGameTryIt() {
               : `같은 낱말을 ${BOOK_GAMES_MORE} 로도 만납니다. 방식만 바꿔 다시 만나서, 외우지 않아도 남습니다.`
           }
         >
-          <EmbedStage height="100dvh">
-            {unit && book ? (
-              <GameOverlay
-                key={`${bookId}-${g.id}`}
-                unit={unit}
-                game={g.id}
-                lang="ko"
-                storybook={book}
-                onComplete={() => {}}
-                onBack={() => {}}
-              />
-            ) : (
-              <div className="flex h-full items-center justify-center text-sm text-ink-600">
-                불러오는 중…
-              </div>
-            )}
-          </EmbedStage>
+          {/* 🔴 **`PhonicsEmbeddedProvider` 로 감싼다**(2026-08-10) — 파닉스 상자만 이 컨텍스트를
+              주고 있어서, 동화책 게임 상자는 헤더도 학습 화면 그대로였고 무엇보다 **진입 안내
+              음성**("글자를 따라 써봐")이 페이지를 열자마자 울렸다. 게이트는 `useGameEntryGuide`
+              한 곳이고, 그게 이 컨텍스트를 본다. */}
+          <PhonicsEmbeddedProvider value>
+            <EmbedStage height="100dvh">
+              {unit && book ? (
+                <GameOverlay
+                  key={`${bookId}-${g.id}`}
+                  unit={unit}
+                  game={g.id}
+                  lang="ko"
+                  storybook={book}
+                  onComplete={() => {}}
+                  onBack={() => {}}
+                />
+              ) : (
+                <div className="flex h-full items-center justify-center text-base text-ink-600">
+                  불러오는 중…
+                </div>
+              )}
+            </EmbedStage>
+          </PhonicsEmbeddedProvider>
         </TryItShell>
       ))}
     </>

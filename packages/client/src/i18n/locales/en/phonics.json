@@ -1,0 +1,230 @@
+{
+  "common": {
+    "back": "← Back",
+    "backToUnit": "← Back to unit",
+    "backToUnitList": "← Unit list",
+    "backToPicker": "← Pick phonics",
+    "backToPickerLong": "← Back to phonics picker",
+    "backToKorean": "← Back to Hangul phonics",
+    "backToEnglish": "← Back to English phonics",
+    "backToChinese": "← Back to Pinyin phonics",
+    "home": "Home",
+    "close": "Close",
+    "loading": "Loading…",
+    "retry": "🔁 Try again",
+    "next": "Next →",
+    "quizStart": "🎯 Start the quiz!",
+    "listenAgain": "Listen again",
+    "listenAgainBtn": "🔊 Listen again",
+    "listenCarefully": "🎧 Listen closely and guess!",
+    "tapToListen": "Tap to listen!",
+    "allCorrect": "You got them all!",
+    "wellDone": "Well done!",
+    "passed": "✓ Passed",
+    "done": "✓ Done",
+    "comingSoon": "Coming soon",
+    "unknownUnit": "We can't find this unit.",
+    "unknownActivity": "We can't find this activity.",
+    "noUnitsYet": "No units are ready to learn yet.",
+    "noActivitiesYet": "This unit doesn't have activities yet.",
+    "unitTab": "Units",
+    "unitPicker": "Pick a unit",
+    "phonics": "Phonics"
+  },
+  "section": {
+    "learn": "Learn",
+    "learnSubtitleWrite": "Listen and trace",
+    "learnSubtitleListen": "Listen and learn",
+    "wordPlay": "Word play",
+    "wordPlaySubtitle": "Learn while you play",
+    "games": "Games",
+    "gamesSubtitle": "Learning is fun"
+  },
+  "unavailable": {
+    "needWordImages": "Needs word pictures",
+    "needWords": "Needs words",
+    "needMoreWords": "Not enough words",
+    "needWordDots": "Needs word pictures and dots",
+    "needToneWords": "Needs words for tone practice",
+    "noChant": "No song yet",
+    "comingSoon": "Still getting ready"
+  },
+  "landing": {
+    "title": "Phonics",
+    "subtitle": "Which letters shall we learn? Tap a card to begin.",
+    "start": "Start",
+    "ageRange": "Ages 4-7",
+    "koreanChip": "Hangul",
+    "koreanTitle": "Hangul Phonics",
+    "koreanDesc": "Vowels, consonants, and final consonants, step by step",
+    "koreanAlt": "Hori for Hangul phonics",
+    "englishTitle": "English Phonics",
+    "englishDesc": "From letter sounds to whole words",
+    "englishAlt": "Hori for English phonics",
+    "chineseTitle": "Chinese Pinyin",
+    "chineseDesc": "Initials, finals, and tones, learned by ear"
+  },
+  "study": {
+    "koreanLead": "Hangul",
+    "englishLead": "English",
+    "chineseLead": "Pinyin",
+    "englishComingSoonNote": "English phonics activities are coming soon! ✨"
+  },
+  "hub": {
+    "title": "Hangul Phonics",
+    "subtitle": "Finish one unit and the next one opens up.",
+    "noPlan": "Activities coming soon"
+  },
+  "seo": {
+    "koreanTitle": "Learn Hangul Phonics — Tangobook",
+    "koreanDescription": "Learn Korean consonants, vowels, and final consonants with cards and games made for 4-5 year old beginners. Hangul phonics that links straight to words from storybooks.",
+    "koreanKeywords": "Hangul phonics, learn Korean alphabet, Korean consonants and vowels, Korean final consonants, Hangul blending, Korean for 4 year olds, Korean for 5 year olds, Korean for 6 year olds, Tangobook",
+    "koreanJsonLdName": "Learn Hangul Phonics",
+    "koreanJsonLdDescription": "A unit collection covering Korean consonants, vowels, blending, and final consonants",
+    "educationalLevel": "Preschool",
+    "educationalUse": "Korean reading, phonics, vocabulary"
+  },
+  "level": {
+    "hangul1": "Hangul 1: Basic Syllables",
+    "hangul2": "Hangul 2: Final Consonants",
+    "hangul3": "Hangul 3: Double Consonants",
+    "hangul4": "Hangul 4: Complex Vowels",
+    "zhL1": "Level 1: Tones + Simple Finals",
+    "zhL2": "Level 2: Initials",
+    "zhL3": "Level 3: Pinyin Blending",
+    "zhL4": "Level 4: Words",
+    "zhL5": "Level 5: Compound Finals",
+    "zhL6": "Level 6: Nasal Finals",
+    "zhL7": "Level 7: Whole Syllables",
+    "zhL8": "Level 8: Two-Syllable Words"
+  },
+  "unit": {
+    "review": "Review",
+    "reviewOne": "{{letter}} review",
+    "reviewRange": "{{first}}~{{last}} review",
+    "reviewCodaOne": "Final consonant {{letter}} review",
+    "reviewCodaRange": "Final consonants {{first}}~{{last}} review",
+    "vowelsLearn": "Learn vowels",
+    "lettersLearn": "Learn {{letters}}",
+    "codaLearn": "Learn final consonant {{letter}}",
+    "zhTones": "Tones {{letters}}",
+    "zhCombo": "{{letters}} blends",
+    "zhAnimals": "Animals ({{words}})",
+    "zhObjects": "Objects ({{words}})",
+    "zhNature": "Nature ({{words}})"
+  },
+  "activity": {
+    "letterHunt": "Letter Hunt",
+    "wordWriting": "Word Writing",
+    "letterWriting": "Letter Writing",
+    "wordDrawing": "Word Drawing",
+    "pictureMatch": "Picture Match",
+    "koreanBlock": "Hangul Block Game",
+    "wordPractice": "Word Practice",
+    "flipMatch": "Flip and Match",
+    "syllableListen": "Listen and Find the Syllable",
+    "letterListen": "Listen and Find the Letter",
+    "wordListen": "Listen and Find the Word",
+    "vowelListen": "Vowel Listening {{n}}",
+    "vowelWrite": "Vowel Writing",
+    "syllableMake": "Make a Syllable",
+    "syllableWrite": "Syllable Writing",
+    "consonantLearn": "Learn {{letter}}",
+    "consonantBlend": "{{letter}} + vowels",
+    "consonantWrite": "Write {{letter}}",
+    "codaLearn": "Learn final consonant {{letter}}",
+    "codaWrite": "Write final consonant {{letter}}",
+    "patternLearn": "Learn {{pattern}}",
+    "lettersLearn1": "Learn {{letters}} 1",
+    "lettersLearn2": "Learn {{letters}} 2",
+    "lettersWrite": "Write {{letters}}",
+    "listenLearn": "Listen and Learn",
+    "listenChoose": "Listen and Choose",
+    "toneChoice": "Listen and Choose the Tone",
+    "trace": "Tracing",
+    "chant": "Song"
+  },
+  "alphabetLearn": {
+    "noData": "No learning card data yet",
+    "noImage": "This learning card has no picture yet",
+    "playLetterSound": "Hear the letter sound",
+    "switchTo": "Switch to {{letters}}",
+    "tapLetterHint": "🔊 Tap the letter above to hear its sound!",
+    "tapSparkle": "🔊 Tap the sparkly spot!",
+    "foundAll": "🎉 You found them all! Tap to hear again"
+  },
+  "alphabetWrite": {
+    "title": "Write it",
+    "titleShort": "Write it",
+    "upper": "Capital {{letter}}",
+    "lower": "Lowercase {{letter}}",
+    "hint": "Trace the capital letter and the lowercase letter. Pass both and you move on to the next letter.",
+    "paintInside": "Color inside the letter!"
+  },
+  "chant": {
+    "title": "Let's listen to the song!",
+    "prev": "Previous song",
+    "next": "Next song",
+    "play": "Play",
+    "pause": "Pause",
+    "heard": "I listened to it all",
+    "heardDone": "✓ I listened to it all"
+  },
+  "blend": {
+    "makeSyllable": "Make {{syllable}}",
+    "makeSyllableDone": "Make {{syllable}} (done)",
+    "meet": "Two sounds met!",
+    "tapSparkle": "Tap the sparkly letter!"
+  },
+  "consonantTap": {
+    "hint": "Tap each one three times!",
+    "cardLabel": "{{letter}} card {{n}}"
+  },
+  "write": {
+    "writeSyllable": "Write {{syllable}}",
+    "trace": "✏️ Trace it!",
+    "meet": "Two letters met!",
+    "sparkleCell": "✏️ Write in the glowing box!",
+    "noStrokes": "Please create the strokes in the authoring tool"
+  },
+  "cvc": {
+    "learn": "Learn {{pattern}}",
+    "words": "Learn {{pattern}} words",
+    "write": "Write {{pattern}}",
+    "noWordsInEditor": "There are no {{pattern}} words in the authoring tool.",
+    "noWords": "There are no {{pattern}} words."
+  },
+  "hunt": {
+    "prompt": "Find all of this letter!",
+    "done": "You found them all!",
+    "letterSound": "Hear the {{letter}} sound"
+  },
+  "flip": {
+    "prompt": "Find the matching pair!",
+    "allMatched": "You matched them all!",
+    "flip": "Flip"
+  },
+  "vowelListen": {
+    "inOrder": "Tap them in order!",
+    "readyForQuiz": "Well done! Shall we try the quiz now?",
+    "pickSound": "🔊 Pick the sound you hear!"
+  },
+  "vowelPicker": {
+    "makePrompt": "Which vowel shall we use?",
+    "writePrompt": "Which vowel shall we write?"
+  },
+  "wordFamily": {
+    "trace": "Trace it!",
+    "tapChunks": "Tap the sound chunks to hear them!"
+  },
+  "wordListen": {
+    "quizBtn": "🎯 Quiz",
+    "quizSub": "Listen and guess"
+  },
+  "tryIt": {
+    "badge": "The real learning screen",
+    "done": "That's it. In the app your child does this with sound as well.",
+    "note": "In the app, nine activities like this follow in every unit.",
+    "cta": "Keep going in the app →"
+  }
+}

@@ -99,13 +99,15 @@ describe('AppShell sidebar axis visibility', () => {
     expect(screen.getByText('로그아웃')).toBeInTheDocument();
   });
 
-  it('개발자 계정(kil210@tangobook.co.kr) → 개발자 전용 축(어휘·학습 게임)까지 표시', () => {
+  // 🔴 어휘·학습 게임 축은 **개발자에게도 안 보인다**(2026-08-09 사용자 — 사이드바에서 제거).
+  //    라우트·페이지·게임 코드는 보존(직접 URL 도달 가능)이고 사이드바 버튼만 뺐다.
+  it('개발자 계정도 사이드바는 3축(동화책·어휘 게임·파닉스)만', () => {
     setup({ email: 'kil210@tangobook.co.kr' });
     renderShell();
     expect(sidebar().getByText('동화책')).toBeInTheDocument();
     expect(screen.queryByText('연속재생')).toBeNull(); // 메인화면으로 이전
     expect(sidebar().getByText('파닉스')).toBeInTheDocument();
-    expect(sidebar().getByText('어휘')).toBeInTheDocument();
-    expect(sidebar().getByText('학습 게임')).toBeInTheDocument();
+    expect(sidebar().queryByText('어휘')).toBeNull();
+    expect(screen.queryByText('학습 게임')).toBeNull();
   });
 });

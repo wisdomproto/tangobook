@@ -12,16 +12,40 @@ import { KOREAN_PHONICS_CURRICULUM, composeHangul } from '@tangobook/shared';
 export interface KoreanUnitSummary {
   id: string; // 'kr-h1-u01'
   levelKey: string; // 'hangul1'
-  levelName: string; // '한글1: 기본음절'
+  levelName: string; // '한글1: 기본음절' — 한국어 폴백
+  /** `phonics` ns 키(`level.hangul1`). 🔴 레벨명은 UI 어휘라 번역한다(콘텐츠 아님). */
+  levelNameKey?: string;
   levelIndex: number; // 1
   unitIndexInLevel: number; // 1 (1-based)
-  unitTitle: string; // 'unit 01: 모음 배우기'
+  unitTitle: string; // 'unit 01: 모음 배우기' — 한국어 폴백
+  /** 🔴 「받침」·「모음」 같은 **틀**만 키로 옮기고 글자(ㄱ·ㅐ)는 보간 변수로 남긴다. */
+  unitTitleKey?: string;
+  unitTitleVars?: Record<string, string | number>;
   phonemes: string[];
   targetWords: string[];
   /** 복습 단원인가 (커리큘럼에 없는 파생 단원). */
   isReview?: boolean;
   /** 복습 단원이 되짚는 학습 단원 ID 들. */
   coveredUnitIds?: string[];
+}
+
+/**
+ * 커리큘럼 제목 → i18n 키. 커리큘럼은 `@tangobook/shared`(서버·저작도구 공용)라 한국어 원문이
+ * 그대로 들어 있다. **글자(ㄱ·ㅐ·받침 ㅇ)는 콘텐츠라 변수로 빼고 문장 틀만** 키로 옮긴다.
+ */
+function unitTitleI18n(
+  levelKey: string,
+  phonemes: readonly string[]
+): { unitTitleKey: string; unitTitleVars?: Record<string, string> } {
+  const first = phonemes[0] ?? '';
+  // 받침 단원 phoneme 은 '받침ㅇ' — 「받침」은 UI 어휘라 떼어내고 글자만 넘긴다.
+  if (levelKey === 'hangul2')
+    return { unitTitleKey: 'unit.codaLearn', unitTitleVars: { letter: first.replace('받침', '') } };
+  // 모음 단원(글자 10개)은 목록을 늘어놓지 않고 「모음 배우기」로 부른다.
+  if (levelKey === 'hangul1' && phonemes.length > 1) return { unitTitleKey: 'unit.vowelsLearn' };
+  if (phonemes.length > 1)
+    return { unitTitleKey: 'unit.lettersLearn', unitTitleVars: { letters: phonemes.join(', ') } };
+  return { unitTitleKey: 'activity.consonantLearn', unitTitleVars: { letter: first } };
 }
 
 /** 커리큘럼 단원만 (복습 제외) — 복습 묶음을 만드는 원본. */
@@ -35,9 +59,11 @@ function getCurriculumUnits(): KoreanUnitSummary[] {
         id: u.id,
         levelKey: String(level.level),
         levelName: level.name,
+        levelNameKey: `level.${level.level}`,
         levelIndex,
         unitIndexInLevel: i + 1,
         unitTitle: u.title,
+        ...unitTitleI18n(String(level.level), u.phonemes),
         phonemes: [...u.phonemes],
         targetWords: [...(u.sampleWords ?? [])],
       });
@@ -60,11 +86,32 @@ const REVIEW_CHUNK = 4;
  * 복습 이름은 **되짚는 글자 범위**로 짓는다 — `복습 1` 은 무엇을 복습하는지 아무것도 안 알려준다.
  * 사이드바·단원 화면이 같은 `unitTitle` 을 쓰므로 여기 한 곳이면 둘 다 바뀐다.
  */
-function reviewTitle(letters: string[]): string {
+function reviewTitle(
+  rawLetters: string[],
+  isCoda: boolean
+): {
+  unitTitle: string;
+  unitTitleKey: string;
+  unitTitleVars?: Record<string, string>;
+} {
+  // 🔴 받침 단원의 phoneme 은 '받침ㅇ' 이라 그대로 쓰면 **번역문 안에 한국어가 박힌다**
+  //    (태국어 UI 에서 `ทบทวน 받침ㅇ~받침ㄹ`). 콘텐츠는 글자뿐이고 「받침」은 UI 어휘다.
+  const letters = rawLetters.map((l) => l.replace('받침', ''));
   const first = letters[0];
   const last = letters[letters.length - 1];
-  if (!first) return '복습';
-  return first === last ? `${first} 복습` : `${first}~${last} 복습`;
+  const coda = isCoda ? '받침 ' : '';
+  if (!first) return { unitTitle: '복습', unitTitleKey: 'unit.review' };
+  if (first === last)
+    return {
+      unitTitle: `${coda}${first} 복습`,
+      unitTitleKey: isCoda ? 'unit.reviewCodaOne' : 'unit.reviewOne',
+      unitTitleVars: { letter: first },
+    };
+  return {
+    unitTitle: `${coda}${first}~${last} 복습`,
+    unitTitleKey: isCoda ? 'unit.reviewCodaRange' : 'unit.reviewRange',
+    unitTitleVars: { first, last },
+  };
 }
 
 function chunkForReview(units: KoreanUnitSummary[]): KoreanUnitSummary[][] {
@@ -103,9 +150,10 @@ export function getAllKoreanUnits(): KoreanUnitSummary[] {
         id: `kr-h${levelIndex}-r${gi + 1}`,
         levelKey,
         levelName: level.name,
+        levelNameKey: `level.${levelKey}`,
         levelIndex,
         unitIndexInLevel: last.unitIndexInLevel,
-        unitTitle: reviewTitle(letters),
+        ...reviewTitle(letters, levelKey === 'hangul2'),
         phonemes: letters,
         targetWords: group.flatMap((u) => u.targetWords),
         isReview: true,
@@ -143,6 +191,7 @@ export type ActivityKind =
   | 'vowel-blend-write'
   | 'word-listen-choose'
   | 'word-family-learn'
+  | 'chant'
   | 'letter-hunt'
   | 'review-flip'
   | 'review-syllable-listen'
@@ -150,6 +199,7 @@ export type ActivityKind =
   | 'review-listen'
   | 'review-match'
   | 'review-write'
+  | 'tone-choice-review'
   | 'cvc-pattern-learn'
   | 'cvc-pattern-write'
   | 'alphabet-letter-learn'
@@ -246,7 +296,15 @@ export interface ActivityDef {
   order: number; // 1-based 표시 순서
   kind: ActivityKind;
   section: ActivitySection;
+  /**
+   * 🔴 **한국어 폴백**. 화면은 `titleKey` 를 먼저 본다(`lib/activity-title.ts`) — plan 생성기는
+   *    React 밖이라 `t()` 를 못 부르므로 키만 싣는다. 키 없는 항목은 이 값이 그대로 나온다.
+   */
   title: string;
+  /** `phonics` 네임스페이스 키(예: `activity.letterHunt`). */
+  titleKey?: string;
+  /** 제목에 끼울 **콘텐츠**(ㄱ·Aa·-ake) — 번역 대상 아님. */
+  titleVars?: Record<string, string | number>;
   subtitle?: string;
   emoji: string;
   /** 이 액티비티 unit 완료 판정에 포함? 모음 단원은 vowels 4개만 required, 게임은 단어 없으면 optional */
@@ -332,6 +390,7 @@ const huntActivity = (cards: readonly ReviewCard[]): Omit<ActivityDef, 'order'> 
   kind: 'letter-hunt',
   section: 'learn',
   title: '글자 사냥',
+  titleKey: 'activity.letterHunt',
   emoji: '🔎',
   required: true,
   reviewCards: [...cards],
@@ -343,6 +402,7 @@ const GAME_ACTIVITIES: ReadonlyArray<Omit<ActivityDef, 'order'>> = [
     kind: 'game-connect-dots',
     section: 'play',
     title: '낱말 그리기',
+    titleKey: 'activity.wordDrawing',
     emoji: '🔵',
     required: false,
   },
@@ -351,6 +411,7 @@ const GAME_ACTIVITIES: ReadonlyArray<Omit<ActivityDef, 'order'>> = [
     kind: 'game-korean-block',
     section: 'play',
     title: '한글 블록 게임',
+    titleKey: 'activity.koreanBlock',
     emoji: '🧩',
     required: false,
   },
@@ -359,6 +420,7 @@ const GAME_ACTIVITIES: ReadonlyArray<Omit<ActivityDef, 'order'>> = [
     kind: 'game-word-writing',
     section: 'play',
     title: '낱말 쓰기',
+    titleKey: 'activity.wordWriting',
     emoji: '🖍️',
     required: false,
   },
@@ -367,6 +429,7 @@ const GAME_ACTIVITIES: ReadonlyArray<Omit<ActivityDef, 'order'>> = [
     kind: 'game-line-matching',
     section: 'play',
     title: '그림 짝 찾기',
+    titleKey: 'activity.pictureMatch',
     emoji: '🔗',
     required: false,
   },
@@ -378,6 +441,8 @@ const UNIT_01_PLAN: ActivityPlan = withGames([
     kind: 'vowel-listen',
     section: 'learn',
     title: '모음 듣기 1',
+    titleKey: 'activity.vowelListen',
+    titleVars: { n: 1 },
     subtitle: 'ㅏ ㅑ ㅓ ㅕ ㅗ ㅛ',
     emoji: '👂',
     required: true,
@@ -388,6 +453,8 @@ const UNIT_01_PLAN: ActivityPlan = withGames([
     kind: 'vowel-listen',
     section: 'learn',
     title: '모음 듣기 2',
+    titleKey: 'activity.vowelListen',
+    titleVars: { n: 2 },
     subtitle: 'ㅜ ㅠ ㅡ ㅣ',
     emoji: '👂',
     required: true,
@@ -401,6 +468,7 @@ const UNIT_01_PLAN: ActivityPlan = withGames([
     kind: 'vowel-write',
     section: 'learn',
     title: '모음 쓰기',
+    titleKey: 'activity.vowelWrite',
     subtitle: '아 야 어 여 오 요 우 유 으 이',
     emoji: '✏️',
     required: true,
@@ -443,6 +511,8 @@ function makeConsonantPlan(consonant: string, unitId = ''): ActivityPlan {
         kind: 'consonant-tap',
         section: 'learn',
         title: `${consonant} 배우기`,
+        titleKey: 'activity.consonantLearn',
+        titleVars: { letter: consonant },
         emoji: '👆',
         required: true,
         consonant,
@@ -454,6 +524,8 @@ function makeConsonantPlan(consonant: string, unitId = ''): ActivityPlan {
         kind: 'consonant-blend-listen',
         section: 'learn',
         title: `${consonant}+모음`,
+        titleKey: 'activity.consonantBlend',
+        titleVars: { letter: consonant },
         emoji: '🔗',
         required: true,
         consonant,
@@ -464,6 +536,8 @@ function makeConsonantPlan(consonant: string, unitId = ''): ActivityPlan {
         kind: 'consonant-write',
         section: 'learn',
         title: `${consonant} 써보기`,
+        titleKey: 'activity.consonantWrite',
+        titleVars: { letter: consonant },
         emoji: '✏️',
         required: true,
         consonant,
@@ -522,6 +596,7 @@ function wordListenActivity(letter?: string): Omit<ActivityDef, 'order'> {
     // 🔴 「단어」가 아니라 **낱말**(2026-07-29) — 옆 카드들이 전부 「낱말 …」 이라 하나만
     //    단어라고 부르면 다른 것처럼 보인다. 아이 화면 용어는 한 말로 통일한다.
     title: '낱말 연습',
+    titleKey: 'activity.wordPractice',
     emoji: '🔊',
     required: true,
     ...(letter ? { consonant: letter } : {}),
@@ -583,6 +658,8 @@ function makeCodaPlan(coda: string): ActivityPlan {
         kind: 'coda-blend-listen',
         section: 'learn',
         title: `${coda} 받침 익히기`,
+        titleKey: 'activity.codaLearn',
+        titleVars: { letter: coda },
         emoji: '🔗',
         required: true,
         coda,
@@ -593,6 +670,8 @@ function makeCodaPlan(coda: string): ActivityPlan {
         kind: 'consonant-write',
         section: 'learn',
         title: `${coda} 받침 쓰기`,
+        titleKey: 'activity.codaWrite',
+        titleVars: { letter: coda },
         emoji: '✏️',
         required: true,
         consonant: coda,
@@ -626,6 +705,7 @@ function makeComplexVowelPlan(vowels: readonly string[], unitId = ''): ActivityP
         kind: 'vowel-blend-listen',
         section: 'learn',
         title: '음절 만들기',
+        titleKey: 'activity.syllableMake',
         emoji: '🔗',
         required: true,
         vowels: pairs,
@@ -636,6 +716,7 @@ function makeComplexVowelPlan(vowels: readonly string[], unitId = ''): ActivityP
         kind: 'vowel-blend-write',
         section: 'learn',
         title: '음절 쓰기',
+        titleKey: 'activity.syllableWrite',
         emoji: '✏️',
         required: true,
         vowels: pairs,
@@ -707,6 +788,7 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
         order: 1,
         kind: 'letter-hunt',
         title: '글자 사냥',
+        titleKey: 'activity.letterHunt',
         emoji: '🔎',
         /**
          * 🔴 사냥은 **음절로** 판을 깐다(2026-07-30 사용자) — 학습 단원의 사냥이 `가갸거겨` 인데
@@ -722,6 +804,7 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
         order: 2,
         kind: 'review-flip',
         title: '뒤집기 짝 맞추기',
+        titleKey: 'activity.flipMatch',
         emoji: '🎴',
         ...shared,
       },
@@ -730,6 +813,7 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
         order: 3,
         kind: 'review-syllable-listen',
         title: '듣고 음절 맞추기',
+        titleKey: 'activity.syllableListen',
         emoji: '🎧',
         ...shared,
       },
@@ -738,6 +822,7 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
         order: 4,
         kind: 'review-match',
         title: '그림 짝 찾기',
+        titleKey: 'activity.pictureMatch',
         emoji: '🔗',
         ...shared,
       },
@@ -746,6 +831,7 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
         order: 5,
         kind: 'review-word-listen',
         title: '듣고 낱말 맞추기',
+        titleKey: 'activity.wordListen',
         emoji: '🔊',
         ...shared,
       },
@@ -754,6 +840,7 @@ function makeReviewPlan(cards: readonly ReviewCard[]): ActivityPlan {
         order: 6,
         kind: 'review-write',
         title: '낱말 쓰기',
+        titleKey: 'activity.wordWriting',
         emoji: '✏️',
         ...shared,
       },

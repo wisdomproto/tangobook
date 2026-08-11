@@ -30,6 +30,7 @@ type ListResult = {
   mod_phonics: PhonicsAudioItem[];
   mod_english: PhonicsAudioItem[];
   mod_korean: PhonicsAudioItem[];
+  mod_chinese: PhonicsAudioItem[];
 };
 const LIST_CACHE_TTL_MS = 5 * 60 * 1000;
 // 정적 인덱스 — 빌드한 sound→URL 목록을 R2 객체 1개로 저장. 이후 list() 는 이 파일만 GET(빠름)해서
@@ -54,7 +55,14 @@ async function readIndexFromR2(): Promise<ListResult | null> {
       Array.isArray(parsed.mod_english) &&
       Array.isArray(parsed.mod_korean)
     ) {
-      return parsed as ListResult;
+      // mod_chinese 는 나중에 추가된 카테고리 — 옛 인덱스엔 없을 수 있으니 없으면 빈 배열로.
+      // (음원 업로드 스크립트가 이 인덱스를 삭제 → 다음 list() 가 재빌드하며 채운다.)
+      return {
+        mod_phonics: parsed.mod_phonics,
+        mod_english: parsed.mod_english,
+        mod_korean: parsed.mod_korean,
+        mod_chinese: parsed.mod_chinese ?? [],
+      };
     }
     return null;
   } catch {
@@ -75,7 +83,9 @@ function buildLibraryKey(category: PhonicsAudioCategory, sound: string): string 
 }
 
 function parseKey(key: string): { category: PhonicsAudioCategory; sound: string } | null {
-  const match = key.match(/^phonics-library\/(mod_phonics|mod_english|mod_korean)\/(.+)\.mp3$/);
+  const match = key.match(
+    /^phonics-library\/(mod_phonics|mod_english|mod_korean|mod_chinese)\/(.+)\.mp3$/
+  );
   if (!match) return null;
   return { category: match[1] as PhonicsAudioCategory, sound: match[2] };
 }
@@ -250,7 +260,7 @@ export const PhonicsLibraryService = {
     files: Express.Multer.File[],
     category: PhonicsAudioCategory
   ): Promise<PhonicsAudioItem[]> {
-    if (!['mod_phonics', 'mod_english', 'mod_korean'].includes(category)) {
+    if (!['mod_phonics', 'mod_english', 'mod_korean', 'mod_chinese'].includes(category)) {
       throw new AppError(400, '유효하지 않은 카테고리입니다.');
     }
 
@@ -275,11 +285,7 @@ export const PhonicsLibraryService = {
     return results;
   },
 
-  async list(): Promise<{
-    mod_phonics: PhonicsAudioItem[];
-    mod_english: PhonicsAudioItem[];
-    mod_korean: PhonicsAudioItem[];
-  }> {
+  async list(): Promise<ListResult> {
     // === In-memory cache (5분 TTL) ===
     const now = Date.now();
     if (listCache && now - listCacheAt < LIST_CACHE_TTL_MS) {
@@ -298,19 +304,17 @@ export const PhonicsLibraryService = {
     // === 인덱스 없음(최초/무효화 후) → R2 나열로 1회 빌드 후 인덱스 저장 ===
     const objects = await listR2Objects(LIBRARY_PREFIX);
 
-    const result: {
-      mod_phonics: PhonicsAudioItem[];
-      mod_english: PhonicsAudioItem[];
-      mod_korean: PhonicsAudioItem[];
-    } = {
+    const result: ListResult = {
       mod_phonics: [],
       mod_english: [],
       mod_korean: [],
+      mod_chinese: [],
     };
     const seen: Record<PhonicsAudioCategory, Set<string>> = {
       mod_phonics: new Set(),
       mod_english: new Set(),
       mod_korean: new Set(),
+      mod_chinese: new Set(),
     };
 
     for (const obj of objects) {
@@ -334,6 +338,7 @@ export const PhonicsLibraryService = {
     result.mod_phonics.sort((a, b) => a.sound.localeCompare(b.sound));
     result.mod_english.sort((a, b) => a.sound.localeCompare(b.sound));
     result.mod_korean.sort((a, b) => a.sound.localeCompare(b.sound));
+    result.mod_chinese.sort((a, b) => a.sound.localeCompare(b.sound));
 
     listCache = result;
     listCacheAt = now;
@@ -343,7 +348,7 @@ export const PhonicsLibraryService = {
   },
 
   async remove(category: PhonicsAudioCategory, sound: string): Promise<void> {
-    if (!['mod_phonics', 'mod_english', 'mod_korean'].includes(category)) {
+    if (!['mod_phonics', 'mod_english', 'mod_korean', 'mod_chinese'].includes(category)) {
       throw new AppError(400, '유효하지 않은 카테고리입니다.');
     }
     // 정상 키 삭제
@@ -357,7 +362,7 @@ export const PhonicsLibraryService = {
   },
 
   async removeAll(category: PhonicsAudioCategory): Promise<{ deleted: number }> {
-    if (!['mod_phonics', 'mod_english', 'mod_korean'].includes(category)) {
+    if (!['mod_phonics', 'mod_english', 'mod_korean', 'mod_chinese'].includes(category)) {
       throw new AppError(400, '유효하지 않은 카테고리입니다.');
     }
     const prefix = `${LIBRARY_PREFIX}/${category}/`;

@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { PointerEvent as ReactPointerEvent, SyntheticEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { ENTRY_GUIDE, voiceUrl } from '@/features/phonics-learner/hooks/useEntryGuide';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { ConnectTheDotsData, ConnectTheDotsItem, Lang } from '@tangobook/shared';
 import { getEffectiveVocabulary } from '@tangobook/shared';
@@ -9,6 +10,7 @@ import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { useGameAudio } from '../../hooks/useGameAudio';
+import { useGameEntryGuide } from '../../hooks/useGameEntryGuide';
 import { usePrewarmWordTts } from '../../hooks/useGamePrefetch';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { SceneReveal } from '../SceneReveal';
@@ -93,14 +95,13 @@ function ConnectTheDotsPlayer({
   // 어휘 게임은 prop 으로 lang 전달(vi/zh/th 포함). 책 뷰어 registry 경로는 `?lang`(ko/en) 폴백.
   const viewerLang: Lang = propLang ?? (searchParams.get('lang') === 'en' ? 'en' : 'ko');
 
-  // 🔴 진입 안내 음성 — 화면의 "모양 안을 모두 칠해봐!" 에 맞는 음성(사용자: "이건 멘트 안 나오는데").
-  //    안내음은 한국어라 **한국어 UI(ko/en 콘텐츠)일 때만** 낸다 — vi/zh/th 어휘 게임엔 안 맞다.
-  const guidedRef = useRef(false);
-  useEffect(() => {
-    if (guidedRef.current || (viewerLang !== 'ko' && viewerLang !== 'en')) return;
-    guidedRef.current = true;
-    playAudio('/sounds/voice/paint-shape-ko.mp3');
-  }, [playAudio, viewerLang]);
+  /**
+   * 🔴 진입 안내 음성 — 화면의 "그림을 색칠해봐!" 와 **같은 말**(`games:connectDots.instruction`).
+   *    🔴 **콘텐츠 언어가 아니라 UI 언어**다(`voiceUrl`). 예전엔 `-ko` 를 URL 에 박고 콘텐츠가
+   *    ko/en 일 때만 냈는데, 그래서 vi UI 로 한글 파닉스를 하면 **한국어 안내**가 나가고
+   *    vi 어휘 게임은 아예 무음이었다. 지시는 아이가 알아듣는 말이어야 한다.
+   */
+  useGameEntryGuide(voiceUrl(ENTRY_GUIDE.paintShape), playAudio);
 
   const { data: storybook } = useStorybook(storybookId);
   const gameStyle = useGameStyle(storybook);
@@ -133,6 +134,10 @@ function ConnectTheDotsPlayer({
       // vi/zh/th
       const tr = ko?.nameTranslations?.[viewerLang]?.trim();
       if (tr) return { text: tr, lang: viewerLang };
+      // 🔴 파닉스 storybook 은 key_objects 가 없다(낱말이 flashcards 에 있고 objectName 이 이미 그 언어
+      //    표기 = 병음). 어휘 게임은 key_object 를 찾되 번역만 없는 것(ko 존재)이라 여전히 스킵된다
+      //    — 즉 영어로 새지 않는다. objectName(병음)을 그대로 읽고, 소리는 item.ttsUrl(mod_chinese 직행).
+      if (!ko) return { text: en, lang: viewerLang };
       return null;
     },
     [viewerLang, storybook]
@@ -149,9 +154,12 @@ function ConnectTheDotsPlayer({
       const ko = storybook?.key_objects?.find(
         (k) => k.name?.toLowerCase() === objLower || k.nameEn?.toLowerCase() === objLower
       );
-      const directUrl =
+      const keyObjTts =
         ko?.ttsUrls?.[target.lang] ?? (target.lang === 'ko' ? ko?.ttsUrl : undefined);
-      out.push({ text: target.text, directUrl });
+      // 🔴 완성음(`triggerComplete`)이 `it.ttsUrl`(파닉스 = mod_chinese/mod_phonics 직행)을 우선하므로
+      //    프리워밍도 같은 URL 을 데운다 — 예전엔 key_object 만 봐서 파닉스(key_objects 없음)가 concat
+      //    'english' 경로로 새 병음/한글을 못 찾아 400 실패했고 완성음도 안 데워졌다(game-reviewer 발견).
+      out.push({ text: target.text, directUrl: it.ttsUrl ?? keyObjTts });
     }
     return out;
   }, [items, resolveSpeakTarget, storybook]);

@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type MouseEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
-import { useEntryGuide } from '../hooks/useEntryGuide';
+import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { resolveTtsUrl } from '@/features/tts';
 import type { Storybook } from '@tangobook/shared';
 import { getWordHotspots } from '@tangobook/shared';
@@ -15,7 +16,7 @@ import { ActivityShell } from '../components/ActivityShell';
 /** 소리 사이 쉼 — 콜백으로 끝난 걸 확인한 뒤 넣는다(길이 가정 아님). */
 const REST_MS = 420;
 /** 진입 안내 음성. 화면이 통째로 무음이면 글 못 읽는 아이는 그림만 보다 나간다. */
-const GUIDE_VOICE = '/sounds/voice/tap-sparkle-ko.mp3';
+const GUIDE_VOICE = ENTRY_GUIDE.tap;
 
 interface Props {
   unitId: string;
@@ -40,6 +41,7 @@ interface Props {
  */
 
 export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, onBack }: Props) {
+  const { t } = useTranslation('phonics');
   const storybookQuery = useStorybook(unitId);
   const sb = storybookQuery.data as Storybook | undefined;
   const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
@@ -224,7 +226,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
             scheduleTimer(() => {
               setTapped((t) => t + 1);
               // 칭찬이 끝나면 다음 글자로 (마지막 글자면 goNext 가 그대로 머문다).
-              playCorrectSequence({ language: 'en', onDone: goNext });
+              playCorrectSequence({ language: praiseLang(), onDone: goNext });
             }, REST_MS);
           })
         );
@@ -260,7 +262,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
     return (
       <ActivityShell onBack={onBack}>
         <div className="flex-1 flex items-center justify-center text-ink-500 font-bold">
-          불러오는 중…
+          {t('common.loading')}
         </div>
       </ActivityShell>
     );
@@ -271,7 +273,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
       <ActivityShell onBack={onBack}>
         <div className="flex-1 flex flex-col items-center justify-center gap-3">
           <div className="text-6xl">🔤</div>
-          <p className="text-xl font-black text-ink-700">학습카드 데이터가 없어요</p>
+          <p className="text-xl font-black text-ink-700">{t('alphabetLearn.noData')}</p>
         </div>
       </ActivityShell>
     );
@@ -300,7 +302,11 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
                     ? 'bg-coral-50 ring-4 ring-coral-300 scale-[1.06]'
                     : 'bg-white hover:bg-peach-50 opacity-70 hover:opacity-100'
                 }`}
-                title={active ? '글자 발음 듣기' : `${U}${l} 로 전환`}
+                title={
+                  active
+                    ? t('alphabetLearn.playLetterSound')
+                    : t('alphabetLearn.switchTo', { letters: `${U}${l}` })
+                }
               >
                 <span
                   className={`font-display font-black leading-none ${
@@ -328,20 +334,12 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
           누를 것이 실제로 있을 때만 그렇게 쓴다 — 핫스팟이 없는 글자엔 글자 탭을 가리킨다. */}
       <div className="shrink-0 text-center mb-3">
         <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-ink-900 break-keep">
-          {spots.length === 0 ? (
-            <>
-              🔊 위의{' '}
-              <span className="text-coral-500">
-                {upper}
-                {lower}
-              </span>{' '}
-              를 눌러 소리를 들어봐!
-            </>
-          ) : !allDone ? (
-            <>🔊 반짝이는 곳을 눌러봐!</>
-          ) : (
-            <>🎉 다 찾았어! 눌러서 또 들어봐</>
-          )}
+          {/* 🔴 지시문엔 글자를 넣지 않는다 — 글자는 바로 위 탭이 크게 보여준다. */}
+          {spots.length === 0
+            ? t('alphabetLearn.tapLetterHint')
+            : !allDone
+              ? t('alphabetLearn.tapSparkle')
+              : t('alphabetLearn.foundAll')}
         </h2>
         {/* 🔴 진행은 숫자(0/2)가 아니라 점 — 다른 활동들과 같다. 4~7세는 분수를 못 읽는다. */}
         {spots.length > 0 && (
@@ -383,7 +381,9 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
             ) : (
               <div className="w-full h-full flex flex-col items-center justify-center gap-2 bg-peach-100">
                 <div className="text-7xl">🖼️</div>
-                <div className="text-base font-black text-ink-500">학습카드 그림이 아직 없어요</div>
+                <div className="text-base font-black text-ink-500">
+                  {t('alphabetLearn.noImage')}
+                </div>
               </div>
             )}
             {/* 🔴 스포트라이트 — 지금 누를 칸만 남기고 나머지를 덮는다.

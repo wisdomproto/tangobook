@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useActivitySound } from '../hooks/useActivitySound';
-import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
+import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import type { ReviewCardSource } from '../hooks/useReviewCardSources';
@@ -9,7 +10,7 @@ import { ActivityShell } from '../components/ActivityShell';
 interface Props {
   unitId: string;
   sources: ReadonlyArray<ReviewCardSource>;
-  language?: 'korean' | 'english';
+  language?: 'korean' | 'english' | 'zh';
   /**
    * 카드 앞면을 **낱말이 아니라 글자**로 — 영어 Book 1 처럼 **글자가 목표**인 권.
    * 🔴 낱말↔그림으로 짝을 지으면 알파벳을 한 번도 안 거치고 통과할 수 있다(사용자 지적:
@@ -70,6 +71,7 @@ export function ReviewFlipMatchActivity({
   onComplete,
   onBack,
 }: Props) {
+  const { t } = useTranslation('phonics');
   const {
     say: speak,
     rest,
@@ -147,7 +149,7 @@ export function ReviewFlipMatchActivity({
           rest(() => {
             if (done.size >= picked.length) {
               playCorrectSequence({
-                language: language === 'english' ? 'en' : 'ko',
+                language: praiseLang(),
                 onDone: onComplete,
               });
             } else {
@@ -191,7 +193,7 @@ export function ReviewFlipMatchActivity({
     <ActivityShell onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4">
         <h2 className="text-2xl sm:text-4xl font-black text-ink-900 text-center break-keep">
-          {matched.size >= picked.length ? '다 맞췄어!' : '같은 짝을 찾아봐!'}
+          {matched.size >= picked.length ? t('flip.allMatched') : t('flip.prompt')}
         </h2>
 
         <div className="grid grid-cols-4 gap-2 sm:gap-3">
@@ -204,7 +206,7 @@ export function ReviewFlipMatchActivity({
               <div key={tile.id} className="flex flex-col items-center">
                 <button
                   onClick={() => handleTap(tile)}
-                  aria-label={isOpen ? tile.card.word || tile.card.letter : '뒤집기'}
+                  aria-label={isOpen ? tile.card.word || tile.card.letter : t('flip.flip')}
                   className={[
                     // 🔴 칸 크기는 vw 만 보면 안 된다 — 전체화면 활동이라 **높이가 먼저 남는다/모자란다**.
                     //    `min(vw, vh)` 로 잡아야 큰 화면에서 카드가 좁쌀만 해지지 않는다(1370px 에서 112px 였다).

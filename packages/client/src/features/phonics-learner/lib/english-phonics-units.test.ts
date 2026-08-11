@@ -5,7 +5,59 @@ import {
   patternHighlight,
   isMagicEPattern,
   patternHighlightRanges,
+  patternWriteOrder,
+  writeStepRead,
+  reviewHuntToken,
 } from './english-phonics-units';
+
+// 쓰는 순서(patternWriteOrder)대로 한 칸씩 쓰며 이어읽기 소리를 모은다(null=무음은 뺀다).
+function readSequence(word: string, pattern: string, unitId: string): string[] {
+  const order = patternWriteOrder(word, [pattern]) ?? word.split('').map((_, i) => i);
+  const written: number[] = [];
+  const reads: string[] = [];
+  for (const idx of order) {
+    written.push(idx);
+    const r = writeStepRead(word, pattern, written, idx, unitId);
+    if (r) reads.push(r);
+  }
+  return reads;
+}
+
+describe('writeStepRead — 써보기 이어읽기 규칙 (2026-08-07)', () => {
+  it('Book 2 CVC 는 첫 낱글자 포함해 라임을 쌓는다 (a → at)', () => {
+    expect(readSequence('hat', '_at', 'en-b2-u01')).toEqual(['a', 'at']);
+  });
+  it('Book 3 매직-e 도 첫 낱글자를 읽는다 (a → ak → ake, 2026-08-09)', () => {
+    expect(readSequence('rake', '_ake', 'en-b3-u01')).toEqual(['a', 'ak', 'ake']);
+  });
+  it('앞 패턴(Book 4)은 접두사를 쭉 쌓아 읽는다 (b→bl→bla→blac, 2026-08-09)', () => {
+    // 🔴 있는 조각은 다 읽는다 — 없는 조각(blac 등)은 재생 시점에 무음(사용자 인정).
+    expect(readSequence('black', 'bl_', 'en-b4-u01')).toEqual(['b', 'bl', 'bla', 'blac']);
+    expect(readSequence('clam', 'cl_', 'en-b4-u01')).toEqual(['c', 'cl', 'cla']);
+    expect(readSequence('brake', 'br_', 'en-b4-u02')).toEqual(['b', 'br', 'bra', 'brak']);
+  });
+  it('끝·가운데 패턴은 패턴만, 접두사가 되면 그때 접두사 (Book 5 green → e→ee→gree)', () => {
+    expect(readSequence('green', 'ee', 'en-b5-u01')).toEqual(['e', 'ee', 'gree']);
+  });
+  it('패턴 밖 글자(온셋 등)는 무음', () => {
+    // rake: 마지막 r(온셋)은 null — 완성 시 낱말을 읽으므로 이어읽기엔 안 낀다
+    expect(writeStepRead('rake', '_ake', [1, 2, 3, 0], 0, 'en-b3-u01')).toBeNull();
+  });
+});
+
+describe('reviewHuntToken — 글자 사냥/듣고 글자는 낱말이 아닌 패턴 (2026-08-09)', () => {
+  it('Book 3 매직-e 는 rime 만 (rake→ake, bake→ake)', () => {
+    expect(reviewHuntToken('rake', 'en-b3-u01')).toBe('ake');
+    expect(reviewHuntToken('bake', 'en-b3-u01')).toBe('ake');
+  });
+  it('Book 4 블렌드는 앞 덩어리 (clam→cl), Book 5 모음팀은 그 팀 (green→ee)', () => {
+    expect(reviewHuntToken('clam', 'en-b4-u01')).toBe('cl');
+    expect(reviewHuntToken('green', 'en-b5-u01')).toBe('ee');
+  });
+  it('매칭 패턴이 없으면 낱말 그대로(폴백)', () => {
+    expect(reviewHuntToken('xyz', 'en-b3-u01')).toBe('xyz');
+  });
+});
 
 describe('매직 e = 모음 + 끝 e 두 곳 강조', () => {
   it('Book 3 매직 e(`_ame`·`_ake`·`_ube`)만 매직으로 본다', () => {
@@ -92,7 +144,6 @@ describe('english phonics units', () => {
       // 🔴 낱말 쓰기는 learn(패턴별 써보기)이 아니라 play 게임으로만 — Book 2 와 같은 4종 구성.
       expect(learn.some((a) => a.kind === 'game-word-writing')).toBe(false);
       expect(play.map((a) => a.kind)).toEqual([
-        'game-english-block',
         'game-word-writing',
         'game-connect-dots',
         'game-line-matching',
@@ -111,35 +162,27 @@ describe('english phonics units', () => {
     }
   });
 
-  // 🔴 복습 활동 구성: Book 2 = 6종 / Book 1 = 듣고낱말 뺀 5종 / Book 3~5 = 낱말 4종(듣고 낱말 포함).
+  // 🔴 복습 활동 구성: Book 2~5 = 6종 동일 / Book 1 = 듣고낱말 뺀 5종 (2026-08-09).
   it('복습 활동 = 권별로 다른 구성, 카드는 8장 이하 · 번호 연속', () => {
     for (const r of reviews) {
       const acts = getEnglishActivityPlan(r.id).activities;
       const kinds = acts.map((a) => a.kind);
-      if (r.levelIndex >= 3) {
-        // 낱말 기반 — 낱말↔그림 시각 3종 + 듣고 낱말(음원 복구 후, 글자 사냥·듣고 글자 제외)
-        expect(kinds).toEqual([
-          'review-flip',
-          'review-match',
-          'review-word-listen',
-          'review-write',
-        ]);
-      } else if (r.id.startsWith('en-b1')) {
+      if (r.id.startsWith('en-b1')) {
         expect(kinds).toEqual([
           'letter-hunt',
-          'review-flip',
           'review-syllable-listen',
-          'review-match',
           'review-write',
+          'review-flip',
+          'review-match',
         ]);
       } else {
         expect(kinds).toEqual([
           'letter-hunt',
-          'review-flip',
           'review-syllable-listen',
-          'review-match',
           'review-word-listen',
           'review-write',
+          'review-flip',
+          'review-match',
         ]);
       }
       // order 는 1..N 연속이어야 한다.
@@ -197,14 +240,11 @@ describe('english phonics units', () => {
     expect(listen.letters).toEqual(['A', 'B', 'C']);
   });
 
-  /**
-   * 🔴 Book 1 은 글자가 단위라 블록이 한 칸이고, 그 한 칸 채우기는 바로 앞 「배우기 2」가 이미 시킨다.
-   *    Book 2 부터는 낱말을 통째로 조립하므로 남긴다.
-   */
-  it('영어 블록 게임은 Book 2 부터만 나온다', () => {
-    const b1 = getEnglishActivityPlan('en-b1-u01').activities.map((a) => a.kind);
-    expect(b1).not.toContain('game-english-block');
-    const b2 = getEnglishActivityPlan('en-b2-u01').activities.map((a) => a.kind);
-    expect(b2).toContain('game-english-block');
+  /** 🔴 영어 블록 게임은 전 권에서 뺀다 (2026-08-09 사용자). */
+  it('영어 블록 게임은 어느 단원에도 없다', () => {
+    for (const u of units.filter((x) => !x.isReview)) {
+      const kinds = getEnglishActivityPlan(u.id).activities.map((a) => a.kind);
+      expect(kinds).not.toContain('game-english-block');
+    }
   });
 });

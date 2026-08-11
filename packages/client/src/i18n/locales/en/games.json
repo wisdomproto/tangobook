@@ -123,10 +123,17 @@
     "scoreRetry": "Shall we try again?",
     "clear": "Erase",
     "rewrite": "Write again",
-    "nextWord": "Next word"
+    "nextWord": "Next word",
+    "goal": "Goal {{pct}}%",
+    "progress": "{{done}}/{{total}} letters done",
+    "check": "Check"
   },
   "landscapeGate": {
     "title": "Please rotate to landscape!",
     "sub": "Games look better in landscape mode."
+  },
+  "guide": {
+    "lineMatch": "Match the picture with the word!",
+    "blockMake": "Build the word with blocks!"
   }
 }

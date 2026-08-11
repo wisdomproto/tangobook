@@ -66,28 +66,8 @@ const PRIMARY_AXES = [
     devOnly: false,
     authOnly: false,
   },
-  {
-    to: '/vocabulary',
-    iconSrc: 'tab/vocab.svg',
-    labelKey: 'sidebar.vocabulary',
-    color: 'amber' as const,
-    end: false,
-    comingSoon: true,
-    alwaysActive: false,
-    devOnly: true,
-    authOnly: false,
-  },
-  {
-    to: '/games',
-    iconSrc: 'game/korean-block.webp',
-    labelKey: 'sidebar.learningGames',
-    color: 'violet' as const,
-    end: false,
-    comingSoon: false,
-    alwaysActive: false,
-    devOnly: true,
-    authOnly: false,
-  },
+  // 🔴 어휘(`/vocabulary` 준비 중)·학습 게임(`/games`) 사이드바 축 제거(2026-08-09 사용자) —
+  //    라우트·페이지·게임 코드는 보존(직접 URL 로 도달 가능), 사이드바/탭바 버튼만 뺀다.
 ];
 
 /**

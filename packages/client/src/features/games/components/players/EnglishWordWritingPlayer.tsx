@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { WordWritingData } from '@tangobook/shared';
 import { GameHeader } from '../GameHeader';
 import { useGameAudio } from '../../hooks/useGameAudio';
+import { useGameEntryGuide } from '../../hooks/useGameEntryGuide';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
@@ -13,6 +14,12 @@ import { resolveTtsUrl } from '@/features/tts';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
 import { useStorybook } from '@/features/storybook';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
+import { ENTRY_GUIDE, voiceUrl } from '@/features/phonics-learner/hooks/useEntryGuide';
+import {
+  patternHighlight,
+  wordMatchesPattern,
+  writeStepRead,
+} from '@/features/phonics-learner/lib/english-phonics-units';
 
 /**
  * 영어 단어 따라쓰기 — 단어 전체를 한 번에 표시(WordFillCanvas)하고 **글자 단위**로 색칠 채점.
@@ -24,10 +31,6 @@ function lettersOf(word: string): string[] {
   const letters = [...word].filter((ch) => /[a-zA-Z]/.test(ch));
   return letters.length > 0 ? letters : [...word];
 }
-
-const REST_MS = 450; // 마지막 글자 재생 완료 후 단어를 읽기 전 '쉬는' 간격
-/** 진입 안내 — 화면의 "글자를 따라 써봐" 텍스트에 맞는 음성(파닉스 쓰기 활동과 같은 정적 자산). */
-const WRITE_GUIDE_SOUND = '/sounds/voice/write-trace-ko.mp3';
 
 export function EnglishWordWritingPlayer({
   storybookId,
@@ -43,10 +46,9 @@ export function EnglishWordWritingPlayer({
   const [passed, setPassed] = useState<boolean[]>(() => items.map(() => false));
   const [scene, setScene] = useState<WordScene | null>(null);
   const completedRef = useRef(false);
-  const lastLetterRef = useRef(''); // 가장 마지막에 완성한 글자 — 완성 시 이 글자 → 쉼 → 단어 순서로 재생
   const pendingPassedRef = useRef<boolean[] | null>(null);
   const logGame = useGameLogger();
-  const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
+  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   const { data: sourceStorybook } = useStorybook(storybookId);
   const gameStyle = useGameStyle(sourceStorybook);
 
@@ -58,14 +60,31 @@ export function EnglishWordWritingPlayer({
     [currentItem.word, currentItem.traceWord]
   );
 
+  /**
+   * 🔴 **쓰는 순서 = 패턴 먼저**(2026-08-06 사용자: "낱말쓰기 게임도 순서 익히기처럼"). 익히기 써보기와
+   *    같은 규칙 — 단원 패턴이 낱말에 있으면 그 자리를 먼저(시각 순서), 그다음 나머지. bake→`[1,2,3,0]`.
+   *    파닉스 단원이 아니거나(패턴 없음) Book 1(첫 글자만) 이면 좌→우(undefined).
+   */
+  const writePattern = useMemo(() => {
+    if (currentItem.traceWord) return undefined;
+    const patterns = sourceStorybook?.phonicsConfig?.targetPatterns ?? [];
+    return patterns.find((p) => wordMatchesPattern(currentItem.word, p));
+  }, [currentItem.word, currentItem.traceWord, sourceStorybook]);
+  const writeOrder = useMemo(() => {
+    if (!writePattern) return undefined;
+    const [s, e] = patternHighlight(currentItem.word, writePattern);
+    if (s >= e) return undefined;
+    const first: number[] = [];
+    const rest: number[] = [];
+    for (let i = 0; i < letters.length; i++) (i >= s && i < e ? first : rest).push(i);
+    return [...first, ...rest];
+  }, [currentItem.word, writePattern, letters]);
+  // 지금까지 쓴 칸(인덱스) — 시각 순서로 이어읽기용. 낱말 바뀌면 리셋(advanceToNext).
+  const writtenRef = useRef<number[]>([]);
+
   // 🔴 진입 안내 음성 — 화면엔 "글자를 따라 써봐" 글자가 있는데 음성이 없어 파닉스 쓰기 활동과
   //    어긋났다(사용자: "어디서는 따라 써봐 멘트 나오고 어디서는 안 나오네"). 한 번만 재생한다.
-  const guidedRef = useRef(false);
-  useEffect(() => {
-    if (guidedRef.current) return;
-    guidedRef.current = true;
-    playAudio(WRITE_GUIDE_SOUND);
-  }, [playAudio]);
+  useGameEntryGuide(voiceUrl(ENTRY_GUIDE.writeTrace), playAudio);
 
   const emitFinalResults = useCallback(
     (finalPassed: boolean[]) => {
@@ -87,6 +106,7 @@ export function EnglishWordWritingPlayer({
         onComplete(score, items.length * 100);
       } else {
         completedRef.current = false;
+        writtenRef.current = []; // 다음 낱말은 처음부터 이어읽기
         setCurrentIndex((i) => i + 1);
       }
     },
@@ -97,27 +117,22 @@ export function EnglishWordWritingPlayer({
   // handleWordComplete 가 [마지막 글자 → 쉼 → 단어 → 칭찬] 체인을 소유한다(음원 겹침 방지).
   // onSyllableDone 직후 onComplete 가 동기로 불리므로, microtask 로 미뤄 completedRef 로 판별한다.
   const handleLetterDone = useCallback(
-    (letter: string, index: number) => {
-      lastLetterRef.current = letter;
+    (_letter: string, index: number) => {
+      if (!writtenRef.current.includes(index)) writtenRef.current.push(index);
       queueMicrotask(() => {
         if (completedRef.current) return; // 마지막 글자 = handleWordComplete 가 처리
+        if (!writePattern) return; // 패턴 없음(Book 1 등) = 중간 읽기 없음
+        // 🔴 무엇을 읽을지는 공용 규칙(writeStepRead) 한 곳에서: Book2 `a→at` · Book3 매직-e `ak→ake`
+        //    · Book4/5 블렌드/모음팀 `cl`·`ee`. 무음 스텝(온셋 등)은 소리 없이 지나간다.
+        const readText = writeStepRead(currentItem.word, writePattern, writtenRef.current, index, storybookId); // prettier-ignore
+        if (!readText) return;
         void (async () => {
-          // 🔴 낱글자가 아니라 **여기까지 이어 읽기** — b → ba → bat.
-          //    파닉스 라이브러리에 그 블렌드가 있으면 그걸 쓰고, 없으면 방금 쓴 음소만 읽는다.
-          const blend = letters.slice(0, index + 1).join('');
-          const url =
-            (await resolveTtsUrl({
-              text: blend,
-              language: 'english',
-              storybookId,
-              identifierPrefix: 'wwrite-en',
-            })) ??
-            (await resolveTtsUrl({
-              text: letter,
-              language: 'english',
-              storybookId,
-              identifierPrefix: 'wwrite-en',
-            }));
+          const url = await resolveTtsUrl({
+            text: readText,
+            language: 'english',
+            storybookId,
+            identifierPrefix: 'wwrite-en',
+          });
           // 🔴 띵동 **먼저**, 끝나면 읽기 — 한 채널이라 동시에 내면 앞소리가 잘린다.
           playAudio('/sounds/game/correct.mp3', () => {
             if (url) playAudio(url);
@@ -125,75 +140,55 @@ export function EnglishWordWritingPlayer({
         })();
       });
     },
-    [storybookId, playAudio, letters]
+    [storybookId, playAudio, currentItem.word, writePattern]
   );
 
-  // 모든 글자 완성 → [마지막 글자 → 쉼 → 단어 → 칭찬] 순서로 재생 후 장면 리빌 → 다음 단어.
-  // 각 단계는 onEnded 콜백으로 이어 붙여 음원 길이에 상관없이 잘리거나 겹치지 않는다.
+  // 모든 글자 완성 → **낱말만** 읽고 → 칭찬 → 장면 리빌 → 다음 단어.
+  // 🔴 이어읽기(a→at)가 이미 누적 소리를 냈으므로 여기서 마지막 글자를 다시 읽으면 "a at t hat" 처럼
+  //    군더더기가 붙는다(2026-08-07 사용자: "그냥 a, at, hat"). 완성 = 낱말 하나로 끝낸다.
   const handleWordComplete = useCallback(() => {
     if (completedRef.current) return;
     completedRef.current = true;
     const newPassed = passed.map((v, i) => (i === currentIndex ? true : v));
     setPassed(newPassed);
     void (async () => {
+      // 🔴 완성음은 **낱말 하나**(a→an→fan). Book 1(traceWord)만 "a a apple" 저작 블렌드를 쓰고,
+      //    Book 2+ 는 directUrl(wordFamilies 3.9s CVC 블렌드)을 버리고 plain 낱말로 읽는다
+      //    (2026-08-07 사용자: "a an fan 이렇게만"). Book 2 wordFamilies 녹음은 게임 성공음 전용이 아니다.
       const wordUrl = await resolveTtsUrl({
         text: currentItem.word,
         language: 'english',
         storybookId,
-        directUrl: currentItem.ttsUrl,
+        directUrl: currentItem.traceWord ? currentItem.ttsUrl : undefined,
         identifierPrefix: 'wwrite-en',
       });
-      // 마지막 글자 (여러 글자 단어일 때만 — 1글자면 단어와 같으므로 생략)
-      const lastLetter = lastLetterRef.current || letters[letters.length - 1];
-      const lastLetterUrl =
-        letters.length > 1
-          ? await resolveTtsUrl({
-              text: lastLetter,
-              language: 'english',
-              storybookId,
-              identifierPrefix: 'wwrite-en',
-            })
-          : undefined;
-
-      // 단어 끝까지 재생 후 → 칭찬(ttsUrl 없이 = 칭찬 파트만) → 장면 리빌/다음
-      const playWordThenPraise = () => {
-        playAudio(wordUrl, () => {
-          playCorrectSequence({
-            language: 'en',
-            onDone: () => {
-              const s = resolveSceneFromWord(
-                currentItem.word,
-                'en',
-                sourceStorybook,
-                gameStyle.selectedStyle
-              );
-              if (s) {
-                pendingPassedRef.current = newPassed;
-                setScene(s);
-              } else {
-                advanceToNext(newPassed);
-              }
-            },
-          });
+      playAudio(wordUrl, () => {
+        playCorrectSequence({
+          language: 'en',
+          onDone: () => {
+            const s = resolveSceneFromWord(
+              currentItem.word,
+              'en',
+              sourceStorybook,
+              gameStyle.selectedStyle
+            );
+            if (s) {
+              pendingPassedRef.current = newPassed;
+              setScene(s);
+            } else {
+              advanceToNext(newPassed);
+            }
+          },
         });
-      };
-
-      if (lastLetterUrl) {
-        // 마지막 글자 끝까지 → 쉬고 → 단어
-        playAudio(lastLetterUrl, () => scheduleTimer(playWordThenPraise, REST_MS));
-      } else {
-        playWordThenPraise();
-      }
+      });
     })();
   }, [
     passed,
     currentIndex,
     currentItem,
     storybookId,
-    letters,
     playAudio,
     playCorrectSequence,
-    scheduleTimer,
     sourceStorybook,
     gameStyle.selectedStyle,
     advanceToNext,
@@ -228,6 +223,7 @@ export function EnglishWordWritingPlayer({
               key={currentIndex}
               word={currentItem.word}
               syllables={letters}
+              order={writeOrder}
               onSyllableDone={handleLetterDone}
               onComplete={handleWordComplete}
             />

@@ -226,6 +226,14 @@ for (const f of files) {
   if (gap !== undefined) throw new Error(`${id}: 쪽 번호가 p1 부터 연속이 아니다 (p${gap} 자리)`);
   const noScene = doc.pages.filter((p) => !p.scene);
   if (noScene.length) throw new Error(`${id}: SCENE 없음 — ${noScene.map((p) => p.page).join(',')}`);
+  // 🔴 p1 은 대사로 열지 않는다 — 보이는 상황·행동(누가·어디서·무엇을 하는 중)이 먼저다.
+  //    4~6세는 상황을 먼저 봐야 대사를 이해한다. 대사가 앞서면 「누가 누구한테 무슨 소리를 하는지」를
+  //    모른 채 듣게 되고, 그게 「각 쪽이 무슨 상태인지 모르겠다」의 절반이었다(2026-08-11 사용자 지적).
+  //    🔴 이 규칙은 changjak-director 의 호출 지시서에만 산문으로 있었고 **93권 중 44권이 어겼다**.
+  //    메인 세션이 director 를 안 거치고 comic-writer 를 직접 부르면 그 줄이 안 실려 나간다.
+  //    그래서 여기 세운다 — 문서가 아니라 부를 수 있는 검사여야 지켜진다.
+  const p1 = doc.pages[0]?.ko.trim().split('\n')[0] ?? '';
+  if (/^["'“]/.test(p1)) throw new Error(`${id}: p1 을 대사로 열었다 — 상황·행동을 먼저 두고 대사는 그 뒤로 (${p1})`);
   writeFileSync(join(PUB, `changjak-${id}.html`), render(doc), 'utf8');
   built.push({ id, ...doc.meta, pages: doc.pages.length, chars: doc.pages.reduce((n, p) => n + p.ko.replace(/\s/g, '').length, 0) });
 }

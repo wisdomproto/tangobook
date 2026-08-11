@@ -55,6 +55,7 @@ export const settingsApi = {
       mod_phonics: PhonicsAudioItem[];
       mod_english: PhonicsAudioItem[];
       mod_korean: PhonicsAudioItem[];
+      mod_chinese?: PhonicsAudioItem[];
     }>('/phonics-library'),
 
   uploadPhonicsAudio: async (

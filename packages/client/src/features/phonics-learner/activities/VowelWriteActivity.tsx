@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
-import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
+import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { resolveTtsUrl } from '@/features/tts';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
@@ -12,12 +13,22 @@ const REST_MS = 450;
 
 interface VowelItem {
   vowel: string;
-  syllable: string; // 따라쓸 글자 (e.g. '아')
+  syllable: string; // 따라쓸 글자 (e.g. '아', 병음 'a')
+  /**
+   * 통과 시 읽어줄 소리 URL. 미지정이면 한글 `syllable` 을 `resolveTtsUrl(korean)` 로 읽는다.
+   * 🔴 병음은 쓰는 글자('a')와 읽는 소리('ā' 원어민 녹음)가 달라 호출부가 URL 을 미리 준다.
+   */
+  ttsUrl?: string;
 }
 
 interface Props {
   unitId: string;
   vowels: ReadonlyArray<VowelItem>;
+  /**
+   * **콘텐츠 소리**의 언어(warm·resolve 폴백). 기본 한글. 병음은 `'zh'` — 안 넘기면 korean 으로 데워
+   * concat 400(재생은 preset `ttsUrl` 로 정상이나 헛요청). 칭찬은 항상 `ko`(한국어 아이).
+   */
+  language?: 'korean' | 'english' | 'zh';
   onComplete: () => void;
   onBack: () => void;
 }
@@ -29,7 +40,14 @@ interface Props {
  * 중앙 — 현재 모음 큰 캔버스 (LetterWritingCanvas, autoCheck).
  * 통과 시 → 발음 재생 + 다음 모음. 모두 통과 → 칭찬 후 onComplete.
  */
-export function VowelWriteActivity({ unitId, vowels, onComplete, onBack }: Props) {
+export function VowelWriteActivity({
+  unitId,
+  vowels,
+  language = 'korean',
+  onComplete,
+  onBack,
+}: Props) {
+  const { t } = useTranslation('phonics');
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   // 🔴 진입 안내 — 단일 캔버스라 "반짝이는 칸" 이 없다(화면 문구도 "따라써봐") → "글자를 따라 써 봐!".
   useEntryGuide(ENTRY_GUIDE.writeTrace, playAudio);
@@ -47,20 +65,23 @@ export function VowelWriteActivity({ unitId, vowels, onComplete, onBack }: Props
   usePhonicsTtsWarm(
     unitId,
     vowels.map((v) => v.syllable),
-    'phonics-write'
+    'phonics-write',
+    language
   );
 
   const handleResult = useCallback(
     async (passed: boolean) => {
       if (!passed) return;
       const idx = currentIdx;
-      // 단어 발음 (한글 phonics concat)
-      const url = await resolveTtsUrl({
-        text: vowels[idx].syllable,
-        language: 'korean',
-        storybookId: unitId,
-        identifierPrefix: 'phonics-write',
-      });
+      // 단어 발음 — 호출부가 준 URL(병음 원어민 녹음) 우선, 없으면 한글 phonics concat.
+      const url =
+        vowels[idx].ttsUrl ||
+        (await resolveTtsUrl({
+          text: vowels[idx].syllable,
+          language,
+          storybookId: unitId,
+          identifierPrefix: 'phonics-write',
+        }));
       const nextDone = new Set(doneSet);
       nextDone.add(idx);
       setDoneSet(nextDone);
@@ -75,7 +96,7 @@ export function VowelWriteActivity({ unitId, vowels, onComplete, onBack }: Props
       const onTtsEnded = () => {
         restRef.current = window.setTimeout(() => {
           if (remaining.length === 0) {
-            playCorrectSequence({ language: 'ko', onDone: onComplete });
+            playCorrectSequence({ language: praiseLang(), onDone: onComplete });
           } else {
             const next = remaining.find((i) => i > idx) ?? remaining[0];
             setCurrentIdx(next);
@@ -121,7 +142,8 @@ export function VowelWriteActivity({ unitId, vowels, onComplete, onBack }: Props
 
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-900 text-center mb-4">
-          ✏️ <span className="text-coral-600">{vowels[currentIdx].syllable}</span> 를 따라써봐!
+          {/* 🔴 지시문엔 글자를 넣지 않는다 — 쓸 글자는 위 칩과 캔버스 가이드가 보여준다. */}
+          {t('write.trace')}
         </h2>
         <LetterFillCanvas
           key={`${currentIdx}-${vowels[currentIdx].syllable}`}

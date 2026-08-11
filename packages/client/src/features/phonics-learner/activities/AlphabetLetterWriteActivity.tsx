@@ -1,7 +1,8 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
-import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
+import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { REST_MS } from '../hooks/useActivitySound';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
@@ -31,6 +32,7 @@ interface Props {
 const REVEAL_LINGER_MS = 1000;
 
 export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, onBack }: Props) {
+  const { t } = useTranslation('phonics');
   const storybookQuery = useStorybook(unitId);
   const sb = storybookQuery.data as Storybook | undefined;
   const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
@@ -70,7 +72,7 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
   /** 마지막 글자까지 끝났을 때 — 칭찬하고 단원으로. */
   const finishUnit = useCallback(() => {
     playCorrectSequence({
-      language: 'en',
+      language: praiseLang(),
       systemSounds,
       onDone: () => {
         onMarkComplete();
@@ -159,7 +161,7 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
     return (
       <ActivityShell onBack={onBack} background="peach-gradient">
         <div className="flex-1 flex items-center justify-center text-ink-500 font-bold">
-          불러오는 중…
+          {t('common.loading')}
         </div>
       </ActivityShell>
     );
@@ -200,7 +202,7 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
         <h2 className="text-2xl sm:text-3xl font-black text-ink-900 font-display">
           <span className="text-coral-500">{currentUpper}</span>
           <span className="text-sky-500 ml-1">{currentLower}</span>
-          <span className="ml-2 text-ink-700">써 보기</span>
+          <span className="ml-2 text-ink-700">{t('alphabetWrite.title')}</span>
         </h2>
 
         <div className="w-full max-w-[920px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
@@ -208,10 +210,12 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
           <div className="bg-white rounded-[24px] p-3 sm:p-4 shadow-pop ring-4 ring-white border-2 border-coral-100">
             <div className="flex items-center justify-between mb-2 px-1">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-coral-100 text-coral-700 text-sm sm:text-base font-black">
-                <span>🅰️</span> 대문자 {currentUpper}
+                <span>🅰️</span> {t('alphabetWrite.upper', { letter: currentUpper })}
               </span>
               {currentPassed.upper && (
-                <span className="text-mint-500 text-xl sm:text-2xl font-black">✓ 통과</span>
+                <span className="text-mint-500 text-xl sm:text-2xl font-black">
+                  {t('common.passed')}
+                </span>
               )}
             </div>
             {renderCell('upper', currentUpper, 'text-coral-600')}
@@ -220,10 +224,12 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
           <div className="bg-white rounded-[24px] p-3 sm:p-4 shadow-pop ring-4 ring-white border-2 border-sky-100">
             <div className="flex items-center justify-between mb-2 px-1">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100 text-sky-700 text-sm sm:text-base font-black">
-                <span>🔤</span> 소문자 {currentLower}
+                <span>🔤</span> {t('alphabetWrite.lower', { letter: currentLower })}
               </span>
               {currentPassed.lower && (
-                <span className="text-mint-500 text-xl sm:text-2xl font-black">✓ 통과</span>
+                <span className="text-mint-500 text-xl sm:text-2xl font-black">
+                  {t('common.passed')}
+                </span>
               )}
             </div>
             {renderCell('lower', currentLower, 'text-sky-600')}
@@ -231,7 +237,7 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
         </div>
 
         <p className="text-sm sm:text-base font-bold text-ink-500 text-center mt-1">
-          대문자와 소문자를 따라써 보세요. 둘 다 통과하면 다음 글자로 넘어가요.
+          {t('alphabetWrite.hint')}
         </p>
       </div>
 

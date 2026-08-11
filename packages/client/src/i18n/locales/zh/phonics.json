@@ -1,0 +1,230 @@
+{
+  "common": {
+    "back": "← 返回",
+    "backToUnit": "← 回到单元",
+    "backToUnitList": "← 单元列表",
+    "backToPicker": "← 选择拼读",
+    "backToPickerLong": "← 回到拼读选择",
+    "backToKorean": "← 回到韩语拼读",
+    "backToEnglish": "← 回到英语拼读",
+    "backToChinese": "← 回到拼音拼读",
+    "home": "首页",
+    "close": "关闭",
+    "loading": "加载中…",
+    "retry": "🔁 再试一次",
+    "next": "下一个 →",
+    "quizStart": "🎯 开始小测验！",
+    "listenAgain": "再听一次",
+    "listenAgainBtn": "🔊 再听一次",
+    "listenCarefully": "🎧 仔细听，猜一猜！",
+    "tapToListen": "点一点听听看！",
+    "allCorrect": "全都答对了！",
+    "wellDone": "做得好！",
+    "passed": "✓ 通过",
+    "done": "✓ 完成",
+    "comingSoon": "准备中",
+    "unknownUnit": "找不到这个单元。",
+    "unknownActivity": "找不到这个活动。",
+    "noUnitsYet": "还没有可以学的单元哦。",
+    "noActivitiesYet": "这个单元还没有活动哦。",
+    "unitTab": "单元",
+    "unitPicker": "选择单元",
+    "phonics": "拼读"
+  },
+  "section": {
+    "learn": "学一学",
+    "learnSubtitleWrite": "听一听，跟着写",
+    "learnSubtitleListen": "听一听，学一学",
+    "wordPlay": "词语游戏",
+    "wordPlaySubtitle": "边玩边学",
+    "games": "玩游戏",
+    "gamesSubtitle": "开心地学"
+  },
+  "unavailable": {
+    "needWordImages": "需要词语图片",
+    "needWords": "需要词语",
+    "needMoreWords": "词语不够",
+    "needWordDots": "需要词语图片和连点",
+    "needToneWords": "需要练声调的词语",
+    "noChant": "还没有歌曲",
+    "comingSoon": "还在准备中"
+  },
+  "landing": {
+    "title": "拼读学习",
+    "subtitle": "想学哪种文字呢？点击卡片开始吧。",
+    "start": "开始学习",
+    "ageRange": "4-7岁",
+    "koreanChip": "韩文",
+    "koreanTitle": "韩语拼读",
+    "koreanDesc": "元音 · 辅音 · 收音，一步一步来",
+    "koreanAlt": "韩语拼读 Hori",
+    "englishTitle": "英语自然拼读",
+    "englishDesc": "从字母发音到完整单词",
+    "englishAlt": "英语拼读 Hori",
+    "chineseTitle": "汉语拼音",
+    "chineseDesc": "声母 · 韵母 · 声调，用耳朵学"
+  },
+  "study": {
+    "koreanLead": "韩文",
+    "englishLead": "英语",
+    "chineseLead": "拼音",
+    "englishComingSoonNote": "英语拼读活动马上就来啦！✨"
+  },
+  "hub": {
+    "title": "韩语拼读",
+    "subtitle": "完成一个单元，下一个单元就会打开。",
+    "noPlan": "活动准备中"
+  },
+  "seo": {
+    "koreanTitle": "韩语拼读学习 — Tangobook",
+    "koreanDescription": "用适合 4-5 岁初学者的卡片和游戏，学习韩语的辅音、元音和收音。与童话故事词语自动连接的韩语拼读学习。",
+    "koreanKeywords": "韩语拼读, 学韩文, 韩语辅音元音, 韩语收音, 韩语拼读组合, 4岁学韩语, 5岁学韩语, 6岁学韩语, Tangobook",
+    "koreanJsonLdName": "韩语拼读学习",
+    "koreanJsonLdDescription": "涵盖韩语辅音、元音、拼读组合与收音的单元合集",
+    "educationalLevel": "学龄前",
+    "educationalUse": "韩语阅读、拼读、词汇学习"
+  },
+  "level": {
+    "hangul1": "韩文 1：基本音节",
+    "hangul2": "韩文 2：收音",
+    "hangul3": "韩文 3：双辅音",
+    "hangul4": "韩文 4：复合元音",
+    "zhL1": "第1级：声调 + 单韵母",
+    "zhL2": "第2级：声母",
+    "zhL3": "第3级：拼音拼读",
+    "zhL4": "第4级：词语",
+    "zhL5": "第5级：复韵母",
+    "zhL6": "第6级：鼻韵母",
+    "zhL7": "第7级：整体认读音节",
+    "zhL8": "第8级：双音节词"
+  },
+  "unit": {
+    "review": "复习",
+    "reviewOne": "{{letter}} 复习",
+    "reviewRange": "{{first}}~{{last}} 复习",
+    "reviewCodaOne": "收音 {{letter}} 复习",
+    "reviewCodaRange": "收音 {{first}}~{{last}} 复习",
+    "vowelsLearn": "学习元音",
+    "lettersLearn": "学习 {{letters}}",
+    "codaLearn": "学习收音 {{letter}}",
+    "zhTones": "声调 {{letters}}",
+    "zhCombo": "{{letters}} 拼读",
+    "zhAnimals": "动物（{{words}}）",
+    "zhObjects": "物品（{{words}}）",
+    "zhNature": "自然（{{words}}）"
+  },
+  "activity": {
+    "letterHunt": "找字游戏",
+    "wordWriting": "写词语",
+    "letterWriting": "写字",
+    "wordDrawing": "画词语",
+    "pictureMatch": "图片配对",
+    "koreanBlock": "韩文积木游戏",
+    "wordPractice": "词语练习",
+    "flipMatch": "翻牌配对",
+    "syllableListen": "听音找音节",
+    "letterListen": "听音找字",
+    "wordListen": "听音找词语",
+    "vowelListen": "元音听力 {{n}}",
+    "vowelWrite": "写元音",
+    "syllableMake": "拼音节",
+    "syllableWrite": "写音节",
+    "consonantLearn": "学习 {{letter}}",
+    "consonantBlend": "{{letter}} + 元音",
+    "consonantWrite": "写一写 {{letter}}",
+    "codaLearn": "学习收音 {{letter}}",
+    "codaWrite": "写收音 {{letter}}",
+    "patternLearn": "学习 {{pattern}}",
+    "lettersLearn1": "学习 {{letters}} 1",
+    "lettersLearn2": "学习 {{letters}} 2",
+    "lettersWrite": "写一写 {{letters}}",
+    "listenLearn": "听一听，学一学",
+    "listenChoose": "听音选一选",
+    "toneChoice": "听声调选一选",
+    "trace": "描一描",
+    "chant": "儿歌"
+  },
+  "alphabetLearn": {
+    "noData": "还没有学习卡数据",
+    "noImage": "这张学习卡还没有图片",
+    "playLetterSound": "听字的发音",
+    "switchTo": "切换到 {{letters}}",
+    "tapLetterHint": "🔊 点上面的字，听听它的声音！",
+    "tapSparkle": "🔊 点一点闪闪的地方！",
+    "foundAll": "🎉 全都找到了！点一点再听一次"
+  },
+  "alphabetWrite": {
+    "title": "写一写",
+    "titleShort": "写一写",
+    "upper": "大写 {{letter}}",
+    "lower": "小写 {{letter}}",
+    "hint": "请跟着写大写字母和小写字母。两个都通过就可以进入下一个字母啦。",
+    "paintInside": "把字里面涂满吧！"
+  },
+  "chant": {
+    "title": "一起来听歌吧！",
+    "prev": "上一首",
+    "next": "下一首",
+    "play": "播放",
+    "pause": "暂停",
+    "heard": "听完啦",
+    "heardDone": "✓ 听完啦"
+  },
+  "blend": {
+    "makeSyllable": "拼出 {{syllable}}",
+    "makeSyllableDone": "拼出 {{syllable}}（完成）",
+    "meet": "两个声音碰到一起了！",
+    "tapSparkle": "点一点闪闪的字！"
+  },
+  "consonantTap": {
+    "hint": "每个都点三下！",
+    "cardLabel": "{{letter}} 第 {{n}} 张卡"
+  },
+  "write": {
+    "writeSyllable": "写 {{syllable}}",
+    "trace": "✏️ 跟着写一写！",
+    "meet": "两个字碰到一起了！",
+    "sparkleCell": "✏️ 在闪闪的格子里写！",
+    "noStrokes": "请在创作工具中生成笔画"
+  },
+  "cvc": {
+    "learn": "学习 {{pattern}}",
+    "words": "学习 {{pattern}} 词语",
+    "write": "写一写 {{pattern}}",
+    "noWordsInEditor": "创作工具里没有 {{pattern}} 单词。",
+    "noWords": "没有 {{pattern}} 单词。"
+  },
+  "hunt": {
+    "prompt": "把这个字全都找出来！",
+    "done": "全都找到了！",
+    "letterSound": "听 {{letter}} 的声音"
+  },
+  "flip": {
+    "prompt": "找出一样的一对！",
+    "allMatched": "全都配对好了！",
+    "flip": "翻牌"
+  },
+  "vowelListen": {
+    "inOrder": "按顺序点一点！",
+    "readyForQuiz": "做得好！现在来玩小测验吧？",
+    "pickSound": "🔊 选出你听到的声音！"
+  },
+  "vowelPicker": {
+    "makePrompt": "要用哪个元音来拼呢？",
+    "writePrompt": "要写哪个元音呢？"
+  },
+  "wordFamily": {
+    "trace": "跟着写一写！",
+    "tapChunks": "点一点声音块，听听看！"
+  },
+  "wordListen": {
+    "quizBtn": "🎯 小测验",
+    "quizSub": "听一听，猜一猜"
+  },
+  "tryIt": {
+    "badge": "真实学习画面",
+    "done": "体验完成了。在应用里，孩子还能一边听声音一边完成这个活动。",
+    "note": "在应用里，每个单元都有九个这样的活动接连出现。",
+    "cta": "在应用中继续学习 →"
+  }
+}

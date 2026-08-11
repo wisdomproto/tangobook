@@ -1287,9 +1287,499 @@ export const KOREAN_PHONICS_CURRICULUM = [
   },
 ] as const;
 
-export type PhonicsLanguage = 'english' | 'korean';
+/**
+ * 중국어 병음(拼音) 파닉스 커리큘럼 — 탱고 교안 기반(docs/phonics-chinese/curriculum-from-gyoan.md §3).
+ *
+ * 🔴 **순서 = 성조 → 단운모**(교안: "중국어 학습의 첫 시작으로, 성조 발음을 듣고 구분"). 가장 쉬운 운모
+ *    `a` 로 4성(ā á ǎ à)을 먼저 익힌 뒤 단운모로 간다.
+ * 🔴 **단운모는 tone-1 만이 아니라 각 4성** — 운모 놀이판이 그 운모의 4성을 순서로 들려준다(성조 비교).
+ *    음원은 `mod_chinese` 에 ā á ǎ à / ō ó ǒ ò … 전체 업로드 완료.
+ * 🔴 **MVP = Level 1 만**. L2~(성모·拼读·단어·복운모·비운모·整体认读)는 후속이며 같은 스키마로 이어붙인다.
+ *    소리 학습 구간은 **병음만**(한자 없음) — 한자 병기는 낱말 활동에서만(L1 엔 낱말 활동 없음).
+ * 🔴 성조 순서 = 1→2→3→4(숫자 순, 결정 잠금 2026-08-06). `sampleWords` = **표시용 병음**(성조부호 포함).
+ */
+export const CHINESE_PHONICS_CURRICULUM = [
+  {
+    level: 'level1',
+    name: 'Level 1: 성조 + 단운모',
+    description: '병음 4성 과 단운모 a o e i u ü',
+    units: [
+      {
+        id: 'zh-l1-u01',
+        // 성조 认识声调 — 중국어 학습의 첫 시작. 가장 쉬운 운모 a 로 4성: ā á ǎ à(啊 · 4성)
+        title: 'Unit 01: 성조 ā á ǎ à',
+        phonemes: ['a'],
+        patterns: ['tones'],
+        sampleWords: ['ā', 'á', 'ǎ', 'à'],
+      },
+      {
+        id: 'zh-l1-u02',
+        // 단운모 — 각 모음을 4성 전부로 들려준다(ā á ǎ à / ō ó ǒ ò / ē é ě è)
+        title: 'Unit 02: a o e',
+        phonemes: ['a', 'o', 'e'],
+        patterns: ['single final'],
+        sampleWords: ['a', 'o', 'e'],
+      },
+      {
+        id: 'zh-l1-u03',
+        // 단운모 — 각 모음을 4성 전부로(ī í ǐ ì / ū ú ǔ ù / ǖ ǘ ǚ ǜ)
+        title: 'Unit 03: i u ü',
+        phonemes: ['i', 'u', 'ü'],
+        patterns: ['single final'],
+        sampleWords: ['i', 'u', 'ü'],
+      },
+    ],
+  },
+  {
+    // 🔴 Level 2 성모(声母) — 성모 글자를 기본운모와 결합한 citation 소리로 익힌다(bō pō mō…). 카드 =
+    //    성모 글자(phonemes), 소리 = 결합 음절(sampleWords). 성조 4성 시퀀스가 아니라 **낱 소리 하나**다.
+    //    🔴 대부분 1성이지만 **fó·tè·né 는 2/4성** — `fō·tē·nē`(1성)는 표준 중국어에 없는 음절이라
+    //    원어민 녹음 라이브러리에도 없다(fó 2성·tè 4성·né 2성만 실존). 카드는 성모 글자만 보이므로
+    //    성조 차이는 화면에 안 드러나고 /f/·/t/·/n/ 초성은 그대로 들린다. 음원은 `mod_chinese` 에 전부 있다.
+    level: 'level2',
+    name: 'Level 2: 성모',
+    description: '성모 b p m f … zh ch sh r — 기본운모 결합음(bō pō dē jī zhī)',
+    units: [
+      {
+        id: 'zh-l2-u01',
+        title: 'Unit 01: b p m f',
+        phonemes: ['b', 'p', 'm', 'f'],
+        patterns: ['initial'],
+        sampleWords: ['bō', 'pō', 'mō', 'fó'],
+      },
+      {
+        id: 'zh-l2-u02',
+        title: 'Unit 02: d t n l',
+        phonemes: ['d', 't', 'n', 'l'],
+        patterns: ['initial'],
+        sampleWords: ['dē', 'tè', 'né', 'lē'],
+      },
+      {
+        id: 'zh-l2-u03',
+        title: 'Unit 03: g k h',
+        phonemes: ['g', 'k', 'h'],
+        patterns: ['initial'],
+        sampleWords: ['gē', 'kē', 'hē'],
+      },
+      {
+        id: 'zh-l2-u04',
+        title: 'Unit 04: j q x',
+        phonemes: ['j', 'q', 'x'],
+        patterns: ['initial'],
+        sampleWords: ['jī', 'qī', 'xī'],
+      },
+      {
+        id: 'zh-l2-u05',
+        title: 'Unit 05: z c s',
+        phonemes: ['z', 'c', 's'],
+        patterns: ['initial'],
+        sampleWords: ['zī', 'cī', 'sī'],
+      },
+      {
+        id: 'zh-l2-u06',
+        // 권설음 — zh/ch/sh 는 2글자라 LetterFillCanvas(한 글자 캔버스)에 안 맞아 따라쓰기 생략.
+        title: 'Unit 06: zh ch sh r',
+        phonemes: ['zh', 'ch', 'sh', 'r'],
+        patterns: ['initial'],
+        sampleWords: ['zhī', 'chī', 'shī', 'rì'],
+      },
+    ],
+  },
+  {
+    // 🔴 Level 3 병음조합(拼读) — **성모 그룹별**(L2 와 같은 그룹)로 각 성모를 **붙는 모음 전부**와 결합해
+    //    4성으로 배운다(拼读 놀이판). 화면 한 줄 = `b + a` → [bā][bá][bǎ][bà], 줄이 성모×모음마다 하나.
+    //    축이 "성모 그룹 고정 · 성모 순회 · 모음 순회 · 각 4성"이라, pattern 은 blend(L5/L6 복운모)와 구분되는 `combine`.
+    //    🔴 **모음을 하나로 고정하지 않는다**(2026-08-10 사용자: "왜 b p m f 는 a 블렌딩만 해?") — 대표 모음
+    //    하나만 배우면 그 성모가 내는 소리의 1/4 만 겪는다. 그래서 title 에도 모음을 안 적는다(여러 개다).
+    //    🔴 성조가 이 레벨의 새 축. 🔴 4성이 다 실존하지 않는 조합이 있다(p+a = pā pá pà, pǎ 없음 / k+a =
+    //    kā kǎ) → 학습자 `COMBINE_SYLLABLES` 표(72줄 257음절, 전부 mod_chinese 실존)가 실존 음절만 담는다.
+    //    한자·그림 없이 병음 음절만(한자·낱말은 L4). 6 성모 그룹 유닛.
+    level: 'level3',
+    name: 'Level 3: 병음조합',
+    description: '성모 × 붙는 모음 전부 × 4성 拼读 (b + a → bā bá bǎ bà · b + o → bō bó bǒ bò)',
+    units: [
+      {
+        id: 'zh-l3-u01',
+        title: 'Unit 01: b p m f',
+        phonemes: ['b', 'p', 'm', 'f'],
+        patterns: ['combine'],
+        sampleWords: ['b', 'p', 'm', 'f'],
+      },
+      {
+        id: 'zh-l3-u02',
+        title: 'Unit 02: d t n l',
+        phonemes: ['d', 't', 'n', 'l'],
+        patterns: ['combine'],
+        sampleWords: ['d', 't', 'n', 'l'],
+      },
+      {
+        id: 'zh-l3-u03',
+        title: 'Unit 03: g k h',
+        phonemes: ['g', 'k', 'h'],
+        patterns: ['combine'],
+        sampleWords: ['g', 'k', 'h'],
+      },
+      {
+        id: 'zh-l3-u04',
+        title: 'Unit 04: j q x',
+        phonemes: ['j', 'q', 'x'],
+        patterns: ['combine'],
+        sampleWords: ['j', 'q', 'x'],
+      },
+      {
+        id: 'zh-l3-u05',
+        // z c s + a/e/i/u (zi ci si 는 舌尖前 whole-read 계열이지만 여기선 성모+운모 조합으로 배운다).
+        title: 'Unit 05: z c s',
+        phonemes: ['z', 'c', 's'],
+        patterns: ['combine'],
+        sampleWords: ['z', 'c', 's'],
+      },
+      {
+        id: 'zh-l3-u06',
+        // zh ch sh r + a/e/i/u(舌尖後). r 은 a 와 안 붙어 e/i/u 3줄.
+        title: 'Unit 06: zh ch sh r',
+        phonemes: ['zh', 'ch', 'sh', 'r'],
+        patterns: ['combine'],
+        sampleWords: ['zh', 'ch', 'sh', 'r'],
+      },
+    ],
+  },
+  {
+    // 🔴 Level 4 단어(单词) — 1음절 CV 낱말(병음 + 한자 병기). L3(병음조합 CV) 뒤라 아이가 읽는 건 CV
+    //    뿐이다(복운모·비운모 낱말은 L5/L6). 🔴 소리 학습 구간(L1~L3)엔 한자가 0 이고, **한자는 여기
+    //    낱말에서만** 병기한다(병음 위 / 한자 아래). `sampleWords` = 표시용 병음(성조부호), 한자·뜻·삽화
+    //    슬러그는 학습자 `chinese-phonics-units.ts` 의 `L4_WORDS` 가 든다(커리큘럼은 소리 목록만).
+    //    🔴 음원 = `mod_chinese/{병음}.mp3` 직행(mǐ·tù·jī… 전부 실존). 삽화·keypoints 는 storybook
+    //    (`zh-l4-u0N`)에 붙는다. 유닛은 성모 결로 느슨히 묶은 4~5낱말씩 3유닛.
+    level: 'level4',
+    name: 'Level 4: 단어',
+    description: '1음절 CV 낱말 — 병음 + 한자 (mǐ 米 · tù 兔 · jī 鸡)',
+    units: [
+      {
+        id: 'zh-l4-u01',
+        title: 'Unit 01: mǐ mǎ mù tù lù',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['mǐ', 'mǎ', 'mù', 'tù', 'lù'],
+      },
+      {
+        id: 'zh-l4-u02',
+        title: 'Unit 02: jī shī rì chī',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['jī', 'shī', 'rì', 'chī'],
+      },
+      {
+        id: 'zh-l4-u03',
+        title: 'Unit 03: hé hǔ gǔ é sì',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['hé', 'hǔ', 'gǔ', 'é', 'sì'],
+      },
+      {
+        // 단운모/통독 확장 낱말 — zhū 猪 · shū 书 · yú 鱼 · yǔ 雨 · yī 衣 (삽화·mod_chinese 음원 실존).
+        id: 'zh-l4-u04',
+        title: 'Unit 04: zhū shū yú yǔ yī',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['zhū', 'shū', 'yú', 'yǔ', 'yī'],
+      },
+    ],
+  },
+  {
+    // 🔴 Level 5 복운모(复韵母) — 성모 + 복운모 블렌딩. **L3(병음조합)과 100% 같은 메커니즘**:
+    //    카드 = 음절(sampleWords), 소리 = 원어민 블렌드 3클립(성모 citation → 복운모 → 음절). patterns
+    //    'blend' 를 공유하므로 plan·isBlendUnit·getChineseListenCards 가 L3 와 똑같이 처리한다(유닛 데이터만 추가).
+    //    한자·그림·게임 없이 병음 소리만(복운모 낱말은 후속). 교안 3묶음: ai ei ui / ao ou iu / ie üe (er).
+    //    🔴 **성모 붙은 진짜 블렌드만** — y/w 로 시작하는 整体认读(yè·yuè·yóu·wěi…)와 er(儿·성모 결합 불가)은
+    //    제외한다(성모가 없어 블렌드가 성립 안 함 → L7 통독). 🔴 전 음절·복운모 final 클립이 `mod_chinese`
+    //    (1394)에 실존(HEAD 200 전수 확인). 성모는 blendClips 가 s.slice(1) 로 운모를 떼므로 **1글자 성모만**
+    //    (b p m f d t n l g k h j q x) — shuǐ·chuī 같은 2글자 성모(sh·ch)는 못 쪼개니 넣지 않는다.
+    level: 'level5',
+    name: 'Level 5: 복운모',
+    description: '성모 + 복운모 → 음절 (māo · gǒu · niú · mǎi)',
+    units: [
+      {
+        id: 'zh-l5-u01',
+        // ai ei ui — mǎi 买 · bái 白 · bēi 杯 · fēi 飞 · guì 贵 · duì 对 (shuǐ 는 sh 2글자라 제외)
+        title: 'Unit 01: ai ei ui 조합',
+        phonemes: ['ai', 'ei', 'ui'],
+        patterns: ['blend'],
+        sampleWords: ['mǎi', 'bái', 'bēi', 'fēi', 'guì', 'duì'],
+      },
+      {
+        id: 'zh-l5-u02',
+        // ao ou iu — māo 猫 · hǎo 好 · gǒu 狗 · tóu 头 · niú 牛 · liù 六
+        title: 'Unit 02: ao ou iu 조합',
+        phonemes: ['ao', 'ou', 'iu'],
+        patterns: ['blend'],
+        sampleWords: ['māo', 'hǎo', 'gǒu', 'tóu', 'niú', 'liù'],
+      },
+      {
+        id: 'zh-l5-u03',
+        // ie üe — xiě 写 · jiě 姐 · xué 学 · xuě 雪. er(儿)은 성모 결합이 없는 整体认读 운모라 제외(L7).
+        // 🔴 xué·xuě 는 j/q/x 뒤 u=ü — blendClips 가 운모 첫 글자를 ü 로 바꿔 클립 üé·üě 를 찾는다.
+        title: 'Unit 03: ie üe 조합',
+        phonemes: ['ie', 'üe'],
+        patterns: ['blend'],
+        sampleWords: ['xiě', 'jiě', 'xué', 'xuě'],
+      },
+      // 🔴 복운모 낱말 유닛 — 배운 복운모가 든 구체 낱말(삽화·mod_chinese 음원). 「낱말 놀이」 게임 + 복습 substrate.
+      {
+        id: 'zh-l5-u04',
+        title: 'Unit 04: 동물 (māo gǒu niú hǎi bāo)',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['māo', 'gǒu', 'niú', 'hǎi', 'bāo'],
+      },
+      {
+        id: 'zh-l5-u05',
+        title: 'Unit 05: 사물 (shuǐ bēi qiú nǎi)',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['shuǐ', 'bēi', 'qiú', 'nǎi'],
+      },
+      {
+        id: 'zh-l5-u06',
+        title: 'Unit 06: 자연 (yè xié yuè xuě)',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['yè', 'xié', 'yuè', 'xuě'],
+      },
+    ],
+  },
+  {
+    // 🔴 Level 6 비운모(鼻韵母) — 성모 + 비운모 블렌딩. L3/L5 와 **같은 메커니즘**(patterns 'blend').
+    //    코드 변경 0 — blendClips 가 [성모 citation, 비운모, 음절] 3클립을 뽑고 전 클립이 mod_chinese 에
+    //    실존(HEAD 200 전수 확인, 18/18 OK). 🔴 **성모 단자음 + 순수 비운모만** — blendClips 는 s.slice(1)
+    //    을 운모로 떼므로, jiāng·guān 처럼 개운모(iang·uan)가 낀 음절은 bare rime 클립(iāng·uān)이 없어
+    //    제외한다(an en in un ün / ang eng ing ong 9종만 bare 클립 존재). jūn·qún 은 jqx+u=ü → blendClips
+    //    가 운모 첫 글자를 ü 로 바꿔 ǖn·ǘn 클립을 찾는다(L3 와 동일). 前鼻(-n) 2유닛 · 後鼻(-ng) 2유닛으로
+    //    나눠 -n↔-ng 변별을 돕는다. 한자·그림·게임 없이 병음 소리만(비운모 낱말은 후속).
+    level: 'level6',
+    name: 'Level 6: 비운모',
+    description: '성모 + 비운모 → 음절 (fàn · mén · fēng · dōng)',
+    units: [
+      {
+        id: 'zh-l6-u01',
+        // 前鼻 an en — bàn 半 · fàn 饭 · mén 门 · fēn 分
+        title: 'Unit 01: an en 조합',
+        phonemes: ['an', 'en'],
+        patterns: ['blend'],
+        sampleWords: ['bàn', 'fàn', 'mén', 'fēn'],
+      },
+      {
+        id: 'zh-l6-u02',
+        // 前鼻 in un ün — xīn 心 · jīn 金 · kūn 昆 · dūn 蹲 · jūn 军 · qún 裙
+        title: 'Unit 02: in un ün 조합',
+        phonemes: ['in', 'un', 'ün'],
+        patterns: ['blend'],
+        sampleWords: ['xīn', 'jīn', 'kūn', 'dūn', 'jūn', 'qún'],
+      },
+      {
+        id: 'zh-l6-u03',
+        // 後鼻 ang eng — fáng 房 · tāng 汤 · dēng 灯 · fēng 风
+        title: 'Unit 03: ang eng 조합',
+        phonemes: ['ang', 'eng'],
+        patterns: ['blend'],
+        sampleWords: ['fáng', 'tāng', 'dēng', 'fēng'],
+      },
+      {
+        id: 'zh-l6-u04',
+        // 後鼻 ing ong — xīng 星 · bīng 冰 · hóng 红 · lóng 龙
+        title: 'Unit 04: ing ong 조합',
+        phonemes: ['ing', 'ong'],
+        patterns: ['blend'],
+        sampleWords: ['xīng', 'bīng', 'hóng', 'lóng'],
+      },
+      // 🔴 비운모 낱말 유닛 — 배운 비운모가 든 구체 낱말(삽화·mod_chinese 음원). 「낱말 놀이」 게임 + 복습 substrate.
+      {
+        id: 'zh-l6-u05',
+        title: 'Unit 05: 자연 (shān mén yún yáng)',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['shān', 'mén', 'yún', 'yáng'],
+      },
+      {
+        id: 'zh-l6-u06',
+        title: 'Unit 06: 사물 (dēng xīng bīng píng)',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['dēng', 'xīng', 'bīng', 'píng'],
+      },
+      {
+        id: 'zh-l6-u07',
+        title: 'Unit 07: 사물 (xióng zhōng chóng táng)',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['xióng', 'zhōng', 'chóng', 'táng'],
+      },
+    ],
+  },
+  {
+    // 🔴 Level 7 整体认读(통독 음절) — 성모+운모로 안 쪼개지는 whole-read 16음절. blend 가 아니라 새 pattern
+    //    'whole': 배우기가 그 음절의 4성을 순서로 들려주고(단운모 운모 놀이판과 같은 리듬) 듣고 고르기로 변별한다.
+    //    쓰기·사냥 없음(다글자+성조부호라 캔버스 밖 — zh/ch/sh 성모와 같은 이유). 전 성조 클립 mod_chinese 실존
+    //    (64/64 HEAD 200 확인). 교재 표준 5묶음: zhi chi shi ri / zi ci si / yi wu yu / ye yue yuan / yin yun ying.
+    //    phonemes = whole 음절(카드/소리 키), sampleWords = tone-1 참조용. 🔴 복습(게임형)은 후속 — 한글 복습 호스트
+    //    포팅이 필요한 별개 작업이라 여기 통독까지만 넣는다.
+    level: 'level7',
+    name: 'Level 7: 통독 음절',
+    description: '整体认读 whole-read 음절 (zhi · yi · yue · ying)',
+    units: [
+      {
+        id: 'zh-l7-u01',
+        title: 'Unit 01: zhi chi shi ri',
+        phonemes: ['zhi', 'chi', 'shi', 'ri'],
+        patterns: ['whole'],
+        sampleWords: ['zhī', 'chī', 'shī', 'rī'],
+      },
+      {
+        id: 'zh-l7-u02',
+        title: 'Unit 02: zi ci si',
+        phonemes: ['zi', 'ci', 'si'],
+        patterns: ['whole'],
+        sampleWords: ['zī', 'cī', 'sī'],
+      },
+      {
+        id: 'zh-l7-u03',
+        title: 'Unit 03: yi wu yu',
+        phonemes: ['yi', 'wu', 'yu'],
+        patterns: ['whole'],
+        sampleWords: ['yī', 'wū', 'yū'],
+      },
+      {
+        id: 'zh-l7-u04',
+        title: 'Unit 04: ye yue yuan',
+        phonemes: ['ye', 'yue', 'yuan'],
+        patterns: ['whole'],
+        sampleWords: ['yē', 'yuē', 'yuān'],
+      },
+      {
+        id: 'zh-l7-u05',
+        title: 'Unit 05: yin yun ying',
+        phonemes: ['yin', 'yun', 'ying'],
+        patterns: ['whole'],
+        sampleWords: ['yīn', 'yūn', 'yīng'],
+      },
+    ],
+  },
+  {
+    // 🔴 Level 8 2음절 낱말(双音节词) — 탱고 시나리오 8단계 "단어 놀이판"(1음절→2음절 명시 진행). 현대 중국어
+    //    낱말 대부분이 2음절이라 실용성이 크다. 🔴 **원어민 녹음 직행**(`/tangoch/word2/` → mod_chinese,
+    //    경성까지 정확 — `upload-chinese-word2-audio.mjs`). 그림 되는 구체 낱말 48개만(추상어 重要·迅速 제외).
+    //    낱말 유닛(pattern 'word')이라 「낱말 놀이」(연습+그리기+짝) + 복습이 자동으로 붙는다.
+    level: 'level8',
+    name: 'Level 8: 2음절 낱말',
+    description: '双音节词 — 원어민 녹음 (hǎibiān 海边 · xīngxīng 星星 · húdié 蝴蝶)',
+    units: [
+      {
+        id: 'zh-l8-u01',
+        title: 'Unit 01: 海边台灯外套爱心杯子黑板',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['hǎibiān', 'táidēng', 'wàitào', 'àixīn', 'bēizi', 'hēibǎn'],
+      },
+      {
+        id: 'zh-l8-u02',
+        title: 'Unit 02: 雷声妹妹尾巴水果火腿老人',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['léishēng', 'mèimèi', 'wěiba', 'shuǐguǒ', 'huǒtuǐ', 'lǎorén'],
+      },
+      {
+        id: 'zh-l8-u03',
+        title: 'Unit 03: 小猫勺子早上鸡肉柳树奶牛',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['xiǎomāo', 'sháozi', 'zǎoshàng', 'jīròu', 'liǔshù', 'nǎiniú'],
+      },
+      {
+        id: 'zh-l8-u04',
+        title: 'Unit 04: 足球姐姐铁路蝴蝶雪花二胡',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['zúqiú', 'jiějiě', 'tiělù', 'húdié', 'xuěhuā', 'èrhú'],
+      },
+      {
+        id: 'zh-l8-u05',
+        title: 'Unit 05: 耳朵鸡蛋午饭雨伞晚餐眼睛',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['ěrduǒ', 'jīdàn', 'wǔfàn', 'yǔsǎn', 'wǎncān', 'yǎnjīng'],
+      },
+      {
+        id: 'zh-l8-u06',
+        title: 'Unit 06: 树根门口枕头金鱼钢琴奖品',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['shùgēn', 'ménkǒu', 'zhěntou', 'jīnyú', 'gāngqín', 'jiǎngpǐn'],
+      },
+      {
+        id: 'zh-l8-u07',
+        title: 'Unit 07: 轮船竹笋裙子军人绵羊冰箱',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['lúnchuán', 'zhúsǔn', 'qúnzi', 'jūnrén', 'miányáng', 'bīngxiāng'],
+      },
+      {
+        id: 'zh-l8-u08',
+        title: 'Unit 08: 井水花瓶星星农民瓢虫红包',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['jǐngshuǐ', 'huāpíng', 'xīngxīng', 'nóngmín', 'piáochóng', 'hóngbāo'],
+      },
+      // 🔴 추상·동작 2음절 낱말(u09~u14) — 동작·장면·관습 상징으로 삽화(开心=웃는 아이·迅速=달리는 토끼·正确=체크).
+      {
+        id: 'zh-l8-u09',
+        title: 'Unit 09: 开心吹风灰尘宝贵拥抱口袋',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['kāixīn', 'chuīfēng', 'huīchén', 'bǎoguì', 'yōngbào', 'kǒudài'],
+      },
+      {
+        id: 'zh-l8-u10',
+        title: 'Unit 10: 洗手头发走路喝酒休息排列',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['xǐshǒu', 'tóufà', 'zǒulù', 'hējiǔ', 'xiūxī', 'páiliè'],
+      },
+      {
+        id: 'zh-l8-u11',
+        title: 'Unit 11: 写字忽略感觉正确儿歌问题',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['xiězì', 'hūlüè', 'gǎnjué', 'zhèngquè', 'érgē', 'wèntí'],
+      },
+      {
+        id: 'zh-l8-u12',
+        title: 'Unit 12: 身体心情乡村春天困难迅速',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['shēntǐ', 'xīnqíng', 'xiāngcūn', 'chūntiān', 'kùnnán', 'xùnsù'],
+      },
+      {
+        id: 'zh-l8-u13',
+        title: 'Unit 13: 唱歌房间朗读上学乘车寒冷',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['chànggē', 'fángjiān', 'lǎngdú', 'shàngxué', 'chéngchē', 'hánlěng'],
+      },
+      {
+        id: 'zh-l8-u14',
+        title: 'Unit 14: 朋友跳绳改正听话重要通过',
+        phonemes: [],
+        patterns: ['word'],
+        sampleWords: ['péngyǒu', 'tiàoshéng', 'gǎizhèng', 'tīnghuà', 'zhòngyào', 'tōngguò'],
+      },
+    ],
+  },
+] as const;
+
+export type PhonicsLanguage = 'english' | 'korean' | 'chinese';
 export type EnglishPhonicsLevel = (typeof ENGLISH_PHONICS_CURRICULUM)[number]['level'];
 export type KoreanPhonicsLevel = (typeof KOREAN_PHONICS_CURRICULUM)[number]['level'];
+export type ChinesePhonicsLevel = (typeof CHINESE_PHONICS_CURRICULUM)[number]['level'];
 
 /** 한글 숲 친구들 — 유닛별 기본 스토리 테마 + 등장 캐릭터 (12지신) */
 export const KOREAN_UNIT_STORY_DEFAULTS: Record<

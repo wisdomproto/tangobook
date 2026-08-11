@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/design-system';
 import { feedDrawLoop } from '@/lib/uiSound';
 
@@ -64,6 +65,7 @@ export function LetterFillCanvas({
   threshold = DEFAULT_THRESHOLD,
   autoCheck,
 }: LetterFillCanvasProps) {
+  const { t } = useTranslation('games');
   const [hasDrawn, setHasDrawn] = useState(false);
   const [result, setResult] = useState<{ passed: boolean; coverage: number } | null>(null);
   const [liveCoverage, setLiveCoverage] = useState(0);
@@ -334,7 +336,7 @@ export function LetterFillCanvas({
             <span className={passedNow ? 'text-emerald-600' : 'text-slate-500'}>
               {pctText} {passedNow && '✓'}
             </span>
-            <span className="text-slate-400">목표 {thresholdPct}%</span>
+            <span className="text-slate-400">{t('writingGame.goal', { pct: thresholdPct })}</span>
           </div>
           <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
             <div
@@ -354,7 +356,9 @@ export function LetterFillCanvas({
             className={`text-lg font-black ${result.passed ? 'text-emerald-600' : 'text-amber-600'}`}
           >
             {Math.round(result.coverage * 100)}%{' '}
-            {result.passed ? '- 잘했어요!' : '- 더 채워볼까요?'}
+            {result.passed
+              ? `- ${t('writingGame.scoreGreat')}`
+              : `- ${t('writingGame.scoreRetry')}`}
           </p>
         </div>
       )}
@@ -369,7 +373,7 @@ export function LetterFillCanvas({
       {!autoCheck && (
         <div className="flex gap-3">
           <Button variant="ghost" size="lg" onClick={handleClear} className="text-lg px-6">
-            {result ? '다시 쓰기' : '지우기'}
+            {result ? t('writingGame.rewrite') : t('writingGame.clear')}
           </Button>
           {!result && (
             <Button
@@ -378,7 +382,7 @@ export function LetterFillCanvas({
               disabled={!hasDrawn}
               className="text-lg px-8"
             >
-              확인
+              {t('writingGame.check')}
             </Button>
           )}
         </div>

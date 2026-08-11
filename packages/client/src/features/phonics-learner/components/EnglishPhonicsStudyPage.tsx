@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { PageHeader } from '@/design-system';
 import {
@@ -8,6 +9,7 @@ import {
   type EnglishUnitSummary,
 } from '../lib/english-phonics-units';
 import { usePhonicsProgress, getRecentUnit, markRecentUnit } from '../lib/progress-store';
+import { levelName, unitTitle } from '../lib/activity-title';
 import { sumProgress } from '../lib/unit-progress';
 import EnglishPhonicsUnitPage from './EnglishPhonicsUnitPage';
 
@@ -18,6 +20,7 @@ import EnglishPhonicsUnitPage from './EnglishPhonicsUnitPage';
  * 활동 plan 은 아직 미구성 — 모든 unit "활동 준비 중" 표시.
  */
 export default function EnglishPhonicsStudyPage() {
+  const { t } = useTranslation('phonics');
   const { unitId } = useParams<{ unitId?: string }>();
   const navigate = useNavigate();
   const allUnits = useMemo(() => getAllEnglishUnits(), []);
@@ -57,12 +60,12 @@ export default function EnglishPhonicsStudyPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-cream-50 px-6 text-center">
         <div>
-          <p className="text-base font-bold text-ink-700">아직 학습할 단원이 준비되지 않았어요.</p>
+          <p className="text-base font-bold text-ink-700">{t('common.noUnitsYet')}</p>
           <Link
             to="/library/phonics"
             className="inline-block mt-3 text-coral-600 font-black underline"
           >
-            ← 파닉스 선택으로
+            {t('common.backToPickerLong')}
           </Link>
         </div>
       </div>
@@ -72,7 +75,7 @@ export default function EnglishPhonicsStudyPage() {
   const byLevel = (() => {
     const map = new Map<string, { name: string; units: EnglishUnitSummary[] }>();
     for (const u of allUnits) {
-      if (!map.has(u.levelKey)) map.set(u.levelKey, { name: u.levelName, units: [] });
+      if (!map.has(u.levelKey)) map.set(u.levelKey, { name: levelName(t, u), units: [] });
       map.get(u.levelKey)!.units.push(u);
     }
     return [...map.entries()];
@@ -99,20 +102,20 @@ export default function EnglishPhonicsStudyPage() {
     >
       <PageHeader
         onBack={() => navigate('/library')}
-        backLabel="홈"
+        backLabel={t('common.home')}
         right={
           <button
             type="button"
             onClick={() => setNavOpen(true)}
             className="md:hidden px-4 py-2.5 rounded-full bg-white/90 text-ink-800 font-black text-sm shadow-soft flex items-center gap-1.5 min-h-[44px]"
           >
-            ☰ <span>단원</span>
+            ☰ <span>{t('common.unitTab')}</span>
           </button>
         }
       >
         <span className="inline-flex items-center gap-2">
-          <span className="text-coral-600">영어</span>
-          <span>파닉스</span>
+          <span className="text-coral-600">{t('study.englishLead')}</span>
+          <span>{t('common.phonics')}</span>
         </span>
       </PageHeader>
 
@@ -131,10 +134,12 @@ export default function EnglishPhonicsStudyPage() {
         >
           {/* 모바일 닫기 헤더 */}
           <div className="md:hidden flex items-center justify-between mb-3 px-1">
-            <span className="font-black font-display text-ink-900 text-lg">단원 선택</span>
+            <span className="font-black font-display text-ink-900 text-lg">
+              {t('common.unitPicker')}
+            </span>
             <button
               onClick={() => setNavOpen(false)}
-              aria-label="닫기"
+              aria-label={t('common.close')}
               className="w-9 h-9 rounded-full bg-cream-100 text-ink-700 font-black"
             >
               ✕
@@ -228,7 +233,8 @@ function CurriculumItem({
   totalCount: number;
 }) {
   // 영어 unit title 예: "Unit 01: Aa Bb Cc" → 앞 "Unit 01: " 제거
-  const titleShort = unit.unitTitle.replace(/^unit\s+\d+:\s*/i, '');
+  const { t } = useTranslation('phonics');
+  const titleShort = unitTitle(t, unit).replace(/^unit\s+\d+:\s*/i, '');
   const baseClass = 'flex items-center gap-2.5 px-2.5 py-2.5 rounded-2xl text-left transition-all';
   // 모든 unit 클릭 가능 (계획 없어도 진입 — UnitPage 에서 "준비 중" 메시지). 사이드바 상의 시각만 옅게.
   return (
@@ -262,7 +268,9 @@ function CurriculumItem({
       </span>
       <span className="text-sm sm:text-base font-black truncate break-keep">{titleShort}</span>
       {!hasPlan && !active ? (
-        <span className="ml-auto text-[10px] font-bold text-ink-300 shrink-0">준비 중</span>
+        <span className="ml-auto text-[10px] font-bold text-ink-300 shrink-0">
+          {t('common.comingSoon')}
+        </span>
       ) : (
         // 하다 만 단원만 n/N — 0 이면 아직 안 연 것이라 모든 줄에 '0/4' 를 달면 소음이다.
         !done &&

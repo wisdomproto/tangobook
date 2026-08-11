@@ -4,13 +4,45 @@
 
 저작도구의 `features/phonics/` (=AlphabetCardTab 등 편집기) 와 **별개** 모듈. 이쪽은 학습자 학습 흐름.
 
-## 🔴 i18n 미착수 — 나중에 한 번에 옮긴다 (2026-07-30 사용자 확인: "지금은 그대로 기록만")
+## 🌏 신규 언어 라인 — 일본어(가나)·중국어(병음) (2026-08-06)
 
-이 모듈의 화면 글자·안내 음성은 **전부 한국어 하드코딩**이다. 앱의 나머지는 i18n(5개 언어 × 11 ns)인데 **파닉스만 그 밖에** 있다. 지금 대상이 *한국 아이*라 의도된 상태지만, 해외 오픈 때 옮길 것을 알고 남긴다.
+한글·영어에 이어 3·4번째 언어 조사·기획 + 중국어 L1 빌드 착수. **상세·결정·근거 = memory `phonics-japanese-chinese-2026-08-06` · 기획서 `docs/phonics-{japanese,chinese}/`**.
 
-- **화면 글자** — 컴포넌트에 박힌 한국어 100여 개(`반짝이는 칸에 ㄱ 써봐!`·`글자 사냥`·`낱말 놀이`·`모두 맞췄어!`·`같은 글자를 모두 찾아봐!` 등). `phonics` 네임스페이스로 빼고 5개 언어 번역 필요.
-- **안내 음성**(`ENTRY_GUIDE`, `hooks/useEntryGuide.ts`) — URL 이 `-ko` 하드코딩(`playAudio('/sounds/voice/quiz-start-ko.mp3')`). 🔴 **자산은 절반 준비돼 있다** — `quiz-start-en.mp3` 는 이미 있는데 코드가 안 쓴다. 생성기(`generate-activity-voice-prompts.mjs`)가 `language` 필드를 받으니 나머지도 구울 수 있다. 옮길 땐 `ENTRY_GUIDE` 상수 한 곳 + 4개 호출부만 언어를 받게 하면 된다.
-- 🔴 **단, 안내는 「영어 단원에서도 한국어」였다**(아래 활동 UI 규칙) — 그건 *배우는 내용*이 영어여도 *지시*는 아이 말이어야 한다는 뜻이지, i18n 을 안 한다는 뜻이 아니다. UI 로케일이 영어인 사용자에겐 영어 안내가 맞다. 옮길 때 이 둘을 구분할 것: **콘텐츠 언어**(글자·낱말) ≠ **UI 언어**(지시·안내).
+- 🔴 **가나 = 모라 음절 → blend 없음** = 영어 Book1(통글자=소리) 동형. **중국어 병음 = 성모+운모 blend 있음** = 영어 CVC 동형 + **성조가 유일한 새 축**(`splitUnits` 가 베트남어 성조글자 NFC 선례로 흡수, 음원 키 `{음절}{성조}`). 재사용률 중국어>일본어.
+- **중국어 병음 L1 MVP = 빌드됨(WIP·미커밋)** — 단운모 6 + 성조 3유닛. `Chinese{Study,Unit,Activity}Page` · `lib/chinese-phonics-units.ts`(plan 생성기) · `lib/pinyin-audio.ts` · `CHINESE_PHONICS_CURRICULUM`(shared). 🔴 **새 활동 0개** — 전부 `WordListenChooseActivity` 재사용(글자만 보기=Book1 경로, 성조 유닛=4성 보기=듣고 성조 고르기). 랜딩 병음 카드(拼) + 라우트 3개(GuestGate) 한 번에. 성조 순서 **1→2→3→4**.
+- 🔴 **음원 미완** — 새 bake 없이 기존 `resolveUnitTtsUrl(hanzi,'zh')` 재사용인데 **cmn-CN 은 병음이 아니라 한자를 읽는다**(`PINYIN_TTS_HANZI` 매핑). 성조유닛(妈麻马骂)만 정확·**단운모는 성조 근사**(啊哦鹅…). 정확한 단운모 음원엔 사전녹음 병음클립 필요 — 사용자 zip 은 (2)편 성모 n~z뿐(a/o/e·ma 없음, i/u/ü=yi/wu/yu만 있음). game-reviewer 검수 중.
+- 일본어는 기획서만(빌드 미착수). 요음/촉음/장음·가타카나는 후속. 일본어 폰트(Noto Sans JP)는 index.css 미등록(착수 시 추가).
+
+## 🌏 i18n 완료 — 외국인이 한글·영어를 배운다 (2026-08-11)
+
+**콘텐츠 언어(글자·낱말) ≠ UI 언어(지시·안내·칭찬).** 베트남 아이가 한글 단원에 들어가면 배우는 글자는
+`ㄱ`·`가` 그대로지만 화면·소리는 전부 베트남어다. 이 구분이 이 모듈 다국어의 전부다.
+
+- **화면 글자** = `phonics` 네임스페이스(**158키 / 22그룹**) × ko·en·vi·zh·th. `src/i18n/index.ts` 가
+  `import.meta.glob('./locales/ko/*.json')` 로 ns 를 파생하므로 **파일만 놓으면 자동 등록**된다(설정 수정 불요).
+- **활동·단원 제목**은 plan 생성기(React 밖)가 만든다 → `ActivityDef.titleKey`+`titleVars` 로 싣고
+  `lib/activity-title.ts` 의 `activityTitle(t,a)`/`unitTitle(t,u)` 가 그린다. 🔴 `defaultValue` 에 한국어
+  `title` 을 넣으므로 **키가 없어도 화면이 비지 않는다**.
+- **안내 음성** = `voiceUrl(name, lang)` 이 `/sounds/voice/{name}-{lang}.mp3` 를 조립, 그 언어 자산이
+  없으면 **`-ko` 폴백**(404 는 안내 통째 무음 = 글 못 읽는 아이에겐 화면이 침묵). 10종 × 4언어 = 40개 실측 완료.
+  🔴 **`VOICE_LANGS` 는 자산별로 적는다** — 전부 `ALL` 로 뭉뚱그리면 새 안내를 굽기 전에 "있다"고 주장한다.
+- **칭찬 음성** = `praiseLang()`(UI 언어). 🔴 예전엔 파닉스가 **콘텐츠 언어**(`'ko'`/`'en'`)를 넘겨
+  **베트남 아이가 한국어 칭찬**을 들었다. 자산은 시스템 사운드 API 에 5개 언어가 이미 다 있다(ko 10·en 6·vi/zh/th 5).
+- 🔴 **음성 문구는 지어내지 말고 `locales/{lang}/phonics.json` 에서 뽑는다**(생성기 `VOICE_I18N_KEY`) —
+  화면과 소리가 다른 말을 하면 안 된다. zh 는 `gemini-tts.provider` 의 `TTS_LOCALE` 에 없어 **Google TTS**.
+
+### 🔴 지시문에 콘텐츠 글자를 넣지 않는다 (2026-08-11 사용자)
+
+`ㄱ 을 세 번씩 눌러봐!` → **`세 번씩 눌러봐!`**, `받침 ㅇ 을 써서 강 을 만들어봐!` → **`✏️ 반짝이는 칸에 써봐!`**.
+글자는 캔버스 가이드·카드·타겟 버튼이 **이미 크게 보여준다**(글 못 읽는 4~7세라 문장 속 글자는 어차피 안 읽힌다).
+안내 음성도 **원래 글자 없이** 만들어져 있었으니 이제 화면과 소리가 같은 말을 한다.
+부수 효과: 조사(`을/를`)·어순이 문장에서 사라져 **`<Trans>` 가 한 곳도 필요 없고** 번역이 통문장이 된다.
+🔴 단 **글자를 보여주는 게 목적인 요소**(사냥 타겟 버튼·ABC 제목·합체 결과)는 지시문이 아니므로 그대로 둔다.
+
+### 🔴 로마자 표기 안 한다 (2026-08-11 사용자: "가 옆에 ga 안 보여주는 걸로")
+
+외국인 학습자에게도 **한글은 한글로** 읽힌다. 로마자를 병기하면 아이가 그걸 읽고 한글을 안 본다.
+같은 이유로 병음·태국어 전사도 콘텐츠에 섞지 않는다(중국어 파닉스의 병음은 **그 자체가 학습 대상**이라 예외).
 
 ## 🎵 유닛송 (미착수)
 
@@ -46,6 +78,11 @@
   밋밋한 낱말이라, 게임이 완성 시 concat 으로 "bat"(0.6초)만 읽었다. → **`findImageData` 가 wordFamilies
   ttsUrl 을 flashcard 보다 우선**(`wordFamilyTts`). 이게 게임 4종·복습 전부에 흐른다(복습은 `useReviewCardSources`
   가 같은 lookup). 🔴 flashcard 에 낱말 녹음이 있어도 wordFamilies 가 이긴다 — 안 그러면 통일이 깨진다.
+  - 🔴 **단, 이 우선은 영어(`en-*`)에만**(2026-08-05). 한글 단원도 wordFamilies ttsUrl 을 갖는데(자음
+    익히기용 이어읽기 "가 가 고기"), 그게 낱말 연습·게임의 낱말 소리를 덮어써 "고기"를 눌렀더니 "가 가
+    고기"로 읽혔다. `findImageData` 가 `/^en-/` 일 때만 wordFamilyTts 를 얹는다 — 한글은 flashcard
+    빈값→`resolveTtsUrl` 평범한 낱말로 폴백. "한글엔 wordFamilies 없음" 가정이 틀렸던 것. 가드
+    `phonics-game-adapter.test.ts`.
 - 🔴 **`ConnectTheDotsPlayer` 에 `lang` 을 넘기지 않으면 한국어로 읽는다** — 영어 단원인데 정답을
   한글로 읽어주던 버그가 그것이었다.
 
@@ -345,6 +382,13 @@ flashcard 그림 + keypoints + `wordFamilies[].words[].ttsUrl`(ABC 나무 카드
   나란히 놓고 **공통 철자만 코랄로 강조**(bake·cake — `ake` 강조 / black·blade — `bl` 강조 / feet — `ee` 강조)해
   눌러 듣는다. 다 들으면 칭찬+완료, 그 뒤 자유놀이. 🔴 Book 2 의 `cvc-pattern-learn` 은 **CVC 전용**(자음+라임)
   이라 Magic-e·앞 블렌드·모음팀에 안 맞아 못 쓴다(그래서 낱말가족용 새 컴포넌트가 필요했다).
+- 🔴 **매직-e 배우기 = 대비형 `[ak] → [ake] → [bake]`**(2026-08-06 사용자) — 조각을 눌러 e 붙기 전/후 소리를
+  비교(`ak`=/æk/·`ake`=/eɪk/) 후 낱말. `WordFamilyLearnActivity.splitRow` 의 `isMagicEPattern` 분기(Book 4/5 는
+  `[before][pattern][after]` 그대로). 🔴 **라이브러리(`mod_phonics`)에 짧은/긴 rime 클립이 세트로 있다** —
+  `ak`·`ake`·`in`·`ine`·`ub`·`ube`… Book 3 rime 46개(짧은 23+긴 23) 전부 R2 200. `say("ak")` 가
+  getEnglishPhonemeUrl 로 `mod_phonics/ak.mp3` 직행. 🔴 **whisper 로 짧은 rime 을 검증하지 말 것** — 고립된
+  /æk/ 를 "Fuck"·"Act" 로, /ɪn/ 을 "n" 으로 오인식한다(클립은 멀쩡한데 "음원이 깨졌다"고 오판해 헛돌았다).
+  낱말 칸은 여전히 plain 낱말(bake) — 매직-e 소리는 조각이 가르친다.
 - 🔴 **매직-e 낱말 음원 = `[장모음 이름] [낱말]`**(2026-08-04, `scripts/regen-magice-word-tts.ts`) — 예전엔
   낱말만 읽어(사용자: "그냥 케이브라고만 읽어주는데?") 매직-e 를 안 가르쳤다. e 가 모음을 **이름대로 말하게**
   하므로 `cave`→"A cave"(에이 케이브)·`bike`→"I bike"·`bone`→"Oh bone"·`cube`→"U cube". 🔴 **concat(라이브러리
@@ -357,6 +401,20 @@ flashcard 그림 + keypoints + `wordFamilies[].words[].ttsUrl`(ABC 나무 카드
   **게임 목록에도** 둔다(Book 2 와 동일 4종 구성 — Book 3/4/5 만 3종이라 사용자가 "왜 낱말쓰기 없어?" 지적).
   play 의 `game-word-writing` 은 pattern 없이 호출 → 호스트가 단원 전체 단어로 굴린다(Book 2 와 같은 경로).
   🔴 새 레벨 generator 를 백지에서 짜면 형제 레벨 게임을 빠뜨리니 play 섹션 kind 목록을 형제와 대조할 것.
+- 🔴 **써보기 = 패턴 먼저 쓰기 + 쌓이는 소리 + 예문**(2026-08-06 사용자 통일 요청) — Book 2·3·4·5 익히기
+  써보기·낱말쓰기 게임·복습 낱말쓰기가 **전부 같은 규칙**:
+  · **쓰는 순서 = 패턴(라임/모음팀) 자리 먼저, 그다음 나머지**(시각 순서). `can`(_an)→a,n,c · `bake`(\_ake)→
+  a,k,e,b · `black`(bl_)→b,l,a,c,k(패턴이 앞이라 좌→우) · `feet`(ee)→e,e,f,t. 규칙 한 곳 = **`patternWriteOrder`**
+  (+`getUnitPatterns`, `english-phonics-units.ts`). `WordFillCanvas` 에 **`order` prop**(cell 인덱스 배열) —
+  지금 쓸 칸은 오른쪽 덮개 대신 **코랄 링**으로만 표시(끝난·다음 칸이 좌우로 흩어짐).
+  · **소리 = 지금까지 쓴 칸을 시각 순서로 이어읽기**(a→애·an→앤 / a→ak→ake). 낱말을 완성하는 마지막 칸의
+  `onSyllableDone` 은 `WordFillCanvas.evaluate()` 가 **생략**한다(onComplete 가 낱말을 읽으므로 겹침 방지 —
+  한 획으로 두 칸 완성 시 `bak`+`bake`+띵동 겹치던 버그, game-reviewer 발견).
+  · **예문은 써보기 완성에서만**(텍스트+소리, `SentenceText` 공용 컴포넌트, 타겟 낱말 코랄). 🔴 예전엔 Book 2
+  **낱말 익히기(Phase B)** 행 완성 때 예문을 **소리만** 냈는데, 텍스트가 없어 "갑자기 다시 c an can 읽는" 버그로
+  오해받았다(실제론 "I have a can" 예문). → Phase B 예문 제거, 써보기 완성 시 텍스트와 함께. flashcard.sentence
+  를 낱말 매칭으로 가져온다(Book 3/4/5 flashcard 전부 예문 보유). 🔴 **whisper 로 짧은 rime/소리를 검증 말 것** —
+  고립된 /æk/ 를 "Fuck"·"Act" 로 오인식해 "음원 깨졌다"고 오판했었다(클립은 멀쩡).
 - ⚠️ 커리큘럼 `patterns` 와 storybook `wordFamilies` 인덱스가 안 맞는다(u06 커리큘럼 2 vs wf 6) → 인덱스가
   아니라 **낱말 매칭**으로 고른다(u06 `_ng` 가 ang/ing/ong 를 다 잡는다).
 - 🔴 **듣고 고르기 = `letters` 없는 분기**(`EnglishPhonicsActivityPage`). Book 1 은 `activity.letters` 로
@@ -435,9 +493,7 @@ Book 1 데이터 정리 (2026-05-21):
 각 unit 은 VC 패턴 2~4개 보유 (예: u01 `_an _at`, u04 `_ib _id _ig _in`). 패턴마다 **[배우기(`cvc-pattern-learn`) → 써보기(`cvc-write-{vc}`)] 두 카드**(2026-07-29 — 배우기 안에도 Phase C 쓰기가 있지만 단원 목록에서 안 보여 「쓰기가 없는 단원」으로 읽혔다. 한글이 `ㄱ 배우기 → ㄱ 써보기` 인 것과 같은 모양). 배우기는 한 활동 안에서 Phase A→B→C 통합:
 
 - **Phase A** — `a + n → an` 3행 (9 셀). 셀 클릭 시 phonics TTS, 행 완료 → 띵동, 9 셀 → 칭찬 + "다시/다음"
-  - 🔴 **행을 완성하면 그 줄의 타겟 단어가 오른쪽에 나타나며 읽어준다**(2026-07-27) — `an` 만 세 줄 반복하면 무엇을 배우는지 안 보인다. 줄마다 다른 단어(can·fan·man)가 붙어야 "an 이 들어간 낱말"이 눈에 들어온다. 순서 = `an` → 띵동 → **쉼(420ms)** → 단어. 나타난 뒤엔 눌러서 다시 듣는다.
-  - 🔴 단어 슬롯은 **안 보일 때도 자리를 지킨다**(`invisible`) — 나타날 때 생기면 세 줄이 통째로 밀려 방금 누른 칸이 움직인다.
-  - 🔴 `cvcWords` (Phase B 용) 를 Phase A 핸들러가 의존성으로 읽으므로 **핸들러보다 위에서** 만든다(아래면 렌더 시점 TDZ).
+  - 🔴 **줄 끝에 타겟 단어(can·fan·man)를 붙이지 않는다**(2026-08-09 사용자: "can 나오는건 빼자. 순수하게 an 만 배우는 걸로"). 예전엔 줄을 완성하면 그 줄 단어가 오른쪽에 나타나 읽어줬는데(2026-07-27) — 이 화면은 `an` 패턴만 순수하게 익히는 자리다. 낱말은 Phase B(낱말 익히기)가 맡는다.
 - **Phase B** — flashcards 의 `phonicPattern === '_${vc}'` 매치 4 단어. 각 행 `[c][an][cat]+이미지`, 행 완료 → 띵동 + 예문 발음
 - **Phase C** — 단어별 [consonant 셀][a 캔버스][n 캔버스]. LetterWritingCanvas glyph-by-glyph 채점. 글자 통과 → 띵동 + 음가, 단어 모두 → 단어 발음 → 다음 단어. 4 단어 모두 → 칭찬 + onMarkComplete
 

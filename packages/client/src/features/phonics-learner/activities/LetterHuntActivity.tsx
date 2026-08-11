@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { composeHangul } from '@tangobook/shared';
 import { resolveTtsUrl } from '@/features/tts';
+import { playUi } from '@/lib/uiSound';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
-import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
+import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { buildHuntBoard } from '../lib/letter-lookalikes';
 import type { ReviewCard } from '../lib/korean-phonics-units';
 import { ActivityShell } from '../components/ActivityShell';
@@ -12,7 +14,13 @@ import { ActivityShell } from '../components/ActivityShell';
 interface Props {
   unitId: string;
   cards: ReadonlyArray<ReviewCard>;
-  language?: 'korean' | 'english';
+  // 'zh' = 병음 — 목표 글자 소리는 `card.sound`(ā·ō) 를 `mod_chinese` 직행으로 읽는다.
+  language?: 'korean' | 'english' | 'zh';
+  /**
+   * 🔴 방해꾼을 **이 풀에서만** 뽑는다(2026-08-09 사용자) — `lookalikesOf` 의 가짜 조합(oe·ae) 대신
+   * 실제로 배우는 rime(ee·ea·oa…). 넘기면 lookalikes 를 안 섞는다. 미지정이면 기존 lookalikes 동작.
+   */
+  distractors?: readonly string[];
   onComplete: () => void;
   onBack: () => void;
 }
@@ -39,9 +47,11 @@ export function LetterHuntActivity({
   unitId,
   cards,
   language = 'korean',
+  distractors,
   onComplete,
   onBack,
 }: Props) {
+  const { t } = useTranslation('phonics');
   // 오답음(`playFeedbackSound`)은 쓰지 않는다 — 틀린 칸도 그냥 읽어준다(아래 `handleTap`).
   const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
   const [round, setRound] = useState(0);
@@ -74,18 +84,36 @@ export function LetterHuntActivity({
   );
 
   const card = hunt[round];
+  const distractorsKey = (distractors ?? []).join('|');
+  const distractorsRef = useRef(distractors);
+  distractorsRef.current = distractors;
   // 🔴 판은 라운드가 바뀔 때만 새로 짠다 — 렌더마다 만들면 누를 때마다 글자가 춤춘다.
   const board = useMemo(() => {
     const list = cardsRef.current.slice(0, MAX_ROUNDS);
     const target = list[round];
     if (!target) return [];
+    const pool = distractorsRef.current;
+    // 🔴 방해꾼 풀이 오면 그것만(진짜 배우는 rime) — 가짜 조합(oe·ae)을 안 섞는다.
+    const others = pool
+      ? pool.filter((c) => c !== target.letter)
+      : list.filter((c) => c.letter !== target.letter).map((c) => c.letter);
     return buildHuntBoard({
       target: target.letter,
-      others: list.filter((c) => c.letter !== target.letter).map((c) => c.letter),
+      others,
       size: SIZE,
       targets: TARGETS,
+      noLookalikes: !!pool,
     });
-  }, [round, lettersKey]);
+  }, [round, lettersKey, distractorsKey]);
+  // 🔴 칸 글자 크기 = 판에서 가장 긴 토큰 기준. 한 글자(Book 2)는 크게, 3~4글자 패턴(Book 3~5)은 줄여
+  //    칸(14vw/13vh)을 안 넘게. 폭 usable≈12vw·11vh, 글자폭≈0.6em → font ≤ usable/(len×0.6).
+  const cellFont = useMemo(() => {
+    // 0.7 = 굵은 글자 넓은 글립(m·w) 여유. usable 폭 ≈ 11vw·10vh(테두리 8px 뺀 값).
+    const maxLen = Math.max(1, ...board.map((t) => t.length));
+    const fVw = Math.min(8, 11 / (maxLen * 0.7));
+    const fVh = Math.min(7, 10 / (maxLen * 0.7));
+    return `min(${fVw.toFixed(1)}vw, ${fVh.toFixed(1)}vh)`;
+  }, [board]);
 
   /**
    * 칸에 적힌 글자 → **읽을 소리**. 목표 칸은 카드가 소리를 갖고 있지만(모음 `ㅏ`→`아`),
@@ -117,7 +145,13 @@ export function LetterHuntActivity({
         storybookId: unitId,
         identifierPrefix: 'letter-hunt',
       });
-      playAudio(url, onEnded);
+      // 🔴 라이브러리에 없는 방해꾼(oe·eck·eb…)은 무음이라 "왜 얜 소리가 안 나?" 가 된다
+      //    (2026-08-09 사용자). 읽을 게 없으면 가벼운 뾱(tap)이라도 내고 체인은 이어간다.
+      if (url) playAudio(url, onEnded);
+      else {
+        playUi('tap');
+        onEnded?.();
+      }
     },
     [language, unitId, playAudio]
   );
@@ -185,17 +219,19 @@ export function LetterHuntActivity({
           }
           say(card.sound, () =>
             scheduleTimer(() => {
-              if (isLast) {
-                playCorrectSequence({
-                  language: language === 'english' ? 'en' : 'ko',
-                  onDone: onComplete,
-                });
-                return;
-              }
-              // 라운드가 넘어가면 위 effect 가 새 글자를 읽는다.
-              foundRef.current = [];
-              setFound([]);
-              setRound((r) => r + 1);
+              // 🔴 글자를 다 찾으면 **칭찬** — 마지막이면 그 뒤 완료, 아니면 다음 글자로(2026-08-09 사용자:
+              //    "다 찾고 넘어갈 때 효과음/칭찬이 없어"). 예전엔 조용히 넘어가 라운드를 끝낸 티가 안 났다.
+              playCorrectSequence({
+                language: praiseLang(),
+                onDone: isLast
+                  ? onComplete
+                  : () => {
+                      // 라운드가 넘어가면 위 effect 가 새 글자를 읽는다.
+                      foundRef.current = [];
+                      setFound([]);
+                      setRound((r) => r + 1);
+                    },
+              });
             }, REST_MS)
           );
         }, REST_MS)
@@ -245,12 +281,12 @@ export function LetterHuntActivity({
         {/* 🔴 제목에 글자를 끼워 넣지 않는다 — 'ㄱ 을' / 'A 을' 처럼 조사가 언어마다 어긋난다.
             찾을 글자는 눌러 소리를 듣는 큰 칩으로 따로 세운다. */}
         <h2 className="text-2xl sm:text-4xl font-black text-ink-900 text-center break-keep">
-          {done ? '다 찾았어!' : '이 글자를 다 찾아봐!'}
+          {done ? t('hunt.done') : t('hunt.prompt')}
         </h2>
         <button
           onClick={() => say(card.sound)}
           className="px-6 py-2 rounded-3xl bg-coral-500 text-white shadow-pop font-black text-[min(9vw,8vh)] leading-none flex items-center gap-3"
-          aria-label={`${card.letter} 소리 듣기`}
+          aria-label={t('hunt.letterSound', { letter: card.letter })}
         >
           {card.letter}
           <span className="text-[0.5em]">🔊</span>
@@ -267,12 +303,14 @@ export function LetterHuntActivity({
                 aria-label={ch}
                 className={[
                   // 🔴 칸은 vw 만 보면 안 된다 — 전체화면이라 높이가 먼저 모자란다.
-                  'w-[min(14vw,13vh)] h-[min(14vw,13vh)] rounded-2xl border-[4px] flex items-center justify-center font-black transition',
-                  'text-[min(8vw,7vh)] leading-none',
+                  'w-[min(14vw,13vh)] h-[min(14vw,13vh)] rounded-2xl border-[4px] flex items-center justify-center font-black transition leading-none overflow-hidden',
                   got
                     ? 'bg-mint-500 border-mint-500 text-white scale-95'
                     : 'bg-white border-white text-ink-900 active:scale-95',
                 ].join(' ')}
+                // 🔴 칸 글자 크기는 **판에서 가장 긴 토큰**에 맞춘다 — Book 2 는 한 글자(an/at)라 크게,
+                //    Book 3~5 는 3~4글자 패턴(ane·ack)이라 그대로 두면 칸을 넘친다(사용자 2026-08-09).
+                style={{ fontSize: cellFont }}
               >
                 {ch}
               </button>

@@ -56,6 +56,9 @@ interface ViewerContainerProps {
   /** When present, enables playlist mode: last-page reward is replaced by
    *  onBookEnd(), speed/fullscreen are forced, and load errors are skipped. */
   playlist?: PlaylistProp;
+  /** 랜딩 임베드 전용 — 그림체 강제(`style`) + 탭 게이트 5초 자동 시작 끄기(`noAutoStart`,
+   *  탭해야만 재생). 광고 랜딩이 표지 그림체를 고정하고 자동재생을 막을 때만 쓴다. */
+  embed?: { style?: string; noAutoStart?: boolean };
 }
 
 const TEXT_SIZE_CYCLE: ViewerSettings['textSize'][] = ['sm', 'md', 'lg'];
@@ -66,7 +69,7 @@ const PAGE_REST_MS = 900; // TTS 끝 → 다음 페이지로 넘기기 전 쉬�
 const NEXT_TTS_DELAY_MS = 350; // 페이지 전환 → 다음 음성 재생까지 (장면 안정)
 const NEXT_IMG_CAP_MS = 1500; // 다음 이미지 로딩 상한 (안 와도 넘어감)
 
-export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps) {
+export function ViewerContainer({ storybookId, playlist, embed }: ViewerContainerProps) {
   const { t } = useTranslation('viewer');
   const navigate = useNavigate();
   // 🔴 뷰어에 있는 동안 화면이 안 꺼지게 잡는다 — 나레이션+이미지라 `<video>` 가 없어 유튜브처럼
@@ -93,7 +96,9 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
   const lang = (sp.get('lang') ?? settings.language) as LangCode;
   // ?style 미지정(연속재생 등) 시 대표 그림체(defaultStyle) 우선 — 라이브러리 표지와 재생 그림체 일치.
   // artStyle 은 "저작도구에서 마지막으로 활성화된 그림체"라 대표와 다를 수 있음.
-  const urlStyle = sp.get('style') ?? v1Storybook?.defaultStyle ?? null;
+  // 🔴 임베드 `embed.style` 이 최우선 — 랜딩이 표지 그림체를 고정한다(그 스타일이 styleAssets 에
+  //    없는 책은 아래 swap 이 못 걸려 자연스레 base 로 폴백).
+  const urlStyle = embed?.style ?? sp.get('style') ?? v1Storybook?.defaultStyle ?? null;
 
   // v1 단일화. URL ?style 이 base.artStyle 과 다르면 styleAssets 로 표지/페이지 일러스트 즉시 swap.
   // 레벨 variant 는 sibling pattern(`${baseId}__L1` 등)으로 별도 storybook 이므로
@@ -249,7 +254,11 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
   //    시끄럽다는 판단(사용자). 저작자가 넣은 `backgroundMusicUrl` 만 재생한다.
   //    BGM 이 없으면 `hasBgm=false` 라 툴바 버튼이 자동으로 비활성되고, `toggleBgm` 은
   //    오디오 엘리먼트가 없어 no-op 이므로 호출부(탭 게이트 시작)는 그대로 둬도 안전하다.
-  const bgmUrl = storybook?.backgroundMusicUrl;
+  //    🔴 **임베드(광고 랜딩 상자)에서는 BGM 을 아예 안 켠다**(2026-08-10 사용자). BGM 은
+  //    `useAudioPlayer` 가 **마운트 시 바로** 재생하므로, 상자가 화면에 붙는 순간 아무도 아무것도
+  //    안 눌렀는데 음악이 나온다(`noAutoStart` 는 나레이션만 막는다). 여기서 비우면 `hasBgm=false`
+  //    라 툴바 버튼도 자동으로 꺼지고 `toggleBgm` 은 no-op 이라 다른 경로는 그대로다.
+  const bgmUrl = embed ? undefined : storybook?.backgroundMusicUrl;
 
   const audio = useAudioPlayer({
     backgroundMusicUrl: bgmUrl,
@@ -671,7 +680,13 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
   return (
     <div
       className={cn(
-        'min-h-screen relative overflow-hidden',
+        /* 🔴 **임베드는 `min-h-screen` 이 아니라 상자를 채운다**(2026-08-11 사용자: "모바일에서
+           백설공주 읽어보는 부분이 별로구만"). `min-h-screen`=100vh 는 **뷰포트** 값이라, 랜딩이
+           상자를 낮춰 줘도 뷰어는 화면 높이 그대로 그려져 아래가 잘린다 — 375px 세로에선 16:9
+           표지가 세로 상자에 꽉 차 제목이 좌우로 잘려 나갔다. 상자를 따르게 하면 랜딩이 가로형
+           상자를 줄 수 있다. 앱 경로(`embed` 없음)는 그대로. */
+        embed ? 'min-h-full h-full' : 'min-h-screen',
+        'relative overflow-hidden',
         settings.darkMode
           ? 'bg-darkbg text-darktext'
           : 'bg-gradient-to-b from-cream-50 to-peach-100 text-ink-900'
@@ -830,6 +845,7 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
       {needsTapToStart && (
         <TitleIntro
           autoPlay={false}
+          noAutoStart={embed?.noAutoStart}
           coverUrl={introCover}
           title={introTitle}
           titleTtsUrl={introTitleTts}
