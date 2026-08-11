@@ -203,26 +203,31 @@ const BOOK_GROWS: { icon: string; t: string; d: string }[] = [
  * 「왜 파닉스인가」 3카드 — 소중한글 「원리의 이해 / 뛰어난 효과 / 논리력과 사고력」 구조를 가져오되
  * 가운데 칸은 바꿨다. 그쪽 근거는 「2개월 만에 80%」 체험단 데이터라 **우리에겐 그 숫자가 없고**,
  * 없는 걸 흉내 내느니 우리도 참인 것(**처음 보는 글자를 읽는다**)을 세운다.
- * 🔴 `glyph` 는 아이콘이 아니라 **그 단계의 글자**다 — 자모 → 음절 → 낱말이 카드 세 장으로 보인다.
+ * 🔴 **카드마다 그 말을 하는 진짜 앱 화면**(2026-08-11 사용자: "너무 텍스트만 있는 거 아냐?").
+ *    처음엔 큰 글자(ㄱ→가→고기)만 얹었는데 그건 결국 또 글자였다. 헤드리스로 실제 활동 세 개를
+ *    16:9 로 찍어 얹는다 — **아래 라이브 상자 둘(배우기·써보기)과 겹치지 않는 화면**으로 골라서,
+ *    이 구간이 32단원의 다른 얼굴을 보여주게 한다(모음 듣기 · 음절 합체 · 글자 사냥).
  */
-const PHONICS_WHY: { glyph: string; t: string; d: string }[] = [
+const PHONICS_WHY: { shot: string; alt: string; t: string; d: string }[] = [
   {
-    glyph: 'ㄱ',
+    shot: 'why-sound',
+    alt: '모음 카드 여섯 장을 순서대로 눌러 소리를 듣는 앱 화면',
     t: '소리부터 배워요',
     d: '자음·모음·받침이 저마다 내는 소리를 눌러 듣고 따라 합니다. 글자 모양을 외우지 않아요.',
   },
   {
-    glyph: '가',
+    shot: 'why-blend',
+    alt: 'ㄱ 과 ㅏ 가 하나로 붙어 「가」 가 되는 앱 화면',
     t: '합치는 규칙을 익혀요',
     d: '두 소리가 하나로 붙는 순간을 눈으로 보고, 손으로 씁니다. 여기가 읽기의 출발입니다.',
   },
   {
-    glyph: '고기',
+    shot: 'why-new',
+    alt: '비슷한 글자 사이에서 「교」 를 골라내는 앱 화면',
     t: '처음 보는 글자도',
     d: '규칙을 알면 배운 적 없는 낱말도 스스로 소리 내어 읽습니다.',
   },
 ];
-
 /**
  * 단색 원형 픽토그램 — 🔴 **이모지를 아이콘으로 쓰지 않는다**(2026-08-11 사용자: "깔끔하지가 않아").
  *
@@ -1027,16 +1032,22 @@ export default function HangulLandingPage() {
         </p>
         <div className="!mt-6 grid gap-3 sm:grid-cols-3">
           {PHONICS_WHY.map((w) => (
-            <div key={w.t} className="rounded-3xl bg-white/70 p-5 text-center">
-              <div className="font-display text-[40px] font-extrabold leading-none text-coral-600">
-                {w.glyph}
+            <div key={w.t} className="overflow-hidden rounded-3xl bg-white/70 text-center">
+              <img
+                src={`/landing/hangul/${w.shot}.webp`}
+                alt={w.alt}
+                loading="lazy"
+                decoding="async"
+                className="aspect-video w-full object-cover"
+              />
+              <div className="p-4 sm:p-5">
+                <strong className="block font-display text-lg font-extrabold text-ink-900 break-keep">
+                  {w.t}
+                </strong>
+                <span className="mt-1.5 block text-sm leading-snug text-ink-600 break-keep">
+                  {w.d}
+                </span>
               </div>
-              <strong className="mt-3 block font-display text-lg font-extrabold text-ink-900 break-keep">
-                {w.t}
-              </strong>
-              <span className="mt-1.5 block text-sm leading-snug text-ink-600 break-keep">
-                {w.d}
-              </span>
             </div>
           ))}
         </div>
