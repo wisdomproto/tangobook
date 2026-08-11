@@ -450,7 +450,7 @@ function StickyCta() {
     >
       {/* 🔴 **가격을 쓰지 않는다**(2026-08-11 사용자, 세 번째 지적) — 히어로에서 지웠는데
           하단 바와 요금 문단에 사본이 남아 있었다. 파는 건 「한 달 무료」 하나다. */}
-      <div className="mx-auto flex max-w-3xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1600px] items-center justify-center gap-3">
+      <div className="mx-auto flex max-w-3xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1280px] items-center justify-center gap-3">
         <Link
           to={SIGNUP}
           className="flex min-h-[44px] shrink-0 items-center rounded-full bg-coral-700 px-5 text-base font-bold text-white shadow-sm transition hover:bg-coral-800"
@@ -697,7 +697,7 @@ function LineSections() {
 function ServiceBanner({ n, name, tagline }: { n: number; name: string; tagline?: string }) {
   return (
     <div className="mt-14 bg-gradient-to-br from-coral-500 to-coral-700 px-4 py-10 text-center sm:px-6 sm:py-12">
-      <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1600px]">
+      <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1280px]">
         <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-white/25 font-display text-2xl font-extrabold text-white sm:h-12 sm:w-12 sm:text-3xl">
           {n}
         </span>
@@ -727,7 +727,7 @@ function Section({
 }) {
   return (
     <section className="px-4 py-12 sm:px-6 sm:py-14">
-      <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1600px]">
+      <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1280px]">
         {eyebrow && (
           /* 🔴 **라벨을 키운다**(2026-08-10 사용자: "이게 메인 제목인거 같은데 왜 글씨가 제일 작아?").
              12px 는 각주 크기라 섹션 이름이 아니라 곁다리로 읽혔다. 제목보다는 확실히 작게 두되
@@ -847,7 +847,7 @@ export default function HangulLandingPage() {
             본문 폭(896px)은 **글줄 길이** 기준이라 프로즈엔 맞지만, 첫인상 영역까지 그 규칙을
             먹이니 1920~2560 에서 크림색 여백 위에 콘텐츠가 섬처럼 떴다. 히어로만 xl 부터 넓히고
             글자도 한 단계 더 올린다 — 본문은 안 따라간다(글줄이 길어지면 읽기가 나빠진다). */}
-        <div className="relative mx-auto max-w-3xl text-center lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1600px]">
+        <div className="relative mx-auto max-w-3xl text-center lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1280px]">
           <p className="inline-flex rounded-full bg-coral-100 px-4 py-1.5 text-base font-extrabold text-coral-700 sm:text-lg xl:px-5 xl:py-2 xl:text-xl">
             4~7세 한글파닉스 · 동화책
           </p>
@@ -1009,12 +1009,14 @@ export default function HangulLandingPage() {
       </Section>
 
       {/* ── ④ 직접 해보기 — 그 32단원 중 「ㄱ」 하나를 통째로 ───────────────────── */}
-      {/* 🔴 **데모 상자는 글 폭을 따르지 않는다**(2026-08-11 사용자: "낱말이 너무 작아 보여").
+      {/* 🔴 **상한 1280px**(2026-08-11 사용자: "가로폭이 너무 넓은 거 같은데") — 1600 까지 늘렸더니
+          26px 본문이 한 줄에 60자를 넘어 눈이 줄 끝에서 처음으로 돌아오지 못했다. 전 섹션 공통 상한.
+          🔴 **데모 상자는 글 폭을 따르지 않는다**(2026-08-11 사용자: "낱말이 너무 작아 보여").
           `EmbedStage` 는 안쪽을 **100vw 로 그린 뒤 상자 폭/뷰포트 폭** 만큼 축소한다 — 즉
           **화면이 넓어질수록 앱 화면이 더 작아진다**(2000px 에서 1024px 상자면 0.51배). 글 폭에
           가둔 게 원인이라, 여기만 화면을 따라 넓힌다(2000px → 1600px 상자 → 0.8배). */}
       <section className="px-4 py-12 sm:px-6 sm:py-14">
-        <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1600px]">
+        <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1280px]">
           <div className="rounded-3xl border border-coral-200 bg-white/60 p-4 sm:p-6">
             <p className="text-sm font-bold tracking-wide text-coral-700">한글 파닉스 · 32단원</p>
             <h2 className="mt-1 font-display text-[31px] font-extrabold text-ink-900 break-keep sm:text-[38px]">
@@ -1121,7 +1123,7 @@ export default function HangulLandingPage() {
 
       {/* ── ⑥ 실측 숫자 ───────────────────────────────────────── */}
       <section className="px-4 py-8 sm:px-6">
-        <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1600px] rounded-3xl bg-gradient-to-br from-mint-50 to-cream-50 p-5 sm:p-8">
+        <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-[1280px] rounded-3xl bg-gradient-to-br from-mint-50 to-cream-50 p-5 sm:p-8">
           <h2 className="font-display text-xl font-extrabold text-ink-900 break-keep sm:text-3xl">
             숫자는 있는 그대로입니다
           </h2>
