@@ -130,7 +130,10 @@ export function HangulBookTryIt() {
       {/* 🔴 `embed`(2026-08-05 사용자) — ①`noAutoStart`: 탭 게이트의 5초 자동 시작을 끈다(랜딩에선
           탭해야만 재생, 스크롤하다 갑자기 소리 나지 않게). ②`style:'paper-craft'`: 표지·페이지를
           페이퍼 아트로 고정(그 스타일 없는 책은 base 로 폴백). 뷰어 기본 동작은 안 건드린다. */}
-      <EmbedStage height="100dvh">
+      {/* 🔴 **모바일은 가로형 상자**(2026-08-11) — 책 화면이 16:9 라 세로 상자에 넣으면 표지가
+          꽉 차 잘리고, 본문 쪽은 위아래로 블러 여백만 커진다. `64vw` 는 375px 에서 240px — 그림(16:9)이
+          위아래 검은 여백 없이 딱 들어오는 값이다. 데스크탑에선 `100dvh` 가 작아 그대로 세로를 다 쓴다. */}
+      <EmbedStage height="min(100dvh, 64vw)">
         <ViewerContainer
           key={bookId}
           storybookId={bookId}

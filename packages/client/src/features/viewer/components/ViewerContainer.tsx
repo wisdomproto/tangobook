@@ -680,7 +680,13 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
   return (
     <div
       className={cn(
-        'min-h-screen relative overflow-hidden',
+        /* 🔴 **임베드는 `min-h-screen` 이 아니라 상자를 채운다**(2026-08-11 사용자: "모바일에서
+           백설공주 읽어보는 부분이 별로구만"). `min-h-screen`=100vh 는 **뷰포트** 값이라, 랜딩이
+           상자를 낮춰 줘도 뷰어는 화면 높이 그대로 그려져 아래가 잘린다 — 375px 세로에선 16:9
+           표지가 세로 상자에 꽉 차 제목이 좌우로 잘려 나갔다. 상자를 따르게 하면 랜딩이 가로형
+           상자를 줄 수 있다. 앱 경로(`embed` 없음)는 그대로. */
+        embed ? 'min-h-full h-full' : 'min-h-screen',
+        'relative overflow-hidden',
         settings.darkMode
           ? 'bg-darkbg text-darktext'
           : 'bg-gradient-to-b from-cream-50 to-peach-100 text-ink-900'
