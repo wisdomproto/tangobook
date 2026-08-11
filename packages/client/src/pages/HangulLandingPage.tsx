@@ -323,12 +323,12 @@ function HeroServiceCard({
   return (
     <div className="h-full overflow-hidden rounded-3xl bg-white/70 text-left shadow-sm">
       {children}
-      <div className="px-4 py-3">
+      <div className="px-4 py-3 xl:px-6 xl:py-5">
         <span className="text-xs font-bold text-ink-400">{n}</span>
-        <strong className="mt-0.5 block font-display text-lg font-extrabold text-coral-700 break-keep">
+        <strong className="mt-0.5 block font-display text-lg font-extrabold text-coral-700 break-keep xl:text-2xl">
           {name}
         </strong>
-        <span className="mt-0.5 block text-sm text-ink-600 break-keep">{d}</span>
+        <span className="mt-0.5 block text-sm text-ink-600 break-keep xl:text-base">{d}</span>
       </div>
     </div>
   );
@@ -750,7 +750,7 @@ function ServiceBanner({ n, name, tagline }: { n: number; name: string; tagline?
         <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-white/25 font-display text-xl font-extrabold text-white sm:h-12 sm:w-12 sm:text-2xl">
           {n}
         </span>
-        <h2 className="mt-4 font-display text-[30px] font-extrabold leading-tight text-white break-keep sm:text-[42px]">
+        <h2 className="mt-4 font-display text-[30px] font-extrabold leading-tight text-white break-keep sm:text-[42px] xl:text-[52px]">
           {name}
         </h2>
         {tagline && (
@@ -883,7 +883,7 @@ export default function HangulLandingPage() {
             alt="탱고북"
             width={1774}
             height={887}
-            className="h-28 w-auto sm:h-32 md:h-36"
+            className="h-28 w-auto sm:h-32 md:h-36 xl:h-40"
           />
         </Link>
         {/* 🔴 **표지 슬라이더를 없앴다**(2026-08-11 사용자). 로고 바로 아래에서 표지 열넷이 계속
@@ -892,16 +892,20 @@ export default function HangulLandingPage() {
         {/* 🔴 **한 열 가운데 정렬**(2026-08-11) — 예전엔 오른쪽에 파닉스 일러스트를 세운 2열이었는데,
             그 그림이 아래 서비스 카드 ①의 그림이 되면서 오른쪽 열이 비었다. 벤치마크 둘 다
             히어로가 가운데 정렬 한 열이다. */}
-        <div className="relative mx-auto max-w-3xl lg:max-w-4xl text-center">
-          <p className="inline-flex rounded-full bg-coral-100 px-4 py-1.5 text-sm font-extrabold text-coral-700 sm:text-base">
+        {/* 🔴 **히어로는 읽는 영역이 아니다**(2026-08-11 사용자: "넌 이 정도면 맞다고 생각해?").
+            본문 폭(896px)은 **글줄 길이** 기준이라 프로즈엔 맞지만, 첫인상 영역까지 그 규칙을
+            먹이니 1920~2560 에서 크림색 여백 위에 콘텐츠가 섬처럼 떴다. 히어로만 xl 부터 넓히고
+            글자도 한 단계 더 올린다 — 본문은 안 따라간다(글줄이 길어지면 읽기가 나빠진다). */}
+        <div className="relative mx-auto max-w-3xl text-center lg:max-w-4xl xl:max-w-5xl">
+          <p className="inline-flex rounded-full bg-coral-100 px-4 py-1.5 text-sm font-extrabold text-coral-700 sm:text-base xl:px-5 xl:py-2 xl:text-lg">
             4~7세 한글파닉스 · 동화책
           </p>
           {/* 🔴 **데스크탑에선 한 줄**(2026-08-10). 42px 로는 24자가 max-w-3xl lg:max-w-4xl 을 넘어 세 줄로 접혔다. */}
-          <h1 className="mt-3 font-display text-[28px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:whitespace-nowrap sm:text-[30px] md:text-[36px]">
+          <h1 className="mt-3 font-display text-[28px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:whitespace-nowrap sm:text-[30px] md:text-[36px] xl:text-[46px]">
             <span className="text-coral-700">한글 파닉스</span>를 배우고{' '}
             <span className="text-coral-700">스스로 동화책을 읽어요</span>
           </h1>
-          <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-ink-700 break-keep sm:text-[18px] lg:max-w-2xl lg:text-[20px]">
+          <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-ink-700 break-keep sm:text-[18px] lg:max-w-2xl lg:text-[20px] xl:max-w-3xl xl:text-[22px]">
             자음·모음부터 받침까지 <strong className="text-coral-700">소리로 한글을 떼고</strong>,
             뗀 글자로 <strong className="text-coral-700">동화책을 바로 읽습니다.</strong> 배우는
             곳과 읽는 곳이 같은 앱 안에 있어요.
@@ -914,7 +918,7 @@ export default function HangulLandingPage() {
               일러스트를 새로 그리면 ①과 톤이 갈린다). */}
           {/* 🔴 **모바일도 2열**(2026-08-11) — 세로로 쌓으면 카드 둘이 580px 를 먹어 CTA 가
               접힘선 아래로 내려간다. 첫 화면에 버튼이 있어야 한다. */}
-          <div className="mx-auto mt-8 grid max-w-2xl grid-cols-2 gap-3 sm:gap-4">
+          <div className="mx-auto mt-8 grid max-w-2xl grid-cols-2 gap-3 sm:gap-4 xl:max-w-4xl xl:gap-6">
             <HeroServiceCard n={1} name="한글 파닉스" d={`${FACTS.koreanUnits}단원 · 소리로 떼기`}>
               <img
                 src="/landing/hangul/phonics.webp"
@@ -931,7 +935,7 @@ export default function HangulLandingPage() {
 
           <Link
             to={SIGNUP}
-            className="mt-8 inline-flex min-h-[52px] items-center rounded-full bg-coral-700 px-8 text-base font-bold text-white shadow-md transition hover:bg-coral-800"
+            className="mt-8 inline-flex min-h-[52px] items-center rounded-full bg-coral-700 px-8 text-base font-bold text-white shadow-md transition hover:bg-coral-800 xl:min-h-[60px] xl:px-10 xl:text-lg"
           >
             한달 무료 체험
           </Link>
@@ -939,7 +943,7 @@ export default function HangulLandingPage() {
               떠 있으니 그게 체험료인지 정가인지 알 수 없었다. 무엇을 안 내도 되는지까지 한 줄로
               적고 크기를 낮춘다 — 히어로에서 값을 숨기지 않는 건 그대로다(가격 투명성이 우리 무기).
               할인가는 여기서 말하지 않는다(⑦ 요금에서 한 번만). */}
-          <p className="mt-3 text-sm text-ink-500 break-keep">
+          <p className="mt-3 text-sm text-ink-500 break-keep xl:text-base">
             카드 등록 없이 시작 · 체험이 끝나면 월 {PLANS.month1.originalAmount?.toLocaleString()}원
           </p>
         </div>
