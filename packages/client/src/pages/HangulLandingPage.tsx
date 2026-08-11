@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { Fragment, useEffect, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { PLANS } from '@tangobook/shared';
 import { useSeo } from '@/lib/useSeo';
@@ -8,8 +8,6 @@ import { HangulBookTryIt, HangulWordGameTryIt } from './HangulBookTryIt';
 import { getAllKoreanUnits } from '@/features/phonics-learner/lib/korean-phonics-units';
 import { useStorybooks } from '@/features/storybook/hooks/useStorybooks';
 import { BookCover } from '@/design-system/primitives/BookCover';
-import { PhonicsReportSection, StorybookReportSection } from '@/features/learning';
-import { buildSampleReportEvents } from './hangul-sample-report';
 
 /**
  * `/hangul` — 광고 랜딩(상세페이지). 네이버·메타 광고의 도착지.
@@ -142,14 +140,17 @@ const FAQS: { q: string; a: string }[] = [
  * 🔴 **그림이 먼저, 글은 한 줄**(2026-08-10 사용자: "우리꺼 너무 글로 되어 있잖아" — 벤치마크
  *    투두한글이 이 자리를 4:3 일러스트 카드 넉 장으로 설명한다). 이모지 하나로는 「무엇을 하는
  *    화면인지」가 안 보인다 — 각 칸에 **그 장면 사진**을 얹는다.
- * 🔴 사진은 **이미 있는 것**을 쓴다: 파닉스 쓰기 화면(tracing) · 동화 읽는 화면(reading) ·
- *    낱말 놀이 카드가 보이는 단원 화면(siblings). 히어로가 쓰는 phonics.webp 는 **안 쓴다**
- *    (같은 그림이 한 화면에 두 번 나오면 같은 얘기를 두 번 하는 것으로 읽힌다).
+ * 🔴 **구도 규칙 = 화면이 정면으로 읽히고, 손이 그 위에서 무언가를 하고 있을 것**(2026-08-10 사용자).
+ *    처음엔 있는 사진(tracing·siblings)을 그대로 썼는데 하나는 태블릿이 비스듬해 화면이 안 읽혔고
+ *    하나는 뒤통수 + 태블릿이 멀어 「보고 있는 사람」으로만 보였다 — 무엇을 하는 화면인지가 안 나온다.
+ * 🔴 ③ 은 **사람 없이 화면만**(사용자 판단). 사람을 넣으면 또 「보고 있는 그림」이 되기 쉬운데,
+ *    게임은 가로 전체화면이라 **스크린샷 자체가 카드 비율**이고 낱말·그림이 그대로 읽힌다.
+ *    실물 스크린샷이라 연출과 달리 어긋날 여지도 없다.
  */
 const CYCLE: { photo: string; alt: string; t: string; d: string }[] = [
   {
-    photo: 'tracing',
-    alt: '아이가 태블릿 화면의 ㄴ 글자를 손가락으로 따라 쓰고 있다',
+    photo: 'cycle-learn',
+    alt: '아이가 태블릿 화면의 ㄱ 글자를 손가락으로 따라 쓰고 있다',
     t: '글자를 배워요',
     d: `한글 파닉스 ${FACTS.koreanUnits}단원 — 자음·모음부터 받침까지 소리로`,
   },
@@ -160,8 +161,8 @@ const CYCLE: { photo: string; alt: string; t: string; d: string }[] = [
     d: '배운 글자를 동화책에서 낱말과 이야기로 다시 만나요',
   },
   {
-    photo: 'siblings',
-    alt: '두 아이가 파닉스 단원 화면의 「낱말 놀이」 카드를 보고 있다',
+    photo: 'cycle-play',
+    alt: '그림과 낱말을 잇는 「그림짝 맞추기」 게임 화면 — 아기·고기·가구·야구',
     t: '독후활동으로 익혀요',
     d: '한 낱말을 그림 · 조립 · 따라 그리기 · 손글씨 네 가지로',
   },
@@ -208,50 +209,20 @@ const SIGNUP = '/login?mode=signup';
  */
 const GA_UNIT = 'kr-h1-u02';
 /**
- * 🔴 **아홉 개에서 넷으로**(2026-08-06 실측). 모바일 390px 에서 이 구간만 **8.1화면**이었고,
- *    페이지 전체가 28.4화면 · 그중 라이브 체험이 79% 였다. 상자 열둘이 같은 형식으로 이어지면
- *    중반부터 리듬이 사라지고 열두 번째는 아무도 안 누른다 — 그리고 그 뒤에 **요금이 26.3화면**
- *    지점에 있었다. 넷으로 줄이면 이 구간이 ~3.6화면이 되고, 남는 넷은 오히려 다 눌린다.
- * 🔴 고른 기준 = **서로 다른 것을 보여주는 넷**. 소리 넣기(탭) · 합쳐지는 순간(글로 설명이 가장
- *    어려운 것) · 귀로만 하는 것(듣고 고르기) · 설명이 필요 없는 것(그림 짝).
- *    뺀 다섯(써보기·글자 사냥·낱말 그리기·블록·낱말 쓰기)은 **아래 한 줄로만** 알린다.
- * ⚠️ 이 넷이 맞는지는 아직 **측정이 아니라 판단**이다 — 상자마다 `tryit_view` 를 쏘고 있으므로
+ * 🔴 **아홉 → 넷 → 둘**(2026-08-11 사용자: "우리 한글은 쟤들 둘이랑 비슷하고, 동화책이 차별점").
+ *    파닉스는 경쟁 제품과 **동률인 축**이다. 동률인 걸 페이지에서 제일 길게 설명하면(전에는
+ *    라이브 상자 다섯 = 4,000px 넘게) 차별점인 동화책이 그만큼 뒤로 밀린다. 둘만 남긴다:
+ *    **소리를 넣는 것(탭)** + **손으로 쓰는 것(획순 99%)** — 탭만 하는 앱에 없는 게 두 번째다.
+ * 🔴 나머지 여섯은 마지막 상자의 `note` 한 줄로만 알린다(있다는 사실은 전하되 자리는 안 쓴다).
+ * ⚠️ 이 둘이 맞는지는 아직 **측정이 아니라 판단**이다 — 상자마다 `tryit_view` 를 쏘고 있으므로
  *    (`PhonicsTryIt`) 도달률이 쌓이면 그 숫자로 다시 자를 것.
  */
 const GA_LEARN = [
   { key: 'consonant-tap', h: 520, note: '글자 이름이 아니라 소리를 먼저 귀에 넣습니다.' },
   {
-    key: 'blend-listen',
-    h: 520,
-    note: '두 글자가 합쳐지는 순간을 눈으로 봅니다 — 이게 읽기의 출발입니다.',
-  },
-  /**
-   * 🔴 **써보기를 다시 넣는다**(2026-08-10 사용자: "학습 샘플에 글쓰기가 없네?"). 아홉 개를
-   *    넷으로 줄일 때 써보기와 낱말 쓰기를 **둘 다** 빼서 손으로 쓰는 화면이 통째로 사라졌다 —
-   *    획을 따라 쓰고 99% 를 채워야 넘어가는 건 탭만 하는 앱에는 없는 것이라, 줄이면서 잘라낼
-   *    것이 아니었다. 같은 날 능력 축 표와 태블릿 사진을 뺐으므로 길이는 오히려 줄었다.
-   */
-  {
     key: 'consonant-write',
     h: 560,
-    note: '손이 기억합니다. 눈으로 본 글자를 획순대로 따라 씁니다.',
-  },
-];
-const GA_PLAY = [
-  {
-    key: 'word-listen-choose',
-    h: 620,
-    note: '소리만 듣고 고릅니다. 눈이 아니라 귀로 하는 유일한 활동입니다.',
-  },
-  /**
-   * 🔴 **그림 짝 찾기 대신 낱말 쓰기**(2026-08-10 사용자). 그림↔낱말 잇기는 어느 학습 앱에나
-   *    있어 「우리 것」을 보여주지 못한다. 낱말 전체를 왼쪽부터 순서대로 쓰는 화면이 마지막에
-   *    남는 인상으로 낫다. 위 「ㄱ 써보기」와 겹쳐 보이지만 단위가 다르다 — 글자 하나 vs 낱말 전체.
-   */
-  {
-    key: 'game-word-writing',
-    h: 620,
-    note: '이 단원엔 써보기 · 글자 사냥 · 낱말 그리기 · 한글 블록 · 낱말 쓰기가 더 있습니다. 서른두 단원이 전부 이렇게 생겼습니다.',
+    note: '이 단원엔 ㄱ+모음 · 글자 사냥 · 낱말 연습 · 낱말 그리기 · 한글 블록 · 낱말 쓰기가 더 있습니다. 서른두 단원이 전부 이렇게 생겼습니다.',
     cta: true,
   },
 ];
@@ -474,6 +445,83 @@ const WALL_PREFER = [
   '빨간모자',
 ];
 
+/**
+ * 동화책 **라인 4개** — 이 페이지의 차별점(2026-08-11 사용자: "동화책이 차별점").
+ *
+ * 🔴 13개 카테고리를 그대로 늘어놓지 않는다 — 이름 열셋은 목록이지 「무엇이 있나」가 아니다.
+ *    부모가 기억할 수 있는 **네 덩어리**로 묶고, 넷을 더하면 정확히 {FACTS.books}권이 된다
+ *    (48 + 40 + 78 + 100 = 266). 숫자가 딱 떨어지는 게 이 묶음의 근거다.
+ * 🔴 표지는 **그 라인에서 실제로 골라** 두 장씩 — 그림이 곧 그 라인의 설명이다.
+ */
+const LINES: { name: string; n: number; d: string; match: (c: string) => boolean }[] = [
+  {
+    name: '세계 명작',
+    n: 48,
+    d: '신데렐라 · 백설공주 · 인어공주',
+    match: (c) => c === '세계 명작',
+  },
+  {
+    name: '전래 동화',
+    n: 40,
+    d: '흥부와 놀부 · 콩쥐팥쥐 · 해와 달',
+    match: (c) => c === '전래 동화',
+  },
+  {
+    name: '호리 시리즈',
+    n: 78,
+    d: '아기호랑이 호리가 나오는 창작 동화',
+    match: (c) => c.startsWith('호리'),
+  },
+  {
+    name: '자연 관찰',
+    n: 100,
+    d: '공룡 · 곤충 · 바다 · 우주 · 우리 몸',
+    match: (c) =>
+      c.endsWith('친구들') || ['식물 친구들', '우주와 자연', '우리 몸 이야기'].includes(c),
+  },
+];
+
+/**
+ * 라인 카드가 세울 표지 — 🔴 **벽과 같은 함수를 본다**(2026-08-11). 각자 고르게 뒀더니
+ * 「헨젤과 그레텔」·「백설공주」가 카드와 벽에 **두 번** 섰다(실측). 벽은 이 목록을 제외한다.
+ */
+function lineCoverIds(books: { id: string; coverImage?: string; category?: string }[]): string[] {
+  return LINES.flatMap((l) =>
+    books
+      .filter((b) => b.coverImage && l.match(b.category ?? ''))
+      .slice(0, 2)
+      .map((b) => b.id)
+  );
+}
+
+function LineCards() {
+  const { data } = useStorybooks();
+  const books = data ?? [];
+  return (
+    <div className="!mt-5 grid gap-3 sm:grid-cols-2">
+      {LINES.map((l) => {
+        const covers = books.filter((b) => b.coverImage && l.match(b.category ?? '')).slice(0, 2);
+        return (
+          <div key={l.name} className="overflow-hidden rounded-3xl bg-white/70">
+            <div className="grid grid-cols-2 gap-px bg-ink-100">
+              {covers.map((b) => (
+                <div key={b.id} className="aspect-video bg-cream-100">
+                  <BookCover book={b} lang="ko" loading="lazy" className="h-full" />
+                </div>
+              ))}
+            </div>
+            <div className="flex items-baseline gap-2 px-4 pt-3">
+              <strong className="font-display text-lg font-extrabold text-ink-900">{l.name}</strong>
+              <span className="text-sm font-bold text-coral-700">{l.n}권</span>
+            </div>
+            <p className="px-4 pb-4 pt-0.5 text-sm text-ink-600 break-keep">{l.d}</p>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function BookWall() {
   const { data } = useStorybooks();
   /**
@@ -494,8 +542,9 @@ function BookWall() {
    * 🔴 **표지가 있는 책만 세운다** — 없으면 `BookCover` 가 📖 이모지로 떨어져 벽에 빈 칸이 생긴다
    *    (실측: 열두 칸 중 하나가 그랬다). 벽의 일은 "이만큼 있다"를 보여주는 것이라 빈 칸은 반대말이다.
    */
+  const taken = new Set(lineCoverIds(data ?? []));
   const wall = WALL_QUOTA.flatMap(({ n, match, spread }) => {
-    const pool = books.filter((b) => b.coverImage && match(b.category ?? ''));
+    const pool = books.filter((b) => b.coverImage && !taken.has(b.id) && match(b.category ?? ''));
     const rank = (b: (typeof pool)[number]) => {
       const i = WALL_PREFER.findIndex((k) => (b.title ?? '').includes(k));
       return i < 0 ? WALL_PREFER.length : i;
@@ -733,143 +782,7 @@ function LearnReadCycle() {
   );
 }
 
-/**
- * 파닉스 마스터리 모델을 **글 대신 그림으로**(2026-08-05 사용자: "글로 어쩌구 보다 그림이랑 같이").
- *
- * 🔴 실제 공식(`lib/mastery.ts`)을 그대로 그린다 — 세 요소(정답률 × 연습 × 시간) + 망각곡선
- *    (`exp(-경과일/30)` = 오래 안 보면 내려가고 다시 보면 올라감) + 4단계 색 띠.
- * 🔴 색은 격자와 **같은 값**(`CELL_COLOR`)이어야 아래 라이브 격자와 이어진다:
- *    안 봄 ink-100 / 봄 coral-200 / 연습 중 coral-400 / 익힘 success. SVG 라 hex 직접.
- */
-const MASTERY_BANDS = [
-  { label: '익힘', color: '#5CC99F' },
-  { label: '연습 중', color: '#FF7A59' },
-  { label: '봄', color: '#FFBFA8' },
-  { label: '안 봄', color: '#EDE1D4' },
-];
-// 익힘 점수의 시간 궤적 — 연습으로 올라가 익힘에 닿고 → 안 보는 동안 내려가 → 다시 보면 올라간다.
-const MASTERY_CURVE = '46,126 72,98 98,58 122,30 160,50 200,74 232,94 258,42 300,28 350,26';
-
-function MasteryExplainer() {
-  return (
-    <div className="!mt-6 rounded-3xl border border-ink-100 bg-white/80 p-4 shadow-sm sm:p-5">
-      <div className="flex flex-wrap items-center justify-center gap-1.5 text-sm font-bold text-ink-700">
-        <span className="rounded-full bg-cream-100 px-3 py-1.5 break-keep">🎯 맞힌 비율</span>
-        <span className="text-ink-400">×</span>
-        <span className="rounded-full bg-cream-100 px-3 py-1.5 break-keep">🔁 연습 횟수</span>
-        <span className="text-ink-400">×</span>
-        <span className="rounded-full bg-cream-100 px-3 py-1.5 break-keep">⏳ 안 본 시간</span>
-        <span className="text-ink-400">=</span>
-        <span className="rounded-full bg-coral-100 px-3 py-1.5 text-coral-700 break-keep">
-          익힘 점수
-        </span>
-      </div>
-      <figure className="mt-4">
-        <svg
-          viewBox="0 0 360 168"
-          className="w-full"
-          role="img"
-          aria-label="익힘 점수가 연습으로 올라갔다가 안 보는 동안 내려가고 다시 보면 올라가는 망각곡선"
-        >
-          {MASTERY_BANDS.map((b, i) => {
-            const y = 14 + i * 32;
-            return (
-              <g key={b.label}>
-                <rect x={46} y={y} width={306} height={30} rx={4} fill={b.color} opacity={0.4} />
-                <text
-                  x={42}
-                  y={y + 20}
-                  textAnchor="end"
-                  fontSize={9}
-                  fontWeight={700}
-                  fill="#6b5d52"
-                >
-                  {b.label}
-                </text>
-              </g>
-            );
-          })}
-          {/* 흰 후광 + 진한 선 — 색 띠 위에서도 곡선이 또렷하게. */}
-          <polyline
-            points={MASTERY_CURVE}
-            fill="none"
-            stroke="#ffffff"
-            strokeWidth={6}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <polyline
-            points={MASTERY_CURVE}
-            fill="none"
-            stroke="#5a4632"
-            strokeWidth={3}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <circle cx={122} cy={30} r={4} fill="#5CC99F" stroke="#fff" strokeWidth={2} />
-          <circle cx={232} cy={94} r={4} fill="#FFBFA8" stroke="#fff" strokeWidth={2} />
-          <circle cx={350} cy={26} r={4} fill="#5CC99F" stroke="#fff" strokeWidth={2} />
-          <text x={84} y={160} textAnchor="middle" fontSize={9} fontWeight={700} fill="#8a7c70">
-            연습 ↑
-          </text>
-          <text x={190} y={160} textAnchor="middle" fontSize={9} fontWeight={700} fill="#8a7c70">
-            안 보는 동안 ↓
-          </text>
-          <text x={300} y={160} textAnchor="middle" fontSize={9} fontWeight={700} fill="#8a7c70">
-            다시 봄 ↑
-          </text>
-        </svg>
-        <figcaption className="mt-1 text-center text-sm text-ink-600 break-keep">
-          오래 안 본 글자는 점수가 <strong>서서히 내려가고</strong>, 다시 만나면{' '}
-          <strong>올라갑니다</strong> — 지금 어떤 글자를 더 봐주면 좋은지 한눈에 보여요.
-        </figcaption>
-      </figure>
-
-      {/* 🔴 연동 — 이 점수는 파닉스 활동만이 아니라 **동화책 읽기·독후활동에서도** 쌓인다.
-          코드상 `groupBySyllable` 이 한글 낱말 이벤트(word_exposed/correct)를 `decomposeWord` 로
-          쪼개 그 글자 칸에 얹는다(source 안 가림). 이게 파닉스↔동화책이 하나로 이어지는 실체다. */}
-      <div className="mt-4 rounded-2xl bg-cream-50 p-3 text-center sm:p-4">
-        <p className="mb-2 text-xs font-bold text-ink-500">이 점수는 두 곳에서 함께 쌓여요</p>
-        <div className="flex flex-wrap items-center justify-center gap-1.5 text-sm font-bold text-ink-700">
-          <span className="rounded-full bg-white px-3 py-1.5 shadow-sm break-keep">
-            🔤 파닉스 활동
-          </span>
-          <span className="text-ink-400">＋</span>
-          <span className="rounded-full bg-white px-3 py-1.5 shadow-sm break-keep">
-            📖 동화책 읽기 · 독후활동
-          </span>
-        </div>
-        <p className="mt-2 text-sm text-ink-600 break-keep">
-          동화책에서 <strong>「고기」</strong>를 읽고 맞히면 <strong>고 · 기 글자 점수</strong>가
-          함께 올라가요 — 파닉스와 동화책이 <strong>하나로 이어집니다.</strong>
-        </p>
-      </div>
-    </div>
-  );
-}
-
-/**
- * 학습 현황 상자 — 진짜 부모 리포트 컴포넌트를 얹되 **「예시」임을 밝힌다**.
- * 🔴 이 화면들은 예시 데이터다(계정·아이 없는 방문자). 라벨을 안 달면 실제 아이 기록으로 오인한다.
- */
-function ReportCard({ title, children }: { title: string; children: ReactNode }) {
-  return (
-    <div className="!mt-6 rounded-3xl border border-ink-100 bg-cream-50 p-3 shadow-sm sm:p-4">
-      <div className="mb-2 flex items-center justify-between gap-3 px-1">
-        <span className="text-base font-extrabold text-ink-800 break-keep">{title}</span>
-        <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-ink-100 px-3 py-1 text-xs font-bold text-ink-500">
-          예시 화면
-        </span>
-      </div>
-      {children}
-    </div>
-  );
-}
-
 export default function HangulLandingPage() {
-  const { data: storybooks } = useStorybooks();
-  // 🔴 랜딩에서 진짜 리포트 컴포넌트를 라이브로 보여주기 위한 예시 이벤트 — 계정·아이가 없어서다.
-  const sampleEvents = useMemo(() => buildSampleReportEvents(storybooks ?? []), [storybooks]);
   useSeo({
     title: `한글 파닉스 ${FACTS.koreanUnits}단원 + 다양한 동화책 — 탱고북`,
     description:
@@ -984,13 +897,18 @@ export default function HangulLandingPage() {
       />
 
       {/* ── ② 왜 탱고북인가 — 파닉스↔동화책 순환 그림 ─────────────────────────
-          🔴 제목은 **부모 질문형** 유지(2차 벤치마킹: 투두 "읽기독립, 어떻게 가능한가요?").
+          🔴 **제목은 차별점을 말한다**(2026-08-11 사용자: 전 제목 「우리 아이, 혼자 읽게 될까요?」가
+             "구리다"). 그 문장은 ①부모 질문형이라 벤치마크를 흉내낸 티가 나고 ②**한글을 떼느냐**를
+             묻는데, 한글 떼기는 경쟁 제품도 다 하는 동률 축이라 물어봐야 우리 답이 특별해지지 않는다.
+             우리 답은 **뗀 다음에 읽을 게 있다**는 것이고, 제목이 그걸 바로 말하는 게 낫다.
           🔴 위치 = **파닉스 배너 뒤**(2026-08-10 사용자). 히어로 바로 다음에 두면 아직 아무것도
              못 본 사람에게 「우리는 이렇게 합니다」를 먼저 읽히는 셈이었다. 서비스 1 을 연 직후에
              두면 그림 속 「글자를 배워요」가 방금 읽은 배너를 그대로 가리킨다. */}
-      <Section eyebrow="왜 탱고북인가" title="우리 아이, 혼자 읽게 될까요?">
+      <Section eyebrow="왜 탱고북인가" title="한글을 떼고 나면, 읽을 책이 있습니다">
         <p>
-          탱고북에선 배우는 곳과 읽는 곳이 <strong>한 바퀴로 이어집니다:</strong>
+          글자만 배우고 끝나면 금세 흐려집니다. 탱고북은 <strong>뗀 글자로 읽을 동화책</strong>이
+          같은 앱 안에 <strong>{FACTS.books}권</strong> 있어서, 배우는 곳과 읽는 곳이{' '}
+          <strong>한 바퀴로 이어집니다:</strong>
         </p>
         <LearnReadCycle />
         <div className="!mt-6 rounded-2xl border border-ink-100 bg-white/70 p-4 sm:p-5">
@@ -1077,23 +995,7 @@ export default function HangulLandingPage() {
                 말해 주지 못하고** ②진짜로 눌러볼 화면이 바로 아래인데 그 앞을 800px 이 막았다.
                 이 구간의 일은 분위기가 아니라 **빨리 만지게 하는 것**이다.
                 (합성본 자체는 `public/landing/hangul/tracing.webp` 에 남아 있다.) */}
-            <p className="mt-5 inline-flex items-center gap-2 rounded-full bg-coral-700 px-5 py-2 text-lg font-extrabold text-white">
-              📖 익히기 · 글자
-            </p>
             {GA_LEARN.map((a) => (
-              <PhonicsTryIt
-                key={a.key}
-                unitId={GA_UNIT}
-                activityKey={a.key}
-                height={a.h}
-                note={a.note}
-              />
-            ))}
-
-            <p className="mt-8 inline-flex items-center gap-2 rounded-full bg-mint-700 px-5 py-2 text-lg font-extrabold text-white">
-              🎮 낱말 놀이 · 낱말
-            </p>
-            {GA_PLAY.map((a) => (
               <PhonicsTryIt
                 key={a.key}
                 unitId={GA_UNIT}
@@ -1114,13 +1016,41 @@ export default function HangulLandingPage() {
       {/* 🔴 tagline 없음(2026-08-10 사용자) — 「읽을수록 어휘와 문해력이 자랍니다」가 **바로 아래
           섹션 제목과 같은 말**이라 배너 밑에 같은 문장이 두 줄로 이어져 있었다. */}
       <ServiceBanner n={2} name="탱고북 동화책" />
-      <Section title="읽을수록 어휘와 문해력이 자라요">
+      {/* 🔴 **여기가 차별점이라 제일 크게 쓴다**(2026-08-11 사용자: "우리 한글은 쟤들 둘이랑
+          비슷하고, 동화책이 차별점"). 예전엔 어휘·문해력 설명 문단 넷이 먼저 나오고 표지가
+          중간에 끼어 있었다 — 파는 것이 **책이 이만큼 있다**인데 글부터 읽히고 있었다.
+          순서를 뒤집는다: 라인 넷 → 표지벽 → 그제서야 「그래서 뭐가 자라나」. */}
+      <Section title={`뗀 글자로 읽을 책이 ${FACTS.books}권 있습니다`}>
         <p>
-          글자를 뗐다고 끝이 아니에요. 낱말을 <strong>이야기 속에서</strong> 만나고 또 만나며{' '}
-          <strong>어휘가 늘고</strong>, 읽고 이해하는 힘(<strong>문해력</strong>)이 자랍니다.
+          네 갈래로 나뉘어 있어요. 아이 취향이 어디에 있든 볼 책이 있고,{' '}
+          <strong>매달 새 동화책이 늘어납니다.</strong>
         </p>
-        {/* 동화책이 기르는 것 — 어휘·문해력·읽는 습관(2026-08-05 사용자 강조). 재미가 아니라 학습. */}
-        <div className="!mt-5 grid gap-3 sm:grid-cols-3">
+        <LineCards />
+        <BookWall />
+        <p className="!mt-6">
+          <strong>{FACTS.narrated}권</strong>은 나레이션이 처음부터 끝까지 있어 글자를 아직 못
+          읽어도 매일 한 권 볼 수 있고, <strong>{FACTS.fiveLangBooks}권</strong>은 다섯 언어로 읽을
+          수 있습니다. 이야기를 이어서 틀어두는 「묶어 보기」도 있어 재울 때 씁니다.
+        </p>
+        {/* 🔴 **TV 컷을 쓴다**(2026-08-02). 「전용 TV 앱이 없으니 과장」이라고 판단했다가
+            뒤집었다 — 웹앱이라 TV 브라우저에서 그냥 열리고 실제로 그렇게들 쓴다. 오히려 이
+            페이지의 대비축(패드를 묶어 파는 방문 판매 vs 우리)에 정확히 맞는 그림이다. */}
+        <Photo
+          src="tv"
+          alt="거실 TV 화면에 뜬 백설공주 동화를 두 아이가 앉아서 보고 있다"
+          w={1200}
+          h={675}
+          className="!mt-6"
+        />
+        <p className="!mt-4 text-center text-sm text-ink-600">
+          앱을 깔지 않습니다 — 태블릿도, 폰도, 거실 TV도 브라우저로 그대로 열립니다.
+        </p>
+
+        {/* 읽기만 하고 끝나지 않는다 — 어휘·문해력·독후활동. 여기부터가 「그래서 뭐가 자라나」. */}
+        <h3 className="!mt-10 font-display text-[22px] font-extrabold text-ink-900 break-keep sm:text-[26px]">
+          읽을수록 어휘와 문해력이 자라요
+        </h3>
+        <div className="!mt-4 grid gap-3 sm:grid-cols-3">
           {BOOK_GROWS.map((g) => (
             <div key={g.t} className="rounded-2xl border border-ink-100 bg-white/70 p-4">
               <div className="text-2xl">{g.icon}</div>
@@ -1130,60 +1060,17 @@ export default function HangulLandingPage() {
           ))}
         </div>
         <p className="!mt-6">
-          그리고 이 낱말들을 <strong>동화책마다 독후활동 게임</strong>으로 익혀요 — 다 읽고 나면 그
-          책에 나온 낱말로 게임이 그 자리에서 열립니다.
+          다 읽고 나면 <strong>그 책에 나온 낱말로 독후활동 게임</strong>이 그 자리에서 열려요. 같은
+          낱말을 그림으로 만나고, 글자로 조립하고, 따라 그리고, 손으로 씁니다.
         </p>
-        <p className="!mt-6">
-          라인도 다양해요. 생활동화 · 세계 명작 · 전래 동화 · 자연 관찰, 그리고 아기호랑이 호리가
-          나오는 창작 시리즈까지 <strong>{FACTS.categories}개 카테고리</strong>. 아이 취향이 어디에
-          있든 볼 책이 있고, <strong>매달 새 동화책이 늘어납니다</strong>.
-        </p>
-        {/* 🔴 섹션 문을 **동화책 표지벽**으로 연다(2026-08-05 사용자: "처음에 아이 사진이 아니라
-            동화책 리스트가 쭉 나오는게 … 그 아래 아이+tv 사진이 나오니까"). 아래 TV 컷이 이미
-            아이+뷰어를 보여주므로 첫 아이 사진(reading.webp)은 중복이라 뺐다 — 리스트로 문을 연다.
-            (reading.webp 는 public/landing/hangul/ 에 남아 있다.) */}
-        <BookWall />
-        {/* 🔴 카테고리 칩 13개 목록은 뺐다(2026-08-10 사용자) — 바로 위 표지벽이 이미 다양성을
-            보여주는데 이름·권수를 또 늘어놓으면 같은 말을 두 번 하고, 아래 문단이 「13개
-            카테고리」로 한 번 더 말한다. `CATEGORIES` 상수는 그 문단이 아직 쓴다. */}
-        <p className="!mt-6">
-          <strong>{FACTS.fiveLangBooks}권</strong>은 한국어·영어·베트남어·중국어·태국어 다섯 언어로
-          읽을 수 있고, 세계 명작 등 <strong>{FACTS.multiStyleBooks}권</strong>은 같은 이야기를
-          그림체를 바꿔 가며 볼 수 있습니다. 이야기를 이어서 틀어두는 「묶어 보기」도 있어 재울 때
-          씁니다.
-        </p>
+        {/* 🔴 파닉스↔동화책이 실제로 이어지는 **유일한 증거**. */}
         <p className="!mt-4">
-          앱을 따로 깔지 않습니다. 브라우저에서 열리니 태블릿도, 폰도, <strong>거실 TV</strong>도
-          그대로 화면이 됩니다. 패드를 사야 볼 수 있는 게 아닙니다.
-        </p>
-        {/* 🔴 **TV 컷을 쓴다**(2026-08-02). 「전용 TV 앱이 없으니 과장」이라고 판단했다가
-            뒤집었다 — 웹앱이라 TV 브라우저에서 그냥 열리고 실제로 그렇게들 쓴다. 오히려 이
-            페이지의 대비축(패드를 묶어 파는 방문 판매 vs 우리)에 정확히 맞는 그림이다.
-            🔴 부모가 프레임에 없다 — 「묶어 보기」의 쓰임이 *부모가 손을 떼는 것*이라서다.
-            화면엔 진짜 뷰어(백설공주 + 자막)가 합성돼 있다. */}
-        <Photo
-          src="tv"
-          alt="거실 TV 화면에 뜬 백설공주 동화를 두 아이가 앉아서 보고 있다"
-          w={1200}
-          h={675}
-          className="!mt-6"
-        />
-        <p className="!mt-6">
-          이것도 <strong>직접 읽어보실 수 있습니다.</strong> 카테고리를 눌러 그 라인의 책을 바꿔
-          가며 들어보세요. 「낱말 게임」으로 넘기면 <em>그 책에 나온 낱말</em>로 바로 게임합니다.
-        </p>
-        {/* 🔴 파닉스↔동화책이 실제로 이어지는 **유일한 증거**다. 부모 리포트 화면에 이미
-            이 문장이 있는데(「고기」를 맞히면 고·기 칸이 같이 올라가요) 랜딩엔 한 줄도 없었다.
-            리뷰어가 「연결을 약속만 하고 못 보여준다」고 한 게 이것이다. */}
-        <p className="!mt-6">
-          그리고 이 낱말들은 <strong>파닉스 진도에도 함께 쌓입니다.</strong> 동화책에서 「고기」를
-          맞히면 파닉스 표의 <strong>고·기 칸이 같이 올라갑니다</strong> — 책을 읽은 게 글자 공부로
-          돌아옵니다.
+          그리고 이 낱말들은 <strong>파닉스 진도에도 함께 쌓입니다</strong> — 동화책에서 「고기」를
+          맞히면 파닉스 표의 <strong>고 · 기 칸이 같이 올라갑니다.</strong>
         </p>
         <p className="!mt-6">
-          그 독후활동 게임에서 같은 낱말을{' '}
-          <strong>그림으로 만나고, 글자로 조립하고, 따라 그리고, 손으로 씁니다</strong> — 한 낱말을
-          네 가지 방식으로 만나기 때문에 외우지 않아도 남습니다.
+          <strong>직접 읽어보실 수 있습니다.</strong> 카테고리를 눌러 그 라인의 책을 바꿔 가며
+          들어보세요.
         </p>
         <HangulBookTryIt />
         <HangulWordGameTryIt />
@@ -1214,50 +1101,6 @@ export default function HangulLandingPage() {
               note={`한글 ${FACTS.koreanUnits} + 영어 ${FACTS.englishUnits}`}
             />
           </div>
-        </div>
-      </section>
-
-      {/* ── ⑥.5 부모가 보는 학습 현황 (파닉스 = 과학적 평가 자랑) ─── */}
-      {/* 🔴 진짜 부모 리포트 컴포넌트(`Phonics/StorybookReportSection`)를 **예시 데이터**로 라이브
-          렌더 — 활동을 라이브로 얹는 것과 같은 방식이다. 파닉스는 글자마다 마스터리를 계산하는 게
-          이 제품의 무기라, 그 격자를 실제로 보여주는 게 가장 센 자랑이다(2026-08-05 사용자). */}
-      <section className="px-4 py-12 sm:px-6 sm:py-14">
-        <div className="mx-auto max-w-3xl">
-          <p className="mb-2 text-xs font-bold tracking-wide text-coral-700">
-            부모가 보는 학습 현황
-          </p>
-          <h2 className="font-display text-[26px] font-extrabold leading-snug text-ink-900 break-keep sm:text-[32px]">
-            아이가 무엇을 배웠는지, 글자 하나까지 보여드려요
-          </h2>
-          <div className="mt-4 space-y-4 text-[15px] leading-relaxed text-ink-700 break-keep sm:text-[16px]">
-            <p>
-              특히 <strong>파닉스는 글자마다 익힘 점수를 계산</strong>해, 자음 × 모음 격자를{' '}
-              <strong>안 봄 · 봄 · 연습 중 · 익힘</strong> 네 단계로 칠합니다. 점수는 이렇게 나요:
-            </p>
-          </div>
-          <MasteryExplainer />
-
-          <ReportCard title="🔤 파닉스 학습 현황">
-            {/* 🔴 **한글1 하나만**(2026-08-10 사용자) — 넷을 다 깔면 예시 데이터가 없는 레벨 셋이
-                회색으로 이어져, 자랑하려던 격자가 「대부분 비어 있다」로 읽힌다. */}
-            <PhonicsReportSection
-              events={sampleEvents}
-              storybooks={storybooks ?? []}
-              defaultLang="ko"
-              koLevelIds={['hangul1']}
-            />
-          </ReportCard>
-
-          <ReportCard title="📖 동화책 학습 현황">
-            <StorybookReportSection events={sampleEvents} storybooks={storybooks ?? []} lang="ko" />
-          </ReportCard>
-
-          {/* 🔴 벤치마킹 2차 §4-4 — 경쟁사는 리포트 「스크린샷 이미지」를 보여준다. 우리 건 이
-              페이지에서 **실제로 돌아가는 리포트 컴포넌트**다(숫자만 예시). 그 격차를 못박는다. */}
-          <p className="!mt-4 text-center text-sm text-ink-600 break-keep">
-            위 두 화면은 <strong>캡처가 아니라 실제로 돌아가는 리포트</strong>예요 — 숫자만 예시고,
-            가입하면 <strong>우리 아이가 한 것만</strong> 채워집니다.
-          </p>
         </div>
       </section>
 

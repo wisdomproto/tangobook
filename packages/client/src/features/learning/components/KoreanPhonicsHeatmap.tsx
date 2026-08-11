@@ -27,12 +27,6 @@ function getKoreanLevelTargetWords(levelId: string): string[] {
 interface Props {
   events: LearningEvent[];
   storybooks: StorybookSummary[];
-  /**
-   * 그릴 레벨을 좁힌다. 🔴 **부모 리포트는 안 넘긴다**(전 레벨) — 광고 랜딩(`/hangul`)처럼
-   * 예시 데이터로 보여주는 자리에서만 쓴다. 넷을 다 깔면 아직 아무것도 안 한 레벨 셋이
-   * 회색으로 이어져, 보여주려던 「글자 하나까지 보인다」가 「대부분 비어 있다」로 읽힌다.
-   */
-  levelIds?: string[];
 }
 
 const round1 = (n: number) => +n.toFixed(1);
@@ -44,7 +38,7 @@ const CELL_COLOR: Record<MasteryState, string> = {
   mastered: 'bg-success text-white',
 };
 
-export function KoreanPhonicsHeatmap({ events, storybooks, levelIds }: Props) {
+export function KoreanPhonicsHeatmap({ events, storybooks }: Props) {
   const syllableStats = useMemo(() => groupBySyllable(events), [events]);
   // 자음×모음 표가 없는 레벨용 — 모음 하나 단위 집계.
   const vowelStats = useMemo(() => groupByVowel(events), [events]);
@@ -55,7 +49,7 @@ export function KoreanPhonicsHeatmap({ events, storybooks, levelIds }: Props) {
 
   return (
     <div className="space-y-3">
-      {KOREAN_PHONICS_LEVELS.filter((lv) => !levelIds || levelIds.includes(lv.id)).map((lv) => {
+      {KOREAN_PHONICS_LEVELS.map((lv) => {
         const grid = buildKoreanPhonicsGrid(lv.id);
         const open = openLevel === lv.id;
         const prog = koreanLevelProgress(lv.id, readUnits);
