@@ -1,206 +1,206 @@
 {
   "common": {
-    "back": "← 돌아가기",
-    "backToUnit": "← 단원으로",
-    "backToUnitList": "← 단원 목록",
-    "backToPicker": "← 파닉스 선택",
-    "backToPickerLong": "← 파닉스 선택으로",
-    "backToKorean": "← 한글 파닉스로",
-    "backToEnglish": "← 영어 파닉스로",
-    "backToChinese": "← 병음 파닉스로",
-    "home": "홈",
-    "close": "닫기",
-    "loading": "불러오는 중…",
-    "retry": "🔁 다시 해보기",
-    "next": "다음 →",
-    "quizStart": "🎯 퀴즈 시작!",
-    "listenAgain": "다시 듣기",
-    "listenAgainBtn": "🔊 다시 듣기",
-    "listenCarefully": "🎧 잘 듣고 맞춰봐!",
-    "tapToListen": "눌러서 들어봐!",
-    "allCorrect": "모두 맞췄어!",
-    "wellDone": "잘했어!",
-    "passed": "✓ 통과",
-    "done": "✓ 완료",
-    "comingSoon": "준비 중",
-    "unknownUnit": "알 수 없는 단원입니다.",
-    "unknownActivity": "알 수 없는 활동입니다.",
-    "noUnitsYet": "아직 학습할 단원이 준비되지 않았어요.",
-    "noActivitiesYet": "이 단원은 활동이 아직 준비되지 않았어요.",
-    "unitTab": "단원",
-    "unitPicker": "단원 선택",
-    "phonics": "파닉스"
+    "back": "← Back",
+    "backToUnit": "← Back to unit",
+    "backToUnitList": "← Unit list",
+    "backToPicker": "← Pick phonics",
+    "backToPickerLong": "← Back to phonics picker",
+    "backToKorean": "← Back to Hangul phonics",
+    "backToEnglish": "← Back to English phonics",
+    "backToChinese": "← Back to Pinyin phonics",
+    "home": "Home",
+    "close": "Close",
+    "loading": "Loading…",
+    "retry": "🔁 Try again",
+    "next": "Next →",
+    "quizStart": "🎯 Start the quiz!",
+    "listenAgain": "Listen again",
+    "listenAgainBtn": "🔊 Listen again",
+    "listenCarefully": "🎧 Listen closely and guess!",
+    "tapToListen": "Tap to listen!",
+    "allCorrect": "You got them all!",
+    "wellDone": "Well done!",
+    "passed": "✓ Passed",
+    "done": "✓ Done",
+    "comingSoon": "Coming soon",
+    "unknownUnit": "We can't find this unit.",
+    "unknownActivity": "We can't find this activity.",
+    "noUnitsYet": "No units are ready to learn yet.",
+    "noActivitiesYet": "This unit doesn't have activities yet.",
+    "unitTab": "Units",
+    "unitPicker": "Pick a unit",
+    "phonics": "Phonics"
   },
   "section": {
-    "learn": "익히기",
-    "learnSubtitleWrite": "듣고 따라써요",
-    "learnSubtitleListen": "듣고 배워요",
-    "wordPlay": "낱말 놀이",
-    "wordPlaySubtitle": "놀면서 익혀요",
-    "games": "게임하기",
-    "gamesSubtitle": "재미있게 익혀요"
+    "learn": "Learn",
+    "learnSubtitleWrite": "Listen and trace",
+    "learnSubtitleListen": "Listen and learn",
+    "wordPlay": "Word play",
+    "wordPlaySubtitle": "Learn while you play",
+    "games": "Games",
+    "gamesSubtitle": "Learning is fun"
   },
   "unavailable": {
-    "needWordImages": "낱말 그림이 필요해요",
-    "needWords": "낱말이 필요해요",
-    "needMoreWords": "낱말이 부족해요",
-    "needWordDots": "낱말 그림과 점이 필요해요",
-    "needToneWords": "성조를 뽑을 낱말이 필요해요",
-    "noChant": "노래가 없어요",
-    "comingSoon": "아직 준비 중"
+    "needWordImages": "Needs word pictures",
+    "needWords": "Needs words",
+    "needMoreWords": "Not enough words",
+    "needWordDots": "Needs word pictures and dots",
+    "needToneWords": "Needs words for tone practice",
+    "noChant": "No song yet",
+    "comingSoon": "Still getting ready"
   },
   "landing": {
-    "title": "파닉스 학습",
-    "subtitle": "어떤 글자를 배워볼까요? 카드를 눌러 시작하세요.",
-    "start": "시작하기",
-    "ageRange": "4-7세",
-    "koreanChip": "한글",
-    "koreanTitle": "한글 파닉스",
-    "koreanDesc": "모음 · 자음 · 받침을 차근차근",
-    "koreanAlt": "한글 파닉스 호리",
-    "englishTitle": "영어 파닉스",
-    "englishDesc": "알파벳 음가부터 단어까지",
-    "englishAlt": "영어 파닉스 호리",
-    "chineseTitle": "중국어 병음",
-    "chineseDesc": "성모 · 운모 · 성조를 소리로"
+    "title": "Phonics",
+    "subtitle": "Which letters shall we learn? Tap a card to begin.",
+    "start": "Start",
+    "ageRange": "Ages 4-7",
+    "koreanChip": "Hangul",
+    "koreanTitle": "Hangul Phonics",
+    "koreanDesc": "Vowels, consonants, and final consonants, step by step",
+    "koreanAlt": "Hori for Hangul phonics",
+    "englishTitle": "English Phonics",
+    "englishDesc": "From letter sounds to whole words",
+    "englishAlt": "Hori for English phonics",
+    "chineseTitle": "Chinese Pinyin",
+    "chineseDesc": "Initials, finals, and tones, learned by ear"
   },
   "study": {
-    "koreanLead": "한글",
-    "englishLead": "영어",
-    "chineseLead": "병음",
-    "englishComingSoonNote": "곧 영어 파닉스 활동이 추가될 거에요! ✨"
+    "koreanLead": "Hangul",
+    "englishLead": "English",
+    "chineseLead": "Pinyin",
+    "englishComingSoonNote": "English phonics activities are coming soon! ✨"
   },
   "hub": {
-    "title": "한글 파닉스",
-    "subtitle": "단원을 하나씩 완료하면 다음 단원이 열려요.",
-    "noPlan": "활동 준비 중"
+    "title": "Hangul Phonics",
+    "subtitle": "Finish one unit and the next one opens up.",
+    "noPlan": "Activities coming soon"
   },
   "seo": {
-    "koreanTitle": "한글 파닉스 학습 — 탱고북",
-    "koreanDescription": "한글 자음·모음·받침을 4-5세 입문자에게 친숙한 카드 + 게임으로 학습. 동화 단어와 자동 연결되는 한글 파닉스 학습.",
-    "koreanKeywords": "한글 파닉스, 한글 학습, 자음 모음, 한글 받침, 한글 블렌딩, 4세 한글, 5세 한글, 6세 한글, 탱고북",
-    "koreanJsonLdName": "한글 파닉스 학습",
-    "koreanJsonLdDescription": "한글 자음·모음·받침 + 블렌딩 + 받침 학습 unit 컬렉션",
-    "educationalLevel": "유아",
-    "educationalUse": "한글 읽기, 파닉스, 어휘 학습"
+    "koreanTitle": "Learn Hangul Phonics — Tangobook",
+    "koreanDescription": "Learn Korean consonants, vowels, and final consonants with cards and games made for 4-5 year old beginners. Hangul phonics that links straight to words from storybooks.",
+    "koreanKeywords": "Hangul phonics, learn Korean alphabet, Korean consonants and vowels, Korean final consonants, Hangul blending, Korean for 4 year olds, Korean for 5 year olds, Korean for 6 year olds, Tangobook",
+    "koreanJsonLdName": "Learn Hangul Phonics",
+    "koreanJsonLdDescription": "A unit collection covering Korean consonants, vowels, blending, and final consonants",
+    "educationalLevel": "Preschool",
+    "educationalUse": "Korean reading, phonics, vocabulary"
   },
   "unit": {
-    "review": "복습",
-    "reviewOne": "{{letter}} 복습",
-    "reviewRange": "{{first}}~{{last}} 복습"
+    "review": "Review",
+    "reviewOne": "{{letter}} review",
+    "reviewRange": "{{first}}~{{last}} review"
   },
   "activity": {
-    "letterHunt": "글자 사냥",
-    "wordWriting": "낱말 쓰기",
-    "letterWriting": "글자 쓰기",
-    "wordDrawing": "낱말 그리기",
-    "pictureMatch": "그림 짝 찾기",
-    "koreanBlock": "한글 블록 게임",
-    "wordPractice": "낱말 연습",
-    "flipMatch": "뒤집기 짝 맞추기",
-    "syllableListen": "듣고 음절 맞추기",
-    "letterListen": "듣고 글자 맞추기",
-    "wordListen": "듣고 낱말 맞추기",
-    "vowelListen": "모음 듣기 {{n}}",
-    "vowelWrite": "모음 쓰기",
-    "syllableMake": "음절 만들기",
-    "syllableWrite": "음절 쓰기",
-    "consonantLearn": "{{letter}} 배우기",
-    "consonantBlend": "{{letter}}+모음",
-    "consonantWrite": "{{letter}} 써보기",
-    "codaLearn": "{{letter}} 받침 익히기",
-    "codaWrite": "{{letter}} 받침 쓰기",
-    "patternLearn": "{{pattern}} 배우기",
-    "lettersLearn1": "{{letters}} 배우기 1",
-    "lettersLearn2": "{{letters}} 배우기 2",
-    "lettersWrite": "{{letters}} 써보기",
-    "listenLearn": "듣고 배우기",
-    "listenChoose": "듣고 고르기",
-    "toneChoice": "성조 듣고 고르기",
-    "trace": "따라쓰기",
-    "chant": "노래"
+    "letterHunt": "Letter Hunt",
+    "wordWriting": "Word Writing",
+    "letterWriting": "Letter Writing",
+    "wordDrawing": "Word Drawing",
+    "pictureMatch": "Picture Match",
+    "koreanBlock": "Hangul Block Game",
+    "wordPractice": "Word Practice",
+    "flipMatch": "Flip and Match",
+    "syllableListen": "Listen and Find the Syllable",
+    "letterListen": "Listen and Find the Letter",
+    "wordListen": "Listen and Find the Word",
+    "vowelListen": "Vowel Listening {{n}}",
+    "vowelWrite": "Vowel Writing",
+    "syllableMake": "Make a Syllable",
+    "syllableWrite": "Syllable Writing",
+    "consonantLearn": "Learn {{letter}}",
+    "consonantBlend": "{{letter}} + vowels",
+    "consonantWrite": "Write {{letter}}",
+    "codaLearn": "Learn final consonant {{letter}}",
+    "codaWrite": "Write final consonant {{letter}}",
+    "patternLearn": "Learn {{pattern}}",
+    "lettersLearn1": "Learn {{letters}} 1",
+    "lettersLearn2": "Learn {{letters}} 2",
+    "lettersWrite": "Write {{letters}}",
+    "listenLearn": "Listen and Learn",
+    "listenChoose": "Listen and Choose",
+    "toneChoice": "Listen and Choose the Tone",
+    "trace": "Tracing",
+    "chant": "Song"
   },
   "alphabetLearn": {
-    "noData": "학습카드 데이터가 없어요",
-    "noImage": "학습카드 그림이 아직 없어요",
-    "playLetterSound": "글자 발음 듣기",
-    "switchTo": "{{letters}} 로 전환",
-    "tapLetterHint": "🔊 위의 글자를 눌러 소리를 들어봐!",
-    "tapSparkle": "🔊 반짝이는 곳을 눌러봐!",
-    "foundAll": "🎉 다 찾았어! 눌러서 또 들어봐"
+    "noData": "No learning card data yet",
+    "noImage": "This learning card has no picture yet",
+    "playLetterSound": "Hear the letter sound",
+    "switchTo": "Switch to {{letters}}",
+    "tapLetterHint": "🔊 Tap the letter above to hear its sound!",
+    "tapSparkle": "🔊 Tap the sparkly spot!",
+    "foundAll": "🎉 You found them all! Tap to hear again"
   },
   "alphabetWrite": {
-    "title": "써 보기",
-    "titleShort": "써보기",
-    "upper": "대문자 {{letter}}",
-    "lower": "소문자 {{letter}}",
-    "hint": "대문자와 소문자를 따라써 보세요. 둘 다 통과하면 다음 글자로 넘어가요.",
-    "paintInside": "글자 안을 색칠해봐!"
+    "title": "Write it",
+    "titleShort": "Write it",
+    "upper": "Capital {{letter}}",
+    "lower": "Lowercase {{letter}}",
+    "hint": "Trace the capital letter and the lowercase letter. Pass both and you move on to the next letter.",
+    "paintInside": "Color inside the letter!"
   },
   "chant": {
-    "title": "노래를 들어봐요!",
-    "prev": "이전 곡",
-    "next": "다음 곡",
-    "play": "재생",
-    "pause": "멈추기",
-    "heard": "다 들었어요",
-    "heardDone": "✓ 다 들었어요"
+    "title": "Let's listen to the song!",
+    "prev": "Previous song",
+    "next": "Next song",
+    "play": "Play",
+    "pause": "Pause",
+    "heard": "I listened to it all",
+    "heardDone": "✓ I listened to it all"
   },
   "blend": {
-    "makeSyllable": "{{syllable}} 만들기",
-    "makeSyllableDone": "{{syllable}} 만들기 (완료)",
-    "meet": "두 소리가 만났어!",
-    "tapSparkle": "반짝이는 글자를 눌러봐!"
+    "makeSyllable": "Make {{syllable}}",
+    "makeSyllableDone": "Make {{syllable}} (done)",
+    "meet": "Two sounds met!",
+    "tapSparkle": "Tap the sparkly letter!"
   },
   "consonantTap": {
-    "hint": "세 번씩 눌러봐!",
-    "cardLabel": "{{letter}} {{n}}번 카드"
+    "hint": "Tap each one three times!",
+    "cardLabel": "{{letter}} card {{n}}"
   },
   "write": {
-    "writeSyllable": "{{syllable}} 쓰기",
-    "trace": "✏️ 따라 써봐!",
-    "meet": "두 글자가 만났어!",
-    "sparkleCell": "✏️ 반짝이는 칸에 써봐!",
-    "noStrokes": "저작도구에서 스트로크를 만들어주세요"
+    "writeSyllable": "Write {{syllable}}",
+    "trace": "✏️ Trace it!",
+    "meet": "Two letters met!",
+    "sparkleCell": "✏️ Write in the glowing box!",
+    "noStrokes": "Please create the strokes in the authoring tool"
   },
   "cvc": {
-    "learn": "{{pattern}} 배우기",
-    "words": "{{pattern}} 낱말 익히기",
-    "write": "{{pattern}} 써보기",
-    "noWordsInEditor": "저작도구에 {{pattern}} 단어가 없어요.",
-    "noWords": "{{pattern}} 단어가 없어요."
+    "learn": "Learn {{pattern}}",
+    "words": "Learn {{pattern}} words",
+    "write": "Write {{pattern}}",
+    "noWordsInEditor": "There are no {{pattern}} words in the authoring tool.",
+    "noWords": "There are no {{pattern}} words."
   },
   "hunt": {
-    "prompt": "이 글자를 다 찾아봐!",
-    "done": "다 찾았어!",
-    "letterSound": "{{letter}} 소리 듣기"
+    "prompt": "Find all of this letter!",
+    "done": "You found them all!",
+    "letterSound": "Hear the {{letter}} sound"
   },
   "flip": {
-    "prompt": "같은 짝을 찾아봐!",
-    "allMatched": "다 맞췄어!",
-    "flip": "뒤집기"
+    "prompt": "Find the matching pair!",
+    "allMatched": "You matched them all!",
+    "flip": "Flip"
   },
   "vowelListen": {
-    "inOrder": "순서대로 눌러봐!",
-    "readyForQuiz": "잘했어! 이제 퀴즈를 풀어볼까?",
-    "pickSound": "🔊 들리는 소리를 골라봐!"
+    "inOrder": "Tap them in order!",
+    "readyForQuiz": "Well done! Shall we try the quiz now?",
+    "pickSound": "🔊 Pick the sound you hear!"
   },
   "vowelPicker": {
-    "makePrompt": "어떤 모음으로 만들까?",
-    "writePrompt": "어떤 모음을 써볼까?"
+    "makePrompt": "Which vowel shall we use?",
+    "writePrompt": "Which vowel shall we write?"
   },
   "wordFamily": {
-    "trace": "따라 써봐!",
-    "tapChunks": "소리 조각을 눌러 들어봐!"
+    "trace": "Trace it!",
+    "tapChunks": "Tap the sound chunks to hear them!"
   },
   "wordListen": {
-    "quizBtn": "🎯 퀴즈",
-    "quizSub": "듣고 맞춰보기"
+    "quizBtn": "🎯 Quiz",
+    "quizSub": "Listen and guess"
   },
   "tryIt": {
-    "badge": "실제 학습 화면",
-    "done": "다 하셨네요. 아이와 함께면 소리까지 들으며 할 수 있어요.",
-    "note": "앱에서는 이 활동이 단원마다 아홉 가지씩 이어집니다.",
-    "cta": "앱에서 이어서 하기 →"
+    "badge": "The real learning screen",
+    "done": "That's it. In the app your child does this with sound as well.",
+    "note": "In the app, nine activities like this follow in every unit.",
+    "cta": "Keep going in the app →"
   }
 }
