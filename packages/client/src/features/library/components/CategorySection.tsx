@@ -10,6 +10,8 @@ interface CategorySectionProps {
   books: BookIndexEntry[];
   limit?: number;
   onShowMore?: () => void;
+  /** 라이브러리 첫 섹션인가 — 앞 표지 두 장만 프리렌더에 src 를 남긴다. */
+  first?: boolean;
   /** 타이틀 오른쪽(권수 배지 옆) 커스텀 노드 — 예: 세계명작 그림풍 선택기 */
   headerExtra?: ReactNode;
   /** 'paper' = 종이톤 밴드. 표지 자체가 밝은 크림인 라인(전래 동화)이 배경에 녹는 걸 막는다. */
@@ -29,6 +31,7 @@ export function CategorySection({
   onShowMore,
   headerExtra,
   tone,
+  first = false,
 }: CategorySectionProps) {
   const { t } = useTranslation('library');
   const visible = books.slice(0, limit);
@@ -85,7 +88,9 @@ export function CategorySection({
           <div key={b.id} className="shrink-0 w-56 lg:w-64">
             {/* 행에서 곧바로 보이는 앞 3장은 eager — 가로 스크롤 행 안에서 lazy 가 트리거되지
                 않아 행이 통째로 비는 일이 있었다. 나머지는 lazy(가로로 밀어야 보이는 카드). */}
-            <BookCard book={b} eager={i < 3} />
+            {/* 🔴 `priority` 는 **첫 섹션 앞 2장만** — 프리렌더에 src 가 남는 건 이것뿐이라
+                14개 섹션이 다 붙으면 42장이 첫 화면 회선을 나눠 갖는다. */}
+            <BookCard book={b} eager={i < 3} priority={first === true && i < 2} />
           </div>
         ))}
       </div>

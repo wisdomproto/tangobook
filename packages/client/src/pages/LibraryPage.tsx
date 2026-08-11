@@ -573,9 +573,10 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
             action={search ? { label: t('search.retry'), onClick: () => setSearch('') } : undefined}
           />
         ) : showCategoryGroups && grouped ? (
-          grouped.map(([cat, books]) => (
+          grouped.map(([cat, books], sectionIdx) => (
             <CategorySection
               key={cat}
+              first={sectionIdx === 0}
               icon={getCategoryIconNode(cat, 32)}
               title={displayCategory(cat)}
               books={books.map(applyGenreCover)}

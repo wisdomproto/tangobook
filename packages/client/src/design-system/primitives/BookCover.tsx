@@ -40,6 +40,12 @@ export interface BookCoverProps {
   className?: string;
   imgClassName?: string;
   loading?: 'lazy' | 'eager';
+  /**
+   * 🔴 **첫 화면 표지 한 줌만** true. 프리렌더가 `<img src>` 를 지우는데(표지 105장이 CSS 를
+   *    밀어냈던 실측 때문), `fetchpriority="high"` 붙은 것만 남긴다 — 그래야 하이드레이션(5.4초)을
+   *    기다리지 않고 HTML 에서 바로 받는다. 실측: 첫 표지 8.1초.
+   */
+  priority?: boolean;
 }
 
 /** 표지 단일 진입점 — 클린 표지 + (옵션) 글래스 제목 오버레이. 클린 없으면 레거시 표지(오버레이 X). */
@@ -51,6 +57,7 @@ export function BookCover({
   className,
   imgClassName,
   loading = 'lazy',
+  priority = false,
 }: BookCoverProps) {
   const { img, hasClean, title } = resolveCover(book, { style, lang });
   const showOverlay = overlayTitle && hasClean;
@@ -123,7 +130,8 @@ export function BookCover({
           className={cn('w-full h-full object-cover', imgClassName)}
           // 🔴 재시도 = "화면에 있는데 안 떴다" 는 뜻이므로 lazy 를 풀고 즉시 받는다.
           // lazy 인 채로 다시 그리면 안 터지던 조건이 그대로라 또 안 뜬다(가로 스크롤 행에서 관찰됨).
-          loading={retry > 0 ? 'eager' : loading}
+          loading={retry > 0 || priority ? 'eager' : loading}
+          {...(priority ? { fetchPriority: 'high' as const } : null)}
           decoding="async"
           key={`${src}:${retry}`}
           onLoad={() => setLoaded(true)}
