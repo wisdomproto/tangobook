@@ -23,6 +23,7 @@ import puppeteer, { type Browser, type Frame, type Page } from 'puppeteer';
 import { loadSession, applySession } from '../src/services/naver/naver-session.js';
 import { loadBlogSource } from '../src/services/naver/blog-source.js';
 import { buildInjectionPlan } from '../src/services/naver/blog-html.js';
+import { naverCategory } from './lib/naver-category.js';
 import {
   findPublication,
   recordPublication,
@@ -153,7 +154,8 @@ async function writeAndSchedule(
   ed: Frame,
   plan: { title: string; blocks: Array<{ kind: string; html?: string; imageUrl?: string }> },
   imgs: Map<string, string>,
-  when: { y: number; m: number; d: number; hour: string }
+  when: { y: number; m: number; d: number; hour: string },
+  category: string
 ) {
   for (const label of ['취소', '닫기']) {
     await ed.evaluate(
@@ -173,22 +175,35 @@ async function writeAndSchedule(
   const book = plan.title.split(/[\s—:]/)[0];
   let imageNo = 0;
 
+  // 라이브러리 홍보 한 줄 — 카테고리별 문구·링크(파닉스는 학습 페이지). naver-category 설정에서 온다.
+  const promoLines = naverCategory(category).promoLines;
+  const injectPromo = async () => {
+    for (const line of promoLines) {
+      await page.keyboard.type(line, { delay: 3 });
+      await page.keyboard.press('Enter');
+    }
+    await page.keyboard.press('Enter');
+    await sleep(1500); // 링크 카드 변환 대기
+  };
+  // 🔴 파닉스 블로그엔 `data-blog-cta` 카드가 없다(CTA 가 앱 컴포넌트 렌더라 본문 카드에 없음).
+  //    그런 글은 마커가 안 걸려 홍보가 통째로 빠지므로, 루프 끝에서 폴백으로 넣는다.
+  let promoDone = false;
+
   for (const b of plan.blocks) {
     if (b.kind === 'html') {
       if (/함께 읽으면 좋은/.test(b.html ?? '')) continue; // 링크 4개 = 대형 카드 4장
-      // CTA 직전에 라이브러리 한 줄 — 이 책 하나가 아니라 **서비스 전체**로 보내는 유일한 자리
-      if (/data-blog-cta/.test(b.html ?? '')) {
-        for (const line of [
-          `탱고북에는 아이와 함께 볼 자연관찰 그림책이 100권 넘게 있어요.`,
-          `https://tangobook.co.kr/library`,
-        ]) {
-          await page.keyboard.type(line, { delay: 3 });
-          await page.keyboard.press('Enter');
-        }
-        await page.keyboard.press('Enter');
-        await sleep(1500); // 링크 카드 변환 대기
+      // CTA 직전에 라이브러리 한 줄 — 이 책 하나가 아니라 **서비스 전체**로 보내는 유일한 자리.
+      if (!promoDone && /data-blog-cta/.test(b.html ?? '')) {
+        await injectPromo();
+        promoDone = true;
       }
-      const text = toPlain(b.html ?? '');
+      let text = toPlain(b.html ?? '');
+      // 🔴 파닉스 본문 CTA 링크는 동화 뷰어(/library/kr-h*)가 아니라 그 단원 학습 페이지로.
+      if (category === 'phonics')
+        text = text.replace(
+          /tangobook\.co\.kr\/library\/(kr-h[\w-]+)/g,
+          'tangobook.co.kr/library/phonics/korean/$1'
+        );
       if (!text) continue;
       const lines = text.split('\n');
       for (let i = 0; i < lines.length; i++) {
@@ -224,6 +239,9 @@ async function writeAndSchedule(
       await sleep(300);
     }
   }
+
+  // 🔴 data-blog-cta 카드가 없는 글(파닉스)은 위 루프에서 홍보가 안 들어갔다 → 본문 끝에 폴백.
+  if (!promoDone) await injectPromo();
 
   // --- 초안 모드 -------------------------------------------------------
   // 🔴 예약 날짜 필드가 readOnly 라 자동으로 못 바꾼다(달력 위젯 미해결). 그래서 초안까지만
@@ -445,12 +463,19 @@ async function main() {
 
       const when = new Date(base);
       when.setDate(when.getDate() + i + 1);
-      await writeAndSchedule(page, ed, plan, imgs, {
-        y: when.getFullYear(),
-        m: when.getMonth() + 1,
-        d: when.getDate(),
-        hour: HOUR,
-      });
+      await writeAndSchedule(
+        page,
+        ed,
+        plan,
+        imgs,
+        {
+          y: when.getFullYear(),
+          m: when.getMonth() + 1,
+          d: when.getDate(),
+          hour: HOUR,
+        },
+        category
+      );
       await recordPublication({
         bookId: src.bookId,
         postId: src.blogContentId,

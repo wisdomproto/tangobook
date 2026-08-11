@@ -6,11 +6,12 @@
  * 건너뛰므로 **태그·공개설정·검색허용은 비어 있다** — 여기서 채운다.
  *
  * 사용:
- *   npx tsx scripts/schedule-naver-drafts.ts                    # 목록만 보기
- *   npx tsx scripts/schedule-naver-drafts.ts --limit=14 --apply
+ *   npx tsx scripts/schedule-naver-drafts.ts --category=nature              # 목록만 보기
+ *   npx tsx scripts/schedule-naver-drafts.ts --category=classic --hour=12 --apply
  *
- * 옵션: --limit(기본 14) --hour(기본 9) --start=YYYY-MM-DD(기본 내일부터)
- *       --match=자연관찰 (제목 필터, 기본값) --keep
+ * 옵션: --category(기본 nature — nature|classic|phonics) --limit(기본 14) --hour(기본 9)
+ *       --start=YYYY-MM-DD(기본 내일부터) --match=<제목 추가 필터, 선택> --keep
+ * 🔴 카테고리별 하루 1편 = 카테고리마다 다른 --hour 로 각각 실행(자연 9 / 명작 12 / 파닉스 15 등).
  */
 import 'dotenv/config';
 import fs from 'node:fs';
@@ -18,6 +19,7 @@ import path from 'node:path';
 import puppeteer, { type Browser, type Frame, type Page } from 'puppeteer';
 import { loadSession, applySession } from '../src/services/naver/naver-session.js';
 import { recordPublication } from '../src/services/naver/naver-publications.store.js';
+import { naverCategory } from './lib/naver-category.js';
 
 const OUT = path.resolve(process.cwd(), 'out/naver');
 fs.mkdirSync(OUT, { recursive: true });
@@ -33,24 +35,13 @@ const args = Object.fromEntries(
 
 const LIMIT = Number(args.limit ?? 14);
 const HOUR = String(args.hour ?? '9').padStart(2, '0');
-const MATCH = String(args.match ?? '자연관찰');
+// 🔴 카테고리로 대상을 고른다(제목 MATCH 아님). 명작은 제목에 「명작」이 51편 중 19편뿐이라
+//    MATCH 로는 32편이 새어 나갔다 — DB category 로 직접 거른다. MATCH 는 선택적 추가 필터.
+const CATEGORY = String(args.category ?? 'nature');
+const MATCH = args.match ? String(args.match) : '';
 const APPLY = args.apply === true;
 
-const tagsFor = (title: string) => {
-  const kw = title.split(/[\s—:]/)[0];
-  return [
-    kw,
-    `${kw}그림책`,
-    '유아그림책',
-    '자연관찰',
-    '자연관찰책',
-    '유아자연관찰',
-    '4세그림책',
-    '5세그림책',
-    '6세그림책',
-    '탱고북',
-  ];
-};
+const tagsFor = (title: string) => naverCategory(CATEGORY).tags(title.split(/[\s—:]/)[0]);
 
 /**
  * DB 상태: ①이미 **발행된** ko 제목(예약 대상에서 뺀다) ②ko 제목→bookId 다리(발행 성공 시 기록용).
@@ -69,10 +60,15 @@ interface BookRef {
 async function loadDbState(): Promise<{
   published: Set<string>;
   titleToBook: Map<string, BookRef>;
+  titleToCategory: Map<string, string>;
 }> {
   const base = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  const empty = { published: new Set<string>(), titleToBook: new Map<string, BookRef>() };
+  const empty = {
+    published: new Set<string>(),
+    titleToBook: new Map<string, BookRef>(),
+    titleToCategory: new Map<string, string>(),
+  };
   if (!base || !key) return empty; // 키 없으면 dedup 생략(중복이 무발행보다 낫다)
   const rest = async <T>(q: string): Promise<T[]> => {
     const r = await fetch(`${base}/rest/v1/${q}`, {
@@ -81,11 +77,18 @@ async function loadDbState(): Promise<{
     if (!r.ok) throw new Error(`Supabase ${r.status}`);
     return r.json() as Promise<T[]>;
   };
-  const rows = await rest<{ id: string; title: string; content_id: string }>(
-    'mkt_blog_contents?select=id,title,content_id&lang=eq.ko&limit=2000'
-  );
+  // 🔴 category 는 mkt_contents 에 있다 — content_id 로 조인해 제목→카테고리 다리를 만든다.
+  const rows = await rest<{
+    id: string;
+    title: string;
+    content_id: string;
+    mkt_contents: { category: string | null } | null;
+  }>('mkt_blog_contents?select=id,title,content_id,mkt_contents!inner(category)&lang=eq.ko&limit=2000');
   const titleToBook = new Map<string, BookRef>(
     rows.map((r) => [r.title, { bookId: r.content_id, blogContentId: r.id }])
+  );
+  const titleToCategory = new Map<string, string>(
+    rows.map((r) => [r.title, r.mkt_contents?.category ?? ''])
   );
   const pubs = await rest<{ book_id: string }>(
     'mkt_naver_blog_publications?select=book_id&status=eq.published'
@@ -94,7 +97,7 @@ async function loadDbState(): Promise<{
   const published = new Set(
     [...titleToBook].filter(([, ref]) => publishedBooks.has(ref.bookId)).map(([t]) => t)
   );
-  return { published, titleToBook };
+  return { published, titleToBook, titleToCategory };
 }
 
 async function notify(text: string) {
@@ -280,11 +283,12 @@ async function main() {
   const all = await listDrafts(ed0);
   await p0.close();
 
-  // 🔴 목록은 **저장 시각 역순**이라 그대로 쓰면 검색량 상위가 뒤로 밀린다
-  //    (판다가 1번, 장수풍뎅이가 뒤로). 캐시해둔 검색량으로 다시 세운다.
+  // 🔴 목록은 **저장 시각 역순**이라 그대로 쓰면 검색량 상위가 뒤로 밀린다.
+  //    검색량은 자연관찰만 캐시돼 있다(naver-volumes.json[category]). 없는 카테고리(명작·파닉스)는
+  //    vol 0 → 저장순 유지. 순서 정교화는 검색량 실측 후 별도 과제.
   const volPath = path.resolve(process.cwd(), 'scripts/_data/naver-volumes.json');
   const volMap: Record<string, { vol: number }> = fs.existsSync(volPath)
-    ? (JSON.parse(fs.readFileSync(volPath, 'utf-8')).nature ?? {})
+    ? (JSON.parse(fs.readFileSync(volPath, 'utf-8'))[CATEGORY] ?? {})
     : {};
   const volKeys = Object.keys(volMap).sort((a, b) => b.length - a.length); // 부분문자열 충돌 방지
   const volOf = (title: string) => {
@@ -293,16 +297,18 @@ async function main() {
   };
 
   // 🔴 이미 발행된 책은 뺀다 — 라이브 발행한 책의 초안이 임시저장에 남아 재예약되던 구멍(장수풍뎅이 2회).
-  const { published, titleToBook } = await loadDbState();
-  // 🔴 같은 제목이 두 번 있을 수 있다(테스트하다 중복 저장된 초안). 첫 개만 쓴다 —
-  //    안 거르면 같은 글이 이틀 연속 나간다.
-  const targets = [...new Set(all.filter((t) => t.includes(MATCH) && !published.has(t)))]
+  const { published, titleToBook, titleToCategory } = await loadDbState();
+  // 🔴 카테고리로 이 레인 초안만 고른다(제목 MATCH 아님). MATCH 는 주면 추가 필터.
+  //    같은 제목이 두 번 있을 수 있다(테스트 중복 초안) → new Set 으로 첫 개만.
+  const targets = [...new Set(all.filter((t) => !published.has(t)))]
+    .filter((t) => titleToCategory.get(t) === CATEGORY)
+    .filter((t) => !MATCH || t.includes(MATCH))
     .sort((a, b) => volOf(b) - volOf(a))
     .slice(0, LIMIT);
   if (published.size) console.log(`발행 완료 ${published.size}편은 예약 대상에서 제외`);
 
   console.log(
-    `임시저장 ${all.length}개 · "${MATCH}" 포함 ${targets.length}개 예약${APPLY ? '' : ' (dry-run)'}`
+    `임시저장 ${all.length}개 · category=${CATEGORY}${MATCH ? ` · "${MATCH}" 포함` : ''} → ${targets.length}개 예약${APPLY ? '' : ' (dry-run)'}`
   );
   const base = args.start ? new Date(String(args.start)) : new Date();
   targets.forEach((t, i) => {
