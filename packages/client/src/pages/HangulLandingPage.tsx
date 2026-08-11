@@ -1000,12 +1000,12 @@ export default function HangulLandingPage() {
             히어로가 가운데 정렬 한 열이다. */}
         <div className="relative mx-auto max-w-3xl text-center">
           <p className="inline-flex rounded-full bg-coral-100 px-4 py-1.5 text-sm font-extrabold text-coral-700 sm:text-base">
-            4~7세 한글떼기 · 파닉스
+            4~7세 한글파닉스 · 동화책
           </p>
           {/* 🔴 **데스크탑에선 한 줄**(2026-08-10). 42px 로는 24자가 max-w-3xl 을 넘어 세 줄로 접혔다. */}
           <h1 className="mt-3 font-display text-[28px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:whitespace-nowrap sm:text-[30px] md:text-[36px]">
-            <span className="text-coral-700">한글을 떼고</span>, 그 글자로{' '}
-            <span className="text-coral-700">동화책을 읽어요</span>
+            <span className="text-coral-700">한글 파닉스</span>를 배우고{' '}
+            <span className="text-coral-700">스스로 동화책을 읽어요</span>
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-ink-700 break-keep sm:text-[18px]">
             자음·모음부터 받침까지 <strong className="text-coral-700">소리로 한글을 떼고</strong>,
