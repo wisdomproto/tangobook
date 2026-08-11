@@ -427,20 +427,37 @@ const SIGNUP = '/login?mode=signup';
  */
 const GA_UNIT = 'kr-h1-u02';
 /**
- * 🔴 **아홉 → 넷 → 둘**(2026-08-11 사용자: "우리 한글은 쟤들 둘이랑 비슷하고, 동화책이 차별점").
- *    파닉스는 경쟁 제품과 **동률인 축**이다. 동률인 걸 페이지에서 제일 길게 설명하면(전에는
- *    라이브 상자 다섯 = 4,000px 넘게) 차별점인 동화책이 그만큼 뒤로 밀린다. 둘만 남긴다:
- *    **소리를 넣는 것(탭)** + **손으로 쓰는 것(획순 99%)** — 탭만 하는 앱에 없는 게 두 번째다.
- * 🔴 나머지 여섯은 마지막 상자의 `note` 한 줄로만 알린다(있다는 사실은 전하되 자리는 안 쓴다).
- * ⚠️ 이 둘이 맞는지는 아직 **측정이 아니라 판단**이다 — 상자마다 `tryit_view` 를 쏘고 있으므로
- *    (`PhonicsTryIt`) 도달률이 쌓이면 그 숫자로 다시 자를 것.
+ * 🔴 **아홉 → 넷 → 둘 → 다시 아홉**(2026-08-11 사용자: "2개밖에 없는데 많이 넣어주고, 게임 포함,
+ *    써보기도"). 길이를 줄이려고 둘까지 깎았는데, 그러면 이 페이지에서 가장 센 자산 —
+ *    **한 단원이 통째로 도는 것** — 을 스스로 감춘 셈이 된다. 단원 전체(익히기 넷 + 낱말 놀이
+ *    다섯)를 그대로 얹는다.
+ * 🔴 게임 넷과 「낱말 연습」은 상자가 `100dvh` 다(`PhonicsTryIt.VIEWPORT_SIZED`) — 안에서 `vh` 로
+ *    칸을 재기 때문. 그래서 이 구간이 길어지는 건 구조상 어쩔 수 없고, 대신 상자마다 note 를
+ *    달리해 같은 화면이 아홉 번 반복되는 것처럼 읽히지 않게 한다.
+ * ⚠️ 이게 맞는지는 여전히 **측정이 아니라 판단**이다 — 상자마다 `tryit_view` 를 쏘고 있으므로
+ *    도달률이 쌓이면 그 숫자로 다시 자를 것.
  */
 const GA_LEARN = [
   { key: 'consonant-tap', h: 520, note: '글자 이름이 아니라 소리를 먼저 귀에 넣습니다.' },
   {
+    key: 'blend-listen',
+    h: 520,
+    note: '두 글자가 합쳐지는 순간을 눈으로 봅니다 — 이게 읽기의 출발입니다.',
+  },
+  {
     key: 'consonant-write',
     h: 560,
-    note: '이 단원엔 ㄱ+모음 · 글자 사냥 · 낱말 연습 · 낱말 그리기 · 한글 블록 · 낱말 쓰기가 더 있습니다. 서른두 단원이 전부 이렇게 생겼습니다.',
+    note: '손이 기억합니다. 획순대로 따라 쓰고 99% 를 채워야 넘어갑니다.',
+  },
+  { key: 'letter-hunt', h: 560, note: '비슷한 글자 사이에서 오늘 배운 글자를 골라냅니다.' },
+  { key: 'word-listen-choose', h: 620, note: '소리만 듣고 고릅니다 — 눈이 아니라 귀로 하는 활동.' },
+  { key: 'game-dots', h: 620, note: '낱말이 가리키는 그림을 손으로 칠해 완성합니다.' },
+  { key: 'game-korean-block', h: 620, note: '자모를 끌어다 낱말을 조립합니다.' },
+  { key: 'game-word-writing', h: 620, note: '낱말 전체를 왼쪽부터 순서대로 씁니다.' },
+  {
+    key: 'game-line-matching',
+    h: 620,
+    note: '서른두 단원이 전부 이렇게 생겼습니다 — 익히기 넷에 낱말 놀이 다섯.',
     cta: true,
   },
 ];
@@ -611,196 +628,102 @@ function CurriculumUnits() {
 }
 
 /**
- * 동화책 **표지벽**. 권수만 적으면 안 믿긴다 — 표지를 깔면 그 자리에서 확인된다.
- * 🔴 목록을 박아 두지 않는다 — 라이브러리 API 를 그대로 읽으므로 책이 늘면 벽도 늘어난다.
- * 🔴 `BookCover` 를 쓴다(직접 `<img>` X) — 512px 썸네일로 유도해 준다. 원본은 장당 125KB 라
- *    서른 장이면 4MB 다.
- */
-/**
- * 동화책 **표지벽**. 권수만 적으면 안 믿긴다 — 표지를 깔면 그 자리에서 확인된다.
- *
- * 🔴 **API 순서 그대로 자르지 않는다**(2026-08-02 리뷰). `slice(0,40)` 이었을 땐 가장 최근에
- *    넣은 전래동화 시즌2가 벽을 통째로 먹어 **세계 명작이 한 장도 없었다** — 아는 제목이
- *    하나도 없으면 「266권」이 「내가 모르는 책 266권」이 된다. 아는 이야기부터 세운다.
- * 🔴 **선두 번호를 떼고 보여준다** — 「15. 편지 배달 왔어요」는 저작도구 정렬용 번호다.
- * 🔴 **눌리게 한다.** 벽지처럼 흘려보내면 2.5화면을 눈으로만 지나간다.
- * 🔴 **셀에 `aspect-video`** — 없으면 표지가 도착할 때까지 셀 높이가 0이라 페이지가
- *    3,000px 자라며 읽던 줄이 밀려 내려간다(실측).
- */
-/**
- * 벽에 세울 15권의 **카테고리 할당**(2026-08-05 사용자: "절반을 명작동화로, 전래·자연·생활 골고루").
- *
- * 🔴 예전엔 제목 키워드 목록(`['백설공주',…,'토끼']`)으로 골랐다. 그러니 **`토끼` 하나가 네 권**을
- *    끌어왔고(토끼의 재판·토끼와 자라·토끼와 거북이·자연관찰 「토끼」) 벽 절반이 토끼가 됐다.
- *    무엇을 보여줄지는 제목이 아니라 **라인**으로 정한다.
- * 🔴 자연관찰은 카테고리가 여럿이다(곤충·하늘/바다/육지 동물·공룡 「…친구들」) — 이름 하나로
- *    못 잡으므로 접미사로 묶는다.
- */
-const WALL_QUOTA: { n: number; match: (category: string) => boolean; spread?: boolean }[] = [
-  // 🔴 **줄이 딱 떨어지는 수**(2026-08-11 사용자: "여기 줄 좀 맞추자"). 3열 격자라 라인마다
-  //    3의 배수여야 한 줄이 라인 하나로 읽힌다 — 명작 7 이던 시절 셋째 줄이 명작1+전래2 로
-  //    섞여서, 벽을 훑는 눈에 라인 경계가 안 보였다. 6·3·3·3 = 15 = 정확히 다섯 줄.
-  { n: 6, match: (c) => c === '세계 명작' },
-  { n: 3, match: (c) => c === '전래 동화' },
-  // 🔴 자연은 **카테고리를 흩어서** 뽑는다 — API 순서대로면 세 칸이 전부 「육지 동물 친구들」이라
-  //    자연관찰 라인이 동물 한 종류처럼 보인다(실측).
-  { n: 3, match: (c) => c.endsWith('친구들'), spread: true },
-  { n: 3, match: (c) => c === '생활동화' },
-];
-
-/**
- * 그 라인에서 **먼저 세울 제목**. 🔴 순서만 정하고 **선택은 카테고리가 한다** — 예전처럼 제목
- * 목록으로 전체에서 고르면 `토끼` 하나가 네 권(재판·자라·거북이·자연관찰)을 끌어와 벽 절반을
- * 차지했다. 여기서는 같은 라인 안에서만 앞으로 당기므로 그 사고가 구조적으로 안 난다.
- * (API 순서는 이름값 순이 아니다 — 전래 세 칸이 반쪽이·두더지의 혼인·구렁덩덩 새선비였다.)
- */
-const WALL_PREFER = [
-  '백설공주',
-  '신데렐라',
-  '인어공주',
-  '흥부',
-  '심청',
-  '콩쥐',
-  '해와 달',
-  '헨젤',
-  '빨간모자',
-];
-
-/**
  * 동화책 **라인 4개** — 이 페이지의 차별점(2026-08-11 사용자: "동화책이 차별점").
  *
  * 🔴 13개 카테고리를 그대로 늘어놓지 않는다 — 이름 열셋은 목록이지 「무엇이 있나」가 아니다.
- *    부모가 기억할 수 있는 **네 덩어리**로 묶고, 넷을 더하면 정확히 {FACTS.books}권이 된다
- *    (48 + 40 + 78 + 100 = 266). 숫자가 딱 떨어지는 게 이 묶음의 근거다.
- * 🔴 표지는 **그 라인에서 실제로 골라** 두 장씩 — 그림이 곧 그 라인의 설명이다.
+ *    부모가 기억할 수 있는 **네 덩어리**로 묶고, 넷을 더하면 정확히 266권이 된다
+ *    (48 + 40 + 78 + 100). 숫자가 딱 떨어지는 게 이 묶음의 근거다.
  */
 const LINES: { name: string; n: number; d: string; match: (c: string) => boolean }[] = [
   {
     name: '세계 명작',
     n: 48,
-    d: '신데렐라 · 백설공주 · 인어공주',
+    d: '누구나 아는 이야기 — 같은 책을 그림체를 바꿔 가며 볼 수 있어요.',
     match: (c) => c === '세계 명작',
   },
   {
     name: '전래 동화',
     n: 40,
-    d: '흥부와 놀부 · 콩쥐팥쥐 · 해와 달',
+    d: '우리 옛이야기 — 지게·엽전·꽃신처럼 우리 것을 낱말로 만납니다.',
     match: (c) => c === '전래 동화',
   },
   {
     name: '호리 시리즈',
     n: 78,
-    d: '아기호랑이 호리가 나오는 창작 동화',
-    match: (c) => c.startsWith('호리'),
+    d: '아기호랑이 호리가 나오는 창작 동화 — 생활 습관 · 유치원 · 세상 탐험.',
+    match: (c) => c.startsWith('호리') || c === '생활동화',
   },
   {
     name: '자연 관찰',
     n: 100,
-    d: '공룡 · 곤충 · 바다 · 우주 · 우리 몸',
+    d: '공룡·곤충·바다·우주·우리 몸 — 실제 사진으로 보는 논픽션.',
     match: (c) =>
       c.endsWith('친구들') || ['식물 친구들', '우주와 자연', '우리 몸 이야기'].includes(c),
   },
 ];
 
 /**
- * 라인 카드가 세울 표지 — 🔴 **벽과 같은 함수를 본다**(2026-08-11). 각자 고르게 뒀더니
- * 「헨젤과 그레텔」·「백설공주」가 카드와 벽에 **두 번** 섰다(실측). 벽은 이 목록을 제외한다.
+ * 라인마다 **표지 여섯 장**(2026-08-11 사용자: "그냥 카테고리별로 6개씩 보여주자").
+ *
+ * 🔴 예전엔 **라인 카드(표지 2장) + 표지벽(15장)** 둘이 나란히 있었다. 벽은 라인을 안 나누고
+ *    카드는 두 장뿐이라, 같은 표지를 두 번 보여주면서 정작 **어느 라인에 무엇이 있는지**는
+ *    양쪽 다 못 보여줬다(사용자: "이렇게 있으니까 좀 중복이네"). 하나로 합친다 —
+ *    **라인 이름 → 표지 여섯 → 설명 한 줄**.
+ * 🔴 여섯인 이유 = 3열(모바일)·6열(데스크탑) 어느 쪽에도 줄이 딱 떨어진다.
+ * 🔴 **눌리게 한다** — 벽지처럼 흘려보내면 눈으로만 지나간다.
+ * 🔴 셀에 `aspect-video` 필수 — 없으면 표지가 도착할 때까지 셀 높이가 0이라 페이지가 자라며
+ *    읽던 줄이 밀려 내려간다(실측).
+ * 🔴 선두 번호(`15. 편지 배달 왔어요`)는 저작도구 정렬용이라 떼고 보여준다.
  */
-function lineCoverIds(books: { id: string; coverImage?: string; category?: string }[]): string[] {
-  return LINES.flatMap((l) =>
-    books
-      .filter((b) => b.coverImage && l.match(b.category ?? ''))
-      .slice(0, 2)
-      .map((b) => b.id)
-  );
-}
+const cleanTitle = (t?: string) =>
+  (t ?? '')
+    .replace(/^\s*\d+\.\s*/, '')
+    .replace(/\s*\(L\d+\)\s*$/, '')
+    .trim();
 
-function LineCards() {
+function LineSections() {
   const { data } = useStorybooks();
   const books = data ?? [];
   return (
-    <div className="!mt-5 grid gap-3 sm:grid-cols-2">
+    <div className="!mt-6 space-y-8">
       {LINES.map((l) => {
-        const covers = books.filter((b) => b.coverImage && l.match(b.category ?? '')).slice(0, 2);
+        // 같은 이야기의 난이도 변형(`__L4`)은 제목이 같아 한 라인에 두 번 선다 — 제목으로 걸러낸다.
+        const seen = new Set<string>();
+        const picked = books
+          .filter((b) => {
+            if (!b.coverImage || !l.match(b.category ?? '')) return false;
+            const t = cleanTitle(b.title);
+            if (!t || seen.has(t)) return false;
+            seen.add(t);
+            return true;
+          })
+          .slice(0, 6);
+        if (picked.length < 6) return null;
         return (
-          <div key={l.name} className="overflow-hidden rounded-3xl bg-white/70">
-            <div className="grid grid-cols-2 gap-px bg-ink-100">
-              {covers.map((b) => (
-                <div key={b.id} className="aspect-video bg-cream-100">
-                  <BookCover book={b} lang="ko" loading="lazy" className="h-full" />
-                </div>
-              ))}
-            </div>
-            <div className="flex items-baseline gap-2 px-4 pt-3">
-              <strong className="font-display text-lg font-extrabold text-ink-900">{l.name}</strong>
+          <div key={l.name}>
+            <div className="flex items-baseline gap-2">
+              <h3 className="font-display text-xl font-extrabold text-ink-900 break-keep sm:text-2xl">
+                {l.name}
+              </h3>
               <span className="text-sm font-bold text-coral-700">{l.n}권</span>
             </div>
-            <p className="px-4 pb-4 pt-0.5 text-sm text-ink-600 break-keep">{l.d}</p>
+            <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-6 sm:gap-3">
+              {picked.map((b) => (
+                <Link
+                  key={b.id}
+                  to={`/library/${b.id}`}
+                  className="aspect-video overflow-hidden rounded-2xl bg-cream-100"
+                  title={cleanTitle(b.title)}
+                >
+                  <BookCover book={b} lang="ko" loading="lazy" className="h-full" />
+                </Link>
+              ))}
+            </div>
+            <p className="mt-2 text-sm text-ink-600 break-keep">{l.d}</p>
           </div>
         );
       })}
     </div>
-  );
-}
-
-function BookWall() {
-  const { data } = useStorybooks();
-  /**
-   * 🔴 **난이도 변형본을 뺀다** — `백설공주 (L4)` 처럼 같은 이야기의 레벨 변형이 함께 오면
-   *    벽에 같은 제목이 두 번 선다(실측). 제목에서 선두 번호와 `(L4)` 를 떼고 중복을 없앤다.
-   */
-  const seen = new Set<string>();
-  const books = (data ?? []).filter((b) => {
-    const t = (b.title ?? '')
-      .replace(/^\s*\d+\.\s*/, '')
-      .replace(/\s*\(L\d+\)\s*$/, '')
-      .trim();
-    if (!t || seen.has(t)) return false;
-    seen.add(t);
-    return true;
-  });
-  /**
-   * 🔴 **표지가 있는 책만 세운다** — 없으면 `BookCover` 가 📖 이모지로 떨어져 벽에 빈 칸이 생긴다
-   *    (실측: 열두 칸 중 하나가 그랬다). 벽의 일은 "이만큼 있다"를 보여주는 것이라 빈 칸은 반대말이다.
-   */
-  const taken = new Set(lineCoverIds(data ?? []));
-  const wall = WALL_QUOTA.flatMap(({ n, match, spread }) => {
-    const pool = books.filter((b) => b.coverImage && !taken.has(b.id) && match(b.category ?? ''));
-    const rank = (b: (typeof pool)[number]) => {
-      const i = WALL_PREFER.findIndex((k) => (b.title ?? '').includes(k));
-      return i < 0 ? WALL_PREFER.length : i;
-    };
-    const sorted = [...pool].sort((a, b) => rank(a) - rank(b));
-    if (!spread) return sorted.slice(0, n);
-    // 카테고리를 하나씩 돌아가며 — 다 돌고도 모자라면 남은 것으로 채운다.
-    const used = new Set<string>();
-    const picked = sorted.filter((b) => {
-      const c = b.category ?? '';
-      if (used.has(c)) return false;
-      used.add(c);
-      return true;
-    });
-    return [...picked, ...sorted.filter((b) => !picked.includes(b))].slice(0, n);
-  });
-  if (wall.length === 0) return null;
-  return (
-    <>
-      <div className="!mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
-        {wall.map((b) => (
-          <Link
-            key={b.id}
-            to={`/library/${b.id}`}
-            className="aspect-video overflow-hidden rounded-2xl bg-cream-100"
-            title={(b.title ?? '').replace(/^\s*\d+\.\s*/, '').replace(/\s*\(L\d+\)\s*$/, '')}
-          >
-            <BookCover book={b} lang="ko" loading="lazy" className="h-full" />
-          </Link>
-        ))}
-      </div>
-      <p className="!mt-2 text-center text-xs text-ink-600 break-keep">
-        여기 보이는 건 그중 일부입니다.
-      </p>
-    </>
   );
 }
 
@@ -870,35 +793,6 @@ function Section({
         </div>
       </div>
     </section>
-  );
-}
-
-/**
- * 📹 30초 영상 — 파닉스가 실제로 어떻게 흘러가는지(2026-08-10 사용자, 벤치마크 투두한글이
- * 페이지 중간중간을 영상으로 설명한다).
- *
- * 🔴 **새로 만들지 않는다** — 이미 만들어 IG 에 올린 카테고리 광고 릴스(`ad-reel-phonics.mp4`,
- *    38.8초·9:16·실제 앱 화면 녹화)를 그대로 쓴다.
- * 🔴 **자동재생하지 않는다**(`preload="none"` + poster). 이 페이지의 규칙이 「아무것도 안 눌렀는데
- *    소리가 나지 않는다」이고, 8MB 를 스크롤만 해도 받게 하면 첫 화면이 느려진다.
- * 🔴 포스터는 **앱 화면이 나오는 14초 지점**을 뽑았다 — 첫 프레임(타이틀 카드)은 「1년 무료」를
- *    말하는데, 이 페이지는 그 표현을 일부러 안 쓴다(⑦ 요금 주석 참조).
- */
-function PhonicsReel() {
-  return (
-    <figure className="!mt-7">
-      <video
-        className="mx-auto w-full max-w-[280px] rounded-3xl bg-ink-900 shadow-sm"
-        controls
-        preload="none"
-        playsInline
-        poster="/landing/hangul/phonics-reel-poster.webp"
-        src="/landing/hangul/phonics-reel.mp4"
-      />
-      <figcaption className="mt-2 text-center text-sm text-ink-600 break-keep">
-        ▶ 30초 영상 — 아이가 「ㄱ」 단원을 어떻게 배우는지 보실 수 있어요.
-      </figcaption>
-    </figure>
   );
 }
 
@@ -1195,10 +1089,6 @@ export default function HangulLandingPage() {
               />
             ))}
           </div>
-          {/* 🔴 **영상은 파닉스 설명의 맨 끝**(2026-08-11 사용자). 커리큘럼 목록 밑에 뒀더니
-              「32단원이 이렇다」 다음에 영상, 그 다음에 다시 진짜 화면 둘이라 같은 얘기를 세 번
-              하는 순서였다. 직접 눌러본 뒤에 놓으면 「방금 만진 게 이렇게 흘러간다」가 된다. */}
-          <PhonicsReel />
         </div>
       </section>
 
@@ -1224,8 +1114,7 @@ export default function HangulLandingPage() {
           네 갈래로 나뉘어 있어요. 아이 취향이 어디에 있든 볼 책이 있고,{' '}
           <strong>매달 새 동화책이 늘어납니다.</strong>
         </p>
-        <LineCards />
-        <BookWall />
+        <LineSections />
         {/* 🔴 **다국어는 글이 아니라 그림으로**(2026-08-11 사용자: "동화책 다국어로 볼 수 있다는
             걸 예시 그림으로 보여주자"). 「191권은 다섯 언어로 읽을 수 있습니다」 한 줄로는 그게
             자막만 바뀌는 건지 책이 통째로 바뀌는 건지 알 수 없다 — **같은 책의 표지가 언어마다
