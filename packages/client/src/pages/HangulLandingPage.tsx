@@ -571,6 +571,64 @@ function CurriculumUnits() {
  *    부모가 기억할 수 있는 **네 덩어리**로 묶고, 넷을 더하면 정확히 266권이 된다
  *    (48 + 40 + 78 + 100). 숫자가 딱 떨어지는 게 이 묶음의 근거다.
  */
+/**
+ * 영어 파닉스 다섯 권 — 한글 `STAGES` 와 같은 모양으로 읽히게(같은 페이지 안에서 두 서비스가
+ * 서로 다른 문법으로 설명되면 하나로 안 보인다).
+ * 🔴 문구는 `/english` 랜딩에서 그대로 가져왔다(2026-08-10 작성분) — 한 페이지로 합치면서
+ *    그 페이지는 이리로 리다이렉트한다. 새로 쓰지 않는다.
+ */
+const EN_STAGES: { label: string; count: string; detail: string; tone: string }[] = [
+  {
+    label: '알파벳 소리',
+    count: '8단원',
+    detail: 'A 부터 Z 까지, 글자마다 소리 하나',
+    tone: 'bg-peach-100 text-ink-800',
+  },
+  {
+    label: '단모음 낱말',
+    count: '8단원',
+    detail: 'c + an → can, 소리가 합쳐집니다',
+    tone: 'bg-coral-100 text-coral-700',
+  },
+  {
+    label: '매직 e',
+    count: '7단원',
+    detail: 'cap 이 cape 가 되는 규칙',
+    tone: 'bg-mint-100 text-mint-700',
+  },
+  {
+    label: '이중자음·블렌드',
+    count: '8단원',
+    detail: 'bl · ch · sh — 두 글자가 한 소리로',
+    tone: 'bg-peach-100 text-ink-800',
+  },
+  {
+    label: '모음팀·R 모음',
+    count: '8단원',
+    detail: 'ee · oa · ar — 긴 소리로',
+    tone: 'bg-coral-100 text-coral-700',
+  },
+];
+
+/**
+ * 영어 데모 = Book 2 첫 단원(`c + an → can`) **세 개만**. 한글은 단원을 통째로(아홉 개) 얹지만
+ * 영어까지 아홉이면 같은 형식이 열여덟 번 이어져 리듬이 사라진다 — 여기선 「합쳐지는 순간」과
+ * 손으로 하는 것만 보여주고 나머지는 앱으로 보낸다.
+ * 🔴 **키는 그 단원 plan 에 실제로 있는 것이어야 한다** — 없으면 `PhonicsTryIt` 이
+ *    `if (!activity) return null` 로 **에러 없이 상자를 지운다**. 영어 블록 게임은 2026-08-09 에
+ *    전 권에서 빠졌다(가드 테스트 有) — en-b2-u01 의 play 는 낱말 그리기·쓰기·그림 짝 셋이다.
+ */
+const EN_UNIT = 'en-b2-u01';
+const EN_TRY: { key: string; h: number; note: string; cta?: boolean }[] = [
+  {
+    key: 'cvc-an',
+    h: 560,
+    note: 'c 와 an 이 붙어 can 이 됩니다 — 영어 읽기가 시작되는 순간입니다.',
+  },
+  { key: 'game-word-writing', h: 620, note: '낱말 전체를 왼쪽부터 차례로 씁니다.' },
+  { key: 'game-line-matching', h: 620, note: '39단원이 전부 이렇게 생겼습니다.', cta: true },
+];
+
 const LINES: { name: string; n: number; d: string; match: (c: string) => boolean }[] = [
   {
     name: '세계 명작',
@@ -805,14 +863,14 @@ function LearnReadCycle() {
 
 export default function HangulLandingPage() {
   useSeo({
-    title: `한글 파닉스 ${FACTS.koreanUnits}단원 + 다양한 동화책 — 탱고북`,
+    title: `한글 파닉스 ${FACTS.koreanUnits}단원 · 영어 파닉스 ${FACTS.englishUnits}단원 + 동화책 — 탱고북`,
     description:
       '자음·모음부터 받침·쌍자음까지 한글 파닉스 32단원, 영어 파닉스 39단원. 그리고 배운 글자로 바로 읽는 생활동화·세계명작·전래동화·자연관찰 동화책이 매달 늘어납니다. 4~7세 한글떼기. 한 달 무료로 써 보고 정하세요.',
     path: '/hangul',
     // 🔴 나이 키워드는 5·6세에 몰려 있다(실측 2026-08-01): 5세한글공부 1,140 · 6세한글공부 940 ·
     //    7세 290 · 4세 220 · 3세 60. 제품은 4~7세가 맞지만, 그 표현만 쓰면 2,080 을 못 받는다.
     keywords:
-      '5세 한글공부, 6세 한글공부, 한글앱, 한글 파닉스, 한글떼기, 한글떼는시기, 자음모음, 받침, 파닉스앱, 7세 한글공부, 4세 한글공부',
+      '5세 한글공부, 6세 한글공부, 한글앱, 한글 파닉스, 한글떼기, 한글떼는시기, 자음모음, 받침, 파닉스앱, 영어 파닉스, 유아 영어, 7세 한글공부, 4세 한글공부',
   });
 
   return (
@@ -846,7 +904,7 @@ export default function HangulLandingPage() {
             글자도 한 단계 더 올린다 — 본문은 안 따라간다(글줄이 길어지면 읽기가 나빠진다). */}
         <div className="relative mx-auto max-w-3xl text-center lg:max-w-5xl xl:max-w-6xl">
           <p className="inline-flex rounded-full bg-coral-100 px-4 py-1.5 text-base font-extrabold text-coral-700 sm:text-lg xl:px-5 xl:py-2 xl:text-xl">
-            4~7세 한글파닉스 · 동화책
+            4~7세 한글·영어 파닉스 · 동화책
           </p>
           {/* 🔴 **데스크탑에선 한 줄**(2026-08-10). 42px 로는 24자가 본문 폭(896px)을 넘어 세 줄로 접혔다. */}
           <h1 className="mt-3 font-display text-[30px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:whitespace-nowrap sm:text-[32px] md:text-[38px] xl:text-[49px]">
@@ -867,7 +925,11 @@ export default function HangulLandingPage() {
           {/* 🔴 **모바일도 2열**(2026-08-11) — 세로로 쌓으면 카드 둘이 580px 를 먹어 CTA 가
               접힘선 아래로 내려간다. 첫 화면에 버튼이 있어야 한다. */}
           <div className="mx-auto mt-8 grid max-w-2xl grid-cols-2 gap-3 sm:gap-4 xl:max-w-4xl xl:gap-6">
-            <HeroServiceCard n={1} name="한글 파닉스" d={`${FACTS.koreanUnits}단원 · 소리로 떼기`}>
+            <HeroServiceCard
+              n={1}
+              name="한글·영어 파닉스"
+              d={`한글 ${FACTS.koreanUnits}단원 · 영어 ${FACTS.englishUnits}단원`}
+            >
               <img
                 src="/landing/hangul/phonics.webp"
                 alt="아기호랑이가 가·나·다 한글 블록을 갖고 노는 그림"
@@ -991,9 +1053,6 @@ export default function HangulLandingPage() {
         {/* 🔴 **단원 칩 전체 목록(`CurriculumUnits`)과 설명 세 문단을 지웠다**(2026-08-05 사용자).
             32개를 다 늘어놓으면 위 다섯 줄 요약과 같은 말을 두 번 하는 셈이고, 화면 두 개 분량이
             지나가는 동안 아래 「직접 해보기」가 그만큼 멀어진다. 컴포넌트는 남겨 뒀다. */}
-        <p className="!mt-6">
-          영어 파닉스 <strong>{FACTS.englishUnits}단원</strong>도 같이 들어 있습니다.
-        </p>
         {/* 🔴 여기엔 연출 사진을 두지 않는다(2026-08-10 사용자). 바로 아래가 「직접 해보기」라
             **진짜 화면이 곧 나오는데** 그 앞에 태블릿 사진을 800px 깔면 도달만 늦어진다.
             (합성본은 `public/landing/hangul/siblings.webp` 에 남아 있다.) */}
@@ -1047,13 +1106,92 @@ export default function HangulLandingPage() {
         </div>
       </section>
 
+      {/* ── ④.5 영어 파닉스 — **한 페이지에 합친다**(2026-08-11 사용자: "요금제에 전부 포함인데
+          같이 넣는 게 맞을 거 같긴 한데"). `/english` 를 따로 두면 한 이용권으로 다 열린다는 사실이
+          두 페이지로 갈라져 보인다. 대신 **분량은 한글의 1/3** — 광고 본진은 한글이고, 영어까지
+          단원을 통째로 얹으면 같은 형식이 열여덟 번 이어진다. */}
+      <ServiceBanner
+        n={2}
+        name="탱고북 영어 파닉스"
+        tagline="알파벳 이름이 아니라 소리부터. 처음 보는 낱말도 스스로 읽어 냅니다."
+      />
+      <Section
+        title={
+          <>
+            영어 파닉스 <span className="text-coral-700">{FACTS.englishUnits}단원</span>
+          </>
+        }
+      >
+        <p>
+          알파벳 소리에서 시작해 매직 e·블렌드·모음팀까지, <strong>다섯 권</strong>으로 이어져요.
+          한글 파닉스와 <strong>같은 이용권</strong>이라 따로 결제하지 않습니다.
+        </p>
+        <ol className="!mt-5 space-y-2">
+          {EN_STAGES.map((s, i) => (
+            <li
+              key={s.label}
+              className="flex items-center gap-3 rounded-3xl border border-ink-100 bg-white/70 px-4 py-3 lg:px-5 lg:py-4"
+            >
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-coral-700 text-sm font-extrabold text-white lg:h-9 lg:w-9 lg:text-base">
+                {i + 1}
+              </span>
+              <span
+                className={`shrink-0 rounded-full px-3 py-1 text-sm font-bold lg:text-base ${s.tone}`}
+              >
+                {s.count}
+              </span>
+              <span className="min-w-0">
+                <strong className="text-ink-900 xl:text-xl">{s.label}</strong>
+                <span className="ml-2 text-base text-ink-600 break-keep lg:text-lg xl:text-[18px]">
+                  {s.detail}
+                </span>
+              </span>
+            </li>
+          ))}
+        </ol>
+        <Link
+          to="/library/phonics/english"
+          className="!mt-5 inline-flex min-h-[44px] items-center rounded-full border-2 border-coral-500 px-6 text-base font-bold text-coral-700 transition hover:bg-coral-50"
+        >
+          영어 커리큘럼 전체 보기 →
+        </Link>
+      </Section>
+
+      <section className="px-4 pb-12 sm:px-6 sm:pb-14">
+        <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl">
+          <div className="rounded-3xl border border-coral-200 bg-white/60 p-4 sm:p-6">
+            <p className="text-sm font-bold tracking-wide text-coral-700">
+              영어 파닉스 · {FACTS.englishUnits}단원
+            </p>
+            <h2 className="mt-1 font-display text-[28px] font-extrabold text-ink-900 break-keep sm:text-[34px]">
+              「c + an → can」 학습 샘플
+            </h2>
+            <p className="mt-3 inline-flex items-center gap-2 rounded-full border-2 border-coral-300 bg-coral-50 px-4 py-2.5 text-[16px] font-extrabold text-coral-700 break-keep sm:text-xl">
+              <span className="animate-pulse text-2xl sm:text-3xl">👆</span>
+              여기도 진짜 앱 화면입니다
+            </p>
+            {EN_TRY.map((a) => (
+              <PhonicsTryIt
+                key={a.key}
+                unitId={EN_UNIT}
+                language="english"
+                activityKey={a.key}
+                height={a.h}
+                note={a.note}
+                cta={a.cta}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── ⑤ 동화책 ──────────────────────────────────────────── */}
       {/* 🔴 **쪽수·권수를 앞세우지 않는다**(2026-08-05 사용자: "쪽수 이런건 뭐하러 얘기해 의미없게").
           부모가 궁금한 건 3,835쪽이 아니라 **뭐가 다양하게 있고, 책마다 뭘 하고, 계속 느나**다.
           그래서 제목·본문을 라인 다양성 + 책마다 독후활동 게임 + 매달 증가로 바꿨다. */}
       {/* 🔴 tagline 없음(2026-08-10 사용자) — 「읽을수록 어휘와 문해력이 자랍니다」가 **바로 아래
           섹션 제목과 같은 말**이라 배너 밑에 같은 문장이 두 줄로 이어져 있었다. */}
-      <ServiceBanner n={2} name="탱고북 동화책" />
+      <ServiceBanner n={3} name="탱고북 동화책" />
       {/* 🔴 **여기가 차별점이라 제일 크게 쓴다**(2026-08-11 사용자: "우리 한글은 쟤들 둘이랑
           비슷하고, 동화책이 차별점"). 예전엔 어휘·문해력 설명 문단 넷이 먼저 나오고 표지가
           중간에 끼어 있었다 — 파는 것이 **책이 이만큼 있다**인데 글부터 읽히고 있었다.

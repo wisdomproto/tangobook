@@ -119,7 +119,6 @@ const InviteLandingPage = lazy(() => PAY().then((m) => ({ default: m.InviteLandi
 const InviteFriendsPage = lazy(() => PAY().then((m) => ({ default: m.InviteFriendsPage })));
 const HangulLandingPage = lazy(() => import('../pages/HangulLandingPage'));
 /** 영어 파닉스 광고 랜딩 — 같은 이유로 lazy(뷰어·게임을 실제로 마운트한다). */
-const EnglishLandingPage = lazy(() => import('../pages/EnglishLandingPage'));
 import { GlobalUiSound } from '../components/GlobalUiSound';
 import { GuestEventAdopter } from '@/features/learning/components/GuestEventAdopter';
 import { MetaPixelTracker } from '../components/MetaPixelTracker';
@@ -173,12 +172,11 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        // 🔴 영어 랜딩은 `/hangul` 에 합쳤다(2026-08-11 사용자: "요금제에 전부 포함인데 같이
+        //    넣는 게 맞을 거 같긴 한데"). 광고·블로그에 이미 나간 `/english` 링크가 있을 수
+        //    있으므로 라우트는 남기고 보낸다.
         path: 'english',
-        element: (
-          <ErrorBoundary>
-            <EnglishLandingPage />
-          </ErrorBoundary>
-        ),
+        element: <Navigate to="/hangul" replace />,
       },
       // 친구 초대 랜딩 — AppShell 밖 풀화면 (따뜻한 환영 + 코드 저장 + 가입 CTA)
       {
