@@ -935,7 +935,7 @@ export default function HangulLandingPage() {
 
           <Link
             to={SIGNUP}
-            className="mt-8 inline-flex min-h-[52px] items-center rounded-full bg-coral-700 px-8 text-base font-bold text-white shadow-md transition hover:bg-coral-800 xl:min-h-[60px] xl:px-10 xl:text-lg"
+            className="mt-8 inline-flex min-h-[68px] items-center rounded-full bg-coral-700 px-12 text-xl font-extrabold text-white shadow-lg transition hover:bg-coral-800 xl:mt-10 xl:min-h-[104px] xl:px-20 xl:text-[30px]"
           >
             한달 무료 체험
           </Link>
