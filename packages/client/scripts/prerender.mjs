@@ -42,7 +42,7 @@ const STATIC_ROUTES = [
   '/library',
   '/library/phonics/korean',
   '/vocabulary',
-  '/hangul',
+  '/intro',
 ];
 // 🔴 `/blog` 는 넣지 않는다 — 서버가 `blogListHandler` 로 이미 SSR 한다(app.ts). 구워 봐야
 //    그 핸들러가 먼저 잡아 영영 안 쓰이고, 매니페스트에 담기면 246KB 를 헛되이 물고 있는다.
@@ -168,7 +168,7 @@ const MIN_TEXT = 250;
  */
 const MIN_BY_ROUTE = {
   '/library': 900, // 실측 1,231 (표지 105장)
-  '/hangul': 3000, // 실측 4,881
+  '/intro': 3000, // 실측 4,881(광고 랜딩 — 예전 `/hangul`)
   '/vocabulary': 4000, // 실측 7,243
 };
 

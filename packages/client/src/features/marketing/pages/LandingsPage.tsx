@@ -4,7 +4,7 @@ import { useState } from 'react';
  * `/marketing/landings` — 광고 랜딩(상세페이지) 관리.
  *
  * 🔴 **랜딩을 이 화면에 미리보기로 띄우지 않는다 — iframe 도 안 된다**(2026-08-02 실측).
- *    iframe 으로 `/hangul` 을 띄우면 그건 **같은 앱의 두 번째 인스턴스**다. 두 인스턴스가
+ *    iframe 으로 `/intro` 를 띄우면 그건 **같은 앱의 두 번째 인스턴스**다. 두 인스턴스가
  *    같은 Supabase 인증 저장소를 공유해 토큰 갱신이 서로를 건드리고, 그때마다 마케팅 셸의
  *    인증 가드가 다시 마운트되고 → iframe 이 새로 만들어져 앱이 또 부팅되고 → 무한 루프.
  *    프로덕션 실측: **iframe 이 15초에 60번 다시 로드**(초당 4번), 셸 전체가 초당 두 번 교체.
@@ -34,7 +34,7 @@ interface Landing {
 
 const LANDINGS: Landing[] = [
   {
-    slug: '/hangul',
+    slug: '/intro',
     title: '한글 파닉스 71단원 + 동화책 266권',
     audience: '5~6세 자녀를 둔 부모 · 한글떼기 검색',
     keywords: [

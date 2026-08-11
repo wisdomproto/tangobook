@@ -122,7 +122,7 @@ function TryItShell({
 }
 
 /** 📖 읽어주기 — 아홉 카테고리 전부. */
-export function HangulBookTryIt() {
+export function IntroBookTryIt() {
   const [bookId, setBookId] = useState(BOOKS_BY_CATEGORY[0].id);
   const picked = BOOKS_BY_CATEGORY.find((b) => b.id === bookId) ?? BOOKS_BY_CATEGORY[0];
 
@@ -183,7 +183,7 @@ const BOOK_GAMES: { id: GameTypeId; label: string; how: string }[] = [
 /** 상자로는 안 띄우고 한 줄로만 알리는 나머지 — 있다는 사실만 전한다. */
 const BOOK_GAMES_MORE = '🧱 한글 블록 · ✏️ 낱말 그리기';
 
-export function HangulWordGameTryIt() {
+export function IntroWordGameTryIt() {
   const books = BOOKS_BY_CATEGORY.filter((b) => b.words > 0);
   const [bookId, setBookId] = useState(books[0].id);
   const picked = books.find((b) => b.id === bookId) ?? books[0];
