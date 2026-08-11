@@ -248,17 +248,25 @@ async function writeAndSchedule(
   //    만들고 예약은 사람이 한다. 진짜 노동인 이미지 업로드는 여기서 이미 끝나 있다.
   if (args.draft) {
     if (!APPLY) return { scheduled: false, saved: false };
-    const before = await ed.evaluate(
-      `(document.querySelector('button.save_count_btn__ZTLNa')||{}).innerText || '0'`
-    );
-    await ed.evaluate(
-      `(function(){var b=Array.prototype.slice.call(document.querySelectorAll('button')).filter(function(x){return (x.innerText||'').trim()==='저장'})[0]; if(b) b.click()})()`
-    );
-    await sleep(4000);
-    const after = await ed.evaluate(
-      `(document.querySelector('button.save_count_btn__ZTLNa')||{}).innerText || '0'`
-    );
-    if (Number(after) <= Number(before)) throw new Error(`임시저장 안 됨 (${before} → ${after})`);
+    const count = async () =>
+      Number(
+        await ed.evaluate(
+          `(document.querySelector('button.save_count_btn__ZTLNa')||{}).innerText || '0'`
+        )
+      );
+    const before = await count();
+    // 🔴 마지막 요소가 URL(OG 카드 변환 중)이면 바로 저장이 안 먹는다(파닉스 = 홍보 URL 이 끝).
+    //    변환이 끝나도록 한 박자 쉬고, 안 걸리면 다시 눌러본다(명작은 1회에 걸려 루프가 즉시 끝난다).
+    await sleep(2500);
+    let after = before;
+    for (let t = 0; t < 3 && after <= before; t++) {
+      await ed.evaluate(
+        `(function(){var b=Array.prototype.slice.call(document.querySelectorAll('button')).filter(function(x){return (x.innerText||'').trim()==='저장'})[0]; if(b) b.click()})()`
+      );
+      await sleep(4000);
+      after = await count();
+    }
+    if (after <= before) throw new Error(`임시저장 안 됨 (${before} → ${after})`);
     return { scheduled: false, saved: true };
   }
 

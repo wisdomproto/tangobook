@@ -156,9 +156,89 @@ async function runMeasure(blogId: string): Promise<void> {
   await browser.close();
 }
 
+/**
+ * capture — **사용자의 진짜 Chrome**(디버그 포트로 띄운)에 붙어 네이버 세션을 저장한다.
+ *
+ * 🔴 왜: 네이버가 puppeteer로 조종되는 브라우저의 **로그인**을 자동화로 감지해 막는다(맞는 비번도
+ *    「틀렸다」, 2FA 무한루프). 그래서 로그인은 사람이 자기 Chrome에서 하고(네이버가 안 막음),
+ *    그 결과 쿠키만 가져온다 — 봇 탐지 우회가 아니라 사람이 만든 세션의 재사용이다.
+ *
+ * 준비(사용자): 크롬 전부 종료 후 아래로 실행 → 그 창에서 네이버 로그인.
+ *   chrome.exe --remote-debugging-port=9222 --user-data-dir="C:\\naver-debug-profile"
+ */
+async function runCapture(): Promise<void> {
+  const port = process.env.CDP_PORT || '9222';
+  let browser: Browser;
+  try {
+    browser = await puppeteer.connect({
+      browserURL: `http://127.0.0.1:${port}`,
+      defaultViewport: null,
+    });
+  } catch {
+    console.error(
+      `✗ 디버그 Chrome(127.0.0.1:${port})에 못 붙었습니다.\n` +
+        `  크롬을 --remote-debugging-port=${port} 로 띄우고 네이버 로그인한 뒤 다시 실행하세요.`
+    );
+    process.exit(1);
+  }
+
+  const page: Page = await browser.newPage();
+  // write 페이지가 로그인으로 튕기지 않으면 = 로그인 되어 있음(발행기가 쓸 바로 그 페이지로 검증)
+  await page.goto('https://blog.naver.com/tangobooks?Redirect=Write&', {
+    waitUntil: 'networkidle2',
+  });
+  await sleep(3000);
+  if (/nidlogin|nid\.naver\.com/.test(page.url())) {
+    console.error(
+      '✗ 아직 네이버 로그인 안 됨 — 그 Chrome 창에서 네이버 로그인을 먼저 끝내고 다시 실행하세요.'
+    );
+    await page.close();
+    browser.disconnect();
+    process.exit(1);
+  }
+
+  // 쿠키는 여러 네이버 도메인에서 모아 dedupe(auth 쿠키는 .naver.com, 일부는 서브도메인)
+  const urls = ['https://blog.naver.com', 'https://www.naver.com', 'https://nid.naver.com'];
+  const seen = new Set<string>();
+  const cookies: unknown[] = [];
+  for (const u of urls) {
+    for (const c of await page.cookies(u)) {
+      const k = `${c.name}@${c.domain}${c.path}`;
+      if (!seen.has(k)) {
+        seen.add(k);
+        cookies.push(c);
+      }
+    }
+  }
+  const localStorage = await page.evaluate(() => {
+    const ls = globalThis.localStorage;
+    const out: Record<string, string> = {};
+    for (let i = 0; i < ls.length; i++) {
+      const key = ls.key(i)!;
+      out[key] = ls.getItem(key) ?? '';
+    }
+    return out;
+  });
+
+  const SESSION_PATH = path.resolve(process.cwd(), 'naver-session.json');
+  fs.writeFileSync(
+    SESSION_PATH,
+    JSON.stringify({ savedAt: new Date().toISOString(), cookies, localStorage }, null, 2),
+    'utf-8'
+  );
+  const hasAuth = cookies.some((c) => (c as { name?: string }).name === 'NID_AUT');
+  console.log(
+    `✅ 세션 저장됨: naver-session.json (cookies ${cookies.length}개, NID_AUT ${hasAuth ? '있음' : '❌없음'})`
+  );
+  await page.close();
+  browser.disconnect(); // 사용자 Chrome 는 닫지 않는다
+  if (!hasAuth) process.exit(1);
+}
+
 if (mode === 'login') await runLogin();
 else if (mode === 'measure') await runMeasure(arg);
+else if (mode === 'capture') await runCapture();
 else {
-  console.error('사용법: naver-poc.ts <login|measure> [blogId]');
+  console.error('사용법: naver-poc.ts <login|measure|capture> [blogId]');
   process.exit(1);
 }
