@@ -295,6 +295,32 @@ async function prerenderRoute(browser, baseUrl, route, { isBook = false } = {}) 
     /fetchpriority="high"/i.test(tag) ? tag : tag.replace(/\s+src="[^"]*"/, '')
   );
 
+  /**
+   * 🔴 **런타임이 붙인 외부 태그는 도로 뗀다**(2026-08-11). 프리렌더는 페이지를 *실행한 뒤* DOM 을
+   *    저장하므로, `index.html` 이 `load` 이후로 미뤄 둔 것들이 **head 에 구워져** 그 지연이
+   *    통째로 무효가 된다. 실측(프로덕션 /hangul · 4G · CPU 4배): 구글 폰트 CSS 두 장(101KB+61KB)과
+   *    `fbevents.js`(105KB)가 **437~460ms 에 출발**해 첫 화면 대역을 가져갔고 FCP 가 5.5초였다.
+   *    폰트는 중국어·태국어 글리프라 한국어 첫 화면엔 한 글자도 안 쓴다.
+   * 🔴 판정은 **원본 `index.html` 에 있었는가** 하나로 한다 — 목록을 손으로 적으면 다음에 붙는
+   *    스크립트(광고 태그 등)를 또 놓친다. 원본에 있던 것만 남기고 나머지는 뗀다.
+   */
+  const shellHead = await fs.readFile(path.join(distDir, 'index.html'), 'utf-8');
+  const dropped = [];
+  html = html.replace(
+    /<(?:link[^>]*rel="stylesheet"[^>]*|script[^>]*src="https?:[^"]*"[^>]*)>(?:<\/script>)?/g,
+    (tag) => {
+      const url = tag.match(/(?:href|src)="([^"]+)"/)?.[1];
+      if (!url || !/^https?:/.test(url)) return tag; // 우리 자산은 그대로
+      // 🔴 **URL 문자열이 아니라 「태그로」 있었는지** 본다 — 폰트 주소는 원본의 인라인 스크립트
+      //    안에 문자열로 들어 있어(그래서 미룬 것이다), 문자열 포함으로 판정하면 그냥 통과한다.
+      const raw = url.replace(/&amp;/g, '&');
+      if (shellHead.includes(`href="${raw}"`) || shellHead.includes(`src="${raw}"`)) return tag;
+      dropped.push(url.split('?')[0]);
+      return '';
+    }
+  );
+  if (dropped.length) console.log(`  ↩ 런타임 주입 태그 ${dropped.length}개 제거: ${dropped.join(' ')}`);
+
   const len = visibleTextLength(html);
   if (len < MIN_TEXT) throw new Error(`내용 부족 (${len}자 < ${MIN_TEXT}) — 에러/빈 화면 의심`);
   if (len < minText) console.warn(`  ⚠ ${route} 데이터 없이 껍데기만 (${len}자 < ${minText}) — API 도달 여부 확인`);
