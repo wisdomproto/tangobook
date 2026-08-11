@@ -335,18 +335,33 @@ function HeroServiceCard({
 }
 
 /**
- * 히어로 ② 칸 그림 = **라이브러리의 진짜 표지 한 장**.
- * 🔴 새 일러스트를 그리지 않는다 — ①이 니들펠트 일러스트라 톤이 갈리고, 무엇보다 파는 게
- *    동화책이면 **동화책을 보여주는 게 맞다**. 세계 명작에서 표지 있는 첫 권(정렬이 고정이라
- *    매번 같은 책)을 세운다.
+ * 히어로 ② 칸 그림 = **표지 아홉 장**(2026-08-11 사용자: "여러 표지를 때려박아").
+ *
+ * 🔴 한 장으로는 「동화책이 있다」까지만 말한다 — 이 칸이 팔아야 하는 건 **여러 갈래로 많다**는
+ *    것이라, 한 권을 크게 보여주면 오히려 그 한 권짜리로 보인다.
+ * 🔴 3×3 이어야 16:9 가 딱 맞는다 — 표지가 16:9 라 3열이면 한 줄 높이가 폭의 3/16 이고,
+ *    세 줄이면 9/16 = 정확히 카드 비율이다(2열·4열이면 잘리거나 남는다).
+ * 🔴 **라인을 섞어 뽑는다**(명작·전래·자연·생활) — 한 라인에서 아홉 장을 뽑으면 「명작만 있는
+ *    앱」으로 읽힌다. 아래 ⑤ 라인 카드와 같은 규칙(`LINES`)을 본다.
  */
 function HeroBookCover() {
   const { data } = useStorybooks();
-  const book = (data ?? []).find((b) => b.coverImage && (b.category ?? '') === '세계 명작');
-  if (!book) return <div className="aspect-video w-full bg-cream-100" />;
+  const books = data ?? [];
+  const picked: typeof books = [];
+  for (let round = 0; round < 3; round++) {
+    for (const l of LINES) {
+      const b = books.find((x) => x.coverImage && l.match(x.category ?? '') && !picked.includes(x));
+      if (b && picked.length < 9) picked.push(b);
+    }
+  }
+  if (picked.length < 9) return <div className="aspect-video w-full bg-cream-100" />;
   return (
-    <div className="aspect-video w-full bg-cream-100">
-      <BookCover book={book} lang="ko" className="h-full w-full" />
+    <div className="grid aspect-video w-full grid-cols-3 gap-px bg-cream-200">
+      {picked.map((b) => (
+        <div key={b.id} className="aspect-video overflow-hidden bg-cream-100">
+          <BookCover book={b} lang="ko" className="h-full w-full" />
+        </div>
+      ))}
     </div>
   );
 }
@@ -1015,7 +1030,7 @@ export default function HangulLandingPage() {
                 className="aspect-video w-full object-cover"
               />
             </HeroServiceCard>
-            <HeroServiceCard n={2} name="동화책" d={`${FACTS.books}권 · 매일 한 권씩`}>
+            <HeroServiceCard n={2} name="동화책" d="세계 명작 · 전래동화 · 자연 관찰 · 생활동화">
               <HeroBookCover />
             </HeroServiceCard>
           </div>
