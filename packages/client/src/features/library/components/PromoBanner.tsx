@@ -4,7 +4,6 @@ import { computeAccess } from '@tangobook/shared';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useEntitlement } from '@/features/payment/hooks/useEntitlement';
 import { PAYWALL_ENABLED } from '@/features/access/config';
-import { useGuestMode } from '@/features/access/hooks/useGuestMode';
 
 const SHARE_URL = 'https://www.tangobook.co.kr';
 
@@ -25,7 +24,6 @@ export function PromoBanner() {
   const { t } = useTranslation('access');
   const { account } = useAuth();
   const { paidUntil, referralBonusDays, trialStartedAt } = useEntitlement();
-  const guestMode = useGuestMode();
 
   // Compute access state directly from account + real subscription data,
   // NOT via useAccess() which returns 'subscribed' for everyone when PAYWALL_ENABLED=false.
@@ -40,8 +38,8 @@ export function PromoBanner() {
   const isExpired = raw.status === 'expired';
 
   // 🔴 프로모는 **아직 전환할 게 남은 사람에게만** 보여준다(2026-07-25).
-  // 이미 가입한 사용자는 베타 1년 무료를 갖고 있어 "무료 체험 423일 남음" 같은 카운트다운이
-  // 할 일 없는 소음이 된다 → 게스트(가입 유도)와 만료(구독 유도)만 노출.
+  // 체험 중인 사용자에게 남은 일수를 세어 주는 건 할 일 없는 소음이라, 미로그인(가입 유도)과
+  // 만료(구독 유도)만 노출한다.
   const showPromo = isGuest || (isExpired && PAYWALL_ENABLED);
 
   // 🔴 훅은 early return 앞에서 전부 호출한다(Rules of Hooks).
@@ -50,16 +48,13 @@ export function PromoBanner() {
   if (!showPromo) return null;
 
   let headline: ReactNode;
-  if (isGuest && guestMode.active) {
-    // 게스트 모드 30일 창 — 남은 일수를 보여줘 가입 전환을 재촉(CTA 는 그대로 가입).
-    headline = t('entryGate.guestDays', { days: guestMode.daysLeft });
-  } else if (isGuest) {
+  if (isGuest) {
     headline = t('promo.guestHeadline');
   } else if (isExpired) {
     headline = t('promo.expiredHeadline');
   }
 
-  // 공유 — 베타 1년 무료라 레퍼럴 코드가 불필요해졌다. 순수 앱 공유(코드 없음):
+  // 공유 — 레퍼럴 코드 없이 순수 앱 공유:
   // Web Share API 우선, 미지원(데스크탑 등)이면 링크 복사 폴백.
   const handleShare = async () => {
     const text = t('promo.shareText');

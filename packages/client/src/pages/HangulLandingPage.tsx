@@ -197,7 +197,7 @@ function StickyCta() {
             blocked ? 'hidden' : ''
           }`}
         >
-          가입하면 1년 무료{' '}
+          가입하면 30일 무료{' '}
           <span className="text-coral-700">· 이후 월 {PLANS.month1.amount.toLocaleString()}원</span>
         </p>
         <Link
@@ -451,7 +451,7 @@ export default function HangulLandingPage() {
   useSeo({
     title: `한글 파닉스 ${FACTS.koreanUnits}단원 + 동화책 ${FACTS.books}권 — 탱고북`,
     description:
-      '자음·모음부터 받침·쌍자음까지 한글 파닉스 32단원, 영어 파닉스 39단원. 그리고 배운 글자로 바로 읽는 동화책 266권. 4~7세 한글떼기, 지금은 베타 기간이라 가입하면 1년 무료입니다.',
+      '자음·모음부터 받침·쌍자음까지 한글 파닉스 32단원, 영어 파닉스 39단원. 그리고 배운 글자로 바로 읽는 동화책 266권. 4~7세 한글떼기, 지금 가입하면 30일 무료입니다.',
     path: '/hangul',
     // 🔴 나이 키워드는 5·6세에 몰려 있다(실측 2026-08-01): 5세한글공부 1,140 · 6세한글공부 940 ·
     //    7세 290 · 4세 220 · 3세 60. 제품은 4~7세가 맞지만, 그 표현만 쓰면 2,080 을 못 받는다.
@@ -496,7 +496,7 @@ export default function HangulLandingPage() {
               무료로 시작하기
             </Link>
             <p className="mt-3 text-xs text-ink-600 break-keep">
-              지금 가입하면 1년 무료 · 이후에도 월 {PLANS.month1.amount.toLocaleString()}원,
+              지금 가입하면 30일 무료 · 이후에도 월 {PLANS.month1.amount.toLocaleString()}원,
               약정·위약금 없음
             </p>
           </div>
@@ -761,17 +761,17 @@ export default function HangulLandingPage() {
       </section>
 
       {/* ── ⑦ 혜택 (여기서 처음 등장) ─────────────────────────── */}
-      <Section eyebrow="지금은 베타 기간" title="가입하면 1년 동안 무료입니다">
+      <Section eyebrow="먼저 써 보세요" title="가입하면 30일 동안 무료입니다">
         <p>
-          탱고북은 아직 베타입니다. 그래서 <strong>지금 가입하는 분은 1년 동안 전부 무료</strong>로
-          쓰십니다. 파닉스도, 동화책 {FACTS.books}권도, 게임도 잠긴 것 없이 열려 있습니다.
+          <strong>가입하면 30일 동안 전부 무료</strong>로 쓰십니다. 파닉스도, 동화책 {FACTS.books}
+          권도, 게임도 잠긴 것 없이 열려 있습니다.
         </p>
         <p>
           결제 정보를 넣지 않습니다. 카드도 등록하지 않습니다. 아이 화면에{' '}
           <strong>광고가 뜨지 않습니다.</strong>
         </p>
         <p>
-          <strong>1년이 지나면 월 {PLANS.month1.amount.toLocaleString()}원</strong>입니다
+          <strong>30일이 지나면 월 {PLANS.month1.amount.toLocaleString()}원</strong>입니다
           {PLANS.month1.originalAmount
             ? ` (정가 ${PLANS.month1.originalAmount.toLocaleString()}원, 오픈 기념 반값)`
             : ''}
@@ -803,7 +803,7 @@ export default function HangulLandingPage() {
             to={SIGNUP}
             className="mt-1 inline-flex min-h-[52px] items-center rounded-full bg-coral-700 px-8 text-base font-bold text-white shadow-md transition hover:bg-coral-800"
           >
-            1년 무료로 시작하기 →
+            30일 무료로 시작하기 →
           </Link>
           <Link to="/library" className="text-xs font-semibold text-ink-600 underline">
             먼저 둘러볼래요

@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { TRIAL_DAYS, REFERRAL_BONUS_DAYS } from '@tangobook/shared';
 import { render, screen } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { TrialBadge } from '../TrialBadge';
@@ -39,8 +40,8 @@ function renderBadge() {
 const daysAgo = (n: number) => new Date(Date.now() - n * 86_400_000).toISOString();
 
 describe('TrialBadge', () => {
-  // 베타(2027-01-01 전) 가입은 1년 무료라 7일 체험 표시가 덮인다. TrialBadge 의 7일 체험 로직은
-  // 마감 후 기준이므로 시스템 시각을 마감 후로 고정하고 검증한다(Date 만 fake — 타이머 미간섭).
+  // 🔴 규칙은 「가입하면 TRIAL_DAYS 무료」 하나뿐이다(2026-08-11, 베타 1년 폐지). 일수를 상수에서
+  // 가져와야 기간을 바꿔도 이 테스트가 따라온다 — 숫자를 박아 두면 조용히 낡는다.
   beforeEach(() => {
     vi.restoreAllMocks();
     vi.useFakeTimers({ toFake: ['Date'] });
@@ -56,7 +57,7 @@ describe('TrialBadge', () => {
   });
 
   it('체험 중 → "무료 체험 N일 남음" 노출', () => {
-    // 가입 2일 전 → 7-2 = 5일 남음
+    // 가입 2일 전 → TRIAL_DAYS-2 일 남음
     mockAuth({ id: 'a1', createdAt: daysAgo(2) });
     mockEntitlement();
     renderBadge();
@@ -69,7 +70,7 @@ describe('TrialBadge', () => {
   });
 
   it('초대 보너스가 남은 일수에 더해짐', () => {
-    // 가입 2일 전 + 7일 보너스 → 5+7 = 12일 남음
+    // 가입 2일 전 + 보너스 → (TRIAL_DAYS-2)+REFERRAL_BONUS_DAYS 일 남음
     mockAuth({ id: 'a1', createdAt: daysAgo(2) });
     mockEntitlement(7);
     renderBadge();
@@ -77,20 +78,22 @@ describe('TrialBadge', () => {
       screen.getByText(
         (_, el) =>
           el?.tagName === 'P' &&
-          /🎁 무료 체험 12일 남음/.test((el.textContent ?? '').replace(/\s+/g, ' '))
+          new RegExp(`🎁 무료 체험 ${TRIAL_DAYS - 2 + REFERRAL_BONUS_DAYS}일 남음`).test(
+            (el.textContent ?? '').replace(/\s+/g, ' ')
+          )
       )
     ).toBeInTheDocument();
   });
 
   it('체험 만료 + 유료화 ON → 아무것도 렌더하지 않음(페이월이 안내)', () => {
-    mockAuth({ id: 'a1', createdAt: daysAgo(30) });
+    mockAuth({ id: 'a1', createdAt: daysAgo(TRIAL_DAYS + 5) });
     mockEntitlement();
     const { container } = renderBadge();
     expect(container).toBeEmptyDOMElement();
   });
 
-  it('만료된 기존 계정도 trial_started_at 리셋 시 다시 7일 체험', () => {
-    // 가입 30일 전(=만료)이지만 방금 리셋 → 오늘부터 7일
+  it('만료된 기존 계정도 trial_started_at 리셋 시 체험 재시작', () => {
+    // 가입이 한참 전(=만료)이지만 방금 리셋 → 오늘부터 다시 체험
     mockAuth({ id: 'a1', createdAt: daysAgo(30) });
     mockEntitlement(0, null, new Date().toISOString());
     renderBadge();
@@ -98,7 +101,9 @@ describe('TrialBadge', () => {
       screen.getByText(
         (_, el) =>
           el?.tagName === 'P' &&
-          /🎁 무료 체험 7일 남음/.test((el.textContent ?? '').replace(/\s+/g, ' '))
+          new RegExp(`🎁 무료 체험 ${TRIAL_DAYS}일 남음`).test(
+            (el.textContent ?? '').replace(/\s+/g, ' ')
+          )
       )
     ).toBeInTheDocument();
   });

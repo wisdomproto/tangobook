@@ -20,7 +20,7 @@
   },
   "promo": {
     "region": "프로모션 배너",
-    "guestHeadline": "지금 가입하면 1년 무료!",
+    "guestHeadline": "지금 가입하면 30일 무료!",
     "trialHeadline": "무료 체험 <big>{{days}}일</big> 남음",
     "preOpenHeadline": "지금은 모든 동화를 무료로 즐겨요",
     "expiredHeadline": "구독하고 모든 동화를 계속 즐겨요",
@@ -28,21 +28,15 @@
     "expiredSub": "친구를 초대하면 둘 다 무료 기간 +7일",
     "startFree": "무료로 시작하기",
     "share": "공유하기",
-    "shareText": "아이와 함께 읽는 AI 그림동화 탱고북 — 지금 가입하면 1년 무료!",
+    "shareText": "아이와 함께 읽는 AI 그림동화 탱고북 — 지금 가입하면 30일 무료!",
     "shareCopied": "링크를 복사했어요!"
   },
   "entryGate": {
     "title": "탱고북에 오신 걸 환영해요!",
     "sub": "아이와 함께 읽는 AI 그림동화",
-    "guestBtn": "게스트로 둘러보기",
-    "guestNote": "30일 무료 · 기록은 이 기기에 저장돼요",
-    "signupBtn": "회원가입하고 1년 무료",
-    "signupNote": "모든 동화 1년 무료 · 학습 기록 안전하게 보관",
-    "loginBtn": "이미 계정이 있어요",
-    "expiredTitle": "게스트 30일이 끝났어요",
-    "expiredSub": "회원가입하면 1년 동안 모든 동화를 무료로 볼 수 있어요. 학습 기록도 안전하게 보관돼요.",
-    "guestDays": "게스트 {{days}}일 남음",
-    "back": "뒤로"
+    "signupBtn": "회원가입하고 30일 무료",
+    "signupNote": "모든 동화 30일 무료 · 학습 기록 안전하게 보관",
+    "loginBtn": "이미 계정이 있어요"
   },
-  "betaOffer": "베타 기간에 가입하면 1년 무료!"
+  "betaOffer": "지금 가입하면 {{days}}일 동안 모두 무료예요"
 }

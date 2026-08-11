@@ -20,7 +20,7 @@
   },
   "promo": {
     "region": "Promotion banner",
-    "guestHeadline": "Sign up now — 1 year free",
+    "guestHeadline": "Sign up now for 30 days free",
     "trialHeadline": "<big>{{days}} days</big> of free trial left",
     "preOpenHeadline": "Enjoy every story free right now",
     "expiredHeadline": "Subscribe to keep enjoying every story",
@@ -28,21 +28,15 @@
     "expiredSub": "Invite a friend and you both get +7 free days",
     "startFree": "Start for free",
     "share": "Share",
-    "shareText": "Tangobook — AI picture books for kids. Sign up now for 1 year free!",
+    "shareText": "Tangobook — AI picture stories to read with your child. 30 days free when you sign up!",
     "shareCopied": "Link copied!"
   },
   "entryGate": {
     "title": "Welcome to Tangobook!",
     "sub": "AI picture books to read with your child",
-    "guestBtn": "Browse as guest",
-    "guestNote": "30 days free · progress is saved on this device",
-    "signupBtn": "Sign up — 1 year free",
-    "signupNote": "Every story free for 1 year · Progress saved safely",
-    "loginBtn": "I already have an account",
-    "expiredTitle": "Your 30 guest days are over",
-    "expiredSub": "Sign up to enjoy every story free for 1 year, with your progress saved safely.",
-    "guestDays": "Guest · {{days}} days left",
-    "back": "Back"
+    "signupBtn": "Sign up — 30 days free",
+    "signupNote": "Every story free for 30 days · progress saved to your account",
+    "loginBtn": "I already have an account"
   },
-  "betaOffer": "Sign up during the beta and get 1 year free!"
+  "betaOffer": "Sign up now and everything is free for {{days}} days"
 }

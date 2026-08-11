@@ -20,7 +20,7 @@
   },
   "promo": {
     "region": "促销横幅",
-    "guestHeadline": "现在注册 — 免费 1 年",
+    "guestHeadline": "现在注册，30 天免费！",
     "trialHeadline": "免费体验还剩 <big>{{days}}天</big>",
     "preOpenHeadline": "现在所有童话都免费畅享",
     "expiredHeadline": "订阅后继续畅享所有童话",
@@ -28,21 +28,15 @@
     "expiredSub": "邀请好友，双方免费时长 +7 天",
     "startFree": "免费开始",
     "share": "分享",
-    "shareText": "Tangobook — 给孩子的 AI 绘本。现在注册，免费 1 年！",
+    "shareText": "Tangobook — 和孩子一起读的 AI 图画故事。现在注册即享 30 天免费！",
     "shareCopied": "已复制链接！"
   },
   "entryGate": {
     "title": "欢迎来到 Tangobook！",
     "sub": "和孩子一起读的 AI 绘本",
-    "guestBtn": "以访客身份浏览",
-    "guestNote": "30 天免费 · 学习记录保存在本机",
-    "signupBtn": "注册 — 免费 1 年",
-    "signupNote": "所有绘本免费 1 年 · 学习记录安全保存",
-    "loginBtn": "我已有账号",
-    "expiredTitle": "访客 30 天已结束",
-    "expiredSub": "注册后可免费畅读所有绘本 1 年，学习记录也会安全保存。",
-    "guestDays": "访客 · 剩余 {{days}} 天",
-    "back": "返回"
+    "signupBtn": "注册即享 30 天免费",
+    "signupNote": "全部童话 30 天免费 · 学习记录安全保存",
+    "loginBtn": "我已有账号"
   },
-  "betaOffer": "内测期间注册，免费使用 1 年！"
+  "betaOffer": "现在注册，{{days}} 天内全部免费"
 }

@@ -79,9 +79,9 @@ describe('PromoBanner', () => {
       expect(screen.getByRole('region', { name: '프로모션 배너' })).toBeInTheDocument();
     });
 
-    it('shows guest headline (beta 1-year-free hook)', () => {
+    it('shows guest headline (30-day free signup hook)', () => {
       renderBanner();
-      expect(screen.getByText('지금 가입하면 1년 무료!')).toBeInTheDocument();
+      expect(screen.getByText('지금 가입하면 30일 무료!')).toBeInTheDocument();
     });
 
     it('omits the sub-copy line (slim bar — text simplified)', () => {
@@ -97,7 +97,7 @@ describe('PromoBanner', () => {
     });
   });
 
-  // 가입 완료 사용자(베타 1년 무료 포함) — 전환할 게 없으므로 프로모를 보여주지 않는다.
+  // 체험 중인 사용자 — 전환할 게 없으므로 프로모를 보여주지 않는다.
   // "무료 체험 423일 남음" 같은 카운트다운이 소음이 된다는 사용자 지적(2026-07-25).
   describe('signed-up user in the free window (beta year / trial)', () => {
     beforeEach(() => {

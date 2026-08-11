@@ -1,29 +1,21 @@
-import { describe, it, expect, afterEach, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { TRIAL_DAYS } from '@tangobook/shared';
 import { BetaOfferNote } from '../BetaOfferNote';
 
 /**
- * 🔴 오퍼 마감이 지나면 스스로 사라져야 한다 — 안 그러면 2027년에도
- * "가입하면 1년 무료" 라는 거짓말이 로그인 화면에 남는다.
+ * 🔴 화면의 일수와 판정의 일수가 갈리면 안 된다(2026-08-11). 예전엔 문구에 「1년 무료」를 박아 두고
+ *    판정은 별도 상수가 했다 — 한쪽만 바꾸면 화면이 거짓말을 한다. 이제 둘 다 `TRIAL_DAYS` 다.
  */
 describe('BetaOfferNote', () => {
-  afterEach(() => vi.useRealTimers());
-
-  it('마감 전에는 베타라는 사실만 알리고 날짜는 말하지 않는다', () => {
-    vi.useFakeTimers({ toFake: ['Date'] });
-    vi.setSystemTime(new Date('2026-07-25T00:00:00+09:00'));
+  it('무료 일수를 판정과 같은 상수에서 가져온다', () => {
     render(<BetaOfferNote />);
-    // ko 고정(test/setup) — "베타 기간에 가입하면 1년 무료!"
-    const note = screen.getByText(/베타 기간.*1년 무료/);
-    expect(note).toBeInTheDocument();
-    // 날짜를 약속하면 오퍼를 접을 때 그 약속이 발목을 잡는다.
-    expect(note.textContent).not.toMatch(/20\d\d|\d+월|\d+일/);
+    expect(screen.getByText(new RegExp(`${TRIAL_DAYS}일`))).toBeInTheDocument();
   });
 
-  it('마감 뒤에는 아무것도 그리지 않는다', () => {
-    vi.useFakeTimers({ toFake: ['Date'] });
-    vi.setSystemTime(new Date('2027-01-01T00:00:00+09:00'));
-    const { container } = render(<BetaOfferNote />);
-    expect(container).toBeEmptyDOMElement();
+  it('마감 날짜는 말하지 않는다 — 약속하면 접을 때 발목을 잡는다', () => {
+    render(<BetaOfferNote />);
+    const note = screen.getByText(new RegExp(`${TRIAL_DAYS}일`));
+    expect(note.textContent).not.toMatch(/20\d\d년|\d+월/);
   });
 });

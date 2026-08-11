@@ -2,17 +2,17 @@
 // 규칙: 가입 후 7일 무료 체험 + 친구 초대 시 +7일(연장, 무한 누적은 상한 정책으로 별도 제한) + 구독.
 //       무료 책(isAccessibleForFree !== false)은 권한과 무관하게 항상 열람 가능.
 
-export const TRIAL_DAYS = 7;
+/**
+ * 🔴 규칙은 한 줄이다(2026-08-11) — **가입하면 30일 무료, 가입 전엔 무료 책만.**
+ *
+ * 예전엔 게스트 30일 창 · 베타 1년 · 체험 7일 · 레퍼럴 보너스 · 구독이 겹쳐 있었는데,
+ * 실제로는 베타 1년이 나머지를 전부 덮어 체험·보너스가 **묻혀 있었다**(유료 결제자 0명).
+ * 규칙이 다섯인데 결과가 둘뿐이면 그건 정책이 아니라 잔재다 → 하나로 줄였다.
+ * (게스트 창은 폐지 — `features/access` 에서 제거. 베타 1년도 폐지.)
+ */
+export const TRIAL_DAYS = 30;
 /** 친구 1명 초대 시 적립되는 체험 연장 일수. */
 export const REFERRAL_BONUS_DAYS = 7;
-
-// ── 베타 프로모: 이 시각 전에 가입하면 가입일 + 1년 무료 ──
-// 오퍼 종료 시 이 두 상수만 되돌리면 신규 가입은 기본 7일 체험으로 자동 복귀한다.
-// (이미 1년 무료를 받은 기존 계정은 가입일 기준이라 그대로 유지됨.)
-/** 이 시각(KST 2026-12-31 24:00 = 2027-01-01 00:00 +09:00) 전 가입 = 베타 1년 무료. */
-export const BETA_SIGNUP_DEADLINE = '2027-01-01T00:00:00+09:00';
-export const BETA_FREE_DAYS = 365;
-const BETA_DEADLINE_MS = Date.parse(BETA_SIGNUP_DEADLINE);
 
 const DAY_MS = 86_400_000;
 
@@ -98,15 +98,10 @@ export function computeAccess(input: AccessInput, now: number = Date.now()): Acc
     return { status: 'guest', isEntitled: false, trialEndsAt: null, trialDaysLeft: 0 };
   }
 
-  // 베타 프로모: 마감 전 가입 계정은 가입일 + 1년 무료(가입일 기준 — 체험 리셋과 무관).
-  const createdMs = toTime(account.createdAt);
-  const betaFreeEnd =
-    createdMs != null && createdMs < BETA_DEADLINE_MS ? createdMs + BETA_FREE_DAYS * DAY_MS : null;
-
-  // 무료 종료 = (체험 앵커 vs 구독 vs 베타 1년 중 더 나중) + 레퍼럴 보너스.
-  // → 구독자가 초대한 보너스도 구독 종료 뒤로 붙고, 순수 체험자는 기존과 동일(구독 없음).
+  // 무료 종료 = (체험 앵커 vs 구독 중 더 나중) + 레퍼럴 보너스.
+  // → 구독자가 초대한 보너스도 구독 종료 뒤로 붙고, 순수 체험자는 체험 앵커 기준.
   const trialAnchorEnd = trialEndMs(trialStartedAt || account.createdAt, 0);
-  const ends = [trialAnchorEnd, subEndMs, betaFreeEnd].filter(
+  const ends = [trialAnchorEnd, subEndMs].filter(
     (x): x is number => x != null && Number.isFinite(x)
   );
   const baseEnd = ends.length ? Math.max(...ends) : null;

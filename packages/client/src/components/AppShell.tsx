@@ -5,10 +5,7 @@ import i18n from '@/i18n';
 import { AppIcon } from '@/design-system';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { ProfilePicker } from '@/features/auth/components/ProfilePicker';
-import { EntryGate } from '@/features/access/components/EntryGate';
-import { isAlwaysFreePath } from '@/features/access/config';
 import { PromoBanner } from '@/features/library/components/PromoBanner';
-import { useGuestMode } from '@/features/access/hooks/useGuestMode';
 import { AppBgm } from './AppBgm';
 import { UiLangMenu } from './UiLangMenu';
 import { InstallPwaButton } from './InstallPwaButton';
@@ -124,7 +121,6 @@ export function AppShell() {
   const navigate = useNavigate();
   // 아이 2명 이상인데 아직 아무도 선택 안 됨 → 학습자 화면 진입 전 "누가 놀고 있어요?" 게이트.
   // (1명이면 useActiveProfile 이 자동 선택하므로 이 게이트는 뜨지 않음.)
-  const guest = useGuestMode();
   const needsProfilePick = !!session && profiles.length > 1 && !activeProfile;
   const pageTitle = getPageTitle(location.pathname);
   // /library 는 배너가 viewport top 까지 차지 — 헤더 absolute overlay (transparent) 로
@@ -422,15 +418,10 @@ export function AppShell() {
       {/* 메인(브라우즈) 화면 배경음악 — AppShell 이탈(뷰어/게임) 시 자동 정지 */}
       <AppBgm />
 
-      {/* 진입 게이트 — 미로그인 방문자의 첫 선택(게스트 30일 / 가입 / 로그인).
-          게스트 30일이 끝나면 같은 게이트가 가입 벽으로 재등장한다. 로그인 사용자는 안 뜬다.
-          Supabase 미설정(게스트 전용 빌드)에서는 가입 경로가 없으므로 게이트도 띄우지 않는다.
-          🔴 **파닉스에선 띄우지 않는다**(`isAlwaysFreePath`) — 파닉스는 획득 채널이라 잠그지 않기로
-          했는데, 정작 학습 화면은 셸 **밖**이라 늘 열려 있고 랜딩(`/library/phonics`)만 셸 **안**이라
-          벽을 만났다. 광고를 태우면 그 벽에서 샌다. */}
-      {!session && isConfigured && guest.needsGate && !isAlwaysFreePath(location.pathname) && (
-        <EntryGate expired={guest.expired} onChoose={guest.refresh} />
-      )}
+      {/* 🔴 첫 진입 벽 폐지(2026-08-11) — 미로그인 방문자는 라이브러리에 그냥 들어와 **무료 책
+          11권**을 본다. 그게 "일부 공개"고, 잠긴 책의 🔒 배지와 헤더 프로모가 가입을 판다.
+          파닉스도 같은 방식이다 — 무료 단원(한글 모음·ㄱ / 영어 첫 단원·짧은모음 a)만 열고
+          나머지는 `PhonicsUnitGate` 가 단원 단위로 잠근다. */}
 
       {/* 프로필 시트 "누가 놀고 있어요?" — ①아이 2명+ 미선택 시 필수 진입 게이트(닫기 없음)
           ②헤더 프로필 칩 탭 시 수동 오픈(전환/추가·관리, activeProfile 있으면 ✕ 닫기). */}

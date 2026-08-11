@@ -1,48 +1,27 @@
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { startGuestMode, markAuthChoice } from '../lib/guest-mode';
-
-interface Props {
-  /** 게스트 30일이 끝나 다시 뜬 경우 — 가입 벽 카피로 바뀌고 "게스트로 둘러보기"가 사라진다. */
-  expired?: boolean;
-  onChoose: () => void;
-}
 
 /**
- * 첫 진입 선택 화면 — 모바일 게임식 온보딩.
- *   게스트로 둘러보기 (30일 무료, 학습 기록은 로컬)  /  회원가입(1년 무료)  /  로그인
+ * 로그인 벽 — 가입 / 로그인 둘뿐.
  *
- * 게스트 30일이 만료되면 같은 게이트가 **가입 벽**으로 재등장한다(게스트 버튼 없음).
- * 🔴 소프트 게이트 — 앵커가 localStorage 라 캐시를 지우면 리셋된다(의도적으로 눈감음).
+ * 🔴 게스트 30일 창을 폐지하면서 이 화면의 성격이 바뀌었다(2026-08-11). 예전엔 **첫 진입마다**
+ *    떠서 「게스트로 둘러보기 / 가입 / 로그인」을 물었는데, 이제 라이브러리는 미로그인도 그냥
+ *    들어와 **무료 책 11권**을 본다(그게 "일부 공개"다). 그래서 이 화면은 첫 진입 선택지가
+ *    아니라, **잠긴 것을 열려고 할 때**만 붙는 벽이다 → `PhonicsUnitGate`.
  */
-export function EntryGate({ expired = false, onChoose }: Props) {
+export function EntryGate() {
   const { t } = useTranslation('access');
   const navigate = useNavigate();
 
-  const goAuth = (mode: 'signup' | 'login') => {
-    markAuthChoice();
-    onChoose();
+  const goAuth = (mode: 'signup' | 'login') =>
     navigate(mode === 'signup' ? '/login?mode=signup' : '/login');
-  };
-
-  /**
-   * 🔴 확인 단계 없이 바로 들여보낸다(2026-08-04).
-   * 예전엔 「게스트로 둘러보기」를 누르면 ⚠️ 화면이 한 번 더 떠서 "학습 기록이 저장되지 않아요"를
-   * 경고했다. 그 경고는 **이제 사실이 아니다** — 게스트 기록은 로컬에 쌓이고(`guest-events`),
-   * 가입하는 순간 그 프로필로 옮겨 붙는다(`useAdoptGuestEvents`). 없는 손해를 알리려고 진입을
-   * 한 번 더 막고 있었던 셈이다. 첫 화면에서 한 번 더 묻는 건 이탈을 만들 뿐이라 없앤다.
-   */
-  const enterAsGuest = () => {
-    startGuestMode();
-    onChoose();
-  };
 
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-gradient-to-b from-cream-50 to-peach-100 p-5 sm:p-8"
       role="dialog"
       aria-modal="true"
-      aria-label={t(expired ? 'entryGate.expiredTitle' : 'entryGate.title')}
+      aria-label={t('entryGate.title')}
     >
       <div className="w-full max-w-sm text-center">
         <img
@@ -51,14 +30,11 @@ export function EntryGate({ expired = false, onChoose }: Props) {
           className="mx-auto mb-5 h-14 w-auto object-contain"
         />
         <h1 className="font-display text-2xl font-black leading-tight text-ink-900 break-keep">
-          {t(expired ? 'entryGate.expiredTitle' : 'entryGate.title')}
+          {t('entryGate.title')}
         </h1>
-        <p className="mt-2 text-sm font-bold text-ink-600 break-keep">
-          {t(expired ? 'entryGate.expiredSub' : 'entryGate.sub')}
-        </p>
+        <p className="mt-2 text-sm font-bold text-ink-600 break-keep">{t('entryGate.sub')}</p>
 
         <div className="mt-7 flex flex-col gap-3">
-          {/* 회원가입 — 1년 무료가 가장 강한 훅이라 항상 최상단(만료 시엔 유일한 진행 경로). */}
           <button
             onClick={() => goAuth('signup')}
             className="w-full rounded-2xl bg-coral-500 px-5 py-3.5 font-black text-white shadow-pop transition hover:brightness-110"
@@ -68,18 +44,6 @@ export function EntryGate({ expired = false, onChoose }: Props) {
               {t('entryGate.signupNote')}
             </span>
           </button>
-
-          {!expired && (
-            <button
-              onClick={enterAsGuest}
-              className="w-full rounded-2xl border-2 border-ink-100 bg-white px-5 py-3.5 font-black text-ink-700 shadow-soft transition hover:border-coral-200"
-            >
-              {t('entryGate.guestBtn')}
-              <span className="mt-0.5 block text-[11px] font-bold text-ink-500 break-keep">
-                {t('entryGate.guestNote')}
-              </span>
-            </button>
-          )}
 
           <button
             onClick={() => goAuth('login')}

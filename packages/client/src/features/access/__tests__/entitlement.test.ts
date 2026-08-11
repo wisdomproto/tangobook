@@ -9,8 +9,8 @@ import {
 } from '@tangobook/shared';
 
 const NOW = Date.parse('2026-06-20T00:00:00Z');
-// 베타(2027-01-01 전) 가입은 1년 무료라 7일 체험 메커니즘을 덮는다. 그 메커니즘 검증은
-// 마감 후(AFTER) 시점 + 마감 후 가입 계정으로. 베타 무료 자체는 NOW(2026, 베타 중)로.
+// 🔴 베타 1년 무료 폐지(2026-08-11) — 규칙은 「가입하면 TRIAL_DAYS 무료」 하나뿐이라
+// 시점을 나눠 볼 이유가 없어졌다. AFTER 는 남은 케이스가 쓰던 앵커라 그대로 둔다.
 const AFTER = Date.parse('2027-06-20T00:00:00Z');
 const DAY = 86_400_000;
 const ago = (d: number) => new Date(NOW - d * DAY).toISOString();
@@ -25,39 +25,35 @@ describe('computeAccess', () => {
     });
   });
 
-  it('베타 중 가입 = trial, entitled, ~1년(365일) 무료', () => {
-    const a = computeAccess({ account: { createdAt: ago(0) } }, NOW);
-    expect(a.status).toBe('trial');
-    expect(a.isEntitled).toBe(true);
-    expect(a.trialDaysLeft).toBe(365);
-  });
-
-  it('가입 직후 = trial, entitled, ~7일 남음 (마감 후)', () => {
+  it('가입 직후 = trial, entitled, 체험 일수만큼 남음', () => {
     const a = computeAccess({ account: { createdAt: agoA(0) } }, AFTER);
     expect(a.status).toBe('trial');
     expect(a.isEntitled).toBe(true);
     expect(a.trialDaysLeft).toBe(TRIAL_DAYS);
   });
 
-  it('가입 8일 경과 = expired, not entitled (마감 후)', () => {
-    const a = computeAccess({ account: { createdAt: agoA(8) } }, AFTER);
+  it('체험 기간이 지나면 expired, not entitled', () => {
+    const a = computeAccess({ account: { createdAt: agoA(TRIAL_DAYS + 1) } }, AFTER);
     expect(a.status).toBe('expired');
     expect(a.isEntitled).toBe(false);
     expect(a.trialDaysLeft).toBe(0);
   });
 
-  it('레퍼럴 +7일이면 8일차에도 trial 유지 (마감 후)', () => {
+  it('레퍼럴 보너스가 붙으면 체험 종료 다음 날에도 trial 유지', () => {
     const a = computeAccess(
-      { account: { createdAt: agoA(8) }, referralBonusDays: REFERRAL_BONUS_DAYS },
+      { account: { createdAt: agoA(TRIAL_DAYS + 1) }, referralBonusDays: REFERRAL_BONUS_DAYS },
       AFTER
     );
     expect(a.status).toBe('trial');
     expect(a.isEntitled).toBe(true);
   });
 
-  it('trialStartedAt override → 가입일 무시하고 그 시각부터 7일 (마감 후)', () => {
-    // 가입 100일 전(가입일 기준이면 만료)이나 리셋으로 오늘 시작 → 7일 남음
-    const a = computeAccess({ account: { createdAt: agoA(100) }, trialStartedAt: agoA(0) }, AFTER);
+  it('trialStartedAt override → 가입일 무시하고 그 시각부터 다시 체험', () => {
+    // 가입 100일 전(가입일 기준이면 만료)이나 리셋으로 오늘 시작 → 체험 일수만큼 남음
+    const a = computeAccess(
+      { account: { createdAt: agoA(TRIAL_DAYS + 70) }, trialStartedAt: agoA(0) },
+      AFTER
+    );
     expect(a.status).toBe('trial');
     expect(a.trialDaysLeft).toBe(TRIAL_DAYS);
   });

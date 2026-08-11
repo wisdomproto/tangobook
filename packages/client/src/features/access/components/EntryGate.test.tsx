@@ -1,47 +1,44 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { EntryGate } from './EntryGate';
-import * as guestMode from '../lib/guest-mode';
 
-function renderGate(expired = false) {
-  const onChoose = vi.fn();
+const navigate = vi.hoisted(() => vi.fn());
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual<typeof import('react-router-dom')>('react-router-dom');
+  return { ...actual, useNavigate: () => navigate };
+});
+
+function renderGate() {
+  navigate.mockClear();
   render(
     <MemoryRouter>
-      <EntryGate expired={expired} onChoose={onChoose} />
+      <EntryGate />
     </MemoryRouter>
   );
-  return onChoose;
 }
 
-describe('EntryGate', () => {
-  beforeEach(() => {
-    vi.restoreAllMocks();
-    vi.spyOn(guestMode, 'startGuestMode').mockImplementation(() => {});
-    vi.spyOn(guestMode, 'markAuthChoice').mockImplementation(() => {});
-  });
-
-  /**
-   * 🔴 예전엔 게스트 버튼이 ⚠️ 확인 화면을 한 번 더 띄웠다. 그 화면의 근거("학습 기록이 저장되지
-   *    않아요")가 이제 사실이 아니다 — 게스트 기록은 로컬에 쌓이고 가입 시 프로필로 옮겨진다.
-   *    없는 손해를 알리려고 첫 진입을 막고 있었으므로, 한 번에 들어가야 한다.
-   */
-  it('게스트 버튼 한 번이면 바로 들어간다 — 확인 단계 없음', () => {
-    const onChoose = renderGate();
-    fireEvent.click(screen.getByText(/게스트로/));
-    expect(guestMode.startGuestMode).toHaveBeenCalledTimes(1);
-    expect(onChoose).toHaveBeenCalledTimes(1);
-    // ⚠️ 확인 화면이 끼어들지 않는다. (게이트 자체가 role="dialog" 라 role 로는 못 가른다.)
-    expect(screen.queryByText('⚠️')).toBeNull();
-  });
-
-  it('버튼 밑 문구가 기록을 부정하지 않는다 — 로컬에 저장되고 가입 시 옮겨지므로', () => {
+/**
+ * 🔴 이 화면은 이제 **로그인 벽**이다(2026-08-11). 게스트 30일 창을 폐지하면서 성격이 바뀌었다 —
+ *    라이브러리는 미로그인도 무료 책 11권을 그냥 보고, 이 벽은 부분 공개가 불가능한 화면
+ *    (파닉스 학습)에만 붙는다. 그래서 여기 게스트 경로가 다시 생기면 안 된다.
+ */
+describe('EntryGate (로그인 벽)', () => {
+  it('길은 가입과 로그인 둘뿐 — 게스트로 들어가는 문이 없다', () => {
     renderGate();
-    expect(screen.queryByText(/저장되지 않아요/)).toBeNull();
+    expect(screen.queryByText(/게스트/)).toBeNull();
+    expect(screen.getAllByRole('button')).toHaveLength(2);
   });
 
-  it('30일이 끝난 재방문(expired)에는 게스트 버튼이 없다', () => {
-    renderGate(true);
-    expect(screen.queryByText(/게스트로/)).toBeNull();
+  it('가입은 가입 폼으로 직행한다 (로그인 폼이 아니라)', () => {
+    renderGate();
+    fireEvent.click(screen.getByText(/회원가입|가입/));
+    expect(navigate).toHaveBeenCalledWith('/login?mode=signup');
+  });
+
+  it('로그인은 로그인 폼으로 간다', () => {
+    renderGate();
+    fireEvent.click(screen.getByText('이미 계정이 있어요'));
+    expect(navigate).toHaveBeenCalledWith('/login');
   });
 });
