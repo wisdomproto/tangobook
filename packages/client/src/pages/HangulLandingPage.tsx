@@ -702,7 +702,7 @@ function LineSections() {
         return (
           <div key={l.name}>
             <div className="flex items-baseline gap-2">
-              <h3 className="font-display text-xl font-extrabold text-ink-900 break-keep sm:text-2xl lg:text-[28px]">
+              <h3 className="font-display text-xl font-extrabold text-ink-900 break-keep sm:text-2xl lg:text-[28px] xl:text-[32px]">
                 {l.name}
               </h3>
               <span className="text-sm font-bold text-coral-700">{l.n}권</span>
@@ -719,7 +719,9 @@ function LineSections() {
                 </Link>
               ))}
             </div>
-            <p className="mt-2 text-sm text-ink-600 break-keep lg:text-base">{l.d}</p>
+            <p className="mt-2 text-sm text-ink-600 break-keep lg:text-base xl:text-[17px]">
+              {l.d}
+            </p>
           </div>
         );
       })}
@@ -781,14 +783,14 @@ function Section({
           /* 🔴 **라벨을 키운다**(2026-08-10 사용자: "이게 메인 제목인거 같은데 왜 글씨가 제일 작아?").
              12px 는 각주 크기라 섹션 이름이 아니라 곁다리로 읽혔다. 제목보다는 확실히 작게 두되
              본문과 같은 무게로 올린다 — 순서는 [섹션 이름] → [질문 제목] 그대로다. */
-          <p className="mb-2 text-sm font-extrabold tracking-wide text-coral-700 sm:text-base">
+          <p className="mb-2 text-sm font-extrabold tracking-wide text-coral-700 sm:text-base xl:text-lg">
             {eyebrow}
           </p>
         )}
         <h2 className="font-display text-[26px] font-extrabold leading-snug text-ink-900 break-keep sm:text-[32px] lg:text-[38px]">
           {title}
         </h2>
-        <div className="mt-5 space-y-5 text-[15px] leading-relaxed text-ink-700 break-keep sm:text-[16px] lg:space-y-6 lg:text-[18px] lg:leading-[1.8]">
+        <div className="mt-5 space-y-5 text-[15px] leading-relaxed text-ink-700 break-keep sm:text-[16px] lg:space-y-6 lg:text-[19px] lg:leading-[1.8] xl:text-[21px]">
           {children}
         </div>
       </div>
@@ -992,10 +994,10 @@ export default function HangulLandingPage() {
                 className="aspect-video w-full object-cover"
               />
               <div className="p-4 sm:p-5">
-                <strong className="block font-display text-lg font-extrabold text-ink-900 break-keep">
+                <strong className="block font-display text-lg font-extrabold text-ink-900 break-keep lg:text-xl xl:text-2xl">
                   {w.t}
                 </strong>
-                <span className="mt-1.5 block text-sm leading-snug text-ink-600 break-keep lg:text-[15px]">
+                <span className="mt-1.5 block text-sm leading-snug text-ink-600 break-keep lg:text-base xl:text-[17px]">
                   {w.d}
                 </span>
               </div>
@@ -1030,8 +1032,8 @@ export default function HangulLandingPage() {
                 {s.count}
               </span>
               <span className="min-w-0">
-                <strong className="text-ink-900">{s.label}</strong>
-                <span className="ml-2 text-sm text-ink-600 break-keep lg:text-base">
+                <strong className="text-ink-900 xl:text-lg">{s.label}</strong>
+                <span className="ml-2 text-sm text-ink-600 break-keep lg:text-base xl:text-[17px]">
                   {s.detail}
                 </span>
               </span>
@@ -1133,10 +1135,10 @@ export default function HangulLandingPage() {
           {BOOK_GROWS.map((g) => (
             <div key={g.t} className="rounded-3xl bg-white/70 p-5 text-center">
               <Pict name={g.icon} />
-              <strong className="mt-3 block font-display text-lg font-extrabold text-ink-900">
+              <strong className="mt-3 block font-display text-lg font-extrabold text-ink-900 lg:text-xl xl:text-2xl">
                 {g.t}
               </strong>
-              <span className="mt-1 block text-sm text-ink-600 break-keep lg:text-[15px]">
+              <span className="mt-1 block text-sm text-ink-600 break-keep lg:text-base xl:text-[17px]">
                 {g.d}
               </span>
             </div>
@@ -1234,8 +1236,10 @@ export default function HangulLandingPage() {
             {NONES.map((n) => (
               <div key={n.t} className="rounded-3xl bg-cream-100 px-2 py-4 text-center">
                 <Pict name={n.icon} />
-                <strong className="mt-2 block text-xs text-ink-900 break-keep">{n.t}</strong>
-                <span className="mt-0.5 block text-[11px] leading-snug text-ink-600 break-keep">
+                <strong className="mt-2 block text-xs text-ink-900 break-keep lg:text-sm xl:text-base">
+                  {n.t}
+                </strong>
+                <span className="mt-0.5 block text-[11px] leading-snug text-ink-600 break-keep lg:text-xs xl:text-sm">
                   {n.d}
                 </span>
               </div>
