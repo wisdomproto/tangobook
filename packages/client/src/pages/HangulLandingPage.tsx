@@ -351,6 +351,57 @@ function HeroBookCover() {
   );
 }
 
+/**
+ * 같은 책, 다섯 언어 — 🔴 **표지가 언어마다 따로 구워져 있다**(2026-07-12 다국어 표지 파이프라인).
+ * 「다섯 언어로 읽을 수 있습니다」 한 줄로는 자막만 바뀌는지 책이 통째로 바뀌는지 알 수 없다.
+ * 표지 다섯 장을 나란히 놓으면 한 번에 읽힌다 — 새로 만들 자산이 없다.
+ *
+ * 🔴 **`BookCover` 에 `lang` 을 넘기는 걸로는 안 된다**(실측). 그 prop 은 `resolveCover` 에서
+ *    **제목 문자열**만 고르고 그림은 `coversByStyle`/`coverImage` 로 정해져서, 다섯 장이 전부
+ *    같은 한국어 표지로 나왔다. 언어별 표지는 요약(summary)의 **`coversByLang`** 에 따로 있다.
+ * 🔴 그래서 **언어별 URL 이 실제로 다른 책**만 고른다 — 다국어 표지는 149권 중 104권만 완비라
+ *    아무 책이나 쓰면 같은 그림 다섯 장이 되어 예시가 스스로를 반증한다.
+ */
+const COVER_LANGS: { lang: string; label: string }[] = [
+  { lang: 'ko', label: '한국어' },
+  { lang: 'en', label: 'English' },
+  { lang: 'vi', label: 'Tiếng Việt' },
+  { lang: 'zh', label: '中文' },
+  { lang: 'th', label: 'ไทย' },
+];
+
+function LangCovers() {
+  const { data } = useStorybooks();
+  const book = (data ?? []).find((b) => {
+    const byLang = b.coversByLang ?? {};
+    const urls = COVER_LANGS.map((l) => byLang[l.lang]).filter(Boolean);
+    return (b.category ?? '') === '세계 명작' && new Set(urls).size >= 4;
+  });
+  if (!book?.coversByLang) return null;
+  const byLang = book.coversByLang;
+  return (
+    <figure className="!mt-6">
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-5 sm:gap-3">
+        {COVER_LANGS.map((l) => (
+          <div key={l.lang}>
+            <img
+              src={byLang[l.lang] ?? book.coverImage}
+              alt={`${book.title} ${l.label} 표지`}
+              loading="lazy"
+              decoding="async"
+              className="aspect-video w-full rounded-2xl bg-cream-100 object-cover"
+            />
+            <p className="mt-1 text-center text-xs font-bold text-ink-500">{l.label}</p>
+          </div>
+        ))}
+      </div>
+      <figcaption className="mt-3 text-center text-sm text-ink-600 break-keep">
+        같은 책을 <strong>다섯 언어로</strong> 읽습니다 — 글도, 읽어주는 소리도 그 언어예요.
+      </figcaption>
+    </figure>
+  );
+}
+
 const SIGNUP = '/login?mode=signup';
 
 /**
@@ -571,12 +622,15 @@ function CurriculumUnits() {
  *    못 잡으므로 접미사로 묶는다.
  */
 const WALL_QUOTA: { n: number; match: (category: string) => boolean; spread?: boolean }[] = [
-  { n: 7, match: (c) => c === '세계 명작' },
+  // 🔴 **줄이 딱 떨어지는 수**(2026-08-11 사용자: "여기 줄 좀 맞추자"). 3열 격자라 라인마다
+  //    3의 배수여야 한 줄이 라인 하나로 읽힌다 — 명작 7 이던 시절 셋째 줄이 명작1+전래2 로
+  //    섞여서, 벽을 훑는 눈에 라인 경계가 안 보였다. 6·3·3·3 = 15 = 정확히 다섯 줄.
+  { n: 6, match: (c) => c === '세계 명작' },
   { n: 3, match: (c) => c === '전래 동화' },
   // 🔴 자연은 **카테고리를 흩어서** 뽑는다 — API 순서대로면 세 칸이 전부 「육지 동물 친구들」이라
   //    자연관찰 라인이 동물 한 종류처럼 보인다(실측).
   { n: 3, match: (c) => c.endsWith('친구들'), spread: true },
-  { n: 2, match: (c) => c === '생활동화' },
+  { n: 3, match: (c) => c === '생활동화' },
 ];
 
 /**
@@ -1157,24 +1211,14 @@ export default function HangulLandingPage() {
         </p>
         <LineCards />
         <BookWall />
-        <p className="!mt-6">
-          <strong>{FACTS.narrated}권</strong>은 나레이션이 처음부터 끝까지 있어 글자를 아직 못
-          읽어도 매일 한 권 볼 수 있고, <strong>{FACTS.fiveLangBooks}권</strong>은 다섯 언어로 읽을
-          수 있습니다. 이야기를 이어서 틀어두는 「묶어 보기」도 있어 재울 때 씁니다.
-        </p>
-        {/* 🔴 **TV 컷을 쓴다**(2026-08-02). 「전용 TV 앱이 없으니 과장」이라고 판단했다가
-            뒤집었다 — 웹앱이라 TV 브라우저에서 그냥 열리고 실제로 그렇게들 쓴다. 오히려 이
-            페이지의 대비축(패드를 묶어 파는 방문 판매 vs 우리)에 정확히 맞는 그림이다. */}
-        <Photo
-          src="tv"
-          alt="거실 TV 화면에 뜬 백설공주 동화를 두 아이가 앉아서 보고 있다"
-          w={1200}
-          h={675}
-          className="!mt-6"
-        />
-        <p className="!mt-4 text-center text-sm text-ink-600">
-          앱을 깔지 않습니다 — 태블릿도, 폰도, 거실 TV도 브라우저로 그대로 열립니다.
-        </p>
+        {/* 🔴 **다국어는 글이 아니라 그림으로**(2026-08-11 사용자: "동화책 다국어로 볼 수 있다는
+            걸 예시 그림으로 보여주자"). 「191권은 다섯 언어로 읽을 수 있습니다」 한 줄로는 그게
+            자막만 바뀌는 건지 책이 통째로 바뀌는 건지 알 수 없다 — **같은 책의 표지가 언어마다
+            다른 걸** 나란히 보여주면 한 번에 읽힌다. 표지는 언어별로 이미 구워져 있다
+            (`primaryCoverByLang`) — 새로 만들 자산이 없다.
+            🔴 TV 사진과 「264권 나레이션」 문단은 뺐다(사용자) — 나레이션은 아래 「읽는 습관」
+            카드가 이미 말하고, 설치 얘기는 요금의 「없는 것」 4칸이 말한다. */}
+        <LangCovers />
 
         {/* 읽기만 하고 끝나지 않는다 — 어휘·문해력·독후활동. 여기부터가 「그래서 뭐가 자라나」. */}
         <h3 className="!mt-10 font-display text-[22px] font-extrabold text-ink-900 break-keep sm:text-[26px]">
@@ -1272,8 +1316,7 @@ export default function HangulLandingPage() {
           <strong className="text-coral-700">
             할인 월 {PLANS.month1.amount.toLocaleString()}원
           </strong>
-          <span className="text-coral-700"> (베타오픈 기간)</span>입니다. 그때 계속 쓸지 정하시면
-          됩니다.
+          입니다. 그때 계속 쓸지 정하시면 됩니다.
         </p>
         {/* 🔴 **자리 = 요금 옆**(2026-08-11 사용자: "이게 파닉스 안에 있는 게 맞아?"). 맞지 않았다 —
             「설치·약정·광고 없음」은 학습 설명이 아니라 **구매를 막는 걱정에 대한 답**이라, 값을
@@ -1337,9 +1380,6 @@ export default function HangulLandingPage() {
             className="mt-1 inline-flex min-h-[52px] items-center rounded-full bg-coral-700 px-8 text-base font-bold text-white shadow-md transition hover:bg-coral-800"
           >
             한달 무료 체험 →
-          </Link>
-          <Link to="/library" className="text-xs font-semibold text-ink-600 underline">
-            먼저 둘러볼래요
           </Link>
         </div>
       </Section>

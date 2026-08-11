@@ -289,6 +289,19 @@ function LineMatchingPlayerInner({
     const area = areaRef.current;
     if (!area) return;
     const areaRect = area.getBoundingClientRect();
+    /**
+     * 🔴 **조상에 `transform: scale` 이 있으면 좌표를 되돌려야 한다**(2026-08-11 사용자: "선이
+     *    똑바로 연결이 안 되는데").
+     *
+     * `getBoundingClientRect()` 는 변환이 **적용된** 화면 좌표를 준다. 그런데 선을 그리는 SVG 는
+     * 그 변환 **안쪽**에 있어서 로컬(변환 전) 좌표계를 쓴다 — 두 좌표계를 섞으면 선이 실제
+     * 거리의 s 배만 그려져 허공에서 끝난다(랜딩 임베드 실측: s=0.55, `area` 는 화면상 748px 인데
+     * 로컬로는 1368px). 앱에서는 s=1 이라 안 드러났고 상자에 넣으면서 생긴 문제다.
+     * 🔴 배율을 `EmbedStage` 에서 받아오지 않는다 — **자기 요소로 잰다**(레이아웃 폭 대비 화면 폭).
+     *    누가 어디서 변환을 걸든 이 계산은 맞고, 변환이 없으면 1 이라 기존 동작 그대로다.
+     */
+    const scale = area.offsetWidth > 0 ? areaRect.width / area.offsetWidth : 1;
+    const local = (v: number) => (scale > 0 ? v / scale : v);
     const result: typeof lines = [];
 
     // 매칭 완료 — success 색
@@ -300,12 +313,12 @@ function LineMatchingPlayerInner({
       const wordRect = wordEl.getBoundingClientRect();
       result.push({
         from: {
-          x: imgRect.right - areaRect.left,
-          y: imgRect.top + imgRect.height / 2 - areaRect.top,
+          x: local(imgRect.right - areaRect.left),
+          y: local(imgRect.top + imgRect.height / 2 - areaRect.top),
         },
         to: {
-          x: wordRect.left - areaRect.left,
-          y: wordRect.top + wordRect.height / 2 - areaRect.top,
+          x: local(wordRect.left - areaRect.left),
+          y: local(wordRect.top + wordRect.height / 2 - areaRect.top),
         },
         color: '#5CC99F',
         key: `m-${m.itemIdx}`,
@@ -321,12 +334,12 @@ function LineMatchingPlayerInner({
         const wordRect = wordEl.getBoundingClientRect();
         result.push({
           from: {
-            x: imgRect.right - areaRect.left,
-            y: imgRect.top + imgRect.height / 2 - areaRect.top,
+            x: local(imgRect.right - areaRect.left),
+            y: local(imgRect.top + imgRect.height / 2 - areaRect.top),
           },
           to: {
-            x: wordRect.left - areaRect.left,
-            y: wordRect.top + wordRect.height / 2 - areaRect.top,
+            x: local(wordRect.left - areaRect.left),
+            y: local(wordRect.top + wordRect.height / 2 - areaRect.top),
           },
           color: '#FF5E3A',
           key: 'active',
