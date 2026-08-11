@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useActivitySound } from '../hooks/useActivitySound';
 import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
@@ -39,6 +40,7 @@ function shuffle<T>(arr: readonly T[]): T[] {
  *    (텍스트 warm 은 concat 경로라 재생하는 직행 URL 과 안 맞는다).
  */
 export function ToneChoiceReviewActivity({ unitId, words, onMarkComplete, onBack }: Props) {
+  const { t } = useTranslation('phonics');
   const { say, rest, chime, playFeedbackSound, playCorrectSequence, praiseVisible, playAudio } =
     useActivitySound({ unitId, language: 'zh', prefix: 'tone-choice' });
 
@@ -152,10 +154,10 @@ export function ToneChoiceReviewActivity({ unitId, words, onMarkComplete, onBack
         <div className="flex flex-col items-center gap-3 min-h-[7rem] sm:min-h-[9rem] justify-center">
           {guiding ? (
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-coral-600 text-center break-keep animate-pulse">
-              🎧 잘 듣고 맞춰봐!
+              {t('common.listenCarefully')}
             </h2>
           ) : done ? (
-            <p className="text-3xl sm:text-5xl font-black text-ink-900">모두 맞췄어!</p>
+            <p className="text-3xl sm:text-5xl font-black text-ink-900">{t('common.allCorrect')}</p>
           ) : (
             <>
               <div className="flex gap-2">
@@ -171,7 +173,7 @@ export function ToneChoiceReviewActivity({ unitId, words, onMarkComplete, onBack
               </div>
               <button
                 onClick={() => sayWord(current)}
-                aria-label="다시 듣기"
+                aria-label={t('common.listenAgain')}
                 className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-coral-500 text-white text-4xl sm:text-5xl shadow-pop hover:scale-[1.03] active:scale-[0.97] transition animate-pulse"
               >
                 🔊
@@ -212,13 +214,13 @@ export function ToneChoiceReviewActivity({ unitId, words, onMarkComplete, onBack
               onClick={restart}
               className="px-8 py-4 rounded-full bg-coral-500 text-white font-black text-2xl shadow-pop active:scale-[0.98] transition"
             >
-              🔁 다시 해보기
+              {t('common.retry')}
             </button>
             <button
               onClick={onBack}
               className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-pop active:scale-[0.98] transition"
             >
-              ← 돌아가기
+              {t('common.back')}
             </button>
           </div>
         )}

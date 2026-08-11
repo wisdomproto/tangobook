@@ -1,7 +1,9 @@
 import { Link, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { getChineseActivityPlan, getChineseUnit } from '../lib/chinese-phonics-units';
 import type { ActivityDef } from '../lib/korean-phonics-units';
 import { usePhonicsProgress } from '../lib/progress-store';
+import { activityTitle } from '../lib/activity-title';
 
 /**
  * /library/phonics/chinese/:unitId — 병음 unit 의 활동 그리드.
@@ -9,6 +11,7 @@ import { usePhonicsProgress } from '../lib/progress-store';
  * 영어/한글 UnitPage 평행. L1 은 유닛마다 「듣고 고르기」 한 장(익히기)뿐 — 게임/storybook 없음.
  */
 export default function ChinesePhonicsUnitPage({ embedded = false }: { embedded?: boolean } = {}) {
+  const { t } = useTranslation('phonics');
   const { unitId = '' } = useParams<{ unitId: string }>();
   const unit = getChineseUnit(unitId);
   const plan = getChineseActivityPlan(unitId);
@@ -18,12 +21,12 @@ export default function ChinesePhonicsUnitPage({ embedded = false }: { embedded?
   if (!unit) {
     return (
       <div className="px-6 py-6 max-w-[900px] mx-auto">
-        <p className="text-base font-bold text-ink-700">알 수 없는 단원입니다.</p>
+        <p className="text-base font-bold text-ink-700">{t('common.unknownUnit')}</p>
         <Link
           to="/library/phonics/chinese"
           className="inline-block mt-3 text-coral-600 font-black underline"
         >
-          ← 병음 파닉스로
+          {t('common.backToChinese')}
         </Link>
       </div>
     );
@@ -40,7 +43,7 @@ export default function ChinesePhonicsUnitPage({ embedded = false }: { embedded?
             to="/library/phonics/chinese"
             className="inline-flex items-center gap-1 text-sm sm:text-base font-bold text-ink-600 hover:text-ink-900"
           >
-            ← 단원 목록
+            {t('common.backToUnitList')}
           </Link>
         </div>
       )}
@@ -53,7 +56,7 @@ export default function ChinesePhonicsUnitPage({ embedded = false }: { embedded?
           </h2>
           <p className="text-sm sm:text-base text-ink-600 font-bold mb-4">{unit.levelName}</p>
           <p className="text-base sm:text-lg font-black text-ink-700">
-            이 단원은 활동이 아직 준비되지 않았어요.
+            {t('common.noActivitiesYet')}
           </p>
         </div>
       ) : (
@@ -61,8 +64,8 @@ export default function ChinesePhonicsUnitPage({ embedded = false }: { embedded?
           {learnActivities.length > 0 && (
             <ActivitySection
               unitId={unitId}
-              title="익히기"
-              subtitle="듣고 배워요"
+              title={t('section.learn')}
+              subtitle={t('section.learnSubtitleListen')}
               emoji="📖"
               tone="learn"
               activities={learnActivities}
@@ -72,8 +75,8 @@ export default function ChinesePhonicsUnitPage({ embedded = false }: { embedded?
           {playActivities.length > 0 && (
             <ActivitySection
               unitId={unitId}
-              title="낱말 놀이"
-              subtitle="놀면서 익혀요"
+              title={t('section.wordPlay')}
+              subtitle={t('section.wordPlaySubtitle')}
               emoji="🎲"
               tone="play"
               activities={playActivities}
@@ -151,6 +154,7 @@ function ActivityCard({
   activity: ActivityDef;
   done: boolean;
 }) {
+  const { t } = useTranslation('phonics');
   const cardClass = done
     ? 'bg-gradient-to-br from-success/10 to-success/20 border-success/60 ring-2 ring-success/30'
     : 'bg-gradient-to-br from-white via-peach-50 to-peach-100 border-white';
@@ -184,7 +188,7 @@ function ActivityCard({
       <h3
         className={`relative z-10 shrink-0 pb-0.5 text-xl sm:text-2xl font-black font-display leading-tight break-keep text-center ${done ? 'text-ink-500' : 'text-ink-900'}`}
       >
-        {activity.title}
+        {activityTitle(t, activity)}
       </h3>
     </Link>
   );

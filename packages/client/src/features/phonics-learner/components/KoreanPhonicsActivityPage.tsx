@@ -1,4 +1,5 @@
 import { useCallback, useMemo, type ReactNode, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { GameTypeId } from '@tangobook/shared';
 import { PhonicsGameGate } from './PhonicsGameGate';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -10,6 +11,7 @@ import {
   type ActivityDef,
 } from '../lib/korean-phonics-units';
 import { markActivityCompleted } from '../lib/progress-store';
+import { activityTitle } from '../lib/activity-title';
 import { VowelListenActivity } from '../activities/VowelListenActivity';
 import { VowelWriteActivity } from '../activities/VowelWriteActivity';
 import { ConsonantTapActivity } from '../activities/ConsonantTapActivity';
@@ -73,6 +75,7 @@ export interface KoreanPhonicsActivityProps {
 }
 
 export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPhonicsActivityProps) {
+  const { t } = useTranslation('phonics');
   const unit = getKoreanUnit(unitId);
   const plan = getActivityPlan(unitId);
   const activity: ActivityDef | undefined = useMemo(
@@ -175,12 +178,12 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
   if (!unit || !activity) {
     return (
       <div className="px-6 py-6 max-w-[800px] mx-auto">
-        <p className="text-base font-bold text-ink-700">알 수 없는 활동입니다.</p>
+        <p className="text-base font-bold text-ink-700">{t('common.unknownActivity')}</p>
         <Link
           to={`/library/phonics/korean/${unitId}`}
           className="inline-block mt-3 text-coral-600 font-black underline"
         >
-          ← 단원으로
+          {t('common.backToUnit')}
         </Link>
       </div>
     );
@@ -282,7 +285,7 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
   // 🔊 듣고 고르기 — 단원 storybook 의 단어·그림이 필요하다
   if (activity.kind === 'word-listen-choose') {
     if (!storybook) {
-      return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
+      return <ActivityLoading activity={activity} onBack={backToUnit} />;
     }
     const choices = phonicsToWordChoices(storybook);
     if (choices.length < 3)
@@ -290,7 +293,7 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="낱말 그림이 필요해요"
+          reason="unavailable.needWordImages"
         />
       );
     return (
@@ -334,12 +337,16 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
   //    (낱말만 두면 아직 못 읽는 아이에게는 네 칸이 다 똑같아 보인다.)
   if (activity.kind === 'review-word-listen' && reviewCards.length) {
     if (reviewLoading) {
-      return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
+      return <ActivityLoading activity={activity} onBack={backToUnit} />;
     }
     const words = reviewSources.filter((s) => s.word);
     if (words.length < 3) {
       return (
-        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 필요해요" />
+        <ActivityUnavailable
+          activity={activity}
+          onBack={backToUnit}
+          reason="unavailable.needWords"
+        />
       );
     }
     return (
@@ -400,7 +407,7 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
     activity.kind === 'review-flip'
   ) {
     if (reviewLoading) {
-      return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
+      return <ActivityLoading activity={activity} onBack={backToUnit} />;
     }
     const withImage = reviewSources.filter((s) => s.imageUrl);
     if (activity.kind === 'review-flip') {
@@ -409,7 +416,7 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
           <ActivityUnavailable
             activity={activity}
             onBack={backToUnit}
-            reason="낱말 그림이 필요해요"
+            reason="unavailable.needWordImages"
           />
         );
       return (
@@ -427,7 +434,7 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
           <ActivityUnavailable
             activity={activity}
             onBack={backToUnit}
-            reason="낱말 그림이 필요해요"
+            reason="unavailable.needWordImages"
           />
         );
       return (
@@ -445,7 +452,7 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="낱말 그림이 필요해요"
+          reason="unavailable.needWordImages"
         />
       );
     return (
@@ -476,7 +483,7 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
 
   // ── 게임 액티비티 ──
   if (!storybook) {
-    return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
+    return <ActivityLoading activity={activity} onBack={backToUnit} />;
   }
 
   const noopComplete = () => handleComplete();
@@ -513,7 +520,11 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
     const gameData = memoGame(() => phonicsToKoreanBlockData(storybook));
     if (!gameData)
       return (
-        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 부족해요" />
+        <ActivityUnavailable
+          activity={activity}
+          onBack={backToUnit}
+          reason="unavailable.needMoreWords"
+        />
       );
     return gate(
       'korean-block',
@@ -525,7 +536,11 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
     const gameData = memoGame(() => phonicsToWordWritingData(storybook));
     if (!gameData)
       return (
-        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 부족해요" />
+        <ActivityUnavailable
+          activity={activity}
+          onBack={backToUnit}
+          reason="unavailable.needMoreWords"
+        />
       );
     return gate(
       'korean-word-writing',
@@ -540,7 +555,7 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="낱말 그림이 필요해요"
+          reason="unavailable.needWordImages"
         />
       );
     return gate(
@@ -556,7 +571,7 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="낱말 그림과 점이 필요해요"
+          reason="unavailable.needWordDots"
         />
       );
     return gate(
@@ -566,30 +581,27 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
     );
   }
 
-  return <ActivityUnavailable activity={activity} onBack={backToUnit} reason="아직 준비 중" />;
+  return (
+    <ActivityUnavailable activity={activity} onBack={backToUnit} reason="unavailable.comingSoon" />
+  );
 }
 
-function ActivityLoading({
-  title,
-  emoji,
-  onBack,
-}: {
-  title: string;
-  emoji: string;
-  onBack: () => void;
-}) {
+function ActivityLoading({ activity, onBack }: { activity: ActivityDef; onBack: () => void }) {
+  const { t } = useTranslation('phonics');
   return (
     <div className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-gradient-to-b from-cream-50 to-peach-100 overflow-hidden">
       <button
         onClick={onBack}
         className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
       >
-        ← 돌아가기
+        {t('common.back')}
       </button>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center text-center gap-3">
-        <div className="text-6xl">{emoji}</div>
-        <h2 className="text-2xl sm:text-3xl font-black text-ink-900">{title}</h2>
-        <p className="text-base font-bold text-ink-500">불러오는 중…</p>
+        <div className="text-6xl">{activity.emoji}</div>
+        <h2 className="text-2xl sm:text-3xl font-black text-ink-900">
+          {activityTitle(t, activity)}
+        </h2>
+        <p className="text-base font-bold text-ink-500">{t('common.loading')}</p>
       </div>
     </div>
   );
@@ -602,20 +614,24 @@ function ActivityUnavailable({
 }: {
   activity: ActivityDef;
   onBack: () => void;
+  /** `phonics` 네임스페이스 키(`unavailable.*`) — 문구는 로케일이 갖는다. */
   reason: string;
 }) {
+  const { t } = useTranslation('phonics');
   return (
     <div className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-gradient-to-b from-cream-50 to-peach-100 overflow-hidden">
       <button
         onClick={onBack}
         className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
       >
-        ← 돌아가기
+        {t('common.back')}
       </button>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center text-center gap-3">
         <div className="text-6xl">{activity.emoji}</div>
-        <h2 className="text-2xl sm:text-3xl font-black text-ink-900">{activity.title}</h2>
-        <p className="text-base font-bold text-ink-600">{reason}</p>
+        <h2 className="text-2xl sm:text-3xl font-black text-ink-900">
+          {activityTitle(t, activity)}
+        </h2>
+        <p className="text-base font-bold text-ink-600">{t(reason)}</p>
       </div>
     </div>
   );

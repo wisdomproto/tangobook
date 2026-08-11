@@ -1,4 +1,5 @@
 import { Fragment, useCallback, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
@@ -112,6 +113,7 @@ function splitRow(word: string, imageUrl: string | undefined, pattern: string): 
  * 다 들으면 칭찬 → **써보기 단계**로 이어진다.
  */
 export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete, onBack }: Props) {
+  const { t } = useTranslation('phonics');
   const label = makePatternLabel(pattern);
   const labelRanges = patternHighlightRanges(label, pattern);
   const { say, rest, chime, playCorrectSequence, praiseVisible, playAudio } = useActivitySound({
@@ -322,7 +324,7 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
           >
             <Highlighted text={label} ranges={labelRanges} />
           </div>
-          <p className="text-lg sm:text-xl font-black text-ink-600">따라 써봐!</p>
+          <p className="text-lg sm:text-xl font-black text-ink-600">{t('wordFamily.trace')}</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 w-full">
             {writeWord.imageUrl && (
               <img
@@ -373,7 +375,7 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
             <Highlighted text={label} ranges={labelRanges} />
           </div>
           <p className="mt-1 text-lg sm:text-xl font-black text-ink-600">
-            소리 조각을 눌러 들어봐!
+            {t('wordFamily.tapChunks')}
           </p>
         </div>
 

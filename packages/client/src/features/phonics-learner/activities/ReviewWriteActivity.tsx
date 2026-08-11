@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import { writeStepRead } from '../lib/english-phonics-units';
@@ -60,6 +61,7 @@ export function ReviewWriteActivity({
   onComplete,
   onBack,
 }: Props) {
+  const { t } = useTranslation('phonics');
   // 🔴 소리 순서는 훅이 소유한다 — 예전엔 여기서 손으로 이어 붙여 **쉼이 통째로 빠져** 있었다.
   const {
     say: speak,
@@ -242,7 +244,7 @@ export function ReviewWriteActivity({
             ) : (
               <button
                 onClick={() => say(current)}
-                aria-label="다시 듣기"
+                aria-label={t('common.listenAgain')}
                 className="w-full h-full flex items-center justify-center bg-coral-500 text-white text-6xl sm:text-7xl active:scale-[0.97] transition"
               >
                 🔊

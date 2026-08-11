@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   getAllKoreanUnits,
   getActivityPlan,
@@ -6,6 +7,7 @@ import {
   type KoreanUnitSummary,
 } from '../lib/korean-phonics-units';
 import { usePhonicsProgress } from '../lib/progress-store';
+import { unitTitle } from '../lib/activity-title';
 
 /**
  * /library/phonics/korean — 한글 파닉스 unit 그리드.
@@ -14,6 +16,7 @@ import { usePhonicsProgress } from '../lib/progress-store';
  * 첫 unit 만 unlock — 이전 unit 완료해야 다음 unit 열림.
  */
 export default function KoreanPhonicsHubPage() {
+  const { t } = useTranslation('phonics');
   const units = getAllKoreanUnits();
   const { isUnitDone } = usePhonicsProgress('korean');
 
@@ -33,12 +36,10 @@ export default function KoreanPhonicsHubPage() {
           to="/library/phonics"
           className="inline-flex items-center gap-1 text-sm font-bold text-ink-600 hover:text-ink-900 mb-2"
         >
-          ← 파닉스 선택
+          {t('common.backToPicker')}
         </Link>
-        <h1 className="text-2xl sm:text-3xl font-black text-ink-900">한글 파닉스</h1>
-        <p className="text-sm sm:text-base text-ink-600 font-bold mt-1">
-          단원을 하나씩 완료하면 다음 단원이 열려요.
-        </p>
+        <h1 className="text-2xl sm:text-3xl font-black text-ink-900">{t('hub.title')}</h1>
+        <p className="text-sm sm:text-base text-ink-600 font-bold mt-1">{t('hub.subtitle')}</p>
       </div>
 
       <div className="flex flex-col gap-6">
@@ -78,7 +79,8 @@ function UnitCard({
   completed: boolean;
   hasPlan: boolean;
 }) {
-  const titleShort = unit.unitTitle.replace(/^unit\s+\d+:\s*/i, '');
+  const { t } = useTranslation('phonics');
+  const titleShort = unitTitle(t, unit).replace(/^unit\s+\d+:\s*/i, '');
   const inner = (
     <>
       <div className="flex items-center justify-between mb-2">
@@ -87,7 +89,7 @@ function UnitCard({
         </span>
         {completed && (
           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-success/15 text-success-700 text-xs font-black">
-            ✓ 완료
+            {t('common.done')}
           </span>
         )}
       </div>
@@ -104,7 +106,7 @@ function UnitCard({
           </span>
         ))}
       </div>
-      {!hasPlan && <div className="mt-3 text-[11px] font-bold text-ink-500">활동 준비 중</div>}
+      {!hasPlan && <div className="mt-3 text-[11px] font-bold text-ink-500">{t('hub.noPlan')}</div>}
     </>
   );
 

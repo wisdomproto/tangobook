@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'framer-motion';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
@@ -6,6 +7,7 @@ import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
 import { ActivityShell, usePhonicsEmbedded } from '../components/ActivityShell';
+import { ENTRY_GUIDE, voiceUrl } from '../hooks/useEntryGuide';
 
 export interface ListenChoice {
   /** 카드 구분자. 같은 라벨이 두 장일 수 있다(알파벳 단원의 Aa=apple / Aa=alligator). */
@@ -109,9 +111,9 @@ const REST_MS = 420;
  * 🔴 문장은 concat 으로 못 만든다(음절을 이어 붙이면 글자를 하나씩 읽는 소리가 된다).
  *    Gemini TTS 로 구운 정적 자산 — `server/scripts/generate-activity-voice-prompts.mjs`.
  */
-const QUIZ_START_SOUND = '/sounds/voice/quiz-start-ko.mp3';
+const QUIZ_START_SOUND = ENTRY_GUIDE.quiz;
 /** 탐색 진입 안내 — 화면의 "눌러서 들어봐!" 텍스트에 맞는 음성(퀴즈 전 카드를 눌러 소리를 들어보는 단계). */
-const EXPLORE_START_SOUND = '/sounds/voice/listen-explore-ko.mp3';
+const EXPLORE_START_SOUND = ENTRY_GUIDE.listenExplore;
 
 /** 카드 밑줄 라벨 — 병음(위) + 한자(아래). 한자가 없으면 라벨 한 줄만(한글/영어 무변경). */
 function CardLabel({ label, sublabel }: { label: string; sublabel?: string }) {
@@ -156,6 +158,7 @@ export function WordListenChooseActivity({
   onMarkComplete,
   onBack,
 }: Props) {
+  const { t } = useTranslation('phonics');
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
 
   // 🔴 language 를 넘겨야 영어 단원에서 데운 캐시가 탭과 맞는다(안 넘기면 korean 으로 데워 헛돈다).
@@ -394,10 +397,10 @@ export function WordListenChooseActivity({
     } else if (exploreFirst) {
       // 🔴 탐색 진입 — "눌러서 들어봐!" 안내(사용자: "여기도 멘트가 없네"). 잠금은 없다 — 아이는
       //    바로 카드를 눌러 소리를 들어봐도 된다. 퀴즈 시작음은 「🎯 퀴즈」 버튼에서 따로 난다.
-      playAudio(EXPLORE_START_SOUND);
+      playAudio(voiceUrl(EXPLORE_START_SOUND));
     } else {
       // 탐색 없이 바로 퀴즈인 화면(복습 듣기) — 안내가 끝나야 첫 문제가 나간다.
-      playAudio(QUIZ_START_SOUND, () => setStarting(false));
+      playAudio(voiceUrl(QUIZ_START_SOUND), () => setStarting(false));
     }
   }, [embedded, exploreFirst, playAudio]);
 
@@ -481,7 +484,7 @@ export function WordListenChooseActivity({
     setStarting(true);
     firstAskRef.current = true; // 안내 뒤 첫 문제엔 쉼을 준다(진입 경로와 같은 흐름).
     // 🔴 playFresh — 탐색 카드 시퀀스(~6초)가 재생 중일 때 눌리므로, 안내 위로 옛 음절 조각이 새지 않게 무효화.
-    playFresh(QUIZ_START_SOUND, () => setStarting(false));
+    playFresh(voiceUrl(QUIZ_START_SOUND), () => setStarting(false));
   }, [playFresh]);
 
   const restart = useCallback(() => {
@@ -512,15 +515,15 @@ export function WordListenChooseActivity({
         <div className="flex flex-col items-center gap-3 min-h-[7rem] sm:min-h-[9rem] justify-center">
           {exploring ? (
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-900 text-center break-keep">
-              눌러서 들어봐!
+              {t('common.tapToListen')}
             </h2>
           ) : starting ? (
             // 안내 음성이 나오는 동안 같은 문구를 화면에도 — 소리를 못 듣는 상황에서도 전달된다.
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-coral-600 text-center break-keep animate-pulse">
-              🎧 잘 듣고 맞춰봐!
+              {t('common.listenCarefully')}
             </h2>
           ) : done ? (
-            <p className="text-3xl sm:text-5xl font-black text-ink-900">모두 맞췄어!</p>
+            <p className="text-3xl sm:text-5xl font-black text-ink-900">{t('common.allCorrect')}</p>
           ) : (
             <>
               <div className="flex gap-2">
@@ -542,7 +545,7 @@ export function WordListenChooseActivity({
                 )}
                 <button
                   onClick={() => say(current.answer)}
-                  aria-label="다시 듣기"
+                  aria-label={t('common.listenAgain')}
                   className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-coral-500 text-white text-4xl sm:text-5xl shadow-pop hover:scale-[1.03] active:scale-[0.97] transition animate-pulse"
                 >
                   🔊
@@ -647,28 +650,28 @@ export function WordListenChooseActivity({
             onClick={startQuiz}
             className="px-10 py-4 rounded-full bg-coral-500 text-white shadow-pop active:scale-[0.98] transition flex flex-col items-center leading-tight"
           >
-            <span className="font-black text-2xl sm:text-3xl">🎯 퀴즈</span>
+            <span className="font-black text-2xl sm:text-3xl">{t('wordListen.quizBtn')}</span>
             <span className="font-bold text-sm sm:text-base text-white/90 break-keep">
-              듣고 맞춰보기
+              {t('wordListen.quizSub')}
             </span>
           </button>
         )}
 
         {!exploring && done && (
           <div className="flex flex-col items-center gap-4">
-            <p className="text-3xl sm:text-5xl font-black text-ink-900">모두 맞췄어!</p>
+            <p className="text-3xl sm:text-5xl font-black text-ink-900">{t('common.allCorrect')}</p>
             <div className="flex flex-wrap items-center justify-center gap-3">
               <button
                 onClick={restart}
                 className="px-8 py-4 rounded-full bg-coral-500 text-white font-black text-2xl shadow-pop active:scale-[0.98] transition"
               >
-                🔁 다시 해보기
+                {t('common.retry')}
               </button>
               <button
                 onClick={onBack}
                 className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-pop active:scale-[0.98] transition"
               >
-                ← 돌아가기
+                {t('common.back')}
               </button>
             </div>
           </div>

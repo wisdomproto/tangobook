@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
@@ -49,6 +50,7 @@ function WriteCell({ children }: { children: ReactNode }) {
  * 4 단어 모두 통과 → 칭찬 + onMarkComplete.
  */
 export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBack }: Props) {
+  const { t } = useTranslation('phonics');
   const storybookQuery = useStorybook(unitId);
   const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
   // 🔴 진입 안내 — 이제 **지금 쓸 칸만 반짝이고 순서대로**(C→A→N) 쓴다 → "반짝이는 칸에 써 봐!"(한글 자음 쓰기와 동일).
@@ -217,11 +219,11 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
     <ActivityShell onBack={onBack}>
       {storybookQuery.isLoading ? (
         <div className="flex-1 flex items-center justify-center text-lg font-bold text-ink-500">
-          불러오는 중…
+          {t('common.loading')}
         </div>
       ) : cvcWords.length === 0 ? (
         <div className="flex-1 flex items-center justify-center text-lg font-bold text-ink-500">
-          {pattern.vc} 단어가 없어요.
+          {t('cvc.noWords', { pattern: pattern.vc })}
         </div>
       ) : (
         <>
@@ -257,7 +259,7 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
           {allComplete ? (
             <div className="flex-1 flex flex-col items-center justify-center gap-4">
               <div className="text-7xl">🎉</div>
-              <p className="text-4xl sm:text-5xl font-black text-ink-900">잘했어!</p>
+              <p className="text-4xl sm:text-5xl font-black text-ink-900">{t('common.wellDone')}</p>
             </div>
           ) : currentWord ? (
             <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-3 sm:gap-4">

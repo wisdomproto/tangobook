@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import type { GameTypeId, Storybook } from '@tangobook/shared';
 import {
@@ -22,6 +23,7 @@ import { useChineseReviewSources } from '../hooks/useChineseReviewSources';
 import { ReviewFlipMatchActivity } from '../activities/ReviewFlipMatchActivity';
 import { ToneChoiceReviewActivity } from '../activities/ToneChoiceReviewActivity';
 import { markActivityCompleted } from '../lib/progress-store';
+import { activityTitle } from '../lib/activity-title';
 import { getChineseSyllableUrl } from '@/features/games/hooks/usePhonicsMap';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import {
@@ -69,6 +71,7 @@ function shuffleArr<T>(arr: ReadonlyArray<T>): T[] {
 }
 
 export default function ChinesePhonicsActivityPage() {
+  const { t } = useTranslation('phonics');
   const { unitId = '', activityKey = '' } = useParams<{ unitId: string; activityKey: string }>();
   const navigate = useNavigate();
   const unit = getChineseUnit(unitId);
@@ -206,12 +209,12 @@ export default function ChinesePhonicsActivityPage() {
   if (!unit || !activity) {
     return (
       <div className="px-6 py-6 max-w-[800px] mx-auto">
-        <p className="text-base font-bold text-ink-700">알 수 없는 활동입니다.</p>
+        <p className="text-base font-bold text-ink-700">{t('common.unknownActivity')}</p>
         <Link
           to={`/library/phonics/chinese/${unitId}`}
           className="inline-block mt-3 text-coral-600 font-black underline"
         >
-          ← 단원으로
+          {t('common.backToUnit')}
         </Link>
       </div>
     );
@@ -221,7 +224,9 @@ export default function ChinesePhonicsActivityPage() {
   if (activity.kind === 'chant') {
     const urls = CHANT_URLS[unitId];
     if (!urls?.length)
-      return <ChineseUnavailable activity={activity} onBack={backToUnit} reason="노래가 없어요" />;
+      return (
+        <ChineseUnavailable activity={activity} onBack={backToUnit} reason="unavailable.noChant" />
+      );
     return (
       <ChantActivity
         unitId={unitId}
@@ -238,8 +243,10 @@ export default function ChinesePhonicsActivityPage() {
       return (
         <div className="fixed inset-0 z-[60] flex flex-col items-center justify-center gap-3 bg-gradient-to-b from-cream-50 to-peach-100 text-center">
           <div className="text-6xl">{activity.emoji}</div>
-          <h2 className="text-2xl sm:text-3xl font-black text-ink-900">{activity.title}</h2>
-          <p className="text-base font-bold text-ink-500">불러오는 중…</p>
+          <h2 className="text-2xl sm:text-3xl font-black text-ink-900">
+            {activityTitle(t, activity)}
+          </h2>
+          <p className="text-base font-bold text-ink-500">{t('common.loading')}</p>
         </div>
       );
     }
@@ -251,7 +258,7 @@ export default function ChinesePhonicsActivityPage() {
           <ChineseUnavailable
             activity={activity}
             onBack={backToUnit}
-            reason="낱말 그림이 필요해요"
+            reason="unavailable.needWordImages"
           />
         );
       }
@@ -294,7 +301,7 @@ export default function ChinesePhonicsActivityPage() {
           <ChineseUnavailable
             activity={activity}
             onBack={backToUnit}
-            reason="낱말 그림이 필요해요"
+            reason="unavailable.needWordImages"
           />
         );
       // 🔴 lang="zh" — 낱말(병음)은 flashcard.ttsUrl(mod_chinese 직행)로 재생, 칭찬은 한국어.
@@ -311,7 +318,7 @@ export default function ChinesePhonicsActivityPage() {
           <ChineseUnavailable
             activity={activity}
             onBack={backToUnit}
-            reason="낱말 그림과 점이 필요해요"
+            reason="unavailable.needWordDots"
           />
         );
       // 🔴 lang="zh" — 완성 시 병음 낱말을 읽는다(안 넘기면 한국어로 읽는 기존 버그).
@@ -321,7 +328,9 @@ export default function ChinesePhonicsActivityPage() {
         <ConnectTheDotsPlayer {...commonProps} gameData={gameData} lang="zh" />
       );
     }
-    return <ChineseUnavailable activity={activity} onBack={backToUnit} reason="아직 준비 중" />;
+    return (
+      <ChineseUnavailable activity={activity} onBack={backToUnit} reason="unavailable.comingSoon" />
+    );
   }
 
   // 🎵 성조 듣고 고르기 — 낱말 소리를 듣고 **그 낱말의 4성 변이**(āáǎà·māo máo mǎo mào) 중 원래 것을 고른다.
@@ -336,7 +345,7 @@ export default function ChinesePhonicsActivityPage() {
         <ChineseUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="성조를 뽑을 낱말이 필요해요"
+          reason="unavailable.needToneWords"
         />
       );
     return (
@@ -368,8 +377,10 @@ export default function ChinesePhonicsActivityPage() {
       return (
         <div className="fixed inset-0 z-[60] flex flex-col items-center justify-center gap-3 bg-gradient-to-b from-cream-50 to-peach-100 text-center">
           <div className="text-6xl">{activity.emoji}</div>
-          <h2 className="text-2xl sm:text-3xl font-black text-ink-900">{activity.title}</h2>
-          <p className="text-base font-bold text-ink-500">불러오는 중…</p>
+          <h2 className="text-2xl sm:text-3xl font-black text-ink-900">
+            {activityTitle(t, activity)}
+          </h2>
+          <p className="text-base font-bold text-ink-500">{t('common.loading')}</p>
         </div>
       );
     }
@@ -382,7 +393,7 @@ export default function ChinesePhonicsActivityPage() {
           <ChineseUnavailable
             activity={activity}
             onBack={backToUnit}
-            reason="낱말 그림이 필요해요"
+            reason="unavailable.needWordImages"
           />
         );
       return (
@@ -401,7 +412,11 @@ export default function ChinesePhonicsActivityPage() {
       const words = reviewSources.filter((s) => s.word);
       if (words.length < 3)
         return (
-          <ChineseUnavailable activity={activity} onBack={backToUnit} reason="낱말이 필요해요" />
+          <ChineseUnavailable
+            activity={activity}
+            onBack={backToUnit}
+            reason="unavailable.needWords"
+          />
         );
       return (
         <WordListenChooseActivity
@@ -429,7 +444,7 @@ export default function ChinesePhonicsActivityPage() {
           <ChineseUnavailable
             activity={activity}
             onBack={backToUnit}
-            reason="낱말 그림이 필요해요"
+            reason="unavailable.needWordImages"
           />
         );
       return (
@@ -452,7 +467,9 @@ export default function ChinesePhonicsActivityPage() {
       );
     }
 
-    return <ChineseUnavailable activity={activity} onBack={backToUnit} reason="아직 준비 중" />;
+    return (
+      <ChineseUnavailable activity={activity} onBack={backToUnit} reason="unavailable.comingSoon" />
+    );
   }
 
   // 글자 사냥 — 병음 낱 글자를 ReviewCard 로 (letter=보이는 글자, sound=성조 발음).
@@ -479,8 +496,10 @@ export default function ChinesePhonicsActivityPage() {
     return (
       <div className="fixed inset-0 z-[60] flex flex-col items-center justify-center gap-3 bg-gradient-to-b from-cream-50 to-peach-100 text-center">
         <div className="text-6xl">{activity.emoji}</div>
-        <h2 className="text-2xl sm:text-3xl font-black text-ink-900">{activity.title}</h2>
-        <p className="text-base font-bold text-ink-500">불러오는 중…</p>
+        <h2 className="text-2xl sm:text-3xl font-black text-ink-900">
+          {activityTitle(t, activity)}
+        </h2>
+        <p className="text-base font-bold text-ink-500">{t('common.loading')}</p>
       </div>
     );
   }
@@ -575,18 +594,20 @@ function ChineseUnavailable({
 }: {
   activity: ActivityDef;
   onBack: () => void;
+  /** `phonics` 네임스페이스 키(`unavailable.*`). */
   reason: string;
 }) {
+  const { t } = useTranslation('phonics');
   return (
     <div className="fixed inset-0 z-[60] flex flex-col items-center justify-center gap-3 bg-gradient-to-b from-cream-50 to-peach-100 text-center px-6">
       <div className="text-6xl">{activity.emoji}</div>
-      <h2 className="text-2xl sm:text-3xl font-black text-ink-900">{activity.title}</h2>
-      <p className="text-base font-bold text-ink-600">{reason}</p>
+      <h2 className="text-2xl sm:text-3xl font-black text-ink-900">{activityTitle(t, activity)}</h2>
+      <p className="text-base font-bold text-ink-600">{t(reason)}</p>
       <button
         onClick={onBack}
         className="mt-2 px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black shadow-soft"
       >
-        ← 돌아가기
+        {t('common.back')}
       </button>
     </div>
   );

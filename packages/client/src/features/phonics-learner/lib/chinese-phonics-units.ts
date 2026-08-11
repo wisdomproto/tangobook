@@ -100,6 +100,9 @@ export interface ChineseUnitSummary {
   levelIndex: number; // 1
   unitIndexInLevel: number;
   unitTitle: string; // 'Unit 01: a o e'
+  /** 파생(복습) 단원만 갖는다 — 커리큘럼 단원 제목은 콘텐츠라 그대로 쓴다(`lib/activity-title.ts`). */
+  unitTitleKey?: string;
+  unitTitleVars?: Record<string, string | number>;
   phonemes: string[];
   patterns: string[];
   targetWords: string[];
@@ -591,6 +594,7 @@ export function getAllChineseUnits(): ChineseUnitSummary[] {
       levelIndex: last.levelIndex,
       unitIndexInLevel: last.unitIndexInLevel, // 사이드바는 복습에 🏅 를 쓰므로 번호는 안 보인다
       unitTitle: '복습',
+      unitTitleKey: 'unit.review',
       phonemes: [],
       patterns: ['review'],
       targetWords: wordUnits.flatMap((u) => u.targetWords),
@@ -777,6 +781,7 @@ const LISTEN_FIRST = {
   kind: 'word-listen-choose',
   section: 'learn',
   title: '듣고 배우기',
+  titleKey: 'activity.listenLearn',
   emoji: '🔊',
   required: true,
 } as const;
@@ -795,13 +800,14 @@ function makeSingleFinalPlan(toneQuiz: boolean): ActivityPlan {
       kind: 'tone-choice-review',
       section: 'learn',
       title: '성조 듣고 고르기',
+      titleKey: 'activity.toneChoice',
       emoji: '🎵',
       required: true,
     });
   const writeOrder = activities.length + 1;
   activities.push(
-    { key: 'write', order: writeOrder, kind: 'vowel-write', section: 'learn', title: '따라쓰기', emoji: '✏️', required: true }, // prettier-ignore
-    { key: 'hunt', order: writeOrder + 1, kind: 'letter-hunt', section: 'learn', title: '글자 사냥', emoji: '🔎', required: false } // prettier-ignore
+    { key: 'write', order: writeOrder, kind: 'vowel-write', section: 'learn', title: '따라쓰기', titleKey: 'activity.trace', emoji: '✏️', required: true }, // prettier-ignore
+    { key: 'hunt', order: writeOrder + 1, kind: 'letter-hunt', section: 'learn', title: '글자 사냥', titleKey: 'activity.letterHunt', emoji: '🔎', required: false } // prettier-ignore
   );
   return { activities };
 }
@@ -812,6 +818,7 @@ const HUNT = {
   kind: 'letter-hunt',
   section: 'learn',
   title: '글자 사냥',
+  titleKey: 'activity.letterHunt',
   emoji: '🔎',
   required: false,
 } as const;
@@ -834,6 +841,7 @@ function makeTonePlan(): ActivityPlan {
         kind: 'word-listen-choose',
         section: 'learn',
         title: '성조 듣고 고르기',
+        titleKey: 'activity.toneChoice',
         emoji: '🎵',
         required: true,
       },
@@ -855,6 +863,7 @@ function makeBlendPlan(): ActivityPlan {
         kind: 'word-listen-choose',
         section: 'learn',
         title: '듣고 고르기',
+        titleKey: 'activity.listenChoose',
         emoji: '🎧',
         required: true,
       },
@@ -876,6 +885,8 @@ function makeCombinePlan(unitId: string): ActivityPlan {
     kind: 'word-listen-choose',
     section: 'learn',
     title: `${g.c} 배우기`,
+    titleKey: 'activity.patternLearn',
+    titleVars: { pattern: g.c },
     emoji: '🔊',
     required: true,
     consonant: g.c,
@@ -886,6 +897,7 @@ function makeCombinePlan(unitId: string): ActivityPlan {
     kind: 'word-listen-choose',
     section: 'learn',
     title: '듣고 고르기',
+    titleKey: 'activity.listenChoose',
     emoji: '🎧',
     required: true,
   });
@@ -907,6 +919,7 @@ function makeWordPlan(): ActivityPlan {
         kind: 'word-listen-choose',
         section: 'play',
         title: '낱말 연습',
+        titleKey: 'activity.wordPractice',
         emoji: '🔊',
         required: true,
       },
@@ -916,6 +929,7 @@ function makeWordPlan(): ActivityPlan {
         kind: 'game-connect-dots',
         section: 'play',
         title: '낱말 그리기',
+        titleKey: 'activity.wordDrawing',
         emoji: '🎨',
         required: false,
       },
@@ -925,6 +939,7 @@ function makeWordPlan(): ActivityPlan {
         kind: 'game-line-matching',
         section: 'play',
         title: '그림 짝 찾기',
+        titleKey: 'activity.pictureMatch',
         emoji: '🃏',
         required: false,
       },
@@ -974,13 +989,30 @@ export function syllableCount(pinyin: string): number {
 function makeChineseReviewPlan(monosyllabic: boolean): ActivityPlan {
   const activities: ActivityDef[] = [];
   let order = 0;
-  const play = (key: string, kind: ActivityDef['kind'], title: string, emoji: string) =>
-    activities.push({ order: ++order, key, kind, section: 'play', title, emoji, required: true });
-  if (monosyllabic) play('letter-hunt', 'letter-hunt', '글자 사냥', '🔎');
-  play('review-flip', 'review-flip', '뒤집기 짝 맞추기', '🎴');
-  play('review-word-listen', 'review-word-listen', '듣고 낱말 맞추기', '🔊');
-  play('review-match', 'review-match', '그림 짝 찾기', '🔗');
-  if (monosyllabic) play('tone-choice', 'tone-choice-review', '성조 듣고 고르기', '🎵');
+  // 🔴 `title` 은 한국어 폴백, 화면은 `titleKey` 를 본다(`lib/activity-title.ts`).
+  const play = (
+    key: string,
+    kind: ActivityDef['kind'],
+    title: string,
+    titleKey: string,
+    emoji: string
+  ) =>
+    activities.push({
+      order: ++order,
+      key,
+      kind,
+      section: 'play',
+      title,
+      titleKey,
+      emoji,
+      required: true,
+    });
+  if (monosyllabic) play('letter-hunt', 'letter-hunt', '글자 사냥', 'activity.letterHunt', '🔎');
+  play('review-flip', 'review-flip', '뒤집기 짝 맞추기', 'activity.flipMatch', '🎴');
+  play('review-word-listen', 'review-word-listen', '듣고 낱말 맞추기', 'activity.wordListen', '🔊');
+  play('review-match', 'review-match', '그림 짝 찾기', 'activity.pictureMatch', '🔗');
+  if (monosyllabic)
+    play('tone-choice', 'tone-choice-review', '성조 듣고 고르기', 'activity.toneChoice', '🎵');
   return { activities };
 }
 
@@ -1022,6 +1054,7 @@ function withChant(u: ChineseUnitSummary, plan: ActivityPlan): ActivityPlan {
         kind: 'chant',
         section: 'play',
         title: '노래',
+        titleKey: 'activity.chant',
         emoji: '🎵',
         required: false,
       },

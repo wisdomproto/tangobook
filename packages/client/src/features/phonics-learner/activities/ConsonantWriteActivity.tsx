@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import { useLogSyllable } from '../hooks/useLogSyllable';
@@ -111,6 +112,7 @@ export function ConsonantWriteActivity({
   onComplete,
   onBack,
 }: Props) {
+  const { t } = useTranslation('phonics');
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   // 🔴 진입 안내 — 지시가 텍스트뿐이라 글 못 읽는 아이엔 통째로 무음이었다(쓰기 6종 공통).
   useEntryGuide(ENTRY_GUIDE.write, playAudio);
@@ -308,7 +310,7 @@ export function ConsonantWriteActivity({
               key={p.syllable}
               onClick={() => !done && goTo(i)}
               disabled={done}
-              aria-label={`${p.syllable} 쓰기`}
+              aria-label={t('write.writeSyllable', { syllable: p.syllable })}
               className={[
                 'w-11 h-11 sm:w-14 sm:h-14 rounded-2xl border-[3px] border-white flex items-center justify-center font-black text-xl sm:text-2xl shadow-soft transition',
                 done
@@ -326,26 +328,10 @@ export function ConsonantWriteActivity({
 
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-black font-display text-ink-900 text-center break-keep">
-          {!pair ? (
-            <>
-              ✏️ <span className="text-coral-600">{consonant}</span> 을 세 번 따라써봐!
-            </>
-          ) : merging ? (
-            <>
-              두 글자가 만나서 <span className="text-coral-600">{pair.syllable}</span>!
-            </>
-          ) : isCoda && step === 1 ? (
-            // 받침 차례 — 무엇을 만드는 중인지 같이 말해준다(앞 글자는 이미 썼다).
-            <>
-              ✏️ 받침 <span className="text-coral-600">{pair.second}</span> 을 써서{' '}
-              <span className="text-coral-600">{pair.syllable}</span> 을 만들어봐!
-            </>
-          ) : (
-            <>
-              ✏️ 반짝이는 칸에{' '}
-              <span className="text-coral-600">{step === 0 ? pair.first : pair.second}</span> 써봐!
-            </>
-          )}
+          {/* 🔴 지시문엔 글자를 넣지 않는다 — 쓸 글자는 캔버스 가이드가 이미 크게 보여주고,
+              글을 못 읽는 4~7세는 문장 속 글자를 읽지 않는다. 안내 음성(`write-start`)도
+              "반짝이는 칸에 써 봐!" 라 화면과 소리가 이제 같은 말을 한다. */}
+          {!pair ? t('write.trace') : merging ? t('write.meet') : t('write.sparkleCell')}
         </h2>
 
         {/* 짝이 없으면(모음·초성 정보 없는 단원) 예전처럼 글자 하나만 반복해서 쓴다. */}

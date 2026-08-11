@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
@@ -69,6 +70,7 @@ export function ConsonantBlendListenActivity({
   onComplete,
   onBack,
 }: Props) {
+  const { t } = useTranslation('phonics');
   const isCoda = !!coda;
 
   const pairs = useMemo(
@@ -250,7 +252,9 @@ export function ConsonantBlendListenActivity({
             <button
               key={p.syllable}
               onClick={() => goTo(i)}
-              aria-label={`${p.syllable} 만들기${made ? ' (완료)' : ''}`}
+              aria-label={t(made ? 'blend.makeSyllableDone' : 'blend.makeSyllable', {
+                syllable: p.syllable,
+              })}
               className={[
                 'relative w-11 h-11 sm:w-14 sm:h-14 rounded-2xl border-[3px] font-black text-xl sm:text-2xl shadow-soft transition active:scale-[0.95]',
                 i === idx
@@ -273,13 +277,8 @@ export function ConsonantBlendListenActivity({
 
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-8">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-900 text-center break-keep">
-          {merging ? (
-            <>
-              두 소리가 만나서 <span className="text-coral-600">{pair.syllable}</span>!
-            </>
-          ) : (
-            '반짝이는 글자를 눌러봐!'
-          )}
+          {/* 🔴 지시문엔 글자를 넣지 않는다 — 합쳐진 음절은 바로 아래 애니메이션이 크게 보여준다. */}
+          {merging ? t('blend.meet') : t('blend.tapSparkle')}
         </h2>
 
         {/* 두 글자 — 라운드가 오를수록 간격이 좁아지고, 마지막엔 붙어서 음절이 된다.

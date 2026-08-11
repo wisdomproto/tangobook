@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { composeHangul } from '@tangobook/shared';
 import { resolveTtsUrl } from '@/features/tts';
 import { playUi } from '@/lib/uiSound';
@@ -50,6 +51,7 @@ export function LetterHuntActivity({
   onComplete,
   onBack,
 }: Props) {
+  const { t } = useTranslation('phonics');
   // 오답음(`playFeedbackSound`)은 쓰지 않는다 — 틀린 칸도 그냥 읽어준다(아래 `handleTap`).
   const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
   const [round, setRound] = useState(0);
@@ -279,12 +281,12 @@ export function LetterHuntActivity({
         {/* 🔴 제목에 글자를 끼워 넣지 않는다 — 'ㄱ 을' / 'A 을' 처럼 조사가 언어마다 어긋난다.
             찾을 글자는 눌러 소리를 듣는 큰 칩으로 따로 세운다. */}
         <h2 className="text-2xl sm:text-4xl font-black text-ink-900 text-center break-keep">
-          {done ? '다 찾았어!' : '이 글자를 다 찾아봐!'}
+          {done ? t('hunt.done') : t('hunt.prompt')}
         </h2>
         <button
           onClick={() => say(card.sound)}
           className="px-6 py-2 rounded-3xl bg-coral-500 text-white shadow-pop font-black text-[min(9vw,8vh)] leading-none flex items-center gap-3"
-          aria-label={`${card.letter} 소리 듣기`}
+          aria-label={t('hunt.letterSound', { letter: card.letter })}
         >
           {card.letter}
           <span className="text-[0.5em]">🔊</span>

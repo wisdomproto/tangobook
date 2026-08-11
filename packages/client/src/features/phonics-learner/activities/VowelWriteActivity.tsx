@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
@@ -46,6 +47,7 @@ export function VowelWriteActivity({
   onComplete,
   onBack,
 }: Props) {
+  const { t } = useTranslation('phonics');
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   // 🔴 진입 안내 — 단일 캔버스라 "반짝이는 칸" 이 없다(화면 문구도 "따라써봐") → "글자를 따라 써 봐!".
   useEntryGuide(ENTRY_GUIDE.writeTrace, playAudio);
@@ -140,7 +142,8 @@ export function VowelWriteActivity({
 
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-900 text-center mb-4">
-          ✏️ <span className="text-coral-600">{vowels[currentIdx].syllable}</span> 를 따라써봐!
+          {/* 🔴 지시문엔 글자를 넣지 않는다 — 쓸 글자는 위 칩과 캔버스 가이드가 보여준다. */}
+          {t('write.trace')}
         </h2>
         <LetterFillCanvas
           key={`${currentIdx}-${vowels[currentIdx].syllable}`}

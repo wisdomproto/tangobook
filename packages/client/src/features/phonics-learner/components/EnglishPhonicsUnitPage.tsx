@@ -1,10 +1,12 @@
 import { Link, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import type { Storybook } from '@tangobook/shared';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { getEnglishActivityPlan, getEnglishUnit } from '../lib/english-phonics-units';
 import type { ActivityDef } from '../lib/korean-phonics-units';
 import { isPhonicsActivityAvailable } from '../lib/phonics-game-adapter';
 import { usePhonicsProgress } from '../lib/progress-store';
+import { activityTitle, unitTitle } from '../lib/activity-title';
 
 /**
  * /library/phonics/english/:unitId — 영어 unit 의 활동 그리드.
@@ -12,6 +14,7 @@ import { usePhonicsProgress } from '../lib/progress-store';
  * 한글의 `KoreanPhonicsUnitPage` 평행. 활동 plan 있으면 카드 그리드, 없으면 "준비 중" placeholder.
  */
 export default function EnglishPhonicsUnitPage({ embedded = false }: { embedded?: boolean } = {}) {
+  const { t } = useTranslation('phonics');
   const { unitId = '' } = useParams<{ unitId: string }>();
   const unit = getEnglishUnit(unitId);
   const plan = getEnglishActivityPlan(unitId);
@@ -23,12 +26,12 @@ export default function EnglishPhonicsUnitPage({ embedded = false }: { embedded?
   if (!unit) {
     return (
       <div className="px-6 py-6 max-w-[900px] mx-auto">
-        <p className="text-base font-bold text-ink-700">알 수 없는 단원입니다.</p>
+        <p className="text-base font-bold text-ink-700">{t('common.unknownUnit')}</p>
         <Link
           to="/library/phonics/english"
           className="inline-block mt-3 text-coral-600 font-black underline"
         >
-          ← 영어 파닉스로
+          {t('common.backToEnglish')}
         </Link>
       </div>
     );
@@ -47,7 +50,7 @@ export default function EnglishPhonicsUnitPage({ embedded = false }: { embedded?
             to="/library/phonics/english"
             className="inline-flex items-center gap-1 text-sm sm:text-base font-bold text-ink-600 hover:text-ink-900"
           >
-            ← 단원 목록
+            {t('common.backToUnitList')}
           </Link>
         </div>
       )}
@@ -60,10 +63,10 @@ export default function EnglishPhonicsUnitPage({ embedded = false }: { embedded?
           </h2>
           <p className="text-sm sm:text-base text-ink-600 font-bold mb-4">{unit.levelName}</p>
           <p className="text-base sm:text-lg font-black text-ink-700">
-            이 단원은 활동이 아직 준비되지 않았어요.
+            {t('common.noActivitiesYet')}
           </p>
           <p className="text-sm sm:text-base font-bold text-ink-500 mt-2">
-            곧 영어 파닉스 활동이 추가될 거에요! ✨
+            {t('study.englishComingSoonNote')}
           </p>
           {unit.targetWords.length > 0 && (
             <div className="mt-6 inline-flex flex-wrap justify-center gap-2 max-w-md">
@@ -83,8 +86,8 @@ export default function EnglishPhonicsUnitPage({ embedded = false }: { embedded?
           {learnActivities.length > 0 && (
             <ActivitySection
               unitId={unitId}
-              title="익히기"
-              subtitle="듣고 배워요"
+              title={t('section.learn')}
+              subtitle={t('section.learnSubtitleListen')}
               emoji="📖"
               tone="learn"
               activities={learnActivities}
@@ -97,8 +100,8 @@ export default function EnglishPhonicsUnitPage({ embedded = false }: { embedded?
               /* 🔴 복습 단원은 **그 묶음 이름**(`A~F 복습`)을 쓴다 — 게임 패널이 화면의 유일한
                  글자라 「게임하기」로 두면 무엇을 되짚는 자리인지 알 수 없다(한글과 같은 규칙).
                  `isReview` 는 영어 데이터에도 진작 있었는데 화면이 안 쓰고 있었다. */
-              title={unit.isReview ? unit.unitTitle : '게임하기'}
-              subtitle="재미있게 익혀요"
+              title={unit.isReview ? unitTitle(t, unit) : t('section.games')}
+              subtitle={t('section.gamesSubtitle')}
               emoji={unit.isReview ? '🏅' : '🎮'}
               tone="play"
               activities={playActivities}
@@ -224,6 +227,8 @@ function ActivityCard({
   maxWClass?: string;
   aspectClass?: string;
 }) {
+  const { t } = useTranslation('phonics');
+  const label = activityTitle(t, activity);
   const isLearn = activity.section === 'learn';
   // 🔴 **게임도 끝내면 ✓** — 한글은 2026-07-27 에 고쳤는데 영어만 `isLearn &&` 가 남아 있었다.
   //    아이가 게임을 다 깨고 나와도 목록이 그대로라 무엇을 했는지 안 보인다.
@@ -291,7 +296,7 @@ function ActivityCard({
           (() => {
             const ls = activity.letters
               ? activity.letters.map((L) => L.toUpperCase())
-              : (activity.title.trim().split(/\s+/)[0] ?? '').split('');
+              : (label.trim().split(/\s+/)[0] ?? '').split('');
             return (
               <div className="relative w-full h-full flex items-center justify-center">
                 <div className="flex items-baseline leading-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)] font-display tracking-tight">
@@ -322,7 +327,7 @@ function ActivityCard({
           //    `absolute inset-0` 는 확정된 높이 기준이라 안전하고 `m-auto` 가 가운데 정렬까지 한다.
           <img
             src={iconUrl}
-            alt={activity.title}
+            alt={label}
             className="absolute inset-0 m-auto max-h-full max-w-full w-20 sm:w-24 md:w-28 object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)]"
           />
         ) : (
@@ -335,7 +340,7 @@ function ActivityCard({
       <h3
         className={`relative z-10 shrink-0 pb-0.5 text-xl sm:text-2xl font-black font-display leading-tight break-keep text-center ${showDone ? 'text-ink-500' : 'text-ink-900'}`}
       >
-        {activity.title}
+        {label}
       </h3>
     </Link>
   );

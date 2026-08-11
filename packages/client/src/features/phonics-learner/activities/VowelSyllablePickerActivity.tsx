@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
 import { ConsonantBlendListenActivity } from './ConsonantBlendListenActivity';
@@ -36,6 +37,7 @@ export function VowelSyllablePickerActivity({
   onComplete,
   onBack,
 }: Props) {
+  const { t } = useTranslation('phonics');
   const [picked, setPicked] = useState<string | null>(vowels.length === 1 ? vowels[0].vowel : null);
   const [made, setMade] = useState<ReadonlySet<string>>(() => new Set());
   // 진입 안내 — 선택 화면 문구 "어떤 모음으로 만들까?" 에 맞는 음성. 모음이 하나뿐(자동 선택)이면
@@ -75,7 +77,7 @@ export function VowelSyllablePickerActivity({
     <ActivityShell onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-6 sm:gap-8">
         <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-ink-900 text-center break-keep">
-          {mode === 'listen' ? '어떤 모음으로 만들까?' : '어떤 모음을 써볼까?'}
+          {mode === 'listen' ? t('vowelPicker.makePrompt') : t('vowelPicker.writePrompt')}
         </h2>
         <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
           {vowels.map((v) => {

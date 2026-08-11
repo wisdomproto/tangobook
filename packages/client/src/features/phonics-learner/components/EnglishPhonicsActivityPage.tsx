@@ -1,4 +1,5 @@
 import { useCallback, useMemo, type ReactNode, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { GameTypeId } from '@tangobook/shared';
 import { PhonicsGameGate } from './PhonicsGameGate';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -13,6 +14,7 @@ import {
 import { shuffleReviewCards } from '../lib/korean-phonics-units';
 import type { ActivityDef } from '../lib/korean-phonics-units';
 import { markActivityCompleted } from '../lib/progress-store';
+import { activityTitle } from '../lib/activity-title';
 import { CvcPatternLearnActivity } from '../activities/CvcPatternLearnActivity';
 import { CvcPatternWriteActivity } from '../activities/CvcPatternWriteActivity';
 import { AlphabetLetterLearnActivity } from '../activities/AlphabetLetterLearnActivity';
@@ -81,6 +83,7 @@ export function EnglishPhonicsActivity({
   activityKey,
   onExit,
 }: EnglishPhonicsActivityProps) {
+  const { t } = useTranslation('phonics');
   const unit = getEnglishUnit(unitId);
   const plan = getEnglishActivityPlan(unitId);
   const activity: ActivityDef | undefined = useMemo(
@@ -188,12 +191,12 @@ export function EnglishPhonicsActivity({
   if (!unit || !activity) {
     return (
       <div className="px-6 py-6 max-w-[800px] mx-auto">
-        <p className="text-base font-bold text-ink-700">알 수 없는 활동입니다.</p>
+        <p className="text-base font-bold text-ink-700">{t('common.unknownActivity')}</p>
         <Link
           to={`/library/phonics/english/${unitId}`}
           className="inline-block mt-3 text-coral-600 font-black underline"
         >
-          ← 단원으로
+          {t('common.backToUnit')}
         </Link>
       </div>
     );
@@ -204,7 +207,7 @@ export function EnglishPhonicsActivity({
   if (activity.kind === 'word-family-learn' && activity.pattern) {
     const sb = storybookQuery.data as Storybook | undefined;
     if (storybookQuery.isLoading || !sb) {
-      return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
+      return <ActivityLoading activity={activity} onBack={backToUnit} />;
     }
     const pattern = activity.pattern;
     const seen = new Set<string>();
@@ -226,7 +229,11 @@ export function EnglishPhonicsActivity({
       });
     if (words.length < 2) {
       return (
-        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 부족해요" />
+        <ActivityUnavailable
+          activity={activity}
+          onBack={backToUnit}
+          reason="unavailable.needMoreWords"
+        />
       );
     }
     return (
@@ -304,7 +311,7 @@ export function EnglishPhonicsActivity({
   if (activity.kind === 'word-listen-choose') {
     const sb = storybookQuery.data as Storybook | undefined;
     if (storybookQuery.isLoading || !sb) {
-      return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
+      return <ActivityLoading activity={activity} onBack={backToUnit} />;
     }
     // 🔴 발음은 flashcards 가 아니라 **wordFamilies** 에 있다(findImageData 는 그림·keypoints 만 준다).
     //    낱말·발음은 wordFamilies 에서, 그림은 findImageData 에서 가져와 합친다.
@@ -331,7 +338,7 @@ export function EnglishPhonicsActivity({
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="낱말 그림이 필요해요"
+          reason="unavailable.needWordImages"
         />
       );
     }
@@ -391,7 +398,7 @@ export function EnglishPhonicsActivity({
     activity.kind === 'review-match'
   ) {
     if (reviewLoading) {
-      return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
+      return <ActivityLoading activity={activity} onBack={backToUnit} />;
     }
     const withImage = reviewSources.filter((s) => s.imageUrl);
     if (withImage.length < 3) {
@@ -399,7 +406,7 @@ export function EnglishPhonicsActivity({
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="낱말 그림이 필요해요"
+          reason="unavailable.needWordImages"
         />
       );
     }
@@ -494,9 +501,7 @@ export function EnglishPhonicsActivity({
      */
     if (isBook1) {
       if (reviewLoading) {
-        return (
-          <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />
-        );
+        return <ActivityLoading activity={activity} onBack={backToUnit} />;
       }
       return (
         <ReviewWriteActivity
@@ -522,9 +527,7 @@ export function EnglishPhonicsActivity({
       // 🔴 Book 2 복습은 letter 가 패턴("ap")이라 그걸 쓰면 낱말이 아니다 — reviewSources 의 대표 낱말
       //    ("cap")을 써서 **낱말 전체**를 쓰게 한다(사용자: "ap 만 하지 말고 낱말을 써야지").
       if (reviewLoading) {
-        return (
-          <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />
-        );
+        return <ActivityLoading activity={activity} onBack={backToUnit} />;
       }
       return (
         <ReviewWriteActivity
@@ -621,7 +624,7 @@ export function EnglishPhonicsActivity({
 
   // ── 게임 활동 ──
   if (!storybook) {
-    return <ActivityLoading title={activity.title} emoji={activity.emoji} onBack={backToUnit} />;
+    return <ActivityLoading activity={activity} onBack={backToUnit} />;
   }
 
   const commonProps = {
@@ -649,7 +652,11 @@ export function EnglishPhonicsActivity({
     const gameData = memoGame(() => phonicsToEnglishBlockData(storybook));
     if (!gameData)
       return (
-        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 부족해요" />
+        <ActivityUnavailable
+          activity={activity}
+          onBack={backToUnit}
+          reason="unavailable.needMoreWords"
+        />
       );
     return gate(
       'english-block',
@@ -685,7 +692,11 @@ export function EnglishPhonicsActivity({
     });
     if (!gameData)
       return (
-        <ActivityUnavailable activity={activity} onBack={backToUnit} reason="낱말이 부족해요" />
+        <ActivityUnavailable
+          activity={activity}
+          onBack={backToUnit}
+          reason="unavailable.needMoreWords"
+        />
       );
     return gate(
       'english-word-writing',
@@ -700,7 +711,7 @@ export function EnglishPhonicsActivity({
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="낱말 그림이 필요해요"
+          reason="unavailable.needWordImages"
         />
       );
     return gate(
@@ -721,7 +732,7 @@ export function EnglishPhonicsActivity({
         <ActivityUnavailable
           activity={activity}
           onBack={backToUnit}
-          reason="낱말 그림과 점이 필요해요"
+          reason="unavailable.needWordDots"
         />
       );
     return gate(
@@ -732,30 +743,27 @@ export function EnglishPhonicsActivity({
     );
   }
 
-  return <ActivityUnavailable activity={activity} onBack={backToUnit} reason="아직 준비 중" />;
+  return (
+    <ActivityUnavailable activity={activity} onBack={backToUnit} reason="unavailable.comingSoon" />
+  );
 }
 
-function ActivityLoading({
-  title,
-  emoji,
-  onBack,
-}: {
-  title: string;
-  emoji: string;
-  onBack: () => void;
-}) {
+function ActivityLoading({ activity, onBack }: { activity: ActivityDef; onBack: () => void }) {
+  const { t } = useTranslation('phonics');
   return (
     <div className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-gradient-to-b from-cream-50 to-peach-100 overflow-hidden">
       <button
         onClick={onBack}
         className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
       >
-        ← 돌아가기
+        {t('common.back')}
       </button>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center text-center gap-3">
-        <div className="text-6xl">{emoji}</div>
-        <h2 className="text-2xl sm:text-3xl font-black text-ink-900">{title}</h2>
-        <p className="text-base font-bold text-ink-500">불러오는 중…</p>
+        <div className="text-6xl">{activity.emoji}</div>
+        <h2 className="text-2xl sm:text-3xl font-black text-ink-900">
+          {activityTitle(t, activity)}
+        </h2>
+        <p className="text-base font-bold text-ink-500">{t('common.loading')}</p>
       </div>
     </div>
   );
@@ -768,20 +776,24 @@ function ActivityUnavailable({
 }: {
   activity: ActivityDef;
   onBack: () => void;
+  /** `phonics` 네임스페이스 키(`unavailable.*`) — 문구는 로케일이 갖는다. */
   reason: string;
 }) {
+  const { t } = useTranslation('phonics');
   return (
     <div className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-gradient-to-b from-cream-50 to-peach-100 overflow-hidden">
       <button
         onClick={onBack}
         className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
       >
-        ← 돌아가기
+        {t('common.back')}
       </button>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center text-center gap-3">
         <div className="text-6xl">{activity.emoji}</div>
-        <h2 className="text-2xl sm:text-3xl font-black text-ink-900">{activity.title}</h2>
-        <p className="text-base font-bold text-ink-600">{reason}</p>
+        <h2 className="text-2xl sm:text-3xl font-black text-ink-900">
+          {activityTitle(t, activity)}
+        </h2>
+        <p className="text-base font-bold text-ink-600">{t(reason)}</p>
       </div>
     </div>
   );

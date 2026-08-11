@@ -1,9 +1,11 @@
 import { Link, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import type { Storybook } from '@tangobook/shared';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { getActivityPlan, getKoreanUnit, type ActivityDef } from '../lib/korean-phonics-units';
 import { isPhonicsActivityAvailable } from '../lib/phonics-game-adapter';
 import { usePhonicsProgress } from '../lib/progress-store';
+import { activityTitle, unitTitle } from '../lib/activity-title';
 
 /**
  * /library/phonics/korean/:unitId — unit 의 액티비티 그리드.
@@ -15,6 +17,7 @@ import { usePhonicsProgress } from '../lib/progress-store';
  * (좌측 사이드바가 단원 목록 역할). 그 외는 standalone 화면용.
  */
 export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?: boolean } = {}) {
+  const { t } = useTranslation('phonics');
   const { unitId = '' } = useParams<{ unitId: string }>();
   const unit = getKoreanUnit(unitId);
   const plan = getActivityPlan(unitId);
@@ -27,12 +30,12 @@ export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?:
   if (!unit) {
     return (
       <div className="px-6 py-6 max-w-[900px] mx-auto">
-        <p className="text-base font-bold text-ink-700">알 수 없는 단원입니다.</p>
+        <p className="text-base font-bold text-ink-700">{t('common.unknownUnit')}</p>
         <Link
           to="/library/phonics/korean"
           className="inline-block mt-3 text-coral-600 font-black underline"
         >
-          ← 한글 파닉스로
+          {t('common.backToKorean')}
         </Link>
       </div>
     );
@@ -51,22 +54,22 @@ export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?:
             to="/library/phonics/korean"
             className="inline-flex items-center gap-1 text-sm sm:text-base font-bold text-ink-600 hover:text-ink-900"
           >
-            ← 단원 목록
+            {t('common.backToUnitList')}
           </Link>
         </div>
       )}
 
       {plan.activities.length === 0 ? (
         <div className="rounded-3xl bg-cream-100 p-8 text-center text-ink-600 font-black text-lg">
-          이 단원은 활동이 아직 준비되지 않았어요.
+          {t('common.noActivitiesYet')}
         </div>
       ) : (
         // 두 섹션 사이를 넉넉히 — 아래로 화면이 남는데 붙어 있으면 한 덩어리로 보인다.
         <div className="flex flex-col gap-8 sm:gap-10 lg:gap-14">
           <ActivitySection
             unitId={unitId}
-            title="익히기"
-            subtitle="듣고 따라써요"
+            title={t('section.learn')}
+            subtitle={t('section.learnSubtitleWrite')}
             emoji="📖"
             tone="learn"
             activities={learnActivities}
@@ -78,8 +81,8 @@ export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?:
             //    화면 어디에도 안 적힌다. 사이드바와 같은 이름(ㄱ~ㄹ 복습)을 그대로 쓴다.
             // 🔴 「게임하기」가 아니라 **낱말 놀이**(2026-07-29) — 이 칸 다섯이 전부 낱말 활동이다.
             //    「어휘 연습」 도 후보였으나 4~7세 화면에서 '어휘'·'연습' 은 어른 말이고 공부로 읽힌다.
-            title={unit.isReview ? unit.unitTitle : '낱말 놀이'}
-            subtitle="놀면서 익혀요"
+            title={unit.isReview ? unitTitle(t, unit) : t('section.wordPlay')}
+            subtitle={t('section.wordPlaySubtitle')}
             emoji={unit.isReview ? '🏅' : '🎮'}
             tone="play"
             activities={playActivities}
@@ -246,6 +249,8 @@ function ActivityCard({
   done: boolean;
   widthClass: string;
 }) {
+  const { t } = useTranslation('phonics');
+  const label = activityTitle(t, activity);
   const isLearn = activity.section === 'learn';
   // 🔴 게임도 끝내면 ✓ — 예전엔 "게임은 완료 개념 없음"이라며 무시했는데,
   //    아이가 게임을 다 깨고 나와도 목록이 그대로라 무엇을 했는지 안 보였다.
@@ -320,7 +325,7 @@ function ActivityCard({
         {iconUrl ? (
           <img
             src={iconUrl}
-            alt={activity.title}
+            alt={label}
             className="absolute inset-0 m-auto max-h-full max-w-full object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)]"
             style={FIT.icon}
           />
@@ -338,7 +343,7 @@ function ActivityCard({
         className={`relative z-10 shrink-0 pb-0.5 font-black font-display leading-tight break-keep text-center ${showDone ? 'text-ink-700' : 'text-ink-900'}`}
         style={FIT.title}
       >
-        {activity.title}
+        {label}
       </h3>
     </Link>
   );

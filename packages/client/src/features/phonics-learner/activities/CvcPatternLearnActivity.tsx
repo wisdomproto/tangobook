@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
@@ -39,6 +40,7 @@ interface CvcWord {
  * 단어 source: storybook flashcards 중 `phonicPattern === '_${vc}'` 매치 4개.
  */
 export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBack }: Props) {
+  const { t } = useTranslation('phonics');
   const storybookQuery = useStorybook(unitId);
   const { playAudio, playCorrectSequence, praiseVisible, stopAll } = useGameAudio();
 
@@ -356,10 +358,10 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
             filter: 'drop-shadow(0 4px 0 rgba(0,0,0,0.06))',
           }}
         >
-          {phase === 'A' && <>{pattern.vc} 배우기</>}
-          {phase === 'B' && <>{pattern.vc} 낱말 익히기</>}
-          {phase === 'C' && <>{pattern.vc} 써보기</>}
-          {phase === 'done' && '잘했어!'}
+          {phase === 'A' && t('cvc.learn', { pattern: pattern.vc })}
+          {phase === 'B' && t('cvc.words', { pattern: pattern.vc })}
+          {phase === 'C' && t('cvc.write', { pattern: pattern.vc })}
+          {phase === 'done' && t('common.wellDone')}
         </h2>
 
         {/* Phase A: VC 학습 3행 */}
@@ -402,7 +404,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
               onClick={restart}
               className="px-6 py-3 rounded-full bg-white border-2 border-coral-300 text-coral-600 font-black text-lg sm:text-xl shadow-soft hover:shadow-pop active:scale-[0.98] transition"
             >
-              🔁 다시 해보기
+              {t('common.retry')}
             </button>
             <button
               onClick={() => {
@@ -411,7 +413,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
               }}
               className="px-8 py-4 rounded-full bg-coral-500 text-white font-black text-2xl sm:text-3xl shadow-pop hover:scale-[1.02] active:scale-[0.98] transition"
             >
-              다음 →
+              {t('common.next')}
             </button>
           </div>
         )}
@@ -420,10 +422,10 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
         {phase === 'B' && (
           <div className="flex flex-col gap-3 sm:gap-4 w-full max-w-4xl">
             {storybookQuery.isLoading ? (
-              <p className="text-lg font-bold text-ink-500 text-center">불러오는 중…</p>
+              <p className="text-lg font-bold text-ink-500 text-center">{t('common.loading')}</p>
             ) : cvcWords.length === 0 ? (
               <p className="text-lg font-bold text-ink-500 text-center">
-                저작도구에 {pattern.vc} 단어가 없어요.
+                {t('cvc.noWordsInEditor', { pattern: pattern.vc })}
               </p>
             ) : (
               cvcWords.map((cw, r) => (
@@ -549,13 +551,13 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
               onClick={restart}
               className="px-8 py-4 rounded-full bg-coral-500 text-white font-black text-2xl sm:text-3xl shadow-pop hover:scale-[1.02] active:scale-[0.98] transition"
             >
-              🔁 다시 해보기
+              {t('common.retry')}
             </button>
             <button
               onClick={onBack}
               className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-pop active:scale-[0.98] transition"
             >
-              ← 돌아가기
+              {t('common.back')}
             </button>
           </div>
         )}

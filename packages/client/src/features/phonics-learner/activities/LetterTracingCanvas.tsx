@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { TracingStroke } from '@tangobook/shared';
 
 const LETTER_FILL = '#d4d4d8'; // zinc-300 — 가이드 글자
@@ -50,6 +51,7 @@ interface DrawnStroke {
  * - `enforceOrder = true`: 현재 currentIdx 의 stroke 만 시도. 통과 → 다음.
  */
 export function LetterTracingCanvas({ letter, strokes, enforceOrder = true, onComplete }: Props) {
+  const { t } = useTranslation('phonics');
   const [completedStrokes, setCompletedStrokes] = useState<DrawnStroke[]>([]);
   const [currentDraw, setCurrentDraw] = useState<DrawnStroke | null>(null);
   const [currentIdx, setCurrentIdx] = useState(0); // enforceOrder 모드에서만 의미
@@ -401,7 +403,7 @@ export function LetterTracingCanvas({ letter, strokes, enforceOrder = true, onCo
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 pointer-events-none">
           <div className="text-3xl opacity-40">📍</div>
           <div className="text-xs font-bold text-slate-400 text-center px-3">
-            저작도구에서 스트로크를 만들어주세요
+            {t('write.noStrokes')}
           </div>
         </div>
       )}

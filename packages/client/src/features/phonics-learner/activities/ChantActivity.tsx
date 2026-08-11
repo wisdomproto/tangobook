@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ActivityShell } from '../components/ActivityShell';
 
 interface Props {
@@ -18,6 +19,7 @@ interface Props {
  * 완료 = 한 곡을 끝까지 들으면(ended) 또는 「다 들었어요」 버튼 → `onMarkComplete`. 자동 back 은 안 함.
  */
 export function ChantActivity({ unitId, urls, onMarkComplete, onBack }: Props) {
+  const { t } = useTranslation('phonics');
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [idx, setIdx] = useState(0);
   const [playing, setPlaying] = useState(false);
@@ -79,14 +81,14 @@ export function ChantActivity({ unitId, urls, onMarkComplete, onBack }: Props) {
 
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-6">
         <div className="text-7xl sm:text-8xl animate-bounce">🎵</div>
-        <h2 className="text-2xl sm:text-3xl font-black text-ink-900">노래를 들어봐요!</h2>
+        <h2 className="text-2xl sm:text-3xl font-black text-ink-900">{t('chant.title')}</h2>
 
         <div className="flex items-center gap-5 sm:gap-8">
           {multi && (
             <button
               onClick={() => goto(idx - 1)}
               disabled={idx === 0}
-              aria-label="이전 곡"
+              aria-label={t('chant.prev')}
               className="w-16 h-16 rounded-full bg-white shadow-soft text-4xl text-ink-700 disabled:opacity-30 active:scale-[0.95] transition"
             >
               ‹
@@ -95,7 +97,7 @@ export function ChantActivity({ unitId, urls, onMarkComplete, onBack }: Props) {
 
           <button
             onClick={toggle}
-            aria-label={playing ? '멈추기' : '재생'}
+            aria-label={playing ? t('chant.pause') : t('chant.play')}
             className="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-coral-500 text-white text-6xl sm:text-7xl shadow-pop hover:scale-[1.03] active:scale-[0.97] transition flex items-center justify-center"
           >
             {playing ? '⏸' : '▶'}
@@ -105,7 +107,7 @@ export function ChantActivity({ unitId, urls, onMarkComplete, onBack }: Props) {
             <button
               onClick={() => goto(idx + 1)}
               disabled={idx === urls.length - 1}
-              aria-label="다음 곡"
+              aria-label={t('chant.next')}
               className="w-16 h-16 rounded-full bg-white shadow-soft text-4xl text-ink-700 disabled:opacity-30 active:scale-[0.95] transition"
             >
               ›
@@ -131,7 +133,7 @@ export function ChantActivity({ unitId, urls, onMarkComplete, onBack }: Props) {
           onClick={onMarkComplete}
           className="mt-2 px-8 py-4 rounded-full bg-white border-2 border-mint-300 text-mint-700 font-black text-xl sm:text-2xl shadow-soft hover:shadow-pop active:scale-[0.98] transition"
         >
-          {heard ? '✓ 다 들었어요' : '다 들었어요'}
+          {heard ? t('chant.heardDone') : t('chant.heard')}
         </button>
       </div>
     </ActivityShell>

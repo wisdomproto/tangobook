@@ -1,4 +1,5 @@
 import { createContext, useContext, type ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /**
  * 이 셸이 **전체화면이 아니라 남의 화면 속 상자**에 그려져야 하는가.
@@ -67,6 +68,7 @@ export function ActivityShell({
   background = 'study',
   children,
 }: Props) {
+  const { t } = useTranslation('phonics');
   const embedded = useContext(EmbeddedContext);
   const back = (
     /**
@@ -79,7 +81,7 @@ export function ActivityShell({
       onClick={onBack}
       className="shrink-0 inline-flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-full bg-white shadow-soft text-ink-700 font-bold"
     >
-      ← 돌아가기
+      {t('common.back')}
     </button>
   );
   return (

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { warmAudioUrl } from '@/features/games/hooks/useGamePrefetch';
@@ -38,6 +39,7 @@ export function PinyinToneRowsActivity({
   onMarkComplete,
   onBack,
 }: Props) {
+  const { t } = useTranslation('phonics');
   const { say, rest, chime, playCorrectSequence, praiseVisible, playAudio } = useActivitySound({
     unitId,
     language: 'zh',
@@ -211,7 +213,7 @@ export function PinyinToneRowsActivity({
           })}
         </div>
 
-        <p className="text-lg sm:text-2xl font-black text-ink-700">눌러서 들어봐!</p>
+        <p className="text-lg sm:text-2xl font-black text-ink-700">{t('common.tapToListen')}</p>
 
         {/* 줄 = 성모 + 모음, 칸 = **성조 1~4 고정 열**. `[b][a] → bā bá bǎ bà`
             🔴 없는 성조(pǎ·mū)는 **빈 칸으로 남긴다** — 가운데 정렬이면 3성 없는 줄에서 4성이 3성 자리에

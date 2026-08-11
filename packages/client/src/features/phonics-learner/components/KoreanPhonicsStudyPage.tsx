@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { PageHeader } from '@/design-system';
 import { useSeo } from '@/lib/useSeo';
@@ -10,6 +11,7 @@ import {
 } from '../lib/korean-phonics-units';
 import { usePhonicsProgress, getRecentUnit, markRecentUnit } from '../lib/progress-store';
 import { sumProgress } from '../lib/unit-progress';
+import { unitTitle } from '../lib/activity-title';
 import KoreanPhonicsUnitPage from './KoreanPhonicsUnitPage';
 
 /**
@@ -21,6 +23,7 @@ import KoreanPhonicsUnitPage from './KoreanPhonicsUnitPage';
  * 진입 시 URL 에 unitId 없으면 → localStorage recent unit 또는 첫 활성 unit 으로 redirect.
  */
 export default function KoreanPhonicsStudyPage() {
+  const { t } = useTranslation('phonics');
   const { unitId } = useParams<{ unitId?: string }>();
   const navigate = useNavigate();
   const allUnits = useMemo(() => getAllKoreanUnits(), []);
@@ -29,20 +32,19 @@ export default function KoreanPhonicsStudyPage() {
   const [navOpen, setNavOpen] = useState(false);
 
   useSeo({
-    title: '한글 파닉스 학습 — 탱고북',
-    description:
-      '한글 자음·모음·받침을 4-5세 입문자에게 친숙한 카드 + 게임으로 학습. 동화 단어와 자동 연결되는 한글 파닉스 학습.',
+    title: t('seo.koreanTitle'),
+    description: t('seo.koreanDescription'),
     path: '/library/phonics/korean',
-    keywords:
-      '한글 파닉스, 한글 학습, 자음 모음, 한글 받침, 한글 블렌딩, 4세 한글, 5세 한글, 6세 한글, 탱고북',
+    keywords: t('seo.koreanKeywords'),
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'LearningResource',
-      name: '한글 파닉스 학습',
-      description: '한글 자음·모음·받침 + 블렌딩 + 받침 학습 unit 컬렉션',
+      name: t('seo.koreanJsonLdName'),
+      description: t('seo.koreanJsonLdDescription'),
       url: 'https://www.tangobook.co.kr/library/phonics/korean',
-      educationalLevel: '유아',
-      educationalUse: '한글 읽기, 파닉스, 어휘 학습',
+      educationalLevel: t('seo.educationalLevel'),
+      educationalUse: t('seo.educationalUse'),
+      // 🔴 배우는 **내용**은 한국어 그대로다 — UI 언어가 바뀌어도 콘텐츠 언어는 안 바뀐다.
       inLanguage: ['ko'],
       provider: {
         '@type': 'Organization',
@@ -89,12 +91,12 @@ export default function KoreanPhonicsStudyPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-cream-50 px-6 text-center">
         <div>
-          <p className="text-base font-bold text-ink-700">아직 학습할 단원이 준비되지 않았어요.</p>
+          <p className="text-base font-bold text-ink-700">{t('common.noUnitsYet')}</p>
           <Link
             to="/library/phonics"
             className="inline-block mt-3 text-coral-600 font-black underline"
           >
-            ← 파닉스 선택으로
+            {t('common.backToPickerLong')}
           </Link>
         </div>
       </div>
@@ -133,20 +135,20 @@ export default function KoreanPhonicsStudyPage() {
       {/* 상단 헤더 — 동화책/어휘 학습 페이지와 동일 PageHeader 패턴 (흰 wash 카드 + peach pill) */}
       <PageHeader
         onBack={() => navigate('/library')}
-        backLabel="홈"
+        backLabel={t('common.home')}
         right={
           <button
             type="button"
             onClick={() => setNavOpen(true)}
             className="md:hidden px-4 py-2.5 rounded-full bg-white/90 text-ink-800 font-black text-sm shadow-soft flex items-center gap-1.5 min-h-[44px]"
           >
-            ☰ <span>단원</span>
+            ☰ <span>{t('common.unitTab')}</span>
           </button>
         }
       >
         <span className="inline-flex items-center gap-2">
-          <span className="text-coral-600">한글</span>
-          <span>파닉스</span>
+          <span className="text-coral-600">{t('study.koreanLead')}</span>
+          <span>{t('common.phonics')}</span>
         </span>
       </PageHeader>
 
@@ -165,10 +167,12 @@ export default function KoreanPhonicsStudyPage() {
         >
           {/* 모바일 닫기 헤더 */}
           <div className="md:hidden flex items-center justify-between mb-3 px-1">
-            <span className="font-black font-display text-ink-900 text-lg">단원 선택</span>
+            <span className="font-black font-display text-ink-900 text-lg">
+              {t('common.unitPicker')}
+            </span>
             <button
               onClick={() => setNavOpen(false)}
-              aria-label="닫기"
+              aria-label={t('common.close')}
               className="w-9 h-9 rounded-full bg-cream-100 text-ink-700 font-black"
             >
               ✕
@@ -265,7 +269,8 @@ function CurriculumItem({
   doneCount: number;
   totalCount: number;
 }) {
-  const titleShort = unit.unitTitle.replace(/^unit\s+\d+:\s*/i, '');
+  const { t } = useTranslation('phonics');
+  const titleShort = unitTitle(t, unit).replace(/^unit\s+\d+:\s*/i, '');
   const baseClass = 'flex items-center gap-2.5 px-2.5 py-2.5 rounded-2xl text-left transition-all';
   if (!hasPlan) {
     return (
@@ -277,7 +282,7 @@ function CurriculumItem({
           {unit.unitIndexInLevel}
         </span>
         <span className="text-sm font-bold truncate">{titleShort}</span>
-        <span className="ml-auto text-[10px] font-bold text-ink-300">준비 중</span>
+        <span className="ml-auto text-[10px] font-bold text-ink-300">{t('common.comingSoon')}</span>
       </div>
     );
   }

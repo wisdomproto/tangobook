@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { PhonicsEmbeddedProvider } from './ActivityShell';
 import { EmbedStage } from './EmbedStage';
@@ -6,6 +7,7 @@ import { KoreanPhonicsActivity } from './KoreanPhonicsActivityPage';
 import { EnglishPhonicsActivity } from './EnglishPhonicsActivityPage';
 import { getActivityPlan } from '../lib/korean-phonics-units';
 import { getEnglishActivityPlan } from '../lib/english-phonics-units';
+import { activityTitle } from '../lib/activity-title';
 
 /**
  * 블로그·랜딩 안에서 **진짜 학습 활동을 직접 해보는** 상자.
@@ -78,6 +80,7 @@ export function PhonicsTryIt({
   cta,
   language = 'korean',
 }: Props) {
+  const { t } = useTranslation('phonics');
   const [done, setDone] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
 
@@ -134,13 +137,13 @@ export function PhonicsTryIt({
     >
       <div className="flex items-center justify-between gap-3 border-b border-ink-100 px-5 py-3">
         <span className="text-xl font-extrabold text-ink-800 break-keep lg:text-2xl">
-          {title ?? `${activity.emoji} ${activity.title}`}
+          {title ?? `${activity.emoji} ${activityTitle(t, activity)}`}
         </span>
         {/* 🔴 **꽉 찬 색으로**(2026-08-05) — 연한 배지는 본문과 섞여 「그냥 라벨」로 지나간다.
             상자마다 이게 붙어야 아홉 개가 전부 살아 있는 화면이라는 게 눈으로 읽힌다. */}
         <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-coral-700 px-3 py-1.5 text-sm font-extrabold text-white">
           <span className="h-2 w-2 animate-pulse rounded-full bg-white" />
-          실제 학습 화면
+          {t('tryIt.badge')}
         </span>
       </div>
 
@@ -174,16 +177,14 @@ export function PhonicsTryIt({
 
       <div className="flex flex-col items-center gap-2 bg-cream-50 px-5 py-4 text-center">
         <p className="text-sm text-ink-600 break-keep lg:text-base">
-          {done
-            ? '다 하셨네요. 아이와 함께면 소리까지 들으며 할 수 있어요.'
-            : (note ?? '앱에서는 이 활동이 단원마다 아홉 가지씩 이어집니다.')}
+          {done ? t('tryIt.done') : (note ?? t('tryIt.note'))}
         </p>
         {cta && (
           <Link
             to={`/library/phonics/${isEnglish ? 'english' : 'korean'}/${unitId}`}
             className="inline-flex min-h-[44px] items-center rounded-full bg-coral-700 px-5 text-base font-bold text-white shadow-sm transition hover:bg-coral-800"
           >
-            앱에서 이어서 하기 →
+            {t('tryIt.cta')}
           </Link>
         )}
       </div>

@@ -1,29 +1,54 @@
 import { useEffect, useRef, useState } from 'react';
+import i18n from '@/i18n';
 import { usePhonicsEmbedded } from '../components/ActivityShell';
 
-/** 활동 진입 안내 음성 — 자산은 `public/sounds/voice/`, 생성기는 `generate-activity-voice-prompts.mjs`. */
+/**
+ * 🔴 **자산 이름만 갖는다 — 언어는 재생할 때 붙인다**(`voiceUrl`). 예전엔 `-ko` 가 URL 에 박혀
+ *    있어서 UI 언어와 무관하게 늘 한국어 안내가 나갔다(`quiz-start-en.mp3` 는 이미 구워 뒀는데도
+ *    코드가 쓰지 않았다). 지시는 *배우는 내용*이 아니라 **아이가 알아듣는 말**이어야 한다.
+ *
+ * 자산은 `public/sounds/voice/{이름}-{언어}.mp3`, 생성기는 `generate-activity-voice-prompts.mjs`.
+ */
 export const ENTRY_GUIDE = {
   /** 듣고 고르기 — "잘 듣고 맞춰봐!" */
-  quiz: '/sounds/voice/quiz-start-ko.mp3',
+  quiz: 'quiz-start',
   /** 순서대로 누르는 화면 — "반짝이는 곳을 눌러봐!" */
-  tap: '/sounds/voice/tap-sparkle-ko.mp3',
+  tap: 'tap-sparkle',
   /** 글자 사냥 — "같은 글자를 모두 찾아봐!" */
-  hunt: '/sounds/voice/hunt-start-ko.mp3',
+  hunt: 'hunt-start',
   /** 쓰기(반짝이는 칸 있음 — 한글 자음 쓰기) — "반짝이는 칸에 써 봐!" */
-  write: '/sounds/voice/write-start-ko.mp3',
+  write: 'write-start',
   /** 쓰기(낱말/글자 전체를 한꺼번에 — ABC·영어 CVC·모음 쓰기, 반짝이는 칸 없음) — "글자를 따라 써 봐!" */
-  writeTrace: '/sounds/voice/write-trace-ko.mp3',
+  writeTrace: 'write-trace',
   /** 눌러서 들어보는 탐색 — "눌러서 들어봐!" (듣고 고르기 탐색·낱말가족 배우기). */
-  listenExplore: '/sounds/voice/listen-explore-ko.mp3',
+  listenExplore: 'listen-explore',
   /** 순서대로 눌러 듣기 — "순서대로 눌러봐!" (모음 듣기 순서 단계). */
-  orderListen: '/sounds/voice/order-listen-ko.mp3',
+  orderListen: 'order-listen',
   /** 자음 배우기 — "세 번씩 눌러봐!" */
-  consonantTap: '/sounds/voice/consonant-tap-ko.mp3',
+  consonantTap: 'consonant-tap',
   /** 모음 고르기 — "어떤 모음을 골라봐?" */
-  vowelPick: '/sounds/voice/vowel-pick-ko.mp3',
+  vowelPick: 'vowel-pick',
   /** 뒤집기 짝 맞추기 — "같은 짝을 찾아봐!" */
-  flipMatch: '/sounds/voice/flip-match-ko.mp3',
+  flipMatch: 'flip-match',
 } as const;
+
+/**
+ * 🔴 **그 언어로 구워 둔 음성만** 적는다 — 없는 언어를 URL 로 만들면 404 라 **안내가 통째로
+ *    무음**이 되고, 글을 못 읽는 아이에겐 화면이 아무 말도 안 하는 것과 같다. 목록에 없으면 ko.
+ *    자산을 구울 때 여기에 언어를 추가하는 게 배선의 전부다(칭찬 음성도 같은 규칙으로 확장한다).
+ */
+const VOICE_LANGS: Record<string, readonly string[]> = {
+  'quiz-start': ['en'],
+};
+
+/**
+ * 안내·칭찬 음성 URL — `{이름}-{UI 언어}.mp3`, 그 언어 자산이 없으면 `-ko` 폴백.
+ * 🔴 모듈 상수로 굳히지 말 것 — 언어는 재생 시점에 정해진다.
+ */
+export function voiceUrl(name: string, lang: string = i18n.language): string {
+  const base = lang.slice(0, 2);
+  return `/sounds/voice/${name}-${VOICE_LANGS[name]?.includes(base) ? base : 'ko'}.mp3`;
+}
 
 /**
  * 활동에 들어오면 **무엇을 하라는 말**을 소리로 한 번 들려준다.
@@ -37,7 +62,8 @@ export const ENTRY_GUIDE = {
  *          기다린다(쓰기처럼 아이가 먼저 할 일이 있는 화면은 굳이 막지 않아도 된다).
  */
 export function useEntryGuide(
-  src: string,
+  /** `ENTRY_GUIDE` 의 자산 이름 — URL 은 `voiceUrl` 이 UI 언어로 조립한다. */
+  name: string,
   playAudio: (url?: string, onEnded?: () => void) => void,
   opts: { skip?: boolean } = {}
 ): boolean {
@@ -65,10 +91,10 @@ export function useEntryGuide(
      *    앞에 준다.
      */
     const my = ++tokenRef.current;
-    playAudio(src, () => {
+    playAudio(voiceUrl(name), () => {
       if (tokenRef.current === my) setGuiding(false);
     });
-  }, [skip, src, playAudio]);
+  }, [skip, name, playAudio]);
 
   return guiding;
 }

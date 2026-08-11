@@ -18,6 +18,9 @@ export interface EnglishUnitSummary {
   levelIndex: number; // 1
   unitIndexInLevel: number;
   unitTitle: string; // 'Unit 01: Aa Bb Cc'
+  /** 파생(복습) 단원만 갖는다 — 커리큘럼 단원 제목은 콘텐츠라 그대로 쓴다(`lib/activity-title.ts`). */
+  unitTitleKey?: string;
+  unitTitleVars?: Record<string, string | number>;
   phonemes: string[];
   /** 철자 패턴(`_ake`·`bl_`·`ee`) — Book 3·4·5 익히기를 패턴별로 나눈다. */
   patterns: string[];
@@ -103,6 +106,11 @@ export function getAllEnglishUnits(): EnglishUnitSummary[] {
             letters.length > 1
               ? `${letters[0]}~${letters[letters.length - 1]} 복습`
               : `${letters[0] ?? ''} 복습`.trim(),
+          unitTitleKey: letters.length > 1 ? 'unit.reviewRange' : 'unit.reviewOne',
+          unitTitleVars:
+            letters.length > 1
+              ? { first: letters[0], last: letters[letters.length - 1] }
+              : { letter: letters[0] ?? '' },
           phonemes: letters,
           patterns: [],
           targetWords: group.flatMap((u) => u.targetWords),
@@ -151,6 +159,8 @@ function makeBook2UnitPlan(patterns: readonly VcPattern[]): ActivityPlan {
       kind: 'cvc-pattern-learn',
       section: 'learn',
       title: `${p.vc} 배우기`,
+      titleKey: 'activity.patternLearn',
+      titleVars: { pattern: p.vc },
       emoji: '🔤',
       required: true,
       cvcPattern: { ...p },
@@ -164,6 +174,7 @@ function makeBook2UnitPlan(patterns: readonly VcPattern[]): ActivityPlan {
       kind: 'game-word-writing',
       section: 'play',
       title: '낱말 쓰기',
+      titleKey: 'activity.wordWriting',
       emoji: '🖍️',
       required: false,
     },
@@ -173,6 +184,7 @@ function makeBook2UnitPlan(patterns: readonly VcPattern[]): ActivityPlan {
       kind: 'game-connect-dots',
       section: 'play',
       title: '낱말 그리기',
+      titleKey: 'activity.wordDrawing',
       emoji: '🔵',
       required: false,
     },
@@ -182,6 +194,7 @@ function makeBook2UnitPlan(patterns: readonly VcPattern[]): ActivityPlan {
       kind: 'game-line-matching',
       section: 'play',
       title: '그림 짝 찾기',
+      titleKey: 'activity.pictureMatch',
       emoji: '🔗',
       required: false,
     }
@@ -206,6 +219,8 @@ function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
     kind: 'alphabet-letter-learn',
     section: 'learn',
     title: `${letterListLabel} 배우기 1`,
+    titleKey: 'activity.lettersLearn1',
+    titleVars: { letters: letterListLabel },
     emoji: '🔤',
     required: true,
     letters,
@@ -218,6 +233,8 @@ function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
     kind: 'word-listen-choose',
     section: 'learn',
     title: `${letterListLabel} 배우기 2`,
+    titleKey: 'activity.lettersLearn2',
+    titleVars: { letters: letterListLabel },
     emoji: '🔊',
     required: true,
     letters,
@@ -230,6 +247,8 @@ function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
     kind: 'alphabet-letter-write',
     section: 'learn',
     title: `${letterListLabel} 써보기`,
+    titleKey: 'activity.lettersWrite',
+    titleVars: { letters: letterListLabel },
     emoji: '✏️',
     required: true,
     letters,
@@ -248,6 +267,7 @@ function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
       kind: 'game-word-writing',
       section: 'play',
       title: '낱말 쓰기',
+      titleKey: 'activity.wordWriting',
       emoji: '🖍️',
       required: false,
     },
@@ -257,6 +277,7 @@ function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
       kind: 'game-connect-dots',
       section: 'play',
       title: '낱말 그리기',
+      titleKey: 'activity.wordDrawing',
       emoji: '🔵',
       required: false,
     },
@@ -266,6 +287,7 @@ function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
       kind: 'game-line-matching',
       section: 'play',
       title: '그림 짝 찾기',
+      titleKey: 'activity.pictureMatch',
       emoji: '🔗',
       required: false,
     }
@@ -449,13 +471,13 @@ function makeWordUnitPlan(unit: EnglishUnitSummary): ActivityPlan {
   let order = 1;
   for (const p of unit.patterns) {
     const label = patternLabel(p);
-    activities.push({ key: `learn-${p}`, order: order++, kind: 'word-family-learn', section: 'learn', title: `${label} 배우기`, emoji: '🔊', required: true, pattern: p }); // prettier-ignore
+    activities.push({ key: `learn-${p}`, order: order++, kind: 'word-family-learn', section: 'learn', title: `${label} 배우기`, titleKey: 'activity.patternLearn', titleVars: { pattern: label }, emoji: '🔊', required: true, pattern: p }); // prettier-ignore
   }
   activities.push(
     // 영어 블록 게임 제외 (2026-08-09 사용자 — 전 권 통일)
-    { key: 'game-word-writing', order: order++, kind: 'game-word-writing', section: 'play', title: '낱말 쓰기', emoji: '🖍️', required: false }, // prettier-ignore
-    { key: 'game-dots', order: order++, kind: 'game-connect-dots', section: 'play', title: '낱말 그리기', emoji: '🔵', required: false }, // prettier-ignore
-    { key: 'game-line-matching', order, kind: 'game-line-matching', section: 'play', title: '그림 짝 찾기', emoji: '🔗', required: false } // prettier-ignore
+    { key: 'game-word-writing', order: order++, kind: 'game-word-writing', section: 'play', title: '낱말 쓰기', titleKey: 'activity.wordWriting', emoji: '🖍️', required: false }, // prettier-ignore
+    { key: 'game-dots', order: order++, kind: 'game-connect-dots', section: 'play', title: '낱말 그리기', titleKey: 'activity.wordDrawing', emoji: '🔵', required: false }, // prettier-ignore
+    { key: 'game-line-matching', order, kind: 'game-line-matching', section: 'play', title: '그림 짝 찾기', titleKey: 'activity.pictureMatch', emoji: '🔗', required: false } // prettier-ignore
   );
   return { activities };
 }
@@ -588,6 +610,7 @@ function makeEnglishReviewPlan(cards: readonly ReviewCard[], levelKey: string): 
       order: 0,
       kind: 'letter-hunt',
       title: '글자 사냥',
+      titleKey: 'activity.letterHunt',
       emoji: '🔎',
       ...shared,
     },
@@ -596,6 +619,7 @@ function makeEnglishReviewPlan(cards: readonly ReviewCard[], levelKey: string): 
       order: 0,
       kind: 'review-syllable-listen',
       title: '듣고 글자 맞추기',
+      titleKey: 'activity.letterListen',
       emoji: '🎧',
       ...shared,
     },
@@ -604,6 +628,7 @@ function makeEnglishReviewPlan(cards: readonly ReviewCard[], levelKey: string): 
       order: 0,
       kind: 'review-word-listen',
       title: '듣고 낱말 맞추기',
+      titleKey: 'activity.wordListen',
       emoji: '🔊',
       ...shared,
     },
@@ -613,6 +638,7 @@ function makeEnglishReviewPlan(cards: readonly ReviewCard[], levelKey: string): 
       kind: 'review-write',
       // 🔴 Book 1 만 글자 한 자를 쓴다 → "글자 쓰기". Book 2~5 는 낱말 전체를 쓰므로 "낱말 쓰기".
       title: levelKey === 'book1' ? '글자 쓰기' : '낱말 쓰기',
+      titleKey: levelKey === 'book1' ? 'activity.letterWriting' : 'activity.wordWriting',
       emoji: '✏️',
       ...shared,
     },
@@ -621,6 +647,7 @@ function makeEnglishReviewPlan(cards: readonly ReviewCard[], levelKey: string): 
       order: 0,
       kind: 'review-flip',
       title: '뒤집기 짝 맞추기',
+      titleKey: 'activity.flipMatch',
       emoji: '🎴',
       ...shared,
     },
@@ -629,6 +656,7 @@ function makeEnglishReviewPlan(cards: readonly ReviewCard[], levelKey: string): 
       order: 0,
       kind: 'review-match',
       title: '그림 짝 찾기',
+      titleKey: 'activity.pictureMatch',
       emoji: '🔗',
       ...shared,
     },

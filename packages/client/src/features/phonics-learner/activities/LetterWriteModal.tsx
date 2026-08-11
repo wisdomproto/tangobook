@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { Storybook } from '@tangobook/shared';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { REST_MS } from '../hooks/useActivitySound';
@@ -23,6 +24,7 @@ interface Props {
  * - ✕ 클릭으로 언제든 닫기 가능.
  */
 export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose }: Props) {
+  const { t } = useTranslation('phonics');
   const wordFamily = storybook.phonicsLesson?.wordFamilies?.[letterIndex];
   const upper = activeLetter.toUpperCase();
   const lower = activeLetter.toLowerCase();
@@ -63,14 +65,14 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
     if (closing) return;
     if (!passed.upper || !passed.lower) return;
     setClosing(true);
-    const t = setTimeout(() => {
+    const timer = setTimeout(() => {
       playCorrectSequence({
         language: 'en',
         systemSounds: storybook.systemSounds,
         onDone: onClose,
       });
     }, 1200);
-    return () => clearTimeout(t);
+    return () => clearTimeout(timer);
   }, [passed, closing, playCorrectSequence, storybook.systemSounds, onClose]);
 
   return (
@@ -86,12 +88,12 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
           <h2 className="text-2xl sm:text-3xl font-black font-display flex items-baseline gap-1">
             <span className="text-coral-500">{upper}</span>
             <span className="text-sky-500">{lower}</span>
-            <span className="ml-2 text-ink-700">써보기</span>
+            <span className="ml-2 text-ink-700">{t('alphabetWrite.titleShort')}</span>
           </h2>
           <button
             onClick={onClose}
             className="w-10 h-10 rounded-full bg-white/90 shadow-soft text-xl font-black text-ink-500 hover:text-ink-900 transition-colors"
-            title="닫기"
+            title={t('common.close')}
           >
             ✕
           </button>
@@ -102,10 +104,12 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
           <div className="bg-white rounded-[20px] p-3 sm:p-4 shadow-pop ring-4 ring-white border-2 border-coral-100">
             <div className="flex items-center justify-between mb-2 px-1">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-coral-100 text-coral-700 text-sm sm:text-base font-black">
-                <span>🅰️</span> 대문자 {upper}
+                <span>🅰️</span> {t('alphabetWrite.upper', { letter: upper })}
               </span>
               {passed.upper && (
-                <span className="text-mint-500 text-xl sm:text-2xl font-black">✓ 통과</span>
+                <span className="text-mint-500 text-xl sm:text-2xl font-black">
+                  {t('common.passed')}
+                </span>
               )}
             </div>
             <LetterFillCanvas
@@ -119,10 +123,12 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
           <div className="bg-white rounded-[20px] p-3 sm:p-4 shadow-pop ring-4 ring-white border-2 border-sky-100">
             <div className="flex items-center justify-between mb-2 px-1">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100 text-sky-700 text-sm sm:text-base font-black">
-                <span>🔤</span> 소문자 {lower}
+                <span>🔤</span> {t('alphabetWrite.lower', { letter: lower })}
               </span>
               {passed.lower && (
-                <span className="text-mint-500 text-xl sm:text-2xl font-black">✓ 통과</span>
+                <span className="text-mint-500 text-xl sm:text-2xl font-black">
+                  {t('common.passed')}
+                </span>
               )}
             </div>
             <LetterFillCanvas
@@ -135,7 +141,7 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
         </div>
 
         <p className="text-sm sm:text-base font-bold text-ink-500 text-center mt-4">
-          글자 안을 색칠해봐!
+          {t('alphabetWrite.paintInside')}
         </p>
 
         <FeedbackOverlay kind="correct" visible={praiseVisible} />
