@@ -70,13 +70,13 @@ function TryItShell({
        가두면 1920 화면에서 0.47배가 되어 앱 글자가 절반 크기로 보인다. 좌우 대칭 음수 마진이라
        가운데는 유지되고, 값은 그 브레이크포인트 뷰포트에 들어가도록 잡았다(1280→1088·1536→1280). */
     <div
-      className={`my-7 overflow-hidden rounded-3xl border bg-white shadow-sm xl:-mx-24 2xl:-mx-48 ${
+      className={`my-7 -mx-4 overflow-hidden rounded-3xl border bg-white shadow-sm sm:mx-0 ${
         tone === 'mint' ? 'border-mint-200' : 'border-amber-200'
       }`}
     >
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-ink-100 px-5 py-3">
-        <span className="text-lg font-extrabold text-ink-800 break-keep">{label}</span>
-        <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-ink-800 px-3 py-1.5 text-xs font-extrabold text-white">
+        <span className="text-xl font-extrabold text-ink-800 break-keep">{label}</span>
+        <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-ink-800 px-3 py-1.5 text-sm font-extrabold text-white">
           <span className="h-2 w-2 animate-pulse rounded-full bg-white" />
           실제 앱 화면
         </span>
@@ -88,7 +88,7 @@ function TryItShell({
           <button
             key={b.id}
             onClick={() => setBookId(b.id)}
-            className={`min-h-[44px] shrink-0 rounded-full border px-3 text-xs font-semibold transition ${
+            className={`min-h-[44px] shrink-0 rounded-full border px-3 text-sm font-semibold transition ${
               b.id === bookId ? chipOn : 'border-ink-100 text-ink-600 hover:bg-cream-50'
             }`}
           >
@@ -100,10 +100,10 @@ function TryItShell({
       {children}
 
       <div className="flex flex-col items-center gap-2 bg-cream-50 px-5 py-4 text-center">
-        <p className="text-xs text-ink-600 break-keep">{footer}</p>
+        <p className="text-sm text-ink-600 break-keep">{footer}</p>
         <Link
           to="/library"
-          className={`inline-flex min-h-[44px] items-center rounded-full px-5 text-sm font-bold text-white shadow-sm transition ${btn}`}
+          className={`inline-flex min-h-[44px] items-center rounded-full px-5 text-base font-bold text-white shadow-sm transition ${btn}`}
         >
           동화책 전체 보기 →
         </Link>
@@ -212,7 +212,7 @@ export function HangulWordGameTryIt() {
                   onBack={() => {}}
                 />
               ) : (
-                <div className="flex h-full items-center justify-center text-sm text-ink-600">
+                <div className="flex h-full items-center justify-center text-base text-ink-600">
                   불러오는 중…
                 </div>
               )}

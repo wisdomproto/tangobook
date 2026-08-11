@@ -117,6 +117,10 @@ export function PhonicsTryIt({
   if (!activity) return null; // 없는 활동은 조용히 접는다
 
   return (
+    /* 🔴 **모바일은 화면 끝까지**(2026-08-11 사용자: "게임부분이 문제겠군") — `EmbedStage` 가
+         상자 폭/뷰포트 폭으로 줄이므로, 375px 에서 좌우 16px 패딩 안에 두면 0.82배로 **실제 폰보다
+         작은 앱**이 된다. 패딩 밖으로 흘리면 배율이 1.0 이 되어 아이 손에 쥐어줄 화면과 같은 크기다.
+         호스트 셋(랜딩·영어 랜딩·블로그)이 다 `px-4` 라 컴포넌트에서 한 번만 흘린다. */
     /**
      * 🔴 **상자는 페이지 폭을 지킨다**(2026-08-05 사용자: "가로폭을 맞춰야지. 크기를 줄이더라도").
      *    예전엔 `width:100vw + margin-left:calc(50% - 50vw)` 로 컨테이너를 뚫고 전폭으로 흘렸다 —
@@ -126,15 +130,15 @@ export function PhonicsTryIt({
      */
     <div
       ref={boxRef}
-      className="my-7 overflow-hidden rounded-3xl border border-coral-200 bg-white shadow-sm"
+      className="my-7 -mx-4 overflow-hidden rounded-3xl border border-coral-200 bg-white shadow-sm sm:mx-0"
     >
       <div className="flex items-center justify-between gap-3 border-b border-ink-100 px-5 py-3">
-        <span className="text-lg font-extrabold text-ink-800 break-keep lg:text-xl">
+        <span className="text-xl font-extrabold text-ink-800 break-keep lg:text-2xl">
           {title ?? `${activity.emoji} ${activity.title}`}
         </span>
         {/* 🔴 **꽉 찬 색으로**(2026-08-05) — 연한 배지는 본문과 섞여 「그냥 라벨」로 지나간다.
             상자마다 이게 붙어야 아홉 개가 전부 살아 있는 화면이라는 게 눈으로 읽힌다. */}
-        <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-coral-700 px-3 py-1.5 text-xs font-extrabold text-white">
+        <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-coral-700 px-3 py-1.5 text-sm font-extrabold text-white">
           <span className="h-2 w-2 animate-pulse rounded-full bg-white" />
           실제 학습 화면
         </span>
@@ -169,7 +173,7 @@ export function PhonicsTryIt({
       </EmbedStage>
 
       <div className="flex flex-col items-center gap-2 bg-cream-50 px-5 py-4 text-center">
-        <p className="text-xs text-ink-600 break-keep lg:text-sm">
+        <p className="text-sm text-ink-600 break-keep lg:text-base">
           {done
             ? '다 하셨네요. 아이와 함께면 소리까지 들으며 할 수 있어요.'
             : (note ?? '앱에서는 이 활동이 단원마다 아홉 가지씩 이어집니다.')}
@@ -177,7 +181,7 @@ export function PhonicsTryIt({
         {cta && (
           <Link
             to={`/library/phonics/${isEnglish ? 'english' : 'korean'}/${unitId}`}
-            className="inline-flex min-h-[44px] items-center rounded-full bg-coral-700 px-5 text-sm font-bold text-white shadow-sm transition hover:bg-coral-800"
+            className="inline-flex min-h-[44px] items-center rounded-full bg-coral-700 px-5 text-base font-bold text-white shadow-sm transition hover:bg-coral-800"
           >
             앱에서 이어서 하기 →
           </Link>
