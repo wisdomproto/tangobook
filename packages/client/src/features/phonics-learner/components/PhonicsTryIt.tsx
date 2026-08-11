@@ -1,13 +1,27 @@
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { PhonicsEmbeddedProvider } from './ActivityShell';
 import { EmbedStage } from './EmbedStage';
-import { KoreanPhonicsActivity } from './KoreanPhonicsActivityPage';
-import { EnglishPhonicsActivity } from './EnglishPhonicsActivityPage';
 import { getActivityPlan } from '../lib/korean-phonics-units';
 import { getEnglishActivityPlan } from '../lib/english-phonics-units';
 import { activityTitle } from '../lib/activity-title';
+
+/**
+ * 🔴 **데모 코드는 상자가 살아날 때 받는다**(2026-08-11). 마운트만 미루고 `import` 를 정적으로
+ *    두면 Vite 가 `modulepreload` 로 첫 화면과 **같이** 내려받는다 — 실측(프로덕션 · 4G · CPU 4배):
+ *    `EnglishPhonicsActivityPage` 32KB·`ViewerContainer` 24KB 가 373ms 에 출발해 355KB 짜리 앱
+ *    코어와 대역을 나눠 쓰고, 히어로 그림이 그 뒤에 줄을 서 **9.2초**에 떴다. `lazy` 로 바꾸면
+ *    그 청크들이 스크롤 전까지 아예 안 온다.
+ * 🔴 `Suspense` 폴백은 **빈 화면**이다 — 상자 높이는 `EmbedStage` 가 이미 잡아 두었고,
+ *    로딩 문구를 넣으면 실제 학습 화면 대신 그 글자가 스크린샷처럼 남는다.
+ */
+const KoreanPhonicsActivity = lazy(() =>
+  import('./KoreanPhonicsActivityPage').then((m) => ({ default: m.KoreanPhonicsActivity }))
+);
+const EnglishPhonicsActivity = lazy(() =>
+  import('./EnglishPhonicsActivityPage').then((m) => ({ default: m.EnglishPhonicsActivity }))
+);
 
 /**
  * 블로그·랜딩 안에서 **진짜 학습 활동을 직접 해보는** 상자.
@@ -159,19 +173,21 @@ export function PhonicsTryIt({
         height={VIEWPORT_SIZED(activity.kind) ? '100dvh' : `min(${height ?? 500}px, 88dvh)`}
       >
         <PhonicsEmbeddedProvider value>
-          {isEnglish ? (
-            <EnglishPhonicsActivity
-              unitId={unitId}
-              activityKey={activity.key}
-              onExit={() => setDone(true)}
-            />
-          ) : (
-            <KoreanPhonicsActivity
-              unitId={unitId}
-              activityKey={activity.key}
-              onExit={() => setDone(true)}
-            />
-          )}
+          <Suspense fallback={null}>
+            {isEnglish ? (
+              <EnglishPhonicsActivity
+                unitId={unitId}
+                activityKey={activity.key}
+                onExit={() => setDone(true)}
+              />
+            ) : (
+              <KoreanPhonicsActivity
+                unitId={unitId}
+                activityKey={activity.key}
+                onExit={() => setDone(true)}
+              />
+            )}
+          </Suspense>
         </PhonicsEmbeddedProvider>
       </EmbedStage>
 
