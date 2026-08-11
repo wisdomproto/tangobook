@@ -2,7 +2,7 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
-import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
+import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { REST_MS } from '../hooks/useActivitySound';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
@@ -72,7 +72,7 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
   /** 마지막 글자까지 끝났을 때 — 칭찬하고 단원으로. */
   const finishUnit = useCallback(() => {
     playCorrectSequence({
-      language: 'en',
+      language: praiseLang(),
       systemSounds,
       onDone: () => {
         onMarkComplete();

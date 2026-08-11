@@ -5,6 +5,7 @@ import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { REST_MS } from '../hooks/useActivitySound';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
+import { praiseLang } from '../hooks/useEntryGuide';
 
 interface Props {
   storybook: Storybook;
@@ -67,7 +68,7 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
     setClosing(true);
     const timer = setTimeout(() => {
       playCorrectSequence({
-        language: 'en',
+        language: praiseLang(),
         systemSounds: storybook.systemSounds,
         onDone: onClose,
       });

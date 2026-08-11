@@ -7,7 +7,7 @@ import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
 import { ActivityShell, usePhonicsEmbedded } from '../components/ActivityShell';
-import { ENTRY_GUIDE, voiceUrl } from '../hooks/useEntryGuide';
+import { ENTRY_GUIDE, voiceUrl, praiseLang } from '../hooks/useEntryGuide';
 
 export interface ListenChoice {
   /** 카드 구분자. 같은 라벨이 두 장일 수 있다(알파벳 단원의 Aa=apple / Aa=alligator). */
@@ -439,7 +439,7 @@ export function WordListenChooseActivity({
         rest(() => {
           if (isLast) {
             onMarkComplete();
-            playCorrectSequence({ language: language === 'english' ? 'en' : 'ko' });
+            playCorrectSequence({ language: praiseLang() });
             return;
           }
           playAudio('/sounds/game/correct.mp3', () =>

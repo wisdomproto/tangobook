@@ -8,7 +8,7 @@ import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { useLogEvent } from '@/features/learning/hooks/useLogEvent';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
-import { useEntryGuide, ENTRY_GUIDE, voiceUrl } from '../hooks/useEntryGuide';
+import { useEntryGuide, ENTRY_GUIDE, voiceUrl, praiseLang } from '../hooks/useEntryGuide';
 import { ActivityShell } from '../components/ActivityShell';
 
 interface VowelItem {
@@ -129,7 +129,7 @@ export function VowelListenActivity({
         // 마지막 모음 — 음원이 다 재생된 후에야 칭찬 시작 (요 발음 잘리지 않게)
         playVowel(vowels[idx].sound ?? vowels[idx].vowel, () => {
           setListenedAll(true);
-          playCorrectSequence({ language: language === 'english' ? 'en' : 'ko' });
+          playCorrectSequence({ language: praiseLang() });
         });
       } else {
         playVowel(vowels[idx].sound ?? vowels[idx].vowel);
@@ -185,7 +185,7 @@ export function VowelListenActivity({
           playFeedbackSound(true);
           setPhase('done');
           onMarkComplete();
-          playCorrectSequence({ language: language === 'english' ? 'en' : 'ko' });
+          playCorrectSequence({ language: praiseLang() });
         } else {
           // 🔴 띵동이 **끝난 뒤 쉬고** 다음 문제 — 예전엔 정답과 동시에 다음 음원이 나가서
           //    맞췄다는 느낌도 없이 문제가 지나갔다(콜백으로 끝을 확인하므로 길이 가정 아님).

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useActivitySound } from '../hooks/useActivitySound';
-import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
+import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import type { ReviewCardSource } from '../hooks/useReviewCardSources';
@@ -149,7 +149,7 @@ export function ReviewFlipMatchActivity({
           rest(() => {
             if (done.size >= picked.length) {
               playCorrectSequence({
-                language: language === 'english' ? 'en' : 'ko',
+                language: praiseLang(),
                 onDone: onComplete,
               });
             } else {

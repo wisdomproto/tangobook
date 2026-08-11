@@ -6,7 +6,7 @@ import { playUi } from '@/lib/uiSound';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
-import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
+import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { buildHuntBoard } from '../lib/letter-lookalikes';
 import type { ReviewCard } from '../lib/korean-phonics-units';
 import { ActivityShell } from '../components/ActivityShell';
@@ -222,7 +222,7 @@ export function LetterHuntActivity({
               // 🔴 글자를 다 찾으면 **칭찬** — 마지막이면 그 뒤 완료, 아니면 다음 글자로(2026-08-09 사용자:
               //    "다 찾고 넘어갈 때 효과음/칭찬이 없어"). 예전엔 조용히 넘어가 라운드를 끝낸 티가 안 났다.
               playCorrectSequence({
-                language: language === 'english' ? 'en' : 'ko',
+                language: praiseLang(),
                 onDone: isLast
                   ? onComplete
                   : () => {

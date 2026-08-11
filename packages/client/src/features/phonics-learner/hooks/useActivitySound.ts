@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { praiseLang } from './useEntryGuide';
 
 /**
  * 소리와 소리 **사이의 쉼**(ms).
@@ -76,7 +77,7 @@ export function useActivitySound({ unitId, language = 'korean', prefix }: Option
           rest(() => {
             if (opts?.praise) {
               playCorrectSequence({
-                language: language === 'english' ? 'en' : 'ko',
+                language: praiseLang(),
                 onDone: opts.onDone,
               });
               return;

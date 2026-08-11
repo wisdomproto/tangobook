@@ -4,7 +4,7 @@ import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
-import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
+import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { REST_MS } from '../hooks/useActivitySound';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
@@ -137,7 +137,7 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
           scheduleTimer(
             () =>
               playCorrectSequence({
-                language: 'en',
+                language: praiseLang(),
                 onDone: () => {
                   onMarkComplete();
                   onBack();
