@@ -37,8 +37,21 @@ export const ENTRY_GUIDE = {
  *    무음**이 되고, 글을 못 읽는 아이에겐 화면이 아무 말도 안 하는 것과 같다. 목록에 없으면 ko.
  *    자산을 구울 때 여기에 언어를 추가하는 게 배선의 전부다(칭찬 음성도 같은 규칙으로 확장한다).
  */
+const ALL = ['en', 'vi', 'zh', 'th'] as const;
 const VOICE_LANGS: Record<string, readonly string[]> = {
-  'quiz-start': ['en'],
+  // 🔴 **자산별로 적는다 — 전부 `ALL` 이라고 뭉뚱그리지 말 것.** 한 언어가 안 구워지면 그 줄에서만
+  //    빠져야 하고(ko 폴백), 새 안내를 `ENTRY_GUIDE` 에 추가해도 굽기 전엔 여기 없는 게 맞다.
+  //    2026-08-11 기준 10종 × 4언어 = 40개 전부 실측(1.0~3.1초, 무음 0) 통과.
+  'quiz-start': ALL,
+  'tap-sparkle': ALL,
+  'hunt-start': ALL,
+  'write-start': ALL,
+  'write-trace': ALL,
+  'listen-explore': ALL,
+  'order-listen': ALL,
+  'consonant-tap': ALL,
+  'vowel-pick': ALL,
+  'flip-match': ALL,
 };
 
 /**

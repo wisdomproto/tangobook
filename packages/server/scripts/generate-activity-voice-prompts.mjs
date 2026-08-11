@@ -58,13 +58,59 @@ const PROMPTS = [
   { name: 'block-make-ko', text: '블록으로 단어를 만들어봐!', language: 'korean' },
 ];
 
-async function generate({ name, text, language }) {
+/**
+ * 🔴 **외국어 문구는 지어내지 않는다 — 화면 번역(`i18n/locales/{lang}/phonics.json`)을 그대로 읽는다.**
+ *    소리와 화면이 다른 말을 하면 글 못 읽는 아이는 둘 다 못 믿는다. 아래 표는 **음성 자산 ↔ i18n 키**
+ *    대응만 적고, 문장은 전부 그 파일에서 온다(이모지는 TTS 에서 뺀다).
+ *
+ * 🔴 **zh 는 Google TTS**(cmn-CN native) — Gemini 2.5 TTS 는 중국어 미지원이라
+ *    `gemini-tts.provider.TTS_LOCALE` 에도 zh 가 없다(억양 자동감지 = 도박).
+ */
+const VOICE_I18N_KEY = {
+  'quiz-start': 'common.listenCarefully', // 잘 듣고 맞춰봐!
+  'tap-sparkle': 'alphabetLearn.tapSparkle', // 반짝이는 곳을 눌러봐!
+  'hunt-start': 'hunt.prompt', // 같은 글자를 모두 찾아봐!
+  'write-start': 'write.sparkleCell', // 반짝이는 칸에 써 봐!
+  'write-trace': 'write.trace', // 글자를 따라 써 봐!
+  'listen-explore': 'common.tapToListen', // 눌러서 들어봐!
+  'order-listen': 'vowelListen.inOrder', // 순서대로 눌러봐!
+  'consonant-tap': 'consonantTap.hint', // 세 번씩 눌러봐!
+  'vowel-pick': 'vowelPicker.makePrompt', // 어떤 모음을 골라봐?
+  'flip-match': 'flip.prompt', // 같은 짝을 찾아봐!
+};
+const I18N_LANGS = ['en', 'vi', 'zh', 'th'];
+const LOCALE_DIR = path.join(__dirname, '..', '..', 'client', 'src', 'i18n', 'locales');
+
+function i18nPrompts() {
+  const out = [];
+  for (const lang of I18N_LANGS) {
+    const json = JSON.parse(
+      fs.readFileSync(path.join(LOCALE_DIR, lang, 'phonics.json'), 'utf8')
+    );
+    for (const [name, key] of Object.entries(VOICE_I18N_KEY)) {
+      const raw = key.split('.').reduce((o, k) => o?.[k], json);
+      if (!raw) throw new Error(`i18n 키 없음: ${lang}/${key}`);
+      // 이모지·선행 화살표는 화면 장식이라 읽히면 안 된다.
+      const text = raw.replace(/[\p{Extended_Pictographic}←-⇿️]/gu, '').trim();
+      out.push({
+        name: `${name}-${lang}`,
+        text,
+        language: lang,
+        provider: lang === 'zh' ? 'google' : 'gemini',
+      });
+    }
+  }
+  return out;
+}
+PROMPTS.push(...i18nPrompts());
+
+async function generate({ name, text, language, provider = 'gemini' }) {
   const res = await fetch(`${API_BASE}/api/tts/generate`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       text,
-      provider: 'gemini',
+      provider,
       language,
       // storybookId·identifier 는 R2 캐시 키용 — 활동 공용이라 책과 무관한 이름을 준다.
       storybookId: '_activity-voice',
@@ -87,7 +133,7 @@ for (const p of PROMPTS) {
     console.log(`[${p.name}] 이미 있음 — skip (재생성은 --force)`);
     continue;
   }
-  console.log(`[${p.name}] "${p.text}" (${p.language})`);
+  console.log(`[${p.name}] "${p.text}" (${p.language}/${p.provider ?? 'gemini'})`);
   if (!APPLY) continue;
   try {
     const buf = await generate(p);
