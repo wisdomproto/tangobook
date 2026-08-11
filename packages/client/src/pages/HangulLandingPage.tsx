@@ -889,6 +889,9 @@ export default function HangulLandingPage() {
             alt="탱고북"
             width={1774}
             height={887}
+            /* 🔴 첫 화면 그림 셋(로고·파닉스·표지)만 `fetchPriority="high"` — 프리렌더가 이 표시가
+               붙은 그림의 src 만 남긴다(`scripts/prerender.mjs`). 나머지는 하이드레이션 뒤에 뜬다. */
+            fetchPriority="high"
             className="h-28 w-auto sm:h-32 md:h-36 xl:h-40"
           />
         </Link>
@@ -935,6 +938,7 @@ export default function HangulLandingPage() {
                 alt="아기호랑이가 가·나·다 한글 블록을 갖고 노는 그림"
                 width={1400}
                 height={788}
+                fetchPriority="high"
                 className="aspect-video w-full object-cover"
               />
             </HeroServiceCard>

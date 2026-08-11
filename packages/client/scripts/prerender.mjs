@@ -284,7 +284,16 @@ async function prerenderRoute(browser, baseUrl, route, { isBook = false } = {}) 
    *    `loading="lazy"` 는 이미 붙어 있지만 초기 뷰포트 근처는 그래도 받는다.
    *    src 를 지우면 알트 텍스트(책 제목)가 먼저 보이고, React 가 마운트하며 제대로 채운다.
    */
-  html = html.replace(/(<img\b[^>]*?)\s+src="[^"]*"/g, '$1');
+  /**
+   * 🔴 **단, `fetchpriority="high"` 는 남긴다**(2026-08-11). 전부 지우니 광고 랜딩의 **첫 화면
+   *    그림**까지 하이드레이션 뒤에야 뜬다 — 실측(프로덕션 · 인스타 인앱 UA · 4G · CPU 4배):
+   *    글자는 4.8초에 그려지는데 히어로 표지는 **11.6초**. 위 실측이 말한 건 「표지 105장」이고,
+   *    첫 화면에 꼭 필요한 한두 장은 그 반대다. 그래서 **명시적 opt-in** 으로만 남긴다 —
+   *    페이지가 `fetchPriority="high"` 를 붙인 그림만. 아무 페이지도 저절로 동작이 안 바뀐다.
+   */
+  html = html.replace(/<img\b[^>]*>/g, (tag) =>
+    /fetchpriority="high"/i.test(tag) ? tag : tag.replace(/\s+src="[^"]*"/, '')
+  );
 
   const len = visibleTextLength(html);
   if (len < MIN_TEXT) throw new Error(`내용 부족 (${len}자 < ${MIN_TEXT}) — 에러/빈 화면 의심`);
