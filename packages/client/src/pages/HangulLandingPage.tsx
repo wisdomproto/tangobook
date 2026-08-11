@@ -351,7 +351,9 @@ function HeroServiceCard({
 function HeroBookCover() {
   return (
     <img
-      src="/landing/hangul/books.webp"
+      src="/landing/hangul/books-720.webp"
+      srcSet="/landing/hangul/books-720.webp 720w, /landing/hangul/books.webp 1200w"
+      sizes="(max-width: 640px) 45vw, 550px"
       alt="세계 명작·전래 동화·호리 시리즈·자연 관찰 표지 아홉 장"
       width={1200}
       height={675}
@@ -885,7 +887,7 @@ export default function HangulLandingPage() {
             🔴 이만큼 키워도 **모바일 CTA 는 접힘선 위**(812px 화면에서 하단 692px). */}
         <Link to="/library" aria-label="탱고북 홈" className="relative mx-auto mb-5 block w-fit">
           <img
-            src="/logo/logo-kr.webp"
+            src="/logo/logo-kr-520.webp"
             alt="탱고북"
             width={1774}
             height={887}
@@ -934,7 +936,9 @@ export default function HangulLandingPage() {
               d={`한글 ${FACTS.koreanUnits}단원 · 영어 ${FACTS.englishUnits}단원`}
             >
               <img
-                src="/landing/hangul/phonics.webp"
+                src="/landing/hangul/phonics-720.webp"
+                srcSet="/landing/hangul/phonics-720.webp 720w, /landing/hangul/phonics.webp 1400w"
+                sizes="(max-width: 640px) 45vw, 550px"
                 alt="아기호랑이가 가·나·다 한글 블록을 갖고 노는 그림"
                 width={1400}
                 height={788}
