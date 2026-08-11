@@ -304,6 +304,53 @@ function Pict({ name }: { name: string }) {
   );
 }
 
+/**
+ * 히어로 서비스 카드 — 그림 한 장 + 번호 + 이름 + 한 줄.
+ * 🔴 두 장이 **같은 틀**이어야 「우리가 파는 건 이 둘」이 한눈에 읽힌다(하나는 일러스트,
+ *    하나는 실제 표지라 내용은 다르지만 틀은 같아야 한다).
+ */
+function HeroServiceCard({
+  n,
+  name,
+  d,
+  children,
+}: {
+  n: number;
+  name: string;
+  d: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="h-full overflow-hidden rounded-3xl bg-white/70 text-left shadow-sm">
+      {children}
+      <div className="px-4 py-3">
+        <span className="text-xs font-bold text-ink-400">{n}</span>
+        <strong className="mt-0.5 block font-display text-lg font-extrabold text-coral-700 break-keep">
+          {name}
+        </strong>
+        <span className="mt-0.5 block text-sm text-ink-600 break-keep">{d}</span>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * 히어로 ② 칸 그림 = **라이브러리의 진짜 표지 한 장**.
+ * 🔴 새 일러스트를 그리지 않는다 — ①이 니들펠트 일러스트라 톤이 갈리고, 무엇보다 파는 게
+ *    동화책이면 **동화책을 보여주는 게 맞다**. 세계 명작에서 표지 있는 첫 권(정렬이 고정이라
+ *    매번 같은 책)을 세운다.
+ */
+function HeroBookCover() {
+  const { data } = useStorybooks();
+  const book = (data ?? []).find((b) => b.coverImage && (b.category ?? '') === '세계 명작');
+  if (!book) return <div className="aspect-video w-full bg-cream-100" />;
+  return (
+    <div className="aspect-video w-full bg-cream-100">
+      <BookCover book={book} lang="ko" className="h-full w-full" />
+    </div>
+  );
+}
+
 const SIGNUP = '/login?mode=signup';
 
 /**
@@ -689,63 +736,6 @@ function BookWall() {
 }
 
 /**
- * 히어로 상단 — **동화책 표지 슬라이더**(2026-08-05 사용자: "동화책 표지를 뽑아와서 카테고리별로
- * 슬라이딩으로 볼수 있게"). 라이브러리 실물 표지를 카테고리별로 묶어 자동으로 흘려보낸다.
- * 🔴 **가볍게 한다**(사용자: "페이지가 너무 무거워질거 같기도") — 512 썸네일(장당 ~28KB)만,
- *    카테고리당 2장까지, 최대 14장. `BookCover` 가 표지 URL 에서 512 썸네일을 유도하고 lazy 로 받는다.
- * 🔴 AI 그림 아님 — 실물이라 안 깨지고, 책이 늘면 자동으로 는다.
- * 🔴 파닉스 슬라이더를 하나 더 얹지 않는다 — 이미지가 두 배가 된다(무게). 파닉스는 헤드라인·스탯이
- *    말하고, 전용 일러스트가 생기면 그때 히어로에 한 장으로 얹는다.
- */
-function CoverSlider() {
-  const { data } = useStorybooks();
-  const perCat = new Map<string, number>();
-  const seen = new Set<string>();
-  const covers: NonNullable<typeof data> = [];
-  for (const b of data ?? []) {
-    if (!b.coverImage || b.type) continue;
-    const t = (b.title ?? '')
-      .replace(/^\s*\d+\.\s*/, '')
-      .replace(/\s*\(L\d+\)\s*$/, '')
-      .trim();
-    if (!t || seen.has(t)) continue;
-    const c = b.category ?? '';
-    if ((perCat.get(c) ?? 0) >= 2) continue; // 한 카테고리가 슬라이더를 독차지하지 않게
-    perCat.set(c, (perCat.get(c) ?? 0) + 1);
-    seen.add(t);
-    covers.push(b);
-    if (covers.length >= 14) break;
-  }
-  if (covers.length < 6) return null;
-  // 🔴 이음매 없는 무한 슬라이드 — 같은 목록을 두 벌 이어 붙이고 -50% 로 흘린다. 각 표지에 `mr-3`
-  //    를 줘 마지막 장에도 여백이 있어야 -50% 가 정확히 한 벌만큼 이동해 튀지 않는다.
-  const loop = [...covers, ...covers];
-  return (
-    <div
-      aria-hidden
-      className="relative mb-7 overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_7%,#000_93%,transparent)]"
-    >
-      <div className="hero-cover-track flex w-max">
-        {loop.map((b, i) => (
-          <div
-            key={`${b.id}-${i}`}
-            className="mr-3 aspect-video h-16 shrink-0 overflow-hidden rounded-2xl shadow-sm sm:h-20"
-          >
-            <BookCover book={b} lang="ko" loading="lazy" className="h-full w-full" />
-          </div>
-        ))}
-      </div>
-      <style>{`
-        .hero-cover-track { animation: hero-cover-slide 40s linear infinite; }
-        .hero-cover-track:hover { animation-play-state: paused; }
-        @keyframes hero-cover-slide { from { transform: translateX(0) } to { transform: translateX(-50%) } }
-        @media (prefers-reduced-motion: reduce) { .hero-cover-track { animation: none; } }
-      `}</style>
-    </div>
-  );
-}
-
-/**
  * 서비스 구분 배너 — 🔴 이 랜딩은 **서비스 둘**을 판다(파닉스 · 동화책). 배너 없이 섹션만
  * 이어 놓으면 어디부터 다른 서비스인지 안 보인다(2026-08-10 사용자: "2개 서비스 설명하는
  * 건데 구분이 안 지어져 있어"). 굵은 가로선 + 큰 이름으로 페이지를 두 덩어리로 끊는다.
@@ -915,79 +905,62 @@ export default function HangulLandingPage() {
             className="h-16 w-auto sm:h-20"
           />
         </Link>
-        <CoverSlider />
-        {/* 🔴 md 부터 2열 — 사진을 글 아래 깔면 CTA 가 접힘선 밑으로 밀린다(3:2 라 768px 폭에서
-            높이가 512px). 옆에 두면 빈 오른쪽이 채워지면서 CTA 는 그대로 위에 남는다. */}
-        <div className="relative mx-auto grid max-w-3xl items-center gap-8 text-center md:grid-cols-[1fr_minmax(0,320px)] md:gap-10 md:text-left">
-          <div className="min-w-0">
-            <p className="inline-flex rounded-full bg-coral-100 px-4 py-1.5 text-sm font-extrabold text-coral-700 sm:text-base">
-              4~7세 한글떼기 · 파닉스
-            </p>
-            {/* 🔴 강제 줄바꿈(`<br/>`)을 뺐다(2026-08-05 사용자: "줄바꿈 이거 맞아?") — 텍스트 열이
-                좁으면 「한글 파닉스 32단원과」가 이미 두 줄로 접히는데 그 위에 br 까지 얹혀 「한 / 곳에」
-                가 고아로 떨어졌다. 자연 줄바꿈에 맡기고, 「한 곳에」만 nowrap 으로 붙여 둔다.
-                🔴 핵심어 「한글 파닉스」·「다양한 동화책」은 코랄로 하이라이트(사용자 요청). */}
-            {/* 🔴 **데스크탑에선 한 줄**(2026-08-10 사용자). 42px 로는 24자가 약 924px 이라 max-w-3xl(768px)을
-                넘어 세 줄로 접혔다 — 제목이 세 줄이면 첫인상이 「길다」가 된다. sm 이상에서만
-                크기를 낮추고 `nowrap` 을 건다. 모바일은 그대로 접힌다(375px 에 한 줄은 불가능). */}
-            <h1 className="mt-3 font-display text-[28px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:whitespace-nowrap sm:text-[28px] md:text-[32px]">
-              <span className="text-coral-700">한글을 떼고</span>, 그 글자로{' '}
-              <span className="text-coral-700">동화책을 읽어요</span>
-            </h1>
-            <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-ink-700 break-keep sm:text-[18px] md:mx-0">
-              자음·모음부터 받침까지 <strong className="text-coral-700">소리로 한글을 떼고</strong>,
-              뗀 글자로 <strong className="text-coral-700">동화책을 바로 읽습니다.</strong> 배우는
-              곳과 읽는 곳이 같은 앱 안에 있어요. 설치도 약정도 없습니다.
-            </p>
+        {/* 🔴 **표지 슬라이더를 없앴다**(2026-08-11 사용자). 로고 바로 아래에서 표지 열넷이 계속
+            흘러 첫 화면의 시선을 가져갔고, 정작 「무엇을 파는가」(아래 서비스 두 장)는 그 밑이었다.
+            동화책이 이만큼 있다는 말은 ⑤ 라인 카드·표지벽이 더 크게 한다. */}
+        {/* 🔴 **한 열 가운데 정렬**(2026-08-11) — 예전엔 오른쪽에 파닉스 일러스트를 세운 2열이었는데,
+            그 그림이 아래 서비스 카드 ①의 그림이 되면서 오른쪽 열이 비었다. 벤치마크 둘 다
+            히어로가 가운데 정렬 한 열이다. */}
+        <div className="relative mx-auto max-w-3xl text-center">
+          <p className="inline-flex rounded-full bg-coral-100 px-4 py-1.5 text-sm font-extrabold text-coral-700 sm:text-base">
+            4~7세 한글떼기 · 파닉스
+          </p>
+          {/* 🔴 **데스크탑에선 한 줄**(2026-08-10). 42px 로는 24자가 max-w-3xl 을 넘어 세 줄로 접혔다. */}
+          <h1 className="mt-3 font-display text-[28px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:whitespace-nowrap sm:text-[30px] md:text-[36px]">
+            <span className="text-coral-700">한글을 떼고</span>, 그 글자로{' '}
+            <span className="text-coral-700">동화책을 읽어요</span>
+          </h1>
+          <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-ink-700 break-keep sm:text-[18px]">
+            자음·모음부터 받침까지 <strong className="text-coral-700">소리로 한글을 떼고</strong>,
+            뗀 글자로 <strong className="text-coral-700">동화책을 바로 읽습니다.</strong> 배우는
+            곳과 읽는 곳이 같은 앱 안에 있어요.
+          </p>
 
-            {/* 🔴 **숫자 칸 셋을 서비스 두 장으로**(2026-08-10 사용자). 「32단원·39단원·13개」는
-                ①「단원 수로 파는 건 없어 보이고」 ②영어 파닉스는 `/english` 로 따로 파는데 여기
-                끼어 있었고 ③동화책 카테고리 수는 첫 화면에서 뜬금없다. 이 자리의 일은 **이 페이지가
-                파는 게 둘이라는 것**을 먼저 말하는 것이고, 아래 서비스 배너 ①② 와 짝을 맞춘다. */}
-            <div className="mx-auto mt-7 grid max-w-lg grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3 md:mx-0">
-              {[
-                { n: 1, name: '한글 파닉스', d: '자음·모음부터 받침까지 소리로' },
-                { n: 2, name: '동화책', d: '뗀 글자로 매일 한 권씩' },
-              ].map((x) => (
-                <div key={x.n} className="rounded-3xl bg-white/70 px-4 py-3 text-left">
-                  <span className="text-xs font-bold text-ink-400">{x.n}</span>
-                  <strong className="mt-0.5 block font-display text-lg font-extrabold text-coral-700 break-keep">
-                    {x.name}
-                  </strong>
-                  <span className="mt-0.5 block text-sm text-ink-600 break-keep">{x.d}</span>
-                </div>
-              ))}
-            </div>
-
-            <Link
-              to={SIGNUP}
-              className="mt-7 inline-flex min-h-[52px] items-center rounded-full bg-coral-700 px-8 text-base font-bold text-white shadow-md transition hover:bg-coral-800"
-            >
-              한달 무료 체험
-            </Link>
-            {/* 🔴 **할인가를 히어로에서 빼고 정가만**(2026-08-10 사용자). 첫 화면에서 「→ 할인 →
-                (베타오픈 기간)」까지 읽히면 값을 세 번 말하는 셈이고, 「베타」가 미완성으로도 읽힌다.
-                할인은 ⑦ 요금에서 한 번만 꺼낸다 — 거기까지 읽은 사람에겐 결정을 뒤집는 정보다. */}
-            <p className="mt-3 text-base font-semibold text-ink-700 break-keep sm:text-lg">
-              월 {PLANS.month1.originalAmount?.toLocaleString()}원
-            </p>
-            {/* 🔴 히어로의 "진짜 앱 화면" 배지는 뺐다(2026-08-05 사용자, 두 번째 요청) — 진짜 데모는
-                한참 밑이라 히어로에서 약속하면 헛돈다. "진짜 앱 화면입니다 — 지금 눌러보세요"는
-                데모(④) 자리에 그대로 있어 그 신호는 안 잃는다. */}
+          {/* 🔴 **서비스 두 장에 각각 그림**(2026-08-11 사용자: "호랑이 가나다 이미지를 한글파닉스
+              대응 이미지로 쓰고, 동화책에 대응 이미지 하나 넣어줘"). 글자 두 줄짜리 칸이던 걸
+              그림 카드로 올린다 — 이 페이지가 파는 게 둘이라는 걸 첫 화면에서 **그림으로** 말한다.
+              ② 는 새 자산을 만들지 않고 **라이브러리의 진짜 표지**를 그대로 세운다(그림체가 다른
+              일러스트를 새로 그리면 ①과 톤이 갈린다). */}
+          {/* 🔴 **모바일도 2열**(2026-08-11) — 세로로 쌓으면 카드 둘이 580px 를 먹어 CTA 가
+              접힘선 아래로 내려간다. 첫 화면에 버튼이 있어야 한다. */}
+          <div className="mx-auto mt-8 grid max-w-2xl grid-cols-2 gap-3 sm:gap-4">
+            <HeroServiceCard n={1} name="한글 파닉스" d={`${FACTS.koreanUnits}단원 · 소리로 떼기`}>
+              <img
+                src="/landing/hangul/phonics.webp"
+                alt="아기호랑이가 가·나·다 한글 블록을 갖고 노는 그림"
+                width={1400}
+                height={788}
+                className="aspect-video w-full object-cover"
+              />
+            </HeroServiceCard>
+            <HeroServiceCard n={2} name="동화책" d={`${FACTS.books}권 · 매일 한 권씩`}>
+              <HeroBookCover />
+            </HeroServiceCard>
           </div>
 
-          {/* 🔴 히어로 오른쪽 = **한글 파닉스 일러스트**(2026-08-05 사용자 제작). 니들펠트 아기호랑이가
-              ㄱㄴㄷ·가나다 블록을 갖고 논다 — 헤드라인의 「한글 파닉스」를 그림이 한 번 더 말한다.
-              「다양한 동화책」은 위 CoverSlider(표지 슬라이더)가 맡으므로 여기선 파닉스.
-              (실물 사진 hero.webp 는 public/landing/hangul/ 에 보존.) */}
-          <Photo
-            src="phonics"
-            alt="아기호랑이가 가·나·다 한글 블록을 갖고 노는 그림"
-            w={1400}
-            h={788}
-            eager
-            className="mx-auto max-w-sm md:max-w-none"
-          />
+          <Link
+            to={SIGNUP}
+            className="mt-8 inline-flex min-h-[52px] items-center rounded-full bg-coral-700 px-8 text-base font-bold text-white shadow-md transition hover:bg-coral-800"
+          >
+            한달 무료 체험
+          </Link>
+          {/* 🔴 **값은 문장으로**(2026-08-11 사용자: "월 9,900원은 뭐냐"). 버튼 밑에 금액만 굵게
+              떠 있으니 그게 체험료인지 정가인지 알 수 없었다. 무엇을 안 내도 되는지까지 한 줄로
+              적고 크기를 낮춘다 — 히어로에서 값을 숨기지 않는 건 그대로다(가격 투명성이 우리 무기).
+              할인가는 여기서 말하지 않는다(⑦ 요금에서 한 번만). */}
+          <p className="mt-3 text-sm text-ink-500 break-keep">
+            카드 등록 없이 시작 · 체험이 끝나면 월 {PLANS.month1.originalAmount?.toLocaleString()}원
+          </p>
         </div>
       </header>
 
