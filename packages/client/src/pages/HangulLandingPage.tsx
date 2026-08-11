@@ -199,6 +199,30 @@ const BOOK_GROWS: { icon: string; t: string; d: string }[] = [
   },
 ];
 
+/**
+ * 「왜 파닉스인가」 3카드 — 소중한글 「원리의 이해 / 뛰어난 효과 / 논리력과 사고력」 구조를 가져오되
+ * 가운데 칸은 바꿨다. 그쪽 근거는 「2개월 만에 80%」 체험단 데이터라 **우리에겐 그 숫자가 없고**,
+ * 없는 걸 흉내 내느니 우리도 참인 것(**처음 보는 글자를 읽는다**)을 세운다.
+ * 🔴 `glyph` 는 아이콘이 아니라 **그 단계의 글자**다 — 자모 → 음절 → 낱말이 카드 세 장으로 보인다.
+ */
+const PHONICS_WHY: { glyph: string; t: string; d: string }[] = [
+  {
+    glyph: 'ㄱ',
+    t: '소리부터 배워요',
+    d: '자음·모음·받침이 저마다 내는 소리를 눌러 듣고 따라 합니다. 글자 모양을 외우지 않아요.',
+  },
+  {
+    glyph: '가',
+    t: '합치는 규칙을 익혀요',
+    d: '두 소리가 하나로 붙는 순간을 눈으로 보고, 손으로 씁니다. 여기가 읽기의 출발입니다.',
+  },
+  {
+    glyph: '고기',
+    t: '처음 보는 글자도',
+    d: '규칙을 알면 배운 적 없는 낱말도 스스로 소리 내어 읽습니다.',
+  },
+];
+
 const SIGNUP = '/login?mode=signup';
 
 /**
@@ -668,7 +692,9 @@ function Section({
   children,
 }: {
   eyebrow?: string;
-  title: string;
+  /** 🔴 `ReactNode` — 제목 안 **핵심어를 코랄로** 물들이려고(2026-08-11 사용자: "폰트가 너무
+   *  단조롭네, 검은색이 제일 많고"). 히어로 h1 은 진작 그렇게 하고 있었는데 섹션 제목만 string 이었다. */
+  title: ReactNode;
   children: ReactNode;
 }) {
   return (
@@ -896,39 +922,58 @@ export default function HangulLandingPage() {
         tagline="자음·모음부터 받침·쌍자음까지, 소리로 글자를 뗍니다."
       />
 
-      {/* ── ② 왜 탱고북인가 — 파닉스↔동화책 순환 그림 ─────────────────────────
-          🔴 **제목은 차별점을 말한다**(2026-08-11 사용자: 전 제목 「우리 아이, 혼자 읽게 될까요?」가
-             "구리다"). 그 문장은 ①부모 질문형이라 벤치마크를 흉내낸 티가 나고 ②**한글을 떼느냐**를
-             묻는데, 한글 떼기는 경쟁 제품도 다 하는 동률 축이라 물어봐야 우리 답이 특별해지지 않는다.
-             우리 답은 **뗀 다음에 읽을 게 있다**는 것이고, 제목이 그걸 바로 말하는 게 낫다.
-          🔴 위치 = **파닉스 배너 뒤**(2026-08-10 사용자). 히어로 바로 다음에 두면 아직 아무것도
-             못 본 사람에게 「우리는 이렇게 합니다」를 먼저 읽히는 셈이었다. 서비스 1 을 연 직후에
-             두면 그림 속 「글자를 배워요」가 방금 읽은 배너를 그대로 가리킨다. */}
-      <Section eyebrow="왜 탱고북인가" title="한글을 떼고 나면, 읽을 책이 있습니다">
+      {/* ── ③-0 파닉스가 뭔가요 — **서비스 1 자리에선 파닉스만 말한다**(2026-08-11 사용자)
+          🔴 **「가르치는 법을 설명하지 않는다」(2026-08-05)를 뒤집는다.** 그때는 부모가 궁금한 게
+             「뭐가 얼마나 있나」라고 봤는데, 벤치마크 둘 다 파닉스 상세 첫머리를 **파닉스가 뭔지**로
+             연다(소중한글 「한글 파닉스란?」·「파닉스로 배워야 하는 이유」 3카드 / 토도 「자모음절식
+             학습법」 + "'김밥'은 읽는데 '김'은 못 읽는다고요?"). 이 카테고리에서 부모가 실제로 갖는
+             질문이 그것이고, 답하지 않으면 32단원 숫자가 무슨 뜻인지 모른 채 지나간다.
+          🔴 **베낀 것 = 구조와 논점, 문장이 아니다.** 후크는 우리 낱말로 다시 썼고(김밥/김 → 바나나/바),
+             🔴 **소중한글의 「2개월 만에 80%」·「전문가 23명」·토도의 「교수 감수」는 안 쓴다** —
+             우리에겐 그 데이터도 감수도 없다(전사 규칙).
+          🔴 카드에 이모지·아이콘 대신 **글자 자체(ㄱ → 가 → 고기)** 를 크게 세운다. 셋을 나란히
+             보면 자모→음절→낱말이 그림 없이도 읽히고, 검은 글씨만 이어지던 이 구간에 색이 생긴다. */}
+      <Section
+        eyebrow="왜 파닉스인가"
+        title={
+          <>
+            「바나나」는 읽는데 <span className="text-coral-700">「바」는 못 읽어요</span>
+          </>
+        }
+      >
         <p>
-          글자만 배우고 끝나면 금세 흐려집니다. 탱고북은 <strong>뗀 글자로 읽을 동화책</strong>이
-          같은 앱 안에 <strong>{FACTS.books}권</strong> 있어서, 배우는 곳과 읽는 곳이{' '}
-          <strong>한 바퀴로 이어집니다:</strong>
+          통글자로 외운 아이는 <strong>아는 낱말만</strong> 읽습니다. 처음 보는 낱말 앞에서는 다시
+          멈춰요.
         </p>
-        <LearnReadCycle />
-        <div className="!mt-6 rounded-2xl border border-ink-100 bg-white/70 p-4 sm:p-5">
-          <strong className="block text-ink-900 break-keep">
-            그리고 설치도, 약정도, 광고도 없습니다
-          </strong>
-          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
-            {NONES.map((n) => (
-              <div key={n.t} className="rounded-xl bg-cream-100 px-2 py-3 text-center">
-                <div className="text-2xl">{n.icon}</div>
-                <strong className="mt-1 block text-xs text-ink-900 break-keep">{n.t}</strong>
-                <span className="mt-0.5 block text-[11px] leading-snug text-ink-600 break-keep">
-                  {n.d}
-                </span>
+        <p>
+          <strong className="text-coral-700">파닉스는 글자가 가진 소리를 배우는 방법</strong>
+          입니다. 한글은 소리와 글자가 그대로 맞물리는 문자라(ㄱ은 <strong>그</strong>, ㅏ는{' '}
+          <strong>아</strong>, 둘을 합치면 <strong>가</strong>) — 소리를 알면{' '}
+          <strong>배운 적 없는 글자도 읽습니다.</strong>
+        </p>
+        <div className="!mt-6 grid gap-3 sm:grid-cols-3">
+          {PHONICS_WHY.map((w) => (
+            <div key={w.t} className="rounded-3xl bg-white/70 p-5 text-center">
+              <div className="font-display text-[40px] font-extrabold leading-none text-coral-600">
+                {w.glyph}
               </div>
-            ))}
-          </div>
+              <strong className="mt-3 block font-display text-lg font-extrabold text-ink-900 break-keep">
+                {w.t}
+              </strong>
+              <span className="mt-1.5 block text-sm leading-snug text-ink-600 break-keep">
+                {w.d}
+              </span>
+            </div>
+          ))}
         </div>
       </Section>
-      <Section title={`한글 파닉스 ${FACTS.koreanUnits}단원`}>
+      <Section
+        title={
+          <>
+            한글 파닉스 <span className="text-coral-700">{FACTS.koreanUnits}단원</span>
+          </>
+        }
+      >
         {/* 뷰 1 — 단계(여정). 자음·모음 → 받침 → 쌍자음 → 복잡한 모음, 번호로 밟는 길. */}
         <p>
           자음·모음에서 시작해 받침·쌍자음·복잡한 모음까지, <strong>다섯 단계</strong>로 차근차근
@@ -1020,7 +1065,13 @@ export default function HangulLandingPage() {
           비슷하고, 동화책이 차별점"). 예전엔 어휘·문해력 설명 문단 넷이 먼저 나오고 표지가
           중간에 끼어 있었다 — 파는 것이 **책이 이만큼 있다**인데 글부터 읽히고 있었다.
           순서를 뒤집는다: 라인 넷 → 표지벽 → 그제서야 「그래서 뭐가 자라나」. */}
-      <Section title={`뗀 글자로 읽을 책이 ${FACTS.books}권 있습니다`}>
+      <Section
+        title={
+          <>
+            뗀 글자로 읽을 책이 <span className="text-coral-700">{FACTS.books}권</span> 있습니다
+          </>
+        }
+      >
         <p>
           네 갈래로 나뉘어 있어요. 아이 취향이 어디에 있든 볼 책이 있고,{' '}
           <strong>매달 새 동화책이 늘어납니다.</strong>
@@ -1074,6 +1125,36 @@ export default function HangulLandingPage() {
         </p>
         <HangulBookTryIt />
         <HangulWordGameTryIt />
+      </Section>
+
+      {/* ── ⑤.5 두 서비스가 한 바퀴 — 순환 그림 ─────────────────────────
+          🔴 **자리 = 두 서비스를 다 소개한 뒤**(2026-08-11 사용자: "여기는 서비스 1 이잖아,
+             한글 파닉스만 집중해서 설명하는 게 맞을 듯"). 파닉스 배너 바로 밑에 뒀더니
+             ①서비스 1 자리에서 동화책 얘기를 하고 ②히어로가 이미 한 말을 두 번째로 했다.
+             둘을 다 본 다음이라야 「그래서 이 둘이 이어진다」가 요약으로 읽힌다.
+          🔴 「설치·약정·광고 없음」도 같이 왔다 — 바로 아래가 요금이라 오히려 제자리다. */}
+      <Section eyebrow="왜 탱고북인가" title="배우는 곳과 읽는 곳이 한 바퀴로 이어집니다">
+        <p>
+          글자만 배우고 끝나면 금세 흐려집니다. 탱고북은 <strong>배운 글자로 읽을 책</strong>이 같은
+          앱 안에 있어서, 읽은 것이 <strong>다시 글자 진도로 돌아옵니다.</strong>
+        </p>
+        <LearnReadCycle />
+        <div className="!mt-6 rounded-2xl border border-ink-100 bg-white/70 p-4 sm:p-5">
+          <strong className="block text-ink-900 break-keep">
+            그리고 설치도, 약정도, 광고도 없습니다
+          </strong>
+          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+            {NONES.map((n) => (
+              <div key={n.t} className="rounded-xl bg-cream-100 px-2 py-3 text-center">
+                <div className="text-2xl">{n.icon}</div>
+                <strong className="mt-1 block text-xs text-ink-900 break-keep">{n.t}</strong>
+                <span className="mt-0.5 block text-[11px] leading-snug text-ink-600 break-keep">
+                  {n.d}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
       </Section>
 
       {/* ── ⑥ 실측 숫자 ───────────────────────────────────────── */}
