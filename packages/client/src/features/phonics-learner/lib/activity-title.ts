@@ -29,3 +29,8 @@ export function unitTitle(
 ): string {
   return resolve(t, u.unitTitle, u.unitTitleKey, u.unitTitleVars);
 }
+
+/** 레벨 이름(`한글2: 받침`·`Level 5: 복운모`) — 사이드바 머리글·단원 화면이 같이 쓴다. */
+export function levelName(t: TFunction, u: { levelName: string; levelNameKey?: string }): string {
+  return resolve(t, u.levelName, u.levelNameKey);
+}

@@ -123,10 +123,17 @@
     "scoreRetry": "Thử lại nhé?",
     "clear": "Xóa",
     "rewrite": "Viết lại",
-    "nextWord": "Từ tiếp theo"
+    "nextWord": "Từ tiếp theo",
+    "goal": "Mục tiêu {{pct}}%",
+    "progress": "Xong {{done}}/{{total}} chữ",
+    "check": "Kiểm tra"
   },
   "landscapeGate": {
     "title": "Hãy xoay ngang màn hình!",
     "sub": "Trò chơi hiển thị đẹp hơn khi nằm ngang."
+  },
+  "guide": {
+    "lineMatch": "Ghép hình với từ nhé!",
+    "blockMake": "Ghép các khối thành từ nhé!"
   }
 }

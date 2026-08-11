@@ -14,6 +14,7 @@ import { resolveTtsUrl } from '@/features/tts';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
 import { useStorybook } from '@/features/storybook';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
+import { ENTRY_GUIDE, voiceUrl } from '@/features/phonics-learner/hooks/useEntryGuide';
 import {
   patternHighlight,
   wordMatchesPattern,
@@ -30,9 +31,6 @@ function lettersOf(word: string): string[] {
   const letters = [...word].filter((ch) => /[a-zA-Z]/.test(ch));
   return letters.length > 0 ? letters : [...word];
 }
-
-/** 진입 안내 — 화면의 "글자를 따라 써봐" 텍스트에 맞는 음성(파닉스 쓰기 활동과 같은 정적 자산). */
-const WRITE_GUIDE_SOUND = '/sounds/voice/write-trace-ko.mp3';
 
 export function EnglishWordWritingPlayer({
   storybookId,
@@ -86,7 +84,7 @@ export function EnglishWordWritingPlayer({
 
   // 🔴 진입 안내 음성 — 화면엔 "글자를 따라 써봐" 글자가 있는데 음성이 없어 파닉스 쓰기 활동과
   //    어긋났다(사용자: "어디서는 따라 써봐 멘트 나오고 어디서는 안 나오네"). 한 번만 재생한다.
-  useGameEntryGuide(WRITE_GUIDE_SOUND, playAudio);
+  useGameEntryGuide(voiceUrl(ENTRY_GUIDE.writeTrace), playAudio);
 
   const emitFinalResults = useCallback(
     (finalPassed: boolean[]) => {

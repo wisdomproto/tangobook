@@ -77,6 +77,11 @@ const VOICE_I18N_KEY = {
   'consonant-tap': 'consonantTap.hint', // 세 번씩 눌러봐!
   'vowel-pick': 'vowelPicker.makePrompt', // 어떤 모음을 골라봐?
   'flip-match': 'flip.prompt', // 같은 짝을 찾아봐!
+  // 🔴 게임 4종은 파닉스 **밖**(동화책 어휘 게임과 공유)이라 문구가 `games` ns 에 있다.
+  //    색칠은 화면에 이미 뜨는 문장 그대로를 읽는다(소리 ≠ 화면이 되지 않게).
+  'paint-shape': 'games:connectDots.instruction', // 그림을 색칠해봐!
+  'line-match': 'games:guide.lineMatch', // 그림과 짝을 찾아봐!
+  'block-make': 'games:guide.blockMake', // 블록으로 단어를 만들어봐!
 };
 const I18N_LANGS = ['en', 'vi', 'zh', 'th'];
 const LOCALE_DIR = path.join(__dirname, '..', '..', 'client', 'src', 'i18n', 'locales');
@@ -84,12 +89,14 @@ const LOCALE_DIR = path.join(__dirname, '..', '..', 'client', 'src', 'i18n', 'lo
 function i18nPrompts() {
   const out = [];
   for (const lang of I18N_LANGS) {
-    const json = JSON.parse(
-      fs.readFileSync(path.join(LOCALE_DIR, lang, 'phonics.json'), 'utf8')
-    );
-    for (const [name, key] of Object.entries(VOICE_I18N_KEY)) {
-      const raw = key.split('.').reduce((o, k) => o?.[k], json);
-      if (!raw) throw new Error(`i18n 키 없음: ${lang}/${key}`);
+    const ns = {};
+    const load = (name) =>
+      (ns[name] ??= JSON.parse(fs.readFileSync(path.join(LOCALE_DIR, lang, `${name}.json`), 'utf8')));
+    for (const [name, spec] of Object.entries(VOICE_I18N_KEY)) {
+      // `ns:key.path` — ns 를 안 적으면 phonics(기본).
+      const [nsName, key] = spec.includes(':') ? spec.split(':') : ['phonics', spec];
+      const raw = key.split('.').reduce((o, k) => o?.[k], load(nsName));
+      if (!raw) throw new Error(`i18n 키 없음: ${lang}/${nsName}:${key}`);
       // 이모지·선행 화살표는 화면 장식이라 읽히면 안 된다.
       const text = raw.replace(/[\p{Extended_Pictographic}←-⇿️]/gu, '').trim();
       out.push({

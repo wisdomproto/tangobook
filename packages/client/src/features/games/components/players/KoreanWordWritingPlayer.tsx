@@ -15,6 +15,7 @@ import { resolveTtsUrl } from '@/features/tts';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
 import { useStorybook } from '@/features/storybook';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
+import { ENTRY_GUIDE, voiceUrl } from '@/features/phonics-learner/hooks/useEntryGuide';
 
 /**
  * 한글 단어 따라쓰기 — 단어 전체를 한 번에 표시(WordFillCanvas)하고 **음절 단위**로 색칠 채점.
@@ -28,8 +29,6 @@ function syllablesOf(word: string): string[] {
 }
 
 const REST_MS = 450; // 마지막 음절 재생 완료 후 단어를 읽기 전 '쉬는' 간격
-/** 진입 안내 — 화면의 "글자를 따라 써봐" 텍스트에 맞는 음성(파닉스 쓰기 활동과 같은 정적 자산). */
-const WRITE_GUIDE_SOUND = '/sounds/voice/write-trace-ko.mp3';
 
 export function KoreanWordWritingPlayer({
   storybookId,
@@ -56,7 +55,7 @@ export function KoreanWordWritingPlayer({
   const syllables = useMemo(() => syllablesOf(currentItem.word), [currentItem.word]);
 
   // 🔴 진입 안내 음성 — 파닉스 쓰기 활동과 통일(사용자: "어디서는 따라 써봐 멘트 나오고 어디서는 안 나오네").
-  useGameEntryGuide(WRITE_GUIDE_SOUND, playAudio);
+  useGameEntryGuide(voiceUrl(ENTRY_GUIDE.writeTrace), playAudio);
 
   const emitFinalResults = useCallback(
     (finalPassed: boolean[]) => {

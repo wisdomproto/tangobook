@@ -40,10 +40,16 @@ describe('voiceUrl', () => {
     }
   });
 
-  it('자산 없는 이름은 ko 폴백 — 무음 금지', () => {
-    // paint-shape·line-match·block-make 는 ko 만 구워져 있다.
-    expect(voiceUrl('paint-shape', 'vi')).toBe('/sounds/voice/paint-shape-ko.mp3');
-    expect(voiceUrl('line-match', 'en')).toBe('/sounds/voice/line-match-ko.mp3');
+  it('목록에 없는 이름은 ko 폴백 — 무음 금지', () => {
+    // 아직 안 구운 새 안내가 404 로 통째 무음이 되지 않게.
+    expect(voiceUrl('not-baked-yet', 'vi')).toBe('/sounds/voice/not-baked-yet-ko.mp3');
+  });
+
+  it('게임 4종 안내도 UI 언어를 탄다 — `-ko` 박제 금지', () => {
+    // 🔴 이 셋은 예전에 컴포넌트에 `-ko` 가 박혀 있어 vi UI 에서도 한국어가 나갔다.
+    expect(voiceUrl(ENTRY_GUIDE.paintShape, 'vi')).toBe('/sounds/voice/paint-shape-vi.mp3');
+    expect(voiceUrl(ENTRY_GUIDE.lineMatch, 'th')).toBe('/sounds/voice/line-match-th.mp3');
+    expect(voiceUrl(ENTRY_GUIDE.blockMake, 'zh')).toBe('/sounds/voice/block-make-zh.mp3');
   });
 
   it('모르는 언어는 ko 폴백', () => {

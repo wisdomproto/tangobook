@@ -9,7 +9,7 @@ import {
   type ChineseUnitSummary,
 } from '../lib/chinese-phonics-units';
 import { usePhonicsProgress, getRecentUnit, markRecentUnit } from '../lib/progress-store';
-import { unitTitle } from '../lib/activity-title';
+import { levelName, unitTitle } from '../lib/activity-title';
 import { sumProgress } from '../lib/unit-progress';
 import ChinesePhonicsUnitPage from './ChinesePhonicsUnitPage';
 
@@ -71,7 +71,7 @@ export default function ChinesePhonicsStudyPage() {
   const byLevel = (() => {
     const map = new Map<string, { name: string; units: ChineseUnitSummary[] }>();
     for (const u of allUnits) {
-      if (!map.has(u.levelKey)) map.set(u.levelKey, { name: u.levelName, units: [] });
+      if (!map.has(u.levelKey)) map.set(u.levelKey, { name: levelName(t, u), units: [] });
       map.get(u.levelKey)!.units.push(u);
     }
     return [...map.entries()];

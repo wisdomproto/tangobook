@@ -84,10 +84,34 @@
     "educationalLevel": "유아",
     "educationalUse": "한글 읽기, 파닉스, 어휘 학습"
   },
+  "level": {
+    "hangul1": "한글1: 기본음절",
+    "hangul2": "한글2: 받침",
+    "hangul3": "한글3: 쌍자음",
+    "hangul4": "한글4: 복잡한 모음",
+    "zhL1": "Level 1: 성조 + 단운모",
+    "zhL2": "Level 2: 성모",
+    "zhL3": "Level 3: 병음조합",
+    "zhL4": "Level 4: 단어",
+    "zhL5": "Level 5: 복운모",
+    "zhL6": "Level 6: 비운모",
+    "zhL7": "Level 7: 통독 음절",
+    "zhL8": "Level 8: 2음절 낱말"
+  },
   "unit": {
     "review": "복습",
     "reviewOne": "{{letter}} 복습",
-    "reviewRange": "{{first}}~{{last}} 복습"
+    "reviewRange": "{{first}}~{{last}} 복습",
+    "reviewCodaOne": "받침 {{letter}} 복습",
+    "reviewCodaRange": "받침 {{first}}~{{last}} 복습",
+    "vowelsLearn": "모음 배우기",
+    "lettersLearn": "{{letters}} 배우기",
+    "codaLearn": "{{letter}} 받침 배우기",
+    "zhTones": "성조 {{letters}}",
+    "zhCombo": "{{letters}} 조합",
+    "zhAnimals": "동물 ({{words}})",
+    "zhObjects": "사물 ({{words}})",
+    "zhNature": "자연 ({{words}})"
   },
   "activity": {
     "letterHunt": "글자 사냥",

@@ -96,11 +96,13 @@ export const CHANT_URLS: Record<string, string[]> = {
 export interface ChineseUnitSummary {
   id: string; // 'zh-l1-u01'
   levelKey: string; // 'level1'
-  levelName: string; // 'Level 1: 단운모 + 성조'
+  levelName: string; // 'Level 1: 성조 + 단운모' — 한국어 폴백
+  /** `phonics` ns 키(`level.zhL1`) — 레벨명은 UI 어휘라 번역한다. */
+  levelNameKey?: string;
   levelIndex: number; // 1
   unitIndexInLevel: number;
-  unitTitle: string; // 'Unit 01: a o e'
-  /** 파생(복습) 단원만 갖는다 — 커리큘럼 단원 제목은 콘텐츠라 그대로 쓴다(`lib/activity-title.ts`). */
+  unitTitle: string; // 'Unit 01: a o e' — 한국어 폴백
+  /** 병음(a o e)은 콘텐츠라 변수로 남기고 「조합」·「동물」 같은 UI 어휘만 키로 옮긴다. */
   unitTitleKey?: string;
   unitTitleVars?: Record<string, string | number>;
   phonemes: string[];
@@ -547,6 +549,29 @@ export function getCombineGroups(unitId: string): CombineGroup[] {
   return out;
 }
 
+/**
+ * 병음 커리큘럼 제목에 섞인 **한국어 UI 어휘**만 키로 옮긴다(병음·한자는 콘텐츠라 변수).
+ * 나머지 제목(`Unit 02: a o e`)은 전부 병음이라 키가 없어도 어느 언어에서나 읽힌다.
+ */
+const ZH_WORD_TOPIC: Record<string, string> = {
+  동물: 'unit.zhAnimals',
+  사물: 'unit.zhObjects',
+  자연: 'unit.zhNature',
+};
+
+function zhUnitTitleI18n(title: string): {
+  unitTitleKey?: string;
+  unitTitleVars?: Record<string, string>;
+} {
+  const tone = title.match(/^Unit\s+\d+:\s*성조\s+(.+)$/);
+  if (tone) return { unitTitleKey: 'unit.zhTones', unitTitleVars: { letters: tone[1] } };
+  const combo = title.match(/^Unit\s+\d+:\s*(.+?)\s*조합$/);
+  if (combo) return { unitTitleKey: 'unit.zhCombo', unitTitleVars: { letters: combo[1] } };
+  const topic = title.match(/^Unit\s+\d+:\s*(동물|사물|자연)\s*\((.+)\)$/);
+  if (topic) return { unitTitleKey: ZH_WORD_TOPIC[topic[1]], unitTitleVars: { words: topic[2] } };
+  return {};
+}
+
 /** 커리큘럼 단원만 (복습 제외) — 복습 묶음을 만드는 원본. */
 function getCurriculumUnits(): ChineseUnitSummary[] {
   const out: ChineseUnitSummary[] = [];
@@ -558,9 +583,11 @@ function getCurriculumUnits(): ChineseUnitSummary[] {
         id: u.id,
         levelKey: String(level.level),
         levelName: level.name,
+        levelNameKey: `level.zhL${levelIndex}`,
         levelIndex,
         unitIndexInLevel: i + 1,
         unitTitle: u.title,
+        ...zhUnitTitleI18n(u.title),
         phonemes: [...u.phonemes],
         patterns: [...(u.patterns ?? [])],
         targetWords: [...(u.sampleWords ?? [])],
@@ -591,6 +618,7 @@ export function getAllChineseUnits(): ChineseUnitSummary[] {
       id: `zh-l${last.levelIndex}-r1`,
       levelKey,
       levelName: level.name,
+      levelNameKey: `level.zhL${last.levelIndex}`,
       levelIndex: last.levelIndex,
       unitIndexInLevel: last.unitIndexInLevel, // 사이드바는 복습에 🏅 를 쓰므로 번호는 안 보인다
       unitTitle: '복습',

@@ -32,6 +32,7 @@ import { shuffle } from '../../utils/shuffle';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
 import { cn } from '@/lib/cn';
 import { FirstLetterWord } from '@/features/phonics-learner/components/FirstLetterWord';
+import { ENTRY_GUIDE, voiceUrl } from '@/features/phonics-learner/hooks/useEntryGuide';
 
 interface LineMatchingPlayerProps extends GamePlayerProps {
   lang: Lang;
@@ -110,12 +111,9 @@ function LineMatchingPlayerInner({
   const gameStyle = useGameStyle(sourceStorybook);
 
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
-  // 🔴 진입 안내 음성 — "그림과 짝을 찾아봐!". 안내음은 한국어라 **한국어 UI(ko/en)일 때만**
-  //    낸다 — vi/zh/th 어휘 게임도 이 플레이어를 쓴다.
-  useGameEntryGuide(
-    lang === 'ko' || lang === 'en' ? '/sounds/voice/line-match-ko.mp3' : null,
-    playAudio
-  );
+  // 🔴 진입 안내 음성 — "그림과 짝을 찾아봐!"(`games:guide.lineMatch`). 언어는 **UI 언어**이지
+  //    콘텐츠 언어가 아니다(`voiceUrl`) — vi/zh/th 어휘 게임도 이 플레이어를 쓴다.
+  useGameEntryGuide(voiceUrl(ENTRY_GUIDE.lineMatch), playAudio);
   const isTutorialPlaying = useTutorialIsPlaying();
   const { highlightImageIdx, highlightWordIdx } = useTutorialHighlight();
   const expected = useTutorialExpected();

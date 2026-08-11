@@ -1,5 +1,6 @@
 import { useRef, useCallback, useEffect, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import { feedDrawLoop } from '@/lib/uiSound';
 
 /**
@@ -56,6 +57,7 @@ export function WordFillCanvas({
   sequential = true,
   order,
 }: WordFillCanvasProps) {
+  const { t } = useTranslation('games');
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isDrawingRef = useRef(false);
   const lastPointRef = useRef<{ x: number; y: number } | null>(null);
@@ -336,7 +338,7 @@ export function WordFillCanvas({
       </div>
       {syllables.length > 1 && (
         <p className="text-base sm:text-lg font-black text-ink-500">
-          {doneCount}/{syllables.length} 글자 완성
+          {t('writingGame.progress', { done: doneCount, total: syllables.length })}
         </p>
       )}
     </div>

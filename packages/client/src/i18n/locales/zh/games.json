@@ -123,10 +123,17 @@
     "scoreRetry": "再试一次好吗？",
     "clear": "擦除",
     "rewrite": "重新写",
-    "nextWord": "下一个单词"
+    "nextWord": "下一个单词",
+    "goal": "目标 {{pct}}%",
+    "progress": "完成 {{done}}/{{total}} 个字",
+    "check": "确认"
   },
   "landscapeGate": {
     "title": "请把屏幕横过来！",
     "sub": "横屏玩游戏看得更清楚哦。"
+  },
+  "guide": {
+    "lineMatch": "把图片和词语配对吧！",
+    "blockMake": "用积木拼出单词吧！"
   }
 }

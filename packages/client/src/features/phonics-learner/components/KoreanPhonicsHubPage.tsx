@@ -7,7 +7,7 @@ import {
   type KoreanUnitSummary,
 } from '../lib/korean-phonics-units';
 import { usePhonicsProgress } from '../lib/progress-store';
-import { unitTitle } from '../lib/activity-title';
+import { levelName, unitTitle } from '../lib/activity-title';
 
 /**
  * /library/phonics/korean — 한글 파닉스 unit 그리드.
@@ -24,7 +24,7 @@ export default function KoreanPhonicsHubPage() {
   const byLevel = new Map<string, { name: string; units: KoreanUnitSummary[] }>();
   for (const u of units) {
     if (!byLevel.has(u.levelKey)) {
-      byLevel.set(u.levelKey, { name: u.levelName, units: [] });
+      byLevel.set(u.levelKey, { name: levelName(t, u), units: [] });
     }
     byLevel.get(u.levelKey)!.units.push(u);
   }

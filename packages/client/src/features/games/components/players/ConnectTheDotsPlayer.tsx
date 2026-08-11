@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { PointerEvent as ReactPointerEvent, SyntheticEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { ENTRY_GUIDE, voiceUrl } from '@/features/phonics-learner/hooks/useEntryGuide';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { ConnectTheDotsData, ConnectTheDotsItem, Lang } from '@tangobook/shared';
 import { getEffectiveVocabulary } from '@tangobook/shared';
@@ -94,12 +95,13 @@ function ConnectTheDotsPlayer({
   // 어휘 게임은 prop 으로 lang 전달(vi/zh/th 포함). 책 뷰어 registry 경로는 `?lang`(ko/en) 폴백.
   const viewerLang: Lang = propLang ?? (searchParams.get('lang') === 'en' ? 'en' : 'ko');
 
-  // 🔴 진입 안내 음성 — 화면의 "모양 안을 모두 칠해봐!" 에 맞는 음성(사용자: "이건 멘트 안 나오는데").
-  //    안내음은 한국어라 **한국어 UI(ko/en 콘텐츠)일 때만** 낸다 — vi/zh/th 어휘 게임엔 안 맞다.
-  useGameEntryGuide(
-    viewerLang === 'ko' || viewerLang === 'en' ? '/sounds/voice/paint-shape-ko.mp3' : null,
-    playAudio
-  );
+  /**
+   * 🔴 진입 안내 음성 — 화면의 "그림을 색칠해봐!" 와 **같은 말**(`games:connectDots.instruction`).
+   *    🔴 **콘텐츠 언어가 아니라 UI 언어**다(`voiceUrl`). 예전엔 `-ko` 를 URL 에 박고 콘텐츠가
+   *    ko/en 일 때만 냈는데, 그래서 vi UI 로 한글 파닉스를 하면 **한국어 안내**가 나가고
+   *    vi 어휘 게임은 아예 무음이었다. 지시는 아이가 알아듣는 말이어야 한다.
+   */
+  useGameEntryGuide(voiceUrl(ENTRY_GUIDE.paintShape), playAudio);
 
   const { data: storybook } = useStorybook(storybookId);
   const gameStyle = useGameStyle(storybook);

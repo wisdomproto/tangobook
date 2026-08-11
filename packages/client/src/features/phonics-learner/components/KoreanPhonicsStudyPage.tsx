@@ -11,7 +11,7 @@ import {
 } from '../lib/korean-phonics-units';
 import { usePhonicsProgress, getRecentUnit, markRecentUnit } from '../lib/progress-store';
 import { sumProgress } from '../lib/unit-progress';
-import { unitTitle } from '../lib/activity-title';
+import { levelName, unitTitle } from '../lib/activity-title';
 import KoreanPhonicsUnitPage from './KoreanPhonicsUnitPage';
 
 /**
@@ -107,7 +107,7 @@ export default function KoreanPhonicsStudyPage() {
   const byLevel = (() => {
     const map = new Map<string, { name: string; units: KoreanUnitSummary[] }>();
     for (const u of allUnits) {
-      if (!map.has(u.levelKey)) map.set(u.levelKey, { name: u.levelName, units: [] });
+      if (!map.has(u.levelKey)) map.set(u.levelKey, { name: levelName(t, u), units: [] });
       map.get(u.levelKey)!.units.push(u);
     }
     return [...map.entries()];

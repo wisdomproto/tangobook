@@ -30,6 +30,17 @@ export const ENTRY_GUIDE = {
   vowelPick: 'vowel-pick',
   /** 뒤집기 짝 맞추기 — "같은 짝을 찾아봐!" */
   flipMatch: 'flip-match',
+  /**
+   * 🔴 아래 셋은 **게임 4종**(`features/games` 플레이어 — 동화책 어휘 게임과 공유)이 쓴다.
+   *    파닉스 밖이지만 목록을 여기 두는 이유는 `VOICE_LANGS` 와 자산 존재 가드가 여기 있어서다.
+   *    URL 을 컴포넌트에 박아 두었더니 UI 언어를 안 타고 늘 `-ko` 가 나갔다.
+   */
+  /** 낱말 그리기 — "그림을 색칠해봐!" */
+  paintShape: 'paint-shape',
+  /** 그림 짝 찾기 — "그림과 짝을 찾아봐!" */
+  lineMatch: 'line-match',
+  /** 블록 게임 — "블록으로 단어를 만들어봐!" */
+  blockMake: 'block-make',
 } as const;
 
 /**
@@ -41,7 +52,7 @@ const ALL = ['en', 'vi', 'zh', 'th'] as const;
 const VOICE_LANGS: Record<string, readonly string[]> = {
   // 🔴 **자산별로 적는다 — 전부 `ALL` 이라고 뭉뚱그리지 말 것.** 한 언어가 안 구워지면 그 줄에서만
   //    빠져야 하고(ko 폴백), 새 안내를 `ENTRY_GUIDE` 에 추가해도 굽기 전엔 여기 없는 게 맞다.
-  //    2026-08-11 기준 10종 × 4언어 = 40개 전부 실측(1.0~3.1초, 무음 0) 통과.
+  //    2026-08-11 기준 13종 × 4언어 = 52개 전부 실측(1.0~3.1초, 무음 0) 통과.
   'quiz-start': ALL,
   'tap-sparkle': ALL,
   'hunt-start': ALL,
@@ -52,6 +63,9 @@ const VOICE_LANGS: Record<string, readonly string[]> = {
   'consonant-tap': ALL,
   'vowel-pick': ALL,
   'flip-match': ALL,
+  'paint-shape': ALL,
+  'line-match': ALL,
+  'block-make': ALL,
 };
 
 /**

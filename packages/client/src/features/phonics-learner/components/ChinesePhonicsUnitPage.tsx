@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { getChineseActivityPlan, getChineseUnit } from '../lib/chinese-phonics-units';
 import type { ActivityDef } from '../lib/korean-phonics-units';
 import { usePhonicsProgress } from '../lib/progress-store';
-import { activityTitle } from '../lib/activity-title';
+import { activityTitle, levelName, unitTitle } from '../lib/activity-title';
 
 /**
  * /library/phonics/chinese/:unitId — 병음 unit 의 활동 그리드.
@@ -52,9 +52,9 @@ export default function ChinesePhonicsUnitPage({ embedded = false }: { embedded?
         <div className="rounded-3xl bg-white/70 backdrop-blur-sm border-2 border-white shadow-pop p-8 sm:p-10 text-center">
           <div className="text-6xl sm:text-7xl mb-4">⏳</div>
           <h2 className="text-2xl sm:text-3xl font-black font-display text-ink-900 mb-2">
-            {unit.unitTitle}
+            {unitTitle(t, unit)}
           </h2>
-          <p className="text-sm sm:text-base text-ink-600 font-bold mb-4">{unit.levelName}</p>
+          <p className="text-sm sm:text-base text-ink-600 font-bold mb-4">{levelName(t, unit)}</p>
           <p className="text-base sm:text-lg font-black text-ink-700">
             {t('common.noActivitiesYet')}
           </p>

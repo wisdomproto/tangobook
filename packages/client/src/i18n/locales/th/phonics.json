@@ -84,10 +84,34 @@
     "educationalLevel": "ปฐมวัย",
     "educationalUse": "การอ่านภาษาเกาหลี, โฟนิกส์, การเรียนคำศัพท์"
   },
+  "level": {
+    "hangul1": "ฮันกึล 1: พยางค์พื้นฐาน",
+    "hangul2": "ฮันกึล 2: ตัวสะกด",
+    "hangul3": "ฮันกึล 3: พยัญชนะคู่",
+    "hangul4": "ฮันกึล 4: สระประสม",
+    "zhL1": "ระดับ 1: วรรณยุกต์ + สระเดี่ยว",
+    "zhL2": "ระดับ 2: พยัญชนะต้น",
+    "zhL3": "ระดับ 3: การผสมพินอิน",
+    "zhL4": "ระดับ 4: คำศัพท์",
+    "zhL5": "ระดับ 5: สระประสม",
+    "zhL6": "ระดับ 6: สระเสียงนาสิก",
+    "zhL7": "ระดับ 7: พยางค์อ่านรวม",
+    "zhL8": "ระดับ 8: คำสองพยางค์"
+  },
   "unit": {
     "review": "ทบทวน",
     "reviewOne": "ทบทวน {{letter}}",
-    "reviewRange": "ทบทวน {{first}}~{{last}}"
+    "reviewRange": "ทบทวน {{first}}~{{last}}",
+    "reviewCodaOne": "ทบทวนตัวสะกด {{letter}}",
+    "reviewCodaRange": "ทบทวนตัวสะกด {{first}}~{{last}}",
+    "vowelsLearn": "เรียนสระ",
+    "lettersLearn": "เรียน {{letters}}",
+    "codaLearn": "เรียนตัวสะกด {{letter}}",
+    "zhTones": "วรรณยุกต์ {{letters}}",
+    "zhCombo": "ผสม {{letters}}",
+    "zhAnimals": "สัตว์ ({{words}})",
+    "zhObjects": "สิ่งของ ({{words}})",
+    "zhNature": "ธรรมชาติ ({{words}})"
   },
   "activity": {
     "letterHunt": "ล่าตัวอักษร",

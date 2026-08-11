@@ -9,7 +9,7 @@ import {
   type EnglishUnitSummary,
 } from '../lib/english-phonics-units';
 import { usePhonicsProgress, getRecentUnit, markRecentUnit } from '../lib/progress-store';
-import { unitTitle } from '../lib/activity-title';
+import { levelName, unitTitle } from '../lib/activity-title';
 import { sumProgress } from '../lib/unit-progress';
 import EnglishPhonicsUnitPage from './EnglishPhonicsUnitPage';
 
@@ -75,7 +75,7 @@ export default function EnglishPhonicsStudyPage() {
   const byLevel = (() => {
     const map = new Map<string, { name: string; units: EnglishUnitSummary[] }>();
     for (const u of allUnits) {
-      if (!map.has(u.levelKey)) map.set(u.levelKey, { name: u.levelName, units: [] });
+      if (!map.has(u.levelKey)) map.set(u.levelKey, { name: levelName(t, u), units: [] });
       map.get(u.levelKey)!.units.push(u);
     }
     return [...map.entries()];

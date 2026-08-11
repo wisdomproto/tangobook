@@ -38,6 +38,7 @@ import { resolveTtsUrl } from '@/features/tts';
 import { useStorybook } from '@/features/storybook';
 import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { cn } from '@/lib/cn';
+import { ENTRY_GUIDE, voiceUrl } from '@/features/phonics-learner/hooks/useEntryGuide';
 
 type JamoType = 'cho' | 'jung' | 'jong';
 
@@ -262,7 +263,7 @@ function KoreanBlockPlayerInner({
 
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
   // 🔴 진입 안내 음성 — "블록으로 단어를 만들어봐!" 한 번(사용자: 화면마다 멘트 통일).
-  useGameEntryGuide('/sounds/voice/block-make-ko.mp3', playAudio);
+  useGameEntryGuide(voiceUrl(ENTRY_GUIDE.blockMake), playAudio);
   // 정답 후 "그 단어가 나오는 동화 장면 + 나레이션" 리빌 (소스 동화책 있을 때만).
   const { data: sourceStorybook } = useStorybook(storybookId);
   const gameStyle = useGameStyle(sourceStorybook);

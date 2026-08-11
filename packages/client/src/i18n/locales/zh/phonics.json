@@ -84,10 +84,34 @@
     "educationalLevel": "学龄前",
     "educationalUse": "韩语阅读、拼读、词汇学习"
   },
+  "level": {
+    "hangul1": "韩文 1：基本音节",
+    "hangul2": "韩文 2：收音",
+    "hangul3": "韩文 3：双辅音",
+    "hangul4": "韩文 4：复合元音",
+    "zhL1": "第1级：声调 + 单韵母",
+    "zhL2": "第2级：声母",
+    "zhL3": "第3级：拼音拼读",
+    "zhL4": "第4级：词语",
+    "zhL5": "第5级：复韵母",
+    "zhL6": "第6级：鼻韵母",
+    "zhL7": "第7级：整体认读音节",
+    "zhL8": "第8级：双音节词"
+  },
   "unit": {
     "review": "复习",
     "reviewOne": "{{letter}} 复习",
-    "reviewRange": "{{first}}~{{last}} 复习"
+    "reviewRange": "{{first}}~{{last}} 复习",
+    "reviewCodaOne": "收音 {{letter}} 复习",
+    "reviewCodaRange": "收音 {{first}}~{{last}} 复习",
+    "vowelsLearn": "学习元音",
+    "lettersLearn": "学习 {{letters}}",
+    "codaLearn": "学习收音 {{letter}}",
+    "zhTones": "声调 {{letters}}",
+    "zhCombo": "{{letters}} 拼读",
+    "zhAnimals": "动物（{{words}}）",
+    "zhObjects": "物品（{{words}}）",
+    "zhNature": "自然（{{words}}）"
   },
   "activity": {
     "letterHunt": "找字游戏",

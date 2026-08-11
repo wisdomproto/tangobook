@@ -84,10 +84,34 @@
     "educationalLevel": "Preschool",
     "educationalUse": "Korean reading, phonics, vocabulary"
   },
+  "level": {
+    "hangul1": "Hangul 1: Basic Syllables",
+    "hangul2": "Hangul 2: Final Consonants",
+    "hangul3": "Hangul 3: Double Consonants",
+    "hangul4": "Hangul 4: Complex Vowels",
+    "zhL1": "Level 1: Tones + Simple Finals",
+    "zhL2": "Level 2: Initials",
+    "zhL3": "Level 3: Pinyin Blending",
+    "zhL4": "Level 4: Words",
+    "zhL5": "Level 5: Compound Finals",
+    "zhL6": "Level 6: Nasal Finals",
+    "zhL7": "Level 7: Whole Syllables",
+    "zhL8": "Level 8: Two-Syllable Words"
+  },
   "unit": {
     "review": "Review",
     "reviewOne": "{{letter}} review",
-    "reviewRange": "{{first}}~{{last}} review"
+    "reviewRange": "{{first}}~{{last}} review",
+    "reviewCodaOne": "Final consonant {{letter}} review",
+    "reviewCodaRange": "Final consonants {{first}}~{{last}} review",
+    "vowelsLearn": "Learn vowels",
+    "lettersLearn": "Learn {{letters}}",
+    "codaLearn": "Learn final consonant {{letter}}",
+    "zhTones": "Tones {{letters}}",
+    "zhCombo": "{{letters}} blends",
+    "zhAnimals": "Animals ({{words}})",
+    "zhObjects": "Objects ({{words}})",
+    "zhNature": "Nature ({{words}})"
   },
   "activity": {
     "letterHunt": "Letter Hunt",

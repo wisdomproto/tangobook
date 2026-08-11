@@ -84,10 +84,34 @@
     "educationalLevel": "Mầm non",
     "educationalUse": "Đọc tiếng Hàn, phonics, học từ vựng"
   },
+  "level": {
+    "hangul1": "Hangul 1: Âm tiết cơ bản",
+    "hangul2": "Hangul 2: Phụ âm cuối",
+    "hangul3": "Hangul 3: Phụ âm đôi",
+    "hangul4": "Hangul 4: Nguyên âm phức",
+    "zhL1": "Cấp 1: Thanh điệu + Nguyên âm đơn",
+    "zhL2": "Cấp 2: Phụ âm đầu",
+    "zhL3": "Cấp 3: Ghép phiên âm",
+    "zhL4": "Cấp 4: Từ vựng",
+    "zhL5": "Cấp 5: Nguyên âm kép",
+    "zhL6": "Cấp 6: Vần mũi",
+    "zhL7": "Cấp 7: Âm tiết đọc nguyên",
+    "zhL8": "Cấp 8: Từ hai âm tiết"
+  },
   "unit": {
     "review": "Ôn tập",
     "reviewOne": "Ôn tập {{letter}}",
-    "reviewRange": "Ôn tập {{first}}~{{last}}"
+    "reviewRange": "Ôn tập {{first}}~{{last}}",
+    "reviewCodaOne": "Ôn tập phụ âm cuối {{letter}}",
+    "reviewCodaRange": "Ôn tập phụ âm cuối {{first}}~{{last}}",
+    "vowelsLearn": "Học nguyên âm",
+    "lettersLearn": "Học {{letters}}",
+    "codaLearn": "Học phụ âm cuối {{letter}}",
+    "zhTones": "Thanh điệu {{letters}}",
+    "zhCombo": "Ghép {{letters}}",
+    "zhAnimals": "Động vật ({{words}})",
+    "zhObjects": "Đồ vật ({{words}})",
+    "zhNature": "Thiên nhiên ({{words}})"
   },
   "activity": {
     "letterHunt": "Săn chữ",
