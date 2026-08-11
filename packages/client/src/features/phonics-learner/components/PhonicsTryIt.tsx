@@ -128,7 +128,7 @@ export function PhonicsTryIt({
       className="my-7 overflow-hidden rounded-3xl border border-coral-200 bg-white shadow-sm"
     >
       <div className="flex items-center justify-between gap-3 border-b border-ink-100 px-5 py-3">
-        <span className="text-lg font-extrabold text-ink-800 break-keep">
+        <span className="text-lg font-extrabold text-ink-800 break-keep lg:text-xl">
           {title ?? `${activity.emoji} ${activity.title}`}
         </span>
         {/* 🔴 **꽉 찬 색으로**(2026-08-05) — 연한 배지는 본문과 섞여 「그냥 라벨」로 지나간다.
@@ -168,7 +168,7 @@ export function PhonicsTryIt({
       </EmbedStage>
 
       <div className="flex flex-col items-center gap-2 bg-cream-50 px-5 py-4 text-center">
-        <p className="text-xs text-ink-600 break-keep">
+        <p className="text-xs text-ink-600 break-keep lg:text-sm">
           {done
             ? '다 하셨네요. 아이와 함께면 소리까지 들으며 할 수 있어요.'
             : (note ?? '앱에서는 이 활동이 단원마다 아홉 가지씩 이어집니다.')}
