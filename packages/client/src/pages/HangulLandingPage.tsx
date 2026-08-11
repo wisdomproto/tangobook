@@ -1,6 +1,5 @@
 import { Fragment, useEffect, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { PLANS } from '@tangobook/shared';
 import { useSeo } from '@/lib/useSeo';
 import { SiteFooter } from '@/components/SiteFooter';
 import { PhonicsTryIt } from '@/features/phonics-learner/components/PhonicsTryIt';
@@ -366,57 +365,6 @@ function HeroBookCover() {
   );
 }
 
-/**
- * 같은 책, 다섯 언어 — 🔴 **표지가 언어마다 따로 구워져 있다**(2026-07-12 다국어 표지 파이프라인).
- * 「다섯 언어로 읽을 수 있습니다」 한 줄로는 자막만 바뀌는지 책이 통째로 바뀌는지 알 수 없다.
- * 표지 다섯 장을 나란히 놓으면 한 번에 읽힌다 — 새로 만들 자산이 없다.
- *
- * 🔴 **`BookCover` 에 `lang` 을 넘기는 걸로는 안 된다**(실측). 그 prop 은 `resolveCover` 에서
- *    **제목 문자열**만 고르고 그림은 `coversByStyle`/`coverImage` 로 정해져서, 다섯 장이 전부
- *    같은 한국어 표지로 나왔다. 언어별 표지는 요약(summary)의 **`coversByLang`** 에 따로 있다.
- * 🔴 그래서 **언어별 URL 이 실제로 다른 책**만 고른다 — 다국어 표지는 149권 중 104권만 완비라
- *    아무 책이나 쓰면 같은 그림 다섯 장이 되어 예시가 스스로를 반증한다.
- */
-const COVER_LANGS: { lang: string; label: string }[] = [
-  { lang: 'ko', label: '한국어' },
-  { lang: 'en', label: 'English' },
-  { lang: 'vi', label: 'Tiếng Việt' },
-  { lang: 'zh', label: '中文' },
-  { lang: 'th', label: 'ไทย' },
-];
-
-function LangCovers() {
-  const { data } = useStorybooks();
-  const book = (data ?? []).find((b) => {
-    const byLang = b.coversByLang ?? {};
-    const urls = COVER_LANGS.map((l) => byLang[l.lang]).filter(Boolean);
-    return (b.category ?? '') === '세계 명작' && new Set(urls).size >= 4;
-  });
-  if (!book?.coversByLang) return null;
-  const byLang = book.coversByLang;
-  return (
-    <figure className="!mt-6">
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-5 sm:gap-3">
-        {COVER_LANGS.map((l) => (
-          <div key={l.lang}>
-            <img
-              src={byLang[l.lang] ?? book.coverImage}
-              alt={`${book.title} ${l.label} 표지`}
-              loading="lazy"
-              decoding="async"
-              className="aspect-video w-full rounded-2xl bg-cream-100 object-cover"
-            />
-            <p className="mt-1 text-center text-xs font-bold text-ink-500">{l.label}</p>
-          </div>
-        ))}
-      </div>
-      <figcaption className="mt-3 text-center text-sm text-ink-600 break-keep">
-        같은 책을 <strong>다섯 언어로</strong> 읽습니다 — 글도, 읽어주는 소리도 그 언어예요.
-      </figcaption>
-    </figure>
-  );
-}
-
 const SIGNUP = '/login?mode=signup';
 
 /**
@@ -500,17 +448,9 @@ function StickyCta() {
         show ? 'translate-y-0' : 'translate-y-full'
       } ${blocked ? 'py-1.5' : 'py-3'}`}
     >
-      <div className="mx-auto flex max-w-3xl lg:max-w-4xl items-center justify-between gap-3">
-        <p
-          className={`min-w-0 text-[13px] font-semibold text-ink-700 break-keep sm:text-sm ${
-            blocked ? 'hidden' : ''
-          }`}
-        >
-          <span className="text-ink-400 line-through">
-            월 {PLANS.month1.originalAmount?.toLocaleString()}원
-          </span>{' '}
-          <span className="text-coral-700">월 {PLANS.month1.amount.toLocaleString()}원</span>
-        </p>
+      {/* 🔴 **가격을 쓰지 않는다**(2026-08-11 사용자, 세 번째 지적) — 히어로에서 지웠는데
+          하단 바와 요금 문단에 사본이 남아 있었다. 파는 건 「한 달 무료」 하나다. */}
+      <div className="mx-auto flex max-w-3xl lg:max-w-4xl items-center justify-center gap-3">
         <Link
           to={SIGNUP}
           className="flex min-h-[44px] shrink-0 items-center rounded-full bg-coral-700 px-5 text-sm font-bold text-white shadow-sm transition hover:bg-coral-800"
@@ -1060,8 +1000,12 @@ export default function HangulLandingPage() {
       </Section>
 
       {/* ── ④ 직접 해보기 — 그 32단원 중 「ㄱ」 하나를 통째로 ───────────────────── */}
+      {/* 🔴 **데모 상자는 글 폭을 따르지 않는다**(2026-08-11 사용자: "낱말이 너무 작아 보여").
+          `EmbedStage` 는 안쪽을 **100vw 로 그린 뒤 상자 폭/뷰포트 폭** 만큼 축소한다 — 즉
+          **화면이 넓어질수록 앱 화면이 더 작아진다**(2000px 에서 1024px 상자면 0.51배). 글 폭에
+          가둔 게 원인이라, 여기만 화면을 따라 넓힌다(2000px → 1600px 상자 → 0.8배). */}
       <section className="px-4 py-12 sm:px-6 sm:py-14">
-        <div className="mx-auto max-w-3xl lg:max-w-4xl">
+        <div className="mx-auto max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-[1600px]">
           <div className="rounded-3xl border border-coral-200 bg-white/60 p-4 sm:p-6">
             <p className="text-xs font-bold tracking-wide text-coral-700">한글 파닉스 · 32단원</p>
             <h2 className="mt-1 font-display text-[26px] font-extrabold text-ink-900 break-keep sm:text-[32px]">
@@ -1118,15 +1062,6 @@ export default function HangulLandingPage() {
           <strong>매달 새 동화책이 늘어납니다.</strong>
         </p>
         <LineSections />
-        {/* 🔴 **다국어는 글이 아니라 그림으로**(2026-08-11 사용자: "동화책 다국어로 볼 수 있다는
-            걸 예시 그림으로 보여주자"). 「191권은 다섯 언어로 읽을 수 있습니다」 한 줄로는 그게
-            자막만 바뀌는 건지 책이 통째로 바뀌는 건지 알 수 없다 — **같은 책의 표지가 언어마다
-            다른 걸** 나란히 보여주면 한 번에 읽힌다. 표지는 언어별로 이미 구워져 있다
-            (`primaryCoverByLang`) — 새로 만들 자산이 없다.
-            🔴 TV 사진과 「264권 나레이션」 문단은 뺐다(사용자) — 나레이션은 아래 「읽는 습관」
-            카드가 이미 말하고, 설치 얘기는 요금의 「없는 것」 4칸이 말한다. */}
-        <LangCovers />
-
         {/* 읽기만 하고 끝나지 않는다 — 어휘·문해력·독후활동. 여기부터가 「그래서 뭐가 자라나」. */}
         <h3 className="!mt-10 font-display text-[22px] font-extrabold text-ink-900 break-keep sm:text-[26px]">
           읽을수록 어휘와 문해력이 자라요
@@ -1218,14 +1153,8 @@ export default function HangulLandingPage() {
           <strong>광고가 뜨지 않습니다.</strong>
         </p>
         <p>
-          체험이 끝나면{' '}
-          <span className="text-ink-400 line-through">
-            월 {PLANS.month1.originalAmount?.toLocaleString()}원
-          </span>{' '}
-          <strong className="text-coral-700">
-            할인 월 {PLANS.month1.amount.toLocaleString()}원
-          </strong>
-          입니다. 그때 계속 쓸지 정하시면 됩니다.
+          체험이 끝나도 <strong>자동으로 결제되지 않습니다.</strong> 계속 쓸지는 그때 정하시면
+          됩니다.
         </p>
         {/* 🔴 **자리 = 요금 옆**(2026-08-11 사용자: "이게 파닉스 안에 있는 게 맞아?"). 맞지 않았다 —
             「설치·약정·광고 없음」은 학습 설명이 아니라 **구매를 막는 걱정에 대한 답**이라, 값을

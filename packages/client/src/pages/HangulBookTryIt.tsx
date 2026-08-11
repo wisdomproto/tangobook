@@ -65,9 +65,12 @@ function TryItShell({
       : 'border-amber-500 bg-amber-50 text-amber-600';
   const btn = tone === 'mint' ? 'bg-mint-500 hover:bg-mint-800' : 'bg-amber-600 hover:bg-amber-700';
   return (
-    /* 🔴 파닉스 상자와 같이 페이지 폭을 지킨다 — 잘림은 EmbedStage 축소로 푼다. */
+    /* 🔴 **넓은 화면에선 글 폭 밖으로 넓힌다**(2026-08-11 사용자: "낱말이 너무 작아 보여").
+       `EmbedStage` 는 안쪽을 100vw 로 그린 뒤 **상자 폭/뷰포트 폭**만큼 줄이므로, 글 폭(896px)에
+       가두면 1920 화면에서 0.47배가 되어 앱 글자가 절반 크기로 보인다. 좌우 대칭 음수 마진이라
+       가운데는 유지되고, 값은 그 브레이크포인트 뷰포트에 들어가도록 잡았다(1280→1088·1536→1280). */
     <div
-      className={`my-7 overflow-hidden rounded-3xl border bg-white shadow-sm ${
+      className={`my-7 overflow-hidden rounded-3xl border bg-white shadow-sm xl:-mx-24 2xl:-mx-48 ${
         tone === 'mint' ? 'border-mint-200' : 'border-amber-200'
       }`}
     >

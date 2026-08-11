@@ -58,7 +58,8 @@ interface Props {
  * 🔴 숫자를 키워 덮지 말 것 — 내용 높이가 **뷰포트 높이에 비례**하므로 더 긴 화면에서 또 잘린다.
  *    상자를 뷰포트 높이에 맞추면 안팎 기준이 같아져 어느 화면에서도 안 잘린다.
  */
-const VIEWPORT_SIZED = (kind: string) => kind.startsWith('game-') || kind === 'word-listen-choose';
+const VIEWPORT_SIZED = (kind: string) =>
+  kind.startsWith('game-') || kind === 'word-listen-choose' || kind === 'letter-hunt';
 
 /** 「합쳐지는 순간」 = 이 단원을 한 장면으로 보여주는 활동. 레벨마다 kind 가 다르다. */
 const BLEND_KINDS = [
