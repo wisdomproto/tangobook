@@ -67,7 +67,7 @@ function TryItShell({
   return (
     /* 🔴 파닉스 상자와 같이 페이지 폭을 지킨다 — 잘림은 EmbedStage 축소로 푼다. */
     <div
-      className={`my-7 overflow-hidden rounded-[26px] border bg-white shadow-sm ${
+      className={`my-7 overflow-hidden rounded-3xl border bg-white shadow-sm ${
         tone === 'mint' ? 'border-mint-200' : 'border-amber-200'
       }`}
     >

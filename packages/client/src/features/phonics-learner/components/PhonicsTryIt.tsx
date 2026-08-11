@@ -125,7 +125,7 @@ export function PhonicsTryIt({
      */
     <div
       ref={boxRef}
-      className="my-7 overflow-hidden rounded-[26px] border border-coral-200 bg-white shadow-sm"
+      className="my-7 overflow-hidden rounded-3xl border border-coral-200 bg-white shadow-sm"
     >
       <div className="flex items-center justify-between gap-3 border-b border-ink-100 px-5 py-3">
         <span className="text-lg font-extrabold text-ink-800 break-keep">

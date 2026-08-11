@@ -170,10 +170,10 @@ const CYCLE: { photo: string; alt: string; t: string; d: string }[] = [
 
 /** ②의 「없는 것」 아이콘 세트. 벤치마킹 §4-3(핑크퐁 구독특징 4아이콘 구조). */
 const NONES: { icon: string; t: string; d: string }[] = [
-  { icon: '📵', t: '광고 없음', d: '아이 화면에 광고가 안 떠요' },
-  { icon: '🔓', t: '전체 개방', d: '잠긴 것 없이 다 열려요' },
-  { icon: '📺', t: 'TV·폰·태블릿', d: '설치 없이 브라우저에서' },
-  { icon: '🚫', t: '약정·설치 없음', d: '패드도 약정도 없어요' },
+  { icon: 'adOff', t: '광고 없음', d: '아이 화면에 광고가 안 떠요' },
+  { icon: 'unlock', t: '전체 개방', d: '잠긴 것 없이 다 열려요' },
+  { icon: 'screens', t: 'TV·폰·태블릿', d: '설치 없이 브라우저에서' },
+  { icon: 'noPaper', t: '약정·설치 없음', d: '패드도 약정도 없어요' },
 ];
 
 /**
@@ -183,17 +183,17 @@ const NONES: { icon: string; t: string; d: string }[] = [
  */
 const BOOK_GROWS: { icon: string; t: string; d: string }[] = [
   {
-    icon: '📚',
+    icon: 'books',
     t: '어휘',
     d: `책마다 새 낱말을 만나고, 독후활동으로 한 낱말을 네 가지 방식으로 익혀요. 지금까지 ${FACTS.vocabWords}개.`,
   },
   {
-    icon: '📖',
+    icon: 'openBook',
     t: '문해력',
     d: '낱말이 이야기 속에서 어떻게 쓰이는지 만나고 또 만나며, 읽고 이해하는 힘이 자라요.',
   },
   {
-    icon: '🎧',
+    icon: 'headphones',
     t: '읽는 습관',
     d: `${FACTS.narrated}권은 나레이션이 처음부터 끝까지 있어, 글자를 아직 못 읽어도 매일 한 권.`,
   },
@@ -222,6 +222,82 @@ const PHONICS_WHY: { glyph: string; t: string; d: string }[] = [
     d: '규칙을 알면 배운 적 없는 낱말도 스스로 소리 내어 읽습니다.',
   },
 ];
+
+/**
+ * 단색 원형 픽토그램 — 🔴 **이모지를 아이콘으로 쓰지 않는다**(2026-08-11 사용자: "깔끔하지가 않아").
+ *
+ * 실측으로 벤치마크와 가장 크게 갈린 지점이 이것이었다: 소중한글·토도한글 두 페이지 모두
+ * 본문 이모지가 **0개**인데 우리는 46개였다. 이모지는 저마다 색·양식·원근이 달라서 넉 장을
+ * 나란히 놓으면 한 벌로 안 보이고 잡화점처럼 읽힌다(소중한글은 같은 자리를 코랄 원 + 흰 픽토그램
+ * 한 벌로 처리한다).
+ * 🔴 새 자산이 필요 없다 — 이 정도 도형은 SVG 몇 줄이라 그림 파일을 만들 이유가 없다.
+ */
+const PICTS: Record<string, ReactNode> = {
+  adOff: (
+    <>
+      <path d="M4 9.5h3.5L13 5.5v13L7.5 14.5H4z" />
+      <line x1="3.5" y1="3.5" x2="20.5" y2="20.5" />
+    </>
+  ),
+  unlock: (
+    <>
+      <rect x="5" y="11" width="14" height="9.5" rx="2.5" />
+      <path d="M8.5 11V7.5a3.5 3.5 0 0 1 6.6-1.6" />
+    </>
+  ),
+  screens: (
+    <>
+      <rect x="2.5" y="5" width="13" height="9.5" rx="2" />
+      <line x1="7" y1="18" x2="11" y2="18" />
+      <rect x="17.5" y="9" width="4" height="10" rx="1.5" />
+    </>
+  ),
+  noPaper: (
+    <>
+      <path d="M6 3.5h7l5 5v12H6z" />
+      <line x1="3.5" y1="3.5" x2="20.5" y2="20.5" />
+    </>
+  ),
+  books: (
+    <>
+      <rect x="4" y="5" width="4" height="14.5" rx="1.2" />
+      <rect x="9.5" y="5" width="4" height="14.5" rx="1.2" />
+      <path d="M16 6.8l3.6 1-2.7 12.4-3.6-1z" />
+    </>
+  ),
+  openBook: (
+    <>
+      <path d="M12 7.5C10.2 6 7.8 5.4 4.5 5.4v12.4c3.3 0 5.7.6 7.5 2 1.8-1.4 4.2-2 7.5-2V5.4c-3.3 0-5.7.6-7.5 2.1z" />
+      <line x1="12" y1="7.5" x2="12" y2="19.8" />
+    </>
+  ),
+  headphones: (
+    <>
+      <path d="M4.5 14.5v-2.2a7.5 7.5 0 0 1 15 0v2.2" />
+      <rect x="2.5" y="13.5" width="4.5" height="7" rx="2.2" />
+      <rect x="17" y="13.5" width="4.5" height="7" rx="2.2" />
+    </>
+  ),
+};
+
+function Pict({ name }: { name: string }) {
+  return (
+    <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-coral-600 text-white">
+      <svg
+        viewBox="0 0 24 24"
+        className="h-6 w-6"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.8}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden
+      >
+        {PICTS[name]}
+      </svg>
+    </span>
+  );
+}
 
 const SIGNUP = '/login?mode=signup';
 
@@ -318,7 +394,7 @@ function StickyCta() {
  */
 function Stat({ value, label, note }: { value: string; label: string; note?: string }) {
   return (
-    <div className="flex flex-col items-center gap-1 rounded-2xl bg-white/70 px-3 py-4">
+    <div className="flex flex-col items-center gap-1 rounded-3xl bg-white/70 px-3 py-4">
       <span className="font-display text-2xl font-extrabold text-coral-700 sm:text-3xl">
         {value}
       </span>
@@ -386,7 +462,7 @@ function CurriculumUnits() {
   return (
     <div className="!mt-6 space-y-3">
       {levels.map(([key, name]) => (
-        <div key={key} className="rounded-2xl border border-ink-100 bg-white/70 p-4">
+        <div key={key} className="rounded-3xl border border-ink-100 bg-white/70 p-4">
           <p className="text-xs font-bold text-coral-700 break-keep">
             {name}
             <span className="ml-2 font-semibold text-ink-600">
@@ -593,7 +669,7 @@ function BookWall() {
           <Link
             key={b.id}
             to={`/library/${b.id}`}
-            className="aspect-video overflow-hidden rounded-xl bg-cream-100"
+            className="aspect-video overflow-hidden rounded-2xl bg-cream-100"
             title={(b.title ?? '').replace(/^\s*\d+\.\s*/, '').replace(/\s*\(L\d+\)\s*$/, '')}
           >
             <BookCover book={b} lang="ko" loading="lazy" className="h-full" />
@@ -648,7 +724,7 @@ function CoverSlider() {
         {loop.map((b, i) => (
           <div
             key={`${b.id}-${i}`}
-            className="mr-3 aspect-video h-16 shrink-0 overflow-hidden rounded-xl shadow-sm sm:h-20"
+            className="mr-3 aspect-video h-16 shrink-0 overflow-hidden rounded-2xl shadow-sm sm:h-20"
           >
             <BookCover book={b} lang="ko" loading="lazy" className="h-full w-full" />
           </div>
@@ -768,7 +844,7 @@ function LearnReadCycle() {
                 →
               </span>
             )}
-            <div className="overflow-hidden rounded-2xl bg-cream-100 text-center">
+            <div className="overflow-hidden rounded-3xl bg-cream-100 text-center">
               {/* 🔴 사진은 카드 **맨 위 전폭**, 비율 고정(4:3) — 셋의 원본 비율이 제각각이라
                   `object-cover` 로 잘라 맞춰야 세 칸의 높이가 같다. */}
               <img
@@ -794,14 +870,13 @@ function LearnReadCycle() {
       </div>
       {/* 닫는 화살표 — 여기가 「순환」의 실체다. 실제로 그렇게 동작한다(`groupBySyllable` 이 한글
           낱말 이벤트를 글자로 쪼개 파닉스 칸에 얹는다). ↩ 는 위 첫 칸으로 되돌아감을 가리킨다. */}
-      <div className="mt-3 flex items-center gap-3 rounded-2xl border-2 border-dashed border-coral-300 bg-coral-50 px-4 py-3">
+      <div className="mt-3 flex items-center gap-3 rounded-3xl border-2 border-dashed border-coral-300 bg-coral-50 px-4 py-3">
         <span aria-hidden className="shrink-0 text-2xl font-extrabold text-coral-700">
           ↩
         </span>
         <p className="text-[14px] leading-snug text-ink-700 break-keep sm:text-[15px]">
           그리고 <strong className="text-coral-700">읽은 게 다시 글자 진도로 돌아옵니다</strong> —
-          동화책에서 <strong>「고기」</strong>를 맞히면 파닉스 표의 <strong>고 · 기</strong> 칸이
-          함께 올라가요.
+          동화책에서 「고기」를 맞히면 파닉스 표의 고 · 기 칸이 함께 올라가요.
         </p>
       </div>
     </div>
@@ -869,7 +944,7 @@ export default function HangulLandingPage() {
                 { n: 1, name: '한글 파닉스', d: '자음·모음부터 받침까지 소리로' },
                 { n: 2, name: '동화책', d: '뗀 글자로 매일 한 권씩' },
               ].map((x) => (
-                <div key={x.n} className="rounded-2xl bg-white/70 px-4 py-3 text-left">
+                <div key={x.n} className="rounded-3xl bg-white/70 px-4 py-3 text-left">
                   <span className="text-xs font-bold text-ink-400">{x.n}</span>
                   <strong className="mt-0.5 block font-display text-lg font-extrabold text-coral-700 break-keep">
                     {x.name}
@@ -947,9 +1022,8 @@ export default function HangulLandingPage() {
         </p>
         <p>
           <strong className="text-coral-700">파닉스는 글자가 가진 소리를 배우는 방법</strong>
-          입니다. 한글은 소리와 글자가 그대로 맞물리는 문자라(ㄱ은 <strong>그</strong>, ㅏ는{' '}
-          <strong>아</strong>, 둘을 합치면 <strong>가</strong>) — 소리를 알면{' '}
-          <strong>배운 적 없는 글자도 읽습니다.</strong>
+          입니다. 한글은 소리와 글자가 그대로 맞물리는 문자라(ㄱ은 그, ㅏ는 아, 둘을 합치면 가) —
+          소리를 알면 <strong>배운 적 없는 글자도 읽습니다.</strong>
         </p>
         <div className="!mt-6 grid gap-3 sm:grid-cols-3">
           {PHONICS_WHY.map((w) => (
@@ -977,13 +1051,13 @@ export default function HangulLandingPage() {
         {/* 뷰 1 — 단계(여정). 자음·모음 → 받침 → 쌍자음 → 복잡한 모음, 번호로 밟는 길. */}
         <p>
           자음·모음에서 시작해 받침·쌍자음·복잡한 모음까지, <strong>다섯 단계</strong>로 차근차근
-          밟아요. 한 단원은 <strong>하루 10~15분 분량</strong>이에요.
+          밟아요. 한 단원은 하루 10~15분 분량이에요.
         </p>
         <ol className="!mt-5 space-y-2">
           {STAGES.map((s, i) => (
             <li
               key={s.label}
-              className="flex items-center gap-3 rounded-2xl border border-ink-100 bg-white/70 px-4 py-3"
+              className="flex items-center gap-3 rounded-3xl border border-ink-100 bg-white/70 px-4 py-3"
             >
               <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-coral-700 text-xs font-extrabold text-white">
                 {i + 1}
@@ -1103,9 +1177,11 @@ export default function HangulLandingPage() {
         </h3>
         <div className="!mt-4 grid gap-3 sm:grid-cols-3">
           {BOOK_GROWS.map((g) => (
-            <div key={g.t} className="rounded-2xl border border-ink-100 bg-white/70 p-4">
-              <div className="text-2xl">{g.icon}</div>
-              <strong className="mt-1 block text-ink-900">{g.t}</strong>
+            <div key={g.t} className="rounded-3xl bg-white/70 p-5 text-center">
+              <Pict name={g.icon} />
+              <strong className="mt-3 block font-display text-lg font-extrabold text-ink-900">
+                {g.t}
+              </strong>
               <span className="mt-1 block text-sm text-ink-600 break-keep">{g.d}</span>
             </div>
           ))}
@@ -1117,7 +1193,7 @@ export default function HangulLandingPage() {
         {/* 🔴 파닉스↔동화책이 실제로 이어지는 **유일한 증거**. */}
         <p className="!mt-4">
           그리고 이 낱말들은 <strong>파닉스 진도에도 함께 쌓입니다</strong> — 동화책에서 「고기」를
-          맞히면 파닉스 표의 <strong>고 · 기 칸이 같이 올라갑니다.</strong>
+          맞히면 파닉스 표의 고 · 기 칸이 같이 올라갑니다.
         </p>
         <p className="!mt-6">
           <strong>직접 읽어보실 수 있습니다.</strong> 카테고리를 눌러 그 라인의 책을 바꿔 가며
@@ -1135,26 +1211,10 @@ export default function HangulLandingPage() {
           🔴 「설치·약정·광고 없음」도 같이 왔다 — 바로 아래가 요금이라 오히려 제자리다. */}
       <Section eyebrow="왜 탱고북인가" title="배우는 곳과 읽는 곳이 한 바퀴로 이어집니다">
         <p>
-          글자만 배우고 끝나면 금세 흐려집니다. 탱고북은 <strong>배운 글자로 읽을 책</strong>이 같은
-          앱 안에 있어서, 읽은 것이 <strong>다시 글자 진도로 돌아옵니다.</strong>
+          글자만 배우고 끝나면 금세 흐려집니다. 탱고북은 배운 글자로 읽을 책이 같은 앱 안에 있어서,
+          읽은 것이 <strong>다시 글자 진도로 돌아옵니다.</strong>
         </p>
         <LearnReadCycle />
-        <div className="!mt-6 rounded-2xl border border-ink-100 bg-white/70 p-4 sm:p-5">
-          <strong className="block text-ink-900 break-keep">
-            그리고 설치도, 약정도, 광고도 없습니다
-          </strong>
-          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
-            {NONES.map((n) => (
-              <div key={n.t} className="rounded-xl bg-cream-100 px-2 py-3 text-center">
-                <div className="text-2xl">{n.icon}</div>
-                <strong className="mt-1 block text-xs text-ink-900 break-keep">{n.t}</strong>
-                <span className="mt-0.5 block text-[11px] leading-snug text-ink-600 break-keep">
-                  {n.d}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
       </Section>
 
       {/* ── ⑥ 실측 숫자 ───────────────────────────────────────── */}
@@ -1210,6 +1270,23 @@ export default function HangulLandingPage() {
           <span className="text-coral-700"> (베타오픈 기간)</span>입니다. 그때 계속 쓸지 정하시면
           됩니다.
         </p>
+        {/* 🔴 **자리 = 요금 옆**(2026-08-11 사용자: "이게 파닉스 안에 있는 게 맞아?"). 맞지 않았다 —
+            「설치·약정·광고 없음」은 학습 설명이 아니라 **구매를 막는 걱정에 대한 답**이라, 값을
+            말하는 자리에 있어야 읽힌다. 바로 아래 FAQ 도 답이 전부 「없음」이라 한 덩어리가 된다. */}
+        <div className="!mt-6 rounded-3xl bg-white/70 p-4 sm:p-5">
+          <strong className="block text-ink-900 break-keep">그리고 이런 게 없습니다</strong>
+          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+            {NONES.map((n) => (
+              <div key={n.t} className="rounded-3xl bg-cream-100 px-2 py-4 text-center">
+                <Pict name={n.icon} />
+                <strong className="mt-2 block text-xs text-ink-900 break-keep">{n.t}</strong>
+                <span className="mt-0.5 block text-[11px] leading-snug text-ink-600 break-keep">
+                  {n.d}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
         <p>
           아이가 무엇을 했는지 <strong>부모 화면에 그대로 남습니다.</strong> 어떤 글자에서 자꾸
           멈추는지, 어떤 낱말을 다시 보면 좋은지 — 밤에 한 번 열어보면 오늘 뭘 했는지 보입니다.
@@ -1224,7 +1301,7 @@ export default function HangulLandingPage() {
           {FAQS.map((f) => (
             <details
               key={f.q}
-              className="group rounded-2xl border border-ink-100 bg-white/70 px-4 py-3"
+              className="group rounded-3xl border border-ink-100 bg-white/70 px-4 py-3"
             >
               <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-bold text-ink-800 break-keep">
                 {f.q}
