@@ -6,7 +6,7 @@ import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
 import { ActivityShell } from '../components/ActivityShell';
 import { SentenceText } from '../components/SentenceText';
 import { useActivitySound } from '../hooks/useActivitySound';
-import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
+import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
@@ -190,7 +190,9 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
       say(row.cells[ci], () => {
         if (willAll && !doneRef.current) {
           doneRef.current = true;
-          rest(() => playCorrectSequence({ language: 'en', onDone: () => setPhase('write') }));
+          rest(() =>
+            playCorrectSequence({ language: praiseLang(), onDone: () => setPhase('write') })
+          );
         } else if (willWord) {
           rest(() => chime());
         }
@@ -266,7 +268,7 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
       //    Book 2 써보기와 통일 — 예문은 여기(써보기 완성)에서만 준다. onEnded 체인이라 안 잘린다.
       const afterSentence = () => {
         if (isLast) {
-          playCorrectSequence({ language: 'en', onDone: onMarkComplete });
+          playCorrectSequence({ language: praiseLang(), onDone: onMarkComplete });
         } else {
           writeDoneRef.current = false;
           writtenRef.current = [];

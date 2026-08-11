@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
-import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
+import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { resolveTtsUrl } from '@/features/tts';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
@@ -96,7 +96,7 @@ export function VowelWriteActivity({
       const onTtsEnded = () => {
         restRef.current = window.setTimeout(() => {
           if (remaining.length === 0) {
-            playCorrectSequence({ language: 'ko', onDone: onComplete });
+            playCorrectSequence({ language: praiseLang(), onDone: onComplete });
           } else {
             const next = remaining.find((i) => i > idx) ?? remaining[0];
             setCurrentIdx(next);

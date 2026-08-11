@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
-import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
+import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { useLogSyllable } from '../hooks/useLogSyllable';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
@@ -183,7 +183,7 @@ export function ConsonantBlendListenActivity({
       if (isLast) setCompleted(true);
       const advance = () => {
         if (isLast) {
-          playCorrectSequence({ language: 'ko', onDone: onComplete });
+          playCorrectSequence({ language: praiseLang(), onDone: onComplete });
           return;
         }
         // 🔴 idx+1 이 아니라 **아직 안 만든 다음 음절**로 — 목록에서 건너뛰며 골랐을 수 있다.

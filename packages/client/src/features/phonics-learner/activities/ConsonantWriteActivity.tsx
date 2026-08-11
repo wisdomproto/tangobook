@@ -5,7 +5,7 @@ import { resolveTtsUrl } from '@/features/tts';
 import { useLogSyllable } from '../hooks/useLogSyllable';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
-import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
+import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { buildBlendPairs, stacksVertically } from '../lib/blend-pairs';
 import { ActivityShell } from '../components/ActivityShell';
@@ -233,7 +233,7 @@ export function ConsonantWriteActivity({
         if (isLast) setCompleted(true);
         const advance = () => {
           if (isLast) {
-            playCorrectSequence({ language: 'ko', onDone: onComplete });
+            playCorrectSequence({ language: praiseLang(), onDone: onComplete });
             return;
           }
           const after = pairs.findIndex((_, i) => i > idx && !made.has(i));
@@ -347,7 +347,7 @@ export function ConsonantWriteActivity({
               if (done) setCompleted(true);
               speak(say, () =>
                 playAudio('/sounds/game/correct.mp3', () => {
-                  if (done) playCorrectSequence({ language: 'ko', onDone: onComplete });
+                  if (done) playCorrectSequence({ language: praiseLang(), onDone: onComplete });
                 })
               );
             }}

@@ -5,7 +5,7 @@ import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { warmAudioUrl } from '@/features/games/hooks/useGamePrefetch';
 import { ActivityShell } from '../components/ActivityShell';
 import { useActivitySound } from '../hooks/useActivitySound';
-import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
+import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { toneNumberOf, type CombineGroup } from '../lib/chinese-phonics-units';
 
 interface Props {
@@ -121,7 +121,7 @@ export function PinyinToneRowsActivity({
         () => {
           if (finishedAll && !doneRef.current) {
             doneRef.current = true;
-            rest(() => playCorrectSequence({ language: 'ko', onDone: onMarkComplete }));
+            rest(() => playCorrectSequence({ language: praiseLang(), onDone: onMarkComplete }));
             return;
           }
           if (finishedGroup) {

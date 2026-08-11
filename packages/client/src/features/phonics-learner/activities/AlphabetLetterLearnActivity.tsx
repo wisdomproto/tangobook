@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
-import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
+import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { resolveTtsUrl } from '@/features/tts';
 import type { Storybook } from '@tangobook/shared';
 import { getWordHotspots } from '@tangobook/shared';
@@ -226,7 +226,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
             scheduleTimer(() => {
               setTapped((t) => t + 1);
               // 칭찬이 끝나면 다음 글자로 (마지막 글자면 goNext 가 그대로 머문다).
-              playCorrectSequence({ language: 'en', onDone: goNext });
+              playCorrectSequence({ language: praiseLang(), onDone: goNext });
             }, REST_MS);
           })
         );

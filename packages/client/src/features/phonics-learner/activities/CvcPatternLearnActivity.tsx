@@ -7,6 +7,7 @@ import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { ActivityShell } from '../components/ActivityShell';
+import { praiseLang } from '../hooks/useEntryGuide';
 import { SentenceText } from '../components/SentenceText';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { patternHighlight } from '../lib/english-phonics-units';
@@ -160,7 +161,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
         // 🔴 글자 소리 끝 → **쉼** → 띵동. 실측 간격이 0ms 라 한 덩어리로 들렸다.
         rest(() =>
           playAudio('/sounds/game/correct.mp3', () => {
-            if (willAllComplete) rest(() => playCorrectSequence({ language: 'en' }));
+            if (willAllComplete) rest(() => playCorrectSequence({ language: praiseLang() }));
           })
         );
       };
@@ -289,7 +290,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
         if (isLast) {
           setPhase('done');
           onMarkComplete();
-          setTimeout(() => playCorrectSequence({ language: 'en' }), 400);
+          setTimeout(() => playCorrectSequence({ language: praiseLang() }), 400);
         } else {
           setTimeout(() => {
             wordDoneRef.current = false;

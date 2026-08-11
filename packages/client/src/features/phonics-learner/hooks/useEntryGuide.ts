@@ -51,6 +51,20 @@ export function voiceUrl(name: string, lang: string = i18n.language): string {
 }
 
 /**
+ * 칭찬 음성의 언어 — **UI 언어**(`playCorrectSequence({ language })`).
+ *
+ * 🔴 **콘텐츠 언어가 아니다.** 예전엔 파닉스가 `'ko'`(한글 단원)·`'en'`(영어 단원)을 넘겼는데, 그건
+ *    *배우는 글자*의 언어라 **베트남 아이가 한글을 배우면 한국어 칭찬**을 들었다. "잘했어!"는 지시·안내와
+ *    같은 부류 — 아이가 알아듣는 말이어야 한다(모듈 규칙: 콘텐츠 언어 ≠ UI 언어).
+ * 🔴 자산은 이미 5개 언어가 다 있다(시스템 사운드 API: ko 10 · en 6 · vi·zh·th 각 5) — 새로 구울 게 없다.
+ *    `LANG_TO_SYSTEM_SOUND` 가 `ko|en|vi|zh|th` 를 pool 로 매핑하고, 없으면 전체 pool 로 폴백한다.
+ */
+export function praiseLang(lang: string = i18n.language): 'ko' | 'en' | 'vi' | 'zh' | 'th' {
+  const base = lang.slice(0, 2);
+  return (['ko', 'en', 'vi', 'zh', 'th'] as const).find((l) => l === base) ?? 'ko';
+}
+
+/**
  * 활동에 들어오면 **무엇을 하라는 말**을 소리로 한 번 들려준다.
  *
  * 🔴 **글을 못 읽는 4~7세라 화면의 지시문은 안 읽힌다.** 안내 없이 시작하는 화면이 오늘 하루에만

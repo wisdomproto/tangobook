@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useActivitySound } from '../hooks/useActivitySound';
-import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
+import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { withTone } from '../lib/chinese-phonics-units';
 import { ActivityShell } from '../components/ActivityShell';
@@ -109,7 +109,7 @@ export function ToneChoiceReviewActivity({ unitId, words, onMarkComplete, onBack
         rest(() => {
           if (isLast) {
             onMarkComplete();
-            playCorrectSequence({ language: 'ko' });
+            playCorrectSequence({ language: praiseLang() });
             return;
           }
           chime(() =>
