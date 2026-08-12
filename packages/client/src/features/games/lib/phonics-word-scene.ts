@@ -22,6 +22,34 @@ const inflight = new Map<string, Promise<unknown>>();
 const chosen = new Map<string, [bookId: string, page: number]>();
 
 /**
+ * 🔴 이번 판에서 **실제로 화면에 뜬** 책. 결과 화면의 「방금 만난 책」이 이걸 읽는다.
+ *
+ * 리빌 화면에 「책 보러 가기」를 두면 아이가 4문제 중 2번째에서 판을 통째로 버리고 나간다
+ * (4~7세는 돌아와 마저 하지 못한다). 그래서 게임이 끝난 **뒤** 표지를 나란히 세워 고르게 한다.
+ */
+const met = new Map<string, { id: string; title: string; coverUrl?: string }>();
+
+export interface MetBook {
+  id: string;
+  title: string;
+  coverUrl?: string;
+}
+/** 이번 판에서 만난 책 (뜬 순서). */
+export const getMetBooks = (): MetBook[] => [...met.values()];
+
+function remember(sb: Storybook) {
+  if (met.has(sb.id)) return;
+  met.set(sb.id, {
+    id: sb.id,
+    title: sb.title ?? '',
+    coverUrl:
+      sb.primaryCoverByLang?.ko ??
+      sb.coverImage ??
+      Object.values(sb.styleAssets ?? {}).find((s) => s?.coverImage)?.coverImage,
+  });
+}
+
+/**
  * 이번 판에 나올 낱말들의 동화책을 미리 받아 둔다. 실패해도 조용히 넘어간다.
  *
  * 🔴 **낱말당 한 권만 받는다.** 후보를 다 받으면 낱말 4개짜리 판에서 책 20권을 받아
@@ -29,6 +57,7 @@ const chosen = new Map<string, [bookId: string, page: number]>();
  *    판마다 새로 뽑으므로 같은 낱말이라도 다음 판엔 다른 장면이 나온다.
  */
 export async function preloadWordScenes(words: string[]): Promise<void> {
+  met.clear(); // 새 판이 시작된다 — 지난 판에서 만난 책은 지운다
   const need: string[] = [];
   for (const w of new Set(words)) {
     const entries = INDEX[w];
@@ -113,6 +142,7 @@ export function pickPhonicsWordScene(word: string, lang: Lang = 'ko'): PhonicsWo
   if (!url) return null;
   const pageText = lang === 'ko' ? page?.text : (page?.translations?.[lang]?.text ?? page?.text);
   const pageTtsUrl = lang === 'ko' ? page?.ttsUrl : page?.translations?.[lang]?.ttsUrl;
+  remember(sb);
   return { illustrationUrl: url, pageNumber, pageText, pageTtsUrl, highlight: word };
 }
 

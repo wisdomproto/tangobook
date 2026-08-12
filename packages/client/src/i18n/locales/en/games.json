@@ -25,7 +25,8 @@
     "goodTitle": "Well done!",
     "goodSub": "You'll do even better next time 💪",
     "restart": "🔄 Play Again",
-    "confirm": "OK"
+    "confirm": "OK",
+    "metBooks": "📖 Books you just met"
   },
   "feedback": {
     "correct1": "Nice work!",
