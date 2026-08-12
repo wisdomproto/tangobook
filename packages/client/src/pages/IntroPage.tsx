@@ -887,7 +887,7 @@ export default function IntroPage() {
   return (
     <div className="min-h-dvh bg-cream-50 pb-24">
       {/* ── ① 히어로 ─────────────────────────────────────────── */}
-      <header className="relative overflow-hidden bg-gradient-to-b from-peach-100 via-peach-50 to-cream-50 px-4 pb-10 pt-12 sm:px-6 sm:pb-14 sm:pt-16">
+      <header className="relative overflow-hidden bg-gradient-to-b from-peach-100 via-peach-50 to-cream-50 px-4 pb-10 pt-9 sm:px-6 sm:pb-14 sm:pt-16">
         <div className="pointer-events-none absolute -right-20 -top-16 h-64 w-64 rounded-full bg-coral-100/60 blur-3xl" />
         {/* 🔴 로고를 큼지막하게 맨 위에(2026-08-05 사용자) — 브랜드가 먼저다. width/height 로 CLS 방지. */}
         {/* 🔴 **로고를 크게**(2026-08-11 사용자: "너무 작다 확 키워"). 64/80px 은 앱 헤더 크기라
@@ -927,8 +927,7 @@ export default function IntroPage() {
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-[16px] leading-relaxed text-ink-700 break-keep sm:text-[19px] lg:max-w-3xl lg:text-[22px] xl:max-w-4xl xl:text-[24px] 2xl:text-[27px]">
             자음·모음부터 받침까지 <strong className="text-coral-700">소리로 한글을 떼고</strong>,
-            뗀 글자로 <strong className="text-coral-700">동화책을 바로 읽습니다.</strong> 배우는
-            곳과 읽는 곳이 같은 앱 안에 있어요.
+            뗀 글자로 <strong className="text-coral-700">동화책을 바로 읽습니다.</strong>
           </p>
 
           {/* 🔴 **서비스 두 장에 각각 그림**(2026-08-11 사용자: "호랑이 가나다 이미지를 한글파닉스
@@ -960,9 +959,24 @@ export default function IntroPage() {
             </HeroServiceCard>
           </div>
 
+          {/* 🔴 **둘을 파는 게 아니라 「이어진다」를 판다**(2026-08-12 사용자: "히어로에서 엄청
+              강조해줘야 해"). 카드 두 장만 나란히 두면 파닉스 앱 하나 + 동화책 앱 하나로 읽힌다 —
+              우리 정체성은 그 둘 **사이**에 있고, 2026-08-12 에 화면에서 실제로 이어졌다
+              (맞힌 낱말 → 그 낱말이 나오는 동화책 쪽). 그래서 카드 **바로 아래**, 잇는 자리에 둔다.
+              🔴 문장을 늘리지 않는다 — 모바일에서 CTA 가 접힘선 아래로 내려가면 안 된다. */}
+          <div className="mx-auto mt-2 flex max-w-2xl items-center justify-center gap-2 rounded-3xl border-2 border-coral-300 bg-coral-50 px-3 py-2 sm:mt-3 sm:px-4 sm:py-3 xl:max-w-4xl xl:gap-3 xl:px-6 xl:py-4">
+            <span aria-hidden className="text-xl xl:text-3xl">
+              🔗
+            </span>
+            <p className="text-left text-[14px] font-bold leading-snug text-coral-800 break-keep sm:text-lg xl:text-2xl">
+              파닉스에서 맞힌 낱말이{' '}
+              <strong className="font-extrabold">그 낱말이 나오는 동화책</strong> 쪽으로 이어집니다
+            </p>
+          </div>
+
           <Link
             to={SIGNUP}
-            className="mt-8 inline-flex min-h-[68px] items-center rounded-full bg-coral-700 px-12 text-2xl font-extrabold text-white shadow-lg transition hover:bg-coral-800 xl:mt-10 xl:min-h-[104px] xl:px-20 xl:text-[32px]"
+            className="mt-5 inline-flex min-h-[68px] items-center rounded-full bg-coral-700 px-12 text-2xl font-extrabold text-white shadow-lg transition hover:bg-coral-800 sm:mt-8 xl:mt-10 xl:min-h-[104px] xl:px-20 xl:text-[32px]"
           >
             한달 무료 체험
           </Link>
