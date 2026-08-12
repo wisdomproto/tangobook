@@ -6,97 +6,97 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.tangobook.co.kr/</loc>
-    <lastmod>2026-08-01</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library</loc>
-    <lastmod>2026-08-01</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/phonics/korean</loc>
-    <lastmod>2026-08-01</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.tangobook.co.kr/hangul</loc>
-    <lastmod>2026-08-01</lastmod>
+    <loc>https://www.tangobook.co.kr/intro</loc>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vocabulary</loc>
-    <lastmod>2026-08-01</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/blog</loc>
-    <lastmod>2026-08-01</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/guide/classics</loc>
-    <lastmod>2026-08-01</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/guide/nature</loc>
-    <lastmod>2026-08-01</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/en/guide/classics</loc>
-    <lastmod>2026-08-01</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/en/guide/nature</loc>
-    <lastmod>2026-08-01</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vi/guide/classics</loc>
-    <lastmod>2026-08-01</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vi/guide/nature</loc>
-    <lastmod>2026-08-01</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/zh/guide/classics</loc>
-    <lastmod>2026-08-01</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/zh/guide/nature</loc>
-    <lastmod>2026-08-01</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/th/guide/classics</loc>
-    <lastmod>2026-08-01</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/th/guide/nature</loc>
-    <lastmod>2026-08-01</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -6562,31 +6562,31 @@
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1772107608499/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1772107608499-신데렐라-1-cover-misc-1778474397445.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1772107608499-신데렐라-cover-misc-1781669691578.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vi/library/1772107608499/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1772107608499-신데렐라-1-cover-misc-1778474397445.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1772107608499-신데렐라-cover-misc-1781669691578.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/zh/library/1772107608499/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1772107608499-신데렐라-1-cover-misc-1778474397445.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1772107608499-신데렐라-cover-misc-1781669691578.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/th/library/1772107608499/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1772107608499-신데렐라-1-cover-misc-1778474397445.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1772107608499-신데렐라-cover-misc-1781669691578.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1772108045716/about</loc>
@@ -6814,31 +6814,31 @@
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1772197180029/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1772197180029-정글북-cover-misc-1778567975428.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1772197180029-정글북-cover-misc-1778567975428.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vi/library/1772197180029/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1772197180029-정글북-cover-misc-1778567975428.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1772197180029-정글북-cover-misc-1778567975428.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/zh/library/1772197180029/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1772197180029-정글북-cover-misc-1778567975428.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1772197180029-정글북-cover-misc-1778567975428.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/th/library/1772197180029/about</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1772197180029-정글북-cover-misc-1778567975428.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1772197180029-정글북-cover-misc-1778567975428.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1772197611601/about</loc>
@@ -10377,31 +10377,31 @@
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1778555233699/about</loc>
-    <lastmod>2026-07-27</lastmod>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image><image:loc>https://assets.tangobook.co.kr/1778555233699-백설공주new-cover-misc-1778637621520.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1778555233699-백설공주-cover-misc-1779148945169.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vi/library/1778555233699/about</loc>
-    <lastmod>2026-07-27</lastmod>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://assets.tangobook.co.kr/1778555233699-백설공주new-cover-misc-1778637621520.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1778555233699-백설공주-cover-misc-1779148945169.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/zh/library/1778555233699/about</loc>
-    <lastmod>2026-07-27</lastmod>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://assets.tangobook.co.kr/1778555233699-백설공주new-cover-misc-1778637621520.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1778555233699-백설공주-cover-misc-1779148945169.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/th/library/1778555233699/about</loc>
-    <lastmod>2026-07-27</lastmod>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://assets.tangobook.co.kr/1778555233699-백설공주new-cover-misc-1778637621520.webp</image:loc></image:image>
+    <image:image><image:loc>https://assets.tangobook.co.kr/1778555233699-백설공주-cover-misc-1779148945169.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1781588918173/about</loc>
