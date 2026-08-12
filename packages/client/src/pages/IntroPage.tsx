@@ -334,7 +334,7 @@ function HeroBridge() {
           <span className="mb-1 text-[11px] font-extrabold text-coral-700 sm:text-sm xl:text-base">
             파닉스에서 배우고
           </span>
-          <div className="overflow-hidden rounded-2xl border border-ink-100 bg-cream-50">
+          <div className="relative overflow-hidden rounded-2xl border border-ink-100 bg-cream-50">
             <img
               src="/landing/hangul/bridge-word.webp"
               alt="한글 파닉스 ㄷ 단원 낱말 연습 화면 — 두유·도마·기도·구두"
@@ -342,6 +342,15 @@ function HeroBridge() {
               height={580}
               fetchPriority="high"
               className="aspect-[3/4] w-full object-cover"
+            />
+            {/* 🔴 **어느 낱말이 이어지는지 못 박는다**(2026-08-12 사용자). 네 장 중 하나가 오른쪽으로
+                건너가는데 표시가 없으면 화살표가 카드 넷 전체를 가리키는 것처럼 읽힌다.
+                🔴 위치는 **퍼센트** — 이미지가 105px(모바일)에서 282px(데스크탑)까지 늘어나므로
+                px 로 박으면 한쪽에서 어긋난다. 값은 구운 이미지(440×580) 안 구두 카드 실측이다. */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute rounded-xl ring-[3px] ring-coral-500 sm:rounded-2xl sm:ring-4"
+              style={{ left: '50%', top: '51.5%', width: '42.5%', height: '44%' }}
             />
           </div>
         </div>
