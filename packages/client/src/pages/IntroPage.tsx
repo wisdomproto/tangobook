@@ -316,9 +316,11 @@ function Pict({ name }: { name: string }) {
  *
  * 🔴 카드 두 장을 나란히 두면 「파닉스 앱 하나 + 동화책 앱 하나」로 읽힌다. 우리 정체성은 그 둘
  *    **사이**에 있으므로, 첫 화면의 주인공을 **연결 자체**로 바꾼다. 문장으로 설명하던 자리다.
- * 🔴 **꾸며 낸 그림이 아니라 앱에서 그대로 가져온 두 장**이다 — 왼쪽은 파닉스 단원의 낱말 카드
- *    (`kr-h1-u04` 구두), 오른쪽은 그 낱말이 실제로 나오는 신데렐라 7쪽. 앱에서 「구두」를 맞히면
- *    이 쪽이 열린다(`word-scenes.json` 색인이 그렇게 잇는다). 광고에 쓰는 그림과 제품이 같다.
+ * 🔴 **꾸며 낸 그림이 아니라 앱 화면 그대로다** — 왼쪽은 파닉스 `kr-h1-u04`(ㄷ) 「낱말 연습」을
+ *    찍은 것(두유·도마·기도·구두), 오른쪽은 그 낱말이 실제로 나오는 신데렐라 7쪽. 앱에서 「구두」를
+ *    맞히면 이 쪽이 열린다(`word-scenes.json` 색인이 그렇게 잇는다).
+ * 🔴 왼쪽은 **낱말 카드 한 장이 아니라 「배우는 장면」**이어야 한다(2026-08-12 사용자: "왼쪽에
+ *    파닉스로 글자를 배우는 장면이어야지"). 사물 사진 한 장은 제품이 아니라 소재로 보인다.
  * 🔴 문장 강조는 **앱과 같은 노란 하이라이트** — 리빌 화면에서 맞힌 낱말에 색이 들어가는 그 표시다.
  * 🔴 자산은 **구워서 로컬에** 둔다(9KB·50KB) — R2 원본은 800px·1536px 이고, 첫 화면이라
  *    `fetchpriority="high"` 로 프리렌더 HTML 에 src 가 남는 세 장 안에 든다.
@@ -328,22 +330,19 @@ function HeroBridge() {
     <div className="mx-auto mt-6 max-w-2xl rounded-3xl border-2 border-coral-200 bg-white/70 p-3 sm:mt-8 sm:p-5 xl:max-w-4xl xl:p-7">
       <div className="flex items-stretch gap-2 sm:gap-4">
         {/* 왼쪽 — 파닉스에서 배우는 낱말 */}
-        <div className="flex w-[30%] shrink-0 flex-col">
+        <div className="flex w-[34%] shrink-0 flex-col">
           <span className="mb-1 text-[11px] font-extrabold text-coral-700 sm:text-sm xl:text-base">
             파닉스에서 배우고
           </span>
           <div className="overflow-hidden rounded-2xl border border-ink-100 bg-cream-50">
             <img
               src="/landing/hangul/bridge-word.webp"
-              alt="파닉스 낱말 카드 — 구두"
-              width={320}
-              height={320}
+              alt="한글 파닉스 ㄷ 단원 낱말 연습 화면 — 두유·도마·기도·구두"
+              width={440}
+              height={580}
               fetchPriority="high"
-              className="aspect-square w-full object-cover"
+              className="aspect-[3/4] w-full object-cover"
             />
-            <strong className="block py-1 text-center font-display text-lg font-extrabold text-ink-900 sm:py-1.5 sm:text-2xl xl:text-3xl">
-              구두
-            </strong>
           </div>
         </div>
 
