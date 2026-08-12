@@ -48,7 +48,9 @@
       '#ep-side .ep-head b{font-size:15px;flex:1;}',
       '#ep-summary{font-size:12px;color:var(--ink-soft);}',
       '#ep-close{border:0;background:transparent;font-size:16px;cursor:pointer;color:var(--ink-soft);padding:2px 4px;}',
-      '#ep-list{overflow-y:auto;padding:4px 0;flex:1;}',
+      '.ep-plan{display:block;margin:10px 12px 6px;padding:10px 13px;border-radius:10px;background:var(--peach);color:var(--ink);font-size:13px;font-weight:800;text-decoration:none;border:1px solid var(--line);}',
+      '.ep-plan:hover,.ep-plan.active{background:var(--coral);color:#fff;border-color:var(--coral);}',
+            '#ep-list{overflow-y:auto;padding:4px 0;flex:1;}',
       '.ep-item{display:flex;align-items:center;gap:8px;padding:7px 12px;border-bottom:1px solid #f1f1f1;}',
       '.ep-item .n{flex:0 0 22px;text-align:right;color:var(--ink-soft);font-weight:800;font-size:12px;}',
       '.ep-item a{flex:1;color:var(--ink);text-decoration:none;font-size:13px;font-weight:600;line-height:1.3;word-break:keep-all;}',
@@ -187,7 +189,9 @@
     var side = document.createElement('aside'); side.id = 'ep-side';
     side.innerHTML =
       '<div class="ep-head"><b>회차 목록</b><span id="ep-summary"></span>' +
-      '<button id="ep-close" type="button" aria-label="닫기">✕</button></div><div id="ep-list"></div>';
+      '<button id="ep-close" type="button" aria-label="닫기">✕</button></div>' +
+      '<a class="ep-plan" href="/pongi-plan.html">📘 기획서 · 캐스트 시트 · 앵커</a>' +
+      '<div id="ep-list"></div>';
     document.body.appendChild(toggle);
     document.body.appendChild(backdrop);
     document.body.appendChild(side);
@@ -251,6 +255,9 @@
       .sort(function (a, b) { return a.num - b.num; });
 
     var here = location.pathname.split('/').pop() || '';
+    if (here === 'pongi-plan.html' || here === '') {
+      var pl = side.querySelector('.ep-plan'); if (pl) pl.classList.add('active');
+    }
     var CYCLE = { '': 'wip', 'wip': 'done', 'done': '' };
     var ICON = { '': '⬜', 'wip': '🟡', 'done': '✅' };
     var LABEL = { '': '미정', 'wip': '진행 중', 'done': '완성' };
