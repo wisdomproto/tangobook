@@ -42,7 +42,7 @@ const mount = () => {
         <Suspense fallback={null}>
           <RouterProvider router={router} />
         </Suspense>
-        {/* 우하단은 AppBgm 🎵 플로팅 버튼 자리 — devtools 는 좌하단으로 (dev 전용, 배포엔 없음) */}
+        {/* devtools 는 좌하단 (dev 전용, 배포엔 없음) */}
         <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
       </QueryClientProvider>
     </StrictMode>

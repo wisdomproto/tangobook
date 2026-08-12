@@ -249,16 +249,25 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
     setTimeout(fire, NEXT_IMG_CAP_MS); // 상한 — 이미지가 안 와도 넘어감
   }, [pages, hasKeyObjects, playlist]);
 
-  // 🔴 기본 BGM 폴백 폐지(2026-08-05) — 저작 BGM 이 **없는 책은 그냥 조용하다**.
-  //    예전엔 `default-{1..5}.mp3` 를 책 ID 해시로 깔았는데, 나레이션 위에 계속 얹혀
-  //    시끄럽다는 판단(사용자). 저작자가 넣은 `backgroundMusicUrl` 만 재생한다.
-  //    BGM 이 없으면 `hasBgm=false` 라 툴바 버튼이 자동으로 비활성되고, `toggleBgm` 은
-  //    오디오 엘리먼트가 없어 no-op 이므로 호출부(탭 게이트 시작)는 그대로 둬도 안전하다.
-  //    🔴 **임베드(광고 랜딩 상자)에서는 BGM 을 아예 안 켠다**(2026-08-10 사용자). BGM 은
-  //    `useAudioPlayer` 가 **마운트 시 바로** 재생하므로, 상자가 화면에 붙는 순간 아무도 아무것도
-  //    안 눌렀는데 음악이 나온다(`noAutoStart` 는 나레이션만 막는다). 여기서 비우면 `hasBgm=false`
-  //    라 툴바 버튼도 자동으로 꺼지고 `toggleBgm` 은 no-op 이라 다른 경로는 그대로다.
-  const bgmUrl = embed ? undefined : storybook?.backgroundMusicUrl;
+  // 기본 BGM 폴백 — 저작 BGM 없는 책은 기본 트랙 5곡 중 책 ID 해시로 고정 선택
+  // (같은 책 = 항상 같은 곡). 자산: public/sounds/bgm/default-{1..5}.mp3 (90s 루프).
+  //
+  // 🔴 하루 걸러 없앴다가 되돌렸다(2026-08-05 제거 → 08-11 복구). 「배경음이 시끄럽다」는 말은
+  //    **라이브러리 화면의 BGM**(`AppBgm`) 얘기였는데 뷰어 것을 지웠다 — 그래서 자동읽기에
+  //    음악이 통째로 사라졌다. 시끄러운 대상을 확인하지 않고 이름이 비슷한 쪽을 지운 것.
+  //
+  // 🔴 **임베드(광고 랜딩 상자)에서는 BGM 을 아예 안 켠다**(2026-08-10). BGM 은 `useAudioPlayer`
+  //    가 **마운트 시 바로** 재생하므로, 상자가 화면에 붙는 순간 아무도 아무것도 안 눌렀는데
+  //    음악이 나온다(`noAutoStart` 는 나레이션만 막는다). 여기서 비우면 `hasBgm=false` 라
+  //    툴바 버튼도 자동으로 꺼지고 `toggleBgm` 은 no-op 이라 다른 경로는 그대로다.
+  const bgmUrl = useMemo(() => {
+    if (embed) return undefined;
+    if (storybook?.backgroundMusicUrl) return storybook.backgroundMusicUrl;
+    if (!storybook) return undefined;
+    let h = 0;
+    for (let i = 0; i < storybook.id.length; i++) h = (h * 31 + storybook.id.charCodeAt(i)) | 0;
+    return `/sounds/bgm/default-${(Math.abs(h) % 5) + 1}.mp3`;
+  }, [storybook, embed]);
 
   const audio = useAudioPlayer({
     backgroundMusicUrl: bgmUrl,

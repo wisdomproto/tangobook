@@ -6,7 +6,6 @@ import { AppIcon } from '@/design-system';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { ProfilePicker } from '@/features/auth/components/ProfilePicker';
 import { PromoBanner } from '@/features/library/components/PromoBanner';
-import { AppBgm } from './AppBgm';
 import { UiLangMenu } from './UiLangMenu';
 import { InstallPwaButton } from './InstallPwaButton';
 import { ProfileChip } from '@/features/auth/components/ProfileChip';
@@ -395,8 +394,9 @@ export function AppShell() {
       {/* 건의하기 모달 — 부모 영역 "건의하기" 버튼에서 호출 */}
       <FeedbackDialog open={feedbackOpen} onClose={() => setFeedbackOpen(false)} />
 
-      {/* 메인(브라우즈) 화면 배경음악 — AppShell 이탈(뷰어/게임) 시 자동 정지 */}
-      <AppBgm />
+      {/* 🔴 메인(브라우즈) 화면 배경음악 폐지(2026-08-11 사용자) — 라이브러리를 보는 동안 음악이
+          계속 깔리는 게 시끄러웠다. 우하단 🎵 토글도 함께 사라졌다(`AppBgm` 삭제).
+          ⚠️ **뷰어 BGM 은 이것과 다른 물건이다** — 책 읽는 동안의 배경음은 그대로 있다. */}
 
       {/* 🔴 첫 진입 벽 폐지(2026-08-11) — 미로그인 방문자는 라이브러리에 그냥 들어와 **무료 책
           11권**을 본다. 그게 "일부 공개"고, 잠긴 책의 🔒 배지와 헤더 프로모가 가입을 판다.
