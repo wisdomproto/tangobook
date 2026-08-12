@@ -10,6 +10,8 @@ interface BookCardProps {
   book: BookIndexEntry;
   /** 행에서 처음부터 보이는 카드 — lazy 를 걸지 않고 바로 받는다(빈 행 방지). */
   eager?: boolean;
+  /** 첫 화면 맨 앞 몇 장만 — 프리렌더에 src 가 남는다. */
+  priority?: boolean;
 }
 
 /** 책 카드 — 표지 한 장만. 카드 배경/패딩 X (reference 디자인).
@@ -17,7 +19,7 @@ interface BookCardProps {
  *  🔴 접근성 이름은 `BookCover` 의 `alt`(언어별 제목)가 유지하므로 sr-only 제목을 덧붙이지 않는다
  *  (덧붙이면 버튼 이름이 "제목 제목"으로 중복된다).
  *  표지는 책의 대표 그림체(defaultStyle)만 노출 — 그림체 선택은 BookDetailPage 에서. */
-export function BookCard({ book, eager = false }: BookCardProps) {
+export function BookCard({ book, eager = false, priority = false }: BookCardProps) {
   const { t, i18n } = useTranslation('library');
   const navigate = useNavigate();
   const { data: statusMap } = useReadingStatus();
@@ -46,6 +48,7 @@ export function BookCard({ book, eager = false }: BookCardProps) {
           lang={i18n.language}
           overlayTitle={false}
           loading={eager ? 'eager' : 'lazy'}
+          priority={priority}
           imgClassName="group-hover:scale-[1.02] transition-transform"
         />
         {status && status !== 'unread' && (

@@ -43,7 +43,7 @@ const PipelinePage = lazy(() => M().then((m) => ({ default: m.PipelinePage })));
  * 묶여, 책 한 권 열려던 사람이 3MB 를 받고 나서야 「책 읽기」를 볼 수 있었다.
  * 실측(4G·CPU 4배, 장수풍뎅이 책): SSR 줄글 2.1s → **버튼 등장 10.9s**.
  *
- * 🔴 `HangulLandingPage` 도 lazy 다 — 광고 랜딩이 뷰어·게임 컴포넌트를 실제로 마운트해서,
+ * 🔴 `IntroPage`(광고 랜딩) 도 lazy 다 — 랜딩이 뷰어·게임 컴포넌트를 실제로 마운트해서,
  *    즉시 import 면 그 둘이 통째로 첫 화면 번들에 실린다.
  */
 import LibraryPage from '../pages/LibraryPage';
@@ -117,7 +117,7 @@ import { ReferralRewardToast } from '../features/payment';
 const PAY = () => import('../features/payment');
 const InviteLandingPage = lazy(() => PAY().then((m) => ({ default: m.InviteLandingPage })));
 const InviteFriendsPage = lazy(() => PAY().then((m) => ({ default: m.InviteFriendsPage })));
-const HangulLandingPage = lazy(() => import('../pages/HangulLandingPage'));
+const IntroPage = lazy(() => import('../pages/IntroPage'));
 /** 영어 파닉스 광고 랜딩 — 같은 이유로 lazy(뷰어·게임을 실제로 마운트한다). */
 import { GlobalUiSound } from '../components/GlobalUiSound';
 import { GuestEventAdopter } from '@/features/learning/components/GuestEventAdopter';
@@ -164,19 +164,25 @@ export const router = createBrowserRouter([
       // 🔴 게이트로 감싸지 않는다 — 광고를 눌러 온 사람에게 첫 화면이 가입 벽이면 그대로 나간다.
       //    본문 안 「직접 해보기」가 계정 없이 도는 것도 같은 이유다.
       {
-        path: 'hangul',
+        path: 'intro',
         element: (
           <ErrorBoundary>
-            <HangulLandingPage />
+            <IntroPage />
           </ErrorBoundary>
         ),
       },
       {
-        // 🔴 영어 랜딩은 `/hangul` 에 합쳤다(2026-08-11 사용자: "요금제에 전부 포함인데 같이
+        // 🔴 예전 주소 — 광고·블로그·검색결과에 이미 나가 있다. 서버가 301 로 보내지만
+        //    (`app.ts`), 앱 안에서의 이동은 여기서 받는다.
+        path: 'hangul',
+        element: <Navigate to="/intro" replace />,
+      },
+      {
+        // 🔴 영어 랜딩은 `/intro` 에 합쳤다(2026-08-11 사용자: "요금제에 전부 포함인데 같이
         //    넣는 게 맞을 거 같긴 한데"). 광고·블로그에 이미 나간 `/english` 링크가 있을 수
         //    있으므로 라우트는 남기고 보낸다.
         path: 'english',
-        element: <Navigate to="/hangul" replace />,
+        element: <Navigate to="/intro" replace />,
       },
       // 친구 초대 랜딩 — AppShell 밖 풀화면 (따뜻한 환영 + 코드 저장 + 가입 CTA)
       {

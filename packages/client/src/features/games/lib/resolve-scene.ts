@@ -1,3 +1,4 @@
+import { pickPhonicsWordScene } from './phonics-word-scene';
 import type { Lang, Storybook } from '@tangobook/shared';
 
 export interface WordScene {
@@ -72,14 +73,16 @@ export function resolveSceneFromWord(
 ): WordScene | null {
   if (!storybook || !word) return null;
   /**
-   * 🔴 **파닉스 단원에선 장면 리빌을 하지 않는다**(2026-07-29, 사용자 지시).
+   * 🔴 **파닉스 단원은 자기 쪽을 절대 안 보여 준다** (2026-07-29). 한글 나무 삽화 245장이
+   *    들어오자 `pages[].illustrationUrl` 조건이 채워져 **파닉스 게임 도중 호리 동화가 스쳤고**,
+   *    아이 눈엔 오류로 보였다. 막는 자리는 여기 한 곳 — 호출부가 8개 플레이어라 거기서 막으면
+   *    하나씩 빠뜨린다.
    *
-   * 이 기능은 동화책 게임용이다 — 맞힌 단어가 나오는 그 책의 한 쪽을 보여준다. 파닉스 단원은
-   * 오래도록 `pages[].illustrationUrl` 이 비어 있어 자연히 안 떴는데, 한글 나무 삽화 245장을
-   * 넣은 순간 조건이 채워져 **파닉스 게임 도중 호리 동화가 잠깐 스쳤다**. 아이 입장에선 오류로
-   * 보인다. 막는 자리는 **여기 한 곳** — 호출부가 8개 플레이어라 거기서 막으면 하나씩 빠뜨린다.
+   * 🔴 대신 **다른 동화책**에서 그 낱말이 나오는 쪽을 찾아 보여 준다 (2026-08-12, 사용자 지시).
+   *    파닉스에서 배운 낱말을 동화책에서 다시 만나는 게 두 축이 이어지는 지점이다.
+   *    미리 받아 둔 책에서만 고르고, 없으면 null — 낱말만 읽어 주고 넘어간다.
    */
-  if (storybook.type === 'phonics') return null;
+  if (storybook.type === 'phonics') return pickPhonicsWordScene(word, lang);
   const ko = matchKeyObject(word, lang, storybook);
   if (!ko) return null;
   const pageNum = findValidatedPageNumber(

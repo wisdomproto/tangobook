@@ -140,7 +140,8 @@ export function AppShell() {
       <div className="h-20 shrink-0 flex items-center justify-center px-2 border-b border-ink-100/40">
         <Link to="/library" aria-label={t('logo.home')}>
           <img
-            src={i18n.language === 'ko' ? '/logo/logo-kr.webp' : '/logo/logo-en.webp'}
+            /* 🔴 520px 판 — 여기선 56px 높이로 그린다(원본 1774px·81KB). */
+            src={i18n.language === 'ko' ? '/logo/logo-kr-520.webp' : '/logo/logo-en-520.webp'}
             alt={t('logo.alt')}
             className="h-14 w-auto object-contain"
           />

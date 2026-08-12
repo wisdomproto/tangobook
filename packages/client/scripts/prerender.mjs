@@ -42,7 +42,7 @@ const STATIC_ROUTES = [
   '/library',
   '/library/phonics/korean',
   '/vocabulary',
-  '/hangul',
+  '/intro',
 ];
 // 🔴 `/blog` 는 넣지 않는다 — 서버가 `blogListHandler` 로 이미 SSR 한다(app.ts). 구워 봐야
 //    그 핸들러가 먼저 잡아 영영 안 쓰이고, 매니페스트에 담기면 246KB 를 헛되이 물고 있는다.
@@ -168,7 +168,7 @@ const MIN_TEXT = 250;
  */
 const MIN_BY_ROUTE = {
   '/library': 900, // 실측 1,231 (표지 105장)
-  '/hangul': 3000, // 실측 4,881
+  '/intro': 3000, // 실측 4,881(광고 랜딩 — 예전 `/hangul`)
   '/vocabulary': 4000, // 실측 7,243
 };
 
@@ -284,7 +284,54 @@ async function prerenderRoute(browser, baseUrl, route, { isBook = false } = {}) 
    *    `loading="lazy"` 는 이미 붙어 있지만 초기 뷰포트 근처는 그래도 받는다.
    *    src 를 지우면 알트 텍스트(책 제목)가 먼저 보이고, React 가 마운트하며 제대로 채운다.
    */
-  html = html.replace(/(<img\b[^>]*?)\s+src="[^"]*"/g, '$1');
+  /**
+   * 🔴 **단, `fetchpriority="high"` 는 남긴다**(2026-08-11). 전부 지우니 광고 랜딩의 **첫 화면
+   *    그림**까지 하이드레이션 뒤에야 뜬다 — 실측(프로덕션 · 인스타 인앱 UA · 4G · CPU 4배):
+   *    글자는 4.8초에 그려지는데 히어로 표지는 **11.6초**. 위 실측이 말한 건 「표지 105장」이고,
+   *    첫 화면에 꼭 필요한 한두 장은 그 반대다. 그래서 **명시적 opt-in** 으로만 남긴다 —
+   *    페이지가 `fetchPriority="high"` 를 붙인 그림만. 아무 페이지도 저절로 동작이 안 바뀐다.
+   */
+  html = html.replace(/<img\b[^>]*>/g, (tag) =>
+    /fetchpriority="high"/i.test(tag) ? tag : tag.replace(/\s+src="[^"]*"/, '')
+  );
+
+  /**
+   * 🔴 **런타임이 붙인 외부 태그는 도로 뗀다**(2026-08-11). 프리렌더는 페이지를 *실행한 뒤* DOM 을
+   *    저장하므로, `index.html` 이 `load` 이후로 미뤄 둔 것들이 **head 에 구워져** 그 지연이
+   *    통째로 무효가 된다. 실측(프로덕션 /hangul · 4G · CPU 4배): 구글 폰트 CSS 두 장(101KB+61KB)과
+   *    `fbevents.js`(105KB)가 **437~460ms 에 출발**해 첫 화면 대역을 가져갔고 FCP 가 5.5초였다.
+   *    폰트는 중국어·태국어 글리프라 한국어 첫 화면엔 한 글자도 안 쓴다.
+   * 🔴 판정은 **원본 `index.html` 에 있었는가** 하나로 한다 — 목록을 손으로 적으면 다음에 붙는
+   *    스크립트(광고 태그 등)를 또 놓친다. 원본에 있던 것만 남기고 나머지는 뗀다.
+   */
+  const shellHead = await fs.readFile(path.join(distDir, 'index.html'), 'utf-8');
+  const dropped = [];
+  html = html.replace(
+    /<(?:link[^>]*rel="stylesheet"[^>]*|script[^>]*src="https?:[^"]*"[^>]*)>(?:<\/script>)?/g,
+    (tag) => {
+      const url = tag.match(/(?:href|src)="([^"]+)"/)?.[1];
+      if (!url || !/^https?:/.test(url)) return tag; // 우리 자산은 그대로
+      // 🔴 **URL 문자열이 아니라 「태그로」 있었는지** 본다 — 폰트 주소는 원본의 인라인 스크립트
+      //    안에 문자열로 들어 있어(그래서 미룬 것이다), 문자열 포함으로 판정하면 그냥 통과한다.
+      const raw = url.replace(/&amp;/g, '&');
+      if (shellHead.includes(`href="${raw}"`) || shellHead.includes(`src="${raw}"`)) return tag;
+      dropped.push(url.split('?')[0]);
+      return '';
+    }
+  );
+  if (dropped.length) console.log(`  ↩ 런타임 주입 태그 ${dropped.length}개 제거: ${dropped.join(' ')}`);
+
+  /**
+   * 🔴 **프리렌더된 라우트에선 엔트리 JS 가 CSS·첫 화면 그림에 회선을 양보한다**(2026-08-11).
+   *    글자는 이미 이 HTML 에 있으므로 번들이 먼저 도착할 이유가 없다. 실측 A/B(4G · CPU 4배 ·
+   *    2회씩): FCP 4,556·4,628 → 4,376·4,460 · 히어로 2,468·2,376 → 2,020·2,018 ·
+   *    번들 완료는 +100ms 뿐. 작지만 방향이 일정하고 공짜다.
+   * 🔴 **프리렌더본에만** 붙인다 — 구워지지 않은 라우트는 JS 가 곧 화면이라 양보하면 안 된다.
+   */
+  html = html.replace(
+    /(<script type="module"[^>]*?)(\s+src="\/assets\/index-)/,
+    '$1 fetchpriority="low"$2'
+  );
 
   const len = visibleTextLength(html);
   if (len < MIN_TEXT) throw new Error(`내용 부족 (${len}자 < ${MIN_TEXT}) — 에러/빈 화면 의심`);

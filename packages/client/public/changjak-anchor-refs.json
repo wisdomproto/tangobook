@@ -499,36 +499,6 @@
       }
     ]
   },
-  "c01": {
-    "slug": "changjak-blackice",
-    "refs": [
-      {
-        "id": "torseter-troll",
-        "imageUrl": "https://covers.openlibrary.org/b/id/13054784-L.jpg",
-        "artist": "Øyvind Torseter",
-        "work": "The Heartless Troll",
-        "award": "Deutscher Jugendliteraturpreis 그림책 부문 수상 2018 (Der siebente Bruder)",
-        "year": 2017
-      },
-      {
-        "id": "naylor-suitcase",
-        "imageUrl": "https://covers.openlibrary.org/b/id/10481244-L.jpg",
-        "artist": "Chris Naylor-Ballesteros",
-        "work": "The Suitcase",
-        "award": "CILIP Kate Greenaway Medal 숏리스트 2020",
-        "year": 2019
-      },
-      {
-        "id": "collins-bearchair",
-        "imageUrl": "https://covers.openlibrary.org/b/id/10126819-L.jpg",
-        "artist": "Ross Collins",
-        "work": "There's a Bear on My Chair",
-        "award": "CILIP Kate Greenaway Medal 숏리스트 2016",
-        "year": 2015
-      }
-    ],
-    "neighbor": true
-  },
   "c02": {
     "slug": "changjak-mistbleed",
     "refs": [
@@ -1091,36 +1061,6 @@
     ],
     "neighbor": true
   },
-  "h10": {
-    "slug": "changjak-keystone",
-    "refs": [
-      {
-        "id": "lionni-frederick",
-        "imageUrl": "https://covers.openlibrary.org/b/id/254689-L.jpg",
-        "artist": "Leo Lionni",
-        "work": "Frederick",
-        "award": "Caldecott Honor 1968",
-        "year": 1967
-      },
-      {
-        "id": "brown-shadow",
-        "imageUrl": "https://covers.openlibrary.org/b/id/424691-L.jpg",
-        "artist": "Marcia Brown",
-        "work": "Shadow",
-        "award": "Caldecott Medal 1983",
-        "year": 1982
-      },
-      {
-        "id": "robinson-milo",
-        "imageUrl": "https://covers.openlibrary.org/b/id/15229799-L.jpg",
-        "artist": "Christian Robinson",
-        "work": "Milo Imagines the World",
-        "award": "CILIP Kate Greenaway Medal 숏리스트 2022",
-        "year": 2021
-      }
-    ],
-    "neighbor": true
-  },
   "g02": {
     "slug": "changjak-nightboard",
     "refs": [
@@ -1177,35 +1117,6 @@
         "work": "Troupeau: L'hiver, l'été",
         "award": "BolognaRagazzi 2026 Toddler",
         "year": 2026
-      }
-    ]
-  },
-  "h02": {
-    "slug": "changjak-flatplate",
-    "refs": [
-      {
-        "id": "virardi-instant",
-        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/BRAW_toddler_mention_2.jpg",
-        "artist": "Liuna Virardi",
-        "work": "Un instant (A Moment)",
-        "award": "BolognaRagazzi 2026 Toddler",
-        "year": 2026
-      },
-      {
-        "id": "moriconi-lua",
-        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/dia_de_lua.jpg",
-        "artist": "Renato Moriconi",
-        "work": "Dia de Lua (Moon Day)",
-        "award": "BolognaRagazzi 2024 Toddler",
-        "year": 2024
-      },
-      {
-        "id": "almeras-josephine",
-        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2024/premi/BRAW/vincitori/josephine.jpg",
-        "artist": "Chloé Alméras",
-        "work": "Joséphine",
-        "award": "BolognaRagazzi 2024 Toddler",
-        "year": 2024
       }
     ]
   },
@@ -2549,36 +2460,6 @@
         "year": 2023
       }
     ]
-  },
-  "f11": {
-    "slug": "changjak-risenpaper",
-    "refs": [
-      {
-        "id": "massa-gino",
-        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2023/02/simonamassa_gino_image1.jpg/original",
-        "artist": "Simona Massa",
-        "work": "Gino",
-        "award": "WIA 2023 Category Winner",
-        "year": 2023
-      },
-      {
-        "id": "rolfe-dyslexia",
-        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2022/02/KateRolfe_NavigatingDyslexia_Image1.jpg/original",
-        "artist": "Kate Rolfe",
-        "work": "Navigating Dyslexia",
-        "award": "WIA 2022 Category Winner",
-        "year": 2022
-      },
-      {
-        "id": "erlbruch-duck",
-        "imageUrl": "https://covers.openlibrary.org/b/id/14811976-L.jpg",
-        "artist": "Wolf Erlbruch",
-        "work": "Duck, Death and the Tulip",
-        "award": "HCA Illustrator Award 2006",
-        "year": 2006
-      }
-    ],
-    "neighbor": true
   },
   "g06": {
     "slug": "changjak-tautline",

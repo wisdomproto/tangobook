@@ -3,13 +3,15 @@ import { Link } from 'react-router-dom';
 import { useSeo } from '@/lib/useSeo';
 import { SiteFooter } from '@/components/SiteFooter';
 import { PhonicsTryIt } from '@/features/phonics-learner/components/PhonicsTryIt';
-import { HangulBookTryIt, HangulWordGameTryIt } from './HangulBookTryIt';
+import { IntroBookTryIt, IntroWordGameTryIt } from './IntroBookTryIt';
 import { getAllKoreanUnits } from '@/features/phonics-learner/lib/korean-phonics-units';
 import { useStorybooks } from '@/features/storybook/hooks/useStorybooks';
 import { BookCover } from '@/design-system/primitives/BookCover';
 
 /**
- * `/hangul` — 광고 랜딩(상세페이지). 네이버·메타 광고의 도착지.
+ * `/intro` — 광고 랜딩(상세페이지). 네이버·메타 광고의 도착지.
+ *   🔴 예전 주소 `/hangul`·`/english` 는 **301 로 여기로 보낸다**(서버 `app.ts`) — 광고·블로그에
+ *      이미 나간 링크가 있고, 색인도 한 주소로 모아야 한다.
  *
  * 🔴 **헤드라인에 「무료」를 쓰지 않는다**(2026-08-01 실측 근거).
  *    네이버 검색량: 무료동화책 70 · 무료한글앱 60 · 무료한글공부 50 — 셋 합쳐 180회다.
@@ -351,7 +353,9 @@ function HeroServiceCard({
 function HeroBookCover() {
   return (
     <img
-      src="/landing/hangul/books.webp"
+      src="/landing/hangul/books-720.webp"
+      srcSet="/landing/hangul/books-720.webp 720w, /landing/hangul/books.webp 1200w"
+      sizes="(max-width: 640px) 45vw, 550px"
       alt="세계 명작·전래 동화·호리 시리즈·자연 관찰 표지 아홉 장"
       width={1200}
       height={675}
@@ -861,12 +865,12 @@ function LearnReadCycle() {
   );
 }
 
-export default function HangulLandingPage() {
+export default function IntroPage() {
   useSeo({
     title: `한글 파닉스 ${FACTS.koreanUnits}단원 · 영어 파닉스 ${FACTS.englishUnits}단원 + 동화책 — 탱고북`,
     description:
       '자음·모음부터 받침·쌍자음까지 한글 파닉스 32단원, 영어 파닉스 39단원. 그리고 배운 글자로 바로 읽는 생활동화·세계명작·전래동화·자연관찰 동화책이 매달 늘어납니다. 4~7세 한글떼기. 한 달 무료로 써 보고 정하세요.',
-    path: '/hangul',
+    path: '/intro',
     // 🔴 나이 키워드는 5·6세에 몰려 있다(실측 2026-08-01): 5세한글공부 1,140 · 6세한글공부 940 ·
     //    7세 290 · 4세 220 · 3세 60. 제품은 4~7세가 맞지만, 그 표현만 쓰면 2,080 을 못 받는다.
     keywords:
@@ -885,10 +889,13 @@ export default function HangulLandingPage() {
             🔴 이만큼 키워도 **모바일 CTA 는 접힘선 위**(812px 화면에서 하단 692px). */}
         <Link to="/library" aria-label="탱고북 홈" className="relative mx-auto mb-5 block w-fit">
           <img
-            src="/logo/logo-kr.webp"
+            src="/logo/logo-kr-520.webp"
             alt="탱고북"
             width={1774}
             height={887}
+            /* 🔴 첫 화면 그림 셋(로고·파닉스·표지)만 `fetchPriority="high"` — 프리렌더가 이 표시가
+               붙은 그림의 src 만 남긴다(`scripts/prerender.mjs`). 나머지는 하이드레이션 뒤에 뜬다. */
+            fetchPriority="high"
             className="h-28 w-auto sm:h-32 md:h-36 xl:h-40"
           />
         </Link>
@@ -931,10 +938,13 @@ export default function HangulLandingPage() {
               d={`한글 ${FACTS.koreanUnits}단원 · 영어 ${FACTS.englishUnits}단원`}
             >
               <img
-                src="/landing/hangul/phonics.webp"
+                src="/landing/hangul/phonics-720.webp"
+                srcSet="/landing/hangul/phonics-720.webp 720w, /landing/hangul/phonics.webp 1400w"
+                sizes="(max-width: 640px) 45vw, 550px"
                 alt="아기호랑이가 가·나·다 한글 블록을 갖고 노는 그림"
                 width={1400}
                 height={788}
+                fetchPriority="high"
                 className="aspect-video w-full object-cover"
               />
             </HeroServiceCard>
@@ -1238,8 +1248,8 @@ export default function HangulLandingPage() {
           <strong>직접 읽어보실 수 있습니다.</strong> 카테고리를 눌러 그 라인의 책을 바꿔 가며
           들어보세요.
         </p>
-        <HangulBookTryIt />
-        <HangulWordGameTryIt />
+        <IntroBookTryIt />
+        <IntroWordGameTryIt />
       </Section>
 
       {/* ── ⑤.5 두 서비스가 한 바퀴 — 순환 그림 ─────────────────────────

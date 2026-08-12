@@ -20,6 +20,19 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
 export function EmbedStage({ height, children }: { height: string; children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
+  /**
+   * 🔴 **화면 근처에 올 때까지 안 마운트한다**(2026-08-11 사용자: "메타 광고로 우리 사이트에
+   *    전환하면 인앱 웹으로 뜨는데 속도가 매우 느릴 것 같은데"). 맞았고, 범인은 인앱 브라우저가
+   *    아니라 이 상자들이었다 — 실측(프로덕션 · 인스타 UA · 4G · CPU 4배 · 캐시 비움 ·
+   *    **스크롤 0회**): 요청 **257건**, 그중 **mp3 150개**, API 45건, 히어로 표지가 뜨는 데
+   *    **28초**. 접힘선 아래 활동이 진입 프리워밍·음절 라이브러리·책 데이터를 로드 시점에
+   *    한꺼번에 당겨 첫 화면 그림이 그 뒤에 줄을 섰다.
+   * 🔴 **높이는 처음부터 잡아 둔다** — 바깥 상자는 늘 렌더하고 children 만 늦게 붙이므로 스크롤이
+   *    튀지 않는다(그래서 게이트가 호출부가 아니라 **여기** 있어야 한다).
+   * 🔴 `rootMargin` 600px = 눈에 들어오기 한 화면쯤 전에 붙는다. 한 번 붙으면 안 뗀다
+   *    (게임 중에 스크롤로 언마운트되면 판이 날아간다).
+   */
+  const [live, setLive] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -38,6 +51,22 @@ export function EmbedStage({ height, children }: { height: string; children: Rea
       window.removeEventListener('resize', measure);
     };
   }, []);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || live) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setLive(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: '600px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [live]);
 
   return (
     <div
@@ -59,7 +88,7 @@ export function EmbedStage({ height, children }: { height: string; children: Rea
           transformOrigin: 'top left',
         }}
       >
-        {children}
+        {live ? children : null}
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ export function EntryGate() {
     >
       <div className="w-full max-w-sm text-center">
         <img
-          src="/logo/logo-kr.webp"
+          src="/logo/logo-kr-520.webp"
           alt="탱고북"
           className="mx-auto mb-5 h-14 w-auto object-contain"
         />

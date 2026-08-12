@@ -104,7 +104,7 @@ async function main() {
   entries.push(urlEntry({ loc: `${SITE_URL}/library`, lastmod: today, changefreq: 'daily', priority: 0.9 }));
   entries.push(urlEntry({ loc: `${SITE_URL}/library/phonics/korean`, lastmod: today, changefreq: 'weekly', priority: 0.7 }));
   // 광고 랜딩 — 「한글앱」(440)·「파닉스앱」(100) 을 노린다. 광고 도착지지만 색인도 받는다.
-  entries.push(urlEntry({ loc: `${SITE_URL}/hangul`, lastmod: today, changefreq: 'monthly', priority: 0.8 }));
+  entries.push(urlEntry({ loc: `${SITE_URL}/intro`, lastmod: today, changefreq: 'monthly', priority: 0.8 }));
   entries.push(urlEntry({ loc: `${SITE_URL}/vocabulary`, lastmod: today, changefreq: 'weekly', priority: 0.6 }));
   entries.push(urlEntry({ loc: `${SITE_URL}/blog`, lastmod: today, changefreq: 'daily', priority: 0.8 }));
   // 허브 — 언어별 (SSOT = shared seo-i18n HUB_STRINGS; dist 없으면 폴백 목록)

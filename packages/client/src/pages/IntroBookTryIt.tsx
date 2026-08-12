@@ -1,9 +1,18 @@
-import { useMemo, useState, type ReactNode } from 'react';
+import { lazy, Suspense, useMemo, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import type { GameTypeId, Storybook } from '@tangobook/shared';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
-import { ViewerContainer } from '@/features/viewer/components/ViewerContainer';
-import { GameOverlay } from '@/features/vocabulary-unit/components/VocabularyStudyContent';
+/** 🔴 뷰어·게임 청크도 상자가 살아날 때 — 이유는 `PhonicsTryIt` 의 lazy 주석 참조. */
+const ViewerContainer = lazy(() =>
+  import('@/features/viewer/components/ViewerContainer').then((m) => ({
+    default: m.ViewerContainer,
+  }))
+);
+const GameOverlay = lazy(() =>
+  import('@/features/vocabulary-unit/components/VocabularyStudyContent').then((m) => ({
+    default: m.GameOverlay,
+  }))
+);
 import { deriveStorybookUnit } from '@/features/vocabulary-unit/lib/derive-storybook-unit';
 import { EmbedStage } from '@/features/phonics-learner/components/EmbedStage';
 import { PhonicsEmbeddedProvider } from '@/features/phonics-learner/components/ActivityShell';
@@ -113,7 +122,7 @@ function TryItShell({
 }
 
 /** 📖 읽어주기 — 아홉 카테고리 전부. */
-export function HangulBookTryIt() {
+export function IntroBookTryIt() {
   const [bookId, setBookId] = useState(BOOKS_BY_CATEGORY[0].id);
   const picked = BOOKS_BY_CATEGORY.find((b) => b.id === bookId) ?? BOOKS_BY_CATEGORY[0];
 
@@ -134,11 +143,13 @@ export function HangulBookTryIt() {
           꽉 차 잘리고, 본문 쪽은 위아래로 블러 여백만 커진다. `64vw` 는 375px 에서 240px — 그림(16:9)이
           위아래 검은 여백 없이 딱 들어오는 값이다. 데스크탑에선 `100dvh` 가 작아 그대로 세로를 다 쓴다. */}
       <EmbedStage height="min(100dvh, 64vw)">
-        <ViewerContainer
-          key={bookId}
-          storybookId={bookId}
-          embed={{ style: 'paper-craft', noAutoStart: true }}
-        />
+        <Suspense fallback={null}>
+          <ViewerContainer
+            key={bookId}
+            storybookId={bookId}
+            embed={{ style: 'paper-craft', noAutoStart: true }}
+          />
+        </Suspense>
       </EmbedStage>
     </TryItShell>
   );
@@ -172,7 +183,7 @@ const BOOK_GAMES: { id: GameTypeId; label: string; how: string }[] = [
 /** 상자로는 안 띄우고 한 줄로만 알리는 나머지 — 있다는 사실만 전한다. */
 const BOOK_GAMES_MORE = '🧱 한글 블록 · ✏️ 낱말 그리기';
 
-export function HangulWordGameTryIt() {
+export function IntroWordGameTryIt() {
   const books = BOOKS_BY_CATEGORY.filter((b) => b.words > 0);
   const [bookId, setBookId] = useState(books[0].id);
   const picked = books.find((b) => b.id === bookId) ?? books[0];
@@ -205,15 +216,17 @@ export function HangulWordGameTryIt() {
           <PhonicsEmbeddedProvider value>
             <EmbedStage height="100dvh">
               {unit && book ? (
-                <GameOverlay
-                  key={`${bookId}-${g.id}`}
-                  unit={unit}
-                  game={g.id}
-                  lang="ko"
-                  storybook={book}
-                  onComplete={() => {}}
-                  onBack={() => {}}
-                />
+                <Suspense fallback={null}>
+                  <GameOverlay
+                    key={`${bookId}-${g.id}`}
+                    unit={unit}
+                    game={g.id}
+                    lang="ko"
+                    storybook={book}
+                    onComplete={() => {}}
+                    onBack={() => {}}
+                  />
+                </Suspense>
               ) : (
                 <div className="flex h-full items-center justify-center text-base text-ink-600">
                   불러오는 중…
