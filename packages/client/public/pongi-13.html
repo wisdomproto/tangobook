@@ -7,7 +7,7 @@
 <title>퐁이네 운하 마을 — 시장 가는 날</title>
 <style>
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
-  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --line:#f0e0d2; --water:#2C4A3C; }
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --line:#f0e0d2; --water:#2C4A3C; --mint:#2C4A3C; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
   .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
@@ -24,6 +24,26 @@
   p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; }
   details { border-top:1px dashed var(--line); padding-top:9px; }
   summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .copy-btn { background:#fff; color:var(--water); border:1.5px solid var(--water); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--water); color:#fff; }
+  .batch-bar { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin:16px 0; }
+  .batch-bar .bhint { font-size:12.5px; color:var(--ink-soft); line-height:1.7; }
+  .batch-bar .brow { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .batch-btn { background:var(--coral); color:#fff; border:0; border-radius:10px; padding:7px 15px; font-size:13px; font-weight:800; cursor:pointer; }
+  .batch-btn:hover { background:var(--coral-dark); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--water); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
+  .ref-lab { font-size:12px; font-weight:800; color:var(--ink-soft); }
+  .ref-chip { display:flex; align-items:center; gap:7px; background:var(--peach); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:800; }
+  .ref-chip img { width:30px; height:30px; border-radius:50%; object-fit:cover; }
+  .ref-chip .ph { width:30px; height:30px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; font-size:15px; }
+  .ref-chip .im { color:var(--water); }
   pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#f7f4ef; border-radius:10px; padding:12px 14px; margin-top:9px; }
 </style>
 </head>
@@ -41,55 +61,55 @@
 <!-- ===== pages ===== -->
 <div class="page-card" data-page="p1">
   <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">엄마가 종이에 그림을 그려요.</p>
+  <p class="ko">엄마가 종이에 그림을 그려요. 빵 하나, 감자 하나, 우유 하나, 사과 하나.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글 클로즈업. 탁자 위 종이 한 장.<br/><b>장소·시간</b> 집 안 탁자, 아침.<br/><b>인물</b> Mom otter의 앞발과 연필이 화면 위에서 내려온다.<br/><b>배경·소품</b> 🔴 종이에 <b>글씨가 아니라 그림</b>이 넷 그려진다 — 빵 한 덩이·감자 하나·우유병 하나·사과 하나. 글자를 절대 그리지 않는다.<br/><b>톤</b> 아이가 읽을 수 있는 목록이다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p2">
   <div class="page-head"><span class="pnum">P2</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">"이거 내가 들래요."</p>
+  <p class="ko">"이거 내가 들래요." 퐁이가 종이를 받아 들었어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 퐁이가 종이를 받는다.<br/><b>장소·시간</b> 같은 탁자.<br/><b>인물</b> Pongi가 두 앞발로 종이를 받아 가슴에 붙인다. 눈이 반짝인다.<br/><b>배경·소품</b> 그림 목록.<br/><b>톤</b> 맡은 얼굴.</pre></details>
 </div>
 
 <div class="page-card" data-page="p3">
   <div class="page-head"><span class="pnum">P3</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">시장에 사람이 많아요.</p>
+  <p class="ko">시장에 사람이 많아요. 퐁이가 종이를 꼭 쥐고 걸어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 사람이 많은 거리.<br/><b>장소·시간</b> 시장, 낮.<br/><b>인물</b> Pongi가 인파 사이에서 종이를 두 앞발로 꼭 쥐고 걷는다. Dad otter가 뒤에 있다.<br/><b>배경·소품</b> 좌판·바구니·차양. 다른 손님들은 얼굴 없는 실루엣으로 처리해 인물 수를 안 늘린다.<br/><b>톤</b> 붐비는 화면 속 퐁이가 작다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p4">
   <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">"빵 하나요."</p>
+  <p class="ko">"빵 하나요." 퐁이가 종이에서 빵을 지웠어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업. 종이와 빵.<br/><b>장소·시간</b> 빵 좌판 앞.<br/><b>인물</b> Pongi가 한 앞발로 종이의 빵 그림 위에 줄을 긋는다. 다른 앞발엔 산 빵.<br/><b>배경·소품</b> 🔴 종이의 빵 그림에 가로줄이 그어져 지워진 것이 보인다.<br/><b>톤</b> 하나 해냈다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p5">
   <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">감자도 담았어요.</p>
+  <p class="ko">감자도 담았어요. 우유도 담았어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글, 장바구니 안.<br/><b>장소·시간</b> 시장.<br/><b>인물</b> Pongi의 앞발이 화면 위에서 물건을 넣는다.<br/><b>배경·소품</b> 바구니 안에 감자와 우유병이 담겼다.<br/><b>톤</b> 차오르는 바구니.</pre></details>
 </div>
 
 <div class="page-card" data-page="p6">
   <div class="page-head"><span class="pnum">P6</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">사과까지 담고 나니 종이가 다 지워졌어요.</p>
+  <p class="ko">사과까지 담고 나니 종이가 다 지워졌어요. "다 샀어요!"</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업. 종이만 화면을 채운다.<br/><b>장소·시간</b> 시장.<br/><b>인물</b> Pongi의 두 앞발이 종이를 든다.<br/><b>배경·소품</b> 🔴 그림 넷에 전부 줄이 그어졌다 — 다 지워진 종이.<br/><b>톤</b> 끝냈다는 것이 한 장으로 보인다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p7">
   <div class="page-head"><span class="pnum">P7</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">그런데 장바구니가 무거워요.</p>
+  <p class="ko">그런데 장바구니가 무거워요. 퐁이가 안을 들여다봤어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 퐁이가 바구니를 들려다 기울어진다.<br/><b>장소·시간</b> 시장 길.<br/><b>인물</b> Pongi가 두 앞발로 바구니 손잡이를 들다가 몸이 한쪽으로 기운다. 힘든 얼굴.<br/><b>배경·소품</b> 바구니.<br/><b>톤</b> 예상보다 무겁다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p8">
   <div class="page-head"><span class="pnum">P8</span><b>뒤집힘</b> <span class="tag">뒤집힘</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">바구니 맨 밑에 초콜릿 한 통이 있어요.</p>
+  <p class="ko">바구니 맨 밑에 초콜릿 한 통이 있어요. 종이에는 없던 거예요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글 클로즈업. 바구니 속을 위에서.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Pongi의 얼굴이 화면 위에서 내려다본다. 눈이 커졌다.<br/><b>배경·소품</b> 바구니 맨 아래에 네모난 초콜릿 통 하나가 다른 물건에 눌려 있다.<br/><b>톤</b> 목록에 없던 것.</pre></details>
 </div>
 
 <div class="page-card" data-page="p9">
   <div class="page-head"><span class="pnum">P9</span><b>반응</b> <span class="tag">반응</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">퐁이가 아빠를 봤어요.</p>
+  <p class="ko">퐁이가 아빠를 봤어요. 아빠가 딴 데를 봐요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 두 사람.<br/><b>장소·시간</b> 시장 길.<br/><b>인물</b> Pongi가 고개를 들어 아빠를 본다. 🔴 Dad otter는 <b>몸은 이쪽인데 얼굴만 반대로</b> 돌려 딴 데를 본다 — 시치미가 자세로 보여야 한다.<br/><b>배경·소품</b> 바구니.<br/><b>톤</b> 아무 말이 없어도 다 안다.</pre></details>
 </div>
 

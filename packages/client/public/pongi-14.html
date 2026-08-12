@@ -7,7 +7,7 @@
 <title>퐁이네 운하 마을 — 치과 가는 날</title>
 <style>
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
-  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --line:#f0e0d2; --water:#2C4A3C; }
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --line:#f0e0d2; --water:#2C4A3C; --mint:#2C4A3C; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
   .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
@@ -24,6 +24,26 @@
   p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; }
   details { border-top:1px dashed var(--line); padding-top:9px; }
   summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .copy-btn { background:#fff; color:var(--water); border:1.5px solid var(--water); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--water); color:#fff; }
+  .batch-bar { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin:16px 0; }
+  .batch-bar .bhint { font-size:12.5px; color:var(--ink-soft); line-height:1.7; }
+  .batch-bar .brow { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .batch-btn { background:var(--coral); color:#fff; border:0; border-radius:10px; padding:7px 15px; font-size:13px; font-weight:800; cursor:pointer; }
+  .batch-btn:hover { background:var(--coral-dark); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--water); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
+  .ref-lab { font-size:12px; font-weight:800; color:var(--ink-soft); }
+  .ref-chip { display:flex; align-items:center; gap:7px; background:var(--peach); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:800; }
+  .ref-chip img { width:30px; height:30px; border-radius:50%; object-fit:cover; }
+  .ref-chip .ph { width:30px; height:30px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; font-size:15px; }
+  .ref-chip .im { color:var(--water); }
   pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#f7f4ef; border-radius:10px; padding:12px 14px; margin-top:9px; }
 </style>
 </head>
@@ -41,43 +61,43 @@
 <!-- ===== pages ===== -->
 <div class="page-card" data-page="p1">
   <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">오늘은 이를 보러 가는 날이에요.</p>
+  <p class="ko">오늘은 이를 보러 가는 날이에요. 퐁이가 앞장서서 걸었어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 길 위. 퐁이가 앞, 아빠가 뒤.<br/><b>장소·시간</b> 마을 길, 낮.<br/><b>인물</b> Pongi가 성큼성큼 앞서 걷는다. Dad otter는 반걸음 뒤에서 따라간다.<br/><b>배경·소품</b> 운하와 집들.<br/><b>톤</b> 아이가 앞장선다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p2">
   <div class="page-head"><span class="pnum">P2</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">"나 하나도 안 무서워요."</p>
+  <p class="ko">"나 하나도 안 무서워요." 퐁이가 아빠를 올려다봤어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 클로즈업. 퐁이가 아빠를 올려다본다.<br/><b>장소·시간</b> 같은 길.<br/><b>인물</b> Pongi가 고개를 젖혀 아빠를 보며 가슴을 편다. 자신 있는 얼굴. Dad otter의 턱만 화면 위에 걸친다.<br/><b>배경·소품</b> 하늘.<br/><b>톤</b> 안 무섭다는 선언.</pre></details>
 </div>
 
 <div class="page-card" data-page="p3">
   <div class="page-head"><span class="pnum">P3</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">하얀 의자가 아주 높아요.</p>
+  <p class="ko">하얀 의자가 아주 높아요. 거위 할아버지가 하얀 옷을 입고 서 있어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 살짝 로우앵글. 하얀 의자가 크게.<br/><b>장소·시간</b> 치과 안, 낮.<br/><b>인물</b> Goose grandpa가 하얀 옷을 입고 의자 옆에 서 있다. 🔴 이 권에서는 <b>치과 선생님</b>이다 — 캐스트 밖 인물을 만들지 않는다.<br/><b>배경·소품</b> 등받이가 젖혀지는 하얀 의자, 옆에 작은 쟁반.<br/><b>톤</b> 의자가 아이보다 훨씬 크다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p4">
   <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">"아빠가 먼저 해 볼게."</p>
+  <p class="ko">"아빠가 먼저 해 볼게." 아빠가 의자에 앉았어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아빠가 의자에 앉는다.<br/><b>장소·시간</b> 같은 방.<br/><b>인물</b> Dad otter가 의자에 털썩 앉으며 두 팔을 팔걸이에 올린다. 앞장서는 얼굴. Pongi가 옆에 서서 본다.<br/><b>배경·소품</b> 의자.<br/><b>톤</b> 아직은 당당하다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p5">
   <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">"자, 입을 벌리세요."</p>
+  <p class="ko">"자, 입을 벌리세요." 아빠가 입을 꾹 다물었어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업. 아빠 얼굴.<br/><b>장소·시간</b> 같은 방.<br/><b>인물</b> Dad otter가 입을 꾹 다물고 있다. 입이 한 줄로 얇게. 눈은 위로 치켜떴다. Goose grandpa의 앞발이 화면 옆에서 기다린다.<br/><b>배경·소품</b> 의자 등받이.<br/><b>톤</b> 다물린 입이 이 쪽의 전부다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p6">
   <div class="page-head"><span class="pnum">P6</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">"아빠, 입 벌려야죠."</p>
+  <p class="ko">"아빠, 입 벌려야죠." 아빠가 고개를 저어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 퐁이와 아빠.<br/><b>장소·시간</b> 같은 방.<br/><b>인물</b> Pongi가 의자 옆에서 아빠를 본다. Dad otter는 고개를 옆으로 젓는다 — 입은 여전히 한 줄.<br/><b>배경·소품</b> 의자.<br/><b>톤</b> 어른이 아이보다 못 한다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p7">
   <div class="page-head"><span class="pnum">P7</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">퐁이가 아빠 옆에 섰어요.</p>
+  <p class="ko">퐁이가 아빠 옆에 섰어요. "이렇게 하는 거예요."</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 퐁이가 의자 옆에 선다.<br/><b>장소·시간</b> 같은 방.<br/><b>인물</b> Pongi가 아빠 옆에 바짝 서서 한 앞발로 제 입을 가리킨다. 가르쳐 주는 자세.<br/><b>배경·소품</b> 의자.<br/><b>톤</b> 역할이 뒤집히기 직전.</pre></details>
 </div>
 
@@ -89,13 +109,13 @@
 
 <div class="page-card" data-page="p9">
   <div class="page-head"><span class="pnum">P9</span><b>반응</b> <span class="tag">반응</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">아빠가 따라 벌렸어요.</p>
+  <p class="ko">아빠가 따라 벌렸어요. 아—.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, p8과 같은 크기. 아빠 얼굴만.<br/><b>장소·시간</b> 같은 방.<br/><b>인물</b> Dad otter가 입을 크게 벌렸다. 🔴 p8과 같은 앵글·같은 크기라 두 얼굴이 짝이 된다.<br/><b>배경·소품</b> 없음.<br/><b>톤</b> 따라 하는 어른.</pre></details>
 </div>
 
 <div class="page-card" data-page="p10">
   <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">퐁이가 의자에 앉아 아— 하고 벌렸어요.</p>
+  <p class="ko">퐁이가 의자에 앉아 아— 하고 벌렸어요. 옆에서 아빠도 같이 아— 하고 있어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드. 의자에 퐁이, 옆에 아빠.<br/><b>장소·시간</b> 같은 방.<br/><b>인물</b> Pongi가 이제 의자에 앉아 입을 아— 하고 벌렸다. 옆에 선 Dad otter도 같이 입을 벌리고 있다 — 시키지도 않았는데. Goose grandpa가 두 사람을 번갈아 본다.<br/><b>배경·소품</b> 의자, 쟁반.<br/><b>톤</b> 🔴 무서워하는 쪽이 끝까지 어른이다.</pre></details>
 </div>
 

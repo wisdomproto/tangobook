@@ -7,7 +7,7 @@
 <title>퐁이네 운하 마을 — 할아버지 집에서 자는 밤</title>
 <style>
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
-  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --line:#f0e0d2; --water:#2C4A3C; }
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --line:#f0e0d2; --water:#2C4A3C; --mint:#2C4A3C; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
   .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
@@ -24,6 +24,26 @@
   p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; }
   details { border-top:1px dashed var(--line); padding-top:9px; }
   summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .copy-btn { background:#fff; color:var(--water); border:1.5px solid var(--water); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--water); color:#fff; }
+  .batch-bar { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin:16px 0; }
+  .batch-bar .bhint { font-size:12.5px; color:var(--ink-soft); line-height:1.7; }
+  .batch-bar .brow { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .batch-btn { background:var(--coral); color:#fff; border:0; border-radius:10px; padding:7px 15px; font-size:13px; font-weight:800; cursor:pointer; }
+  .batch-btn:hover { background:var(--coral-dark); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--water); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
+  .ref-lab { font-size:12px; font-weight:800; color:var(--ink-soft); }
+  .ref-chip { display:flex; align-items:center; gap:7px; background:var(--peach); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:800; }
+  .ref-chip img { width:30px; height:30px; border-radius:50%; object-fit:cover; }
+  .ref-chip .ph { width:30px; height:30px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; font-size:15px; }
+  .ref-chip .im { color:var(--water); }
   pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#f7f4ef; border-radius:10px; padding:12px 14px; margin-top:9px; }
 </style>
 </head>
@@ -41,61 +61,61 @@
 <!-- ===== pages ===== -->
 <div class="page-card" data-page="p1">
   <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">퐁이가 작은 가방을 멨어요.</p>
+  <p class="ko">퐁이가 작은 가방을 멨어요. 안에 잠옷이 들어 있어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 퐁이 정면.<br/><b>장소·시간</b> 퐁이네 집 현관, 저녁.<br/><b>인물</b> Pongi가 작은 가방을 등에 멨다. 두 앞발로 어깨끈을 잡고 앞을 본다.<br/><b>배경·소품</b> 가방, 현관문.<br/><b>톤</b> 나서기 직전.</pre></details>
 </div>
 
 <div class="page-card" data-page="p2">
   <div class="page-head"><span class="pnum">P2</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">오늘은 거위 할아버지 댁에서 자는 날이에요.</p>
+  <p class="ko">오늘은 거위 할아버지 댁에서 자는 날이에요. "울지 않고 잘 거예요."</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 할아버지 집 문 앞.<br/><b>장소·시간</b> 거위 할아버지 집 앞, 저녁.<br/><b>인물</b> Goose grandpa가 문을 열어 주고, Pongi가 문지방에 서서 고개를 들어 말한다.<br/><b>배경·소품</b> 할아버지 집 문, 안쪽의 따뜻한 미색 빛.<br/><b>톤</b> 다짐하는 얼굴.</pre></details>
 </div>
 
 <div class="page-card" data-page="p3">
   <div class="page-head"><span class="pnum">P3</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">할아버지가 이불을 펴 줬어요.</p>
+  <p class="ko">할아버지가 이불을 펴 줬어요. 천장 무늬가 낯설어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 살짝 로우앵글. 천장이 보이는 각도.<br/><b>장소·시간</b> 할아버지 집 방, 밤.<br/><b>인물</b> Goose grandpa가 이불을 펴 준다. Pongi가 그 옆에 앉아 천장을 올려다본다.<br/><b>배경·소품</b> 🔴 천장 나무 무늬가 퐁이네 집과 다르게 그려져야 한다 — 낯설다는 것이 무늬로 보인다.<br/><b>톤</b> 조용한 밤.</pre></details>
 </div>
 
 <div class="page-card" data-page="p4">
   <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">퐁이가 이불을 코까지 끌어올렸어요.</p>
+  <p class="ko">퐁이가 이불을 코까지 끌어올렸어요. 눈은 말똥말똥해요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 위에서. 이불 밖으로 나온 얼굴.<br/><b>장소·시간</b> 같은 방.<br/><b>인물</b> Pongi가 이불을 코까지 끌어올렸다. 눈만 나와 있고 크게 뜬 채다.<br/><b>배경·소품</b> 이불, 베개.<br/><b>톤</b> 잠이 안 온다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p5">
   <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">똑똑.</p>
+  <p class="ko">똑똑. 할아버지가 문을 열어 줬어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 문 쪽.<br/><b>장소·시간</b> 할아버지 집 현관, 밤.<br/><b>인물</b> Goose grandpa가 문을 열어 준다. 문 뒤로 밤이 보인다.<br/><b>배경·소품</b> 열린 문.<br/><b>톤</b> 🔴 창밖 발소리가 아니라 <b>문이 열리는</b> 장면이다 — 무서운 그림이 되면 안 된다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p6">
   <div class="page-head"><span class="pnum">P6</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">아빠가 문 앞에 서 있어요.</p>
+  <p class="ko">아빠가 문 앞에 서 있어요. "그냥… 지나가는 길에."</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아빠 전신.<br/><b>장소·시간</b> 문간.<br/><b>인물</b> Dad otter가 문 앞에 서서 뒤통수를 긁는다. 시선이 옆으로 비켜 있다 — 변명하는 얼굴.<br/><b>배경·소품</b> 문, 밤하늘.<br/><b>톤</b> 어색한 자세.</pre></details>
 </div>
 
 <div class="page-card" data-page="p7">
   <div class="page-head"><span class="pnum">P7</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">아빠가 소파에 앉았어요.</p>
+  <p class="ko">아빠가 소파에 앉았어요. "조금만 앉았다 갈게."</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 소파.<br/><b>장소·시간</b> 할아버지 집 거실, 밤.<br/><b>인물</b> Dad otter가 소파 끝에 걸터앉아 팔짱을 꼈다. 곧 갈 사람의 자세.<br/><b>배경·소품</b> 소파, 옆방으로 이어지는 문.<br/><b>톤</b> 잠깐만 앉겠다는 몸짓.</pre></details>
 </div>
 
 <div class="page-card" data-page="p8">
   <div class="page-head"><span class="pnum">P8</span><b>뒤집힘</b> <span class="tag">뒤집힘</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">퐁이가 눈을 떴어요.</p>
+  <p class="ko">퐁이가 눈을 떴어요. 창이 환해요. 소파에 아빠가 자고 있어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 퐁이 시점에서 문 너머 거실.<br/><b>장소·시간</b> 아침.<br/><b>인물</b> Pongi가 이불에서 상체를 일으켜 문 너머를 본다. 화면 안쪽 소파에 Dad otter가 팔짱 낀 자세 그대로 뒤로 누워 자고 있다.<br/><b>배경·소품</b> 창이 환하다.<br/><b>톤</b> 🔴 뒤집힘 — 퐁이 눈앞에 나타난 것이 이 쪽이다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p9">
   <div class="page-head"><span class="pnum">P9</span><b>반응</b> <span class="tag">반응</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">할아버지가 아빠에게 이불을 덮어 줬어요.</p>
+  <p class="ko">할아버지가 아빠에게 이불을 덮어 줬어요. 퐁이가 킥킥 웃었어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 거실.<br/><b>장소·시간</b> 같은 아침.<br/><b>인물</b> Goose grandpa가 자는 아빠에게 이불을 덮어 준다. Pongi가 문틀에 기대 두 앞발로 입을 가리고 웃는다.<br/><b>배경·소품</b> 소파, 이불.<br/><b>톤</b> 웃음이 화면에 있다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p10">
   <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">퐁이는 가방을 메고 문 앞에 섰어요.</p>
+  <p class="ko">퐁이는 가방을 메고 문 앞에 섰어요. 아빠는 아직도 코를 골아요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드. 화면 왼쪽 문가에 퐁이, 오른쪽 소파에 아빠.<br/><b>장소·시간</b> 같은 아침.<br/><b>인물</b> Pongi가 가방을 메고 문 앞에 서서 갈 준비를 마쳤다. Dad otter는 소파에서 입을 벌리고 잔다.<br/><b>배경·소품</b> 가방, 소파, 열린 현관.<br/><b>톤</b> 🔴 다 자고 일어난 아이와 아직 자는 어른이 좌우로 갈린다.</pre></details>
 </div>
 

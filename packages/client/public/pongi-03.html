@@ -7,7 +7,7 @@
 <title>퐁이네 운하 마을 — 비 오는 날</title>
 <style>
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
-  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --line:#f0e0d2; --water:#2C4A3C; }
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --line:#f0e0d2; --water:#2C4A3C; --mint:#2C4A3C; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
   .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
@@ -24,6 +24,26 @@
   p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; }
   details { border-top:1px dashed var(--line); padding-top:9px; }
   summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .copy-btn { background:#fff; color:var(--water); border:1.5px solid var(--water); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--water); color:#fff; }
+  .batch-bar { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin:16px 0; }
+  .batch-bar .bhint { font-size:12.5px; color:var(--ink-soft); line-height:1.7; }
+  .batch-bar .brow { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .batch-btn { background:var(--coral); color:#fff; border:0; border-radius:10px; padding:7px 15px; font-size:13px; font-weight:800; cursor:pointer; }
+  .batch-btn:hover { background:var(--coral-dark); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--water); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
+  .ref-lab { font-size:12px; font-weight:800; color:var(--ink-soft); }
+  .ref-chip { display:flex; align-items:center; gap:7px; background:var(--peach); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:800; }
+  .ref-chip img { width:30px; height:30px; border-radius:50%; object-fit:cover; }
+  .ref-chip .ph { width:30px; height:30px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; font-size:15px; }
+  .ref-chip .im { color:var(--water); }
   pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#f7f4ef; border-radius:10px; padding:12px 14px; margin-top:9px; }
 </style>
 </head>
@@ -41,61 +61,61 @@
 <!-- ===== pages ===== -->
 <div class="page-card" data-page="p1">
   <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">아침부터 비가 내려요.</p>
+  <p class="ko">아침부터 비가 내려요. 퐁이가 창에 코를 붙였어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 창 안쪽에서 밖을 보는 앵글. 창틀이 화면을 네모로 자른다.<br/><b>장소·시간</b> 퐁이네 집 안, 비 오는 아침.<br/><b>인물</b> Pongi가 창턱에 두 앞발을 올리고 코를 유리에 딱 붙였다. 눈이 크게 열려 밖을 본다.<br/><b>배경·소품</b> 창유리에 흘러내리는 빗줄기, 창밖으로 운하와 지붕.<br/><b>톤</b> 안은 미색, 밖은 초록. 창틀이 두 색을 가른다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p2">
   <div class="page-head"><span class="pnum">P2</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">운하에 동그란 물무늬가 자꾸 생겨요.</p>
+  <p class="ko">운하에 동그란 물무늬가 자꾸 생겨요. "나가고 싶어요."</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 창밖 운하가 화면 대부분.<br/><b>장소·시간</b> 같은 창가.<br/><b>인물</b> Pongi가 창턱에 턱을 괴고 옆얼굴로 밖을 본다. 입이 조금 벌어졌다.<br/><b>배경·소품</b> 운하 수면에 동그란 물무늬가 여기저기 퍼진다 — 크기가 제각각인 동심원.<br/><b>톤</b> 나가고 싶은 마음이 자세로만 보인다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p3">
   <div class="page-head"><span class="pnum">P3</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">아빠가 큰 우산을 가지고 왔어요.</p>
+  <p class="ko">아빠가 큰 우산을 가지고 왔어요. "이걸 쓰면 하나도 안 젖지."</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 아빠가 화면 왼쪽에서 우산을 들고 들어온다.<br/><b>장소·시간</b> 집 안 현관, 이어지는 순간.<br/><b>인물</b> Dad otter가 접힌 큰 우산을 어깨에 척 걸치고 가슴을 펴며 들어온다. 자신만만한 얼굴. Pongi가 창가에서 고개를 돌려 본다.<br/><b>배경·소품</b> 접힌 우산, 현관문, 벽에 걸린 장화.<br/><b>톤</b> 우산이 아빠 몸보다 크다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p4">
   <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">바람이 훅 불었어요.</p>
+  <p class="ko">바람이 훅 불었어요. 아빠가 우산을 폈어요. 우산이 그릇처럼 뒤집혔어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 우산이 화면 가운데에서 뒤집히는 순간.<br/><b>장소·시간</b> 집 앞 문간, 비.<br/><b>인물</b> Dad otter가 두 손으로 우산대를 잡고 편 자세 그대로 굳었다. 눈이 커지고 입이 벌어졌다. Pongi는 옆에서 위를 올려다본다.<br/><b>배경·소품</b> 우산살이 위로 뒤집혀 그릇 모양이 됐다. 옆의 풀과 빨랫줄이 한 방향으로 눕는다 — 바람의 증거.<br/><b>톤</b> 🔴 바람이 분 것이 눕는 풀로 보여야 한다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p5">
   <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">뒤집힌 우산에 빗물이 고여요.</p>
+  <p class="ko">뒤집힌 우산에 빗물이 고여요. 퐁이가 위를 올려다봤어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글 클로즈업. 뒤집힌 우산을 아래에서 올려다본다.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Pongi가 화면 아래에서 고개를 완전히 젖혀 위를 본다. 눈만 보인다.<br/><b>배경·소품</b> 그릇이 된 우산 안에 빗물이 고여 수면이 생겼다. 그 위로 빗줄기가 계속 떨어진다.<br/><b>톤</b> 고인 물이 운하 초록 한 판으로 보인다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p6">
   <div class="page-head"><span class="pnum">P6</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">아빠가 우산을 바로 세웠어요.</p>
+  <p class="ko">아빠가 우산을 바로 세웠어요. 고인 물이 아빠 머리 위로 쏟아졌어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 물이 쏟아지는 순간.<br/><b>장소·시간</b> 같은 자리, 바로 다음.<br/><b>인물</b> Dad otter가 우산을 바로 세우자 고인 물이 통째로 제 머리 위로 쏟아진다. 눈을 질끈 감고 어깨를 움츠렸다.<br/><b>배경·소품</b> 쏟아지는 물이 한 덩어리 도형으로. 우산은 이제 제 모양.<br/><b>톤</b> 물덩어리가 아빠 머리를 덮는다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p7">
   <div class="page-head"><span class="pnum">P7</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">퐁이가 깔깔 웃었어요.</p>
+  <p class="ko">퐁이가 깔깔 웃었어요. 동생도 따라 웃어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 두 아이를 정면에서.<br/><b>장소·시간</b> 같은 문간.<br/><b>인물</b> Pongi가 몸을 뒤로 젖히고 입을 한껏 벌려 웃는다. Baby otter도 옆에서 두 앞발로 조개를 안은 채 입을 벌리고 따라 웃는다.<br/><b>배경·소품</b> 화면 가장자리에 물 떨어지는 아빠의 팔만 걸친다.<br/><b>톤</b> 웃음이 화면 중심이다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p8">
   <div class="page-head"><span class="pnum">P8</span><b>뒤집힘</b> <span class="tag">뒤집힘</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">퐁이가 문을 열고 나갔어요.</p>
+  <p class="ko">퐁이가 문을 열고 나갔어요. 우산은 안 가지고 갔어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 뒤에서 본 앵글. 퐁이 뒷모습이 문밖으로 나간다.<br/><b>장소·시간</b> 문간에서 마당으로, 비.<br/><b>인물</b> Pongi가 문지방을 넘어 빗속으로 걸어 나간다. 뒷모습, 두 팔이 옆으로 벌어졌다.<br/><b>배경·소품</b> 🔴 우산은 문 안쪽 벽에 세워져 있다 — 안 가지고 간 것이 보여야 한다.<br/><b>톤</b> 문 안은 미색, 문밖은 비.</pre></details>
 </div>
 
 <div class="page-card" data-page="p9">
   <div class="page-head"><span class="pnum">P9</span><b>반응</b> <span class="tag">반응</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">퐁이가 물웅덩이를 첨벙첨벙 뛰어다녀요.</p>
+  <p class="ko">퐁이가 물웅덩이를 첨벙첨벙 뛰어다녀요. 아빠도 뛰고 동생도 뛰어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 셋이 각기 다른 자세로 뛰는 순간.<br/><b>장소·시간</b> 마당 물웅덩이, 비.<br/><b>인물</b> Pongi가 두 발로 웅덩이를 밟아 물이 튄다. Dad otter는 그 옆에서 무릎을 높이 들고 뛴다. Baby otter는 조개를 안은 채 종종거린다.<br/><b>배경·소품</b> 물웅덩이 여럿, 튀는 물방울.<br/><b>톤</b> 셋이 다 젖어 간다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p10">
   <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">셋 다 흠뻑 젖었어요.</p>
+  <p class="ko">셋 다 흠뻑 젖었어요. 우산만 혼자 마른 채 문 앞에 서 있어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드. 화면 왼쪽에 젖은 셋, 오른쪽 문 앞에 우산 하나.<br/><b>장소·시간</b> 마당과 문간, 비가 잦아든 뒤.<br/><b>인물</b> Pongi·Dad otter·Baby otter가 나란히 서서 털에서 물을 뚝뚝 흘린다. 셋 다 웃는 얼굴.<br/><b>배경·소품</b> 🔴 우산만 문 앞에 혼자 마른 채 세워져 있다. 우산 아래 바닥만 마른색으로 남아 있다.<br/><b>톤</b> 젖은 것과 마른 것이 화면 좌우로 갈린다.</pre></details>
 </div>
 

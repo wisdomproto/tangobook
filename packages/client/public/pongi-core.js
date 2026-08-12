@@ -313,7 +313,7 @@
       bar.className = 'batch-bar';
       bar.innerHTML =
         '<div class="bhead">🖼️ 전체 이미지 프롬프트 — GPT에 한 번에</div>' +
-        '<div class="bhint">버튼을 누르면 <b>스타일(1회) + 캐릭터 레퍼런스(@image1~) + ' + pages.length + '개 쪽 장면</b>이 하나로 복사됩니다. GPT에 <b>@image1부터 순서대로 레퍼런스 이미지를 첨부</b>하세요(1~8=고정 캐스트, 9~=이 화 단역). 각 쪽 [등장]이 그 컷에 넣을 캐릭터를 지정합니다.</div>' +
+        '<div class="bhint">버튼을 누르면 <b>스타일(1회) + 캐릭터 레퍼런스(@image1~) + ' + pages.length + '개 쪽 장면</b>이 하나로 복사됩니다. GPT에 <b>@image1부터 순서대로 캐스트 시트를 첨부</b>하세요(@image1~5 = 퐁이·아빠·엄마·동생·거위 할아버지). 각 쪽 [등장]이 그 컷에 넣을 캐릭터를 지정합니다.</div>' +
         '<div class="brow"><button type="button" class="batch-btn" id="copy-all-scene">📋 전체 프롬프트 복사 (' + pages.length + '장)</button></div>';
       anchor.parentNode.insertBefore(bar, anchor.nextSibling);
       document.getElementById('copy-all-scene').addEventListener('click', function () {
@@ -434,4 +434,81 @@
       });
     }
   })();
+})();
+
+/* 본문 인라인 편집 — 각 쪽 본문을 브라우저에서 고쳐 R2 에 저장한다.
+ * 🔴 SSOT 는 docs/changjak-books/pongi/*.md 이고 이것은 그 위에 얹는 오버레이다.
+ *   즉 화면이 원고와 다를 수 있다 — 원고를 고칠 때는 이 오버레이부터 확인해야 한다.
+ *   (창작동화 99권에서 실제로 30권 96쪽이 갈렸던 자리다.)
+ * 저장 = PUT /api/changjak-text/<docId> {page,text} · 로드 = GET → {p1:text,…} · 빈 값이면 원본 복귀. */
+(function () {
+  var docId = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+  if (!/^pongi-\d+$/.test(docId)) return;
+  var API = '/api/changjak-text/' + docId;
+
+  var st = document.createElement('style');
+  st.textContent =
+    '.page-card p.ko{outline:none;border-radius:8px;margin:8px -6px 10px;padding:4px 6px;transition:background .12s}' +
+    '.page-card p.ko:hover{background:#fff6ec}' +
+    '.page-card p.ko:focus{background:#fff6ec;box-shadow:0 0 0 2px #ffc7b0}' +
+    '.page-card{position:relative}' +
+    '.ko-tag{position:absolute;top:14px;right:16px;font-size:10.5px;font-weight:800;opacity:0;transition:opacity .15s;pointer-events:none}' +
+    '.ko-tag.on{opacity:1}' +
+    '.ko-tag.saving{color:var(--ink-soft)}.ko-tag.saved{color:var(--water)}.ko-tag.err{color:var(--coral-dark)}' +
+    '.ko-edited{border-color:var(--coral)}' +
+    '.edit-hint{background:#fff6f2;border:1px solid var(--coral);border-radius:12px;padding:11px 15px;font-size:12.5px;margin:14px 0}';
+  document.head.appendChild(st);
+
+  var hint = document.createElement('div');
+  hint.className = 'edit-hint';
+  hint.innerHTML = '✏️ <b>본문을 눌러 바로 고칠 수 있습니다.</b> 고친 내용은 R2 에 저장되어 이 화면에만 얹힙니다 — ' +
+    '<b>원고 파일(.md)은 안 바뀝니다.</b> 되돌리려면 내용을 비우고 화면을 벗어나세요.';
+
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.page-card[data-page]'));
+  if (!cards.length) return;
+  cards[0].parentNode.insertBefore(hint, cards[0]);
+
+  var items = cards.map(function (card) {
+    var ko = card.querySelector('p.ko');
+    if (!ko) return null;
+    var page = card.dataset.page;
+    var base = ko.innerText.replace(/\s+$/, '');
+    var tag = document.createElement('span');
+    tag.className = 'ko-tag';
+    card.appendChild(tag);
+    ko.contentEditable = 'plaintext-only';
+
+    var timer = null, saved = base;
+    function flash(cls, txt) {
+      tag.className = 'ko-tag on ' + cls; tag.textContent = txt;
+      if (cls !== 'saving') setTimeout(function () { tag.className = 'ko-tag'; }, 1600);
+    }
+    function save() {
+      var text = ko.innerText.replace(/\s+$/, '');
+      if (text === saved) return;
+      flash('saving', '저장 중…');
+      fetch(API, {
+        method: 'PUT', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ page: page, text: text === base ? '' : text })
+      }).then(function (r) {
+        if (!r.ok) throw new Error('http');
+        saved = text;
+        card.classList.toggle('ko-edited', text !== base);
+        flash('saved', text === base ? '원본 복귀' : '저장됨');
+      }).catch(function () { flash('err', '저장 실패 — 서버 확인'); });
+    }
+    ko.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(save, 900); });
+    ko.addEventListener('blur', function () { clearTimeout(timer); save(); });
+    return { page: page, ko: ko, card: card, base: base, apply: function (t) {
+      ko.innerText = t; saved = t; card.classList.add('ko-edited');
+    } };
+  }).filter(Boolean);
+
+  fetch(API).then(function (r) { return r.json(); }).then(function (j) {
+    var d = (j && j.data) || {};
+    var n = 0;
+    items.forEach(function (it) { if (typeof d[it.page] === 'string' && d[it.page] !== '') { it.apply(d[it.page]); n++; } });
+    if (n) hint.innerHTML = '✏️ <b class="red">이 화면의 ' + n + '쪽은 여기서 고친 내용입니다</b> — 원고 파일(.md)과 다릅니다. ' +
+      '원고를 고칠 때는 이 오버레이를 먼저 확인하세요. 되돌리려면 그 쪽을 비우고 화면을 벗어나세요.';
+  }).catch(function () {});
 })();

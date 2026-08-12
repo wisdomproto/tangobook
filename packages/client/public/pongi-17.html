@@ -7,7 +7,7 @@
 <title>퐁이네 운하 마을 — 종이배 띄우기</title>
 <style>
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
-  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --line:#f0e0d2; --water:#2C4A3C; }
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --line:#f0e0d2; --water:#2C4A3C; --mint:#2C4A3C; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
   .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
@@ -24,6 +24,26 @@
   p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; }
   details { border-top:1px dashed var(--line); padding-top:9px; }
   summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .copy-btn { background:#fff; color:var(--water); border:1.5px solid var(--water); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--water); color:#fff; }
+  .batch-bar { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin:16px 0; }
+  .batch-bar .bhint { font-size:12.5px; color:var(--ink-soft); line-height:1.7; }
+  .batch-bar .brow { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .batch-btn { background:var(--coral); color:#fff; border:0; border-radius:10px; padding:7px 15px; font-size:13px; font-weight:800; cursor:pointer; }
+  .batch-btn:hover { background:var(--coral-dark); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--water); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
+  .ref-lab { font-size:12px; font-weight:800; color:var(--ink-soft); }
+  .ref-chip { display:flex; align-items:center; gap:7px; background:var(--peach); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:800; }
+  .ref-chip img { width:30px; height:30px; border-radius:50%; object-fit:cover; }
+  .ref-chip .ph { width:30px; height:30px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; font-size:15px; }
+  .ref-chip .im { color:var(--water); }
   pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#f7f4ef; border-radius:10px; padding:12px 14px; margin-top:9px; }
 </style>
 </head>
@@ -41,49 +61,49 @@
 <!-- ===== pages ===== -->
 <div class="page-card" data-page="p1">
   <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">운하가 오늘따라 잔잔해요.</p>
+  <p class="ko">운하가 오늘따라 잔잔해요. 바람도 살살 불어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 잔잔한 운하.<br/><b>장소·시간</b> 운하 둑, 낮.<br/><b>인물</b> 없음(배경 컷).<br/><b>배경·소품</b> 물 표면이 평평하고, 물가 풀이 한쪽으로 아주 살짝 눕는다 — 바람이 약하게 분다.<br/><b>톤</b> 배를 띄우기 좋은 날.</pre></details>
 </div>
 
 <div class="page-card" data-page="p2">
   <div class="page-head"><span class="pnum">P2</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">퐁이가 종이를 폈어요.</p>
+  <p class="ko">퐁이가 종이를 폈어요. "제일 멀리 가는 배를 만들 거예요."</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글, 퐁이와 종이.<br/><b>장소·시간</b> 둑 위.<br/><b>인물</b> Pongi가 무릎 위에 종이를 펴고 두 앞발로 누른다. 결심한 얼굴.<br/><b>배경·소품</b> 하얀 종이 한 장.<br/><b>톤</b> 시작.</pre></details>
 </div>
 
 <div class="page-card" data-page="p3">
   <div class="page-head"><span class="pnum">P3</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">아빠가 제일 큰 종이를 가져왔어요.</p>
+  <p class="ko">아빠가 제일 큰 종이를 가져왔어요. "크면 멀리 가지."</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아빠가 큰 종이를 들고 온다.<br/><b>장소·시간</b> 둑 위.<br/><b>인물</b> Dad otter가 제 몸통만 한 큰 종이를 두 앞발로 펼쳐 들었다. 자신만만한 얼굴.<br/><b>배경·소품</b> 🔴 종이 크기가 퐁이 것보다 확연히 커야 한다.<br/><b>톤</b> 크면 이긴다는 얼굴.</pre></details>
 </div>
 
 <div class="page-card" data-page="p4">
   <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">동생도 종이를 접어요.</p>
+  <p class="ko">동생도 종이를 접어요. 아주 작은 배가 나왔어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업. 동생 앞발과 아주 작은 배.<br/><b>장소·시간</b> 둑 위.<br/><b>인물</b> Baby otter가 두 앞발로 손바닥만 한 종이배를 들었다. 조개는 무릎에.<br/><b>배경·소품</b> 아주 작은 배 하나.<br/><b>톤</b> 셋 중 제일 작다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p5">
   <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">아빠가 큰 배를 물에 놓았어요.</p>
+  <p class="ko">아빠가 큰 배를 물에 놓았어요. 배가 천천히 나아가요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아빠가 큰 배를 물에 놓는다.<br/><b>장소·시간</b> 물가.<br/><b>인물</b> Dad otter가 몸을 숙여 큰 배를 물에 조심스레 내려놓는다. Pongi가 옆에서 지켜본다.<br/><b>배경·소품</b> 큰 종이배가 물에 뜬다.<br/><b>톤</b> 아직은 잘 간다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p6">
   <div class="page-head"><span class="pnum">P6</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">그런데 물이 배 안으로 들어와요.</p>
+  <p class="ko">그런데 물이 배 안으로 들어와요. 종이가 축 늘어져요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 수면 높이. 배 옆면.<br/><b>장소·시간</b> 물 위.<br/><b>인물</b> 없음(사물 컷).<br/><b>배경·소품</b> 🔴 큰 배 안쪽에 물이 고이고 종이 옆면이 <b>축 늘어져</b> 형태가 무너지기 시작한다.<br/><b>톤</b> 큰 것이 먼저 무너진다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p7">
   <div class="page-head"><span class="pnum">P7</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">큰 배가 옆으로 기울었어요.</p>
+  <p class="ko">큰 배가 옆으로 기울었어요. 그리고 스르르 가라앉았어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, p6과 같은 앵글.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> 없음.<br/><b>배경·소품</b> 큰 배가 옆으로 기울어 반쯤 잠겼다. 물 위에 종이 끝만 남았다.<br/><b>톤</b> 같은 앵글이라 무너지는 과정이 보인다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p8">
   <div class="page-head"><span class="pnum">P8</span><b>뒤집힘</b> <span class="tag">뒤집힘</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">동생 배가 옆을 지나가요.</p>
+  <p class="ko">동생 배가 옆을 지나가요. 가벼워서 물 위에 통통 떠 있어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 수면 높이. 작은 배가 큰 배 옆을 지난다.<br/><b>장소·시간</b> 같은 물 위.<br/><b>인물</b> 없음.<br/><b>배경·소품</b> 🔴 가라앉는 큰 배와 <b>가볍게 떠서 지나가는 작은 배</b>가 한 화면에. 크기 차이가 명확해야 한다.<br/><b>톤</b> 반대가 나왔다.</pre></details>
 </div>
 
@@ -95,7 +115,7 @@
 
 <div class="page-card" data-page="p10">
   <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
-  <p class="ko">동생이 또 작은 배를 물에 놓았어요.</p>
+  <p class="ko">동생이 또 작은 배를 물에 놓았어요. 아빠 손에는 젖은 종이만 남았어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 둑 위 셋.<br/><b>장소·시간</b> 같은 둑.<br/><b>인물</b> Baby otter가 또 다른 작은 배를 물에 놓는다. Pongi가 그것을 본다. Dad otter는 두 앞발에 물에 젖어 흐물흐물해진 종이 뭉치를 들고 서 있다.<br/><b>배경·소품</b> 젖은 종이 한 덩이, 새 작은 배.<br/><b>톤</b> 🔴 아빠 손의 젖은 종이가 착지의 웃음이다.</pre></details>
 </div>
 
