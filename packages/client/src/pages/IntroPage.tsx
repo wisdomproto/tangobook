@@ -406,7 +406,9 @@ const GA_LEARN = [
   {
     key: 'game-line-matching',
     h: 620,
-    note: '서른두 단원이 전부 이렇게 생겼습니다 — 익히기 넷에 낱말 놀이 다섯.',
+    /* 🔴 이 상자가 **파닉스↔동화책 연결을 실제로 보여주는 자리**다(2026-08-12) — 맞히면
+       `SceneReveal` 이 그 낱말이 나오는 동화책 쪽을 띄운다. 글로 설명할 필요 없이 눌러보면 된다. */
+    note: '맞히면 그 낱말이 나오는 동화책 한 쪽이 열립니다 — 눌러보세요.',
     cta: true,
   },
 ];
@@ -630,7 +632,12 @@ const EN_TRY: { key: string; h: number; note: string; cta?: boolean }[] = [
     note: 'c 와 an 이 붙어 can 이 됩니다 — 영어 읽기가 시작되는 순간입니다.',
   },
   { key: 'game-word-writing', h: 620, note: '낱말 전체를 왼쪽부터 차례로 씁니다.' },
-  { key: 'game-line-matching', h: 620, note: '39단원이 전부 이렇게 생겼습니다.', cta: true },
+  {
+    key: 'game-line-matching',
+    h: 620,
+    note: '영어도 같습니다 — 맞힌 낱말이 나오는 동화책 쪽이 열립니다.',
+    cta: true,
+  },
 ];
 
 const LINES: { name: string; n: number; d: string; match: (c: string) => boolean }[] = [
@@ -1262,6 +1269,13 @@ export default function IntroPage() {
         <p>
           글자만 배우고 끝나면 금세 흐려집니다. 탱고북은 배운 글자로 읽을 책이 같은 앱 안에 있어서,
           읽은 것이 <strong>다시 글자 진도로 돌아옵니다.</strong>
+        </p>
+        {/* 🔴 **한 바퀴가 말이 아니라 화면에서 실제로 돈다**(2026-08-12 연결 완료) — 위 파닉스
+            데모의 「그림 짝 찾기」에서 낱말을 맞히면 그 자리에서 확인할 수 있다. */}
+        <p>
+          파닉스에서 낱말을 맞히면 <strong>그 낱말이 나오는 동화책 한 쪽</strong>이 그 자리에서
+          열립니다 — 삽화와 문장이 함께 나오고, 맞힌 낱말에 색이 들어가고, 읽어 줍니다. 한 판이
+          끝나면 <strong>방금 만난 책들의 표지</strong>가 떠서 그대로 읽으러 갈 수 있어요.
         </p>
         <LearnReadCycle />
       </Section>
