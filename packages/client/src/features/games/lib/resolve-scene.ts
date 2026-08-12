@@ -73,11 +73,11 @@ export function resolveSceneFromWord(
 ): WordScene | null {
   if (!storybook || !word) return null;
   /**
-   * 파닉스 단원에서 맞힌 낱말 → 예문 장면. 순서가 규칙의 전부다.
+   * 파닉스 단원에서 맞힌 낱말 → 예문 장면. 순서가 규칙의 전부다(2026-08-12 사용자).
    *
-   * 1. **그 단원의 호리 한글 나무 동화**(2026-08-12 사용자) — 단원 자체가 그 글자·타겟 낱말로
-   *    쓰인 8쪽 그림책이라 예문으로 가장 정확하다.
-   * 2. **다른 동화책** — 인덱스에서 찾아온다. 우선순위 **가장 낮음**(사용자 지시).
+   * 1. **다른 동화책** — 인덱스에서 찾아온다. 배운 낱말을 **새 이야기에서** 만나는 게 이 기능의 목적이다.
+   * 2. **그 단원의 호리 한글 나무 동화** — 우선순위 **가장 낮음**. 아이가 이 단원에서 이미 본
+   *    이야기라 다시 봐도 새로 만나는 게 아니다. 다른 책에 그 낱말이 없을 때의 폴백이다.
    * 3. 둘 다 없으면 null — 낱말만 읽어 주고 넘어간다.
    *
    * 🔴 **「파닉스는 자기 쪽 금지」(2026-07-29)를 뒤집은 것이다.** 그때 오류처럼 보였던 이유는
@@ -86,7 +86,7 @@ export function resolveSceneFromWord(
    *    막는 자리도 여는 자리도 여기 한 곳 — 호출부가 플레이어 8개라 거기서 하면 하나씩 빠뜨린다.
    */
   if (storybook.type === 'phonics')
-    return pickUnitStoryScene(word, lang, storybook) ?? pickPhonicsWordScene(word, lang);
+    return pickPhonicsWordScene(word, lang) ?? pickUnitStoryScene(word, lang, storybook);
   const ko = matchKeyObject(word, lang, storybook);
   if (!ko) return null;
   const pageNum = findValidatedPageNumber(
