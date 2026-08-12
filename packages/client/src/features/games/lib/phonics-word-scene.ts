@@ -60,6 +60,42 @@ export interface PhonicsWordScene {
   highlight?: string;
 }
 
+/**
+ * 🔴 **1순위 = 그 단원의 호리 한글 나무 동화**(2026-08-12 사용자).
+ *
+ * 파닉스 단원 자체가 8쪽짜리 그림책이다 — 그 단원의 글자와 타겟 낱말로 쓰인 이야기라
+ * 예문으로 가장 정확하다(`고기` 를 맞히면 호리가 "고~기!" 하고 두부가 침 삼키는 그 쪽).
+ * 다른 동화책에서 찾아오는 건 **여기 없을 때의 폴백**이다.
+ *
+ * 🔴 본문이 `고~기`·`아~이` 처럼 **물결로 늘여 쓴다**(소리 내어 읽히려고). 그대로 찾으면
+ *    128개 중 4개를 놓친다 — 물결·가운뎃점을 지우고 본다.
+ */
+const stretched = (t: string) => t.replace(/[~〜･·・]/g, '');
+
+export function pickUnitStoryScene(
+  word: string,
+  lang: Lang,
+  unit: Storybook
+): PhonicsWordScene | null {
+  const pages = unit.pages ?? [];
+  const hits: number[] = [];
+  for (let i = 0; i < pages.length; i++) {
+    const p = pages[i];
+    if (!p?.illustrationUrl || !p.text) continue;
+    if (stretched(p.text).includes(word)) hits.push(i);
+  }
+  if (!hits.length) return null;
+  const i = hits[Math.floor(Math.random() * hits.length)];
+  const p = pages[i];
+  return {
+    illustrationUrl: p.illustrationUrl!,
+    pageNumber: i + 1,
+    pageText: lang === 'ko' ? p.text : (p.translations?.[lang]?.text ?? p.text),
+    pageTtsUrl: lang === 'ko' ? p.ttsUrl : p.translations?.[lang]?.ttsUrl,
+    highlight: word,
+  };
+}
+
 /** 맞힌 낱말 → 동화책 장면. 미리 받아 둔 것만 쓰므로 동기다(정답 소리 콜백 안에서 호출된다). */
 export function pickPhonicsWordScene(word: string, lang: Lang = 'ko'): PhonicsWordScene | null {
   const entry = chosen.get(word);

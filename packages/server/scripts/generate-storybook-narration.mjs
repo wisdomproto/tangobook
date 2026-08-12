@@ -35,6 +35,8 @@ const LIMIT = Number(argVal('--limit') || 0);
 const ONLY_BOOK = argVal('--book');
 const INCLUDE_PRIVATE = hasFlag('--include-private'); // 비공개 책도 대상(editor2 초안 등)
 const CATEGORY = argVal('--category'); // 특정 카테고리만(예: 생활동화)
+const PHONICS = hasFlag('--phonics'); // 파닉스 단원(호리 한글 나무 8쪽 그림책)을 대상으로
+const PHONICS_PREFIX = argVal('--phonics-prefix') || 'kr-'; // 한글 단원만(영어는 en-)
 const TTS_MODEL = argVal('--tts-model'); // gemini TTS 모델 오버라이드(없으면 서버 기본). preview 모델 quota 분산용
 const DELAY_MS = 1500; // Gemini rate limit 방지
 
@@ -46,7 +48,10 @@ async function fetchMissingBooks() {
   return list.filter(
     (b) =>
       (INCLUDE_PRIVATE || b.isPublic) &&
-      (!b.type || b.type === 'storybook') &&
+      // 🔴 파닉스 단원도 8쪽짜리 그림책이다(호리 한글 나무). 나레이션이 없으면 낱말을 맞혔을 때
+      //    예문 장면이 소리 없이 스쳐 지나가 오류처럼 보인다 — 그래서 `--phonics` 로 대상에 넣는다.
+      (PHONICS ? b.type === 'phonics' : !b.type || b.type === 'storybook') &&
+      (!PHONICS || !PHONICS_PREFIX || b.id.startsWith(PHONICS_PREFIX)) &&
       (!CATEGORY || b.category === CATEGORY) &&
       !(b.koCompletion && b.koCompletion.pagesTts)
   );
