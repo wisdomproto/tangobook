@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>F-15 손님이 오는 날 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · F · 집·가족의 작은 사건 · 15</div>
+  <h1>손님이 오는 날</h1>
+  <div class="sub">할머니가 오신다고 온 집을 반짝반짝 치워요. 그런데 아이 방만 못 치웠어요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 오해와 반전</span>
+  <span>무대 · 덴마크 집 (붉은 벽돌 벽·흰 격자창·나무 마루 / 복도 하나가 방들을 줄줄이 잇는다 — 현관 · 거실(촛대와 낮은 나무 탁자) · 부엌(흰 타일과 줄무늬 도자기) · 복도 맨 끝이 아이 방. 🔴 손님이 현관에서 아이 방까지 가려면 반드시 이 복도를 지나가야 한다 — 그래서 문틈에 낀 종이가 손님 발밑에 놓인다)</span>
+  <span class="q">12스프레드</span>
+  <span class="q">본문 831자 · 쪽당 69자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- 🔴 <b>겹은 하나다 — 「손님이 오시니까 반짝반짝 치워야 한다」.</b> 이 규칙을 p2 에서 <b>엄마가 소리 내어 말한다</b>. 아이가 외울 설정도, 단서를 모아 풀 것도 없다. 아이가 실제로 하는 일(그린다·신발을 놓는다·접시를 나른다·문을 닫는다)로만 굴러간다.<br>
+- 🔴 <b>못 아는 이유가 화면에 있다.</b> 아이는 두 번 묻는다 — "할머니는 뭘 좋아해?"(p3) · "엄마, 할머니는 뭘—"(p5). 두 번 다 엄마가 <b>바빠서 다음 일을 시키느라</b> 대답을 못 한다. 그래서 아이는 마지막까지 답을 모른 채고, 그 답을 p11 에서 <b>할머니가 직접</b> 준다.<br>
+- 🔴 <b>후렴을 안 쓴다</b>(오해와 반전 엔진). 손잡이는 두 개다 — 아이 앞발의 <b>노란 크레용</b>(열 쪽 내내)과 <b>문틈에 낀 종이</b>. 두 질문은 문장이 서로 달라서 후렴이 아니다(반복이 반전을 미리 알리면 안 된다).<br>
+- 🔴 <b>아이가 치우는 쪽에 선다.</b> 제 방을 치우겠다고 먼저 나섰는데(p2) 현관·거실·부엌 심부름에 세 번 끌려가느라 제 방만 못 치웠다. 그래서 반전이 아이에게 온다.<br>
+- 🔴 <b>반전은 말이 아니라 행동이다.</b> 할머니는 「어질러도 괜찮아」라고 가르치지 않는다. 그냥 <b>그 방에 털썩 앉아 크레용을 달라고 한다.</b> 어른이 뜻을 정리해 주는 대사는 한 줄도 없다.<br>
+- 🔴 <b>그 방에 손님이 반가워할 것이 그림으로 보인다</b> — 방 한가운데 <b>그리다 만 할머니 그림</b>이 펼쳐져 있고 노란 데가 아직 비어 있다. p6·p7 에 미리 보여 두고 p11 에서 할머니 발밑에 온다.<br>
+- 🔴 <b>넘김 쪽 셋</b> = p6(줄표로 끊긴다) · p9(할머니가 복도로 걸어간다, 답 없이) · p10(문고리를 잡는다). 나머지 쪽은 닫아서 이 셋이 살게 한다.<br>
+- 🔴 <b>의인화 등급 고정</b> — 너구리는 뒷다리로 서서 앞발을 쓴다(크레용을 쥐고 빗자루를 잡고 접시를 나른다). 옷은 엄마의 머릿수건과 할머니의 목도리뿐이고 아이는 아무것도 안 입는다. 열두 쪽 내내 같다.<br>
+- 🔴 <b>착지 교훈은 마지막 한 줄뿐</b>이고 그 권에서 실제로 일어난 일만 되받는다. 넓히지 않는다.<br>
+- <b>12쪽.</b> 치우는 곳이 셋(현관·거실·부엌)이고 손님이 그 복도를 되짚어 들어오므로 이만큼이 자연 분량이다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>새끼 너구리가 방 바닥에 엎드려 그림을 그려요.
+쓱쓱, 쓱쓱.
+크레용이 바닥에 잔뜩 흩어져 있어요.
+엄마가 문으로 고개를 쏙 내밀어요.
+"오늘 할머니가 오신대!"</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 미디엄 와이드 · 살짝 하이앵글 · 화면 아래 절반이 마룻바닥과 엎드린 아이, 위쪽 왼편에 방 문과 거기 내민 엄마 얼굴
+<b>장소·시간</b> 복도 맨 끝 아이 방. 격자창으로 아침빛이 든다
+<b>인물</b> 화면 가운데 아래 — 새끼 너구리가 배를 깔고 엎드려 두 뒷발을 공중에 까딱거린다, 한 앞발에 노란 크레용을 쥐고 종이에 대고 있고 다른 앞발로 종이 귀퉁이를 눌렀다, 고개를 살짝 들어 문 쪽을 본다, 눈이 동그랗다. 화면 왼쪽 위 — 엄마 너구리가 문틀 뒤에서 얼굴과 어깨만 내밀었다, 머릿수건을 썼고 입을 크게 벌려 말한다
+<b>배경·소품</b> 마룻바닥에 사방으로 흩어진 크레용들, 그리다 만 종이 여러 장, 벽에 붙인 낮은 나무 침대와 그 위 구겨진 이불, 뒤집힌 나무 상자에서 쏟아진 장난감, 흰 격자창 밖으로 붉은 벽돌 담
+<b>톤</b> 창에서 든 빛이 아이와 종이 위로 곧게 떨어지고 방 구석은 한 단 어둡다. 🔴 어질러진 바닥이 밝게 다 보이도록 — 이 방이 뒤에 문제가 된다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>"할머니? 그럼 할머니를 그려야지!"
+새끼 너구리가 새 종이를 척 폈어요.
+"그 전에 집부터 치우자. 손님이 오시는 날엔 집이 반짝반짝해야 해!"
+엄마가 빗자루를 번쩍 들었어요.
+"나도 내 방 치울래!"</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 왼쪽에 아이, 오른쪽에 빗자루를 든 엄마, 둘 사이에 문지방
+<b>장소·시간</b> 같은 아이 방 문간. 같은 아침
+<b>인물</b> 화면 왼쪽 — 새끼 너구리가 무릎을 꿇고 앉아 새 종이를 두 앞발로 활짝 폈다(한 앞발엔 노란 크레용이 그대로 쥐여 있다), 고개를 뒤로 젖혀 엄마를 올려다보며 입을 벌린다, 귀가 쫑긋 섰다. 화면 오른쪽 — 엄마 너구리가 뒷다리로 서서 한 앞발로 빗자루를 세워 들고 다른 앞발을 허리에 얹었다, 턱을 들고 집 안쪽을 가리키듯 몸이 복도 쪽으로 반쯤 돌았다
+<b>배경·소품</b> 아이 앞에 펼쳐진 빈 종이 한 장, 발밑에 흩어진 크레용, 엄마 뒤로 이어지는 복도와 그 끝 밝은 현관, 복도 벽에 걸린 마른 꽃다발
+<b>톤</b> 아이 쪽은 낮고 어수선하고 엄마 쪽은 높고 곧다. 🔴 시선이 아이 → 엄마 → 엄마 뒤 복도로 흘러 <b>집 전체가 곧 일거리가 된다</b>는 것이 구도로 읽히도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>"잠깐, 이것 좀 들어 줄래?"
+새끼 너구리가 크레용을 쥔 채 달려갔어요.
+현관에 신발을 나란히 놓아요. 탁, 탁, 탁.
+"엄마, 할머니는 뭘 좋아해?"
+엄마는 벌써 저쪽에서 창을 닦고 있어요.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 · 로우앵글(바닥 가까이) · 화면 앞쪽에 신발과 아이, 뒤쪽 멀리 창가에 엄마
+<b>장소·시간</b> 집 현관. 같은 아침
+<b>인물</b> 화면 왼쪽 앞 — 새끼 너구리가 쪼그려 앉아 한 앞발로 장화 한 짝을 바로 세워 놓는다, 🔴 <b>다른 앞발엔 노란 크레용이 그대로 쥐여 있다</b>, 고개만 뒤로 돌려 엄마 쪽을 보며 입을 벌려 묻는다, 꼬리가 바닥에 늘어졌다. 화면 오른쪽 뒤 — 엄마 너구리가 등을 보인 채 격자창에 붙어 헝겊으로 유리를 문지른다, 팔이 위로 뻗어 있고 얼굴이 안 보인다
+<b>배경·소품</b> 현관 바닥에 나란히 놓인 장화 두 켤레와 아직 흐트러진 신발 몇 짝, 벽 고리에 걸린 외투, 문 옆 흙 묻은 발판, 엄마 발치에 놓인 물통
+<b>톤</b> 앞쪽 아이는 또렷하고 뒤쪽 엄마는 빛을 등져 실루엣에 가깝다. 🔴 물음이 닿지 못하고 흩어지는 것이 <b>둘 사이 거리</b>로만 보이도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>거실 쿠션을 탁탁 털어요.
+탁자를 뽀드득뽀드득 닦아요.
+촛대가 반짝반짝 빛나요.
+새끼 너구리 앞발엔 아직 노란 크레용이 있어요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 화면 전체가 거실, 왼쪽에 엄마, 오른쪽 낮은 탁자 앞에 아이
+<b>장소·시간</b> 복도 가운데 거실. 같은 아침
+<b>인물</b> 화면 오른쪽 — 새끼 너구리가 뒷다리로 서서 한 앞발로 헝겊을 잡고 낮은 나무 탁자를 문지른다, 🔴 헝겊을 쥔 앞발 사이로 <b>노란 크레용이 같이 삐져나와 있다</b>, 혀를 살짝 내밀고 탁자만 내려다본다. 화면 왼쪽 — 엄마 너구리가 두 앞발로 큰 쿠션을 붙잡고 세게 턴다, 몸이 뒤로 젖혀지고 머릿수건 끝이 날린다
+<b>배경·소품</b> 쿠션에서 튀어 오르는 먼지 알갱이들, 반듯하게 놓인 긴 나무 의자, 탁자 위 촛대 두 개, 창턱 화분, 벽에 걸린 접시 몇 장, 복도 안쪽으로 이어지는 열린 문
+<b>톤</b> 닦은 자리와 아직 안 닦은 자리의 밝기가 갈라져 보인다. 🔴 부지런히 움직이는 두 몸이 화면을 대각선으로 가로지르도록 — 속도가 느껴지게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>부엌에서 빵 냄새가 솔솔 나요.
+"엄마, 할머니는 뭘—"
+"이 접시 좀 옮겨 줄래?"
+새끼 너구리가 접시를 조심조심 날라요.
+쨍그랑 소리는 안 났어요!</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 살짝 로우앵글 · 화면 가운데에 접시를 든 아이, 위쪽 뒤로 화덕 앞의 엄마
+<b>장소·시간</b> 복도 안쪽 부엌. 같은 아침
+<b>인물</b> 화면 가운데 — 새끼 너구리가 두 앞발로 큰 접시를 배 앞에 받쳐 들고 발끝으로 조심조심 걷는다, 🔴 <b>접시 밑을 받친 앞발에 노란 크레용이 눌려 같이 잡혀 있다</b>, 눈이 접시에 딱 붙었고 입이 오므라들었다, 꼬리가 뻣뻣하게 섰다. 화면 위 뒤쪽 — 엄마 너구리가 화덕 앞에서 몸을 숙여 빵 판을 꺼낸다, 등만 보이고 얼굴은 안 보인다
+<b>배경·소품</b> 화덕 입구에서 오르는 김, 흰 타일 벽과 줄무늬 도자기 그릇이 놓인 선반, 식탁 위에 벌써 옮겨 놓은 접시 두 장, 걸어 둔 마른 행주, 바닥에 떨어진 밀가루 자국
+<b>톤</b> 화덕 쪽이 가장 밝고 아이 얼굴에 그 빛이 걸린다. 🔴 두 몸이 서로 다른 방향을 보고 있어 <b>말이 끊긴 것</b>이 자세로 읽히도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>새끼 너구리가 제 방으로 후다닥 뛰어갔어요.
+방은 아까 그대로예요.
+크레용도 여기저기, 종이도 여기저기.
+할머니 그림은 아직 반쪽이에요.
+"이제 치워야지!" 그런데 그때—</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 와이드 · 하이앵글 · 위에서 방 전체를 내려다본다, 화면 왼쪽 문간에 막 들어선 아이
+<b>장소·시간</b> 복도 맨 끝 아이 방. 아침빛이 한 단 높아졌다
+<b>인물</b> 화면 왼쪽 — 새끼 너구리가 문지방을 막 넘어 한 발로 멈춰 섰다, 몸은 아직 달리던 방향으로 기울었고 꼬리가 뒤로 날린다, 두 앞발을 들었는데 한쪽엔 노란 크레용, 어깨가 축 내려가고 입이 벌어졌다
+<b>배경·소품</b> 🔴 <b>방 한가운데 펼쳐진 큰 종이 한 장 — 안경 쓴 할머니가 그려져 있고 한쪽이 아직 하얗게 비어 있다</b>, 그 둘레로 사방에 흩어진 크레용과 종이들, 구겨진 이불, 쏟아진 장난감 상자, 열린 문 옆으로 보이는 복도
+<b>톤</b> 위에서 내려다봐 어질러진 것들이 넓게 펼쳐지고 아이가 화면 구석에 작게 놓인다. 🔴 <b>답을 안 준 채 끝나는 쪽</b> — 문 밖 복도는 어둡게 두어 무슨 일이 올지 안 보이게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>똑, 똑, 똑!
+"할머니 오셨다!"
+새끼 너구리가 방 문을 쾅 닫았어요.
+종이 한 장이 문틈에 삐죽 끼었어요.
+새끼 너구리는 못 봤어요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 바닥 가까운 로우앵글 · 화면 오른쪽에 등을 문에 붙인 아이, 왼쪽 아래 문 밑에 낀 종이
+<b>장소·시간</b> 복도 맨 끝, 아이 방 문 앞. 같은 아침
+<b>인물</b> 화면 오른쪽 — 새끼 너구리가 복도 쪽에 서서 두 앞발로 문을 등지듯 밀어 닫았다(한 앞발엔 노란 크레용), 등이 문판에 딱 붙었고 고개는 현관 쪽으로 홱 돌아갔다, 눈이 크고 귀가 앞으로 섰다, 뒷발이 바닥을 딛고 버틴다
+<b>배경·소품</b> 🔴 <b>닫힌 문틈 아래로 삐죽 나온 종이 한 장</b> — 복도 바닥에 반쯤 걸쳐 있고 아이 발 바로 옆이다, 복도 저쪽 끝 현관문이 열리며 빛이 쏟아진다, 벽에 걸린 외투들, 마룻바닥 널 이음매
+<b>톤</b> 복도 저쪽 현관이 눈부시게 밝고 아이가 선 끝은 어둡다. 🔴 아이 시선은 밝은 쪽을 향하고 <b>삐져나온 종이는 그 반대쪽 어둠 속에서 한 조각만 밝게</b> 걸리도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>할머니가 현관에서 목도리를 스르륵 풀어요.
+"집이 아주 반짝반짝하구나!"
+엄마가 방긋 웃어요.
+새끼 너구리는 가슴이 콩닥콩닥해요.
+내 방만 안 보이면 돼요.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 화면 오른쪽에 할머니와 엄마, 왼쪽 앞에 등을 돌린 아이, 그 뒤로 복도가 깊게 뻗는다
+<b>장소·시간</b> 집 현관. 같은 아침
+<b>인물</b> 화면 오른쪽 — 할머니 너구리가 뒷다리로 서서 한 앞발로 목도리 끝을 잡아 풀며 다른 앞발엔 장바구니를 들었다, 고개를 들어 집 안을 둘러보며 눈웃음을 짓는다. 그 옆 — 엄마 너구리가 머릿수건을 매만지며 입꼬리를 올린다. 화면 왼쪽 앞 — 새끼 너구리가 둘을 올려다보며 두 앞발을 배 앞에 모아 쥐었다(노란 크레용이 그 사이에 있다), 어깨가 굳고 눈만 크게 떴다
+<b>배경·소품</b> 나란히 놓인 장화들, 벽 고리에 막 걸린 외투, 반짝이는 거실 문 너머 촛대, 🔴 복도 저 끝 아이 방 문 아래에 <b>아까 낀 종이 한 장이 아직 그대로</b> 보인다(작게)
+<b>톤</b> 현관에서 든 빛이 세 인물에 걸리고 복도 안쪽은 점점 어두워진다. 🔴 어른 둘은 웃고 아이만 굳어 있는 것이 <b>한 화면 안에서 대비</b>로 보이도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>"할머니, 여기 앉으세요!"
+할머니가 거실을 쓱 지나가요.
+또각, 또각, 또각.
+할머니가 복도 안쪽으로 걸어가요.
+새끼 너구리 가슴이 쿵 내려앉아요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 화면 왼쪽 앞에 손을 내민 아이, 오른쪽 뒤로 복도를 걸어 들어가는 할머니, 둘 사이에 텅 빈 거실
+<b>장소·시간</b> 거실과 복도가 만나는 자리. 같은 아침
+<b>인물</b> 화면 왼쪽 앞 — 새끼 너구리가 뒷다리로 서서 한 앞발을 거실 의자 쪽으로 쭉 뻗어 가리킨다(다른 앞발엔 노란 크레용), 몸은 할머니 쪽으로 반쯤 돌아갔고 뒷발 하나가 따라가려 들렸다, 입이 크게 벌어지고 눈썹이 올라갔다. 화면 오른쪽 뒤 — 할머니 너구리가 뒷모습으로 복도 안쪽을 향해 걸어간다, 장바구니가 한쪽으로 흔들리고 목도리가 어깨에 걸쳐졌다
+<b>배경·소품</b> 반듯하게 정리된 거실 — 턴 쿠션, 닦은 탁자, 촛대 두 개, 앉은 이가 아무도 없다, 복도 바닥 널이 안쪽으로 좁아지고 그 끝에 닫힌 아이 방 문, 🔴 문 아래 삐져나온 종이가 할머니가 걸어가는 방향에 놓여 있다
+<b>톤</b> 앞쪽 거실은 환하고 할머니가 향하는 안쪽은 점점 어둡다. 🔴 <b>답을 안 준 채 끝나는 쪽</b> — 문 앞까지만 보이고 문 안쪽은 한 뼘도 안 보이게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>할머니가 바닥에서 종이 한 장을 주웠어요.
+종이에는 안경 쓴 할머니가 그려져 있어요.
+"어머, 이건 나잖아!"
+할머니가 방 문고리를 잡았어요.</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 클로즈업 · 살짝 로우앵글 · 화면 아래 절반에 할머니 앞발과 종이, 위쪽에 얼굴, 오른쪽 가장자리에 문고리
+<b>장소·시간</b> 복도 맨 끝, 아이 방 문 앞. 같은 아침
+<b>인물</b> 화면 가운데 — 할머니 너구리가 허리를 굽혀 한 앞발로 종이를 눈앞까지 들어 올렸다, 종이 한쪽 귀퉁이가 아직 문틈에 물려 살짝 접혔다, 안경 너머 눈이 커지고 입이 동그랗게 벌어졌다, 🔴 <b>다른 앞발이 방 문고리 위에 올라가 있다</b>, 장바구니는 발밑에 내려놓았다
+<b>배경·소품</b> 들어 올린 종이에 크게 그려진 안경 쓴 얼굴(글자는 없다), 그 얼굴 한쪽이 하얗게 비어 있다, 문틈에서 종이가 빠져나온 자국, 복도 벽과 마룻바닥 널, 저 뒤 멀리 밝은 거실
+<b>톤</b> 종이 한 장에만 빛이 모이고 복도는 가라앉는다. 🔴 <b>답을 안 준 채 끝나는 쪽</b> — 문은 아직 닫혀 있고 손만 고리에 올라가 있도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>문이 활짝 열렸어요.
+어질러진 방 한가운데 그리다 만 그림이 있어요.
+할머니가 그 앞에 털썩 앉았어요.
+"여기 아직 색칠 안 한 데가 있네!"
+할머니가 노란 크레용에 앞발을 내밀어요.</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 화면 오른쪽에 바닥에 앉은 할머니, 왼쪽 문간에 선 아이, 둘 사이 바닥에 큰 그림
+<b>장소·시간</b> 아이 방 안. 창빛이 방을 가로지른다
+<b>인물</b> 화면 오른쪽 — 할머니 너구리가 마룻바닥에 다리를 뻗고 털썩 주저앉았다, 목도리가 한쪽으로 흘러내렸고 장바구니는 문간에 나뒹군다, 한 앞발로 그림 귀퉁이를 짚고 다른 앞발을 아이 쪽으로 쭉 내밀었다, 눈웃음을 짓고 입이 벌어졌다. 화면 왼쪽 — 새끼 너구리가 문간에 그대로 서서 노란 크레용 쥔 앞발을 앞으로 내민다, 눈이 커지고 입이 반쯤 벌어졌다, 꼬리가 위로 살짝 섰다
+<b>배경·소품</b> 🔴 <b>둘 사이 바닥에 펼쳐진 큰 그림 — 안경 쓴 할머니 얼굴, 한쪽이 아직 하얗게 비어 있다</b>, 그 둘레에 흩어진 크레용들, 구겨진 이불, 쏟아진 장난감, 문간에 벗겨진 채 놓인 장바구니
+<b>톤</b> 창빛이 두 인물과 바닥의 그림을 한꺼번에 덮고 어질러진 것들까지 다 밝다. 🔴 앞 열 쪽에서 이 방이 숨겨야 할 곳이었던 것과 대비되게 <b>이 쪽만 넓고 환하게</b></div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>둘이 나란히 엎드려 그림을 칠해요.
+쓱쓱, 쓱쓱.
+반짝반짝 치운 거실은 텅 비었어요.
+"할머니, 여기 좋아?"
+"제일 좋아!"
+반짝이는 방보다 같이 노는 방이 더 좋을 때도 있어요.</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 화면 앞쪽에 텅 빈 거실, 그 너머 복도가 안쪽으로 뻗고, 맨 끝 열린 문 안에 작게 둘이 보인다
+<b>장소·시간</b> 거실에서 복도 끝 아이 방까지. 낮으로 넘어가는 빛
+<b>인물</b> 화면 안쪽 깊이(작게) — 새끼 너구리와 할머니 너구리가 방 바닥에 나란히 엎드려 그림에 앞발을 얹었다, 아이 앞발엔 다른 크레용, 할머니 앞발엔 노란 크레용, 둘 다 뒷발을 공중에 까딱거리고 꼬리가 같은 쪽으로 흔들린다, 머리를 맞대고 그림을 내려다본다
+<b>배경·소품</b> 화면 앞쪽 — 턴 쿠션과 닦은 탁자와 촛대가 놓인 거실, 앉은 이가 아무도 없다, 문간에 놓인 채인 장바구니, 복도 바닥 널이 안쪽으로 좁아지고 열린 문이 벽에 붙어 있다, 방 안 바닥에 여전히 흩어진 크레용들
+<b>톤</b> 앞쪽 빈 거실은 고르게 밝고 조용하며, 저 안쪽 열린 문 안이 화면에서 가장 따뜻하고 또렷하다. 🔴 카메라가 물러나 <b>치운 방과 어질러진 방이 한 화면에</b> 놓이고, 시선이 빈 거실을 지나 안쪽 둘에게 가서 멎도록</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'f15',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 너구리(이름 없음)', '엄마 너구리(이름 없음 · 머릿수건)', '할머니 너구리(이름 없음 · 목도리와 장바구니 · p8 부터)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=4294954c5a8fa2d5"></script>
+<script src="/changjak-core.js?v=4294954c5a8fa2d5"></script>
+</body>
+</html>

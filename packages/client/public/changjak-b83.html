@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>B-83 돌 밑에 사는 것들 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · B · 상상·변신 · 83</div>
+  <h1>돌 밑에 사는 것들</h1>
+  <div class="sub">돌을 들출 때마다 누가 자고 있어요</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 관찰과 성장</span>
+  <span>무대 · 아일랜드 돌담 들판 (풀밭을 가르는 낮은 돌담 한 줄 · 맨 아래 나란한 돌 세 개 · 돌 사이 좁은 틈 = 구슬이 굴러 들어간 자리 — 열 쪽 내내 이 돌담 한 자리를 안 벗어난다)</span>
+  <span>후렴 · "여긴 ○○ 집이야." — 그리고 돌을 살살 도로 덮는 손짓(p4·p6·p9 같은 자리)</span>
+  <span class="q">10스프레드</span>
+  <span class="q">본문 562자 · 쪽당 56자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- 🔴 <b>겹은 하나다 — 「돌 밑엔 누가 살고 있으니 들췄으면 도로 덮는다」.</b> 그 규칙은 p2 에서 까치가 한 마디로 말해 준다. 아이가 외울 설정도, 모아서 풀 단서도 없다. 쫓는 것은 <b>파란 구슬</b>이라 그림으로 그려진다.<br>
+- 🔴 <b>생태를 설명하지 않는다.</b> 두꺼비가 왜 돌 밑에 있는지, 개미가 알을 왜 옮기는지 한 줄도 말하지 않는다. 나오는 것들은 그냥 놀랍고 각자 자고 있으면 된다. 「돌 밑은 축축해서」류가 한 줄이라도 들어가면 이 권은 폐기다.<br>
+- 🔴 <b>판타지 0.</b> 돌 밑엔 실제로 있는 것들만 나온다. 말하는 것은 까치 하나뿐이고, 두꺼비·개미·달팽이는 자고 있거나 제 일을 할 뿐 말하지 않는다.<br>
+- 🔴 <b>도로 덮는 손짓이 이 권의 뜻이다.</b> p4·p6·p9 가 같은 자리 같은 자세다 — 두 앞발로 돌을 받쳐 <b>소리 없이</b> 내려놓는다. p9 만 한 앞발에 구슬이 쥐어져 있어 <b>손이 하나 모자란 채로도</b> 똑같이 살살 덮는다. 착지의 교훈이 거기서 나온다.<br>
+- 🔴 <b>반복은 셋.</b> 돌 셋이고 넷째 돌은 없다. 셋째(p7)는 반복이면서 뒤집힘이다 — 같은 동작인데 이번엔 찾던 것이 거기 있다.<br>
+- 🔴 <b>들춤과 발견은 한 순간</b>(돌을 들어 올린 채 밑을 내려다보는 한 자세) <b>이고 덮음은 다음 쪽</b>이다. 두 자세라 한 쪽에 못 넣는다. p8(구슬을 집는다)도 p9(돌을 덮는다)와 두 자세다.<br>
+- 🔴 <b>까치는 규칙 한 줄만 말하고 도와주지 않는다.</b> 돌을 드는 것도, 구슬을 찾는 것도, 덮는 것도 전부 아기 토끼가 한다.<br>
+- 🔴 <b>10쪽.</b> 바람(1) 규칙(1) 돌 셋 = 들춤·덮음 (3+3) 구슬 집기(1) 착지(1).<br>
+- 🔴 <b>의인화 등급 고정</b> — 아기 토끼는 네 발이고 옷이 없다. 두 앞발로 돌을 들고 구슬을 안는 등급으로 열 쪽 내내 같다. 까치는 말은 하되 날개로 손짓하지 않는다 — 앉고, 고개를 갸웃하고, 폴짝 뛴다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>아기 토끼가 낮은 돌담 위에서 파란 구슬을 굴렸어요.
+데구르르, 데구르르.
+구슬이 돌 사이 틈으로 쏙 빠졌어요.
+"어? 내 구슬!"</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 화면을 가로로 길게 가르는 돌담, 그 위 가운데쯤에 아기 토끼 — 🔴 <b>돌담이 화면 끝에서 끝까지 이어져 이 이야기의 자리가 여기 하나라는 것이 한눈에 읽히는 구도</b>
+<b>장소·시간</b> 풀밭을 가르는 낮은 돌담 한 줄, 뒤로 낮은 언덕이 이어진다. 바람이 부는 가을 아침
+<b>인물</b> 화면 가운데 — 아기 토끼가 돌담 맨 위 돌에 네 발로 올라서서 앞발 하나로 구슬을 밀었다, 몸이 앞으로 기울고 귀 둘이 쫑긋 섰다, 눈이 굴러가는 것을 따라 옆으로 쏠렸고 입이 작게 벌어졌다, 꼬리가 동그랗게 들렸다
+<b>배경·소품</b> 🔴 <b>파란 구슬 한 알이 돌 윗면을 굴러 가장자리 틈으로 막 들어가는 참이다 — 반쯤 틈에 걸려 있어 어디로 들어갔는지가 보인다</b>, 🔴 <b>돌담 맨 아래에 비슷한 크기의 돌 세 개가 나란히 놓여 있다</b>, 돌마다 이끼가 앉았고 틈마다 풀이 삐져나왔다, 발치에 키 작은 풀과 흰 들꽃 몇
+<b>톤</b> 옆으로 길게 흐르는 구도라 눈이 왼쪽에서 오른쪽으로 미끄러지다 구슬이 걸린 틈에서 멈추도록. 아침 볕이 낮게 깔려 돌 윗면만 환하고 돌담 아래는 어둑하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>돌담에 앉은 까치가 고개를 갸웃했어요.
+"돌 밑엔 다 누가 살고 있어. 들췄으면 꼭 도로 덮어 줘."
+"알았어! 나 구슬만 찾을 거야."</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 왼쪽 아래에 아기 토끼, 오른쪽 위 돌담 꼭대기에 까치 — 둘의 얼굴이 대각선으로 마주 본다
+<b>장소·시간</b> 돌담 앞 풀밭. 같은 아침
+<b>인물</b> 화면 왼쪽 아래 — 아기 토끼가 돌담 아래에 네 발로 서서 고개를 들어 까치를 본다, 앞발 하나가 벌써 맨 아래 돌에 얹혀 있다(당장 들추고 싶은 자세), 귀가 뒤로 살짝 눕고 입이 벌어져 대답한다. 화면 오른쪽 위 — 까치가 돌담 꼭대기에 옆으로 앉아 고개를 한쪽으로 갸웃 기울이고 부리를 열었다, 두 발로 돌을 잡았고 날개는 접혀 있다(🔴 날개로 가리키지 않는다)
+<b>배경·소품</b> 맨 아래 나란한 돌 세 개, 그 사이사이 좁고 어두운 틈, 돌 틈에서 자란 긴 풀이 바람에 한쪽으로 눕는다, 🔴 <b>구슬은 화면에 없다</b>(이미 틈 속으로 들어갔다)
+<b>톤</b> 대각선으로 마주 본 두 얼굴이 화면을 잇도록. 위쪽은 환하고 아래 돌 틈으로 갈수록 어두워져 눈이 자꾸 그 틈으로 내려가게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>아기 토끼가 첫째 돌을 두 앞발로 잡았어요.
+영차! 돌이 들렸어요.
+돌 밑에서 두꺼비가 웅크리고 쿨쿨 자요.
+"앗! 여긴 두꺼비 집이잖아."</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 어깨너머 하이앵글 · 화면 위쪽에 들어 올려진 돌과 토끼의 앞발, 화면 아래 절반은 돌이 있던 자리의 축축한 흙바닥
+<b>장소·시간</b> 돌담 맨 아래, 첫째 돌 앞. 같은 아침
+<b>인물</b> 화면 위 가운데 — 아기 토끼가 뒷발로 버티고 두 앞발로 돌 한쪽을 비스듬히 들어 올린 채 멈췄다, 팔이 부들부들 떨리고 어깨가 잔뜩 올라갔다, 고개를 숙여 돌 밑을 내려다보는데 눈이 동그랗게 커지고 입이 벌어졌다, 귀 둘이 놀라 위로 곧게 섰다
+<b>배경·소품</b> 🔴 <b>돌이 있던 자리에 두꺼비 한 마리가 몸을 납작하게 웅크리고 눈을 감고 있다 — 등이 오돌토돌하고 배가 천천히 부풀었다 줄었다 한다</b>, 둘레에 잔뿌리와 축축한 흙알갱이, 돌 밑면에 눌린 자국과 붙은 흙, 🔴 <b>구슬은 없다</b>
+<b>톤</b> 들어 올린 돌이 만든 그늘이 아래를 덮고 그 그늘 안 두꺼비에게만 빛이 얇게 든다. 힘을 준 몸 위쪽과 꼼짝 않고 자는 아래쪽이 한 화면에서 맞서도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>아기 토끼가 돌을 살살 도로 덮었어요.
+사르르. 흙먼지 하나 안 났어요.
+"잘 자, 두꺼비야."
+구슬은 없었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 · 살짝 하이앵글 · 화면 가운데에 거의 다 내려앉은 돌과 그것을 받친 두 앞발
+<b>장소·시간</b> 같은 자리, 첫째 돌 앞. 같은 아침
+<b>인물</b> 화면 가운데 — 아기 토끼가 두 앞발을 돌 밑에 받치고 팔꿈치를 굽혀 아주 천천히 내려놓는 중이다, 몸을 낮게 웅크리고 뒷발을 넓게 벌려 버텼다, 볼이 부풀 만큼 숨을 참고 눈은 돌 가장자리에 붙어 있다, 귀 둘이 앞으로 모였다
+<b>배경·소품</b> 돌이 원래 자리에 거의 맞물려 손가락 하나 들어갈 틈만 남았다, 🔴 <b>그 남은 틈 안쪽으로 두꺼비 등이 조금 보인다</b>(덮인 뒤에도 거기 있다는 증거), 눌리지 않고 옆으로 비껴 선 풀 두어 포기, 흙바닥에 먼지가 조금도 일지 않았다
+<b>톤</b> 화면 전체가 잔잔하고 움직임이 손끝에만 남아 있게. 돌 가장자리와 앞발이 닿는 자리에 가장 또렷한 초점을 두고 나머지는 부드럽게 풀어놓는다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>바로 옆 돌도 두 앞발로 잡았어요.
+영차! 돌이 들렸어요.
+개미들이 하얀 알을 줄줄이 안고 가요.
+"우아, 바쁘다 바빠!"</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 · 옆에서 본 아이레벨 · 화면 왼쪽에 토끼의 옆모습과 비스듬히 선 돌, 오른쪽 아래에 드러난 흙바닥
+<b>장소·시간</b> 돌담 맨 아래, 둘째 돌 앞. 조금 지난 아침
+<b>인물</b> 화면 왼쪽 — 아기 토끼가 옆모습으로 서서 두 앞발로 돌을 옆으로 비스듬히 들어 올렸다, 등이 활처럼 휘고 뒷발 하나가 뒤로 뻗어 버틴다, 고개를 아래로 꺾어 눈을 크게 뜨고 밑을 들여다본다, 입꼬리가 위로 올라가 신났다
+<b>배경·소품</b> 🔴 <b>드러난 흙 위로 개미들이 한 줄로 길게 이어져 가고 저마다 제 몸만 한 하얀 알을 하나씩 안고 있다</b>, 줄이 화면 오른쪽 구멍 속으로 이어져 사라진다, 잔뿌리와 작은 돌부스러기, 돌 밑면에 매달린 마른 흙, 🔴 <b>구슬은 없다</b>
+<b>톤</b> 줄지어 가는 것이 화면을 가로질러 눈을 오른쪽으로 끌고 가도록. 위쪽 돌은 어둡게 눌러 두고 아래 줄 위에만 밝기를 몰아 준다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>아기 토끼가 돌을 살살 도로 덮었어요.
+사르르. 개미 한 마리도 안 밟았어요.
+"여긴 개미 집이구나."
+구슬은 여기도 없었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 클로즈업 · 하이앵글 · 화면 가득 내려앉는 돌 아랫면과 그 밑의 좁아지는 틈, 위 귀퉁이에 토끼의 두 앞발과 턱
+<b>장소·시간</b> 같은 자리, 둘째 돌 앞. 같은 아침
+<b>인물</b> 화면 위 귀퉁이 — 아기 토끼가 두 앞발로 돌을 받쳐 든 채 팔을 아주 조금씩 내린다, 턱이 돌 위에 닿을 만큼 고개를 숙였고 한쪽 눈을 찡그려 틈 안을 살핀다, 앞발가락이 돌 가장자리를 꽉 쥐었다, 귀 하나가 옆으로 처졌다
+<b>배경·소품</b> 🔴 <b>좁아지는 틈 사이로 개미 줄이 그대로 이어져 가고 하얀 알이 아직 보인다</b>, 개미 한 마리가 돌 가장자리 바로 옆을 지나가는데 돌이 그 옆을 비껴 내려앉는다, 흙바닥에 난 개미 길 자국, 옆으로 밀려난 잔풀
+<b>톤</b> 화면이 위아래로 좁혀지는 구도라 조마조마함이 틈 넓이로 읽히도록. 안쪽으로 갈수록 어두워지지만 개미 줄 위에는 빛이 남게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>그 옆 돌을 또 잡았어요.
+영차! 돌이 들렸어요.
+달팽이들이 딱 붙어 자고 있어요.
+그 사이에서 파란 것이 반짝!
+"어! 내 구슬이다!"</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 클로즈업 · 정면 하이앵글 · 화면 대부분이 돌 밑 드러난 자리, 화면 위 가장자리에 들린 돌과 토끼 앞발
+<b>장소·시간</b> 돌담 맨 아래, 셋째 돌 앞. 해가 조금 오른 아침
+<b>인물</b> 화면 위 가장자리 — 아기 토끼가 돌을 높이 들어 올린 채 얼굴을 아래로 바짝 들이밀었다, 두 귀가 얼굴 옆으로 늘어져 화면 위쪽에 걸리고 눈이 최대로 커졌다, 입이 동그랗게 벌어져 소리치고 앞발가락에 힘이 잔뜩 들어갔다
+<b>배경·소품</b> 🔴 <b>달팽이 대여섯이 돌 밑면과 흙벽에 딱 붙어 껍데기를 오므린 채 자고 있다 — 더듬이가 안으로 다 들어갔다</b>, 🔴 <b>그 달팽이들 사이 흙 위에 파란 구슬 한 알이 놓여 반짝 빛난다</b>(p1 에서 틈으로 빠진 그것이다), 축축한 흙과 굵은 잔뿌리, 돌 밑면에 남은 달팽이 지나간 자국
+<b>톤</b> 화면에서 가장 밝고 또렷한 점이 구슬 하나가 되도록. 둘레는 어둑한 흙그늘로 눌러 두고, 위에서 든 돌 틈으로 들어온 빛줄기가 그 한 점에 떨어지게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>아기 토끼가 앞발을 살그머니 넣었어요.
+스윽. 구슬만 쏙 집었어요.
+달팽이들은 하나도 안 깼어요.
+"달팽이야, 미안해."</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 클로즈업 · 어깨너머 · 화면 가운데에 흙 속으로 들어간 앞발 하나와 그 앞발가락에 잡힌 구슬
+<b>장소·시간</b> 같은 자리, 셋째 돌 밑. 같은 아침
+<b>인물</b> 화면 위 왼쪽 — 아기 토끼가 한 앞발로 돌을 계속 떠받친 채 다른 앞발만 아래로 길게 뻗어 넣었다, 팔이 달팽이들을 피해 비스듬히 들어갔고 발가락 두 개로 구슬을 집었다, 입술을 오므리고 숨을 참는 표정, 눈이 제 앞발 끝만 본다
+<b>배경·소품</b> 🔴 <b>달팽이들은 아까 그 자리 그대로 껍데기를 오므리고 있다 — 하나도 안 움직였다</b>, 구슬이 놓였던 자리에 동그란 자국이 남았다, 앞발이 스치며 흙알갱이 몇 개가 굴러떨어진다, 위쪽에 떠받쳐진 돌 밑면
+<b>톤</b> 화면 안 움직이는 것은 앞발 하나뿐이고 나머지는 완전히 멈춰 있게. 손끝과 잡힌 것에만 초점을 세우고 둘레는 흐리게 풀어 조심스러움이 초점 폭으로 읽히도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>아기 토끼가 돌을 살살 도로 덮었어요.
+사르르. 이번엔 앞발 하나로요.
+다른 앞발엔 구슬이 꼭 쥐어져 있어요.
+"여긴 달팽이 집이야."</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 미디엄 · 살짝 로우앵글 · 화면 오른쪽에 돌을 받친 한 앞발, 왼쪽 가슴께에 구슬을 쥔 다른 앞발
+<b>장소·시간</b> 같은 자리, 셋째 돌 앞. 같은 아침
+<b>인물</b> 화면 가운데 — 아기 토끼가 뒷발로 버티고 앞발 하나만으로 돌을 받쳐 천천히 내려놓는다, 그쪽 어깨가 무게에 눌려 내려갔고 팔이 떨린다, 반대쪽 앞발은 가슴 앞에 붙여 구슬을 꼭 쥐었다, 이를 앙다물고 눈은 돌 가장자리를 본다, 귀 둘이 뒤로 눕는다
+<b>배경·소품</b> 돌이 원래 자리에 거의 맞물렸고 남은 틈으로 달팽이 껍데기 하나가 조금 보인다, 🔴 <b>덮은 돌 셋이 다시 나란해지기 직전이다</b>, 흙바닥에 앞발 자국 몇, 돌 틈에서 다시 고개를 든 풀
+<b>톤</b> 한쪽으로 기운 몸과 반대쪽에 붙은 작은 것이 화면에서 무게를 나눠 가지도록. 아래에서 살짝 올려다봐 힘드는 팔이 커 보이게, 가슴 앞은 밝게 남긴다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>돌 셋이 아까처럼 나란해요.
+아기 토끼가 돌담에 기대앉아 구슬을 안았어요.
+"찾았다!"
+까치가 옆에서 깍깍 웃어요.
+돌 밑에도 다 집이 있어요. 들췄으면 꼭 도로 덮어 줘요.</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 와이드 · 돌담과 같은 눈높이에서 옆으로 · 화면 오른쪽에 돌담에 기대앉은 토끼, 화면 왼쪽 아래로 맨 아래 돌 세 개가 나란히 이어진다 — 🔴 <b>앞의 쪽들이 전부 돌 밑을 위에서 내려다봤다면 이 쪽만 세상을 옆에서 본다</b>
+<b>장소·시간</b> 돌담 옆 풀밭. 해가 오른 아침
+<b>인물</b> 화면 오른쪽 — 아기 토끼가 돌담에 등을 기대고 앉아 두 앞발로 구슬을 가슴에 꼭 안았다, 뒷발을 앞으로 편하게 뻗었고 뺨을 구슬에 댔다, 눈이 가늘게 접히고 입이 활짝 웃는다, 귀가 뒤로 편안히 눕는다. 화면 가운데 위 — 까치가 돌담 꼭대기에 내려앉아 토끼 쪽으로 고개를 기울이고 부리를 열어 깍깍거린다, 두 발을 모으고 날개는 접혀 있다
+<b>배경·소품</b> 🔴 <b>맨 아래 돌 세 개가 하나도 어긋나지 않고 나란히 제자리에 있다 — 셋 다 원래대로 맞물려 어디를 들췄는지 알 수 없다</b>, 돌 틈마다 풀이 그대로 삐져나왔고 이끼도 붙어 있다, 발치에 흰 들꽃, 멀리 낮은 언덕과 풀밭
+<b>톤</b> 옆에서 보는 시선이라 화면이 넓고 조용하게 가라앉도록. 아침빛이 뺨과 품에 든 것에 따뜻하게 걸리고, 🔴 <b>화면 안에 더 들출 것을 두지 않아</b> 여기서 이야기가 닫히도록</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'b83',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['아기 토끼(이름 없음)', '까치 한 마리(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=4294954c5a8fa2d5"></script>
+<script src="/changjak-core.js?v=4294954c5a8fa2d5"></script>
+</body>
+</html>
