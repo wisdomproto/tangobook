@@ -104,8 +104,8 @@ CHARACTER DESIGN LANGUAGE: 🔴 SHARED BY ALL FOUR ANCHORS - reproduce word for 
   over. GRADE: bipedal, standing upright, wearing cloth. The back and head are the OVERLAP colour,
   the chest and belly are INK2, so every animal is built the same way in every anchor. Eyes are two
   solid dark dots set wide apart; a small dark nose; the mouth is ONE curve. 🔴 THE JOKE IS CARRIED
-  BY THE FACE - the mouth curve and the eye spacing change page to page and are never crossed by an
-  object. Whole-body posture carries the rest. Silhouettes separate at thumbnail size: Pongi is the
+  BY THE FACE - expression is made by the MOUTH CURVE, and the eyes only ever open or close. Eye
+  size never changes. The face is never crossed by an object. Whole-body posture carries the rest. Silhouettes separate at thumbnail size: Pongi is the
   smallest standing figure, the goose is the tallest and thinnest.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
@@ -237,6 +237,31 @@ NOT: no airbrush, gradient, glow or 3D render / no soft or feathered edge / no i
 
 🔴 **소품이 곧 정체다.** 05권 착지(조개가 처음부터 손에 있었다)와 09권 착지(양동이를 놓고 조개를 다시
 쥔다)가 그 소품 하나에 걸려 있다.
+
+### ✅ 퐁이 시트 확정 (2026-08-13)
+
+ — 사용자가 GPT 로 뽑았다. 세 조건 통과: **아기 비례**(머리가 크고
+팔다리가 짧다) · **붉은 것은 목끈 하나** · **잉크 안에 종이 결**. 주둥이의 흙색이 가슴·배로 이어져
+한 덩어리 도형이라 축소해도 실루엣이 안 무너진다.
+
+`pongi-sheets/01-pongi-modelsheet.png` — 3면(정면·옆·뒤) · 표정 5 · 자세 4 를 한 장에. 뒷모습에서 꼬리 위치와 목 뒤로 넘어가는 끈이 정해졌다.
+
+🔴 **표정 규격이 실측으로 바뀌었다.** 프롬프트에 「놀람 = 눈이 훨씬 크게」를 넣었는데 **눈은 다섯 개가 다 같게** 나왔다. 실제로 변한 것은 입뿐이고, 눈이 변한 자리는 「웃음」에서 감긴 것 하나다. 이 캐릭터는 눈이 작은 점이라 크기를 키우면 인상이 무너지는 쪽이고, 그대로도 다섯이 구분된다.
+
+> **표정 = 입 곡선 5종 × 눈은 뜨거나 감거나.** 평상=부드러운 곡선 · 놀람=작은 O · 웃음=크게 벌림+눈 감김 · 골똘=직선 · 실망=아래 곡선.
+
+⚠️ **자세 하나는 다시 잡아야 한다** — 「두 팔 앞으로 뻗기」가 만세로 나왔다. 01권 p8(아빠 손을 잡아당김)·09권에 필요한 것은 앞으로 뻗는 쪽이라 그 쪽 프롬프트에서 따로 지정한다.
+
+🔴 **이 시트가 나머지 넷의 레퍼런스다.** 250쪽에 옆·뒤·앉기·엎드리기·넘어지기가 나오고, 무엇보다 이 시리즈는
+**얼굴 연기가 핵심**인데 앵커가 눈썹을 금지했다 — 표정은 **입 곡선과 눈 크기** 둘로만 만들어야 하므로
+그 조합이 시트에 고정돼 있지 않으면 250쪽에서 제각각이 된다. 남은 것 = 3면 · 표정 5~6 · 자세 4.
+
+### 🔴 comfy_test 에서 레퍼런스 경로가 막혀 있다 (2026-08-13)
+
+\
+ComfyUI 0.31.0 이  인자를 추가했는데 커스텀 노드  가 안 따라갔다.
+**캐릭터 레퍼런스를 물리는 경로 전체가 막혔다** — 순수 t2i( 없이)는 정상이다.
+시트 확장은 **GPT 로** 한다(이미지 첨부가 레퍼런스로 그대로 먹는다).
 
 ### 🔴 아기 비례 — 프롬프트로 세 번 실패했다
 
