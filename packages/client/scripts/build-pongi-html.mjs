@@ -98,6 +98,7 @@ ${cards}
   index.push({ file: `pongi-${id}.html`, label: `${id} ${bk.title}`, title: bk.title });
   made++;
 }
+index.unshift({ file: 'pongi-plan.html', label: '📘 기획서' }); // ☰ 사이드바 첫 항목
 fs.writeFileSync(`${OUT}/pongi-index.json`, JSON.stringify(index, null, 1));
 console.log(`회차 HTML ${made}권 · index ${index.length}`);
 if (missing.length) console.log('SCENE 없음: ' + missing.join(', '));
