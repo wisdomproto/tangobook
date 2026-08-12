@@ -1,8 +1,10 @@
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import type { GameTypeId, Lang, Storybook } from '@tangobook/shared';
 import { usePhonicsMap } from '@/features/games/hooks/usePhonicsMap';
 import { useGameAssetPreload } from '@/features/games/hooks/useGameAssetPreload';
 import { GameLoadingGate } from '@/features/games/components/GameLoadingGate';
+import { extractItemWords } from '@/features/games/lib/collect-game-assets';
+import { preloadWordScenes } from '@/features/games/lib/phonics-word-scene';
 
 interface Props {
   /** 수집기(`collect-game-assets`)가 아는 게임 id — 활동 kind 가 아니다. */
@@ -45,6 +47,18 @@ export function PhonicsGameGate({ game, gameData, storybook, storybookId, lang, 
     storybookId,
   });
   const [skipped, setSkipped] = useState(false);
+
+  /**
+   * 🔴 맞힌 낱말이 나오는 **동화책** 쪽을 미리 받아 둔다(2026-08-12).
+   *    리빌은 정답 소리 콜백 안에서 동기로 일어나 그때 받으러 가면 늦는다.
+   *    게이트는 **기다리지 않는다** — 못 받았으면 낱말만 읽고 넘어가면 되므로,
+   *    이걸 기다리게 하면 로딩만 길어지고 얻는 게 없다.
+   */
+  const words = extractItemWords(gameData as Parameters<typeof extractItemWords>[0]).join('|');
+  useEffect(() => {
+    if (!words) return;
+    void preloadWordScenes(words.split('|'));
+  }, [words]);
 
   if (!preload.ready && !skipped) {
     return (
