@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useYoutubeOwnAnalytics } from '../../api/use-analytics';
+import { useYoutubeOwnAnalytics, useConnectedYoutubeChannels } from '../../api/use-analytics';
 
 /** 초 → "0:51" */
 function mmss(sec: number): string {
@@ -39,50 +39,91 @@ interface Props {
  * 🔴 노출수·CTR 은 Analytics API 에 없다(Studio 전용) — 그 사실을 화면에 명시해서
  *    "값이 비었다"를 데이터 없음으로 오해하지 않게 한다.
  */
-export function YoutubeOwnPanel({ channelName = '탱고북스' }: Props) {
+export function YoutubeOwnPanel({ channelName }: Props) {
   const [days, setDays] = useState(28);
-  const { data, isLoading, error } = useYoutubeOwnAnalytics(channelName, days);
+  const [picked, setPicked] = useState<string | undefined>(channelName);
+  const { data: channels = [] } = useConnectedYoutubeChannels();
+
+  // 미지정이면 연동 목록의 첫 채널. 목록이 오기 전에는 서버 기본값(첫 채널)을 그대로 쓴다.
+  const active = picked ?? channels[0]?.channelTitle ?? channels[0]?.name;
+  const { data, isLoading, error } = useYoutubeOwnAnalytics(active, days);
+
+  // 🔴 선택기는 조기 return 위에 둔다 — 스코프·연동 문제로 데이터가 없을 때야말로
+  //    다른 채널로 바꿔봐야 하는데, 아래에 두면 그 화면에서 선택기가 사라진다.
+  const picker =
+    channels.length > 1 ? (
+      <div className="flex gap-1 flex-wrap">
+        {channels.map((c) => {
+          const name = c.channelTitle ?? c.name ?? '';
+          return (
+            <button
+              key={c.id}
+              onClick={() => setPicked(name)}
+              className={`px-2.5 py-1 text-xs rounded-md border transition-colors ${
+                name === active
+                  ? 'bg-primary text-primary-foreground border-primary'
+                  : 'bg-card border-border hover:bg-accent'
+              }`}
+            >
+              {name}
+            </button>
+          );
+        })}
+      </div>
+    ) : null;
 
   if (isLoading) {
     return (
-      <div className="text-center py-12 text-muted-foreground text-sm">
-        <span className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin inline-block mb-2" />
-        <p>내 채널 분석 중...</p>
+      <div className="space-y-4">
+        {picker}
+        <div className="text-center py-12 text-muted-foreground text-sm">
+          <span className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin inline-block mb-2" />
+          <p>내 채널 분석 중...</p>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-4 text-sm text-destructive break-keep">
-        오류: {error instanceof Error ? error.message : '알 수 없는 오류'}
+      <div className="space-y-4">
+        {picker}
+        <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-4 text-sm text-destructive break-keep">
+          오류: {error instanceof Error ? error.message : '알 수 없는 오류'}
+        </div>
       </div>
     );
   }
 
   if (!data) {
     return (
-      <div className="bg-card border border-border rounded-lg p-4 text-sm text-muted-foreground break-keep">
-        YouTube 연동이 필요합니다.
+      <div className="space-y-4">
+        {picker}
+        <div className="bg-card border border-border rounded-lg p-4 text-sm text-muted-foreground break-keep">
+          YouTube 연동이 필요합니다.
+        </div>
       </div>
     );
   }
 
   if (!data.available) {
     return (
-      <div className="bg-card border border-border rounded-lg p-4 space-y-2">
-        <div className="text-sm font-medium break-keep">지속률 데이터를 볼 수 없습니다</div>
-        <p className="text-sm text-muted-foreground break-keep">{data.reason}</p>
-        {data.actionUrl && (
-          <a
-            href={data.actionUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block text-sm text-primary underline break-all"
-          >
-            GCP 콘솔에서 활성화하기
-          </a>
-        )}
+      <div className="space-y-4">
+        {picker}
+        <div className="bg-card border border-border rounded-lg p-4 space-y-2">
+          <div className="text-sm font-medium break-keep">지속률 데이터를 볼 수 없습니다</div>
+          <p className="text-sm text-muted-foreground break-keep">{data.reason}</p>
+          {data.actionUrl && (
+            <a
+              href={data.actionUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block text-sm text-primary underline break-all"
+            >
+              GCP 콘솔에서 활성화하기
+            </a>
+          )}
+        </div>
       </div>
     );
   }
@@ -93,6 +134,7 @@ export function YoutubeOwnPanel({ channelName = '탱고북스' }: Props) {
 
   return (
     <div className="space-y-4">
+      {picker}
       {/* 기간 선택 */}
       <div className="flex items-center gap-2 flex-wrap">
         <span className="text-sm font-semibold break-keep">{data.channel.title}</span>
