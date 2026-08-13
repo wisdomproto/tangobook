@@ -157,7 +157,12 @@ async function linkSeries(key, existingKeys) {
     };
 
     rows.push({ id, title, pages: pages.length, illos, mode: prev ? '갱신' : '신규', keptTts: pages.filter((p) => p.ttsUrl).length });
-    if (APPLY) await putStorybook(sb);
+    // 🔴 `putStorybook(id, data)` 는 인자를 **둘** 받는다. `putStorybook(sb)` 로 부르면 키가
+    //    `storybook-[object Object].json` 하나가 되고 125권이 그 한 자리를 덮어쓴다 — 게다가
+    //    두 번째 인자가 undefined 라 `JSON.stringify(undefined)` = 빈 본문이 올라간다.
+    //    🔴 **에러도 안 나고 「✅ 반영 완료」가 찍힌다.** 2026-08-13 에 실제로 그렇게 돌았고,
+    //    R2 를 뒤져 「저장된 게 0권」인 걸 보고서야 알았다. 반영 뒤에는 **저장소를 세라.**
+    if (APPLY) await putStorybook(sb.id, sb);
   }
   return rows;
 }
