@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>퐁이네 운하 마을 — 제일 큰 물고기</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --line:#f0e0d2; --water:#2C4A3C; --mint:#2C4A3C; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--water); margin-bottom:22px; }
+  .hero .kicker { color:var(--water); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; }
+  .note { background:#fff6f2; border:1px solid var(--coral); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin:14px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--water); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { margin-left:auto; background:var(--coral); color:#fff; border:0; border-radius:9px; padding:5px 12px; font-size:12px; font-weight:800; cursor:pointer; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .copy-btn { background:#fff; color:var(--water); border:1.5px solid var(--water); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--water); color:#fff; }
+  .batch-bar { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin:16px 0; }
+  .batch-bar .bhint { font-size:12.5px; color:var(--ink-soft); line-height:1.7; }
+  .batch-bar .brow { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .batch-btn { background:var(--coral); color:#fff; border:0; border-radius:10px; padding:7px 15px; font-size:13px; font-weight:800; cursor:pointer; }
+  .batch-btn:hover { background:var(--coral-dark); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--water); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
+  .ref-lab { font-size:12px; font-weight:800; color:var(--ink-soft); }
+  .ref-chip { display:flex; align-items:center; gap:7px; background:var(--peach); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:800; }
+  .ref-chip img { width:30px; height:30px; border-radius:50%; object-fit:cover; }
+  .ref-chip .ph { width:30px; height:30px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; font-size:15px; }
+  .ref-chip .im { color:var(--water); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#f7f4ef; border-radius:10px; padding:12px 14px; margin-top:9px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">퐁이네 운하 마을 · 09</div>
+  <h1>제일 큰 물고기</h1>
+  <div class="sub">제일 큰 물고기를 잡고 싶다 · **어긋남** 아빠가 잡았다 놓친다 · **착지** 동생 양동이가 가득 차 있다</div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~5 고정) + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아침 운하는 아주 조용해요. 퐁이가 양동이를 들고 나왔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 잔잔한 운하가 화면 대부분.<br/><b>장소·시간</b> 운하, 이른 아침.<br/><b>인물</b> Pongi가 물가에 서서 양동이를 한 앞발에 들었다. 작게.<br/><b>배경·소품</b> 빈 양동이, 물 표면이 거울처럼 평평하다.<br/><b>톤</b> 아무 물결도 없는 아침.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"오늘은 제일 큰 걸 잡을 거예요." 퐁이가 물속을 들여다봤어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글, 물속을 들여다보는 시점.<br/><b>장소·시간</b> 물가.<br/><b>인물</b> Pongi가 무릎을 굽히고 상체를 물 쪽으로 숙였다. 얼굴이 물 가까이.<br/><b>배경·소품</b> 물 표면, 그 아래가 어렴풋이 보인다.<br/><b>톤</b> 노리는 자세.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">작은 물고기가 발밑으로 줄줄이 지나가요. 퐁이는 다 그냥 보냈어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글, 발밑 물속.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Pongi의 두 발만 화면 위쪽에 걸친다.<br/><b>배경·소품</b> 작은 물고기 대여섯 마리가 줄지어 발밑을 지나간다. 전부 작다.<br/><b>톤</b> 지나가게 두는 쪽.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">저쪽에서 큰 그림자가 왔어요. "아빠가 잡아 줄게."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 물 위로 다가오는 그림자.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Pongi가 물을 가리키며 눈이 커졌다. Dad otter가 옆에서 물 쪽으로 몸을 기울인다.<br/><b>배경·소품</b> 물속에 큰 도형 하나가 어둡게 다가온다 — 지느러미 윤곽만.<br/><b>톤</b> 크다는 것이 도형 크기로만 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 소매를 걷었어요. 숨을 크게 들이마셨어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업. 아빠 상반신.<br/><b>장소·시간</b> 물가.<br/><b>인물</b> Dad otter가 한쪽 소매를 걷어 올리고 숨을 크게 들이마셔 가슴이 부풀었다. 눈에 힘이 들어갔다.<br/><b>배경·소품</b> 물 표면.<br/><b>톤</b> 잘될 것 같은 자세.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">첨벙! 아빠가 두 팔을 쭉 뻗었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아빠가 물로 뛰어드는 순간.<br/><b>장소·시간</b> 물가.<br/><b>인물</b> Dad otter가 두 팔을 앞으로 쭉 뻗고 상체를 물에 넣었다. 물이 사방으로 튄다.<br/><b>배경·소품</b> 튄 물이 도형 몇 개로.<br/><b>톤</b> 소리가 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠 팔 사이에서 미끌. 물고기는 가고 아빠만 물에 앉았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 물속에서 나온 아빠.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Dad otter가 물에 엉덩이를 붙이고 앉았다. 두 팔은 아직 앞으로 벌어져 있고 그 사이가 텅 비었다. 물이 뚝뚝 흐르는 얼굴.<br/><b>배경·소품</b> 물고기가 화면 구석에서 반대편으로 헤엄쳐 나간다.<br/><b>톤</b> 놓친 것이 팔 사이 빈 곳으로 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>뒤집힘</b> <span class="tag">뒤집힘</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">퐁이 양동이는 텅 비었어요. 물만 찰랑거려요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글 클로즈업. 양동이 안.<br/><b>장소·시간</b> 물가.<br/><b>인물</b> Pongi의 얼굴이 화면 위에서 내려다본다.<br/><b>배경·소품</b> 양동이 안에 물만 찰랑거린다.<br/><b>톤</b> 비어 있음이 한 판의 초록으로.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>반응</b> <span class="tag">반응</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">동생이 양동이를 들고 왔어요. 작은 물고기가 가득해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 동생이 양동이를 들고 온다.<br/><b>장소·시간</b> 물가.<br/><b>인물</b> Baby otter가 두 앞발로 양동이 손잡이를 잡고 뒤뚱뒤뚱 걸어온다. 표정은 태평하다.<br/><b>배경·소품</b> 양동이 안에 작은 물고기가 가득해 위로 넘칠 듯하다.<br/><b>톤</b> 어떻게 잡았는지는 아무도 모른다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">동생이 양동이를 퐁이 앞에 놓았어요. 그리고 조개를 다시 꼭 쥐었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글, 두 양동이가 나란히.<br/><b>장소·시간</b> 물가.<br/><b>인물</b> Baby otter가 제 양동이를 퐁이 앞에 내려놓고, 조개를 두 앞발로 다시 꼭 쥔다. Pongi가 그것을 내려다본다.<br/><b>배경·소품</b> 🔴 빈 양동이와 가득 찬 양동이가 나란히 놓여 크기가 비교된다.<br/><b>톤</b> 두 양동이가 이 쪽의 전부다.</pre></details>
+</div>
+
+</div>
+<script src="/pongi-core.js"></script>
+</body>
+</html>

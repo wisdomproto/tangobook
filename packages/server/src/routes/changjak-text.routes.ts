@@ -10,7 +10,7 @@ import { uploadJsonToR2, r2PublicUrl } from '../providers/r2.provider.js';
  */
 const router = Router();
 
-const DOC_RE = /^[a-z]\d{1,3}$/; // 책 슬러그 (a02, e120 …) — CJ_EPISODE.id
+const DOC_RE = /^[a-z][a-z0-9-]{0,32}$/; // 책 슬러그 (a02, e120 …) + 시리즈 회차 (pongi-01 …)
 const PAGE_RE = /^p\d{1,3}$/;
 const MAX_LEN = 8000; // 한 쪽 본문 상한
 type TextMap = Record<string, string>;

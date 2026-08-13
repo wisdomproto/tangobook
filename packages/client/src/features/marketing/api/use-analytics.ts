@@ -398,6 +398,25 @@ export type YoutubeOwnAnalytics =
  * POST /api/mkt/analytics/youtube-own — 우리 채널 지속률·트래픽소스.
  * projectId 를 받지 않는다: 유튜브 연동은 프로젝트가 아니라 서버(R2 `system/youtube-channels.json`)에 있다.
  */
+/**
+ * 연동된 유튜브 채널 목록 — 분석 패널의 채널 선택기용.
+ * 🔴 채널이 3개(탱고북스·tango books·탱고북 동화)가 되면서 한 채널 하드코딩이 깨졌다.
+ *    이름으로 매칭하므로 채널명을 바꾸면 저장분과 어긋난다 → 이름은 목록에서 고르게 한다.
+ */
+export function useConnectedYoutubeChannels() {
+  return useQuery({
+    queryKey: ['mkt', 'youtube', 'connected-channels'],
+    staleTime: 5 * 60_000,
+    queryFn: async (): Promise<Array<{ id: string; name?: string; channelTitle?: string }>> => {
+      // 마케팅 전용 라우트가 아니라 오디오북과 공유하는 `/api/longform` 이다.
+      const res = await fetch('/api/longform/youtube/channels');
+      if (!res.ok) return [];
+      const json = await res.json();
+      return json?.data ?? [];
+    },
+  });
+}
+
 export function useYoutubeOwnAnalytics(channelName = '탱고북스', days = 28) {
   return useQuery({
     queryKey: mktKeys.youtubeOwn(channelName, days),

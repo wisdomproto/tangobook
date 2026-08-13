@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>퐁이네 운하 마을 — 처음 신는 스케이트</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --line:#f0e0d2; --water:#2C4A3C; --mint:#2C4A3C; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--water); margin-bottom:22px; }
+  .hero .kicker { color:var(--water); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; }
+  .note { background:#fff6f2; border:1px solid var(--coral); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin:14px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--water); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { margin-left:auto; background:var(--coral); color:#fff; border:0; border-radius:9px; padding:5px 12px; font-size:12px; font-weight:800; cursor:pointer; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .copy-btn { background:#fff; color:var(--water); border:1.5px solid var(--water); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--water); color:#fff; }
+  .batch-bar { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin:16px 0; }
+  .batch-bar .bhint { font-size:12.5px; color:var(--ink-soft); line-height:1.7; }
+  .batch-bar .brow { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .batch-btn { background:var(--coral); color:#fff; border:0; border-radius:10px; padding:7px 15px; font-size:13px; font-weight:800; cursor:pointer; }
+  .batch-btn:hover { background:var(--coral-dark); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--water); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
+  .ref-lab { font-size:12px; font-weight:800; color:var(--ink-soft); }
+  .ref-chip { display:flex; align-items:center; gap:7px; background:var(--peach); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:800; }
+  .ref-chip img { width:30px; height:30px; border-radius:50%; object-fit:cover; }
+  .ref-chip .ph { width:30px; height:30px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; font-size:15px; }
+  .ref-chip .im { color:var(--water); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#f7f4ef; border-radius:10px; padding:12px 14px; margin-top:9px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">퐁이네 운하 마을 · 24</div>
+  <h1>처음 신는 스케이트</h1>
+  <div class="sub">넘어지지 않고 한 바퀴 돌고 싶다 · **어긋남** 아빠가 가르치다 더 많이 넘어진다 · **착지** 넘어지면서 한 바퀴 돈다</div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~5 고정) + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">운하가 꽁꽁 얼었어요. 사람들이 얼음 위를 미끄러져 가요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 언 운하 위를 사람들이 지나간다.<br/><b>장소·시간</b> 운하, 겨울 낮.<br/><b>인물</b> 마을 사람 몇이 얼음 위를 미끄러져 간다 — 얼굴 없는 실루엣으로 처리해 인물을 안 늘린다.<br/><b>배경·소품</b> 얼어붙은 운하가 미색 한 판.<br/><b>톤</b> 다들 잘 탄다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">퐁이가 스케이트를 신었어요. 발목이 자꾸 안쪽으로 꺾여요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 로우앵글. 퐁이 발과 스케이트.<br/><b>장소·시간</b> 운하 가장자리.<br/><b>인물</b> Pongi가 스케이트를 신고 앉았다. 🔴 <b>두 발목이 안쪽으로 꺾여</b> 날이 바깥으로 눕는다 — 처음이라는 것이 발목 각도로 보인다.<br/><b>배경·소품</b> 스케이트 두 짝.<br/><b>톤</b> 아직 못 선다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"한 바퀴만 안 넘어지고 돌 거예요." 퐁이가 얼음에 발을 올렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 퐁이가 얼음에 발을 올린다.<br/><b>장소·시간</b> 얼음 가장자리.<br/><b>인물</b> Pongi가 두 앞발로 둑을 짚고 한 발을 얼음에 조심스레 올린다. 입을 앙다물었다.<br/><b>배경·소품</b> 둑과 얼음의 경계.<br/><b>톤</b> 다짐하는 자세.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 옆에서 팔을 벌렸어요. "이렇게 밀면서 나가는 거야."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아빠가 시범을 보인다.<br/><b>장소·시간</b> 얼음 위.<br/><b>인물</b> Dad otter가 두 팔을 옆으로 벌리고 한 발을 옆으로 미는 자세를 취한다. 가르치는 얼굴.<br/><b>배경·소품</b> 얼음.<br/><b>톤</b> 아직은 그럴듯하다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 한 발을 밀었어요. 그리고 그대로 넘어졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아빠가 넘어진다.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Dad otter가 엉덩이로 얼음에 주저앉았다. 두 다리가 앞으로 벌어지고 두 팔이 위로 들렸다.<br/><b>배경·소품</b> 얼음에 미끄러진 자국.<br/><b>톤</b> 첫 번째.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 또 넘어졌어요. 이번엔 엉덩이가 아니라 등이에요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, p5와 같은 앵글. 두 번째.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Dad otter가 이번엔 🔴 <b>등으로</b> 넘어져 대자로 누웠다 — p5와 다른 자세여야 반복이 웃음이 된다.<br/><b>배경·소품</b> 자국이 두 줄로 늘었다.<br/><b>톤</b> 어른이 더 못 한다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">퐁이는 조금씩 나아가요. 느리지만 안 넘어졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드. 퐁이가 조금씩 나아간다.<br/><b>장소·시간</b> 얼음 위.<br/><b>인물</b> Pongi가 두 팔을 벌려 균형을 잡고 아주 조금씩 미끄러진다. 발은 여전히 어색하지만 서 있다. 화면 뒤에 누운 아빠.<br/><b>배경·소품</b> 퐁이 뒤로 짧게 난 자국.<br/><b>톤</b> 느리지만 서 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>뒤집힘</b> <span class="tag">뒤집힘</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">반 바퀴를 돌았어요. 발이 후들후들 떨려요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글, 위에서. 퐁이가 지나온 반원.<br/><b>장소·시간</b> 얼음 위.<br/><b>인물</b> Pongi가 원의 절반쯤 되는 지점에 있다. 두 무릎이 안쪽으로 떨린다.<br/><b>배경·소품</b> 🔴 얼음에 <b>반원 자국</b>이 남아 있다 — 한 바퀴의 절반이 보여야 마지막 쪽이 성립한다.<br/><b>톤</b> 절반 왔다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>반응</b> <span class="tag">반응</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마지막에 발이 쭉 미끄러졌어요. 퐁이가 엉덩이로 주저앉았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 퐁이가 미끄러진다.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Pongi의 한 발이 앞으로 쭉 미끄러지며 엉덩이가 얼음에 닿는다. 눈이 커졌다.<br/><b>배경·소품</b> 얼음.<br/><b>톤</b> 넘어졌다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 그대로 빙그르르 돌았어요. 앉은 채로 한 바퀴를 다 돌았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글, 위에서. 완성된 원.<br/><b>장소·시간</b> 같은 얼음.<br/><b>인물</b> Pongi가 앉은 자세 그대로 빙그르르 돌아 출발점으로 돌아왔다. 두 팔을 벌리고 입이 크게 벌어졌다. 화면 옆에서 Baby otter가 손뼉을 친다.<br/><b>배경·소품</b> 🔴 p8의 반원과 이어져 <b>완전한 동그라미</b>가 얼음에 남았다 — 앉은 채로 그린 원이다.<br/><b>톤</b> 넘어져서 이뤄졌다.</pre></details>
+</div>
+
+</div>
+<script src="/pongi-core.js"></script>
+</body>
+</html>

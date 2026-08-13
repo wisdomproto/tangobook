@@ -62,16 +62,67 @@ const AMBIGUOUS = new Set([
   '김밥', // 카드=음식 / 「터널이 김밥 속 같아」 비유
 ]);
 
+/**
+ * 영어는 **낱말 경계**로 찾는다 — `includes` 면 `cat` 이 `category` 에, `big` 이 `bigger` 에 걸린다.
+ * 뒤에 붙는 건 `s·es·d·ed·ing` 만 받는다(`cats`·`baked`·`jumping`).
+ *
+ * 🔴 자음이 겹치거나(`dig`→`digging`) e 가 빠지는(`bake`→`baking`) 변화는 **일부러 안 잡는다**.
+ *    규칙을 늘릴수록 `pin`→`pinning` 옆에 `pi`+`nning` 같은 오탐이 생기는데, 못 잡으면 예문이
+ *    줄 뿐이고 잘못 잡으면 아이가 딴 낱말을 본다. 이 방향으로 틀리는 게 낫다.
+ */
+function hasEn(text, w) {
+  return new RegExp(String.raw`\b${w}(s|es|d|ed|ing)?\b`, 'i').test(text);
+}
+
+/**
+ * 🔴 영어도 뜻이 갈리는 낱말은 뺀다. 한국어와 이유는 같고 목록만 다르다 —
+ * 영어는 **같은 철자가 아예 다른 것**을 가리키는 일이 잦다(bat 은 방망이이자 박쥐다).
+ * 파닉스 카드가 가리키는 뜻과 본문에서 흔한 뜻이 어긋나는 것들.
+ */
+const AMBIGUOUS_EN = new Set([
+  'bat',  // 카드=방망이 / 본문=박쥐
+  'can',  // 카드=깡통 / 본문 대부분=조동사 "can"
+  'pen',  // 카드=펜 / 우리(가축 우리)
+  'bark', // 나무껍질 / 짖다
+  'fall', // 가을 / 넘어지다
+  'left', // 왼쪽 / 떠났다
+  'wave', // 파도 / 손 흔들다
+  'rock', // 바위 / 흔들다
+  'well', // 우물 / 잘
+  'back', // 등 / 뒤로
+  'saw',  // 톱 / 보았다
+  'fan',  // 부채 / 팬
+  'tie',  // 넥타이 / 묶다
+  'pop',  // 펑 / 팝
+  'kind', // 종류 / 친절한
+  'like', // 좋아하다 / ~같은
+  'may',  // 5월 / ~일지도
+  'will', // 의지 / ~할 것이다
+  'run', 'cut', 'hit', 'let', 'set', 'get', 'sit', 'net', // 흔한 동사와 겹침
+]);
+
 const list = (await (await fetch(`${BASE}/api/storybooks`)).json()).data;
 
-// 파닉스 한글 단원의 학습단어
+// 파닉스 단원의 학습단어 — 한글(kr-)·영어(en-) 를 한 인덱스에 담는다(철자가 안 겹친다).
 const krUnits = list.filter((b) => b.type === 'phonics' && b.id.startsWith('kr-')).map((b) => b.id);
+const enUnits = list.filter((b) => b.type === 'phonics' && b.id.startsWith('en-')).map((b) => b.id);
 const words = new Set();
+const enWords = new Set();
 for (const id of krUnits) {
   const sb = (await (await fetch(`${BASE}/api/storybooks/${id}`)).json()).data ?? {};
   for (const f of sb.flashcards ?? []) if (f.word && !AMBIGUOUS.has(f.word)) words.add(f.word);
 }
-console.log(`파닉스 학습단어 ${words.size}개`);
+for (const id of enUnits) {
+  const sb = (await (await fetch(`${BASE}/api/storybooks/${id}`)).json()).data ?? {};
+  const add = (w) => {
+    const t = String(w ?? '').trim().toLowerCase();
+    // 🔴 3글자 미만은 안 넣는다 — `an`·`at` 은 라임 패턴이지 낱말이 아니라 본문 어디에나 나온다.
+    if (t.length >= 3 && /^[a-z]+$/.test(t) && !AMBIGUOUS_EN.has(t)) enWords.add(t);
+  };
+  for (const f of sb.flashcards ?? []) add(f.word);
+  for (const fam of sb.wordFamilies ?? []) for (const w of fam.words ?? []) add(w.word ?? w);
+}
+console.log(`파닉스 학습단어 — 한글 ${words.size} · 영어 ${enWords.size}`);
 
 // 공개 동화책 (파닉스 제외)
 const books = list.filter((b) => b.type !== 'phonics' && b.isPublic);
@@ -84,17 +135,27 @@ await Promise.all(
       const b = q.shift();
       const sb = (await (await fetch(`${BASE}/api/storybooks/${encodeURIComponent(b.id)}`)).json()).data ?? {};
       const pages = sb.pages ?? [];
-      for (const w of words) {
+      // 낱말 → 그 쪽의 (언어별) 본문. 한글은 `text`, 영어는 `translations.en.text`.
+      const scan = [
+        ...[...words].map((w) => [w, 'ko']),
+        ...[...enWords].map((w) => [w, 'en']),
+      ];
+      for (const [w, lang] of scan) {
         for (let i = 0; i < pages.length; i++) {
           const p = pages[i];
-          if (!p?.text || !has(p.text, w)) continue;
+          const text = lang === 'ko' ? p?.text : p?.translations?.en?.text;
+          if (!text || !(lang === 'ko' ? has(text, w) : hasEn(text, w))) continue;
           // 🔴 그림이 없으면 보여 줄 게 없다. 그림체별 삽화도 함께 본다.
           const hasArt =
             !!p.illustrationUrl ||
             Object.values(sb.styleAssets ?? {}).some((s) => s?.pageIllustrations?.[i + 1]?.illustrationUrl);
           if (!hasArt) continue;
           // 그 책이 이 낱말을 핵심단어로 들고 있으면 더 좋은 예문이다(먼저 쓴다).
-          const isKey = (sb.key_objects ?? []).some((k) => (k.korean || k.name || '').trim() === w);
+          const isKey = (sb.key_objects ?? []).some((k) =>
+            lang === 'ko'
+              ? (k.korean || k.name || '').trim() === w
+              : (k.nameEn || k.name || '').trim().toLowerCase() === w,
+          );
           (index[w] ??= []).push({ bookId: b.id, page: i + 1, key: isKey ? 1 : 0 });
         }
       }
@@ -124,9 +185,12 @@ for (const [w, list] of Object.entries(index)) {
   index[w] = picked.map(({ bookId, page }) => [bookId, page]);
 }
 
-const found = Object.keys(index).length;
-console.log(`\n낱말 ${found}/${words.size} 가 동화책에 나온다 · 쪽 ${Object.values(index).reduce((a, v) => a + v.length, 0)}개`);
-console.log(`없는 낱말: ${[...words].filter((w) => !index[w]).join(' ')}`);
+const koFound = [...words].filter((w) => index[w]).length;
+const enFound = [...enWords].filter((w) => index[w]).length;
+const pages = Object.values(index).reduce((a, v) => a + v.length, 0);
+console.log(`\n한글 ${koFound}/${words.size} · 영어 ${enFound}/${enWords.size} 가 동화책에 나온다 · 쪽 ${pages}개`);
+console.log(`없는 한글 낱말: ${[...words].filter((w) => !index[w]).join(' ')}`);
+console.log(`없는 영어 낱말 ${enWords.size - enFound}개 (앞 40): ${[...enWords].filter((w) => !index[w]).slice(0, 40).join(' ')}`);
 
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, JSON.stringify(index, null, 0));

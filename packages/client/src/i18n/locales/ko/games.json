@@ -25,7 +25,8 @@
     "goodTitle": "잘했어요!",
     "goodSub": "다음엔 더 잘할 수 있어요 💪",
     "restart": "🔄 다시 하기",
-    "confirm": "확인"
+    "confirm": "확인",
+    "metBooks": "📖 방금 만난 책"
   },
   "feedback": {
     "correct1": "잘했어!",

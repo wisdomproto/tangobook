@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>G-07 숲에서 나는 소리 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · G · 용기·두려움 · 07</div>
+  <h1>숲에서 나는 소리</h1>
+  <div class="sub">소리가 날 때마다 아주 커다란 걸 상상해요. 가 보면 다 조그마해요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 누적·반복</span>
+  <span>무대 · 체코 숲 — 이끼 낀 쓰러진 통나무 한 자리와 그 둘레를 빙 둘러싼 키 큰 고사리 덤불 (🔴 고사리가 아기 멧돼지 키보다 높아 통나무에 앉으면 사방이 잎에 막혀 안 보인다. 이 자리와 세 방향은 열네 쪽 내내 같다)</span>
+  <span>후렴 · "내가 가서 볼 거야." (p3·p6·p9 세 번 · 늘 밀고 들어가기 직전, 몸이 아직 떨리는 채로 · 🔴 p13 에서는 이 말이 안 나온다 — 말보다 발이 먼저 나가는 것이 이 후렴의 갚음이다)</span>
+  <span class="q">14스프레드</span>
+  <span class="q">본문 835자 · 쪽당 60자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- 🔴 <b>「숲이 작아진다」를 비유로 안 쓴다.</b> 실제로 일어나는 일은 하나다 — <b>아기 멧돼지가 고사리를 밀고 지나가면 고사리가 누워서 길이 한 줄 난다.</b> 멧돼지가 덤불에 길을 내며 다니는 건 실제로 하는 짓이고, 그 길로 저쪽이 보이고 빛이 들어온다. 안 보이던 데가 세 번에 걸쳐 한 줄씩 열린다 — 요약의 「숲이 작아진다」는 이걸로 갈아 끼웠다.<br>
+- 🔴 <b>겹이 하나다.</b> 「가 보면 보인다」 하나뿐이다. 무서운 소리의 규칙도, 외울 설정도, 단서를 모아 푸는 자리도 없다. 아기 멧돼지가 하는 일은 <b>가서 보는 것</b> 하나이고 열네 쪽 내내 그것만 한다.<br>
+- 🔴 <b>c12·g01 과 축이 다르다.</b> c12 는 안개가 걷히는 <b>한 장</b>에서 다섯이 한꺼번에 드러나고, g01 은 서로 못 봐서 서로를 크게 믿는다. 이 권은 <b>한 번에 하나씩</b> 풀린다 — 그래서 무서움도 한 번에 하나씩 줄고, 줄어든 만큼이 <b>화면에 길로 남는다.</b> 아무것도 저절로 걷히지 않고 전부 아기 멧돼지가 제 몸으로 민 것이다.<br>
+- 🔴 <b>반복은 셋.</b> 왼쪽(딱따구리) · 오른쪽(두꺼비) · 앞쪽(기대선 두 나무). 넷째를 넣으면 같은 리듬이 한 번 더 돌아온다.<br>
+- 🔴 <b>셋이 서로 안 닮았다.</b> ①딱따구리 = 위에 있고 빠른 소리 · 말한다 ②두꺼비 = 땅에 있고 느린 소리 · 말한다 ③기대선 두 나무 = <b>아무도 없고 아무도 말 안 한다</b> — 아기 멧돼지가 어깨로 밀어서 제 몸으로 알아낸다. 셋째만 말이 없어서 마지막이 가장 큰 걸음이 된다.<br>
+- 🔴 <b>무서움은 몸으로만 그린다.</b> 등털이 쭈뼛 서고(p2), 침을 꼴깍 삼키고(p5·p6), 귀가 납작 눕고(p8), 다리가 후들거린다(p3). 🔴 <b>상상한 커다란 것을 그림에 그리지 않는다</b> — 상상은 대사에만 있고 화면에는 고사리 벽과 굳은 몸뿐이다. 괴물을 그리면 이 나이 아이에게는 그 괴물이 남는다.<br>
+- 🔴 <b>아무도 안 도와준다.</b> 딱따구리도 두꺼비도 제 할 일을 하는 중일 뿐이고, 「무서워하지 마」라고 정리해 주지 않는다. 어른은 열네 쪽에 한 번도 안 나온다. 마지막 소리에 아기 멧돼지가 스스로 가는 것이 이 권의 사건이다.<br>
+- 🔴 <b>후렴의 갚음이 침묵이다.</b> 「내가 가서 볼 거야.」는 셋 다 <b>떨리는 몸에서</b> 나온다(다리 → 침 → 감은 눈). p13 에서는 그 말이 아예 안 나오고 발이 먼저 나간다 — 「이제 안 무서워요」라고 쓰지 않으려고 문장을 안 쓴 것이다.<br>
+- 🔴 <b>같은 글이 반복되는 쪽을 그림으로 가른다.</b> p3·p6·p9 는 셋 다 「고사리를 밀고 들어가는」 쪽인데 <b>미는 곳(왼·오른·앞) · 미는 부위(코 → 어깨 → 이마) · 뒤에 남은 길의 개수(한 줄 → 두 줄 → 세 줄)</b> 가 전부 다르다. 세 장을 나란히 놓으면 몸이 점점 앞으로 나가는 게 보인다.<br>
+- 🔴 <b>착지 교훈 한 줄은 「가 본 데는 하나도 안 무서워요.」</b> 열네 쪽 동안 실제로 벌어진 일 그대로다. 넓히지 않는다.<br>
+- 🔴 <b>의인화 등급 열네 쪽 고정</b> — 아기 멧돼지는 사족 그대로, 옷·손가락 없음. 미는 것도 짚는 것도 <b>코 · 어깨 · 이마 · 앞발 바닥</b>으로만 하고 무엇도 쥐지 않는다. 두꺼비와 딱따구리도 말은 하되 손짓이 없다.<br>
+- 🔴 <b>장소는 통나무 한 자리와 거기서 뻗은 세 길.</b> 카메라가 이 덤불을 안 벗어난다. p14 만 세 번째 길 끝을 조금 더 지나간다 — <b>처음으로 통나무가 안 보이는 자리</b>라 그 한 쪽만 나가는 것이 착지다.<br>
+- 🔴 <b>열네 쪽.</b> 평상 하나, 소리 셋에 각각 (굳음 → 밀고 감 → 봄) 셋씩 아홉인데 셋째만 (굳음 → 밀고 감 → 올려다봄 → 밀어 봄) 넷이라 열, 훤해진 통나무 하나, 말없이 나감 하나, 착지 하나. p11(어깨로 미는 순간)을 p10 에 붙이면 「제 몸으로 알아냈다」가 사라지고, p12 를 빼면 길 세 줄이 한 화면에 모이는 유일한 쪽이 없어진다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>아기 멧돼지가 통나무 위로 폴짝 올라갔어요.
+둘레에 고사리가 키보다 높이 자랐어요.
+앞이 하나도 안 보여요.
+"저 너머엔 뭐가 있을까?"
+궁금한데 조금 무서워요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 아이레벨보다 조금 낮게 · 화면 가운데에 쓰러진 통나무와 그 위의 아기 멧돼지, 통나무 둘레를 고사리 잎이 빙 둘러 화면 좌우와 뒤를 막는다 — 🔴 <b>이 자리가 통째로 보이는 첫 장</b>(p12 에서 같은 구도로 돌아온다)
+<b>장소·시간</b> 체코 숲 한복판. 굵은 나무들이 띄엄띄엄 서 있고 그 아래를 사람 무릎 높이의 고사리가 빽빽하게 덮었다. 가운데에 이끼 낀 쓰러진 통나무 하나가 가로로 누웠고, 그 위만 고사리가 없어 앉을 자리가 된다. 발밑은 마른 낙엽. 해가 올라오는 오전
+<b>인물</b> 화면 가운데 — 아기 멧돼지가 통나무 위에 네 발로 올라서서 목을 길게 빼고 고사리 너머를 내다본다, 등에 연한 세로 줄무늬가 있고 코끝이 앞으로 쭉 나왔으며 귀 두 개가 위로 쫑긋 섰다, 뒷발 하나가 통나무 껍질을 딛고 다른 뒷발은 살짝 들렸다, 눈이 크고 입이 조금 벌어졌다. 사족 그대로 · 옷·손가락 없음 · 무엇도 쥐지 않는다
+<b>배경·소품</b> 🔴 <b>고사리 잎이 통나무보다 높이 서서 사방을 막는다</b> — 잎 사이로는 어둑한 틈만 보이고 그 너머에 뭐가 있는지 안 보인다. 🔴 <b>누운 고사리는 한 줄도 없다.</b> 통나무 옆 낙엽 위에 도토리 깍정이 몇 개가 흩어져 있다(강조하지 않는다). 저 위 나뭇잎 사이로 가는 빛줄기 두어 개가 비스듬히 내려온다. 글자·숫자 요소 없음
+<b>톤</b> 위쪽 나뭇잎 사이는 환하고 아래 고사리 속은 한 단 어둡다 — 🔴 <b>밝은 데와 안 보이는 데가 위아래로 갈려서</b> 아이가 「여긴 아늑하고 저긴 모르겠다」를 한눈에 잡도록. 통나무 위 몸에만 빛줄기 하나가 얹혀 화면에서 가장 또렷하다. 하루가 열리는 조용함과 그 조용함이 조금 낯선 기분</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>딱! 딱! 딱!
+왼쪽에서 소리가 났어요.
+아기 멧돼지가 그 자리에 딱 멈췄어요.
+등털이 쭈뼛 섰어요.
+"커다란 게 나무를 부수고 있나 봐!"</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨 · 화면 오른쪽에 굳은 아기 멧돼지, 왼쪽은 통째로 고사리 잎
+<b>장소·시간</b> 같은 통나무 위. 같은 오전
+<b>인물</b> 화면 오른쪽 — 아기 멧돼지가 네 발을 통나무에 딱 붙이고 굳었다, 고개만 왼쪽으로 홱 돌렸고 눈이 커다랗게 벌어졌으며 콧구멍이 벌름거린다, 🔴 <b>목덜미부터 등 가운데까지 털이 쭈뼛 곤두서서 등줄기가 삐죽삐죽하다</b>, 귀 두 개가 소리 쪽으로 돌아갔고 꼬리가 몸에 딱 붙었다. 사족 그대로 · 옷·손가락 없음
+<b>배경·소품</b> 🔴 <b>화면 왼쪽 절반이 고사리 잎으로 꽉 찼고 그 너머는 안 보인다</b> — 소리가 나는 데를 독자도 못 보게 한다. 잎 하나가 소리에 맞춰 아주 조금 흔들린다, 발밑 통나무 이끼, 낙엽 위 도토리 깍정이. 상상한 커다란 것은 어디에도 그리지 않는다. 글자·숫자 요소 없음
+<b>톤</b> 오른쪽 몸에만 빛이 걸리고 왼쪽 잎 벽은 고르게 어둡다 — 🔴 <b>화면의 절반이 아무 정보도 없다</b>는 것이 이 쪽의 무서움 그 자체. 숨이 멎는 짧은 한순간</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>아기 멧돼지는 다리가 후들후들 떨렸어요.
+"내가 가서 볼 거야."
+코로 고사리를 쓱— 밀었어요.
+잎이 옆으로 눕고 길이 한 줄 났어요.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 · 살짝 로우앵글 · 화면 가운데에 고사리 사이로 코를 들이민 아기 멧돼지, 뒤로 통나무 모서리
+<b>장소·시간</b> 통나무 왼쪽 끝, 고사리 벽 앞. 같은 오전
+<b>인물</b> 화면 가운데 — 아기 멧돼지가 통나무에서 내려와 🔴 <b>코끝을 고사리 줄기 사이에 깊이 밀어 넣고 어깨로 밀며 앞으로 나아가는 중</b>이다, 앞다리 둘이 뻗어 낙엽을 짚었고 뒷다리가 흙을 밀어 발밑 낙엽이 뒤로 밀렸다, 눈은 반쯤 감겼고 이마에 힘이 들어가 주름졌다, 🔴 <b>뒷다리 둘이 눈에 보이게 후들후들 떨려 발끝 옆 낙엽이 잘게 흔들린다</b>, 꼬리가 아래로 말렸다. 사족 그대로 · 옷·손가락 없음
+<b>배경·소품</b> 🔴 <b>코가 지나간 자리에서 고사리 잎이 좌우로 눕고 그 뒤에 눌린 길이 한 줄 생긴다</b> — 아직 아주 짧고 통나무에서 몇 걸음뿐이다. 눕힌 잎 사이로 저쪽의 빛 한 조각이 처음 들어온다, 밀린 낙엽 자국, 뒤쪽에 통나무 모서리와 도토리 깍정이. 글자·숫자 요소 없음
+<b>톤</b> 앞쪽 잎 벽은 여전히 어둡고 <b>밀린 자리에만 밝은 틈이 하나</b> 생겨 시선이 그 틈으로 빨려 든다 — 🔴 다음 쪽에 무엇이 있는지는 아직 안 보이게. 이를 악문 몸의 힘</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>길 끝에 커다란 나무가 서 있어요.
+줄기에 새 한 마리가 딱 붙어 있어요.
+"안녕? 너였어?"
+"딱딱딱! 나 밥 먹는 중이야."
+빨간 뒤통수가 까딱까딱해요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 와이드 · 로우앵글 · 화면 오른쪽에 굵은 나무줄기가 세로로 서고 그 중간에 딱따구리, 화면 왼쪽 아래에 올려다보는 아기 멧돼지
+<b>장소·시간</b> 통나무에서 왼쪽으로 뻗은 길의 끝, 굵은 나무 밑동. 같은 오전
+<b>인물</b> 화면 왼쪽 아래 — 아기 멧돼지가 나무 밑동 앞에 네 발로 서서 고개를 한껏 젖혀 위를 올려다본다, 입이 벌어졌고 눈썹 자리가 위로 올라갔으며 귀가 뒤로 살짝 눕고 등털이 도로 가라앉았다, 앞발 하나가 밑동 뿌리를 짚었다. 화면 오른쪽 — 🔴 <b>딱따구리가 줄기에 세로로 딱 붙어 꼬리로 몸을 받치고 부리로 껍질을 쪼는 중</b>이다, 고개를 살짝 옆으로 돌려 아래를 보며 입을 벌려 말한다, <b>뒤통수만 빨갛다</b>, 발톱이 껍질을 꽉 붙들었다. 🔴 손짓하지 않는다 — 부리와 고개만 움직인다
+<b>배경·소품</b> 쪼인 자리에서 떨어져 흩날리는 나무껍질 부스러기 몇 조각, 줄기에 난 작은 구멍 두어 개, 화면 왼쪽 뒤로 <b>눕힌 고사리 길 한 줄이 통나무 쪽까지 이어져 보인다</b>, 발밑 낙엽. 글자·숫자 요소 없음
+<b>톤</b> 아래에서 올려다본 각도라 줄기가 화면을 세로로 꿰고, 위쪽에서 내려온 빛이 딱따구리 뒤통수에 정면으로 걸려 화면에서 가장 밝다 — 🔴 <b>커다란 건 나무고 소리를 낸 건 손바닥만 하다</b>는 크기 차이가 한 화면에서 읽히도록. 김이 빠지면서 웃음이 나는 멋쩍음</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>아기 멧돼지가 통나무로 돌아왔어요.
+왼쪽은 이제 훤해요.
+그때 오른쪽에서 바스락, 바스락.
+아기 멧돼지가 침을 꼴깍 삼켰어요.
+"이번엔 진짜 커다란 게 오나 봐!"</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 왼쪽에 통나무와 그 위의 아기 멧돼지, 오른쪽은 통째로 고사리 잎 — 🔴 <b>p2 와 좌우가 뒤집힌 화면</b>
+<b>장소·시간</b> 같은 통나무 위. 해가 조금 높아진 오전
+<b>인물</b> 화면 왼쪽 — 아기 멧돼지가 통나무 위에 배를 낮추고 엎드렸다, 고개만 오른쪽으로 돌렸고 목이 앞으로 길게 뽑혔다, 🔴 <b>목이 한 번 꿀꺽 움직여 목덜미에 주름이 잡혔고</b> 입이 다물렸다, 귀 하나가 소리 쪽으로 돌아가고 다른 귀는 뒤로 누웠다, 앞발 둘이 통나무 앞쪽을 꽉 짚었다. 사족 그대로 · 옷·손가락 없음
+<b>배경·소품</b> 🔴 <b>화면 왼쪽 뒤로 눕힌 고사리 길 한 줄이 나 있고 그 틈으로 빛이 들어와 그쪽이 훤하다.</b> 🔴 <b>오른쪽 절반은 아직 잎으로 꽉 막혔고</b>, 잎 아래쪽이 무언가에 스쳐 아주 조금씩 흔들린다. 통나무 옆 도토리 깍정이. 글자·숫자 요소 없음
+<b>톤</b> 화면 왼쪽은 열려서 밝고 오른쪽은 닫혀서 어둡다 — 🔴 <b>훤해진 쪽과 아직 안 보이는 쪽이 한 화면에 나란히</b> 놓여, 열린 데가 하나 생겼다는 게 그림만으로 세어지도록. 낮게 깔린 긴장</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>"내가 가서 볼 거야."
+아기 멧돼지가 어깨로 고사리를 쓱— 밀었어요.
+잎이 우수수 흔들렸어요.
+길이 두 줄이 됐어요.</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 가운데에 오른쪽 잎 벽으로 어깨를 들이민 아기 멧돼지, 왼쪽 뒤에 통나무
+<b>장소·시간</b> 통나무 오른쪽, 고사리 벽 앞. 같은 오전
+<b>인물</b> 화면 가운데 — 아기 멧돼지가 🔴 <b>어깨를 앞세워 고사리 줄기 속으로 몸을 옆으로 비틀어 밀어 넣는 중</b>이다(p3 에서는 코였다), 목이 어깨선 아래로 낮아졌고 앞다리 하나가 잎 사이로 먼저 들어갔다, 눈은 뜨고 앞을 본다, 입을 꾹 다물었다, 등털은 아직 조금 서 있다, 뒷다리가 낙엽을 뒤로 차낸다
+<b>배경·소품</b> 🔴 <b>어깨가 지나간 자리에서 고사리 잎이 한꺼번에 우수수 흔들리며 눕는다</b>, 잎에서 떨어진 마른 부스러기가 낮게 흩날린다. 🔴 <b>화면 왼쪽 뒤로 아까 낸 왼쪽 길이 그대로 보여, 화면 안에 눌린 길이 두 줄이 된다.</b> 통나무 모서리와 도토리 깍정이. 글자·숫자 요소 없음
+<b>톤</b> 밀리는 잎 사이로 빛 조각이 여러 개로 쪼개져 들어와 앞쪽이 얼룩덜룩 밝아진다 — 🔴 <b>첫 번째보다 몸이 더 앞에 나가 있다</b>는 것이 자세와 길 개수로 읽히도록. 아직 무서운데 아까보다 빠른 걸음</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>낙엽 위에 두꺼비가 앉아 있어요.
+두꺼비 등은 울퉁불퉁해요.
+거기에 낙엽이 한 장 척 붙었어요.
+"미안, 내가 시끄러웠니? 낙엽이 자꾸 붙어서 그래."
+"에이, 요만한 두꺼비잖아!"</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨(낙엽 높이에서 수평) · 화면 왼쪽에 아기 멧돼지의 코와 얼굴, 오른쪽 낙엽 위에 두꺼비 — 🔴 <b>둘이 같은 깊이에 나란히 있어 크기가 이 컷에서 정확히 견줘진다</b>
+<b>장소·시간</b> 통나무에서 오른쪽으로 뻗은 길의 끝, 낙엽이 두껍게 쌓인 자리. 같은 오전
+<b>인물</b> 화면 왼쪽 — 아기 멧돼지가 코를 낙엽 바로 위까지 낮추고 두꺼비를 들여다본다, 눈이 가늘어지며 입꼬리가 옆으로 벌어졌고 귀가 편하게 옆으로 눕고 등털이 완전히 가라앉았다, 앞발 하나가 낙엽을 살짝 누른다. 화면 오른쪽 — 🔴 <b>두꺼비가 네 발로 낙엽 위에 납작 앉아 있고 몸통이 아기 멧돼지 코보다 작다</b>, 울퉁불퉁한 등에 마른 낙엽 한 장이 척 얹혔고 목이 부풀었다 꺼지며 입을 벌려 말한다, 🔴 앞발로 무엇도 쥐지 않는다
+<b>배경·소품</b> 두꺼비 둘레에 헤집어진 낙엽이 어지럽게 뒤집혀 있고 그 아래 젖은 흙이 드러났다, 두꺼비가 기어온 자리에 낙엽이 밀린 자국 한 줄, 화면 왼쪽 뒤로 오른쪽 길과 저 멀리 통나무 모서리. 글자·숫자 요소 없음
+<b>톤</b> 낙엽 높이까지 카메라가 내려와 둘의 얼굴이 마주 보는 높이에 있다 — 🔴 <b>아까 「진짜 커다란 것」이라던 게 코보다 작다</b>는 것이 크기로만 읽히도록. 어이없고 반가운 짧은 웃음</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>통나무로 돌아오니 오른쪽도 훤해요.
+그때 앞쪽에서 끼이익— 끼이익—.
+아기 멧돼지 귀가 납작 눕었어요.
+"저건… 저건 아주 커다란 게 우는 소리야!"</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 화면 가운데에 통나무와 그 위에 웅크린 아기 멧돼지, 좌우로 열린 길 두 줄, 정면 안쪽만 잎 벽
+<b>장소·시간</b> 같은 통나무 위. 해가 높아진 낮
+<b>인물</b> 화면 가운데 — 아기 멧돼지가 통나무 위에 네 발을 바짝 모으고 몸을 낮춰 웅크렸다, 🔴 <b>귀 두 개가 머리에 착 달라붙어 납작하게 눕고</b> 목이 어깨 속으로 들어갔다, 등이 둥글게 굽었고 코끝만 앞쪽을 향해 들렸다, 눈이 크고 입이 조금 벌어졌다, 꼬리가 몸 아래로 말려 들어갔다
+<b>배경·소품</b> 🔴 <b>왼쪽과 오른쪽에 눌린 길이 한 줄씩 뻗어 있고 그 두 줄로 빛이 들어와 좌우가 훤하다.</b> 🔴 <b>정면 안쪽만 아직 고사리 잎으로 막혔고</b>, 그 잎 벽 위쪽 저 멀리 나무 우듬지 두 개가 겹쳐진 자리가 아주 조금 흔들린다(강조하지 않는다 — 다음다음 쪽에 답이 있다). 통나무 옆 도토리 깍정이. 글자·숫자 요소 없음
+<b>톤</b> 좌우가 밝고 정면 한 군데만 어둡다 — 🔴 <b>안 열린 데가 이제 하나뿐</b>이라는 것이 화면의 밝기 배치로 세어지도록. 남은 하나가 제일 크게 느껴지는 목덜미의 서늘함</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>아기 멧돼지는 눈을 꼭 감았다 떴어요.
+"내가 가서 볼 거야!"
+이번엔 이마로 고사리를 쑥— 밀었어요.
+길이 세 줄이 됐어요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 미디엄 · 살짝 로우앵글 · 화면 가운데에 정면 잎 벽으로 머리를 들이민 아기 멧돼지, 뒤로 통나무와 좌우 길
+<b>장소·시간</b> 통나무 앞쪽, 고사리 벽 앞. 같은 낮
+<b>인물</b> 화면 가운데 — 아기 멧돼지가 🔴 <b>머리를 숙여 이마를 잎에 대고 밀며 정면으로 들어가는 중</b>이다(코 → 어깨 → 이마로 부위가 바뀐다), 목과 어깨가 한 줄로 뻗었고 네 발이 모두 땅을 딛고 앞으로 나간다, 🔴 <b>눈을 크게 뜨고 앞을 똑바로 본다</b>(앞 두 번은 감거나 옆을 봤다), 입이 벌어져 외치고 귀가 뒤로 눕고 다리는 이제 안 떨린다
+<b>배경·소품</b> 🔴 <b>이마가 지나간 자리에서 잎이 양옆으로 갈라지며 세 번째 길이 난다</b>, 갈라진 틈 저 안쪽에 나무 밑동 두 개가 어렴풋이 보인다. 화면 뒤로 통나무와 거기서 뻗은 왼쪽·오른쪽 길이 함께 잡혀 🔴 <b>눌린 길이 화면 안에 세 줄이 된다</b>, 낙엽 부스러기. 글자·숫자 요소 없음
+<b>톤</b> 갈라진 틈으로 들어오는 빛이 앞의 두 번보다 넓고 곧게 뻗어 몸의 진행 방향과 겹친다 — 🔴 <b>세 번째는 밀리는 게 아니라 밀고 나간다</b>는 것이 몸과 빛의 방향이 같은 데서 읽히도록. 겁이 아직 남아 있는데 몸이 먼저 나가는 힘</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>길 끝에 나무 두 그루가 기대어 서 있어요.
+바람이 불면 서로 비벼져요.
+끼이익—.
+아기 멧돼지가 고개를 젖히고 올려다봤어요.</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 와이드 · 강한 로우앵글 · 화면 아래 가운데에 아주 작게 아기 멧돼지, 화면 위로 두 나무줄기가 비스듬히 만나 겹친다
+<b>장소·시간</b> 통나무에서 앞쪽으로 뻗은 길의 끝. 같은 낮
+<b>인물</b> 화면 아래 가운데 — 아기 멧돼지가 두 나무 밑동 사이에 네 발로 서서 고개를 한껏 젖혀 위를 올려다본다, 목이 뒤로 접히고 코끝이 하늘을 향했으며 눈이 동그랗게 커졌다, 입이 조금 벌어졌고 귀 두 개가 위로 섰다, 앞발 하나가 뿌리를 짚었다. 🔴 <b>도망가지도 물러서지도 않는다 — 보는 자세 하나만</b>
+<b>배경·소품</b> 🔴 <b>굵은 나무 두 그루가 비스듬히 기대어 위쪽에서 서로 맞닿았고, 닿은 자리의 껍질이 오래 비벼져 하얗게 벗겨졌다</b> — 소리가 나는 자리가 그림에 있다. 그 자리에서 벗겨진 부스러기가 아래로 떨어져 내린다, 잎이 한쪽으로 쏠려 바람의 방향이 보인다, 화면 아래 뒤로 세 번째 길과 저 멀리 통나무. 글자·숫자 요소 없음
+<b>톤</b> 아래에서 올려다본 각도라 두 줄기가 화면 위에서 크게 만나고 몸은 아주 작다 — 🔴 <b>커 보이는 건 여전히 큰데 무서운 얼굴은 아니라는 것</b>이 크기와 자세의 어긋남으로 오도록. 위쪽 겹친 자리에만 빛이 밝게 걸려 시선이 아래에서 위로 한 번에 올라간다. 고개를 젖힌 채 멈춘 궁금함</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>아기 멧돼지가 어깨로 나무를 콱 밀어 봤어요.
+끼이익 소리가 뚝 그쳤어요.
+밀고 있는 동안은 조용해요.
+"우와! 나무가 우는 거였어!"</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 왼쪽에 밑동을 미는 아기 멧돼지, 오른쪽으로 줄기가 위로 뻗어 나가고 화면 위 귀퉁이에 맞닿은 자리
+<b>장소·시간</b> 같은 두 나무 밑동. 같은 낮
+<b>인물</b> 화면 왼쪽 — 아기 멧돼지가 🔴 <b>어깨를 나무 밑동에 딱 붙이고 네 발로 땅을 버티며 온몸으로 미는 중</b>이다, 뒷다리가 뒤로 길게 뻗어 발끝이 낙엽을 파고들었고 등이 일직선으로 팽팽하다, 고개는 위쪽 맞닿은 자리를 향해 젖혀졌고 입이 크게 벌어져 외친다, 눈이 반짝이고 귀가 앞으로 섰다. 사족 그대로 · 옷·손가락 없음
+<b>배경·소품</b> 🔴 <b>위쪽 맞닿은 자리가 밀린 만큼 살짝 벌어져 두 껍질 사이에 가는 틈이 생겼다</b> — 붙어 있던 것이 떨어진 게 화면에 있다. 밑동 둘레에 발끝이 파낸 낙엽 자국, 아까 떨어진 껍질 부스러기, 잎이 여전히 한쪽으로 쏠린다, 뒤로 세 번째 길. 글자·숫자 요소 없음
+<b>톤</b> 미는 몸과 위쪽 벌어진 틈이 화면을 비스듬히 잇고 그 선을 따라 빛이 흐른다 — 🔴 <b>소리를 멈춘 것이 제 몸이라는 게 힘의 방향으로 읽히도록.</b> 알아낸 순간의 환한 신남</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p12 · 본문</span>아기 멧돼지가 통나무 위로 올라갔어요.
+길이 세 줄이나 뻗어 있어요.
+햇빛이 그 길로 쭉 들어와요.
+"이제 다 보여!"</div>
+  </div>
+  <div class="sc"><span class="n">p12 · SCENE</span><b>컷</b> 와이드 · 살짝 하이앵글 · 🔴 <b>p1 과 같은 자리 같은 통나무</b> — 화면 가운데 통나무 위에 아기 멧돼지, 거기서 왼쪽·오른쪽·정면으로 눌린 길 세 줄이 뻗어 나간다
+<b>장소·시간</b> 같은 통나무 위. 해가 가장 높은 낮
+<b>인물</b> 화면 가운데 — 아기 멧돼지가 통나무 위에 네 발로 우뚝 서서 고개를 천천히 한 바퀴 돌린다, 목이 옆으로 길게 뻗었고 코끝이 정면 길 쪽을 향했으며 귀 두 개가 위로 활짝 섰다, 입이 벌어져 외치고 눈이 크다, 꼬리가 위로 살짝 말려 올라갔다, 등털은 완전히 누웠다
+<b>배경·소품</b> 🔴 <b>눌린 고사리 길 세 줄이 통나무에서 사방으로 뻗어 나가고, 세 줄 다 잎이 옆으로 누워 끝까지 훤히 보인다</b> — 왼쪽 길 끝에 굵은 나무 밑동, 오른쪽 길 끝에 헤집어진 낙엽 자리, 정면 길 끝에 기대선 두 나무의 밑동. 🔴 <b>p1 에서 사방을 막던 잎 벽은 길 사이에만 남았다.</b> 통나무 옆 도토리 깍정이가 그 자리 그대로. 글자·숫자 요소 없음
+<b>톤</b> 나뭇잎 사이로 내려온 빛줄기가 세 길을 따라 곧게 뻗어 화면 가운데에서 만난다 — 🔴 <b>p1 에서 위아래로 갈렸던 밝기가 지금은 가운데로 모인다.</b> 사방이 열린 데서 오는 시원한 후련함</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p13 · 본문</span>툭. 툭. 툭.
+이런 소리는 처음이에요.
+아기 멧돼지는 이번엔 안 멈췄어요.
+말할 새도 없이 발이 먼저 나갔어요.</div>
+  </div>
+  <div class="sc"><span class="n">p13 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 화면 왼쪽 뒤에 빈 통나무, 화면 오른쪽 앞으로 정면 길을 달려 나가는 아기 멧돼지 — 🔴 <b>몸이 화면 밖을 향한다</b>
+<b>장소·시간</b> 통나무 앞쪽 길 위. 같은 낮
+<b>인물</b> 화면 오른쪽 앞 — 아기 멧돼지가 🔴 <b>네 발이 전부 땅에서 떠 있는 한창 달리는 자세</b>다, 앞다리 둘이 앞으로 쭉 뻗고 뒷다리 둘이 뒤로 뻗어 몸이 길게 늘어났다, 코끝이 정면을 향하고 귀가 바람에 뒤로 눕고 눈이 앞을 똑바로 본다, 🔴 <b>입이 다물려 있다 — 아무 말도 안 한다</b>, 꼬리가 곧게 뻗었다
+<b>배경·소품</b> 🔴 <b>화면 왼쪽 뒤 통나무 위가 비었다</b> — 열두 쪽 내내 거기 있던 몸이 처음으로 그 위에 없다. 뒷발 아래로 낙엽이 튀어 오르고 눌린 고사리 잎이 지나가는 몸에 밀려 뒤로 눕는다, 정면 길 끝은 아직 화면 밖이다. 글자·숫자 요소 없음
+<b>톤</b> 시선이 왼쪽 빈 통나무에서 오른쪽 달리는 몸으로 곧장 끌려가고 화면 오른쪽 끝은 열려 있다 — 🔴 <b>답이 아직 화면 안에 없다.</b> 망설임이 통째로 빠진 몸의 속도</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p14 · 본문</span>참나무 아래에 도토리가 잔뜩 떨어져 있어요.
+아기 멧돼지가 아그작 깨물며 뒤를 돌아봤어요.
+통나무가 저 멀리 조그맣게 보여요.
+가 본 데는 하나도 안 무서워요.</div>
+  </div>
+  <div class="sc"><span class="n">p14 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 화면 오른쪽 앞에 도토리를 문 아기 멧돼지, 화면 왼쪽 저 뒤 멀리에 아주 작게 통나무 — 🔴 <b>통나무가 처음으로 화면의 주인이 아니다</b>
+<b>장소·시간</b> 세 번째 길 끝을 지나 조금 더 간 자리, 굵은 참나무 아래. 해가 조금 기운 낮
+<b>인물</b> 화면 오른쪽 앞 — 아기 멧돼지가 네 발로 서서 🔴 <b>입에 도토리 한 알을 물고 옆니로 깨무는 중이다</b>, 한쪽 볼이 불룩하고 입가에 부스러기가 묻었다, 🔴 <b>고개만 뒤(화면 왼쪽)로 돌려 지나온 쪽을 본다</b>, 눈이 편하게 가늘어졌고 귀 하나가 옆으로 누웠으며 꼬리가 위로 말려 흔들린다, 등털은 하나도 안 섰다. 사족 그대로 · 옷·손가락 없음
+<b>배경·소품</b> 발밑 낙엽 위에 도토리가 여기저기 흩어져 있고 깍정이가 벗겨진 것도 섞였다, 머리 위로 참나무 가지가 넓게 펼쳐졌다. 🔴 <b>화면 왼쪽 저 뒤로 눌린 고사리 길 한 줄이 길게 이어지고 그 끝에 통나무가 손톱만 하게 보인다</b> — 통나무 옆 도토리 깍정이는 이제 안 보일 만큼 멀다. 그 둘레의 고사리도 이제 낮은 덤불로만 보인다. 글자·숫자 요소 없음
+<b>톤</b> 화면 앞쪽 몸이 크고 또렷하며 뒤쪽 통나무는 아주 작고 흐리다 — 🔴 <b>자리는 그대로인데 몸이 옮겨 갔다</b>는 것이 두 크기의 차이로만 읽히도록. 지나온 길 위로 빛이 길게 누워 앞뒤가 한 줄로 이어진다. 배부르고 느긋한 오후의 편안함</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'g07',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['아기 멧돼지(줄무늬 새끼', '이름 없음)', '딱따구리(이름 없음)', '두꺼비(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=4294954c5a8fa2d5"></script>
+<script src="/changjak-core.js?v=4294954c5a8fa2d5"></script>
+</body>
+</html>

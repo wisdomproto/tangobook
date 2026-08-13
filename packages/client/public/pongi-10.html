@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>퐁이네 운하 마을 — 빨래 너는 날</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --line:#f0e0d2; --water:#2C4A3C; --mint:#2C4A3C; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--water); margin-bottom:22px; }
+  .hero .kicker { color:var(--water); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; }
+  .note { background:#fff6f2; border:1px solid var(--coral); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin:14px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--water); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { margin-left:auto; background:var(--coral); color:#fff; border:0; border-radius:9px; padding:5px 12px; font-size:12px; font-weight:800; cursor:pointer; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .copy-btn { background:#fff; color:var(--water); border:1.5px solid var(--water); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--water); color:#fff; }
+  .batch-bar { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin:16px 0; }
+  .batch-bar .bhint { font-size:12.5px; color:var(--ink-soft); line-height:1.7; }
+  .batch-bar .brow { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .batch-btn { background:var(--coral); color:#fff; border:0; border-radius:10px; padding:7px 15px; font-size:13px; font-weight:800; cursor:pointer; }
+  .batch-btn:hover { background:var(--coral-dark); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--water); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
+  .ref-lab { font-size:12px; font-weight:800; color:var(--ink-soft); }
+  .ref-chip { display:flex; align-items:center; gap:7px; background:var(--peach); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:800; }
+  .ref-chip img { width:30px; height:30px; border-radius:50%; object-fit:cover; }
+  .ref-chip .ph { width:30px; height:30px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; font-size:15px; }
+  .ref-chip .im { color:var(--water); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#f7f4ef; border-radius:10px; padding:12px 14px; margin-top:9px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">퐁이네 운하 마을 · 10</div>
+  <h1>빨래 너는 날</h1>
+  <div class="sub">내가 빨래를 널고 싶다 · **어긋남** 아빠가 붉은 끈을 흰 빨래에 같이 넣는다 · **착지** 온 식구가 분홍을 입고 나간다</div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~5 고정) + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마당에 빨랫줄이 길게 걸렸어요. 큰 통에서 김이 폴폴 나요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 마당 전체.<br/><b>장소·시간</b> 퐁이네 마당, 아침.<br/><b>인물</b> 없음(배경 컷).<br/><b>배경·소품</b> 빨랫줄이 화면을 가로로 길게 가른다. 아래에 큰 나무 통, 통에서 김이 올라온다.<br/><b>톤</b> 아직 아무것도 안 널렸다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"오늘은 내가 널래요." 퐁이가 빨래집게를 챙겼어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 퐁이 정면.<br/><b>장소·시간</b> 마당.<br/><b>인물</b> Pongi가 빨래집게 몇 개를 두 앞발에 그러쥐었다. 턱을 들고 말하는 얼굴.<br/><b>배경·소품</b> 빨래집게, 뒤에 빨랫줄.<br/><b>톤</b> 맡겠다는 자세.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 옷을 통에 넣어요. 흰 셔츠, 흰 수건, 흰 앞치마.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아빠가 통에 옷을 넣는다.<br/><b>장소·시간</b> 마당.<br/><b>인물</b> Dad otter가 흰 옷가지를 통에 넣고 있다.<br/><b>배경·소품</b> 흰 셔츠·흰 수건·흰 앞치마. 전부 미색 한 판.<br/><b>톤</b> 🔴 이 쪽까지 화면에 흰색과 흙색뿐이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">퐁이가 목에서 붉은 끈을 풀어 탁자에 놓았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업. 탁자 위에 놓이는 붉은 끈.<br/><b>장소·시간</b> 마당 탁자.<br/><b>인물</b> Pongi의 두 앞발이 목에서 끈을 풀어 탁자에 내려놓는다. 목이 처음으로 비었다.<br/><b>배경·소품</b> 🔴 붉은 끈 하나가 탁자 위 <b>빨랫감 더미 옆</b>에 놓인다 — 다음 쪽에서 딸려 들어갈 자리에 있어야 한다.<br/><b>톤</b> 화면에서 유일한 붉은 것이 주인공 목을 떠났다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 탁자 위 빨랫감을 한 아름 안아 통에 넣었어요. 붉은 끈도 같이 딸려 들어갔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아빠가 빨랫감을 안아 든다.<br/><b>장소·시간</b> 같은 탁자와 통.<br/><b>인물</b> Dad otter가 탁자 위 빨랫감을 한 아름 안아 통으로 옮긴다. 얼굴이 빨랫감에 가려 앞을 못 본다.<br/><b>배경·소품</b> 🔴 안은 빨랫감 사이로 <b>붉은 끈 끝이 삐죽 나와</b> 같이 딸려 간다 — 이게 보여야 다음이 성립한다.<br/><b>톤</b> 아무도 못 봤다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 셔츠를 꺼냈어요. 셔츠가 분홍이에요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업. 아빠가 셔츠를 들어 올린다.<br/><b>장소·시간</b> 통 앞.<br/><b>인물</b> Dad otter가 두 앞발로 셔츠를 펼쳐 들었다. 눈이 커지고 입이 벌어졌다.<br/><b>배경·소품</b> 🔴 셔츠가 연분홍이다. <b>여기서부터 시리즈 색 규칙의 예외가 시작된다</b>(기획서 §7 명시).<br/><b>톤</b> 처음으로 흰 것 아닌 흰 것.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">수건도 분홍이에요. 앞치마도 분홍이에요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업. 수건과 앞치마가 겹쳐 놓였다.<br/><b>장소·시간</b> 통 옆.<br/><b>인물</b> 아빠의 앞발만 화면 가장자리.<br/><b>배경·소품</b> 수건도 앞치마도 연분홍.<br/><b>톤</b> 한 장이 아니라 전부다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>뒤집힘</b> <span class="tag">뒤집힘</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">통 바닥에서 붉은 끈이 나왔어요. "어, 이게 왜 여기 있지?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 하이앵글 클로즈업. 통 바닥.<br/><b>장소·시간</b> 통 안.<br/><b>인물</b> Dad otter의 앞발이 통 안에서 끈을 집어 올린다. 얼굴이 화면 위에서 내려다본다.<br/><b>배경·소품</b> 붉은 끈 하나가 젖은 채 들려 있다.<br/><b>톤</b> 범인이 나왔다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>반응</b> <span class="tag">반응</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">퐁이가 분홍 빨래를 하나씩 널었어요. 빨랫줄이 온통 분홍이에요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 빨랫줄 정면.<br/><b>장소·시간</b> 마당.<br/><b>인물</b> Pongi가 까치발로 서서 빨래를 하나씩 집게로 고정한다.<br/><b>배경·소품</b> 🔴 빨랫줄에 걸린 것이 전부 연분홍이다. 줄이 화면을 가로지르며 분홍 띠가 된다.<br/><b>톤</b> 예외가 화면을 채운다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다음 날 넷이 다 분홍을 입고 나갔어요. 거위 할아버지가 한참을 쳐다봤어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 길 위. 넷이 걸어간다.<br/><b>장소·시간</b> 운하 길, 다음 날 낮.<br/><b>인물</b> Pongi·Dad otter·Mom otter·Baby otter가 나란히 걷는다. 넷 다 연분홍 옷차림. 화면 옆에서 Goose grandpa가 걸음을 멈추고 긴 목을 빼서 한참 본다.<br/><b>배경·소품</b> 운하, 다리.<br/><b>톤</b> 🔴 퐁이 목에는 붉은 끈이 도로 돌아와 있다 — 분홍과 붉은색이 다른 색이어야 한다.</pre></details>
+</div>
+
+</div>
+<script src="/pongi-core.js"></script>
+</body>
+</html>

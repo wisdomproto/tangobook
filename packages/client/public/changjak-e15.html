@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>E-15 딱 한 입만 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · E · 웃음·말놀이 · 15</div>
+  <h1>딱 한 입만</h1>
+  <div class="sub">한 입만 달라는 친구가 하나씩 와요. 빵이 점점 작아져요.</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 누적·반복</span>
+  <span>무대 · 스페인 안뜰의 긴 식탁 (포도넝쿨 그늘 아래 · 담벼락이 식탁에 붙어 있고 식탁 다리가 땅에 닿아 있다)</span>
+  <span>후렴 · "딱 한 입만!" / "그래, 딱 한 입만이야!" / 아앙— 냠!</span>
+  <span class="q">10스프레드</span>
+  <span class="q">본문 611자 · 쪽당 61자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+🔴 <b>한 겹이다 — 「한 입씩 주면 빵이 없어진다」.</b> 외울 설정도 추론도 없다. 아이가 쫓는 것은 <b>빵</b>이라 그림에 그대로 그려진다. 규칙이 하나뿐이라 아이는 두 번째 손님부터 다음에 무슨 일이 올지 안다.<br>
+<br>
+🔴 <b>달라지는 것은 둘뿐이다 — 오는 친구와 남은 양.</b> 후렴 세 박(「딱 한 입만!」 → 「그래, 딱 한 입만이야!」 → 「아앙— 냠!」)은 <b>매번 같은 자리에 같은 순서로</b> 온다. 읽어주는 어른이 첫 줄을 부르면 둘째·셋째 줄은 아이 몫이 된다.<br>
+<br>
+🔴 <b>손님이 점점 작아진다</b> — 고양이 → 비둘기 → 도마뱀 → 개미. 크기 계단이라 아이가 「다음엔 더 작은 게 오겠다」를 먼저 안다. ⚠️ 이건 겹이 아니라 순서일 뿐이고, 이야기는 이 계단을 한 번도 설명하지 않는다.<br>
+<br>
+🔴 <b>반복은 셋이다</b>(p3·p4·p5). 넷으로 늘리면 p7 개미가 다섯째가 되어 「또야?」가 되고, 둘로 줄이면 아이가 함께 외칠 준비를 못 한다.<br>
+<br>
+🔴 <b>빵의 크기가 이 책의 전부다.</b> p1 얼굴만 함 → p3 반달 → p4 손바닥만 함 → p5 손톱만 함 → p8 부스러기 하나. 🔴 <b>크기 비교는 두 것이 같은 프레임·같은 깊이에 있는 쪽에만 적는다</b>(p1 빵과 얼굴 · p9 부스러기와 개미). 나머지 쪽은 앞발 위 빵의 남은 면적만 보면 된다.<br>
+<br>
+🔴 <b>한 쪽 = 한 순간이 되도록 전부 「막 베어 문 직후」로 통일했다.</b> 「왔다 → 먹었다」를 순차로 쓰면 매 쪽이 두 장이 된다. 손님이 오는 것은 <b>앞 쪽 그림에 미리 심는다</b>(p2 오른쪽 끝의 꼬리 · p3 식탁을 지나는 새 그림자 · p4 담벼락의 도마뱀 · p5·p6 식탁 다리의 개미). 본문에서도 도착은 동작이 아니라 <b>상태</b>로 쓴다 — 「어느새 와 있어요」.<br>
+<br>
+🔴 <b>가르치지 않는다.</b> 당나귀는 한 번도 아깝다고 화내지 않고, 아무도 나눠 먹으라고 말하지 않는다. 마지막에 남는 것은 교훈이 아니라 <b>웃음</b>이다 — 아무것도 아닌 부스러기를 개미가 낑낑대며 지고 간다.<br>
+<br>
+🔴 <b>착지 카드 = 시점 이동.</b> 아홉 쪽 내내 카메라는 식탁 위 아이레벨이었다. p10 에서만 개미 눈높이로 내려가고, 그러자 손톱만 하던 것이 산더미가 된다. 착지 한 줄은 「제일 작은 한 입이 제일 큰 한 입이 됐어요.」 — 이 책에서 실제로 일어난 일이고 동시에 말놀이다.<br>
+<br>
+🔴 <b>무대가 손님 넷을 전부 만든다.</b> 식탁이 길어서 누구든 옆에 와 앉고, 담벼락이 식탁에 붙어 있어 도마뱀이 내려오고, 식탁 다리가 땅에 닿아 있어 개미가 오른다. 무대를 바꾸면 이 책은 성립하지 않는다.<br>
+<br>
+🔴 <b>의인화 등급 10쪽 고정</b> — 당나귀는 의자에 앉아 <b>앞발을 손처럼</b> 쓴다(빵을 들고 내려놓는다). 고양이는 앉아서 앞발 하나를 내밀 뿐이고, 비둘기는 부리만, 도마뱀은 네 발로 붙어 있고, 개미는 앞다리 둘로 안는다. 넷 다 <b>말은 하되 옷은 없다.</b> 「손」이라는 말은 본문에 안 쓴다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>긴 식탁 끝에 새끼 당나귀가 폴짝 올라앉았어요.
+앞에 빵이 놓여 있어요.
+당나귀 얼굴만큼 커요!
+"오늘은 혼자 다 먹을 거야!"
+배가 아주 고팠거든요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 화면 왼쪽 식탁 끝에 앉은 당나귀, 오른쪽으로 식탁이 길게 뻗어 나간다
+<b>장소·시간</b> 포도넝쿨이 지붕처럼 덮인 안뜰, 그 아래 긴 나무 식탁. 해가 높은 낮
+<b>인물</b> 화면 왼쪽 — <b>새끼 당나귀</b>가 나무 의자에 두 발로 올라앉아 두 앞발을 식탁에 척 얹었다, 몸을 앞으로 바짝 기울였고 목을 길게 뺐다, 귀 두 개가 앞으로 쫑긋 섰고 눈이 접시 위 빵에 딱 고정, 입이 벌어져 혀끝이 보인다
+<b>배경·소품</b> 당나귀 코앞 접시에 둥근 빵 한 덩이 — 🔴 <b>당나귀 얼굴과 같은 깊이에 나란히 놓여 크기가 한눈에 견줘지도록</b>, 그 오른쪽으로 끝없이 뻗은 긴 나무 식탁과 빈 의자들, 식탁에 바짝 붙은 담벼락과 거기 걸린 화분들, 넝쿨 잎 사이로 새어 든 햇빛 조각이 식탁에 얼룩덜룩. 🔴 화면 아래 — <b>식탁 다리를 타고 개미 한 줄이 줄지어 오르는 중</b>(아주 작게)
+<b>톤</b> 넝쿨 그늘과 새어 든 빛이 얼룩덜룩 섞인 한낮. 빵과 당나귀 얼굴이 화면에서 가장 또렷하고 긴 식탁 저쪽은 부드럽게 풀어 놓는다</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>당나귀가 두 앞발로 빵을 들었어요.
+아앙— 냠!
+크게 한 입 베어 물었어요.
+고소해요!
+그때 누가 옆에 앉았어요.</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 아이레벨 · 당나귀 얼굴과 두 앞발만 바짝 당겨서
+<b>장소·시간</b> 식탁 끝 그 자리. 같은 낮
+<b>인물</b> 화면 가운데 — <b>새끼 당나귀</b>가 두 앞발로 빵을 받쳐 들고 <b>막 한 입 베어 문 직후</b>다, 볼이 빵빵하게 부풀고 눈이 반달로 접혔다, 귀가 뒤로 신나게 눕고 콧구멍이 벌름거린다, 입가에 부스러기가 붙었다
+<b>배경·소품</b> 앞발 위 빵의 한쪽이 둥글게 움푹 파였다(한 입 자국), 아래로 떨어지는 부스러기 몇 알, 접시와 식탁 나뭇결. 🔴 화면 오른쪽 가장자리 — <b>줄무늬 꼬리 하나가 프레임 안으로 슬쩍 들어와 의자 위에 올라앉는 중</b>(누구인지는 아직 안 보인다)
+<b>톤</b> 바짝 당겨 볼과 빵만 크게. 씹는 순간이 화면에서 튀도록 움직임을 과장하고, 오른쪽 가장자리는 어둡게 눌러 그 꼬리가 궁금해지도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>고양이였어요.
+"딱 한 입만!"
+"그래, 딱 한 입만이야!"
+고양이가 입을 쩍 벌렸어요.
+아앙— 냠!
+빵이 반달이 됐어요.</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 · 아이레벨 · 화면 왼쪽 당나귀, 오른쪽 고양이 — 둘 사이에 빵
+<b>장소·시간</b> 같은 식탁 끝. 같은 낮
+<b>인물</b> 화면 왼쪽 — <b>새끼 당나귀</b>가 빵을 든 두 앞발을 옆으로 내밀어 준 자세 그대로 굳었다, 눈썹이 위로 올라가고 입이 조그맣게 벌어졌다, 귀 하나가 옆으로 기울었다. 화면 오른쪽 — <b>고양이</b>가 의자에 앉아 앞발 하나를 식탁에 얹고 <b>입에 커다란 빵 조각을 문 직후</b>다, 눈이 흐뭇하게 감기고 수염이 앞으로 뻗었다, 꼬리 끝이 만족스럽게 한 번 휘었다
+<b>배경·소품</b> 🔴 당나귀 앞발 위 빵이 <b>반달 모양</b>으로 남았다(오른쪽이 뭉텅 없어졌다), 식탁에 떨어진 부스러기 여러 알. 🔴 식탁 위로 <b>날개 그림자 하나가 스윽 지나간다</b>(그림자만, 새는 아직 안 보인다)
+<b>톤</b> 빵을 문 고양이 쪽이 화면에서 제일 밝고 빠르게, 굳어 버린 당나귀 쪽은 한 박자 늦게 읽히도록. 지나가는 그림자는 흐릿하게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>이번엔 비둘기가 식탁 위에 통통 서 있어요.
+"딱 한 입만!"
+"그래, 딱 한 입만이야!"
+콕! 아앙— 냠!
+빵이 앞발만 해졌어요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 살짝 하이앵글 · 식탁 위를 비스듬히 내려다봄
+<b>장소·시간</b> 같은 식탁. 같은 낮
+<b>인물</b> 화면 오른쪽 — <b>비둘기</b>가 식탁 위에 두 발로 딛고 서서 <b>부리에 빵 조각을 물어 올린 직후</b>다, 목을 위로 쭉 빼고 눈을 동그랗게 떴다, 목털이 부풀고 발가락이 식탁을 꽉 붙잡았다. 화면 왼쪽 — <b>새끼 당나귀</b>가 두 앞발로 남은 빵을 가슴 쪽으로 슬쩍 당기며 비둘기를 곁눈질한다, 귀 하나가 뒤로 접혔고 입이 오므라졌다
+<b>배경·소품</b> 🔴 앞발 위 빵이 이제 <b>당나귀 앞발 하나만 하다</b>, 식탁 위에 흩어진 부스러기가 아까보다 늘었다, 비둘기가 내려앉으며 떨어뜨린 깃털 하나가 공중에 떠 있다. 🔴 화면 뒤 담벼락 — <b>도마뱀 한 마리가 화분 옆에 붙어 이쪽을 보고 있다</b>
+<b>톤</b> 위에서 비스듬히 내려다봐 남은 빵의 크기가 앞발과 나란히 견줘지도록. 비둘기의 튀어 오르는 기세가 화면을 위쪽으로 끌고 가게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>담벼락에 있던 도마뱀이 쪼르르, 어느새 접시 옆에 와 있어요.
+"딱 한 입만!"
+"그래… 딱 한 입만이야."
+아앙— 냠!
+빵이 콩알만 해졌어요.</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 · 접시 높이에서 식탁 면을 따라 옆으로
+<b>장소·시간</b> 같은 식탁, 접시 바로 옆. 같은 낮
+<b>인물</b> 화면 오른쪽 — <b>도마뱀</b>이 네 발로 식탁에 납작 붙은 채 <b>입에 작은 빵 조각을 문 직후</b>다, 목이 볼록하게 부풀고 눈알 하나가 당나귀 쪽으로 굴렀다, 꼬리가 뒤에서 S자로 굽었다. 화면 왼쪽 — <b>새끼 당나귀</b>가 앞발 하나를 반쯤 든 채 멈췄다, 입꼬리가 아래로 처지고 귀 두 개가 축 눕는다, 눈이 제 앞발 위를 본다
+<b>배경·소품</b> 🔴 당나귀 앞발 위에 빵이 <b>콩알만큼</b> 남았다, 접시엔 부스러기만 잔뜩, 담벼락 화분 옆에 도마뱀이 지나온 자리의 흙이 조금 흘러내렸다. 🔴 식탁 다리 위쪽으로 <b>개미 한 줄이 식탁 면 가까이까지 올라왔다</b>
+<b>톤</b> 아주 낮게 깔아 식탁 면이 넓은 벌판처럼 보이고 남은 빵이 그 위에 조그맣게 놓이도록. 도마뱀의 재빠름과 당나귀의 멈춤이 좌우로 갈리게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>당나귀가 남은 빵을 코앞까지 들어 올렸어요.
+얼굴만 하던 빵이 이만큼 남았어요.
+"내 빵…"
+배에서 꼬르륵 소리가 났어요.
+그때 앞발 밑에서 아주 작은 소리가 났어요.</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 · 당나귀 얼굴과 치켜든 앞발 하나
+<b>장소·시간</b> 같은 자리. 해가 조금 기운 오후
+<b>인물</b> 화면 가운데 — <b>새끼 당나귀</b>가 앞발 하나를 코앞까지 들어 올려 손톱만 한 빵을 눈앞에 두고 들여다본다, 두 눈이 안쪽으로 몰렸고 귀가 양옆으로 늘어졌다, 입이 조그맣게 오므라들었다, 다른 앞발은 배 위에 얹혔다
+<b>배경·소품</b> 앞발 끝에 얹힌 아주 작은 빵 한 조각, 어깨 너머 저쪽 식탁에 배부른 고양이가 눕고 비둘기가 깃을 다듬고 도마뱀이 늘어져 있다(전부 작고 흐릿하게), 접시엔 부스러기뿐. 🔴 화면 아래 가장자리 — <b>개미 한 마리가 식탁 위로 막 올라섰다</b>(당나귀는 못 본다)
+<b>톤</b> 앞발 끝 한 점만 또렷하고 나머지는 부드럽게 풀어 놓는다. 화면 아래 가장자리의 작은 움직임을 독자만 먼저 알아채도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>"딱 한 입만!"
+당나귀가 두리번두리번 식탁을 살폈어요.
+옆자리엔 아무도 없어요.
+"여기요! 여기 아래요!"
+개미 한 마리가 접시 옆에 서 있었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 미디엄 · 하이앵글 · 위에서 식탁 면과 그 위에 선 당나귀 얼굴을 내려다봄
+<b>장소·시간</b> 같은 식탁. 같은 오후
+<b>인물</b> 화면 위쪽 — <b>새끼 당나귀</b>가 고개를 이쪽저쪽 홱홱 돌리며 식탁 위를 훑는다, 귀 두 개가 각각 다른 방향으로 돌아갔고 눈썹이 모였다, 앞발 하나로 식탁을 짚었다. 🔴 화면 아래 가운데 — <b>개미 한 마리</b>가 접시 옆에 두 뒷다리로 버티고 서서 앞다리 둘을 번쩍 들어 흔든다, 더듬이가 위로 쭉 섰다(아주 작지만 화면 앞쪽이라 독자에겐 또렷하다)
+<b>배경·소품</b> 텅 빈 접시와 부스러기 몇 알, 저 멀리 늘어진 친구 셋, 식탁 다리 쪽으로 이어지는 개미 한 줄, 넝쿨 그림자가 식탁에 길게 누웠다
+<b>톤</b> 위에서 내려다봐 넓은 식탁 위가 텅 비어 보이도록. 🔴 <b>찾는 얼굴은 위에 크게 · 찾는 대상은 아래에 아주 작게</b> 놓여, 독자만 먼저 보고 웃도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>당나귀가 남은 부스러기를 개미 앞에 톡 놓아 줬어요.
+"이건 한 입도 안 되는데…"
+개미가 앞다리 둘로 부스러기를 꼭 안았어요.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨(식탁 면 높이) · 화면 가운데 부스러기와 개미, 위쪽에 당나귀 앞발
+<b>장소·시간</b> 접시 옆 식탁 면. 같은 오후
+<b>인물</b> 화면 가운데 — <b>개미</b>가 두 뒷다리로 서서 앞다리 둘을 활짝 벌려 <b>부스러기를 막 끌어안은 참</b>이다, 더듬이가 앞으로 굽고 몸이 뒤로 살짝 젖혀졌다. 화면 위 — <b>새끼 당나귀</b>의 앞발 하나가 방금 부스러기를 내려놓고 아직 그 위에 머물러 있다, 프레임 위쪽 가장자리에 당나귀 코끝과 내려다보는 한쪽 눈만 걸린다
+<b>배경·소품</b> 🔴 부스러기 하나가 화면 한가운데 — <b>개미와 같은 깊이에 나란히 놓여 개미보다 크다는 것이 여기서 처음 보이도록</b>, 주변에 훨씬 작은 빵 가루 몇 알, 빈 접시 가장자리
+<b>톤</b> 식탁 면에 눈높이를 딱 붙여 부스러기가 덩어리처럼 보이게. 당나귀는 프레임 위에서 잘려 개미 쪽으로 눈이 가도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>영차! 개미가 부스러기를 번쩍 들었어요.
+개미보다 훨씬 커요!
+"무거워요! 아주 큰 한 입이에요!"
+당나귀가 푸하하 웃었어요.
+고양이도, 비둘기도, 도마뱀도 웃었어요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 화면 앞쪽 가운데 개미, 그 뒤로 반원처럼 둘러선 얼굴 넷
+<b>장소·시간</b> 식탁 한가운데. 같은 오후
+<b>인물</b> 화면 앞쪽 가운데 — <b>개미</b>가 부스러기를 머리 위로 번쩍 들어 올려 여섯 다리로 버틴다, 다리가 후들후들 굽고 더듬이가 옆으로 벌어졌다, 몸이 부스러기에 반쯤 가렸다. 그 뒤 반원 — <b>새끼 당나귀</b>가 몸을 뒤로 젖히고 입을 크게 벌려 웃는다(앞발로 배를 짚었다), <b>고양이</b>가 앞발로 식탁을 두드리며 눈을 접었고, <b>비둘기</b>가 날개를 파닥이며 목을 젖혔고, <b>도마뱀</b>이 배를 식탁에 붙인 채 입을 벌렸다
+<b>배경·소품</b> 🔴 부스러기와 개미가 <b>같은 깊이에 나란히</b> 있어 부스러기가 개미보다 크다는 것이 그대로 읽힌다, 흔들리는 개미 발밑의 빵 가루들, 뒤로 빈 접시와 긴 식탁
+<b>톤</b> 웃음이 터지는 순간이라 화면 전체가 들썩이게 — 인물마다 몸이 다른 방향으로 튀고, 가운데 부스러기만 딱 멈춰 있어 그 대비가 웃기도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>개미가 낑낑 부스러기를 지고 갔어요.
+식탁 다리를 타고 아래로, 아래로.
+개미들이 줄줄이 마중을 나왔어요.
+"오늘은 잔칫날이다!"
+제일 작은 한 입이 제일 큰 한 입이 됐어요.</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 🔴 <b>로우앵글 클로즈업 · 개미 눈높이</b> — 땅바닥에서 식탁 다리를 올려다보는 세로 구도(열 쪽 중 유일하게 카메라가 식탁 아래로 내려간다)
+<b>장소·시간</b> 식탁 다리 아래 흙바닥과 그 위로 솟은 나무 다리. 해가 낮아진 늦은 오후
+<b>인물</b> 화면 가운데 — <b>개미</b>가 식탁 다리 중간쯤에 거꾸로 매달려 부스러기를 등에 지고 한 걸음씩 내려온다, 다리 여섯이 나뭇결을 꽉 붙잡았고 더듬이가 아래를 향한다. 화면 아래 — <b>마중 나온 개미들</b>이 흙바닥에 줄지어 서서 앞다리를 위로 뻗어 흔든다, 더듬이가 전부 위를 향했다
+<b>배경·소품</b> 🔴 <b>부스러기가 개미들 머리 위로 산더미처럼 크다</b> — 이 각도에서 화면 폭의 큰 몫을 차지한다, 굵은 나뭇결이 절벽처럼 세로로 뻗은 식탁 다리, 흙바닥에 난 개미굴 입구, 저 위 아득히 식탁 면 가장자리와 그 너머 넝쿨 잎 몇 (당나귀는 안 보이거나 다리 끝만 아주 작게)
+<b>톤</b> 아래에서 위로 올려다봐 모든 것이 크고 높다. 늦은 햇빛이 나뭇결을 타고 비스듬히 떨어지고, 🔴 <b>화면에서 가장 밝고 가장 큰 것이 그 부스러기</b>여서 손톱만 하던 것이 여기서 산처럼 읽히도록</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'e15',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['새끼 당나귀(이름 없음)', '고양이(이름 없음)', '비둘기(이름 없음)', '도마뱀(이름 없음)', '개미(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=4294954c5a8fa2d5"></script>
+<script src="/changjak-core.js?v=4294954c5a8fa2d5"></script>
+</body>
+</html>

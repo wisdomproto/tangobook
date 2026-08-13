@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { getMetBooks } from '../lib/phonics-word-scene';
 import { motion, useReducedMotion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { LANG_TO_SYSTEM_SOUND, type Lang } from '@tangobook/shared';
@@ -189,6 +191,8 @@ export function GameResultScreen({ score, total, onRestart, onBack, lang }: Game
           <span className="text-2xl font-black text-ink-300 sm:text-3xl">/ {total}</span>
         </div>
 
+        <MetBooksStrip />
+
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Button variant="primary" size="lg" onClick={onRestart}>
             {t('result.restart')}
@@ -198,6 +202,49 @@ export function GameResultScreen({ score, total, onRestart, onBack, lang }: Game
           </Button>
         </div>
       </motion.div>
+    </div>
+  );
+}
+
+/**
+ * 「방금 만난 책」 — 이번 판에서 예문으로 뜬 동화책 표지를 세워 두고 고르게 한다.
+ *
+ * 🔴 리빌 화면이 아니라 **여기**에 둔다(2026-08-12 사용자 합의). 게임 도중에 「책 보러 가기」를
+ *    두면 아이가 4문제 중 2번째에서 판을 버리고 나가는데, 4~7세는 돌아와 마저 하지 못한다.
+ *    끝난 뒤에 놓으면 게임도 끝까지 하고 다리도 그대로 놓인다.
+ *
+ * 🔴 파닉스 게임에서만 채워진다 — 동화책 게임은 기록하는 쪽이 없어 빈 배열이라 아무것도 안 그린다
+ *    (그래서 플레이어 8개에 prop 을 꿰지 않았다).
+ */
+function MetBooksStrip() {
+  const { t } = useTranslation('games');
+  const navigate = useNavigate();
+  // 결과 화면은 판이 끝난 뒤 한 번 마운트되므로 그때 읽으면 된다.
+  const [books] = useState(getMetBooks);
+  if (!books.length) return null;
+  return (
+    <div className="mt-8">
+      <p className="text-base font-black text-ink-700 sm:text-lg">
+        {t('result.metBooks', { defaultValue: '📖 방금 만난 책' })}
+      </p>
+      <div className="mt-3 flex flex-wrap justify-center gap-3">
+        {books.map((b) => (
+          <button
+            key={b.id}
+            type="button"
+            onClick={() => navigate(`/library/${b.id}`)}
+            className="w-32 shrink-0 rounded-2xl border-4 border-white bg-white shadow-md transition-transform hover:scale-105 sm:w-40"
+          >
+            {b.coverUrl && (
+              <img
+                src={b.coverUrl}
+                alt={b.title}
+                className="aspect-video w-full rounded-xl object-cover"
+              />
+            )}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

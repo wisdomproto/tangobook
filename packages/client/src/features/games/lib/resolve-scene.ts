@@ -1,4 +1,4 @@
-import { pickPhonicsWordScene } from './phonics-word-scene';
+import { pickPhonicsWordScene, pickUnitStoryScene } from './phonics-word-scene';
 import type { Lang, Storybook } from '@tangobook/shared';
 
 export interface WordScene {
@@ -73,16 +73,20 @@ export function resolveSceneFromWord(
 ): WordScene | null {
   if (!storybook || !word) return null;
   /**
-   * 🔴 **파닉스 단원은 자기 쪽을 절대 안 보여 준다** (2026-07-29). 한글 나무 삽화 245장이
-   *    들어오자 `pages[].illustrationUrl` 조건이 채워져 **파닉스 게임 도중 호리 동화가 스쳤고**,
-   *    아이 눈엔 오류로 보였다. 막는 자리는 여기 한 곳 — 호출부가 8개 플레이어라 거기서 막으면
-   *    하나씩 빠뜨린다.
+   * 파닉스 단원에서 맞힌 낱말 → 예문 장면. 순서가 규칙의 전부다(2026-08-12 사용자).
    *
-   * 🔴 대신 **다른 동화책**에서 그 낱말이 나오는 쪽을 찾아 보여 준다 (2026-08-12, 사용자 지시).
-   *    파닉스에서 배운 낱말을 동화책에서 다시 만나는 게 두 축이 이어지는 지점이다.
-   *    미리 받아 둔 책에서만 고르고, 없으면 null — 낱말만 읽어 주고 넘어간다.
+   * 1. **다른 동화책** — 인덱스에서 찾아온다. 배운 낱말을 **새 이야기에서** 만나는 게 이 기능의 목적이다.
+   * 2. **그 단원의 호리 한글 나무 동화** — 우선순위 **가장 낮음**. 아이가 이 단원에서 이미 본
+   *    이야기라 다시 봐도 새로 만나는 게 아니다. 다른 책에 그 낱말이 없을 때의 폴백이다.
+   * 3. 둘 다 없으면 null — 낱말만 읽어 주고 넘어간다.
+   *
+   * 🔴 **「파닉스는 자기 쪽 금지」(2026-07-29)를 뒤집은 것이다.** 그때 오류처럼 보였던 이유는
+   *    호리 동화가 뜬 것 자체가 아니라 **나레이션이 0개라 소리 없이 스쳐 지나갔기** 때문이다
+   *    (삽화 245장이 막 들어와 그림만 조건을 채웠다). 256쪽 나레이션을 구운 뒤라 이제 읽어 준다.
+   *    막는 자리도 여는 자리도 여기 한 곳 — 호출부가 플레이어 8개라 거기서 하면 하나씩 빠뜨린다.
    */
-  if (storybook.type === 'phonics') return pickPhonicsWordScene(word, lang);
+  if (storybook.type === 'phonics')
+    return pickPhonicsWordScene(word, lang) ?? pickUnitStoryScene(word, lang, storybook);
   const ko = matchKeyObject(word, lang, storybook);
   if (!ko) return null;
   const pageNum = findValidatedPageNumber(

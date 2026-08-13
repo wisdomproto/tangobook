@@ -310,59 +310,106 @@ function Pict({ name }: { name: string }) {
  * 🔴 두 장이 **같은 틀**이어야 「우리가 파는 건 이 둘」이 한눈에 읽힌다(하나는 일러스트,
  *    하나는 실제 표지라 내용은 다르지만 틀은 같아야 한다).
  */
-function HeroServiceCard({
-  n,
-  name,
-  d,
-  children,
-}: {
-  n: number;
-  name: string;
-  d: string;
-  children: ReactNode;
-}) {
-  return (
-    <div className="h-full overflow-hidden rounded-3xl bg-white/70 text-left shadow-sm">
-      {children}
-      <div className="px-4 py-3 xl:px-6 xl:py-5">
-        <span className="text-sm font-bold text-ink-400">{n}</span>
-        <strong className="mt-0.5 block font-display text-xl font-extrabold text-coral-700 break-keep xl:text-3xl">
-          {name}
-        </strong>
-        <span className="mt-0.5 block text-base text-ink-600 break-keep xl:text-lg">{d}</span>
-      </div>
-    </div>
-  );
-}
-
 /**
- * 히어로 ② 칸 그림 = **표지 아홉 장**(2026-08-11 사용자: "여러 표지를 때려박아").
+ * 히어로 한가운데 = **이어짐 그림**(2026-08-12 사용자: "이따구로 말고, 그림을 그리자.
+ * 왼쪽 한글 파닉스 공부 단어랑 오른쪽 동화책 어휘랑 연결되는 그림").
  *
- * 🔴 한 장으로는 「동화책이 있다」까지만 말한다 — 이 칸이 팔아야 하는 건 **여러 갈래로 많다**는
- *    것이라, 한 권을 크게 보여주면 오히려 그 한 권짜리로 보인다.
- * 🔴 3×3 이어야 16:9 가 딱 맞는다 — 표지가 16:9 라 3열이면 한 줄 높이가 폭의 3/16 이고,
- *    세 줄이면 9/16 = 정확히 카드 비율이다(2열·4열이면 잘리거나 남는다).
- * 🔴 **라인을 섞어 뽑는다**(명작·전래·자연·생활) — 한 라인에서 아홉 장을 뽑으면 「명작만 있는
- *    앱」으로 읽힌다. 아래 ⑤ 라인 카드와 같은 규칙(`LINES`)을 본다.
- * 🔴 **구워 둔 한 장을 쓴다**(2026-08-11 사용자: "로딩이 좀 시간이 걸리네"). 예전엔 여기서
- *    `useStorybooks()` 로 목록을 받고 표지 아홉 장을 각각 받았다 — 첫 화면에서 제일 먼저 보이는
- *    칸이 **API 1건 + 이미지 9건**을 기다리느라 제일 늦게 찼다. 첫인상 영역은 데이터가 필요 없다.
- *    다시 구우려면 `node packages/server/scripts/bake-hero-book-grid.mjs`(고르는 규칙은 그 안에
- *    그대로 있다) — **책이 늘어도 자동으로 안 바뀐다**는 게 이 방식의 값이자 대가다.
+ * 🔴 카드 두 장을 나란히 두면 「파닉스 앱 하나 + 동화책 앱 하나」로 읽힌다. 우리 정체성은 그 둘
+ *    **사이**에 있으므로, 첫 화면의 주인공을 **연결 자체**로 바꾼다. 문장으로 설명하던 자리다.
+ * 🔴 **꾸며 낸 그림이 아니라 앱 화면 그대로다** — 왼쪽은 파닉스 `kr-h1-u04`(ㄷ) 「낱말 연습」을
+ *    찍은 것(두유·도마·기도·구두), 오른쪽은 그 낱말이 실제로 나오는 신데렐라 7쪽. 앱에서 「구두」를
+ *    맞히면 이 쪽이 열린다(`word-scenes.json` 색인이 그렇게 잇는다).
+ * 🔴 왼쪽은 **낱말 카드 한 장이 아니라 「배우는 장면」**이어야 한다(2026-08-12 사용자: "왼쪽에
+ *    파닉스로 글자를 배우는 장면이어야지"). 사물 사진 한 장은 제품이 아니라 소재로 보인다.
+ * 🔴 문장 강조는 **앱과 같은 노란 하이라이트** — 리빌 화면에서 맞힌 낱말에 색이 들어가는 그 표시다.
+ * 🔴 자산은 **구워서 로컬에** 둔다(9KB·50KB) — R2 원본은 800px·1536px 이고, 첫 화면이라
+ *    `fetchpriority="high"` 로 프리렌더 HTML 에 src 가 남는 세 장 안에 든다.
  */
-function HeroBookCover() {
+function HeroBridge() {
   return (
-    <img
-      src="/landing/hangul/books-720.webp"
-      srcSet="/landing/hangul/books-720.webp 720w, /landing/hangul/books.webp 1200w"
-      sizes="(max-width: 640px) 45vw, 550px"
-      alt="세계 명작·전래 동화·호리 시리즈·자연 관찰 표지 아홉 장"
-      width={1200}
-      height={675}
-      loading="eager"
-      fetchPriority="high"
-      className="aspect-video w-full object-cover"
-    />
+    <div className="mx-auto mt-6 max-w-2xl rounded-3xl border-2 border-coral-200 bg-white/70 p-3 sm:mt-8 sm:p-5 xl:max-w-4xl xl:p-7">
+      <div className="flex items-stretch gap-2 sm:gap-4">
+        {/* 왼쪽 — 파닉스에서 배우는 낱말 */}
+        {/* 왼쪽 — 파닉스. 🔴 **글자가 먼저, 낱말이 그다음**(2026-08-12 사용자: "왼쪽에 단어만
+            있으니까 파닉스 느낌이 안 나네"). 낱말 카드만 두면 그림 낱말책으로 보인다 — 파닉스는
+            **글자와 소리**라, 위에 글자가 음절이 되는 화면(ㄷ+ㅏ, 다댜더뎌…)을 세우고 그 아래
+            그 글자로 된 낱말을 둔다. 두 장 다 앱 화면을 그대로 찍은 것이다. */}
+        <div className="flex w-[34%] shrink-0 flex-col gap-1.5 sm:gap-2">
+          <span className="text-[11px] font-extrabold text-coral-700 sm:text-sm xl:text-base">
+            ① 글자와 소리를 배우고
+          </span>
+          <div className="overflow-hidden rounded-2xl border border-ink-100 bg-cream-50">
+            <img
+              src="/landing/hangul/bridge-letter.webp"
+              alt="한글 파닉스 음절 만들기 화면 — ㄷ 과 ㅏ 가 합쳐져 다 가 된다"
+              width={460}
+              height={270}
+              fetchPriority="high"
+              className="aspect-[460/270] w-full object-cover"
+            />
+          </div>
+          <span className="text-[11px] font-extrabold text-coral-700 sm:text-sm xl:text-base">
+            ② 그 글자로 낱말을
+          </span>
+          <div className="relative overflow-hidden rounded-2xl border border-ink-100 bg-cream-50">
+            <img
+              src="/landing/hangul/bridge-word.webp"
+              alt="한글 파닉스 ㄷ 단원 낱말 연습 화면 — 기도·구두"
+              width={460}
+              height={312}
+              fetchPriority="high"
+              className="aspect-[460/312] w-full object-cover"
+            />
+            {/* 🔴 위치는 **퍼센트** — 이미지가 105px(모바일)~282px(데스크탑)로 늘어난다. */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute rounded-xl ring-[3px] ring-coral-500 sm:rounded-2xl sm:ring-4"
+              style={{ left: '50%', top: '4%', width: '44%', height: '90%' }}
+            />
+          </div>
+        </div>
+
+        {/* 가운데 — 잇는 자리. 🔴 화살표 하나로는 약하다: 점선 + 「같은 낱말」 칩이 관계를 말한다. */}
+        <div className="flex flex-col items-center justify-center self-center">
+          {/* 🔴 점선 조각을 따로 두지 않는다 — 좁은 칸에서 「- -」 로 보여 이물이 된다.
+              칩이 화살표의 이름표가 되게 위아래로만 세운다. */}
+          <span className="whitespace-nowrap rounded-full bg-coral-700 px-2 py-0.5 text-[10px] font-extrabold text-white sm:px-3 sm:py-1 sm:text-sm">
+            같은 낱말
+          </span>
+          <span className="-mt-0.5 text-2xl font-extrabold text-coral-500 sm:text-4xl" aria-hidden>
+            →
+          </span>
+        </div>
+
+        {/* 오른쪽 — 그 낱말이 나오는 동화책 쪽 */}
+        <div className="flex min-w-0 flex-1 flex-col">
+          <span className="mb-1 text-[11px] font-extrabold text-coral-700 sm:text-sm xl:text-base">
+            ③ 동화책에서 다시 만나요
+          </span>
+          <div className="overflow-hidden rounded-2xl border border-ink-100 bg-cream-50">
+            <img
+              src="/landing/hangul/bridge-page.webp"
+              alt="신데렐라 동화책 한 쪽 — 유리 구두를 신은 신데렐라"
+              width={560}
+              height={315}
+              fetchPriority="high"
+              className="aspect-video w-full object-cover"
+            />
+            <p className="px-2 py-1.5 text-left text-[11px] font-bold leading-snug text-ink-800 break-keep sm:px-3 sm:py-2 sm:text-base xl:text-lg">
+              맨발에는 세상에서 가장 아름다운 유리{' '}
+              <mark className="rounded bg-amber-200 px-1 text-ink-900">구두</mark>가 신겨졌어요.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <p className="mt-2 text-center text-[12px] font-bold text-ink-600 break-keep sm:mt-3 sm:text-lg xl:text-xl">
+        한글·영어 파닉스{' '}
+        <strong className="text-coral-700">{FACTS.koreanUnits + FACTS.englishUnits}단원</strong> ·
+        동화책 <strong className="text-coral-700">{FACTS.books}권</strong> — 배운 낱말이 이야기로
+        이어집니다
+      </p>
+    </div>
   );
 }
 
@@ -406,7 +453,9 @@ const GA_LEARN = [
   {
     key: 'game-line-matching',
     h: 620,
-    note: '서른두 단원이 전부 이렇게 생겼습니다 — 익히기 넷에 낱말 놀이 다섯.',
+    /* 🔴 이 상자가 **파닉스↔동화책 연결을 실제로 보여주는 자리**다(2026-08-12) — 맞히면
+       `SceneReveal` 이 그 낱말이 나오는 동화책 쪽을 띄운다. 글로 설명할 필요 없이 눌러보면 된다. */
+    note: '맞히면 그 낱말이 나오는 동화책 한 쪽이 열립니다 — 눌러보세요.',
     cta: true,
   },
 ];
@@ -630,7 +679,12 @@ const EN_TRY: { key: string; h: number; note: string; cta?: boolean }[] = [
     note: 'c 와 an 이 붙어 can 이 됩니다 — 영어 읽기가 시작되는 순간입니다.',
   },
   { key: 'game-word-writing', h: 620, note: '낱말 전체를 왼쪽부터 차례로 씁니다.' },
-  { key: 'game-line-matching', h: 620, note: '39단원이 전부 이렇게 생겼습니다.', cta: true },
+  {
+    key: 'game-line-matching',
+    h: 620,
+    note: '영어도 같습니다 — 맞힌 낱말이 나오는 동화책 쪽이 열립니다.',
+    cta: true,
+  },
 ];
 
 const LINES: { name: string; n: number; d: string; match: (c: string) => boolean }[] = [
@@ -880,7 +934,7 @@ export default function IntroPage() {
   return (
     <div className="min-h-dvh bg-cream-50 pb-24">
       {/* ── ① 히어로 ─────────────────────────────────────────── */}
-      <header className="relative overflow-hidden bg-gradient-to-b from-peach-100 via-peach-50 to-cream-50 px-4 pb-10 pt-12 sm:px-6 sm:pb-14 sm:pt-16">
+      <header className="relative overflow-hidden bg-gradient-to-b from-peach-100 via-peach-50 to-cream-50 px-4 pb-10 pt-9 sm:px-6 sm:pb-14 sm:pt-16">
         <div className="pointer-events-none absolute -right-20 -top-16 h-64 w-64 rounded-full bg-coral-100/60 blur-3xl" />
         {/* 🔴 로고를 큼지막하게 맨 위에(2026-08-05 사용자) — 브랜드가 먼저다. width/height 로 CLS 방지. */}
         {/* 🔴 **로고를 크게**(2026-08-11 사용자: "너무 작다 확 키워"). 64/80px 은 앱 헤더 크기라
@@ -920,42 +974,14 @@ export default function IntroPage() {
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-[16px] leading-relaxed text-ink-700 break-keep sm:text-[19px] lg:max-w-3xl lg:text-[22px] xl:max-w-4xl xl:text-[24px] 2xl:text-[27px]">
             자음·모음부터 받침까지 <strong className="text-coral-700">소리로 한글을 떼고</strong>,
-            뗀 글자로 <strong className="text-coral-700">동화책을 바로 읽습니다.</strong> 배우는
-            곳과 읽는 곳이 같은 앱 안에 있어요.
+            뗀 글자로 <strong className="text-coral-700">동화책을 바로 읽습니다.</strong>
           </p>
 
-          {/* 🔴 **서비스 두 장에 각각 그림**(2026-08-11 사용자: "호랑이 가나다 이미지를 한글파닉스
-              대응 이미지로 쓰고, 동화책에 대응 이미지 하나 넣어줘"). 글자 두 줄짜리 칸이던 걸
-              그림 카드로 올린다 — 이 페이지가 파는 게 둘이라는 걸 첫 화면에서 **그림으로** 말한다.
-              ② 는 새 자산을 만들지 않고 **라이브러리의 진짜 표지**를 그대로 세운다(그림체가 다른
-              일러스트를 새로 그리면 ①과 톤이 갈린다). */}
-          {/* 🔴 **모바일도 2열**(2026-08-11) — 세로로 쌓으면 카드 둘이 580px 를 먹어 CTA 가
-              접힘선 아래로 내려간다. 첫 화면에 버튼이 있어야 한다. */}
-          <div className="mx-auto mt-8 grid max-w-2xl grid-cols-2 gap-3 sm:gap-4 xl:max-w-4xl xl:gap-6">
-            <HeroServiceCard
-              n={1}
-              name="한글·영어 파닉스"
-              d={`한글 ${FACTS.koreanUnits}단원 · 영어 ${FACTS.englishUnits}단원`}
-            >
-              <img
-                src="/landing/hangul/phonics-720.webp"
-                srcSet="/landing/hangul/phonics-720.webp 720w, /landing/hangul/phonics.webp 1400w"
-                sizes="(max-width: 640px) 45vw, 550px"
-                alt="아기호랑이가 가·나·다 한글 블록을 갖고 노는 그림"
-                width={1400}
-                height={788}
-                fetchPriority="high"
-                className="aspect-video w-full object-cover"
-              />
-            </HeroServiceCard>
-            <HeroServiceCard n={2} name="동화책" d="세계 명작 · 전래동화 · 자연 관찰 · 생활동화">
-              <HeroBookCover />
-            </HeroServiceCard>
-          </div>
+          <HeroBridge />
 
           <Link
             to={SIGNUP}
-            className="mt-8 inline-flex min-h-[68px] items-center rounded-full bg-coral-700 px-12 text-2xl font-extrabold text-white shadow-lg transition hover:bg-coral-800 xl:mt-10 xl:min-h-[104px] xl:px-20 xl:text-[32px]"
+            className="mt-5 inline-flex min-h-[68px] items-center rounded-full bg-coral-700 px-12 text-2xl font-extrabold text-white shadow-lg transition hover:bg-coral-800 sm:mt-8 xl:mt-10 xl:min-h-[104px] xl:px-20 xl:text-[32px]"
           >
             한달 무료 체험
           </Link>
@@ -1262,6 +1288,13 @@ export default function IntroPage() {
         <p>
           글자만 배우고 끝나면 금세 흐려집니다. 탱고북은 배운 글자로 읽을 책이 같은 앱 안에 있어서,
           읽은 것이 <strong>다시 글자 진도로 돌아옵니다.</strong>
+        </p>
+        {/* 🔴 **한 바퀴가 말이 아니라 화면에서 실제로 돈다**(2026-08-12 연결 완료) — 위 파닉스
+            데모의 「그림 짝 찾기」에서 낱말을 맞히면 그 자리에서 확인할 수 있다. */}
+        <p>
+          파닉스에서 낱말을 맞히면 <strong>그 낱말이 나오는 동화책 한 쪽</strong>이 그 자리에서
+          열립니다 — 삽화와 문장이 함께 나오고, 맞힌 낱말에 색이 들어가고, 읽어 줍니다. 한 판이
+          끝나면 <strong>방금 만난 책들의 표지</strong>가 떠서 그대로 읽으러 갈 수 있어요.
         </p>
         <LearnReadCycle />
       </Section>

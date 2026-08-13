@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>C-18 밤송이는 언제 벌어질까 — 창작동화 1000</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#fff8f0;color:#2b2320;line-height:1.75}
+
+/* 회차 상단 그림체 레퍼런스 */
+.stylebox{margin:14px 0 18px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa;overflow:hidden}
+.stylebox .sb-head{padding:9px 13px;background:#f7f1e9;border-bottom:1px solid #eee3d7;font-size:14px}
+.stylebox .sb-head code{background:#fff;border:1px solid #e6ddd3;border-radius:5px;padding:1px 6px;font-size:13px}
+.stylebox .sb-body{padding:12px 13px}
+.stylebox .sb-refs{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stylebox .sb-th{display:block;width:150px;aspect-ratio:1/1;border-radius:9px;overflow:hidden;border:1px solid #e6ddd3;background:#f4efe8}
+.stylebox .sb-th img{width:100%;height:100%;object-fit:cover;display:block}
+.stylebox .sb-th.empty{display:flex;align-items:center;justify-content:center;border-style:dashed;color:#a89887;font-size:12px}
+/* 🔴 승인 시트가 아직 없어 원본 표지를 대신 놓은 칸 — 승인본과 눈으로 구별돼야 한다 */
+.stylebox .sb-th.origin{position:relative;border-style:dashed;border-color:#d8c4ae}
+.stylebox .sb-th.origin img{object-fit:contain;background:#fff}
+.stylebox .sb-th.origin em{position:absolute;left:0;right:0;bottom:0;background:rgba(43,35,32,.72);color:#fff;
+font-style:normal;font-size:10.5px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.02em}
+.stylebox .sb-name{font-weight:700;margin-bottom:6px}
+.stylebox .sb-m{font-size:13.5px;line-height:1.65;color:#5c5048}
+.stylebox .sb-m b{color:#8a6a4f;margin-right:5px}
+.stylebox .sb-hint{font-size:12.5px;color:#8b7d70;margin:8px 0 0}
+
+/* 삽화 붙여넣기 — 확정 시트 + 쪽별 컷 */
+.paste-box{margin-top:10px;min-height:104px;border:1px dashed #d8cbbd;border-radius:10px;background:#fffdfa;color:#a08e7d;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;cursor:pointer;outline:none;position:relative}
+.paste-box:focus{border-color:#c98b62;background:#fff8f1;color:#8a6a4f}
+.paste-box.busy{border-style:solid;color:#8a6a4f}
+.paste-box.err{border-color:#c9705a;color:#b4553c}
+.paste-box.has-img{border-style:solid;border-color:#e6ddd3;padding:0;min-height:0;display:block}
+.paste-box.has-img img{display:block;width:100%;border-radius:9px}
+.paste-del{position:absolute;top:6px;right:6px;border:0;border-radius:6px;background:rgba(30,24,20,.62);color:#fff;font-size:12px;line-height:1;padding:4px 7px;cursor:pointer}
+.sheetrow{margin:0 0 16px;padding:11px 13px;border:1px solid #e6ddd3;border-radius:12px;background:#fffdfa}
+.sheetrow .sr-lab{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.sheetrow .sr-lab span{font-weight:400;color:#8b7d70;font-size:12.5px}
+.sheetrow .sr-boxes{display:flex;gap:9px;flex-wrap:wrap}
+.sheetrow .sr-boxes .paste-box{margin-top:0;width:172px}
+
+/* 전체 묶음 프롬프트 — 호리 .batch-bar 와 같은 구조 */
+.batch-bar{margin:0 0 14px;padding:13px 15px;border:1px solid #e2d3c2;border-radius:12px;background:#fdf6ee}
+.batch-bar .bhead{font-weight:800;font-size:14.5px;margin-bottom:5px}
+.batch-bar .bhint{font-size:12.5px;line-height:1.7;color:#6b5d55;margin-bottom:10px}
+.batch-bar .brow{display:flex;gap:8px;flex-wrap:wrap}
+.batch-bar .batch-btn{background:#c96f4a;border-color:#c96f4a;color:#fff;font-weight:700;padding:9px 15px}
+.batch-bar .batch-btn.done{background:#4f8a6b;border-color:#4f8a6b}
+
+/* 앵커 근거 — 후보 시트의 수상작 원본 */
+.sb-cands{margin-top:12px;padding-top:11px;border-top:1px dashed #e6ddd3}
+.sb-cl{font-size:12.5px;font-weight:700;color:#8a6a4f;margin-bottom:8px}
+.sb-cl span{font-weight:400;color:#a89887}
+.sb-crow{display:flex;gap:9px;flex-wrap:wrap}
+.sb-c{display:block;width:132px;text-decoration:none;color:#6b5d55}
+.sb-c img{width:132px;height:132px;object-fit:cover;border-radius:9px;border:1px solid #e6ddd3;display:block;background:#f4efe8}
+.sb-c span{display:block;font-size:11.5px;line-height:1.45;margin-top:4px}
+.sb-c i{display:block;color:#a89887;font-style:normal;font-size:11px}
+</style>
+</head>
+<body>
+<div class="ep">
+
+<header class="hero">
+  <div class="kicker">창작동화 1000 · C · 자연·계절·동물 · 18</div>
+  <h1>밤송이는 언제 벌어질까</h1>
+  <div class="sub">날마다 올려다봐도 가시는 꼭 오므린 채예요</div>
+</header>
+
+<div class="meta">
+  <span>엔진 · 관찰과 성장</span>
+  <span>무대 · 프랑스 밤나무 숲 (밤나무 한 그루 · 낮은 가지 하나에 초록 밤송이 · 밑동에 뚫린 나무 구멍 = 다람쥐 잠자리 · 발치에 노란 낙엽 더미 — 열한 쪽 내내 이 나무 한 그루를 안 벗어난다)</span>
+  <span>후렴 · '"오늘은 벌어졌을까?"' (p3·p4·p5 다람쥐의 말) → p10 에서 같은 말을 하는데 이번엔 벌어져 있다</span>
+  <span class="q">11스프레드</span>
+  <span class="q">본문 730자 · 쪽당 66자</span>
+</div>
+
+<details class="note">
+<summary>📝 편집 메모</summary>
+<div class="note-body">
+- 🔴 <b>겹은 하나다 — 「밤송이는 저절로 벌어진다」.</b> 그 규칙은 p2 에서 참새가 한 마디로 말해 준다("그건 저절로 쩍 벌어져"). 아이가 외울 설정도, 모아서 풀 단서도 없다. 쫓는 것은 <b>밤송이</b>라 그림으로 그려진다.<br>
+- 🔴 <b>기다림을 「세는 일」로 만들지 않는다.</b> 날짜를 세지 않고, 표시를 남기지 않고, 몇 밤 남았는지 묻지 않는다. 되풀이되는 것은 <b>같은 가지를 올려다보는 한 가지 행동</b>뿐이고, 달라지는 것은 <b>다람쥐의 자세와 그날 날씨</b>다.<br>
+- 🔴 <b>왜 벌어지는지 설명하지 않는다.</b> 서리는 <b>그날 아침 풍경</b>일 뿐이다 — p9 는 하얘진 세상에 놀라는 쪽이고, p10 에서 「서리가 내려서 벌어졌어요」라고 잇지 않는다. 아이는 이유를 알 필요가 없고 <b>벌어진 것을 발견하기만</b> 하면 된다.<br>
+- 🔴 <b>이 권의 감정은 조바심이다.</b> p3 아직이네(시무룩) → p4 흔들어 본다(안달) → p5 발을 쿵 구른다(화남). 세 번이 다 다른 자세로 그려진다.<br>
+- 🔴 <b>반복은 셋.</b> 넷째 아침(p10)은 반복이 아니라 뒤집힘이다 — <b>같은 말을 하는데 이번엔 벌어져 있다.</b><br>
+- 🔴 <b>참새는 놀이로 끌어낼 뿐 답을 주지 않는다.</b> 규칙 한 줄(p2) 말고는 가르치지 않는다. 밤송이가 벌어진 것을 먼저 알아채는 것도 다람쥐다.<br>
+- 🔴 <b>착지 카드 = 거리 이동.</b> p1 은 저 높은 가지를 아득히 올려다보는 로우앵글이고, p11 은 밤 한 알이 두 앞발 안에 들어온 클로즈업이다. 멀던 것이 품에 들어온 것이 화면 크기로 읽힌다.<br>
+- 🔴 <b>11쪽.</b> 바람(1) 밀어보기(1) 기다림 세 번(3) 부름(1) 놀이(1) 잠(1) 하얀 아침(1) 발견(1) 착지(1). p10(벌어진 걸 본다)과 p11(밤이 떨어져 안는다)은 한 인물이 두 자세라 한 쪽에 못 넣는다.<br>
+- 🔴 <b>장소는 밤나무 한 그루.</b> 굴속(p8)도 이 나무 밑동이라 카메라가 나무를 안 떠난다.<br>
+- 🔴 <b>의인화 등급 고정</b> — 다람쥐는 네 발이고 옷이 없다. 앞발로 잡고 안는 등급(밤송이를 밀고, 가지에 매달리고, 밤을 안는다)으로 열한 쪽 내내 같다. 참새는 말은 하되 날개로 손짓하지 않는다 — 앉고, 파닥이고, 폴짝 뛴다.
+</div>
+</details>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p1 · 본문</span>아기 다람쥐가 밤나무 아래에서 고개를 쭉 젖혔어요.
+나뭇가지에 초록 밤송이가 대롱대롱 매달렸어요.
+"저 안에 맛있는 밤이 들었대!"
+다람쥐는 그 밤이 무척 먹고 싶어요.</div>
+  </div>
+  <div class="sc"><span class="n">p1 · SCENE</span><b>컷</b> 와이드 · 로우앵글 · 화면 아래 귀퉁이에 아주 작은 다람쥐, 화면 위쪽 멀리 가지 끝의 밤송이 — 🔴 <b>둘 사이가 아득히 멀다는 것이 화면 높이로 읽히는 구도</b>(p11 에서 이 거리가 품 안까지 좁혀진다)
+<b>장소·시간</b> 굵은 밤나무 한 그루 아래, 잎이 반쯤 물든 숲. 볕이 잘 드는 가을 아침
+<b>인물</b> 화면 왼쪽 아래 앞 — 아기 다람쥐가 네 발로 서서 고개를 한껏 뒤로 젖히고 위를 올려다본다, 목이 다 드러날 만큼 턱이 들렸고 두 귀가 쫑긋 섰다, 입이 벌어져 신났다, 복슬복슬한 꼬리가 뒤로 곧게 뻗었다
+<b>배경·소품</b> 🔴 <b>화면 위쪽 낮은 가지 하나에 초록 밤송이 한 개가 매달려 있다 — 가시가 빽빽하고 틈이 하나도 없다</b>, 그 둘레로 길쭉한 밤나무 잎, 나무 밑동에 뚫린 둥근 구멍 하나, 발치에 노란 낙엽이 소복하게 쌓였다
+<b>톤</b> 아래에서 위로 올려다보는 시선. 🔴 나무줄기가 화면을 세로로 가르며 아래는 그늘지고 <b>위쪽 밤송이 자리에만 빛이 모여</b> 눈이 거기로 끌려 올라가도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p2 · 본문</span>다람쥐가 밤송이를 두 앞발로 꼭 잡고 낑낑 밀었어요.
+따끔! 가시가 손바닥을 콕콕 찔러요.
+"안 열려! 하나도 안 열려!"
+가지에 앉은 참새가 말했어요.
+"그건 저절로 쩍 벌어져. 그때까지 기다려야 해."</div>
+  </div>
+  <div class="sc"><span class="n">p2 · SCENE</span><b>컷</b> 클로즈업 · 살짝 하이앵글 · 화면 가운데 밤송이와 그것을 붙잡은 두 앞발, 오른쪽 위에 참새
+<b>장소·시간</b> 낮은 가지 위, 밤송이 바로 앞. 같은 아침
+<b>인물</b> 화면 가운데 — 다람쥐가 뒷발로 가지를 꽉 딛고 두 앞발로 밤송이를 감싸 쥔 채 온몸으로 민다, 어깨가 앞으로 쏠리고 등이 활처럼 휘었다, 눈을 질끈 감고 이를 앙다물었다, 앞발 밑에서 가시가 손바닥을 파고든다. 화면 오른쪽 위 — 참새가 같은 가지 조금 위쪽에 옆으로 앉아 고개를 갸웃 기울이고 부리를 열어 말한다, 두 발로 가지를 잡았고 날개는 접혀 있다
+<b>배경·소품</b> 🔴 <b>밤송이는 조금도 벌어지지 않았다 — 초록 가시가 사방으로 빳빳하게 서 있고 틈이 없다</b>, 밀리며 흔들린 잎 두어 장, 가지 아래로 멀리 보이는 낙엽 더미
+<b>톤</b> 앞발과 가시가 맞닿은 자리가 가장 또렷하고 나머지는 부드럽게 풀어놓는다. 힘을 주는 몸과 꿈쩍 않는 것이 한 화면에서 맞서도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p3 · 본문</span>다음 날 아침, 다람쥐가 또 그 가지를 올려다봤어요.
+"오늘은 벌어졌을까?"
+밤송이는 초록 가시를 꼭 오므리고 있어요.
+"아직이네…"</div>
+  </div>
+  <div class="sc"><span class="n">p3 · SCENE</span><b>컷</b> 미디엄 · 어깨너머 · 화면 앞 오른쪽에 다람쥐의 뒤통수와 어깨, 그 시선 끝 화면 왼쪽 위에 밤송이
+<b>장소·시간</b> 밤나무 밑동 앞. 안개가 옅게 낀 이튿날 아침
+<b>인물</b> 화면 오른쪽 앞 — 다람쥐가 뒷모습으로 앉아 고개만 위로 들었다, 어깨가 축 내려가고 귀 하나가 옆으로 기울었다, 꼬리 끝이 땅에 늘어져 있다, 앞발 두 개를 배 앞에 모아 쥐었다
+<b>배경·소품</b> 🔴 <b>가지의 밤송이는 어제와 똑같은 자리에 똑같은 모양이다 — 가시가 꼭 오므려져 틈이 없다</b>, 밤나무 잎 몇 장이 밤새 떨어져 낙엽 더미가 조금 두툼해졌다, 풀잎에 이슬이 맺혔다
+<b>톤</b> 뒷모습이라 표정 대신 처진 어깨가 마음을 말한다. 🔴 <b>올려다보는 것과 올려다봐지는 것을 대각선으로 이어</b> 시선이 화면을 가로지르도록, 안개 때문에 대비를 한 단 낮게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p4 · 본문</span>그다음 날 아침이에요.
+다람쥐가 가지에 대롱대롱 매달려 흔들흔들 흔들었어요.
+"오늘은 벌어졌을까?"
+밤송이는 툭 떨어지지도, 쩍 벌어지지도 않아요.</div>
+  </div>
+  <div class="sc"><span class="n">p4 · SCENE</span><b>컷</b> 미디엄 와이드 · 아이레벨 · 화면 왼쪽에 매달린 다람쥐, 오른쪽 같은 가지 끝에 밤송이
+<b>장소·시간</b> 낮은 가지 아래. 바람이 없는 셋째 날 아침
+<b>인물</b> 화면 왼쪽 — 다람쥐가 두 앞발로 가지를 붙잡고 몸이 통째로 아래로 늘어졌다, 뒷발이 허공에서 버둥거리고 꼬리가 한쪽으로 크게 휘었다, 고개를 젖혀 밤송이 쪽을 보며 입을 벌렸다, 눈에 힘이 잔뜩 들어갔다
+<b>배경·소품</b> 🔴 <b>가지가 위아래로 휘어 잎이 우수수 떨어지는데 밤송이만 꼼짝 않고 그대로 붙어 있다 — 가시가 여전히 꼭 오므려져 있다</b>, 흔들려 날린 잎이 화면 가운데를 비스듬히 지나간다, 아래 낙엽 더미
+<b>톤</b> 흔들리는 것(잎·꼬리·몸)과 안 흔들리는 것(밤송이)을 같은 화면에 두고, 🔴 <b>밤송이만 윤곽이 흐트러지지 않게</b> 또렷이</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p5 · 본문</span>또 그다음 날 아침이에요.
+"오늘은 벌어졌을까?"
+밤송이는 어제랑 똑같아요.
+다람쥐가 발을 쿵 굴렀어요.
+"언제 벌어지는 거야! 맨날 똑같잖아!"</div>
+  </div>
+  <div class="sc"><span class="n">p5 · SCENE</span><b>컷</b> 미디엄 클로즈업 · 로우앵글 · 화면 가운데 아래 다람쥐, 그 위 멀리 밤송이
+<b>장소·시간</b> 밤나무 밑동 앞 흙바닥. 볕이 밝은 넷째 날 아침
+<b>인물</b> 화면 가운데 — 다람쥐가 뒷발 하나를 땅에 쿵 내리찍는다, 그 발 둘레로 흙먼지가 폴폴 튄다, 두 앞발을 주먹처럼 꽉 쥐고 아래로 뻗었다, 고개는 위를 향한 채 눈썹이 잔뜩 모이고 입이 크게 벌어져 소리친다, 꼬리 털이 부풀었다
+<b>배경·소품</b> 🔴 <b>위쪽 가지의 밤송이는 사흘째 같은 모양이다 — 가시가 꼭 오므려져 있다</b>, 발밑에 어지럽게 파인 작은 발자국들, 튀어 오른 흙알갱이, 옆으로 밀린 낙엽
+<b>톤</b> 아래에서 올려다봐 밤송이가 더 멀어 보이게. 🔴 <b>아이 몸은 힘껏 움직이는데 위쪽은 하나도 안 움직인다</b>는 대비가 이 쪽의 전부, 볕은 밝고 그림자는 짧게</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p6 · 본문</span>참새가 포르르 내려와 다람쥐 코앞에서 날개를 파닥였어요.
+"그만 보고 나랑 놀자!"
+"싫어. 나 기다릴 거야."
+"내일 봐도 똑같을걸!"</div>
+  </div>
+  <div class="sc"><span class="n">p6 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 · 화면 왼쪽에 다람쥐 얼굴, 오른쪽에 공중에 뜬 참새 — 둘의 얼굴이 아주 가깝다
+<b>장소·시간</b> 밤나무 밑동 앞 허공. 같은 아침
+<b>인물</b> 화면 왼쪽 — 다람쥐가 몸은 나무 쪽으로 둔 채 얼굴만 참새 쪽으로 돌렸다, 입술이 뾰로통하게 나오고 눈이 옆으로 흘긴다, 앞발 하나를 나무줄기에 얹어 놓았다(아직 안 떠나겠다는 자세). 화면 오른쪽 — 참새가 다람쥐 코앞에 떠서 날개를 빠르게 파닥인다, 날개 끝이 흐릿하게 번지고 두 발이 허공에 접혔다, 부리를 활짝 열고 눈이 동그랗다(🔴 날개로 가리키거나 손짓하지 않는다)
+<b>배경·소품</b> 파닥이는 날개에 밀려 흩날리는 잎 부스러기 두어 개, 뒤쪽으로 흐릿하게 밤나무 줄기와 🔴 <b>초점이 나간 초록 밤송이 하나</b>(여기서부터 뒤로 물러난다), 아래쪽 낙엽 더미가 화면 밑변에 걸린다
+<b>톤</b> 두 얼굴만 또렷하고 배경은 통째로 풀어놓는다. 부산하고 재촉하는 박자로, 🔴 <b>밤송이가 처음으로 흐려지는 쪽</b></div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p7 · 본문</span>다람쥐가 노란 낙엽 더미 속에서 데굴데굴 굴렀어요.
+바스락바스락! 낙엽이 사방으로 폴폴 날려요.
+참새도 옆에서 폴짝폴짝 뛰어요.
+"까르르, 재밌다!"</div>
+  </div>
+  <div class="sc"><span class="n">p7 · SCENE</span><b>컷</b> 와이드 · 살짝 하이앵글 · 화면 가득 낙엽 더미, 그 한가운데 뒹구는 다람쥐
+<b>장소·시간</b> 밤나무 발치의 낙엽 더미. 볕이 높아진 낮
+<b>인물</b> 화면 가운데 — 다람쥐가 등을 대고 벌러덩 누워 옆으로 구르는 중이다, 네 발이 위로 뻗었고 꼬리가 낙엽에 파묻혔다, 눈을 감고 입이 크게 벌어져 웃는다, 온몸에 잎 부스러기가 붙었다. 화면 오른쪽 — 참새가 낙엽 위에서 두 발을 모아 폴짝 뛰어오른다, 날개를 반쯤 펴고 부리를 열었다, 발밑 잎이 튄다
+<b>배경·소품</b> 사방으로 튀어 오른 노란 잎들, 구른 자리에 파인 낙엽 골, 화면 위 귀퉁이에 🔴 <b>밤나무 가지 끝과 밤송이가 아주 작게 흐릿하게만 걸린다</b>(카메라도 아이도 이 쪽에서는 그것을 안 본다)
+<b>톤</b> 튀고 흩날리는 것으로 화면이 가득 차게, 빠르고 들뜬 박자. 🔴 <b>위쪽은 비우고 아래쪽에 밀도를 몰아</b> 눈이 낙엽 속에만 머물도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p8 · 본문</span>해가 지고 밤이 왔어요.
+다람쥐가 나무 구멍 속에서 몸을 동그랗게 말았어요.
+"어? 나 오늘 밤송이 안 봤다."
+쌔근쌔근. 밖에서 찬바람이 쌩— 불어요.</div>
+  </div>
+  <div class="sc"><span class="n">p8 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 · 화면 가운데 둥근 나무 구멍 안, 그 안에 동그랗게 만 다람쥐
+<b>장소·시간</b> 밤나무 밑동에 뚫린 구멍 속. 깜깜한 밤
+<b>인물</b> 화면 가운데 — 다람쥐가 마른 잎을 깔고 몸을 공처럼 동그랗게 말았다, 꼬리로 코끝까지 덮었고 두 앞발을 가슴 앞에 모았다, 눈이 반쯤 감겨 스르르 잠든다, 입가가 아직 조금 올라가 있다
+<b>배경·소품</b> 구멍 안쪽 벽에 붙은 마른 잎과 나무결, 구멍 밖으로 보이는 밤하늘 조각과 흔들리는 잎 그림자, 🔴 <b>밤송이는 화면에 아예 없다</b>(밤이라 안 보인다), 구멍 가장자리에 잎 부스러기 몇
+<b>톤</b> 화면 대부분이 어둡고 구멍 안 아이 몸에만 아주 약한 빛이 걸린다. 아늑하고 잦아드는 박자, 🔴 <b>밖에서 안으로 파고드는 찬 기운</b>이 잎 그림자의 흔들림으로만 보이도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p9 · 본문</span>아침이에요. 밖으로 나온 다람쥐가 눈을 동그랗게 떴어요.
+밤새 서리가 내렸어요. 풀잎마다 하얀 가루가 반짝반짝!
+"우아, 온 세상이 하얘!"
+입김이 호— 하고 나와요.</div>
+  </div>
+  <div class="sc"><span class="n">p9 · SCENE</span><b>컷</b> 와이드 · 아이레벨 · 화면 아래에 구멍에서 막 나온 다람쥐, 그 앞으로 온통 하얘진 숲 바닥
+<b>장소·시간</b> 밤나무 밑동 구멍 앞. 해가 막 오른 다음 날 아침
+<b>인물</b> 화면 왼쪽 아래 — 다람쥐가 구멍 밖으로 상반신을 내밀고 앞발 둘을 구멍 턱에 얹었다, 눈이 동그랗게 커지고 입이 작게 벌어졌다, 입에서 하얀 입김이 뭉게뭉게 나온다, 귀가 쫑긋 서고 시선은 앞쪽 바닥을 훑는다
+<b>배경·소품</b> 🔴 <b>풀잎과 낙엽 가장자리마다 하얀 서리 가루가 앉아 반짝인다</b>, 어제 뒹군 낙엽 더미도 하얗게 덮였다, 다람쥐 발 앞에 찍힌 작은 발자국 두 개(밟은 자리만 서리가 벗겨졌다), 화면 위쪽으로 밤나무 가지가 뻗어 올라간다(🔴 <b>밤송이는 프레임 위로 잘려 아직 안 보인다</b>)
+<b>톤</b> 아침 햇살이 낮게 깔려 바닥의 서리 알갱이가 알알이 빛나게. 🔴 <b>화면 전체가 확 밝아진 것</b>이 앞 쪽 어둠과 맞붙어 놀라움이 되도록, 위쪽은 비워 두어 눈이 곧 올라가고 싶어지도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p10 · 본문</span>다람쥐가 고개를 쭉 젖혔어요.
+"오늘은 벌어졌을까?"
+밤송이가 쩍! 하고 활짝 벌어져 있어요.
+가시 사이로 반질반질한 갈색 밤이 보여요.</div>
+  </div>
+  <div class="sc"><span class="n">p10 · SCENE</span><b>컷</b> 미디엄 · 로우앵글 · 화면 아래에 고개를 젖힌 다람쥐, 화면 위 가운데에 크게 벌어진 밤송이
+<b>장소·시간</b> 밤나무 아래, 그 낮은 가지 밑. 같은 아침
+<b>인물</b> 화면 아래 가운데 — 다람쥐가 네 발로 서서 고개를 한껏 젖혔다, 두 앞발이 저도 모르게 가슴 앞으로 올라갔고 입이 크게 벌어졌다, 눈이 동그랗게 커져 위를 본다, 꼬리가 위로 곧게 섰다
+<b>배경·소품</b> 🔴 <b>밤송이가 네 갈래로 쩍 벌어져 가시가 활짝 젖혀졌고, 벌어진 틈으로 반질반질한 갈색 밤 알이 보인다 — p1~p5 와 같은 가지, 같은 자리다</b>, 벌어진 가시 끝에 하얀 서리 가루가 조금 앉았다, 아래 낙엽 위에도 서리
+<b>톤</b> 아래에서 올려다보는 시선이 p1·p5 와 같고 🔴 <b>거기 매달린 것의 모양만 달라져 있다</b>, 벌어진 틈 안쪽이 화면에서 가장 짙고 또렷해 눈이 그 안으로 들어가도록</div>
+</div>
+
+<div class="pg">
+  <div class="pg-l">
+    <div class="pg-art"></div>
+    <div class="ko"><span class="n">p11 · 본문</span>툭! 밤 한 알이 다람쥐 앞으로 떨어졌어요.
+다람쥐가 두 앞발로 밤을 꼬옥 안았어요.
+"기다렸다!"
+참새가 옆에서 짹짹 웃어요.
+기다리면 진짜로 와요.</div>
+  </div>
+  <div class="sc"><span class="n">p11 · SCENE</span><b>컷</b> 클로즈업 · 아이레벨 · 화면 가득 다람쥐의 얼굴과 가슴, 그 두 앞발에 안긴 밤 한 알 — 🔴 <b>p1 에서 아득히 멀던 것이 지금은 화면을 채운다</b>
+<b>장소·시간</b> 밤나무 발치, 서리 앉은 낙엽 위. 같은 아침
+<b>인물</b> 화면 가운데 — 다람쥐가 앉아서 두 앞발로 갈색 밤 한 알을 가슴에 꼭 껴안았다, 뺨을 밤에 대고 눈을 감듯 가늘게 접었다, 입이 활짝 웃고 귀가 뒤로 편안히 눕는다, 꼬리가 몸을 빙 둘러 감쌌다. 화면 오른쪽 아래 — 참새가 낙엽 위에 내려앉아 다람쥐 쪽으로 고개를 기울이고 부리를 열어 짹짹거린다, 두 발을 모으고 날개는 접혀 있다
+<b>배경·소품</b> 밤이 떨어지며 흩어진 서리 가루 몇 알, 낙엽 위에 팬 작은 자국 하나, 화면 위 귀퉁이에 벌어진 밤송이 아랫부분이 조금 걸린다, 발치에 노란 잎과 하얗게 앉은 서리
+<b>톤</b> 아이 몸과 품에 든 것만 또렷하고 배경은 부드럽게 풀린다. 아침빛이 뺨과 밤 알에 따뜻하게 걸리고, 🔴 <b>화면 안에 더 볼 것을 두지 않아</b> 여기서 이야기가 닫히도록</div>
+</div>
+
+</div>
+<script>
+// 🔴 앵커 바인딩 (기획서 §6 규격 ③) — 이 책이 100~150개 앵커 중 무엇을 쓰는가.
+// anchorSlug 는 렌더가 승인돼 앵커 보관함(ca-###)에 들어간 뒤에 채운다. 그전엔 null 이 정직하다.
+window.CJ_EPISODE = {
+  id: 'c18',
+  cluster: null,
+  reference: null,
+  anchorSlug: null,
+  prompts: null,
+  cast: ['아기 다람쥐(이름 없음)', '참새 한 마리(이름 없음)'],
+};
+</script>
+<script src="/changjak-prompts.js?v=4294954c5a8fa2d5"></script>
+<script src="/changjak-core.js?v=4294954c5a8fa2d5"></script>
+</body>
+</html>

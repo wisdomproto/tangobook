@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>퐁이네 운하 마을 — 새 신발</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --line:#f0e0d2; --water:#2C4A3C; --mint:#2C4A3C; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--water); margin-bottom:22px; }
+  .hero .kicker { color:var(--water); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; }
+  .note { background:#fff6f2; border:1px solid var(--coral); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin:14px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--water); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { margin-left:auto; background:var(--coral); color:#fff; border:0; border-radius:9px; padding:5px 12px; font-size:12px; font-weight:800; cursor:pointer; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .copy-btn { background:#fff; color:var(--water); border:1.5px solid var(--water); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--water); color:#fff; }
+  .batch-bar { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin:16px 0; }
+  .batch-bar .bhint { font-size:12.5px; color:var(--ink-soft); line-height:1.7; }
+  .batch-bar .brow { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .batch-btn { background:var(--coral); color:#fff; border:0; border-radius:10px; padding:7px 15px; font-size:13px; font-weight:800; cursor:pointer; }
+  .batch-btn:hover { background:var(--coral-dark); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--water); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
+  .ref-lab { font-size:12px; font-weight:800; color:var(--ink-soft); }
+  .ref-chip { display:flex; align-items:center; gap:7px; background:var(--peach); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:800; }
+  .ref-chip img { width:30px; height:30px; border-radius:50%; object-fit:cover; }
+  .ref-chip .ph { width:30px; height:30px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; font-size:15px; }
+  .ref-chip .im { color:var(--water); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#f7f4ef; border-radius:10px; padding:12px 14px; margin-top:9px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">퐁이네 운하 마을 · 01</div>
+  <h1>새 신발</h1>
+  <div class="sub"></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~5 고정) + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 상자를 열었어요. 안에 새 신발 한 켤레가 들어 있어요. 퐁이가 발을 쏙 넣었어요. 딱 맞아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨 정면. 상자를 사이에 두고 마주 앉은 두 사람이 화면 가운데.<br/><b>장소·시간</b> 퐁이네 집 마루, 아침. 창으로 미색 빛이 들어와 바닥이 밝다.<br/><b>인물</b> Mom otter가 무릎을 꿇고 앉아 두 손으로 상자 뚜껑을 옆으로 밀어 열었다. Pongi는 상자 앞에 앉아 한쪽 발을 이미 신발 안에 쏙 넣은 채 발끝을 내려다보며 입을 살짝 벌리고 있다.<br/><b>배경·소품</b> 열린 상자와 뚜껑, 신발 한 짝은 아직 상자 안. 뒤쪽 벽에 낮은 선반 하나.<br/><b>톤</b> 조용하고 밝은 아침. 화면에서 붉은 것은 퐁이 목끈 하나뿐이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">퐁이가 마당을 한 바퀴 돌았어요. 또각또각 소리가 나요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 살짝 하이앵글. 마당 전체가 보이고 퐁이는 화면 가운데를 걷는다.<br/><b>장소·시간</b> 집 앞 마당, 같은 아침.<br/><b>인물</b> Pongi가 무릎을 평소보다 높이 들고 한 발씩 또박또박 걷는다. 턱을 들고 발끝을 흘끔 내려다보는, 자랑스러운 표정.<br/><b>배경·소품</b> 마당 흙바닥, 담장, 저 뒤로 운하 물줄기 한 줄.<br/><b>톤</b> 발소리가 들릴 것 같은 경쾌함.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"거위 할아버지네 가자." 아빠가 앞서 걸어요. 퐁이는 발끝만 내려다보며 걸었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 옆에서 따라가는 앵글. 아빠가 앞, 퐁이가 뒤.<br/><b>장소·시간</b> 운하를 낀 길, 낮.<br/><b>인물</b> Dad otter는 앞서서 성큼성큼 걷고 이미 화면 왼쪽 끝. Pongi는 뒤에서 고개를 푹 숙인 채 제 발끝만 보며 걷는다 — 앞을 안 보고 있다.<br/><b>배경·소품</b> 길 옆 운하, 물 위에 배 한 척, 길가 낮은 풀.<br/><b>톤</b> 낮 햇빛. 아빠와 퐁이 사이가 벌어져 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다리 앞에 진흙이 넓게 깔렸어요. 퐁이가 딱 멈췄어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 화면 아래 절반을 진흙이 가로로 넓게 차지한다.<br/><b>장소·시간</b> 다리 앞, 낮.<br/><b>인물</b> Pongi가 진흙 바로 앞에서 두 발을 딱 붙이고 멈춰 섰다. 몸이 살짝 뒤로 기울고 눈이 커졌다.<br/><b>배경·소품</b> 넓게 깔린 진흙, 그 너머 다리, 다리 건너 지붕들.<br/><b>톤</b> 진흙은 흙색 한 판으로 평평하게, 그 앞의 마른 길과 색이 딱 갈린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"여기로 오면 안 젖어." 아빠가 앞장섰어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 살짝 로우앵글. 아빠가 화면 왼쪽에서 진흙으로 한 발을 내딛는 순간.<br/><b>장소·시간</b> 같은 자리, 이어지는 순간.<br/><b>인물</b> Dad otter가 한 팔을 뒤로 뻗어 따라오라는 손짓을 하며 앞으로 발을 내민다. 자신만만하게 입꼬리를 올린 얼굴. Pongi는 화면 오른쪽 끝에서 그 손을 보고 있다.<br/><b>배경·소품</b> 진흙 표면, 다리 기둥.<br/><b>톤</b> 아빠가 크게, 퐁이가 작게 잡혀 크기 차이가 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 성큼 디뎠어요. 푹!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 로우앵글. 아빠 다리와 진흙만 화면에 크게.<br/><b>장소·시간</b> 같은 자리, 바로 다음 순간.<br/><b>인물</b> Dad otter의 한쪽 다리가 진흙에 박히며 발목까지 들어갔다. 진흙이 옆으로 튀어 오른다.<br/><b>배경·소품</b> 진흙 표면에 생긴 구멍, 튄 진흙 덩어리 몇 개.<br/><b>톤</b> 소리가 보이는 컷. 튄 진흙도 같은 흙색 한 판으로.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠 다리가 무릎까지 들어갔어요. "어… 여기 아니네."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨 정면. 아빠 상반신과 진흙 표면이 함께 보인다.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Dad otter가 무릎까지 진흙에 잠긴 채 어정쩡하게 서서 아래를 내려다본다. 눈썹이 올라가고 입이 벌어진 난처한 얼굴. 두 팔은 균형을 잡느라 옆으로 벌어졌다.<br/><b>배경·소품</b> 진흙 표면이 아빠 무릎 높이에서 잘려 보인다.<br/><b>톤</b> 아빠 몸이 화면 가운데를 크게 차지해 우스꽝스럽다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>뒤집힘</b> <span class="tag">뒤집힘</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">퐁이가 아빠 손을 잡고 당겼어요. 하나, 둘, 셋!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 옆에서 본 앵글. 두 사람이 손을 잡고 팽팽하게 당기는 구도.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Pongi가 마른 길 쪽에 두 발을 버티고 서서 상체를 뒤로 젖히며 두 손으로 아빠 손을 당긴다. 이를 앙다문 얼굴. Dad otter는 진흙 속에서 앞으로 기울며 손을 뻗었다.<br/><b>배경·소품</b> 마른 길과 진흙의 경계선이 둘 사이를 가른다.<br/><b>톤</b> 두 몸이 하나의 사선을 이룬다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>반응</b> <span class="tag">반응</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 쑥 빠졌어요. 퐁이가 뒤로 벌러덩 넘어졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 두 사람이 각각 반대 방향으로 나가떨어지는 순간.<br/><b>장소·시간</b> 같은 자리, 바로 다음 순간.<br/><b>인물</b> Dad otter가 진흙에서 빠지며 앞으로 튕겨 나와 두 팔을 벌린다. Pongi는 반대편으로 벌러덩 넘어져 등이 바닥에 닿고 두 발이 위로 들렸다. 둘 다 눈이 동그랗다.<br/><b>배경·소품</b> 진흙이 사방으로 튄다. 아빠가 있던 자리에 구멍 두 개.<br/><b>톤</b> 화면 전체가 한 박자 터진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘 다 진흙투성이가 됐어요. 퐁이가 새 신발을 내려다봤어요. 그리고 웃었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 살짝 하이앵글. 나란히 앉은 둘을 위에서 내려다본다.<br/><b>장소·시간</b> 진흙 옆 마른 길, 같은 낮.<br/><b>인물</b> Pongi가 바닥에 주저앉아 두 발을 앞으로 뻗고 제 신발을 내려다보다가 입을 크게 벌려 웃는다. Dad otter는 그 옆에 앉아 진흙이 묻은 다리를 털고 있다.<br/><b>배경·소품</b> 신발과 다리에 흙색이 얼룩덜룩. 뒤에 다리와 운하.<br/><b>톤</b> 🔴 흙이 잔뜩 묻었어도 퐁이 목끈만은 또렷한 붉은색으로 남는다.</pre></details>
+</div>
+
+</div>
+<script src="/pongi-core.js"></script>
+</body>
+</html>
