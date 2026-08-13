@@ -14,6 +14,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { SERIES, labelsFor } from './_series-config.mjs';
+import { parseBooks, loadScenes } from './_series-parse.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, '../../..');
@@ -111,23 +112,8 @@ function buildSeries(key) {
   const SRC = path.join(ROOT, 'docs/changjak-books', key);
   const lab = labelsFor(key);
 
-  // ── 본문 (🔴 m 플래그 금지 — $ 가 줄마다 걸려 쪽이 첫 문장에서 잘린다) ──
-  const books = new Map();
-  for (const f of ['01-03.md', '04-14.md', '15-25.md']) {
-    const s = fs.readFileSync(path.join(SRC, f), 'utf8');
-    for (const m of s.matchAll(/^## (\d+)\. (.+)$/gm)) {
-      const start = m.index;
-      const nx = s.indexOf('\n## ', start + 1);
-      const body = s.slice(start, nx < 0 ? s.length : nx);
-      const meta = (body.match(/^\*\*(?:원함|주인공)\*\*.*$/m) || [''])[0];
-      const pages = [...body.matchAll(/\*\*p(\d+)\*\*\n([\s\S]*?)(?=\n\*\*p\d+\*\*|\n---|$)/g)]
-        .map((pm) => ({ n: +pm[1], ko: pm[2].trim().split('\n').map((l) => l.trim()).filter(Boolean).join(' ') }));
-      books.set(m[1], { id: m[1], title: m[2].trim(), meta, pages });
-    }
-  }
-
-  const SCENES = fs.existsSync(path.join(SRC, '_scenes.json'))
-    ? JSON.parse(fs.readFileSync(path.join(SRC, '_scenes.json'), 'utf8')) : {};
+  const books = parseBooks(SRC);
+  const SCENES = loadScenes(SRC);
   const DESIGN = fs.readFileSync(path.join(SRC, '_design.md'), 'utf8');
 
   // ── 앵커: 영문 전문을 통째로 (사본을 안 만드는 것이 핵심) ──
