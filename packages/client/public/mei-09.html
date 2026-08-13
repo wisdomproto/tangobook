@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>메이네 산마을 — 그거 웃긴다</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#D4622A; --accent-dark:#A8481C; --slope:#4E5840; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; --coral:#D4622A; --coral-dark:#A8481C; --mint:#4E5840; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .batch-bar { background:#fff; border:1.5px solid var(--slope); border-radius:14px; padding:14px 18px; margin:16px 0; }
+  .batch-btn { background:var(--slope); color:#fff; border:0; border-radius:999px; padding:9px 20px; font-size:13px; font-weight:800; cursor:pointer; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); color:var(--accent-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card h4 { font-size:15px; font-weight:900; margin-bottom:2px; }
+  .cast-card .flaw { display:inline-block; background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; margin-bottom:7px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:4px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card .avols { font-size:12px; color:var(--ink-soft); margin-bottom:8px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">메이네 산마을 · 09</div>
+  <h1>그거 웃긴다</h1>
+  <div class="sub">레오(막말) · <b>원함</b> 웃기고 싶다 · <b>탈</b> 놀렸더니 아무도 안 웃는다 · <b>착지</b> 사과하고 같이 웃는다</div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 이 권의 앵커(1회) + 캐릭터 레퍼런스(@image1~6) + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">풀밭에서 다섯이 뒹굴며 놀아요. 레오가 자꾸 웃겨요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 풀밭을 비스듬히 내려다본다.<br/><b>장소·시간</b> 비탈 풀밭, 낮.<br/><b>인물</b> 다섯이 풀밭에 널브러져 뒹군다 — Mei goat는 옆으로 눕고 Rudi squirrel은 배를 깔았고 Soso hedgehog는 몸을 동그랗게 말았다. Ppino rabbit이 뒤집힌 채 두 뒷발을 든다. Leo fox가 가운데서 두 앞발을 벌리고 서서 익살스러운 몸짓을 한다. 다섯의 주황 물건.<br/><b>배경·소품</b> 눌린 풀 자국.<br/><b>톤</b> 넷은 눕고 하나는 서 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">메이가 발이 걸려 넘어졌어요. "저것 봐, 제 발에 걸렸어!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면. 넘어진 쪽과 가리키는 쪽이 좌우로.<br/><b>장소·시간</b> 같은 풀밭.<br/><b>인물</b> Mei goat가 화면 왼쪽에 두 앞발을 짚고 엎어졌다 — 한 뒷발이 제 다른 발에 걸려 꼬였고 주황 목도리가 앞으로 흘러내렸다. 오른쪽에서 Leo fox가 허리를 젖히고 한 앞발로 메이 발을 가리키며 입을 크게 벌렸다.<br/><b>배경·소품</b> 풀.<br/><b>톤</b> 넘어진 몸과 젖힌 몸이 반대 방향.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다들 웃었어요. 레오는 신이 났어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 웃는 얼굴들이 화면을 채운다.<br/><b>장소·시간</b> 같은 풀밭.<br/><b>인물</b> Rudi squirrel·Ppino rabbit·Soso hedgehog가 입을 벌려 웃고 Mei goat도 엎어진 채 겸연쩍게 웃는다. 화면 오른쪽 가장자리에 Leo fox의 어깨와 주황 목깃, 올라간 입꼬리.<br/><b>배경·소품</b> 풀.<br/><b>톤</b> 여기까지는 다 같이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">소소 가시에 마른 풀이 잔뜩 붙었어요. "머리에 풀 났다!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 오버숄더. 레오 어깨 너머로 소소.<br/><b>장소·시간</b> 같은 풀밭.<br/><b>인물</b> 화면 앞쪽에 Leo fox의 어깨와 한 앞발이 소소 쪽을 가리킨다. 안쪽 Soso hedgehog는 등을 곧게 세우고 눈을 깜빡인다 — 등 가시 사이사이에 마른 풀이 잔뜩 꽂혀 있다. 주황 리본.<br/><b>배경·소품</b> 마른 풀.<br/><b>톤</b> 가리키는 손이 화면을 반으로 나눈다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">소소가 등을 손으로 눌렀어요. 그리고 조용해졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 위에서 내려다본 소소의 등과 손.<br/><b>장소·시간</b> 같은 풀밭.<br/><b>인물</b> Soso hedgehog가 두 앞발을 등 뒤로 넘겨 제 등을 아래로 꾹 누른다 — 손바닥 밑에서 가시와 마른 풀이 한꺼번에 납작해진다. 고개가 앞으로 숙여져 얼굴이 안 보이고 어깨가 안으로 말렸다. 주황 리본이 눌려 납작하다.<br/><b>배경·소품</b> 풀, 손 밖으로 삐져나온 마른 풀 몇 가닥.<br/><b>톤</b> 누르는 손이 웃음소리를 여기서 끊는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">레오가 또 웃겼어요. 이번엔 아무도 안 웃어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 하나와 넷이 좌우로.<br/><b>장소·시간</b> 같은 풀밭.<br/><b>인물</b> Leo fox가 화면 왼쪽에서 두 앞발을 머리 위로 올리고 혀를 내밀며 우스운 자세를 한다 — 주황 목깃. 오른쪽 Mei goat·Rudi squirrel·Ppino rabbit·Soso hedgehog 넷은 입을 다물고 각기 다른 데를 본다.<br/><b>배경·소품</b> 풀.<br/><b>톤</b> 몸짓만 크고 되돌아오는 게 없다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">넷이 저희끼리 이야기를 해요. 레오가 무슨 말을 해도 아무도 안 쳐다봐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 위에서 비스듬히 — 넷의 등이 안쪽으로 둥글게 모이고 레오만 그 밖에 있다.<br/><b>장소·시간</b> 같은 풀밭, 오후.<br/><b>인물</b> Mei goat·Rudi squirrel·Ppino rabbit·Soso hedgehog 넷이 서로 얼굴을 맞대고 앉아 저희끼리 이야기한다 — 네 몸이 안쪽을 향해 등으로 원을 만들었다. Leo fox는 그 원 바로 밖에서 한 앞발을 들고 입을 벌려 뭐라 말하는 중인데 🔴 네 얼굴이 하나도 레오 쪽을 안 본다. 레오 꼬리가 아래로 처졌다, 주황 목깃.<br/><b>배경·소품</b> 풀, 눌린 자리.<br/><b>톤</b> 멀리 간 게 아니라 바로 옆에서 등만 돌렸다 — 거리가 아니라 얼굴 방향이 벽이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>할머니 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">곰 할머니가 풀을 하나 뽑았어요. "웃음은 같이 웃어야 웃음이지."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글. 아래에서 올려다본 큰 앞발.<br/><b>장소·시간</b> 같은 풀밭.<br/><b>인물</b> Bear granny가 몸을 굽혀 풀 한 포기를 손끝으로 뽑아 들고 입을 벌려 말한다. 화면 아래쪽에 Leo fox가 고개를 들어 그 풀을 올려다본다 — 두 귀가 옆으로 눕는다.<br/><b>배경·소품</b> 풀 한 포기.<br/><b>톤</b> 손안의 것이 작은데 화면 가운데다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">레오가 소소 앞에 섰어요. "아까 미안해."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨 측면. 두 몸이 마주 선다.<br/><b>장소·시간</b> 같은 풀밭, 조금 뒤.<br/><b>인물</b> Leo fox가 Soso hedgehog 바로 앞에 서서 고개를 숙이고 두 앞발을 앞으로 모아 쥔 채 입을 벌려 말한다 — 꼬리가 아래로 처졌고 주황 목깃이 턱 밑에 눌린다. Soso hedgehog는 앉은 채 고개를 들어 레오를 올려다본다, 등 가시가 조금 눕고 주황 리본이 보인다. 뒤로 Mei goat·Rudi squirrel·Ppino rabbit이 이쪽으로 고개를 돌린다.<br/><b>배경·소품</b> 풀, 아직 소소 등에 붙은 마른 풀 몇 가닥.<br/><b>톤</b> 서 있는 쪽이 앉은 쪽보다 작아 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">레오가 풀밭에 벌러덩 누웠어요. 배 위에 마른 풀이 잔뜩 얹혔어요. 다섯이 다 같이 웃었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 버즈아이. 바로 위에서 내려다본 다섯.<br/><b>장소·시간</b> 같은 풀밭.<br/><b>인물</b> Leo fox가 풀밭에 벌러덩 누워 제 배 위에 마른 풀을 산처럼 쌓았다 — 두 앞발로 더 얹는 중이고 다리가 아무렇게나 벌어졌다, 주황 목깃이 풀 사이로 보인다. Mei goat·Rudi squirrel·Ppino rabbit·Soso hedgehog가 그 둘레에 주저앉아 배를 잡고 입을 크게 벌려 웃는다 — 넷의 얼굴이 전부 레오 쪽을 향했다.<br/><b>배경·소품</b> 마른 풀 더미, 눌린 풀 자국.<br/><b>톤</b> p7 에서 등을 돌렸던 원이 그대로 뒤집혀 안쪽을 본다.</pre></details>
+</div>
+
+</div>
+<script src="/mei-core.js"></script>
+</body>
+</html>

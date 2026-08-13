@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>메이네 산마을 — 아직 안 됐어</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#D4622A; --accent-dark:#A8481C; --slope:#4E5840; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; --coral:#D4622A; --coral-dark:#A8481C; --mint:#4E5840; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .batch-bar { background:#fff; border:1.5px solid var(--slope); border-radius:14px; padding:14px 18px; margin:16px 0; }
+  .batch-btn { background:var(--slope); color:#fff; border:0; border-radius:999px; padding:9px 20px; font-size:13px; font-weight:800; cursor:pointer; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); color:var(--accent-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card h4 { font-size:15px; font-weight:900; margin-bottom:2px; }
+  .cast-card .flaw { display:inline-block; background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; margin-bottom:7px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:4px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card .avols { font-size:12px; color:var(--ink-soft); margin-bottom:8px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">메이네 산마을 · 02</div>
+  <h1>아직 안 됐어</h1>
+  <div class="sub">루디(못 참음) · <b>원함</b> 빵을 먹고 싶다 · <b>탈</b> 덜 익은 걸 꺼내 먹고 배가 아프다 · <b>착지</b> 기다린 빵이 제일 크다</div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 이 권의 앵커(1회) + 캐릭터 레퍼런스(@image1~6) + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">산장 부엌에 빵 냄새가 가득해요. 루디가 빵 굽는 화덕 앞에 딱 붙어 앉았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 화덕 정면.<br/><b>장소·시간</b> 산장 부엌, 늦은 오전.<br/><b>인물</b> Rudi squirrel이 화덕 앞 바닥에 무릎을 붙이고 앉아 두 앞발을 무릎에 얹고 화덕 문에 코가 닿을 듯 얼굴을 들이밀었다. 꼬리가 등 뒤로 곧게 눕고 주황 앞치마 주머니가 앞으로 접혔다.<br/><b>배경·소품</b> 🔴 빵 굽는 돌 화덕 — 문에 난 작은 창으로 빵 덩이 여럿이 부풀어 있는 것이 보인다. 문틈으로 새는 불빛, 옆에 반죽대와 밀가루 자국.<br/><b>톤</b> 냄새는 못 그리니 몸이 얼마나 붙어 있는지로 그린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"이제 다 됐어요?" 곰 할머니가 고개를 저었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글. 루디 자리에서 할머니를 올려다본다.<br/><b>장소·시간</b> 같은 부엌.<br/><b>인물</b> Rudi squirrel이 고개를 완전히 젖히고 입을 벌려 묻는다. Bear granny가 반죽대 앞에 서서 고개를 좌우로 젓는다 — 두 앞발에 밀가루가 묻은 채 들려 있다.<br/><b>배경·소품</b> 반죽대, 밀가루 자국.<br/><b>톤</b> 아이는 아래, 대답은 위에서 온다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"아직 안 됐어." 루디가 발을 동동 굴렀어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 위에서 내려다본 둘.<br/><b>장소·시간</b> 같은 부엌.<br/><b>인물</b> Bear granny가 입을 벌려 말하며 화덕 쪽으로 앞발을 편다. Rudi squirrel이 그 아래에서 두 뒷발을 번갈아 굴러 바닥을 두드린다 — 꼬리가 위로 곧추섰고 주황 앞치마 주머니가 흔들린다.<br/><b>배경·소품</b> 바닥 널빤지.<br/><b>톤</b> 발밑에서만 소리가 난다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">밖에서 아이들 웃는 소리가 나요. 루디는 화덕만 보고 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면. 화면 왼쪽에 창, 오른쪽에 화덕.<br/><b>장소·시간</b> 같은 부엌.<br/><b>인물</b> Rudi squirrel이 창을 등지고 화덕만 마주 본 채 앉아 있다. 창유리 너머로 아이 넷이 뛰노는 모습이 흐리게 보인다 — 각자 주황 물건이 점처럼.<br/><b>배경·소품</b> 창, 화덕.<br/><b>톤</b> 밝은 쪽에 등을 돌리고 어두운 쪽을 본다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할머니가 장작을 가지러 나갔어요. 루디가 화덕 문을 살짝 열었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 문간과 화덕이 한 프레임에 들어온다.<br/><b>장소·시간</b> 같은 부엌.<br/><b>인물</b> Bear granny의 뒷모습이 화면 왼쪽 문밖으로 반쯤 나갔다. 오른쪽에서 Rudi squirrel이 벌써 화덕 문 손잡이를 한 앞발로 잡고 살짝 당기며 어깨 너머로 문 쪽을 본다.<br/><b>배경·소품</b> 열린 문, 화덕 손잡이.<br/><b>톤</b> 한 사람은 나가고 한 사람은 손을 댔다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">빵 하나를 꺼내 한 입 물었어요. 속이 축축하고 미지근해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 앞발과 빵과 얼굴.<br/><b>장소·시간</b> 화덕 앞.<br/><b>인물</b> Rudi squirrel이 두 앞발로 빵을 받쳐 들고 한 입 문 채다. 물린 자리 속이 축축하게 늘어붙어 있다. 눈썹이 가운데로 모이고 입가가 아래로 처졌다.<br/><b>배경·소품</b> 빵 하나, 열린 화덕 문.<br/><b>톤</b> 겉과 속이 다르다는 것이 단면 하나에.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">조금 뒤에 루디 배에서 소리가 나요. 꾸르륵.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 측면.<br/><b>장소·시간</b> 같은 부엌, 조금 뒤.<br/><b>인물</b> Rudi squirrel이 두 앞발로 배를 감싸고 상체를 앞으로 구부렸다. 꼬리가 다리 사이로 말려 들어가고 주황 앞치마 주머니가 접힌다. 눈을 꼭 감았다.<br/><b>배경·소품</b> 바닥에 놓인 먹다 만 빵.<br/><b>톤</b> 소리가 몸 안에서 난다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>할머니 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할머니가 루디 배에 손을 얹었어요. "덜 익은 건 배가 먼저 알아채거든."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 무릎 굽힌 할머니와 루디가 눈높이를 맞췄다.<br/><b>장소·시간</b> 같은 부엌.<br/><b>인물</b> Bear granny가 무릎을 굽혀 앉아 큰 앞발을 Rudi squirrel의 배에 살짝 얹었다. 루디는 고개를 옆으로 돌리고 입을 오므린다.<br/><b>배경·소품</b> 먹다 만 빵.<br/><b>톤</b> 손이 닿은 자리가 화면 가운데.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">루디가 밖에서 한참 놀았어요. 돌아오니 냄새가 더 진해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 오버숄더. 루디 어깨 너머로 부엌 안이 보인다.<br/><b>장소·시간</b> 산장 부엌 문간, 오후.<br/><b>인물</b> Rudi squirrel이 문턱을 막 넘어서서 멈춰 섰다 — 두 앞발이 문틀 양쪽을 짚었고 코가 위로 들렸다, 눈이 커진다. 흙 묻은 뒷발과 헝클어진 꼬리가 밖에서 실컷 논 표를 낸다. 주황 앞치마 주머니.<br/><b>배경·소품</b> 안쪽 화덕에서 김이 아까보다 굵게 올라와 천장으로 퍼진다. 문밖으로 마당이 조금.<br/><b>톤</b> 나갔다 돌아온 코에 화면 안쪽이 더 진하다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">루디가 제일 큰 빵을 받았어요. 겉은 바삭하고 속은 폭신해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글. 아래에서 올려다본 건네주는 손.<br/><b>장소·시간</b> 산장 부엌.<br/><b>인물</b> Bear granny가 쟁반에서 제일 큰 빵을 집어 Rudi squirrel의 두 앞발 위에 얹어 준다. 루디는 두 앞발을 그릇처럼 모으고 입을 벌린 채 위를 본다 — 주황 앞치마 주머니.<br/><b>배경·소품</b> 🔴 받은 빵 한쪽이 갈라져 겉껍질이 바삭하게 일어나고 속살이 폭신하게 벌어진 것이 보인다. 쟁반 위 다른 빵들은 그보다 작다.<br/><b>톤</b> 기다린 만큼이 크기와 갈라진 단면으로 한꺼번에 보인다.</pre></details>
+</div>
+
+</div>
+<script src="/mei-core.js"></script>
+</body>
+</html>

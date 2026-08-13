@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>메이네 산마을 — 나부터 탈래</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#D4622A; --accent-dark:#A8481C; --slope:#4E5840; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; --coral:#D4622A; --coral-dark:#A8481C; --mint:#4E5840; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .batch-bar { background:#fff; border:1.5px solid var(--slope); border-radius:14px; padding:14px 18px; margin:16px 0; }
+  .batch-btn { background:var(--slope); color:#fff; border:0; border-radius:999px; padding:9px 20px; font-size:13px; font-weight:800; cursor:pointer; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); color:var(--accent-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card h4 { font-size:15px; font-weight:900; margin-bottom:2px; }
+  .cast-card .flaw { display:inline-block; background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; margin-bottom:7px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:4px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card .avols { font-size:12px; color:var(--ink-soft); margin-bottom:8px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">메이네 산마을 · 01</div>
+  <h1>나부터 탈래</h1>
+  <div class="sub">삐노(성급) · <b>원함</b> 썰매를 제일 멀리 타고 싶다 · <b>탈</b> 새치기해서 아무도 안 밀어 준다 · <b>착지</b> 뒤에 서니 넷이 밀어 준다</div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 이 권의 앵커(1회) + 캐릭터 레퍼런스(@image1~6) + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">비탈에 눈이 하얗게 쌓였어요. 아이들이 썰매를 들고 줄을 섰어요. 앞사람 썰매를 뒤에서 밀어 줘요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 와이드, 하이앵글. 비탈이 화면을 왼쪽 위에서 오른쪽 아래로 길게 가른다.<br/><b>장소·시간</b> 마을 뒤 비탈, 눈 온 아침.<br/><b>인물</b> Mei goat·Rudi squirrel·Ppino rabbit·Soso hedgehog·Leo fox 다섯이 비탈 위쪽에 한 줄로 섰다. 🔴 맨 앞 Leo fox가 썰매에 올라앉았고 바로 뒤 Soso hedgehog가 두 앞발을 그 등에 대고 민다 — 이 쪽에서 규칙이 그림으로 한 번 보여야 뒤가 성립한다. 뒤에 선 Mei goat·Rudi squirrel·Ppino rabbit은 제 썰매를 두 앞발로 들고 기다린다. 메이 주황 목도리·루디 주황 앞치마 주머니·삐노 주황 신발·소소 주황 리본·레오 주황 목깃.<br/><b>배경·소품</b> 눈 덮인 비탈, 썰매 다섯, 비탈 아래 끝에 낮은 나무 울타리.<br/><b>톤</b> 비탈에 썰매 자국이 아직 하나도 없다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">삐노는 맨 뒤예요. "나부터 탈래."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 줄 뒤쪽에서 삐노 정면.<br/><b>장소·시간</b> 같은 비탈, 줄 맨 뒤.<br/><b>인물</b> Ppino rabbit이 썰매를 옆구리에 끼고 목을 길게 빼 앞쪽을 본다. 두 귀가 앞으로 서고 주황 신발이 눈을 앞뒤로 뭉갠다. 앞에 선 넷은 등만 보인다.<br/><b>배경·소품</b> 앞쪽 등 넷, 썰매.<br/><b>톤</b> 기다리는 자리인데 몸만 앞으로 기울어 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">삐노가 메이 앞으로 쏙 들어갔어요. 메이가 뒤로 밀렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면. 줄이 화면을 가로지르고 삐노가 그 선을 뚫는다.<br/><b>장소·시간</b> 같은 비탈.<br/><b>인물</b> Ppino rabbit이 Mei goat 앞 빈틈에 주황 신발 한 짝을 딱 딛는다. Mei goat는 한 발이 들리고 상체가 뒤로 넘어가며 주황 목도리 끝이 옆으로 날린다 — 눈이 동그랗다.<br/><b>배경·소품</b> 줄, 썰매 둘.<br/><b>톤</b> 곧은 줄에 딱 한 군데 튀어나온 자리.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">소소 앞으로도 들어갔어요. "내가 먼저야."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 로우앵글. 아래에서 올려다본 삐노 얼굴.<br/><b>장소·시간</b> 같은 줄, 소소 앞자리.<br/><b>인물</b> Ppino rabbit이 턱을 들고 입을 벌려 말한다. 한 앞발로 제 가슴을 짚었다. Soso hedgehog는 화면 아래쪽에서 어깨를 움츠리고 눈을 내리깐다 — 주황 리본이 가시 사이에 눌려 있다.<br/><b>배경·소품</b> 뒤로 흐린 줄.<br/><b>톤</b> 올려다보는 각도라 삐노가 제 키보다 커 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">삐노가 맨 앞에 섰어요. 썰매를 비탈에 척 놓았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 비탈 아래쪽에서 출발선을 올려다본다.<br/><b>장소·시간</b> 비탈 꼭대기 출발선.<br/><b>인물</b> Ppino rabbit이 맨 앞에서 허리를 굽혀 썰매를 눈 위에 막 내려놓는다. 두 앞발이 아직 손잡이에 걸려 있다. 뒤로 넷이 줄줄이 섰고 넷 다 앞발을 팔짱 끼거나 등 뒤로 뺐다.<br/><b>배경·소품</b> 썰매, 출발선 너머 하늘.<br/><b>톤</b> 앞은 넓게 비었고 뒤는 촘촘하다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 뒤에서 아무도 안 밀어 줘요. 썰매가 꼼짝을 안 해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 삐노 뒤통수 너머로 줄이 보인다.<br/><b>장소·시간</b> 같은 출발선.<br/><b>인물</b> Ppino rabbit이 썰매에 올라앉아 두 앞발로 손잡이를 쥐고 어깨 너머로 뒤를 돌아본다. 주황 신발이 발판을 밟고 있다. 넷은 제자리에 선 채 네 쌍의 앞발이 전부 몸에 붙어 있다.<br/><b>배경·소품</b> 썰매, 눈.<br/><b>톤</b> 썰매 자국이 한 뼘도 안 났다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">삐노가 혼자 발로 굴렀어요. 썰매가 기우뚱, 눈에 처박혔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 측면 아이레벨.<br/><b>장소·시간</b> 출발선 바로 앞.<br/><b>인물</b> Ppino rabbit이 눈에 머리부터 처박혀 뒷발과 주황 신발만 위로 솟았다. 썰매는 옆으로 기울어 한쪽 날이 들렸다.<br/><b>배경·소품</b> 뒤쪽 눈에 발로 판 자국 여러 개 — 혼자 구른 흔적.<br/><b>톤</b> 앞으로 나간 거리가 제 몸 길이만도 못하다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>할머니 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">곰 할머니가 삐노를 일으켜 세웠어요. "썰매는 뒤에서 밀어 줘야 가지."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 둘의 상반신.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Bear granny가 큰 앞발로 Ppino rabbit의 겨드랑이를 받쳐 세운다. 삐노 얼굴과 두 귀에 눈이 잔뜩 묻었고 눈꼬리가 아래로 처졌다. 할머니는 눈썹을 올리고 입을 벌려 말한다.<br/><b>배경·소품</b> 넘어진 썰매.<br/><b>톤</b> 나무라는 손이 아니라 일으키는 손.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">삐노가 줄 맨 뒤에 섰어요. 앞에서 하나씩 내려가요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 측면. 줄은 화면 왼쪽, 비탈은 오른쪽 아래로.<br/><b>장소·시간</b> 같은 비탈.<br/><b>인물</b> Ppino rabbit이 줄 맨 뒤에 서서 앞을 본다 — 주황 신발이 나란히 모였다. 맨 앞에서 Leo fox가 썰매를 타고 막 미끄러져 나가고, Mei goat·Rudi squirrel·Soso hedgehog가 뒤에서 두 앞발을 뻗어 민다.<br/><b>배경·소품</b> 썰매 자국 한 줄.<br/><b>톤</b> 아까와 앞뒤가 뒤집혔다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">넷이 뒤에서 같이 밀었어요. 삐노가 제일 멀리 갔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 와이드, 하이앵글. p1과 같은 비탈을 같은 각도에서.<br/><b>장소·시간</b> 같은 비탈, 조금 뒤.<br/><b>인물</b> 비탈 위 왼쪽에 Mei goat·Rudi squirrel·Soso hedgehog·Leo fox 넷이 방금 밀어낸 자세 그대로 두 앞발을 앞으로 쭉 뻗고 섰다 — 네 몸이 다 앞으로 기울었고 뒷발이 눈을 파고들었다. 오른쪽 아래 저 멀리 Ppino rabbit이 썰매에 납작 엎드려 미끄러져 간다, 주황 신발이 뒤로 뻗었다.<br/><b>배경·소품</b> 🔴 눈 위 썰매 자국 다섯 줄. 넷의 자국은 중간에서 끊기고 삐노 자국만 화면 오른쪽 끝까지 이어진다.<br/><b>톤</b> p1 의 미는 손이 이번엔 넷으로 늘었고, 거리가 그만큼 길어졌다.</pre></details>
+</div>
+
+</div>
+<script src="/mei-core.js"></script>
+</body>
+</html>

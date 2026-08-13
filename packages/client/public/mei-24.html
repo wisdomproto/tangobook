@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>메이네 산마을 — 내가 다 해 줄게</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#D4622A; --accent-dark:#A8481C; --slope:#4E5840; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; --coral:#D4622A; --coral-dark:#A8481C; --mint:#4E5840; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .batch-bar { background:#fff; border:1.5px solid var(--slope); border-radius:14px; padding:14px 18px; margin:16px 0; }
+  .batch-btn { background:var(--slope); color:#fff; border:0; border-radius:999px; padding:9px 20px; font-size:13px; font-weight:800; cursor:pointer; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); color:var(--accent-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card h4 { font-size:15px; font-weight:900; margin-bottom:2px; }
+  .cast-card .flaw { display:inline-block; background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; margin-bottom:7px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:4px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card .avols { font-size:12px; color:var(--ink-soft); margin-bottom:8px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">메이네 산마을 · 24</div>
+  <h1>내가 다 해 줄게</h1>
+  <div class="sub">레오(잘난척) · <b>원함</b> 고맙다는 말을 듣고 싶다 · <b>탈</b> 다 해 버려 아무도 안 고마워한다 · <b>착지</b> 옆에서 기다려 준다</div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 이 권의 앵커(1회) + 캐릭터 레퍼런스(@image1~6) + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">비탈에 나무 울타리를 세우는 날이에요. 다섯이 말뚝을 하나씩 맡았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 비탈이 화면을 가로로 층지게 자른다.<br/><b>장소·시간</b> 비탈 풀밭, 아침.<br/><b>인물</b> Mei goat·Rudi squirrel·Ppino rabbit·Soso hedgehog·Leo fox 다섯이 비탈에 일정한 간격으로 서서 각자 발밑에 나무 말뚝을 하나씩 세워 두었다. 메이 주황 목도리와 종·루디 주황 앞치마 주머니·삐노 주황 신발·소소 주황 리본·레오 주황 목깃.<br/><b>배경·소품</b> 🔴 말뚝 다섯 개가 아직 다 눕거나 비스듬히 기대 있다. 나무망치 하나.<br/><b>톤</b> 다섯 자리가 똑같은 간격으로 비어 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">레오가 제 말뚝을 금방 박았어요. "내가 다 해 줄게." 그러면 다들 고맙다고 할 거예요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글. 아래에서 올려다본 레오.<br/><b>장소·시간</b> 레오 자리.<br/><b>인물</b> Leo fox가 제 말뚝 옆에 서서 나무망치를 어깨에 걸치고 턱을 들어 입을 크게 벌려 말한다 — 다른 앞발로 제 말뚝 머리를 툭 짚었고 꼬리가 뒤로 곧게 섰다, 주황 목깃. 🔴 눈은 넷 쪽으로 돌아가 있고 눈썹이 올라갔다 — 다음에 올 대답을 기다리는 얼굴이어야 한다. 화면 옆 아래로 Mei goat·Rudi squirrel·Soso hedgehog·Leo 자리 옆 말뚝들을 든 넷의 어깨가 걸린다.<br/><b>배경·소품</b> 🔴 레오 말뚝 하나만 곧게 박혔고 나머지 넷은 아직 눕거나 기대 있다.<br/><b>톤</b> 하나 끝낸 몸이 화면에서 가장 크고, 그 눈이 남을 향해 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">레오가 메이 말뚝을 가져다 박았어요. 메이가 손을 내밀다 말았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면. 두 몸과 말뚝 하나.<br/><b>장소·시간</b> 메이 자리.<br/><b>인물</b> Leo fox가 메이 말뚝을 한 앞발로 붙잡고 다른 앞발의 망치를 내려친다 — 몸이 앞으로 굽었다. Mei goat는 옆에서 앞발을 내밀다 만 채 허공에서 멈췄고 입이 반쯤 벌어졌다. 목도리 종이 흔들린다.<br/><b>배경·소품</b> 말뚝, 망치.<br/><b>톤</b> 내밀다 만 손이 화면 가운데 떠 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">소소 것도 박았어요. 루디 것도 박았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 비탈의 세 자리를 위에서.<br/><b>장소·시간</b> 소소 자리와 루디 자리.<br/><b>인물</b> Leo fox가 루디 말뚝에 망치를 내려치는 중이다. Rudi squirrel과 Soso hedgehog는 각자 제 자리에서 두 앞발을 늘어뜨리고 그것을 본다.<br/><b>배경·소품</b> 🔴 소소 자리 말뚝은 이미 곧게 박혀 있고, 루디 자리 말뚝이 지금 박히는 중 — 넷째다.<br/><b>톤</b> 박힌 개수가 늘고 손 쓸 자리가 준다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">울타리가 다 섰어요. 넷은 그냥 서 있었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 와이드, 측면. 울타리가 화면을 가로로 관통한다.<br/><b>장소·시간</b> 같은 비탈, 낮.<br/><b>인물</b> Mei goat·Rudi squirrel·Ppino rabbit·Soso hedgehog 넷이 울타리 뒤에 나란히 서 있다 — 넷 다 두 앞발을 늘어뜨렸다. Leo fox는 줄 끝에서 망치를 든 채.<br/><b>배경·소품</b> 🔴 말뚝 다섯이 모두 박혀 울타리 한 줄이 완성됐다.<br/><b>톤</b> 다 됐는데 아무도 안 움직인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">레오가 넷을 돌아봤어요. 아무도 고맙다고 안 해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 오버숄더. 레오 어깨 너머 넷의 얼굴.<br/><b>장소·시간</b> 울타리 앞.<br/><b>인물</b> 화면 앞쪽에 Leo fox의 어깨와 뒤통수, 주황 목깃. 안쪽에 Mei goat·Rudi squirrel·Ppino rabbit·Soso hedgehog 넷이 서 있다 — 넷 다 입을 다물고 눈길이 서로 다른 데로 흩어졌다.<br/><b>배경·소품</b> 울타리.<br/><b>톤</b> 돌아본 쪽에서 돌아오는 것이 없다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">넷이 손을 툭툭 털었어요. 아무도 레오를 안 봐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 비탈과 울타리를 위에서 비스듬히.<br/><b>장소·시간</b> 같은 비탈, 오후.<br/><b>인물</b> Mei goat·Rudi squirrel·Ppino rabbit·Soso hedgehog 넷이 울타리 앞에 흩어져 서서 🔴 각자 두 앞발을 툭툭 마주쳐 턴다 — 흙도 안 묻은 손을 터는 몸짓, 네 얼굴이 전부 다른 데를 본다. Leo fox는 그 사이에 망치를 든 채 서서 넷을 번갈아 보는데 아무도 그쪽을 안 본다, 꼬리가 아래로 처졌다, 주황 목깃.<br/><b>배경·소품</b> 🔴 말뚝 다섯이 다 박힌 울타리 한 줄, 망치. 넷의 발밑에는 파헤친 자국이 없다 — 한 일이 없다는 것이 바닥에도 있다.<br/><b>톤</b> 다 세운 것 옆에서 손 털 일도 없는 손들이 손을 턴다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>할머니 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">곰 할머니가 말뚝 하나를 뽑아 레오한테 줬어요. "대신 하면 기쁜 것도 대신 가져가지."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 뽑아 든 말뚝.<br/><b>장소·시간</b> 울타리 앞.<br/><b>인물</b> Bear granny가 두 큰 앞발로 말뚝 하나를 뽑아 올려 Leo fox 쪽으로 내민다 — 뿌리 쪽에 흙이 묻어 떨어진다. 레오는 그것을 두 앞발로 받으며 눈을 크게 떴다. 할머니가 입을 벌려 말한다.<br/><b>배경·소품</b> 🔴 울타리에 빈 자리가 하나 생겼다.<br/><b>톤</b> 다 채워졌던 줄에 구멍이 하나 났다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">레오가 그 말뚝을 소소한테 줬어요. 그리고 옆에 앉아 기다렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 아래에서 두 몸을 올려다본다.<br/><b>장소·시간</b> 빈 자리 앞.<br/><b>인물</b> Soso hedgehog가 두 앞발로 말뚝을 세워 잡고 망치를 들었다 — 어깨에 힘이 들어갔다. Leo fox는 그 옆 풀밭에 무릎을 세우고 앉아 두 앞발을 무릎에 얹고 기다린다 — 손이 말뚝에 닿아 있지 않다.<br/><b>배경·소품</b> 말뚝 하나, 망치.<br/><b>톤</b> 손이 비었는데 옆에 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">소소가 말뚝을 끝까지 박았어요. "레오야, 고마워."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면. 두 몸과 마지막 말뚝.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Soso hedgehog가 망치를 끝까지 내려쳐 말뚝 머리를 다른 말뚝들과 같은 높이로 맞췄다. 그러고 고개를 돌려 입을 벌려 말한다 — 주황 리본이 흔들린다. Leo fox는 앉은 자리에서 두 귀를 세우고 입꼬리를 올렸다.<br/><b>배경·소품</b> 🔴 울타리 다섯 자리가 다시 다 찼다.<br/><b>톤</b> 고맙다는 말이 손 놓은 쪽으로 온다.</pre></details>
+</div>
+
+</div>
+<script src="/mei-core.js"></script>
+</body>
+</html>

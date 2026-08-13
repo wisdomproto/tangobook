@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>메이네 산마을 — 깜깜한 계단</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#D4622A; --accent-dark:#A8481C; --slope:#4E5840; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; --coral:#D4622A; --coral-dark:#A8481C; --mint:#4E5840; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .batch-bar { background:#fff; border:1.5px solid var(--slope); border-radius:14px; padding:14px 18px; margin:16px 0; }
+  .batch-btn { background:var(--slope); color:#fff; border:0; border-radius:999px; padding:9px 20px; font-size:13px; font-weight:800; cursor:pointer; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); color:var(--accent-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card h4 { font-size:15px; font-weight:900; margin-bottom:2px; }
+  .cast-card .flaw { display:inline-block; background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; margin-bottom:7px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:4px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card .avols { font-size:12px; color:var(--ink-soft); margin-bottom:8px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">메이네 산마을 · 10</div>
+  <h1>깜깜한 계단</h1>
+  <div class="sub">메이(겁) · <b>원함</b> 인형을 가져오고 싶다 · <b>탈</b> 못 올라가 두고 온다 · <b>착지</b> 종을 울리며 올라간다</div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 이 권의 앵커(1회) + 캐릭터 레퍼런스(@image1~6) + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">산장 이층에 메이 인형이 있어요. 나무 계단이 위로 길게 뻗었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 계단 밑에서 위로 올려다본다.<br/><b>장소·시간</b> 산장 안, 늦은 오후.<br/><b>인물</b> 없음(배경 컷).<br/><b>배경·소품</b> 나무 계단이 화면 아래에서 위로 곧게 뻗어 이층 난간에 닿는다. 난간 살 사이로 헝겊 인형의 발과 팔 한쪽이 삐져나와 있다.<br/><b>톤</b> 아래는 밝고 위로 갈수록 어둡다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">메이가 계단 밑에서 위를 올려다봤어요. 불이 꺼져 계단 끝이 안 보여요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 오버숄더. 메이 어깨 너머로 계단이 위로 뻗는다.<br/><b>장소·시간</b> 계단 밑, 불 꺼진 뒤.<br/><b>인물</b> 화면 앞쪽 아래에 Mei goat가 계단 첫 칸 앞에 두 발을 모으고 서서 고개를 완전히 젖혀 위를 올려다본다 — 뒷머리와 어깨, 젖힌 턱 선이 크게 잡히고 한 앞발이 난간 기둥을 살짝 짚었다. 주황 목도리, 🔴 아직 종이 없다.<br/><b>배경·소품</b> 계단 널이 서너 칸까지만 보이고 그 위는 어둠에 잘려 끝이 안 보인다. 난간 기둥 하나가 어둠 속으로 사라진다.<br/><b>톤</b> 보는 사람이 아래에 있고 볼 것이 없는 자리가 위에 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">메이가 한 계단 올라갔어요. 삐걱.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면. 계단을 옆에서.<br/><b>장소·시간</b> 계단 아래, 저녁.<br/><b>인물</b> Mei goat가 첫 번째 계단 위에 두 발을 올리고 한 앞발로 난간을 붙잡았다. 목이 앞으로 길게 빠지고 귀가 쫑긋 섰다. 🔴 주황 목도리에 아직 종이 없다.<br/><b>배경·소품</b> 계단 널 한 칸이 살짝 휜다.<br/><b>톤</b> 몸의 무게가 발 하나에만 실렸다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">소리에 메이 발이 딱 멈췄어요. 한 발이 뒤로 물러나요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글. 계단 첫 칸 높이에서 두 발을 본다.<br/><b>장소·시간</b> 계단 첫 칸.<br/><b>인물</b> Mei goat의 앞발 한 짝은 아직 첫 칸 위에 올라가 있고, 🔴 뒷발 한 짝이 뒤 칸으로 물러나 발끝만 겨우 닿았다 — 두 발이 서로 다른 칸에 있고 몸이 그 사이에서 굳었다. 두 귀가 위쪽으로 바짝 서고 눈이 크게 떠졌다, 한 앞발이 난간을 꽉 쥐었다. 주황 목도리, 종 없음.<br/><b>배경·소품</b> 계단 널, 발밑 널 한 장이 살짝 휘어 있다.<br/><b>톤</b> 올라가던 발과 물러나는 발이 한 몸에 같이 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">밤이 됐어요. 메이가 인형 없는 이불 속에서 뒤척여요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 방 전체를 위에서.<br/><b>장소·시간</b> 산장 아래층 방, 밤.<br/><b>인물</b> Mei goat가 이불 속에서 몸을 옆으로 틀어 뒤척인다 — 다리가 이불을 걷어차 한쪽이 벗겨졌고 두 앞발이 베개를 끌어안았다, 눈은 감았는데 눈썹이 찌푸려졌다. 주황 목도리는 머리맡에 개어 있다.<br/><b>배경·소품</b> 🔴 이불 옆자리가 비어 움푹 들어간 자국만 있다 — 인형이 있던 자리.<br/><b>톤</b> 잠든 자세가 아니라 뒤척이는 자세다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">메이가 이불 밖으로 나왔어요. 위층에서는 아무 소리도 안 나요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 이불과 방문 쪽이 좌우로.<br/><b>장소·시간</b> 같은 방.<br/><b>인물</b> Mei goat가 이불 밖으로 나와 마루에 두 발을 딛고 앉았다 — 이불이 등 뒤로 젖혀져 있고 두 앞발이 무릎을 짚었다. 고개와 두 귀가 계단 쪽(화면 오른쪽)으로 바짝 돌아갔다. 주황 목도리를 목에 다시 둘렀고 종은 없다.<br/><b>배경·소품</b> 젖혀진 이불, 열린 방문 너머 계단 아랫부분이 어둠에 잠겨 있다.<br/><b>톤</b> 귀는 저쪽을 향했는데 저쪽에서 아무것도 안 온다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">메이가 다시 계단 앞에 섰어요. 깜깜한 건 그대로예요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 오버숄더. 메이 어깨 너머 계단.<br/><b>장소·시간</b> 계단 앞, 밤.<br/><b>인물</b> 화면 앞쪽에 Mei goat의 뒷머리와 어깨, 주황 목도리가 크게 걸린다 — 종 없음. 안쪽 계단은 p2와 똑같이 중턱에서 어둠에 잘렸다.<br/><b>배경·소품</b> 계단, 난간.<br/><b>톤</b> 아까와 달라진 게 하나도 없다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>할머니 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">곰 할머니가 메이 목도리에 작은 종을 달아 줬어요. "무서우면 소리를 내렴."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 목도리와 큰 앞발.<br/><b>장소·시간</b> 계단 앞.<br/><b>인물</b> Bear granny의 두 앞발이 Mei goat의 주황 목도리 끝에 작은 종을 매어 준다 — 손끝이 끈을 조인다. 화면 위쪽에 메이가 턱을 당겨 그 손을 내려다보는 얼굴.<br/><b>배경·소품</b> 🔴 작은 종 하나. 이 시리즈에서 종이 처음 나오는 자리다.<br/><b>톤</b> 화면에서 가장 작은 물건이 한가운데 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">메이가 종을 흔들며 계단을 올라가요. 딸랑, 딸랑.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 계단 중간을 아래에서 올려다본다.<br/><b>장소·시간</b> 계단 중간, 밤.<br/><b>인물</b> Mei goat가 계단 중간 칸에 한 발을 올리고 다른 발로 아래 칸을 딛으며 올라간다 — 몸이 위로 기울었다. 한 앞발은 난간, 다른 앞발이 목도리 끝의 종을 쥐고 좌우로 흔든다, 종이 한쪽으로 기울어 있다. 턱이 들리고 눈은 어두운 위쪽을 똑바로 본다. 주황 목도리.<br/><b>배경·소품</b> 🔴 종 하나. 위쪽 어둠은 p2·p7 과 똑같이 계단을 잘라 놓았다 — 달라진 건 어둠이 아니라 걸음이다.<br/><b>톤</b> 안 보이는 데로 몸이 먼저 들어간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">메이가 위층에서 인형을 안고 내려와요. 딸랑, 딸랑.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 계단 위쪽에서 내려오는 메이를 내려다본다.<br/><b>장소·시간</b> 계단, 같은 밤.<br/><b>인물</b> Mei goat가 한 앞발로 헝겊 인형을 가슴에 꼭 안고 다른 앞발로 난간을 짚으며 아래로 내려온다 — 걸음이 넓고 어깨가 폈다, 입꼬리가 올라갔다. 목도리 끝의 종이 반대쪽으로 크게 흔들린다.<br/><b>배경·소품</b> 인형, 종, 뒤쪽 이층 어둠, 아래쪽에서 올라오는 옅은 빛.<br/><b>톤</b> 어둠이 이제 등 뒤에 있고 두 손이 다 찼다.</pre></details>
+</div>
+
+</div>
+<script src="/mei-core.js"></script>
+</body>
+</html>

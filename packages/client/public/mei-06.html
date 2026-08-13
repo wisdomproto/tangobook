@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>메이네 산마을 — 내가 이겼어</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#D4622A; --accent-dark:#A8481C; --slope:#4E5840; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; --coral:#D4622A; --coral-dark:#A8481C; --mint:#4E5840; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .batch-bar { background:#fff; border:1.5px solid var(--slope); border-radius:14px; padding:14px 18px; margin:16px 0; }
+  .batch-btn { background:var(--slope); color:#fff; border:0; border-radius:999px; padding:9px 20px; font-size:13px; font-weight:800; cursor:pointer; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); color:var(--accent-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card h4 { font-size:15px; font-weight:900; margin-bottom:2px; }
+  .cast-card .flaw { display:inline-block; background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; margin-bottom:7px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:4px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card .avols { font-size:12px; color:var(--ink-soft); margin-bottom:8px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">메이네 산마을 · 06</div>
+  <h1>내가 이겼어</h1>
+  <div class="sub">삐노(성급) · <b>원함</b> 숨바꼭질을 하고 싶다 · <b>탈</b> 먼저 내고 우겨서 아무도 안 논다 · <b>착지</b> 지고도 같이 논다</div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 이 권의 앵커(1회) + 캐릭터 레퍼런스(@image1~6) + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">광장에 다섯이 둥글게 모였어요. 숨바꼭질을 하기로 했어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 버즈아이. 바로 위에서 내려다본 원.<br/><b>장소·시간</b> 마을 광장, 낮.<br/><b>인물</b> Mei goat·Rudi squirrel·Ppino rabbit·Soso hedgehog·Leo fox 다섯이 돌바닥 위에 둥글게 모여 섰다. 위에서 보면 다섯 정수리와 주황 물건이 원을 이룬다.<br/><b>배경·소품</b> 돌바닥 이음매가 원 밖으로 퍼진다.<br/><b>톤</b> 다섯이 똑같은 간격으로 서 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">술래를 정해야 해요. 다섯이 주먹을 쥐었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 다섯 주먹이 가슴 높이에 모였다.<br/><b>장소·시간</b> 같은 원 안.<br/><b>인물</b> Mei goat·Rudi squirrel·Ppino rabbit·Soso hedgehog·Leo fox 다섯의 앞발이 전부 주먹을 쥔 채 원 가운데로 모였다. 화면 위쪽에 다섯 턱과 벌어진 입 끝만 조금씩 걸린다. 다섯의 주황 물건이 팔목 옆에 조각조각 보인다.<br/><b>배경·소품</b> 돌바닥.<br/><b>톤</b> 다섯 손이 똑같은 모양이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"가위, 바위—" 삐노가 먼저 손을 폈어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 클로즈업, 하이앵글. 손만.<br/><b>장소·시간</b> 같은 원 가운데.<br/><b>인물</b> 네 앞발은 아직 꽉 쥔 주먹이고 Ppino rabbit의 앞발 하나만 벌써 두 손가락을 펴 가위를 냈다. 화면 아래 가장자리에 삐노 주황 신발 코가 조금 들어온다.<br/><b>배경·소품</b> 돌바닥.<br/><b>톤</b> 다섯 중 하나만 모양이 다르다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">삐노 손만 활짝 펴져 있어요. "내가 이겼어!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 아래에서 올려다본 다섯.<br/><b>장소·시간</b> 같은 원 안.<br/><b>인물</b> Mei goat·Rudi squirrel·Soso hedgehog·Leo fox 넷은 아직 주먹을 쥔 채 팔을 가슴 높이에 두고 섰다. 🔴 Ppino rabbit의 앞발 하나만 손가락을 활짝 편 채 머리 위로 번쩍 올라갔다 — 다섯 손 중 유일하게 펴진 손이 화면 제일 위에 있다. 삐노는 뒷발로 껑충 뛰어 주황 신발이 바닥에서 떴고 입을 크게 벌렸다.<br/><b>배경·소품</b> 뒤로 지붕 선.<br/><b>톤</b> 혼자만 손도 몸도 위로 솟았다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">레오가 말했어요. "너 먼저 냈잖아." "아니야, 같이 냈어."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 둘이 마주 선다.<br/><b>장소·시간</b> 원 한쪽.<br/><b>인물</b> Leo fox가 한 앞발로 삐노 주먹을 가리키며 입을 벌려 말한다 — 꼬리가 뒤로 낮게 뻗었고 주황 목깃. Ppino rabbit은 두 앞발을 허리에 얹고 고개를 옆으로 흔들며 입을 벌린다.<br/><b>배경·소품</b> 뒤쪽에 셋의 흐린 등.<br/><b>톤</b> 두 입이 동시에 열려 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다시 했어요. 삐노가 또 먼저 냈어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 다시 모인 손.<br/><b>장소·시간</b> 같은 원 가운데.<br/><b>인물</b> 넷의 앞발이 아직 주먹인 채 멈춰 있고 Ppino rabbit의 앞발만 또 먼저 펴졌다. 화면 위 가장자리에 넷의 눈이 옆으로 흘겨보는 것이 들어온다.<br/><b>배경·소품</b> 돌바닥.<br/><b>톤</b> 두 번째라 아무도 안 놀란다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">넷이 하나둘 자리를 떴어요. 광장에 삐노만 남았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 광장이 옆으로 넓다.<br/><b>장소·시간</b> 같은 광장, 조금 뒤.<br/><b>인물</b> Mei goat·Rudi squirrel·Soso hedgehog·Leo fox가 서로 다른 거리에서 등을 보이고 걸어 나간다 — 가까운 하나, 중간 둘, 저 멀리 하나. Ppino rabbit은 원 가운데 자리에 혼자 서서 두 앞발을 늘어뜨렸다.<br/><b>배경·소품</b> 빈 돌바닥.<br/><b>톤</b> 원이 흩어지고 가운데만 남았다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>할머니 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">곰 할머니가 삐노 옆에 주먹을 쥐고 앉았어요. "먼저 내면 아무도 같이 못 내지."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면. 나란히 앉은 두 몸과 두 주먹.<br/><b>장소·시간</b> 광장 가운데 돌바닥.<br/><b>인물</b> Bear granny가 Ppino rabbit 옆 바닥에 털썩 앉아 제 큰 앞발을 주먹으로 쥐어 무릎 위에 얹고 입을 벌려 말한다 — 시선은 삐노가 아니라 제 주먹에 가 있다. Ppino rabbit은 귀를 뒤로 눕히고 그 주먹을 곁눈질하며 제 앞발도 슬며시 쥔다. 주황 신발.<br/><b>배경·소품</b> 빈 돌바닥.<br/><b>톤</b> 말보다 쥔 손 모양이 크다 — 삐노가 그 모양을 따라 한다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">삐노가 넷을 불러왔어요. 이번엔 끝까지 쥐고 있다가 폈어요. 삐노가 졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 아래에서 원 안의 다섯 손을 올려다본다.<br/><b>장소·시간</b> 같은 광장, 다시 모인 뒤.<br/><b>인물</b> Mei goat·Rudi squirrel·Ppino rabbit·Soso hedgehog·Leo fox 다섯이 다시 원을 이뤘고, 🔴 다섯 앞발이 **같은 높이에서 동시에 펴진** 참이다 — 넷은 손가락을 활짝 폈고 Ppino rabbit 혼자 두 손가락만 폈다. 삐노는 제 손을 내려다보며 입을 삐죽 내밀었지만 어깨는 안 올라갔다. 넷은 삐노 손을 보고 웃는다.<br/><b>배경·소품</b> 돌바닥, 지붕 선.<br/><b>톤</b> 다섯 손이 처음으로 같은 순간에 나왔고, 진 쪽이 웃는 쪽 안에 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">삐노가 눈을 감고 열까지 세요. 넷이 흩어져 숨어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 광장과 그 언저리가 함께 보인다.<br/><b>장소·시간</b> 같은 광장.<br/><b>인물</b> Ppino rabbit이 분수 기둥에 이마를 대고 두 앞발로 눈을 가린 채 섰다 — 입이 벌어져 세는 중이고 주황 신발이 나란히 모였다. Mei goat는 수레 뒤로, Rudi squirrel은 계단 밑으로, Soso hedgehog는 나무 통 옆으로, Leo fox는 기둥 뒤로 각자 몸을 접어 숨는 중이다.<br/><b>배경·소품</b> 분수, 수레, 계단, 나무 통, 기둥.<br/><b>톤</b> 술래는 안 보고 넷은 다 움직인다.</pre></details>
+</div>
+
+</div>
+<script src="/mei-core.js"></script>
+</body>
+</html>

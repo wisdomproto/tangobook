@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>메이네 산마을 — 만지고 싶어</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#D4622A; --accent-dark:#A8481C; --slope:#4E5840; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; --coral:#D4622A; --coral-dark:#A8481C; --mint:#4E5840; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .batch-bar { background:#fff; border:1.5px solid var(--slope); border-radius:14px; padding:14px 18px; margin:16px 0; }
+  .batch-btn { background:var(--slope); color:#fff; border:0; border-radius:999px; padding:9px 20px; font-size:13px; font-weight:800; cursor:pointer; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); color:var(--accent-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card h4 { font-size:15px; font-weight:900; margin-bottom:2px; }
+  .cast-card .flaw { display:inline-block; background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; margin-bottom:7px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:4px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card .avols { font-size:12px; color:var(--ink-soft); margin-bottom:8px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">메이네 산마을 · 22</div>
+  <h1>만지고 싶어</h1>
+  <div class="sub">루디(충동) · <b>원함</b> 냄비 안을 보고 싶다 · <b>탈</b> 뜨거운 걸 만져 손을 덴다 · <b>착지</b> 할머니 손을 빌려 본다</div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 이 권의 앵커(1회) + 캐릭터 레퍼런스(@image1~6) + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">부엌에서 냄비가 보글보글 끓어요. 뚜껑이 달그락달그락해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 클로즈업, 하이앵글. 냄비 뚜껑을 바로 위에서.<br/><b>장소·시간</b> 산장 부엌 화덕 위, 낮.<br/><b>인물</b> 없음(배경 컷).<br/><b>배경·소품</b> 무쇠 냄비 뚜껑이 화면을 채운다. 가장자리 틈으로 김이 새고 뚜껑이 한쪽으로 살짝 들렸다. 방울진 물기가 뚜껑 손잡이를 타고 흐른다.<br/><b>톤</b> 안이 안 보이는 것이 이 화면의 전부.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">루디는 안이 궁금해요. 발끝을 들었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 화덕 아래에서 위로.<br/><b>장소·시간</b> 화덕 앞.<br/><b>인물</b> Rudi squirrel이 발끝으로 서서 목을 길게 뺐다 — 두 앞발이 화덕 앞턱을 붙잡았고 꼬리가 균형을 잡느라 뒤로 팽팽하다. 눈이 뚜껑 높이를 겨우 넘본다. 주황 앞치마 주머니.<br/><b>배경·소품</b> 화덕 턱, 냄비.<br/><b>톤</b> 몸이 아직 한 뼘 모자란다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할머니가 등을 돌리고 그릇을 꺼내요. 냄비에서 김이 폴폴 나요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면. 화면 왼쪽에 냄비, 오른쪽에 할머니 등.<br/><b>장소·시간</b> 같은 부엌.<br/><b>인물</b> Bear granny가 완전히 등을 돌리고 선반 위 그릇을 두 앞발로 꺼내 든다 — 얼굴이 화면에 안 보이고 팔이 위로 뻗었다. Rudi squirrel은 그 등을 곁눈질하면서 몸은 냄비 쪽으로 기운다, 발끝이 이미 냄비 쪽을 향했다. 주황 앞치마 주머니.<br/><b>배경·소품</b> 🔴 냄비 뚜껑 틈에서 김이 폴폴 올라와 화면 왼쪽 위로 퍼진다. 선반, 그릇.<br/><b>톤</b> 보는 눈이 하나도 없는 사이에 김만 오른다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">루디가 손을 뻗었어요. 뚜껑에 손끝이 닿았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 뻗은 앞발과 뚜껑.<br/><b>장소·시간</b> 화덕 위.<br/><b>인물</b> Rudi squirrel의 앞발이 뚜껑 손잡이 쪽으로 뻗어 손끝이 금속에 막 닿았다 — 손가락이 아직 펴진 채다. 화면 위 가장자리에 눈을 크게 뜬 얼굴.<br/><b>배경·소품</b> 뚜껑, 새는 김.<br/><b>톤</b> 닿은 넓이가 손끝 하나뿐.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">앗 뜨거! 루디가 손을 확 뺐어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글. 뒤로 젖혀지는 몸.<br/><b>장소·시간</b> 화덕 앞.<br/><b>인물</b> Rudi squirrel이 앞발을 확 뒤로 빼며 상체가 뒤로 넘어간다 — 다친 앞발을 다른 앞발이 손목에서 붙잡았다. 입이 크게 벌어지고 꼬리가 위로 곤두섰다.<br/><b>배경·소품</b> 흔들리는 뚜껑.<br/><b>톤</b> 손 하나 때문에 몸 전체가 뒤로 간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">손끝이 빨개졌어요. 눈물이 핑 돌아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 클로즈업, 아이레벨. 손끝과 눈.<br/><b>장소·시간</b> 같은 부엌.<br/><b>인물</b> Rudi squirrel의 앞발 손끝이 화면 아래를 채운다 — 끝마디가 부풀어 반들거린다. 화면 위 가장자리에 눈 하나, 아래 눈꺼풀에 눈물이 고였다.<br/><b>배경·소품</b> 없음 — 뒤를 흐리게 지운다.<br/><b>톤</b> 만진 자리가 화면에서 제일 크다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">루디가 손을 등 뒤로 감췄어요. 냄비 안은 아직도 못 봤어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 위에서 루디와 냄비를 함께.<br/><b>장소·시간</b> 화덕 앞.<br/><b>인물</b> Rudi squirrel이 두 앞발을 등 뒤로 감추고 냄비 앞에 섰다 — 꼬리가 다리 사이로 말렸고 눈은 아직 뚜껑을 본다.<br/><b>배경·소품</b> 🔴 뚜껑이 아까와 똑같이 덮여 있다.<br/><b>톤</b> 아팠는데 궁금한 것은 그대로다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>할머니 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">곰 할머니가 루디 손을 찬물에 담갔어요. "뜨거운 건 어른 손을 빌리렴."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 대야와 손.<br/><b>장소·시간</b> 부엌 개수대 옆.<br/><b>인물</b> Bear granny가 Rudi squirrel의 앞발을 찬물 대야에 담가 손목을 받쳐 준다 — 루디 손이 물속에서 펴진다. 루디는 어깨를 늘어뜨리고 그 물을 내려다본다. 할머니가 입을 벌려 말한다.<br/><b>배경·소품</b> 물 대야.<br/><b>톤</b> 뜨거웠던 데가 물속에 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할머니가 뚜껑을 열어 줬어요. 김이 확 올라왔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 아래에서 냄비와 두 몸을.<br/><b>장소·시간</b> 화덕 앞.<br/><b>인물</b> Bear granny가 천으로 손잡이를 감싸 쥐고 뚜껑을 위로 들어 올린다 — 팔이 화면 위로 뻗었다. Rudi squirrel은 그 아래에서 두 앞발을 등 뒤에 둔 채 고개를 든다.<br/><b>배경·소품</b> 🔴 들린 뚜껑 아래에서 김이 화면 위로 크게 솟는다. 감싼 천.<br/><b>톤</b> 화면이 위로 열린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">루디가 냄비 안을 들여다봤어요. 노란 수프가 보글보글해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 냄비 안을 내려다본다.<br/><b>장소·시간</b> 화덕 위.<br/><b>인물</b> 화면 위 가장자리에 Rudi squirrel의 얼굴이 크게 들어와 냄비 안을 들여다본다 — 눈이 동그랗고 입이 벌어졌다. 두 앞발은 화덕 턱을 짚었다.<br/><b>배경·소품</b> 냄비 안 노란 수프가 화면 가운데를 채우고 방울이 올라온다.<br/><b>톤</b> 못 보던 안쪽이 화면 전부가 됐다.</pre></details>
+</div>
+
+</div>
+<script src="/mei-core.js"></script>
+</body>
+</html>
