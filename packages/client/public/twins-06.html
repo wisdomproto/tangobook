@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>쌍둥이네 바닷가 — 물고기 연</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#E9A825; --slope:#2D3B42; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">쌍둥이네 바닷가 · 06</div>
+  <h1>물고기 연</h1>
+  <div class="sub"><b>원함</b> 연을 바다 위까지 띄우고 싶다 · <b>우기는 둘</b> 리리 "바람부터 봐야지" / 롤로 "달리면 바람은 생겨" · <b>어긋남</b> 좋은 바람은 지나가고, 연은 모래에 코를 박는다 · <b>착지</b> 바람에 홱 돌아간 리리 모자가 바람 쪽을 알려 주고, 그 바람을 등지고 롤로가 달리자 연이 뜬다</div>
+  <div class="by">글 <b>한여울</b> · 그림 <b>임푸른</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">언덕 위로 바람이 씽씽 불어요. 롤로가 물고기 연을 안고 올라왔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 언덕 등성이가 화면을 대각으로 오른다.<br/><b>장소·시간</b> 바다가 내려다보이는 언덕, 낮.<br/><b>인물</b> Lolo rabbit이 물고기 모양 연을 가슴에 안고 언덕 위로 성큼 올라선다 — 몸이 앞으로 기울고 노란 장화가 풀을 밟는다. Riri rabbit은 두어 걸음 뒤에서 걸음을 멈추고 고개를 들어 하늘을 본다 — 한 손이 노란 모자챙을 잡았다.<br/><b>배경·소품</b> 한쪽으로 눕는 풀밭, 언덕 아래 넓은 바다, 실패에 감긴 연줄.<br/><b>톤</b> 풀이 전부 한 방향으로 누워 바람을 보여 준다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘은 연을 바다 위까지 띄우고 싶어요. "저 파도 너머까지 올려 보자!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 둘과 연이 한 프레임.<br/><b>장소·시간</b> 언덕 꼭대기.<br/><b>인물</b> Lolo rabbit이 연을 머리 위로 들어 올리며 바다 쪽을 손가락으로 가리키고 입을 크게 벌린다 — 노란 장화. Riri rabbit은 옆에서 두 앞발로 연 아래쪽을 받쳐 들고 눈으로 바다 끝을 잰다 — 노란 모자.<br/><b>배경·소품</b> 물고기 모양 연, 아래로 늘어진 꼬리 두 줄.<br/><b>톤</b> 들어 올린 연이 바다 끝과 한 줄에 놓인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리가 풀잎을 하나 뜯어 던졌어요. 롤로는 벌써 실을 술술 풀어요. "바람부터 봐야지." "달리면 바람은 생겨."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 측면. 두 손의 일이 나란히.<br/><b>장소·시간</b> 같은 언덕.<br/><b>인물</b> Riri rabbit이 뜯은 풀잎 한 장을 두 손가락 사이로 놓아 보내며 눈으로 따라간다 — 노란 모자. Lolo rabbit은 그 옆에서 실패를 돌려 연줄을 술술 푼다 — 팔이 빠르게 돌고 노란 장화가 앞으로 나갔다.<br/><b>배경·소품</b> 떠 있는 풀잎 한 장, 발치에 쌓인 연줄 고리.<br/><b>톤</b> 한 손은 재고 한 손은 벌써 푼다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리가 풀잎을 또 던졌어요. 또 던졌어요. 풀잎이 이리 날고 저리 날아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 리리의 손과 흩날리는 풀잎.<br/><b>장소·시간</b> 언덕 풀밭.<br/><b>인물</b> Riri rabbit이 쪼그려 앉아 새 풀잎을 뜯어 던지려고 손을 든 참 — 시선이 공중에 붙어 있다, 노란 모자.<br/><b>배경·소품</b> 공중에 흩어진 풀잎 대여섯 장이 서로 다른 쪽으로 날린다.<br/><b>톤</b> 던진 것마다 다른 데로 가서 답이 안 나온다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그러는 사이 좋은 바람이 휭 지나갔어요. 리리는 아직도 풀잎만 보고 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 언덕 전체와 지나가는 바람.<br/><b>장소·시간</b> 같은 언덕, 조금 뒤.<br/><b>인물</b> Riri rabbit이 화면 아래쪽에 쪼그려 앉아 발밑 풀잎만 본다 — 노란 모자. 뒤편에서 Lolo rabbit이 연을 안고 실패를 든 채 하늘을 올려다본다 — 노란 장화.<br/><b>배경·소품</b> 언덕 풀이 통째로 한쪽으로 크게 눕고, 눕는 물결이 바다 쪽으로 밀려간다.<br/><b>톤</b> 언덕이 전부 한쪽으로 눕는데 아래쪽 하나만 고개를 숙이고 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">롤로가 연을 들고 언덕을 달렸어요. 숨이 턱에 닿도록 달렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 달리는 다리와 끌리는 연.<br/><b>장소·시간</b> 언덕 비탈.<br/><b>인물</b> Lolo rabbit이 실패를 쥐고 언덕을 내달린다 — 상체가 거의 눕도록 앞으로 기울고 입이 벌어져 숨을 몰아쉰다, 노란 장화가 풀을 찬다.<br/><b>배경·소품</b> 뒤로 낮게 끌려오는 물고기 연, 팽팽하지 못하고 늘어진 줄.<br/><b>톤</b> 달리는 몸은 앞으로 가는데 연은 뒤에서 처져 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">연이 푹 꺾여 모래에 코를 박았어요. 롤로가 헉헉 숨을 몰아쉬어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 코박은 연과 주저앉은 롤로.<br/><b>장소·시간</b> 언덕 아래 모래밭.<br/><b>인물</b> Lolo rabbit이 두 손을 무릎에 짚고 허리를 접은 채 어깨로 숨을 쉰다 — 혀가 반쯤 나왔고 노란 장화 안까지 모래가 들어갔다.<br/><b>배경·소품</b> 머리부터 모래에 박혀 꼬리만 하늘로 선 물고기 연, 늘어진 줄이 뱀처럼 놓였다.<br/><b>톤</b> 하늘로 올라갈 것이 거꾸로 땅에 꽂혔다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리 모자가 바람에 홱 돌아갔어요. 바람이 언덕에서 바다 쪽으로 불어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 로우앵글. 돌아간 모자와 하늘.<br/><b>장소·시간</b> 언덕 위, 바로 뒤.<br/><b>인물</b> Riri rabbit이 고개를 든 채 굳었다 — 노란 모자가 머리 위에서 홱 돌아가 챙이 바다 쪽을 가리킨다, 귀가 그 반대로 눕는다.<br/><b>배경·소품</b> 챙이 가리키는 방향으로 흘러가는 구름, 같은 쪽으로 눕는 풀 끝.<br/><b>톤</b> 못 보던 것이 머리 위에서 방향을 가리킨다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">롤로가 바람을 등지고 바다 쪽으로 달렸어요. 연이 스르르 올라가요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 측면. 언덕에서 바다 쪽으로 왼쪽에서 오른쪽.<br/><b>장소·시간</b> 언덕 비탈, 조금 뒤.<br/><b>인물</b> Lolo rabbit이 등에 바람을 지고 오른쪽 바다 쪽으로 달린다 — 몸이 앞으로 기울고 노란 장화가 뜬다. Riri rabbit은 왼쪽에서 한 손으로 노란 모자를 누른 채 그 뒤를 눈으로 따라간다.<br/><b>배경·소품</b> 줄이 팽팽해지며 비스듬히 떠오르는 물고기 연.<br/><b>톤</b> 연줄이 처음으로 곧은 선이 된다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">물고기 연이 바다 위에서 헤엄쳐요. 롤로가 실을 잡고, 리리가 롤로 허리를 잡았어요. 바람이 셀 때마다 둘이 발을 뒤로 딛고 버텨요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 두 몸과 그 위 하늘.<br/><b>장소·시간</b> 언덕 끝, 바다 앞.<br/><b>인물</b> Lolo rabbit이 실패를 두 손으로 움켜쥐고 뒤로 몸을 눕혔다 — 노란 장화가 흙에 두 줄 자국을 낸다. Riri rabbit이 그 허리를 두 앞발로 껴안고 같이 뒤로 버틴다 — 노란 모자가 뒤통수로 밀려났다.<br/><b>배경·소품</b> 바다 위 높이 뜬 물고기 연, 꼬리 두 줄이 파도와 나란히 흔들린다.<br/><b>톤</b> 몸 둘이 뒤로 기울어야 연 하나가 앞으로 나간다.</pre></details>
+</div>
+
+</div>
+<script src="/twins-core.js"></script>
+</body>
+</html>

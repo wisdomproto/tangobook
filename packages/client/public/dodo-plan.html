@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>도도네 물방앗간 — 기획서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#2D62B8; --slope:#3D4A44; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">창작동화 시리즈 04 · 25권 250쪽</div>
+  <h1>도도네 물방앗간</h1>
+  <div class="sub">오리 남매 도도와 무무 · 프랑스 시골 물방앗간 · <b>페파형</b>(아는 척 누나가 틀린다) · 그림체 = 과슈 하나(전권)</div>
+  <div class="by">글 <b>한여울</b> · 그림 <b>윤새롬</b></div>
+</header>
+
+<div class="note">🔴 <b>이 기획서가 SSOT 가 아닙니다.</b> 본문은 <code>docs/changjak-books/dodo/*.md</code>, 앵커는 <code>docs/art-direction/dodo-anchor.md</code> 가 원본이고 이 페이지는 거기서 생성됩니다(<code>build-series-html.mjs</code>). 회차는 왼쪽 <b>☰ 회차</b>에서.</div>
+
+<h2 class="sec">1. 축</h2>
+<table><thead><tr><th>축</th><th>값</th></tr></thead><tbody><tr><td>형</td><td>페파형 — 웃음으로 착지, 아무도 안 고쳐진다</td></tr><tr><td>캐스트 구성</td><td><b>형제 둘</b> — 누나 + 남동생. 부모(방앗간지기)는 판을 깔고 마무리를 받는 배경</td></tr><tr><td>주인공</td><td>오리 남매 — 누나 도도 + 동생 무무</td></tr><tr><td>무대</td><td>프랑스 시골 개울가 물방앗간 + 개울 + 들판 (물레방아·개울·오리 = 물 무대)</td></tr><tr><td>그림체</td><td>과슈 — 불투명 물감의 붓자국, 크림 종이가 빛</td></tr></tbody></table>
+
+<h2 class="sec">2. 캐스트</h2>
+<p class="lead">시트를 만들어 카드에 붙여넣으면 회차 페이지의 「🎬 이 화 등장」 스트립이 그 그림을 읽어 옵니다.
+카드마다 <b>[📋 시트 프롬프트]</b> = 그 한 명만 그리는 프롬프트(앵커 + 규격 + 전신 정면·3/4·뒷모습).</p>
+<div class="grid">
+  <div class="cast-card">
+    <div class="chead"><h4>🦆 도도</h4><button class="copy-btn" data-sheet="dodo">📋 시트 프롬프트</button></div>
+    <p><code>Dodo duck</code></p>
+    <div data-paste="dodo"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🦆 무무</h4><button class="copy-btn" data-sheet="mumu">📋 시트 프롬프트</button></div>
+    <p><code>Mumu duck</code></p>
+    <div data-paste="mumu"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🦆 엄마</h4><button class="copy-btn" data-sheet="mom">📋 시트 프롬프트</button></div>
+    <p><code>Mommy duck</code></p>
+    <div data-paste="mom"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🦆 아빠</h4><button class="copy-btn" data-sheet="dad">📋 시트 프롬프트</button></div>
+    <p><code>Daddy duck</code></p>
+    <div data-paste="dad"></div>
+  </div>
+</div>
+
+<h2 class="sec">3. 25권</h2>
+<p class="lead">🔴 <b>작가에게 빈칸을 주지 않는 것</b>이 이 체제의 전부입니다.</p>
+<table><thead><tr><th>#</th><th>제목</th><th>원함(누구)</th><th>틀리는 쪽 — 도도의 아는 척</th><th>어긋남</th><th>착지</th></tr></thead><tbody><tr><td>01</td><td>징검다리</td><td>징검다리로 개울을 혼자 건너고 싶다(무무)</td><td>"큰 돌부터 밟는 거야" + 시범</td><td>큰 돌이 기우뚱, 도도 풍덩</td><td>무무가 가까운 돌부터 한 칸씩 건넌다 — 도도는 헤엄쳐 와서 "난 지름길로 왔지!"</td></tr><tr><td>02</td><td>꼬마 물레방아</td><td>🔴 나뭇가지 꼬마 물레방아 <b>두 개(쌍둥이)</b> 를 만들어 돌리고 싶다(무무) — p2 에서 둘 다 만든다</td><td>"큰 물살에 놓아야 잘 돌지" (무무가 하나를 건네준다)</td><td>도도가 맡은 하나를 물살이 휙 채 간다</td><td>남은 하나가 얕은 도랑에서 뱅글뱅글 — 떠내려간 하나는 아빠 물레방아 <b>날개</b>에 걸려 같이 돈다</td></tr><tr><td>03</td><td>밀 자루 나르기</td><td>밀 자루를 방앗간 안까지 나르고 싶다(무무)</td><td>"자루는 번쩍 안고 뛰는 거야" + 시범</td><td>자루에 눌려 털썩 주저앉는다</td><td>손수레에 얹어 다 나른다 — 아빠가 도도를 자루처럼 번쩍 "이 자루가 제일 무겁네!"</td></tr><tr><td>04</td><td>파란 목수건</td><td>빨아 놓은 내 목수건을 내가 널고 싶다(무무)</td><td>"높은 가지에 널어야 바람이 잘 말리지"</td><td>바람이 채 가서 물레방아 날개에 걸려 뱅글뱅글</td><td>🔴 아빠를 불러 방아를 <b>멈추고</b> 떼어 내 마당 줄에 넌다(돌아가는 날개에 손대지 않는다) — "물레방아가 반은 말려 줬네!"</td></tr><tr><td>05</td><td>물고기 인사</td><td>물고기를 가까이 보고 싶다(무무)</td><td>"첨벙첨벙 물장구로 부르는 거야"</td><td>물고기가 죄다 숨는다</td><td>가만히 떠 있으니 발가락을 콕콕 — 둘이 나란히 떠 있다 까르르, 물고기가 또 쏙</td></tr><tr><td>06</td><td>소나기 소풍</td><td>제일 좋은 자리에서 도시락을 먹고 싶다(둘)</td><td>"저건 비 안 오는 구름이야"</td><td>소나기가 쏟아진다</td><td>처마 밑 문턱 소풍 + 무지개 — 도도 "내가 무지개까지 준비해 뒀지!"</td></tr><tr><td>07</td><td>자맥질</td><td>자맥질로 반짝 조약돌을 주워 오고 싶다(무무)</td><td>"자맥질은 이렇게!" + 시범</td><td>엉덩이만 동동, 수초를 뒤집어쓴다</td><td>엄마 동작대로 꼬리 한 번 치고 쏙 — 도도는 수초 왕관 "물나라 여왕!"</td></tr><tr><td>08</td><td>고드름</td><td>처마의 고드름을 하나 갖고 싶다(무무)</td><td>🔴 "긴 막대로 톡 쳐서 따는 거야"(처마 기둥을 흔들지 않는다)</td><td>막대 끝이 지붕 눈을 쓸어 눈이 쏟아지고 도도가 눈사람이 된다</td><td>해 드는 낮에 톡 떨어진 것을 줍는다 — 눈사람 도도가 고드름 수염 "고드름 할아버지다!"</td></tr><tr><td>09</td><td>반딧불이</td><td>반딧불이를 가까이 보고 싶다(무무)</td><td>"반딧불이는 밝은 걸 좋아해, 등불 밑이 명당"</td><td>등불 밑엔 나방만 오고 반딧불이는 안 온다</td><td>깜깜한 풀숲에 앉으니 모여든다 — 도도도 살금살금 와서 나란히, 무언의 웃음</td></tr><tr><td>10</td><td>전병 굽는 날</td><td>전병 반죽을 매끈하게 젓고 싶다(무무)</td><td>"반죽은 폭풍처럼 빨리 저어야지"</td><td>반죽이 튀어 도도가 점박이가 된다</td><td>천천히 동글동글 저어 매끈 — 점박이 도도가 제일 크게 웃으며 첫 전병을 냠냠</td></tr><tr><td>11</td><td>해바라기 심는 날</td><td>들판 가장자리에 해바라기 씨를 심고 싶다(무무)</td><td>"씨는 한꺼번에 와르르 뿌려야 숲이 되지"</td><td>참새들이 우르르 쪼아 먹는다</td><td>한 알씩 콕, 흙 이불 토닥 — 도도가 남은 씨 하나를 들고 와 무무를 따라 한다</td></tr><tr><td>12</td><td>아빠의 아침 빵</td><td>둑에서 일하는 아빠에게 아침 빵을 갖다주고 싶다(무무)</td><td>"안개 속 길은 내가 알아"</td><td>같은 버드나무 앞으로 자꾸 되돌아온다</td><td>콸콸 물소리를 따라가 아빠를 찾는다 — 안개가 걷히니 방앗간이 코앞</td></tr><tr><td>13</td><td>나무껍질 배</td><td>조각배를 물레방아 웅덩이까지 보내고 싶다(무무)</td><td>"배는 세게 밀어야 멀리 가지"</td><td>배가 곤두박질 뒤집힌다</td><td>살짝 놓으니 물살이 데려간다 — 도도가 새 껍질을 주워 "다음 배는 도도호야!"</td></tr><tr><td>14</td><td>물수제비</td><td>돌이 물 위를 통통 튀게 하고 싶다(무무)</td><td>"돌은 공처럼 동글동글한 게 잘 튀지"</td><td>퐁당, 물기둥에 도도가 흠뻑</td><td>납작한 돌을 낮게 스치듯 — 도도의 돌 위엔 개구리가 앉아 개굴</td></tr><tr><td>15</td><td>동글동글 알</td><td>개울가 동글동글한 것이 뭐가 되는지 보고 싶다(무무)</td><td>"물포도야, 곧 꽃이 필걸"</td><td>며칠 뒤 까만 점이 꼬물꼬물 헤엄친다</td><td>올챙이(엄마가 이름을 알려 준다) — 도도 "그러니까, 헤엄치는 꽃이라니까!"</td></tr><tr><td>16</td><td>낮잠 자리</td><td>제일 시원한 자리에서 낮잠을 자고 싶다(둘)</td><td>"제일 시원한 덴 내가 알지" 들판 → 다리 밑</td><td>해가 쨍쨍 / 물레방아 소리가 쩌렁쩌렁</td><td>버드나무 그늘에 눕는다 — 틀린 도도가 제일 먼저 쿨쿨</td></tr><tr><td>17</td><td>짚더미 미끄럼</td><td>🔴 <b>마당 짚더미 비탈</b>의 나무판을 타고 짚더미에 폭 하고 싶다(무무)</td><td>"바싹 마른 데가 제일 빨라"</td><td>끼익— 마른 나무판에 붙어서 엉금엉금</td><td>물을 뿌린 나무판으로 슝, 짚더미에 폭 — 도도도 슝, "젖은 미끄럼이 백 배 좋네!"</td></tr><tr><td>18</td><td>산딸기</td><td>산딸기를 한 바구니 따서 엄마 파이에 보태고 싶다(무무)</td><td>"굵은 건 덤불 속 깊숙이 숨어 있어"</td><td>가시덤불에 폭 끼어 깃털이 부스스</td><td>해 드는 가장자리 것만 톡톡 — 도도 깃털에서 나온 딸기가 파이 꼭대기에</td></tr><tr><td>19</td><td>별똥별</td><td>별똥별을 보고 싶다(둘)</td><td>🔴 <b>때</b> — "한밤중에만 떨어져, 그때까지 눈 감고 있어야 해"</td><td>눈 감은 사이 별똥별이 지나가 도도만 놓친다</td><td>가만히 하늘만 보다 "봤다!" — 도도 "네 별이 내 소원도 같이 들었을 거야"</td></tr><tr><td>20</td><td>연날리기</td><td>내 연을 하늘 높이 띄우고 싶다(무무)</td><td>🔴 "빨리 달릴수록 높이 뜨는 거야, 달리기 시합처럼"</td><td>연이 땅바닥에 끌려오다 버드나무 밑동에 걸린다</td><td>바람을 마주 보고 실을 살살 — 도도도 옆에서 따라 해 두 연이 나란히</td></tr><tr><td>21</td><td>키 재는 날</td><td>지난봄보다 얼마나 컸는지 재고 싶다(무무)</td><td>"그림자를 보면 돼 — 난 나무만큼 컸어"</td><td>한낮이 되자 그림자가 콩알만 해진다</td><td>문 옆 기둥에 등을 대고 아빠가 금을 긋는다 — 저녁, 도도 "저녁의 나는 도로 나무만 해!"</td></tr><tr><td>22</td><td>낙엽과 물레방아</td><td>느려진 물레방아가 다시 씽씽 도는 걸 보고 싶다(무무)</td><td>"가을 낮잠이 든 거야, 노래로 깨워야 해"</td><td>노래해도 그대로, 끼이익 하품 소리만</td><td>도랑 어귀 낙엽을 <b>두 날개로 한 아름씩</b> 건지니 콸콸·씽씽 — 도도 "내 노래가 이제야 들렸나 봐!"</td></tr><tr><td>23</td><td>눈오리</td><td>눈오리를 만들어 오래 두고 싶다(무무)</td><td>"포근한 난롯가에 둬야 안 얼어 죽지"</td><td>스르르 녹아 물웅덩이만 남는다</td><td>바깥 창턱 그늘에 두니 아침에도 그대로 — 도도 "내 눈오리는 헤엄치러 갔어"</td></tr><tr><td>24</td><td>엄마 생일 꽃</td><td>엄마 생일에 꽃을 드리고 싶다(무무)</td><td>"엄마가 제일 좋아하는 꽃은 제일 큰 해바라기야"</td><td>해바라기가 꿈쩍도 안 해 엉덩방아</td><td>엄마 앞치마의 그 꽃, 데이지 한 줌 — 도도의 해바라기는 문 옆 항아리에 "문지기 꽃"</td></tr><tr><td>25</td><td>달맞이</td><td>개울물에 뜬 보름달을 보고 싶다(둘)</td><td>"달구경 명당은 다리 위야"</td><td>커다란 나무가 달을 가리고, 다리 밑 물살엔 달이 부서진다</td><td>잔잔한 물레방아 웅덩이에 달이 두둥실 — 도도 "내가 아껴 둔 명당이라니까!"</td></tr></tbody></table>
+
+<h2 class="sec">4. 앵커 — 한 시리즈 = 한 그림체</h2>
+<p class="lead">시리즈 전권이 한 그림체입니다. 무대·계절 차이는 앵커 안 <b>무대 조항</b>이 처리합니다 — 매체·색은 그대로 두고 「두 색을 어디에 쓰고 무엇을 종이로 남기나」만 바뀝니다.
+🔴 악센트 <b>도도 리본 · 무무 목수건</b> 에만 닿습니다.</p>
+<div class="swatches">
+  <span class="sw"><i style="background:#F5EFDF"></i>종이 <code>#F5EFDF</code></span><span class="sw"><i style="background:#4E7D77"></i>색1 <code>#4E7D77</code></span><span class="sw"><i style="background:#B08A50"></i>색2 <code>#B08A50</code></span><span class="sw"><i style="background:#3D4A44"></i>겹침 <code>#3D4A44</code></span><span class="sw"><i style="background:#2D62B8"></i>악센트 <code>#2D62B8</code></span>
+</div>
+<div class="anchor-card">
+  <div class="ahead"><b>dodo-gouachemill</b><button class="copy-btn" data-copy="anchor">📋 앵커 프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre id="anchor">STYLE ANCHOR - dodo-gouachemill   (a duck family at a French watermill / gouache, the brush stops short)
+
+Style: gouache on warm flour-cream paper, exactly TWO colours, 4-6 year old picture book. Every area
+  is laid with a flat brush in visible strokes that STOP SHORT of the outline, so a rim of bare paper
+  is left around most shapes and THE PAPER DRAWS THE EDGE INSTEAD OF A LINE - there is no outline
+  anywhere in this book. The paint is opaque and matte and is never thinned to a wash. Where the two
+  colours overlap wet, a third darker colour appears - that is the only dark. Unpainted paper is not
+  white space, it is the sky, the flour and the light. SHADING IS ZERO - no modelling, no gradient,
+  no cast shadow, no highlight.
+
+RENDERING (finish hierarchy): an area is ONE sweep of ONE colour, never lighter or darker inside
+  itself; the only variation is where one brush stroke ends and the next begins. FINISHED THINGS PER
+  PAGE = 2, the duckling the page is about and the one thing that duckling touches; everything else
+  is a shape with no interior detail. Repeats are capped and the cap is the whole design: the water
+  wheel has at most 8 paddles · stepping stones at most 7 · trees at most 5 · reeds at most 7 strokes
+  · windows at most 8 · planks at most 6 · sacks at most 6 · flowers at most 9 · straw at most 11
+  strokes · steam at most 5 curls · a crowd at most 7 silhouettes with 0 faces and 0 hands · stars at
+  most 14 bare paper points. Nothing in a repeat is a mirrored copy of its neighbour.
+  DENSITY RATION = none.
+  🔴 CHALK - gouache can lay the paper colour back ON TOP of paint, and that is the one thing this
+  medium can do that no other can. CHALK IS NOT A FIFTH COLOUR, IT IS PAPER IN A TUBE. It is used
+  ONLY for what is thrown UP off a coloured field: splash, spray, flour dust, falling snow, mist over
+  water. At most 9 separate CHALK marks per page, each one single opaque stroke with a hard edge. It
+  is never a highlight on a form, never an outline, never blended, and never laid on bare paper.
+
+PALETTE: PAPER FLOUR CREAM #F5EFDF, sky, flour, mist, light, everything not painted · COLOUR1
+  MILLPOND #4E7D77, the stream, the pond, reeds, willow, shutters, doors, aprons, anything painted -
+  the cool one · COLOUR2 WHEAT #B08A50, the wheel, timber, planks, sacks, straw, the field, the
+  ground, roofs, bills and webbed feet - the warm one · OVERLAP SILT #3D4A44, duck backs and heads,
+  iron, the inside of the mill, night sky, anything under water - overlap only, never a third tube ·
+  ACCENT RIBBON BLUE #2D62B8, 🔴 painted last, touching nothing but Dodo's head ribbon and Mumu's
+  neckerchief. 🔴 THE WATER IS NEVER BLUE - it is MILLPOND. No sky blue, no purple, no pink, no
+  green other than MILLPOND, and no white pigment that is not CHALK.
+
+STAGE CLAUSES (the stage changes what the two colours do, never which two they are):
+  MILL - each surface is ONE repeated stroke: floor a plank stroke, wall a short dash, sacking a
+    zigzag. The stroke is the SAME shape every time and may run off an edge but is never redrawn.
+    Beams, sacks and the hopper are WHEAT; doors, shutters and aprons are MILLPOND. 🔴 THE OVEN
+    MOUTH AND THE WINDOW LIGHT ARE BARE PAPER and are the brightest thing on the page. Flour on the
+    air is CHALK; flour settled on a surface is bare paper left unpainted. A thing being looked for
+    is painted with its own clear silhouette while everything it hides among is the repeated stroke.
+  STREAM - water is ONE horizontal sweep of MILLPOND, 0 ripples, 0 glints, 0 foam lines. A thing IN
+    the water is OVERLAP lying inside that sweep, hard edge, never distorted. A thing ON the water
+    sits on top with its whole shape showing. 🔴 NOTHING IS EVER MIRRORED IN THE WATER - there are
+    no reflections in this book. Stones, logs and banks are WHEAT with the stroke running ALONG the
+    thing, not across it. The path is bare PAPER.
+  YARD - the ground is ONE sweep of WHEAT; the mill house, the wheel, the cart and the straw stack
+    are WHEAT too, and only shutters, door and washing line are MILLPOND. Depth between things is
+    made by putting them CLOSER TOGETHER, never darker.
+  FIELD - the field is ONE sweep of WHEAT running to a flat horizon, 0 furrows picked out. Willow,
+    hedge and berry bushes are MILLPOND, at most 5 of them. Sunflowers are WHEAT discs on MILLPOND
+    stems, at most 9.
+  🔴 MIST (volume 12) - everything but the nearest thing is bare PAPER. Things enter the page by
+    appearing at FULL strength, never by fading, and there is no pale version of any colour.
+  🔴 NIGHT (volumes 09, 19, 25) - the sky is OVERLAP laid as one flat sweep. Stars, fireflies, the
+    moon and the moon lying on the pond are BARE PAPER points, each cut on its own, at most 14. A
+    lantern is bare paper and it carries the whole page.
+  🔴 SNOW (volumes 08, 23) - the yard and the field are not painted at all, bare PAPER from edge to
+    edge, and the two colours paint ONLY what stands on it. A mound of snow gets at most 3 WHEAT
+    strokes along its lower lip and nothing else. Falling snow is CHALK, but only where it crosses a
+    painted area. Icicles are bare paper with one MILLPOND stroke down one side.
+
+CHARACTER DESIGN LANGUAGE: ducks are built from the same flat sweeps as the world - two or three
+  shapes with limbs laid over. GRADE: bipedal, standing upright. 🔴 THEY HAVE WINGS, NOT ARMS - no
+  hands, no fingers, no sleeves, no cuffs. A duck holds a thing by pinching it between the edge of
+  one wing and its body, or carries it in both wings against its chest. 🔴 FEET ARE WEBBED DUCK
+  FEET, always bare, never in shoes. 🔴 THE ONLY CLOTH IN THIS WORLD IS FOUR THINGS: a head ribbon,
+  a neckerchief, an apron and a straw hat. Nobody wears anything else, ever. Backs and heads are
+  OVERLAP; chests and bellies are WHEAT; bills and webbed feet are WHEAT. Eyes are two solid dark
+  dots set wide apart; the mouth is the line where the bill closes; above each eye ONE short eyebrow
+  stroke. 🔴 FEELING IS CARRIED BY THE BILL ANGLE AND THE TWO EYEBROW STROKES - the eyes only ever
+  open or close and their size NEVER changes. The face is never crossed by an object. Whole-body
+  posture carries the rest.
+  THE FOUR, separable at thumbnail size: MUMU the younger brother, the smallest standing figure, a
+  BLUE neckerchief, feet always planted flat · DODO the elder sister, half a head taller than Mumu
+  and always the one in motion, a BLUE head ribbon · MOMMY a full head taller than Dodo, a cream
+  apron and flour dusted on her wing feathers, no blue · DADDY the tallest and widest, a straw hat,
+  no blue. Adults never carry blue and never wear the other two children's cloth.
+  🔴 DODO IS NEVER DRAWN MEAN. She is wrong on 25 pages out of 25 and she must be lovable on every
+  one of them: when she is wrong her WHOLE BODY is the joke - feet up, wings flung wide, bill open,
+  eyes shut in her own laugh. Never a sneer, never a narrowed eye, never crossed wings, never a wing
+  pointed at Mumu, never standing over him. And 🔴 MUMU NEVER SMIRKS AT HER - when she fails he is
+  looking at the task, not at her.
+
+CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere - sacks, doors and the
+  height post in volume 21 stay blank or carry a single scratched line.
+
+NOT: no airbrush, gradient, glow or 3D render / no watercolour wash, bleed or transparency / no soft
+  or feathered edge / no outline of any kind / no ripple, glint or sparkle on water / no reflection
+  or mirrored image in water / no brush stroke that reaches every outline / no white used as a
+  highlight on a form / no hands, fingers or sleeves on a duck / no lettering.</pre></details>
+  <div data-paste="anchor"></div>
+</div>
+
+<h2 class="sec">5. 캐스트 시트</h2>
+<p class="lead">한 장에 전원을 그립니다. 🔴 <b>시트가 최종 그림을 지배</b>하므로 시트를 먼저 확정하고 쪽 삽화로 갑니다.</p>
+<div class="anchor-card">
+  <div class="ahead"><b>전원 시트</b><button class="copy-btn" data-copy="sheet">📋 시트 프롬프트 복사</button></div>
+  <details open><summary>프롬프트 보기</summary><pre id="sheet">CHARACTER SHEET - dodo mill   (four characters, one sheet)
+
+STYLE ANCHOR - dodo-gouachemill   (a duck family at a French watermill / gouache, the brush stops short)
+
+Style: gouache on warm flour-cream paper, exactly TWO colours, 4-6 year old picture book. Every area
+  is laid with a flat brush in visible strokes that STOP SHORT of the outline, so a rim of bare paper
+  is left around most shapes and THE PAPER DRAWS THE EDGE INSTEAD OF A LINE - there is no outline
+  anywhere in this book. The paint is opaque and matte and is never thinned to a wash. Where the two
+  colours overlap wet, a third darker colour appears - that is the only dark. Unpainted paper is not
+  white space, it is the sky, the flour and the light. SHADING IS ZERO - no modelling, no gradient,
+  no cast shadow, no highlight.
+
+RENDERING (finish hierarchy): an area is ONE sweep of ONE colour, never lighter or darker inside
+  itself; the only variation is where one brush stroke ends and the next begins. FINISHED THINGS PER
+  PAGE = 2, the duckling the page is about and the one thing that duckling touches; everything else
+  is a shape with no interior detail. Repeats are capped and the cap is the whole design: the water
+  wheel has at most 8 paddles · stepping stones at most 7 · trees at most 5 · reeds at most 7 strokes
+  · windows at most 8 · planks at most 6 · sacks at most 6 · flowers at most 9 · straw at most 11
+  strokes · steam at most 5 curls · a crowd at most 7 silhouettes with 0 faces and 0 hands · stars at
+  most 14 bare paper points. Nothing in a repeat is a mirrored copy of its neighbour.
+  DENSITY RATION = none.
+  🔴 CHALK - gouache can lay the paper colour back ON TOP of paint, and that is the one thing this
+  medium can do that no other can. CHALK IS NOT A FIFTH COLOUR, IT IS PAPER IN A TUBE. It is used
+  ONLY for what is thrown UP off a coloured field: splash, spray, flour dust, falling snow, mist over
+  water. At most 9 separate CHALK marks per page, each one single opaque stroke with a hard edge. It
+  is never a highlight on a form, never an outline, never blended, and never laid on bare paper.
+
+PALETTE: PAPER FLOUR CREAM #F5EFDF, sky, flour, mist, light, everything not painted · COLOUR1
+  MILLPOND #4E7D77, the stream, the pond, reeds, willow, shutters, doors, aprons, anything painted -
+  the cool one · COLOUR2 WHEAT #B08A50, the wheel, timber, planks, sacks, straw, the field, the
+  ground, roofs, bills and webbed feet - the warm one · OVERLAP SILT #3D4A44, duck backs and heads,
+  iron, the inside of the mill, night sky, anything under water - overlap only, never a third tube ·
+  ACCENT RIBBON BLUE #2D62B8, 🔴 painted last, touching nothing but Dodo's head ribbon and Mumu's
+  neckerchief. 🔴 THE WATER IS NEVER BLUE - it is MILLPOND. No sky blue, no purple, no pink, no
+  green other than MILLPOND, and no white pigment that is not CHALK.
+
+STAGE CLAUSES (the stage changes what the two colours do, never which two they are):
+  MILL - each surface is ONE repeated stroke: floor a plank stroke, wall a short dash, sacking a
+    zigzag. The stroke is the SAME shape every time and may run off an edge but is never redrawn.
+    Beams, sacks and the hopper are WHEAT; doors, shutters and aprons are MILLPOND. 🔴 THE OVEN
+    MOUTH AND THE WINDOW LIGHT ARE BARE PAPER and are the brightest thing on the page. Flour on the
+    air is CHALK; flour settled on a surface is bare paper left unpainted. A thing being looked for
+    is painted with its own clear silhouette while everything it hides among is the repeated stroke.
+  STREAM - water is ONE horizontal sweep of MILLPOND, 0 ripples, 0 glints, 0 foam lines. A thing IN
+    the water is OVERLAP lying inside that sweep, hard edge, never distorted. A thing ON the water
+    sits on top with its whole shape showing. 🔴 NOTHING IS EVER MIRRORED IN THE WATER - there are
+    no reflections in this book. Stones, logs and banks are WHEAT with the stroke running ALONG the
+    thing, not across it. The path is bare PAPER.
+  YARD - the ground is ONE sweep of WHEAT; the mill house, the wheel, the cart and the straw stack
+    are WHEAT too, and only shutters, door and washing line are MILLPOND. Depth between things is
+    made by putting them CLOSER TOGETHER, never darker.
+  FIELD - the field is ONE sweep of WHEAT running to a flat horizon, 0 furrows picked out. Willow,
+    hedge and berry bushes are MILLPOND, at most 5 of them. Sunflowers are WHEAT discs on MILLPOND
+    stems, at most 9.
+  🔴 MIST (volume 12) - everything but the nearest thing is bare PAPER. Things enter the page by
+    appearing at FULL strength, never by fading, and there is no pale version of any colour.
+  🔴 NIGHT (volumes 09, 19, 25) - the sky is OVERLAP laid as one flat sweep. Stars, fireflies, the
+    moon and the moon lying on the pond are BARE PAPER points, each cut on its own, at most 14. A
+    lantern is bare paper and it carries the whole page.
+  🔴 SNOW (volumes 08, 23) - the yard and the field are not painted at all, bare PAPER from edge to
+    edge, and the two colours paint ONLY what stands on it. A mound of snow gets at most 3 WHEAT
+    strokes along its lower lip and nothing else. Falling snow is CHALK, but only where it crosses a
+    painted area. Icicles are bare paper with one MILLPOND stroke down one side.
+
+CHARACTER DESIGN LANGUAGE: ducks are built from the same flat sweeps as the world - two or three
+  shapes with limbs laid over. GRADE: bipedal, standing upright. 🔴 THEY HAVE WINGS, NOT ARMS - no
+  hands, no fingers, no sleeves, no cuffs. A duck holds a thing by pinching it between the edge of
+  one wing and its body, or carries it in both wings against its chest. 🔴 FEET ARE WEBBED DUCK
+  FEET, always bare, never in shoes. 🔴 THE ONLY CLOTH IN THIS WORLD IS FOUR THINGS: a head ribbon,
+  a neckerchief, an apron and a straw hat. Nobody wears anything else, ever. Backs and heads are
+  OVERLAP; chests and bellies are WHEAT; bills and webbed feet are WHEAT. Eyes are two solid dark
+  dots set wide apart; the mouth is the line where the bill closes; above each eye ONE short eyebrow
+  stroke. 🔴 FEELING IS CARRIED BY THE BILL ANGLE AND THE TWO EYEBROW STROKES - the eyes only ever
+  open or close and their size NEVER changes. The face is never crossed by an object. Whole-body
+  posture carries the rest.
+  THE FOUR, separable at thumbnail size: MUMU the younger brother, the smallest standing figure, a
+  BLUE neckerchief, feet always planted flat · DODO the elder sister, half a head taller than Mumu
+  and always the one in motion, a BLUE head ribbon · MOMMY a full head taller than Dodo, a cream
+  apron and flour dusted on her wing feathers, no blue · DADDY the tallest and widest, a straw hat,
+  no blue. Adults never carry blue and never wear the other two children's cloth.
+  🔴 DODO IS NEVER DRAWN MEAN. She is wrong on 25 pages out of 25 and she must be lovable on every
+  one of them: when she is wrong her WHOLE BODY is the joke - feet up, wings flung wide, bill open,
+  eyes shut in her own laugh. Never a sneer, never a narrowed eye, never crossed wings, never a wing
+  pointed at Mumu, never standing over him. And 🔴 MUMU NEVER SMIRKS AT HER - when she fails he is
+  looking at the task, not at her.
+
+CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere - sacks, doors and the
+  height post in volume 21 stay blank or carry a single scratched line.
+
+NOT: no airbrush, gradient, glow or 3D render / no watercolour wash, bleed or transparency / no soft
+  or feathered edge / no outline of any kind / no ripple, glint or sparkle on water / no reflection
+  or mirrored image in water / no brush stroke that reaches every outline / no white used as a
+  highlight on a form / no hands, fingers or sleeves on a duck / no lettering.
+
+SHEET LAYOUT: one flour-cream sheet, four ducks standing in a row on a single ground line, all at
+  their true relative heights - Daddy the tallest and widest, Mommy a full head over Dodo, Dodo half
+  a head over Mumu, Mumu the smallest. Each character is drawn THREE times: front standing,
+  three-quarter walking, and back. 🔴 In every one of the twelve drawings the wings are visible and
+  empty - no character holds anything, so that the wing shape is fixed before any prop exists.
+  Nothing else on the sheet - no props, no scenery, no ground beyond the one line.
+🔴 No lettering, numerals, labels or name tags anywhere on the sheet.</pre></details>
+  <div data-paste="cast-sheet"></div>
+</div>
+
+</div>
+<script src="/dodo-core.js"></script>
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.getAttribute('data-copy'));
+      if (el) window.SERIES.copyText(el.textContent, b);
+    });
+  });
+  document.querySelectorAll('[data-sheet]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      window.SERIES.copyText(window.SERIES.sheetPrompt(b.getAttribute('data-sheet')), b);
+    });
+  });
+  window.SERIES.mountPasteSlots('dodo-plan');
+</script>
+</body>
+</html>

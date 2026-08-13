@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>노노네 겨울 골목 — 조금밖에 안 넣었어</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#2F7F4E; --slope:#333A3E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">노노네 겨울 골목 · 13</div>
+  <h1>조금밖에 안 넣었어</h1>
+  <div class="sub"><b>주인공</b> 노노(하다 만다) · <b>원함</b> 모이통을 가득 채우고 싶다 · <b>탈</b> 한 줌만 넣고 노래하는 사이 통이 텅 빈다 · <b>착지</b> 가득 채우니 가지가 새로 찬다</div>
+  <div class="by">글 <b>배도담</b> · 그림 <b>노아라</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">겨울에는 새들이 먹을 게 없어요. 할아버지가 노노에게 모이통을 맡겼어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 나무 아래.<br/><b>장소·시간</b> 가게 옆 나무 아래, 눈 오는 낮.<br/><b>인물</b> Grandpa Badger가 한 손으로 모이 자루를 세워 놓고 다른 손으로 나뭇가지에 매단 모이통을 가리킨다 — 앞치마. Nono sparrow가 두 손을 내밀어 받는 자세로 올려다본다 — 초록 목도리.<br/><b>배경·소품</b> 가지에 매달린 나무 모이통 하나, 발치의 모이 자루, 가지에 새가 하나도 없다.<br/><b>톤</b> 통 하나와 자루 하나만 놓여 맡은 일이 단출하게 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">노노는 모이통을 가득 채우고 싶어요. 그래야 새들이 많이 와요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 통을 아래에서.<br/><b>장소·시간</b> 같은 나무 아래.<br/><b>인물</b> Nono sparrow가 두 손을 모으고 고개를 젖혀 빈 통을 올려다본다 — 부리가 살짝 벌어졌다, 초록 목도리.<br/><b>배경·소품</b> 텅 빈 통 안쪽이 아래에서 보인다, 위쪽 가지에 눈만 얹혔다.<br/><b>톤</b> 올려다본 각도라 빈 통 바닥이 화면 한가운데에 온다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">노노가 자루에서 모이를 한 줌 퍼 넣었어요. 통 바닥만 겨우 덮였어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 통 안을 내려다본다.<br/><b>장소·시간</b> 모이통 앞.<br/><b>인물</b> Nono sparrow가 한 손 가득 퍼 온 모이를 통에 붓는다 — 손가락 사이로 알갱이가 떨어지고 다른 손은 통 가장자리를 잡았다, 초록 목도리.<br/><b>배경·소품</b> 통 바닥만 얇게 덮였고 옆면이 훤히 드러났다, 아래 자루는 아직 불룩하다.<br/><b>톤</b> 통 깊이에 견주어 덮인 두께가 얇아 남은 몫이 눈에 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">골목에서 노랫소리가 들려왔어요. 노노가 모이 자루에 폴짝 앉아 따라 불렀어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 자루 위.<br/><b>장소·시간</b> 나무 아래 모이 자루.<br/><b>인물</b> Nono sparrow가 모이 자루 위에 폴짝 올라앉아 고개를 젖히고 부리를 크게 벌려 노래한다 — 두 발이 자루를 밟고 발가락이 벌어졌다, 초록 목도리가 흔들린다.<br/><b>배경·소품</b> 옆에 매달린 통, 골목 저쪽에서 오는 노랫소리 쪽으로 귀를 기울인 자세.<br/><b>톤</b> 젖힌 목과 벌어진 부리가 화면 위로 열려 소리가 나가는 방향이 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">노노가 노래를 부르는 동안 참새들이 통을 싹 쪼아 먹었어요. 모이통이 벌써 텅 비었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 나무와 통과 자루가 한 화면.<br/><b>장소·시간</b> 같은 나무 아래.<br/><b>인물</b> Nono sparrow가 자루 위에서 부리를 벌린 채 노래하고, 그동안 참새 대여섯 마리가 통에 앉아 고개를 박고 쪼아 먹는다 — 노노는 통 쪽을 안 본다, 초록 목도리.<br/><b>배경·소품</b> 통 바닥이 드러나고 알갱이가 몇 개만 남았다.<br/><b>톤</b> 한쪽은 위를 보고 한쪽은 아래를 파먹어 두 무리의 방향이 정반대다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">참새 두 마리가 빈 통을 기웃거려요. 나뭇가지에는 아무도 안 앉아 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 통 위에서.<br/><b>장소·시간</b> 모이통, 낮.<br/><b>인물</b> 없음.<br/><b>배경·소품</b> 빈 통 가장자리에 참새 두 마리가 고개를 기웃거리고 통 안은 바닥까지 비었다, 위쪽 나뭇가지에는 새가 한 마리도 없다.<br/><b>톤</b> 넓은 가지에 앉은 것이 없어 위쪽이 통째로 비어 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">눈이 또 내려요. 빈 모이통에 눈만 소복소복 쌓여요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 통과 노노.<br/><b>장소·시간</b> 나무 아래, 눈이 내리는 낮.<br/><b>인물</b> Nono sparrow가 통 아래에 서서 어깨를 늘어뜨리고 올려다본다 — 두 손이 몸 옆에 축 늘어졌다, 초록 목도리에 눈이 얹혔다.<br/><b>배경·소품</b> 통 안에 눈이 소복하게 쌓여 알갱이 대신 흰 것만 담겼다, 새는 하나도 없다.<br/><b>톤</b> 담긴 것이 있기는 한데 먹을 것이 아니어서 채움과 빔이 뒤집힌다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">오소리 할아버지가 말했어요. "나도 한 줌만 넣어 두고 잔 적이 있어. 아침에 새가 한 마리도 안 왔지."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 자루 옆에 쪼그린 어른.<br/><b>장소·시간</b> 나무 아래.<br/><b>인물</b> Grandpa Badger가 모이 자루 옆에 쪼그려 앉아 한 손을 자루에 얹고 Nono에게 말한다 — 눈길이 통 쪽을 한 번 지나간다, 앞치마. Nono sparrow가 옆에 서서 듣는다 — 초록 목도리.<br/><b>배경·소품</b> 자루, 위쪽 빈 통.<br/><b>톤</b> 어른이 아이 눈높이까지 내려앉아 두 얼굴이 같은 줄에 온다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">노노가 모이를 퍼 넣고 또 퍼 넣었어요. 통이 넘칠 만큼 가득 찼어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 측면. 붓는 손.<br/><b>장소·시간</b> 모이통 앞.<br/><b>인물</b> Nono sparrow가 두 손으로 모이를 그러안아 통에 붓는다 — 팔이 통 위로 높이 올라가고 부리를 앙다물었다, 초록 목도리.<br/><b>배경·소품</b> 통이 가장자리까지 차서 알갱이가 넘쳐 밖으로 흘러내린다, 아래 자루는 홀쭉해졌다.<br/><b>톤</b> 넘쳐 흐르는 선이 통 밖으로 나가 가득 찬 정도가 한눈에 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">새들이 푸드덕푸드덕 날아왔어요. 나뭇가지가 새로 가득해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 나무 전체를 아래에서.<br/><b>장소·시간</b> 나무 아래, 눈 그친 낮.<br/><b>인물</b> Nono sparrow가 아래에서 두 손을 번쩍 들고 부리를 벌려 웃는다 — 초록 목도리.<br/><b>배경·소품</b> 나뭇가지마다 참새가 빼곡히 앉았고 통 둘레에도 새들이 붙어 있다, 통은 아직 넉넉하다.<br/><b>톤</b> 아까 텅 비었던 가지 자리가 다 채워져 위쪽이 화면에서 제일 붐빈다.</pre></details>
+</div>
+
+</div>
+<script src="/nono-core.js"></script>
+</body>
+</html>

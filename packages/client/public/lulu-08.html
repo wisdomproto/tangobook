@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>룰루네 올리브 언덕 — 샘물 길어 오기</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#1F7FA8; --slope:#3E3A2E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">룰루네 올리브 언덕 · 08</div>
+  <h1>샘물 길어 오기</h1>
+  <div class="sub"><b>원함</b> 저녁 국 끓일 물을 길어 오고 싶다 · <b>틀리는 어른</b> 베포 큰아버지 · <b>어긋남</b> 옛날 큰 통이 새서 언덕 위에선 한 잔뿐 · <b>착지</b> 작은 병이 줄줄이 — 냄비에 물이 콸콸</div>
+  <div class="by">글 <b>문나래</b> · 그림 <b>유가온</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">저녁에 국을 끓이려면 샘물이 필요해요. 샘은 언덕 아래에 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 부엌 창 너머로 언덕 아래.<br/><b>장소·시간</b> 농가 부엌, 늦은 오후.<br/><b>인물</b> Mama donkey가 화덕 옆에서 빈 냄비 속을 들여다본다 — 앞치마, 한 앞발로 냄비 손잡이를 잡았다. Lulu donkey는 창턱에 두 앞발을 얹고 언덕 아래를 본다, 파란 방울 목끈.<br/><b>배경·소품</b> 빈 냄비, 창밖 언덕 아래 샘과 돌 물받이.<br/><b>톤</b> 부엌은 어둑하고 창 네모만 환해서 눈이 밖으로 간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">룰루가 작은 물병을 챙겼어요. "물은 내가 길어 올래요." 사촌들도 병을 하나씩 들고 나섰어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 병들과 손을 위에서.<br/><b>장소·시간</b> 부엌 문간.<br/><b>인물</b> Lulu donkey가 작은 물병 하나를 두 앞발로 안는다 — 턱을 당기고 입이 벌어져 말하는 중, 파란 방울 목끈. cousins donkeys 걸어 다니는 셋이 옆에서 각자 병을 하나씩 집어 든다. 아기 사촌은 Mama donkey 품에 있다.<br/><b>배경·소품</b> 🔴 물병 네 개(룰루 1 + 사촌 3).<br/><b>톤</b> 작은 병 넷이 나란히 놓여 개수가 한눈에 세어진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">베포 큰아버지가 헛간에서 커다란 나무 물통을 꺼냈어요. "우리 땐 이 통 하나면 끝이었지."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 헛간 문에서 나오는 통.<br/><b>장소·시간</b> 헛간 문 앞.<br/><b>인물</b> Beppo donkey가 커다란 나무 물통을 두 앞발로 안고 헛간에서 나온다 — 상체가 뒤로 젖혀지고 입이 크게 벌어졌다. Lulu donkey는 병을 안은 채 그 통을 올려다본다, 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 나무 물통 하나 — 룰루 키의 절반쯤 되게 크다. 통 아래쪽 나무쪽 사이에 가는 틈.<br/><b>톤</b> 큰 통과 작은 병이 같은 깊이에 놓여 크기가 나란히 비교된다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">샘가에서 큰아버지는 통 가득, 룰루와 사촌들은 병에 조르르 물을 받았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 샘가 전체.<br/><b>장소·시간</b> 언덕 아래 샘, 오후.<br/><b>인물</b> Beppo donkey가 화면 왼쪽에서 큰 통을 물줄기 아래 대고 있고, Lulu donkey와 cousins donkeys 셋이 오른쪽에서 각자 병을 물받이에 대고 받는다 — 넷 다 쪼그려 앉았다. Lulu donkey는 파란 방울 목끈. 아기 사촌은 그늘의 담요에 누워 있다.<br/><b>배경·소품</b> 돌 물받이, 가는 물줄기, 통 1 + 병 4.<br/><b>톤</b> 물이 떨어지는 자리마다 닦아 낸 흰 자국이 생긴다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">오르막길에서 통 밑으로 물이 똑, 똑 새요. 길에 물 자국이 길게 남았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면. 오르막을 옆에서.<br/><b>장소·시간</b> 언덕 오르막길.<br/><b>인물</b> Beppo donkey가 앞에서 큰 통을 안고 오른쪽 위로 오른다 — 무릎이 굽고 목이 앞으로 뻗었다. Lulu donkey와 cousins donkeys 셋이 병을 안고 뒤따른다, Lulu donkey는 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 통 밑에서 물이 방울로 떨어져 흙길에 젖은 자국이 뒤로 길게 이어진다.<br/><b>톤</b> 젖은 자국이 지나온 길을 화면 왼쪽으로 길게 끈다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마당에 다 올라왔어요. 통 속을 보니 물이 바닥에 조금뿐이에요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 통 속을 내려다본다.<br/><b>장소·시간</b> 농가 마당.<br/><b>인물</b> Beppo donkey와 Lulu donkey의 얼굴이 프레임 위쪽 양옆에서 통 안을 들여다본다 — 둘 다 눈이 커졌다. Lulu donkey는 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 큰 통 바닥에 물이 얕게 한 겹만 남았다.<br/><b>톤</b> 넓은 통 안이 대부분 마른 나무면이라 텅 비어 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"허어, 옛날엔 안 샜는데." 큰아버지가 통을 탈탈 털었어요. 딱 한 잔 나왔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 뒤집는 통.<br/><b>장소·시간</b> 마당.<br/><b>인물</b> Beppo donkey가 큰 통을 옆으로 기울여 두 앞발로 탈탈 턴다 — 어깨가 위아래로 흔들리고 입이 오므라들었다. Lulu donkey가 아래에서 잔 하나를 받쳐 든다, 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 통 주둥이에서 물이 한 잔 분량만 흘러 잔을 채운다.<br/><b>톤</b> 큰 통과 작은 잔이 한 줄에 놓여 양이 한눈에 읽힌다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">룰루가 병 마개를 뽕 열었어요. 물이 가득 그대로예요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 병 주둥이와 마개.<br/><b>장소·시간</b> 부엌 문 앞.<br/><b>인물</b> Lulu donkey의 두 앞발이 병 마개를 뽑아 올린다 — 얼굴이 프레임 위쪽에서 병 안을 들여다보고 눈이 반짝인다. 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 병 안에 물이 목까지 가득 차 있다.<br/><b>톤</b> 좁은 병목까지 찬 물이 앞 쪽의 빈 통과 정반대다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">사촌들이 병을 하나씩 부엌에 내려놓았어요. 물병이 줄줄이 섰어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 부엌 바닥을 위에서.<br/><b>장소·시간</b> 부엌 안.<br/><b>인물</b> cousins donkeys 걸어 다니는 셋이 차례로 허리를 굽혀 병을 바닥에 내려놓는다. Lulu donkey는 제 병을 맨 앞에 세워 둔다, 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 부엌 바닥에 물병 네 개가 한 줄로 섰다.<br/><b>톤</b> 같은 크기 넷이 줄지어 화면에 리듬을 만든다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마 냄비에 물이 콸콸 들어가요. 큰아버지는 그 한 잔을 벌컥 마셨어요. "물맛은 옛날 그대로구나!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 화덕 앞과 문간이 한 프레임.<br/><b>장소·시간</b> 부엌, 저녁 무렵.<br/><b>인물</b> Mama donkey가 병을 기울여 냄비에 물을 붓는다 — 앞치마, 두 앞발로 병을 받쳤다. Lulu donkey가 옆에서 다음 병을 건넨다, 파란 방울 목끈. 화면 왼쪽에서 Beppo donkey가 잔을 높이 들어 고개를 젖히고 벌컥 마신다 — 목울대가 움직인다.<br/><b>배경·소품</b> 냄비, 병 네 개 중 둘은 이미 비었다, 잔 하나.<br/><b>톤</b> 오른쪽은 물이 콸콸 들어가고 왼쪽은 한 잔이 비워진다.</pre></details>
+</div>
+
+</div>
+<script src="/lulu-core.js"></script>
+</body>
+</html>

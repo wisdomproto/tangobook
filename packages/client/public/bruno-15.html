@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>브루노 할아버지네 숲 — 내 방식대로 쌓을래</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#1C4E8A; --slope:#2E3A2A; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">브루노 할아버지네 숲 · 15</div>
+  <h1>내 방식대로 쌓을래</h1>
+  <div class="sub"><b>주인공</b> 닐스(고집) · <b>원함</b> 겨울 장작 벽 한쪽을 쌓고 싶다 · <b>탈</b> 세워 쌓은 탑이 무너진다 · <b>착지</b> 눕혀 나란히 쌓아 벽을 채운다</div>
+  <div class="by">글 <b>배도담</b> · 그림 <b>차온유</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">헛간 앞에 장작이 수북해요. 할아버지가 장작을 벽처럼 쌓고 있어요. 겨울 내내 땔 장작이에요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 헛간 벽이 화면 뒤를 가로로 채운다.<br/><b>장소·시간</b> 헛간 앞마당, 가을 낮.<br/><b>인물</b> Bruno grandfather bear가 장작 두 개를 두 앞발에 들고 벽 앞에 눕혀 놓는 중이다 — 등이 굽고 초록 뜨개 조끼가 당겨졌다. Nils bear cub이 옆에서 그 손을 본다 — 파란 장화.<br/><b>배경·소품</b> 마당에 수북이 쌓인 통나무 토막, 벽을 따라 무릎 높이까지 눕혀 쌓은 장작 벽, 노랗게 물든 나무.<br/><b>톤</b> 쌓인 쪽은 결이 가지런하고 쌓을 쪽은 어지럽다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">닐스는 벽 한쪽을 제 손으로 쌓고 싶어요. "이쪽은 내 방식대로 쌓을래요!" 닐스가 팔을 걷어붙였어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글.<br/><b>장소·시간</b> 같은 마당.<br/><b>인물</b> Nils bear cub이 한 앞발로 반대쪽 소매를 걷어 올리며 입을 크게 벌려 말한다 — 턱이 들리고 한 발이 앞으로 나갔다. 파란 장화.<br/><b>배경·소품</b> 발 앞에 장작 토막 몇 개, 뒤로 빈 벽 한쪽.<br/><b>톤</b> 아직 아무것도 안 쌓인 벽 한쪽이 화면 옆에 비어 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지는 장작을 눕혀서 나란히 놓아요. 닐스가 장작을 하나 세워 놓고 할아버지를 흘깃 봤어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면. 화면 가운데를 벽이 가른다.<br/><b>장소·시간</b> 헛간 벽 앞.<br/><b>인물</b> 화면 왼쪽에서 Bruno grandfather bear가 장작을 눕혀 나란히 놓고, 화면 오른쪽에서 Nils bear cub이 장작 하나를 세로로 곧추세워 놓고 곁눈으로 할아버지 쪽을 흘깃 본다 — 입은 다물었고 파란 장화.<br/><b>배경·소품</b> 왼쪽에 나란히 누운 장작들, 오른쪽에 곧추선 장작 하나.<br/><b>톤</b> 한 벽에 두 방향이 나란히 놓인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">세운 장작이 하나, 둘, 셋. 뾰족뾰족한 탑이 됐어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글.<br/><b>장소·시간</b> 닐스 쪽 벽 앞.<br/><b>인물</b> Nils bear cub이 세 번째 장작을 세워 얹고 두 앞발을 뗀다 — 손을 든 채 숨을 참는 얼굴이다. 파란 장화.<br/><b>배경·소품</b> 세워 놓은 장작 셋이 위쪽이 벌어진 뾰족한 탑을 이룬다.<br/><b>톤</b> 위로 갈수록 벌어져 꼭대기가 불안하다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지 쪽 벽은 차곡차곡 넓어져요. 닐스 탑은 삐뚤빼뚤 높아져요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 두 자리를 한 화면에.<br/><b>장소·시간</b> 헛간 벽 앞.<br/><b>인물</b> Bruno grandfather bear가 왼쪽에서 계속 눕혀 쌓고, Nils bear cub이 오른쪽에서 발끝을 세워 위에 하나를 더 얹는다 — 파란 장화가 들렸다.<br/><b>배경·소품</b> 왼쪽 벽은 옆으로 넓게 퍼졌고 오른쪽 탑은 삐뚤빼뚤 위로만 솟았다. 두 더미가 같은 깊이에 나란히 있다.<br/><b>톤</b> 하나는 옆으로, 하나는 위로 자란다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">탑이 기우뚱 흔들렸어요. 닐스가 얼른 뒤로 물러났어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글.<br/><b>장소·시간</b> 닐스 쪽 벽 앞.<br/><b>인물</b> Nils bear cub이 두 앞발을 앞으로 뻗은 채 뒤로 한 걸음 물러난다 — 파란 장화가 뒤로 미끄러지고 눈이 커졌다.<br/><b>배경·소품</b> 탑이 한쪽으로 기울어 위쪽 장작 사이가 벌어졌다.<br/><b>톤</b> 몸이 먼저 뒤로 빠진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">와르르르! 장작이 몽땅 무너졌어요. 닐스 자리는 도로 텅 비었어요. 할아버지 쪽 벽은 벌써 어깨까지 왔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨.<br/><b>장소·시간</b> 헛간 벽 앞.<br/><b>인물</b> Nils bear cub이 몇 걸음 떨어진 자리에서 두 앞발로 얼굴 옆을 감싸고 본다 — 어깨가 올라갔다, 파란 장화. Bruno grandfather bear는 왼쪽 벽 앞에서 손을 멈추고 돌아본다.<br/><b>배경·소품</b> 오른쪽 자리에 장작이 사방으로 굴러 흩어졌고 벽 앞이 텅 비었다. 왼쪽 벽은 할아버지 어깨 높이까지 올라와 있다.<br/><b>톤</b> 한쪽은 어깨까지 찼고 한쪽은 바닥만 남았다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지가 장작 두 개를 눕혀 나란히 놓았어요. 그 위에 또 두 개를 가로로 얹었어요. 손바닥으로 툭툭 눌러 보였어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 손과 장작.<br/><b>장소·시간</b> 벽 앞 바닥.<br/><b>인물</b> Bruno grandfather bear의 두 앞발이 장작 두 개를 눕혀 나란히 놓고, 그 위에 두 개를 가로로 얹은 뒤 손바닥으로 툭툭 눌러 보인다 — 입은 다물었고 시선은 닐스 쪽을 향한다. Nils bear cub의 얼굴이 화면 가장자리에서 그 손을 본다.<br/><b>배경·소품</b> 아래위로 엇갈려 놓인 장작 넷.<br/><b>톤</b> 눌러도 아무 데도 안 움직인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">닐스도 장작을 눕혀 놓았어요. 하나, 또 하나, 나란히. 꾹 눌러도 끄떡없어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 측면.<br/><b>장소·시간</b> 닐스 쪽 벽 앞.<br/><b>인물</b> Nils bear cub이 장작을 눕혀 놓고 두 앞발로 위를 꾹 눌러 본다 — 팔에 힘이 들어가고 입이 앙다물렸다. 파란 장화.<br/><b>배경·소품</b> 나란히 누운 장작이 무릎 높이까지 쌓였다.<br/><b>톤</b> 누른 자리가 그대로 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">벽 한쪽이 가득 찼어요! "이건 내가 쌓은 벽이에요." 할아버지가 벽에 등을 기대고 허허 웃었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글.<br/><b>장소·시간</b> 헛간 벽 앞, 해 질 무렵.<br/><b>인물</b> Nils bear cub이 제가 쌓은 벽 앞에서 두 앞발을 허리에 얹고 입을 벌려 말한다 — 가슴을 폈다, 파란 장화. Bruno grandfather bear가 그 벽에 등을 기대고 두 앞발을 배에 얹고 웃는다 — 초록 뜨개 조끼, 둥근 안경.<br/><b>배경·소품</b> 가득 찬 장작 벽 — 마구리가 가지런히 한 방향을 본다. 마당에 남은 토막 몇 개.<br/><b>톤</b> 어른 등을 받칠 만큼 단단하다.</pre></details>
+</div>
+
+</div>
+<script src="/bruno-core.js"></script>
+</body>
+</html>

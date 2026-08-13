@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>피포네 돌담 목장 — 양털 공</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#F0B429; --slope:#2C2A25; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">피포네 돌담 목장 · 21</div>
+  <h1>양털 공</h1>
+  <div class="sub"><b>원함</b> 남은 양털로 공을 만들고 싶다 · <b>틀리는 어른</b> 거위 아줌마 · <b>어긋남</b> 남들 공은 더 크다며 자꾸 얹다가 뭉치가 풀어진다 · <b>착지</b> 피포가 꼭꼭 뭉친 공으로 아기 양과 논다</div>
+  <div class="by">글 <b>문나래</b> · 그림 <b>백서리</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">양털 깎기가 끝난 마당엔 남은 털이 소복해요. 보들보들, 꼭 구름 같아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 마당 한구석을 위에서.<br/><b>장소·시간</b> 목장 마당, 낮.<br/><b>인물</b> 없음.<br/><b>배경·소품</b> 깎고 남은 양털이 마당 한쪽에 소복하게 쌓였다 — 가장자리가 뭉게뭉게 부풀었다. 옆에 가위와 빈 자루. 🔴 양털은 칠하지 않은 종이로 남긴다.<br/><b>톤</b> 부푼 흰 덩어리 하나가 화면 아래를 차지하고 나머지는 비었다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"이걸로 아기 양이랑 놀 공을 만들 거예요." 피포가 털을 한 줌 모았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 두 손과 털 한 줌.<br/><b>장소·시간</b> 마당, 낮.<br/><b>인물</b> Pipo puppy가 두 손으로 털을 한 줌 모아 가슴 앞으로 가져온다 — 손가락이 털 속에 파묻혔고 입이 벌어져 말하는 중, 노란 목도리.<br/><b>배경·소품</b> 손안의 털 한 줌, 뒤로 흐린 털 더미. 🔴 양털은 칠하지 않은 종이.<br/><b>톤</b> 큰 더미에서 딱 한 줌만 떼어 낸 것이 손 크기로 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">거위 아줌마가 목을 빼고 참견해요. "공은 클수록 좋대! 다들 그러던걸!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 목이 화면 위에서 내려온다.<br/><b>장소·시간</b> 마당, 낮.<br/><b>인물</b> Goose auntie가 위에서 목을 길게 내밀어 피포의 손 쪽으로 부리를 들이민다 — 부리가 벌어져 말하는 중, 날개 하나가 크게 벌어졌다. Pipo puppy는 아래에서 털 뭉치를 감싸 쥔다 — 노란 목도리.<br/><b>배경·소품</b> 털 더미.<br/><b>톤</b> 위에서 내려온 목이 작은 손 위를 덮는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">피포가 뭉치는 족족 아줌마가 털을 더 얹어요. 뭉치가 피포 머리보다 커졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 뭉치와 머리를 같은 깊이에 나란히.<br/><b>장소·시간</b> 마당, 낮.<br/><b>인물</b> Goose auntie가 날개로 털을 한 아름 더 얹는다. Pipo puppy는 두 손으로 뭉치를 받쳐 든다 — 🔴 뭉치가 피포 머리보다 한 뼘 크다(둘을 나란히 세워 크기가 바로 비교되게), 노란 목도리.<br/><b>배경·소품</b> 커진 털 뭉치. 🔴 양털은 칠하지 않은 종이.<br/><b>톤</b> 아이 머리와 뭉치가 한 줄에 놓여 차이가 그대로 읽힌다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"더 더! 저 집 애들 공은 이만했다니까!" 뭉치가 피포 몸집만 해졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 뭉치가 화면 위쪽까지 부푼다.<br/><b>장소·시간</b> 마당, 낮.<br/><b>인물</b> Goose auntie가 부리로 또 한 뭉치를 얹으며 몸을 뒤로 젖힌다. Pipo puppy는 뭉치 아래에서 두 팔을 최대한 벌려 안는다 — 🔴 뭉치가 피포 몸통만큼 커졌다, 얼굴 절반이 가렸고 노란 목도리만 아래로 삐져나왔다.<br/><b>배경·소품</b> 부푼 털 뭉치. 🔴 양털은 칠하지 않은 종이.<br/><b>톤</b> 안은 것이 안은 몸보다 커져 균형이 무너진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">피포가 꾹 누르자 푸스스 — 뭉치가 통째로 풀어졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 누르는 손과 터지는 뭉치.<br/><b>장소·시간</b> 마당, 낮.<br/><b>인물</b> Pipo puppy가 두 손으로 뭉치를 꾹 누르는 순간 — 어깨가 올라갔고 눈이 커졌다, 노란 목도리.<br/><b>배경·소품</b> 뭉치가 사방으로 푸스스 풀려 낱털이 공중으로 흩어진다.<br/><b>톤</b> 뭉쳐 있던 것이 한 번에 퍼져 화면 가장자리까지 하얘진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마당이 온통 털투성이가 됐어요. 아줌마도 털을 뒤집어쓰고 재채기해요. "에취!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 마당 전체를 위에서.<br/><b>장소·시간</b> 마당, 낮.<br/><b>인물</b> Goose auntie가 머리부터 발까지 털을 뒤집어쓴 채 부리를 위로 들고 재채기한다 — 목이 뒤로 젖혀졌다. Pipo puppy는 옆에서 두 손으로 코를 감싼다 — 노란 목도리.<br/><b>배경·소품</b> 마당 바닥과 울타리와 가위까지 온통 낱털이 붙었다. 🔴 양털은 칠하지 않은 종이.<br/><b>톤</b> 화면 전체가 희어져 남은 색이 목도리 하나뿐이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">피포는 딱 한 줌만 다시 모았어요. 두 손으로 꼭꼭, 꼭꼭 뭉쳐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 두 손과 뭉치.<br/><b>장소·시간</b> 마당 한쪽, 낮.<br/><b>인물</b> Pipo puppy의 두 손이 한 줌 털을 감싸 꼭꼭 누른다 — 손가락 마디가 하얗게 눌리고 손목이 안으로 말렸다, 화면 위쪽에 노란 목도리 끝.<br/><b>배경·소품</b> 손안의 작아진 뭉치.<br/><b>톤</b> 화면이 두 손으로 좁아져 힘이 한 점에 모인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">조그맣고 단단한 공이 됐어요. 톡 치면 통통 굴러가요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글. 바닥 가까이에서 굴러오는 공.<br/><b>장소·시간</b> 마당 바닥, 낮.<br/><b>인물</b> Pipo puppy가 화면 뒤쪽에서 손을 뻗은 자세로 몸을 낮췄다 — 노란 목도리.<br/><b>배경·소품</b> 조그맣고 단단한 털 공 하나가 앞으로 통통 굴러온다 — 표면이 매끈하게 눌렸다.<br/><b>톤</b> 앞 쪽까지 퍼져 있던 흰 것이 이제 둥근 한 덩이로 모였다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아기 양이 공을 코로 톡톡 밀며 놀아요. 피포도 같이 폴짝폴짝 뛰어요. 아줌마는 남은 털로 제 공을 뭉치는 중이에요. "나도 하나 만들래."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 마당 가운데.<br/><b>장소·시간</b> 마당, 낮.<br/><b>인물</b> 아기 양이 코로 털 공을 톡 민다. Pipo puppy가 그 옆에서 두 발을 모아 폴짝 뛴다 — 두 손을 들고 입이 크게 벌어졌다, 노란 목도리. 화면 오른쪽 뒤에서 Goose auntie가 남은 털을 두 날개 사이에 끼고 제 공을 뭉친다.<br/><b>배경·소품</b> 작은 털 공 하나, 아직 흩어진 낱털. 🔴 양털은 칠하지 않은 종이.<br/><b>톤</b> 앞쪽은 놀이가 시작됐고 뒤쪽은 아직 만드는 중이다.</pre></details>
+</div>
+
+</div>
+<script src="/pipo-core.js"></script>
+</body>
+</html>

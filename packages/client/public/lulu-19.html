@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>룰루네 올리브 언덕 — 헛간의 아기 제비</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#1F7FA8; --slope:#3E3A2E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">룰루네 올리브 언덕 · 19</div>
+  <h1>헛간의 아기 제비</h1>
+  <div class="sub"><b>원함</b> 아기 제비 얼굴을 보고 싶다 · <b>틀리는 어른</b> 니노 삼촌 · <b>어긋남</b> 새소리 흉내가 커서 어미 제비에게 쫓긴다 · <b>착지</b> 숨죽여 기다리자 부리가 빼꼼</div>
+  <div class="by">글 <b>문나래</b> · 그림 <b>유가온</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">헛간 천장 밑에 제비집이 붙어 있어요. 안에서 짹짹짹 소리가 나요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 천장 밑을 올려다본다.<br/><b>장소·시간</b> 헛간 안, 낮.<br/><b>인물</b> Lulu donkey가 헛간 바닥에서 위를 올려다본다 — 고개가 한껏 젖혀졌다, 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 헛간 지붕 밑 나무에 진흙 제비집이 붙었고 입구가 작고 어둡다. 아래로 지푸라기 몇 가닥이 늘어졌다.<br/><b>톤</b> 어두운 지붕 밑에서 둥근 집 하나만 형태로 남는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">룰루가 까치발을 했어요. "아기 제비 얼굴이 보고 싶어요."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 발끝으로 선 몸.<br/><b>장소·시간</b> 제비집 아래.<br/><b>인물</b> Lulu donkey가 뒷발끝으로 서서 두 앞발을 위로 뻗고 목을 길게 뺀다 — 눈이 크고 입이 벌어져 말하는 중. 파란 방울 목끈이 목에서 팽팽하다.<br/><b>배경·소품</b> 위쪽에 작게 보이는 제비집.<br/><b>톤</b> 늘어난 몸과 집 사이가 여전히 멀다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">니노 삼촌이 헛기침을 했어요. "새는 부르면 나오지. 내 새소리 흉내가 왕년에 최고였다."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면 아이레벨. 헛기침하는 몸.<br/><b>장소·시간</b> 헛간 안.<br/><b>인물</b> Nino donkey가 한 앞발을 입에 대고 헛기침을 하며 가슴을 편다 — 밀짚모자, 다른 앞발로 위를 가리킨다. Lulu donkey는 옆에서 돌아본다, 파란 방울 목끈.<br/><b>배경·소품</b> 마른 풀 더미, 위쪽 제비집.<br/><b>톤</b> 조용하던 화면에 큰 몸짓이 들어온다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">삼촌이 손을 모으고 삑삑— 소리를 냈어요. 제비집이 조용해졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 모은 손과 벌린 입.<br/><b>장소·시간</b> 제비집 아래.<br/><b>인물</b> Nino donkey가 두 앞발을 입가에 모으고 위를 향해 소리를 낸다 — 고개를 젖히고 볼이 부풀었다. Lulu donkey는 그 옆에서 두 앞발을 모으고 위를 본다, 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 제비집 입구가 어둡게 닫힌 듯 조용하다.<br/><b>톤</b> 아래는 시끄럽고 위는 아무 기척이 없다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">삼촌이 더 크게 삐이익— 어미 제비가 포르르 날아와 삼촌 머리 위를 뱅뱅 돌아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 헛간 공중.<br/><b>장소·시간</b> 헛간 안.<br/><b>인물</b> Nino donkey가 고개를 젖히고 더 크게 소리를 낸다 — 두 앞발이 입가에 붙었다. Lulu donkey는 두 걸음 물러나 위를 본다, 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 어미 제비 한 마리가 삼촌 머리 위 공중에서 좁게 원을 그린다 — 날개가 뒤로 젖혀지고 꽁지가 갈라졌다.<br/><b>톤</b> 넓은 헛간 공중에 작고 빠른 것 하나가 돈다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어미 제비가 삼촌 모자를 콕! "아이쿠!" 삼촌이 머리를 감쌌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 측면 아이레벨. 모자와 부리.<br/><b>장소·시간</b> 헛간 공중과 삼촌 머리.<br/><b>인물</b> Nino donkey가 두 앞발로 머리를 감싸며 몸을 웅크린다 — 눈을 질끈 감고 입이 크게 벌어졌다. 어미 제비가 그 밀짚모자 챙을 부리로 콕 찍는 참이다.<br/><b>배경·소품</b> 삐뚤어진 밀짚모자.<br/><b>톤</b> 작은 부리 하나가 큰 몸을 움츠리게 만든다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">제비집은 입을 꼭 다문 것처럼 조용해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 로우앵글. 제비집만 크게.<br/><b>장소·시간</b> 헛간 지붕 밑.<br/><b>인물</b> 프레임 아래쪽 구석에 Lulu donkey의 뒤통수와 파란 방울 목끈이 작게 든다 — 움직이지 않는다.<br/><b>배경·소품</b> 🔴 진흙 집 입구가 어둡게 다물려 있고 지푸라기 한 가닥만 미동 없이 늘어졌다.<br/><b>톤</b> 화면 전체가 정지해 소리가 사라진 자리가 된다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">룰루가 구석에 앉아 숨을 죽였어요. 헛간이 조용해졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 헛간 구석을 위에서.<br/><b>장소·시간</b> 헛간 안.<br/><b>인물</b> Lulu donkey가 마른 풀 더미 옆 구석에 무릎을 모아 앉아 두 앞발을 무릎에 얹고 입을 꼭 다문다 — 어깨가 내려가고 눈만 위를 향한다. 파란 방울 목끈.<br/><b>배경·소품</b> 마른 풀, 위쪽 제비집.<br/><b>톤</b> 작은 몸이 구석에 접혀 화면이 조용해진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">빼꼼 — 노란 부리가 쏙 나왔어요. 아기 제비가 룰루를 내려다봐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 로우앵글. 집 입구.<br/><b>장소·시간</b> 헛간 지붕 밑.<br/><b>인물</b> 프레임 아래에 Lulu donkey의 눈과 이마만 든다 — 눈이 크게 열렸다, 파란 방울 목끈이 프레임 아래 끝에.<br/><b>배경·소품</b> 🔴 진흙 집 입구에서 아기 제비의 노란 부리와 눈 한 쌍이 빼꼼 나왔다.<br/><b>톤</b> 어두운 구멍에서 밝은 부리 하나가 처음으로 나온다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">룰루와 아기 제비가 한참 마주 봤어요. 삼촌은 문틈에서 모자를 꼭 붙잡고 구경했어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면. 아래와 위를 한 프레임에.<br/><b>장소·시간</b> 헛간 안.<br/><b>인물</b> Lulu donkey가 구석에 앉은 채 위를 올려다보고, 아기 제비는 집 입구에서 아래를 내려다본다 — 둘의 시선이 한 선으로 이어진다. Lulu donkey는 파란 방울 목끈. 화면 왼쪽 문틈에서 Nino donkey가 두 앞발로 모자를 눌러 쓰고 얼굴만 내밀어 본다.<br/><b>배경·소품</b> 문틈으로 든 볕 한 줄.<br/><b>톤</b> 조용한 두 얼굴 사이를 아무것도 가로막지 않는다.</pre></details>
+</div>
+
+</div>
+<script src="/lulu-core.js"></script>
+</body>
+</html>

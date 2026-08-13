@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>미오네 유치원 — 그거 내가 고쳐 줄게</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#6E4E9E; --slope:#232B2E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">미오네 유치원 · 09</div>
+  <h1>그거 내가 고쳐 줄게</h1>
+  <div class="sub"><b>주인공</b> 가가(잘난 척) · <b>원함</b> 종이비행기를 제일 멀리 날리고 싶다 · <b>탈</b> 남 것만 손대다 제 것을 못 접어 툭 떨어진다 · <b>착지</b> 제 것을 끝까지 접어 마당 끝까지 날린다</div>
+  <div class="by">글 <b>오하람</b> · 그림 <b>강마루</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마당에서 종이비행기 날리기를 해요. 아이들이 종이를 반으로 접어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 마당을 위에서 내려다보고 아이들이 흩어져 앉았다.<br/><b>장소·시간</b> 유치원 마당, 오전.<br/><b>인물</b> Mio kitten·Bobo piglet·Lala lamb·Duri raccoon이 저마다 땅이나 낮은 걸상에 종이를 놓고 반으로 접는다 — 넷 다 두 손바닥으로 접은 자리를 누르는 자세. 보라 가방·보라 모자·보라 머리핀·보라 손수건. Gaga gosling은 조금 떨어져 서 있다, 보라 리본.<br/><b>배경·소품</b> 흰 종이 다섯 장, 낮은 걸상 둘. 마당 흙과 저 끝의 울타리.<br/><b>톤</b> 넷은 앉았고 하나만 서 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"내 비행기가 제일 멀리 날 거야." 가가가 아이들 종이를 하나씩 넘겨다봐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 측면. 가가가 앞으로 목을 빼고 남의 손을 넘겨다본다.<br/><b>장소·시간</b> 마당, 미오 옆.<br/><b>인물</b> Gaga gosling이 허리를 굽혀 목을 길게 뻗고 미오 손 위 종이를 위에서 내려다본다 — 두 손은 등 뒤로 뺐고 부리를 벌려 말한다. 보라 리본. 화면 아래 가장자리에 Mio kitten의 두 손과 접던 종이가 걸린다.<br/><b>배경·소품</b> 종이, 흙바닥.<br/><b>톤</b> 목만 남의 자리까지 넘어와 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가가가 미오 비행기를 가져가 다시 접었어요. 날개가 삐뚤어졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 오버숄더. 가가 어깨 너머로 손안의 비행기가 크게.<br/><b>장소·시간</b> 같은 마당.<br/><b>인물</b> 화면 앞쪽에 Gaga gosling의 등과 보라 리본이 걸리고 두 손이 미오 비행기를 다시 접는다 — 한 손이 날개를 눌러 각을 꺾는다. 안쪽에서 Mio kitten이 두 손을 내민 채 멈춰 있다, 입이 벌어지고 귀가 뒤로 눕는다, 보라 가방.<br/><b>배경·소품</b> 🔴 비행기 두 날개 각이 서로 다르고 한쪽 끝이 위로 들렸다 — 좌우 비대칭이 또렷해야 한다.<br/><b>톤</b> 고쳐 준 자리가 접힌 자리보다 어긋나 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가가가 라라 비행기도 가져갔어요. "그거 내가 고쳐 줄게."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 로우앵글. 아래에서 올려다본 가가의 얼굴과 든 손.<br/><b>장소·시간</b> 마당, 라라 앞.<br/><b>인물</b> Gaga gosling이 한 손을 위로 들어 라라 비행기를 제 어깨 높이까지 올렸다 — 턱이 들리고 부리가 벌어져 말한다, 다른 손은 허리에 얹었다. 보라 리본. 화면 아래쪽에 Lala lamb의 들린 얼굴과 뻗다 만 손, 보라 머리핀.<br/><b>배경·소품</b> 비행기 하나, 뒤로 밝은 하늘.<br/><b>톤</b> 남의 것이 주인 손보다 높이 올라가 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가가 종이는 아직 책상에 있어요. 반도 안 접혔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 걸상 위 종이가 화면 앞, 가가는 안쪽에.<br/><b>장소·시간</b> 마당, 걸상 앞.<br/><b>인물</b> 화면 안쪽에서 Gaga gosling이 등을 보인 채 다른 아이의 비행기를 만지고 있다 — 보라 리본. Bobo piglet·Duri raccoon이 그 옆에서 제 것을 접는다, 보라 모자·보라 손수건.<br/><b>배경·소품</b> 🔴 화면 앞쪽 걸상 위에 가가 종이가 한 번만 접힌 채 놓여 있다 — 접힌 선이 딱 하나고 나머지는 평평하다. 종이 위에 바람이 든 자국.<br/><b>톤</b> 주인 없는 종이가 화면에서 가장 가깝다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">하나 둘 셋! 아이들이 비행기를 던졌어요. 비행기들이 쭉 날아가요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 아주 낮은 데서 올려다봐 비행기들이 하늘로 뻗는다.<br/><b>장소·시간</b> 마당, 낮.<br/><b>인물</b> Mio kitten·Bobo piglet·Lala lamb·Duri raccoon 넷이 한 줄로 서서 던지는 팔을 앞으로 끝까지 뻗었다 — 넷 다 한 발이 앞으로 나가고 몸이 앞으로 기울었다, 입이 벌어졌다. 보라 가방·보라 모자·보라 머리핀·보라 손수건.<br/><b>배경·소품</b> 🔴 비행기 넷이 손끝을 막 떠나 위쪽으로 나란히 올라간다. 넷의 코가 전부 같은 방향.<br/><b>톤</b> 팔과 종이가 한 선으로 이어진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가가 비행기는 접다 만 채예요. 던지자마자 발 앞에 툭 떨어졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 위에서 내려다본 가가의 발과 땅.<br/><b>장소·시간</b> 같은 마당.<br/><b>인물</b> Gaga gosling이 던진 팔을 아직 앞으로 뻗은 채 굳었다 — 목이 아래로 꺾이고 부리가 발치를 본다. 보라 리본.<br/><b>배경·소품</b> 🔴 반쯤 접힌 종이가 가가 발 바로 앞 흙 위에 옆으로 자빠져 있다 — 던진 팔과 떨어진 종이 사이가 한 걸음도 안 된다. 저 멀리 안쪽에 다른 비행기 넷이 작게 떠 있다.<br/><b>톤</b> 가장 가까운 것과 가장 먼 것이 같은 종이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">바우 선생님이 새 종이를 내밀었어요. "제 비행기를 끝까지 접어야 멀리 날지."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 내미는 손과 새 종이.<br/><b>장소·시간</b> 마당.<br/><b>인물</b> Teacher Bau big dog가 큰 두 손으로 흰 종이 한 장을 반듯하게 펴서 가가 앞에 내민다 — 종이가 수평으로 들렸고 입을 벌려 말한다. Gaga gosling이 두 손을 배 앞에서 모으고 그 종이를 본다, 보라 리본. 🔴 선생님은 보라를 안 지닌다.<br/><b>배경·소품</b> 종이 한 장, 뒤로 흐린 마당.<br/><b>톤</b> 남의 것이 아니라 빈 종이가 손 앞에 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가가가 종이를 꾹꾹 눌러 접었어요. 날개가 반듯해졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 클로즈업, 측면. 접은 선을 누르는 손가락.<br/><b>장소·시간</b> 걸상 위.<br/><b>인물</b> Gaga gosling의 두 손 엄지가 접힌 선 위를 나란히 누르고 나머지 손가락이 종이를 아래에서 받친다 — 눌린 자리에서 종이가 딱 붙어 선이 날카롭다.<br/><b>배경·소품</b> 🔴 이미 접힌 날개 둘이 좌우 대칭이고 코 끝이 뾰족하다. 걸상 나무결.<br/><b>톤</b> p3에서 어긋났던 두 날개가 여기서 같은 각이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가가가 힘껏 던졌어요. 비행기가 마당 끝까지 쭉 날아갔어요. 아이들이 우르르 따라 뛰어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 와이드, 측면. 마당이 화면 왼쪽 끝에서 오른쪽 끝까지 길게 펼쳐진다.<br/><b>장소·시간</b> 마당, 낮.<br/><b>인물</b> 화면 왼쪽에 Gaga gosling이 던진 자세 그대로 몸을 앞으로 던지듯 기울이고 한 발을 뒤로 들었다 — 부리가 벌어졌다, 보라 리본. 그 뒤로 Mio kitten·Bobo piglet·Lala lamb·Duri raccoon이 같은 방향으로 뛰어간다 — 넷 다 팔을 뒤로 젖히고 발이 땅에서 떴다.<br/><b>배경·소품</b> 🔴 비행기가 화면 오른쪽 끝 울타리 위 높이에 떠 있다 — 던진 손과 비행기를 화면 양 끝에 두어 거리 자체가 화면 폭이 된다.<br/><b>톤</b> p7에서 발 앞이던 거리가 여기서는 마당 하나다.</pre></details>
+</div>
+
+</div>
+<script src="/mio-core.js"></script>
+</body>
+</html>

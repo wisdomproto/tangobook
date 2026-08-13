@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>브루노 할아버지네 숲 — 내가 길 알아요</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#1C4E8A; --slope:#2E3A2A; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">브루노 할아버지네 숲 · 06</div>
+  <h1>내가 길 알아요</h1>
+  <div class="sub"><b>주인공</b> 닐스(잘난 척) · <b>원함</b> 호수에 가서 물수제비를 뜨고 싶다 · <b>탈</b> 아는 척 샛길로 돌다 제자리 · <b>착지</b> 다져진 길을 따라가 호수에 닿는다</div>
+  <div class="by">글 <b>배도담</b> · 그림 <b>차온유</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아침 해가 반짝 떴어요. 길가에 새 풀이 파릇파릇 돋았어요. 오늘은 할아버지와 호수에 가는 날이에요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 오두막 앞길이 화면 오른쪽으로 뻗는다.<br/><b>장소·시간</b> 오두막 앞, 봄 아침.<br/><b>인물</b> Bruno grandfather bear와 Nils bear cub이 문 앞 계단을 막 내려선다 — 할아버지는 한 앞발에 자루를 들었고 초록 뜨개 조끼, 둥근 안경. 닐스는 앞서 한 발을 길에 내디뎠다, 파란 장화.<br/><b>배경·소품</b> 길가에 새로 돋은 짧은 풀, 오두막 문과 계단, 낮게 뜬 아침 해.<br/><b>톤</b> 길이 화면 오른쪽으로 열려 있어 갈 방향이 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">닐스는 호수에서 물수제비를 뜨고 싶어요. 납작한 돌이 물 위를 통통 튀는 놀이예요. "길은 내가 알아요! 따라오세요!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨.<br/><b>장소·시간</b> 오두막 앞길.<br/><b>인물</b> Nils bear cub이 두 앞발을 앞으로 뻗어 길 앞을 가리키며 입을 크게 벌려 말한다 — 몸이 절반쯤 돌아가 뒤를 본다. 파란 장화. Bruno grandfather bear는 반걸음 뒤에서 고개를 끄덕인다.<br/><b>배경·소품</b> 길, 길가 새 풀.<br/><b>톤</b> 가리키는 손과 돌아본 얼굴이 서로 다른 쪽을 향한다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">닐스가 샛길로 쑥 들어갔어요. "이쪽이 빨라요!" 할아버지가 뒤에서 따라왔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 좁은 샛길 입구를 내려다본다.<br/><b>장소·시간</b> 큰길에서 갈라진 샛길 입구.<br/><b>인물</b> Nils bear cub이 풀 사이 좁은 틈으로 쏙 들어간다 — 몸이 이미 반쯤 풀에 가렸고 파란 장화만 또렷하다. Bruno grandfather bear가 그 뒤에서 큰 몸을 굽혀 따라 들어간다 — 초록 뜨개 조끼.<br/><b>배경·소품</b> 다져진 큰길이 화면 오른쪽으로 그대로 이어져 있다, 풀에 덮인 샛길.<br/><b>톤</b> 넓은 길을 두고 좁은 틈으로 들어간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가시덤불이 앞을 막았어요. 닐스 털에 가시가 콕콕 붙었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨.<br/><b>장소·시간</b> 샛길 안 가시덤불 앞.<br/><b>인물</b> Nils bear cub이 멈춰 서서 한 앞발로 바짓단을 잡아당긴다 — 눈썹이 가운데로 모이고 입이 삐죽하다. 파란 장화.<br/><b>배경·소품</b> 앞을 막은 가시덤불, 바짓단에 콕콕 붙은 가시들.<br/><b>톤</b> 앞이 막힌 자리에서 손이 제 옷으로 간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이번엔 쓰러진 나무가 길을 막았어요. 닐스가 낑낑 기어 넘었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 쓰러진 나무가 화면을 가로로 막는다.<br/><b>장소·시간</b> 샛길 안.<br/><b>인물</b> Nils bear cub이 쓰러진 나무 위에 배를 대고 낑낑 기어 넘는다 — 파란 장화 두 짝이 아직 이쪽 땅에 걸쳐 있고 앞발이 저쪽을 짚었다. Bruno grandfather bear가 뒤에서 한 앞발을 내밀고 기다린다.<br/><b>배경·소품</b> 이끼 덮인 쓰러진 나무, 부러진 잔가지.<br/><b>톤</b> 몸이 나무 위에 걸쳐 반씩 나뉘었다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">나무들 사이로 지붕이 보였어요. 어라? 우리 오두막이에요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 나무 사이로 트인 틈.<br/><b>장소·시간</b> 샛길 끝.<br/><b>인물</b> Nils bear cub이 우뚝 멈춰 서서 고개를 앞으로 내민다 — 귀가 위로 서고 눈이 커졌다. 파란 장화. Bruno grandfather bear가 그 뒤에서 같은 쪽을 본다.<br/><b>배경·소품</b> 나무들 사이로 보이는 낯익은 오두막 지붕과 굴뚝.<br/><b>톤</b> 낯선 길 끝에 익숙한 지붕이 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">닐스가 제자리를 뱅 돈 거예요. 해는 높이 떴는데 호수는 아직 멀어요. 닐스 얼굴이 빨개졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 아래에서 얼굴을 올려다본다.<br/><b>장소·시간</b> 오두막이 보이는 자리, 한낮.<br/><b>인물</b> Nils bear cub의 볼이 빨개지고 귀가 뒤로 눕는다 — 두 앞발을 등 뒤로 감추고 턱을 당겼다. 파란 장화.<br/><b>배경·소품</b> 머리 위 높이 뜬 해, 뒤로 오두막 지붕 귀퉁이.<br/><b>톤</b> 하루의 절반이 발밑에서 사라졌다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지가 물었어요. "이 샛길, 가 본 적 있니?" 닐스가 고개를 절레절레 저었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 둘의 얼굴.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Bruno grandfather bear가 몸을 굽혀 닐스와 눈높이를 맞추고 입을 벌려 묻는다 — 둥근 안경, 회색 주둥이. Nils bear cub이 고개를 좌우로 절레절레 젓는다 — 두 앞발이 배 앞에 모였다, 파란 장화.<br/><b>배경·소품</b> 뒤로 흐린 샛길 입구.<br/><b>톤</b> 묻는 얼굴과 젓는 고개가 한 화면에 마주 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지가 앞장섰어요. 발자국에 반들반들 다져진 길이에요. 닐스가 그 뒤를 따라 걸었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 다져진 길이 화면 왼쪽에서 오른쪽으로 굽는다.<br/><b>장소·시간</b> 큰길, 오후.<br/><b>인물</b> Bruno grandfather bear가 앞장서 오른쪽으로 걷고 Nils bear cub이 그 뒤를 따라 걷는다 — 닐스는 할아버지 발자국 자리에 파란 장화를 놓는다.<br/><b>배경·소품</b> 발자국에 반들반들 다져진 길바닥, 길가 새 풀.<br/><b>톤</b> 발밑이 평평해서 걸음이 고르다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호수에 닿았어요! 닐스가 납작 돌을 던졌어요. 통, 통, 통! 물 위에 동그라미가 세 개 떴어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 수면 높이에서.<br/><b>장소·시간</b> 호숫가, 늦은 오후.<br/><b>인물</b> Nils bear cub이 던진 팔을 앞으로 뻗은 자세로 물가에 섰다 — 몸이 옆으로 낮게 기울고 파란 장화 한 짝이 발끝만 땅에 닿았다. Bruno grandfather bear가 뒤에서 두 앞발을 무릎에 짚고 물을 본다.<br/><b>배경·소품</b> 수면 위에 동그란 물결 자국이 세 개, 그 앞에 납작한 돌 하나가 막 물을 스친다.<br/><b>톤</b> 물결 셋이 화면을 가로질러 나란히 남는다.</pre></details>
+</div>
+
+</div>
+<script src="/bruno-core.js"></script>
+</body>
+</html>

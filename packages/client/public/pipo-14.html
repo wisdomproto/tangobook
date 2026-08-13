@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>피포네 돌담 목장 — 달걀 옮기기</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#F0B429; --slope:#2C2A25; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">피포네 돌담 목장 · 14</div>
+  <h1>달걀 옮기기</h1>
+  <div class="sub"><b>원함</b> 달걀을 하나도 안 깨고 수레까지 옮기고 싶다 · <b>틀리는 어른</b> 말 아저씨 · <b>어긋남</b> 서두르라며 재촉하다 제가 한 알 깨뜨린다 · <b>착지</b> 피포가 건초를 깔고 눕혀 다 옮긴다</div>
+  <div class="by">글 <b>문나래</b> · 그림 <b>백서리</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">오늘은 달걀을 장에 내다 파는 날이에요. 닭장에 달걀이 소복이 모였어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 닭장 안 짚 둥지를 내려다본다.<br/><b>장소·시간</b> 닭장 안, 아침.<br/><b>인물</b> 없음 — 이름 없는 암탉 한 마리가 둥지 옆에서 고개를 갸웃한다.<br/><b>배경·소품</b> 짚 둥지에 달걀 여덟 개가 소복이 모였다. 🔴 달걀 껍데기와 짚은 칠하지 않은 종이.<br/><b>톤</b> 둥근 것 여덟이 한 자리에 모여 셀 수 있게 놓였다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">달걀은 톡 하면 깨져요. "하나도 안 깨고 수레까지 옮길 거예요." 피포가 빈 바구니를 들었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 빈 바구니와 두 손.<br/><b>장소·시간</b> 닭장 앞, 아침.<br/><b>인물</b> Pipo puppy가 빈 바구니를 두 손으로 들어 가슴 앞에 받쳐 든다 — 팔꿈치를 몸에 붙이고 입이 벌어져 말하는 중, 노란 목도리.<br/><b>배경·소품</b> 텅 빈 바구니 하나, 뒤로 둥지.<br/><b>톤</b> 담을 것 없이 빈 그릇 하나가 화면 가운데에 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">말 아저씨가 수레 옆에서 발을 굴러요. "장 늦겠다! 빨리빨리 담아!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 수레 옆의 큰 몸.<br/><b>장소·시간</b> 마당 수레 옆, 아침.<br/><b>인물</b> Horse uncle이 수레 옆에서 한 발로 땅을 쿵쿵 구른다 — 두 손을 허리에 얹고 목을 앞으로 뺐다, 입이 크게 벌어졌다. Pipo puppy는 바구니를 들고 닭장 문간에 서 있다 — 노란 목도리.<br/><b>배경·소품</b> 빈 수레, 마당 흙에 팬 발자국.<br/><b>톤</b> 발 밑에서 먼지가 이는 만큼 조바심이 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아저씨가 큰 손으로 달걀을 왕창 움켜쥐었어요. 손가락 사이로 달걀이 삐죽삐죽 나와요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 큰 손과 달걀들.<br/><b>장소·시간</b> 둥지 위, 아침.<br/><b>인물</b> Horse uncle의 한 손이 달걀을 한꺼번에 움켜쥐었다 — 손가락 사이로 달걀이 삐죽삐죽 밀려 나온다.<br/><b>배경·소품</b> 손안의 달걀 다섯, 둥지에 남은 셋. 🔴 껍데기는 칠하지 않은 종이.<br/><b>톤</b> 둥근 것들이 손가락 사이에서 눌려 모양이 어긋난다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">톡! 하나가 손안에서 깨졌어요. 노른자가 주르륵 흘러요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 클로즈업, 아이레벨. 손안 한 점.<br/><b>장소·시간</b> 둥지 위, 아침.<br/><b>인물</b> Horse uncle의 손가락 사이에서 달걀 하나가 톡 깨진다 — 손등에 힘줄이 섰다.<br/><b>배경·소품</b> 갈라진 껍데기 조각과 손가락을 타고 흐르는 노른자. 🔴 노른자는 칠하지 않은 종이로 남기고 흐르는 선만 그린다.<br/><b>톤</b> 화면 전체가 손 하나이고 그 위에 금이 하나 갔다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"어이쿠!" 아저씨가 놀라 손을 펴요. 또 톡, 톡.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 펴진 손과 떨어지는 것들.<br/><b>장소·시간</b> 둥지 앞, 아침.<br/><b>인물</b> Horse uncle이 놀라 손바닥을 활짝 폈다 — 어깨가 올라가고 눈이 동그랗다. Pipo puppy는 옆에서 두 손을 내밀어 받으려 한다 — 노란 목도리.<br/><b>배경·소품</b> 손에서 달걀 두 개가 더 깨져 흘러내린다 — 이제 깨진 것 셋, 성한 것 다섯.<br/><b>톤</b> 펴진 손바닥이 화면 가운데에서 아무것도 못 잡고 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아저씨 손이 온통 노른자 범벅이에요. 아저씨가 손을 든 채 우물쭈물 서 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 든 손을 아래에서.<br/><b>장소·시간</b> 닭장 앞, 아침.<br/><b>인물</b> Horse uncle이 범벅이 된 두 손을 어깨 높이로 든 채 우물쭈물 서 있다 — 손가락을 벌리고 어디에도 못 댄다, 입이 삐죽 나왔다. Pipo puppy는 옆에서 바구니를 안고 그를 본다 — 노란 목도리.<br/><b>배경·소품</b> 손에서 실처럼 늘어지는 자국. 🔴 노른자는 칠하지 않은 종이.<br/><b>톤</b> 두 손이 위로 들려 있어 아무 일도 못 하는 몸이 된다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">피포는 바구니에 건초를 폭신하게 깔았어요. 달걀을 하나씩 뉘어 담아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 바구니 속.<br/><b>장소·시간</b> 닭장 앞 바닥, 아침.<br/><b>인물</b> Pipo puppy의 두 손이 달걀 하나를 건초 위에 옆으로 눕혀 놓는다 — 손가락 끝만 달걀에 닿았다, 화면 위쪽에 노란 목도리 끝.<br/><b>배경·소품</b> 바구니 바닥에 폭신하게 깔린 건초, 이미 눕혀 놓은 달걀 넷과 지금 놓는 다섯째. 🔴 건초와 껍데기는 칠하지 않은 종이.<br/><b>톤</b> 앞 쪽의 움켜쥔 손과 반대로 손가락 끝만 쓰인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">바구니를 두 팔로 꼭 안고 사뿐사뿐 걸어요. 달걀들이 건초 속에서 꼼짝도 안 해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면 아이레벨. 걸음이 왼쪽에서 오른쪽으로.<br/><b>장소·시간</b> 마당, 아침.<br/><b>인물</b> Pipo puppy가 바구니를 두 팔로 감아 안고 무릎을 낮춰 천천히 걷는다 — 시선이 바구니 안에 붙었다, 노란 목도리.<br/><b>배경·소품</b> 건초 속에 파묻혀 미동도 없는 달걀 다섯.<br/><b>톤</b> 걸음이 느려 화면이 흔들리지 않는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">달걀 바구니가 수레에 무사히 실렸어요. 아저씨는 우물가에서 손을 씻어요. 노른자가 갈기까지 묻어 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 수레와 우물가가 한 프레임.<br/><b>장소·시간</b> 마당, 낮.<br/><b>인물</b> Pipo puppy가 수레 짐칸에 바구니를 막 올려놓고 두 손을 뗀다 — 노란 목도리. 화면 오른쪽 우물가에서 Horse uncle이 두 손을 물에 담가 문지른다 — 갈기 끝까지 자국이 묻었다.<br/><b>배경·소품</b> 수레에 실린 바구니 하나, 우물, 물통.<br/><b>톤</b> 다 옮긴 쪽은 정지해 있고 못 옮긴 쪽은 아직 씻는 중이다.</pre></details>
+</div>
+
+</div>
+<script src="/pipo-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>피포네 돌담 목장 — 양 세는 날</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#F0B429; --slope:#2C2A25; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">피포네 돌담 목장 · 16</div>
+  <h1>양 세는 날</h1>
+  <div class="sub"><b>원함</b> 우리에 든 양을 다 세고 싶다 · <b>틀리는 어른</b> 거위 아줌마 · <b>어긋남</b> 옆에서 수다를 떨어 자꾸 헷갈리게 한다 · <b>착지</b> 피포가 문에 서서 한 마리씩 지나가게 하며 센다</div>
+  <div class="by">글 <b>문나래</b> · 그림 <b>백서리</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">저녁이 되면 양들이 우리로 돌아와요. 피포네 양은 모두 열두 마리예요. 한 마리도 안 빠졌는지 세어 봐야 해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 우리로 이어지는 길을 위에서.<br/><b>장소·시간</b> 양 우리 앞, 저녁.<br/><b>인물</b> 없음 — 양 떼가 길을 따라 우리 쪽으로 몰려 들어온다. 🔴 세지 못하게 서로 겹쳐 놓는다.<br/><b>배경·소품</b> 우리 문, 낮은 돌담, 길. 🔴 양털은 칠하지 않은 종이.<br/><b>톤</b> 등이 겹쳐 덩어리로 보이고 낱개는 안 세어진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">피포는 오늘만큼은 혼자 세어 보고 싶어요. 우리 앞에 딱 서서 발끝을 모았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 우리 문 앞의 몸.<br/><b>장소·시간</b> 우리 문 앞, 저녁.<br/><b>인물</b> Pipo puppy가 문 앞에 딱 서서 두 발끝을 모으고 가슴을 폈다 — 한 손을 앞으로 들어 손가락을 하나 세웠다, 노란 목도리.<br/><b>배경·소품</b> 문, 문 안으로 들어가는 양들의 뒷모습.<br/><b>톤</b> 발끝이 모인 자세 하나로 시작하겠다는 마음이 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">거위 아줌마가 담 위에 내려앉았어요. "세는 거? 나도 잘하지! 하나, 둘…"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 담 위에 앉은 몸을 아래에서.<br/><b>장소·시간</b> 우리 옆 돌담, 저녁.<br/><b>인물</b> Goose auntie가 낮은 돌담 위에 내려앉아 두 날개를 접는다 — 부리가 벌어져 말하는 중, 목이 아래를 내려다본다. Pipo puppy는 담 아래에서 올려다본다 — 노란 목도리.<br/><b>배경·소품</b> 돌담, 담 위의 발자국.<br/><b>톤</b> 높은 데 앉은 입이 낮은 데 선 아이를 내려다본다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"그런데 말이야, 방앗간 집 얘기 들었어?" 아줌마 수다가 시작됐어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글. 벌어진 부리.<br/><b>장소·시간</b> 담 위, 저녁.<br/><b>인물</b> Goose auntie가 부리를 크게 벌리고 한쪽 날개를 휘저으며 딴 얘기를 시작한다 — 눈이 먼 데를 본다.<br/><b>배경·소품</b> 담 위 돌 결, 뒤로 어둑해지는 하늘.<br/><b>톤</b> 화면 가득 입 하나가 열려 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">피포가 몇까지 셌는지 잊어버렸어요. 처음부터 다시. 하나, 둘…</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 손가락을 내려다본다.<br/><b>장소·시간</b> 문 앞, 저녁.<br/><b>인물</b> Pipo puppy가 손가락을 접다 말고 멈췄다 — 반쯤 접은 손을 눈앞에 들고 눈썹이 모였다, 입이 삐죽 나왔다, 노란 목도리.<br/><b>배경·소품</b> 뒤로 흐린 양들.<br/><b>톤</b> 세다 만 손 하나가 화면 가운데에서 굳었다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"그리고 있잖아, 개울 건너 집은!" 또 수다가 끼어들어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 담 위와 문 앞이 한 프레임.<br/><b>장소·시간</b> 우리 앞, 저녁.<br/><b>인물</b> Goose auntie가 담 위에서 몸을 앞으로 기울여 또 끼어든다 — 날개 하나가 아이 쪽으로 뻗었다. Pipo puppy는 다시 손가락을 세우며 고개를 돌린다 — 노란 목도리.<br/><b>배경·소품</b> 우리 문, 안팎으로 섞이는 양들.<br/><b>톤</b> 세려는 쪽과 말하는 쪽이 화면 양끝에서 당긴다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">양들은 우리 안에서 빙글빙글 섞여요. 센 양인지 안 센 양인지 모르겠어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 우리 안을 위에서.<br/><b>장소·시간</b> 우리 안, 저녁.<br/><b>인물</b> Pipo puppy가 울 밖에서 안을 들여다보며 두 손으로 머리를 감싼다 — 노란 목도리.<br/><b>배경·소품</b> 양들이 우리 안에서 서로 엇갈려 빙글빙글 돈다 — 등이 겹치고 방향이 제각각이라 낱개가 안 세어진다. 🔴 양털은 칠하지 않은 종이.<br/><b>톤</b> 화면 안의 방향이 전부 어긋나 셀 수가 없다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">피포가 우리 문을 조금만 열었어요. 양이 한 마리씩만 지나가게요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 문틈.<br/><b>장소·시간</b> 우리 문, 저녁.<br/><b>인물</b> Pipo puppy가 두 손으로 문을 밀어 좁은 틈만 남긴다 — 몸을 문에 붙이고 틈 너머를 본다, 노란 목도리.<br/><b>배경·소품</b> 양 한 마리가 겨우 지날 만큼 좁은 문틈, 문 뒤에 줄이 생기기 시작한 양들.<br/><b>톤</b> 넓던 입구가 한 마리 폭으로 줄었다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">문틈으로 양이 한 마리씩 지나가요. "하나! 둘! 셋!" 피포가 크게 세어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면 아이레벨. 문틈을 옆에서.<br/><b>장소·시간</b> 우리 문 옆, 저녁.<br/><b>인물</b> Pipo puppy가 문 옆에 서서 손가락을 하나씩 꼽으며 크게 센다 — 입이 크게 벌어졌고 눈이 문틈에 붙었다, 노란 목도리.<br/><b>배경·소품</b> 🔴 문틈으로 양이 한 마리씩 지나간다 — 지나간 셋은 안쪽에 나란히, 지금 한 마리가 틈 한가운데, 밖에는 아직 줄이 남았다.<br/><b>톤</b> 겹쳐 있던 것이 한 줄이 되어 하나씩 떨어진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"…열둘! 다 있다!" 마지막 양이 들어가고 문이 닫혔어요. 아줌마가 부리를 딱 벌려요. "벌써 다 셌어? 그럼 방앗간 집 얘기 마저 해 줄게!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 닫힌 문과 담 위가 한 프레임.<br/><b>장소·시간</b> 우리 앞, 저녁.<br/><b>인물</b> Pipo puppy가 닫힌 문에 등을 대고 두 팔을 번쩍 든다 — 입이 크게 벌어졌다, 노란 목도리. 담 위에서 Goose auntie가 부리를 딱 벌린 채 목을 앞으로 뺀다 — 날개 하나가 벌써 다시 들렸다.<br/><b>배경·소품</b> 닫힌 우리 문, 문 안에 조용히 선 양들.<br/><b>톤</b> 다 끝난 문 앞에서 입 하나가 또 열린다.</pre></details>
+</div>
+
+</div>
+<script src="/pipo-core.js"></script>
+</body>
+</html>

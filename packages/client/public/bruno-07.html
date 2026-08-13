@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>브루노 할아버지네 숲 — 큰 통에 딸래요</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#1C4E8A; --slope:#2E3A2A; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">브루노 할아버지네 숲 · 07</div>
+  <h1>큰 통에 딸래요</h1>
+  <div class="sub"><b>주인공</b> 닐스(고집) · <b>원함</b> 블루베리를 큰 통 가득 따고 싶다 · <b>탈</b> 큰 통을 끌다 걸려 다 쏟는다 · <b>착지</b> 작은 통으로 날라 큰 통을 채운다</div>
+  <div class="by">글 <b>배도담</b> · 그림 <b>차온유</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">숲 바닥에 블루베리가 까맣게 익었어요. 덤불마다 조랑조랑 매달렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 숲 바닥을 바로 내려다본다.<br/><b>장소·시간</b> 숲 바닥 블루베리 덤불, 여름 낮.<br/><b>인물</b> Nils bear cub의 파란 장화 한 짝이 화면 아래에서 이끼를 밟고 섰다.<br/><b>배경·소품</b> 잎 사이에 조랑조랑 매달린 먹보라 열매, 두툼한 이끼, 나뭇잎 사이로 떨어진 볕 얼룩.<br/><b>톤</b> 잎이 빽빽해 바닥이 그늘지고 볕 얼룩만 군데군데 밝다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">닐스는 큰 통 가득 블루베리를 따고 싶어요. 저녁에 우유를 부어 먹을 거예요. 할아버지가 제 작은 통을 챙겨 들었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨.<br/><b>장소·시간</b> 같은 덤불 앞.<br/><b>인물</b> Nils bear cub이 두 앞발을 크게 벌려 통 크기를 그려 보이며 입을 벌려 말한다 — 파란 장화. Bruno grandfather bear는 옆에서 제 작은 나무 통 손잡이를 한 앞발에 꿰어 든다 — 초록 뜨개 조끼, 둥근 안경.<br/><b>배경·소품</b> 할아버지의 작은 통 하나, 덤불.<br/><b>톤</b> 벌린 팔과 손에 든 통의 크기가 어긋난다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"난 큰 통에 딸래요!" 닐스가 헛간에서 할아버지만 한 통을 끌어냈어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 헛간 문간을 올려다본다.<br/><b>장소·시간</b> 헛간 문간.<br/><b>인물</b> Nils bear cub이 제 키만 한 큰 통을 두 앞발로 붙잡고 뒷걸음질로 끌어낸다 — 몸이 뒤로 기울고 파란 장화가 바닥에 미끄러진다, 입을 벌려 말한다.<br/><b>배경·소품</b> 헛간 문, 어두운 안쪽, 나무 테를 두른 큰 통.<br/><b>톤</b> 통이 아이보다 크다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">닐스가 블루베리를 톡톡 따 넣었어요. 큰 통은 바닥이 겨우 가려졌어요. "아직 멀었네."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 통 아가리를 내려다본다.<br/><b>장소·시간</b> 덤불 사이.<br/><b>인물</b> Nils bear cub이 한 앞발을 통 위로 뻗어 열매 몇 알을 톡 떨어뜨린다 — 얼굴이 통 너머로 반쯤 보이고 입이 삐죽하다. 파란 장화.<br/><b>배경·소품</b> 넓은 통 바닥에 열매 열 알 남짓이 굴러다닌다.<br/><b>톤</b> 바닥이 겨우 가려질 만큼만 덮였다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">통이 점점 무거워졌어요. 닐스가 통을 질질 끌면서 덤불 사이를 가요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 측면. 덤불 사이 길이 화면을 가로지른다.<br/><b>장소·시간</b> 덤불 사이.<br/><b>인물</b> Nils bear cub이 큰 통을 뒤로 질질 끌며 왼쪽에서 오른쪽으로 간다 — 두 앞발로 통 테를 붙잡고 몸을 앞으로 눕혔다, 파란 장화가 이끼를 파고든다.<br/><b>배경·소품</b> 이끼에 길게 파인 끌린 자국, 통 안 열매.<br/><b>톤</b> 지나온 자리가 통 너비만큼 벗겨져 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">덜컥! 통이 나무뿌리에 걸렸어요. 와르르. 블루베리가 이끼 위에 쏟아졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글.<br/><b>장소·시간</b> 같은 덤불 사이.<br/><b>인물</b> Nils bear cub이 통이 걸리는 바람에 뒤로 넘어질 듯 팔을 벌렸다 — 파란 장화 한 짝이 들리고 두 앞발이 허공에 있다.<br/><b>배경·소품</b> 굵은 나무뿌리에 턱 걸려 앞으로 기운 큰 통, 아가리에서 쏟아져 이끼 위로 흩어지는 열매.<br/><b>톤</b> 통이 멈춘 자리에서 안에 있던 것만 계속 나간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">쏟아진 블루베리가 이끼 틈으로 데굴데굴 숨었어요. 통에는 몇 알만 남았어요. 닐스 손만 온통 보랏빛이에요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 이끼 바닥과 손.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Nils bear cub의 두 앞발이 이끼 위에 펴져 있다 — 손바닥과 손가락이 온통 보랏빛으로 물들었다. 얼굴은 화면 위쪽에서 아래를 내려다본다.<br/><b>배경·소품</b> 이끼 틈으로 굴러 들어가 반쯤 숨은 열매들, 넘어진 통 안에 남은 몇 알.<br/><b>톤</b> 흩어진 것이 이끼 사이로 사라져 셀 수가 없다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지가 제 작은 통을 말없이 닐스 앞에 놓았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Bruno grandfather bear가 허리를 굽혀 제 작은 통을 닐스 발 앞 이끼 위에 소리 없이 내려놓는다 — 입은 다물었고 시선은 통에 가 있다, 초록 뜨개 조끼, 둥근 안경. Nils bear cub이 그 통을 내려다본다 — 파란 장화.<br/><b>배경·소품</b> 작은 통 하나, 그 옆에 옆으로 넘어진 큰 통.<br/><b>톤</b> 말 대신 통 하나가 발 앞에 놓인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">작은 통이 금세 가득 찼어요. 닐스가 큰 통에 조르르 부었어요. 큰 통이 가득 찼어요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Nils bear cub이 가득 찬 작은 통을 두 앞발로 들어 큰 통 아가리에 조르르 붓는다 — 팔이 위로 뻗고 발끝을 세웠다. 파란 장화.<br/><b>배경·소품</b> 쏟아져 내리는 열매 줄기, 큰 통 안이 반 너머 찼다.<br/><b>톤</b> 작은 것이 큰 것을 채운다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">저녁이에요. 우유에 담근 블루베리가 그릇 가득해요. 닐스도 할아버지도 입가가 보랏빛이에요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 식탁 정면.<br/><b>장소·시간</b> 오두막 안, 저녁.<br/><b>인물</b> Nils bear cub과 Bruno grandfather bear가 식탁을 사이에 두고 마주 앉아 숟가락을 든다 — 둘 다 입가가 보랏빛으로 물들었다. 닐스는 파란 장화가 의자 아래에서 달랑거리고, 할아버지는 초록 뜨개 조끼에 둥근 안경.<br/><b>배경·소품</b> 우유에 담긴 열매가 그릇 가득, 옆에 가득 찬 큰 통.<br/><b>톤</b> 두 입가가 똑같은 자국을 하고 있다.</pre></details>
+</div>
+
+</div>
+<script src="/bruno-core.js"></script>
+</body>
+</html>

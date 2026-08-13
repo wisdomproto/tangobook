@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>미오네 유치원 — 내가 다 오릴래</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#6E4E9E; --slope:#232B2E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">미오네 유치원 · 11</div>
+  <h1>내가 다 오릴래</h1>
+  <div class="sub"><b>주인공</b> 미오(혼자 하려 함) · <b>원함</b> 창문을 눈송이로 가득 채우고 싶다 · <b>탈</b> 혼자 오리다 손이 아파 세 개뿐이다 · <b>착지</b> 종이를 나눠 같이 오려 창문이 가득 찬다</div>
+  <div class="by">글 <b>오하람</b> · 그림 <b>강마루</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">창밖에 첫눈이 내려요. 오늘은 종이로 눈송이를 오려 창문에 붙여요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 측면. 큰 창이 화면 오른쪽에 세로로 서고 교실이 왼쪽에.<br/><b>장소·시간</b> 무지개반 교실, 첫눈 내리는 아침.<br/><b>인물</b> Mio kitten·Bobo piglet·Lala lamb·Gaga gosling·Duri raccoon 다섯이 창 앞에 모여 밖을 본다 — 다섯 다 옆모습이고 얼굴이 유리 쪽으로 기울었다. 보라 가방·보라 모자·보라 머리핀·보라 리본·보라 손수건.<br/><b>배경·소품</b> 🔴 창유리 밖으로 눈이 내리고 창 안쪽 유리는 아직 아무것도 안 붙어 텅 비었다. 옆 책상에 흰 종이 여러 장과 가위 여러 자루. 🔴 눈송이 종이는 흰 종이다 — 보라를 안 쓴다.<br/><b>톤</b> 유리 바깥은 가득하고 안쪽은 비었다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"이 창문은 내가 다 오릴래." 미오가 가위를 집어 들었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글. 아래에서 올려다본 미오와 들어 올린 가위.<br/><b>장소·시간</b> 책상 앞.<br/><b>인물</b> Mio kitten이 가위를 한 손으로 집어 가슴 높이까지 들어 올렸다 — 다른 손이 창 쪽을 가리키고 입을 벌려 말한다, 턱이 들리고 귀가 앞으로 섰다. 보라 가방.<br/><b>배경·소품</b> 책상 위 흰 종이 뭉치, 뒤로 밝은 창.<br/><b>톤</b> 창 전체를 한 손이 가리킨다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">미오가 종이를 접어 가위로 오렸어요. 눈송이 하나가 활짝 펼쳐졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 위에서 내려다본 두 손과 펼쳐지는 종이.<br/><b>장소·시간</b> 같은 책상.<br/><b>인물</b> Mio kitten의 두 손이 접은 종이를 양쪽으로 잡고 펼친다 — 손가락이 종이 가장자리를 잡고 벌어지는 중이다. 가위는 옆에 내려놓였다. 화면 위 가장자리에 숙인 얼굴과 보라 가방끈.<br/><b>배경·소품</b> 🔴 펼쳐진 흰 눈송이 한 장, 잘라낸 자리가 톱니처럼 뚫려 있다. 책상 위에 잘려 나온 종이 부스러기. 종이에 색은 없다.<br/><b>톤</b> 뚫린 자리가 종이보다 눈에 먼저 들어온다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">라라가 옆에 앉았어요. "나도 오릴까?" 미오가 가위를 두 손으로 감싸 쥐었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면. 두 아이가 책상을 사이에 두고 옆모습으로 마주 앉았다.<br/><b>장소·시간</b> 같은 책상.<br/><b>인물</b> Lala lamb이 의자에 앉으며 한 손을 가위 쪽으로 반쯤 뻗고 입을 벌려 묻는다 — 보라 머리핀. Mio kitten이 두 손으로 가위를 통째로 감싸 쥐어 제 가슴 앞으로 끌어당긴다 — 열 손가락이 가위를 다 덮었고 팔꿈치가 몸에 붙었다, 어깨가 라라 쪽에서 돌아갔다. 보라 가방.<br/><b>배경·소품</b> 책상 위 종이 뭉치, 눈송이 하나.<br/><b>톤</b> 뻗은 손과 감싼 손이 책상 폭만큼 떨어져 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">미오 손가락이 빨개졌어요. 눈송이는 아직 세 개예요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 정면. 미오의 두 손과 책상 위 눈송이들.<br/><b>장소·시간</b> 같은 책상, 조금 뒤.<br/><b>인물</b> Mio kitten이 두 손을 책상 위에 올려놓았다 — 가위를 쥔 손 엄지와 검지 사이가 벌겋게 붉고 손가락 마디가 굳어 반쯤 굽었다. 입이 다물리고 눈썹이 가운데로 모였다. 보라 가방.<br/><b>배경·소품</b> 🔴 책상 위 흰 눈송이가 셋 — 세 개가 나란히 놓여 개수가 또렷하다. 오리지 않은 흰 종이가 아직 여러 장.<br/><b>톤</b> 손은 벌게졌고 셋 옆에 빈 자리가 넓다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">창문이 아직 휑해요. 눈송이 세 개만 덩그러니 붙어 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 정면. 창이 화면을 가득 채운다.<br/><b>장소·시간</b> 교실 창 앞, 낮.<br/><b>인물</b> 화면 아래 가장자리에 Mio kitten의 뒤통수와 보라 가방만 작게 걸린다.<br/><b>배경·소품</b> 🔴 큰 창유리에 흰 눈송이가 딱 셋 붙어 있고 그 사이가 통째로 비었다 — 셋이 서로 멀찍이 떨어져 유리가 더 넓어 보인다. 유리 밖에는 눈이 계속 내린다.<br/><b>톤</b> 붙은 셋보다 안 붙은 자리가 훨씬 넓다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">미오가 가위를 내려놨어요. 손이 아파서 더는 못 오리겠어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 위에서 내려다본 책상과 늘어진 손.<br/><b>장소·시간</b> 같은 책상.<br/><b>인물</b> Mio kitten이 가위를 책상에 내려놓고 한 손으로 다른 손 손가락을 감싸 주무른다 — 어깨가 내려가고 고개가 숙여졌다, 귀가 뒤로 눕는다. 보라 가방.<br/><b>배경·소품</b> 내려놓인 가위, 눈송이 셋, 손 안 댄 흰 종이 뭉치.<br/><b>톤</b> 도구가 손을 떠나 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">바우 선생님이 창문을 쓱 가리켰어요. "이 창문은 누구 창문일까?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 아래에서 올려다봐 선생님의 팔과 창이 한 선으로.<br/><b>장소·시간</b> 창 앞.<br/><b>인물</b> Teacher Bau big dog가 창 앞에 서서 한 팔을 옆으로 길게 뻗어 손바닥으로 창유리 전체를 쓸어 보이며 가리킨다 — 얼굴은 미오 쪽을 향했고 입을 벌려 묻는다. Mio kitten이 그 아래에서 고개를 젖혀 창을 올려다본다, 보라 가방. 옆에 Lala lamb이 흰 종이를 든 채 서 있다, 보라 머리핀. 🔴 선생님은 보라를 안 지닌다.<br/><b>배경·소품</b> 눈송이 셋이 붙은 큰 창.<br/><b>톤</b> 손이 가리키는 것이 눈송이가 아니라 창 전체다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">미오가 라라에게 종이를 내밀었어요. "이 종이 반 줄게."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 오버숄더. 미오 어깨 너머로 내미는 종이와 라라.<br/><b>장소·시간</b> 책상 앞.<br/><b>인물</b> 화면 앞쪽에 Mio kitten의 등과 보라 가방이 걸리고, 두 손이 흰 종이 뭉치를 반으로 나눠 한쪽을 라라 쪽으로 내민다 — 팔이 쭉 펴졌고 입을 벌려 말한다. 안쪽에서 Lala lamb이 두 손을 앞으로 올려 받는다 — 눈이 커지고 입꼬리가 올라갔다, 보라 머리핀.<br/><b>배경·소품</b> 🔴 종이가 두 뭉치로 갈렸고 두께가 거의 같다. 가위 두 자루가 책상 위에 나란히.<br/><b>톤</b> p4에서 감싸 쥐던 두 손이 여기서는 나눠 내민다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">눈송이가 창문에 가득 붙었어요. 창밖에도 창 안에도 눈이 내려요. 미오와 라라가 어깨를 나란히 대고 봐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 창이 화면을 가로로 다 채우고 두 아이가 그 앞에.<br/><b>장소·시간</b> 교실 창 앞, 낮.<br/><b>인물</b> Mio kitten과 Lala lamb이 창을 마주 보고 어깨를 딱 붙이고 나란히 섰다 — 둘 다 뒷모습이고 고개를 같은 각도로 들었다. 보라 가방·보라 머리핀. 뒤쪽에 Bobo piglet·Gaga gosling·Duri raccoon이 창을 본다.<br/><b>배경·소품</b> 🔴 창유리에 흰 눈송이가 빽빽이 붙어 빈 자리가 거의 없다. 유리 바깥에도 눈이 내려 안팎이 같은 무늬로 보인다. 눈송이는 전부 흰 종이 — 보라 없음.<br/><b>톤</b> p6에서 셋뿐이던 유리가 여기서는 안팎이 구분이 안 갈 만큼 찼다.</pre></details>
+</div>
+
+</div>
+<script src="/mio-core.js"></script>
+</body>
+</html>

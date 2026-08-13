@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>노노네 겨울 골목 — 뒷부분을 몰라</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#2F7F4E; --slope:#333A3E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">노노네 겨울 골목 · 10</div>
+  <h1>뒷부분을 몰라</h1>
+  <div class="sub"><b>주인공</b> 노노(하다 만다) · <b>원함</b> 노래를 끝까지 부르고 싶다 · <b>탈</b> 앞부분만 배워 가운데서 멈춘다 · <b>착지</b> 끝 줄까지 배워 다 부른다</div>
+  <div class="by">글 <b>배도담</b> · 그림 <b>노아라</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">겨울에는 해가 일찍 져요. 밤이 길어서 셋은 가게 창가에 모여요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 가게 안 창가 쪽 전체.<br/><b>장소·시간</b> 골목 끝 가게 안 창가, 해가 진 뒤 이른 밤.<br/><b>인물</b> Nono sparrow · Gugu pigeon · Kiki cat 셋이 창가 나무 걸상에 나란히 앉았고, Grandpa Badger가 그 앞 난로 옆 의자에 앉아 있다 — 초록 목도리 · 초록 천 가방 · 초록 방울, 할아버지는 앞치마.<br/><b>배경·소품</b> 창밖은 캄캄하고 창틀 안쪽만 밝다, 난로 불, 선반.<br/><b>톤</b> 바깥이 짙게 가라앉아 창틀이 밝은 방을 오려 낸 것처럼 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">노노는 겨울 노래를 끝까지 부르고 싶어요. 오소리 할아버지가 한 줄씩 가르쳐 줘요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 마주 앉은 둘.<br/><b>장소·시간</b> 같은 창가.<br/><b>인물</b> Grandpa Badger가 손가락 하나를 세워 한 줄을 짚어 보이며 입을 벌려 부른다 — 앞치마. Nono sparrow가 몸을 앞으로 기울여 부리를 벌리고 따라 부른다 — 두 손이 무릎을 짚었다, 초록 목도리. Gugu pigeon과 Kiki cat이 옆에서 함께 입을 벌린다 — 초록 천 가방 · 초록 방울.<br/><b>배경·소품</b> 난로 불빛, 창.<br/><b>톤</b> 세운 손가락 하나가 노래의 마디를 화면에 표시한다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">노노가 앞부분을 금방 외웠어요. 신나서 폴짝폴짝 뛰어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글. 뛰는 몸을 아래에서.<br/><b>장소·시간</b> 창가 앞.<br/><b>인물</b> Nono sparrow가 두 발을 다 떼고 폴짝 뛰며 노래한다 — 부리가 크게 벌어지고 두 손이 위로 벌어졌다, 초록 목도리가 튀어 올랐다.<br/><b>배경·소품</b> 뒤로 흐린 난로 불빛과 창틀.<br/><b>톤</b> 몸이 화면 위로 솟아 신이 난 정도가 높이로 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">창밖에 눈이 펑펑 쏟아졌어요. 노노가 창턱으로 포르르 날아갔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면 아이레벨. 방과 창이 좌우로.<br/><b>장소·시간</b> 가게 안, 밤.<br/><b>인물</b> Nono sparrow가 날개를 펴고 오른쪽 창턱으로 막 날아 앉는 참 — 두 발이 아직 공중에, 고개가 창밖을 향했다, 초록 목도리. 왼쪽 난롯가에서 Grandpa Badger와 Gugu pigeon과 Kiki cat이 입을 벌린 채 노래를 잇는다.<br/><b>배경·소품</b> 창밖에 굵은 눈발이 쏟아진다, 난로 불빛.<br/><b>톤</b> 화면 왼쪽은 입이 벌어져 있고 오른쪽은 창밖으로 향해 방이 둘로 갈린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">노노는 눈만 보고 있어요. 뒤에서 노래가 계속 흘러나와요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 뒷모습 하이앵글. 창턱을 위에서.<br/><b>장소·시간</b> 창턱, 밤.<br/><b>인물</b> Nono sparrow가 창턱에 앉아 유리에 부리를 가까이 대고 밖만 본다 — 등이 방을 향했고 두 발이 창턱을 딛고 있다, 초록 목도리가 등 뒤로 늘어졌다.<br/><b>배경·소품</b> 유리 밖으로 내리는 눈, 뒤쪽 방 안은 흐릿하게 밝다.<br/><b>톤</b> 등이 방과 창을 갈라놓아 노랫소리가 등 뒤에 남는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다음 날 저녁에 셋이 노래를 불러요. 노노는 앞부분만 알아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 창가에 모인 넷.<br/><b>장소·시간</b> 같은 창가, 다음 날 저녁.<br/><b>인물</b> Grandpa Badger와 Gugu pigeon과 Kiki cat과 Nono sparrow가 나란히 서서 노래한다 — 넷 다 입과 부리가 벌어졌다, 앞치마 · 초록 천 가방 · 초록 방울 · 초록 목도리.<br/><b>배경·소품</b> 난로, 창, 걸상.<br/><b>톤</b> 네 입이 같은 크기로 벌어져 아직은 다 같이 가고 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가운데서 노노 목소리가 뚝 멈췄어요. 입만 벙긋벙긋해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 정면 아이레벨. 노노 얼굴.<br/><b>장소·시간</b> 같은 자리, 조금 뒤.<br/><b>인물</b> Nono sparrow의 부리가 반쯤 벌어진 채 멈췄다 — 눈동자가 옆으로 흔들리고 어깨가 움츠러들었다, 초록 목도리. 화면 가장자리에 다른 입 두 개가 아직 크게 벌어져 있다.<br/><b>배경·소품</b> 뒤로 흐린 난로 빛.<br/><b>톤</b> 벌어진 입들 사이에서 멈춘 부리 하나가 어긋나 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">오소리 할아버지가 말했어요. "이 노래는 끝 줄이 제일 예쁜데."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 난로 옆 의자.<br/><b>장소·시간</b> 가게 안, 밤.<br/><b>인물</b> Grandpa Badger가 무릎 위에 두 손을 얹고 몸을 Nono 쪽으로 돌려 말한다 — 눈꼬리가 내려가고 고개가 살짝 기울었다, 앞치마. Nono sparrow가 고개를 든다 — 초록 목도리.<br/><b>배경·소품</b> 난로 불, 걸상.<br/><b>톤</b> 어른의 몸이 아이 쪽으로 통째로 돌아가 말이 그리로만 간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">노노가 할아버지 옆으로 폴짝 다가앉았어요. 끝 줄까지 한 줄씩 따라 불렀어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 나란한 두 몸.<br/><b>장소·시간</b> 난로 옆.<br/><b>인물</b> Nono sparrow가 할아버지 옆에 바짝 붙어 앉아 고개를 들고 한 줄씩 따라 부른다 — 부리가 벌어지고 두 손이 무릎 위에서 박자를 짚는다, 초록 목도리. Grandpa Badger가 손가락으로 마지막 줄을 꼽아 보인다 — 앞치마.<br/><b>배경·소품</b> 창밖은 아직 눈, 난로 불빛.<br/><b>톤</b> 두 얼굴이 같은 데를 보고 있어 화면이 한 방향으로 모인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날 밤 셋이 노래를 처음부터 끝까지 불렀어요. 창에 김이 뽀얗게 서렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 아래에서 넷을 올려다본다.<br/><b>장소·시간</b> 창가, 밤.<br/><b>인물</b> Grandpa Badger · Nono sparrow · Gugu pigeon · Kiki cat 넷이 나란히 서서 끝까지 부른다 — 네 입이 다 크게 벌어졌고 노노는 가슴을 폈다, 앞치마 · 초록 목도리 · 초록 천 가방 · 초록 방울.<br/><b>배경·소품</b> 창유리가 아래쪽부터 뿌옇게 흐려져 바깥 눈이 잘 안 보인다.<br/><b>톤</b> 유리가 흐려진 만큼 방 안이 따뜻해진 게 창 한 장으로 보인다.</pre></details>
+</div>
+
+</div>
+<script src="/nono-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>브루노 할아버지네 숲 — 손이 모자라</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#1C4E8A; --slope:#2E3A2A; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">브루노 할아버지네 숲 · 05</div>
+  <h1>손이 모자라</h1>
+  <div class="sub"><b>주인공</b> 닐스(욕심) · <b>원함</b> 식탁에 놓을 꽃다발을 만들고 싶다 · <b>탈</b> 안을 수 없이 꺾어 다 구겨진다 · <b>착지</b> 손에 드는 만큼만 골라 꽂는다</div>
+  <div class="by">글 <b>배도담</b> · 그림 <b>차온유</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">숲 빈터에 봄꽃이 활짝 피었어요. 노랑, 하양, 분홍. 바람이 불 때마다 꽃냄새가 나요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 빈터가 화면 가득 펼쳐진다.<br/><b>장소·시간</b> 숲 빈터, 봄 낮.<br/><b>인물</b> Nils bear cub이 빈터 가장자리에 서서 꽃밭을 바라본다 — 두 앞발을 몸 옆에 내리고 귀가 앞으로 섰다. 파란 장화.<br/><b>배경·소품</b> 노랑·하양·분홍 봄꽃이 무릎 높이로 빽빽하다, 둘레의 어린 잎 나무들.<br/><b>톤</b> 바람이 지나가는 자리를 따라 꽃대가 한쪽으로 눕는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">닐스는 꽃다발을 만들고 싶어요. 오두막 식탁에 놓을 거예요. "예쁜 꽃, 다 가져갈래!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글.<br/><b>장소·시간</b> 같은 빈터.<br/><b>인물</b> Nils bear cub이 두 앞발을 활짝 벌리고 입을 크게 벌려 말한다 — 턱이 들리고 몸이 뒤로 젖혀졌다. 파란 장화.<br/><b>배경·소품</b> 벌린 두 팔 사이로 꽃밭이 끝까지 이어진다.<br/><b>톤</b> 팔을 다 벌려도 꽃밭이 팔 밖으로 넘친다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">닐스가 꽃을 꺾기 시작했어요. 한 손 가득, 또 한 손 가득.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글.<br/><b>장소·시간</b> 꽃밭 한가운데.<br/><b>인물</b> Nils bear cub이 한 앞발에 꽃 한 줌을 쥔 채 다른 앞발로 또 한 송이를 꺾는다 — 허리를 굽히고 시선은 다음 꽃에 가 있다. 파란 장화.<br/><b>배경·소품</b> 손에 쥔 꽃 한 줌, 발밑에 꺾인 그루터기 몇.<br/><b>톤</b> 쥔 손보다 보는 눈이 앞서 가 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">팔로 안아도 모자라요. 턱 밑에까지 꽃을 끼웠어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 얼굴과 가슴.<br/><b>장소·시간</b> 같은 꽃밭.<br/><b>인물</b> Nils bear cub이 팔로 꽃 무더기를 안고 턱 밑에까지 꽃대를 끼웠다 — 얼굴 아래 절반이 꽃에 가리고 눈만 보인다. 파란 장화.<br/><b>배경·소품</b> 팔과 턱 사이에 낀 꽃, 삐져나온 꽃대들.<br/><b>톤</b> 안은 것이 얼굴을 덮을 만큼 늘었다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그래도 저기 핀 꽃이 더 예뻐 보여요. 닐스가 허리를 숙여 또 꺾었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 꽃대 사이에서 올려다본다.<br/><b>장소·시간</b> 같은 꽃밭.<br/><b>인물</b> Nils bear cub이 꽃 무더기를 안은 채 허리를 숙여 한 앞발을 저쪽 꽃으로 뻗는다 — 안은 꽃이 팔에서 미끄러지려 기울었다. 파란 장화.<br/><b>배경·소품</b> 손끝 앞의 꽃 한 송이, 팔에서 흘러내리기 시작한 꽃대들.<br/><b>톤</b> 손이 닿는 곳과 안은 것이 서로 반대로 간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">후드득! 안고 있던 꽃이 쏟아졌어요. 주우려고 하니 또 쏟아져요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글.<br/><b>장소·시간</b> 같은 꽃밭.<br/><b>인물</b> Nils bear cub이 무릎을 굽혀 떨어진 꽃을 주우려는 자세인데, 같은 순간 팔 안에서 꽃이 또 미끄러진다 — 두 앞발이 벌어지고 눈이 동그래졌다. 파란 장화.<br/><b>배경·소품</b> 발치에 흩어진 꽃대들, 공중에서 떨어지는 꽃 몇 송이.<br/><b>톤</b> 줍는 손과 흘리는 팔이 한 몸에 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">손안의 꽃대가 다 구겨졌어요. 꽃송이들이 고개를 푹 숙였어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 손안.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Nils bear cub의 두 앞발이 꽃 한 줌을 쥐고 있다 — 꽃대가 손아귀에서 꺾이고 눌렸다. 얼굴은 화면 위쪽에서 입이 아래로 처졌다.<br/><b>배경·소품</b> 고개를 푹 숙인 꽃송이들, 바닥에 흩어진 꽃.<br/><b>톤</b> 남은 것도 성한 데가 없다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지가 꽃 세 송이를 집어 들었어요. "꽃은 손안에 든 만큼만 데려가는 거란다."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨.<br/><b>장소·시간</b> 같은 빈터.<br/><b>인물</b> Bruno grandfather bear가 한쪽 무릎을 굽히고 두 앞발로 꽃 세 송이를 골라 집어 들며 입을 벌려 말한다 — 초록 뜨개 조끼, 둥근 안경. Nils bear cub은 마주 앉아 그 손을 본다 — 파란 장화.<br/><b>배경·소품</b> 큰 손에 든 꽃 세 송이, 그 옆 흩어진 꽃 무더기.<br/><b>톤</b> 큰 손인데 든 것은 셋뿐이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">닐스가 꽃을 다섯 송이만 골랐어요. 한 손에 쏙 들어와요. 꽃들이 쌩쌩해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글.<br/><b>장소·시간</b> 같은 빈터.<br/><b>인물</b> Nils bear cub이 한 앞발에 꽃 다섯 송이를 모아 쥐고 눈높이로 들어 본다 — 손가락이 편하게 감겼고 입꼬리가 올라갔다. 파란 장화.<br/><b>배경·소품</b> 꽃대가 곧고 꽃송이가 위를 보고 있다.<br/><b>톤</b> 한 손 안에 다 들어와 꽃이 눌리지 않았다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">식탁 꽃병에 꽃다발이 꽂혔어요. 오두막이 환해졌어요. "딱 알맞아!" 닐스가 웃었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 식탁 정면.<br/><b>장소·시간</b> 오두막 안, 저녁 전.<br/><b>인물</b> Nils bear cub이 식탁 옆에 서서 꽃병을 두 앞발로 살짝 돌려 놓으며 입을 벌려 말한다 — 파란 장화가 마룻바닥을 딛고 있다.<br/><b>배경·소품</b> 식탁 가운데 꽃병에 꽂힌 꽃 다섯 송이, 창으로 드는 볕, 나무 의자 둘.<br/><b>톤</b> 작은 꽃 다섯이 방 한가운데를 차지한다.</pre></details>
+</div>
+
+</div>
+<script src="/bruno-core.js"></script>
+</body>
+</html>

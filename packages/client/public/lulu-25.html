@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>룰루네 올리브 언덕 — 첫 기름 잔치</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#1F7FA8; --slope:#3E3A2E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">룰루네 올리브 언덕 · 25</div>
+  <h1>첫 기름 잔치</h1>
+  <div class="sub"><b>원함</b> 첫 기름 잔치에서 빵을 내가 나눠 주고 싶다 · <b>틀리는 어른</b> 셋 다 · <b>어긋남</b> 서로 나누겠다고 셋이 바구니를 잡아당긴다 · <b>착지</b> 잡아당기는 바구니에서 빵을 집어 한 사람 앞에 한 조각씩 — 마지막 조각은 엄마가 룰루 입에</div>
+  <div class="by">글 <b>문나래</b> · 그림 <b>유가온</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">새 올리브기름이 항아리에 가득 찼어요. 오늘 저녁은 첫 기름을 맛보는 잔칫날이에요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 항아리와 부엌.<br/><b>장소·시간</b> 농가 부엌, 저녁 무렵.<br/><b>인물</b> Lulu donkey가 항아리 옆에 서서 두 앞발로 아가리를 짚고 안을 들여다본다 — 코가 안쪽으로 들어갔다. 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 배 부른 항아리에 새 기름이 목까지 찼고 표면이 매끈하다. 옆에 작은 접시들.<br/><b>톤</b> 매끈한 기름 면이 화면에서 유일하게 반들거린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 큰 빵을 구워 조각조각 잘라 놓았어요. 룰루가 바구니를 들었어요. "빵은 내가 나눠 드릴래요."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 도마와 바구니.<br/><b>장소·시간</b> 부엌 탁자.<br/><b>인물</b> 🔴 Mama donkey가 도마 위 큰 빵을 칼로 조각내 자른다(칼은 엄마 손) — 앞치마, 한 앞발로 빵을 누른다. Lulu donkey가 옆에서 빈 바구니를 두 앞발로 들어 받친다 — 턱이 들리고 입이 벌어져 말하는 중, 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 도마 위 빵 조각 여덟, 빈 바구니 하나.<br/><b>톤</b> 잘린 조각들이 나란히 놓여 개수가 세어진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">니노 삼촌이 바구니로 손을 뻗었어요. "나눠 주기는 빠른 내가 하지!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면 아이레벨. 뻗는 팔.<br/><b>장소·시간</b> 마당 식탁 옆.<br/><b>인물</b> Nino donkey가 바구니 쪽으로 한 앞발을 길게 뻗는다 — 밀짚모자, 몸이 앞으로 쏠리고 입이 크게 벌어졌다. Lulu donkey는 바구니를 가슴 쪽으로 당긴다, 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 바구니에 빵 여덟 조각.<br/><b>톤</b> 뻗은 팔이 화면을 가로질러 바구니에 닿는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">베포 큰아버지가 막았어요. "우리 땐 나이 많은 순서였다." 로사 이모도 바구니 손잡이를 잡았어요. "접시부터 예쁜 걸로 바꾸고!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 손잡이에 겹치는 손들.<br/><b>장소·시간</b> 식탁 옆.<br/><b>인물</b> Beppo donkey가 한 앞발로 삼촌 팔을 막고 다른 앞발로 바구니 테를 잡는다 — 입이 크게 벌어졌다. Rosa donkey도 반대쪽 손잡이를 두 앞발로 움켜쥔다 — 눈이 반짝인다. Lulu donkey는 아래에서 바구니 바닥을 받친 채 셋을 올려다본다, 파란 방울 목끈.<br/><b>배경·소품</b> 바구니 하나에 손이 넷.<br/><b>톤</b> 아래에서 보니 손들이 바구니 위로 겹쳐 덮인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">셋이 바구니를 서로 잡아당겨요. 바구니가 이리 갔다 저리 갔다 —</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 잡아당기는 셋.<br/><b>장소·시간</b> 식탁 옆 마당.<br/><b>인물</b> Nino donkey·Beppo donkey·Rosa donkey가 각자 제 쪽으로 바구니를 당긴다 — 셋 다 발을 벌려 버티고 몸이 바깥으로 기울었다. Lulu donkey는 세 몸 사이에서 밀려나 있다, 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 바구니가 세 방향으로 당겨져 기울고 빵 조각 여덟이 안에서 쏠린다.<br/><b>톤</b> 세 방향으로 벌어진 몸들이 화면을 세 갈래로 찢는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">빵은 한 조각도 못 나가고 식어 가요. 사촌들 배에서 꼬르륵꼬르륵 소리가 나요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 빵과 배를 함께.<br/><b>장소·시간</b> 식탁 옆.<br/><b>인물</b> cousins donkeys 걸어 다니는 셋이 의자에 앉아 두 앞발로 제 배를 누른다 — 셋 다 눈썹이 처지고 입이 삐죽 나왔다. 아기 사촌은 한 사촌 무릎에 앉아 있다.<br/><b>배경·소품</b> 🔴 프레임 위쪽 흔들리는 바구니 속 빵 여덟 조각에서 김이 더 이상 오르지 않는다. 빈 접시들.<br/><b>톤</b> 김이 사라진 빵과 눌린 배가 한 화면에 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">룰루가 바구니에서 빵을 두 손에 한 조각씩 집어 들었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 두 앞발과 빵.<br/><b>장소·시간</b> 바구니 앞.<br/><b>인물</b> Lulu donkey가 흔들리는 바구니 안에서 두 앞발로 빵을 한 조각씩 집어 든다 — 손끝에 힘이 들어갔고 눈이 빵에 붙었다. 파란 방울 목끈이 앞으로 늘어졌다.<br/><b>배경·소품</b> 🔴 손에 두 조각, 바구니에 남은 여섯 조각. 프레임 위쪽에 어른들의 팔뚝만.<br/><b>톤</b> 흔들리는 것 안에서 손 둘만 정확하다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">룰루가 식탁을 돌며 한 사람 앞에 한 조각씩 놓았어요. 셋은 아직 빈 바구니를 잡아당기고 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 식탁 둘레를 도는 걸음.<br/><b>장소·시간</b> 마당 식탁.<br/><b>인물</b> Lulu donkey가 식탁을 따라 걸으며 한 사람 앞 접시에 빵을 한 조각씩 내려놓는다 — 몸이 왼쪽에서 오른쪽으로 간다, 파란 방울 목끈. 화면 한쪽에서 Nino donkey·Beppo donkey·Rosa donkey가 여전히 빈 바구니를 세 방향으로 당긴다.<br/><b>배경·소품</b> 🔴 접시 다섯에 빵이 놓였고 룰루 손에 남은 조각 셋, 바구니는 비었다.<br/><b>톤</b> 도는 걸음은 차분하고 당기는 셋만 흔들린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">셋이 그제야 빈 바구니를 놓았어요. 다들 빵을 새 기름에 콕 찍어 한입 — "음—!" 눈이 동그래졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 식탁 한쪽 줄.<br/><b>장소·시간</b> 식탁.<br/><b>인물</b> Nino donkey·Beppo donkey·Rosa donkey가 바구니에서 손을 떼고 각자 접시로 몸을 돌린다 — 셋 다 빵을 기름 접시에 찍어 입으로 가져간다. cousins donkeys 셋도 한입 물고 눈이 동그래졌다 — 볼이 부풀었다. Lulu donkey는 옆에 서서 본다, 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 바닥에 떨어진 빈 바구니, 접시마다 기름 자국.<br/><b>톤</b> 아까 세 갈래로 벌어졌던 몸들이 한 방향으로 모인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">룰루 손에 마지막 한 조각이 남았어요. 엄마가 그 조각을 기름에 찍어 룰루 입에 쏙 넣어 줬어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 측면. 두 얼굴과 손.<br/><b>장소·시간</b> 식탁 끝, 저녁.<br/><b>인물</b> Mama donkey가 마지막 빵 조각을 기름에 찍어 룰루 입에 넣어 준다 — 앞치마, 한 앞발이 룰루 턱 밑을 받쳤다. Lulu donkey는 눈을 감고 입을 크게 벌린다 — 두 앞발을 무릎에 모았다, 파란 방울 목끈.<br/><b>배경·소품</b> 기름 접시 하나, 뒤로 흐린 식탁과 사람들.<br/><b>톤</b> 화면이 두 얼굴로 좁아져 마지막 한 조각만 남는다.</pre></details>
+</div>
+
+</div>
+<script src="/lulu-core.js"></script>
+</body>
+</html>

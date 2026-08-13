@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>미오네 유치원 — 내가 더 잘 심어</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#6E4E9E; --slope:#232B2E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">미오네 유치원 · 04</div>
+  <h1>내가 더 잘 심어</h1>
+  <div class="sub"><b>주인공</b> 가가(잘난 척) · <b>원함</b> 싹을 제일 먼저 보고 싶다 · <b>탈</b> 남의 화분까지 파헤쳐 싹이 안 난다 · <b>착지</b> 제 화분만 돌봐 싹을 제일 먼저 본다</div>
+  <div class="by">글 <b>오하람</b> · 그림 <b>강마루</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">창가에 작은 화분이 다섯 개 놓였어요. 아이들이 화분마다 씨앗을 하나씩 묻었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 창턱이 화면을 가로로 지르고 화분이 그 위에 일렬로.<br/><b>장소·시간</b> 무지개반 교실 창가, 아침.<br/><b>인물</b> Mio kitten·Bobo piglet·Lala lamb·Gaga gosling·Duri raccoon 다섯이 창턱 앞에 나란히 서서 저마다 제 화분 흙에 손가락 하나를 찔러 넣고 씨앗을 묻는다 — 다섯 등이 같은 높이로 굽었다. 보라 가방·보라 모자·보라 머리핀·보라 리본·보라 손수건.<br/><b>배경·소품</b> 🔴 작은 흙 화분 다섯 개, 크기와 모양이 똑같다. 화분에 글자는 없다. 창밖에 강마을 지붕과 물.<br/><b>톤</b> 다섯이 똑같아서 아직 아무 차이가 없다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"내 씨앗에서 싹이 제일 먼저 날 거야." 가가가 제 화분을 창가 앞으로 당겼어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글. 창턱 높이에서 올려다본 가가.<br/><b>장소·시간</b> 같은 창가.<br/><b>인물</b> Gaga gosling이 날개 끝 두 손으로 제 화분을 끌어당겨 창턱 맨 앞으로 밀어 놓는다 — 목이 길게 늘어나고 부리가 위로 들렸다, 입을 벌려 말한다. 목에 보라 리본.<br/><b>배경·소품</b> 앞으로 나온 화분 하나, 그 뒤로 물러난 화분 넷이 흐리게.<br/><b>톤</b> 줄에서 하나만 앞으로 튀어나왔다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가가가 제 화분 흙을 손바닥으로 톡톡 다독였어요. 창가에 화분 다섯 개가 나란해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 위에서 내려다본 창턱과 손.<br/><b>장소·시간</b> 같은 창가.<br/><b>인물</b> Gaga gosling이 제 화분 흙 위를 두 손바닥으로 톡톡 다독인다 — 손바닥이 판판하게 눌리고 어깨가 앞으로 기울었다. 보라 리본.<br/><b>배경·소품</b> 🔴 화분 다섯 개가 모두 흙이 판판하다 — 아직 파헤쳐진 것은 없다.<br/><b>톤</b> 다섯 개의 흙 면이 하나같이 매끈하다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가가가 미오 화분도 파헤쳤어요. "씨앗은 내가 더 잘 심어."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 측면. 두 손과 화분 하나가 화면을 다 차지한다.<br/><b>장소·시간</b> 같은 창가.<br/><b>인물</b> Gaga gosling의 두 손이 미오 화분 속으로 손가락을 박고 흙을 옆으로 긁어낸다 — 흙덩이가 화분 밖으로 넘어간다. 부리가 반쯤 벌어져 말하는 중이고 눈이 아래를 본다. 보라 리본. 화면 가장자리에 Mio kitten의 어깨와 보라 가방이 걸린다 — 두 손이 가슴 앞에서 멈췄다.<br/><b>배경·소품</b> 파인 화분 하나, 창턱에 떨어진 흙.<br/><b>톤</b> 남의 화분 안에 남의 손이 들어가 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가가가 화분 다섯 개를 다 파헤쳤어요. 창가에 흙이 수북해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 창턱 전체를 위에서 내려다본다.<br/><b>장소·시간</b> 같은 창가, 조금 뒤.<br/><b>인물</b> Gaga gosling이 창턱 가운데 서서 두 손을 흙투성이로 늘어뜨렸다 — 어깨가 올라가고 부리가 들렸다, 보라 리본. Mio kitten·Bobo piglet·Lala lamb·Duri raccoon 넷이 조금 떨어져 서서 창턱을 본다.<br/><b>배경·소품</b> 🔴 화분 다섯 개가 전부 흙이 파여 가운데가 우묵하다. 창턱 위에 흙이 수북이 쏟아져 화분 사이를 잇는다.<br/><b>톤</b> p3의 매끈한 다섯 면이 하나도 안 남았다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">며칠이 지났어요. 화분에서 싹이 하나도 안 나와요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 정면. 창턱이 눈높이에 오고 화분 다섯이 정면으로 늘어선다.<br/><b>장소·시간</b> 같은 창가, 며칠 뒤 아침.<br/><b>인물</b> Gaga gosling이 창턱에 두 손을 짚고 얼굴을 화분 높이까지 낮춰 흙을 들여다본다 — 목이 앞으로 길게 꺾이고 눈이 커졌다. 보라 리본.<br/><b>배경·소품</b> 🔴 화분 다섯 개 전부 흙만 있고 초록이 한 점도 없다. 창밖 나무는 잎이 무성하다.<br/><b>톤</b> 밖은 온통 초록인데 창턱만 갈색이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가가가 흙을 또 파 봤어요. 씨앗이 축 젖어 물렁물렁해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 클로즈업, 하이앵글. 손바닥 위 씨앗 하나.<br/><b>장소·시간</b> 창턱 앞.<br/><b>인물</b> Gaga gosling의 한 손이 흙에서 씨앗을 꺼내 손바닥에 올렸다 — 다른 손 손가락이 그것을 살짝 누르자 옆구리가 물렁하게 들어간다. 화면 위 가장자리에 내려다보는 부리 끝과 보라 리본이 걸린다.<br/><b>배경·소품</b> 씨앗 껍질이 축 늘어져 주름졌고 손바닥에 젖은 자국이 번진다.<br/><b>톤</b> 딱딱해야 할 것이 물러 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">바우 선생님이 새 씨앗을 나눠 줬어요. "이 화분은 누가 돌보니?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 선생님의 펼친 손과 가가가 마주 본다.<br/><b>장소·시간</b> 같은 창가.<br/><b>인물</b> Teacher Bau big dog가 창턱 옆에 서서 큰 손바닥을 펴 새 씨앗 다섯 알을 올려 내민다 — 다른 손은 화분 하나를 가리키고, 입을 벌려 묻는다. Gaga gosling이 그 앞에서 두 손을 배 앞에 모으고 씨앗을 본다, 보라 리본. 🔴 선생님은 보라를 안 지닌다.<br/><b>배경·소품</b> 파인 화분 다섯, 창턱의 흙.<br/><b>톤</b> 물음이 손바닥 위 씨앗 다섯 알에 얹혀 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가가가 제 화분에만 씨앗을 묻었어요. 흙이 판판하게 덮였어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 오버숄더. 가가 어깨 너머로 화분 하나만 보인다.<br/><b>장소·시간</b> 같은 창가.<br/><b>인물</b> 화면 앞쪽에 Gaga gosling의 등과 보라 리본이 크게 걸리고, 그 어깨 옆으로 두 손이 제 화분 흙을 판판하게 쓸어 덮는다 — 손바닥 옆날로 흙을 밀어 고른다.<br/><b>배경·소품</b> 🔴 가가 화분 하나만 흙이 매끈하고, 옆 화분 넷은 각자 주인의 손이 덮는 중이라 아직 자국이 남았다. 창턱 흙은 치워졌다.<br/><b>톤</b> 손이 제 화분 가장자리를 안 넘는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아침에 초록 싹이 쏙 올라왔어요. 가가가 제일 먼저 봤어요. "여기, 여기 나왔어!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 로우앵글. 화분 흙 높이에서 올려다본 싹과 얼굴.<br/><b>장소·시간</b> 같은 창가, 아침.<br/><b>인물</b> Gaga gosling이 창턱에 두 손을 짚고 얼굴을 화분 바로 옆까지 들이밀어 부리를 활짝 벌리고 외친다 — 한 손 손가락이 싹을 가리키다 만 채 공중에 있다. 눈이 동그랗고 목이 위로 뻗었다. 보라 리본. 뒤쪽에 Mio kitten·Bobo piglet·Lala lamb·Duri raccoon이 달려오는 자세로 흐리게.<br/><b>배경·소품</b> 🔴 초록 싹 하나가 흙을 뚫고 올라와 잎 두 장을 폈다 — 싹과 가가 얼굴을 같은 깊이에 두어 손톱만 한 크기가 읽히게 한다. 옆 화분 넷은 아직 흙뿐이다.<br/><b>톤</b> 화면에서 초록은 딱 한 점이고 그 한 점이 가장 마감되어 있다.</pre></details>
+</div>
+
+</div>
+<script src="/mio-core.js"></script>
+</body>
+</html>

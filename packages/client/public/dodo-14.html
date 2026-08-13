@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>도도네 물방앗간 — 물수제비</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#2D62B8; --slope:#3D4A44; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">도도네 물방앗간 · 14</div>
+  <h1>물수제비</h1>
+  <div class="sub"><b>원함</b> 돌이 물 위를 통통 튀게 하고 싶다 · <b>틀리는 쪽</b> 도도 — "돌은 공처럼 동글동글한 게 잘 튀지" · <b>어긋남</b> 퐁당, 물기둥에 도도가 흠뻑 · <b>착지</b> 납작한 돌을 낮게 스치듯 — 도도의 돌 위엔 개구리가 앉아 개굴</div>
+  <div class="by">글 <b>한여울</b> · 그림 <b>윤새롬</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">저녁이에요. 개울물이 잔잔해요. 아빠가 돌을 던지자 통, 통, 통! 물 위를 세 번 튀었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면 아이레벨. 수면을 낮게 옆에서.<br/><b>장소·시간</b> 물방앗간 앞 개울, 저녁.<br/><b>인물</b> Daddy duck이 던진 자세 그대로 한 날개를 앞으로 낮게 뻗고 몸이 옆으로 기울었다 — 밀짚모자. Mumu duck이 뒤에서 목을 빼고 물을 본다 — 파란 목수건.<br/><b>배경·소품</b> 물 위를 튀는 중인 돌 하나(세 번째 튐)와 그 앞쪽에 남은 동그란 물자국 **두 개**, 잔잔한 저녁 물.<br/><b>톤</b> 물자국 둘과 튀는 돌 하나가 한 줄로 이어져 지나온 길이 남는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"우와! 나도 돌이 통통 튀게 하고 싶어." 무무가 물가 돌밭을 두리번거렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 돌밭을 위에서.<br/><b>장소·시간</b> 개울가 돌밭.<br/><b>인물</b> Mumu duck이 몸을 굽혀 돌밭 위를 좌우로 두리번거린다 — 목이 아래로 길게 늘어나고 두 날개가 무릎께에, 파란 목수건.<br/><b>배경·소품</b> 크고 작은 자갈이 가득한 돌밭 — 동글한 것과 납작한 것이 섞여 있다.<br/><b>톤</b> 위에서 보니 납작한 돌 몇 개가 그림자 없이 누워 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">도도가 돌 하나를 집었어요. "돌은 공처럼 동글동글한 게 잘 튀어. 내가 알아! 구슬치기랑 똑같지!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 도도의 날개와 돌.<br/><b>장소·시간</b> 같은 돌밭.<br/><b>인물</b> Dodo duck이 주먹만 한 동글 돌을 한 날개 끝에 얹어 눈앞으로 들어 올린다 — 한쪽 눈을 감고 부리를 크게 벌려 말한다, 파란 머리 리본.<br/><b>배경·소품</b> 날개 끝에 얹힌 동글 돌 하나, 아래로 흐린 돌밭.<br/><b>톤</b> 들어 올린 돌이 얼굴만 하게 커 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">도도가 주먹만 한 동글 돌을 힘껏 던졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 던지는 몸을 아래에서.<br/><b>장소·시간</b> 개울가.<br/><b>인물</b> Dodo duck이 한 날개를 머리 위로 크게 휘둘러 동글 돌을 힘껏 던진다 — 몸이 뒤로 젖혀지고 한 오리발이 들렸다, 부리가 앙다물렸다, 파란 머리 리본.<br/><b>배경·소품</b> 날개 끝을 막 떠난 동글 돌, 저녁 하늘.<br/><b>톤</b> 던지는 각이 위를 향해 있어 돌이 하늘로 간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">퐁당—! 물기둥이 솟았어요. 도도가 머리끝까지 흠뻑 젖었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 물기둥이 화면 가운데.<br/><b>장소·시간</b> 같은 개울, 바로 다음.<br/><b>인물</b> Dodo duck이 물가에서 머리끝까지 물을 뒤집어쓴 채 굳었다 — 두 날개가 옆으로 벌어지고 눈만 껌뻑, 파란 머리 리본이 젖어 늘어졌다. Mumu duck은 옆에서 두 날개로 얼굴을 반쯤 가렸다 — 파란 목수건.<br/><b>배경·소품</b> 돌이 떨어진 자리에서 곧게 솟은 물기둥과 사방으로 퍼지는 물방울.<br/><b>톤</b> 튀는 것이 위로만 솟아 물수제비와 정반대 모양이 된다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"…방금 건 잠수 연습이었어." 도도가 물을 뚝뚝 흘리며 말해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 도도 상반신.<br/><b>장소·시간</b> 물가.<br/><b>인물</b> Dodo duck이 흠뻑 젖은 채 한 날개를 척 들어 보이며 태연히 부리를 벌려 말한다 — 눈을 반쯤 감았다, 젖은 파란 머리 리본에서 물이 뚝뚝.<br/><b>배경·소품</b> 발밑에 고인 물자국, 뒤로 흐린 개울.<br/><b>톤</b> 물이 떨어지는 소리만 남을 만큼 자세가 태연하다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">무무가 아빠를 봤어요. 아빠 날개에 돌이 들려 있어요. 납작하고 반들반들해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 오버숄더. 무무 어깨 너머 아빠의 날개.<br/><b>장소·시간</b> 개울가, 아빠 옆.<br/><b>인물</b> Mumu duck이 몸을 돌려 아빠를 본다 — 목이 앞으로 빠지고 눈이 한 점에 붙었다, 파란 목수건. Daddy duck은 한 날개에 돌을 얹고 다음 던짐을 준비한다 — 밀짚모자.<br/><b>배경·소품</b> 아빠 날개 위에 놓인 얇고 납작하고 반들반들한 돌 하나.<br/><b>톤</b> 앞 쪽에서 크게 보였던 동글 돌과 달리 이번 돌은 얇고 넓다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">무무도 납작 돌을 골라 낮게, 스치듯 던졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면 로우앵글. 수면 가까이 날개 높이에서.<br/><b>장소·시간</b> 개울가 물가.<br/><b>인물</b> Mumu duck이 몸을 옆으로 낮게 눕히듯 굽히고 한 날개를 수면과 나란히 뻗어 납작 돌을 놓아 보낸다 — 눈이 물 표면을 따라간다, 파란 목수건이 아래로 늘어졌다.<br/><b>배경·소품</b> 날개 끝을 막 떠난 납작 돌이 수면과 거의 붙어 간다.<br/><b>톤</b> 던지는 선이 수면과 나란해 앞 쪽의 위 방향과 반대다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">통, 통! 돌이 물 위를 두 번 튀었어요. "튀었다!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 수면을 위에서.<br/><b>장소·시간</b> 같은 개울.<br/><b>인물</b> Mumu duck이 물가에서 두 날개를 번쩍 들고 부리를 크게 벌려 외친다 — 파란 목수건. Dodo duck이 젖은 채 옆에서 함께 본다 — 파란 머리 리본.<br/><b>배경·소품</b> 물 위를 튀어 오르는 중인 납작 돌 하나와 그 뒤에 남은 동그란 물자국 **한 개**.<br/><b>톤</b> 물자국 하나와 튀는 돌 하나가 짧은 점선을 만든다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 물가에 가라앉은 도도의 동글 돌 위로 개구리가 폴짝 — "저 개구리, 내 돌을 의자로 샀나 봐!" 개구리가 한 번 더, 개굴!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 로우앵글. 물가에 반쯤 잠긴 돌을 물 높이에서.<br/><b>장소·시간</b> 물가 얕은 물, 저녁.<br/><b>인물</b> 화면 뒤쪽에 Dodo duck이 한 날개를 뻗어 가리키며 부리를 벌리고, Mumu duck이 그 옆에서 웃는다 — 파란 머리 리본, 파란 목수건.<br/><b>배경·소품</b> 물에 반쯤 잠긴 도도의 동글 돌 위에 개구리 한 마리가 앉아 목주머니를 부풀렸다, 둘레에 잔물결.<br/><b>톤</b> 가라앉은 돌이 의자가 되어 실패가 자리로 바뀐다.</pre></details>
+</div>
+
+</div>
+<script src="/dodo-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>쌍둥이네 바닷가 — 달빛 밤낚시</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#E9A825; --slope:#2D3B42; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">쌍둥이네 바닷가 · 17</div>
+  <h1>달빛 밤낚시</h1>
+  <div class="sub"><b>원함</b> 밤낚시에서 내 손으로 물고기를 낚고 싶다 · <b>우기는 둘</b> 롤로 "물었나 봐야지" / 리리 "가만히 기다려야지" · <b>어긋남</b> 롤로 바늘은 번번이 빈손, 리리는 낚싯대를 안고 존다 · <b>착지</b> 잠든 리리 찌가 쏙 들어가고 롤로가 소리쳐 둘이 함께 당긴다</div>
+  <div class="by">글 <b>한여울</b> · 그림 <b>임푸른</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">달이 바다 위에 길게 비쳐요. 아빠가 밤낚시에 둘을 데려갔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 달과 물길이 화면을 세로로 가른다.<br/><b>장소·시간</b> 부두 끝 방파제, 밤.<br/><b>인물</b> Dad rabbit이 방파제 위에 앉아 낚싯대 둘을 무릎에 뉘고 줄을 고른다 — 검정 장화. Riri rabbit과 Lolo rabbit이 그 양옆에 나란히 앉았다 — 리리는 두 앞발을 무릎에 모았고 노란 모자, 롤로는 벌써 물 쪽으로 상체를 내밀었다, 노란 장화.<br/><b>배경·소품</b> 물 위에 길게 누운 달빛 자국, 발치의 미끼 통과 물고기 통.<br/><b>톤</b> 검은 물에 밝은 길이 하나만 나 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘은 제 손으로 물고기를 낚고 싶어요. "오늘은 꼭 내가 한 마리 낚을 거야."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면. 두 옆얼굴.<br/><b>장소·시간</b> 방파제 위.<br/><b>인물</b> Lolo rabbit이 제 가슴을 앞발로 탁 치며 입을 벌려 말한다 — 노란 장화. Riri rabbit은 그 옆에서 두 앞발로 제 눈가를 크게 벌려 보인다 — 노란 모자.<br/><b>배경·소품</b> 세워 둔 낚싯대 둘, 뒤로 검은 물.<br/><b>톤</b> 각오가 두 가지 몸짓으로 갈린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">롤로가 낚싯대를 홱 들어 올렸어요. 리리는 찌만 뚫어져라 봐요. "물었나 봐야지." "가만히 기다려야지."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 세 사람이 한 줄로.<br/><b>장소·시간</b> 방파제.<br/><b>인물</b> Lolo rabbit이 낚싯대를 홱 들어 올려 줄이 공중에 크게 휜다 — 몸이 뒤로 젖혀졌고 노란 장화 뒤꿈치가 들렸다. Riri rabbit은 낚싯대를 무릎에 세우고 물 위 찌만 뚫어져라 본다 — 눈을 크게 뜨고 노란 모자. Dad rabbit이 가운데서 제 줄을 살핀다 — 검정 장화.<br/><b>배경·소품</b> 물 위에 뜬 찌 둘, 달빛 자국.<br/><b>톤</b> 한 줄은 공중에 있고 한 줄은 물에 잠겨 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">롤로가 또 들어 올렸어요. 바늘에 미끼가 없어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 들린 낚싯대 끝.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Lolo rabbit이 낚싯대를 세워 든 채 줄 끝을 눈앞까지 끌어당겨 본다 — 눈이 가늘어지고 입이 삐뚤어졌다, 노란 장화.<br/><b>배경·소품</b> 줄 끝에 아무것도 없이 대롱거리는 빈 낚싯줄, 발치의 미끼 통.<br/><b>톤</b> 올릴 때마다 끝이 가벼워져 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">롤로가 미끼를 새로 끼우고 또 들어 올려요. 이번에도 바늘만 대롱대롱해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 줄 끝과 롤로 얼굴.<br/><b>장소·시간</b> 방파제 위, 조금 뒤.<br/><b>인물</b> Lolo rabbit이 다시 들어 올린 줄 끝을 코앞에 두고 볼을 부풀린다 — 두 귀가 아래로 처졌다, 노란 장화.<br/><b>배경·소품</b> 또 비어 대롱거리는 줄 끝, 옆에 뚜껑 열린 미끼 통.<br/><b>톤</b> 같은 자리가 또 비어 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리는 찌에서 눈을 안 떼요. 달빛에 찌가 하얗게 반짝여요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 찌 하나.<br/><b>장소·시간</b> 물 위, 밤.<br/><b>인물</b> 화면 가장자리로 Riri rabbit의 두 눈과 노란 모자챙이 들어온다 — 눈이 크게 뜬 채 고정됐다.<br/><b>배경·소품</b> 검은 물 위에 곧게 선 찌 하나, 달빛이 그 위에 하얗게 앉았다.<br/><b>톤</b> 어두운 면 한가운데서 가느다란 것 하나만 밝다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리 눈꺼풀이 스르르 감겼어요. 낚싯대를 안은 채 꾸벅꾸벅 졸아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면. 졸음에 무너지는 자세.<br/><b>장소·시간</b> 방파제 위.<br/><b>인물</b> Riri rabbit이 낚싯대를 두 팔로 껴안은 채 고개를 앞으로 떨군다 — 눈이 감기고 귀 하나가 접혔다, 노란 모자가 눈까지 흘러내렸다.<br/><b>배경·소품</b> 무릎 위 낚싯대, 물 위의 찌.<br/><b>톤</b> 곧게 세운 몸이 조금씩 앞으로 기운다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리 찌가 쏙 물속으로 들어갔어요. 롤로가 "물었다!" 하고 소리쳐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면. 물 위 찌와 벌떡 선 롤로.<br/><b>장소·시간</b> 방파제, 밤.<br/><b>인물</b> Lolo rabbit이 제 낚싯대를 놓고 벌떡 일어서서 리리 찌 쪽을 손가락으로 찌르며 입을 크게 벌려 외친다 — 몸이 앞으로 기울었다, 노란 장화. Riri rabbit은 아직 고개를 떨군 채다 — 노란 모자.<br/><b>배경·소품</b> 물 위에서 반쯤 잠겨 들어가는 찌, 그 자리에 번지는 잔물결.<br/><b>톤</b> 하나는 소리치고 하나는 아직 자고 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리가 번쩍 눈을 떴어요. 둘이 낚싯대를 함께 당겨요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 함께 당기는 두 몸.<br/><b>장소·시간</b> 방파제.<br/><b>인물</b> Riri rabbit이 눈을 번쩍 뜬 채 낚싯대를 두 손으로 움켜쥐고 뒤로 젖힌다 — 노란 모자가 뒤통수로 밀렸다. Lolo rabbit이 그 뒤에서 낚싯대를 같이 잡고 두 발로 버틴다 — 노란 장화가 바닥을 민다. Dad rabbit이 옆에서 뜰채를 물 쪽으로 내린다 — 검정 장화.<br/><b>배경·소품</b> 팽팽하게 휜 낚싯대, 물 위에 크게 번지는 물결.<br/><b>톤</b> 자던 손과 소리치던 손이 같은 대를 잡았다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">은빛 물고기가 파닥파닥 올라왔어요. 아빠가 통에 넣어 주었어요. 리리는 그 옆에서 또 꾸벅꾸벅해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 통과 셋이 한 프레임.<br/><b>장소·시간</b> 방파제 위, 늦은 밤.<br/><b>인물</b> Dad rabbit이 무릎을 굽혀 은빛 물고기를 통에 넣어 준다 — 검정 장화. Lolo rabbit은 그 옆에서 두 팔을 번쩍 들고 입이 크게 벌어졌다 — 노란 장화. Riri rabbit은 낚싯대를 안은 채 다시 고개를 앞으로 떨군다 — 노란 모자가 눈까지 내려왔다.<br/><b>배경·소품</b> 물고기 통, 파닥이며 튀는 물방울, 물 위 달빛 자국.<br/><b>톤</b> 제일 크게 기뻐하는 쪽 옆에서 하나가 또 기운다.</pre></details>
+</div>
+
+</div>
+<script src="/twins-core.js"></script>
+</body>
+</html>

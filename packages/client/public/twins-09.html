@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>쌍둥이네 바닷가 — 등대 불 켜지는 순간</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#E9A825; --slope:#2D3B42; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">쌍둥이네 바닷가 · 09</div>
+  <h1>등대 불 켜지는 순간</h1>
+  <div class="sub"><b>원함</b> 등대 불이 켜지는 순간을 보고 싶다 · <b>우기는 둘</b> 리리 "잘 보이는 자리를 골라야지" / 롤로 "가까이 가면 되지" · <b>어긋남</b> 리리는 자리만 옮기고, 롤로는 하얀 벽만 본다 · <b>착지</b> 부딪혀 나란히 누운 바로 그때 불이 반짝 켜진다</div>
+  <div class="by">글 <b>한여울</b> · 그림 <b>임푸른</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">해가 바다 끝으로 내려가요. 등대가 언덕 위에 하얗게 서 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 언덕 위 등대를 아래에서.<br/><b>장소·시간</b> 바닷가 언덕, 해가 바다 끝으로 내려가는 때.<br/><b>인물</b> Riri rabbit과 Lolo rabbit이 화면 아래쪽 모래밭에 작게 서서 등대를 올려다본다 — 리리는 두 발을 모으고 노란 모자챙을 들었고, 롤로는 벌써 한 발을 언덕 쪽으로 뗐다, 노란 장화.<br/><b>배경·소품</b> 언덕 위에 곧게 선 등대, 바다 끝에 걸린 해, 등대 옆 소나무 한 그루.<br/><b>톤</b> 아직 꺼져 있는 꼭대기가 화면 맨 위에 비어 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘은 등대 불이 켜지는 순간을 보고 싶어요. "딱 켜지는 그때를 놓치면 안 돼."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면. 두 얼굴을 옆에서.<br/><b>장소·시간</b> 모래밭.<br/><b>인물</b> Riri rabbit이 검지를 세워 입 앞에 대고 눈을 크게 뜬 채 말한다 — 노란 모자. Lolo rabbit은 그 옆에서 두 주먹을 쥐고 발을 동동 구른다 — 노란 장화가 모래를 판다.<br/><b>배경·소품</b> 뒤로 낮아진 해, 길어진 두 그림자.<br/><b>톤</b> 놓치면 안 되는 것 하나를 앞에 두고 몸이 벌써 급하다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리가 사방을 둘러봤어요. 롤로는 등대 쪽으로 달려갔어요. "잘 보이는 자리를 골라야지." "가까이 가면 되지."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 언덕 아래 두 갈래 걸음.<br/><b>장소·시간</b> 등대 언덕 아래.<br/><b>인물</b> Riri rabbit이 제자리에서 몸을 빙 돌려 사방을 둘러본다 — 한 손으로 노란 모자챙을 잡고 눈으로 자리를 잰다. Lolo rabbit은 화면 오른쪽으로 등대를 향해 달려 나간다 — 몸이 앞으로 기울고 노란 장화가 흙을 찬다.<br/><b>배경·소품</b> 바위, 소나무, 모래밭이 흩어진 언덕 아래.<br/><b>톤</b> 하나는 발을 안 떼고 하나는 이미 멀어졌다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리가 바위 위로 올라갔어요. 소나무가 등대 꼭대기를 가려요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 바위 위 리리와 가지.<br/><b>장소·시간</b> 언덕 옆 바위.<br/><b>인물</b> Riri rabbit이 바위 꼭대기에 올라서서 고개를 옆으로 빼고 등대 쪽을 본다 — 한 손으로 바위를 짚었다, 노란 모자.<br/><b>배경·소품</b> 소나무 가지가 등대 꼭대기를 정확히 가로막았다.<br/><b>톤</b> 올라선 만큼 가지가 딱 그 자리를 덮는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리가 모래밭으로 내려왔어요. 이번엔 언덕이 등대를 가려요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 모래밭에서 본 언덕.<br/><b>장소·시간</b> 언덕 아래 모래밭, 조금 뒤.<br/><b>인물</b> Riri rabbit이 모래밭 한가운데 서서 발끝으로 몸을 세우고 목을 뺀다 — 노란 모자.<br/><b>배경·소품</b> 언덕 등성이가 등대 아랫도리부터 꼭대기까지 통째로 가린다.<br/><b>톤</b> 자리를 옮길 때마다 가리는 것이 바뀐다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">롤로가 등대 바로 밑에 섰어요. 고개를 한껏 젖혔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 익스트림 로우앵글. 등대 밑동에서 위로.<br/><b>장소·시간</b> 등대 바로 아래.<br/><b>인물</b> Lolo rabbit이 등대 벽에 등을 붙이고 고개를 한껏 뒤로 젖혔다 — 두 손을 벽에 짚었고 노란 장화 뒤꿈치가 들렸다.<br/><b>배경·소품</b> 화면을 가득 채우고 위로 좁아지는 하얀 벽.<br/><b>톤</b> 가까이 갈수록 벽만 커진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">눈앞엔 하얀 벽뿐이에요. 롤로 목이 뻣뻣해져요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 오버숄더. 롤로 어깨 너머 벽면.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Lolo rabbit이 목을 두 손으로 주무르며 얼굴을 찡그린다 — 고개가 뻣뻣하게 굳어 반쯤만 돌아간다, 노란 장화.<br/><b>배경·소품</b> 눈앞을 채운 벽면, 벽에 난 이음매 선 몇 줄.<br/><b>톤</b> 어깨 너머에 하늘이 한 조각도 안 들어온다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리가 자리를 옮기다 롤로와 쿵 부딪혔어요. 둘이 모래밭에 벌러덩 넘어졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 부딪혀 넘어가는 두 몸.<br/><b>장소·시간</b> 등대 아래 모래밭.<br/><b>인물</b> Riri rabbit과 Lolo rabbit이 어깨를 정면으로 부딪고 각자 뒤로 넘어가는 순간 — 팔다리가 공중에 벌어졌고 리리의 노란 모자가 머리에서 떠올랐다, 롤로의 노란 장화가 하늘을 찬다.<br/><b>배경·소품</b> 튀어 오른 모래, 뒤쪽에 등대 밑동.<br/><b>톤</b> 두 몸이 같은 방향으로 넘어간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">누운 채로 하늘을 봤어요. 바로 그때 등대 꼭대기가 반짝!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 부감. 누운 둘을 바로 위에서.<br/><b>장소·시간</b> 모래밭, 해가 막 넘어간 때.<br/><b>인물</b> Riri rabbit과 Lolo rabbit이 모래에 나란히 벌러덩 누워 하늘을 본다 — 둘 다 눈이 동그래지고 입이 벌어졌다. 노란 모자는 리리 머리 옆에 떨어져 있고 노란 장화 두 짝이 위로 섰다.<br/><b>배경·소품</b> 화면 위쪽 구석으로 들어온 등대 꼭대기가 막 밝아진다.<br/><b>톤</b> 자리를 고르지도 다가가지도 않은 자리에서 위가 밝아진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">불빛이 빙그르 돌며 바다를 비춰요. 둘은 일어나지도 않고 누운 채로 세요. "하나… 둘… 셋…" 등대는 자꾸자꾸 돌아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 누운 눈높이에서 등대와 하늘.<br/><b>장소·시간</b> 같은 모래밭, 저녁.<br/><b>인물</b> Riri rabbit과 Lolo rabbit이 그대로 누운 채 각각 앞발 하나를 들어 손가락을 꼽는다 — 입이 같은 모양으로 벌어졌고 노란 모자는 아직 모래 위에, 노란 장화는 하늘로 섰다.<br/><b>배경·소품</b> 등대 꼭대기에서 뻗어 나와 바다 쪽으로 지나가는 빛줄기 한 가닥.<br/><b>톤</b> 빛이 지나갈 때마다 손가락이 하나씩 꼽힌다.</pre></details>
+</div>
+
+</div>
+<script src="/twins-core.js"></script>
+</body>
+</html>

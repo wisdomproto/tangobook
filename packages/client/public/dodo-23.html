@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>도도네 물방앗간 — 눈오리</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#2D62B8; --slope:#3D4A44; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">도도네 물방앗간 · 23</div>
+  <h1>눈오리</h1>
+  <div class="sub"><b>원함</b> 눈오리를 만들어 오래 두고 싶다 · <b>틀리는 쪽</b> 도도 — "포근한 난롯가에 둬야 안 얼어 죽지" · <b>어긋남</b> 스르르 녹아 물웅덩이만 남는다 · <b>착지</b> 바깥 창턱 그늘에 두니 아침에도 그대로 — 도도 "내 눈오리는 헤엄치러 갔어"</div>
+  <div class="by">글 <b>한여울</b> · 그림 <b>윤새롬</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">함박눈이 소복소복 내렸어요. 마당이 하얀 이불을 덮었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 마당 전체를 위에서.<br/><b>장소·시간</b> 물방앗간 앞마당, 함박눈이 그친 아침.<br/><b>인물</b> 없음.<br/><b>배경·소품</b> 발자국 하나 없이 소복하게 덮인 마당, 지붕과 빨랫줄과 물레방아 날개마다 얹힌 눈, 공중에 아직 성글게 내리는 눈송이.<br/><b>톤</b> 아무 자국도 없는 흰 바닥이 화면의 대부분이라 무엇을 놓아도 눈에 띈다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"눈오리를 만들어서 오래오래 두고 싶어!" 무무가 눈을 꼭꼭 뭉쳤어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 무무의 두 날개와 눈덩이.<br/><b>장소·시간</b> 마당 한복판.<br/><b>인물</b> Mumu duck이 쪼그려 앉아 두 날개로 눈을 꼭꼭 눌러 동그랗게 뭉친다 — 어깨가 앞으로 말리고 부리를 야무지게 다물었다, 파란 목수건.<br/><b>배경·소품</b> 날개 사이에서 다져지는 눈덩이, 옆에 파낸 눈 자리와 오리발 자국.<br/><b>톤</b> 눌린 자리만 결이 촘촘해져 힘이 들어간 곳이 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">눈오리 두 마리가 완성됐어요. 부리도 콕, 날개도 콕.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 눈오리 두 마리와 둘을 위에서.<br/><b>장소·시간</b> 같은 마당.<br/><b>인물</b> Mumu duck이 마지막 부리를 눈오리에 콕 붙이는 참 — 목을 숙이고 눈이 가까이 갔다, 파란 목수건. Dodo duck이 옆에서 몸을 굽혀 들여다본다 — 파란 머리 리본.<br/><b>배경·소품</b> 나란히 놓인 눈오리 **두 마리** — 몸통과 머리, 작은 나뭇가지 부리와 양옆에 붙인 날개까지 똑같다.<br/><b>톤</b> 둘이 똑같아서 하나가 없어지면 금방 표가 날 모양이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">도도가 한 마리를 안아 들었어요. "눈오리는 포근한 데 둬야 안 얼어 죽지. 내가 알아! 난롯가가 딱이야!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 눈오리를 안아 든 도도를 아래에서.<br/><b>장소·시간</b> 같은 마당.<br/><b>인물</b> Dodo duck이 눈오리 한 마리를 두 날개로 가슴에 안아 들고 부리를 크게 벌려 말한다 — 턱을 높이 들고 몸을 방앗간 문 쪽으로 돌렸다, 파란 머리 리본. Mumu duck이 남은 한 마리 옆에 앉아 올려다본다 — 파란 목수건.<br/><b>배경·소품</b> 안긴 눈오리 **한 마리**, 땅에 남은 **한 마리**, 열린 문.<br/><b>톤</b> 안긴 것과 남은 것이 한 화면에서 갈라진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">난로 옆 선반에서 눈오리가 스르르, 스르르 작아져요. 부리가 먼저 사라졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 측면 아이레벨. 선반 위 눈오리만.<br/><b>장소·시간</b> 방앗간 안 난로 옆 선반.<br/><b>인물</b> 없음.<br/><b>배경·소품</b> 눈오리 **한 마리**가 형태가 무너지며 작아지는 중 — 나뭇가지 부리가 이미 빠져 선반에 굴러 있고 머리 자리가 둥글게 녹아내렸다, 밑동에 번지기 시작한 물, 화면 옆에 난로의 밝은 빛.<br/><b>톤</b> 불빛에 가까운 쪽부터 먼저 무너져 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">선반 위엔 반짝이는 물웅덩이만 남았어요. 도도가 눈을 껌뻑껌뻑.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 선반 앞의 도도.<br/><b>장소·시간</b> 같은 선반 앞.<br/><b>인물</b> Dodo duck이 선반 앞에 서서 두 눈을 껌뻑껌뻑한다 — 부리를 반쯤 벌린 채 두 날개가 옆으로 늘어졌다, 파란 머리 리본.<br/><b>배경·소품</b> 선반 위에 눈오리 대신 남은 반짝이는 물웅덩이 하나와 그 옆에 굴러 있는 나뭇가지 부리.<br/><b>톤</b> 있던 자리에 남은 것이 납작한 물뿐이라 높이가 통째로 사라졌다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"내 눈오리는… 헤엄치러 갔나 봐." 도도가 물웅덩이를 들여다봐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 물웅덩이를 위에서.<br/><b>장소·시간</b> 같은 선반.<br/><b>인물</b> Dodo duck이 선반 위로 목을 쭉 빼고 물웅덩이를 코앞에서 들여다보며 부리를 벌려 속삭인다 — 한 날개로 선반 끝을 짚었다, 파란 머리 리본이 앞으로 늘어졌다.<br/><b>배경·소품</b> 얕은 물웅덩이, 그 옆의 나뭇가지 부리.<br/><b>톤</b> 얼굴이 가까워질수록 물이 더 얕아 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">무무는 남은 한 마리를 바깥 창턱 그늘에 두었어요. 바람이 쌩쌩 차가운 자리예요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면 아이레벨. 창턱을 바깥쪽에서.<br/><b>장소·시간</b> 방앗간 바깥 창턱, 그늘진 자리.<br/><b>인물</b> Mumu duck이 창턱 위에 남은 눈오리 **한 마리**를 두 날개로 조심히 내려놓는 참 — 몸을 앞으로 굽히고 눈이 눈오리에 붙었다, 파란 목수건.<br/><b>배경·소품</b> 눈이 얹힌 창턱, 처마 그늘이 창턱을 덮었다, 창턱 눈 위로 지나가는 바람에 흩날리는 눈가루.<br/><b>톤</b> 창턱은 처마 그늘에 통째로 들어 있어 볕이 한 줄도 안 닿는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다음 날 아침이에요. 창턱에 눈오리가 그대로 있어요! 반짝반짝, 꽁꽁.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 로우앵글. 창턱의 눈오리를 아래에서.<br/><b>장소·시간</b> 같은 창턱, 다음 날 아침.<br/><b>인물</b> 없음.<br/><b>배경·소품</b> 눈오리 **한 마리**가 어제 모양 그대로 — 나뭇가지 부리도 그대로 꽂혔고 표면이 밤새 얼어 반짝인다, 몸에 붙은 서리 결정, 뒤로 아침 하늘.<br/><b>톤</b> 표면이 얼어 매끈해서 어제보다 더 단단해 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘이 창문에 코를 붙이고 아침 인사를 했어요. "눈오리야, 안녕!" 도도가 속닥였어요. "내 눈오리는 지금쯤 개울에서 헤엄치고 있을 거야." 창문에 하얀 김이 동그랗게 두 개 생겼어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 방 안에서 창 쪽을 본다.<br/><b>장소·시간</b> 방앗간 안, 창 앞.<br/><b>인물</b> Dodo duck과 Mumu duck이 창유리에 부리를 딱 붙이고 나란히 서서 바깥을 본다 — 무무는 부리를 벌려 인사하고, 도도는 고개를 무무 쪽으로 기울여 속닥인다, 파란 머리 리본, 파란 목수건.<br/><b>배경·소품</b> 유리 너머 창턱 위의 눈오리 **한 마리**, 유리 안쪽에 둘의 부리 옆으로 동그랗게 서린 하얀 김 **두 개**.<br/><b>톤</b> 유리 안쪽의 흐린 동그라미 둘이 밖의 또렷한 눈오리와 맞닿아 있다.</pre></details>
+</div>
+
+</div>
+<script src="/dodo-core.js"></script>
+</body>
+</html>

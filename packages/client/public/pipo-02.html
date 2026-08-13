@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>피포네 돌담 목장 — 돌담 구멍</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#F0B429; --slope:#2C2A25; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">피포네 돌담 목장 · 02</div>
+  <h1>돌담 구멍</h1>
+  <div class="sub"><b>원함</b> 무너진 돌담 구멍을 막고 싶다 · <b>틀리는 어른</b> 말 아저씨 · <b>어긋남</b> 서둘러 큰 돌부터 얹다 와르르 무너뜨린다 · <b>착지</b> 피포가 작은 돌로 틈부터 채워 막는다</div>
+  <div class="by">글 <b>문나래</b> · 그림 <b>백서리</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">밤새 바람이 씽씽 불었어요. 아침에 보니 돌담 한 귀퉁이가 무너져 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 돌담이 화면을 가로로 가르고 오른쪽 귀퉁이가 무너져 있다.<br/><b>장소·시간</b> 목장 돌담, 이른 아침.<br/><b>인물</b> Pipo puppy가 무너진 자리에서 두어 걸음 떨어져 서서 구멍을 본다 — 두 손이 몸 옆에 늘어졌고 입이 조금 벌어졌다, 노란 목도리.<br/><b>배경·소품</b> 무너져 흩어진 돌 여남은 개, 담에 뚫린 구멍 하나.<br/><b>톤</b> 곧게 이어지던 선이 한 자리에서만 끊겨 그 자리로 눈이 간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">구멍으로 양이 빠져나가면 큰일이에요. "제가 막을게요." 피포가 떨어진 돌을 주웠어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 손과 돌.<br/><b>장소·시간</b> 무너진 담 앞, 아침.<br/><b>인물</b> Pipo puppy가 무릎을 굽히고 두 손으로 떨어진 돌 하나를 집어 든다 — 팔에 힘이 들어가 어깨가 올라갔다, 노란 목도리가 앞으로 흘러내린다.<br/><b>배경·소품</b> 발치의 돌들, 구멍 너머로 양 한 마리 얼굴이 빼꼼.<br/><b>톤</b> 구멍 너머의 얼굴 하나가 서두를 이유를 말해 준다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">말 아저씨가 성큼성큼 달려왔어요. "담 쌓기는 빨리빨리 해야지!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 달려오는 몸이 화면 왼쪽에서 커진다.<br/><b>장소·시간</b> 담 옆 풀밭, 아침.<br/><b>인물</b> Horse uncle이 큰 걸음으로 성큼성큼 달려온다 — 두 팔이 크게 앞뒤로 흔들리고 발이 땅에서 떴다, 입이 벌어져 외치는 중. Pipo puppy는 오른쪽에서 돌을 안은 채 돌아본다 — 노란 목도리.<br/><b>배경·소품</b> 담, 흩어진 돌.<br/><b>톤</b> 커다란 몸이 화면으로 밀고 들어오는 속도가 그대로 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아저씨가 제일 큰 돌을 번쩍 들었어요. 구멍 위에 쿵 얹었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 들어 올린 돌이 화면 위쪽.<br/><b>장소·시간</b> 무너진 담 앞, 아침.<br/><b>인물</b> Horse uncle이 제일 큰 돌을 가슴 높이까지 들어 올려 구멍 위로 막 얹으려 한다 — 두 손으로 돌을 받치고 무릎이 굽었다. Pipo puppy는 옆에서 고개를 젖혀 올려다본다 — 노란 목도리.<br/><b>배경·소품</b> 구멍, 큰 돌 하나.<br/><b>톤</b> 무거운 것이 높은 데 있다는 것만으로 화면이 불안해진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그 위에 또 하나, 또 하나. 돌이 삐뚤빼뚤 쌓여 가요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면 아이레벨. 쌓인 돌을 옆에서.<br/><b>장소·시간</b> 같은 자리, 아침.<br/><b>인물</b> Horse uncle이 세 번째 큰 돌을 위에 얹는 참 — 팔을 위로 뻗고 발끝을 세웠다. Pipo puppy는 두어 걸음 물러나 두 손을 모으고 본다 — 노란 목도리.<br/><b>배경·소품</b> 큰 돌 세 개가 삐뚤빼뚤 얹혀 기울었다 — 사이사이가 벌어져 틈이 보인다.<br/><b>톤</b> 기울어진 선들이 서로 어긋나 곧 무너질 것을 알려 준다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">기우뚱 — 와르르르! 돌이 죄다 굴러떨어졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 무너지는 순간을 정면에서.<br/><b>장소·시간</b> 담 앞, 아침.<br/><b>인물</b> Horse uncle이 두 팔을 벌리고 몸을 뒤로 젖힌다 — 눈이 동그랗고 입이 크게 벌어졌다. Pipo puppy는 화면 오른쪽 끝으로 몸을 피하며 팔로 얼굴을 가린다 — 노란 목도리.<br/><b>배경·소품</b> 큰 돌 세 개가 공중과 바닥으로 흩어지고 흙먼지가 인다.<br/><b>톤</b> 방금까지 세로로 쌓였던 것이 전부 가로로 눕는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"아이고, 발이야!" 아저씨가 발등을 감싸고 콩콩 뛰어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 한 발로 선 몸.<br/><b>장소·시간</b> 무너진 돌 무더기 옆, 아침.<br/><b>인물</b> Horse uncle이 한 발을 들어 두 손으로 발등을 감싸 쥐고 남은 한 발로 콩콩 뛴다 — 몸이 앞으로 굽고 눈을 질끈 감았다. Pipo puppy는 옆에서 입을 가리고 본다 — 노란 목도리.<br/><b>배경·소품</b> 바닥에 흩어진 큰 돌들.<br/><b>톤</b> 한 발로 선 몸이 화면에서 유일하게 기울어 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">피포는 작은 돌부터 골랐어요. 틈에 하나씩 꼭꼭 끼워 넣어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 틈과 두 손.<br/><b>장소·시간</b> 담 구멍 앞, 아침.<br/><b>인물</b> Pipo puppy의 두 손이 주먹만 한 돌을 담 틈에 꼭 끼워 넣는다 — 손가락 끝에 힘이 들어갔다, 화면 위쪽에 노란 목도리 끝이 걸린다.<br/><b>배경·소품</b> 이미 끼워 넣은 작은 돌 다섯, 지금 끼우는 것이 여섯째.<br/><b>톤</b> 큰 것이 사라지고 작은 것들이 화면을 채운다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아저씨가 그 위에 큰 돌을 얹으니 척척 자리를 잡아요. 담이 흔들리지 않아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 담 정면.<br/><b>장소·시간</b> 같은 자리, 아침.<br/><b>인물</b> Horse uncle이 큰 돌을 작은 돌들 위에 조심스레 내려놓는다 — 이번엔 무릎을 굽히고 팔을 낮게 뻗었다. Pipo puppy가 옆에서 두 손을 들어 돌이 놓일 자리를 짚어 준다 — 노란 목도리.<br/><b>배경·소품</b> 틈을 메운 작은 돌들 위에 큰 돌 하나가 자리를 잡는다.<br/><b>톤</b> 앞 쪽의 기울어진 선들이 여기서 수평으로 눕는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">구멍이 감쪽같이 막혔어요. 아저씨가 담을 슬쩍 밀어 보고 고개를 끄덕였어요. "…단단하네."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 담과 어른을 아래에서.<br/><b>장소·시간</b> 다 막힌 담 앞, 아침.<br/><b>인물</b> Horse uncle이 한 손바닥으로 담을 슬쩍 밀어 보며 고개를 끄덕인다 — 입술이 오므라졌고 눈썹이 올라갔다. Pipo puppy는 담에 등을 기대고 위를 올려다본다 — 노란 목도리.<br/><b>배경·소품</b> 감쪽같이 이어진 돌담 한 줄, 발치에 남은 돌 부스러기 조금.<br/><b>톤</b> 끊겼던 선이 다시 화면 끝까지 이어진다.</pre></details>
+</div>
+
+</div>
+<script src="/pipo-core.js"></script>
+</body>
+</html>

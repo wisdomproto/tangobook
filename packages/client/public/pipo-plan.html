@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>피포네 돌담 목장 — 기획서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#F0B429; --slope:#2C2A25; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">창작동화 시리즈 08 · 25권 250쪽</div>
+  <h1>피포네 돌담 목장</h1>
+  <div class="sub">강아지 피포 · 아일랜드 목장 · <b>페파형</b>(이웃 어른 셋이 저마다 틀린다) · 그림체 = 숯 하나(전권)</div>
+  <div class="by">글 <b>문나래</b> · 그림 <b>백서리</b></div>
+</header>
+
+<div class="note">🔴 <b>이 기획서가 SSOT 가 아닙니다.</b> 본문은 <code>docs/changjak-books/pipo/*.md</code>, 앵커는 <code>docs/art-direction/pipo-anchor.md</code> 가 원본이고 이 페이지는 거기서 생성됩니다(<code>build-series-html.mjs</code>). 회차는 왼쪽 <b>☰ 회차</b>에서.</div>
+
+<h2 class="sec">1. 축</h2>
+<table><thead><tr><th>축</th><th>값</th></tr></thead><tbody><tr><td>형</td><td>페파형 — 웃음으로 착지, 아무도 안 고쳐진다</td></tr><tr><td>캐스트 구성</td><td><b>아이 하나 + 이웃 어른 여럿</b> — 목장 주변 어른 셋이 저마다 제 축으로 틀린다</td></tr><tr><td>주인공</td><td>강아지 피포 · 결점 없음</td></tr><tr><td>무대</td><td>아일랜드 목장 — 돌담·양 떼·초록 언덕·안개·비·양털 깎기·시장 가는 길</td></tr><tr><td>그림체</td><td>숯(charcoal) — 무채 화면에 <b>노랑 한 색</b>(mei-anchor 보류분 숯 문안을 가져온다)</td></tr></tbody></table>
+
+<h2 class="sec">2. 캐스트</h2>
+<p class="lead">시트를 만들어 카드에 붙여넣으면 회차 페이지의 「🎬 이 화 등장」 스트립이 그 그림을 읽어 옵니다.
+카드마다 <b>[📋 시트 프롬프트]</b> = 그 한 명만 그리는 프롬프트(앵커 + 규격 + 전신 정면·3/4·뒷모습).</p>
+<div class="grid">
+  <div class="cast-card">
+    <div class="chead"><h4>🐶 피포</h4><button class="copy-btn" data-sheet="pipo">📋 시트 프롬프트</button></div>
+    <p><code>Pipo puppy</code></p>
+    <div data-paste="pipo"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐶 엄마</h4><button class="copy-btn" data-sheet="mom">📋 시트 프롬프트</button></div>
+    <p><code>Mom dog</code></p>
+    <div data-paste="mom"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐑 양 할아버지</h4><button class="copy-btn" data-sheet="sheep">📋 시트 프롬프트</button></div>
+    <p><code>할아버지</code></p>
+    <div data-paste="sheep"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🦢 거위 아줌마</h4><button class="copy-btn" data-sheet="goose">📋 시트 프롬프트</button></div>
+    <p><code>아줌마</code></p>
+    <div data-paste="goose"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐴 말 아저씨</h4><button class="copy-btn" data-sheet="horse">📋 시트 프롬프트</button></div>
+    <p><code>아저씨</code></p>
+    <div data-paste="horse"></div>
+  </div>
+</div>
+
+<h2 class="sec">3. 25권</h2>
+<p class="lead">🔴 <b>작가에게 빈칸을 주지 않는 것</b>이 이 체제의 전부입니다.</p>
+<table><thead><tr><th>#</th><th>제목</th><th>원함</th><th>틀리는 어른</th><th>어긋남</th><th>착지</th></tr></thead><tbody><tr><td>01</td><td>첫 양몰이</td><td>양 떼를 우리까지 몰고 싶다</td><td>양 할아버지</td><td>옛날식으로 지팡이를 탕탕 치다 양들이 흩어진다</td><td>피포가 앞장서 걸으니 양들이 줄줄 따라온다</td></tr><tr><td>02</td><td>돌담 구멍</td><td>무너진 돌담 구멍을 막고 싶다</td><td>말 아저씨</td><td>서둘러 큰 돌부터 얹다 와르르 무너뜨린다</td><td>피포가 작은 돌로 틈부터 채워 막는다</td></tr><tr><td>03</td><td>딸랑딸랑 아기 양</td><td>없어진 아기 양을 찾고 싶다</td><td>거위 아줌마</td><td>저기서 봤다는 데마다 아기 양이 없다</td><td>피포가 방울 소리를 따라가 찾는다</td></tr><tr><td>04</td><td>안개 낀 아침</td><td>안개 속에서 양들을 집까지 데려오고 싶다</td><td>양 할아버지</td><td>옛날 길로 간다며 개울 쪽으로 내려간다</td><td>피포가 돌담을 짚으며 따라가 집에 닿는다</td></tr><tr><td>05</td><td>시장 심부름</td><td>시장에서 양털 실을 사 오고 싶다</td><td>거위 아줌마</td><td>좋은 가게 소문마다 딴 가게로 끌고 간다</td><td>피포가 엄마 말대로 뾰족 지붕 가게를 찾는다</td></tr><tr><td>06</td><td>비 오기 전에</td><td>비 오기 전에 건초를 헛간에 들이고 싶다</td><td>말 아저씨</td><td>한 번에 다 나른다며 우수수 쏟는다</td><td>피포가 한 아름씩 여러 번 날라 다 들인다</td></tr><tr><td>07</td><td>양털 깎는 날</td><td>안 깎은 양을 다 데려오고 싶다</td><td>거위 아줌마</td><td>다 봤다며 아무 양이나 가리킨다</td><td>피포가 복슬한 양만 골라 데려온다</td></tr><tr><td>08</td><td>굴러간 공</td><td>언덕 아래로 굴러간 공을 찾고 싶다</td><td>양 할아버지</td><td>공은 옛날부터 개울로 갔다며 개울만 뒤진다</td><td>피포가 풀 눕은 자국을 따라가 찾는다</td></tr><tr><td>09</td><td>우유통 나르기</td><td>우유통을 안 엎고 부엌까지 나르고 싶다</td><td>말 아저씨</td><td>수레로 빨리 간다며 덜컹거려 출렁인다</td><td>피포가 한 통씩 꼭 안고 걸어 다 나른다</td></tr><tr><td>10</td><td>저녁 마중</td><td>시장 간 엄마를 마중 나가고 싶다</td><td>거위 아줌마</td><td>봤다면서 얘기를 끝없이 늘어놓아 갈림길에 붙잡아 둔다</td><td>피포가 수레 등불 불빛을 보고 달려간다</td></tr><tr><td>11</td><td>삐걱대는 문</td><td>목장 문이 조용히 열리게 하고 싶다</td><td>말 아저씨</td><td>고칠 새가 어디 있냐며 밀어 대다 문짝이 빠진다</td><td>피포가 문 돌아가는 자리에 기름을 바르니 스르륵</td></tr><tr><td>12</td><td>눈 온 아침</td><td>눈 온 아침 양들에게 건초를 갖다주고 싶다</td><td>양 할아버지</td><td>옛날식으로 건초를 굴려 보내다 눈덩이만 굴러 내려간다</td><td>피포가 자루를 메고 돌담 옆길로 가서 갖다준다</td></tr><tr><td>13</td><td>날아간 목도리</td><td>바람에 날아간 노란 목도리를 되찾고 싶다</td><td>셋 다</td><td>저마다 쫓아가다 서로 부딪힌다</td><td>목도리를 두른 양 한 마리가 피포에게 온다</td></tr><tr><td>14</td><td>달걀 옮기기</td><td>달걀을 하나도 안 깨고 수레까지 옮기고 싶다</td><td>말 아저씨</td><td>서두르라며 재촉하다 제가 한 알 깨뜨린다</td><td>피포가 건초를 깔고 눕혀 다 옮긴다</td></tr><tr><td>15</td><td>개울 건너기</td><td>개울 건너 양을 데려오고 싶다</td><td>양 할아버지</td><td>옛날 다리로 간다며 멀리 도는데 다리가 없다</td><td>피포가 낮은 돌다리를 한 발 한 발 건너 데려온다</td></tr><tr><td>16</td><td>양 세는 날</td><td>우리에 든 양을 다 세고 싶다</td><td>거위 아줌마</td><td>옆에서 수다를 떨어 자꾸 헷갈리게 한다</td><td>피포가 문에 서서 한 마리씩 지나가게 하며 센다</td></tr><tr><td>17</td><td>바람 부는 날</td><td>바람에 빨래가 날아가기 전에 다 걷고 싶다</td><td>말 아저씨</td><td>한꺼번에 확 잡아당기다 이불보를 뒤집어쓴다</td><td>피포가 집게를 하나씩 빼서 다 걷는다</td></tr><tr><td>18</td><td>아기 거위 삐약삐약</td><td>길 잃은 아기 거위들을 집에 데려다주고 싶다</td><td>거위 아줌마</td><td>온 마당이 울리게 불러 대서 아기 거위들이 더 깊이 숨는다</td><td>피포가 조용히 시키니 삐약 소리가 들려 덤불에서 찾는다</td></tr><tr><td>19</td><td>감자 캐는 날</td><td>감자를 바구니 가득 캐고 싶다</td><td>양 할아버지</td><td>옛날 밭 자리라며 파는 데마다 돌만 나온다</td><td>피포가 줄기 밑을 파니 주렁주렁 나온다</td></tr><tr><td>20</td><td>저녁 우리 문</td><td>저녁에 양 우리 문을 내가 닫고 싶다</td><td>말 아저씨</td><td>빨리 닫자며 확 당기다 양이 문틈에 끼고 뒤엣것들이 물러선다</td><td>피포가 기다렸다 마지막 양 뒤에서 살짝 닫는다</td></tr><tr><td>21</td><td>양털 공</td><td>남은 양털로 공을 만들고 싶다</td><td>거위 아줌마</td><td>남들 공은 더 크다며 자꾸 얹다가 뭉치가 풀어진다</td><td>피포가 꼭꼭 뭉친 공으로 아기 양과 논다</td></tr><tr><td>22</td><td>해 뜨는 언덕</td><td>언덕에서 해 뜨는 걸 보고 싶다</td><td>양 할아버지</td><td>옛날부터 딱 좋은 자리라며 큰 나무 뒤로 데려간다</td><td>피포가 돌담에 앉아 해가 뜨는 걸 본다</td></tr><tr><td>23</td><td>엄마 선물</td><td>장에서 엄마 선물을 골라 드리고 싶다</td><td>셋 다</td><td>저마다 딴 것을 골라 피포 품에 안긴다</td><td>피포가 고른 방울을 엄마가 제일 좋아한다</td></tr><tr><td>24</td><td>진흙 웅덩이</td><td>비 갠 웅덩이에서 실컷 뛰고 싶다</td><td>말 아저씨</td><td>얼른 메운다며 서두르다 제가 풍덩 빠진다</td><td>피포와 아저씨가 같이 첨벙첨벙 뛰논다</td></tr><tr><td>25</td><td>피포의 하루</td><td>목장 일을 하루 종일 혼자 다 해 보고 싶다</td><td>셋 다</td><td>서로 돕겠다고 몰려들다 저희끼리 엉킨다</td><td>피포가 다 해내고, 어른 셋은 건초 위에서 존다</td></tr></tbody></table>
+
+<h2 class="sec">4. 앵커 — 한 시리즈 = 한 그림체</h2>
+<p class="lead">시리즈 전권이 한 그림체입니다. 무대·계절 차이는 앵커 안 <b>무대 조항</b>이 처리합니다 — 매체·색은 그대로 두고 「두 색을 어디에 쓰고 무엇을 종이로 남기나」만 바뀝니다.
+🔴 악센트 <b>피포 목도리 (10권 등불만 예외)</b> 에만 닿습니다.</p>
+<div class="swatches">
+  <span class="sw"><i style="background:#EFE9DC"></i>종이 <code>#EFE9DC</code></span><span class="sw"><i style="background:#6B665C"></i>색1 <code>#6B665C</code></span><span class="sw">색2 (없음 — 숯 하나가 세 값)</span><span class="sw"><i style="background:#2C2A25"></i>겹침 <code>#2C2A25</code></span><span class="sw"><i style="background:#F0B429"></i>악센트 <code>#F0B429</code></span>
+</div>
+<div class="anchor-card">
+  <div class="ahead"><b>pipo-charcoalwall</b><button class="copy-btn" data-copy="anchor">📋 앵커 프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre id="anchor">STYLE ANCHOR - pipo-charcoalwall   (a puppy on an Irish stone-wall farm / charcoal, rubbed, pressed
+                                    and lifted - and one yellow)
+
+Style: charcoal on pale cream toothy paper, and ONE yellow, 4-6 year old picture book. 🔴 THERE IS NO
+  SECOND COLOUR IN THIS BOOK. Charcoal is laid and rubbed flat with a finger, so every area is an even
+  grain with the paper's tooth speckling through. The three values are made by the hand, not by
+  pigment: RUBBED is the world, PRESSED is the only dark, and LIGHT IS MADE BY LIFTING - a kneaded
+  eraser takes the charcoal back off and the bare paper underneath is the brightest thing on the page.
+  NOTHING IS EVER DRAWN WHITE. SHADING IS ZERO in the modelling sense - an area is rubbed, pressed or
+  lifted, never graded between.
+
+RENDERING (finish hierarchy): an area is ONE rubbed field, even everywhere, never denser or lighter
+  inside itself. A thing standing on that field is PRESSED with one continuous line. Every charcoal
+  edge is slightly furry EXCEPT the outline of Pipo, which is one clean pressed line - that is how the
+  eye finds him before it finds the yellow. FINISHED THINGS PER PAGE = 2, Pipo and the one thing he
+  touches; everything else is a shape with no interior detail. Repeats are capped and the cap is the
+  whole design: sheep at most 9 separate animals and a flock further off is ONE rubbed mass with 0
+  outlines inside it · loose stones at most 11 · hay heaps at most 7 and loose hay strands at most 11
+  · eggs at most 8 · washing at most 6 with at most 6 pegs · milk cans at most 4 · market stalls at
+  most 5 and roofs at most 8 · potatoes on one stem at most 9 · goslings exactly 4 · planks at most 6
+  · windows at most 6 lifted rectangles with 0 frames · footprints at most 11 · a market crowd at most
+  7 flat pressed silhouettes with 0 faces and 0 hands · stars at most 14 lifted points, each taken out
+  on its own. Nothing in a repeat is a mirrored copy of its neighbour. DENSITY RATION = none.
+  🔴 DEPTH IS SPACING, NEVER DARKNESS. Sheep further up the hill stand CLOSER TOGETHER at the same
+  weight of charcoal. Nothing recedes by getting paler or softer.
+
+PALETTE: PAPER PALE CREAM #EFE9DC, sky, mist, snow, fleece, hay, the sun, light, everything lifted or
+  never touched · CHARCOAL RUBBED #6B665C, hillside, ground, wet earth, weather, the whole field of
+  the world · CHARCOAL PRESSED #2C2A25, the stone wall, animal backs and heads, iron, the inside of
+  the byre, night - this is the only dark and it is made by pressure, never by a second pigment ·
+  ACCENT GORSE YELLOW #F0B429, 🔴 laid last, touching NOTHING but Pipo's scarf, plus the GLOW of the
+  cart lantern in volume 10 (the lantern's body is pressed charcoal; only its light is yellow).
+  🔴 HAY, FLEECE, MIST, SNOW, THE SUN, YOLK AND BUTTER ARE ALL UNPAINTED PAPER. No white chalk, no
+  white paint, no earth colour, no roof colour, no second pigment of any kind, ever.
+
+STAGE CLAUSES (the stage changes what the charcoal does, never how many colours there are):
+  WALL - the stone wall runs through this whole series and it is the one thing always PRESSED: each
+    course of stones is a separate pressed shape with a furry edge, and the wall keeps its full weight
+    however far away it is. Where the wall is the thing being followed by hand (04, 12) it is the only
+    pressed thing on the page and everything else is rubbed.
+  SLOPE - the hillside is ONE rubbed field running downhill, 0 individual blades. Fences, gates and
+    the byre are PRESSED. Far ridges are at most 4 pressed outlines with 0 texture inside.
+  YARD AND BYRE - each surface is ONE repeated mark: floor a plank stroke, wall a short dash, thatch a
+    zigzag. The mark is the SAME shape every time and may run off an edge but is never redrawn. 🔴 THE
+    OPEN DOORWAY AND THE WINDOW LIGHT ARE LIFTED PAPER and are the brightest thing on the page. A
+    thing being looked for is drawn with its own pressed outline while everything it hides among is
+    the repeated mark - that is how the eye finds it.
+  🔴 MIST (volume 04) - everything but the nearest thing and the wall is RUBBED at its lightest, with
+    0 shapes behind it. Things enter the page by appearing at FULL weight, never by fading, and there
+    is no pale version of the charcoal.
+  🔴 SNOW (volume 12) - the hill and the yard are not rubbed at all, BARE PAPER from edge to edge, and
+    the charcoal draws ONLY what stands on it. A mound gets at most 3 pressed strokes along its lower
+    lip and nothing else. 🔴 SNOW AND HAY ARE BOTH BARE PAPER AND ARE TOLD APART BY GRAIN ALONE - hay
+    is thin separate strands, snow is one unbroken smooth face.
+  BROOK (volumes 08, 15) - the water is ONE rubbed field running across the page, 0 ripples, 0 glints.
+    A thing in the water is PRESSED lying inside that field, hard edge, never distorted. 🔴 NOTHING IS
+    EVER MIRRORED IN THE WATER - there are no reflections in this book. Stones and the low causeway
+    are PRESSED with the marks running ALONG the thing, not across it.
+  🔴 MARKET (volumes 05, 23) - roofs and awnings are one rubbed field each; the crowd is at most 7
+    flat pressed silhouettes. 🔴 THE SHOP BEING LOOKED FOR IS FOUND BY ITS ROOF SHAPE AND BY THE
+    DIRECTION OF ITS RUBBING - when every other roof is rubbed sideways, that one is rubbed in tight
+    diagonals. It is NEVER found by a colour and NEVER by a sign, because this world has neither.
+  🔴 EVENING AND DAWN (volumes 10, 22) - the sky is one rubbed field at its heaviest. The lantern in
+    volume 10 is the one yellow that is not the scarf, and it is a GLOW only, one clean shape with no
+    rays and no halo. The sun in volume 22 is LIFTED PAPER, a plain disc with no rays, made round by
+    the dark ridge around it.
+  MUD (volume 24) - the puddle is ONE rubbed field with a hard lifted rim. Splashes are LIFTED, at
+    most 9 marks, each taken out on its own, never drawn.
+
+CHARACTER DESIGN LANGUAGE: the animals are built from the same marks as the world - two or three
+  shapes with limbs laid over. GRADE: bipedal, standing upright, 🔴 AND NOBODY IN THIS WORLD WEARS
+  CLOTHES. There are no sleeves, no cuffs, no trousers, no boots. The only worn things in 250 pages
+  are Pipo's YELLOW SCARF, Mom's wide-brimmed hat (a prop set on the head, not a garment) and, in
+  volume 08 only, ONE old boot on one foot with the other foot bare. Backs and heads are PRESSED,
+  chests and bellies are RUBBED. Eyes are two solid dark dots set wide apart; a small dark nose; the
+  mouth is ONE curve; above each eye ONE short pressed eyebrow. 🔴 FEELING IS CARRIED BY THE MOUTH
+  CURVE AND THE TWO EYEBROW STROKES - the eyes only ever open or close and their size NEVER changes.
+  The face is never crossed by an object. Whole-body posture carries the rest.
+  THE FIVE, separable at thumbnail size: PIPO a puppy, the smallest standing figure, round-headed,
+  two soft folded ears, a YELLOW SCARF and hands that dig, press, roll and carry on every page · MOM
+  a dog, a full head over Pipo, a wide-brimmed hat, hands, no yellow · SHEEP GRANDPA a sheep, a mass
+  of woolly bumps for a body and a CROOKED STICK always in one hand, the roundest silhouette, hands,
+  no yellow · GOOSE AUNTIE a goose, 🔴 WINGS AND NO HANDS - she points, fans and flaps with a wing
+  edge and holds nothing; the longest neck and the tallest silhouette by the neck alone, no yellow ·
+  HORSE UNCLE a horse, the biggest and widest figure, a long straight muzzle and a mane, hands, no
+  yellow. 🔴 THE THREE NEIGHBOURS NEVER CARRY YELLOW and are never drawn standing over Pipo.
+  THE ANIMALS - sheep, lambs, goslings, the farm cat - are plain shapes with no eyebrows and no
+  expression, except the lamb wearing the bell in volume 03.
+
+CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere - market stalls, sacks
+  and shop fronts stay blank or carry a single scratched shape.
+
+NOT: no airbrush, gradient, glow or 3D render / no white chalk or white paint / no second pigment of
+  any kind / no colour on hay, fleece, mist, snow, the sun, yolk or butter / no coloured clue for
+  finding anything / no soft or feathered outline on Pipo / no smudged face / no reflection or
+  mirrored image in water / no clothes on anybody / no lettering.</pre></details>
+  <div data-paste="anchor"></div>
+</div>
+
+<h2 class="sec">5. 캐스트 시트</h2>
+<p class="lead">한 장에 전원을 그립니다. 🔴 <b>시트가 최종 그림을 지배</b>하므로 시트를 먼저 확정하고 쪽 삽화로 갑니다.</p>
+<div class="anchor-card">
+  <div class="ahead"><b>전원 시트</b><button class="copy-btn" data-copy="sheet">📋 시트 프롬프트 복사</button></div>
+  <details open><summary>프롬프트 보기</summary><pre id="sheet">CHARACTER SHEET - pipo farm   (five characters, one sheet)
+
+STYLE ANCHOR - pipo-charcoalwall   (a puppy on an Irish stone-wall farm / charcoal, rubbed, pressed
+                                    and lifted - and one yellow)
+
+Style: charcoal on pale cream toothy paper, and ONE yellow, 4-6 year old picture book. 🔴 THERE IS NO
+  SECOND COLOUR IN THIS BOOK. Charcoal is laid and rubbed flat with a finger, so every area is an even
+  grain with the paper's tooth speckling through. The three values are made by the hand, not by
+  pigment: RUBBED is the world, PRESSED is the only dark, and LIGHT IS MADE BY LIFTING - a kneaded
+  eraser takes the charcoal back off and the bare paper underneath is the brightest thing on the page.
+  NOTHING IS EVER DRAWN WHITE. SHADING IS ZERO in the modelling sense - an area is rubbed, pressed or
+  lifted, never graded between.
+
+RENDERING (finish hierarchy): an area is ONE rubbed field, even everywhere, never denser or lighter
+  inside itself. A thing standing on that field is PRESSED with one continuous line. Every charcoal
+  edge is slightly furry EXCEPT the outline of Pipo, which is one clean pressed line - that is how the
+  eye finds him before it finds the yellow. FINISHED THINGS PER PAGE = 2, Pipo and the one thing he
+  touches; everything else is a shape with no interior detail. Repeats are capped and the cap is the
+  whole design: sheep at most 9 separate animals and a flock further off is ONE rubbed mass with 0
+  outlines inside it · loose stones at most 11 · hay heaps at most 7 and loose hay strands at most 11
+  · eggs at most 8 · washing at most 6 with at most 6 pegs · milk cans at most 4 · market stalls at
+  most 5 and roofs at most 8 · potatoes on one stem at most 9 · goslings exactly 4 · planks at most 6
+  · windows at most 6 lifted rectangles with 0 frames · footprints at most 11 · a market crowd at most
+  7 flat pressed silhouettes with 0 faces and 0 hands · stars at most 14 lifted points, each taken out
+  on its own. Nothing in a repeat is a mirrored copy of its neighbour. DENSITY RATION = none.
+  🔴 DEPTH IS SPACING, NEVER DARKNESS. Sheep further up the hill stand CLOSER TOGETHER at the same
+  weight of charcoal. Nothing recedes by getting paler or softer.
+
+PALETTE: PAPER PALE CREAM #EFE9DC, sky, mist, snow, fleece, hay, the sun, light, everything lifted or
+  never touched · CHARCOAL RUBBED #6B665C, hillside, ground, wet earth, weather, the whole field of
+  the world · CHARCOAL PRESSED #2C2A25, the stone wall, animal backs and heads, iron, the inside of
+  the byre, night - this is the only dark and it is made by pressure, never by a second pigment ·
+  ACCENT GORSE YELLOW #F0B429, 🔴 laid last, touching NOTHING but Pipo's scarf, plus the GLOW of the
+  cart lantern in volume 10 (the lantern's body is pressed charcoal; only its light is yellow).
+  🔴 HAY, FLEECE, MIST, SNOW, THE SUN, YOLK AND BUTTER ARE ALL UNPAINTED PAPER. No white chalk, no
+  white paint, no earth colour, no roof colour, no second pigment of any kind, ever.
+
+STAGE CLAUSES (the stage changes what the charcoal does, never how many colours there are):
+  WALL - the stone wall runs through this whole series and it is the one thing always PRESSED: each
+    course of stones is a separate pressed shape with a furry edge, and the wall keeps its full weight
+    however far away it is. Where the wall is the thing being followed by hand (04, 12) it is the only
+    pressed thing on the page and everything else is rubbed.
+  SLOPE - the hillside is ONE rubbed field running downhill, 0 individual blades. Fences, gates and
+    the byre are PRESSED. Far ridges are at most 4 pressed outlines with 0 texture inside.
+  YARD AND BYRE - each surface is ONE repeated mark: floor a plank stroke, wall a short dash, thatch a
+    zigzag. The mark is the SAME shape every time and may run off an edge but is never redrawn. 🔴 THE
+    OPEN DOORWAY AND THE WINDOW LIGHT ARE LIFTED PAPER and are the brightest thing on the page. A
+    thing being looked for is drawn with its own pressed outline while everything it hides among is
+    the repeated mark - that is how the eye finds it.
+  🔴 MIST (volume 04) - everything but the nearest thing and the wall is RUBBED at its lightest, with
+    0 shapes behind it. Things enter the page by appearing at FULL weight, never by fading, and there
+    is no pale version of the charcoal.
+  🔴 SNOW (volume 12) - the hill and the yard are not rubbed at all, BARE PAPER from edge to edge, and
+    the charcoal draws ONLY what stands on it. A mound gets at most 3 pressed strokes along its lower
+    lip and nothing else. 🔴 SNOW AND HAY ARE BOTH BARE PAPER AND ARE TOLD APART BY GRAIN ALONE - hay
+    is thin separate strands, snow is one unbroken smooth face.
+  BROOK (volumes 08, 15) - the water is ONE rubbed field running across the page, 0 ripples, 0 glints.
+    A thing in the water is PRESSED lying inside that field, hard edge, never distorted. 🔴 NOTHING IS
+    EVER MIRRORED IN THE WATER - there are no reflections in this book. Stones and the low causeway
+    are PRESSED with the marks running ALONG the thing, not across it.
+  🔴 MARKET (volumes 05, 23) - roofs and awnings are one rubbed field each; the crowd is at most 7
+    flat pressed silhouettes. 🔴 THE SHOP BEING LOOKED FOR IS FOUND BY ITS ROOF SHAPE AND BY THE
+    DIRECTION OF ITS RUBBING - when every other roof is rubbed sideways, that one is rubbed in tight
+    diagonals. It is NEVER found by a colour and NEVER by a sign, because this world has neither.
+  🔴 EVENING AND DAWN (volumes 10, 22) - the sky is one rubbed field at its heaviest. The lantern in
+    volume 10 is the one yellow that is not the scarf, and it is a GLOW only, one clean shape with no
+    rays and no halo. The sun in volume 22 is LIFTED PAPER, a plain disc with no rays, made round by
+    the dark ridge around it.
+  MUD (volume 24) - the puddle is ONE rubbed field with a hard lifted rim. Splashes are LIFTED, at
+    most 9 marks, each taken out on its own, never drawn.
+
+CHARACTER DESIGN LANGUAGE: the animals are built from the same marks as the world - two or three
+  shapes with limbs laid over. GRADE: bipedal, standing upright, 🔴 AND NOBODY IN THIS WORLD WEARS
+  CLOTHES. There are no sleeves, no cuffs, no trousers, no boots. The only worn things in 250 pages
+  are Pipo's YELLOW SCARF, Mom's wide-brimmed hat (a prop set on the head, not a garment) and, in
+  volume 08 only, ONE old boot on one foot with the other foot bare. Backs and heads are PRESSED,
+  chests and bellies are RUBBED. Eyes are two solid dark dots set wide apart; a small dark nose; the
+  mouth is ONE curve; above each eye ONE short pressed eyebrow. 🔴 FEELING IS CARRIED BY THE MOUTH
+  CURVE AND THE TWO EYEBROW STROKES - the eyes only ever open or close and their size NEVER changes.
+  The face is never crossed by an object. Whole-body posture carries the rest.
+  THE FIVE, separable at thumbnail size: PIPO a puppy, the smallest standing figure, round-headed,
+  two soft folded ears, a YELLOW SCARF and hands that dig, press, roll and carry on every page · MOM
+  a dog, a full head over Pipo, a wide-brimmed hat, hands, no yellow · SHEEP GRANDPA a sheep, a mass
+  of woolly bumps for a body and a CROOKED STICK always in one hand, the roundest silhouette, hands,
+  no yellow · GOOSE AUNTIE a goose, 🔴 WINGS AND NO HANDS - she points, fans and flaps with a wing
+  edge and holds nothing; the longest neck and the tallest silhouette by the neck alone, no yellow ·
+  HORSE UNCLE a horse, the biggest and widest figure, a long straight muzzle and a mane, hands, no
+  yellow. 🔴 THE THREE NEIGHBOURS NEVER CARRY YELLOW and are never drawn standing over Pipo.
+  THE ANIMALS - sheep, lambs, goslings, the farm cat - are plain shapes with no eyebrows and no
+  expression, except the lamb wearing the bell in volume 03.
+
+CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere - market stalls, sacks
+  and shop fronts stay blank or carry a single scratched shape.
+
+NOT: no airbrush, gradient, glow or 3D render / no white chalk or white paint / no second pigment of
+  any kind / no colour on hay, fleece, mist, snow, the sun, yolk or butter / no coloured clue for
+  finding anything / no soft or feathered outline on Pipo / no smudged face / no reflection or
+  mirrored image in water / no clothes on anybody / no lettering.
+
+SHEET LAYOUT: one pale cream sheet, five animals standing in a row on a single ground line, all at
+  their true relative heights - Horse Uncle the biggest and widest, Goose Auntie the tallest by her
+  neck alone, Sheep Grandpa the roundest, Mom a full head over Pipo, Pipo the smallest. Each
+  character is drawn THREE times: front standing, three-quarter walking, and back. 🔴 In every one of
+  the fifteen drawings NOBODY IS WEARING CLOTHES - the only worn things on this sheet are Pipo's
+  yellow scarf and Mom's wide-brimmed hat.
+🔴 ONE EXTRA ROW AT THE FOOT OF THE SHEET: the three neighbours again, side by side, drawn as FLAT
+  PRESSED SILHOUETTES with 0 interior marks and 🔴 WITHOUT THEIR PROPS - no stick, no hat, no cart.
+  If the three cannot be told apart by body mass, neck and muzzle alone, the sheet is wrong.
+  Nothing else on the sheet - no props beyond the two named, no scenery, no ground beyond the one line.
+🔴 No lettering, numerals, labels or name tags anywhere on the sheet.</pre></details>
+  <div data-paste="cast-sheet"></div>
+</div>
+
+</div>
+<script src="/pipo-core.js"></script>
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.getAttribute('data-copy'));
+      if (el) window.SERIES.copyText(el.textContent, b);
+    });
+  });
+  document.querySelectorAll('[data-sheet]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      window.SERIES.copyText(window.SERIES.sheetPrompt(b.getAttribute('data-sheet')), b);
+    });
+  });
+  window.SERIES.mountPasteSlots('pipo-plan');
+</script>
+</body>
+</html>

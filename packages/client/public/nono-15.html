@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>노노네 겨울 골목 — 내 건 작아</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#2F7F4E; --slope:#333A3E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">노노네 겨울 골목 · 15</div>
+  <h1>내 건 작아</h1>
+  <div class="sub"><b>주인공</b> 키키(토라짐) · <b>원함</b> 달콤한 말린 과일을 먹고 싶다 · <b>탈</b> 작다고 안 받았다가 하나도 못 먹는다 · <b>착지</b> 두 손으로 받아 제일 오래 먹는다</div>
+  <div class="by">글 <b>배도담</b> · 그림 <b>노아라</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가게 선반에 말린 과일이 있어요. 겨울에 먹는 달콤한 열매예요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 선반을 아래에서.<br/><b>장소·시간</b> 가게 안 선반 앞, 낮.<br/><b>인물</b> Kiki cat이 선반 아래에서 고개를 젖혀 올려다본다 — 두 손이 선반 기둥에 닿았다, 초록 방울.<br/><b>배경·소품</b> 선반 위 나무 상자에 말린 열매가 담겨 있고 겨울 저장 항아리들이 옆에 줄지어 있다.<br/><b>톤</b> 위쪽 상자만 볕을 받아 화면에서 제일 높고 제일 밝다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">키키는 그 열매를 먹고 싶어요. 할아버지가 셋에게 한 줌씩 나눠 줬어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 나눠 주는 손.<br/><b>장소·시간</b> 선반 앞.<br/><b>인물</b> Grandpa Badger가 Kiki cat의 두 손 위에 말린 열매 한 줌을 놓아 준다 — 앞치마. Nono sparrow와 Kiki 옆의 Gugu pigeon은 이미 제 몫을 두 손에 들고 있다 — 초록 목도리 · 초록 천 가방 · 초록 방울.<br/><b>배경·소품</b> 열매 상자, 나무 탁자.<br/><b>톤</b> 세 쌍의 손이 같은 높이에 나란히 놓인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">키키가 자기 손을 내려다봤어요. 노노 손에 있는 게 더 커 보여요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 두 몫을 나란히 내려다본다.<br/><b>장소·시간</b> 같은 탁자 앞.<br/><b>인물</b> Kiki cat의 두 손 위 열매 한 줌과 바로 옆 같은 높이에 있는 Nono sparrow의 손 위 한 줌이 나란히 놓였다 — 키키의 시선이 옆 손으로 넘어가 있다, 초록 방울 끈이 손목 위로 보인다.<br/><b>배경·소품</b> 탁자 결, 두 몫 말고는 아무것도 없다.<br/><b>톤</b> 두 몫이 같은 거리에서 나란해 크기 차이가 보이는 대로 읽힌다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">키키가 손을 뒤로 쏙 뺐어요. "내 건 작아. 안 받을래."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 정면 아이레벨.<br/><b>장소·시간</b> 탁자 앞.<br/><b>인물</b> Kiki cat이 두 손을 등 뒤로 쏙 감췄다 — 어깨가 뒤로 젖혀지고 턱이 들렸다, 입이 벌어져 말한다, 목의 초록 방울이 앞으로 드러난다.<br/><b>배경·소품</b> 앞쪽 탁자 위에 놓인 열매 한 줌.<br/><b>톤</b> 몸 앞이 텅 비고 손이 화면에서 사라져 받기를 그만둔 자세가 된다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지가 키키 몫을 접시에 담아 두었어요. 노노랑 구구는 맛있게 먹어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 탁자 옆.<br/><b>장소·시간</b> 가게 안, 조금 뒤.<br/><b>인물</b> Nono sparrow와 Gugu pigeon이 열매를 오물오물 먹는다 — 볼이 불룩하고 눈이 감겼다, 초록 목도리 · 초록 천 가방. Kiki cat은 옆에서 두 손을 등 뒤에 둔 채 그쪽을 본다 — 초록 방울.<br/><b>배경·소품</b> 탁자 위 작은 접시에 키키 몫이 담겨 있다.<br/><b>톤</b> 먹는 둘과 안 먹는 하나가 한 줄에 서서 차이가 볼 모양으로 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지가 안 받은 몫을 새 모이통에 부어 줬어요. 참새들이 금방 다 먹었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 창밖 모이통.<br/><b>장소·시간</b> 가게 창밖 모이통, 낮.<br/><b>인물</b> Grandpa Badger가 텅 빈 접시를 기울여 든 손을 막 내린다 — 앞치마. Kiki cat이 문간에서 그 모습을 본다 — 두 손이 등 뒤에서 앞으로 나왔다, 초록 방울.<br/><b>배경·소품</b> 모이통에 참새가 빼곡히 붙어 마지막 조각을 쪼고 있다, 통 안이 거의 비었다.<br/><b>톤</b> 접시와 통이 둘 다 비어 가는 게 한 화면에 같이 놓인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">키키는 하나도 못 먹었어요. 달콤한 냄새만 아직 남아 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 빈 손과 얼굴.<br/><b>장소·시간</b> 가게 안.<br/><b>인물</b> Kiki cat이 두 손을 앞으로 펴서 내려다본다 — 손바닥에 아무것도 없고 코를 살짝 들어 냄새를 맡는다, 귀가 뒤로 눕는다, 초록 방울.<br/><b>배경·소품</b> 뒤로 흐린 선반과 상자.<br/><b>톤</b> 빈 손바닥과 들린 코가 어긋나 남은 것이 냄새뿐인 게 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지가 텅 빈 접시를 키키 앞에 들어 보였어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 들어 보인 접시.<br/><b>장소·시간</b> 탁자 앞.<br/><b>인물</b> Grandpa Badger가 텅 빈 접시를 두 손으로 들어 Kiki 눈높이에 딱 맞춰 보인다 — 접시 안쪽이 화면 쪽으로 열렸다, 앞치마. Kiki cat이 접시 안을 들여다본다 — 초록 방울.<br/><b>배경·소품</b> 접시 말고는 탁자 위가 비었다.<br/><b>톤</b> 빈 접시 안이 화면 가운데를 차지해 말 없이도 결과가 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다음 날 할아버지가 또 나눠 줬어요. 키키가 두 손으로 받았어요. "고맙습니다."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글. 받는 손 위로.<br/><b>장소·시간</b> 탁자 앞, 다음 날.<br/><b>인물</b> Kiki cat이 두 손을 그릇처럼 모아 위로 내밀고, Grandpa Badger의 큰 손이 그 위에 열매 한 줌을 놓는다 — 키키의 입이 벌어져 인사하고 귀가 앞으로 섰다, 초록 방울, 앞치마.<br/><b>배경·소품</b> 열매 상자.<br/><b>톤</b> 위에서 내려오는 손과 아래에서 받는 손이 화면을 세로로 잇는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">노노랑 구구가 자기 것을 하나씩 얹어 줬어요. 키키가 제일 오래 오물오물 먹었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 세 몫을 위에서.<br/><b>장소·시간</b> 탁자 앞.<br/><b>인물</b> Kiki cat의 두 손 위 열매 더미가 셋 중 제일 높고, Nono sparrow와 Gugu pigeon의 손가락이 각각 한 알을 막 올려놓고 물러난다 — 키키의 볼이 불룩하고 눈이 감겼다, 초록 방울 · 초록 목도리 · 초록 천 가방.<br/><b>배경·소품</b> 두 친구 손에는 이제 한 알씩 적게 남았다.<br/><b>톤</b> 가장 늦게 받은 손 위가 제일 수북해져 앞뒤가 뒤집힌다.</pre></details>
+</div>
+
+</div>
+<script src="/nono-core.js"></script>
+</body>
+</html>

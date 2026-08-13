@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>피포네 돌담 목장 — 감자 캐는 날</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#F0B429; --slope:#2C2A25; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">피포네 돌담 목장 · 19</div>
+  <h1>감자 캐는 날</h1>
+  <div class="sub"><b>원함</b> 감자를 바구니 가득 캐고 싶다 · <b>틀리는 어른</b> 양 할아버지 · <b>어긋남</b> 옛날 밭 자리라며 파는 데마다 돌만 나온다 · <b>착지</b> 피포가 줄기 밑을 파니 주렁주렁 나온다</div>
+  <div class="by">글 <b>문나래</b> · 그림 <b>백서리</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">목장 한쪽 감자밭에 초록 줄기가 무성해요. 엄마가 말했어요. "감자는 줄기 밑에 숨어 있단다."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 밭이랑이 화면 안쪽으로 뻗는다.<br/><b>장소·시간</b> 목장 한쪽 감자밭, 아침.<br/><b>인물</b> Mom dog가 밭머리에 서서 한 손으로 초록 줄기 밑동을 가리킨다 — 허리를 굽히고 입이 벌어져 말하는 중, 챙 넓은 모자. Pipo puppy는 옆에서 그 손끝을 따라 줄기 아래를 본다 — 노란 목도리.<br/><b>배경·소품</b> 무성한 감자 줄기들, 그 밑의 흙.<br/><b>톤</b> 잎은 화면 위쪽에 가득한데 가리키는 곳은 아래 흙이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">피포가 빈 바구니를 밭 가운데 놓았어요. 이 바구니를 가득 채울 거예요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 밭 가운데 바닥.<br/><b>장소·시간</b> 감자밭 가운데, 아침.<br/><b>인물</b> Pipo puppy가 빈 바구니를 두 손으로 밭 가운데에 내려놓고 손을 뗀다 — 무릎이 굽었고 시선은 바구니 안, 노란 목도리.<br/><b>배경·소품</b> 텅 빈 바구니 하나, 둘레의 줄기들.<br/><b>톤</b> 밭 한가운데 놓인 빈 그릇 하나가 오늘의 목표가 된다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">양 할아버지가 지팡이로 밭 구석을 가리켰어요. "저 구석은 파 봤니? 거기가 진짜배기야."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글. 지팡이 끝과 얼굴.<br/><b>장소·시간</b> 밭 구석, 아침.<br/><b>인물</b> Sheep grandpa가 지팡이로 밭 구석을 가리키며 고개를 아이 쪽으로 돌린다 — 눈썹을 올리고 입이 반쯤 벌어진 물음의 얼굴. Pipo puppy는 아래쪽에서 그 구석을 본다 — 노란 목도리.<br/><b>배경·소품</b> 줄기가 없는 맨 흙 구석.<br/><b>톤</b> 가리킨 데만 잎이 없어 화면에서 비어 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지가 구석 땅을 지팡이 끝으로 파요. 돌멩이만 데구르르 나와요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 구석 흙바닥.<br/><b>장소·시간</b> 밭 구석, 아침.<br/><b>인물</b> Sheep grandpa가 지팡이 끝으로 흙을 파낸다 — 두 손으로 지팡이를 잡고 등이 굽었다. Pipo puppy는 두어 걸음 떨어져 줄기 쪽을 흘끔 본다 — 노란 목도리.<br/><b>배경·소품</b> 파인 흙, 굴러 나온 돌멩이 셋.<br/><b>톤</b> 흙에서 나온 것이 전부 각진 것들이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"더 깊이 있나?" 흙구덩이가 커지는데 나오는 건 또 돌, 돌, 돌.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 구덩이를 내려다본다.<br/><b>장소·시간</b> 밭 구석, 아침.<br/><b>인물</b> Sheep grandpa가 구덩이 앞에 무릎을 대고 더 깊이 판다 — 어깨가 들썩인다.<br/><b>배경·소품</b> 커진 흙구덩이, 그 옆에 쌓인 돌 여섯.<br/><b>톤</b> 구덩이는 깊어지고 옆의 돌 무더기만 높아진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지가 이마의 땀을 닦아요. "옛날엔 여기가 다 감자였는데."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 이마와 손등.<br/><b>장소·시간</b> 밭 구석, 아침.<br/><b>인물</b> Sheep grandpa가 손등으로 이마의 땀을 훔친다 — 눈을 감았고 입이 옆으로 벌어져 말하는 중, 털에 흙이 묻었다.<br/><b>배경·소품</b> 뒤로 흐린 흙더미.<br/><b>톤</b> 얼굴 하나만 가까이 와서 힘든 것이 화면을 채운다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">파낸 돌이 쌓여 작은 탑이 됐어요. 할아버지가 그 옆에 털썩 앉아요. "돌 농사는 풍년이구나."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 돌탑을 아래에서.<br/><b>장소·시간</b> 밭 구석, 낮.<br/><b>인물</b> Sheep grandpa가 돌탑 옆 흙바닥에 털썩 앉아 두 다리를 뻗는다 — 지팡이를 무릎 위에 눕히고 입이 벌어져 말하는 중.<br/><b>배경·소품</b> 파낸 돌이 무릎 높이로 쌓여 작은 탑이 됐다 — 돌 열 남짓.<br/><b>톤</b> 쌓인 것이 있긴 한데 밭에서 나올 것이 아니다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">피포는 초록 줄기를 찾아갔어요. 줄기 밑을 두 손으로 살살 파요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 줄기 밑동과 두 손.<br/><b>장소·시간</b> 감자밭 이랑, 낮.<br/><b>인물</b> Pipo puppy가 초록 줄기 밑동을 한 손으로 잡고 다른 손으로 그 밑 흙을 살살 헤친다 — 얼굴을 흙 가까이 내렸다, 노란 목도리가 흙에 닿을락 말락.<br/><b>배경·소품</b> 헤쳐진 흙 사이로 둥근 것의 윗면이 하나 드러난다.<br/><b>톤</b> 잎 밑의 어두운 흙 속에서 둥근 선 하나가 나온다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">감자가 주렁주렁 딸려 나와요! 데굴데굴, 굵은 감자들이 쏟아져요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 들어 올린 줄기.<br/><b>장소·시간</b> 밭 이랑, 낮.<br/><b>인물</b> Pipo puppy가 줄기를 두 손으로 잡고 위로 들어 올린다 — 몸이 뒤로 젖혀지고 입이 크게 벌어졌다, 노란 목도리.<br/><b>배경·소품</b> 줄기 뿌리에 감자가 주렁주렁 매달려 딸려 올라오고 흙이 후드득 떨어진다.<br/><b>톤</b> 위로 든 줄기 하나에 둥근 것이 여럿 매달려 화면이 아래로 무겁다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">바구니가 감자로 가득 찼어요. 할아버지가 감자 하나를 슬쩍 집어 들었어요. 돌탑 옆을 지나 뒷짐을 지고 걸어가요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 밭 가운데와 구석이 한 프레임.<br/><b>장소·시간</b> 감자밭, 낮.<br/><b>인물</b> Pipo puppy가 감자로 가득 찬 바구니 옆에 서서 두 손을 허리에 얹는다 — 노란 목도리. 화면 오른쪽에서 Sheep grandpa가 감자 하나를 손에 쥐고 돌탑 옆을 지나 뒷짐을 지고 걸어간다 — 등만 보이고 말은 없다.<br/><b>배경·소품</b> 가득 찬 바구니, 돌탑.<br/><b>톤</b> 가득 찬 것과 쌓인 돌이 한 화면에 있고 그 사이로 등 하나가 지나간다.</pre></details>
+</div>
+
+</div>
+<script src="/pipo-core.js"></script>
+</body>
+</html>

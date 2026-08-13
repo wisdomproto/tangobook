@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>쌍둥이네 바닷가 — 모래밭 큰 물고기</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#E9A825; --slope:#2D3B42; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">쌍둥이네 바닷가 · 22</div>
+  <h1>모래밭 큰 물고기</h1>
+  <div class="sub"><b>원함</b> 아빠 배에서 보이게 모래밭에 큰 그림을 그리고 싶다 · <b>우기는 둘</b> 리리 "작게 그려 보고 크게 그려야지" / 롤로 "그냥 크게 그리면 되지" · <b>어긋남</b> 하나는 너무 작고 하나는 뭔지 알 수 없다 · <b>착지</b> 리리가 조개로 점을 놓고 롤로가 막대로 이어, 배가 뱃고동으로 답한다</div>
+  <div class="by">글 <b>한여울</b> · 그림 <b>임푸른</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠 배가 저 멀리 바다에 떠 있어요. 모래밭이 넓게 펼쳐졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 모래밭과 먼 바다.<br/><b>장소·시간</b> 넓은 모래밭, 낮.<br/><b>인물</b> Riri rabbit과 Lolo rabbit이 화면 앞쪽에 나란히 서서 바다 쪽을 본다 — 리리는 손차양을 만들었고 노란 모자, 롤로는 한 팔을 크게 들어 흔든다, 노란 장화.<br/><b>배경·소품</b> 수평선 가까이 떠 있는 작은 배 한 척, 아무 자국 없는 넓은 모래면.<br/><b>톤</b> 넓은 면 하나와 저 끝의 작은 점 하나뿐이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘은 아빠가 배에서 볼 수 있게 큰 그림을 그리고 싶어요. "물고기를 아주 크게 그리자!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면. 두 옆얼굴과 든 팔.<br/><b>장소·시간</b> 모래밭.<br/><b>인물</b> Lolo rabbit이 두 팔을 최대로 벌려 크기를 그려 보이며 입을 크게 벌린다 — 노란 장화. Riri rabbit은 그 옆에서 손가락 하나로 발밑 모래에 짧은 선을 긋는다 — 노란 모자.<br/><b>배경·소품</b> 발밑에 그은 짧은 선 하나, 손에 든 막대 둘.<br/><b>톤</b> 벌린 팔과 그은 선의 크기가 한눈에 어긋난다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리가 막대로 밑그림을 그었어요. 롤로는 모래밭 저쪽으로 달려갔어요. "작게 그려 보고 크게 그려야지." "그냥 크게 그리면 되지."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 갈라지는 두 걸음.<br/><b>장소·시간</b> 모래밭.<br/><b>인물</b> Riri rabbit이 화면 왼쪽에서 무릎을 꿇고 막대 끝으로 밑그림을 긋는다 — 고개가 바닥에 닿을 듯하다, 노란 모자. Lolo rabbit은 오른쪽 저 멀리로 막대를 끌며 달려 나간다 — 몸이 앞으로 기울고 노란 장화가 모래를 찬다.<br/><b>배경·소품</b> 롤로 뒤로 길게 끌린 한 줄 자국.<br/><b>톤</b> 한쪽엔 점만 하고 한쪽엔 화면을 벗어나는 줄이 생긴다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리가 발자국만 한 물고기를 그렸어요. 비늘까지 촘촘히 그렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 클로즈업, 부감. 발자국만 한 그림.<br/><b>장소·시간</b> 모래밭 위.<br/><b>인물</b> Riri rabbit의 막대 끝과 앞발 하나만 화면에 들어온다 — 손끝이 아주 작게 움직인다.<br/><b>배경·소품</b> 발자국 하나 크기의 물고기 그림, 비늘이 촘촘하게 그려졌고 지느러미 선까지 있다.<br/><b>톤</b> 크게 확대하니 안이 빽빽하다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리가 일어나 저 멀리 배를 봐요. 그림이 발밑에서 손바닥만 해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 오버숄더. 리리 어깨 너머로 발밑과 수평선.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Riri rabbit이 일어서서 고개를 들어 바다 쪽을 본다 — 한 손에 막대를 늘어뜨렸다, 노란 모자.<br/><b>배경·소품</b> 🔴 화면 아래 리리 발치에 손바닥만 한 물고기 그림, 화면 위 수평선에 콩알만 한 배 — 둘이 같은 프레임 안에 있다.<br/><b>톤</b> 발밑의 것과 저 끝의 것이 비슷하게 작다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">롤로가 막대를 끌며 크게 크게 그어요. 선이 어디로 가는지 저도 몰라요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 부감. 모래밭 전체를 위에서.<br/><b>장소·시간</b> 모래밭 저쪽.<br/><b>인물</b> Lolo rabbit이 화면 가운데를 가로지르며 막대를 끌고 달린다 — 뒤도 안 보고 앞으로만 간다, 노란 장화.<br/><b>배경·소품</b> 크게 휘어진 선이 여기저기로 뻗어 어디가 시작인지 알 수 없다.<br/><b>톤</b> 위에서 보니 선이 서로를 가로지른다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">롤로가 제가 그린 선을 밟고 지나갔어요. 그림이 뭉개져 뭔지 알 수 없어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 밟힌 선과 롤로.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Lolo rabbit이 걸음을 멈추고 제 발밑을 내려다본다 — 어깨가 처지고 입이 벌어졌다, 노란 장화가 선 위에 그대로 얹혀 있다.<br/><b>배경·소품</b> 발자국에 뭉개져 끊긴 선들, 지워진 자리.<br/><b>톤</b> 그린 선 위에 걸어온 자국이 겹쳐 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리가 조개껍데기를 한 아름 주워 왔어요. 모래에 하얀 점을 하나씩 놓아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 측면. 조개를 놓는 손.<br/><b>장소·시간</b> 모래밭.<br/><b>인물</b> Riri rabbit이 한 팔 가득 조개껍데기를 안고 다른 앞발로 하나를 모래에 콕 놓는다 — 무릎을 굽히고 시선이 놓을 자리에 가 있다, 노란 모자.<br/><b>배경·소품</b> 이미 놓인 하얀 점 몇 개가 넓은 간격으로 이어진다.<br/><b>톤</b> 점 하나하나가 서로 멀리 떨어져 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">하얀 점이 물고기 모양으로 넓게 퍼졌어요. 롤로가 막대로 점과 점을 이어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면. 점을 잇는 막대.<br/><b>장소·시간</b> 모래밭.<br/><b>인물</b> Lolo rabbit이 막대 끝을 모래에 대고 점과 점 사이를 그으며 걷는다 — 몸이 앞으로 기울었지만 시선이 다음 점에 붙어 있다, 노란 장화. Riri rabbit은 앞쪽에서 다음 점을 놓는다 — 노란 모자.<br/><b>배경·소품</b> 점 사이를 잇는 굵고 곧은 선, 아직 이어지지 않은 점 여럿.<br/><b>톤</b> 점이 선으로 바뀌는 자리가 화면 가운데를 지난다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">모래밭에 커다란 물고기가 누워 있어요. 바다에서 뿌우— 뱃고동이 울렸어요. 둘이 팔이 빠져라 손을 흔들어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 부감. 모래밭 전체와 큰 물고기.<br/><b>장소·시간</b> 모래밭, 낮.<br/><b>인물</b> Riri rabbit과 Lolo rabbit이 물고기 그림 옆에 아주 작게 서서 두 팔을 머리 위로 크게 흔든다 — 위에서 보면 노란 모자와 노란 장화 두 점만 또렷하다.<br/><b>배경·소품</b> 모래밭을 거의 다 차지한 커다란 물고기 그림 — 하얀 조개 점 위로 선이 이어졌다. 저 멀리 바다의 배에서 오르는 김 한 줄기.<br/><b>톤</b> 위에서 볼 때만 무엇인지 알아보게 된다.</pre></details>
+</div>
+
+</div>
+<script src="/twins-core.js"></script>
+</body>
+</html>

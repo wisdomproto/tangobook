@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>브루노 할아버지네 숲 — 불 끄면 안 돼요</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#1C4E8A; --slope:#2E3A2A; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">브루노 할아버지네 숲 · 11</div>
+  <h1>불 끄면 안 돼요</h1>
+  <div class="sub"><b>주인공</b> 닐스(겁) · <b>원함</b> 반딧불이를 보고 싶다 · <b>탈</b> 손전등을 못 꺼 한 마리도 못 본다 · <b>착지</b> 불을 끄고 어둠 속 반짝임을 본다</div>
+  <div class="by">글 <b>배도담</b> · 그림 <b>차온유</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">늦여름 밤이에요. 오늘은 반딧불이를 보러 가는 날이에요. 할아버지가 손전등 두 개를 챙겼어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 오두막 문간과 숲 입구가 한 프레임.<br/><b>장소·시간</b> 오두막 앞, 늦여름 밤.<br/><b>인물</b> Bruno grandfather bear가 문간에서 손전등 두 개를 한 앞발에 모아 들고 다른 앞발로 하나를 내민다 — 초록 뜨개 조끼, 둥근 안경. Nils bear cub이 두 앞발을 뻗어 받는다 — 파란 장화.<br/><b>배경·소품</b> 문간에서 새어 나온 빛, 그 너머 캄캄한 숲 입구, 키 큰 여름 풀.<br/><b>톤</b> 문간 빛이 화면에서 유일한 밝은 자리고 숲 쪽은 통째로 어둡다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">닐스는 반짝반짝 반딧불이를 꼭 보고 싶어요. 그런데 밤 숲은 너무 깜깜해요. 닐스가 손전등을 꼭 쥐었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글.<br/><b>장소·시간</b> 숲 입구.<br/><b>인물</b> Nils bear cub이 손전등을 두 앞발로 가슴에 붙여 꼭 쥐었다 — 어깨가 올라가고 눈이 앞을 크게 본다. 파란 장화가 나란히 붙었다.<br/><b>배경·소품</b> 손전등에서 앞으로 뻗는 좁은 빛줄기, 그 밖은 어둠뿐.<br/><b>톤</b> 빛이 닿는 폭만큼만 세상이 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘이 숲길을 걸어요. 닐스는 손전등을 이리 비추고 저리 비춰요. 불빛 밖은 무서워서 못 봐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면.<br/><b>장소·시간</b> 밤 숲길.<br/><b>인물</b> Nils bear cub이 왼쪽에서 오른쪽으로 걸으며 손전등을 옆으로 돌린다 — 몸은 앞을 향하는데 팔만 옆으로 꺾였다. Bruno grandfather bear가 뒤에서 손전등을 아래로 내려 발밑만 비춘다.<br/><b>배경·소품</b> 빛이 닿은 나무 밑동만 환하고 위쪽 가지는 어둠에 잠겼다, 길가 풀숲.<br/><b>톤</b> 두 빛이 서로 다른 데를 가리킨다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"여기서부터는 불을 꺼야 보인단다." 닐스가 고개를 도리도리. "불 끄면 안 돼요! 깜깜하잖아요."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 둘의 상반신.<br/><b>장소·시간</b> 밤 숲 풀숲 앞.<br/><b>인물</b> Bruno grandfather bear가 제 손전등을 아래로 내리며 입을 벌려 말한다 — 둥근 안경에 빛이 걸린다. Nils bear cub은 고개를 좌우로 도리도리 저으며 손전등을 가슴에 더 붙인다 — 두 앞발이 겹쳐 쥐었다, 파란 장화.<br/><b>배경·소품</b> 앞쪽의 낮은 풀숲, 어둠.<br/><b>톤</b> 한쪽 빛은 내려가고 한쪽 빛은 가슴에 붙었다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">닐스가 손전등을 이쪽저쪽 휘저었어요. 불빛이 닿는 곳마다 풀만 환해요. 반딧불이는 한 마리도 없어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글.<br/><b>장소·시간</b> 같은 풀숲.<br/><b>인물</b> Nils bear cub이 팔을 크게 휘둘러 손전등을 옆으로 쓸어 넘긴다 — 몸이 팔을 따라 돌아갔다, 파란 장화가 풀을 밟고 비틀렸다.<br/><b>배경·소품</b> 빛줄기가 풀밭을 쓸고 지나가 그 자리 풀잎만 환하다, 빛 밖은 검다.<br/><b>톤</b> 밝은 자리엔 풀뿐이고 아무것도 없다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">반딧불이 한 마리가 닐스 앞을 스쳤어요. 불빛을 비추자마자 사라졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨.<br/><b>장소·시간</b> 같은 풀숲.<br/><b>인물</b> Nils bear cub이 손전등을 코앞 쪽으로 홱 돌린다 — 얼굴이 빛 옆에서 반쯤 밝고 눈이 커졌다. 파란 장화.<br/><b>배경·소품</b> 빛이 켜진 동그란 자리 안은 비어 있고, 그 가장자리 어둠 속에서 작은 반짝임 하나가 빛에 먹혀 흐려진다.<br/><b>톤</b> 밝힌 곳에는 없고 밝히지 않은 데에 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">밤이 깊어 가요. 닐스는 아직 반딧불이를 한 번도 못 봤어요. 손전등만 꼭 쥐고 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글.<br/><b>장소·시간</b> 밤 숲, 깊은 밤.<br/><b>인물</b> Nils bear cub이 손전등을 두 앞발로 쥐고 우두커니 섰다 — 어깨가 처지고 입이 다물렸다, 파란 장화가 빛 웅덩이 안에 있다.<br/><b>배경·소품</b> 발밑만 동그랗게 밝은 빛 웅덩이, 그 위로 온통 어둠.<br/><b>톤</b> 밤이 깊어질수록 밝은 자리가 더 작아 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지가 제 손전등을 딸깍 껐어요. 그리고 닐스 옆에 가만히 서 있었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Bruno grandfather bear가 엄지로 제 손전등 스위치를 눌러 끄고 손전등을 허리 옆으로 내린다 — 입은 다물었고 얼굴은 앞의 풀숲을 향한다, 초록 뜨개 조끼. Nils bear cub은 그 옆에서 제 손전등을 든 채 할아버지 손을 본다 — 파란 장화.<br/><b>배경·소품</b> 꺼진 손전등, 아직 켜져 있는 닐스 손전등 빛 하나.<br/><b>톤</b> 빛 둘이 하나로 줄었다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">닐스도 딸깍, 불을 껐어요. 처음엔 깜깜, 그다음엔 조금씩 보여요. 할아버지 손이 닐스 손을 꼭 잡고 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 겹친 두 손.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Nils bear cub의 앞발이 스위치를 막 눌러 손전등이 꺼졌고, Bruno grandfather bear의 큰 앞발이 그 손을 위에서 감싸 쥐었다. 닐스 얼굴이 화면 위쪽에서 어둠 쪽으로 눈을 뜬다.<br/><b>배경·소품</b> 꺼진 손전등 두 개, 사방의 어둠, 아직 눈이 덜 익어 형체만 어렴풋한 풀숲.<br/><b>톤</b> 빛이 다 꺼지고 손의 온기만 남는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">풀숲 여기저기에서 반딧불이가 반짝여요. 닐스가 손전등을 내려놓고 두 눈을 크게 떴어요. 반짝, 반짝, 반짝.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 풀숲이 화면 아래를 채운다.<br/><b>장소·시간</b> 같은 풀숲, 밤.<br/><b>인물</b> Nils bear cub이 두 눈을 크게 뜨고 서 있다 — 두 앞발이 몸 옆으로 내려갔다, 파란 장화 옆 풀밭에 손전등이 놓였다. Bruno grandfather bear가 뒤에 조용히 서 있다.<br/><b>배경·소품</b> 풀숲 여기저기에서 작은 반짝임 여럿이 낮게 흩어져 있다, 내려놓은 손전등 두 개.<br/><b>톤</b> 손전등이 꺼지자 화면이 스스로 밝은 점들로 채워진다.</pre></details>
+</div>
+
+</div>
+<script src="/bruno-core.js"></script>
+</body>
+</html>

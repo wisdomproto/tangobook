@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>브루노 할아버지네 숲 — 기획서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#1C4E8A; --slope:#2E3A2A; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">창작동화 시리즈 05 · 25권 250쪽</div>
+  <h1>브루노 할아버지네 숲</h1>
+  <div class="sub">아기 곰 닐스와 할아버지 · 스웨덴 숲 사계절 · <b>대발이형</b>(결점 → 탈 → 한 마디 → 고침) · 그림체 = 크레용 하나(전권)</div>
+  <div class="by">글 <b>배도담</b> · 그림 <b>차온유</b></div>
+</header>
+
+<div class="note">🔴 <b>이 기획서가 SSOT 가 아닙니다.</b> 본문은 <code>docs/changjak-books/bruno/*.md</code>, 앵커는 <code>docs/art-direction/bruno-anchor.md</code> 가 원본이고 이 페이지는 거기서 생성됩니다(<code>build-series-html.mjs</code>). 회차는 왼쪽 <b>☰ 회차</b>에서.</div>
+
+<h2 class="sec">1. 축</h2>
+<table><thead><tr><th>축</th><th>시리즈 05</th><th>비고 (다른 시리즈와의 구분)</th></tr></thead><tbody><tr><td>형</td><td><b>대발이형</b> — 교훈 착지</td><td>02 메이(또래 다섯 결점 배역제)와 달리 <b>주인공이 하나</b></td></tr><tr><td>캐스트</td><td><b>조손 둘</b> — 손자 + 할아버지</td><td>다른 인물 없음. 야생 동물(새·다람쥐·물고기)은 말 없는 배경 생물로만</td></tr><tr><td>주인공</td><td>닐스 고정 · <b>결점이 권마다 다르다</b></td><td>결점 8종을 25권에 분산 (아래 §1)</td></tr><tr><td>무대</td><td>스웨덴 숲 오두막</td><td>🔴 <b>사계절이 시리즈의 축</b> — 25권이 봄→겨울로 흐른다</td></tr><tr><td>그림체</td><td><b>크레용 하나</b> (한 시리즈 = 한 그림체)</td><td>✅ 앵커 확정 = [<code>docs/art-direction/bruno-anchor.md</code>](../../art-direction/bruno-anchor.md) · 슬러그 <b><code>bruno-crayonwood</code></b></td></tr></tbody></table>
+
+<h2 class="sec">2. 캐스트</h2>
+<p class="lead">시트를 만들어 카드에 붙여넣으면 회차 페이지의 「🎬 이 화 등장」 스트립이 그 그림을 읽어 옵니다.
+카드마다 <b>[📋 시트 프롬프트]</b> = 그 한 명만 그리는 프롬프트(앵커 + 규격 + 전신 정면·3/4·뒷모습).</p>
+<div class="grid">
+  <div class="cast-card">
+    <div class="chead"><h4>🐻 닐스</h4><button class="copy-btn" data-sheet="nils">📋 시트 프롬프트</button></div>
+    <p><code>Nils bear cub</code></p>
+    <div data-paste="nils"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐻 브루노 할아버지</h4><button class="copy-btn" data-sheet="bruno">📋 시트 프롬프트</button></div>
+    <p><code>할아버지</code></p>
+    <div data-paste="bruno"></div>
+  </div>
+</div>
+
+<h2 class="sec">3. 25권</h2>
+<p class="lead">🔴 <b>작가에게 빈칸을 주지 않는 것</b>이 이 체제의 전부입니다.</p>
+<table><thead><tr><th>결점</th><th>회차</th><th>사건 갈래 (겹침 방지)</th></tr></thead><tbody><tr><td>못 참음</td><td>01 · 10 · 22</td><td>통을 기울여 쏟는다 / 몰래 들추다 망가뜨린다 / 덜 식은 걸 집어 부서뜨린다</td></tr><tr><td>성급함</td><td>02 · 09 · 13</td><td>한꺼번에 뿌린다 / 덜 만들고 띄운다 / 나무를 흔든다</td></tr><tr><td>겁</td><td>03 · 11 · 19 · 25</td><td>멀리 돌아간다 / 불빛을 못 놓는다 / 사다리 앞을 왕복한다 / 소리마다 이불 속</td></tr><tr><td>덜렁댐</td><td>04 · 12 · 17</td><td>뛰다 쏟는다 / <b>안을 안 보고 덮어 두고 간다</b> / 문을 안 닫는다</td></tr><tr><td>욕심</td><td>05 · 18 · 23</td><td>쥘 수 없이 꺾는다 / 더 키우느라 못 논다 / 한꺼번에 다 붓는다</td></tr><tr><td>잘난 척</td><td>06 · 14 · 20</td><td>길을 아는 척 / 물어보지 않는 척척박사 / 방법을 아는 척</td></tr><tr><td>고집</td><td>07 · 15 · 21</td><td>큰 통 고집 / 제 방식 쌓기 고집 / 제 자리 고집</td></tr><tr><td>포기</td><td>08 · 16 · 24</td><td>기다리다 그만둔다 / 몇 번 만에 그만둔다 / 중간에 그만둔다</td></tr></tbody></table>
+
+<h2 class="sec">4. 앵커 — 한 시리즈 = 한 그림체</h2>
+<p class="lead">시리즈 전권이 한 그림체입니다. 무대·계절 차이는 앵커 안 <b>무대 조항</b>이 처리합니다 — 매체·색은 그대로 두고 「두 색을 어디에 쓰고 무엇을 종이로 남기나」만 바뀝니다.
+🔴 악센트 <b>닐스 장화</b> 에만 닿습니다.</p>
+<div class="swatches">
+  <span class="sw"><i style="background:#E9E3D3"></i>종이 <code>#E9E3D3</code></span><span class="sw"><i style="background:#4F6B4E"></i>색1 <code>#4F6B4E</code></span><span class="sw"><i style="background:#96674A"></i>색2 <code>#96674A</code></span><span class="sw"><i style="background:#2E3A2A"></i>겹침 <code>#2E3A2A</code></span><span class="sw"><i style="background:#1C4E8A"></i>악센트 <code>#1C4E8A</code></span>
+</div>
+<div class="anchor-card">
+  <div class="ahead"><b>bruno-crayonwood</b><button class="copy-btn" data-copy="anchor">📋 앵커 프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre id="anchor">STYLE ANCHOR - bruno-crayonwood   (a bear cub and his grandfather in a Swedish forest / wax crayon,
+                                   snagged on the grain)
+
+Style: wax crayon on oat-grey toothy paper, exactly TWO crayons, 4-6 year old picture book. Crayon
+  SKIPS - it catches the high points of the paper and misses the pits, so every area is a broken
+  field of wax with the paper's grain showing through and NO AREA IS EVER SOLID. Pressure is even
+  everywhere; the breaking is the paper's doing, not the hand's. Where the two crayons overlay, a
+  third darker colour appears - that is the only dark. Unwaxed paper is not white space, it is the
+  sky, the water and the snow. SHADING IS ZERO - the only variation is WHERE THE WAX SKIPPED, and
+  how much of the area it covers.
+
+RENDERING (finish hierarchy): an area is ONE field of one crayon laid in ONE direction, never denser
+  or lighter inside itself. Direction NEVER changes inside one area - it changes only where one thing
+  ends and another begins, and THAT CHANGE OF DIRECTION IS THE EDGE. FINISHED THINGS PER PAGE = 2,
+  the bear the page is about and the one thing that bear touches; everything else is a shape with no
+  interior detail. Repeats are capped and the cap is the whole design: trunks at most 9 · boughs on
+  one tree at most 7 · logs in a stack at most 6 · berries at most 9 dots · seeds at most 9 dots ·
+  planks at most 6 · cabin windows at most 4 · birds at most 3 · falling snow at most 14 bare paper
+  points · stars at most 14 bare paper points · steam at most 5 curls. Nothing in a repeat is a
+  mirrored copy of its neighbour. Wax coverage is at most 80 percent, never solid.
+  DENSITY RATION = none.
+  🔴 DEPTH IS SPACING, NEVER DARKNESS. Deeper in the wood the trunks stand CLOSER TOGETHER at the
+  same weight of wax. Nothing recedes by getting darker, paler, bluer or softer.
+  🔴 HANDS - eight volumes turn on what a paw does and the grandfather says nothing (02 · 03 · 07 ·
+  09 · 11 · 15 · 20 · 22). On those pages the paw is the second finished thing, but THE FRAME STAYS
+  WIDE ENOUGH TO HOLD BOTH BEARS FROM THE KNEE UP. Never a paw alone filling the frame, never a
+  close-up that loses whose paw it is.
+
+PALETTE: PAPER OAT GREY #E9E3D3, sky, water, ice, snow, light, everything not waxed · CRAYON1 SPRUCE
+  #4F6B4E, needles, leaves, moss, the vegetable bed, painted shutters, the grandfather's knitted
+  vest - the cool one · CRAYON2 BARK #96674A, trunks, the cabin logs, floors, tools, baskets, ground,
+  autumn leaves - the warm one · OVERLAY PEAT #2E3A2A, bear backs and heads, iron, the inside of the
+  woodshed, night, blueberries, anything in shade - overlay only, never a third crayon · ACCENT BOOT
+  BLUE #1C4E8A, 🔴 nothing but Nils's boots. 🔴 SKY, WATER, ICE AND SNOW ARE NEVER WAXED - there is
+  no pale blue anywhere and no white crayon anywhere, ever. No purple, no pink, no orange, no red.
+
+STAGE CLAUSES (the stage changes what the two crayons do, never which two they are):
+  🔴 SPRING (volumes 01-06) - the canopy is bare PAPER; SPRUCE appears only as new growth, sparse
+    marks low down and at branch tips, coverage well under half. The ground is BARK. Melt water is
+    bare paper. Everything is at its most open and the paper does most of the work.
+  🔴 SUMMER (volumes 07-12) - SPRUCE becomes ONE field overhead covering the top of the page, at its
+    fullest coverage. BARK is the trunks and the forest floor beneath it. Blueberries are OVERLAY
+    dots, at most 9, and they are the only near-black thing in daylight.
+  🔴 AUTUMN (volumes 13-18) - THE TWO CRAYONS SWAP JOBS. BARK now takes the canopy as ONE field
+    overhead; SPRUCE retreats to at most 3 evergreens standing among the bare trunks. The ground is
+    BARK too, laid in a second field running the other way, and the change of direction is the only
+    thing that separates ground from tree. This is the fullest page in the series.
+  🔴 WINTER (volumes 19-25) - the ground and the sky are not waxed at all, BARE PAPER from edge to
+    edge, and the two crayons draw ONLY what stands on it. Snow on a bough is the paper left, with at
+    most 3 BARK marks along its underside. Ice on the lake is bare paper; the hole cut in it is
+    OVERLAY with a hard edge. There is no white crayon and no blue shadow on snow.
+  CABIN - each surface is ONE repeated mark: floor a plank stroke, wall a short dash, cloth a zigzag.
+    The mark is the SAME shape every time and may run off an edge but is never redrawn. Beams,
+    furniture and shelves are BARK; cloth, shutters and the vest are SPRUCE. 🔴 FIRELIGHT AND
+    LAMPLIGHT ARE BARE PAPER and are the brightest thing on the page. A thing being looked for is
+    drawn with its own clear silhouette while everything it hides among is the repeated mark.
+  WATER - the brook and the lake are BARE PAPER, 0 ripples, 0 glints, 0 reflections. A thing in the
+    water is OVERLAY lying inside that bare shape, hard edge, never distorted. A thing on the water
+    sits on top with its whole shape showing. Banks, stones and logs are BARK with the marks running
+    ALONG the thing, not across it.
+  NIGHT (volumes 11, 25) - the sky is OVERLAY laid as one field. Stars, the moon and the glow-worms
+    in the grass are BARE PAPER points, each taken on its own, at most 14. 🔴 The glow-worms are
+    DOWN IN THE GRASS, never in the air.
+
+CHARACTER DESIGN LANGUAGE: the bears are built from the same marks as the world - two or three
+  shapes with limbs laid over. GRADE: bipedal, standing upright, wearing cloth. Backs and heads are
+  OVERLAY, chests and bellies are BARK, so both bears are built the same way. Eyes are two solid dark
+  dots set wide apart; a small dark nose; the mouth is ONE curve; above each eye ONE short eyebrow
+  stroke. 🔴 FEELING IS CARRIED BY THE MOUTH CURVE AND THE TWO EYEBROW STROKES - the eyes only ever
+  open or close and their size NEVER changes. The face is never crossed by an object. Whole-body
+  posture carries the rest.
+  THE TWO, separable at thumbnail size: NILS a small bear cub, round-headed, the smaller figure by
+  half, 🔴 BLUE BOOTS in every season and the only blue in the forest · BRUNO GRANDFATHER a large
+  round bear, twice Nils's height and much wider, a grey muzzle, a SPRUCE knitted vest and round
+  glasses. 🔴 NO WALKING STICK - he does the forest work himself and his hands are always free or
+  full of the work. He never carries blue. He is only ever shown doing the same task Nils is doing.
+  🔴 THERE IS NOBODY ELSE. Birds, squirrels and fish appear as plain shapes with no clothes, no
+  eyebrows and no expression - they are weather, not cast.
+
+CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
+
+NOT: no airbrush, gradient, glow or 3D render / no blended, smudged or scraped wax / no soft or
+  feathered edge / no solid unbroken wax / no white crayon / no blue shadow on snow / no third
+  pigment that is not an overlay / no reflection in water / no close-up of a paw alone / no lettering.</pre></details>
+  <div data-paste="anchor"></div>
+</div>
+
+<h2 class="sec">5. 캐스트 시트</h2>
+<p class="lead">한 장에 전원을 그립니다. 🔴 <b>시트가 최종 그림을 지배</b>하므로 시트를 먼저 확정하고 쪽 삽화로 갑니다.</p>
+<div class="anchor-card">
+  <div class="ahead"><b>전원 시트</b><button class="copy-btn" data-copy="sheet">📋 시트 프롬프트 복사</button></div>
+  <details open><summary>프롬프트 보기</summary><pre id="sheet">CHARACTER SHEET - bruno forest   (two characters, one sheet)
+
+STYLE ANCHOR - bruno-crayonwood   (a bear cub and his grandfather in a Swedish forest / wax crayon,
+                                   snagged on the grain)
+
+Style: wax crayon on oat-grey toothy paper, exactly TWO crayons, 4-6 year old picture book. Crayon
+  SKIPS - it catches the high points of the paper and misses the pits, so every area is a broken
+  field of wax with the paper's grain showing through and NO AREA IS EVER SOLID. Pressure is even
+  everywhere; the breaking is the paper's doing, not the hand's. Where the two crayons overlay, a
+  third darker colour appears - that is the only dark. Unwaxed paper is not white space, it is the
+  sky, the water and the snow. SHADING IS ZERO - the only variation is WHERE THE WAX SKIPPED, and
+  how much of the area it covers.
+
+RENDERING (finish hierarchy): an area is ONE field of one crayon laid in ONE direction, never denser
+  or lighter inside itself. Direction NEVER changes inside one area - it changes only where one thing
+  ends and another begins, and THAT CHANGE OF DIRECTION IS THE EDGE. FINISHED THINGS PER PAGE = 2,
+  the bear the page is about and the one thing that bear touches; everything else is a shape with no
+  interior detail. Repeats are capped and the cap is the whole design: trunks at most 9 · boughs on
+  one tree at most 7 · logs in a stack at most 6 · berries at most 9 dots · seeds at most 9 dots ·
+  planks at most 6 · cabin windows at most 4 · birds at most 3 · falling snow at most 14 bare paper
+  points · stars at most 14 bare paper points · steam at most 5 curls. Nothing in a repeat is a
+  mirrored copy of its neighbour. Wax coverage is at most 80 percent, never solid.
+  DENSITY RATION = none.
+  🔴 DEPTH IS SPACING, NEVER DARKNESS. Deeper in the wood the trunks stand CLOSER TOGETHER at the
+  same weight of wax. Nothing recedes by getting darker, paler, bluer or softer.
+  🔴 HANDS - eight volumes turn on what a paw does and the grandfather says nothing (02 · 03 · 07 ·
+  09 · 11 · 15 · 20 · 22). On those pages the paw is the second finished thing, but THE FRAME STAYS
+  WIDE ENOUGH TO HOLD BOTH BEARS FROM THE KNEE UP. Never a paw alone filling the frame, never a
+  close-up that loses whose paw it is.
+
+PALETTE: PAPER OAT GREY #E9E3D3, sky, water, ice, snow, light, everything not waxed · CRAYON1 SPRUCE
+  #4F6B4E, needles, leaves, moss, the vegetable bed, painted shutters, the grandfather's knitted
+  vest - the cool one · CRAYON2 BARK #96674A, trunks, the cabin logs, floors, tools, baskets, ground,
+  autumn leaves - the warm one · OVERLAY PEAT #2E3A2A, bear backs and heads, iron, the inside of the
+  woodshed, night, blueberries, anything in shade - overlay only, never a third crayon · ACCENT BOOT
+  BLUE #1C4E8A, 🔴 nothing but Nils's boots. 🔴 SKY, WATER, ICE AND SNOW ARE NEVER WAXED - there is
+  no pale blue anywhere and no white crayon anywhere, ever. No purple, no pink, no orange, no red.
+
+STAGE CLAUSES (the stage changes what the two crayons do, never which two they are):
+  🔴 SPRING (volumes 01-06) - the canopy is bare PAPER; SPRUCE appears only as new growth, sparse
+    marks low down and at branch tips, coverage well under half. The ground is BARK. Melt water is
+    bare paper. Everything is at its most open and the paper does most of the work.
+  🔴 SUMMER (volumes 07-12) - SPRUCE becomes ONE field overhead covering the top of the page, at its
+    fullest coverage. BARK is the trunks and the forest floor beneath it. Blueberries are OVERLAY
+    dots, at most 9, and they are the only near-black thing in daylight.
+  🔴 AUTUMN (volumes 13-18) - THE TWO CRAYONS SWAP JOBS. BARK now takes the canopy as ONE field
+    overhead; SPRUCE retreats to at most 3 evergreens standing among the bare trunks. The ground is
+    BARK too, laid in a second field running the other way, and the change of direction is the only
+    thing that separates ground from tree. This is the fullest page in the series.
+  🔴 WINTER (volumes 19-25) - the ground and the sky are not waxed at all, BARE PAPER from edge to
+    edge, and the two crayons draw ONLY what stands on it. Snow on a bough is the paper left, with at
+    most 3 BARK marks along its underside. Ice on the lake is bare paper; the hole cut in it is
+    OVERLAY with a hard edge. There is no white crayon and no blue shadow on snow.
+  CABIN - each surface is ONE repeated mark: floor a plank stroke, wall a short dash, cloth a zigzag.
+    The mark is the SAME shape every time and may run off an edge but is never redrawn. Beams,
+    furniture and shelves are BARK; cloth, shutters and the vest are SPRUCE. 🔴 FIRELIGHT AND
+    LAMPLIGHT ARE BARE PAPER and are the brightest thing on the page. A thing being looked for is
+    drawn with its own clear silhouette while everything it hides among is the repeated mark.
+  WATER - the brook and the lake are BARE PAPER, 0 ripples, 0 glints, 0 reflections. A thing in the
+    water is OVERLAY lying inside that bare shape, hard edge, never distorted. A thing on the water
+    sits on top with its whole shape showing. Banks, stones and logs are BARK with the marks running
+    ALONG the thing, not across it.
+  NIGHT (volumes 11, 25) - the sky is OVERLAY laid as one field. Stars, the moon and the glow-worms
+    in the grass are BARE PAPER points, each taken on its own, at most 14. 🔴 The glow-worms are
+    DOWN IN THE GRASS, never in the air.
+
+CHARACTER DESIGN LANGUAGE: the bears are built from the same marks as the world - two or three
+  shapes with limbs laid over. GRADE: bipedal, standing upright, wearing cloth. Backs and heads are
+  OVERLAY, chests and bellies are BARK, so both bears are built the same way. Eyes are two solid dark
+  dots set wide apart; a small dark nose; the mouth is ONE curve; above each eye ONE short eyebrow
+  stroke. 🔴 FEELING IS CARRIED BY THE MOUTH CURVE AND THE TWO EYEBROW STROKES - the eyes only ever
+  open or close and their size NEVER changes. The face is never crossed by an object. Whole-body
+  posture carries the rest.
+  THE TWO, separable at thumbnail size: NILS a small bear cub, round-headed, the smaller figure by
+  half, 🔴 BLUE BOOTS in every season and the only blue in the forest · BRUNO GRANDFATHER a large
+  round bear, twice Nils's height and much wider, a grey muzzle, a SPRUCE knitted vest and round
+  glasses. 🔴 NO WALKING STICK - he does the forest work himself and his hands are always free or
+  full of the work. He never carries blue. He is only ever shown doing the same task Nils is doing.
+  🔴 THERE IS NOBODY ELSE. Birds, squirrels and fish appear as plain shapes with no clothes, no
+  eyebrows and no expression - they are weather, not cast.
+
+CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
+
+NOT: no airbrush, gradient, glow or 3D render / no blended, smudged or scraped wax / no soft or
+  feathered edge / no solid unbroken wax / no white crayon / no blue shadow on snow / no third
+  pigment that is not an overlay / no reflection in water / no close-up of a paw alone / no lettering.
+
+SHEET LAYOUT: one oat-grey sheet, two bears standing on a single ground line at their true relative
+  heights - Bruno twice Nils's height and much wider, Nils reaching only to the top of Bruno's thigh.
+  Each character is drawn THREE times: front standing, three-quarter walking, and back. 🔴 Add ONE
+  extra drawing of the two of them side by side, touching shoulder to hip, so the height difference
+  is fixed as a single shape.
+  Nothing else on the sheet - no props, no scenery, no season, no ground beyond the one line.
+🔴 No lettering, numerals, labels or name tags anywhere on the sheet.</pre></details>
+  <div data-paste="cast-sheet"></div>
+</div>
+
+</div>
+<script src="/bruno-core.js"></script>
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.getAttribute('data-copy'));
+      if (el) window.SERIES.copyText(el.textContent, b);
+    });
+  });
+  document.querySelectorAll('[data-sheet]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      window.SERIES.copyText(window.SERIES.sheetPrompt(b.getAttribute('data-sheet')), b);
+    });
+  });
+  window.SERIES.mountPasteSlots('bruno-plan');
+</script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>도도네 물방앗간 — 고드름</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#2D62B8; --slope:#3D4A44; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">도도네 물방앗간 · 08</div>
+  <h1>고드름</h1>
+  <div class="sub"><b>원함</b> 처마의 고드름을 하나 갖고 싶다 · <b>틀리는 쪽</b> 도도 — "긴 막대로 톡 쳐서 따는 거야" · <b>어긋남</b> 막대 끝이 지붕 눈을 쓸어 도도가 눈사람이 된다 · <b>착지</b> 해 드는 낮에 톡 떨어진 것을 줍는다 — 눈사람 도도가 고드름 수염 "고드름 할아버지다!"</div>
+  <div class="by">글 <b>한여울</b> · 그림 <b>윤새롬</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">꽁꽁 언 겨울이에요. 물방앗간 처마에 고드름이 주렁주렁 열렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 처마 선이 화면 위를 가로지른다.<br/><b>장소·시간</b> 물방앗간 처마 아래, 겨울 아침.<br/><b>인물</b> 없음.<br/><b>배경·소품</b> 처마 끝에 길이가 제각각인 고드름 예닐곱이 줄줄이, 지붕 위에 두껍게 얹힌 눈, 마당에도 눈, 물레방아는 얼어 멈춰 있다.<br/><b>톤</b> 고드름마다 안쪽에 가는 빛줄기가 갇혀 있어 줄지어 반짝인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"저 반짝이는 고드름, 하나만 갖고 싶다." 무무가 마당에서 처마를 올려다봤어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 무무 뒤통수 너머로 처마.<br/><b>장소·시간</b> 방앗간 마당, 같은 아침.<br/><b>인물</b> Mumu duck이 눈 위에 서서 고개를 한껏 젖히고 처마를 올려다본다 — 두 날개를 등 뒤로 모으고 부리가 살짝 벌어졌다, 파란 목수건.<br/><b>배경·소품</b> 발밑에 찍힌 오리발 자국 두 줄, 위쪽에 고드름.<br/><b>톤</b> 발자국이 마당 한가운데서 멈춰 있어 오래 올려다본 게 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">도도가 두 날개를 탁탁 털었어요. "고드름은 긴 막대로 톡 쳐서 따는 거야. 내가 알아!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 도도 상반신.<br/><b>장소·시간</b> 무무 옆 마당.<br/><b>인물</b> Dodo duck이 두 날개를 앞으로 내밀어 탁탁 마주 털며 부리를 크게 벌린다 — 어깨가 으쓱 올라가고 턱이 들렸다, 파란 머리 리본.<br/><b>배경·소품</b> 날개에서 툭툭 떨어지는 눈가루, 뒤에 흐린 처마.<br/><b>톤</b> 털어 낸 눈가루가 앞으로 흩날려 시작하는 몸짓이 된다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">도도가 긴 막대를 번쩍 들었어요. 막대가 너무 길어 도도가 휘청.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 긴 막대가 화면을 대각으로 지른다.<br/><b>장소·시간</b> 처마 아래 마당.<br/><b>인물</b> Dodo duck이 제 키의 세 배는 되는 긴 나무 막대를 두 날개로 번쩍 들어 올렸다 — 막대 무게에 몸이 뒤로 휘청, 한 오리발이 들렸다, 파란 머리 리본. Mumu duck이 뒤에서 두 날개를 벌려 받칠 자세.<br/><b>배경·소품</b> 막대 끝이 지붕 눈에 거의 닿았다, 처마의 고드름.<br/><b>톤</b> 막대의 대각선이 화면을 갈라 균형이 무너지기 직전임을 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">후두둑! 막대 끝이 지붕 눈을 쓸어 눈이 몽땅 쏟아졌어요. 도도가 눈 더미에 폭 파묻혔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 지붕에서 마당까지 한 화면.<br/><b>장소·시간</b> 같은 자리, 바로 다음.<br/><b>인물</b> Dodo duck이 마당에 주저앉아 이미 허리까지 눈에 파묻혔다 — 두 날개를 머리 위로 들어 막았고 부리가 벌어졌다, 파란 머리 리본 끝만 눈 밖에. Mumu duck은 옆으로 두어 걸음 물러나 있다 — 파란 목수건.<br/><b>배경·소품</b> 지붕에서 쏟아져 내리는 눈덩이 줄기, 막대는 눈 속에 반쯤 묻힌 채 비스듬히 꽂혔다, 고드름은 처마에 그대로.<br/><b>톤</b> 위에서 아래로 쏟아지는 흐름이 화면을 세로로 채운다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">눈 더미에서 도도가 쏙 나왔어요. 머리부터 발끝까지 하얀 눈사람이에요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 정면 아이레벨. 눈 더미에서 나온 얼굴.<br/><b>장소·시간</b> 같은 마당, 바로 뒤.<br/><b>인물</b> Dodo duck이 눈 더미에서 상반신을 쏙 내밀었다 — 머리부터 어깨까지 눈이 두껍게 얹혀 하얗고, 눈 두 개와 부리만 뚫려 나왔다, 눈 사이로 파란 머리 리본 끝이 삐죽.<br/><b>배경·소품</b> 어깨 위에 얹힌 눈덩이, 둘레의 무너진 눈.<br/><b>톤</b> 온몸이 하얘져 눈 더미와 몸의 경계가 겨우 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">고드름은 그대로 매달려 반짝반짝. "고드름이 꽉 잡고 안 놓는 거야." 도도가 씩씩거려요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 처마 고드름이 화면 위쪽 중앙.<br/><b>장소·시간</b> 같은 처마 아래.<br/><b>인물</b> Dodo duck이 눈을 뒤집어쓴 채 두 날개를 허리에 얹고 고개를 젖혀 고드름을 노려본다 — 부리가 삐죽 나오고 콧김처럼 하얀 김이 부리 앞에 인다, 파란 머리 리본.<br/><b>배경·소품</b> 처마에 그대로 매달린 고드름 예닐곱, 눈이 벗겨져 드러난 지붕널.<br/><b>톤</b> 아무것도 안 떨어진 처마가 화면 위에서 태연하다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">무무는 해가 잘 드는 마당 자리에 앉아 기다렸어요. 해가 고드름을 반짝반짝 데워요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면 아이레벨. 마당 한쪽에 앉은 무무와 처마.<br/><b>장소·시간</b> 마당의 해 드는 자리, 한낮.<br/><b>인물</b> Mumu duck이 눈 위에 오도카니 앉아 두 날개를 무릎 앞에 모으고 처마를 본다 — 목을 위로 길게 뺐다, 파란 목수건.<br/><b>배경·소품</b> 마당에 길게 든 햇빛 자리, 고드름 끝마다 맺혀 떨어지려는 물방울 한 개씩.<br/><b>톤</b> 고드름 끝의 물방울이 이 쪽에서 가장 작고 가장 밝다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">톡, 톡, 톡! 고드름 세 개가 처마 밑 눈 위에 폭폭 꽂혔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 처마 밑 눈밭을 위에서.<br/><b>장소·시간</b> 처마 바로 아래 눈밭.<br/><b>인물</b> 화면 위쪽 가장자리에 Mumu duck의 오리발 두 개가 조심스레 다가와 멈춰 섰다.<br/><b>배경·소품</b> 눈 위에 나란히 꽂힌 고드름 **세 개**, 꽂힌 자리마다 깊은 구멍, 위쪽 처마 끝은 이제 비었다.<br/><b>톤</b> 흰 눈에 박힌 세 개가 화면에서 유일하게 투명하다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">무무가 고드름 하나를 주워 번쩍 들었어요. "차갑고 반짝반짝해!" 옆에서 눈사람 도도가 남은 고드름 두 개를 부리에 물었어요. "나는 고드름 할아버지다!" 웃음보가 터졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 둘이 나란히 선 정면.<br/><b>장소·시간</b> 처마 아래 마당, 낮.<br/><b>인물</b> Mumu duck이 고드름 **한 개**를 두 날개로 번쩍 들어 올리고 부리를 벌려 감탄한다 — 눈이 커졌다, 파란 목수건. 그 옆에서 눈을 뒤집어쓴 Dodo duck이 남은 고드름 **두 개**를 부리 양쪽에 물어 수염처럼 늘어뜨리고 몸을 앞으로 굽혔다 — 파란 머리 리본.<br/><b>배경·소품</b> 눈밭의 빈 구멍 셋, 처마.<br/><b>톤</b> 하얀 몸에 매달린 투명한 두 개가 수염 모양을 만든다.</pre></details>
+</div>
+
+</div>
+<script src="/dodo-core.js"></script>
+</body>
+</html>

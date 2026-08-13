@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>도도네 물방앗간 — 키 재는 날</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#2D62B8; --slope:#3D4A44; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">도도네 물방앗간 · 21</div>
+  <h1>키 재는 날</h1>
+  <div class="sub"><b>원함</b> 지난봄보다 얼마나 컸는지 재고 싶다 · <b>틀리는 쪽</b> 도도 — "그림자를 보면 돼 — 난 나무만큼 컸어" · <b>어긋남</b> 한낮이 되자 그림자가 콩알만 해진다 · <b>착지</b> 문 옆 기둥에 등을 대고 아빠가 금을 긋는다 — 저녁, 도도 "저녁의 나는 도로 나무만 해!"</div>
+  <div class="by">글 <b>한여울</b> · 그림 <b>윤새롬</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">방앗간 문 옆 기둥엔 작은 금이 두 개 나 있어요. 지난봄에 잰 도도와 무무의 키예요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 측면 아이레벨. 문 옆 나무 기둥만.<br/><b>장소·시간</b> 물방앗간 문 옆 기둥, 봄 아침.<br/><b>인물</b> 없음.<br/><b>배경·소품</b> 세로로 결이 난 나무 기둥에 가로로 그어진 짧은 금 **두 개**(하나가 다른 하나보다 조금 위) — 🔴 글자·숫자는 하나도 없다, 옆에 문틀.<br/><b>톤</b> 나무결의 세로선 사이에서 가로 금 두 개만 방향이 다르다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"나 얼마나 컸는지 재고 싶어!" 무무가 기둥 앞에서 까치발을 들어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 기둥 앞의 무무를 아래에서.<br/><b>장소·시간</b> 같은 기둥 앞.<br/><b>인물</b> Mumu duck이 기둥에 바짝 붙어 서서 발끝을 세워 까치발을 들고 목을 위로 길게 뺀다 — 두 날개를 몸 옆에 붙였다, 부리가 벌어져 말한다, 파란 목수건.<br/><b>배경·소품</b> 기둥의 금 두 개가 무무 머리 근처에 온다.<br/><b>톤</b> 몸을 늘였는데도 금이 아직 머리 위에 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아침 마당에서 도도가 제 그림자를 가리켰어요. "재긴 뭘 재. 그림자를 보면 돼. 내가 알아! 봐, 난 나무만큼 컸어!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 도도와 그 앞으로 뻗은 그림자.<br/><b>장소·시간</b> 방앗간 앞마당, 아침 해가 낮게 뜬 때.<br/><b>인물</b> Dodo duck이 한 날개로 제 발밑에서 시작된 그림자를 곧게 따라 가리키며 부리를 크게 벌린다 — 가슴을 펴고 턱을 높이 들었다, 파란 머리 리본.<br/><b>배경·소품</b> 화면 앞쪽으로 길게 뻗어 나간 도도의 그림자, 마당 흙.<br/><b>톤</b> 그림자가 몸보다 몇 배 길어 화면 아래를 다 차지한다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아침 해가 낮게 떠서 그림자가 길게길게 늘어졌어요. 무무 그림자도 담장까지 닿아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 마당 전체를 위에서.<br/><b>장소·시간</b> 같은 마당, 아침.<br/><b>인물</b> Dodo duck과 Mumu duck이 마당 가운데 나란히 서서 각자 제 그림자를 내려다본다 — 도도는 두 날개를 허리에, 무무는 목을 앞으로 뺐다, 파란 머리 리본, 파란 목수건.<br/><b>배경·소품</b> 두 그림자가 나란히 담장까지 길게 닿아 있다, 담장, 낮은 아침 해.<br/><b>톤</b> 몸 둘은 작고 그림자 둘은 화면을 가로질러 길다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">한낮이 되었어요. 도도가 제 그림자를 내려다보니 — 콩알만 해요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 도도의 발밑을 위에서.<br/><b>장소·시간</b> 같은 마당, 한낮.<br/><b>인물</b> Dodo duck이 고개를 푹 숙여 제 발밑을 내려다본다 — 두 날개가 옆으로 벌어지고 부리가 벌어졌다, 파란 머리 리본.<br/><b>배경·소품</b> 두 오리발 바로 밑에 콩알만 하게 오그라든 그림자 한 점, 담장까지 아무 그림자도 없다.<br/><b>톤</b> 아침에 화면을 가로지르던 것이 발밑 한 점으로 줄었다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"내 키가 줄었어! 아침엔 나무만 했는데!" 도도가 폴짝폴짝 뛰어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 도도를 아래에서.<br/><b>장소·시간</b> 같은 마당, 한낮.<br/><b>인물</b> Dodo duck이 두 오리발로 폴짝폴짝 뛰며 두 날개를 위로 휘젓는다 — 부리를 있는 대로 벌리고 눈썹 자리가 가운데로 모였다, 파란 머리 리본이 위로 튄다.<br/><b>배경·소품</b> 뛰어오른 발 밑에 여전히 콩알만 한 그림자.<br/><b>톤</b> 몸이 위로 튀는데 그림자는 그대로라 크기 차이가 더 커 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">무무가 제 그림자를 봤어요. 무무 그림자도 콩알이에요. 그림자는 컸다 작았다 하나 봐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 무무와 그 발밑.<br/><b>장소·시간</b> 같은 마당, 한낮.<br/><b>인물</b> Mumu duck이 고개를 숙여 제 그림자를 보고, 다시 옆의 도도 그림자를 본다 — 목을 좌우로 돌리고 부리는 다물었다, 파란 목수건.<br/><b>배경·소품</b> 무무 발밑의 콩알만 한 그림자와 그 옆 도도의 콩알만 한 그림자 — 둘 다 똑같이 작다.<br/><b>톤</b> 두 점이 나란히 작아 그림자가 몸과 상관없다는 게 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">무무가 기둥에 등을 착 붙이고 섰어요. "아빠, 재 주세요!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면 아이레벨. 기둥에 붙어 선 무무.<br/><b>장소·시간</b> 문 옆 기둥 앞.<br/><b>인물</b> Mumu duck이 기둥에 등을 착 붙이고 뒤통수까지 대고 곧게 섰다 — 두 날개를 몸 옆에 붙이고 부리를 벌려 위쪽을 향해 말한다, 파란 목수건.<br/><b>배경·소품</b> 기둥의 지난봄 금 **두 개**, 무무 머리 꼭대기가 그 위쪽에 온다.<br/><b>톤</b> 등과 기둥 사이에 틈이 없어 자세가 곧다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 연필로 금을 쓱쓱 그었어요. 무무는 지난봄보다 한 뼘, 도도는 반 뼘 위예요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 기둥 윗부분과 아빠의 날개.<br/><b>장소·시간</b> 같은 기둥.<br/><b>인물</b> Daddy duck의 날개가 연필을 잡고 무무 머리 꼭대기에 맞춰 짧은 가로 금을 쓱 긋는다 — 화면 아래에 무무의 머리와 파란 목수건, 옆에서 Dodo duck이 목을 빼고 지켜본다 — 파란 머리 리본. 위쪽에 아빠의 밀짚모자 챙.<br/><b>배경·소품</b> 기둥에 지난봄 금 **두 개** + 새로 그은 금 **두 개**(하나는 지난봄 것보다 한 뼘 위, 하나는 반 뼘 위) = 모두 **네 개**, 🔴 숫자·이름은 없다.<br/><b>톤</b> 금 넷의 높낮이 차이만으로 자란 만큼이 읽힌다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">저녁이 되었어요. 도도가 제 그림자 옆에서 으쓱했어요. "봐! 저녁의 나는 도로 나무만 해!" 그림자가 담장까지 쭉 뻗었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 측면 아이레벨. 마당과 담장.<br/><b>장소·시간</b> 방앗간 앞마당, 저녁.<br/><b>인물</b> Dodo duck이 마당에 서서 한 날개를 제 그림자 쪽으로 뻗고 가슴을 잔뜩 폈다 — 턱이 높이 들리고 부리가 크게 벌어졌다, 파란 머리 리본. Mumu duck이 옆에서 부리를 벌리고 웃는다 — 파란 목수건.<br/><b>배경·소품</b> 다시 길어져 담장까지 쭉 뻗은 두 그림자, 낮게 걸린 저녁 해, 옆에 기둥.<br/><b>톤</b> 아침과 같은 길이의 그림자가 반대쪽으로 뻗어 있다.</pre></details>
+</div>
+
+</div>
+<script src="/dodo-core.js"></script>
+</body>
+</html>

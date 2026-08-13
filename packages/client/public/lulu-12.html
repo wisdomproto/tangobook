@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>룰루네 올리브 언덕 — 올리브 고르기</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#1F7FA8; --slope:#3E3A2E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">룰루네 올리브 언덕 · 12</div>
+  <h1>올리브 고르기</h1>
+  <div class="sub"><b>원함</b> 굵은 알만 골라 바구니를 채우고 싶다 · <b>틀리는 어른</b> 베포 큰아버지 · <b>어긋남</b> 옛 체로 치는데 구멍이 커서 쟁반으로 다 쏟아진다 · <b>착지</b> 한 알씩 고른다 — 큰아버지도 말없이 옆에 앉아 따라 한다</div>
+  <div class="by">글 <b>문나래</b> · 그림 <b>유가온</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">딴 올리브가 큰 쟁반에 잔뜩 쌓였어요. 굵은 알만 골라 소금물에 담글 거예요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 쟁반을 위에서.<br/><b>장소·시간</b> 농가 마당 나무 탁자, 낮.<br/><b>인물</b> Lulu donkey가 탁자 옆에 서서 쟁반 위를 내려다본다 — 두 앞발을 탁자 모서리에 얹었다. 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 큰 쟁반에 올리브가 잔뜩 — 굵은 알과 가는 알이 섞여 있다. 옆에 소금물 항아리.<br/><b>톤</b> 알 무더기가 화면을 촘촘히 채우고 크기 차이만 눈에 걸린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">룰루가 빈 바구니를 당겨 앉았어요. "굵은 알은 내가 고를래요."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 당겨 앉는 몸.<br/><b>장소·시간</b> 같은 탁자 앞.<br/><b>인물</b> Lulu donkey가 빈 바구니를 두 앞발로 제 앞으로 끌어당기며 걸상에 앉는다 — 등을 곧게 폈고 입이 벌어져 말하는 중. 파란 방울 목끈.<br/><b>배경·소품</b> 빈 바구니 하나, 쟁반 가장자리.<br/><b>톤</b> 앉은 자세가 낮아져 쟁반이 눈높이에 온다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">베포 큰아버지가 구멍 숭숭 뚫린 둥근 체를 가져왔어요. "우리 땐 이걸로 후루룩 골랐지."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면 아이레벨. 체를 들고 오는 몸.<br/><b>장소·시간</b> 마당.<br/><b>인물</b> Beppo donkey가 구멍 숭숭 뚫린 둥근 체를 한 앞발에 들고 다가온다 — 낡은 조끼, 체를 얼굴 옆까지 들어 보이며 입이 벌어졌다. Lulu donkey는 걸상에서 돌아본다, 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 체의 구멍이 올리브 알보다 크다.<br/><b>톤</b> 체와 알이 같은 깊이에 놓여 구멍 크기가 곧바로 비교된다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">큰아버지가 체를 살살 흔들었어요. 촤르르, 촤르르.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 흔드는 체를 밑에서.<br/><b>장소·시간</b> 탁자 앞.<br/><b>인물</b> Beppo donkey가 두 앞발로 체를 잡고 좌우로 흔든다 — 팔꿈치가 벌어지고 눈이 체에 붙었다. Lulu donkey는 아래에서 두 앞발을 모으고 올려다본다, 파란 방울 목끈.<br/><b>배경·소품</b> 체 안의 올리브들, 아래에 놓인 쟁반.<br/><b>톤</b> 흔들리는 체가 화면 위쪽에 크게 앉는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어라, 굵은 알도 가는 알도 쟁반으로 다 같이 쏟아져요. 체 구멍이 너무 커요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 체 밑과 쟁반.<br/><b>장소·시간</b> 탁자 위.<br/><b>인물</b> Beppo donkey의 두 앞발만 프레임 위쪽에 든다.<br/><b>배경·소품</b> 🔴 체 구멍으로 굵은 알과 가는 알이 똑같이 쏟아져 쟁반으로 다시 떨어진다 — 체 안에 남은 것이 없다.<br/><b>톤</b> 걸러진 것 없이 다 지나가 화면이 도로 섞인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"체가 늙었나…" 큰아버지가 체를 눈에 대고 들여다봤어요. 구멍으로 큰아버지 눈이 껌뻑껌뻑.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 클로즈업, 아이레벨. 체 구멍 하나.<br/><b>장소·시간</b> 탁자 앞.<br/><b>인물</b> Beppo donkey가 체를 눈에 바짝 대고 구멍으로 들여다본다 — 구멍 하나 안에 눈 하나가 들어차 껌뻑인다.<br/><b>배경·소품</b> 체의 나무테와 구멍들.<br/><b>톤</b> 구멍 하나가 화면을 채워 눈이 그 안에서 움직인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">쟁반에 올리브가 도로 다 섞였어요. 큰아버지가 체를 내려놓았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 탁자 전체를 위에서.<br/><b>장소·시간</b> 마당 탁자.<br/><b>인물</b> Beppo donkey가 체를 탁자 옆에 내려놓고 두 앞발을 무릎에 얹는다 — 어깨가 내려앉았다. Lulu donkey는 쟁반 앞에서 알들을 내려다본다, 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 쟁반의 굵은 알과 가는 알이 처음처럼 다시 섞였다. 내려놓은 체 하나.<br/><b>톤</b> 처음 화면과 똑같아진 쟁반이 헛수고를 말한다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">룰루가 한 알씩 집었어요. 굵은 알은 바구니에, 가는 알은 그릇에.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 측면 아이레벨. 두 그릇 사이의 손.<br/><b>장소·시간</b> 탁자 앞.<br/><b>인물</b> Lulu donkey가 한 앞발로 굵은 알 하나를 집어 왼쪽 바구니로 가져간다 — 다른 앞발은 쟁반을 짚었고 시선이 알에 붙었다. 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 왼쪽 바구니(굵은 알 여덟), 오른쪽 그릇(가는 알 여럿), 가운데 쟁반.<br/><b>톤</b> 손 하나가 화면을 왼쪽과 오른쪽으로 나눈다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">룰루 바구니에 굵은 알이 반질반질 차올라요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 바구니 속.<br/><b>장소·시간</b> 탁자 위.<br/><b>인물</b> Lulu donkey의 앞발이 프레임 위에서 알을 놓는다. 파란 방울 목끈이 프레임 위 끝에 걸린다.<br/><b>배경·소품</b> 🔴 바구니 안에 굵은 알만 반질반질 반쯤 찼다.<br/><b>톤</b> 같은 크기 알들이 모이자 표면이 고르게 빛난다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">큰아버지가 슬그머니 옆에 앉더니 한 알씩 집기 시작했어요. 굵은 알 바구니가 금세 둘이 됐어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 나란히 앉은 둘.<br/><b>장소·시간</b> 마당 탁자, 볕이 기운 오후.<br/><b>인물</b> Lulu donkey가 걸상에 앉아 알을 집고, Beppo donkey가 그 옆에 슬그머니 앉아 같은 자세로 한 알을 집는다 — 둘 다 등이 굽고 시선이 쟁반에 붙었다. 입은 다물려 있다. Lulu donkey는 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 굵은 알 바구니가 두 개 — 룰루 앞에 하나, 큰아버지 앞에 하나. 옆에 내려놓은 체.<br/><b>톤</b> 같은 자세 둘이 나란히 놓여 말 없이도 읽힌다.</pre></details>
+</div>
+
+</div>
+<script src="/lulu-core.js"></script>
+</body>
+</html>

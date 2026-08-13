@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>미오네 유치원 — 기획서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#6E4E9E; --slope:#232B2E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">창작동화 시리즈 07 · 25권 250쪽</div>
+  <h1>미오네 유치원</h1>
+  <div class="sub">아기 고양이 미오와 반 아이들 · 독일 강마을 유치원 · <b>대발이형</b>(결점 배역제 · 5권 주기) · 그림체 = 리노컷 하나(전권)</div>
+  <div class="by">글 <b>오하람</b> · 그림 <b>강마루</b></div>
+</header>
+
+<div class="note">🔴 <b>이 기획서가 SSOT 가 아닙니다.</b> 본문은 <code>docs/changjak-books/mio/*.md</code>, 앵커는 <code>docs/art-direction/mio-anchor.md</code> 가 원본이고 이 페이지는 거기서 생성됩니다(<code>build-series-html.mjs</code>). 회차는 왼쪽 <b>☰ 회차</b>에서.</div>
+
+<h2 class="sec">1. 축</h2>
+<table><thead><tr><th></th><th>시리즈 02 메이</th><th><b>시리즈 07 미오</b></th></tr></thead><tbody><tr><td>형</td><td>대발이형</td><td><b>대발이형 (같음)</b></td></tr><tr><td>캐스트</td><td>또래 다섯 + 어른 하나(산장 주인)</td><td><b>반 아이 다섯 + 선생님 하나(학급)</b></td></tr><tr><td>어른의 자리</td><td>집(산장) — 아이들이 오가는 곳</td><td><b>하루 종일 같이 있는 담임</b></td></tr><tr><td>무대</td><td>알프스 비탈 · 눈·개울</td><td><b>독일 강마을 유치원 — 교실·마당·강가</b></td></tr><tr><td>결점 축</td><td>겁·못참음·성급·수줍음·잘난척</td><td><b>혼자 하려 함·못 참음·겁·잘난 척·덜렁댐</b></td></tr><tr><td>매체</td><td>색연필</td><td><b>리노컷</b></td></tr></tbody></table>
+
+<h2 class="sec">2. 캐스트</h2>
+<p class="lead">시트를 만들어 카드에 붙여넣으면 회차 페이지의 「🎬 이 화 등장」 스트립이 그 그림을 읽어 옵니다.
+카드마다 <b>[📋 시트 프롬프트]</b> = 그 한 명만 그리는 프롬프트(앵커 + 규격 + 전신 정면·3/4·뒷모습).</p>
+<div class="grid">
+  <div class="cast-card">
+    <div class="chead"><h4>🐱 미오</h4><button class="copy-btn" data-sheet="mio">📋 시트 프롬프트</button></div>
+    <p><code>Mio kitten</code></p>
+    <div data-paste="mio"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐷 보보</h4><button class="copy-btn" data-sheet="bobo">📋 시트 프롬프트</button></div>
+    <p><code>Bobo piglet</code></p>
+    <div data-paste="bobo"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐑 라라</h4><button class="copy-btn" data-sheet="lala">📋 시트 프롬프트</button></div>
+    <p><code>Lala lamb</code></p>
+    <div data-paste="lala"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🦆 가가</h4><button class="copy-btn" data-sheet="gaga">📋 시트 프롬프트</button></div>
+    <p><code>Gaga gosling</code></p>
+    <div data-paste="gaga"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🦝 두리</h4><button class="copy-btn" data-sheet="duri">📋 시트 프롬프트</button></div>
+    <p><code>Duri raccoon</code></p>
+    <div data-paste="duri"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐕 바우 선생님</h4><button class="copy-btn" data-sheet="teacher">📋 시트 프롬프트</button></div>
+    <p><code>선생님</code></p>
+    <div data-paste="teacher"></div>
+  </div>
+</div>
+
+<h2 class="sec">3. 25권</h2>
+<p class="lead">🔴 <b>작가에게 빈칸을 주지 않는 것</b>이 이 체제의 전부입니다.</p>
+<table><thead><tr><th><b>바우 선생님</b></th><th>큰 개</th><th><code>Teacher Bau big dog</code></th><th>— 유일한 어른 · 무지개반 담임</th><th><b>안 지닌다</b></th><th>매 권 p8</th></tr></thead><tbody></tbody></table>
+
+<h2 class="sec">4. 앵커 — 한 시리즈 = 한 그림체</h2>
+<p class="lead">시리즈 전권이 한 그림체입니다. 무대·계절 차이는 앵커 안 <b>무대 조항</b>이 처리합니다 — 매체·색은 그대로 두고 「두 색을 어디에 쓰고 무엇을 종이로 남기나」만 바뀝니다.
+🔴 악센트 <b>또래 다섯이 하나씩</b> 에만 닿습니다.</p>
+<div class="swatches">
+  <span class="sw"><i style="background:#F0EAD8"></i>종이 <code>#F0EAD8</code></span><span class="sw"><i style="background:#3B3A33"></i>색1 <code>#3B3A33</code></span><span class="sw"><i style="background:#6F8996"></i>색2 <code>#6F8996</code></span><span class="sw"><i style="background:#232B2E"></i>겹침 <code>#232B2E</code></span><span class="sw"><i style="background:#6E4E9E"></i>악센트 <code>#6E4E9E</code></span>
+</div>
+<div class="anchor-card">
+  <div class="ahead"><b>mio-cutschool</b><button class="copy-btn" data-copy="anchor">📋 앵커 프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre id="anchor">STYLE ANCHOR - mio-cutschool   (a kindergarten class in a German river village / linocut, the knife
+                                makes the form)
+
+Style: linocut printed in exactly TWO inks on thick oatmeal paper, 4-6 year old picture book. Form is
+  made by WHAT THE KNIFE TOOK AWAY - every white line is a gouged channel, never a drawn line, and
+  every edge is a cut edge, slightly ragged, never mechanically smooth. The gouge marks that clear an
+  area stay visible as parallel furrows. Where the two blocks overlap a third, darker colour appears
+  - that is the only dark. Unprinted paper is not white space, it is the window light, the snow and
+  the whitewashed wall. SHADING IS ZERO - no modelling, no gradient, no cast shadow, no highlight.
+
+RENDERING (finish hierarchy): a cleared area is not blank - it carries the parallel furrows of the
+  tool that cleared it, AT MOST 9 FURROWS PER AREA, all running one way within that area, and the
+  direction changes only where one thing ends and another begins. FINISHED THINGS PER PAGE = 2, the
+  child the page is about and the one thing that child touches; everything else is a block shape with
+  no interior detail. Repeats are capped and the cap is the whole design: blocks in a tower at most
+  12 · paper chain links at most 14 · cut snowflakes at most 9 · coat hooks at most 6 · classroom
+  windows at most 6 rectangles with 0 frames · shelved jars at most 6 of one shape · fallen leaves at
+  most 11 · acorns at most 9 · ducks on the river at most 5 · a village crowd at most 7 flat
+  silhouettes with 0 faces and 0 hands · falling snow at most 14 gouged points · stars at most 14
+  gouged points. Nothing in a repeat is a mirrored copy of its neighbour.
+  DENSITY RATION = none. 🔴 THE KNIFE SLIPS ONCE PER SPREAD AND THAT SLIP IS LEFT IN.
+  🔴 THE CLASS IS FIVE CHILDREN AND ONE TEACHER AND NOBODY ELSE - never an extra child to fill a
+  gap. When fewer than five are in the story, fewer than five are on the page.
+
+PALETTE: PAPER OATMEAL #F0EAD8, window light, snow, whitewash, paper, everything not printed · INK1
+  SOOT #3B3A33, walls, floor, furniture, the teacher's mass, blocks, tree trunks, animal backs - the
+  dark one · INK2 RIVER #6F8996, the river, the sky at the water, aprons, smocks, the roof of the
+  play house, painted things - the cool one · OVERLAP NIGHT #232B2E, heads and backs, the inside of
+  the store cupboard, the river under the bank, anything in deep shade - overprint only, never a
+  third block · ACCENT PURPLE #6E4E9E, 🔴 cut last, touching nothing but the one small purple thing
+  each child carries. No sky blue that is not RIVER, no green, no red, no pink, no white ink.
+
+STAGE CLAUSES (the stage changes what the two inks do, never which two they are):
+  CLASSROOM - floor and walls are SOOT cleared with furrows, the furrows running one way for the
+    floor and the other way for the wall, and that change of direction is the corner of the room.
+    Tables, shelves and the block basket are SOOT; smocks, aprons and the play house roof are RIVER.
+    🔴 THE WINDOW LIGHT IS BARE PAPER, one clean gouged shape with no rays and no glow, and it is
+    the brightest thing on the page. A thing being looked for is cut as ITS OWN BLOCK while
+    everything it hides among is the repeated one - that is how the eye finds it.
+  YARD - the ground is BARE PAPER; the fence, the swing frame, the ladder and the tree are SOOT; the
+    play house roof and the water tub are RIVER. Depth is made by things standing CLOSER TOGETHER,
+    never darker.
+  RIVERBANK - the river is ONE flat block of RIVER running across the page, 0 ripples, 0 glints. A
+    thing on the water sits on top with its whole shape showing; a thing under it is OVERLAP inside
+    that block. 🔴 NOTHING IS EVER MIRRORED IN THE WATER - there are no reflections in this book.
+    The bank, the reeds and the stones are SOOT with the furrows running ALONG the thing.
+  🔴 SNOW (volumes 24 and the winter yard) - the ground and the sky are not printed at all, BARE
+    PAPER from edge to edge, and the two blocks print ONLY what stands on it. A footprint in the snow
+    is a single SOOT mark; a mound gets at most 3 SOOT marks along its lower lip and nothing else.
+  🔴 MADE THINGS NEVER TAKE THE ACCENT - a paper chain (19) is cut in SOOT and RIVER links only, and
+    cut snowflakes (11) are BARE PAPER. The purple in this world is worn, never made. If a made thing
+    were purple the five signatures would stop working on the page they matter most.
+  🔴 ADULT IN FRAME - whenever the page contains water, a height, or a door that can close, TEACHER
+    BAU IS INSIDE THE FRAME, whole, at the same depth as the children, doing something with her
+    hands. This holds on the pages before p8 as well: volume 03 pages 1, 3, 5 · volume 02 pages 4, 5
+    · volume 18 pages 4, 5 · volume 08 pages 3, 4 · volume 17 page 5.
+
+CHARACTER DESIGN LANGUAGE: the animals are built from the same cut blocks as the world - two or three
+  shapes with limbs laid over. GRADE: bipedal, standing upright, wearing cloth, 🔴 and ALL FIVE
+  CHILDREN HAVE HANDS, including the gosling, whose wings end in three blunt fingers - this class
+  cuts, folds, digs and builds on every page. Heads and backs are OVERLAP, chests and bellies are
+  SOOT. Eyes are two gouged dots set wide apart; a small dark nose or beak; the mouth is ONE gouged
+  curve; above each eye ONE short gouged eyebrow. 🔴 FEELING IS CARRIED BY THE MOUTH CURVE AND THE
+  TWO EYEBROWS - the eyes only ever open or close and their size NEVER changes. The face is never
+  crossed by an object. Whole-body posture carries the rest.
+  THE FIVE, separable at thumbnail size, all the same height: MIO a kitten, two sharp triangle ears
+  and one long tail curved up behind, a PURPLE satchel · BOBO a piglet, a round flat snout and a
+  short curled tail, the widest of the five, a PURPLE cap · LALA a lamb, a head of small carved
+  bumps and no visible ears above them, a PURPLE hairpin · GAGA a gosling, a long neck and a blunt
+  beak, the tallest silhouette by the neck alone, a PURPLE ribbon · DURI a raccoon, a dark band cut
+  straight across the eyes and a tail of at most 5 rings, a PURPLE handkerchief.
+  🔴 EACH CHILD'S PURPLE THING IS ALWAYS VISIBLE AND IS THE ONLY PURPLE ON THE PAGE.
+  TEACHER BAU a big dog, twice a child's height and the widest figure, a long muzzle and two heavy
+  hanging ears, calm and still, hands always occupied with the same work the children are doing.
+  🔴 SHE NEVER WEARS PURPLE and never has an errand of her own.
+  🔴 THE FIVE ARE NEVER DRAWN AS A CROWD - even when all five are on the page each one keeps its own
+  cut silhouette with clear paper between it and the next.
+
+CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere - the coat hooks, the
+  name cards and the wall chart stay blank or carry a single cut pictogram.
+
+NOT: no airbrush, gradient, glow or 3D render / no drawn white line - white is gouged / no soft or
+  feathered edge / no smooth mechanical edge / no ink outside a cut block / no reflection or mirrored
+  image in water / no purple on anything the children made / no white ink / no extra children / no
+  lettering.</pre></details>
+  <div data-paste="anchor"></div>
+</div>
+
+<h2 class="sec">5. 캐스트 시트</h2>
+<p class="lead">한 장에 전원을 그립니다. 🔴 <b>시트가 최종 그림을 지배</b>하므로 시트를 먼저 확정하고 쪽 삽화로 갑니다.</p>
+<div class="anchor-card">
+  <div class="ahead"><b>전원 시트</b><button class="copy-btn" data-copy="sheet">📋 시트 프롬프트 복사</button></div>
+  <details open><summary>프롬프트 보기</summary><pre id="sheet">CHARACTER SHEET - mio kindergarten   (six characters, one sheet)
+
+STYLE ANCHOR - mio-cutschool   (a kindergarten class in a German river village / linocut, the knife
+                                makes the form)
+
+Style: linocut printed in exactly TWO inks on thick oatmeal paper, 4-6 year old picture book. Form is
+  made by WHAT THE KNIFE TOOK AWAY - every white line is a gouged channel, never a drawn line, and
+  every edge is a cut edge, slightly ragged, never mechanically smooth. The gouge marks that clear an
+  area stay visible as parallel furrows. Where the two blocks overlap a third, darker colour appears
+  - that is the only dark. Unprinted paper is not white space, it is the window light, the snow and
+  the whitewashed wall. SHADING IS ZERO - no modelling, no gradient, no cast shadow, no highlight.
+
+RENDERING (finish hierarchy): a cleared area is not blank - it carries the parallel furrows of the
+  tool that cleared it, AT MOST 9 FURROWS PER AREA, all running one way within that area, and the
+  direction changes only where one thing ends and another begins. FINISHED THINGS PER PAGE = 2, the
+  child the page is about and the one thing that child touches; everything else is a block shape with
+  no interior detail. Repeats are capped and the cap is the whole design: blocks in a tower at most
+  12 · paper chain links at most 14 · cut snowflakes at most 9 · coat hooks at most 6 · classroom
+  windows at most 6 rectangles with 0 frames · shelved jars at most 6 of one shape · fallen leaves at
+  most 11 · acorns at most 9 · ducks on the river at most 5 · a village crowd at most 7 flat
+  silhouettes with 0 faces and 0 hands · falling snow at most 14 gouged points · stars at most 14
+  gouged points. Nothing in a repeat is a mirrored copy of its neighbour.
+  DENSITY RATION = none. 🔴 THE KNIFE SLIPS ONCE PER SPREAD AND THAT SLIP IS LEFT IN.
+  🔴 THE CLASS IS FIVE CHILDREN AND ONE TEACHER AND NOBODY ELSE - never an extra child to fill a
+  gap. When fewer than five are in the story, fewer than five are on the page.
+
+PALETTE: PAPER OATMEAL #F0EAD8, window light, snow, whitewash, paper, everything not printed · INK1
+  SOOT #3B3A33, walls, floor, furniture, the teacher's mass, blocks, tree trunks, animal backs - the
+  dark one · INK2 RIVER #6F8996, the river, the sky at the water, aprons, smocks, the roof of the
+  play house, painted things - the cool one · OVERLAP NIGHT #232B2E, heads and backs, the inside of
+  the store cupboard, the river under the bank, anything in deep shade - overprint only, never a
+  third block · ACCENT PURPLE #6E4E9E, 🔴 cut last, touching nothing but the one small purple thing
+  each child carries. No sky blue that is not RIVER, no green, no red, no pink, no white ink.
+
+STAGE CLAUSES (the stage changes what the two inks do, never which two they are):
+  CLASSROOM - floor and walls are SOOT cleared with furrows, the furrows running one way for the
+    floor and the other way for the wall, and that change of direction is the corner of the room.
+    Tables, shelves and the block basket are SOOT; smocks, aprons and the play house roof are RIVER.
+    🔴 THE WINDOW LIGHT IS BARE PAPER, one clean gouged shape with no rays and no glow, and it is
+    the brightest thing on the page. A thing being looked for is cut as ITS OWN BLOCK while
+    everything it hides among is the repeated one - that is how the eye finds it.
+  YARD - the ground is BARE PAPER; the fence, the swing frame, the ladder and the tree are SOOT; the
+    play house roof and the water tub are RIVER. Depth is made by things standing CLOSER TOGETHER,
+    never darker.
+  RIVERBANK - the river is ONE flat block of RIVER running across the page, 0 ripples, 0 glints. A
+    thing on the water sits on top with its whole shape showing; a thing under it is OVERLAP inside
+    that block. 🔴 NOTHING IS EVER MIRRORED IN THE WATER - there are no reflections in this book.
+    The bank, the reeds and the stones are SOOT with the furrows running ALONG the thing.
+  🔴 SNOW (volumes 24 and the winter yard) - the ground and the sky are not printed at all, BARE
+    PAPER from edge to edge, and the two blocks print ONLY what stands on it. A footprint in the snow
+    is a single SOOT mark; a mound gets at most 3 SOOT marks along its lower lip and nothing else.
+  🔴 MADE THINGS NEVER TAKE THE ACCENT - a paper chain (19) is cut in SOOT and RIVER links only, and
+    cut snowflakes (11) are BARE PAPER. The purple in this world is worn, never made. If a made thing
+    were purple the five signatures would stop working on the page they matter most.
+  🔴 ADULT IN FRAME - whenever the page contains water, a height, or a door that can close, TEACHER
+    BAU IS INSIDE THE FRAME, whole, at the same depth as the children, doing something with her
+    hands. This holds on the pages before p8 as well: volume 03 pages 1, 3, 5 · volume 02 pages 4, 5
+    · volume 18 pages 4, 5 · volume 08 pages 3, 4 · volume 17 page 5.
+
+CHARACTER DESIGN LANGUAGE: the animals are built from the same cut blocks as the world - two or three
+  shapes with limbs laid over. GRADE: bipedal, standing upright, wearing cloth, 🔴 and ALL FIVE
+  CHILDREN HAVE HANDS, including the gosling, whose wings end in three blunt fingers - this class
+  cuts, folds, digs and builds on every page. Heads and backs are OVERLAP, chests and bellies are
+  SOOT. Eyes are two gouged dots set wide apart; a small dark nose or beak; the mouth is ONE gouged
+  curve; above each eye ONE short gouged eyebrow. 🔴 FEELING IS CARRIED BY THE MOUTH CURVE AND THE
+  TWO EYEBROWS - the eyes only ever open or close and their size NEVER changes. The face is never
+  crossed by an object. Whole-body posture carries the rest.
+  THE FIVE, separable at thumbnail size, all the same height: MIO a kitten, two sharp triangle ears
+  and one long tail curved up behind, a PURPLE satchel · BOBO a piglet, a round flat snout and a
+  short curled tail, the widest of the five, a PURPLE cap · LALA a lamb, a head of small carved
+  bumps and no visible ears above them, a PURPLE hairpin · GAGA a gosling, a long neck and a blunt
+  beak, the tallest silhouette by the neck alone, a PURPLE ribbon · DURI a raccoon, a dark band cut
+  straight across the eyes and a tail of at most 5 rings, a PURPLE handkerchief.
+  🔴 EACH CHILD'S PURPLE THING IS ALWAYS VISIBLE AND IS THE ONLY PURPLE ON THE PAGE.
+  TEACHER BAU a big dog, twice a child's height and the widest figure, a long muzzle and two heavy
+  hanging ears, calm and still, hands always occupied with the same work the children are doing.
+  🔴 SHE NEVER WEARS PURPLE and never has an errand of her own.
+  🔴 THE FIVE ARE NEVER DRAWN AS A CROWD - even when all five are on the page each one keeps its own
+  cut silhouette with clear paper between it and the next.
+
+CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere - the coat hooks, the
+  name cards and the wall chart stay blank or carry a single cut pictogram.
+
+NOT: no airbrush, gradient, glow or 3D render / no drawn white line - white is gouged / no soft or
+  feathered edge / no smooth mechanical edge / no ink outside a cut block / no reflection or mirrored
+  image in water / no purple on anything the children made / no white ink / no extra children / no
+  lettering.
+
+SHEET LAYOUT: one oatmeal sheet, six characters standing in a row on a single ground line - 🔴 THE
+  FIVE CHILDREN ARE ALL EXACTLY THE SAME HEIGHT, and Teacher Bau is twice any of them and the widest
+  figure. Each character is drawn THREE times: front standing, three-quarter walking, and back.
+🔴 ONE EXTRA ROW AT THE FOOT OF THE SHEET: the five children again, side by side, printed as FLAT
+  OVERLAP SILHOUETTES with 0 interior marks and NO PURPLE AT ALL. If the five silhouettes cannot be
+  told apart by ears, snout, beak, neck and tail alone, the sheet is wrong.
+  Nothing else on the sheet - no props, no scenery, no ground beyond the one line.
+🔴 No lettering, numerals, labels or name tags anywhere on the sheet.</pre></details>
+  <div data-paste="cast-sheet"></div>
+</div>
+
+</div>
+<script src="/mio-core.js"></script>
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.getAttribute('data-copy'));
+      if (el) window.SERIES.copyText(el.textContent, b);
+    });
+  });
+  document.querySelectorAll('[data-sheet]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      window.SERIES.copyText(window.SERIES.sheetPrompt(b.getAttribute('data-sheet')), b);
+    });
+  });
+  window.SERIES.mountPasteSlots('mio-plan');
+</script>
+</body>
+</html>

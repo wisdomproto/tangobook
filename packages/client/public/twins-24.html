@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>쌍둥이네 바닷가 — 달그락 조개 목걸이</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#E9A825; --slope:#2D3B42; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">쌍둥이네 바닷가 · 24</div>
+  <h1>달그락 조개 목걸이</h1>
+  <div class="sub"><b>원함</b> 조개 목걸이를 만들어 아빠 목에 걸어 주고 싶다 · <b>우기는 둘</b> 롤로 "일단 꿰면 되지" / 리리 "어울리는 짝부터 골라야지" · <b>어긋남</b> 롤로 실은 뚝 끊어지고, 리리는 한 알도 못 꿴다 · <b>착지</b> 아빠가 던져 준 그물실에 롤로가 척척 꿰어 세 바퀴짜리 목걸이가 된다</div>
+  <div class="by">글 <b>한여울</b> · 그림 <b>임푸른</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 마당에서 그물을 손질해요. 그 옆에 구멍 난 조개껍데기가 한 바구니 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 마당과 마루가 한 프레임.<br/><b>장소·시간</b> 집 마당, 낮.<br/><b>인물</b> Dad rabbit이 마루 끝에 앉아 무릎에 그물을 펼치고 손질한다 — 검정 장화를 벗어 옆에 놓았다. Riri rabbit과 Lolo rabbit이 그 옆 바구니 앞에 쪼그려 앉았다 — 리리는 바구니 안을 들여다보고 노란 모자, 롤로는 벌써 한 움큼 집었다, 노란 장화.<br/><b>배경·소품</b> 구멍 난 조개껍데기가 가득한 바구니, 그물, 마루 위에 놓인 실패.<br/><b>톤</b> 어른의 손일과 아이의 손일이 같은 마루에 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘은 조개 목걸이를 만들어 아빠 목에 걸어 주고 싶어요. "구멍 난 조개만 골라서 꿰자."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 조개와 두 얼굴.<br/><b>장소·시간</b> 마루 위.<br/><b>인물</b> Riri rabbit이 조개껍데기 하나를 눈앞에 들어 구멍으로 저쪽을 들여다보며 입을 벌려 말한다 — 노란 모자. Lolo rabbit이 그 옆에서 두 손 가득 조개를 안고 목에 거는 시늉을 한다 — 노란 장화.<br/><b>배경·소품</b> 바구니, 흩어진 조개 몇 개.<br/><b>톤</b> 하나를 들여다보는 손과 한 아름 안은 손이 나란히 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">롤로가 실을 집어 조개를 꿰기 시작했어요. 리리는 조개를 늘어놓고 들여다봐요. "일단 꿰면 되지." "어울리는 짝부터 골라야지."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면. 꿰는 쪽과 늘어놓는 쪽.<br/><b>장소·시간</b> 마루.<br/><b>인물</b> Lolo rabbit이 화면 오른쪽에서 실 한 가닥에 조개를 연달아 꿴다 — 손이 빠르게 움직이고 몸이 앞으로 기울었다, 노란 장화. Riri rabbit은 왼쪽에서 조개를 마루에 하나씩 늘어놓고 둘씩 맞대 본다 — 노란 모자.<br/><b>배경·소품</b> 마루에 줄지어 놓인 조개, 손에 든 가는 실.<br/><b>톤</b> 한쪽은 줄이 길어지고 한쪽은 줄이 넓어진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">롤로가 조개를 왕창 꿰었어요. 가는 실이 팽팽해져요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 부감. 팽팽해진 실.<br/><b>장소·시간</b> 마루 위.<br/><b>인물</b> Lolo rabbit의 두 손이 실 양끝을 잡고 조개를 더 밀어 넣는다 — 화면 가장자리로 노란 장화 코가 들어온다.<br/><b>배경·소품</b> 실 하나에 빽빽하게 꿰인 조개 여러 개, 실이 가늘게 늘어나 곧게 당겨졌다.<br/><b>톤</b> 실이 조개 무게에 눌려 곧게 펴졌다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">툭! 실이 끊어져 조개가 마루에 와르르 쏟아졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 쏟아지는 조개.<br/><b>장소·시간</b> 마루.<br/><b>인물</b> Lolo rabbit이 끊어진 실 양끝을 손에 든 채 굳었다 — 두 팔이 벌어졌고 눈이 커졌다, 노란 장화.<br/><b>배경·소품</b> 공중에 흩어져 마루로 떨어지는 조개들, 튀어 오르는 것 몇.<br/><b>톤</b> 한 줄로 모였던 것이 한꺼번에 흩어진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리는 조개를 크기대로 늘어놨어요. 이 짝도 아니고 저 짝도 아니에요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 부감. 마루 위 배열을 위에서.<br/><b>장소·시간</b> 마루.<br/><b>인물</b> Riri rabbit이 마루 가운데 앉아 조개 두 개를 양손에 들고 견줘 본다 — 고개를 갸웃했다, 노란 모자.<br/><b>배경·소품</b> 크기 순으로 늘어놓은 조개 줄이 여러 갈래, 어느 줄도 끝이 안 났다.<br/><b>톤</b> 위에서 보니 줄만 늘고 꿴 것은 하나도 없다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마루가 온통 조개 천지예요. 리리 실은 아직도 텅 비었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면 아이레벨. 마루 면이 조개로 덮였다.<br/><b>장소·시간</b> 마루, 조금 뒤.<br/><b>인물</b> Riri rabbit이 조개 사이에 앉아 빈 실 한 가닥을 두 손에 들고 있다 — 어깨가 처졌다, 노란 모자.<br/><b>배경·소품</b> 마루 바닥이 안 보일 만큼 깔린 조개, 아무것도 안 꿰인 실.<br/><b>톤</b> 바닥은 꽉 찼는데 손에 든 것은 비었다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 그물 손질하고 남은 실을 툭 던져 줬어요. 가늘고 질긴 그물실이에요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면. 던져 주는 손.<br/><b>장소·시간</b> 마루 끝.<br/><b>인물</b> Dad rabbit이 그물에서 잘라 낸 실 한 타래를 아이들 쪽으로 툭 던진다 — 손목만 움직였고 시선은 아직 그물에 있다. Riri rabbit과 Lolo rabbit이 동시에 그쪽으로 고개를 돌린다 — 노란 모자, 노란 장화.<br/><b>배경·소품</b> 공중에 뜬 실 타래, 무릎 위의 그물.<br/><b>톤</b> 일하던 손에서 나온 것이 가운데로 떨어진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리가 조개를 건네고 롤로가 척척 꿰어요. 줄이 길어지고 또 길어져요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 네 손과 줄.<br/><b>장소·시간</b> 마루 위.<br/><b>인물</b> Riri rabbit이 골라 든 조개를 옆으로 건네고, Lolo rabbit이 그것을 받아 그물실에 척척 꿴다 — 리리는 눈이 조개에, 롤로는 손이 실에 붙어 있다, 노란 모자와 노란 장화.<br/><b>배경·소품</b> 이미 길게 꿰인 조개 줄이 마루 위로 늘어졌다, 남은 조개 무더기.<br/><b>톤</b> 건네는 손과 꿰는 손 사이에서 줄이 자란다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">목걸이가 아빠 목에 세 바퀴나 감겼어요. 아빠가 고개를 돌릴 때마다 달그락달그락 소리가 나요. 아빠는 그대로 저녁을 먹어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 저녁 식탁을 아래에서.<br/><b>장소·시간</b> 집 안, 저녁.<br/><b>인물</b> Dad rabbit이 목에 조개 목걸이를 세 바퀴 감은 채 숟가락을 들고 고개를 옆으로 돌린다 — 조개가 서로 부딪혀 흔들린다, 태연한 얼굴. Riri rabbit과 Lolo rabbit이 맞은편에서 어깨를 들썩이며 웃는다 — 노란 모자와 노란 장화. Mom rabbit이 뒤에서 국자를 든 채 눈이 반달이다 — 파란 앞치마.<br/><b>배경·소품</b> 식탁 위 그릇들, 목걸이 세 바퀴.<br/><b>톤</b> 고개를 돌릴 때마다 목에서 소리가 난다.</pre></details>
+</div>
+
+</div>
+<script src="/twins-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>노노네 겨울 골목 — 내가 지킬게</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#2F7F4E; --slope:#333A3E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">노노네 겨울 골목 · 20</div>
+  <h1>내가 지킬게</h1>
+  <div class="sub"><b>주인공</b> 구구(독차지) · <b>원함</b> 눈 오두막 안에서 놀고 싶다 · <b>탈</b> 문 앞을 지키느라 한 번도 못 들어간다 · <b>착지</b> 셋이 들어가 아늑하게 논다</div>
+  <div class="by">글 <b>배도담</b> · 그림 <b>노아라</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">눈보라가 그쳤어요. 셋이 눈을 쌓아서 오두막을 만들었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 오두막과 하늘.<br/><b>장소·시간</b> 골목 한쪽 빈터, 눈보라가 그친 낮.<br/><b>인물</b> Nono sparrow · Gugu pigeon · Kiki cat 셋이 눈 오두막 벽에 손을 대고 마지막 눈을 두드려 붙인다 — 셋 다 손바닥이 벽에 붙었다, 초록 목도리 · 초록 천 가방 · 초록 방울.<br/><b>배경·소품</b> 둥근 눈 오두막 하나와 낮은 입구, 둘레에 파낸 자국, 하늘이 갠 뒤라 맑다.<br/><b>톤</b> 눈보라가 지나간 뒤라 공기가 맑고 오두막 표면 자국이 또렷하다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">구구는 오두막 안에서 놀고 싶어요. 그런데 구구가 입구에 딱 서서 한 손으로 벽을 짚었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 입구 옆.<br/><b>장소·시간</b> 오두막 앞.<br/><b>인물</b> Gugu pigeon이 한 손을 오두막 벽에 짚고 입구 안을 들여다본다 — 어깨가 입구를 반쯤 막았고 목이 안으로 들어갔다, 초록 천 가방.<br/><b>배경·소품</b> 낮고 둥근 입구, 안쪽은 어둑하다.<br/><b>톤</b> 밝은 벽과 어두운 입구가 붙어 있어 안쪽이 깊어 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">노노랑 키키가 밥을 먹으러 갔어요. 구구는 오두막 앞에 그냥 남았어요. "내가 지킬게."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면 아이레벨.<br/><b>장소·시간</b> 오두막 앞 골목.<br/><b>인물</b> Nono sparrow와 Kiki cat이 화면 오른쪽 골목으로 걸어가며 뒤를 돌아본다 — 초록 목도리 · 초록 방울. Gugu pigeon은 입구 앞에 남아 한 손을 들어 말한다 — 부리가 벌어졌다, 초록 천 가방.<br/><b>배경·소품</b> 오두막, 골목 쪽 발자국 두 줄.<br/><b>톤</b> 두 줄은 오른쪽으로 나가고 한 몸만 왼쪽에 붙박여 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">구구가 문 앞에 딱 버티고 앉았어요. 골목에 아무도 안 지나가요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글 정면.<br/><b>장소·시간</b> 오두막 입구 앞.<br/><b>인물</b> Gugu pigeon이 입구 앞에 두 발을 벌리고 딱 앉아 있다 — 두 손을 가슴 앞에 모으고 턱을 들었다, 초록 천 가방.<br/><b>배경·소품</b> 뒤의 골목에 지나가는 것이 하나도 없다.<br/><b>톤</b> 지키는 몸만 있고 지킬 대상이 화면에 없어 자리가 비어 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">키키가 말했어요. "이제 들어가자!" 구구가 문을 막고 섰어요. "안 돼. 여긴 내 오두막이야."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 입구를 사이에 두고.<br/><b>장소·시간</b> 오두막 앞.<br/><b>인물</b> Kiki cat이 입구 쪽으로 한 손을 뻗으며 말한다 — 몸이 앞으로 기울었다, 초록 방울. Gugu pigeon이 두 팔을 좌우로 벌려 입구를 막고 섰다 — 부리가 벌어졌다, 초록 천 가방. Nono sparrow가 옆에서 멈춘다 — 초록 목도리.<br/><b>배경·소품</b> 오두막 입구.<br/><b>톤</b> 벌린 두 팔이 입구 폭을 정확히 덮어 문이 닫힌 것과 같아진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘이 저쪽에서 서로 눈을 뿌리며 놀아요. 구구는 문 앞에 그대로 앉아 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 빈터 전체를 위에서.<br/><b>장소·시간</b> 빈터, 오후.<br/><b>인물</b> 화면 오른쪽에서 Nono sparrow와 Kiki cat이 서로에게 눈을 뿌리며 논다 — 눈가루가 공중에, 초록 목도리 · 초록 방울. 화면 왼쪽 앞 오두막 입구에 Gugu pigeon이 앉은 그대로다 — 초록 천 가방.<br/><b>배경·소품</b> 오두막, 파헤쳐진 눈.<br/><b>톤</b> 흩날리는 쪽과 멈춘 쪽이 화면 좌우로 갈린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">해가 넘어갔어요. 구구는 오두막 안에 한 번도 안 들어가 봤어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 긴 그림자.<br/><b>장소·시간</b> 빈터, 해가 넘어간 뒤.<br/><b>인물</b> Gugu pigeon이 입구 앞에 그대로 앉아 있다 — 어깨가 처지고 고개가 숙여졌다, 초록 천 가방.<br/><b>배경·소품</b> 오두막 그림자가 눈 위로 길게 눕고 입구 안은 캄캄하다.<br/><b>톤</b> 그림자가 길어진 만큼 하루가 다 간 것이 바닥에 그려진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">오소리 할아버지가 물었어요. "그 안은 언제 들어가 볼 거니?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 쪼그려 앉은 어른.<br/><b>장소·시간</b> 오두막 옆.<br/><b>인물</b> Grandpa Badger가 오두막 옆에 쪼그려 앉아 손끝으로 입구 안쪽을 가리키며 묻는다 — 고개가 구구 쪽으로 기울었다, 앞치마. Gugu pigeon이 그 손끝을 따라 안쪽을 본다 — 초록 천 가방.<br/><b>배경·소품</b> 낮은 입구, 안쪽 어둠.<br/><b>톤</b> 가리키는 손끝이 어두운 입구 안으로 들어가 시선이 처음으로 안을 향한다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">구구가 벌떡 일어났어요. "얘들아, 우리 들어가자!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글. 일어서는 몸.<br/><b>장소·시간</b> 오두막 앞.<br/><b>인물</b> Gugu pigeon이 벌떡 일어서며 몸을 돌려 두 친구 쪽으로 한 손을 뻗고 외친다 — 부리가 크게 벌어지고 초록 천 가방이 튀어 올랐다.<br/><b>배경·소품</b> 뒤에 오두막 입구, 눌린 눈 자국.<br/><b>톤</b> 앉아 있던 몸이 화면 위로 솟아 앞 쪽과 높이가 뒤집힌다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">셋이 오두막 안으로 쏙 들어갔어요. 안이 아늑하고 포근해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 입구 정면으로 안을 들여다본다.<br/><b>장소·시간</b> 눈 오두막 안, 저녁.<br/><b>인물</b> Nono sparrow · Gugu pigeon · Kiki cat 셋이 오두막 안에 어깨를 붙이고 둥글게 앉았다 — 셋 다 입과 부리가 벌어져 웃고, 여섯 발끝이 입구 밖으로 조금 나왔다, 초록 목도리 · 초록 천 가방 · 초록 방울.<br/><b>배경·소품</b> 둥근 눈벽이 셋을 감싸고 입구로 들어온 저녁빛이 안쪽 벽에 둥글게 앉는다.<br/><b>톤</b> 좁은 안이 꽉 차서 아늑함이 몸 사이 간격으로 읽힌다.</pre></details>
+</div>
+
+</div>
+<script src="/nono-core.js"></script>
+</body>
+</html>

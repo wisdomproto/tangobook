@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>룰루네 올리브 언덕 — 기획서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#1F7FA8; --slope:#3E3A2E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">창작동화 시리즈 10 · 25권 250쪽</div>
+  <h1>룰루네 올리브 언덕</h1>
+  <div class="sub">아기 당나귀 룰루와 대가족 · 이탈리아 올리브 언덕 · <b>페파형</b>(어른 친척들이 틀린다) · 그림체 = 모노타이프 하나(전권)</div>
+  <div class="by">글 <b>문나래</b> · 그림 <b>유가온</b></div>
+</header>
+
+<div class="note">🔴 <b>이 기획서가 SSOT 가 아닙니다.</b> 본문은 <code>docs/changjak-books/lulu/*.md</code>, 앵커는 <code>docs/art-direction/lulu-anchor.md</code> 가 원본이고 이 페이지는 거기서 생성됩니다(<code>build-series-html.mjs</code>). 회차는 왼쪽 <b>☰ 회차</b>에서.</div>
+
+<h2 class="sec">1. 축</h2>
+<table><thead><tr><th>축</th><th>값</th></tr></thead><tbody><tr><td>형</td><td>페파형 — 웃음으로 착지, 아무도 안 고쳐진다</td></tr><tr><td>캐스트 구성</td><td><b>대가족</b> — 사촌이 많다. 틀리는 쪽 = <b>어른 친척 셋</b>(각자 축 하나)</td></tr><tr><td>주인공</td><td>아기 당나귀 룰루 · 결점 없음</td></tr><tr><td>무대</td><td>이탈리아 올리브 언덕의 큰 농가 — 올리브밭·포도 시렁·큰 식탁·헛간·언덕길·마을 축제</td></tr><tr><td>그림체</td><td>모노타이프(monotype) — 한 번 찍고 걷어 낸 판, 닦은 자리가 햇빛</td></tr></tbody></table>
+
+<h2 class="sec">2. 캐스트</h2>
+<p class="lead">시트를 만들어 카드에 붙여넣으면 회차 페이지의 「🎬 이 화 등장」 스트립이 그 그림을 읽어 옵니다.
+카드마다 <b>[📋 시트 프롬프트]</b> = 그 한 명만 그리는 프롬프트(앵커 + 규격 + 전신 정면·3/4·뒷모습).</p>
+<div class="grid">
+  <div class="cast-card">
+    <div class="chead"><h4>🫏 룰루</h4><button class="copy-btn" data-sheet="lulu">📋 시트 프롬프트</button></div>
+    <p><code>Lulu donkey</code></p>
+    <div data-paste="lulu"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🫏 엄마</h4><button class="copy-btn" data-sheet="mama">📋 시트 프롬프트</button></div>
+    <p><code>Mama donkey</code></p>
+    <div data-paste="mama"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🫏 니노 삼촌</h4><button class="copy-btn" data-sheet="nino">📋 시트 프롬프트</button></div>
+    <p><code>Nino donkey</code></p>
+    <div data-paste="nino"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🫏 로사 이모</h4><button class="copy-btn" data-sheet="rosa">📋 시트 프롬프트</button></div>
+    <p><code>Rosa donkey</code></p>
+    <div data-paste="rosa"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🫏 베포 큰아버지</h4><button class="copy-btn" data-sheet="beppo">📋 시트 프롬프트</button></div>
+    <p><code>큰아버지</code></p>
+    <div data-paste="beppo"></div>
+  </div>
+</div>
+
+<h2 class="sec">3. 25권</h2>
+<p class="lead">🔴 <b>작가에게 빈칸을 주지 않는 것</b>이 이 체제의 전부입니다.</p>
+<table><thead><tr><th>#</th><th>제목</th><th>원함</th><th>틀리는 어른</th><th>어긋남</th><th>착지</th></tr></thead><tbody><tr><td>01</td><td>올리브 따는 날</td><td>내 그물에 올리브를 가득 받고 싶다</td><td>니노 삼촌</td><td>최고라며 가지를 마구 흔들다 잎만 쏟고 모자가 걸린다</td><td>빗으로 살살 빗자 그물에 소복 — 모자는 아직 나무 위</td></tr><tr><td>02</td><td>잔칫상 차리기</td><td>잔칫상 접시를 내가 다 놓고 싶다</td><td>로사 이모</td><td>꾸민다며 꽃·초를 자꾸 얹어 접시 자리가 없어진다</td><td>꽃을 병에 모으자 접시가 다 놓인다 — "…그게 더 예쁘네"</td></tr><tr><td>03</td><td>언덕길 수레</td><td>올리브 자루를 수레로 집까지 나르고 싶다</td><td>베포 큰아버지</td><td>옛 지름길로 앞장서다 풀숲에 바퀴가 걸린다</td><td>늘 다니던 길로 끌고 밀어 도착 — 지팡이가 제일 편하게 왔다</td></tr><tr><td>04</td><td>제일 높은 포도송이</td><td>시렁 맨 위 굵은 송이를 따고 싶다</td><td>니노 삼촌</td><td>점프 자랑하다 시렁 기둥에 대롱대롱 매달린다</td><td>나무통을 엎고 올라가 딴다 — 제일 크게 씹는 건 삼촌</td></tr><tr><td>05</td><td>아기 사촌 재우기</td><td>아기 사촌을 낮잠 재우고 싶다</td><td>로사 이모</td><td>큰 자장가·부채·딸랑이로 잠을 다 깨운다</td><td>옆에 누워 자는 척하자 아기가 따라 한다 — 이모가 먼저 코를 곤다</td></tr><tr><td>06</td><td>헛간의 내 자리</td><td>헛간을 치워 놀이 자리를 만들고 싶다</td><td>베포 큰아버지</td><td>내놓는 것마다 "우리 땐" 하며 도로 안는다</td><td>옛 물건을 건너편에 모으자 둘 다 자리가 생긴다</td></tr><tr><td>07</td><td>올리브 빵</td><td>반죽에 올리브를 내 손으로 박고 싶다</td><td>니노 삼촌</td><td>던져 넣는다며 다 빗나간다 — 한 알은 제 입으로</td><td>한 알씩 꾹꾹 — 구운 자리마다 반질반질</td></tr><tr><td>08</td><td>샘물 길어 오기</td><td>저녁 국 끓일 물을 길어 오고 싶다</td><td>베포 큰아버지</td><td>옛날 큰 통이 새서 언덕 위에선 한 잔뿐</td><td>작은 병이 줄줄이 — 냄비에 물이 콸콸</td></tr><tr><td>09</td><td>축제 가는 길</td><td>다 같이 축제에 늦지 않게 내려가고 싶다</td><td>셋 다</td><td>길 다툼과 짐 챙기기로 출발을 못 한다</td><td>방울을 울리며 앞장서자 다들 따라온다</td></tr><tr><td>10</td><td>무화과 간식</td><td>오후 간식 무화과를 따 오고 싶다</td><td>로사 이모</td><td>높은 것만 찌르다 엉덩방아 — 높은 건 덜 익었다</td><td>처진 낮은 가지의 말랑한 것을 딴다 — 이모 것만 "아직이네"</td></tr><tr><td>11</td><td>제일 시원한 그늘</td><td>제일 시원한 그늘에서 다 같이 낮잠 자고 싶다</td><td>니노 삼촌</td><td>최고 그늘이라던 천막이 바람에 걷힌다</td><td>올리브나무 아래로 — 나무 그늘은 안 걷힌다</td></tr><tr><td>12</td><td>올리브 고르기</td><td>굵은 알만 골라 바구니를 채우고 싶다</td><td>베포 큰아버지</td><td>옛 체로 치는데 구멍이 커서 쟁반으로 다 쏟아진다</td><td>한 알씩 고른다 — 큰아버지도 말없이 옆에 앉아 따라 한다</td></tr><tr><td>13</td><td>비가 오기 전에</td><td>비 오기 전에 올리브 자루를 다 들여놓고 싶다</td><td>로사 이모</td><td>서두르라 외치며 뱅뱅 돌기만 한다</td><td>사촌들과 손에서 손으로 — "내가 서두르라 했지!"</td></tr><tr><td>14</td><td>별똥별 보는 밤</td><td>별똥별을 꼭 보고 싶다</td><td>니노 삼촌</td><td>휘파람으로 부른다더니 먼저 잠든다</td><td>꾹 참고 기다려 본다 — 삼촌 볼엔 돗자리 자국</td></tr><tr><td>15</td><td>레몬물 만들기</td><td>밭일하는 식구들 마실 레몬물을 만들고 싶다</td><td>로사 이모</td><td>이것저것 다 넣어 걸쭉해진다</td><td>레몬만 넣은 물을 다들 벌컥벌컥 — 이모 주전자는 뒤로 숨는다</td></tr><tr><td>16</td><td>숨바꼭질 술래</td><td>술래가 되어 사촌들을 다 찾고 싶다</td><td>베포 큰아버지</td><td>옛날 숨던 자리만 짚는데 다 비었다</td><td>웃음소리를 따라 다 찾는다 — 제일 꼬마는 큰아버지 등 뒤에</td></tr><tr><td>17</td><td>축제의 춤</td><td>광장에서 사촌들과 춤추고 싶다</td><td>로사 이모</td><td>리본을 자꾸 더 달다 한 곡을 통째로 놓친다</td><td>그냥 뛰어들어 춘다 — 이모가 제일 크게 돈다</td></tr><tr><td>18</td><td>기름 짜는 날</td><td>첫 기름 방울을 내 눈으로 보고 싶다</td><td>베포 큰아버지</td><td>혼자 돌리겠다더니 돌이 꿈쩍도 안 한다</td><td>룰루가 끌고 다 같이 밀자 돈다 — "우리 땐 다 같이 돌렸지!"</td></tr><tr><td>19</td><td>헛간의 아기 제비</td><td>아기 제비 얼굴을 보고 싶다</td><td>니노 삼촌</td><td>새소리 흉내가 커서 어미 제비에게 쫓긴다</td><td>숨죽여 기다리자 부리가 빼꼼</td></tr><tr><td>20</td><td>내 담요 널기</td><td>내 담요를 내 손으로 널고 싶다</td><td>로사 이모</td><td>더 좋은 자리라며 옮기다 빨랫줄이 출렁</td><td>제 키에 맞는 낮은 줄에 꼭꼭 집는다</td></tr><tr><td>21</td><td>큰 그물 걷는 날</td><td>그물 귀퉁이를 잡고 올리브를 가운데로 모으고 싶다</td><td>셋 다</td><td>저마다 제 방식대로 당겨 그물이 기운다</td><td>"하나, 둘!" 넷이 동시에 — 올리브 산이 생긴다</td></tr><tr><td>22</td><td>엄마 옆자리</td><td>저녁 식탁 엄마 옆자리에 앉고 싶다</td><td>로사 이모</td><td>자리를 정해 준다며 다 뒤섞는다</td><td>옆자리를 짚고 "내 자리!" — 이모는 맨 끝자리</td></tr><tr><td>23</td><td>연 날리는 언덕</td><td>연을 하늘 꼭대기까지 올리고 싶다</td><td>니노 삼촌</td><td>달리기 자랑하다 연을 나무에 걸리게 한다</td><td>언덕 꼭대기에서 줄을 풀어 올린다 — "달리기가 반이었지?"</td></tr><tr><td>24</td><td>포도 밟는 날</td><td>포도 통에 들어가 밟고 싶다</td><td>베포 큰아버지</td><td>통 가장자리에 걸터앉아 느린 옛 노래를 부르다 졸아서 통 옆에 첨벙</td><td>빠른 노래로 폴짝폴짝 — 즙이 콸콸</td></tr><tr><td>25</td><td>첫 기름 잔치</td><td>첫 기름 잔치에서 빵을 내가 나눠 주고 싶다</td><td>셋 다</td><td>서로 나누겠다고 셋이 바구니를 잡아당긴다</td><td>잡아당기는 바구니에서 빵을 집어 한 사람 앞에 한 조각씩 — 마지막 조각은 엄마가 룰루 입에</td></tr></tbody></table>
+
+<h2 class="sec">4. 앵커 — 한 시리즈 = 한 그림체</h2>
+<p class="lead">시리즈 전권이 한 그림체입니다. 무대·계절 차이는 앵커 안 <b>무대 조항</b>이 처리합니다 — 매체·색은 그대로 두고 「두 색을 어디에 쓰고 무엇을 종이로 남기나」만 바뀝니다.
+🔴 악센트 <b>룰루 방울</b> 에만 닿습니다.</p>
+<div class="swatches">
+  <span class="sw"><i style="background:#F7F2E6"></i>종이 <code>#F7F2E6</code></span><span class="sw"><i style="background:#8C9478"></i>색1 <code>#8C9478</code></span><span class="sw"><i style="background:#BC6E42"></i>색2 <code>#BC6E42</code></span><span class="sw"><i style="background:#3E3A2E"></i>겹침 <code>#3E3A2E</code></span><span class="sw"><i style="background:#1F7FA8"></i>악센트 <code>#1F7FA8</code></span>
+</div>
+<div class="anchor-card">
+  <div class="ahead"><b>lulu-monotype</b><button class="copy-btn" data-copy="anchor">📋 앵커 프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre id="anchor">STYLE ANCHOR - lulu-monotype   (a donkey family on an Italian olive hill / monotype, one plate, one
+                                print, and the light is wiped out of it)
+
+Style: monotype on warm white paper, exactly TWO inks plus one small accent, 4-6 year old picture
+  book. 🔴 THE INK IS ROLLED ONTO A PLATE, THE FORM IS WIPED OUT OF IT WITH A RAG AND A FINGER, AND
+  THE PLATE IS PRINTED ONCE. Light is made by TAKING INK AWAY, so every bright thing is bare paper
+  that the plate never touched - the Mediterranean sun, the dry road, the tablecloth, the wall.
+  Ink never lies perfectly even: it prints a little mottled, carries the roller's direction and shows
+  the pressure of the press. Where the two inks meet ON THE PLATE they mix into a third, darker
+  colour - that is the only dark, and it prints in the same single pass. SHADING IS ZERO - an area is
+  inked or it is wiped, never graded between. 🔴 NO WHITE INK, EVER.
+
+RENDERING (finish hierarchy): an area is ONE broad inked field, flat inside itself apart from the
+  mottle; a wiped shape inside it has a CLEAN HARD EDGE because a rag made it. 🔴 THE ONLY SOFT EDGE
+  IN THIS BOOK IS THE PLATE MARK, where the print runs out at the border of the plate - leave it on
+  every page. FINISHED THINGS PER PAGE = 2, Lulu and the one thing Lulu touches; everything else is a
+  wiped shape with no interior detail. Repeats are capped and the cap is the whole design: a heap of
+  olives is ONE mass and at most 12 olives are ever drawn as separate berries · plates at most 8 ·
+  flowers at most 8 · loaves or bread pieces at most 8 · sacks at most 5 · bottles at most 4 · the
+  armful of old things at most 6 objects · ribbons at most 5 on one cousin · figs at most 5 · grape
+  bunches at most 7 · vine posts at most 5 · olive trees at most 5 · jars at most 6 of one shape ·
+  planks at most 6 · a festival crowd is ONE wiped mass with at most 7 flat silhouettes at its near
+  edge, 0 faces and 0 hands · stars at most 14 wiped points, each taken out on its own. Nothing in a
+  repeat is a mirrored copy of its neighbour. DENSITY RATION = none.
+  🔴 DEPTH IS SPACING, NEVER DARKNESS - trees further down the hill stand CLOSER TOGETHER at the same
+  weight of ink. Nothing recedes by getting paler, bluer or softer.
+  🔴 THE CHILDREN ARE ALWAYS EXACTLY FIVE: LULU, THREE WALKING COUSINS AND ONE BABY. Never a fourth
+  walking cousin, never a second baby, never an extra child to fill a corner. THE THREE COUSINS MOVE
+  AS ONE BLOCK - they touch or overlap and share one silhouette, and the baby is always lying down or
+  being carried, never on its feet.
+
+PALETTE: PAPER WARM WHITE #F7F2E6, sun, the dry road, the tablecloth, whitewash, light, everything
+  wiped clean off the plate · INK1 OLIVE LEAF #8C9478, leaves, the hillside, vine leaves, shutters,
+  aprons, painted things - a dusty dried silver-green, the cool one · INK2 DRY EARTH #BC6E42, soil,
+  timber, sacks, baskets, roof tiles, the press stone, the cart, donkey chests and bellies - a warm
+  terracotta, the warm one · PLATE MIX OLIVE BLACK #3E3A2E, ripe olives, donkey backs and heads, the
+  inside of the barn, night sky, the grape stain - made where the two inks meet on the plate, never a
+  third tube · ACCENT MAJOLICA BLUE #1F7FA8, 🔴 dabbed onto the plate last with a small rag so it
+  prints in the same pass, touching NOTHING but Lulu's bell cord and its bell. No sky blue that is not
+  the accent, no purple anywhere, no pink, no red, no yellow, no white ink.
+
+STAGE CLAUSES (the stage changes what the two inks do, never which two they are):
+  GROVE - the hillside is ONE broad field of OLIVE LEAF, 0 individual leaves. Trunks and the ground
+    beneath are DRY EARTH with the roller running ALONG the trunk, not across it. Ripe olives are
+    PLATE MIX. 🔴 THE SPREAD NET IS BARE PAPER, one clean wiped shape, and it is the brightest thing
+    on the page - the olives that fall onto it are the darkest, so the whole book's contrast lives on
+    that net.
+  YARD AND BARN - each surface is ONE repeated mark: floor a plank stroke, wall a short dash, sacking
+    a zigzag. The mark is the SAME shape every time and may run off an edge but is never redrawn.
+    Beams, the cart, sacks and the well are DRY EARTH; shutters, aprons and the vine canopy are OLIVE
+    LEAF. 🔴 THE OPEN DOORWAY AND THE SQUARE OF SUN ON THE BARN FLOOR ARE BARE PAPER, wiped clean with
+    a hard edge and no rays. A thing being looked for is wiped with its own clear silhouette while
+    everything it hides among is the repeated mark.
+  KITCHEN AND LONG TABLE - the tablecloth is ONE wiped shape of bare paper and it is the brightest
+    thing indoors; plates, bowls and jugs are wiped OUT of the DRY EARTH table, never drawn onto it.
+    Steam from a pot is bare paper, at most 5 curls. When the table is crowded the crowding is made by
+    the number of wiped shapes, never by adding a colour.
+  HILL ROAD - the road is ONE wiped strip of bare paper running through the OLIVE LEAF hillside, and
+    it stays bare however far it goes. Far farmhouses are at most 4 DRY EARTH silhouettes with 0
+    windows.
+  PIAZZA (volumes 09, 17, 23, 25) - the dancing ring is ONE wiped mass of PLATE MIX with the ground
+    bare paper inside and around it; only the 7 nearest figures have their own silhouette. Cloth
+    banners are single flat pulls of either ink. 🔴 The ribbons in volume 17 are OLIVE LEAF and DRY
+    EARTH only - a made thing never takes the accent.
+  🔴 PRESS AND VAT (volumes 18, 24) - the first oil running from the press is BARE PAPER, one clean
+    wiped line, and it carries the whole page. 🔴 THE GRAPE JUICE IS NOT PURPLE. It is the darkest
+    print of DRY EARTH - a deep saturated stain of the same warm ink - and "purple feet" and "purple
+    bottom" are made by HOW DARK THE STAIN IS, never by a new colour. The blue in volume 24 is on the
+    bell and nowhere else.
+  🔴 NIGHT (volume 14) - the sky is PLATE MIX laid as one flat field. The stars and the one shooting
+    star are BARE PAPER wiped out of it, each taken on its own, at most 14, with no trail longer than
+    a finger and no glow.
+  🔴 RAIN (volume 13) - the storm cloud is ONE flat mass of PLATE MIX entering from one side, with a
+    hard wiped edge against the bare sky. Raindrops are at most 11 short DRY EARTH strokes all leaning
+    the same way. Nothing gets paler as the sky darkens.
+
+CHARACTER DESIGN LANGUAGE: the donkeys are built from the same broad fields as the world - two or
+  three shapes with limbs laid over. GRADE: bipedal, standing upright, wearing simple farm cloth -
+  aprons, hats, waistcoats, skirts and sleeves - 🔴 AND BAREFOOT ALWAYS. NOBODY IN THIS WORLD WEARS
+  SHOES, so hooved feet are visible on every page and the grape treading in volume 24 works without
+  explanation. The forelimb is an ARM in a sleeve ending in a rounded blunt hand; it grasps, carries
+  and points as one shape, and when it must count or pinch it grows AT MOST THREE stubby fingers,
+  never five. Backs and heads are PLATE MIX, chests and bellies are DRY EARTH, so every donkey is
+  built the same way. Eyes are two solid dark dots set wide apart; a soft dark muzzle; the mouth is
+  ONE curve; above each eye ONE short eyebrow stroke. 🔴 FEELING IS CARRIED BY THE MOUTH CURVE, THE
+  TWO EYEBROWS AND THE TWO LONG EARS - the eyes only ever open or close and their size NEVER changes.
+  The face is never crossed by an object. Whole-body posture carries the rest.
+  THE CAST, separable at thumbnail size: LULU a young donkey, the smallest standing figure,
+  round-headed, two long ears, a BLUE CORD WITH ONE BLUE BELL at the throat and nothing else blue in
+  the world · MAMA a donkey, a full head over Lulu, an apron, no blue · NINO a donkey, tall and
+  narrow, chest thrown out, a STRAW HAT that is his silhouette (volume 01 leaves it up a tree and it
+  stays there to the last page), no blue · ROSA a donkey, the roundest adult, a SKIRT and an APRON
+  WITH A DEEP POCKET, always in motion with the skirt swinging behind her, no blue · BEPPO a donkey,
+  the biggest and heaviest, a WAISTCOAT and a CROOKED STICK always in one hand, no blue · THE THREE
+  COUSINS one single regulation drawn three times - same build, same cloth, told apart only by a small
+  step in height - always touching or overlapping so they read as ONE shape, no blue · THE BABY COUSIN
+  the smallest of all, always lying, carried or on somebody's back, never standing, no blue.
+  🔴 NO ADULT AND NO COUSIN EVER CARRIES BLUE. In a family this size the accent is the only thing that
+  finds the child the page is about.
+
+CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere - festival banners,
+  market stalls and jars stay blank or carry a single wiped shape.
+
+NOT: no airbrush, gradient, glow or 3D render / no white ink or white paint - white is wiped / no
+  soft edge anywhere except the plate mark / no drawn outline / no purple on anything, including the
+  grape juice / no blue on any character but Lulu / no shoes on anybody / no fourth walking cousin /
+  no reflection or mirrored image in water / no second printing pass / no lettering.</pre></details>
+  <div data-paste="anchor"></div>
+</div>
+
+<h2 class="sec">5. 캐스트 시트</h2>
+<p class="lead">한 장에 전원을 그립니다. 🔴 <b>시트가 최종 그림을 지배</b>하므로 시트를 먼저 확정하고 쪽 삽화로 갑니다.</p>
+<div class="anchor-card">
+  <div class="ahead"><b>전원 시트</b><button class="copy-btn" data-copy="sheet">📋 시트 프롬프트 복사</button></div>
+  <details open><summary>프롬프트 보기</summary><pre id="sheet">CHARACTER SHEET - lulu olive hill   (the whole family, one sheet)
+
+STYLE ANCHOR - lulu-monotype   (a donkey family on an Italian olive hill / monotype, one plate, one
+                                print, and the light is wiped out of it)
+
+Style: monotype on warm white paper, exactly TWO inks plus one small accent, 4-6 year old picture
+  book. 🔴 THE INK IS ROLLED ONTO A PLATE, THE FORM IS WIPED OUT OF IT WITH A RAG AND A FINGER, AND
+  THE PLATE IS PRINTED ONCE. Light is made by TAKING INK AWAY, so every bright thing is bare paper
+  that the plate never touched - the Mediterranean sun, the dry road, the tablecloth, the wall.
+  Ink never lies perfectly even: it prints a little mottled, carries the roller's direction and shows
+  the pressure of the press. Where the two inks meet ON THE PLATE they mix into a third, darker
+  colour - that is the only dark, and it prints in the same single pass. SHADING IS ZERO - an area is
+  inked or it is wiped, never graded between. 🔴 NO WHITE INK, EVER.
+
+RENDERING (finish hierarchy): an area is ONE broad inked field, flat inside itself apart from the
+  mottle; a wiped shape inside it has a CLEAN HARD EDGE because a rag made it. 🔴 THE ONLY SOFT EDGE
+  IN THIS BOOK IS THE PLATE MARK, where the print runs out at the border of the plate - leave it on
+  every page. FINISHED THINGS PER PAGE = 2, Lulu and the one thing Lulu touches; everything else is a
+  wiped shape with no interior detail. Repeats are capped and the cap is the whole design: a heap of
+  olives is ONE mass and at most 12 olives are ever drawn as separate berries · plates at most 8 ·
+  flowers at most 8 · loaves or bread pieces at most 8 · sacks at most 5 · bottles at most 4 · the
+  armful of old things at most 6 objects · ribbons at most 5 on one cousin · figs at most 5 · grape
+  bunches at most 7 · vine posts at most 5 · olive trees at most 5 · jars at most 6 of one shape ·
+  planks at most 6 · a festival crowd is ONE wiped mass with at most 7 flat silhouettes at its near
+  edge, 0 faces and 0 hands · stars at most 14 wiped points, each taken out on its own. Nothing in a
+  repeat is a mirrored copy of its neighbour. DENSITY RATION = none.
+  🔴 DEPTH IS SPACING, NEVER DARKNESS - trees further down the hill stand CLOSER TOGETHER at the same
+  weight of ink. Nothing recedes by getting paler, bluer or softer.
+  🔴 THE CHILDREN ARE ALWAYS EXACTLY FIVE: LULU, THREE WALKING COUSINS AND ONE BABY. Never a fourth
+  walking cousin, never a second baby, never an extra child to fill a corner. THE THREE COUSINS MOVE
+  AS ONE BLOCK - they touch or overlap and share one silhouette, and the baby is always lying down or
+  being carried, never on its feet.
+
+PALETTE: PAPER WARM WHITE #F7F2E6, sun, the dry road, the tablecloth, whitewash, light, everything
+  wiped clean off the plate · INK1 OLIVE LEAF #8C9478, leaves, the hillside, vine leaves, shutters,
+  aprons, painted things - a dusty dried silver-green, the cool one · INK2 DRY EARTH #BC6E42, soil,
+  timber, sacks, baskets, roof tiles, the press stone, the cart, donkey chests and bellies - a warm
+  terracotta, the warm one · PLATE MIX OLIVE BLACK #3E3A2E, ripe olives, donkey backs and heads, the
+  inside of the barn, night sky, the grape stain - made where the two inks meet on the plate, never a
+  third tube · ACCENT MAJOLICA BLUE #1F7FA8, 🔴 dabbed onto the plate last with a small rag so it
+  prints in the same pass, touching NOTHING but Lulu's bell cord and its bell. No sky blue that is not
+  the accent, no purple anywhere, no pink, no red, no yellow, no white ink.
+
+STAGE CLAUSES (the stage changes what the two inks do, never which two they are):
+  GROVE - the hillside is ONE broad field of OLIVE LEAF, 0 individual leaves. Trunks and the ground
+    beneath are DRY EARTH with the roller running ALONG the trunk, not across it. Ripe olives are
+    PLATE MIX. 🔴 THE SPREAD NET IS BARE PAPER, one clean wiped shape, and it is the brightest thing
+    on the page - the olives that fall onto it are the darkest, so the whole book's contrast lives on
+    that net.
+  YARD AND BARN - each surface is ONE repeated mark: floor a plank stroke, wall a short dash, sacking
+    a zigzag. The mark is the SAME shape every time and may run off an edge but is never redrawn.
+    Beams, the cart, sacks and the well are DRY EARTH; shutters, aprons and the vine canopy are OLIVE
+    LEAF. 🔴 THE OPEN DOORWAY AND THE SQUARE OF SUN ON THE BARN FLOOR ARE BARE PAPER, wiped clean with
+    a hard edge and no rays. A thing being looked for is wiped with its own clear silhouette while
+    everything it hides among is the repeated mark.
+  KITCHEN AND LONG TABLE - the tablecloth is ONE wiped shape of bare paper and it is the brightest
+    thing indoors; plates, bowls and jugs are wiped OUT of the DRY EARTH table, never drawn onto it.
+    Steam from a pot is bare paper, at most 5 curls. When the table is crowded the crowding is made by
+    the number of wiped shapes, never by adding a colour.
+  HILL ROAD - the road is ONE wiped strip of bare paper running through the OLIVE LEAF hillside, and
+    it stays bare however far it goes. Far farmhouses are at most 4 DRY EARTH silhouettes with 0
+    windows.
+  PIAZZA (volumes 09, 17, 23, 25) - the dancing ring is ONE wiped mass of PLATE MIX with the ground
+    bare paper inside and around it; only the 7 nearest figures have their own silhouette. Cloth
+    banners are single flat pulls of either ink. 🔴 The ribbons in volume 17 are OLIVE LEAF and DRY
+    EARTH only - a made thing never takes the accent.
+  🔴 PRESS AND VAT (volumes 18, 24) - the first oil running from the press is BARE PAPER, one clean
+    wiped line, and it carries the whole page. 🔴 THE GRAPE JUICE IS NOT PURPLE. It is the darkest
+    print of DRY EARTH - a deep saturated stain of the same warm ink - and "purple feet" and "purple
+    bottom" are made by HOW DARK THE STAIN IS, never by a new colour. The blue in volume 24 is on the
+    bell and nowhere else.
+  🔴 NIGHT (volume 14) - the sky is PLATE MIX laid as one flat field. The stars and the one shooting
+    star are BARE PAPER wiped out of it, each taken on its own, at most 14, with no trail longer than
+    a finger and no glow.
+  🔴 RAIN (volume 13) - the storm cloud is ONE flat mass of PLATE MIX entering from one side, with a
+    hard wiped edge against the bare sky. Raindrops are at most 11 short DRY EARTH strokes all leaning
+    the same way. Nothing gets paler as the sky darkens.
+
+CHARACTER DESIGN LANGUAGE: the donkeys are built from the same broad fields as the world - two or
+  three shapes with limbs laid over. GRADE: bipedal, standing upright, wearing simple farm cloth -
+  aprons, hats, waistcoats, skirts and sleeves - 🔴 AND BAREFOOT ALWAYS. NOBODY IN THIS WORLD WEARS
+  SHOES, so hooved feet are visible on every page and the grape treading in volume 24 works without
+  explanation. The forelimb is an ARM in a sleeve ending in a rounded blunt hand; it grasps, carries
+  and points as one shape, and when it must count or pinch it grows AT MOST THREE stubby fingers,
+  never five. Backs and heads are PLATE MIX, chests and bellies are DRY EARTH, so every donkey is
+  built the same way. Eyes are two solid dark dots set wide apart; a soft dark muzzle; the mouth is
+  ONE curve; above each eye ONE short eyebrow stroke. 🔴 FEELING IS CARRIED BY THE MOUTH CURVE, THE
+  TWO EYEBROWS AND THE TWO LONG EARS - the eyes only ever open or close and their size NEVER changes.
+  The face is never crossed by an object. Whole-body posture carries the rest.
+  THE CAST, separable at thumbnail size: LULU a young donkey, the smallest standing figure,
+  round-headed, two long ears, a BLUE CORD WITH ONE BLUE BELL at the throat and nothing else blue in
+  the world · MAMA a donkey, a full head over Lulu, an apron, no blue · NINO a donkey, tall and
+  narrow, chest thrown out, a STRAW HAT that is his silhouette (volume 01 leaves it up a tree and it
+  stays there to the last page), no blue · ROSA a donkey, the roundest adult, a SKIRT and an APRON
+  WITH A DEEP POCKET, always in motion with the skirt swinging behind her, no blue · BEPPO a donkey,
+  the biggest and heaviest, a WAISTCOAT and a CROOKED STICK always in one hand, no blue · THE THREE
+  COUSINS one single regulation drawn three times - same build, same cloth, told apart only by a small
+  step in height - always touching or overlapping so they read as ONE shape, no blue · THE BABY COUSIN
+  the smallest of all, always lying, carried or on somebody's back, never standing, no blue.
+  🔴 NO ADULT AND NO COUSIN EVER CARRIES BLUE. In a family this size the accent is the only thing that
+  finds the child the page is about.
+
+CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere - festival banners,
+  market stalls and jars stay blank or carry a single wiped shape.
+
+NOT: no airbrush, gradient, glow or 3D render / no white ink or white paint - white is wiped / no
+  soft edge anywhere except the plate mark / no drawn outline / no purple on anything, including the
+  grape juice / no blue on any character but Lulu / no shoes on anybody / no fourth walking cousin /
+  no reflection or mirrored image in water / no second printing pass / no lettering.
+
+SHEET LAYOUT: one warm white sheet, the family standing in a row on a single ground line at their true
+  relative heights - Beppo the biggest and heaviest, Nino tall and narrow, Rosa the roundest adult,
+  Mama a full head over Lulu, Lulu the smallest standing figure. Each of these five is drawn THREE
+  times: front standing, three-quarter walking, and back. 🔴 EVERY FOOT ON THIS SHEET IS BARE - there
+  is not one shoe or boot anywhere.
+🔴 THE THREE COUSINS ARE DRAWN AS ONE GROUP, NOT AS THREE CHARACTERS: one front view and one back view
+  of the three of them standing together, touching, with a small step in height between them and
+  identical cloth. If they can be told apart by anything except that height step, the sheet is wrong.
+🔴 THE BABY COUSIN is drawn twice and never standing: once lying on its back with all four limbs up,
+  once carried on a cousin's back.
+🔴 ONE EXTRA DRAWING: Lulu standing beside the cousin group, touching, so the child scale is fixed as
+  a single shape before any page puts five children in one frame.
+  Nothing else on the sheet - no props except Nino's straw hat, Rosa's apron pocket, Beppo's stick and
+  Lulu's blue cord; no scenery, no ground beyond the one line.
+🔴 No lettering, numerals, labels or name tags anywhere on the sheet.</pre></details>
+  <div data-paste="cast-sheet"></div>
+</div>
+
+</div>
+<script src="/lulu-core.js"></script>
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.getAttribute('data-copy'));
+      if (el) window.SERIES.copyText(el.textContent, b);
+    });
+  });
+  document.querySelectorAll('[data-sheet]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      window.SERIES.copyText(window.SERIES.sheetPrompt(b.getAttribute('data-sheet')), b);
+    });
+  });
+  window.SERIES.mountPasteSlots('lulu-plan');
+</script>
+</body>
+</html>

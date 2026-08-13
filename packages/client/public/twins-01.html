@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>쌍둥이네 바닷가 — 무너지지 않는 모래성</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#E9A825; --slope:#2D3B42; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">쌍둥이네 바닷가 · 01</div>
+  <h1>무너지지 않는 모래성</h1>
+  <div class="sub"><b>원함</b> 안 무너지는 모래성을 쌓고 싶다 · <b>우기는 둘</b> 리리 "젖은 모래만 골라야 해" / 롤로 "많이 쌓아야 튼튼해" · <b>어긋남</b> 리리는 성이 안 올라오고, 롤로는 폭삭 · <b>착지</b> 파도가 남긴 단단한 모래에 함께 짓고 게가 첫 손님으로 들어온다</div>
+  <div class="by">글 <b>한여울</b> · 그림 <b>임푸른</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">파도가 쏴아 밀려왔다 물러가요. 리리와 롤로가 모래밭으로 달려 나왔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 물러가는 파도선이 화면을 비스듬히 가른다.<br/><b>장소·시간</b> 모래밭, 한낮.<br/><b>인물</b> Riri rabbit이 화면 왼쪽에서 상체를 곧게 세우고 달리며 한 앞발로 노란 모자챙을 누른다 — 시선은 발밑 젖은 모래에 붙어 있다. Lolo rabbit은 서너 걸음 앞에서 몸이 앞으로 확 기울었고 노란 장화가 모래를 차올린다 — 시선은 저 멀리 파도.<br/><b>배경·소품</b> 물이 훑고 간 젖은 모래 띠, 그 위쪽의 마른 모래밭.<br/><b>톤</b> 젖은 띠와 마른 바닥이 화면을 두 겹으로 갈라 놓는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘은 파도가 와도 안 무너지는 성을 쌓고 싶어요. "오늘은 저녁까지 서 있는 성이야!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 둘의 상반신 정면.<br/><b>장소·시간</b> 모래밭 한가운데.<br/><b>인물</b> Lolo rabbit이 두 팔을 활짝 벌려 성 크기를 허공에 그려 보이며 입을 크게 벌려 말한다 — 발끝이 앞으로 나가 있다, 노란 장화. Riri rabbit은 그 옆에 두 발을 모으고 서서 턱을 당긴 채 모래밭을 눈으로 훑는다 — 노란 모자.<br/><b>배경·소품</b> 아직 아무것도 없는 모래밭, 뒤쪽 바다.<br/><b>톤</b> 벌린 팔이 아직 없는 성의 크기를 화면에 미리 그린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리가 손가락으로 모래를 찔러 봤어요. 롤로는 두 손으로 마른 모래를 퍼 담았어요. "젖은 모래만 골라야 해." "많이 쌓아야 튼튼하지."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 두 쌍의 앞발을 위에서.<br/><b>장소·시간</b> 젖은 모래와 마른 모래의 경계.<br/><b>인물</b> Riri rabbit이 검지 하나를 젖은 모래에 쿡 찔러 넣고 얼굴을 바짝 붙였다 — 노란 모자챙이 시야를 반쯤 가린다. Lolo rabbit은 옆에서 두 앞발로 마른 모래를 한 아름 퍼올려 가슴께까지 들었다 — 손가락 사이로 모래가 줄줄 샌다, 노란 장화.<br/><b>배경·소품</b> 모래 두 종류가 만나는 선 하나.<br/><b>톤</b> 한쪽은 파고 한쪽은 퍼 올린다 — 손의 방향이 서로 반대다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리가 젖은 모래를 한 줌씩 골라 담아요. 성은 아직 발목만큼도 안 올라왔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 모래밭 눈높이에서.<br/><b>장소·시간</b> 물가 가까운 젖은 모래.<br/><b>인물</b> Riri rabbit이 쪼그려 앉아 젖은 모래를 엄지손톱만큼씩 집어 벽에 붙인다 — 코앞까지 얼굴을 대고 손끝만 움직인다, 노란 모자.<br/><b>배경·소품</b> 발목에도 못 미치는 낮은 둔덕 하나, 그 옆에 골라 놓은 모래 한 무더기.<br/><b>톤</b> 눈높이를 바닥까지 낮추니 성이 얼마나 안 올라왔는지 그대로 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">해가 기울어요. 리리 앞엔 고른 모래만 소복이 쌓였어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 측면 아이레벨. 그림자가 화면을 길게 가로지른다.<br/><b>장소·시간</b> 같은 자리, 해가 기운 늦은 오후.<br/><b>인물</b> Riri rabbit이 p4와 같은 자리에 그대로 쪼그려 앉아 모래를 고르고 있다 — 등이 동그랗게 말렸다, 노란 모자.<br/><b>배경·소품</b> 🔴 골라 놓은 모래 무더기가 리리 어깨높이까지 쌓였고, 성은 p4 그대로 낮다.<br/><b>톤</b> 그림자가 성보다 길다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">롤로는 마른 모래를 산처럼 쌓았어요. 바람이 훅 불었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 모래 산 꼭대기를 올려다본다.<br/><b>장소·시간</b> 마른 모래밭 위쪽.<br/><b>인물</b> Lolo rabbit이 산 옆에서 두 팔을 번쩍 들어 마른 모래를 꼭대기에 붓는 참 — 몸이 앞으로 기울고 뒤꿈치가 들렸다, 노란 장화.<br/><b>배경·소품</b> 롤로 키를 넘는 마른 모래 산, 꼭대기에서 모래가 한쪽으로 흩날린다.<br/><b>톤</b> 흩날리는 알갱이가 바람의 방향을 화면에 그린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">산이 폭삭 주저앉았어요. 롤로 장화가 모래에 푹 묻혔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 무너진 자리를 위에서.<br/><b>장소·시간</b> 조금 뒤 같은 자리.<br/><b>인물</b> Lolo rabbit이 퍼진 모래 한가운데 주저앉아 두 팔을 뒤로 짚고 입이 딱 벌어졌다 — 노란 장화 한 짝이 정강이까지 파묻혔다.<br/><b>배경·소품</b> 넓게 퍼진 모래, 산이 서 있던 자리에 남은 둥근 자국.<br/><b>톤</b> 위에서 보니 산이 있던 데가 접시처럼 납작하다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">파도가 한 번 밀려왔다 물러갔어요. 그 자리 모래가 반질반질해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 클로즈업, 부감. 모래 표면만 화면에 꽉 찬다.<br/><b>장소·시간</b> 파도가 막 물러간 물가.<br/><b>인물</b> 화면 위 가장자리에 Lolo rabbit의 노란 장화 코와 Riri rabbit의 두 발끝만 들어온다 — 둘 다 그 자리에서 멈춰 섰다.<br/><b>배경·소품</b> 물이 훑고 간 매끈한 모래면, 터지다 만 잔거품 몇 알.<br/><b>톤</b> 조금 전까지 발자국투성이던 자리가 통째로 새 종이가 됐다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘이 그 모래를 손으로 꾹꾹 눌러 담았어요. 파도가 발치까지 와도 성은 그대로예요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 성과 물 가장자리가 한 프레임에.<br/><b>장소·시간</b> 반질반질한 그 자리.<br/><b>인물</b> Riri rabbit과 Lolo rabbit이 성 양쪽에서 벽을 꾹 눌러 다진다 — 리리는 무릎을 꿇고 손끝만 움직이고 노란 모자챙이 벽에 닿을 듯하다, 롤로는 엉덩이를 든 채 온몸으로 눌러 노란 장화가 뒤로 뻗었다.<br/><b>배경·소품</b> 무릎 높이의 성 하나, 발치까지 들어온 물의 가장자리.<br/><b>톤</b> 물이 성 밑을 지나가는데 벽 선이 흐트러지지 않는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">게 한 마리가 옆걸음으로 다가왔어요. 성문으로 쏙 들어가 앉았어요. 리리와 롤로가 서로를 보고 웃음을 터뜨렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 로우앵글. 성문 높이에서.<br/><b>장소·시간</b> 같은 자리, 해 질 무렵.<br/><b>인물</b> 화면 뒤쪽에서 Riri rabbit과 Lolo rabbit이 얼굴을 맞대고 입을 크게 벌려 웃는다 — 성 양옆으로 노란 모자와 노란 장화가 보인다.<br/><b>배경·소품</b> 성문 안에 crab 한 마리가 집게를 접고 앉아 있고, 문 앞 모래에 옆걸음 자국이 비스듬히 남았다.<br/><b>톤</b> 문 안의 작은 그늘에 손님이 들어앉았다.</pre></details>
+</div>
+
+</div>
+<script src="/twins-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>쌍둥이네 바닷가 — 기획서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#E9A825; --slope:#2D3B42; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">창작동화 시리즈 06 · 25권 250쪽</div>
+  <h1>쌍둥이네 바닷가</h1>
+  <div class="sub">토끼 쌍둥이 리리와 롤로 · 포르투갈 어촌 · <b>페파형</b>(둘이 우기다 둘 다 틀린다) · 그림체 = 리소 하나(전권)</div>
+  <div class="by">글 <b>한여울</b> · 그림 <b>임푸른</b></div>
+</header>
+
+<div class="note">🔴 <b>이 기획서가 SSOT 가 아닙니다.</b> 본문은 <code>docs/changjak-books/twins/*.md</code>, 앵커는 <code>docs/art-direction/twins-anchor.md</code> 가 원본이고 이 페이지는 거기서 생성됩니다(<code>build-series-html.mjs</code>). 회차는 왼쪽 <b>☰ 회차</b>에서.</div>
+
+<h2 class="sec">1. 축</h2>
+<table><thead><tr><th>축</th><th>값</th></tr></thead><tbody><tr><td>형</td><td>페파형 — 웃음으로 착지, 아무도 안 고쳐진다</td></tr><tr><td>캐스트 구성</td><td><b>쌍둥이 둘</b> — 🔴 틀리는 쪽 = <b>서로</b>. 어른(어부 아빠·엄마)은 배경</td></tr><tr><td>주인공</td><td>토끼 쌍둥이 리리·롤로 — 정반대 성격 둘, 결점 아닌 「축」</td></tr><tr><td>무대</td><td>포르투갈 어촌 — 바닷가·통통배·그물·등대·모래밭·시장</td></tr><tr><td>그림체</td><td>리소(risograph) — 겹쳐 찍는 판, 살짝 어긋나는 두 색</td></tr></tbody></table>
+
+<h2 class="sec">2. 캐스트</h2>
+<p class="lead">시트를 만들어 카드에 붙여넣으면 회차 페이지의 「🎬 이 화 등장」 스트립이 그 그림을 읽어 옵니다.
+카드마다 <b>[📋 시트 프롬프트]</b> = 그 한 명만 그리는 프롬프트(앵커 + 규격 + 전신 정면·3/4·뒷모습).</p>
+<div class="grid">
+  <div class="cast-card">
+    <div class="chead"><h4>🐰 리리</h4><button class="copy-btn" data-sheet="riri">📋 시트 프롬프트</button></div>
+    <p><code>Riri rabbit</code></p>
+    <div data-paste="riri"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐰 롤로</h4><button class="copy-btn" data-sheet="lolo">📋 시트 프롬프트</button></div>
+    <p><code>Lolo rabbit</code></p>
+    <div data-paste="lolo"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐰 아빠</h4><button class="copy-btn" data-sheet="dad">📋 시트 프롬프트</button></div>
+    <p><code>Dad rabbit</code></p>
+    <div data-paste="dad"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐰 엄마</h4><button class="copy-btn" data-sheet="mom">📋 시트 프롬프트</button></div>
+    <p><code>Mom rabbit</code></p>
+    <div data-paste="mom"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐱 부둣가 고양이</h4><button class="copy-btn" data-sheet="cat">📋 시트 프롬프트</button></div>
+    <p><code>Harbor cat</code></p>
+    <div data-paste="cat"></div>
+  </div>
+</div>
+
+<h2 class="sec">3. 25권</h2>
+<p class="lead">🔴 <b>작가에게 빈칸을 주지 않는 것</b>이 이 체제의 전부입니다.</p>
+<table><thead><tr><th></th><th>토큰</th><th>나오는 권 · 역할</th></tr></thead><tbody><tr><td>갈매기 떼</td><td><code>gulls</code></td><td>02 미끼 도둑 · 03 단서 · 06 연 친구 · 11 추격 · 16 깃발 착각 · 25 콜백 — <b>매번 역할이 다르다</b></td></tr><tr><td>부둣가 고양이</td><td><code>Harbor cat</code></td><td>14 주인공 상대 · 20 기지 선점</td></tr><tr><td>게</td><td><code>crab</code></td><td>01 입주 · 02 주인공 상대 · 10 옆걸음 힌트</td></tr><tr><td>소라게</td><td><code>hermit crab</code></td><td>08</td></tr><tr><td>문어</td><td><code>octopus</code></td><td>15</td></tr></tbody></table>
+
+<h2 class="sec">4. 앵커 — 한 시리즈 = 한 그림체</h2>
+<p class="lead">시리즈 전권이 한 그림체입니다. 무대·계절 차이는 앵커 안 <b>무대 조항</b>이 처리합니다 — 매체·색은 그대로 두고 「두 색을 어디에 쓰고 무엇을 종이로 남기나」만 바뀝니다.
+🔴 악센트 <b>리리 모자 · 롤로 장화</b> 에만 닿습니다.</p>
+<div class="swatches">
+  <span class="sw"><i style="background:#F1F0E6"></i>종이 <code>#F1F0E6</code></span><span class="sw"><i style="background:#2E6B96"></i>색1 <code>#2E6B96</code></span><span class="sw"><i style="background:#A85E38"></i>색2 <code>#A85E38</code></span><span class="sw"><i style="background:#2D3B42"></i>겹침 <code>#2D3B42</code></span><span class="sw"><i style="background:#E9A825"></i>악센트 <code>#E9A825</code></span>
+</div>
+<div class="anchor-card">
+  <div class="ahead"><b>twins-risoshore</b><button class="copy-btn" data-copy="anchor">📋 앵커 프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre id="anchor">STYLE ANCHOR - twins-risoshore   (rabbit twins in a Portuguese fishing village / riso, two drums that
+                                  never line up)
+
+Style: risograph, exactly TWO ink drums on salt-cream paper, 4-6 year old picture book. Ink lies
+  UNEVENLY - every pull is slightly mottled and streaked in the direction the drum turned, and no
+  area is perfectly solid. Where the two inks overlap a third, darker colour appears - that is the
+  only dark. 🔴 THE TWO DRUMS NEVER REGISTER: on every page the colour runs past the shape at TWO OR
+  THREE edges by about a hair, and that misfit is left showing - it is the picture, not a fault.
+  Unprinted paper is not white space, it is the sky, the sand and the whitewash. SHADING IS ZERO -
+  no modelling, no gradient, no cast shadow, no highlight.
+
+RENDERING (finish hierarchy): an area is ONE pull of one ink, never lighter or darker inside itself;
+  the only variation is the mottle and the streak. 🔴 THE SEA AND SKY OF ONE VOLUME ARE ONE PULL
+  RUNNING THE SAME DIRECTION ON EVERY PAGE OF THAT VOLUME - sideways for a calm day, down for rain,
+  flat for fog - and the weather lives in that direction and nowhere else. FINISHED THINGS PER PAGE =
+  2, the twin the page is about and the one thing that twin touches; everything else is a shape with
+  no interior detail. Repeats are capped and the cap is the whole design: boats in the harbour at
+  most 6 · net mesh at most 11 crossings · fish on a slab at most 9 · gulls at most 7 · market stalls
+  at most 5 · awnings at most 5 · windows down a street at most 8 · cobbles one arc mark at most 12
+  presses · shells at most 9 · rain at most 11 straight strokes all leaning one way · stars at most
+  14 bare paper points. Nothing in a repeat is a mirrored copy of its neighbour.
+  DENSITY RATION = none.
+  🔴 BOTH TWINS ARE FINISHED ON THE PAGES WHERE BOTH ARE WRONG (p3 through p7 in most volumes) -
+  they are one unit, and the "one thing touched" is then a single prop shared between them.
+
+PALETTE: PAPER SALT CREAM #F1F0E6, sky, sand, whitewashed walls, foam, light, everything not printed
+  · INK1 ATLANTIC #2E6B96, the sea, the sky, wet stone, aprons, painted shutters - the cool one ·
+  INK2 HULL RUST #A85E38, boat hulls, nets, ropes, crates, roof tiles, baskets, the harbour wall -
+  the warm one · OVERLAP HARBOUR NIGHT #2D3B42, rabbit backs and heads, the underside of a hull,
+  rock shade, evening sea, anything submerged - overprint only, never a third drum · ACCENT BUOY
+  YELLOW #E9A825, 🔴 pulled last, touching nothing but Riri's hat and Lolo's boots.
+  🔴 A FISHING VILLAGE IS FULL OF YELLOW AND NONE OF IT IS ALLOWED HERE - oilskins, buoys, lamps,
+  nets, floats, the lighthouse body, paper flowers and kites all take INK1 or INK2. No sky blue that
+  is not ATLANTIC, no purple, no pink, no white ink anywhere ever.
+
+STAGE CLAUSES (the stage changes what the two inks do, never which two they are):
+  SHORE - the sand is BARE PAPER from edge to edge and it is the light of the page; the sea is ONE
+    pull of ATLANTIC across the top, 0 ripples, 0 glints, 0 foam lines. 🔴 WET SAND left by a
+    retreating wave is a single flat ATLANTIC pull with a hard edge against the bare sand. Rocks are
+    INK2. Footprints and dug holes are at most 9 OVERLAP marks.
+  HARBOUR - hulls, crates and the wall are INK2; the water between the boats is ONE pull of ATLANTIC
+    with the boats sitting whole on top of it. 🔴 NOTHING IS EVER MIRRORED IN THE WATER - there are
+    no reflections in this book. A thing under the water is OVERLAP lying inside the pull, hard edge,
+    never distorted. Far boats at most 4 silhouettes, 0 windows.
+  MARKET - awnings and stalls are single flat pulls of INK1 or INK2 with the misfit showing at their
+    corners; the ground is bare PAPER; the crowd is at most 7 flat silhouettes with 0 faces and 0
+    hands. Depth in the crowd is made by figures standing CLOSER TOGETHER, never darker.
+  ROCKPOOL - the pool is ONE pull of ATLANTIC with a hard edge; what lives in it is OVERLAP inside
+    that pull. The rock around it is INK2 with the streak running ALONG the rock, not across it.
+  🔴 LIGHTHOUSE (volume 09) - the tower body is INK2 and the sky is ATLANTIC. THE LIGHT ITSELF IS
+    BARE PAPER, one clean shape with no glow, no rays and no halo, and it is the brightest thing on
+    the page.
+  🔴 FOG (volume 12) - ATLANTIC at its lightest single pass with 0 shapes behind it. Things enter the
+    page by appearing at FULL strength, never by fading, and there is no pale version of any colour.
+  🔴 RAIN AND SQUALL (volume 19) - the whole sky-and-sea pull runs DOWN on every page of that volume;
+    rain is at most 11 straight ATLANTIC strokes leaning the same way; wet stone carries ONE bare
+    paper strip and nothing mirrors in it.
+  🔴 NIGHT (volume 17) - the sky and sea are OVERLAP as one flat pull. The moon, the stars and the
+    lit windows are BARE PAPER, each cut on its own, at most 14. A lamp on the boat is bare paper and
+    it carries the whole page.
+
+CHARACTER DESIGN LANGUAGE: the rabbits are built from the same flat pulls as the world - two or
+  three shapes with limbs laid over. GRADE: bipedal, standing upright, wearing cloth. Backs and heads
+  are OVERLAP, chests and bellies are INK2, so every animal is built the same way. Eyes are two solid
+  dark dots set wide apart; a small dark nose; the mouth is ONE curve; above each eye ONE short
+  eyebrow stroke. 🔴 FEELING IS CARRIED BY THE MOUTH CURVE AND THE TWO EYEBROW STROKES - the eyes
+  only ever open or close and their size NEVER changes. The face is never crossed by an object.
+  Whole-body posture carries the rest.
+  🔴 THE TWINS ARE ONE BODY DRAWN TWICE - same height, same build, same colour, same face. They are
+  told apart by FOUR things and nothing else:
+    ① RIRI wears a YELLOW HAT, so her yellow sits at the TOP of her silhouette · LOLO wears YELLOW
+      BOOTS, so his yellow sits at the BOTTOM. The two yellows are never in the same band of the page.
+    ② 🔴 EARS - Riri's two ears stand straight up and close together · Lolo's two ears lie back flat
+      along his neck. This is the ONLY mark that survives a back view, a bath, a blanket and a lost
+      hat, so it is drawn on every single appearance including silhouettes.
+    ③ WEIGHT - Riri's weight is on her BACK foot, head still, both hands holding each other or
+      holding the thing up to look at it · Lolo's weight is past his FRONT foot, body tilted forward,
+      hands already out.
+    ④ RIRI'S FAILURE IS DRAWN AS A LEFTOVER, NOT AS TIREDNESS - a neat heap of sorted sand, a single
+      line of footprints, white dust on her hands, her own face in the pool. Never slumped shoulders.
+  DAD a rabbit twice a twin's height and the widest figure, a fisherman, black rubber boots, no
+  yellow · MOM a rabbit a head over the twins, an ATLANTIC apron at the fish stall, no yellow.
+  Adults never carry yellow. THE ANIMALS - gulls, the harbour cat, crabs, a hermit crab, an octopus -
+  are plain shapes with no clothes, no eyebrows and no expression.
+
+CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere - stalls, boat sterns
+  and crates stay blank or carry a single painted fish shape.
+
+NOT: no airbrush, gradient, glow or 3D render / no soft or feathered edge / no streak inside a figure
+  / no perfectly solid area anywhere / no ripple, glint or sparkle on water / no reflection or
+  mirrored image in water / no halo or ray around the lighthouse light / no white ink / no yellow on
+  anything but the hat and the boots / no lettering.</pre></details>
+  <div data-paste="anchor"></div>
+</div>
+
+<h2 class="sec">5. 캐스트 시트</h2>
+<p class="lead">한 장에 전원을 그립니다. 🔴 <b>시트가 최종 그림을 지배</b>하므로 시트를 먼저 확정하고 쪽 삽화로 갑니다.</p>
+<div class="anchor-card">
+  <div class="ahead"><b>전원 시트</b><button class="copy-btn" data-copy="sheet">📋 시트 프롬프트 복사</button></div>
+  <details open><summary>프롬프트 보기</summary><pre id="sheet">CHARACTER SHEET - twins shore   (four characters, one sheet)
+
+STYLE ANCHOR - twins-risoshore   (rabbit twins in a Portuguese fishing village / riso, two drums that
+                                  never line up)
+
+Style: risograph, exactly TWO ink drums on salt-cream paper, 4-6 year old picture book. Ink lies
+  UNEVENLY - every pull is slightly mottled and streaked in the direction the drum turned, and no
+  area is perfectly solid. Where the two inks overlap a third, darker colour appears - that is the
+  only dark. 🔴 THE TWO DRUMS NEVER REGISTER: on every page the colour runs past the shape at TWO OR
+  THREE edges by about a hair, and that misfit is left showing - it is the picture, not a fault.
+  Unprinted paper is not white space, it is the sky, the sand and the whitewash. SHADING IS ZERO -
+  no modelling, no gradient, no cast shadow, no highlight.
+
+RENDERING (finish hierarchy): an area is ONE pull of one ink, never lighter or darker inside itself;
+  the only variation is the mottle and the streak. 🔴 THE SEA AND SKY OF ONE VOLUME ARE ONE PULL
+  RUNNING THE SAME DIRECTION ON EVERY PAGE OF THAT VOLUME - sideways for a calm day, down for rain,
+  flat for fog - and the weather lives in that direction and nowhere else. FINISHED THINGS PER PAGE =
+  2, the twin the page is about and the one thing that twin touches; everything else is a shape with
+  no interior detail. Repeats are capped and the cap is the whole design: boats in the harbour at
+  most 6 · net mesh at most 11 crossings · fish on a slab at most 9 · gulls at most 7 · market stalls
+  at most 5 · awnings at most 5 · windows down a street at most 8 · cobbles one arc mark at most 12
+  presses · shells at most 9 · rain at most 11 straight strokes all leaning one way · stars at most
+  14 bare paper points. Nothing in a repeat is a mirrored copy of its neighbour.
+  DENSITY RATION = none.
+  🔴 BOTH TWINS ARE FINISHED ON THE PAGES WHERE BOTH ARE WRONG (p3 through p7 in most volumes) -
+  they are one unit, and the "one thing touched" is then a single prop shared between them.
+
+PALETTE: PAPER SALT CREAM #F1F0E6, sky, sand, whitewashed walls, foam, light, everything not printed
+  · INK1 ATLANTIC #2E6B96, the sea, the sky, wet stone, aprons, painted shutters - the cool one ·
+  INK2 HULL RUST #A85E38, boat hulls, nets, ropes, crates, roof tiles, baskets, the harbour wall -
+  the warm one · OVERLAP HARBOUR NIGHT #2D3B42, rabbit backs and heads, the underside of a hull,
+  rock shade, evening sea, anything submerged - overprint only, never a third drum · ACCENT BUOY
+  YELLOW #E9A825, 🔴 pulled last, touching nothing but Riri's hat and Lolo's boots.
+  🔴 A FISHING VILLAGE IS FULL OF YELLOW AND NONE OF IT IS ALLOWED HERE - oilskins, buoys, lamps,
+  nets, floats, the lighthouse body, paper flowers and kites all take INK1 or INK2. No sky blue that
+  is not ATLANTIC, no purple, no pink, no white ink anywhere ever.
+
+STAGE CLAUSES (the stage changes what the two inks do, never which two they are):
+  SHORE - the sand is BARE PAPER from edge to edge and it is the light of the page; the sea is ONE
+    pull of ATLANTIC across the top, 0 ripples, 0 glints, 0 foam lines. 🔴 WET SAND left by a
+    retreating wave is a single flat ATLANTIC pull with a hard edge against the bare sand. Rocks are
+    INK2. Footprints and dug holes are at most 9 OVERLAP marks.
+  HARBOUR - hulls, crates and the wall are INK2; the water between the boats is ONE pull of ATLANTIC
+    with the boats sitting whole on top of it. 🔴 NOTHING IS EVER MIRRORED IN THE WATER - there are
+    no reflections in this book. A thing under the water is OVERLAP lying inside the pull, hard edge,
+    never distorted. Far boats at most 4 silhouettes, 0 windows.
+  MARKET - awnings and stalls are single flat pulls of INK1 or INK2 with the misfit showing at their
+    corners; the ground is bare PAPER; the crowd is at most 7 flat silhouettes with 0 faces and 0
+    hands. Depth in the crowd is made by figures standing CLOSER TOGETHER, never darker.
+  ROCKPOOL - the pool is ONE pull of ATLANTIC with a hard edge; what lives in it is OVERLAP inside
+    that pull. The rock around it is INK2 with the streak running ALONG the rock, not across it.
+  🔴 LIGHTHOUSE (volume 09) - the tower body is INK2 and the sky is ATLANTIC. THE LIGHT ITSELF IS
+    BARE PAPER, one clean shape with no glow, no rays and no halo, and it is the brightest thing on
+    the page.
+  🔴 FOG (volume 12) - ATLANTIC at its lightest single pass with 0 shapes behind it. Things enter the
+    page by appearing at FULL strength, never by fading, and there is no pale version of any colour.
+  🔴 RAIN AND SQUALL (volume 19) - the whole sky-and-sea pull runs DOWN on every page of that volume;
+    rain is at most 11 straight ATLANTIC strokes leaning the same way; wet stone carries ONE bare
+    paper strip and nothing mirrors in it.
+  🔴 NIGHT (volume 17) - the sky and sea are OVERLAP as one flat pull. The moon, the stars and the
+    lit windows are BARE PAPER, each cut on its own, at most 14. A lamp on the boat is bare paper and
+    it carries the whole page.
+
+CHARACTER DESIGN LANGUAGE: the rabbits are built from the same flat pulls as the world - two or
+  three shapes with limbs laid over. GRADE: bipedal, standing upright, wearing cloth. Backs and heads
+  are OVERLAP, chests and bellies are INK2, so every animal is built the same way. Eyes are two solid
+  dark dots set wide apart; a small dark nose; the mouth is ONE curve; above each eye ONE short
+  eyebrow stroke. 🔴 FEELING IS CARRIED BY THE MOUTH CURVE AND THE TWO EYEBROW STROKES - the eyes
+  only ever open or close and their size NEVER changes. The face is never crossed by an object.
+  Whole-body posture carries the rest.
+  🔴 THE TWINS ARE ONE BODY DRAWN TWICE - same height, same build, same colour, same face. They are
+  told apart by FOUR things and nothing else:
+    ① RIRI wears a YELLOW HAT, so her yellow sits at the TOP of her silhouette · LOLO wears YELLOW
+      BOOTS, so his yellow sits at the BOTTOM. The two yellows are never in the same band of the page.
+    ② 🔴 EARS - Riri's two ears stand straight up and close together · Lolo's two ears lie back flat
+      along his neck. This is the ONLY mark that survives a back view, a bath, a blanket and a lost
+      hat, so it is drawn on every single appearance including silhouettes.
+    ③ WEIGHT - Riri's weight is on her BACK foot, head still, both hands holding each other or
+      holding the thing up to look at it · Lolo's weight is past his FRONT foot, body tilted forward,
+      hands already out.
+    ④ RIRI'S FAILURE IS DRAWN AS A LEFTOVER, NOT AS TIREDNESS - a neat heap of sorted sand, a single
+      line of footprints, white dust on her hands, her own face in the pool. Never slumped shoulders.
+  DAD a rabbit twice a twin's height and the widest figure, a fisherman, black rubber boots, no
+  yellow · MOM a rabbit a head over the twins, an ATLANTIC apron at the fish stall, no yellow.
+  Adults never carry yellow. THE ANIMALS - gulls, the harbour cat, crabs, a hermit crab, an octopus -
+  are plain shapes with no clothes, no eyebrows and no expression.
+
+CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere - stalls, boat sterns
+  and crates stay blank or carry a single painted fish shape.
+
+NOT: no airbrush, gradient, glow or 3D render / no soft or feathered edge / no streak inside a figure
+  / no perfectly solid area anywhere / no ripple, glint or sparkle on water / no reflection or
+  mirrored image in water / no halo or ray around the lighthouse light / no white ink / no yellow on
+  anything but the hat and the boots / no lettering.
+
+SHEET LAYOUT: one salt-cream sheet, four rabbits standing in a row on a single ground line at their
+  true relative heights - Dad twice a twin, Mom a head over the twins, and 🔴 RIRI AND LOLO EXACTLY
+  THE SAME HEIGHT AND BUILD. Each character is drawn THREE times: front standing, three-quarter
+  walking, and back.
+🔴 ONE EXTRA ROW AT THE FOOT OF THE SHEET: Riri and Lolo again, side by side, printed as FLAT
+  OVERLAP SILHOUETTES with 0 interior marks and NO YELLOW AT ALL - no hat, no boots. If the two
+  silhouettes cannot be told apart by the ears and the stance alone, the sheet is wrong.
+  Nothing else on the sheet - no props, no scenery, no ground beyond the one line.
+🔴 No lettering, numerals, labels or name tags anywhere on the sheet.</pre></details>
+  <div data-paste="cast-sheet"></div>
+</div>
+
+</div>
+<script src="/twins-core.js"></script>
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.getAttribute('data-copy'));
+      if (el) window.SERIES.copyText(el.textContent, b);
+    });
+  });
+  document.querySelectorAll('[data-sheet]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      window.SERIES.copyText(window.SERIES.sheetPrompt(b.getAttribute('data-sheet')), b);
+    });
+  });
+  window.SERIES.mountPasteSlots('twins-plan');
+</script>
+</body>
+</html>

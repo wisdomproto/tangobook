@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>미오네 유치원 — 거긴 내가 밟을 거야</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#6E4E9E; --slope:#232B2E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">미오네 유치원 · 24</div>
+  <h1>거긴 내가 밟을 거야</h1>
+  <div class="sub"><b>주인공</b> 가가(잘난 척) · <b>원함</b> 눈에 제일 멋진 발자국 길을 내고 싶다 · <b>탈</b> 남 발자국을 덮어 밟아 마당이 뒤죽박죽 · <b>착지</b> 하얀 눈에 제 길을 한 줄로 낸다</div>
+  <div class="by">글 <b>오하람</b> · 그림 <b>강마루</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">밤새 눈이 내려 마당이 하얘요. 아직 아무도 안 밟았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 와이드, 하이앵글. 위에서 내려다본 마당이 화면을 다 채운다.<br/><b>장소·시간</b> 유치원 마당, 눈 온 아침.<br/><b>인물</b> 화면 아래 가장자리 문간에 Mio kitten·Bobo piglet·Lala lamb·Gaga gosling·Duri raccoon 다섯이 아주 작게 서서 마당을 본다 — 저마다 보라 물건이 점처럼. Teacher Bau big dog가 그 뒤에 서 있다.<br/><b>배경·소품</b> 🔴 마당 눈이 한 군데도 안 밟혀 매끈하다 — 발자국이 하나도 없다. 울타리와 나무 위에도 눈이 얹혔다.<br/><b>톤</b> 화면에서 가장 넓은 것이 아무 자국 없는 흰 면이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"발자국 길은 내가 제일 멋지게 낼 거야." 가가가 하얀 눈 앞에 발을 들고 섰어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글. 아래에서 올려다본 가가와 든 발.<br/><b>장소·시간</b> 마당 가장자리.<br/><b>인물</b> Gaga gosling이 눈 앞에서 한 발을 무릎 높이까지 들고 멈춰 섰다 — 발바닥이 아직 눈에 안 닿았고 몸이 앞으로 기울었다, 목이 뻗고 부리를 벌려 말한다. 두 손이 옆으로 벌어져 균형을 잡는다. 보라 리본.<br/><b>배경·소품</b> 눈 면, 뒤로 흐린 울타리.<br/><b>톤</b> 첫 자국이 아직 안 찍혔다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가가가 눈 위를 성큼성큼 걸었어요. 발자국이 나란히 두 줄로 났어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 측면. 마당이 옆으로 길고 발자국 줄이 그 위를 간다.<br/><b>장소·시간</b> 마당.<br/><b>인물</b> Gaga gosling이 눈 위를 성큼성큼 걷는다 — 두 발이 앞뒤로 크게 벌어지고 목이 앞으로 뻗었다, 부리가 위를 향한다. 보라 리본.<br/><b>배경·소품</b> 🔴 뒤로 발자국 두 줄이 나란히 곧게 이어지고 자국마다 물갈퀴 모양이 또렷하다. 그 밖의 눈은 아직 매끈하다.<br/><b>톤</b> 흰 면에 난 두 줄이 화면에서 유일한 선이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">미오가 옆에 동그란 길을 냈어요. 가가가 그 위를 덮어 밟았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 위에서 내려다본 두 발자국 길이 겹친다.<br/><b>장소·시간</b> 마당 가운데.<br/><b>인물</b> Gaga gosling이 한 발을 미오 발자국 위에 정확히 내려놓는다 — 발이 자국 안으로 들어가며 가장자리가 무너진다, 몸이 그쪽으로 기울고 두 손이 옆으로 벌어졌다. 보라 리본. 화면 가장자리에 Mio kitten이 서서 그 발을 본다 — 입이 벌어졌다, 보라 가방.<br/><b>배경·소품</b> 🔴 미오가 낸 동그란 길이 눈 위에 원을 그리고 있고 그중 한 자국이 짓눌려 뭉개졌다.<br/><b>톤</b> 동그란 선 한 군데가 뭉개져 끊긴다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가가가 두리 발자국도 라라 발자국도 덮어 밟았어요. "거긴 내가 밟을 거야."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 낮은 데서 올려다봐 밟는 발이 앞쪽에 크게.<br/><b>장소·시간</b> 마당.<br/><b>인물</b> Gaga gosling이 다른 아이 발자국을 밟으며 걸어간다 — 한 발이 자국 위에 눌리고 다른 발이 다음 자국을 향해 들렸다, 부리를 벌려 말한다. 보라 리본. 뒤쪽에 Duri raccoon과 Lala lamb이 멈춰 서서 본다 — 둘 다 두 손을 내리고 입이 벌어졌다. 보라 손수건·보라 머리핀.<br/><b>배경·소품</b> 🔴 밟힌 자국 여럿이 뭉개져 원래 모양을 잃었고 아직 안 밟힌 자국이 앞쪽에 남아 있다.<br/><b>톤</b> 지나간 자리마다 모양이 사라진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마당이 온통 뒤죽박죽이에요. 어느 것이 누구 발자국인지 몰라요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 와이드, 하이앵글. p1과 같은 마당을 같은 각도에서.<br/><b>장소·시간</b> 마당, 낮.<br/><b>인물</b> Mio kitten·Bobo piglet·Lala lamb·Duri raccoon이 마당 가장자리에 흩어져 서서 발밑을 본다 — 넷 다 위에서 봐 등만 보인다, 보라 물건이 점점이. Gaga gosling이 마당 가운데 혼자 서 있다, 보라 리본.<br/><b>배경·소품</b> 🔴 마당 눈이 온통 짓밟혀 자국이 서로 겹치고 뭉개져 어느 것이 누구 것인지 모른다 — 선도 원도 안 보인다. 마당 구석 한 군데만 아직 하얗다.<br/><b>톤</b> p1의 매끈한 면이 여기서는 뭉개진 회색 면이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가가가 제 길을 찾아봤어요. 두 줄이 어디에도 안 보여요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 가가의 얼굴이 화면 가운데.<br/><b>장소·시간</b> 마당 가운데.<br/><b>인물</b> Gaga gosling이 목을 좌우로 길게 돌려 발밑을 훑는다 — 부리가 아래를 향하고 눈이 좌우로 움직인다, 두 손이 몸 옆에 힘없이 내려갔다. 보라 리본.<br/><b>배경·소품</b> 아래쪽 화면에 뭉개진 눈이 흐리게 깔린다 — 두 줄로 보이는 데가 한 군데도 없다.<br/><b>톤</b> 찾는 눈과 찾을 것이 없는 바닥이 한 화면에 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">바우 선생님이 마당 구석을 쓱 가리켰어요. 거기 눈이 아직 하얗게 남아 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면. 가리키는 팔이 화면을 대각으로 자른다.<br/><b>장소·시간</b> 마당.<br/><b>인물</b> Teacher Bau big dog가 마당 한가운데 서서 한 팔을 옆으로 길게 뻗어 손가락으로 마당 구석을 가리킨다 — 몸은 그대로고 팔만 나갔다. 🔴 입은 다물렸고 눈은 그 구석을 본다. Gaga gosling이 그 옆에서 손끝을 따라 목을 돌린다, 보라 리본. 🔴 선생님은 보라를 안 지닌다.<br/><b>배경·소품</b> 🔴 손끝이 가리키는 마당 구석에 아직 안 밟힌 흰 눈이 넓게 남아 있다. 나머지 바닥은 뭉개졌다.<br/><b>톤</b> 뭉개진 면과 하얀 면이 손가락 하나로 이어진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가가가 하얀 눈 위로 걸어갔어요. 발자국이 한 줄로 콕콕 찍혀요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 측면. 발과 막 찍히는 자국이 화면을 채운다.<br/><b>장소·시간</b> 마당 구석.<br/><b>인물</b> Gaga gosling의 한 발이 하얀 눈에 내려앉아 자국을 찍는다 — 발가락 모양대로 눈이 눌리고 가장자리가 소복이 밀려 나온다. 다른 발은 뒤쪽 자국 안에 있다. 화면 위 가장자리에 내려다보는 부리와 보라 리본.<br/><b>배경·소품</b> 🔴 뒤로 발자국이 한 줄로 곧게 이어진다 — 나란한 두 줄이 아니라 한 줄이다.<br/><b>톤</b> 자국 하나마다 가장자리가 또렷하다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가가가 빙 돌아 큰 동그라미를 냈어요. 마당에 발자국 길이 또렷하게 났어요. 다른 발자국이 하나도 안 겹쳤어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 와이드, 하이앵글. p1·p6과 같은 마당을 같은 각도에서.<br/><b>장소·시간</b> 마당, 낮.<br/><b>인물</b> Gaga gosling이 큰 동그라미의 마지막 자리에서 목을 들어 제 길을 돌아본다 — 위에서 봐 몸이 작고 보라 리본이 점으로 보인다. 마당 가장자리에 Mio kitten·Bobo piglet·Lala lamb·Duri raccoon과 Teacher Bau big dog가 서서 본다.<br/><b>배경·소품</b> 🔴 마당 구석의 흰 눈 위에 발자국이 한 줄로 크게 원을 그리며 처음 자리로 돌아왔다 — 선이 끊긴 데가 없고 다른 자국과 한 군데도 안 겹친다. 그 바깥 뭉개진 자리와 경계가 또렷하다.<br/><b>톤</b> p6에서 아무 모양도 안 남던 화면에 이번엔 선 하나가 또렷하다.</pre></details>
+</div>
+
+</div>
+<script src="/mio-core.js"></script>
+</body>
+</html>

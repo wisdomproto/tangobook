@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>미오네 유치원 — 세 칸이 너무 높아</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#6E4E9E; --slope:#232B2E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">미오네 유치원 · 18</div>
+  <h1>세 칸이 너무 높아</h1>
+  <div class="sub"><b>주인공</b> 라라(겁) · <b>원함</b> 나무집 창문에서 손을 흔들고 싶다 · <b>탈</b> 첫 칸에서 내려와 한 칸도 못 오른다 · <b>착지</b> 한 칸씩 올라 창문에서 손을 흔든다</div>
+  <div class="by">글 <b>오하람</b> · 그림 <b>강마루</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마당 한쪽에 나무집이 있어요. 사다리 세 칸을 올라가면 창문이 나와요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 아래에서 올려다봐 나무집과 사다리가 화면 세로를 채운다.<br/><b>장소·시간</b> 유치원 마당 한쪽, 오전.<br/><b>인물</b> Mio kitten·Bobo piglet·Gaga gosling·Duri raccoon이 사다리 밑에 모여 위를 본다 — 보라 가방·보라 모자·보라 리본·보라 손수건. Lala lamb이 그보다 뒤에 서 있다, 보라 머리핀. Teacher Bau big dog가 나무집 옆에 서 있다.<br/><b>배경·소품</b> 🔴 낮은 나무집, 사다리 칸이 셋이고 칸 간격이 또렷하다. 위쪽에 네모난 창문 구멍 하나. 마당 흙.<br/><b>톤</b> 올라갈 칸이 셋뿐인데 아래에서 보면 세로로 길다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">라라는 창문에서 손을 흔들고 싶어요. 사다리를 올려다보니 목이 뒤로 젖혀져요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 측면. 라라의 젖혀진 목이 화면 대각으로.<br/><b>장소·시간</b> 사다리 밑.<br/><b>인물</b> Lala lamb이 고개를 뒤로 끝까지 젖혀 목이 활처럼 휘었다 — 턱이 하늘을 향하고 두 손이 가슴 앞에서 맞잡혔다, 눈이 위쪽 창문을 본다. 보라 머리핀이 뒤로 넘어갔다.<br/><b>배경·소품</b> 화면 위 가장자리에 사다리 맨 윗칸과 창문 아랫변.<br/><b>톤</b> 몸이 뒤로 넘어갈 만큼 젖혀졌다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">미오가 사다리를 타고 쑥 올라갔어요. 창문에서 손을 흔들어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 창문 구멍과 사다리가 함께 보인다.<br/><b>장소·시간</b> 나무집 창문.<br/><b>인물</b> Mio kitten이 창문 구멍으로 상체를 내밀고 한 손을 크게 흔든다 — 다른 손은 창틀을 짚었고 입이 활짝 벌어졌다. 보라 가방. 사다리 아래에 Lala lamb이 서서 올려다본다, 보라 머리핀.<br/><b>배경·소품</b> 사다리 세 칸, 나무집 벽.<br/><b>톤</b> 흔드는 손이 화면 맨 위에 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">라라가 첫 칸에 발을 올렸어요. 사다리가 삐걱 소리를 냈어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면. 사다리 아랫부분과 발이 화면 가운데.<br/><b>장소·시간</b> 사다리 밑.<br/><b>인물</b> Lala lamb이 한 발을 첫 칸에 올리고 두 손으로 양쪽 기둥을 꽉 잡았다 — 나머지 한 발은 아직 땅에 있고 무릎이 굳었다, 눈이 크게 벌어지고 귀가 위로 섰다. 보라 머리핀. 화면 안쪽에 Teacher Bau big dog가 사다리 쪽으로 걸어 들어온다.<br/><b>배경·소품</b> 🔴 첫 칸 나무가 발밑에서 살짝 휘어 위아래 칸과 간격이 어긋난다. 사다리 기둥, 흙.<br/><b>톤</b> 한 발은 올라갔고 한 발은 그대로다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">라라가 도로 땅에 내려왔어요. "세 칸이 너무 높아." 손바닥에 나무 자국이 남았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 위에서 내려다본 사다리 밑과 땅.<br/><b>장소·시간</b> 사다리 밑.<br/><b>인물</b> Lala lamb이 두 발을 다 땅에 딛고 사다리에서 한 걸음 물러섰다 — 두 손을 앞으로 펴서 제 손바닥을 내려다보고 입을 벌려 말한다. 어깨가 움츠러들었다. 보라 머리핀. 옆에 Teacher Bau big dog가 사다리 기둥에 손을 얹고 서 있다.<br/><b>배경·소품</b> 🔴 라라 손바닥에 사다리 나무 결 자국이 붉게 남았다 — 손바닥이 화면 쪽으로 열려 자국이 보인다. 사다리, 흙.<br/><b>톤</b> 잡았던 자국만 남고 몸은 땅에 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아이들이 차례차례 창문에서 손을 흔들어요. 라라는 밑에서 올려다봐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 와이드, 로우앵글. 나무집이 화면 위쪽, 마당이 아래로 넓다.<br/><b>장소·시간</b> 마당, 낮.<br/><b>인물</b> 창문 구멍에서 Bobo piglet이 상체를 내밀고 두 손을 흔든다 — 보라 모자. 사다리 위쪽 칸에 Gaga gosling이, 아래 칸에 Duri raccoon이 올라가는 중이다 — 보라 리본·보라 손수건. Mio kitten이 사다리 밑에서 차례를 기다린다, 보라 가방. Lala lamb은 그 옆에서 고개만 젖히고 본다, 보라 머리핀. Teacher Bau big dog가 사다리 밑을 잡고 있다.<br/><b>배경·소품</b> 나무집, 사다리 세 칸, 마당.<br/><b>톤</b> 사다리 위에 몸이 줄줄이 있고 밑에 하나만 남았다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">나무집 놀이가 끝났어요. 라라는 한 칸도 못 올라갔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 위에서 내려다본 사다리 밑과 라라.<br/><b>장소·시간</b> 마당, 오후.<br/><b>인물</b> Lala lamb이 사다리 옆에 혼자 서서 두 손을 배 앞에 모으고 고개를 숙였다 — 귀가 뒤로 눕고 발끝이 안쪽으로 모였다. 보라 머리핀.<br/><b>배경·소품</b> 🔴 사다리가 비었고 창문 구멍에도 아무도 없다. 나무집 그림자가 마당에 길게 눕는다.<br/><b>톤</b> 오르내리던 것이 다 지나가고 칸만 남았다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">바우 선생님이 사다리 밑을 두 손으로 꽉 잡았어요. 라라를 보고 고개를 끄덕여요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 사다리 기둥을 쥔 두 손이 화면 가운데.<br/><b>장소·시간</b> 사다리 밑, 다음 날.<br/><b>인물</b> Teacher Bau big dog가 무릎을 굽히고 서서 큰 두 손으로 사다리 양쪽 기둥 아랫부분을 꽉 움켜쥐었다 — 손가락 마디가 도드라지고 팔이 팽팽하다, 두 발을 벌려 버틴다. 🔴 입은 다물렸고 얼굴을 라라 쪽으로 돌려 턱을 한 번 아래로 끄덕인다. Lala lamb이 사다리 앞에 서서 그 손을 본다, 보라 머리핀. 🔴 선생님은 보라를 안 지닌다.<br/><b>배경·소품</b> 사다리 기둥, 첫 칸.<br/><b>톤</b> 흔들리지 않게 잡은 손이 말을 대신한다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">라라가 한 칸을 올랐어요. 또 한 칸, 또 한 칸.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면. 사다리가 화면 세로를 지르고 라라가 그 중간에.<br/><b>장소·시간</b> 사다리 위.<br/><b>인물</b> Lala lamb이 둘째 칸에 한 발을 막 올려놓았다 — 다른 발은 아직 첫 칸에 있고 두 손이 위쪽 칸을 번갈아 잡는다, 등이 사다리에 바짝 붙었다. 눈은 위쪽 칸을 본다. 보라 머리핀. 화면 아래에 Teacher Bau big dog의 두 손이 여전히 기둥을 잡고 있다.<br/><b>배경·소품</b> 세 칸 중 두 칸을 지났고 위에 한 칸 남았다.<br/><b>톤</b> 발 하나 만큼씩만 올라간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">라라가 창문으로 얼굴을 쏙 내밀었어요. 두 손을 크게 흔들어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 로우앵글. 창문 구멍과 얼굴이 화면을 채운다.<br/><b>장소·시간</b> 나무집 창문, 낮.<br/><b>인물</b> Lala lamb이 창문 구멍으로 얼굴과 상체를 쑥 내밀고 두 손을 머리 위에서 크게 흔든다 — 두 팔이 활짝 벌어지고 입이 크게 열렸다, 곱슬 털이 흔들린다. 보라 머리핀. 아래쪽 화면 가장자리에 Mio kitten·Bobo piglet·Gaga gosling·Duri raccoon과 Teacher Bau big dog의 들린 얼굴이 작게 걸린다.<br/><b>배경·소품</b> 창틀, 나무집 벽, 하늘.<br/><b>톤</b> p2에서 젖혀졌던 목이 여기서는 창밖으로 앞으로 나와 있다.</pre></details>
+</div>
+
+</div>
+<script src="/mio-core.js"></script>
+</body>
+</html>

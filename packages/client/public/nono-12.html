@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>노노네 겨울 골목 — 말 안 할 거야</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#2F7F4E; --slope:#333A3E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">노노네 겨울 골목 · 12</div>
+  <h1>말 안 할 거야</h1>
+  <div class="sub"><b>주인공</b> 키키(토라짐) · <b>원함</b> 초록 방울을 찾고 싶다 · <b>탈</b> 말을 안 해 아무도 모르고 못 찾는다 · <b>착지</b> 부탁하니 셋이 찾아낸다</div>
+  <div class="by">글 <b>배도담</b> · 그림 <b>노아라</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">키키 목에는 초록 방울이 달려 있어요. 눈 위에서 놀다가 방울이 없어졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 목과 발밑.<br/><b>장소·시간</b> 골목 눈밭, 늦은 오후.<br/><b>인물</b> Kiki cat이 제 목을 한 손으로 더듬는다 — 목에 아무것도 없고 끈도 없다, 시선이 발밑 밟힌 눈으로 떨어졌다, 귀가 옆으로 눕는다.<br/><b>배경·소품</b> 발밑에 놀다 어지러워진 눈, 화면 어디에도 초록이 하나 없다.<br/><b>톤</b> 있어야 할 자리가 비어서 목 아래 빈 곳이 화면의 사건이 된다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">키키는 그 방울을 꼭 찾고 싶어요. 그런데 아까 구구랑 다퉈서 마음이 뾰로통해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨.<br/><b>장소·시간</b> 같은 눈밭.<br/><b>인물</b> Kiki cat이 두 손을 몸 앞에 모으고 눈밭을 훑어본다 — 눈썹이 가운데로 모이고 입이 굳었다. 저쪽에서 Gugu pigeon이 등을 돌린 채 눈을 발로 툭툭 찬다 — 초록 천 가방. Nono sparrow가 둘 사이에 서서 눈치를 본다 — 초록 목도리.<br/><b>배경·소품</b> 넓은 눈밭, 담과 낮은 집.<br/><b>톤</b> 셋이 서로 다른 데를 보고 있어 시선이 한 군데도 안 만난다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">키키가 혼자 눈을 파헤쳤어요. 손이 빨개지도록 팠어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 파는 손을 위에서.<br/><b>장소·시간</b> 눈밭 가운데.<br/><b>인물</b> Kiki cat이 두 손으로 눈을 파헤친다 — 손가락이 눈 속에 박히고 손끝이 빨갛다, 어깨가 앞으로 말렸다.<br/><b>배경·소품</b> 좌우로 튄 눈, 파헤쳐진 구멍 둘.<br/><b>톤</b> 파낸 자리마다 그늘이 져서 애쓴 만큼 자국이 늘어난다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">구구가 물었어요. "뭐 찾아?" 키키가 담 밑으로 쏙 들어가 웅크렸어요. "말 안 할 거야."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면 아이레벨. 담 밑을 옆에서.<br/><b>장소·시간</b> 골목 담 밑.<br/><b>인물</b> Gugu pigeon이 몸을 굽혀 묻는다 — 한 손을 앞으로 내밀었다, 초록 천 가방. Kiki cat은 담 밑 낮은 틈으로 쏙 들어가 웅크렸다 — 무릎을 두 팔로 끌어안고 얼굴을 무릎에 묻었다, 등이 담에 붙었다.<br/><b>배경·소품</b> 담 밑 그늘, 담벼락 아래 마른 풀.<br/><b>톤</b> 묻는 몸은 밝은 데, 웅크린 몸은 담 그늘 안이라 밝기로 갈린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">노노랑 구구가 저쪽으로 갔어요. 키키가 담 밑에서 혼자 눈을 파요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 골목 전체.<br/><b>장소·시간</b> 골목, 해 지기 전.<br/><b>인물</b> Nono sparrow와 Gugu pigeon이 화면 오른쪽 저쪽으로 나란히 걸어간다 — 초록 목도리 · 초록 천 가방. 화면 왼쪽 담 밑 그늘에 Kiki cat이 웅크린 채 한 손으로 눈을 판다.<br/><b>배경·소품</b> 넓은 눈밭, 담 그늘이 길어지기 시작한다.<br/><b>톤</b> 무리를 표시하는 물건이 화면에 둘뿐이고 왼쪽 구석에는 하나도 없다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">해가 넘어갔어요. 눈 위가 어둑어둑해졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 지붕 너머 하늘.<br/><b>장소·시간</b> 골목, 해가 넘어간 직후.<br/><b>인물</b> Kiki cat이 담 밑에 아주 작게 웅크려 있다 — 등만 보인다.<br/><b>배경·소품</b> 지붕선 위 하늘이 어둑해지고 눈밭이 잿빛으로 가라앉는다, 파헤쳐진 구멍들이 그림자로만 남았다.<br/><b>톤</b> 밝던 눈이 어둑해져서 흰 면이 화면에서 힘을 잃는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">키키는 방울을 못 찾았어요. 목이 텅 빈 것 같아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 얼굴과 목.<br/><b>장소·시간</b> 담 밑.<br/><b>인물</b> Kiki cat이 고개를 들고 한 손을 제 목에 얹었다 — 손바닥 밑에 아무것도 없고 눈이 아래로 처졌다, 귀가 뒤로 눕는다.<br/><b>배경·소품</b> 뒤로 어두워진 담과 눈.<br/><b>톤</b> 얼굴이 화면을 채우는데 늘 있던 것 하나가 없어 허전한 데가 눈에 먼저 든다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">오소리 할아버지가 등불을 든 채 노노랑 구구가 있는 쪽을 가리켰어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 등불과 가리키는 팔.<br/><b>장소·시간</b> 골목, 저녁.<br/><b>인물</b> Grandpa Badger가 한 손에 등불을 들고 다른 팔로 골목 저쪽을 곧게 가리킨다 — 몸이 그 방향으로 반쯤 돌아갔다, 앞치마. Kiki cat이 담 밑에서 그 손끝을 본다.<br/><b>배경·소품</b> 등불이 화면에서 유일한 밝은 점, 저쪽 골목에 Nono sparrow와 Gugu pigeon의 실루엣.<br/><b>톤</b> 캄캄한 화면에서 빛 하나와 팔 하나가 같은 방향을 가리킨다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">키키가 노노랑 구구를 불렀어요. "내 방울 잃어버렸어. 같이 찾아 줘."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 부르는 얼굴을 아래에서.<br/><b>장소·시간</b> 담 밑에서 나온 자리.<br/><b>인물</b> Kiki cat이 담 밑에서 나와 서서 두 손을 입가에 대고 저쪽으로 크게 부른다 — 입이 크게 벌어지고 고개가 젖혀졌다, 목은 아직 비어 있다.<br/><b>배경·소품</b> 어두운 골목, 멀리 등불 빛.<br/><b>톤</b> 웅크렸던 몸이 처음으로 세로로 펴져 소리가 멀리 갈 자세가 된다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">셋이 등불 아래에서 눈을 헤쳤어요. 구구가 초록 방울을 콕 집어 올렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 눈 위 손들.<br/><b>장소·시간</b> 눈밭, 밤.<br/><b>인물</b> Nono sparrow · Gugu pigeon · Kiki cat 셋이 눈을 헤치고 있고, Gugu pigeon이 초록 방울을 두 손가락으로 콕 집어 올렸다 — Kiki cat의 얼굴이 환해지며 두 손을 뻗는다, 초록 목도리 · 초록 천 가방.<br/><b>배경·소품</b> 옆에 놓인 등불이 손 둘레를 밝힌다, 헤쳐진 눈.<br/><b>톤</b> 화면에서 사라졌던 셋째 표시가 등불빛 한가운데로 돌아온다.</pre></details>
+</div>
+
+</div>
+<script src="/nono-core.js"></script>
+</body>
+</html>

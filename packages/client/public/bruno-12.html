@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>브루노 할아버지네 숲 — 공은 넣었지 뭐</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#1C4E8A; --slope:#2E3A2A; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">브루노 할아버지네 숲 · 12</div>
+  <h1>공은 넣었지 뭐</h1>
+  <div class="sub"><b>주인공</b> 닐스(덜렁댐) · <b>원함</b> 호수에서 공놀이하고 싶다 · <b>탈</b> 안을 안 보고 뚜껑을 덮어 공을 두고 온다 · <b>착지</b> 길을 되짚어 공을 찾아 공놀이한다</div>
+  <div class="by">글 <b>배도담</b> · 그림 <b>차온유</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">소풍 가는 날이에요. 매미가 맴맴 울어요. 할아버지가 바구니에 빵과 물을 담았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 마루와 열린 문.<br/><b>장소·시간</b> 오두막 마루, 여름 아침.<br/><b>인물</b> Bruno grandfather bear가 마루에 앉아 바구니에 빵과 물병을 담는다 — 두 앞발이 바구니 안에 있다, 초록 뜨개 조끼, 둥근 안경.<br/><b>배경·소품</b> 뚜껑 있는 바구니, 빵과 물병, 열린 문 밖 짙은 여름 나무, 나무 줄기에 붙은 매미 한 마리.<br/><b>톤</b> 문 밖이 화면에서 가장 밝고 마루는 그늘이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">닐스는 호수에서 공놀이를 하고 싶어요. 닐스가 공이랑 컵이랑 수건을 마루에 늘어놓았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 마룻바닥을 내려다본다.<br/><b>장소·시간</b> 같은 마루.<br/><b>인물</b> Nils bear cub이 마루에 앉아 두 앞발로 물건을 옆으로 밀어 늘어놓는다 — 얼굴이 화면 위쪽에서 아래를 본다, 파란 장화가 마루 끝에 걸쳐 있다.<br/><b>배경·소품</b> 마룻바닥에 나란히 놓인 공 하나, 컵 하나, 수건 하나.<br/><b>톤</b> 셋이 같은 간격으로 놓여 하나도 안 가렸다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">닐스가 컵과 수건만 바구니에 넣었어요. 그리고 안을 보지도 않고 뚜껑을 탁 덮었어요. "공은 넣었지 뭐."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면 아이레벨.<br/><b>장소·시간</b> 같은 마루.<br/><b>인물</b> Nils bear cub이 한 앞발로 바구니 뚜껑을 탁 덮는다 — 얼굴은 문 밖 쪽으로 돌아가 있고 입을 벌려 말한다. 파란 장화.<br/><b>배경·소품</b> 닫히는 뚜껑 아래로 컵과 수건이 보인다, 마루에 그대로 남은 공.<br/><b>톤</b> 손은 바구니에 있는데 눈은 밖에 가 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">닐스가 바구니를 메고 폴짝 나섰어요. 마루에 공이 덩그러니 남았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 문간을 아래에서.<br/><b>장소·시간</b> 오두막 문간.<br/><b>인물</b> Nils bear cub이 바구니를 어깨에 메고 문턱을 폴짝 넘는다 — 파란 장화 두 짝이 다 떴고 두 앞발이 끈을 쥐었다. Bruno grandfather bear가 뒤따라 문을 나선다.<br/><b>배경·소품</b> 화면 안쪽 마룻바닥에 공 하나가 덩그러니 남았다, 열린 문.<br/><b>톤</b> 나가는 쪽은 붐비고 남은 자리에는 하나뿐이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호숫가에 도착했어요. 닐스가 바구니 뚜껑을 열었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 와이드, 하이앵글. 호숫가 전체.<br/><b>장소·시간</b> 호숫가, 한낮.<br/><b>인물</b> Nils bear cub이 풀밭에 바구니를 내려놓고 뚜껑을 연다 — 무릎을 굽히고 두 앞발이 뚜껑에 있다, 파란 장화. Bruno grandfather bear는 옆에서 자리를 살핀다.<br/><b>배경·소품</b> 반짝이는 넓은 호수, 물가 풀밭, 여름 나무 그늘.<br/><b>톤</b> 물이 넓게 열려 놀 자리가 다 준비돼 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어라? 컵도 있고 수건도 있는데 공만 없어요. 닐스가 바구니 안을 두 손으로 헤집었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 바구니 안.<br/><b>장소·시간</b> 같은 풀밭.<br/><b>인물</b> Nils bear cub의 두 앞발이 바구니 안을 헤집는다 — 얼굴이 화면 위에서 안을 들여다보고 눈썹이 모였다.<br/><b>배경·소품</b> 바구니 안에 컵과 수건과 빵, 그 사이 빈 자리.<br/><b>톤</b> 넣은 것은 다 있는데 자리 하나가 비어 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">바구니를 거꾸로 탈탈 털어 봐도 공은 안 나와요. 호수는 반짝이는데 공놀이를 못 해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨.<br/><b>장소·시간</b> 같은 풀밭.<br/><b>인물</b> Nils bear cub이 바구니를 거꾸로 들어 두 앞발로 탈탈 턴다 — 팔이 위로 뻗고 고개가 젖혀졌다. 파란 장화.<br/><b>배경·소품</b> 풀밭에 떨어진 컵과 수건, 뒤로 반짝이는 호수.<br/><b>톤</b> 다 쏟았는데도 찾던 것이 없다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지가 물었어요. "바구니에 공 넣는 걸 봤니?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글.<br/><b>장소·시간</b> 같은 풀밭.<br/><b>인물</b> Bruno grandfather bear가 무릎을 굽혀 닐스와 눈높이를 맞추고 입을 벌려 묻는다 — 초록 뜨개 조끼, 둥근 안경. Nils bear cub이 눈을 크게 뜨고 올려다본다 — 입이 반쯤 벌어졌다, 파란 장화.<br/><b>배경·소품</b> 옆으로 넘어진 빈 바구니.<br/><b>톤</b> 묻는 말 하나에 눈이 커진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">닐스가 길을 되짚어 갔어요. 오두막 마루에 공이 그대로 있어요. 닐스가 공을 번쩍 안았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면.<br/><b>장소·시간</b> 오두막 마루.<br/><b>인물</b> Nils bear cub이 마루에서 공을 두 앞발로 번쩍 안아 든다 — 몸을 뒤로 젖히고 입이 크게 벌어졌다. 파란 장화.<br/><b>배경·소품</b> 마룻바닥에 공이 있던 자리, 열린 문 밖으로 되짚어 온 길.<br/><b>톤</b> 아침에 두고 간 자리에 그대로 있었다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호숫가에서 공이 통! 통! 할아버지와 닐스가 공을 주고받아요. 바구니 뚜껑은 꼭 닫혀 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨.<br/><b>장소·시간</b> 호숫가 풀밭, 오후.<br/><b>인물</b> Nils bear cub이 화면 왼쪽에서 두 앞발을 위로 뻗어 공을 막 던졌고, Bruno grandfather bear가 화면 오른쪽에서 두 앞발을 벌려 받을 자세다 — 닐스 파란 장화가 땅에서 떴고 할아버지는 초록 뜨개 조끼.<br/><b>배경·소품</b> 둘 사이 공중에 뜬 공, 옆 풀밭에 뚜껑이 꼭 닫힌 바구니.<br/><b>톤</b> 공이 화면 가운데를 건너간다.</pre></details>
+</div>
+
+</div>
+<script src="/bruno-core.js"></script>
+</body>
+</html>

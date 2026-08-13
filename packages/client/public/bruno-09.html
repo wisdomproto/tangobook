@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>브루노 할아버지네 숲 — 빨리 띄우고 싶어</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#1C4E8A; --slope:#2E3A2A; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">브루노 할아버지네 숲 · 09</div>
+  <h1>빨리 띄우고 싶어</h1>
+  <div class="sub"><b>주인공</b> 닐스(성급함) · <b>원함</b> 나무껍질 배를 개울에 띄우고 싶다 · <b>탈</b> 덜 만든 배가 기울어 가라앉는다 · <b>착지</b> 끝까지 만들어 미끄러지듯 띄운다</div>
+  <div class="by">글 <b>배도담</b> · 그림 <b>차온유</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">여름 볕에 개울물이 미지근해졌어요. 할아버지가 헛간에서 나무껍질을 찾아냈어요. 배 만들기에 딱 좋은 크기예요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 헛간 안에서 열린 문 쪽을 본다.<br/><b>장소·시간</b> 헛간 안, 여름 오전.<br/><b>인물</b> Bruno grandfather bear가 선반 앞에서 넓적한 나무껍질 한 장을 두 앞발로 들어 눈앞에 세워 본다 — 초록 뜨개 조끼, 둥근 안경. Nils bear cub이 그 옆에서 발끝을 세워 껍질을 올려다본다 — 파란 장화.<br/><b>배경·소품</b> 열린 헛간 문틀 밖으로 개울과 짙푸른 여름 잎이 보인다, 선반의 나무 조각과 연장, 바닥의 대팻밥.<br/><b>톤</b> 헛간 안은 그늘지고 문틀 안쪽만 환하다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">닐스는 배를 만들어 개울에 띄우고 싶어요. 돛도 달 거예요. "돛단배다! 빨리 띄우고 싶어!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글.<br/><b>장소·시간</b> 같은 헛간 문간.<br/><b>인물</b> Nils bear cub이 두 앞발을 위로 번쩍 들고 입을 크게 벌려 말한다 — 몸이 뒤로 젖혀지고 발끝이 들렸다. 파란 장화.<br/><b>배경·소품</b> 손에 든 나무껍질 한 장, 뒤로 헛간 문.<br/><b>톤</b> 아직 아무것도 안 만들었는데 몸이 벌써 물가로 향한다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지가 배 바닥을 다듬기 시작했어요. 닐스는 옆에서 발을 동동 굴렀어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨.<br/><b>장소·시간</b> 헛간 안 작업대 앞.<br/><b>인물</b> Bruno grandfather bear가 작업대에 앉아 작은 칼을 두 앞발로 잡고 배 바닥을 다듬는다 — 시선이 손끝에 붙어 있다, 초록 뜨개 조끼. Nils bear cub은 옆에서 두 발을 번갈아 동동 구른다 — 파란 장화가 바닥을 탁탁 친다.<br/><b>배경·소품</b> 작업대, 깎여 나온 얇은 대팻밥, 반쯤 다듬은 배.<br/><b>톤</b> 한 손은 느리고 한 발은 빠르다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"바닥은 그만하면 됐어요!" 닐스가 배를 쏙 가져갔어요. 돛은 비뚤게 겨우 꽂았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면.<br/><b>장소·시간</b> 같은 작업대 옆.<br/><b>인물</b> Nils bear cub이 배를 제 무릎에 올려놓고 두 앞발로 돛대를 비뚤게 밀어 넣는다 — 어깨가 올라가고 입이 벌어졌다. 파란 장화. Bruno grandfather bear는 빈 두 앞발에 칼만 든 채 그쪽을 본다.<br/><b>배경·소품</b> 배 바닥이 아직 한쪽만 깎여 울퉁불퉁하다, 잎사귀 돛이 기울어 꽂혔다.<br/><b>톤</b> 배가 손을 옮겨 가자 다듬던 자리가 멈춘다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">닐스가 개울에 배를 띄웠어요. 배가 기우뚱기우뚱 떠내려가요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글. 수면 높이.<br/><b>장소·시간</b> 개울가.<br/><b>인물</b> Nils bear cub이 두 앞발을 물에 담근 채 배를 막 놓았다 — 얼굴이 물 가까이 내려왔고 눈이 배에 붙어 있다. 파란 장화가 물가 자갈을 딛는다.<br/><b>배경·소품</b> 배가 한쪽으로 기우뚱 기울어 뜬다, 물살에 밀린 잔물결.<br/><b>톤</b> 물에 닿자마자 배가 한쪽으로 눕는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">배가 옆으로 폭 쓰러졌어요. 돛이 물에 젖어 축 처졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 물 위 배만.<br/><b>장소·시간</b> 개울 한가운데.<br/><b>인물</b> 없음 — 이 쪽은 물 위 배 하나만.<br/><b>배경·소품</b> 배가 옆으로 폭 쓰러져 잎사귀 돛이 물에 잠기고 축 처졌다, 물이 배 안으로 들어찬다.<br/><b>톤</b> 화면 전체가 물이고 그 가운데 넘어진 것 하나뿐이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">배가 물풀에 걸려 멈췄어요. 닐스가 배를 건졌어요. 돛대가 쏙 빠져 있었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글.<br/><b>장소·시간</b> 개울가 물풀 옆.<br/><b>인물</b> Nils bear cub이 무릎을 꿇고 두 앞발로 젖은 배를 물에서 건져 든다 — 물이 뚝뚝 떨어지고 입꼬리가 내려갔다. 파란 장화가 물에 반쯤 잠겼다.<br/><b>배경·소품</b> 물풀 사이에 걸렸던 자리, 배 가운데 돛대 구멍만 비었다.<br/><b>톤</b> 건져 올린 것에서 하나가 빠져 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지가 배를 손바닥에 올렸어요. 이리 보고, 저리 보고. 기울어진 바닥을 닐스에게 보여 줬어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 클로즈업, 아이레벨. 손바닥 위.<br/><b>장소·시간</b> 개울가.<br/><b>인물</b> Bruno grandfather bear의 큰 손바닥 위에 배가 놓였고, 손목을 천천히 돌려 기울어진 바닥 쪽을 닐스에게 보인다 — 입은 다물었다. Nils bear cub의 두 눈이 화면 가장자리에서 그 바닥을 본다.<br/><b>배경·소품</b> 배 바닥의 한쪽만 두껍게 남은 자리, 붙은 물풀 한 가닥.<br/><b>톤</b> 손이 돌아가는 만큼 바닥의 기울기가 드러난다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘이 배를 마저 만들었어요. 바닥은 판판하게, 돛은 꼿꼿하게. 닐스가 이번엔 끝까지 기다렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨.<br/><b>장소·시간</b> 헛간 앞 그늘, 오후.<br/><b>인물</b> Bruno grandfather bear가 칼로 배 바닥을 판판하게 다듬고, Nils bear cub은 그 옆에 무릎을 붙이고 앉아 두 앞발로 곧은 돛대를 붙잡아 준다 — 입을 다물고 눈이 손끝에 붙어 있다, 파란 장화.<br/><b>배경·소품</b> 판판해진 배 바닥, 곧게 세운 잎사귀 돛, 발밑에 쌓인 대팻밥.<br/><b>톤</b> 두 쌍의 손이 같은 것을 붙들고 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">개울에 배를 다시 띄웠어요. 스르르 — 배가 물살을 타고 미끄러져요. 닐스가 폴짝폴짝 뛰며 따라갔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 수면 높이에서 물길을 따라.<br/><b>장소·시간</b> 개울, 늦은 오후.<br/><b>인물</b> Nils bear cub이 개울가를 따라 왼쪽에서 오른쪽으로 폴짝폴짝 뛰며 배를 따라간다 — 두 앞발을 위로 들고 파란 장화가 둘 다 땅에서 떴다.<br/><b>배경·소품</b> 배가 곧게 서서 물살을 타고 미끄러진다, 뒤로 길게 갈라지는 잔물결.<br/><b>톤</b> 물과 배와 아이가 다 같은 쪽으로 간다.</pre></details>
+</div>
+
+</div>
+<script src="/bruno-core.js"></script>
+</body>
+</html>

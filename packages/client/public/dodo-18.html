@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>도도네 물방앗간 — 산딸기</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#2D62B8; --slope:#3D4A44; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">도도네 물방앗간 · 18</div>
+  <h1>산딸기</h1>
+  <div class="sub"><b>원함</b> 산딸기를 한 바구니 따서 엄마 파이에 보태고 싶다 · <b>틀리는 쪽</b> 도도 — "굵은 건 덤불 속 깊숙이 숨어 있어" · <b>어긋남</b> 가시덤불에 폭 끼어 깃털이 부스스 · <b>착지</b> 해 드는 가장자리 것만 톡톡 — 도도 깃털에서 나온 딸기가 파이 꼭대기에</div>
+  <div class="by">글 <b>한여울</b> · 그림 <b>윤새롬</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">개울가 덤불에 산딸기가 빨갛게 익었어요. 엄마가 오늘 딸기 파이를 굽는대요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 덤불 정면.<br/><b>장소·시간</b> 개울가 산딸기 덤불, 여름 아침.<br/><b>인물</b> 없음.<br/><b>배경·소품</b> 넓게 퍼진 가시덤불 — 해가 드는 바깥 가장자리에는 잘 익은 딸기가 촘촘하고, 안쪽 그늘로 갈수록 잎만 빽빽하다, 잔가시가 잎마다 돋아 있다.<br/><b>톤</b> 가장자리만 빛을 받아 익은 것이 어디 있는지가 밝기로 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"한 바구니 따서 보태고 싶어!" 무무가 바구니를 챙겼어요. 엄마가 말했어요. "해 잘 드는 쪽부터 익는단다."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 엄마와 무무.<br/><b>장소·시간</b> 덤불 앞.<br/><b>인물</b> Mommy duck이 몸을 굽혀 덤불 바깥쪽을 한 날개로 가리키며 말한다 — 크림빛 앞치마. Mumu duck이 바구니 손잡이를 한 날개에 걸고 엄마 쪽을 올려다본다 — 부리가 벌어졌다, 파란 목수건.<br/><b>배경·소품</b> 빈 바구니 하나, 가리키는 쪽의 붉은 딸기들.<br/><b>톤</b> 가리키는 방향에 빛이 들어 말과 화면이 같은 곳을 향한다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">도도가 고개를 저었어요. "아니야, 굵은 딸기는 덤불 속 깊숙이 숨어 있어. 내가 알아!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 도도 상반신.<br/><b>장소·시간</b> 같은 덤불 앞.<br/><b>인물</b> Dodo duck이 고개를 좌우로 크게 저으며 한 날개로 덤불 안쪽을 가리킨다 — 부리를 크게 벌리고 눈을 반쯤 감았다, 파란 머리 리본.<br/><b>배경·소품</b> 뒤쪽 덤불 안의 어두운 틈.<br/><b>톤</b> 가리키는 쪽이 화면에서 제일 어둡다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">도도가 덤불 속으로 부스럭부스럭 파고들었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면 아이레벨. 덤불 옆구리를 옆에서.<br/><b>장소·시간</b> 덤불 바깥에서 안으로.<br/><b>인물</b> Dodo duck이 머리부터 덤불 틈으로 파고들어 가슴까지 들어갔다 — 두 오리발이 아직 밖에서 땅을 밀고, 꼬리가 위로 들렸다, 파란 머리 리본이 잎에 걸려 삐뚤어졌다. Mumu duck이 뒤에서 본다 — 파란 목수건.<br/><b>배경·소품</b> 갈라진 잎과 흔들리는 가지, 떨어지는 잎 두어 장.<br/><b>톤</b> 몸이 들어간 만큼 잎이 벌어져 길이 생긴 것처럼 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"앗, 따끔! 앗, 콕!" 가시가 깃털을 잡아당겨요. 도도가 덤불에 폭 끼었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 가시와 깃털.<br/><b>장소·시간</b> 덤불 속.<br/><b>인물</b> Dodo duck의 옆구리와 어깨 깃털이 여러 가시에 걸려 잡아당겨진다 — 얼굴이 화면 한쪽에서 눈을 질끈 감고 부리를 크게 벌렸다, 파란 머리 리본이 가지에 걸렸다.<br/><b>배경·소품</b> 사방에서 파고든 가시 줄기들, 깃털 몇 오리가 뽑혀 공중에.<br/><b>톤</b> 가시 줄기들이 사방에서 몰려와 화면이 몸을 조인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">덤불 속에서 도도 목소리만 들려요. "여긴… 딸기보다 가시가 더 굵어!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 정면 아이레벨. 덤불 겉면.<br/><b>장소·시간</b> 덤불 바깥.<br/><b>인물</b> Mumu duck이 덤불 앞에 서서 고개를 갸웃하고 안쪽을 들여다본다 — 두 날개를 모았다, 파란 목수건. 도도는 보이지 않고 덤불 아래로 삐져나온 오리발 하나와 잎 사이로 비어져 나온 파란 머리 리본 끝만 보인다.<br/><b>배경·소품</b> 한 자리만 부스스 흔들리는 잎.<br/><b>톤</b> 몸은 안 보이고 흔들리는 잎만 있어 목소리의 자리가 정해진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">무무는 해 드는 가장자리에서 빨간 것만 톡, 톡 땄어요. 바구니가 차곡차곡 붉어져요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 바구니 속과 무무의 날개.<br/><b>장소·시간</b> 덤불 바깥 해 드는 가장자리.<br/><b>인물</b> Mumu duck이 바깥 가지의 빨간 딸기 하나를 날개 끝으로 톡 따는 참 — 몸이 가시에 닿지 않게 살짝 물러서 있다, 눈이 딸기에 붙었다, 파란 목수건.<br/><b>배경·소품</b> 바구니 속에 절반쯤 담긴 딸기들, 아직 달린 붉은 딸기 여럿.<br/><b>톤</b> 몸을 밀어 넣지 않고도 닿는 자리라 자세가 편안하다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">무무가 도도의 두 발을 잡고 영차 — 쑥! 부스스한 깃털 사이에 딸기 한 알이 콕 끼어 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 덤불 아래에서.<br/><b>장소·시간</b> 덤불 가장자리.<br/><b>인물</b> Mumu duck이 두 날개로 도도의 두 오리발을 잡아 뒤로 당겨 막 빼낸 참 — 뒤로 몸을 젖혔고 부리를 벌렸다, 파란 목수건. Dodo duck이 덤불에서 쑥 빠져나와 배를 땅에 대고 엎어졌다 — 온몸 깃털이 사방으로 부스스, 파란 머리 리본이 한쪽으로 돌아갔다.<br/><b>배경·소품</b> 부스스한 깃털 사이 어깨 자리에 콕 끼어 있는 빨간 딸기 **한 알**, 흩날리는 깃털 몇 오리.<br/><b>톤</b> 헝클어진 깃털 속에서 붉은 알 하나만 또렷하다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">부엌에서 엄마가 그 딸기를 조르르 씻어 파이 반죽 위에 올렸어요. 도도의 딸기는 맨 꼭대기에 콕.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 파이 반죽 위를 위에서.<br/><b>장소·시간</b> 부엌 반죽대, 조금 뒤.<br/><b>인물</b> Mommy duck의 두 날개가 화면 위쪽에서 씻은 딸기 한 알을 파이 반죽 한가운데에 올려놓는 참 — 크림빛 앞치마 자락.<br/><b>배경·소품</b> 둥근 파이 반죽 위에 이미 촘촘히 깔린 딸기들, 그 한가운데 맨 위에 얹히는 **한 알**, 옆에 물 담긴 그릇.<br/><b>톤</b> 평평하게 깔린 것들 위로 한 알만 높이 얹혀 눈에 걸린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">파이가 노릇노릇 구워져 나왔어요. "제일 꼭대기 딸기는 내가 찾은 거다?" 도도 말에 다 같이 웃으며 한 조각씩 냠냠.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 부엌 탁자와 셋.<br/><b>장소·시간</b> 부엌, 파이가 구워진 뒤.<br/><b>인물</b> Dodo duck이 아직 부스스한 깃털로 한 날개를 파이 꼭대기 쪽으로 뻗고 부리를 크게 벌려 말한다 — 파란 머리 리본. Mumu duck과 Mommy duck이 파이 조각을 들고 웃으며 한 입 냠냠 — 파란 목수건, 크림빛 앞치마.<br/><b>배경·소품</b> 노릇하게 구워진 파이, 꼭대기의 그 딸기 한 알, 접시 셋.<br/><b>톤</b> 뜨거운 김 사이로 셋의 벌어진 부리가 나란히 보인다.</pre></details>
+</div>
+
+</div>
+<script src="/dodo-core.js"></script>
+</body>
+</html>

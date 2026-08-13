@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>미오네 유치원 — 나는 안 들어갈래</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#6E4E9E; --slope:#232B2E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">미오네 유치원 · 03</div>
+  <h1>나는 안 들어갈래</h1>
+  <div class="sub"><b>주인공</b> 라라(겁) · <b>원함</b> 물놀이통에서 첨벙 놀고 싶다 · <b>탈</b> 밖에서만 보다 물놀이가 끝난다 · <b>착지</b> 발끝부터 담가 풍덩 들어간다</div>
+  <div class="by">글 <b>오하람</b> · 그림 <b>강마루</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마당에 커다란 물놀이통을 내놓았어요. 아이들이 물을 첨벙첨벙 튀겨요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 위에서 내려다본 마당 — 둥근 물놀이통이 화면 가운데.<br/><b>장소·시간</b> 유치원 마당, 여름 낮.<br/><b>인물</b> 통 안에서 Mio kitten·Bobo piglet·Gaga gosling·Duri raccoon 넷이 두 손으로 물을 쳐 올린다 — 보라 가방은 통 밖 풀밭에 벗어 두었고 보보 보라 모자·가가 보라 리본·두리 보라 손수건은 그대로다. 통 옆에 Teacher Bau big dog가 무릎을 굽히고 앉아 한 손을 통 가장자리에 얹고 안을 본다. 화면 가장자리에 Lala lamb이 통에서 몇 걸음 떨어져 서 있다 — 보라 머리핀.<br/><b>배경·소품</b> 낮은 물놀이통, 물이 무릎 높이. 튄 물이 통 밖 마른 땅에 점점이. 수건 다섯 장이 걸린 낮은 빨랫줄.<br/><b>톤</b> 젖은 자리와 마른 자리가 통 가장자리에서 딱 갈린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">라라도 물속에서 첨벙 놀고 싶어요. 라라 발이 저도 모르게 뒤로 물러섰어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 측면. 라라의 상체와 뒤로 물러난 발이 대각으로 걸린다.<br/><b>장소·시간</b> 통에서 두 걸음 밖.<br/><b>인물</b> Lala lamb이 얼굴과 두 손은 통 쪽으로 향한 채 뒷발만 뒤로 한 걸음 밀려났다 — 상체는 앞, 발은 뒤라 몸이 활처럼 어긋난다. 눈은 물을 보고 입이 살짝 벌어졌다. 보라 머리핀.<br/><b>배경·소품</b> 뒤쪽에 흐린 통과 튀는 물방울.<br/><b>톤</b> 가고 싶은 쪽과 물러난 쪽이 한 몸에 같이 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">라라가 통 옆에 쪼그려 앉았어요. "나는 안 들어갈래." 손끝만 물에 살짝 담갔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 통 가장자리가 화면을 가로로 자르고 라라가 그 바깥에 웅크린다.<br/><b>장소·시간</b> 통 옆.<br/><b>인물</b> Lala lamb이 두 무릎을 가슴에 붙이고 쪼그려 앉아 한 손 끝만 물에 담갔다 — 손목까지는 물 밖이고 나머지 한 손은 무릎을 감쌌다. 입을 벌려 말한다. 보라 머리핀. 화면 안쪽 통 너머에 Teacher Bau big dog가 앉아 이쪽을 본다.<br/><b>배경·소품</b> 물에 닿은 손끝에서 아주 작은 파문 하나.<br/><b>톤</b> 몸 전체가 통 밖에 있고 손끝 한 점만 안에 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">미오가 라라를 불렀어요. "라라야, 들어와!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 로우앵글. 통 안에서 밖을 향해 부르는 미오 얼굴.<br/><b>장소·시간</b> 물놀이통 안.<br/><b>인물</b> Mio kitten이 통 가장자리를 한 손으로 짚고 다른 손을 라라 쪽으로 크게 흔든다 — 입이 활짝 벌어지고 목이 앞으로 뻗었다. 털 끝에서 물이 뚝뚝 떨어진다. 화면 가장자리에 Lala lamb의 어깨와 보라 머리핀만 흐리게 걸린다.<br/><b>배경·소품</b> 통 가장자리, 튀어 오른 물방울.<br/><b>톤</b> 부르는 입이 화면 가운데를 차지한다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">라라는 통 밖에서 아이들만 봐요. 발끝으로 마른 땅을 문질러요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면. 화면 왼쪽이 젖은 통 안, 오른쪽이 마른 땅.<br/><b>장소·시간</b> 통 밖, 오후.<br/><b>인물</b> Lala lamb이 통 밖에 서서 두 손을 배 앞에 모아 쥐고 통 안만 본다 — 한 발끝이 마른 흙을 앞뒤로 문지른다. 보라 머리핀. 통 안에서 Mio kitten·Bobo piglet·Gaga gosling·Duri raccoon이 물을 튀기고, 통 옆에 Teacher Bau big dog가 무릎을 굽혀 앉아 있다.<br/><b>배경·소품</b> 라라 발끝 밑에 문질러 팬 흙 자국.<br/><b>톤</b> 화면 절반은 물이고 절반은 먼지다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">해가 기울었어요. 아이들이 물통에서 나와 수건으로 몸을 닦아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 마당이 옆으로 길게 펼쳐지고 그림자가 길다.<br/><b>장소·시간</b> 같은 마당, 해 질 무렵.<br/><b>인물</b> Mio kitten·Bobo piglet·Gaga gosling·Duri raccoon 넷이 통 밖에 서서 저마다 수건으로 머리와 등을 문지른다 — 넷 다 털이 납작하게 젖어 몸이 가늘어 보인다. 보라 가방·보라 모자·보라 리본·보라 손수건. Teacher Bau big dog가 수건 한 장을 펼쳐 들고 서 있다. 화면 끝에 Lala lamb이 마른 채로 서 있다 — 보라 머리핀.<br/><b>배경·소품</b> 물이 반쯤 줄어든 통, 빈 빨랫줄, 마당을 가로지르는 긴 그림자.<br/><b>톤</b> 젖은 넷과 마른 하나가 실루엣 굵기로 갈린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">라라 털은 하나도 안 젖었어요. 라라가 입을 삐죽했어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 정면. 라라의 얼굴과 가슴께.<br/><b>장소·시간</b> 같은 마당.<br/><b>인물</b> Lala lamb이 정면을 향해 서서 입을 옆으로 삐죽 내밀고 눈을 아래로 내리깐다. 두 손은 아래에서 서로를 꼭 쥐었다. 🔴 털이 한 가닥도 안 젖어 곱슬이 그대로 부풀어 있다. 보라 머리핀.<br/><b>배경·소품</b> 뒤로 흐린 통과 마른 땅.<br/><b>톤</b> 마른 털이 이 쪽에서는 자랑이 아니라 남은 것이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다음 날 바우 선생님이 물통 옆에 앉았어요. 물속에 발을 첨벙 담그고 라라를 봐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면. 통 가장자리가 화면 가운데를 지나고 둘이 그 좌우에 있다.<br/><b>장소·시간</b> 같은 물놀이통 옆, 다음 날 낮.<br/><b>인물</b> Teacher Bau big dog가 통 가장자리에 걸터앉아 두 발을 물속에 담갔다 — 발목까지 잠기고 발등 위로 잔물결이 퍼진다. 큰 두 손은 무릎 옆 가장자리를 짚었고 입은 다물린 채 고개만 돌려 라라를 본다. 🔴 대사 없음, 눈썹이 살짝 올라갔다. Lala lamb은 통 밖에 서서 그 발을 내려다본다 — 보라 머리핀. 🔴 선생님은 보라를 안 지닌다.<br/><b>배경·소품</b> 새로 채운 물, 가장자리에 맺힌 물방울.<br/><b>톤</b> 말이 없고 발목 아래 잠긴 선만 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">라라가 발끝을 물에 담갔어요. 물이 미지근하고 간지러워요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 클로즈업, 하이앵글. 물 위에 든 발끝 하나가 화면을 다 채운다.<br/><b>장소·시간</b> 통 가장자리.<br/><b>인물</b> Lala lamb의 한 발끝이 수면을 뚫고 발가락 마디까지 잠겼다 — 발목 위는 아직 물 밖이다. 화면 위 가장자리에 라라의 숙인 턱과 보라 머리핀 끝이 조금 걸리고, 입꼬리가 올라간다.<br/><b>배경·소품</b> 발끝에서 동그란 물결이 세 겹 퍼진다.<br/><b>톤</b> p3의 손끝 파문보다 이번 파문이 훨씬 넓다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">라라가 통 안으로 풍덩 들어갔어요. 물방울이 하늘로 튀어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 통 가장자리 높이에서 올려다봐 물방울이 하늘까지 올라간다.<br/><b>장소·시간</b> 같은 물놀이통, 낮.<br/><b>인물</b> Lala lamb이 통 안에 두 발로 서서 두 손을 위로 활짝 벌리고 상체를 뒤로 젖혔다 — 입이 크게 벌어지고 곱슬 털이 물에 눌려 납작해졌다. 보라 머리핀에서 물이 흐른다. 통 안 옆쪽에 Mio kitten·Bobo piglet, 통 밖에 Gaga gosling·Duri raccoon과 Teacher Bau big dog.<br/><b>배경·소품</b> 통 밖으로 넘친 물이 마른 땅을 검게 적신다. 튀어 오른 물방울이 화면 위쪽 끝까지.<br/><b>톤</b> p1에서 통 가장자리로 갈렸던 젖은 자리와 마른 자리가 여기서는 섞였다.</pre></details>
+</div>
+
+</div>
+<script src="/mio-core.js"></script>
+</body>
+</html>

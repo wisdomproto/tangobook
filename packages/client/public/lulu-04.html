@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>룰루네 올리브 언덕 — 제일 높은 포도송이</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#1F7FA8; --slope:#3E3A2E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">룰루네 올리브 언덕 · 04</div>
+  <h1>제일 높은 포도송이</h1>
+  <div class="sub"><b>원함</b> 시렁 맨 위 굵은 송이를 따고 싶다 · <b>틀리는 어른</b> 니노 삼촌 · <b>어긋남</b> 점프 자랑하다 시렁 기둥에 대롱대롱 매달린다 · <b>착지</b> 나무통을 엎고 올라가 딴다 — 제일 크게 씹는 건 삼촌</div>
+  <div class="by">글 <b>문나래</b> · 그림 <b>유가온</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마당엔 포도나무가 지붕처럼 얹혀 있어요. 포도 시렁이에요. 굵은 포도가 주렁주렁 열렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 시렁 아래를 옆에서.<br/><b>장소·시간</b> 농가 마당 포도 시렁 아래, 늦여름 낮.<br/><b>인물</b> Lulu donkey가 시렁 아래로 걸어 들어온다 — 화면 왼쪽에서 오른쪽으로, 고개가 위로 향했다. 파란 방울 목끈.<br/><b>배경·소품</b> 기둥에 얹힌 나무 시렁이 지붕처럼 덮였고 굵은 포도송이가 아래로 주렁주렁.<br/><b>톤</b> 위는 잎과 송이로 빽빽하고 바닥엔 얼룩진 그늘이 깔린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">맨 꼭대기에 제일 굵은 송이가 매달려 있어요. 룰루가 손을 뻗었어요. "저 송이는 내가 딸 거예요."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 꼭대기 송이가 화면 위 끝.<br/><b>장소·시간</b> 시렁 아래.<br/><b>인물</b> Lulu donkey가 뒷발끝으로 서서 한 앞발을 위로 곧게 뻗는다 — 손끝과 송이 사이가 한참 벌어졌고 입이 벌어져 말하는 중. 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 시렁 맨 위 굵은 송이 하나가 다른 것들보다 크게 매달렸다.<br/><b>톤</b> 뻗은 팔과 송이 사이의 빈 공간이 화면의 주인공이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">니노 삼촌이 다리를 탁탁 풀었어요. "점프는 내가 최고지. 왕년엔 지붕도 뛰어넘었다!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면 아이레벨. 다리와 손이 한 프레임.<br/><b>장소·시간</b> 시렁 아래.<br/><b>인물</b> Nino donkey가 허리를 굽혀 두 앞발로 제 뒷다리를 탁탁 두드린다 — 밀짚모자, 가슴을 앞으로 내밀고 입이 크게 벌어졌다. Lulu donkey는 옆에서 두 앞발을 모으고 본다, 파란 방울 목끈.<br/><b>배경·소품</b> 시렁 기둥, 바닥 그늘.<br/><b>톤</b> 굽힌 등이 화면 한가운데 큰 덩어리로 앉는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">삼촌이 폴짝 뛰었어요. 발끝이 한참 모자라요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 뛴 발과 송이의 높이 차.<br/><b>장소·시간</b> 시렁 아래.<br/><b>인물</b> Nino donkey가 공중에 떠서 두 앞발을 위로 뻗었다 — 뒷발이 땅에서 한 뼘 떴고 모자가 벗겨지려 한다. Lulu donkey는 아래에서 고개를 젖혀 본다, 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 뻗은 손끝과 꼭대기 송이가 같은 화면에 들되 사이가 크게 남는다.<br/><b>톤</b> 사이의 빈 자리가 넓어 뛴 높이가 한눈에 읽힌다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">삼촌이 힘껏 뛰어 시렁 기둥을 붙잡았어요. 시렁이 휘청휘청 흔들려요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 시렁 전체가 기운다.<br/><b>장소·시간</b> 시렁 아래.<br/><b>인물</b> Nino donkey가 두 앞발로 시렁 기둥을 끌어안고 매달린 참 — 뒷발이 땅에서 떴다. Lulu donkey는 두 걸음 물러나 두 앞발로 입을 막는다, 파란 방울 목끈.<br/><b>배경·소품</b> 기둥이 한쪽으로 휘고 위의 시렁 나무가 어긋난다, 잎이 흩날린다.<br/><b>톤</b> 지붕처럼 얹혀 있던 것이 통째로 흔들린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">삼촌은 기둥에 대롱대롱 매달렸어요. "내, 내려갈게…" 포도송이는 저 위에서 흔들흔들해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 매달린 몸을 밑에서.<br/><b>장소·시간</b> 시렁 기둥.<br/><b>인물</b> Nino donkey가 기둥에 두 앞발로 매달려 뒷발을 허공에서 버둥거린다 — 눈이 동그랗고 입이 작게 벌어졌다.<br/><b>배경·소품</b> 화면 위쪽에서 굵은 송이가 흔들린다.<br/><b>톤</b> 매달린 몸과 흔들리는 송이가 같은 리듬으로 흔들린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">삼촌이 쿵 내려와서 숨을 헉헉 골라요. 송이는 그대로 매달려 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 땅에 앉은 몸을 위에서.<br/><b>장소·시간</b> 시렁 아래 바닥.<br/><b>인물</b> Nino donkey가 바닥에 주저앉아 두 앞발로 무릎을 짚고 어깨를 들썩이며 숨을 고른다 — 모자가 옆에 떨어졌다. Lulu donkey가 옆에 서서 위를 올려다본다, 파란 방울 목끈.<br/><b>배경·소품</b> 위쪽 시렁에 굵은 송이가 그대로 매달렸다.<br/><b>톤</b> 아래는 주저앉고 위는 그대로라 높이가 다시 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">룰루가 빈 나무통을 데굴데굴 굴려 왔어요. 바닥에 꾹 엎어 놓고 그 위에 올라섰어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 엎은 통과 발.<br/><b>장소·시간</b> 시렁 아래.<br/><b>인물</b> Lulu donkey가 엎어 놓은 빈 나무통 위로 한 발을 올리고 두 앞발로 통 가장자리를 짚는다 — 무릎에 힘이 들어갔다. 파란 방울 목끈.<br/><b>배경·소품</b> 바닥에 엎어진 빈 나무통, 통이 굴러온 흙 자국이 뒤로 길게.<br/><b>톤</b> 낮은 통 하나가 부족했던 한 뼘을 메운다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">발끝을 들자 손이 딱 닿았어요. 톡 — 굵은 송이가 룰루 품에 안겼어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 로우앵글. 손과 송이.<br/><b>장소·시간</b> 시렁 맨 위 가까이.<br/><b>인물</b> Lulu donkey의 두 앞발이 굵은 송이를 감싸 쥐고 줄기에서 막 떼는 참 — 발끝을 들어 몸이 길게 늘어났다. 파란 방울 목끈이 목에서 팽팽하다.<br/><b>배경·소품</b> 줄기, 잎 두어 장.<br/><b>톤</b> 화면 가득한 송이가 손 안에 들어온다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">룰루가 딴 굵은 송이를 다 같이 나눠 먹었어요. 제일 크게 아삭 씹는 건 니노 삼촌이에요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 둘러앉은 무리.<br/><b>장소·시간</b> 시렁 아래 그늘, 조금 뒤.<br/><b>인물</b> Lulu donkey가 가운데서 송이를 두 앞발로 받쳐 들고, cousins donkeys 걸어 다니는 셋이 둘러앉아 알을 뗀다. 아기 사촌은 Mama donkey 품에 안겨 있다. Nino donkey가 한쪽에서 포도알을 크게 물어 볼이 부풀었다 — 눈이 감겼다. Lulu donkey는 파란 방울 목끈.<br/><b>배경·소품</b> 반쯤 남은 굵은 송이, 엎어 둔 나무통.<br/><b>톤</b> 제일 크게 씹는 입이 화면에서 제일 크다.</pre></details>
+</div>
+
+</div>
+<script src="/lulu-core.js"></script>
+</body>
+</html>

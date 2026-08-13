@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>룰루네 올리브 언덕 — 연 날리는 언덕</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#1F7FA8; --slope:#3E3A2E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">룰루네 올리브 언덕 · 23</div>
+  <h1>연 날리는 언덕</h1>
+  <div class="sub"><b>원함</b> 연을 하늘 꼭대기까지 올리고 싶다 · <b>틀리는 어른</b> 니노 삼촌 · <b>어긋남</b> 달리기 자랑하다 연을 나무에 걸리게 한다 · <b>착지</b> 언덕 꼭대기에서 줄을 풀어 올린다 — "달리기가 반이었지?"</div>
+  <div class="by">글 <b>문나래</b> · 그림 <b>유가온</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">바람이 씽씽 부는 날이에요. 빨랫줄에 빨래가 펄럭펄럭 나부껴요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 하늘과 빨랫줄.<br/><b>장소·시간</b> 농가 마당, 바람 부는 낮.<br/><b>인물</b> Lulu donkey가 마당에 서서 나부끼는 빨래를 올려다본다 — 갈기와 파란 방울 목끈이 한쪽으로 날린다.<br/><b>배경·소품</b> 🔴 빨랫줄의 빨래가 전부 같은 방향으로 팽팽하게 눕고, 마당 나무의 잎도 한쪽으로 눕는다.<br/><b>톤</b> 화면의 모든 천이 한 방향을 가리켜 바람이 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">룰루가 꼬리 달린 연을 안고 나왔어요. "오늘은 연을 하늘 꼭대기까지 올릴 거예요."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 연을 안은 몸.<br/><b>장소·시간</b> 마당.<br/><b>인물</b> Lulu donkey가 꼬리 달린 연을 두 앞발로 가슴에 안고 나온다 — 턱이 들리고 입이 벌어져 말하는 중. 파란 방울 목끈. 연줄 뭉치를 한 앞발에 걸었다.<br/><b>배경·소품</b> 마름모 연 하나, 긴 천 꼬리, 줄 뭉치.<br/><b>톤</b> 연의 반듯한 마름모가 화면에서 제일 또렷한 모양이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">니노 삼촌이 연을 넘겨받았어요. "연은 달리기가 반이지. 왕년엔 구름까지 올렸다!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면 아이레벨. 넘어가는 연.<br/><b>장소·시간</b> 마당.<br/><b>인물</b> Nino donkey가 룰루 품에서 연을 두 앞발로 받아 든다 — 밀짚모자, 가슴을 펴고 입이 크게 벌어졌다. Lulu donkey는 줄 뭉치를 든 채 손이 빈다, 파란 방울 목끈.<br/><b>배경·소품</b> 연, 늘어진 꼬리.<br/><b>톤</b> 연이 작은 품에서 큰 품으로 옮겨 간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">삼촌이 연을 끌고 냅다 달렸어요. 다다다다!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 달리는 몸을 위에서.<br/><b>장소·시간</b> 마당에서 밭 쪽으로.<br/><b>인물</b> Nino donkey가 연줄을 어깨에 걸고 화면 왼쪽에서 오른쪽으로 냅다 달린다 — 상체가 앞으로 눕고 뒷발이 뒤로 뻗었다. Lulu donkey는 뒤에서 두 앞발을 들고 쫓는다, 파란 방울 목끈.<br/><b>배경·소품</b> 흙먼지 자국이 뒤로 길게.<br/><b>톤</b> 위에서 보니 자국이 지나온 길을 왼쪽으로 끈다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">연이 낮게 붕 떠서 삼촌 뒤를 따라가요. 삼촌은 올리브나무 쪽으로 달려요. "삼촌, 나무!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 낮게 뜬 연과 나무.<br/><b>장소·시간</b> 밭 가장자리.<br/><b>인물</b> Nino donkey가 여전히 오른쪽으로 달리며 뒤를 돌아본다 — 입이 크게 벌어졌다. Lulu donkey는 뒤에서 오른쪽 위를 가리키며 소리친다 — 입이 크게 벌어졌다, 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 연이 어른 키 높이로 낮게 떠서 뒤를 따라간다. 달려가는 방향 앞에 올리브나무가 서 있다.<br/><b>톤</b> 낮게 뜬 연과 다가오는 나무가 같은 높이에 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">팟! 연이 나뭇가지에 걸렸어요. 삼촌은 줄을 잡은 채 나무를 빙빙 돌아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 나무와 도는 몸.<br/><b>장소·시간</b> 올리브나무 아래.<br/><b>인물</b> Nino donkey가 줄을 잡은 채 나무 둘레를 돈다 — 몸이 안쪽으로 기울고 줄이 줄기에 감긴다. Lulu donkey는 옆에서 두 앞발로 머리를 감싼다, 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 연이 나뭇가지 사이에 걸려 기울어 있다. 줄기에 감긴 줄.<br/><b>톤</b> 하늘로 가야 할 것이 나뭇가지에 붙들려 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">바람이 훅 — 연이 스르르 미끄러져 떨어졌어요. 연 꼬리에 잎사귀가 잔뜩 붙었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 땅에 떨어진 연.<br/><b>장소·시간</b> 나무 밑 바닥.<br/><b>인물</b> Nino donkey의 두 뒷발만 프레임 위쪽에 든다 — 그 발치에 연이 떨어져 있다. Lulu donkey가 옆에 쪼그려 앉아 연을 내려다본다 — 입이 오므라들었다, 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 연이 비스듬히 엎어졌고 천 꼬리에 잎사귀가 잔뜩 붙었다.<br/><b>톤</b> 붙은 잎들이 연 꼬리를 무겁게 늘어뜨린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">룰루가 연을 안고 언덕 꼭대기로 올라갔어요. 거긴 나무가 없고 바람이 세요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면 아이레벨. 오르는 옆모습.<br/><b>장소·시간</b> 언덕 비탈.<br/><b>인물</b> Lulu donkey가 연을 옆구리에 끼고 오른쪽 위로 비탈을 오른다 — 몸이 앞으로 기울고 갈기가 뒤로 날린다. 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 오르는 쪽 꼭대기엔 나무가 한 그루도 없고 풀만 한 방향으로 눕는다.<br/><b>톤</b> 오른쪽 위로 오르는 선이 화면을 대각으로 잇는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">룰루가 줄을 조금씩 풀자 연이 쑥쑥 올라가요. 하늘 높이, 점점 더 높이!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 줄을 푸는 앞발.<br/><b>장소·시간</b> 언덕 꼭대기.<br/><b>인물</b> Lulu donkey가 줄 뭉치를 한 앞발로 잡고 다른 앞발로 줄을 조금씩 풀어 준다 — 시선이 위로 향하고 입꼬리가 올라갔다. 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 줄이 손끝에서 위로 팽팽하게 뻗고, 화면 위 끝에 연이 작게 올라가 있다.<br/><b>톤</b> 손끝에서 시작한 한 줄이 화면 밖 위로 이어진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">연이 구름 옆에서 팔랑팔랑 춤을 춰요. 삼촌이 손을 이마에 얹고 올려다봤어요. "내 말대로 달리기가 반이었지?" 룰루는 그냥 웃었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 하늘이 화면 대부분.<br/><b>장소·시간</b> 언덕 꼭대기, 낮.<br/><b>인물</b> Nino donkey가 언덕 아래쪽에서 한 앞발을 이마에 얹고 고개를 젖혀 위를 본다 — 입이 크게 벌어졌다. Lulu donkey는 줄을 쥔 채 눈을 감고 웃는다 — 어깨가 들렸다, 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 연이 구름 옆에서 작게 팔랑거리고 꼬리가 길게 흔들린다.<br/><b>톤</b> 넓은 하늘 한쪽에 작은 마름모 하나가 높이 걸린다.</pre></details>
+</div>
+
+</div>
+<script src="/lulu-core.js"></script>
+</body>
+</html>

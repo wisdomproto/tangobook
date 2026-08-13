@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>노노네 겨울 골목 — 바람이 들어와</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#2F7F4E; --slope:#333A3E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">노노네 겨울 골목 · 04</div>
+  <h1>바람이 들어와</h1>
+  <div class="sub"><b>주인공</b> 노노(하다 만다) · <b>원함</b> 오늘 밤 따뜻하게 자고 싶다 · <b>탈</b> 틈을 반만 막고 날아가 밤새 떤다 · <b>착지</b> 다 막으니 폭 잠든다</div>
+  <div class="by">글 <b>배도담</b> · 그림 <b>노아라</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">오늘은 바람이 아주 세요. 노노네 집은 지붕 밑에 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 골목에서 지붕 밑을 올려다본다.<br/><b>장소·시간</b> 노노네 집 앞, 한파가 시작된 날 낮.<br/><b>인물</b> Nono sparrow가 지붕 밑 작은 문턱에 서서 목도리를 두 손으로 여미고 몸을 웅크린다 — 고개가 어깨 사이로 들어갔다, 초록 목도리.<br/><b>배경·소품</b> 처마 밑 마른 풀 몇 가닥과 목도리 끝이 모두 한 방향으로 눕는다, 골목 눈 위에 바람 결.<br/><b>톤</b> 화면의 모든 가벼운 것이 같은 방향으로 누워 바람의 세기가 눈에 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">벽에 좁은 틈이 생겼어요. 노노는 오늘 밤 따뜻하게 자고 싶어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 벽 안쪽.<br/><b>장소·시간</b> 노노네 집 안.<br/><b>인물</b> Nono sparrow가 벽에 난 좁고 긴 틈에 손가락 하나를 대 보고 고개를 갸웃한다 — 눈을 가늘게 뜨고 몸이 옆으로 기울었다, 초록 목도리.<br/><b>배경·소품</b> 벽 널의 결, 틈이 위아래로 길게 났고 그 앞의 깃털과 지푸라기가 안쪽으로 날린다.<br/><b>톤</b> 손가락 하나와 가늘고 긴 틈이 같은 굵기라 크기가 서로를 잰다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">노노가 마른 풀을 물어 왔어요. 틈에 꾹꾹 밀어 넣었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 벽 정면.<br/><b>장소·시간</b> 같은 집 안.<br/><b>인물</b> Nono sparrow가 두 손으로 마른 풀을 뭉쳐 틈에 꾹꾹 밀어 넣는다 — 어깨가 벽에 붙고 몸무게가 손 쪽으로 실렸다, 초록 목도리.<br/><b>배경·소품</b> 발치에 남은 마른 풀 한 다발, 틈은 아래쪽 절반만 채워졌고 위쪽 절반은 아직 벌어져 있다.<br/><b>톤</b> 채운 데와 안 채운 데가 위아래로 갈려 남은 몫이 그대로 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">골목에서 구구가 노노를 불렀어요. 노노가 풀을 놓고 포르르 날아갔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 지붕 밑과 골목이 세로로 한 화면.<br/><b>장소·시간</b> 집 앞, 낮.<br/><b>인물</b> Nono sparrow가 날개를 펴고 문턱에서 오른쪽 아래 골목으로 막 날아 나간다 — 두 발이 문턱을 떠났고 부리가 아래를 향했다, 초록 목도리가 뒤로 날린다. 아래 골목에서 Gugu pigeon이 두 손을 부리 옆에 대고 위를 보며 부른다 — 초록 천 가방.<br/><b>배경·소품</b> 문턱에 놓인 마른 풀 다발, 위쪽 절반이 벌어진 틈.<br/><b>톤</b> 부르는 소리 쪽으로 몸이 통째로 기울어 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘이 눈 위에서 한참 놀았어요. 마른 풀은 아까 그 자리에 그대로 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 눈밭을 위에서.<br/><b>장소·시간</b> 골목 눈밭, 낮.<br/><b>인물</b> Nono sparrow와 Gugu pigeon이 마주 보고 두 손으로 눈을 뿌리며 논다 — 둘 다 몸이 뒤로 젖혀지고 부리가 벌어졌다, 초록 목도리 · 초록 천 가방.<br/><b>배경·소품</b> 공중에 흩어진 눈가루, 화면 위쪽 구석에 작게 보이는 지붕 밑 문턱과 그 위에 그대로 놓인 마른 풀 다발.<br/><b>톤</b> 화면 가운데는 흩날리고 구석 하나만 아까 그대로 멈춰 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">밤이 됐어요. 틈으로 찬바람이 쌩쌩 들어와요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 클로즈업, 아이레벨. 틈만 크게.<br/><b>장소·시간</b> 노노네 집 안, 밤.<br/><b>인물</b> 없음.<br/><b>배경·소품</b> 벽 위쪽에 벌어진 채 남은 틈, 그 앞의 지푸라기와 걸린 이불 자락이 안쪽으로 세게 날린다, 아래쪽에 눌려 박힌 마른 풀.<br/><b>톤</b> 화면이 캄캄한데 틈 하나만 바깥 빛으로 가늘게 그어져 바람 길이 된다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">노노가 오들오들 떨었어요. 아무리 눈을 감아도 잠이 안 와요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 잠자리를 위에서.<br/><b>장소·시간</b> 같은 집 안, 밤.<br/><b>인물</b> Nono sparrow가 이불을 턱까지 끌어당기고 몸을 동그랗게 말았다 — 두 눈을 꼭 감았는데 어깨가 오들오들, 두 손이 이불 끝을 움켜쥐었다, 초록 목도리를 두른 채다.<br/><b>배경·소품</b> 들썩이는 이불 끝, 위쪽 벽의 틈.<br/><b>톤</b> 감은 눈과 떨리는 어깨가 어긋나 잠이 안 온 것이 몸으로 읽힌다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아침에 오소리 할아버지가 가게 틈을 막고 있었어요. "틈은 하나도 안 남겨야 바람이 안 들지."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 가게 벽 앞.<br/><b>장소·시간</b> 가게 앞, 다음 날 아침.<br/><b>인물</b> Grandpa Badger가 가게 벽 틈에 헝겊을 밀어 넣으며 고개만 Nono 쪽으로 돌려 말한다 — 한 손은 벽에, 다른 손에 헝겊 뭉치, 앞치마. Nono sparrow가 아래에서 올려다본다 — 어깨가 처지고 눈두덩이 무겁다, 초록 목도리.<br/><b>배경·소품</b> 가게 벽에 이미 다 막힌 틈 자국들.<br/><b>톤</b> 어른의 벽에는 벌어진 데가 하나도 없어서 차이가 벽으로 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">노노가 마른 풀을 또 물어 왔어요. 이번에는 끝까지 다 막았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 측면. 팔이 위로 뻗는다.<br/><b>장소·시간</b> 노노네 집 안, 낮.<br/><b>인물</b> Nono sparrow가 발끝을 들고 두 손으로 마른 풀을 틈의 맨 위 끝까지 밀어 넣는다 — 팔이 머리 위로 쭉 뻗었고 부리를 앙다물었다, 초록 목도리.<br/><b>배경·소품</b> 벽에 틈이 이제 한 줄도 안 보인다, 발치에 다 쓴 마른 풀 부스러기.<br/><b>톤</b> 아까 빛이 새던 자리가 없어져 벽이 한 판으로 이어진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">밤이 되어도 바람이 안 들어와요. 노노가 포근하게 폭 잠들었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 잠든 몸을 위에서.<br/><b>장소·시간</b> 노노네 집 안, 밤.<br/><b>인물</b> Nono sparrow가 이불 속에서 몸을 동그랗게 말고 잠들었다 — 부리가 초록 목도리에 폭 묻혔고 어깨가 고르게 내려앉았다.<br/><b>배경·소품</b> 매끈한 벽, 이불 끝이 조금도 안 들썩인다.<br/><b>톤</b> 화면 안에서 움직이는 것이 하나도 없어 공기가 가만히 가라앉는다.</pre></details>
+</div>
+
+</div>
+<script src="/nono-core.js"></script>
+</body>
+</html>

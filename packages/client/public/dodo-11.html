@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>도도네 물방앗간 — 해바라기 심는 날</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#2D62B8; --slope:#3D4A44; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">도도네 물방앗간 · 11</div>
+  <h1>해바라기 심는 날</h1>
+  <div class="sub"><b>원함</b> 들판 가장자리에 해바라기 씨를 심고 싶다 · <b>틀리는 쪽</b> 도도 — "씨는 한꺼번에 와르르 뿌려야 숲이 되지" · <b>어긋남</b> 참새들이 우르르 쪼아 먹는다 · <b>착지</b> 한 알씩 콕, 흙 이불 토닥 — 도도가 남은 씨 하나를 들고 와 무무를 따라 한다</div>
+  <div class="by">글 <b>한여울</b> · 그림 <b>윤새롬</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">봄바람이 살랑살랑 불어요. 아빠가 도도와 무무에게 해바라기 씨를 한 줌씩 주었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 세 개의 날개가 만나는 자리를 위에서.<br/><b>장소·시간</b> 들판 가장자리, 봄 아침.<br/><b>인물</b> Daddy duck이 자루를 기울여 Dodo duck과 Mumu duck의 펼친 날개에 해바라기 씨를 한 줌씩 부어 준다 — 아빠는 밀짚모자, 도도는 파란 머리 리본, 무무는 파란 목수건.<br/><b>배경·소품</b> 씨앗 자루, 두 아이 날개 위에 소복한 검은 줄무늬 씨앗, 발밑에 갓 갈아 놓은 흙.<br/><b>톤</b> 위에서 보니 두 무더기가 똑같이 나뉜 게 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"들판 가장자리에 심고 싶어요. 여름에 해바라기 길이 생기게요!" 무무가 씨를 꼭 쥐었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 무무 상반신과 그 뒤 들판.<br/><b>장소·시간</b> 같은 들판 가장자리.<br/><b>인물</b> Mumu duck이 씨앗을 두 날개 사이에 꼭 감싸 쥐고 가슴에 붙였다 — 부리를 벌려 말하고 눈은 들판 가장자리를 따라간다, 파란 목수건.<br/><b>배경·소품</b> 들판 가장자리를 따라 길게 이어지는 흙 이랑, 저 멀리 물방앗간.<br/><b>톤</b> 흙 줄이 화면 안쪽으로 길게 뻗어 여름의 길을 미리 그린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">도도가 씨를 흔들며 말했어요. "씨는 한꺼번에 와르르 뿌려야 숲이 되는 거야. 내가 알아!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 도도 정면.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Dodo duck이 씨앗 쥔 날개를 머리 옆에서 잘랑잘랑 흔들며 부리를 크게 벌린다 — 다른 날개는 허리에, 턱이 높이 들리고 한쪽 눈을 찡긋 감았다, 파란 머리 리본.<br/><b>배경·소품</b> 날개 틈으로 몇 알 흘러 떨어지는 씨앗.<br/><b>톤</b> 흔드는 날개 둘레로 씨앗 몇 알이 이미 새 나간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">도도가 제 씨를 흙 위에 와르르 뿌렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 흙바닥을 위에서.<br/><b>장소·시간</b> 들판 가장자리 흙 위.<br/><b>인물</b> Dodo duck이 두 날개를 활짝 벌려 씨앗을 흙 위로 와르르 뿌리는 참 — 몸이 앞으로 기울고 부리가 벌어졌다, 파란 머리 리본.<br/><b>배경·소품</b> 흙 위에 넓게 흩어져 그대로 놓인 씨앗 수십 알, 흙에 묻힌 것은 하나도 없다.<br/><b>톤</b> 검은 알이 흙 위에 그대로 드러나 있어 눈에 다 띈다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">짹짹짹! 참새들이 우르르 날아와 도도의 씨를 콕콕 쪼아 먹어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 흙바닥과 그 위 공중.<br/><b>장소·시간</b> 같은 자리, 바로 다음.<br/><b>인물</b> Dodo duck이 두어 걸음 물러서며 두 날개를 위로 들었다 — 부리가 크게 벌어졌다, 파란 머리 리본. Mumu duck은 옆에서 씨앗을 쥔 채 본다 — 파란 목수건.<br/><b>배경·소품</b> 참새 예닐곱이 흙 위에 내려앉아 씨앗을 콕콕 쪼고, 두어 마리는 아직 날개를 편 채 내려오는 중.<br/><b>톤</b> 새들이 흩어진 씨앗 자리를 그대로 덮어 검은 알이 안 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"안 돼! 그건 숲이 될 씨란 말이야!" 도도가 날개를 휘휘 저어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 도도를 아래에서.<br/><b>장소·시간</b> 같은 흙바닥 옆.<br/><b>인물</b> Dodo duck이 두 날개를 크게 휘휘 저으며 발을 구른다 — 부리를 있는 대로 벌리고 눈썹 자리가 가운데로 모였다, 파란 머리 리본이 헝클어졌다.<br/><b>배경·소품</b> 휘젓는 날개 옆으로 살짝 비켰다 다시 내려앉는 참새 두 마리.<br/><b>톤</b> 휘두르는 몸짓이 큰데 새들은 조금밖에 안 물러난다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">참새들은 배가 불러서야 포르르 날아갔어요. 도도 자리엔 빈 흙만 남았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면 아이레벨. 왼쪽 흙바닥, 오른쪽 하늘.<br/><b>장소·시간</b> 같은 자리, 조금 뒤.<br/><b>인물</b> Dodo duck이 어깨를 축 늘어뜨리고 서서 빈 흙을 내려다본다 — 두 날개가 아래로 처졌다, 파란 머리 리본.<br/><b>배경·소품</b> 오른쪽 하늘로 포르르 흩어져 날아가는 참새들, 흙 위엔 씨앗 한 알도 없다.<br/><b>톤</b> 새들이 빠져나간 방향으로 화면이 비어 간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">무무는 한 알씩 심었어요. 콕 — 씨를 넣어요. 토닥 — 흙 이불을 덮어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 흙 구멍과 무무의 날개 끝.<br/><b>장소·시간</b> 들판 가장자리 흙 위.<br/><b>인물</b> Mumu duck이 쪼그려 앉아 날개 끝으로 씨앗 한 알을 작은 구멍에 콕 밀어 넣는 참 — 화면 위쪽에 숙인 부리와 파란 목수건.<br/><b>배경·소품</b> 지금 넣는 구멍 하나, 그 왼쪽에 이미 흙을 덮어 토닥해 둔 **작은 흙더미 한 개**, 남은 씨앗 한 줌.<br/><b>톤</b> 구멍 하나와 흙더미 하나가 나란히 놓여 순서가 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">무무가 물뿌리개로 물을 쪼르르 주었어요. 작은 흙더미가 줄줄이 생겼어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면 아이레벨. 이랑을 옆에서 따라본다.<br/><b>장소·시간</b> 같은 들판 가장자리.<br/><b>인물</b> Mumu duck이 물뿌리개를 두 날개로 기울여 물을 쪼르르 준다 — 몸을 살짝 굽히고 눈이 물줄기를 따라간다, 파란 목수건.<br/><b>배경·소품</b> 흙 이불을 덮어 만든 **작은 흙더미 여섯 개**가 줄줄이, 물이 닿아 색이 짙어지는 자리.<br/><b>톤</b> 물이 닿은 흙만 짙어져 어디까지 했는지가 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">도도가 남은 씨 하나를 두 날개로 꼭 감싸 들고 왔어요. "요건 안 줄 거야!" 그러고는 무무처럼 콕 — 씨를 넣고, 토닥 — 흙 이불을 덮었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 측면 아이레벨. 도도의 두 날개와 흙더미.<br/><b>장소·시간</b> 줄지은 흙더미 맨 끝, 같은 아침.<br/><b>인물</b> Dodo duck이 쪼그려 앉아 두 날개로 새 흙더미를 토닥토닥 다독인다 — 부리를 야무지게 다물고 눈이 흙에 붙었다, 파란 머리 리본. 옆에서 Mumu duck이 물뿌리개를 들고 지켜본다 — 파란 목수건.<br/><b>배경·소품</b> 도도가 방금 만든 **일곱 번째 흙더미**, 그 왼쪽으로 이어진 여섯 개.<br/><b>톤</b> 줄 끝에 하나가 더 붙어 줄이 길어진 것이 이 쪽의 마무리다.</pre></details>
+</div>
+
+</div>
+<script src="/dodo-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>피포네 돌담 목장 — 굴러간 공</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#F0B429; --slope:#2C2A25; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">피포네 돌담 목장 · 08</div>
+  <h1>굴러간 공</h1>
+  <div class="sub"><b>원함</b> 언덕 아래로 굴러간 공을 찾고 싶다 · <b>틀리는 어른</b> 양 할아버지 · <b>어긋남</b> 공은 옛날부터 개울로 갔다며 개울만 뒤진다 · <b>착지</b> 피포가 풀 눕은 자국을 따라가 찾는다</div>
+  <div class="by">글 <b>문나래</b> · 그림 <b>백서리</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">피포가 언덕 꼭대기에서 공놀이를 해요. 공이 데굴데굴 굴러가요. 지나간 자리마다 풀이 납작 누워요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 언덕 꼭대기에서 아래로.<br/><b>장소·시간</b> 언덕 꼭대기, 맑은 낮.<br/><b>인물</b> Pipo puppy가 두 손을 앞으로 뻗은 채 공을 막 놓친 자세로 서 있다 — 몸이 비탈 쪽으로 기울었다, 노란 목도리.<br/><b>배경·소품</b> 비탈을 굴러 내려가는 공 하나, 공이 지나온 자리마다 풀이 납작 누워 한 줄 자국이 됐다.<br/><b>톤</b> 굴러가는 것 하나와 그 뒤에 남은 줄 하나가 화면을 아래로 끌고 간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">공이 언덕 아래 풀숲으로 사라졌어요. "하나뿐인 공인데, 꼭 찾을 거예요!" 피포가 부리나케 내려갔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 풀숲 앞.<br/><b>장소·시간</b> 언덕 아래 풀숲 가, 낮.<br/><b>인물</b> Pipo puppy가 비탈을 뛰어 내려오며 풀숲 쪽으로 팔을 뻗는다 — 입이 벌어져 말하는 중, 귀가 뒤로 날린다, 노란 목도리.<br/><b>배경·소품</b> 키 큰 풀숲, 공이 사라진 자리.<br/><b>톤</b> 풀 끝이 한 방향으로 눕고 그 끝이 어두워 안이 안 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지가 말없이 개울 쪽으로 지팡이를 겨눴어요. 벌써 다 안다는 얼굴이에요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글. 지팡이 끝과 얼굴.<br/><b>장소·시간</b> 풀숲 옆, 낮.<br/><b>인물</b> Sheep grandpa가 입을 다문 채 지팡이를 개울 쪽으로 곧게 겨눈다 — 눈이 반쯤 감겼고 턱이 들렸다. 말은 없다. Pipo puppy는 화면 아래에서 그 끝을 본다 — 노란 목도리.<br/><b>배경·소품</b> 지팡이, 뒤로 흐린 개울.<br/><b>톤</b> 대사 없이 뻗은 막대 하나가 방향을 정한다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지가 개울을 지팡이로 휘휘 저어요. 물풀만 주렁주렁 걸려 나와요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 개울과 물가.<br/><b>장소·시간</b> 개울가, 낮.<br/><b>인물</b> Sheep grandpa가 물가에 서서 지팡이로 물속을 휘휘 젓는다 — 몸이 앞으로 굽었다. Pipo puppy는 물가에서 언덕 쪽을 흘끔 돌아본다 — 노란 목도리.<br/><b>배경·소품</b> 지팡이 끝에 감겨 나오는 물풀 뭉치, 물 위 잔물결.<br/><b>톤</b> 물결이 원을 그리는 만큼 헛손질이 길어진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"옛날 공은 다 여기까지 떠내려왔는데." 할아버지가 개울 속으로 첨벙첨벙 들어가요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면 아이레벨. 물에 든 몸.<br/><b>장소·시간</b> 개울 속, 낮.<br/><b>인물</b> Sheep grandpa가 무릎까지 물에 들어가 첨벙거리며 입을 벌려 말한다 — 지팡이가 물속을 훑는다. Pipo puppy는 물가에 남아 두 손을 모으고 본다 — 노란 목도리.<br/><b>배경·소품</b> 튀어 오르는 물, 젖은 털이 다리에 붙었다.<br/><b>톤</b> 물이 몸을 반쯤 삼켜 화면 아래가 어지럽다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이번에 걸려 나온 건 낡은 장화 한 짝이에요. "허, 이건 내 장화 아닌가?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 지팡이 끝에 걸린 것.<br/><b>장소·시간</b> 개울 위, 낮.<br/><b>인물</b> Sheep grandpa가 지팡이를 들어 올렸고 그 끝에 낡은 장화 한 짝이 걸려 있다 — 눈썹이 위로 올라가고 입이 벌어졌다.<br/><b>배경·소품</b> 장화 한 짝, 발목에서 흘러내리는 물줄기, 물풀 몇 가닥.<br/><b>톤</b> 찾던 둥근 것 대신 길쭉한 것이 매달렸다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지가 장화를 거꾸로 들었어요. 물만 주르륵 쏟아져요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 거꾸로 든 장화를 아래에서.<br/><b>장소·시간</b> 개울가, 낮.<br/><b>인물</b> Sheep grandpa가 두 손으로 장화를 거꾸로 들어 높이 쳐들었다 — 고개를 젖혀 장화 입구를 올려다본다. Pipo puppy는 옆으로 한 걸음 비켜선다 — 노란 목도리.<br/><b>배경·소품</b> 장화에서 주르륵 쏟아지는 물줄기 하나.<br/><b>톤</b> 세로로 곧게 떨어지는 물줄기가 화면 가운데를 가른다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">피포는 언덕을 돌아봤어요. 풀이 누운 자국이 길처럼 죽 나 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 언덕을 돌아본 시선.<br/><b>장소·시간</b> 언덕 아래, 낮.<br/><b>인물</b> Pipo puppy가 몸을 돌려 언덕 위쪽을 올려다본다 — 한 손으로 눈 위를 가리고 다른 손은 아래로 뻗었다, 노란 목도리.<br/><b>배경·소품</b> 🔴 풀이 납작 누운 자국이 언덕 위에서 화면 오른쪽 덤불까지 길처럼 이어진다 — p1 의 그 줄과 같은 선.<br/><b>톤</b> 눌린 줄 하나만 결이 다르게 누워 눈이 저절로 끝까지 따라간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">자국 끝은 가시덤불 앞이에요. 덤불 밑에 공이 쏙 들어가 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 덤불 밑.<br/><b>장소·시간</b> 가시덤불 앞, 낮.<br/><b>인물</b> Pipo puppy가 무릎을 꿇고 한 손으로 덤불 가지를 들어 올린다 — 얼굴이 바닥 가까이 내려갔다, 노란 목도리.<br/><b>배경·소품</b> 덤불 밑동에 반쯤 들어간 공 하나, 그 앞에서 끝나는 눌린 풀 자국.<br/><b>톤</b> 길게 이어진 줄이 이 한 점에서 멈춘다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">피포가 공을 꺼내 품에 안았어요. 할아버지는 찾은 장화를 신고 성큼성큼 와요. "공도 찾고 장화도 찾았구나!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 마주 오는 둘.<br/><b>장소·시간</b> 언덕 아래 풀밭, 낮.<br/><b>인물</b> Pipo puppy가 공을 두 팔로 품에 안고 화면 왼쪽에 서 있다 — 노란 목도리. Sheep grandpa가 오른쪽에서 낡은 장화를 한 발에 신고 성큼성큼 걸어온다 — 신은 발만 걸음이 크고 입이 벌어져 웃는다.<br/><b>배경·소품</b> 공 하나, 장화 한 짝(나머지 한 발은 맨발).<br/><b>톤</b> 잃었던 둥근 것과 뜻밖의 길쭉한 것이 한 화면에서 만난다.</pre></details>
+</div>
+
+</div>
+<script src="/pipo-core.js"></script>
+</body>
+</html>

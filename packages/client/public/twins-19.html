@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>쌍둥이네 바닷가 — 배 씻는 날</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#E9A825; --slope:#2D3B42; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">쌍둥이네 바닷가 · 19</div>
+  <h1>배 씻는 날</h1>
+  <div class="sub"><b>원함</b> 아빠 배를 반짝반짝 씻어 놓고 싶다 · <b>우기는 둘</b> 리리 "차례차례 닦아야지" / 롤로 "물부터 부어야지" · <b>어긋남</b> 배는 얼룩덜룩, 둘은 흠뻑 젖는다 · <b>착지</b> 소나기가 좍 헹궈 주는데 「우리가 씻었어요!」에 천둥이 우르릉 대꾸한다</div>
+  <div class="by">글 <b>한여울</b> · 그림 <b>임푸른</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠 배에 소금기가 하얗게 앉았어요. 아빠가 물통과 솔을 내줬어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 배 옆구리를 아래에서.<br/><b>장소·시간</b> 부두, 아침.<br/><b>인물</b> Dad rabbit이 물통과 솔을 부두 바닥에 내려놓는다 — 허리를 굽혔고 검정 장화. Riri rabbit과 Lolo rabbit이 그 앞에서 배 옆구리를 올려다본다 — 노란 모자, 노란 장화.<br/><b>배경·소품</b> 부두에 매인 배, 옆구리에 하얗게 앉은 소금기 자국, 물통 하나와 솔 둘.<br/><b>톤</b> 배 옆구리에 하얀 얼룩이 위아래로 번져 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘은 아빠 배를 반짝반짝 씻어 놓고 싶어요. "저녁에 아빠가 보시면 깜짝 놀라실 거야."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 둘의 상반신.<br/><b>장소·시간</b> 부두 위.<br/><b>인물</b> Riri rabbit이 솔을 두 손으로 잡고 가슴 앞에 세운 채 입을 벌려 말한다 — 노란 모자. Lolo rabbit은 벌써 물통 손잡이를 잡고 무릎을 굽혔다 — 노란 장화.<br/><b>배경·소품</b> 물통, 솔 둘, 배 옆구리.<br/><b>톤</b> 저녁에 놀랄 얼굴을 앞에 두고 손이 벌써 도구를 잡았다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리가 뱃머리부터 솔질을 시작했어요. 롤로는 물통을 번쩍 들었어요. "차례차례 닦아야지." "물부터 부어야지."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 측면. 뱃머리 쪽과 물통 쪽.<br/><b>장소·시간</b> 부두, 배 옆.<br/><b>인물</b> Riri rabbit이 화면 왼쪽 뱃머리 아래에 쪼그려 앉아 한 자리를 솔로 문지른다 — 노란 모자. Lolo rabbit은 오른쪽에서 물통을 머리 위까지 번쩍 들었다 — 몸이 뒤로 젖혀지고 노란 장화가 벌어졌다.<br/><b>배경·소품</b> 배 옆구리 전체가 아직 하얗다.<br/><b>톤</b> 한쪽 끝은 문지르고 반대쪽 끝은 들어 올렸다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리가 한 자리를 박박 문질러요. 손바닥만큼 반짝반짝해졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 솔과 배 표면.<br/><b>장소·시간</b> 뱃머리 아래.<br/><b>인물</b> Riri rabbit의 두 앞발이 솔을 잡고 같은 자리를 문지른다 — 화면 위로 노란 모자챙이 들어온다.<br/><b>배경·소품</b> 손바닥만큼만 소금기가 벗겨져 매끈해진 자리, 그 둘레는 그대로 하얗다.<br/><b>톤</b> 매끈한 데와 하얀 데의 경계가 손 하나 크기다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">해가 기울어요. 반짝이는 자리는 아직 한 뼘이에요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 배 옆구리 전체.<br/><b>장소·시간</b> 부두, 해가 기운 때.<br/><b>인물</b> Riri rabbit이 여전히 뱃머리 아래에 앉아 솔질을 이어 간다 — 팔이 무거워 보이고 어깨가 처졌다, 노란 모자.<br/><b>배경·소품</b> 🔴 벗겨진 자리는 한 뼘, 나머지 옆구리는 통째로 하얗다. 낮게 내려온 해.<br/><b>톤</b> 지운 면적보다 그림자가 훨씬 길다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">롤로가 물을 촤악 끼얹었어요. 거품이 뽀글뽀글 넘쳐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 쏟아지는 물과 배.<br/><b>장소·시간</b> 배 옆.<br/><b>인물</b> Lolo rabbit이 물통을 어깨 위로 확 기울인다 — 몸이 뒤로 넘어갈 듯 젖혀졌고 입이 크게 벌어졌다, 노란 장화가 바닥에서 미끄러지기 시작한다.<br/><b>배경·소품</b> 배 옆구리를 타고 넓게 흐르는 물, 발밑에 부풀어 오르는 거품.<br/><b>톤</b> 물이 한 번에 위에서 아래로 화면을 훑는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">롤로가 거품 위에서 미끄덩! 엉덩방아를 찧었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면. 미끄러진 순간.<br/><b>장소·시간</b> 거품이 퍼진 부두 바닥.<br/><b>인물</b> Lolo rabbit이 엉덩이로 바닥을 찧으며 두 다리가 앞으로 번쩍 들렸다 — 두 팔이 허공에서 벌어졌고 입이 최대로 벌어졌다, 노란 장화 두 짝이 하늘을 찬다.<br/><b>배경·소품</b> 사방으로 미끄러진 거품 자국, 옆으로 굴러간 빈 물통.<br/><b>톤</b> 물을 부은 쪽이 물 위에 앉았다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">하늘이 어둑해지더니 소나기가 좍 쏟아졌어요. 둘이 부두 창고 처마 밑으로 쏙 뛰어들었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 처마 밑으로 들어선 둘.<br/><b>장소·시간</b> 부두 창고 처마 밑, 하늘이 어둑해진 때.<br/><b>인물</b> Riri rabbit과 Lolo rabbit이 처마 밑에 막 들어서서 몸을 웅크린다 — 리리는 두 손으로 노란 모자를 눌러 쓰고, 롤로는 솔을 머리에 얹었다, 노란 장화에서 물이 흐른다.<br/><b>배경·소품</b> 처마 끝에서 줄줄이 떨어지는 빗줄기, 젖어 가는 부두 바닥, 저 앞의 배.<br/><b>톤</b> 마른 자리는 처마 밑 한 뼘뿐이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">비가 그쳤어요. 배가 위아래로 말끔히 헹궈졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 비 갠 부두와 배.<br/><b>장소·시간</b> 비가 그친 직후.<br/><b>인물</b> Riri rabbit과 Lolo rabbit이 처마 밑에서 한 걸음 나와 배를 본다 — 둘 다 입이 벌어졌다, 노란 모자와 노란 장화.<br/><b>배경·소품</b> 소금기 자국이 통째로 사라져 위아래가 고르게 젖은 배, 뱃전에서 떨어지는 물방울, 바닥의 물웅덩이.<br/><b>톤</b> 손이 못 닿던 윗부분까지 한 번에 고르다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 와서 배를 보고 눈이 커졌어요. "우리가 씻었어요!" 둘이 가슴을 쫙 폈어요. 그때 하늘에서 천둥이 우르릉 울렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 셋과 그 위 하늘.<br/><b>장소·시간</b> 부두, 저녁.<br/><b>인물</b> Dad rabbit이 배 앞에서 눈이 커지고 입이 벌어졌다 — 검정 장화. Riri rabbit과 Lolo rabbit이 그 앞에 나란히 서서 가슴을 쫙 펴고 턱을 들었다 — 둘 다 흠뻑 젖었고 노란 모자와 노란 장화에서 물이 떨어진다.<br/><b>배경·소품</b> 말끔해진 배, 머리 위로 아직 낮게 깔린 구름.<br/><b>톤</b> 가슴을 편 순간 위쪽이 한 번 더 어두워진다.</pre></details>
+</div>
+
+</div>
+<script src="/twins-core.js"></script>
+</body>
+</html>

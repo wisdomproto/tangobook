@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>노노네 겨울 골목 — 내가 계속 탈래</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#2F7F4E; --slope:#333A3E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">노노네 겨울 골목 · 08</div>
+  <h1>내가 계속 탈래</h1>
+  <div class="sub"><b>주인공</b> 구구(독차지) · <b>원함</b> 썰매를 실컷 타고 싶다 · <b>탈</b> 혼자 끌어 올리다 못 올려 한 번도 못 탄다 · <b>착지</b> 셋이 끌어 올려 실컷 탄다</div>
+  <div class="by">글 <b>배도담</b> · 그림 <b>노아라</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">골목 끝에 눈 언덕이 있어요. 셋에게 나무 썰매가 하나 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 언덕 아래에서 위를 올려다본다.<br/><b>장소·시간</b> 골목 끝 눈 언덕, 낮.<br/><b>인물</b> Nono sparrow · Gugu pigeon · Kiki cat 셋이 언덕 밑에서 나무 썰매 하나를 가운데 두고 둘러섰다 — 셋 다 고개를 들어 언덕 꼭대기를 본다, 초록 목도리 · 초록 천 가방 · 초록 방울.<br/><b>배경·소품</b> 매끈한 눈 언덕이 화면 위쪽을 다 차지하고, 나무 썰매 하나와 끄는 줄.<br/><b>톤</b> 올려다보는 각도라 언덕이 실제보다 높고 넓게 앉는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">구구는 썰매를 실컷 타고 싶어요. "내가 먼저 탈래!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 아래에서 구구를.<br/><b>장소·시간</b> 언덕 밑.<br/><b>인물</b> Gugu pigeon이 한 손으로 썰매 줄을 쥐고 다른 손을 번쩍 들어 외친다 — 부리가 크게 벌어지고 가슴이 앞으로 나왔다, 초록 천 가방.<br/><b>배경·소품</b> 발밑의 썰매, 뒤로 언덕 비탈.<br/><b>톤</b> 든 손이 화면 맨 위를 찍어 목소리 크기가 자세로 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">구구가 썰매를 타고 쌩 내려갔어요. 바람이 얼굴에 시원하게 스쳐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 측면. 비탈이 화면을 대각으로 지른다.<br/><b>장소·시간</b> 눈 언덕 비탈.<br/><b>인물</b> Gugu pigeon이 썰매에 앉아 왼쪽 위에서 오른쪽 아래로 내려온다 — 몸을 앞으로 숙이고 두 손이 썰매 앞을 꽉 잡았다, 부리가 벌어졌고 초록 천 가방이 뒤로 날린다. 언덕 위에 Nono sparrow와 Kiki cat이 작게 서 있다.<br/><b>배경·소품</b> 썰매 뒤로 눈가루가 흩날리고 자국 한 줄이 길게 남는다.<br/><b>톤</b> 대각선 한 줄이 화면을 관통해 속도가 방향으로 읽힌다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">노노가 손을 내밀었어요. "이제 나 줘." "싫어. 내가 계속 탈래."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 언덕 밑 세 몸.<br/><b>장소·시간</b> 언덕 밑.<br/><b>인물</b> Nono sparrow가 한 손을 내밀며 말한다 — 손바닥이 위로, 초록 목도리. Gugu pigeon은 썰매 줄을 두 손으로 제 가슴에 끌어안고 고개를 젓는다 — 몸이 뒤로 반쯤 돌아갔다, 초록 천 가방. Kiki cat이 옆에서 꼬리를 세우고 본다 — 초록 방울.<br/><b>배경·소품</b> 썰매, 눈 위 자국.<br/><b>톤</b> 내민 손과 끌어안은 팔이 한 화면에서 반대 방향으로 향한다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">구구가 혼자 썰매를 끌고 언덕을 올라가요. 썰매가 자꾸 뒤로 당겨요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 뒷모습 로우앵글.<br/><b>장소·시간</b> 언덕 아래쪽 비탈.<br/><b>인물</b> Gugu pigeon이 줄을 어깨에 걸고 비탈을 오른다 — 몸이 앞으로 깊이 기울고 두 손이 줄을 당기며 발이 눈에 박혔다, 초록 천 가방이 앞으로 쏠렸다.<br/><b>배경·소품</b> 뒤에서 처져 끌려오는 썰매, 썰매 뒤로 눌린 자국.<br/><b>톤</b> 몸은 위를 향하는데 썰매는 아래로 처져 힘의 방향이 어긋난다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">반쯤 올라가다 줄을 놓쳤어요. 썰매가 도로 밑까지 쭉 내려갔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 비탈 전체를 위에서.<br/><b>장소·시간</b> 언덕 중턱.<br/><b>인물</b> Gugu pigeon이 중턱에서 줄을 놓쳐 두 손가락이 벌어진 채 위로 들렸다 — 몸이 뒤로 젖혀지고 부리가 벌어졌다, 초록 천 가방.<br/><b>배경·소품</b> 놓친 줄이 눈 위에 늘어졌고 썰매가 비탈 아래쪽에 가 있다.<br/><b>톤</b> 빈 두 손과 저 아래 썰매가 화면 위아래 끝에 갈라져 놓인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">구구가 언덕 밑에서 헉헉거려요. 한 번도 다시 못 탔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨.<br/><b>장소·시간</b> 언덕 밑.<br/><b>인물</b> Gugu pigeon이 두 손을 눈 위에 짚고 고개를 떨궜다 — 부리가 벌어져 숨이 가쁘고 어깨가 오르내린다, 초록 천 가방이 앞으로 흘러내렸다.<br/><b>배경·소품</b> 옆에 멈춰 선 썰매, 뒤로 비탈이 흐리게.<br/><b>톤</b> 몸이 화면 아래로 무겁게 내려앉아 오르지 못한 것이 자세가 된다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">오소리 할아버지가 지나가다 말했어요. "썰매는 내려올 땐 혼자, 올라갈 땐 여럿이란다."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 언덕길 옆.<br/><b>장소·시간</b> 언덕 밑길, 오후.<br/><b>인물</b> Grandpa Badger가 장바구니를 한 손에 들고 걸음을 멈춰 Gugu 쪽으로 몸을 돌려 말한다 — 다른 손을 허리에 얹었다, 앞치마. Gugu pigeon이 짚었던 손을 떼고 올려다본다 — 초록 천 가방.<br/><b>배경·소품</b> 장바구니, 언덕과 썰매.<br/><b>톤</b> 지나가던 걸음이 멈춘 자리라 화면에 잠깐의 정지가 생긴다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">구구가 노노랑 키키를 불렀어요. 셋이 줄을 잡고 썰매를 쓱쓱 끌어 올렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 측면. 비탈을 오르는 세 몸.<br/><b>장소·시간</b> 눈 언덕 비탈.<br/><b>인물</b> Nono sparrow · Gugu pigeon · Kiki cat 셋이 한 줄로 줄을 잡고 오른쪽 위로 끌어 올린다 — 셋 다 몸이 같은 각도로 앞으로 기울고 발이 눈을 찬다, 초록 목도리 · 초록 천 가방 · 초록 방울.<br/><b>배경·소품</b> 뒤따라 매끄럽게 올라오는 썰매, 비탈에 자국 두 줄.<br/><b>톤</b> 세 몸의 기울기가 같아서 힘이 한 방향으로 모인 것이 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">번갈아 타고 또 같이 끌어 올렸어요. 구구가 오늘 제일 많이 탔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 언덕 꼭대기.<br/><b>장소·시간</b> 눈 언덕 위, 늦은 오후.<br/><b>인물</b> Gugu pigeon이 썰매에 앉아 두 손으로 앞을 잡고 앞을 보며 웃고, Nono sparrow와 Kiki cat이 뒤에서 두 손으로 썰매를 민다 — 셋 다 입과 부리가 벌어졌다, 초록 천 가방 · 초록 목도리 · 초록 방울.<br/><b>배경·소품</b> 비탈에 오르내린 썰매 자국이 여러 줄 겹쳐 있다.<br/><b>톤</b> 자국이 여러 줄이라 몇 번이나 탔는지가 눈 위에 세어진다.</pre></details>
+</div>
+
+</div>
+<script src="/nono-core.js"></script>
+</body>
+</html>

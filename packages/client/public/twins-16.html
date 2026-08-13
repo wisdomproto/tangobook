@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>쌍둥이네 바닷가 — 우리 배 깃발</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#E9A825; --slope:#2D3B42; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">쌍둥이네 바닷가 · 16</div>
+  <h1>우리 배 깃발</h1>
+  <div class="sub"><b>원함</b> 아빠 배에 달 깃발을 만들어 주고 싶다 · <b>우기는 둘</b> 리리 "비늘까지 그려야지" / 롤로 "바다부터 칠해야지" · <b>어긋남</b> 반 마리 물고기와 파란 얼룩, 잡아당기다 둘 다 놓친다 · <b>착지</b> 얼룩이 파도가 되고 물고기가 그 위를 헤엄친다</div>
+  <div class="by">글 <b>한여울</b> · 그림 <b>임푸른</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠 배 깃대가 텅 비어 있어요. 엄마가 하얀 천 한 장을 내줬어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 빈 깃대를 아래에서.<br/><b>장소·시간</b> 부두에 매인 아빠 배 옆, 아침.<br/><b>인물</b> Riri rabbit과 Lolo rabbit이 부두에 서서 깃대 꼭대기를 올려다본다 — 리리는 한 손으로 노란 모자챙을 잡았고, 롤로는 두 팔을 늘어뜨린 채 입이 벌어졌다, 노란 장화.<br/><b>배경·소품</b> 아무것도 걸리지 않은 깃대, 매인 밧줄, 뱃전에 놓인 그물.<br/><b>톤</b> 화면 위쪽 끝이 텅 비어 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘은 아빠 배에 달 깃발을 만들어 주고 싶어요. "우리 배 깃발이니까 물고기를 그리자!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 건네는 천.<br/><b>장소·시간</b> 부두 위.<br/><b>인물</b> Mom rabbit이 접힌 하얀 천 한 장을 두 손으로 내밀고, Riri rabbit과 Lolo rabbit이 양쪽에서 한 귀퉁이씩 잡아 받는다 — 리리는 두 손가락으로 곱게, 롤로는 손바닥째 움켜쥐고. 파란 앞치마, 노란 모자, 노란 장화.<br/><b>배경·소품</b> 하얀 천 한 장, 옆에 놓인 물감 통과 붓 두 자루.<br/><b>톤</b> 아직 아무 자국도 없는 면이 셋 사이에 펼쳐진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘이 천 양쪽을 잡았어요. 리리는 붓을 가늘게 세우고, 롤로는 붓을 흠뻑 적셔요. "비늘까지 그려야지." "바다부터 칠해야지."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 부감. 펼친 천을 바로 위에서.<br/><b>장소·시간</b> 부두 바닥.<br/><b>인물</b> Riri rabbit이 화면 왼쪽에서 붓을 곧게 세워 끝만 물감에 살짝 적신다 — 무릎을 꿇고 코가 천에 닿을 듯하다, 노란 모자. Lolo rabbit은 오른쪽에서 붓을 통에 통째로 담가 흠뻑 적신다 — 물감이 뚝뚝 떨어진다, 노란 장화.<br/><b>배경·소품</b> 바닥에 펼쳐진 하얀 천, 파란 물감 통.<br/><b>톤</b> 같은 천 위에서 붓 두 자루의 굵기가 딴판이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">리리가 비늘을 한 개씩 그려요. 아주 작은 비늘이 조롱조롱 늘어나요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글. 붓끝과 비늘.<br/><b>장소·시간</b> 천 위.<br/><b>인물</b> Riri rabbit이 붓끝으로 비늘 한 개를 그려 넣는 참 — 혀끝이 입가에 나왔고 눈이 붓끝에 붙었다, 노란 모자.<br/><b>배경·소품</b> 조롱조롱 늘어선 작은 비늘들, 아직 선만 그어진 물고기 등.<br/><b>톤</b> 손톱만 한 것이 여러 개 모여 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">해가 머리 위에 왔는데 아직 반 마리예요. 꼬리는 시작도 못 했어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면. 천의 절반과 해.<br/><b>장소·시간</b> 부두, 해가 머리 위에 온 때.<br/><b>인물</b> Riri rabbit이 여전히 같은 자세로 앉아 비늘을 그린다 — 등이 동그랗고 어깨가 굳었다, 노란 모자.<br/><b>배경·소품</b> 🔴 천에 그려진 것은 머리부터 몸통 절반까지, 꼬리 자리는 통째로 비었다.<br/><b>톤</b> 해가 꼭대기에 왔는데 천은 아직 반쪽이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">롤로가 파란 물감을 촤악 부었어요. 천이 온통 파래졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 기울어지는 물감 통.<br/><b>장소·시간</b> 같은 천 앞.<br/><b>인물</b> Lolo rabbit이 물감 통을 두 손으로 들어 천 위로 확 기울인다 — 몸이 앞으로 쏠리고 입이 크게 벌어졌다, 노란 장화.<br/><b>배경·소품</b> 통에서 쏟아져 천 위에 넓게 퍼지는 파란 물감.<br/><b>톤</b> 한 번에 면이 통째로 바뀐다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">물감이 뚝뚝 흘러 얼룩이 졌어요. "내 물고기!" "내 바다!" 둘이 천을 잡아당겨요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 양쪽에서 당기는 천.<br/><b>장소·시간</b> 부두 위.<br/><b>인물</b> Riri rabbit과 Lolo rabbit이 천 양 끝을 잡고 서로 반대로 당긴다 — 둘 다 뒤로 몸을 눕혔고 입이 크게 벌어졌다, 노란 모자가 뒤로 밀리고 노란 장화가 바닥을 민다.<br/><b>배경·소품</b> 물감이 뚝뚝 흘러 아래로 번진 얼룩 자국들.<br/><b>톤</b> 팽팽해진 천 가운데서 물감이 계속 흘러내린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">천이 손에서 쑥 빠져 빨랫줄에 척 걸렸어요. 둘이 그 밑에서 올려다봐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 빨랫줄과 그 아래 둘.<br/><b>장소·시간</b> 부두 옆 빨랫줄.<br/><b>인물</b> Riri rabbit과 Lolo rabbit이 아래에서 고개를 젖혀 올려다본다 — 두 쌍의 앞발이 아직 허공에 뻗어 있다, 노란 모자와 노란 장화.<br/><b>배경·소품</b> 빨랫줄에 척 걸려 늘어진 천, 아래로 떨어지는 물방울 몇.<br/><b>톤</b> 손을 떠난 것이 화면 위쪽에 걸렸다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">파란 얼룩이 출렁출렁 파도 같아요. 반 마리 물고기가 그 위를 헤엄쳐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 정면. 천 면이 화면을 채운다.<br/><b>장소·시간</b> 빨랫줄 아래.<br/><b>인물</b> 화면 아래 가장자리로 Riri rabbit의 노란 모자챙과 Lolo rabbit의 귀 끝만 들어온다 — 둘 다 위를 본다.<br/><b>배경·소품</b> 아래로 흘러내린 파란 얼룩이 가로로 겹쳐 물결 무늬가 됐고, 그 위에 꼬리 없는 물고기가 얹혀 있다.<br/><b>톤</b> 두 실패가 위아래로 포개져 한 그림이 된다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠 배 깃대에 깃발이 올라갔어요. 바람에 물고기가 진짜로 헤엄치는 것 같아요. 꼬리가 없는데도요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 깃대 끝과 하늘.<br/><b>장소·시간</b> 부두, 바람 부는 낮.<br/><b>인물</b> Riri rabbit과 Lolo rabbit이 부두 아래에서 어깨를 붙이고 고개를 젖혀 깃발을 본다 — 둘 다 입이 벌어졌다, 노란 모자와 노란 장화. 뱃전의 Dad rabbit은 밧줄을 쥔 채 위를 올려다본다 — 검정 장화.<br/><b>배경·소품</b> 깃대 끝에서 바람에 펄럭이는 깃발, 물결 무늬가 흔들리며 물고기가 그 위를 지나가는 것처럼 보인다.<br/><b>톤</b> 펄럭일 때마다 꼬리가 없는 게 안 보인다.</pre></details>
+</div>
+
+</div>
+<script src="/twins-core.js"></script>
+</body>
+</html>

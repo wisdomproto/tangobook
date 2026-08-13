@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>도도네 물방앗간 — 짚더미 미끄럼</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#2D62B8; --slope:#3D4A44; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">도도네 물방앗간 · 17</div>
+  <h1>짚더미 미끄럼</h1>
+  <div class="sub"><b>원함</b> 마당 짚더미 비탈의 나무판을 타고 짚더미에 폭 하고 싶다 · <b>틀리는 쪽</b> 도도 — "바싹 마른 데가 제일 빨라" · <b>어긋남</b> 끼익— 마른 나무판에 붙어서 엉금엉금 · <b>착지</b> 물을 뿌린 나무판으로 슝, 짚더미에 폭 — 도도도 슝, "젖은 미끄럼이 백 배 좋네!"</div>
+  <div class="by">글 <b>한여울</b> · 그림 <b>윤새롬</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">방앗간 마당에 짚이 산처럼 쌓였어요. 아빠가 짚더미 비탈에 긴 나무판을 걸쳐 놓았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 짚더미를 아래에서 올려다본다.<br/><b>장소·시간</b> 방앗간 마당 짚더미, 낮.<br/><b>인물</b> Daddy duck이 짚더미 비탈에 긴 나무판 아래쪽 끝을 두 날개로 잡아 자리를 잡는 참 — 몸이 비탈 쪽으로 기울었다, 밀짚모자.<br/><b>배경·소품</b> 산처럼 쌓인 마른 짚더미, 비탈에 비스듬히 걸친 긴 나무판 하나, 바닥에 흩어진 짚 부스러기.<br/><b>톤</b> 나무판의 곧은 선이 부슬부슬한 짚더미를 대각으로 가른다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"저 나무판을 타고 짚더미에 폭 떨어지고 싶어!" 무무가 폴짝폴짝 뛰었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 무무 전신.<br/><b>장소·시간</b> 짚더미 앞 마당.<br/><b>인물</b> Mumu duck이 두 오리발을 다 떼고 폴짝 뛰어오른 참 — 두 날개가 위로 벌어지고 부리를 크게 벌려 말한다, 파란 목수건이 위로 들렸다.<br/><b>배경·소품</b> 발밑에 튀어 오르는 짚 부스러기, 뒤로 나무판과 짚더미.<br/><b>톤</b> 몸이 땅에서 떨어져 있어 기다림이 못 견디는 게 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">도도가 나무판 위로 올라가며 말했어요. "미끄럼은 바싹 마른 데가 제일 빨라. 깃털도 안 젖고! 내가 알아!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면 아이레벨. 나무판 비탈을 옆에서.<br/><b>장소·시간</b> 나무판 위쪽.<br/><b>인물</b> Dodo duck이 나무판을 밟고 위쪽으로 올라가며 뒤를 돌아 부리를 크게 벌린다 — 한 날개로 나무판을 툭툭 두드린다, 파란 머리 리본. Mumu duck이 아래에서 올려다본다 — 파란 목수건.<br/><b>배경·소품</b> 바싹 마른 나무판 결, 아래쪽 끝은 물레방아 물이 튀어 색이 짙다.<br/><b>톤</b> 같은 판인데 위쪽은 뽀얗고 아래쪽 끝만 색이 짙다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">도도가 마른 나무판에 앉아 몸을 쭉 밀었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 나무판 위 도도를 위에서.<br/><b>장소·시간</b> 나무판 꼭대기.<br/><b>인물</b> Dodo duck이 나무판 위에 앉아 두 날개로 판을 짚고 엉덩이를 앞으로 쭉 밀어낸다 — 목이 앞으로 나가고 눈이 아래 짚더미를 본다, 파란 머리 리본.<br/><b>배경·소품</b> 마른 나무판, 저 아래 짚더미.<br/><b>톤</b> 출발선에서 몸이 앞으로 쏠려 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">끼익—. 도도가 나무판에 딱 붙어 멈췄어요. 엉금엉금, 굼벵이걸음이에요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 판 중간에 멈춘 도도.<br/><b>장소·시간</b> 나무판 중간.<br/><b>인물</b> Dodo duck이 판에 엉덩이가 딱 붙어 멈췄다 — 두 날개로 판을 밀어 보느라 어깨가 솟았고 부리가 앙다물렸다, 한쪽 눈이 찡그러졌다, 파란 머리 리본.<br/><b>배경·소품</b> 엉덩이 아래 판에서 이는 마른 먼지, 아직 한참 남은 아래쪽 비탈.<br/><b>톤</b> 미끄러져야 할 자리에서 몸이 붙어 있어 화면이 멈춰 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"이건… 천천히 구경하는 미끄럼이야." 도도가 엉덩이를 들썩들썩.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 측면 아이레벨. 도도의 엉덩이와 판.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Dodo duck이 엉덩이를 들썩들썩 좌우로 흔들며 고개를 돌려 부리를 벌려 말한다 — 눈을 반쯤 감았다, 파란 머리 리본.<br/><b>배경·소품</b> 판 위에 남은 짧은 미끄럼 자국 한 뼘.<br/><b>톤</b> 지나온 자국이 한 뼘뿐이라 얼마나 못 갔는지가 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">무무가 나무판 아래쪽을 봤어요. 물레방아 물이 튄 자리가 반들반들 젖어 있어요. 날개로 쓸어 보니 미끌미끌해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 클로즈업, 하이앵글. 판의 아래쪽 끝과 날개.<br/><b>장소·시간</b> 나무판 아래쪽 끝.<br/><b>인물</b> Mumu duck의 날개 끝이 젖은 판 위를 쓸어 본다 — 화면 위쪽에 숙인 부리와 파란 목수건.<br/><b>배경·소품</b> 물레방아 물이 튀어 반들반들해진 판 자리, 그 경계 위로 마른 결, 판 옆에 맺힌 물방울 두엇.<br/><b>톤</b> 젖은 쪽은 빛을 반사하고 마른 쪽은 결이 보인다 — 한 판에서 둘이 갈린다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">무무가 물뿌리개로 나무판에 물을 쪼르르 뿌렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면 아이레벨. 판 전체와 무무.<br/><b>장소·시간</b> 나무판 옆.<br/><b>인물</b> Mumu duck이 물뿌리개를 두 날개로 들고 판 위쪽부터 아래로 물을 쪼르르 뿌린다 — 몸이 판 방향으로 기울고 눈이 물줄기를 따라간다, 파란 목수건.<br/><b>배경·소품</b> 물이 닿아 위에서부터 색이 짙어지는 판, 물뿌리개.<br/><b>톤</b> 짙어지는 자리가 위에서 아래로 내려가 길이 그려진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">슈웅—! 무무가 미끄러져 짚더미에 폭! 짚이 사방으로 팔랑팔랑 날아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 판과 짚더미가 한 화면.<br/><b>장소·시간</b> 짚더미 아래.<br/><b>인물</b> Mumu duck이 판 끝을 벗어나 짚더미 속으로 머리부터 폭 파묻히는 참 — 두 오리발이 아직 공중에 있고 두 날개가 앞으로 뻗었다, 파란 목수건이 날린다.<br/><b>배경·소품</b> 사방으로 팔랑팔랑 날아오르는 짚, 판 위에 남은 젖은 미끄럼 자국 한 줄.<br/><b>톤</b> 짚이 몸이 들어간 자리에서 밖으로 터져 나간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">도도도 슈웅— 폭! "젖은 미끄럼이 백 배 좋네!" 둘의 깃털마다 짚이 삐죽삐죽 꽂혔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 짚더미 위를 비스듬히 내려다본다.<br/><b>장소·시간</b> 같은 짚더미, 바로 뒤.<br/><b>인물</b> Dodo duck이 짚더미에 막 파묻혀 상반신만 나온 채 부리를 크게 벌려 외친다 — 두 날개가 짚 위로 솟았다, 깃털마다 짚이 삐죽삐죽, 파란 머리 리본에도 짚 한 오리. Mumu duck이 옆에서 온몸에 짚을 꽂은 채 웃는다 — 파란 목수건.<br/><b>배경·소품</b> 짚더미의 두 개의 파인 자국, 흩날리는 짚.<br/><b>톤</b> 둘 다 짚투성이라 어디까지가 아이고 어디부터가 짚인지 흐려진다.</pre></details>
+</div>
+
+</div>
+<script src="/dodo-core.js"></script>
+</body>
+</html>

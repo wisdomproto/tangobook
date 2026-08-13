@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>미오네 유치원 — 지금 탈래</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#6E4E9E; --slope:#232B2E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">미오네 유치원 · 02</div>
+  <h1>지금 탈래</h1>
+  <div class="sub"><b>주인공</b> 보보(못 참음) · <b>원함</b> 그네를 실컷 타고 싶다 · <b>탈</b> 새치기해 그네를 비틀어 줄이 꼬여 아무도 못 탄다 · <b>착지</b> 차례를 기다려 하늘까지 탄다</div>
+  <div class="by">글 <b>오하람</b> · 그림 <b>강마루</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마당에 그네가 하나 있어요. 아이들이 그네 뒤로 줄을 섰어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 그네가 화면 왼쪽, 줄이 오른쪽으로 늘어선다.<br/><b>장소·시간</b> 유치원 마당, 낮.<br/><b>인물</b> Lala lamb이 그네 판에 앉아 두 손으로 줄을 잡았다, 보라 머리핀. 그 뒤로 Mio kitten·Gaga gosling·Duri raccoon이 한 줄로 서서 차례를 기다린다 — 보라 가방·보라 리본·보라 손수건.<br/><b>배경·소품</b> 나무 기둥에 매단 그네 하나, 그네 밑 흙이 파여 얕은 우묵이 생겼다. 마당 한쪽에 낮은 울타리와 나무 한 그루.<br/><b>톤</b> 탈 것은 하나고 기다리는 몸은 여럿이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"나도 그네 타고 싶어!" 보보가 줄 맨 뒤에서 발끝을 들었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글. 줄 맨 뒤에서 보보를 아래에서 올려다본다.<br/><b>장소·시간</b> 같은 마당, 줄 맨 뒤.<br/><b>인물</b> Bobo piglet이 발뒤꿈치를 들고 목을 길게 빼 앞쪽을 넘겨다본다 — 두 손이 앞사람 등 쪽으로 반쯤 올라오다 멈췄고, 입을 벌려 말한다. 머리에 보라 모자가 뒤로 밀려 있다. 앞쪽에 Duri raccoon의 등과 보라 손수건이 흐리게 걸린다.<br/><b>배경·소품</b> 줄, 뒤로 흐린 마당.<br/><b>톤</b> 서 있는 자리는 맨 뒤인데 몸만 앞으로 나가 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">보보가 발을 동동 굴렀어요. "지금 탈래."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 위에서 내려다본 보보의 발과 상체.<br/><b>장소·시간</b> 같은 줄.<br/><b>인물</b> Bobo piglet이 제자리에서 두 발을 번갈아 굴러 흙을 두드린다 — 무릎이 위아래로 어긋나고 두 손이 주먹으로 옆구리에 붙었다. 입이 옆으로 삐죽하고 보라 모자챙이 눈 위로 내려왔다. 앞에 선 Duri raccoon·Gaga gosling은 등만 보이고 움직이지 않는다.<br/><b>배경·소품</b> 발밑에 파인 흙 자국 여러 개.<br/><b>톤</b> 줄은 하나도 안 줄었는데 발밑만 파였다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">라라가 그네에서 막 내렸어요. 보보가 얼른 자리를 차지했어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 그네를 가운데 두고 좌우에서 두 아이가 엇갈린다.<br/><b>장소·시간</b> 그네 앞.<br/><b>인물</b> Lala lamb이 그네 판에서 막 내려서 한 발이 아직 판 위에 있다, 보라 머리핀. 그 옆으로 Bobo piglet이 몸을 비스듬히 밀어 넣어 한 손으로 줄을 낚아채고 엉덩이를 판에 걸친다 — 보라 모자. 화면 오른쪽 뒤에 Teacher Bau big dog가 서서 그네 쪽으로 몸을 돌리고 있다. 줄 뒤에 Mio kitten·Gaga gosling·Duri raccoon.<br/><b>배경·소품</b> 그네, 기둥.<br/><b>톤</b> 두 몸이 같은 판 위에서 겹친다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">보보가 줄을 잡고 몸을 빙글 돌렸어요. 그네가 옆으로 홱 돌았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 그네 판 아래에서 위로 올려다본다.<br/><b>장소·시간</b> 그네 위.<br/><b>인물</b> Bobo piglet이 판 위에서 두 손으로 줄을 움켜쥐고 상체를 옆으로 비튼다 — 어깨가 한쪽으로 돌아가고 두 발이 판에서 떴다. 보라 모자가 옆으로 돌아갔다. 화면 아래쪽 가장자리에 Teacher Bau big dog가 그네 쪽으로 큰 손을 뻗으며 걸어 들어온다.<br/><b>배경·소품</b> 그네 판이 정면이 아니라 옆으로 홱 돌아가 있고 두 줄이 위쪽에서 서로 가까워진다.<br/><b>톤</b> 앞뒤로 가야 할 것이 옆으로 돌았다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그네 줄 두 개가 배배 꼬였어요. 그네가 위로 딱 붙어 버렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 로우앵글. 위쪽 줄만 화면 가득.<br/><b>장소·시간</b> 그네 기둥 밑.<br/><b>인물</b> 화면 아래 가장자리에 Bobo piglet의 보라 모자와 들린 얼굴만 조금 걸린다 — 입이 벌어지고 눈이 위를 본다.<br/><b>배경·소품</b> 🔴 줄 두 가닥이 서로 배배 감겨 굵은 한 가닥이 됐고, 그 때문에 판이 위로 딸려 올라가 기둥 가로대 바로 밑에 붙어 있다. 판 밑과 땅 사이가 아이 키보다 높다.<br/><b>톤</b> 앉을 자리가 손 닿는 데서 사라졌다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아무도 그네를 못 타요. 뒤에 선 아이들이 보보를 봐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 위에서 내려다본 마당 — 빈 그네가 화면 한쪽, 아이들이 반대쪽.<br/><b>장소·시간</b> 같은 마당.<br/><b>인물</b> Bobo piglet이 기둥 밑에 혼자 서서 고개를 숙이고 두 손을 등 뒤로 뺐다, 보라 모자. Mio kitten·Lala lamb·Gaga gosling·Duri raccoon 넷이 줄을 선 자리 그대로 멈춰 서서 전부 보보 쪽으로 얼굴을 돌렸다 — 여덟 개 눈이 한 곳을 본다. 보라 가방·보라 머리핀·보라 리본·보라 손수건.<br/><b>배경·소품</b> 위에 붙어 버린 그네 판, 파인 흙 우묵.<br/><b>톤</b> 아무도 안 움직이는데 시선만 한 방향이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">바우 선생님이 꼬인 줄을 풀었어요. "그네는 한 사람만 태울 수 있단다."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 선생님의 두 손과 꼬인 줄이 화면 가운데.<br/><b>장소·시간</b> 그네 밑.<br/><b>인물</b> Teacher Bau big dog가 팔을 위로 뻗어 큰 두 손으로 꼬인 줄을 잡고 한 손은 판을, 한 손은 줄을 반대로 돌린다 — 감긴 자리가 반쯤 풀려 두 가닥으로 갈라지는 중이다. 얼굴은 줄을 향했고 입을 벌려 말한다. 화면 아래쪽에 Bobo piglet이 턱을 들고 그 손을 올려다본다, 보라 모자. 🔴 선생님은 보라를 안 지닌다.<br/><b>배경·소품</b> 줄, 판.<br/><b>톤</b> 푸는 손이 화면에서 가장 크다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">보보가 줄 맨 뒤에 섰어요. 앞에서 하나씩 타고 내려와요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면. 줄이 화면을 왼쪽에서 오른쪽으로 가로지른다.<br/><b>장소·시간</b> 같은 마당, 조금 뒤.<br/><b>인물</b> Bobo piglet이 줄 맨 뒤에 두 발을 모으고 섰다 — 두 손을 앞으로 모아 쥐고 어깨가 내려갔다, 보라 모자를 바로 눌러 썼다. 앞에 Mio kitten·Gaga gosling·Duri raccoon이 서 있고, 맨 앞 그네에서 Lala lamb이 판에서 내려 한 발을 땅에 딛는다 — 보라 머리핀.<br/><b>배경·소품</b> 다시 아래로 내려온 그네 판.<br/><b>톤</b> p3의 굴리던 발이 여기서는 나란히 모였다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">드디어 보보 차례예요. 보보가 하늘까지 붕붕 올라갔어요. 발끝이 나뭇잎에 닿을 것 같아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 와이드, 로우앵글. 아주 낮은 데서 올려다봐 그네가 나뭇가지 높이까지 올라간다.<br/><b>장소·시간</b> 같은 마당, 조금 뒤.<br/><b>인물</b> Bobo piglet이 판에 앉아 두 손으로 줄을 꽉 잡고 두 다리를 앞으로 쭉 뻗었다 — 상체가 뒤로 젖혀지고 입이 활짝 벌어졌다. 보라 모자가 뒤로 날아가려는 듯 들렸다. 화면 아래쪽에 Mio kitten·Lala lamb·Gaga gosling·Duri raccoon이 작게 서서 위를 올려다본다.<br/><b>배경·소품</b> 🔴 뻗은 발끝 바로 위에 나뭇가지 잎이 걸린다 — 발끝과 나뭇잎이 같은 깊이에 있어야 닿을 듯한 거리가 읽힌다.<br/><b>톤</b> p6에서 손 닿지 않던 높이에 이번엔 발끝이 가 있다.</pre></details>
+</div>
+
+</div>
+<script src="/mio-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>룰루네 올리브 언덕 — 언덕길 수레</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#1F7FA8; --slope:#3E3A2E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">룰루네 올리브 언덕 · 03</div>
+  <h1>언덕길 수레</h1>
+  <div class="sub"><b>원함</b> 올리브 자루를 수레로 집까지 나르고 싶다 · <b>틀리는 어른</b> 베포 큰아버지 · <b>어긋남</b> 옛 지름길로 앞장서다 풀숲에 바퀴가 걸린다 · <b>착지</b> 늘 다니던 길로 끌고 밀어 도착 — 지팡이가 제일 편하게 왔다</div>
+  <div class="by">글 <b>문나래</b> · 그림 <b>유가온</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">올리브 자루가 밭 한쪽에 쌓였어요. 언덕 위 집까지 날라야 해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 밭에서 언덕 위 집까지.<br/><b>장소·시간</b> 올리브밭 가장자리, 오전.<br/><b>인물</b> Lulu donkey가 자루 더미 옆에 서서 언덕 위쪽을 올려다본다 — 한 앞발을 이마에 얹었다. 파란 방울 목끈.<br/><b>배경·소품</b> 밭 한쪽에 쌓인 올리브 자루 세 개, 오른쪽 위 멀리 언덕 꼭대기의 농가.<br/><b>톤</b> 화면 왼쪽 아래 짐과 오른쪽 위 집 사이가 길게 벌어져 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">룰루가 작은 수레 손잡이를 잡았어요. "이 수레는 내가 끌고 갈래요."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 수레 손잡이가 앞으로.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Lulu donkey가 작은 나무수레의 두 손잡이를 양 앞발로 꽉 잡고 발을 앞뒤로 벌려 버틴다 — 어깨에 힘이 들어갔고 입이 벌어져 말하는 중. 파란 방울 목끈.<br/><b>배경·소품</b> 작은 나무수레, 그 위에 실린 자루 세 개.<br/><b>톤</b> 손잡이가 화면 앞으로 튀어나와 끌 준비가 손끝에 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">베포 큰아버지가 지팡이로 풀숲을 가리켰어요. "우리 땐 저 지름길로 다녔지. 따라오너라."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면 아이레벨. 지팡이가 화면을 가로지른다.<br/><b>장소·시간</b> 밭 가장자리 풀숲 앞.<br/><b>인물</b> Beppo donkey가 지팡이 끝을 풀숲 쪽으로 곧게 뻗어 가리키며 고개를 돌려 뒤를 본다 — 낡은 조끼, 눈이 가늘다. Lulu donkey는 수레 손잡이를 잡은 채 그 끝을 눈으로 따라간다, 파란 방울 목끈.<br/><b>배경·소품</b> 키 큰 풀숲의 벽, 지팡이.<br/><b>톤</b> 곧은 지팡이 한 줄이 화면을 가로로 자른다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">큰아버지가 풀숲으로 앞장섰어요. 룰루가 수레를 끌고 뒤따라가요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 왼쪽에서 오른쪽 풀숲 안으로.<br/><b>장소·시간</b> 풀숲 초입.<br/><b>인물</b> Beppo donkey가 앞장서서 풀을 헤치며 오른쪽으로 걸어 들어간다 — 지팡이로 풀을 밀어 젖힌다. Lulu donkey가 수레를 끌고 두어 걸음 뒤를 따른다 — 몸이 앞으로 기울었다, 파란 방울 목끈.<br/><b>배경·소품</b> 두 사람 자국이 난 풀, 수레 위 자루 세 개.<br/><b>톤</b> 지나간 자리에만 풀이 눕고 나머지는 빽빽하다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">풀이 점점 키만큼 높아져요. 바퀴에 풀이 칭칭 감겨요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글. 바퀴와 풀.<br/><b>장소·시간</b> 풀숲 한가운데.<br/><b>인물</b> Lulu donkey의 뒷다리와 두 앞발만 프레임 위쪽에 든다 — 수레를 당기느라 몸이 앞으로 쏠렸다. 파란 방울 목끈이 프레임 위 끝에 걸린다.<br/><b>배경·소품</b> 🔴 나무 바퀴에 긴 풀이 여러 겹 칭칭 감겼다. 주위 풀이 화면 위까지 솟았다.<br/><b>톤</b> 아래에서 올려다봐 풀이 벽처럼 높다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">덜컹! 수레가 딱 멈췄어요. 밀어도 당겨도 꼼짝을 안 해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면 아이레벨. 수레와 룰루가 옆모습.<br/><b>장소·시간</b> 같은 풀숲.<br/><b>인물</b> Lulu donkey가 수레 뒤에 어깨를 대고 뒷다리로 땅을 밀어 버틴다 — 발굽이 흙에 파묻히고 이가 앙다물렸다. Beppo donkey는 앞에서 지팡이를 짚고 돌아본다. Lulu donkey는 파란 방울 목끈.<br/><b>배경·소품</b> 꼼짝 않는 수레, 감긴 풀, 파인 흙자국.<br/><b>톤</b> 밀리는 몸과 안 움직이는 수레가 한 선에서 맞선다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">큰아버지가 고개를 갸웃했어요. "이상하다, 옛날엔 여기 길이 있었는데."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 로우앵글. 큰아버지 얼굴.<br/><b>장소·시간</b> 같은 풀숲.<br/><b>인물</b> Beppo donkey가 고개를 한쪽으로 갸웃 기울이고 한 앞발로 턱을 문지른다 — 눈썹 한쪽만 올라갔고 귀가 뒤로 눕는다.<br/><b>배경·소품</b> 뒤로 흐린 풀벽.<br/><b>톤</b> 얼굴 하나만 크게 잡혀 길이 사라진 자리가 표정으로 온다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">룰루가 수레를 빙 돌렸어요. "늘 다니던 큰길로 갈래요." 큰아버지 지팡이는 수레에 얹었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 돌려 세운 수레를 위에서.<br/><b>장소·시간</b> 풀숲 밖 큰길 어귀.<br/><b>인물</b> Lulu donkey가 수레를 왼쪽으로 되돌려 세우고, 자루 위에 큰아버지 지팡이를 가로로 얹는 참이다 — 한 앞발은 손잡이, 다른 앞발이 지팡이를 놓는다. 파란 방울 목끈. Beppo donkey는 빈손으로 옆에 선다.<br/><b>배경·소품</b> 넓은 흙길, 수레 위 자루 세 개와 지팡이 하나.<br/><b>톤</b> 앞 쪽까지 오른쪽이던 방향이 여기서 반대로 꺾인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">오르막에서 룰루가 끌고 큰아버지가 밀었어요. 드르륵 드르륵, 수레가 씩씩하게 올라가요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 오르막이 오른쪽 위로.<br/><b>장소·시간</b> 언덕 큰길, 낮.<br/><b>인물</b> Lulu donkey가 앞에서 손잡이를 잡고 몸을 45도로 기울여 끌고, Beppo donkey가 뒤에서 두 앞발로 수레 뒤판을 민다 — 둘 다 뒷다리가 뻗었다. Lulu donkey는 파란 방울 목끈.<br/><b>배경·소품</b> 바퀴 자국이 난 흙 오르막, 수레 위 자루 셋과 지팡이.<br/><b>톤</b> 화면이 오른쪽 위로 기울어 오르는 힘이 방향이 된다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">수레가 마당에 닿았어요. 지팡이가 올리브 자루 위에 척 타고 있어요. "지팡이가 제일 편하게 왔네!" 룰루가 깔깔 웃었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 수레 옆면과 두 얼굴.<br/><b>장소·시간</b> 농가 마당, 조금 뒤.<br/><b>인물</b> Lulu donkey가 손잡이를 내려놓고 고개를 젖혀 깔깔 웃는다 — 입이 크게 벌어졌다, 파란 방울 목끈. Beppo donkey가 그 옆에서 자루 위 지팡이를 두 앞발로 집어 든다 — 입이 오므라들었다.<br/><b>배경·소품</b> 마당에 닿은 수레, 자루 세 개, 그 위에 얹혀 온 지팡이.<br/><b>톤</b> 제일 편하게 온 것이 제일 위에 얹혀 있다.</pre></details>
+</div>
+
+</div>
+<script src="/lulu-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>도도네 물방앗간 — 낮잠 자리</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#2D62B8; --slope:#3D4A44; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">도도네 물방앗간 · 16</div>
+  <h1>낮잠 자리</h1>
+  <div class="sub"><b>원함</b> 제일 시원한 자리에서 낮잠을 자고 싶다(둘) · <b>틀리는 쪽</b> 도도 — "제일 시원한 덴 내가 알아" 들판 → 다리 밑 · <b>어긋남</b> 해가 쨍쨍 / 물레방아 소리가 쩌렁쩌렁 · <b>착지</b> 버드나무 그늘에 눕는다 — 틀린 도도가 제일 먼저 쿨쿨</div>
+  <div class="by">글 <b>한여울</b> · 그림 <b>윤새롬</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">한여름이에요. 매미가 맴맴 울어요. 마당이 절절 끓어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 마당 전체.<br/><b>장소·시간</b> 물방앗간 앞마당, 한여름 한낮.<br/><b>인물</b> 없음.<br/><b>배경·소품</b> 그늘 한 조각 없는 마른 마당, 처마 밑 나무 기둥에 붙은 매미 두 마리, 담장 위로 이글이글 일그러진 공기, 축 늘어진 풀.<br/><b>톤</b> 그림자가 발밑까지 짧게 오그라들어 해가 정수리에 있다는 게 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"시원한 데서 낮잠 자고 싶다." 무무가 부채질을 해요. 도도가 벌떡 일어났어요. "제일 시원한 자리는 내가 알아!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 둘의 옆모습.<br/><b>장소·시간</b> 마당 한쪽, 같은 한낮.<br/><b>인물</b> Mumu duck이 땅에 퍼질러 앉아 넓은 나뭇잎으로 제 얼굴에 부채질한다 — 부리를 벌리고 혀가 조금 나왔다, 파란 목수건. Dodo duck은 이미 두 오리발로 벌떡 일어서서 한 날개를 들판 쪽으로 뻗었다 — 가슴을 펴고 부리를 크게 벌린다, 파란 머리 리본.<br/><b>배경·소품</b> 부채 삼은 나뭇잎, 마른 흙.<br/><b>톤</b> 앉은 하나와 선 하나가 나란해 서 있는 쪽이 훨씬 커 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">도도가 들판 한가운데로 앞장섰어요. "바람이 사방에서 오는 명당이야!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 앞장선 도도를 아래에서.<br/><b>장소·시간</b> 개울 건너 들판 한가운데로 가는 길.<br/><b>인물</b> Dodo duck이 앞장서 성큼성큼 걸으며 한 날개를 뒤로 뻗어 오라고 흔든다 — 턱이 들리고 부리가 벌어졌다, 파란 머리 리본. Mumu duck이 나뭇잎 부채를 들고 뒤따른다 — 파란 목수건.<br/><b>배경·소품</b> 사방으로 트인 풀밭, 그늘이 될 만한 것이 아무것도 없다.<br/><b>톤</b> 하늘이 화면을 크게 차지해 가릴 것이 없다는 게 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">해가 쨍쨍 정수리를 구워요. 둘 다 땀이 뻘뻘.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 들판 한복판의 둘을 바로 위에서.<br/><b>장소·시간</b> 들판 한가운데.<br/><b>인물</b> Dodo duck과 Mumu duck이 나란히 서서 어깨를 늘어뜨리고 부리를 벌린 채 헐떡인다 — 둘 다 날개가 아래로 축 처졌고 이마와 목에 땀방울, 도도는 파란 머리 리본, 무무는 파란 목수건.<br/><b>배경·소품</b> 발밑에 콩알만 하게 오그라든 두 그림자, 마른 풀.<br/><b>톤</b> 위에서 보니 넓은 들판에 그늘이 한 점도 없다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"그럼 다리 밑! 거긴 그늘 부자야!" 도도가 다리 밑으로 뛰어갔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면 아이레벨. 다리 쪽으로 달리는 도도.<br/><b>장소·시간</b> 개울 위 돌다리 옆 비탈.<br/><b>인물</b> Dodo duck이 다리 밑을 향해 두 날개를 뒤로 뻗고 달린다 — 목이 앞으로 쭉 나가고 부리를 벌려 외친다, 파란 머리 리본이 뒤로 눕는다. Mumu duck이 몇 걸음 뒤에서 따라온다 — 파란 목수건.<br/><b>배경·소품</b> 돌다리 아치, 그 밑의 어두운 그늘.<br/><b>톤</b> 밝은 비탈에서 어두운 아치 안으로 몸이 빨려 들어간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다리 밑은 그늘인데 — 쿵더쿵쿵더쿵, 물레방아 소리가 쩌렁쩌렁 울려요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 다리 밑 아치 안.<br/><b>장소·시간</b> 돌다리 밑, 물레방아가 저 아래 보인다.<br/><b>인물</b> Dodo duck과 Mumu duck이 그늘 속에 앉으려다 몸이 굳었다 — 둘 다 어깨가 위로 솟고 눈이 찡그러졌다, 도도는 파란 머리 리본, 무무는 파란 목수건.<br/><b>배경·소품</b> 아치 안 돌벽, 아치 밖 저편에서 크게 돌아가는 물레방아, 돌벽에 부딪혀 되돌아오는 소리를 나타내는 겹겹의 굵은 물결 무늬.<br/><b>톤</b> 시원한 그늘인데 화면이 소리로 꽉 차 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"자장가 소리가… 좀 크네." 도도가 날개로 귀를 막았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 도도 얼굴만.<br/><b>장소·시간</b> 같은 다리 밑.<br/><b>인물</b> Dodo duck이 두 날개를 머리 양옆에 꾹 눌러 덮고 눈을 질끈 감았다 — 부리를 벌려 말하는데 어깨가 위로 올라갔다, 파란 머리 리본.<br/><b>배경·소품</b> 뒤로 흐린 돌벽.<br/><b>톤</b> 막은 자세인데도 소리가 새 들어오는 표정이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">무무가 개울가 버드나무를 봤어요. 긴 가지가 물에 닿아 한들한들, 그늘이 물처럼 시원해 보여요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면 아이레벨. 개울가 버드나무.<br/><b>장소·시간</b> 개울가 버드나무 아래.<br/><b>인물</b> Mumu duck이 다리 밑에서 나와 버드나무를 바라본다 — 두 날개를 늘어뜨리고 목을 앞으로 뺐다, 파란 목수건.<br/><b>배경·소품</b> 물까지 늘어져 한들거리는 긴 가지들, 그 아래 넓고 짙은 그늘, 그늘이 물 위까지 이어진다.<br/><b>톤</b> 늘어진 가지 사이로 빛이 성글게 새어 그늘이 물결친다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘이 버드나무 그늘에 벌렁 누웠어요. 바람이 가지 사이로 솔솔 불어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 누운 둘을 위에서.<br/><b>장소·시간</b> 버드나무 그늘.<br/><b>인물</b> Dodo duck과 Mumu duck이 풀밭에 벌렁 누워 두 날개를 활짝 벌렸다 — 둘 다 부리를 살짝 벌리고 눈이 반쯤 감겼다, 도도는 파란 머리 리본, 무무는 파란 목수건.<br/><b>배경·소품</b> 몸 위로 어른거리는 잎 그늘 무늬, 한쪽으로 쓸리는 긴 가지들.<br/><b>톤</b> 몸 위의 그늘 무늬가 바람 방향으로 함께 움직인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">쿨— 쿨—. 어라, 도도가 벌써 잠들었어요. "명당을 알아본 건… 역시 나야…" 잠꼬대에 무무가 킥킥 웃다가 스르르 잠들었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 두 얼굴만.<br/><b>장소·시간</b> 같은 그늘, 조금 뒤.<br/><b>인물</b> Dodo duck이 완전히 잠들어 부리를 살짝 벌리고 목이 옆으로 꺾였다 — 파란 머리 리본이 풀에 눌렸다. Mumu duck은 그쪽으로 고개를 돌린 채 눈이 반쯤 감겼고 부리 끝에 웃음이 남아 있다 — 파란 목수건.<br/><b>배경·소품</b> 둘 사이 풀 몇 포기, 얼굴 위로 지나가는 잎 그늘.<br/><b>톤</b> 하나는 이미 잠들고 하나는 잠드는 중이라 화면이 점점 조용해진다.</pre></details>
+</div>
+
+</div>
+<script src="/dodo-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>룰루네 올리브 언덕 — 제일 시원한 그늘</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#1F7FA8; --slope:#3E3A2E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">룰루네 올리브 언덕 · 11</div>
+  <h1>제일 시원한 그늘</h1>
+  <div class="sub"><b>원함</b> 제일 시원한 그늘에서 다 같이 낮잠 자고 싶다 · <b>틀리는 어른</b> 니노 삼촌 · <b>어긋남</b> 최고 그늘이라던 천막이 바람에 걷힌다 · <b>착지</b> 올리브나무 아래로 — 나무 그늘은 안 걷힌다</div>
+  <div class="by">글 <b>문나래</b> · 그림 <b>유가온</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">한여름 낮이에요. 해가 쨍쨍해서 다들 낮잠 잘 자리를 찾아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 하늘이 화면의 위 절반.<br/><b>장소·시간</b> 농가 마당, 한여름 한낮.<br/><b>인물</b> Lulu donkey가 마당 한가운데 서서 한 앞발로 눈 위에 차양을 만들고 둘레를 둘러본다 — 눈이 가늘다. 파란 방울 목끈.<br/><b>배경·소품</b> 그림자가 발밑에 동그랗게만 남을 만큼 해가 높다, 마른 흙바닥.<br/><b>톤</b> 닦아 낸 흰 자리가 넓어 볕이 따갑게 읽힌다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">룰루가 담요를 안고 나왔어요. "제일 시원한 그늘에서 다 같이 자요."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 담요 뭉치와 얼굴.<br/><b>장소·시간</b> 농가 문 앞.<br/><b>인물</b> Lulu donkey가 접은 담요를 두 앞발로 가슴에 안고 문에서 나온다 — 턱이 담요 위에 얹혔고 입이 벌어져 말하는 중. 파란 방울 목끈.<br/><b>배경·소품</b> 접은 담요 하나.<br/><b>톤</b> 안은 담요가 몸통만큼 커서 각오가 부피로 보인다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">니노 삼촌이 가슴을 폈어요. "그늘은 내가 최고로 잘 알지. 저기 천막 밑이다!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 가리키는 팔과 천막.<br/><b>장소·시간</b> 마당.<br/><b>인물</b> Nino donkey가 가슴을 활짝 펴고 한 앞발을 옆으로 곧게 뻗어 천막을 가리킨다 — 밀짚모자, 턱이 들렸다. Lulu donkey는 담요를 안고 그 손끝을 본다, 파란 방울 목끈.<br/><b>배경·소품</b> 마당 한쪽 기둥 넷에 걸린 넓은 천막.<br/><b>톤</b> 뻗은 팔과 천막 자락이 한 줄로 이어진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다들 천막 아래에 담요를 폈어요. 정말 시원해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 천막 아래를 위에서.<br/><b>장소·시간</b> 천막 밑.<br/><b>인물</b> Lulu donkey가 담요를 펴고 그 위에 눕는다, 파란 방울 목끈. cousins donkeys 셋이 옆에 나란히 눕고 아기 사촌은 담요 끝에 누워 있다. Nino donkey는 발치에서 배를 깔고 엎드린다.<br/><b>배경·소품</b> 담요 두 장, 천막 그늘이 바닥에 네모나게 든다.<br/><b>톤</b> 네모난 그늘 안만 어둡고 바깥은 하얗게 탄다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 바람이 훅 불었어요. 천막 자락이 펄럭펄럭 들려요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면 아이레벨. 펄럭이는 자락.<br/><b>장소·시간</b> 천막 밑.<br/><b>인물</b> Lulu donkey가 누운 채 눈만 떠서 위를 본다, 파란 방울 목끈. Nino donkey는 그대로 코를 골 자세다.<br/><b>배경·소품</b> 🔴 천막 한쪽 자락이 바람에 들려 올라가고 기둥 끈이 팽팽해진다. 그늘 네모의 한쪽 모서리가 어그러진다.<br/><b>톤</b> 그늘의 반듯한 모서리가 처음으로 흐트러진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">펄러덕! 천막이 반쯤 걷혀 버렸어요. 담요 위로 해가 쨍 들어와요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 걷힌 천막을 밑에서.<br/><b>장소·시간</b> 천막 밑.<br/><b>인물</b> Lulu donkey와 cousins donkeys 셋이 담요 위에서 두 앞발로 눈을 가린다 — 다들 얼굴을 옆으로 돌렸다. Nino donkey는 벌써 몸을 뒤척인다. Lulu donkey는 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 천막이 절반쯤 젖혀져 기둥 두 개가 맨살로 서 있고, 담요 위로 해가 곧게 든다.<br/><b>톤</b> 어둡던 네모의 절반이 통째로 하얗게 날아간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"앗, 뜨거!" 삼촌이 벌떡 일어났어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 일어난 상반신.<br/><b>장소·시간</b> 담요 위.<br/><b>인물</b> Nino donkey가 벌떡 일어나 앉아 두 앞발로 제 등을 부채질하듯 턴다 — 눈이 동그랗고 입이 크게 벌어졌다. 모자가 뒤로 넘어갔다.<br/><b>배경·소품</b> 해가 든 담요, 걷힌 천막 자락.<br/><b>톤</b> 얼굴 하나만 크게 잡혀 뜨거움이 표정으로 온다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">룰루가 올리브나무 아래로 담요를 옮겼어요. 잎 그림자가 얼룩덜룩 시원해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 나무 아래로 옮기는 담요.<br/><b>장소·시간</b> 마당 가장자리 올리브나무 아래.<br/><b>인물</b> Lulu donkey가 담요 한쪽 끝을 두 앞발로 끌어 나무 아래로 옮긴다 — 몸이 뒤로 기울었다, 파란 방울 목끈. cousins donkeys 셋이 담요 반대쪽을 들고 따라온다.<br/><b>배경·소품</b> 나무 아래 바닥에 잎 그림자가 얼룩덜룩 깔렸다.<br/><b>톤</b> 매끈한 네모 그늘 대신 얼룩진 그늘이 화면 아래를 덮는다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">바람이 불어도 나무 그늘은 안 걷혀요. 잎만 사르르 흔들려요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 잎 사이 하늘.<br/><b>장소·시간</b> 올리브나무 아래.<br/><b>인물</b> Lulu donkey가 담요에 누워 위를 올려다본다 — 두 앞발을 배 위에 모았고 눈이 반쯤 감겼다. 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 잎만 사르르 흔들리고 그림자 얼룩은 자리를 지킨다. 멀리 천막 자락은 여전히 펄럭인다.<br/><b>톤</b> 흔들리는 것과 안 흔들리는 것이 한 화면에 같이 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다 같이 나무 밑에서 새근새근 — 삼촌 배 위에 잎사귀가 한 장 내려앉았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 나무 밑 전체를 위에서.<br/><b>장소·시간</b> 올리브나무 아래, 한낮이 지난 뒤.<br/><b>인물</b> Lulu donkey와 cousins donkeys 셋이 담요에 나란히 누워 잔다 — 배가 오르내린다. 아기 사촌은 담요 끝에서 몸을 웅크렸다. Nino donkey는 발치에 대자로 누워 입을 벌리고 잔다. Lulu donkey는 파란 방울 목끈.<br/><b>배경·소품</b> 🔴 삼촌 배 위에 올리브 잎사귀 한 장이 내려앉았다.<br/><b>톤</b> 잎 그림자 얼룩 속에서 잎 한 장만 또렷하다.</pre></details>
+</div>
+
+</div>
+<script src="/lulu-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>미오네 유치원 — 내가 들 수 있어</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#6E4E9E; --slope:#232B2E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">미오네 유치원 · 06</div>
+  <h1>내가 들 수 있어</h1>
+  <div class="sub"><b>주인공</b> 미오(혼자 하려 함) · <b>원함</b> 소풍 도시락을 강가까지 나르고 싶다 · <b>탈</b> 혼자 들다 자꾸 쉬어 혼자 뒤처진다 · <b>착지</b> 둘이 손잡이를 나눠 들고 닿는다</div>
+  <div class="by">글 <b>오하람</b> · 그림 <b>강마루</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">오늘은 강가로 소풍을 가는 날이에요. 마당에 도시락 바구니가 놓여 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 마당을 위에서 내려다보고 바구니가 화면 가운데 바닥에.<br/><b>장소·시간</b> 유치원 마당, 소풍 가는 아침.<br/><b>인물</b> Mio kitten·Bobo piglet·Lala lamb·Gaga gosling·Duri raccoon 다섯이 바구니를 빙 둘러 섰다 — 다섯 다 위에서 보여 등과 어깨만 보이고 저마다 보라 물건이 하나씩. Teacher Bau big dog가 마당 문 쪽에 서서 이쪽을 본다.<br/><b>배경·소품</b> 🔴 뚜껑 덮인 도시락 바구니 하나, 양쪽에 손잡이가 두 개 달렸다 — 손잡이 둘이 이 권의 열쇠라 첫 쪽에서 또렷이 보여야 한다. 마당 문, 문 너머로 내려가는 길.<br/><b>톤</b> 손잡이가 둘인데 아직 아무도 안 잡았다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">미오는 바구니를 강가까지 나르고 싶어요. "내가 들 수 있어."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 로우앵글. 바구니 높이에서 올려다본 미오.<br/><b>장소·시간</b> 바구니 옆.<br/><b>인물</b> Mio kitten이 바구니 옆에 서서 한 손을 제 가슴에 얹고 입을 벌려 말한다 — 턱이 들리고 귀가 앞으로 섰다. 다른 손은 벌써 손잡이 하나에 걸쳐졌다. 보라 가방.<br/><b>배경·소품</b> 바구니, 뒤로 흐린 아이들 다리.<br/><b>톤</b> 두 손잡이 중 하나에만 손이 가 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">미오가 바구니를 두 팔로 안았어요. 바구니가 미오 배를 꾹 눌러요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면. 미오와 바구니가 옆모습으로 화면을 채운다.<br/><b>장소·시간</b> 마당에서 길로 나가는 자리.<br/><b>인물</b> Mio kitten이 바구니를 두 팔로 통째로 껴안고 배에 얹은 채 걷는다 — 상체가 뒤로 젖혀지고 무릎이 벌어졌다, 턱이 바구니 뚜껑에 눌린다. 보라 가방이 등 뒤로 밀려 나갔다.<br/><b>배경·소품</b> 🔴 바구니 밑면이 미오 배를 눌러 배 털이 옆으로 밀려 나온다. 손잡이 둘은 양옆에서 놀고 있다.<br/><b>톤</b> 잡으라고 달린 것을 하나도 안 잡았다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아이들이 앞서 걸어가요. 미오가 바구니를 땅에 내려놓고 숨을 골라요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 길이 화면 왼쪽 뒤로 이어지고 미오만 오른쪽 앞에.<br/><b>장소·시간</b> 강가로 내려가는 길, 오전.<br/><b>인물</b> 화면 안쪽에서 Bobo piglet·Lala lamb·Gaga gosling·Duri raccoon 넷이 앞서 걸어간다 — 넷 다 등만 보이고 보라 물건이 점처럼 멀어진다. 화면 앞쪽에서 Mio kitten이 바구니를 땅에 내려놓고 허리를 굽혀 두 손을 무릎에 짚었다 — 입이 벌어지고 어깨가 오르내린다. 보라 가방.<br/><b>배경·소품</b> 흙길, 길가 풀.<br/><b>톤</b> 앞쪽은 멈췄고 안쪽은 계속 간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">두리가 손을 내밀었어요. 미오가 바구니를 제 쪽으로 꼭 끌어안았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 오버숄더. 두리 어깨 너머로 미오의 상체가 크게 들어온다.<br/><b>장소·시간</b> 같은 길.<br/><b>인물</b> 화면 앞쪽 가장자리에 Duri raccoon의 어깨와 앞으로 펴서 내민 손바닥이 걸린다 — 보라 손수건. 안쪽에서 Mio kitten이 바구니를 두 팔로 감아 제 가슴 쪽으로 끌어당긴다 — 팔꿈치가 몸통에 딱 붙고 어깨가 안으로 말렸다. 🔴 입은 다물렸고 고개도 안 젓는다, 눈만 옆으로 비켰다. 보라 가방.<br/><b>배경·소품</b> 바구니, 흙길.<br/><b>톤</b> 말도 몸짓도 없이 팔 각도 하나가 거절이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">길이 굽어지고 아이들이 안 보여요. 미오 혼자 길 위에 남았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 와이드, 하이앵글. 길이 화면 안쪽에서 크게 굽어 사라진다.<br/><b>장소·시간</b> 굽은 길, 오전.<br/><b>인물</b> Mio kitten이 길 한가운데 아주 작게 서서 바구니를 안고 있다 — 다른 인물은 화면에 없다. 보라 가방이 이 화면의 유일한 보라 점이다.<br/><b>배경·소품</b> 길이 오른쪽에서 꺾여 나무 뒤로 들어간다. 길바닥에 앞서 간 발자국이 여럿 남아 굽이 안쪽으로 이어진다.<br/><b>톤</b> 남은 것은 발자국뿐이고 발자국 주인은 화면 밖이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">미오가 바구니를 또 내려놨어요. 강물 소리가 저 멀리서 들려요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 위에서 내려다본 미오와 내려놓은 바구니.<br/><b>장소·시간</b> 같은 길.<br/><b>인물</b> Mio kitten이 바구니 옆에 무릎을 대고 앉아 두 손을 바구니 손잡이 하나에 얹은 채 고개를 옆으로 돌려 길 끝을 본다 — 귀 하나가 그쪽으로 돌아갔다. 보라 가방.<br/><b>배경·소품</b> 🔴 화면 위 가장자리 저 멀리에 강물이 가는 띠로 보인다. 길가 풀.<br/><b>톤</b> 소리 나는 쪽이 화면에서 제일 멀다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">바우 선생님이 되돌아왔어요. 바구니 손잡이 하나를 잡고 미오를 봐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 두 손과 손잡이 둘이 화면 가운데.<br/><b>장소·시간</b> 같은 길.<br/><b>인물</b> Teacher Bau big dog가 무릎을 굽혀 앉아 큰 손 하나로 바구니 손잡이 한쪽을 쥐었다 — 나머지 손잡이는 빈 채로 반대편에 서 있다. 🔴 입은 다물렸고 고개만 미오 쪽으로 돌려 눈을 맞춘다. Mio kitten이 그 앞에서 제 손을 무릎에 얹은 채 그 손잡이를 내려다본다, 보라 가방. 🔴 선생님은 보라를 안 지닌다.<br/><b>배경·소품</b> 바구니, 흙길.<br/><b>톤</b> 잡은 손잡이와 빈 손잡이가 화면 좌우에 하나씩.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">미오가 두리에게 손잡이를 내밀었어요. "두리야, 이쪽 잡아 줘."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면. 두 아이가 바구니를 사이에 두고 마주 선다.<br/><b>장소·시간</b> 같은 길.<br/><b>인물</b> Mio kitten이 한 손으로 손잡이 하나를 잡고 다른 손으로 반대편 손잡이를 두리 쪽으로 들어 올려 내민다 — 팔이 쭉 펴지고 입을 벌려 말한다, 귀가 앞으로 섰다. 보라 가방. Duri raccoon이 두 손을 앞으로 내밀며 다가온다, 보라 손수건.<br/><b>배경·소품</b> 바구니가 둘 사이 땅에서 살짝 들렸다.<br/><b>톤</b> p5에서 몸으로 막던 그 손이 이번엔 손잡이를 건넨다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘이 손잡이를 하나씩 들고 걸어요. 금세 강가에 닿았어요. 바구니 뚜껑이 달그락달그락해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 낮은 데서 올려다봐 두 아이와 강 수면이 한 프레임에.<br/><b>장소·시간</b> 강가, 낮.<br/><b>인물</b> Mio kitten과 Duri raccoon이 나란히 서서 바구니 손잡이를 하나씩 잡고 걷는다 — 바구니가 둘 사이에서 수평으로 흔들리고 둘 다 바깥쪽 팔을 앞뒤로 흔든다. 둘 다 입을 벌려 웃고 걸음이 맞았다. 보라 가방·보라 손수건. 강가에 Bobo piglet·Lala lamb·Gaga gosling과 Teacher Bau big dog가 앉아 있다.<br/><b>배경·소품</b> 🔴 바구니 뚜껑이 한쪽 귀퉁이만 들썩여 안이 살짝 보인다. 강물, 자갈밭.<br/><b>톤</b> p3에서 배에 눌려 있던 바구니가 여기서는 공중에서 흔들린다.</pre></details>
+</div>
+
+</div>
+<script src="/mio-core.js"></script>
+</body>
+</html>
