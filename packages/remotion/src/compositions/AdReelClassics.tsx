@@ -12,7 +12,7 @@ import {
   useVideoConfig,
 } from 'remotion';
 import { loadFont } from '@remotion/google-fonts/NotoSansKR';
-import { layout, bgmLevelAt, type Scene } from './adreel/timeline';
+import { layout, bgmLevelAt, absoluteSfx, type Scene } from './adreel/timeline';
 
 // 세계 명작 광고 릴스 — 9:16 · 1080×1920 · 30fps.
 // 🔴 **씬 배열 구조**(`adreel/timeline.ts`) — `from` 은 자동 누적, 소리는 씬 로컬.
@@ -187,7 +187,7 @@ const Thumbnail: React.FC = () => {
       <div
         style={{ fontFamily, fontWeight: 800, fontSize: 46, color: ACCENT, wordBreak: 'keep-all' }}
       >
-        지금 베타기간 회원가입만 하면 1년 무료
+        회원가입만 하면 한 달 무료
       </div>
     </AbsoluteFill>
   );
@@ -402,7 +402,7 @@ const Cta: React.FC = () => {
           opacity: interpolate(frame, [10, 22], [0, 1], C),
         }}
       >
-        {'지금 베타기간\n회원가입만 하면\n1년 무료'}
+        {'회원가입만 하면\n한 달 무료'}
       </div>
       <div
         style={{
@@ -628,11 +628,18 @@ export const AdReelClassics: React.FC = () => (
     {placed.map((s) => (
       <Sequence key={s.key} from={s.from} durationInFrames={s.durationInFrames}>
         <s.Component dur={s.durationInFrames} />
-        {(s.sfx ?? []).map((f, i) => (
-          <Sequence key={`${s.key}-${i}`} from={f.at} durationInFrames={f.dur ?? 9999}>
-            <Audio src={staticFile(f.src)} volume={f.volume ?? 1} />
-          </Sequence>
-        ))}
+      </Sequence>
+    ))}
+
+    {/*
+      🔴 소리는 씬 **밖**에서 절대 프레임으로 건다 — 씬 Sequence 안에 넣으면 Remotion 이
+         씬 경계에서 잘라버린다. 클립이 씬 길이에 맞춰 트리밍돼 있어 씬을 늘려 자리를 만들 수도 없다.
+         실측(2026-08-13): g-write @101 correct.mp3 이 자리 7f / 필요 15f 라 53% 잘렸다.
+         절대 프레임으로 빼면 소리가 컷을 타고 넘어간다(L-cut).
+    */}
+    {absoluteSfx(placed).map((f, i) => (
+      <Sequence key={`sfx-${i}`} from={f.abs} durationInFrames={f.dur ?? 9999}>
+        <Audio src={staticFile(f.src)} volume={f.volume ?? 1} />
       </Sequence>
     ))}
   </AbsoluteFill>

@@ -12,17 +12,23 @@ import {
   useVideoConfig,
 } from 'remotion';
 import { loadFont } from '@remotion/google-fonts/NotoSansKR';
-import { layout, bgmLevelAt, type Scene } from './adreel/timeline';
+import { layout, bgmLevelAt, absoluteSfx, type Scene } from './adreel/timeline';
 
 // 한글 파닉스 광고 릴스 — docs/marketing/drafts/ad-reel-phonics-2026-07-28-plan.md.
-// 9:16 · 1080×1920 · 30fps · 1046프레임(34.87초). 맨 앞 썸네일 60f · 끝 CTA 90f.
-// 화면은 전부 실촬 클립(public/phonics/clips)이고 여기서 얹는 것은 자막·오디오·CTA 뿐이다.
-// 🔴 순서 = 실제 사용자 여정 — 라이브러리 ☰ → 파닉스 → 한글 파닉스 → ㄱ 단원 → 첫 게임 →
-//    소리 → **ㄱ+ㅏ→가(탭·합체·읽기 한 씬)** → 쓰기 → 짝찾기 → 낱말 그리기.
+// 9:16 · 1080×1920 · 30fps. 화면은 전부 실촬 클립(public/phonics/clips)이고
+// 여기서 얹는 것은 자막·오디오·CTA 뿐이다.
+//
+// 🔴 **순서는 「사용자 여정」이 아니라 「광고 구조」다**(2026-08-13 개편).
+//    예전엔 라이브러리 ☰ → 파닉스 → 한글 파닉스 → 단원 → 게임 순으로 앱을 그대로 따라갔다.
+//    그 결과 **첫 앱 소리가 13.40초**(릴스의 33%)였고 앞부분이 통째로 「메뉴 여는 구경」이었다.
+//    광고에서 스크롤을 멈추는 건 첫 2~3초라 이 구조는 그 자체가 이탈 지점이다.
+//    → 소리가 나는 게임 씬(c4-tap)을 **맨 앞으로** 올려 첫 소리를 **1.43초**로 당겼다.
+//      게임 → 라이브러리로 되돌아가는 컷은 의도된 **패턴 인터럽트**다.
+//    → 썸네일 60f→30f. 인스타·유튜브 커버용 f0 은 지켜야 하니 없애진 않고 1초로 줄였다.
 // 🔴 탭과 합체를 떼어놓으면 「ㄱ ㅏ ㄱ ㅏ」에 결말이 없다 — 한 클립(c5-blend)으로 붙였다.
-// 🔴 도입부(0~304)는 커서가 실제로 누르는 곳까지 보여준다 — 누르면 커서가 즉시 사라지므로
-//    엉뚱한 곳을 가리키지 않는다. 앱 소리가 없어 BGM 만 100 으로 간다.
 // 🔴 오디오 앵커는 전부 클립 픽셀 실측이다. 클립을 다시 자르면 여기 숫자도 다시 재야 한다.
+// 🔴 클립은 전부 씬 길이와 프레임 단위로 정확히 일치한다(footage 여유 0) — 씬을 **늘릴 수는
+//    없고 줄일 수만** 있다. 줄이면 클립 뒷부분이 잘린다.
 // 기존 AdReel / AdReelV2 / components/reels 는 라이브 릴스와 얽혀 있어 건드리지 않는다.
 
 const { fontFamily } = loadFont('normal', { weights: ['700', '800'] });
@@ -94,6 +100,24 @@ const Subtitle: React.FC<{ lines: Line[]; dur: number }> = ({ lines, dur }) => {
           </div>
         ))}
       </div>
+    </AbsoluteFill>
+  );
+};
+
+// 씬의 `overlap` 만큼 페이드인 = 디졸브. 앞 씬 Sequence 가 그만큼 겹쳐 살아 있으니
+// 위에 얹히는 이 씬이 서서히 나타나면 크로스페이드가 된다.
+// 🔴 실촬 씬끼리의 하드컷이 뒤로 갈수록 세졌다(프레임간 변화 중앙값 0.02 기준 11.7 → 50.1).
+//    전환 프레임이 0이라 화면이 쾅 바뀌는데, 마침 소리도 그 자리에서 끊겨 거칠게 느껴졌다.
+//    소리는 절대 프레임으로 빼서 컷을 넘기고(L-cut), 그림은 여기서 겹친다.
+const SceneFade: React.FC<{ overlap: number; children: React.ReactNode }> = ({
+  overlap,
+  children,
+}) => {
+  const frame = useCurrentFrame();
+  if (!overlap) return <>{children}</>;
+  return (
+    <AbsoluteFill style={{ opacity: interpolate(frame, [0, overlap], [0, 1], C) }}>
+      {children}
     </AbsoluteFill>
   );
 };
@@ -238,7 +262,7 @@ const Thumbnail: React.FC = () => {
           // 🔴 페이드인을 두지 않는다 — f0 이 그대로 커버라 이 줄이 빠져 보인다.
         }}
       >
-        지금 베타기간 회원가입만 하면 1년 무료
+        회원가입만 하면 한 달 무료
       </div>
     </AbsoluteFill>
   );
@@ -350,13 +374,9 @@ const Cta: React.FC = () => {
   const pop = spring({ frame, fps, config: { damping: 12 } });
   const pillPop = spring({ frame: frame - 26, fps, config: { damping: 11 } });
   return (
+    // 디졸브는 SceneFade(overlap)가 건다 — 여기서 또 페이드하면 두 번 겹친다.
     <AbsoluteFill
-      style={{
-        backgroundColor: CORAL,
-        justifyContent: 'center',
-        alignItems: 'center',
-        opacity: interpolate(raw, [0, 4], [0, 1], C),
-      }}
+      style={{ backgroundColor: CORAL, justifyContent: 'center', alignItems: 'center' }}
     >
       <div
         style={{
@@ -373,7 +393,7 @@ const Cta: React.FC = () => {
         style={{
           fontFamily,
           fontWeight: 800,
-          // 3줄이라 96 이면 「회원가입만 하면」이 1080 폭을 넘는다.
+          // 96 이면 「회원가입만 하면」이 1080 폭을 넘는다.
           fontSize: 84,
           color: '#fff',
           marginTop: 48,
@@ -385,7 +405,7 @@ const Cta: React.FC = () => {
           opacity: interpolate(frame, [10, 22], [0, 1], C),
         }}
       >
-        {'지금 베타기간\n회원가입만 하면\n1년 무료'}
+        {'회원가입만 하면\n한 달 무료'}
       </div>
       <div
         style={{
@@ -435,12 +455,39 @@ const TAP = { dot1: 19, dot2: 35, check: 50, word: 65 };
 const WRITE = { stroke: 0, done: 84, read: 97 };
 
 const SCENES: Scene[] = [
-  // ⓪ 썸네일 — 인스타가 첫 프레임을 커버로 쓴다. 1.2초로 짧게(길면 훅이 늦는다).
-  { key: 'thumb', durationInFrames: 60, Component: () => <Thumbnail /> },
+  // ⓪ 썸네일 — 인스타·유튜브가 첫 프레임을 커버로 쓴다. 그래서 없애진 못하고 1초로 줄였다.
+  //    🔴 광고는 로고·타이틀로 시작하지 않는다. 이건 커버 확보용 최소 비용이다.
+  { key: 'thumb', durationInFrames: 30, Component: () => <Thumbnail /> },
   {
-    // ① 라이브러리 → ☰ → 사이드바 → 파닉스 탭. 도입부는 앱 소리가 없어 BGM 만 100.
+    // ① ★ 훅 — ㄱ 소리. **첫 앱 소리 f43 = 1.43초**.
+    //    🔴 예전엔 이 씬이 5번째라 첫 소리가 13.40초였다. 손가락이 누르고 소리가 나는 것이
+    //       이 앱에서 제일 짧게 보여줄 수 있는 「사건」이라 맨 앞으로 올렸다.
+    //    🔴 보이는 점 두 개만 ㄱ 이고, 세 번째 탭은 그 자리의 띵동이 대신한다.
+    //       낱말 그림은 의자·서랍장 = 「가구」 라 word-gagu 가 맞다.
+    key: 'c4-tap',
+    durationInFrames: 100,
+    overlap: 6,
+    bgm: 0.55,
+    sfx: [
+      { at: TAP.dot1, src: 'phonics/audio/letter-g.mp3' },
+      { at: TAP.dot2, src: 'phonics/audio/letter-g.mp3' },
+      { at: TAP.check, src: 'phonics/audio/correct.mp3' },
+      { at: TAP.word, src: 'phonics/audio/word-gagu.mp3' },
+    ],
+    Component: ({ dur }) => (
+      <>
+        <Clip src="phonics/clips/c4-tap.mp4" />
+        {/* 🔴 예전 「누르면 소리가 나고」는 뒤로 이어지는 말이라 첫 줄로 못 쓴다. */}
+        <Subtitle lines={[{ text: '글자를 누르면 소리가 나요', at: 6 }]} dur={dur} />
+      </>
+    ),
+  },
+  {
+    // ② 라이브러리 → ☰ → 사이드바 → 파닉스 탭.
+    //    🔴 게임에서 라이브러리로 되돌아가는 컷 = 의도된 패턴 인터럽트. 앱 소리가 없어 BGM 100.
     key: 'n1-enter',
     durationInFrames: 96,
+    overlap: 8,
     Component: ({ dur }) => (
       <>
         <Clip src="phonics/clips/n1-enter.mp4" />
@@ -449,7 +496,8 @@ const SCENES: Scene[] = [
     ),
   },
   {
-    // ② 파닉스 랜딩 → 「한글 파닉스」 탭
+    // ③ 파닉스 랜딩 → 「한글 파닉스」 탭. n1→n2→n3 는 같은 앱 화면 흐름이라
+    //    경계 변화가 0.2 수준(이미 매끄러움) — 디졸브를 걸지 않는다.
     key: 'n2-phonics',
     durationInFrames: 82,
     Component: ({ dur }) => (
@@ -466,7 +514,8 @@ const SCENES: Scene[] = [
     ),
   },
   {
-    // ③ 왼쪽 단원 리스트 → ㄱ 탭 → 게임 목록 → 첫 게임 탭
+    // ④ 왼쪽 단원 리스트 → ㄱ 탭 → 게임 목록 → 첫 게임 탭
+    //    끝에서 게임으로 들어가므로 다음 씬(합체 게임)과 이어진다.
     key: 'n3-unit',
     durationInFrames: 145,
     Component: ({ dur }) => (
@@ -483,31 +532,17 @@ const SCENES: Scene[] = [
     ),
   },
   {
-    // ④ ㄱ 소리 — 🔴 보이는 점 두 개만 ㄱ 이고, 세 번째 탭은 그 자리의 띵동이 대신한다.
-    //    낱말 그림은 의자·서랍장 = 「가구」 라 word-gagu 가 맞다.
-    key: 'c4-tap',
-    durationInFrames: 100,
-    bgm: 0.55,
-    sfx: [
-      { at: TAP.dot1, src: 'phonics/audio/letter-g.mp3' },
-      { at: TAP.dot2, src: 'phonics/audio/letter-g.mp3' },
-      { at: TAP.check, src: 'phonics/audio/correct.mp3' },
-      { at: TAP.word, src: 'phonics/audio/word-gagu.mp3' },
-    ],
-    Component: ({ dur }) => (
-      <>
-        <Clip src="phonics/clips/c4-tap.mp4" />
-        <Subtitle lines={[{ text: '누르면 소리가 나고', at: 6 }]} dur={dur} />
-      </>
-    ),
-  },
-  {
     // ⑤ ㄱ+ㅏ → 가 ★ 클라이맥스 — 탭 4번 → 합체 → 읽기가 한 클립에 있다.
     //    🔴 탭 넷 뒤에 합체가 바로 와야 「ㄱ ㅏ ㄱ ㅏ」에 결말이 생긴다.
     //    🔴 이어읽기(`ㄱ ㅏ 가`)를 쓰면 탭에서 들은 「그 아」가 한 번 더 반복된다 →
     //       합체 프레임엔 「가」 **단독**, 그 뒤에 완료 징글.
     key: 'c5-blend',
-    durationInFrames: 181,
+    // 🔴 181 → 168. 클립 원본은 181f 지만 `clear.mp3` 가 로컬 163 에 끝나고 그 뒤는
+    //    **화면이 얼어 있다**(원해상도 실측: 로컬 145~172 가 변화 없음). 소리도 그림도 끝난
+    //    18프레임을 들고 있을 이유가 없어 13f 를 덜어냈다. 소리가 끝나고 5프레임만 남기고,
+    //    나머지는 다음 씬 디졸브가 덮는다. clear 앵커(139)는 그대로 씬 안이라 온전히 울린다.
+    durationInFrames: 168,
+    overlap: 8,
     // 🔴 패턴 인터럽트 — 합체 직전 BGM 을 완전히 걷었다가 합체와 함께 되돌린다.
     //    앵커가 BLEND 를 보므로 클립을 다시 자르면 음악도 같이 따라온다.
     bgmAt: (l) =>
@@ -536,6 +571,7 @@ const SCENES: Scene[] = [
     //    → `consonant-write-ko-ㄱ ㅑ 갸`). 그러니 여기서 「갸」를 읽히는 건 화면과 일치한다.
     key: 'c5-write',
     durationInFrames: 105,
+    overlap: 8,
     bgm: 0.55,
     sfx: [
       // 🔴 칠하는 동안만. 클립은 **점프컷**이다 — 다 칠한 뒤 앱이 통과를 알리기까지 63프레임이
@@ -564,6 +600,7 @@ const SCENES: Scene[] = [
     //    파닉스 낱말엔 붙은 동화 장면이 없어 빈 검은 카드로 뜬다. 그 앞(104)에서 끊는다.
     key: 'c6-match',
     durationInFrames: 104,
+    overlap: 8,
     bgm: 0.55,
     sfx: [
       { at: 36, src: 'phonics/audio/correct.mp3' },
@@ -580,6 +617,10 @@ const SCENES: Scene[] = [
     // ⑧ 낱말 그리기 — 초록이 걷혀 고기가 드러나는 f44 가 정답, 그 직후 「🎉 고기」 라벨.
     key: 'c7-dots',
     durationInFrames: 116,
+    overlap: 8,
+    // 🔴 앱 소리가 있는 씬은 전부 0.55 다. 여기만 빠져 있어 마지막 게임에서 BGM 이 1.0 으로
+    //    부풀었고(f873~882 램프), 하필 그 위에서 word-gogi 가 울려 「고기」가 음악에 묻혔다.
+    bgm: 0.55,
     sfx: [
       { at: 70, src: 'phonics/audio/correct.mp3' },
       { at: 108, src: 'phonics/audio/word-gogi.mp3' },
@@ -591,7 +632,13 @@ const SCENES: Scene[] = [
       </>
     ),
   },
-  { key: 'blocks', durationInFrames: 90, Component: ({ dur }) => <CurriculumBlocks dur={dur} /> },
+  {
+    // 실촬 → 합성 화면이라 가장 큰 하드컷(변화 50.1)이었다. 디졸브로 잇는다.
+    key: 'blocks',
+    durationInFrames: 90,
+    overlap: 8,
+    Component: ({ dur }) => <CurriculumBlocks dur={dur} />,
+  },
   // 커리큘럼 블록과 4프레임 겹치는 디졸브
   { key: 'cta', durationInFrames: 90, overlap: 4, Component: () => <Cta /> },
 ];
@@ -624,12 +671,25 @@ export const AdReelPhonics: React.FC = () => (
 
     {placed.map((s) => (
       <Sequence key={s.key} from={s.from} durationInFrames={s.durationInFrames}>
-        <s.Component dur={s.durationInFrames} />
-        {(s.sfx ?? []).map((f, i) => (
-          <Sequence key={`${s.key}-${i}`} from={f.at} durationInFrames={f.dur ?? 9999}>
-            <Audio src={staticFile(f.src)} volume={f.volume ?? 1} />
-          </Sequence>
-        ))}
+        <SceneFade overlap={s.overlap ?? 0}>
+          <s.Component dur={s.durationInFrames} />
+        </SceneFade>
+      </Sequence>
+    ))}
+
+    {/*
+      🔴 소리는 씬 **밖**에서 절대 프레임으로 건다 — 씬 Sequence 안에 넣으면 Remotion 이
+         씬 경계에서 잘라버린다. 클립은 전부 씬 길이에 딱 맞게 트리밍돼 있어서(footage 여유 0)
+         씬을 늘려 자리를 만들 수도 없다.
+         실측(2026-08-13): 씬 끝자락에 걸린 두 소리가 통째로 잘려 나갔다.
+           · f761 syl-gya(갸)   자리 8f / 필요 15f → 47% 잘림, 진폭 0.78 에서 절단
+           · f981 word-gogi(고기) 자리 8f / 필요 31f → 74% 잘림, 「기」는 아예 안 울림
+         절대 프레임으로 빼면 소리가 컷을 타고 넘어가고(L-cut), 하드컷도 같이 부드러워진다.
+         `layout()` 의 "앵커는 씬 안에" 가드는 그대로 유효하다 — 시작점은 화면과 맞아야 한다.
+    */}
+    {absoluteSfx(placed).map((f, i) => (
+      <Sequence key={`sfx-${i}`} from={f.abs} durationInFrames={f.dur ?? 9999}>
+        <Audio src={staticFile(f.src)} volume={f.volume ?? 1} />
       </Sequence>
     ))}
   </AbsoluteFill>
