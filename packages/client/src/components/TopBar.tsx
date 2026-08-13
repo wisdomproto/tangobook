@@ -12,6 +12,86 @@ interface ResourceItem {
   internal?: boolean;
 }
 
+/**
+ * 📖 창작동화 전용 메뉴 — 자료실에서 뺐다.
+ * 🔴 시리즈가 열을 넘어서면서 자료실 목록의 절반을 창작동화가 차지했고, 다른 라인 기획서가
+ *    스크롤 아래로 밀려 안 보였다. 시리즈는 40개까지 늘어날 예정이라 자리를 따로 준다.
+ */
+const CHANGJAK: ResourceItem[] = [
+  {
+    href: '/changjak-plan.html',
+    icon: '📖',
+    label: '탱고북 창작동화 1000 기획서',
+    desc: '시리즈 40개 × 25권 · 4~6세 · 한 시리즈 = 같은 캐스트 + 한 그림체 · 주제군 8 × 엔진 8 × 무대 생성 시스템',
+  },
+  {
+    href: '/changjak-styles.html',
+    icon: '🎨',
+    label: '앵커 후보 시트',
+    desc: '최근 20년 수상 일러스트 99점 · 클러스터 10종 × 주제군 필터 + 카드별 STYLE ANCHOR 프롬프트 복사',
+  },
+  {
+    href: '/pongi-plan.html',
+    icon: '🦦',
+    label: '01 · 퐁이네 운하 마을',
+    desc: '아기 수달 퐁이 · 네덜란드 운하 · 가족(어른 셋+아이 둘) · 페파형 · 실크스크린 · 대본+SCENE 완성',
+  },
+  {
+    href: '/mei-plan.html',
+    icon: '🐐',
+    label: '02 · 메이네 산마을',
+    desc: '아기 염소 메이 + 또래 넷 · 알프스 · 결점 배역제 · 대발이형 · 색연필 · 대본+SCENE 완성',
+  },
+  {
+    href: '/coco-plan.html',
+    icon: '🐭',
+    label: '03 · 코코네 빵집 골목',
+    desc: '아기 생쥐 코코 · 파리 뒷골목 · 엄마 일터·단골들 · 페파형 · 활판 · 대본+SCENE',
+  },
+  {
+    href: '/dodo-plan.html',
+    icon: '🦆',
+    label: '04 · 도도네 물방앗간',
+    desc: '오리 남매 도도·무무 · 프랑스 시골 · 형제 둘 · 페파형(아는 척 누나) · 과슈 · 글 한여울 / 그림 윤새롬',
+  },
+  {
+    href: '/bruno-plan.html',
+    icon: '🐻',
+    label: '05 · 브루노 할아버지네 숲',
+    desc: '아기 곰 닐스와 할아버지 · 스웨덴 숲 사계절 · 조손 둘 · 대발이형 · 크레용 · 글 배도담 / 그림 차온유',
+  },
+  {
+    href: '/twins-plan.html',
+    icon: '🐰',
+    label: '06 · 쌍둥이네 바닷가',
+    desc: '토끼 쌍둥이 리리·롤로 · 포르투갈 어촌 · 쌍둥이 · 페파형(둘 다 틀림) · 리소 · 글 한여울 / 그림 임푸른',
+  },
+  {
+    href: '/mio-plan.html',
+    icon: '🐱',
+    label: '07 · 미오네 유치원',
+    desc: '아기 고양이 미오와 반 아이들 · 독일 강마을 · 학급 · 대발이형(배역제) · 리노컷 · 글 오하람 / 그림 강마루',
+  },
+  {
+    href: '/pipo-plan.html',
+    icon: '🐶',
+    label: '08 · 피포네 돌담 목장',
+    desc: '강아지 피포 · 아일랜드 목장 · 아이+이웃 어른들 · 페파형 · 숯 · 글 문나래 / 그림 백서리',
+  },
+  {
+    href: '/nono-plan.html',
+    icon: '🐦',
+    label: '09 · 노노네 겨울 골목',
+    desc: '아기 참새 노노와 또래 둘 · 유럽 옛 골목 겨울 · 또래 셋 · 대발이형 · 찢은 종이 · 글 배도담 / 그림 노아라',
+  },
+  {
+    href: '/lulu-plan.html',
+    icon: '🫏',
+    label: '10 · 룰루네 올리브 언덕',
+    desc: '아기 당나귀 룰루와 대가족 · 이탈리아 · 대가족 · 페파형 · 모노타이프 · 글 문나래 / 그림 유가온',
+  },
+];
+
 const RESOURCES: ResourceItem[] = [
   {
     href: '/saenghwal-plan.html',
@@ -42,78 +122,6 @@ const RESOURCES: ResourceItem[] = [
     icon: '🏠',
     label: '전래동화 1 · 흥부와 놀부',
     desc: '15스프레드 대본 + 등장인물 8(가난/부자 상태별)·핵심단어 5 + 전체 프롬프트 복사(☰ 회차)',
-  },
-  {
-    href: '/changjak-plan.html',
-    icon: '📖',
-    label: '탱고북 창작동화 1000 기획서',
-    desc: '단권 완결 · 4~6세 유럽풍 · 책마다 다른 그림체 · 주제군 8 × 엔진 8 × 무대 생성 시스템 + 120권 제목·요약',
-  },
-  {
-    href: '/pongi-plan.html',
-    icon: '🦦',
-    label: '창작동화 1번세트 · 퐁이네 운하 마을',
-    desc: '아기 수달 퐁이 · 네덜란드 운하 마을 · 25권 250쪽 대본+SCENE 완성 · 페파형(웃음 착지) · 그림체 = 실크스크린 하나(전권) + 캐스트 시트 프롬프트·붙여넣기(☰ 회차)',
-  },
-  {
-    href: '/mei-plan.html',
-    icon: '🐐',
-    label: '창작동화 2번세트 · 메이네 산마을',
-    desc: '아기 염소 메이 + 또래 넷 · 알프스 산마을 · 25권 250쪽 대본+SCENE 완성 · 대발이형(결점→탈→어른 한 마디→고침) · 그림체 = 색연필 하나(전권) + 캐스트 시트 프롬프트·붙여넣기(☰ 회차)',
-  },
-  {
-    href: '/coco-plan.html',
-    icon: '🐭',
-    label: '창작동화 3번세트 · 코코네 빵집 골목',
-    desc: '아기 생쥐 코코 · 파리 뒷골목 빵집 · 25권 250쪽 대본 · 페파형(단골 어른들이 틀림 — 두더지/까치/돼지) · 그림체 = 활판 하나(전권) + 캐스트 시트 프롬프트·붙여넣기(☰ 회차)',
-  },
-  {
-    href: '/dodo-plan.html',
-    icon: '🦆',
-    label: '창작동화 4번세트 · 도도네 물방앗간',
-    desc: '오리 남매 도도·무무 · 프랑스 시골 물방앗간 · 25권 250쪽 대본+SCENE · 페파형(아는 척 누나가 틀림) · 그림체 = 과슈 하나 · 글 한여울 / 그림 윤새롬 + 캐스트 시트 프롬프트·붙여넣기(☰ 회차)',
-  },
-  {
-    href: '/bruno-plan.html',
-    icon: '🐻',
-    label: '창작동화 5번세트 · 브루노 할아버지네 숲',
-    desc: '아기 곰 닐스와 할아버지 · 스웨덴 숲 사계절 · 25권 250쪽 대본+SCENE · 대발이형(권마다 다른 결점) · 그림체 = 크레용 하나 · 글 배도담 / 그림 차온유 + 캐스트 시트 프롬프트·붙여넣기(☰ 회차)',
-  },
-  {
-    href: '/twins-plan.html',
-    icon: '🐰',
-    label: '창작동화 6번세트 · 쌍둥이네 바닷가',
-    desc: '토끼 쌍둥이 리리·롤로 · 포르투갈 어촌 · 25권 250쪽 대본+SCENE · 페파형(둘이 우기다 둘 다 틀림) · 그림체 = 리소 하나 · 글 한여울 / 그림 임푸른 + 캐스트 시트 프롬프트·붙여넣기(☰ 회차)',
-  },
-  {
-    href: '/mio-plan.html',
-    icon: '🐱',
-    label: '창작동화 7번세트 · 미오네 유치원',
-    desc: '아기 고양이 미오와 반 아이들 · 독일 강마을 · 25권 250쪽 대본+SCENE · 대발이형(결점 배역제 5권 주기) · 그림체 = 리노컷 하나 · 글 오하람 / 그림 강마루 + 캐스트 시트 프롬프트·붙여넣기(☰ 회차)',
-  },
-  {
-    href: '/pipo-plan.html',
-    icon: '🐶',
-    label: '창작동화 8번세트 · 피포네 돌담 목장',
-    desc: '강아지 피포 · 아일랜드 목장 · 25권 250쪽 대본+SCENE · 페파형(이웃 어른 셋이 저마다 틀림) · 그림체 = 숯 하나 · 글 문나래 / 그림 백서리 + 캐스트 시트 프롬프트·붙여넣기(☰ 회차)',
-  },
-  {
-    href: '/nono-plan.html',
-    icon: '🐦',
-    label: '창작동화 9번세트 · 노노네 겨울 골목',
-    desc: '아기 참새 노노와 또래 둘 · 유럽 옛 골목 겨울 · 25권 250쪽 대본+SCENE · 대발이형 · 그림체 = 찢은 종이 콜라주 하나 · 글 배도담 / 그림 노아라 + 캐스트 시트 프롬프트·붙여넣기(☰ 회차)',
-  },
-  {
-    href: '/lulu-plan.html',
-    icon: '🫏',
-    label: '창작동화 10번세트 · 룰루네 올리브 언덕',
-    desc: '아기 당나귀 룰루와 대가족 · 이탈리아 올리브 언덕 · 25권 250쪽 대본+SCENE · 페파형(어른 친척들이 틀림) · 그림체 = 모노타이프 하나 · 글 문나래 / 그림 유가온 + 캐스트 시트 프롬프트·붙여넣기(☰ 회차)',
-  },
-  {
-    href: '/changjak-styles.html',
-    icon: '🎨',
-    label: '창작동화 · 앵커 후보 시트',
-    desc: '최근 20년 수상 일러스트 99점 · 클러스터 10종 × 주제군 필터 + 카드별 STYLE ANCHOR 프롬프트 복사',
   },
   {
     href: '/hangeul-tree-plan.html',
@@ -254,7 +262,16 @@ const RESOURCES: ResourceItem[] = [
   },
 ];
 
-function ResourcesDropdown() {
+/** 자료실·창작동화 공용 드롭다운. 목록만 갈아 끼운다. */
+function ResourceMenu({
+  items,
+  label,
+  tone,
+}: {
+  items: ResourceItem[];
+  label: string;
+  tone: string;
+}) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -269,16 +286,16 @@ function ResourcesDropdown() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/30 rounded-lg transition-colors"
-        title="자료실"
+        className={`flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg transition-colors ${tone}`}
+        title={label}
       >
-        📁 자료실 <span className="text-[10px]">{open ? '▴' : '▾'}</span>
+        {label} <span className="text-[10px]">{open ? '▴' : '▾'}</span>
       </button>
       {open && (
-        // 🔴 항목이 29개라 목록이 화면 높이를 넘는다. `overflow-hidden` 만 있으면 아래쪽이
-        // 스크롤 없이 잘려서 최근에 추가한 자료일수록 못 연다 → 최대 높이 + 세로 스크롤.
+        // 🔴 목록이 화면 높이를 넘는다. `overflow-hidden` 만 있으면 아래쪽이 스크롤 없이 잘려서
+        // 최근에 추가한 자료일수록 못 연다 → 최대 높이 + 세로 스크롤.
         <div className="absolute right-0 mt-1 w-60 max-h-[calc(100vh-5rem)] overflow-y-auto overflow-x-hidden overscroll-contain bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg z-50">
-          {RESOURCES.map((item) => {
+          {items.map((item) => {
             const className =
               'flex items-start gap-2 px-4 py-2.5 text-sm hover:bg-slate-50 dark:hover:bg-slate-700 border-b border-slate-100 dark:border-slate-700 last:border-b-0';
             const inner = (
@@ -369,7 +386,16 @@ export function TopBar() {
             </svg>
           )}
         </button>
-        <ResourcesDropdown />
+        <ResourceMenu
+          items={CHANGJAK}
+          label="📖 창작동화"
+          tone="text-violet-600 dark:text-violet-400 hover:bg-violet-50 dark:hover:bg-violet-900/30"
+        />
+        <ResourceMenu
+          items={RESOURCES}
+          label="📁 자료실"
+          tone="text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/30"
+        />
         <button
           onClick={() => setVocabOpen(true)}
           className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 rounded-lg transition-colors"

@@ -3,7 +3,7 @@
 호리/전래와 **정반대 축**: 고정 캐스트 **없음** · 그림체 **권마다 다름** · 회차 아크 없음 · **단권 완결**.
 **4~8세**(권마다 다름) · 한국어 · 전체 **유럽풍** 무대 · 주인공은 동물(번역 자유도).
 
-- **기획서(SSOT)** = `packages/client/public/changjak-plan.html` (자료실 📖) — §5에 1000권 제목·요약
+- **기획서(SSOT)** = `packages/client/public/changjak-plan.html` (TopBar **📖 창작동화** 메뉴 · 자료실에서 분리 — 시리즈 12개가 전부 여기) — §5에 1000권 제목·요약
 - **본문** = `docs/changjak-books/<id>.md` → 빌드 `packages/client/scripts/build-changjak-books.mjs` → `public/changjak-<id>.html`
 - **삽화 프롬프트** = `docs/art-direction/changjak-<id>-prompts.md` → 빌드 `build-changjak-prompts.mjs` → `public/changjak-prompts.js`
 - **다음에 쓸 책 고르기** = `node packages/client/scripts/pick-changjak-next.mjs --n 4`
