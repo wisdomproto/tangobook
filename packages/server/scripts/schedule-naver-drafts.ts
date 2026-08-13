@@ -83,7 +83,9 @@ async function loadDbState(): Promise<{
     title: string;
     content_id: string;
     mkt_contents: { category: string | null } | null;
-  }>('mkt_blog_contents?select=id,title,content_id,mkt_contents!inner(category)&lang=eq.ko&limit=2000');
+  }>(
+    'mkt_blog_contents?select=id,title,content_id,mkt_contents!inner(category)&lang=eq.ko&limit=2000'
+  );
   const titleToBook = new Map<string, BookRef>(
     rows.map((r) => [r.title, { bookId: r.content_id, blogContentId: r.id }])
   );
@@ -156,6 +158,29 @@ async function listDrafts(ed: Frame): Promise<string[]> {
   )) as string[];
 }
 
+/** 예약 목록을 열어 제목들을 읽는다(임시저장과 같은 li 클래스, 여는 버튼만 다름).
+ *  🔴 목록이 lazy-load 라 스크롤로 끝까지 불러온 뒤 읽는다(안 그러면 첫 12개만 잡힌다). */
+async function listReserved(ed: Frame): Promise<string[]> {
+  await ed.evaluate(
+    `(function(){var b=document.querySelector('button.reserve_btn__Km5Xh'); if(b) b.click()})()`
+  );
+  await sleep(2200);
+  let prev = -1;
+  for (let i = 0; i < 15; i++) {
+    const cnt = (await ed.evaluate(`document.querySelectorAll('li.item__mm7Zd').length`)) as number;
+    if (cnt === prev) break;
+    prev = cnt;
+    await ed.evaluate(
+      `(function(){var it=document.querySelectorAll('li.item__mm7Zd'); var last=it[it.length-1]; if(last) last.scrollIntoView({block:'end'});})()`
+    );
+    await sleep(800);
+  }
+  return (await ed.evaluate(
+    `Array.prototype.slice.call(document.querySelectorAll('li.item__mm7Zd .title__p1G9u'))
+       .map(function(e){ return (e.textContent||'').trim(); })`
+  )) as string[];
+}
+
 /** 제목으로 초안을 연다. */
 async function openDraft(ed: Frame, title: string): Promise<void> {
   const ok = await ed.evaluate(
@@ -209,6 +234,97 @@ async function pickDate(ed: Frame, y: number, m: number, d: number): Promise<voi
   await sleep(700);
 }
 
+/** 발행 패널에서 네이버 블로그 카테고리를 고른다(드롭다운 열고 이름 일치 라벨 클릭).
+ *  🔴 셀렉터 실측(2026-08-11): 열기 `button.selectbox_button__jb1Dt`,
+ *  옵션 `label.radio_label__mB6ia`(nbsp→space 정규화해 이름 매칭). */
+async function selectCategory(ed: Frame, naverName: string): Promise<void> {
+  await ed.evaluate(
+    `(function(){var b=document.querySelector('button.selectbox_button__jb1Dt'); if(b) b.click()})()`
+  );
+  await sleep(900);
+  const ok = await ed.evaluate(
+    `(function(){
+       var target=${JSON.stringify(naverName)};
+       var labels=Array.prototype.slice.call(document.querySelectorAll('label.radio_label__mB6ia'));
+       var lbl=labels.find(function(l){ return (l.innerText||'').replace(/\\s+/g,' ').trim()===target; });
+       if(lbl){ lbl.click(); return true; } return false;
+     })()`
+  );
+  await sleep(700);
+  if (!ok) throw new Error(`카테고리 「${naverName}」 못 찾음`);
+}
+
+/** 이미 예약된 글을 열어 **카테고리만** 바꿔 재확정한다(날짜·시간·공개설정은 안 건드림).
+ *  🔴 처음 예약 때 카테고리를 안 골라 전부 기본(자연관찰)으로 들어간 걸 사후 교정하는 용도. */
+async function recatOne(page: Page, ed: Frame, naverName: string): Promise<void> {
+  await ed.evaluate(
+    `(function(){var b=Array.prototype.slice.call(document.querySelectorAll('button')).filter(function(x){return (x.innerText||'').trim()==='발행'})[0]; if(b) b.click()})()`
+  );
+  await sleep(2200);
+  await selectCategory(ed, naverName);
+  await sleep(600);
+  await ed.evaluate(
+    `(function(){var b=document.querySelector('button.confirm_btn__WEaBq'); if(b && !b.disabled) b.click()})()`
+  );
+  await sleep(6000);
+  // 재확정은 예약 건수가 안 늘어난다(이미 예약됨) → 패널이 닫혔는지(=성공)로 판정.
+  let stillPanel: boolean;
+  try {
+    stillPanel = (await ed.evaluate(
+      `!!document.querySelector('button.confirm_btn__WEaBq')`
+    )) as boolean;
+  } catch {
+    stillPanel = false; // 프레임 사라짐 = 이동 = 성공
+  }
+  if (stillPanel) {
+    await page.screenshot({ path: path.join(OUT, `recat-fail-${Date.now()}.png`) });
+    throw new Error('확정 후 패널이 안 닫힘');
+  }
+}
+
+/** 이미 예약된 글들의 카테고리를 사후 교정한다(--recat). */
+async function runRecat(browser: Browser): Promise<void> {
+  const naverName = naverCategory(CATEGORY).naverName;
+  const { titleToCategory } = await loadDbState();
+  const { page: p0, ed: ed0 } = await openEditor(browser);
+  const all = await listReserved(ed0);
+  await p0.close();
+  const targets = [...new Set(all)]
+    .filter((t) => titleToCategory.get(t) === CATEGORY)
+    .filter((t) => !MATCH || t.includes(MATCH))
+    .slice(0, LIMIT);
+  console.log(
+    `예약글 ${all.length}개 · category=${CATEGORY} → ${targets.length}개 「${naverName}」로 재분류${APPLY ? '' : ' (dry-run)'}`
+  );
+  targets.forEach((t, i) => console.log(`  ${i + 1}. ${t.slice(0, 44)}`));
+  if (!APPLY) return;
+
+  const done: string[] = [];
+  const failed: string[] = [];
+  for (const title of targets) {
+    let page: Page | undefined;
+    try {
+      const o = await openEditor(browser);
+      page = o.page;
+      await listReserved(o.ed);
+      await openDraft(o.ed, title); // 같은 li 클래스라 예약글도 열린다
+      await recatOne(page, o.ed, naverName);
+      done.push(title);
+      console.log(`  ✓ ${title.slice(0, 40)} → ${naverName}`);
+    } catch (e) {
+      failed.push(`${title.slice(0, 24)} (${(e as Error).message.slice(0, 40)})`);
+      console.log(`  ✗ ${title.slice(0, 30)}: ${(e as Error).message.slice(0, 50)}`);
+    }
+    if (page) await page.close().catch(() => {});
+    await sleep(rand(5000, 10000));
+  }
+  const msg =
+    `🐯 네이버 카테고리 재분류 ${done.length}편 → ${naverName}` +
+    (failed.length ? ` · 실패 ${failed.length}편\n${failed.join('\n')}` : '');
+  console.log(`\n${msg}`);
+  await notify(msg);
+}
+
 async function scheduleOne(
   page: Page,
   ed: Frame,
@@ -219,6 +335,9 @@ async function scheduleOne(
     `(function(){var b=Array.prototype.slice.call(document.querySelectorAll('button')).filter(function(x){return (x.innerText||'').trim()==='발행'})[0]; if(b) b.click()})()`
   );
   await sleep(2200);
+
+  // 🔴 네이버 카테고리 선택 — 안 하면 전부 기본(자연관찰 동화)으로 간다(2026-08-11 누락 사고).
+  await selectCategory(ed, naverCategory(CATEGORY).naverName);
 
   await ed.evaluate(
     `(function(){
@@ -278,6 +397,13 @@ async function scheduleOne(
 async function main() {
   if (!loadSession()) throw new Error('세션 없음 — naver-poc.ts login 먼저');
   const browser: Browser = await puppeteer.launch({ headless: false, defaultViewport: null });
+
+  // --recat: 이미 예약된 글의 카테고리 사후 교정(초기 예약 때 카테고리 누락분).
+  if (args.recat) {
+    await runRecat(browser);
+    if (!args.keep) await browser.close();
+    return;
+  }
 
   const { page: p0, ed: ed0 } = await openEditor(browser);
   const all = await listDrafts(ed0);

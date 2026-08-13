@@ -6,6 +6,9 @@
 // 🔴 파닉스는 **동화가 아니라 학습**이라 홍보 링크가 `/library`(전체)가 아니라 `/library/phonics/korean`.
 
 export interface NaverCategory {
+  /** 🔴 네이버 블로그 카테고리 이름(발행 패널 드롭다운 `label.radio_label__mB6ia` 텍스트와 정확히 일치).
+   *  이걸 안 고르면 전부 기본 카테고리(자연관찰 동화)로 들어간다 — 2026-08-11 실측/누락 사고. */
+  naverName: string;
   /** 태그 10개(첫 자리엔 제목 첫 토큰이 들어간다). 네이버는 한 글에 태그 최대 30개. */
   tags: (firstToken: string) => string[];
   /** 글 끝 CTA 직전에 넣는 "서비스 전체로 보내는" 한 줄 + 단독 URL(네이버가 OG 카드로 변환). */
@@ -14,6 +17,7 @@ export interface NaverCategory {
 
 export const NAVER_CATEGORIES: Record<string, NaverCategory> = {
   nature: {
+    naverName: '자연관찰 동화',
     tags: (t) => [
       t,
       `${t}그림책`,
@@ -32,6 +36,7 @@ export const NAVER_CATEGORIES: Record<string, NaverCategory> = {
     ],
   },
   classic: {
+    naverName: '세계명작 동화',
     tags: (t) => [
       t,
       `${t}동화`,
@@ -50,6 +55,7 @@ export const NAVER_CATEGORIES: Record<string, NaverCategory> = {
     ],
   },
   phonics: {
+    naverName: '한글 파닉스',
     tags: (t) => [
       t,
       '한글파닉스',
