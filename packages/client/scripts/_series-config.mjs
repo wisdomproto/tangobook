@@ -8,11 +8,14 @@
 // aliases = SCENE 텍스트에서 그 인물을 찾는 열쇠. 🔴 부분문자열 충돌 주의(빌더가 검사한다).
 
 export const PEN_NAMES = {
-  // 글작가 4명이 열 시리즈를 나눠 맡고, 그림작가는 시리즈마다 다르다.
+  // 글작가가 시리즈를 나눠 맡고, 그림작가는 시리즈마다 다르다.
   한여울: ['pongi', 'dodo', 'twins'],
   문나래: ['coco', 'pipo', 'lulu'],
   오하람: ['mei', 'mio'],
   배도담: ['bruno', 'nono'],
+  // 아시아 무대(11~15)는 다른 두 사람이 맡는다
+  서윤슬: ['bung', 'dingding', 'taro'],
+  정미르: ['yuki', 'mina'],
 };
 
 /** 페파형 / 대발이형 쪽 라벨 */
@@ -121,6 +124,86 @@ export const SERIES = {
       { key: 'nino', name: '니노 삼촌', face: '🫏', aliases: ['니노', 'Nino donkey', 'Nino'] },
       { key: 'rosa', name: '로사 이모', face: '🫏', aliases: ['로사', 'Rosa donkey', 'Rosa'] },
       { key: 'beppo', name: '베포 큰아버지', face: '🫏', aliases: ['베포', '큰아버지', 'Beppo donkey', 'Beppo'] },
+    ],
+  },
+
+  // ── 아시아 무대 (11~15) ─ 축은 docs/changjak-books/_series-slate-asia.md ────────────────
+  bung: {
+    no: '11', title: '붕이네 물 위 장터', icon: '🐃',
+    sub: '아기 물소 붕이와 말 못 하는 동생 또리 · 베트남 메콩 수상시장 · <b>대발이형</b>(겨루는 상대가 없다 — 늘 대신 알아내야 한다) · 그림체 = 민화 목판 하나(전권)',
+    form: 'debari', pen: { author: '서윤슬', illustrator: '표유담' },
+    // 🔴 팔레트는 docs/art-direction/bung-anchor.md 의 PALETTE 절과 같아야 한다(빌더가 검사)
+    palette: { paper: '#F3ECDC', ink1: '#C08B3E', ink2: '#4A7247', overlap: '#3A4A2A', accent: '#1E8A8A' },
+    accentWhere: '붕이 코뚜레 끈',
+    cast: [
+      { key: 'bung', name: '붕이', face: '🐃', aliases: ['붕이', 'Bung buffalo'] },
+      { key: 'ddori', name: '또리', face: '🐃', aliases: ['또리', 'Ddori baby buffalo'] },
+      { key: 'mom', name: '엄마', face: '🐃', aliases: ['엄마', 'Mom buffalo'] },
+      { key: 'grandpa', name: '할아버지', face: '🐃', aliases: ['할아버지', 'Grandpa buffalo'] },
+    ],
+  },
+  dingding: {
+    no: '12', title: '딩딩네 계단 논', icon: '🐷',
+    sub: '아기 돼지 딩딩과 삼대 · 중국 남부 계단식 논 · <b>페파형</b>(할머니는 옛 방식이 안 맞아서, 엄마는 대충 봐서 — 서로 다르게 틀린다) · 그림체 = 전지 하나(전권)',
+    form: 'peppa', pen: { author: '서윤슬', illustrator: '송가람' },
+    palette: {
+      paper: '#F7F4EC', ink1: '#1C1A17', ink2: '#B9B5A8',
+      overlap: '(없음 — 한 장을 오려 내는 것이라 겹치는 곳이 없다)', accent: '#C62828',
+    },
+    accentWhere: '딩딩 앞치마',
+    cast: [
+      { key: 'dingding', name: '딩딩', face: '🐷', aliases: ['딩딩', 'Dingding piglet'] },
+      { key: 'granny', name: '할머니', face: '🐷', aliases: ['할머니', 'Grandma pig'] },
+      { key: 'mom', name: '엄마', face: '🐷', aliases: ['엄마', 'Mama pig'] },
+      { key: 'ming', name: '밍 아저씨', face: '🦆', aliases: ['밍 아저씨', 'Ming duck'] },
+    ],
+  },
+  taro: {
+    no: '13', title: '타로와 무무', icon: '🐒',
+    sub: '아기 원숭이 타로와 아기 사슴 무무 · 인도네시아 섬 마을 · <b>페파형</b>(어른이 아니라 서로에게 틀린다 — 나쁜 마음이 아니라 몰라서) · 그림체 = 바틱 하나(전권)',
+    form: 'peppa', pen: { author: '서윤슬', illustrator: '민서하' },
+    palette: {
+      paper: '#EFE3CC', ink1: '#4C6E8C',
+      ink2: '(없음 — 한 번 담근 것과 두 번 담근 것뿐)', overlap: '#22406B', accent: '#E2711D',
+    },
+    accentWhere: '타로 허리끈 · 무무 머리끈',
+    cast: [
+      { key: 'taro', name: '타로', face: '🐒', aliases: ['타로', 'Taro monkey'] },
+      { key: 'mumu', name: '무무', face: '🦌', aliases: ['무무', 'Mumu deer'] },
+      { key: 'taromom', name: '타로 엄마', face: '🐒', aliases: ['타로 엄마', 'Taro mother monkey'] },
+      { key: 'mumugran', name: '무무 할머니', face: '🦌', aliases: ['무무 할머니', 'Mumu grandmother deer'] },
+    ],
+  },
+  yuki: {
+    no: '14', title: '유키네 산골', icon: '🦊',
+    sub: '아기 여우 유키와 말 못 하는 개 모모 · 일본 산촌 사계절 · <b>대발이형</b>(모모는 몸으로만 답한다 — 알아채는 건 유키다) · 그림체 = 수묵 담채 하나(전권)',
+    form: 'debari', pen: { author: '정미르', illustrator: '서지운' },
+    palette: {
+      paper: '#F2EEE3', ink1: '#23211E',
+      ink2: '(없음 — 먹 하나가 물로 다섯 값을 낸다)',
+      overlap: '(없음 — 한 획을 두 번 덧긋지 않는다)', accent: '#C8452E',
+    },
+    accentWhere: '유키 목도리 (먹 안의 유일한 색)',
+    cast: [
+      { key: 'yuki', name: '유키', face: '🦊', aliases: ['유키', 'Yuki fox'] },
+      { key: 'momo', name: '모모', face: '🐕', aliases: ['모모', 'Momo dog'] },
+      { key: 'granny', name: '할머니', face: '🦊', aliases: ['할머니', 'Granny fox'] },
+    ],
+  },
+  mina: {
+    no: '15', title: '가운데 아이 미나', icon: '🐘',
+    sub: '아기 코끼리 삼 남매 라주·미나·소누 · 인도 강가 마을 · <b>대발이형</b>(위로는 아직 안 되고 아래로는 이미 지난 자리) · 그림체 = 점으로 채운 민화 하나(전권)',
+    form: 'debari', pen: { author: '정미르', illustrator: '하다온' },
+    palette: {
+      paper: '#EFE0C4', ink1: '#2E2A24', ink2: '#F4EFE4',
+      overlap: '(없음 — 점은 겹치지 않고 사이를 둔다)', accent: '#E8A33D',
+    },
+    accentWhere: '미나 발찌 (화면에서 유일하게 매끈한 것)',
+    cast: [
+      { key: 'mina', name: '미나', face: '🐘', aliases: ['미나', 'Mina elephant'] },
+      { key: 'raju', name: '라주', face: '🐘', aliases: ['라주', 'Raju elephant'] },
+      { key: 'sonu', name: '소누', face: '🐘', aliases: ['소누', 'Sonu elephant'] },
+      { key: 'mother', name: '엄마', face: '🐘', aliases: ['엄마', 'Mother elephant'] },
     ],
   },
 };

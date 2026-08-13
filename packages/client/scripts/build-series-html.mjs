@@ -174,7 +174,11 @@ ${cards}
   fs.writeFileSync(path.join(OUT, `${key}-index.json`), JSON.stringify(index, null, 2) + '\n');
 
   // ── 기획서 ──
-  const sw = (label, hex) => `<span class="sw"><i style="background:${hex}"></i>${label} <code>${hex}</code></span>`;
+  // 🔴 값이 hex 가 아닐 수 있다 — 아시아 매체 셋은 「겹침 색」이 아예 없다(전지는 한 장이라 겹칠 데가
+  //    없고, 수묵은 먹 하나가 다섯 값이다). 없는 것을 있는 척 hex 로 채우지 말고 그대로 적는다.
+  const sw = (label, v) => /^#[0-9A-Fa-f]{3,8}$/.test(v)
+    ? `<span class="sw"><i style="background:${v}"></i>${label} <code>${v}</code></span>`
+    : `<span class="sw">${label} ${esc(v)}</span>`;
   const plan = `${HEAD(cfg.title, css, `${cfg.title} — 기획서`)}
 <header class="hero">
   <div class="kicker">창작동화 시리즈 ${cfg.no} · 25권 250쪽</div>
@@ -207,7 +211,7 @@ ${mdTable(DESIGN, 2) || mdTable(DESIGN, 1)}
 <p class="lead">시리즈 전권이 한 그림체입니다. 무대·계절 차이는 앵커 안 <b>무대 조항</b>이 처리합니다 — 매체·색은 그대로 두고 「두 색을 어디에 쓰고 무엇을 종이로 남기나」만 바뀝니다.
 🔴 악센트 <b>${cfg.accentWhere}</b> 에만 닿습니다.</p>
 <div class="swatches">
-  ${sw('종이', cfg.palette.paper)}${sw('색1', cfg.palette.ink1)}${cfg.palette.ink2.startsWith('#') ? sw('색2', cfg.palette.ink2) : `<span class="sw">색2 ${cfg.palette.ink2}</span>`}${sw('겹침', cfg.palette.overlap)}${sw('악센트', cfg.palette.accent)}
+  ${sw('종이', cfg.palette.paper)}${sw('색1', cfg.palette.ink1)}${sw('색2', cfg.palette.ink2)}${sw('겹침', cfg.palette.overlap)}${sw('악센트', cfg.palette.accent)}
 </div>
 <div class="anchor-card">
   <div class="ahead"><b>${slug}</b><button class="copy-btn" data-copy="anchor">📋 앵커 프롬프트 복사</button></div>
