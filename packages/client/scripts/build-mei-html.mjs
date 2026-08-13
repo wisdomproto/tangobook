@@ -30,11 +30,9 @@ const SCENES = fs.existsSync(`${SRC}/_scenes.json`) ? JSON.parse(fs.readFileSync
 const ANCHOR_MD = fs.readFileSync(`${ROOT}/docs/art-direction/mei-anchor.md`, 'utf8');
 const anchorBlocks = [...ANCHOR_MD.matchAll(/```\n(STYLE ANCHOR - mei-[\s\S]*?)\n```/g)].map((m) => m[1]);
 const sheetBlock = (ANCHOR_MD.match(/```\n(CHARACTER SHEET[\s\S]*?)\n```/) || [])[1] || '';
+// 🔴 한 시리즈 = 한 그림체 (2026-08-13) — 무대는 앵커 안 STAGE CLAUSES 가 처리한다
 const ANCHOR_META = [
-  { k: 'A', name: '색연필 · 비탈 풀밭', slug: 'mei-pencilslope', vols: '01 · 07 · 09 · 12 · 13 · 15 · 24' },
-  { k: 'B', name: '크레용 · 산장 안', slug: 'mei-crayonchalet', vols: '02 · 10 · 14 · 18 · 21 · 22 · 25' },
-  { k: 'C', name: '과슈 · 산길·개울', slug: 'mei-gouachebrook', vols: '04 · 05 · 11 · 19 · 20' },
-  { k: 'D', name: '숯 · 마을 광장', slug: 'mei-charcoalsquare', vols: '03 · 06 · 08 · 16 · 17 · 23' },
+  { k: 'A', name: '색연필 · 온회색 종이', slug: 'mei-pencilslope', vols: '전권 01~25' },
 ];
 
 // ── _design.md 표 → HTML ──
@@ -107,7 +105,9 @@ const CSS = `
   .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
   .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
-  .cast-card h4 { font-size:15px; font-weight:900; margin-bottom:2px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:2px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
   .cast-card .flaw { display:inline-block; background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; margin-bottom:7px; }
   .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
   .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
@@ -168,17 +168,23 @@ index.unshift({ file: 'mei-plan.html', label: '📘 기획서' });
 fs.writeFileSync(`${OUT}/mei-index.json`, JSON.stringify(index, null, 2) + '\n');
 
 // ═══════════ 기획서 ═══════════
-const CAST = [
-  ['mei', '메이', '아기 염소 · 겁이 많다', '흰 몸, 짧은 뿔 두 개, 늘어진 귀. 다섯 중 제일 작다. 🔴 주황 목도리.', '05 · 10 · 15 · 20 · 25'],
-  ['rudi', '루디', '다람쥐 · 못 참는다', '등 뒤로 말려 올라간 큼직한 꼬리. 앞치마. 🔴 주머니가 주황.', '02 · 07 · 12 · 17 · 22'],
-  ['ppino', '삐노', '토끼 · 성급하다', '곧게 선 긴 귀 두 개. 아이들 중 제일 크다. 🔴 주황 장화.', '01 · 06 · 11 · 16 · 21'],
-  ['soso', '소소', '고슴도치 · 수줍다', '짧은 가시가 덮인 낮고 둥근 등. 손을 모으고 있다. 🔴 주황 리본.', '03 · 08 · 13 · 18 · 23'],
-  ['leo', '레오', '여우 · 잘난 척한다', '뾰족한 주둥이, 길게 뻗은 꼬리. 턱을 든 자세. 🔴 주황 목깃.', '04 · 09 · 14 · 19 · 24'],
-  ['granny', '곰 할머니', '유일한 어른', '아이 키의 두 배, 전체가 둥글다. 산장 주인. 🔴 주황을 하나도 안 지닌다.', '매 권 ④비트'],
-];
+// 🔴 설명(desc)은 여기 적지 않는다 — mei-core.js 의 FIXED_CHARS 가 시트 프롬프트의 원본이고,
+//    카드에 사본을 두면 프롬프트와 화면이 갈라진다. 여기엔 기획서에만 필요한 결점·회차만 둔다.
+const CAST_META = {
+  mei: ['아기 염소 · 겁이 많다', '05 · 10 · 15 · 20 · 25'],
+  rudi: ['다람쥐 · 못 참는다', '02 · 07 · 12 · 17 · 22'],
+  ppino: ['토끼 · 성급하다', '01 · 06 · 11 · 16 · 21'],
+  soso: ['고슴도치 · 수줍다', '03 · 08 · 13 · 18 · 23'],
+  leo: ['여우 · 잘난 척한다', '04 · 09 · 14 · 19 · 24'],
+  granny: ['유일한 어른', '매 권 ④비트'],
+};
+const CORE_SRC = fs.readFileSync(`${OUT}/mei-core.js`, 'utf8');
+const CAST = [...CORE_SRC.matchAll(/key: '(\w+)', name: '([^']+)', aliases: \[[^\]]+\],\s*\n\s*desc: '([^']+)'/g)]
+  .map((m) => [m[1], m[2], ...(CAST_META[m[1]] || ['', '']), m[3]]);
+if (CAST.length !== 6) throw new Error(`mei-core.js 에서 캐스트를 ${CAST.length}명만 읽었다 — 파싱이 깨졌다`);
 
 const planHtml = `${HEAD('메이네 산마을', '창작동화 시리즈 02 · 25권 250쪽', '메이네 산마을 — 기획서')}
-  <div class="sub">아기 염소 메이와 또래 넷 · 알프스 산마을 · <b>대발이형</b>(결점 → 탈 → 어른 한 마디 → 고침) · 앵커 4종(색연필·크레용·과슈·숯)</div>
+  <div class="sub">아기 염소 메이와 또래 넷 · 알프스 산마을 · <b>대발이형</b>(결점 → 탈 → 어른 한 마디 → 고침) · 그림체 = 색연필 하나(전권)</div>
 </header>
 
 <div class="note">🔴 <b>이 기획서가 SSOT 가 아닙니다.</b> 본문은 <code>docs/changjak-books/mei/*.md</code>, 앵커는 <code>docs/art-direction/mei-anchor.md</code> 가 원본이고 이 페이지는 거기서 생성됩니다(<code>build-mei-html.mjs</code>). 회차는 왼쪽 <b>☰ 회차</b>에서.</div>
@@ -192,14 +198,16 @@ ${mdTable(DESIGN, 0)}
 <p class="lead">다섯이 <b>5권 주기로 정확히 돌아갑니다</b> — 한 아이가 몰리면 그 결점만 다섯 번 읽힙니다.
 시트를 만들어 아래 칸에 붙여넣으면 회차 페이지의 「🎬 이 화 등장」 스트립이 그 그림을 읽어 옵니다.</p>
 <div class="grid">
-${CAST.map(([k, n, flaw, desc, vols]) => `  <div class="cast-card">
-    <h4>${n}</h4>
+${CAST.map(([k, n, flaw, vols, desc]) => `  <div class="cast-card">
+    <div class="chead"><h4>${n}</h4><button class="copy-btn" data-sheet="${k}">📋 시트 프롬프트</button></div>
     <span class="flaw">${flaw}</span>
     <p>${inline(desc)}</p>
     <p style="margin-top:6px"><b>주인공 회차</b> ${vols}</p>
     <div data-paste="${k}"></div>
   </div>`).join('\n')}
 </div>
+<p class="lead">🔴 카드마다 <b>[📋 시트 프롬프트]</b> = 그 한 명만 그리는 프롬프트(앵커 + 규격 + 전신 정면·3/4·뒷모습).
+한 명씩 반복해 뽑다가 마음에 드는 걸 그 카드에 붙여넣으면 됩니다. 여섯을 한 장에 그리려면 아래 §6.</p>
 
 <h2 class="sec">3. 뼈대 — 10쪽 고정</h2>
 <pre class="block">p1~p2   결점이 드러나는 작은 일 + 원함    (🔴 p1 은 대사로 열지 않는다)
@@ -215,9 +223,10 @@ p9~p10  고쳐서 다시 한다 — 원하던 것을 얻는다</pre>
 <p class="lead">🔴 <b>작가에게 빈칸을 주지 않는 것</b>이 이 체제의 전부입니다. 원함·탈·착지 세 칸이 다 차 있어야 집필로 넘어갑니다.</p>
 ${mdTable(DESIGN, 2)}
 
-<h2 class="sec">5. 앵커 넷 — 손자국</h2>
-<p class="lead">라인 정체성이 <b>권마다 다른 그림체</b>라 시리즈에 그림체를 묶지 않습니다. 25권에 앵커 넷, 무대 성격으로 묶습니다.
-01 이 인쇄 공정(판·잉크·겹침)이었으니 02 는 <b>손자국</b>입니다 — 연필 결, 크레용이 종이 결에 걸려 끊긴 자리, 붓 자국, 문지른 숯과 지우개로 뺀 흰 자리.</p>
+<h2 class="sec">5. 앵커 — 한 시리즈 = 한 그림체</h2>
+<p class="lead">🔴 시리즈 전권이 <b>색연필 하나</b>로 갑니다(2026-08-13 확정 — 「한 시리즈는 같은 캐릭터, 같은 그림체」).
+산장 안·개울·광장·눈·숲은 앵커 안의 <b>무대 조항</b>이 처리합니다 — 매체·색은 그대로 두고 「두 색을 어디에 쓰고
+무엇을 종이로 남기나」만 바뀝니다. 시리즈끼리는 그림체가 통째로 다릅니다(01 실크스크린 · 02 색연필 · …).</p>
 <pre class="block">종이       WARM GREY #EDE9E1 — 칠하지 않은 자리는 전부 이 색이고 이것이 빛이다
 색 1·2     묶음마다 다르다. 두 색뿐이다
 악센트     ORANGE #D4622A — 다섯 아이가 저마다 하나씩 지닌 물건에만
@@ -250,6 +259,12 @@ ${ANCHOR_META.map((a, i) => `<div class="anchor-card">
       if (el) window.MEI.copyText(el.textContent, b);
     });
   });
+  // 캐릭터 한 명 시트 — 프롬프트는 mei-core.js 가 만든다(기획서에 사본을 두지 않는다)
+  document.querySelectorAll('[data-sheet]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      window.MEI.copyText(window.MEI.sheetPrompt(b.getAttribute('data-sheet')), b);
+    });
+  });
   window.MEI.mountPasteSlots('mei-plan');
 </script>
 </body>
@@ -258,7 +273,7 @@ ${ANCHOR_META.map((a, i) => `<div class="anchor-card">
 fs.writeFileSync(`${OUT}/mei-plan.html`, planHtml);
 
 console.log(`회차 HTML ${made}권 · index ${index.length} · 기획서 1`);
-console.log(`앵커 블록 ${anchorBlocks.length}/4 · 시트 ${sheetBlock ? '✓' : '✗'} · 25권 표 ${/<tbody>/.test(mdTable(DESIGN, 2)) ? '✓' : '✗'}`);
+console.log(`앵커 블록 ${anchorBlocks.length}/1 · 시트 ${sheetBlock ? '✓' : '✗'} · 25권 표 ${/<tbody>/.test(mdTable(DESIGN, 2)) ? '✓' : '✗'}`);
 if (missingScene.length) console.log('⚠️ SCENE 없음: ' + missingScene.join(', '));
 
 // ── 가드: 규칙을 문서에 적어 두지 말고 여기서 검사한다 ──
@@ -267,7 +282,7 @@ const CORE = fs.readFileSync(`${OUT}/mei-core.js`, 'utf8');
 const cast = [...CORE.matchAll(/key: '(\w+)', name: '([^']+)', aliases: \[([^\]]+)\]/g)]
   .map((m) => ({ key: m[1], name: m[2], aliases: m[3].split(',').map((x) => x.trim().replace(/'/g, '')) }));
 const coreVols = Object.fromEntries(
-  [...CORE.matchAll(/([A-D]): \{ name: '[^']*', slug: '[^']*', vols: \[([^\]]*)\]/g)]
+  [...CORE.matchAll(/([A-D]): \{ name: '[^']*', slug: '[^']*',\s*vols: \[([^\]]*)\]/g)]
     .map((m) => [m[1], m[2].replace(/'/g, '').split(',')]));
 
 // ① 앵커 배분: 설계서 표 ↔ core 가 일치하는가 (한쪽만 고치면 조용히 어긋난다)

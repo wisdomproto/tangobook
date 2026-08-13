@@ -47,7 +47,9 @@
   .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
   .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
-  .cast-card h4 { font-size:15px; font-weight:900; margin-bottom:2px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:2px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
   .cast-card .flaw { display:inline-block; background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; margin-bottom:7px; }
   .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
   .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
@@ -62,14 +64,14 @@
 <header class="hero">
   <div class="kicker">창작동화 시리즈 02 · 25권 250쪽</div>
   <h1>메이네 산마을</h1>
-  <div class="sub">아기 염소 메이와 또래 넷 · 알프스 산마을 · <b>대발이형</b>(결점 → 탈 → 어른 한 마디 → 고침) · 앵커 4종(색연필·크레용·과슈·숯)</div>
+  <div class="sub">아기 염소 메이와 또래 넷 · 알프스 산마을 · <b>대발이형</b>(결점 → 탈 → 어른 한 마디 → 고침) · 그림체 = 색연필 하나(전권)</div>
 </header>
 
 <div class="note">🔴 <b>이 기획서가 SSOT 가 아닙니다.</b> 본문은 <code>docs/changjak-books/mei/*.md</code>, 앵커는 <code>docs/art-direction/mei-anchor.md</code> 가 원본이고 이 페이지는 거기서 생성됩니다(<code>build-mei-html.mjs</code>). 회차는 왼쪽 <b>☰ 회차</b>에서.</div>
 
 <h2 class="sec">1. 왜 이 시리즈인가</h2>
 <p class="lead">시리즈 01(퐁이네 운하 마을)과 <b>모든 축이 반대</b>입니다. 같은 형을 두 번 만들면 25권이 아니라 50권이 같은 책이 됩니다.</p>
-<table><thead><tr><th></th><th>시리즈 01 퐁이</th><th><b>시리즈 02 메이</b></th></tr></thead><tbody><tr><td>형</td><td>페파형 — 웃음으로 착지</td><td><b>대발이형 — 교훈으로 착지</b></td></tr><tr><td>캐스트</td><td>어른 셋 + 아이 둘(또래 없음)</td><td><b>또래 다섯 + 어른 하나</b></td></tr><tr><td>주인공</td><td>퐁이 고정 · 결점 없음</td><td><b>다섯이 차례로 · 각자 결점 하나</b></td></tr><tr><td>틀리는 쪽</td><td>어른(아빠)</td><td><b>아이 자신</b></td></tr><tr><td>무대</td><td>네덜란드 운하 (물)</td><td><b>알프스 산마을 (비탈)</b></td></tr><tr><td>앵커</td><td>인쇄 공정 4종</td><td><b>손자국 4종</b> (색연필·크레용·과슈·숯)</td></tr></tbody></table>
+<table><thead><tr><th></th><th>시리즈 01 퐁이</th><th><b>시리즈 02 메이</b></th></tr></thead><tbody><tr><td>형</td><td>페파형 — 웃음으로 착지</td><td><b>대발이형 — 교훈으로 착지</b></td></tr><tr><td>캐스트</td><td>어른 셋 + 아이 둘(또래 없음)</td><td><b>또래 다섯 + 어른 하나</b></td></tr><tr><td>주인공</td><td>퐁이 고정 · 결점 없음</td><td><b>다섯이 차례로 · 각자 결점 하나</b></td></tr><tr><td>틀리는 쪽</td><td>어른(아빠)</td><td><b>아이 자신</b></td></tr><tr><td>무대</td><td>네덜란드 운하 (물)</td><td><b>알프스 산마을 (비탈)</b></td></tr><tr><td>앵커</td><td>실크스크린 하나</td><td><b>색연필 하나</b> (한 시리즈 = 한 그림체)</td></tr></tbody></table>
 <p class="lead">🔴 <b>또래가 없으면 대발이형이 안 돕니다.</b> 결점이 사건을 만드는 구조인데 01 은 어른 셋뿐이라 결점을 아이에게 줄 수 없었습니다. 호리 45편이 무수정 통과한 엔진이 바로 <b>「캐릭터 = 결점 하나」 배역제</b>이고, 그걸 여기로 이식했습니다.</p>
 
 <h2 class="sec">2. 캐스트 여섯</h2>
@@ -77,48 +79,50 @@
 시트를 만들어 아래 칸에 붙여넣으면 회차 페이지의 「🎬 이 화 등장」 스트립이 그 그림을 읽어 옵니다.</p>
 <div class="grid">
   <div class="cast-card">
-    <h4>메이</h4>
+    <div class="chead"><h4>메이</h4><button class="copy-btn" data-sheet="mei">📋 시트 프롬프트</button></div>
     <span class="flaw">아기 염소 · 겁이 많다</span>
-    <p>흰 몸, 짧은 뿔 두 개, 늘어진 귀. 다섯 중 제일 작다. 🔴 주황 목도리.</p>
+    <p>아기 염소 — 흰 몸, 짧은 뿔 두 개, 늘어진 귀. 다섯 중 제일 작다. 겁이 많아 어깨가 자주 움츠러들어 있다. 🔴 주황 목도리 하나.</p>
     <p style="margin-top:6px"><b>주인공 회차</b> 05 · 10 · 15 · 20 · 25</p>
     <div data-paste="mei"></div>
   </div>
   <div class="cast-card">
-    <h4>루디</h4>
+    <div class="chead"><h4>루디</h4><button class="copy-btn" data-sheet="rudi">📋 시트 프롬프트</button></div>
     <span class="flaw">다람쥐 · 못 참는다</span>
-    <p>등 뒤로 말려 올라간 큼직한 꼬리. 앞치마. 🔴 주머니가 주황.</p>
+    <p>다람쥐 — 등 뒤로 말려 올라간 큼직한 꼬리 하나가 실루엣을 만든다. 앞치마를 둘렀고 🔴 앞치마 주머니가 주황.</p>
     <p style="margin-top:6px"><b>주인공 회차</b> 02 · 07 · 12 · 17 · 22</p>
     <div data-paste="rudi"></div>
   </div>
   <div class="cast-card">
-    <h4>삐노</h4>
+    <div class="chead"><h4>삐노</h4><button class="copy-btn" data-sheet="ppino">📋 시트 프롬프트</button></div>
     <span class="flaw">토끼 · 성급하다</span>
-    <p>곧게 선 긴 귀 두 개. 아이들 중 제일 크다. 🔴 주황 장화.</p>
+    <p>토끼 — 곧게 선 긴 귀 두 개. 아이들 중 제일 키가 크다. 늘 앞으로 기울어진 자세. 🔴 주황 장화.</p>
     <p style="margin-top:6px"><b>주인공 회차</b> 01 · 06 · 11 · 16 · 21</p>
     <div data-paste="ppino"></div>
   </div>
   <div class="cast-card">
-    <h4>소소</h4>
+    <div class="chead"><h4>소소</h4><button class="copy-btn" data-sheet="soso">📋 시트 프롬프트</button></div>
     <span class="flaw">고슴도치 · 수줍다</span>
-    <p>짧은 가시가 덮인 낮고 둥근 등. 손을 모으고 있다. 🔴 주황 리본.</p>
+    <p>고슴도치 — 짧은 가시가 덮인 낮고 둥근 등. 손을 앞으로 모으고 있다. 🔴 머리에 주황 리본.</p>
     <p style="margin-top:6px"><b>주인공 회차</b> 03 · 08 · 13 · 18 · 23</p>
     <div data-paste="soso"></div>
   </div>
   <div class="cast-card">
-    <h4>레오</h4>
+    <div class="chead"><h4>레오</h4><button class="copy-btn" data-sheet="leo">📋 시트 프롬프트</button></div>
     <span class="flaw">여우 · 잘난 척한다</span>
-    <p>뾰족한 주둥이, 길게 뻗은 꼬리. 턱을 든 자세. 🔴 주황 목깃.</p>
+    <p>여우 — 뾰족한 주둥이와 길게 뻗은 꼬리 하나. 턱을 든 자세. 🔴 주황 목깃.</p>
     <p style="margin-top:6px"><b>주인공 회차</b> 04 · 09 · 14 · 19 · 24</p>
     <div data-paste="leo"></div>
   </div>
   <div class="cast-card">
-    <h4>곰 할머니</h4>
+    <div class="chead"><h4>곰 할머니</h4><button class="copy-btn" data-sheet="granny">📋 시트 프롬프트</button></div>
     <span class="flaw">유일한 어른</span>
-    <p>아이 키의 두 배, 전체가 둥글다. 산장 주인. 🔴 주황을 하나도 안 지닌다.</p>
+    <p>큰 곰 — 아이 키의 두 배, 전체가 둥글다. 산장 주인이자 이 마을의 유일한 어른. 🔴 주황색을 하나도 지니지 않는다. 아이들이 하던 그 일을 같이 하고 있는 모습으로만 등장한다.</p>
     <p style="margin-top:6px"><b>주인공 회차</b> 매 권 ④비트</p>
     <div data-paste="granny"></div>
   </div>
 </div>
+<p class="lead">🔴 카드마다 <b>[📋 시트 프롬프트]</b> = 그 한 명만 그리는 프롬프트(앵커 + 규격 + 전신 정면·3/4·뒷모습).
+한 명씩 반복해 뽑다가 마음에 드는 걸 그 카드에 붙여넣으면 됩니다. 여섯을 한 장에 그리려면 아래 §6.</p>
 
 <h2 class="sec">3. 뼈대 — 10쪽 고정</h2>
 <pre class="block">p1~p2   결점이 드러나는 작은 일 + 원함    (🔴 p1 은 대사로 열지 않는다)
@@ -132,11 +136,12 @@ p9~p10  고쳐서 다시 한다 — 원하던 것을 얻는다</pre>
 
 <h2 class="sec">4. 25권</h2>
 <p class="lead">🔴 <b>작가에게 빈칸을 주지 않는 것</b>이 이 체제의 전부입니다. 원함·탈·착지 세 칸이 다 차 있어야 집필로 넘어갑니다.</p>
-<table><thead><tr><th>#</th><th>제목</th><th>주인공(결점)</th><th>원함</th><th>결점이 부른 탈</th><th>착지</th><th>앵커</th></tr></thead><tbody><tr><td>01</td><td>나부터 탈래</td><td>삐노(성급)</td><td>썰매를 제일 멀리 타고 싶다</td><td>새치기해서 아무도 안 밀어 준다</td><td>뒤에 서니 넷이 밀어 준다</td><td>A</td></tr><tr><td>02</td><td>아직 안 됐어</td><td>루디(못 참음)</td><td>빵을 먹고 싶다</td><td>덜 익은 걸 꺼내 먹고 배가 아프다</td><td>기다린 빵이 제일 크다</td><td>B</td></tr><tr><td>03</td><td>나도 같이 놀자</td><td>소소(수줍음)</td><td>공을 차고 싶다</td><td>말을 못 해 하루가 다 간다</td><td>말하고 공을 찬다</td><td>D</td></tr><tr><td>04</td><td>나 다 알아</td><td>레오(잘난척)</td><td>앞장서고 싶다</td><td>아는 척하다 길을 잃는다</td><td>모른다고 하니 앞장선다</td><td>C</td></tr><tr><td>05</td><td>발이 안 떨어져</td><td>메이(겁)</td><td>딸기를 따고 싶다</td><td>못 건너고 혼자 남는다</td><td>한 발씩 건너 딴다</td><td>C</td></tr><tr><td>06</td><td>내가 이겼어</td><td>삐노(성급)</td><td>숨바꼭질을 하고 싶다</td><td>먼저 내고 우겨서 아무도 안 논다</td><td>지고도 같이 논다</td><td>D</td></tr><tr><td>07</td><td>내 거야</td><td>루디(먹보)</td><td>치즈를 먹고 싶다</td><td>혼자 다 먹어 앞이 텅 빈다</td><td>나눈 날이 더 많다</td><td>A</td></tr><tr><td>08</td><td>소리가 안 나와</td><td>소소(수줍음)</td><td>노래를 부르고 싶다</td><td>목소리가 안 나와 입만 벙긋</td><td>다 같이 부르니 나온다</td><td>D</td></tr><tr><td>09</td><td>그거 웃긴다</td><td>레오(막말)</td><td>웃기고 싶다</td><td>놀렸더니 아무도 안 웃는다</td><td>사과하고 같이 웃는다</td><td>A</td></tr><tr><td>10</td><td>깜깜한 계단</td><td>메이(겁)</td><td>인형을 가져오고 싶다</td><td>못 올라가 두고 온다</td><td>종을 울리며 올라간다</td><td>B</td></tr><tr><td>11</td><td>내가 일등</td><td>삐노(성급)</td><td>바위 꼭대기에 올라가고 싶다</td><td>뛰다 넘어져 꼴찌가 된다</td><td>같이 가서 같이 닿는다</td><td>C</td></tr><tr><td>12</td><td>언제 나와요</td><td>루디(못 참음)</td><td>싹을 보고 싶다</td><td>자꾸 옮겨 심어 안 난다</td><td>그냥 두니 난다</td><td>A</td></tr><tr><td>13</td><td>돌려줘야 하는데</td><td>소소(수줍음)</td><td>빌린 썰매를 돌려주고 싶다</td><td>말을 못 꺼내 계속 갖고 있다</td><td>돌려주니 또 빌려준다</td><td>A</td></tr><tr><td>14</td><td>내가 더 잘 그려</td><td>레오(잘난척)</td><td>제일 잘 그리고 싶다</td><td>남의 그림에 손대 망친다</td><td>자기 종이에 그린다</td><td>B</td></tr><tr><td>15</td><td>나는 밑에서 볼래</td><td>메이(겁)</td><td>미끄럼틀을 타고 싶다</td><td>하루 종일 밑에서만 본다</td><td>받아 주는 팔을 보고 탄다</td><td>A</td></tr><tr><td>16</td><td>다 만들었어</td><td>삐노(성급)</td><td>눈사람을 만들고 싶다</td><td>대충 쌓아 무너진다</td><td>천천히 쌓아 제일 크다</td><td>D</td></tr><tr><td>17</td><td>지금 울릴래</td><td>루디(못 참음)</td><td>축제 종을 울리고 싶다</td><td>미리 울려 다들 헛걸음한다</td><td>제 때 울려 다 모인다</td><td>D</td></tr><tr><td>18</td><td>아프다고 말 못 했어</td><td>소소(수줍음)</td><td>계속 놀고 싶다</td><td>말을 못 해 더 아프다</td><td>말하니 낫고 다시 논다</td><td>B</td></tr><tr><td>19</td><td>너는 못해</td><td>레오(막말)</td><td>잘하는 걸 보이고 싶다</td><td>그 말을 자기가 듣는다</td><td>건너 보이고 손을 내민다</td><td>C</td></tr><tr><td>20</td><td>저 소리 뭐야</td><td>메이(겁)</td><td>지름길로 가고 싶다</td><td>개 짖는 소리에 돌아가 늦는다</td><td>인사하고 지름길로 간다</td><td>C</td></tr><tr><td>21</td><td>끝까지 안 들었어</td><td>삐노(성급)</td><td>심부름을 해내고 싶다</td><td>말을 자르고 엉뚱한 걸 사 온다</td><td>끝까지 듣고 한 번에 한다</td><td>B</td></tr><tr><td>22</td><td>만지고 싶어</td><td>루디(충동)</td><td>냄비 안을 보고 싶다</td><td>뜨거운 걸 만져 손을 덴다</td><td>할머니 손을 빌려 본다</td><td>B</td></tr><tr><td>23</td><td>이름 말할 차례</td><td>소소(수줍음)</td><td>축제 달리기에 나가고 싶다</td><td>목소리가 작아 못 듣고 넘어간다</td><td>손을 들고 크게 말한다</td><td>D</td></tr><tr><td>24</td><td>내가 다 해 줄게</td><td>레오(잘난척)</td><td>고맙다는 말을 듣고 싶다</td><td>다 해 버려 아무도 안 고마워한다</td><td>옆에서 기다려 준다</td><td>A</td></tr><tr><td>25</td><td>오늘은 산장에서 자</td><td>메이(겁)</td><td>다 같이 자고 싶다</td><td>무서워 혼자 깨어 있다</td><td>다섯이 종을 하나씩 든다</td><td>B</td></tr></tbody></table>
+<table><thead><tr><th>#</th><th>제목</th><th>주인공(결점)</th><th>원함</th><th>결점이 부른 탈</th><th>착지</th><th>앵커</th></tr></thead><tbody><tr><td>01</td><td>나부터 탈래</td><td>삐노(성급)</td><td>썰매를 제일 멀리 타고 싶다</td><td>새치기해서 아무도 안 밀어 준다</td><td>뒤에 서니 넷이 밀어 준다</td><td>A</td></tr><tr><td>02</td><td>아직 안 됐어</td><td>루디(못 참음)</td><td>빵을 먹고 싶다</td><td>덜 익은 걸 꺼내 먹고 배가 아프다</td><td>기다린 빵이 제일 크다</td><td>A</td></tr><tr><td>03</td><td>나도 같이 놀자</td><td>소소(수줍음)</td><td>공을 차고 싶다</td><td>말을 못 해 하루가 다 간다</td><td>말하고 공을 찬다</td><td>A</td></tr><tr><td>04</td><td>나 다 알아</td><td>레오(잘난척)</td><td>앞장서고 싶다</td><td>아는 척하다 길을 잃는다</td><td>모른다고 하니 앞장선다</td><td>A</td></tr><tr><td>05</td><td>발이 안 떨어져</td><td>메이(겁)</td><td>딸기를 따고 싶다</td><td>못 건너고 혼자 남는다</td><td>한 발씩 건너 딴다</td><td>A</td></tr><tr><td>06</td><td>내가 이겼어</td><td>삐노(성급)</td><td>숨바꼭질을 하고 싶다</td><td>먼저 내고 우겨서 아무도 안 논다</td><td>지고도 같이 논다</td><td>A</td></tr><tr><td>07</td><td>내 거야</td><td>루디(먹보)</td><td>치즈를 먹고 싶다</td><td>혼자 다 먹어 앞이 텅 빈다</td><td>나눈 날이 더 많다</td><td>A</td></tr><tr><td>08</td><td>소리가 안 나와</td><td>소소(수줍음)</td><td>노래를 부르고 싶다</td><td>목소리가 안 나와 입만 벙긋</td><td>다 같이 부르니 나온다</td><td>A</td></tr><tr><td>09</td><td>그거 웃긴다</td><td>레오(막말)</td><td>웃기고 싶다</td><td>놀렸더니 아무도 안 웃는다</td><td>사과하고 같이 웃는다</td><td>A</td></tr><tr><td>10</td><td>깜깜한 계단</td><td>메이(겁)</td><td>인형을 가져오고 싶다</td><td>못 올라가 두고 온다</td><td>종을 울리며 올라간다</td><td>A</td></tr><tr><td>11</td><td>내가 일등</td><td>삐노(성급)</td><td>바위 꼭대기에 올라가고 싶다</td><td>뛰다 넘어져 꼴찌가 된다</td><td>같이 가서 같이 닿는다</td><td>A</td></tr><tr><td>12</td><td>언제 나와요</td><td>루디(못 참음)</td><td>싹을 보고 싶다</td><td>자꾸 옮겨 심어 안 난다</td><td>그냥 두니 난다</td><td>A</td></tr><tr><td>13</td><td>돌려줘야 하는데</td><td>소소(수줍음)</td><td>빌린 썰매를 돌려주고 싶다</td><td>말을 못 꺼내 계속 갖고 있다</td><td>돌려주니 또 빌려준다</td><td>A</td></tr><tr><td>14</td><td>내가 더 잘 그려</td><td>레오(잘난척)</td><td>제일 잘 그리고 싶다</td><td>남의 그림에 손대 망친다</td><td>자기 종이에 그린다</td><td>A</td></tr><tr><td>15</td><td>나는 밑에서 볼래</td><td>메이(겁)</td><td>미끄럼틀을 타고 싶다</td><td>하루 종일 밑에서만 본다</td><td>받아 주는 팔을 보고 탄다</td><td>A</td></tr><tr><td>16</td><td>다 만들었어</td><td>삐노(성급)</td><td>눈사람을 만들고 싶다</td><td>대충 쌓아 무너진다</td><td>천천히 쌓아 제일 크다</td><td>A</td></tr><tr><td>17</td><td>지금 울릴래</td><td>루디(못 참음)</td><td>축제 종을 울리고 싶다</td><td>미리 울려 다들 헛걸음한다</td><td>제 때 울려 다 모인다</td><td>A</td></tr><tr><td>18</td><td>아프다고 말 못 했어</td><td>소소(수줍음)</td><td>계속 놀고 싶다</td><td>말을 못 해 더 아프다</td><td>말하니 낫고 다시 논다</td><td>A</td></tr><tr><td>19</td><td>너는 못해</td><td>레오(막말)</td><td>잘하는 걸 보이고 싶다</td><td>그 말을 자기가 듣는다</td><td>건너 보이고 손을 내민다</td><td>A</td></tr><tr><td>20</td><td>저 소리 뭐야</td><td>메이(겁)</td><td>지름길로 가고 싶다</td><td>개 짖는 소리에 돌아가 늦는다</td><td>인사하고 지름길로 간다</td><td>A</td></tr><tr><td>21</td><td>끝까지 안 들었어</td><td>삐노(성급)</td><td>심부름을 해내고 싶다</td><td>말을 자르고 엉뚱한 걸 사 온다</td><td>끝까지 듣고 한 번에 한다</td><td>A</td></tr><tr><td>22</td><td>만지고 싶어</td><td>루디(충동)</td><td>냄비 안을 보고 싶다</td><td>뜨거운 걸 만져 손을 덴다</td><td>할머니 손을 빌려 본다</td><td>A</td></tr><tr><td>23</td><td>이름 말할 차례</td><td>소소(수줍음)</td><td>축제 달리기에 나가고 싶다</td><td>목소리가 작아 못 듣고 넘어간다</td><td>손을 들고 크게 말한다</td><td>A</td></tr><tr><td>24</td><td>내가 다 해 줄게</td><td>레오(잘난척)</td><td>고맙다는 말을 듣고 싶다</td><td>다 해 버려 아무도 안 고마워한다</td><td>옆에서 기다려 준다</td><td>A</td></tr><tr><td>25</td><td>오늘은 산장에서 자</td><td>메이(겁)</td><td>다 같이 자고 싶다</td><td>무서워 혼자 깨어 있다</td><td>다섯이 종을 하나씩 든다</td><td>A</td></tr></tbody></table>
 
-<h2 class="sec">5. 앵커 넷 — 손자국</h2>
-<p class="lead">라인 정체성이 <b>권마다 다른 그림체</b>라 시리즈에 그림체를 묶지 않습니다. 25권에 앵커 넷, 무대 성격으로 묶습니다.
-01 이 인쇄 공정(판·잉크·겹침)이었으니 02 는 <b>손자국</b>입니다 — 연필 결, 크레용이 종이 결에 걸려 끊긴 자리, 붓 자국, 문지른 숯과 지우개로 뺀 흰 자리.</p>
+<h2 class="sec">5. 앵커 — 한 시리즈 = 한 그림체</h2>
+<p class="lead">🔴 시리즈 전권이 <b>색연필 하나</b>로 갑니다(2026-08-13 확정 — 「한 시리즈는 같은 캐릭터, 같은 그림체」).
+산장 안·개울·광장·눈·숲은 앵커 안의 <b>무대 조항</b>이 처리합니다 — 매체·색은 그대로 두고 「두 색을 어디에 쓰고
+무엇을 종이로 남기나」만 바뀝니다. 시리즈끼리는 그림체가 통째로 다릅니다(01 실크스크린 · 02 색연필 · …).</p>
 <pre class="block">종이       WARM GREY #EDE9E1 — 칠하지 않은 자리는 전부 이 색이고 이것이 빛이다
 색 1·2     묶음마다 다르다. 두 색뿐이다
 악센트     ORANGE #D4622A — 다섯 아이가 저마다 하나씩 지닌 물건에만
@@ -145,9 +150,9 @@ p9~p10  고쳐서 다시 한다 — 원하던 것을 얻는다</pre>
 누가 주인공이든 화면에 주황이 있고, 다섯이 모이면 한 무리로 읽힙니다.</p>
 <p class="lead">⚠️ 아래는 <b>캐스트 시트·단독 렌더용 영문 전문</b>입니다. 회차 10장 배치는 회차 페이지의 [전체 프롬프트 복사]가 같은 앵커의 한국어 압축본을 붙입니다 — <b>고칠 땐 <code>mei-anchor.md</code> 와 <code>mei-core.js</code> 양쪽을</b>.</p>
 <div class="anchor-card">
-  <div class="ahead"><b>앵커 A · 색연필 · 비탈 풀밭</b><code>mei-pencilslope</code><button class="copy-btn" data-copy="anchor0">📋 앵커 프롬프트 복사</button></div>
-  <div class="avols">01 · 07 · 09 · 12 · 13 · 15 · 24</div>
-  <details><summary>프롬프트 보기</summary><pre id="anchor0">STYLE ANCHOR - mei-pencilslope   (five children on an alpine slope / coloured pencil on toothy paper)
+  <div class="ahead"><b>앵커 A · 색연필 · 온회색 종이</b><code>mei-pencilslope</code><button class="copy-btn" data-copy="anchor0">📋 앵커 프롬프트 복사</button></div>
+  <div class="avols">전권 01~25</div>
+  <details><summary>프롬프트 보기</summary><pre id="anchor0">STYLE ANCHOR - mei-pencilslope   (Mei's mountain village / coloured pencil on toothy paper)
 
 Style: coloured pencil on warm grey toothy paper, exactly TWO pencils, 4-6 year old picture book.
   Every area is built from parallel strokes laid in ONE direction, and the tooth of the paper breaks
@@ -155,154 +160,63 @@ Style: coloured pencil on warm grey toothy paper, exactly TWO pencils, 4-6 year 
   appears - that is the only dark. Unlaid paper is not white space, it is the sky and the light.
   SHADING IS ZERO - no blending, no smudging, no gradient, no cast shadow, no highlight.
 
-RENDERING (finish hierarchy): the slope is ONE field of GRASS strokes all running downhill, never
-  denser or lighter inside itself, 0 individual blades. Snow is the same field left as PAPER instead
-  of stroked. A thing on the slope sits on top with its whole outline showing, drawn with a harder
-  point so its edge is one continuous line. FINISHED THINGS PER PAGE = 2, the child the page is
-  about and the one thing that child touches. Far peaks = at most 4 outlines in EARTH, 0 texture.
-  Fence posts = at most 6. Trees = at most 5, each one shape repeated, never individually invented.
-  Flowers = at most 9 dots. Stroke direction NEVER changes inside one area - it changes only where
-  one thing ends and another begins, and that change of direction IS the edge. DENSITY RATION = none.
-  🔴 SNOW VOLUMES (01 and 13): the slope is not stroked at all - it is bare PAPER from edge to edge,
-  and the two pencils draw ONLY what stands on it. There is no white pencil and no blue shadow on
-  snow; a dip in the snow is drawn with at most 3 EARTH strokes along its lower lip and nothing else.
+RENDERING (finish hierarchy): an area is ONE field of strokes all running one way, never denser or
+  lighter inside itself. Stroke direction NEVER changes inside one area - it changes only where one
+  thing ends and another begins, and THAT CHANGE OF DIRECTION IS THE EDGE. A thing sitting on that
+  field is drawn with a harder point so its outline is one continuous line. FINISHED THINGS PER PAGE
+  = 2, the child the page is about and the one thing that child touches; everything else is a shape
+  with no interior detail. Repeats are capped and the cap is the whole design: trees at most 5,
+  flowers at most 9 dots, windows at most 8, crowd at most 7 silhouettes with 0 faces and 0 hands,
+  planks at most 6, jars at most 6, steam at most 5 curls, stars at most 14 separate paper holes.
+  Nothing in a repeat is a mirrored copy of its neighbour. DENSITY RATION = none.
 
-PALETTE: PAPER WARM GREY #EDE9E1, sky, snow, light, everything not stroked · PENCIL1 GRASS #7A8B5A,
-  slope, leaves, painted shutters · PENCIL2 EARTH #8A7358, wood, fence, baskets, sledges, ground ·
-  CROSS-HATCH MOSS #4E5840, animal backs, tree trunks, anything in shade - this colour is never a
-  third pencil, only the two crossed · ACCENT ORANGE #D4622A, 🔴 nothing but the one small orange
-  thing each child carries. No sky blue, no purple, no pink.
+PALETTE: PAPER WARM GREY #EDE9E1, sky, snow, plaster, light, everything not stroked · PENCIL1 MOSS
+  #6E7A5E, grass, water, shutters, cloth, painted things - the cool one · PENCIL2 EARTH #8A7358,
+  wood, stone, floors, roofs, baskets, ground - the warm one · CROSS-HATCH PEAT #40483A, animal
+  backs, tree trunks, iron, night, anything in shade - this is never a third pencil, only the two
+  crossed · ACCENT ORANGE #D4622A, 🔴 nothing but the one small orange thing each child carries.
+  No sky blue, no purple, no pink, no white pencil anywhere ever.
 
-CHARACTER DESIGN LANGUAGE: 🔴 SHARED BY ALL FOUR ANCHORS - reproduce word for word, do not vary.
-  Animals are built from the same strokes as the world - two or three shapes with limbs laid over.
-  GRADE: bipedal, standing upright, wearing cloth. Backs and heads are the CROSS-HATCH colour,
-  chests and bellies are PENCIL2, so every animal is built the same way in every anchor. Eyes are
-  two solid dark dots set wide apart; a small dark nose; the mouth is ONE curve; above each eye ONE
-  short eyebrow stroke. 🔴 FEELING IS CARRIED BY THE MOUTH CURVE AND THE TWO EYEBROW STROKES - the
-  eyes only ever open or close and their size NEVER changes. The face is never crossed by an object.
-  Whole-body posture carries the rest. THE FIVE, separable at thumbnail size: MEI a white goat kid,
-  two short horns, an ORANGE scarf, the smallest standing figure · RUDI a squirrel, one huge tail
-  curled up behind, an apron with an ORANGE pocket · PPINO a rabbit, two long ears straight up, the
-  tallest child, ORANGE boots · SOSO a hedgehog, a low round back of short spines, an ORANGE ribbon ·
-  LEO a fox, pointed muzzle and one long straight tail, an ORANGE collar. GRANDMOTHER BEAR is twice
-  any child's height, entirely rounded, no orange anywhere, and she is only ever shown doing the same
-  task the children are doing.
+STAGE CLAUSES (the stage changes what the two pencils do, never which two they are):
+  SLOPE - the hillside is ONE field of MOSS running downhill, 0 individual blades. Fences and
+    sledges are EARTH. Far peaks are at most 4 EARTH outlines with 0 texture.
+  CHALET - rooms are built from ONE repeated mark per surface: floor a plank stroke, wall a short
+    dash, cloth a zigzag. The mark is the SAME shape every time and may run off an edge but is never
+    redrawn. Beams and furniture are EARTH, cloth and shutters are MOSS. 🔴 FIRELIGHT AND LAMPLIGHT
+    ARE BARE PAPER and are the brightest thing on the page. A thing being looked for is drawn with
+    its own outline while everything it hides among is the repeated mark - that is how the eye finds it.
+  BROOK - water is ONE field of MOSS running across the page, 0 ripples, 0 glints. A thing in the
+    water is CROSS-HATCH lying inside that field, hard edge, never distorted or mirrored. A thing on
+    the water sits on top with its whole outline showing. Rocks and logs are EARTH with the strokes
+    running along the thing, not across it. The path is bare PAPER.
+  SQUARE - the ground is ONE field of EARTH; roofs and the bell tower are EARTH too but drawn with
+    an outline, and shutters are MOSS. Depth in a crowd is made by figures standing CLOSER TOGETHER,
+    never darker.
+  🔴 SNOW (volumes 01, 13, 16) - the slope or square is not stroked at all, it is bare PAPER from
+    edge to edge, and the two pencils draw ONLY what stands on it. A dip in the snow gets at most 3
+    EARTH strokes along its lower lip and nothing else.
+  🔴 FOREST (volume 04) - EARTH draws the trunks, one flat stroke per trunk, at most 9, all vertical;
+    MOSS becomes the shade between them as ONE horizontal field behind. The path stays bare PAPER.
+    Deeper in the wood the trunks stand CLOSER TOGETHER, never darker - that spacing is the only depth.
+
+CHARACTER DESIGN LANGUAGE: animals are built from the same strokes as the world - two or three shapes
+  with limbs laid over. GRADE: bipedal, standing upright, wearing cloth. Backs and heads are
+  CROSS-HATCH, chests and bellies are EARTH. Eyes are two solid dark dots set wide apart; a small
+  dark nose; the mouth is ONE curve; above each eye ONE short eyebrow stroke. 🔴 FEELING IS CARRIED
+  BY THE MOUTH CURVE AND THE TWO EYEBROW STROKES - the eyes only ever open or close and their size
+  NEVER changes. The face is never crossed by an object. Whole-body posture carries the rest.
+  THE FIVE, separable at thumbnail size: MEI a white goat kid, two short horns, an ORANGE scarf, the
+  smallest standing figure · RUDI a squirrel, one huge tail curled up behind, an apron with an ORANGE
+  pocket · PPINO a rabbit, two long ears straight up, the tallest child, ORANGE boots · SOSO a
+  hedgehog, a low round back of short spines, an ORANGE ribbon · LEO a fox, pointed muzzle and one
+  long straight tail, an ORANGE collar. GRANDMOTHER BEAR is twice any child's height, entirely
+  rounded, no orange anywhere, and she is only ever shown doing the same task the children are doing.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
 
 NOT: no airbrush, gradient, glow or 3D render / no blended or smudged pencil / no soft or feathered
-  edge / no solid unbroken colour / no third pigment that is not a cross-hatch.</pre></details>
+  edge / no solid unbroken colour / no third pigment that is not a cross-hatch / no white pencil.</pre></details>
   <div data-paste="anchor-A"></div>
-</div>
-<div class="anchor-card">
-  <div class="ahead"><b>앵커 B · 크레용 · 산장 안</b><code>mei-crayonchalet</code><button class="copy-btn" data-copy="anchor1">📋 앵커 프롬프트 복사</button></div>
-  <div class="avols">02 · 10 · 14 · 18 · 21 · 22 · 25</div>
-  <details><summary>프롬프트 보기</summary><pre id="anchor1">STYLE ANCHOR - mei-crayonchalet   (five children inside a chalet / wax crayon, snagged on the grain)
-
-Style: wax crayon on warm grey toothy paper, exactly TWO crayons, 4-6 year old picture book. Crayon
-  skips - it catches the high points of the paper and misses the pits, so every area is a broken
-  field of wax with grey grain showing through. Pressure is even everywhere; the breaking is the
-  paper's doing, not the hand's. Where the two crayons overlay, a third darker colour appears.
-  SHADING IS ZERO - the only variation is where the wax skipped.
-
-RENDERING (finish hierarchy): the room is built from repeated marks - floor = one plank stroke
-  repeated, wall = one short dash repeated, cloth = one zigzag repeated. The mark is the SAME shape
-  every time; it may run off an edge but is never redrawn. Clutter is made by REPEAT, not by variety:
-  shelves = at most 3 marks repeated, jars = at most 6 of one shape, crumbs = at most 9 dots. 🔴 A
-  THING BEING LOOKED FOR IS DRAWN WITH ITS OWN OUTLINE while everything around it is the repeated
-  mark - that is how the eye finds it. Steam = at most 5 curls. Firelight is the same area left as
-  PAPER instead of waxed, and it is the brightest thing on the page. FINISHED THINGS PER PAGE = 2.
-  Wax coverage is 80 percent, never solid. DENSITY RATION = none.
-
-PALETTE: PAPER WARM GREY #EDE9E1, plaster, linen, firelight, light · CRAYON1 TIMBER #7A5E42, beams,
-  floors, furniture, stairs · CRAYON2 SLATE #4A4038, iron, kettles, night windows, cloth · OVERLAY
-  BARK #33302A, animal backs, the dark of the stairwell - overlay only, never a third crayon ·
-  ACCENT ORANGE #D4622A, 🔴 nothing but each child's one orange thing. 🔴 EXCEPTION - volume 25 only,
-  pages 9 to 10: the five small bells are drawn in the ACCENT, five orange points scattered across a
-  dark page, and that is the only page in the series where the accent is not worn.
-
-CHARACTER DESIGN LANGUAGE: 🔴 identical to anchor A, word for word.
-  (Read PENCIL2 as CRAYON1 and CROSS-HATCH as OVERLAY.)
-
-CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
-
-NOT: no airbrush, gradient, glow or 3D render / no soft or feathered edge / no varied hand-drawn
-  clutter behind the figures / no solid unbroken wax / no smudging or scraping.</pre></details>
-  <div data-paste="anchor-B"></div>
-</div>
-<div class="anchor-card">
-  <div class="ahead"><b>앵커 C · 과슈 · 산길·개울</b><code>mei-gouachebrook</code><button class="copy-btn" data-copy="anchor2">📋 앵커 프롬프트 복사</button></div>
-  <div class="avols">04 · 05 · 11 · 19 · 20</div>
-  <details><summary>프롬프트 보기</summary><pre id="anchor2">STYLE ANCHOR - mei-gouachebrook   (five children on a mountain path / gouache, the brush left visible)
-
-Style: gouache on warm grey toothy paper, exactly TWO colours, 4-6 year old picture book. Every area
-  is laid with a flat brush in visible strokes that stop short of the outline, so a rim of bare paper
-  is left around most shapes. The paint is opaque and matte and never thinned to a wash. Where the two
-  colours overlap wet, a third darker colour appears. SHADING IS ZERO - the only variation is the
-  edge of each brush stroke.
-
-RENDERING (finish hierarchy): water is ONE horizontal sweep of WATER colour, never lighter or darker
-  inside itself, 0 ripples, 0 glints. A thing in the water is the OVERLAP colour lying inside that
-  sweep - hard edge, no distortion, never mirrored. A thing on the water sits on top with its whole
-  outline showing. Wet rock is ROCK with the brush stroke running along the rock, not across it.
-  FINISHED THINGS PER PAGE = 2. Far ridges = at most 4 strokes in ROCK, 0 texture. Trees = at most 5,
-  one shape repeated. Stepping stones = at most 5, each its own stroke. Path = one continuous band of
-  bare PAPER running through, and it is the only bare thing besides the sky. DENSITY RATION = none.
-  🔴 FOREST VOLUME (04): there is no brook. ROCK draws the trunks - one flat stroke per trunk, at
-  most 9 trunks, all vertical - and WATER becomes the shade between them, laid as ONE horizontal
-  sweep behind the trunks. The path stays bare PAPER. Deeper in the wood the trunks stand CLOSER
-  TOGETHER, never darker, and that spacing is the only way depth is shown.
-
-PALETTE: PAPER WARM GREY #EDE9E1, sky, path, mist, light · COLOUR1 WATER #5C7D82, brook, shutters,
-  distant air · COLOUR2 ROCK #6E6A63, stone, logs, trunks, ground · OVERLAP DEEP #38484B, animal
-  backs, the underside of the log, anything submerged - overlap only, never mixed on the palette ·
-  ACCENT ORANGE #D4622A, 🔴 nothing but each child's one orange thing. No sky blue, no green.
-
-CHARACTER DESIGN LANGUAGE: 🔴 identical to anchor A, word for word.
-  (Read PENCIL2 as COLOUR2 and CROSS-HATCH as OVERLAP.)
-
-CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
-
-NOT: no airbrush, gradient, glow or 3D render / no watercolour wash or bleed / no soft or feathered
-  edge / no ripple, glint or sparkle on water / no stroke that reaches every outline.</pre></details>
-  <div data-paste="anchor-C"></div>
-</div>
-<div class="anchor-card">
-  <div class="ahead"><b>앵커 D · 숯 · 마을 광장</b><code>mei-charcoalsquare</code><button class="copy-btn" data-copy="anchor3">📋 앵커 프롬프트 복사</button></div>
-  <div class="avols">03 · 06 · 08 · 16 · 17 · 23</div>
-  <details><summary>프롬프트 보기</summary><pre id="anchor3">STYLE ANCHOR - mei-charcoalsquare   (five children in the village square / charcoal, rubbed and lifted)
-
-Style: charcoal on warm grey toothy paper plus ONE earth colour, 4-6 year old picture book. Charcoal
-  is laid and then rubbed flat with a finger, so every area is an even grain with the paper's tooth
-  speckling through. Light is made by LIFTING - a kneaded eraser takes the charcoal back off and the
-  bare paper underneath is the brightest thing on the page. Nothing is ever drawn white. SHADING IS
-  ZERO in the modelling sense - an area is rubbed or it is lifted, never graded between.
-
-RENDERING (finish hierarchy): the square is ONE rubbed field, even everywhere, 0 cobbles picked out.
-  Snow is the same field LIFTED. Buildings are blocks of ROOF colour laid over the rubbed field with
-  one hard charcoal line at the roofline and nowhere else. FINISHED THINGS PER PAGE = 2. Crowd = at
-  most 7 silhouettes in flat charcoal, 0 faces, 0 hands. Windows = at most 8, each one lifted
-  rectangle, never a mirrored copy of its neighbour. Bell tower = 3 shapes only. Falling snow = at
-  most 14 lifted points, each taken out on its own. Every charcoal edge is slightly furry EXCEPT the
-  outline of the child the page is about, which is one clean pressed line. DENSITY RATION = none.
-  🔴 SNOW VOLUME (16): the square is never rubbed at all - it is bare PAPER from edge to edge, and
-  charcoal appears only in the standing things and the crowd. A snow mound is drawn with at most 3
-  charcoal strokes along its lower lip and nothing else. There is no white chalk anywhere, ever.
-
-PALETTE: PAPER WARM GREY #EDE9E1, snow, light, lifted windows, everything taken back off · CHARCOAL
-  #3A3733, ground, crowd, trees, animal backs, the whole rubbed field · COLOUR ROOF #9A6B52, roof
-  tiles, the bell tower, shutters, the one warm mass in the square · ACCENT ORANGE #D4622A, 🔴
-  nothing but each child's one orange thing - and on a charcoal page it is the only pure hue, so it
-  is how the eye finds the five in a crowd.
-
-CHARACTER DESIGN LANGUAGE: 🔴 identical to anchor A, word for word.
-  (Read PENCIL2 as ROOF and CROSS-HATCH as CHARCOAL.)
-
-CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
-
-NOT: no airbrush, gradient, glow or 3D render / no white chalk or white paint / no soft or feathered
-  figure outline / no smudged faces / no second colour beyond ROOF and the ACCENT.</pre></details>
-  <div data-paste="anchor-D"></div>
 </div>
 
 <h2 class="sec">6. 캐스트 시트 프롬프트</h2>
@@ -312,51 +226,7 @@ NOT: no airbrush, gradient, glow or 3D render / no white chalk or white paint / 
   <div class="ahead"><b>여섯 캐릭터 시트</b><button class="copy-btn" data-copy="sheet">📋 시트 프롬프트 복사</button></div>
   <details open><summary>프롬프트 보기</summary><pre id="sheet">CHARACTER SHEET - mei village   (six characters, one sheet)
 
-STYLE ANCHOR - mei-pencilslope   (five children on an alpine slope / coloured pencil on toothy paper)
-
-Style: coloured pencil on warm grey toothy paper, exactly TWO pencils, 4-6 year old picture book.
-  Every area is built from parallel strokes laid in ONE direction, and the tooth of the paper breaks
-  every stroke so no area is ever solid. Where the two pencils cross-hatch, a third darker colour
-  appears - that is the only dark. Unlaid paper is not white space, it is the sky and the light.
-  SHADING IS ZERO - no blending, no smudging, no gradient, no cast shadow, no highlight.
-
-RENDERING (finish hierarchy): the slope is ONE field of GRASS strokes all running downhill, never
-  denser or lighter inside itself, 0 individual blades. Snow is the same field left as PAPER instead
-  of stroked. A thing on the slope sits on top with its whole outline showing, drawn with a harder
-  point so its edge is one continuous line. FINISHED THINGS PER PAGE = 2, the child the page is
-  about and the one thing that child touches. Far peaks = at most 4 outlines in EARTH, 0 texture.
-  Fence posts = at most 6. Trees = at most 5, each one shape repeated, never individually invented.
-  Flowers = at most 9 dots. Stroke direction NEVER changes inside one area - it changes only where
-  one thing ends and another begins, and that change of direction IS the edge. DENSITY RATION = none.
-  🔴 SNOW VOLUMES (01 and 13): the slope is not stroked at all - it is bare PAPER from edge to edge,
-  and the two pencils draw ONLY what stands on it. There is no white pencil and no blue shadow on
-  snow; a dip in the snow is drawn with at most 3 EARTH strokes along its lower lip and nothing else.
-
-PALETTE: PAPER WARM GREY #EDE9E1, sky, snow, light, everything not stroked · PENCIL1 GRASS #7A8B5A,
-  slope, leaves, painted shutters · PENCIL2 EARTH #8A7358, wood, fence, baskets, sledges, ground ·
-  CROSS-HATCH MOSS #4E5840, animal backs, tree trunks, anything in shade - this colour is never a
-  third pencil, only the two crossed · ACCENT ORANGE #D4622A, 🔴 nothing but the one small orange
-  thing each child carries. No sky blue, no purple, no pink.
-
-CHARACTER DESIGN LANGUAGE: 🔴 SHARED BY ALL FOUR ANCHORS - reproduce word for word, do not vary.
-  Animals are built from the same strokes as the world - two or three shapes with limbs laid over.
-  GRADE: bipedal, standing upright, wearing cloth. Backs and heads are the CROSS-HATCH colour,
-  chests and bellies are PENCIL2, so every animal is built the same way in every anchor. Eyes are
-  two solid dark dots set wide apart; a small dark nose; the mouth is ONE curve; above each eye ONE
-  short eyebrow stroke. 🔴 FEELING IS CARRIED BY THE MOUTH CURVE AND THE TWO EYEBROW STROKES - the
-  eyes only ever open or close and their size NEVER changes. The face is never crossed by an object.
-  Whole-body posture carries the rest. THE FIVE, separable at thumbnail size: MEI a white goat kid,
-  two short horns, an ORANGE scarf, the smallest standing figure · RUDI a squirrel, one huge tail
-  curled up behind, an apron with an ORANGE pocket · PPINO a rabbit, two long ears straight up, the
-  tallest child, ORANGE boots · SOSO a hedgehog, a low round back of short spines, an ORANGE ribbon ·
-  LEO a fox, pointed muzzle and one long straight tail, an ORANGE collar. GRANDMOTHER BEAR is twice
-  any child's height, entirely rounded, no orange anywhere, and she is only ever shown doing the same
-  task the children are doing.
-
-CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
-
-NOT: no airbrush, gradient, glow or 3D render / no blended or smudged pencil / no soft or feathered
-  edge / no solid unbroken colour / no third pigment that is not a cross-hatch.
+[여기에 §1 의 Style / PALETTE / CHARACTER DESIGN LANGUAGE 세 문단을 그대로 붙인다]
 
 SHEET LAYOUT: one warm grey sheet, six characters standing in a row on a single ground line, all at
   their true relative heights - Grandmother Bear twice any child, Ppino the tallest child, Mei the
@@ -373,6 +243,12 @@ SHEET LAYOUT: one warm grey sheet, six characters standing in a row on a single 
     b.addEventListener('click', function () {
       var el = document.getElementById(b.getAttribute('data-copy'));
       if (el) window.MEI.copyText(el.textContent, b);
+    });
+  });
+  // 캐릭터 한 명 시트 — 프롬프트는 mei-core.js 가 만든다(기획서에 사본을 두지 않는다)
+  document.querySelectorAll('[data-sheet]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      window.MEI.copyText(window.MEI.sheetPrompt(b.getAttribute('data-sheet')), b);
     });
   });
   window.MEI.mountPasteSlots('mei-plan');
