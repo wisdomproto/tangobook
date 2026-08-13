@@ -44,6 +44,24 @@ export function AnalyticsControl() {
     window['ga-disable-G-XENG7XW959'] = internal; // GA4 즉시 on/off
   }, [account?.email]);
 
+  // ①-b 가입 전환 이벤트 (Meta 광고 최적화 목표) — accounts 행은 첫 로그인 때 lazy 생성이라
+  // createdAt ≈ 가입 완료 시각(이메일 확인 후 첫 로그인 / OAuth 완료 둘 다). 신선한 계정이면
+  // 1회만 CompleteRegistration 발화. localStorage 가드로 재로드·재세션 중복 방지.
+  useEffect(() => {
+    if (!account || window.__tbNoTrack) return;
+    const key = `tb_fbq_reg:${account.id}`;
+    try {
+      if (localStorage.getItem(key)) return;
+      const ageMs = Date.now() - new Date(account.createdAt).getTime();
+      if (ageMs < 0 || ageMs > 60 * 60 * 1000) return; // 1시간 지난 계정은 기존 회원
+      window.fbq?.('track', 'CompleteRegistration');
+      window.gtag?.('event', 'sign_up');
+      localStorage.setItem(key, '1');
+    } catch {
+      /* localStorage 불가 환경 — 추적 생략 */
+    }
+  }, [account]);
+
   // ② 회원 vs 비회원 → GA4 유저속성 membership (auth 확정 후, 내부계정 제외).
   useEffect(() => {
     if (loading || window.__tbNoTrack) return;
