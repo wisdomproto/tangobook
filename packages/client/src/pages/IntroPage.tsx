@@ -1170,75 +1170,100 @@ export default function IntroPage() {
         name="탱고북 영어 파닉스"
         tagline="알파벳 이름이 아니라 소리부터. 처음 보는 낱말도 스스로 읽어 냅니다."
       />
-      <Section
-        title={
-          <>
-            영어 파닉스 <span className="text-coral-700">{FACTS.englishUnits}단원</span>
-          </>
-        }
-      >
-        <p>
-          알파벳 소리에서 시작해 매직 e·블렌드·모음팀까지, <strong>다섯 권</strong>으로 이어져요.
-          한글 파닉스와 <strong>같은 이용권</strong>이라 따로 결제하지 않습니다.
-        </p>
-        <ol className="!mt-5 space-y-2">
-          {EN_STAGES.map((s, i) => (
-            <li
-              key={s.label}
-              className="flex items-center gap-3 rounded-3xl border border-ink-100 bg-white/70 px-4 py-3 lg:px-5 lg:py-4"
-            >
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-coral-700 text-sm font-extrabold text-white lg:h-9 lg:w-9 lg:text-base">
-                {i + 1}
-              </span>
-              <span
-                className={`shrink-0 rounded-full px-3 py-1 text-sm font-bold lg:text-base ${s.tone}`}
-              >
-                {s.count}
-              </span>
-              <span className="min-w-0">
-                <strong className="text-ink-900 xl:text-xl">{s.label}</strong>
-                <span className="ml-2 text-base text-ink-600 break-keep lg:text-lg xl:text-[18px]">
-                  {s.detail}
-                </span>
-              </span>
-            </li>
-          ))}
-        </ol>
-        <Link
-          to="/library/phonics/english"
-          className="!mt-5 inline-flex min-h-[44px] items-center rounded-full border-2 border-coral-500 px-6 text-base font-bold text-coral-700 transition hover:bg-coral-50"
-        >
-          영어 커리큘럼 전체 보기 →
-        </Link>
-      </Section>
+      {/* 🔴 **영어는 기본 접힘**(2026-08-12 사용자 제안) — 이 랜딩에 광고로 오는 사람은 한글을
+          찾아온 사람이고, 영어까지 펼쳐 두면 커리큘럼+데모 3개가 **4화면**을 더 밀어 아래 동화책이
+          그만큼 멀어진다. 접어도 **포함된다는 사실은 요약 줄이 말한다** — 그게 이 섹션의 일이다.
+          🔴 **여는 순간 로딩된다** — `<details>` 가 닫혀 있으면 안쪽이 화면에 안 잡히므로
+          `EmbedStage` 의 IntersectionObserver 가 안 켜지고, 활동 청크(`React.lazy`)도 안 받는다.
+          닫아 두는 것만으로 요청이 준다(따로 배선하지 않는다).
+          🔴 `<summary>` 는 **버튼처럼** 보이게 — 기본 삼각형 마커는 크롬에서만 그럴듯하고
+          사파리에선 작아서 눌러야 하는 줄 모른다. */}
+      <details className="group px-4 pb-12 sm:px-6 sm:pb-14 [&_summary::-webkit-details-marker]:hidden">
+        <summary className="mx-auto flex max-w-3xl cursor-pointer list-none items-center justify-between gap-3 rounded-3xl border-2 border-coral-300 bg-coral-50 px-4 py-3 lg:max-w-5xl xl:max-w-6xl sm:px-6 sm:py-4">
+          <span className="text-left text-[15px] font-bold text-ink-800 break-keep sm:text-lg xl:text-xl">
+            영어 파닉스 <strong className="text-coral-700">{FACTS.englishUnits}단원</strong>도 같은
+            이용권에 들어 있어요 — 커리큘럼과 학습 샘플 보기
+          </span>
+          <span
+            aria-hidden
+            className="shrink-0 text-xl font-extrabold text-coral-700 transition-transform group-open:rotate-180 sm:text-2xl"
+          >
+            ▾
+          </span>
+        </summary>
 
-      <section className="px-4 pb-12 sm:px-6 sm:pb-14">
-        <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl">
-          <div className="rounded-3xl border border-coral-200 bg-white/60 p-4 sm:p-6">
-            <p className="text-sm font-bold tracking-wide text-coral-700">
-              영어 파닉스 · {FACTS.englishUnits}단원
+        <div className="mt-2">
+          <Section
+            title={
+              <>
+                영어 파닉스 <span className="text-coral-700">{FACTS.englishUnits}단원</span>
+              </>
+            }
+          >
+            <p>
+              알파벳 소리에서 시작해 매직 e·블렌드·모음팀까지, <strong>다섯 권</strong>으로
+              이어져요. 한글 파닉스와 <strong>같은 이용권</strong>이라 따로 결제하지 않습니다.
             </p>
-            <h2 className="mt-1 font-display text-[28px] font-extrabold text-ink-900 break-keep sm:text-[34px]">
-              「c + an → can」 학습 샘플
-            </h2>
-            <p className="mt-3 inline-flex items-center gap-2 rounded-full border-2 border-coral-300 bg-coral-50 px-4 py-2.5 text-[16px] font-extrabold text-coral-700 break-keep sm:text-xl">
-              <span className="animate-pulse text-2xl sm:text-3xl">👆</span>
-              여기도 진짜 앱 화면입니다
-            </p>
-            {EN_TRY.map((a) => (
-              <PhonicsTryIt
-                key={a.key}
-                unitId={EN_UNIT}
-                language="english"
-                activityKey={a.key}
-                height={a.h}
-                note={a.note}
-                cta={a.cta}
-              />
-            ))}
-          </div>
+            <ol className="!mt-5 space-y-2">
+              {EN_STAGES.map((s, i) => (
+                <li
+                  key={s.label}
+                  className="flex items-center gap-3 rounded-3xl border border-ink-100 bg-white/70 px-4 py-3 lg:px-5 lg:py-4"
+                >
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-coral-700 text-sm font-extrabold text-white lg:h-9 lg:w-9 lg:text-base">
+                    {i + 1}
+                  </span>
+                  <span
+                    className={`shrink-0 rounded-full px-3 py-1 text-sm font-bold lg:text-base ${s.tone}`}
+                  >
+                    {s.count}
+                  </span>
+                  <span className="min-w-0">
+                    <strong className="text-ink-900 xl:text-xl">{s.label}</strong>
+                    <span className="ml-2 text-base text-ink-600 break-keep lg:text-lg xl:text-[18px]">
+                      {s.detail}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+            <Link
+              to="/library/phonics/english"
+              className="!mt-5 inline-flex min-h-[44px] items-center rounded-full border-2 border-coral-500 px-6 text-base font-bold text-coral-700 transition hover:bg-coral-50"
+            >
+              영어 커리큘럼 전체 보기 →
+            </Link>
+          </Section>
+
+          <section className="px-4 pb-12 sm:px-6 sm:pb-14">
+            <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl">
+              <div className="rounded-3xl border border-coral-200 bg-white/60 p-4 sm:p-6">
+                <p className="text-sm font-bold tracking-wide text-coral-700">
+                  영어 파닉스 · {FACTS.englishUnits}단원
+                </p>
+                <h2 className="mt-1 font-display text-[28px] font-extrabold text-ink-900 break-keep sm:text-[34px]">
+                  「c + an → can」 학습 샘플
+                </h2>
+                <p className="mt-3 inline-flex items-center gap-2 rounded-full border-2 border-coral-300 bg-coral-50 px-4 py-2.5 text-[16px] font-extrabold text-coral-700 break-keep sm:text-xl">
+                  <span className="animate-pulse text-2xl sm:text-3xl">👆</span>
+                  여기도 진짜 앱 화면입니다
+                </p>
+                {EN_TRY.map((a) => (
+                  <PhonicsTryIt
+                    key={a.key}
+                    unitId={EN_UNIT}
+                    language="english"
+                    activityKey={a.key}
+                    height={a.h}
+                    note={a.note}
+                    cta={a.cta}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
         </div>
-      </section>
+      </details>
 
       {/* ── ⑤ 동화책 ──────────────────────────────────────────── */}
       {/* 🔴 **쪽수·권수를 앞세우지 않는다**(2026-08-05 사용자: "쪽수 이런건 뭐하러 얘기해 의미없게").
