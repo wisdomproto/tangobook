@@ -330,27 +330,41 @@ function HeroBridge() {
     <div className="mx-auto mt-6 max-w-2xl rounded-3xl border-2 border-coral-200 bg-white/70 p-3 sm:mt-8 sm:p-5 xl:max-w-4xl xl:p-7">
       <div className="flex items-stretch gap-2 sm:gap-4">
         {/* 왼쪽 — 파닉스에서 배우는 낱말 */}
-        <div className="flex w-[34%] shrink-0 flex-col">
-          <span className="mb-1 text-[11px] font-extrabold text-coral-700 sm:text-sm xl:text-base">
-            파닉스에서 배우고
+        {/* 왼쪽 — 파닉스. 🔴 **글자가 먼저, 낱말이 그다음**(2026-08-12 사용자: "왼쪽에 단어만
+            있으니까 파닉스 느낌이 안 나네"). 낱말 카드만 두면 그림 낱말책으로 보인다 — 파닉스는
+            **글자와 소리**라, 위에 글자가 음절이 되는 화면(ㄷ+ㅏ, 다댜더뎌…)을 세우고 그 아래
+            그 글자로 된 낱말을 둔다. 두 장 다 앱 화면을 그대로 찍은 것이다. */}
+        <div className="flex w-[34%] shrink-0 flex-col gap-1.5 sm:gap-2">
+          <span className="text-[11px] font-extrabold text-coral-700 sm:text-sm xl:text-base">
+            ① 글자와 소리를 배우고
+          </span>
+          <div className="overflow-hidden rounded-2xl border border-ink-100 bg-cream-50">
+            <img
+              src="/landing/hangul/bridge-letter.webp"
+              alt="한글 파닉스 음절 만들기 화면 — ㄷ 과 ㅏ 가 합쳐져 다 가 된다"
+              width={460}
+              height={270}
+              fetchPriority="high"
+              className="aspect-[460/270] w-full object-cover"
+            />
+          </div>
+          <span className="text-[11px] font-extrabold text-coral-700 sm:text-sm xl:text-base">
+            ② 그 글자로 낱말을
           </span>
           <div className="relative overflow-hidden rounded-2xl border border-ink-100 bg-cream-50">
             <img
               src="/landing/hangul/bridge-word.webp"
-              alt="한글 파닉스 ㄷ 단원 낱말 연습 화면 — 두유·도마·기도·구두"
-              width={440}
-              height={580}
+              alt="한글 파닉스 ㄷ 단원 낱말 연습 화면 — 기도·구두"
+              width={460}
+              height={312}
               fetchPriority="high"
-              className="aspect-[3/4] w-full object-cover"
+              className="aspect-[460/312] w-full object-cover"
             />
-            {/* 🔴 **어느 낱말이 이어지는지 못 박는다**(2026-08-12 사용자). 네 장 중 하나가 오른쪽으로
-                건너가는데 표시가 없으면 화살표가 카드 넷 전체를 가리키는 것처럼 읽힌다.
-                🔴 위치는 **퍼센트** — 이미지가 105px(모바일)에서 282px(데스크탑)까지 늘어나므로
-                px 로 박으면 한쪽에서 어긋난다. 값은 구운 이미지(440×580) 안 구두 카드 실측이다. */}
+            {/* 🔴 위치는 **퍼센트** — 이미지가 105px(모바일)~282px(데스크탑)로 늘어난다. */}
             <span
               aria-hidden
               className="pointer-events-none absolute rounded-xl ring-[3px] ring-coral-500 sm:rounded-2xl sm:ring-4"
-              style={{ left: '50%', top: '51.5%', width: '42.5%', height: '44%' }}
+              style={{ left: '50%', top: '4%', width: '44%', height: '90%' }}
             />
           </div>
         </div>
@@ -370,7 +384,7 @@ function HeroBridge() {
         {/* 오른쪽 — 그 낱말이 나오는 동화책 쪽 */}
         <div className="flex min-w-0 flex-1 flex-col">
           <span className="mb-1 text-[11px] font-extrabold text-coral-700 sm:text-sm xl:text-base">
-            동화책에서 다시 만나요
+            ③ 동화책에서 다시 만나요
           </span>
           <div className="overflow-hidden rounded-2xl border border-ink-100 bg-cream-50">
             <img
