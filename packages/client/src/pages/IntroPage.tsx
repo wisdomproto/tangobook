@@ -369,20 +369,17 @@ function HeroBridge() {
           </div>
         </div>
 
-        {/* 가운데 — 잇는 자리. 🔴 화살표 하나로는 약하다: 점선 + 「같은 낱말」 칩이 관계를 말한다. */}
-        <div className="flex flex-col items-center justify-center self-center">
-          {/* 🔴 점선 조각을 따로 두지 않는다 — 좁은 칸에서 「- -」 로 보여 이물이 된다.
-              칩이 화살표의 이름표가 되게 위아래로만 세운다. */}
-          <span className="whitespace-nowrap rounded-full bg-coral-700 px-2 py-0.5 text-[10px] font-extrabold text-white sm:px-3 sm:py-1 sm:text-sm">
-            같은 낱말
-          </span>
-          <span className="-mt-0.5 text-2xl font-extrabold text-coral-500 sm:text-4xl" aria-hidden>
+        {/* 가운데 — 잇는 자리. 🔴 **「같은 낱말」 칩을 뺐다**(2026-08-12 사용자) — 양쪽에 링과
+            형광이 이미 있어서 말로 한 번 더 하면 설명이 겹친다. 화살표만 남긴다. */}
+        <div className="flex items-center justify-center self-center">
+          <span className="text-2xl font-extrabold text-coral-500 sm:text-4xl" aria-hidden>
             →
           </span>
         </div>
 
-        {/* 오른쪽 — 그 낱말이 나오는 동화책 쪽 */}
-        <div className="flex min-w-0 flex-1 flex-col">
+        {/* 🔴 오른쪽은 **왼쪽 기둥의 가운데**에 건다(2026-08-12 사용자) — 위 기준으로 맞추면
+            왼쪽이 두 단이라 오른쪽 아래에 빈 공간이 길게 남는다. 화살표도 자기 가운데에 선다. */}
+        <div className="flex min-w-0 flex-1 flex-col self-center">
           <span className="mb-1 text-[11px] font-extrabold text-coral-700 sm:text-sm xl:text-base">
             ③ 동화책에서 다시 만나요
           </span>
@@ -505,7 +502,7 @@ function StickyCta() {
           to={SIGNUP}
           className="flex min-h-[44px] shrink-0 items-center rounded-full bg-coral-700 px-5 text-base font-bold text-white shadow-sm transition hover:bg-coral-800"
         >
-          한달 무료 체험
+          회원가입하고 한달간 무료체험하기
         </Link>
       </div>
     </div>
@@ -906,14 +903,34 @@ function LearnReadCycle() {
       </div>
       {/* 닫는 화살표 — 여기가 「순환」의 실체다. 실제로 그렇게 동작한다(`groupBySyllable` 이 한글
           낱말 이벤트를 글자로 쪼개 파닉스 칸에 얹는다). ↩ 는 위 첫 칸으로 되돌아감을 가리킨다. */}
-      <div className="mt-3 flex items-center gap-3 rounded-3xl border-2 border-dashed border-coral-300 bg-coral-50 px-4 py-3">
-        <span aria-hidden className="shrink-0 text-3xl font-extrabold text-coral-700">
-          ↩
-        </span>
-        <p className="text-[15px] leading-snug text-ink-700 break-keep sm:text-[16px]">
-          그리고 <strong className="text-coral-700">읽은 게 다시 글자 진도로 돌아옵니다</strong> —
-          동화책에서 「고기」를 맞히면 파닉스 표의 고 · 기 칸이 함께 올라가요.
-        </p>
+      {/* 🔴 **한 바퀴를 말로만 하지 않는다**(2026-08-12 사용자: "여기도 파닉스랑 동화랑 연결된다는
+          걸 강조를 다시 해보자"). 아래 사진은 **프로덕션에서 그대로 찍은 순간**이다 — 파닉스 게임에서
+          「고기」를 맞히자 흐려진 게임판 위로 그 낱말이 나오는 동화책 쪽이 열렸고, 문장의 「고기」에
+          색이 들어가 있다. 연출이 아니라 앱이 하는 일이라 이 자리에 증거로 둔다. */}
+      <div className="mt-3 rounded-3xl border-2 border-dashed border-coral-300 bg-coral-50 p-3 sm:p-4">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <span aria-hidden className="shrink-0 text-3xl font-extrabold text-coral-700">
+            ↩
+          </span>
+          <p className="text-[15px] leading-snug text-ink-700 break-keep sm:text-[16px]">
+            그리고 <strong className="text-coral-700">읽은 게 다시 글자 진도로 돌아옵니다</strong> —
+            파닉스에서 낱말을 맞히면 <strong className="text-coral-700">그 자리에서</strong> 그
+            낱말이 나오는 동화책 쪽이 열려요.
+          </p>
+        </div>
+        <figure className="mt-3">
+          <img
+            src="/landing/hangul/cycle-reveal.webp"
+            alt="파닉스 게임에서 「고기」를 맞히자 그 낱말이 나오는 공룡 동화책 쪽이 열린 화면"
+            width={720}
+            height={406}
+            loading="lazy"
+            className="w-full rounded-2xl border border-coral-200"
+          />
+          <figcaption className="mt-1.5 text-center text-[13px] font-bold text-coral-800 break-keep sm:text-[15px]">
+            「고기」를 맞힌 그 순간 — 삽화와 문장이 함께 나오고, 읽어 줍니다.
+          </figcaption>
+        </figure>
       </div>
     </div>
   );
@@ -981,9 +998,11 @@ export default function IntroPage() {
 
           <Link
             to={SIGNUP}
-            className="mt-5 inline-flex min-h-[68px] items-center rounded-full bg-coral-700 px-12 text-2xl font-extrabold text-white shadow-lg transition hover:bg-coral-800 sm:mt-8 xl:mt-10 xl:min-h-[104px] xl:px-20 xl:text-[32px]"
+            /* 🔴 375px 에서 17자를 한 줄에 넣으려면 글자를 줄여야 한다 — 대신 **폭을 꽉 채운다**
+               (모바일 블록 버튼). 데스크탑은 예전처럼 알약. */
+            className="mt-5 inline-flex min-h-[68px] w-full max-w-[22rem] items-center justify-center rounded-full bg-coral-700 px-6 text-lg font-extrabold text-white shadow-lg transition hover:bg-coral-800 sm:mt-8 sm:w-auto sm:max-w-none sm:px-12 sm:text-2xl xl:mt-10 xl:min-h-[104px] xl:px-20 xl:text-[32px]"
           >
-            한달 무료 체험
+            회원가입하고 한달간 무료체험하기
           </Link>
         </div>
       </header>
@@ -1408,9 +1427,9 @@ export default function IntroPage() {
           </p>
           <Link
             to={SIGNUP}
-            className="mt-1 inline-flex min-h-[52px] items-center rounded-full bg-coral-700 px-8 text-lg font-bold text-white shadow-md transition hover:bg-coral-800"
+            className="mt-1 inline-flex min-h-[52px] w-full max-w-[22rem] items-center justify-center rounded-full bg-coral-700 px-6 text-base font-bold text-white shadow-md transition hover:bg-coral-800 sm:w-auto sm:max-w-none sm:px-8 sm:text-lg"
           >
-            한달 무료 체험 →
+            회원가입하고 한달간 무료체험하기 →
           </Link>
         </div>
       </Section>
