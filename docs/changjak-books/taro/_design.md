@@ -73,8 +73,14 @@
 | 타로 | **허리끈** |
 | 무무 | **머리끈** |
 
-**어른과 짐승은 절대 주황을 안 지닌다.** 25권 마지막에 둘이 나눠 끼는 팔찌는 **풀을 엮은 초록**이다
+**어른과 짐승은 절대 주황을 안 지닌다.** 25권 마지막에 둘이 나눠 끼는 팔찌는 **주황이 아니다**
 (여기에 주황을 주면 시그니처가 셋이 된다).
+
+🔴 **그 팔찌에 초록을 쓰지 않는다**(2026-08-13 앵커 판정 — 옛 문장은 「풀을 엮은 초록」이었다).
+바틱은 **한 통을 두 번 담그고 작은 둘째 물감 하나**가 전부라 넷째 색이 들어오면 골격이 깨지고
+악센트가 둘이 된다. 팔찌는 **왁스로 막은 자리(CLOTH)** 로 낸다 — 그러면 착지 화면에서 팔찌가
+**화면에서 가장 밝은 것**이 되어 「둘이 꼭 같다」가 더 세게 읽힌다. 본문·SCENE 은 색을 안 부르고
+**「풀을 세 가닥으로 엮은 팔찌」**로만 쓴다(지금 원고가 이미 그렇다). → `taro-anchor.md` §3
 
 🔴 **무대가 늘 지니는 주황을 조심하라** — 익은 열매 · 노을 · 흙길 · 불빛이 전부 주황 계열이다.
 앵커에 **「열매·흙·노을은 왁스로 막은 자리(칠하지 않은 밝기)로 남긴다」**를 못박았다.
@@ -244,21 +250,22 @@ p10     착지 — 웃음
 
 | 앵커 | 매체 | 바탕 | 색 |
 |---|---|---|---|
-| `taro-batikisle` (전권) | 바틱 — 왁스로 막고 물들인다 · 막은 자리에 잔금이 간다 | **인디고 남색** `#22406B` | 남색 + 흙갈색 + **주황** `#E2711D` |
+| `taro-batik` (전권) | 바틱 — 왁스로 막고 물들인다 · 막은 자리에 잔금이 간다 | **인디고 남색** `#22406B` | 남색(한 번 담근 것·두 번 담근 것) + **주황** `#E2711D` |
 
 🔴 **이 시리즈만 바탕이 어둡다.** 바틱은 천을 물들이는 공정이라 흰 종이가 안 나온다.
 그래서 **빛나는 것은 전부 「왁스로 막은 자리」**다 — 해·물·얼굴·김이 오르는 땅이 그것이다.
 
 **관통 줄** (매 쪽)
 
+🔴 **SSOT 는 앵커 문서다** — 아래는 민팅된 실제 관통 줄이고, 고칠 일이 있으면 `taro-anchor.md` 에서 고친다.
+
 ```
-WAX:   light is not painted - it is the wax-resist areas left undyed, with fine crackle lines
-TWO:   Taro wears one ORANGE waist cord, Mumu one ORANGE head band - nothing else in the frame is orange
-KEEP:  ripe fruit, bare earth and sunset stay as undyed resist, never orange
-RAIN:  when it rains the dye pools darker; after rain the ground steams as thin resist lines
+WAX:  every bright thing is a blocked place with a hard edge - light is never painted on
+PAIR: two orange marks means both are here, one orange mark means the other is off the page
+RAIN: when it rains everything stops - anything still moving is out in it and therefore DEEP
 ```
 
-🔴 앵커 전문(영문 프롬프트)은 `docs/art-direction/taro-anchor.md` — **SCENE 단계 전에** 민팅한다.
+🔴 앵커 전문(영문 프롬프트)은 `docs/art-direction/taro-anchor.md` — 민팅 완료(§3 에 설계와 맞춘 자리 넷).
 🔴 `taro-core.js` 의 STYLE 은 앵커를 민팅하면 **같이 고친다**(01이 폐기한 스타일을 계속 내보낸 전례).
 
 ---

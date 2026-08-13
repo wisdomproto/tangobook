@@ -26,7 +26,8 @@ RENDERING (finish hierarchy): 🔴 THE WORLD IS CUT POSITIVE AND THE FACES ARE C
   piece. 🔴 ONE WHITE CHANNEL RUNS FROM THE TOP EDGE TO THE BOTTOM EDGE ON EVERY PAGE AND NEVER
   BREAKS. Repeats are capped: rice in a band at most 9 of one cut comb shape · windows at most 6
   holes · a crowd at most 7 silhouettes with 0 faces and 0 hands; no repeat mirrors its neighbour.
-  FINISHED THINGS PER PAGE = 2. DENSITY RATION = none.
+  FINISHED THINGS PER PAGE = 2. 🔴 A SHADOW LYING ON THE GROUND OR ON THE WATER IS ANOTHER CUT BLACK
+  SHAPE with the same knife edge - never a grey area and never soft, and never on a body or a face.
 
 PALETTE: SHEET WHITE #F7F4EC, water, sky, light, every cut-away place · CUT BLACK #1C1A17, one
   sheet, everything not cut away · FAR GREY #B9B5A8, 🔴 a second sheet BEHIND the black, never in
@@ -46,11 +47,13 @@ STAGE CLAUSES (the stage changes what is cut away, not the sheets):
     Nothing is added; night is simply less cut away.
 
 CHARACTER DESIGN LANGUAGE: animals are cut from the same black sheet, limbs cut as part of the same
-  piece, never as separate floating parts. GRADE: bipedal, upright, wearing loose cloth. Eyes are
+  piece, never as separate floating parts. GRADE: bipedal, upright, wearing loose cloth, forelimbs
+  are HANDS with no hooves, and everyone is BARE-FOOT in the paddy. Eyes are
   two small black pieces set wide apart in the white face; a small black nose; the mouth is ONE cut
   curve. 🔴 THE JOKE IS ON THE FACE - expression is the MOUTH CURVE alone, the eyes only open or
   close, their size NEVER changes, nothing crosses a face. THE THREE: DINGDING a piglet, smallest,
-  the RED apron · MOTHER tallest · GRANDMOTHER widest and shortest, back curved forward.
+  the RED apron - 🔴 it has ONE pocket across the front of the belly, cut as a red piece with a slot
+  a small animal can crawl into · MOTHER tallest · GRANDMOTHER widest and shortest, back curved forward.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
 
@@ -58,7 +61,7 @@ NOT: no airbrush, gradient, glow or 3D render / no torn, soft or feathered edge 
   painted outline anywhere / no floating piece unjoined from the black sheet.
 ```
 
-🔴 **컷에 붙일 때는 그 쪽 무대의 `STAGE CLAUSES` 한 조항만 붙인다** — 앵커 전문은 3476자지만 조항 넷 중 셋을 빼면 실효 ~2790자라 「그림 한 장 4,500」 예산 안이다. 한 시리즈 = 한 앵커 구조에서 앵커가 3,200 을 넘는 것은 무대를 다 덮기 때문이고, 그 초과분은 **한 쪽에 동시에 쓰이지 않는다**.
+🔴 **컷에 붙일 때는 그 쪽 무대의 `STAGE CLAUSES` 한 조항만 붙인다** — 앵커 전문은 3,815자지만 조항 넷 중 셋을 빼면 실효 3,325자(관통 줄 포함 3,591)라 「그림 한 장 4,500」 예산 안이다. 한 시리즈 = 한 앵커 구조에서 앵커가 3,200 을 넘는 것은 무대를 다 덮기 때문이고, 그 초과분은 **한 쪽에 동시에 쓰이지 않는다**.
 
 **관통 줄** (매 쪽)
 
@@ -81,3 +84,16 @@ RED:    one small red piece, Dingding's apron, and nothing else on the page is r
 - 🔴 **얼굴만 음각**으로 뒤집은 것이 페파형을 살린다. 검은 실루엣이면 웃음이 안 보이는데, 머리를 검은 테로
   두고 얼굴을 오려 내면 입 곡선 하나가 화면에서 가장 밝은 자리에 놓인다.
 - 앞 열 시리즈의 **찢은 종이 콜라주**와 갈리는 축 = **가장자리**(칼 ↔ 찢김)와 **색 수**(하나 ↔ 여럿). `NOT` 첫 항이 그 자리다.
+
+---
+
+## §3. 🔴 설계·SCENE 과 충돌해 고친 자리 (2026-08-13 · 되돌리지 말 것)
+
+| 무엇 | 옛 앵커 | 지금 | 근거 |
+|---|---|---|---|
+| **앞치마 주머니** | 앞치마는 「빨간 조각 하나」 | **배 앞에 주머니 하나** — 작은 짐승이 기어들 수 있는 트인 자리로 오려 낸다 | 설계 §1. 🔴 **10 p10(그 권의 착지)이 「딩딩 배 앞 앞치마 주머니와 우렁이」 클로즈업**이고 「주머니 입구로 반쯤 들어간 우렁이 한 마리」가 화면의 전부다. 앵커에 없으면 화가가 민 앞치마를 그리고 **그 쪽이 없어진다** |
+| **논에서는 맨발** | `wearing loose cloth` 뿐 | `everyone is BARE-FOOT in the paddy` | 설계 §1. SCENE 은 맨발을 **20쪽**에서 부르고(09 p8 「딩딩 맨발과 흙을 아주 낮게」 같은 발 클로즈업 포함), **11권은 반대로 벗어 둔 신발이 떠내려가는 이야기**라 신이 없는 게 아니라 **논에서 벗는 것**이다 |
+| **손** | 없음 | `forelimbs are HANDS with no hooves` | 설계 §1 「발굽·앞발이라 쓰지 않는다」. SCENE 은 **손 201쪽 · 앞발/발굽 0쪽** |
+| **바닥·물 위 그림자** | `SHADING IS ZERO.` 만 | **`A SHADOW LYING ON THE GROUND OR ON THE WATER IS ANOTHER CUT BLACK SHAPE`**(같은 칼자국·회색 금지·몸과 얼굴 위 금지) | 🔴 **14권이 통째로 그림자 이야기**다(14 p2 「물 위에 통째로 비친 나무 그림자」 · **14 p8 = 「논물에 비친 그림자만」 한 화면**) + 12 p6·p9. 전지에서 그림자는 **또 하나의 오려 낸 검은 조각**이라 매체와 안 부딪히는데, 안 적어 두면 모델이 회색 음영으로 칠한다 |
+
+**예산** — 3,476 → 3,815(실효 **3,325**). 걷어낸 것 = `DENSITY RATION = none.`
