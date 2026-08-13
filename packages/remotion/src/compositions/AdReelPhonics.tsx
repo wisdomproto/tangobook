@@ -458,38 +458,14 @@ const SCENES: Scene[] = [
   // ⓪ 썸네일 — 인스타·유튜브가 첫 프레임을 커버로 쓴다. 그래서 없애진 못하고 1초로 줄였다.
   //    🔴 광고는 로고·타이틀로 시작하지 않는다. 이건 커버 확보용 최소 비용이다.
   { key: 'thumb', durationInFrames: 30, Component: () => <Thumbnail /> },
-  {
-    // ① ★ 훅 — ㄱ 소리. **첫 앱 소리 f43 = 1.43초**.
-    //    🔴 예전엔 이 씬이 5번째라 첫 소리가 13.40초였다. 손가락이 누르고 소리가 나는 것이
-    //       이 앱에서 제일 짧게 보여줄 수 있는 「사건」이라 맨 앞으로 올렸다.
-    //    🔴 보이는 점 두 개만 ㄱ 이고, 세 번째 탭은 그 자리의 띵동이 대신한다.
-    //       낱말 그림은 의자·서랍장 = 「가구」 라 word-gagu 가 맞다.
-    key: 'c4-tap',
-    durationInFrames: 100,
-    overlap: 6,
-    bgm: 0.55,
-    sfx: [
-      { at: TAP.dot1, src: 'phonics/audio/letter-g.mp3' },
-      { at: TAP.dot2, src: 'phonics/audio/letter-g.mp3' },
-      { at: TAP.check, src: 'phonics/audio/correct.mp3' },
-      { at: TAP.word, src: 'phonics/audio/word-gagu.mp3' },
-    ],
-    Component: ({ dur }) => (
-      <>
-        <Clip src="phonics/clips/c4-tap.mp4" />
-        {/* 🔴 예전 「누르면 소리가 나고」는 뒤로 이어지는 말이라 첫 줄로 못 쓴다. */}
-        <Subtitle lines={[{ text: '글자를 누르면 소리가 나요', at: 6 }]} dur={dur} />
-      </>
-    ),
-  },
   // 🔴 라이브러리 진입 씬(`n1-enter`, 「동화책도, 파닉스도 한 앱에」)을 뺐다(2026-08-13 사용자:
   //    「파닉스랑 동화책 동시에 이거 빼자. 정신없어」). 파닉스를 보여주겠다고 해놓고 곧바로
   //    동화책 책장을 띄우면 무엇을 파는 광고인지 흐려진다 — 「둘 다 된다」는 랜딩(/intro)이 말한다.
-  //    부수 효과로 소리 없는 구간이 3.2초 줄었다. 클립(`clips/n1-enter.mp4`)은 남겨 둔다.
+  //    클립(`clips/n1-enter.mp4`)은 남겨 둔다.
   {
-    // ② 파닉스 랜딩 → 「한글 파닉스」 탭. n2→n3 는 같은 앱 화면 흐름이라
+    // ① 파닉스 랜딩 → 「한글 파닉스」 탭. n2→n3 는 같은 앱 화면 흐름이라
     //    경계 변화가 0.2 수준(이미 매끄러움) — 그쪽엔 디졸브를 걸지 않는다.
-    //    🔴 단 앞이 게임 클로즈업(c4-tap)이라 여기만 겹친다.
+    //    🔴 앞이 정지 카드(썸네일)라 여기만 겹친다.
     key: 'n2-phonics',
     durationInFrames: 82,
     overlap: 8,
@@ -507,8 +483,8 @@ const SCENES: Scene[] = [
     ),
   },
   {
-    // ③ 왼쪽 단원 리스트 → ㄱ 탭 → 게임 목록 → 첫 게임 탭
-    //    끝에서 게임으로 들어가므로 다음 씬(합체 게임)과 이어진다.
+    // ② 왼쪽 단원 리스트 → ㄱ 탭 → 게임 목록 → 첫 게임 탭
+    //    끝에서 게임으로 들어가므로 다음 씬(ㄱ 소리)과 이어진다.
     key: 'n3-unit',
     durationInFrames: 145,
     Component: ({ dur }) => (
@@ -521,6 +497,31 @@ const SCENES: Scene[] = [
           ]}
           dur={dur}
         />
+      </>
+    ),
+  },
+  {
+    // ③ ㄱ 소리 — **ㄱ 을 배우는 첫 장면**. 단원에 들어왔으니 먼저 그 글자의 소리를 듣고,
+    //    다음 씬에서 ㅏ 와 합쳐 「가」가 된다.
+    //    🔴 한때 이 씬을 맨 앞으로 올려 훅으로 썼다(첫 앱 소리 13.4→1.4초). 되돌렸다
+    //       (2026-08-13 사용자: 「ㄱ 배우는 첫부분으로」) — 배우는 순서가 뒤엉키는 편이
+    //       첫 소리를 앞당기는 이득보다 컸다. 훅이 다시 필요해지면 여기가 그 후보다.
+    //    🔴 보이는 점 두 개만 ㄱ 이고, 세 번째 탭은 그 자리의 띵동이 대신한다.
+    //       낱말 그림은 의자·서랍장 = 「가구」 라 word-gagu 가 맞다.
+    key: 'c4-tap',
+    durationInFrames: 100,
+    overlap: 6,
+    bgm: 0.55,
+    sfx: [
+      { at: TAP.dot1, src: 'phonics/audio/letter-g.mp3' },
+      { at: TAP.dot2, src: 'phonics/audio/letter-g.mp3' },
+      { at: TAP.check, src: 'phonics/audio/correct.mp3' },
+      { at: TAP.word, src: 'phonics/audio/word-gagu.mp3' },
+    ],
+    Component: ({ dur }) => (
+      <>
+        <Clip src="phonics/clips/c4-tap.mp4" />
+        <Subtitle lines={[{ text: '글자를 누르면 소리가 나요', at: 6 }]} dur={dur} />
       </>
     ),
   },
