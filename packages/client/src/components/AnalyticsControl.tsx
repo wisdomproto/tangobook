@@ -22,17 +22,24 @@ declare global {
 export function AnalyticsControl() {
   const { account, loading } = useAuth();
 
-  // ① 내부계정 판정 — 로그인 이메일 있을 때만 세팅/해제(로그아웃·로딩 중엔 기존 플래그 유지).
+  // ① 내부 판정 — 이메일뿐 아니라 **index.html 이 이미 내린 판정(`__tbInternal`)도 존중**한다.
+  //
+  // 🔴 예전엔 이메일만 봤다(2026-08-13 수정). 그래서 ⓐ 로그아웃 상태의 자동화 브라우저는
+  //    `__tbNoTrack` 이 undefined 로 남아 **Meta 픽셀 라우트 PageView 가 그대로 발화**했고,
+  //    ⓑ 자동화 브라우저에서 일반 계정으로 로그인하면 `internal=false` 가 되어 index.html 이
+  //    켜 둔 제외를 **도로 꺼 버렸다**. 이제 둘 중 하나라도 내부면 내부다.
   useEffect(() => {
     const email = account?.email;
-    if (!email) return;
-    const internal = isInternalEmail(email);
+    const byEmail = !!email && isInternalEmail(email);
+    const internal = byEmail || window.__tbInternal === true;
     try {
-      if (internal) localStorage.setItem('tb_internal', '1');
-      else localStorage.removeItem('tb_internal');
+      if (byEmail) localStorage.setItem('tb_internal', '1');
+      // 일반 계정 로그인 시에만 해제 — webdriver·?__tb 로 켜 둔 제외는 건드리지 않는다.
+      else if (email && !window.__tbInternal) localStorage.removeItem('tb_internal');
     } catch {
       /* ignore */
     }
+    window.__tbInternal = internal;
     window.__tbNoTrack = internal;
     window['ga-disable-G-XENG7XW959'] = internal; // GA4 즉시 on/off
   }, [account?.email]);
