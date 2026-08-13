@@ -255,6 +255,10 @@ ${mdTable(DESIGN, 2) || mdTable(DESIGN, 1)}
     for (const x of a.aliases) for (const y of b.aliases)
       if (y.toLowerCase().includes(x.toLowerCase())) warn.push(`별칭 충돌 ${a.name}「${x}」⊂ ${b.name}「${y}」`);
   // ② [등장]이 비는 쪽
+  // 🔴 여기는 **「인물이 하나라도 잡히나」 불리언**이라 단순 부분문자열로 충분하다. 누가 나오는지를
+  //    정하는 진짜 감지는 `_series-core.template.js` 의 `detectChars`(긴 별칭 우선 + 매칭 자리 제거)다.
+  //    두 판정은 여기서 갈리지 않는다 — naive 가 찾은 것들 중 **가장 긴 별칭은 엄격 판정에서도 살아남으므로**
+  //    「하나도 없다」의 답이 같다. 🔴 감지를 고칠 일이 생기면 template 쪽을 고쳐라(여기는 개수만 센다).
   const empty = [];
   for (const [v, pp] of Object.entries(SCENES)) for (const [p, t] of Object.entries(pp))
     if (!cfg.cast.some((c) => c.aliases.some((al) => t.toLowerCase().includes(al.toLowerCase())))) empty.push(`${v} ${p}`);

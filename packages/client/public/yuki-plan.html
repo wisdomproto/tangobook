@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>유키네 산골 — 기획서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#C8452E; --slope:(없음 — 한 획을 두 번 덧긋지 않는다); --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">창작동화 시리즈 14 · 25권 250쪽</div>
+  <h1>유키네 산골</h1>
+  <div class="sub">아기 여우 유키와 말 못 하는 개 모모 · 일본 산촌 사계절 · <b>대발이형</b>(모모는 몸으로만 답한다 — 알아채는 건 유키다) · 그림체 = 수묵 담채 하나(전권)</div>
+  <div class="by">글 <b>정미르</b> · 그림 <b>서지운</b></div>
+</header>
+
+<div class="note">🔴 <b>이 기획서가 SSOT 가 아닙니다.</b> 본문은 <code>docs/changjak-books/yuki/*.md</code>, 앵커는 <code>docs/art-direction/yuki-anchor.md</code> 가 원본이고 이 페이지는 거기서 생성됩니다(<code>build-series-html.mjs</code>). 회차는 왼쪽 <b>☰ 회차</b>에서.</div>
+
+<h2 class="sec">1. 축</h2>
+<table><thead><tr><th></th><th>시리즈 02 메이</th><th>시리즈 11 붕이</th><th><b>시리즈 14 유키</b></th></tr></thead><tbody><tr><td>형</td><td>대발이형</td><td>대발이형</td><td><b>대발이형</b></td></tr><tr><td>캐스트 구성</td><td>또래 다섯 + 어른 하나</td><td>아이 + 아주 어린 동생</td><td><b>아이 하나 + 말 못 하는 동물 동무 + 어른 하나</b></td></tr><tr><td>말하는 인물</td><td>여섯</td><td>둘</td><td><b>둘</b> — 유키와 할머니뿐</td></tr><tr><td>결점</td><td>다섯이 하나씩 나눠 진다</td><td>한 아이</td><td><b>한 아이가 여섯 가지를 진다</b> (계절로 흩는다)</td></tr><tr><td>무대</td><td>알프스 비탈 (고정)</td><td>물 위 장터 (고정)</td><td><b>같은 산골이 넉 달마다 다른 길이 된다</b></td></tr><tr><td>그림체</td><td>색연필 하나</td><td>민화 목판 하나</td><td><b>수묵 담채 하나</b></td></tr></tbody></table>
+
+<h2 class="sec">2. 캐스트</h2>
+<p class="lead">시트를 만들어 카드에 붙여넣으면 회차 페이지의 「🎬 이 화 등장」 스트립이 그 그림을 읽어 옵니다.
+카드마다 <b>[📋 시트 프롬프트]</b> = 그 한 명만 그리는 프롬프트(앵커 + 규격 + 전신 정면·3/4·뒷모습).</p>
+<div class="grid">
+  <div class="cast-card">
+    <div class="chead"><h4>🦊 유키</h4><button class="copy-btn" data-sheet="yuki">📋 시트 프롬프트</button></div>
+    <p><code>Yuki fox</code></p>
+    <div data-paste="yuki"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐕 모모</h4><button class="copy-btn" data-sheet="momo">📋 시트 프롬프트</button></div>
+    <p><code>Momo dog</code></p>
+    <div data-paste="momo"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🦊 할머니</h4><button class="copy-btn" data-sheet="granny">📋 시트 프롬프트</button></div>
+    <p><code>Granny fox</code></p>
+    <div data-paste="granny"></div>
+  </div>
+</div>
+
+<h2 class="sec">3. 25권</h2>
+<p class="lead">🔴 <b>작가에게 빈칸을 주지 않는 것</b>이 이 체제의 전부입니다.</p>
+<table><thead><tr><th></th><th>결점</th><th>권</th><th>계절 물리와 어떻게 엮이나</th></tr></thead><tbody><tr><td><b>F1</b></td><td>급하다 · 기다릴 줄 모른다</td><td>01 · 07 · 13 · 19 · 24</td><td>봄 언 땅 · 여름 그늘의 이동 · 가을 떫은 감 · 겨울 눈 위 발자국</td></tr><tr><td><b>F2</b></td><td>겁이 많다</td><td>02 · 08 · 15 · 25</td><td>봄 안개 · 여름 키 넘는 풀 · 가을 나무 밑 그늘 · 겨울 눈이 먹은 고요</td></tr><tr><td><b>F3</b></td><td>혼자 다 하려 한다</td><td>05 · 11 · 17 · 23</td><td>봄 높은 가지 · 여름 뙤약볕 · 가을 바람 · 겨울 눈길</td></tr><tr><td><b>F4</b></td><td>건성이다 · 확인을 안 한다</td><td>04 · 09 · 16 · 20</td><td>봄비 · 여름 우거진 풀 · 가을 서리 · 겨울 찬 바람</td></tr><tr><td><b>F5</b></td><td>욕심낸다 · 한꺼번에 많이</td><td>03 · 10 · 14 · 21</td><td>봄 질척한 비탈 · 여름 더위 · 가을 낙엽 · 겨울 눈이 덮는다</td></tr><tr><td><b>F6</b></td><td>미룬다</td><td>06 · 12 · 18 · 22</td><td>봄 진창 · 여름 자라는 풀 · 가을 첫서리 · 겨울 얼어붙는 눈</td></tr></tbody></table>
+
+<h2 class="sec">4. 앵커 — 한 시리즈 = 한 그림체</h2>
+<p class="lead">시리즈 전권이 한 그림체입니다. 무대·계절 차이는 앵커 안 <b>무대 조항</b>이 처리합니다 — 매체·색은 그대로 두고 「두 색을 어디에 쓰고 무엇을 종이로 남기나」만 바뀝니다.
+🔴 악센트 <b>유키 목도리 (먹 안의 유일한 색)</b> 에만 닿습니다.</p>
+<div class="swatches">
+  <span class="sw"><i style="background:#F2EEE3"></i>종이 <code>#F2EEE3</code></span><span class="sw"><i style="background:#23211E"></i>색1 <code>#23211E</code></span><span class="sw">색2 (없음 — 먹 하나가 물로 다섯 값을 낸다)</span><span class="sw">겹침 (없음 — 한 획을 두 번 덧긋지 않는다)</span><span class="sw"><i style="background:#C8452E"></i>악센트 <code>#C8452E</code></span>
+</div>
+<div class="anchor-card">
+  <div class="ahead"><b>yuki-inkwash</b><button class="copy-btn" data-copy="anchor">📋 앵커 프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre id="anchor">STYLE ANCHOR - yuki-inkwash   (Yuki's mountain hamlet through four seasons / one ink, one stroke)
+
+Style: black ink and water on absorbent unsized paper, ONE ink, 4-6 year old picture book. 🔴 ONE
+  THING IS ONE STROKE - the brush is loaded once and lifted once, and the stroke carries its own
+  change of density inside itself: wet and dark where it started, dry and broken where the brush ran
+  out. A stroke is NEVER gone over twice; a second stroke means a second object. Unpainted paper is
+  not white space, it is snow, mist, water and light. SHADING IS ZERO - no modelling, gradient, cast
+  shadow or highlight.
+
+RENDERING (finish hierarchy): the ink has exactly FIVE steps made with water alone - PAPER, palest
+  wash, mid wash, dark, near-black - and no page uses more than four of them. An area is one wash
+  laid in one pass, never lighter or darker inside itself except where a stroke's own dry end breaks
+  it. On damp paper a stroke bleeds and that bleed is left alone; on dry paper the edge is hard. 🔴
+  STROKE COUNT IS THE INSTRUMENT OF THIS BOOK and every page is given a number. Repeats are capped:
+  trees at most 9, one stroke per trunk, all leaning the same way · a crowd at most 7 silhouettes
+  with 0 faces and 0 hands · falling snow at most 14 unpainted paper holes, never a dot of white
+  paint; no repeat mirrors its neighbour. FINISHED THINGS PER PAGE = 2. DENSITY RATION = none.
+
+PALETTE: PAPER #F2EEE3, snow, mist, water, light, every unpainted place · INK #23211E at five
+  strengths made with water only - there is no second pigment in the world · VERMILION #C8452E, 🔴
+  the only colour in the book, touching nothing but Yuki's scarf, laid flat with 0 strokes showing.
+  No blue, no green, no brown, no white paint anywhere ever.
+
+STAGE CLAUSES (the season changes stroke count and wetness, not the ink):
+  SPRING - the most strokes of the year, all short: at most 9 trunks plus at most 30 tip-touches for
+    buds. Washes are the palest step.
+  SUMMER - the wettest: leaf masses are ONE dark wash on damp paper, edges bleeding into each other.
+    Rain at most 11 dry broken strokes leaning one way.
+  AUTUMN - the driest brush: every stroke broken along its length. Fallen leaves at most 21 dry
+    touches, never overlapping.
+  🔴 WINTER - the fewest strokes of the year and the ground is not painted at all, bare PAPER edge to
+    edge; the ink draws ONLY what stands on it. A dip in the snow gets at most 3 strokes on its lip.
+  INSIDE - the room is at most 11 strokes: floor line, beams, doorway. Firelight is bare PAPER and
+    the brightest thing on the page; a thing being looked for keeps its own outline while what hides
+    it is one flat wash with 0 strokes.
+
+CHARACTER DESIGN LANGUAGE: animals are built from the same strokes as the world, the belly left as
+  bare PAPER. GRADE: YUKI is bipedal, upright, wearing cloth, the smallest standing figure. 🔴 THE
+  COMPANION IS FOUR-LEGGED, WEARS NOTHING AND NEVER OPENS ITS MOUTH - it is the larger, heavier
+  mass, and what it means is shown only by where it stands and what it faces. Eyes are two solid
+  dots set wide apart; a small dark nose; the mouth is ONE curve; ONE short brow stroke above each
+  eye. 🔴 FEELING IS CARRIED BY THE MOUTH CURVE AND THE TWO BROW STROKES - the eyes only open or
+  close, their size NEVER changes, and the face is the one place a stroke may be steadied.
+
+CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
+
+NOT: no airbrush, gradient, glow or 3D render / no stroke gone over twice / no white paint and no
+  second pigment / no airbrushed mist - mist is bare paper with a hard edge where the ink stops.</pre></details>
+  <div data-paste="anchor"></div>
+</div>
+
+<h2 class="sec">5. 캐스트 시트</h2>
+<p class="lead">한 장에 전원을 그립니다. 🔴 <b>시트가 최종 그림을 지배</b>하므로 시트를 먼저 확정하고 쪽 삽화로 갑니다.</p>
+<div class="anchor-card">
+  <div class="ahead"><b>전원 시트</b><button class="copy-btn" data-copy="sheet">📋 시트 프롬프트 복사</button></div>
+  <details open><summary>프롬프트 보기</summary><pre id="sheet"></pre></details>
+  <div data-paste="cast-sheet"></div>
+</div>
+
+</div>
+<script src="/yuki-core.js"></script>
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.getAttribute('data-copy'));
+      if (el) window.SERIES.copyText(el.textContent, b);
+    });
+  });
+  document.querySelectorAll('[data-sheet]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      window.SERIES.copyText(window.SERIES.sheetPrompt(b.getAttribute('data-sheet')), b);
+    });
+  });
+  window.SERIES.mountPasteSlots('yuki-plan');
+</script>
+</body>
+</html>

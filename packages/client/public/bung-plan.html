@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>붕이네 물 위 장터 — 기획서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#1E8A8A; --slope:#3A4A2A; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">창작동화 시리즈 11 · 25권 250쪽</div>
+  <h1>붕이네 물 위 장터</h1>
+  <div class="sub">아기 물소 붕이와 말 못 하는 동생 또리 · 베트남 메콩 수상시장 · <b>대발이형</b>(겨루는 상대가 없다 — 늘 대신 알아내야 한다) · 그림체 = 민화 목판 하나(전권)</div>
+  <div class="by">글 <b>서윤슬</b> · 그림 <b>표유담</b></div>
+</header>
+
+<div class="note">🔴 <b>이 기획서가 SSOT 가 아닙니다.</b> 본문은 <code>docs/changjak-books/bung/*.md</code>, 앵커는 <code>docs/art-direction/bung-anchor.md</code> 가 원본이고 이 페이지는 거기서 생성됩니다(<code>build-series-html.mjs</code>). 회차는 왼쪽 <b>☰ 회차</b>에서.</div>
+
+<h2 class="sec">1. 축</h2>
+<table><thead><tr><th></th><th>시리즈 02 메이</th><th><b>시리즈 11 붕이</b></th></tr></thead><tbody><tr><td>형</td><td>대발이형</td><td><b>대발이형</b> (같다)</td></tr><tr><td>캐스트</td><td>또래 다섯 + 어른 하나</td><td><b>아이 하나 + 말 못 하는 동생 + 어른 둘</b></td></tr><tr><td>겨루는 상대</td><td>또래끼리 이기고 진다</td><td>🔴 <b>없다</b> — 붕이는 늘 <b>대신 알아내야</b> 한다</td></tr><tr><td>주인공</td><td>다섯이 5권 주기로</td><td><b>붕이 고정 · 결점 다섯 축이 5권 주기로</b></td></tr><tr><td>무대</td><td>알프스 비탈</td><td><b>메콩 강 물 위 시장 (물이 길이다)</b></td></tr><tr><td>그림체</td><td>색연필 하나</td><td><b>민화 목판 하나</b> (한 시리즈 = 한 그림체)</td></tr></tbody></table>
+
+<h2 class="sec">2. 캐스트</h2>
+<p class="lead">시트를 만들어 카드에 붙여넣으면 회차 페이지의 「🎬 이 화 등장」 스트립이 그 그림을 읽어 옵니다.
+카드마다 <b>[📋 시트 프롬프트]</b> = 그 한 명만 그리는 프롬프트(앵커 + 규격 + 전신 정면·3/4·뒷모습).</p>
+<div class="grid">
+  <div class="cast-card">
+    <div class="chead"><h4>🐃 붕이</h4><button class="copy-btn" data-sheet="bung">📋 시트 프롬프트</button></div>
+    <p><code>Bung buffalo</code></p>
+    <div data-paste="bung"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐃 또리</h4><button class="copy-btn" data-sheet="ddori">📋 시트 프롬프트</button></div>
+    <p><code>Ddori baby buffalo</code></p>
+    <div data-paste="ddori"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐃 엄마</h4><button class="copy-btn" data-sheet="mom">📋 시트 프롬프트</button></div>
+    <p><code>Mom buffalo</code></p>
+    <div data-paste="mom"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐃 할아버지</h4><button class="copy-btn" data-sheet="grandpa">📋 시트 프롬프트</button></div>
+    <p><code>Grandpa buffalo</code></p>
+    <div data-paste="grandpa"></div>
+  </div>
+</div>
+
+<h2 class="sec">3. 25권</h2>
+<p class="lead">🔴 <b>작가에게 빈칸을 주지 않는 것</b>이 이 체제의 전부입니다.</p>
+<table><thead><tr><th>축</th><th>결점</th><th>왜 이 무대에서 탈이 되나</th><th>회차</th></tr></thead><tbody><tr><td><b>①안 기다린다</b></td><td>동생보다 먼저 가 버린다</td><td>물 위에서는 <b>뛰어서 되돌아갈 수 없다.</b> 저어 가야 한다</td><td>01 · 06 · 11 · 16 · 21</td></tr><tr><td><b>②짐작한다</b></td><td>안 보고 안 듣고 제 생각대로 정한다</td><td>동생이 <b>말을 못 하니</b> 짐작이 유일한 길처럼 보인다</td><td>02 · 07 · 12 · 17 · 22</td></tr><tr><td><b>③놓친다</b></td><td>붙잡아 둬야 할 걸 안 붙잡는다</td><td>놓친 것은 <b>굴러가지 않고 가라앉거나 떠내려간다</b></td><td>03 · 08 · 13 · 18 · 23</td></tr><tr><td><b>④다 해 버린다</b></td><td>동생 몫까지 뺏어서 해 준다</td><td>손이 둘뿐인데 <b>배는 흔들린다</b> — 다 들면 다 놓친다</td><td>04 · 09 · 14 · 19 · 24</td></tr><tr><td><b>⑤미룬다</b></td><td>이따 하지, 한다</td><td>물이 빠졌다 차고, 배가 지나가고, 얼음이 녹는다 — <b>때가 지나간다</b></td><td>05 · 10 · 15 · 20 · 25</td></tr></tbody></table>
+
+<h2 class="sec">4. 앵커 — 한 시리즈 = 한 그림체</h2>
+<p class="lead">시리즈 전권이 한 그림체입니다. 무대·계절 차이는 앵커 안 <b>무대 조항</b>이 처리합니다 — 매체·색은 그대로 두고 「두 색을 어디에 쓰고 무엇을 종이로 남기나」만 바뀝니다.
+🔴 악센트 <b>붕이 코뚜레 끈</b> 에만 닿습니다.</p>
+<div class="swatches">
+  <span class="sw"><i style="background:#F3ECDC"></i>종이 <code>#F3ECDC</code></span><span class="sw"><i style="background:#C08B3E"></i>색1 <code>#C08B3E</code></span><span class="sw"><i style="background:#4A7247"></i>색2 <code>#4A7247</code></span><span class="sw"><i style="background:#3A4A2A"></i>겹침 <code>#3A4A2A</code></span><span class="sw"><i style="background:#1E8A8A"></i>악센트 <code>#1E8A8A</code></span>
+</div>
+<div class="anchor-card">
+  <div class="ahead"><b>bung-woodblock</b><button class="copy-btn" data-copy="anchor">📋 앵커 프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre id="anchor">STYLE ANCHOR - bung-woodblock   (Bung's floating market / colour blocks first, the key block last)
+
+Style: folk woodblock printing on cream shell-sized paper, TWO colour blocks, one small accent block
+  and one black key block, 4-6 year old picture book. Each colour block is one flat opaque area from a
+  carved plank and the plank's grain stays visible inside it. The key block carries EVERY
+  outline and prints LAST, on top of the colour. Unprinted paper is not white space, it is the sky
+  and the light. SHADING IS ZERO - no modelling, gradient, cast shadow or highlight.
+
+RENDERING (finish hierarchy): 🔴 THE KEY BLOCK LANDS ONE HAIR OFF THE COLOUR ON EVERY PAGE - colour
+  creeps past the outline on one side of a shape and falls short on the other, on at least 4 shapes
+  per page, every slip running the SAME direction. Water is ONE unbroken RIVER area, never lighter or darker inside itself, 0 ripples, 0 glints; a floating thing prints whole on top with its outline showing, and 🔴 A SUNKEN THING
+  IS OVERLAP WITH RIVER PRINTED OVER IT AND NO OUTLINE AT ALL. Repeats are capped: boats behind at
+  most 6, each ONE silhouette with 0 interior marks · fruit at most 9 of one carved shape; no repeat is a mirrored copy of its neighbour. FINISHED
+  THINGS PER PAGE = 2, Bung and the one thing Bung touches. DENSITY RATION = none.
+
+PALETTE: PAPER SHELL CREAM #F3ECDC, sky, light, everything unprinted · BLOCK1 RIVER #C08B3E, water,
+  mud, wood, baskets · BLOCK2 LEAF #4A7247, cloth, palm, produce, hulls · OVERLAP SILT #3A4A2A,
+  animal backs, leaf shade, night, anything submerged - never mixed, only overprinted · KEY INK #241F1A, outlines only, it never fills an area · ACCENT TEAL #1E8A8A, nothing
+  but Bung's nose-rope. No sky blue, no purple, no pink.
+
+STAGE CLAUSES (the stage changes what the blocks do, not which blocks):
+  MARKET - water is one RIVER area, every hull sits on top of it, sky bare PAPER, 0 clouds.
+  BOAT INSIDE - planks RIVER, cloth LEAF, lamplight bare PAPER and the brightest thing on the page; a
+    thing being looked for keeps its key outline while everything it hides among prints with 0 outline.
+  CHANNEL AND LOW WATER - leaf shade is ONE flat OVERLAP area across the top and the water narrows to
+    a RIVER band; where it has dropped it leaves a SILT band with a crisp edge.
+  NIGHT - OVERLAP covers the sky as one flat area, the water stays RIVER, lights are unprinted PAPER,
+    at most 5.
+
+CHARACTER DESIGN LANGUAGE: animals are flat blocks with the key outline laid over. GRADE: bipedal,
+  standing upright, wearing loose light cloth, bare feet. Backs and heads OVERLAP,
+  chests and bellies RIVER. Eyes are two solid dots set wide apart; a small dark nose; the mouth is
+  ONE curve; above each eye ONE short brow line. 🔴 FEELING IS CARRIED BY THE MOUTH CURVE AND THE TWO
+  BROW LINES - the eyes only open or close, their size NEVER changes, nothing crosses a face. Bung is the smallest standing figure.
+
+CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
+
+NOT: no airbrush, gradient, glow or 3D render / no soft or feathered edge / no reflection, ripple or
+  mirrored image on water / no outline printed in anything but the key black.</pre></details>
+  <div data-paste="anchor"></div>
+</div>
+
+<h2 class="sec">5. 캐스트 시트</h2>
+<p class="lead">한 장에 전원을 그립니다. 🔴 <b>시트가 최종 그림을 지배</b>하므로 시트를 먼저 확정하고 쪽 삽화로 갑니다.</p>
+<div class="anchor-card">
+  <div class="ahead"><b>전원 시트</b><button class="copy-btn" data-copy="sheet">📋 시트 프롬프트 복사</button></div>
+  <details open><summary>프롬프트 보기</summary><pre id="sheet"></pre></details>
+  <div data-paste="cast-sheet"></div>
+</div>
+
+</div>
+<script src="/bung-core.js"></script>
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.getAttribute('data-copy'));
+      if (el) window.SERIES.copyText(el.textContent, b);
+    });
+  });
+  document.querySelectorAll('[data-sheet]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      window.SERIES.copyText(window.SERIES.sheetPrompt(b.getAttribute('data-sheet')), b);
+    });
+  });
+  window.SERIES.mountPasteSlots('bung-plan');
+</script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>가운데 아이 미나 — 기획서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#E8A33D; --slope:(없음 — 점은 겹치지 않고 사이를 둔다); --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">창작동화 시리즈 15 · 25권 250쪽</div>
+  <h1>가운데 아이 미나</h1>
+  <div class="sub">아기 코끼리 삼 남매 라주·미나·소누 · 인도 강가 마을 · <b>대발이형</b>(위로는 아직 안 되고 아래로는 이미 지난 자리) · 그림체 = 점으로 채운 민화 하나(전권)</div>
+  <div class="by">글 <b>정미르</b> · 그림 <b>하다온</b></div>
+</header>
+
+<div class="note">🔴 <b>이 기획서가 SSOT 가 아닙니다.</b> 본문은 <code>docs/changjak-books/mina/*.md</code>, 앵커는 <code>docs/art-direction/mina-anchor.md</code> 가 원본이고 이 페이지는 거기서 생성됩니다(<code>build-series-html.mjs</code>). 회차는 왼쪽 <b>☰ 회차</b>에서.</div>
+
+<h2 class="sec">1. 축</h2>
+<table><thead><tr><th></th><th>시리즈 04 오리 남매</th><th>시리즈 06 쌍둥이</th><th><b>시리즈 15 미나</b></th></tr></thead><tbody><tr><td>캐스트</td><td>형제 <b>둘</b></td><td><b>똑같은 둘</b></td><td><b>셋 — 나이 계단</b></td></tr><tr><td>갈리는 축</td><td>비슷한 나이가 다툰다</td><td>같아서 구별이 안 된다</td><td>🔴 <b>셋이라야 가운데가 생긴다</b></td></tr><tr><td>주인공 자리</td><td>위/아래 둘 중 하나</td><td>둘 다 같은 자리</td><td><b>위로는 아직 안 되고 아래로는 이미 지난 자리</b></td></tr></tbody></table>
+
+<h2 class="sec">2. 캐스트</h2>
+<p class="lead">시트를 만들어 카드에 붙여넣으면 회차 페이지의 「🎬 이 화 등장」 스트립이 그 그림을 읽어 옵니다.
+카드마다 <b>[📋 시트 프롬프트]</b> = 그 한 명만 그리는 프롬프트(앵커 + 규격 + 전신 정면·3/4·뒷모습).</p>
+<div class="grid">
+  <div class="cast-card">
+    <div class="chead"><h4>🐘 미나</h4><button class="copy-btn" data-sheet="mina">📋 시트 프롬프트</button></div>
+    <p><code>Mina elephant</code></p>
+    <div data-paste="mina"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐘 라주</h4><button class="copy-btn" data-sheet="raju">📋 시트 프롬프트</button></div>
+    <p><code>Raju elephant</code></p>
+    <div data-paste="raju"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐘 소누</h4><button class="copy-btn" data-sheet="sonu">📋 시트 프롬프트</button></div>
+    <p><code>Sonu elephant</code></p>
+    <div data-paste="sonu"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐘 엄마</h4><button class="copy-btn" data-sheet="mother">📋 시트 프롬프트</button></div>
+    <p><code>Mother elephant</code></p>
+    <div data-paste="mother"></div>
+  </div>
+</div>
+
+<h2 class="sec">3. 25권</h2>
+<p class="lead">🔴 <b>작가에게 빈칸을 주지 않는 것</b>이 이 체제의 전부입니다.</p>
+<table><thead><tr><th></th><th>이름</th><th>영문 토큰</th><th>자리</th><th>결점</th><th>주인공 회차</th></tr></thead><tbody><tr><td><b>맏이</b></td><td>라주</td><td><code>Raju elephant</code></td><td>다 해 본 아이</td><td>혼자 다 하고, 안 알려주고, 나이로 자른다</td><td>04 · 11 · 17 · 22</td></tr><tr><td><b>가운데</b></td><td>미나</td><td><code>Mina elephant</code></td><td>아직/이미 사이</td><td>결점 여섯 (§4)</td><td>17권</td></tr><tr><td><b>막내</b></td><td>소누</td><td><code>Sonu elephant</code></td><td>아직 안 되는 아이</td><td>다 하고 싶다 · 떼쓴다</td><td>07 · 14 · 20 · 24</td></tr><tr><td><b>어른</b></td><td>엄마</td><td><code>Mother elephant</code></td><td>25권 내내 같은 사람</td><td>— 매 권 p8 한 마디</td><td>전권</td></tr></tbody></table>
+
+<h2 class="sec">4. 앵커 — 한 시리즈 = 한 그림체</h2>
+<p class="lead">시리즈 전권이 한 그림체입니다. 무대·계절 차이는 앵커 안 <b>무대 조항</b>이 처리합니다 — 매체·색은 그대로 두고 「두 색을 어디에 쓰고 무엇을 종이로 남기나」만 바뀝니다.
+🔴 악센트 <b>미나 발찌 (화면에서 유일하게 매끈한 것)</b> 에만 닿습니다.</p>
+<div class="swatches">
+  <span class="sw"><i style="background:#EFE0C4"></i>종이 <code>#EFE0C4</code></span><span class="sw"><i style="background:#2E2A24"></i>색1 <code>#2E2A24</code></span><span class="sw"><i style="background:#F4EFE4"></i>색2 <code>#F4EFE4</code></span><span class="sw">겹침 (없음 — 점은 겹치지 않고 사이를 둔다)</span><span class="sw"><i style="background:#E8A33D"></i>악센트 <code>#E8A33D</code></span>
+</div>
+<div class="anchor-card">
+  <div class="ahead"><b>mina-dotfolk</b><button class="copy-btn" data-copy="anchor">📋 앵커 프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre id="anchor">STYLE ANCHOR - mina-dotfolk   (Mina's river village / everything is stamped in dots)
+
+Style: folk painting stamped in dots on an earth-washed ochre ground, TWO dot colours, 4-6 year old
+  picture book. 🔴 NOTHING IS A CONTINUOUS LINE AND NOTHING IS A FILLED AREA - every shape, edge and
+  surface is separate round dots printed with the tip of a cut reed, all the SAME size on every
+  page. An outline is dots set close enough to touch; a surface is dots set apart. Lightness is
+  spacing and nothing else, and the ochre ground shows between every dot. SHADING IS ZERO - no
+  modelling, gradient, cast shadow or glow.
+
+RENDERING (finish hierarchy): dot spacing has exactly FOUR settings - touching, close, open, wide -
+  and one shape uses ONE setting throughout, so a change of spacing is always an edge between two
+  things. 🔴 WHITE DOTS AND INK DOTS ARE NEVER MIXED INSIDE ONE SHAPE; where a white field meets an
+  ink field their dots interleave along a band at most 3 dots wide, the darkest thing available.
+  Repeats are capped: houses behind at most 4, each an ink outline with 0 fill · trees at most 5 · a
+  crowd at most 7 dot-outlines with 0 faces and 0 hands; no repeat mirrors its neighbour. FINISHED
+  THINGS PER PAGE = 2. DENSITY RATION = none.
+
+PALETTE: GROUND OCHRE #EFE0C4, the earth wash - walls, sky, dust, everything left between the dots ·
+  DOT WHITE #F4EFE4, water, light, cloth, anything wet or bright · DOT INK #2E2A24, bodies, trees,
+  roofs, tools, shade · GOLD #E8A33D, 🔴 Mina's ankle band and nothing else, the ONE thing in the
+  book painted as a solid filled shape with 0 dots, so it is the only smooth thing on any page. No
+  red, no blue, no green.
+
+STAGE CLAUSES (the stage changes where the two dot colours go, not which two):
+  RIVER - water is a field of WHITE dots and 🔴 THE HEIGHT OF THE RIVER IS HOW MUCH OF THE PAGE THOSE
+    DOTS COVER, given as a fraction of the page width on every river page. Where the river has
+    dropped, bare GROUND shows and it is walkable. 0 ripples, 0 reflections, 0 glints.
+  HOUSE INSIDE - walls bare GROUND, pots and beams INK outlines with 0 fill, lamplight a WHITE dot
+    field and the brightest thing on the page. A thing being looked for is dotted CLOSE; what hides
+    it is dotted WIDE.
+  BANK AND FIELD AT NOON - the sky is bare GROUND edge to edge with 0 dots; only what stands on the
+    earth is dotted, crops are INK dots in at most 9 rows, the path is a lane with 0 dots, and shade
+    is an INK field dotted CLOSE with a hard edge.
+  NIGHT - INK dotted CLOSE covers the sky, WHITE dots are only lamps and the river, the gold band
+    stays solid and is the only unbroken shape on the page.
+
+CHARACTER DESIGN LANGUAGE: animals are dotted like everything else, outlined in touching INK dots
+  and filled with INK dots set OPEN so the ochre shows through the body. GRADE: bipedal, upright,
+  wearing loose light cloth, bare feet. Eyes are two solid dots set wide apart - 🔴 the only dots
+  allowed to be larger; a small dark nose; the mouth is ONE curved row of touching dots; ONE short
+  row above each eye. 🔴 FEELING IS CARRIED BY THE MOUTH ROW AND THE TWO BROW ROWS - the eyes only
+  open or close, their size NEVER changes, nothing crosses a face. THE THREE are elephant children
+  in a ladder of heights: ELDEST tallest, a cloth over one shoulder · MINA middle, THE GOLD ANKLE
+  BAND · YOUNGEST half Mina's height, white dots banded across the back.
+
+CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
+
+NOT: no airbrush, gradient, glow or 3D render / no continuous drawn line and no brushed area / no
+  dots of two colours mixed inside one shape / no reflection or ripple on water.</pre></details>
+  <div data-paste="anchor"></div>
+</div>
+
+<h2 class="sec">5. 캐스트 시트</h2>
+<p class="lead">한 장에 전원을 그립니다. 🔴 <b>시트가 최종 그림을 지배</b>하므로 시트를 먼저 확정하고 쪽 삽화로 갑니다.</p>
+<div class="anchor-card">
+  <div class="ahead"><b>전원 시트</b><button class="copy-btn" data-copy="sheet">📋 시트 프롬프트 복사</button></div>
+  <details open><summary>프롬프트 보기</summary><pre id="sheet"></pre></details>
+  <div data-paste="cast-sheet"></div>
+</div>
+
+</div>
+<script src="/mina-core.js"></script>
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.getAttribute('data-copy'));
+      if (el) window.SERIES.copyText(el.textContent, b);
+    });
+  });
+  document.querySelectorAll('[data-sheet]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      window.SERIES.copyText(window.SERIES.sheetPrompt(b.getAttribute('data-sheet')), b);
+    });
+  });
+  window.SERIES.mountPasteSlots('mina-plan');
+</script>
+</body>
+</html>

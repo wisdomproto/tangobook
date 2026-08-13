@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>타로와 무무 — 기획서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#E2711D; --slope:#22406B; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">창작동화 시리즈 13 · 25권 250쪽</div>
+  <h1>타로와 무무</h1>
+  <div class="sub">아기 원숭이 타로와 아기 사슴 무무 · 인도네시아 섬 마을 · <b>페파형</b>(어른이 아니라 서로에게 틀린다 — 나쁜 마음이 아니라 몰라서) · 그림체 = 바틱 하나(전권)</div>
+  <div class="by">글 <b>서윤슬</b> · 그림 <b>민서하</b></div>
+</header>
+
+<div class="note">🔴 <b>이 기획서가 SSOT 가 아닙니다.</b> 본문은 <code>docs/changjak-books/taro/*.md</code>, 앵커는 <code>docs/art-direction/taro-anchor.md</code> 가 원본이고 이 페이지는 거기서 생성됩니다(<code>build-series-html.mjs</code>). 회차는 왼쪽 <b>☰ 회차</b>에서.</div>
+
+<h2 class="sec">1. 축</h2>
+<table><thead><tr><th></th><th>01 퐁이</th><th>02 메이</th><th>06 쌍둥이</th><th><b>13 타로와 무무</b></th></tr></thead><tbody><tr><td>형</td><td>페파형</td><td>대발이형</td><td>—</td><td><b>페파형</b></td></tr><tr><td>캐스트</td><td>어른 셋 + 아이 둘</td><td>또래 다섯 + 어른 하나</td><td>늘 같이 있는 둘</td><td><b>또래 둘 · 집이 다르다</b></td></tr><tr><td>틀리는 쪽</td><td>어른(아빠)</td><td>아이 자신</td><td>—</td><td>🔴 <b>서로</b></td></tr><tr><td>만남</td><td>한집이라 저절로</td><td>마을이 좁아 저절로</td><td>늘 붙어 있다</td><td>🔴 <b>약속을 해야 만난다</b></td></tr><tr><td>무대</td><td>네덜란드 운하</td><td>알프스 비탈</td><td>—</td><td><b>인도네시아 섬 마을 (비)</b></td></tr><tr><td>그림체</td><td>실크스크린 하나</td><td>색연필 하나</td><td>—</td><td><b>바틱 하나</b></td></tr></tbody></table>
+
+<h2 class="sec">2. 캐스트</h2>
+<p class="lead">시트를 만들어 카드에 붙여넣으면 회차 페이지의 「🎬 이 화 등장」 스트립이 그 그림을 읽어 옵니다.
+카드마다 <b>[📋 시트 프롬프트]</b> = 그 한 명만 그리는 프롬프트(앵커 + 규격 + 전신 정면·3/4·뒷모습).</p>
+<div class="grid">
+  <div class="cast-card">
+    <div class="chead"><h4>🐒 타로</h4><button class="copy-btn" data-sheet="taro">📋 시트 프롬프트</button></div>
+    <p><code>Taro monkey</code></p>
+    <div data-paste="taro"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🦌 무무</h4><button class="copy-btn" data-sheet="mumu">📋 시트 프롬프트</button></div>
+    <p><code>Mumu deer</code></p>
+    <div data-paste="mumu"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐒 타로 엄마</h4><button class="copy-btn" data-sheet="taromom">📋 시트 프롬프트</button></div>
+    <p><code>Taro mother monkey</code></p>
+    <div data-paste="taromom"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🦌 무무 할머니</h4><button class="copy-btn" data-sheet="mumugran">📋 시트 프롬프트</button></div>
+    <p><code>Mumu grandmother deer</code></p>
+    <div data-paste="mumugran"></div>
+  </div>
+</div>
+
+<h2 class="sec">3. 25권</h2>
+<p class="lead">🔴 <b>작가에게 빈칸을 주지 않는 것</b>이 이 체제의 전부입니다.</p>
+<table><thead><tr><th>누가</th><th>무엇에</th></tr></thead><tbody><tr><td>타로</td><td><b>허리끈</b></td></tr><tr><td>무무</td><td><b>머리끈</b></td></tr></tbody></table>
+
+<h2 class="sec">4. 앵커 — 한 시리즈 = 한 그림체</h2>
+<p class="lead">시리즈 전권이 한 그림체입니다. 무대·계절 차이는 앵커 안 <b>무대 조항</b>이 처리합니다 — 매체·색은 그대로 두고 「두 색을 어디에 쓰고 무엇을 종이로 남기나」만 바뀝니다.
+🔴 악센트 <b>타로 허리끈 · 무무 머리끈</b> 에만 닿습니다.</p>
+<div class="swatches">
+  <span class="sw"><i style="background:#EFE3CC"></i>종이 <code>#EFE3CC</code></span><span class="sw"><i style="background:#4C6E8C"></i>색1 <code>#4C6E8C</code></span><span class="sw">색2 (없음 — 한 번 담근 것과 두 번 담근 것뿐)</span><span class="sw"><i style="background:#22406B"></i>겹침 <code>#22406B</code></span><span class="sw"><i style="background:#E2711D"></i>악센트 <code>#E2711D</code></span>
+</div>
+<div class="anchor-card">
+  <div class="ahead"><b>taro-batik</b><button class="copy-btn" data-copy="anchor">📋 앵커 프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre id="anchor">STYLE ANCHOR - taro-batik   (Taro and Mumu's island village / wax resist, dipped twice)
+
+Style: wax-resist dyeing on woven cotton, ONE indigo dye bath used twice and one small second dye,
+  4-6 year old picture book. 🔴 THE CLOTH STARTS PALE AND ONLY GETS DARKER - nothing is ever painted
+  light. Wax is laid on, the cloth is dipped, more wax is laid on, it is dipped again, so there are
+  exactly THREE values: waxed before any dip is the palest, waxed after the first dip is the middle,
+  never waxed is the deepest. Every value shows the weave running through it. SHADING IS ZERO - no
+  modelling, gradient, cast shadow or glow.
+
+RENDERING (finish hierarchy): 🔴 EVERY BRIGHT THING IN THIS BOOK IS A PLACE THAT WAS BLOCKED, NOT A
+  PLACE THAT WAS LIT - lamplight, wet leaves and the shine on water are CLOTH areas with a hard
+  edge, never a soft halo. 🔴 RAIN IS DRAWN WITH THE WAX PEN, at most 13 hairline CLOTH lines all
+  leaning one way, and it is the only thing allowed to cross another shape. Cracked wax lets dye in
+  as hairline DEEP lines: at most 9 per page, only inside CLOTH areas, never across a face, never in
+  a row. Repeats are capped: leaves at most 9 of one stamped shape · houses behind at most 4 flat
+  DEEP silhouettes with 0 windows · stars at most 14 CLOTH dots; no repeat mirrors its neighbour.
+  FINISHED THINGS PER PAGE = 2. DENSITY RATION = none.
+
+PALETTE: CLOTH #EFE3CC, waxed before any dip - faces, light, rain, steam, the brightest thing
+  anywhere · MID #4C6E8C, one dip - sky, water, walls, cloth, most of the world · DEEP INDIGO
+  #22406B, two dips - animal backs, shade, tree masses, night, the ground of the whole book · ACCENT
+  ORANGE #E2711D, 🔴 a separate small dye touching nothing but Taro's sash and Mumu's head band. No
+  white, no black, no green, no pink.
+
+STAGE CLAUSES (the stage changes where the wax goes, not the dyes):
+  VILLAGE - walls and ground MID, roofs and tree masses DEEP, the yard left as one broad CLOTH area
+    the two of them stand on.
+  RAIN AND AFTER - MID covers the whole page including the ground, everything under a roof stays MID
+    and everything out in it is DEEP, the rain lines are CLOTH and nothing anywhere is blurred. Once
+    it has passed the ground stays DEEP because it is soaked and CLOTH steam rises off it, at most 5
+    hard-edged shapes; puddles are flat CLOTH areas with 0 reflections.
+  WATER - one unbroken MID area, 0 ripples, 0 glints; a thing floating on it keeps its whole
+    outline, a thing under it is DEEP with no edge of its own. Sand is CLOTH.
+  NIGHT - DEEP covers everything, MID exists only where a lamp reaches, the lamp itself is CLOTH. A
+    thing being looked for is the one CLOTH shape in the page's DEEP field.
+
+CHARACTER DESIGN LANGUAGE: animals are built from the same dipped areas as the world. GRADE:
+  bipedal, upright, wearing loose light cloth, bare feet. Backs and heads are DEEP; 🔴 THE WHOLE
+  FACE IS WAXED CLOTH, so a face is the palest thing on any page and the eyes, nose and mouth are
+  small DEEP marks left inside it. Eyes are two solid dots set wide apart; the mouth is ONE curve. 🔴
+  THE JOKE IS ON THE FACE - expression is the MOUTH CURVE alone, the eyes only open or close, their
+  size NEVER changes, and nothing crosses a face, not even rain. TARO is a monkey child, thin limbs,
+  one long curling tail, the smaller; MUMU is broader and heavier, no tail, short round ears.
+
+CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
+
+NOT: no airbrush, gradient, glow or 3D render / no soft, feathered or blurred edge anywhere / no
+  white and no black pigment / no light painted on top of a dark area.</pre></details>
+  <div data-paste="anchor"></div>
+</div>
+
+<h2 class="sec">5. 캐스트 시트</h2>
+<p class="lead">한 장에 전원을 그립니다. 🔴 <b>시트가 최종 그림을 지배</b>하므로 시트를 먼저 확정하고 쪽 삽화로 갑니다.</p>
+<div class="anchor-card">
+  <div class="ahead"><b>전원 시트</b><button class="copy-btn" data-copy="sheet">📋 시트 프롬프트 복사</button></div>
+  <details open><summary>프롬프트 보기</summary><pre id="sheet"></pre></details>
+  <div data-paste="cast-sheet"></div>
+</div>
+
+</div>
+<script src="/taro-core.js"></script>
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.getAttribute('data-copy'));
+      if (el) window.SERIES.copyText(el.textContent, b);
+    });
+  });
+  document.querySelectorAll('[data-sheet]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      window.SERIES.copyText(window.SERIES.sheetPrompt(b.getAttribute('data-sheet')), b);
+    });
+  });
+  window.SERIES.mountPasteSlots('taro-plan');
+</script>
+</body>
+</html>

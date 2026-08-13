@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>딩딩네 계단 논 — 기획서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#C62828; --slope:(없음 — 한 장을 오려 내는 것이라 겹치는 곳이 없다); --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">창작동화 시리즈 12 · 25권 250쪽</div>
+  <h1>딩딩네 계단 논</h1>
+  <div class="sub">아기 돼지 딩딩과 삼대 · 중국 남부 계단식 논 · <b>페파형</b>(할머니는 옛 방식이 안 맞아서, 엄마는 대충 봐서 — 서로 다르게 틀린다) · 그림체 = 전지 하나(전권)</div>
+  <div class="by">글 <b>서윤슬</b> · 그림 <b>송가람</b></div>
+</header>
+
+<div class="note">🔴 <b>이 기획서가 SSOT 가 아닙니다.</b> 본문은 <code>docs/changjak-books/dingding/*.md</code>, 앵커는 <code>docs/art-direction/dingding-anchor.md</code> 가 원본이고 이 페이지는 거기서 생성됩니다(<code>build-series-html.mjs</code>). 회차는 왼쪽 <b>☰ 회차</b>에서.</div>
+
+<h2 class="sec">1. 축</h2>
+<table><thead><tr><th></th><th>시리즈 01 퐁이</th><th>시리즈 02 메이</th><th><b>시리즈 12 딩딩</b></th></tr></thead><tbody><tr><td>형</td><td>페파형</td><td>대발이형</td><td><b>페파형</b></td></tr><tr><td>캐스트</td><td>어른 셋 + 아이 둘</td><td>또래 다섯 + 어른 하나</td><td><b>삼대 — 할머니·엄마·아이</b></td></tr><tr><td>틀리는 쪽</td><td>어른(아빠) 하나</td><td>아이 자신</td><td><b>어른 둘이 서로 다르게 틀린다</b></td></tr><tr><td>무대</td><td>네덜란드 운하 (물이 길)</td><td>알프스 비탈 (오르내림)</td><td><b>중국 남부 계단 논 (물이 위에서 아래로만)</b></td></tr><tr><td>주인공</td><td>수달</td><td>염소</td><td><b>돼지</b></td></tr><tr><td>그림체</td><td>실크스크린 하나</td><td>색연필 하나</td><td><b>전지(오려 낸 종이) 하나</b></td></tr></tbody></table>
+
+<h2 class="sec">2. 캐스트</h2>
+<p class="lead">시트를 만들어 카드에 붙여넣으면 회차 페이지의 「🎬 이 화 등장」 스트립이 그 그림을 읽어 옵니다.
+카드마다 <b>[📋 시트 프롬프트]</b> = 그 한 명만 그리는 프롬프트(앵커 + 규격 + 전신 정면·3/4·뒷모습).</p>
+<div class="grid">
+  <div class="cast-card">
+    <div class="chead"><h4>🐷 딩딩</h4><button class="copy-btn" data-sheet="dingding">📋 시트 프롬프트</button></div>
+    <p><code>Dingding piglet</code></p>
+    <div data-paste="dingding"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐷 할머니</h4><button class="copy-btn" data-sheet="granny">📋 시트 프롬프트</button></div>
+    <p><code>Grandma pig</code></p>
+    <div data-paste="granny"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐷 엄마</h4><button class="copy-btn" data-sheet="mom">📋 시트 프롬프트</button></div>
+    <p><code>Mama pig</code></p>
+    <div data-paste="mom"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🦆 밍 아저씨</h4><button class="copy-btn" data-sheet="ming">📋 시트 프롬프트</button></div>
+    <p><code>Ming duck</code></p>
+    <div data-paste="ming"></div>
+  </div>
+</div>
+
+<h2 class="sec">3. 25권</h2>
+<p class="lead">🔴 <b>작가에게 빈칸을 주지 않는 것</b>이 이 체제의 전부입니다.</p>
+<table><thead><tr><th>물리</th><th>어느 권이 쓰나</th></tr></thead><tbody><tr><td><b>위 논의 물은 아래 논으로만 흐른다</b></td><td>01 · 04 · 11 · 16 · 23 · 25</td></tr><tr><td><b>한 칸을 잘못 트면 아래가 다 안다</b>(흙탕물·물바다가 신호)</td><td>06 · 16 · 25</td></tr><tr><td><b>위에서는 아래가 다 보이고, 아래에서는 위가 안 보인다</b></td><td>02 · 04 · 06 · 19 · 20 · 25</td></tr><tr><td><b>오르내리는 데 시간이 걸린다</b>(한 칸씩)</td><td>02 · 05 · 09 · 11 · 19</td></tr><tr><td><b>칸마다 물 떨어지는 자리가 하나씩 있다</b>(소리로 센다)</td><td>18 · 19</td></tr></tbody></table>
+
+<h2 class="sec">4. 앵커 — 한 시리즈 = 한 그림체</h2>
+<p class="lead">시리즈 전권이 한 그림체입니다. 무대·계절 차이는 앵커 안 <b>무대 조항</b>이 처리합니다 — 매체·색은 그대로 두고 「두 색을 어디에 쓰고 무엇을 종이로 남기나」만 바뀝니다.
+🔴 악센트 <b>딩딩 앞치마</b> 에만 닿습니다.</p>
+<div class="swatches">
+  <span class="sw"><i style="background:#F7F4EC"></i>종이 <code>#F7F4EC</code></span><span class="sw"><i style="background:#1C1A17"></i>색1 <code>#1C1A17</code></span><span class="sw"><i style="background:#B9B5A8"></i>색2 <code>#B9B5A8</code></span><span class="sw">겹침 (없음 — 한 장을 오려 내는 것이라 겹치는 곳이 없다)</span><span class="sw"><i style="background:#C62828"></i>악센트 <code>#C62828</code></span>
+</div>
+<div class="anchor-card">
+  <div class="ahead"><b>dingding-papercut</b><button class="copy-btn" data-copy="anchor">📋 앵커 프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre id="anchor">STYLE ANCHOR - dingding-papercut   (Dingding's terraced fields / one black sheet, cut with a knife)
+
+Style: cut paper, 4-6 year old picture book. The whole picture is ONE sheet of black paper with
+  shapes cut out of it, laid on a white sheet - the white is never painted, it is the sheet beneath.
+  Every edge is a knife edge: crisp, faceted where the blade turned, never torn, never soft. 🔴
+  NOTHING FLOATS - every black shape stays joined to the rest of the black somewhere, so the picture
+  lifts as one connected piece. Interior detail exists only as holes cut through the black. SHADING
+  IS ZERO.
+
+RENDERING (finish hierarchy): 🔴 THE WORLD IS CUT POSITIVE AND THE FACES ARE CUT NEGATIVE - fields,
+  roofs, trees and animals are black shapes on white, but a head is a black rim holding a WHITE face
+  inside it, and the eyes and mouth are small black pieces left uncut in that white. Terraces are
+  curved black banks with white water between them, at most 7 banks per page, each bank ONE unbroken
+  piece. 🔴 ONE WHITE CHANNEL RUNS FROM THE TOP EDGE TO THE BOTTOM EDGE ON EVERY PAGE AND NEVER
+  BREAKS. Repeats are capped: rice in a band at most 9 of one cut comb shape · windows at most 6
+  holes · a crowd at most 7 silhouettes with 0 faces and 0 hands; no repeat mirrors its neighbour.
+  FINISHED THINGS PER PAGE = 2. DENSITY RATION = none.
+
+PALETTE: SHEET WHITE #F7F4EC, water, sky, light, every cut-away place · CUT BLACK #1C1A17, one
+  sheet, everything not cut away · FAR GREY #B9B5A8, 🔴 a second sheet BEHIND the black, never in
+  front, at most ONE shape per page, far ridge only, 0 holes in it · RED #C62828, 🔴 one small piece
+  laid on top of the black, Dingding's apron and nothing else. No other colour exists.
+
+STAGE CLAUSES (the stage changes what is cut away, not the sheets):
+  TERRACES - black banks and white water in alternating bands narrowing upward; depth is bands
+    getting THINNER toward the top, never greyer. A path is one white ribbon and figures stand ON it.
+  WATER GATE - the gap in a bank is a white notch at most 3 cuts wide, and how much water moves is
+    shown by that width and by nothing else.
+  HOUSE INSIDE - the room is black with the floor left as one white slot and each surface given ONE
+    repeated cut mark that may run off an edge but is never redrawn. 🔴 LAMPLIGHT AND FIRELIGHT ARE
+    CUT AWAY - white holes, the brightest thing on the page. A thing being looked for is cut with
+    its own outline; what hides it is the repeated mark.
+  NIGHT - the black covers the sky too, the white channel stays cut, windows at most 6 holes.
+    Nothing is added; night is simply less cut away.
+
+CHARACTER DESIGN LANGUAGE: animals are cut from the same black sheet, limbs cut as part of the same
+  piece, never as separate floating parts. GRADE: bipedal, upright, wearing loose cloth. Eyes are
+  two small black pieces set wide apart in the white face; a small black nose; the mouth is ONE cut
+  curve. 🔴 THE JOKE IS ON THE FACE - expression is the MOUTH CURVE alone, the eyes only open or
+  close, their size NEVER changes, nothing crosses a face. THE THREE: DINGDING a piglet, smallest,
+  the RED apron · MOTHER tallest · GRANDMOTHER widest and shortest, back curved forward.
+
+CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
+
+NOT: no airbrush, gradient, glow or 3D render / no torn, soft or feathered edge / no drawn or
+  painted outline anywhere / no floating piece unjoined from the black sheet.</pre></details>
+  <div data-paste="anchor"></div>
+</div>
+
+<h2 class="sec">5. 캐스트 시트</h2>
+<p class="lead">한 장에 전원을 그립니다. 🔴 <b>시트가 최종 그림을 지배</b>하므로 시트를 먼저 확정하고 쪽 삽화로 갑니다.</p>
+<div class="anchor-card">
+  <div class="ahead"><b>전원 시트</b><button class="copy-btn" data-copy="sheet">📋 시트 프롬프트 복사</button></div>
+  <details open><summary>프롬프트 보기</summary><pre id="sheet"></pre></details>
+  <div data-paste="cast-sheet"></div>
+</div>
+
+</div>
+<script src="/dingding-core.js"></script>
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.getAttribute('data-copy'));
+      if (el) window.SERIES.copyText(el.textContent, b);
+    });
+  });
+  document.querySelectorAll('[data-sheet]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      window.SERIES.copyText(window.SERIES.sheetPrompt(b.getAttribute('data-sheet')), b);
+    });
+  });
+  window.SERIES.mountPasteSlots('dingding-plan');
+</script>
+</body>
+</html>

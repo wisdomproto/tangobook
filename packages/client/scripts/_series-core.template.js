@@ -79,9 +79,34 @@
   ALL.forEach(function (c, i) { c.img = i < NF ? i + 1 : i - NF + 9; });
   var IS_GUEST = {}; GUESTS.forEach(function (g) { IS_GUEST[g.key] = true; });
 
+  // 🔴 **긴 별칭부터 찾고, 찾은 자리는 지운다.** 인물마다 따로 부분문자열을 찾으면
+  //    「타로 엄마가 …」 한 줄에서 **타로도 같이 걸린다**(타로 ⊂ 타로 엄마). 그러면 엄마만 나오는
+  //    쪽의 [등장]에 아이가 붙어 화가가 없는 인물을 그린다. 이름을 바꿔서는 못 푼다 —
+  //    「타로 엄마」에는 어차피 「타로」가 들어 있다. 빌더의 별칭 충돌 가드는 그대로 두되(설계 경고),
+  //    감지는 여기서 정확해진다.
+  function detectChars(sceneText) {
+    var rest = String(sceneText || '').toLowerCase();
+    var pairs = [];
+    ALL.forEach(function (c) {
+      (c.aliases || [c.name]).forEach(function (n) { pairs.push({ key: c.key, n: String(n).toLowerCase() }); });
+    });
+    pairs.sort(function (a, b) { return b.n.length - a.n.length; });
+    var found = {};
+    pairs.forEach(function (p) {
+      if (!p.n) return;
+      var at = rest.indexOf(p.n);
+      while (at !== -1) {
+        found[p.key] = true;
+        // 지운 자리는 같은 길이의 공백으로 — 뒤 별칭의 위치가 안 밀린다
+        rest = rest.slice(0, at) + new Array(p.n.length + 1).join(' ') + rest.slice(at + p.n.length);
+        at = rest.indexOf(p.n);
+      }
+    });
+    return found;
+  }
+
   function sceneHasChar(sceneText, c) {
-    var s = sceneText.toLowerCase();
-    return (c.aliases || [c.name]).some(function (n) { return s.indexOf(n.toLowerCase()) !== -1; });
+    return detectChars(sceneText)[c.key] === true;
   }
 
   function castLegend(pages) {
