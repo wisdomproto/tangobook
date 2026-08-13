@@ -164,7 +164,8 @@ ${cards}
   made++;
 }
 index.unshift({ file: 'mei-plan.html', label: '📘 기획서' });
-fs.writeFileSync(`${OUT}/mei-index.json`, JSON.stringify(index, null, 1));
+// 🔴 들여쓰기 2 + 끝 개행 = prettier 기본값. 안 맞추면 커밋 훅이 되포맷하고 다음 빌드가 되돌려 무한 churn.
+fs.writeFileSync(`${OUT}/mei-index.json`, JSON.stringify(index, null, 2) + '\n');
 
 // ═══════════ 기획서 ═══════════
 const CAST = [

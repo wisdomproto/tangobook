@@ -119,6 +119,7 @@ ${cards}
   made++;
 }
 index.unshift({ file: 'pongi-plan.html', label: '📘 기획서' }); // ☰ 사이드바 첫 항목
-fs.writeFileSync(`${OUT}/pongi-index.json`, JSON.stringify(index, null, 1));
+// 🔴 들여쓰기 2 + 끝 개행 = prettier 기본값. 안 맞추면 커밋 훅이 되포맷하고 다음 빌드가 되돌려 무한 churn.
+fs.writeFileSync(`${OUT}/pongi-index.json`, JSON.stringify(index, null, 2) + '\n');
 console.log(`회차 HTML ${made}권 · index ${index.length}`);
 if (missing.length) console.log('SCENE 없음: ' + missing.join(', '));
