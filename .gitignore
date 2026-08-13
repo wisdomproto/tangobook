@@ -61,6 +61,9 @@ design/
 .tmp-*.json
 _*.json
 jack-*.json
+# …but the series SCENE notes are authored content, not a dump. `_*.json` had been
+# swallowing 250 pages per series since 2026-08-13, tracked nowhere but one disk.
+!docs/changjak-books/*/_scenes.json
 
 # Dev-only analysis dumps (key-object editor)
 packages/client/public/_analysis/
