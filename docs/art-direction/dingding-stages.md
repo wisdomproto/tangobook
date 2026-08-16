@@ -1,0 +1,206 @@
+# 딩딩네 계단 논 — 무대·사물 시트
+
+> art-director 산출물 (2026-08-16). 시리즈 12 `dingding-papercut` · 25권 250쪽.
+> 🔴 앵커 SSOT = `dingding-anchor.md`. 후보 = `_stages.json`(자리 18 · 사물 57항목 / 고유 49) · 대본 = `_scenes.json`
+> **실행 순서** ① `Terraces` → ② 나머지 → ③ 사물 → ④ 컷.
+
+---
+
+## §0. 🔴 매체 번역 한 줄 — 무대와 공정이 같은 말을 한다
+
+앵커: `NOTHING FLOATS - every black shape stays joined to the rest of the black somewhere, so the
+picture lifts as one connected piece` · `ONE WHITE CHANNEL RUNS FROM THE TOP EDGE TO THE BOTTOM EDGE
+ON EVERY PAGE AND NEVER BREAKS`.
+
+**논둑은 그리는 것이 아니라 검은 종이가 안 잘린 자리다.** 물은 오려 낸 흰 자리이고, 논둑은 **오리다 만
+것**이다. 🔴 **그러므로 논둑을 다 오리면 그림이 조각으로 떨어진다** — 「논둑은 물리적으로 다 이어져
+있어야 한다」와 「위 논의 물이 아래로 흐른다」가 **한 문장**이다. 15시리즈 중 매체와 무대가 이렇게 겹치는
+곳은 여기뿐이다.
+
+🔴 **시트가 정해야 하는 것**: ①그 자리에서 **흰 물길이 어디로 나가나**(위 가장자리 → 아래 가장자리,
+한 번도 안 끊긴다) ②**검은 것이 어디서 이어져 있나**. 자리 시트에 `THE WHITE CHANNEL` 절과
+`WHERE THE BLACK STAYS JOINED` 절을 둘 다 쓴다. 하나만 쓰면 나머지 하나가 반드시 깨진다.
+
+---
+
+## §1. 자리 시트 — 4장 (후보 18에서 접음)
+
+🔴 **접은 내역** — 후보 18개 중 **15개가 「논둑」 계열**이었다. 이 시리즈는 무대가 사실상 하나다.
+
+| 시트 | = 후보 | 왜 하나인가 |
+|---|---|---|
+| `Terraces` | 논둑 길 · 논둑 위 · 논둑 · 논둑 가장자리 · 위쪽 논둑 길 · 위 논둑 · 아래 논둑 · 위 칸 논둑 · 논 가장자리 · 계단 논 전경 · 딩딩 논 · 맨 아래 논 · 아래 칸 · 논 한가운데 · 딩딩네 논 한 칸 | **논둑은 자리가 아니라 칸과 칸 사이다** — §3 |
+| `House` | 집 안 방 · 문간 · 집 문간 | |
+| `Yard` | 집 앞 마당 | 마당 옆 논둑이 `Terraces` 와 맞닿는다 |
+| `TreeOnBank` | 나무 아래 논둑 | 🔴 `Terraces` 의 SPOT 이지만 **나무가 고정 부품이라 따로 굽는다** |
+
+### §1.1 Terraces — 실제 프롬프트 (가장 먼저)
+
+```
+STAGE SHEET - Terraces   (dingding-papercut · SCENE token: Terraces · bake FIRST)
+
+The stepped rice fields the whole series stands in. Fifteen of the eighteen named places in this
+series are somewhere on this one hillside, so this drawing decides it once and for all.
+
+🔴 SEVEN BANKS, NUMBERED. The hillside carries EXACTLY SEVEN black banks, and they are numbered 1 at
+  the top to 7 at the bottom - fixed forever. Each bank is ONE unbroken cut piece. The bands get
+  THINNER toward the top and never greyer. Dingding's own field is the water between bank 4 and bank
+  5, and that never changes either, so a reader can always say whether a page is above it or below.
+  A page shows at most seven banks; when it shows fewer, it shows a NUMBERED RUN of them (3-4-5).
+
+🔴 THE WHITE CHANNEL: one continuous cut of SHEET WHITE runs from the TOP EDGE of the picture to the
+  BOTTOM EDGE and never breaks - it is the water going down the hill, and it passes through every
+  bank at a notch. A NOTCH is at most 3 knife cuts wide, and how much water moves is said by that
+  width and by nothing else. On a page where the water has stopped, the channel is still cut - it is
+  the notch that is closed.
+
+🔴 WHERE THE BLACK STAYS JOINED: every bank must remain attached to the black at BOTH ends where it
+  meets the hillside edge, so the whole sheet lifts as one connected piece. Nothing floats anywhere.
+  Check this on the sheet by naming, for each panel, the two places each bank is still joined.
+
+FIXED PARTS: the water in each terrace is cut away and is SHEET WHITE, 0 ripples · the earth path
+  along the top of each bank is black · dry cracked ground, when a terrace has none, is a set of
+  hairline cuts, at most 9, never in a row · rice in a band is one cut comb shape, at most 9 presses
+  · ONE FAR RIDGE behind everything is the FAR GREY second sheet, BEHIND the black, 0 holes in it,
+  at most one shape per page.
+
+SPOTS:
+  A THE WHOLE HILLSIDE, wide, from below: all seven banks, thinning upward, the white channel
+     running the full height of the frame.
+  B ON A BANK, eye level along it: the path running away, water on the left, water on the right at
+     a lower level - so the two heights are read at once.
+  C A NOTCH, close: the gap in one bank, at most 3 cuts wide, water passing through.
+  D ONE TERRACE from its edge, medium: the black bank in the foreground, the cut-away water beyond.
+
+PLATE: A, B, C, D once each, plus 🔴 ONE NUMBERED DIAGRAM of the seven banks with Dingding's field
+  marked between 4 and 5, and one panel showing the white channel traced from top edge to bottom
+  edge as a single unbroken white line.
+
+NOT: no character of any kind, no red anywhere on this sheet (the red piece is Dingding's apron
+  only), no lettering, numerals or field numbers drawn in the picture, no grey except the one far
+  ridge sheet BEHIND the black, no torn or soft edge - every edge is a knife edge, no floating
+  piece, no shading, gradient or glow.
+```
+
+### §1.2 House · Yard · TreeOnBank — 요약 명세
+
+`House` = 방은 검정, 바닥이 흰 슬롯 하나, 면마다 반복 칼자국 하나. 🔴 **등불은 오려 낸 흰 구멍**이고 그
+쪽에서 가장 밝다(18권 등불). `Yard` = 마당 흙은 검정, 마당 옆이 곧 `Terraces` 의 bank 6~7.
+`TreeOnBank` = 밑동 하나 + 가지, **밑동이 논둑 검정과 이어져 있어야 한다**(안 이어지면 나무가 뜬다).
+
+---
+
+## §2. 사물 시트 — 36장 (고유 49에서 노이즈 13 제외)
+
+| 토큰 | 사물 | 권·쪽 | 비고 |
+|---|---|---|---|
+| `Baskets` | 대바구니 둘 | 22(9) · 12(4) · 08(3) · 10(5) | 🔴 **똑같이 생긴 둘** — 22권 전체가 그것을 못 가리는 이야기 |
+| `Straw` | 벼 묶음 · 지푸라기 | 17(8) · 16(4) | 눕힌 여덟 / 세운 셋 |
+| `Ducks` | 오리 | 05 (6쪽) | 여섯 마리 |
+| `Bowls` | 그릇 · 밥그릇 · 물동이 | 03(5·4) · 14(3) | |
+| `Spade` | 삽 | 01 | 물길 파는 도구 |
+| `Sticks` | 막대 | 20 (5쪽) | 온전한 것 / 동강 난 것 |
+| `Sparrows` | 참새 · 깡통 | 07 (5·5) | |
+| … | (나머지 29장) | | |
+
+### §2.1 Baskets — 실제 프롬프트
+
+```
+PROP SHEET - Baskets   (dingding-papercut · SCENE token: Baskets)
+
+Two lidded bamboo baskets. 🔴 THEY ARE THE SAME BASKET TWICE - same weave, same size, same handle -
+  and one whole volume turns on nobody being able to tell them apart. Cut ONE block of shapes and
+  use it for both.
+
+FORM: the basket body is a black cut shape; the WEAVE IS HOLES - a grid of small holes cut clean
+  through the black, at most 9 across the front, all the same shape, none mirroring its neighbour.
+  🔴 Every hole must leave the black around it connected; no cut may separate a piece.
+  The lid is a separate black shape resting on the rim with the same holes. The handle is an arc of
+  black joined to the body at both ends - never a free-standing loop.
+STATES - draw all four at the same size:
+  1 THE PAIR, lids on, standing side by side on the bank. Indistinguishable.
+  2 CARRIED, hanging one from each end of a shoulder pole, symmetrical.
+  3 LID TIPPED, one lid pushed a little out of true so a crescent of the rim shows - this is the
+    only difference between them that ever exists, and it is temporary.
+  4 OPEN - the lid laid back, and the contents rising above the rim. Steam from cooked rice is CUT
+    AWAY WHITE, at most 5 shapes, never grey and never soft.
+
+PLATE: the four states, plus one close-up of the weave large enough to count the holes and to see
+  that the black between them is continuous.
+
+NOT: no character, no hands, no red anywhere, no lettering or numerals, no floating piece, no grey,
+  no torn or soft edge, no shading, gradient or sheen on the bamboo.
+```
+
+### §2.2 Straw — 실제 프롬프트
+
+```
+PROP SHEET - Straw   (dingding-papercut · SCENE token: Straw)
+
+Cut rice - as stubble left standing, as sheaves lying down, and as bundles stood up leaning together.
+
+FORM: 🔴 STRAW IS NOT DRAWN, IT IS THE COMB BLOCK - one cut comb shape of at most 9 teeth, used
+  again and again. A sheaf is that comb bound at the waist by one black band; a stubble field is the
+  comb repeated low along the ground.
+STATES:
+  1 STUBBLE - short rows across the field, the near two rows as separate combs and the rest carried
+    on as one joined black band (a RUN is exempt from the repeat cap).
+  2 SHEAVES DOWN - eight sheaves lying at different angles, 🔴 no two parallel and none mirroring
+    another. Each sheaf is one piece joined to the ground black at its lower edge.
+  3 STOOD UP - three bundles leaning against each other, meeting at the top, feet apart. The white
+    triangle of sky between them is CUT AWAY, and it is the shape that says they are standing.
+  4 ONE SHEAF alone, close, its binding band and the cut ends of the stalks.
+
+PLATE: the four states, plus one panel of the comb block on its own so it can be reused unchanged.
+
+NOT: no character, no hands, no red, no lettering or numerals, no floating piece, no grey, no torn
+  or soft edge, no individual straws drawn one by one, no shading or gradient.
+```
+
+---
+
+## §3. 🔴 미결 「논둑」 17갈래 — 이름 흔들림이 아니라 **축이 안 읽히는 것**
+
+미나는 장소를 **상태**로 묶었는데(「물이 빠진 강바닥」), 딩딩은 그 방식으로 안 풀린다. 판정:
+
+🔴 **논둑은 무대가 아니다 — 칸과 칸 사이다.** 17갈래가 전부 「**어느 칸의** 논둑인가」이고, 그건 자리가
+아니라 **좌표**다. 그러니 시트를 「논둑」으로 만들면 안 되고 **`Terraces` 한 장 + 칸 번호**로 간다.
+
+근거는 이미 대본과 앵커 안에 있었다.
+
+- 앵커가 `at most 7 banks per page` 로 **개수를 정했고** `bands getting THINNER toward the top` 으로
+  **순서까지 정했다** — 번호가 매체 안에 이미 있다.
+- 01 p1 이 「논둑 띠 **일곱 개**가 위로 갈수록 가늘어진다」로 **그대로 쓰고 있다**.
+- SCENE 이 이미 번호로 말한 자리가 있다 — 「맨 아래 논」·「맨 위 칸」·「가운데 두 칸」·「**세 칸 아래** 논」.
+
+**변환표** (작가에게 넘길 것)
+
+| SCENE | → 토큰 |
+|---|---|
+| 논둑 길 · 위쪽 논둑 길 · 위 논둑 길 | `[Terraces/B · 칸 N]` |
+| 맨 위 논둑 · 맨 위 칸 논둑 | `[Terraces/B · 칸 1]` |
+| 딩딩 논 · 딩딩네 칸 논둑 · 딩딩 논 가장자리 논둑 | `[Terraces/D · 칸 4-5]` |
+| 아래 논둑 · 아래 칸 논둑 · 맨 아래 논 | `[Terraces/B · 칸 6-7]` |
+| 물 넘어가는 자리 · 물꼬 | `[Terraces/C]` |
+| 나무 아래 논둑 | `[TreeOnBank]` |
+
+**🔴 미결 쪽 목록** (작가 전달용 · 총 13쪽)
+`논둑 길` = 09 p1 · 09 p8 · 10 p3 · 12 p4 · 17 p10 · 19 p5 · 20 p4 · 25 p5
+`논둑` = 21 p5 · 25 p6 · 25 p7 · `논 가장자리` = 07 p2 · 13 p2
+
+---
+
+## §4. 권별 경로표 — 견본 (01 「물길」)
+
+| 쪽 | 자리 | SPOT | 🔴 칸 | 흰 물길 |
+|---|---|---|---|---|
+| p1 | `Terraces` | A | 1~7 전부 | **통함** (거품 여덟이 흘러간다) |
+| p2 | `Terraces` | D | **칸 1** | 🔴 **끊김** — 들어오는 자리가 텅 비었다 |
+| p3~p7 | `Terraces` | B · D | 칸 4-5 | 끊긴 채 (구덩이를 판다) |
+| p8~p9 | `Terraces` | C 물꼬 | 칸 4-5 | 가늘게 통함 (물줄기 하나) |
+| p10 | `Terraces` | D | 칸 4-5 | **넓게 통함** |
+
+🔴 **이 권은 흰 물길이 끊겼다가 이어지는 이야기다.** 그런데 앵커는 물길이 **한 번도 안 끊긴다**고 못 박았다.
+→ 모순이 아니다: **끊긴 것은 물길이 아니라 물꼬**다. 채널은 계속 오려져 있고 **노치가 닫혀 있는 것**으로
+그린다(§1.1 `THE WHITE CHANNEL` 마지막 문장). ⚠️ 여기를 「흰 자리를 안 오림」으로 그리면 그림이
+조각으로 떨어진다.
