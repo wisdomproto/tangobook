@@ -144,11 +144,15 @@ CHARACTER DESIGN LANGUAGE: the animals are built from the same torn pieces as th
   WINGS ARE DRAWN ONLY WHEN SOMEBODY IS FLYING OR SPREADING THEM: Nono in flight (volumes 01, 04, 07,
   10, 19, 25) and Gugu spreading herself across the chair (volume 05). 🔴 NEVER ARMS AND WINGS ON THE
   SAME CHILD ON THE SAME PAGE. Beaks and tails are part of the face and body and are always there.
-  Backs and heads are OVERLAP, chests and bellies are TORN2. Eyes are two solid dark torn dots set
-  wide apart; a small beak or nose; the mouth is ONE torn curve; above each eye ONE short torn
-  eyebrow. 🔴 FEELING IS CARRIED BY THE MOUTH OR BEAK AND THE TWO EYEBROWS - the eyes only ever open
-  or close and their size NEVER changes. The face is never crossed by an object. Whole-body posture
-  carries the rest.
+  Backs and heads are OVERLAP, chests and bellies are TORN2.
+  🔴 THE PIECES OF A FACE DO NOT MATCH EACH OTHER, AND THAT MISMATCH IS THE STYLE. Every part is torn
+  from paper by hand, so on any appearance the two eyes come out at different sizes and sit at
+  slightly different heights, one ear is bigger than its pair, a beak is a size too large for the
+  head that carries it. 🔴 THE MISMATCH IS NEVER TIDIED UP AND NEVER REPEATED - the pieces are torn
+  fresh for every page, so the wrongness lands somewhere new each time.
+  Eyes are two TORN SCRAPS, never punched circles - white fibre showing along every edge, one always
+  noticeably bigger than the other; a small beak or nose; the mouth is ONE torn curve; above each eye
+  ONE short torn strip. Feeling is in the mouth or beak and the two strips.
   THE THREE, separable at thumbnail size, all about the same height: NONO a young sparrow, a round
   body and a short blunt beak, the smallest and roundest, a GREEN SCARF · GUGU a pigeon, a small head
   on a broad deep chest, the widest of the three, a GREEN CLOTH BAG worn across one shoulder so it
@@ -165,11 +169,9 @@ CHARACTER DESIGN LANGUAGE: the animals are built from the same torn pieces as th
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere - the shop front, the
   market stalls and the puppet stage stay blank or carry a single torn pictogram.
 
-NOT: no airbrush, gradient, glow or 3D render / no drawn or painted line of any kind / no scissor-cut
-  or knife-cut edge / no mechanically straight edge / no soft or feathered edge / no gradient inside a
-  torn piece / no mirrored or flipped reflection / no glow or halo around a fire or a lamp / no white
-  paint - white is a torn piece / no green on anything the grandfather owns / no fourth child /
-  no lettering.
+NOT: no airbrush, gradient, glow, 3D render or soft feathered edge / no drawn or painted line of any
+  kind / no scissor-cut, knife-cut or mechanically straight edge / no white paint - white is a torn
+  piece.
 ```
 
 **관통 줄** (매 쪽 · 앞의 셋은 설계서 §6 의 것을 그대로 쓴다)

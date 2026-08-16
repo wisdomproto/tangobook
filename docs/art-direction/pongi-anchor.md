@@ -110,9 +110,16 @@ CHARACTER DESIGN LANGUAGE: 🔴 SHARED BY ALL FOUR ANCHORS - reproduce word for 
   Animals are built from the same flat pulls as the world - two or three shapes with limbs laid
   over. GRADE: bipedal, standing upright, wearing cloth. The back and head are the OVERLAP colour,
   the chest and belly are INK2, so every animal is built the same way in every anchor. Eyes are two
-  solid dark dots set wide apart; a small dark nose; the mouth is ONE curve. 🔴 THE JOKE IS CARRIED
-  BY THE FACE - expression is made by the MOUTH CURVE, and the eyes only ever open or close. Eye
-  size never changes. The face is never crossed by an object. Whole-body posture carries the rest. Silhouettes separate at thumbnail size: Pongi is the
+  solid dark dots; a small dark nose; the mouth is ONE curve. There are no eyebrows.
+  🔴 WHERE THE TWO DOTS SIT INSIDE THE HEAD IS THE ACTING. They never change size and never change
+  shape, but they are re-placed on every page: pushed to one side of the head to look at a thing,
+  pushed to the far side to look away from it while the body still faces it, set high to look up, set
+  low and close to the nose to watch what the hands are doing, and set with one dot nearer the nose
+  than the other when a face is caught between two things. 🔴 THE PAGE MUST BE READABLE FROM THE DOTS
+  ALONE - whatever is being looked at is inside the frame, and no page has every animal aiming its
+  dots at nothing. Shut, a dot is replaced by one short lying curve.
+  The mouth curve says how the character feels; the pair of dots says what it is thinking about.
+  Nothing ever crosses a face. Silhouettes separate at thumbnail size: Pongi is the
   smallest standing figure, the goose is the tallest and thinnest.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.

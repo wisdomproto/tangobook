@@ -141,10 +141,15 @@ CHARACTER DESIGN LANGUAGE: the animals are built from the same marks as the worl
   CLOTHES. There are no sleeves, no cuffs, no trousers, no boots. The only worn things in 250 pages
   are Pipo's YELLOW SCARF, Mom's wide-brimmed hat (a prop set on the head, not a garment) and, in
   volume 08 only, ONE old boot on one foot with the other foot bare. Backs and heads are PRESSED,
-  chests and bellies are RUBBED. Eyes are two solid dark dots set wide apart; a small dark nose; the
-  mouth is ONE curve; above each eye ONE short pressed eyebrow. 🔴 FEELING IS CARRIED BY THE MOUTH
-  CURVE AND THE TWO EYEBROW STROKES - the eyes only ever open or close and their size NEVER changes.
-  The face is never crossed by an object. Whole-body posture carries the rest.
+  chests and bellies are RUBBED.
+  🔴 WITH NO CLOTHES ON ANYBODY, THE ONLY THINGS THAT SAY WHO A FIGURE IS ARE WHAT ITS HANDS HOLD AND
+  WHERE ITS FEET ARE PUT. On every page each figure is holding, carrying, dragging or has just set
+  down ONE nameable thing, and each figure's feet are placed on ONE nameable thing - the top of the
+  wall, wet mud, the doorstep, the lip of the barrow, a bale, another animal's back. 🔴 NOBODY IS
+  EVER DRAWN WITH EMPTY HANDS AND FEET LEFT UNPLACED, not even in the background.
+  An eye is a RUBBED DARK SMUDGE WITH NO EDGE ANYWHERE - you cannot say where it stops; the same for
+  the nose. 🔴 THE MOUTH IS THE ONE HARD MARK ON A FACE, pressed with the stick's end, and above each
+  eye ONE short pressed stroke; feeling is carried by those two alone.
   THE FIVE, separable at thumbnail size: PIPO a puppy, the smallest standing figure, round-headed,
   two soft folded ears, a YELLOW SCARF and hands that dig, press, roll and carry on every page · MOM
   a dog, a full head over Pipo, a wide-brimmed hat, hands, no yellow · SHEEP GRANDPA a sheep, a mass
@@ -160,9 +165,8 @@ CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere -
   and shop fronts stay blank or carry a single scratched shape.
 
 NOT: no airbrush, gradient, glow or 3D render / no white chalk or white paint / no second pigment of
-  any kind / no colour on hay, fleece, mist, snow, the sun, yolk or butter / no coloured clue for
-  finding anything / no soft or feathered outline on Pipo / no smudged face / no reflection or
-  mirrored image in water / no clothes on anybody / no lettering.
+  any kind - hay, fleece, mist, snow, the sun, yolk and butter are bare paper, and nothing is ever
+  coloured to make it easy to find / no clothes on anybody.
 ```
 
 **관통 줄** (매 쪽)

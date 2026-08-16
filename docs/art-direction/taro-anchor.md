@@ -49,10 +49,20 @@ STAGE CLAUSES (the stage changes where the wax goes, not the dyes):
 CHARACTER DESIGN LANGUAGE: animals are built from the same dipped areas as the world. GRADE:
   bipedal, upright, forelimbs are HANDS with no hooves, bare feet, 🔴 NO CLOTHING - ONE cord each is
   all either of them wears, so no sleeve, pocket, hem or collar anywhere.
+  🔴 EVERY LIMB IS DRAWN LONGER THAN IT COULD BE, AND THE STRETCH IS THE JOKE. Arms, legs, necks,
+  tails and ears run at least half again past what the animal's build allows, hold the same narrow
+  width the whole way with no taper and no elbow or knee showing, and bend in smooth arcs instead of
+  at joints. Bodies stay small and round against them. 🔴 THE STRETCH FOLLOWS THE PAGE - a reaching
+  limb is longer than a resting one, and the longest thing in any picture belongs to whoever is doing
+  the thing the page is about.
   🔴 THE WHOLE FACE IS WAXED CLOTH, so a face is the palest thing on any page and
-  the eyes, nose and mouth are small DEEP marks left inside it. Eyes are two solid dots set wide
-  apart; the mouth is ONE curve. 🔴 THE JOKE IS ON THE FACE - expression is the MOUTH CURVE alone,
-  the eyes only open or close, their size NEVER changes, and nothing crosses a face, not even rain.
+  the eyes, nose and mouth are small DEEP marks left inside it. An eye is a NARROW UPRIGHT OVAL, not
+  a round dot: it stretches taller when the eyes go wide and squashes to a flat lying oval when they
+  narrow or shut, but covers the same area of face either way. 🔴 THERE ARE NO EYEBROWS - the deep
+  marks inside a waxed face are exactly three, two eyes and one mouth, and a fourth is never added.
+  🔴 AN EYE CANNOT POINT - an oval has no pupil and no direction, so where a character is looking is
+  said by the head, the neck and the stretched limb, never by the eye. The mouth is ONE curve and
+  carries the feeling; nothing crosses a face, not even rain.
   TARO is a monkey child, small and round-bodied, thin arms, one long curling tail; MUMU is a deer
   child, a head taller, long straight legs and two tall ears that turn, a stub tail.
 

@@ -107,10 +107,18 @@ CHARACTER DESIGN LANGUAGE: the animals are built from the same cut blocks as the
   shapes with limbs laid over. GRADE: bipedal, standing upright, wearing cloth, 🔴 and ALL FIVE
   CHILDREN HAVE HANDS, including the gosling, whose wings end in three blunt fingers - this class
   cuts, folds, digs and builds on every page. Heads and backs are OVERLAP, chests and bellies are
-  SOOT. Eyes are two gouged dots set wide apart; a small dark nose or beak; the mouth is ONE gouged
-  curve; above each eye ONE short gouged eyebrow. 🔴 FEELING IS CARRIED BY THE MOUTH CURVE AND THE
-  TWO EYEBROWS - the eyes only ever open or close and their size NEVER changes. The face is never
-  crossed by an object. Whole-body posture carries the rest.
+  SOOT.
+  🔴 THE GAP BETWEEN FIGURES IS THE SENTENCE OF THE PAGE. Each child keeps its own cut silhouette
+  with cleared paper all round it, and 🔴 THE WIDTH OF THAT CLEARED PAPER IS WHAT THE PAGE IS SAYING:
+  bodies a hand's width apart are together, a child set a whole body-width out from the rest is left
+  out, a child whose cleared edge runs into another's is being taken in. The distances are decided
+  before any face is cut and change measurably from page to page inside one volume.
+  Eyes are GOUGED AWAY, not printed - each is a chip of cleared paper inside the dark head, and 🔴
+  THIS IS THE ONE SERIES WHERE AN EYE CHANGES SIZE: the knife takes more away when a child is
+  startled and barely nicks the block when a child narrows its eyes, so the white chip grows and
+  shrinks, and a shut eye is a single hairline gouge. A small nose or beak; the mouth is ONE gouged
+  curve; above each eye ONE short gouged brow. Feeling is in the mouth curve, the brows and the size
+  of the chip.
   THE FIVE, separable at thumbnail size, all the same height: MIO a kitten, two sharp triangle ears
   and one long tail curved up behind, a PURPLE satchel · BOBO a piglet, a round flat snout and a
   short curled tail, the widest of the five, a PURPLE cap · LALA a lamb, a head of small carved
@@ -121,16 +129,13 @@ CHARACTER DESIGN LANGUAGE: the animals are built from the same cut blocks as the
   TEACHER BAU a big dog, twice a child's height and the widest figure, a long muzzle and two heavy
   hanging ears, calm and still, hands always occupied with the same work the children are doing.
   🔴 SHE NEVER WEARS PURPLE and never has an errand of her own.
-  🔴 THE FIVE ARE NEVER DRAWN AS A CROWD - even when all five are on the page each one keeps its own
-  cut silhouette with clear paper between it and the next.
+  🔴 TWO CHILDREN ARE NEVER MERGED INTO ONE SHAPE to fill a hole in the composition.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere - the coat hooks, the
   name cards and the wall chart stay blank or carry a single cut pictogram.
 
-NOT: no airbrush, gradient, glow or 3D render / no drawn white line - white is gouged / no soft or
-  feathered edge / no smooth mechanical edge / no ink outside a cut block / no reflection or mirrored
-  image in water / no purple on anything the children made / no white ink / no extra children / no
-  lettering.
+NOT: no airbrush, gradient, glow, 3D render or soft feathered edge / no drawn white line - white is
+  gouged / no smooth mechanical edge / no ink outside a cut block.
 ```
 
 **관통 줄** (매 쪽 · 설계서 §5 의 것을 그대로 쓴다)

@@ -108,11 +108,17 @@ STAGE CLAUSES (the stage changes what the two inks do, never which two they are)
 
 CHARACTER DESIGN LANGUAGE: the rabbits are built from the same flat pulls as the world - two or
   three shapes with limbs laid over. GRADE: bipedal, standing upright, wearing cloth. Backs and heads
-  are OVERLAP, chests and bellies are INK2, so every animal is built the same way. Eyes are two solid
-  dark dots set wide apart; a small dark nose; the mouth is ONE curve; above each eye ONE short
-  eyebrow stroke. 🔴 FEELING IS CARRIED BY THE MOUTH CURVE AND THE TWO EYEBROW STROKES - the eyes
-  only ever open or close and their size NEVER changes. The face is never crossed by an object.
-  Whole-body posture carries the rest.
+  are OVERLAP, chests and bellies are INK2, so every animal is built the same way.
+  🔴 A CHARACTER HERE IS TWO MARKED THINGS, NOT A FACE. Each twin is stated by exactly two fixed
+  marks - THE BAND OF THE PAGE ITS YELLOW SITS IN and THE SET OF ITS EARS - and by nothing else,
+  because the two faces are drawn identical and can never tell them apart. 🔴 BOTH MARKS ARE VISIBLE
+  ON EVERY APPEARANCE, INCLUDING BACK VIEWS, BATHS, BLANKETS AND PURE SILHOUETTES, and the two
+  yellows never share a band of the page. A difference between the twins is never written on a face.
+  Eyes are the OVERLAP colour, the one place on a body where both drums land. 🔴 REGISTRATION IS A
+  HAIR OFF ON EVERY PAGE AND IT SHOWS AT AN EYE: one drum creeps past one eye and falls short of the
+  other, leaving a thin coloured lip along one side of one eye only, and that misfit is left in. A
+  small nose; the mouth is ONE curve; above each eye ONE short stroke; feeling is in the mouth curve
+  and the two strokes.
   🔴 THE TWINS ARE ONE BODY DRAWN TWICE - same height, same build, same colour, same face. They are
   told apart by FOUR things and nothing else:
     ① RIRI wears a YELLOW HAT, so her yellow sits at the TOP of her silhouette · LOLO wears YELLOW
@@ -133,10 +139,8 @@ CHARACTER DESIGN LANGUAGE: the rabbits are built from the same flat pulls as the
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere - stalls, boat sterns
   and crates stay blank or carry a single painted fish shape.
 
-NOT: no airbrush, gradient, glow or 3D render / no soft or feathered edge / no streak inside a figure
-  / no perfectly solid area anywhere / no ripple, glint or sparkle on water / no reflection or
-  mirrored image in water / no halo or ray around the lighthouse light / no white ink / no yellow on
-  anything but the hat and the boots / no lettering.
+NOT: no airbrush, gradient, glow, 3D render or soft feathered edge / no streak inside a figure / no
+  perfectly solid area anywhere / no halo or ray around the lighthouse light.
 ```
 
 **관통 줄** (매 쪽)

@@ -2637,5 +2637,200 @@
         "year": 2024
       }
     ]
+  },
+  "bruno": {
+    "slug": "bruno-crayonwood",
+    "refs": [
+      {
+        "id": "collins-bearchair",
+        "imageUrl": "https://covers.openlibrary.org/b/id/10126819-L.jpg",
+        "artist": "Ross Collins",
+        "work": "There's a Bear on My Chair",
+        "award": "CILIP Kate Greenaway Medal 숏리스트 2016",
+        "year": 2015
+      }
+    ]
+  },
+  "bung": {
+    "slug": "bung-woodblock",
+    "refs": [
+      {
+        "id": "darme-coq",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/2025/premi/BRAW/vincitori/coq_polyglotte.jpg",
+        "artist": "Marie Darme-Rizzo",
+        "work": "Le coq polyglotte",
+        "award": "BolognaRagazzi 2025 Toddler",
+        "year": 2025
+      }
+    ]
+  },
+  "coco": {
+    "slug": "coco-pressalley",
+    "refs": [
+      {
+        "id": "metcalfe-crisps",
+        "imageUrl": "https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/02/Lizzymetcalfe_mrcrisps_image1-2.png/original",
+        "artist": "Lizzy Metcalfe",
+        "work": "Mr Crisps",
+        "award": "WIA 2024 Category Winner",
+        "year": 2024
+      }
+    ]
+  },
+  "dingding": {
+    "slug": "dingding-papercut",
+    "refs": [
+      {
+        "id": "teckentrup-samesky",
+        "imageUrl": "https://covers.openlibrary.org/b/id/8867686-L.jpg",
+        "artist": "Britta Teckentrup",
+        "work": "Under the Same Sky",
+        "award": "CILIP Kate Greenaway Medal 숏리스트 2018",
+        "year": 2017
+      }
+    ]
+  },
+  "dodo": {
+    "slug": "dodo-gouachemill",
+    "refs": [
+      {
+        "id": "meschenmoser-gordon",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2015/FICTION/gordon%20un%20tapir_coverOK.jpg",
+        "artist": "Sebastian Meschenmoser",
+        "work": "Gordon und Tapir",
+        "award": "BolognaRagazzi Fiction 특별언급 2015",
+        "year": 2014
+      }
+    ]
+  },
+  "lulu": {
+    "slug": "lulu-monotype",
+    "refs": [
+      {
+        "id": "milner-nomoney",
+        "imageUrl": "https://covers.openlibrary.org/b/id/14509385-L.jpg",
+        "artist": "Kate Milner",
+        "work": "It's a No-Money Day",
+        "award": "CILIP Kate Greenaway Medal 숏리스트 2021",
+        "year": 2019
+      }
+    ]
+  },
+  "mei": {
+    "slug": "mei-pencilslope",
+    "refs": [
+      {
+        "id": "rayner-harris",
+        "imageUrl": "https://covers.openlibrary.org/b/id/2913021-L.jpg",
+        "artist": "Catherine Rayner",
+        "work": "Harris Finds His Feet",
+        "award": "Kate Greenaway Medal 2009",
+        "year": 2009
+      }
+    ]
+  },
+  "mina": {
+    "slug": "mina-dotfolk",
+    "refs": [
+      {
+        "id": "alcantara-rio",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_toddler_winner.jpg",
+        "artist": "Mariana Alcántara",
+        "work": "Río Viento (Wind River)",
+        "award": "BolognaRagazzi 2026 Toddler",
+        "year": 2026
+      }
+    ]
+  },
+  "mio": {
+    "slug": "mio-cutschool",
+    "refs": [
+      {
+        "id": "naylor-suitcase",
+        "imageUrl": "https://covers.openlibrary.org/b/id/10481244-L.jpg",
+        "artist": "Chris Naylor-Ballesteros",
+        "work": "The Suitcase",
+        "award": "CILIP Kate Greenaway Medal 숏리스트 2020",
+        "year": 2019
+      }
+    ]
+  },
+  "nono": {
+    "slug": "nono-tornpaper",
+    "refs": [
+      {
+        "id": "child-tomato",
+        "imageUrl": "https://covers.openlibrary.org/b/id/885657-L.jpg",
+        "artist": "Lauren Child",
+        "work": "I Will Not Ever Never Eat a Tomato",
+        "award": "Kate Greenaway Medal 2000",
+        "year": 2000
+      }
+    ]
+  },
+  "pipo": {
+    "slug": "pipo-charcoalwall",
+    "refs": [
+      {
+        "id": "butler-borders",
+        "imageUrl": "https://covers.openlibrary.org/b/id/10838996-L.jpg",
+        "artist": "George Butler",
+        "work": "Drawn Across Borders",
+        "award": "CILIP Kate Greenaway Medal 숏리스트 2022",
+        "year": 2021
+      }
+    ]
+  },
+  "pongi": {
+    "slug": "pongi-screenwater",
+    "refs": [
+      {
+        "id": "klassen-hat",
+        "imageUrl": "https://covers.openlibrary.org/b/id/10207424-L.jpg",
+        "artist": "Jon Klassen",
+        "work": "This Is Not My Hat",
+        "award": "Kate Greenaway Medal 2014",
+        "year": 2014
+      }
+    ]
+  },
+  "taro": {
+    "slug": "taro-batik",
+    "refs": [
+      {
+        "id": "albertine-marta",
+        "imageUrl": "https://covers.openlibrary.org/b/id/953431-L.jpg",
+        "artist": "Albertine",
+        "work": "Marta and the Bicycle",
+        "award": "HCA Illustrator Award 2020",
+        "year": 2020
+      }
+    ]
+  },
+  "twins": {
+    "slug": "twins-risoshore",
+    "refs": [
+      {
+        "id": "erlbruch-bigq",
+        "imageUrl": "https://covers.openlibrary.org/b/id/961729-L.jpg",
+        "artist": "Wolf Erlbruch",
+        "work": "The Big Question",
+        "award": "ALMA 2017",
+        "year": 2017
+      }
+    ]
+  },
+  "yuki": {
+    "slug": "yuki-inkwash",
+    "refs": [
+      {
+        "id": "cheveau-troupeau",
+        "imageUrl": "https://www.bolognachildrensbookfair.com/media/libro/premi/BRAW/winning%20covers/braw_toddler_mention_1.jpg",
+        "artist": "Sarah Cheveau",
+        "work": "Troupeau: L'hiver, l'été",
+        "award": "BolognaRagazzi 2026 Toddler",
+        "year": 2026
+      }
+    ]
   }
 }

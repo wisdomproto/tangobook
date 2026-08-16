@@ -53,10 +53,15 @@ CHARACTER DESIGN LANGUAGE: animals are dotted like everything else - touching IN
   short top and loose trousers, forelimbs are HANDS and everything is carried in them, bare feet -
   shoes go on ONLY where the ground hurts the feet, the stony field and the stone causeway. 🔴 THE
   TRUNK STAYS A TRUNK - it drinks, smells, pulls a high thing down and hooks another trunk, and it
-  never picks up or works an object. Eyes are two solid dots set wide apart - 🔴 the only dots
-  allowed to be larger; a small dark nose; the mouth is ONE curved row of touching dots; ONE short
-  row above each eye. 🔴 FEELING IS CARRIED BY THE MOUTH ROW AND THE TWO BROW ROWS - the eyes only
-  open or close, their size NEVER changes, nothing crosses a face. 🔴 THE THREE are elephant children
+  never picks up or works an object.
+  🔴 A BODY HAS NO OUTLINE - IT IS WHEREVER THE DOTS GOT CLOSE ENOUGH TOGETHER. The dots crowd at the
+  middle of an elephant and thin out towards its edge, so no edge is ever a decided line. Nothing on
+  a figure is drawn: a shoulder, a knee, the fold of an ear, a wrinkle are only changes in how
+  tightly the dots sit, and the ground and the water are stamped the same way.
+  🔴 THE EYE IS THE ONE MARK PLACED EXACTLY. Each eye is a SINGLE SOLID DOT, larger than any other dot
+  in the book, and the only mark on the page whose position was decided instead of accumulated. Its
+  size never changes; shut, it is replaced by one short lying row. A small dark nose; the mouth is
+  ONE curved row of touching dots; ONE short row above each eye, and the feeling is in row and mouth. 🔴 THE THREE are elephant children
   in a ladder of heights, ELDEST : MINA : YOUNGEST = 5 : 4 : 3, and each one is told apart by ONE
   thing: ELDEST tallest, a POCKET on the top · MINA middle, THE GOLD ANKLE BAND · YOUNGEST a round
   belly and a big head.

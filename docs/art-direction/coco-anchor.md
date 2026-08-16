@@ -60,22 +60,25 @@ STAGE CLAUSES (the stage changes what the two inks do, never which two they are)
 CHARACTER DESIGN LANGUAGE: animals are built from the same pressed blocks as the world - two or
   three shapes with limbs laid over. GRADE: bipedal, standing upright, wearing cloth. Backs and
   heads are the OVERLAP colour, chests and bellies are INK1, so every animal is built the same way.
-  Eyes are two solid dark dots set wide apart; a small dark nose; the mouth is ONE curve; above each
-  eye ONE short eyebrow stroke. 🔴 FEELING IS CARRIED BY THE MOUTH CURVE AND THE TWO EYEBROW
-  STROKES - the eyes only ever open or close and their size NEVER changes. The face is never crossed
-  by an object. Whole-body posture carries the rest. THE CAST, separable at thumbnail size: COCO a
-  small mouse, big round ears, a thin tail with a single curl, 🔴 a RED head kerchief - the smallest
+  🔴 NOBODY IS DRAWN TO BE PRETTY. Each figure is held in the memory by ONE specific unhandsome thing
+  listed below, on it in every single appearance, never tidied up and never left out, and drawn at
+  full press even when the figure itself is small.
+  Eyes are RINGS, not dots - the block bites only at the rim so the paper shows through the middle of
+  each eye; a small nose; the mouth is ONE curve; above each eye ONE short eyebrow stroke. Feeling is
+  in the mouth curve and the two eyebrow strokes; a ring only opens or closes and never changes size.
+  THE CAST, separable at thumbnail size and each with its own unhandsome mark: COCO a
+  small mouse, big round ears, a thin tail with a single kink in it, 🔴 a RED head kerchief - the smallest
   standing figure and the only red thing in the world · MOM a mouse half a head taller, an apron,
-  flour on her forearms, no red · MOLE GRANDFATHER low and round, tiny dot eyes almost hidden, huge
-  digging hands, a knitted vest · MAGPIE AUNT the only flyer, long tail, sharp beak, perches high on
-  frames and sills · PIG UNCLE twice Coco's height and the widest figure, rolled sleeves, heavy
-  boots. Adults never carry red.
+  flour caked into her forearms and one worn bald patch there, no red · MOLE GRANDFATHER low and round, eyes
+  nearly buried in his cheeks, huge chipped digging claws, a knitted vest gone baggy at the elbows · MAGPIE AUNT the only flyer, long tail, a sharp
+  beak with a nick out of it, perches high on frames and sills · PIG UNCLE twice Coco's height and the widest figure, rolled sleeves, a belly
+  hanging past his apron, heavy cracked boots. Adults never carry red.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere - shop fronts and
   price tags stay blank or carry a pictogram of a loaf.
 
-NOT: no airbrush, gradient, glow or 3D render / no soft or feathered edge / no varied hand-drawn
-  clutter behind the figures / no solid unbroken ink / no white ink / no letters on signs.
+NOT: no airbrush, gradient, glow, 3D render or soft feathered edge / no varied hand-drawn clutter
+  behind the figures / no solid unbroken ink / no white ink.
 ```
 
 **관통 줄** (매 쪽)
