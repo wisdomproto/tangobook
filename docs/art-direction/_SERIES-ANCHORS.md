@@ -101,3 +101,31 @@ dingding SCENE 이 이미 「눈썹 **자리**가 올라가고」로 쓰고 있�
 
 합계 87,723 → 93,801 (+6,078 · 평균 +405). 늘어난 쪽은 원래 가장 얇았던 앵커들이고
 (`pongi` 2,712 → 3,297 은 규격 3,200 에 처음 닿았다), 이미 컸던 앵커는 `NOT` 정리로 거의 제자리다.
+
+---
+
+## 🔴 무대·사물 시트 — `{key}-stages.md` (2026-08-16)
+
+앵커는 **그림체**이고, 시트는 **그 그림체로 그릴 대상**이다. 인물 시트만 있어서 같은 물방앗간이 p3 과
+p7 에 다르게 그려지던 것을 여기서 막는다. 상세 원칙 = `verified-references.md` §8.3.
+
+**각 시트 문서의 구성** = §0 매체 번역 한 줄 / §1 자리 시트(접은 내역 + 프롬프트) / §2 사물 시트 /
+§3 미결과 쪽 목록 / §4 권별 경로표 견본.
+
+| 시리즈 | 시트 문서 | 🔴 매체 번역 한 줄 — 시트가 반드시 정해야 하는 것 | 축 |
+|---|---|---|---|
+| `pongi` | [pongi-stages.md](pongi-stages.md) | 어두운 색이 따로 없다(겹쳐야 생긴다) → **어디가 겹인가** · **얼음은 안 찍은 면적** | 겹 |
+| `mei` | [mei-stages.md](mei-stages.md) | 🔴 **윤곽선이 「면 위에 놓인 것」에만 있다**(bruno 와 갈리는 단 하나의 축) | 면/놓인 것 |
+| `coco` | [coco-stages.md](coco-stages.md) | 무대 시트 = 사물 목록이 아니라 **블록 목록**. 찾는 것만 제 블록 | 블록 |
+| `dodo` | [dodo-stages.md](dodo-stages.md) | 붓이 못 미쳐 남은 **종이 테**가 가장자리 · **초크는 튀어 오른 것에만** | 테 |
+| `bruno` | [bruno-stages.md](bruno-stages.md) | 윤곽선이 아예 없다 → **어느 면이 어느 방향인가** · 하늘·물·눈은 안 칠함 | 방향 |
+| `twins` | [twins-stages.md](twins-stages.md) | 🔴 **날씨는 드럼이 돈 방향** → 첫 시트가 그림이 아니라 **방향 세 장** | 방향 |
+| `lulu` | [lulu-stages.md](lulu-stages.md) | 밝은 것은 **닦아 낸 것** → **어디를 닦아 내나** · 판 자국을 남긴다 | 닦아냄 |
+| `mio` | [mio-stages.md](mio-stages.md) | 흰 것은 **파낸 골** · 비운 면도 안 비어 있다 → **골의 방향과 줄 수** | 골 |
+| `nono` | [nono-stages.md](nono-stages.md) | 깊이 = **간격**(멀수록 좁게 선다) · 바닥은 **종이를 얹었다 떼는 것** | 간격 |
+| `pipo` | [pipo-stages.md](pipo-stages.md) | 값이 안료가 아니라 **손동작 셋**(문지름·눌러 찍음·들어냄) · 🔴 **가장자리는 전부 보슬보슬**해야 피포가 튄다 | 손동작 |
+| `bung` | [bung-stages.md](bung-stages.md) | **가라앉은 것은 윤곽판이 안 닿는다** · 어긋남이 한 방향 | 윤곽 유무 |
+| `dingding` | [dingding-stages.md](dingding-stages.md) | 🔴 **논둑은 검은 종이가 안 잘린 자리** — 「이어져 있어야 한다」와 「물이 아래로 흐른다」가 한 문장 | 연결 |
+| `taro` | [taro-stages.md](taro-stages.md) | 모래가 CLOTH 라 **조개는 CLOTH 일 수 없다** | 값 배정 |
+| `yuki` | [yuki-stages.md](yuki-stages.md) | 무대는 무엇이 있나가 아니라 **몇 획인가**(겨울 마당 = 2획) | 개수 배급 |
+| `mina` | [mina-stages.md](mina-stages.md) | 강 높이는 **화면 폭의 분수** → **셀 수 있는 눈금 하나**(계단 여덟 칸) · 🔴 **메운 면 0** | 눈금/마감 |
