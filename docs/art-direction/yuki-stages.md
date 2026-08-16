@@ -31,7 +31,9 @@
 | `Room` | 방 안 · 방 안 밥상 · 방 안 창가 · 방 안 잠자리 | 한 방의 네 구석 |
 | `Field` | 밭 · 밭 가 | |
 | `Creek` | 개울가 · 집 아래 개울가 | |
-| `MountainPath` · `ChestnutGrove` · `BackOfHouse` · `Hamlet` | (각 1) | 🔴 **미결 「나무 밑」 4갈래의 답** — §3 |
+| `MountainPath` · `ChestnutGrove` · `BackOfHouse` | (각 1) | 🔴 §3 |
+| 🔴 `HillPath` | 언덕길 · 언덕 중턱 · 언덕 꼭대기 · 집 뒤 언덕길 | **신설** — 25권 **7쪽**(p3·p4·p5·p6·p7·p9·p10)이 여기다. 14권 산길(`MountainPath`)과 다르다: 25 p1 이 **방 창 너머로 그 언덕을 본다** = 집에서 보이는 언덕 |
+| `Kennel` | 개집 안 · 개집 앞 | 16권 |
 
 ### §1.1 Yard — 실제 프롬프트
 
@@ -47,10 +49,13 @@ FIXED PARTS - each is ONE stroke unless said otherwise, loaded once and lifted o
   VERANDA EDGE across the near right - ONE straight stroke; the boards under it are 2 short strokes
     and the dark beneath is ONE flat wash with 0 strokes inside it.
   DEEP EAVE above the veranda - ONE stroke, its dry broken end at the far side.
-  PERSIMMON TREE at the left of the yard - trunk ONE stroke, and THREE branches that bend downward,
-    each ONE stroke. This is the tree the books mean when they say the yard tree.
-  ZELKOVA at the right, taller, with ONE thick horizontal branch - trunk ONE stroke; a nail is
-    driven into the wall below it (one dry touch).
+  🔴 THREE TREES STAND IN THIS YARD AND THE BOOKS SAY ONLY "the tree" - fix which is which here:
+  PERSIMMON at the LEFT - trunk ONE stroke, THREE branches bending downward, each ONE stroke.
+    (07 the round shade · 13 the fruit · 15 p8 the shade indoors.)
+  ZELKOVA at the RIGHT, taller, ONE thick horizontal branch - trunk ONE stroke; a nail is driven
+    into the wall below it (one dry touch). (09 the branch · 11 the rope tied round the trunk.)
+  🔴 BLOSSOM TREE at the BACK of the yard, small, THREE flowering branches, the topmost one thick
+    with blossom. (05, and it exists only in spring.)
   FOUR JARS standing in a row at the right corner (see PROP SHEET Jars).
   THRESHOLD, one short stroke, where the yard meets the room.
   🔴 THE GROUND IS NOT A THING. It is bare PAPER in every season except after rain.
@@ -58,6 +63,10 @@ FIXED PARTS - each is ONE stroke unless said otherwise, loaded once and lifted o
 STROKE BUDGET - the season sets the count, not the objects.
   SPRING - 4 strokes plus at most 30 tip-touches for buds on the persimmon. Palest wash only where
     the earth is still wet. The washing line is ONE stroke when a book needs it.
+    🔴 BLOSSOM IS BUDGETED SEPARATELY: three flowering branches, the topmost thick with blossom, and
+    at most 15 loose petals in the air or on the ground when a book knocks them off. Petals are
+    single wet touches, never outlined, and they are the only thing allowed to break the 4-stroke
+    yard count in spring.
   SUMMER - the wettest: the zelkova's leaf mass is ONE dark wash on damp paper, bleeding at its own
     edge, and its shade on the ground is ONE flat wash with a hard edge and 0 strokes inside.
   AUTUMN - the driest brush, every stroke broken along its length. Fallen leaves at most 21 dry
@@ -87,8 +96,18 @@ NOT: no character of any kind, no vermilion anywhere on this sheet, no lettering
 🔴 **아궁이 불빛은 안 칠한 종이이고 화면에서 가장 밝다**(20 p1). `STROKE BUDGET` = 방 전체 **11획 상한**,
 20 p7 은 「아궁이 쪽 밝기가 좁아졌다」 = **종이 면적이 줄어드는 것**이지 획을 더하는 게 아니다.
 `SPOTS` = A 문 쪽 / B 밥상 / C 창가 / D 잠자리.
+🔴 `Yard` SPOT C 는 **어느 나무인지 함께 적는다**(`Yard/C 감나무`) — 나무가 셋이라 C 만 붙이면 못 정한다.
 
-나머지 5장(`Field`·`Creek`·`MountainPath`·`ChestnutGrove`·`BackOfHouse`·`Hamlet`)도 같은 네 절.
+### §1.3 나머지 여섯 — 🔴 **「같은 네 절」로 넘기지 않는다. 예산은 시트마다 다르다.**
+
+| 시트 | `STROKE BUDGET` (계절) | `FIXED PARTS` · `SPOTS` |
+|---|---|---|
+| `ChestnutGrove` | 가을 = 마른 붓, 밤나무 **한 그루 1획** + 가시 껍질 최대 6 + 낙엽 최대 21 · 🔴 **그늘 덩어리 1획 wash** | 🔴 **SPOT E = 그늘 경계선**(15 p3·p4·p6 이 그 선 위에서 벌어진다 — 한 획으로 바닥을 가로지르는 하드 에지, 안쪽은 한 덩이 짙은 wash) |
+| `BackOfHouse` | 🔴 겨울 = **나무 1획 + 장작더미 wash 1 = 2획**, 바닥은 안 칠한 종이. 다른 계절엔 이 권이 안 온다 | 집 뒤 벽선 1획 · 나무 1 · A 나무 밑 / B 더미 앞 / C 눈길 |
+| `HillPath` | 🔴 겨울 = **길 1획도 안 긋는다**(눈이라 종이 그대로) · 나무 1획 · 마을 지붕 윤곽 최대 7 | A 언덕길 / B 중턱 / C 꼭대기(내려다봄) |
+| `MountainPath` | 가을 = 마른 붓, 나무 최대 9 트렁크 1획씩 · 낙엽 최대 21 | A 길 / B 나무 밑 / C 바닥 |
+| `Creek` | 여름 = 젖은 종이, 물은 **안 칠한 종이** · 돌 2획 | A 물가 / B 물속 |
+| `Field` | 봄·여름 = 이랑 최대 9 · 겨울엔 안 온다 | A 밭 / B 밭 가 |
 
 ---
 
@@ -166,6 +185,15 @@ NOT: no character, no hands, no vermilion, no lettering or numerals, no bark tex
 ---
 
 ## §3. 🔴 미결 — 「나무 밑」 4갈래 (3권 · SCENE 이 어느 나무인지 안 정했다)
+
+> 🔴 **이 §3 은 판정 근거만 적는다. 이름→토큰 변환의 SSOT 는 `_stage-tokens.json` 이다.**
+> 표 출력·검사 = `node packages/client/scripts/extract-series-stages.mjs --tokens yuki` (**미매칭 0** 이어야 한다).
+> 🔴 **쪽 목록은 폐기했다** — 목록과 변환표를 따로 두니 어긋났다(변환표엔 있는데 목록엔 없는 이름이 나왔다).
+> 규칙이 전 이름을 덮으므로 목록이 필요 없고, 「목록 밖이라 안 붙인다」가 생기지 않는다.
+> 🔴 **SPOT**: `_stage-tokens.json` 의 `spots` 가 `null` 인 시트는 **시트명만** 붙인다. 값이 있는 시트도
+> **A/B/C/D 는 카메라가 정하므로 경로표(§4)에서 정한다** — §3 에서 비워 둔 건 빈칸이 아니라 경로표 몫이다.
+> 🔴 **일부 이름은 권을 알아야 정해진다**(`byBook`). 앞 쪽을 읽어야 하는 종류이고, 규칙 파일이 그걸 들고 있다.
+
 
 `_stages.json` 이 `unresolved: ['마당 나무 밑','산길 나무 밑','집 뒤 눈 덮인 나무 밑','언덕길 나무 밑']`
 로 표시한 자리다. 판정:

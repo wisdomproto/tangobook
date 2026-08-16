@@ -81,8 +81,10 @@ NOT: no character of any kind, no accent orange anywhere on this sheet, no lette
 ### §1.2 Piazza — 요약 명세
 
 `FIELDS` = 돌바닥(🔴 **EARTH 반복 마크 하나**, 03·06권이 그 바닥을 센다) · 벽 · 하늘(맨 종이).
-`THINGS` = 무대 널빤지(최대 6) · 계단 난간 · 분수 · 화덕 · 탁자. 🔴 **화덕 불빛은 안 칠한 종이.**
-`SPOTS` = A 광장 전체 / B 무대 앞 / C 계단 / D 화덕.
+`THINGS` = 무대 널빤지(최대 6) · 계단 난간 · 분수 · 화덕 · 탁자 · 🔴 **종탑**(신설 — 17권이 **10쪽 전부**
+그 밑인데 §1.2 에 탑도 종도 줄도 없었다: 벽은 FIELD(EARTH 세로), **탑 몸통·종·당김줄은 THINGS 라 윤곽 한 줄씩**,
+종은 하나뿐이고 줄은 바닥까지 닿는다).
+`SPOTS` = A 광장 전체 / B 무대 앞 / C 계단 / D 화덕 / 🔴 **E 종탑 밑**(올려다보는 로우앵글, 줄이 화면 세로를 지른다).
 
 ---
 
@@ -128,6 +130,15 @@ NOT: no character, no hands, no accent orange, no lettering or numerals, no outl
 ---
 
 ## §3. 🔴 미결 — 「광장」 2갈래 (3쪽) · 그리고 「자리」라는 새 종류
+
+> 🔴 **이 §3 은 판정 근거만 적는다. 이름→토큰 변환의 SSOT 는 `_stage-tokens.json` 이다.**
+> 표 출력·검사 = `node packages/client/scripts/extract-series-stages.mjs --tokens mei` (**미매칭 0** 이어야 한다).
+> 🔴 **쪽 목록은 폐기했다** — 목록과 변환표를 따로 두니 어긋났다(변환표엔 있는데 목록엔 없는 이름이 나왔다).
+> 규칙이 전 이름을 덮으므로 목록이 필요 없고, 「목록 밖이라 안 붙인다」가 생기지 않는다.
+> 🔴 **SPOT**: `_stage-tokens.json` 의 `spots` 가 `null` 인 시트는 **시트명만** 붙인다. 값이 있는 시트도
+> **A/B/C/D 는 카메라가 정하므로 경로표(§4)에서 정한다** — §3 에서 비워 둔 건 빈칸이 아니라 경로표 몫이다.
+> 🔴 **일부 이름은 권을 알아야 정해진다**(`byBook`). 앞 쪽을 읽어야 하는 종류이고, 규칙 파일이 그걸 들고 있다.
+
 
 | SCENE | 결정 | 종류 |
 |---|---|---|

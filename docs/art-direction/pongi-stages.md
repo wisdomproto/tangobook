@@ -177,6 +177,15 @@ NOT: no character, no red anywhere, no lettering or numerals, no metal shine or 
 
 ## §3. 🔴 미결 — 「현관」 3갈래 · 「문간」 3갈래
 
+> 🔴 **이 §3 은 판정 근거만 적는다. 이름→토큰 변환의 SSOT 는 `_stage-tokens.json` 이다.**
+> 표 출력·검사 = `node packages/client/scripts/extract-series-stages.mjs --tokens pongi` (**미매칭 0** 이어야 한다).
+> 🔴 **쪽 목록은 폐기했다** — 목록과 변환표를 따로 두니 어긋났다(변환표엔 있는데 목록엔 없는 이름이 나왔다).
+> 규칙이 전 이름을 덮으므로 목록이 필요 없고, 「목록 밖이라 안 붙인다」가 생기지 않는다.
+> 🔴 **SPOT**: `_stage-tokens.json` 의 `spots` 가 `null` 인 시트는 **시트명만** 붙인다. 값이 있는 시트도
+> **A/B/C/D 는 카메라가 정하므로 경로표(§4)에서 정한다** — §3 에서 비워 둔 건 빈칸이 아니라 경로표 몫이다.
+> 🔴 **일부 이름은 권을 알아야 정해진다**(`byBook`). 앞 쪽을 읽어야 하는 종류이고, 규칙 파일이 그걸 들고 있다.
+
+
 | SCENE | 결정 | 근거 |
 |---|---|---|
 | 「퐁이네 집 현관」 · 「집 안 현관」 (11 p1 · 21 p2) | `PongiHouse` / SPOT A | 같은 집 |

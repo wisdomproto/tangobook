@@ -136,7 +136,7 @@ const keys = targets.length
   : fs.readdirSync(DOCS).filter((d) => fs.existsSync(path.join(DOCS, d, '_scenes.json'))).sort();
 
 let totStage = 0, totProp = 0, totUn = 0;
-for (const key of keys) {
+for (const key of (process.argv.includes('--tokens') ? [] : keys)) {
   const r = analyse(key);
   if (!r) { console.log(`${key} — SCENE 없음`); continue; }
   fs.writeFileSync(path.join(DOCS, key, '_stages.json'), JSON.stringify(r, null, 2) + '\n');
@@ -165,4 +165,52 @@ if (process.argv.includes('--check')) {
   const d = mergePlaces(mk({ '물가': ['01'], '우물가': ['02'] }));
   console.assert(d.size === 2, '어절 경계 — 「우물가」는 「물가」가 아니다');
   console.log('selfcheck ok');
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 🔴 토큰 변환 규칙 검사 — `node extract-series-stages.mjs --tokens [시리즈]`
+//
+// 왜 있나: §3 에 「미결 쪽 목록」과 「변환표」를 **따로** 뒀더니 어긋났다(변환표엔 있는데 목록엔 없는
+// 이름이 나왔고, 작가가 붙이다 멈췄다). 목록을 버리고 **규칙 하나**로 합친 뒤, 그 규칙이 SCENE 의
+// 모든 자리 이름을 덮는지 여기서 센다. 🔴 **미매칭 0 이 아니면 그 시리즈는 아직 문서가 아니다.**
+const spec_multi = (names, n) => (names.get(n)?.size ?? 0) > 1;
+if (process.argv.includes('--tokens')) {
+  const MAP = JSON.parse(fs.readFileSync(path.join(DOCS, '..', 'art-direction', '_stage-tokens.json'), 'utf8'));
+  // 작가가 이미 붙인 `[Token] ` 접두는 떼고 원래 이름으로 판정한다
+  const bare = (s) => s.replace(/^\[[^\]]+\]\s*/, '');
+  // 🔴 일부 이름은 **권을 알아야** 정해진다(타로 「마루」 = 23권이면 무무네, 07·19면 타로네).
+  //    그래서 판정 입력이 이름 하나가 아니라 (권, 이름)이다. byBook → exceptions → rules 순.
+  const resolve = (spec, book, name) =>
+    spec.byBook?.[book]?.[name] ?? spec.exceptions?.[name]
+    ?? spec.rules.find(([pat]) => name.includes(pat))?.[1] ?? null;
+
+  const only = process.argv.slice(2).filter((a) => !a.startsWith('-'));
+  let bad = 0;
+  for (const key of Object.keys(MAP).filter((k) => !k.startsWith('_'))) {
+    if (only.length && !only.includes(key)) continue;
+    const scenes = JSON.parse(fs.readFileSync(path.join(DOCS, key, '_scenes.json'), 'utf8'));
+    const names = new Map();                     // 이름 → 그 이름을 쓰는 권
+    for (const [book, pages] of Object.entries(scenes)) for (const t of Object.values(pages)) {
+      const m = t.match(/<b>장소·시간<\/b>([^<]*)/); if (!m) continue;
+      const h = placeHead(bare(m[1].trim())); if (!h || isBackRef(h)) continue;
+      (names.get(h) ?? names.set(h, new Set()).get(h)).add(book);
+    }
+    const miss = [...names].filter(([n, bs]) => [...bs].some((b) => !resolve(MAP[key], b, n))).map(([n]) => n);
+    bad += miss.length;
+    console.log(`${key.padEnd(9)} 이름 ${String(names.size).padStart(3)} · 시트 ${String(MAP[key].sheets.length).padStart(2)} · 미매칭 ${miss.length}` +
+      (miss.length ? `  🔴 ${miss.slice(0, 8).join(' / ')}${miss.length > 8 ? ' …' : ''}` : ''));
+    if (only.length === 1) {                       // 한 시리즈만 주면 변환표를 찍는다
+      const byTok = new Map();
+      for (const [n, bs] of [...names].sort()) for (const b of bs) {
+        const tok = resolve(MAP[key], b, n) ?? '(미매칭)';
+        const row = `${n}${spec_multi(names, n) ? ` (${b})` : ''}`;
+        (byTok.get(tok) ?? byTok.set(tok, new Set()).get(tok)).add(row);
+      }
+      // 🔴 `ns` 는 Set 이다 — `.length`·`.join` 이 없다. 매칭은 멀쩡한데 **찍는 데서만** 죽었다.
+      for (const [tok, ns] of [...byTok].sort())
+        console.log(`\n**${tok}** (${ns.size})\n  ${[...ns].join(' · ')}`);
+    }
+  }
+  console.log(bad ? `\n🔴 미매칭 ${bad} — 규칙을 채워라` : '\n미매칭 0');
+  process.exit(bad ? 1 : 0);
 }

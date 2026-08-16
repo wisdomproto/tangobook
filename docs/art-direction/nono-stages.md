@@ -34,7 +34,8 @@ same weight of paper. Nothing recedes by getting paler, bluer or softer.`
 |---|---|---|
 | `Alley` | 골목 · 골목 가운데 · 골목 앞쪽 · 눈밭 · 골목 눈밭 · 문간 앞 | 한 골목의 앞·가운데·끝 |
 | `Shop` | 가게 안 · 가게 앞 · 골목 끝 가게 안 · 창턱 · 모이통 · 난로 앞 · 난로 옆 | 가게 창턱에서 골목이 보인다 |
-| `NonoHome` | 마당 · 집 앞 마당 · 노노네 집 창가 · 방 안 창가 | 🔴 **미결 「창가」의 답 — 가게 창가와 다른 집이다** |
+| `NonoHome` | 마당 · 집 앞 마당 · 노노네 집 창가 | 🔴 가게 창가와 **다른 집**(25권) |
+| 🔴 `GuguRoom` | 구구네 방 안 · 방 안 창가 · 창턱 · 커튼 친 방 | **신설**(17권 10쪽 중 8쪽). ⚠️ 앞서 「방 안 창가」를 `NonoHome` 에 넣은 건 오류다 — **17 p1 이 「구구네 방 안」**이라 그대로 두면 화가가 **구구 방을 노노네 집으로** 그린다 |
 | `Hut` | 오두막 · 오두막 앞 골목 | 20권 |
 | `SnowHill` | (눈 언덕 · 썰매) | 08권 |
 
@@ -71,6 +72,15 @@ FIXED PARTS - every one torn by hand, edge fibrous, and NOT ONE MECHANICALLY STR
     fibrous edge of the tear left showing, and the swept snow heaped at one side as a second white
     piece.
   4 COVERED AGAIN - back to state 1, with nothing of state 2 or 3 remaining anywhere.
+  🔴 5 FROZEN (volume 06) - the white piece is GONE and the floor is ONE flat piece of STONE GREY,
+    smooth, with TORN WHITE only at the very edges of the alley. A reflection on it is ONE MORE
+    PIECE OF THE SAME PAPER laid below the wall with 0 interior detail - a smear, never a mirrored
+    copy. 🔴 THE SMOOTH AREA IS THE DANGEROUS AREA, and ash thrown down on it is at most 11 WOOD
+    BROWN specks in ONE BAND - that band is the safe path and it must read as rough against smooth.
+  🔴 6 THAWING (volumes 23, 24) - the white piece has been torn away in PATCHES so wet STONE GREY
+    shows through in the middle and white survives only along the walls. 🔴 THE AREA OF WHITE IS THE
+    CLOCK: it shrinks page by page and never grows back within a volume. Puddles are one flat piece
+    of the darker overlap, 0 reflections.
 
 SPOTS:
   A FROM THE ENTRANCE, wide, eye level: both walls, the spacing running away, the far low wall.
@@ -167,6 +177,15 @@ NOT: no character, no wool green, no lettering or numerals, no fourth paper, no 
 ---
 
 ## §3. 🔴 미결 — 「골목」 2갈래(30쪽) · 「창가」 3갈래(3쪽)
+
+> 🔴 **이 §3 은 판정 근거만 적는다. 이름→토큰 변환의 SSOT 는 `_stage-tokens.json` 이다.**
+> 표 출력·검사 = `node packages/client/scripts/extract-series-stages.mjs --tokens nono` (**미매칭 0** 이어야 한다).
+> 🔴 **쪽 목록은 폐기했다** — 목록과 변환표를 따로 두니 어긋났다(변환표엔 있는데 목록엔 없는 이름이 나왔다).
+> 규칙이 전 이름을 덮으므로 목록이 필요 없고, 「목록 밖이라 안 붙인다」가 생기지 않는다.
+> 🔴 **SPOT**: `_stage-tokens.json` 의 `spots` 가 `null` 인 시트는 **시트명만** 붙인다. 값이 있는 시트도
+> **A/B/C/D 는 카메라가 정하므로 경로표(§4)에서 정한다** — §3 에서 비워 둔 건 빈칸이 아니라 경로표 몫이다.
+> 🔴 **일부 이름은 권을 알아야 정해진다**(`byBook`). 앞 쪽을 읽어야 하는 종류이고, 규칙 파일이 그걸 들고 있다.
+
 
 | SCENE | 결정 | 근거 |
 |---|---|---|

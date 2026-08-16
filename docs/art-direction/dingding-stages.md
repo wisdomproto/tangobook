@@ -65,15 +65,18 @@ FIXED PARTS: the water in each terrace is cut away and is SHEET WHITE, 0 ripples
   at most one shape per page.
 
 SPOTS:
-  A THE WHOLE HILLSIDE, wide, from below: all seven banks, thinning upward, the white channel
-     running the full height of the frame.
+  A THE WHOLE HILLSIDE, wide, from below: all seven banks, thinning upward, the house at the very
+     top, the white channel running the full height of the frame.
   B ON A BANK, eye level along it: the path running away, water on the left, water on the right at
      a lower level - so the two heights are read at once.
+  🔴 E THE PATH GOING DOWN, wide, high: the bank path is NOT level - it crosses the banks and falls,
+     bending back on itself several times as it goes, and several terraces are visible at once at
+     different heights. Use this whenever a page walks from one terrace to another.
   C A NOTCH, close: the gap in one bank, at most 3 cuts wide, water passing through.
   D ONE TERRACE from its edge, medium: the black bank in the foreground, the cut-away water beyond.
 
-PLATE: A, B, C, D once each, plus 🔴 ONE NUMBERED DIAGRAM of the seven banks with Dingding's field
-  marked between 4 and 5, and one panel showing the white channel traced from top edge to bottom
+PLATE: A, B, C, D, E once each, plus 🔴 ONE NUMBERED DIAGRAM of the seven banks with the house and yard
+  above bank 1 and Dingding's field as the top terrace, and one panel showing the white channel traced from top edge to bottom
   edge as a single unbroken white line.
 
 NOT: no character of any kind, no red anywhere on this sheet (the red piece is Dingding's apron
@@ -85,7 +88,7 @@ NOT: no character of any kind, no red anywhere on this sheet (the red piece is D
 ### §1.2 House · Yard · TreeOnBank — 요약 명세
 
 `House` = 방은 검정, 바닥이 흰 슬롯 하나, 면마다 반복 칼자국 하나. 🔴 **등불은 오려 낸 흰 구멍**이고 그
-쪽에서 가장 밝다(18권 등불). `Yard` = 마당 흙은 검정, 마당 옆이 곧 `Terraces` 의 bank 6~7.
+쪽에서 가장 밝다(18권 등불). 🔴 `Yard` = 마당 흙은 검정, **마당은 언덕 꼭대기이고 마당 옆이 곧 `Terraces` 의 bank 1**.
 `TreeOnBank` = 밑동 하나 + 가지, **밑동이 논둑 검정과 이어져 있어야 한다**(안 이어지면 나무가 뜬다).
 
 ---
@@ -161,6 +164,15 @@ NOT: no character, no hands, no red, no lettering or numerals, no floating piece
 
 ## §3. 🔴 미결 「논둑」 17갈래 — 이름 흔들림이 아니라 **축이 안 읽히는 것**
 
+> 🔴 **이 §3 은 판정 근거만 적는다. 이름→토큰 변환의 SSOT 는 `_stage-tokens.json` 이다.**
+> 표 출력·검사 = `node packages/client/scripts/extract-series-stages.mjs --tokens dingding` (**미매칭 0** 이어야 한다).
+> 🔴 **쪽 목록은 폐기했다** — 목록과 변환표를 따로 두니 어긋났다(변환표엔 있는데 목록엔 없는 이름이 나왔다).
+> 규칙이 전 이름을 덮으므로 목록이 필요 없고, 「목록 밖이라 안 붙인다」가 생기지 않는다.
+> 🔴 **SPOT**: `_stage-tokens.json` 의 `spots` 가 `null` 인 시트는 **시트명만** 붙인다. 값이 있는 시트도
+> **A/B/C/D 는 카메라가 정하므로 경로표(§4)에서 정한다** — §3 에서 비워 둔 건 빈칸이 아니라 경로표 몫이다.
+> 🔴 **일부 이름은 권을 알아야 정해진다**(`byBook`). 앞 쪽을 읽어야 하는 종류이고, 규칙 파일이 그걸 들고 있다.
+
+
 미나는 장소를 **상태**로 묶었는데(「물이 빠진 강바닥」), 딩딩은 그 방식으로 안 풀린다. 판정:
 
 🔴 **논둑은 무대가 아니다 — 칸과 칸 사이다.** 17갈래가 전부 「**어느 칸의** 논둑인가」이고, 그건 자리가
@@ -177,16 +189,17 @@ NOT: no character, no hands, no red, no lettering or numerals, no floating piece
 
 | SCENE | → 토큰 |
 |---|---|
-| 논둑 길 · 위쪽 논둑 길 · 위 논둑 길 | `[Terraces/B · 칸 N]` |
+| 논둑 길 · 위쪽 논둑 길 · 위 논둑 길 | `[Terraces/B · 칸 N]` — 🔴 **한 칸을 따라 걸을 때만** |
+| 이리 굽고 저리 굽는 길 · 위에서 아래로 이어지는 줄(19 p7 · 09 p9) | 🔴 **`[Terraces/E]`** — 칸을 가로질러 내려간다 |
 | 맨 위 논둑 · 맨 위 칸 논둑 | `[Terraces/B · 칸 1]` |
-| 딩딩 논 · 딩딩네 칸 논둑 · 딩딩 논 가장자리 논둑 | `[Terraces/D · 칸 4-5]` |
+| 딩딩 논 · 딩딩네 칸 논둑 · 딩딩 논 가장자리 논둑 | `[Terraces/D · 칸 1]` |
 | 아래 논둑 · 아래 칸 논둑 · 맨 아래 논 | `[Terraces/B · 칸 6-7]` |
 | 물 넘어가는 자리 · 물꼬 | `[Terraces/C]` |
 | 나무 아래 논둑 | `[TreeOnBank]` |
 
-**🔴 미결 쪽 목록** (작가 전달용 · 총 13쪽)
-`논둑 길` = 09 p1 · 09 p8 · 10 p3 · 12 p4 · 17 p10 · 19 p5 · 20 p4 · 25 p5
-`논둑` = 21 p5 · 25 p6 · 25 p7 · `논 가장자리` = 07 p2 · 13 p2
+🔴 **칸 번호를 안 정하는 쪽이 있다** — 07 p2 · 09 p8 · 10 p3 · 17 p10 · 20 p4 · 25 p5~p7 은 대본이
+칸을 **상대적으로만** 말한다(「아래 칸」). **이 쪽들은 칸을 비운다 — 빈칸이 아니라 자유다.** 그 대신
+`Terraces/E`(내려가는 길)를 쓰고, 화면에 보이는 칸이 **서로 높이가 다르다는 것만** 지킨다.
 
 ---
 

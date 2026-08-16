@@ -76,6 +76,7 @@ SPOTS:
   B AT THE STILE, medium: wall in the foreground, hill falling away behind.
   C THE GROUND, close, high: rubbed field, lifted highlights, one pressed thing.
   D FROM THE TOP looking down, wide: the wall running away, the farm small below.
+  E AT THE GAP, medium: the fallen stones and the gate, yard visible through it.
 
 PLATE: A, B, C, D once each, plus 🔴 A WALL DIAGRAM marking gap · stile · bend · top end in order,
   plus one HAND PANEL showing the same small area done three ways (rubbed / pressed / lifted).
@@ -141,6 +142,15 @@ NOT: no character, no gorse yellow, no lettering or numerals, 🔴 no white chal
 ---
 
 ## §3. 🔴 미결 — 넷 (42쪽 · 15시리즈 중 최다)
+
+> 🔴 **이 §3 은 판정 근거만 적는다. 이름→토큰 변환의 SSOT 는 `_stage-tokens.json` 이다.**
+> 표 출력·검사 = `node packages/client/scripts/extract-series-stages.mjs --tokens pipo` (**미매칭 0** 이어야 한다).
+> 🔴 **쪽 목록은 폐기했다** — 목록과 변환표를 따로 두니 어긋났다(변환표엔 있는데 목록엔 없는 이름이 나왔다).
+> 규칙이 전 이름을 덮으므로 목록이 필요 없고, 「목록 밖이라 안 붙인다」가 생기지 않는다.
+> 🔴 **SPOT**: `_stage-tokens.json` 의 `spots` 가 `null` 인 시트는 **시트명만** 붙인다. 값이 있는 시트도
+> **A/B/C/D 는 카메라가 정하므로 경로표(§4)에서 정한다** — §3 에서 비워 둔 건 빈칸이 아니라 경로표 몫이다.
+> 🔴 **일부 이름은 권을 알아야 정해진다**(`byBook`). 앞 쪽을 읽어야 하는 종류이고, 규칙 파일이 그걸 들고 있다.
+
 
 | SCENE | 결정 | 종류 |
 |---|---|---|
