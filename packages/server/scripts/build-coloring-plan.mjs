@@ -60,15 +60,27 @@ const ANSWER_RULES = [
   `- Add nothing new: no background, no scenery, no pattern, no text.`,
 ].join('\n');
 
-/** 한 낱말 = 그림 2장. */
-function promptOne() {
+/**
+ * 프롬프트는 **두 번에 나눠 보낸다** — 같은 대화에서 ① 다음에 ②.
+ *
+ * 🔴 한 프롬프트에 "그림 2장"을 시켰더니 **도안만 그리고 색칠본은 안 냈다**(실측). 이미지 모델은
+ *    한 턴에 한 장이다. 그래도 **대화를 갈지 않는 것**이 핵심이다 — 방금 그린 도안이 문맥에 남아
+ *    있어야 선을 다시 안 그린다. 새 대화에 완성된 도안을 다시 올리면 모델이 선을 미세하게 고쳐
+ *    칸과 색 경계가 어긋난다(예전 19장 중 5장이 이걸로 걸렸다).
+ */
+function promptLine() {
   return [
-    `From the attached picture, produce TWO images.`,
-    ``,
-    `IMAGE 1 — a COLORING BOOK PAGE for a 4-year-old. This is not an illustration; it is a page a small child will fill in with colour:`,
+    `From the attached picture, draw a COLORING BOOK PAGE for a 4-year-old.`,
+    `This is not an illustration; it is a page a small child will fill in with colour:`,
     LINEART_RULES,
     ``,
-    `IMAGE 2 — the very same page, coloured in:`,
+    `The subject is: {{subject}}.`,
+  ].join('\n');
+}
+
+function promptAnswer() {
+  return [
+    `Now take the coloring page you just drew and fill it in with colour.`,
     ANSWER_RULES,
     ``,
     `The subject is: {{subject}}.`,
@@ -78,21 +90,26 @@ function promptOne() {
 /**
  * 낱말 여러 개를 한 번에.
  *
- * 🔴 **나오는 순서를 못 박는다** — 20장이 한꺼번에 돌아오면 어느 게 어느 낱말인지 알 방법이
- *    그 순서뿐이다.
+ * 🔴 **나오는 순서를 못 박는다** — 열 장이 한꺼번에 돌아오면 어느 게 어느 낱말인지 알 방법이
+ *    그 순서뿐이다. ②도 같은 순서를 다시 못 박아야 짝이 어긋나지 않는다.
  */
-function promptBatch() {
+function promptBatchLine() {
   return [
-    `Produce TWO images for EACH of the {{n}} subjects listed at the end — {{n2}} images in all.`,
-    `Output them strictly in this order: subject 1 image 1, subject 1 image 2, subject 2 image 1, subject 2 image 2, and so on.`,
-    ``,
-    `IMAGE 1 of each pair — a COLORING BOOK PAGE for a 4-year-old. This is not an illustration; it is a page a small child will fill in with colour:`,
+    `Draw a COLORING BOOK PAGE for a 4-year-old for EACH of the {{n}} subjects listed at the end — {{n}} images, one per subject, strictly in the order listed.`,
+    `These are not illustrations; each is a page a small child will fill in with colour:`,
     LINEART_RULES,
     ``,
-    `IMAGE 2 of each pair — the very same page, coloured in:`,
+    `Subjects:`,
+    `{{subjects}}`,
+  ].join('\n');
+}
+
+function promptBatchAnswer() {
+  return [
+    `Now fill in each of the {{n}} coloring pages you just drew — {{n}} images, in the SAME order as before.`,
     ANSWER_RULES,
     ``,
-    `Subjects:`,
+    `The subjects, in order:`,
     `{{subjects}}`,
   ].join('\n');
 }
