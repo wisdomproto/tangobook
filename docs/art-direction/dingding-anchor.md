@@ -18,11 +18,23 @@ Style: cut paper, 4-6 year old picture book. The whole picture is ONE sheet of b
   NOTHING FLOATS - every black shape stays joined to the rest of the black somewhere, so the picture
   lifts as one connected piece. Interior detail exists only as holes cut through the black. SHADING
   IS ZERO.
+  🔴 A KNIFE NEEDS ROOM TO PASS, SO WHEREVER A CHARACTER MEETS ANY OTHER BLACK THERE IS A HAIRLINE
+  OF THE WHITE SHEET BETWEEN THEM - along the bank under its feet, against a wall behind it, against
+  another character it stands beside. The line is thin and even, the width of the blade, and it
+  follows the whole edge of the figure that touches black. THE FIGURE IS STILL JOINED TO THE PICTURE
+  where it must be - at the feet, at one hand, at a shoulder - so nothing floats; the hairline is the
+  cut between two masses, not a gap around a sticker. 🔴 A CHILD MUST BE ABLE TO FIND THE CHARACTER
+  ON EVERY PAGE. If a figure stands on black and has no hairline, it disappears, and that page is
+  wrong no matter how good the field is.
 
-RENDERING (finish hierarchy): 🔴 A HEAD IS AS BLACK AS THE BODY AND THE ONLY WHITE IN IT IS A HOLE -
-  fields, roofs, trees and animals are black shapes on white, and so is a head; there is no white
-  face plate and no black piece is ever left as an island inside white. Terraces are
-  curved black banks with white water between them, at most 7 banks per page, each bank ONE unbroken
+RENDERING (finish hierarchy): 🔴 THE FACE IS CUT AWAY, NOT PAINTED ON - the head is black like the
+  body and the face is a shape cut clean out of it, so what shows there is the white sheet beneath,
+  the same white as the water. It is the brightest thing on the figure and it is what the eye finds
+  first. 🔴 THE EYES, THE NOSTRIL AND THE MOUTH ARE NOTCHES BITTEN INTO THE EDGE OF THAT CUT-AWAY
+  SHAPE, each one still joined to the black around the head, so NO BLACK PIECE IS EVER LEFT AS AN
+  ISLAND INSIDE WHITE and nothing floats. A snout or a bill is the black that remains between two
+  notches. 🔴 NEVER A WHITE PLATE LAID ON TOP OF A BLACK HEAD, and never eyes painted onto white.
+  Terraces are curved black banks with white water between them, at most 7 banks per page, each bank ONE unbroken
   piece. 🔴 ONE WHITE CHANNEL RUNS FROM THE TOP EDGE TO THE BOTTOM EDGE ON EVERY PAGE AND NEVER
   BREAKS. Repeats are capped: rice in a band at most 9 of one cut comb shape · windows at most 6
   holes · a crowd at most 7 silhouettes with 0 faces and 0 hands; no repeat mirrors its neighbour.
@@ -49,15 +61,18 @@ STAGE CLAUSES (the stage changes what is cut away, not the sheets):
 CHARACTER DESIGN LANGUAGE: animals are cut from the same black sheet, limbs cut as part of the same
   piece, never as separate floating parts. GRADE: bipedal, upright, wearing loose cloth, forelimbs
   are HANDS with no hooves, and everyone is BARE-FOOT in the paddy.
-  🔴 A FACE IS MADE BY WHAT WAS TAKEN AWAY, NOT BY WHAT WAS ADDED. The head is solid cut sheet like
-  the rest of the body and nothing is laid on top of it: 🔴 TWO BIG EYE HOLES, each about a quarter
-  of the width of the head, and a mouth hole only when the mouth is open. 🔴 NEVER A NOSTRIL HOLE -
-  eyes plus a hole where the nose is reads as a skull; a pig's snout and a duck's bill are CUT
-  POSITIVE, solid black bumps on the outline of the head. The mouth hole is never wider than the two
-  eyes together and never a hairline slit. Every hole must leave the black around it connected.
-  🔴 EXPRESSION IS THE SHAPE OF THE HOLE, and the knife may cut it any shape: a round hole is looking,
+  🔴 A FACE IS MADE BY WHAT WAS TAKEN AWAY, NOT BY WHAT WAS ADDED, AND WHAT IS TAKEN AWAY IS THE
+  WHOLE FACE. The muzzle side of the head is cut clean out, about half the width of the head, so the
+  white sheet shows there and the figure can be found on any field. Nothing is laid on top: no white
+  plate, no painted eye. 🔴 THE EYES, THE NOSTRIL AND THE MOUTH ARE NOTCHES BITTEN INTO THE EDGE OF
+  THAT CUT-AWAY SHAPE, each still joined to the black of the head, so no black piece is ever an
+  island inside white. A pig's snout and a duck's bill are the black left standing between two
+  notches, on the outline of the head. The mouth notch is never wider than the two eye notches
+  together and never a hairline slit.
+  🔴 EXPRESSION IS THE SHAPE OF THE NOTCH, and the knife may cut it any shape: a round one is looking,
   a wide oval is startled, a thin lifted crescent is laughing, a crescent bent down is squinting or
-  cross, a hairline slit is shut. There are no eyebrows and no pupils - the hole is the whole eye. THE FOUR: DINGDING a piglet, smallest,
+  cross, a hairline slit is shut. There are no eyebrows and no pupils - the notch is the whole eye.
+  THE FOUR: DINGDING a piglet, smallest,
   the RED apron - 🔴 it has ONE pocket across the front of the belly, cut as a red piece with a slot
   a small animal can crawl into · MOTHER tallest and narrowest, a head cloth, trousers rolled below
   the knee so the calves are bare · GRANDMOTHER widest and shortest, back curved forward, hair in a
@@ -93,8 +108,10 @@ CHARACTER SHEET - dingding-papercut   (all four, one line-up)
   1 blacked out to pure silhouette, the four are still four different shapes.
   2 the grandmother and the mother are told apart by outline alone - bun against head cloth,
     one convex curve against a waist, trousers to the ankle against bare calves.
-  3 no head has a white face plate, and no black piece sits as an island inside white.
-  4 no nostril hole on any face; the snout and the bill are solid black.
+  3 every face is CUT AWAY (white sheet showing through the head), never a white plate laid on top,
+    and no black piece sits as an island inside white - every notch touches the edge.
+  4 🔴 put each figure on a black field: it is still findable, because a hairline of white sheet
+    runs along every edge where it meets that black.
   5 the red apron is on Dingding and on no one else.
 ```
 
@@ -129,7 +146,37 @@ CHARACTER SHEET - dingding-papercut   (all four, one line-up)
 
 ---
 
-## §4. 🔴 얼굴 규칙이 한 앵커 안에서 두 갈래였다 (2026-08-17 · 되돌리지 말 것)
+## §5. 🔴 「캐릭터가 안 보인다」 — 인물과 무대가 같은 검정이었다 (2026-08-17 저녁, 사용자)
+
+쪽 삽화 아홉 컷과 시트 넉 장을 보고 사용자가 신고했다: **「캐릭터가 잘 안 보인다」 ·
+「그림체가 내용을 알아보기 힘들다」 · 「캐릭터 레퍼런스랑 다르게 그려짐」.**
+
+🔴 **렌더 실패가 아니라 앵커가 시킨 대로 나온 것이다.** 앵커가 스스로 이렇게 적어 두었다 —
+`The whole picture is ONE sheet of black paper` · `animals are cut from the same black sheet` ·
+`NOTHING FLOATS - every black shape stays joined`. 논둑도 흙더미도 인물도 같은 검정이고, 게다가
+**인물이 배경 검정에 붙어 있어야 한다**. 아홉 컷에서 인물이 읽히는 것은 전부 **흰 자리 위에 섰을
+때**뿐이었다. 찾을 수 없게 설계돼 있었다.
+
+「레퍼런스와 다르게 그려진다」도 같은 뿌리다 — **떼어 낼 방법이 규격에 없으니 모델이 쪽마다 알아서
+떼어 낸다.** 어떤 쪽은 흰 얼굴로, 어떤 쪽은 크기로, 어떤 쪽은 아예 못 떼고.
+
+**고친 것 둘 — 둘 다 전지가 원래 하는 것이다.** 진짜 전지에서 검은 덩어리 둘이 만나면 칼이 지나갈
+흰 실선 한 겹을 남긴다.
+
+1. **인물 둘레에 종이 한 겹**(`Style` 절) — 인물이 다른 검정과 닿는 자리마다 흰 실선. 인물 제 조각끼리는
+   이어져 있으니 `NOTHING FLOATS` 를 안 깬다. **판정 = 검은 논둑 위에 세워 놓고도 찾아지는가.**
+2. **얼굴은 잘라 낸 흰 자리**(`RENDERING`·`CHARACTER DESIGN LANGUAGE`) — 아래 §4 가 「머리도 통 검정」으로
+   통일했던 것을 **절반 되돌린다**. 🔴 §4 의 논리는 그 자체로 옳았으나 **「찾을 수 있는가」를 안 쟀고**,
+   사용자의 신고가 정확히 그것이었다. 되돌리되 §4 가 든 이유는 살린다 — **흰 판을 얹는 게 아니라
+   얼굴 모양대로 잘라 내고**, 눈·코·입은 그 흰 자리 **가장자리에서 파고든 홈**이라 둘레 검정과 이어진다.
+   섬이 안 생기므로 `NOTHING FLOATS` 도, SCENE 여덟 쪽의 「구멍 모양이 표정」도 그대로 산다.
+
+⚠️ 아래 §4 는 **폐기가 아니라 절반만 뒤집혔다.** 콧구멍 금지 · 눈 크기 하한 · 입 폭 상한 · 시트 뒷장
+흰 종이는 전부 유효하다. 뒤집힌 것은 **「머리 안이 통 검정」 하나**뿐이다.
+
+---
+
+## §4. 🔴 얼굴 규칙이 한 앵커 안에서 두 갈래였다 (2026-08-17 낮 · 절반은 §5 에서 뒤집혔다)
 
 렌더 넉 장이 **한 규칙을 두 가지로 따랐다** — 딩딩·할머니·엄마는 흰 얼굴에 검은 이목구비,
 밍 아저씨만 검은 머리에 뚫린 구멍이라 빈 눈구멍처럼 보였다. 원인은 화가가 아니라 **앵커가 두 곳에서

@@ -176,8 +176,11 @@ function buildSeries(key) {
     }
   }
 
-  const anchorText = (AMD.match(/```\n(STYLE ANCHOR - [\s\S]*?)\n```/) || [])[1];
-  const sheetText = (AMD.match(/```\n(CHARACTER SHEET[\s\S]*?)\n```/) || [])[1] || '';
+  // 🔴 줄바꿈부터 고른다 — 편집기 한 번이 CRLF 로 바꿔 놓으면 아래 정규식이 조용히 빗나가고
+  //    「앵커 블록을 못 찾았다」로 죽는다(2026-08-17 에 실제로 겪었다). 내용 문제로 보이지만 줄 끝이다.
+  const AMD_LF = AMD.replace(/\r\n/g, '\n');
+  const anchorText = (AMD_LF.match(/```\n(STYLE ANCHOR - [\s\S]*?)\n```/) || [])[1];
+  const sheetText = (AMD_LF.match(/```\n(CHARACTER SHEET[\s\S]*?)\n```/) || [])[1] || '';
   if (!anchorText) throw new Error(`${key}: 앵커 블록을 못 찾았다`);
   const slug = anchorText.match(/STYLE ANCHOR - ([a-z0-9-]+)/)[1];
   const anchorName = (AMD.match(/^\| \*\*A?\*?\*?[^|]*\|[^|]*\|/m) ? '' : '') ||
