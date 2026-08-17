@@ -6,3 +6,15 @@ node_modules
 packages/*/dist
 packages/*/node_modules
 .claude
+
+# 빌드/런타임이 안 쓰는 무거운 것들 — 빌드 컨텍스트에서 제외.
+# ⚠️ docs/ 전체는 못 뺀다: 서버가 docs/books/curriculum-master.html 를 런타임에 읽는다
+#    (book-v2-curriculum-seed.service.ts).
+docs/marketing
+docs/superpowers
+docs/art-direction
+packages/server/scripts/_preview-coloring
+packages/server/scripts/_preview-coloring-raw
+packages/server/scripts/_preview-keypoints
+packages/server/scripts/_word-card-cache
+packages/server/scripts/_backup-keyobj-webp

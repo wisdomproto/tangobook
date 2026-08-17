@@ -116,3 +116,8 @@ scratch/
 # 네이버 블로그 로컬 세션 (절대 커밋 금지)
 naver-session.json
 packages/server/naver-session.json
+
+# 마케팅 영상 산출물 — R2·유튜브·IG 로 나가는 결과물이라 저장소에 둘 이유가 없다.
+# 🔴 여기 빠져 있어서 재렌더할 때마다 새 blob 이 쌓였다(ad-reel-phonics.mp4 만 5벌, 히스토리 ~280MB).
+# ⚠️ packages/remotion/public/**/*.mp4 는 제외하지 않는다 — 그건 산출물이 아니라 광고 릴스 **실촬 소재**다.
+docs/marketing/*.mp4
