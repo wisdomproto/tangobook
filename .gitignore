@@ -121,3 +121,7 @@ packages/server/naver-session.json
 # 🔴 여기 빠져 있어서 재렌더할 때마다 새 blob 이 쌓였다(ad-reel-phonics.mp4 만 5벌, 히스토리 ~280MB).
 # ⚠️ packages/remotion/public/**/*.mp4 는 제외하지 않는다 — 그건 산출물이 아니라 광고 릴스 **실촬 소재**다.
 docs/marketing/*.mp4
+
+# 한글 워크지 생성물 — build-worksheet.mjs 가 언제든 다시 만든다.
+# 카드 그림을 data URI 로 박아 33개 파일 7MB 라 git 에 넣지 않는다.
+packages/client/public/worksheet/
