@@ -41,6 +41,8 @@ function promptTemplate() {
     `- Divide the subject into 6 to 12 separate enclosed areas a child can fill one by one — draw the parts that really have different colours (limbs, ears, beak, cheeks, clothing, roof, windows) as their own outlined shapes.`,
     `- NEVER fill a large area with black or any dark colour. Black is only for the outline strokes. Clothes, hair, shoes, doors and windows stay EMPTY WHITE inside, whatever colour the real thing is. Only a tiny detail such as an eye pupil may be solid black.`,
     `- Draw no repeating pattern and no tiny parts: no bricks, stones, planks, wood grain, scales, fur tufts, petals, holes, dots, stripes or spots. A surface made of many pieces becomes ONE smooth empty shape.`,
+    `- A row of repeated bumps along an edge — back spikes, plates, frills, scallops, toes, petals — must be drawn as BUMPS IN THE OUTLINE of the part they sit on, sharing that part's white area. Never outline each bump as its own closed shape.`,
+    `- Every enclosed area must be wide enough for a small finger: no long thin tubes. Draw legs, antennae, tails, stalks and handles as one closed shape at least 1/12 of the page wide, or merge them into the body.`,
     `- Ignore the texture of the reference (wool, felt, watercolour, pencil) and its drop shadow. Keep only WHAT it is.`,
     ``,
     `One single subject, centred, fully inside the frame with a small white margin. No text, no letters, no numbers, no border frame, no background scenery.`,
