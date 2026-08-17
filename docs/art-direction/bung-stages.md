@@ -170,7 +170,6 @@ NOT: no character, no hands, no accent teal, no lettering or numerals, no reflec
 두 배 사이의 물), 이 시리즈에서 **다른 배로 건너가는 것이 곧 집을 나가는 것**이다. 한 시트로 묶으면
 그 사건이 그림에서 사라진다. 퐁이 「할아버지 집 현관」과 정확히 같은 자리다.
 
-**🔴 미결 쪽 목록** (작가 전달용 · 7쪽) `배 안` = 02 p3 · 03 p5 · 11 p8 · 11 p9 · 18 p8 · 22 p1 · 25 p9
 
 ---
 

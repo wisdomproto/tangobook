@@ -159,7 +159,6 @@ NOT: no character, no ribbon blue, no lettering or numerals, no outline, no thir
 | 물레방아 아래 물가 | `MillStream/D` | 좌표 |
 | 개울가 물가 | `MillStream/B` | 좌표 |
 
-**🔴 미결 쪽 목록** (3쪽) `물가` = 07 p3 · 13 p6 · 14 p6 → 전부 `MillStream` 이고 **몇 번 돌 옆인지**만
 정하면 된다(딩딩식 좌표). 15시리즈 중 **미결이 가장 적다**.
 
 ---

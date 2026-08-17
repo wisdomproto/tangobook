@@ -149,7 +149,6 @@ NOT: no character, no hands, no accent orange, no lettering or numerals, no outl
 같은 탁자·같은 줄의 **어느 칸이 누구 것인지**가 세 권의 사건이라, 시트는 **자리 셋의 상대 위치**를 못 박는다
 (왼쪽부터 소소 · 메이 · 루디, 고정). 장소가 아니라 **좌석표**다.
 
-**🔴 미결 쪽 목록** (3쪽) `광장` = 03 p6 · 03 p9 · 17 p6
 
 ---
 

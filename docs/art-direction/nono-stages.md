@@ -21,7 +21,13 @@ same weight of paper. Nothing recedes by getting paler, bluer or softer.`
 앵커: 눈 = 둘째 흰 종이를 **찢어 얹은 것** / 쓸거나 미끄러진 자리 = 그 종이를 **찢어 낸 것**(밑의 회색이
 드러나고 그 가장자리도 섬유질). 🔴 **그러니 이 시리즈에서 「자국」은 그린 선이 아니라 종이가 없는 자리다.**
 01권이 통째로 그 이야기다(자국 하나 없는 눈 → 끊긴 발자국 → 온통 밟힌 눈 → 다시 덮인 눈).
-→ `Alley` 시트는 **바닥 종이 넉 장**(온전 · 자국 · 쓸어 낸 자리 · 다시 덮임)을 함께 굽는다.
+→ `Alley` 시트는 **바닥 종이 여덟 장**을 함께 굽는다(온전 · 자국 · 쓸어 냄 · 다시 덮임 · 언 바닥 ·
+녹는 중 · 🔴 **파낸 구멍** · 🔴 **눈에 그은 자국**).
+
+🔴 **뒤의 둘은 나중에 붙였고, 붙인 이유가 같다 — 종이가 없는 자리의 종류가 하나가 아니다.**
+발자국은 **밟아서** 생긴 작은 구멍이고, 12권은 **손으로 파서** 낸 큰 구멍이며(p3 「파헤쳐진 구멍 둘」·
+p5·p6), 16권은 **손가락으로 그어서** 낸 가는 고리다(p4 「동그라미 셋」·p5 「잔뜩」). 셋 다 그린 선이
+아니라 뜯긴 자리인데 **모양과 크기가 달라서**, 한 상태로 묶으면 화가가 셋을 같은 것으로 그린다.
 
 ⚠️ 셋째로 지킬 것 — `not one mechanically straight edge in this book`. 벽·계단·덧문·문틀이 **다 조금씩
 휜다**. 시트가 자로 잰 듯 반듯하면 컷이 그걸 따라간다.
@@ -68,6 +74,10 @@ FIXED PARTS - every one torn by hand, edge fibrous, and NOT ONE MECHANICALLY STR
   2 TRACKED - the same white piece with footprints; a footprint is a small torn hole where the
     STONE GREY beneath shows, at most 14 of them, in ONE line. 🔴 WHERE THE LINE STOPS IS THE
     SHARPEST EDGE ON THE SHEET.
+    🔴 THE COUNT OF 14 IS FOR PRINTS YOU CAN COUNT. When the book says the snow is trampled ALL
+    OVER (01 p7) or the running is SCRIBBLED ACROSS IT (03 p5), that is not 30 prints - it is ONE
+    AREA torn away in small ragged bites, and it is drawn as one shape with grey showing through,
+    never as a tally. 🔴 IF IT CAN BE COUNTED IT OBEYS 14; IF IT IS A MESS IT IS ONE PIECE.
   3 SWEPT - the white piece TORN AWAY in a curve so a broad area of STONE GREY cobbles is bare, the
     fibrous edge of the tear left showing, and the swept snow heaped at one side as a second white
     piece.
@@ -81,6 +91,18 @@ FIXED PARTS - every one torn by hand, edge fibrous, and NOT ONE MECHANICALLY STR
     shows through in the middle and white survives only along the walls. 🔴 THE AREA OF WHITE IS THE
     CLOCK: it shrinks page by page and never grows back within a volume. Puddles are one flat piece
     of the darker overlap, 0 reflections.
+  🔴 7 DUG (volume 12) - holes torn out of the white piece BY HAND, not by feet. A dug hole is
+    THREE TO FOUR TIMES the width of a footprint, its torn edge raggeder, and the snow taken out of
+    it lies beside it as small white scraps ON TOP of the sheet. At most 6 holes. 🔴 THEY
+    ACCUMULATE ACROSS THE BOOK AND NEVER CLOSE - the last page of that volume still has them, and
+    at dusk they are the only thing left of the digging, read as bare grey with no scraps visible.
+  🔴 8 SCORED (volume 16) - circles a finger drew in the snow. A circle is a THIN TORN RING, one
+    finger wide, grey showing through it, the ring never closing perfectly and never twice the same
+    size. AT MOST 3 WHEN THEY ARE BEING COUNTED (16 p4 says three); when the book says the snow is
+    covered in them (16 p5) it is ONE AREA of overlapping rings, not a tally. 🔴 NOT A DRAWN LINE -
+    if it reads as ink or crayon on top of the paper the medium is broken. It is paper missing.
+    🔴 STATE 8 SITS ON THE HALF OF THE ALLEY THAT IS STILL WHITE while state 3 (swept) holds the
+    other half - 16 p5 splits the screen down the middle and both must be legible in one frame.
 
 SPOTS:
   A FROM THE ENTRANCE, wide, eye level: both walls, the spacing running away, the far low wall.
@@ -88,7 +110,7 @@ SPOTS:
   C THE FLOOR, close, high: the torn white and whatever is or is not on it.
   D FROM THE WALL TOP looking down: the alley floor seen whole, so a track can be read as a line.
 
-PLATE: A, B, C, D once each, plus the FOUR FLOOR STATES drawn as four panels of the same frame,
+PLATE: A, B, C, D once each, plus the EIGHT FLOOR STATES drawn as eight panels of the same frame,
   and one spacing diagram of the doorway intervals.
 
 NOT: no character of any kind, no wool green anywhere on this sheet (the green touches only the one
@@ -103,6 +125,16 @@ NOT: no character of any kind, no wool green anywhere on this sheet (the green t
 창밖 모이통 · 장작 바구니. 🔴 **난로 불빛은 TORN WHITE 를 찢어 얹은 것**이고 그 쪽에서 가장 밝다 —
 05 p4·p6·p10 이 「불빛이 한쪽 면에만 / 앞 가장자리만 / 고르게」로 **면적을 세고 있으므로**, 시트가 그
 흰 조각의 크기 셋을 함께 굽는다. `SPOTS` = A 문 쪽 / B 난로 앞 / C 창턱 / D 가게 구석.
+
+🔴 **`Shop` 에는 SPOT E 「가게 앞바닥」이 붙는다 — 이 시트만이 「어른이 손 댄 바닥」을 갖는다.**
+가게 앞은 골목과 붙어 있지만 `Alley` 가 아니라 여기다(01 p8 · 06 p10 · 16 p8 이 그렇게 붙어 있다).
+이유는 자리가 아니라 **바닥의 임자**다 — 골목 바닥은 아이들이 밟고 지나가는 대로 두지만, 가게 앞은
+할아버지가 **매일 쓸어 놓은** 자리라 세 권이 그 대비를 사건으로 쓴다(16 p8 「다 쓸린 바닥과 안 쓸린
+골목이 어른 뒤에서 갈린다」). 골목으로 묶었으면 그 대비가 한 장 안에서 사라진다.
+`FRONT FLOOR` 상태 셋을 함께 굽는다 — ① **쓸린 바닥**(가게 문 앞이 부채꼴로 돌바닥, 뜯긴 가장자리가
+반원, 쓸어 모은 눈 둔덕 하나가 그 옆에 흰 조각으로) · ② **재를 뿌린 띠**(06 p10 — 언 바닥 위 `WOOD
+BROWN` 알갱이 최대 11이 한 줄. `Alley` 상태 5 와 같은 규칙이고, **그 띠가 가게 문으로 이어진다**) ·
+③ **안 쓸린 채**(눈이 문턱까지 그대로 — 16 p1 의 아침).
 
 ---
 
@@ -176,7 +208,7 @@ NOT: no character, no wool green, no lettering or numerals, no fourth paper, no 
 
 ---
 
-## §3. 🔴 미결 — 「골목」 2갈래(30쪽) · 「창가」 3갈래(3쪽)
+## §3. 🔴 미결 — 「골목」 2갈래 · 「창가」 3갈래
 
 > 🔴 **이 §3 은 판정 근거만 적는다. 이름→토큰 변환의 SSOT 는 `_stage-tokens.json` 이다.**
 > 표 출력·검사 = `node packages/client/scripts/extract-series-stages.mjs --tokens nono` (**미매칭 0** 이어야 한다).
@@ -189,19 +221,16 @@ NOT: no character, no wool green, no lettering or numerals, no fourth paper, no 
 
 | SCENE | 결정 | 근거 |
 |---|---|---|
-| 「골목」 30쪽 · 「가게 앞 골목」 | `Alley` (+ SPOT A/B/C/D) | 한 골목이다. 🔴 **다만 바닥 상태를 같이 적어야 한다** — §4 |
+| 「골목」 · 「가게 앞 골목」 | `Alley` (+ SPOT A/B/C/D) | 한 골목이다. 🔴 **다만 바닥 상태를 같이 적어야 한다** — §4 |
+| 🔴 「가게 앞」 | **`Shop` / SPOT E** | 골목과 붙어 있어도 **바닥의 임자가 다르다** — §1.2 |
 | 「오두막 앞 골목」 | `Hut` | 20권 · 골목 끝 너머 |
-| 「골목 끝 가게 안 창가」 | `Shop` / 창턱 | |
-| 🔴 「노노네 집 창가」 · 「방 안 창가」 | **`NonoHome` / 창가** | **다른 집이다.** 묶었으면 「가게에서 집으로 돌아왔다」가 그림에서 사라진다(퐁이 현관과 같은 종류) |
+| 「골목 끝 가게 안 창가」 · 「창가」(10권) | `Shop` / 창턱 | |
+| 「노노네 집 창가」 · 「마당」(25권) | `NonoHome` | **가게와 다른 집이다.** 묶었으면 「가게에서 집으로 돌아왔다」가 그림에서 사라진다(퐁이 현관과 같은 종류) |
+| 🔴 「방 안 창가」 · 「커튼 친 방」(17권) | **`GuguRoom`** | 🔴 **앞서 이 줄을 `NonoHome` 이라 적었던 것은 오류다** — 17 p1 이 「**구구네** 방 안」이라고 스스로 말한다. §1 은 진작 `GuguRoom` 을 신설해 놓았는데 §3 표만 옛 답을 들고 있었다. 두 곳을 같이 안 고치면 **읽는 쪽이 표를 믿는다** |
 
-**🔴 미결 쪽 목록** (작가 전달용 · 총 33쪽)
-`골목` = 01 p1 · 01 p10 · 03 p5 · 03 p7 · 03 p10 · 06 p1 · 06 p4 · 06 p6 · 06 p7 · 11 p7 · 11 p10 ·
-12 p5 · 12 p6 · 12 p8 · 16 p1 · 16 p5 · 16 p10 · 18 p1 · 22 p3 · 22 p5 · 22 p6 · 22 p7 · 22 p9 ·
-23 p1 · 23 p3 · 23 p5 · 23 p8 · 23 p10 · 24 p6 · 24 p8
-`창가` = 10 p10 · 17 p9 · 17 p10
 
-🔴 **이 시리즈의 미결은 「어느 골목인가」가 아니라 「바닥이 어느 상태인가」다** — 30쪽이 전부 같은 골목이고,
-갈리는 건 눈이 온전한가·밟혔는가·쓸렸는가다. **미나 방식(장소를 상태와 함께 쓴다)이 그대로 듣는다**:
+🔴 **이 시리즈의 미결은 「어느 골목인가」가 아니라 「바닥이 어느 상태인가」다** — 「골목」이라 적힌 쪽은
+전부 같은 골목이고, 갈리는 건 눈이 온전한가·밟혔는가·쓸렸는가·파였는가·그어졌는가다. **미나 방식(장소를 상태와 함께 쓴다)이 그대로 듣는다**:
 `[Alley/A · 온전]` · `[Alley/D · 자국]` · `[Alley/B · 쓸어 냄]`.
 
 ---
@@ -214,9 +243,12 @@ NOT: no character, no wool green, no lettering or numerals, no fourth paper, no 
 | p2~p3 | `Alley` | A · D | ② 자국 | 여섯 쌍이 왼쪽 끝까지 |
 | p4~p6 | `Alley` | B · D | ② 자국 — 🔴 **끊긴 자리** | 그 앞은 아무 자국 없는 흰 종이 |
 | p7 | `Alley` | C | ② 자국 (온통) | 「매끈한 데가 한 곳도 없다」 = 흰 조각이 거의 다 뜯긴 상태 |
-| p8 | `Shop` | 가게 앞 | ③ 쓸어 냄 | 빗자루 자국이 반원 · 눈 둔덕 |
+| p8 | `Shop` | **E 가게 앞바닥** | 앞바닥 ① 쓸린 바닥 | 빗자루 자국이 반원 · 눈 둔덕 |
 | p9~p10 | `Alley` | A | **④ 다시 덮임** | 어제 자국 0 → 다시 이어진 발자국 한 줄 |
 
 🔴 **p7 이 이 권에서 제일 어려운 쪽이다.** 「온통 밟혀 얼룩덜룩」을 **얼룩을 그려서** 내면 이 매체가 깨진다
-(그린 선 0). 흰 조각이 잘게 뜯겨 회색이 여기저기 드러난 상태로 낸다 — 🔴 **상한 14를 넘어도 되는 유일한
-쪽**이고, 그건 낱개가 아니라 **한 덩어리로 뜯긴 면**이기 때문이다.
+(그린 선 0). 흰 조각이 잘게 뜯겨 회색이 여기저기 드러난 상태로 낸다 — 🔴 **상한 14가 안 걸리는 쪽**이고,
+그건 낱개가 아니라 **한 덩어리로 뜯긴 면**이기 때문이다.
+⚠️ 처음엔 여기 「유일한 쪽」이라 적었는데 **03 p5(「어지럽게」)·16 p5(「잔뜩」)가 같은 종류**였다. 예외를
+쪽 이름으로 적으면 같은 종류가 또 나왔을 때 안 걸린다 → **셀 수 있으면 14, 엉망이면 한 조각**이라는
+규칙으로 옮겼다(§1.1 상태 2).
