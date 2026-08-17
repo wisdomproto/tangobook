@@ -15,9 +15,8 @@ STYLE ANCHOR - yuki-inkwash   (Yuki's mountain hamlet through four seasons / one
 Style: black ink and water on absorbent unsized paper, ONE ink, 4-6 year old picture book. 🔴 ONE
   THING IS ONE STROKE - the brush is loaded once and lifted once, and the stroke carries its own
   change of density inside itself: wet and dark where it started, dry and broken where the brush ran
-  out. A stroke is NEVER gone over twice; a second stroke means a second object. Unpainted paper is
-  not white space, it is snow, mist, water and light. SHADING IS ZERO - no modelling, gradient or
-  highlight. 🔴 EXCEPT a shadow LYING ON THE GROUND, which is ONE flat wash with a hard edge and 0
+  out. A stroke is NEVER gone over twice; a second stroke means a second object. SHADING IS ZERO -
+  no modelling, gradient or highlight. 🔴 EXCEPT a shadow LYING ON THE GROUND, which is ONE flat wash with a hard edge and 0
   strokes inside it, never on a body and never on a face.
 
 RENDERING (finish hierarchy): the ink has exactly FIVE steps made with water alone - PAPER, palest
@@ -32,7 +31,7 @@ RENDERING (finish hierarchy): the ink has exactly FIVE steps made with water alo
 PALETTE: PAPER #F2EEE3, snow, mist, water, light, every unpainted place · INK #23211E at five
   strengths made with water only - there is no second pigment in the world · VERMILION #C8452E, 🔴
   the only colour in the book, touching nothing but Yuki's scarf, laid flat with 0 strokes showing.
-  No blue, no green, no brown, no white paint anywhere ever.
+  No white paint anywhere ever.
 
 STAGE CLAUSES (the season changes stroke count and wetness, not the ink):
   SPRING - the most strokes of the year, all short: at most 9 trunks plus at most 30 tip-touches for
@@ -47,13 +46,19 @@ STAGE CLAUSES (the season changes stroke count and wetness, not the ink):
     the brightest thing on the page; a thing being looked for keeps its own outline while what hides
     it is one flat wash with 0 strokes.
 
-CHARACTER DESIGN LANGUAGE: animals are built from the same strokes as the world, the belly left as
-  bare PAPER. GRADE: YUKI is bipedal, upright, wearing cloth, the smallest standing figure. 🔴 THE
+CHARACTER DESIGN LANGUAGE: animals are built from the same strokes as the world. 🔴 A COAT IS NEVER
+  DRAWN - a body is ONE wash laid in one pass with its underside left as bare PAPER, and the two meet
+  where that same stroke ran dry. No hair strokes, no fur texture, no whiskers, no drawn folds in
+  cloth. GRADE: THE FOXES are bipedal, upright and wear cloth; YUKI is the smallest standing figure.
+  🔴 AGE IS THE BRUSH, NOT THE SIZE: a young one is drawn with a full brush and its strokes stay wet
+  almost to the end, an old one with a brush already half spent, so its strokes break along most of
+  their length and its pools stay small. Height alone never tells two of them apart. 🔴 THE
   COMPANION IS FOUR-LEGGED, WEARS NOTHING AND NEVER SPEAKS - its mouth is A DOG'S and is used as a
   dog uses it: panting with the tongue tip out, carrying and tugging things, barking with the head
   thrown back and the throat swelled. What it never does is SPEAK - no word-shaped mouth, no sitting
-  up to address anyone, no speech mark. It is the larger, heavier mass, and what it means is shown
-  by where it stands, what it faces and what its body does.
+  up to address anyone, no speech mark. It is the larger, heavier MASS OF INK - broad and low where
+  the foxes are tall - and what it means is shown by where it stands, what it faces and what its
+  body does.
   🔴 THE FEATURES ARE NOT DRAWN - THEY ARE WHERE THE STROKE WENT DARKEST. A head is ONE loaded
   stroke, and an eye is the place inside it where the brush was pressed hardest and the ink pooled;
   the nose is the wet blunt end of the muzzle stroke; a cheek is where that same stroke ran dry and
@@ -66,8 +71,8 @@ CHARACTER DESIGN LANGUAGE: animals are built from the same strokes as the world,
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
 
-NOT: no airbrush, gradient, glow or 3D render / no stroke gone over twice / no airbrushed mist -
-  mist is bare paper with a hard edge where the ink stops.
+NOT: no airbrush, gradient, glow or 3D render / no airbrushed mist - mist is bare paper with a hard
+  edge where the ink stops.
 ```
 
 🔴 **컷에 붙일 때는 그 쪽 무대의 `STAGE CLAUSES` 한 조항만 붙인다** — 앵커 전문은 3,947자지만 조항 다섯 중 넷을 빼면 실효 3,333자(관통 줄 포함 3,597)라 「그림 한 장 4,500」 예산 안이다. 한 시리즈 = 한 앵커 구조에서 앵커가 3,200 을 넘는 것은 무대를 다 덮기 때문이고, 그 초과분은 **한 쪽에 동시에 쓰이지 않는다**.
@@ -128,3 +133,46 @@ and never on a face.`** 부드러운 음영·그러데이션 금지는 그대로
 **예산** — 둘을 넣으면서 **이 시리즈에 안 쓰이는 문장을 걷어냈다**(3,652 → 3,947 · 쪽에 실제로 붙는 실효 3,333).
 걷어낸 것 = ①`a crowd at most 7 silhouettes…`(캐스트가 셋뿐이라 SCENE 250쪽에 군중 **0회**)
 ②`DENSITY RATION = none.` ③NOT 의 `no white paint and no second pigment`(팔레트가 이미 두 번 말한다).
+
+---
+
+## §4. 🔴 렌더 셋을 보고 고친 자리 셋 (2026-08-17 · 되돌리지 말 것)
+
+`comic-assets/yuki-plan` 의 유키·모모·할머니 시트를 나란히 놓으니 **셋이 서로 다른 그림체**였다 —
+유키는 매끈한 에어브러시 만화, 할머니는 접힘을 다 그린 펜담채 사실화, 모모는 **털 한 올씩 그린** 개.
+개체를 가르는 값은 `yuki-cast.md` 로 갔고, **여기서 고친 것은 세계 규칙 셋뿐**이다.
+
+### ① 🔴 털을 그리지 말라는 조항이 아예 없었다
+
+이 앵커는 동물이 셋인 책인데 **코트·털에 대해 한 줄도 없었다.** 「반복 상한」은 나무·눈에만 걸려 있고,
+털은 그 목록 밖이라 모델이 마음껏 채웠다 — 모모 렌더 한 장이 이 책 한 쪽 획 예산의 몇 배다.
+→ `A COAT IS NEVER DRAWN - a body is ONE wash laid in one pass with its underside left as bare PAPER,
+and the two meet where that same stroke ran dry.` 옷 접힘 금지(할머니 겹옷)도 같은 문장에 붙였다.
+
+⚠️ 옛 문구 `the belly left as bare PAPER` 는 **자기모순이었다** — 여우 둘은 옷을 입는데 배가 맨 종이일
+수 없다. 그 조항을 「옷 안 입은 몸의 아랫면」으로 일반화하면서 해소됐다.
+
+### ② 🔴 할머니가 앵커에 아예 없었다 = 「크기만 다른 유키」
+
+`GRADE: YUKI is … the smallest standing figure.` 뿐이라, 같은 여우인 할머니를 가르는 값이
+**키 하나**였다. 🔴 게다가 시트는 마젠타 배경에 **인물 하나**라 「가장 작다」가 비교 대상이 없어
+아예 안 읽힌다. → `THE FOXES are bipedal…` 로 등급에 넣고, 나이를 **붓 상태**로 옮겼다:
+
+```
+🔴 AGE IS THE BRUSH, NOT THE SIZE: a young one is drawn with a full brush and its strokes stay wet
+  almost to the end, an old one with a brush already half spent, so its strokes break along most of
+  their length and its pools stay small. Height alone never tells two of them apart.
+```
+
+마른 붓 = 나이는 이 매체가 원래 가진 문법이라 **획을 한 개도 안 늘린다**(옷·소품으로 가르면 늘어나고,
+그 순간 「겨울은 획이 가장 적다」는 계절 장치가 죽는다).
+
+### ③ `the larger, heavier mass` → `MASS OF INK`
+
+설계는 모모를 **「작은 개」**라 하고 앵커는 **「더 큰 덩이」**라 해서 부딪혔다. 실제로 부딪히지 않는다 —
+모모는 유키보다 **작고**(어깨가 유키 허리), 큰 것은 키가 아니라 **한 번에 깐 먹 면적**이다. 한 낱말로 못박았다.
+
+**예산** — 3,947 → 4,834(실효 = 무대 조항 하나 붙여 4,077 · 관통 줄까지 4,282). 「그림 한 장 4,500」 안이다.
+넣은 만큼 **중복을 걷어냈다**: ①`Unpainted paper is not white space…`(PALETTE 가 같은 말을 목록으로 한다)
+②`No blue, no green, no brown…`(앞 문장이 「두 번째 안료가 없다」고 이미 말한다) ③NOT 의
+`no stroke gone over twice`(Style 과 관통 줄 `ONE:` 이 두 번 말한다).

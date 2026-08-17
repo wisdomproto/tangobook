@@ -60,7 +60,10 @@ RENDERING (finish hierarchy): a cleared area is not blank - it carries the paral
   tool that cleared it, AT MOST 9 FURROWS PER AREA, all running one way within that area, and the
   direction changes only where one thing ends and another begins. FINISHED THINGS PER PAGE = 2, the
   child the page is about and the one thing that child touches; everything else is a block shape with
-  no interior detail. Repeats are capped and the cap is the whole design: blocks in a tower at most
+  no interior detail. 🔴 A CHILD WHO IS NOT THE SUBJECT OF THE PAGE IS NOT AN EXCEPTION AND IS NOT
+  ERASED EITHER: it loses the face and everything inside its outline, and it KEEPS its own cut
+  silhouette and its one small purple thing. Those two are how the reader counts the class, so they
+  are never what gets dropped. Repeats are capped and the cap is the whole design: blocks in a tower at most
   12 · paper chain links at most 14 · cut snowflakes at most 9 · coat hooks at most 6 · classroom
   windows at most 6 rectangles with 0 frames · shelved jars at most 6 of one shape · fallen leaves at
   most 11 · acorns at most 9 · ducks on the river at most 5 · a village crowd at most 7 flat
@@ -105,9 +108,11 @@ STAGE CLAUSES (the stage changes what the two inks do, never which two they are)
 
 CHARACTER DESIGN LANGUAGE: the animals are built from the same cut blocks as the world - two or three
   shapes with limbs laid over. GRADE: bipedal, standing upright, wearing cloth, 🔴 and ALL FIVE
-  CHILDREN HAVE HANDS, including the gosling, whose wings end in three blunt fingers - this class
-  cuts, folds, digs and builds on every page. Heads and backs are OVERLAP, chests and bellies are
-  SOOT.
+  CHILDREN HAVE HANDS, including the gosling, whose wings end in THREE BLUNT FINGERS and are drawn
+  holding, folding and pressing - never a paddle or a feather tip where a hand should be. The gosling
+  wears cloth like the other four; she is a child of this class and not a bird standing among
+  children. This class cuts, folds, digs and builds on every page. Heads and backs are OVERLAP,
+  chests and bellies are SOOT.
   🔴 THE GAP BETWEEN FIGURES IS THE SENTENCE OF THE PAGE. Each child keeps its own cut silhouette
   with cleared paper all round it, and 🔴 THE WIDTH OF THAT CLEARED PAPER IS WHAT THE PAGE IS SAYING:
   bodies a hand's width apart are together, a child set a whole body-width out from the rest is left
@@ -119,16 +124,37 @@ CHARACTER DESIGN LANGUAGE: the animals are built from the same cut blocks as the
   shrinks, and a shut eye is a single hairline gouge. A small nose or beak; the mouth is ONE gouged
   curve; above each eye ONE short gouged brow. Feeling is in the mouth curve, the brows and the size
   of the chip.
-  THE FIVE, separable at thumbnail size, all the same height: MIO a kitten, two sharp triangle ears
-  and one long tail curved up behind, a PURPLE satchel · BOBO a piglet, a round flat snout and a
-  short curled tail, the widest of the five, a PURPLE cap · LALA a lamb, a head of small carved
-  bumps and no visible ears above them, a PURPLE hairpin · GAGA a gosling, a long neck and a blunt
-  beak, the tallest silhouette by the neck alone, a PURPLE ribbon · DURI a raccoon, a dark band cut
-  straight across the eyes and a tail of at most 5 rings, a PURPLE handkerchief.
-  🔴 EACH CHILD'S PURPLE THING IS ALWAYS VISIBLE AND IS THE ONLY PURPLE ON THE PAGE.
-  TEACHER BAU a big dog, twice a child's height and the widest figure, a long muzzle and two heavy
-  hanging ears, calm and still, hands always occupied with the same work the children are doing.
-  🔴 SHE NEVER WEARS PURPLE and never has an errand of her own.
+  🔴 THE FIVE ARE TOLD APART BY WHAT LEAVES THE OUTLINE, AND NO TWO OF THEM LEAVE IT THE SAME WAY.
+  A mark inside the outline - a band across the eyes, rings on a tail, a snout - is never what tells
+  a child apart, because at the size these figures are printed the inside is gone. All five stand the
+  same height at the shoulder:
+  MIO a kitten - TWO POINTED EARS, sharp upright triangles, the only pointed ear in the class - and
+    ONE TAIL THINNER THAN HIS OWN FOREARM. A PURPLE satchel on a strap across the chest.
+  BOBO a piglet - EARS THAT FOLD OUT SIDEWAYS past the width of his head, so his head is the one head
+    wider than it is tall - NO NECK, head and body one outline with no notch - and NOTHING HANGING
+    BEHIND HIM, his screw tail staying inside the outline. A round flat snout. A PURPLE cap.
+  LALA a lamb - AN OUTLINE WITH NO STRAIGHT EDGE, a border of small fleece bumps running crown to
+    shoulder, the only toothed silhouette in the book. Her ears are small, set low at the side BELOW
+    the top of the fleece, and they lay back, prick up and can be covered by her own hands. A PURPLE
+    hairpin clipped into the fleece.
+  GAGA a gosling - ONE VERTICAL STALK AND NOTHING SIDEWAYS: a neck as long as her body is tall, wings
+    kept inside the body outline when not in use, so nothing at all protrudes at her sides. Taller
+    only by the neck. A PURPLE ribbon where the neck meets the body.
+  DURI a raccoon - LOW ROUND EARS, wider than they are tall, never pointed - and ONE TAIL AS THICK AS
+    HIS OWN LEG, at most 5 rings. A PURPLE handkerchief TIED ROUND HIS NECK, never carried in a hand.
+  🔴 EACH CHILD'S PURPLE THING IS IN FRAME ON EVERY PAGE THAT CHILD IS ON - worn, or set down where
+  the child put it - AND IT IS THE ONLY PURPLE ON THE PAGE.
+  TEACHER BAU a big dog. 🔴 SHE IS TWICE A CHILD'S HEIGHT STANDING, BUT SHE IS KNEELING OR SITTING ON
+  HALF HER PAGES AND HEIGHT IS THEN GONE, so three things carry her and all three survive her sitting
+  down on the floor: HER HEAD IS WIDER THAN IT IS TALL, a long muzzle projecting forward and two heavy
+  ears hanging past the jaw, where every child's head is round or upright and no child has a hanging
+  ear · HER HEM COVERS HER KNEES, a working smock to mid-calf whose hem hides where her legs bend,
+  where every child's legs show from the hip, and kneeling she becomes a low broad mound · HER HANDS
+  ARE AS WIDE AS A CHILD'S HEAD, the biggest shape in whatever she is holding. Crown to shoulder is
+  ONE UNBROKEN DIAGONAL with no neck and no notch, and from behind she is a closed dome with the ears
+  inside the outline. Sleeves rolled above the elbow, always. Her hands hold the work the children are
+  doing. 🔴 SHE NEVER WEARS PURPLE, has no errand of her own and CARRIES NO TOOL OF HER OWN - no
+  pointer, no stick, no bundle.
   🔴 TWO CHILDREN ARE NEVER MERGED INTO ONE SHAPE to fill a hole in the composition.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere - the coat hooks, the
@@ -168,9 +194,14 @@ CHARACTER SHEET - mio kindergarten   (six characters, one sheet)
 SHEET LAYOUT: one oatmeal sheet, six characters standing in a row on a single ground line - 🔴 THE
   FIVE CHILDREN ARE ALL EXACTLY THE SAME HEIGHT, and Teacher Bau is twice any of them and the widest
   figure. Each character is drawn THREE times: front standing, three-quarter walking, and back.
-🔴 ONE EXTRA ROW AT THE FOOT OF THE SHEET: the five children again, side by side, printed as FLAT
-  OVERLAP SILHOUETTES with 0 interior marks and NO PURPLE AT ALL. If the five silhouettes cannot be
-  told apart by ears, snout, beak, neck and tail alone, the sheet is wrong.
+🔴 ONE EXTRA ROW AT THE FOOT OF THE SHEET: ALL SIX, Teacher Bau included, side by side, printed as
+  FLAT OVERLAP SILHOUETTES with 0 interior marks and NO PURPLE AT ALL, each one the height of a
+  thumbnail. THE ROW IS THE TEST AND IT IS JUDGED IN PAIRS: no two of the six may leave their outline
+  the same way. Naming what leaves each one - pointed pair up · folded pair sideways with nothing
+  behind · a toothed edge and nothing protruding · one stalk and nothing sideways · low round pair
+  with a thick tail down · a horizontal three-lobed head over a hem that hides the knees - must
+  produce six different answers. If two answers match, the sheet is wrong however good the row above
+  it looks.
   Nothing else on the sheet - no props, no scenery, no ground beyond the one line.
 🔴 No lettering, numerals, labels or name tags anywhere on the sheet.
 ```
@@ -178,4 +209,9 @@ SHEET LAYOUT: one oatmeal sheet, six characters standing in a row on a single gr
 🔴 시트가 나오면 기획서 §2 카드에 붙여넣는다(R2 `comic-assets/mio-plan`, 키 = 캐릭터 key).
 회차 페이지의 「🎬 이 화 등장」 스트립이 그 이미지를 읽어 온다.
 
-🔴 **`mio-core.js` 의 STYLE 도 이 앵커와 같이 고친다.**
+🔴 **개체 규격(한 사람이 남과 무엇이 다른가)은 여기가 아니라 [`mio-cast.md`](mio-cast.md) 다.**
+빌더가 `## <별칭>` 절을 그 사람 시트 프롬프트에 `[이 인물만의 규격]` 으로 끼운다.
+
+⚠️ 예전 메모 「`mio-core.js` 의 STYLE 도 같이 고친다」는 **지금은 틀렸다** — 시리즈 04~15 는
+`build-series-html.mjs` 가 이 앵커 전문을 주입하므로 `mio-core.js` 는 **산출물**이다(사본을 손으로 드는
+건 01~03 뿐). 앵커를 고쳤으면 `node packages/client/scripts/build-series-html.mjs mio` 만 다시 돌린다.

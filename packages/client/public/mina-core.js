@@ -11,7 +11,7 @@
   'use strict';
 
   var KEY = 'mina';
-  var ANCHOR = { slug: 'mina-dotfolk', name: '앵커 mina-dotfolk', text: "STYLE ANCHOR - mina-dotfolk   (Mina's river village / everything is stamped in dots)\n\nStyle: folk painting stamped in dots on an earth-washed ochre ground, TWO dot colours, 4-6 year old\n  picture book. 🔴 NOTHING IS A CONTINUOUS LINE AND NOTHING IS A FILLED AREA - every shape, edge and\n  surface is separate round dots printed with the tip of a cut reed, all the SAME size on every\n  page. An outline is dots set close enough to touch; a surface is dots set apart. Lightness is\n  spacing and nothing else, and the ochre ground shows between every dot. SHADING IS ZERO - no\n  modelling, gradient or glow. 🔴 EXCEPT a shadow LYING ON THE GROUND, which is an INK field dotted\n  CLOSE with a hard edge - and where it lies inside shade it is dotted TOUCHING so that it still\n  reads. Never on a body and never on a face.\n\nRENDERING (finish hierarchy): dot spacing has exactly FOUR settings - touching, close, open, wide -\n  and one shape uses ONE setting throughout, so a change of spacing is always an edge between two\n  things. 🔴 WHITE DOTS AND INK DOTS ARE NEVER MIXED INSIDE ONE SHAPE; where a white field meets an\n  ink field their dots interleave along a band at most 3 dots wide, the darkest thing available.\n  Repeats are capped: houses behind at most 4, each an ink outline with 0 fill · trees at most 5 · a\n  crowd at most 7 dot-outlines with 0 faces and 0 hands; no repeat mirrors its neighbour. FINISHED\n  THINGS PER PAGE = 2.\n\nPALETTE: GROUND OCHRE #EFE0C4, the earth wash - walls, sky, dust, everything left between the dots ·\n  DOT WHITE #F4EFE4, water, light, cloth, anything wet or bright · DOT INK #2E2A24, bodies, trees,\n  roofs, tools, shade · GOLD #E8A33D, 🔴 Mina's ankle band and nothing else, the ONE thing in the\n  book painted as a solid filled shape with 0 dots, so it is the only smooth thing on any page. No\n  red, no blue, no green.\n\nSTAGE CLAUSES (the stage changes where the two dot colours go, not which two):\n  RIVER - water is a field of WHITE dots and 🔴 THE HEIGHT OF THE RIVER IS HOW MUCH OF THE PAGE THOSE\n    DOTS COVER, given as a fraction of the page width on every river page. Where the river has\n    dropped, bare GROUND shows and it is walkable. 0 ripples, 0 reflections, 0 glints.\n  HOUSE INSIDE - walls bare GROUND, pots and beams INK outlines with 0 fill, lamplight a WHITE dot\n    field and the brightest thing on the page. A thing being looked for is dotted CLOSE; what hides\n    it is dotted WIDE.\n  BANK AND FIELD AT NOON - the sky is bare GROUND edge to edge with 0 dots; only what stands on the\n    earth is dotted, crops are INK dots in at most 9 rows, the path is a lane with 0 dots, and shade\n    is an INK field dotted CLOSE with a hard edge.\n  NIGHT - INK dotted CLOSE covers the sky, WHITE dots are only lamps and the river, the gold band\n    stays solid and is the only unbroken shape on the page.\n\nCHARACTER DESIGN LANGUAGE: animals are dotted like everything else - touching INK dots outline them,\n  OPEN INK dots fill them so the ochre shows through. GRADE: bipedal, upright, a\n  short top and loose trousers, forelimbs are HANDS and everything is carried in them, bare feet -\n  shoes go on ONLY where the ground hurts the feet, the stony field and the stone causeway. 🔴 THE\n  TRUNK STAYS A TRUNK - it drinks, smells, pulls a high thing down and hooks another trunk, and it\n  never picks up or works an object.\n  🔴 A BODY HAS NO OUTLINE - IT IS WHEREVER THE DOTS GOT CLOSE ENOUGH TOGETHER. The dots crowd at the\n  middle of an elephant and thin out towards its edge, so no edge is ever a decided line. Nothing on\n  a figure is drawn: a shoulder, a knee, the fold of an ear, a wrinkle are only changes in how\n  tightly the dots sit, and the ground and the water are stamped the same way.\n  🔴 THE EYE IS THE ONE MARK PLACED EXACTLY. Each eye is a SINGLE SOLID DOT, larger than any other dot\n  in the book, and the only mark on the page whose position was decided instead of accumulated. Its\n  size never changes; shut, it is replaced by one short lying row. A small dark nose; the mouth is\n  ONE curved row of touching dots; ONE short row above each eye, and the feeling is in row and mouth. 🔴 THE THREE are elephant children\n  in a ladder of heights, ELDEST : MINA : YOUNGEST = 5 : 4 : 3, and each one is told apart by ONE\n  thing: ELDEST tallest, a POCKET on the top · MINA middle, THE GOLD ANKLE BAND · YOUNGEST a round\n  belly and a big head.\n\nCANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.\n\nNOT: no airbrush, gradient, glow or 3D render / no continuous drawn line and no brushed area." };
+  var ANCHOR = { slug: 'mina-dotfolk', name: '앵커 mina-dotfolk', text: "STYLE ANCHOR - mina-dotfolk   (Mina's river village / everything is stamped in dots)\n\nStyle: folk painting stamped in dots on an earth-washed ochre ground, TWO dot colours, 4-6 year old\n  picture book. 🔴 NOTHING IS A CONTINUOUS LINE AND NOTHING IS A FILLED AREA - every shape, edge and\n  surface is separate round dots printed with the tip of a cut reed, all the SAME size on every\n  page. An outline is dots set close enough to touch; a surface is dots set apart. Lightness is\n  spacing and nothing else, and the ochre ground shows between every dot. SHADING IS ZERO - no\n  modelling, gradient or glow. 🔴 EXCEPT a shadow LYING ON THE GROUND, which is an INK field dotted\n  CLOSE with a hard edge - and where it lies inside shade it is dotted TOUCHING so that it still\n  reads. Never on a body and never on a face.\n\nRENDERING (finish hierarchy): dot spacing has exactly FOUR settings - touching, close, open, wide -\n  and one shape uses ONE setting throughout, so a change of spacing is always an edge between two\n  things. 🔴 WHITE DOTS AND INK DOTS ARE NEVER MIXED INSIDE ONE SHAPE; where a white field meets an\n  ink field their dots interleave along a band at most 3 dots wide, the darkest thing available.\n  Repeats are capped: houses behind at most 4, each an ink outline with 0 fill · trees at most 5 · a\n  crowd at most 7 dot-outlines with 0 faces and 0 hands; no repeat mirrors its neighbour. FINISHED\n  THINGS PER PAGE = 2.\n\nPALETTE: GROUND OCHRE #EFE0C4, the earth wash - walls, sky, dust, everything left between the dots ·\n  DOT WHITE #F4EFE4, water, light, cloth, anything wet or bright · DOT INK #2E2A24, bodies, trees,\n  roofs, tools, shade · GOLD #E8A33D, 🔴 Mina's ankle band and nothing else, the ONE thing in the\n  book painted as a solid filled shape with 0 dots, so it is the only smooth thing on any page. No\n  red, no blue, no green.\n\nSTAGE CLAUSES (the stage changes where the two dot colours go, not which two):\n  RIVER - water is a field of WHITE dots and 🔴 THE HEIGHT OF THE RIVER IS HOW MUCH OF THE PAGE THOSE\n    DOTS COVER, given as a fraction of the page width on every river page. Where the river has\n    dropped, bare GROUND shows and it is walkable. 0 ripples, 0 reflections, 0 glints.\n  HOUSE INSIDE - walls bare GROUND, pots and beams INK outlines with 0 fill, lamplight a WHITE dot\n    field and the brightest thing on the page. A thing being looked for is dotted CLOSE; what hides\n    it is dotted WIDE.\n  BANK AND FIELD AT NOON - the sky is bare GROUND edge to edge with 0 dots; only what stands on the\n    earth is dotted, crops are INK dots in at most 9 rows, the path is a lane with 0 dots, and shade\n    is an INK field dotted CLOSE with a hard edge.\n  NIGHT - INK dotted CLOSE covers the sky, WHITE dots are only lamps and the river, the gold band\n    stays solid and is the only unbroken shape on the page.\n\nCHARACTER DESIGN LANGUAGE: animals are dotted like everything else - touching INK dots outline them,\n  OPEN INK dots fill them so the ochre shows through. GRADE: bipedal, upright, a\n  short top and loose trousers, forelimbs are HANDS and everything is carried in them, bare feet -\n  shoes go on ONLY where the ground hurts the feet, the stony field and the stone causeway. 🔴 THE\n  TRUNK STAYS A TRUNK - it drinks, smells, pulls a high thing down and hooks another trunk, and it\n  never picks up or works an object.\n  🔴 A BODY HAS NO OUTLINE - IT IS WHEREVER THE DOTS GOT CLOSE ENOUGH TOGETHER. The dots crowd at the\n  middle of an elephant and thin out towards its edge, so no edge is ever a decided line. Nothing on\n  a figure is drawn: a shoulder, a knee, the fold of an ear, a wrinkle are only changes in how\n  tightly the dots sit, and the ground and the water are stamped the same way.\n  🔴 THE EYE IS THE ONE MARK PLACED EXACTLY. Each eye is a SINGLE SOLID DOT, larger than any other dot\n  in the book, and the only mark on the page whose position was decided instead of accumulated. Its\n  size never changes; shut, it is replaced by one short lying row. A small dark nose; the mouth is\n  ONE curved row of touching dots; ONE short row above each eye, and the feeling is in row and mouth. 🔴 THE THREE are elephant children\n  in a ladder of heights, ELDEST : MINA : YOUNGEST = 5 : 4 : 3. 🔴 EACH ONE IS TOLD APART FIRST BY\n  OUTLINE - where the dots crowd and where the hems fall, given per figure on that figure's sheet -\n  BECAUSE A PAGE OFTEN HOLDS ONLY ONE OF THEM AND THE LADDER CANNOT BE READ. The small marks only\n  confirm: ELDEST a POCKET on the top · MINA THE GOLD ANKLE BAND · YOUNGEST a round belly and a big\n  head.\n\nCANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.\n\nNOT: no airbrush, gradient, glow or 3D render / no continuous drawn line and no brushed area." };
   var FIXED_CHARS = [
   {
     "key": "mina",
@@ -19,7 +19,8 @@
     "aliases": [
       "미나",
       "Mina elephant"
-    ]
+    ],
+    "spec": "BUILD: middle of three, height 4 on the 5 : 4 : 3 ladder. Head is 1/4.5 of her height.\n  Shoulders and hips the SAME width - she is the one with no exaggeration anywhere, and her dots sit\n  evenly from top to bottom. Read alone, she is the plain one between a column and a bell.\nCLOTH: the short top ends at the hip, and the loose trousers run FULL LENGTH and stop one hand above\n  the ankle. So the only bare skin below her top is the ankle itself - the two hard hem edges on her\n  body sit LOW (hip, ankle), the opposite of the eldest.\nGOLD: one GOLD ankle band on bare skin at that hem, on one ankle only. It is the only solid filled\n  shape on any page and it belongs to her. She wears no other gold.\nEYES: the two eye-dots sit at the middle setting - neither close nor wide, halfway up the head.\nEARS: ears are medium against her head, between the eldest's and the youngest's."
   },
   {
     "key": "raju",
@@ -27,7 +28,8 @@
     "aliases": [
       "라주",
       "Raju elephant"
-    ]
+    ],
+    "spec": "BUILD: eldest, tallest, height 5 on the 5 : 4 : 3 ladder. Head is 1/5 of his height - the SMALLEST\n  head against the body of the three. His dots crowd at the SHOULDERS, which are the widest part of\n  him, and thin downward, so his outline is an upright tapering column with long straight legs and a\n  clear gap between them.\nCLOTH: the short top ends ABOVE the waist and the loose trousers are ROLLED TWICE ABOVE THE KNEE, the\n  roll a band of touching dots. His shins and feet are bare. Both hard hem edges sit HIGH on the body.\n  A POCKET on the top - it is a detail that confirms him, never the thing that identifies him.\nEYES: the two eye-dots sit CLOSE together and HIGH on the head.\nEARS: ears are the smallest against his head of the three children."
   },
   {
     "key": "sonu",
@@ -35,7 +37,8 @@
     "aliases": [
       "소누",
       "Sonu elephant"
-    ]
+    ],
+    "spec": "BUILD: youngest, height 3 on the 5 : 4 : 3 ladder. Head is 1/3 of his height, so his head is as big\n  in absolute size as the eldest's. His dots crowd LOW: the round BELLY is the widest part of the\n  whole body and there is no waist, so his outline is a bell standing on two short legs.\nCLOTH: the short top is one size TOO BIG - it has slipped off ONE shoulder and hangs to mid-thigh, so\n  only a little of the loose trousers shows below it. That fallen shoulder is an outline nobody else\n  in the book has. He wears no gold.\nEYES: the two eye-dots sit WIDE apart and LOW on the head.\nEARS: ears are the largest against his head of the three children."
   },
   {
     "key": "mother",
@@ -43,7 +46,8 @@
     "aliases": [
       "엄마",
       "Mother elephant"
-    ]
+    ],
+    "spec": "BUILD: the adult. ADULT : ELDEST = 8 : 5. Head is 1/6 of her height, the smallest head against the\n  body of anyone in the book.\nCLOTH: 🔴 ONE LONG PLAIN CLOTH, wrapped over one shoulder and falling unbroken to the ankles, so her\n  dots run in ONE MASS from shoulder to ground and SHE IS THE ONLY FIGURE WITH NO GAP BETWEEN THE\n  LEGS. Every child shows two legs and a gap; she never does. The hem stops at the ankle and her feet\n  show. The cloth is plain - no pattern, no border, no jewellery, and no gold anywhere on her.\nEYES: the two eye-dots sit CLOSE together and HIGH on the head, like the eldest's.\nEARS: ears are large but small against her head, the smallest head-to-ear ratio in the book."
   }
 ];
   var FACE = {"mina":"🐘","raju":"🐘","sonu":"🐘","mother":"🐘"};
@@ -154,7 +158,8 @@
     var head = [
       ANCHOR.text,
       '',
-      '[캐릭터 레퍼런스] 위 CHARACTER DESIGN LANGUAGE 가 각 인물의 규격이다. 아래 @imageN 순서대로 시트를 첨부하고,',
+      '[캐릭터 레퍼런스] 위 CHARACTER DESIGN LANGUAGE 는 이 세계 전체의 규격이고, 각 인물의 규격은 첨부한 시트다.',
+      '아래 @imageN 순서대로 시트를 첨부하고,',
       '얼굴·비율·색은 시트와 100% 동일하게 유지한다. @image1~' + NF + ' = 고정 캐스트(항상 이 순서), @image9~ = 이 화 단역.',
       castLegend(pages),
       '※ 각 쪽 [등장]에 적힌 @imageN 만 그 컷에 그린다. 나머지는 넣지 않는다.',
@@ -176,14 +181,20 @@
   function sheetPrompt(charOrKey) {
     var g = typeof charOrKey === 'string' ? ALL.find(function (c) { return c.key === charOrKey; }) : charOrKey;
     if (!g) return '';
+    // 🔴 시트는 마젠타 배경에 인물 하나다 — 무대 조항(마을·비·물·밤)이 들어갈 자리가 없고,
+    //    개체를 가르라는 지시를 그만큼 묽게 만든다. 컷 프롬프트(composeBatchPrompt)에서는 그대로 쓴다.
+    var world = ANCHOR.text.replace(/\nSTAGE CLAUSES[\s\S]*?(?=\n[A-Z])/, '');
     return [
-      ANCHOR.text,
+      world,
       '',
       '[출력] 정사각 1024x1024. 배경은 순수 마젠타 #FF00FF 단색, 인물을 가운데 두고 여백 8%.',
       '바닥 그림자 없음, 글자·라벨 없음, 다른 인물 없음.',
       '[인물] ' + g.name + (g.aliases[1] ? ' — ' + g.aliases[1] : '') + '. 위 CHARACTER DESIGN LANGUAGE 의 규격을 그대로 따른다.',
+      // 🔴 이 줄이 없으면 한 시리즈의 넷이 **이름만 다른 같은 지시**를 받는다. 앵커는 그 세계 전체를
+      //    말하지 한 사람을 말하지 않으므로, 개체를 가르는 것은 여기서 들어와야 한다.
+      g.spec ? '[이 인물만의 규격 — 위 규격에 덧쓴다]\n' + g.spec : null,
       '[배치] 같은 인물을 한 장에 — 전신 정면, 3/4 걷는 모습, 뒷모습. 이 인물 하나만.',
-    ].join('\n');
+    ].filter(function (l) { return l !== null; }).join('\n');
   }
 
   function collectPages() {

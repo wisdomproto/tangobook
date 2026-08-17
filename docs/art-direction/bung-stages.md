@@ -66,7 +66,8 @@ somewhere inside it, so this drawing decides the boat once, and it names its par
   A hooped awning covers parts 2-4; the bow and stern are open to the sky.
 
 BLOCKS: planks RIVER, the awning cloth LEAF, the pot and ironwork OVERLAP, produce LEAF, baskets
-  RIVER. The plank's grain stays visible inside every colour area. 🔴 LAMPLIGHT IS UNPRINTED PAPER
+  RIVER. The plank's grain stays visible inside every colour area on this sheet - grain belongs
+  to the stage; a body carries none. 🔴 LAMPLIGHT IS UNPRINTED PAPER
   and is the brightest thing in the boat.
 
 🔴 THE KEY BLOCK - every outline is on it and it prints LAST, on top of the colour. IT LANDS ONE
@@ -90,7 +91,7 @@ PLATE: A, B, C, D once each, plus 🔴 A PART DIAGRAM naming bow / cooking place
   stern in order, plus one panel showing the same object floating (outlined) and sunken (no
   outline) side by side.
 
-NOT: no character of any kind, no accent teal anywhere on this sheet (the teal is Bung's nose-rope
+NOT: no character of any kind, no accent teal anywhere on this sheet (the teal is the cord at Bung's neck
   and the little one's bell cord only), no lettering, numerals or shop signs, no reflection or
   mirrored image in the water, no ripple or glint, no third colour that is not an overprint, no
   key outline on a submerged thing, no corrected registration, no shading, gradient, glow or soft

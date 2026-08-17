@@ -11,7 +11,7 @@
   'use strict';
 
   var KEY = 'dingding';
-  var ANCHOR = { slug: 'dingding-papercut', name: '앵커 dingding-papercut', text: "STYLE ANCHOR - dingding-papercut   (Dingding's terraced fields / one black sheet, cut with a knife)\n\nStyle: cut paper, 4-6 year old picture book. The whole picture is ONE sheet of black paper with\n  shapes cut out of it, laid on a white sheet - the white is never painted, it is the sheet beneath.\n  Every edge is a knife edge: crisp, faceted where the blade turned, never torn, never soft. 🔴\n  NOTHING FLOATS - every black shape stays joined to the rest of the black somewhere, so the picture\n  lifts as one connected piece. Interior detail exists only as holes cut through the black. SHADING\n  IS ZERO.\n\nRENDERING (finish hierarchy): 🔴 THE WORLD IS CUT POSITIVE AND THE FACES ARE CUT NEGATIVE - fields,\n  roofs, trees and animals are black shapes on white, but a head is a black rim holding a WHITE face\n  inside it, and the eyes and mouth are small black pieces left uncut in that white. Terraces are\n  curved black banks with white water between them, at most 7 banks per page, each bank ONE unbroken\n  piece. 🔴 ONE WHITE CHANNEL RUNS FROM THE TOP EDGE TO THE BOTTOM EDGE ON EVERY PAGE AND NEVER\n  BREAKS. Repeats are capped: rice in a band at most 9 of one cut comb shape · windows at most 6\n  holes · a crowd at most 7 silhouettes with 0 faces and 0 hands; no repeat mirrors its neighbour.\n  FINISHED THINGS PER PAGE = 2. 🔴 A SHADOW LYING ON THE GROUND OR ON THE WATER IS ANOTHER CUT BLACK\n  SHAPE with the same knife edge - never a grey area and never soft, and never on a body or a face.\n\nPALETTE: SHEET WHITE #F7F4EC, water, sky, light, every cut-away place · CUT BLACK #1C1A17, one\n  sheet, everything not cut away · FAR GREY #B9B5A8, 🔴 a second sheet BEHIND the black, never in\n  front, at most ONE shape per page, far ridge only, 0 holes in it · RED #C62828, 🔴 one small piece\n  laid on top of the black, Dingding's apron and nothing else. No other colour exists.\n\nSTAGE CLAUSES (the stage changes what is cut away, not the sheets):\n  TERRACES - black banks and white water in alternating bands narrowing upward; depth is bands\n    getting THINNER toward the top, never greyer. A path is one white ribbon and figures stand ON it.\n  WATER GATE - the gap in a bank is a white notch at most 3 cuts wide, and how much water moves is\n    shown by that width and by nothing else.\n  HOUSE INSIDE - the room is black with the floor left as one white slot and each surface given ONE\n    repeated cut mark that may run off an edge but is never redrawn. 🔴 LAMPLIGHT AND FIRELIGHT ARE\n    CUT AWAY - white holes, the brightest thing on the page. A thing being looked for is cut with\n    its own outline; what hides it is the repeated mark.\n  NIGHT - the black covers the sky too, the white channel stays cut, windows at most 6 holes.\n    Nothing is added; night is simply less cut away.\n\nCHARACTER DESIGN LANGUAGE: animals are cut from the same black sheet, limbs cut as part of the same\n  piece, never as separate floating parts. GRADE: bipedal, upright, wearing loose cloth, forelimbs\n  are HANDS with no hooves, and everyone is BARE-FOOT in the paddy.\n  🔴 A FACE IS MADE BY WHAT WAS TAKEN AWAY, NOT BY WHAT WAS ADDED. The head is solid cut sheet like\n  the rest of the body, and the eyes, the nostril and the mouth are HOLES cut clean through it, so\n  the paper behind shows through them and nothing is ever laid on top of a face.\n  🔴 EXPRESSION IS THE SHAPE OF THE HOLE, and the knife may cut it any shape: a round hole is looking,\n  a wide oval is startled, a thin lifted crescent is laughing, a crescent bent down is squinting or\n  cross, a hairline slit is shut. There are no eyebrows and no pupils - the hole is the whole eye. THE THREE: DINGDING a piglet, smallest,\n  the RED apron - 🔴 it has ONE pocket across the front of the belly, cut as a red piece with a slot\n  a small animal can crawl into · MOTHER tallest · GRANDMOTHER widest and shortest, back curved forward.\n\nCANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.\n\nNOT: no airbrush, gradient, glow or 3D render / no torn, soft or feathered edge / no drawn or\n  painted outline anywhere / no floating piece unjoined from the black sheet." };
+  var ANCHOR = { slug: 'dingding-papercut', name: '앵커 dingding-papercut', text: "STYLE ANCHOR - dingding-papercut   (Dingding's terraced fields / one black sheet, cut with a knife)\n\nStyle: cut paper, 4-6 year old picture book. The whole picture is ONE sheet of black paper with\n  shapes cut out of it, laid on a white sheet - the white is never painted, it is the sheet beneath.\n  Every edge is a knife edge: crisp, faceted where the blade turned, never torn, never soft. 🔴\n  NOTHING FLOATS - every black shape stays joined to the rest of the black somewhere, so the picture\n  lifts as one connected piece. Interior detail exists only as holes cut through the black. SHADING\n  IS ZERO.\n\nRENDERING (finish hierarchy): 🔴 A HEAD IS AS BLACK AS THE BODY AND THE ONLY WHITE IN IT IS A HOLE -\n  fields, roofs, trees and animals are black shapes on white, and so is a head; there is no white\n  face plate and no black piece is ever left as an island inside white. Terraces are\n  curved black banks with white water between them, at most 7 banks per page, each bank ONE unbroken\n  piece. 🔴 ONE WHITE CHANNEL RUNS FROM THE TOP EDGE TO THE BOTTOM EDGE ON EVERY PAGE AND NEVER\n  BREAKS. Repeats are capped: rice in a band at most 9 of one cut comb shape · windows at most 6\n  holes · a crowd at most 7 silhouettes with 0 faces and 0 hands; no repeat mirrors its neighbour.\n  FINISHED THINGS PER PAGE = 2. 🔴 A SHADOW LYING ON THE GROUND OR ON THE WATER IS ANOTHER CUT BLACK\n  SHAPE with the same knife edge - never a grey area and never soft, and never on a body or a face.\n\nPALETTE: SHEET WHITE #F7F4EC, water, sky, light, every cut-away place · CUT BLACK #1C1A17, one\n  sheet, everything not cut away · FAR GREY #B9B5A8, 🔴 a second sheet BEHIND the black, never in\n  front, at most ONE shape per page, far ridge only, 0 holes in it · RED #C62828, 🔴 one small piece\n  laid on top of the black, Dingding's apron and nothing else. No other colour exists.\n\nSTAGE CLAUSES (the stage changes what is cut away, not the sheets):\n  TERRACES - black banks and white water in alternating bands narrowing upward; depth is bands\n    getting THINNER toward the top, never greyer. A path is one white ribbon and figures stand ON it.\n  WATER GATE - the gap in a bank is a white notch at most 3 cuts wide, and how much water moves is\n    shown by that width and by nothing else.\n  HOUSE INSIDE - the room is black with the floor left as one white slot and each surface given ONE\n    repeated cut mark that may run off an edge but is never redrawn. 🔴 LAMPLIGHT AND FIRELIGHT ARE\n    CUT AWAY - white holes, the brightest thing on the page. A thing being looked for is cut with\n    its own outline; what hides it is the repeated mark.\n  NIGHT - the black covers the sky too, the white channel stays cut, windows at most 6 holes.\n    Nothing is added; night is simply less cut away.\n\nCHARACTER DESIGN LANGUAGE: animals are cut from the same black sheet, limbs cut as part of the same\n  piece, never as separate floating parts. GRADE: bipedal, upright, wearing loose cloth, forelimbs\n  are HANDS with no hooves, and everyone is BARE-FOOT in the paddy.\n  🔴 A FACE IS MADE BY WHAT WAS TAKEN AWAY, NOT BY WHAT WAS ADDED. The head is solid cut sheet like\n  the rest of the body and nothing is laid on top of it: 🔴 TWO BIG EYE HOLES, each about a quarter\n  of the width of the head, and a mouth hole only when the mouth is open. 🔴 NEVER A NOSTRIL HOLE -\n  eyes plus a hole where the nose is reads as a skull; a pig's snout and a duck's bill are CUT\n  POSITIVE, solid black bumps on the outline of the head. The mouth hole is never wider than the two\n  eyes together and never a hairline slit. Every hole must leave the black around it connected.\n  🔴 EXPRESSION IS THE SHAPE OF THE HOLE, and the knife may cut it any shape: a round hole is looking,\n  a wide oval is startled, a thin lifted crescent is laughing, a crescent bent down is squinting or\n  cross, a hairline slit is shut. There are no eyebrows and no pupils - the hole is the whole eye. THE FOUR: DINGDING a piglet, smallest,\n  the RED apron - 🔴 it has ONE pocket across the front of the belly, cut as a red piece with a slot\n  a small animal can crawl into · MOTHER tallest and narrowest, a head cloth, trousers rolled below\n  the knee so the calves are bare · GRANDMOTHER widest and shortest, back curved forward, hair in a\n  bun, wide trousers to the ankle · MING a grown duck in a sleeveless VEST, the only bird.\n\nCANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.\n\nNOT: no airbrush, gradient, glow or 3D render / no torn, soft or feathered edge / no drawn or\n  painted outline anywhere / no floating piece unjoined from the black sheet." };
   var FIXED_CHARS = [
   {
     "key": "dingding",
@@ -19,7 +19,8 @@
     "aliases": [
       "딩딩",
       "Dingding piglet"
-    ]
+    ],
+    "spec": "THE CHILD, and the only one who carries red.\nHEAD - the smallest head and the largest against its own body. 🔴 THE EARS FOLD FORWARD AND DOWN,\n  the tips hanging past the eye - a baby's ears, and no adult has them. A short round snout cut\n  positive, tipped a little up.\nEYES - the biggest holes of the four against the size of the head. Set wide apart and low.\nBUILD - half the mother's height. Round belly, no neck, short arms. Barefoot.\nCLOTHES - a loose over-shirt to the hip, and over it the RED APRON #C62828, the only red piece in\n  the whole series. 🔴 ONE POCKET ACROSS THE FRONT OF THE BELLY, cut as a slot in the red wide\n  enough for a small animal to crawl into. Shoulder straps over the shirt.\n🔴 In the two volumes where the apron leaves him he wears the shirt alone - no second apron in\n  another colour is ever invented.\n🔴 Eye and mouth holes show SHEET WHITE #F7F4EC (a sheet hidden behind the head), never the magenta."
   },
   {
     "key": "granny",
@@ -27,7 +28,8 @@
     "aliases": [
       "할머니",
       "Grandma pig"
-    ]
+    ],
+    "spec": "THE OLDEST. Read her before you read her clothes: she is a shape, not an outfit.\nHEAD - 🔴 HAIR GATHERED IN A BUN AT THE BACK OF THE HEAD, cut as a round black knob standing off the\n  back of the skull. This is the fastest way to tell her from the mother at any size, so it must\n  break the outline and is never hidden by an arm. Ears long and drooping sideways, tips low.\nBUILD - 🔴 THE SHORTEST ADULT AND THE WIDEST. The back is curved forward so that the line from the\n  back of the head down to the hip is ONE CONVEX CURVE with no waist anywhere in it. Sloping\n  shoulders, short neck, weight low.\nCLOTHES - a sleeveless vest over a long-sleeved shirt, and 🔴 WIDE TROUSERS DOWN TO THE ANKLE, so her\n  legs are two wide black columns. Sleeves stay down to the wrist. Barefoot in the paddy.\n🔴 AGAINST THE MOTHER, and the drawing fails if any of the three is missing: bun against head cloth ·\n  one convex curve against a waist · trousers to the ankle against bare calves.\nNOT - no red anywhere on her, no apron, no head cloth.\n🔴 Eye and mouth holes show SHEET WHITE #F7F4EC (a sheet hidden behind the head), never the magenta."
   },
   {
     "key": "mom",
@@ -35,7 +37,8 @@
     "aliases": [
       "엄마",
       "Mama pig"
-    ]
+    ],
+    "spec": "THE WORKING ADULT, and the tallest thing in the series.\nHEAD - 🔴 A WORKING HEAD CLOTH TIED OVER THE HEAD, its knot and ONE HANGING CORNER cut into the\n  outline - she carries baskets on her head and the cloth is the pad for it. No bun, and no hair\n  shows. Ears stand up and point back. A longer, straighter snout than the child's.\nBUILD - 🔴 THE TALLEST OF THE FOUR AND THE NARROWEST, standing straight, long legs, long neck.\n  The top nips in at the waist and its hem is a curve that dips lower at the side.\nCLOTHES - 🔴 SLEEVES PUSHED UP ABOVE THE ELBOW so the forearms are bare, and 🔴 TROUSERS ROLLED TO\n  BELOW THE KNEE so the calves are bare and the trouser hem cuts a line across the shin. Barefoot.\n🔴 The rolled sleeves and rolled trousers are permanent - she is drawn mid-work even when she is\n  standing still, and that is what says she is not the grandmother.\nNOT - no red anywhere on her, no apron, no bun, no vest.\n🔴 Eye and mouth holes show SHEET WHITE #F7F4EC (a sheet hidden behind the head), never the magenta."
   },
   {
     "key": "ming",
@@ -43,7 +46,8 @@
     "aliases": [
       "밍 아저씨",
       "Ming duck"
-    ]
+    ],
+    "spec": "🔴 THE ONLY BIRD. Everyone else is a pig, and the head must say so before anything else does.\nHEAD - a low round crown with 🔴 NO EARS AT ALL, and a FLAT BILL cut positive, blunt and at least a\n  third of the width of the head. No snout. 🔴 The bill is one solid black piece joined to the head -\n  no nostril hole, no line drawn along it, no white anywhere in it.\nMOUTH - 🔴 HIS MOUTH IS THE BILL OPENING, not a hole in the face: the bill splits into an upper and a\n  lower piece with a white wedge cut between them, and that wedge is the whole mouth. With the bill\n  shut there is no mouth at all, only the two eye holes. A smile is the whole bill tilting up.\nEYES - two holes, round, set high on the crown and close together.\nBUILD - a grown man, about as tall as the grandmother and heavier through the chest. Flat webbed\n  feet, always bare, and wider than any other foot in the series.\nCLOTHES - a sleeveless VEST over a plain shirt and loose trousers; the vest opening is one straight\n  cut down the middle of the chest and its hem sits above the hip. He wears it on every page he\n  appears in, wet or dry.\nNOT - no red anywhere, no apron, no head cloth, no bun, no hat.\n🔴 Eye and mouth holes show SHEET WHITE #F7F4EC (a sheet hidden behind the head), never the magenta."
   }
 ];
   var FACE = {"dingding":"🐷","granny":"🐷","mom":"🐷","ming":"🦆"};
@@ -154,7 +158,8 @@
     var head = [
       ANCHOR.text,
       '',
-      '[캐릭터 레퍼런스] 위 CHARACTER DESIGN LANGUAGE 가 각 인물의 규격이다. 아래 @imageN 순서대로 시트를 첨부하고,',
+      '[캐릭터 레퍼런스] 위 CHARACTER DESIGN LANGUAGE 는 이 세계 전체의 규격이고, 각 인물의 규격은 첨부한 시트다.',
+      '아래 @imageN 순서대로 시트를 첨부하고,',
       '얼굴·비율·색은 시트와 100% 동일하게 유지한다. @image1~' + NF + ' = 고정 캐스트(항상 이 순서), @image9~ = 이 화 단역.',
       castLegend(pages),
       '※ 각 쪽 [등장]에 적힌 @imageN 만 그 컷에 그린다. 나머지는 넣지 않는다.',
@@ -176,14 +181,20 @@
   function sheetPrompt(charOrKey) {
     var g = typeof charOrKey === 'string' ? ALL.find(function (c) { return c.key === charOrKey; }) : charOrKey;
     if (!g) return '';
+    // 🔴 시트는 마젠타 배경에 인물 하나다 — 무대 조항(마을·비·물·밤)이 들어갈 자리가 없고,
+    //    개체를 가르라는 지시를 그만큼 묽게 만든다. 컷 프롬프트(composeBatchPrompt)에서는 그대로 쓴다.
+    var world = ANCHOR.text.replace(/\nSTAGE CLAUSES[\s\S]*?(?=\n[A-Z])/, '');
     return [
-      ANCHOR.text,
+      world,
       '',
       '[출력] 정사각 1024x1024. 배경은 순수 마젠타 #FF00FF 단색, 인물을 가운데 두고 여백 8%.',
       '바닥 그림자 없음, 글자·라벨 없음, 다른 인물 없음.',
       '[인물] ' + g.name + (g.aliases[1] ? ' — ' + g.aliases[1] : '') + '. 위 CHARACTER DESIGN LANGUAGE 의 규격을 그대로 따른다.',
+      // 🔴 이 줄이 없으면 한 시리즈의 넷이 **이름만 다른 같은 지시**를 받는다. 앵커는 그 세계 전체를
+      //    말하지 한 사람을 말하지 않으므로, 개체를 가르는 것은 여기서 들어와야 한다.
+      g.spec ? '[이 인물만의 규격 — 위 규격에 덧쓴다]\n' + g.spec : null,
       '[배치] 같은 인물을 한 장에 — 전신 정면, 3/4 걷는 모습, 뒷모습. 이 인물 하나만.',
-    ].join('\n');
+    ].filter(function (l) { return l !== null; }).join('\n');
   }
 
   function collectPages() {

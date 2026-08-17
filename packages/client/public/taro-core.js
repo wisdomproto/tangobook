@@ -11,7 +11,7 @@
   'use strict';
 
   var KEY = 'taro';
-  var ANCHOR = { slug: 'taro-batik', name: '앵커 taro-batik', text: "STYLE ANCHOR - taro-batik   (Taro and Mumu's island village / wax resist, dipped twice)\n\nStyle: wax-resist dyeing on woven cotton, ONE indigo dye bath used twice and one small second dye,\n  4-6 year old picture book. 🔴 THE CLOTH STARTS PALE AND ONLY GETS DARKER - nothing is ever painted\n  light. Wax, dip, more wax, dip again - exactly THREE values and no fourth. Every value shows the\n  weave running through it. SHADING IS ZERO - no modelling, gradient or glow. 🔴 EXCEPT a shadow\n  LYING ON THE GROUND: ONE flat DEEP silhouette, hard edge, nothing shaded inside it, never on a\n  body and never on a face.\n\nRENDERING (finish hierarchy): wet leaves and the shine on water are CLOTH areas with a hard edge,\n  never a soft halo. 🔴 RAIN IS DRAWN WITH THE WAX PEN, at most 13 hairline CLOTH lines all leaning\n  one way, and it is the only thing allowed to cross another shape. Cracked wax lets dye in as\n  hairline DEEP lines: at most 9 per page, only inside CLOTH areas, never across a face, never in a\n  row. Repeats are capped: leaves at most 9 of one stamped shape · houses behind at most 4 flat DEEP\n  silhouettes with 0 windows; no repeat mirrors its neighbour. 🔴 A RUN OR A BAND (stones in a line,\n  a ring of shells, a bed of leaves) IS EXEMPT FROM THESE CAPS - the nearest six or seven are\n  separate stamps, the rest carries on as one joined line. FINISHED THINGS PER PAGE = 2.\n\nPALETTE: CLOTH #EFE3CC, waxed before any dip - faces, light, rain, steam, ripe fruit, bare earth,\n  anything woven from grass, the brightest thing anywhere · MID #4C6E8C, one dip - sky, water, walls,\n  most of the world · DEEP INDIGO #22406B, two dips - animal backs, shade, tree masses, night,\n  the ground of the whole book · ACCENT ORANGE #E2711D, 🔴 a separate small dye on nothing but Taro's\n  waist cord and Mumu's head band. No white, no black, no green, no pink.\n\nSTAGE CLAUSES (the stage changes where the wax goes, not the dyes):\n  VILLAGE - walls and ground MID, roofs and tree masses DEEP, the yard left as one broad CLOTH area\n    the two of them stand on.\n  RAIN AND AFTER - MID covers the whole page including the ground, everything under a roof stays MID\n    and everything out in it is DEEP, the rain lines are CLOTH. Once it has passed the ground stays\n    DEEP because it is soaked and CLOTH steam rises off it, at most 5 hard-edged shapes; puddles are\n    flat CLOTH areas with 0 reflections.\n  WATER - one unbroken MID area, 0 ripples, 0 glints; a thing floating on it keeps its whole\n    outline, a thing under it is DEEP with no edge of its own. Sand is CLOTH.\n  NIGHT - DEEP covers everything, MID exists only where a light reaches and the light itself is\n    CLOTH. A thing being looked for is the one CLOTH shape in the page's DEEP field.\n\nCHARACTER DESIGN LANGUAGE: animals are built from the same dipped areas as the world. GRADE:\n  bipedal, upright, forelimbs are HANDS with no hooves, bare feet, 🔴 NO CLOTHING - ONE cord each is\n  all either of them wears, so no sleeve, pocket, hem or collar anywhere.\n  🔴 EVERY LIMB IS DRAWN LONGER THAN IT COULD BE, AND THE STRETCH IS THE JOKE. Arms, legs, necks,\n  tails and ears run at least half again past what the animal's build allows, hold the same narrow\n  width the whole way with no taper and no elbow or knee showing, and bend in smooth arcs instead of\n  at joints. Bodies stay small and round against them. 🔴 THE STRETCH FOLLOWS THE PAGE - a reaching\n  limb is longer than a resting one, and the longest thing in any picture belongs to whoever is doing\n  the thing the page is about.\n  🔴 THE WHOLE FACE IS WAXED CLOTH, so a face is the palest thing on any page and\n  the eyes, nose and mouth are small DEEP marks left inside it. An eye is a NARROW UPRIGHT OVAL, not\n  a round dot: it stretches taller when the eyes go wide and squashes to a flat lying oval when they\n  narrow or shut, but covers the same area of face either way. 🔴 THERE ARE NO EYEBROWS - the deep\n  marks inside a waxed face are exactly three, two eyes and one mouth, and a fourth is never added.\n  🔴 AN EYE CANNOT POINT - an oval has no pupil and no direction, so where a character is looking is\n  said by the head, the neck and the stretched limb, never by the eye. The mouth is ONE curve and\n  carries the feeling; nothing crosses a face, not even rain.\n  TARO is a monkey child, small and round-bodied, thin arms, one long curling tail; MUMU is a deer\n  child, a head taller, long straight legs and two tall ears that turn, a stub tail.\n\nCANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.\n\nNOT: no airbrush, gradient, glow or 3D render / no soft, feathered or blurred edge anywhere." };
+  var ANCHOR = { slug: 'taro-batik', name: '앵커 taro-batik', text: "STYLE ANCHOR - taro-batik   (Taro and Mumu's island village / wax resist, dipped twice)\n\nStyle: wax-resist dyeing on woven cotton, ONE indigo dye bath used twice and one small second dye,\n  4-6 year old picture book. 🔴 THE CLOTH STARTS PALE AND ONLY GETS DARKER - nothing is ever painted\n  light. Wax, dip, more wax, dip again - exactly THREE values and no fourth. Every value shows the\n  weave running through it. SHADING IS ZERO - no modelling, gradient or glow. 🔴 EXCEPT a shadow\n  LYING ON THE GROUND: ONE flat DEEP silhouette, hard edge, nothing shaded inside it, never on a\n  body and never on a face.\n\nRENDERING (finish hierarchy): wet leaves and the shine on water are CLOTH areas with a hard edge,\n  never a soft halo. 🔴 RAIN IS DRAWN WITH THE WAX PEN, at most 13 hairline CLOTH lines all leaning\n  one way, and it is the only thing allowed to cross another shape. Cracked wax lets dye in as\n  hairline DEEP lines: at most 9 per page, only inside CLOTH areas, never across a face, never in a\n  row. Repeats are capped: leaves at most 9 of one stamped shape · houses behind at most 4 flat DEEP\n  silhouettes with 0 windows; no repeat mirrors its neighbour. 🔴 A RUN OR A BAND (stones in a line,\n  a ring of shells, a bed of leaves) IS EXEMPT FROM THESE CAPS - the nearest six or seven are\n  separate stamps, the rest carries on as one joined line. FINISHED THINGS PER PAGE = 2.\n\nPALETTE: CLOTH #EFE3CC, waxed before any dip - faces, light, rain, steam, ripe fruit, bare earth,\n  anything woven from grass, the brightest thing anywhere · MID #4C6E8C, one dip - sky, water, walls,\n  most of the world · DEEP INDIGO #22406B, two dips - animal backs, shade, tree masses, night,\n  the ground of the whole book · ACCENT ORANGE #E2711D, 🔴 a separate small dye on nothing but Taro's\n  waist cord and Mumu's head band. No white, no black, no green, no pink.\n\nSTAGE CLAUSES (the stage changes where the wax goes, not the dyes):\n  VILLAGE - walls and ground MID, roofs and tree masses DEEP, the yard left as one broad CLOTH area\n    the two of them stand on.\n  RAIN AND AFTER - MID covers the whole page including the ground, everything under a roof stays MID\n    and everything out in it is DEEP, the rain lines are CLOTH. Once it has passed the ground stays\n    DEEP because it is soaked and CLOTH steam rises off it, at most 5 hard-edged shapes; puddles are\n    flat CLOTH areas with 0 reflections.\n  WATER - one unbroken MID area, 0 ripples, 0 glints; a thing floating on it keeps its whole\n    outline, a thing under it is DEEP with no edge of its own. Sand is CLOTH.\n  NIGHT - DEEP covers everything, MID exists only where a light reaches and the light itself is\n    CLOTH. A thing being looked for is the one CLOTH shape in the page's DEEP field.\n\nCHARACTER DESIGN LANGUAGE: animals are built from the same dipped areas as the world. GRADE:\n  bipedal, upright, forelimbs are HANDS with no hooves, bare feet, 🔴 NO CLOTHING - ONE cord each is\n  all either of them wears, so no sleeve, pocket, hem or collar anywhere.\n  🔴 SOMETHING ON EVERY ANIMAL IS DRAWN LONGER THAN IT COULD BE, AND THE STRETCH IS THE JOKE. What\n  runs long goes at least half again past what the build allows, holds the same narrow width the\n  whole way with no taper and no elbow or knee showing, and bends in smooth arcs instead of at joints.\n  🔴 IT IS NOT THE SAME PART ON EVERY ANIMAL, AND WHICH PART IT IS IS HOW ONE IS TOLD FROM ANOTHER\n  ACROSS A ROOM. A YOUNG ONE RUNS LONG IN THE LIMBS AND KEEPS A SMALL ROUND BODY; A GROWN ONE RUNS\n  LONG IN THE BODY OR THE NECK AND KEEPS ITS ARMS AND LEGS SHORT AND FOLDED IN, so a grown one is\n  never a bigger child - the two are apart as OUTLINES, with no grey hair, no glasses and nothing\n  worn to say which is which. 🔴 THE STRETCH FOLLOWS THE PAGE - a reaching limb is longer than a\n  resting one, and the longest thing in any picture belongs to whoever is doing the thing the page\n  is about.\n  🔴 THE WHOLE FACE IS WAXED CLOTH, so a face is the palest thing on any page and\n  the eyes, nose and mouth are small DEEP marks left inside it. An eye is a NARROW UPRIGHT OVAL, not\n  a round dot: it stretches taller when the eyes go wide and squashes to a flat lying oval when they\n  narrow or shut, but covers the same area of face either way. 🔴 THERE ARE NO EYEBROWS - the deep\n  marks inside a waxed face are exactly three, two eyes and one mouth, and a fourth is never added.\n  🔴 AN EYE CANNOT POINT - an oval has no pupil and no direction, so where a character is looking is\n  said by the head, the neck and the stretched limb, never by the eye. The mouth is ONE curve and\n  carries the feeling; nothing crosses a face, not even rain.\n  TARO is a monkey child, small and round-bodied, the stretch in his thin arms and one long tail\n  that ends in a closed curl; MUMU is a deer child, a head taller, the stretch in long straight legs\n  and two tall ears that turn, a stub tail. The two grown animals sit or are seen from behind, run\n  long in the back and the neck instead, and carry no accent colour anywhere.\n\nCANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.\n\nNOT: no airbrush, gradient, glow or 3D render / no soft, feathered or blurred edge anywhere." };
   var FIXED_CHARS = [
   {
     "key": "taro",
@@ -19,7 +19,8 @@
     "aliases": [
       "타로",
       "Taro monkey"
-    ]
+    ],
+    "spec": "THE STRETCH IS IN HIS ARMS AND HIS TAIL. Body a small round ball, legs short under it, both arms\nrun down past his feet at the same narrow width, and ONE tail runs longer than his whole body and\nENDS IN A CLOSED CURL - the curl is his mark and no one else in the book has a closed loop anywhere.\nFingers are thin and held APART, never bunched: his hands are the fast thing about him.\nHe is the SHORTEST of the four. Eyes are the upright oval, wide open.\nHe wears ONE cord at the waist and it is the accent dye."
   },
   {
     "key": "mumu",
@@ -27,7 +28,8 @@
     "aliases": [
       "무무",
       "Mumu deer"
-    ]
+    ],
+    "spec": "THE STRETCH IS IN HER LEGS AND HER EARS. Two legs, long and straight and the same narrow\nwidth from hip to foot, carrying a small round body HIGH OFF THE GROUND, so there is open\npage between her belly and her feet where Taro has none. TWO EARS STAND UP TALLER THAN HER HEAD IS\nHIGH and turn to point where a sound came from; the tail is a stub. Arms are ordinary and short.\nShe stands A HEAD TALLER than Taro. Eyes are the upright oval, wide open.\nShe wears ONE cord on her head and it is the accent dye."
   },
   {
     "key": "taromom",
@@ -35,7 +37,8 @@
     "aliases": [
       "타로 엄마",
       "Taro mother monkey"
-    ]
+    ],
+    "spec": "SHE IS NOT A BIGGER TARO. THE STRETCH HAS LEFT THE LIMBS AND GONE INTO THE BODY: one long straight\nback runs the whole height of her, and her arms and legs stay SHORT and FOLDED IN against it, so\nher outline is a long low mass and not a ball with whips. Draw her SEATED or FROM BEHIND by default\n- the long back IS the way she is recognised, and it is what the page shows.\nHER TAIL DOES NOT CURL. It lies out straight along the floor as one line and stops - no loop, no\nhook, nothing closed. That single difference tells her from Taro at any size.\nFingers are held TOGETHER in a flat broad palm, the opposite of his splayed ones.\nEyes are the LYING oval, narrowed and calm, and the mouth is one short flat curve.\nSHE WEARS NO CORD AND CARRIES NO ACCENT COLOUR AT ALL. No apron, no bundle, no tool of her own."
   },
   {
     "key": "mumugran",
@@ -43,7 +46,8 @@
     "aliases": [
       "무무 할머니",
       "Mumu grandmother deer"
-    ]
+    ],
+    "spec": "SHE IS NOT A BIGGER MUMU. THE STRETCH HAS LEFT THE LEGS AND GONE INTO THE NECK: her legs fold\nunder her and do not show, so she sits as a low mound with no open page under her body, and out of\nthat mound ONE NECK RUNS LONG AND CURVES DOWNWARD toward whatever she is setting down. Where Mumu\nis a body up on stilts, she is a mound with a long bent neck - the two outlines share no line.\nHER EARS LIE BACK FLAT ALONG THE NECK AND DO NOT TURN, so her head reads as one smooth teardrop\ninstead of Mumu's two standing spikes. Arms are short.\nDraw her SEATED or FROM BEHIND by default; standing, the folded legs stay short and the long neck\nstill carries the height.\nEyes are the LYING oval, narrowed and calm, and the mouth is one short flat curve.\nSHE WEARS NO CORD AND CARRIES NO ACCENT COLOUR AT ALL."
   }
 ];
   var FACE = {"taro":"🐒","mumu":"🦌","taromom":"🐒","mumugran":"🦌"};
@@ -154,7 +158,8 @@
     var head = [
       ANCHOR.text,
       '',
-      '[캐릭터 레퍼런스] 위 CHARACTER DESIGN LANGUAGE 가 각 인물의 규격이다. 아래 @imageN 순서대로 시트를 첨부하고,',
+      '[캐릭터 레퍼런스] 위 CHARACTER DESIGN LANGUAGE 는 이 세계 전체의 규격이고, 각 인물의 규격은 첨부한 시트다.',
+      '아래 @imageN 순서대로 시트를 첨부하고,',
       '얼굴·비율·색은 시트와 100% 동일하게 유지한다. @image1~' + NF + ' = 고정 캐스트(항상 이 순서), @image9~ = 이 화 단역.',
       castLegend(pages),
       '※ 각 쪽 [등장]에 적힌 @imageN 만 그 컷에 그린다. 나머지는 넣지 않는다.',
@@ -176,14 +181,20 @@
   function sheetPrompt(charOrKey) {
     var g = typeof charOrKey === 'string' ? ALL.find(function (c) { return c.key === charOrKey; }) : charOrKey;
     if (!g) return '';
+    // 🔴 시트는 마젠타 배경에 인물 하나다 — 무대 조항(마을·비·물·밤)이 들어갈 자리가 없고,
+    //    개체를 가르라는 지시를 그만큼 묽게 만든다. 컷 프롬프트(composeBatchPrompt)에서는 그대로 쓴다.
+    var world = ANCHOR.text.replace(/\nSTAGE CLAUSES[\s\S]*?(?=\n[A-Z])/, '');
     return [
-      ANCHOR.text,
+      world,
       '',
       '[출력] 정사각 1024x1024. 배경은 순수 마젠타 #FF00FF 단색, 인물을 가운데 두고 여백 8%.',
       '바닥 그림자 없음, 글자·라벨 없음, 다른 인물 없음.',
       '[인물] ' + g.name + (g.aliases[1] ? ' — ' + g.aliases[1] : '') + '. 위 CHARACTER DESIGN LANGUAGE 의 규격을 그대로 따른다.',
+      // 🔴 이 줄이 없으면 한 시리즈의 넷이 **이름만 다른 같은 지시**를 받는다. 앵커는 그 세계 전체를
+      //    말하지 한 사람을 말하지 않으므로, 개체를 가르는 것은 여기서 들어와야 한다.
+      g.spec ? '[이 인물만의 규격 — 위 규격에 덧쓴다]\n' + g.spec : null,
       '[배치] 같은 인물을 한 장에 — 전신 정면, 3/4 걷는 모습, 뒷모습. 이 인물 하나만.',
-    ].join('\n');
+    ].filter(function (l) { return l !== null; }).join('\n');
   }
 
   function collectPages() {
