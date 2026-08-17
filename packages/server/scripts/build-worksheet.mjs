@@ -225,6 +225,11 @@ const STYLE = `<style>
   .ghost { font-size: 21pt; line-height: 1; font-weight: 700; color: var(--peach-200); position: relative; transform: translateY(.4mm); }
   .sq.lg .ghost { font-size: 24pt; }
   .sq.xl .ghost { font-size: 105pt; }
+  /* 🔴 자음 자모만 키운다. 폰트가 자음을 em 위쪽에만 그려서, 같은 105pt 인데도 칸을 채우는
+     비율이 자음 31% · 모음/음절 57% 로 두 배 가까이 벌어진다(실측).
+     ⚠️ 160pt 가 상한 — 180pt 부터는 글자가 칸보다 커져 위로 5.6% 밀린다(실측). */
+  .sq.xl.big .ghost { font-size: 160pt; }
+  .sq.big .ghost { font-size: 32pt; }
   .row { display: flex; gap: 2.5mm; flex-wrap: wrap; justify-content: center; }
 
   .learn { display: flex; align-items: center; justify-content: center; gap: 7mm;
@@ -377,6 +382,7 @@ function unitSpec(u, kind, words) {
       ['입 모양', c.mouth],
     ],
     xlGhosts: [letter],
+    xlBig: true, // 자음 자모는 칸을 덜 채운다 — 위 CSS 주석 참조
     writeHint: sound ? `쓸 때마다 “${sound}” 하고 소리 내요` : null,
     demo: `${letter} <em>+</em> ㅏ <em>→</em> ${label(syllableOf(letter, 'ㅏ'))}`,
     demoNote: sound
@@ -415,7 +421,7 @@ function renderPages({ head, spec, words }) {
 
   <section>
     <h2 data-n="2">크게 써 봐요 <span class="hint">손 전체를 움직여 천천히</span></h2>
-    <div class="row">${Array.from({ length: 3 }, (_, i) => box(spec.xlGhosts[i] ?? '', 'xl')).join('')}</div>
+    <div class="row">${Array.from({ length: 3 }, (_, i) => box(spec.xlGhosts[i] ?? '', 'xl' + (spec.xlBig ? ' big' : ''))).join('')}</div>
   </section>
 
   <section>
@@ -426,7 +432,7 @@ function renderPages({ head, spec, words }) {
         : Array.from(
             { length: 3 },
             (_, r) =>
-              `<div class="row">${Array.from({ length: 9 }, (_, i) => box(r === 0 && i < 3 ? spec.xlGhosts[i % spec.xlGhosts.length] : '')).join('')}</div>`
+              `<div class="row">${Array.from({ length: 9 }, (_, i) => box(r === 0 && i < 3 ? spec.xlGhosts[i % spec.xlGhosts.length] : '', spec.xlBig ? 'big' : '')).join('')}</div>`
           ).join('')
     }
   </section>
