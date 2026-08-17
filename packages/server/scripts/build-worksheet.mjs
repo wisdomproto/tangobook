@@ -478,6 +478,106 @@ const wrap = (title, body) => `<!doctype html>
 ${STYLE}
 ${body}`;
 
+/**
+ * 고르기 화면 — 왼쪽 목록, 오른쪽 미리보기(iframe).
+ * 🔴 목록은 생성한 단원에서 **파생**한다. 손으로 적으면 단원이 늘 때 한쪽만 고쳐져 갈라진다.
+ */
+function renderIndex(items) {
+  const groups = [];
+  for (const it of items) {
+    const g = groups.find((x) => x.level === it.levelName);
+    (g ?? groups[groups.push({ level: it.levelName, items: [] }) - 1]).items.push(it);
+  }
+  const first = items[0];
+  return `<!doctype html>
+<meta charset="utf-8">
+<title>한글 워크지 — 인쇄용</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+  :root { --cream:#FFF9F3; --peach-50:#FFF8EF; --peach-200:#FFDDBF; --coral:#FF5E3A; --coral-700:#C43A1C;
+    --mint-600:#2A8761; --ink:#0B0805; --ink-500:#9A8474; --ink-600:#6D5A4C; }
+  * { box-sizing:border-box; margin:0; }
+  body { font-family:Pretendard,'Malgun Gothic',sans-serif; color:var(--ink);
+    display:grid; grid-template-columns:288px 1fr; height:100vh; background:#e6e0da; }
+
+  aside { background:var(--cream); border-right:1px solid var(--peach-200); overflow-y:auto; padding:16px 0 40px; }
+  aside h1 { font-size:17px; font-weight:800; letter-spacing:-.03em; padding:4px 18px 12px; }
+  aside h1 em { font-style:normal; color:var(--coral); }
+  aside h2 { font-size:11px; font-weight:700; color:var(--ink-500); letter-spacing:.02em;
+    padding:16px 18px 6px; text-transform:uppercase; }
+  a.item { display:flex; gap:9px; align-items:baseline; padding:8px 18px; text-decoration:none; color:inherit;
+    border-left:3px solid transparent; }
+  a.item:hover { background:var(--peach-50); }
+  a.item.on { background:#fff; border-left-color:var(--coral); }
+  a.item b { font-size:15px; min-width:22px; color:var(--coral-700); }
+  a.item .g { font-size:15px; font-weight:800; min-width:46px; }
+  a.item .w { font-size:11px; color:var(--ink-600); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  a.all { margin:6px 18px 0; padding:9px 12px; border:1px dashed var(--peach-200); border-radius:8px;
+    display:block; text-align:center; font-size:12px; font-weight:700; color:var(--mint-600); }
+
+  main { display:flex; flex-direction:column; min-width:0; }
+  .bar { display:flex; align-items:center; gap:12px; padding:10px 16px; background:#fff;
+    border-bottom:1px solid var(--peach-200); }
+  .bar .now { font-weight:800; letter-spacing:-.02em; }
+  .bar .sp { flex:1; }
+  .bar button, .bar a.btn { font:inherit; font-size:12px; font-weight:700; cursor:pointer; text-decoration:none;
+    border:1px solid var(--peach-200); background:var(--peach-50); color:var(--coral-700);
+    padding:7px 14px; border-radius:7px; }
+  .bar button:hover, .bar a.btn:hover { background:#fff; }
+  iframe { flex:1; width:100%; border:0; background:#e6e0da; }
+</style>
+
+<aside>
+  <h1>한글 워크지 <em>인쇄용</em></h1>
+  <a class="all" href="all.html" data-file="all.html" data-name="전체 ${items.length}단원">📚 전체 ${items.length}단원 · ${items.length * 3}쪽</a>
+  ${groups
+    .map(
+      (g) => `<h2>${esc(g.level)}</h2>` +
+        g.items
+          .map(
+            (it) =>
+              `<a class="item" href="${it.id}.html" data-file="${it.id}.html" data-name="${esc(g.level)} 익힘 ${it.unitNo} · ${esc(it.glyph)}">` +
+              `<b>${it.unitNo}</b><span class="g">${esc(it.glyph)}</span><span class="w">${esc(it.words)}</span></a>`
+          )
+          .join('')
+    )
+    .join('')}
+</aside>
+
+<main>
+  <div class="bar">
+    <span class="now">${esc(first.levelName)} 익힘 ${first.unitNo} · ${esc(first.glyph)}</span>
+    <span class="sp"></span>
+    <button id="print">🖨 이 단원 인쇄</button>
+    <a class="btn" id="open" href="${first.id}.html" target="_blank">새 창에서 열기</a>
+  </div>
+  <iframe id="view" src="${first.id}.html"></iframe>
+</main>
+
+<script>
+  const view = document.getElementById('view');
+  const now = document.querySelector('.now');
+  const open = document.getElementById('open');
+  const links = [...document.querySelectorAll('[data-file]')];
+  function select(a) {
+    links.forEach((l) => l.classList.toggle('on', l === a));
+    view.src = a.dataset.file;
+    open.href = a.dataset.file;
+    now.textContent = a.dataset.name;
+    location.hash = a.dataset.file.replace('.html', '');
+  }
+  links.forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); select(a); }));
+  // 🔴 iframe 을 직접 인쇄한다 — 이 화면을 인쇄하면 사이드바까지 딸려 나온다.
+  document.getElementById('print').addEventListener('click', () => {
+    view.contentWindow.focus();
+    view.contentWindow.print();
+  });
+  const want = links.find((l) => l.dataset.file === location.hash.slice(1) + '.html');
+  select(want ?? links.find((l) => l.classList.contains('item')));
+</script>
+`;
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const arg = (k, d) => (args.find((a) => a.startsWith(`--${k}=`)) ?? `--${k}=${d}`).split('=').slice(1).join('=');
@@ -498,6 +598,7 @@ async function main() {
   await mkdir(outDir, { recursive: true });
   const report = [];
   const all = [];
+  const index = [];
 
   for (const u of units) {
     const kind = unitKind(u);
@@ -533,6 +634,7 @@ async function main() {
     all.push(pages);
     const html = wrap(`한글 워크지 · ${u.levelName} 익힘 ${unitNo} · ${spec.glyph}`, pages);
     await writeFile(new URL(`${u.id}.html`, outDir), html, 'utf8');
+    index.push({ id: u.id, unitNo, levelName: u.levelName, glyph: spec.glyph, words: words.map((w) => w.word).join(' ') });
     report.push({
       단원: u.id,
       종류: { consonant: '자음', coda: '받침', vowel: '모음' }[kind],
@@ -548,6 +650,10 @@ async function main() {
     const combined = wrap(`한글 워크지 · 전 단원 (${units.length}단원)`, all.join('\n'));
     await writeFile(new URL('all.html', outDir), combined, 'utf8');
     report.push({ 단원: 'all.html', 종류: '', 글자: '', 낱말: `${units.length}단원 ${units.length * 3}쪽`, 책: '', KB: Math.round(combined.length / 1024) });
+
+    const idx = renderIndex(index);
+    await writeFile(new URL('index.html', outDir), idx, 'utf8');
+    report.push({ 단원: 'index.html', 종류: '', 글자: '', 낱말: '고르기 화면', 책: '', KB: Math.round(idx.length / 1024) });
   }
 
   console.table(report);
