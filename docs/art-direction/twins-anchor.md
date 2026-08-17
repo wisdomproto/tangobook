@@ -32,9 +32,18 @@
 
 ```
 ① 노랑의 높이   리리는 실루엣 맨 위, 롤로는 맨 아래. 두 노랑이 같은 띠에 오는 일이 없다
-② 귀           리리는 두 귀가 곧게 서고 붙어 있다 · 롤로는 두 귀가 목 뒤로 눕는다
+② 귀           리리는 두 귀가 곧게 서고 붙어 있다 · 롤로는 두 귀가 머리 양옆으로 늘어진다
 ③ 무게 중심     리리는 뒷발에 실려 멈춰 서 있고, 롤로는 앞발 너머로 몸이 기울어 있다
+④ 자리         둘이 함께 있는 쪽은 언제나 리리 왼쪽 · 롤로 오른쪽
 ```
+
+🔴 **②는 「목 뒤로 눕는다」가 아니라 「양옆으로 늘어진다」다**(2026-08-17 승인 렌더 반영) — 목 뒤로
+누우면 **정면에서 안 보인다.** 쌍둥이가 갈려야 하는 자리의 대부분이 정면이라 그 방향으로는 못 쓴다.
+
+🔴 **④는 SCENE 250쪽 실측에서 나왔다** — 좌우를 명시한 29쪽이 **예외 0으로** 리리 왼쪽 · 롤로 오른쪽이고,
+그중 다섯 쪽은 좌우가 곧 진행 방향이라 뒤집으면 이야기가 되돌아간다(`twins-routes.md` §①).
+🔴 **이건 캐스트 파일이 아니라 앵커에 있어야 한다** — 캐스트 규격(`spec`)은 시트 프롬프트에만 실리고
+쪽별 컷 프롬프트는 앵커 전문만 받는다.
 
 ②가 결정적이다 — 모자도 장화도 없는 뒷모습·물속·이불 속에서도 **귀 하나로 갈린다.**
 그리고 둘의 축(재고 멈추는 쪽 / 뛰어드는 쪽)을 그대로 옮긴 모양이라 그림이 성격을 말한다.
@@ -75,7 +84,9 @@ PALETTE: PAPER SALT CREAM #F1F0E6, sky, sand, whitewashed walls, foam, light, ev
   INK2 HULL RUST #A85E38, boat hulls, nets, ropes, crates, roof tiles, baskets, the harbour wall -
   the warm one · OVERLAP HARBOUR NIGHT #2D3B42, rabbit backs and heads, the underside of a hull,
   rock shade, evening sea, anything submerged - overprint only, never a third drum · ACCENT BUOY
-  YELLOW #E9A825, 🔴 pulled last, touching nothing but Riri's hat and Lolo's boots.
+  YELLOW #E9A825, 🔴 pulled last, touching nothing but Riri's hat and Lolo's boots. 🔴 THE HAT AND
+  THE BOOTS KEEP THEIR YELLOW WHEN THEY ARE OFF THEIR OWNER - on a hermit crab, on an octopus,
+  floating on water, lying on sand. The yellow belongs to the two objects, not to the two rabbits.
   🔴 A FISHING VILLAGE IS FULL OF YELLOW AND NONE OF IT IS ALLOWED HERE - oilskins, buoys, lamps,
   nets, floats, the lighthouse body, paper flowers and kites all take INK1 or INK2. No sky blue that
   is not ATLANTIC, no purple, no pink, no white ink anywhere ever.
@@ -108,13 +119,21 @@ STAGE CLAUSES (the stage changes what the two inks do, never which two they are)
 
 CHARACTER DESIGN LANGUAGE: the rabbits are built from the same flat pulls as the world - two or
   three shapes with limbs laid over. GRADE: bipedal, standing upright, wearing cloth. Backs and heads
-  are OVERLAP, chests and bellies are INK2, so every animal is built the same way.
+  are OVERLAP, chests and bellies are INK2. 🔴 THAT IS A RULE ABOUT COLOUR, NOT ABOUT BUILD - the
+  four rabbits are two inks and THREE DIFFERENT BODIES, and AN ADULT IS NEVER A LARGER CHILD. A
+  child's head is as wide as its own shoulders and sits on them with no neck, and a child's eye is a
+  WIDE UPRIGHT OVAL with bare paper showing all round the pupil; an adult's head is far narrower than
+  its shoulders and an adult's eye is a NARROW LYING OVAL under a lid. Scale is never what tells an
+  adult from a child.
   🔴 A CHARACTER HERE IS TWO MARKED THINGS, NOT A FACE. Each twin is stated by exactly two fixed
-  marks - THE BAND OF THE PAGE ITS YELLOW SITS IN and THE SET OF ITS EARS - and by nothing else,
-  because the two faces are drawn identical and can never tell them apart. 🔴 BOTH MARKS ARE VISIBLE
+  marks THAT ARE ON IN EVERY FRAME - THE BAND OF THE PAGE ITS YELLOW SITS IN and THE SET OF ITS EARS
+  - because the two faces are drawn identical and can never tell them apart; two further marks
+  (weight, and where a failure is drawn) come in when the page gives them. 🔴 BOTH MARKS ARE VISIBLE
   ON EVERY APPEARANCE, INCLUDING BACK VIEWS, BATHS, BLANKETS AND PURE SILHOUETTES, and the two
   yellows never share a band of the page. A difference between the twins is never written on a face.
-  Eyes are the OVERLAP colour, the one place on a body where both drums land. 🔴 REGISTRATION IS A
+  🔴 AN EYE IS A BARE PAPER OVAL CUT INTO THE DARK HEAD with an OVERLAP pupil inside it - the head is
+  already OVERLAP, so an eye printed in that same colour would not exist; the paper is what makes the
+  eye and the pupil is the one place on a body where both drums land. 🔴 REGISTRATION IS A
   HAIR OFF ON EVERY PAGE AND IT SHOWS AT AN EYE: one drum creeps past one eye and falls short of the
   other, leaving a thin coloured lip along one side of one eye only, and that misfit is left in. A
   small nose; the mouth is ONE curve; above each eye ONE short stroke; feeling is in the mouth curve
@@ -123,17 +142,31 @@ CHARACTER DESIGN LANGUAGE: the rabbits are built from the same flat pulls as the
   told apart by FOUR things and nothing else:
     ① RIRI wears a YELLOW HAT, so her yellow sits at the TOP of her silhouette · LOLO wears YELLOW
       BOOTS, so his yellow sits at the BOTTOM. The two yellows are never in the same band of the page.
-    ② 🔴 EARS - Riri's two ears stand straight up and close together · Lolo's two ears lie back flat
-      along his neck. This is the ONLY mark that survives a back view, a bath, a blanket and a lost
-      hat, so it is drawn on every single appearance including silhouettes.
+    ② 🔴 EARS - Riri's two ears STAND STRAIGHT UP, close together and taller than her head · Lolo's
+      two ears HANG DOWN THE SIDES OF HIS HEAD past his chin, so his head reads half again as wide as
+      hers and carries no spike on top at all. This is the ONLY mark that survives a back view, a
+      bath, a blanket and a lost hat, so it is drawn on every single appearance including
+      silhouettes, and Lolo's ears are never folded away behind his neck where a front view loses
+      them.
     ③ WEIGHT - Riri's weight is on her BACK foot, head still, both hands holding each other or
       holding the thing up to look at it · Lolo's weight is past his FRONT foot, body tilted forward,
       hands already out.
     ④ RIRI'S FAILURE IS DRAWN AS A LEFTOVER, NOT AS TIREDNESS - a neat heap of sorted sand, a single
       line of footprints, white dust on her hands, her own face in the pool. Never slumped shoulders.
-  DAD a rabbit twice a twin's height and the widest figure, a fisherman, black rubber boots, no
-  yellow · MOM a rabbit a head over the twins, an ATLANTIC apron at the fish stall, no yellow.
-  Adults never carry yellow. THE ANIMALS - gulls, the harbour cat, crabs, a hermit crab, an octopus -
+  🔴 SIDES ARE FIXED: WHENEVER BOTH TWINS ARE IN A FRAME, RIRI IS ON THE LEFT AND LOLO IS ON THE
+  RIGHT, on all 250 pages - the one who stops to measure stands where the page starts and the one who
+  jumps in stands where it goes. On the pages where the two of them are also the direction of travel,
+  swapping them runs the story backwards. They are still never a mirrored pair: the two bodies are
+  the same drawing placed twice, not a reflection.
+  🔴 THE THREE BUILDS ARE DRUM, POST AND PEANUT AND THEY SHARE NO OUTLINE. DAD is a fisherman twice a
+  twin's height built as ONE BARREL - shoulders, chest and hips a single width equal to half his own
+  height, a small head sunk into it, short arms that stay inside that outline, black rubber boots to
+  mid-shin ending the silhouette in two blunt cylinders, and a ribbed ATLANTIC knitted cap with his
+  ears coming up through it · MOM is a head over the twins and the opposite shape, a NARROW UPRIGHT
+  POST with a neck that shows and long thin limbs, in ONE flat ATLANTIC apron from chest to below the
+  knee in a single unbroken piece, so she is THE ONLY FIGURE IN THE BOOK WITH NO GAP BETWEEN THE
+  LEGS, tied in a bow at the small of her back. Adults never carry yellow and never carry a second
+  piece of cloth. THE ANIMALS - gulls, the harbour cat, crabs, a hermit crab, an octopus -
   are plain shapes with no clothes, no eyebrows and no expression.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere - stalls, boat sterns
@@ -148,8 +181,9 @@ NOT: no airbrush, gradient, glow, 3D render or soft feathered edge / no streak i
 ```
 OFF:    the two drums never line up - every page misfits at two or three edges and that misfit stays
 YELLOW: the only yellow in the village is Riri's hat and Lolo's boots
-TWINS:  same body, same height - Riri's ears stand up and her weight is back; Lolo's ears lie flat
-        and his weight is forward
+TWINS:  same body, same height - Riri's ears stand up and her weight is back; Lolo's ears hang down
+        beside his head and his weight is forward
+SIDES:  Riri left, Lolo right - on every page that holds both
 ```
 
 🔴 **`TWINS:` 는 쪽별 프롬프트에서 둘이 함께 나오는 쪽마다 반복한다.** 25권 250쪽 중 둘이 같이
