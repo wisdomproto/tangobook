@@ -43,30 +43,15 @@ const LINEART_RULES = [
 ].join('\n');
 
 /**
- * 정답본 규칙.
+ * 🔴 **도안만 만들면 된다 — 정답본은 시키지 않는다.**
  *
- * 🔴 정답본은 예쁜 그림이 아니라 **칸별 정답색 표**다. 앱이 칸 하나의 최빈색을 읽어 물감을 만들고,
- *    비슷한 색끼리 한 물감으로 묶는다 — 그래서 한 칸이 두 색이면 팔레트가 무너진다(실측: 순도 77%
- *    짜리를 넣었더니 물감이 노랑 하나로 뭉개졌다).
- * 🔴 선을 한 획이라도 다시 그리면 칸과 색 경계가 어긋난다. 예전에 도안·정답본을 **따로** 생성했을 때
- *    19장 중 5장이 이걸로 걸렸다 — 한 프롬프트에서 잇달아 그리게 하는 이유가 이것이다.
- */
-const ANSWER_RULES = [
-  `- Keep every black outline EXACTLY where it is: same position, same shape, same thickness. Do not redraw, move, smooth, or add any line. It must line up pixel for pixel with the first image.`,
-  `- Fill each white area with ONE FLAT solid colour. No shading, no gradient, no texture, no highlight, no outline of a different colour.`,
-  `- If an area looks like it should have two colours, still use only ONE — the dominant one. Never split an enclosed area into two colours, and never paint a colour boundary where there is no black line.`,
-  `- Use few colours — the natural, obvious colours a child would name.`,
-  `- Leave the area outside the subject pure white.`,
-  `- Add nothing new: no background, no scenery, no pattern, no text.`,
-].join('\n');
-
-/**
- * 프롬프트는 **두 번에 나눠 보낸다** — 같은 대화에서 ① 다음에 ②.
+ * 칸 나누기는 도안 픽셀만 보는 우리 flood fill 이라 원래 생성과 무관했고, 남은 건 "그 칸이 무슨
+ * 색인가" 하나뿐인데 그 답은 **원본 삽화에 이미 있다**. 도안은 원본을 보고 그린 그림이라 자리가
+ * 겹치므로, 칸에 겹치는 원본 픽셀의 최빈색을 읽으면 그 칸의 진짜 색이 나온다
+ * (`auto-color.mjs --from=<원본>`. 실측: 오리 노랑·부리 주황·볼 분홍, 여우 주황·주둥이 크림).
  *
- * 🔴 한 프롬프트에 "그림 2장"을 시켰더니 **도안만 그리고 색칠본은 안 냈다**(실측). 이미지 모델은
- *    한 턴에 한 장이다. 그래도 **대화를 갈지 않는 것**이 핵심이다 — 방금 그린 도안이 문맥에 남아
- *    있어야 선을 다시 안 그린다. 새 대화에 완성된 도안을 다시 올리면 모델이 선을 미세하게 고쳐
- *    칸과 색 경계가 어긋난다(예전 19장 중 5장이 이걸로 걸렸다).
+ * 그래서 예전의 2단계(도안 → 그걸 다시 칠하게)는 통째로 없앴다. 생성이 절반이고, 선을 다시
+ * 그리는 바람에 칸과 색 경계가 어긋나던 사고(19장 중 5장)도 원리상 사라진다.
  */
 function promptLine() {
   return [
@@ -78,20 +63,11 @@ function promptLine() {
   ].join('\n');
 }
 
-function promptAnswer() {
-  return [
-    `Now take the coloring page you just drew and fill it in with colour.`,
-    ANSWER_RULES,
-    ``,
-    `The subject is: {{subject}}.`,
-  ].join('\n');
-}
-
 /**
  * 낱말 여러 개를 한 번에.
  *
  * 🔴 **나오는 순서를 못 박는다** — 열 장이 한꺼번에 돌아오면 어느 게 어느 낱말인지 알 방법이
- *    그 순서뿐이다. ②도 같은 순서를 다시 못 박아야 짝이 어긋나지 않는다.
+ *    그 순서뿐이다.
  */
 function promptBatchLine() {
   return [
@@ -100,16 +76,6 @@ function promptBatchLine() {
     LINEART_RULES,
     ``,
     `Subjects:`,
-    `{{subjects}}`,
-  ].join('\n');
-}
-
-function promptBatchAnswer() {
-  return [
-    `Now fill in each of the {{n}} coloring pages you just drew — {{n}} images, in the SAME order as before.`,
-    ANSWER_RULES,
-    ``,
-    `The subjects, in order:`,
     `{{subjects}}`,
   ].join('\n');
 }
@@ -188,7 +154,7 @@ for (const [category, list] of [...books.entries()].sort((a, b) => b[1].length -
 //    그 파일을 화면 열 때마다 받는다. 낱말만 끼워 넣는 건 화면이 한다.
 fs.writeFileSync(
   OUT,
-  JSON.stringify({ promptOne: promptOne(), promptBatch: promptBatch(), groups }, null, 1)
+  JSON.stringify({ promptLine: promptLine(), promptBatchLine: promptBatchLine(), groups }, null, 1)
 );
 const total = groups.reduce((n, g) => n + g.sections.reduce((m, s) => m + s.items.length, 0), 0);
 console.log(`${groups.length}개 그룹 · ${total}장 → ${OUT}`);

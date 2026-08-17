@@ -49,13 +49,9 @@
   #batchWords{font-size:12px;color:var(--ink-soft);min-width:0;overflow:hidden;
               text-overflow:ellipsis;white-space:nowrap}
 
-  .row{display:grid;grid-template-columns:190px 1fr 320px;gap:16px;align-items:start;
+  .row{display:grid;grid-template-columns:190px 1fr 190px;gap:16px;align-items:start;
        background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
   .row.has{border-color:var(--ok);background:#f6fdfa}
-  /* 도안만 붙고 색칠본이 빈 상태 — 게임엔 못 들어간다. 초록으로 보이면 다 된 줄 안다. */
-  .row.half{border-color:#e8b93a;background:#fffdf5}
-  .dst{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .slot .cap{font-size:11.5px;font-weight:800;color:var(--ink-soft);margin-bottom:5px}
   .slot:focus{outline:2px solid var(--mint);outline-offset:3px;border-radius:12px}
   .word{font-size:16px;font-weight:900;margin-bottom:6px}
   .subj{font-size:12px;color:var(--ink-soft);margin-bottom:8px;line-height:1.5}
@@ -106,8 +102,7 @@
     <input id="q" type="search" placeholder="낱말 검색" />
     <label><input type="checkbox" id="todo" /> 아직 안 붙인 것만</label>
     <div class="batchbar">
-      <button id="batch1" class="batch">📋 ① 도안 10장</button>
-      <button id="batch2" class="batch">📋 ② 색칠 10장 (같은 대화에 이어서)</button>
+      <button id="batch1" class="batch">📋 10장 묶음 프롬프트</button>
       <span id="batchWords"></span>
     </div>
   </div>
@@ -122,13 +117,15 @@
   var DOC = 'coloring-plan';
   var API = '/api/comic-assets/' + DOC;
   var PAGE = 30;            // 한 번에 그리는 줄 수 — 2,000장을 통째로 그리면 브라우저가 버틴다
-  var BATCH = 10;           // 한 프롬프트에 담을 낱말 수 = 그림 20장
+  var BATCH = 10;           // 한 프롬프트에 담을 낱말 수
   var data = null, assets = {}, gi = 0, shown = PAGE;
   // 프롬프트는 데이터에 한 벌만 실려 온다 — 낱말만 끼워 넣는다.
   function promptLineFor(it) { return data.promptLine.replace('{{subject}}', it.subject); }
-  function promptAnswerFor(it) { return data.promptAnswer.replace('{{subject}}', it.subject); }
-  /** 한 낱말이 끝났다 = 도안과 색칠본이 **둘 다** 있다. 도안만으로는 게임에 못 넣는다. */
-  function done(it) { return !!(assets[it.key] && assets[it.key + '-c']); }
+  /**
+   * 🔴 붙일 것은 **도안 한 장뿐**이다. 칸별 정답색은 원본 삽화에서 읽어 만든다
+   *    (`auto-color.mjs --from=<원본>`) — 색칠본을 따로 받을 이유가 없다.
+   */
+  function done(it) { return !!assets[it.key]; }
 
   function batchPrompt(which, list) {
     return data[which]
@@ -176,19 +173,10 @@
     });
   }
 
-  /**
-   * 붙여넣기 칸 하나. 도안과 정답본이 같은 물건이라 한 함수로 만든다.
-   *
-   * 🔴 정답본 키는 `<key>-c` — `/api/comic-assets` 가 영숫자·하이픈만 받으므로 이 형태여야 한다.
-   */
-  function makeSlot(it, kind, onChange) {
-    var key = kind === 'answer' ? it.key + '-c' : it.key;
+  function makeSlot(it, onChange) {
+    var key = it.key;
     var box = document.createElement('div');
     box.className = 'slot';
-    var cap = document.createElement('div');
-    cap.className = 'cap';
-    cap.textContent = kind === 'answer' ? '② 색칠본' : '① 도안';
-    box.appendChild(cap);
     var body = document.createElement('div');
     box.appendChild(body);
 
@@ -211,7 +199,7 @@
       } else {
         var d = document.createElement('div');
         d.className = 'drop';
-        d.textContent = '누르고 Ctrl+V';
+        d.textContent = '여기를 누르고 붙여넣기 (Ctrl+V)' + String.fromCharCode(10) + '또는 파일을 끌어다 놓기';
         body.appendChild(d);
       }
     }
@@ -227,7 +215,7 @@
         .then(function (j) {
           if (!j || !j.success) throw new Error((j && j.error) || '실패');
           assets[key] = (j.data && j.data.url) || dataUrl;
-          paint(); onChange(); toast('저장했어요 — ' + it.word + ' ' + cap.textContent);
+          paint(); onChange(); toast('저장했어요 — ' + it.word);
         })
         .catch(function (e) { toast('저장 실패: ' + e.message); });
     }
@@ -266,7 +254,7 @@
   function makeRow(section, it) {
     var row = document.createElement('div');
     function mark() {
-      row.className = 'row' + (done(it) ? ' has' : assets[it.key] ? ' half' : '');
+      row.className = 'row' + (done(it) ? ' has' : '');
       renderNav();
     }
 
@@ -276,32 +264,21 @@
       '<div class="subj">' + section + '</div>' +
       '<img loading="lazy" src="' + it.imageUrl + '" alt="' + it.word + '" />';
 
-    // 🔴 ①을 보낸 **그 대화에 이어서** ②를 보낸다 — 새 대화에 도안을 다시 올리면 모델이 선을
-    //    다시 그려 칸과 색 경계가 어긋난다.
     var mid = document.createElement('div');
     var pre = document.createElement('pre');
-    var texts = { line: promptLineFor(it), answer: promptAnswerFor(it) };
-    pre.textContent = texts.line;
-    var acts = document.createElement('div');
-    acts.className = 'act';
-    [['line', '📋 ① 도안'], ['answer', '📋 ② 색칠 (같은 대화에 이어서)']].forEach(function (b) {
-      var btn = document.createElement('button');
-      btn.className = 'btn';
-      btn.textContent = b[1];
-      btn.onclick = function () {
-        pre.textContent = texts[b[0]];
-        navigator.clipboard.writeText(texts[b[0]]).then(function () {
-          toast('복사했어요 — ' + it.word + ' ' + b[1].replace('📋 ', ''));
-        });
-      };
-      acts.appendChild(btn);
-    });
-    mid.appendChild(pre); mid.appendChild(acts);
+    var text = promptLineFor(it);
+    pre.textContent = text;
+    var copy = document.createElement('button');
+    copy.className = 'btn';
+    copy.textContent = '📋 프롬프트 복사';
+    copy.onclick = function () {
+      navigator.clipboard.writeText(text).then(function () { toast('복사했어요 — ' + it.word); });
+    };
+    mid.appendChild(pre); mid.appendChild(copy);
 
     var right = document.createElement('div');
     right.className = 'dst';
-    right.appendChild(makeSlot(it, 'line', mark));
-    right.appendChild(makeSlot(it, 'answer', mark));
+    right.appendChild(makeSlot(it, mark));
 
     mark();
     row.appendChild(left); row.appendChild(mid); row.appendChild(right);
@@ -322,15 +299,13 @@
     document.getElementById('batchWords').textContent = todo10.length
       ? '이 ' + todo10.length + '개 — ' + todo10.map(function (it) { return it.word; }).join(', ')
       : '남은 낱말이 없어요';
-    [['batch1', 'promptBatchLine'], ['batch2', 'promptBatchAnswer']].forEach(function (b) {
-      var el = document.getElementById(b[0]);
-      el.disabled = todo10.length === 0;
-      el.onclick = function () {
-        navigator.clipboard.writeText(batchPrompt(b[1], todo10)).then(function () {
-          toast('복사했어요 — ' + el.textContent);
-        });
-      };
-    });
+    var b1 = document.getElementById('batch1');
+    b1.disabled = todo10.length === 0;
+    b1.onclick = function () {
+      navigator.clipboard.writeText(batchPrompt('promptBatchLine', todo10)).then(function () {
+        toast(todo10.length + '장 묶음을 복사했어요');
+      });
+    };
 
     var list = document.getElementById('list');
     list.innerHTML = '';

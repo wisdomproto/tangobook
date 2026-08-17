@@ -66,7 +66,41 @@ async function read(src) {
   return fs.readFileSync(src);
 }
 
-for (const src of process.argv.slice(2)) {
+/**
+ * 칸의 색을 **원본 삽화에서 읽어 온다**(`--from=<파일|URL>`).
+ *
+ * 🔴 칸 나누기는 도안만으로 끝나므로, 정답본을 따로 생성할 이유는 "무슨 색인가" 하나뿐이다.
+ *    그 답이 원본 삽화에 이미 있다 — 오리는 거기서 노랗다. 칸 자리에 겹치는 원본 픽셀의
+ *    **최빈색 무리 평균**을 그 칸 색으로 쓴다(앱 `buildPalette` 와 같은 방식: 평균만 쓰면
+ *    가장자리 검은 선이 색을 끌어내리고, 최빈값만 쓰면 32단계로 뭉갠 값이라 어긋난다).
+ * ⚠️ 도안은 원본을 **다시 그린** 그림이라 자리가 정확히 겹치지 않는다 — 이 방법이 통하는지는
+ *    눈으로 봐야 한다.
+ */
+function colorsFromSource(labels, ids, srcRgba) {
+  const hist = new Map(ids.map((id) => [id, new Map()]));
+  for (let i = 0; i < labels.length; i++) {
+    const bins = hist.get(labels[i]);
+    if (!bins) continue;
+    const o = i * 4;
+    const r = srcRgba[o], g = srcRgba[o + 1], b = srcRgba[o + 2];
+    const key = ((r >> 5) << 10) | ((g >> 5) << 5) | (b >> 5);
+    const acc = bins.get(key);
+    if (acc) { acc[0]++; acc[1] += r; acc[2] += g; acc[3] += b; }
+    else bins.set(key, [1, r, g, b]);
+  }
+  const out = new Map();
+  for (const id of ids) {
+    let best = null;
+    for (const acc of hist.get(id).values()) if (!best || acc[0] > best[0]) best = acc;
+    if (best) out.set(id, [best[1] / best[0], best[2] / best[0], best[3] / best[0]].map(Math.round));
+  }
+  return out;
+}
+
+const fromArg = process.argv.slice(2).find((a) => a.startsWith('--from='));
+const fromSrc = fromArg ? fromArg.slice('--from='.length) : null;
+
+for (const src of process.argv.slice(2).filter((a) => !a.startsWith('--'))) {
   const buf = await read(src);
   const raw = await sharp(buf).resize(S, S, { fit: 'fill' }).ensureAlpha().raw().toBuffer();
   const walls = buildWalls(new Uint8ClampedArray(raw.buffer, raw.byteOffset, raw.length));
@@ -84,7 +118,19 @@ for (const src of process.argv.slice(2)) {
   inside.sort((a, b) => b.px - a.px);
 
   const out = Buffer.alloc(S * S * 3);
-  const color = new Map(inside.map((r, i) => [r.id, PALETTE[i % PALETTE.length]]));
+  const color = fromSrc
+    ? colorsFromSource(
+        labels,
+        inside.map((r) => r.id),
+        new Uint8ClampedArray(
+          await sharp(await read(fromSrc))
+            .resize(S, S, { fit: 'contain', background: '#ffffff' })
+            .ensureAlpha()
+            .raw()
+            .toBuffer()
+        )
+      )
+    : new Map(inside.map((r, i) => [r.id, PALETTE[i % PALETTE.length]]));
   for (let i = 0; i < S * S; i++) {
     const c = color.get(labels[i]) ?? (walls[i] ? [30, 30, 34] : [255, 255, 255]);
     out[i * 3] = c[0];
