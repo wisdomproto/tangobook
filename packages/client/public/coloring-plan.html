@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>🎨 색칠공부 도안 작업판</title>
+<!--
+  낱말마다 세 칸: 원본 삽화 · 프롬프트(복사) · 붙여넣기.
+  도안은 외부(GPT 등)에서 만들어 여기 붙인다 — 붙여넣은 그림은 /api/comic-assets/coloring-plan 로 R2 에 저장돼
+  다시 열어도 남는다(기획서들과 같은 방식).
+  목록 = /coloring-plan-data.json (build-coloring-plan.mjs 가 R2 에서 파생).
+-->
+<style>
+  :root{
+    --ink:#2b2b31; --ink-soft:#6b6b76; --line:#e6e3dd;
+    --cream:#fdfaf4; --coral:#ff6f61; --mint:#5ec8b6; --ok:#2aa876;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Pretendard Variable',Pretendard,-apple-system,'Malgun Gothic',sans-serif;
+       color:var(--ink);background:var(--cream);display:flex;min-height:100vh}
+  a{color:inherit}
+
+  /* ── 사이드바 ───────────────────────────────────────── */
+  aside{width:236px;flex:0 0 236px;background:#fff;border-right:1.5px solid var(--line);
+        height:100vh;position:sticky;top:0;overflow-y:auto;padding:18px 0 40px}
+  aside h1{font-size:15px;margin:0 18px 14px;font-weight:900;letter-spacing:-.02em}
+  .grp{display:block;width:100%;text-align:left;border:0;background:none;cursor:pointer;
+       padding:9px 18px;font-size:13.5px;font-weight:700;color:var(--ink-soft);border-left:3px solid transparent}
+  .grp:hover{background:#faf8f4}
+  .grp.on{color:var(--ink);background:#f4fbf9;border-left-color:var(--mint);font-weight:900}
+  .grp .n{float:right;font-size:11.5px;color:#9a9aa4;font-weight:600}
+  .done{color:var(--ok);font-weight:800}
+
+  /* ── 본문 ──────────────────────────────────────────── */
+  main{flex:1;min-width:0;padding:22px 26px 80px}
+  .head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+  .head h2{font-size:21px;margin:0;font-weight:900}
+  .head .sub{font-size:13px;color:var(--ink-soft)}
+  .bar{position:sticky;top:0;z-index:5;background:var(--cream);padding:10px 0 12px;
+       border-bottom:1.5px solid var(--line);margin-bottom:16px}
+  .bar input{width:260px;padding:7px 11px;border:1.5px solid var(--line);border-radius:9px;font-size:13px}
+  .bar label{font-size:12.5px;color:var(--ink-soft);margin-left:14px;cursor:pointer}
+
+  section h3{font-size:14px;margin:26px 0 10px;font-weight:900;color:var(--ink-soft)}
+  .row{display:grid;grid-template-columns:190px 1fr 190px;gap:16px;align-items:start;
+       background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+  .row.has{border-color:var(--ok);background:#f6fdfa}
+  .word{font-size:16px;font-weight:900;margin-bottom:6px}
+  .subj{font-size:12px;color:var(--ink-soft);margin-bottom:8px;line-height:1.5}
+  .src img,.dst img{width:100%;aspect-ratio:1;object-fit:contain;background:#fff;
+                    border:1px solid var(--line);border-radius:10px;display:block}
+  pre{white-space:pre-wrap;word-break:break-word;font-size:11.5px;line-height:1.55;
+      background:#faf8f4;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:0;
+      max-height:150px;overflow:auto;font-family:ui-monospace,Menlo,Consolas,monospace}
+  .btn{border:1.5px solid var(--line);background:#fff;border-radius:9px;padding:6px 12px;
+       font-size:12.5px;font-weight:700;cursor:pointer;margin-top:8px}
+  .btn:hover{border-color:var(--coral);color:var(--coral)}
+  .drop{border:2px dashed var(--line);border-radius:10px;aspect-ratio:1;display:flex;
+        align-items:center;justify-content:center;text-align:center;font-size:11.5px;color:#a5a5ae;
+        cursor:pointer;padding:8px;line-height:1.5}
+  .drop:hover,.drop.over{border-color:var(--mint);color:var(--mint);background:#f4fbf9}
+  .dst .act{display:flex;gap:6px;margin-top:6px}
+  .dst .act button{flex:1;font-size:11.5px;padding:5px 0;border:1px solid var(--line);
+                   background:#fff;border-radius:7px;cursor:pointer}
+  .more{display:block;margin:18px auto;padding:9px 20px;font-size:13px;font-weight:700;
+        border:1.5px solid var(--line);background:#fff;border-radius:10px;cursor:pointer}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);
+         color:#fff;padding:9px 18px;border-radius:20px;font-size:13px;opacity:0;transition:opacity .2s;z-index:20}
+  .toast.on{opacity:1}
+  @media (max-width:900px){
+    body{display:block}
+    aside{width:auto;height:auto;position:static;border-right:0;border-bottom:1.5px solid var(--line);
+          display:flex;overflow-x:auto;padding:10px}
+    aside h1{display:none}
+    .grp{width:auto;white-space:nowrap;border-left:0;border-bottom:3px solid transparent}
+    .grp.on{border-left:0;border-bottom-color:var(--mint)}
+    .grp .n{float:none;margin-left:6px}
+    .row{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<aside>
+  <h1>🎨 색칠 도안 작업판</h1>
+  <div id="nav"></div>
+</aside>
+
+<main>
+  <div class="head">
+    <h2 id="title">불러오는 중…</h2>
+    <span class="sub" id="count"></span>
+  </div>
+  <div class="bar">
+    <input id="q" type="search" placeholder="낱말 검색" />
+    <label><input type="checkbox" id="todo" /> 아직 안 붙인 것만</label>
+  </div>
+  <div id="list"></div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  'use strict';
+  var DOC = 'coloring-plan';
+  var API = '/api/comic-assets/' + DOC;
+  var PAGE = 30;            // 한 번에 그리는 줄 수 — 2,000장을 통째로 그리면 브라우저가 버틴다
+  var data = null, assets = {}, gi = 0, shown = PAGE;
+  // 프롬프트는 데이터에 한 벌만 실려 온다 — 낱말만 끼워 넣는다.
+  function promptFor(it) { return data.promptTemplate.replace('{{subject}}', it.subject); }
+
+  var toastT;
+  function toast(m) {
+    var t = document.getElementById('toast');
+    t.textContent = m; t.classList.add('on');
+    clearTimeout(toastT); toastT = setTimeout(function () { t.classList.remove('on'); }, 1400);
+  }
+
+  function items(g) {
+    var q = document.getElementById('q').value.trim().toLowerCase();
+    var todo = document.getElementById('todo').checked;
+    var out = [];
+    g.sections.forEach(function (s) {
+      s.items.forEach(function (it) {
+        if (q && it.word.toLowerCase().indexOf(q) < 0 && it.subject.toLowerCase().indexOf(q) < 0) return;
+        if (todo && assets[it.key]) return;
+        out.push({ section: s.label, it: it });
+      });
+    });
+    return out;
+  }
+
+  function renderNav() {
+    var nav = document.getElementById('nav');
+    nav.innerHTML = '';
+    data.groups.forEach(function (g, i) {
+      var n = 0, done = 0;
+      g.sections.forEach(function (s) {
+        s.items.forEach(function (it) { n++; if (assets[it.key]) done++; });
+      });
+      var b = document.createElement('button');
+      b.className = 'grp' + (i === gi ? ' on' : '');
+      b.innerHTML = g.label + '<span class="n' + (done ? ' done' : '') + '">' +
+        (done ? done + '/' : '') + n + '</span>';
+      b.onclick = function () { gi = i; shown = PAGE; render(); };
+      nav.appendChild(b);
+    });
+  }
+
+  function makeRow(section, it) {
+    var row = document.createElement('div');
+    row.className = 'row' + (assets[it.key] ? ' has' : '');
+
+    var left = document.createElement('div');
+    left.className = 'src';
+    left.innerHTML = '<div class="word">' + it.word + '</div>' +
+      '<div class="subj">' + section + '</div>' +
+      '<img loading="lazy" src="' + it.imageUrl + '" alt="' + it.word + '" />';
+
+    var mid = document.createElement('div');
+    var pre = document.createElement('pre');
+    var text = promptFor(it);
+    pre.textContent = text;
+    var copy = document.createElement('button');
+    copy.className = 'btn';
+    copy.textContent = '📋 프롬프트 복사';
+    copy.onclick = function () {
+      navigator.clipboard.writeText(text).then(function () { toast('복사했어요 — ' + it.word); });
+    };
+    mid.appendChild(pre); mid.appendChild(copy);
+
+    var right = document.createElement('div');
+    right.className = 'dst';
+    function paint() {
+      right.innerHTML = '';
+      if (assets[it.key]) {
+        var img = document.createElement('img');
+        img.src = assets[it.key] + '?t=' + Date.now();
+        right.appendChild(img);
+        var act = document.createElement('div');
+        act.className = 'act';
+        var del = document.createElement('button');
+        del.textContent = '🗑 지우기';
+        del.onclick = function () {
+          fetch(API + '/' + it.key, { method: 'DELETE' }).then(function () {
+            delete assets[it.key]; row.className = 'row'; paint(); renderNav(); toast('지웠어요');
+          });
+        };
+        act.appendChild(del); right.appendChild(act);
+      } else {
+        var d = document.createElement('div');
+        d.className = 'drop';
+        d.textContent = '여기를 누르고 붙여넣기 (Ctrl+V)\n또는 파일을 끌어다 놓기';
+        d.tabIndex = 0;
+        right.appendChild(d);
+      }
+    }
+    paint();
+
+    function upload(dataUrl) {
+      fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key: it.key, dataUrl: dataUrl }),
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          if (!j || !j.success) throw new Error((j && j.error) || '실패');
+          assets[it.key] = (j.data && j.data.url) || dataUrl;
+          row.className = 'row has'; paint(); renderNav(); toast('저장했어요 — ' + it.word);
+        })
+        .catch(function (e) { toast('저장 실패: ' + e.message); });
+    }
+    function fromFile(f) {
+      if (!f || f.type.indexOf('image/') !== 0) return;
+      var fr = new FileReader();
+      fr.onload = function () { upload(String(fr.result)); };
+      fr.readAsDataURL(f);
+    }
+
+    // 🔴 붙여넣기는 **그 칸에 포커스가 있을 때만** 받는다 — 문서 전역으로 받으면 어느 낱말에
+    //    넣을지 알 수 없다. 칸을 한 번 누르고 Ctrl+V 하는 흐름.
+    right.addEventListener('click', function () { right.focus(); });
+    right.tabIndex = 0;
+    right.addEventListener('paste', function (e) {
+      var items = (e.clipboardData || {}).items || [];
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image/') === 0) { e.preventDefault(); fromFile(items[i].getAsFile()); return; }
+      }
+    });
+    right.addEventListener('dragover', function (e) {
+      e.preventDefault();
+      var d = right.querySelector('.drop'); if (d) d.classList.add('over');
+    });
+    right.addEventListener('dragleave', function () {
+      var d = right.querySelector('.drop'); if (d) d.classList.remove('over');
+    });
+    right.addEventListener('drop', function (e) {
+      e.preventDefault(); fromFile(e.dataTransfer.files[0]);
+    });
+
+    row.appendChild(left); row.appendChild(mid); row.appendChild(right);
+    return row;
+  }
+
+  function render() {
+    var g = data.groups[gi];
+    document.getElementById('title').textContent = g.label;
+    renderNav();
+    var all = items(g);
+    document.getElementById('count').textContent =
+      all.length + '장 중 ' + Math.min(shown, all.length) + '장 표시';
+
+    var list = document.getElementById('list');
+    list.innerHTML = '';
+    var lastSection = null, sec = null;
+    all.slice(0, shown).forEach(function (e) {
+      if (e.section !== lastSection) {
+        lastSection = e.section;
+        sec = document.createElement('section');
+        var h = document.createElement('h3');
+        h.textContent = e.section;
+        sec.appendChild(h);
+        list.appendChild(sec);
+      }
+      sec.appendChild(makeRow(e.section, e.it));
+    });
+    if (all.length > shown) {
+      var more = document.createElement('button');
+      more.className = 'more';
+      more.textContent = '더 보기 (' + (all.length - shown) + '장 남음)';
+      more.onclick = function () { shown += PAGE; render(); };
+      list.appendChild(more);
+    }
+  }
+
+  document.getElementById('q').addEventListener('input', function () { shown = PAGE; render(); });
+  document.getElementById('todo').addEventListener('change', function () { shown = PAGE; render(); });
+
+  Promise.all([
+    fetch('/coloring-plan-data.json').then(function (r) { return r.json(); }),
+    fetch(API).then(function (r) { return r.json(); }).catch(function () { return {}; }),
+  ]).then(function (res) {
+    data = res[0];
+    assets = (res[1] && res[1].data) || {};
+    render();
+  }).catch(function (e) {
+    document.getElementById('title').textContent = '목록을 못 불러왔어요: ' + e.message;
+  });
+})();
+</script>
+</body>
+</html>
