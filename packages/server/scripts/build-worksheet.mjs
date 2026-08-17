@@ -551,7 +551,7 @@ ${STYLE}
         g.items
           .map(
             (it) =>
-              `<a class="item" href="#${it.id}" data-id="${it.id}" data-name="${esc(g.level)} · 익힘 ${it.unitNo} · ${esc(it.glyph)}">` +
+              `<a class="item${it.id === first.id ? ' on' : ''}" href="#${it.id}" data-id="${it.id}" data-name="${esc(g.level)} · 익힘 ${it.unitNo} · ${esc(it.glyph)}">` +
               `<b>${it.unitNo}</b><span class="g">${esc(it.glyph)}</span><span class="w">${esc(it.words)}</span></a>`
           )
           .join('')
@@ -566,7 +566,9 @@ ${STYLE}
     <button id="print">🖨 이 단원 인쇄</button>
     <a class="btn" id="open" href="${first.id}.html" target="_blank">단원 파일 따로 열기</a>
   </div>
-  ${items.map((it) => `<div class="unit" id="${it.id}">${it.pages}</div>`).join('\n')}
+  <!-- 🔴 첫 단원은 마크업에서 이미 켜 둔다. 전부 display:none 으로 두고 JS 로만 켜면,
+       스크립트가 한 줄이라도 막히는 환경(확장·정책·구형 브라우저)에서 **백지**가 된다. -->
+  ${items.map((it, i) => `<div class="unit${i === 0 ? ' on' : ''}" id="${it.id}">${it.pages}</div>`).join('\n')}
 </main>
 
 <script>
@@ -579,12 +581,15 @@ ${STYLE}
     document.querySelectorAll('.unit').forEach((u) => u.classList.toggle('on', u.id === a.dataset.id));
     open.href = a.dataset.id + '.html';
     now.textContent = a.dataset.name;
-    history.replaceState(null, '', '#' + a.dataset.id);
+    // ⚠️ file:// 에서는 replaceState 가 던질 수 있다 — 그것 때문에 전환이 멈추면 안 된다.
+    try { history.replaceState(null, '', '#' + a.dataset.id); } catch {}
     main.scrollTop = 0;
   }
   links.forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); select(a); }));
   document.getElementById('print').addEventListener('click', () => window.print());
-  select(links.find((l) => l.dataset.id === location.hash.slice(1)) ?? links[0]);
+  // 주소에 단원이 적혀 있을 때만 옮긴다 — 없으면 마크업이 이미 켜 둔 첫 단원을 그대로 둔다.
+  const want = links.find((l) => l.dataset.id === location.hash.slice(1));
+  if (want) select(want);
 </script>
 `;
 }
