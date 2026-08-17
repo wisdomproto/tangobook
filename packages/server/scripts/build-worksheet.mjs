@@ -32,8 +32,6 @@ import { KOREAN_PHONICS_CURRICULUM, decomposeHangul, composeHangul } from '@tang
 const API = 'https://www.tangobook.co.kr/api/storybooks';
 /** 모음 순서 — 커리큘럼 blending 과 같다. */
 const VOWELS = ['ㅏ', 'ㅑ', 'ㅓ', 'ㅕ', 'ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ', 'ㅣ'];
-/** 2쪽 「거꾸로 나눠요」에 쓸 모음 — 방금 만든 음절 중에서만 고른다. */
-const SPLIT_VOWELS = ['ㅓ', 'ㅜ', 'ㅣ'];
 
 /**
  * 자음 이름과 입 모양. 🔴 소릿값은 자음+ㅡ 로 파생하지만 **ㅇ 은 예외**다 —
@@ -233,7 +231,10 @@ const STYLE = `<style>
 
   .sq { width: 16mm; height: 16mm; border: .4mm solid var(--peach-200); border-radius: 1.6mm; position: relative;
     display: grid; place-items: center; flex: none; background: #fff; }
-  .sq.lg { width: 16mm; height: 16mm; }
+  /* 🔴 조합 칸은 **그 쪽의 줄 수에 맞춰 커진다.** 14줄을 두 쪽에 반씩 나누면 7줄뿐이라
+     16mm 고정이면 47% 가 빈다 — 남는 세로를 칸에 돌려주면 아이가 더 크게 쓴다. */
+  .syls { --lg: 16mm; --lgf: 24pt; }
+  .sq.lg { width: var(--lg); height: var(--lg); }
   /* 큰 칸은 「많이」가 아니라 「크게·천천히」 연습용. ⚠️ 56pt 면 칸의 35%뿐이라 구석에 붙어 보인다. */
   .sq.xl { width: 57mm; height: 57mm; border: .6mm solid var(--coral-200); }
   .sq::before, .sq::after { content: ''; position: absolute;
@@ -243,7 +244,7 @@ const STYLE = `<style>
     background: repeating-linear-gradient(to bottom, var(--peach-200) 0 1.1mm, transparent 1.1mm 2.2mm); }
   /* 따라 쓸 연한 글자 — 회색 대신 복숭아색이라 덧그릴 것이 한눈에 구분된다. */
   .ghost { font-size: 21pt; line-height: 1; font-weight: 700; color: var(--peach-200); position: relative; transform: translateY(.4mm); }
-  .sq.lg .ghost { font-size: 24pt; }
+  .sq.lg .ghost { font-size: var(--lgf); }
   .sq.xl .ghost { font-size: 105pt; }
   /* 🔴 자음 자모만 키운다. 폰트가 자음을 em 위쪽에만 그려서, 같은 105pt 인데도 칸을 채우는
      비율이 자음 31% · 모음/음절 57% 로 두 배 가까이 벌어진다(실측).
@@ -304,6 +305,18 @@ const STYLE = `<style>
   .ans { flex: none; transform: rotate(180deg); font-size: 7.5pt; color: var(--ink-500); }
 </style>`;
 
+/**
+ * 조합 표 한 덩이. 줄이 적은 쪽은 칸을 키워 남는 세로를 메운다.
+ * 🔴 쓸 수 있는 높이가 쪽마다 다르다 — 한 값으로 계산했다가 두 번 넘쳤다(실측 139px).
+ *    받침 1쪽은 이해하기 + 큰 칸이 이미 자리를 먹어 가장 좁고, 보기 상자가 있는 첫 조합 쪽이
+ *    그다음, 이어지는 쪽이 가장 넓다. 넉넉히 잡지 말 것 — 넘치면 잘려서 사라진다.
+ */
+const ROOM = { page1: 110, firstCombo: 176, more: 205 };
+function syllableBlock(rows, room = ROOM.more) {
+  const mm = Math.max(16, Math.min(26, Math.floor(room / rows.length - 2.4)));
+  return `<div class="syls" style="--lg:${mm}mm;--lgf:${Math.round(mm * 1.5)}pt">${rows.join('')}</div>`;
+}
+
 /** 조합 줄: [왼쪽 식] [연한 결과] [빈 ×4] */
 const comboRow = (formula, result) =>
   `<div class="srow"><span class="formula">${formula}</span>` +
@@ -320,7 +333,6 @@ function unitSpec(u, kind, words) {
     const c = CODAS[coda];
     // blending = [초성,중성,받침,결과] × 14. 전부 쓴다 — 넘치면 쪽이 늘어난다.
     const rows = u.blending;
-    const split = rows.slice(0, 3).map(([cho, jung, jong, res]) => ({ s: res, a: syllableOf(cho, jung), b: jong }));
     // 🔴 받침 단원에서 **받침 글자를 홑으로 쓰게 하지 않는다.** ㅇ·ㄱ·ㄴ… 은 한글1 에서 이미
     //    쓴 글자이고, 이 단원의 새로운 것은 글자가 아니라 **자리(아래)와 소리(닫힘)** 다.
     //    찬찬한글도 처음부터 「가 나 다 라 마 바 사 + ㅁ → 감」처럼 **음절**로만 쓰게 한다.
@@ -342,7 +354,6 @@ function unitSpec(u, kind, words) {
       demoNote: `글자 아래에 ${coda} 을 붙이면 소리가 “${c.example}” 처럼 닫혀요`,
       rows: rows.map(([cho, jung, jong, res]) => comboRow(`${syllableOf(cho, jung)}<i>+</i>${jong}`, res)),
       readAll: rows.map((b) => b[3]).join(' '),
-      split,
       meetTitle: `받침 ${coda} 이 들어간 낱말이에요`,
     };
   }
@@ -367,9 +378,6 @@ function unitSpec(u, kind, words) {
       : // 복잡모음 단원 = 모음마다 **자음 14개 전부**(찬찬한글 「글자만들기」).
         //   한 쪽을 넘으면 다음 쪽으로 넘어간다 — 쪽수를 아끼려고 자음을 깎지 않는다.
         vs.flatMap((v) => BLEND_CONSONANTS.flat().map((c) => comboRow(`${c}<i>+</i>${v}`, syllableOf(c, v))));
-    const split = basicOnly
-      ? null // 자음이 없으니 「둘로 가르기」가 성립하지 않는다
-      : vs.slice(0, 3).map((v) => ({ s: syllableOf('ㄱ', v), a: 'ㄱ', b: v }));
     return {
       glyph: vs[0],
       title: `${vs.join(' · ')} 을 알아봐요`,
@@ -391,7 +399,6 @@ function unitSpec(u, kind, words) {
       readAll: basicOnly
         ? vs.map((v) => syllableOf('ㅇ', v)).join(' ')
         : BLEND_CONSONANTS.flat().map((c) => syllableOf(c, vs[0])).join(' '),
-      split,
       // 🔴 단원 모음을 그대로 쓰면 제목이 거짓말을 한다 — h4-u02 는 ㅖ·ㅚ 단원인데 ㅚ 낱말 둘이
       //    그림이 없어 빠져서 화면엔 ㅖ 낱말만 남는다. **실제 나온 모음**만 말한다.
       meetTitle: `${vs.filter((v) => words.some((w) => [...w.word].some((ch) => decomposeHangul(ch)?.jung === v))).join(' · ') || vs.join(' · ')} 이 들어간 낱말이에요`,
@@ -418,10 +425,6 @@ function unitSpec(u, kind, words) {
       : `${letter} 은 첫소리에서 소리가 없어요 — 모음 소리를 그대로 읽어요`,
     rows: VOWELS.map((v) => comboRow(`${letter}<i>+</i>${v}`, syllableOf(letter, v))),
     readAll: VOWELS.map((v) => syllableOf(letter, v)).join(' '),
-    split: SPLIT_VOWELS.map((v) => syllableOf(letter, v)).map((s) => {
-      const d = decomposeHangul(s);
-      return { s, a: d.cho, b: d.jung };
-    }),
     meetTitle: `${letter} 이 들어간 낱말이에요`,
   };
 }
@@ -430,9 +433,18 @@ function unitSpec(u, kind, words) {
 function renderPages({ head, spec, words }) {
   const linked = words.filter((w) => w.book);
   // 🔴 조합 표가 한 쪽을 넘으면 **쪽을 늘린다.** 쪽수를 아끼려고 자음·초성을 깎던 걸 되돌린 것이다.
+  // 🔴 그리고 **고르게** 나눈다 — 앞쪽부터 10줄씩 채우고 나머지를 버리면 마지막 쪽이 텅 빈다
+  //    (실측: 받침 14줄이 10+4 로 갈려 3쪽이 55% 비었고, 42줄짜리는 마지막이 2줄에 69% 비었다).
   const PER_PAGE = 10;
+  const pageCount = Math.max(1, Math.ceil(spec.rows.length / PER_PAGE));
+  const base = Math.floor(spec.rows.length / pageCount);
+  const extra = spec.rows.length % pageCount; // 앞쪽 몇 장이 한 줄씩 더 갖는다
   const chunks = [];
-  for (let i = 0; i < spec.rows.length; i += PER_PAGE) chunks.push(spec.rows.slice(i, i + PER_PAGE));
+  for (let i = 0, at = 0; i < pageCount; i++) {
+    const n = base + (i < extra ? 1 : 0);
+    chunks.push(spec.rows.slice(at, at + n));
+    at += n;
+  }
   const appLink = `<b>${head.levelName} · 익힘 ${head.unitNo}</b>`;
 
   return `
@@ -464,7 +476,7 @@ function renderPages({ head, spec, words }) {
     <h2 data-n="3">${spec.page1Title ?? `이제 작게 써요 ${spec.writeHint ? `<span class="hint">${spec.writeHint}</span>` : ''}`}</h2>
     ${
       spec.page1Rows
-        ? `<div class="syls">${spec.page1Rows.join('')}</div>`
+        ? syllableBlock(spec.page1Rows, ROOM.page1)
         : Array.from(
             { length: 3 },
             (_, r) =>
@@ -484,22 +496,11 @@ function renderPages({ head, spec, words }) {
 
   <div class="demo">${spec.demo}<small>${spec.demoNote}</small></div>
 
-  <section><div class="syls">${chunks[0].join('')}</div></section>
+  <section>${syllableBlock(chunks[0], ROOM.firstCombo)}</section>
 
-  ${
-    chunks.length === 1 && spec.split
-      ? `<section>
-    <h2 data-n="5">거꾸로 나눠요 <span class="hint">한 글자를 둘로 갈라 봐요</span></h2>
-    <div class="qline">${spec.split
-      .map((s) => `<div class="qrow">${esc(s.s)}<span class="op">=</span><span class="blank"></span><span class="op">+</span><span class="blank"></span></div>`)
-      .join('')}</div>
-  </section>`
-      : ''
-  }
 
   <footer>
     <div class="link">✏️ 다 쓰면 <b>${spec.readAll}</b> 를 위에서 아래로 소리 내어 읽어요.</div>
-    ${chunks.length === 1 && spec.split ? `<div class="ans">정답 (5번) — ${spec.split.map((s) => `${s.s}=${s.a}+${s.b}`).join(' · ')}</div>` : ''}
   </footer>
 </div>
 ${chunks
@@ -509,20 +510,9 @@ ${chunks
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
   <div class="runhead"><b>익힘 ${head.unitNo}. ${spec.glyph}</b><span>글자를 만들어요 · ${i + 3}쪽</span></div>
-  <section><div class="syls">${rows.join('')}</div></section>
-  ${
-    i === chunks.length - 2 && spec.split
-      ? `<section>
-    <h2 data-n="5">거꾸로 나눠요 <span class="hint">한 글자를 둘로 갈라 봐요</span></h2>
-    <div class="qline">${spec.split
-      .map((x) => `<div class="qrow">${esc(x.s)}<span class="op">=</span><span class="blank"></span><span class="op">+</span><span class="blank"></span></div>`)
-      .join('')}</div>
-  </section>`
-      : ''
-  }
+  <section>${syllableBlock(rows)}</section>
   <footer>
     <div class="link">✏️ 다 쓰면 <b>${spec.readAll}</b> 를 위에서 아래로 소리 내어 읽어요.</div>
-    ${i === chunks.length - 2 && spec.split ? `<div class="ans">정답 (5번) — ${spec.split.map((x) => `${x.s}=${x.a}+${x.b}`).join(' · ')}</div>` : ''}
   </footer>
 </div>`
   )
