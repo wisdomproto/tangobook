@@ -118,6 +118,23 @@ function buildSeries(key) {
 
   // ── 앵커: 영문 전문을 통째로 (사본을 안 만드는 것이 핵심) ──
   const AMD = fs.readFileSync(path.join(ROOT, 'docs/art-direction', `${key}-anchor.md`), 'utf8');
+
+  // ── 캐스트 규격: 한 사람씩 무엇이 다른가 ──
+  // 🔴 이게 없으면 시트 프롬프트가 **이름만 다르고 지시가 같다** — 「타로」와 「타로 엄마」에게
+  //    똑같은 문장을 주고 다르게 나오길 바란 셈이고, 실제로 「가족들이 너무 비슷하게 생겼다」가
+  //    나왔다(2026-08-17 사용자). 앵커의 CHARACTER DESIGN LANGUAGE 는 **그 세계 전체**를 말하지
+  //    한 사람을 말하지 않는다. 개체를 가르는 것은 여기 있어야 한다.
+  const castMd = path.join(ROOT, 'docs/art-direction', `${key}-cast.md`);
+  const CAST_SPEC = new Map();
+  if (fs.existsSync(castMd)) {
+    // 🔴 `\Z` 는 JS 정규식에 없다(리터럴 Z 가 된다) — 그러면 **마지막 인물이 통째로 빠지고**
+    //    빈 spec 이라 시트가 앵커만 받는다. 문자열 끝은 `$(?![\s\S])`.
+    for (const m of fs.readFileSync(castMd, 'utf8').matchAll(/^## +(.+?)\s*$([\s\S]*?)(?=^## |$(?![\s\S]))/gm)) {
+      // 감싼 코드펜스는 벗긴다 — 프롬프트에 ``` 이 그대로 실려 나가지 않게(작성자마다 스타일이 갈렸다)
+      CAST_SPEC.set(m[1].trim(), m[2].trim().replace(/^```[a-z]*\n([\s\S]*)\n```$/, '$1').trim());
+    }
+  }
+
   const anchorText = (AMD.match(/```\n(STYLE ANCHOR - [\s\S]*?)\n```/) || [])[1];
   const sheetText = (AMD.match(/```\n(CHARACTER SHEET[\s\S]*?)\n```/) || [])[1] || '';
   if (!anchorText) throw new Error(`${key}: 앵커 블록을 못 찾았다`);
@@ -132,7 +149,13 @@ function buildSeries(key) {
     .replace(/__ANCHOR_SLUG__/g, slug)
     .replace(/__ANCHOR_NAME__/g, `앵커 ${slug}`)
     .replace('__ANCHOR_TEXT__', JSON.stringify(anchorText))
-    .replace('__CAST__', JSON.stringify(cfg.cast.map(({ key: k, name, aliases }) => ({ key: k, name, aliases })), null, 2))
+    .replace('__CAST__', JSON.stringify(cfg.cast.map(({ key: k, name, aliases }) => ({
+      key: k, name, aliases,
+      // 🔴 별칭 **전부**로 찾는다 — `aliases[1]` 만 보면 영문 토큰이 1번이 아닌 인물의 규격이
+      //    조용히 안 붙는다. 하필 그런 인물 7명이 전부 **어른**(할아버지·아저씨·선생님)이라,
+      //    「가족이 다 비슷하다」를 고치려고 만든 파일이 정작 그 어른들만 못 받았다.
+      spec: [aliases[1], name, ...aliases].map((a) => CAST_SPEC.get(a)).find(Boolean) ?? '',
+    })), null, 2))
     .replace('__FACE__', JSON.stringify(Object.fromEntries(cfg.cast.map((c) => [c.key, c.face]))));
   fs.writeFileSync(path.join(OUT, `${key}-core.js`), core);
 
@@ -264,6 +287,19 @@ ${mdTable(DESIGN, 2) || mdTable(DESIGN, 1)}
     if (!cfg.cast.some((c) => c.aliases.some((al) => t.toLowerCase().includes(al.toLowerCase())))) empty.push(`${v} ${p}`);
   // ③ 쪽수
   const badPages = [...books.values()].filter((b) => b.pages.length !== 10).map((b) => `${b.id}:${b.pages.length}`);
+  // ④ 🔴 캐스트 규격이 조용히 안 붙는 것 — 시트가 이름만 다르고 지시가 같아지는 그 병이다.
+  //    `\Z` 오타로 마지막 인물이 통째로 빠졌던 적이 있다(2026-08-17). 제목 오타·미작성 둘 다 여기서 걸린다.
+  if (CAST_SPEC.size) {
+    const got = new Set();
+    for (const c of cfg.cast) {
+      // 🔴 위 주입과 **같은 순서**로 찾는다 — 한쪽만 고치면 붙었는데 경고가 나거나 그 반대가 된다
+      const hit = [c.aliases[1], c.name, ...c.aliases].find((a) => CAST_SPEC.has(a)) ?? null;
+      if (hit) got.add(hit); else warn.push(`캐스트 규격 없음 ${c.name}(${c.aliases[1]})`);
+    }
+    // 제목이 글자로 시작하는 것만 인물로 본다 — 🔴·이모지로 여는 해설 섹션은 프롬프트에 안 실릴 뿐 결함이 아니다
+    for (const h of CAST_SPEC.keys())
+      if (!got.has(h) && /^\p{L}/u.test(h)) warn.push(`캐스트 규격 「${h}」 가 아무에게도 안 붙었다`);
+  }
 
   return { key, made, books: books.size, scenes: Object.keys(SCENES).length, missing, warn, empty, badPages };
 }

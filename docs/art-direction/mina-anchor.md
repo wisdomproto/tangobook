@@ -62,9 +62,11 @@ CHARACTER DESIGN LANGUAGE: animals are dotted like everything else - touching IN
   in the book, and the only mark on the page whose position was decided instead of accumulated. Its
   size never changes; shut, it is replaced by one short lying row. A small dark nose; the mouth is
   ONE curved row of touching dots; ONE short row above each eye, and the feeling is in row and mouth. 🔴 THE THREE are elephant children
-  in a ladder of heights, ELDEST : MINA : YOUNGEST = 5 : 4 : 3, and each one is told apart by ONE
-  thing: ELDEST tallest, a POCKET on the top · MINA middle, THE GOLD ANKLE BAND · YOUNGEST a round
-  belly and a big head.
+  in a ladder of heights, ELDEST : MINA : YOUNGEST = 5 : 4 : 3. 🔴 EACH ONE IS TOLD APART FIRST BY
+  OUTLINE - where the dots crowd and where the hems fall, given per figure on that figure's sheet -
+  BECAUSE A PAGE OFTEN HOLDS ONLY ONE OF THEM AND THE LADDER CANNOT BE READ. The small marks only
+  confirm: ELDEST a POCKET on the top · MINA THE GOLD ANKLE BAND · YOUNGEST a round belly and a big
+  head.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
 

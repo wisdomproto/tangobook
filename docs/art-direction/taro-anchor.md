@@ -49,12 +49,16 @@ STAGE CLAUSES (the stage changes where the wax goes, not the dyes):
 CHARACTER DESIGN LANGUAGE: animals are built from the same dipped areas as the world. GRADE:
   bipedal, upright, forelimbs are HANDS with no hooves, bare feet, 🔴 NO CLOTHING - ONE cord each is
   all either of them wears, so no sleeve, pocket, hem or collar anywhere.
-  🔴 EVERY LIMB IS DRAWN LONGER THAN IT COULD BE, AND THE STRETCH IS THE JOKE. Arms, legs, necks,
-  tails and ears run at least half again past what the animal's build allows, hold the same narrow
-  width the whole way with no taper and no elbow or knee showing, and bend in smooth arcs instead of
-  at joints. Bodies stay small and round against them. 🔴 THE STRETCH FOLLOWS THE PAGE - a reaching
-  limb is longer than a resting one, and the longest thing in any picture belongs to whoever is doing
-  the thing the page is about.
+  🔴 SOMETHING ON EVERY ANIMAL IS DRAWN LONGER THAN IT COULD BE, AND THE STRETCH IS THE JOKE. What
+  runs long goes at least half again past what the build allows, holds the same narrow width the
+  whole way with no taper and no elbow or knee showing, and bends in smooth arcs instead of at joints.
+  🔴 IT IS NOT THE SAME PART ON EVERY ANIMAL, AND WHICH PART IT IS IS HOW ONE IS TOLD FROM ANOTHER
+  ACROSS A ROOM. A YOUNG ONE RUNS LONG IN THE LIMBS AND KEEPS A SMALL ROUND BODY; A GROWN ONE RUNS
+  LONG IN THE BODY OR THE NECK AND KEEPS ITS ARMS AND LEGS SHORT AND FOLDED IN, so a grown one is
+  never a bigger child - the two are apart as OUTLINES, with no grey hair, no glasses and nothing
+  worn to say which is which. 🔴 THE STRETCH FOLLOWS THE PAGE - a reaching limb is longer than a
+  resting one, and the longest thing in any picture belongs to whoever is doing the thing the page
+  is about.
   🔴 THE WHOLE FACE IS WAXED CLOTH, so a face is the palest thing on any page and
   the eyes, nose and mouth are small DEEP marks left inside it. An eye is a NARROW UPRIGHT OVAL, not
   a round dot: it stretches taller when the eyes go wide and squashes to a flat lying oval when they
@@ -63,8 +67,10 @@ CHARACTER DESIGN LANGUAGE: animals are built from the same dipped areas as the w
   🔴 AN EYE CANNOT POINT - an oval has no pupil and no direction, so where a character is looking is
   said by the head, the neck and the stretched limb, never by the eye. The mouth is ONE curve and
   carries the feeling; nothing crosses a face, not even rain.
-  TARO is a monkey child, small and round-bodied, thin arms, one long curling tail; MUMU is a deer
-  child, a head taller, long straight legs and two tall ears that turn, a stub tail.
+  TARO is a monkey child, small and round-bodied, the stretch in his thin arms and one long tail
+  that ends in a closed curl; MUMU is a deer child, a head taller, the stretch in long straight legs
+  and two tall ears that turn, a stub tail. The two grown animals sit or are seen from behind, run
+  long in the back and the neck instead, and carry no accent colour anywhere.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
 
