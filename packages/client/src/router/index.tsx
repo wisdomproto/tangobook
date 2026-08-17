@@ -65,6 +65,7 @@ const KoreanJamoStrokeBulkEditorPage = lazy(
   () => import('../pages/KoreanJamoStrokeBulkEditorPage')
 );
 const LetterFillDemoPage = lazy(() => import('../pages/LetterFillDemoPage'));
+const ColoringDemoPage = lazy(() => import('../pages/ColoringDemoPage'));
 const ConnectTheDotsDemoPage = lazy(() => import('../pages/ConnectTheDotsDemoPage'));
 const ViewerPage = lazy(() => import('../pages/ViewerPage'));
 import { LangEntry } from '../pages/LangEntry';
@@ -461,6 +462,15 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <LetterFillDemoPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        // 색칠공부 데모 (2026-08-17): 안내 색칠 — 도안 + 정답본으로 칸별 정답색 검증
+        path: 'coloring-demo',
+        element: (
+          <ErrorBoundary>
+            <ColoringDemoPage />
           </ErrorBoundary>
         ),
       },

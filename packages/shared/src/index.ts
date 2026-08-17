@@ -29,6 +29,13 @@ export type { AudiobookSlideData, AudiobookRenderData } from './utils/audiobook-
 export { getEffectiveVocabulary } from './utils/effective-vocabulary.js';
 export { getWordHotspots } from './utils/hotspots.js';
 export {
+  buildWalls,
+  labelRegions,
+  paintableRegions,
+  borderRegions,
+  type Regions,
+} from './utils/flood-fill.js';
+export {
   composeKoreanSyllable,
   decomposeKoreanSyllable,
   chooseSyllableLayout,
