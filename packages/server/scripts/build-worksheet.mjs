@@ -479,7 +479,11 @@ ${STYLE}
 ${body}`;
 
 /**
- * 고르기 화면 — 왼쪽 목록, 오른쪽 미리보기(iframe).
+ * 고르기 화면 — 왼쪽 목록, 오른쪽 본문.
+ *
+ * 🔴 **iframe 을 쓰지 않는다.** `file://` 로 열면 브라우저가 iframe 안 문서를 막아
+ *    (`contentDocument` 가 null) 본문이 통째로 안 보인다. 이 파일은 서버 없이 더블클릭으로
+ *    여는 물건이므로, 32단원을 전부 한 파일에 담고 CSS 로 보이고 감춘다(약 3MB).
  * 🔴 목록은 생성한 단원에서 **파생**한다. 손으로 적으면 단원이 늘 때 한쪽만 고쳐져 갈라진다.
  */
 function renderIndex(items) {
@@ -492,19 +496,22 @@ function renderIndex(items) {
   return `<!doctype html>
 <meta charset="utf-8">
 <title>한글 워크지 — 인쇄용</title>
+${STYLE}
 <style>
-  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
-  :root { --cream:#FFF9F3; --peach-50:#FFF8EF; --peach-200:#FFDDBF; --coral:#FF5E3A; --coral-700:#C43A1C;
-    --mint-600:#2A8761; --ink:#0B0805; --ink-500:#9A8474; --ink-600:#6D5A4C; }
-  * { box-sizing:border-box; margin:0; }
-  body { font-family:Pretendard,'Malgun Gothic',sans-serif; color:var(--ink);
-    display:grid; grid-template-columns:288px 1fr; height:100vh; background:#e6e0da; }
+  /* 워크지 STYLE 뒤에 와야 body 규칙을 덮는다. */
+  body { display:grid; grid-template-columns:288px 1fr; height:100vh; background:#e6e0da; padding:0; }
+  main { overflow-y:auto; min-width:0; }
+  .unit { display:none; }
+  .unit.on { display:block; }
 
-  aside { background:var(--cream); border-right:1px solid var(--peach-200); overflow-y:auto; padding:16px 0 40px; }
+  aside { background:var(--cream); border-right:1px solid var(--peach-200); overflow-y:auto; padding:16px 0 40px; text-align:left; }
   aside h1 { font-size:17px; font-weight:800; letter-spacing:-.03em; padding:4px 18px 12px; }
   aside h1 em { font-style:normal; color:var(--coral); }
-  aside h2 { font-size:11px; font-weight:700; color:var(--ink-500); letter-spacing:.02em;
-    padding:16px 18px 6px; text-transform:uppercase; }
+  /* 🔴 워크지 STYLE 의 h2 는 번호 배지(::before)와 가운데 정렬을 갖는다 — 사이드바 제목에도
+     먹어서 빈 주황 원이 붙고 가운데로 몰렸다. 여기서 되돌린다. */
+  aside h2 { display:block; font-size:11px; font-weight:700; color:var(--ink-500); letter-spacing:.02em;
+    padding:16px 18px 6px; }
+  aside h2::before { content:none; }
   a.item { display:flex; gap:9px; align-items:baseline; padding:8px 18px; text-decoration:none; color:inherit;
     border-left:3px solid transparent; }
   a.item:hover { background:var(--peach-50); }
@@ -515,28 +522,36 @@ function renderIndex(items) {
   a.all { margin:6px 18px 0; padding:9px 12px; border:1px dashed var(--peach-200); border-radius:8px;
     display:block; text-align:center; font-size:12px; font-weight:700; color:var(--mint-600); }
 
-  main { display:flex; flex-direction:column; min-width:0; }
-  .bar { display:flex; align-items:center; gap:12px; padding:10px 16px; background:#fff;
-    border-bottom:1px solid var(--peach-200); }
+  .bar { position:sticky; top:0; z-index:2; display:flex; align-items:center; gap:12px; padding:10px 16px;
+    background:#fff; border-bottom:1px solid var(--peach-200); }
   .bar .now { font-weight:800; letter-spacing:-.02em; }
   .bar .sp { flex:1; }
   .bar button, .bar a.btn { font:inherit; font-size:12px; font-weight:700; cursor:pointer; text-decoration:none;
     border:1px solid var(--peach-200); background:var(--peach-50); color:var(--coral-700);
     padding:7px 14px; border-radius:7px; }
   .bar button:hover, .bar a.btn:hover { background:#fff; }
-  iframe { flex:1; width:100%; border:0; background:#e6e0da; }
+
+  /* 🔴 인쇄하면 사이드바와 나머지 31단원이 같이 나간다 — 고른 단원만 남긴다.
+     ⚠️ 이 블록은 **맨 뒤**에 있어야 한다. 위에 두면 뒤따르는 .bar{display:flex} 같은 평범한
+        규칙이 특정도가 같아 인쇄에서도 이겨 버린다(실측: 사이드바만 숨고 도구막대가 남았다). */
+  @media print {
+    body { display:block; height:auto; }
+    aside, .bar { display:none !important; }
+    .unit:not(.on) { display:none !important; }
+  }
 </style>
 
 <aside>
   <h1>한글 워크지 <em>인쇄용</em></h1>
-  <a class="all" href="all.html" data-file="all.html" data-name="전체 ${items.length}단원">📚 전체 ${items.length}단원 · ${items.length * 3}쪽</a>
+  <!-- 전체는 별도 파일로 연다 — 여기 또 심으면 같은 3MB 를 두 벌 들고 있게 된다. -->
+  <a class="all" href="all.html" target="_blank">📚 전체 ${items.length}단원 · ${items.length * 3}쪽 한꺼번에</a>
   ${groups
     .map(
       (g) => `<h2>${esc(g.level)}</h2>` +
         g.items
           .map(
             (it) =>
-              `<a class="item" href="${it.id}.html" data-file="${it.id}.html" data-name="${esc(g.level)} 익힘 ${it.unitNo} · ${esc(it.glyph)}">` +
+              `<a class="item" href="#${it.id}" data-id="${it.id}" data-name="${esc(g.level)} · 익힘 ${it.unitNo} · ${esc(it.glyph)}">` +
               `<b>${it.unitNo}</b><span class="g">${esc(it.glyph)}</span><span class="w">${esc(it.words)}</span></a>`
           )
           .join('')
@@ -546,34 +561,30 @@ function renderIndex(items) {
 
 <main>
   <div class="bar">
-    <span class="now">${esc(first.levelName)} 익힘 ${first.unitNo} · ${esc(first.glyph)}</span>
+    <span class="now">${esc(first.levelName)} · 익힘 ${first.unitNo} · ${esc(first.glyph)}</span>
     <span class="sp"></span>
     <button id="print">🖨 이 단원 인쇄</button>
-    <a class="btn" id="open" href="${first.id}.html" target="_blank">새 창에서 열기</a>
+    <a class="btn" id="open" href="${first.id}.html" target="_blank">단원 파일 따로 열기</a>
   </div>
-  <iframe id="view" src="${first.id}.html"></iframe>
+  ${items.map((it) => `<div class="unit" id="${it.id}">${it.pages}</div>`).join('\n')}
 </main>
 
 <script>
-  const view = document.getElementById('view');
   const now = document.querySelector('.now');
   const open = document.getElementById('open');
-  const links = [...document.querySelectorAll('[data-file]')];
+  const links = [...document.querySelectorAll('a.item')];
+  const main = document.querySelector('main');
   function select(a) {
     links.forEach((l) => l.classList.toggle('on', l === a));
-    view.src = a.dataset.file;
-    open.href = a.dataset.file;
+    document.querySelectorAll('.unit').forEach((u) => u.classList.toggle('on', u.id === a.dataset.id));
+    open.href = a.dataset.id + '.html';
     now.textContent = a.dataset.name;
-    location.hash = a.dataset.file.replace('.html', '');
+    history.replaceState(null, '', '#' + a.dataset.id);
+    main.scrollTop = 0;
   }
   links.forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); select(a); }));
-  // 🔴 iframe 을 직접 인쇄한다 — 이 화면을 인쇄하면 사이드바까지 딸려 나온다.
-  document.getElementById('print').addEventListener('click', () => {
-    view.contentWindow.focus();
-    view.contentWindow.print();
-  });
-  const want = links.find((l) => l.dataset.file === location.hash.slice(1) + '.html');
-  select(want ?? links.find((l) => l.classList.contains('item')));
+  document.getElementById('print').addEventListener('click', () => window.print());
+  select(links.find((l) => l.dataset.id === location.hash.slice(1)) ?? links[0]);
 </script>
 `;
 }
@@ -588,7 +599,7 @@ async function main() {
     await readFile(new URL('../../client/src/features/phonics-learner/data/word-scenes.json', import.meta.url), 'utf8')
   );
   const units = KOREAN_PHONICS_CURRICULUM.filter((l) => String(l.level).startsWith('hangul')).flatMap((l) =>
-    l.units.map((u) => ({ ...u, levelName: l.name.split(':')[0].trim() }))
+    l.units.map((u) => ({ ...u, levelName: l.name.replace(':', '') }))
   ).filter((u) => !only || u.id === only);
   if (!units.length) {
     console.error(only ? `${only} 을(를) 못 찾았다` : '대상 단원이 없다');
@@ -634,7 +645,7 @@ async function main() {
     all.push(pages);
     const html = wrap(`한글 워크지 · ${u.levelName} 익힘 ${unitNo} · ${spec.glyph}`, pages);
     await writeFile(new URL(`${u.id}.html`, outDir), html, 'utf8');
-    index.push({ id: u.id, unitNo, levelName: u.levelName, glyph: spec.glyph, words: words.map((w) => w.word).join(' ') });
+    index.push({ id: u.id, unitNo, levelName: u.levelName, glyph: spec.glyph, words: words.map((w) => w.word).join(' '), pages });
     report.push({
       단원: u.id,
       종류: { consonant: '자음', coda: '받침', vowel: '모음' }[kind],
