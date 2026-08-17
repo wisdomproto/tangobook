@@ -129,3 +129,4 @@ docs/marketing/*.mp4
 packages/client/public/worksheet/*
 !packages/client/public/worksheet/ko_phonics.html
 !packages/client/public/worksheet/en_phonics.html
+packages/server/scripts/_preview-flat/
