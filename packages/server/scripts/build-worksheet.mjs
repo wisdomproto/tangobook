@@ -90,9 +90,24 @@ const CODAS = {
  */
 const VOWEL_PARTS = {
   ㅑ: ['ㅣ', 'ㅏ'], ㅕ: ['ㅣ', 'ㅓ'], ㅛ: ['ㅣ', 'ㅗ'], ㅠ: ['ㅣ', 'ㅜ'],
-  ㅐ: ['ㅏ', 'ㅣ'], ㅔ: ['ㅓ', 'ㅣ'], ㅒ: ['ㅑ', 'ㅣ'], ㅖ: ['ㅕ', 'ㅣ'],
-  ㅘ: ['ㅗ', 'ㅏ'], ㅙ: ['ㅗ', 'ㅐ'], ㅚ: ['ㅗ', 'ㅣ'],
+  ㅖ: ['ㅣ', 'ㅔ'], ㅒ: ['ㅣ', 'ㅐ'],
+  ㅘ: ['ㅗ', 'ㅏ'], ㅙ: ['ㅗ', 'ㅐ'],
   ㅝ: ['ㅜ', 'ㅓ'], ㅞ: ['ㅜ', 'ㅔ'], ㅟ: ['ㅜ', 'ㅣ'], ㅢ: ['ㅡ', 'ㅣ'],
+  // 🔴 ㅐ·ㅔ·ㅚ 는 **일부러 비워 둔다.**
+  //  - ㅐ·ㅔ 는 현대 한국어에서 단모음이다. 글자 모양이 ㅏ+ㅣ, ㅓ+ㅣ 라고 해서 「아~이를 빠르게」로
+  //    가르치면 소리가 틀린다. 찬찬한글도 합성을 주지 않고 「ㅣ→ㅔ→ㅐ 순서로 입이 점점 크게」로만.
+  //  - ㅚ 는 찬찬한글이 「그냥 익히도록 하고, ㅞ·ㅙ·ㅚ 모두 소리는 같게 해도 된다」고 못 박는다.
+  // ⚠️ ㅖ·ㅒ 도 처음엔 모양대로 ㅕ+ㅣ, ㅑ+ㅣ 로 적었다가 고쳤다 — 소리는 ㅣ+ㅔ, ㅣ+ㅐ 다.
+};
+
+/**
+ * 합성으로 못 가르치는 모음에 붙일 설명 — 찬찬한글 문구를 그대로 옮겼다.
+ * 소리가 비슷해서 헷갈리는 짝이라, 「무엇과 무엇이 어떻게 다른가」로만 잡을 수 있다.
+ */
+const VOWEL_NOTES = {
+  ㅐ: 'ㅣ → ㅔ → ㅐ 차례로 소리 내면 입이 점점 크게 벌어져요',
+  ㅔ: 'ㅣ → ㅔ → ㅐ 차례로 소리 내면 입이 점점 크게 벌어져요',
+  ㅚ: 'ㅞ · ㅙ · ㅚ 는 소리가 거의 같아요 — 모양으로 구별해요',
 };
 
 /**
@@ -228,6 +243,9 @@ const STYLE = `<style>
   /* 🔴 자음 자모만 키운다. 폰트가 자음을 em 위쪽에만 그려서, 같은 105pt 인데도 칸을 채우는
      비율이 자음 31% · 모음/음절 57% 로 두 배 가까이 벌어진다(실측).
      ⚠️ 160pt 가 상한 — 180pt 부터는 글자가 칸보다 커져 위로 5.6% 밀린다(실측). */
+  /* 모음 10개처럼 여러 글자를 한 번씩 크게 쓸 때 — 57mm 로는 한 줄에 셋뿐이라 자의적으로 잘린다. */
+  .sq.md { width: 33mm; height: 33mm; border: .5mm solid var(--coral-200); }
+  .sq.md .ghost { font-size: 60pt; }
   .sq.xl.big .ghost { font-size: 160pt; }
   .sq.big .ghost { font-size: 32pt; }
   .row { display: flex; gap: 2.5mm; flex-wrap: wrap; justify-content: center; }
@@ -323,10 +341,11 @@ function unitSpec(u, kind, words) {
   if (kind === 'vowel') {
     const vs = u.phonemes;
     const parts = (v) => VOWEL_PARTS[v];
-    const sayHow = vs
-      .filter(parts)
-      .map((v) => `${parts(v)[0]} ~ ${parts(v)[1]} 을 빠르게 이어 붙이면 ${v}`)
-      .join(' · ');
+    // 합성으로 설명되는 모음은 합성으로, 아닌 모음(ㅐ·ㅔ·ㅚ)은 제 설명으로.
+    const sayHow = [
+      ...vs.filter(parts).map((v) => `${parts(v)[0]} ~ ${parts(v)[1]} 을 빠르게 이어 붙이면 ${v}`),
+      ...[...new Set(vs.filter((v) => VOWEL_NOTES[v]).map((v) => VOWEL_NOTES[v]))],
+    ].join(' · ');
     // 🔴 기본모음 단원(한글1 u01)은 **아직 자음을 안 배웠다** — 자음×모음 표를 낼 수 없다.
     //    찬찬한글도 단순모음 단원에선 모음만 쓰게 하고, 자음과 합치는 건 자음 단원부터다.
     const basicOnly = vs.length > 3;
@@ -353,7 +372,7 @@ function unitSpec(u, kind, words) {
         ['소리', vs.map((v) => syllableOf('ㅇ', v)).join('   ')],
         ['알아두기', sayHow || '모음은 혼자서도 소리가 나요 — 자음은 모음이 있어야 소리가 나요'],
       ],
-      xlGhosts: vs.slice(0, 3),
+      xlGhosts: vs, // 🔴 앞 3개만 자르면 10개 단원이 「ㅏㅑㅓ 단원」처럼 보인다
       writeHint: `쓸 때마다 “${syllableOf('ㅇ', vs[0])}” 하고 소리 내요`,
       demo: parts(vs[0])
         ? `${parts(vs[0])[0]} <em>+</em> ${parts(vs[0])[1]} <em>→</em> ${label(vs[0])}`
@@ -421,7 +440,11 @@ function renderPages({ head, spec, words }) {
 
   <section>
     <h2 data-n="2">크게 써 봐요 <span class="hint">손 전체를 움직여 천천히</span></h2>
-    <div class="row">${Array.from({ length: 3 }, (_, i) => box(spec.xlGhosts[i] ?? '', 'xl' + (spec.xlBig ? ' big' : ''))).join('')}</div>
+    <div class="row">${
+      spec.xlGhosts.length > 3
+        ? spec.xlGhosts.map((c) => box(c, 'md')).join('')
+        : Array.from({ length: 3 }, (_, i) => box(spec.xlGhosts[i] ?? '', 'xl' + (spec.xlBig ? ' big' : ''))).join('')
+    }</div>
   </section>
 
   <section>
@@ -432,7 +455,9 @@ function renderPages({ head, spec, words }) {
         : Array.from(
             { length: 3 },
             (_, r) =>
-              `<div class="row">${Array.from({ length: 9 }, (_, i) => box(r === 0 && i < 3 ? spec.xlGhosts[i % spec.xlGhosts.length] : '', spec.xlBig ? 'big' : '')).join('')}</div>`
+              `<div class="row">${Array.from({ length: Math.max(9, spec.xlGhosts.length) }, (_, i) =>
+                box(r === 0 && i < spec.xlGhosts.length && (spec.xlGhosts.length > 3 || i < 3) ? spec.xlGhosts[i] : '', spec.xlBig ? 'big' : '')
+              ).join('')}</div>`
           ).join('')
     }
   </section>
