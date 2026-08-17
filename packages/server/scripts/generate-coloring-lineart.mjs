@@ -32,6 +32,7 @@ import sharp from 'sharp';
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { loadEnv, getStorybook, putStorybook, parseArgs } from './translation-core.mjs';
 // 🔴 칸 나누기는 **앱과 같은 구현**을 쓴다 — 검사기가 제 나름대로 칸을 나누면, 앱에서 깨지는 도안에
@@ -221,7 +222,7 @@ const MIN_PURITY = 0.8;
  *    칸 수·순도 검사는 그걸 못 잡는다(누나가 그렇게 통과했다). 실측으로 경계를 잡았다:
  *    누나 10.99% vs 나머지 19장 최대 2.81% — 자릿수가 다르다.
  */
-const MAX_BLOB = 0.04;
+const MAX_BLOB = 40 / 512; // 최대 두께 40px (512 기준) — 그 이상이면 선이 아니라 칠해진 면
 /**
  * 잉크 조각 수 상한.
  *
@@ -249,19 +250,35 @@ async function measure(linePath, answerPath, S = 512) {
   const line = await sharp(linePath).resize(S, S, { fit: 'fill' }).ensureAlpha().raw().toBuffer();
   const ans = await sharp(answerPath).resize(S, S, { fit: 'fill' }).ensureAlpha().raw().toBuffer();
 
-  // 굵은 검은 덩어리 재기 — 흐린 뒤에도 어두우면 선이 아니라 면이다(선은 흐리면 옅어진다).
-  // 🔴 흐림 반경은 **윤곽선보다 넉넉히 커야** 한다. blur(4) 로는 20px 짜리 굵은 윤곽선이 살아남아
-  //    「검게 칠해진 면」으로 오인됐고(멀쩡한 도안이 13~17% 로 찍혔다), 그 상태로 기준을 낮췄으면
-  //    성의 검은 탑을 통과시킬 뻔했다. blur(12) 면 굵은 선은 옅어지고 칠해진 면만 남는다.
-  const blurred = await sharp(linePath)
-    .resize(S, S, { fit: 'fill' })
-    .greyscale()
-    .blur(12)
-    .raw()
-    .toBuffer();
-  let blobPx = 0;
-  for (let i = 0; i < blurred.length; i++) if (blurred[i] < 60) blobPx++;
-  const blob = blobPx / (S * S);
+  /**
+   * 검은 자리의 **최대 두께** — 이게 선과 「칠해진 면」을 가르는 기준이다.
+   *
+   * 🔴 처음엔 흐린 뒤 남는 **면적**으로 쟀는데, 면적은 두 가지를 못 가른다: 굵은 윤곽선도 넓고
+   *    칠해진 면도 넓다. 반경을 키우면 굵은 선이 통과하는 대신 **가는 줄기 모양의 검은 면**이
+   *    빠져나가고(숲의 검은 나무줄기가 2.7% 로 통과했다), 줄이면 멀쩡한 굵은 선이 걸린다.
+   *    두께로 재면 선은 선폭(10~28px)에서 멈추고 칠해진 면만 크게 나온다.
+   *    실측: 정상 다리 10 · 여우 28 · 집 26 vs 검은 면 있는 누나 80 · 성 80 · 숲 62.
+   */
+  const inkThick = new Uint8Array(S * S);
+  for (let i = 0; i < inkThick.length; i++) inkThick[i] = line[i * 4] < 128 ? 1 : 0;
+  let cur = inkThick;
+  let erosions = 0;
+  while (erosions < 40) {
+    const next = new Uint8Array(S * S);
+    let any = 0;
+    for (let y = 1; y < S - 1; y++)
+      for (let x = 1; x < S - 1; x++) {
+        const i = y * S + x;
+        if (cur[i] && cur[i - 1] && cur[i + 1] && cur[i - S] && cur[i + S]) {
+          next[i] = 1;
+          any = 1;
+        }
+      }
+    if (!any) break;
+    cur = next;
+    erosions++;
+  }
+  const blob = (erosions * 2) / S; // 최대 두께를 화면 폭 대비 비율로
 
   /**
    * 잉크가 몇 조각으로 흩어졌나.
@@ -672,7 +689,43 @@ function outlineKeepingInk(rgb, S, inkMask) {
  *    원본 그림체(수채·니들펠트)에 좌우되지도 않는다 — 평면 색으로 그려 달라고 우리가 주문하기
  *    때문이다. 색뭉개기가 수채에서 무너지던 문제가 여기서 사라진다.
  */
+/**
+ * 🔴 **OpenCV 경로가 기본이다**(`_cv-split.py`). JS 구현(`splitFlatJs`)은 모델이 그린 검은 획을
+ *    살려 쓰려다 굵기·부슬거림·2중선과 계속 싸웠다(잉크 16%, 얼룩). OpenCV 는 그 획을 버리고
+ *    색 경계에서 윤곽을 뽑아 **우리가 정한 굵기로 다시 그린다** — 굵기가 입력이 아니라 출력이다.
+ *    실측(백설공주 6개): JS 3/6 vs OpenCV 4/6, 그리고 JS 로는 계속 실패하던 성·숲이 통과했다.
+ */
 async function splitFlat(srcPath, slug, S = 1024) {
+  const linePath = path.join(PREVIEW_DIR, `${slug}.png`);
+  const ansPath = path.join(PREVIEW_DIR, `${slug}-answer.png`);
+  let best = null;
+  for (const colors of COLOR_SWEEP) {
+    const r = spawnSync(
+      'python',
+      [path.join(__dirname, '_cv-split.py'), srcPath, linePath, ansPath, String(colors)],
+      { encoding: 'utf8' }
+    );
+    if (r.status !== 0) {
+      const lines = (r.stderr || '').trim().split(/\r?\n/);
+      throw new Error(lines[lines.length - 1] || 'cv-split 실패');
+    }
+    const m = await measure(linePath, ansPath);
+    if (
+      m.regions >= MIN_REGIONS &&
+      m.regions <= MAX_REGIONS &&
+      m.blob <= MAX_BLOB &&
+      m.inkPieces <= MAX_INK_PIECES &&
+      m.inkRatio <= MAX_INK_RATIO
+    )
+      return { ...m, colors, ok: true };
+    const miss =
+      m.regions < MIN_REGIONS ? MIN_REGIONS - m.regions : Math.max(0, m.regions - MAX_REGIONS);
+    if (!best || miss < best.miss) best = { ...m, colors, ok: false, miss };
+  }
+  return best;
+}
+
+async function splitFlatJs(srcPath, slug, S = 1024) {
   const base = sharp(srcPath).resize(S, S, { fit: 'contain', background: '#ffffff' }).flatten({
     background: '#ffffff',
   });
@@ -997,7 +1050,7 @@ if (CHECK) {
     if (purity < MIN_PURITY) verdicts.push('정답본 다시');
     if (regions > MAX_REGIONS) verdicts.push('도안 다시(너무 잘다)');
     if (regions < MIN_REGIONS) verdicts.push('도안 다시(너무 밋밋하다)');
-    if (blob > MAX_BLOB) verdicts.push('도안 다시(검게 칠해짐)');
+    if (blob > MAX_BLOB) verdicts.push('도안 다시(검게 칠해진 면)');
     if (inkPieces > MAX_INK_PIECES) verdicts.push('도안 다시(잔선)');
     if (inkRatio > MAX_INK_RATIO) verdicts.push('도안 다시(선이 굵고 거칠다)');
     if (verdicts.length) bad.push({ base, regions, purity, blob, verdicts });
