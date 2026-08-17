@@ -241,6 +241,18 @@ const RESOURCES: ResourceItem[] = [
     desc: '책 마스터플랜·DB 연동',
   },
   {
+    href: '/worksheet/index.html',
+    icon: '📄',
+    label: '한글 워크지 (인쇄용)',
+    desc: '파닉스 32단원 · A4 · 단원 골라 인쇄',
+  },
+  {
+    href: '/worksheet-en/index.html',
+    icon: '🔤',
+    label: '영어 파닉스 워크지 (인쇄용)',
+    desc: 'Book 1~5 · 39단원 · A4 · 단원 골라 인쇄',
+  },
+  {
     href: '/vocabulary-master.html',
     icon: '🔤',
     label: '어휘 마스터 (영어)',

@@ -27,7 +27,12 @@
  */
 import { writeFile, mkdir, readFile } from 'node:fs/promises';
 import sharp from 'sharp';
-import { KOREAN_PHONICS_CURRICULUM, decomposeHangul, composeHangul } from '@tangobook/shared';
+import {
+  KOREAN_PHONICS_CURRICULUM,
+  ENGLISH_PHONICS_CURRICULUM,
+  decomposeHangul,
+  composeHangul,
+} from '@tangobook/shared';
 
 const API = 'https://www.tangobook.co.kr/api/storybooks';
 /** 모음 순서 — 커리큘럼 blending 과 같다. */
@@ -154,17 +159,31 @@ const box = (ch = '', cls = '') => `<div class="sq ${cls}"><span class="ghost">$
  * 따라쓰기 한 줄. 🔴 낱말 길이가 1~3자로 제각각이라 세트 수를 맞춰야 한다 —
  * 3글자에 3세트(9칸)를 주면 가로로 넘치고, 1글자에 3세트(3칸)면 줄이 텅 빈다.
  */
-const traceRow = (word) => {
+const traceRow = (word, label = null, en = false, tw = 13) => {
   const n = [...word].length;
-  const sets = Math.max(2, Math.round(6 / n)); // 칸 수를 6 언저리로
+  // 🔴 칸을 키우면 가로가 먼저 찬다 — 반복 횟수는 **폭에서 거꾸로** 센다(본문 178mm, 라벨 22mm).
+  const sets = en
+    ? Math.max(1, Math.min(4, Math.floor((178 - 22) / ((tw + 3) * n))))
+    : Math.max(2, Math.round(6 / n));
   const cells = Array.from({ length: sets }, (_, s) => [...word].map((c) => box(s === 0 ? c : '')).join('')).join('');
-  return `<div class="traceline"><span class="lbl">${esc(word)}</span>${cells}</div>`;
+  return `<div class="traceline${en ? ' en' : ''}"><span class="lbl">${esc(label ?? word)}</span>${cells}</div>`;
 };
 
-/** 카드 이미지 → data URI. 36mm 를 300dpi 로 찍으면 ~425px 면 충분하다. */
+/** 따라쓰기 묶음 — 줄 수에 맞춰 칸을 키운다. 15mm 고정이면 8줄짜리 쪽이 아래 40% 를 비운다. */
+function traceBlock(items, room, en) {
+  if (!en) return items.map(([w, l]) => traceRow(w, l)).join('');
+  const tw = Math.max(13, Math.min(22, Math.floor(room / items.length / 1.15 - 1.5)));
+  return `<div style="--tw:${tw}mm">${items.map(([w, l]) => traceRow(w, l, true, tw)).join('')}</div>`;
+}
+
+/**
+ * 카드 이미지 → data URI. 36mm 를 300dpi 로 찍으면 ~425px 면 충분하다.
+ * ⚠️ 영어는 단원당 카드가 8~12장(한글은 4장)이라 같은 화질로 구우면 고르기 화면이 10MB 가 된다.
+ *    인쇄 크기가 48mm 언저리라 360px = 190dpi — 잉크젯 학습지엔 넉넉하다.
+ */
 async function pic(url, px = 440) {
   const buf = Buffer.from(await (await fetch(url)).arrayBuffer());
-  const out = await sharp(buf).resize(px, px, { fit: 'inside' }).webp({ quality: 82 }).toBuffer();
+  const out = await sharp(buf).resize(px, px, { fit: 'inside' }).webp({ quality: px < 400 ? 78 : 82 }).toBuffer();
   return `data:image/webp;base64,${out.toString('base64')}`;
 }
 
@@ -245,19 +264,58 @@ const STYLE = `<style>
   /* 따라 쓸 연한 글자 — 회색 대신 복숭아색이라 덧그릴 것이 한눈에 구분된다. */
   .ghost { font-size: 21pt; line-height: 1; font-weight: 700; color: var(--peach-200); position: relative; transform: translateY(.4mm); }
   .sq.lg .ghost { font-size: var(--lgf); }
-  .sq.xl .ghost { font-size: 105pt; }
+  /* 🔴 105pt 는 **한글 한 글자** 기준이다. 영어 패턴은 2~4자라 그대로 두면 -ime 가 칸을
+     239px 로 넘는다(칸 215px, 실측). 글자 수를 아는 쪽에서 --xlf 로 낮춰 준다. */
+  .sq.xl .ghost { font-size: var(--xlf, 105pt); }
   /* 🔴 자음 자모만 키운다. 폰트가 자음을 em 위쪽에만 그려서, 같은 105pt 인데도 칸을 채우는
      비율이 자음 31% · 모음/음절 57% 로 두 배 가까이 벌어진다(실측).
      ⚠️ 160pt 가 상한 — 180pt 부터는 글자가 칸보다 커져 위로 5.6% 밀린다(실측). */
   /* 모음 10개처럼 여러 글자를 한 번씩 크게 쓸 때 — 57mm 로는 한 줄에 셋뿐이라 자의적으로 잘린다. */
-  .sq.md { width: 33mm; height: 33mm; border: .5mm solid var(--coral-200); }
-  .sq.md .ghost { font-size: 60pt; }
+  /* 🔴 33mm 고정이면 6칸부터 한 줄에 5개만 들어가 마지막 하나가 혼자 다음 줄로 떨어진다.
+     칸 수를 알고 있으니 폭을 거기서 정한다(--md). */
+  .sq.md { width: var(--md, 33mm); height: var(--md, 33mm); border: .5mm solid var(--coral-200); }
+  /* ⚠️ 배율은 mm 기준(0.64) — pt 로 착각해 1.8 을 쓰면 글자가 칸의 두 배가 돼 넘쳐 흐른다. */
+  .sq.md .ghost { font-size: var(--mdf, calc(var(--md, 33mm) * 0.64)); }
   .sq.xl.big .ghost { font-size: 160pt; }
   .sq.big .ghost { font-size: 32pt; }
+  /* ── 영어 워크지 프리미티브 ────────────────────────────────────────────────
+     🔴 한글은 네모 칸에 한 글자지만 **영어 낱말은 옆으로 눕는다** — 정사각 칸에 넣으면
+        cliff·window 가 칸을 넘어 접힌다. 그래서 낱말 칸은 가로로 길게 잡는다.
+     🔴 보조선도 다르다. 한글은 십자(획이 사방으로 뻗는다)지만 영어는 **밑줄 + 가운뎃줄**
+        (4선지 관습) — 소문자 높이를 그 줄로 잡는다. 십자를 그대로 두면 낱말 한가운데
+        세로줄이 지나가 글자를 가른다. */
+  .sq.wd { width: calc(var(--lg) * 2.3); height: var(--lg); }
+  .sq.en::after { display: none; }
+  .sq.en::before { top: 68%; left: 5%; right: 5%; }
+  .sq.wd::after { display: none; }
+  .sq.wd::before { top: 68%; left: 5%; right: 5%; }
+  /* 가운뎃줄 — x-height 자리. ::before/::after 를 이미 썼으므로 배경으로 그린다. */
+  .sq.wd, .sq.en { background-image: linear-gradient(var(--peach-200) 0 0); background-repeat: no-repeat;
+    background-size: 90% .25mm; background-position: 5% 40%; }
+  .sq.wd .ghost { font-size: calc(var(--lg) * 0.52); letter-spacing: -.01em; transform: translateY(-6%); }
+  /* 영어 낱말은 8~12장이라 2열이면 카드가 세로로 넘친다 — 3열. */
+  .meetgrid.many { grid-template-columns: repeat(var(--cols), 1fr); gap: 3mm; }
+  .meetgrid.many .meet { padding: 2.5mm; gap: 1.5mm; }
+  .meetgrid.many .meet img { width: var(--pic); height: var(--pic); }
+  .meetgrid.many .meet b { font-size: 15pt; }
+  /* 영어 따라쓰기 — 글자 칸은 한글보다 좁아도 된다(자모가 아니라 낱자다). */
+  /* 🔴 기본값을 .traceline.en 에 두면 안 된다 — traceBlock 이 부모에 넣은 값을 **클래스 규칙이
+     이겨서**(상속보다 규칙이 세다) 칸이 늘 13mm 로 굳는다(실측: 3줄짜리 쪽이 75% 비었다).
+     ⚠️ 이 CSS 는 JS 템플릿 리터럴 안이다 — **주석에 백틱을 쓰면 문자열이 거기서 끊긴다**. */
+  :root { --tw: 13mm; }
+  .traceline.en .sq { width: var(--tw); height: calc(var(--tw) * 1.15); }
+  .traceline.en .ghost { font-size: calc(var(--tw) * 0.62); }
+  .traceline.en .lbl { width: 22mm; font-size: 10.5pt; }
+  .formula.en { width: 26mm; font-size: 13pt; }
+  /* 🔴 --lg 는 .syls 안에서만 정의돼 있었다 — 1쪽 낱말 칸 줄에서 calc() 가 무효가 되어
+     칸이 통째로 찌그러졌다(없는 CSS 변수는 에러 없이 무시된다). 기본값을 뿌리에 둔다. */
+  :root { --lg: 16mm; --lgf: 24pt; }
+  .row.wide { --lg: 17mm; gap: 3mm; }
   .row { display: flex; gap: 2.5mm; flex-wrap: wrap; justify-content: center; }
 
   .learn { display: flex; align-items: center; justify-content: center; gap: 7mm;
     border: .5mm solid var(--coral-200); border-radius: 4mm; background: var(--peach-50); padding: 5mm 7mm; }
+  .learn .glyph.sm { font-size: 26pt; line-height: 1.15; max-width: 52mm; }
   .learn .glyph { font-size: 58pt; font-weight: 800; line-height: 1; color: var(--coral); }
   .learn dl { display: grid; grid-template-columns: auto 1fr; gap: 1.8mm 4mm; font-size: 11pt; text-align: left; }
   .learn dt { color: var(--coral-700); font-weight: 700; }
@@ -312,15 +370,42 @@ const STYLE = `<style>
  *    그다음, 이어지는 쪽이 가장 넓다. 넉넉히 잡지 말 것 — 넘치면 잘려서 사라진다.
  */
 const ROOM = { page1: 110, firstCombo: 176, more: 205 };
-function syllableBlock(rows, room = ROOM.more) {
-  const mm = Math.max(16, Math.min(26, Math.floor(room / rows.length - 2.4)));
-  return `<div class="syls" style="--lg:${mm}mm;--lgf:${Math.round(mm * 1.5)}pt">${rows.join('')}</div>`;
+function syllableBlock(rows, room = ROOM.more, wd = false) {
+  // 🔴 낱말 칸은 상한이 낮다 — 20mm 를 넘으면 칸 폭(2.3배)이 커져 빈 칸이 3개 밑으로 떨어진다.
+  const [lo, hi] = wd ? [14, 20] : [16, 26];
+  const mm = Math.max(lo, Math.min(hi, Math.floor(room / rows.length - 2.4)));
+  // 🔴 칸이 상한에 걸리면 남는 세로가 그대로 빈다(실측: 8줄짜리 낱말표가 26% 빔).
+  //    칸을 더 키우면 가로가 먼저 차니, 남는 만큼 **줄 사이**로 흘려보낸다.
+  //    room 은 어림값이라 3% 를 남겨 둔다 — 넘치면 잘려서 사라진다.
+  const gap = Math.max(2.4, Math.min(9, (room * 0.97 - rows.length * mm) / Math.max(1, rows.length - 1)));
+  const body = (wd ? rows.map((r) => fillWordRow(r, mm)) : rows).join('');
+  return `<div class="syls" style="--lg:${mm}mm;--lgf:${Math.round(mm * 1.5)}pt;gap:${gap.toFixed(1)}mm">${body}</div>`;
 }
 
-/** 조합 줄: [왼쪽 식] [연한 결과] [빈 ×4] */
-const comboRow = (formula, result) =>
-  `<div class="srow"><span class="formula">${formula}</span>` +
-  `${box(result, 'lg')}${Array.from({ length: 4 }, () => box('', 'lg')).join('')}</div>`;
+/**
+ * 조합 줄: [왼쪽 식] [연한 결과] [빈 칸 여러 개]
+ * `wd` = 영어 낱말 칸(가로로 긴 칸). 🔴 빈 칸 수를 고정하면 안 된다 — 낱말 칸은 높이의 2.3배라
+ * 칸이 커질수록 줄이 가로로 넘친다(A4 본문 폭 178mm). 폭에서 **거꾸로 세어** 정한다.
+ */
+const comboRow = (formula, result, wd = false) => {
+  const cls = wd ? 'lg wd' : 'lg';
+  return (
+    `<div class="srow"><span class="formula${wd ? ' en' : ''}">${formula}</span>` +
+    `${box(result, cls)}${wd ? BLANKS : Array.from({ length: 4 }, () => box('', cls)).join('')}</div>`
+  );
+};
+
+/**
+ * 낱말 칸 줄은 칸 크기가 정해진 뒤에야 빈 칸 수를 알 수 있어 자리만 잡아 두고 나중에 채운다.
+ * 🔴 자리를 `</div>` 로 찾으면 안 된다 — 상자 자신의 닫는 태그가 먼저 걸려 빈 칸이 **상자 안에**
+ *    들어간다(실측: 줄마다 칸이 겹쳐 접히고 조합 표가 통째로 어긋났다). 전용 표식을 쓴다.
+ */
+const BLANKS = '<!--blanks-->';
+const fillWordRow = (row, lg) => {
+  const per = 2.3 * lg + 2.5;
+  const n = Math.max(2, Math.min(5, Math.floor((178 - 26) / per))) - 1;
+  return row.replace(BLANKS, Array.from({ length: n }, () => box('', 'lg wd')).join(''));
+};
 
 /**
  * 단원 종류별 사양. 🔴 종류마다 HTML 을 통째로 복사하면 한쪽만 고쳐져 갈라진다 —
@@ -352,7 +437,10 @@ function unitSpec(u, kind, words) {
       writeHint: `쓸 때마다 “${c.example}” 하고 소리 내요`,
       demo: `${syllableOf(u.blending[0][0], u.blending[0][1])} <em>+</em> ${coda} <em>→</em> ${label(u.blending[0][3])}`,
       demoNote: `글자 아래에 ${coda} 을 붙이면 소리가 “${c.example}” 처럼 닫혀요`,
-      rows: rows.map(([cho, jung, jong, res]) => comboRow(`${syllableOf(cho, jung)}<i>+</i>${jong}`, res)),
+      rows: [{
+        title: `받침 ${coda} 을 붙여 글자를 만들어요`,
+        rows: rows.map(([cho, jung, jong, res]) => comboRow(`${syllableOf(cho, jung)}<i>+</i>${jong}`, res)),
+      }],
       readAll: rows.map((b) => b[3]).join(' '),
       meetTitle: `받침 ${coda} 이 들어간 낱말이에요`,
     };
@@ -370,14 +458,18 @@ function unitSpec(u, kind, words) {
     const basicOnly = vs.length > 3;
     const rows = basicOnly
       ? // 이중모음 줄은 「ㅣ+ㅏ」로 보여 준다 — 합성이 곧 이 단원의 내용이다.
-        vs.map((v) =>
+        [{ title: '모음을 써요', rows: vs.map((v) =>
           parts(v)
             ? comboRow(`${parts(v)[0]}<i>+</i>${parts(v)[1]}`, v)
             : comboRow(`${v}<i>→</i>${syllableOf('ㅇ', v)}`, v)
-        )
+        ) }]
       : // 복잡모음 단원 = 모음마다 **자음 14개 전부**(찬찬한글 「글자만들기」).
-        //   한 쪽을 넘으면 다음 쪽으로 넘어간다 — 쪽수를 아끼려고 자음을 깎지 않는다.
-        vs.flatMap((v) => BLEND_CONSONANTS.flat().map((c) => comboRow(`${c}<i>+</i>${v}`, syllableOf(c, v))));
+        // 🔴 **모음마다 따로 묶는다.** 한 줄로 이으면 쪽 가운데서 ㅐ→ㅔ 로 바뀌어
+        //    한 장에 두 모음이 섞인다.
+        vs.map((v) => ({
+          title: `${v} 로 글자를 만들어요`,
+          rows: BLEND_CONSONANTS.flat().map((c) => comboRow(`${c}<i>+</i>${v}`, syllableOf(c, v))),
+        }));
     return {
       glyph: vs[0],
       title: `${vs.join(' · ')} 을 알아봐요`,
@@ -388,7 +480,10 @@ function unitSpec(u, kind, words) {
         ['알아두기', sayHow || '모음은 혼자서도 소리가 나요 — 자음은 모음이 있어야 소리가 나요'],
       ],
       xlGhosts: vs, // 🔴 앞 3개만 자르면 10개 단원이 「ㅏㅑㅓ 단원」처럼 보인다
-      writeHint: `쓸 때마다 “${syllableOf('ㅇ', vs[0])}” 하고 소리 내요`,
+      xlCycle: true, // 모음은 칸마다 쓸 글자가 정해져야 한다(자음처럼 「같은 걸 여러 번」이 아니다)
+      // 🔴 칸이 모음을 돌아가며 놓으므로 소리도 전부 적는다 — 첫 모음만 적으면 ㅐㅔ 줄에
+      //    「애 하고 소리 내요」가 되어 절반이 거짓이 된다.
+      writeHint: `쓸 때마다 “${vs.map((v) => syllableOf('ㅇ', v)).join(' · ')}” 하고 소리 내요`,
       demo: parts(vs[0])
         ? `${parts(vs[0])[0]} <em>+</em> ${parts(vs[0])[1]} <em>→</em> ${label(vs[0])}`
         : `${vs[0]} <em>→</em> ${label(syllableOf('ㅇ', vs[0]))}`,
@@ -423,35 +518,203 @@ function unitSpec(u, kind, words) {
     demoNote: sound
       ? `${letter}[${sound}] 은 짧고 약하게, 모음은 강하고 길게 — “${sound}~아, ${sound}아, ${syllableOf(letter, 'ㅏ')}”`
       : `${letter} 은 첫소리에서 소리가 없어요 — 모음 소리를 그대로 읽어요`,
-    rows: VOWELS.map((v) => comboRow(`${letter}<i>+</i>${v}`, syllableOf(letter, v))),
+    rows: [{
+      title: `${letter} 로 글자를 만들어요`,
+      rows: VOWELS.map((v) => comboRow(`${letter}<i>+</i>${v}`, syllableOf(letter, v))),
+    }],
     readAll: VOWELS.map((v) => syllableOf(letter, v)).join(' '),
     meetTitle: `${letter} 이 들어간 낱말이에요`,
   };
 }
 
+
+/* ════════════ 영어 파닉스 워크지 ════════════
+ * 뼈대는 한글과 같다 — 1쪽 글자 / 조합 쪽 / 마지막 쪽 낱말. 바뀌는 것은 셋뿐이다.
+ *  ① 조합의 단위가 「자음×모음」이 아니라 **onset + 패턴**(c + an = can) 이다.
+ *  ② 칸이 정사각이 아니라 **가로로 긴 낱말 칸**이다(위 `.sq.wd`).
+ *  ③ Book 1 은 낱말을 쓰지 않는다 — **글자가 주인공**이라 apple 철자를 읽히지 않는다.
+ *     (앱의 「듣고 고르기」가 Book 1 만 보기를 알파벳으로 두는 이유와 같다.)
+ */
+
+/** `-an` `_ib` `bl-` `ee` 가 섞여 있다 — 표시는 통일하고, 앞에 붙는 것인지 뒤에 붙는 것인지 구분한다. */
+function readPattern(raw) {
+  const onset = /-$/.test(raw); // `bl-` 처럼 뒤에 하이픈이면 **앞에 붙는 소리**
+  return { text: raw.replace(/^[-_]+|[-_]+$/g, ''), onset, label: raw.replace(/_/g, '-') };
+}
+
+/**
+ * 🔴 블록(패턴 묶음)을 **쪼개지 않고** 쪽에 고르게 나눈다.
+ * 한글은 블록 하나가 14줄이라 블록 안에서 잘랐지만, 영어는 블록이 2~8줄이라 그러면
+ * 「-an 4줄」만 있는 반쪽짜리 장이 나온다(실측 설계: 4줄이면 세로 60% 가 빈다).
+ * 블록 수가 6 이하·쪽 수가 3 이하라 전수 탐색으로 **가장 큰 쪽이 가장 작아지는** 분할을 고른다.
+ */
+function packBlocks(blocks, cap) {
+  const join = (ps) => ps.map((b) => b.title).join(' · ') + (blocks[0].suffix ?? '');
+  const total = blocks.reduce((n, b) => n + b.rows.length, 0);
+  const pages = Math.max(1, Math.ceil(total / cap));
+  if (pages === 1) return [{ title: join(blocks), rows: blocks.flatMap((b) => b.rows) }];
+
+  let best = null;
+  const walk = (i, parts) => {
+    if (parts.length === pages) {
+      if (i !== blocks.length) return;
+      const sizes = parts.map((p) => p.reduce((n, b) => n + b.rows.length, 0));
+      const worst = Math.max(...sizes);
+      if (!best || worst < best.worst) best = { worst, parts: parts.map((p) => [...p]) };
+      return;
+    }
+    // 남은 쪽마다 블록이 최소 하나는 있어야 한다
+    for (let j = i + 1; j <= blocks.length - (pages - parts.length - 1); j++) walk(j, [...parts, blocks.slice(i, j)]);
+  };
+  walk(0, []);
+  return best.parts.map((p) => ({ title: join(p), rows: p.flatMap((b) => b.rows) }));
+}
+
+function enUnitSpec(u, lesson) {
+  const families = lesson.wordFamilies ?? [];
+  const book1 = u.bookId === 'book1';
+
+  if (book1) {
+    // wordFamilies[].blend = 'Aa' · words = 그 소리로 시작하는 낱말 3개
+    const pairs = families.map((f) => String(f.blend ?? f.key));
+    const keyword = (i) => families[i]?.words?.[0]?.word ?? '';
+    return {
+      glyph: pairs.join(' '),
+      title: `${pairs.join(' · ')} 을 알아봐요`,
+      sub: `알파벳 ${pairs.length}개`,
+      dl: [
+        ['글자', pairs.join('   ')],
+        ['소리', pairs.map((p, i) => `${keyword(i)} 의 첫소리`).join(' · ')],
+        ['알아두기', '대문자와 소문자는 짝이에요 — 모양은 달라도 소리는 같아요'],
+      ],
+      // 대·소문자를 따로 쓴다. 한 칸에 「Aa」를 넣으면 획을 익히는 게 아니라 모양을 베낀다.
+      xlGhosts: pairs.flatMap((p) => [...p]),
+      xlCycle: true,
+      writeHint: `쓸 때마다 “${pairs.map((p, i) => keyword(i)).join(' · ')}” 의 첫소리를 내요`,
+      demo: `${pairs[0][0]} <em>·</em> ${pairs[0][1]} <em>→</em> <b>${keyword(0)}</b>`,
+      demoNote: '대문자를 먼저, 소문자를 그 아래에 — 같은 소리예요',
+      rows: pairs.flatMap((pair) => [
+        { title: pair, suffix: ' 를 써요', rows: [
+          comboRow(`대문자 <i>${pair[0]}</i>`, pair[0]),
+          comboRow(`소문자 <i>${pair[1]}</i>`, pair[1]),
+        ] },
+      ]),
+      packCap: 8,
+      readAll: pairs.join(' '),
+      meetTitle: `${pairs.join(' · ')} 소리로 시작하는 낱말이에요`,
+      // 🔴 Book 1 은 낱말을 통째로 쓰지 않는다 — **첫 글자만**.
+      traceMode: 'initial',
+      // 줄은 renderPages 가 낱말에서 만든다 — 글자마다 한 줄이면 3줄이라 쪽의 3/4 가 빈다.
+    };
+  }
+
+  const pats = families.map((f) => readPattern(String(f.pattern ?? f.key ?? '')));
+  const first = pats[0];
+  const firstWord = families[0]?.words?.[0]?.word ?? '';
+  const rowOf = (pat, w) =>
+    comboRow(
+      pat.onset
+        ? `<i>${pat.text}</i> + ${w.word.slice(pat.text.length) || '…'}`
+        : `${w.onset ?? w.word.replace(new RegExp(pat.text + '$'), '')} + <i>${pat.text}</i>`,
+      w.word,
+      true
+    );
+  return {
+    glyph: pats.map((p) => p.label).join(' '),
+    title: `${pats.map((p) => p.label).join(' · ')} 을 알아봐요`,
+    sub: `${pats[0].onset ? '앞소리' : '소리 덩이'} ${pats.length}개`,
+    dl: [
+      ['패턴', pats.map((p) => p.label).join('   ')],
+      ['소리', pats.map((p, i) => `${families[i]?.words?.[0]?.word ?? ''} 의 ${p.label}`).join('   ')],
+      [
+        '알아두기',
+        first.onset
+          ? '앞소리는 두 글자를 한 번에 이어서 소리 내요 — 사이에 쉬지 않아요'
+          : '뒤가 같으면 앞 글자만 바꿔도 새 낱말이 돼요',
+      ],
+    ],
+    xlGhosts: pats.map((p) => p.text),
+    xlCycle: true,
+    // 🔴 격자(4칸×3줄)로 돌리면 패턴이 5개 이상일 때 뒤의 것이 한 번도 안 나온다
+    //    (-ink·-unk 가 통째로 빠졌다). 패턴마다 제 줄을 준다 — 칸마다 쓸 것이 정해진다.
+    page1Rows: pats.map((p) => comboRow(p.label, p.text, true)),
+    page1Title: `이제 작게 써요 <span class="hint">쓸 때마다 “${pats
+      .map((p) => p.label)
+      .join(' · ')}” 하고 소리 내요</span>`,
+    writeHint: `쓸 때마다 “${pats.map((p) => p.label).join(' · ')}” 하고 소리 내요`,
+    demo: first.onset
+      ? `<b>${first.text}</b> <em>+</em> ${firstWord.slice(first.text.length)} <em>→</em> <b>${firstWord}</b>`
+      : `${firstWord.slice(0, firstWord.length - first.text.length)} <em>+</em> <b>${first.text}</b> <em>→</em> <b>${firstWord}</b>`,
+    demoNote: first.onset
+      ? '앞소리를 먼저 붙여 읽고, 나머지를 이어 읽어요'
+      : '앞 글자를 바꿔 가며 읽으면 낱말이 줄줄이 나와요',
+    rows: pats.map((pat, i) => ({
+      title: pat.label,
+      suffix: ' 낱말을 만들어요',
+      rows: (families[i].words ?? []).map((w) => rowOf(pat, w)),
+    })),
+    packCap: 12,
+    wordy: true,
+    readAll: (families[0].words ?? []).map((w) => w.word).join(' '),
+    meetTitle: `${pats.map((p) => p.label).join(' · ')} 낱말이에요`,
+  };
+}
+
 /** 한 단원의 3쪽 마크업. 스타일은 STYLE 로 분리해 합본에서 한 번만 싣는다. */
 function renderPages({ head, spec, words }) {
+  const UNIT = head.unitLabel ?? '익힘';
+  const splitMeet = words.length > 6;
+  // 🔴 8장을 3열에 두면 마지막 줄에 2장만 남아 아래가 통째로 빈다 — 장수로 열을 정하고,
+  //    줄이 적으면 그림을 키워 세로를 메운다.
+  // 🔴 4열이 「고르게 나뉘어」 좋아 보이지만 칸이 좁아져 카드가 작아지고, 두 줄로 끝나 아래가
+  //    90mm 비었다. **3열 · 줄이 늘어나는 쪽**이 종이를 채운다 — 마지막 줄이 덜 차는 건 감수한다.
+  const meetCols = words.length <= 4 ? 2 : 3;
+  const meetRows = Math.ceil(words.length / meetCols);
+  // 🔴 그림 크기는 세로만 보고 정하면 안 된다 — 4열에 40mm 를 넣으면 가로로 19px 넘쳐
+  //    오른쪽 카드가 잘린다(실측). 열이 정한 칸 폭에서도 상한을 받는다.
+  //  세로로 채우고 싶은 크기와, 열이 허락하는 폭 중 **작은 쪽**. 폭만 보면 오른쪽이 잘리고
+  //  세로만 보면 아래가 빈다 — 둘 다 봐야 한다.
+  const meetPic = Math.max(
+    20,
+    Math.min(Math.floor(195 / meetRows) - 17, Math.floor((178 - (meetCols - 1) * 3) / meetCols) - 7)
+  );
+  // 쓰기가 제 쪽을 가지면 세로를 다 쓴다. 카드와 한 쪽을 나눠 쓰면 남는 만큼만.
+  const traceRoom = splitMeet ? 215 : 90;
+  const writeSection = `<h2 data-n="6">${
+    spec.traceMode === 'initial'
+      ? '낱말의 첫 글자를 써요 <span class="hint">그림을 보고 소리를 낸 뒤, 그 소리의 글자를 써요</span>'
+      : '따라 써요 <span class="hint">한 글자씩 또박또박, 다 쓰면 소리 내어 읽어요</span>'
+  }</h2>${
+    spec.traceMode === 'initial'
+      ? traceBlock(words.map((w) => [w.word[0], w.word]), traceRoom, true)
+      : traceBlock(words.map((w) => [w.word, null]), traceRoom, !!spec.wordy)
+  }`;
   const linked = words.filter((w) => w.book);
   // 🔴 조합 표가 한 쪽을 넘으면 **쪽을 늘린다.** 쪽수를 아끼려고 자음·초성을 깎던 걸 되돌린 것이다.
   // 🔴 그리고 **고르게** 나눈다 — 앞쪽부터 10줄씩 채우고 나머지를 버리면 마지막 쪽이 텅 빈다
   //    (실측: 받침 14줄이 10+4 로 갈려 3쪽이 55% 비었고, 42줄짜리는 마지막이 2줄에 69% 비었다).
   const PER_PAGE = 10;
-  const pageCount = Math.max(1, Math.ceil(spec.rows.length / PER_PAGE));
-  const base = Math.floor(spec.rows.length / pageCount);
-  const extra = spec.rows.length % pageCount; // 앞쪽 몇 장이 한 줄씩 더 갖는다
-  const chunks = [];
-  for (let i = 0, at = 0; i < pageCount; i++) {
-    const n = base + (i < extra ? 1 : 0);
-    chunks.push(spec.rows.slice(at, at + n));
-    at += n;
-  }
-  const appLink = `<b>${head.levelName} · 익힘 ${head.unitNo}</b>`;
+  const chunks = spec.packCap
+    ? packBlocks(spec.rows, spec.packCap).map((c, i) => ({ ...c, cont: false }))
+    : spec.rows.flatMap(({ title, rows }) => {
+    const pageCount = Math.max(1, Math.ceil(rows.length / PER_PAGE));
+    const base = Math.floor(rows.length / pageCount);
+    const extra = rows.length % pageCount; // 앞쪽 몇 장이 한 줄씩 더 갖는다
+    const out = [];
+    for (let i = 0, at = 0; i < pageCount; i++) {
+      const n = base + (i < extra ? 1 : 0);
+      out.push({ title, rows: rows.slice(at, at + n), cont: i > 0 });
+      at += n;
+    }
+    return out;
+  });
+  const appLink = `<b>${head.levelName} · ${UNIT} ${head.unitNo}</b>`;
 
   return `
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
-    <div class="ttl">익힘 ${head.unitNo}. <em>${spec.glyph}</em><small>${spec.sub}</small></div>
+    <div class="ttl">${UNIT} ${head.unitNo}. <em>${spec.glyph}</em><small>${spec.sub}</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
 
@@ -467,8 +730,23 @@ function renderPages({ head, spec, words }) {
     <h2 data-n="2">크게 써 봐요 <span class="hint">손 전체를 움직여 천천히</span></h2>
     <div class="row">${
       spec.xlGhosts.length > 3
-        ? spec.xlGhosts.map((c) => box(c, 'md')).join('')
-        : Array.from({ length: 3 }, (_, i) => box(spec.xlGhosts[i] ?? '', 'xl' + (spec.xlBig ? ' big' : ''))).join('')
+        ? (() => {
+            const md = Math.max(22, Math.min(33, Math.floor(178 / spec.xlGhosts.length) - 3));
+            const len = Math.max(1, ...spec.xlGhosts.map((c) => [...String(c)].length));
+            // 글자 수가 늘면 폭이 먼저 찬다 — 0.64 배는 한 글자짜리 기준이다.
+            const mdf = Math.min(md * 0.64, (md * 0.86) / (0.57 * len));
+            return `<div class="row" style="--md:${md}mm;--mdf:${mdf.toFixed(1)}mm">${spec.xlGhosts
+              .map((c) => box(c, 'md' + (spec.en ? ' en' : '')))
+              .join('')}</div>`;
+          })()
+        // 🔴 자음은 1칸 본보기 + 2칸 연습이지만, 모음 단원에서 3칸을 고집하면 마지막 칸이
+        //    「ㅐ 를 쓰라는 건지 ㅔ 를 쓰라는 건지」 모를 빈칸이 된다 → 모음 수만큼만 놓는다.
+        : `<div class="row" style="--xlf:${Math.min(
+            105,
+            Math.floor(255 / Math.max(1, ...spec.xlGhosts.map((c) => [...String(c)].length)))
+          )}pt">${Array.from({ length: spec.xlCycle ? spec.xlGhosts.length : 3 }, (_, i) =>
+            box(spec.xlGhosts[i] ?? '', 'xl' + (spec.xlBig ? ' big' : '') + (spec.en ? ' en' : ''))
+          ).join('')}</div>`
     }</div>
   </section>
 
@@ -476,12 +754,22 @@ function renderPages({ head, spec, words }) {
     <h2 data-n="3">${spec.page1Title ?? `이제 작게 써요 ${spec.writeHint ? `<span class="hint">${spec.writeHint}</span>` : ''}`}</h2>
     ${
       spec.page1Rows
-        ? syllableBlock(spec.page1Rows, ROOM.page1)
+        ? syllableBlock(spec.page1Rows, ROOM.page1, spec.wordy)
         : Array.from(
             { length: 3 },
             (_, r) =>
-              `<div class="row">${Array.from({ length: Math.max(9, spec.xlGhosts.length) }, (_, i) =>
-                box(r === 0 && i < spec.xlGhosts.length && (spec.xlGhosts.length > 3 || i < 3) ? spec.xlGhosts[i] : '', spec.xlBig ? 'big' : '')
+              `<div class="row${spec.smallWide ? ' wide' : ''}">${Array.from({ length: spec.smallWide ? 4 : Math.max(9, spec.xlGhosts.length) }, (_, i) =>
+                // 모음이 2~3개면 한 줄을 돌려 채운다 — 칸마다 무엇을 쓸지가 정해진다.
+                box(
+                  r === 0
+                    ? spec.xlCycle
+                      ? spec.xlGhosts[i % spec.xlGhosts.length]
+                      : i < spec.xlGhosts.length && (spec.xlGhosts.length > 3 || i < 3)
+                        ? spec.xlGhosts[i]
+                        : ''
+                    : '',
+                  spec.smallWide ? 'lg wd' : spec.xlBig ? 'big' : ''
+                )
               ).join('')}</div>`
           ).join('')
     }
@@ -492,11 +780,13 @@ function renderPages({ head, spec, words }) {
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="runhead"><b>익힘 ${head.unitNo}. ${spec.glyph}</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><b>${UNIT} ${head.unitNo}. ${spec.glyph}</b><span>글자를 만들어요 · 2쪽</span></div>
 
-  <div class="demo">${spec.demo}<small>${spec.demoNote}</small></div>
-
-  <section>${syllableBlock(chunks[0], ROOM.firstCombo)}</section>
+  <section>
+    <h2 data-n="4">${chunks[0].title}</h2>
+    <div class="demo">${spec.demo}<small>${spec.demoNote}</small></div>
+    ${syllableBlock(chunks[0].rows, ROOM.firstCombo, spec.wordy)}
+  </section>
 
 
   <footer>
@@ -506,11 +796,14 @@ function renderPages({ head, spec, words }) {
 ${chunks
   .slice(1)
   .map(
-    (rows, i) => `
+    (c, i) => `
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="runhead"><b>익힘 ${head.unitNo}. ${spec.glyph}</b><span>글자를 만들어요 · ${i + 3}쪽</span></div>
-  <section>${syllableBlock(rows)}</section>
+  <div class="runhead"><b>${UNIT} ${head.unitNo}. ${spec.glyph}</b><span>글자를 만들어요 · ${i + 3}쪽</span></div>
+  <section>
+    <h2 data-n="4">${c.title}${c.cont ? ' <span class="hint">이어서 써요</span>' : ''}</h2>
+    ${syllableBlock(c.rows, ROOM.more - 14, spec.wordy)}
+  </section>
   <footer>
     <div class="link">✏️ 다 쓰면 <b>${spec.readAll}</b> 를 위에서 아래로 소리 내어 읽어요.</div>
   </footer>
@@ -518,22 +811,24 @@ ${chunks
   )
   .join('')}
 
-<!-- ─────────── 3쪽 · 낱말 ─────────── -->
+<!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="runhead"><b>익힘 ${head.unitNo}. ${spec.glyph}</b><span>낱말을 만나요 · ${chunks.length + 2}쪽</span></div>
+  <div class="runhead"><b>${UNIT} ${head.unitNo}. ${spec.glyph}</b><span>낱말을 만나요 · ${chunks.length + 2}쪽</span></div>
 
   <section>
-    <h2 data-n="6">${spec.meetTitle} <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
-    <div class="meetgrid">
+    <h2 data-n="5">${spec.meetTitle} <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
+    <div class="meetgrid${words.length > 6 ? ' many' : ''}" style="--cols:${meetCols};--pic:${meetPic}mm">
       ${words.map((w) => `<div class="meet"><img src="${w.img}" alt=""><b>${esc(w.word)}</b></div>`).join('')}
     </div>
   </section>
-
+${
+  splitMeet
+    ? ''
+    : `
   <section>
-    <h2 data-n="7">따라 써요 <span class="hint">한 글자씩 또박또박, 다 쓰면 소리 내어 읽어요</span></h2>
-    ${words.map((w) => traceRow(w.word)).join('')}
-  </section>
-
+    ${writeSection}
+  </section>`
+}
   <footer>
     <div class="link">${
       linked.length
@@ -542,6 +837,23 @@ ${chunks
     }</div>
   </footer>
 </div>
+${
+  // 🔴 카드가 7장 넘으면 그림과 쓰기를 한 장에 못 담는다(실측 214px 넘침) — 쪽을 늘린다.
+  //    영어는 단원당 낱말이 8~12개라 이 갈래가 기본이고, 한글(4개)은 예전 그대로 한 장이다.
+  !splitMeet
+    ? ''
+    : `
+<!-- ─────────── 낱말 쓰기 쪽 ─────────── -->
+<div class="page">
+  <div class="runhead"><b>${UNIT} ${head.unitNo}. ${spec.glyph}</b><span>낱말을 써요 · ${chunks.length + 3}쪽</span></div>
+  <section>
+    ${writeSection}
+  </section>
+  <footer>
+    <div class="link">📖 소리가 궁금하면 앱에서 ${appLink} 를 열어 보세요.</div>
+  </footer>
+</div>`
+}
 `;
 }
 
@@ -559,7 +871,7 @@ ${body}`;
  *    여는 물건이므로, 32단원을 전부 한 파일에 담고 CSS 로 보이고 감춘다(약 3MB).
  * 🔴 목록은 생성한 단원에서 **파생**한다. 손으로 적으면 단원이 늘 때 한쪽만 고쳐져 갈라진다.
  */
-function renderIndex(items) {
+function renderIndex(items, L = { name: '한글 워크지', unit: '익힘' }) {
   const groups = [];
   for (const it of items) {
     const g = groups.find((x) => x.level === it.levelName);
@@ -568,7 +880,7 @@ function renderIndex(items) {
   const first = items[0];
   return `<!doctype html>
 <meta charset="utf-8">
-<title>한글 워크지 — 인쇄용</title>
+<title>${L.name} — 인쇄용</title>
 ${STYLE}
 <style>
   /* 워크지 STYLE 뒤에 와야 body 규칙을 덮는다. */
@@ -616,7 +928,7 @@ ${STYLE}
 </style>
 
 <aside>
-  <h1>한글 워크지 <em>인쇄용</em></h1>
+  <h1>${L.name} <em>인쇄용</em></h1>
   <!-- 전체는 별도 파일로 연다 — 여기 또 심으면 같은 3MB 를 두 벌 들고 있게 된다. -->
   <a class="all" href="all.html" target="_blank">📚 전체 ${items.length}단원 · ${items.reduce((n, it) => n + it.pageCount, 0)}쪽 한꺼번에</a>
   <!-- 🔴 만든 시각을 박아 둔다. file:// 도 브라우저가 캐시해서, 새로 구워도 옛 화면을 보고
@@ -628,7 +940,7 @@ ${STYLE}
         g.items
           .map(
             (it) =>
-              `<a class="item${it.id === first.id ? ' on' : ''}" href="#${it.id}" data-id="${it.id}" data-name="${esc(g.level)} · 익힘 ${it.unitNo} · ${esc(it.glyph)}">` +
+              `<a class="item${it.id === first.id ? ' on' : ''}" href="#${it.id}" data-id="${it.id}" data-name="${esc(g.level)} · ${L.unit} ${it.unitNo} · ${esc(it.glyph)}">` +
               `<b>${it.unitNo}</b><span class="g">${esc(it.glyph)}</span><span class="w">${esc(it.words)}</span></a>`
           )
           .join('')
@@ -638,7 +950,7 @@ ${STYLE}
 
 <main>
   <div class="bar">
-    <span class="now">${esc(first.levelName)} · 익힘 ${first.unitNo} · ${esc(first.glyph)}</span>
+    <span class="now">${esc(first.levelName)} · ${L.unit} ${first.unitNo} · ${esc(first.glyph)}</span>
     <span class="sp"></span>
     <button id="print">🖨 이 단원 인쇄</button>
     <a class="btn" id="open" href="${first.id}.html" target="_blank">단원 파일 따로 열기</a>
@@ -674,14 +986,35 @@ ${STYLE}
 async function main() {
   const args = process.argv.slice(2);
   const arg = (k, d) => (args.find((a) => a.startsWith(`--${k}=`)) ?? `--${k}=${d}`).split('=').slice(1).join('=');
-  const outDir = new URL(arg('out', '../../client/public/worksheet') + '/', import.meta.url);
+  const lang = arg('lang', 'ko');
+  const en = lang === 'en';
+  const outDir = new URL(arg('out', `../../client/public/worksheet${en ? '-en' : ''}`) + '/', import.meta.url);
   const only = arg('unit', '');
+  const L = en
+    ? { name: '영어 파닉스 워크지', unit: 'Unit', kinds: { letter: '알파벳', family: '낱말 가족' } }
+    : { name: '한글 워크지', unit: '익힘', kinds: { consonant: '자음', coda: '받침', vowel: '모음' } };
 
-  const scenes = JSON.parse(
-    await readFile(new URL('../../client/src/features/phonics-learner/data/word-scenes.json', import.meta.url), 'utf8')
-  );
-  const units = KOREAN_PHONICS_CURRICULUM.filter((l) => String(l.level).startsWith('hangul')).flatMap((l) =>
-    l.units.map((u) => ({ ...u, levelName: l.name.replace(':', '') }))
+  // 동화책 연결은 한글 낱말 표라 영어엔 없다 — 없는 채로 돌아가야 한다.
+  const scenes = en
+    ? {}
+    : JSON.parse(
+        await readFile(new URL('../../client/src/features/phonics-learner/data/word-scenes.json', import.meta.url), 'utf8')
+      );
+  const units = (
+    en
+      ? ENGLISH_PHONICS_CURRICULUM.flatMap((l) =>
+          (l.units ?? []).map((u) => ({
+            ...u,
+            levelName: String(l.name ?? '').replace(':', ''),
+            // 🔴 `level` 이 이미 'book1' 이다. 예전엔 `title` 에서 번호를 뽑았는데 그 필드가
+            //    아예 없어(키는 level·name·description·units) Book 1 이 조용히 낱말 가족으로
+            //    처리됐다 — 리포트의 「종류」 칸이 아니었으면 못 봤다.
+            bookId: String(l.level ?? ''),
+          }))
+        )
+      : KOREAN_PHONICS_CURRICULUM.filter((l) => String(l.level).startsWith('hangul')).flatMap((l) =>
+          l.units.map((u) => ({ ...u, levelName: l.name.replace(':', '') }))
+        )
   ).filter((u) => !only || u.id === only);
   if (!units.length) {
     console.error(only ? `${only} 을(를) 못 찾았다` : '대상 단원이 없다');
@@ -694,14 +1027,29 @@ async function main() {
   const index = [];
 
   for (const u of units) {
-    const kind = unitKind(u);
+    const kind = en ? (u.bookId === 'book1' ? 'letter' : 'family') : unitKind(u);
     const unitNo = Number(u.id.slice(-2));
 
     // 🔴 낱말은 커리큘럼 sampleWords 가 아니라 **카드**에서 가져온다 — u01 은 sampleWords 가
     //    비어 있는데 카드는 4장 있고, 반대로 카드에는 「쌍기역」(글자 이름)·「되다」(동사)처럼
     //    그림이 없는 항목이 섞여 있다. 그림 있는 것만 앞에서 4개.
+    // 🔴 그 단원 글자가 실제로 들어간 낱말을 앞으로 당긴다 — 카드 순서를 그대로 쓰면
+    //    「ㅟ 이 들어간 낱말이에요」 밑에 참외·열쇠(ㅚ)가 앉는다(앱도 같은 데이터라 같은 증상).
+    //    모자라면 나머지로 채운다 — 4장은 있어야 3쪽이 안 빈다.
     const r = await (await fetch(`${API}/${u.id}`)).json();
-    const cards = (r?.data?.flashcards ?? []).filter((f) => f.imageUrl).slice(0, 4);
+    const withImg = (r?.data?.flashcards ?? []).filter((f) => f.imageUrl);
+    // ⚠️ 받침 단원 phonemes 는 「받침ㅇ」 꼴이라 접두어를 떼야 자모와 비교된다.
+    const letters = u.phonemes.map((p) => p.replace('받침', ''));
+    const hasUnitLetter = (w) =>
+      [...w].some((ch) => {
+        const d = decomposeHangul(ch);
+        return d && letters.some((p) => d.cho === p || d.jung === p || d.jong === p);
+      });
+    // 🔴 영어는 카드를 **전부** 싣는다(8~12장, 3열). 4장으로 자르면 그 단원 패턴 셋 중
+    //    둘은 낱말 그림을 한 장도 못 본다 — 한글은 단원당 낱말이 4개뿐이라 안 겪던 문제다.
+    const cards = en
+      ? withImg
+      : [...withImg.filter((f) => hasUnitLetter(f.word)), ...withImg.filter((f) => !hasUnitLetter(f.word))].slice(0, 4);
     if (cards.length < 4) {
       console.error(`${u.id}: 그림 있는 카드가 ${cards.length}장뿐이다 (4장 필요)`);
       process.exit(1);
@@ -709,30 +1057,38 @@ async function main() {
 
     const words = [];
     for (const f of cards) {
-      const hits = NOT_OBJECT.has(f.word) ? [] : (scenes[f.word] ?? []);
-      words.push({ word: f.word, img: await pic(f.imageUrl), book: hits.length ? await bookTitle(hits[0][0]) : null });
+      const hits = en || NOT_OBJECT.has(f.word) ? [] : (scenes[f.word] ?? []);
+      words.push({
+        word: f.word,
+        img: await pic(f.imageUrl, en ? 360 : 440),
+        book: hits.length ? await bookTitle(hits[0][0]) : null,
+      });
     }
 
-    if (kind === 'consonant' && !CONSONANTS[u.phonemes[0]]) {
+    if (en && !(r?.data?.phonicsLesson?.wordFamilies ?? []).length) {
+      console.error(`${u.id}: wordFamilies 가 없다 — 조합 표를 만들 수 없다`);
+      process.exit(1);
+    }
+    if (!en && kind === 'consonant' && !CONSONANTS[u.phonemes[0]]) {
       console.error(`${u.id}: ${u.phonemes[0]} 이(가) CONSONANTS 표에 없다 — 이름·입모양을 먼저 적을 것`);
       process.exit(1);
     }
-    if (kind === 'coda' && !CODAS[u.phonemes[0].replace('받침', '')]) {
+    if (!en && kind === 'coda' && !CODAS[u.phonemes[0].replace('받침', '')]) {
       console.error(`${u.id}: ${u.phonemes[0]} 이(가) CODAS 표에 없다`);
       process.exit(1);
     }
 
-    const spec = unitSpec(u, kind, words);
-    const pages = renderPages({ head: { unitNo, levelName: u.levelName }, spec, words });
+    const spec = en ? enUnitSpec(u, r.data.phonicsLesson) : unitSpec(u, kind, words);
+    const pages = renderPages({ head: { unitNo, levelName: u.levelName, unitLabel: L.unit }, spec, words });
     all.push(pages);
     const pageCount = (pages.match(/<div class="page/g) || []).length;
-    const html = wrap(`한글 워크지 · ${u.levelName} 익힘 ${unitNo} · ${spec.glyph}`, pages);
+    const html = wrap(`${L.name} · ${u.levelName} ${L.unit} ${unitNo} · ${spec.glyph}`, pages);
     await writeFile(new URL(`${u.id}.html`, outDir), html, 'utf8');
     index.push({ id: u.id, unitNo, levelName: u.levelName, glyph: spec.glyph, words: words.map((w) => w.word).join(' '), pages, pageCount });
     report.push({
       단원: u.id,
-      종류: { consonant: '자음', coda: '받침', vowel: '모음' }[kind],
-      글자: u.phonemes.join(''),
+      종류: L.kinds[kind],
+      글자: spec.glyph,
       낱말: words.map((w) => w.word).join(' '),
       책: words.filter((w) => w.book).length,
       쪽: pageCount,
@@ -743,11 +1099,11 @@ async function main() {
   // 합본 — 나눠 주려면 한 파일이 편하다. 이미지가 440px webp 라 14단원을 합쳐도 2MB 안쪽이다.
   if (!only) {
     const total = index.reduce((n, it) => n + it.pageCount, 0);
-    const combined = wrap(`한글 워크지 · 전 단원 (${units.length}단원 ${total}쪽)`, all.join('\n'));
+    const combined = wrap(`${L.name} · 전 단원 (${units.length}단원 ${total}쪽)`, all.join('\n'));
     await writeFile(new URL('all.html', outDir), combined, 'utf8');
     report.push({ 단원: 'all.html', 종류: '', 글자: '', 낱말: `${units.length}단원 ${total}쪽`, 책: '', KB: Math.round(combined.length / 1024) });
 
-    const idx = renderIndex(index);
+    const idx = renderIndex(index, L);
     await writeFile(new URL('index.html', outDir), idx, 'utf8');
     report.push({ 단원: 'index.html', 종류: '', 글자: '', 낱말: '고르기 화면', 책: '', KB: Math.round(idx.length / 1024) });
   }

@@ -123,5 +123,10 @@ packages/server/naver-session.json
 docs/marketing/*.mp4
 
 # 한글 워크지 생성물 — build-worksheet.mjs 가 언제든 다시 만든다.
-# 카드 그림을 data URI 로 박아 33개 파일 7MB 라 git 에 넣지 않는다.
-packages/client/public/worksheet/
+# 🔴 index.html 하나만 배포한다. 32단원이 통째로 들어 있고(사이드바로 고른다) 인쇄하면
+#    고른 단원만 나간다 — 나머지 33개 파일은 같은 그림을 세 벌씩 들고 있는 사본이라 뺀다.
+#    (하위 경로를 되살리려면 `dir/` 이 아니라 `dir/*` 여야 한다 — 디렉터리째 무시하면 예외가 안 먹는다)
+packages/client/public/worksheet/*
+!packages/client/public/worksheet/index.html
+packages/client/public/worksheet-en/*
+!packages/client/public/worksheet-en/index.html
