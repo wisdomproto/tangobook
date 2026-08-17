@@ -290,12 +290,22 @@ function unitSpec(u, kind, words) {
     // blending = [초성,중성,받침,결과]. 14개 전부 쓰면 지치므로 자음 단원과 같은 10줄 리듬으로.
     const rows = u.blending.slice(0, 10);
     const split = rows.slice(0, 3).map(([cho, jung, jong, res]) => ({ s: res, a: syllableOf(cho, jung), b: jong }));
+    // 🔴 받침 단원에서 **받침 글자를 홑으로 쓰게 하지 않는다.** ㅇ·ㄱ·ㄴ… 은 한글1 에서 이미
+    //    쓴 글자이고, 이 단원의 새로운 것은 글자가 아니라 **자리(아래)와 소리(닫힘)** 다.
+    //    찬찬한글도 처음부터 「가 나 다 라 마 바 사 + ㅁ → 감」처럼 **음절**로만 쓰게 한다.
+    //    그래서 1쪽은 초성을 ㅇ 으로 고정해 모음별로(아+ㅇ=앙 …), 2쪽에서 초성을 바꾼다.
+    const codaOf = (cho, jung) => composeHangul(cho, jung, coda);
+    const page1Rows = ['ㅏ', 'ㅓ', 'ㅗ', 'ㅜ', 'ㅡ', 'ㅣ'].map((v) =>
+      comboRow(`${syllableOf('ㅇ', v)}<i>+</i>${coda}`, codaOf('ㅇ', v))
+    );
     return {
       glyph: coda,
       title: `받침 ${coda} 을 알아봐요`,
       sub: `받침 ${coda} · 소리 [${c.example}]`,
       dl: [['이름', `받침 ${coda}`], ['소리', `${c.example} 처럼 소리 나요`], ['입 모양', c.mouth]],
-      xlGhosts: [coda],
+      xlGhosts: [c.example],
+      page1Rows,
+      page1Title: `받침을 붙여 써요 <span class="hint">글자 아래에 ${coda} 을 붙이면 소리가 닫혀요</span>`,
       writeHint: `쓸 때마다 “${c.example}” 하고 소리 내요`,
       demo: `${syllableOf(u.blending[0][0], u.blending[0][1])} <em>+</em> ${coda} <em>→</em> ${label(u.blending[0][3])}`,
       demoNote: `글자 아래에 ${coda} 을 붙이면 소리가 “${c.example}” 처럼 닫혀요`,
@@ -409,12 +419,16 @@ function renderPages({ head, spec, words }) {
   </section>
 
   <section>
-    <h2 data-n="3">이제 작게 써요 ${spec.writeHint ? `<span class="hint">${spec.writeHint}</span>` : ''}</h2>
-    ${Array.from(
-      { length: 3 },
-      (_, r) =>
-        `<div class="row">${Array.from({ length: 9 }, (_, i) => box(r === 0 && i < 3 ? spec.xlGhosts[i % spec.xlGhosts.length] : '')).join('')}</div>`
-    ).join('')}
+    <h2 data-n="3">${spec.page1Title ?? `이제 작게 써요 ${spec.writeHint ? `<span class="hint">${spec.writeHint}</span>` : ''}`}</h2>
+    ${
+      spec.page1Rows
+        ? `<div class="syls">${spec.page1Rows.join('')}</div>`
+        : Array.from(
+            { length: 3 },
+            (_, r) =>
+              `<div class="row">${Array.from({ length: 9 }, (_, i) => box(r === 0 && i < 3 ? spec.xlGhosts[i % spec.xlGhosts.length] : '')).join('')}</div>`
+          ).join('')
+    }
   </section>
 
   <footer><div class="link">📖 소리가 궁금하면 앱에서 ${appLink} 를 열어 보세요.</div></footer>
