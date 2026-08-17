@@ -54,7 +54,8 @@ Style: wax crayon on oat-grey toothy paper, exactly TWO crayons, 4-6 year old pi
 RENDERING (finish hierarchy): an area is ONE field of one crayon laid in ONE direction, never denser
   or lighter inside itself. Direction NEVER changes inside one area - it changes only where one thing
   ends and another begins, and THAT CHANGE OF DIRECTION IS THE EDGE. FINISHED THINGS PER PAGE = 2,
-  the bear the page is about and the one thing that bear touches; everything else is a shape with no
+  the bear the page is about and the one thing that bear touches - 3 only when both bears are on the
+  page, and then it is the two bears and the one thing they share; everything else is a shape with no
   interior detail. Repeats are capped and the cap is the whole design: trunks at most 9 · boughs on
   one tree at most 7 · logs in a stack at most 6 · berries at most 9 dots · seeds at most 9 dots ·
   planks at most 6 · cabin windows at most 4 · birds at most 3 · falling snow at most 14 bare paper
@@ -64,9 +65,11 @@ RENDERING (finish hierarchy): an area is ONE field of one crayon laid in ONE dir
   🔴 DEPTH IS SPACING, NEVER DARKNESS. Deeper in the wood the trunks stand CLOSER TOGETHER at the
   same weight of wax. Nothing recedes by getting darker, paler, bluer or softer.
   🔴 HANDS - eight volumes turn on what a paw does and the grandfather says nothing (02 · 03 · 07 ·
-  09 · 11 · 15 · 20 · 22). On those pages the paw is the second finished thing, but THE FRAME STAYS
-  WIDE ENOUGH TO HOLD BOTH BEARS FROM THE KNEE UP. Never a paw alone filling the frame, never a
-  close-up that loses whose paw it is.
+  09 · 11 · 15 · 20 · 22). On those pages the paw is the second finished thing and THE FRAME MAY GO
+  IN AS CLOSE AS THE PAW ITSELF. What must never happen is losing WHOSE paw it is, and that is
+  carried two ways: THE TWO PAWS ARE DIFFERENT OBJECTS (a small round mitt with a blue boot cuff / a
+  broad flat palm with five blunt toes held apart), and the other bear stays in frame as a face or
+  two eyes at the edge. Never a paw that could belong to either bear.
 
 PALETTE: PAPER OAT GREY #E9E3D3, sky, water, ice, snow, light, everything not waxed · CRAYON1 SPRUCE
   #4F6B4E, needles, leaves, moss, the vegetable bed, painted shutters, the grandfather's knitted
@@ -106,18 +109,24 @@ STAGE CLAUSES (the stage changes what the two crayons do, never which two they a
 
 CHARACTER DESIGN LANGUAGE: the bears are built from the same marks as the world - two or three
   shapes with limbs laid over. GRADE: bipedal, standing upright, wearing cloth. Backs and heads are
-  OVERLAY, chests and bellies are BARK, so both bears are built the same way.
-  🔴 ONE ACTION DRAWN AT TWO SIZES. On every page both bears are doing the SAME thing at the same
-  limb angles and the same tilt of head, one body twice the height and much wider. Never one bear
-  acting while the other only watches.
+  OVERLAY, chests and bellies are BARK - that is the material rule and it is the same for both. 🔴 THE
+  TWO BEARS ARE NOT BUILT FROM THE SAME SHAPES: filled in solid black at thumbnail size the two
+  outlines must not be one shape scaled. Each bear's own sheet says how it differs.
+  🔴 ONE ACTION DRAWN AT TWO SIZES. When both bears are on the page AND BOTH ARE WORKING, they do the
+  SAME thing at the same limb angles, one body twice the height and much wider. But THE CUB IS ALONE
+  ON MOST PAGES, and the grandfather's page is usually him showing while the cub watches - there the
+  size gap is carried ACROSS TWO PAGES (he does it, the cub does the same thing on the next page). So
+  each bear must be recognisable WITH THE OTHER ONE ABSENT.
   Eyes are TWO SHORT WAX STROKES, never round dots - pressed and dragged a little, each ending broken
   where the wax skipped; a nose of the same stroke; the mouth is ONE curve; above each eye ONE short
   stroke. Feeling is in the mouth curve and the two brow strokes; an eye stroke lengthens or shuts
   but never becomes a dot.
-  THE TWO, separable at thumbnail size: NILS a small bear cub, round-headed, the smaller figure by
-  half, 🔴 BLUE BOOTS in every season and the only blue in the forest · BRUNO GRANDFATHER a large
-  round bear, twice Nils's height and much wider, a grey muzzle, a SPRUCE knitted vest and round
-  glasses. 🔴 NO WALKING STICK - he does the forest work himself and his hands are always free or
+  THE TWO, separable at thumbnail size: NILS a small bear cub, head as wide as his shoulders with two
+  ears standing on the crown and bare paper between them, the smaller figure by half, 🔴 BLUE BOOTS
+  in every season and the only blue in the forest · BRUNO GRANDFATHER a large bear built on a
+  straight-sided vest block, twice Nils's height and much wider but 🔴 THE TWO HEADS NEARLY THE SAME
+  SIZE, ears low at the sides so head and ears are one unbroken dome, a BARE PAPER muzzle sticking
+  out past the brow, a SPRUCE knitted vest and round glasses. 🔴 NO WALKING STICK - he does the forest work himself and his hands are always free or
   full of the work. He never carries blue. He is only ever shown doing the same task Nils is doing.
   🔴 THERE IS NOBODY ELSE. Birds, squirrels and fish appear as plain shapes with no clothes, no
   eyebrows and no expression - they are weather, not cast.
@@ -149,6 +158,11 @@ TWO:   there are two bears and nobody else - the forest and the season fill the 
 
 한 장에 둘을 다 그린다. 인물이 둘뿐이라 **키 차이와 부피 차이가 이 시트의 전부**다 —
 250쪽 내내 이 둘만 나오므로 비례가 한 번 흔들리면 숨을 곳이 없다.
+
+🔴 **개체 규격은 `docs/art-direction/bruno-cast.md` 에 있다.** 빌더가 그 파일의 `##` 절을 그 인물
+시트 프롬프트에 `[이 인물만의 규격]` 으로 끼운다. 앵커만으로는 **둘이 이름만 다른 같은 지시**를 받는다.
+🔴 **시트가 나오면 두 장을 나란히 놓고 통째로 까맣게 칠해 봐라** — 한 모양을 두 크기로 뽑은 것이면 실패다
+(첫 렌더가 그랬다: 조끼·안경·장화를 벗기면 같은 곰 인형이었다).
 
 ```
 CHARACTER SHEET - bruno forest   (two characters, one sheet)
