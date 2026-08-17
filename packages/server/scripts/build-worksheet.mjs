@@ -521,6 +521,7 @@ ${STYLE}
   a.item .w { font-size:11px; color:var(--ink-600); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
   a.all { margin:6px 18px 0; padding:9px 12px; border:1px dashed var(--peach-200); border-radius:8px;
     display:block; text-align:center; font-size:12px; font-weight:700; color:var(--mint-600); }
+  .stamp { padding:10px 18px 0; font-size:10px; color:var(--ink-500); }
 
   .bar { position:sticky; top:0; z-index:2; display:flex; align-items:center; gap:12px; padding:10px 16px;
     background:#fff; border-bottom:1px solid var(--peach-200); }
@@ -545,6 +546,9 @@ ${STYLE}
   <h1>한글 워크지 <em>인쇄용</em></h1>
   <!-- 전체는 별도 파일로 연다 — 여기 또 심으면 같은 3MB 를 두 벌 들고 있게 된다. -->
   <a class="all" href="all.html" target="_blank">📚 전체 ${items.length}단원 · ${items.length * 3}쪽 한꺼번에</a>
+  <!-- 🔴 만든 시각을 박아 둔다. file:// 도 브라우저가 캐시해서, 새로 구워도 옛 화면을 보고
+       「안 보인다」가 되기 쉽다(실측으로 두 번 헤맸다). 여기 시각이 안 바뀌면 캐시다. -->
+  <p class="stamp">${new Date().toLocaleString('ko-KR', { hour12: false })} 판</p>
   ${groups
     .map(
       (g) => `<h2>${esc(g.level)}</h2>` +
