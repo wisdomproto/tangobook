@@ -44,8 +44,9 @@ series are somewhere on this one hillside, so this drawing decides it once and f
 
 🔴 SEVEN BANKS, NUMBERED. The hillside carries EXACTLY SEVEN black banks, and they are numbered 1 at
   the top to 7 at the bottom - fixed forever. Each bank is ONE unbroken cut piece. The bands get
-  THINNER toward the top and never greyer. Dingding's own field is the water between bank 4 and bank
-  5, and that never changes either, so a reader can always say whether a page is above it or below.
+  THINNER toward the top and never greyer. 🔴 DINGDING'S OWN FIELD IS THE TOP TERRACE - the water
+  ABOVE BANK 1 - and that never changes either, so a reader can always say whether a page is above
+  it or below.
   A page shows at most seven banks; when it shows fewer, it shows a NUMBERED RUN of them (3-4-5).
 
 🔴 THE WHITE CHANNEL: one continuous cut of SHEET WHITE runs from the TOP EDGE of the picture to the
@@ -99,7 +100,7 @@ NOT: no character of any kind, no red anywhere on this sheet (the red piece is D
 |---|---|---|---|
 | `Baskets` | 대바구니 둘 | 22(9) · 12(4) · 08(3) · 10(5) | 🔴 **똑같이 생긴 둘** — 22권 전체가 그것을 못 가리는 이야기 |
 | `Straw` | 벼 묶음 · 지푸라기 | 17(8) · 16(4) | 눕힌 여덟 / 세운 셋 |
-| `Ducks` | 오리 | 05 (6쪽) | 여섯 마리 |
+| `Ducks` | 오리 | 05 (6쪽) | 🔴 **일곱 마리** (05 p1·p4·p10 이 「오리 일곱」. 여섯이라 적었던 것은 오기) |
 | `Bowls` | 그릇 · 밥그릇 · 물동이 | 03(5·4) · 14(3) | |
 | `Spade` | 삽 | 01 | 물길 파는 도구 |
 | `Sticks` | 막대 | 20 (5쪽) | 온전한 것 / 동강 난 것 |
