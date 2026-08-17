@@ -198,15 +198,10 @@ NOT: no character, no red anywhere, no lettering or numerals, no metal shine or 
 
 ---
 
-## §4. 권별 경로표 — 견본 (24 「얼음」)
+## §4. 권별 경로표
 
-| 쪽 | 자리 | SPOT | 🔴 상태 | 이어짐 |
-|---|---|---|---|---|
-| p1 | `Canal` | A | **얼음** (물 면적 = 안 찍음) | 「미색 한 판」 |
-| p2 | `Canal` | C 물가 | 얼음 | `Skates` 상태 1 |
-| p3 | `Canal` | C 둑과 얼음의 경계 | 얼음 | 🔴 INK2 둑 ↔ 맨 종이의 하드 에지 |
-| p4~p7 | `Canal` | D 얼음 위 | 얼음 | 자국 1줄 → 2줄 → 짧은 자국 (전부 INK2 얇은 선) |
-| p8~p10 | `Canal` | D | 얼음 | p8 의 반원이 p10 에서 이어진다 = **같은 면적 위** |
+🔴 **`pongi-routes.md` 로 옮겼다** (25권 250쪽 · 24권 견본 포함). 같은 표를 두 곳에 두면 갈라진다.
+검사 = `node packages/client/scripts/build-series-routes.mjs --check pongi`.
 
-🔴 **p1 의 「미색 한 판」이 `Canal` A 의 INK1 면적과 정확히 같아야 한다.** 다르면 이 권만 딴 운하가 된다 —
+🔴 **p1 의 「미색 한 판」이 `Canal` A 의 INK1 면적과 정확히 같아야 한다.** 다르면 24권만 딴 운하가 된다 —
 §1.1 `PLATE` 의 물·얼음 두 장을 겹쳐 보는 이유가 이것이다.

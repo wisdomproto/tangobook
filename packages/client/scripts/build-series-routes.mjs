@@ -44,12 +44,15 @@ export function routeOf(pages) {
   return out;
 }
 
-/** `-stages.md` §4/§5 견본 표의 축 칸 이름. 없으면 '상태'. */
+/** 견본 표의 축 칸 이름 — 뼈대 안내문에만 쓴다. 없으면 '상태'.
+ *  🔴 견본은 `-stages.md` 에서 `-routes.md` 로 옮겨 갔으므로 둘 다 본다(옮긴 뒤 stages 에선 안 나온다). */
 function axisLabel(key) {
-  const f = path.join(ART, `${key}-stages.md`);
-  if (!fs.existsSync(f)) return '상태';
-  const m = fs.readFileSync(f, 'utf8').match(/^\| 쪽 \| [^|]+\| [^|]+\| ([^|]+)\|/m);
-  return m ? m[1].replace(/🔴/g, '').trim() : '상태';
+  for (const f of [`${key}-routes.md`, `${key}-stages.md`].map((n) => path.join(ART, n))) {
+    if (!fs.existsSync(f)) continue;
+    const m = fs.readFileSync(f, 'utf8').match(/^\| 쪽 \| [^|]+\| [^|]+\| (?!\?)([^|]+)\|/m);
+    if (m) return m[1].replace(/🔴/g, '').trim();
+  }
+  return '상태';
 }
 
 if (process.argv.includes('--selftest')) {
@@ -81,7 +84,10 @@ if (process.argv.includes('--skeleton')) {
       '> 가 SCENE 의 무대 토큰에서 뽑아 쓴다 — 손으로 고치지 마라. 자리가 틀렸으면 고칠 곳은 SCENE 이다.',
       `> \`↑\` = 그 쪽 SCENE 이 「같은 자리」라고만 해서 **앞 쪽에서 물려받은** 자리.`,
       '>',
-      `> 채우는 칸은 **SPOT** 과 **${axis}** 와 **이어짐** 셋이다. 시트 = \`${key}-stages.md\`.`,
+      `> 채우는 칸은 **SPOT** 과 **그 권의 계기** 와 **이어짐** 셋이다. 시트 = \`${key}-stages.md\`.`,
+      '>',
+      `> 🔴 **넷째 칸 이름은 권마다 다르다** — 그 권에서 열 쪽에 걸쳐 움직이는 것 하나다(${key} 견본은`,
+      `> 「${axis}」였다). 표 머리의 \`?\` 를 그 권의 것으로 바꿔 쓴다. 한 권 = 계기 하나다.`,
       '',
       '---',
       '',
@@ -89,15 +95,51 @@ if (process.argv.includes('--skeleton')) {
     for (const [id, bk] of [...books].sort((a, b) => a[0].localeCompare(b[0]))) {
       const pages = Object.entries(scenes[id] ?? {});
       out.push(`## ${id} 「${bk.title}」`, '');
-      out.push(`| 쪽 | 자리 | SPOT | 🔴 ${axis} | 이어짐 |`, '|---|---|---|---|---|');
+      out.push('| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |', '|---|---|---|---|---|');
       for (const r of routeOf(pages)) {
         out.push(`| ${r.pg} | ${r.place ? '`' + r.place + '`' : '🔴 ?'}${r.inherited ? ' ↑' : ''} |  |  |  |`);
       }
       out.push('');
     }
     const f = path.join(ART, `${key}-routes.md`);
+    // 🔴 채워진 표를 뼈대로 되돌리지 않는다. 자동화가 **옳은 것을 지우는** 것이 이 파이프라인에서
+    //    가장 나쁜 실패다(무대 토큰 때 이미 한 번 겪었다). 되굽고 싶으면 `--force` 를 명시한다.
+    if (fs.existsSync(f) && /^\| p\d+ \|[^|]*\|\s*\S/m.test(fs.readFileSync(f, 'utf8')) && !process.argv.includes('--force')) {
+      console.log(`${key.padEnd(9)} ⏭  이미 채워져 있다 — 건너뜀 (되굽으려면 --force)`);
+      continue;
+    }
     fs.writeFileSync(f, out.join('\n'));
     console.log(`${key.padEnd(9)} ${books.size}권 · ${path.basename(f)}`);
+  }
+  process.exit(0);
+}
+
+// ── 자리 칸만 다시 맞추기 ────────────────────────────────────────────────────
+// 🔴 무대 토큰을 고치면 표의 자리 칸이 낡는다. 그렇다고 `--skeleton` 을 다시 돌리면 채운 750칸이
+//    같이 날아간다 — 그래서 **자리 칸 한 칸만** 갈아 끼운다. 나머지 세 칸은 한 글자도 안 건드린다.
+//    (이게 없으면 「토큰이 틀렸다」는 신고를 받고도 고칠 방법이 없어서 표가 SSOT 를 이긴다.)
+if (process.argv.includes('--resync')) {
+  const apply = process.argv.includes('--apply');
+  for (const key of TARGETS) {
+    const f = path.join(ART, `${key}-routes.md`);
+    if (!fs.existsSync(f)) continue;
+    const scenes = loadScenes(path.join(DOCS, key));
+    const want = new Map();
+    for (const [b, pages] of Object.entries(scenes)) for (const r of routeOf(Object.entries(pages))) want.set(`${b} ${r.pg}`, r);
+    const lines = fs.readFileSync(f, 'utf8').split('\n');
+    let book = null; const changed = [];
+    for (let i = 0; i < lines.length; i++) {
+      const bm = lines[i].match(/^## (\d+) 「/); if (bm) { book = bm[1]; continue; }
+      const m = lines[i].match(/^\| (p\d+) \| ([^|]*)\|(.*)$/); if (!m || !book) continue;
+      const r = want.get(`${book} ${m[1]}`); if (!r) continue;
+      const cell = `${r.place ? '`' + r.place + '`' : '🔴 ?'}${r.inherited ? ' ↑' : ''}`;
+      if (m[2].trim() === cell) continue;
+      changed.push(`${book} ${m[1]}  ${m[2].trim()} → ${cell}`);
+      lines[i] = `| ${m[1]} | ${cell} |${m[3]}`;
+    }
+    if (apply && changed.length) fs.writeFileSync(f, lines.join('\n'));
+    console.log(`${key.padEnd(9)} 자리 갱신 ${changed.length}${apply ? '' : ' (dry-run · --apply)'}`);
+    for (const c of changed.slice(0, 12)) console.log(`   ${c}`);
   }
   process.exit(0);
 }
