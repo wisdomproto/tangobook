@@ -111,12 +111,17 @@ const VOWEL_NOTES = {
 };
 
 /**
- * 복잡모음 단원에서 음절을 만들 자음. 찬찬한글은 14개를 7+7 두 표로 늘어놓지만
- * 우리는 1열 10행이라 앞쪽 자음만 쓴다.
+ * 복잡모음 단원에서 음절을 만들 자음 — **자음 14개 전부**를 찬찬한글처럼 7+7 두 표로 놓는다.
+ *
+ * ⚠️ 처음엔 앞의 다섯(ㄱㄴㄷㄹㅁ)만 썼는데, 그건 「한 쪽에 10줄」이라는 **레이아웃 사정**이지
+ *    교육적 근거가 아니었다. 그 모음이 **모든 자음과 붙는다**는 걸 보이는 게 이 표의 일이다.
  * ⚠️ ㄱ+ㅢ = 「긔」처럼 낯선 음절이 나오는데 **그대로 둔다** — 찬찬한글도 긔·늬·믜를 그대로
  *    싣는다. 뜻이 아니라 **조합 규칙**을 익히는 자리라서다.
  */
-const BLEND_CONSONANTS = ['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ'];
+const BLEND_CONSONANTS = [
+  ['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ'],
+  ['ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'],
+];
 
 /**
  * 단원 종류는 **커리큘럼 데이터에서 판별**한다 — 단원 id 목록을 손으로 적으면 갈라진다.
@@ -263,6 +268,9 @@ const STYLE = `<style>
   .demo b { color: var(--mint-600); }
   .demo small { width: 100%; text-align: center; font-size: 9pt; font-weight: 400; color: var(--ink-600); margin-top: .8mm; }
   .syls { display: flex; flex-direction: column; gap: 2.4mm; }
+  /* 복잡모음 음절표 — 자음 7개짜리 덩이 둘을 나란히(찬찬한글 배치). */
+  .vrow { display: flex; justify-content: center; gap: 9mm; }
+  .vcell { display: flex; align-items: center; gap: 2mm; }
   .srow { display: flex; align-items: center; gap: 2.5mm; justify-content: center; }
   .formula { width: 16mm; flex: none; font-size: 12pt; font-weight: 700; color: var(--mint-600); text-align: center; }
   .formula i { font-style: normal; color: var(--mint-200); margin: 0 .6mm; }
@@ -310,8 +318,8 @@ function unitSpec(u, kind, words) {
   if (kind === 'coda') {
     const coda = u.phonemes[0].replace('받침', '');
     const c = CODAS[coda];
-    // blending = [초성,중성,받침,결과]. 14개 전부 쓰면 지치므로 자음 단원과 같은 10줄 리듬으로.
-    const rows = u.blending.slice(0, 10);
+    // blending = [초성,중성,받침,결과] × 14. 전부 쓴다 — 넘치면 쪽이 늘어난다.
+    const rows = u.blending;
     const split = rows.slice(0, 3).map(([cho, jung, jong, res]) => ({ s: res, a: syllableOf(cho, jung), b: jong }));
     // 🔴 받침 단원에서 **받침 글자를 홑으로 쓰게 하지 않는다.** ㅇ·ㄱ·ㄴ… 은 한글1 에서 이미
     //    쓴 글자이고, 이 단원의 새로운 것은 글자가 아니라 **자리(아래)와 소리(닫힘)** 다.
@@ -356,13 +364,12 @@ function unitSpec(u, kind, words) {
             ? comboRow(`${parts(v)[0]}<i>+</i>${parts(v)[1]}`, v)
             : comboRow(`${v}<i>→</i>${syllableOf('ㅇ', v)}`, v)
         )
-      : // 복잡모음 단원 = 자음 × 그 모음 음절표(찬찬한글 「글자만들기」).
-        vs.flatMap((v) =>
-          BLEND_CONSONANTS.slice(0, Math.floor(10 / vs.length)).map((c) => comboRow(`${c}<i>+</i>${v}`, syllableOf(c, v)))
-        );
+      : // 복잡모음 단원 = 모음마다 **자음 14개 전부**(찬찬한글 「글자만들기」).
+        //   한 쪽을 넘으면 다음 쪽으로 넘어간다 — 쪽수를 아끼려고 자음을 깎지 않는다.
+        vs.flatMap((v) => BLEND_CONSONANTS.flat().map((c) => comboRow(`${c}<i>+</i>${v}`, syllableOf(c, v))));
     const split = basicOnly
       ? null // 자음이 없으니 「둘로 가르기」가 성립하지 않는다
-      : vs.slice(0, 3).map((v) => ({ s: syllableOf(BLEND_CONSONANTS[0], v), a: BLEND_CONSONANTS[0], b: v }));
+      : vs.slice(0, 3).map((v) => ({ s: syllableOf('ㄱ', v), a: 'ㄱ', b: v }));
     return {
       glyph: vs[0],
       title: `${vs.join(' · ')} 을 알아봐요`,
@@ -381,7 +388,9 @@ function unitSpec(u, kind, words) {
         ? `“${syllableOf('ㅇ', parts(vs[0])[0])} ~ ${syllableOf('ㅇ', parts(vs[0])[1])}” 를 점점 빠르게 이어 붙여 보세요`
         : '모음은 입을 크게 벌리고 길게 소리 내요',
       rows,
-      readAll: basicOnly ? vs.map((v) => syllableOf('ㅇ', v)).join(' ') : rows.length ? vs.map((v) => syllableOf(BLEND_CONSONANTS[0], v)).join(' ') : '',
+      readAll: basicOnly
+        ? vs.map((v) => syllableOf('ㅇ', v)).join(' ')
+        : BLEND_CONSONANTS.flat().map((c) => syllableOf(c, vs[0])).join(' '),
       split,
       // 🔴 단원 모음을 그대로 쓰면 제목이 거짓말을 한다 — h4-u02 는 ㅖ·ㅚ 단원인데 ㅚ 낱말 둘이
       //    그림이 없어 빠져서 화면엔 ㅖ 낱말만 남는다. **실제 나온 모음**만 말한다.
@@ -420,6 +429,10 @@ function unitSpec(u, kind, words) {
 /** 한 단원의 3쪽 마크업. 스타일은 STYLE 로 분리해 합본에서 한 번만 싣는다. */
 function renderPages({ head, spec, words }) {
   const linked = words.filter((w) => w.book);
+  // 🔴 조합 표가 한 쪽을 넘으면 **쪽을 늘린다.** 쪽수를 아끼려고 자음·초성을 깎던 걸 되돌린 것이다.
+  const PER_PAGE = 10;
+  const chunks = [];
+  for (let i = 0; i < spec.rows.length; i += PER_PAGE) chunks.push(spec.rows.slice(i, i + PER_PAGE));
   const appLink = `<b>${head.levelName} · 익힘 ${head.unitNo}</b>`;
 
   return `
@@ -471,10 +484,10 @@ function renderPages({ head, spec, words }) {
 
   <div class="demo">${spec.demo}<small>${spec.demoNote}</small></div>
 
-  <section><div class="syls">${spec.rows.join('')}</div></section>
+  <section><div class="syls">${chunks[0].join('')}</div></section>
 
   ${
-    spec.split
+    chunks.length === 1 && spec.split
       ? `<section>
     <h2 data-n="5">거꾸로 나눠요 <span class="hint">한 글자를 둘로 갈라 봐요</span></h2>
     <div class="qline">${spec.split
@@ -486,13 +499,38 @@ function renderPages({ head, spec, words }) {
 
   <footer>
     <div class="link">✏️ 다 쓰면 <b>${spec.readAll}</b> 를 위에서 아래로 소리 내어 읽어요.</div>
-    ${spec.split ? `<div class="ans">정답 (5번) — ${spec.split.map((s) => `${s.s}=${s.a}+${s.b}`).join(' · ')}</div>` : ''}
+    ${chunks.length === 1 && spec.split ? `<div class="ans">정답 (5번) — ${spec.split.map((s) => `${s.s}=${s.a}+${s.b}`).join(' · ')}</div>` : ''}
   </footer>
 </div>
+${chunks
+  .slice(1)
+  .map(
+    (rows, i) => `
+<!-- ─────────── 조합 이어지는 쪽 ─────────── -->
+<div class="page">
+  <div class="runhead"><b>익힘 ${head.unitNo}. ${spec.glyph}</b><span>글자를 만들어요 · ${i + 3}쪽</span></div>
+  <section><div class="syls">${rows.join('')}</div></section>
+  ${
+    i === chunks.length - 2 && spec.split
+      ? `<section>
+    <h2 data-n="5">거꾸로 나눠요 <span class="hint">한 글자를 둘로 갈라 봐요</span></h2>
+    <div class="qline">${spec.split
+      .map((x) => `<div class="qrow">${esc(x.s)}<span class="op">=</span><span class="blank"></span><span class="op">+</span><span class="blank"></span></div>`)
+      .join('')}</div>
+  </section>`
+      : ''
+  }
+  <footer>
+    <div class="link">✏️ 다 쓰면 <b>${spec.readAll}</b> 를 위에서 아래로 소리 내어 읽어요.</div>
+    ${i === chunks.length - 2 && spec.split ? `<div class="ans">정답 (5번) — ${spec.split.map((x) => `${x.s}=${x.a}+${x.b}`).join(' · ')}</div>` : ''}
+  </footer>
+</div>`
+  )
+  .join('')}
 
 <!-- ─────────── 3쪽 · 낱말 ─────────── -->
 <div class="page">
-  <div class="runhead"><b>익힘 ${head.unitNo}. ${spec.glyph}</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><b>익힘 ${head.unitNo}. ${spec.glyph}</b><span>낱말을 만나요 · ${chunks.length + 2}쪽</span></div>
 
   <section>
     <h2 data-n="6">${spec.meetTitle} <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -590,7 +628,7 @@ ${STYLE}
 <aside>
   <h1>한글 워크지 <em>인쇄용</em></h1>
   <!-- 전체는 별도 파일로 연다 — 여기 또 심으면 같은 3MB 를 두 벌 들고 있게 된다. -->
-  <a class="all" href="all.html" target="_blank">📚 전체 ${items.length}단원 · ${items.length * 3}쪽 한꺼번에</a>
+  <a class="all" href="all.html" target="_blank">📚 전체 ${items.length}단원 · ${items.reduce((n, it) => n + it.pageCount, 0)}쪽 한꺼번에</a>
   <!-- 🔴 만든 시각을 박아 둔다. file:// 도 브라우저가 캐시해서, 새로 구워도 옛 화면을 보고
        「안 보인다」가 되기 쉽다(실측으로 두 번 헤맸다). 여기 시각이 안 바뀌면 캐시다. -->
   <p class="stamp">${new Date().toLocaleString('ko-KR', { hour12: false })} 판</p>
@@ -697,24 +735,27 @@ async function main() {
     const spec = unitSpec(u, kind, words);
     const pages = renderPages({ head: { unitNo, levelName: u.levelName }, spec, words });
     all.push(pages);
+    const pageCount = (pages.match(/<div class="page/g) || []).length;
     const html = wrap(`한글 워크지 · ${u.levelName} 익힘 ${unitNo} · ${spec.glyph}`, pages);
     await writeFile(new URL(`${u.id}.html`, outDir), html, 'utf8');
-    index.push({ id: u.id, unitNo, levelName: u.levelName, glyph: spec.glyph, words: words.map((w) => w.word).join(' '), pages });
+    index.push({ id: u.id, unitNo, levelName: u.levelName, glyph: spec.glyph, words: words.map((w) => w.word).join(' '), pages, pageCount });
     report.push({
       단원: u.id,
       종류: { consonant: '자음', coda: '받침', vowel: '모음' }[kind],
       글자: u.phonemes.join(''),
       낱말: words.map((w) => w.word).join(' '),
       책: words.filter((w) => w.book).length,
+      쪽: pageCount,
       KB: Math.round(html.length / 1024),
     });
   }
 
   // 합본 — 나눠 주려면 한 파일이 편하다. 이미지가 440px webp 라 14단원을 합쳐도 2MB 안쪽이다.
   if (!only) {
-    const combined = wrap(`한글 워크지 · 전 단원 (${units.length}단원)`, all.join('\n'));
+    const total = index.reduce((n, it) => n + it.pageCount, 0);
+    const combined = wrap(`한글 워크지 · 전 단원 (${units.length}단원 ${total}쪽)`, all.join('\n'));
     await writeFile(new URL('all.html', outDir), combined, 'utf8');
-    report.push({ 단원: 'all.html', 종류: '', 글자: '', 낱말: `${units.length}단원 ${units.length * 3}쪽`, 책: '', KB: Math.round(combined.length / 1024) });
+    report.push({ 단원: 'all.html', 종류: '', 글자: '', 낱말: `${units.length}단원 ${total}쪽`, 책: '', KB: Math.round(combined.length / 1024) });
 
     const idx = renderIndex(index);
     await writeFile(new URL('index.html', outDir), idx, 'utf8');
