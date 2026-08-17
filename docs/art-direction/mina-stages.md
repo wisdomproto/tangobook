@@ -179,16 +179,8 @@ NOT: 🔴 no filled or solid shape anywhere / no character, no hands / no gold a
 
 ---
 
-## §4. 권별 경로표 — 견본 (13 「납작한 돌」)
+## §4. 권별 경로표
 
-| 쪽 | 자리 | SPOT | 🔴 강 높이 | 이어짐 |
-|---|---|---|---|---|
-| p1 | `RiverBed` | 돌밭 | **1/4** | 돌마다 마른 테두리 자국 한 줄 |
-| p3 | `RiverBed` | 돌밭 | 1/4 | 오른쪽 뒤 웅덩이 |
-| p4 | `RiverBed` | 웅덩이 close | 1/4 | |
-| p6 | `RiverBed` | 돌밭 | **1/3** | 🔴 물 닿은 돌은 테두리부터 짙어진다 · 그림자 열댓 개 전부 물 반대쪽 |
-| p7 | `RiverBed` | 물가 선 | **1/2** | 물 밖에 남은 돌은 손의 하나뿐 |
-| p9 | `RiverBed` | 돌밭 | **1/4** | 다음 날 — 되돌아왔다 |
-
-🔴 **분수가 1/4 → 1/3 → 1/2 → 1/4 로 돌아오는 것이 이 권의 사건**이다. 시트 §1.1 의 눈금 여섯 장이
-없으면 이 넷이 서로 얼마나 다른지 그림에 안 남는다.
+🔴 **`mina-routes.md` 로 옮겼다**(25권 250쪽 전부). 같은 표를 두 곳에 두면 반드시 갈라진다 —
+여기 있던 13 「납작한 돌」 견본도 p9 의 자리가 SCENE 토큰과 이미 어긋나 있었다.
+검사 = `node packages/client/scripts/build-series-routes.mjs --check mina`.

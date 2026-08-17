@@ -114,6 +114,44 @@ if (process.argv.includes('--skeleton')) {
   process.exit(0);
 }
 
+// ── 되짚는 쪽 판정 후보 ──────────────────────────────────────────────────────
+// 🔴 되짚는 쪽(「같은 …」)에는 토큰을 안 붙인다 — 규칙에 태우면 타로 18권 「같은 나무 밑」이 `나무` 에
+//    걸려 `WellTree` 가 되는데 그 권 나무는 `ForkTree` 다. 그래서 **앞 쪽에서 물려받는다.**
+//    그런데 물려받기는 **바로 앞 한 쪽만** 본다. 앞 쪽이 잠깐 다른 데를 들렀다 오면
+//    (유키 01 은 p6 이 방 안이고 p7 이 「같은 마당」이다) 그 뒤로 줄줄이 방이 된다.
+// 🔴 **이건 답이 아니라 후보다.** 규칙이 이겼다고 규칙이 맞는 게 아니다 — 브루노 01 「같은 나무 밑동」은
+//    그 그루터기가 오두막 앞에 있어서 **물려받기가 맞다**(= 위의 타로 함정과 같은 것). 권을 읽어야 안다.
+if (process.argv.includes('--backref')) {
+  const MAP = JSON.parse(fs.readFileSync(path.join(ART, '_stage-tokens.json'), 'utf8'));
+  const resolve = (s, b, n) => s.byBook?.[b]?.[n] ?? s.exceptions?.[n]
+    ?? s.rules.find(([p]) => n.includes(p))?.[1] ?? null;
+  let tot = 0;
+  for (const key of TARGETS) {
+    const scenes = loadScenes(path.join(DOCS, key));
+    const rows = [];
+    for (const [b, pages] of Object.entries(scenes)) {
+      let last = null;
+      for (const [pg, t] of Object.entries(pages)) {
+        const raw = String(t).match(/<b>장소·시간<\/b>\s*([^<]*)/)?.[1]?.trim(); if (!raw) continue;
+        const tok = raw.match(/^\[([^\]]+)\]/)?.[1]; if (tok) { last = tok; continue; }
+        const name = raw.split(',')[0].replace(/\.$/, '').trim();
+        const bare = name.replace(/^(같은|그|저|바로)\s+/, ''); if (bare === name) continue;
+        const want = resolve(MAP[key], b, bare);
+        if (want && want !== last) rows.push(`| ${b} ${pg} | 「${name}」 | \`${last}\` | \`${want}\` |  |`);
+      }
+    }
+    if (!rows.length) continue;
+    tot += rows.length;
+    console.log(`\n## ${key} (${rows.length}쪽)\n`);
+    console.log('| 권·쪽 | SCENE | 물려받음 | 이름이 가리키는 곳 | 판정 |');
+    console.log('|---|---|---|---|---|');
+    for (const r of rows) console.log(r);
+  }
+  console.log(`\n합계 ${tot}쪽 — 🔴 고칠 곳은 표가 아니라 **SCENE 의 토큰**이다.`);
+  console.log('   고친 뒤 `--resync <시리즈> --apply` 로 경로표 자리 칸만 따라가게 한다.');
+  process.exit(0);
+}
+
 // ── 자리 칸만 다시 맞추기 ────────────────────────────────────────────────────
 // 🔴 무대 토큰을 고치면 표의 자리 칸이 낡는다. 그렇다고 `--skeleton` 을 다시 돌리면 채운 750칸이
 //    같이 날아간다 — 그래서 **자리 칸 한 칸만** 갈아 끼운다. 나머지 세 칸은 한 글자도 안 건드린다.
