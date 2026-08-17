@@ -94,9 +94,13 @@ RENDERING (finish hierarchy): an area is ONE torn piece of one paper, flat and e
   same weight of paper. Nothing recedes by getting paler, bluer or softer.
   🔴 THERE ARE THREE CHILDREN AND ONE GRANDFATHER AND NOBODY ELSE. Never a fourth child to fill a gap;
   when one of the three has walked off, the page shows two and the empty place they left.
+  🔴 ONE VOLUME BREAKS THIS AND IT IS THE STORY (volume 23): a fourth child stands in five of its pages,
+  and she carries NO GREEN ANYWHERE. She is not there to fill a gap - she is the child who is not one
+  of the three yet, and on the last page of that volume the greens are still exactly three.
 
 PALETTE: GROUND SHEET WINTER LIGHT #EFEDE6, sky, air, the light, everything left unpasted · TORN WHITE
-  SNOW #FBFAF6, 🔴 snow, ice, roof caps, steam, firelight and lamplight - always a torn piece, never
+  SNOW #FBFAF6, 🔴 snow, ice, roof caps, steam, firelight and lamplight, the eye scraps of every face,
+  and the grandfather's white face - always a torn piece, never
   painted and never a drawn white line · TORN1 STONE GREY #7C8085, walls, cobbles, roof slates,
   shutters, the alley - the cool one · TORN2 WOOD BROWN #8A6A4C, doors, beams, the shop counter, the
   sledge, barrels, tables, animal chests - the warm one · OVERLAP DEEP SLATE #333A3E, animal backs and
@@ -139,21 +143,34 @@ STAGE CLAUSES (the stage changes what the papers do, never which papers they are
     piece along the bottom of a wall.
 
 CHARACTER DESIGN LANGUAGE: the animals are built from the same torn pieces as the world - two or three
-  shapes with limbs laid over. GRADE: bipedal, standing upright, wearing cloth, 🔴 AND ALL THREE
+  shapes with limbs laid over. GRADE: bipedal, standing upright, 🔴 AND ALL THREE
   CHILDREN HAVE HANDS - the sparrow and the pigeon have hands, not wings, on every ordinary page.
+  🔴 A HAND IS A TORN SHAPE WITH THREE SEPARATE FINGERS. A rounded fingerless mitten reads as a wing
+  and is wrong on any page where the child is not flying.
   WINGS ARE DRAWN ONLY WHEN SOMEBODY IS FLYING OR SPREADING THEM: Nono in flight (volumes 01, 04, 07,
-  10, 19, 25) and Gugu spreading herself across the chair (volume 05). 🔴 NEVER ARMS AND WINGS ON THE
-  SAME CHILD ON THE SAME PAGE. Beaks and tails are part of the face and body and are always there.
+  10, 18, 19, 25) and Gugu spreading herself across the chair (volume 05). 🔴 NEVER ARMS AND WINGS ON
+  THE SAME CHILD ON THE SAME PAGE. Beaks and tails are part of the face and body and are always there.
   Backs and heads are OVERLAP, chests and bellies are TORN2.
+  🔴 WHAT EACH ONE WEARS IS FIXED ON THE CAST SHEET AND IS NEVER ADDED TO. Two of the three wear no
+  coat at all, and a coat invented for them buries the one shape that tells them from the others.
+  🔴 BEAKS, NOSES, HANDS AND FEET ARE TORN FROM THE SAME PAPERS AS EVERYTHING ELSE - there is no skin
+  paper, no orange and no pink anywhere in this book. Which paper belongs to whose beak and feet is
+  on the cast sheet, and it is one of the things that separates the sparrow from the pigeon.
   🔴 THE PIECES OF A FACE DO NOT MATCH EACH OTHER, AND THAT MISMATCH IS THE STYLE. Every part is torn
   from paper by hand, so on any appearance the two eyes come out at different sizes and sit at
   slightly different heights, one ear is bigger than its pair, a beak is a size too large for the
-  head that carries it. 🔴 THE MISMATCH IS NEVER TIDIED UP AND NEVER REPEATED - the pieces are torn
-  fresh for every page, so the wrongness lands somewhere new each time.
+  head that carries it. 🔴 THE MISMATCH IS NEVER TIDIED UP, AND ITS DIRECTION IS FIXED PER CHARACTER -
+  each child is wrong in ONE NAMED WAY on EVERY page (which eye is the bigger one, which ear sits
+  lower), and that constant wrongness is how a reader knows the same child again across 250 pages.
+  What is torn fresh on every page is the FIBRE, not the design: the edges wander, the sizes do not.
+  🔴 THE GRANDFATHER IS THE ONE WHOSE PIECES ALMOST MATCH, and that is what says grown-up when he is
+  cropped or far off and his height cannot be compared to anything.
   Eyes are two TORN SCRAPS, never punched circles - white fibre showing along every edge, one always
   noticeably bigger than the other; a small beak or nose; the mouth is ONE torn curve; above each eye
   ONE short torn strip. Feeling is in the mouth or beak and the two strips.
-  THE THREE, separable at thumbnail size, all about the same height: NONO a young sparrow, a round
+  THE THREE, separable at thumbnail size, all about the same height 🔴 BUT WITH THREE DIFFERENT HEAD
+  SIZES AGAINST THEIR BODIES, so the silhouette is top-heavy, bottom-heavy or spiked before any small
+  thing is read; that ladder and each one's fixed mismatch are on the cast sheet: NONO a young sparrow, a round
   body and a short blunt beak, the smallest and roundest, a GREEN SCARF · GUGU a pigeon, a small head
   on a broad deep chest, the widest of the three, a GREEN CLOTH BAG worn across one shoulder so it
   hangs at her hip · KIKI a cat, two sharp triangle ears and one long tail, the tallest silhouette by
@@ -200,15 +217,17 @@ FLY:   the sparrow and the pigeon have HANDS - wings appear only in flight
 한 장에 넷을 다 그린다. 🔴 **시트가 최종 그림을 지배**하므로 시트를 먼저 확정하고 쪽 삽화로 간다.
 
 ```
-CHARACTER SHEET - nono alley   (four characters, one sheet)
+CHARACTER SHEET - nono alley   (five characters, one sheet)
 
 [여기에 §1 의 Style / PALETTE / CHARACTER DESIGN LANGUAGE 세 문단을 그대로 붙인다]
 
-SHEET LAYOUT: one winter-light ground sheet, four animals standing in a row on a single ground line -
-  🔴 THE THREE CHILDREN ARE ALL ABOUT THE SAME HEIGHT, and Grandpa Badger is twice any of them and the
-  widest figure. Each character is drawn THREE times: front standing, three-quarter walking, and back.
-  🔴 In all nine child drawings the FRONT LIMBS ARE HANDS AND ARE EMPTY - nobody holds anything, and
-  no wing is spread, so the hand shape is fixed before any prop or any flight exists.
+SHEET LAYOUT: one winter-light ground sheet, five animals standing in a row on a single ground line -
+  🔴 THE THREE CHILDREN ARE ALL ABOUT THE SAME HEIGHT WITH THREE DIFFERENT HEAD SIZES, Grandpa Badger
+  is twice any of them and the widest figure, and 🔴 THE FOURTH CHILD (volume 23 only) STANDS IN THE
+  ROW AT HER TRUE HEIGHT, up to a child's shoulder, CARRYING NO GREEN AT ALL. Each character is drawn
+  THREE times: front standing, three-quarter walking, and back.
+  🔴 In all twelve child drawings the FRONT LIMBS ARE HANDS WITH THREE FINGERS AND ARE EMPTY - nobody
+  holds anything, and no wing is spread, so the hand shape is fixed before any prop or any flight exists.
 🔴 ONE EXTRA DRAWING BESIDE THE ROW: Nono once more with both wings spread in flight, so that the one
   page-state that replaces the hands is fixed on the same sheet.
 🔴 ONE EXTRA ROW AT THE FOOT OF THE SHEET: the three children again, side by side, pasted as FLAT
