@@ -42,11 +42,11 @@
   .bar label{font-size:12.5px;color:var(--ink-soft);margin-left:14px;cursor:pointer}
 
   section h3{font-size:14px;margin:26px 0 10px;font-weight:900;color:var(--ink-soft)}
-  .batchbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:9px}
+  .batchbar{display:flex;align-items:center;gap:10px;margin:22px 0 10px}
   .batch{border:1.5px solid var(--coral);color:var(--coral);background:#fff;white-space:nowrap;
          border-radius:9px;padding:8px 14px;font-size:12.5px;font-weight:800;cursor:pointer}
   .batch:disabled{border-color:var(--line);color:#b0b0b8;cursor:default}
-  #batchWords{font-size:12px;color:var(--ink-soft);min-width:0;overflow:hidden;
+  .batchwords{font-size:12px;color:var(--ink-soft);min-width:0;overflow:hidden;
               text-overflow:ellipsis;white-space:nowrap}
 
   .row{display:grid;grid-template-columns:190px 1fr 190px;gap:16px;align-items:start;
@@ -101,10 +101,6 @@
   <div class="bar">
     <input id="q" type="search" placeholder="낱말 검색" />
     <label><input type="checkbox" id="todo" /> 아직 안 붙인 것만</label>
-    <div class="batchbar">
-      <button id="batch1" class="batch">📋 10장 묶음 프롬프트</button>
-      <span id="batchWords"></span>
-    </div>
   </div>
   <div id="list"></div>
 </main>
@@ -251,6 +247,24 @@
     return box;
   }
 
+  function batchBar(list) {
+    var bar = document.createElement('div');
+    bar.className = 'batchbar';
+    var btn = document.createElement('button');
+    btn.className = 'batch';
+    btn.textContent = '📋 이 ' + list.length + '장 묶음 프롬프트';
+    btn.onclick = function () {
+      navigator.clipboard.writeText(batchPrompt('promptBatchLine', list)).then(function () {
+        toast(list.length + '장 묶음을 복사했어요');
+      });
+    };
+    var words = document.createElement('span');
+    words.className = 'batchwords';
+    words.textContent = list.map(function (it) { return it.word; }).join(', ');
+    bar.appendChild(btn); bar.appendChild(words);
+    return bar;
+  }
+
   function makeRow(section, it) {
     var row = document.createElement('div');
     function mark() {
@@ -293,24 +307,16 @@
     document.getElementById('count').textContent =
       all.length + '장 중 ' + Math.min(shown, all.length) + '장 표시';
 
-    // 🔴 묶음은 **화면에 보이는 순서 그대로 앞에서 10개**를 집는다. 프롬프트가 그림 20장을
-    //    번호순으로 내놓으므로, 사용자는 위에서부터 차례로 붙여넣기만 하면 짝이 맞는다.
-    var todo10 = all.filter(function (e) { return !done(e.it); }).slice(0, BATCH).map(function (e) { return e.it; });
-    document.getElementById('batchWords').textContent = todo10.length
-      ? '이 ' + todo10.length + '개 — ' + todo10.map(function (it) { return it.word; }).join(', ')
-      : '남은 낱말이 없어요';
-    var b1 = document.getElementById('batch1');
-    b1.disabled = todo10.length === 0;
-    b1.onclick = function () {
-      navigator.clipboard.writeText(batchPrompt('promptBatchLine', todo10)).then(function () {
-        toast(todo10.length + '장 묶음을 복사했어요');
-      });
-    };
-
     var list = document.getElementById('list');
     list.innerHTML = '';
     var lastSection = null, sec = null;
-    all.slice(0, shown).forEach(function (e) {
+    all.slice(0, shown).forEach(function (e, i) {
+      // 🔴 묶음 버튼은 **10줄마다** 붙는다. 상단에 하나만 두면 아래로 내려간 뒤엔 손이 안 닿는다.
+      //    각 버튼은 바로 아래 10줄만 담으므로, 받은 그림을 그 자리에서 순서대로 붙이면 된다.
+      if (i % BATCH === 0) {
+        list.appendChild(batchBar(all.slice(i, i + BATCH).map(function (x) { return x.it; })));
+        lastSection = null; // 버튼 뒤에는 섹션 제목을 다시 세운다(안 그러면 줄이 버튼 위로 붙는다)
+      }
       if (e.section !== lastSection) {
         lastSection = e.section;
         sec = document.createElement('section');
