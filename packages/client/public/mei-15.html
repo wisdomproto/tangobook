@@ -7,8 +7,8 @@
 <title>메이네 산마을 — 나는 밑에서 볼래</title>
 <style>
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
-  :root { --accent:#D4622A; --accent-dark:#A8481C; --slope:#4E5840; --peach:#F3E7DA; --cream:#FBF8F3;
-          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; --coral:#D4622A; --coral-dark:#A8481C; --mint:#4E5840; }
+  :root { --accent:#D4622A; --slope:#40483A; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
   .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
@@ -16,6 +16,8 @@
   .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
   .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
   .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
   .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
   h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
   h2.sec:first-of-type { border-top:0; }
@@ -36,27 +38,30 @@
   details { border-top:1px dashed var(--line); padding-top:9px; }
   summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
   pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
-  .batch-bar { background:#fff; border:1.5px solid var(--slope); border-radius:14px; padding:14px 18px; margin:16px 0; }
-  .batch-btn { background:var(--slope); color:#fff; border:0; border-radius:999px; padding:9px 20px; font-size:13px; font-weight:800; cursor:pointer; }
   .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
-  .paste-box:focus { border-color:var(--accent); color:var(--accent-dark); }
+  .paste-box:focus { border-color:var(--accent); }
   .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
   .paste-box img { width:100%; border-radius:8px; display:block; }
   .paste-box.busy { opacity:.5; }
   .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
-  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
   .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
-  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:2px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
   .cast-card h4 { font-size:15px; font-weight:900; }
   .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
-  .cast-card .flaw { display:inline-block; background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; margin-bottom:7px; }
   .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
   .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
-  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:4px; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
   .anchor-card .ahead b { font-size:16px; }
-  .anchor-card .avols { font-size:12px; color:var(--ink-soft); margin-bottom:8px; }
   .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .award-ref { display:flex; align-items:baseline; gap:9px; flex-wrap:wrap; background:var(--peach); border-radius:10px; padding:8px 13px; margin:2px 0 10px; font-size:12.5px; }
+  .award-ref a { color:var(--accent); text-decoration:none; white-space:nowrap; }
+  .award-ref a:hover { text-decoration:underline; }
+  .award-ref span { font-weight:700; }
+  .award-ref em { color:var(--ink-soft); font-style:normal; word-break:keep-all; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
 </style>
 </head>
 <body>
@@ -64,10 +69,11 @@
 <header class="hero">
   <div class="kicker">메이네 산마을 · 15</div>
   <h1>나는 밑에서 볼래</h1>
-  <div class="sub">메이(겁) · <b>원함</b> 미끄럼틀을 타고 싶다 · <b>탈</b> 하루 종일 밑에서만 본다 · <b>착지</b> 받아 주는 팔을 보고 탄다</div>
+  <div class="sub"><b>주인공</b> 메이(겁) · <b>원함</b> 미끄럼틀을 타고 싶다 · <b>탈</b> 하루 종일 밑에서만 본다 · <b>착지</b> 받아 주는 팔을 보고 탄다</div>
+  <div class="by">글 <b>오하람</b> · 그림 <b>남시우</b></div>
 </header>
 
-<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 이 권의 앵커(1회) + 캐릭터 레퍼런스(@image1~6) + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
 
 <div class="page-card" data-page="p1">
   <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
@@ -82,43 +88,43 @@
 </div>
 
 <div class="page-card" data-page="p3">
-  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">삐노가 쌩 내려왔어요. 루디도 쌩 내려왔어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면. 미끄럼틀을 옆에서.<br/><b>장소·시간</b> [Slide] 미끄럼틀 위아래.<br/><b>인물</b> Ppino rabbit이 아래쪽 끝에서 두 앞발을 들고 튀어나오고, Rudi squirrel은 위쪽에서 몸을 눕히고 내려오는 중이다 — 주황 신발과 주황 앞치마 주머니가 서로 다른 높이에.<br/><b>배경·소품</b> 미끄럼틀 널, 풀.<br/><b>톤</b> 같은 길 위에 두 몸이 다른 높이로.</pre></details>
 </div>
 
 <div class="page-card" data-page="p4">
-  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">메이가 한 계단 올라갔어요. 밑을 보니 다리가 후들거려요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 메이 어깨 너머로 발밑을 내려다본다 — 🔴 떠는 다리가 화면에 다 들어오게 무릎 아래를 자르지 말 것.<br/><b>장소·시간</b> [Piazza] 계단 첫 칸.<br/><b>인물</b> Mei goat가 계단 한 칸 위에 두 발을 올렸다. 상체가 앞으로 굽고 두 앞발이 손잡이를 하얗게 쥐었다. 🔴 두 무릎이 안쪽으로 붙어 후들거리고 발끝이 칸 가장자리를 딛은 채 흔들린다 — 무서움이 다리에 있어야 한다. 눈이 아래를 향했고 목도리 종이 앞으로 늘어져 흔들린다.<br/><b>배경·소품</b> 계단 칸, 그 아래 풀밭이 멀어 보인다.<br/><b>톤</b> 한 칸인데 아래가 멀어 보이는 각도.</pre></details>
 </div>
 
 <div class="page-card" data-page="p5">
-  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">메이가 도로 내려왔어요. "나는 밑에서 볼래."</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 계단 옆 땅에서 올려다본다.<br/><b>장소·시간</b> [Piazza] 계단 앞.<br/><b>인물</b> Mei goat가 다시 땅에 두 발을 딛고 계단에서 한 걸음 물러섰다. 두 앞발을 뒤로 모으고 고개를 옆으로 돌린 채 입을 벌려 말한다.<br/><b>배경·소품</b> 계단, 손잡이.<br/><b>톤</b> 뒤로 물러선 자리에서 말이 나온다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p6">
-  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">넷이 몇 번씩 탔어요. 메이는 계단 앞에서 세기만 했어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 하이앵글. 미끄럼틀 전체와 계단 밑을 위에서.<br/><b>장소·시간</b> 같은 비탈, 오후.<br/><b>인물</b> Rudi squirrel이 미끄럼틀 위에서 내려오고 Ppino rabbit이 계단을 오르고 Soso hedgehog가 아래 끝에서 일어서고 Leo fox가 계단 중간을 딛는다. Mei goat는 🔴 계단 첫 칸 바로 앞 땅에 두 발을 모으고 서서 한 앞발의 발가락을 하나씩 꼽는다 — 세는 손. 턱이 미끄럼틀 꼭대기부터 아래 끝까지 천천히 따라 내려온다, 주황 목도리와 종.<br/><b>배경·소품</b> 미끄럼틀, 계단.<br/><b>톤</b> 넷은 오르내리고 하나는 계단 앞에서 숫자만 센다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p7">
-  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">해가 저물었어요. 메이가 계단 앞에서 발끝만 굴렀어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 와이드, 측면. 비탈과 하늘이 가로로 층을 이룬다.<br/><b>장소·시간</b> 같은 비탈, 해 질 무렵.<br/><b>인물</b> Mei goat가 계단 첫 칸 앞에 혼자 서서 한 발끝으로 땅을 앞뒤로 문지른다 — 다른 발은 붙박였고 두 앞발이 등 뒤에서 맞잡혔다, 고개가 계단 위를 향했다. 주황 목도리와 종.<br/><b>배경·소품</b> 🔴 빈 미끄럼틀, 발끝이 문지른 자리에 흙이 파였다. 그림자가 비탈을 가로질러 길다.<br/><b>톤</b> 하루가 다 갔는데 발자국이 첫 칸 앞에서 안 움직였다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p8">
-  <div class="page-head"><span class="pnum">P8</span><b>할머니 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">곰 할머니가 미끄럼틀 아래 섰어요. "밑에서 내가 받아 줄게."</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 로우앵글. 미끄럼틀 아래 끝에서 위로 — 미끄럼틀이 할머니 뒤로 비스듬히 올라간다.<br/><b>장소·시간</b> [Slide] 미끄럼틀 아래 끝, 해 질 무렵.<br/><b>인물</b> Bear granny가 미끄럼틀 끝 바로 앞 땅에 두 발을 딛고 서서 위쪽을 올려다보며 입을 벌려 말한다 — 두 앞발을 가슴 앞에 반쯤 들어 받을 자세를 미리 잡았다. 화면 옆 계단 쪽에 Mei goat가 서서 그 손을 본다, 주황 목도리와 종.<br/><b>배경·소품</b> 미끄럼틀 아래 끝, 계단 기둥.<br/><b>톤</b> 무서운 데가 아니라 **도착할 데**를 먼저 보여 준다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p9">
-  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">메이가 꼭대기에 앉아 밑을 봤어요. 할머니가 두 팔을 활짝 벌리고 있어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 오버숄더 하이앵글. 메이 어깨 너머로 미끄럼틀이 아래로 뻗고 그 끝에 할머니 — 🔴 위와 아래가 반드시 한 프레임에.<br/><b>장소·시간</b> [Slide] 미끄럼틀 꼭대기 발판.<br/><b>인물</b> 화면 앞쪽에 Mei goat가 미끄럼틀 입구에 앉아 두 앞발로 양옆 난간을 쥐었다 — 무릎이 모이고 어깨가 올라갔지만 🔴 고개를 아래로 숙이고 두 눈을 뜬 채 미끄럼틀 끝을 똑바로 내려다본다, 시선이 화면 안쪽 아래로 곧게 간다. 주황 목도리와 종이 앞으로 늘어졌다. 화면 안쪽 저 아래 끝에 Bear granny가 두 팔을 좌우로 활짝 벌리고 위를 보고 서 있다 — 🔴 메이 눈길 끝에 그 팔이 놓여야 한다.<br/><b>배경·소품</b> 미끄럼틀 널이 둘 사이를 하나로 잇는다.<br/><b>톤</b> p4 에서 아래를 보고 다리가 떨렸던 그 눈이, 이번엔 같은 아래에서 팔을 본다.</pre></details>
 </div>

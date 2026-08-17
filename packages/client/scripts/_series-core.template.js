@@ -11,7 +11,7 @@
   'use strict';
 
   var KEY = '__KEY__';
-  var ANCHOR = { slug: '__ANCHOR_SLUG__', name: '__ANCHOR_NAME__', text: __ANCHOR_TEXT__ };
+  var ANCHOR = { slug: '__ANCHOR_SLUG__', name: '__ANCHOR_NAME__', text: __ANCHOR_TEXT__, award: __ANCHOR_AWARD__ };
   var FIXED_CHARS = __CAST__;
   var FACE = __FACE__;
 
@@ -109,11 +109,15 @@
     return detectChars(sceneText)[c.key] === true;
   }
 
+  // 🔴 이름만 적으면 시트를 안 붙였을 때 모델이 알아서 그린다 — 코코는 시트가 정확한데도 쪽마다
+  //    몸 색이 갈색·파랑으로 갈렸다(2026-08-17 사용자). 손으로 쓴 코코·메이 프롬프트는 이 자리에
+  //    인물 설명을 한 줄씩 달고 있었고, 생성기가 그걸 안 물려받았다. 규격 첫 줄을 같이 싣는다.
   function castLegend(pages) {
     return ALL.map(function (c) {
       var on = !pages || pages.some(function (p) { return sceneHasChar(p.scene, c); });
+      var gist = String(c.spec || c.desc || '').replace(/^[-•\s]+/, '').split('\n')[0].slice(0, 110);
       return '@image' + c.img + ' = ' + c.name + (c.aliases[1] ? ' (' + c.aliases[1] + ')' : '') +
-        (on ? '' : '  (이 화 미등장 — 첨부 불필요)');
+        (gist ? ': ' + gist : '') + (on ? '' : '  (이 화 미등장 — 첨부 불필요)');
     }).join('\n');
   }
 
@@ -150,6 +154,11 @@
     return [
       world,
       '',
+      // 🔴 매체는 글로 안 전해진다. 유키 시트는 아이가 부드러운 그러데이션 카툰, 할머니가 접힘을 다
+      //    그린 사실화로 나왔다 — 앵커에 `SHADING IS ZERO`·`한 획을 두 번 덧긋지 않는다` 가 있는데도.
+      //    단권 99권은 화면에 수상작 원본이 떠 있었고 시리즈는 글만 있었다. 그림 한 장이 그 자리를 메운다.
+      ANCHOR.award ? '[매체 참조] 🔴 이 프롬프트와 함께 **앵커 원본 그림 한 장을 반드시 첨부**한다 — '
+        + ANCHOR.award + '. 획·자국·결·가장자리는 아래 글이 아니라 그 그림이 정한다.' : null,
       '[출력] 정사각 1024x1024. 배경은 순수 마젠타 #FF00FF 단색, 인물을 가운데 두고 여백 8%.',
       '바닥 그림자 없음, 글자·라벨 없음, 다른 인물 없음.',
       '[인물] ' + g.name + (g.aliases[1] ? ' — ' + g.aliases[1] : '') + '. 위 CHARACTER DESIGN LANGUAGE 의 규격을 그대로 따른다.',

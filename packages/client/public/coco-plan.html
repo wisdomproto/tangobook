@@ -7,8 +7,8 @@
 <title>코코네 빵집 골목 — 기획서</title>
 <style>
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
-  :root { --accent:#D4622A; --accent-dark:#A8481C; --slope:#4E5840; --peach:#F3E7DA; --cream:#FBF8F3;
-          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; --coral:#D4622A; --coral-dark:#A8481C; --mint:#4E5840; }
+  :root { --accent:#B5402E; --slope:#35322B; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
   .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
@@ -16,6 +16,8 @@
   .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
   .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
   .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
   .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
   h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
   h2.sec:first-of-type { border-top:0; }
@@ -36,27 +38,30 @@
   details { border-top:1px dashed var(--line); padding-top:9px; }
   summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
   pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
-  .batch-bar { background:#fff; border:1.5px solid var(--slope); border-radius:14px; padding:14px 18px; margin:16px 0; }
-  .batch-btn { background:var(--slope); color:#fff; border:0; border-radius:999px; padding:9px 20px; font-size:13px; font-weight:800; cursor:pointer; }
   .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
-  .paste-box:focus { border-color:var(--accent); color:var(--accent-dark); }
+  .paste-box:focus { border-color:var(--accent); }
   .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
   .paste-box img { width:100%; border-radius:8px; display:block; }
   .paste-box.busy { opacity:.5; }
   .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
-  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
   .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
-  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:2px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
   .cast-card h4 { font-size:15px; font-weight:900; }
   .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
-  .cast-card .flaw { display:inline-block; background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; margin-bottom:7px; }
   .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
   .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
-  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:4px; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
   .anchor-card .ahead b { font-size:16px; }
-  .anchor-card .avols { font-size:12px; color:var(--ink-soft); margin-bottom:8px; }
   .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .award-ref { display:flex; align-items:baseline; gap:9px; flex-wrap:wrap; background:var(--peach); border-radius:10px; padding:8px 13px; margin:2px 0 10px; font-size:12.5px; }
+  .award-ref a { color:var(--accent); text-decoration:none; white-space:nowrap; }
+  .award-ref a:hover { text-decoration:underline; }
+  .award-ref span { font-weight:700; }
+  .award-ref em { color:var(--ink-soft); font-style:normal; word-break:keep-all; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
 </style>
 </head>
 <body>
@@ -64,76 +69,170 @@
 <header class="hero">
   <div class="kicker">창작동화 시리즈 02 · 25권 250쪽</div>
   <h1>코코네 빵집 골목</h1>
-  <div class="sub">아기 생쥐 코코 · 파리 뒷골목 빵집 · <b>페파형</b>(단골 어른이 틀리고 웃음으로 착지) · 그림체 = 활판 하나(전권)</div>
+  <div class="sub">아기 생쥐 코코 · 파리 뒷골목 빵집 · <b>페파형</b> · 그림체 = 활판 2잉크(전권)</div>
+  <div class="by">글 <b>문나래</b> · 그림 <b>고윤하</b></div>
 </header>
 
-<div class="note">🔴 <b>이 기획서가 SSOT 가 아닙니다.</b> 본문은 <code>docs/changjak-books/coco/*.md</code>, 앵커는 <code>docs/art-direction/coco-anchor.md</code> 가 원본이고 이 페이지는 거기서 생성됩니다(<code>build-coco-html.mjs</code>). 회차는 왼쪽 <b>☰ 회차</b>에서.</div>
+<div class="note">🔴 <b>이 기획서가 SSOT 가 아닙니다.</b> 본문은 <code>docs/changjak-books/coco/*.md</code>, 앵커는 <code>docs/art-direction/coco-anchor.md</code> 가 원본이고 이 페이지는 거기서 생성됩니다(<code>build-series-html.mjs</code>). 회차는 왼쪽 <b>☰ 회차</b>에서.</div>
 
-<h2 class="sec">1. 왜 이 시리즈인가</h2>
-<p class="lead">01(퐁이)과 같은 <b>페파형</b>이지만 <b>틀리는 어른이 다릅니다</b> — 01 은 집 안의 아빠 하나, 03 은 <b>가게에 드나드는 단골들</b>입니다. 무대가 일터라 사건이 문으로 걸어 들어오고, 매 권 다른 어른이 틀릴 수 있습니다.</p>
+<h2 class="sec">1. 축</h2>
 <table><thead><tr><th>축</th><th>값</th></tr></thead><tbody><tr><td>형</td><td>페파형 — 웃음으로 착지, 아무도 안 고쳐진다</td></tr><tr><td>캐스트 구성</td><td><b>아이 + 엄마 일터</b> — 가게에 드나드는 단골 어른들이 틀린다</td></tr><tr><td>주인공</td><td>아기 생쥐 코코 · 결점 없음</td></tr><tr><td>무대</td><td>파리 뒷골목 빵집 + 그 골목</td></tr><tr><td>그림체</td><td>활판(letterpress) — 눌러 찍은 판, 반복 마크, 종이가 빛</td></tr></tbody></table>
+<details><summary>설계 전문 (_design.md)</summary><pre class="block"># 시리즈 03 — 코코네 빵집 골목
 
-<h2 class="sec">2. 캐스트 다섯</h2>
-<p class="lead">단골 셋이 「틀리는 어른」 풀입니다 — 두더지는 길눈, 까치는 참견, 돼지는 힘으로만 틀립니다. 페파형이라 <b>25권 내내 아무도 안 고쳐집니다.</b> 시트를 만들어 카드에 붙여넣으면 회차 페이지의 「🎬 이 화 등장」 스트립이 그 그림을 읽어 옵니다.</p>
-<div class="grid">
-  <div class="cast-card">
-    <div class="chead"><h4>코코</h4><button class="copy-btn" data-sheet="coco">📋 시트 프롬프트</button></div>
-    <span class="flaw">주인공 · 결점 없음</span>
-    <p>아기 생쥐 주인공 — 크고 둥근 귀, 끝이 한 번 말린 가는 꼬리. 화면에서 제일 작은 서 있는 인물. 🔴 빨간 머릿수건 = 세상에서 유일한 빨강. 결점 없음.</p>
-    <p style="margin-top:6px"><b>담당</b> 전권</p>
-    <div data-paste="coco"></div>
-  </div>
-  <div class="cast-card">
-    <div class="chead"><h4>엄마</h4><button class="copy-btn" data-sheet="mom">📋 시트 프롬프트</button></div>
-    <span class="flaw">빵집 주인 · 판을 깐다</span>
-    <p>생쥐 · 빵집 주인 — 코코보다 반 머리 크다. 앞치마, 팔뚝에 밀가루. 빨강 없음. 판을 깔고 마무리를 받는 쪽이라 거의 안 틀린다.</p>
-    <p style="margin-top:6px"><b>담당</b> 전권</p>
-    <div data-paste="mom"></div>
-  </div>
-  <div class="cast-card">
-    <div class="chead"><h4>두더지 할아버지</h4><button class="copy-btn" data-sheet="mole">📋 시트 프롬프트</button></div>
-    <span class="flaw">🔴 길눈이 어둡다</span>
-    <p>첫 단골 — 낮고 둥근 몸, 볼에 파묻히다시피 한 눈, 이 빠진 큼직한 발톱, 팔꿈치가 늘어난 뜨개 조끼. 🔴 길눈이 어둡다 — 안내한다며 앞장서면 헤맨다. 빨강 없음.</p>
-    <p style="margin-top:6px"><b>담당</b> 01 · 04 · 07 · 11 · 16 · 19 · 22 (+셋 다 4권)</p>
-    <div data-paste="mole"></div>
-  </div>
-  <div class="cast-card">
-    <div class="chead"><h4>까치 아줌마</h4><button class="copy-btn" data-sheet="magpie">📋 시트 프롬프트</button></div>
-    <span class="flaw">🔴 참견 · 반짝이에 약함</span>
-    <p>골목 이웃 — 유일하게 나는 캐릭터. 긴 꼬리, 뾰족한 부리, 창틀·간판대 높은 데 앉는다. 🔴 참견 — 다 아는 척 콕콕 고쳐 주고 반짝이는 것에 약하다. 빨강 없음.</p>
-    <p style="margin-top:6px"><b>담당</b> 05 · 09 · 10 · 14 · 18 · 21 (+셋 다 4권)</p>
-    <div data-paste="magpie"></div>
-  </div>
-  <div class="cast-card">
-    <div class="chead"><h4>돼지 아저씨</h4><button class="copy-btn" data-sheet="pig">📋 시트 프롬프트</button></div>
-    <span class="flaw">🔴 힘자랑</span>
-    <p>짐꾼 단골 — 코코 키의 두 배, 제일 넓은 몸. 걷어붙인 소매, 무거운 장화. 🔴 힘자랑 — 힘으로 하다 일을 키운다. 빨강 없음.</p>
-    <p style="margin-top:6px"><b>담당</b> 02 · 06 · 08 · 12 · 15 · 17 · 20 · 24 (+셋 다 4권)</p>
-    <div data-paste="pig"></div>
-  </div>
-</div>
-<p class="lead">🔴 카드마다 <b>[📋 시트 프롬프트]</b> = 그 한 명만 그리는 프롬프트(앵커 + 규격 + 전신 정면·3/4·뒷모습). 한 명씩 반복해 뽑다가 마음에 드는 걸 그 카드에 붙여넣으면 됩니다. 다섯을 한 장에 그리려면 아래 §6.</p>
+&gt; 창작동화 **시리즈 03** (25권 · 250쪽). 명단 = [_series-slate.md](../_series-slate.md).
+&gt; **페파형** · 그림체 = **활판 하나(전권)** — 한 시리즈 = 한 그림체.
 
-<h2 class="sec">3. 뼈대 — 10쪽 고정 (페파형)</h2>
-<pre class="block">p1~p2   판을 깐다 + 원함              (🔴 p1 은 대사로 열지 않는다)
+| 축 | 값 |
+|---|---|
+| 형 | 페파형 — 웃음으로 착지, 아무도 안 고쳐진다 |
+| 캐스트 구성 | **아이 + 엄마 일터** — 가게에 드나드는 단골 어른들이 틀린다 |
+| 주인공 | 아기 생쥐 코코 · 결점 없음 |
+| 무대 | 파리 뒷골목 빵집 + 그 골목 |
+| 그림체 | 활판(letterpress) — 눌러 찍은 판, 반복 마크, 종이가 빛 |
+
+🔴 01(퐁이)과 같은 페파형이지만 **틀리는 어른이 다르다** — 01은 집 안의 아빠 하나, 03은 **가게에 드나드는
+단골들**이다. 그래서 사건이 가족 밖에서 오고, 매 권 다른 어른이 틀릴 수 있다.
+
+---
+
+## §1. 캐스트 다섯
+
+| | | 늘 같은 것 | 틀리는 방식 |
+|---|---|---|---|
+| **코코** | 아기 생쥐 | 🔴 빨간 머릿수건 — 화면의 유일한 붉은 것 | 결점 없음 (페파형 주인공) |
+| **엄마** | 생쥐 · 빵집 주인 | 앞치마, 팔에 밀가루 | 거의 안 틀린다 — 판을 깔고 마무리를 받는 쪽 |
+| **두더지 할아버지** | 첫 단골 | 아침마다 같은 빵 | 🔴 길눈이 어둡다 — 안내한다며 앞장서면 헤맨다 |
+| **까치 아줌마** | 골목 이웃 | 높은 데서 다 본다 | 🔴 참견 — 다 아는 척 콕콕 고쳐 준다 |
+| **돼지 아저씨** | 짐꾼 단골 | 몸이 크다 | 🔴 힘자랑 — 힘으로 하다 일을 키운다 |
+
+🔴 **단골 셋이 페파형의 「틀리는 어른」 풀이다.** 권마다 하나(가끔 둘셋)가 끼어들어 틀리고,
+코코는 제 방식대로 해서 원하던 것을 얻는다. 어른들은 안 고쳐진 채 다음 권에 또 나온다 —
+그게 페파형이다(01의 아빠가 25권 내내 그대로인 것과 같다).
+
+**시그니처** — 코코의 빨간 머릿수건. 활판의 붉은 판 하나가 이것에만 닿는다(01 퐁이 목끈의 전통).
+
+---
+
+## §2. 뼈대 — 10쪽 고정 (페파형)
+
+```
+p1~p2   판을 깐다 + 원함          (🔴 p1 은 대사로 열지 않는다)
 p3~p5   단골 어른이 끼어든다 — 돕는다며 제 방식대로
 p6~p7   어른이 틀린다 — 일이 우스워진다
 p8      코코가 제 방식을 찾는다
 p9      그 방식이 먹힌다
-p10     원함이 이뤄져 있고, 웃음이 남는다  (🔴 교훈·사과·반성으로 닫지 않는다)</pre>
-<p class="lead">🔴 <b>원함과 착지가 같은 것을 가리킵니다</b> — 대발이형과 같은 판정축이고, 다른 건 결점을 고치는 단계가 없다는 것뿐입니다. 🔴 <b>어른은 코코가 하는 그 일 안에서 틀립니다.</b> 🔴 <b>한 권 = 규칙 하나.</b></p>
+p10     원함이 이뤄져 있고, 웃음이 남는다  (🔴 교훈·사과·반성으로 닫지 않는다)
+```
 
-<h2 class="sec">4. 25권</h2>
-<p class="lead">🔴 <b>작가에게 빈칸을 주지 않는 것</b>이 이 체제의 전부입니다. 원함·틀리는 어른·어긋남·착지 네 칸이 다 차 있어야 집필로 넘어갑니다.</p>
+🔴 **원함과 착지가 같은 것을 가리킨다** — 대발이형과 같은 판정축. 다른 건 **결점을 고치는 단계가 없다**는 것뿐이다.
+🔴 **어른은 코코가 하는 그 일 안에서 틀린다.** 별도 용무를 주면 겹이 둘이 된다(01 검수에서 확립).
+🔴 **한 권 = 규칙 하나.**
+
+---
+
+## §3. 25권
+
+| # | 제목 | 원함 | 틀리는 어른 | 어긋남 | 착지 |
+|---|---|---|---|---|---|
+| 01 | 첫 배달 | 빵을 혼자 배달하고 싶다 | 두더지 할아버지 | 길을 안다며 앞장서다 같이 헤맨다 | 코코가 냄새로 찾아 배달한다 |
+| 02 | 반죽하는 날 | 반죽을 치대고 싶다 | 돼지 아저씨 | 힘자랑하다 밀가루를 뒤집어쓴다 | 코코 반죽이 빵이 된다 |
+| 03 | 달팽이 빵 | 나만의 빵 모양을 만들고 싶다 | 셋 다 | 저마다 고쳐 주다 아무것도 아니게 된다 | 혼자 만 것이 제일 먼저 팔린다 |
+| 04 | 아침 종소리 | 가게 문을 처음 열고 싶다 | 두더지 할아버지 | 문 앞에서 밤새 기다렸다 존다 | 코코가 문을 열고 할아버지를 깨운다 |
+| 05 | 우유 가지러 | 시장에서 우유를 받아 오고 싶다 | 까치 아줌마 | 위에서 하얀 것마다 가리킨다(이불·고양이·밀가루 포대) | 코코가 방울 소리를 따라 찾는다 |
+| 06 | 처마 밑 배달 | 비 오는 날에도 빵을 배달하고 싶다 | 돼지 아저씨 | 제일 큰 우산이 좁은 골목에 껴서 못 지나간다 | 코코가 처마 밑으로 다니며 배달한다 |
+| 07 | 생일 케이크 | 엄마 생일 케이크를 몰래 만들고 싶다 | 두더지 할아버지 | 망 봐 준다며 엄마 앞에서 떠든다 | 엄마가 모른 척해 주고 촛불을 분다 |
+| 08 | 제일 긴 빵 | 긴 빵을 진열대까지 옮기고 싶다 | 돼지 아저씨 | 한 번에 다 든다며 우수수 떨어뜨린다 | 코코가 한 개씩 안아 다 옮긴다 |
+| 09 | 고소한 냄새 | 새 이웃에게 빵을 갖다주고 싶다 | 까치 아줌마 | 저 집이라고 콕 집다 번번이 딴 집 | 냄새 맡고 나온 새 이웃과 만난다 |
+| 10 | 반짝반짝 진열대 | 진열대를 내가 채우고 싶다 | 까치 아줌마 | 반짝이는 것마다 옮겨 놓는다 | 코코 순서대로 다시 놓자 손님이 온다 |
+| 11 | 해바라기 씨앗 | 해바라기 씨를 빵에 얹고 싶다 | 두더지 할아버지 | 해 좋은 자리로 옮겨 준다며 어디 뒀는지 잊는다 | 담 모퉁이의 꽃을 찾아 씨를 얹는다 |
+| 12 | 눈 오는 아침 | 눈길에 첫 발자국을 내고 싶다 | 돼지 아저씨 | 눈을 쓸어 준다며 다 밀어 버린다 | 남겨 둔 구석에 코코 발자국이 난다 |
+| 13 | 시장 구경 | 시장에서 버터를 골라 오고 싶다 | 셋 다 | 저마다 딴 가게로 끌고 간다 | 코코가 엄마 말대로 노란 천막을 찾는다 |
+| 14 | 쿠키 굽는 날 | 별 모양 쿠키를 굽고 싶다 | 까치 아줌마 | 달 모양이 낫다며 자꾸 바꾼다 | 별 쿠키가 구워지고 아줌마도 하나 먹는다 |
+| 15 | 골목 잔치 | 잔칫상에 내 빵을 올리고 싶다 | 돼지 아저씨 | 상을 나른다며 기우뚱거린다 | 코코 빵이 상 한가운데 놓인다 |
+| 16 | 단추 찾기 | 엄마 앞치마 단추를 찾아 주고 싶다 | 두더지 할아버지 | 바닥을 더듬다 밀가루 자국만 낸다 | 코코가 반죽 속에서 단추를 꺼낸다 |
+| 17 | 아기 고양이 | 창밖 고양이에게 빵부스러기를 주고 싶다 | 돼지 아저씨 | 겁준다며 크게 부르다 숨게 만든다 | 코코가 가만히 두자 고양이가 온다 |
+| 18 | 두 배로 부푼 날 | 반죽이 부푸는 걸 보고 싶다 | 까치 아줌마 | 수건을 자꾸 들춰 본다 | 코코가 안 들추고 기다려 두 배를 본다 |
+| 19 | 골목 달리기 | 골목 달리기에서 완주하고 싶다 | 두더지 할아버지 | 응원한다며 엉뚱한 데서 손을 흔든다 | 빵집 굴뚝 연기를 보고 달려 들어온다 |
+| 20 | 저녁 정리 | 가게 정리를 끝까지 하고 싶다 | 돼지 아저씨 | 빠르다며 몽땅 한 통에 쓸어 담는다 | 코코가 하나씩 제자리에 놓아 끝낸다 |
+| 21 | 사과 파이 | 사과 조각을 부채처럼 얹고 싶다 | 까치 아줌마 | 수북이 붓는 게 낫다며 제 판에 쏟는다 | 코코의 부채 파이가 활짝 구워진다 |
+| 22 | 밤의 화덕 | 새벽 첫 불 때는 걸 보고 싶다 | 두더지 할아버지 | 새벽인 줄 알고 밤중에 문을 두드린다 | 코코가 진짜 새벽에 첫 불을 본다 |
+| 23 | 바람 부는 날 | 날아간 엄마 모자를 잡아 드리고 싶다 | 셋 다 | 쫓아가다 서로 부딪힌다 | 바람을 읽고 기다린 품에 모자가 온다 |
+| 24 | 꼬마 손님 | 처음 온 꼬마 손님을 맞고 싶다 | 돼지 아저씨 | 대신 골라 준다며 제일 큰 빵을 자꾸 안긴다 | 손가락으로 하나씩 가리켜 통한다 |
+| 25 | 코코의 빵 | 내 빵이 팔리는 걸 보고 싶다 | 셋 다 | 서로 첫 손님을 하겠다고 다툰다 | 엄마가 첫 손님이 된다 |
+
+🔴 **작가에게 빈칸을 주지 않는다** — 원함·틀리는 어른·어긋남·착지 네 칸이 다 차 있어야 집필로 넘어간다.
+🔴 **틀리는 어른 배분** = 두더지 7 · 돼지 8 · 까치 6 · 셋 다 4 (07은 두더지+엄마의 모른 척 포함). 같은 어른이
+연속 세 권 틀리지 않게 배치했다.
+🔴 **글자 금지 주의** — 간판·차림표·가격표가 나올 무대라서, 본문에서도 「글자를 읽는」 사건을 만들지 않는다
+(그림에 글자를 못 넣는다). 13권도 목록이 아니라 「노란 천막」으로 찾는 이유가 그것이다.
+
+---
+
+## §4. 앵커 — 활판 하나 (전권)
+
+`pongi-anchor.md` §3 보류분 `pongi-presshome`(활판)을 가져와 **캐스트·무대만 갈아 끼운다**.
+슬러그 = `coco-pressalley`. 팔레트·무대 조항·시그니처는 앵커 문서에서 확정한다(본문 승인 뒤 — 01·02와 같은 순서).
+
+```
+종이       CREAM — 찍지 않은 자리가 빛 · 창으로 드는 아침 해 · 밀가루
+잉크 1·2   빵 갈색 + 골목 청회 (앵커 집필 때 확정)
+겹침       가장 어두운 색 — 생쥐 등·화덕 속·골목 그늘
+악센트     RED — 🔴 코코의 머릿수건에만
+```
+
+활판의 성질(같은 판의 반복)이 이 무대와 맞는다 — **선반의 빵, 병, 골목의 창**이 전부 반복 마크다.
+찾는 물건만 제 판으로 따로 파는 규칙이 「배달할 집 찾기」「단추 찾기」 같은 권에서 그대로 그림이 된다.
+</pre></details>
+
+<h2 class="sec">2. 캐스트</h2>
+<p class="lead">시트를 만들어 카드에 붙여넣으면 회차 페이지의 「🎬 이 화 등장」 스트립이 그 그림을 읽어 옵니다.
+카드마다 <b>[📋 시트 프롬프트]</b> = 그 한 명만 그리는 프롬프트(앵커 + 규격 + 전신 정면·3/4·뒷모습).</p>
+<div class="grid">
+  <div class="cast-card">
+    <div class="chead"><h4>🐭 코코</h4><button class="copy-btn" data-sheet="coco">📋 시트 프롬프트</button></div>
+    <p><code>Coco</code></p>
+    <div data-paste="coco"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐭 엄마</h4><button class="copy-btn" data-sheet="mom">📋 시트 프롬프트</button></div>
+    <p><code>Mom</code></p>
+    <div data-paste="mom"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🦡 두더지 할아버지</h4><button class="copy-btn" data-sheet="mole">📋 시트 프롬프트</button></div>
+    <p><code>Mole grandfather</code></p>
+    <div data-paste="mole"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐦 까치 아줌마</h4><button class="copy-btn" data-sheet="magpie">📋 시트 프롬프트</button></div>
+    <p><code>Magpie aunt</code></p>
+    <div data-paste="magpie"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐷 돼지 아저씨</h4><button class="copy-btn" data-sheet="pig">📋 시트 프롬프트</button></div>
+    <p><code>Pig uncle</code></p>
+    <div data-paste="pig"></div>
+  </div>
+</div>
+
+<h2 class="sec">3. 25권</h2>
+<p class="lead">🔴 <b>작가에게 빈칸을 주지 않는 것</b>이 이 체제의 전부입니다.</p>
 <table><thead><tr><th>#</th><th>제목</th><th>원함</th><th>틀리는 어른</th><th>어긋남</th><th>착지</th></tr></thead><tbody><tr><td>01</td><td>첫 배달</td><td>빵을 혼자 배달하고 싶다</td><td>두더지 할아버지</td><td>길을 안다며 앞장서다 같이 헤맨다</td><td>코코가 냄새로 찾아 배달한다</td></tr><tr><td>02</td><td>반죽하는 날</td><td>반죽을 치대고 싶다</td><td>돼지 아저씨</td><td>힘자랑하다 밀가루를 뒤집어쓴다</td><td>코코 반죽이 빵이 된다</td></tr><tr><td>03</td><td>달팽이 빵</td><td>나만의 빵 모양을 만들고 싶다</td><td>셋 다</td><td>저마다 고쳐 주다 아무것도 아니게 된다</td><td>혼자 만 것이 제일 먼저 팔린다</td></tr><tr><td>04</td><td>아침 종소리</td><td>가게 문을 처음 열고 싶다</td><td>두더지 할아버지</td><td>문 앞에서 밤새 기다렸다 존다</td><td>코코가 문을 열고 할아버지를 깨운다</td></tr><tr><td>05</td><td>우유 가지러</td><td>시장에서 우유를 받아 오고 싶다</td><td>까치 아줌마</td><td>위에서 하얀 것마다 가리킨다(이불·고양이·밀가루 포대)</td><td>코코가 방울 소리를 따라 찾는다</td></tr><tr><td>06</td><td>처마 밑 배달</td><td>비 오는 날에도 빵을 배달하고 싶다</td><td>돼지 아저씨</td><td>제일 큰 우산이 좁은 골목에 껴서 못 지나간다</td><td>코코가 처마 밑으로 다니며 배달한다</td></tr><tr><td>07</td><td>생일 케이크</td><td>엄마 생일 케이크를 몰래 만들고 싶다</td><td>두더지 할아버지</td><td>망 봐 준다며 엄마 앞에서 떠든다</td><td>엄마가 모른 척해 주고 촛불을 분다</td></tr><tr><td>08</td><td>제일 긴 빵</td><td>긴 빵을 진열대까지 옮기고 싶다</td><td>돼지 아저씨</td><td>한 번에 다 든다며 우수수 떨어뜨린다</td><td>코코가 한 개씩 안아 다 옮긴다</td></tr><tr><td>09</td><td>고소한 냄새</td><td>새 이웃에게 빵을 갖다주고 싶다</td><td>까치 아줌마</td><td>저 집이라고 콕 집다 번번이 딴 집</td><td>냄새 맡고 나온 새 이웃과 만난다</td></tr><tr><td>10</td><td>반짝반짝 진열대</td><td>진열대를 내가 채우고 싶다</td><td>까치 아줌마</td><td>반짝이는 것마다 옮겨 놓는다</td><td>코코 순서대로 다시 놓자 손님이 온다</td></tr><tr><td>11</td><td>해바라기 씨앗</td><td>해바라기 씨를 빵에 얹고 싶다</td><td>두더지 할아버지</td><td>해 좋은 자리로 옮겨 준다며 어디 뒀는지 잊는다</td><td>담 모퉁이의 꽃을 찾아 씨를 얹는다</td></tr><tr><td>12</td><td>눈 오는 아침</td><td>눈길에 첫 발자국을 내고 싶다</td><td>돼지 아저씨</td><td>눈을 쓸어 준다며 다 밀어 버린다</td><td>남겨 둔 구석에 코코 발자국이 난다</td></tr><tr><td>13</td><td>시장 구경</td><td>시장에서 버터를 골라 오고 싶다</td><td>셋 다</td><td>저마다 딴 가게로 끌고 간다</td><td>코코가 엄마 말대로 노란 천막을 찾는다</td></tr><tr><td>14</td><td>쿠키 굽는 날</td><td>별 모양 쿠키를 굽고 싶다</td><td>까치 아줌마</td><td>달 모양이 낫다며 자꾸 바꾼다</td><td>별 쿠키가 구워지고 아줌마도 하나 먹는다</td></tr><tr><td>15</td><td>골목 잔치</td><td>잔칫상에 내 빵을 올리고 싶다</td><td>돼지 아저씨</td><td>상을 나른다며 기우뚱거린다</td><td>코코 빵이 상 한가운데 놓인다</td></tr><tr><td>16</td><td>단추 찾기</td><td>엄마 앞치마 단추를 찾아 주고 싶다</td><td>두더지 할아버지</td><td>바닥을 더듬다 밀가루 자국만 낸다</td><td>코코가 반죽 속에서 단추를 꺼낸다</td></tr><tr><td>17</td><td>아기 고양이</td><td>창밖 고양이에게 빵부스러기를 주고 싶다</td><td>돼지 아저씨</td><td>겁준다며 크게 부르다 숨게 만든다</td><td>코코가 가만히 두자 고양이가 온다</td></tr><tr><td>18</td><td>두 배로 부푼 날</td><td>반죽이 부푸는 걸 보고 싶다</td><td>까치 아줌마</td><td>수건을 자꾸 들춰 본다</td><td>코코가 안 들추고 기다려 두 배를 본다</td></tr><tr><td>19</td><td>골목 달리기</td><td>골목 달리기에서 완주하고 싶다</td><td>두더지 할아버지</td><td>응원한다며 엉뚱한 데서 손을 흔든다</td><td>빵집 굴뚝 연기를 보고 달려 들어온다</td></tr><tr><td>20</td><td>저녁 정리</td><td>가게 정리를 끝까지 하고 싶다</td><td>돼지 아저씨</td><td>빠르다며 몽땅 한 통에 쓸어 담는다</td><td>코코가 하나씩 제자리에 놓아 끝낸다</td></tr><tr><td>21</td><td>사과 파이</td><td>사과 조각을 부채처럼 얹고 싶다</td><td>까치 아줌마</td><td>수북이 붓는 게 낫다며 제 판에 쏟는다</td><td>코코의 부채 파이가 활짝 구워진다</td></tr><tr><td>22</td><td>밤의 화덕</td><td>새벽 첫 불 때는 걸 보고 싶다</td><td>두더지 할아버지</td><td>새벽인 줄 알고 밤중에 문을 두드린다</td><td>코코가 진짜 새벽에 첫 불을 본다</td></tr><tr><td>23</td><td>바람 부는 날</td><td>날아간 엄마 모자를 잡아 드리고 싶다</td><td>셋 다</td><td>쫓아가다 서로 부딪힌다</td><td>바람을 읽고 기다린 품에 모자가 온다</td></tr><tr><td>24</td><td>꼬마 손님</td><td>처음 온 꼬마 손님을 맞고 싶다</td><td>돼지 아저씨</td><td>대신 골라 준다며 제일 큰 빵을 자꾸 안긴다</td><td>손가락으로 하나씩 가리켜 통한다</td></tr><tr><td>25</td><td>코코의 빵</td><td>내 빵이 팔리는 걸 보고 싶다</td><td>셋 다</td><td>서로 첫 손님을 하겠다고 다툰다</td><td>엄마가 첫 손님이 된다</td></tr></tbody></table>
 
-<h2 class="sec">5. 앵커 — 한 시리즈 = 한 그림체</h2>
-<p class="lead">🔴 시리즈 전권이 <b>활판 하나</b>로 갑니다. 빵집 안·골목·시장·비·눈·밤은 앵커 안의 <b>무대 조항</b>이 처리합니다 — 잉크 두 색은 그대로 두고 「어디에 찍고 무엇을 종이로 남기나」만 바뀝니다. 활판의 성질(같은 판의 반복)이 이 무대와 맞습니다 — 선반의 빵·병·골목의 창이 전부 반복 판이고, 🔴 찾는 물건만 제 판으로 따로 파는 규칙이 「배달할 집 찾기」「단추 찾기」에서 그대로 그림이 됩니다.</p>
-<p class="lead">⚠️ 아래는 <b>캐스트 시트·단독 렌더용 영문 전문</b>입니다. 회차 10장 배치는 회차 페이지의 [전체 프롬프트 복사]가 같은 앵커의 한국어 압축본을 붙입니다 — <b>고칠 땐 <code>coco-anchor.md</code> 와 <code>coco-core.js</code> 양쪽을</b>.</p>
+<h2 class="sec">4. 앵커 — 한 시리즈 = 한 그림체</h2>
+<p class="lead">시리즈 전권이 한 그림체입니다. 무대·계절 차이는 앵커 안 <b>무대 조항</b>이 처리합니다 — 매체·색은 그대로 두고 「두 색을 어디에 쓰고 무엇을 종이로 남기나」만 바뀝니다.
+🔴 악센트 <b>코코 머릿수건 (세상의 유일한 빨강 · 07권 딸기만 예외)</b> 에만 닿습니다.</p>
+<div class="swatches">
+  <span class="sw"><i style="background:#F6F1E7"></i>종이 <code>#F6F1E7</code></span><span class="sw"><i style="background:#8A6242"></i>색1 <code>#8A6242</code></span><span class="sw"><i style="background:#4E5A66"></i>색2 <code>#4E5A66</code></span><span class="sw"><i style="background:#35322B"></i>겹침 <code>#35322B</code></span><span class="sw"><i style="background:#B5402E"></i>악센트 <code>#B5402E</code></span>
+</div>
 <div class="anchor-card">
-  <div class="ahead"><b>앵커 A · 활판 · 크림 종이</b><code>coco-pressalley</code><button class="copy-btn" data-copy="anchor0">📋 앵커 프롬프트 복사</button></div>
-  <div class="avols">전권 01~25</div>
-  <details><summary>프롬프트 보기</summary><pre id="anchor0">STYLE ANCHOR - coco-pressalley   (a mouse bakery in a Paris back alley / letterpress, the bite of the type)
+  <div class="ahead"><b>coco-pressalley</b><button class="copy-btn" data-copy="anchor">📋 앵커 프롬프트 복사</button></div>
+  <div class="award-ref">
+    <a href="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/02/Lizzymetcalfe_mrcrisps_image1-2.png/original" target="_blank" rel="noopener"><b>🖼 앵커 원본 보기</b></a>
+    <span>Lizzy Metcalfe · Mr Crisps (WIA 2024 Category Winner)</span>
+    <em>🔴 이 표본에서 캐릭터 매력이 가장 강한 축. 예쁘지 않고 '이 작가만 그리는 아저씨'. 수염·문신·줄무늬가 시그니처</em>
+  </div>
+  <details><summary>프롬프트 보기</summary><pre id="anchor">STYLE ANCHOR - coco-pressalley   (a mouse bakery in a Paris back alley / letterpress, the bite of the type)
 
 Style: letterpress on soft cream paper, exactly TWO inks, 4-6 year old picture book. Every shape is
   a block inked and pressed into the sheet, so the ink sits heaviest at the edge of each shape and
@@ -201,14 +300,13 @@ CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere -
 
 NOT: no airbrush, gradient, glow, 3D render or soft feathered edge / no varied hand-drawn clutter
   behind the figures / no solid unbroken ink / no white ink.</pre></details>
-  <div data-paste="anchor-A"></div>
+  <div data-paste="anchor"></div>
 </div>
 
-<h2 class="sec">6. 캐스트 시트 프롬프트</h2>
-<p class="lead">한 장에 다섯을 다 그립니다. 🔴 <b>시트가 최종 그림을 지배</b>하므로 시트를 먼저 확정하고 쪽 삽화로 갑니다.
-앵커는 어차피 하나라 시트도 같은 활판입니다. </p>
+<h2 class="sec">5. 캐스트 시트</h2>
+<p class="lead">한 장에 전원을 그립니다. 🔴 <b>시트가 최종 그림을 지배</b>하므로 시트를 먼저 확정하고 쪽 삽화로 갑니다.</p>
 <div class="anchor-card">
-  <div class="ahead"><b>다섯 캐릭터 시트</b><button class="copy-btn" data-copy="sheet">📋 시트 프롬프트 복사</button></div>
+  <div class="ahead"><b>전원 시트</b><button class="copy-btn" data-copy="sheet">📋 시트 프롬프트 복사</button></div>
   <details open><summary>프롬프트 보기</summary><pre id="sheet">CHARACTER SHEET - coco bakery   (five characters, one sheet)
 
 STYLE ANCHOR - coco-pressalley   (a mouse bakery in a Paris back alley / letterpress, the bite of the type)
@@ -295,16 +393,15 @@ SHEET LAYOUT: one cream sheet, five characters standing in a row on a single gro
   document.querySelectorAll('[data-copy]').forEach(function (b) {
     b.addEventListener('click', function () {
       var el = document.getElementById(b.getAttribute('data-copy'));
-      if (el) window.COCO.copyText(el.textContent, b);
+      if (el) window.SERIES.copyText(el.textContent, b);
     });
   });
-  // 캐릭터 한 명 시트 — 프롬프트는 coco-core.js 가 만든다(기획서에 사본을 두지 않는다)
   document.querySelectorAll('[data-sheet]').forEach(function (b) {
     b.addEventListener('click', function () {
-      window.COCO.copyText(window.COCO.sheetPrompt(b.getAttribute('data-sheet')), b);
+      window.SERIES.copyText(window.SERIES.sheetPrompt(b.getAttribute('data-sheet')), b);
     });
   });
-  window.COCO.mountPasteSlots('coco-plan');
+  window.SERIES.mountPasteSlots('coco-plan');
 </script>
 </body>
 </html>

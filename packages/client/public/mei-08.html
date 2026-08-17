@@ -7,8 +7,8 @@
 <title>메이네 산마을 — 소리가 안 나와</title>
 <style>
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
-  :root { --accent:#D4622A; --accent-dark:#A8481C; --slope:#4E5840; --peach:#F3E7DA; --cream:#FBF8F3;
-          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; --coral:#D4622A; --coral-dark:#A8481C; --mint:#4E5840; }
+  :root { --accent:#D4622A; --slope:#40483A; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
   .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
@@ -16,6 +16,8 @@
   .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
   .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
   .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
   .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
   h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
   h2.sec:first-of-type { border-top:0; }
@@ -36,27 +38,30 @@
   details { border-top:1px dashed var(--line); padding-top:9px; }
   summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
   pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
-  .batch-bar { background:#fff; border:1.5px solid var(--slope); border-radius:14px; padding:14px 18px; margin:16px 0; }
-  .batch-btn { background:var(--slope); color:#fff; border:0; border-radius:999px; padding:9px 20px; font-size:13px; font-weight:800; cursor:pointer; }
   .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
-  .paste-box:focus { border-color:var(--accent); color:var(--accent-dark); }
+  .paste-box:focus { border-color:var(--accent); }
   .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
   .paste-box img { width:100%; border-radius:8px; display:block; }
   .paste-box.busy { opacity:.5; }
   .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
-  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
   .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
-  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:2px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
   .cast-card h4 { font-size:15px; font-weight:900; }
   .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
-  .cast-card .flaw { display:inline-block; background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; margin-bottom:7px; }
   .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
   .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
-  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:4px; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
   .anchor-card .ahead b { font-size:16px; }
-  .anchor-card .avols { font-size:12px; color:var(--ink-soft); margin-bottom:8px; }
   .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .award-ref { display:flex; align-items:baseline; gap:9px; flex-wrap:wrap; background:var(--peach); border-radius:10px; padding:8px 13px; margin:2px 0 10px; font-size:12.5px; }
+  .award-ref a { color:var(--accent); text-decoration:none; white-space:nowrap; }
+  .award-ref a:hover { text-decoration:underline; }
+  .award-ref span { font-weight:700; }
+  .award-ref em { color:var(--ink-soft); font-style:normal; word-break:keep-all; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
 </style>
 </head>
 <body>
@@ -64,10 +69,11 @@
 <header class="hero">
   <div class="kicker">메이네 산마을 · 08</div>
   <h1>소리가 안 나와</h1>
-  <div class="sub">소소(수줍음) · <b>원함</b> 노래를 부르고 싶다 · <b>탈</b> 목소리가 안 나와 입만 벙긋 · <b>착지</b> 다 같이 부르니 나온다</div>
+  <div class="sub"><b>주인공</b> 소소(수줍음) · <b>원함</b> 노래를 부르고 싶다 · <b>탈</b> 목소리가 안 나와 입만 벙긋 · <b>착지</b> 다 같이 부르니 나온다</div>
+  <div class="by">글 <b>오하람</b> · 그림 <b>남시우</b></div>
 </header>
 
-<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 이 권의 앵커(1회) + 캐릭터 레퍼런스(@image1~6) + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
 
 <div class="page-card" data-page="p1">
   <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
@@ -82,43 +88,43 @@
 </div>
 
 <div class="page-card" data-page="p3">
-  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">다섯이 무대에 나란히 섰어요. 사람들이 앞에 앉아 있어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 앉은 사람들 뒤통수 너머 무대.<br/><b>장소·시간</b> [Piazza] 광장 무대 앞.<br/><b>인물</b> 무대 위에 Mei goat·Rudi squirrel·Ppino rabbit·Soso hedgehog·Leo fox가 한 줄로 섰다 — Soso hedgehog는 줄 끝에서 두 앞발을 앞으로 모아 쥐었다. 화면 앞쪽에 마을 사람들 뒤통수가 어둡게 깔린다.<br/><b>배경·소품</b> 무대, 긴 의자.<br/><b>톤</b> 앞은 어둡고 무대만 트여 있다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p4">
-  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">노래가 시작됐어요. 소소 입이 벌어졌어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 무대 아래에서 다섯을 올려다본다.<br/><b>장소·시간</b> [Piazza] 무대 위.<br/><b>인물</b> 다섯이 동시에 입을 벌렸다. Mei goat·Rudi squirrel·Ppino rabbit·Leo fox는 턱이 내려가고 가슴이 부풀었다. Soso hedgehog도 입을 벌렸지만 두 앞발이 배 앞에서 서로를 꽉 쥐고 있다. 주황 물건 다섯이 한 줄로.<br/><b>배경·소품</b> 뒤 천.<br/><b>톤</b> 다섯 입이 같은 크기로 열렸다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p5">
-  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">그런데 소리가 안 나와요. 입만 벙긋벙긋해요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 클로즈업, 아이레벨. 소소 입과 목.<br/><b>장소·시간</b> [Piazza] 무대 위.<br/><b>인물</b> Soso hedgehog의 벌어진 입과 목만 화면을 채운다. 목의 털이 눌려 있고 아랫입술이 떨린다. 화면 위 가장자리에 감긴 눈, 아래 가장자리에 주황 리본 매듭.<br/><b>배경·소품</b> 뒤가 흐리게 지워진다.<br/><b>톤</b> 열린 입이 이렇게 큰데 아무 일도 안 일어난다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p6">
-  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">넷은 끝까지 불렀어요. 소소는 한 마디도 못 불렀어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면. 줄의 옆모습.<br/><b>장소·시간</b> [Piazza] 무대 위, 노래 끝 무렵.<br/><b>인물</b> Mei goat·Rudi squirrel·Ppino rabbit·Leo fox 넷이 옆으로 나란히 입을 벌린 채 가슴을 펴고 마지막 대목을 부른다 — 네 턱이 같은 높이로 들렸다. 줄 끝 Soso hedgehog는 입을 꾹 다물고 턱을 안으로 당겼다, 두 앞발이 배 앞에서 서로를 쥐었다.<br/><b>배경·소품</b> 무대 널빤지, 뒤 천.<br/><b>톤</b> 벌어진 입 넷과 닫힌 입 하나가 한 줄에 있다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p7">
-  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">무대에서 내려왔어요. 소소가 고개를 푹 숙였어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 무대 계단 마지막 칸.<br/><b>장소·시간</b> [Piazza] 무대 옆 계단.<br/><b>인물</b> Soso hedgehog가 마지막 계단에 한 발을 내려놓으면서 고개를 푹 숙였다 — 정수리 가시와 주황 리본만 보이고 얼굴이 안 보인다. 두 앞발이 몸 앞에서 맞잡혔다.<br/><b>배경·소품</b> 계단 세 칸.<br/><b>톤</b> 얼굴을 안 보여 주는 각도.</pre></details>
 </div>
 
 <div class="page-card" data-page="p8">
-  <div class="page-head"><span class="pnum">P8</span><b>할머니 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">곰 할머니가 소소 손을 잡았어요. "옆에 소리가 있으면 따라 나온단다."</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 맞잡은 손.<br/><b>장소·시간</b> [Piazza] 무대 옆.<br/><b>인물</b> Bear granny의 큰 앞발이 Soso hedgehog의 작은 앞발을 아래에서 받쳐 쥔다. 화면 위쪽에 할머니의 벌어진 입과 소소의 든 눈이 반씩 걸린다.<br/><b>배경·소품</b> 무대 기둥.<br/><b>톤</b> 손이 아래에서 받친다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p9">
-  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">넷이 소소를 가운데 세웠어요. 그리고 다 같이 첫 줄을 불렀어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 위에서 내려다본 다섯.<br/><b>장소·시간</b> [Piazza] 무대 위.<br/><b>인물</b> Mei goat·Rudi squirrel·Ppino rabbit·Leo fox가 Soso hedgehog를 가운데 두고 좌우로 둘씩 어깨가 닿게 붙어 섰다. 넷은 입을 크게 벌려 첫 줄을 부르고, 가운데 Soso hedgehog는 아직 입을 반만 열고 좌우 얼굴을 번갈아 본다 — 가시가 조금씩 눕는다. 주황 리본이 원 한가운데.<br/><b>배경·소품</b> 무대 널빤지.<br/><b>톤</b> 소리가 양옆에서 가운데로 좁혀 든다.</pre></details>
 </div>

@@ -31,8 +31,55 @@ const LABELS = {
 };
 
 export const SERIES = {
+  pongi: {
+    no: '01', title: '퐁이네 운하 마을', icon: '🦦',
+    awardRef: 'klassen-hat',
+    sub: '아기 수달 퐁이 · 네덜란드 운하 마을 · <b>페파형</b> · 그림체 = 실크스크린 2판(전권)',
+    form: 'peppa', pen: { author: '한여울', illustrator: '진예람' },
+    palette: { paper: '#F6F4EE', ink1: '#2C4A3C', ink2: '#8C7C68', overlap: '#21372E', accent: '#A8442F' },
+    accentWhere: '퐁이 목끈 (화면의 유일한 붉은 판)',
+    cast: [
+      { key: 'pongi', name: '퐁이', face: '🦦', aliases: ['퐁이', 'Pongi'] },
+      { key: 'dad', name: '아빠', face: '🦦', aliases: ['아빠', 'Dad otter'] },
+      { key: 'mom', name: '엄마', face: '🦦', aliases: ['엄마', 'Mom otter'] },
+      { key: 'baby', name: '동생', face: '🦦', aliases: ['동생', 'Baby otter'] },
+      { key: 'goose', name: '거위 할아버지', face: '🪿', aliases: ['거위 할아버지', 'Goose grandpa'] },
+    ],
+  },
+  coco: {
+    no: '02', title: '코코네 빵집 골목', icon: '🐭',
+    awardRef: 'metcalfe-crisps',
+    sub: '아기 생쥐 코코 · 파리 뒷골목 빵집 · <b>페파형</b> · 그림체 = 활판 2잉크(전권)',
+    form: 'peppa', pen: { author: '문나래', illustrator: '고윤하' },
+    palette: { paper: '#F6F1E7', ink1: '#8A6242', ink2: '#4E5A66', overlap: '#35322B', accent: '#B5402E' },
+    accentWhere: '코코 머릿수건 (세상의 유일한 빨강 · 07권 딸기만 예외)',
+    cast: [
+      { key: 'coco', name: '코코', face: '🐭', aliases: ['코코', 'Coco'] },
+      { key: 'mom', name: '엄마', face: '🐭', aliases: ['엄마', 'Mom'] },
+      { key: 'mole', name: '두더지 할아버지', face: '🦡', aliases: ['두더지 할아버지', 'Mole grandfather'] },
+      { key: 'magpie', name: '까치 아줌마', face: '🐦', aliases: ['까치 아줌마', 'Magpie aunt'] },
+      { key: 'pig', name: '돼지 아저씨', face: '🐷', aliases: ['돼지 아저씨', 'Pig uncle'] },
+    ],
+  },
+  mei: {
+    no: '03', title: '메이네 산마을', icon: '🐐',
+    awardRef: 'rayner-harris',
+    sub: '아기 염소 메이와 동무 넷 · 알프스 산마을 · <b>페파형</b> · 그림체 = 색연필 2색(전권)',
+    form: 'peppa', pen: { author: '오하람', illustrator: '남시우' },
+    palette: { paper: '#EDE9E1', ink1: '#6E7A5E', ink2: '#8A7358', overlap: '#40483A', accent: '#D4622A' },
+    accentWhere: '아이마다 지닌 주황 물건 하나씩',
+    cast: [
+      { key: 'mei', name: '메이', face: '🐐', aliases: ['메이', 'Mei'] },
+      { key: 'rudi', name: '루디', face: '🐿️', aliases: ['루디', 'Rudi'] },
+      { key: 'ppino', name: '삐노', face: '🐰', aliases: ['삐노', 'Ppino'] },
+      { key: 'soso', name: '소소', face: '🦔', aliases: ['소소', 'Soso'] },
+      { key: 'leo', name: '레오', face: '🦁', aliases: ['레오', 'Leo'] },
+      { key: 'granny', name: '곰 할머니', face: '🐻', aliases: ['곰 할머니', 'Bear granny'] },
+    ],
+  },
   dodo: {
     no: '04', title: '도도네 물방앗간', icon: '🦆',
+    awardRef: 'meschenmoser-gordon',
     sub: '오리 남매 도도와 무무 · 프랑스 시골 물방앗간 · <b>페파형</b>(아는 척 누나가 틀린다) · 그림체 = 과슈 하나(전권)',
     form: 'peppa', pen: { author: '한여울', illustrator: '윤새롬' },
     palette: { paper: '#F5EFDF', ink1: '#4E7D77', ink2: '#B08A50', overlap: '#3D4A44', accent: '#2D62B8' },
@@ -45,6 +92,7 @@ export const SERIES = {
     ],
   },
   bruno: {
+    awardRef: 'collins-bearchair',
     no: '05', title: '브루노 할아버지네 숲', icon: '🐻',
     sub: '아기 곰 닐스와 할아버지 · 스웨덴 숲 사계절 · <b>대발이형</b>(결점 → 탈 → 한 마디 → 고침) · 그림체 = 크레용 하나(전권)',
     form: 'debari', pen: { author: '배도담', illustrator: '차온유' },
@@ -57,6 +105,7 @@ export const SERIES = {
   },
   twins: {
     no: '06', title: '쌍둥이네 바닷가', icon: '🐰',
+    awardRef: 'erlbruch-bigq',
     sub: '토끼 쌍둥이 리리와 롤로 · 포르투갈 어촌 · <b>페파형</b>(둘이 우기다 둘 다 틀린다) · 그림체 = 리소 하나(전권)',
     form: 'peppa', pen: { author: '한여울', illustrator: '임푸른' },
     palette: { paper: '#F1F0E6', ink1: '#2E6B96', ink2: '#A85E38', overlap: '#2D3B42', accent: '#E9A825' },
@@ -71,6 +120,7 @@ export const SERIES = {
   },
   mio: {
     no: '07', title: '미오네 유치원', icon: '🐱',
+    awardRef: 'naylor-suitcase',
     sub: '아기 고양이 미오와 반 아이들 · 독일 강마을 유치원 · <b>대발이형</b>(결점 배역제 · 5권 주기) · 그림체 = 리노컷 하나(전권)',
     form: 'debari', pen: { author: '오하람', illustrator: '강마루' },
     palette: { paper: '#F0EAD8', ink1: '#3B3A33', ink2: '#6F8996', overlap: '#232B2E', accent: '#6E4E9E' },
@@ -86,6 +136,7 @@ export const SERIES = {
   },
   pipo: {
     no: '08', title: '피포네 돌담 목장', icon: '🐶',
+    awardRef: 'butler-borders',
     sub: '강아지 피포 · 아일랜드 목장 · <b>페파형</b>(이웃 어른 셋이 저마다 틀린다) · 그림체 = 숯 하나(전권)',
     form: 'peppa', pen: { author: '문나래', illustrator: '백서리' },
     palette: { paper: '#EFE9DC', ink1: '#6B665C', ink2: '(없음 — 숯 하나가 세 값)', overlap: '#2C2A25', accent: '#F0B429' },
@@ -99,6 +150,7 @@ export const SERIES = {
     ],
   },
   nono: {
+    awardRef: 'child-tomato',
     no: '09', title: '노노네 겨울 골목', icon: '🐦',
     sub: '아기 참새 노노와 또래 둘 · 유럽 옛 골목 · 겨울 · <b>대발이형</b>(결점 배역제) · 그림체 = 찢은 종이 콜라주 하나(전권)',
     form: 'debari', pen: { author: '배도담', illustrator: '노아라' },
@@ -114,6 +166,7 @@ export const SERIES = {
   },
   lulu: {
     no: '10', title: '룰루네 올리브 언덕', icon: '🫏',
+    awardRef: 'milner-nomoney',
     sub: '아기 당나귀 룰루와 대가족 · 이탈리아 올리브 언덕 · <b>페파형</b>(어른 친척들이 틀린다) · 그림체 = 모노타이프 하나(전권)',
     form: 'peppa', pen: { author: '문나래', illustrator: '유가온' },
     palette: { paper: '#F7F2E6', ink1: '#8C9478', ink2: '#BC6E42', overlap: '#3E3A2E', accent: '#1F7FA8' },
@@ -130,6 +183,7 @@ export const SERIES = {
   // ── 아시아 무대 (11~15) ─ 축은 docs/changjak-books/_series-slate-asia.md ────────────────
   bung: {
     no: '11', title: '붕이네 물 위 장터', icon: '🐃',
+    awardRef: 'darme-coq',
     sub: '아기 물소 붕이와 말 못 하는 동생 또리 · 베트남 메콩 수상시장 · <b>대발이형</b>(겨루는 상대가 없다 — 늘 대신 알아내야 한다) · 그림체 = 민화 목판 하나(전권)',
     form: 'debari', pen: { author: '서윤슬', illustrator: '표유담' },
     // 🔴 팔레트는 docs/art-direction/bung-anchor.md 의 PALETTE 절과 같아야 한다(빌더가 검사)
@@ -144,6 +198,7 @@ export const SERIES = {
   },
   dingding: {
     no: '12', title: '딩딩네 계단 논', icon: '🐷',
+    awardRef: 'teckentrup-samesky',
     sub: '아기 돼지 딩딩과 삼대 · 중국 남부 계단식 논 · <b>페파형</b>(할머니는 옛 방식이 안 맞아서, 엄마는 대충 봐서 — 서로 다르게 틀린다) · 그림체 = 전지 하나(전권)',
     form: 'peppa', pen: { author: '서윤슬', illustrator: '송가람' },
     palette: {
@@ -160,6 +215,7 @@ export const SERIES = {
   },
   taro: {
     no: '13', title: '타로와 무무', icon: '🐒',
+    awardRef: 'albertine-marta',
     sub: '아기 원숭이 타로와 아기 사슴 무무 · 인도네시아 섬 마을 · <b>페파형</b>(어른이 아니라 서로에게 틀린다 — 나쁜 마음이 아니라 몰라서) · 그림체 = 바틱 하나(전권)',
     form: 'peppa', pen: { author: '서윤슬', illustrator: '민서하' },
     palette: {
@@ -176,6 +232,7 @@ export const SERIES = {
   },
   yuki: {
     no: '14', title: '유키네 산골', icon: '🦊',
+    awardRef: 'cheveau-troupeau',
     sub: '아기 여우 유키와 말 못 하는 개 모모 · 일본 산촌 사계절 · <b>대발이형</b>(모모는 몸으로만 답한다 — 알아채는 건 유키다) · 그림체 = 수묵 담채 하나(전권)',
     form: 'debari', pen: { author: '정미르', illustrator: '서지운' },
     palette: {
@@ -192,6 +249,7 @@ export const SERIES = {
   },
   mina: {
     no: '15', title: '가운데 아이 미나', icon: '🐘',
+    awardRef: 'alcantara-rio',
     sub: '아기 코끼리 삼 남매 라주·미나·소누 · 인도 강가 마을 · <b>대발이형</b>(위로는 아직 안 되고 아래로는 이미 지난 자리) · 그림체 = 점으로 채운 민화 하나(전권)',
     form: 'debari', pen: { author: '정미르', illustrator: '하다온' },
     palette: {

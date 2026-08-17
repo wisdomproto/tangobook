@@ -24,6 +24,16 @@ const TEMPLATE = fs.readFileSync(path.join(HERE, '_series-core.template.js'), 'u
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const inline = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/`(.+?)`/g, '<code>$1</code>');
 
+/** 🔴 25권 표는 **자리가 아니라 행 수**로 찾는다 — `_design.md` 마다 앞에 놓인 표 개수가 다르다
+ *  (퐁이는 설계 표가 넷 먼저 온다). 25권 시리즈에 데이터 25행짜리 표는 하나뿐이라 모호하지 않다. */
+function mdTable25(md) {
+  for (let n = 0; n < 12; n += 1) {
+    const t = mdTable(md, n);
+    if (t && (t.match(/<tr>/g) || []).length === 26) return t; // 머리 1 + 데이터 25
+  }
+  return '';
+}
+
 /** n번째 마크다운 표를 HTML 로. */
 function mdTable(md, n) {
   const lines = md.split('\n');
@@ -90,6 +100,11 @@ const CSS = (p) => `
   .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
   .anchor-card .ahead b { font-size:16px; }
   .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .award-ref { display:flex; align-items:baseline; gap:9px; flex-wrap:wrap; background:var(--peach); border-radius:10px; padding:8px 13px; margin:2px 0 10px; font-size:12.5px; }
+  .award-ref a { color:var(--accent); text-decoration:none; white-space:nowrap; }
+  .award-ref a:hover { text-decoration:underline; }
+  .award-ref span { font-weight:700; }
+  .award-ref em { color:var(--ink-soft); font-style:normal; word-break:keep-all; }
   .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
   .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
   .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
@@ -109,12 +124,17 @@ const HEAD = (title, css, docTitle) => `<!doctype html>
 
 function buildSeries(key) {
   const cfg = SERIES[key];
+  const warn = [];
   const SRC = path.join(ROOT, 'docs/changjak-books', key);
   const lab = labelsFor(key);
 
   const books = parseBooks(SRC);
   const SCENES = loadScenes(SRC);
-  const DESIGN = fs.readFileSync(path.join(SRC, '_design.md'), 'utf8');
+  // 🔴 없어도 굽는다 — 퐁이(시리즈 01)는 `_design.md` 없이 손으로 쓴 페이지였다. 없다고 멈추면
+  //    그 시리즈만 영영 생성기 밖에 남고, 밖에 남은 셋이 바로 개체 규격도 앵커 원본도 못 받던 축이다.
+  const designPath = path.join(SRC, '_design.md');
+  const DESIGN = fs.existsSync(designPath) ? fs.readFileSync(designPath, 'utf8') : '';
+  if (!DESIGN) warn.push('_design.md 없음 — 설계·25권 표가 빈다');
 
   // ── 앵커: 영문 전문을 통째로 (사본을 안 만드는 것이 핵심) ──
   const AMD = fs.readFileSync(path.join(ROOT, 'docs/art-direction', `${key}-anchor.md`), 'utf8');
@@ -124,6 +144,22 @@ function buildSeries(key) {
   //    똑같은 문장을 주고 다르게 나오길 바란 셈이고, 실제로 「가족들이 너무 비슷하게 생겼다」가
   //    나왔다(2026-08-17 사용자). 앵커의 CHARACTER DESIGN LANGUAGE 는 **그 세계 전체**를 말하지
   //    한 사람을 말하지 않는다. 개체를 가르는 것은 여기 있어야 한다.
+  // ── 앵커가 딛는 수상작 한 장 ──
+  // 🔴 단권 99권은 화면에 **원본 그림**이 뜨는데 시리즈 15개는 **글만** 떴다. 그런데 시리즈 앵커가
+  //    요구하는 것은 전부 매체의 손맛(획 한 번 · 파낸 골 · 판 자국 · 찢은 섬유)이라, 글로 가장
+  //    전달이 안 되는 것이다. 실제로 유키 시트는 아이가 부드러운 그러데이션 카툰, 할머니가 접힘을
+  //    다 그린 사실화로 나왔다 — 앵커는 `SHADING IS ZERO` · `한 획을 두 번 덧긋지 않는다` 인데.
+  //    배정표(`_SERIES-ANCHORS.md`)가 이미 어느 수상작인지 정해 뒀고 그림 URL 도 있었다. 안 보였을 뿐이다.
+  const AWARDS = JSON.parse(fs.readFileSync(path.join(ROOT, 'docs/art-direction/award-styles-20y.json'), 'utf8'));
+  const awardList = Array.isArray(AWARDS) ? AWARDS : Object.values(AWARDS)[0];
+  const award = cfg.awardRef ? awardList.find((e) => e.id === cfg.awardRef) : null;
+  if (cfg.awardRef && !award) warn.push(`수상작 배정 ${cfg.awardRef} 를 award-styles-20y.json 에서 못 찾음`);
+  const awardBlock = award ? `  <div class="award-ref">
+    <a href="${esc(award.imageUrl)}" target="_blank" rel="noopener"><b>🖼 앵커 원본 보기</b></a>
+    <span>${esc([award.artist, award.work].filter(Boolean).join(' · '))}${award.award ? ` (${esc(award.award)})` : ''}</span>
+    <em>${esc(String(award.character || '').slice(0, 120))}</em>
+  </div>` : '';
+
   const castMd = path.join(ROOT, 'docs/art-direction', `${key}-cast.md`);
   const CAST_SPEC = new Map();
   if (fs.existsSync(castMd)) {
@@ -154,6 +190,7 @@ function buildSeries(key) {
     .replace(/__ANCHOR_SLUG__/g, slug)
     .replace(/__ANCHOR_NAME__/g, `앵커 ${slug}`)
     .replace('__ANCHOR_TEXT__', JSON.stringify(anchorText))
+    .replace('__ANCHOR_AWARD__', JSON.stringify(award ? [award.artist, award.work].filter(Boolean).join(' · ') : ''))
     .replace('__CAST__', JSON.stringify(cfg.cast.map(({ key: k, name, aliases }) => ({
       key: k, name, aliases,
       // 🔴 별칭 **전부**로 찾는다 — `aliases[1]` 만 보면 영문 토큰이 1번이 아닌 인물의 규격이
@@ -219,6 +256,7 @@ ${cards}
 
 <h2 class="sec">1. 축</h2>
 ${mdTable(DESIGN, 0)}
+${DESIGN ? `<details><summary>설계 전문 (_design.md)</summary><pre class="block">${esc(DESIGN)}</pre></details>` : ''}
 
 <h2 class="sec">2. 캐스트</h2>
 <p class="lead">시트를 만들어 카드에 붙여넣으면 회차 페이지의 「🎬 이 화 등장」 스트립이 그 그림을 읽어 옵니다.
@@ -233,7 +271,7 @@ ${cfg.cast.map((c) => `  <div class="cast-card">
 
 <h2 class="sec">3. 25권</h2>
 <p class="lead">🔴 <b>작가에게 빈칸을 주지 않는 것</b>이 이 체제의 전부입니다.</p>
-${mdTable(DESIGN, 2) || mdTable(DESIGN, 1)}
+${mdTable25(DESIGN) || mdTable(DESIGN, 2) || mdTable(DESIGN, 1)}
 
 <h2 class="sec">4. 앵커 — 한 시리즈 = 한 그림체</h2>
 <p class="lead">시리즈 전권이 한 그림체입니다. 무대·계절 차이는 앵커 안 <b>무대 조항</b>이 처리합니다 — 매체·색은 그대로 두고 「두 색을 어디에 쓰고 무엇을 종이로 남기나」만 바뀝니다.
@@ -243,6 +281,7 @@ ${mdTable(DESIGN, 2) || mdTable(DESIGN, 1)}
 </div>
 <div class="anchor-card">
   <div class="ahead"><b>${slug}</b><button class="copy-btn" data-copy="anchor">📋 앵커 프롬프트 복사</button></div>
+${awardBlock}
   <details><summary>프롬프트 보기</summary><pre id="anchor">${esc(anchorText)}</pre></details>
   <div data-paste="anchor"></div>
 </div>
@@ -277,7 +316,6 @@ ${mdTable(DESIGN, 2) || mdTable(DESIGN, 1)}
   fs.writeFileSync(path.join(OUT, `${key}-plan.html`), plan);
 
   // ── 가드 ──
-  const warn = [];
   // ① 별칭 부분문자열 충돌
   for (const a of cfg.cast) for (const b of cfg.cast) if (a !== b)
     for (const x of a.aliases) for (const y of b.aliases)

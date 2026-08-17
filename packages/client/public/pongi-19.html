@@ -7,58 +7,74 @@
 <title>퐁이네 운하 마을 — 책 고르는 날</title>
 <style>
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
-  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --line:#f0e0d2; --water:#2C4A3C; --mint:#2C4A3C; }
+  :root { --accent:#A8442F; --slope:#21372E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
   .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
-  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--water); margin-bottom:22px; }
-  .hero .kicker { color:var(--water); font-weight:800; letter-spacing:.14em; font-size:12px; }
-  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; }
-  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; }
-  .note { background:#fff6f2; border:1px solid var(--coral); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; }
-  .page-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin:14px 0; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
   .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
-  .pnum { background:var(--water); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
   .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
-  .copy-btn { margin-left:auto; background:var(--coral); color:#fff; border:0; border-radius:9px; padding:5px 12px; font-size:12px; font-weight:800; cursor:pointer; }
-  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
   details { border-top:1px dashed var(--line); padding-top:9px; }
   summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
-  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
-  .copy-btn { background:#fff; color:var(--water); border:1.5px solid var(--water); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
-  .copy-btn:hover, .copy-btn.done { background:var(--water); color:#fff; }
-  .batch-bar { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin:16px 0; }
-  .batch-bar .bhint { font-size:12.5px; color:var(--ink-soft); line-height:1.7; }
-  .batch-bar .brow { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
-  .batch-btn { background:var(--coral); color:#fff; border:0; border-radius:10px; padding:7px 15px; font-size:13px; font-weight:800; cursor:pointer; }
-  .batch-btn:hover { background:var(--coral-dark); }
-  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
-  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
-  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--water); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
   .paste-box img { width:100%; border-radius:8px; display:block; }
   .paste-box.busy { opacity:.5; }
   .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
-  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
-  .ref-lab { font-size:12px; font-weight:800; color:var(--ink-soft); }
-  .ref-chip { display:flex; align-items:center; gap:7px; background:var(--peach); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:800; }
-  .ref-chip img { width:30px; height:30px; border-radius:50%; object-fit:cover; }
-  .ref-chip .ph { width:30px; height:30px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; font-size:15px; }
-  .ref-chip .im { color:var(--water); }
-  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#f7f4ef; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .award-ref { display:flex; align-items:baseline; gap:9px; flex-wrap:wrap; background:var(--peach); border-radius:10px; padding:8px 13px; margin:2px 0 10px; font-size:12.5px; }
+  .award-ref a { color:var(--accent); text-decoration:none; white-space:nowrap; }
+  .award-ref a:hover { text-decoration:underline; }
+  .award-ref span { font-weight:700; }
+  .award-ref em { color:var(--ink-soft); font-style:normal; word-break:keep-all; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
 </style>
 </head>
 <body>
 <div class="wrap">
-
 <header class="hero">
   <div class="kicker">퐁이네 운하 마을 · 19</div>
   <h1>책 고르는 날</h1>
-  <div class="sub">제일 좋은 책 하나를 고르고 싶다 · **어긋남** 아빠가 제가 읽고 싶은 책만 꺼낸다 · **착지** 밤에 아빠가 퐁이 책을 읽고 있다</div>
+  <div class="sub"><b>원함</b> 제일 좋은 책 하나를 고르고 싶다 · <b>어긋남</b> 아빠가 제가 읽고 싶은 책만 꺼낸다 · <b>착지</b> 밤에 아빠가 퐁이 책을 읽고 있다</div>
+  <div class="by">글 <b>한여울</b> · 그림 <b>진예람</b></div>
 </header>
 
-<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~5 고정) + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
 
-<!-- ===== pages ===== -->
 <div class="page-card" data-page="p1">
   <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">책이 아주 많은 방이에요. 천장까지 책이 꽂혀 있어요.</p>
@@ -66,13 +82,13 @@
 </div>
 
 <div class="page-card" data-page="p2">
-  <div class="page-head"><span class="pnum">P2</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">아빠가 손가락 하나를 폈어요. "오늘은 딱 한 권이야."</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업. 아빠의 펴진 손가락 하나.<br/><b>장소·시간</b> 같은 도서관.<br/><b>인물</b> Dad otter가 앞발 하나를 세워 손가락 하나를 편다. 규칙을 말하는 얼굴. Pongi가 그것을 본다.<br/><b>배경·소품</b> 뒤에 책장.<br/><b>톤</b> 딱 하나.</pre></details>
 </div>
 
 <div class="page-card" data-page="p3">
-  <div class="page-head"><span class="pnum">P3</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">퐁이가 책들을 손가락으로 주욱 훑었어요. 아빠는 벌써 한 권을 꺼냈어요. "이거 재밌어. 배가 나와."</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드. 퐁이는 아래, 아빠는 위.<br/><b>장소·시간</b> [PongiHouse] 책장 앞.<br/><b>인물</b> Pongi가 한 앞발로 책들을 죽 훑으며 걷는다. 그 위쪽에서 Dad otter가 벌써 책 한 권을 뽑아 들고 펼친다.<br/><b>배경·소품</b> 🔴 아빠가 뽑은 책 표지에 <b>배 그림</b>이 있다.<br/><b>톤</b> 둘이 다른 데를 본다.</pre></details>
 </div>
@@ -90,25 +106,25 @@
 </div>
 
 <div class="page-card" data-page="p6">
-  <div class="page-head"><span class="pnum">P6</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">퐁이는 제일 아래 줄을 보고 있어요. 그림이 큰 책이 한 권 있어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 로우앵글, 바닥 가까이. 제일 아래 책장 줄.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Pongi가 쪼그려 앉아 아래 줄을 본다.<br/><b>배경·소품</b> 아래 줄에 그림이 큰 책 한 권의 등이 보인다 — 다른 책보다 두껍고 크다.<br/><b>톤</b> 아이 눈높이의 책이 아래에 있다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p7">
-  <div class="page-head"><span class="pnum">P7</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">퐁이가 그 책을 꺼냈어요. "저는 이거요."</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 퐁이가 책을 뽑아 안는다.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Pongi가 두 앞발로 큰 책을 꺼내 가슴에 안았다. 책이 몸통만 하다. 만족한 얼굴.<br/><b>배경·소품</b> 뽑힌 자리에 생긴 빈 틈.<br/><b>톤</b> 하나만 골랐다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p8">
-  <div class="page-head"><span class="pnum">P8</span><b>뒤집힘</b> <span class="tag">뒤집힘</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">아빠가 책 다섯 권을 도로 꽂았어요. 아쉬운 얼굴이에요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아빠가 책을 도로 꽂는다.<br/><b>장소·시간</b> 같은 자리.<br/><b>인물</b> Dad otter가 다섯 권을 한 권씩 도로 꽂는다. 어깨가 처지고 입이 삐죽하다.<br/><b>배경·소품</b> 책장, 남은 책 두 권.<br/><b>톤</b> 아쉬운 어른.</pre></details>
 </div>
 
 <div class="page-card" data-page="p9">
-  <div class="page-head"><span class="pnum">P9</span><b>반응</b> <span class="tag">반응</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">밤이 됐어요. 퐁이가 물을 마시러 나왔어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 복도. 퐁이가 물컵을 들고 지나간다.<br/><b>장소·시간</b> [PongiHouse] 퐁이네 집 복도, 밤.<br/><b>인물</b> Pongi가 물컵을 들고 걷다가 멈춰 옆방을 본다. 뒷모습.<br/><b>배경·소품</b> 어두운 복도, 옆방 문틈으로 새어 나오는 빛 한 줄.<br/><b>톤</b> 무언가를 발견하기 직전.</pre></details>
 </div>

@@ -7,8 +7,8 @@
 <title>메이네 산마을 — 너는 못해</title>
 <style>
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
-  :root { --accent:#D4622A; --accent-dark:#A8481C; --slope:#4E5840; --peach:#F3E7DA; --cream:#FBF8F3;
-          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; --coral:#D4622A; --coral-dark:#A8481C; --mint:#4E5840; }
+  :root { --accent:#D4622A; --slope:#40483A; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
   .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
@@ -16,6 +16,8 @@
   .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
   .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
   .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
   .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
   h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
   h2.sec:first-of-type { border-top:0; }
@@ -36,27 +38,30 @@
   details { border-top:1px dashed var(--line); padding-top:9px; }
   summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
   pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
-  .batch-bar { background:#fff; border:1.5px solid var(--slope); border-radius:14px; padding:14px 18px; margin:16px 0; }
-  .batch-btn { background:var(--slope); color:#fff; border:0; border-radius:999px; padding:9px 20px; font-size:13px; font-weight:800; cursor:pointer; }
   .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
-  .paste-box:focus { border-color:var(--accent); color:var(--accent-dark); }
+  .paste-box:focus { border-color:var(--accent); }
   .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
   .paste-box img { width:100%; border-radius:8px; display:block; }
   .paste-box.busy { opacity:.5; }
   .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
-  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
   .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
-  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:2px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
   .cast-card h4 { font-size:15px; font-weight:900; }
   .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
-  .cast-card .flaw { display:inline-block; background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; margin-bottom:7px; }
   .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
   .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
-  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:4px; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
   .anchor-card .ahead b { font-size:16px; }
-  .anchor-card .avols { font-size:12px; color:var(--ink-soft); margin-bottom:8px; }
   .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .award-ref { display:flex; align-items:baseline; gap:9px; flex-wrap:wrap; background:var(--peach); border-radius:10px; padding:8px 13px; margin:2px 0 10px; font-size:12.5px; }
+  .award-ref a { color:var(--accent); text-decoration:none; white-space:nowrap; }
+  .award-ref a:hover { text-decoration:underline; }
+  .award-ref span { font-weight:700; }
+  .award-ref em { color:var(--ink-soft); font-style:normal; word-break:keep-all; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
 </style>
 </head>
 <body>
@@ -64,10 +69,11 @@
 <header class="hero">
   <div class="kicker">메이네 산마을 · 19</div>
   <h1>너는 못해</h1>
-  <div class="sub">레오(막말) · <b>원함</b> 잘하는 걸 보이고 싶다 · <b>탈</b> 그 말을 자기가 듣는다 · <b>착지</b> 건너 보이고 손을 내민다</div>
+  <div class="sub"><b>주인공</b> 레오(막말) · <b>원함</b> 잘하는 걸 보이고 싶다 · <b>탈</b> 그 말을 자기가 듣는다 · <b>착지</b> 건너 보이고 손을 내민다</div>
+  <div class="by">글 <b>오하람</b> · 그림 <b>남시우</b></div>
 </header>
 
-<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 이 권의 앵커(1회) + 캐릭터 레퍼런스(@image1~6) + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
 
 <div class="page-card" data-page="p1">
   <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
@@ -82,43 +88,43 @@
 </div>
 
 <div class="page-card" data-page="p3">
-  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">메이가 통나무 앞에 섰어요. 레오가 말했어요. "너는 못해."</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면. 이쪽 둑과 건너편이 좌우로.<br/><b>장소·시간</b> [Brook] 개울 양쪽.<br/><b>인물</b> Mei goat가 화면 왼쪽 통나무 앞에 한 발을 올리려다 멈췄다 — 두 앞발이 가슴 앞에 모였고 목도리 종이 흔들린다. 화면 오른쪽 건너편에서 Leo fox가 한 앞발로 메이 쪽을 가리키며 입을 벌린다.<br/><b>배경·소품</b> 통나무, 물.<br/><b>톤</b> 말이 개울을 건너온다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p4">
-  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">메이가 도로 물러났어요. 레오가 한 번 더 건넜어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 위에서 통나무와 둑을.<br/><b>장소·시간</b> 같은 개울.<br/><b>인물</b> Mei goat가 통나무에서 두 걸음 물러나 둑 안쪽에 섰다 — 고개가 아래로. 통나무 위에서는 Leo fox가 반대 방향으로 다시 건너오는 중, 두 앞발을 뒷짐 졌다.<br/><b>배경·소품</b> 통나무, 물.<br/><b>톤</b> 하나는 물러나고 하나는 왔다 갔다 한다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p5">
-  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">이번엔 미끄러운 바위를 건너요. 레오 발이 쭉 미끄러졌어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 바위 위 발.<br/><b>장소·시간</b> [Brook] 개울 속 바위.<br/><b>인물</b> Leo fox의 뒷발 하나가 젖은 바위 위에서 앞으로 쭉 미끄러진다 — 발톱이 바위를 긁고 물이 튄다. 화면 위 가장자리에 벌어진 입과 커진 눈, 위로 튄 꼬리.<br/><b>배경·소품</b> 물이끼가 낀 젖은 바위.<br/><b>톤</b> 화면 아래에서 발이 자리를 잃는다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p6">
-  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">레오가 물에 첨벙 빠졌어요. 옷이 다 젖었어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 수면 높이에서.<br/><b>장소·시간</b> [Brook] 개울 속.<br/><b>인물</b> Leo fox가 물에 주저앉아 두 앞발로 바닥을 짚었다 — 물이 배까지 차고 꼬리가 물 위에 무겁게 떴다. 젖은 털이 몸에 붙어 몸집이 작아 보인다. 주황 목깃이 젖어 늘어졌다.<br/><b>배경·소품</b> 퍼지는 물결.<br/><b>톤</b> 아까 제일 크던 몸이 제일 작아졌다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p7">
-  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">삐노가 레오를 보고 따라 말했어요. "너는 못해."</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 오버숄더. 레오 어깨 너머 둑 위 넷.<br/><b>장소·시간</b> [Brook] 개울 속과 둑.<br/><b>인물</b> 화면 앞쪽에 Leo fox가 물속에서 한 무릎을 세우고 일어서려다 고개만 뒤로 돌린다 — 젖은 털이 몸에 붙었고 눈이 커졌다. 🔴 안쪽 둑 위 Ppino rabbit이 한 앞발로 레오를 가리키며 입을 크게 벌려 말한다 — 말하는 입은 삐노 하나뿐이어야 한다, 주황 신발. 그 옆 Mei goat·Rudi squirrel·Soso hedgehog 셋은 입을 다물고 삐노 쪽으로 눈을 돌렸다.<br/><b>배경·소품</b> 물, 둑, 퍼지는 물결.<br/><b>톤</b> 제가 한 말이 남의 입에서 되돌아온다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p8">
-  <div class="page-head"><span class="pnum">P8</span><b>할머니 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">곰 할머니가 레오한테 수건을 줬어요. "네가 한 말이 너한테 왔구나."</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 수건을 건네는 손.<br/><b>장소·시간</b> [Brook] 둑 위.<br/><b>인물</b> Bear granny가 마른 수건을 Leo fox의 머리 위에 얹어 준다. 레오는 젖은 채 앉아 고개를 숙이고 두 앞발로 무릎을 감쌌다. 할머니가 입을 벌려 말한다.<br/><b>배경·소품</b> 수건 한 장.<br/><b>톤</b> 덮어 주는 손과 숙인 머리.</pre></details>
 </div>
 
 <div class="page-card" data-page="p9">
-  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">메이가 레오한테 손을 내밀었어요. "해 보자."</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면. 두 몸이 화면 좌우에서 마주 본다.<br/><b>장소·시간</b> [Brook] 개울 둑.<br/><b>인물</b> Leo fox가 어깨에 수건을 걸친 채 젖은 몸으로 앉아 있고 — 꼬리가 무겁게 늘어졌다, 주황 목깃이 젖었다 — Mei goat가 그 앞에 서서 한 앞발을 레오 쪽으로 쭉 내밀고 입을 벌려 말한다. 메이 몸이 앞으로 기울었고 목도리 종이 앞으로 흔들린다. Leo fox는 그 손을 올려다보며 눈이 커졌다.<br/><b>배경·소품</b> 수건, 둑, 물.<br/><b>톤</b> 「너는 못해」를 들었던 아이가 손을 먼저 내민다.</pre></details>
 </div>

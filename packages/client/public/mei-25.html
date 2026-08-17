@@ -7,8 +7,8 @@
 <title>메이네 산마을 — 오늘은 산장에서 자</title>
 <style>
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
-  :root { --accent:#D4622A; --accent-dark:#A8481C; --slope:#4E5840; --peach:#F3E7DA; --cream:#FBF8F3;
-          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; --coral:#D4622A; --coral-dark:#A8481C; --mint:#4E5840; }
+  :root { --accent:#D4622A; --slope:#40483A; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
   .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
@@ -16,6 +16,8 @@
   .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
   .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
   .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
   .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
   h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
   h2.sec:first-of-type { border-top:0; }
@@ -36,27 +38,30 @@
   details { border-top:1px dashed var(--line); padding-top:9px; }
   summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
   pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
-  .batch-bar { background:#fff; border:1.5px solid var(--slope); border-radius:14px; padding:14px 18px; margin:16px 0; }
-  .batch-btn { background:var(--slope); color:#fff; border:0; border-radius:999px; padding:9px 20px; font-size:13px; font-weight:800; cursor:pointer; }
   .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
-  .paste-box:focus { border-color:var(--accent); color:var(--accent-dark); }
+  .paste-box:focus { border-color:var(--accent); }
   .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
   .paste-box img { width:100%; border-radius:8px; display:block; }
   .paste-box.busy { opacity:.5; }
   .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
-  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
   .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
-  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:2px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
   .cast-card h4 { font-size:15px; font-weight:900; }
   .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
-  .cast-card .flaw { display:inline-block; background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; margin-bottom:7px; }
   .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
   .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
-  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:4px; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
   .anchor-card .ahead b { font-size:16px; }
-  .anchor-card .avols { font-size:12px; color:var(--ink-soft); margin-bottom:8px; }
   .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .award-ref { display:flex; align-items:baseline; gap:9px; flex-wrap:wrap; background:var(--peach); border-radius:10px; padding:8px 13px; margin:2px 0 10px; font-size:12.5px; }
+  .award-ref a { color:var(--accent); text-decoration:none; white-space:nowrap; }
+  .award-ref a:hover { text-decoration:underline; }
+  .award-ref span { font-weight:700; }
+  .award-ref em { color:var(--ink-soft); font-style:normal; word-break:keep-all; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
 </style>
 </head>
 <body>
@@ -64,10 +69,11 @@
 <header class="hero">
   <div class="kicker">메이네 산마을 · 25</div>
   <h1>오늘은 산장에서 자</h1>
-  <div class="sub">메이(겁) · <b>원함</b> 다 같이 자고 싶다 · <b>탈</b> 무서워 혼자 깨어 있다 · <b>착지</b> 다섯이 종을 하나씩 든다</div>
+  <div class="sub"><b>주인공</b> 메이(겁) · <b>원함</b> 다 같이 자고 싶다 · <b>탈</b> 무서워 혼자 깨어 있다 · <b>착지</b> 다섯이 종을 하나씩 든다</div>
+  <div class="by">글 <b>오하람</b> · 그림 <b>남시우</b></div>
 </header>
 
-<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 이 권의 앵커(1회) + 캐릭터 레퍼런스(@image1~6) + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
 
 <div class="page-card" data-page="p1">
   <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
@@ -82,43 +88,43 @@
 </div>
 
 <div class="page-card" data-page="p3">
-  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">불이 꺼졌어요. 창밖에서 바람 소리가 나요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 측면. 창과 마루가 좌우로.<br/><b>장소·시간</b> 같은 마루, 불 끈 뒤.<br/><b>인물</b> Mei goat·Rudi squirrel·Ppino rabbit·Soso hedgehog·Leo fox 다섯이 각자 이불에 누웠다 — 어둠 속에 다섯 덩이만 보인다. Mei goat만 이불 밖으로 얼굴을 내놓았고 주황 목도리와 종이 머리맡에 있다.<br/><b>배경·소품</b> 🔴 창유리가 흔들리고 밖의 나뭇가지가 창틀을 스친다. 꺼진 등불.<br/><b>톤</b> 밝은 데가 창 하나뿐이다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p4">
-  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">넷은 금방 잠들었어요. 메이만 눈을 뜨고 있어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 하이앵글. 다섯 이불을 위에서.<br/><b>장소·시간</b> 같은 마루, 밤.<br/><b>인물</b> Rudi squirrel·Ppino rabbit·Soso hedgehog·Leo fox 넷은 눈을 감고 입이 조금씩 벌어졌다 — 넷 다 이불에 얼굴이 반쯤 묻혔다. Mei goat만 늘어진 두 귀를 이불 밖으로 내놓고 천장 쪽으로 곧게 세웠다 — 두 눈은 뜬 매듭이다.<br/><b>배경·소품</b> 이불 다섯.<br/><b>톤</b> 감긴 눈 여덟 개와 뜬 눈 두 개.</pre></details>
 </div>
 
 <div class="page-card" data-page="p5">
-  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">마루가 삐걱 소리를 냈어요. 메이가 이불을 코까지 끌어올렸어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 이불 위로 나온 눈과 늘어진 귀 한쪽.<br/><b>장소·시간</b> [Seats] 메이 자리.<br/><b>인물</b> Mei goat가 이불을 코까지 끌어올려 두 눈만 내놓았다 — 매듭 둘이 얼굴 한쪽 끝으로 바짝 붙어 찍혔고 짧은 뿔 둘과 늘어진 귀 한쪽이 마루 쪽으로 기울었다. 이불 가장자리를 쥔 앞발 끝이 조금 보인다.<br/><b>배경·소품</b> 이불 가장자리.<br/><b>톤</b> 이불 밖에 남은 것이 매듭 둘과 귀 한쪽뿐이다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p6">
-  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">메이가 종을 살짝 흔들었어요. 누가 좀 깼으면 좋겠어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 측면. 이불 밖으로 나온 앞발과 종.<br/><b>장소·시간</b> [Seats] 메이 자리.<br/><b>인물</b> Mei goat의 앞발 하나가 이불 밖으로 나와 목도리 끝 종을 손끝으로 살짝 흔든다 — 종이 한쪽으로 겨우 기울었다. 🔴 얼굴은 이불에 반쯤 묻힌 채 눈만 옆 이불들 쪽으로 돌아가 있다 — 누가 일어나기를 기다리는 눈이어야 한다, 눈썹이 위로 올라갔다.<br/><b>배경·소품</b> 종 하나, 화면 옆으로 이어지는 옆 이불의 가장자리.<br/><b>톤</b> 손은 제 이불 안에 있고 눈만 옆으로 간다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p7">
-  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">소리가 너무 작아요. 넷은 그대로 자고 있어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 와이드, 하이앵글. 마루 전체를 멀리서 위에서.<br/><b>장소·시간</b> 같은 마루.<br/><b>인물</b> 다섯 이불이 화면에 작게 늘어섰다. Rudi squirrel·Ppino rabbit·Soso hedgehog·Leo fox 넷은 이불 속에서 꼼짝도 안 하고 — 🔴 넷 다 등을 보이거나 얼굴이 이불에 묻혀 아무 반응이 없다 — Mei goat만 얼굴을 내놓고 종을 쥔 앞발을 이불 밖에 뒀다.<br/><b>배경·소품</b> 🔴 종 하나가 이 거리에서 손톱만 하게 보인다. 마루 널이 사방으로 넓고 이불 사이 간격이 멀다.<br/><b>톤</b> 자리는 넓고 울린 것은 작아 아무 데도 안 닿는다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p8">
-  <div class="page-head"><span class="pnum">P8</span><b>할머니 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">곰 할머니가 작은 종을 네 개 더 가져왔어요. "혼자 울리면 혼자만 들리지."</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 할머니와 손안의 것.<br/><b>장소·시간</b> [Chalet] 마루 문가.<br/><b>인물</b> Bear granny가 무릎을 굽혀 앉아 두 큰 앞발을 펴 보인다 — 손바닥 위에 작은 종이 넷. Mei goat가 이불에서 상체를 일으켜 그 손을 들여다본다, 제 목도리 종이 앞으로 늘어졌다.<br/><b>배경·소품</b> 🔴 종 넷. 메이 것까지 세면 다섯이다.<br/><b>톤</b> 하나였던 것이 손바닥 위에서 넷이 된다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p9">
-  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">넷이 잠에서 깨 종을 하나씩 받았어요. 다섯이 이불 속에서 종을 흔들었어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 마루 바닥 높이에서 이불 줄을 본다.<br/><b>장소·시간</b> 같은 마루.<br/><b>인물</b> Mei goat·Rudi squirrel·Ppino rabbit·Soso hedgehog·Leo fox 다섯이 이불 속에서 상체만 일으켜 각자 한 앞발로 종을 흔든다 — 다섯 손이 다 이불 밖에 나와 있다. 눈을 비비는 아이도 있고 입을 벌려 웃는 아이도 있다.<br/><b>배경·소품</b> 🔴 종 다섯 개. 화면 가장자리에 할머니의 빈 손바닥.<br/><b>톤</b> 아까 하나이던 소리가 줄을 따라 다섯 자리에서 난다.</pre></details>
 </div>

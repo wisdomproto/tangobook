@@ -7,8 +7,8 @@
 <title>메이네 산마을 — 언제 나와요</title>
 <style>
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
-  :root { --accent:#D4622A; --accent-dark:#A8481C; --slope:#4E5840; --peach:#F3E7DA; --cream:#FBF8F3;
-          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; --coral:#D4622A; --coral-dark:#A8481C; --mint:#4E5840; }
+  :root { --accent:#D4622A; --slope:#40483A; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
   .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
@@ -16,6 +16,8 @@
   .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
   .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
   .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
   .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
   h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
   h2.sec:first-of-type { border-top:0; }
@@ -36,27 +38,30 @@
   details { border-top:1px dashed var(--line); padding-top:9px; }
   summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
   pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
-  .batch-bar { background:#fff; border:1.5px solid var(--slope); border-radius:14px; padding:14px 18px; margin:16px 0; }
-  .batch-btn { background:var(--slope); color:#fff; border:0; border-radius:999px; padding:9px 20px; font-size:13px; font-weight:800; cursor:pointer; }
   .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
-  .paste-box:focus { border-color:var(--accent); color:var(--accent-dark); }
+  .paste-box:focus { border-color:var(--accent); }
   .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
   .paste-box img { width:100%; border-radius:8px; display:block; }
   .paste-box.busy { opacity:.5; }
   .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
-  .ref-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:14px; padding:11px 15px; margin:16px 0; }
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
   .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
-  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:2px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
   .cast-card h4 { font-size:15px; font-weight:900; }
   .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
-  .cast-card .flaw { display:inline-block; background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; margin-bottom:7px; }
   .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
   .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
-  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:4px; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
   .anchor-card .ahead b { font-size:16px; }
-  .anchor-card .avols { font-size:12px; color:var(--ink-soft); margin-bottom:8px; }
   .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .award-ref { display:flex; align-items:baseline; gap:9px; flex-wrap:wrap; background:var(--peach); border-radius:10px; padding:8px 13px; margin:2px 0 10px; font-size:12.5px; }
+  .award-ref a { color:var(--accent); text-decoration:none; white-space:nowrap; }
+  .award-ref a:hover { text-decoration:underline; }
+  .award-ref span { font-weight:700; }
+  .award-ref em { color:var(--ink-soft); font-style:normal; word-break:keep-all; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
 </style>
 </head>
 <body>
@@ -64,10 +69,11 @@
 <header class="hero">
   <div class="kicker">메이네 산마을 · 12</div>
   <h1>언제 나와요</h1>
-  <div class="sub">루디(못 참음) · <b>원함</b> 싹을 보고 싶다 · <b>탈</b> 자꾸 옮겨 심어 안 난다 · <b>착지</b> 그냥 두니 난다</div>
+  <div class="sub"><b>주인공</b> 루디(못 참음) · <b>원함</b> 싹을 보고 싶다 · <b>탈</b> 자꾸 옮겨 심어 안 난다 · <b>착지</b> 그냥 두니 난다</div>
+  <div class="by">글 <b>오하람</b> · 그림 <b>남시우</b></div>
 </header>
 
-<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 이 권의 앵커(1회) + 캐릭터 레퍼런스(@image1~6) + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
 
 <div class="page-card" data-page="p1">
   <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
@@ -82,43 +88,43 @@
 </div>
 
 <div class="page-card" data-page="p3">
-  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">"며칠 걸린단다." 루디는 다음 날 아침에 또 왔어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 텃밭을 정면으로.<br/><b>장소·시간</b> 같은 텃밭, 다음 날 아침.<br/><b>인물</b> Rudi squirrel 혼자 이랑 앞에 서서 두 앞발을 무릎에 짚고 허리를 굽혀 제 자리를 들여다본다. 꼬리가 뒤로 곧게 섰다.<br/><b>배경·소품</b> 봉긋한 흙 다섯 자리, 전부 아직 흙뿐.<br/><b>톤</b> 어제와 똑같은 흙이 화면 가득.</pre></details>
 </div>
 
 <div class="page-card" data-page="p4">
-  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">흙이 그대로예요. 루디가 씨앗을 파내 다른 자리에 옮겨 심었어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 하이앵글. 이랑 두 자리가 나란히 화면에 들어온다.<br/><b>장소·시간</b> [Slope] 비탈 텃밭, 루디 자리.<br/><b>인물</b> Rudi squirrel이 쪼그려 앉아 두 앞발로 씨앗 하나를 받쳐 들고 옆 빈 자리 흙 위에 막 내려놓는 참이다 — 손끝이 흙에 닿기 직전. 고개를 갸웃하고 입을 오므렸다, 꼬리가 위로 섰다. 주황 앞치마 주머니에 흙이 묻었다.<br/><b>배경·소품</b> 🔴 화면 왼쪽에 방금 파낸 구멍 하나가 뻥 열려 있고 파낸 흙이 옆으로 밀려 있다 — 씨앗이 저기서 여기로 왔다는 것이 구멍 하나로 읽힌다.<br/><b>톤</b> 심는 손이 아니라 옮기는 손이다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p5">
-  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">거기서도 안 나왔어요. 루디가 또 옮겨 심었어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 흙바닥을 낮게 훑는다.<br/><b>장소·시간</b> 같은 텃밭, 며칠 뒤.<br/><b>인물</b> Rudi squirrel의 두 앞발이 또 다른 자리에 씨앗을 묻고 흙을 톡톡 덮는다. 화면 위 가장자리에 입을 삐죽 내민 얼굴과 아래로 처진 눈.<br/><b>배경·소품</b> 🔴 화면 앞쪽에 빈 구멍이 **둘** 나란히 뚫려 있다 — 하나는 마르고 하나는 아직 축축하다. 지금 덮는 자리가 셋째다.<br/><b>톤</b> 구멍이 하나 늘 때마다 자리가 하나 뒤로 밀린다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p6">
-  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">루디 씨앗은 텃밭을 세 바퀴나 돌았어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 와이드, 버즈아이. 텃밭 전체를 바로 위에서.<br/><b>장소·시간</b> 같은 텃밭, 아침.<br/><b>인물</b> Rudi squirrel이 텃밭 한가운데 쪼그려 앉아 또 흙을 판다 — 위에서 보면 등과 꼬리, 주황 앞치마 주머니만 보인다.<br/><b>배경·소품</b> 🔴 빈 구멍과 덮은 자국이 텃밭을 **둥글게 돌며** 이어져 위에서 보면 고리 모양 길이 된다 — 세 바퀴가 이 자국 길로 읽혀야 한다. 이랑 가장자리 네 자리는 손 안 댄 채 매끈하다.<br/><b>톤</b> 위에서 봐야 보이는 것 — 씨앗이 다닌 길이 텃밭에 그려져 있다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p7">
-  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">넷의 자리에는 초록 싹이 올라왔어요. 루디 자리만 흙뿐이에요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 아이레벨. 이랑을 옆에서 낮게.<br/><b>장소·시간</b> 같은 텃밭.<br/><b>인물</b> Rudi squirrel이 이랑 끝에 서서 옆줄을 본다 — 어깨가 처지고 꼬리가 아래로 늘어졌다.<br/><b>배경·소품</b> 🔴 네 자리에 초록 싹이 하나씩 올라왔고 루디 자리만 얼룩진 흙뿐이다. 다섯 자리를 같은 깊이에 나란히 두어 하나만 비었다는 것이 한눈에 읽히게.<br/><b>톤</b> 넷과 하나가 같은 줄에서 갈린다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p8">
-  <div class="page-head"><span class="pnum">P8</span><b>할머니 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">곰 할머니가 루디 손에 묻은 흙을 털어 줬어요. "씨앗은 우리가 안 볼 때 자란단다."</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아이레벨. 두 쌍의 손.<br/><b>장소·시간</b> [Slope] 텃밭 옆.<br/><b>인물</b> Bear granny가 두 큰 앞발로 Rudi squirrel의 앞발을 감싸 흙을 툭툭 털어 준다 — 루디 손끝이 할머니 손안에 다 들어갔다. 루디는 고개를 옆으로 돌리고 입을 오므렸다. 할머니는 눈을 내리깔고 입을 벌려 말한다.<br/><b>배경·소품</b> 떨어지는 흙 부스러기, 뒤로 구멍 자국이 난 텃밭.<br/><b>톤</b> 파던 손이 남의 손안에서 멈췄다.</pre></details>
 </div>
 
 <div class="page-card" data-page="p9">
-  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
   <p class="ko">루디가 마지막 자리에 씨앗을 묻었어요. 그리고 텃밭 밖에 나와 앉았어요.</p>
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 측면. 텃밭이 화면 왼쪽, 밭 밖 둔덕이 오른쪽 — 🔴 이랑과 루디 사이에 밭 가장자리 선이 지나가야 「밖에 나와 앉았다」가 보인다.<br/><b>장소·시간</b> [Seats] 비탈 텃밭 가장자리, 다음 날.<br/><b>인물</b> Rudi squirrel이 텃밭 밖 풀 둔덕에 정면을 보고 앉았다 — 두 앞발을 무릎 위에 나란히 펴 얹었고 🔴 주황 앞치마 주머니가 가슴 앞에 통째로 드러난다, 그 위 손에 흙이 아직 조금 묻어 있다. 고개만 텃밭 쪽으로 돌려 흙을 본다, 입을 꾹 다물었고 꼬리가 옆으로 얌전히 늘어졌다.<br/><b>배경·소품</b> 🔴 밭 안 마지막 자리가 봉긋하고 그 위에 손바닥으로 다독인 자국이 남아 있다 — 묻는 일은 끝났다는 흔적. 옆으로 네 자리의 초록 싹.<br/><b>톤</b> 손이 흙에서 떨어져 무릎 위에 놓였고, 몸이 밭 밖으로 한 걸음 나와 있다.</pre></details>
 </div>
