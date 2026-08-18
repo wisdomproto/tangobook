@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useSeo } from '@/lib/useSeo';
 import { PublicNav } from '@/components/PublicNav';
 import { WORKSHEET_TRACKS, type WorksheetTrack } from './WorksheetPage';
@@ -36,9 +35,16 @@ export default function WorksheetHubPage() {
 
           <div className="mt-10 grid gap-4 sm:grid-cols-2">
             {tracks.map(([key, t]) => (
-              <Link
+              /* 🔴 **인쇄물로 바로 보낸다**(2026-08-18 사용자). 「무료 한글 학습지」라고 적힌 카드를
+                 눌렀는데 학습지가 아니라 학습지 소개가 나오면 한 번 더 눌러야 한다 — 여기 온 사람은
+                 이미 뽑기로 마음먹은 사람이다.
+                 ⚠️ `/worksheet/{track}` 착지 페이지는 그대로 남는다: 검색어가 갈려 있어
+                 (한글 학습지 950 vs 영어 파닉스 2,020) 각자 받아야 하고 이 허브가 그 자리를 대신 못 한다. */
+              <a
                 key={key}
-                to={`/worksheet/${key}`}
+                href={t.file}
+                target="_blank"
+                rel="noreferrer"
                 className="rounded-3xl border-2 border-peach-200 bg-white/80 p-6 text-center transition hover:border-coral-300 sm:p-8"
               >
                 <p className="font-display text-[20px] font-extrabold text-ink-900 break-keep sm:text-[24px]">
@@ -48,7 +54,10 @@ export default function WorksheetHubPage() {
                   {t.units}단원 · {t.pages}쪽
                 </p>
                 <p className="mt-3 text-[14px] leading-relaxed text-ink-600 break-keep">{t.lead}</p>
-              </Link>
+                <p className="mt-4 inline-flex min-h-[44px] items-center rounded-full bg-coral-700 px-6 text-[15px] font-extrabold text-white">
+                  🖨 인쇄용으로 열기
+                </p>
+              </a>
             ))}
           </div>
         </div>

@@ -918,6 +918,10 @@ ${STYLE}
     border:1px solid var(--peach-200); background:var(--peach-50); color:var(--coral-700);
     padding:7px 14px; border-radius:7px; }
   .bar button:hover, .bar a.btn:hover { background:#fff; }
+  /* 🔴 인쇄 버튼과 같은 무게로 두면 안 보인다 — 이건 이 파일의 유일한 우리 쪽 출구다. */
+  .bar a.btn.app { background:var(--coral); border-color:var(--coral); color:#fff; font-size:13px;
+    padding:8px 16px; }
+  .bar a.btn.app:hover { background:var(--coral-700); color:#fff; }
 
   /* 🔴 인쇄하면 사이드바와 나머지 31단원이 같이 나간다 — 고른 단원만 남긴다.
      ⚠️ 이 블록은 **맨 뒤**에 있어야 한다. 위에 두면 뒤따르는 .bar{display:flex} 같은 평범한
@@ -956,6 +960,12 @@ ${STYLE}
     <span class="now">${esc(first.levelName)} · ${L.unit} ${first.unitNo} · ${esc(first.glyph)}</span>
     <span class="sp"></span>
     <button id="print">🖨 이 단원 인쇄</button>
+    <!-- 🔴 **앱으로 가는 길을 여기 둔다.** 이 파일은 검색·공유로 곧장 도달하는 표면이라,
+         뽑으러 온 사람이 우리가 누구인지 알 길이 인쇄물 안에는 없다. 도구막대는 sticky 라
+         어느 단원을 보고 있든 늘 손에 닿고, 인쇄용 스타일에서 도구막대가 통째로 숨으므로
+         종이에는 안 나간다.
+         🔴 이 주석은 **템플릿 문자열 안**이다 — 백틱을 쓰면 문자열이 거기서 끊긴다. -->
+    <a class="btn app" href="/" target="_blank" rel="noopener">🐯 탱고북 앱에서 해보기</a>
   </div>
   <!-- 🔴 첫 단원은 마크업에서 이미 켜 둔다. 전부 display:none 으로 두고 JS 로만 켜면,
        스크립트가 한 줄이라도 막히는 환경(확장·정책·구형 브라우저)에서 **백지**가 된다. -->
