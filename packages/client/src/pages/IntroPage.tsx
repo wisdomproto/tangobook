@@ -333,7 +333,7 @@ function HeroBridge() {
         {/* 왼쪽 — 파닉스에서 배우는 낱말 */}
         {/* 왼쪽 — 파닉스. 🔴 **글자가 먼저, 낱말이 그다음**(2026-08-12 사용자: "왼쪽에 단어만
             있으니까 파닉스 느낌이 안 나네"). 낱말 카드만 두면 그림 낱말책으로 보인다 — 파닉스는
-            **글자와 소리**라, 위에 글자가 음절이 되는 화면(ㄷ+ㅏ, 다댜더뎌…)을 세우고 그 아래
+            **글자와 소리**라, 위에 글자가 음절이 되는 화면(ㄹ+ㅣ, 라랴러려…)을 세우고 그 아래
             그 글자로 된 낱말을 둔다. 두 장 다 앱 화면을 그대로 찍은 것이다. */}
         <div className="flex w-[34%] shrink-0 flex-col gap-1.5 sm:gap-2">
           <span className="text-[11px] font-extrabold text-coral-700 sm:text-sm xl:text-base">
@@ -342,11 +342,11 @@ function HeroBridge() {
           <div className="overflow-hidden rounded-2xl border border-ink-100 bg-cream-50">
             <img
               src="/landing/hangul/bridge-letter.webp"
-              alt="한글 파닉스 음절 만들기 화면 — ㄷ 과 ㅏ 가 합쳐져 다 가 된다"
-              width={460}
-              height={270}
+              alt="한글 파닉스 음절 만들기 화면 — ㄹ 과 ㅣ 가 합쳐져 리 가 된다"
+              width={540}
+              height={458}
               fetchPriority="high"
-              className="aspect-[460/270] w-full object-cover"
+              className="aspect-[540/458] w-full object-cover"
             />
           </div>
           <span className="text-[11px] font-extrabold text-coral-700 sm:text-sm xl:text-base">
@@ -355,17 +355,17 @@ function HeroBridge() {
           <div className="relative overflow-hidden rounded-2xl border border-ink-100 bg-cream-50">
             <img
               src="/landing/hangul/bridge-word.webp"
-              alt="한글 파닉스 ㄷ 단원 낱말 연습 화면 — 기도·구두"
-              width={460}
-              height={312}
+              alt="한글 파닉스 ㄹ 단원 낱말 연습 화면 — 오리·너구리"
+              width={540}
+              height={366}
               fetchPriority="high"
-              className="aspect-[460/312] w-full object-cover"
+              className="aspect-[540/366] w-full object-cover"
             />
             {/* 🔴 위치는 **퍼센트** — 이미지가 105px(모바일)~282px(데스크탑)로 늘어난다. */}
             <span
               aria-hidden
               className="pointer-events-none absolute rounded-xl ring-[3px] ring-coral-500 sm:rounded-2xl sm:ring-4"
-              style={{ left: '50%', top: '4%', width: '44%', height: '90%' }}
+              style={{ left: '54.8%', top: '4.8%', width: '38.5%', height: '87%' }}
             />
           </div>
         </div>
