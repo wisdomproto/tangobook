@@ -1,8 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import {
-  ColoringPlayer,
-  type ColoringItem,
-} from '@/features/games/components/players/ColoringPlayer';
+import { ColoringPlayer } from '@/features/games/components/players/ColoringPlayer';
 
 /**
  * 색칠공부 데모 — 파일럿 도안 19장(한글 파닉스 단어 카드) 검증용.
@@ -10,8 +7,15 @@ import {
  * 도안·정답본은 `packages/client/public/coloring/` 에 그대로 두고 매니페스트로 읽는다.
  * 파일럿을 판단한 뒤 R2 업로드(`generate-coloring-lineart.mjs --apply`)와 파닉스 단원 배선을 한다.
  */
-interface ManifestItem extends ColoringItem {
+/** 매니페스트에 저장된 모양 — 플레이어가 받는 `ColoringItem` 과 다르다. */
+interface ManifestItem {
   unitId: string;
+  word: string;
+  lineartUrl: string;
+  /** 파일럿 18장에만 있다. 새로 붙이는 도안은 정답본을 따로 만들지 않는다. */
+  answerUrl?: string | null;
+  originalUrl?: string | null;
+  ttsUrl?: string | null;
 }
 
 /**
@@ -34,6 +38,10 @@ function Session({
       [...items.slice(start), ...items.slice(0, start)].map((it) => ({
         ...it,
         storybookId: it.unitId,
+        // 🔴 **있으면 정답본, 없으면 원본 삽화.** 칸 나누기는 도안 픽셀만 보므로 두 번째 그림은
+        //    색 출처일 뿐이고 둘 다 된다. 파일럿 18장은 정답본이 이미 검증돼 있어 그대로 쓰고,
+        //    새 도안은 원본에서 읽는다 — 정답본을 또 만들 이유가 없다.
+        colorSourceUrl: it.answerUrl ?? it.originalUrl ?? '',
       })),
     [items, start]
   );

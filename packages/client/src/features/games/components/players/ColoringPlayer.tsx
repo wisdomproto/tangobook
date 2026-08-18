@@ -21,7 +21,7 @@ import { buildPalette, type PaletteEntry } from '../../lib/answer-colors';
  *    통통 튀어 어디를 누를지 알려 줄 뿐이다(색칠 앱들의 공통 처리 — "그림은 항상 올바르게 완성된다").
  *    우리 라인엔 이미 맞고 틀리는 게임이 다섯이라, 여섯 번째 시험을 만들지 않는 게 이 화면의 몫이다.
  *
- * 정답색은 **정답본**(같은 도안을 칠한 그림)에서 앱이 직접 읽는다 → `answer-colors.ts`.
+ * 정답색은 **색 출처 그림**(정답본이나 원본 삽화)에서 앱이 직접 읽는다 → `answer-colors.ts`.
  * 선 안을 지키는 건 아이가 아니라 코드다 → `@tangobook/shared` 의 `flood-fill`(생성 스크립트의 검사기와 **같은 구현**을 써야 검사기가 거짓말을 하지 않는다).
  */
 
@@ -29,8 +29,15 @@ export interface ColoringItem {
   word: string;
   /** 흰 면 + 검은 선 도안. */
   lineartUrl: string;
-  /** 같은 도안을 칠한 정답본 — 칸별 정답색을 여기서 읽는다. */
-  answerUrl: string;
+  /**
+   * 칸별 정답색을 읽어 올 그림. 「이렇게 칠해요」 미리보기로도 쓴다.
+   *
+   * 🔴 **정답본이어야 하는 건 아니다.** 칸 나누기는 도안 픽셀만 보는 flood fill 이라 두 번째
+   *    그림은 색 출처일 뿐이고, **원본 삽화로도 된다** — 도안이 원본을 보고 그린 그림이라 자리가
+   *    겹친다(실측: 오리 노랑·부리 주황·볼 분홍 / 여우 주황·주둥이 크림). 정답본이 있으면 그게
+   *    더 정확하니 **있으면 정답본, 없으면 원본**으로 데이터에서 정한다.
+   */
+  colorSourceUrl: string;
   /** 다 칠하면 보여줄 원본 단어 삽화. */
   originalUrl?: string | null;
   /** 낱말 음원 직행 URL. 없으면 `resolveTtsUrl` 이 합성 경로로 푼다. */
@@ -72,13 +79,22 @@ function loadImage(src: string): Promise<HTMLImageElement> {
   });
 }
 
+/**
+ * 🔴 **늘리지 말고 맞춰 넣는다.** 색 출처가 정답본일 때는 도안과 같은 정사각이라 어느 쪽이든
+ *    같지만, 원본 삽화를 쓸 때는 비율이 다를 수 있다. 늘리면 칸과 색이 어긋나 부리가 몸 색을 가져간다.
+ */
 function readPixels(img: HTMLImageElement, w: number, h: number): Uint8ClampedArray {
   const c = document.createElement('canvas');
   c.width = w;
   c.height = h;
   const ctx = c.getContext('2d', { willReadFrequently: true });
   if (!ctx) throw new Error('canvas 2d 없음');
-  ctx.drawImage(img, 0, 0, w, h);
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, w, h);
+  const s = Math.min(w / img.naturalWidth, h / img.naturalHeight);
+  const dw = img.naturalWidth * s;
+  const dh = img.naturalHeight * s;
+  ctx.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh);
   return ctx.getImageData(0, 0, w, h).data;
 }
 
@@ -142,9 +158,9 @@ export function ColoringPlayer({ items, onBack }: ColoringPlayerProps) {
    *    (`ConnectTheDotsPlayer` 가 같은 버그를 겪고 주석으로 경고해 뒀는데 그대로 밟았다.)
    */
   const lineartUrl = item?.lineartUrl;
-  const answerUrl = item?.answerUrl;
+  const colorSourceUrl = item?.colorSourceUrl;
   useEffect(() => {
-    if (!lineartUrl || !answerUrl) return;
+    if (!lineartUrl || !colorSourceUrl) return;
     let cancelled = false;
     setReady(false);
     setDone(false);
@@ -155,7 +171,7 @@ export function ColoringPlayer({ items, onBack }: ColoringPlayerProps) {
     if (revealTimerRef.current != null) window.clearTimeout(revealTimerRef.current);
 
     (async () => {
-      const [line, answer] = await Promise.all([loadImage(lineartUrl), loadImage(answerUrl)]);
+      const [line, answer] = await Promise.all([loadImage(lineartUrl), loadImage(colorSourceUrl)]);
       if (cancelled) return;
 
       const w = line.naturalWidth;
@@ -195,7 +211,7 @@ export function ColoringPlayer({ items, onBack }: ColoringPlayerProps) {
     return () => {
       cancelled = true;
     };
-  }, [lineartUrl, answerUrl, render]);
+  }, [lineartUrl, colorSourceUrl, render]);
 
   // ── 힌트: 고른 색으로 칠할 칸을 반짝이게 ──────────────────────────────────
   useEffect(() => {
@@ -372,7 +388,7 @@ export function ColoringPlayer({ items, onBack }: ColoringPlayerProps) {
             이렇게 칠해요
           </span>
           <img
-            src={item.answerUrl}
+            src={item.colorSourceUrl}
             alt={`${item.word} 정답`}
             className="block aspect-square h-[13vh] w-auto sm:h-auto sm:w-[26vw] sm:max-w-[280px] rounded-2xl border-4 border-peach-200 bg-white shadow-soft"
             draggable={false}
