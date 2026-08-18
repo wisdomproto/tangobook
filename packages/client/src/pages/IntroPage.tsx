@@ -657,12 +657,16 @@ const EN_UNIT = 'en-b2-u01';
  * 🔴 헤드라인이 「오늘 배운 글자로 오늘 동화책을 읽어요」라고 주장하고, 이 상자가 그 자리에서
  *    증명한다 — 낱말을 맞히면 `SceneReveal` 이 그 낱말이 나오는 동화책 쪽을 삽화·문장·나레이션과
  *    함께 띄운다. 헤드라인과 데모가 같은 말을 한다.
- * 🔴 **그림 짝 찾기여야 한다.** 히어로 바로 아래에서 「게임 한 판 하세요」는 부담이라 대부분
- *    스크롤로 지나간다 — 탭 두 번이면 끝나는 활동만 여기 설 수 있다. 낱말 쓰기는 획을 다 써야 하고
- *    블록은 자모를 조립해야 해서 둘 다 길다.
+ * 🔴 **음절 만들기여야 한다**(2026-08-18 사용자). 그림 짝 찾기를 뒀더니 0/4 로 시작해 **네 쌍을
+ *    다 맞춰야** 끝났다 — 히어로 바로 아래에서 그만한 일을 시키면 대부분 스크롤로 지나간다.
+ *    음절 만들기는 글자 두 개를 누르면 합쳐지는 한 동작이라 여기 설 수 있다.
+ * ⚠️ 그 대신 **동화책 리빌을 잃는다** — 리빌은 낱말 활동 4종(블록·낱말쓰기·낱말그리기·그림짝)에만
+ *    붙고 음절 만들기는 글자라 붙지 않는다. 「배운 낱말이 동화책으로 이어진다」는 주장은 바로 위
+ *    브릿지 그림 세 칸(리 → 오리 → 미운 아기 오리)이 맡는다. 문구도 그에 맞춰야 하고,
+ *    되돌릴 땐 note 의 「맞히면 … 열립니다」가 그때만 참이라는 걸 기억할 것.
  * 🔴 **한/영은 토글로 합친다.** 헤드라인에서 「한글도 하고 영어도 해요」라고 말하면 백화점이 되고,
  *    무명 브랜드가 그러면 무엇을 파는지가 안 남는다. 대신 여기서 실물로 보여준다 —
- *    세로가 안 늘고, 영어 인덱스에도 낱말이 283개 있어 영어도 똑같이 동화책으로 이어진다.
+ *    세로가 안 늘고, 영어도 같은 자리에서 글자가 붙는 걸 보여준다(`cvc-an` = c + an → can).
  * 🔴 예전엔 이 상자가 **아홉 개 스택의 맨 아래**에 있었다(8.3화면). 가장 센 증거를 8화면 밑에
  *    묻어 두고 위에서는 글로 설명하고 있었다.
  */
@@ -672,7 +676,7 @@ function TryBridge() {
     <section className="px-4 pt-10 pb-4 sm:px-6 sm:pt-12">
       <div className="mx-auto max-w-3xl text-center lg:max-w-5xl">
         <h2 className="font-display text-[24px] font-extrabold text-ink-900 break-keep sm:text-[32px]">
-          낱말 하나 맞혀보세요
+          글자 두 개를 눌러 보세요
         </h2>
         <p className="mt-3 inline-flex items-center gap-2 rounded-full border-2 border-coral-300 bg-coral-50 px-4 py-2.5 text-[15px] font-extrabold text-coral-700 break-keep sm:text-lg">
           <span className="animate-pulse text-2xl sm:text-3xl">👆</span>
@@ -710,9 +714,13 @@ function TryBridge() {
           key={lang}
           unitId={lang === 'ko' ? GA_UNIT : EN_UNIT}
           language={lang === 'ko' ? 'korean' : 'english'}
-          activityKey="game-line-matching"
-          height={620}
-          note="맞히면 그 낱말이 나오는 동화책 한 쪽이 열립니다 — 눌러보세요."
+          activityKey={lang === 'ko' ? 'blend-listen' : 'cvc-an'}
+          height={560}
+          note={
+            lang === 'ko'
+              ? 'ㄱ 과 ㅏ 가 만나 「가」가 됩니다 — 두 글자를 눌러 보세요.'
+              : 'c 와 an 이 붙어 can 이 됩니다 — 눌러 보세요.'
+          }
           cta
         />
       </div>
