@@ -765,6 +765,25 @@ function TryBridge() {
           note="다 쓰면 그 낱말이 나오는 동화책 한 쪽이 열립니다 — 손으로 따라 써 보세요."
           cta
         />
+
+        {/* 🔴 **끝까지 안 해본 사람을 위한 증거**(2026-08-18 리뷰). 데모는 낱말을 다 써야 리빌이
+            뜨는데 대부분은 안 쓴다 — 그러면 이 페이지에서 가장 센 장면을 아무도 못 본다.
+            사진이 「하면 이렇게 된다」를 대신 말한다.
+            🔴 예전 자리는 11.3화면(77%)이었다. 한 바퀴를 증명하는 **유일한 사진**이 페이지 끝에
+            묻혀 있었다 — 이동이라 세로 증감은 0 이다. */}
+        <figure className="mt-4">
+          <img
+            src="/landing/hangul/cycle-reveal.webp"
+            alt="파닉스에서 「고기」를 맞히자 그 낱말이 나오는 공룡 동화책 쪽이 열린 화면"
+            width={720}
+            height={406}
+            loading="lazy"
+            className="mx-auto w-full max-w-2xl rounded-2xl border border-coral-200"
+          />
+          <figcaption className="mt-2 text-center text-[13px] font-bold text-coral-800 break-keep sm:text-[15px]">
+            다 쓰면 이렇게 — 그 낱말이 나오는 동화책 쪽이 열리고, 읽어 줍니다.
+          </figcaption>
+        </figure>
       </div>
     </section>
   );
@@ -827,8 +846,10 @@ const A = 'https://assets.tangobook.co.kr/';
  * 🔴 파닉스 카드와 **같은 그림 문법**(정사각 카드 + 낱말)으로 세운다. 설명 없이 눈으로
  *    「같은 종류의 것이 양쪽에 있다」가 읽히는 게 이 자리의 일이다.
  * 🔴 자산은 **앱이 쓰는 것 그대로**(R2 `keyObjectImages`) — 새로 찍거나 굽지 않는다.
- * 🔴 **「모든 책」이라고 쓰지 않는다.** 호리 3라인 78권(266권의 29%)은 `keyObjects` 가 0 이다.
- *    바로 위 라인 목록이 「호리 시리즈 78권」을 크게 세우므로, 「책마다」로 적으면 거짓이 된다.
+ * ⚠️ **호리 3라인 78권(266권의 29%)은 아직 `keyObjects` 가 0 이다.** 「책마다」는 지금 시점엔
+ *    참이 아니다 — 채우기로 하고 그 전제로 쓴 문장이다(2026-08-18 사용자 판단). 추출 데이터
+ *    1,114낱말/196권은 이미 있고 R2 적용만 남았다. **적용 전에 광고를 크게 돌리면 그 29% 가
+ *    비용이 된다** — 호리 표지를 눌러 들어간 부모가 독후활동을 못 만난다.
  */
 const BOOK_WORDS: { title: string; line: string; cover: string; words: [string, string][] }[] = [
   {
@@ -1094,19 +1115,6 @@ function LearnReadCycle() {
             낱말이 나오는 동화책 쪽이 열려요.
           </p>
         </div>
-        <figure className="mt-3">
-          <img
-            src="/landing/hangul/cycle-reveal.webp"
-            alt="파닉스 게임에서 「고기」를 맞히자 그 낱말이 나오는 공룡 동화책 쪽이 열린 화면"
-            width={720}
-            height={406}
-            loading="lazy"
-            className="w-full rounded-2xl border border-coral-200"
-          />
-          <figcaption className="mt-1.5 text-center text-[13px] font-bold text-coral-800 break-keep sm:text-[15px]">
-            「고기」를 맞힌 그 순간 — 삽화와 문장이 함께 나오고, 읽어 줍니다.
-          </figcaption>
-        </figure>
       </div>
     </div>
   );
