@@ -569,10 +569,12 @@ function Photo({
  *    단원이 늘면 이 화면도 같이 늘어난다. 복습 단원은 배지로 구분한다.
  */
 /**
- * 한 단원이 무엇을 남기나 — 「ㅁ」 단원의 낱말 넷.
+ * 단원마다 낱말도 배운다 — 「ㅁ」 단원의 낱말 넷.
  *
  * 🔴 커리큘럼 다섯 줄은 **범위**를 말하지 낱말을 안 보여준다. 부모가 궁금한 건 「32단원이 있다」가
- *    아니라 「우리 애가 뭘 읽게 되나」다. 그래서 단원 목록보다 **낱말 카드**가 먼저다.
+ *    아니라 「우리 애가 뭘 읽게 되나」다. 그래서 단원 목록보다 **낱말 카드가 먼저** 오고,
+ *    절 제목(「한글 파닉스 32단원」) **위**에 선다(2026-08-18 사용자) — 커리큘럼을 읽기 전에
+ *    「글자만 떼고 끝나는 게 아니구나」가 먼저 보여야 한다.
  * 🔴 카드 그림은 앱이 쓰는 그것을 그대로 가리킨다(R2) — 사본을 구우면 낱말을 바꿀 때 갈라진다.
  */
 const GA_WORDS: { w: string; img: string }[] = [
@@ -584,11 +586,14 @@ const GA_WORDS: { w: string; img: string }[] = [
 
 function GaWords() {
   return (
-    <div className="!mt-0 !mb-6">
-      <p className="text-[15px] font-bold text-ink-700 break-keep sm:text-lg">
-        「ㅁ」 한 단원을 떼면 이만큼 읽습니다
+    <div className="mx-auto max-w-3xl px-4 pt-10 sm:px-6 lg:max-w-5xl xl:max-w-6xl">
+      <p className="text-[17px] font-extrabold text-ink-900 break-keep sm:text-xl">
+        단원마다 <span className="text-coral-700">낱말</span>도 함께 배워요
       </p>
-      <ul className="mt-3 grid grid-cols-4 gap-2 sm:gap-3">
+      <p className="mt-1 text-[14px] text-ink-600 break-keep sm:text-base">
+        글자만 떼고 끝나지 않아요 — 「ㅁ」 단원에서 만나는 낱말 넷입니다.
+      </p>
+      <ul className="mt-4 grid grid-cols-4 gap-2 sm:gap-3">
         {GA_WORDS.map((it) => (
           <li
             key={it.w}
@@ -1254,6 +1259,7 @@ export default function IntroPage() {
           ))}
         </div>
       </Section>
+      <GaWords />
       <Section
         title={
           <>
@@ -1266,7 +1272,6 @@ export default function IntroPage() {
           자음·모음에서 시작해 받침·쌍자음·복잡한 모음까지, <strong>다섯 단계</strong>로 차근차근
           밟아요. 한 단원은 하루 10~15분 분량이에요.
         </p>
-        <GaWords />
         <ol className="!mt-5 space-y-2">
           {STAGES.map((s, i) => (
             <li
