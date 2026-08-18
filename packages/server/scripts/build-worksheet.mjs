@@ -871,7 +871,7 @@ ${body}`;
  *    여는 물건이므로, 32단원을 전부 한 파일에 담고 CSS 로 보이고 감춘다(약 3MB).
  * 🔴 목록은 생성한 단원에서 **파생**한다. 손으로 적으면 단원이 늘 때 한쪽만 고쳐져 갈라진다.
  */
-function renderIndex(items, L = { name: '한글 워크지', unit: '익힘' }) {
+function renderIndex(items, L = { name: '한글 워크지', unit: '익힘', allHref: 'ko_phonics_all.html' }) {
   const groups = [];
   for (const it of items) {
     const g = groups.find((x) => x.level === it.levelName);
@@ -904,8 +904,10 @@ ${STYLE}
   a.item b { font-size:15px; min-width:22px; color:var(--coral-700); }
   a.item .g { font-size:15px; font-weight:800; min-width:46px; }
   a.item .w { font-size:11px; color:var(--ink-600); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  a.all { margin:6px 18px 0; padding:9px 12px; border:1px dashed var(--peach-200); border-radius:8px;
+  button.all { margin:6px 18px 0; width:calc(100% - 36px); padding:9px 12px; cursor:pointer;
+    border:1px dashed var(--peach-200); border-radius:8px; background:transparent; font-family:inherit;
     display:block; text-align:center; font-size:12px; font-weight:700; color:var(--mint-600); }
+  button.all:hover { background:var(--peach-50); }
   .stamp { padding:10px 18px 0; font-size:10px; color:var(--ink-500); }
 
   .bar { position:sticky; top:0; z-index:2; display:flex; align-items:center; gap:12px; padding:10px 16px;
@@ -929,8 +931,9 @@ ${STYLE}
 
 <aside>
   <h1>${L.name} <em>인쇄용</em></h1>
-  <!-- 전체는 별도 파일로 연다 — 여기 또 심으면 같은 3MB 를 두 벌 들고 있게 된다. -->
-  <a class="all" href="all.html" target="_blank">📚 전체 ${items.length}단원 · ${items.reduce((n, it) => n + it.pageCount, 0)}쪽 한꺼번에</a>
+  <!-- 🔴 다른 파일을 가리키지 않는다. 배포엔 이 고르기 화면 **하나만** 올라가므로 합본·단원
+       파일 링크는 서버에서 그대로 404 다. 전 단원이 이미 이 안에 있으니 켜고 인쇄하면 된다. -->
+  <button class="all" id="printAll">📚 전체 ${items.length}단원 · ${items.reduce((n, it) => n + it.pageCount, 0)}쪽 한꺼번에 인쇄</button>
   <!-- 🔴 만든 시각을 박아 둔다. file:// 도 브라우저가 캐시해서, 새로 구워도 옛 화면을 보고
        「안 보인다」가 되기 쉽다(실측으로 두 번 헤맸다). 여기 시각이 안 바뀌면 캐시다. -->
   <p class="stamp">${new Date().toLocaleString('ko-KR', { hour12: false })} 판</p>
@@ -953,7 +956,6 @@ ${STYLE}
     <span class="now">${esc(first.levelName)} · ${L.unit} ${first.unitNo} · ${esc(first.glyph)}</span>
     <span class="sp"></span>
     <button id="print">🖨 이 단원 인쇄</button>
-    <a class="btn" id="open" href="${first.id}.html" target="_blank">단원 파일 따로 열기</a>
   </div>
   <!-- 🔴 첫 단원은 마크업에서 이미 켜 둔다. 전부 display:none 으로 두고 JS 로만 켜면,
        스크립트가 한 줄이라도 막히는 환경(확장·정책·구형 브라우저)에서 **백지**가 된다. -->
@@ -962,13 +964,11 @@ ${STYLE}
 
 <script>
   const now = document.querySelector('.now');
-  const open = document.getElementById('open');
   const links = [...document.querySelectorAll('a.item')];
   const main = document.querySelector('main');
   function select(a) {
     links.forEach((l) => l.classList.toggle('on', l === a));
     document.querySelectorAll('.unit').forEach((u) => u.classList.toggle('on', u.id === a.dataset.id));
-    open.href = a.dataset.id + '.html';
     now.textContent = a.dataset.name;
     // ⚠️ file:// 에서는 replaceState 가 던질 수 있다 — 그것 때문에 전환이 멈추면 안 된다.
     try { history.replaceState(null, '', '#' + a.dataset.id); } catch {}
@@ -976,6 +976,17 @@ ${STYLE}
   }
   links.forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); select(a); }));
   document.getElementById('print').addEventListener('click', () => window.print());
+  // 전체 인쇄 — 인쇄 규칙이 .on 만 남기므로, 잠깐 전부 켰다가 인쇄가 끝나면 되돌린다.
+  document.getElementById('printAll').addEventListener('click', () => {
+    const units = [...document.querySelectorAll('.unit')];
+    const was = units.filter((u) => u.classList.contains('on'));
+    units.forEach((u) => u.classList.add('on'));
+    const restore = () => { units.forEach((u) => u.classList.toggle('on', was.includes(u))); };
+    window.addEventListener('afterprint', restore, { once: true });
+    window.print();
+    // afterprint 를 안 쏘는 브라우저가 있어 보험을 하나 더 둔다.
+    setTimeout(restore, 3000);
+  });
   // 주소에 단원이 적혀 있을 때만 옮긴다 — 없으면 마크업이 이미 켜 둔 첫 단원을 그대로 둔다.
   const want = links.find((l) => l.dataset.id === location.hash.slice(1));
   if (want) select(want);
@@ -988,7 +999,11 @@ async function main() {
   const arg = (k, d) => (args.find((a) => a.startsWith(`--${k}=`)) ?? `--${k}=${d}`).split('=').slice(1).join('=');
   const lang = arg('lang', 'ko');
   const en = lang === 'en';
-  const outDir = new URL(arg('out', `../../client/public/worksheet${en ? '-en' : ''}`) + '/', import.meta.url);
+  // 🔴 두 언어가 **한 폴더**를 쓴다 — 단원 파일 id 가 `kr-*` / `en-*` 라 안 부딪히고,
+  //    고르기 화면과 합본만 이름으로 가른다(`ko_phonics.html` / `en_phonics.html`).
+  const outDir = new URL(arg('out', '../../client/public/worksheet') + '/', import.meta.url);
+  const indexName = `${lang}_phonics.html`;
+  const allName = `${lang}_phonics_all.html`;
   const only = arg('unit', '');
   const L = en
     ? { name: '영어 파닉스 워크지', unit: 'Unit', kinds: { letter: '알파벳', family: '낱말 가족' } }
@@ -1100,12 +1115,12 @@ async function main() {
   if (!only) {
     const total = index.reduce((n, it) => n + it.pageCount, 0);
     const combined = wrap(`${L.name} · 전 단원 (${units.length}단원 ${total}쪽)`, all.join('\n'));
-    await writeFile(new URL('all.html', outDir), combined, 'utf8');
-    report.push({ 단원: 'all.html', 종류: '', 글자: '', 낱말: `${units.length}단원 ${total}쪽`, 책: '', KB: Math.round(combined.length / 1024) });
+    await writeFile(new URL(allName, outDir), combined, 'utf8');
+    report.push({ 단원: allName, 종류: '', 글자: '', 낱말: `${units.length}단원 ${total}쪽`, 책: '', KB: Math.round(combined.length / 1024) });
 
-    const idx = renderIndex(index, L);
-    await writeFile(new URL('index.html', outDir), idx, 'utf8');
-    report.push({ 단원: 'index.html', 종류: '', 글자: '', 낱말: '고르기 화면', 책: '', KB: Math.round(idx.length / 1024) });
+    const idx = renderIndex(index, { ...L, allHref: allName });
+    await writeFile(new URL(indexName, outDir), idx, 'utf8');
+    report.push({ 단원: indexName, 종류: '', 글자: '', 낱말: '고르기 화면', 책: '', KB: Math.round(idx.length / 1024) });
   }
 
   console.table(report);
