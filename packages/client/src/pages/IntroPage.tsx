@@ -1396,10 +1396,26 @@ export default function IntroPage() {
           낱말을 그림으로 만나고, 글자로 조립하고, 따라 그리고, 손으로 씁니다.
         </p>
         {/* 🔴 파닉스↔동화책이 실제로 이어지는 **유일한 증거**. */}
+        {/* 🔴 **표를 보여주지 않으면 이 문장은 성립하지 않는다**(2026-08-18 리뷰). 부모는 「파닉스
+            표」를 본 적이 없다 — 본 적 없는 것의 칸이 올라간다고 하면 무슨 말인지 알 수 없다.
+            그림은 부모 리포트의 실제 컴포넌트를 찍은 것이다(`scripts/capture-report-grid.mjs`). */}
         <p className="!mt-4">
           그리고 이 낱말들은 <strong>파닉스 진도에도 함께 쌓입니다</strong> — 동화책에서 「고기」를
           맞히면 파닉스 표의 고 · 기 칸이 같이 올라갑니다.
         </p>
+        <figure className="!mt-4">
+          <img
+            src="/landing/hangul/report-grid.webp"
+            alt="부모 리포트의 자음×모음 표 — ㄱ·ㄴ 줄은 익힘(초록), ㄷ·ㄹ·ㅁ 줄은 연습 중(주황)"
+            width={640}
+            height={799}
+            loading="lazy"
+            className="mx-auto w-full max-w-md rounded-2xl border border-coral-200"
+          />
+          <figcaption className="mt-2 text-center text-[13px] font-bold text-coral-800 break-keep sm:text-[15px]">
+            부모 화면 — 어느 글자가 익었고 어디서 멈추는지 칸으로 보입니다.
+          </figcaption>
+        </figure>
         <p className="!mt-6">
           <strong>직접 읽어보실 수 있습니다.</strong> 카테고리를 눌러 그 라인의 책을 바꿔 가며
           들어보세요.
