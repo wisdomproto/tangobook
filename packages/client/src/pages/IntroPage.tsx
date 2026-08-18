@@ -483,7 +483,7 @@ function StickyCta() {
           to={SIGNUP}
           className="flex min-h-[44px] shrink-0 items-center rounded-full bg-coral-700 px-5 text-base font-bold text-white shadow-sm transition hover:bg-coral-800"
         >
-          회원가입하고 한달간 무료체험하기
+          한 달 무료로 시작하기
         </Link>
       </div>
     </div>
@@ -701,13 +701,15 @@ const EN_UNIT = 'en-b2-u01';
  * 🔴 헤드라인이 「오늘 배운 글자로 오늘 동화책을 읽어요」라고 주장하고, 이 상자가 그 자리에서
  *    증명한다 — 낱말을 맞히면 `SceneReveal` 이 그 낱말이 나오는 동화책 쪽을 삽화·문장·나레이션과
  *    함께 띄운다. 헤드라인과 데모가 같은 말을 한다.
- * 🔴 **음절 만들기여야 한다**(2026-08-18 사용자). 그림 짝 찾기를 뒀더니 0/4 로 시작해 **네 쌍을
- *    다 맞춰야** 끝났다 — 히어로 바로 아래에서 그만한 일을 시키면 대부분 스크롤로 지나간다.
- *    음절 만들기는 글자 두 개를 누르면 합쳐지는 한 동작이라 여기 설 수 있다.
- * ⚠️ 그 대신 **동화책 리빌을 잃는다** — 리빌은 낱말 활동 4종(블록·낱말쓰기·낱말그리기·그림짝)에만
- *    붙고 음절 만들기는 글자라 붙지 않는다. 「배운 낱말이 동화책으로 이어진다」는 주장은 바로 위
- *    브릿지 그림 세 칸(리 → 오리 → 미운 아기 오리)이 맡는다. 문구도 그에 맞춰야 하고,
- *    되돌릴 땐 note 의 「맞히면 … 열립니다」가 그때만 참이라는 걸 기억할 것.
+ * 🔴 **낱말 쓰기여야 한다**(2026-08-18 사용자, 세 번 고른 끝). 고른 기준은 둘이다 —
+ *    **①낱말 하나로 끝나고 ②끝나면 동화책이 열린다**.
+ *    - 그림 짝 찾기: 0/4 로 시작해 **네 쌍을 다 맞춰야** 끝났다. 히어로 바로 아래에서 그만한 일을
+ *      시키면 대부분 스크롤로 지나간다.
+ *    - 음절 만들기: 한 동작이지만 **리빌이 없다** — 리빌은 낱말 활동 4종(블록·낱말쓰기·낱말그리기·
+ *      그림짝)에만 붙고 글자 활동엔 안 붙는다. 헤드라인이 「동화책을 읽어요」인데 데모는 딴 말을 했다.
+ *    - 낱말 쓰기: 낱말 하나를 다 쓰면 그 낱말이 나오는 동화책 쪽이 열린다. 헤드라인과 같은 말을 한다.
+ * ⚠️ 탭 한 번보다는 오래 걸린다(획을 다 채워야 99% 가 된다). 그 대가로 **연결을 그 자리에서
+ *    증명**하는 걸 산 것이다 — 되돌릴 땐 이 둘 중 무엇을 포기하는지 먼저 정할 것.
  * 🔴 **한/영은 토글로 합친다.** 헤드라인에서 「한글도 하고 영어도 해요」라고 말하면 백화점이 되고,
  *    무명 브랜드가 그러면 무엇을 파는지가 안 남는다. 대신 여기서 실물로 보여준다 —
  *    세로가 안 늘고, 영어도 같은 자리에서 글자가 붙는 걸 보여준다(`cvc-an` = c + an → can).
@@ -720,7 +722,7 @@ function TryBridge() {
     <section className="px-4 pt-10 pb-4 sm:px-6 sm:pt-12">
       <div className="mx-auto max-w-3xl text-center lg:max-w-5xl">
         <h2 className="font-display text-[24px] font-extrabold text-ink-900 break-keep sm:text-[32px]">
-          글자 두 개를 눌러 보세요
+          낱말 하나 써 보세요
         </h2>
         <p className="mt-3 inline-flex items-center gap-2 rounded-full border-2 border-coral-300 bg-coral-50 px-4 py-2.5 text-[15px] font-extrabold text-coral-700 break-keep sm:text-lg">
           <span className="animate-pulse text-2xl sm:text-3xl">👆</span>
@@ -758,13 +760,9 @@ function TryBridge() {
           key={lang}
           unitId={lang === 'ko' ? GA_UNIT : EN_UNIT}
           language={lang === 'ko' ? 'korean' : 'english'}
-          activityKey={lang === 'ko' ? 'blend-listen' : 'cvc-an'}
-          height={560}
-          note={
-            lang === 'ko'
-              ? 'ㄱ 과 ㅏ 가 만나 「가」가 됩니다 — 두 글자를 눌러 보세요.'
-              : 'c 와 an 이 붙어 can 이 됩니다 — 눌러 보세요.'
-          }
+          activityKey="game-word-writing"
+          height={620}
+          note="다 쓰면 그 낱말이 나오는 동화책 한 쪽이 열립니다 — 손으로 따라 써 보세요."
           cta
         />
       </div>
@@ -818,6 +816,96 @@ const cleanTitle = (t?: string) =>
     .replace(/^\s*\d+\.\s*/, '')
     .replace(/\s*\(L\d+\)\s*$/, '')
     .trim();
+
+const A = 'https://assets.tangobook.co.kr/';
+/**
+ * 책마다 핵심 낱말이 있다 — 그걸 **그림으로** 보여준다.
+ *
+ * 🔴 예전엔 이 자리가 픽토그램 3장 + 「읽을수록 어휘와 문해력이 자라요」였다. 이 카테고리 누구나
+ *    쓰는 문장이고 밑에 증거가 없었다. 그 결과 **이을 두 물건 중 한쪽만 그림으로 존재**했다 —
+ *    파닉스 쪽엔 낱말 카드가 있는데(`GaWords`) 책 쪽엔 한 장도 없어서, 연결이 카피로만 남았다.
+ * 🔴 파닉스 카드와 **같은 그림 문법**(정사각 카드 + 낱말)으로 세운다. 설명 없이 눈으로
+ *    「같은 종류의 것이 양쪽에 있다」가 읽히는 게 이 자리의 일이다.
+ * 🔴 자산은 **앱이 쓰는 것 그대로**(R2 `keyObjectImages`) — 새로 찍거나 굽지 않는다.
+ * 🔴 **「모든 책」이라고 쓰지 않는다.** 호리 3라인 78권(266권의 29%)은 `keyObjects` 가 0 이다.
+ *    바로 위 라인 목록이 「호리 시리즈 78권」을 크게 세우므로, 「책마다」로 적으면 거짓이 된다.
+ */
+const BOOK_WORDS: { title: string; line: string; cover: string; words: [string, string][] }[] = [
+  {
+    title: '백설공주',
+    line: '세계 명작',
+    cover: `${A}1778555233699-백설공주-cover-misc-1779148945169.webp`,
+    words: [
+      ['사과', `${A}1778555233699-백설공주-keyobj-apple-1779939822554-w800.webp`],
+      ['거울', `${A}1778555233699-백설공주-keyobj-mirror-1779172375657-w800.webp`],
+      ['침대', `${A}1778555233699-백설공주-keyobj-bed-1779172377806-w800.webp`],
+      ['집', `${A}1778555233699-백설공주-keyobj-house-1779778775089-w800.webp`],
+    ],
+  },
+  {
+    title: '장수풍뎅이',
+    line: '자연 관찰',
+    cover: `${A}1777607890313-장수풍뎅이-cover-misc-1780025606215.webp`,
+    words: [
+      ['뿔', `${A}1777607890313-장수풍뎅이-keyobj-뿔-1783840581531.webp`],
+      ['알', `${A}1777607890313-장수풍뎅이-keyobj-알-1783840584862.webp`],
+      ['애벌레', `${A}1777607890313-장수풍뎅이-keyobj-애벌레-1783840586242.webp`],
+      ['장수풍뎅이', `${A}1777607890313-장수풍뎅이-keyobj-장수풍뎅이-1783840578967.webp`],
+    ],
+  },
+  {
+    title: '반쪽이',
+    line: '전래 동화',
+    cover: `${A}1785303658036-반쪽이-cover-misc-1785373418524.webp`,
+    words: [
+      ['쌀뒤주', `${A}comic-assets/jeonrae-banjjogi/word-dwiju.jpg`],
+      ['새끼줄', `${A}comic-assets/jeonrae-banjjogi/word-saekkijul.jpg`],
+      ['절굿공이', `${A}comic-assets/jeonrae-banjjogi/word-gongi.jpg`],
+      ['반짇고리', `${A}comic-assets/jeonrae-banjjogi/word-banjitgori.jpg`],
+    ],
+  },
+];
+
+function BookWords() {
+  return (
+    <div className="!mt-4 space-y-4">
+      {BOOK_WORDS.map((b) => (
+        <div key={b.title} className="flex items-center gap-3 sm:gap-4">
+          <div className="w-[26%] shrink-0 sm:w-[20%]">
+            <img
+              src={b.cover}
+              alt={`${b.title} 표지`}
+              loading="lazy"
+              className="aspect-video w-full rounded-xl border border-ink-100 object-cover"
+            />
+            <p className="mt-1 text-[13px] font-extrabold text-ink-900 break-keep sm:text-[15px]">
+              {b.title}
+            </p>
+            <p className="text-[11px] font-bold text-coral-700 sm:text-[13px]">{b.line}</p>
+          </div>
+          <ul className="grid min-w-0 flex-1 grid-cols-4 gap-1.5 sm:gap-2">
+            {b.words.map(([w, img]) => (
+              <li
+                key={w}
+                className="overflow-hidden rounded-xl border border-peach-200 bg-white text-center"
+              >
+                <img
+                  src={img}
+                  alt={w}
+                  loading="lazy"
+                  className="aspect-square w-full object-cover"
+                />
+                <span className="block py-1 text-[11px] font-extrabold text-ink-900 break-keep sm:text-sm">
+                  {w}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function LineSections() {
   const { data } = useStorybooks();
@@ -1105,10 +1193,13 @@ export default function IntroPage() {
           그냥 우리가 이걸 컨텐츠를 가지고 있다고만 언급하면 됨"). 「기역은 이름이지 소리가
           아니다」는 우리끼리 옳은 얘기고, 부모가 이 자리에서 궁금한 건 **뭐가 얼마나 있나**다.
           제목도 「이름이 아니라 소리부터」에는 정작 **한글**이 안 들어 있었다. */}
+      {/* 🔴 **파닉스를 한 배너로 합친다**(2026-08-18 리뷰). 예전엔 한글·영어·동화책이 번호 달린
+          전폭 밴드 셋으로 페이지를 셋으로 끊었다 — 연결을 주장하는 페이지의 뼈대가 정작
+          **카탈로그**를 말하고 있었다. 둘은 이어지고 셋은 목록이다. */}
       <ServiceBanner
         n={1}
-        name="탱고북 한글 파닉스"
-        tagline="자음·모음부터 받침·쌍자음까지, 소리로 글자를 뗍니다."
+        name="탱고북 파닉스"
+        tagline={`한글 ${FACTS.koreanUnits}단원 · 영어 ${FACTS.englishUnits}단원 — 소리로 글자를 뗍니다.`}
       />
 
       {/* ── ③-0 파닉스가 뭔가요 — **서비스 1 자리에선 파닉스만 말한다**(2026-08-11 사용자)
@@ -1214,11 +1305,6 @@ export default function IntroPage() {
           같이 넣는 게 맞을 거 같긴 한데"). `/english` 를 따로 두면 한 이용권으로 다 열린다는 사실이
           두 페이지로 갈라져 보인다. 대신 **분량은 한글의 1/3** — 광고 본진은 한글이고, 영어까지
           단원을 통째로 얹으면 같은 형식이 열여덟 번 이어진다. */}
-      <ServiceBanner
-        n={2}
-        name="탱고북 영어 파닉스"
-        tagline="알파벳 이름이 아니라 소리부터. 처음 보는 낱말도 스스로 읽어 냅니다."
-      />
       {/* 🔴 **펴 둔다**(2026-08-18 사용자). 예전엔 기본 접힘이었는데, 접는 근거였던 「커리큘럼+데모
           3개가 4화면을 민다」가 사라졌다 — 데모를 히어로 아래 하나로 합치면서 이 절은 커리큘럼
           다섯 줄뿐이라 1화면이 안 된다. 접어 두면 「영어도 포함」이 요약 줄 한 줄로만 남는데,
@@ -1269,7 +1355,7 @@ export default function IntroPage() {
           그래서 제목·본문을 라인 다양성 + 책마다 독후활동 게임 + 매달 증가로 바꿨다. */}
       {/* 🔴 tagline 없음(2026-08-10 사용자) — 「읽을수록 어휘와 문해력이 자랍니다」가 **바로 아래
           섹션 제목과 같은 말**이라 배너 밑에 같은 문장이 두 줄로 이어져 있었다. */}
-      <ServiceBanner n={3} name="탱고북 동화책" />
+      <ServiceBanner n={2} name="탱고북 동화책" />
       {/* 🔴 **여기가 차별점이라 제일 크게 쓴다**(2026-08-11 사용자: "우리 한글은 쟤들 둘이랑
           비슷하고, 동화책이 차별점"). 예전엔 어휘·문해력 설명 문단 넷이 먼저 나오고 표지가
           중간에 끼어 있었다 — 파는 것이 **책이 이만큼 있다**인데 글부터 읽히고 있었다.
@@ -1288,21 +1374,15 @@ export default function IntroPage() {
         <LineSections />
         {/* 읽기만 하고 끝나지 않는다 — 어휘·문해력·독후활동. 여기부터가 「그래서 뭐가 자라나」. */}
         <h3 className="!mt-10 font-display text-[23px] font-extrabold text-ink-900 break-keep sm:text-[28px]">
-          읽을수록 어휘와 문해력이 자라요
+          책마다 핵심 낱말이 있어요
         </h3>
-        <div className="!mt-4 grid gap-3 sm:grid-cols-3">
-          {BOOK_GROWS.map((g) => (
-            <div key={g.t} className="rounded-3xl bg-white/70 p-5 text-center">
-              <Pict name={g.icon} />
-              <strong className="mt-3 block font-display text-xl font-extrabold text-ink-900 lg:text-2xl xl:text-3xl">
-                {g.t}
-              </strong>
-              <span className="mt-1 block text-base text-ink-600 break-keep lg:text-lg xl:text-[18px]">
-                {g.d}
-              </span>
-            </div>
-          ))}
-        </div>
+        <BookWords />
+        {/* 🔴 이 한 줄이 파닉스 낱말 카드와 책 낱말 카드를 **잇는다**. 숫자는 실측이다
+            (`word-scenes.json`: 고기 7권 · 오리 5권). 색인 파일 자체는 랜딩에 안 싣는다(86KB). */}
+        <p className="!mt-4 text-base text-ink-700 break-keep">
+          파닉스 「ㄱ」 단원에서 배운 <strong className="text-coral-700">고기</strong>는 동화책{' '}
+          <strong className="text-coral-700">7권</strong>에 나옵니다 — 맞히면 그중 한 쪽이 열려요.
+        </p>
         <p className="!mt-6">
           다 읽고 나면 <strong>그 책에 나온 낱말로 독후활동 게임</strong>이 그 자리에서 열려요. 같은
           낱말을 그림으로 만나고, 글자로 조립하고, 따라 그리고, 손으로 씁니다.
@@ -1343,34 +1423,6 @@ export default function IntroPage() {
         <LearnReadCycle />
       </Section>
 
-      {/* ── ⑥ 실측 숫자 ───────────────────────────────────────── */}
-      <section className="px-4 py-8 sm:px-6">
-        <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl rounded-3xl bg-gradient-to-br from-mint-50 to-cream-50 p-5 sm:p-8">
-          <h2 className="font-display text-xl font-extrabold text-ink-900 break-keep sm:text-3xl">
-            숫자는 있는 그대로입니다
-          </h2>
-          <p className="mt-2 text-base text-ink-600 break-keep">
-            앱에 실제로 들어 있는 것만 적었습니다. 콘텐츠는 계속 늘고 있어서, 이 숫자는 오늘
-            기준으로 가장 적은 값입니다.
-          </p>
-          <div className="mt-5 grid grid-cols-2 gap-3">
-            {/* 🔴 **동화책 권수는 안 세운다**(2026-08-05 사용자: "지금 숫자는 많은게 아냐").
-                권수는 아직 자랑거리가 아니고 늘어나기만 한다 — 대신 **배우는 실체**(낱말·파닉스
-                단원)를 세우고, 각 숫자에 근거 각주를 붙여 "검증 가능한 숫자"로 만든다(§4-2). */}
-            <Stat
-              value={`${FACTS.vocabWords}개`}
-              label="동화책에서 배우는 낱말"
-              note="중복 제외 · 2026-08 실측"
-            />
-            <Stat
-              value={`${FACTS.phonicsUnits}단원`}
-              label="한글·영어 파닉스"
-              note={`한글 ${FACTS.koreanUnits} + 영어 ${FACTS.englishUnits}`}
-            />
-          </div>
-        </div>
-      </section>
-
       {/* ── ⑦ 혜택 (여기서 처음 등장) ─────────────────────────── */}
       <Section eyebrow="요금" title="한 달 무료로 써 보고 정하세요">
         {/* 🔴 광고는 예전부터 **한 달**로만 말해 왔다(2026-08-05) — 그때는 실제로 1년이 열려서
@@ -1389,25 +1441,6 @@ export default function IntroPage() {
           체험이 끝나도 <strong>자동으로 결제되지 않습니다.</strong> 계속 쓸지는 그때 정하시면
           됩니다.
         </p>
-        {/* 🔴 **자리 = 요금 옆**(2026-08-11 사용자: "이게 파닉스 안에 있는 게 맞아?"). 맞지 않았다 —
-            「설치·약정·광고 없음」은 학습 설명이 아니라 **구매를 막는 걱정에 대한 답**이라, 값을
-            말하는 자리에 있어야 읽힌다. 바로 아래 FAQ 도 답이 전부 「없음」이라 한 덩어리가 된다. */}
-        <div className="!mt-6 rounded-3xl bg-white/70 p-4 sm:p-5">
-          <strong className="block text-ink-900 break-keep">그리고 이런 게 없습니다</strong>
-          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
-            {NONES.map((n) => (
-              <div key={n.t} className="rounded-3xl bg-cream-100 px-2 py-4 text-center">
-                <Pict name={n.icon} />
-                <strong className="mt-2 block text-sm text-ink-900 break-keep lg:text-base xl:text-lg">
-                  {n.t}
-                </strong>
-                <span className="mt-0.5 block text-[14px] leading-snug text-ink-600 break-keep lg:text-sm xl:text-base">
-                  {n.d}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
         <p>
           아이가 무엇을 했는지 <strong>부모 화면에 그대로 남습니다.</strong> 어떤 글자에서 자꾸
           멈추는지, 어떤 낱말을 다시 보면 좋은지 — 밤에 한 번 열어보면 오늘 뭘 했는지 보입니다.
@@ -1459,7 +1492,7 @@ export default function IntroPage() {
             to={SIGNUP}
             className="mt-1 inline-flex min-h-[52px] w-full max-w-[22rem] items-center justify-center rounded-full bg-coral-700 px-6 text-base font-bold text-white shadow-md transition hover:bg-coral-800 sm:w-auto sm:max-w-none sm:px-8 sm:text-lg"
           >
-            회원가입하고 한달간 무료체험하기 →
+            한 달 무료로 시작하기 →
           </Link>
         </div>
       </Section>
