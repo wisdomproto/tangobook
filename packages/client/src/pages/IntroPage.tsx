@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSeo } from '@/lib/useSeo';
 import { SiteFooter } from '@/components/SiteFooter';
 import { PhonicsTryIt } from '@/features/phonics-learner/components/PhonicsTryIt';
-import { IntroBookTryIt, IntroWordGameTryIt } from './IntroBookTryIt';
+import { IntroBookTryIt } from './IntroBookTryIt';
 import { getAllKoreanUnits } from '@/features/phonics-learner/lib/korean-phonics-units';
 import { useStorybooks } from '@/features/storybook/hooks/useStorybooks';
 import { BookCover } from '@/design-system/primitives/BookCover';
@@ -430,32 +430,6 @@ const GA_UNIT = 'kr-h1-u02';
  * ⚠️ 이게 맞는지는 여전히 **측정이 아니라 판단**이다 — 상자마다 `tryit_view` 를 쏘고 있으므로
  *    도달률이 쌓이면 그 숫자로 다시 자를 것.
  */
-const GA_LEARN = [
-  { key: 'consonant-tap', h: 520, note: '글자 이름이 아니라 소리를 먼저 귀에 넣습니다.' },
-  {
-    key: 'blend-listen',
-    h: 520,
-    note: '두 글자가 합쳐지는 순간을 눈으로 봅니다 — 이게 읽기의 출발입니다.',
-  },
-  {
-    key: 'consonant-write',
-    h: 560,
-    note: '손이 기억합니다. 획순대로 따라 쓰고 99% 를 채워야 넘어갑니다.',
-  },
-  { key: 'letter-hunt', h: 560, note: '비슷한 글자 사이에서 오늘 배운 글자를 골라냅니다.' },
-  { key: 'word-listen-choose', h: 620, note: '소리만 듣고 고릅니다 — 눈이 아니라 귀로 하는 활동.' },
-  { key: 'game-dots', h: 620, note: '낱말이 가리키는 그림을 손으로 칠해 완성합니다.' },
-  { key: 'game-korean-block', h: 620, note: '자모를 끌어다 낱말을 조립합니다.' },
-  { key: 'game-word-writing', h: 620, note: '낱말 전체를 왼쪽부터 순서대로 씁니다.' },
-  {
-    key: 'game-line-matching',
-    h: 620,
-    /* 🔴 이 상자가 **파닉스↔동화책 연결을 실제로 보여주는 자리**다(2026-08-12) — 맞히면
-       `SceneReveal` 이 그 낱말이 나오는 동화책 쪽을 띄운다. 글로 설명할 필요 없이 눌러보면 된다. */
-    note: '맞히면 그 낱말이 나오는 동화책 한 쪽이 열립니다 — 눌러보세요.',
-    cta: true,
-  },
-];
 
 /**
  * 스크롤에 따라 나타나는 하단 고정 CTA — 첫 화면에서는 히어로 버튼이 있으니 숨긴다.
@@ -669,20 +643,75 @@ const EN_STAGES: { label: string; count: string; detail: string; tone: string }[
  *    전 권에서 빠졌다(가드 테스트 有) — en-b2-u01 의 play 는 낱말 그리기·쓰기·그림 짝 셋이다.
  */
 const EN_UNIT = 'en-b2-u01';
-const EN_TRY: { key: string; h: number; note: string; cta?: boolean }[] = [
-  {
-    key: 'cvc-an',
-    h: 560,
-    note: 'c 와 an 이 붙어 can 이 됩니다 — 영어 읽기가 시작되는 순간입니다.',
-  },
-  { key: 'game-word-writing', h: 620, note: '낱말 전체를 왼쪽부터 차례로 씁니다.' },
-  {
-    key: 'game-line-matching',
-    h: 620,
-    note: '영어도 같습니다 — 맞힌 낱말이 나오는 동화책 쪽이 열립니다.',
-    cta: true,
-  },
-];
+
+/**
+ * 이 페이지에서 **유일한 라이브 데모**.
+ *
+ * 🔴 헤드라인이 「오늘 배운 글자로 오늘 동화책을 읽어요」라고 주장하고, 이 상자가 그 자리에서
+ *    증명한다 — 낱말을 맞히면 `SceneReveal` 이 그 낱말이 나오는 동화책 쪽을 삽화·문장·나레이션과
+ *    함께 띄운다. 헤드라인과 데모가 같은 말을 한다.
+ * 🔴 **그림 짝 찾기여야 한다.** 히어로 바로 아래에서 「게임 한 판 하세요」는 부담이라 대부분
+ *    스크롤로 지나간다 — 탭 두 번이면 끝나는 활동만 여기 설 수 있다. 낱말 쓰기는 획을 다 써야 하고
+ *    블록은 자모를 조립해야 해서 둘 다 길다.
+ * 🔴 **한/영은 토글로 합친다.** 헤드라인에서 「한글도 하고 영어도 해요」라고 말하면 백화점이 되고,
+ *    무명 브랜드가 그러면 무엇을 파는지가 안 남는다. 대신 여기서 실물로 보여준다 —
+ *    세로가 안 늘고, 영어 인덱스에도 낱말이 283개 있어 영어도 똑같이 동화책으로 이어진다.
+ * 🔴 예전엔 이 상자가 **아홉 개 스택의 맨 아래**에 있었다(8.3화면). 가장 센 증거를 8화면 밑에
+ *    묻어 두고 위에서는 글로 설명하고 있었다.
+ */
+function TryBridge() {
+  const [lang, setLang] = useState<'ko' | 'en'>('ko');
+  return (
+    <section className="px-4 pt-10 pb-4 sm:px-6 sm:pt-12">
+      <div className="mx-auto max-w-3xl text-center lg:max-w-5xl">
+        <h2 className="font-display text-[24px] font-extrabold text-ink-900 break-keep sm:text-[32px]">
+          낱말 하나 맞혀보세요
+        </h2>
+        <p className="mt-3 inline-flex items-center gap-2 rounded-full border-2 border-coral-300 bg-coral-50 px-4 py-2.5 text-[15px] font-extrabold text-coral-700 break-keep sm:text-lg">
+          <span className="animate-pulse text-2xl sm:text-3xl">👆</span>
+          진짜 앱 화면입니다 — 지금 눌러보세요
+        </p>
+
+        <div className="mt-4 flex justify-center gap-2">
+          {(
+            [
+              ['ko', '한글'],
+              ['en', 'English'],
+            ] as const
+          ).map(([v, label]) => (
+            <button
+              key={v}
+              type="button"
+              onClick={() => setLang(v)}
+              className={`min-h-[44px] rounded-full border-2 px-5 text-base font-extrabold transition ${
+                lang === v
+                  ? 'border-coral-500 bg-coral-500 text-white'
+                  : 'border-line bg-white text-ink-500 hover:border-coral-300'
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {/* 🔴 `key` 로 갈아끼운다 — 토글은 **다른 단원의 다른 활동**이라 안에서 상태를 이어받으면
+            앞 언어의 낱말이 남는다. */}
+        {/* 🔴 `language` 를 반드시 같이 넘긴다 — 안 넘기면 영어 단원 id 를 한글 plan 에서 찾다가
+            활동을 못 찾고 상자가 **조용히 사라진다**(`if (!activity) return null`). 에러도 안 난다.
+            토글을 붙이고 처음 실행했을 때 실제로 이렇게 빈 상자가 나왔다. */}
+        <PhonicsTryIt
+          key={lang}
+          unitId={lang === 'ko' ? GA_UNIT : EN_UNIT}
+          language={lang === 'ko' ? 'korean' : 'english'}
+          activityKey="game-line-matching"
+          height={620}
+          note="맞히면 그 낱말이 나오는 동화책 한 쪽이 열립니다 — 눌러보세요."
+          cta
+        />
+      </div>
+    </section>
+  );
+}
 
 const LINES: { name: string; n: number; d: string; match: (c: string) => boolean }[] = [
   {
@@ -1011,6 +1040,8 @@ export default function IntroPage() {
         </div>
       </header>
 
+      <TryBridge />
+
       {/* ── ③ 파닉스 커리큘럼 (데모보다 먼저 — 아래 데모가 32개 중 하나임을 알고 보게) ─────────────────────────────────── */}
       {/* 🔴 **가르치는 법을 설명하지 않는다**(2026-08-05 사용자: "이런 얘기는 안 해도 됨.
           그냥 우리가 이걸 컨텐츠를 가지고 있다고만 언급하면 됨"). 「기역은 이름이지 소리가
@@ -1151,16 +1182,24 @@ export default function IntroPage() {
                 말해 주지 못하고** ②진짜로 눌러볼 화면이 바로 아래인데 그 앞을 800px 이 막았다.
                 이 구간의 일은 분위기가 아니라 **빨리 만지게 하는 것**이다.
                 (합성본 자체는 `public/landing/hangul/tracing.webp` 에 남아 있다.) */}
-            {GA_LEARN.map((a) => (
-              <PhonicsTryIt
-                key={a.key}
-                unitId={GA_UNIT}
-                activityKey={a.key}
-                height={a.h}
-                note={a.note}
-                cta={'cta' in a && a.cta}
-              />
-            ))}
+            {/* 🔴 **여기서 아홉 개를 더 세우지 않는다**(2026-08-18). 예전엔 이 자리에 활동 상자가
+                아홉 개 쌓여 8.3화면(페이지의 35%)이었다. 증명은 히어로 아래 상자 하나가 이미 끝냈고,
+                여기서 할 말은 「그게 하나가 아니라 많다」뿐이다 — 그건 숫자와 링크로 된다.
+                접기(아코디언)로 두지 않는 이유는, 펴 봐야 랜딩에서 데모를 더 보는 것뿐이기 때문이다.
+                링크로 보내면 **진짜 앱**을 쓴다. */}
+            <div className="mt-6 rounded-3xl border-2 border-peach-200 bg-white/70 p-6 text-center sm:p-8">
+              <p className="text-[17px] font-extrabold text-ink-900 break-keep sm:text-xl">
+                「ㄱ」 단원에만 활동이 <span className="text-coral-700">9개</span>,
+                <br className="sm:hidden" /> 이런 단원이{' '}
+                <span className="text-coral-700">{FACTS.koreanUnits}개</span> 있습니다
+              </p>
+              <Link
+                to={`/library/phonics/korean/${GA_UNIT}`}
+                className="mt-4 inline-flex min-h-[56px] items-center justify-center rounded-full bg-coral-700 px-8 text-lg font-extrabold text-white shadow-lg transition hover:bg-coral-800"
+              >
+                「ㄱ」 단원 직접 해보기 →
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -1252,17 +1291,21 @@ export default function IntroPage() {
                   <span className="animate-pulse text-2xl sm:text-3xl">👆</span>
                   여기도 진짜 앱 화면입니다
                 </p>
-                {EN_TRY.map((a) => (
-                  <PhonicsTryIt
-                    key={a.key}
-                    unitId={EN_UNIT}
-                    language="english"
-                    activityKey={a.key}
-                    height={a.h}
-                    note={a.note}
-                    cta={a.cta}
-                  />
-                ))}
+                {/* 🔴 영어도 상자를 다시 쌓지 않는다(2026-08-18). 히어로 아래 데모의
+                    **[English] 토글**이 이미 「영어도 똑같이 동화책으로 이어진다」를 실물로 보여준다 —
+                    여기서 세 개를 더 세우면 같은 말을 두 번 하면서 3.1화면을 쓴다. */}
+                <div className="mt-6 rounded-3xl border-2 border-peach-200 bg-white/70 p-6 text-center sm:p-8">
+                  <p className="text-[17px] font-extrabold text-ink-900 break-keep sm:text-xl">
+                    영어도 <span className="text-coral-700">{FACTS.englishUnits}단원</span>이 같은
+                    방식입니다
+                  </p>
+                  <Link
+                    to={`/library/phonics/english/${EN_UNIT}`}
+                    className="mt-4 inline-flex min-h-[56px] items-center justify-center rounded-full bg-coral-700 px-8 text-lg font-extrabold text-white shadow-lg transition hover:bg-coral-800"
+                  >
+                    「Short Vowel a」 직접 해보기 →
+                  </Link>
+                </div>
               </div>
             </div>
           </section>
@@ -1322,8 +1365,10 @@ export default function IntroPage() {
           <strong>직접 읽어보실 수 있습니다.</strong> 카테고리를 눌러 그 라인의 책을 바꿔 가며
           들어보세요.
         </p>
+        {/* 🔴 여기 게임 상자(그림짝·낱말쓰기)는 뺐다(2026-08-18) — 히어로 아래 데모가 **같은 활동**이라
+            같은 걸 두 번 보여주면서 2.1화면을 썼다. 읽어주기는 남긴다: 카테고리를 바꿔 가며
+            **책이 실제로 읽히는 것**을 듣는 자리는 여기뿐이고, 이 절의 주장이 「266권」이다. */}
         <IntroBookTryIt />
-        <IntroWordGameTryIt />
       </Section>
 
       {/* ── ⑤.5 두 서비스가 한 바퀴 — 순환 그림 ─────────────────────────
