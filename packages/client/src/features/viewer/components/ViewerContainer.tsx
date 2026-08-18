@@ -14,8 +14,7 @@ import {
 } from '@/lib/storybook-accessors';
 import { useLogEvent, useLogEventsBatch } from '@/features/learning';
 import { extractPageWords } from '@/features/learning/lib/extract-page-words';
-import { canReadBook, type Lang } from '@tangobook/shared';
-import { useAccess, PaywallNotice } from '@/features/access';
+import { type Lang } from '@tangobook/shared';
 import {
   useViewerSettings,
   VOLUME_GAIN,
@@ -81,7 +80,6 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
 
   const { data: v1Storybook, isLoading, error } = useStorybook(storybookId);
   const [settings, updateSettings] = useViewerSettings();
-  const access = useAccess();
 
   // 진입 의도 — BookDetailPage 의 "읽어주기"(자동) vs "스스로 책읽기"(자동재생 OFF) 버튼이
   // ?autoplay=1|0 을 전달한다. 마운트 시 한 번만 반영(이후엔 툴바 토글이 우선).
@@ -647,20 +645,9 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
     );
   }
 
-  // 유료화 게이팅(딥링크 포함) — 잠긴 책은 본문 대신 유료 안내. PAYWALL_ENABLED=false 면 항상 통과.
-  if (!canReadBook(storybook, access)) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-cream-50 p-4">
-        <PaywallNotice
-          status={access.status}
-          coverUrl={storybook.coverImage}
-          onLogin={() => navigate('/login?mode=signup')}
-          onSubscribe={() => navigate('/subscribe')}
-          onBrowseFree={() => navigate('/library')}
-        />
-      </div>
-    );
-  }
+  // 🔴 읽기 게이팅 폐지(2026-08-13) — 게이팅 축이 「어떤 책」이 아니라 「어떤 활동」이다.
+  //    **본문 읽기는 미로그인 포함 누구나, 전 책**. 로그인이 필요한 건 독후활동(단어 익히기)과
+  //    학습현황이다. 오픈 초반 유입을 막지 않기 위한 선택 — 딥링크로 들어와도 그대로 읽힌다.
 
   // 게임 모드 → GameListViewer (v2Style prop 은 GameListViewer 의 v2 fallback 용 — urlStyle 그대로 전달)
   if (mode === 'games') {

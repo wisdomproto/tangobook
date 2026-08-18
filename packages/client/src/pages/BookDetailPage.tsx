@@ -66,7 +66,7 @@ export default function BookDetailPage() {
   const access = useAccess();
   const styleGenreLabel = useStyleGenreLabel();
   const { map: styleGenreMap } = useStyleGenreMap();
-  const { account } = useAuth();
+  const { account, session, isConfigured } = useAuth();
   // "영상으로 보기" 모드는 아직 준비 중 — 개발자에게만 노출.
   const showVideoMode = isDevEmail(account?.email);
   const [showPaywall, setShowPaywall] = useState(false);
@@ -230,7 +230,9 @@ export default function BookDetailPage() {
     storybook.parentGuide;
 
   // 유료 책(isAccessibleForFree===false)인데 권한 없으면 본문 읽기 잠금. 무료 책은 항상 열람.
-  const locked = !canReadBook(storybook, access);
+  // 🔴 게이팅 축이 「어떤 책」이 아니라 「어떤 활동」이다(2026-08-13). 읽기는 누구나·전 책이고,
+  //    로그인이 필요한 건 **독후활동(단어 익히기)** 과 학습현황이다.
+  const needsLoginForActivity = !session && isConfigured;
 
   const enterMode = (mode: 'read' | 'video' | 'vocab', opts?: { selfRead?: boolean }) => {
     if (mode === 'video') {
@@ -252,17 +254,17 @@ export default function BookDetailPage() {
         ? `${baseId}__${effectiveLevel}`
         : storybook.id;
     if (mode === 'vocab') {
+      // 🔴 독후활동은 로그인 뒤에 — 이게 지금 로그인의 값어치다(읽기는 이미 다 열려 있다).
+      if (needsLoginForActivity) {
+        navigate('/login?mode=signup');
+        return;
+      }
       // 어휘 탭의 책별 derive 단원으로 직접 이동 (Phase 1 §6.3 회유 동선).
       // 선택 그림체·언어를 함께 전달 → 단어 게임 이미지가 고른 그림체로 나옴.
       const vq = new URLSearchParams();
       if (effectiveStyle) vq.set('style', effectiveStyle);
       vq.set('lang', lang);
       navigate(`/vocabulary/book-${targetId}?${vq.toString()}`);
-      return;
-    }
-    // 본문 읽기 게이팅 — 잠긴 책이면 이동 대신 유료 안내.
-    if (locked) {
-      setShowPaywall(true);
       return;
     }
     const qs = new URLSearchParams({ lang });
@@ -506,15 +508,8 @@ export default function BookDetailPage() {
                   iconSrc="/icons/mode/book.webp"
                   emoji="🔊"
                   title={t('modes.read')}
-                  sub={
-                    locked
-                      ? access.status === 'guest'
-                        ? t('modes.lockedGuestSub')
-                        : t('modes.lockedPremiumSub')
-                      : t('modes.readSub')
-                  }
+                  sub={t('modes.readSub')}
                   onClick={() => enterMode('read')}
-                  locked={locked}
                 />
                 <ModeCard
                   tone="mint"
@@ -524,15 +519,8 @@ export default function BookDetailPage() {
                     </span>
                   }
                   title={t('modes.selfRead')}
-                  sub={
-                    locked
-                      ? access.status === 'guest'
-                        ? t('modes.lockedGuestSub')
-                        : t('modes.lockedPremiumSub')
-                      : t('modes.selfReadSub')
-                  }
+                  sub={t('modes.selfReadSub')}
                   onClick={() => enterMode('read', { selfRead: true })}
-                  locked={locked}
                 />
                 {showVideoMode && (
                   <ModeCard

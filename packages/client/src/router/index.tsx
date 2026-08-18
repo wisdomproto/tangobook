@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter, Navigate, Outlet, useParams } from 'react-router-dom';
 import { PhonicsUnitGate } from '../features/access/components/PhonicsUnitGate';
+import { LoginGate } from '../features/access/components/LoginGate';
 import { ErrorBoundary } from '@/design-system';
 /**
  * 🔴 **저작도구 레이아웃은 lazy 다**(2026-08-04). `AppLayout`/`AppLayoutV2` 는 이름만 레이아웃이지
@@ -224,9 +225,11 @@ export const router = createBrowserRouter([
         // 학습 풀화면 — BookDetailPage 와 일관되게 AppShell 밖 (사이드바 없는 풀폭).
         path: 'vocabulary/:unitId',
         element: (
-          <ErrorBoundary>
-            <VocabularyStudyPage />
-          </ErrorBoundary>
+          <LoginGate>
+            <ErrorBoundary>
+              <VocabularyStudyPage />
+            </ErrorBoundary>
+          </LoginGate>
         ),
       },
       {

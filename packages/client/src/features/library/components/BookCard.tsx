@@ -1,8 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { canReadBook, type BookIndexEntry } from '@tangobook/shared';
+import { type BookIndexEntry } from '@tangobook/shared';
 import { BookCover } from '@/design-system';
-import { useAccess, LockBadge } from '@/features/access';
 import { useReadingStatus } from '../hooks/useReadingStatus';
 import { BookProgressBadge } from './BookProgressBadge';
 
@@ -24,12 +23,9 @@ export function BookCard({ book, eager = false, priority = false }: BookCardProp
   const navigate = useNavigate();
   const { data: statusMap } = useReadingStatus();
   const status = statusMap?.get(book.id);
-  // 프리미엄(잠금) 표시 — PAYWALL_ENABLED=false(개발단계)면 access 항상 entitled → 미표시.
-  const access = useAccess();
-  const locked = !canReadBook(book, access);
-  // "무료" 뱃지 — 잠금이 실제 작동할 때(!isEntitled)만, 무료책(isAccessibleForFree!==false:
-  // 신데렐라·인어공주·백설공주)에. 게스트가 잠긴 책들 사이에서 읽을 수 있는 책을 한눈에 찾게 함.
-  const showFreeBadge = book.isAccessibleForFree !== false && !access.isEntitled;
+  // 🔴 책 잠금 폐지(2026-08-13) — 게이팅 축이 「어떤 책」이 아니라 「어떤 활동」이다.
+  //    **읽기는 누구나**(미로그인 포함, 전 책). 로그인이 필요한 건 독후활동과 학습현황이다.
+  //    그래서 카드에 자물쇠도 "무료" 배지도 없다 — 다 열려 있으니 구분할 게 없다.
 
   return (
     <button
@@ -54,12 +50,6 @@ export function BookCard({ book, eager = false, priority = false }: BookCardProp
         {status && status !== 'unread' && (
           <BookProgressBadge status={status} className="absolute top-2 right-2" />
         )}
-        {showFreeBadge && (
-          <span className="absolute top-2 left-2 rounded-full bg-coral-500 text-white text-xs font-black px-2.5 py-1 shadow-soft">
-            {t('card.free')}
-          </span>
-        )}
-        {locked && <LockBadge className="absolute top-2 left-2" />}
       </div>
     </button>
   );
