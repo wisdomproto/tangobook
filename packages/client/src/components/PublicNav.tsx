@@ -30,52 +30,75 @@ export function PublicNav() {
 
   return (
     <div className="sticky top-0 z-40 border-b border-line/60 bg-cream-50/95 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-1.5 sm:px-6 sm:py-2.5">
-        <Link to="/" className="shrink-0 font-display text-lg font-black text-ink-900 sm:text-xl">
-          탱고북
-        </Link>
-        <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
-          {!session && (
-            <Link
-              to="/login"
-              className="text-[13px] font-bold text-ink-500 underline-offset-2 hover:underline sm:text-sm"
-            >
-              로그인
-            </Link>
-          )}
-          <Link
-            to={session ? '/library' : '/login?mode=signup'}
-            className="inline-flex min-h-[36px] items-center rounded-full bg-coral-700 px-3.5 text-[12.5px] font-extrabold text-white transition hover:bg-coral-800 sm:min-h-[44px] sm:px-5 sm:text-sm"
-          >
-            {session ? '내 서재' : '한 달 무료 시작'}
+      {/* 🔴 **한 컨테이너 안에서 정렬한다.** pill 줄을 `max-w-6xl` 래퍼 밖에 두었더니 모바일에선
+          멀쩡한데 데스크탑에서 로고는 가운데 정렬, 칩은 화면 맨 왼쪽 끝에 붙어 서로 다른 축으로
+          어긋났다. 두 줄이 같은 왼쪽 선에서 시작해야 한다. */}
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="flex items-center gap-3 py-2 sm:gap-6 sm:py-2.5">
+          <Link to="/" aria-label="탱고북 홈" className="shrink-0">
+            <img
+              src="/logo/logo-kr-520.webp"
+              alt="탱고북"
+              width={1774}
+              height={887}
+              className="h-8 w-auto sm:h-10"
+            />
           </Link>
-        </div>
-      </div>
 
-      {/* 🔴 페이지 패딩 밖으로 흘린다 — 안에 가두면 375px 에서 줄 폭이 343px 뿐이라 마지막 칩이
-          딱 떨어져 걸침이 0 이 되고, 그러면 옆에 더 있다는 신호가 사라진다. */}
-      <nav
-        aria-label="탱고북 둘러보기"
-        className="flex gap-2 overflow-x-auto px-4 pb-1.5 [scrollbar-width:none] sm:px-6 sm:pb-2.5 [&::-webkit-scrollbar]:hidden"
-      >
-        {LINKS.map((l) => {
-          const on = pathname === l.to || pathname.startsWith(l.to + '/');
-          return (
+          {/* 🔴 데스크탑은 **한 줄** — 벤치마크(Epic·HOMER)가 전부 로고 옆에 메뉴를 둔다.
+              모바일은 폭이 없어 아래 줄로 내린다. */}
+          <nav aria-label="탱고북 둘러보기" className="hidden gap-1 sm:flex">
+            {LINKS.map((l) => (
+              <NavChip key={l.to} to={l.to} label={l.label} pathname={pathname} />
+            ))}
+          </nav>
+
+          <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-4">
+            {!session && (
+              <Link
+                to="/login"
+                className="text-[13px] font-bold text-ink-500 underline-offset-2 hover:underline sm:text-sm"
+              >
+                로그인
+              </Link>
+            )}
             <Link
-              key={l.to}
-              to={l.to}
-              aria-current={on ? 'page' : undefined}
-              className={`inline-flex min-h-[32px] shrink-0 items-center rounded-full border-2 px-3.5 text-[12.5px] sm:min-h-[36px] sm:px-4 font-extrabold transition sm:text-sm ${
-                on
-                  ? 'border-coral-500 bg-coral-500 text-white'
-                  : 'border-line bg-white text-ink-700 hover:border-coral-300'
-              }`}
+              to={session ? '/library' : '/login?mode=signup'}
+              className="inline-flex min-h-[36px] items-center rounded-full bg-coral-700 px-3.5 text-[12.5px] font-extrabold text-white transition hover:bg-coral-800 sm:min-h-[44px] sm:px-5 sm:text-sm"
             >
-              {l.label}
+              {session ? '내 서재' : '한 달 무료 시작'}
             </Link>
-          );
-        })}
-      </nav>
+          </div>
+        </div>
+
+        {/* 🔴 모바일 전용 둘째 줄. 패딩 밖으로 흘려 마지막 칩이 살짝 걸쳐 보이게 —
+            딱 떨어지면 옆에 더 있다는 신호가 사라진다. */}
+        <nav
+          aria-label="탱고북 둘러보기"
+          className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:hidden [&::-webkit-scrollbar]:hidden"
+        >
+          {LINKS.map((l) => (
+            <NavChip key={l.to} to={l.to} label={l.label} pathname={pathname} />
+          ))}
+        </nav>
+      </div>
     </div>
+  );
+}
+
+function NavChip({ to, label, pathname }: { to: string; label: string; pathname: string }) {
+  const on = pathname === to || pathname.startsWith(to + '/');
+  return (
+    <Link
+      to={to}
+      aria-current={on ? 'page' : undefined}
+      className={`inline-flex min-h-[32px] shrink-0 items-center rounded-full border-2 px-3.5 text-[12.5px] font-extrabold transition sm:min-h-[38px] sm:border-0 sm:px-3 sm:text-[15px] ${
+        on
+          ? 'border-coral-500 bg-coral-500 text-white sm:bg-transparent sm:text-coral-700'
+          : 'border-line bg-white text-ink-700 hover:border-coral-300 sm:bg-transparent sm:text-ink-700 sm:hover:text-coral-700'
+      }`}
+    >
+      {label}
+    </Link>
   );
 }

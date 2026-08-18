@@ -1024,10 +1024,8 @@ export default function IntroPage() {
             오늘 배운 <span className="text-coral-700">글자</span>로 <br className="sm:hidden" />
             오늘 <span className="text-coral-700">동화책</span>을 읽어요
           </h1>
-          <p className="mx-auto mt-4 max-w-xl text-[16px] leading-relaxed text-ink-700 break-keep sm:text-[19px] lg:max-w-3xl lg:text-[22px] xl:max-w-4xl xl:text-[24px] 2xl:text-[27px]">
-            파닉스로 <strong className="text-coral-700">소리를 떼고</strong>, 그 글자가 나오는{' '}
-            <strong className="text-coral-700">동화책을 그 자리에서</strong> 읽습니다.
-          </p>
+          {/* 🔴 부제를 두지 않는다(2026-08-18 사용자). H1 을 풀어 쓴 문장은 정보가 안 늘고
+              같은 말을 두 번 읽힌다 — 히어로에서 헤드라인 다음에 오는 건 브릿지 그림과 CTA 다. */}
 
           <HeroBridge />
 
@@ -1148,63 +1146,25 @@ export default function IntroPage() {
         {/* 🔴 여기엔 연출 사진을 두지 않는다(2026-08-10 사용자). 바로 아래가 「직접 해보기」라
             **진짜 화면이 곧 나오는데** 그 앞에 태블릿 사진을 800px 깔면 도달만 늦어진다.
             (합성본은 `public/landing/hangul/siblings.webp` 에 남아 있다.) */}
-        <Link
-          to="/library/phonics/korean"
-          className="!mt-5 inline-flex min-h-[44px] items-center rounded-full border-2 border-coral-500 px-6 text-base font-bold text-coral-700 transition hover:bg-coral-50"
-        >
-          커리큘럼 전체 보기 →
-        </Link>
-      </Section>
-
-      {/* ── ④ 직접 해보기 — 그 32단원 중 「ㄱ」 하나를 통째로 ───────────────────── */}
-      {/* 🔴 **상한 1152px**(2026-08-11 사용자, 두 번 좁힘) — 1600 에선 본문이 한 줄 60자를 넘어
-          눈이 줄 끝에서 다음 줄 앞을 못 찾았다. 1280 도 넓다 하여 xl 상한 하나로 통일. 전 섹션 공통.
-          🔴 **데모 상자는 글 폭을 따르지 않는다**(2026-08-11 사용자: "낱말이 너무 작아 보여").
-          `EmbedStage` 는 안쪽을 **100vw 로 그린 뒤 상자 폭/뷰포트 폭** 만큼 축소한다 — 즉
-          **화면이 넓어질수록 앱 화면이 더 작아진다**(2000px 에서 1024px 상자면 0.51배). 글 폭에
-          가둔 게 원인이라, 여기만 화면을 따라 넓힌다(2000px → 1600px 상자 → 0.8배). */}
-      <section className="px-4 py-12 sm:px-6 sm:py-14">
-        <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl">
-          <div className="rounded-3xl border border-coral-200 bg-white/60 p-4 sm:p-6">
-            <p className="text-sm font-bold tracking-wide text-coral-700">한글 파닉스 · 32단원</p>
-            <h2 className="mt-1 font-display text-[28px] font-extrabold text-ink-900 break-keep sm:text-[34px]">
-              「ㄱ」 단원 학습 샘플
-            </h2>
-            {/* 🔴 **이 한 줄이 이 페이지에서 가장 센 주장이다**(2026-08-05 사용자: "엄청 강조해서
-                보여줘야지. 폰트 크기나 색깔 다 똑같이 나오니까 실제 앱인지 느낌이 안 와").
-                본문과 같은 회색 작은 글씨로 두면 그냥 설명문 한 줄로 읽히고 지나간다 —
-                아래 아홉 개가 스크린샷이 아니라는 걸 **읽기 전에 눈으로** 알아야 한다.
-                그래서 색·크기·테두리를 다르게 주고 손가락을 깜빡인다. */}
-            <p className="mt-3 inline-flex items-center gap-2 rounded-full border-2 border-coral-300 bg-coral-50 px-4 py-2.5 text-[16px] font-extrabold text-coral-700 break-keep sm:text-xl">
-              <span className="animate-pulse text-2xl sm:text-3xl">👆</span>
-              진짜 앱 화면입니다 — 지금 눌러보세요
-            </p>
-            {/* 🔴 여기엔 연출 사진을 두지 않는다(2026-08-05). `tracing.webp`(합성본)를 크게
-                깔았었는데, ①비스듬히 놓인 태블릿이라 화면 글자가 안 읽혀 **「ㄱ 샘플」이라고
-                말해 주지 못하고** ②진짜로 눌러볼 화면이 바로 아래인데 그 앞을 800px 이 막았다.
-                이 구간의 일은 분위기가 아니라 **빨리 만지게 하는 것**이다.
-                (합성본 자체는 `public/landing/hangul/tracing.webp` 에 남아 있다.) */}
-            {/* 🔴 **여기서 아홉 개를 더 세우지 않는다**(2026-08-18). 예전엔 이 자리에 활동 상자가
-                아홉 개 쌓여 8.3화면(페이지의 35%)이었다. 증명은 히어로 아래 상자 하나가 이미 끝냈고,
-                여기서 할 말은 「그게 하나가 아니라 많다」뿐이다 — 그건 숫자와 링크로 된다.
-                접기(아코디언)로 두지 않는 이유는, 펴 봐야 랜딩에서 데모를 더 보는 것뿐이기 때문이다.
-                링크로 보내면 **진짜 앱**을 쓴다. */}
-            <div className="mt-6 rounded-3xl border-2 border-peach-200 bg-white/70 p-6 text-center sm:p-8">
-              <p className="text-[17px] font-extrabold text-ink-900 break-keep sm:text-xl">
-                「ㄱ」 단원에만 활동이 <span className="text-coral-700">9개</span>,
-                <br className="sm:hidden" /> 이런 단원이{' '}
-                <span className="text-coral-700">{FACTS.koreanUnits}개</span> 있습니다
-              </p>
-              <Link
-                to={`/library/phonics/korean/${GA_UNIT}`}
-                className="mt-4 inline-flex min-h-[56px] items-center justify-center rounded-full bg-coral-700 px-8 text-lg font-extrabold text-white shadow-lg transition hover:bg-coral-800"
-              >
-                「ㄱ」 단원 직접 해보기 →
-              </Link>
-            </div>
-          </div>
+        {/* 🔴 **버튼 둘이면 된다**(2026-08-18 사용자). 데모 아홉 개를 빼고 나니 그 자리에
+            「학습 샘플」이라는 제목과 「진짜 앱 화면입니다 — 지금 눌러보세요」 배지가 남아,
+            **눌러볼 화면이 없는데 눌러보라고** 하고 있었다. 상자 안의 상자 안의 버튼이기도 했다.
+            절을 통째로 지우고 여기 버튼만 세운다. */}
+        <div className="!mt-6 flex flex-wrap gap-3">
+          <Link
+            to={`/library/phonics/korean/${GA_UNIT}`}
+            className="inline-flex min-h-[52px] items-center rounded-full bg-coral-700 px-7 text-base font-extrabold text-white shadow-lg transition hover:bg-coral-800"
+          >
+            「ㄱ」 단원 직접 해보기 →
+          </Link>
+          <Link
+            to="/library/phonics/korean"
+            className="inline-flex min-h-[52px] items-center rounded-full border-2 border-coral-500 px-6 text-base font-bold text-coral-700 transition hover:bg-coral-50"
+          >
+            커리큘럼 전체 보기 →
+          </Link>
         </div>
-      </section>
+      </Section>
 
       {/* ── ④.5 영어 파닉스 — **한 페이지에 합친다**(2026-08-11 사용자: "요금제에 전부 포함인데
           같이 넣는 게 맞을 거 같긴 한데"). `/english` 를 따로 두면 한 이용권으로 다 열린다는 사실이
@@ -1227,7 +1187,7 @@ export default function IntroPage() {
         <summary className="mx-auto flex max-w-3xl cursor-pointer list-none items-center justify-between gap-3 rounded-3xl border-2 border-coral-300 bg-coral-50 px-4 py-3 lg:max-w-5xl xl:max-w-6xl sm:px-6 sm:py-4">
           <span className="text-left text-[15px] font-bold text-ink-800 break-keep sm:text-lg xl:text-xl">
             영어 파닉스 <strong className="text-coral-700">{FACTS.englishUnits}단원</strong>도 같은
-            이용권에 들어 있어요 — 커리큘럼과 학습 샘플 보기
+            이용권에 들어 있어요 — 커리큘럼 보기
           </span>
           <span
             aria-hidden
@@ -1278,39 +1238,13 @@ export default function IntroPage() {
             >
               영어 커리큘럼 전체 보기 →
             </Link>
+            <Link
+              to={`/library/phonics/english/${EN_UNIT}`}
+              className="!mt-3 ml-3 inline-flex min-h-[52px] items-center rounded-full bg-coral-700 px-7 text-base font-extrabold text-white shadow-lg transition hover:bg-coral-800"
+            >
+              「Short Vowel a」 직접 해보기 →
+            </Link>
           </Section>
-
-          <section className="px-4 pb-12 sm:px-6 sm:pb-14">
-            <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl">
-              <div className="rounded-3xl border border-coral-200 bg-white/60 p-4 sm:p-6">
-                <p className="text-sm font-bold tracking-wide text-coral-700">
-                  영어 파닉스 · {FACTS.englishUnits}단원
-                </p>
-                <h2 className="mt-1 font-display text-[28px] font-extrabold text-ink-900 break-keep sm:text-[34px]">
-                  「c + an → can」 학습 샘플
-                </h2>
-                <p className="mt-3 inline-flex items-center gap-2 rounded-full border-2 border-coral-300 bg-coral-50 px-4 py-2.5 text-[16px] font-extrabold text-coral-700 break-keep sm:text-xl">
-                  <span className="animate-pulse text-2xl sm:text-3xl">👆</span>
-                  여기도 진짜 앱 화면입니다
-                </p>
-                {/* 🔴 영어도 상자를 다시 쌓지 않는다(2026-08-18). 히어로 아래 데모의
-                    **[English] 토글**이 이미 「영어도 똑같이 동화책으로 이어진다」를 실물로 보여준다 —
-                    여기서 세 개를 더 세우면 같은 말을 두 번 하면서 3.1화면을 쓴다. */}
-                <div className="mt-6 rounded-3xl border-2 border-peach-200 bg-white/70 p-6 text-center sm:p-8">
-                  <p className="text-[17px] font-extrabold text-ink-900 break-keep sm:text-xl">
-                    영어도 <span className="text-coral-700">{FACTS.englishUnits}단원</span>이 같은
-                    방식입니다
-                  </p>
-                  <Link
-                    to={`/library/phonics/english/${EN_UNIT}`}
-                    className="mt-4 inline-flex min-h-[56px] items-center justify-center rounded-full bg-coral-700 px-8 text-lg font-extrabold text-white shadow-lg transition hover:bg-coral-800"
-                  >
-                    「Short Vowel a」 직접 해보기 →
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </section>
         </div>
       </details>
 

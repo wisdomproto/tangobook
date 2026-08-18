@@ -82,6 +82,31 @@ export default function WorksheetPage() {
             브라우저에서 열린 뒤 <strong>Ctrl+P</strong>(맥은 ⌘+P)로 인쇄하세요.
           </p>
 
+          {/* 미리보기 = **인쇄물 그 자체**.
+            🔴 스크린샷을 따로 찍지 않는다 — 실물 HTML 이 이미 그 그림이고, 사본을 만들면 학습지를
+               고칠 때마다 미리보기가 낡는다(`/intro` 의 「스크린샷 아닌 진짜 컴포넌트」와 같은 이유).
+            🔴 `loading="lazy"` 필수 — 이 파일이 3.5~6.1MB 라 즉시 받으면 검색으로 온 사람이
+               첫 화면을 몇 초씩 기다린다. 화면에 들어올 때만 받는다.
+            🔴 `pointer-events-none` — 미리보기 안에서 스크롤하다 갇히면 페이지를 못 벗어난다. */}
+          <figure className="mt-10">
+            <div className="mx-auto aspect-[210/297] w-[17rem] overflow-hidden rounded-2xl border-2 border-peach-200 bg-white shadow-soft sm:w-[22rem]">
+              <iframe
+                src={t.file}
+                title={`${t.title} 미리보기`}
+                loading="lazy"
+                tabIndex={-1}
+                scrolling="no"
+                /* 🔴 첫 쪽(1123px = A4 한 장)은 인쇄물의 **표지·목차**다 — 그대로 보여주면
+                 학습지가 아니라 안내문이 미리보기가 된다. 한 장만큼 올려 실제 익힘 쪽을 보인다. */
+                className="pointer-events-none h-[2246px] w-[794px] origin-top-left border-0"
+                style={{ transform: 'scale(0.342) translateY(-1123px)' }}
+              />
+            </div>
+            <figcaption className="mt-3 text-[13px] text-ink-500 break-keep">
+              첫 쪽 미리보기 — 실제 인쇄물입니다
+            </figcaption>
+          </figure>
+
           <div className="mt-10 rounded-3xl border-2 border-peach-200 bg-white/70 p-6 sm:p-8">
             <p className="text-[16px] font-bold text-ink-900 break-keep sm:text-lg">
               종이 말고 화면으로도 할 수 있어요
