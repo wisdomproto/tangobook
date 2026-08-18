@@ -232,7 +232,9 @@ export default function BookDetailPage() {
   // 유료 책(isAccessibleForFree===false)인데 권한 없으면 본문 읽기 잠금. 무료 책은 항상 열람.
   // 🔴 게이팅 축이 「어떤 책」이 아니라 「어떤 활동」이다(2026-08-13). 읽기는 누구나·전 책이고,
   //    로그인이 필요한 건 **독후활동(단어 익히기)** 과 학습현황이다.
-  const needsLoginForActivity = !session && isConfigured;
+  // 미로그인은 가입으로, 체험이 끝난 사람은 구독으로 — 보낼 곳이 다르다.
+  //    (라우트의 `ActivityGate` 가 URL 직행까지 같은 규칙으로 막는다.)
+  const activityBlocked = isConfigured && (!session || !access.isEntitled);
 
   const enterMode = (mode: 'read' | 'video' | 'vocab', opts?: { selfRead?: boolean }) => {
     if (mode === 'video') {
@@ -254,9 +256,9 @@ export default function BookDetailPage() {
         ? `${baseId}__${effectiveLevel}`
         : storybook.id;
     if (mode === 'vocab') {
-      // 🔴 독후활동은 로그인 뒤에 — 이게 지금 로그인의 값어치다(읽기는 이미 다 열려 있다).
-      if (needsLoginForActivity) {
-        navigate('/login?mode=signup');
+      // 🔴 독후활동은 로그인 + 유효 권한 뒤에 — 이게 지금 계정의 값어치다(읽기는 이미 다 열려 있다).
+      if (activityBlocked) {
+        navigate(session ? '/subscribe' : '/login?mode=signup');
         return;
       }
       // 어휘 탭의 책별 derive 단원으로 직접 이동 (Phase 1 §6.3 회유 동선).
