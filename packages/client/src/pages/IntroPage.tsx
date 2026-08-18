@@ -317,9 +317,14 @@ function Pict({ name }: { name: string }) {
  *
  * 🔴 카드 두 장을 나란히 두면 「파닉스 앱 하나 + 동화책 앱 하나」로 읽힌다. 우리 정체성은 그 둘
  *    **사이**에 있으므로, 첫 화면의 주인공을 **연결 자체**로 바꾼다. 문장으로 설명하던 자리다.
- * 🔴 **꾸며 낸 그림이 아니라 앱 화면 그대로다** — 왼쪽은 파닉스 `kr-h1-u04`(ㄷ) 「낱말 연습」을
- *    찍은 것(두유·도마·기도·구두), 오른쪽은 그 낱말이 실제로 나오는 신데렐라 7쪽. 앱에서 「구두」를
+ * 🔴 **꾸며 낸 그림이 아니라 앱 화면 그대로다** — 왼쪽은 파닉스 `kr-h1-u05`(ㄹ) 의 음절 만들기와
+ *    낱말 연습을 찍은 것, 오른쪽은 그 낱말이 실제로 나오는 「미운 아기 오리」 1쪽. 앱에서 「오리」를
  *    맞히면 이 쪽이 열린다(`word-scenes.json` 색인이 그렇게 잇는다).
+ * 🔴 **세 칸이 같은 낱말이어야 한다.** 예전엔 ①ㄷ+ㅏ(=다) → ②구두 → ③신데렐라 구두 로,
+ *    「이어진다」고 말하는 그림의 ①과 ②가 안 이어져 있었다. 지금은 ①리 → ②오리 → ③미운 아기 오리다.
+ *    🔴 낱말을 바꿀 땐 **`word-scenes.json` 에 그 낱말이 있는지 먼저 본다** — ㄹ 단원 낱말 중
+ *    책으로 이어지는 건 오리뿐이고(너구리·다리·노루는 없다), 없으면 ③을 만들 수가 없다.
+ *    다시 찍으려면 `scripts/capture-bridge-{letter,word}.mjs`.
  * 🔴 왼쪽은 **낱말 카드 한 장이 아니라 「배우는 장면」**이어야 한다(2026-08-12 사용자: "왼쪽에
  *    파닉스로 글자를 배우는 장면이어야지"). 사물 사진 한 장은 제품이 아니라 소재로 보인다.
  * 🔴 문장 강조는 **앱과 같은 노란 하이라이트** — 리빌 화면에서 맞힌 낱말에 색이 들어가는 그 표시다.
@@ -365,7 +370,7 @@ function HeroBridge() {
             <span
               aria-hidden
               className="pointer-events-none absolute rounded-xl ring-[3px] ring-coral-500 sm:rounded-2xl sm:ring-4"
-              style={{ left: '54.8%', top: '4.8%', width: '38.5%', height: '87%' }}
+              style={{ left: '5.7%', top: '4.8%', width: '38.5%', height: '87%' }}
             />
           </div>
         </div>
@@ -387,15 +392,16 @@ function HeroBridge() {
           <div className="overflow-hidden rounded-2xl border border-ink-100 bg-cream-50">
             <img
               src="/landing/hangul/bridge-page.webp"
-              alt="신데렐라 동화책 한 쪽 — 유리 구두를 신은 신데렐라"
+              alt="미운 아기 오리 동화책 한 쪽 — 알에서 깨어난 아기 오리들"
               width={560}
               height={315}
               fetchPriority="high"
               className="aspect-video w-full object-cover"
             />
             <p className="px-2 py-1.5 text-left text-[11px] font-bold leading-snug text-ink-800 break-keep sm:px-3 sm:py-2 sm:text-base xl:text-lg">
-              맨발에는 세상에서 가장 아름다운 유리{' '}
-              <mark className="rounded bg-amber-200 px-1 text-ink-900">구두</mark>가 신겨졌어요.
+              햇살 좋은 날, 엄마{' '}
+              <mark className="rounded bg-amber-200 px-1 text-ink-900">오리</mark>의 알들이 톡톡
+              깨어났어요.
             </p>
           </div>
         </div>
