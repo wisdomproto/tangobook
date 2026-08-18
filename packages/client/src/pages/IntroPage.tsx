@@ -982,16 +982,20 @@ export default function IntroPage() {
             글자도 한 단계 더 올린다 — 본문은 안 따라간다(글줄이 길어지면 읽기가 나빠진다). */}
         <div className="relative mx-auto max-w-3xl text-center lg:max-w-5xl xl:max-w-6xl">
           <p className="inline-flex rounded-full bg-coral-100 px-4 py-1.5 text-base font-extrabold text-coral-700 sm:text-lg xl:px-5 xl:py-2 xl:text-xl">
-            4~7세 한글·영어 파닉스 · 동화책
+            4~7세 한글·영어
           </p>
-          {/* 🔴 **데스크탑에선 한 줄**(2026-08-10). 42px 로는 24자가 본문 폭(896px)을 넘어 세 줄로 접혔다. */}
+          {/* 🔴 **데스크탑에선 한 줄**(2026-08-10). 42px 로는 24자가 본문 폭(896px)을 넘어 세 줄로 접혔다.
+              🔴 헤드라인은 **연결**을 말한다(2026-08-18). 파닉스는 어디서나 배우고 동화책도 어디에나
+              있지만 **그 둘이 이어진 곳**은 우리뿐이라, 기능 설명(「한글 파닉스를 배우고 스스로 읽어요」)
+              대신 차별점 자체를 세운다. 바로 아래 데모가 이 문장을 그 자리에서 증명한다 —
+              헤드라인과 데모가 같은 말을 한다. */}
           <h1 className="mt-3 font-display text-[30px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:whitespace-nowrap sm:text-[32px] md:text-[38px] xl:text-[49px]">
-            <span className="text-coral-700">한글 파닉스</span>를 배우고{' '}
-            <span className="text-coral-700">스스로 동화책을 읽어요</span>
+            오늘 배운 <span className="text-coral-700">글자</span>로 <br className="sm:hidden" />
+            오늘 <span className="text-coral-700">동화책</span>을 읽어요
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-[16px] leading-relaxed text-ink-700 break-keep sm:text-[19px] lg:max-w-3xl lg:text-[22px] xl:max-w-4xl xl:text-[24px] 2xl:text-[27px]">
-            자음·모음부터 받침까지 <strong className="text-coral-700">소리로 한글을 떼고</strong>,
-            뗀 글자로 <strong className="text-coral-700">동화책을 바로 읽습니다.</strong>
+            파닉스로 <strong className="text-coral-700">소리를 떼고</strong>, 그 글자가 나오는{' '}
+            <strong className="text-coral-700">동화책을 그 자리에서</strong> 읽습니다.
           </p>
 
           <HeroBridge />
@@ -1002,7 +1006,7 @@ export default function IntroPage() {
                (모바일 블록 버튼). 데스크탑은 예전처럼 알약. */
             className="mt-5 inline-flex min-h-[68px] w-full max-w-[22rem] items-center justify-center rounded-full bg-coral-700 px-6 text-lg font-extrabold text-white shadow-lg transition hover:bg-coral-800 sm:mt-8 sm:w-auto sm:max-w-none sm:px-12 sm:text-2xl xl:mt-10 xl:min-h-[104px] xl:px-20 xl:text-[32px]"
           >
-            회원가입하고 한달간 무료체험하기
+            한 달 무료로 시작하기
           </Link>
         </div>
       </header>
