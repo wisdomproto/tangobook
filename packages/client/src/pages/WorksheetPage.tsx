@@ -1,5 +1,6 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { useSeo } from '@/lib/useSeo';
+import { PublicNav } from '@/components/PublicNav';
 
 /**
  * 인쇄용 학습지 착지 페이지 — 「무료 한글 학습지」로 검색해 온 사람이 떨어지는 자리.
@@ -53,51 +54,54 @@ export default function WorksheetPage() {
   if (!t) return <Navigate to="/worksheet" replace />;
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-cream-50 to-peach-100 px-4 py-10 sm:px-6 sm:py-14">
-      <div className="mx-auto max-w-3xl text-center">
-        <h1 className="font-display text-[28px] font-extrabold text-ink-900 break-keep sm:text-[38px]">
-          {t.title}
-        </h1>
-        <p className="mx-auto mt-4 max-w-xl text-[16px] leading-relaxed text-ink-700 break-keep sm:text-[19px]">
-          {t.lead}
-        </p>
-        <p className="mt-3 text-[15px] font-extrabold text-coral-700 sm:text-lg">
-          {t.units}단원 · {t.pages}쪽 · 가입 없이 인쇄
-        </p>
-
-        {/* 🔴 새 탭으로 연다 — 인쇄용 문서는 그 자체로 한 벌이라, 같은 탭에서 열면
-            돌아올 길이 뒤로가기뿐이고 그 사이 이 페이지가 통째로 버려진다. */}
-        <a
-          href={t.file}
-          target="_blank"
-          rel="noreferrer"
-          className="mt-8 inline-flex min-h-[64px] w-full max-w-[22rem] items-center justify-center rounded-full bg-coral-700 px-8 text-lg font-extrabold text-white shadow-lg transition hover:bg-coral-800 sm:w-auto sm:text-xl"
-        >
-          🖨 인쇄용으로 열기
-        </a>
-        <p className="mt-3 text-[13px] text-ink-500 break-keep">
-          브라우저에서 열린 뒤 <strong>Ctrl+P</strong>(맥은 ⌘+P)로 인쇄하세요.
-        </p>
-
-        <div className="mt-10 rounded-3xl border-2 border-peach-200 bg-white/70 p-6 sm:p-8">
-          <p className="text-[16px] font-bold text-ink-900 break-keep sm:text-lg">
-            종이 말고 화면으로도 할 수 있어요
+    <>
+      <PublicNav />
+      <main className="min-h-screen bg-gradient-to-b from-cream-50 to-peach-100 px-4 py-10 sm:px-6 sm:py-14">
+        <div className="mx-auto max-w-3xl text-center">
+          <h1 className="font-display text-[28px] font-extrabold text-ink-900 break-keep sm:text-[38px]">
+            {t.title}
+          </h1>
+          <p className="mx-auto mt-4 max-w-xl text-[16px] leading-relaxed text-ink-700 break-keep sm:text-[19px]">
+            {t.lead}
           </p>
-          <Link
-            to={t.app}
-            className="mt-4 inline-flex min-h-[52px] items-center justify-center rounded-full border-2 border-coral-500 px-7 text-base font-extrabold text-coral-700 transition hover:bg-coral-50"
+          <p className="mt-3 text-[15px] font-extrabold text-coral-700 sm:text-lg">
+            {t.units}단원 · {t.pages}쪽 · 가입 없이 인쇄
+          </p>
+
+          {/* 🔴 새 탭으로 연다 — 인쇄용 문서는 그 자체로 한 벌이라, 같은 탭에서 열면
+            돌아올 길이 뒤로가기뿐이고 그 사이 이 페이지가 통째로 버려진다. */}
+          <a
+            href={t.file}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-8 inline-flex min-h-[64px] w-full max-w-[22rem] items-center justify-center rounded-full bg-coral-700 px-8 text-lg font-extrabold text-white shadow-lg transition hover:bg-coral-800 sm:w-auto sm:text-xl"
           >
-            {t.appLabel} →
+            🖨 인쇄용으로 열기
+          </a>
+          <p className="mt-3 text-[13px] text-ink-500 break-keep">
+            브라우저에서 열린 뒤 <strong>Ctrl+P</strong>(맥은 ⌘+P)로 인쇄하세요.
+          </p>
+
+          <div className="mt-10 rounded-3xl border-2 border-peach-200 bg-white/70 p-6 sm:p-8">
+            <p className="text-[16px] font-bold text-ink-900 break-keep sm:text-lg">
+              종이 말고 화면으로도 할 수 있어요
+            </p>
+            <Link
+              to={t.app}
+              className="mt-4 inline-flex min-h-[52px] items-center justify-center rounded-full border-2 border-coral-500 px-7 text-base font-extrabold text-coral-700 transition hover:bg-coral-50"
+            >
+              {t.appLabel} →
+            </Link>
+          </div>
+
+          <Link
+            to="/worksheet"
+            className="mt-8 inline-block text-sm font-bold text-ink-500 underline"
+          >
+            다른 학습지 보기
           </Link>
         </div>
-
-        <Link
-          to="/worksheet"
-          className="mt-8 inline-block text-sm font-bold text-ink-500 underline"
-        >
-          다른 학습지 보기
-        </Link>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }

@@ -4,6 +4,7 @@ import { useSeo } from '@/lib/useSeo';
 import { SiteFooter } from '@/components/SiteFooter';
 import { PhonicsTryIt } from '@/features/phonics-learner/components/PhonicsTryIt';
 import { IntroBookTryIt } from './IntroBookTryIt';
+import { PublicNav } from '@/components/PublicNav';
 import { getAllKoreanUnits } from '@/features/phonics-learner/lib/korean-phonics-units';
 import { useStorybooks } from '@/features/storybook/hooks/useStorybooks';
 import { BookCover } from '@/design-system/primitives/BookCover';
@@ -327,7 +328,7 @@ function Pict({ name }: { name: string }) {
  */
 function HeroBridge() {
   return (
-    <div className="mx-auto mt-6 max-w-2xl rounded-3xl border-2 border-coral-200 bg-white/70 p-3 sm:mt-8 sm:p-5 xl:max-w-4xl xl:p-7">
+    <div className="mx-auto mt-5 max-w-2xl rounded-3xl border-2 border-coral-200 bg-white/70 p-3 sm:mt-8 sm:p-5 xl:max-w-4xl xl:p-7">
       <div className="flex items-stretch gap-2 sm:gap-4">
         {/* 왼쪽 — 파닉스에서 배우는 낱말 */}
         {/* 왼쪽 — 파닉스. 🔴 **글자가 먼저, 낱말이 그다음**(2026-08-12 사용자: "왼쪽에 단어만
@@ -980,7 +981,8 @@ export default function IntroPage() {
   return (
     <div className="min-h-dvh bg-cream-50 pb-24">
       {/* ── ① 히어로 ─────────────────────────────────────────── */}
-      <header className="relative overflow-hidden bg-gradient-to-b from-peach-100 via-peach-50 to-cream-50 px-4 pb-10 pt-9 sm:px-6 sm:pb-14 sm:pt-16">
+      <PublicNav />
+      <header className="relative overflow-hidden bg-gradient-to-b from-peach-100 via-peach-50 to-cream-50 px-4 pb-10 pt-4 sm:px-6 sm:pb-14 sm:pt-16">
         <div className="pointer-events-none absolute -right-20 -top-16 h-64 w-64 rounded-full bg-coral-100/60 blur-3xl" />
         {/* 🔴 로고를 큼지막하게 맨 위에(2026-08-05 사용자) — 브랜드가 먼저다. width/height 로 CLS 방지. */}
         {/* 🔴 **로고를 크게**(2026-08-11 사용자: "너무 작다 확 키워"). 64/80px 은 앱 헤더 크기라
