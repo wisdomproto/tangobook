@@ -584,17 +584,29 @@ const GA_WORDS: { w: string; img: string }[] = [
   { w: '거미', img: 'kr-h1-u06-geomi-714defa1' },
 ];
 
-function GaWords() {
+/** 영어 데모 단원(`en-b2-u01` Short Vowel a)의 낱말 넷 — 한글과 같은 문법으로 세운다. */
+const EN_WORDS: { w: string; img: string }[] = [
+  { w: 'can', img: 'en-b2-u01-can-d398dab7' },
+  { w: 'fan', img: 'en-b2-u01-fan-66052b1c' },
+  { w: 'man', img: 'en-b2-u01-man-c82f3835' },
+  { w: 'pan', img: 'en-b2-u01-pan-7a252f40' },
+];
+
+function UnitWords({
+  words,
+  lead,
+  sub,
+}: {
+  words: { w: string; img: string }[];
+  lead: ReactNode;
+  sub: string;
+}) {
   return (
     <div className="mx-auto max-w-3xl px-4 pt-10 sm:px-6 lg:max-w-5xl xl:max-w-6xl">
-      <p className="text-[17px] font-extrabold text-ink-900 break-keep sm:text-xl">
-        단원마다 <span className="text-coral-700">낱말</span>도 함께 배워요
-      </p>
-      <p className="mt-1 text-[14px] text-ink-600 break-keep sm:text-base">
-        글자만 떼고 끝나지 않아요 — 「ㅁ」 단원에서 만나는 낱말 넷입니다.
-      </p>
+      <p className="text-[17px] font-extrabold text-ink-900 break-keep sm:text-xl">{lead}</p>
+      <p className="mt-1 text-[14px] text-ink-600 break-keep sm:text-base">{sub}</p>
       <ul className="mt-4 grid grid-cols-4 gap-2 sm:gap-3">
-        {GA_WORDS.map((it) => (
+        {words.map((it) => (
           <li
             key={it.w}
             className="overflow-hidden rounded-2xl border-2 border-peach-200 bg-white text-center"
@@ -841,7 +853,7 @@ const A = 'https://assets.tangobook.co.kr/';
  *
  * 🔴 예전엔 이 자리가 픽토그램 3장 + 「읽을수록 어휘와 문해력이 자라요」였다. 이 카테고리 누구나
  *    쓰는 문장이고 밑에 증거가 없었다. 그 결과 **이을 두 물건 중 한쪽만 그림으로 존재**했다 —
- *    파닉스 쪽엔 낱말 카드가 있는데(`GaWords`) 책 쪽엔 한 장도 없어서, 연결이 카피로만 남았다.
+ *    파닉스 쪽엔 낱말 카드가 있는데(`UnitWords`) 책 쪽엔 한 장도 없어서, 연결이 카피로만 남았다.
  * 🔴 파닉스 카드와 **같은 그림 문법**(정사각 카드 + 낱말)으로 세운다. 설명 없이 눈으로
  *    「같은 종류의 것이 양쪽에 있다」가 읽히는 게 이 자리의 일이다.
  * 🔴 자산은 **앱이 쓰는 것 그대로**(R2 `keyObjectImages`) — 새로 찍거나 굽지 않는다.
@@ -1259,7 +1271,15 @@ export default function IntroPage() {
           ))}
         </div>
       </Section>
-      <GaWords />
+      <UnitWords
+        words={GA_WORDS}
+        lead={
+          <>
+            단원마다 <span className="text-coral-700">낱말</span>도 함께 배워요
+          </>
+        }
+        sub="글자만 떼고 끝나지 않아요 — 「ㅁ」 단원에서 만나는 낱말 넷입니다."
+      />
       <Section
         title={
           <>
@@ -1316,6 +1336,15 @@ export default function IntroPage() {
           3개가 4화면을 민다」가 사라졌다 — 데모를 히어로 아래 하나로 합치면서 이 절은 커리큘럼
           다섯 줄뿐이라 1화면이 안 된다. 접어 두면 「영어도 포함」이 요약 줄 한 줄로만 남는데,
           영어 검색 수요가 한글과 거의 같다(영어파닉스 2,020 vs 한글공부 2,230). */}
+      <UnitWords
+        words={EN_WORDS}
+        lead={
+          <>
+            영어도 같아요 — 소리로 <span className="text-coral-700">낱말</span>까지
+          </>
+        }
+        sub="「Short Vowel a」 단원에서 만나는 낱말 넷입니다."
+      />
       <div className="px-4 pb-12 sm:px-6 sm:pb-14">
         <div className="mt-2">
           <Section
