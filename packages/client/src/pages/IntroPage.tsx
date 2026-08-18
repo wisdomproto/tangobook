@@ -766,24 +766,11 @@ function TryBridge() {
           cta
         />
 
-        {/* 🔴 **끝까지 안 해본 사람을 위한 증거**(2026-08-18 리뷰). 데모는 낱말을 다 써야 리빌이
-            뜨는데 대부분은 안 쓴다 — 그러면 이 페이지에서 가장 센 장면을 아무도 못 본다.
-            사진이 「하면 이렇게 된다」를 대신 말한다.
-            🔴 예전 자리는 11.3화면(77%)이었다. 한 바퀴를 증명하는 **유일한 사진**이 페이지 끝에
-            묻혀 있었다 — 이동이라 세로 증감은 0 이다. */}
-        <figure className="mt-4">
-          <img
-            src="/landing/hangul/cycle-reveal.webp"
-            alt="파닉스에서 「고기」를 맞히자 그 낱말이 나오는 공룡 동화책 쪽이 열린 화면"
-            width={720}
-            height={406}
-            loading="lazy"
-            className="mx-auto w-full max-w-2xl rounded-2xl border border-coral-200"
-          />
-          <figcaption className="mt-2 text-center text-[13px] font-bold text-coral-800 break-keep sm:text-[15px]">
-            다 쓰면 이렇게 — 그 낱말이 나오는 동화책 쪽이 열리고, 읽어 줍니다.
-          </figcaption>
-        </figure>
+        {/* 🔴 여기에 리빌 **사진**을 두지 않는다(2026-08-18). 한 번 뒀다가 뺐다 —
+            바로 위 데모가 낱말을 다 쓰면 **그 화면이 진짜로 뜬다**. 사진을 덧붙이면 같은 말을
+            두 번 하고, 게다가 사진 속 게임(그림짝)이 이 데모(낱말 쓰기)와 달라 딴 화면처럼 보였다.
+            리뷰가 「사진이 11.3화면에 묻혔다」고 한 건 그때 데모가 리빌 없는 음절 만들기였기
+            때문이고, 데모를 바꾼 지금은 그 근거가 사라졌다. */}
       </div>
     </section>
   );
