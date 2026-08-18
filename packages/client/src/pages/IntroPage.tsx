@@ -558,6 +558,50 @@ function Photo({
  * 🔴 목록을 손으로 적지 않는다 — 앱이 쓰는 커리큘럼(`getAllKoreanUnits`)을 그대로 읽어서,
  *    단원이 늘면 이 화면도 같이 늘어난다. 복습 단원은 배지로 구분한다.
  */
+/**
+ * 한 단원이 무엇을 남기나 — 「ㄱ」 단원의 낱말 넷.
+ *
+ * 🔴 커리큘럼 다섯 줄은 **범위**를 말하지 낱말을 안 보여준다. 부모가 궁금한 건 「32단원이 있다」가
+ *    아니라 「우리 애가 뭘 읽게 되나」다. 그래서 단원 목록보다 **낱말 카드**가 먼저다.
+ * 🔴 카드 그림은 앱이 쓰는 그것을 그대로 가리킨다(R2) — 사본을 구우면 낱말을 바꿀 때 갈라진다.
+ */
+const GA_WORDS: { w: string; img: string }[] = [
+  { w: '고기', img: 'kr-h1-u02-gogi-5e25d595' },
+  { w: '가구', img: 'kr-h1-u02-gagu-18fdf742' },
+  { w: '아기', img: 'kr-h1-u02-agi-7c9fa449' },
+  { w: '야구', img: 'kr-h1-u02-yagu-005e4a89' },
+];
+
+function GaWords() {
+  return (
+    <div className="!mt-0 !mb-6">
+      <p className="text-[15px] font-bold text-ink-700 break-keep sm:text-lg">
+        「ㄱ」 한 단원을 떼면 이만큼 읽습니다
+      </p>
+      <ul className="mt-3 grid grid-cols-4 gap-2 sm:gap-3">
+        {GA_WORDS.map((it) => (
+          <li
+            key={it.w}
+            className="overflow-hidden rounded-2xl border-2 border-peach-200 bg-white text-center"
+          >
+            <img
+              src={`https://assets.tangobook.co.kr/phonics-word-cards/${it.img}-w800.webp`}
+              alt={it.w}
+              width={800}
+              height={800}
+              loading="lazy"
+              className="aspect-square w-full object-cover"
+            />
+            <span className="block py-2 text-[15px] font-extrabold text-ink-900 sm:text-lg">
+              {it.w}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 function CurriculumUnits() {
   const units = getAllKoreanUnits();
   const levels = [...new Map(units.map((u) => [u.levelKey, u.levelName])).entries()];
@@ -1129,6 +1173,7 @@ export default function IntroPage() {
           자음·모음에서 시작해 받침·쌍자음·복잡한 모음까지, <strong>다섯 단계</strong>로 차근차근
           밟아요. 한 단원은 하루 10~15분 분량이에요.
         </p>
+        <GaWords />
         <ol className="!mt-5 space-y-2">
           {STAGES.map((s, i) => (
             <li
@@ -1160,24 +1205,9 @@ export default function IntroPage() {
         {/* 🔴 여기엔 연출 사진을 두지 않는다(2026-08-10 사용자). 바로 아래가 「직접 해보기」라
             **진짜 화면이 곧 나오는데** 그 앞에 태블릿 사진을 800px 깔면 도달만 늦어진다.
             (합성본은 `public/landing/hangul/siblings.webp` 에 남아 있다.) */}
-        {/* 🔴 **버튼 둘이면 된다**(2026-08-18 사용자). 데모 아홉 개를 빼고 나니 그 자리에
-            「학습 샘플」이라는 제목과 「진짜 앱 화면입니다 — 지금 눌러보세요」 배지가 남아,
-            **눌러볼 화면이 없는데 눌러보라고** 하고 있었다. 상자 안의 상자 안의 버튼이기도 했다.
-            절을 통째로 지우고 여기 버튼만 세운다. */}
-        <div className="!mt-6 flex flex-wrap gap-3">
-          <Link
-            to={`/library/phonics/korean/${GA_UNIT}`}
-            className="inline-flex min-h-[52px] items-center rounded-full bg-coral-700 px-7 text-base font-extrabold text-white shadow-lg transition hover:bg-coral-800"
-          >
-            「ㄱ」 단원 직접 해보기 →
-          </Link>
-          <Link
-            to="/library/phonics/korean"
-            className="inline-flex min-h-[52px] items-center rounded-full border-2 border-coral-500 px-6 text-base font-bold text-coral-700 transition hover:bg-coral-50"
-          >
-            커리큘럼 전체 보기 →
-          </Link>
-        </div>
+        {/* 🔴 이 절엔 버튼을 두지 않는다(2026-08-18 사용자). 히어로 데모 상자의
+            「앱에서 이어서 하기」가 이미 파닉스로 보내고, 여기 또 두면 한 화면 안에서 같은 방향으로
+            두 번 미는 셈이다. 이 절이 할 일은 **무엇이 있는지 보여주는 것**이다. */}
       </Section>
 
       {/* ── ④.5 영어 파닉스 — **한 페이지에 합친다**(2026-08-11 사용자: "요금제에 전부 포함인데
@@ -1189,28 +1219,11 @@ export default function IntroPage() {
         name="탱고북 영어 파닉스"
         tagline="알파벳 이름이 아니라 소리부터. 처음 보는 낱말도 스스로 읽어 냅니다."
       />
-      {/* 🔴 **영어는 기본 접힘**(2026-08-12 사용자 제안) — 이 랜딩에 광고로 오는 사람은 한글을
-          찾아온 사람이고, 영어까지 펼쳐 두면 커리큘럼+데모 3개가 **4화면**을 더 밀어 아래 동화책이
-          그만큼 멀어진다. 접어도 **포함된다는 사실은 요약 줄이 말한다** — 그게 이 섹션의 일이다.
-          🔴 **여는 순간 로딩된다** — `<details>` 가 닫혀 있으면 안쪽이 화면에 안 잡히므로
-          `EmbedStage` 의 IntersectionObserver 가 안 켜지고, 활동 청크(`React.lazy`)도 안 받는다.
-          닫아 두는 것만으로 요청이 준다(따로 배선하지 않는다).
-          🔴 `<summary>` 는 **버튼처럼** 보이게 — 기본 삼각형 마커는 크롬에서만 그럴듯하고
-          사파리에선 작아서 눌러야 하는 줄 모른다. */}
-      <details className="group px-4 pb-12 sm:px-6 sm:pb-14 [&_summary::-webkit-details-marker]:hidden">
-        <summary className="mx-auto flex max-w-3xl cursor-pointer list-none items-center justify-between gap-3 rounded-3xl border-2 border-coral-300 bg-coral-50 px-4 py-3 lg:max-w-5xl xl:max-w-6xl sm:px-6 sm:py-4">
-          <span className="text-left text-[15px] font-bold text-ink-800 break-keep sm:text-lg xl:text-xl">
-            영어 파닉스 <strong className="text-coral-700">{FACTS.englishUnits}단원</strong>도 같은
-            이용권에 들어 있어요 — 커리큘럼 보기
-          </span>
-          <span
-            aria-hidden
-            className="shrink-0 text-xl font-extrabold text-coral-700 transition-transform group-open:rotate-180 sm:text-2xl"
-          >
-            ▾
-          </span>
-        </summary>
-
+      {/* 🔴 **펴 둔다**(2026-08-18 사용자). 예전엔 기본 접힘이었는데, 접는 근거였던 「커리큘럼+데모
+          3개가 4화면을 민다」가 사라졌다 — 데모를 히어로 아래 하나로 합치면서 이 절은 커리큘럼
+          다섯 줄뿐이라 1화면이 안 된다. 접어 두면 「영어도 포함」이 요약 줄 한 줄로만 남는데,
+          영어 검색 수요가 한글과 거의 같다(영어파닉스 2,020 vs 한글공부 2,230). */}
+      <div className="px-4 pb-12 sm:px-6 sm:pb-14">
         <div className="mt-2">
           <Section
             title={
@@ -1246,21 +1259,9 @@ export default function IntroPage() {
                 </li>
               ))}
             </ol>
-            <Link
-              to="/library/phonics/english"
-              className="!mt-5 inline-flex min-h-[44px] items-center rounded-full border-2 border-coral-500 px-6 text-base font-bold text-coral-700 transition hover:bg-coral-50"
-            >
-              영어 커리큘럼 전체 보기 →
-            </Link>
-            <Link
-              to={`/library/phonics/english/${EN_UNIT}`}
-              className="!mt-3 ml-3 inline-flex min-h-[52px] items-center rounded-full bg-coral-700 px-7 text-base font-extrabold text-white shadow-lg transition hover:bg-coral-800"
-            >
-              「Short Vowel a」 직접 해보기 →
-            </Link>
           </Section>
         </div>
-      </details>
+      </div>
 
       {/* ── ⑤ 동화책 ──────────────────────────────────────────── */}
       {/* 🔴 **쪽수·권수를 앞세우지 않는다**(2026-08-05 사용자: "쪽수 이런건 뭐하러 얘기해 의미없게").
