@@ -44,7 +44,6 @@ export function KoreanWordWritingPlayer({
   const [passed, setPassed] = useState<boolean[]>(() => items.map(() => false));
   const [scene, setScene] = useState<WordScene | null>(null);
   const completedRef = useRef(false);
-  const lastSylRef = useRef(''); // 가장 마지막에 완성한 음절 — 완성 시 이 음절 → 쉼 → 단어 순서로 재생
   const pendingPassedRef = useRef<boolean[] | null>(null);
   const logGame = useGameLogger();
   const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
@@ -92,7 +91,6 @@ export function KoreanWordWritingPlayer({
   // onSyllableDone 직후 onComplete 가 동기로 불리므로, microtask 로 미뤄 completedRef 로 판별한다.
   const handleSyllableDone = useCallback(
     (syl: string, index: number) => {
-      lastSylRef.current = syl;
       queueMicrotask(() => {
         if (completedRef.current) return; // 마지막 음절 = handleWordComplete 가 처리
         void (async () => {
@@ -137,7 +135,12 @@ export function KoreanWordWritingPlayer({
         identifierPrefix: 'wwrite-ko',
       });
       // 마지막 음절(여러 음절 단어일 때만 — 1음절이면 단어와 같으므로 생략)
-      const lastSyl = lastSylRef.current || syllables[syllables.length - 1];
+      // 🔴 **ref 를 보지 않는다**(2026-08-18 버그). `WordFillCanvas` 는 낱말이 완성되는
+      //    evaluate 에서 **마지막 글자의 `onSyllableDone` 을 일부러 안 낸다**(단어 읽기와 한
+      //    채널에서 겹치므로). 그래서 이 ref 에는 마지막 글자가 아니라 **직전 글자**가 남아 있다 —
+      //    `가구` 를 쓰면 「가」 → 쉼 → 「가구」 가 나서, 다 쓴 글자가 아니라 앞 글자를 다시 읽었다.
+      //    `|| ` 폴백은 ref 가 비어 있을 때만 도는데 비어 있지 않아 영영 안 돌았다.
+      const lastSyl = syllables[syllables.length - 1];
       const lastSylUrl =
         syllables.length > 1
           ? await resolveTtsUrl({

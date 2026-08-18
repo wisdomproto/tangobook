@@ -203,6 +203,10 @@ export function WordFillCanvas({
     //    칸을 몰아 칠할 때 `bak`+`bake`+띵동이 같은 ms 에 났다, 2026-08-06 검수). 완성이 아니면 이어읽기.
     //    소비자는 어차피 마지막 글자 이어읽기를 스킵하므로(게임 플레이어=microtask defer, 배우기=index
     //    체크) 마지막 글자의 onSyllableDone 을 안 내는 것은 동작 불변이다.
+    // 🔴 **다만 소비자가 「마지막에 알려준 글자」를 기억해 두면 그 값은 마지막 글자가 아니다** —
+    //    직전 글자다. 낱말 쓰기 플레이어가 그걸로 「다 쓴 뒤 읽어 줄 글자」를 정하다가, `가구` 를
+    //    쓰면 「가」 → 쉼 → 「가구」 를 냈다(2026-08-18). 마지막 글자는 `syllables.at(-1)` 이지
+    //    이 콜백이 알려주는 값이 아니다.
     if (!allDone) {
       for (const i of newlyDone) onSyllableDone?.(syllables[i], i);
     }

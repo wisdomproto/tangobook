@@ -52,7 +52,6 @@ export function LangWordWritingPlayer({
   const [passed, setPassed] = useState<boolean[]>(() => items.map(() => false));
   const [scene, setScene] = useState<WordScene | null>(null);
   const completedRef = useRef(false);
-  const lastUnitRef = useRef('');
   const pendingPassedRef = useRef<boolean[] | null>(null);
   const logGame = useGameLogger();
   const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
@@ -96,7 +95,6 @@ export function LangWordWritingPlayer({
   // 유닛 하나 완성 → 그 유닛 읽기(현재 무음). 마지막 유닛은 handleWordComplete 가 체인 소유.
   const handleUnitDone = useCallback(
     (unit: string) => {
-      lastUnitRef.current = unit;
       queueMicrotask(() => {
         if (completedRef.current) return;
         void (async () => {
@@ -143,7 +141,12 @@ export function LangWordWritingPlayer({
         });
       };
       // 마지막 유닛(여러 유닛일 때만) 끝까지 → 쉬고 → 단어. TTS 없으면 wordUrl=undefined 라 즉시 진행.
-      const lastUnit = lastUnitRef.current || units[units.length - 1];
+      // 🔴 **ref 를 보지 않는다**(2026-08-18 버그). `WordFillCanvas` 는 낱말이 완성되는
+      //    evaluate 에서 **마지막 글자의 `onSyllableDone` 을 일부러 안 낸다**(단어 읽기와 한
+      //    채널에서 겹치므로). 그래서 이 ref 에는 마지막 글자가 아니라 **직전 글자**가 남아 있다 —
+      //    `가구` 를 쓰면 「가」 → 쉼 → 「가구」 가 나서, 다 쓴 글자가 아니라 앞 글자를 다시 읽었다.
+      //    `|| ` 폴백은 ref 가 비어 있을 때만 도는데 비어 있지 않아 영영 안 돌았다.
+      const lastUnit = units[units.length - 1];
       const lastUnitUrl = units.length > 1 ? await resolveUnitTtsUrl(lastUnit, lang) : undefined;
       if (lastUnitUrl) {
         playAudio(lastUnitUrl, () => scheduleTimer(playWordThenPraise, REST_MS));
