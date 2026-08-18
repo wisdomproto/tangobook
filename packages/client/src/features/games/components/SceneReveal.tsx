@@ -41,6 +41,23 @@ export function renderCaption(text: string, term?: string) {
 }
 
 /**
+ * 그 낱말이 **들어 있는 문장 하나만** 남긴다.
+ *
+ * 🔴 쪽 전체를 얹었더니 세 문장이 삽화 위에 한꺼번에 깔려 읽을 수가 없었다(2026-08-18 사용자).
+ *    이 화면의 일은 쪽을 읽히는 게 아니라 **방금 배운 낱말을 이야기 안에서 만나게** 하는 것이라,
+ *    그 낱말이 있는 문장이면 족하다.
+ * 🔴 문장 끝은 `.!?…` 와 **닫는 따옴표**까지 — 대사가 많아 `."` 로 끝나는 문장이 흔하다.
+ *    낱말이 없으면(색인이 물결·조사 때문에 못 찾는 경우) 원문 그대로 둔다 — 빈 화면보다 낫다.
+ */
+export function sentenceWith(text: string, term?: string): string {
+  if (!term?.trim()) return text;
+  const parts = text.match(/[^.!?…]+[.!?…]*["'”’」』]*\s*/g);
+  if (!parts) return text;
+  const hit = parts.find((p) => p.toLowerCase().includes(term.toLowerCase()));
+  return hit ? hit.trim() : text;
+}
+
+/**
  * 블록 게임 정답 후 "그 단어가 나오는 동화 장면 + 나레이션" 리빌 오버레이.
  * 오디오 생명주기를 자체 소유 — 언마운트(탭 스킵/다음) 시 정지되어 다음 단어와 겹치지 않음.
  */
@@ -134,7 +151,7 @@ export function SceneReveal({
         {text && (
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-5 py-5 sm:px-8 sm:py-7">
             <p className="text-white font-black text-lg sm:text-2xl leading-snug break-keep text-center drop-shadow">
-              {renderCaption(text, highlight)}
+              {renderCaption(sentenceWith(text, highlight), highlight)}
             </p>
           </div>
         )}
