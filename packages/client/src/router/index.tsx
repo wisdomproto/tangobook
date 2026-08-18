@@ -51,6 +51,8 @@ import LibraryPage from '../pages/LibraryPage';
 const GamesHubPage = lazy(() => import('../pages/GamesHubPage'));
 const RandomBlockGamePage = lazy(() => import('../pages/RandomBlockGamePage'));
 const RandomVocabStudyPage = lazy(() => import('../pages/RandomVocabStudyPage'));
+const WorksheetHubPage = lazy(() => import('../pages/WorksheetHubPage'));
+const WorksheetPage = lazy(() => import('../pages/WorksheetPage'));
 
 function EditorV2BidRedirect() {
   const { bid } = useParams();
@@ -170,6 +172,25 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <IntroPage />
+          </ErrorBoundary>
+        ),
+      },
+      // 인쇄 학습지 — AppShell 밖 풀화면. 🔴 게이트로 감싸지 않는다: 가입 전 사람이 그대로
+      // 쓰는 표면이고, 벽 하나가 경쟁사의 앱스토어와 종류만 다른 벽이 된다.
+      // 🔴 `/worksheet/*.html`(정적 인쇄물)은 파일이 먼저 매치되므로 이 라우트가 안 가로챈다.
+      {
+        path: 'worksheet',
+        element: (
+          <ErrorBoundary>
+            <WorksheetHubPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'worksheet/:track',
+        element: (
+          <ErrorBoundary>
+            <WorksheetPage />
           </ErrorBoundary>
         ),
       },
