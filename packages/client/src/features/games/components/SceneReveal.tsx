@@ -117,7 +117,11 @@ export function SceneReveal({
       aria-label="다음으로"
       className="fixed inset-0 z-[70] flex flex-col items-center justify-center gap-4 bg-ink-900/85 backdrop-blur-sm p-4 sm:p-8"
     >
-      <div className="relative w-full max-w-3xl aspect-video overflow-hidden rounded-3xl shadow-pop bg-ink-900">
+      {/* 🔴 폭 상한을 3xl(768px) 에서 넓혔다(2026-08-18). 폰에서는 어차피 화면보다 넓어 바뀌는 게
+          없고, **넓은 화면에서만** 달라진다 — 데스크탑 앱에서도 동화책 한 쪽이 화면 절반짜리
+          카드로 뜨던 것이 커지고, 랜딩 데모 상자(`EmbedStage` 가 앱을 호스트 뷰포트 폭으로 그린 뒤
+          축소한다)에서 리빌이 눈에 띄게 작던 것이 같이 해결된다. */}
+      <div className="relative w-full max-w-5xl aspect-video overflow-hidden rounded-3xl shadow-pop bg-ink-900">
         <img
           src={illustrationUrl}
           alt=""

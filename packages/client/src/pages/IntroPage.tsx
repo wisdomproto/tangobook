@@ -425,7 +425,17 @@ const SIGNUP = '/login?mode=signup';
  *    아홉 개가 전부 앱에서 도는 그 컴포넌트다. 배선은 `KoreanPhonicsActivity` 하나를 재사용한다.
  * 🔴 높이는 활동마다 다르다 — 격자가 큰 게임은 500px 이면 아래가 잘린다.
  */
-const GA_UNIT = 'kr-h1-u02';
+/**
+ * 데모·낱말 카드에 쓸 단원.
+ *
+ * 🔴 **낱말 넷이 전부 동화책으로 이어지는 단원**이어야 한다(2026-08-18). ㄱ 단원(`kr-h1-u02`)은
+ *    야구가 색인에 없어 넷 중 하나는 다 써도 동화책이 안 열렸다 — 랜딩 데모에서 그 하나가 걸리면
+ *    헤드라인이 거짓이 된다. ㅁ 단원은 머리 12 · 모두 12 · 거미 12 · 모기 2 로 **못 뜨는 낱말이 0**
+ *    이고 합도 가장 크다(전 15단원 실측).
+ * 🔴 단원을 바꾸면 아래 `GA_WORDS` 카드와 본문의 낱말 예시도 같이 바꿔야 한다 — 셋이 갈리면
+ *    「이 단원을 떼면 이만큼 읽는다」가 다른 단원 얘기가 된다.
+ */
+const GA_UNIT = 'kr-h1-u06';
 /**
  * 🔴 **아홉 → 넷 → 둘 → 다시 아홉**(2026-08-11 사용자: "2개밖에 없는데 많이 넣어주고, 게임 포함,
  *    써보기도"). 길이를 줄이려고 둘까지 깎았는데, 그러면 이 페이지에서 가장 센 자산 —
@@ -559,24 +569,24 @@ function Photo({
  *    단원이 늘면 이 화면도 같이 늘어난다. 복습 단원은 배지로 구분한다.
  */
 /**
- * 한 단원이 무엇을 남기나 — 「ㄱ」 단원의 낱말 넷.
+ * 한 단원이 무엇을 남기나 — 「ㅁ」 단원의 낱말 넷.
  *
  * 🔴 커리큘럼 다섯 줄은 **범위**를 말하지 낱말을 안 보여준다. 부모가 궁금한 건 「32단원이 있다」가
  *    아니라 「우리 애가 뭘 읽게 되나」다. 그래서 단원 목록보다 **낱말 카드**가 먼저다.
  * 🔴 카드 그림은 앱이 쓰는 그것을 그대로 가리킨다(R2) — 사본을 구우면 낱말을 바꿀 때 갈라진다.
  */
 const GA_WORDS: { w: string; img: string }[] = [
-  { w: '고기', img: 'kr-h1-u02-gogi-5e25d595' },
-  { w: '가구', img: 'kr-h1-u02-gagu-18fdf742' },
-  { w: '아기', img: 'kr-h1-u02-agi-7c9fa449' },
-  { w: '야구', img: 'kr-h1-u02-yagu-005e4a89' },
+  { w: '머리', img: 'kr-h1-u06-meori-d65f4712' },
+  { w: '모두', img: 'kr-h1-u06-modu-388bb602' },
+  { w: '모기', img: 'kr-h1-u06-mogi-93605f08' },
+  { w: '거미', img: 'kr-h1-u06-geomi-714defa1' },
 ];
 
 function GaWords() {
   return (
     <div className="!mt-0 !mb-6">
       <p className="text-[15px] font-bold text-ink-700 break-keep sm:text-lg">
-        「ㄱ」 한 단원을 떼면 이만큼 읽습니다
+        「ㅁ」 한 단원을 떼면 이만큼 읽습니다
       </p>
       <ul className="mt-3 grid grid-cols-4 gap-2 sm:gap-3">
         {GA_WORDS.map((it) => (
@@ -721,9 +731,6 @@ function TryBridge() {
   return (
     <section className="px-4 pt-10 pb-4 sm:px-6 sm:pt-12">
       <div className="mx-auto max-w-3xl text-center lg:max-w-5xl">
-        <h2 className="font-display text-[24px] font-extrabold text-ink-900 break-keep sm:text-[32px]">
-          낱말 하나 써 보세요
-        </h2>
         <p className="mt-3 inline-flex items-center gap-2 rounded-full border-2 border-coral-300 bg-coral-50 px-4 py-2.5 text-[15px] font-extrabold text-coral-700 break-keep sm:text-lg">
           <span className="animate-pulse text-2xl sm:text-3xl">👆</span>
           진짜 앱 화면입니다 — 지금 눌러보세요
@@ -1375,8 +1382,8 @@ export default function IntroPage() {
         {/* 🔴 이 한 줄이 파닉스 낱말 카드와 책 낱말 카드를 **잇는다**. 숫자는 실측이다
             (`word-scenes.json`: 고기 7권 · 오리 5권). 색인 파일 자체는 랜딩에 안 싣는다(86KB). */}
         <p className="!mt-4 text-base text-ink-700 break-keep">
-          파닉스 「ㄱ」 단원에서 배운 <strong className="text-coral-700">고기</strong>는 동화책{' '}
-          <strong className="text-coral-700">7권</strong>에 나옵니다 — 맞히면 그중 한 쪽이 열려요.
+          파닉스 「ㅁ」 단원에서 배운 <strong className="text-coral-700">거미</strong>는 동화책{' '}
+          <strong className="text-coral-700">12권</strong>에 나옵니다 — 맞히면 그중 한 쪽이 열려요.
         </p>
         <p className="!mt-6">
           다 읽고 나면 <strong>그 책에 나온 낱말로 독후활동 게임</strong>이 그 자리에서 열려요. 같은
