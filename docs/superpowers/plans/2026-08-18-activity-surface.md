@@ -10,6 +10,24 @@
 
 ---
 
+## 진행 상황 (2026-08-18 갱신)
+
+구현은 `.claude/worktrees/activity-surface`(브랜치 `feat/activity-surface`, 21커밋)에서 했다.
+**계획에 없던 `/intro` 개편이 같은 워크트리에서 함께 진행됐다**(다른 세션과의 경계가 실제로는 안 갈렸다).
+
+| | 상태 |
+|---|---|
+| Chunk 1 Task 1 — `ColoringPlayer` 가 원본 삽화에서 색 읽기 (`answerUrl` → `colorSourceUrl`) | ✅ |
+| Chunk 1 나머지 — `catalog.ts` | ✅ / `ColoringPage`·`ColoringSheetPage`(`/games/coloring`) ❌ |
+| Chunk 2 — `/worksheet`·`/worksheet/:track` + 인쇄물 툴바 앱 버튼 | ✅ |
+| Chunk 3 — `PublicNav` | ✅ / `GamesHubPage` 카드 교체 ❌ |
+| Chunk 4 — SEO 배선(prerender 목록·canonical·sitemap 재생성) | ❌ |
+| 계획 밖 — `/intro` 재편(데모 1개·낱말 카드·히어로 문구), `SceneReveal` 문장 단위, 낱말쓰기 소리 버그 | ✅ |
+| `/` → `/intro` 라우트 전환 | ❌ |
+
+⚠️ 랜딩이 「책마다 핵심 낱말이 있어요」라고 이미 말하지만 **호리 78권(29%)은 `keyObjects` 0** 이다
+(사용자 지시로 먼저 씀 — 추출 데이터 1,114개/196권은 있고 R2 적용만 남았다).
+
 ## 🔴 시작 전에 — 워크트리
 
 이 계획을 **이 워크트리에서 실행하지 말 것.** `git rev-list --left-right --count origin/main...HEAD` = **1492 / 1486**.
