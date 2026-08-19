@@ -435,8 +435,9 @@ const SIGNUP = '/login?mode=signup';
  *    야구가 색인에 없어 넷 중 하나는 다 써도 동화책이 안 열렸다 — 랜딩 데모에서 그 하나가 걸리면
  *    헤드라인이 거짓이 된다. ㅁ 단원은 머리 12 · 모두 12 · 거미 12 · 모기 2 로 **못 뜨는 낱말이 0**
  *    이고 합도 가장 크다(전 15단원 실측).
- * 🔴 단원을 바꾸면 아래 `GA_WORDS` 카드와 본문의 낱말 예시도 같이 바꿔야 한다 — 셋이 갈리면
- *    「이 단원을 떼면 이만큼 읽는다」가 다른 단원 얘기가 된다.
+ * 🔴 단원을 바꾸면 **이 구간의 본문 낱말 예시**도 같이 바꾼다 — 갈리면 「이 단원을 떼면 이만큼
+ *    읽는다」가 다른 단원 얘기가 된다. (윗구간의 `GA_WORDS` 카드는 ㄱ 로 **따로 간다** — 이유는
+ *    거기 주석에.)
  */
 const GA_UNIT = 'kr-h1-u06';
 /**
@@ -572,19 +573,22 @@ function Photo({
  *    단원이 늘면 이 화면도 같이 늘어난다. 복습 단원은 배지로 구분한다.
  */
 /**
- * 단원마다 낱말도 배운다 — 「ㅁ」 단원의 낱말 넷.
+ * 「왜 파닉스인가」의 마지막 칸 — 그 규칙으로 읽게 되는 낱말 넷.
  *
  * 🔴 커리큘럼 다섯 줄은 **범위**를 말하지 낱말을 안 보여준다. 부모가 궁금한 건 「32단원이 있다」가
- *    아니라 「우리 애가 뭘 읽게 되나」다. 그래서 단원 목록보다 **낱말 카드가 먼저** 오고,
- *    절 제목(「한글 파닉스 32단원」) **위**에 선다(2026-08-18 사용자) — 커리큘럼을 읽기 전에
- *    「글자만 떼고 끝나는 게 아니구나」가 먼저 보여야 한다.
+ *    아니라 「우리 애가 뭘 읽게 되나」다. 그래서 단원 목록보다 **낱말 카드가 먼저** 온다.
+ * 🔴 **ㄱ 단원(`kr-h1-u02`)이다 — 그 구간이 전부 ㄱ 이라서**(2026-08-19 사용자: "정신없다").
+ *    후크가 「가구」/「가」 이고 활동 석 장도 ㄱ·ㅏ·「가」 다. 여기만 다른 단원이면 넷째 칸이
+ *    딴 얘기가 된다. ⚠️ 그래서 **아래 라이브 데모의 단원(`GA_UNIT`=ㅁ)과는 일부러 다르다** —
+ *    데모는 「맞히면 동화책이 열린다」를 보여야 해서 낱말 넷이 전부 색인에 있어야 하는데
+ *    ㄱ 은 야구가 없다. 여긴 카드일 뿐이라 그 제약이 없다.
  * 🔴 카드 그림은 앱이 쓰는 그것을 그대로 가리킨다(R2) — 사본을 구우면 낱말을 바꿀 때 갈라진다.
  */
 const GA_WORDS: { w: string; img: string }[] = [
-  { w: '머리', img: 'kr-h1-u06-meori-d65f4712' },
-  { w: '모두', img: 'kr-h1-u06-modu-388bb602' },
-  { w: '모기', img: 'kr-h1-u06-mogi-93605f08' },
-  { w: '거미', img: 'kr-h1-u06-geomi-714defa1' },
+  { w: '고기', img: 'kr-h1-u02-gogi-5e25d595' },
+  { w: '가구', img: 'kr-h1-u02-gagu-18fdf742' },
+  { w: '아기', img: 'kr-h1-u02-agi-7c9fa449' },
+  { w: '야구', img: 'kr-h1-u02-yagu-005e4a89' },
 ];
 
 /** 영어 데모 단원(`en-b2-u01` Short Vowel a)의 낱말 넷 — 한글과 같은 문법으로 세운다. */
@@ -605,7 +609,10 @@ function UnitWords({
   sub: string;
 }) {
   return (
-    <div className="mx-auto max-w-3xl px-4 pt-10 sm:px-6 lg:max-w-5xl xl:max-w-6xl">
+    /* 🔴 **세 칸과 같은 껍데기**(`rounded-3xl bg-white/70`) — 2026-08-19 사용자: "위에 액티비티
+       3개를 보여주는데 아래 낱말은 따로 도는 느낌". 배경 위에 맨몸으로 놓여 있어서 같은 이야기의
+       마지막 칸인 게 안 보였다. 넷째 칸으로 만들되 **가로로 눕혀** 셋과 구분되게 둔다. */
+    <div className="rounded-3xl bg-white/70 p-4 sm:p-5">
       <p className="text-[17px] font-extrabold text-ink-900 break-keep sm:text-xl">{lead}</p>
       <p className="mt-1 text-[14px] text-ink-600 break-keep sm:text-base">{sub}</p>
       <ul className="mt-4 grid grid-cols-4 gap-2 sm:gap-3">
@@ -1230,7 +1237,7 @@ export default function IntroPage() {
              연다(소중한글 「한글 파닉스란?」·「파닉스로 배워야 하는 이유」 3카드 / 토도 「자모음절식
              학습법」 + "'김밥'은 읽는데 '김'은 못 읽는다고요?"). 이 카테고리에서 부모가 실제로 갖는
              질문이 그것이고, 답하지 않으면 32단원 숫자가 무슨 뜻인지 모른 채 지나간다.
-          🔴 **베낀 것 = 구조와 논점, 문장이 아니다.** 후크는 우리 낱말로 다시 썼고(김밥/김 → 바나나/바),
+          🔴 **베낀 것 = 구조와 논점, 문장이 아니다.** 후크는 우리 낱말로 다시 썼고(김밥/김 → 가구/가),
              🔴 **소중한글의 「2개월 만에 80%」·「전문가 23명」·토도의 「교수 감수」는 안 쓴다** —
              우리에겐 그 데이터도 감수도 없다(전사 규칙).
           🔴 카드에 이모지·아이콘 대신 **글자 자체(ㄱ → 가 → 고기)** 를 크게 세운다. 셋을 나란히
@@ -1239,7 +1246,7 @@ export default function IntroPage() {
         eyebrow="왜 파닉스인가"
         title={
           <>
-            「바나나」는 읽는데 <span className="text-coral-700">「바」는 못 읽어요</span>
+            「가구」는 읽는데 <span className="text-coral-700">「가」는 못 읽어요</span>
           </>
         }
       >
@@ -1273,16 +1280,18 @@ export default function IntroPage() {
             </div>
           ))}
         </div>
+        <div className="!mt-3">
+          <UnitWords
+            words={GA_WORDS}
+            lead={
+              <>
+                그래서 <span className="text-coral-700">이런 낱말</span>을 읽게 돼요
+              </>
+            }
+            sub="「ㄱ」 단원에서 만나는 낱말 넷입니다. 글자만 떼고 끝나지 않아요."
+          />
+        </div>
       </Section>
-      <UnitWords
-        words={GA_WORDS}
-        lead={
-          <>
-            단원마다 <span className="text-coral-700">낱말</span>도 함께 배워요
-          </>
-        }
-        sub="글자만 떼고 끝나지 않아요 — 「ㅁ」 단원에서 만나는 낱말 넷입니다."
-      />
       <Section
         title={
           <>
@@ -1339,15 +1348,17 @@ export default function IntroPage() {
           3개가 4화면을 민다」가 사라졌다 — 데모를 히어로 아래 하나로 합치면서 이 절은 커리큘럼
           다섯 줄뿐이라 1화면이 안 된다. 접어 두면 「영어도 포함」이 요약 줄 한 줄로만 남는데,
           영어 검색 수요가 한글과 거의 같다(영어파닉스 2,020 vs 한글공부 2,230). */}
-      <UnitWords
-        words={EN_WORDS}
-        lead={
-          <>
-            영어도 같아요 — 소리로 <span className="text-coral-700">낱말</span>까지
-          </>
-        }
-        sub="「Short Vowel a」 단원에서 만나는 낱말 넷입니다."
-      />
+      <div className="mx-auto max-w-3xl px-4 pt-10 sm:px-6 lg:max-w-5xl xl:max-w-6xl">
+        <UnitWords
+          words={EN_WORDS}
+          lead={
+            <>
+              영어도 같아요 — 소리로 <span className="text-coral-700">낱말</span>까지
+            </>
+          }
+          sub="「Short Vowel a」 단원에서 만나는 낱말 넷입니다."
+        />
+      </div>
       <div className="px-4 pb-12 sm:px-6 sm:pb-14">
         <div className="mt-2">
           <Section
