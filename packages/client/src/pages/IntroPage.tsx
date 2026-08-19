@@ -643,171 +643,99 @@ const EN_WORDS: { w: string; img: string }[] = [
 ];
 
 /**
- * **글자 → 낱말 → 동화책** 세 칸. 이 페이지의 주장이 한 줄로 보이는 자리다.
+ * **파닉스 → 어휘 → 동화책** 그림 세 장. 이 페이지의 주장을 한눈에.
  *
- * 🔴 **세 단계로 세운다**(2026-08-19 사용자). 처음엔 낱말과 책만 두 칸으로 놓았는데
- *    "왼쪽에 그냥 단어 띡 주고 뭐라는 거야"였다 — 낱말만 있으면 **그 낱말을 어디서 배웠는지**가
- *    빠져서, 파닉스와 동화책을 잇는다는 말이 그림에 없다. 왼쪽에 글자(단원)를 세워야 사슬이 된다.
- * 🔴 **선을 긋지 않고 줄로 놓는다** — 앞서 곡선 일곱 개로 3×6 을 이었더니 교차가 하나뿐이라
- *    그물이 아니라 나뭇가지로 보였고, 「12권」이라 써 둔 옆에 선은 셋이라 숫자와 그림이 서로
- *    다른 말을 했다. 한 줄이 곧 한 연결이고, 표지를 여섯 장 깔면 「여러 권」이 눈으로 온다.
- * 🔴 표지는 줄마다 **여섯 장까지** + 나머지는 「+N권」 — 열두 장을 다 걸면 이 절 하나가
- *    표지 48장을 받는다(`ad-landing-perf-2026-08-11`).
- * 🔴 권수는 **서로 다른 책**이다(`new Set(...map(([id]) => id)).size`). 색인이 `[책, 쪽]` 쌍이라
- *    그냥 세면 한 책의 여러 쪽이 여러 권으로 잡힌다 — 거미가 그래서 「12권」이었다(실제 2권).
- * ⚠️ 표지 목록은 색인 순서 그대로 앞 여섯이다. 낱말을 바꾸면 스크립트로 다시 뽑을 것.
+ * 🔴 **표를 만들지 않는다**(2026-08-19 사용자: "구리다, 기계처럼 만드네. 동네 아줌마가 봐도
+ *    이해갈 만하게"). 앞선 두 판이 다 그랬다 — 곡선 일곱 개짜리 그물, 그다음엔 글자·낱말·표지
+ *    네 줄짜리 표. 둘 다 **읽어야 알 수 있는 물건**이라 스치는 사람에겐 아무것도 안 남는다.
+ *    셋을 그림 한 장씩으로 세우고 화살표로 잇는다 — 숫자는 그림 밑에 한 줄.
+ * 🔴 그림은 **그 칸이 무엇인지 말하는 것**으로 고른다: 파닉스=글자 블록, 어휘=낱말 카드,
+ *    동화책=표지 벽. 앱 스크린샷은 바로 위 순환 그림이 이미 쓰고 있어서 여기서 또 쓰면 겹친다.
+ * 🔴 가운데는 **새 자산을 만들지 않는다** — 앱이 쓰는 낱말 카드 넉 장을 그대로 격자로 놓는다.
  */
-const CHAIN: {
-  letter: string;
-  word: string;
-  img: string;
-  books: number;
-  covers: { t: string; c: string }[];
-}[] = [
-  {
-    letter: 'ㄱ',
-    word: '고기',
-    img: 'kr-h1-u02-gogi-5e25d595',
-    books: 7,
-    covers: [
-      { t: '01. 골고루 먹으면 무지개 힘!', c: '1782815785821-01골고루먹으면무지개힘-cover-misc-1783990136885' },
-      { t: '기가노토사우루스', c: '1773716818847-기가노토사우루스-cover-misc-1780044403735' },
-      { t: '타르보사우루스', c: '1773715178666-타르보사우루스-cover-misc-1780044079919' },
-      { t: '티라노사우루스 렉스', c: '1773714531390-티라노사우루스렉스-cover-misc-1780044365036' },
-      { t: '고양이', c: '1773713269796-고양이-cover-misc-1780028904155' },
-      { t: '강아지', c: '1773711154702-강아지-cover-misc-1780029018781' },
-    ],
-  },
-  {
-    letter: 'ㄱ',
-    word: '아기',
-    img: 'kr-h1-u02-agi-7c9fa449',
-    books: 12,
-    covers: [
-      { t: '39. 형아니까, 내가 도와줘!', c: '1782824087555-39형아니까내가도와줘-cover-misc-1784001811880' },
-      { t: '자린고비', c: '1785303655646-자린고비-cover-misc-1785322832909' },
-      { t: '단군 이야기', c: '1785303653015-단군이야기-cover-misc-1785307531003' },
-      { t: '10. 으앙, 실수했어', c: '1784550870376-10으앙실수했어-cover-misc-1784862133396' },
-      { t: '재주 많은 삼형제', c: '1784529061822-재주많은삼형제-cover-misc-1784707814395' },
-      { t: '젊어지는 샘물', c: '1784529060920-젊어지는샘물-cover-misc-1784717325279' },
-    ],
-  },
-  {
-    letter: 'ㅁ',
-    word: '머리',
-    img: 'kr-h1-u06-meori-d65f4712',
-    books: 12,
-    covers: [
-      { t: '파키케팔로사우루스', c: '1773895602678-파키케팔로사우루스-cover-misc-1780038213492' },
-      { t: '스테고사우루스', c: '1773891332232-스테고사우루스-cover-misc-1780038251369' },
-      { t: '기가노토사우루스', c: '1773716818847-기가노토사우루스-cover-misc-1780044403735' },
-      { t: '구렁덩덩 새선비', c: '1785303657451-구렁덩덩새선비-cover-misc-1785372322308' },
-      { t: '도깨비 감투', c: '1785303655079-도깨비감투-cover-misc-1785318245098' },
-      { t: '훨훨 간다', c: '1785303654219-훨훨간다-cover-misc-1785310297744' },
-    ],
-  },
-  {
-    letter: 'ㅁ',
-    word: '모두',
-    img: 'kr-h1-u06-modu-388bb602',
-    books: 12,
-    covers: [
-      { t: '15. 편지 배달 왔어요', c: '1784860653877-15편지배달왔어요-cover-misc-1785150595081' },
-      { t: '12. 바다 위 큰 집', c: '1784860652938-12바다위큰집-cover-misc-1785151055134' },
-      { t: '서동요', c: '1785303653346-서동요-cover-misc-1785308849879' },
-      { t: '13. 우주로 슝', c: '1784860653245-13우주로슝-cover-misc-1785150861060' },
-      { t: '09. 다 같이 타는 버스', c: '1784860651899-09다같이타는버스-cover-misc-1785151213014' },
-      { t: '06. 빙글빙글 콘크리트', c: '1784860650831-06빙글빙글콘크리트-cover-misc-1785151340780' },
-    ],
-  },
+const CHAIN_STEPS: { t: string; n: string; d: string }[] = [
+  // 🔴 라벨은 짧게 — 375px 에서 칸 하나가 83px 이라 「한글·영어 파닉스 71단원」은 두 줄이 된다.
+  { t: '파닉스', n: '71단원', d: '한글·영어, 소리로 글자를 뗍니다' },
+  { t: '낱말', n: '370개', d: '단원마다 낱말이 쌓여요' },
+  { t: '동화책', n: '261권', d: '배운 낱말이 나오는 책이 열려요' },
+];
+const CHAIN_WORD_CARDS = [
+  'kr-h1-u02-gogi-5e25d595',
+  'kr-h1-u02-agi-7c9fa449',
+  'kr-h1-u06-meori-d65f4712',
+  'kr-h1-u06-modu-388bb602',
 ];
 
-function Arrow({ desktopOnly }: { desktopOnly?: boolean }) {
-  return (
-    <span
-      aria-hidden
-      className={`shrink-0 text-lg font-extrabold text-coral-400 sm:text-2xl ${desktopOnly ? 'hidden sm:inline' : ''}`}
-    >
-      →
-    </span>
-  );
-}
-
 function WordBookMesh() {
+  const pic = 'aspect-video w-full rounded-2xl object-cover';
   return (
     <div className="!mt-6 rounded-3xl bg-white/70 p-4 sm:p-5">
       <p className="text-[17px] font-extrabold text-ink-900 break-keep sm:text-xl">
-        배운 글자 하나가 <span className="text-coral-700">책 열두 권</span>까지 이어집니다
+        글자에서 <span className="text-coral-700">이야기</span>까지, 한 줄로 이어져 있어요
       </p>
-      <p className="mt-1 text-[14px] text-ink-600 break-keep sm:text-base">
-        한글·영어 낱말 <strong className="text-coral-700">370개</strong>가 동화책{' '}
-        <strong className="text-coral-700">261권</strong>과 이어져 있어요. 아래는 그중 넷입니다.
-      </p>
-      <div className="mt-3 hidden gap-3 text-[13px] font-extrabold text-ink-500 sm:grid sm:grid-cols-[3.5rem_9.5rem_1fr]">
-        <span>파닉스</span>
-        <span className="pl-7">낱말</span>
-        <span className="pl-7">그 낱말이 나오는 동화책</span>
-      </div>
-      <ul className="mt-2 space-y-2">
-        {CHAIN.map((c) => (
-          <li
-            key={c.word}
-            className="flex flex-wrap items-center gap-2 rounded-2xl border border-ink-100 bg-white p-2 sm:flex-nowrap sm:gap-3 sm:p-3"
-          >
-            {/* ① 파닉스 — 그 낱말을 배운 글자 */}
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-coral-100 font-display text-xl font-extrabold text-coral-700 sm:h-14 sm:w-14 sm:text-3xl">
-              {c.letter}
-            </span>
-            <Arrow />
-            {/* ② 낱말 */}
-            <span className="flex w-[5.5rem] shrink-0 items-center gap-1.5 sm:w-[8rem] sm:gap-2">
-              <img
-                src={`https://assets.tangobook.co.kr/phonics-word-cards/${c.img}-w800.webp`}
-                alt=""
-                width={800}
-                height={800}
-                loading="lazy"
-                decoding="async"
-                className="h-8 w-8 shrink-0 rounded-lg object-cover sm:h-12 sm:w-12"
-              />
-              <span className="min-w-0">
-                <strong className="block text-[13px] font-extrabold text-ink-900 sm:text-lg">
-                  {c.word}
-                </strong>
-                <strong className="block text-[11px] font-extrabold text-coral-700 sm:text-sm">
-                  {c.books}권
-                </strong>
+      {/* 🔴 세로로 쌓지 않는다 — 375px 에서도 셋이 한 줄이라야 「이어진다」가 보인다.
+          대신 그림과 글씨를 작게 줄인다(화살표는 칸 사이 고정폭). */}
+      <div className="mt-4 grid grid-cols-[1fr_auto_1fr_auto_1fr] items-start gap-1.5 sm:gap-3">
+        {CHAIN_STEPS.map((step, i) => (
+          <Fragment key={step.t}>
+            {i > 0 && (
+              <span
+                aria-hidden
+                className="self-center text-xl font-extrabold text-coral-400 sm:text-4xl"
+              >
+                →
               </span>
-            </span>
-            <Arrow desktopOnly />
-            {/* ③ 동화책 — 🔴 375px 에선 **아랫줄로 내린다**. 한 줄에 다 두면 글자·낱말이 250px 을
-                먹고 표지 칸이 100px 만 남아 여섯 장 중 한 장 반만 보인다(실측) — 「여러 권」이
-                그림에서 사라진다. 폭이 있는 화면에서만 셋을 한 줄에 세운다.
-                🔴 넘치면 줄바꿈이 아니라 **가로로 흘린다**(라이브러리 캐러셀과 같은 규칙) —
-                줄바꿈하면 줄 높이가 제각각이 되어 세 칸이 어긋난다. */}
-            <span className="flex w-full min-w-0 basis-full items-center gap-1.5 overflow-x-auto [scrollbar-width:none] sm:w-auto sm:flex-1 sm:basis-auto sm:gap-2">
-              {c.covers.map((b) => (
+            )}
+            <div className="min-w-0 text-center">
+              {i === 0 && (
                 <img
-                  key={b.c}
-                  src={`https://assets.tangobook.co.kr/thumbs/512/${b.c}.webp`}
-                  alt={b.t}
-                  title={b.t}
-                  width={512}
-                  height={288}
+                  src="/landing/hangul/phonics.webp"
+                  alt="호리가 ㄱ ㄴ ㄷ 글자 블록으로 「가 나 다」를 만드는 그림"
+                  width={1400}
+                  height={800}
                   loading="lazy"
                   decoding="async"
-                  className="aspect-video w-16 shrink-0 rounded-lg object-cover sm:w-24"
+                  className={pic}
                 />
-              ))}
-              {c.books > c.covers.length && (
-                <span className="shrink-0 pl-1 text-[12px] font-extrabold text-ink-500 sm:text-base">
-                  +{c.books - c.covers.length}권
+              )}
+              {i === 1 && (
+                <span className={`${pic} grid grid-cols-2 gap-1 bg-cream-100 p-1`}>
+                  {CHAIN_WORD_CARDS.map((c) => (
+                    <img
+                      key={c}
+                      src={`https://assets.tangobook.co.kr/phonics-word-cards/${c}-w800.webp`}
+                      alt=""
+                      width={800}
+                      height={800}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full rounded-lg object-cover"
+                    />
+                  ))}
                 </span>
               )}
-            </span>
-          </li>
+              {i === 2 && (
+                <img
+                  src="/landing/hangul/books.webp"
+                  alt="탱고북 동화책 표지 아홉 장"
+                  width={1200}
+                  height={675}
+                  loading="lazy"
+                  decoding="async"
+                  className={pic}
+                />
+              )}
+              <strong className="mt-2 block text-[13px] font-extrabold text-ink-900 break-keep sm:text-lg">
+                {step.t}{' '}
+                <span className="text-coral-700 sm:text-xl">{step.n}</span>
+              </strong>
+              <span className="mt-0.5 block text-[11px] leading-snug text-ink-600 break-keep sm:text-[15px]">
+                {step.d}
+              </span>
+            </div>
+          </Fragment>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
