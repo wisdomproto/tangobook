@@ -678,6 +678,16 @@ const CHAIN_STEPS: { t: string; n: string; ko: string; en: string }[] = [
   },
 ];
 
+/**
+ * 첫 칸의 글자판. 🔴 **한글 두 줄 + 영어 한 줄** — 한글이 32단원, 영어가 39단원이라 어느 쪽도
+ * 곁다리가 아니지만, 한글은 자음·모음이 갈려 두 줄이라야 「합쳐서 음절이 된다」가 보인다.
+ */
+const PHONICS_TILES: { lang: string; tiles: string[]; tone: string }[] = [
+  { lang: 'ko-c', tiles: ['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ'], tone: 'bg-coral-500 text-white' },
+  { lang: 'ko-v', tiles: ['ㅏ', 'ㅑ', 'ㅓ', 'ㅕ', 'ㅗ', 'ㅛ'], tone: 'bg-coral-200 text-coral-800' },
+  { lang: 'en', tiles: ['Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff'], tone: 'bg-white text-ink-800' },
+];
+
 /** 🔴 위 예시와 **같은 낱말**의 카드다 — 그림과 글자가 다른 낱말이면 깔맞춤이 깨진다. */
 const CHAIN_WORD_CARDS = [
   'kr-h1-u05-ori-32d6900a',
@@ -690,9 +700,9 @@ function WordBookMesh() {
   const pic = 'aspect-video w-full rounded-2xl object-cover';
   return (
     <div className="!mt-6 rounded-3xl bg-white/70 p-4 sm:p-5">
-      <p className="text-[17px] font-extrabold text-ink-900 break-keep sm:text-xl">
-        글자에서 <span className="text-coral-700">이야기</span>까지, 한 줄로 이어져 있어요
-      </p>
+      {/* 🔴 제목 줄(「글자에서 이야기까지, 한 줄로 이어져 있어요」)은 **뺐다**(2026-08-19 사용자) —
+          바로 위 h1 이 이미 같은 말을 하고, 세 칸과 화살표가 그 말을 그림으로 한 번 더 한다.
+          한 화면에서 같은 문장을 세 번 읽게 된다. */}
       {/* 🔴 세로로 쌓지 않는다 — 375px 에서도 셋이 한 줄이라야 「이어진다」가 보인다.
           대신 그림과 글씨를 작게 줄인다(화살표는 칸 사이 고정폭). */}
       <div className="mt-4 grid grid-cols-[1fr_auto_1fr_auto_1fr] items-start gap-1.5 sm:gap-3">
@@ -707,16 +717,26 @@ function WordBookMesh() {
               </span>
             )}
             <div className="min-w-0 text-center">
+              {/* 🔴 첫 칸은 **글자 자체**다(2026-08-19 사용자: "파닉스 호랑이 그림을 뺄까. 파닉스
+                  한글 영어를 텍스트로 어떻게든 표현하고"). 호리가 블록을 든 그림은 예쁘지만
+                  **한글만** 보이고 영어는 어디에도 없었다 — 이 칸이 말해야 하는 건 「두 언어의
+                  글자를 뗀다」다. 자모·알파벳을 늘어놓으면 그게 곧 그림이고, 언어를 늘려도
+                  자산을 새로 만들 일이 없다. */}
               {i === 0 && (
-                <img
-                  src="/landing/hangul/phonics.webp"
-                  alt="호리가 ㄱ ㄴ ㄷ 글자 블록으로 「가 나 다」를 만드는 그림"
-                  width={1400}
-                  height={800}
-                  loading="lazy"
-                  decoding="async"
-                  className={pic}
-                />
+                <span className={`${pic} flex flex-col justify-center gap-1.5 bg-cream-100 p-2 sm:gap-2.5 sm:p-3`}>
+                  {PHONICS_TILES.map((row) => (
+                    <span key={row.lang} className="flex items-center justify-center gap-1 sm:gap-1.5">
+                      {row.tiles.map((t) => (
+                        <span
+                          key={t}
+                          className={`flex min-w-0 flex-1 items-center justify-center rounded-lg py-1 font-display text-[13px] font-extrabold sm:rounded-xl sm:py-1.5 sm:text-[22px] ${row.tone}`}
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </span>
+                  ))}
+                </span>
               )}
               {i === 1 && (
                 /* 🔴 넉 장을 **가로 한 줄**로 — 2×2 로 두면 격자가 제 높이로 자라 옆 두 칸(16:9)과
@@ -1361,14 +1381,17 @@ export default function IntroPage() {
           <p className="inline-flex rounded-full bg-coral-100 px-4 py-1.5 text-base font-extrabold text-coral-700 sm:text-lg xl:px-5 xl:py-2 xl:text-xl">
             4~7세 한글·영어
           </p>
-          {/* 🔴 **데스크탑에선 한 줄**(2026-08-10). 42px 로는 24자가 본문 폭(896px)을 넘어 세 줄로 접혔다.
-              🔴 헤드라인은 **연결**을 말한다(2026-08-18). 파닉스는 어디서나 배우고 동화책도 어디에나
-              있지만 **그 둘이 이어진 곳**은 우리뿐이라, 기능 설명(「한글 파닉스를 배우고 스스로 읽어요」)
-              대신 차별점 자체를 세운다. 바로 아래 데모가 이 문장을 그 자리에서 증명한다 —
-              헤드라인과 데모가 같은 말을 한다. */}
-          <h1 className="mt-3 font-display text-[30px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:whitespace-nowrap sm:text-[32px] md:text-[38px] xl:text-[49px]">
-            오늘 배운 <span className="text-coral-700">글자</span>로 <br className="sm:hidden" />
-            오늘 <span className="text-coral-700">동화책</span>을 읽어요
+          {/* 🔴 **데스크탑에선 한 줄**(2026-08-10). 글자 수가 늘면 크기를 줄여서라도 한 줄로 — 44px.
+              🔴 **연결은 헤드라인이 아니라 바로 아래 그림이 말한다**(2026-08-19 사용자 문구).
+                 2026-08-18 엔 「오늘 배운 글자로 오늘 동화책을 읽어요」로 연결을 헤드라인에 담았는데,
+                 그때는 헤드라인 밑이 곧 브릿지 그림 하나였다. 지금은 **세 칸 지도(파닉스→낱말→동화책)
+                 가 먼저** 오고 브릿지가 그 한 사례라, 연결은 그림 둘이 잇달아 말한다.
+                 그래서 헤드라인은 **범위**를 맡는다 — 「한글·영어」와 「다양한」이 그 몫이고,
+                 그 둘은 예전 문장에 아예 없던 정보다. */}
+          <h1 className="mt-3 font-display text-[28px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:text-[30px] md:text-[36px] xl:text-[44px]">
+            <span className="text-coral-700">한글·영어 파닉스</span>를 배우고{' '}
+            <br className="md:hidden" />
+            다양한 <span className="text-coral-700">동화책</span>을 읽어요
           </h1>
           {/* 🔴 부제를 두지 않는다(2026-08-18 사용자). H1 을 풀어 쓴 문장은 정보가 안 늘고
               같은 말을 두 번 읽힌다 — 히어로에서 헤드라인 다음에 오는 건 그림과 CTA 다. */}
