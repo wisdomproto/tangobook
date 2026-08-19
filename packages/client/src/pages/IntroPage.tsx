@@ -383,13 +383,16 @@ function HeroBridge() {
           </span>
         </div>
 
-        {/* 🔴 오른쪽은 **왼쪽 기둥의 가운데**에 건다(2026-08-12 사용자) — 위 기준으로 맞추면
-            왼쪽이 두 단이라 오른쪽 아래에 빈 공간이 길게 남는다. 화살표도 자기 가운데에 선다. */}
-        <div className="flex min-w-0 flex-1 flex-col self-center">
+        {/* 🔴 **번호 라벨은 ①과 ③이 같은 줄에 선다**(2026-08-19 사용자) — 셋을 순서로 읽히려면
+            시작점이 같아야 한다. 2026-08-12 엔 오른쪽 기둥을 통째로 가운데 걸었는데(그때 이유는
+            "왼쪽이 두 단이라 오른쪽 아래에 빈 공간이 길게 남는다"), 그러면 ③ 라벨이 ②쯤으로 내려온다.
+            🔴 그래서 **라벨만 위로 올리고 그림은 여전히 가운데**에 둔다 — 여백이 아래로 몰리지 않고
+            위아래로 갈린다. 그림을 늘려 채우지는 않는다(`object-cover` 라 16:9 삽화의 양옆이 잘린다). */}
+        <div className="flex min-w-0 flex-1 flex-col">
           <span className="mb-1 text-[11px] font-extrabold text-coral-700 sm:text-sm xl:text-base">
             ③ 동화책에서 다시 만나요
           </span>
-          <div className="overflow-hidden rounded-2xl border border-ink-100 bg-cream-50">
+          <div className="my-auto overflow-hidden rounded-2xl border border-ink-100 bg-cream-50">
             <img
               src="/landing/hangul/bridge-page.webp"
               alt="미운 아기 오리 동화책 한 쪽 — 알에서 깨어난 아기 오리들"
