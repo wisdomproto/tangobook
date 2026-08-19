@@ -642,6 +642,118 @@ const EN_WORDS: { w: string; img: string }[] = [
   { w: 'pan', img: 'en-b2-u01-pan-7a252f40' },
 ];
 
+/**
+ * 파닉스 낱말 ↔ 동화책 **그물**. 왼쪽 낱말 셋, 오른쪽 책 여섯, 사이를 실제 연결로 잇는다.
+ *
+ * 🔴 **그림을 그리지 않고 데이터로 만든다**(2026-08-19 사용자 요청). 연결은 우리가 가진 색인
+ *    (`features/phonics-learner/data/word-scenes.json`)에 실제로 있는 것이고, 책이 늘면 숫자도
+ *    같이 는다. 생성 이미지로 그리면 지금 이 순간의 스크린샷이라 곧 거짓이 된다.
+ * 🔴 **책 수는 「서로 다른 책」**이다 — 색인이 `[책, 쪽]` 쌍이라 한 책의 여러 쪽이 여러 항목으로
+ *    들어간다(거미는 항목 12 · 책 2). `new Set(...map(([id]) => id)).size`.
+ * 🔴 표지는 **여섯 장까지**만 — 첫 화면 밖이라 lazy 지만, 이 절 하나에 열 장을 걸면 스크롤이
+ *    닿는 순간 회선을 다 먹는다(`ad-landing-perf-2026-08-11`).
+ * ⚠️ 목록은 손으로 골랐다(라인이 겹치지 않게 공룡·전래·호리 셋으로). 숫자만 색인에서 온다 —
+ *    낱말을 바꾸면 위 스크립트로 다시 세어 넣을 것.
+ */
+const MESH_WORDS: { w: string; img: string; books: number; to: number[] }[] = [
+  { w: '고기', img: 'kr-h1-u02-gogi-5e25d595', books: 7, to: [0, 1] },
+  { w: '아기', img: 'kr-h1-u02-agi-7c9fa449', books: 12, to: [2, 3, 4] },
+  { w: '머리', img: 'kr-h1-u06-meori-d65f4712', books: 12, to: [4, 5] },
+];
+const MESH_BOOKS: { t: string; cover: string }[] = [
+  { t: '티라노사우루스 렉스', cover: '1773714531390-티라노사우루스렉스-cover-misc-1780044365036' },
+  { t: '01. 골고루 먹으면 무지개 힘!', cover: '1782815785821-01골고루먹으면무지개힘-cover-misc-1783990136885' },
+  { t: '흥부와 놀부', cover: '1784529056876-흥부와놀부-cover-misc-1785231385300' },
+  { t: '39. 형아니까, 내가 도와줘!', cover: '1782824087555-39형아니까내가도와줘-cover-misc-1784001811880' },
+  { t: '젊어지는 샘물', cover: '1784529060920-젊어지는샘물-cover-misc-1784717325279' },
+  { t: '11. 빙글빙글 프로펠러', cover: '1784860652631-11빙글빙글프로펠러-cover-misc-1785150966401' },
+];
+
+function WordBookMesh() {
+  const wy = (i: number) => ((i + 0.5) / MESH_WORDS.length) * 100;
+  const by = (i: number) => ((i + 0.5) / MESH_BOOKS.length) * 100;
+  return (
+    <div className="!mt-6 rounded-3xl bg-white/70 p-4 sm:p-5">
+      <p className="text-[17px] font-extrabold text-ink-900 break-keep sm:text-xl">
+        낱말 하나가 <span className="text-coral-700">여러 권</span>으로 이어집니다
+      </p>
+      <p className="mt-1 text-[14px] text-ink-600 break-keep sm:text-base">
+        한글·영어 낱말 <strong className="text-coral-700">370개</strong>가 동화책{' '}
+        <strong className="text-coral-700">261권</strong>과 이어져 있어요. 아래는 그중 셋입니다.
+      </p>
+      <div className="mt-4 flex items-stretch gap-2 sm:gap-3">
+        <ul className="flex w-[26%] shrink-0 flex-col justify-around gap-2">
+          {MESH_WORDS.map((m) => (
+            <li
+              key={m.w}
+              className="flex items-center gap-2 rounded-2xl border-2 border-peach-200 bg-white p-1.5 sm:p-2"
+            >
+              <img
+                src={`https://assets.tangobook.co.kr/phonics-word-cards/${m.img}-w800.webp`}
+                alt=""
+                width={800}
+                height={800}
+                loading="lazy"
+                decoding="async"
+                className="h-9 w-9 shrink-0 rounded-xl object-cover sm:h-12 sm:w-12"
+              />
+              <span className="min-w-0">
+                <strong className="block text-[13px] font-extrabold text-ink-900 sm:text-lg">
+                  {m.w}
+                </strong>
+                <span className="block text-[11px] font-bold text-coral-700 sm:text-sm">
+                  {m.books}권
+                </span>
+              </span>
+            </li>
+          ))}
+        </ul>
+        {/* 🔴 선은 **퍼센트 좌표**로 그린다 — 칸 높이가 화면 폭에 따라 달라지므로 픽셀로 잡으면 어긋난다. */}
+        <svg
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          aria-hidden
+          className="h-auto w-[14%] shrink-0 self-stretch"
+        >
+          {MESH_WORDS.flatMap((m, i) =>
+            m.to.map((j) => (
+              <path
+                key={`${i}-${j}`}
+                d={`M0 ${wy(i)} C 50 ${wy(i)}, 50 ${by(j)}, 100 ${by(j)}`}
+                fill="none"
+                stroke="#f4826c"
+                strokeWidth={1.4}
+                vectorEffect="non-scaling-stroke"
+                opacity={0.75}
+              />
+            ))
+          )}
+        </svg>
+        <ul className="flex min-w-0 flex-1 flex-col justify-around gap-1.5">
+          {MESH_BOOKS.map((b) => (
+            <li key={b.t} className="flex items-center justify-center gap-2 sm:justify-start">
+              <img
+                src={`https://assets.tangobook.co.kr/thumbs/512/${b.cover}.webp`}
+                alt=""
+                width={512}
+                height={288}
+                loading="lazy"
+                decoding="async"
+                className="aspect-video w-28 shrink-0 rounded-lg object-cover sm:w-24"
+              />
+              {/* 🔴 375px 에선 제목을 숨긴다 — 「01. 골고루 먹으…」처럼 잘린 제목은 정보가 아니라
+                  잡음이고, 이 그림이 하는 말은 제목이 아니라 **여러 권으로 이어진다**이다. */}
+              <span className="hidden min-w-0 truncate text-[11px] font-bold text-ink-700 sm:block sm:text-[15px]">
+                {b.t}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
 function UnitWords({
   words,
   lead,
@@ -1570,9 +1682,14 @@ export default function IntroPage() {
         <BookWords />
         {/* 🔴 이 한 줄이 파닉스 낱말 카드와 책 낱말 카드를 **잇는다**. 숫자는 실측이다
             (`word-scenes.json`: 고기 7권 · 오리 5권). 색인 파일 자체는 랜딩에 안 싣는다(86KB). */}
+        {/* 🔴 **항목 수가 아니라 「서로 다른 책」을 센다**(2026-08-19). `word-scenes.json` 은
+            `[책, 쪽]` 쌍이라 한 책의 여러 쪽이 여러 항목으로 들어간다 — 거미는 **항목 12개인데
+            책은 2권**이었고, 그걸 「12권」이라고 쓰고 있었다. 370개 낱말 중 150개가 이 상태다.
+            숫자를 바꿀 땐 `new Set(...map(([id]) => id)).size` 로 셀 것. */}
         <p className="!mt-4 text-base text-ink-700 break-keep">
-          파닉스 「ㅁ」 단원에서 배운 <strong className="text-coral-700">거미</strong>는 동화책{' '}
-          <strong className="text-coral-700">12권</strong>에 나옵니다 — 맞히면 그중 한 쪽이 열려요.
+          파닉스 「ㄱ」 단원에서 배운 <strong className="text-coral-700">아기</strong>는 서로 다른
+          동화책 <strong className="text-coral-700">12권</strong>에 나옵니다 — 맞히면 그중 한 쪽이
+          열려요.
         </p>
         <p className="!mt-6">
           다 읽고 나면 <strong>그 책에 나온 낱말로 독후활동 게임</strong>이 그 자리에서 열려요. 같은
@@ -1616,6 +1733,7 @@ export default function IntroPage() {
           끝나면 <strong>방금 만난 책들의 표지</strong>가 떠서 그대로 읽으러 갈 수 있어요.
         </p>
         <LearnReadCycle />
+        <WordBookMesh />
       </Section>
 
       {/* ── ⑦ 혜택 (여기서 처음 등장) ─────────────────────────── */}
