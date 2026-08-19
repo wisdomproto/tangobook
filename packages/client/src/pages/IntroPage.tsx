@@ -955,11 +955,9 @@ function TryBridge() {
   return (
     <section className="px-4 pt-10 pb-4 sm:px-6 sm:pt-12">
       <div className="mx-auto max-w-3xl text-center lg:max-w-5xl">
-        <p className="mt-3 inline-flex items-center gap-2 rounded-full border-2 border-coral-300 bg-coral-50 px-4 py-2.5 text-[15px] font-extrabold text-coral-700 break-keep sm:text-lg">
-          <span className="animate-pulse text-2xl sm:text-3xl">👆</span>
-          진짜 앱 화면입니다 — 지금 눌러보세요
-        </p>
-
+        {/* 🔴 「👆 진짜 앱 화면입니다 — 지금 눌러보세요」 알약은 **뺐다**(2026-08-19 사용자) —
+            상자 헤더가 이미 「● 실제 학습 화면」이라고 말하고, 그 위에 또 한 번 크게 말하면
+            같은 주장을 두 번 한다. */}
         <div className="mt-4 flex justify-center gap-2">
           {(
             [
@@ -1414,6 +1412,19 @@ export default function IntroPage() {
           <div className="mt-5 text-left sm:mt-7">
             <WordBookMesh />
           </div>
+
+          {/* 🔴 두 상자가 **같은 모양·같은 폭**이라 나란히 놓으면 무엇이 다른지 안 보인다
+              (2026-08-19 사용자: "위에는 전체 모식이고 아래는 예시라는 표시가 있으면"). 위는
+              「우리가 가진 것 전부」, 아래는 「그중 한 줄이 실제 화면에서 이렇게」다.
+              🔴 상자마다 제목을 다는 대신 **사이에 한 줄**을 둔다 — 아래로 내리꽂는 화살표가
+              위아래를 잇고, 문장이 「예를 들면」이라고 말한다. 상자 제목을 붙이면 앞서 지운
+              그 제목 줄이 두 개로 돌아온다. */}
+          <p className="mt-4 flex items-center justify-center gap-2 font-display text-[17px] font-extrabold text-coral-700 break-keep sm:mt-6 sm:gap-3 sm:text-[24px] xl:text-[28px]">
+            <span aria-hidden className="text-[20px] sm:text-[30px] xl:text-[34px]">
+              ↓
+            </span>
+            예를 들면, 「ㄹ」 단원은 이렇게 흘러요
+          </p>
 
           <HeroBridge />
 
