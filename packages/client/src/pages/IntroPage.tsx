@@ -452,12 +452,8 @@ function HeroBridge() {
         </div>
       </div>
 
-      <p className="mt-2 text-center text-[12px] font-bold text-ink-600 break-keep sm:mt-3 sm:text-lg xl:text-xl">
-        한글·영어 파닉스{' '}
-        <strong className="text-coral-700">{FACTS.koreanUnits + FACTS.englishUnits}단원</strong> ·
-        동화책 <strong className="text-coral-700">{FACTS.books}권</strong> — 배운 낱말이 이야기로
-        이어집니다
-      </p>
+      {/* 🔴 통계 한 줄(「파닉스 71단원 · 동화책 266권 — 배운 낱말이 이야기로 이어집니다」)은 **뺐다**
+          (2026-08-19) — 바로 아래로 올라온 세 칸 그림이 같은 말을 그림과 예시로 한다. */}
     </div>
   );
 }
@@ -1387,6 +1383,17 @@ export default function IntroPage() {
         </div>
       </header>
 
+      {/* 🔴 **세 칸 그림은 히어로 바로 밑이다**(2026-08-19 사용자: "차라리 맨 처음으로 옮기는 게
+          맞지 않나"). 이 페이지가 파는 건 「파닉스가 있다」도 「동화책이 있다」도 아니고 **둘이
+          이어져 있다**인데, 그 말을 두 서비스를 다 읽은 뒤에야 하고 있었다.
+          🔴 다만 **순환 그림(`LearnReadCycle`)은 그대로 둔다** — 그건 「어떻게 도는지」를 앱 화면으로
+          보이는 것이라, 파닉스·동화책이 뭔지 알기 전에 보면 무슨 화면인지 모른다. 실제로 2026-08-11
+          에 그 절을 통째로 위로 올렸다가 같은 이유로 되돌렸다. 위로 오는 건 **무엇이 얼마나 있고
+          어떻게 이어지나**(이 그림)이고, 아래 남는 건 **어떻게 도나**(순환)다. */}
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-5xl xl:max-w-6xl">
+        <WordBookMesh />
+      </div>
+
       <TryBridge />
 
       {/* ── ③ 파닉스 커리큘럼 (데모보다 먼저 — 아래 데모가 32개 중 하나임을 알고 보게) ─────────────────────────────────── */}
@@ -1723,7 +1730,6 @@ export default function IntroPage() {
           끝나면 <strong>방금 만난 책들의 표지</strong>가 떠서 그대로 읽으러 갈 수 있어요.
         </p>
         <LearnReadCycle />
-        <WordBookMesh />
       </Section>
 
       {/* ── ⑦ 혜택 (여기서 처음 등장) ─────────────────────────── */}
