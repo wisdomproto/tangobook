@@ -231,6 +231,35 @@ const PHONICS_WHY: { shot: string; alt: string; t: string; d: string }[] = [
   },
 ];
 /**
+ * 「왜 파닉스인가」 영어판 — 한글 `PHONICS_WHY` 와 **같은 자리·같은 문법**.
+ *
+ * 🔴 **낱말 카드만 있고 활동 그림이 없으면 난데없다**(2026-08-19 사용자: "한글 얘기하다가 갑자기
+ *    영어 낱말이 나오면 뭔 줄 알아"). 한글 쪽은 활동 석 장이 먼저 깔리고 낱말이 그걸 받는데,
+ *    영어는 낱말 넉 장만 배경 위에 떠 있었다. 같은 순서로 세운다.
+ * 🔴 자산은 **실제 앱 화면**(`capture-english-why.mjs`, 무료 단원 `en-b1-u01`·`en-b2-u01`).
+ *    잠긴 단원을 찍으면 벽이 찍힌다.
+ */
+const ENGLISH_WHY: { shot: string; alt: string; t: string; d: string }[] = [
+  {
+    shot: 'en-why-sound',
+    alt: 'Aa 와 사과를 든 악어 그림을 눌러 소리를 듣는 앱 화면',
+    t: '알파벳 소리부터',
+    d: 'A 부터 Z 까지 글자마다 소리 하나. 그림과 함께 눌러 듣고 따라 합니다.',
+  },
+  {
+    shot: 'en-why-blend',
+    alt: 'a 와 n 이 an 으로 합쳐지는 앱 화면',
+    t: '소리를 합쳐요',
+    d: 'a + n 이 an 이 되는 순간을 눈으로 보고, 손으로 씁니다. c 를 붙이면 can 입니다.',
+  },
+  {
+    shot: 'en-why-new',
+    alt: 'Aa Bb Cc 카드 중에서 들은 소리를 고르는 앱 화면',
+    t: '듣고 골라내요',
+    d: '소리만 듣고 글자를 찾습니다. 모양을 외웠는지가 아니라 소리를 아는지 봅니다.',
+  },
+];
+/**
  * 단색 원형 픽토그램 — 🔴 **이모지를 아이콘으로 쓰지 않는다**(2026-08-11 사용자: "깔끔하지가 않아").
  *
  * 실측으로 벤치마크와 가장 크게 갈린 지점이 이것이었다: 소중한글·토도한글 두 페이지 모두
@@ -1348,17 +1377,6 @@ export default function IntroPage() {
           3개가 4화면을 민다」가 사라졌다 — 데모를 히어로 아래 하나로 합치면서 이 절은 커리큘럼
           다섯 줄뿐이라 1화면이 안 된다. 접어 두면 「영어도 포함」이 요약 줄 한 줄로만 남는데,
           영어 검색 수요가 한글과 거의 같다(영어파닉스 2,020 vs 한글공부 2,230). */}
-      <div className="mx-auto max-w-3xl px-4 pt-10 sm:px-6 lg:max-w-5xl xl:max-w-6xl">
-        <UnitWords
-          words={EN_WORDS}
-          lead={
-            <>
-              영어도 같아요 — 소리로 <span className="text-coral-700">낱말</span>까지
-            </>
-          }
-          sub="「Short Vowel a」 단원에서 만나는 낱말 넷입니다."
-        />
-      </div>
       <div className="px-4 pb-12 sm:px-6 sm:pb-14">
         <div className="mt-2">
           <Section
@@ -1372,7 +1390,39 @@ export default function IntroPage() {
               알파벳 소리에서 시작해 매직 e·블렌드·모음팀까지, <strong>다섯 권</strong>으로
               이어져요. 한글 파닉스와 <strong>같은 이용권</strong>이라 따로 결제하지 않습니다.
             </p>
-            <ol className="!mt-5 space-y-2">
+            <div className="!mt-6 grid gap-3 sm:grid-cols-3">
+              {ENGLISH_WHY.map((w) => (
+                <div key={w.t} className="overflow-hidden rounded-3xl bg-white/70 text-center">
+                  <img
+                    src={`/landing/hangul/${w.shot}.webp`}
+                    alt={w.alt}
+                    loading="lazy"
+                    decoding="async"
+                    className="aspect-video w-full object-cover"
+                  />
+                  <div className="p-4 sm:p-5">
+                    <strong className="block font-display text-xl font-extrabold text-ink-900 break-keep lg:text-2xl xl:text-3xl">
+                      {w.t}
+                    </strong>
+                    <span className="mt-1.5 block text-base leading-snug text-ink-600 break-keep lg:text-lg xl:text-[18px]">
+                      {w.d}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="!mt-3">
+              <UnitWords
+                words={EN_WORDS}
+                lead={
+                  <>
+                    그래서 <span className="text-coral-700">이런 낱말</span>을 읽게 돼요
+                  </>
+                }
+                sub="「Short Vowel a」 단원에서 만나는 낱말 넷입니다."
+              />
+            </div>
+            <ol className="!mt-8 space-y-2">
               {EN_STAGES.map((s, i) => (
                 <li
                   key={s.label}
