@@ -690,16 +690,6 @@ const CHAIN_STEPS: { t: string; n: string; ko: string; en: string }[] = [
   },
 ];
 
-/**
- * 첫 칸의 글자판. 🔴 **한글 두 줄 + 영어 한 줄** — 한글이 32단원, 영어가 39단원이라 어느 쪽도
- * 곁다리가 아니지만, 한글은 자음·모음이 갈려 두 줄이라야 「합쳐서 음절이 된다」가 보인다.
- */
-const PHONICS_TILES: { lang: string; tiles: string[]; tone: string }[] = [
-  { lang: 'ko-c', tiles: ['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ'], tone: 'bg-coral-500 text-white' },
-  { lang: 'ko-v', tiles: ['ㅏ', 'ㅑ', 'ㅓ', 'ㅕ', 'ㅗ', 'ㅛ'], tone: 'bg-coral-200 text-coral-800' },
-  { lang: 'en', tiles: ['Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff'], tone: 'bg-white text-ink-800' },
-];
-
 /** 🔴 위 예시와 **같은 낱말**의 카드다 — 그림과 글자가 다른 낱말이면 깔맞춤이 깨진다. */
 const CHAIN_WORD_CARDS = [
   'kr-h1-u05-ori-32d6900a',
@@ -729,24 +719,28 @@ function WordBookMesh() {
               </span>
             )}
             <div className="min-w-0 text-center">
-              {/* 🔴 첫 칸은 **글자 자체**다(2026-08-19 사용자: "파닉스 호랑이 그림을 뺄까. 파닉스
-                  한글 영어를 텍스트로 어떻게든 표현하고"). 호리가 블록을 든 그림은 예쁘지만
-                  **한글만** 보이고 영어는 어디에도 없었다 — 이 칸이 말해야 하는 건 「두 언어의
-                  글자를 뗀다」다. 자모·알파벳을 늘어놓으면 그게 곧 그림이고, 언어를 늘려도
-                  자산을 새로 만들 일이 없다. */}
+              {/* 🔴 첫 칸은 **앱이 이미 쓰는 그림**이다 — `/library/phonics` 랜딩의 한글·영어 카드
+                  아이콘(호리가 ㄱ 을 든 것, A 를 든 것). 새로 그릴 이유가 없다:
+                  ①아이가 앱에서 보는 바로 그 그림이고 ②같은 캐릭터가 두 글자를 들고 있어
+                  **한 서비스가 두 언어를 다 한다**가 한눈에 온다(2026-08-19 사용자가 찾아냄).
+                  ⚠️ 자모 타일을 코드로 그렸다가 되돌렸다 — 「예쁘고 귀엽게」와 거리가 멀었고,
+                  생성 이미지로 다시 뽑아도 그 타일과 똑같이 나왔다. */}
               {i === 0 && (
-                <span className={`${pic} flex flex-col justify-center gap-1.5 bg-cream-100 p-2 sm:gap-2.5 sm:p-3`}>
-                  {PHONICS_TILES.map((row) => (
-                    <span key={row.lang} className="flex items-center justify-center gap-1 sm:gap-1.5">
-                      {row.tiles.map((t) => (
-                        <span
-                          key={t}
-                          className={`flex min-w-0 flex-1 items-center justify-center rounded-lg py-1 font-display text-[13px] font-extrabold sm:rounded-xl sm:py-1.5 sm:text-[22px] ${row.tone}`}
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </span>
+                <span className={`${pic} flex items-center justify-center gap-1 bg-cream-100 p-1 sm:gap-3 sm:p-2`}>
+                  {[
+                    ['korean', '호리가 한글 자음 ㄱ 을 들고 있는 그림'],
+                    ['english', '호리가 알파벳 A 를 들고 있는 그림'],
+                  ].map(([f, alt]) => (
+                    <img
+                      key={f}
+                      src={`/icons/phonics/${f}.webp`}
+                      alt={alt}
+                      width={1244}
+                      height={1244}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full min-h-0 w-1/2 object-contain"
+                    />
                   ))}
                 </span>
               )}
