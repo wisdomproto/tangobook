@@ -21,20 +21,38 @@ await page.goto(`${BASE}/_shot/phonics-grids`, { waitUntil: 'networkidle2', time
 await sleep(2500);
 
 await page.evaluate(() => {
+  // 떠 있는 앱 chrome(마스코트 배지 등)은 촬영 대상 위에 얹혀 나온다.
+  for (const e of document.querySelectorAll('body *')) {
+    const pos = getComputedStyle(e).position;
+    if (pos === 'fixed' || pos === 'sticky') e.style.display = 'none';
+  }
   // 「자세히」 같은 앱 안 조작 버튼은 랜딩 그림에서 뜻을 잃는다.
   for (const e of document.querySelectorAll('button')) {
     if (/자세히/.test(e.textContent ?? '')) e.style.display = 'none';
   }
-  // 🔴 「타겟 단어」 목록은 뺀다 — 전부 「안 봄」 배지라 자랑이 아니라 빈칸으로 읽히고,
-  //    한글 카드 하나가 1,700px 이 되어 webp 로도 안 구워진다(실제로 터졌다).
-  for (const e of document.querySelectorAll('div')) {
+  // 🔴 「타겟 단어」는 **한글에서만** 뺀다 — 한글은 표(50칸)가 이미 그림이고 목록까지 넣으면
+  //    카드가 1,700px 이 되어 webp 로도 안 구워진다(실제로 터졌다). 영어는 반대로 **낱말이 있어야
+  //    한다** — 음소 칩만 두면 알파벳 회색 알약만 늘어서서 볼품이 없다(2026-08-19 사용자).
+  for (const e of document.querySelectorAll('#shot-ko div')) {
     if (/^타겟 단어/.test((e.textContent ?? '').trim())) e.style.display = 'none';
   }
   // 영어는 Book 1~3 — 한글 표가 세로로 길어서, 둘을 나란히 놓으려면 이쪽도 높이가 있어야 한다.
   // Book 3 이 회색인 건 「아직 안 배운 곳」이라 거짓이 아니다. 4·5 까지 넣으면 회색만 남는다.
   document.querySelectorAll('#shot-en > div > .rounded-2xl').forEach((e, i) => {
-    if (i >= 3) e.style.display = 'none';
+    if (i >= 2) e.style.display = 'none';
   });
+  // 🔴 영어 낱말 목록은 **앞 몇 줄만** 보이게 자른다 — 다 펼치면 카드가 2,800px 이라 옆 한글 표
+  //    (665px)와 나란히 놓을 수가 없다. 목록이 이어진다는 건 잘린 줄로 보인다.
+  for (const e of document.querySelectorAll('#shot-en div')) {
+    if (/^타겟 단어/.test((e.textContent ?? '').trim())) {
+      const list = e.querySelector(':scope > div:last-child');
+      if (list) {
+        list.style.maxHeight = '150px';
+        list.style.overflow = 'hidden';
+        list.style.maskImage = 'linear-gradient(to bottom, #000 105px, transparent)';
+      }
+    }
+  }
   // 한글은 첫 카드(자음×모음 표)만.
   document.querySelectorAll('#shot-ko > div > .rounded-2xl').forEach((e, i) => {
     if (i >= 1) e.style.display = 'none';
