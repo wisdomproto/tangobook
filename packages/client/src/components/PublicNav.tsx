@@ -66,7 +66,7 @@ export function PublicNav() {
               to={session ? '/library' : '/login?mode=signup'}
               className="inline-flex min-h-[36px] items-center rounded-full bg-coral-700 px-3.5 text-[12.5px] font-extrabold text-white transition hover:bg-coral-800 sm:min-h-[44px] sm:px-5 sm:text-sm"
             >
-              {session ? '내 서재' : '한 달 무료 시작'}
+              {session ? '내 서재' : '결제 정보 없이 한 달 무료'}
             </Link>
           </div>
         </div>

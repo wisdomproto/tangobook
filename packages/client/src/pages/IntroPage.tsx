@@ -551,7 +551,7 @@ function StickyCta() {
           to={SIGNUP}
           className="flex min-h-[44px] shrink-0 items-center rounded-full bg-coral-700 px-5 text-base font-bold text-white shadow-sm transition hover:bg-coral-800"
         >
-          한 달 무료로 시작하기
+          결제 정보 없이 한 달 무료
         </Link>
       </div>
     </div>
@@ -692,7 +692,7 @@ const CHAIN_STEPS: { t: string; n: string; ko: string; en: string }[] = [
   },
   {
     t: '동화책',
-    n: '261권',
+    n: `${FACTS.books}권`,
     ko: '한국어 — 미운 아기 오리 · 신데렐라 …',
     en: '영어 — 같은 책을 영어로도 읽어요',
   },
@@ -1434,7 +1434,15 @@ export default function IntroPage() {
                (모바일 블록 버튼). 데스크탑은 예전처럼 알약. */
             className="mt-5 inline-flex min-h-[68px] w-full max-w-[22rem] items-center justify-center rounded-full bg-coral-700 px-6 text-lg font-extrabold text-white shadow-lg transition hover:bg-coral-800 sm:mt-8 sm:w-auto sm:max-w-none sm:px-12 sm:text-2xl xl:mt-10 xl:min-h-[104px] xl:px-20 xl:text-[32px]"
           >
-            한 달 무료로 시작하기
+            {/* 🔴 **「결제 정보 없이」를 버튼 안에**(2026-08-19 사용자) — 이 카테고리에서 부모가
+                누르기 전에 갖는 가장 큰 걱정이 카드 등록이고, 그 답을 아래 FAQ 까지 내려가야
+                볼 수 있으면 버튼을 안 누른 사람은 영영 못 본다. */}
+            <span className="flex flex-col leading-tight">
+              <span>한 달 무료로 시작하기</span>
+              <span className="text-[13px] font-bold opacity-90 sm:text-[15px]">
+                결제 정보 없이 · 자동 결제 없음
+              </span>
+            </span>
           </Link>
         </div>
       </header>
@@ -1806,9 +1814,16 @@ export default function IntroPage() {
             🔴 접근 정책을 바꾸면 **마케팅 문구 사본을 전부 세야 한다**(랜딩·블로그·공유문구).
             그리고 지금 게이팅(미로그인도 동화책 전권)은 그때보다 훨씬 센 말을 쓸 수 있게 해준다 —
             경쟁사는 「게임 직접 해보기」 버튼조차 앱스토어로 가므로, 이 한 줄이 우리 유일한 우위다. */}
+        {/* 🔴 「가입하지 않아도 동화책은 **다** 읽힙니다」는 **거짓이었다**(2026-08-19 실측) —
+            공개 266권 중 게스트가 읽는 건 **129권**, 137권은 잠긴다(`isAccessibleForFree`).
+            `PAYWALL_ENABLED`·`LOCK_FOR_GUESTS` 가 둘 다 true 다.
+            🔴 접근 정책을 바꾸면 **마케팅 문구 사본을 전부 세야 한다** — 같은 사고가 08-18 에
+            「게스트 30일」로 이미 한 번 났고, 이번이 두 번째다. 숫자를 박아 두면 다음에 정책이
+            바뀔 때 이 줄이 또 거짓이 되므로, 세는 법을 여기 적어 둔다:
+            공개 동화책 중 `isAccessibleForFree !== false` 인 것의 수. */}
         <p className="text-base text-ink-600">
-          <strong>가입하지 않아도 동화책은 다 읽힙니다.</strong> 가입하면 독후활동과 학습 기록이
-          열려요.
+          <strong>가입하지 않아도 동화책 129권을 바로 읽어볼 수 있어요.</strong> 가입하면 나머지
+          책과 독후활동·학습 기록이 열립니다.
         </p>
         {/* 🔴 무료체험 마찰 제거 FAQ(벤치마킹 2차 §4-5) — 투두는 CTA 옆 FAQ 아코디언으로 전환
             장벽을 없앤다. 우리는 답이 전부 「없음/아니요」라 오히려 안심으로 판다. */}
@@ -1848,7 +1863,7 @@ export default function IntroPage() {
             to={SIGNUP}
             className="mt-1 inline-flex min-h-[52px] w-full max-w-[22rem] items-center justify-center rounded-full bg-coral-700 px-6 text-base font-bold text-white shadow-md transition hover:bg-coral-800 sm:w-auto sm:max-w-none sm:px-8 sm:text-lg"
           >
-            한 달 무료로 시작하기 →
+            결제 정보 없이 한 달 무료로 시작하기 →
           </Link>
         </div>
       </Section>
