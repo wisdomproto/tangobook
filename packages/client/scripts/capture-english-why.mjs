@@ -19,7 +19,9 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const SHOTS = [
   ['en-why-sound', '/library/phonics/english/en-b1-u01/letters-learn'],
   ['en-why-blend', '/library/phonics/english/en-b2-u01/cvc-an'],
-  ['en-why-new', '/library/phonics/english/en-b1-u01/word-listen-choose'],
+  // 🔴 셋째는 **Book 2** 다(2026-08-19 사용자) — 좌·우가 Book 1 이고 가운데만 Book 2 라
+  //    책이 뒤섞여 보였다. 왼쪽=Book 1(글자), 가운데·오른쪽=Book 2(낱말)로 갈라 둔다.
+  ['en-why-new', '/library/phonics/english/en-b2-u01/game-line-matching'],
 ];
 
 const browser = await puppeteer.launch({ headless: true, args: LAUNCH_ARGS });
@@ -39,7 +41,7 @@ for (const [name, route] of SHOTS) {
   //    버튼이 있으면 넉 장이 한 벌로 안 읽힌다.
   await page.evaluate(() => {
     for (const el of document.querySelectorAll('a, button')) {
-      if (/돌아가기|뒤로|Back/.test(el.textContent || '')) el.style.visibility = 'hidden';
+      if (/돌아가기|뒤로|Back|홈|Home/.test(el.textContent || '')) el.style.visibility = 'hidden';
     }
   });
   const buf = await page.screenshot({ type: 'png' });

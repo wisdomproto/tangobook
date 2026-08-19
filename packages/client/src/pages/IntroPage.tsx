@@ -132,6 +132,12 @@ const FAQS: { q: string; a: string }[] = [
 
 /**
  * ② 파닉스 ↔ 동화책 **순환** — 넘버링 목록(구 `POINTS` 01~03)을 그림으로 바꿨다(2026-08-10 사용자).
+ * 🔴 **순서는 바로 위 문단이 정한다**(2026-08-19 사용자: "가운데가 동화책인데?"). 문단은
+ *    「파닉스에서 낱말을 맞히면 동화책 한 쪽이 열린다」고 말하는데 그림은 동화책을 가운데,
+ *    게임을 마지막에 두어 **글과 그림이 서로 다른 순서**를 말하고 있었다.
+ *    → 글자 → 낱말을 맞힌다 → 동화책이 열린다.
+ * 🔴 세 번째는 **실제 리빌 화면**이다(고기 아닌 「아기」 — 호리 동화). 아이가 책을 보는 사진으로
+ *    두면 「그냥 책도 있다」로 읽히고, 이 절의 주장인 **낱말이 책을 연다**가 그림에 없다.
  * 🔴 세 항목이 사실 **한 바퀴**였다: 배운다 → 그 글자로 읽는다 → 독후활동으로 익힌다 → 그게 다시
  *    글자 진도로 돌아온다. 번호를 매기면 서로 무관한 자랑 셋으로 읽히고, 이 페이지의 유일한
  *    구조적 주장(배우는 곳과 읽는 곳이 하나)이 글 속에 묻힌다.
@@ -157,16 +163,16 @@ const CYCLE: { photo: string; alt: string; t: string; d: string }[] = [
     d: `한글 파닉스 ${FACTS.koreanUnits}단원 — 자음·모음부터 받침까지 소리로`,
   },
   {
-    photo: 'reading',
-    alt: '아이가 태블릿으로 백설공주 동화를 자막과 함께 보고 있다',
-    t: '그 글자로 읽어요',
-    d: '배운 글자를 동화책에서 낱말과 이야기로 다시 만나요',
-  },
-  {
     photo: 'cycle-play',
     alt: '그림과 낱말을 잇는 「그림짝 맞추기」 게임 화면 — 아기·고기·가구·야구',
-    t: '독후활동으로 익혀요',
+    t: '그 글자로 낱말을 맞혀요',
     d: '한 낱말을 그림 · 조립 · 따라 그리기 · 손글씨 네 가지로',
+  },
+  {
+    photo: 'cycle-reveal',
+    alt: '「아기」를 맞히자 그 낱말이 나오는 호리 동화책 한 쪽이 열린 화면 — 아기라는 낱말에 노란 색이 들어가 있다',
+    t: '동화책에서 다시 만나요',
+    d: '맞힌 낱말이 나오는 책 한 쪽이 그 자리에서 열리고, 읽어 줍니다',
   },
 ];
 
@@ -238,6 +244,8 @@ const PHONICS_WHY: { shot: string; alt: string; t: string; d: string }[] = [
  *    영어는 낱말 넉 장만 배경 위에 떠 있었다. 같은 순서로 세운다.
  * 🔴 자산은 **실제 앱 화면**(`capture-english-why.mjs`, 무료 단원 `en-b1-u01`·`en-b2-u01`).
  *    잠긴 단원을 찍으면 벽이 찍힌다.
+ * 🔴 **왼쪽 = Book 1(글자) · 가운데·오른쪽 = Book 2(낱말)**(2026-08-19 사용자). 처음엔 좌·우가
+ *    Book 1 이고 가운데만 Book 2 라 책이 뒤섞여, 글자→낱말로 나아가는 순서가 안 보였다.
  */
 const ENGLISH_WHY: { shot: string; alt: string; t: string; d: string }[] = [
   {
@@ -254,9 +262,11 @@ const ENGLISH_WHY: { shot: string; alt: string; t: string; d: string }[] = [
   },
   {
     shot: 'en-why-new',
-    alt: 'Aa Bb Cc 카드 중에서 들은 소리를 고르는 앱 화면',
-    t: '듣고 골라내요',
-    d: '소리만 듣고 글자를 찾습니다. 모양을 외웠는지가 아니라 소리를 아는지 봅니다.',
+    alt: '낱말과 그림을 이어 맞추는 그림짝 맞추기 앱 화면',
+    t: '낱말을 읽어내요',
+    // 🔴 낱말을 문장에 적지 않는다 — 이 게임은 판마다 낱말을 **랜덤으로 뽑아서**, 스크린샷을
+    //    다시 찍으면 캡션이 거짓이 된다(bat·cat·hat·fan 로 바뀌는 걸 실제로 봤다).
+    d: '배운 소리를 이어 붙여 낱말을 읽고, 그림과 짝지어 봅니다.',
   },
 ];
 /**
@@ -1051,13 +1061,20 @@ function LineSections() {
  * 🔴 **전폭 밴드**(좌우 여백 없이)여야 장 표지로 읽힌다 — 안쪽에 가두면 또 하나의 카드가 된다.
  * 🔴 번호는 원 배지가 맡으므로 「서비스 N」 라벨을 따로 쓰지 않는다(같은 말 두 번).
  */
-function ServiceBanner({ n, name, tagline }: { n: number; name: string; tagline?: string }) {
+/**
+ * 코랄 띠 — 서비스 경계. 🔴 `n` 은 **선택**이다(2026-08-19 사용자: "여기 부분도 위에 빨간색 띠로
+ * 구분하는 것처럼 구분하자"). 「왜 탱고북인가」는 세 번째 서비스가 아니라 두 서비스를 잇는 요약이라
+ * 번호를 붙이면 거짓말이 된다 — 띠만 두고 숫자는 뺀다.
+ */
+function ServiceBanner({ n, name, tagline }: { n?: number; name: string; tagline?: string }) {
   return (
     <div className="mt-14 bg-gradient-to-br from-coral-500 to-coral-700 px-4 py-10 text-center sm:px-6 sm:py-12">
       <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl">
-        <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-white/25 font-display text-2xl font-extrabold text-white sm:h-12 sm:w-12 sm:text-3xl">
-          {n}
-        </span>
+        {n !== undefined && (
+          <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-white/25 font-display text-2xl font-extrabold text-white sm:h-12 sm:w-12 sm:text-3xl">
+            {n}
+          </span>
+        )}
         <h2 className="mt-4 font-display text-[30px] font-extrabold leading-tight text-white break-keep sm:text-[40px] xl:text-[46px]">
           {name}
         </h2>
@@ -1469,6 +1486,54 @@ export default function IntroPage() {
             </ol>
           </Section>
         </div>
+        {/* 🔴 **진도표는 파닉스 쪽에 둔다**(2026-08-19 사용자) — 동화책 절에 있을 땐 「동화책에서
+            맞히면 파닉스 표가 올라간다」는 문장이 **부모가 본 적 없는 표**를 가리켰다. 파닉스를
+            읽은 직후에 표를 보여 두면, 아래 그 문장이 이미 아는 표를 가리킨다.
+            🔴 **한글·영어 한 장씩 좌우로**(사용자) — 두 절을 다 읽은 뒤라야 둘을 나란히 놓을 수 있다.
+            ⚠️ 두 그림은 모양이 많이 다르다(한글=세로 격자 / 영어=음소 칩 + 막대). 같은 틀로 맞추려
+            애쓰지 말 것 — 두 언어의 진도가 실제로 다르게 생겼다.
+            자산 = `scripts/capture-phonics-grids.mjs`(임시 페이지 `/_shot/phonics-grids`). */}
+        <div className="mx-auto max-w-3xl px-4 pb-2 sm:px-6 lg:max-w-5xl xl:max-w-6xl">
+          <p className="text-[17px] font-extrabold text-ink-900 break-keep sm:text-xl">
+            부모 화면에는 <span className="text-coral-700">어디까지 익었는지</span>가 칸으로 보입니다
+          </p>
+          <p className="mt-1 text-[14px] text-ink-600 break-keep sm:text-base">
+            어느 글자가 익었고 어디서 멈추는지, 한글과 영어를 따로 봅니다.
+          </p>
+          <div className="mt-4 grid items-start gap-3 sm:grid-cols-2">
+            {[
+              {
+                src: 'report-grid',
+                w: 1680,
+                h: 1995,
+                cap: '한글 — 자음 × 모음',
+                alt: '부모 리포트의 자음×모음 표 — ㄱ·ㄴ·ㄷ 줄은 익힘(초록), ㄹ·ㅁ 줄은 연습 중(주황)',
+              },
+              {
+                src: 'report-grid-en',
+                w: 1680,
+                h: 1344,
+                cap: '영어 — 음소와 권',
+                alt: '부모 리포트의 영어 스킬트리 — Book 1 은 a~h 익힘, i~m 연습 중',
+              },
+            ].map((g) => (
+              <figure key={g.src} className="rounded-3xl bg-white/70 p-3 sm:p-4">
+                <img
+                  src={`/landing/hangul/${g.src}.webp`}
+                  alt={g.alt}
+                  width={g.w}
+                  height={g.h}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full rounded-2xl border border-ink-100"
+                />
+                <figcaption className="mt-2 text-center text-[13px] font-bold text-ink-600 break-keep sm:text-[15px]">
+                  {g.cap}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* ── ⑤ 동화책 ──────────────────────────────────────────── */}
@@ -1517,19 +1582,6 @@ export default function IntroPage() {
           그리고 이 낱말들은 <strong>파닉스 진도에도 함께 쌓입니다</strong> — 동화책에서 「고기」를
           맞히면 파닉스 표의 고 · 기 칸이 같이 올라갑니다.
         </p>
-        <figure className="!mt-4">
-          <img
-            src="/landing/hangul/report-grid.webp"
-            alt="부모 리포트의 자음×모음 표 — ㄱ·ㄴ 줄은 익힘(초록), ㄷ·ㄹ·ㅁ 줄은 연습 중(주황)"
-            width={640}
-            height={799}
-            loading="lazy"
-            className="mx-auto w-full max-w-md rounded-2xl border border-coral-200"
-          />
-          <figcaption className="mt-2 text-center text-[13px] font-bold text-coral-800 break-keep sm:text-[15px]">
-            부모 화면 — 어느 글자가 익었고 어디서 멈추는지 칸으로 보입니다.
-          </figcaption>
-        </figure>
         <p className="!mt-6">
           <strong>직접 읽어보실 수 있습니다.</strong> 카테고리를 눌러 그 라인의 책을 바꿔 가며
           들어보세요.
@@ -1546,7 +1598,8 @@ export default function IntroPage() {
              ①서비스 1 자리에서 동화책 얘기를 하고 ②히어로가 이미 한 말을 두 번째로 했다.
              둘을 다 본 다음이라야 「그래서 이 둘이 이어진다」가 요약으로 읽힌다.
           🔴 「설치·약정·광고 없음」도 같이 왔다 — 바로 아래가 요금이라 오히려 제자리다. */}
-      <Section eyebrow="왜 탱고북인가" title="배우는 곳과 읽는 곳이 한 바퀴로 이어집니다">
+      <ServiceBanner name="왜 탱고북인가" />
+      <Section title="배우는 곳과 읽는 곳이 한 바퀴로 이어집니다">
         <p>
           글자만 배우고 끝나면 금세 흐려집니다. 탱고북은 배운 글자로 읽을 책이 같은 앱 안에 있어서,
           읽은 것이 <strong>다시 글자 진도로 돌아옵니다.</strong>
