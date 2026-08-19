@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useSeo } from '@/lib/useSeo';
 import { SiteFooter } from '@/components/SiteFooter';
 import { PhonicsTryIt } from '@/features/phonics-learner/components/PhonicsTryIt';
-import { IntroBookTryIt } from './IntroBookTryIt';
 import { PublicNav } from '@/components/PublicNav';
 import { getAllKoreanUnits } from '@/features/phonics-learner/lib/korean-phonics-units';
 import { useStorybooks } from '@/features/storybook/hooks/useStorybooks';
@@ -670,12 +669,9 @@ const CHAIN_STEPS: { t: string; n: string; d: string; eg: string }[] = [
     d: '한글·영어, 소리로 글자를 뗍니다',
     eg: 'ㄹ · 받침 ㄴ · 받침 ㄹ · 받침 ㅂ · ㅟ …',
   },
-  {
-    t: '낱말',
-    n: '370개',
-    d: '단원마다 낱말이 쌓여요',
-    eg: '오리 · 언니 · 달 · 집 · 생쥐 …',
-  },
+  // 🔴 가운데는 **제목·숫자·설명을 비운다**(2026-08-19 사용자). 카드 넉 장이 곧 낱말이고 그 밑에
+  //    낱말이 글자로 또 있는데, 위에 「낱말 370개」까지 두면 같은 말을 세 번 한다.
+  { t: '', n: '', d: '', eg: '오리 · 언니 · 달 · 집 · 생쥐 …' },
   {
     t: '동화책',
     n: '261권',
@@ -752,13 +748,16 @@ function WordBookMesh() {
                   className={pic}
                 />
               )}
-              <strong className="mt-2 block text-[13px] font-extrabold text-ink-900 break-keep sm:text-lg">
-                {step.t}{' '}
-                <span className="text-coral-700 sm:text-xl">{step.n}</span>
-              </strong>
-              <span className="mt-0.5 block text-[11px] leading-snug text-ink-600 break-keep sm:text-[15px]">
-                {step.d}
-              </span>
+              {step.t && (
+                <strong className="mt-2 block text-[13px] font-extrabold text-ink-900 break-keep sm:text-lg">
+                  {step.t} <span className="text-coral-700 sm:text-xl">{step.n}</span>
+                </strong>
+              )}
+              {step.d && (
+                <span className="mt-0.5 block text-[11px] leading-snug text-ink-600 break-keep sm:text-[15px]">
+                  {step.d}
+                </span>
+              )}
               <span className="mt-1.5 block text-[10px] leading-relaxed text-ink-500 break-keep sm:text-[13px]">
                 {step.eg}
               </span>
@@ -1083,8 +1082,9 @@ const BOOK_WORDS: { title: string; line: string; cover: string; words: [string, 
  * 🔴 **책 한 권이 한 카드다**(2026-08-19 사용자: "동화책마다 프레임 씌우고, 표지를 크게, 삽화를
  *    작게"). 예전엔 표지·낱말이 테두리 없이 한 줄에 흘러서 어디까지가 한 책인지 안 보였고,
  *    표지(20%)보다 낱말 카드가 커서 **주인공이 뒤바뀌어** 있었다. 이 절의 주어는 책이다.
- * 🔴 낱말 카드는 **폭을 묶어 둔다**(`max-w-[26rem]`) — `grid-cols-4` 만 두면 남는 폭을 다 먹어
- *    표지를 키운 만큼 같이 커진다.
+ * ⚠️ 낱말 카드 폭을 `max-w-[26rem]` 로 묶었다가 되돌렸다(2026-08-19 사용자: "화면이 비면 안 되지").
+ *    표지보다 작게 만들려다 오른쪽에 빈 땅이 300px 남았다 — **작게 만드는 것과 비우는 것은 다르다.**
+ *    남는 폭은 채우되 한 장이 표지(34%)보다 작으면 주객은 안 뒤집힌다.
  */
 function BookWords() {
   return (
@@ -1092,31 +1092,30 @@ function BookWords() {
       {BOOK_WORDS.map((b) => (
         <div
           key={b.title}
-          className="flex items-center gap-3 rounded-3xl border border-ink-100 bg-white/70 p-3 sm:gap-5 sm:p-4"
+          className="flex items-stretch gap-3 rounded-3xl border border-ink-100 bg-white/70 p-3 sm:gap-5 sm:p-4"
         >
-          <div className="w-[38%] shrink-0 sm:w-[34%]">
-            <img
-              src={b.cover}
-              alt={`${b.title} 표지`}
-              loading="lazy"
-              className="aspect-video w-full rounded-2xl border border-ink-100 object-cover shadow-sm"
-            />
-            <p className="mt-1.5 text-[14px] font-extrabold text-ink-900 break-keep sm:text-[18px]">
-              {b.title}
-            </p>
-            <p className="text-[11px] font-bold text-coral-700 sm:text-[14px]">{b.line}</p>
-          </div>
-          <ul className="grid min-w-0 flex-1 grid-cols-4 gap-1.5 sm:max-w-[26rem] sm:gap-2">
+          {/* 🔴 표지 밑 제목·라인 글씨는 **뺐다**(2026-08-19 사용자) — 표지에 제목이 이미 그려져 있고
+              (라이브러리 책 카드와 같은 이유), 그 두 줄 때문에 왼쪽만 아래로 길어져 두 칸 높이가
+              어긋났다. 책 이름은 표지 `alt` 이 지킨다. */}
+          <img
+            src={b.cover}
+            alt={`${b.title} 표지 — ${b.line}`}
+            loading="lazy"
+            className="aspect-video w-[38%] shrink-0 self-center rounded-2xl border border-ink-100 object-cover shadow-sm sm:w-[34%]"
+          />
+          {/* 🔴 낱말 카드가 **표지 높이에 맞춰 늘어난다** — 그림을 `flex-1` 로 두고 이름 줄을 밑에
+              붙인다. 정사각형으로 고정하면 오른쪽만 짧아져 다시 어긋난다. */}
+          <ul className="grid min-w-0 flex-1 grid-cols-4 gap-1.5 sm:gap-2.5">
             {b.words.map(([w, img]) => (
               <li
                 key={w}
-                className="overflow-hidden rounded-xl border border-peach-200 bg-white text-center"
+                className="flex flex-col overflow-hidden rounded-xl border border-peach-200 bg-white text-center"
               >
                 <img
                   src={img}
                   alt={w}
                   loading="lazy"
-                  className="aspect-square w-full object-cover"
+                  className="min-h-0 w-full flex-1 object-cover"
                 />
                 <span className="block py-1 text-[10px] font-extrabold text-ink-900 break-keep sm:text-[13px]">
                   {w}
@@ -1677,7 +1676,10 @@ export default function IntroPage() {
       <Section
         title={
           <>
-            뗀 글자로 읽을 책이 <span className="text-coral-700">{FACTS.books}권</span> 있습니다
+            {/* 🔴 낱말 수는 **`vocabWords`(823)** 다 — 위 세 칸 그림의 370 은 「파닉스 낱말 중
+                동화책과 이어진 것」이라 다른 숫자다. 둘을 바꿔 쓰면 같은 페이지가 두 말을 한다. */}
+            뗀 글자로 읽을 책이 <span className="text-coral-700">{FACTS.books}권</span>, 그 안에
+            낱말이 <span className="text-coral-700">{FACTS.vocabWords}개</span> 있습니다
           </>
         }
       >
@@ -1691,33 +1693,14 @@ export default function IntroPage() {
           책마다 핵심 낱말이 있어요
         </h3>
         <BookWords />
-        {/* 🔴 이 한 줄이 파닉스 낱말 카드와 책 낱말 카드를 **잇는다**. 숫자는 실측이다
-            (`word-scenes.json`: 고기 7권 · 오리 5권). 색인 파일 자체는 랜딩에 안 싣는다(86KB). */}
-        {/* 🔴 「아기는 12권에 나옵니다」 한 줄은 **뺐다**(2026-08-19 사용자) — 바로 위 세 칸 그림이
-            이미 그 낱말이 어느 책들을 여는지 보여주고, 아래 두 문단도 같은 말을 이어서 한다.
+        {/* 🔴 아래 세 문단과 읽어주기 데모 상자는 **뺐다**(2026-08-19 사용자).
+            ①「독후활동 게임이 열려요」·「파닉스 진도에도 쌓입니다」는 바로 위 세 칸 그림(파닉스→낱말
+            →동화책)이 이미 한 말이고, 파닉스 표는 이제 파닉스 절에 있어서 그 문장이 가리킬 그림도
+            여기 없다. ②읽어주기 상자는 이 절에서 유일한 라이브 데모였지만, 이 절의 주장은 「책이
+            이만큼 있다」이고 그건 라인 격자와 표지가 이미 보여 준다 — 상자 하나가 2화면을 먹었다.
             ⚠️ 그때 **세는 법**만 남긴다: 색인은 `[책, 쪽]` 쌍이라 한 책의 여러 쪽이 여러 항목으로
             들어간다 — 거미는 항목 12개인데 책은 2권이었고 그걸 「12권」이라 쓰고 있었다.
-            권수를 다시 쓸 일이 생기면 `new Set(...map(([id]) => id)).size` 로 셀 것. */}
-        <p className="!mt-6">
-          다 읽고 나면 <strong>그 책에 나온 낱말로 독후활동 게임</strong>이 그 자리에서 열려요. 같은
-          낱말을 그림으로 만나고, 글자로 조립하고, 따라 그리고, 손으로 씁니다.
-        </p>
-        {/* 🔴 파닉스↔동화책이 실제로 이어지는 **유일한 증거**. */}
-        {/* 🔴 **표를 보여주지 않으면 이 문장은 성립하지 않는다**(2026-08-18 리뷰). 부모는 「파닉스
-            표」를 본 적이 없다 — 본 적 없는 것의 칸이 올라간다고 하면 무슨 말인지 알 수 없다.
-            그림은 부모 리포트의 실제 컴포넌트를 찍은 것이다(`scripts/capture-report-grid.mjs`). */}
-        <p className="!mt-4">
-          그리고 이 낱말들은 <strong>파닉스 진도에도 함께 쌓입니다</strong> — 동화책에서 「고기」를
-          맞히면 파닉스 표의 고 · 기 칸이 같이 올라갑니다.
-        </p>
-        <p className="!mt-6">
-          <strong>직접 읽어보실 수 있습니다.</strong> 카테고리를 눌러 그 라인의 책을 바꿔 가며
-          들어보세요.
-        </p>
-        {/* 🔴 여기 게임 상자(그림짝·낱말쓰기)는 뺐다(2026-08-18) — 히어로 아래 데모가 **같은 활동**이라
-            같은 걸 두 번 보여주면서 2.1화면을 썼다. 읽어주기는 남긴다: 카테고리를 바꿔 가며
-            **책이 실제로 읽히는 것**을 듣는 자리는 여기뿐이고, 이 절의 주장이 「266권」이다. */}
-        <IntroBookTryIt />
+            권수를 쓸 일이 생기면 `new Set(...map(([id]) => id)).size` 로 셀 것. */}
       </Section>
 
       {/* ── ⑤.5 두 서비스가 한 바퀴 — 순환 그림 ─────────────────────────
