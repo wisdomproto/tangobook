@@ -373,17 +373,32 @@ function Pict({ name }: { name: string }) {
  * 🔴 자산은 **구워서 로컬에** 둔다(9KB·50KB) — R2 원본은 800px·1536px 이고, 첫 화면이라
  *    `fetchpriority="high"` 로 프리렌더 HTML 에 src 가 남는 세 장 안에 든다.
  */
+/** 칸 사이 화살표. 🔴 375px 에선 세로로 쌓이므로 아래를 가리키게 돌린다. */
+function Arrow() {
+  return (
+    <span
+      aria-hidden
+      className="self-center text-xl font-extrabold text-coral-500 sm:mt-10 sm:self-start sm:text-3xl"
+    >
+      <span className="sm:hidden">↓</span>
+      <span className="hidden sm:inline">→</span>
+    </span>
+  );
+}
+
 function HeroBridge() {
   return (
     <div className="mx-auto mt-5 max-w-2xl rounded-3xl border-2 border-coral-200 bg-white/70 p-3 sm:mt-8 sm:p-5 xl:max-w-4xl xl:p-7">
-      <div className="flex items-stretch gap-2 sm:gap-4">
-        {/* 왼쪽 — 파닉스에서 배우는 낱말 */}
-        {/* 왼쪽 — 파닉스. 🔴 **글자가 먼저, 낱말이 그다음**(2026-08-12 사용자: "왼쪽에 단어만
-            있으니까 파닉스 느낌이 안 나네"). 낱말 카드만 두면 그림 낱말책으로 보인다 — 파닉스는
-            **글자와 소리**라, 위에 글자가 음절이 되는 화면(ㄹ+ㅣ, 라랴러려…)을 세우고 그 아래
-            그 글자로 된 낱말을 둔다. 두 장 다 앱 화면을 그대로 찍은 것이다. */}
-        <div className="flex w-[34%] shrink-0 flex-col gap-1.5 sm:gap-2">
-          <span className="text-[11px] font-extrabold text-coral-700 sm:text-sm xl:text-base">
+      {/* 🔴 **셋을 한 줄로**(2026-08-19 사용자). 예전엔 ①②가 왼쪽에 세로로 쌓이고 ③이 오른쪽이라
+          두 단짜리 그림이었는데, 바로 위 지도(파닉스→낱말→동화책)가 이미 가로 세 칸이라 같은
+          이야기가 **다른 모양으로 두 번** 나왔다. 셋을 같은 방향으로 세우면 위 그림의 한 줄을
+          그대로 확대한 것이 된다.
+          🔴 375px 에선 세로로 쌓는다 — 세 칸이면 하나가 100px 이라 화면 안 글자가 안 읽힌다. */}
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-3">
+        {/* ① 파닉스 — 글자가 음절이 되는 화면. 🔴 낱말 카드만 두면 그림 낱말책으로 보인다(2026-08-12
+            사용자: "왼쪽에 단어만 있으니까 파닉스 느낌이 안 나네") — 파닉스는 **글자와 소리**다. */}
+        <div className="flex min-w-0 flex-1 flex-col">
+          <span className="mb-1 text-[11px] font-extrabold text-coral-700 sm:text-sm xl:text-base">
             ① 글자와 소리를 배우고
           </span>
           <div className="overflow-hidden rounded-2xl border border-ink-100 bg-cream-50">
@@ -396,7 +411,13 @@ function HeroBridge() {
               className="aspect-[540/458] w-full object-cover"
             />
           </div>
-          <span className="text-[11px] font-extrabold text-coral-700 sm:text-sm xl:text-base">
+        </div>
+
+        <Arrow />
+
+        {/* ② 그 글자로 만든 낱말 */}
+        <div className="flex min-w-0 flex-1 flex-col">
+          <span className="mb-1 text-[11px] font-extrabold text-coral-700 sm:text-sm xl:text-base">
             ② 그 글자로 낱말을
           </span>
           <div className="relative overflow-hidden rounded-2xl border border-ink-100 bg-cream-50">
@@ -408,7 +429,7 @@ function HeroBridge() {
               fetchPriority="high"
               className="aspect-[540/366] w-full object-cover"
             />
-            {/* 🔴 위치는 **퍼센트** — 이미지가 105px(모바일)~282px(데스크탑)로 늘어난다. */}
+            {/* 🔴 위치는 **퍼센트** — 이미지가 화면 폭에 따라 늘어난다. */}
             <span
               aria-hidden
               className="pointer-events-none absolute rounded-xl ring-[3px] ring-coral-500 sm:rounded-2xl sm:ring-4"
@@ -417,24 +438,15 @@ function HeroBridge() {
           </div>
         </div>
 
-        {/* 가운데 — 잇는 자리. 🔴 **「같은 낱말」 칩을 뺐다**(2026-08-12 사용자) — 양쪽에 링과
-            형광이 이미 있어서 말로 한 번 더 하면 설명이 겹친다. 화살표만 남긴다. */}
-        <div className="flex items-center justify-center self-center">
-          <span className="text-2xl font-extrabold text-coral-500 sm:text-4xl" aria-hidden>
-            →
-          </span>
-        </div>
+        <Arrow />
 
-        {/* 🔴 **번호 라벨은 ①과 ③이 같은 줄에 선다**(2026-08-19 사용자) — 셋을 순서로 읽히려면
-            시작점이 같아야 한다. 2026-08-12 엔 오른쪽 기둥을 통째로 가운데 걸었는데(그때 이유는
-            "왼쪽이 두 단이라 오른쪽 아래에 빈 공간이 길게 남는다"), 그러면 ③ 라벨이 ②쯤으로 내려온다.
-            🔴 그래서 **라벨만 위로 올리고 그림은 여전히 가운데**에 둔다 — 여백이 아래로 몰리지 않고
-            위아래로 갈린다. 그림을 늘려 채우지는 않는다(`object-cover` 라 16:9 삽화의 양옆이 잘린다). */}
-        <div className="flex min-w-0 flex-1 flex-col">
+        {/* ③ 그 낱말이 나오는 동화책 한 쪽. 🔴 문장 강조는 **앱과 같은 노란 하이라이트** —
+            리빌 화면에서 맞힌 낱말에 색이 들어가는 그 표시다. */}
+        <div className="flex min-w-0 flex-[1.3] flex-col">
           <span className="mb-1 text-[11px] font-extrabold text-coral-700 sm:text-sm xl:text-base">
             ③ 동화책에서 다시 만나요
           </span>
-          <div className="my-auto overflow-hidden rounded-2xl border border-ink-100 bg-cream-50">
+          <div className="overflow-hidden rounded-2xl border border-ink-100 bg-cream-50">
             <img
               src="/landing/hangul/bridge-page.webp"
               alt="미운 아기 오리 동화책 한 쪽 — 알에서 깨어난 아기 오리들"
