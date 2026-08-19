@@ -1283,6 +1283,28 @@ export default function IntroPage() {
           통글자로 외운 아이는 <strong>아는 낱말만</strong> 읽습니다. 처음 보는 낱말 앞에서는 다시
           멈춰요.
         </p>
+        {/* 🔴 이 한 장만 **실사**다(2026-08-19 사용자: "실제 아이 모습으로 해야지"). 나머지 그림은
+            펠트 인형과 앱 화면 — 그건 **우리 안 얘기**고, 이 문장은 **부모가 자기 아이를 떠올리는
+            자리**라 register 가 달라야 한다.
+            🔴 **어깨 너머에서 찍는다.** 앞에서 찍으면 카드 글자가 카메라를 향하고, 그러면 아이는
+            뒷면을 보고 있는 셈이 된다(두 번 틀렸다 — 손에 들려도, 책상에 눕혀도 마찬가지).
+            아이 뒤에서 봐야 글자 방향이 아이 기준으로 맞고 우리도 같이 읽는다.
+            🔴 **카드가 주인공이라 크게 잡는다** — 이 그림은 좌우로 갈려 한 칸이 570px(모바일 340px)
+            이라, 뒤통수가 화면을 덮으면 「가구」가 안 읽힌다. */}
+        <figure className="!mt-5">
+          <img
+            src="/landing/hangul/problem.webp"
+            alt="아이가 「가구」 카드는 손가락으로 짚어 읽고, 「가」 카드 앞에서는 머리를 긁적이며 멈춘 모습"
+            width={1280}
+            height={720}
+            loading="lazy"
+            decoding="async"
+            className="aspect-video w-full rounded-3xl object-cover"
+          />
+          <figcaption className="mt-2 text-center text-[13px] font-bold text-ink-600 break-keep sm:text-[15px]">
+            낱말은 통째로 외웠지만, 그 안의 글자 하나는 처음 보는 것이 됩니다.
+          </figcaption>
+        </figure>
         <p>
           <strong className="text-coral-700">파닉스는 글자가 가진 소리를 배우는 방법</strong>
           입니다. 한글은 소리와 글자가 그대로 맞물리는 문자라(ㄱ은 그, ㅏ는 아, 둘을 합치면 가) —
