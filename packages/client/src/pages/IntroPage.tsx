@@ -388,7 +388,11 @@ function Arrow() {
 
 function HeroBridge() {
   return (
-    <div className="mx-auto mt-5 max-w-2xl rounded-3xl border-2 border-coral-200 bg-white/70 p-3 sm:mt-8 sm:p-5 xl:max-w-4xl xl:p-7">
+    /* 🔴 폭은 **위 지도와 같다**(2026-08-19 사용자: "위랑 아래 너비를 맞춰"). 예전엔 브릿지가
+       히어로의 유일한 그림이라 좁게(max-w-2xl) 세웠는데, 지금은 바로 위에 같은 모양의 세 칸
+       지도가 있어서 두 상자의 좌우 끝이 어긋나면 계단처럼 보인다. 폭 제한을 없애고 부모
+       컨테이너(히어로)를 그대로 따른다. */
+    <div className="mx-auto mt-5 rounded-3xl border-2 border-coral-200 bg-white/70 p-3 sm:mt-8 sm:p-5 xl:p-7">
       {/* 🔴 **셋을 한 줄로**(2026-08-19 사용자). 예전엔 ①②가 왼쪽에 세로로 쌓이고 ③이 오른쪽이라
           두 단짜리 그림이었는데, 바로 위 지도(파닉스→낱말→동화책)가 이미 가로 세 칸이라 같은
           이야기가 **다른 모양으로 두 번** 나왔다. 셋을 같은 방향으로 세우면 위 그림의 한 줄을
@@ -671,13 +675,17 @@ const CHAIN_STEPS: { t: string; n: string; ko: string; en: string }[] = [
   // ⚠️ 동화책은 **영어판이 따로 있는 게 아니라 같은 책을 영어로 읽는다**(표본 40권 전부 `languages`
   //    에 en 보유). 「영어 동화책 N권」처럼 따로 세지 말 것.
   {
-    t: '파닉스',
-    n: '71단원',
+    // 🔴 「파닉스 71단원」 → **「한글·영어 파닉스」**(2026-08-19 사용자). 숫자는 바로 밑 두 줄이
+    //    한글 32 · 영어 39 로 갈라 말하므로, 위에서 합계를 또 말하면 같은 걸 두 번 센다.
+    t: '한글·영어 파닉스',
+    n: '',
     ko: '한글 32단원 — ㄹ · 받침 ㄴ · 받침 ㅂ …',
     en: '영어 39단원 — Aa Bb Cc · short a · 매직 e …',
   },
   {
-    t: '낱말',
+    // 🔴 「낱말」 → **「학습 어휘」**(2026-08-19 사용자) — 아래 칸이 낱말을 늘어놓고 있어서 제목까지
+    //    낱말이면 같은 말이 두 번이고, 부모가 찾는 말은 「어휘」다.
+    t: '학습 어휘',
     n: '',
     ko: '한글 — 오리 · 언니 · 달 · 집 …',
     en: '영어 — cat · fan · hat · map …',
@@ -719,35 +727,29 @@ function WordBookMesh() {
               </span>
             )}
             <div className="min-w-0 text-center">
-              {/* 🔴 첫 칸은 **앱이 이미 쓰는 그림**이다 — `/library/phonics` 랜딩의 한글·영어 카드
-                  아이콘(호리가 ㄱ 을 든 것, A 를 든 것). 새로 그릴 이유가 없다:
-                  ①아이가 앱에서 보는 바로 그 그림이고 ②같은 캐릭터가 두 글자를 들고 있어
-                  **한 서비스가 두 언어를 다 한다**가 한눈에 온다(2026-08-19 사용자가 찾아냄).
-                  ⚠️ 자모 타일을 코드로 그렸다가 되돌렸다 — 「예쁘고 귀엽게」와 거리가 멀었고,
-                  생성 이미지로 다시 뽑아도 그 타일과 똑같이 나왔다. */}
+              {/* 🔴 왼쪽 무더기 = 한글 블록, 오른쪽 = 알파벳 블록. **두 언어가 한 그림 안에** 있어야
+                  「하나로 둘 다 한다」가 온다(2026-08-19 사용자).
+                  ⚠️ 여기까지 세 번 갈아엎었다 — 호리+가나다(한글만 보임) → 코드로 그린 자모 타일
+                  (「격자로 늘어놓아라」고 쓴 내 프롬프트 탓에 생성본도 똑같이 나왔다) → 앱의 파닉스
+                  카드 아이콘 둘(호리가 ㄱ·A 를 든 것) → 이 블록 그림. 자모가 깨지기 쉬우니 갈 때는
+                  ㄱ ㄴ ㄷ · ㅏ ㅑ ㅓ 가 정확한지 눈으로 볼 것. */}
               {i === 0 && (
-                <span className={`${pic} flex items-center justify-center gap-1 bg-cream-100 p-1 sm:gap-3 sm:p-2`}>
-                  {[
-                    ['korean', '호리가 한글 자음 ㄱ 을 들고 있는 그림'],
-                    ['english', '호리가 알파벳 A 를 들고 있는 그림'],
-                  ].map(([f, alt]) => (
-                    <img
-                      key={f}
-                      src={`/icons/phonics/${f}.webp`}
-                      alt={alt}
-                      width={1244}
-                      height={1244}
-                      loading="lazy"
-                      decoding="async"
-                      className="h-full min-h-0 w-1/2 object-contain"
-                    />
-                  ))}
-                </span>
+                <img
+                  src="/landing/hangul/letters.webp"
+                  alt="한글 자모 블록 ㄱ ㄴ ㄷ ㅏ ㅑ ㅓ 와 알파벳 블록 A B C a b c 가 좌우로 쌓여 있는 그림"
+                  width={1280}
+                  height={720}
+                  loading="lazy"
+                  decoding="async"
+                  className={pic}
+                />
               )}
               {i === 1 && (
-                /* 🔴 넉 장을 **가로 한 줄**로 — 2×2 로 두면 격자가 제 높이로 자라 옆 두 칸(16:9)과
-                   높이가 어긋난다(실측에서 가운데만 아래로 튀어나왔다). */
-                <span className={`${pic} grid grid-cols-4 grid-rows-1 gap-1 bg-cream-100 p-1`}>
+                /* 🔴 2×2 로 두되 **줄 수를 못 박는다**(`grid-rows-2` + 자식 `min-h-0`) — 안 그러면
+                   격자가 제 높이로 자라 옆 두 칸(16:9)과 어긋난다(가운데만 아래로 튀어나왔었다). */
+                <span
+                  className={`${pic} grid grid-cols-2 grid-rows-2 gap-1 bg-cream-100 p-1 sm:gap-1.5 sm:p-1.5`}
+                >
                   {CHAIN_WORD_CARDS.map((c) => (
                     <img
                       key={c}
