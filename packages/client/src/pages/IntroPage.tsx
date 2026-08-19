@@ -653,17 +653,42 @@ const EN_WORDS: { w: string; img: string }[] = [
  *    동화책=표지 벽. 앱 스크린샷은 바로 위 순환 그림이 이미 쓰고 있어서 여기서 또 쓰면 겹친다.
  * 🔴 가운데는 **새 자산을 만들지 않는다** — 앱이 쓰는 낱말 카드 넉 장을 그대로 격자로 놓는다.
  */
-const CHAIN_STEPS: { t: string; n: string; d: string }[] = [
+const CHAIN_STEPS: { t: string; n: string; d: string; eg: string }[] = [
   // 🔴 라벨은 짧게 — 375px 에서 칸 하나가 83px 이라 「한글·영어 파닉스 71단원」은 두 줄이 된다.
-  { t: '파닉스', n: '71단원', d: '한글·영어, 소리로 글자를 뗍니다' },
-  { t: '낱말', n: '370개', d: '단원마다 낱말이 쌓여요' },
-  { t: '동화책', n: '261권', d: '배운 낱말이 나오는 책이 열려요' },
+  // 🔴 **칸마다 예시를 글자로 깐다**(2026-08-19 사용자: "넌 지금 이렇게 보면 뭔지 알겠어?").
+  //    그림만으로는 「71단원」이 무엇의 71개인지, 낱말 사진 넉 장이 무슨 뜻인지 안 온다.
+  //    숫자 밑에 실제로 들어 있는 것 몇 개를 늘어놓으면 그 자리에서 안다.
+  // 🔴 **세 칸의 예시는 같은 줄끼리 맞물린다**(2026-08-19 사용자: "깔맞춤하고").
+  //    ㄹ→오리→미운 아기 오리 / 받침 ㄴ→언니→신데렐라 / 받침 ㄹ→달→해와 달이 된 오누이 /
+  //    받침 ㅂ→집→백설공주. 예시가 서로 무관하면 화살표가 거짓말이 된다.
+  // 🔴 **아는 동화책이 나오게 낱말을 고른다**(사용자). 처음엔 고기·머리·모두였는데 그게 여는 책이
+  //    자연관찰·호리라 「그래서 뭐」가 됐다. 낱말은 색인에서 **유명 동화책에 실제로 나오는 것**으로
+  //    거꾸로 뽑았다(`word-scenes.json` × 책 제목).
+  {
+    t: '파닉스',
+    n: '71단원',
+    d: '한글·영어, 소리로 글자를 뗍니다',
+    eg: 'ㄹ · 받침 ㄴ · 받침 ㄹ · 받침 ㅂ · ㅟ …',
+  },
+  {
+    t: '낱말',
+    n: '370개',
+    d: '단원마다 낱말이 쌓여요',
+    eg: '오리 · 언니 · 달 · 집 · 생쥐 …',
+  },
+  {
+    t: '동화책',
+    n: '261권',
+    d: '배운 낱말이 나오는 책이 열려요',
+    eg: '미운 아기 오리 · 신데렐라 · 해와 달이 된 오누이 · 백설공주 …',
+  },
 ];
+/** 🔴 위 예시와 **같은 낱말**의 카드다 — 그림과 글자가 다른 낱말이면 깔맞춤이 깨진다. */
 const CHAIN_WORD_CARDS = [
-  'kr-h1-u02-gogi-5e25d595',
-  'kr-h1-u02-agi-7c9fa449',
-  'kr-h1-u06-meori-d65f4712',
-  'kr-h1-u06-modu-388bb602',
+  'kr-h1-u05-ori-32d6900a',
+  'kr-h2-u03-eonni-c492d752',
+  'kr-h2-u04-dal-5ed6a3b6',
+  'kr-h2-u07-jip-29dc98cc',
 ];
 
 function WordBookMesh() {
@@ -699,7 +724,9 @@ function WordBookMesh() {
                 />
               )}
               {i === 1 && (
-                <span className={`${pic} grid grid-cols-2 gap-1 bg-cream-100 p-1`}>
+                /* 🔴 넉 장을 **가로 한 줄**로 — 2×2 로 두면 격자가 제 높이로 자라 옆 두 칸(16:9)과
+                   높이가 어긋난다(실측에서 가운데만 아래로 튀어나왔다). */
+                <span className={`${pic} grid grid-cols-4 grid-rows-1 gap-1 bg-cream-100 p-1`}>
                   {CHAIN_WORD_CARDS.map((c) => (
                     <img
                       key={c}
@@ -709,7 +736,7 @@ function WordBookMesh() {
                       height={800}
                       loading="lazy"
                       decoding="async"
-                      className="h-full w-full rounded-lg object-cover"
+                      className="h-full min-h-0 w-full rounded-lg object-cover"
                     />
                   ))}
                 </span>
@@ -731,6 +758,9 @@ function WordBookMesh() {
               </strong>
               <span className="mt-0.5 block text-[11px] leading-snug text-ink-600 break-keep sm:text-[15px]">
                 {step.d}
+              </span>
+              <span className="mt-1.5 block text-[10px] leading-relaxed text-ink-500 break-keep sm:text-[13px]">
+                {step.eg}
               </span>
             </div>
           </Fragment>
@@ -1267,24 +1297,9 @@ function LearnReadCycle() {
           </Fragment>
         ))}
       </div>
-      {/* 닫는 화살표 — 여기가 「순환」의 실체다. 실제로 그렇게 동작한다(`groupBySyllable` 이 한글
-          낱말 이벤트를 글자로 쪼개 파닉스 칸에 얹는다). ↩ 는 위 첫 칸으로 되돌아감을 가리킨다. */}
-      {/* 🔴 **한 바퀴를 말로만 하지 않는다**(2026-08-12 사용자: "여기도 파닉스랑 동화랑 연결된다는
-          걸 강조를 다시 해보자"). 아래 사진은 **프로덕션에서 그대로 찍은 순간**이다 — 파닉스 게임에서
-          「고기」를 맞히자 흐려진 게임판 위로 그 낱말이 나오는 동화책 쪽이 열렸고, 문장의 「고기」에
-          색이 들어가 있다. 연출이 아니라 앱이 하는 일이라 이 자리에 증거로 둔다. */}
-      <div className="mt-3 rounded-3xl border-2 border-dashed border-coral-300 bg-coral-50 p-3 sm:p-4">
-        <div className="flex items-center gap-2 sm:gap-3">
-          <span aria-hidden className="shrink-0 text-3xl font-extrabold text-coral-700">
-            ↩
-          </span>
-          <p className="text-[15px] leading-snug text-ink-700 break-keep sm:text-[16px]">
-            그리고 <strong className="text-coral-700">읽은 게 다시 글자 진도로 돌아옵니다</strong> —
-            파닉스에서 낱말을 맞히면 <strong className="text-coral-700">그 자리에서</strong> 그
-            낱말이 나오는 동화책 쪽이 열려요.
-          </p>
-        </div>
-      </div>
+      {/* 🔴 닫는 화살표(↩ 「읽은 게 다시 글자 진도로 돌아옵니다」) 상자는 **뺐다**(2026-08-19 사용자).
+          셋째 칸이 이미 「동화책에서 다시 만나요」라 같은 말을 바로 아래에서 한 번 더 했고,
+          점선 상자가 세 칸 밑에 붙어 그림이 네 덩이로 보였다. */}
     </div>
   );
 }
