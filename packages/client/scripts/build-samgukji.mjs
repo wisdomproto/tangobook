@@ -259,11 +259,34 @@ function stageFor(key, volN) {
   return hit;
 }
 
-/** 시트 프롬프트용 — 전 단계를 한 덩이로. 시트는 한 장에 다 보여야 한다. */
+/**
+ * 시트 프롬프트용 나이·복장 블록.
+ *
+ * 🔴 **한 장에 다 담지 않는다.** 단계가 셋을 넘으면 한 이미지 안에 인물이 스무 명 가까이 들어가고
+ *   (단계 × 3뷰 + 얼굴 + 표정 4 + 실루엣), 4등신이라 얼굴이 작아 줄마다 다른 사람이 된다.
+ *   그래서 단계 수로 갈라 지시를 달리 준다:
+ *     ≤2 단계 → 한 장에 두 줄. 얼굴이 두 번뿐이라 버틴다.
+ *     3+ 단계 → **대표 단계 한 장을 먼저 굽고 승인**한 뒤, 나머지는 그 승인본을 레퍼런스로 물려
+ *               «정면 + 얼굴» 만 있는 작은 장으로 따로 굽는다. 얼굴을 새로 만들지 않게 하는 것이 요점.
+ *   대표 단계 = 그 인물이 가장 많은 권에 걸쳐 입고 있는 단계(대개 두 번째).
+ */
 function stageBlock(key) {
   const list = STAGES[key];
   if (!list) return '';
-  return list.map(([from, text]) => `  from book ${from}: ${text}`).join('\n');
+  const rows = list.map(([from, text]) => `  from book ${from}: ${text}`).join('\n');
+  if (list.length <= 2) {
+    return `AGES & COSTUMES - ${list.length} stage(s), draw them as ${list.length} row(s) in THIS SAME sheet,
+oldest last. 🔴 The face colour, the outline and the accent colour are identical in every row; only
+age and clothing move.
+${rows}`;
+  }
+  const [, prime] = list[1];
+  return `AGES & COSTUMES - ${list.length} stages. 🔴 DO NOT DRAW THEM ALL IN THIS IMAGE. At four heads
+tall the faces come out small, and a sheet with ${list.length} rows of them will drift into ${list.length} different people.
+🔴 BAKE THIS SHEET WITH ONE STAGE ONLY - the one marked PRIMARY below. Approve it. Then generate each
+remaining stage as its own small sheet, feeding the APPROVED image back in as the reference, and asking
+only for FRONT VIEW + HEAD CLOSE-UP. The face is never generated twice from text.
+${rows.replace(`  from book ${list[1][0]}: ${prime}`, `  from book ${list[1][0]}: [PRIMARY - bake this one] ${prime}`)}`;
 }
 
 function firstMentionReport(allVols) {
@@ -591,8 +614,6 @@ ${esc(sheet)}
 ${
   stageBlock(keyByToken[token])
     ? `
-AGES & COSTUMES - draw ONE ROW PER STAGE, left to right, oldest last. 🔴 The face colour, the
-silhouette and the accent colour are the SAME in every row; only age and clothing move.
 ${esc(stageBlock(keyByToken[token]))}
 `
     : ''
@@ -783,7 +804,7 @@ ${volRows}
 <div class="card">
   <ul>
     <li><b>그림체 확정</b> — 위 A·B·C 중 하나. <b>다른 모든 일의 선행 조건.</b></li>
-    <li><b>앵커 저작 + 캐스트 시트 10장</b> — 유비·관우·장비 세 장을 먼저 구워 승인받는다.</li>
+    <li><b>앵커 저작 + 캐스트 시트 54장</b> — 유비·관우·장비 세 장을 먼저 구워 승인받는다.</li>
     <li><b>2권~24권 집필</b> — <code>docs/samgukji/vol-NN.md</code> 에 쓰고 <code>build-samgukji.mjs</code> 로 굽는다.</li>
     <li><b>후반부 순화 기준 확정</b> — 20·21권.</li>
     <li><b>editor2 연동</b> — <code>link-samgukji-illustrations.mjs</code>(전래 링커 포크). 삽화가 붙은 뒤.</li>
