@@ -237,16 +237,16 @@ const STYLE = `<style>
   .hint { font-size: 10.5pt; color: var(--ink-600); font-weight: 400; letter-spacing: -.02em; }
   section { display: flex; flex-direction: column; gap: 3mm; }
 
-  header { display: flex; align-items: flex-end; justify-content: space-between;
+  header { display: flex; align-items: center; justify-content: space-between;
     border-bottom: 1.2mm solid var(--coral); padding-bottom: 2.5mm; }
-  .ttl { font-size: 18pt; font-weight: 800; letter-spacing: -.03em; }
+  .ttl { font-size: 18pt; font-weight: 800; letter-spacing: -.03em; flex: 1; }
   .ttl em { font-style: normal; color: var(--coral); }
   .ttl small { font-size: 10pt; font-weight: 600; color: var(--ink-600); margin-left: 2mm; }
   .meta { display: flex; gap: 4mm; align-items: center; font-size: 9pt; color: var(--ink-600); }
   .fill { display: inline-block; border-bottom: .3mm solid var(--peach-200); width: 24mm; }
-  .runhead { display: flex; justify-content: space-between; align-items: baseline;
+  .runhead { display: flex; justify-content: space-between; align-items: center;
     border-bottom: .35mm solid var(--peach-200); padding-bottom: 1.5mm; font-size: 9pt; color: var(--ink-500); }
-  .runhead b { color: var(--coral-700); font-size: 10.5pt; }
+  .runhead b { color: var(--coral-700); font-size: 10.5pt; flex: 1; }
 
   .sq { width: 16mm; height: 16mm; border: .4mm solid var(--peach-200); border-radius: 1.6mm; position: relative;
     display: grid; place-items: center; flex: none; background: #fff; }
@@ -333,7 +333,12 @@ const STYLE = `<style>
   /* 🔴 로고는 **CSS 배경으로 한 번만** 심는다(2026-08-19 사용자: 각 페이지 맨 위 가운데).
      쪽마다 img 를 넣으면 같은 base64 가 쪽수만큼 복제돼 파일이 몇 배가 된다.
      🔴 data URI 라 오프라인·인쇄에서도 뜬다 — 이 파일은 내려받아 쓰는 인쇄물이다. */
-  .plogo { height: 9mm; margin: 0 auto 2mm; background: center/contain no-repeat var(--logo); }
+  /* 🔴 로고는 **제목 줄 안**에 넣는다(2026-08-19 사용자: "왜 맨 위가 텅텅 비었냐").
+     쪽 위에 따로 띠로 두면 종이 맨 위 2cm 가 통째로 비어 보인다 — 인쇄물은 한 장이 곧 화면이라
+     빈 띠 하나가 「덜 만든 것」처럼 읽힌다. 제목 옆이면 자리도 안 먹고 상표 노릇은 한다. */
+  .plogo { width: 24mm; height: 7mm; flex: none; margin-right: 3mm;
+    background: left center/contain no-repeat var(--logo); }
+  .runhead .plogo { width: 20mm; height: 5.5mm; margin-right: 2.5mm; }
   .srow { display: flex; align-items: center; gap: 2.5mm; justify-content: center; }
   .formula { width: 16mm; flex: none; font-size: 12pt; font-weight: 700; color: var(--mint-600); text-align: center; }
   .formula i { font-style: normal; color: var(--mint-200); margin: 0 .6mm; }
@@ -732,8 +737,8 @@ function renderPages({ head, spec, words }) {
   return `
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">${UNIT} ${head.unitNo}. <em>${spec.glyph}</em><small>${spec.sub}</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -751,13 +756,25 @@ function renderPages({ head, spec, words }) {
     <div class="row">${
       spec.xlGhosts.length > 3
         ? (() => {
-            const md = Math.max(22, Math.min(33, Math.floor(178 / spec.xlGhosts.length) - 3));
+            // 🔴 **한 줄에 다섯**(2026-08-19 사용자). 그냥 흘려 두면 폭이 남는 만큼 채우고 나머지가
+            //    다음 줄로 넘어가 7+3 처럼 들쭉날쭉해진다 — 종이는 줄이 맞아야 연습장으로 보인다.
+            //    칸 크기도 전체 개수가 아니라 **한 줄 개수**로 잡아야 커진다(10개 기준 22mm → 32mm).
+            const PER = 5;
+            const per = Math.min(PER, spec.xlGhosts.length);
+            const md = Math.max(22, Math.min(33, Math.floor(178 / per) - 3));
             const len = Math.max(1, ...spec.xlGhosts.map((c) => [...String(c)].length));
             // 글자 수가 늘면 폭이 먼저 찬다 — 0.64 배는 한 글자짜리 기준이다.
             const mdf = Math.min(md * 0.64, (md * 0.86) / (0.57 * len));
-            return `<div class="row" style="--md:${md}mm;--mdf:${mdf.toFixed(1)}mm">${spec.xlGhosts
-              .map((c) => box(c, 'md' + (spec.en ? ' en' : '')))
-              .join('')}</div>`;
+            const lines = [];
+            for (let i = 0; i < spec.xlGhosts.length; i += PER) lines.push(spec.xlGhosts.slice(i, i + PER));
+            return lines
+              .map(
+                (ln) =>
+                  `<div class="row" style="--md:${md}mm;--mdf:${mdf.toFixed(1)}mm">${ln
+                    .map((c) => box(c, 'md' + (spec.en ? ' en' : '')))
+                    .join('')}</div>`
+              )
+              .join('');
           })()
         // 🔴 자음은 1칸 본보기 + 2칸 연습이지만, 모음 단원에서 3칸을 고집하면 마지막 칸이
         //    「ㅐ 를 쓰라는 건지 ㅔ 를 쓰라는 건지」 모를 빈칸이 된다 → 모음 수만큼만 놓는다.
@@ -798,8 +815,7 @@ function renderPages({ head, spec, words }) {
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>${UNIT} ${head.unitNo}. ${spec.glyph}</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>${UNIT} ${head.unitNo}. ${spec.glyph}</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">${chunks[0].title}</h2>
@@ -812,8 +828,7 @@ ${chunks
     (c, i) => `
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>${UNIT} ${head.unitNo}. ${spec.glyph}</b><span>글자를 만들어요 · ${i + 3}쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>${UNIT} ${head.unitNo}. ${spec.glyph}</b><span>글자를 만들어요 · ${i + 3}쪽</span></div>
   <section>
     <h2 data-n="4">${c.title}${c.cont ? ' <span class="hint">이어서 써요</span>' : ''}</h2>
     ${syllableBlock(c.rows, ROOM.more - 14, spec.wordy)}
@@ -824,8 +839,7 @@ ${chunks
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>${UNIT} ${head.unitNo}. ${spec.glyph}</b><span>낱말을 만나요 · ${chunks.length + 2}쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>${UNIT} ${head.unitNo}. ${spec.glyph}</b><span>낱말을 만나요 · ${chunks.length + 2}쪽</span></div>
 
   <section>
     <h2 data-n="5">${spec.meetTitle} <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -850,8 +864,7 @@ ${
     : `
 <!-- ─────────── 낱말 쓰기 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>${UNIT} ${head.unitNo}. ${spec.glyph}</b><span>낱말을 써요 · ${chunks.length + 3}쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>${UNIT} ${head.unitNo}. ${spec.glyph}</b><span>낱말을 써요 · ${chunks.length + 3}쪽</span></div>
   <section>
     ${writeSection}
   </section>

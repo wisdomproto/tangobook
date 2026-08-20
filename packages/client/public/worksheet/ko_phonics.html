@@ -41,16 +41,16 @@
   .hint { font-size: 10.5pt; color: var(--ink-600); font-weight: 400; letter-spacing: -.02em; }
   section { display: flex; flex-direction: column; gap: 3mm; }
 
-  header { display: flex; align-items: flex-end; justify-content: space-between;
+  header { display: flex; align-items: center; justify-content: space-between;
     border-bottom: 1.2mm solid var(--coral); padding-bottom: 2.5mm; }
-  .ttl { font-size: 18pt; font-weight: 800; letter-spacing: -.03em; }
+  .ttl { font-size: 18pt; font-weight: 800; letter-spacing: -.03em; flex: 1; }
   .ttl em { font-style: normal; color: var(--coral); }
   .ttl small { font-size: 10pt; font-weight: 600; color: var(--ink-600); margin-left: 2mm; }
   .meta { display: flex; gap: 4mm; align-items: center; font-size: 9pt; color: var(--ink-600); }
   .fill { display: inline-block; border-bottom: .3mm solid var(--peach-200); width: 24mm; }
-  .runhead { display: flex; justify-content: space-between; align-items: baseline;
+  .runhead { display: flex; justify-content: space-between; align-items: center;
     border-bottom: .35mm solid var(--peach-200); padding-bottom: 1.5mm; font-size: 9pt; color: var(--ink-500); }
-  .runhead b { color: var(--coral-700); font-size: 10.5pt; }
+  .runhead b { color: var(--coral-700); font-size: 10.5pt; flex: 1; }
 
   .sq { width: 16mm; height: 16mm; border: .4mm solid var(--peach-200); border-radius: 1.6mm; position: relative;
     display: grid; place-items: center; flex: none; background: #fff; }
@@ -137,7 +137,12 @@
   /* 🔴 로고는 **CSS 배경으로 한 번만** 심는다(2026-08-19 사용자: 각 페이지 맨 위 가운데).
      쪽마다 img 를 넣으면 같은 base64 가 쪽수만큼 복제돼 파일이 몇 배가 된다.
      🔴 data URI 라 오프라인·인쇄에서도 뜬다 — 이 파일은 내려받아 쓰는 인쇄물이다. */
-  .plogo { height: 9mm; margin: 0 auto 2mm; background: center/contain no-repeat var(--logo); }
+  /* 🔴 로고는 **제목 줄 안**에 넣는다(2026-08-19 사용자: "왜 맨 위가 텅텅 비었냐").
+     쪽 위에 따로 띠로 두면 종이 맨 위 2cm 가 통째로 비어 보인다 — 인쇄물은 한 장이 곧 화면이라
+     빈 띠 하나가 「덜 만든 것」처럼 읽힌다. 제목 옆이면 자리도 안 먹고 상표 노릇은 한다. */
+  .plogo { width: 24mm; height: 7mm; flex: none; margin-right: 3mm;
+    background: left center/contain no-repeat var(--logo); }
+  .runhead .plogo { width: 20mm; height: 5.5mm; margin-right: 2.5mm; }
   .srow { display: flex; align-items: center; gap: 2.5mm; justify-content: center; }
   .formula { width: 16mm; flex: none; font-size: 12pt; font-weight: 700; color: var(--mint-600); text-align: center; }
   .formula i { font-style: normal; color: var(--mint-200); margin: 0 .6mm; }
@@ -224,7 +229,7 @@
   <h1>한글 워크지 <em>인쇄용</em></h1>
   <!-- 🔴 만든 시각을 박아 둔다. file:// 도 브라우저가 캐시해서, 새로 구워도 옛 화면을 보고
        「안 보인다」가 되기 쉽다(실측으로 두 번 헤맸다). 여기 시각이 안 바뀌면 캐시다. -->
-  <p class="stamp">2026. 8. 20. 15시 58분 59초 판</p>
+  <p class="stamp">2026. 8. 20. 16시 25분 16초 판</p>
   <h2>한글1 기본음절</h2><a class="item on" href="#kr-h1-u01" data-id="kr-h1-u01" data-name="한글1 기본음절 · 익힘 1 · ㅏ"><b>1</b><span class="g">ㅏ</span><span class="w">아이 오이 우유 여우</span></a><a class="item" href="#kr-h1-u02" data-id="kr-h1-u02" data-name="한글1 기본음절 · 익힘 2 · ㄱ"><b>2</b><span class="g">ㄱ</span><span class="w">고기 가구 아기 야구</span></a><a class="item" href="#kr-h1-u03" data-id="kr-h1-u03" data-name="한글1 기본음절 · 익힘 3 · ㄴ"><b>3</b><span class="g">ㄴ</span><span class="w">나 너 누나 누구야</span></a><a class="item" href="#kr-h1-u04" data-id="kr-h1-u04" data-name="한글1 기본음절 · 익힘 4 · ㄷ"><b>4</b><span class="g">ㄷ</span><span class="w">두유 도마 기도 구두</span></a><a class="item" href="#kr-h1-u05" data-id="kr-h1-u05" data-name="한글1 기본음절 · 익힘 5 · ㄹ"><b>5</b><span class="g">ㄹ</span><span class="w">오리 너구리 다리 노루</span></a><a class="item" href="#kr-h1-u06" data-id="kr-h1-u06" data-name="한글1 기본음절 · 익힘 6 · ㅁ"><b>6</b><span class="g">ㅁ</span><span class="w">머리 모두 모기 거미</span></a><a class="item" href="#kr-h1-u07" data-id="kr-h1-u07" data-name="한글1 기본음절 · 익힘 7 · ㅂ"><b>7</b><span class="g">ㅂ</span><span class="w">바다 비누 나비 두부</span></a><a class="item" href="#kr-h1-u08" data-id="kr-h1-u08" data-name="한글1 기본음절 · 익힘 8 · ㅅ"><b>8</b><span class="g">ㅅ</span><span class="w">사자 버스 가수 미소</span></a><a class="item" href="#kr-h1-u09" data-id="kr-h1-u09" data-name="한글1 기본음절 · 익힘 9 · ㅇ"><b>9</b><span class="g">ㅇ</span><span class="w">우주 여우 우유 어부</span></a><a class="item" href="#kr-h1-u10" data-id="kr-h1-u10" data-name="한글1 기본음절 · 익힘 10 · ㅈ"><b>10</b><span class="g">ㅈ</span><span class="w">지구 지도 자두 모자</span></a><a class="item" href="#kr-h1-u11" data-id="kr-h1-u11" data-name="한글1 기본음절 · 익힘 11 · ㅊ"><b>11</b><span class="g">ㅊ</span><span class="w">치마 치즈 마차 기차</span></a><a class="item" href="#kr-h1-u12" data-id="kr-h1-u12" data-name="한글1 기본음절 · 익힘 12 · ㅋ"><b>12</b><span class="g">ㅋ</span><span class="w">쿠키 코코아 마이크 카드</span></a><a class="item" href="#kr-h1-u13" data-id="kr-h1-u13" data-name="한글1 기본음절 · 익힘 13 · ㅌ"><b>13</b><span class="g">ㅌ</span><span class="w">타조 하트 기타 치타</span></a><a class="item" href="#kr-h1-u14" data-id="kr-h1-u14" data-name="한글1 기본음절 · 익힘 14 · ㅍ"><b>14</b><span class="g">ㅍ</span><span class="w">피자 파리 포도 소파</span></a><a class="item" href="#kr-h1-u15" data-id="kr-h1-u15" data-name="한글1 기본음절 · 익힘 15 · ㅎ"><b>15</b><span class="g">ㅎ</span><span class="w">하마 호두 휴지 호수</span></a><h2>한글2 받침</h2><a class="item" href="#kr-h2-u01" data-id="kr-h2-u01" data-name="한글2 받침 · 익힘 1 · ㅇ"><b>1</b><span class="g">ㅇ</span><span class="w">형 풍덩 농구 시장</span></a><a class="item" href="#kr-h2-u02" data-id="kr-h2-u02" data-name="한글2 받침 · 익힘 2 · ㄱ"><b>2</b><span class="g">ㄱ</span><span class="w">학교 축구 악어 탁구</span></a><a class="item" href="#kr-h2-u03" data-id="kr-h2-u03" data-name="한글2 받침 · 익힘 3 · ㄴ"><b>3</b><span class="g">ㄴ</span><span class="w">손 눈 언니 잔디</span></a><a class="item" href="#kr-h2-u04" data-id="kr-h2-u04" data-name="한글2 받침 · 익힘 4 · ㄹ"><b>4</b><span class="g">ㄹ</span><span class="w">별 달 하늘 가을</span></a><a class="item" href="#kr-h2-u05" data-id="kr-h2-u05" data-name="한글2 받침 · 익힘 5 · ㅅ"><b>5</b><span class="g">ㅅ</span><span class="w">옷 로봇 비옷 그릇</span></a><a class="item" href="#kr-h2-u06" data-id="kr-h2-u06" data-name="한글2 받침 · 익힘 6 · ㅁ"><b>6</b><span class="g">ㅁ</span><span class="w">엄마 몸 염소 구름</span></a><a class="item" href="#kr-h2-u07" data-id="kr-h2-u07" data-name="한글2 받침 · 익힘 7 · ㅂ"><b>7</b><span class="g">ㅂ</span><span class="w">집 컵 입술 김밥</span></a><h2>한글3 쌍자음</h2><a class="item" href="#kr-h3-u01" data-id="kr-h3-u01" data-name="한글3 쌍자음 · 익힘 1 · ㄲ"><b>1</b><span class="g">ㄲ</span><span class="w">꿀벌 꼬끼오 토끼 코끼리</span></a><a class="item" href="#kr-h3-u02" data-id="kr-h3-u02" data-name="한글3 쌍자음 · 익힘 2 · ㄸ"><b>2</b><span class="g">ㄸ</span><span class="w">떡국 똑딱 땅콩 딸기</span></a><a class="item" href="#kr-h3-u03" data-id="kr-h3-u03" data-name="한글3 쌍자음 · 익힘 3 · ㅃ"><b>3</b><span class="g">ㅃ</span><span class="w">오빠 뽀뽀 빨래 아빠</span></a><a class="item" href="#kr-h3-u04" data-id="kr-h3-u04" data-name="한글3 쌍자음 · 익힘 4 · ㅆ"><b>4</b><span class="g">ㅆ</span><span class="w">씨앗 새싹 쓱싹 썰매</span></a><a class="item" href="#kr-h3-u05" data-id="kr-h3-u05" data-name="한글3 쌍자음 · 익힘 5 · ㅉ"><b>5</b><span class="g">ㅉ</span><span class="w">찐빵 짝꿍 쫑긋 쪽지</span></a><h2>한글4 복잡한 모음</h2><a class="item" href="#kr-h4-u01" data-id="kr-h4-u01" data-name="한글4 복잡한 모음 · 익힘 1 · ㅐ"><b>1</b><span class="g">ㅐ</span><span class="w">고래 동생 레몬 베개</span></a><a class="item" href="#kr-h4-u02" data-id="kr-h4-u02" data-name="한글4 복잡한 모음 · 익힘 2 · ㅖ"><b>2</b><span class="g">ㅖ</span><span class="w">계란 예절 시계 얘기</span></a><a class="item" href="#kr-h4-u03" data-id="kr-h4-u03" data-name="한글4 복잡한 모음 · 익힘 3 · ㅟ"><b>3</b><span class="g">ㅟ</span><span class="w">생쥐 가위 참외 열쇠</span></a><a class="item" href="#kr-h4-u04" data-id="kr-h4-u04" data-name="한글4 복잡한 모음 · 익힘 4 · ㅘ"><b>4</b><span class="g">ㅘ</span><span class="w">과자 사과 화가 횃불</span></a><a class="item" href="#kr-h4-u05" data-id="kr-h4-u05" data-name="한글4 복잡한 모음 · 익힘 5 · ㅝ"><b>5</b><span class="g">ㅝ</span><span class="w">권투 스웨터 의자 의사</span></a>
 </aside>
 
@@ -254,8 +259,8 @@
   <div class="unit on" id="kr-h1-u01">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 1. <em>ㅏ</em><small>모음 10개</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -270,7 +275,7 @@
 
   <section>
     <h2 data-n="2">크게 써 봐요 <span class="hint">손 전체를 움직여 천천히</span></h2>
-    <div class="row"><div class="row" style="--md:22mm;--mdf:14.1mm"><div class="sq md"><span class="ghost">ㅏ</span></div><div class="sq md"><span class="ghost">ㅑ</span></div><div class="sq md"><span class="ghost">ㅓ</span></div><div class="sq md"><span class="ghost">ㅕ</span></div><div class="sq md"><span class="ghost">ㅗ</span></div><div class="sq md"><span class="ghost">ㅛ</span></div><div class="sq md"><span class="ghost">ㅜ</span></div><div class="sq md"><span class="ghost">ㅠ</span></div><div class="sq md"><span class="ghost">ㅡ</span></div><div class="sq md"><span class="ghost">ㅣ</span></div></div></div>
+    <div class="row"><div class="row" style="--md:32mm;--mdf:20.5mm"><div class="sq md"><span class="ghost">ㅏ</span></div><div class="sq md"><span class="ghost">ㅑ</span></div><div class="sq md"><span class="ghost">ㅓ</span></div><div class="sq md"><span class="ghost">ㅕ</span></div><div class="sq md"><span class="ghost">ㅗ</span></div></div><div class="row" style="--md:32mm;--mdf:20.5mm"><div class="sq md"><span class="ghost">ㅛ</span></div><div class="sq md"><span class="ghost">ㅜ</span></div><div class="sq md"><span class="ghost">ㅠ</span></div><div class="sq md"><span class="ghost">ㅡ</span></div><div class="sq md"><span class="ghost">ㅣ</span></div></div></div>
   </section>
 
   <section>
@@ -281,8 +286,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 1. ㅏ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 1. ㅏ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">모음을 써요</h2>
@@ -293,8 +297,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 1. ㅏ</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 1. ㅏ</b><span>낱말을 만나요 · 3쪽</span></div>
 
   <section>
     <h2 data-n="5">ㅏ · ㅕ · ㅗ · ㅜ · ㅠ · ㅣ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -312,8 +315,8 @@
 <div class="unit" id="kr-h1-u02">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 2. <em>ㄱ</em><small>기역 · 소릿값 [그]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -339,8 +342,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 2. ㄱ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 2. ㄱ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㄱ 로 글자를 만들어요</h2>
@@ -351,8 +353,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 2. ㄱ</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 2. ㄱ</b><span>낱말을 만나요 · 3쪽</span></div>
 
   <section>
     <h2 data-n="5">ㄱ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -370,8 +371,8 @@
 <div class="unit" id="kr-h1-u03">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 3. <em>ㄴ</em><small>니은 · 소릿값 [느]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -397,8 +398,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 3. ㄴ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 3. ㄴ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㄴ 로 글자를 만들어요</h2>
@@ -409,8 +409,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 3. ㄴ</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 3. ㄴ</b><span>낱말을 만나요 · 3쪽</span></div>
 
   <section>
     <h2 data-n="5">ㄴ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -428,8 +427,8 @@
 <div class="unit" id="kr-h1-u04">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 4. <em>ㄷ</em><small>디귿 · 소릿값 [드]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -455,8 +454,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 4. ㄷ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 4. ㄷ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㄷ 로 글자를 만들어요</h2>
@@ -467,8 +465,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 4. ㄷ</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 4. ㄷ</b><span>낱말을 만나요 · 3쪽</span></div>
 
   <section>
     <h2 data-n="5">ㄷ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -486,8 +483,8 @@
 <div class="unit" id="kr-h1-u05">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 5. <em>ㄹ</em><small>리을 · 소릿값 [르]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -513,8 +510,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 5. ㄹ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 5. ㄹ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㄹ 로 글자를 만들어요</h2>
@@ -525,8 +521,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 5. ㄹ</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 5. ㄹ</b><span>낱말을 만나요 · 3쪽</span></div>
 
   <section>
     <h2 data-n="5">ㄹ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -544,8 +539,8 @@
 <div class="unit" id="kr-h1-u06">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 6. <em>ㅁ</em><small>미음 · 소릿값 [므]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -571,8 +566,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 6. ㅁ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 6. ㅁ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㅁ 로 글자를 만들어요</h2>
@@ -583,8 +577,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 6. ㅁ</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 6. ㅁ</b><span>낱말을 만나요 · 3쪽</span></div>
 
   <section>
     <h2 data-n="5">ㅁ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -602,8 +595,8 @@
 <div class="unit" id="kr-h1-u07">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 7. <em>ㅂ</em><small>비읍 · 소릿값 [브]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -629,8 +622,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 7. ㅂ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 7. ㅂ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㅂ 로 글자를 만들어요</h2>
@@ -641,8 +633,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 7. ㅂ</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 7. ㅂ</b><span>낱말을 만나요 · 3쪽</span></div>
 
   <section>
     <h2 data-n="5">ㅂ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -660,8 +651,8 @@
 <div class="unit" id="kr-h1-u08">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 8. <em>ㅅ</em><small>시옷 · 소릿값 [스]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -687,8 +678,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 8. ㅅ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 8. ㅅ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㅅ 로 글자를 만들어요</h2>
@@ -699,8 +689,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 8. ㅅ</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 8. ㅅ</b><span>낱말을 만나요 · 3쪽</span></div>
 
   <section>
     <h2 data-n="5">ㅅ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -718,8 +707,8 @@
 <div class="unit" id="kr-h1-u09">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 9. <em>ㅇ</em><small>이응</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -745,8 +734,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 9. ㅇ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 9. ㅇ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㅇ 로 글자를 만들어요</h2>
@@ -757,8 +745,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 9. ㅇ</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 9. ㅇ</b><span>낱말을 만나요 · 3쪽</span></div>
 
   <section>
     <h2 data-n="5">ㅇ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -776,8 +763,8 @@
 <div class="unit" id="kr-h1-u10">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 10. <em>ㅈ</em><small>지읒 · 소릿값 [즈]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -803,8 +790,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 10. ㅈ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 10. ㅈ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㅈ 로 글자를 만들어요</h2>
@@ -815,8 +801,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 10. ㅈ</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 10. ㅈ</b><span>낱말을 만나요 · 3쪽</span></div>
 
   <section>
     <h2 data-n="5">ㅈ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -834,8 +819,8 @@
 <div class="unit" id="kr-h1-u11">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 11. <em>ㅊ</em><small>치읓 · 소릿값 [츠]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -861,8 +846,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 11. ㅊ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 11. ㅊ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㅊ 로 글자를 만들어요</h2>
@@ -873,8 +857,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 11. ㅊ</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 11. ㅊ</b><span>낱말을 만나요 · 3쪽</span></div>
 
   <section>
     <h2 data-n="5">ㅊ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -892,8 +875,8 @@
 <div class="unit" id="kr-h1-u12">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 12. <em>ㅋ</em><small>키읔 · 소릿값 [크]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -919,8 +902,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 12. ㅋ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 12. ㅋ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㅋ 로 글자를 만들어요</h2>
@@ -931,8 +913,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 12. ㅋ</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 12. ㅋ</b><span>낱말을 만나요 · 3쪽</span></div>
 
   <section>
     <h2 data-n="5">ㅋ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -950,8 +931,8 @@
 <div class="unit" id="kr-h1-u13">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 13. <em>ㅌ</em><small>티읕 · 소릿값 [트]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -977,8 +958,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 13. ㅌ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 13. ㅌ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㅌ 로 글자를 만들어요</h2>
@@ -989,8 +969,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 13. ㅌ</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 13. ㅌ</b><span>낱말을 만나요 · 3쪽</span></div>
 
   <section>
     <h2 data-n="5">ㅌ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -1008,8 +987,8 @@
 <div class="unit" id="kr-h1-u14">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 14. <em>ㅍ</em><small>피읖 · 소릿값 [프]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -1035,8 +1014,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 14. ㅍ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 14. ㅍ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㅍ 로 글자를 만들어요</h2>
@@ -1047,8 +1025,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 14. ㅍ</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 14. ㅍ</b><span>낱말을 만나요 · 3쪽</span></div>
 
   <section>
     <h2 data-n="5">ㅍ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -1066,8 +1043,8 @@
 <div class="unit" id="kr-h1-u15">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 15. <em>ㅎ</em><small>히읗 · 소릿값 [흐]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -1093,8 +1070,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 15. ㅎ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 15. ㅎ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㅎ 로 글자를 만들어요</h2>
@@ -1105,8 +1081,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 15. ㅎ</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 15. ㅎ</b><span>낱말을 만나요 · 3쪽</span></div>
 
   <section>
     <h2 data-n="5">ㅎ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -1124,8 +1099,8 @@
 <div class="unit" id="kr-h2-u01">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 1. <em>ㅇ</em><small>받침 ㅇ · 소리 [앙]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -1151,8 +1126,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 1. ㅇ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 1. ㅇ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">받침 ㅇ 을 붙여 글자를 만들어요</h2>
@@ -1162,8 +1136,7 @@
 
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 1. ㅇ</b><span>글자를 만들어요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 1. ㅇ</b><span>글자를 만들어요 · 3쪽</span></div>
   <section>
     <h2 data-n="4">받침 ㅇ 을 붙여 글자를 만들어요 <span class="hint">이어서 써요</span></h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">앙</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">장</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">창</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">캉</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">탕</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">팡</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">항</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -1172,8 +1145,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 1. ㅇ</b><span>낱말을 만나요 · 4쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 1. ㅇ</b><span>낱말을 만나요 · 4쪽</span></div>
 
   <section>
     <h2 data-n="5">받침 ㅇ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -1191,8 +1163,8 @@
 <div class="unit" id="kr-h2-u02">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 2. <em>ㄱ</em><small>받침 ㄱ · 소리 [악]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -1218,8 +1190,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 2. ㄱ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 2. ㄱ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">받침 ㄱ 을 붙여 글자를 만들어요</h2>
@@ -1229,8 +1200,7 @@
 
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 2. ㄱ</b><span>글자를 만들어요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 2. ㄱ</b><span>글자를 만들어요 · 3쪽</span></div>
   <section>
     <h2 data-n="4">받침 ㄱ 을 붙여 글자를 만들어요 <span class="hint">이어서 써요</span></h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">악</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">작</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">착</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">칵</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">탁</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">팍</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">학</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -1239,8 +1209,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 2. ㄱ</b><span>낱말을 만나요 · 4쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 2. ㄱ</b><span>낱말을 만나요 · 4쪽</span></div>
 
   <section>
     <h2 data-n="5">받침 ㄱ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -1258,8 +1227,8 @@
 <div class="unit" id="kr-h2-u03">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 3. <em>ㄴ</em><small>받침 ㄴ · 소리 [안]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -1285,8 +1254,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 3. ㄴ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 3. ㄴ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">받침 ㄴ 을 붙여 글자를 만들어요</h2>
@@ -1296,8 +1264,7 @@
 
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 3. ㄴ</b><span>글자를 만들어요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 3. ㄴ</b><span>글자를 만들어요 · 3쪽</span></div>
   <section>
     <h2 data-n="4">받침 ㄴ 을 붙여 글자를 만들어요 <span class="hint">이어서 써요</span></h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">안</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">잔</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">찬</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">칸</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">탄</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">판</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">한</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -1306,8 +1273,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 3. ㄴ</b><span>낱말을 만나요 · 4쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 3. ㄴ</b><span>낱말을 만나요 · 4쪽</span></div>
 
   <section>
     <h2 data-n="5">받침 ㄴ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -1325,8 +1291,8 @@
 <div class="unit" id="kr-h2-u04">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 4. <em>ㄹ</em><small>받침 ㄹ · 소리 [알]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -1352,8 +1318,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 4. ㄹ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 4. ㄹ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">받침 ㄹ 을 붙여 글자를 만들어요</h2>
@@ -1363,8 +1328,7 @@
 
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 4. ㄹ</b><span>글자를 만들어요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 4. ㄹ</b><span>글자를 만들어요 · 3쪽</span></div>
   <section>
     <h2 data-n="4">받침 ㄹ 을 붙여 글자를 만들어요 <span class="hint">이어서 써요</span></h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">알</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">잘</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">찰</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">칼</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">탈</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">팔</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">할</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -1373,8 +1337,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 4. ㄹ</b><span>낱말을 만나요 · 4쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 4. ㄹ</b><span>낱말을 만나요 · 4쪽</span></div>
 
   <section>
     <h2 data-n="5">받침 ㄹ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -1392,8 +1355,8 @@
 <div class="unit" id="kr-h2-u05">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 5. <em>ㅅ</em><small>받침 ㅅ · 소리 [앗]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -1419,8 +1382,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 5. ㅅ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 5. ㅅ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">받침 ㅅ 을 붙여 글자를 만들어요</h2>
@@ -1430,8 +1392,7 @@
 
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 5. ㅅ</b><span>글자를 만들어요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 5. ㅅ</b><span>글자를 만들어요 · 3쪽</span></div>
   <section>
     <h2 data-n="4">받침 ㅅ 을 붙여 글자를 만들어요 <span class="hint">이어서 써요</span></h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">앗</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">잣</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">찻</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">캇</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">탓</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">팟</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">핫</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -1440,8 +1401,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 5. ㅅ</b><span>낱말을 만나요 · 4쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 5. ㅅ</b><span>낱말을 만나요 · 4쪽</span></div>
 
   <section>
     <h2 data-n="5">받침 ㅅ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -1459,8 +1419,8 @@
 <div class="unit" id="kr-h2-u06">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 6. <em>ㅁ</em><small>받침 ㅁ · 소리 [암]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -1486,8 +1446,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 6. ㅁ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 6. ㅁ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">받침 ㅁ 을 붙여 글자를 만들어요</h2>
@@ -1497,8 +1456,7 @@
 
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 6. ㅁ</b><span>글자를 만들어요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 6. ㅁ</b><span>글자를 만들어요 · 3쪽</span></div>
   <section>
     <h2 data-n="4">받침 ㅁ 을 붙여 글자를 만들어요 <span class="hint">이어서 써요</span></h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">암</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">잠</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">참</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">캄</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">탐</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">팜</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">함</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -1507,8 +1465,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 6. ㅁ</b><span>낱말을 만나요 · 4쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 6. ㅁ</b><span>낱말을 만나요 · 4쪽</span></div>
 
   <section>
     <h2 data-n="5">받침 ㅁ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -1526,8 +1483,8 @@
 <div class="unit" id="kr-h2-u07">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 7. <em>ㅂ</em><small>받침 ㅂ · 소리 [압]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -1553,8 +1510,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 7. ㅂ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 7. ㅂ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">받침 ㅂ 을 붙여 글자를 만들어요</h2>
@@ -1564,8 +1520,7 @@
 
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 7. ㅂ</b><span>글자를 만들어요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 7. ㅂ</b><span>글자를 만들어요 · 3쪽</span></div>
   <section>
     <h2 data-n="4">받침 ㅂ 을 붙여 글자를 만들어요 <span class="hint">이어서 써요</span></h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">압</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">잡</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">찹</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">캅</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">탑</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">팝</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">합</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -1574,8 +1529,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 7. ㅂ</b><span>낱말을 만나요 · 4쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 7. ㅂ</b><span>낱말을 만나요 · 4쪽</span></div>
 
   <section>
     <h2 data-n="5">받침 ㅂ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -1593,8 +1547,8 @@
 <div class="unit" id="kr-h3-u01">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 1. <em>ㄲ</em><small>쌍기역 · 소릿값 [끄]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -1620,8 +1574,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 1. ㄲ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 1. ㄲ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㄲ 로 글자를 만들어요</h2>
@@ -1632,8 +1585,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 1. ㄲ</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 1. ㄲ</b><span>낱말을 만나요 · 3쪽</span></div>
 
   <section>
     <h2 data-n="5">ㄲ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -1651,8 +1603,8 @@
 <div class="unit" id="kr-h3-u02">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 2. <em>ㄸ</em><small>쌍디귿 · 소릿값 [뜨]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -1678,8 +1630,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 2. ㄸ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 2. ㄸ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㄸ 로 글자를 만들어요</h2>
@@ -1690,8 +1641,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 2. ㄸ</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 2. ㄸ</b><span>낱말을 만나요 · 3쪽</span></div>
 
   <section>
     <h2 data-n="5">ㄸ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -1709,8 +1659,8 @@
 <div class="unit" id="kr-h3-u03">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 3. <em>ㅃ</em><small>쌍비읍 · 소릿값 [쁘]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -1736,8 +1686,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 3. ㅃ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 3. ㅃ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㅃ 로 글자를 만들어요</h2>
@@ -1748,8 +1697,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 3. ㅃ</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 3. ㅃ</b><span>낱말을 만나요 · 3쪽</span></div>
 
   <section>
     <h2 data-n="5">ㅃ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -1767,8 +1715,8 @@
 <div class="unit" id="kr-h3-u04">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 4. <em>ㅆ</em><small>쌍시옷 · 소릿값 [쓰]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -1794,8 +1742,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 4. ㅆ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 4. ㅆ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㅆ 로 글자를 만들어요</h2>
@@ -1806,8 +1753,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 4. ㅆ</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 4. ㅆ</b><span>낱말을 만나요 · 3쪽</span></div>
 
   <section>
     <h2 data-n="5">ㅆ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -1825,8 +1771,8 @@
 <div class="unit" id="kr-h3-u05">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 5. <em>ㅉ</em><small>쌍지읒 · 소릿값 [쯔]</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -1852,8 +1798,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 5. ㅉ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 5. ㅉ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㅉ 로 글자를 만들어요</h2>
@@ -1864,8 +1809,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 5. ㅉ</b><span>낱말을 만나요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 5. ㅉ</b><span>낱말을 만나요 · 3쪽</span></div>
 
   <section>
     <h2 data-n="5">ㅉ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -1883,8 +1827,8 @@
 <div class="unit" id="kr-h4-u01">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 1. <em>ㅐ</em><small>모음 2개</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -1910,8 +1854,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 1. ㅐ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 1. ㅐ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㅐ 로 글자를 만들어요</h2>
@@ -1921,8 +1864,7 @@
 
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 1. ㅐ</b><span>글자를 만들어요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 1. ㅐ</b><span>글자를 만들어요 · 3쪽</span></div>
   <section>
     <h2 data-n="4">ㅐ 로 글자를 만들어요 <span class="hint">이어서 써요</span></h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">애</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">재</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">채</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">캐</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">태</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">패</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">해</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -1930,8 +1872,7 @@
 </div>
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 1. ㅐ</b><span>글자를 만들어요 · 4쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 1. ㅐ</b><span>글자를 만들어요 · 4쪽</span></div>
   <section>
     <h2 data-n="4">ㅔ 로 글자를 만들어요</h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">게</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">네</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">데</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">레</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">메</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">베</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">세</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -1939,8 +1880,7 @@
 </div>
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 1. ㅐ</b><span>글자를 만들어요 · 5쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 1. ㅐ</b><span>글자를 만들어요 · 5쪽</span></div>
   <section>
     <h2 data-n="4">ㅔ 로 글자를 만들어요 <span class="hint">이어서 써요</span></h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">에</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">제</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">체</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">케</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">테</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">페</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">헤</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -1949,8 +1889,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 1. ㅐ</b><span>낱말을 만나요 · 6쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 1. ㅐ</b><span>낱말을 만나요 · 6쪽</span></div>
 
   <section>
     <h2 data-n="5">ㅐ · ㅔ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -1968,8 +1907,8 @@
 <div class="unit" id="kr-h4-u02">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 2. <em>ㅖ</em><small>모음 2개</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -1995,8 +1934,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 2. ㅖ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 2. ㅖ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㅖ 로 글자를 만들어요</h2>
@@ -2006,8 +1944,7 @@
 
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 2. ㅖ</b><span>글자를 만들어요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 2. ㅖ</b><span>글자를 만들어요 · 3쪽</span></div>
   <section>
     <h2 data-n="4">ㅖ 로 글자를 만들어요 <span class="hint">이어서 써요</span></h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">예</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">졔</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">쳬</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">켸</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">톄</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">폐</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">혜</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -2015,8 +1952,7 @@
 </div>
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 2. ㅖ</b><span>글자를 만들어요 · 4쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 2. ㅖ</b><span>글자를 만들어요 · 4쪽</span></div>
   <section>
     <h2 data-n="4">ㅚ 로 글자를 만들어요</h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">괴</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">뇌</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">되</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">뢰</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">뫼</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">뵈</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">쇠</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -2024,8 +1960,7 @@
 </div>
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 2. ㅖ</b><span>글자를 만들어요 · 5쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 2. ㅖ</b><span>글자를 만들어요 · 5쪽</span></div>
   <section>
     <h2 data-n="4">ㅚ 로 글자를 만들어요 <span class="hint">이어서 써요</span></h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">외</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">죄</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">최</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">쾨</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">퇴</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">푀</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">회</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -2034,8 +1969,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 2. ㅖ</b><span>낱말을 만나요 · 6쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 2. ㅖ</b><span>낱말을 만나요 · 6쪽</span></div>
 
   <section>
     <h2 data-n="5">ㅖ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -2053,8 +1987,8 @@
 <div class="unit" id="kr-h4-u03">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 3. <em>ㅟ</em><small>모음 2개</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -2080,8 +2014,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 3. ㅟ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 3. ㅟ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㅟ 로 글자를 만들어요</h2>
@@ -2091,8 +2024,7 @@
 
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 3. ㅟ</b><span>글자를 만들어요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 3. ㅟ</b><span>글자를 만들어요 · 3쪽</span></div>
   <section>
     <h2 data-n="4">ㅟ 로 글자를 만들어요 <span class="hint">이어서 써요</span></h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">위</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">쥐</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">취</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">퀴</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">튀</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">퓌</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">휘</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -2100,8 +2032,7 @@
 </div>
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 3. ㅟ</b><span>글자를 만들어요 · 4쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 3. ㅟ</b><span>글자를 만들어요 · 4쪽</span></div>
   <section>
     <h2 data-n="4">ㅢ 로 글자를 만들어요</h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">긔</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">늬</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">듸</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">릐</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">믜</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">븨</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">싀</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -2109,8 +2040,7 @@
 </div>
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 3. ㅟ</b><span>글자를 만들어요 · 5쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 3. ㅟ</b><span>글자를 만들어요 · 5쪽</span></div>
   <section>
     <h2 data-n="4">ㅢ 로 글자를 만들어요 <span class="hint">이어서 써요</span></h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">의</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">즤</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">츼</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">킈</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">틔</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">픠</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">희</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -2119,8 +2049,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 3. ㅟ</b><span>낱말을 만나요 · 6쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 3. ㅟ</b><span>낱말을 만나요 · 6쪽</span></div>
 
   <section>
     <h2 data-n="5">ㅟ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -2138,8 +2067,8 @@
 <div class="unit" id="kr-h4-u04">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 4. <em>ㅘ</em><small>모음 2개</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -2165,8 +2094,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 4. ㅘ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 4. ㅘ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㅘ 로 글자를 만들어요</h2>
@@ -2176,8 +2104,7 @@
 
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 4. ㅘ</b><span>글자를 만들어요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 4. ㅘ</b><span>글자를 만들어요 · 3쪽</span></div>
   <section>
     <h2 data-n="4">ㅘ 로 글자를 만들어요 <span class="hint">이어서 써요</span></h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">와</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">좌</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">촤</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">콰</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">톼</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">퐈</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">화</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -2185,8 +2112,7 @@
 </div>
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 4. ㅘ</b><span>글자를 만들어요 · 4쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 4. ㅘ</b><span>글자를 만들어요 · 4쪽</span></div>
   <section>
     <h2 data-n="4">ㅙ 로 글자를 만들어요</h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">괘</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">놰</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">돼</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">뢔</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">뫠</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">봬</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">쇄</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -2194,8 +2120,7 @@
 </div>
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 4. ㅘ</b><span>글자를 만들어요 · 5쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 4. ㅘ</b><span>글자를 만들어요 · 5쪽</span></div>
   <section>
     <h2 data-n="4">ㅙ 로 글자를 만들어요 <span class="hint">이어서 써요</span></h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">왜</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">좨</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">쵀</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">쾌</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">퇘</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">퐤</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">홰</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -2204,8 +2129,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 4. ㅘ</b><span>낱말을 만나요 · 6쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 4. ㅘ</b><span>낱말을 만나요 · 6쪽</span></div>
 
   <section>
     <h2 data-n="5">ㅘ · ㅙ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
@@ -2223,8 +2147,8 @@
 <div class="unit" id="kr-h4-u05">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
-  <div class="plogo"></div>
   <header>
+    <div class="plogo"></div>
     <div class="ttl">익힘 5. <em>ㅝ</em><small>모음 3개</small></div>
     <div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div>
   </header>
@@ -2250,8 +2174,7 @@
 
 <!-- ─────────── 2쪽 · 조합 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 5. ㅝ</b><span>글자를 만들어요 · 2쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 5. ㅝ</b><span>글자를 만들어요 · 2쪽</span></div>
 
   <section>
     <h2 data-n="4">ㅝ 로 글자를 만들어요</h2>
@@ -2261,8 +2184,7 @@
 
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 5. ㅝ</b><span>글자를 만들어요 · 3쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 5. ㅝ</b><span>글자를 만들어요 · 3쪽</span></div>
   <section>
     <h2 data-n="4">ㅝ 로 글자를 만들어요 <span class="hint">이어서 써요</span></h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">워</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">줘</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">춰</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">쿼</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">퉈</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">풔</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">훠</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -2270,8 +2192,7 @@
 </div>
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 5. ㅝ</b><span>글자를 만들어요 · 4쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 5. ㅝ</b><span>글자를 만들어요 · 4쪽</span></div>
   <section>
     <h2 data-n="4">ㅞ 로 글자를 만들어요</h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">궤</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">눼</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">뒈</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">뤠</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">뭬</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">붸</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">쉐</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -2279,8 +2200,7 @@
 </div>
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 5. ㅝ</b><span>글자를 만들어요 · 5쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 5. ㅝ</b><span>글자를 만들어요 · 5쪽</span></div>
   <section>
     <h2 data-n="4">ㅞ 로 글자를 만들어요 <span class="hint">이어서 써요</span></h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">웨</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">줴</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">췌</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">퀘</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">퉤</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">풰</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">훼</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -2288,8 +2208,7 @@
 </div>
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 5. ㅝ</b><span>글자를 만들어요 · 6쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 5. ㅝ</b><span>글자를 만들어요 · 6쪽</span></div>
   <section>
     <h2 data-n="4">ㅢ 로 글자를 만들어요</h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">긔</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">늬</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">듸</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">릐</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">믜</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">븨</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">싀</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -2297,8 +2216,7 @@
 </div>
 <!-- ─────────── 조합 이어지는 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 5. ㅝ</b><span>글자를 만들어요 · 7쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 5. ㅝ</b><span>글자를 만들어요 · 7쪽</span></div>
   <section>
     <h2 data-n="4">ㅢ 로 글자를 만들어요 <span class="hint">이어서 써요</span></h2>
     <div class="syls" style="--lg:24mm;--lgf:36pt;gap:2.9mm"><div class="srow"><div class="sq lg"><span class="ghost">의</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">즤</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">츼</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">킈</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">틔</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">픠</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div><div class="srow"><div class="sq lg"><span class="ghost">희</span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div><div class="sq lg"><span class="ghost"></span></div></div></div>
@@ -2307,8 +2225,7 @@
 
 <!-- ─────────── 낱말 쪽 ─────────── -->
 <div class="page">
-  <div class="plogo"></div>
-  <div class="runhead"><b>익힘 5. ㅝ</b><span>낱말을 만나요 · 8쪽</span></div>
+  <div class="runhead"><div class="plogo"></div><b>익힘 5. ㅝ</b><span>낱말을 만나요 · 8쪽</span></div>
 
   <section>
     <h2 data-n="5">ㅝ · ㅞ · ㅢ 이 들어간 낱말이에요 <span class="hint">그림을 보면서 낱말을 소리 내어 읽어요</span></h2>
