@@ -58,8 +58,8 @@ PALETTE (muted earth, sampled from the house renders)
 paper #F0E2C0 · ink #2B2B2B · olive-green #485A48 · pale jade #5A6C5A · ochre #D8B46C ·
 mustard #6C6C48 · leather brown #5A4836 · deep brown #483624 · skin #D8B4A2.
 ACCENTS, USED SPARINGLY: vermilion #B8352A · gold #C9A227.
-🔴 KERCHIEF YELLOW #E8B233 BELONGS TO THE REBEL HOST ALONE. The only other yellow of that value in
-the book is Liubei's waist sash.
+🔴 KERCHIEF YELLOW #E8B233 IS THE REBEL HOST'S AND NOBODY ELSE'S. Book 1's hero fights that host:
+yellow on him reads as one of them. It happened once in test; do not put it back.
 
 CHARACTER DESIGN LANGUAGE
 - 🔴 EVERY PERSON IN THIS BOOK IS 4 HEADS TALL - semi-deformed: large head, compact heroic body,

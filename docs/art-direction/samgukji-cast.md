@@ -115,8 +115,10 @@ FACE: 🔴 UNPAINTED. His is one of four bare faces in this book and the only on
 ARMS: long - his fingertips reach below the knee when he stands with arms down.
 🔴 TWO SWORDS, ONE ON EACH HIP - he is the only figure in this book carrying two blades. They stay
   through every costume stage, including the king's robe.
-🔴 ACCENT: A YELLOW SASH AT THE WAIST. It survives EVERY stage below. Nothing else on him is
-  yellow, and no one else in the book wears a yellow sash.
+🔴 ACCENT: A VERMILION SASH AT THE WAIST (#B8352A). It survives EVERY stage below, and no one else
+  in this book wears a sash of that colour. 🔴 IT WAS YELLOW UNTIL A TEST RENDER - and yellow is the
+  rebel host's colour, so with a head cloth on he read as one of the men he fights in book 1.
+  Vermilion also suits him: he is Han royal kin, and the Han honoured red.
 ```
 
 ## Guanyu

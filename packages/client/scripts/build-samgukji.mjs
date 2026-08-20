@@ -86,7 +86,7 @@ const CAST = {
 // 🔴 [권번호, 그 권부터 적용되는 나이·옷] · 얼굴색·실루엣·악센트는 여기 적지 않는다(불변이라 desc 소관).
 const STAGES = {
   liubei: [
-    [1, '스물넷. 🔴 무릎 위에서 끝나는 거친 삼베 웃옷 + 바지 + 정강이 감발 + 새끼 허리끈 — 긴 포가 아니다(긴 포는 선비로 읽힌다). 짚신. 머리는 상투에 천 두건. 🔴 수염이 하나도 없으므로 눈매로 어른임을 낸다.'],
+    [1, '스물넷. 🔴 무릎 위에서 끝나는 거친 삼베 웃옷 + 바지 + 정강이 감발 + 주홍 허리끈 — 긴 포가 아니다(긴 포는 선비로 읽힌다). 짚신. 🔴 머리에 아무것도 안 쓴다 — 상투를 나무 비녀로 지른 맨머리다(두건을 씌우면 이 권에서 그가 싸우는 황건적으로 읽힌다). 🔴 수염이 없으므로 눈매로 어른임을 낸다.'],
     [3, '서른. 푸른 겉옷 안에 가죽 갑옷. 🔴 콧수염 한 줄이 생긴다(이 뒤로 열 권 동안 이 얼굴).'],
     [13, '마흔일곱. 넓은 소매의 학창의, 갑옷 없음 — 싸움을 남에게 맡기는 사람이 된 표시다.'],
     [19, '쉰아홉. 한중왕의 옷(붉은 자락에 옥대). 콧수염에 짧은 턱수염이 더해지고 둘 다 희끗하다.'],
@@ -652,11 +652,15 @@ function buildPlan(builtVols) {
 🔴 HAIR IS NEVER CUT. Grown men keep it long and bind it into a topknot at the crown. A shaved head,
   a cropped modern cut and a Japanese chonmage are all wrong.
 🔴 THE TOPKNOT IS COVERED, and what covers it gives the rank:
-  labourer, commoner - ZE (幘): a cloth head-wrap that COVERS THE WHOLE CROWN and is knotted at the
-    back, so the topknot is a bump under the cloth, not a bare knob sticking out of the top of it.
+  poorest, day-labourer - NOTHING. A bare topknot bound with a cord or a wooden pin. 🔴 THIS IS THE
+    SAFE CHOICE and the one to take when in doubt.
+  commoner with a trade - ZE (幘): a cloth cap that COVERS THE WHOLE CROWN and is knotted at the back,
+    so the topknot is a bump UNDER the cloth. 🔴 IT IS A CAP, NOT A HEADBAND. A band around the brow
+    with the topknot standing out above it is the Yellow Turban rebels' look and nobody else's.
   official, scholar  - a stiff dark cap set over it
   soldier, general   - a helmet
-  An uncovered topknot means the man has just been beaten or pulled out of bed. Nowhere else.
+  🔴 An officer or an official with his head bare has just been beaten or pulled out of bed. That
+    does not apply to a labourer, whose head is bare as a matter of course.
 🔴 THE ROBE CLOSES LEFT OVER RIGHT AS THE WEARER SEES IT - the collar reads as a y running from the
   wearer's left shoulder down to the right hip. The other way round is how a corpse is dressed.
 🔴 DRESS SAYS RANK, never mood or weather:
@@ -667,8 +671,11 @@ function buildPlan(builtVols) {
   official - a robe to the instep with wide sleeves. general - that robe worn under armour.
 🔴 SLEEVES ARE NARROW ON EVERY WORKING FIGURE. Wide sleeves belong to court and study only.
 🔴 NOT kimono, and this is the failure to watch for: no wide folded-back cuffs, no obi, no Japanese
-  armour, no blade slung across the back. 🔴 SWORDS HANG AT THE HIPS FROM THE BELT, hilts forward -
-  they are never crossed behind the shoulders and never tucked through a sash at the back.
+  armour, no blade slung across the back.
+🔴 THE SWORD IS A HAN JIAN, NOT A KATANA: the blade is STRAIGHT and double-edged, the same width for
+  most of its length, and the pommel is a flat ring or disc. No curve, no long two-hand grip, no
+  round guard plate, no lacquered scabbard with a cord wrap. 🔴 It HANGS AT THE HIP ON CORDS FROM
+  THE BELT, blade down - never thrust edge-up through a sash, never crossed behind the shoulders.
 
 🔴 AGE IS READ FROM THE FACE, NOT THE BODY - the body is 4 heads tall at every age, so it cannot
   carry age. A beardless man is the hard case and this book has two of them (Liubei at 24, Zhaoyun
