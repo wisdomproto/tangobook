@@ -336,9 +336,9 @@ const STYLE = `<style>
   /* 🔴 로고는 **제목 줄 안**에 넣는다(2026-08-19 사용자: "왜 맨 위가 텅텅 비었냐").
      쪽 위에 따로 띠로 두면 종이 맨 위 2cm 가 통째로 비어 보인다 — 인쇄물은 한 장이 곧 화면이라
      빈 띠 하나가 「덜 만든 것」처럼 읽힌다. 제목 옆이면 자리도 안 먹고 상표 노릇은 한다. */
-  .plogo { width: 24mm; height: 7mm; flex: none; margin-right: 3mm;
+  .plogo { width: 38mm; height: 11mm; flex: none; margin-right: 4mm;
     background: left center/contain no-repeat var(--logo); }
-  .runhead .plogo { width: 20mm; height: 5.5mm; margin-right: 2.5mm; }
+  .runhead .plogo { width: 30mm; height: 8.5mm; margin-right: 3mm; }
   .srow { display: flex; align-items: center; gap: 2.5mm; justify-content: center; }
   .formula { width: 16mm; flex: none; font-size: 12pt; font-weight: 700; color: var(--mint-600); text-align: center; }
   .formula i { font-style: normal; color: var(--mint-200); margin: 0 .6mm; }
