@@ -51,6 +51,14 @@
       '.sg-batch .bhead{font-size:14px;font-weight:900;margin-bottom:4px;}',
       '.sg-batch .bhint{font-size:12px;color:var(--ink-soft,#6d645a);margin-bottom:12px;line-height:1.6;}',
       '.sg-batch .brow{display:flex;gap:8px;flex-wrap:wrap;}',
+      '.sg-chap-batch{margin:-4px 0 14px;}',
+      '.sg-ref-strip{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--paper,#fffdf7);border:1px solid var(--line,#e6ddc9);border-radius:12px;padding:10px 12px;margin:0 0 18px;}',
+      '.sg-ref-strip .rlab{font-size:12px;font-weight:900;color:var(--ink-soft,#6d645a);margin-right:4px;}',
+      '.sg-ref-strip .rchip{display:flex;align-items:center;gap:6px;border:1px solid var(--line,#e6ddc9);border-radius:10px;padding:4px 8px 4px 4px;background:#00000004;}',
+      '.sg-ref-strip .rchip img{width:34px;height:34px;object-fit:cover;border-radius:7px;display:block;}',
+      '.sg-ref-strip .rchip .ph{width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:17px;background:#0000000a;border-radius:7px;}',
+      '.sg-ref-strip .rchip b{font-size:12px;font-weight:700;white-space:nowrap;}',
+      '.sg-ref-strip .rchip .im{font-family:ui-monospace,monospace;font-size:11px;color:var(--mint,#2fa38f);margin-right:3px;}',
       '.sg-batch-btn{background:var(--jade,#1f7a6d);color:#fff;border:none;border-radius:999px;padding:9px 20px;font-weight:800;font-size:13px;cursor:pointer;}',
       '.sg-batch-btn:hover{background:var(--jade-dark,#145c52);}',
       '.sg-batch-btn.done{background:var(--vermilion,#cf4b34);}',
@@ -196,15 +204,10 @@
   (async function () {
     var ep = window.SG_EPISODE;
     if (!ep) return;
-    if (!ep.style) {
-      // 그림체(스타일 앵커) 미확정 — 빈 발주는 막되, 왜 막혔는지는 버튼에 보이게 한다.
-      document.querySelectorAll('.page-card .copy-btn').forEach(function (b) {
-        b.disabled = true;
-        b.title = '그림체(스타일 앵커)가 확정되어야 발주할 수 있습니다 — SG_EPISODE.style 을 채우세요';
-        b.style.opacity = '.4'; b.style.cursor = 'not-allowed';
-      });
-      return;
-    }
+    // 그림체(스타일 앵커) 미확정이면 «발주만» 막는다.
+    // 🔴 여기서 return 하면 안 된다 — 아래에서 만드는 «쪽별 삽화 붙여넣기 칸»까지 같이 사라진다.
+    //   실제로 그렇게 넣었다가 24권 전체에 컷을 붙일 자리가 없었다. 막을 것과 안 막을 것을 갈라 둔다.
+    var styleLocked = !ep.style;
     var pageCards = document.querySelectorAll('.page-card[data-page]');
     if (!pageCards.length) return;
     var cast = (ep.cast || []).slice();
@@ -278,6 +281,24 @@
       document.getElementById('sg-copy-all').addEventListener('click', function () { copyText(compose(pages), this); });
     }
 
+    // ── 장별 묶음 복사 ──
+    // 🔴 권 전체(20~30장)를 한 번에 시키면 GPT가 뒤쪽에서 얼굴을 놓친다. 장은 5~7장이라 한 판에 맞는다.
+    //   장의 페이지는 h2.chap 다음부터 다음 h2 전까지 — 「🎬 이 권 등장」처럼 쪽이 없는 h2 는 건너뛴다.
+    Array.prototype.forEach.call(document.querySelectorAll('h2.chap'), function (h) {
+      var group = [];
+      for (var el = h.nextElementSibling; el && el.tagName !== 'H2'; el = el.nextElementSibling) {
+        if (el.classList && el.classList.contains('page-card')) group.push(el);
+        else if (el.querySelectorAll) Array.prototype.push.apply(group, el.querySelectorAll('.page-card'));
+      }
+      var subset = pages.filter(function (p) { return group.indexOf(p.card) !== -1; });
+      if (!subset.length) return;
+      var row = document.createElement('div');
+      row.className = 'sg-chap-batch';
+      row.innerHTML = '<button type="button" class="sg-batch-btn">📋 이 장 전체 프롬프트 복사 (' + subset.length + '장)</button>';
+      h.parentNode.insertBefore(row, h.nextSibling);
+      row.firstChild.addEventListener('click', function () { copyText(compose(subset), this); });
+    });
+
     // 쪽별 복사 버튼 (단일 쪽도 스타일+레퍼런스 포함)
     pages.forEach(function (p) {
       var btn = p.card.querySelector('.copy-btn');
@@ -340,5 +361,43 @@
       card.appendChild(createPasteBox(card.getAttribute('data-key'), '🖼️ 클릭 후 Ctrl+V — 확정 레퍼런스 시트 붙여넣기'));
     });
     pages.forEach(function (p) { p.card.appendChild(createPasteBox(p.page, '🖼️ 클릭 후 Ctrl+V — 생성한 컷 붙여넣기')); });
+
+    // ── 🎬 이 권 등장 — 번호와 얼굴을 나란히 ──
+    // 🔴 발주서는 @imageN 으로만 말하는데 첨부는 사람이 한다. 번호 옆에 그 시트가 안 보이면 순서가 틀어진다.
+    //   레퍼런스는 기획서(samgukji-plan)에 «단계별로» 저장돼 있고, 어느 칸인지는 빌더가 c.ref 에 넣어 준다.
+    (function () {
+      var on = cast.filter(function (c) { return pages.some(function (p) { return hasChar(p.scene, c); }); });
+      if (!on.length) return;
+      var strip = document.createElement('div');
+      strip.className = 'sg-ref-strip';
+      strip.innerHTML = '<span class="rlab">🎬 이 권 등장 — 이 순서로 첨부</span>' +
+        on.map(function (c) {
+          return '<div class="rchip" data-ref="' + c.ref + '" title="' + String(c.desc || '').replace(/"/g, '') + '">' +
+            '<span class="ph">🎭</span><b><span class="im">@image' + c.img + '</span> ' + c.name + '</b></div>';
+        }).join('');
+      var first = document.querySelector('.page-card');
+      if (first && first.parentNode) first.parentNode.insertBefore(strip, first);
+      fetch('/api/comic-assets/samgukji-plan').then(function (r) { return r.json(); }).then(function (j) {
+        var pa = (j && j.data) || {};
+        Array.prototype.forEach.call(strip.querySelectorAll('.rchip'), function (chip) {
+          var url = pa[chip.getAttribute('data-ref')];
+          if (!url) return;
+          var ph = chip.querySelector('.ph');
+          var img = document.createElement('img');
+          img.src = url + (url.indexOf('?') < 0 ? '?t=' + Date.now() : '');
+          img.alt = '';
+          if (ph) ph.parentNode.replaceChild(img, ph);
+        });
+      }).catch(function () {});
+    })();
+
+    // 붙여넣기 칸을 다 만든 «뒤에» 발주 버튼만 잠근다.
+    if (styleLocked) {
+      document.querySelectorAll('.copy-btn, .sg-batch-btn').forEach(function (b) {
+        b.disabled = true;
+        b.title = '그림체(스타일 앵커)가 확정되어야 발주할 수 있습니다 — SG_EPISODE.style 을 채우세요';
+        b.style.opacity = '.4'; b.style.cursor = 'not-allowed';
+      });
+    }
   })();
 })();

@@ -340,17 +340,26 @@ function render(vol, styleCss) {
   // meta 의 cast 는 손으로 적는 목록이라 실제 그림에 안 나오는 이름이 섞인다(17개 권에서 실제로 그랬다).
   // meta 는 첫 등장 검사의 이름 풀로만 남기고, 화면·발주에 쓰는 캐스트는 SCENE 에 실제로 나온 것만.
   const sceneText = pages.map((p) => p.scene).join('\n');
-  const cast = vol.cast
-    .map((k) => {
-      if (!CAST[k]) throw new Error(`vol-${nn}: 모르는 캐스트 키 "${k}"`);
-      // 🔴 발주 프롬프트에는 «이 권의» 나이·복장만 붙인다. 전 단계를 다 붙이면 삽화가가 고르게 된다.
-      const st = stageFor(k, vol.n);
-      // 🔴 어느 붙여넣기 칸의 시트를 첨부할지 발주서가 직접 말한다 — 사람이 고르게 두면 20권에 1권 얼굴이 붙는다.
-      const band = (STAGES[k] || []).filter(([f]) => vol.n >= f).pop();
-      const ref = band ? `  ‹기획서 「${CAST[k].name} · ${band[0]}권~」 칸의 시트를 첨부›` : '';
-      return { ...CAST[k], desc: st ? `${CAST[k].desc}  【${nn}권】 ${st}${ref}` : CAST[k].desc };
-    })
-    .filter((c) => c.token && sceneText.includes(c.token));
+
+  /** 한 사람을 그 권의 발주용으로 편다 — 이 권의 나이·복장 한 줄과, 붙일 시트가 어느 칸인지. */
+  const dress = (k) => {
+    if (!CAST[k]) throw new Error(`vol-${nn}: 모르는 캐스트 키 "${k}"`);
+    // 🔴 발주 프롬프트에는 «이 권의» 나이·복장만 붙인다. 전 단계를 다 붙이면 삽화가가 고르게 된다.
+    const st = stageFor(k, vol.n);
+    // 🔴 어느 붙여넣기 칸의 시트를 첨부할지 발주서가 직접 말한다 — 사람이 고르게 두면 20권에 1권 얼굴이 붙는다.
+    const band = (STAGES[k] || []).filter(([f]) => vol.n >= f).pop();
+    const slot = `char-${CAST[k].token.toLowerCase()}${band ? `-b${band[0]}` : ''}`;
+    const hint = band ? `  ‹기획서 「${CAST[k].name} · ${band[0]}권~」 칸의 시트를 첨부›` : '';
+    return { ...CAST[k], ref: slot, desc: st ? `${CAST[k].desc}  【${nn}권】 ${st}${hint}` : CAST[k].desc };
+  };
+
+  // 🔴 @imageN 은 «권이 바뀌어도 같은 번호»여야 한다 — 호리 라인과 같은 규칙이다.
+  //   그 권에 나온 사람만 1부터 번호를 매기면 유비가 1권에선 @image1, 20권에선 @image4 가 되어
+  //   스물네 권을 가로지르며 번호가 흔들린다. 그래서 고정 10인을 «안 나와도» 항상 @image1~10 에 두고
+  //   (안 나오는 권은 「미등장 — 첨부 불필요」로 표시된다), 그 권의 조역만 11번부터 붙인다.
+  const leadOrder = ['liubei', 'guanyu', 'zhangfei', 'zhugeliang', 'zhaoyun', 'caocao', 'sunquan', 'lvbu', 'dongzhuo', 'simayi'];
+  const extras = vol.cast.filter((k) => !leadOrder.includes(k) && CAST[k] && sceneText.includes(CAST[k].token));
+  const cast = [...leadOrder, ...extras].map(dress);
 
   const body = vol.chapters
     .map((ch) => {
@@ -370,7 +379,11 @@ function render(vol, styleCss) {
     })
     .join('\n\n');
 
-  const strip = cast.map((c) => `<span class="who">${c.name}<i>${c.token}</i></span>`).join('');
+  // 🔴 화면의 「이 화 등장」 줄은 실제로 나오는 사람만 — 번호 고정용으로 넣은 미등장 10인까지 보이면 거짓말이 된다.
+  const strip = cast
+    .filter((c) => sceneText.includes(c.token))
+    .map((c) => `<span class="who">${c.name}<i>${c.token}</i></span>`)
+    .join('');
 
   return `<!doctype html>
 <html lang="ko">
@@ -413,7 +426,7 @@ window.SG_EPISODE = {
   // 그림체 미확정 — art-director 가 스타일 앵커를 확정하면 여기에 넣는다.
   // 비어 있으면 core 가 프롬프트 도구를 만들지 않고 복사 버튼을 잠근다(빈 발주 방지).
   style: '',
-  cast: ${JSON.stringify(cast.map((c) => ({ token: c.token, name: c.name, desc: c.desc, aliases: c.aliases })), null, 2).replace(/\n/g, '\n  ')}
+  cast: ${JSON.stringify(cast.map((c) => ({ token: c.token, name: c.name, desc: c.desc, ref: c.ref, aliases: c.aliases })), null, 2).replace(/\n/g, '\n  ')}
 };
 </script>
 <script src="/samgukji-core.js"></script>
