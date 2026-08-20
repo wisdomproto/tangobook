@@ -115,6 +115,12 @@ FACE: 🔴 UNPAINTED. His is one of four bare faces in this book and the only on
 ARMS: long - his fingertips reach below the knee when he stands with arms down.
 🔴 TWO SWORDS, ONE ON EACH HIP - he is the only figure in this book carrying two blades. They stay
   through every costume stage, including the king's robe.
+🔴 THE BLADES ARE HAN JIAN AND NOT KATANA - this has come back wrong twice, so draw them from these
+  measurements: STRAIGHT, no curve at all; the same width from guard to near the tip, then a short
+  symmetrical point; a FLAT RING at the end of the grip instead of a pommel cap; a small oval guard,
+  not a round plate. Scabbard plain wood, no lacquer, no cord wrapping. 🔴 EACH ONE HANGS FROM THE
+  BELT ON TWO SHORT CORDS with the blade pointing down - neither is pushed edge-up through the sash,
+  and neither is slung on a strap across the chest or back.
 🔴 ACCENT: A VERMILION SASH AT THE WAIST (#B8352A). It survives EVERY stage below, and no one else
   in this book wears a sash of that colour. 🔴 IT WAS YELLOW UNTIL A TEST RENDER - and yellow is the
   rebel host's colour, so with a head cloth on he read as one of the men he fights in book 1.

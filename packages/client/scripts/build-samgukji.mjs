@@ -693,20 +693,27 @@ function buildPlan(builtVols) {
    *   무시됐다(정면 하나 + 얼굴 하나만 나오고, 사양 문장이 캡션으로 박혔다).
    *   모델은 앞쪽 문장으로 「이 이미지가 무엇인지」를 정하므로, 그것부터 말한다.
    */
-  const SHEET_BRIEF = `TASK: draw a CHARACTER REFERENCE SHEET. This is not a page from the book.
+  const SHEET_BRIEF = `Draw a character reference sheet. This is not a page from the book.
 
-🔴 CANVAS: one image, 3:2 landscape, flat warm-paper ground (#F0E2C0). NO landscape, NO ink-wash
-  hills, NO mist, NO scenery of any kind. Nothing behind the figures.
-🔴 NO TEXT ANYWHERE IN THE IMAGE - no labels, callout lines, arrows, measurements, colour codes,
-  name plate or caption. This is NOT an annotated model sheet. Everything written below is an
-  instruction to you; none of it is content to draw.
+🔴 PROPORTION, BEFORE ANYTHING ELSE - the figure is FOUR HEADS TALL. Measure it: the height of the
+  head from crown to chin, taken four times, is the whole standing height. That means the head is
+  BIG and the legs are SHORT. Six or seven heads tall is wrong and has come back wrong three times.
+  It applies to every full figure on this sheet, including the black silhouette.
 
-🔴 THE SHEET MUST CONTAIN ALL FIVE OF THESE, and it is wrong if any is missing:
-  1 THREE FULL FIGURES side by side, same height, same costume: FRONT, THREE-QUARTER, PROFILE.
-  2 ONE HEAD CLOSE-UP, front.
-  3 FOUR HEADS IN A ROW showing expressions: calm · angry · grieving · laughing.
-  4 ONE PROFILE HEAD, so the nose, brow and ear read from the side.
-  5 A STRIP AT THE FOOT: the same figure filled in solid black, silhouette only.`;
+🔴 CANVAS: one image, 3:2 landscape, flat warm-paper ground (#F0E2C0). No landscape, no ink-wash
+  hills, no mist, no scenery. Nothing behind the figures.
+
+🔴 THERE IS NO WRITING IN THIS PICTURE. Not a title, not a label under a head, not a word beside a
+  figure, not a measurement, not a colour code, in any script. 🔴 THE WORDS IN THIS PROMPT ARE
+  INSTRUCTIONS AND MUST NEVER BE COPIED ONTO THE IMAGE - a previous attempt lettered my own headings
+  onto the sheet. If you are about to draw a letter, stop: this is not an annotated model sheet.
+
+Arrange it like this. Across the top, the same figure standing three times at the same height in the
+same costume, seen from the front, from three-quarters, and from the side. To the right of them, the
+head alone, large, seen from the front, and beneath that the head alone seen from the side. Across
+the middle, the head four more times, showing in turn a calm face, an angry face, a grieving face
+and a laughing face. Along the foot, the whole figure once more, filled in solid black with no
+interior detail at all, so that only the outline remains. Every one of those parts must be present.`;
 
   const castCards = sheets.map(({ token, sheet }) => {
     const c = byToken[token];
