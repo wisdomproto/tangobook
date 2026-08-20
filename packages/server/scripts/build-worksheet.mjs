@@ -904,10 +904,9 @@ ${STYLE}
   a.item b { font-size:15px; min-width:22px; color:var(--coral-700); }
   a.item .g { font-size:15px; font-weight:800; min-width:46px; }
   a.item .w { font-size:11px; color:var(--ink-600); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  button.all { margin:6px 18px 0; width:calc(100% - 36px); padding:9px 12px; cursor:pointer;
-    border:1px dashed var(--peach-200); border-radius:8px; background:transparent; font-family:inherit;
-    display:block; text-align:center; font-size:12px; font-weight:700; color:var(--mint-600); }
-  button.all:hover { background:var(--peach-50); }
+  /* 🔴 사이드바 전용 button.all 규칙은 지웠다 — 전체 인쇄가 도구막대로 옮겨져 .bar button 을
+     그대로 쓴다. 죽은 규칙을 남기면 다음 사람이 살아 있는 줄 안다.
+     🔴 이 주석은 템플릿 문자열 안이다 — 백틱을 쓰면 문자열이 거기서 끊긴다(방금 걸렸다). */
   .stamp { padding:10px 18px 0; font-size:10px; color:var(--ink-500); }
 
   .bar { position:sticky; top:0; z-index:2; display:flex; align-items:center; gap:12px; padding:10px 16px;
@@ -935,9 +934,6 @@ ${STYLE}
 
 <aside>
   <h1>${L.name} <em>인쇄용</em></h1>
-  <!-- 🔴 다른 파일을 가리키지 않는다. 배포엔 이 고르기 화면 **하나만** 올라가므로 합본·단원
-       파일 링크는 서버에서 그대로 404 다. 전 단원이 이미 이 안에 있으니 켜고 인쇄하면 된다. -->
-  <button class="all" id="printAll">📚 전체 ${items.length}단원 · ${items.reduce((n, it) => n + it.pageCount, 0)}쪽 한꺼번에 인쇄</button>
   <!-- 🔴 만든 시각을 박아 둔다. file:// 도 브라우저가 캐시해서, 새로 구워도 옛 화면을 보고
        「안 보인다」가 되기 쉽다(실측으로 두 번 헤맸다). 여기 시각이 안 바뀌면 캐시다. -->
   <p class="stamp">${new Date().toLocaleString('ko-KR', { hour12: false })} 판</p>
@@ -960,12 +956,21 @@ ${STYLE}
     <span class="now">${esc(first.levelName)} · ${L.unit} ${first.unitNo} · ${esc(first.glyph)}</span>
     <span class="sp"></span>
     <button id="print">🖨 이 단원 인쇄</button>
+    <!-- 🔴 전체 인쇄는 **이 단원 인쇄 옆**이다(2026-08-19 사용자). 사이드바 맨 위에 있을 땐
+         단원 목록의 머리처럼 보여서, 인쇄하러 온 사람이 목록을 스크롤하다 지나쳐 버렸다.
+         두 인쇄 버튼은 같은 일의 범위 차이라 나란히 있어야 고르기가 된다.
+         🔴 다른 파일을 가리키지 않는다 — 배포엔 이 고르기 화면 **하나만** 올라가므로
+         합본·단원 파일 링크는 서버에서 그대로 404 다. 전 단원이 이미 이 안에 있다. -->
+    <button id="printAll">📚 전체 ${items.length}단원 · ${items.reduce((n, it) => n + it.pageCount, 0)}쪽</button>
     <!-- 🔴 **앱으로 가는 길을 여기 둔다.** 이 파일은 검색·공유로 곧장 도달하는 표면이라,
          뽑으러 온 사람이 우리가 누구인지 알 길이 인쇄물 안에는 없다. 도구막대는 sticky 라
          어느 단원을 보고 있든 늘 손에 닿고, 인쇄용 스타일에서 도구막대가 통째로 숨으므로
          종이에는 안 나간다.
          🔴 이 주석은 **템플릿 문자열 안**이다 — 백틱을 쓰면 문자열이 거기서 끊긴다. -->
-    <a class="btn app" href="/" target="_blank" rel="noopener">🐯 탱고북 앱에서 해보기</a>
+    <!-- 🔴 **그 언어의 파닉스로 보낸다**(2026-08-19 사용자) — 예전엔 루트라 라이브러리(동화책)로
+         떨어졌다. 한글 워크지를 뽑던 사람이 앱에서 만나야 하는 건 같은 단원의 한글 파닉스다.
+         🔴 위 주석이 경고한 백틱 함정에 이 줄에서 또 걸렸다(한 번에 두 번). 주석에도 백틱 금지. -->
+    <a class="btn app" href="/library/phonics/${L.phonicsPath}" target="_blank" rel="noopener">🐯 탱고북 앱에서 해보기</a>
   </div>
   <!-- 🔴 첫 단원은 마크업에서 이미 켜 둔다. 전부 display:none 으로 두고 JS 로만 켜면,
        스크립트가 한 줄이라도 막히는 환경(확장·정책·구형 브라우저)에서 **백지**가 된다. -->
@@ -1016,8 +1021,8 @@ async function main() {
   const allName = `${lang}_phonics_all.html`;
   const only = arg('unit', '');
   const L = en
-    ? { name: '영어 파닉스 워크지', unit: 'Unit', kinds: { letter: '알파벳', family: '낱말 가족' } }
-    : { name: '한글 워크지', unit: '익힘', kinds: { consonant: '자음', coda: '받침', vowel: '모음' } };
+    ? { name: '영어 파닉스 워크지', unit: 'Unit', phonicsPath: 'english', kinds: { letter: '알파벳', family: '낱말 가족' } }
+    : { name: '한글 워크지', unit: '익힘', phonicsPath: 'korean', kinds: { consonant: '자음', coda: '받침', vowel: '모음' } };
 
   // 동화책 연결은 한글 낱말 표라 영어엔 없다 — 없는 채로 돌아가야 한다.
   const scenes = en

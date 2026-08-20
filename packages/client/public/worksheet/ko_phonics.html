@@ -185,10 +185,9 @@
   a.item b { font-size:15px; min-width:22px; color:var(--coral-700); }
   a.item .g { font-size:15px; font-weight:800; min-width:46px; }
   a.item .w { font-size:11px; color:var(--ink-600); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  button.all { margin:6px 18px 0; width:calc(100% - 36px); padding:9px 12px; cursor:pointer;
-    border:1px dashed var(--peach-200); border-radius:8px; background:transparent; font-family:inherit;
-    display:block; text-align:center; font-size:12px; font-weight:700; color:var(--mint-600); }
-  button.all:hover { background:var(--peach-50); }
+  /* 🔴 사이드바 전용 button.all 규칙은 지웠다 — 전체 인쇄가 도구막대로 옮겨져 .bar button 을
+     그대로 쓴다. 죽은 규칙을 남기면 다음 사람이 살아 있는 줄 안다.
+     🔴 이 주석은 템플릿 문자열 안이다 — 백틱을 쓰면 문자열이 거기서 끊긴다(방금 걸렸다). */
   .stamp { padding:10px 18px 0; font-size:10px; color:var(--ink-500); }
 
   .bar { position:sticky; top:0; z-index:2; display:flex; align-items:center; gap:12px; padding:10px 16px;
@@ -216,12 +215,9 @@
 
 <aside>
   <h1>한글 워크지 <em>인쇄용</em></h1>
-  <!-- 🔴 다른 파일을 가리키지 않는다. 배포엔 이 고르기 화면 **하나만** 올라가므로 합본·단원
-       파일 링크는 서버에서 그대로 404 다. 전 단원이 이미 이 안에 있으니 켜고 인쇄하면 된다. -->
-  <button class="all" id="printAll">📚 전체 32단원 · 120쪽 한꺼번에 인쇄</button>
   <!-- 🔴 만든 시각을 박아 둔다. file:// 도 브라우저가 캐시해서, 새로 구워도 옛 화면을 보고
        「안 보인다」가 되기 쉽다(실측으로 두 번 헤맸다). 여기 시각이 안 바뀌면 캐시다. -->
-  <p class="stamp">2026. 8. 18. 18시 19분 12초 판</p>
+  <p class="stamp">2026. 8. 20. 15시 18분 10초 판</p>
   <h2>한글1 기본음절</h2><a class="item on" href="#kr-h1-u01" data-id="kr-h1-u01" data-name="한글1 기본음절 · 익힘 1 · ㅏ"><b>1</b><span class="g">ㅏ</span><span class="w">아이 오이 우유 여우</span></a><a class="item" href="#kr-h1-u02" data-id="kr-h1-u02" data-name="한글1 기본음절 · 익힘 2 · ㄱ"><b>2</b><span class="g">ㄱ</span><span class="w">고기 가구 아기 야구</span></a><a class="item" href="#kr-h1-u03" data-id="kr-h1-u03" data-name="한글1 기본음절 · 익힘 3 · ㄴ"><b>3</b><span class="g">ㄴ</span><span class="w">나 너 누나 누구야</span></a><a class="item" href="#kr-h1-u04" data-id="kr-h1-u04" data-name="한글1 기본음절 · 익힘 4 · ㄷ"><b>4</b><span class="g">ㄷ</span><span class="w">두유 도마 기도 구두</span></a><a class="item" href="#kr-h1-u05" data-id="kr-h1-u05" data-name="한글1 기본음절 · 익힘 5 · ㄹ"><b>5</b><span class="g">ㄹ</span><span class="w">오리 너구리 다리 노루</span></a><a class="item" href="#kr-h1-u06" data-id="kr-h1-u06" data-name="한글1 기본음절 · 익힘 6 · ㅁ"><b>6</b><span class="g">ㅁ</span><span class="w">머리 모두 모기 거미</span></a><a class="item" href="#kr-h1-u07" data-id="kr-h1-u07" data-name="한글1 기본음절 · 익힘 7 · ㅂ"><b>7</b><span class="g">ㅂ</span><span class="w">바다 비누 나비 두부</span></a><a class="item" href="#kr-h1-u08" data-id="kr-h1-u08" data-name="한글1 기본음절 · 익힘 8 · ㅅ"><b>8</b><span class="g">ㅅ</span><span class="w">사자 버스 가수 미소</span></a><a class="item" href="#kr-h1-u09" data-id="kr-h1-u09" data-name="한글1 기본음절 · 익힘 9 · ㅇ"><b>9</b><span class="g">ㅇ</span><span class="w">우주 여우 우유 어부</span></a><a class="item" href="#kr-h1-u10" data-id="kr-h1-u10" data-name="한글1 기본음절 · 익힘 10 · ㅈ"><b>10</b><span class="g">ㅈ</span><span class="w">지구 지도 자두 모자</span></a><a class="item" href="#kr-h1-u11" data-id="kr-h1-u11" data-name="한글1 기본음절 · 익힘 11 · ㅊ"><b>11</b><span class="g">ㅊ</span><span class="w">치마 치즈 마차 기차</span></a><a class="item" href="#kr-h1-u12" data-id="kr-h1-u12" data-name="한글1 기본음절 · 익힘 12 · ㅋ"><b>12</b><span class="g">ㅋ</span><span class="w">쿠키 코코아 마이크 카드</span></a><a class="item" href="#kr-h1-u13" data-id="kr-h1-u13" data-name="한글1 기본음절 · 익힘 13 · ㅌ"><b>13</b><span class="g">ㅌ</span><span class="w">타조 하트 기타 치타</span></a><a class="item" href="#kr-h1-u14" data-id="kr-h1-u14" data-name="한글1 기본음절 · 익힘 14 · ㅍ"><b>14</b><span class="g">ㅍ</span><span class="w">피자 파리 포도 소파</span></a><a class="item" href="#kr-h1-u15" data-id="kr-h1-u15" data-name="한글1 기본음절 · 익힘 15 · ㅎ"><b>15</b><span class="g">ㅎ</span><span class="w">하마 호두 휴지 호수</span></a><h2>한글2 받침</h2><a class="item" href="#kr-h2-u01" data-id="kr-h2-u01" data-name="한글2 받침 · 익힘 1 · ㅇ"><b>1</b><span class="g">ㅇ</span><span class="w">형 풍덩 농구 시장</span></a><a class="item" href="#kr-h2-u02" data-id="kr-h2-u02" data-name="한글2 받침 · 익힘 2 · ㄱ"><b>2</b><span class="g">ㄱ</span><span class="w">학교 축구 악어 탁구</span></a><a class="item" href="#kr-h2-u03" data-id="kr-h2-u03" data-name="한글2 받침 · 익힘 3 · ㄴ"><b>3</b><span class="g">ㄴ</span><span class="w">손 눈 언니 잔디</span></a><a class="item" href="#kr-h2-u04" data-id="kr-h2-u04" data-name="한글2 받침 · 익힘 4 · ㄹ"><b>4</b><span class="g">ㄹ</span><span class="w">별 달 하늘 가을</span></a><a class="item" href="#kr-h2-u05" data-id="kr-h2-u05" data-name="한글2 받침 · 익힘 5 · ㅅ"><b>5</b><span class="g">ㅅ</span><span class="w">옷 로봇 비옷 그릇</span></a><a class="item" href="#kr-h2-u06" data-id="kr-h2-u06" data-name="한글2 받침 · 익힘 6 · ㅁ"><b>6</b><span class="g">ㅁ</span><span class="w">엄마 몸 염소 구름</span></a><a class="item" href="#kr-h2-u07" data-id="kr-h2-u07" data-name="한글2 받침 · 익힘 7 · ㅂ"><b>7</b><span class="g">ㅂ</span><span class="w">집 컵 입술 김밥</span></a><h2>한글3 쌍자음</h2><a class="item" href="#kr-h3-u01" data-id="kr-h3-u01" data-name="한글3 쌍자음 · 익힘 1 · ㄲ"><b>1</b><span class="g">ㄲ</span><span class="w">꿀벌 꼬끼오 토끼 코끼리</span></a><a class="item" href="#kr-h3-u02" data-id="kr-h3-u02" data-name="한글3 쌍자음 · 익힘 2 · ㄸ"><b>2</b><span class="g">ㄸ</span><span class="w">떡국 똑딱 땅콩 딸기</span></a><a class="item" href="#kr-h3-u03" data-id="kr-h3-u03" data-name="한글3 쌍자음 · 익힘 3 · ㅃ"><b>3</b><span class="g">ㅃ</span><span class="w">오빠 뽀뽀 빨래 아빠</span></a><a class="item" href="#kr-h3-u04" data-id="kr-h3-u04" data-name="한글3 쌍자음 · 익힘 4 · ㅆ"><b>4</b><span class="g">ㅆ</span><span class="w">씨앗 새싹 쓱싹 썰매</span></a><a class="item" href="#kr-h3-u05" data-id="kr-h3-u05" data-name="한글3 쌍자음 · 익힘 5 · ㅉ"><b>5</b><span class="g">ㅉ</span><span class="w">찐빵 짝꿍 쫑긋 쪽지</span></a><h2>한글4 복잡한 모음</h2><a class="item" href="#kr-h4-u01" data-id="kr-h4-u01" data-name="한글4 복잡한 모음 · 익힘 1 · ㅐ"><b>1</b><span class="g">ㅐ</span><span class="w">고래 동생 레몬 베개</span></a><a class="item" href="#kr-h4-u02" data-id="kr-h4-u02" data-name="한글4 복잡한 모음 · 익힘 2 · ㅖ"><b>2</b><span class="g">ㅖ</span><span class="w">계란 예절 시계 얘기</span></a><a class="item" href="#kr-h4-u03" data-id="kr-h4-u03" data-name="한글4 복잡한 모음 · 익힘 3 · ㅟ"><b>3</b><span class="g">ㅟ</span><span class="w">생쥐 가위 참외 열쇠</span></a><a class="item" href="#kr-h4-u04" data-id="kr-h4-u04" data-name="한글4 복잡한 모음 · 익힘 4 · ㅘ"><b>4</b><span class="g">ㅘ</span><span class="w">과자 사과 화가 횃불</span></a><a class="item" href="#kr-h4-u05" data-id="kr-h4-u05" data-name="한글4 복잡한 모음 · 익힘 5 · ㅝ"><b>5</b><span class="g">ㅝ</span><span class="w">권투 스웨터 의자 의사</span></a>
 </aside>
 
@@ -230,12 +226,21 @@
     <span class="now">한글1 기본음절 · 익힘 1 · ㅏ</span>
     <span class="sp"></span>
     <button id="print">🖨 이 단원 인쇄</button>
+    <!-- 🔴 전체 인쇄는 **이 단원 인쇄 옆**이다(2026-08-19 사용자). 사이드바 맨 위에 있을 땐
+         단원 목록의 머리처럼 보여서, 인쇄하러 온 사람이 목록을 스크롤하다 지나쳐 버렸다.
+         두 인쇄 버튼은 같은 일의 범위 차이라 나란히 있어야 고르기가 된다.
+         🔴 다른 파일을 가리키지 않는다 — 배포엔 이 고르기 화면 **하나만** 올라가므로
+         합본·단원 파일 링크는 서버에서 그대로 404 다. 전 단원이 이미 이 안에 있다. -->
+    <button id="printAll">📚 전체 32단원 · 120쪽</button>
     <!-- 🔴 **앱으로 가는 길을 여기 둔다.** 이 파일은 검색·공유로 곧장 도달하는 표면이라,
          뽑으러 온 사람이 우리가 누구인지 알 길이 인쇄물 안에는 없다. 도구막대는 sticky 라
          어느 단원을 보고 있든 늘 손에 닿고, 인쇄용 스타일에서 도구막대가 통째로 숨으므로
          종이에는 안 나간다.
          🔴 이 주석은 **템플릿 문자열 안**이다 — 백틱을 쓰면 문자열이 거기서 끊긴다. -->
-    <a class="btn app" href="/" target="_blank" rel="noopener">🐯 탱고북 앱에서 해보기</a>
+    <!-- 🔴 **그 언어의 파닉스로 보낸다**(2026-08-19 사용자) — 예전엔 루트라 라이브러리(동화책)로
+         떨어졌다. 한글 워크지를 뽑던 사람이 앱에서 만나야 하는 건 같은 단원의 한글 파닉스다.
+         🔴 위 주석이 경고한 백틱 함정에 이 줄에서 또 걸렸다(한 번에 두 번). 주석에도 백틱 금지. -->
+    <a class="btn app" href="/library/phonics/korean" target="_blank" rel="noopener">🐯 탱고북 앱에서 해보기</a>
   </div>
   <!-- 🔴 첫 단원은 마크업에서 이미 켜 둔다. 전부 display:none 으로 두고 JS 로만 켜면,
        스크립트가 한 줄이라도 막히는 환경(확장·정책·구형 브라우저)에서 **백지**가 된다. -->
