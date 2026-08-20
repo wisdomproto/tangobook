@@ -263,7 +263,7 @@ function stageFor(key, volN) {
  * 시트 프롬프트용 나이·복장 블록.
  *
  * 🔴 **한 장에 다 담지 않는다.** 단계가 셋을 넘으면 한 이미지 안에 인물이 스무 명 가까이 들어가고
- *   (단계 × 3뷰 + 얼굴 + 표정 4 + 실루엣), 4등신이라 얼굴이 작아 줄마다 다른 사람이 된다.
+ *   (단계 × 3뷰 + 얼굴 + 표정 4 + 실루엣), 얼굴이 작아져 줄마다 다른 사람이 된다.
  *   그래서 단계 수로 갈라 지시를 달리 준다:
  *     ≤2 단계 → 한 장에 두 줄. 얼굴이 두 번뿐이라 버틴다.
  *     3+ 단계 → **대표 단계 한 장을 먼저 굽고 승인**한 뒤, 나머지는 그 승인본을 레퍼런스로 물려
@@ -281,7 +281,7 @@ age and clothing move.
 ${rows}`;
   }
   const [, prime] = list[1];
-  return `AGES & COSTUMES - ${list.length} stages. 🔴 DO NOT DRAW THEM ALL IN THIS IMAGE. At four heads
+  return `AGES & COSTUMES - ${list.length} stages. 🔴 DO NOT DRAW THEM ALL IN THIS IMAGE. At this scale
 tall the faces come out small, and a sheet with ${list.length} rows of them will drift into ${list.length} different people.
 🔴 BAKE THIS SHEET WITH ONE STAGE ONLY - the one marked PRIMARY below. Approve it. Then generate each
 remaining stage as its own small sheet, feeding the APPROVED image back in as the reference, and asking
@@ -677,8 +677,8 @@ function buildPlan(builtVols) {
   round guard plate, no lacquered scabbard with a cord wrap. 🔴 It HANGS AT THE HIP ON CORDS FROM
   THE BELT, blade down - never thrust edge-up through a sash, never crossed behind the shoulders.
 
-🔴 AGE IS READ FROM THE FACE, NOT THE BODY - the body is 4 heads tall at every age, so it cannot
-  carry age. A beardless man is the hard case and this book has two of them (Liubei at 24, Zhaoyun
+🔴 AGE IS READ FROM THE FACE, NOT THE BODY - the proportion is 5.5 heads at every age, so the body
+  cannot carry age. A beardless man is the hard case and this book has two of them (Liubei at 24, Zhaoyun
   at every age). Build the adult from FIVE measurements, all of them inside the head:
   1 EYE LINE at or above the middle of the head. A child's sits below it.
   2 EYES NARROW - width at least twice the height. A child's are round.
@@ -686,7 +686,7 @@ function buildPlan(builtVols) {
   4 THE JAW HAS A CORNER under the ear and the chin comes to a plane, not a curve.
   5 THE NECK IS VISIBLE and as wide as the distance between the eyes. A child has no neck showing.
   🔴 TEST BEFORE YOU FINISH: could this face be a ten-year-old? Then it is wrong. "Semi-deformed"
-  sets the proportion of the BODY and never makes the face a child's - the anchor says never babyish.`;
+  sets the proportion of the BODY and never makes the face a child's - the anchor says never chibi.`;
 
   /**
    * 🔴 시트 프롬프트의 «맨 앞». 캔버스·레이아웃·글자금지를 끝에 뒀더니 두 렌더 연속으로
@@ -695,9 +695,10 @@ function buildPlan(builtVols) {
    */
   const SHEET_BRIEF = `Draw a character reference sheet. This is not a page from the book.
 
-🔴 PROPORTION, BEFORE ANYTHING ELSE - the figure is FOUR HEADS TALL. Measure it: the height of the
-  head from crown to chin, taken four times, is the whole standing height. That means the head is
-  BIG and the legs are SHORT. Six or seven heads tall is wrong and has come back wrong three times.
+🔴 PROPORTION, BEFORE ANYTHING ELSE - the figure is 5.5 HEADS TALL. Measure it: the height of the
+  head from crown to chin, taken five and a half times, is the whole standing height. Lightly
+  stylised, NOT chibi and NOT realistic: the head is a little large, the body compact, and the legs
+  carry it. 4 heads makes a grown man read as a child; 8 makes a fashion plate.
   It applies to every full figure on this sheet, including the black silhouette.
 
 🔴 CANVAS: one image, 3:2 landscape, flat warm-paper ground (#F0E2C0). No landscape, no ink-wash
@@ -929,17 +930,17 @@ ${esc(stageBlock(keyByToken[token]))}
 </ul>
 <p>대상은 <b>초등 저학년</b>이다. 탱고북 본진(4~7세)보다 위이고 「타임 티코」와 같은 자리다.</p>
 
-<h2>2 · 그림체 — 수묵 산수 위의 4등신</h2>
+<h2>2 · 그림체 — 수묵 산수 위의 5.5등신</h2>
 <p>🔴 <b>출처는 우리 자산이다</b> — <code>C:/projects/threekingdoms</code>(영걸전형 SRPG)에서 <b>이미 렌더까지 나온</b> 하우스 스타일을 그림책으로 옮겼다.
 앞서 만들었던 후보 셋(그림자극·연환화·형지염색)은 <b>렌더가 하나도 없는 설계도</b>여서 폐기했다.
 분석 전문 = <code>docs/art-direction/samgukji-anchor.md</code>.</p>
 <div class="cand pick">
   <h3>정체 — 두 층으로 되어 있다</h3>
-  <div class="one">배경은 젖은 수묵 산수, 인물은 그 위에 얹은 굵은 먹 윤곽의 4등신 세미SD.</div>
+  <div class="one">배경은 젖은 수묵 산수, 인물은 그 위에 얹은 굵은 먹 윤곽의 5.5등신(2026-08-20 에 4등신에서 올렸다 — 4등신 시안이 세 번 다 「애 같다」로 돌아왔다).</div>
   <ul>
     <li>🔴 <b>두 층의 마감이 달라서</b> 「눈은 가장 마감된 것으로 간다」가 저절로 성립한다 — 인물이 늘 그 쪽에서 가장 마감된 것이다.</li>
     <li>🔴 <b>관우의 얼굴이 실제로 붉다</b>(SD 시트 실측 <code>#6C4836</code> 계열) — 얼굴색 축이 이 그림체에서 성립하는 것을 렌더로 확인했다.</li>
-    <li>🔴 <b>전원 4등신</b>이라 키로는 아무도 못 가른다 → 개체는 <b>어깨 폭(머리 폭의 몇 배)</b>으로 가른다. 동탁 2.6 ↔ 조조 1.5.</li>
+    <li>🔴 <b>전원 5.5등신</b>이라 키로는 아무도 못 가른다 → 개체는 <b>어깨 폭(머리 폭의 몇 배)</b>으로 가른다. 동탁 2.6 ↔ 조조 1.5.</li>
     <li>팔레트는 렌더에서 뽑았다 — 종이 <code>#F0E2C0</code>·먹 <code>#2B2B2B</code>·올리브 <code>#485A48</code>·황토 <code>#D8B46C</code>·가죽 <code>#5A4836</code>.</li>
     <li>⚠️ 법적 라인 상속 — 코에이 그래픽·일러스트 스타일 모방 금지, 「영걸전」 명칭 금지(NOT 절에 박아 두었다).</li>
   </ul>
@@ -951,9 +952,9 @@ ${esc(stageBlock(keyByToken[token]))}
 <div class="card">
   <b>첫 시험 — 쪽 컷을 뽑기 전에 이 셋을 먼저 굽고 승인받는다.</b>
   <ul>
-    <li><b>관우</b> — 붉은 얼굴이 4등신에서도 성립하는가</li>
+    <li><b>관우</b> — 붉은 얼굴이 이 등신에서도 성립하는가</li>
     <li><b>장비</b> — 삐죽삐죽한 수염 윤곽이 큰 머리에서 뭉개지지 않는가</li>
-    <li><b>유비</b> — 🔴 큰 귀가 4등신 큰 머리에 묻히지 않는가(가장 위험한 조합)</li>
+    <li><b>유비</b> — 🔴 큰 귀가 큰 머리에 묻히지 않는가(가장 위험한 조합)</li>
   </ul>
   <p>아래 §4 캐스트 카드의 「📋 시트 프롬프트 복사」가 <b>앵커까지 붙은 완성본</b>을 내놓는다 — 그대로 붙여넣으면 된다.</p>
 </div>

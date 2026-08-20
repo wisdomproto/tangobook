@@ -1,8 +1,10 @@
-# 탱고북 삼국지 — 스타일 앵커 (수묵 산수 위의 4등신)
+# 탱고북 삼국지 — 스타일 앵커 (수묵 산수 위의 5.5등신)
 
 > 🔴 **출처는 우리 자산이다** — `C:/projects/threekingdoms`(영걸전형 SRPG)에서 이미 렌더까지 나온 하우스 스타일을
 > 그림책으로 옮긴 것이다. 그 프로젝트의 `docs/art/asset-board.html` 의 `STYLE`·`COMMON`·`NEGATIVE` 상수와
-> 「세미SD 4등신」 옵션이 뿌리다.
+> 뿌리는 `threekingdoms` 게임 프로젝트의 「세미SD 4등신」이었다. 🔴 **2026-08-20 사용자 결정으로 5.5등신으로 올렸다** —
+> 4등신 시안이 세 번 다 「유비가 애 같다」로 돌아왔기 때문이다. SD 를 세게 밀수록 얼굴이 아이가 되고, 이 라인은
+> 24권 546쪽이 죽음·배신·전쟁이라 그 톤과 안 맞았다. 🔴 되돌리려면 「어리다」를 어떻게 풀지 먼저 정하고 되돌려라.
 > 🔴 **앵커는 캐릭터 시트를 다시 말하지 않는다** — 개체 규격 SSOT 는 `samgukji-cast.md`.
 > 규격 = `_ANCHOR-SPEC.md`(hex 필수 · 글자 금지 · NOT 4항 이하 · 형용사 대신 개수 상한 · 캡션 여백 금지).
 
@@ -14,7 +16,7 @@
 | 등록 조건 | 이 스타일 |
 |---|---|
 | ① 시장 검증 문법에 뿌리 | 삼국지 SRPG 하우스 스타일로 27스테이지 분량이 굴러갔다 |
-| ② 캐릭터 디자인 언어까지 한 몸 | 세미SD 4등신 + 붉은 얼굴 관우 + 시그니처 무기 체계가 딸려 온다 |
+| ② 캐릭터 디자인 언어까지 한 몸 | 붉은 얼굴 관우 + 시그니처 무기 체계가 딸려 온다(등신만 5.5로 올렸다) |
 | ③ **자기참조 ref 확보** | 🔴 **초상 107장 · SD 시트 · 씬 배경이 이미 렌더돼 있다** — 유일하게 「대기」가 아닌 안 |
 | ④ 즉발 매력 | 사람이 보고 고른 스타일이다 |
 
@@ -37,22 +39,22 @@
 STYLE ANCHOR - samgukji-inkwash-sd
 
 STYLE: A picture book for 7-9 year olds retelling the Three Kingdoms. THE WORLD IS PAINTED AS EAST
-ASIAN INK-WASH LANDSCAPE; THE PEOPLE ARE DRAWN AS SEMI-DEFORMED FIGURES LAID ON IT. Calligraphic
+ASIAN INK-WASH LANDSCAPE; THE PEOPLE ARE DRAWN AS LIGHTLY STYLISED FIGURES LAID ON IT. Calligraphic
 linework, muted earth tones, rice-paper texture in the washes, wide empty space. NOT photorealistic,
 NOT anime-cel, NOT a 3D render.
 
 RENDERING (finish hierarchy)
-- 🔴 TWO LAYERS, FINISHED DIFFERENTLY. BACKGROUND = wet ink wash on warm paper: hills, pines, mist and
-  sky in soft washes, 0 outlines, drying into bare paper. FIGURES = clean ink outline of even weight,
-  flat colour fill, ONE step of soft shading. A figure is always the most finished thing on its page.
+- 🔴 TWO LAYERS, FINISHED DIFFERENTLY. BACKGROUND = wet ink wash on warm paper: hills, pines, mist,
+  sky; 0 outlines, drying into bare paper. FIGURES = clean ink outline of even weight, flat fill, ONE
+  step of soft shading. A figure is always the most finished thing on its page.
 - FINISHED THINGS PER PAGE = 2 - the person the page is about, and the one thing they handle.
-- NAMED FIGURES IN THE FOREGROUND = at most 3. 🔴 CROWDS AND ARMIES ARE NOT DRAWN AS PEOPLE: ONE
-  silhouette repeated 12-40 times, smaller and paler as it recedes, dissolving into the mist.
+- NAMED FIGURES IN FRONT = at most 3. 🔴 CROWDS AND ARMIES ARE NOT PEOPLE: ONE silhouette repeated
+  12-40 times, smaller and paler as it recedes, dissolving into the mist.
 - BACKGROUND OBJECT COUNT = at most 6 named things per page. Everything else is wash and bare paper.
-- 🔴 MIST IS THE ERASER: distance is drawn paler, not smaller; the far third of a wide shot dissolves
-  into the paper. No hard horizon line behind a figure.
-- DENSITY RATION: only battle, market and court pages may fill the frame. Every other page keeps AT
-  LEAST HALF the frame as wash or bare paper. The scene brief names which page is which.
+- 🔴 MIST IS THE ERASER: distance is paler, not smaller; the far third of a wide shot dissolves into
+  the paper. No hard horizon behind a figure.
+- DENSITY RATION: only battle, market and court may fill the frame. Every other keeps AT LEAST HALF
+  the frame as wash or bare paper. The scene brief names which is which.
 
 PALETTE (muted earth, sampled from the house renders)
 paper #F0E2C0 · ink #2B2B2B · olive-green #485A48 · pale jade #5A6C5A · ochre #D8B46C ·
@@ -62,16 +64,16 @@ ACCENTS, USED SPARINGLY: vermilion #B8352A · gold #C9A227.
 yellow on him reads as one of them. It happened once in test; do not put it back.
 
 CHARACTER DESIGN LANGUAGE
-- 🔴 EVERY PERSON IN THIS BOOK IS 4 HEADS TALL - semi-deformed: large head, compact heroic body,
-  never babyish. The proportion never changes with rank or age.
-- 🔴 THE FACE COLOUR IS THE CASTING AND IT NEVER CHANGES - not with light, weather or age. A face
-  carries one steady tone. 🔴 WHICH tone, and every other value for that person, comes from their
-  CHARACTER SHEET, not from here.
-- Eyes = two strokes and a filled pupil; brows = one stroke, and they carry the expression. Mouths
-  are small. 0 blush marks, 0 sparkle highlights, 0 sweat drops.
-- 🔴 FEELING IS CARRIED BY THE WHOLE BODY: the figure leans, plants its feet wide, throws its arms out.
+- 🔴 EVERY PERSON IS 5.5 HEADS TALL - head height taken five and a half times is the standing
+  height. Lightly stylised, not chibi: head a little large, body compact, legs carrying it. 🔴 4
+  reads as a child, 8 as a fashion plate. It never changes with rank or age.
+- 🔴 THE FACE COLOUR IS THE CASTING AND NEVER CHANGES - not with light, weather or age; one steady
+  tone. 🔴 WHICH tone, and every other value for that person, comes from their CHARACTER SHEET.
+- Eyes = two strokes and a filled pupil; brows = one stroke and carry the expression. Mouths small.
+  0 blush marks, 0 sparkle highlights, 0 sweat drops.
+- 🔴 FEELING IS CARRIED BY THE WHOLE BODY: it leans, plants its feet wide, throws its arms out.
 - 🔴 TEST: fill any figure solid and rub out the inside. What is left must be that person from the
-  character sheet. If the silhouette does not say who it is, the figure is drawn wrong.
+  sheet. If the silhouette does not say who it is, the figure is wrong.
 
 CANVAS
 16:9 double-page spread. 🔴 NO lettering, numerals, signage or captions anywhere in the image, in any
@@ -94,9 +96,9 @@ outlines on the landscape washes.
 
 🔴 **쪽 컷을 뽑기 전에 캐릭터 시트 세 장을 먼저 굽고 승인받는다.** 순서를 뒤집으면 시트가 최종 그림을 못 지배한다.
 
-1. **관우** — 붉은 얼굴이 4등신에서도 성립하는가(이 매체의 핵심 주장, 게임 SD 에서는 성립했다)
-2. **장비** — 삐죽삐죽한 수염 윤곽이 4등신 큰 머리에서 뭉개지지 않는가
-3. **유비** — 큰 귀가 4등신 큰 머리에 묻히지 않는가(🔴 가장 위험한 조합)
+1. **관우** — 붉은 얼굴이 이 등신에서도 성립하는가(이 매체의 핵심 주장, 게임 SD 에서는 성립했다)
+2. **장비** — 삐죽삐죽한 수염 윤곽이 큰 머리에서 뭉개지지 않는가
+3. **유비** — 큰 귀가 큰 머리에 묻히지 않는가(🔴 가장 위험한 조합)
 
 그리고 **배경 한 장**(1권 p15 복사꽃 동산)을 따로 구워 두 층이 한 화면에서 겹치는지 본다.
 
@@ -105,7 +107,7 @@ outlines on the landscape washes.
 | 볼 것 | 실패 신호 |
 |---|---|
 | **두 층이 갈리는가** | 배경에 윤곽선이 생겼거나 인물이 워시로 풀렸으면 실패 — 한 층으로 뭉갠 것 |
-| **4등신인가** | 5등신 이상이면 게임 초상 트랙으로 샌 것 · 2.5등신이면 아기가 된다 |
+| **5.5등신인가** | 머리 높이 × 5.5 = 전신 높이. 4 이하면 아이가 되고 7 이상이면 게임 초상 트랙으로 샌 것 |
 | **얼굴색이 배역을 말하는가** | 관우가 살빛이면 실패 |
 | **실루엣만 남겼을 때 누구인지 아는가** | 모르면 시트가 틀린 것이다 |
 | **하늘이 파란가** | 파랗면 실패 — 이 책의 하늘은 따뜻한 종이다 |
