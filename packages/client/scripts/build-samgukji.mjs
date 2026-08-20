@@ -345,7 +345,10 @@ function render(vol, styleCss) {
       if (!CAST[k]) throw new Error(`vol-${nn}: 모르는 캐스트 키 "${k}"`);
       // 🔴 발주 프롬프트에는 «이 권의» 나이·복장만 붙인다. 전 단계를 다 붙이면 삽화가가 고르게 된다.
       const st = stageFor(k, vol.n);
-      return { ...CAST[k], desc: st ? `${CAST[k].desc}  【${nn}권】 ${st}` : CAST[k].desc };
+      // 🔴 어느 붙여넣기 칸의 시트를 첨부할지 발주서가 직접 말한다 — 사람이 고르게 두면 20권에 1권 얼굴이 붙는다.
+      const band = (STAGES[k] || []).filter(([f]) => vol.n >= f).pop();
+      const ref = band ? `  ‹기획서 「${CAST[k].name} · ${band[0]}권~」 칸의 시트를 첨부›` : '';
+      return { ...CAST[k], desc: st ? `${CAST[k].desc}  【${nn}권】 ${st}${ref}` : CAST[k].desc };
     })
     .filter((c) => c.token && sceneText.includes(c.token));
 
@@ -604,9 +607,23 @@ function buildPlan(builtVols) {
     const c = byToken[token];
     if (!c) throw new Error(`시트 "${token}" 에 해당하는 캐스트가 빌더에 없다`);
     const fac = FAC[token] || '군웅';
+    // 🔴 나이·복장이 바뀌는 인물은 붙여넣기 칸이 «단계마다» 하나씩이다.
+    //   칸이 하나뿐이면 20권 발주에 1권 얼굴이 첨부된다 — 시트를 다섯 장 구워도 넣을 데가 없다.
+    //   키에 시작 권 번호를 박아 두면(char-liubei-b3) 단계를 더하거나 빼도 나머지 칸은 안 흔들린다.
+    const stages = STAGES[keyByToken[token]] || [];
+    const slots = stages.length
+      ? `
+    <div class="stage-slots">${stages
+      .map(([from], i) => {
+        const to = stages[i + 1] ? stages[i + 1][0] - 1 : null;
+        const band = to ? (to === from ? `${from}권` : `${from}~${to}권`) : `${from}권~`;
+        return `<div class="stage-slot" data-key="char-${token.toLowerCase()}-b${from}"><b>${band}</b></div>`;
+      })
+      .join('')}</div>`
+      : '';
     return `
-  <div class="char-prompt" data-key="char-${token.toLowerCase()}" style="border-left:4px solid ${FACC[fac]}">
-    <div class="head"><b>${c.name}</b> <span class="rom">${token}</span> <span class="tag" style="background:${FACC[fac]}22;color:${FACC[fac]}">${fac}</span> <button class="copy-btn">📋 시트 프롬프트 복사</button></div>
+  <div class="char-prompt"${stages.length ? '' : ` data-key="char-${token.toLowerCase()}"`} style="border-left:4px solid ${FACC[fac]}">
+    <div class="head"><b>${c.name}</b> <span class="rom">${token}</span> <span class="tag" style="background:${FACC[fac]}22;color:${FACC[fac]}">${fac}</span>${stages.length ? ` <span class="tag" style="background:#EDE3CC;color:#6B5A3E">시트 ${stages.length}장</span>` : ''} <button class="copy-btn">📋 시트 프롬프트 복사</button></div>
     <details><summary>캐릭터 시트 프롬프트 보기</summary><pre>${esc(anchor || '[공통 스타일 앵커 — samgukji-anchor.md 없음]')}
 
 CHARACTER SHEET - ${token}   (bake this FIRST)
@@ -620,7 +637,7 @@ ${esc(stageBlock(keyByToken[token]))}
 }
 SHEET LAYOUT: front / three-quarter / profile, full figure; plus one head close-up and one row of
 four expressions. 🔴 At the foot of the sheet, one strip of the SAME figure filled in solid black -
-the silhouette must read as this person and no other.</pre></details>
+the silhouette must read as this person and no other.</pre></details>${slots}
   </div>`;
   }).join('\n');
 
@@ -697,6 +714,9 @@ the silhouette must read as this person and no other.</pre></details>
   .ch i { font-style:normal; display:block; font-weight:600; color:var(--ink-soft); font-size:11px; }
   .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(330px, 1fr)); gap:10px; align-items:start; }
   .char-prompt { border:1px solid var(--line); border-radius:14px; padding:13px 15px; background:var(--paper); }
+  .stage-slots { display:grid; gap:8px; margin-top:10px; }
+  .stage-slot { border:1px dashed var(--line); border-radius:10px; padding:8px 10px; background:#00000005; }
+  .stage-slot > b { display:block; font-size:12px; color:#6B5A3E; margin-bottom:4px; letter-spacing:.02em; }
   .char-prompt .head { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
   .char-prompt .head b { font-size:15px; }
   .char-prompt details { margin-top:7px; }
@@ -786,8 +806,12 @@ the silhouette must read as this person and no other.</pre></details>
 <h2>4 · 캐릭터 — 얼굴색이 배역을, 수염 길이가 나이를 말한다</h2>
 <div class="card">
   <p><b>원칙 1 · 시그니처는 절대 고정</b> — 색·소품·외모는 나이와 옷이 바뀌어도 그대로.</p>
-  <p><b>원칙 2 · 노화는 3단계 점프</b> — 청년 → 장년 → 노년으로 수염·흰머리·주름만 전환.</p>
-  <p><b>원칙 3 · 의상은 신분이 오를 때만</b> — 평복 → 갑옷 → 관복 → 왕복.</p>
+  <p><b>원칙 2 · 나이와 옷은 권 번호가 정한다</b> — 사람마다 단계 수가 다르다(유비 5, 관우 3, 사마의 2).
+     SSOT 는 <code>build-samgukji.mjs</code> 의 <code>STAGES</code> 이고, 쪽 발주서에는 <b>그 권 한 줄만</b> 나간다.</p>
+  <p><b>원칙 3 · 의상은 신분이 오를 때만</b> — 날씨·기분·장면으로 바꾸지 않는다. 바꾸면 같은 사람이 매 쪽 달라진다.</p>
+  <p>🔴 <b>단계가 있는 인물은 시트가 여러 장이고, 붙여넣기 칸도 그만큼이다</b> — 아래 카드의 권 범위 칸에 각각 넣는다.
+     칸이 하나면 20권 발주에 1권 얼굴이 첨부된다. 🔴 단계가 셋 넘는 인물은 <b>대표 한 장을 먼저 승인</b>한 뒤
+     나머지를 그 승인본에서 파생시킨다(얼굴을 글로 두 번 만들면 두 사람이 된다).</p>
   <p style="margin-top:8px">🔴 <b>개체 규격 SSOT = <code>docs/art-direction/samgukji-cast.md</code></b> — 얼굴색·수염·실루엣·키·악센트 다섯 축과
   검사 조항이 거기 있다. 아래 카드는 그 파일에서 굽는다.</p>
 </div>

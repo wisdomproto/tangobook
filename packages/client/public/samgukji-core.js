@@ -336,7 +336,7 @@
       box.addEventListener('click', function () { box.focus(); });
       return box;
     }
-    document.querySelectorAll('.char-prompt[data-key]').forEach(function (card) {
+    document.querySelectorAll('.char-prompt[data-key], .stage-slot[data-key]').forEach(function (card) {
       card.appendChild(createPasteBox(card.getAttribute('data-key'), '🖼️ 클릭 후 Ctrl+V — 확정 레퍼런스 시트 붙여넣기'));
     });
     pages.forEach(function (p) { p.card.appendChild(createPasteBox(p.page, '🖼️ 클릭 후 Ctrl+V — 생성한 컷 붙여넣기')); });
