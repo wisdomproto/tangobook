@@ -225,9 +225,15 @@
       var pnum = card.querySelector('.pnum'); var b = card.querySelector('.page-head b');
       return ((pnum ? pnum.textContent.trim() + ' ' : '') + (b ? b.textContent.trim() : card.getAttribute('data-page'))).trim();
     }
+    // 🔴 [등장] 판정은 영문 토큰만 본다 — 한글 이름으로 재면 두 가지가 새어 들어온다.
+    //   ① 흔한 말과 겹치는 이름: 「제갈량이 서서 본다」의 '서서'가 서서(徐庶)로 잡혔다.
+    //   ② 연출 메모의 회차 참조: 「5권에서 동탁의 말이 그랬듯이」 때문에 5권에서 죽은 동탁이
+    //      16권 컷의 등장인물로 붙었다(원소·손견·전위도 같은 이유로 죽은 뒤에 다시 나왔다).
+    //   실제로 그리는 인물은 SCENE 「인물」 줄에 Token(한글) 로 적는 것이 이 시리즈의 규칙이므로,
+    //   토큰만 보면 둘 다 사라진다. 🔴 한글 별칭을 이 판정에 되돌리지 마라.
     function hasChar(scene, c) {
-      var s = scene.toLowerCase();
-      return (c.aliases || [c.token || c.name]).some(function (n) { return s.indexOf(String(n).toLowerCase()) !== -1; });
+      if (!c.token) return false;
+      return scene.indexOf(c.token) !== -1;
     }
     var pages = Array.prototype.map.call(pageCards, function (card) {
       return { card: card, page: card.getAttribute('data-page'), label: labelOf(card), scene: sceneOf(card) };

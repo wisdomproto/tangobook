@@ -78,6 +78,124 @@ const CAST = {
   lvbosha: { token: 'Lvbosha', name: '여백사', desc: '인정 많은 시골 노인 · 흰 수염 · 손에 든 술병.', aliases: ['Lvbosha', '여백사'] },
 };
 
+// 🔴 시대·복장 — 권 번호가 정한다. SSOT 는 여기 한 곳이고, 두 곳으로 나간다:
+//   ① 쪽 발주 프롬프트에는 그 권에 해당하는 «한 줄만» 나간다(예전엔 네 단계가 통째로 나가
+//      20권 발주에도 「1 짚신 … 4 왕의 옷」이 붙어 삽화가가 골라야 했다).
+//   ② 캐릭터 시트 프롬프트에는 전 단계가 나간다(시트는 한 장에 다 보여야 하므로).
+// 🔴 옷은 «지위가 바뀔 때만» 바꾼다 — 날씨·기분·장면으로 바꾸면 같은 사람이 매 쪽 달라진다.
+// 🔴 [권번호, 그 권부터 적용되는 나이·옷] · 얼굴색·실루엣·악센트는 여기 적지 않는다(불변이라 desc 소관).
+const STAGES = {
+  liubei: [
+    [1, '스물넷. 짚신에 물들이지 않은 삼베옷 — 이 책에서 가장 가난한 옷. 🔴 수염이 하나도 없다.'],
+    [3, '서른. 푸른 겉옷 안에 가죽 갑옷. 🔴 콧수염 한 줄이 생긴다(이 뒤로 열 권 동안 이 얼굴).'],
+    [13, '마흔일곱. 넓은 소매의 학창의, 갑옷 없음 — 싸움을 남에게 맡기는 사람이 된 표시다.'],
+    [19, '쉰아홉. 한중왕의 옷(붉은 자락에 옥대). 콧수염에 짧은 턱수염이 더해지고 둘 다 희끗하다.'],
+    [20, '예순하나. 황제의 검붉은 곤룡포. 🔴 얼굴에 기쁨이 없다 — 이 옷을 입은 쪽마다 그렇다.'],
+  ],
+  guanyu: [
+    [1, '녹색 평복. 수염이 가슴까지.'],
+    [3, '갑옷 위에 녹색 전포 — 🔴 이 뒤로 열일곱 권 동안 옷이 안 바뀐다. 수염이 가슴 아래까지.'],
+    [18, '같은 녹색 전포. 🔴 수염이 배꼽까지 내려오고 흰 올이 섞인다 — 이 책의 나이 시계다.'],
+  ],
+  zhangfei: [
+    [1, '거친 베옷, 소매를 걷었다. 수염이 검고 억세다.'],
+    [3, '검은 쇠비늘 갑옷 — 이 뒤로 안 바뀐다.'],
+    [21, '같은 갑옷. 수염에 흰 올이 섞이고 🔴 눈이 붉다(형을 잃은 뒤 우는 쪽이 있다).'],
+  ],
+  // 🔴 제갈량은 «옷이 안 바뀌는 것»이 이 인물의 표시다 — 시트가 「열세 권 동안 옷 하나」로 못박았고
+  //   13권 첫 등장부터 이미 학창의다. 그러니 단계는 나이와 소지품만 움직인다.
+  zhugeliang: [
+    [13, '스물일곱. 이마에 두른 천 — 🔴 산속 사람이던 표시라 이 권에서만 두른다. 흰 깃부채를 여기서 처음 든다.'],
+    [14, '서른둘. 두건이 없어진다. 옷은 그대로. 짧고 곧게 다듬은 검은 턱수염.'],
+    [22, '마흔여섯. 옷 그대로, 눈가에 주름. 승상의 검은 띠 하나만 더해진다.'],
+    [24, '쉰넷. 옷 그대로. 수염에 흰 올, 손등이 마르고 어깨가 굽었다. 지팡이를 짚는 쪽이 있다.'],
+  ],
+  zhaoyun: [
+    [10, '은빛 갑옷, 흰 술 달린 창, 흰 말. 얼굴이 젊다.'],
+    [17, '같은 은빛 갑옷. 얼굴선이 굳었다.'],
+    [21, '같은 갑옷인데 은빛이 낡았다. 눈가에 주름. 🔴 수염은 끝까지 없다.'],
+  ],
+  caocao: [
+    [2, '젊은 무관의 가벼운 갑옷. 검은 수염이 짧다.'],
+    [6, '승상의 검은 관복 — 🔴 황제 곁에 설 때는 반드시 이 옷.'],
+    [18, '위공의 옷(검붉은 자락에 옥). 수염에 흰 올.'],
+    [20, '예순여섯. 흰 수염, 얼굴에 병색. 🔴 이 권에서는 앉아 있는 쪽이 서 있는 쪽보다 많다.'],
+  ],
+  sunquan: [
+    [7, '열아홉. 🔴 아직 수염이 없고 턱에 자줏빛 기운만 돈다. 붉은 옷.'],
+    [14, '스물일곱. 자줏빛 수염이 짧게 났다. 허리에 네모난 인장 주머니.'],
+    [21, '마흔. 자줏빛 수염이 길어졌다. 같은 붉은 옷.'],
+  ],
+  lvbu: [
+    [2, '정원 밑의 젊은 장수 — 🔴 아직 꿩깃이 없다. 맨 투구.'],
+    [3, '동탁 밑으로 간 뒤 — 🔴 꿩깃 두 가닥이 솟는다. 붉은 술, 붉은 말.'],
+    [8, '같은 꿩깃. 🔴 갑옷이 몸에 헐거워 보인다(하비에 갇힌 뒤).'],
+  ],
+  // 🔴 1권의 동탁은 «뒷모습뿐이고 얼굴이 안 보인다» — 대본이 그렇게 썼다(다음 권의 그 사람인 줄
+  //   나중에 알게 하려고). 옷을 지정하면 그 연출이 깨지므로 여기서는 옷을 말하지 않는다.
+  //   2권부터는 시트대로 «네 권 동안 옷 하나»다.
+  dongzhuo: [
+    [1, '🔴 뒷모습만 — 얼굴도 옷도 그리지 않는다. 어깨에서 어깨까지가 아주 넓은 덩이라는 것만 남긴다.'],
+    [2, '재상의 옷 — 🔴 이 뒤로 네 권 동안 안 바뀐다. 금붙이는 다섯 개까지. 몸이 한 단계 더 넓어진다.'],
+  ],
+  simayi: [
+    [23, '위나라 장수의 갑옷. 반쯤 감은 눈, 긴 목.'],
+    [24, '같은 갑옷 위에 도독의 검은 망토. 수염이 세었다.'],
+  ],
+  xiandi: [
+    [6, '열여섯. 🔴 옷이 몸보다 크다 — 소매가 손을 덮는다.'],
+    [18, '스물다섯. 옷은 이제 맞는데 🔴 어깨가 그 옷을 못 채운다.'],
+    [20, '마흔. 관을 벗어 두 손에 들고 있는 쪽이 있다.'],
+  ],
+  yuanshao: [
+    [2, '젊은 귀공자의 화려한 갑옷.'],
+    [3, '맹주의 흰 갑옷 — 단 위에 설 때 입는다.'],
+    [11, '같은 갑옷이 몸에 헐겁다. 수염이 세었다.'],
+  ],
+  zhouyu: [
+    [7, '스물넷. 평복에 허리의 피리.'],
+    [14, '서른넷. 도독의 갑옷. 🔴 피리는 갑옷 위에도 그대로 찬다.'],
+    [16, '서른여섯. 같은 갑옷. 얼굴이 창백하다.'],
+  ],
+  zhangliao: [
+    [9, '여포 밑의 장수 — 갑옷이 늘 단정하다.'],
+    [18, '위나라 장수. 같은 단정함. 수염이 조금 세었다.'],
+  ],
+  machao: [
+    [17, '은빛 투구에 흰 전포. 얼굴이 젊고 눈이 사납다.'],
+    [19, '같은 흰 전포. 얼굴선이 굳고 눈이 가라앉았다.'],
+  ],
+  luxun: [
+    [20, '🔴 갑옷이 몸에 헐렁한 아주 젊은 얼굴. 손에 든 것이 무기가 아니라 붓이다.'],
+    [21, '같은 얼굴인데 갑옷이 몸에 맞고, 이번에는 칼을 찼다.'],
+  ],
+  sunce: [
+    [4, '열일곱. 🔴 아직 붉은 머릿수건이 없다 — 아버지가 쓰고 있다.'],
+    [7, '스물하나. 아버지의 붉은 머릿수건을 물려 두르고 있다.'],
+  ],
+  liushan: [
+    [21, '열예닐곱. 아버지의 큰 귀를 물려받았으나 눈이 순하다.'],
+    [24, '오십 줄. 같은 둥근 얼굴에 🔴 아무 표정이 없다.'],
+  ],
+  jiangwei: [
+    [23, '스물일곱. 수염이 거의 없다. 창과 책을 함께 든다.'],
+    [24, '짧은 수염이 났다. 같은 창, 그러나 책이 늘었다.'],
+  ],
+  chengong: [
+    [2, '젊고 꼿꼿한 고을 관리. 푸른 문관복이 새것이다.'],
+    [8, '같은 푸른 옷이 낡았다. 그래도 등이 곧다.'],
+  ],
+  yuanshu: [
+    [3, '형보다 살졌고 턱을 든 채 말한다. 화려한 비단옷.'],
+    [7, '스스로 황제라 한 뒤 — 🔴 옷이 새것인데 몸에 안 맞는다(소매가 길고 어깨가 뜬다).'],
+  ],
+  // 🔴 맹획·감녕은 한 권에서만 그려진다 — 단계를 두면 영영 안 쓰이는 글이 된다(빌드 검사가 잡았다).
+  //   맹획의 머리띠(높이 맸다 → 낮게 맸다)는 «권»이 아니라 «쪽»에서 바뀌므로 SCENE 이 지시한다.
+  menghuo: [[22, '짐승 가죽을 걸치고 굵은 팔찌. 붉은 머리띠 — 일곱 번 잡히는 동안 이것만 조금씩 낮아진다.']],
+  ganning: [[18, '허리의 방울, 목에 두른 비단. 갑옷이 가볍다.']],
+};
+
+
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 function parseVolume(file) {
@@ -131,6 +249,22 @@ const SCENE_LABELS = ['컷', '장소·시간', '인물', '배경·소품', '톤'
  * 실패시키지 않고 경고만 낸다 — 「그 사람의 이름은 동탁이었어요」처럼 옳은 변형이 있기 때문이다.
  */
 const ROLE_WORDS = /(라는|이라는|이름은|스승|고을|마을|고장|나라|도읍|성|산|장수|벼슬아치|땅|상인|장사꾼|호걸|청년|사내|황제|관리|사람|아우|형|아들|아내|어머니|아버지|누이)/;
+
+/** 그 권에 적용되는 나이·복장 한 줄. 없으면 ''. 🔴 「그 권 이하의 마지막 단계」가 이긴다. */
+function stageFor(key, volN) {
+  const list = STAGES[key];
+  if (!list) return '';
+  let hit = '';
+  for (const [from, text] of list) if (volN >= from) hit = text;
+  return hit;
+}
+
+/** 시트 프롬프트용 — 전 단계를 한 덩이로. 시트는 한 장에 다 보여야 한다. */
+function stageBlock(key) {
+  const list = STAGES[key];
+  if (!list) return '';
+  return list.map(([from, text]) => `  from book ${from}: ${text}`).join('\n');
+}
 
 function firstMentionReport(allVols) {
   const seen = new Map(); // name → { volN, page, text, index }
@@ -186,9 +320,11 @@ function render(vol, styleCss) {
   const cast = vol.cast
     .map((k) => {
       if (!CAST[k]) throw new Error(`vol-${nn}: 모르는 캐스트 키 "${k}"`);
-      return CAST[k];
+      // 🔴 발주 프롬프트에는 «이 권의» 나이·복장만 붙인다. 전 단계를 다 붙이면 삽화가가 고르게 된다.
+      const st = stageFor(k, vol.n);
+      return { ...CAST[k], desc: st ? `${CAST[k].desc}  【${nn}권】 ${st}` : CAST[k].desc };
     })
-    .filter((c) => c.aliases.some((a) => sceneText.includes(a)));
+    .filter((c) => c.token && sceneText.includes(c.token));
 
   const body = vol.chapters
     .map((ch) => {
@@ -317,6 +453,39 @@ for (const f of files) {
   } else {
     console.log(`  ✓ 고유명사 ${total}개 전부 시리즈 첫 등장에 설명이 붙었다`);
   }
+
+  // 🔴 나이·복장 단계 검사 — 단계는 「그 인물이 그려지는 권」 안에서만 뜻이 있다.
+  //   ① 등장하지 않는 인물의 단계 = 죽은 글. ② 마지막 등장보다 뒤에서 시작하는 단계 = 영영 안 쓰인다.
+  //   ③ 첫 등장보다 늦게 시작하는 첫 단계 = 그 앞 권들이 옷을 못 받는다(가장 조용히 새는 구멍).
+  const seenIn = {};
+  for (const v of allVols) {
+    const sc = v.chapters.flatMap((c) => c.pages).map((p) => p.scene.join('\n')).join('\n');
+    for (const [k, c] of Object.entries(CAST)) {
+      if (c.token && sc.includes(c.token)) (seenIn[k] ||= []).push(v.n);
+    }
+  }
+  const stageWarn = [];
+  for (const [k, list] of Object.entries(STAGES)) {
+    const vs = seenIn[k];
+    const nm = CAST[k] ? CAST[k].name : k;
+    if (!vs) { stageWarn.push(`${nm}: 단계는 있는데 그려지는 권이 없다`); continue; }
+    const first = vs[0], last = vs[vs.length - 1];
+    if (list[0][0] > first) stageWarn.push(`${nm}: 첫 등장 ${first}권인데 첫 단계가 ${list[0][0]}권부터다`);
+    for (const [from] of list) if (from > last) stageWarn.push(`${nm}: ${from}권 단계는 마지막 등장(${last}권) 뒤라 안 쓰인다`);
+  }
+  // 🔴 그려지는 인물에 시트가 있는가 — 시트 없는 인물은 발주 프롬프트에 한 줄짜리 설명만 붙는다.
+  {
+    const have = new Set(parseCastSheets().map((s) => s.token));
+    const missing = Object.keys(seenIn).filter((k) => !have.has(CAST[k].token)).map((k) => CAST[k].name);
+    if (missing.length) console.log(`  ⚠ 시트 없는 인물 ${missing.length}명 — ${missing.join(', ')}`);
+    else console.log(`  ✓ 그려지는 인물 ${Object.keys(seenIn).length}명 전부 시트가 있다`);
+  }
+
+  if (stageWarn.length) stageWarn.forEach((w) => console.log(`  ⚠ 나이·복장 — ${w}`));
+  else {
+    const n = Object.values(STAGES).reduce((a, b) => a + b.length, 0);
+    console.log(`  ✓ 나이·복장 ${Object.keys(STAGES).length}명 ${n}단계 전부 등장 권 안에서 쓰인다`);
+  }
 }
 
 // index.json — 대본이 있는 권만 (전 권 빌드일 때만 다시 굽는다)
@@ -356,12 +525,17 @@ function parseOutline() {
 }
 
 function parseCastSheets() {
-  const md = fs.readFileSync(path.join(ROOT, 'docs/art-direction/samgukji-cast.md'), 'utf8');
+  // 🔴 줄바꿈 종류를 먼저 없앤다 — CRLF 파일에서 `\n` 을 기대한 정규식이 조용히 0장을 읽는다.
+  //   (실제로 새 시트 44장이 CRLF 로 들어오자 파서가 옛 10장만 읽고 아무 말도 안 했다.)
+  const md = fs.readFileSync(path.join(ROOT, 'docs/art-direction/samgukji-cast.md'), 'utf8').replace(/\r\n/g, '\n');
   const out = [];
   const re = /^##\s+([A-Z][A-Za-z]+)\s*$\n+```\n([\s\S]*?)```/gm;
   let m;
   while ((m = re.exec(md))) out.push({ token: m[1], sheet: m[2].trimEnd() });
-  if (out.length !== 10) throw new Error(`samgukji-cast.md: 시트가 10장이 아니다 (${out.length})`);
+  // 🔴 「10장」 같은 숫자로 지키지 않는다 — 인물이 늘면 그 숫자가 먼저 낡는다.
+  //   지킬 것은 둘이다: 시트 토큰이 캐스트에 있을 것(아래 castCards 가 throw), 그리고
+  //   «실제로 그려지는» 인물에 시트가 있을 것(대본을 다 읽어야 아므로 빌드 끝에서 검사).
+  if (!out.length) throw new Error('samgukji-cast.md: 시트를 하나도 못 읽었다');
   return out;
 }
 
@@ -380,12 +554,28 @@ function buildPlan(builtVols) {
     console.log(`  ⚠ 앵커 ${anchor.length}자 — 규격(3,200~3,700) 밖이다`);
   }
   const byToken = Object.fromEntries(Object.values(CAST).map((c) => [c.token, c]));
+  const keyByToken = Object.fromEntries(Object.entries(CAST).map(([k, c]) => [c.token, k]));
   const written = new Set(builtVols.map((v) => v.n));
   const totalCh = vols.reduce((a, v) => a + v.chapters.length, 0);
   const stars = vols.reduce((a, v) => a + v.chapters.filter((c) => c.star).length, 0);
 
-  const FAC = { Liubei: '촉', Guanyu: '촉', Zhangfei: '촉', Zhugeliang: '촉', Zhaoyun: '촉', Caocao: '위', Simayi: '위', Sunquan: '오', Lvbu: '군웅', Dongzhuo: '군웅' };
-  const FACC = { 촉: '#3E7C51', 위: '#3A5C86', 오: '#B0473A', 군웅: '#6E5A86' };
+  // 🔴 진영은 기획서 카드의 색띠와 정렬에만 쓴다. 여기 없는 토큰은 「군웅」이 되므로,
+  //   새 인물을 넣으면 여기도 채운다 — 안 채우면 주유·장료가 군웅 칸에 가서 조용히 섞인다.
+  const FAC = {
+    Liubei: '촉', Guanyu: '촉', Zhangfei: '촉', Zhugeliang: '촉', Zhaoyun: '촉',
+    Simahui: '촉', Xushu: '촉', Pangtong: '촉', Machao: '촉', Huangzhong: '촉',
+    Jiangwei: '촉', Masu: '촉', Liushan: '촉', Adou: '촉',
+    Caocao: '위', Simayi: '위', Dianwei: '위', Zhangliao: '위', Xiahouyuan: '위',
+    Caopi: '위', Anliang: '군웅', Wenchou: '군웅',
+    Sunquan: '오', Sunjian: '오', Sunce: '오', Zhouyu: '오', Lusu: '오',
+    Huanggai: '오', Ganning: '오', Luxun: '오',
+    Lvbu: '군웅', Dongzhuo: '군웅', Yuanshao: '군웅', Yuanshu: '군웅', Gongsunzan: '군웅',
+    Huaxiong: '군웅', Zhangjue: '군웅', Duyou: '군웅', Sushuang: '군웅', Hejin: '군웅',
+    Dingyuan: '군웅', Chengong: '군웅', Lvbosha: '군웅', Wangyun: '군웅', Diaochan: '군웅',
+    Lijue: '군웅', Guosi: '군웅', Taoqian: '군웅', Liubiao: '군웅', Liuzhang: '군웅',
+    Menghuo: '군웅', ChildEmperor: '한', Liuxie: '한', Xiandi: '한',
+  };
+  const FACC = { 촉: '#3E7C51', 위: '#3A5C86', 오: '#B0473A', 한: '#C9A227', 군웅: '#6E5A86' };
 
   const castCards = sheets.map(({ token, sheet }) => {
     const c = byToken[token];
@@ -398,7 +588,15 @@ function buildPlan(builtVols) {
 
 CHARACTER SHEET - ${token}   (bake this FIRST)
 ${esc(sheet)}
-
+${
+  stageBlock(keyByToken[token])
+    ? `
+AGES & COSTUMES - draw ONE ROW PER STAGE, left to right, oldest last. 🔴 The face colour, the
+silhouette and the accent colour are the SAME in every row; only age and clothing move.
+${esc(stageBlock(keyByToken[token]))}
+`
+    : ''
+}
 SHEET LAYOUT: front / three-quarter / profile, full figure; plus one head close-up and one row of
 four expressions. 🔴 At the foot of the sheet, one strip of the SAME figure filled in solid black -
 the silhouette must read as this person and no other.</pre></details>
