@@ -624,19 +624,46 @@ function buildPlan(builtVols) {
     //   칸이 하나뿐이면 20권 발주에 1권 얼굴이 첨부된다 — 시트를 다섯 장 구워도 넣을 데가 없다.
     //   키에 시작 권 번호를 박아 두면(char-liubei-b3) 단계를 더하거나 빼도 나머지 칸은 안 흔들린다.
     const stages = STAGES[keyByToken[token]] || [];
+    // 🔴 단계마다 «제 프롬프트와 제 복사 버튼»을 준다. 카드에 복사 버튼이 하나뿐이면 다섯 장을
+    //   어떻게 나눠 굽는지, 나온 그림을 어느 칸에 넣는지가 아무 데도 안 적힌 채로 남는다.
+    //   대표(둘째 단계)는 통째 시트로 먼저 굽고, 나머지는 «승인된 대표를 첨부해» 정면+얼굴만 뽑는다.
+    const primaryIdx = stages.length > 2 ? 1 : -1;
+    const slotPrompt = (from, text, isPrimary, derived) => {
+      const head = `${anchor || '[공통 스타일 앵커 — samgukji-anchor.md 없음]'}
+
+CHARACTER SHEET - ${token} · from book ${from}
+${sheet}
+
+THIS STAGE ONLY: ${text}`;
+      return derived
+        ? `${head}
+
+🔴 ATTACH THE APPROVED ${token} SHEET (the primary one) AS REFERENCE. Keep that exact face - do not
+generate it again from this text. Change ONLY age and clothing as described above.
+OUTPUT: front view, full figure, plus one head close-up. Nothing else.`
+        : `${head}
+
+SHEET LAYOUT: front / three-quarter / profile, full figure; plus one head close-up and one row of
+four expressions. 🔴 At the foot, one strip of the SAME figure filled in solid black - the
+silhouette must read as this person and no other.${isPrimary ? '\n🔴 THIS IS THE PRIMARY SHEET - approve it before generating the other stages.' : ''}`;
+    };
     const slots = stages.length
       ? `
     <div class="stage-slots">${stages
-      .map(([from], i) => {
+      .map(([from, text], i) => {
         const to = stages[i + 1] ? stages[i + 1][0] - 1 : null;
         const band = to ? (to === from ? `${from}권` : `${from}~${to}권`) : `${from}권~`;
-        return `<div class="stage-slot" data-key="char-${token.toLowerCase()}-b${from}"><b>${band}</b></div>`;
+        const derived = primaryIdx >= 0 && i !== primaryIdx;
+        const role = primaryIdx < 0 ? '' : derived ? '<span class="role d">파생 — 대표를 첨부해서</span>' : '<span class="role p">대표 — 먼저 굽고 승인</span>';
+        return `<div class="stage-slot" data-key="char-${token.toLowerCase()}-b${from}"><b>${band}</b>${role}
+      <details><summary>이 단계 시트 프롬프트</summary><pre>${esc(slotPrompt(from, text, i === primaryIdx, derived))}</pre></details>
+      <button class="slot-copy-btn">📋 이 단계 시트 프롬프트 복사</button></div>`;
       })
       .join('')}</div>`
       : '';
     return `
   <div class="char-prompt"${stages.length ? '' : ` data-key="char-${token.toLowerCase()}"`} style="border-left:4px solid ${FACC[fac]}">
-    <div class="head"><b>${c.name}</b> <span class="rom">${token}</span> <span class="tag" style="background:${FACC[fac]}22;color:${FACC[fac]}">${fac}</span>${stages.length ? ` <span class="tag" style="background:#EDE3CC;color:#6B5A3E">시트 ${stages.length}장</span>` : ''} <button class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <div class="head"><b>${c.name}</b> <span class="rom">${token}</span> <span class="tag" style="background:${FACC[fac]}22;color:${FACC[fac]}">${fac}</span>${stages.length ? ` <span class="tag" style="background:#EDE3CC;color:#6B5A3E">시트 ${stages.length}장</span>` : ' <button class="copy-btn">📋 시트 프롬프트 복사</button>'}</div>
     <details><summary>캐릭터 시트 프롬프트 보기</summary><pre>${esc(anchor || '[공통 스타일 앵커 — samgukji-anchor.md 없음]')}
 
 CHARACTER SHEET - ${token}   (bake this FIRST)
@@ -672,8 +699,30 @@ the silhouette must read as this person and no other.</pre></details>${slots}
     const src = fs.readFileSync(path.join(OUT, 'jeonrae-plan.html'), 'utf8');
     const block = (src.match(/<script>[\s\S]*?<\/script>/g) || []).find((s) => s.includes('comic-assets/jeonrae-plan'));
     if (!block) throw new Error('jeonrae-plan.html 에서 붙여넣기 스크립트를 못 찾음');
-    return block.replace(/comic-assets\/jeonrae-plan/g, 'comic-assets/samgukji-plan');
+    // 🔴 전래동화 스크립트는 캐릭터당 칸이 하나뿐이던 시절 것이다. 삼국지는 나이·복장 단계마다
+    //   칸이 따로 있으므로 선택자에 .stage-slot 을 더한다(안 더하면 단계 칸은 붙여넣기가 안 된다).
+    const patched = block.replace(
+      "document.querySelectorAll('.char-prompt[data-key]')",
+      "document.querySelectorAll('.char-prompt[data-key], .stage-slot[data-key]')",
+    );
+    if (patched === block) throw new Error('붙여넣기 선택자를 못 찾음 — jeonrae-plan.html 이 바뀌었다');
+    return patched.replace(/comic-assets\/jeonrae-plan/g, 'comic-assets/samgukji-plan');
   })();
+
+  // 🔴 단계 칸의 복사 버튼 배선 — 카드 단위 배선(.char-prompt 의 첫 pre)이 칸을 못 집는다.
+  const slotCopyScript = `<script>
+(function () {
+  function copy(text, btn) {
+    navigator.clipboard.writeText(text).then(function () {
+      var o = btn.textContent; btn.textContent = '✅ 복사됨'; setTimeout(function () { btn.textContent = o; }, 1200);
+    }).catch(function () { window.prompt('복사가 막혔어요 — 직접 복사하세요:', text); });
+  }
+  document.querySelectorAll('.stage-slot').forEach(function (slot) {
+    var btn = slot.querySelector('.slot-copy-btn'); var pre = slot.querySelector('pre');
+    if (btn && pre) btn.addEventListener('click', function () { copy(pre.textContent.trim(), btn); });
+  });
+})();
+</script>`;
 
   const html = `<!doctype html>
 <html lang="ko">
@@ -729,7 +778,14 @@ the silhouette must read as this person and no other.</pre></details>${slots}
   .char-prompt { border:1px solid var(--line); border-radius:14px; padding:13px 15px; background:var(--paper); }
   .stage-slots { display:grid; gap:8px; margin-top:10px; }
   .stage-slot { border:1px dashed var(--line); border-radius:10px; padding:8px 10px; background:#00000005; }
-  .stage-slot > b { display:block; font-size:12px; color:#6B5A3E; margin-bottom:4px; letter-spacing:.02em; }
+  .stage-slot > b { font-size:12px; color:#6B5A3E; letter-spacing:.02em; }
+  .stage-slot .role { font-size:11px; margin-left:6px; padding:1px 6px; border-radius:6px; }
+  .stage-slot .role.p { background:#3E7C5122; color:#3E7C51; font-weight:700; }
+  .stage-slot .role.d { background:#00000008; color:var(--ink-soft); }
+  .stage-slot details { margin-top:6px; }
+  .stage-slot summary { cursor:pointer; font-size:12px; color:var(--ink-soft); }
+  .stage-slot pre { white-space:pre-wrap; background:var(--sky); border:1px solid var(--line); border-radius:9px; padding:9px 11px; font-family:inherit; font-size:11.5px; line-height:1.6; margin-top:5px; }
+  .slot-copy-btn { margin-top:6px; font:inherit; font-size:12px; font-weight:700; cursor:pointer; border:1px solid var(--line); background:var(--paper); border-radius:8px; padding:5px 10px; }
   .char-prompt .head { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
   .char-prompt .head b { font-size:15px; }
   .char-prompt details { margin-top:7px; }
@@ -849,6 +905,7 @@ ${volRows}
 </div>
 </div>
 ${planScript}
+${slotCopyScript}
 <script src="/samgukji-core.js"></script>
 </body>
 </html>
