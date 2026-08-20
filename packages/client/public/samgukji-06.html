@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 삼국지 6권 — 천자를 모신 조조</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#8A2B1E; --jade-dark:#6E2117; --vermilion:#AE3325; --gold:#9C7620;
+    --hanji:#EAE3D3; --paper:#F5F0E4; --ink:#221F18; --ink-soft:#726A56;
+    --line:#D6CCB4; --mint:#3E7C51; --sky:#EDE6D5;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+
+  h2.chap { font-size:19px; font-weight:900; color:var(--jade-dark); margin:34px 0 6px; padding-bottom:6px; border-bottom:2px solid var(--line); }
+  .whos { display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 10px; }
+  .whos .who { background:var(--paper); border:1px solid var(--line); border-radius:999px; padding:5px 13px; font-size:13px; font-weight:800; }
+  .whos .who i { font-style:normal; color:var(--ink-soft); font-weight:600; font-size:11px; margin-left:6px; }
+  .refnote { font-size:13px; color:var(--ink-soft); margin:0 0 22px; }
+  .notice { background:#F0DCCF; border:1px solid #D6B5A5; border-radius:12px; padding:12px 16px; font-size:13px; font-weight:700; color:var(--vermilion); margin:14px 0 24px; line-height:1.7; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">탱고북 삼국지 · 제 6 권</div>
+  <h1>천자를 모신 조조</h1>
+  <div class="sub">떠도는 황제 · 허도로 모시다 · 전위의 마지막 · 스스로 머리를 자르다</div>
+</header>
+
+<div class="refrain">4장 · 24장면 &nbsp;·&nbsp; 저학년 존댓말 동화체 &nbsp;·&nbsp; 유혈 직접묘사 없음</div>
+
+<div class="notice">⚠ <b>SCENE 의 매체 어휘는 아직 비어 있습니다.</b> 컷·장소·인물·배경·톤 다섯은 확정이고, 「무엇으로 그리는가」(획·판·워시)는 그림체가 정해지면 앵커가 채웁니다. 그때까지 프롬프트 복사 버튼은 잠겨 있습니다.</div>
+
+<h2 class="chap">🎬 이 권 등장</h2>
+<div class="whos"><span class="who">조조<i>Caocao</i></span><span class="who">헌제<i>Xiandi</i></span><span class="who">이각<i>Lijue</i></span><span class="who">곽사<i>Guosi</i></span><span class="who">전위<i>Dianwei</i></span><span class="who">유비<i>Liubei</i></span><span class="who">관우<i>Guanyu</i></span><span class="who">장비<i>Zhangfei</i></span><span class="who">여포<i>Lvbu</i></span></div>
+<p class="refnote">대본 SSOT = <code>docs/samgukji/vol-06.md</code> · 레퍼런스 시트는 <a href="/samgukji-plan.html">📕 기획서</a>에서 한 번만 관리합니다.</p>
+
+<h2 class="chap">1장 · 떠도는 황제</h2>
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>두 장수 사이에서</b> <span class="tag beat">1장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">동탁이 사라진 뒤에도 황제는 편하지 못했어요. 이번에는 이각과 곽사가 서로 황제를 차지하겠다고 다투었지요. 어제는 이쪽 진영, 오늘은 저쪽 진영으로 끌려다니는 나날이었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 — 화면 왼쪽과 오른쪽에서 각각 팔을 뻗어 가운데의 한 사람을 잡아당긴다.<br/><b>장소·시간</b> 장안 궁궐 뜰, 흐린 낮.<br/><b>인물</b> 가운데에 Xiandi(헌제) — 🔴 2권의 그 아이가 자랐다. 열여섯 살 남짓, 옷이 여전히 몸보다 크다. 좌우에서 Lijue(이각)와 Guosi(곽사)가 각각 한 팔씩 소매를 잡았다.<br/><b>배경·소품</b> 뜰, 바닥에 끌린 옷자락 자국 하나. 배경은 비운다.<br/><b>톤</b> 흐린 낮. 🔴 무섭게 그리지 않는다 — 딱한 쪽이다.</pre></details>
+</div>
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>밤중의 도망</b> <span class="tag beat">1장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느 밤, 황제는 몇 안 되는 신하와 함께 장안을 빠져나왔어요. 수레도 변변찮았지요. 뒤에서는 군사들이 횃불을 들고 쫓아왔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 옆에서 보는 프로필 — 왼쪽으로 달아나는 작은 수레, 오른쪽 멀리 횃불의 줄.<br/><b>장소·시간</b> 장안 밖 밤길, 한밤중.<br/><b>인물</b> 낡은 수레 안에 Xiandi(헌제)가 몸을 웅크렸다 — 얼굴 절반만 보인다. 수레를 끄는 신하 둘이 앞에서 달린다.<br/><b>배경·소품</b> 🔴 뒤쪽의 횃불은 열두 개까지만 — 세어지는 것이 이 쪽의 긴장이다. 길, 마른 나무 하나.<br/><b>톤</b> 밤. 앞은 어둡고 뒤만 붉다.</pre></details>
+</div>
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>강을 건너다</b> <span class="tag beat">1장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">강가에 이르렀지만 배가 한 척뿐이었어요. 신하들은 황제를 먼저 태우고 자기들은 강물에 들어가 배를 밀었지요. 그해 겨울 강물은 살을 에듯 찼답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 강가. 작은 배 한 척과 그 뒤를 미는 사람들.<br/><b>장소·시간</b> 황하 나루, 새벽.<br/><b>인물</b> 배 위에 Xiandi(헌제)가 앉아 뒤를 돌아본다 — 🔴 자기가 탄 것을 미안해하는 얼굴이다. 물속에 선 신하 셋이 배 뒤를 민다 — 어깨까지 물에 잠겼다.<br/><b>배경·소품</b> 작은 배 한 척, 살얼음 조각 몇. 🔴 배경 사물은 셋까지만.<br/><b>톤</b> 새벽의 찬 빛. 🔴 이 권에서 가장 추운 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>무너진 옛 도읍</b> <span class="tag beat">1장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마침내 황제 일행은 옛 도읍 낙양에 닿았어요. 그런데 그곳은 삼 년 전 불탄 그대로였지요. 궁궐은 없고 잡초만 무성했답니다. 황제는 무너진 담 아래에서 잠을 잤어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 살짝 높은 부감 — 잡초가 뒤덮은 폐허와 그 한구석의 작은 천막.<br/><b>장소·시간</b> 불탄 낙양 터, 저녁.<br/><b>인물</b> 무너진 담 아래에 Xiandi(헌제)가 앉아 있다 — 아주 작게. 곁에 신하 둘.<br/><b>배경·소품</b> 🔴 3권 마지막에서 잿더미였던 그 자리다 — 이번에는 잡초가 사람 키만큼 자랐다. 부러진 기둥 둘, 임시 천막 하나.<br/><b>톤</b> 저녁빛. 🔴 세월이 흘렀다는 것을 잡초 하나로 말하는 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>굶는 조정</b> <span class="tag beat">1장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">먹을 것이 없어 신하들도 들에서 나물을 캤어요. 벼슬 높은 사람이 나물 바구니를 들고 다니는 형편이었지요. 나라의 이름만 남고 나라의 살림은 없어진 셈이었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 들판에서 허리를 굽힌 관복 차림의 사람들.<br/><b>장소·시간</b> 낙양 밖 들, 낮.<br/><b>인물</b> 관복을 입은 신하 넷이 나물을 캔다 — 🔴 관복과 나물 바구니라는 어울리지 않는 짝이 이 쪽의 전부다. 얼굴은 앞의 하나만.<br/><b>배경·소품</b> 나물 바구니 둘, 호미 하나. 들은 비운다.<br/><b>톤</b> 밝은 낮. 🔴 슬프게 그리지 않는다 — 이상하게 그린다.</pre></details>
+</div>
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>편지 한 통</b> <span class="tag beat">1장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그 무렵 한 사람이 조용히 편지를 보내왔어요. 산동 땅에서 힘을 기르던 조조였지요. "제가 모시겠습니다." 굶주린 조정에 그것은 유일한 손이었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 위에서 내려다보는 부감 — 펼쳐진 편지 한 장과 그것을 든 손들.<br/><b>장소·시간</b> 낙양 터의 임시 천막 안, 밤.<br/><b>인물</b> Xiandi(헌제)가 두 손으로 편지를 들었다 — 손이 떨린다. 둘레에 신하 셋의 손이 함께 편지 가장자리를 잡았다. 🔴 얼굴은 안 그린다.<br/><b>배경·소품</b> 편지 한 장(🔴 글자는 그리지 않는다), 등잔 하나. 배경은 어둡게.<br/><b>톤</b> 등잔 하나. 🔴 좋은 소식인데 마냥 좋지만은 않은 쪽이다.</pre></details>
+</div>
+
+<h2 class="chap">2장 · 천자를 모시다</h2>
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>들어오는 군사</b> <span class="tag beat">2장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">며칠 뒤 조조의 군사가 낙양에 들어왔어요. 잘 먹고 잘 갖춰 입은 군사였지요. 굶주린 신하들은 그 줄지어 선 모습을 멍하니 바라보았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 — 화면 오른쪽에서 들어오는 정연한 행렬, 왼쪽에 서서 보는 신하들.<br/><b>장소·시간</b> 낙양 터, 아침.<br/><b>인물</b> 행렬은 🔴 같은 실루엣의 반복인데 앞의 것들이 아주 또렷하다(잘 갖춘 군사). 왼쪽에 신하 다섯이 서서 본다 — 옷이 낡았다. 행렬 앞에 Caocao(조조)가 말 위에.<br/><b>배경·소품</b> 창끝의 줄, 깃발 셋, 폐허의 기둥. 🔴 정연한 것과 무너진 것의 대비가 이 쪽의 전부다.<br/><b>톤</b> 아침빛. 씩씩하되 고맙기만 하지는 않은 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>무릎을 굽히다</b> <span class="tag beat">2장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">조조는 황제 앞에 이르자 두 무릎을 굽혔어요. 예를 다한 것이었지요. 그런데 고개를 들 때, 황제는 그 눈이 자기를 보고 있지 않다는 것을 느꼈답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 무릎 꿇은 조조와 그 앞에 선 황제.<br/><b>장소·시간</b> 낙양 터의 임시 자리, 낮.<br/><b>인물</b> Caocao(조조)가 두 무릎을 굽히고 고개를 들었다 — 🔴 흰 얼굴, 눈꼬리가 올라간 가는 눈이 황제의 어깨 너머 어딘가를 본다. Xiandi(헌제)는 그 앞에 서서 한 발 물러선다.<br/><b>배경·소품</b> 임시로 깐 자리 한 장, 세운 깃발 하나. 배경은 비운다.<br/><b>톤</b> 낮. 🔴 예를 갖추는 그림인데 아이가 「어?」 하게 만드는 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>도읍을 옮기자는 말</b> <span class="tag beat">2장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">조조가 말했어요. "이곳은 무너져 지킬 수 없습니다. 제 땅인 허도로 옮기시지요." 신하들은 서로를 보았지만 아무도 반대하지 못했지요. 먹을 것이 그쪽에 있었으니까요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 위에서 내려다보는 부감 — 둘러앉은 사람들과 한가운데 서서 말하는 조조.<br/><b>장소·시간</b> 임시 천막 안, 낮.<br/><b>인물</b> Caocao(조조)가 가운데 서서 한 팔로 동쪽을 가리킨다. 둘러앉은 신하들은 🔴 전부 서로를 곁눈질한다(아무도 조조를 안 본다).<br/><b>배경·소품</b> 바닥의 지도 한 장. 🔴 4권에서 원소가 정하지 못하던 그 구도인데, 이번에는 정하는 사람이 있다.<br/><b>톤</b> 밝은 낮. 🔴 결정이 나는 쪽인데 결정한 사람은 황제가 아니다.</pre></details>
+</div>
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>허도로 가는 길</b> <span class="tag beat">2장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">황제의 수레는 다시 길을 나섰어요. 이번에는 쫓기는 길이 아니었지요. 앞뒤로 든든한 군사가 늘어섰고, 먹을 것도 넉넉했답니다. 그런데 황제는 어쩐지 마음이 놓이지 않았어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 살짝 높은 부감 — 긴 행렬 한가운데의 수레.<br/><b>장소·시간</b> 허도로 가는 큰길, 낮.<br/><b>인물</b> 수레 안에 Xiandi(헌제)가 앉아 창밖을 본다. 앞뒤로 군사가 길게 늘어섰다 — 🔴 이 권 앞쪽 「밤중의 도망」과 같은 구도인데, 그때는 뒤에서 쫓아왔고 지금은 앞뒤로 둘러쌌다.<br/><b>배경·소품</b> 수레 하나, 깃발 여섯, 큰길. 들은 비운다.<br/><b>톤</b> 밝은 낮. 🔴 지켜 주는 것과 둘러싸는 것이 같은 그림이라는 것이 이 쪽의 뜻이다.</pre></details>
+</div>
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>새 도읍 허도</b> <span class="tag beat">2장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">허도에는 새 궁궐이 지어져 있었어요. 창고에는 곡식이 그득했고 거리에는 사람이 오갔지요. 오랜만에 나라다운 나라가 선 것 같았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 살짝 높은 부감 — 반듯한 거리와 새 지붕들.<br/><b>장소·시간</b> 허도, 낮.<br/><b>인물</b> 거리에 사람들이 오간다 — 실루엣의 반복. 화면 아래 앞쪽에 짐을 진 사람 둘만 얼굴을 준다(웃고 있다).<br/><b>배경·소품</b> 🔴 지붕에서 오르는 연기가 여러 줄 — 4권에서 두 줄뿐이던 장안과 나란히 놓고 보게 만든다. 새 궁궐의 지붕, 곡식 창고.<br/><b>톤</b> 밝은 낮. 🔴 이 권에서 가장 밝고 편안한 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>두 개의 자리</b> <span class="tag beat">2장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 조정에는 자리가 둘 생겼어요. 황제가 앉는 자리와, 조조가 앉는 자리였지요. 신하들은 어느 쪽을 먼저 보아야 할지 몰라 눈을 굴렸답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 — 화면 왼쪽에 높은 자리, 오른쪽에 그보다 조금 낮은 자리. 그 사이에 선 신하들.<br/><b>장소·시간</b> 허도 궁궐 큰 방, 낮.<br/><b>인물</b> 왼쪽 높은 자리에 Xiandi(헌제)가 앉았고, 오른쪽 자리에 Caocao(조조)가 앉았다. 가운데 신하 넷은 🔴 고개가 서로 다른 쪽을 향해 있다(둘은 왼쪽, 둘은 오른쪽).<br/><b>배경·소품</b> 자리 둘, 기둥 둘. 🔴 두 자리의 높이 차이가 아주 작아야 한다.<br/><b>톤</b> 밝은 낮. 🔴 이 권의 착지이자 앞으로 열네 권을 관통하는 그림이다.</pre></details>
+</div>
+
+<h2 class="chap">3장 · 전위의 마지막</h2>
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>완성으로 가다</b> <span class="tag beat">3장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이듬해 조조는 완성이라는 성을 치러 갔어요. 성주가 순순히 항복하자 조조는 크게 기뻐하며 잔치를 열었지요. 싸우지 않고 얻었으니 더없이 좋은 일이었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 성문 앞에서 마주 선 두 무리.<br/><b>장소·시간</b> 완성 성문 앞, 낮.<br/><b>인물</b> Caocao(조조)가 말 위에서 한 손을 들어 답례한다 — 웃고 있다. 맞은편에 완성의 성주가 두 손을 모아 고개를 숙였다 — 🔴 얼굴을 또렷이 그리되 이름은 어디에도 쓰지 않는다.<br/><b>배경·소품</b> 열린 성문, 깃발 둘. 배경은 비운다.<br/><b>톤</b> 밝은 낮. 🔴 좋은 일처럼 그린다 — 그래야 다음이 산다.</pre></details>
+</div>
+<div class="page-card" data-page="p14">
+  <div class="page-head"><span class="pnum">P14</span><b>방심</b> <span class="tag beat">3장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 조조는 이긴 뒤에 마음을 놓아 버렸어요. 성주의 집안을 함부로 대하고, 군사도 제대로 세우지 않았지요. 잔치가 이어지는 며칠 동안, 성 안에서는 다른 마음이 자라고 있었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 위에서 내려다보는 부감 — 환한 잔치 마당과 그 둘레의 어두운 회랑.<br/><b>장소·시간</b> 완성 안 잔치 마당, 밤.<br/><b>인물</b> 마당 가운데 Caocao(조조)가 잔을 들었다 — 웃고 있다. 🔴 회랑 그늘 속에 사람 셋이 서서 마당을 본다 — 얼굴은 안 보이고 눈만 그린다.<br/><b>배경·소품</b> 화톳불 둘, 상 하나. 🔴 밝은 가운데와 어두운 가장자리의 면적 비가 이 쪽의 사건이다.<br/><b>톤</b> 화톳불 빛. 🔴 무섭게 그리지 않는다 — 아이가 「위험한데」 하고 느끼기만 하면 된다.</pre></details>
+</div>
+<div class="page-card" data-page="p15">
+  <div class="page-head"><span class="pnum">P15</span><b>한밤의 불길</b> <span class="tag beat">3장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날 밤 성 안에서 불길이 올랐어요. 사방에서 함성이 터졌지요. 조조는 잠결에 일어나 신발도 제대로 못 신은 채 뛰쳐나갔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 — 불빛에 물든 마당으로 뛰쳐나오는 조조.<br/><b>장소·시간</b> 완성 안, 한밤중.<br/><b>인물</b> Caocao(조조)가 문을 밀치고 나온다 — 🔴 이 책에서 조조가 처음으로 흐트러진 모습을 보이는 쪽이다(머리가 풀렸고 한쪽 신발이 없다). 그래도 얼굴에는 놀람보다 판단이 있다.<br/><b>배경·소품</b> 불빛, 넘어진 상 하나, 벗겨진 신 한 짝. 🔴 마감된 것은 조조와 신 한 짝뿐이다.<br/><b>톤</b> 불빛이 아래에서 얼굴을 비춘다.</pre></details>
+</div>
+<div class="page-card" data-page="p16">
+  <div class="page-head"><span class="pnum">P16</span><b>문을 막고 선 사람</b> <span class="tag beat">3장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 좁은 문 앞을 한 사람이 막고 섰어요. 조조를 지키던 거구의 호위 장수, 전위라는 사람이었지요. 전위는 양손에 짧은 창을 들고 그 문을 혼자 지켰답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아주 낮은 로우앵글 — 좁은 문을 등지고 선 전위를 아래에서 올려다본다.<br/><b>장소·시간</b> 완성 안 좁은 문, 한밤중.<br/><b>인물</b> Dianwei(전위)가 문을 등지고 두 발을 넓게 벌리고 섰다 — 🔴 짧은 창 두 자루를 양손에 들었다(이 사람의 표지). 팔뚝이 남달리 굵다. 🔴 얼굴에 두려움이 없다. 앞쪽 어둠 속에 다가오는 실루엣들.<br/><b>배경·소품</b> 좁은 문 하나, 문 위의 등 하나. 🔴 다가오는 쪽은 무기를 그리지 않는다.<br/><b>톤</b> 등 하나가 위에서 전위만 비춘다. 🔴 이 권에서 가장 큰 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p17">
+  <div class="page-head"><span class="pnum">P17</span><b>그 문은 끝내 열리지 않았어요</b> <span class="tag beat">3장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">전위가 문을 지키는 동안 조조는 담을 넘어 달아날 수 있었어요. 뒤에서 함성이 잦아들 때까지, 그 문은 끝내 열리지 않았지요. 전위는 다시 조조 곁으로 돌아오지 못했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 — 아침. 텅 빈 좁은 문 하나.<br/><b>장소·시간</b> 같은 문 앞, 새벽.<br/><b>인물</b> 🔴 사람을 그리지 않는다.<br/><b>배경·소품</b> 🔴 문 앞 땅에 꽂힌 짧은 창 두 자루 — 화면에서 유일하게 마감된 것이고, 4권의 「물가에 걸린 붉은 머릿수건」과 같은 방식이다. 닫힌 문, 타다 남은 기둥.<br/><b>톤</b> 새벽빛. 🔴 죽음을 그리지 않고 남은 물건으로 말한다.</pre></details>
+</div>
+<div class="page-card" data-page="p18">
+  <div class="page-head"><span class="pnum">P18</span><b>우는 사람</b> <span class="tag beat">3장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">허도로 돌아온 조조는 크게 울었어요. 잃은 군사를 세는 자리에서, 조조는 아들의 이름도 조카의 이름도 부르지 않았지요. 오직 전위의 이름만 불렀답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 가까운 클로즈업, 아이레벨 — 조조의 얼굴만.<br/><b>장소·시간</b> 허도의 방, 밤.<br/><b>인물</b> Caocao(조조)가 얼굴을 들고 운다 — 🔴 이 책에서 조조가 우는 유일한 쪽이다. 눈물을 그리되 표정을 크게 일그러뜨리지 않는다.<br/><b>배경·소품</b> 등잔 하나. 🔴 이 쪽에서 마감된 것은 얼굴 하나뿐이다.<br/><b>톤</b> 등잔 빛. 🔴 나쁜 사람으로만 그려 온 인물의 다른 면을 처음 보이는 쪽.</pre></details>
+</div>
+
+<h2 class="chap">4장 · 스스로 머리를 자르다</h2>
+<div class="page-card" data-page="p19">
+  <div class="page-head"><span class="pnum">P19</span><b>밟지 마라</b> <span class="tag beat">4장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이듬해 봄, 조조는 다시 군사를 이끌고 길을 나섰어요. 길가에는 보리가 한창 익어 가고 있었지요. 조조는 온 군사에게 명을 내렸답니다. "밭을 밟는 자는 목을 베겠다."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 — 길 양쪽으로 누런 보리밭, 그 사이를 지나는 행렬.<br/><b>장소·시간</b> 허도 밖 들길, 늦봄.<br/><b>인물</b> 행렬 앞에 Caocao(조조)가 말 위에서 한 팔을 들어 명한다. 군사들은 🔴 전부 말에서 내려 고삐를 잡고 걷는다(밟지 않으려는 자세가 이 쪽의 사건이다).<br/><b>배경·소품</b> 보리밭, 좁은 길. 🔴 배경 사물은 셋까지만.<br/><b>톤</b> 늦봄의 밝은 빛. 🔴 이 권에서 가장 평화로운 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p20">
+  <div class="page-head"><span class="pnum">P20</span><b>새 한 마리</b> <span class="tag beat">4장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 그때 새 한 마리가 푸드덕 날아올랐어요. 놀란 말이 껑충 뛰며 보리밭으로 뛰어들었지요. 그 말은 다름 아닌 조조의 말이었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 보리밭으로 뛰어든 말과 그 위의 조조.<br/><b>장소·시간</b> 같은 들길, 같은 순간.<br/><b>인물</b> Caocao(조조)가 고삐를 당기며 몸을 젖힌다 — 🔴 이 책에서 조조가 놀라는 유일한 쪽이다. 말이 앞발을 들었다.<br/><b>배경·소품</b> 🔴 날아오르는 새 한 마리, 꺾인 보리 몇 대 — 그 둘만 마감한다.<br/><b>톤</b> 밝은 낮. 아주 작은 사고가 벌어지는 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p21">
+  <div class="page-head"><span class="pnum">P21</span><b>스스로 벌하다</b> <span class="tag beat">4장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">조조는 말에서 내려 칼을 뽑았어요. "내가 내린 명이니 내가 받겠다." 신하들이 놀라 말리자, 조조는 칼로 자기 머리카락을 한 움큼 잘라 땅에 놓았지요. "머리 대신 이것으로 벌하겠다."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 화면 가운데에 무릎 굽힌 조조, 그 손에 잘린 머리카락 한 움큼.<br/><b>장소·시간</b> 같은 들길, 같은 낮.<br/><b>인물</b> Caocao(조조)가 한쪽 무릎을 굽히고 한 손에 잘린 머리카락을 들었다 — 🔴 상투가 한쪽만 짧아졌다. 얼굴은 담담하다. 둘레에 신하 넷이 두 손을 든 채 굳었다.<br/><b>배경·소품</b> 🔴 땅에 놓인 머리카락 한 움큼, 칼 한 자루, 꺾인 보리 몇 대. 그 셋만 마감한다.<br/><b>톤</b> 밝은 낮. 🔴 이 권의 하이라이트다 — 무서운 사람이 자기 규칙에 스스로 걸린 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p22">
+  <div class="page-head"><span class="pnum">P22</span><b>온 군사가 보았어요</b> <span class="tag beat">4장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이 일은 삼군에 순식간에 퍼졌어요. 그날부터 아무도 밭을 밟지 않았지요. 조조가 무서워서였는지, 부끄러워서였는지는 아무도 말하지 않았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 살짝 높은 부감 — 보리밭 사이 좁은 길을 조심조심 지나는 긴 행렬.<br/><b>장소·시간</b> 같은 들길, 저녁.<br/><b>인물</b> 군사들이 한 줄로 좁게 붙어 걷는다 — 🔴 줄이 자로 잰 듯 곧다. 얼굴은 하나도 안 그린다.<br/><b>배경·소품</b> 보리밭, 좁은 길, 지는 해. 🔴 밟히지 않은 밭이 이 쪽의 사건이다.<br/><b>톤</b> 저녁빛. 🔴 규칙이 사람을 움직인 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p23">
+  <div class="page-head"><span class="pnum">P23</span><b>한편 그 무렵</b> <span class="tag beat">4장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">한편 그 무렵 세 형제는 여포와 얽혀 어려운 처지에 놓여 있었어요. 도겸에게서 물려받은 서주를 여포에게 빼앗기고 갈 곳을 잃었지요. 그리고 그 유비를 부른 사람이 바로 조조였답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 — 화면 왼쪽에 성문을 등지고 떠나는 세 사람, 오른쪽 멀리 다른 성.<br/><b>장소·시간</b> 서주 밖 길, 흐린 낮.<br/><b>인물</b> Liubei(유비)·Guanyu(관우)·Zhangfei(장비)가 말을 끌고 걸어간다 — 🔴 셋 다 타지 않고 끌고 간다(1권에서 조조가 그랬듯이). 성문 위에 Lvbu(여포)의 꿩깃 두 가닥이 작게.<br/><b>배경·소품</b> 성문, 길, 마른 나무 하나.<br/><b>톤</b> 흐린 낮. 다음 권으로 넘기는 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p24">
+  <div class="page-head"><span class="pnum">P24</span><b>두 사람이 마주 앉다</b> <span class="tag beat">4장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">허도에 이른 유비를 조조는 반갑게 맞았어요. 두 사람은 한 상에 마주 앉았지요. 한쪽은 천자를 모신 승상이었고, 다른 한쪽은 갈 곳 없는 손님이었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 상을 사이에 두고 마주 앉은 둘.<br/><b>장소·시간</b> 허도 조조의 집, 저녁.<br/><b>인물</b> 왼쪽에 Caocao(조조) — 흰 얼굴, 한쪽만 올라간 입. 오른쪽에 Liubei(유비) — 맨 얼굴, 콧수염 한 줄, 두 손을 무릎에. 🔴 두 얼굴색이 나란히 놓이는 쪽이고, 앞으로 스무 권을 함께 갈 두 사람이다.<br/><b>배경·소품</b> 상 하나, 잔 둘, 등잔. 배경은 비운다.<br/><b>톤</b> 등잔 빛. 🔴 이 권을 닫는 쪽 — 아무 일도 안 벌어지는데 가장 중요하다.</pre></details>
+</div>
+</div>
+
+<script>
+// 회차 데이터 — samgukji-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성
+window.SG_EPISODE = {
+  // 그림체 미확정 — art-director 가 스타일 앵커를 확정하면 여기에 넣는다.
+  // 비어 있으면 core 가 프롬프트 도구를 만들지 않고 복사 버튼을 잠근다(빈 발주 방지).
+  style: '',
+  cast: [
+    {
+      "token": "Caocao",
+      "name": "조조",
+      "desc": "분을 바른 흰 얼굴 · 가늘고 눈꼬리가 올라간 눈 · 한쪽만 올라간 입 · 흑청색 옷깃 · 🔴 머리가 몸의 1/5(5두신).",
+      "aliases": [
+        "Caocao",
+        "조조"
+      ]
+    },
+    {
+      "token": "Xiandi",
+      "name": "헌제",
+      "desc": "2권의 진류왕이 자란 모습 · 열여섯 살 남짓 · 🔴 여전히 옷이 몸보다 크다 · 말하기 전에 늘 남의 얼굴을 먼저 살핀다.",
+      "aliases": [
+        "Xiandi",
+        "헌제"
+      ]
+    },
+    {
+      "token": "Lijue",
+      "name": "이각",
+      "desc": "동탁의 남은 장수 · 눈썹이 없다시피 옅다 · 곽사와 늘 둘이 붙어 다닌다.",
+      "aliases": [
+        "Lijue",
+        "이각"
+      ]
+    },
+    {
+      "token": "Guosi",
+      "name": "곽사",
+      "desc": "동탁의 남은 장수 · 이각보다 작고 어깨가 굽었다 · 이각과 늘 둘이 붙어 다닌다.",
+      "aliases": [
+        "Guosi",
+        "곽사"
+      ]
+    },
+    {
+      "token": "Dianwei",
+      "name": "전위",
+      "desc": "조조를 지키는 거구의 호위 · 🔴 짧은 창 두 자루를 양손에 든다 · 팔뚝이 남달리 굵다.",
+      "aliases": [
+        "Dianwei",
+        "전위"
+      ]
+    },
+    {
+      "token": "Liubei",
+      "name": "유비",
+      "desc": "안 칠한 맨 얼굴 · 이 책에서 가장 큰 귀(윤곽을 깬다) · 허리 양옆 칼 두 자루 · 노란 허리끈 · 6두신. 1권 = 짚신·베옷, 수염 없음.",
+      "aliases": [
+        "Liubei",
+        "유비"
+      ]
+    },
+    {
+      "token": "Guanyu",
+      "name": "관우",
+      "desc": "대추빛 붉은 얼굴(이 책의 유일한 붉은 얼굴) · 가슴까지 오는 긴 수염 한 덩이 · 녹색 · 키보다 긴 자루의 언월도 · 7두신. 1권 = 녹색 평복.",
+      "aliases": [
+        "Guanyu",
+        "관우"
+      ]
+    },
+    {
+      "token": "Zhangfei",
+      "name": "장비",
+      "desc": "검은 얼굴(이 책의 유일한 검은 얼굴) · 수염이 사방으로 뻗어 얼굴 윤곽이 삐죽삐죽 · 동그란 고리눈 · 뱀처럼 굽은 장팔사모 · 6.5두신. 1권 = 거친 베옷.",
+      "aliases": [
+        "Zhangfei",
+        "장비"
+      ]
+    },
+    {
+      "token": "Lvbu",
+      "name": "여포",
+      "desc": "광이 있는 옥빛 흰 얼굴 · 수염 0 · 🔴 투구에서 길게 솟은 꿩깃 두 가닥(머리 위로 무언가 솟은 유일한 인물) · 붉은 술 · 붉은 말 · 7두신.",
+      "aliases": [
+        "Lvbu",
+        "여포"
+      ]
+    }
+  ]
+};
+</script>
+<script src="/samgukji-core.js"></script>
+</body>
+</html>

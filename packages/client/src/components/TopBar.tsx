@@ -155,6 +155,12 @@ const RESOURCES: ResourceItem[] = [
     desc: '15스프레드 대본 + 등장인물 8(가난/부자 상태별)·핵심단어 5 + 전체 프롬프트 복사(☰ 회차)',
   },
   {
+    href: '/samgukji-plan.html',
+    icon: '📕',
+    label: '탱고북 삼국지 기획서',
+    desc: '시리즈물 · 초등 저학년 · 도원결의~오장원 24권 94장 구성 + 캐스트 10인 바이블(노화 3단계) + 권별 대본(☰ 회차)',
+  },
+  {
     href: '/hangeul-tree-plan.html',
     icon: '🌳',
     label: '한글 나무 파닉스 동화 기획서',

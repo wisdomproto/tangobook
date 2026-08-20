@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 삼국지 24권 — 오장원에 지는 별</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#8A2B1E; --jade-dark:#6E2117; --vermilion:#AE3325; --gold:#9C7620;
+    --hanji:#EAE3D3; --paper:#F5F0E4; --ink:#221F18; --ink-soft:#726A56;
+    --line:#D6CCB4; --mint:#3E7C51; --sky:#EDE6D5;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+
+  h2.chap { font-size:19px; font-weight:900; color:var(--jade-dark); margin:34px 0 6px; padding-bottom:6px; border-bottom:2px solid var(--line); }
+  .whos { display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 10px; }
+  .whos .who { background:var(--paper); border:1px solid var(--line); border-radius:999px; padding:5px 13px; font-size:13px; font-weight:800; }
+  .whos .who i { font-style:normal; color:var(--ink-soft); font-weight:600; font-size:11px; margin-left:6px; }
+  .refnote { font-size:13px; color:var(--ink-soft); margin:0 0 22px; }
+  .notice { background:#F0DCCF; border:1px solid #D6B5A5; border-radius:12px; padding:12px 16px; font-size:13px; font-weight:700; color:var(--vermilion); margin:14px 0 24px; line-height:1.7; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">탱고북 삼국지 · 제 24 권</div>
+  <h1>오장원에 지는 별</h1>
+  <div class="sub">나무 소와 나무 말 · 나오지 않는 사람 · 오장원 · 죽은 사람이 쫓다 · 하나가 되다</div>
+</header>
+
+<div class="refrain">5장 · 24장면 &nbsp;·&nbsp; 저학년 존댓말 동화체 &nbsp;·&nbsp; 유혈 직접묘사 없음</div>
+
+<div class="notice">⚠ <b>SCENE 의 매체 어휘는 아직 비어 있습니다.</b> 컷·장소·인물·배경·톤 다섯은 확정이고, 「무엇으로 그리는가」(획·판·워시)는 그림체가 정해지면 앵커가 채웁니다. 그때까지 프롬프트 복사 버튼은 잠겨 있습니다.</div>
+
+<h2 class="chap">🎬 이 권 등장</h2>
+<div class="whos"><span class="who">제갈량<i>Zhugeliang</i></span><span class="who">사마의<i>Simayi</i></span><span class="who">강유<i>Jiangwei</i></span><span class="who">유선<i>Liushan</i></span></div>
+<p class="refnote">대본 SSOT = <code>docs/samgukji/vol-24.md</code> · 레퍼런스 시트는 <a href="/samgukji-plan.html">📕 기획서</a>에서 한 번만 관리합니다.</p>
+
+<h2 class="chap">1장 · 나무 소와 나무 말</h2>
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>산길이 문제였다</b> <span class="tag beat">1장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">북벌은 번번이 같은 이유로 막혔어요. 촉의 산길이 너무 험해 먹을 것을 나르기 어려웠던 것이지요. 군사보다 곡식이 먼저 떨어졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아주 높은 부감 — 벼랑에 매단 좁은 잔도와 그 위를 가는 짐꾼들.<br/><b>장소·시간</b> 촉의 산길, 낮.<br/><b>인물</b> 짐꾼들이 한 줄로 간다 — 🔴 얼굴은 없다. 줄이 아주 가늘다.<br/><b>배경·소품</b> 🔴 벼랑에 매단 나무 다리, 아래로 흐르는 강. 셋만 마감한다.<br/><b>톤</b> 밝은 낮. 🔴 왜 못 이기는지를 그림 한 장으로 말하는 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>나무로 만든 소</b> <span class="tag beat">1장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">제갈량은 나무로 소와 말을 만들었어요. 바퀴가 달린 짐수레인데, 좁고 험한 길에서도 넘어지지 않았지요. 사람들은 그것을 목우유마, 곧 나무 소와 나무 말이라 불렀답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 — 나무로 만든 짐수레 여럿이 산길을 오른다.<br/><b>장소·시간</b> 촉의 산길, 낮.<br/><b>인물</b> 짐꾼 몇이 수레 뒤를 민다 — 🔴 얼굴은 없다.<br/><b>배경·소품</b> 🔴 나무 짐수레 셋 — 소 모양의 몸통에 바퀴, 앞에 손잡이 두 개. 세어지게 그린다. 벼랑길.<br/><b>톤</b> 밝은 낮. 🔴 아이가 「저게 뭐야?」 하고 들여다볼 쪽 — 물건 자체가 사건이다.</pre></details>
+</div>
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>밭을 갈며 싸우다</b> <span class="tag beat">1장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그래도 곡식은 넉넉하지 않았어요. 제갈량은 군사들에게 적의 땅에서 밭을 갈게 했지요. 그 땅 사람들과 섞여 농사를 지으면서도 다투는 일이 없었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 — 밭을 가는 군사들과 그 곁의 마을 사람들.<br/><b>장소·시간</b> 오장원 둘레의 들, 낮.<br/><b>인물</b> 갑옷 위에 앞치마를 두른 사람들이 밭을 간다 — 🔴 얼굴은 없다. 갑옷과 쟁기가 한 사람에게 같이 있는 것이 사건이다.<br/><b>배경·소품</b> 밭이랑, 쟁기, 세워 둔 창 몇. 🔴 셋만 마감한다.<br/><b>톤</b> 밝은 낮. 🔴 22권 남쪽에서 쟁기를 남기던 그 방법을 여기서 자기가 쓴다.</pre></details>
+</div>
+
+<h2 class="chap">2장 · 나오지 않는 사람</h2>
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>성문을 닫아걸다</b> <span class="tag beat">2장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">사마의는 이번에는 아예 싸우지 않기로 했어요. 성문을 닫아걸고 지키기만 한 것이지요. 촉의 군사는 멀리서 왔으니 오래 버티지 못한다는 것을 알았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 — 굳게 닫힌 성문과 그 위에서 아래를 보는 사마의.<br/><b>장소·시간</b> 위나라 진영, 낮.<br/><b>인물</b> Simayi(사마의)가 성벽 위에서 몸은 그대로 목만 돌려 아래를 본다 — 🔴 이 사람의 표시. 눈이 가늘다.<br/><b>배경·소품</b> 🔴 닫힌 문에 걸린 굵은 빗장 하나 — 그것 하나로 「안 나온다」를 말한다. 성벽.<br/><b>톤</b> 밝은 낮. 🔴 23권의 열린 문과 정확히 반대인 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>여자 옷을 보내다</b> <span class="tag beat">2장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">제갈량은 사마의에게 여자 옷 한 벌을 보냈어요. "싸우지 않으려면 이것을 입으시오." 화를 돋우어 밖으로 끌어내려는 것이었지요. 북쪽 장수들은 펄펄 뛰었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 상자에서 꺼낸 옷을 든 사마의와, 주먹을 쥔 장수들.<br/><b>장소·시간</b> 위나라 진영의 방, 낮.<br/><b>인물</b> Simayi(사마의)가 두 손으로 옷을 들었다 — 🔴 얼굴에 아무 표정이 없다. 뒤의 장수 셋은 어깨가 들려 있다(얼굴은 없다).<br/><b>배경·소품</b> 열린 상자 하나, 옷 한 벌. 🔴 셋만 마감한다.<br/><b>톤</b> 밝은 낮. 🔴 화를 안 내는 것이 사건인 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>밥은 얼마나 드시오</b> <span class="tag beat">2장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">사마의는 화를 내지 않고 심부름 온 사람에게 물었어요. "그대의 주인은 요즘 잠은 잘 주무시고, 밥은 얼마나 드시오?" 심부름꾼은 적게 드시고 늦게 주무신다고 답했지요. 그 말을 들은 사마의가 조용히 말했답니다. "오래 버티지 못하시겠구나."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 마주 선 사마의와 심부름꾼.<br/><b>장소·시간</b> 위나라 진영의 방, 낮.<br/><b>인물</b> Simayi(사마의)가 손에 옷을 든 채 묻는다 — 🔴 눈만 심부름꾼을 본다. 심부름꾼은 얼굴을 안 그린다.<br/><b>배경·소품</b> 옷 한 벌. 배경은 비운다.<br/><b>톤</b> 밝은 낮. 🔴 대사 하나가 다음 장 전체를 예고하는 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>밤늦도록 켜진 등잔</b> <span class="tag beat">2장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그 말은 맞았어요. 제갈량은 작은 일까지 다 스스로 살폈지요. 스무 대의 매를 치는 일까지 직접 정했고, 등잔은 늘 밤늦도록 켜져 있었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 위에서 내려다보는 부감 — 서류 더미에 둘러싸인 제갈량.<br/><b>장소·시간</b> 오장원의 장막, 밤.<br/><b>인물</b> Zhugeliang(제갈량)이 죽간 더미 가운데 앉았다 — 🔴 어깨가 굽었고 손등이 말랐다. 부채는 무릎 위에 놓여 있다(안 쓴다).<br/><b>배경·소품</b> 🔴 쌓인 죽간, 등잔 하나. 둘만 마감한다.<br/><b>톤</b> 등잔 빛. 🔴 「스스로를 다 쓰는 사람」을 물건으로 그리는 쪽.</pre></details>
+</div>
+
+<h2 class="chap">3장 · 오장원 ⭐</h2>
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>별을 보다</b> <span class="tag beat">3장</span> <span class="tag">⭐ 하이라이트</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">촉의 군사는 오장원이라는 넓은 들에 진을 치고 있었어요. 가을이 되자 제갈량은 몸이 몹시 나빠졌지요. 어느 밤 장막 밖으로 나가 하늘을 오래 보았어요. 자기 별이 흐려진 것을 본 것이었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아주 낮은 로우앵글 — 장막 앞에 선 사람과 넓은 밤하늘.<br/><b>장소·시간</b> 오장원, 가을 밤.<br/><b>인물</b> Zhugeliang(제갈량)이 지팡이를 짚고 섰다 — 🔴 이 시리즈에서 이 사람이 지팡이를 짚는 첫 쪽이다. 하늘을 본다.<br/><b>배경·소품</b> 🔴 하늘에 크고 흐린 별 하나 — 20권 맥성의 붉은 별과 같은 자리에 그린다. 장막.<br/><b>톤</b> 밤. 🔴 자기 마지막을 자기가 아는 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>강유를 부르다</b> <span class="tag beat">3장</span> <span class="tag">⭐ 하이라이트</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">제갈량은 강유를 불러 자기가 아는 것을 적은 책들을 넘겨주었어요. "내가 못 한 일을 그대가 이어 주시오." 강유는 두 손으로 그것을 받았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 자리에 앉은 제갈량과 무릎 꿇고 두 손을 내민 강유.<br/><b>장소·시간</b> 오장원의 장막, 밤.<br/><b>인물</b> Zhugeliang(제갈량)이 책 더미를 건넨다. Jiangwei(강유)가 두 손으로 받는다 — 🔴 마감하는 것은 겹친 네 손과 책이다.<br/><b>배경·소품</b> 책 더미, 등잔. 🔴 21권 백제성에서 겹쳤던 네 손과 같은 구도다.<br/><b>톤</b> 등잔 빛. 🔴 넘겨주는 일이 이 시리즈에서 세 번째로 되풀이되는 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마지막 명</b> <span class="tag beat">3장</span> <span class="tag">⭐ 하이라이트</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">제갈량은 물러날 방법까지 자세히 일러 두었어요. 자기가 없어도 군사가 무사히 돌아가도록 순서를 정해 놓은 것이지요. 그리고 마지막으로 이렇게 덧붙였답니다. "내가 없어져도, 그것을 알리지 마시오."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 자리에 앉아 낮은 목소리로 이르는 제갈량과, 귀를 기울인 장수들.<br/><b>장소·시간</b> 오장원의 장막, 밤.<br/><b>인물</b> Zhugeliang(제갈량)이 자리에 기대앉아 말한다 — 🔴 손이 무릎 위 부채에 얹혀 있다. 장수들은 얼굴을 안 그린다.<br/><b>배경·소품</b> 부채, 등잔. 배경은 비운다.<br/><b>톤</b> 등잔 빛. 🔴 다음 장의 사건을 여기서 준비하는 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>가을바람</b> <span class="tag beat">3장</span> <span class="tag">⭐ 하이라이트</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날 밤 오장원에는 가을바람이 불었어요. 장막의 등잔이 한 번 크게 흔들렸지요. 무슨 일이 있었는지는 여기 적지 않을게요. 쉰넷의 나이였답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 흔들리는 등잔불 하나와, 바닥에 떨어진 흰 깃부채.<br/><b>장소·시간</b> 오장원의 장막, 한밤중.<br/><b>인물</b> 🔴 사람을 한 명도 그리지 않는다.<br/><b>배경·소품</b> 🔴 마감하는 것은 둘뿐이다 — 흔들리는 등잔, 그리고 바닥에 떨어진 흰 깃부채. 13권 초가집에서 처음 들었던 그 부채다.<br/><b>톤</b> 밤. 🔴 물건 하나로 그리는 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>큰 별이 지다</b> <span class="tag beat">3장</span> <span class="tag">⭐ 하이라이트</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그 시각, 하늘에서 아주 크고 붉은 별 하나가 오장원 쪽으로 떨어졌어요. 세 번 흔들리다가 마지막에 길게 꼬리를 그었지요. 그것을 본 사마의가 성벽 위에서 말했답니다. "공명이 죽었다."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 아주 넓은 와이드, 아주 낮은 로우앵글 — 화면 전체가 밤하늘. 아래 가장자리에 산등성이만 조금.<br/><b>장소·시간</b> 오장원 위의 밤하늘, 한밤중.<br/><b>인물</b> 🔴 사람을 한 명도 그리지 않는다.<br/><b>배경·소품</b> 🔴 아주 크고 붉은 별 하나가 긴 꼬리를 그으며 떨어진다 — 20권의 별보다 크고, 21권의 별보다 길다. 이 시리즈의 별 셋 중 가장 큰 것이다.<br/><b>톤</b> 밤. ⭐ 🔴 이 시리즈에서 가장 큰 쪽.</pre></details>
+</div>
+
+<h2 class="chap">4장 · 죽은 사람이 쫓다</h2>
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>그래도 물러가라</b> <span class="tag beat">4장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">장수들은 슬픔을 감추고 명대로 움직였어요. 밤사이 조용히 짐을 싸고, 깃발은 그대로 세워 두었지요. 아침이 되어도 진영은 여느 때와 똑같아 보였답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아주 높은 부감 — 겉으로는 멀쩡한 진영과, 뒤쪽으로 빠져나가는 가는 줄.<br/><b>장소·시간</b> 오장원, 새벽.<br/><b>인물</b> 🔴 사람은 알아볼 수 없다.<br/><b>배경·소품</b> 🔴 앞쪽 깃발은 그대로인데 뒤쪽 장막이 비었다 — 앞뒤가 다른 것이 세어져야 한다.<br/><b>톤</b> 새벽빛. 🔴 거짓말을 배치로 그리는 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p14">
+  <div class="page-head"><span class="pnum">P14</span><b>쫓아 나오다</b> <span class="tag beat">4장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그것을 안 사마의가 마침내 성문을 열고 쫓아 나왔어요. 여러 해 만에 처음 나온 것이지요. 촉의 군사 뒤를 바짝 따라붙었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 — 열린 성문에서 쏟아져 나오는 기병들.<br/><b>장소·시간</b> 위나라 진영 앞, 아침.<br/><b>인물</b> 앞머리에 Simayi(사마의) — 🔴 이번에는 목이 아니라 몸이 앞을 향했다. 그것이 사건이다.<br/><b>배경·소품</b> 열린 문, 흙먼지. 🔴 셋만 마감한다.<br/><b>톤</b> 아침빛. 🔴 이 권 1장의 「닫힌 빗장」과 반대인 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p15">
+  <div class="page-head"><span class="pnum">P15</span><b>수레가 돌아서다</b> <span class="tag beat">4장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 촉의 군사가 갑자기 멈추더니 돌아섰어요. 그 가운데에서 흰옷 입은 사람이 앉은 수레가 천천히 앞으로 나왔지요. 손에는 흰 깃부채가 들려 있었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아주 낮은 로우앵글 — 멈춰 선 군사들 가운데에서 앞으로 나오는 수레.<br/><b>장소·시간</b> 들판의 길, 아침.<br/><b>인물</b> 수레 위에 흰옷 입은 사람이 앉아 부채를 들었다 — 🔴 얼굴은 그리지 않는다(그늘에 든다). 그 모습이 우리가 아는 그 모습과 똑같다.<br/><b>배경·소품</b> 수레, 부채, 흙먼지. 🔴 셋만 마감한다.<br/><b>톤</b> 아침빛. 🔴 아이가 「어? 살아 있었어?」 하게 되는 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p16">
+  <div class="page-head"><span class="pnum">P16</span><b>말머리를 돌리다</b> <span class="tag beat">4장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">사마의는 그 모습을 보자마자 말머리를 돌렸어요. "속았다! 아직 살아 있다!" 뒤도 돌아보지 않고 오십 리를 달아났지요. 촉의 군사는 그 틈에 무사히 물러났답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 — 반대 방향으로 달아나는 기병들.<br/><b>장소·시간</b> 들판의 길, 아침.<br/><b>인물</b> Simayi(사마의)가 말 위에서 앞을 향해 몸을 숙였다 — 🔴 이번에는 뒤를 안 본다. 그의 표시(목만 돌리기)가 여기서 처음으로 안 나온다.<br/><b>배경·소품</b> 흙먼지, 버려진 깃발 하나. 🔴 셋만 마감한다.<br/><b>톤</b> 아침빛. 🔴 그의 자세로 사건을 마무리하는 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p17">
+  <div class="page-head"><span class="pnum">P17</span><b>나무로 깎은 사람</b> <span class="tag beat">4장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">수레 위의 그 사람은 나무로 깎아 만든 상이었어요. 제갈량이 미리 만들어 두게 한 것이었지요. 사람들은 그 뒤로 이렇게 말했답니다. "죽은 공명이 산 중달을 쫓았다."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 가까운 클로즈업, 아이레벨 — 수레 위 나무 상의 얼굴.<br/><b>장소·시간</b> 들판의 길, 아침.<br/><b>인물</b> 🔴 사람이 아니라 나무 상이다 — 결이 보이고, 눈이 그려진 눈이다. 그 얼굴이 제갈량을 닮았다.<br/><b>배경·소품</b> 나무 상, 부채. 배경은 비운다.<br/><b>톤</b> 아침빛. 🔴 앞 쪽의 답을 물건으로 밝히는 쪽 — 이 권에서 가장 가벼운 쪽이다.</pre></details>
+</div>
+<div class="page-card" data-page="p18">
+  <div class="page-head"><span class="pnum">P18</span><b>그 자리에 서서</b> <span class="tag beat">4장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">며칠 뒤 사마의는 촉의 군사가 머물던 자리를 둘러보았어요. 진의 모양이 조금도 흐트러져 있지 않았지요. 사마의는 오래 서 있다가 이렇게 말했답니다. "천하의 기재로다."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 — 텅 빈 옛 진터에 홀로 선 사마의.<br/><b>장소·시간</b> 오장원의 옛 진터, 낮.<br/><b>인물</b> Simayi(사마의)가 홀로 섰다 — 🔴 이번에는 목을 돌리지 않고 정면을 본다. 얼굴에 미움이 없다.<br/><b>배경·소품</b> 🔴 반듯하게 남은 진터 자국 — 줄이 곧다. 마른 풀. 둘만 마감한다.<br/><b>톤</b> 밝은 낮. 🔴 적이 적을 칭찬하는 쪽.</pre></details>
+</div>
+
+<h2 class="chap">5장 · 하나가 되다</h2>
+<div class="page-card" data-page="p19">
+  <div class="page-head"><span class="pnum">P19</span><b>이어받은 사람</b> <span class="tag beat">5장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">강유는 스승이 남긴 뜻을 이어 여러 번 북쪽으로 갔어요. 그러나 촉은 이미 작아져 있었지요. 나라 안에서 그를 도와주는 사람도 적었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아주 높은 부감 — 북쪽으로 가는 아주 짧은 행렬.<br/><b>장소·시간</b> 기산으로 가는 길, 낮.<br/><b>인물</b> 앞머리에 Jiangwei(강유) — 🔴 앞 권보다 나이 들었다(짧은 수염이 생겼다). 뒤의 줄이 짧다.<br/><b>배경·소품</b> 산길, 잔도. 🔴 22권 끝의 긴 행렬과 같은 자리·같은 방향인데 길이가 다르다.<br/><b>톤</b> 흐린 낮. 🔴 두 그림을 나란히 놓게 만드는 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p20">
+  <div class="page-head"><span class="pnum">P20</span><b>문을 열다</b> <span class="tag beat">5장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마침내 북쪽 군사가 촉의 도읍으로 밀고 들어왔어요. 임금 유선은 싸우지 않고 성문을 열었지요. 유비가 세운 나라는 마흔세 해 만에 문을 닫았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 — 열리는 성도의 성문과 그 앞에 선 임금.<br/><b>장소·시간</b> 성도 성문, 낮.<br/><b>인물</b> Liushan(유선)이 성문 앞에 섰다 — 🔴 이제 오십 줄. 둥근 얼굴에 아무 표정이 없다. 21권에서 아버지 곁에 앉았던 그 소년이다.<br/><b>배경·소품</b> 열리는 문, 문 앞의 흙먼지. 🔴 셋만 마감한다.<br/><b>톤</b> 흐린 낮. 🔴 싸움 없이 끝나는 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p21">
+  <div class="page-head"><span class="pnum">P21</span><b>강동도 저물다</b> <span class="tag beat">5장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">강동도 오래가지 못했어요. 손권이 세상을 떠난 뒤 나라 안이 어지러워졌기 때문이지요. 얼마 뒤 강동의 문도 열렸답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아주 높은 부감 — 지도 위에서 마지막 남은 한 빛깔이 사라지는 그림.<br/><b>장소·시간</b> 천하 전체, 낮.<br/><b>인물</b> 🔴 사람은 없다.<br/><b>배경·소품</b> 🔴 세 빛깔이던 지도가 이제 한 빛깔이다 — 이 시리즈에서 세 빛깔 지도를 마지막으로 그리는 쪽이다.<br/><b>톤</b> 흐린 낮. 🔴 그림 하나로 한 시대를 닫는다.</pre></details>
+</div>
+<div class="page-card" data-page="p22">
+  <div class="page-head"><span class="pnum">P22</span><b>하나가 된 천하</b> <span class="tag beat">5장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그렇게 갈라져 있던 천하가 다시 하나가 되었어요. 이 이야기가 시작된 그 굶주린 봄으로부터 백 년이 다 되어 가고 있었지요. 그 자리를 차지한 것은 사마씨 집안이었답니다. 조조도, 유비도, 손권도 끝내 가지지 못한 것이었어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 — 하나가 된 도읍의 큰 거리.<br/><b>장소·시간</b> 낙양의 거리, 낮.<br/><b>인물</b> 사람들이 오간다 — 🔴 얼굴은 없다. 이 시리즈의 아는 얼굴은 한 명도 없다. 그것이 사건이다.<br/><b>배경·소품</b> 거리, 가게, 아이 둘. 🔴 셋만 마감한다.<br/><b>톤</b> 밝은 낮. 🔴 주인공이 아무도 없는 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p23">
+  <div class="page-head"><span class="pnum">P23</span><b>오래도록 남은 이야기</b> <span class="tag beat">5장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">세 사람이 세운 나라는 다 사라졌어요. 그런데 그 사람들의 이야기는 사라지지 않았지요. 천팔백 년이 지난 지금도 사람들은 그 이야기를 하고 있답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 — 저녁 마당에서 아이들에게 옛이야기를 들려주는 노인.<br/><b>장소·시간</b> 어느 마을 마당, 저녁.<br/><b>인물</b> 노인 하나와 아이 셋 — 🔴 이 시리즈에 없던 사람들이다. 아이 하나가 나뭇가지를 창처럼 들었다.<br/><b>배경·소품</b> 마당, 평상, 낮은 담. 🔴 셋만 마감한다.<br/><b>톤</b> 저녁빛. 🔴 이야기가 우리에게 오는 길을 그리는 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p24">
+  <div class="page-head"><span class="pnum">P24</span><b>복숭아꽃이 다시 피다</b> <span class="tag beat">5장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그리고 봄이 오면, 어느 마을 뒷마당에서는 복숭아꽃이 또 핍니다. 아주 오래전 그 꽃 아래에서 세 사람이 나란히 절을 했지요. 이야기는 언제나 거기에서 다시 시작한답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 아주 넓은 와이드, 아이레벨 — 꽃이 활짝 핀 복숭아나무 아래의 빈 마당.<br/><b>장소·시간</b> 어느 뒷마당, 봄 아침.<br/><b>인물</b> 🔴 사람을 한 명도 그리지 않는다.<br/><b>배경·소품</b> 🔴 활짝 핀 복숭아나무 하나와, 그 아래 나란히 놓인 세 개의 잔 — 이 시리즈 1권 첫 장의 그 마당, 그 나무, 그 자리다. 잔은 셋 다 바로 놓여 있다.<br/><b>톤</b> 밝은 봄빛. ⭐ 🔴 시리즈의 마지막 쪽 — 21권에서 둘이 엎어져 있던 잔이 여기서 다시 셋 다 바로 선다. 아이가 1권을 다시 펴게 만드는 것이 이 쪽의 일이다.</pre></details>
+</div>
+</div>
+
+<script>
+// 회차 데이터 — samgukji-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성
+window.SG_EPISODE = {
+  // 그림체 미확정 — art-director 가 스타일 앵커를 확정하면 여기에 넣는다.
+  // 비어 있으면 core 가 프롬프트 도구를 만들지 않고 복사 버튼을 잠근다(빈 발주 방지).
+  style: '',
+  cast: [
+    {
+      "token": "Zhugeliang",
+      "name": "제갈량",
+      "desc": "맨 얼굴에 곧게 다듬은 짧은 턱수염 · 흰 깃털부채 · 이 책에서 무기를 안 든 유일한 어른 · 넓은 학창의 · 6.5두신.",
+      "aliases": [
+        "Zhugeliang",
+        "제갈량"
+      ]
+    },
+    {
+      "token": "Simayi",
+      "name": "사마의",
+      "desc": "회흑색 얼굴(흰 얼굴과 검은 얼굴 사이) · 늘 반쯤 감은 눈 · 좁고 길게 늘어뜨린 수염 · 소매 안에 넣은 두 손 · 악센트 색 없음 · 6두신.",
+      "aliases": [
+        "Simayi",
+        "사마의"
+      ]
+    },
+    {
+      "token": "Jiangwei",
+      "name": "강유",
+      "desc": "제갈량이 얻은 젊은 장수 · 맨 얼굴 · 🔴 이 책의 젊은이 중 유일하게 창과 책을 함께 든다.",
+      "aliases": [
+        "Jiangwei",
+        "강유"
+      ]
+    },
+    {
+      "token": "Liushan",
+      "name": "유선",
+      "desc": "아두가 자란 모습 · 유비의 큰 귀를 물려받았으나 눈이 순하고 입이 늘 조금 벌어져 있다.",
+      "aliases": [
+        "Liushan",
+        "유선"
+      ]
+    }
+  ]
+};
+</script>
+<script src="/samgukji-core.js"></script>
+</body>
+</html>

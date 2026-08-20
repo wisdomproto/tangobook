@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 삼국지 5권 — 동탁의 최후</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#8A2B1E; --jade-dark:#6E2117; --vermilion:#AE3325; --gold:#9C7620;
+    --hanji:#EAE3D3; --paper:#F5F0E4; --ink:#221F18; --ink-soft:#726A56;
+    --line:#D6CCB4; --mint:#3E7C51; --sky:#EDE6D5;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+
+  h2.chap { font-size:19px; font-weight:900; color:var(--jade-dark); margin:34px 0 6px; padding-bottom:6px; border-bottom:2px solid var(--line); }
+  .whos { display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 10px; }
+  .whos .who { background:var(--paper); border:1px solid var(--line); border-radius:999px; padding:5px 13px; font-size:13px; font-weight:800; }
+  .whos .who i { font-style:normal; color:var(--ink-soft); font-weight:600; font-size:11px; margin-left:6px; }
+  .refnote { font-size:13px; color:var(--ink-soft); margin:0 0 22px; }
+  .notice { background:#F0DCCF; border:1px solid #D6B5A5; border-radius:12px; padding:12px 16px; font-size:13px; font-weight:700; color:var(--vermilion); margin:14px 0 24px; line-height:1.7; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">탱고북 삼국지 · 제 5 권</div>
+  <h1>동탁의 최후</h1>
+  <div class="sub">두 마음 · 연환계 · 큰 도적이 쓰러지다 · 다시 이는 바람 · 달려와 준 사람</div>
+</header>
+
+<div class="refrain">5장 · 29장면 &nbsp;·&nbsp; 저학년 존댓말 동화체 &nbsp;·&nbsp; 유혈 직접묘사 없음</div>
+
+<div class="notice">⚠ <b>SCENE 의 매체 어휘는 아직 비어 있습니다.</b> 컷·장소·인물·배경·톤 다섯은 확정이고, 「무엇으로 그리는가」(획·판·워시)는 그림체가 정해지면 앵커가 채웁니다. 그때까지 프롬프트 복사 버튼은 잠겨 있습니다.</div>
+
+<h2 class="chap">🎬 이 권 등장</h2>
+<div class="whos"><span class="who">동탁<i>Dongzhuo</i></span><span class="who">여포<i>Lvbu</i></span><span class="who">왕윤<i>Wangyun</i></span><span class="who">초선<i>Diaochan</i></span><span class="who">이각<i>Lijue</i></span><span class="who">곽사<i>Guosi</i></span><span class="who">유비<i>Liubei</i></span><span class="who">관우<i>Guanyu</i></span><span class="who">장비<i>Zhangfei</i></span><span class="who">조조<i>Caocao</i></span><span class="who">도겸<i>Taoqian</i></span></div>
+<p class="refnote">대본 SSOT = <code>docs/samgukji/vol-05.md</code> · 레퍼런스 시트는 <a href="/samgukji-plan.html">📕 기획서</a>에서 한 번만 관리합니다.</p>
+
+<h2 class="chap">1장 · 두 마음</h2>
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>뜰에서 마주치다</b> <span class="tag beat">1장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느 날 여포가 동탁의 집 뜰에서 초선과 마주쳤어요. 두 사람은 아무 말도 나누지 못했지요. 그런데 그 짧은 순간을, 마침 창 안에서 동탁이 보고 있었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 — 화면 앞쪽 뜰에 두 사람, 화면 뒤쪽 창 안에 사람 하나.<br/><b>장소·시간</b> 동탁의 집 뜰, 낮.<br/><b>인물</b> Lvbu(여포)와 Diaochan(초선)이 두어 걸음 떨어져 마주 섰다 — 🔴 둘 다 손을 뻗지 않았고 말도 안 한다. 화면 뒤쪽 창틀 안에 Dongzhuo(동탁)의 얼굴 절반이 걸린다 — 실눈이 이쪽을 본다.<br/><b>배경·소품</b> 뜰의 나무 한 그루, 창 하나. 🔴 마감된 것은 세 얼굴뿐이다.<br/><b>톤</b> 밝은 낮. 🔴 아무 일도 안 벌어지는데 셋 다 알고 있는 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>처음 내지른 소리</b> <span class="tag beat">1장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날 저녁 동탁은 처음으로 여포에게 소리를 질렀어요. 여포는 아무 대답도 하지 못하고 물러났지요. 두 사람이 서로에게 소리를 지른 것은 그때가 처음이었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아주 낮은 로우앵글 — 앉은 동탁을 아래에서, 그 앞에 선 여포는 화면 오른쪽 가장자리에 어깨만.<br/><b>장소·시간</b> 동탁의 방, 저녁.<br/><b>인물</b> Dongzhuo(동탁)이 자리에서 몸을 일으키며 한 팔을 뻗어 가리킨다 — 🔴 이 책에서 동탁이 처음으로 크게 입을 벌리는 쪽이다. Lvbu(여포)는 화면 오른쪽에 등을 보이고 서 있다 — 꿩깃 두 가닥이 아래로 처졌다.<br/><b>배경·소품</b> 넘어진 걸상 하나. 배경은 비운다.<br/><b>톤</b> 저녁빛. 🔴 무서운 쪽이 아니라 금이 가는 쪽이다.</pre></details>
+</div>
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>잠 못 이루는 밤</b> <span class="tag beat">1장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날 밤 여포는 잠을 이루지 못했어요. 마당을 몇 바퀴나 돌았지요. 아버지처럼 따르던 사람에게 처음으로 화가 났는데, 그 화를 어디에 두어야 할지 몰랐답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 위에서 내려다보는 부감 — 넓은 마당과 그 안을 맴도는 사람 하나.<br/><b>장소·시간</b> 여포가 머무는 집 마당, 깊은 밤.<br/><b>인물</b> Lvbu(여포)가 마당을 걷는다 — 🔴 4권에서 왕윤이 뒤뜰을 맴돌던 것과 같은 구도다. 이번에는 젊은 사람이 맴돈다. 꿩깃 없는 맨머리라 알아보기 어려운데, 어깨 폭과 걸음으로 안다.<br/><b>배경·소품</b> 마당, 담, 달. 🔴 발자국이 그린 둥근 자국 하나.<br/><b>톤</b> 달빛. 🔴 나쁜 마음이 드는 쪽이 아니라 마음을 못 정하는 쪽이다.</pre></details>
+</div>
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>봉의정의 짧은 만남</b> <span class="tag beat">1장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">며칠 뒤 여포는 봉의정이라는 정자에서 초선을 다시 만났어요. 초선은 눈물을 흘리며 말했지요. "저는 이 집에서 나갈 수가 없습니다." 여포는 주먹을 쥐었다 폈다 했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 정자 안, 난간을 사이에 두고 마주 선 둘.<br/><b>장소·시간</b> 봉의정이라는 작은 정자, 낮.<br/><b>인물</b> Diaochan(초선)이 난간을 잡고 고개를 숙였다 — 🔴 이 책에서 초선이 우는 유일한 쪽이다. Lvbu(여포)는 한 발 다가섰다가 멈췄다 — 두 주먹이 굳었다.<br/><b>배경·소품</b> 정자 난간, 연못 물, 물에 뜬 잎 셋. 🔴 마감된 것은 두 사람과 난간뿐이다.<br/><b>톤</b> 밝은 낮인데 물빛이 차다.</pre></details>
+</div>
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>서로 다른 말을 듣다</b> <span class="tag beat">1장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">초선은 두 사람에게 각각 다른 말을 했어요. 여포에게는 "저는 장군만 믿습니다" 하고, 동탁에게는 "저 장군이 무섭습니다" 했지요. 두 사람은 저마다 그 말을 곧이곧대로 믿었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 화면을 좌우로 갈라, 왼쪽 방에 여포와 초선, 오른쪽 방에 동탁과 초선. 가운데를 벽 하나가 지난다.<br/><b>장소·시간</b> 동탁의 집 두 방, 같은 날 낮과 저녁.<br/><b>인물</b> 🔴 같은 초선이 양쪽에 그려진다 — 두 쪽 다 고개를 숙이고 같은 자세다. 왼쪽 Lvbu(여포)는 몸을 앞으로 기울였고, 오른쪽 Dongzhuo(동탁)은 눈을 가늘게 떴다.<br/><b>배경·소품</b> 가운데 벽 하나, 각 방에 등잔 하나씩. 🔴 한 화면에 같은 사람을 두 번 그리는 유일한 쪽이다.<br/><b>톤</b> 왼쪽은 낮빛, 오른쪽은 저녁빛 — 같은 사람이 다른 시간에 다른 말을 했다는 뜻이다.</pre></details>
+</div>
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>뒤따라온 그림자</b> <span class="tag beat">1장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 정자 아래에서 인기척이 났어요. 동탁이 뒤따라온 것이었지요. 여포는 정자를 뛰어넘어 달아났고, 동탁은 그 뒷모습에 대고 창을 던졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 — 화면 왼쪽에 창을 던진 동탁, 오른쪽에 정자를 뛰어넘는 여포. 그 사이 공중에 창 한 자루.<br/><b>장소·시간</b> 봉의정 아래, 낮.<br/><b>인물</b> Dongzhuo(동탁)이 던지고 난 자세로 굳었다 — 넓은 덩이가 앞으로 기울었다. Lvbu(여포)는 난간을 밟고 몸을 날린다 — 뒤를 돌아보지 않는다. 🔴 창은 아무에게도 닿지 않았다.<br/><b>배경·소품</b> 공중의 창 한 자루, 정자, 연못. 🔴 다친 사람은 없다.<br/><b>톤</b> 밝은 낮. 🔴 이 권에서 가장 빠른 쪽.</pre></details>
+</div>
+
+<h2 class="chap">2장 · 연환계</h2>
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>왕윤이 기다리던 순간</b> <span class="tag beat">2장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그 소식을 들은 왕윤은 조용히 눈을 감았어요. 오래 기다린 순간이 온 것이지요. 왕윤은 여포를 자기 집으로 불렀답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 가까운 클로즈업, 아이레벨 — 왕윤의 얼굴만.<br/><b>장소·시간</b> 왕윤의 집 안방, 밤.<br/><b>인물</b> Wangyun(왕윤)이 눈을 감고 있다 — 🔴 웃지 않는다. 손은 무릎 위에 가지런하다.<br/><b>배경·소품</b> 등잔 하나. 🔴 이 쪽에서 마감된 것은 얼굴 하나뿐이다.<br/><b>톤</b> 등잔 빛. 4권 p11 에서 뜰을 맴돌던 그 노인이 이제 가만히 앉아 있다.</pre></details>
+</div>
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아버지가 아니오</b> <span class="tag beat">2장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">왕윤은 여포에게 조용히 말했어요. "장군, 그는 장군의 아버지가 아닙니다. 성이 다르지 않습니까." 여포는 한참을 아무 말도 하지 못했지요. 그러다 마침내 고개를 들었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 상을 사이에 두고 마주 앉은 둘.<br/><b>장소·시간</b> 왕윤의 집 안방, 밤.<br/><b>인물</b> Wangyun(왕윤)이 상 너머로 몸을 조금 기울여 말한다 — 목소리를 높이지 않는 자세. Lvbu(여포)는 두 손을 무릎에 짚고 고개를 숙였다가 🔴 방금 고개를 들었다(턱이 올라오는 중이다).<br/><b>배경·소품</b> 상 하나, 잔 둘(둘 다 손대지 않았다), 등잔.<br/><b>톤</b> 등잔 빛. 🔴 마음이 넘어가는 쪽이라 조용해야 한다.</pre></details>
+</div>
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>마침내 털어놓다</b> <span class="tag beat">2장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">여포는 결국 왕윤의 집을 다시 찾아갔어요. 그리고 그동안 마음에 쌓인 것을 다 털어놓았지요. 왕윤은 끝까지 듣기만 하다가, 마지막에 한마디를 보탰답니다. "장군이 나서면 온 백성이 살아납니다."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 상을 사이에 두고 마주 앉은 둘. 앞 쪽과 같은 방, 같은 자리.<br/><b>장소·시간</b> 왕윤의 집 안방, 밤.<br/><b>인물</b> Lvbu(여포)가 두 손으로 얼굴을 감쌌다 — 🔴 이 책에서 여포가 얼굴을 가리는 유일한 쪽이다. Wangyun(왕윤)은 그 앞에서 손을 무릎에 얹고 기다린다.<br/><b>배경·소품</b> 상, 잔 둘, 등잔. 🔴 앞 쪽과 그림이 거의 같아야 한다 — 같은 방에서 같은 사람이 두 번째로 마음을 정한다.<br/><b>톤</b> 등잔 빛. 조용한 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>거짓 소식</b> <span class="tag beat">2장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">며칠 뒤 왕윤은 동탁에게 사람을 보냈어요. "황제께서 자리를 물려주시려 하니 궁으로 드십시오." 동탁은 그 말을 곧이곧대로 믿었지요. 오래 바라던 일이었으니까요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 낮은 로우앵글 — 자리에서 일어서는 동탁.<br/><b>장소·시간</b> 미오성 안 동탁의 방, 아침.<br/><b>인물</b> Dongzhuo(동탁)이 두 팔을 벌리고 일어선다 — 🔴 이 책에서 동탁이 처음이자 마지막으로 활짝 웃는 쪽이다. 앞에 심부름꾼이 두 손을 모으고 고개를 숙였다.<br/><b>배경·소품</b> 걸어 둔 새 관복 한 벌, 열린 창. 배경은 비운다.<br/><b>톤</b> 아침빛. 🔴 좋은 소식처럼 그린다 — 그래야 다음 쪽이 산다.</pre></details>
+</div>
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>수레가 기울다</b> <span class="tag beat">2장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">동탁이 수레를 타고 도읍으로 들어가는데, 수레바퀴가 부러져 한쪽으로 기울었어요. 다시 말을 갈아탔더니 이번에는 말이 울며 앞으로 나가지 않았지요. 동탁은 웃으며 말했답니다. "좋은 일이 있으려나 보다."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 — 화면 가운데에 한쪽으로 기운 수레.<br/><b>장소·시간</b> 미오성에서 장안으로 가는 길, 아침.<br/><b>인물</b> Dongzhuo(동탁)이 기운 수레에서 내려서며 손을 내젓는다 — 웃고 있다. 곁에 부하 둘이 부러진 바퀴를 보며 서로를 본다. 🔴 그 둘의 얼굴에만 불안이 있다.<br/><b>배경·소품</b> 🔴 부러진 바퀴 하나, 뒷발질하는 말 한 마리 — 그 둘만 마감한다. 길, 나무 하나.<br/><b>톤</b> 아침빛. 🔴 아이가 「어? 이상한데」 하고 느끼는 쪽이다.</pre></details>
+</div>
+
+<h2 class="chap">3장 · 큰 도적이 쓰러지다 ⭐</h2>
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>숨어서 기다리다</b> <span class="tag beat">3장</span> <span class="tag">⭐ 하이라이트</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">왕윤은 궁궐 문 안쪽에 사람들을 숨겨 두었어요. 아무도 소리를 내지 않았지요. 문틈으로 들어오는 빛만 조금씩 옮겨 갈 뿐이었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 어두운 회랑, 기둥 뒤에 선 사람들의 실루엣.<br/><b>장소·시간</b> 장안 궁궐 문 안쪽 회랑, 아침.<br/><b>인물</b> 기둥 뒤에 사람 넷이 붙어 서 있다 — 🔴 얼굴을 하나도 안 그린다. 화면 오른쪽 끝 기둥에 Lvbu(여포)의 꿩깃 두 가닥만 살짝 보인다.<br/><b>배경·소품</b> 기둥 넷, 바닥에 든 빛 한 줄. 🔴 마감된 것은 바닥의 빛 한 줄뿐이다.<br/><b>톤</b> 어둡고 조용하다. 🔴 다음 쪽 때문에 이 쪽이 조용해야 한다.</pre></details>
+</div>
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>궁궐 문 앞</b> <span class="tag beat">3장</span> <span class="tag">⭐ 하이라이트</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">궁궐 문 앞에 이르자 신하들이 줄지어 나와 맞았어요. 동탁은 흡족한 얼굴로 수레에서 내렸지요. 그때 문이 등 뒤에서 조용히 닫혔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 — 화면 앞쪽에 내려서는 동탁, 그 뒤로 닫히는 문.<br/><b>장소·시간</b> 장안 궁궐 문 안쪽, 낮.<br/><b>인물</b> Dongzhuo(동탁)이 수레에서 막 내려선다 — 앞을 보며 웃는다. 좌우에 늘어선 신하들은 🔴 전부 고개를 숙였고 아무도 그를 안 본다. 화면 뒤쪽에서 문 두 짝이 닫히는 중이다.<br/><b>배경·소품</b> 큰 문 두 짝, 수레. 🔴 2권 p4(하진이 들어간 문)와 같은 구도다 — 이번에는 반대 사람이 들어간다.<br/><b>톤</b> 밝은 낮. 🔴 앞뒤가 뒤집힌 쪽이라 아이가 알아본다.</pre></details>
+</div>
+<div class="page-card" data-page="p14">
+  <div class="page-head"><span class="pnum">P14</span><b>그 자리에 여포가 있었다</b> <span class="tag beat">3장</span> <span class="tag">⭐ 하이라이트</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">에워싼 군사들 사이에서 동탁은 소리쳤어요. "봉선이는 어디 있느냐!" 그 말이 끝나기도 전에, 여포가 앞으로 걸어 나왔답니다. 손에는 커다란 창이 들려 있었어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 — 화면 왼쪽에 둘러싸인 동탁, 오른쪽에서 걸어 나오는 여포.<br/><b>장소·시간</b> 궁궐 뜰, 낮.<br/><b>인물</b> Dongzhuo(동탁)이 한 팔을 들어 여포를 부른다 — 🔴 아직 웃음이 얼굴에 반쯤 남아 있다. Lvbu(여포)가 창을 들고 걸어온다 — 🔴 표정이 없다. 둘레의 군사들은 실루엣의 반복.<br/><b>배경·소품</b> 창 한 자루, 뜰. 🔴 배경 사물은 셋까지만.<br/><b>톤</b> 밝은 낮. ⭐ 하이라이트의 시작 — 배신을 그리는 것이 아니라 「돌아온 값」을 그린다.</pre></details>
+</div>
+<div class="page-card" data-page="p15">
+  <div class="page-head"><span class="pnum">P15</span><b>무너지다</b> <span class="tag beat">3장</span> <span class="tag">⭐ 하이라이트</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">무슨 일이 벌어졌는지는 여기 적지 않을게요. 다만 그날, 오랫동안 온 나라를 짓누르던 커다란 그림자가 무너졌다는 것만 말해 두겠어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 아주 넓은 와이드, 아주 높은 부감 — 궁궐 뜰을 아주 멀리서 위에서 내려다본다.<br/><b>장소·시간</b> 궁궐 뜰, 낮.<br/><b>인물</b> 🔴 사람을 알아볼 수 없을 만큼 작게 그린다. 뜰 한가운데에 사람들이 둥글게 모여 있고, 그 가운데는 보이지 않는다.<br/><b>배경·소품</b> 뜰, 회랑, 지붕들. 🔴 무기·피·쓰러진 몸을 하나도 그리지 않는다.<br/><b>톤</b> 밝은 정오. 🔴 이 권의 순화 정책이 여기 한 쪽에 걸려 있다 — 멀리서 보는 것이 답이다.</pre></details>
+</div>
+<div class="page-card" data-page="p16">
+  <div class="page-head"><span class="pnum">P16</span><b>문을 열고 나온 노인들</b> <span class="tag beat">3장</span> <span class="tag">⭐ 하이라이트</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가장 먼저 문을 열고 나온 것은 노인들이었어요. 오랫동안 문을 걸어 잠그고 살던 사람들이었지요. 노인들은 서로의 손을 잡고 한참을 아무 말도 하지 못했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 반쯤 열린 대문과 그 앞에 선 노인 셋.<br/><b>장소·시간</b> 장안 저잣거리의 어느 대문 앞, 낮.<br/><b>인물</b> 노인 셋이 문지방을 밟고 서서 서로 손을 잡았다 — 🔴 웃지도 울지도 않고 그냥 서 있다. 그중 하나가 하늘을 올려다본다.<br/><b>배경·소품</b> 반쯤 열린 대문 하나, 문에 오래 걸려 있던 빗장이 아래로 늘어졌다. 🔴 늘어진 빗장이 이 쪽의 사건이다.<br/><b>톤</b> 낮의 밝은 빛이 문틈으로 처음 들어온다.</pre></details>
+</div>
+<div class="page-card" data-page="p17">
+  <div class="page-head"><span class="pnum">P17</span><b>거리로 나온 사람들</b> <span class="tag beat">3장</span> <span class="tag">⭐ 하이라이트</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">소식이 퍼지자 사람들이 집 밖으로 나왔어요. 서로 얼싸안고 울었고, 아이들은 영문도 모른 채 뛰어다녔지요. 그날 장안 거리에는 밤새 불이 켜져 있었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 — 사람들로 가득한 거리.<br/><b>장소·시간</b> 장안 저잣거리, 밤.<br/><b>인물</b> 사람들이 거리를 메웠다 — 🔴 앞줄 다섯만 얼굴을 주고 나머지는 실루엣의 반복. 앞줄에 서로 얼싸안은 두 사람과 뛰는 아이 하나.<br/><b>배경·소품</b> 손에 든 등 여럿, 열린 대문들. 🔴 2권 p12(닫힌 문만 있던 골목)와 같은 골목이다 — 이번에는 문이 다 열려 있다.<br/><b>톤</b> 등불이 화면 가득. 🔴 이 권에서 가장 밝고 시끄러운 쪽. ⭐ 하이라이트의 착지.</pre></details>
+</div>
+<div class="page-card" data-page="p18">
+  <div class="page-head"><span class="pnum">P18</span><b>그런데 초선은</b> <span class="tag beat">3장</span> <span class="tag">⭐ 하이라이트</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그 소란 속에서 초선은 조용히 왕윤의 집으로 돌아왔어요. 왕윤은 아무 말 없이 그 어깨를 두어 번 두드렸지요. 초선이 무슨 일을 했는지 아는 사람은 몇 되지 않았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 대문 안으로 들어서는 초선과 마당에 선 왕윤.<br/><b>장소·시간</b> 왕윤의 집 마당, 밤.<br/><b>인물</b> Diaochan(초선)이 대문 안으로 한 발 들어섰다 — 🔴 등 뒤의 거리는 환하고 마당은 어둡다. Wangyun(왕윤)이 마당에서 한 손을 들어 그 어깨에 얹는다.<br/><b>배경·소품</b> 열린 대문, 대문 밖으로 새어 드는 거리의 불빛. 🔴 마감된 것은 두 사람과 대문뿐이다.<br/><b>톤</b> 밖은 밝고 안은 조용하다. 🔴 이 권에서 가장 다정한 쪽이다.</pre></details>
+</div>
+
+<h2 class="chap">4장 · 다시 이는 바람</h2>
+<div class="page-card" data-page="p19">
+  <div class="page-head"><span class="pnum">P19</span><b>남은 사람들</b> <span class="tag beat">4장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 이야기는 거기서 끝나지 않았어요. 동탁의 부하였던 두 장수, '이각'과 '곽사'가 아직 군사를 거느리고 있었지요. 두 사람은 서로를 마주 보며 말했답니다. "우리가 먼저 죽겠구나."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 화면 가운데 마주 선 두 사람.<br/><b>장소·시간</b> 장안 밖 진영의 장막, 밤.<br/><b>인물</b> Lijue(이각)와 Guosi(곽사)가 마주 섰다 — 🔴 둘은 늘 붙어 다니므로 언제나 함께 그린다. 이각은 눈썹이 없다시피 옅고, 곽사는 더 작고 어깨가 굽었다. 둘 다 겁먹은 얼굴이다.<br/><b>배경·소품</b> 장막, 바닥에 던져진 투구 하나. 배경은 비운다.<br/><b>톤</b> 등잔 하나. 🔴 이 쪽의 두 사람은 나쁜 사람이 아니라 겁먹은 사람이다.</pre></details>
+</div>
+<div class="page-card" data-page="p20">
+  <div class="page-head"><span class="pnum">P20</span><b>홀로 남은 사람</b> <span class="tag beat">4장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">소란이 가라앉은 뒤, 여포는 뜰에 홀로 서 있었어요. 이제 그를 아들이라 부르는 사람도, 아버지라 부를 사람도 없었지요. 천하에서 가장 힘이 센 사람이, 갈 곳을 잃은 것이었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아주 높은 부감 — 넓은 뜰 한가운데에 사람 하나.<br/><b>장소·시간</b> 장안 궁궐 뜰, 저녁.<br/><b>인물</b> Lvbu(여포)가 뜰 한가운데 혼자 서 있다 — 🔴 위에서 보아 아주 작고, 꿩깃 두 가닥만 알아볼 수 있다. 아무도 없다.<br/><b>배경·소품</b> 넓은 빈 뜰, 그림자 하나. 🔴 이 책에서 여포가 혼자 있는 유일한 쪽이다.<br/><b>톤</b> 저녁빛. 🔴 이긴 사람의 쪽인데 가장 쓸쓸하다 — 8권의 씨앗이다.</pre></details>
+</div>
+<div class="page-card" data-page="p21">
+  <div class="page-head"><span class="pnum">P21</span><b>되돌아온 군사</b> <span class="tag beat">4장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">두 사람은 용서해 달라고 빌었지만 왕윤은 들어주지 않았어요. 그러자 도리어 군사를 몰아 장안으로 되돌아왔지요. 왕윤은 끝내 물러서지 않았고, 여포는 성을 지키다 결국 밀려났답니다. 좋아졌던 도읍이 다시 어지러워졌어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 — 화면 오른쪽에서 성문으로 밀려드는 군사, 왼쪽으로 물러나는 사람들.<br/><b>장소·시간</b> 장안 성문, 낮.<br/><b>인물</b> 몰려드는 군사는 실루엣의 반복. 화면 왼쪽 끝에 Lvbu(여포)가 말을 돌려 성 밖으로 나간다 — 꿩깃 두 가닥이 뒤로 눕는다. 🔴 여포가 지는 것을 처음 보는 쪽이다.<br/><b>배경·소품</b> 성문, 넘어진 깃발 하나. 🔴 쓰러진 사람은 그리지 않는다.<br/><b>톤</b> 낮의 강한 빛. 앞쪽의 등불이 꺼진 뒤의 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p22">
+  <div class="page-head"><span class="pnum">P22</span><b>다시 도는 자리</b> <span class="tag beat">4장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">높은 자리에 앉는 사람만 바뀌었을 뿐, 백성들의 살림은 조금도 나아지지 않았어요. 문은 다시 닫혔고 거리는 다시 조용해졌지요. 나라를 바로 세우는 일은 한 사람을 없앤다고 끝나는 게 아니었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 2권의 그 골목이자 이 권 앞쪽 「거리로 나온 사람들」과 같은 골목. 이번에는 다시 문이 닫혀 있다.<br/><b>장소·시간</b> 장안 저잣거리 뒷골목, 낮.<br/><b>인물</b> 사람은 없다. 🔴 창호지에 비친 그림자 둘.<br/><b>배경·소품</b> 닫힌 대문 넷, 굴러다니는 등 하나(어제 밝혔던 것). 🔴 같은 골목을 세 번째 그리는 쪽이다.<br/><b>톤</b> 밝은 낮인데 사람이 없다. 🔴 이 시리즈에서 가장 무거운 생각을 담은 쪽이라, 그림은 가장 단순해야 한다.</pre></details>
+</div>
+<div class="page-card" data-page="p23">
+  <div class="page-head"><span class="pnum">P23</span><b>다시 길을 나서다</b> <span class="tag beat">4장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">한편 그 무렵 세 형제는 작은 고을에서 백성을 돌보며 때를 기다리고 있었어요. 흩어졌던 영웅들도 저마다 제 땅에서 힘을 기르고 있었지요. 그러던 어느 날, 동쪽에서 급한 소식이 하나 날아들었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 아주 넓은 와이드, 아주 높은 부감 — 넓은 땅과 그 위에 흩어진 작은 진영들.<br/><b>장소·시간</b> 중원의 넓은 들, 아침.<br/><b>인물</b> 사람은 알아볼 수 없다. 🔴 화면 아래 구석 한 곳에만 작은 진영이 하나 있고, 그 앞에 세 사람의 점이 나란하다.<br/><b>배경·소품</b> 🔴 서로 다른 빛깔 깃발 여섯 무리가 넓은 땅에 흩어져 있다 — 3권 p2 에서 한곳에 모였던 깃발들이 이제 제각기 자리를 잡았다.<br/><b>톤</b> 아침빛. 🔴 이 권의 착지이자 시리즈의 두 번째 마디다 — 어둠 하나가 끝나고 여럿의 시대가 열린다.</pre></details>
+</div>
+
+<h2 class="chap">5장 · 달려와 준 사람</h2>
+<div class="page-card" data-page="p24">
+  <div class="page-head"><span class="pnum">P24</span><b>동쪽에서 온 급한 소식</b> <span class="tag beat">5장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">동쪽의 서주라는 큰 고장이 큰 군사에게 에워싸였다는 소식이었어요. 쳐들어간 사람은 조조였지요. 아버지를 그 땅에서 잃은 원한 때문이었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 아주 넓은 와이드, 아주 높은 부감 — 넓은 성 하나와 그것을 두른 진영.<br/><b>장소·시간</b> 서주 둘레, 낮.<br/><b>인물</b> 🔴 사람은 알아볼 수 없다.<br/><b>배경·소품</b> 성 하나, 두른 진영, 들. 🔴 셋만 마감한다.<br/><b>톤</b> 흐린 낮. 🔴 3권에서 조조가 글을 돌려 사람을 모으던 그 사람이, 이번에는 자기 원한으로 군사를 낸다.</pre></details>
+</div>
+<div class="page-card" data-page="p25">
+  <div class="page-head"><span class="pnum">P25</span><b>도와줄 사람이 없소</b> <span class="tag beat">5장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">서주를 다스리던 이는 도겸이라는 나이 많은 원님이었어요. 사방으로 사람을 보내 도움을 청했지만 아무도 오지 않았지요. 조조와 척지고 싶은 사람이 없었으니까요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 성 안 마루에 앉아 문 쪽을 보는 노인.<br/><b>장소·시간</b> 서주 성 안, 저녁.<br/><b>인물</b> Taoqian(도겸)이 마루에 앉아 열린 문 쪽을 본다 — 🔴 예순이 넘은 마른 노인. 흰 수염이 성글고 등이 굽었다. 손이 무릎 위에서 떨린다.<br/><b>배경·소품</b> 열린 문, 빈 마당, 등잔 하나. 🔴 빈 마당이 이 쪽의 사건이다.<br/><b>톤</b> 저녁빛. 🔴 아무도 안 온 것을 「빈 곳」으로 그리는 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p26">
+  <div class="page-head"><span class="pnum">P26</span><b>아주 적은 군사</b> <span class="tag beat">5장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 며칠 뒤, 성 밖에 작은 군사가 나타났어요. 유비였지요. 데려온 사람은 겨우 수천이었고, 그마저도 빌려 온 군사였답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 — 넓은 들 한쪽 끝에 아주 작은 무리.<br/><b>장소·시간</b> 서주 밖 들, 아침.<br/><b>인물</b> 앞에 Liubei(유비)·Guanyu(관우)·Zhangfei(장비) 셋 — 🔴 뒤따르는 줄이 화면 폭의 십분의 일도 안 된다. 그 작음이 이 쪽의 사건이다.<br/><b>배경·소품</b> 넓은 들, 멀리 성과 두른 진영. 🔴 셋만 마감한다.<br/><b>톤</b> 아침빛. 🔴 아무도 안 온 자리에 가장 작은 사람이 왔다.</pre></details>
+</div>
+<div class="page-card" data-page="p27">
+  <div class="page-head"><span class="pnum">P27</span><b>받지 않겠습니다</b> <span class="tag beat">5장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">조조가 군사를 거두고 물러가자 도겸이 말했어요. "이 서주를 그대가 맡아 주시오." 유비는 고개를 저었지요. "도우러 온 사람이 그 땅을 가지면, 도우러 온 것이 아니게 됩니다."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 도장을 두 손으로 내미는 노인과, 두 손을 뒤로 감춘 사람.<br/><b>장소·시간</b> 서주 성 안 큰 방, 낮.<br/><b>인물</b> Taoqian(도겸)이 두 손으로 도장을 내민다. Liubei(유비)는 🔴 두 손을 등 뒤로 돌리고 고개를 숙였다 — 받지 않는 자세가 이 쪽의 전부다. 곁에 Guanyu(관우)와 Zhangfei(장비)가 서로를 본다.<br/><b>배경·소품</b> 도장 하나. 배경은 비운다.<br/><b>톤</b> 밝은 낮. 🔴 1권에서 어머니가 「사람을 얻어라」 한 말의 첫 증거인 쪽.</pre></details>
+</div>
+<div class="page-card" data-page="p28">
+  <div class="page-head"><span class="pnum">P28</span><b>눈을 감지 못하겠소</b> <span class="tag beat">5장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그해 도겸은 병이 깊어졌어요. 마지막으로 유비를 불러 다시 부탁했지요. "그대가 받지 않으면 나는 눈을 감지 못하겠소." 유비는 그제서야 그 손을 잡았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 자리에 누운 노인과 그 손을 잡은 사람.<br/><b>장소·시간</b> 서주 성 안, 밤.<br/><b>인물</b> Taoqian(도겸)이 자리에 누워 한 손을 들었다. Liubei(유비)가 두 손으로 그 손을 잡았다 — 🔴 마감하는 것은 겹친 세 손이다.<br/><b>배경·소품</b> 자리, 등잔 하나, 머리맡에 놓인 도장. 🔴 이번에는 도장이 손이 아니라 바닥에 있다.<br/><b>톤</b> 등잔 빛. 🔴 겹친 손은 이 시리즈에서 「물려주는 자리」의 표시다.</pre></details>
+</div>
+<div class="page-card" data-page="p29">
+  <div class="page-head"><span class="pnum">P29</span><b>백성이 먼저 나오다</b> <span class="tag beat">5장</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">유비가 서주의 주인이 되던 날, 성 안 백성들이 길가로 나와 섰어요. 짚신을 삼던 청년이 처음으로 큰 고장을 맡게 된 날이었지요. 그런데 이 성을 지키는 일은, 얻는 일보다 훨씬 어려웠답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 — 길가에 늘어선 사람들과 그 사이를 지나는 세 사람.<br/><b>장소·시간</b> 서주의 큰 거리, 낮.<br/><b>인물</b> 길 양쪽에 사람들이 늘어섰다 — 🔴 앞줄 넷만 얼굴을 주고 나머지는 실루엣의 반복. 가운데를 Liubei(유비)가 말에서 내려 걸어간다 — 🔴 타고 가지 않는다.<br/><b>배경·소품</b> 거리, 낮은 담, 성문. 🔴 셋만 마감한다.<br/><b>톤</b> 밝은 낮. 🔴 이 권을 닫는 쪽 — 8권에서 이 성을 잃는다.</pre></details>
+</div>
+</div>
+
+<script>
+// 회차 데이터 — samgukji-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성
+window.SG_EPISODE = {
+  // 그림체 미확정 — art-director 가 스타일 앵커를 확정하면 여기에 넣는다.
+  // 비어 있으면 core 가 프롬프트 도구를 만들지 않고 복사 버튼을 잠근다(빈 발주 방지).
+  style: '',
+  cast: [
+    {
+      "token": "Dongzhuo",
+      "name": "동탁",
+      "desc": "분을 바른 흰 얼굴인데 🔴 살진 얼굴(볼이 눈을 밀어 실눈) + 코의 붉은 기 · 짧고 두툼한 검은 수염 · 🔴 어깨에서 어깨가 가장 넓은 낮은 덩이 · 금붙이 5개 이하 · 5.5두신.",
+      "aliases": [
+        "Dongzhuo",
+        "동탁"
+      ]
+    },
+    {
+      "token": "Lvbu",
+      "name": "여포",
+      "desc": "광이 있는 옥빛 흰 얼굴 · 수염 0 · 🔴 투구에서 길게 솟은 꿩깃 두 가닥(머리 위로 무언가 솟은 유일한 인물) · 붉은 술 · 붉은 말 · 7두신.",
+      "aliases": [
+        "Lvbu",
+        "여포"
+      ]
+    },
+    {
+      "token": "Wangyun",
+      "name": "왕윤",
+      "desc": "조정의 나이 든 대신 · 단정한 관복 · 흰 수염 · 늘 침착하게 자리를 무마한다.",
+      "aliases": [
+        "Wangyun",
+        "왕윤"
+      ]
+    },
+    {
+      "token": "Diaochan",
+      "name": "초선",
+      "desc": "왕윤의 집에서 자란 젊은 여인 · 🔴 이 책에서 얼굴에 화장을 한 유일한 인물(눈가와 입술) · 옅은 옥색 옷 · 손에 둥근 부채.",
+      "aliases": [
+        "Diaochan",
+        "초선"
+      ]
+    },
+    {
+      "token": "Lijue",
+      "name": "이각",
+      "desc": "동탁의 남은 장수 · 눈썹이 없다시피 옅다 · 곽사와 늘 둘이 붙어 다닌다.",
+      "aliases": [
+        "Lijue",
+        "이각"
+      ]
+    },
+    {
+      "token": "Guosi",
+      "name": "곽사",
+      "desc": "동탁의 남은 장수 · 이각보다 작고 어깨가 굽었다 · 이각과 늘 둘이 붙어 다닌다.",
+      "aliases": [
+        "Guosi",
+        "곽사"
+      ]
+    },
+    {
+      "token": "Liubei",
+      "name": "유비",
+      "desc": "안 칠한 맨 얼굴 · 이 책에서 가장 큰 귀(윤곽을 깬다) · 허리 양옆 칼 두 자루 · 노란 허리끈 · 6두신. 1권 = 짚신·베옷, 수염 없음.",
+      "aliases": [
+        "Liubei",
+        "유비"
+      ]
+    },
+    {
+      "token": "Guanyu",
+      "name": "관우",
+      "desc": "대추빛 붉은 얼굴(이 책의 유일한 붉은 얼굴) · 가슴까지 오는 긴 수염 한 덩이 · 녹색 · 키보다 긴 자루의 언월도 · 7두신. 1권 = 녹색 평복.",
+      "aliases": [
+        "Guanyu",
+        "관우"
+      ]
+    },
+    {
+      "token": "Zhangfei",
+      "name": "장비",
+      "desc": "검은 얼굴(이 책의 유일한 검은 얼굴) · 수염이 사방으로 뻗어 얼굴 윤곽이 삐죽삐죽 · 동그란 고리눈 · 뱀처럼 굽은 장팔사모 · 6.5두신. 1권 = 거친 베옷.",
+      "aliases": [
+        "Zhangfei",
+        "장비"
+      ]
+    },
+    {
+      "token": "Caocao",
+      "name": "조조",
+      "desc": "분을 바른 흰 얼굴 · 가늘고 눈꼬리가 올라간 눈 · 한쪽만 올라간 입 · 흑청색 옷깃 · 🔴 머리가 몸의 1/5(5두신).",
+      "aliases": [
+        "Caocao",
+        "조조"
+      ]
+    },
+    {
+      "token": "Taoqian",
+      "name": "도겸",
+      "desc": "서주를 다스리는 노인 · 흰 수염, 병색이 있다 · 두 손을 늘 앞으로 모은다.",
+      "aliases": [
+        "Taoqian",
+        "도겸"
+      ]
+    }
+  ]
+};
+</script>
+<script src="/samgukji-core.js"></script>
+</body>
+</html>

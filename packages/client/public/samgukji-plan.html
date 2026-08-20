@@ -1,0 +1,1257 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 삼국지 시리즈 기획서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#8A2B1E; --jade-dark:#6E2117; --vermilion:#AE3325; --gold:#9C7620;
+    --hanji:#EAE3D3; --paper:#F5F0E4; --ink:#221F18; --ink-soft:#726A56;
+    --line:#D6CCB4; --mint:#3E7C51; --sky:#EDE6D5;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:1080px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  h2 { font-size:21px; font-weight:900; color:var(--jade-dark); margin:40px 0 10px; padding-bottom:7px; border-bottom:2px solid var(--line); }
+  p, li { font-size:14.5px; }
+  ul { padding-left:20px; } li { margin:4px 0; }
+  code { background:var(--sky); border-radius:5px; padding:1px 6px; font-size:13px; }
+  .stats { display:flex; flex-wrap:wrap; gap:10px; margin:16px 0 8px; }
+  .stat { background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:10px 16px; }
+  .stat b { display:block; font-size:22px; font-weight:900; color:var(--jade); }
+  .stat span { font-size:12px; color:var(--ink-soft); font-weight:700; }
+  .open { background:#F0DCCF; border:1px solid #D6B5A5; border-left:5px solid var(--vermilion); border-radius:12px; padding:14px 18px; margin:14px 0; }
+  .open b { color:var(--vermilion); }
+  .card { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:16px 20px; margin:12px 0; }
+  .cand { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:15px 18px; margin:10px 0; }
+  .cand.pick { border:2px solid var(--mint); }
+  .cand h3 { font-size:16.5px; font-weight:900; margin-bottom:3px; }
+  .cand .one { font-size:13.5px; color:var(--ink-soft); font-weight:700; margin-bottom:7px; }
+  .vol { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:13px 16px; margin:9px 0; }
+  .vol.has { border-color:var(--mint); }
+  .vhead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .vhead b { font-size:16.5px; }
+  .vnum { flex:0 0 auto; width:32px; height:32px; border-radius:9px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .vol.has .vnum { background:var(--mint); }
+  .rom { font-size:12px; color:var(--ink-soft); font-weight:700; }
+  .go { margin-left:auto; color:var(--mint); font-weight:800; font-size:13px; text-decoration:none; }
+  .go:hover { text-decoration:underline; }
+  .todo { margin-left:auto; font-size:12px; font-weight:800; color:var(--ink-soft); }
+  .chs { display:flex; flex-wrap:wrap; gap:6px; margin-top:9px; }
+  .ch { background:var(--sky); border-radius:8px; padding:5px 10px; font-size:12.5px; font-weight:700; }
+  .ch.star { background:#F0DCCF; color:var(--vermilion); }
+  .ch i { font-style:normal; display:block; font-weight:600; color:var(--ink-soft); font-size:11px; }
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(330px, 1fr)); gap:10px; align-items:start; }
+  .char-prompt { border:1px solid var(--line); border-radius:14px; padding:13px 15px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt details { margin-top:7px; }
+  .char-prompt summary { cursor:pointer; font-size:12.5px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--sky); border:1px solid var(--line); border-radius:10px; padding:11px 13px; font-family:inherit; font-size:12px; line-height:1.65; margin-top:6px; }
+  .tag { display:inline-block; border-radius:999px; padding:2px 10px; font-size:11.5px; font-weight:800; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:52px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:11.5px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FBF7EC; margin-top:9px; }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:5px; right:5px; border:0; background:rgba(0,0,0,.55); color:#fff; border-radius:6px; width:22px; height:22px; cursor:pointer; font-size:12px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:3px 12px; font-weight:800; font-size:11.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">탱고북 오리지널 · 시리즈물</div>
+  <h1>탱고북 삼국지</h1>
+  <div class="sub">도원결의에서 오장원까지 50년을 24권으로 · 초등 저학년 그림책</div>
+</header>
+
+<div class="stats">
+  <div class="stat"><b>24</b><span>권 (시리즈 완결)</span></div>
+  <div class="stat"><b>94</b><span>장</span></div>
+  <div class="stat"><b>17</b><span>⭐ 하이라이트</span></div>
+  <div class="stat"><b>24</b><span>권 대본 완성</span></div>
+  <div class="stat"><b>약 610~750</b><span>컷 (1권 실측 장당 6.4장면)</span></div>
+</div>
+
+<h2>1 · 이 라인은 무엇인가</h2>
+<p><b>시리즈물이다.</b> 호리 3라인·전래동화가 「한 권이 한 이야기」인 것과 달리, 삼국지는 <b>1권부터 24권까지 인물이 늙어 가며 이어지는 한 편</b>이다. 그래서 다른 라인에 없는 제약이 셋 붙는다.</p>
+<ul>
+  <li><b>읽는 순서가 있다</b> — 라이브러리에서 권 번호 순으로 배열하고 표지에도 번호를 넣는다.</li>
+  <li><b>인물이 늙는다</b> — 같은 얼굴을 50년에 걸쳐 그린다. 그 해법이 <code>samgukji-cast.md</code> 다.</li>
+  <li><b>한 그림체로 끝까지 간다</b> — 창작동화처럼 권마다 바꿀 수 없다.</li>
+</ul>
+<p>대상은 <b>초등 저학년</b>이다. 탱고북 본진(4~7세)보다 위이고 「타임 티코」와 같은 자리다.</p>
+
+<h2>2 · 그림체 — 수묵 산수 위의 4등신</h2>
+<p>🔴 <b>출처는 우리 자산이다</b> — <code>C:/projects/threekingdoms</code>(영걸전형 SRPG)에서 <b>이미 렌더까지 나온</b> 하우스 스타일을 그림책으로 옮겼다.
+앞서 만들었던 후보 셋(그림자극·연환화·형지염색)은 <b>렌더가 하나도 없는 설계도</b>여서 폐기했다.
+분석 전문 = <code>docs/art-direction/samgukji-anchor.md</code>.</p>
+<div class="cand pick">
+  <h3>정체 — 두 층으로 되어 있다</h3>
+  <div class="one">배경은 젖은 수묵 산수, 인물은 그 위에 얹은 굵은 먹 윤곽의 4등신 세미SD.</div>
+  <ul>
+    <li>🔴 <b>두 층의 마감이 달라서</b> 「눈은 가장 마감된 것으로 간다」가 저절로 성립한다 — 인물이 늘 그 쪽에서 가장 마감된 것이다.</li>
+    <li>🔴 <b>관우의 얼굴이 실제로 붉다</b>(SD 시트 실측 <code>#6C4836</code> 계열) — 얼굴색 축이 이 그림체에서 성립하는 것을 렌더로 확인했다.</li>
+    <li>🔴 <b>전원 4등신</b>이라 키로는 아무도 못 가른다 → 개체는 <b>어깨 폭(머리 폭의 몇 배)</b>으로 가른다. 동탁 2.6 ↔ 조조 1.5.</li>
+    <li>팔레트는 렌더에서 뽑았다 — 종이 <code>#F0E2C0</code>·먹 <code>#2B2B2B</code>·올리브 <code>#485A48</code>·황토 <code>#D8B46C</code>·가죽 <code>#5A4836</code>.</li>
+    <li>⚠️ 법적 라인 상속 — 코에이 그래픽·일러스트 스타일 모방 금지, 「영걸전」 명칭 금지(NOT 절에 박아 두었다).</li>
+  </ul>
+  <div class="char-prompt" data-key="style-anchor" style="margin-top:12px">
+    <div class="head"><b>🎨 STYLE ANCHOR</b> <span class="rom">samgukji-inkwash-sd</span> <button class="copy-btn">📋 앵커만 복사</button></div>
+    <details><summary>앵커 전문 보기</summary><pre>STYLE ANCHOR - samgukji-inkwash-sd
+
+STYLE: A picture book for 7-9 year olds retelling the Three Kingdoms. THE WORLD IS PAINTED AS EAST
+ASIAN INK-WASH LANDSCAPE; THE PEOPLE ARE DRAWN AS SEMI-DEFORMED FIGURES LAID ON IT. Calligraphic
+linework, muted earth tones, rice-paper texture in the washes, wide empty space. NOT photorealistic,
+NOT anime-cel, NOT a 3D render.
+
+RENDERING (finish hierarchy)
+- 🔴 TWO LAYERS, FINISHED DIFFERENTLY. BACKGROUND = wet ink wash on warm paper: hills, pines, mist and
+  sky in soft washes, 0 outlines, drying into bare paper. FIGURES = clean ink outline of even weight,
+  flat colour fill, ONE step of soft shading. A figure is always the most finished thing on its page.
+- FINISHED THINGS PER PAGE = 2 - the person the page is about, and the one thing they handle.
+- NAMED FIGURES IN THE FOREGROUND = at most 3. 🔴 CROWDS AND ARMIES ARE NOT DRAWN AS PEOPLE: ONE
+  silhouette repeated 12-40 times, smaller and paler as it recedes, dissolving into the mist.
+- BACKGROUND OBJECT COUNT = at most 6 named things per page. Everything else is wash and bare paper.
+- 🔴 MIST IS THE ERASER: distance is drawn paler, not smaller; the far third of a wide shot dissolves
+  into the paper. No hard horizon line behind a figure.
+- DENSITY RATION: only battle, market and court pages may fill the frame. Every other page keeps AT
+  LEAST HALF the frame as wash or bare paper. The scene brief names which page is which.
+
+PALETTE (muted earth, sampled from the house renders)
+paper #F0E2C0 · ink #2B2B2B · olive-green #485A48 · pale jade #5A6C5A · ochre #D8B46C ·
+mustard #6C6C48 · leather brown #5A4836 · deep brown #483624 · skin #D8B4A2.
+ACCENTS, USED SPARINGLY: vermilion #B8352A · gold #C9A227.
+🔴 KERCHIEF YELLOW #E8B233 BELONGS TO THE REBEL HOST ALONE. The only other yellow of that value in
+the book is Liubei's waist sash.
+
+CHARACTER DESIGN LANGUAGE
+- 🔴 EVERY PERSON IN THIS BOOK IS 4 HEADS TALL - semi-deformed: large head, compact heroic body,
+  never babyish. The proportion never changes with rank or age.
+- 🔴 THE FACE COLOUR IS THE CASTING AND IT NEVER CHANGES - not with light, weather or age. A face
+  carries one steady tone. 🔴 WHICH tone, and every other value for that person, comes from their
+  CHARACTER SHEET, not from here.
+- Eyes = two strokes and a filled pupil; brows = one stroke, and they carry the expression. Mouths
+  are small. 0 blush marks, 0 sparkle highlights, 0 sweat drops.
+- 🔴 FEELING IS CARRIED BY THE WHOLE BODY: the figure leans, plants its feet wide, throws its arms out.
+- 🔴 TEST: fill any figure solid and rub out the inside. What is left must be that person from the
+  character sheet. If the silhouette does not say who it is, the figure is drawn wrong.
+
+CANVAS
+16:9 double-page spread. 🔴 NO lettering, numerals, signage or captions anywhere in the image, in any
+script. No caption band - the picture runs to all four edges. Light is warm and low, from one side.
+🔴 THE SKY IS NEVER BLUE: it is the warm paper, washed ochre where the sun is.
+
+STAGE CLAUSES (carry only the clause that page needs)
+- VILLAGE/MARKET: thatched roofs and a fence in wash, one pine, an earth road; ground = one wash band.
+- PALACE/COURT: repeated pillars and roof brackets receding into mist.
+- FIELD/BATTLE: hills and mist above; below, the repeated silhouette host and a few banners.
+- ROAD/JOURNEY: one road, one or two pines, the rest wash and bare paper.
+
+NOT (rendering only)
+airbrushing, glossy 3D, cel-shaded anime or manga screentone · photobash or photographic texture ·
+🔴 Koei-style / Dynasty-Warriors-style character illustration, and Japanese sengoku armour ·
+outlines on the landscape washes.</pre></details>
+  </div>
+</div>
+<div class="card">
+  <b>첫 시험 — 쪽 컷을 뽑기 전에 이 셋을 먼저 굽고 승인받는다.</b>
+  <ul>
+    <li><b>관우</b> — 붉은 얼굴이 4등신에서도 성립하는가</li>
+    <li><b>장비</b> — 삐죽삐죽한 수염 윤곽이 큰 머리에서 뭉개지지 않는가</li>
+    <li><b>유비</b> — 🔴 큰 귀가 4등신 큰 머리에 묻히지 않는가(가장 위험한 조합)</li>
+  </ul>
+  <p>아래 §4 캐스트 카드의 「📋 시트 프롬프트 복사」가 <b>앵커까지 붙은 완성본</b>을 내놓는다 — 그대로 붙여넣으면 된다.</p>
+</div>
+
+<h2>3 · 지금 열려 있는 결정</h2>
+<div class="open">
+  <b>🎨 그림체 — 위 셋 중 하나를 골라야 다음이 굴러간다.</b><br />
+  SCENE 의 매체 어휘(획·판·워시)가 그림체에서 나오므로, <b>정해지기 전에 쓴 콘티는 그 부분만 비워 둔다</b>.
+  1권 대본이 그렇게 쓰여 있다 — 컷·장소·인물·배경·톤 다섯은 확정이고 매체 한 줄만 비었다.
+</div>
+<div class="open">
+  <b>🩸 후반부 순화 기준.</b><br />
+  1권에서 쓴 방식은 <b>결과만 보여 주기</b>다(쓰러진 사람 대신 주인 없는 말과 떨어진 투구, 매질 대신 닫힌 문).
+  다만 <b>관우의 최후(20권)·장비의 죽음(21권)·백제성(21권)</b>은 주인공이 죽는 장면이라 같은 처리로 덮이지 않는다.
+  🔴 <b>20권에 닿아서 정하면 늦다.</b> (A안을 고르면 「퇴장」이 그 답이 된다.)
+</div>
+<div class="open">
+  <b>📚 파닉스 연동은 하지 않는다.</b> 핵심단어가 「청룡언월도」·「연환계」라 파닉스 단원과 안 맞는다. 읽기 전용 라인으로 둔다.
+</div>
+
+<h2>4 · 캐릭터 — 얼굴색이 배역을, 수염 길이가 나이를 말한다</h2>
+<div class="card">
+  <p><b>원칙 1 · 시그니처는 절대 고정</b> — 색·소품·외모는 나이와 옷이 바뀌어도 그대로.</p>
+  <p><b>원칙 2 · 노화는 3단계 점프</b> — 청년 → 장년 → 노년으로 수염·흰머리·주름만 전환.</p>
+  <p><b>원칙 3 · 의상은 신분이 오를 때만</b> — 평복 → 갑옷 → 관복 → 왕복.</p>
+  <p style="margin-top:8px">🔴 <b>개체 규격 SSOT = <code>docs/art-direction/samgukji-cast.md</code></b> — 얼굴색·수염·실루엣·키·악센트 다섯 축과
+  검사 조항이 거기 있다. 아래 카드는 그 파일에서 굽는다.</p>
+</div>
+<p class="rom">시트는 여기 한 곳에만 붙여넣고, 회차 대본은 이름으로만 참조한다(24권마다 같은 시트를 다시 붙이지 않는다).
+🔴 <code>[공통 스타일 앵커]</code> 자리는 그림체가 확정되면 실제 앵커로 치환된다.</p>
+<div class="cast-grid">
+
+  <div class="char-prompt" data-key="char-liubei" style="border-left:4px solid #3E7C51">
+    <div class="head"><b>유비</b> <span class="rom">Liubei</span> <span class="tag" style="background:#3E7C5122;color:#3E7C51">촉</span> <button class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>캐릭터 시트 프롬프트 보기</summary><pre>STYLE ANCHOR - samgukji-inkwash-sd
+
+STYLE: A picture book for 7-9 year olds retelling the Three Kingdoms. THE WORLD IS PAINTED AS EAST
+ASIAN INK-WASH LANDSCAPE; THE PEOPLE ARE DRAWN AS SEMI-DEFORMED FIGURES LAID ON IT. Calligraphic
+linework, muted earth tones, rice-paper texture in the washes, wide empty space. NOT photorealistic,
+NOT anime-cel, NOT a 3D render.
+
+RENDERING (finish hierarchy)
+- 🔴 TWO LAYERS, FINISHED DIFFERENTLY. BACKGROUND = wet ink wash on warm paper: hills, pines, mist and
+  sky in soft washes, 0 outlines, drying into bare paper. FIGURES = clean ink outline of even weight,
+  flat colour fill, ONE step of soft shading. A figure is always the most finished thing on its page.
+- FINISHED THINGS PER PAGE = 2 - the person the page is about, and the one thing they handle.
+- NAMED FIGURES IN THE FOREGROUND = at most 3. 🔴 CROWDS AND ARMIES ARE NOT DRAWN AS PEOPLE: ONE
+  silhouette repeated 12-40 times, smaller and paler as it recedes, dissolving into the mist.
+- BACKGROUND OBJECT COUNT = at most 6 named things per page. Everything else is wash and bare paper.
+- 🔴 MIST IS THE ERASER: distance is drawn paler, not smaller; the far third of a wide shot dissolves
+  into the paper. No hard horizon line behind a figure.
+- DENSITY RATION: only battle, market and court pages may fill the frame. Every other page keeps AT
+  LEAST HALF the frame as wash or bare paper. The scene brief names which page is which.
+
+PALETTE (muted earth, sampled from the house renders)
+paper #F0E2C0 · ink #2B2B2B · olive-green #485A48 · pale jade #5A6C5A · ochre #D8B46C ·
+mustard #6C6C48 · leather brown #5A4836 · deep brown #483624 · skin #D8B4A2.
+ACCENTS, USED SPARINGLY: vermilion #B8352A · gold #C9A227.
+🔴 KERCHIEF YELLOW #E8B233 BELONGS TO THE REBEL HOST ALONE. The only other yellow of that value in
+the book is Liubei's waist sash.
+
+CHARACTER DESIGN LANGUAGE
+- 🔴 EVERY PERSON IN THIS BOOK IS 4 HEADS TALL - semi-deformed: large head, compact heroic body,
+  never babyish. The proportion never changes with rank or age.
+- 🔴 THE FACE COLOUR IS THE CASTING AND IT NEVER CHANGES - not with light, weather or age. A face
+  carries one steady tone. 🔴 WHICH tone, and every other value for that person, comes from their
+  CHARACTER SHEET, not from here.
+- Eyes = two strokes and a filled pupil; brows = one stroke, and they carry the expression. Mouths
+  are small. 0 blush marks, 0 sparkle highlights, 0 sweat drops.
+- 🔴 FEELING IS CARRIED BY THE WHOLE BODY: the figure leans, plants its feet wide, throws its arms out.
+- 🔴 TEST: fill any figure solid and rub out the inside. What is left must be that person from the
+  character sheet. If the silhouette does not say who it is, the figure is drawn wrong.
+
+CANVAS
+16:9 double-page spread. 🔴 NO lettering, numerals, signage or captions anywhere in the image, in any
+script. No caption band - the picture runs to all four edges. Light is warm and low, from one side.
+🔴 THE SKY IS NEVER BLUE: it is the warm paper, washed ochre where the sun is.
+
+STAGE CLAUSES (carry only the clause that page needs)
+- VILLAGE/MARKET: thatched roofs and a fence in wash, one pine, an earth road; ground = one wash band.
+- PALACE/COURT: repeated pillars and roof brackets receding into mist.
+- FIELD/BATTLE: hills and mist above; below, the repeated silhouette host and a few banners.
+- ROAD/JOURNEY: one road, one or two pines, the rest wash and bare paper.
+
+NOT (rendering only)
+airbrushing, glossy 3D, cel-shaded anime or manga screentone · photobash or photographic texture ·
+🔴 Koei-style / Dynasty-Warriors-style character illustration, and Japanese sengoku armour ·
+outlines on the landscape washes.
+
+CHARACTER SHEET - Liubei   (bake this FIRST)
+LIUBEI - the eldest brother, the one the other two follow. SHOULDERS = 1.7 head-widths across.
+FACE: 🔴 UNPAINTED. His is one of four bare faces in this book and the only one that is bare AND
+  has a moustache. Broad, calm, wide-set eyes, a mouth that rests almost closed.
+🔴 EARS: THE LARGEST EARS IN THE BOOK - each ear is as tall as from his eyebrow to his chin, and
+  they stand clear of the head on both sides so that they BREAK HIS OUTLINE. Blacked out, the ears
+  are how you know him.
+ARMS: long - his fingertips reach below the knee when he stands with arms down.
+BEARD BY AGE: youth = NONE. prime = 🔴 ONE THIN MOUSTACHE LINE and nothing else. old = the same
+  moustache plus a short chin beard, both flecked pale.
+🔴 TWO SWORDS, ONE ON EACH HIP - he is the only figure in this book carrying two blades. They stay
+  through every costume stage, including the king's robe.
+COSTUME STAGES (change ONLY when his rank changes, never for weather or mood):
+  1 straw sandals + undyed hemp - book 1 only, the poorest clothes in the book
+  2 blue outer coat over leather armour - from book 4
+  3 wide scholar's robe, no armour - from book 13
+  4 king's robe - from book 19
+🔴 ACCENT: A YELLOW SASH AT THE WAIST. It survives all four costume stages. Nothing else on him is
+  yellow, and no one else in the book wears a yellow sash.
+
+SHEET LAYOUT: front / three-quarter / profile, full figure; plus one head close-up and one row of
+four expressions. 🔴 At the foot of the sheet, one strip of the SAME figure filled in solid black -
+the silhouette must read as this person and no other.</pre></details>
+  </div>
+
+  <div class="char-prompt" data-key="char-guanyu" style="border-left:4px solid #3E7C51">
+    <div class="head"><b>관우</b> <span class="rom">Guanyu</span> <span class="tag" style="background:#3E7C5122;color:#3E7C51">촉</span> <button class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>캐릭터 시트 프롬프트 보기</summary><pre>STYLE ANCHOR - samgukji-inkwash-sd
+
+STYLE: A picture book for 7-9 year olds retelling the Three Kingdoms. THE WORLD IS PAINTED AS EAST
+ASIAN INK-WASH LANDSCAPE; THE PEOPLE ARE DRAWN AS SEMI-DEFORMED FIGURES LAID ON IT. Calligraphic
+linework, muted earth tones, rice-paper texture in the washes, wide empty space. NOT photorealistic,
+NOT anime-cel, NOT a 3D render.
+
+RENDERING (finish hierarchy)
+- 🔴 TWO LAYERS, FINISHED DIFFERENTLY. BACKGROUND = wet ink wash on warm paper: hills, pines, mist and
+  sky in soft washes, 0 outlines, drying into bare paper. FIGURES = clean ink outline of even weight,
+  flat colour fill, ONE step of soft shading. A figure is always the most finished thing on its page.
+- FINISHED THINGS PER PAGE = 2 - the person the page is about, and the one thing they handle.
+- NAMED FIGURES IN THE FOREGROUND = at most 3. 🔴 CROWDS AND ARMIES ARE NOT DRAWN AS PEOPLE: ONE
+  silhouette repeated 12-40 times, smaller and paler as it recedes, dissolving into the mist.
+- BACKGROUND OBJECT COUNT = at most 6 named things per page. Everything else is wash and bare paper.
+- 🔴 MIST IS THE ERASER: distance is drawn paler, not smaller; the far third of a wide shot dissolves
+  into the paper. No hard horizon line behind a figure.
+- DENSITY RATION: only battle, market and court pages may fill the frame. Every other page keeps AT
+  LEAST HALF the frame as wash or bare paper. The scene brief names which page is which.
+
+PALETTE (muted earth, sampled from the house renders)
+paper #F0E2C0 · ink #2B2B2B · olive-green #485A48 · pale jade #5A6C5A · ochre #D8B46C ·
+mustard #6C6C48 · leather brown #5A4836 · deep brown #483624 · skin #D8B4A2.
+ACCENTS, USED SPARINGLY: vermilion #B8352A · gold #C9A227.
+🔴 KERCHIEF YELLOW #E8B233 BELONGS TO THE REBEL HOST ALONE. The only other yellow of that value in
+the book is Liubei's waist sash.
+
+CHARACTER DESIGN LANGUAGE
+- 🔴 EVERY PERSON IN THIS BOOK IS 4 HEADS TALL - semi-deformed: large head, compact heroic body,
+  never babyish. The proportion never changes with rank or age.
+- 🔴 THE FACE COLOUR IS THE CASTING AND IT NEVER CHANGES - not with light, weather or age. A face
+  carries one steady tone. 🔴 WHICH tone, and every other value for that person, comes from their
+  CHARACTER SHEET, not from here.
+- Eyes = two strokes and a filled pupil; brows = one stroke, and they carry the expression. Mouths
+  are small. 0 blush marks, 0 sparkle highlights, 0 sweat drops.
+- 🔴 FEELING IS CARRIED BY THE WHOLE BODY: the figure leans, plants its feet wide, throws its arms out.
+- 🔴 TEST: fill any figure solid and rub out the inside. What is left must be that person from the
+  character sheet. If the silhouette does not say who it is, the figure is drawn wrong.
+
+CANVAS
+16:9 double-page spread. 🔴 NO lettering, numerals, signage or captions anywhere in the image, in any
+script. No caption band - the picture runs to all four edges. Light is warm and low, from one side.
+🔴 THE SKY IS NEVER BLUE: it is the warm paper, washed ochre where the sun is.
+
+STAGE CLAUSES (carry only the clause that page needs)
+- VILLAGE/MARKET: thatched roofs and a fence in wash, one pine, an earth road; ground = one wash band.
+- PALACE/COURT: repeated pillars and roof brackets receding into mist.
+- FIELD/BATTLE: hills and mist above; below, the repeated silhouette host and a few banners.
+- ROAD/JOURNEY: one road, one or two pines, the rest wash and bare paper.
+
+NOT (rendering only)
+airbrushing, glossy 3D, cel-shaded anime or manga screentone · photobash or photographic texture ·
+🔴 Koei-style / Dynasty-Warriors-style character illustration, and Japanese sengoku armour ·
+outlines on the landscape washes.
+
+CHARACTER SHEET - Guanyu   (bake this FIRST)
+GUANYU - the second brother, and the tallest figure in the book. SHOULDERS = 2.0 head-widths.
+🔴 FACE: DEEP JUJUBE RED, a flat even red across the whole face and neck. HE IS THE ONLY RED FACE
+  IN THIS BOOK. It never changes - not with age, not with weather, not with lamplight.
+EYES: long and narrow, the outer corners lifted; heavy level brows above.
+🔴 BEARD - THE CLOCK OF THIS BOOK: youth = it reaches his CHEST. prime = it reaches BELOW HIS CHEST.
+  old = it reaches HIS NAVEL and pale hairs run through it. It hangs as ONE mass, never in strands,
+  and he strokes it with the back of his hand.
+WEAPON: a long-handled blade whose shaft is TALLER THAN HE IS, so it rises past his shoulder in
+  every pose. Carried, never sheathed.
+COSTUME STAGES: 1 plain green robe - book 1. 2 green war-coat over armour - from book 3, and then
+  it does not change again for eighteen books.
+🔴 ACCENT: GREEN. He is the only figure in green, and the green is on him from book 1 to the end.
+🔴 SILHOUETTE: blacked out, one hanging mass at the chest and one long shaft over the shoulder.
+
+SHEET LAYOUT: front / three-quarter / profile, full figure; plus one head close-up and one row of
+four expressions. 🔴 At the foot of the sheet, one strip of the SAME figure filled in solid black -
+the silhouette must read as this person and no other.</pre></details>
+  </div>
+
+  <div class="char-prompt" data-key="char-zhangfei" style="border-left:4px solid #3E7C51">
+    <div class="head"><b>장비</b> <span class="rom">Zhangfei</span> <span class="tag" style="background:#3E7C5122;color:#3E7C51">촉</span> <button class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>캐릭터 시트 프롬프트 보기</summary><pre>STYLE ANCHOR - samgukji-inkwash-sd
+
+STYLE: A picture book for 7-9 year olds retelling the Three Kingdoms. THE WORLD IS PAINTED AS EAST
+ASIAN INK-WASH LANDSCAPE; THE PEOPLE ARE DRAWN AS SEMI-DEFORMED FIGURES LAID ON IT. Calligraphic
+linework, muted earth tones, rice-paper texture in the washes, wide empty space. NOT photorealistic,
+NOT anime-cel, NOT a 3D render.
+
+RENDERING (finish hierarchy)
+- 🔴 TWO LAYERS, FINISHED DIFFERENTLY. BACKGROUND = wet ink wash on warm paper: hills, pines, mist and
+  sky in soft washes, 0 outlines, drying into bare paper. FIGURES = clean ink outline of even weight,
+  flat colour fill, ONE step of soft shading. A figure is always the most finished thing on its page.
+- FINISHED THINGS PER PAGE = 2 - the person the page is about, and the one thing they handle.
+- NAMED FIGURES IN THE FOREGROUND = at most 3. 🔴 CROWDS AND ARMIES ARE NOT DRAWN AS PEOPLE: ONE
+  silhouette repeated 12-40 times, smaller and paler as it recedes, dissolving into the mist.
+- BACKGROUND OBJECT COUNT = at most 6 named things per page. Everything else is wash and bare paper.
+- 🔴 MIST IS THE ERASER: distance is drawn paler, not smaller; the far third of a wide shot dissolves
+  into the paper. No hard horizon line behind a figure.
+- DENSITY RATION: only battle, market and court pages may fill the frame. Every other page keeps AT
+  LEAST HALF the frame as wash or bare paper. The scene brief names which page is which.
+
+PALETTE (muted earth, sampled from the house renders)
+paper #F0E2C0 · ink #2B2B2B · olive-green #485A48 · pale jade #5A6C5A · ochre #D8B46C ·
+mustard #6C6C48 · leather brown #5A4836 · deep brown #483624 · skin #D8B4A2.
+ACCENTS, USED SPARINGLY: vermilion #B8352A · gold #C9A227.
+🔴 KERCHIEF YELLOW #E8B233 BELONGS TO THE REBEL HOST ALONE. The only other yellow of that value in
+the book is Liubei's waist sash.
+
+CHARACTER DESIGN LANGUAGE
+- 🔴 EVERY PERSON IN THIS BOOK IS 4 HEADS TALL - semi-deformed: large head, compact heroic body,
+  never babyish. The proportion never changes with rank or age.
+- 🔴 THE FACE COLOUR IS THE CASTING AND IT NEVER CHANGES - not with light, weather or age. A face
+  carries one steady tone. 🔴 WHICH tone, and every other value for that person, comes from their
+  CHARACTER SHEET, not from here.
+- Eyes = two strokes and a filled pupil; brows = one stroke, and they carry the expression. Mouths
+  are small. 0 blush marks, 0 sparkle highlights, 0 sweat drops.
+- 🔴 FEELING IS CARRIED BY THE WHOLE BODY: the figure leans, plants its feet wide, throws its arms out.
+- 🔴 TEST: fill any figure solid and rub out the inside. What is left must be that person from the
+  character sheet. If the silhouette does not say who it is, the figure is drawn wrong.
+
+CANVAS
+16:9 double-page spread. 🔴 NO lettering, numerals, signage or captions anywhere in the image, in any
+script. No caption band - the picture runs to all four edges. Light is warm and low, from one side.
+🔴 THE SKY IS NEVER BLUE: it is the warm paper, washed ochre where the sun is.
+
+STAGE CLAUSES (carry only the clause that page needs)
+- VILLAGE/MARKET: thatched roofs and a fence in wash, one pine, an earth road; ground = one wash band.
+- PALACE/COURT: repeated pillars and roof brackets receding into mist.
+- FIELD/BATTLE: hills and mist above; below, the repeated silhouette host and a few banners.
+- ROAD/JOURNEY: one road, one or two pines, the rest wash and bare paper.
+
+NOT (rendering only)
+airbrushing, glossy 3D, cel-shaded anime or manga screentone · photobash or photographic texture ·
+🔴 Koei-style / Dynasty-Warriors-style character illustration, and Japanese sengoku armour ·
+outlines on the landscape washes.
+
+CHARACTER SHEET - Zhangfei   (bake this FIRST)
+ZHANGFEI - the youngest brother. SHOULDERS = 2.2 head-widths, the broadest of the three.
+🔴 FACE: BLACK. A flat even black across the whole face. HE IS THE ONLY BLACK FACE IN THIS BOOK.
+EYES: 🔴 PERFECT CIRCLES, wide open, the whites showing all the way around - against Guanyu's
+  narrow lifted eyes on the same page, the two brothers are told apart by eye shape alone.
+🔴 BEARD: IT GROWS OUTWARD, NOT DOWNWARD - stiff black bristles radiating from jaw and upper lip in
+  every direction, so THE OUTLINE OF HIS HEAD IS NOT SMOOTH. He is the only figure in this book
+  whose blacked-out silhouette has a spiky edge. Age lengthens the bristles and greys some; it never
+  makes them lie flat.
+WEAPON: a spear longer than Guanyu's shaft, with a snake-curved head.
+COSTUME STAGES: 1 rough undyed work clothes - book 1. 2 black armour - from book 3.
+🔴 ACCENT: BLACK - his face, his beard and his armour are the same black, so he reads as one dark
+  mass with a spiky edge and two white circles in it.
+VOICE MADE VISIBLE: when he shouts, the mouth is a wide open square and the bristles lift.
+
+SHEET LAYOUT: front / three-quarter / profile, full figure; plus one head close-up and one row of
+four expressions. 🔴 At the foot of the sheet, one strip of the SAME figure filled in solid black -
+the silhouette must read as this person and no other.</pre></details>
+  </div>
+
+  <div class="char-prompt" data-key="char-zhugeliang" style="border-left:4px solid #3E7C51">
+    <div class="head"><b>제갈량</b> <span class="rom">Zhugeliang</span> <span class="tag" style="background:#3E7C5122;color:#3E7C51">촉</span> <button class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>캐릭터 시트 프롬프트 보기</summary><pre>STYLE ANCHOR - samgukji-inkwash-sd
+
+STYLE: A picture book for 7-9 year olds retelling the Three Kingdoms. THE WORLD IS PAINTED AS EAST
+ASIAN INK-WASH LANDSCAPE; THE PEOPLE ARE DRAWN AS SEMI-DEFORMED FIGURES LAID ON IT. Calligraphic
+linework, muted earth tones, rice-paper texture in the washes, wide empty space. NOT photorealistic,
+NOT anime-cel, NOT a 3D render.
+
+RENDERING (finish hierarchy)
+- 🔴 TWO LAYERS, FINISHED DIFFERENTLY. BACKGROUND = wet ink wash on warm paper: hills, pines, mist and
+  sky in soft washes, 0 outlines, drying into bare paper. FIGURES = clean ink outline of even weight,
+  flat colour fill, ONE step of soft shading. A figure is always the most finished thing on its page.
+- FINISHED THINGS PER PAGE = 2 - the person the page is about, and the one thing they handle.
+- NAMED FIGURES IN THE FOREGROUND = at most 3. 🔴 CROWDS AND ARMIES ARE NOT DRAWN AS PEOPLE: ONE
+  silhouette repeated 12-40 times, smaller and paler as it recedes, dissolving into the mist.
+- BACKGROUND OBJECT COUNT = at most 6 named things per page. Everything else is wash and bare paper.
+- 🔴 MIST IS THE ERASER: distance is drawn paler, not smaller; the far third of a wide shot dissolves
+  into the paper. No hard horizon line behind a figure.
+- DENSITY RATION: only battle, market and court pages may fill the frame. Every other page keeps AT
+  LEAST HALF the frame as wash or bare paper. The scene brief names which page is which.
+
+PALETTE (muted earth, sampled from the house renders)
+paper #F0E2C0 · ink #2B2B2B · olive-green #485A48 · pale jade #5A6C5A · ochre #D8B46C ·
+mustard #6C6C48 · leather brown #5A4836 · deep brown #483624 · skin #D8B4A2.
+ACCENTS, USED SPARINGLY: vermilion #B8352A · gold #C9A227.
+🔴 KERCHIEF YELLOW #E8B233 BELONGS TO THE REBEL HOST ALONE. The only other yellow of that value in
+the book is Liubei's waist sash.
+
+CHARACTER DESIGN LANGUAGE
+- 🔴 EVERY PERSON IN THIS BOOK IS 4 HEADS TALL - semi-deformed: large head, compact heroic body,
+  never babyish. The proportion never changes with rank or age.
+- 🔴 THE FACE COLOUR IS THE CASTING AND IT NEVER CHANGES - not with light, weather or age. A face
+  carries one steady tone. 🔴 WHICH tone, and every other value for that person, comes from their
+  CHARACTER SHEET, not from here.
+- Eyes = two strokes and a filled pupil; brows = one stroke, and they carry the expression. Mouths
+  are small. 0 blush marks, 0 sparkle highlights, 0 sweat drops.
+- 🔴 FEELING IS CARRIED BY THE WHOLE BODY: the figure leans, plants its feet wide, throws its arms out.
+- 🔴 TEST: fill any figure solid and rub out the inside. What is left must be that person from the
+  character sheet. If the silhouette does not say who it is, the figure is drawn wrong.
+
+CANVAS
+16:9 double-page spread. 🔴 NO lettering, numerals, signage or captions anywhere in the image, in any
+script. No caption band - the picture runs to all four edges. Light is warm and low, from one side.
+🔴 THE SKY IS NEVER BLUE: it is the warm paper, washed ochre where the sun is.
+
+STAGE CLAUSES (carry only the clause that page needs)
+- VILLAGE/MARKET: thatched roofs and a fence in wash, one pine, an earth road; ground = one wash band.
+- PALACE/COURT: repeated pillars and roof brackets receding into mist.
+- FIELD/BATTLE: hills and mist above; below, the repeated silhouette host and a few banners.
+- ROAD/JOURNEY: one road, one or two pines, the rest wash and bare paper.
+
+NOT (rendering only)
+airbrushing, glossy 3D, cel-shaded anime or manga screentone · photobash or photographic texture ·
+🔴 Koei-style / Dynasty-Warriors-style character illustration, and Japanese sengoku armour ·
+outlines on the landscape washes.
+
+CHARACTER SHEET - Zhugeliang   (bake this FIRST)
+ZHUGELIANG - the strategist. 🔴 SHOULDERS = 1.4 head-widths, THE NARROWEST FIGURE IN THE BOOK.
+  Enters in book 12 and never wears armour.
+FACE: 🔴 UNPAINTED, and the narrowest face in the book. Level brows, eyes half-lidded and calm,
+  a small closed mouth that rests in a faint smile. He is never drawn shouting.
+BEARD BY AGE: at 12 = NONE. from 18 = 🔴 A SHORT BEARD CUT STRAIGHT ACROSS THE BOTTOM - the only
+  trimmed beard in the book; every other beard in this book is left to grow. by 24 = the same shape,
+  pale, and the face thinner and more tired.
+HEAD: a soft cloth band tied around the head, its two short ties hanging at the back.
+🔴 HIS HANDS: ONE HAND ALWAYS HOLDS A WHITE FEATHER FAN, in all thirteen books he appears in.
+  🔴 HE IS THE ONLY ADULT IN THIS BOOK WHO NEVER HOLDS A WEAPON. That is the whole point of him.
+COSTUME: ONE robe for thirteen books - a wide pale crane-robe with sleeves that hang past the hands.
+  🔴 HIS RANK NEVER CHANGES, SO HIS CLOTHES NEVER CHANGE. He is the only fixed costume in the book.
+🔴 SILHOUETTE: blacked out, a tall smooth column with wide hanging sleeves and ONE fan shape held
+  out from the body. He is the only figure with no weapon line anywhere in his outline.
+
+SHEET LAYOUT: front / three-quarter / profile, full figure; plus one head close-up and one row of
+four expressions. 🔴 At the foot of the sheet, one strip of the SAME figure filled in solid black -
+the silhouette must read as this person and no other.</pre></details>
+  </div>
+
+  <div class="char-prompt" data-key="char-zhaoyun" style="border-left:4px solid #3E7C51">
+    <div class="head"><b>조운</b> <span class="rom">Zhaoyun</span> <span class="tag" style="background:#3E7C5122;color:#3E7C51">촉</span> <button class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>캐릭터 시트 프롬프트 보기</summary><pre>STYLE ANCHOR - samgukji-inkwash-sd
+
+STYLE: A picture book for 7-9 year olds retelling the Three Kingdoms. THE WORLD IS PAINTED AS EAST
+ASIAN INK-WASH LANDSCAPE; THE PEOPLE ARE DRAWN AS SEMI-DEFORMED FIGURES LAID ON IT. Calligraphic
+linework, muted earth tones, rice-paper texture in the washes, wide empty space. NOT photorealistic,
+NOT anime-cel, NOT a 3D render.
+
+RENDERING (finish hierarchy)
+- 🔴 TWO LAYERS, FINISHED DIFFERENTLY. BACKGROUND = wet ink wash on warm paper: hills, pines, mist and
+  sky in soft washes, 0 outlines, drying into bare paper. FIGURES = clean ink outline of even weight,
+  flat colour fill, ONE step of soft shading. A figure is always the most finished thing on its page.
+- FINISHED THINGS PER PAGE = 2 - the person the page is about, and the one thing they handle.
+- NAMED FIGURES IN THE FOREGROUND = at most 3. 🔴 CROWDS AND ARMIES ARE NOT DRAWN AS PEOPLE: ONE
+  silhouette repeated 12-40 times, smaller and paler as it recedes, dissolving into the mist.
+- BACKGROUND OBJECT COUNT = at most 6 named things per page. Everything else is wash and bare paper.
+- 🔴 MIST IS THE ERASER: distance is drawn paler, not smaller; the far third of a wide shot dissolves
+  into the paper. No hard horizon line behind a figure.
+- DENSITY RATION: only battle, market and court pages may fill the frame. Every other page keeps AT
+  LEAST HALF the frame as wash or bare paper. The scene brief names which page is which.
+
+PALETTE (muted earth, sampled from the house renders)
+paper #F0E2C0 · ink #2B2B2B · olive-green #485A48 · pale jade #5A6C5A · ochre #D8B46C ·
+mustard #6C6C48 · leather brown #5A4836 · deep brown #483624 · skin #D8B4A2.
+ACCENTS, USED SPARINGLY: vermilion #B8352A · gold #C9A227.
+🔴 KERCHIEF YELLOW #E8B233 BELONGS TO THE REBEL HOST ALONE. The only other yellow of that value in
+the book is Liubei's waist sash.
+
+CHARACTER DESIGN LANGUAGE
+- 🔴 EVERY PERSON IN THIS BOOK IS 4 HEADS TALL - semi-deformed: large head, compact heroic body,
+  never babyish. The proportion never changes with rank or age.
+- 🔴 THE FACE COLOUR IS THE CASTING AND IT NEVER CHANGES - not with light, weather or age. A face
+  carries one steady tone. 🔴 WHICH tone, and every other value for that person, comes from their
+  CHARACTER SHEET, not from here.
+- Eyes = two strokes and a filled pupil; brows = one stroke, and they carry the expression. Mouths
+  are small. 0 blush marks, 0 sparkle highlights, 0 sweat drops.
+- 🔴 FEELING IS CARRIED BY THE WHOLE BODY: the figure leans, plants its feet wide, throws its arms out.
+- 🔴 TEST: fill any figure solid and rub out the inside. What is left must be that person from the
+  character sheet. If the silhouette does not say who it is, the figure is drawn wrong.
+
+CANVAS
+16:9 double-page spread. 🔴 NO lettering, numerals, signage or captions anywhere in the image, in any
+script. No caption band - the picture runs to all four edges. Light is warm and low, from one side.
+🔴 THE SKY IS NEVER BLUE: it is the warm paper, washed ochre where the sun is.
+
+STAGE CLAUSES (carry only the clause that page needs)
+- VILLAGE/MARKET: thatched roofs and a fence in wash, one pine, an earth road; ground = one wash band.
+- PALACE/COURT: repeated pillars and roof brackets receding into mist.
+- FIELD/BATTLE: hills and mist above; below, the repeated silhouette host and a few banners.
+- ROAD/JOURNEY: one road, one or two pines, the rest wash and bare paper.
+
+NOT (rendering only)
+airbrushing, glossy 3D, cel-shaded anime or manga screentone · photobash or photographic texture ·
+🔴 Koei-style / Dynasty-Warriors-style character illustration, and Japanese sengoku armour ·
+outlines on the landscape washes.
+
+CHARACTER SHEET - Zhaoyun   (bake this FIRST)
+ZHAOYUN - the rider. SHOULDERS = 1.8 head-widths.
+FACE: 🔴 UNPAINTED and 🔴 BEARDLESS. He is the only grown fighter in this book with no beard at all
+  through his young and prime stages - that beardless face is what makes him read as the young one
+  standing among bearded men. In his last books (from 23) he gets a WHITE beard, and that white
+  beard arriving is the only way the reader is told he grew old.
+EYES: level and open, brows straight.
+ARMOUR: 🔴 SILVER, the only silver in the book, worn from his first page to his last. One long
+  spear. A helmet with ONE tassel rising from its crown.
+🔴 HIS HORSE IS WHITE and he is drawn mounted more often than not. Horse and armour are the same
+  white-silver, so blacked out he is one large mass with a spear line and one tassel above it.
+🔴 ACCENT: SILVER-WHITE. No other figure and no other horse in this book is white.
+
+SHEET LAYOUT: front / three-quarter / profile, full figure; plus one head close-up and one row of
+four expressions. 🔴 At the foot of the sheet, one strip of the SAME figure filled in solid black -
+the silhouette must read as this person and no other.</pre></details>
+  </div>
+
+  <div class="char-prompt" data-key="char-caocao" style="border-left:4px solid #3A5C86">
+    <div class="head"><b>조조</b> <span class="rom">Caocao</span> <span class="tag" style="background:#3A5C8622;color:#3A5C86">위</span> <button class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>캐릭터 시트 프롬프트 보기</summary><pre>STYLE ANCHOR - samgukji-inkwash-sd
+
+STYLE: A picture book for 7-9 year olds retelling the Three Kingdoms. THE WORLD IS PAINTED AS EAST
+ASIAN INK-WASH LANDSCAPE; THE PEOPLE ARE DRAWN AS SEMI-DEFORMED FIGURES LAID ON IT. Calligraphic
+linework, muted earth tones, rice-paper texture in the washes, wide empty space. NOT photorealistic,
+NOT anime-cel, NOT a 3D render.
+
+RENDERING (finish hierarchy)
+- 🔴 TWO LAYERS, FINISHED DIFFERENTLY. BACKGROUND = wet ink wash on warm paper: hills, pines, mist and
+  sky in soft washes, 0 outlines, drying into bare paper. FIGURES = clean ink outline of even weight,
+  flat colour fill, ONE step of soft shading. A figure is always the most finished thing on its page.
+- FINISHED THINGS PER PAGE = 2 - the person the page is about, and the one thing they handle.
+- NAMED FIGURES IN THE FOREGROUND = at most 3. 🔴 CROWDS AND ARMIES ARE NOT DRAWN AS PEOPLE: ONE
+  silhouette repeated 12-40 times, smaller and paler as it recedes, dissolving into the mist.
+- BACKGROUND OBJECT COUNT = at most 6 named things per page. Everything else is wash and bare paper.
+- 🔴 MIST IS THE ERASER: distance is drawn paler, not smaller; the far third of a wide shot dissolves
+  into the paper. No hard horizon line behind a figure.
+- DENSITY RATION: only battle, market and court pages may fill the frame. Every other page keeps AT
+  LEAST HALF the frame as wash or bare paper. The scene brief names which page is which.
+
+PALETTE (muted earth, sampled from the house renders)
+paper #F0E2C0 · ink #2B2B2B · olive-green #485A48 · pale jade #5A6C5A · ochre #D8B46C ·
+mustard #6C6C48 · leather brown #5A4836 · deep brown #483624 · skin #D8B4A2.
+ACCENTS, USED SPARINGLY: vermilion #B8352A · gold #C9A227.
+🔴 KERCHIEF YELLOW #E8B233 BELONGS TO THE REBEL HOST ALONE. The only other yellow of that value in
+the book is Liubei's waist sash.
+
+CHARACTER DESIGN LANGUAGE
+- 🔴 EVERY PERSON IN THIS BOOK IS 4 HEADS TALL - semi-deformed: large head, compact heroic body,
+  never babyish. The proportion never changes with rank or age.
+- 🔴 THE FACE COLOUR IS THE CASTING AND IT NEVER CHANGES - not with light, weather or age. A face
+  carries one steady tone. 🔴 WHICH tone, and every other value for that person, comes from their
+  CHARACTER SHEET, not from here.
+- Eyes = two strokes and a filled pupil; brows = one stroke, and they carry the expression. Mouths
+  are small. 0 blush marks, 0 sparkle highlights, 0 sweat drops.
+- 🔴 FEELING IS CARRIED BY THE WHOLE BODY: the figure leans, plants its feet wide, throws its arms out.
+- 🔴 TEST: fill any figure solid and rub out the inside. What is left must be that person from the
+  character sheet. If the silhouette does not say who it is, the figure is drawn wrong.
+
+CANVAS
+16:9 double-page spread. 🔴 NO lettering, numerals, signage or captions anywhere in the image, in any
+script. No caption band - the picture runs to all four edges. Light is warm and low, from one side.
+🔴 THE SKY IS NEVER BLUE: it is the warm paper, washed ochre where the sun is.
+
+STAGE CLAUSES (carry only the clause that page needs)
+- VILLAGE/MARKET: thatched roofs and a fence in wash, one pine, an earth road; ground = one wash band.
+- PALACE/COURT: repeated pillars and roof brackets receding into mist.
+- FIELD/BATTLE: hills and mist above; below, the repeated silhouette host and a few banners.
+- ROAD/JOURNEY: one road, one or two pines, the rest wash and bare paper.
+
+NOT (rendering only)
+airbrushing, glossy 3D, cel-shaded anime or manga screentone · photobash or photographic texture ·
+🔴 Koei-style / Dynasty-Warriors-style character illustration, and Japanese sengoku armour ·
+outlines on the landscape washes.
+
+CHARACTER SHEET - Caocao   (bake this FIRST)
+CAOCAO - the ruler of the north. 🔴 SHOULDERS = 1.5 head-widths - narrow, and the smallest figure
+  in the book when others stand beside him.
+🔴 FACE: POWDERED WHITE, flat and even, with no red anywhere in it. Two figures in this book have a
+  white face - he and Dongzhuo - and they are told apart by outline, not by colour (see below).
+EYES: 🔴 NARROW AND LONG WITH THE OUTER CORNERS LIFTED, the lids drawn as single thin lines; the
+  eyes are the sharpest thing on him. Brows angled up and in.
+MOUTH: a thin line lifted at ONE corner only - 🔴 he half-smiles; he never laughs with the mouth open.
+BEARD BY AGE: youth = a short black moustache turning down at both ends. prime = that moustache plus
+  a chin beard. old = the same shapes, white, and the face gaunt.
+COSTUME STAGES: 1 young official's robe - book 2. 2 chancellor's robe - from book 6.
+  3 king's dragon robe - from book 19.
+🔴 ACCENT: BLUE-BLACK AT THE COLLAR AND CUFFS, in all three stages.
+🔴 SILHOUETTE: blacked out, a narrow upright column with wide square sleeves. Against Dongzhuo's
+  blacked shape he is the narrow one - the two white faces must never be tellable by colour alone.
+
+SHEET LAYOUT: front / three-quarter / profile, full figure; plus one head close-up and one row of
+four expressions. 🔴 At the foot of the sheet, one strip of the SAME figure filled in solid black -
+the silhouette must read as this person and no other.</pre></details>
+  </div>
+
+  <div class="char-prompt" data-key="char-sunquan" style="border-left:4px solid #B0473A">
+    <div class="head"><b>손권</b> <span class="rom">Sunquan</span> <span class="tag" style="background:#B0473A22;color:#B0473A">오</span> <button class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>캐릭터 시트 프롬프트 보기</summary><pre>STYLE ANCHOR - samgukji-inkwash-sd
+
+STYLE: A picture book for 7-9 year olds retelling the Three Kingdoms. THE WORLD IS PAINTED AS EAST
+ASIAN INK-WASH LANDSCAPE; THE PEOPLE ARE DRAWN AS SEMI-DEFORMED FIGURES LAID ON IT. Calligraphic
+linework, muted earth tones, rice-paper texture in the washes, wide empty space. NOT photorealistic,
+NOT anime-cel, NOT a 3D render.
+
+RENDERING (finish hierarchy)
+- 🔴 TWO LAYERS, FINISHED DIFFERENTLY. BACKGROUND = wet ink wash on warm paper: hills, pines, mist and
+  sky in soft washes, 0 outlines, drying into bare paper. FIGURES = clean ink outline of even weight,
+  flat colour fill, ONE step of soft shading. A figure is always the most finished thing on its page.
+- FINISHED THINGS PER PAGE = 2 - the person the page is about, and the one thing they handle.
+- NAMED FIGURES IN THE FOREGROUND = at most 3. 🔴 CROWDS AND ARMIES ARE NOT DRAWN AS PEOPLE: ONE
+  silhouette repeated 12-40 times, smaller and paler as it recedes, dissolving into the mist.
+- BACKGROUND OBJECT COUNT = at most 6 named things per page. Everything else is wash and bare paper.
+- 🔴 MIST IS THE ERASER: distance is drawn paler, not smaller; the far third of a wide shot dissolves
+  into the paper. No hard horizon line behind a figure.
+- DENSITY RATION: only battle, market and court pages may fill the frame. Every other page keeps AT
+  LEAST HALF the frame as wash or bare paper. The scene brief names which page is which.
+
+PALETTE (muted earth, sampled from the house renders)
+paper #F0E2C0 · ink #2B2B2B · olive-green #485A48 · pale jade #5A6C5A · ochre #D8B46C ·
+mustard #6C6C48 · leather brown #5A4836 · deep brown #483624 · skin #D8B4A2.
+ACCENTS, USED SPARINGLY: vermilion #B8352A · gold #C9A227.
+🔴 KERCHIEF YELLOW #E8B233 BELONGS TO THE REBEL HOST ALONE. The only other yellow of that value in
+the book is Liubei's waist sash.
+
+CHARACTER DESIGN LANGUAGE
+- 🔴 EVERY PERSON IN THIS BOOK IS 4 HEADS TALL - semi-deformed: large head, compact heroic body,
+  never babyish. The proportion never changes with rank or age.
+- 🔴 THE FACE COLOUR IS THE CASTING AND IT NEVER CHANGES - not with light, weather or age. A face
+  carries one steady tone. 🔴 WHICH tone, and every other value for that person, comes from their
+  CHARACTER SHEET, not from here.
+- Eyes = two strokes and a filled pupil; brows = one stroke, and they carry the expression. Mouths
+  are small. 0 blush marks, 0 sparkle highlights, 0 sweat drops.
+- 🔴 FEELING IS CARRIED BY THE WHOLE BODY: the figure leans, plants its feet wide, throws its arms out.
+- 🔴 TEST: fill any figure solid and rub out the inside. What is left must be that person from the
+  character sheet. If the silhouette does not say who it is, the figure is drawn wrong.
+
+CANVAS
+16:9 double-page spread. 🔴 NO lettering, numerals, signage or captions anywhere in the image, in any
+script. No caption band - the picture runs to all four edges. Light is warm and low, from one side.
+🔴 THE SKY IS NEVER BLUE: it is the warm paper, washed ochre where the sun is.
+
+STAGE CLAUSES (carry only the clause that page needs)
+- VILLAGE/MARKET: thatched roofs and a fence in wash, one pine, an earth road; ground = one wash band.
+- PALACE/COURT: repeated pillars and roof brackets receding into mist.
+- FIELD/BATTLE: hills and mist above; below, the repeated silhouette host and a few banners.
+- ROAD/JOURNEY: one road, one or two pines, the rest wash and bare paper.
+
+NOT (rendering only)
+airbrushing, glossy 3D, cel-shaded anime or manga screentone · photobash or photographic texture ·
+🔴 Koei-style / Dynasty-Warriors-style character illustration, and Japanese sengoku armour ·
+outlines on the landscape washes.
+
+CHARACTER SHEET - Sunquan   (bake this FIRST)
+SUNQUAN - the lord of the south. SHOULDERS = 1.6 head-widths.
+FACE: 🔴 UNPAINTED, square-jawed and young. 🔴 HIS EYES ARE BLUE - the only blue eyes in this book,
+  and they stay blue at every age.
+🔴 BEARD: PURPLE. From his prime on, his beard and moustache are a clear reddish-purple.
+  IT IS THE ONLY COLOURED BEARD IN THIS BOOK - every other beard here is black, white or grey.
+  As a youth (book 7) he has no beard yet and the blue eyes carry him alone.
+COSTUME STAGES: 1 young lord's robe - from book 7. 2 king's robe - later books. He is never drawn
+  in armour and never drawn with a drawn weapon.
+🔴 AT HIS BELT HANGS A SQUARE SEAL POUCH - he is the only figure in this book who carries a seal
+  where the others carry a blade, and it is in his blacked-out outline.
+🔴 ACCENT: RED. His robe is red in every stage.
+
+SHEET LAYOUT: front / three-quarter / profile, full figure; plus one head close-up and one row of
+four expressions. 🔴 At the foot of the sheet, one strip of the SAME figure filled in solid black -
+the silhouette must read as this person and no other.</pre></details>
+  </div>
+
+  <div class="char-prompt" data-key="char-lvbu" style="border-left:4px solid #6E5A86">
+    <div class="head"><b>여포</b> <span class="rom">Lvbu</span> <span class="tag" style="background:#6E5A8622;color:#6E5A86">군웅</span> <button class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>캐릭터 시트 프롬프트 보기</summary><pre>STYLE ANCHOR - samgukji-inkwash-sd
+
+STYLE: A picture book for 7-9 year olds retelling the Three Kingdoms. THE WORLD IS PAINTED AS EAST
+ASIAN INK-WASH LANDSCAPE; THE PEOPLE ARE DRAWN AS SEMI-DEFORMED FIGURES LAID ON IT. Calligraphic
+linework, muted earth tones, rice-paper texture in the washes, wide empty space. NOT photorealistic,
+NOT anime-cel, NOT a 3D render.
+
+RENDERING (finish hierarchy)
+- 🔴 TWO LAYERS, FINISHED DIFFERENTLY. BACKGROUND = wet ink wash on warm paper: hills, pines, mist and
+  sky in soft washes, 0 outlines, drying into bare paper. FIGURES = clean ink outline of even weight,
+  flat colour fill, ONE step of soft shading. A figure is always the most finished thing on its page.
+- FINISHED THINGS PER PAGE = 2 - the person the page is about, and the one thing they handle.
+- NAMED FIGURES IN THE FOREGROUND = at most 3. 🔴 CROWDS AND ARMIES ARE NOT DRAWN AS PEOPLE: ONE
+  silhouette repeated 12-40 times, smaller and paler as it recedes, dissolving into the mist.
+- BACKGROUND OBJECT COUNT = at most 6 named things per page. Everything else is wash and bare paper.
+- 🔴 MIST IS THE ERASER: distance is drawn paler, not smaller; the far third of a wide shot dissolves
+  into the paper. No hard horizon line behind a figure.
+- DENSITY RATION: only battle, market and court pages may fill the frame. Every other page keeps AT
+  LEAST HALF the frame as wash or bare paper. The scene brief names which page is which.
+
+PALETTE (muted earth, sampled from the house renders)
+paper #F0E2C0 · ink #2B2B2B · olive-green #485A48 · pale jade #5A6C5A · ochre #D8B46C ·
+mustard #6C6C48 · leather brown #5A4836 · deep brown #483624 · skin #D8B4A2.
+ACCENTS, USED SPARINGLY: vermilion #B8352A · gold #C9A227.
+🔴 KERCHIEF YELLOW #E8B233 BELONGS TO THE REBEL HOST ALONE. The only other yellow of that value in
+the book is Liubei's waist sash.
+
+CHARACTER DESIGN LANGUAGE
+- 🔴 EVERY PERSON IN THIS BOOK IS 4 HEADS TALL - semi-deformed: large head, compact heroic body,
+  never babyish. The proportion never changes with rank or age.
+- 🔴 THE FACE COLOUR IS THE CASTING AND IT NEVER CHANGES - not with light, weather or age. A face
+  carries one steady tone. 🔴 WHICH tone, and every other value for that person, comes from their
+  CHARACTER SHEET, not from here.
+- Eyes = two strokes and a filled pupil; brows = one stroke, and they carry the expression. Mouths
+  are small. 0 blush marks, 0 sparkle highlights, 0 sweat drops.
+- 🔴 FEELING IS CARRIED BY THE WHOLE BODY: the figure leans, plants its feet wide, throws its arms out.
+- 🔴 TEST: fill any figure solid and rub out the inside. What is left must be that person from the
+  character sheet. If the silhouette does not say who it is, the figure is drawn wrong.
+
+CANVAS
+16:9 double-page spread. 🔴 NO lettering, numerals, signage or captions anywhere in the image, in any
+script. No caption band - the picture runs to all four edges. Light is warm and low, from one side.
+🔴 THE SKY IS NEVER BLUE: it is the warm paper, washed ochre where the sun is.
+
+STAGE CLAUSES (carry only the clause that page needs)
+- VILLAGE/MARKET: thatched roofs and a fence in wash, one pine, an earth road; ground = one wash band.
+- PALACE/COURT: repeated pillars and roof brackets receding into mist.
+- FIELD/BATTLE: hills and mist above; below, the repeated silhouette host and a few banners.
+- ROAD/JOURNEY: one road, one or two pines, the rest wash and bare paper.
+
+NOT (rendering only)
+airbrushing, glossy 3D, cel-shaded anime or manga screentone · photobash or photographic texture ·
+🔴 Koei-style / Dynasty-Warriors-style character illustration, and Japanese sengoku armour ·
+outlines on the landscape washes.
+
+CHARACTER SHEET - Lvbu   (bake this FIRST)
+LVBU - the strongest fighter alive, and the least reliable man in the book. SHOULDERS = 2.2
+  head-widths. Appears books 3-8 only, always in his prime - he never ages.
+FACE: 🔴 JADE-WHITE WITH A SHEEN, not the flat powder white of Caocao - his is the handsome white of
+  a young hero, with strongly drawn black brows and no lines anywhere. 🔴 NO BEARD, EVER.
+🔴 HELMET: TWO LONG PHEASANT PLUMES RISE FROM IT AND CURVE OUT AND BACK, each as long as he is tall
+  from waist up. HE IS THE ONLY FIGURE IN THIS BOOK WITH ANYTHING RISING ABOVE HIS HEAD. Blacked
+  out, those two lines are him and nothing else needs to be read.
+ARMOUR: the most decorated armour in the book - scaled, layered, with a red tassel at the throat.
+WEAPON: a halberd with a crescent blade on ONE side of the shaft.
+🔴 HIS HORSE IS RED. It is the only red horse in this book (Zhaoyun's is white, all others brown).
+🔴 ACCENT: THE RED TASSEL AT HIS THROAT.
+
+SHEET LAYOUT: front / three-quarter / profile, full figure; plus one head close-up and one row of
+four expressions. 🔴 At the foot of the sheet, one strip of the SAME figure filled in solid black -
+the silhouette must read as this person and no other.</pre></details>
+  </div>
+
+  <div class="char-prompt" data-key="char-dongzhuo" style="border-left:4px solid #6E5A86">
+    <div class="head"><b>동탁</b> <span class="rom">Dongzhuo</span> <span class="tag" style="background:#6E5A8622;color:#6E5A86">군웅</span> <button class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>캐릭터 시트 프롬프트 보기</summary><pre>STYLE ANCHOR - samgukji-inkwash-sd
+
+STYLE: A picture book for 7-9 year olds retelling the Three Kingdoms. THE WORLD IS PAINTED AS EAST
+ASIAN INK-WASH LANDSCAPE; THE PEOPLE ARE DRAWN AS SEMI-DEFORMED FIGURES LAID ON IT. Calligraphic
+linework, muted earth tones, rice-paper texture in the washes, wide empty space. NOT photorealistic,
+NOT anime-cel, NOT a 3D render.
+
+RENDERING (finish hierarchy)
+- 🔴 TWO LAYERS, FINISHED DIFFERENTLY. BACKGROUND = wet ink wash on warm paper: hills, pines, mist and
+  sky in soft washes, 0 outlines, drying into bare paper. FIGURES = clean ink outline of even weight,
+  flat colour fill, ONE step of soft shading. A figure is always the most finished thing on its page.
+- FINISHED THINGS PER PAGE = 2 - the person the page is about, and the one thing they handle.
+- NAMED FIGURES IN THE FOREGROUND = at most 3. 🔴 CROWDS AND ARMIES ARE NOT DRAWN AS PEOPLE: ONE
+  silhouette repeated 12-40 times, smaller and paler as it recedes, dissolving into the mist.
+- BACKGROUND OBJECT COUNT = at most 6 named things per page. Everything else is wash and bare paper.
+- 🔴 MIST IS THE ERASER: distance is drawn paler, not smaller; the far third of a wide shot dissolves
+  into the paper. No hard horizon line behind a figure.
+- DENSITY RATION: only battle, market and court pages may fill the frame. Every other page keeps AT
+  LEAST HALF the frame as wash or bare paper. The scene brief names which page is which.
+
+PALETTE (muted earth, sampled from the house renders)
+paper #F0E2C0 · ink #2B2B2B · olive-green #485A48 · pale jade #5A6C5A · ochre #D8B46C ·
+mustard #6C6C48 · leather brown #5A4836 · deep brown #483624 · skin #D8B4A2.
+ACCENTS, USED SPARINGLY: vermilion #B8352A · gold #C9A227.
+🔴 KERCHIEF YELLOW #E8B233 BELONGS TO THE REBEL HOST ALONE. The only other yellow of that value in
+the book is Liubei's waist sash.
+
+CHARACTER DESIGN LANGUAGE
+- 🔴 EVERY PERSON IN THIS BOOK IS 4 HEADS TALL - semi-deformed: large head, compact heroic body,
+  never babyish. The proportion never changes with rank or age.
+- 🔴 THE FACE COLOUR IS THE CASTING AND IT NEVER CHANGES - not with light, weather or age. A face
+  carries one steady tone. 🔴 WHICH tone, and every other value for that person, comes from their
+  CHARACTER SHEET, not from here.
+- Eyes = two strokes and a filled pupil; brows = one stroke, and they carry the expression. Mouths
+  are small. 0 blush marks, 0 sparkle highlights, 0 sweat drops.
+- 🔴 FEELING IS CARRIED BY THE WHOLE BODY: the figure leans, plants its feet wide, throws its arms out.
+- 🔴 TEST: fill any figure solid and rub out the inside. What is left must be that person from the
+  character sheet. If the silhouette does not say who it is, the figure is drawn wrong.
+
+CANVAS
+16:9 double-page spread. 🔴 NO lettering, numerals, signage or captions anywhere in the image, in any
+script. No caption band - the picture runs to all four edges. Light is warm and low, from one side.
+🔴 THE SKY IS NEVER BLUE: it is the warm paper, washed ochre where the sun is.
+
+STAGE CLAUSES (carry only the clause that page needs)
+- VILLAGE/MARKET: thatched roofs and a fence in wash, one pine, an earth road; ground = one wash band.
+- PALACE/COURT: repeated pillars and roof brackets receding into mist.
+- FIELD/BATTLE: hills and mist above; below, the repeated silhouette host and a few banners.
+- ROAD/JOURNEY: one road, one or two pines, the rest wash and bare paper.
+
+NOT (rendering only)
+airbrushing, glossy 3D, cel-shaded anime or manga screentone · photobash or photographic texture ·
+🔴 Koei-style / Dynasty-Warriors-style character illustration, and Japanese sengoku armour ·
+outlines on the landscape washes.
+
+CHARACTER SHEET - Dongzhuo   (bake this FIRST)
+DONGZHUO - the first darkness of the series. 🔴 SHOULDERS = 2.6 head-widths, THE WIDEST FIGURE IN
+  THE BOOK. Appears books 2-5, one age only.
+🔴 FACE: POWDERED WHITE like Caocao's - but 🔴 HIS IS A FAT FACE: cheeks that push the eyes into
+  slits, a heavy jowl under the chin, and a flush of red across the nose that Caocao never has.
+EYES: half-buried in the cheeks, the pupils small.
+BEARD: a short thick black beard, wide rather than long.
+🔴 SILHOUETTE: blacked out he is a broad low mound - 2.6 head-widths across the shoulders, where
+  Caocao is 1.5. That ratio is the ONE thing that tells the two white faces apart. 🔴 NEVER DRAW
+  THEM BOTH SLIM.
+COSTUME: one robe for four books - a heavy, over-decorated court robe stretched by the body inside it.
+🔴 ACCENT: GOLD - rings, buckles, the fittings of his belt. He is the only figure wearing gold
+  ornaments, and there are 🔴 AT MOST 5 GOLD PIECES ON HIM in any one picture.
+
+SHEET LAYOUT: front / three-quarter / profile, full figure; plus one head close-up and one row of
+four expressions. 🔴 At the foot of the sheet, one strip of the SAME figure filled in solid black -
+the silhouette must read as this person and no other.</pre></details>
+  </div>
+
+  <div class="char-prompt" data-key="char-simayi" style="border-left:4px solid #3A5C86">
+    <div class="head"><b>사마의</b> <span class="rom">Simayi</span> <span class="tag" style="background:#3A5C8622;color:#3A5C86">위</span> <button class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>캐릭터 시트 프롬프트 보기</summary><pre>STYLE ANCHOR - samgukji-inkwash-sd
+
+STYLE: A picture book for 7-9 year olds retelling the Three Kingdoms. THE WORLD IS PAINTED AS EAST
+ASIAN INK-WASH LANDSCAPE; THE PEOPLE ARE DRAWN AS SEMI-DEFORMED FIGURES LAID ON IT. Calligraphic
+linework, muted earth tones, rice-paper texture in the washes, wide empty space. NOT photorealistic,
+NOT anime-cel, NOT a 3D render.
+
+RENDERING (finish hierarchy)
+- 🔴 TWO LAYERS, FINISHED DIFFERENTLY. BACKGROUND = wet ink wash on warm paper: hills, pines, mist and
+  sky in soft washes, 0 outlines, drying into bare paper. FIGURES = clean ink outline of even weight,
+  flat colour fill, ONE step of soft shading. A figure is always the most finished thing on its page.
+- FINISHED THINGS PER PAGE = 2 - the person the page is about, and the one thing they handle.
+- NAMED FIGURES IN THE FOREGROUND = at most 3. 🔴 CROWDS AND ARMIES ARE NOT DRAWN AS PEOPLE: ONE
+  silhouette repeated 12-40 times, smaller and paler as it recedes, dissolving into the mist.
+- BACKGROUND OBJECT COUNT = at most 6 named things per page. Everything else is wash and bare paper.
+- 🔴 MIST IS THE ERASER: distance is drawn paler, not smaller; the far third of a wide shot dissolves
+  into the paper. No hard horizon line behind a figure.
+- DENSITY RATION: only battle, market and court pages may fill the frame. Every other page keeps AT
+  LEAST HALF the frame as wash or bare paper. The scene brief names which page is which.
+
+PALETTE (muted earth, sampled from the house renders)
+paper #F0E2C0 · ink #2B2B2B · olive-green #485A48 · pale jade #5A6C5A · ochre #D8B46C ·
+mustard #6C6C48 · leather brown #5A4836 · deep brown #483624 · skin #D8B4A2.
+ACCENTS, USED SPARINGLY: vermilion #B8352A · gold #C9A227.
+🔴 KERCHIEF YELLOW #E8B233 BELONGS TO THE REBEL HOST ALONE. The only other yellow of that value in
+the book is Liubei's waist sash.
+
+CHARACTER DESIGN LANGUAGE
+- 🔴 EVERY PERSON IN THIS BOOK IS 4 HEADS TALL - semi-deformed: large head, compact heroic body,
+  never babyish. The proportion never changes with rank or age.
+- 🔴 THE FACE COLOUR IS THE CASTING AND IT NEVER CHANGES - not with light, weather or age. A face
+  carries one steady tone. 🔴 WHICH tone, and every other value for that person, comes from their
+  CHARACTER SHEET, not from here.
+- Eyes = two strokes and a filled pupil; brows = one stroke, and they carry the expression. Mouths
+  are small. 0 blush marks, 0 sparkle highlights, 0 sweat drops.
+- 🔴 FEELING IS CARRIED BY THE WHOLE BODY: the figure leans, plants its feet wide, throws its arms out.
+- 🔴 TEST: fill any figure solid and rub out the inside. What is left must be that person from the
+  character sheet. If the silhouette does not say who it is, the figure is drawn wrong.
+
+CANVAS
+16:9 double-page spread. 🔴 NO lettering, numerals, signage or captions anywhere in the image, in any
+script. No caption band - the picture runs to all four edges. Light is warm and low, from one side.
+🔴 THE SKY IS NEVER BLUE: it is the warm paper, washed ochre where the sun is.
+
+STAGE CLAUSES (carry only the clause that page needs)
+- VILLAGE/MARKET: thatched roofs and a fence in wash, one pine, an earth road; ground = one wash band.
+- PALACE/COURT: repeated pillars and roof brackets receding into mist.
+- FIELD/BATTLE: hills and mist above; below, the repeated silhouette host and a few banners.
+- ROAD/JOURNEY: one road, one or two pines, the rest wash and bare paper.
+
+NOT (rendering only)
+airbrushing, glossy 3D, cel-shaded anime or manga screentone · photobash or photographic texture ·
+🔴 Koei-style / Dynasty-Warriors-style character illustration, and Japanese sengoku armour ·
+outlines on the landscape washes.
+
+CHARACTER SHEET - Simayi   (bake this FIRST)
+SIMAYI - the last opponent, and the one who outlives everybody. SHOULDERS = 1.5 head-widths.
+  Books 22-24.
+🔴 FACE: GREY-BLACK - one step darker than Caocao's white and far lighter than Zhangfei's black, so
+  in a picture with either of them he sits between the two. Long and narrow.
+EYES: 🔴 HALF-CLOSED IN EVERY PICTURE, even when he is surprised. He is the only figure in this book
+  whose eyes are never fully open. Brows level and low.
+BEARD: narrow and long, hanging straight down in one thin fall; grey-flecked in book 24.
+🔴 HIS HANDS ARE INSIDE HIS SLEEVES unless he is giving an order - so his outline has no arms, just
+  a column with two sleeve-ends meeting at the front. Where Zhugeliang's sleeves hang open with a
+  fan held out, his are closed and empty.
+COSTUME: one grey-black robe and armour set for three books. His rank does not visibly change.
+🔴 ACCENT: NONE - he is the only figure in this book with no accent colour anywhere. That absence is
+  the design: the man who wins is the one nothing marks.
+
+SHEET LAYOUT: front / three-quarter / profile, full figure; plus one head close-up and one row of
+four expressions. 🔴 At the foot of the sheet, one strip of the SAME figure filled in solid black -
+the silhouette must read as this person and no other.</pre></details>
+  </div>
+</div>
+
+<h2>5 · 전 24권 구성</h2>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">01</span><b>복사꽃 동산의 맹세</b>
+      <span class="rom">원본 1권 · 5장</span>
+      <a class="go" href="/samgukji-01.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 어지러운 세상<i>후한 말 혼란, 장각과 황건적의 난</i></span><span class="ch">2. 세 영웅이 만나다<i>유비·장비·관우 만남</i></span><span class="ch star">3. 복사꽃 동산의 맹세 ⭐<i>도원결의</i></span><span class="ch">4. 첫 깃발을 올리다<i>의병 조직, 황건적 토벌 첫 전공</i></span><span class="ch">5. 뜻대로 되지 않는 세상<i>독우 사건, 관직 버리고 떠남</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">02</span><b>어둠을 몰고 온 동탁</b>
+      <span class="rom">원본 1권 후반 · 5장</span>
+      <a class="go" href="/samgukji-02.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 궁궐의 핏빛 소동<i>십상시 처단, 하진의 죽음</i></span><span class="ch">2. 도읍을 삼킨 동탁<i>동탁 입성과 권력 장악</i></span><span class="ch">3. 황제가 바뀌다<i>황제 폐립, 동탁의 폭정</i></span><span class="ch">4. 칼을 품은 조조<i>조조의 동탁 암살 시도</i></span><span class="ch">5. 쫓기는 조조<i>여백사 사건, 진궁과의 만남</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">03</span><b>데운 술이 식기 전에</b>
+      <span class="rom">원본 2권 전반 · 4장</span>
+      <a class="go" href="/samgukji-03.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 일어나는 영웅들<i>반동탁 연합군 결성, 원소 맹주</i></span><span class="ch star">2. 술이 식기 전에 ⭐<i>관우, 화웅을 베다</i></span><span class="ch">3. 세 영웅과 여포<i>호뢰관 삼영전여포</i></span><span class="ch">4. 불타는 낙양<i>동탁, 낙양을 불태우고 천도</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">04</span><b>천하를 흔든 미인</b>
+      <span class="rom">원본 2권 중반 · 4장</span>
+      <a class="go" href="/samgukji-04.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 흩어지는 연합군<i>제후들의 분열</i></span><span class="ch">2. 강동의 별이 지다<i>손견의 죽음</i></span><span class="ch">3. 왕윤의 걱정<i>동탁 폭정, 왕윤의 고민</i></span><span class="ch">4. 천하를 위한 미인<i>초선 등장, 미인계 시작</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">05</span><b>동탁의 최후</b>
+      <span class="rom">원본 2권 후반 · 5장</span>
+      <a class="go" href="/samgukji-05.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 두 마음<i>초선을 사이에 둔 동탁과 여포</i></span><span class="ch">2. 연환계<i>왕윤의 계략이 무르익다</i></span><span class="ch star">3. 큰 도적이 쓰러지다 ⭐<i>여포, 동탁을 베다</i></span><span class="ch">4. 다시 이는 바람<i>이각·곽사의 난, 혼란</i></span><span class="ch">5. 달려와 준 사람<i>도겸을 도와 서주를 얻다</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">06</span><b>천자를 모신 조조</b>
+      <span class="rom">원본 3권 전반 · 4장</span>
+      <a class="go" href="/samgukji-06.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 떠도는 황제<i>헌제의 고난과 낙양 귀환</i></span><span class="ch">2. 천자를 모시다<i>조조, 헌제를 허도로 모심</i></span><span class="ch">3. 위기의 조조<i>장수와의 싸움, 전위의 희생</i></span><span class="ch">4. 머리카락을 자르다<i>조조의 군법(할발)</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">07</span><b>강동의 젊은 호랑이</b>
+      <span class="rom">원본 3권 중반 · 3장</span>
+      <a class="go" href="/samgukji-07.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 강동의 젊은 패왕<i>손책의 강동 평정</i></span><span class="ch">2. 황제를 꿈꾼 원술<i>원술의 칭제</i></span><span class="ch">3. 잿더미가 된 꿈<i>수춘성 함락, 원술의 몰락</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">08</span><b>백문루의 여포</b>
+      <span class="rom">원본 3권 후반 · 4장</span>
+      <a class="go" href="/samgukji-08.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 흔들리는 여포<i>여포와 조조·유비의 얽힘</i></span><span class="ch">2. 마지막 성<i>하비성 포위</i></span><span class="ch star">3. 백문루의 최후 ⭐<i>여포의 죽음</i></span><span class="ch">4. 떠나는 유비<i>유비, 조조에게서 벗어나다</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">09</span><b>두 마음 없는 관우</b>
+      <span class="rom">원본 4권 전반 · 4장</span>
+      <a class="go" href="/samgukji-09.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 황제의 비밀 편지<i>동승의 밀약</i></span><span class="ch">2. 흩어진 형제<i>유비 패배, 관우의 조건부 항복</i></span><span class="ch">3. 충신의 마음<i>조조의 후대에도 흔들리지 않는 관우</i></span><span class="ch star">4. 백마의 칼 ⭐<i>관우, 안량·문추를 베다 (관도 서전)</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">10</span><b>다섯 관문의 관우</b>
+      <span class="rom">원본 4권 중반 · 4장</span>
+      <a class="go" href="/samgukji-10.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 형님을 찾아서<i>유비 소식, 관우가 떠나다</i></span><span class="ch star">2. 다섯 관문을 지나며 ⭐<i>오관참육장</i></span><span class="ch">3. 다시 만난 형제<i>고성 재회, 장비의 오해와 화해</i></span><span class="ch">4. 되찾은 도원의 의<i>삼형제 재결합</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">11</span><b>관도, 승부가 갈리다</b>
+      <span class="rom">원본 4권 후반 · 4장</span>
+      <a class="go" href="/samgukji-11.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 두 영웅의 대결<i>조조 vs 원소 대치</i></span><span class="ch">2. 불타는 군량<i>오소 기습</i></span><span class="ch">3. 원소의 몰락<i>관도 대패</i></span><span class="ch">4. 하북을 얻다<i>원가 분열, 북방 통일</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">12</span><b>잠자는 용을 찾아서</b>
+      <span class="rom">원본 5권 전반 · 3장</span>
+      <a class="go" href="/samgukji-12.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 숨은 인재들<i>유비 형주 의탁, 서서를 얻다</i></span><span class="ch">2. 떠나는 서서<i>서서가 제갈량을 추천하다</i></span><span class="ch">3. 와룡을 찾아<i>첫 번째·두 번째 방문 실패</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">13</span><b>세 번 찾아간 초가집</b>
+      <span class="rom">원본 5권 후반 · 4장</span>
+      <a class="go" href="/samgukji-13.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch star">1. 세 번째 방문 ⭐<i>삼고초려 성공</i></span><span class="ch">2. 천하삼분의 계<i>융중대</i></span><span class="ch">3. 박망파의 첫 불<i>제갈량의 첫 지휘 승리</i></span><span class="ch">4. 밀려오는 조조<i>조조 남하, 적벽으로</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">14</span><b>적벽으로 가는 지혜</b>
+      <span class="rom">원본 6권 전반 · 4장</span>
+      <a class="go" href="/samgukji-14.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch star">1. 장판교의 조자룡 ⭐<i>조운 아두 구출, 장비의 호통</i></span><span class="ch">2. 말로 싸우다<i>제갈량 설전군유</i></span><span class="ch">3. 두 나라가 손잡다<i>손권·유비 동맹</i></span><span class="ch">4. 지혜 겨루기<i>고육계·연환계·화살 빌리기</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">15</span><b>불타는 적벽</b>
+      <span class="rom">원본 6권 후반 · 3장</span>
+      <a class="go" href="/samgukji-15.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 동남풍을 부르다<i>제갈량, 바람을 빌다</i></span><span class="ch star">2. 불바다가 된 강 ⭐<i>화공, 조조의 대패</i></span><span class="ch">3. 화용도의 조조<i>관우, 조조를 놓아주다</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">16</span><b>형주를 지켜라</b>
+      <span class="rom">원본 7권 전반 · 4장</span>
+      <a class="go" href="/samgukji-16.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 형주 다툼<i>주유와 제갈량의 수 싸움</i></span><span class="ch">2. 세 번 화난 주유<i>제갈량에게 번번이 패하다</i></span><span class="ch">3. 강동의 별이 또 지다<i>주유의 죽음</i></span><span class="ch">4. 떨어진 봉황<i>방통, 낙봉파에서 죽다</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">17</span><b>서쪽으로 뻗는 길</b>
+      <span class="rom">원본 7권 중반 · 4장</span>
+      <a class="go" href="/samgukji-17.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 서량의 사나이 마초<i>마초, 조조와 동관에서 싸우다</i></span><span class="ch">2. 흩어지는 마초<i>조조의 이간계</i></span><span class="ch">3. 서천으로<i>유비, 서촉에 들어서다</i></span><span class="ch">4. 새로운 터전<i>익주를 얻다</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">18</span><b>장강을 뒤덮은 기개</b>
+      <span class="rom">원본 7권 후반 · 3장</span>
+      <a class="go" href="/samgukji-18.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 합비의 장료<i>적은 군사로 손권 대군을 막다</i></span><span class="ch">2. 씩씩한 감녕<i>감녕의 야습</i></span><span class="ch">3. 허도의 충신들<i>한나라 충신들의 저항</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">19</span><b>정군산의 노장</b>
+      <span class="rom">원본 8권 전반 · 3장</span>
+      <a class="go" href="/samgukji-19.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 한중을 두고<i>조조와 유비의 한중 쟁탈</i></span><span class="ch star">2. 노장 황충 ⭐<i>정군산, 황충이 하후연을 꺾다</i></span><span class="ch">3. 한중왕 유비<i>유비, 한중왕에 오르다</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">20</span><b>관우, 별이 되다</b>
+      <span class="rom">원본 8권 후반 · 4장</span>
+      <a class="go" href="/samgukji-20.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 강물을 뒤덮은 관우<i>수엄칠군, 관우 위세 절정</i></span><span class="ch">2. 방심한 영웅<i>손권의 기습, 형주 상실</i></span><span class="ch star">3. 맥성의 길 ⭐<i>관우의 최후</i></span><span class="ch">4. 한 줌 흙이 되다<i>조조의 죽음</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">21</span><b>백제성의 눈물</b>
+      <span class="rom">원본 9권 전반 · 4장</span>
+      <a class="go" href="/samgukji-21.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 또 한 형제를 잃다<i>장비의 죽음</i></span><span class="ch">2. 복수의 출정<i>유비, 동오 정벌에 나서다</i></span><span class="ch">3. 불타는 칠백 리<i>육손의 화공, 이릉 대패</i></span><span class="ch star">4. 백제성의 부탁 ⭐<i>유비의 최후, 아들을 맡기다</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">22</span><b>마음을 사로잡다</b>
+      <span class="rom">원본 9권 중반 · 4장</span>
+      <a class="go" href="/samgukji-22.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 남쪽의 반란<i>맹획의 봉기</i></span><span class="ch star">2. 일곱 번 잡고 일곱 번 놓다 ⭐<i>칠종칠금</i></span><span class="ch">3. 마음으로 얻은 항복<i>맹획, 진심으로 따르다</i></span><span class="ch star">4. 출사표를 올리다 ⭐<i>조비의 죽음, 북벌 결심</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">23</span><b>기산을 향하여</b>
+      <span class="rom">원본 9권 후반~10권 전반 · 4장</span>
+      <a class="go" href="/samgukji-23.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 봉을 얻다<i>강유를 얻다</i></span><span class="ch">2. 기산으로 나아가다<i>1차 북벌</i></span><span class="ch star">3. 읍참마속 ⭐<i>가정 전투 패배, 마속을 베다</i></span><span class="ch star">4. 빈 성의 거문고 ⭐<i>공성계</i></span></div>
+  </div>
+
+  <div class="vol has">
+    <div class="vhead"><span class="vnum">24</span><b>오장원에 지는 별</b>
+      <span class="rom">원본 10권 후반 · 4장</span>
+      <a class="go" href="/samgukji-24.html">대본 열기 →</a>
+    </div>
+    <div class="chs"><span class="ch">1. 거듭되는 북벌<i>2~5차 기산행</i></span><span class="ch star">2. 큰 별이 지다 ⭐<i>오장원, 제갈량의 최후</i></span><span class="ch">3. 죽은 공명이 산 중달을 쫓다<i>사후의 계략</i></span><span class="ch">4. 천하가 하나로<i>사마씨, 진(晉)의 천하 통일</i></span></div>
+  </div>
+
+<h2>6 · 남은 일</h2>
+<div class="card">
+  <ul>
+    <li><b>그림체 확정</b> — 위 A·B·C 중 하나. <b>다른 모든 일의 선행 조건.</b></li>
+    <li><b>앵커 저작 + 캐스트 시트 10장</b> — 유비·관우·장비 세 장을 먼저 구워 승인받는다.</li>
+    <li><b>2권~24권 집필</b> — <code>docs/samgukji/vol-NN.md</code> 에 쓰고 <code>build-samgukji.mjs</code> 로 굽는다.</li>
+    <li><b>후반부 순화 기준 확정</b> — 20·21권.</li>
+    <li><b>editor2 연동</b> — <code>link-samgukji-illustrations.mjs</code>(전래 링커 포크). 삽화가 붙은 뒤.</li>
+  </ul>
+</div>
+</div>
+<script>
+// ── 프롬프트 복사 (개별 + 스타일) ──
+(function () {
+  function flash(btn, label) {
+    var orig = btn.textContent; btn.textContent = label; btn.classList.add('done');
+    setTimeout(function () { btn.textContent = orig; btn.classList.remove('done'); }, 1600);
+  }
+  async function copy(text, btn) {
+    try { await navigator.clipboard.writeText(text); flash(btn, '복사됨 ✓'); }
+    catch (e) { window.prompt('복사가 막혔어요 — 직접 복사하세요:', text); }
+  }
+  document.querySelectorAll('.char-prompt').forEach(function (card) {
+    var btn = card.querySelector('.copy-btn'); var pre = card.querySelector('pre');
+    if (btn && pre) btn.addEventListener('click', function () { copy(pre.textContent, btn); });
+  });
+  var styleBtn = document.getElementById('copy-style');
+  if (styleBtn) styleBtn.addEventListener('click', function () {
+    var anchor = document.querySelector('.char-prompt[data-key="style-anchor"] pre');
+    if (anchor) copy(anchor.textContent.trim(), styleBtn);
+  });
+  var objStyleBtn = document.getElementById('copy-object-style');
+  if (objStyleBtn) objStyleBtn.addEventListener('click', function () {
+    var anchor = document.querySelector('.char-prompt[data-key="object-style-anchor"] pre');
+    if (anchor) copy(anchor.textContent.trim(), objStyleBtn);
+  });
+})();
+
+
+// ── 레퍼런스 이미지 붙여넣기 (R2: comic-assets/samgukji-plan) ──
+(async function () {
+  var ASSET_API = '/api/comic-assets/samgukji-plan';
+  var assets = {};
+  try { var r = await fetch(ASSET_API); var j = await r.json(); assets = (j && j.data) || {}; } catch (e) {}
+  function createPasteBox(key) {
+    var box = document.createElement('div');
+    box.className = 'paste-box'; box.tabIndex = 0;
+    var hint = '🖼️ 클릭 후 Ctrl+V — 확정된 레퍼런스 시트 붙여넣기';
+    function reset() { box.classList.remove('has-img'); box.innerHTML = ''; box.textContent = hint; }
+    function setImg(url) {
+      box.classList.add('has-img');
+      box.innerHTML = '<img src="' + url + '" alt="" /><button type="button" class="paste-del">✕</button>';
+      box.querySelector('.paste-del').addEventListener('click', async function (e) {
+        e.stopPropagation(); if (!confirm('이 이미지를 삭제할까요?')) return;
+        try { await fetch(ASSET_API + '/' + key, { method: 'DELETE' }); reset(); } catch (err) { alert('삭제 실패 — 서버(3500) 확인'); }
+      });
+    }
+    if (assets[key]) setImg(assets[key] + '?t=' + Date.now()); else box.textContent = hint;
+    async function upload(file) {
+      if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type)) return;
+      box.classList.add('busy');
+      var fr = new FileReader();
+      fr.onload = async function () {
+        try {
+          var r = await fetch(ASSET_API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ key: key, dataUrl: fr.result }) });
+          var j = await r.json();
+          if (j.success) setImg(j.data.url + '?t=' + Date.now()); else alert('저장 실패: ' + (j.error || ''));
+        } catch (e) { alert('저장 실패 — 서버(3500) 확인'); }
+        box.classList.remove('busy');
+      };
+      fr.readAsDataURL(file);
+    }
+    box.addEventListener('paste', function (e) {
+      var items = (e.clipboardData && e.clipboardData.items) || [];
+      for (var i = 0; i < items.length; i++) { if (items[i].type && items[i].type.indexOf('image/') === 0) { e.preventDefault(); upload(items[i].getAsFile()); return; } }
+    });
+    box.addEventListener('dragover', function (e) { e.preventDefault(); });
+    box.addEventListener('drop', function (e) { e.preventDefault(); var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]; if (f) upload(f); });
+    box.addEventListener('click', function () { box.focus(); });
+    return box;
+  }
+  document.querySelectorAll('.char-prompt[data-key]').forEach(function (card) {
+    card.appendChild(createPasteBox(card.getAttribute('data-key')));
+  });
+})();
+</script>
+<script src="/samgukji-core.js"></script>
+</body>
+</html>
