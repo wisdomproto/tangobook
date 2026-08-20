@@ -20,16 +20,16 @@ const OUT = path.join(ROOT, 'packages/client/public');
 
 // 프롬프트 범례용 짧은 설명. 🔴 전체 시트 규격은 docs/art-direction/samgukji-cast.md 가 SSOT.
 const CAST = {
-  liubei: { token: 'Liubei', name: '유비', desc: '안 칠한 맨 얼굴 · 이 책에서 가장 큰 귀(윤곽을 깬다) · 허리 양옆 칼 두 자루 · 노란 허리끈 · 6두신. 1권 = 짚신·베옷, 수염 없음.', aliases: ['Liubei', '유비'] },
-  guanyu: { token: 'Guanyu', name: '관우', desc: '대추빛 붉은 얼굴(이 책의 유일한 붉은 얼굴) · 가슴까지 오는 긴 수염 한 덩이 · 녹색 · 키보다 긴 자루의 언월도 · 7두신. 1권 = 녹색 평복.', aliases: ['Guanyu', '관우'] },
-  zhangfei: { token: 'Zhangfei', name: '장비', desc: '검은 얼굴(이 책의 유일한 검은 얼굴) · 수염이 사방으로 뻗어 얼굴 윤곽이 삐죽삐죽 · 동그란 고리눈 · 뱀처럼 굽은 장팔사모 · 6.5두신. 1권 = 거친 베옷.', aliases: ['Zhangfei', '장비'] },
-  zhugeliang: { token: 'Zhugeliang', name: '제갈량', desc: '맨 얼굴에 곧게 다듬은 짧은 턱수염 · 흰 깃털부채 · 이 책에서 무기를 안 든 유일한 어른 · 넓은 학창의 · 6.5두신.', aliases: ['Zhugeliang', '제갈량'] },
-  zhaoyun: { token: 'Zhaoyun', name: '조운', desc: '맨 얼굴에 수염 0(장년인데 수염이 없는 유일한 사람) · 은빛 갑옷 · 흰 말 · 투구 꼭대기의 술 한 가닥 · 6.5두신.', aliases: ['Zhaoyun', '조운'] },
-  caocao: { token: 'Caocao', name: '조조', desc: '분을 바른 흰 얼굴 · 가늘고 눈꼬리가 올라간 눈 · 한쪽만 올라간 입 · 흑청색 옷깃 · 🔴 머리가 몸의 1/5(5두신).', aliases: ['Caocao', '조조'] },
-  sunquan: { token: 'Sunquan', name: '손권', desc: '맨 얼굴에 푸른 눈 · 🔴 자줏빛 수염(이 책의 유일한 색 있는 수염) · 붉은 옷 · 허리에 네모난 인장 주머니 · 6두신.', aliases: ['Sunquan', '손권'] },
-  lvbu: { token: 'Lvbu', name: '여포', desc: '광이 있는 옥빛 흰 얼굴 · 수염 0 · 🔴 투구에서 길게 솟은 꿩깃 두 가닥(머리 위로 무언가 솟은 유일한 인물) · 붉은 술 · 붉은 말 · 7두신.', aliases: ['Lvbu', '여포'] },
-  dongzhuo: { token: 'Dongzhuo', name: '동탁', desc: '분을 바른 흰 얼굴인데 🔴 살진 얼굴(볼이 눈을 밀어 실눈) + 코의 붉은 기 · 짧고 두툼한 검은 수염 · 🔴 어깨에서 어깨가 가장 넓은 낮은 덩이 · 금붙이 5개 이하 · 5.5두신.', aliases: ['Dongzhuo', '동탁'] },
-  simayi: { token: 'Simayi', name: '사마의', desc: '회흑색 얼굴(흰 얼굴과 검은 얼굴 사이) · 늘 반쯤 감은 눈 · 좁고 길게 늘어뜨린 수염 · 소매 안에 넣은 두 손 · 악센트 색 없음 · 6두신.', aliases: ['Simayi', '사마의'] },
+  liubei: { token: 'Liubei', name: '유비', desc: '안 칠한 맨 얼굴 · 이 책에서 가장 큰 귀(윤곽을 깬다) · 허리 양옆 칼 두 자루 · 노란 허리끈. 1권 = 짚신·베옷, 수염 없음.', aliases: ['Liubei', '유비'] },
+  guanyu: { token: 'Guanyu', name: '관우', desc: '대추빛 붉은 얼굴(이 책의 유일한 붉은 얼굴) · 가슴까지 오는 긴 수염 한 덩이 · 녹색 · 키보다 긴 자루의 언월도. 1권 = 녹색 평복.', aliases: ['Guanyu', '관우'] },
+  zhangfei: { token: 'Zhangfei', name: '장비', desc: '검은 얼굴(이 책의 유일한 검은 얼굴) · 수염이 사방으로 뻗어 얼굴 윤곽이 삐죽삐죽 · 동그란 고리눈 · 뱀처럼 굽은 장팔사모. 1권 = 거친 베옷.', aliases: ['Zhangfei', '장비'] },
+  zhugeliang: { token: 'Zhugeliang', name: '제갈량', desc: '맨 얼굴에 곧게 다듬은 짧은 턱수염 · 흰 깃털부채 · 이 책에서 무기를 안 든 유일한 어른 · 넓은 학창의.', aliases: ['Zhugeliang', '제갈량'] },
+  zhaoyun: { token: 'Zhaoyun', name: '조운', desc: '맨 얼굴에 수염 0(장년인데 수염이 없는 유일한 사람) · 은빛 갑옷 · 흰 말 · 투구 꼭대기의 술 한 가닥.', aliases: ['Zhaoyun', '조운'] },
+  caocao: { token: 'Caocao', name: '조조', desc: '분을 바른 흰 얼굴 · 가늘고 눈꼬리가 올라간 눈 · 한쪽만 올라간 입 · 흑청색 옷깃.', aliases: ['Caocao', '조조'] },
+  sunquan: { token: 'Sunquan', name: '손권', desc: '맨 얼굴에 푸른 눈 · 🔴 자줏빛 수염(이 책의 유일한 색 있는 수염) · 붉은 옷 · 허리에 네모난 인장 주머니.', aliases: ['Sunquan', '손권'] },
+  lvbu: { token: 'Lvbu', name: '여포', desc: '광이 있는 옥빛 흰 얼굴 · 수염 0 · 🔴 투구에서 길게 솟은 꿩깃 두 가닥(머리 위로 무언가 솟은 유일한 인물) · 붉은 술 · 붉은 말.', aliases: ['Lvbu', '여포'] },
+  dongzhuo: { token: 'Dongzhuo', name: '동탁', desc: '분을 바른 흰 얼굴인데 🔴 살진 얼굴(볼이 눈을 밀어 실눈) + 코의 붉은 기 · 짧고 두툼한 검은 수염 · 🔴 어깨에서 어깨가 가장 넓은 낮은 덩이 · 금붙이 5개 이하.', aliases: ['Dongzhuo', '동탁'] },
+  simayi: { token: 'Simayi', name: '사마의', desc: '회흑색 얼굴(흰 얼굴과 검은 얼굴 사이) · 늘 반쯤 감은 눈 · 좁고 길게 늘어뜨린 수염 · 소매 안에 넣은 두 손 · 악센트 색 없음.', aliases: ['Simayi', '사마의'] },
   // ── 단역 ──
   zhangjue: { token: 'Zhangjue', name: '장각', desc: '노란 두건을 두른 도인 차림 · 손에 든 지팡이 하나 · 따르는 무리와 같은 노란색이고 지팡이만 다르다.', aliases: ['Zhangjue', '장각'] },
   duyou: { token: 'Duyou', name: '독우', desc: '거들먹거리는 감찰 관리 · 값비싼 관복 · 🔴 말 위에서 든 채찍 하나(예를 갖추지 않았다는 것이 이 채찍으로 읽힌다).', aliases: ['Duyou', '독우'] },
@@ -86,7 +86,7 @@ const CAST = {
 // 🔴 [권번호, 그 권부터 적용되는 나이·옷] · 얼굴색·실루엣·악센트는 여기 적지 않는다(불변이라 desc 소관).
 const STAGES = {
   liubei: [
-    [1, '스물넷. 짚신에 물들이지 않은 삼베옷 — 이 책에서 가장 가난한 옷. 🔴 수염이 하나도 없다.'],
+    [1, '스물넷. 🔴 무릎 위에서 끝나는 거친 삼베 웃옷 + 바지 + 정강이 감발 + 새끼 허리끈 — 긴 포가 아니다(긴 포는 선비로 읽힌다). 짚신. 머리는 상투에 천 두건. 🔴 수염이 하나도 없으므로 눈매로 어른임을 낸다.'],
     [3, '서른. 푸른 겉옷 안에 가죽 갑옷. 🔴 콧수염 한 줄이 생긴다(이 뒤로 열 권 동안 이 얼굴).'],
     [13, '마흔일곱. 넓은 소매의 학창의, 갑옷 없음 — 싸움을 남에게 맡기는 사람이 된 표시다.'],
     [19, '쉰아홉. 한중왕의 옷(붉은 자락에 옥대). 콧수염에 짧은 턱수염이 더해지고 둘 다 희끗하다.'],
@@ -616,6 +616,44 @@ function buildPlan(builtVols) {
   };
   const FACC = { 촉: '#3E7C51', 위: '#3A5C86', 오: '#B0473A', 한: '#C9A227', 군웅: '#6E5A86' };
 
+  /**
+   * 🔴 시트 프롬프트에만 붙는 공통 규칙. 앵커(쪽 발주용)에는 안 넣는다 — 쪽은 승인된 시트를
+   *   @imageN 으로 물려받으므로, 시대 고증은 «시트에서 한 번» 정해지면 그 뒤로 따라온다.
+   *
+   * 왜 생겼나(2026-08-20 첫 렌더): 시트 54장 어디에도 «머리»와 «시대 복식» 지시가 없었다.
+   *   시트가 「누가 누구와 다른가」(색·실루엣·악센트)만 적고 「이 시대 사람이 어떻게 입고 어떻게
+   *   머리를 하는가」를 아무도 안 적어서, 모델이 그 빈칸을 제 마음대로 채웠다 — 유비 1권이
+   *   «머리를 민 소년»으로 나왔다. 그 시대 성인 남자는 머리를 자르지 않는다.
+   *   같은 렌더에서 사양 문장이 그림 위에 캡션으로 박히고, 배경에 수묵 산수가 깔렸다.
+   */
+  const SHEET_RULES = `PERIOD - LATE HAN. These override anything "ancient Asian" suggests by default.
+🔴 HAIR IS NEVER CUT. Grown men keep it long and bind it into a topknot at the crown. A shaved head,
+  a cropped modern cut and a Japanese chonmage are all wrong.
+🔴 THE TOPKNOT IS COVERED, and what covers it gives the rank:
+  labourer, commoner - a square of cloth wrapped over it and knotted at the back
+  official, scholar  - a stiff dark cap set over it
+  soldier, general   - a helmet
+  An uncovered topknot means the man has just been beaten or pulled out of bed. Nowhere else.
+🔴 THE ROBE CLOSES LEFT OVER RIGHT AS THE WEARER SEES IT - the collar reads as a y running from the
+  wearer's left shoulder down to the right hip. The other way round is how a corpse is dressed.
+🔴 DRESS SAYS RANK, never mood or weather:
+  poorest - a coarse hemp tunic ending ABOVE THE KNEE, trousers, cloth wraps on the shins, a rope
+    belt. 🔴 NOT a long robe: a long robe reads as a gentleman, and the poorest man is not one.
+  official - a robe to the instep with wide sleeves. general - that robe worn under armour.
+🔴 NOT kimono: no wide folded-back cuffs, no obi, no Japanese armour.
+
+🔴 AGE IS READ FROM THE FACE, NOT THE BODY - the body is 4 heads tall at every age, so it cannot
+  carry age. In an adult the eye line sits AT OR ABOVE the middle of the head, the eyes are narrow,
+  the brows are one heavy stroke and the jaw has a corner. In a child the eye line sits BELOW the
+  middle and the eyes are round and large. 🔴 A grown man with no beard - Liubei at 24, Zhaoyun at
+  any age - must still read as a man: raise the eye line and narrow the eyes. A beard is not the
+  only way to say adult, and its absence must not turn a man into a boy.
+
+🔴 THIS IS A REFERENCE SHEET, NOT A PAGE: flat warm-paper ground, NO landscape, NO mist, no props
+  beyond what the figure carries.
+🔴 NO TEXT ANYWHERE IN THE IMAGE. Everything written here is an instruction to you - do not draw it.
+  No labels, no arrows, no measurements, no colour codes, no name plate, no caption.`;
+
   const castCards = sheets.map(({ token, sheet }) => {
     const c = byToken[token];
     if (!c) throw new Error(`시트 "${token}" 에 해당하는 캐스트가 빌더에 없다`);
@@ -630,6 +668,8 @@ function buildPlan(builtVols) {
     const primaryIdx = stages.length > 2 ? 1 : -1;
     const slotPrompt = (from, text, isPrimary, derived) => {
       const head = `${anchor || '[공통 스타일 앵커 — samgukji-anchor.md 없음]'}
+
+${SHEET_RULES}
 
 CHARACTER SHEET - ${token} · from book ${from}
 ${sheet}
@@ -665,6 +705,8 @@ silhouette must read as this person and no other.${isPrimary ? '\n🔴 THIS IS T
   <div class="char-prompt"${stages.length ? '' : ` data-key="char-${token.toLowerCase()}"`} style="border-left:4px solid ${FACC[fac]}">
     <div class="head"><b>${c.name}</b> <span class="rom">${token}</span> <span class="tag" style="background:${FACC[fac]}22;color:${FACC[fac]}">${fac}</span>${stages.length ? ` <span class="tag" style="background:#EDE3CC;color:#6B5A3E">시트 ${stages.length}장</span>` : ' <button class="copy-btn">📋 시트 프롬프트 복사</button>'}</div>
     <details><summary>캐릭터 시트 프롬프트 보기</summary><pre>${esc(anchor || '[공통 스타일 앵커 — samgukji-anchor.md 없음]')}
+
+${esc(SHEET_RULES)}
 
 CHARACTER SHEET - ${token}   (bake this FIRST)
 ${esc(sheet)}
