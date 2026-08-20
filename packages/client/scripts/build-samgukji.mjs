@@ -617,6 +617,28 @@ function buildPlan(builtVols) {
   const FACC = { 촉: '#3E7C51', 위: '#3A5C86', 오: '#B0473A', 한: '#C9A227', 군웅: '#6E5A86' };
 
   /**
+   * 🔴 시트 프롬프트에 붙이는 앵커에서 «쪽 전용 절»을 뺀다.
+   *
+   * 왜(2026-08-20 두 번째 렌더): 앵커를 통째로 붙였더니 `CANVAS` 의 「16:9 양면 펼침 ·
+   *   그림이 네 모서리까지 · 캡션 띠 금지」와 `STAGE CLAUSES` 의 마을·궁궐·들판 배경 지시가
+   *   그대로 먹어서, 나온 것이 «캐릭터 시트»가 아니라 «한 쪽 삽화»였다(첫 렌더엔 수묵 산수가
+   *   깔렸고, 두 번째는 16:9 펼침으로 나왔다). 시트의 캔버스는 아래 SHEET_BRIEF 가 정한다.
+   */
+  const anchorForSheet = (a) =>
+    (() => {
+      // 🔴 줄바꿈 종류를 먼저 없앤다 — CRLF 파일에서 `\n` 을 기대한 절 제거가 조용히 실패한다
+      //   (실제로 STAGE CLAUSES 만 지워지고 CANVAS 16:9 가 남아 시트가 또 양면 펼침으로 나왔다).
+      const t = (a || '[공통 스타일 앵커 — samgukji-anchor.md 없음]').replace(/\r\n/g, '\n');
+      const cut = t
+        .replace(/\nCANVAS\n[\s\S]*?(?=\nSTAGE CLAUSES)/, '\n')
+        .replace(/\nSTAGE CLAUSES[\s\S]*?(?=\nNOT \(rendering only\))/, '\n');
+      if (/16:9 double-page/.test(cut) || /STAGE CLAUSES/.test(cut)) {
+        throw new Error('앵커에서 쪽 전용 절(CANVAS·STAGE CLAUSES)을 못 잘랐다 — 앵커 제목이 바뀌었나 확인');
+      }
+      return cut;
+    })();
+
+  /**
    * 🔴 시트 프롬프트에만 붙는 공통 규칙. 앵커(쪽 발주용)에는 안 넣는다 — 쪽은 승인된 시트를
    *   @imageN 으로 물려받으므로, 시대 고증은 «시트에서 한 번» 정해지면 그 뒤로 따라온다.
    *
@@ -630,29 +652,54 @@ function buildPlan(builtVols) {
 🔴 HAIR IS NEVER CUT. Grown men keep it long and bind it into a topknot at the crown. A shaved head,
   a cropped modern cut and a Japanese chonmage are all wrong.
 🔴 THE TOPKNOT IS COVERED, and what covers it gives the rank:
-  labourer, commoner - a square of cloth wrapped over it and knotted at the back
+  labourer, commoner - ZE (幘): a cloth head-wrap that COVERS THE WHOLE CROWN and is knotted at the
+    back, so the topknot is a bump under the cloth, not a bare knob sticking out of the top of it.
   official, scholar  - a stiff dark cap set over it
   soldier, general   - a helmet
   An uncovered topknot means the man has just been beaten or pulled out of bed. Nowhere else.
 🔴 THE ROBE CLOSES LEFT OVER RIGHT AS THE WEARER SEES IT - the collar reads as a y running from the
   wearer's left shoulder down to the right hip. The other way round is how a corpse is dressed.
 🔴 DRESS SAYS RANK, never mood or weather:
-  poorest - a coarse hemp tunic ending ABOVE THE KNEE, trousers, cloth wraps on the shins, a rope
-    belt. 🔴 NOT a long robe: a long robe reads as a gentleman, and the poorest man is not one.
+  poorest - SHUHE (裋褐), the working dress of Han commoners: a coarse undyed hemp tunic whose hem
+    falls BETWEEN HIP AND KNEE, worn OVER TROUSERS, cloth wraps on the shins, a rope belt, straw
+    sandals. 🔴 IT IS A TUNIC AND TROUSERS, NOT A ROBE. Sleeves are NARROW - a wide sleeve cannot
+    be worked in, and a floor-length robe reads as a gentleman, which he is not yet.
   official - a robe to the instep with wide sleeves. general - that robe worn under armour.
-🔴 NOT kimono: no wide folded-back cuffs, no obi, no Japanese armour.
+🔴 SLEEVES ARE NARROW ON EVERY WORKING FIGURE. Wide sleeves belong to court and study only.
+🔴 NOT kimono, and this is the failure to watch for: no wide folded-back cuffs, no obi, no Japanese
+  armour, no blade slung across the back. 🔴 SWORDS HANG AT THE HIPS FROM THE BELT, hilts forward -
+  they are never crossed behind the shoulders and never tucked through a sash at the back.
 
 🔴 AGE IS READ FROM THE FACE, NOT THE BODY - the body is 4 heads tall at every age, so it cannot
-  carry age. In an adult the eye line sits AT OR ABOVE the middle of the head, the eyes are narrow,
-  the brows are one heavy stroke and the jaw has a corner. In a child the eye line sits BELOW the
-  middle and the eyes are round and large. 🔴 A grown man with no beard - Liubei at 24, Zhaoyun at
-  any age - must still read as a man: raise the eye line and narrow the eyes. A beard is not the
-  only way to say adult, and its absence must not turn a man into a boy.
+  carry age. A beardless man is the hard case and this book has two of them (Liubei at 24, Zhaoyun
+  at every age). Build the adult from FIVE measurements, all of them inside the head:
+  1 EYE LINE at or above the middle of the head. A child's sits below it.
+  2 EYES NARROW - width at least twice the height. A child's are round.
+  3 THE HEAD IS TALLER THAN IT IS WIDE. A child's is as wide as it is tall.
+  4 THE JAW HAS A CORNER under the ear and the chin comes to a plane, not a curve.
+  5 THE NECK IS VISIBLE and as wide as the distance between the eyes. A child has no neck showing.
+  🔴 TEST BEFORE YOU FINISH: could this face be a ten-year-old? Then it is wrong. "Semi-deformed"
+  sets the proportion of the BODY and never makes the face a child's - the anchor says never babyish.`;
 
-🔴 THIS IS A REFERENCE SHEET, NOT A PAGE: flat warm-paper ground, NO landscape, NO mist, no props
-  beyond what the figure carries.
-🔴 NO TEXT ANYWHERE IN THE IMAGE. Everything written here is an instruction to you - do not draw it.
-  No labels, no arrows, no measurements, no colour codes, no name plate, no caption.`;
+  /**
+   * 🔴 시트 프롬프트의 «맨 앞». 캔버스·레이아웃·글자금지를 끝에 뒀더니 두 렌더 연속으로
+   *   무시됐다(정면 하나 + 얼굴 하나만 나오고, 사양 문장이 캡션으로 박혔다).
+   *   모델은 앞쪽 문장으로 「이 이미지가 무엇인지」를 정하므로, 그것부터 말한다.
+   */
+  const SHEET_BRIEF = `TASK: draw a CHARACTER REFERENCE SHEET. This is not a page from the book.
+
+🔴 CANVAS: one image, 3:2 landscape, flat warm-paper ground (#F0E2C0). NO landscape, NO ink-wash
+  hills, NO mist, NO scenery of any kind. Nothing behind the figures.
+🔴 NO TEXT ANYWHERE IN THE IMAGE - no labels, callout lines, arrows, measurements, colour codes,
+  name plate or caption. This is NOT an annotated model sheet. Everything written below is an
+  instruction to you; none of it is content to draw.
+
+🔴 THE SHEET MUST CONTAIN ALL FIVE OF THESE, and it is wrong if any is missing:
+  1 THREE FULL FIGURES side by side, same height, same costume: FRONT, THREE-QUARTER, PROFILE.
+  2 ONE HEAD CLOSE-UP, front.
+  3 FOUR HEADS IN A ROW showing expressions: calm · angry · grieving · laughing.
+  4 ONE PROFILE HEAD, so the nose, brow and ear read from the side.
+  5 A STRIP AT THE FOOT: the same figure filled in solid black, silhouette only.`;
 
   const castCards = sheets.map(({ token, sheet }) => {
     const c = byToken[token];
@@ -667,7 +714,9 @@ function buildPlan(builtVols) {
     //   대표(둘째 단계)는 통째 시트로 먼저 굽고, 나머지는 «승인된 대표를 첨부해» 정면+얼굴만 뽑는다.
     const primaryIdx = stages.length > 2 ? 1 : -1;
     const slotPrompt = (from, text, isPrimary, derived) => {
-      const head = `${anchor || '[공통 스타일 앵커 — samgukji-anchor.md 없음]'}
+      const head = `${SHEET_BRIEF}
+
+${anchorForSheet(anchor)}
 
 ${SHEET_RULES}
 
@@ -683,9 +732,7 @@ generate it again from this text. Change ONLY age and clothing as described abov
 OUTPUT: front view, full figure, plus one head close-up. Nothing else.`
         : `${head}
 
-SHEET LAYOUT: front / three-quarter / profile, full figure; plus one head close-up and one row of
-four expressions. 🔴 At the foot, one strip of the SAME figure filled in solid black - the
-silhouette must read as this person and no other.${isPrimary ? '\n🔴 THIS IS THE PRIMARY SHEET - approve it before generating the other stages.' : ''}`;
+🔴 Draw all five items listed in TASK above.${isPrimary ? '\n🔴 THIS IS THE PRIMARY SHEET - approve it before generating the other stages.' : ''}`;
     };
     const slots = stages.length
       ? `
@@ -704,7 +751,9 @@ silhouette must read as this person and no other.${isPrimary ? '\n🔴 THIS IS T
     return `
   <div class="char-prompt"${stages.length ? '' : ` data-key="char-${token.toLowerCase()}"`} style="border-left:4px solid ${FACC[fac]}">
     <div class="head"><b>${c.name}</b> <span class="rom">${token}</span> <span class="tag" style="background:${FACC[fac]}22;color:${FACC[fac]}">${fac}</span>${stages.length ? ` <span class="tag" style="background:#EDE3CC;color:#6B5A3E">시트 ${stages.length}장</span>` : ' <button class="copy-btn">📋 시트 프롬프트 복사</button>'}</div>
-    <details><summary>캐릭터 시트 프롬프트 보기</summary><pre>${esc(anchor || '[공통 스타일 앵커 — samgukji-anchor.md 없음]')}
+    <details><summary>캐릭터 시트 프롬프트 보기</summary><pre>${esc(SHEET_BRIEF)}
+
+${esc(anchorForSheet(anchor))}
 
 ${esc(SHEET_RULES)}
 
@@ -716,10 +765,7 @@ ${
 ${esc(stageBlock(keyByToken[token]))}
 `
     : ''
-}
-SHEET LAYOUT: front / three-quarter / profile, full figure; plus one head close-up and one row of
-four expressions. 🔴 At the foot of the sheet, one strip of the SAME figure filled in solid black -
-the silhouette must read as this person and no other.</pre></details>${slots}
+}</pre></details>${slots}
   </div>`;
   }).join('\n');
 
