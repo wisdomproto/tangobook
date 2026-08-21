@@ -353,10 +353,11 @@ export function createApp() {
         readFileSync(path.join(clientDist, 'prerendered.json'), 'utf-8')
       );
       for (const r of routes) {
-        prerendered[r] = readFileSync(
-          path.join(clientDist, r.replace(/^\//, ''), 'index.html'),
-          'utf-8'
-        );
+        // 🔴 루트만 산출물 자리가 다르다 — `dist/index.html` 은 **SPA 폴백**이라 프리렌더가
+        //    덮지 않고 `dist/home/index.html` 에 쓴다(`prerender.mjs`). 여기서 그 자리를
+        //    모르면 `/` 는 구워 놓고도 빈 셸을 내보낸다(2026-08-21 실측 11.6KB).
+        const dir = r === '/' ? 'home' : r.replace(/^\//, '');
+        prerendered[r] = readFileSync(path.join(clientDist, dir, 'index.html'), 'utf-8');
       }
       console.log(`[prerender] ${routes.length}개 라우트 정적 HTML 서빙: ${routes.join(' ')}`);
     } catch {

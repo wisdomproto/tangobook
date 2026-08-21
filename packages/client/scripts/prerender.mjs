@@ -421,7 +421,11 @@ async function main() {
       try {
         await prerenderRoute(browser, baseUrl, route);
         ok++;
-        if (route !== '/') served.push(route);
+        // 🔴 루트도 매니페스트에 싣는다(2026-08-21) — 예전엔 `/` 가 `/library` 로 튕기는
+        //    자리라 스냅샷이 쓸모없어 뺐는데, 지금은 **`/` 가 소개 페이지**다. 빼 두면
+        //    구워 놓고도 아무도 안 읽어 첫 화면이 빈 셸(11.6KB)로 나간다(실측).
+        //    산출물은 `home/index.html` 이고 서버가 그 자리를 안다(`app.ts`).
+        served.push(route);
       } catch (e) {
         fail++;
         console.warn(`✗ ${route} — ${e.message}`);
