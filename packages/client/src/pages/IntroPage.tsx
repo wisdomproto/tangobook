@@ -787,13 +787,15 @@ const VOCAB_SHELF: { book: string; cover: string; words: { w: string; u: string 
 function VocabShelf() {
   return (
     <div className="mt-6 text-left sm:mt-8">
+      {/* ⚠️ **1,500 은 목표고 지금은 630 개다**(`FACTS.vocabWords`, 2026-08-19 실측).
+          사용자 지시로 목표치를 현재형으로 쓰고, 그 아래 있던 「지금 630 · 목표 1,500」 줄은 뺐다
+          (2026-08-19, 두 번 확인). 내가 걸었던 이의는 「목표치는 달성 전까지 랜딩에 안 쓴다」였고
+          그 근거는 같은 날 `vocabWords 823`(실제 547)과 「가입 없이 전권」(실제 129/266)이 라이브
+          광고에서 거짓으로 잡힌 일이다 → memory `content-growth-target-2026-08-19`.
+          🔴 되돌릴 일이 생기면 **숫자만 고치지 말고 이 줄의 판단을 먼저 다시 볼 것.** */}
       <p className="text-center text-[16px] font-extrabold text-ink-900 break-keep sm:text-[22px] xl:text-[26px]">
-        <span className="text-coral-700">초등학교 입학 전 필수 어휘</span>를 동화책과 어휘 게임으로
-        채워 갑니다
-      </p>
-      <p className="mt-1 text-center text-[13px] font-bold text-ink-600 break-keep sm:text-[16px]">
-        지금 <strong className="text-coral-700">{FACTS.vocabWords}개</strong> · 목표{' '}
-        <strong className="text-coral-700">1,500개</strong> — 책이 늘면 낱말도 같이 늘어요
+        <span className="text-coral-700">초등학교 입학 전 필수 어휘 1,500개</span>를 다양한 동화책과
+        어휘 게임으로 놀이하듯 익힙니다.
       </p>
       {/* 🔴 좁은 화면에선 **가로로 흘린다**(라이브러리 캐러셀과 같은 규칙) — 여섯 칸을 접으면
           「여러 책」이 세로 목록이 되어 한눈에 안 들어온다. */}
@@ -1832,11 +1834,14 @@ export default function IntroPage() {
             ⚠️ 두 그림은 모양이 많이 다르다(한글=세로 격자 / 영어=음소 칩 + 막대). 같은 틀로 맞추려
             애쓰지 말 것 — 두 언어의 진도가 실제로 다르게 생겼다.
             자산 = `scripts/capture-phonics-grids.mjs`(임시 페이지 `/_shot/phonics-grids`). */}
-        <div className="mx-auto max-w-3xl px-4 pb-2 sm:px-6 lg:max-w-5xl xl:max-w-6xl">
+        {/* 🔴 패딩은 **max-w 바깥**에 둔다 — 안에 두면 그만큼 안쪽에서 시작해서 위 트랙 둘(`Section`)과
+            왼쪽 끝이 24px 어긋난다(실측 57 vs 81). `Section` 이 `px` 를 바깥 section 에 두는 이유가 이것. */}
+        <div className="px-4 pb-2 sm:px-6">
+          <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl">
           {/* 🔴 **③ 으로 트랙 표시를 맞춘다**(2026-08-19 사용자) — 파닉스 배너 아래 셋(①한글 ②영어
               ③부모 화면)이 같은 표시를 달아야 「한 서비스의 세 갈래」로 읽힌다. `Section` 이 아니라
               평범한 div 라 칩 마크업을 그대로 옮겨 적었다 — 컴포넌트로 뽑을 만큼 자주 쓰이지 않는다. */}
-          <p className="mb-2 flex items-center justify-center gap-2 text-base font-extrabold text-coral-700 sm:text-lg xl:text-xl">
+          <p className="mb-2 flex items-center gap-2 text-base font-extrabold text-coral-700 sm:text-lg xl:text-xl">
             <span className="flex h-7 w-7 items-center justify-center rounded-full bg-coral-700 font-display text-sm text-white sm:h-8 sm:w-8 sm:text-base">
               3
             </span>
@@ -1844,10 +1849,10 @@ export default function IntroPage() {
           </p>
           {/* 🔴 이 두 줄은 **절 제목 급으로** 키운다(2026-08-19 사용자) — 그림 두 장이 화면을
               가로로 다 쓰는데 머리글만 본문 크기라, 뭘 보라는 건지 모른 채 표만 지나쳤다. */}
-          <p className="text-center font-display text-[20px] font-extrabold text-ink-900 break-keep sm:text-[28px] lg:text-[32px]">
+          <p className="font-display text-[20px] font-extrabold text-ink-900 break-keep sm:text-[28px] lg:text-[32px]">
             부모 화면에는 <span className="text-coral-700">어디까지 익었는지</span>가 칸으로 보입니다
           </p>
-          <p className="mt-1.5 text-center text-[14px] leading-relaxed text-ink-600 break-keep sm:text-[18px] lg:text-[20px]">
+          <p className="mt-1.5 text-[14px] leading-relaxed text-ink-600 break-keep sm:text-[18px] lg:text-[20px]">
             어느 글자가 익었고 어디서 멈추는지, 한글과 영어를 따로 봅니다.
           </p>
           <div className="mt-4 grid items-start gap-3 sm:grid-cols-2">
@@ -1885,6 +1890,7 @@ export default function IntroPage() {
                 </figcaption>
               </figure>
             ))}
+            </div>
           </div>
         </div>
       </div>
