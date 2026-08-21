@@ -1833,6 +1833,15 @@ export default function IntroPage() {
             애쓰지 말 것 — 두 언어의 진도가 실제로 다르게 생겼다.
             자산 = `scripts/capture-phonics-grids.mjs`(임시 페이지 `/_shot/phonics-grids`). */}
         <div className="mx-auto max-w-3xl px-4 pb-2 sm:px-6 lg:max-w-5xl xl:max-w-6xl">
+          {/* 🔴 **③ 으로 트랙 표시를 맞춘다**(2026-08-19 사용자) — 파닉스 배너 아래 셋(①한글 ②영어
+              ③부모 화면)이 같은 표시를 달아야 「한 서비스의 세 갈래」로 읽힌다. `Section` 이 아니라
+              평범한 div 라 칩 마크업을 그대로 옮겨 적었다 — 컴포넌트로 뽑을 만큼 자주 쓰이지 않는다. */}
+          <p className="mb-2 flex items-center justify-center gap-2 text-base font-extrabold text-coral-700 sm:text-lg xl:text-xl">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-coral-700 font-display text-sm text-white sm:h-8 sm:w-8 sm:text-base">
+              3
+            </span>
+            학습현황 리포트
+          </p>
           {/* 🔴 이 두 줄은 **절 제목 급으로** 키운다(2026-08-19 사용자) — 그림 두 장이 화면을
               가로로 다 쓰는데 머리글만 본문 크기라, 뭘 보라는 건지 모른 채 표만 지나쳤다. */}
           <p className="text-center font-display text-[20px] font-extrabold text-ink-900 break-keep sm:text-[28px] lg:text-[32px]">
