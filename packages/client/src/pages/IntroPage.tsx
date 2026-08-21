@@ -717,6 +717,126 @@ const CHAIN_WORD_CARDS = [
   'kr-h2-u07-jip-29dc98cc',
 ];
 
+/**
+ * 「책마다 낱말」을 **여러 책 × 여러 낱말**로 한눈에. 히어로의 ㄹ 예시 바로 밑에 온다.
+ *
+ * 🔴 **목표치(1,500)를 현재형으로 쓰지 않는다**(2026-08-19). 지금은 630 개다 —
+ *    같은 날 `vocabWords 823`(실제 547)과 「가입 없이 전권」(실제 129/266)이 라이브 광고에서
+ *    거짓으로 잡혔다. 대신 **둘 다 말한다**: 목표가 어디고 지금 어디까지 왔는지.
+ *    그게 이 제품이 실제로 파는 것(계속 는다)과도 맞다 → memory `content-growth-target-2026-08-19`.
+ * 🔴 표지와 낱말은 **같은 책에서 온 것**이다(API 실측) — 짝이 안 맞으면 「책마다」가 거짓이 된다.
+ * 🔴 낱말 카드는 줄당 셋씩 **여섯 책** — 라인이 겹치지 않게 골랐다(명작·전래·공룡·생활·육지·곤충).
+ */
+const VOCAB_SHELF: { book: string; cover: string; words: { w: string; u: string }[] }[] = [
+  {
+    book: '헨젤과 그레텔',
+    cover: '1781588918173-헨젤과그레텔-cover-misc-1781665685628.webp',
+    words: [
+      { w: '집', u: '1781588918173-헨젤과그레텔-keyobj-house-1783558635909-w800.webp' },
+      { w: '쿠키', u: '1781588918173-헨젤과그레텔-keyobj-cookie-1783558638451-w800.webp' },
+      { w: '나무', u: '1781588918173-헨젤과그레텔-keyobj-tree-1783558659179-w800.webp' },
+    ],
+  },
+  {
+    book: '두더지의 혼인',
+    cover: '1785303657748-두더지의혼인-cover-misc-1785373164014.webp',
+    words: [
+      { w: '활옷', u: 'comic-assets/jeonrae-dudeoji/word-hwarot.jpg' },
+      { w: '연', u: 'comic-assets/jeonrae-dudeoji/word-yeon.jpg' },
+      { w: '목기러기', u: 'comic-assets/jeonrae-dudeoji/word-mokgireogi.jpg' },
+    ],
+  },
+  {
+    book: '람포린쿠스',
+    cover: '1773912904434-람포린쿠스-cover-misc-1780273979322.webp',
+    words: [
+      { w: '꼬리', u: '1773912904434-람포린쿠스-keyobj-꼬리-1783573014402.webp' },
+      { w: '지느러미', u: '1773912904434-람포린쿠스-keyobj-지느러미-1783573015605.webp' },
+      { w: '하늘', u: '1773912904434-람포린쿠스-keyobj-하늘-1783573636229.webp' },
+    ],
+  },
+  {
+    book: '45. 고마워, 자연아!',
+    cover: '1783990336946-45고마워자연아-cover-misc-1784003011949.webp',
+    words: [
+      { w: '낙엽', u: 'phonics-word-cards/hori-4ac99ee59772-w800.webp' },
+      { w: '도토리', u: 'phonics-word-cards/hori-778a29c013c2-w800.webp' },
+      { w: '단풍잎', u: 'phonics-word-cards/hori-04fc68ee5fed-w800.webp' },
+    ],
+  },
+  {
+    book: '캥거루',
+    cover: '1777615082301-캥거루-cover-misc-1780033772059.webp',
+    words: [
+      { w: '캥거루', u: '1777615082301-캥거루-keyobj-캥거루-1783670912321.webp' },
+      { w: '주머니', u: '1777615082301-캥거루-keyobj-주머니-1783670914572.webp' },
+      { w: '얼굴', u: '1777615082301-캥거루-keyobj-얼굴-1783670920053.webp' },
+    ],
+  },
+  {
+    book: '장수풍뎅이',
+    cover: '1777607890313-장수풍뎅이-cover-misc-1780025606215.webp',
+    words: [
+      { w: '장수풍뎅이', u: '1777607890313-장수풍뎅이-keyobj-장수풍뎅이-1783840578967.webp' },
+      { w: '뿔', u: '1777607890313-장수풍뎅이-keyobj-뿔-1783840581531.webp' },
+      { w: '알', u: '1777607890313-장수풍뎅이-keyobj-알-1783840584862.webp' },
+    ],
+  },
+];
+
+function VocabShelf() {
+  return (
+    <div className="mt-6 text-left sm:mt-8">
+      <p className="text-center text-[16px] font-extrabold text-ink-900 break-keep sm:text-[22px] xl:text-[26px]">
+        <span className="text-coral-700">초등학교 입학 전 필수 어휘</span>를 동화책과 어휘 게임으로
+        채워 갑니다
+      </p>
+      <p className="mt-1 text-center text-[13px] font-bold text-ink-600 break-keep sm:text-[16px]">
+        지금 <strong className="text-coral-700">{FACTS.vocabWords}개</strong> · 목표{' '}
+        <strong className="text-coral-700">1,500개</strong> — 책이 늘면 낱말도 같이 늘어요
+      </p>
+      {/* 🔴 좁은 화면에선 **가로로 흘린다**(라이브러리 캐러셀과 같은 규칙) — 여섯 칸을 접으면
+          「여러 책」이 세로 목록이 되어 한눈에 안 들어온다. */}
+      <ul className="mt-4 flex gap-2.5 overflow-x-auto pb-1 [scrollbar-width:none] sm:gap-3">
+        {VOCAB_SHELF.map((b) => (
+          <li key={b.book} className="w-[46%] shrink-0 sm:w-auto sm:flex-1">
+            <img
+              src={`https://assets.tangobook.co.kr/thumbs/512/${b.cover}`}
+              alt={`${b.book} 표지`}
+              width={512}
+              height={288}
+              loading="lazy"
+              decoding="async"
+              className="aspect-video w-full rounded-xl border border-ink-100 object-cover"
+            />
+            <ul className="mt-1.5 grid grid-cols-3 gap-1 sm:gap-1.5">
+              {b.words.map((w) => (
+                <li
+                  key={w.w}
+                  className="overflow-hidden rounded-lg border border-peach-200 bg-white text-center"
+                >
+                  <img
+                    src={`https://assets.tangobook.co.kr/${w.u}`}
+                    alt=""
+                    width={800}
+                    height={800}
+                    loading="lazy"
+                    decoding="async"
+                    className="aspect-square w-full object-cover"
+                  />
+                  <span className="block truncate py-0.5 text-[9px] font-extrabold text-ink-900 sm:text-[11px]">
+                    {w.w}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 function WordBookMesh() {
   const pic = 'aspect-video w-full rounded-2xl object-cover';
   return (
@@ -1265,12 +1385,20 @@ function ServiceBanner({ n, name, tagline }: { n?: number; name: string; tagline
   );
 }
 
+/**
+ * 🔴 `track` 은 **한 서비스 안의 갈래**를 표시한다(2026-08-19 사용자: "탱고북 파닉스 아래에
+ * 한글·영어가 있는데 구분이 안 되어 있어"). 파닉스 배너 아래 두 절이 「가구는 읽는데…」와 똑같은
+ * 평범한 h2 라, 셋이 나란한 형제로 보이고 **둘이 한 서비스의 두 트랙**이라는 게 안 보였다.
+ * 동화책 절은 h3 라인 소제목으로 이미 부모-자식이 보이는데 파닉스만 평평했다.
+ */
 function Section({
   eyebrow,
+  track,
   title,
   children,
 }: {
   eyebrow?: string;
+  track?: { n: number; label: string };
   /** 🔴 `ReactNode` — 제목 안 **핵심어를 코랄로** 물들이려고(2026-08-11 사용자: "폰트가 너무
    *  단조롭네, 검은색이 제일 많고"). 히어로 h1 은 진작 그렇게 하고 있었는데 섹션 제목만 string 이었다. */
   title: ReactNode;
@@ -1279,6 +1407,14 @@ function Section({
   return (
     <section className="px-4 py-12 sm:px-6 sm:py-14">
       <div className="mx-auto max-w-3xl lg:max-w-5xl xl:max-w-6xl">
+        {track && (
+          <p className="mb-2 flex items-center gap-2 text-base font-extrabold text-coral-700 sm:text-lg xl:text-xl">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-coral-700 font-display text-sm text-white sm:h-8 sm:w-8 sm:text-base">
+              {track.n}
+            </span>
+            {track.label}
+          </p>
+        )}
         {eyebrow && (
           /* 🔴 **라벨을 키운다**(2026-08-10 사용자: "이게 메인 제목인거 같은데 왜 글씨가 제일 작아?").
              12px 는 각주 크기라 섹션 이름이 아니라 곁다리로 읽혔다. 제목보다는 확실히 작게 두되
@@ -1439,6 +1575,8 @@ export default function IntroPage() {
 
           <HeroBridge />
 
+          <VocabShelf />
+
           <Link
             to={SIGNUP}
             /* 🔴 375px 에서 17자를 한 줄에 넣으려면 글자를 줄여야 한다 — 대신 **폭을 꽉 채운다**
@@ -1560,6 +1698,7 @@ export default function IntroPage() {
         </div>
       </Section>
       <Section
+        track={{ n: 1, label: '한글 트랙' }}
         title={
           <>
             한글 파닉스 <span className="text-coral-700">{FACTS.koreanUnits}단원</span>
@@ -1618,6 +1757,7 @@ export default function IntroPage() {
       <div className="px-4 pb-12 sm:px-6 sm:pb-14">
         <div className="mt-2">
           <Section
+            track={{ n: 2, label: '영어 트랙 · 같은 이용권' }}
             title={
               <>
                 영어 파닉스 <span className="text-coral-700">{FACTS.englishUnits}단원</span>
