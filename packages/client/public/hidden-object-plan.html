@@ -1,0 +1,795 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>🔍 숨은그림찾기 씬 작업판</title>
+    <!--
+  (책 × 그림체)마다 한 줄: 참조 이미지 · 프롬프트(복사) · 붙여넣기.
+  씬은 외부(GPT 등)에서 만들어 여기 붙인다 — 붙여넣은 그림은 /api/comic-assets/hidden-object-plan 로
+  R2 에 저장돼 다시 열어도 남는다(색칠 작업판·기획서들과 같은 방식).
+  목록 = /hidden-object-plan-data.json (build-hidden-object-plan.mjs 가 R2 에서 파생).
+
+  🔴 게임은 이미 있다(HiddenObjectPlayer · editor2 숨은그림 탭). 여기서 만드는 건 그림뿐이고,
+     사물 위치 박스(핫스팟)는 editor2 탭에서 사람이 드래그한다.
+-->
+    <style>
+      :root {
+        --ink: #2b2b31;
+        --ink-soft: #6b6b76;
+        --line: #e6e3dd;
+        --cream: #fdfaf4;
+        --coral: #ff6f61;
+        --mint: #5ec8b6;
+        --ok: #2aa876;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family:
+          'Pretendard Variable',
+          Pretendard,
+          -apple-system,
+          'Malgun Gothic',
+          sans-serif;
+        color: var(--ink);
+        background: var(--cream);
+        display: flex;
+        min-height: 100vh;
+      }
+
+      aside {
+        width: 236px;
+        flex: 0 0 236px;
+        background: #fff;
+        border-right: 1.5px solid var(--line);
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        overflow-y: auto;
+        padding: 18px 0 40px;
+      }
+      aside h1 {
+        font-size: 15px;
+        margin: 0 18px 4px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+      }
+      aside .hint {
+        font-size: 11.5px;
+        color: #9a9aa4;
+        margin: 0 18px 14px;
+        line-height: 1.5;
+      }
+      .grp {
+        display: block;
+        width: 100%;
+        text-align: left;
+        border: 0;
+        background: none;
+        cursor: pointer;
+        padding: 9px 18px;
+        font-size: 13.5px;
+        font-weight: 700;
+        color: var(--ink-soft);
+        border-left: 3px solid transparent;
+      }
+      .grp:hover {
+        background: #faf8f4;
+      }
+      .grp.on {
+        color: var(--ink);
+        background: #f4fbf9;
+        border-left-color: var(--mint);
+        font-weight: 900;
+      }
+      .grp .n {
+        float: right;
+        font-size: 11.5px;
+        color: #9a9aa4;
+        font-weight: 600;
+      }
+      .done {
+        color: var(--ok);
+        font-weight: 800;
+      }
+
+      main {
+        flex: 1;
+        min-width: 0;
+        padding: 22px 26px 80px;
+      }
+      .head {
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-bottom: 6px;
+      }
+      .head h2 {
+        font-size: 21px;
+        margin: 0;
+        font-weight: 900;
+      }
+      .head .sub {
+        font-size: 13px;
+        color: var(--ink-soft);
+      }
+      .bar {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        background: var(--cream);
+        padding: 10px 0 12px;
+        border-bottom: 1.5px solid var(--line);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .bar input {
+        width: 240px;
+        padding: 7px 11px;
+        border: 1.5px solid var(--line);
+        border-radius: 9px;
+        font-size: 13px;
+      }
+      .bar label {
+        font-size: 12.5px;
+        color: var(--ink-soft);
+        cursor: pointer;
+      }
+
+      .row {
+        border: 1.5px solid var(--line);
+        border-radius: 16px;
+        background: #fff;
+        padding: 14px;
+        margin-bottom: 14px;
+      }
+      .row.ok {
+        border-color: #bfe8d8;
+        background: #f7fdfb;
+      }
+      .rowhead {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 11px;
+        flex-wrap: wrap;
+      }
+      .rowhead b {
+        font-size: 15px;
+        font-weight: 900;
+      }
+      .chip {
+        font-size: 11.5px;
+        font-weight: 800;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: #f1efe9;
+        color: var(--ink-soft);
+      }
+      .chip.g {
+        background: #fff1ee;
+        color: #c4451c;
+      }
+      .cols {
+        display: grid;
+        grid-template-columns: 200px 1fr 260px;
+        gap: 14px;
+        align-items: start;
+      }
+      @media (max-width: 1100px) {
+        .cols {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .refs {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+      .refs .page {
+        width: 100%;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 1px solid var(--line);
+        background: #f4f2ee;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 5px;
+      }
+      .cards figure {
+        margin: 0;
+        text-align: center;
+      }
+      .cards img {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: 7px;
+        border: 1px solid var(--line);
+        background: #f4f2ee;
+        display: block;
+      }
+      .cards .miss {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 7px;
+        border: 1px dashed #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        color: #c9c9cf;
+      }
+      .cards figcaption {
+        font-size: 10px;
+        font-weight: 700;
+        margin-top: 2px;
+        line-height: 1.2;
+        color: var(--ink-soft);
+      }
+      .refnote {
+        font-size: 11px;
+        color: #9a9aa4;
+        line-height: 1.45;
+      }
+
+      .words {
+        font-size: 12.5px;
+        color: var(--ink-soft);
+        margin-bottom: 8px;
+        line-height: 1.6;
+      }
+      .words b {
+        color: var(--ink);
+      }
+      textarea {
+        width: 100%;
+        height: 210px;
+        padding: 10px 12px;
+        border: 1.5px solid var(--line);
+        border-radius: 11px;
+        font:
+          12px/1.55 ui-monospace,
+          SFMono-Regular,
+          Menlo,
+          monospace;
+        background: #fbfaf7;
+        color: #3a3a42;
+        resize: vertical;
+      }
+      .btns {
+        display: flex;
+        gap: 7px;
+        margin-top: 7px;
+        flex-wrap: wrap;
+      }
+      button {
+        border: 1.5px solid var(--line);
+        background: #fff;
+        border-radius: 9px;
+        padding: 6px 12px;
+        font-size: 12.5px;
+        font-weight: 800;
+        cursor: pointer;
+        color: var(--ink);
+        font-family: inherit;
+      }
+      button:hover {
+        border-color: #cfcbc3;
+      }
+      button.primary {
+        background: var(--coral);
+        border-color: var(--coral);
+        color: #fff;
+      }
+
+      .slot {
+        border: 1.5px dashed #d8d4cc;
+        border-radius: 12px;
+        min-height: 150px;
+        background: #fbfaf7;
+        overflow: hidden;
+      }
+      .slot:focus {
+        outline: 2px solid var(--mint);
+        outline-offset: 1px;
+      }
+      .slot img {
+        width: 100%;
+        display: block;
+      }
+      .drop {
+        padding: 26px 12px;
+        text-align: center;
+        font-size: 12px;
+        color: #9a9aa4;
+        white-space: pre-line;
+        line-height: 1.6;
+      }
+      .drop.over {
+        background: #f0fbf8;
+        color: var(--ok);
+      }
+      .act {
+        display: flex;
+        justify-content: flex-end;
+        padding: 6px;
+      }
+      .act button {
+        font-size: 11.5px;
+        padding: 4px 9px;
+      }
+
+      .more {
+        display: block;
+        margin: 22px auto;
+        padding: 9px 22px;
+      }
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 26px;
+        transform: translateX(-50%) translateY(20px);
+        opacity: 0;
+        background: #2b2b31;
+        color: #fff;
+        padding: 9px 18px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 700;
+        transition: 0.18s;
+        pointer-events: none;
+        z-index: 20;
+      }
+      .toast.on {
+        opacity: 1;
+        transform: translateX(-50%);
+      }
+    </style>
+  </head>
+  <body>
+    <aside>
+      <h1>🔍 숨은그림찾기</h1>
+      <p class="hint">
+        그림만 만듭니다.<br />사물 박스는 editor2 「숨은그림」 탭에서 드래그하세요.
+      </p>
+      <div id="nav"></div>
+    </aside>
+
+    <main>
+      <div class="head">
+        <h2 id="title">불러오는 중…</h2>
+        <span class="sub" id="sub"></span>
+      </div>
+
+      <div class="bar">
+        <input id="q" type="search" placeholder="책 이름·낱말로 찾기" />
+        <label><input type="checkbox" id="todo" /> 아직 안 만든 것만</label>
+        <span class="sub" id="count"></span>
+      </div>
+
+      <div id="list"></div>
+    </main>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      (function () {
+        'use strict';
+        var DOC = 'hidden-object-plan';
+        var API = '/api/comic-assets/' + DOC;
+        var PAGE = 12; // 한 번에 그리는 줄 수 — 참조 이미지가 줄마다 7~10장이라 적게 잡는다
+        var data = null,
+          assets = {},
+          si = 0,
+          shown = PAGE;
+
+        function done(it) {
+          return !!assets[it.key];
+        }
+
+        // 프롬프트는 데이터에 한 벌만 실려 온다 — 책 이름과 낱말만 끼워 넣는다.
+        function promptFor(it) {
+          return data.promptLine
+            .split('{{book}}')
+            .join(it.bookTitle)
+            .split('{{n}}')
+            .join(String(it.words.length))
+            .split('{{objects}}')
+            .join(
+              it.words
+                .map(function (w, i) {
+                  return i + 1 + '. ' + w.en + '  (' + w.ko + ')';
+                })
+                .join('\n')
+            );
+        }
+
+        var toastT;
+        function toast(m) {
+          var t = document.getElementById('toast');
+          t.textContent = m;
+          t.classList.add('on');
+          clearTimeout(toastT);
+          toastT = setTimeout(function () {
+            t.classList.remove('on');
+          }, 1400);
+        }
+
+        function visible() {
+          var q = document.getElementById('q').value.trim().toLowerCase();
+          var todo = document.getElementById('todo').checked;
+          var out = [];
+          data.sections.forEach(function (s, idx) {
+            if (si >= 0 && idx !== si) return;
+            s.items.forEach(function (it) {
+              if (todo && done(it)) return;
+              if (q) {
+                var hay = (
+                  it.bookTitle +
+                  ' ' +
+                  it.words
+                    .map(function (w) {
+                      return w.ko + ' ' + w.en;
+                    })
+                    .join(' ')
+                ).toLowerCase();
+                if (hay.indexOf(q) < 0) return;
+              }
+              out.push(it);
+            });
+          });
+          return out;
+        }
+
+        function renderNav() {
+          var nav = document.getElementById('nav');
+          nav.innerHTML = '';
+          var all = document.createElement('button');
+          var tot = 0,
+            tok = 0;
+          data.sections.forEach(function (s) {
+            s.items.forEach(function (it) {
+              tot++;
+              if (done(it)) tok++;
+            });
+          });
+          all.className = 'grp' + (si < 0 ? ' on' : '');
+          all.innerHTML =
+            '전체<span class="n' +
+            (tok ? ' done' : '') +
+            '">' +
+            (tok ? tok + '/' : '') +
+            tot +
+            '</span>';
+          all.onclick = function () {
+            si = -1;
+            shown = PAGE;
+            render();
+          };
+          nav.appendChild(all);
+
+          data.sections.forEach(function (s, i) {
+            var n = s.items.length,
+              ok = 0;
+            s.items.forEach(function (it) {
+              if (done(it)) ok++;
+            });
+            var b = document.createElement('button');
+            b.className = 'grp' + (i === si ? ' on' : '');
+            b.innerHTML =
+              s.label +
+              '<span class="n' +
+              (ok === n ? ' done' : '') +
+              '">' +
+              ok +
+              '/' +
+              n +
+              '</span>';
+            b.onclick = function () {
+              si = i;
+              shown = PAGE;
+              render();
+            };
+            nav.appendChild(b);
+          });
+        }
+
+        function makeSlot(it, onChange) {
+          var key = it.key;
+          var box = document.createElement('div');
+          box.className = 'slot';
+          box.tabIndex = 0;
+
+          function paint() {
+            box.innerHTML = '';
+            if (assets[key]) {
+              var img = document.createElement('img');
+              img.src = assets[key] + '?t=' + Date.now();
+              box.appendChild(img);
+              var act = document.createElement('div');
+              act.className = 'act';
+              var del = document.createElement('button');
+              del.textContent = '🗑 지우기';
+              del.onclick = function () {
+                fetch(API + '/' + key, { method: 'DELETE' }).then(function () {
+                  delete assets[key];
+                  paint();
+                  onChange();
+                });
+              };
+              act.appendChild(del);
+              box.appendChild(act);
+            } else {
+              var d = document.createElement('div');
+              d.className = 'drop';
+              d.textContent = '여기를 누르고 붙여넣기 (Ctrl+V)\n또는 파일을 끌어다 놓기';
+              box.appendChild(d);
+            }
+          }
+          paint();
+
+          function upload(dataUrl) {
+            fetch(API, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ key: key, dataUrl: dataUrl }),
+            })
+              .then(function (r) {
+                return r.json();
+              })
+              .then(function (j) {
+                if (!j || !j.success) throw new Error((j && j.error) || '실패');
+                assets[key] = (j.data && j.data.url) || dataUrl;
+                paint();
+                onChange();
+                toast('저장했어요 — ' + it.bookTitle + ' / ' + it.genreLabel);
+              })
+              .catch(function (e) {
+                toast('저장 실패: ' + e.message);
+              });
+          }
+          function fromFile(f) {
+            if (!f || f.type.indexOf('image/') !== 0) return;
+            var fr = new FileReader();
+            fr.onload = function () {
+              upload(String(fr.result));
+            };
+            fr.readAsDataURL(f);
+          }
+
+          // 🔴 붙여넣기는 **그 칸에 포커스가 있을 때만** 받는다 — 문서 전역으로 받으면 144칸 중
+          //    어디에 넣을지 알 수 없다. 칸을 한 번 누르고 Ctrl+V 하는 흐름.
+          box.addEventListener('click', function () {
+            box.focus();
+          });
+          box.addEventListener('paste', function (e) {
+            var cb = (e.clipboardData || {}).items || [];
+            for (var i = 0; i < cb.length; i++) {
+              if (cb[i].type.indexOf('image/') === 0) {
+                e.preventDefault();
+                fromFile(cb[i].getAsFile());
+                return;
+              }
+            }
+          });
+          box.addEventListener('dragover', function (e) {
+            e.preventDefault();
+            var d = box.querySelector('.drop');
+            if (d) d.classList.add('over');
+          });
+          box.addEventListener('dragleave', function () {
+            var d = box.querySelector('.drop');
+            if (d) d.classList.remove('over');
+          });
+          box.addEventListener('drop', function (e) {
+            e.preventDefault();
+            var d = box.querySelector('.drop');
+            if (d) d.classList.remove('over');
+            fromFile((e.dataTransfer.files || [])[0]);
+          });
+          return box;
+        }
+
+        function makeRow(it) {
+          var row = document.createElement('div');
+          row.className = 'row' + (done(it) ? ' ok' : '');
+
+          var head = document.createElement('div');
+          head.className = 'rowhead';
+          head.innerHTML =
+            '<b>' +
+            it.bookTitle +
+            '</b>' +
+            '<span class="chip g">' +
+            it.genreLabel +
+            '</span>' +
+            '<span class="chip">숨길 사물 ' +
+            it.words.length +
+            '</span>' +
+            '<span class="chip">' +
+            it.key +
+            '</span>';
+          row.appendChild(head);
+
+          var cols = document.createElement('div');
+          cols.className = 'cols';
+
+          // ① 참조 — 쪽 삽화 1장(그림체) + 낱말 카드 전부(사물 생김새)
+          var refs = document.createElement('div');
+          refs.className = 'refs';
+          var pg = document.createElement('img');
+          pg.className = 'page';
+          pg.src = it.pageImage;
+          pg.loading = 'lazy';
+          pg.alt = it.bookTitle + ' 쪽 삽화 (' + it.genreLabel + ')';
+          refs.appendChild(pg);
+          var cards = document.createElement('div');
+          cards.className = 'cards';
+          it.words.forEach(function (w) {
+            var f = document.createElement('figure');
+            if (w.card) {
+              var im = document.createElement('img');
+              im.src = w.card;
+              im.loading = 'lazy';
+              im.alt = w.ko;
+              f.appendChild(im);
+            } else {
+              var m = document.createElement('div');
+              m.className = 'miss';
+              m.textContent = '—';
+              m.title = '이 낱말은 카드 그림이 없다';
+              f.appendChild(m);
+            }
+            var cap = document.createElement('figcaption');
+            cap.textContent = w.ko;
+            f.appendChild(cap);
+            cards.appendChild(f);
+          });
+          refs.appendChild(cards);
+          var note = document.createElement('p');
+          note.className = 'refnote';
+          note.textContent = '위 쪽 삽화를 먼저, 그다음 낱말 카드들을 순서대로 붙이세요.';
+          refs.appendChild(note);
+          cols.appendChild(refs);
+
+          // ② 프롬프트
+          var mid = document.createElement('div');
+          var words = document.createElement('div');
+          words.className = 'words';
+          words.innerHTML =
+            '숨길 사물: ' +
+            it.words
+              .map(function (w) {
+                return '<b>' + w.ko + '</b>(' + w.en + ')';
+              })
+              .join(' · ');
+          mid.appendChild(words);
+          var ta = document.createElement('textarea');
+          ta.readOnly = true;
+          ta.value = promptFor(it);
+          mid.appendChild(ta);
+          var btns = document.createElement('div');
+          btns.className = 'btns';
+          var cp = document.createElement('button');
+          cp.className = 'primary';
+          cp.textContent = '📋 프롬프트 복사';
+          cp.onclick = function () {
+            navigator.clipboard.writeText(ta.value).then(function () {
+              toast('복사했어요');
+            });
+          };
+          btns.appendChild(cp);
+          // 🔴 참조를 손으로 하나씩 저장하지 않게 — 주소를 한 번에 준다(GPT 에 URL 로 붙일 때도 쓴다).
+          var cu = document.createElement('button');
+          cu.textContent = '🔗 참조 주소 복사';
+          cu.onclick = function () {
+            var urls = [it.pageImage].concat(
+              it.words
+                .map(function (w) {
+                  return w.card;
+                })
+                .filter(Boolean)
+            );
+            navigator.clipboard.writeText(urls.join('\n')).then(function () {
+              toast('참조 ' + urls.length + '장 주소를 복사했어요');
+            });
+          };
+          btns.appendChild(cu);
+          mid.appendChild(btns);
+          cols.appendChild(mid);
+
+          // ③ 붙여넣기
+          cols.appendChild(
+            makeSlot(it, function () {
+              row.className = 'row' + (done(it) ? ' ok' : '');
+              renderNav();
+              renderCount();
+            })
+          );
+
+          row.appendChild(cols);
+          return row;
+        }
+
+        function renderCount() {
+          var v = visible();
+          var ok = v.filter(done).length;
+          document.getElementById('count').textContent = v.length + '장 중 ' + ok + '장 완료';
+        }
+
+        function render() {
+          renderNav();
+          var v = visible();
+          document.getElementById('title').textContent =
+            si < 0 ? data.category + ' 전체' : data.sections[si].label;
+          var tot = 0;
+          data.sections.forEach(function (s) {
+            tot += s.items.length;
+          });
+          document.getElementById('sub').textContent =
+            data.sections.length + '권 · ' + tot + '장 (책마다 그림체 3종)';
+          renderCount();
+
+          var list = document.getElementById('list');
+          list.innerHTML = '';
+          v.slice(0, shown).forEach(function (it) {
+            list.appendChild(makeRow(it));
+          });
+          if (v.length > shown) {
+            var more = document.createElement('button');
+            more.className = 'more';
+            more.textContent = '더 보기 (' + (v.length - shown) + '장 남음)';
+            more.onclick = function () {
+              shown += PAGE;
+              render();
+            };
+            list.appendChild(more);
+          }
+        }
+
+        Promise.all([
+          fetch('/hidden-object-plan-data.json').then(function (r) {
+            return r.json();
+          }),
+          fetch(API)
+            .then(function (r) {
+              return r.json();
+            })
+            .catch(function () {
+              return {};
+            }),
+        ])
+          .then(function (res) {
+            data = res[0];
+            var a = res[1];
+            assets = (a && a.data) || a || {};
+            si = -1;
+            document.getElementById('q').addEventListener('input', function () {
+              shown = PAGE;
+              render();
+            });
+            document.getElementById('todo').addEventListener('change', function () {
+              shown = PAGE;
+              render();
+            });
+            render();
+          })
+          .catch(function (e) {
+            document.getElementById('title').textContent = '목록을 못 읽었어요: ' + e.message;
+          });
+      })();
+    </script>
+  </body>
+</html>
