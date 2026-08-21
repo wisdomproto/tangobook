@@ -762,6 +762,19 @@ for (const f of files) {
   });
   if (altWarn.length) console.log(`  ⚠ 전투복·평상복 — 없는 단계를 가리킨다: ${altWarn.join(", ")}`);
   else console.log(`  ✓ 옷 갈아입는 ${Object.keys(ALT_STAGE).length}단계 전부 실제 단계를 가리킨다`);
+
+  // 🔴 장 번호가 1부터 빠짐없이 이어지는지. 쪽을 옮기다 장 머리를 통째로 날려도
+  //   빌드는 통과한다 — 5권 「2장 · 연환계」가 그렇게 사라져 1장 다음이 3장이었다(2026-08-21).
+  //   쪽 수·SCENE·첫 등장은 다 세면서 «장이 있는지»는 아무도 안 세고 있었다.
+  const chapWarn = allVols
+    .map((v) => {
+      const ns = v.chapters.map((c) => c.n);
+      const want = ns.map((_, i2) => i2 + 1);
+      return ns.join() === want.join() ? null : `${String(v.n).padStart(2, "0")}권 장 번호 ${ns.join("·")}`;
+    })
+    .filter(Boolean);
+  if (chapWarn.length) console.log(`  ⚠ 장 번호가 끊긴다 — ${chapWarn.join(" / ")}`);
+  else console.log(`  ✓ ${allVols.length}권 전부 장 번호가 1부터 빠짐없이 이어진다`);
 }
 
 // index.json — 대본이 있는 권만 (전 권 빌드일 때만 다시 굽는다)
