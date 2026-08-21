@@ -158,7 +158,7 @@ const RESOURCES: ResourceItem[] = [
     href: '/samgukji-plan.html',
     icon: '📕',
     label: '탱고북 삼국지 기획서',
-    desc: '시리즈물 · 초등 저학년 · 도원결의~오장원 24권 94장 구성 + 캐스트 10인 바이블(노화 3단계) + 권별 대본(☰ 회차)',
+    desc: '시리즈물 · 초등 저학년 · 도원결의~오장원 24권 94장 546쪽 + 캐릭터 시트 54장(권 번호가 정하는 나이·복장 59단계) + 권별 대본·발주 프롬프트(☰ 회차)',
   },
   {
     href: '/hangeul-tree-plan.html',
