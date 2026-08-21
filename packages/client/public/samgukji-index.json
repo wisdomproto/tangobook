@@ -4,6 +4,10 @@
     "label": "📕 기획서"
   },
   {
+    "file": "samgukji-read.html",
+    "label": "📖 글만 읽기"
+  },
+  {
     "file": "samgukji-01.html",
     "label": "1 · 복사꽃 동산의 맹세",
     "title": "1권 복사꽃 동산의 맹세"
@@ -20,8 +24,8 @@
   },
   {
     "file": "samgukji-04.html",
-    "label": "4 · 천하를 흔든 사람",
-    "title": "4권 천하를 흔든 사람"
+    "label": "4 · 천하를 흔든 미인",
+    "title": "4권 천하를 흔든 미인"
   },
   {
     "file": "samgukji-05.html",

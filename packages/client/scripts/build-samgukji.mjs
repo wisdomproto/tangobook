@@ -793,6 +793,7 @@ for (const f of files) {
 if (!only) {
   const index = [
     { file: 'samgukji-plan.html', label: '📕 기획서' },
+    { file: 'samgukji-read.html', label: '📖 글만 읽기' },
     ...built.map((v) => ({
       file: `samgukji-${String(v.n).padStart(2, '0')}.html`,
       label: `${v.n} · ${v.title}`,
@@ -802,6 +803,7 @@ if (!only) {
   fs.writeFileSync(path.join(OUT, 'samgukji-index.json'), JSON.stringify(index, null, 2) + '\n');
   console.log(`samgukji-index.json — ${index.length} entries`);
   buildPlan(built);
+  buildRead(built);
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -847,6 +849,142 @@ function parseAnchor() {
   return m ? m[1].trim() : null;
 }
 
+/**
+ * 글만 담은 읽기 페이지 — 24권 처음부터 끝까지.
+ * 🔴 SCENE·프롬프트·발주 도구는 한 줄도 안 넣는다. 저작 화면과 «읽는 화면»은 다른 물건이고,
+ *   콘티가 섞이면 이야기가 읽히지 않는다.
+ * 🔴 md 에서 굽는다 — 손으로 만들면 대본과 갈라진다.
+ */
+function buildRead(vols) {
+  const css = `
+:root{--paper:#FBF7EE;--ink:#2A2723;--soft:#8C8172;--rule:#E7DECB;--accent:#B8352A;--gold:#C9A227}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Noto Serif KR','Nanum Myeongjo',Batang,serif;
+  font-size:19px;line-height:2.05;word-break:keep-all;overflow-wrap:break-word;
+  -webkit-font-smoothing:antialiased}
+a{color:inherit}
+
+.bar{position:sticky;top:0;z-index:10;background:rgba(251,247,238,.94);
+  backdrop-filter:blur(6px);border-bottom:1px solid var(--rule)}
+.bar .in{max-width:56rem;margin:0 auto;padding:9px 16px;display:flex;gap:10px;align-items:baseline}
+.bar b{font-size:14px;font-weight:800;letter-spacing:.02em;white-space:nowrap}
+.bar .sub{font-size:12px;color:var(--soft);white-space:nowrap}
+.bar nav{margin-left:auto;display:flex;gap:4px;overflow-x:auto;
+  scrollbar-width:none;-ms-overflow-style:none}
+.bar nav::-webkit-scrollbar{display:none}
+.bar nav a{flex:0 0 auto;font-size:12px;font-weight:700;color:var(--soft);
+  text-decoration:none;padding:3px 7px;border-radius:6px;font-family:ui-monospace,monospace}
+.bar nav a:hover{background:#0000000d;color:var(--ink)}
+
+main{max-width:38rem;margin:0 auto;padding:0 22px 22vh}
+
+.hero{padding:14vh 0 10vh;text-align:center;border-bottom:1px solid var(--rule)}
+.hero h1{font-size:2.1rem;line-height:1.4;margin:0 0 14px;letter-spacing:.02em}
+.hero p{margin:0;color:var(--soft);font-size:14px;line-height:1.9}
+
+.vol{padding:16vh 0 2vh;text-align:center}
+.vol .n{font-family:ui-monospace,monospace;font-size:12px;letter-spacing:.28em;
+  color:var(--gold);font-weight:700}
+.vol h2{font-size:1.6rem;margin:8px 0 0;line-height:1.5}
+.vol .rule{width:44px;height:2px;background:var(--accent);margin:20px auto 0;opacity:.7}
+
+.chap{margin:9vh 0 4vh;text-align:center}
+.chap h3{font-size:1.05rem;font-weight:700;margin:0;color:var(--soft);letter-spacing:.04em}
+.chap .star{color:var(--gold)}
+
+.pg{margin:0 0 3.2em}
+.pg h4{font-size:13px;font-weight:700;color:var(--soft);margin:0 0 .45em;
+  letter-spacing:.03em;line-height:1.7}
+.pg p{margin:0;text-indent:0}
+.pg.first p::first-letter{font-size:2.6em;float:left;line-height:.92;
+  margin:.06em .12em 0 0;color:var(--accent);font-weight:700}
+
+.end{margin-top:16vh;text-align:center;color:var(--soft);font-size:13px;line-height:2}
+.end .rule{width:44px;height:1px;background:var(--rule);margin:0 auto 18px}
+
+@media (max-width:640px){
+  body{font-size:17.5px;line-height:1.98}
+  main{padding:0 18px 20vh}
+  .bar b{font-size:13px} .bar .sub{display:none}
+  .hero{padding:9vh 0 7vh} .hero h1{font-size:1.65rem}
+  .vol{padding:11vh 0 2vh} .vol h2{font-size:1.35rem}
+}
+@media print{
+  .bar{display:none} body{font-size:11pt;background:#fff}
+  .vol{padding-top:0;page-break-before:always} main{max-width:none}
+}`;
+
+  const nav = vols
+    .map((v) => `<a href="#v${v.n}" title="${esc(v.title)}">${String(v.n).padStart(2, '0')}</a>`)
+    .join('');
+
+  const body = vols
+    .map((v) => {
+      const chaps = v.chapters
+        .map((c) => {
+          const pages = c.pages
+            .map((p, i) => {
+              const first = c.n === 1 && i === 0 ? ' first' : '';
+              return `    <div class="pg${first}"><h4>${esc(p.label)}</h4><p>${esc(p.text)}</p></div>`;
+            })
+            .join('\n');
+          return `  <section class="chap"><h3>${c.n}장 · ${esc(c.name)}${c.star ? ' <span class="star">⭐</span>' : ''}</h3></section>\n${pages}`;
+        })
+        .join('\n');
+      return `<section class="vol" id="v${v.n}">
+  <div class="n">${String(v.n).padStart(2, '0')}</div>
+  <h2>${esc(v.title)}</h2>
+  <div class="rule"></div>
+</section>
+${chaps}`;
+    })
+    .join('\n');
+
+  const pageCount = vols.reduce((a, v) => a + v.chapters.reduce((b, c) => b + c.pages.length, 0), 0);
+  const chapCount = vols.reduce((a, v) => a + v.chapters.length, 0);
+
+  const html = `<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>탱고북 삼국지 — 읽기</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;800&display=swap" rel="stylesheet" />
+<style>${css}</style>
+</head>
+<body>
+<div class="bar"><div class="in">
+  <b>탱고북 삼국지</b>
+  <span class="sub">${vols.length}권 · ${chapCount}장 · ${pageCount}쪽</span>
+  <nav>${nav}</nav>
+</div></div>
+
+<main>
+<header class="hero">
+  <h1>탱고북 삼국지</h1>
+  <p>도원결의부터 오장원까지 · ${vols.length}권 ${pageCount}쪽<br />
+  글만 담았습니다. 삽화 지시와 발주 도구는 <a href="/samgukji-plan.html">기획서</a>에 있습니다.</p>
+</header>
+
+${body}
+
+<div class="end">
+  <div class="rule"></div>
+  끝
+</div>
+</main>
+</body>
+</html>
+`;
+
+  fs.writeFileSync(path.join(OUT, 'samgukji-read.html'), html);
+  console.log(`samgukji-read.html — 읽기 ${vols.length}권 ${chapCount}장 ${pageCount}쪽`);
+}
+
 function buildPlan(builtVols) {
   const vols = parseOutline();
   const sheets = parseCastSheets();
@@ -857,6 +995,17 @@ function buildPlan(builtVols) {
   const byToken = Object.fromEntries(Object.values(CAST).map((c) => [c.token, c]));
   const keyByToken = Object.fromEntries(Object.entries(CAST).map(([k, c]) => [c.token, k]));
   const written = new Set(builtVols.map((v) => v.n));
+
+  // 🔴 목차는 «대본에서 파생»한다 — _outline.md 는 집필 전에 짠 표라, 쓰면서 제목이 바뀐
+  //   19개 권에서 기획서가 대본에 없는 장 제목을 보여 주고 있었다(12·24권은 장 수까지 달랐다).
+  //   같은 것을 두 곳에 손으로 적어 두면 반드시 갈라진다. 설명(note)만 표에서 자리 순으로 물려받는다.
+  for (const v of vols) {
+    const src = builtVols.find((b) => b.n === v.n);
+    if (!src) continue;
+    const notes = v.chapters.map((c) => c.note);
+    v.title = src.title;
+    v.chapters = src.chapters.map((c, i2) => ({ n: c.n, name: c.name, star: c.star, note: notes[i2] || "" }));
+  }
   const totalCh = vols.reduce((a, v) => a + v.chapters.length, 0);
   const stars = vols.reduce((a, v) => a + v.chapters.filter((c) => c.star).length, 0);
 
