@@ -38,53 +38,54 @@
 ```
 STYLE ANCHOR - samgukji-inkwash-sd
 
-STYLE: A picture book for 7-9 year olds retelling the Three Kingdoms. THE WORLD IS PAINTED AS EAST
-ASIAN INK-WASH LANDSCAPE; THE PEOPLE ARE DRAWN AS LIGHTLY STYLISED FIGURES LAID ON IT. Calligraphic
-linework, muted earth tones, rice-paper texture in the washes, wide empty space. NOT photorealistic,
-NOT anime-cel, NOT a 3D render.
+STYLE: A picture book for 7-9 year olds retelling the Three Kingdoms.
+🔴 DETAILED PAINTERLY CHIBI (SD, ~2.5 heads) figures, East Asian ink-wash + soft cel shading, crisp
+readable silhouette, muted earth tones with gold and jade accents, clean even lighting.
+THE WORLD IS INK-WASH LANDSCAPE AND THE PEOPLE ARE LAID ON IT. Calligraphic linework, rice-paper
+texture in the washes, wide empty space.
 
 RENDERING (finish hierarchy)
 - 🔴 TWO LAYERS, FINISHED DIFFERENTLY. BACKGROUND = wet ink wash on warm paper: hills, pines, mist,
-  sky; 0 outlines, drying into bare paper. FIGURES = clean ink outline of even weight, flat fill, ONE
-  step of soft shading. A figure is always the most finished thing on its page.
+  sky; 0 outlines, drying into bare paper. FIGURES = fine ink line that THINS AND SWELLS with the
+  form, watercolour laid in graded washes, 2-3 steps of shadow, and a hard highlight on metal only.
+- 🔴 THE FIGURE IS PAINTED, NOT FILLED IN. Cloth folds; armour scales and lacing are drawn one by
+  one; embroidery and gold run along collar, cuff and hem. 🔴 A flat shape of colour is the failure.
 - FINISHED THINGS PER PAGE = 2 - the person the page is about, and the one thing they handle.
-- NAMED FIGURES IN FRONT = at most 3. 🔴 CROWDS AND ARMIES ARE NOT PEOPLE: ONE silhouette repeated
-  12-40 times, smaller and paler as it recedes, dissolving into the mist.
+- NAMED FIGURES IN FRONT = at most 3. 🔴 CROWDS ARE NOT PEOPLE: ONE silhouette repeated 12-40
+  times, paler as it recedes, dissolving into mist.
 - BACKGROUND OBJECT COUNT = at most 6 named things per page. Everything else is wash and bare paper.
 - 🔴 MIST IS THE ERASER: distance is paler, not smaller; the far third of a wide shot dissolves into
   the paper. No hard horizon behind a figure.
-- DENSITY RATION: only battle, market and court may fill the frame. Every other keeps AT LEAST HALF
-  the frame as wash or bare paper. The scene brief names which is which.
+- DENSITY: only battle, market and court may fill the frame. Every other keeps AT LEAST HALF the
+  frame as wash or bare paper.
 
 PALETTE (muted earth, sampled from the house renders)
 paper #F0E2C0 · ink #2B2B2B · olive-green #485A48 · pale jade #5A6C5A · ochre #D8B46C ·
 mustard #6C6C48 · leather brown #5A4836 · deep brown #483624 · skin #D8B4A2.
-ACCENTS, USED SPARINGLY: vermilion #B8352A · gold #C9A227.
+ACCENTS, USED SPARINGLY: vermilion #B8352A · gold #C9A227 · jade #6E8F7A.
 🔴 KERCHIEF YELLOW #E8B233 IS THE REBEL HOST'S AND NOBODY ELSE'S. Book 1's hero fights that host:
 yellow on him reads as one of them. It happened once in test; do not put it back.
 
 CHARACTER DESIGN LANGUAGE
-- 🔴 EVERY PERSON IS 5.5 HEADS TALL - head height taken five and a half times is the standing
-  height. Lightly stylised, not chibi: head a little large, body compact, legs carrying it. 🔴 4
-  reads as a child, 8 as a fashion plate. It never changes with rank or age.
-- 🔴 THE FACE COLOUR IS THE CASTING AND NEVER CHANGES - not with light, weather or age; one steady
-  tone. 🔴 WHICH tone, and every other value for that person, comes from their CHARACTER SHEET.
-- Eyes = two strokes and a filled pupil; brows = one stroke and carry the expression. Mouths small.
-  0 blush marks, 0 sparkle highlights, 0 sweat drops.
+- 🔴 EVERY PERSON IS CHIBI AT ~2.5 HEADS. Big head, short legs, small blunt hands, heavy boots.
+  It never changes with rank or age.
+- 🔴 SMALL EYES ON A BIG HEAD - this is what separates a grown warrior from a cute mascot. The eye
+  is at most a fifth of the face width, the brow above it THICK AND ANGLED, the beard full size.
+  🔴 Big round eyes turn every one of these men into a child. The head is the childlike part, not
+  the face on it.
+- 🔴 THE FACE COLOUR IS THE CASTING AND NEVER CHANGES - not with light, weather or age. 🔴 WHICH
+  tone, and every other value for that person, comes from their CHARACTER SHEET.
+- Features are drawn, not signed: lid line, iris, one catchlight; the brow a shaped stroke; the nose
+  a ridge. 0 blush marks, 0 anime sweat drops, 0 star sparkles.
 - 🔴 FEELING IS CARRIED BY THE WHOLE BODY: it leans, plants its feet wide, throws its arms out.
-- 🔴 TEST: fill any figure solid and rub out the inside. What is left must be that person from the
-  sheet. If the silhouette does not say who it is, the figure is wrong.
+- 🔴 TEST: fill the figure solid and rub out the inside. What is left must be that person from the
+  sheet, or the figure is wrong.
 
 CANVAS
 16:9 double-page spread. 🔴 NO lettering, numerals, signage or captions anywhere in the image, in any
 script. No caption band - the picture runs to all four edges. Light is warm and low, from one side.
 🔴 THE SKY IS NEVER BLUE: it is the warm paper, washed ochre where the sun is.
 
-STAGE CLAUSES (carry only the clause that page needs)
-- VILLAGE/MARKET: thatched roofs and a fence in wash, one pine, an earth road; ground = one wash band.
-- PALACE/COURT: repeated pillars and roof brackets receding into mist.
-- FIELD/BATTLE: hills and mist above; below, the repeated silhouette host and a few banners.
-- ROAD/JOURNEY: one road, one or two pines, the rest wash and bare paper.
 
 NOT (rendering only)
 airbrushing, glossy 3D, cel-shaded anime or manga screentone · photobash or photographic texture ·
