@@ -622,7 +622,7 @@ function buildPlan(builtVols) {
    * 왜(2026-08-20 두 번째 렌더): 앵커를 통째로 붙였더니 `CANVAS` 의 「16:9 양면 펼침 ·
    *   그림이 네 모서리까지 · 캡션 띠 금지」와 `STAGE CLAUSES` 의 마을·궁궐·들판 배경 지시가
    *   그대로 먹어서, 나온 것이 «캐릭터 시트»가 아니라 «한 쪽 삽화»였다(첫 렌더엔 수묵 산수가
-   *   깔렸고, 두 번째는 16:9 펼침으로 나왔다). 시트의 캔버스는 아래 SHEET_BRIEF 가 정한다.
+   *   깔렸고, 두 번째는 16:9 펼침으로 나왔다). 시트의 캔버스는 아래 sheetBrief 가 정한다.
    */
   const anchorForSheet = (a) =>
     (() => {
@@ -635,7 +635,19 @@ function buildPlan(builtVols) {
       if (/16:9 double-page/.test(cut) || /STAGE CLAUSES/.test(cut)) {
         throw new Error('앵커에서 쪽 전용 절(CANVAS·STAGE CLAUSES)을 못 잘랐다 — 앵커 제목이 바뀌었나 확인');
       }
-      return cut;
+      // 🔴 앵커는 «쪽» 발주를 향해 쓰여서 「값은 그 사람의 캐릭터 시트에서 가져온다」고 두 번 말한다.
+      //   쪽에서는 그 시트가 @imageN 으로 첨부되니 맞는 말이지만, «시트를 만드는» 프롬프트에 그대로
+      //   들어가면 순환이 된다 — 지금 만들고 있는 것이 바로 그 시트라서, 모델이 시트를 달라고 한다.
+      //   그래서 시트용에서는 그 두 문장의 출처를 「아래에 적혀 있다」로 바꾼다.
+      const deref = cut
+        .replace('🔴 WHICH tone, and every other value for that person, comes from their CHARACTER SHEET.',
+          '🔴 WHICH tone, and every other value for this person, is written out below - there is no other\n  sheet to consult, because this prompt is what makes it.')
+        .replace('- 🔴 TEST: fill any figure solid and rub out the inside. What is left must be that person from the\n  sheet. If the silhouette does not say who it is, the figure is wrong.',
+          '- 🔴 TEST: fill the figure solid and rub out the inside. What is left must say who this is. If the\n  silhouette does not, the figure is wrong.');
+      if (/comes from their CHARACTER SHEET/.test(deref) || /that person from the\n  sheet/.test(deref)) {
+        throw new Error('시트 프롬프트에 「시트를 참조하라」가 남았다 — 모델이 레퍼런스 이미지를 요구하게 된다');
+      }
+      return deref;
     })();
 
   /**
@@ -693,7 +705,15 @@ function buildPlan(builtVols) {
    *   무시됐다(정면 하나 + 얼굴 하나만 나오고, 사양 문장이 캡션으로 박혔다).
    *   모델은 앞쪽 문장으로 「이 이미지가 무엇인지」를 정하므로, 그것부터 말한다.
    */
-  const SHEET_BRIEF = `Draw a character reference sheet. This is not a page from the book.
+  // 🔴 첫 두 줄만 갈라진다 — 파생 단계는 승인본을 «첨부해서» 그리므로 「아무것도 첨부 안 됐다」를
+  //   쓰면 같은 프롬프트 안에서 두 말이 부딪친다.
+  const attachLine = (derived) =>
+    derived
+      ? '🔴 ONE IMAGE IS ATTACHED: the approved sheet for this same person. Everything else you need is\n  written below.'
+      : '🔴 NOTHING IS ATTACHED AND NOTHING NEEDS TO BE. Every value you need is written below - face,\n  build, clothing, colours, proportion. Do not ask for a reference image; this prompt is it.';
+
+  const sheetBrief = (derived = false) => `Draw a character reference sheet. This is not a page from the book.
+${attachLine(derived)}
 
 🔴 PROPORTION, BEFORE ANYTHING ELSE - the figure is 5.5 HEADS TALL. Measure it: the height of the
   head from crown to chin, taken five and a half times, is the whole standing height. Lightly
@@ -729,7 +749,7 @@ interior detail at all, so that only the outline remains. Every one of those par
     //   대표(둘째 단계)는 통째 시트로 먼저 굽고, 나머지는 «승인된 대표를 첨부해» 정면+얼굴만 뽑는다.
     const primaryIdx = stages.length > 2 ? 1 : -1;
     const slotPrompt = (from, text, isPrimary, derived) => {
-      const head = `${SHEET_BRIEF}
+      const head = `${sheetBrief(derived)}
 
 ${anchorForSheet(anchor)}
 
@@ -766,7 +786,7 @@ OUTPUT: front view, full figure, plus one head close-up. Nothing else.`
     return `
   <div class="char-prompt"${stages.length ? '' : ` data-key="char-${token.toLowerCase()}"`} style="border-left:4px solid ${FACC[fac]}">
     <div class="head"><b>${c.name}</b> <span class="rom">${token}</span> <span class="tag" style="background:${FACC[fac]}22;color:${FACC[fac]}">${fac}</span>${stages.length ? ` <span class="tag" style="background:#EDE3CC;color:#6B5A3E">시트 ${stages.length}장</span>` : ' <button class="copy-btn">📋 시트 프롬프트 복사</button>'}</div>
-    <details><summary>캐릭터 시트 프롬프트 보기</summary><pre>${esc(SHEET_BRIEF)}
+    <details><summary>캐릭터 시트 프롬프트 보기</summary><pre>${esc(sheetBrief(false))}
 
 ${esc(anchorForSheet(anchor))}
 
