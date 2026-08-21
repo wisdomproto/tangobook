@@ -941,6 +941,47 @@ COSTUME: a governor's robe, richly made, worn loose.
 
 ---
 
+## Pangde
+
+```
+PANGDE - the one man who rode out to Guan Yu having already decided not to go home.
+SHOULDERS = 1.9 head-widths.
+FACE: a square-cut black beard trimmed level straight across at the jaw, straight heavy brows, a
+  mouth that stays closed. 🔴 THE FACE DOES NOT CHANGE - not riding out, not when the water comes.
+COSTUME: plain iron scale over a grey coat. 🔴 0 ORNAMENT - no gold, no plume, no sash, no colour.
+  He is the plainest armoured figure in the book, and that is the point.
+🔴 THE COFFIN IS CARRIED BEHIND HIM AND NEVER BY HIM: four men, plain unpainted wood, no cloth.
+🔴 SILHOUETTE: a flat-topped helmet with no crest, on the squarest shoulders in the northern army.
+🔴 ACCENT: none. 🔴 HE MUST NOT SHARE GUAN YUS TELLS: no red face, no green, no long flowing beard.
+```
+
+## Taishici
+
+```
+TAISHICI - the man who lost and was offered a hand instead of a rope.
+SHOULDERS = 1.7 head-widths. 🔴 THE LONGEST LIMBS IN THE SOUTHERN ARMY - arms and legs both.
+FACE: open and bare, a short beard along the jaw only, eyes set level and wide apart.
+🔴 THE BOW IS HIS, NOT A PROP: a quiver of arrows at the right hip and a plain leather guard laced
+  on the LEFT forearm. Draw the guard even when the bow is not in frame.
+COSTUME: southern leather and cord, teal at the collar, nothing gilded.
+🔴 SILHOUETTE: tall and narrow, the quiver breaking the line at the hip.
+🔴 ACCENT: none. 🔴 He must not share Sun Ce's tells: no red headscarf, no open throat.
+```
+
+## Caozhi
+
+```
+CAOZHI - the younger brother made to walk seven paces.
+SHOULDERS = 1.4 head-widths. 🔴 THE NARROWEST GROWN MAN IN THE BOOK.
+FACE: his fathers pale powdered face - 🔴 SAME WHITE AS CAO CAO AND CAO PI - but the eye corners
+  are LEVEL, not sloped. That one difference is how he is told from his brother.
+🔴 HE CARRIES NO WEAPON ON ANY PAGE. Where another man's hand rests on a hilt, his rests on nothing.
+🔴 HANDS: ink on the first two fingers of the right hand. Small, and never made into fists.
+COSTUME: a plain court robe, no armour ever, no belt plaque.
+🔴 SILHOUETTE: a thin upright figure with empty hands.
+🔴 ACCENT: none.
+```
+
 ## 🔴 부딪치는 짝 — 같은 화면에 서면 헷갈리는 자리
 
 > 시트를 다 뽑은 뒤 **이 표의 짝만 나란히 놓고 다시 본다.** 다른 데서 아무리 잘 갈려도

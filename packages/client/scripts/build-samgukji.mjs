@@ -71,6 +71,9 @@ const CAST = {
   masu: { token: 'Masu', name: '마속', desc: '촉의 젊은 참모 · 말이 빠르고 턱을 든다 · 새 갑옷이 몸에 아직 익지 않아 보인다.', aliases: ['Masu', '마속'] },
   anliang: { token: 'Anliang', name: '안량', desc: '원소의 앞장 장수 · 어깨가 아주 넓고 목이 짧다 · 큰 칼.', aliases: ['Anliang', '안량'] },
   wenchou: { token: 'Wenchou', name: '문추', desc: '원소의 앞장 장수 · 안량보다 길쭉하고 수염이 억세다 · 긴 창.', aliases: ['Wenchou', '문추'] },
+  pangde: { token: 'Pangde', name: '방덕', desc: '북쪽 장수 · 네모지게 다듬은 검은 수염 · 🔴 장식이 하나도 없는 쇠비늘 갑옷 · 제 관을 지고 나온 사람.', aliases: ['Pangde', '방덕'] },
+  taishici: { token: 'Taishici', name: '태사자', desc: '강동의 활 잘 쏘는 장수 · 팔다리가 길다 · 허리에 화살통, 왼팔에 가죽 팔찌.', aliases: ['Taishici', '태사자'] },
+  caozhi: { token: 'Caozhi', name: '조식', desc: '조조의 아들이자 조비의 아우 · 형과 같은 흰 얼굴인데 눈꼬리가 처지지 않았다 · 🔴 무기를 한 번도 들지 않는다 · 먹 묻은 손가락.', aliases: ['Caozhi', '조식'] },
   liuzhang: { token: 'Liuzhang', name: '유장', desc: '서쪽 땅 익주를 다스리는 종친 · 살집이 있고 눈썹이 처졌다 · 겁이 많아 보이는 얼굴.', aliases: ['Liuzhang', '유장'] },
   taoqian: { token: 'Taoqian', name: '도겸', desc: '서주를 다스리는 노인 · 흰 수염, 병색이 있다 · 두 손을 늘 앞으로 모은다.', aliases: ['Taoqian', '도겸'] },
   wangyun: { token: 'Wangyun', name: '왕윤', desc: '조정의 나이 든 대신 · 단정한 관복 · 흰 수염 · 늘 침착하게 자리를 무마한다.', aliases: ['Wangyun', '왕윤'] },
@@ -147,6 +150,9 @@ const EN = {
   masu: 'MA SU — a quick-talking young staff officer with a lifted chin, new armor that does not sit right, a book where a weapon should be',
   anliang: 'YAN LIANG — a champion with almost no neck, thick black beard high on the cheek, a broad blade, fur-collared northern armor',
   wenchou: 'WEN CHOU — a champion with a long visible neck and a wiry strand-parted beard, a long spear, northern armor without fur',
+  pangde: 'PANG DE — a grim northern general with a square-cut black beard trimmed level at the jaw, plain iron scale with no ornament of any kind, a flat-topped helmet without a crest',
+  taishici: 'TAI SHI CI — a tall archer with long straight limbs, a quiver at the hip and a plain leather guard on the left forearm, open-faced and steady',
+  caozhi: 'CAO ZHI — a slight scholar-prince with his fathers pale face but level eye corners, ink on the fingers, and no weapon anywhere on him',
   liuzhang: 'LIU ZHANG — a soft-jawed governor with steeply down-sloping brows that make him look worried, hands always fidgeting',
 };
 
