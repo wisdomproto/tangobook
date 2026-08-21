@@ -698,7 +698,20 @@ function buildPlan(builtVols) {
   4 THE JAW HAS A CORNER under the ear and the chin comes to a plane, not a curve.
   5 THE NECK IS VISIBLE and as wide as the distance between the eyes. A child has no neck showing.
   🔴 TEST BEFORE YOU FINISH: could this face be a ten-year-old? Then it is wrong. "Semi-deformed"
-  sets the proportion of the BODY and never makes the face a child's - the anchor says never chibi.`;
+  sets the proportion of the BODY and never makes the face a child's - the anchor says never chibi.
+
+🔴 THESE ARE HEROES AND THEY HAVE TO BE WORTH LOOKING AT. A child is going to pick this book up
+  because of a face. The commonest failure is not ugliness, it is BLANDNESS - a pleasant, tired,
+  middle-aged nobody. Three things cause it, and all three are forbidden unless a sheet asks for
+  them by name:
+  🔴 NO FOLD FROM NOSE TO MOUTH. That single line ages a man of thirty into a man of fifty, and it
+    has done exactly that in a test render.
+  🔴 NO DROOPING - not the outer corner of the eye, not the brow, not the corner of the mouth, not a
+    thin sagging moustache. Down-slope reads as defeated, and none of these men are.
+  🔴 NO SOFT JAW. Cheek fat and a rounded chin take the authority out of a face faster than anything
+    else. A named adult has a corner under the ear.
+  Where a sheet DOES ask for one of these - a beaten man, an old man, a coward - it says so in that
+  sheet, and then it is right.`;
 
   /**
    * 🔴 시트 프롬프트의 «맨 앞». 캔버스·레이아웃·글자금지를 끝에 뒀더니 두 렌더 연속으로

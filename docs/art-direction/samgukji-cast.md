@@ -109,7 +109,21 @@
 ```
 LIUBEI - the eldest brother, the one the other two follow. SHOULDERS = 1.7 head-widths across.
 FACE: 🔴 UNPAINTED. His is one of four bare faces in this book and the only one that is bare AND
-  has a moustache. Broad, calm, wide-set eyes, a mouth that rests almost closed.
+  has a moustache.
+🔴 HE IS THE HANDSOMEST MAN IN THIS BOOK AND HE CARRIES AUTHORITY. That is the point of him - the
+  other two follow him, and the reader has to believe it on sight. Build it from measurements:
+  EYES long and level, the width three times the height, the upper lid a shallow curve and the lower
+    lid a straight line. 🔴 NOT round, NOT wide-set, NOT drooping at the outer corner.
+  BROWS one thick straight stroke each, level, as long as the eye below plus half again. 🔴 A thin or
+    down-sloping brow makes him look worried, which he never is.
+  NOSE a straight ridge from between the brows, no dip at the bridge.
+  JAW a corner under the ear; the chin is a plane. 🔴 NO cheek fat, NO fold from nose to mouth -
+    that fold is what turned a man of thirty into a tired uncle in a test render.
+  MOUTH level and closed, the width of the space between the pupils. Corners neither up nor down.
+  MOUSTACHE short, thick and squared off inside the width of the upper lip. 🔴 NOT a thin drooping
+    line - that reads as poor, and he stops being someone men would follow.
+🔴 GAZE: level. He looks straight out, chin neither raised nor lowered. Cao Cao lifts one corner of
+  his mouth and Yuan Shao tips his head; this man does neither. Stillness is how he holds a room.
 🔴 EARS: THE LARGEST EARS IN THE BOOK - each ear is as tall as from his eyebrow to his chin, and
   they stand clear of the head on both sides so that they BREAK HIS OUTLINE. Blacked out, the ears
   are how you know him.
@@ -185,7 +199,11 @@ FACE: 🔴 UNPAINTED and 🔴 BEARDLESS. He is the only grown fighter in this bo
   through his young and prime stages - that beardless face is what makes him read as the young one
   standing among bearded men. In his last books (from 23) he gets a WHITE beard, and that white
   beard arriving is the only way the reader is told he grew old.
-EYES: level and open, brows straight.
+🔴 EYES: THE BRIGHTEST EYES IN THE BOOK - large and clearly drawn, the pupil a full round with one
+  highlight, the outer corner lifted a little. Brows one thick stroke, angled slightly up and in.
+  🔴 Liubei is told from him at the eyes: Liubei's are LONG AND LEVEL and hold still, this man's are
+  ROUND AND LIFTED and move first. Both are handsome; one is a lord and one is a young fighter.
+  🔴 NO fold from nose to mouth at any age - he is the one man in this book who never looks tired.
 ARMOUR: 🔴 SILVER, the only silver in the book, worn from his first page to his last. One long
   spear. A helmet with ONE tassel rising from its crown.
 🔴 HIS HORSE IS WHITE and he is drawn mounted more often than not. Horse and armour are the same
