@@ -157,6 +157,24 @@ const EN = {
 //   ② 캐릭터 시트 프롬프트에는 전 단계가 나간다(시트는 한 장에 다 보여야 하므로).
 // 🔴 옷은 «지위가 바뀔 때만» 바꾼다 — 날씨·기분·장면으로 바꾸면 같은 사람이 매 쪽 달라진다.
 // 🔴 [권번호, 그 권부터 적용되는 나이·옷] · 얼굴색·실루엣·악센트는 여기 적지 않는다(불변이라 desc 소관).
+/**
+ * 사물 레퍼런스 — 무기와 말. 🔴 인물 시트와 별개로 굽는다.
+ *   쪽 발주에서 「청룡언월도」라고만 쓰면 모델이 매번 다른 날붙이를 그린다. 이름난 물건은
+ *   그 자체가 캐릭터라, 사람과 같은 방식으로 한 장씩 확정해 둔다.
+ * 🔴 `re` 는 SCENE 에서 그 물건을 집는 판정이다. 인물 토큰과 달리 물건은 한글로 적히므로
+ *   지명·동음이의를 손으로 걸러야 한다 — `백마`는 9권 「백마성」이라는 «고을 이름»과 겹쳐서
+ *   (?!성) 이 없으면 그 전투 전체에 조운의 흰 말 시트가 붙는다.
+ */
+const PROPS = [
+  ['guandao', '청룡언월도', /청룡언월도|언월도/, 'GUAN YUS GREEN DRAGON CRESCENT BLADE - a pole-arm whose shaft is taller than a man, a single broad crescent blade at the head with a dragon head where blade meets shaft, dark red shaft'],
+  ['zhangba', '장팔사모', /장팔사모/, 'ZHANG FEIS SERPENT SPEAR - a long spear whose steel head curves like a snake in two waves, black shaft, no crescent'],
+  ['twinswords', '쌍고검', /쌍고검/, 'LIU BEIS PAIR OF SWORDS - two matching straight double-edged jian of equal length, even width from guard to near the tip, a flat ring at the end of each grip, plain wood scabbards, worn one on each hip on cords'],
+  ['redhare', '적토마', /적토마|붉은 말/, 'RED HARE, the most famous horse in the story - a compact chibi warhorse, coat a deep flame red, black mane and tail, one white blaze, no rider, no saddle ornament of gold'],
+  ['whitehorse', '백마', /백마(?!성)|흰 말/, 'ZHAO YUNS WHITE HORSE - a compact chibi warhorse, coat pure white, mane and tail white, no rider'],
+  ['fan', '흰 깃부채', /부채/, 'ZHUGE LIANGS FEATHER FAN - a hand fan of white crane feathers bound into a wooden handle, no metal, no blade'],
+  ['seal', '옥새', /옥새|나라의 도장/, 'THE IMPERIAL SEAL - a small square block of pale green jade with a coiled dragon carved on top, one corner repaired with gold'],
+];
+
 const STAGES = {
   liubei: [
     [1, '스물넷. 🔴 무릎 위에서 끝나는 거친 삼베 웃옷 + 바지 + 정강이 감발 + 주홍 허리끈 — 긴 포가 아니다(긴 포는 선비로 읽힌다). 짚신. 🔴 머리에 아무것도 안 쓴다 — 상투를 나무 비녀로 지른 맨머리다(두건을 씌우면 이 권에서 그가 싸우는 황건적으로 읽힌다). 🔴 수염이 없으므로 눈매로 어른임을 낸다.'],
@@ -503,6 +521,13 @@ function render(vol, styleCss) {
   const extras = vol.cast.filter((k) => !leadOrder.includes(k) && CAST[k] && sceneText.includes(CAST[k].token));
   const cast = [...leadOrder, ...extras].map(dress);
 
+  // 🔴 물건도 사람과 같은 @imageN 을 받는다 — 「청룡언월도」라고만 쓰면 매번 다른 날붙이가 나온다.
+  //   단 사람과 달리 «그 권에 나온 것만» 번호를 받는다. 물건 일곱을 24권 내내 고정 번호로 두면
+  //   대부분의 권에서 「미등장 — 첨부 불필요」가 일곱 줄씩 깔려 발주서가 읽히지 않는다.
+  const props = PROPS.filter(([, , rx]) => rx.test(sceneText)).map(([key, name, rx], i) => ({
+    key, name, re: rx.source, img: cast.length + i + 1,
+  }));
+
   const body = vol.chapters
     .map((ch) => {
       const cards = ch.pages
@@ -565,10 +590,12 @@ ${body}
 <script>
 // 회차 데이터 — samgukji-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성
 window.SG_EPISODE = {
-  // 그림체 미확정 — art-director 가 스타일 앵커를 확정하면 여기에 넣는다.
-  // 비어 있으면 core 가 프롬프트 도구를 만들지 않고 복사 버튼을 잠근다(빈 발주 방지).
-  style: '',
-  cast: ${JSON.stringify(cast.map((c) => ({ token: c.token, name: c.name, desc: c.desc, ref: c.ref, aliases: c.aliases })), null, 2).replace(/\n/g, '\n  ')}
+  // 🔴 스타일 앵커는 samgukji-anchor.md 가 SSOT 다 — 여기서 다시 적지 않고 구울 때 읽어 싣는다.
+  //   비어 있으면 core 가 「빈 발주 방지」로 복사 버튼을 통째로 잠근다. 앵커를 써 놓고 이 줄에
+  //   싣는 걸 잊어서 24권 쪽 프롬프트가 한 번도 안 눌렸다(2026-08-21). 앵커를 고치면 다시 구울 것.
+  style: ${JSON.stringify(parseAnchor() || '')},
+  cast: ${JSON.stringify(cast.map((c) => ({ token: c.token, name: c.name, desc: c.desc, ref: c.ref, aliases: c.aliases })), null, 2).replace(/\n/g, '\n  ')},
+  props: ${JSON.stringify(props)}
 };
 </script>
 <script src="/samgukji-core.js"></script>
@@ -829,20 +856,6 @@ function buildPlan(builtVols) {
       AVOID_LINE,
     ].join('\n');
 
-  /**
-   * 사물 레퍼런스 — 무기와 말. 🔴 인물 시트와 별개로 굽는다.
-   *   쪽 발주에서 「청룡언월도」라고만 쓰면 모델이 매번 다른 날붙이를 그린다. 이름난 물건은
-   *   그 자체가 캐릭터라, 사람과 같은 방식으로 한 장씩 확정해 둔다.
-   */
-  const PROPS = [
-    ['guandao', '청룡언월도', 'GUAN YUS GREEN DRAGON CRESCENT BLADE - a pole-arm whose shaft is taller than a man, a single broad crescent blade at the head with a dragon head where blade meets shaft, dark red shaft'],
-    ['zhangba', '장팔사모', 'ZHANG FEIS SERPENT SPEAR - a long spear whose steel head curves like a snake in two waves, black shaft, no crescent'],
-    ['twinswords', '쌍고검', 'LIU BEIS PAIR OF SWORDS - two matching straight double-edged jian of equal length, even width from guard to near the tip, a flat ring at the end of each grip, plain wood scabbards, worn one on each hip on cords'],
-    ['redhare', '적토마', 'RED HARE, the most famous horse in the story - a compact chibi warhorse, coat a deep flame red, black mane and tail, one white blaze, no rider, no saddle ornament of gold'],
-    ['whitehorse', '백마', 'ZHAO YUNS WHITE HORSE - a compact chibi warhorse, coat pure white, mane and tail white, no rider'],
-    ['fan', '흰 깃부채', 'ZHUGE LIANGS FEATHER FAN - a hand fan of white crane feathers bound into a wooden handle, no metal, no blade'],
-    ['seal', '옥새', 'THE IMPERIAL SEAL - a small square block of pale green jade with a coiled dragon carved on top, one corner repaired with gold'],
-  ];
 
   const AVOID_PROP =
     'Avoid: any person, any rider, any hand holding it; text, labels, captions, watermark, UI, frame; ' +
@@ -909,7 +922,7 @@ function buildPlan(builtVols) {
   // 🔴 무기·말 레퍼런스 카드. 인물과 같은 세 덩이 프롬프트를 쓴다.
   //   쪽 발주에 「청룡언월도」라고만 쓰면 모델이 매번 다른 날붙이를 그린다 — 이름난 물건은
   //   그 자체가 캐릭터라, 사람과 같은 방식으로 한 장씩 확정해 두고 인물 시트를 구울 때 같이 첨부한다.
-  const propCards = PROPS.map(([key, nm, desc]) => `
+  const propCards = PROPS.map(([key, nm, , desc]) => `
   <div class="char-prompt" data-key="prop-${key}" style="border-left:4px solid #8A7A5A">
     <div class="head"><b>${nm}</b> <span class="rom">${key}</span> <span class="tag" style="background:#8A7A5A22;color:#8A7A5A">물건</span> <button class="copy-btn">📋 프롬프트 복사</button></div>
     <details><summary>프롬프트 보기</summary><pre>${esc(propPrompt(desc))}</pre></details>

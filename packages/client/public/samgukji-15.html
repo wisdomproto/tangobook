@@ -187,9 +187,10 @@
 <script>
 // 회차 데이터 — samgukji-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성
 window.SG_EPISODE = {
-  // 그림체 미확정 — art-director 가 스타일 앵커를 확정하면 여기에 넣는다.
-  // 비어 있으면 core 가 프롬프트 도구를 만들지 않고 복사 버튼을 잠근다(빈 발주 방지).
-  style: '',
+  // 🔴 스타일 앵커는 samgukji-anchor.md 가 SSOT 다 — 여기서 다시 적지 않고 구울 때 읽어 싣는다.
+  //   비어 있으면 core 가 「빈 발주 방지」로 복사 버튼을 통째로 잠근다. 앵커를 써 놓고 이 줄에
+  //   싣는 걸 잊어서 24권 쪽 프롬프트가 한 번도 안 눌렸다(2026-08-21). 앵커를 고치면 다시 구울 것.
+  style: "STYLE ANCHOR - samgukji-inkwash-sd\n\nSTYLE: A picture book for 7-9 year olds retelling the Three Kingdoms.\n🔴 DETAILED PAINTERLY CHIBI (SD, ~2.5 heads) figures, East Asian ink-wash + soft cel shading, crisp\nreadable silhouette, muted earth tones with gold and jade accents, clean even lighting.\nTHE WORLD IS INK-WASH LANDSCAPE AND THE PEOPLE ARE LAID ON IT. Calligraphic linework, rice-paper\ntexture in the washes, wide empty space.\n\nRENDERING (finish hierarchy)\n- 🔴 TWO LAYERS, FINISHED DIFFERENTLY. BACKGROUND = wet ink wash on warm paper: hills, pines, mist,\n  sky; 0 outlines, drying into bare paper. FIGURES = fine ink line that THINS AND SWELLS with the\n  form, watercolour laid in graded washes, 2-3 steps of shadow, and a hard highlight on metal only.\n- 🔴 THE FIGURE IS PAINTED, NOT FILLED IN. Cloth folds; armour scales and lacing are drawn one by\n  one; embroidery and gold run along collar, cuff and hem. 🔴 A flat shape of colour is the failure.\n- FINISHED THINGS PER PAGE = 2 - the person the page is about, and the one thing they handle.\n- NAMED FIGURES IN FRONT = at most 3. 🔴 CROWDS ARE NOT PEOPLE: ONE silhouette repeated 12-40\n  times, paler as it recedes, dissolving into mist.\n- BACKGROUND OBJECT COUNT = at most 6 named things per page. Everything else is wash and bare paper.\n- 🔴 MIST IS THE ERASER: distance is paler, not smaller; the far third of a wide shot dissolves into\n  the paper. No hard horizon behind a figure.\n- DENSITY: only battle, market and court may fill the frame. Every other keeps AT LEAST HALF the\n  frame as wash or bare paper.\n\nPALETTE (muted earth, sampled from the house renders)\npaper #F0E2C0 · ink #2B2B2B · olive-green #485A48 · pale jade #5A6C5A · ochre #D8B46C ·\nmustard #6C6C48 · leather brown #5A4836 · deep brown #483624 · skin #D8B4A2.\nACCENTS, USED SPARINGLY: vermilion #B8352A · gold #C9A227 · jade #6E8F7A.\n🔴 KERCHIEF YELLOW #E8B233 IS THE REBEL HOST'S AND NOBODY ELSE'S. Book 1's hero fights that host:\nyellow on him reads as one of them. It happened once in test; do not put it back.\n\nCHARACTER DESIGN LANGUAGE\n- 🔴 EVERY PERSON IS CHIBI AT ~2.5 HEADS. Big head, short legs, small blunt hands, heavy boots.\n  It never changes with rank or age.\n- 🔴 SMALL EYES ON A BIG HEAD - this is what separates a grown warrior from a cute mascot. The eye\n  is at most a fifth of the face width, the brow above it THICK AND ANGLED, the beard full size.\n  🔴 Big round eyes turn every one of these men into a child. The head is the childlike part, not\n  the face on it.\n- 🔴 THE FACE COLOUR IS THE CASTING AND NEVER CHANGES - not with light, weather or age. 🔴 WHICH\n  tone, and every other value for that person, comes from their CHARACTER SHEET.\n- Features are drawn, not signed: lid line, iris, one catchlight; the brow a shaped stroke; the nose\n  a ridge. 0 blush marks, 0 anime sweat drops, 0 star sparkles.\n- 🔴 FEELING IS CARRIED BY THE WHOLE BODY: it leans, plants its feet wide, throws its arms out.\n- 🔴 TEST: fill the figure solid and rub out the inside. What is left must be that person from the\n  sheet, or the figure is wrong.\n\nCANVAS\n16:9 double-page spread. 🔴 NO lettering, numerals, signage or captions anywhere in the image, in any\nscript. No caption band - the picture runs to all four edges. Light is warm and low, from one side.\n🔴 THE SKY IS NEVER BLUE: it is the warm paper, washed ochre where the sun is.\n\n\nNOT (rendering only)\nairbrushing, glossy 3D, cel-shaded anime or manga screentone · photobash or photographic texture ·\n🔴 Koei-style / Dynasty-Warriors-style character illustration, and Japanese sengoku armour ·\noutlines on the landscape washes.",
   cast: [
     {
       "token": "Liubei",
@@ -311,7 +312,8 @@ window.SG_EPISODE = {
         "황개"
       ]
     }
-  ]
+  ],
+  props: [{"key":"guandao","name":"청룡언월도","re":"청룡언월도|언월도","img":13},{"key":"redhare","name":"적토마","re":"적토마|붉은 말","img":14},{"key":"fan","name":"흰 깃부채","re":"부채","img":15}]
 };
 </script>
 <script src="/samgukji-core.js"></script>

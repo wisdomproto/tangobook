@@ -59,6 +59,8 @@
       '.sg-ref-strip .rchip .ph{width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:17px;background:#0000000a;border-radius:7px;}',
       '.sg-ref-strip .rchip b{font-size:12px;font-weight:700;white-space:nowrap;}',
       '.sg-ref-strip .rchip .im{font-family:ui-monospace,monospace;font-size:11px;color:var(--mint,#2fa38f);margin-right:3px;}',
+      '.sg-ref-strip .rchip .bd{display:inline-block;margin-left:5px;font-family:ui-monospace,monospace;font-size:10px;font-weight:800;color:#8a6d3b;background:#f3e6c8;border-radius:5px;padding:1px 4px;}',
+      '.sg-ref-strip .rchip.prop{background:#8a7a5a12;border-color:#8a7a5a55;}',
       '.sg-batch-btn{background:var(--jade,#1f7a6d);color:#fff;border:none;border-radius:999px;padding:9px 20px;font-weight:800;font-size:13px;cursor:pointer;}',
       '.sg-batch-btn:hover{background:var(--jade-dark,#145c52);}',
       '.sg-batch-btn.done{background:var(--vermilion,#cf4b34);}',
@@ -238,6 +240,15 @@
       if (!c.token) return false;
       return scene.indexOf(c.token) !== -1;
     }
+    // 🔴 물건 판정은 한글 낱말로 잰다 — 인물과 달리 SCENE 에 영문 토큰이 없다.
+    //   그래서 지명·동음이의는 빌더가 정규식으로 걸러 넘긴다(`백마` vs 고을 「백마성」).
+    var props = (ep.props || []).map(function (o) { return { key: o.key, name: o.name, img: o.img, rx: new RegExp(o.re) }; });
+    function hasProp(scene, o) { return o.rx.test(scene); }
+
+    // 🔴 시트가 나이대별로 여러 장인 인물은 «어느 장인지»까지 보여야 한다.
+    //   붙일 칸 키가 char-liubei-b3 처럼 시작 권을 달고 오므로 거기서 딴다.
+    function bandOf(c) { var m = /-b(\d+)$/.exec(c.ref || ''); return m ? m[1] + '권~' : ''; }
+
     var pages = Array.prototype.map.call(pageCards, function (card) {
       return { card: card, page: card.getAttribute('data-page'), label: labelOf(card), scene: sceneOf(card) };
     });
@@ -248,12 +259,19 @@
       var legend = cast.map(function (c) {
         return '@image' + c.img + ' = ' + c.name + (c.token ? '(' + c.token + ')' : '') + ': ' + (c.desc || '') + (appearsAny[c.img] ? '' : '  (이 배치 미등장 — 첨부 불필요)');
       }).join('\n');
+      // 🔴 물건도 같은 목록에 넣는다. 이름난 무기·말은 그 자체가 캐릭터라 이름만 주면
+      //   컷마다 다른 물건이 나온다(「청룡언월도」가 매번 다른 날붙이가 됐다).
+      var onProp = {};
+      props.forEach(function (o) { onProp[o.img] = subset.some(function (p) { return hasProp(p.scene, o); }); });
+      var plegend = props.filter(function (o) { return onProp[o.img]; })
+        .map(function (o) { return '@image' + o.img + ' = ' + o.name + ' (물건): 기획서 「이름난 물건」 칸의 시트'; }).join('\n');
       var head = [
         ep.style,
         '',
         '[캐릭터 레퍼런스] 아래 @imageN 순서대로 확정 레퍼런스 시트를 첨부하세요. 얼굴·의상·비율·색을 @imageN 시트와 100% 동일하게 유지합니다. @image1~ = 이 편 등장인물.',
         legend,
-        '※ 각 쪽 [등장]에 적힌 @imageN 인물만 그 컷에 그린다. 그 밖의 사물·배경은 SCENE 지시대로 그린다.',
+        plegend ? '\n[사물 레퍼런스] 이름난 무기와 말 — 인물 다음 번호로 이어 첨부하세요.\n' + plegend : '',
+        '※ 각 쪽 [등장]에 적힌 @imageN 인물·물건만 그 컷에 그린다. 그 밖의 사물·배경은 SCENE 지시대로 그린다.',
         '',
         '[출력 규칙]',
         '- 아래 ' + subset.length + '개 장면을 각각 독립된 16:9 스프레드 일러스트로 그린다 (총 ' + subset.length + '장, 쪽 순서대로).',
@@ -262,7 +280,9 @@
       ].join('\n');
       var body = subset.map(function (p) {
         var on = cast.filter(function (c) { return hasChar(p.scene, c); });
-        var appear = on.map(function (c) { return '@image' + c.img + '(' + c.name + ')'; }).join(', ');
+        var op = props.filter(function (o) { return hasProp(p.scene, o); });
+        var appear = on.map(function (c) { return '@image' + c.img + '(' + c.name + ')'; })
+          .concat(op.map(function (o) { return '@image' + o.img + '(' + o.name + ')'; })).join(', ');
         return '━━━━━━━━━━ ' + p.label + ' ━━━━━━━━━━\n[등장] ' + (appear || '(배경·사물 컷)') + '\n' + p.scene.trim();
       }).join('\n\n');
       return head + '\n\n' + body;
@@ -370,10 +390,19 @@
       if (!on.length) return;
       var strip = document.createElement('div');
       strip.className = 'sg-ref-strip';
+      // 🔴 시트가 여러 장인 인물은 배지로 «어느 권 시트인지»까지 말한다 — 20권 발주에
+      //   1권 얼굴이 붙는 사고가 여기서 갈린다. 물건은 인물 뒤 번호로 이어 붙인다.
+      var onP = props.filter(function (o) { return pages.some(function (p) { return hasProp(p.scene, o); }); });
       strip.innerHTML = '<span class="rlab">🎬 이 권 등장 — 이 순서로 첨부</span>' +
         on.map(function (c) {
+          var band = bandOf(c);
           return '<div class="rchip" data-ref="' + c.ref + '" title="' + String(c.desc || '').replace(/"/g, '') + '">' +
-            '<span class="ph">🎭</span><b><span class="im">@image' + c.img + '</span> ' + c.name + '</b></div>';
+            '<span class="ph">🎭</span><b><span class="im">@image' + c.img + '</span> ' + c.name +
+            (band ? '<span class="bd">' + band + '</span>' : '') + '</b></div>';
+        }).join('') +
+        onP.map(function (o) {
+          return '<div class="rchip prop" data-ref="prop-' + o.key + '" title="기획서 「이름난 물건」 칸">' +
+            '<span class="ph">⚔️</span><b><span class="im">@image' + o.img + '</span> ' + o.name + '</b></div>';
         }).join('');
       var first = document.querySelector('.page-card');
       if (first && first.parentNode) first.parentNode.insertBefore(strip, first);
