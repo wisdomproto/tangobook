@@ -1064,14 +1064,23 @@ function buildPlan(builtVols) {
     'tall. 🔴 BEARD AND HAIR DO NOT COUNT AS HEAD: measure to the chin. Legs from hip to sole are ' +
     'SHORTER than the head is tall. Hands small and blunt, feet in heavy boots.';
 
+  // 🔴 시트 프롬프트에는 «선 계약»이 없었다. 앵커(쪽 프롬프트)만 'fine ink line that thins and
+  //   swells' 를 못 박고 있었고, 시트는 'crisp readable silhouette'(= 실루엣이 읽힌다)뿐이라
+  //   선을 그리라는 말이 한 곳도 없었다. 유비·관우에 선이 나온 건 운이고, 장비에서 떨어졌다
+  //   (윤곽 없는 유화로 돌아왔다). 🔴 'painterly' 도 뺀다 — 그쪽으로 당기는 낱말이다.
   const STYLE_LINE =
-    'Art style: detailed painterly chibi, East Asian ink-wash + soft cel shading, crisp readable ' +
-    'silhouette, muted earth tones with gold/jade accents, clean even lighting, NO baked ground shadow.';
+    'Art style: a chibi character drawn with a FINE DARK INK OUTLINE around every form, a line that ' +
+    'THINS AND SWELLS as it follows the shape. 🔴 COLOUR GOES INSIDE THAT LINE, NEVER INSTEAD OF IT. ' +
+    'Within the outline: East Asian ink-wash and soft cel shading, cloth folds and armour scales drawn ' +
+    'one by one, muted earth tones with gold/jade accents, clean even lighting, NO baked ground shadow. ' +
+    "🔴 This is NOT an oil painting and NOT a soft airbrushed render - the edge of every figure is a " +
+    'drawn line.';
 
   // 🔴 사람용과 물건용이 다르다 — 적토마에게 「mount 금지」를 시키면 말을 그리지 말라는 뜻이 된다.
   const AVOID_LINE =
     'Avoid: mount, chariot, combat stance, ground shadow; text, labels, captions, watermark, UI, frame; ' +
     'any background pattern, checkerboard, gradient, texture, scenery or horizon behind the figure; ' +
+    'lineless painting, soft airbrushed edges, oil-paint impasto, blurred contours; ' +
     'different characters, faces or outfits between cells; photorealistic, anime-cel, Koei-style, ' +
     'Japanese sengoku armour, kimono, katana; shaved head, modern haircut, chonmage; ' +
     'big round childlike eyes on a grown man.';
