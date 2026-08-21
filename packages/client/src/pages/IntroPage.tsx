@@ -795,7 +795,7 @@ function VocabShelf() {
           🔴 되돌릴 일이 생기면 **숫자만 고치지 말고 이 줄의 판단을 먼저 다시 볼 것.** */}
       <p className="text-center text-[16px] font-extrabold text-ink-900 break-keep sm:text-[22px] xl:text-[26px]">
         <span className="text-coral-700">초등학교 입학 전 필수 어휘 1,500개</span>를 다양한 동화책과
-        어휘 게임으로 놀이하듯 익힙니다.
+        독후 게임으로 놀이하듯 익힙니다.
       </p>
       {/* 🔴 좁은 화면에선 **가로로 흘린다**(라이브러리 캐러셀과 같은 규칙) — 여섯 칸을 접으면
           「여러 책」이 세로 목록이 되어 한눈에 안 들어온다. */}
@@ -1909,10 +1909,11 @@ export default function IntroPage() {
       <Section
         title={
           <>
-            {/* 🔴 낱말 수는 **`vocabWords`(823)** 다 — 위 세 칸 그림의 370 은 「파닉스 낱말 중
-                동화책과 이어진 것」이라 다른 숫자다. 둘을 바꿔 쓰면 같은 페이지가 두 말을 한다. */}
-            뗀 글자로 읽을 책이 <span className="text-coral-700">{FACTS.books}권</span>, 그 안에
-            낱말이 <span className="text-coral-700">{FACTS.vocabWords}개</span> 있습니다
+            {/* 🔴 **500권+ · 1,500개는 목표치다**(2026-08-19 사용자 결정). 실측은 책 266
+                (`FACTS.books`) · 낱말 630(`FACTS.vocabWords`) — 숫자를 손볼 땐 그 둘과 헷갈리지 말 것. */}
+            세계명작, 전래 동화 등 다양한{' '}
+            <span className="text-coral-700">동화책 500권+</span>과 독후 게임으로 문해력과 초등 입학
+            전 <span className="text-coral-700">필수 어휘 1,500개</span>를 익힙니다
           </>
         }
       >

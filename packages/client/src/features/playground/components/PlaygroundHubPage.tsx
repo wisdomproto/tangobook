@@ -57,7 +57,7 @@ export function PlaygroundHubPage() {
             </h1>
           </div>
           <p className="text-ink-700 dark:text-peach-200 font-bold">
-            매일 짧게! 7가지 어휘 게임으로 단어를 진짜 내 것으로 만들어요
+            매일 짧게! 7가지 독후 게임으로 단어를 진짜 내 것으로 만들어요
           </p>
         </div>
       </header>

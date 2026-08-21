@@ -18,7 +18,7 @@ import { useAuth } from '@/features/auth/context/AuthContext';
 const LINKS: { to: string; label: string }[] = [
   { to: '/library', label: '학습하기' },
   { to: '/worksheet', label: '활동지' },
-  { to: '/games/vocab', label: '어휘 게임' },
+  { to: '/games/vocab', label: '독후 게임' },
   // 🔜 페이지가 서면 여기 두 줄 — 링크를 먼저 걸면 방문자가 404 를 본다.
   // { to: '/games/coloring', label: '색칠 도안' },
   // { to: '/games/hidden', label: '숨은그림찾기' },

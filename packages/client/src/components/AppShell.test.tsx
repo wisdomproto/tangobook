@@ -48,12 +48,12 @@ describe('AppShell sidebar axis visibility', () => {
     vi.restoreAllMocks();
   });
 
-  it('guest (account=null) → 동화책·어휘 게임·파닉스, 부모 메뉴·개발자 축 숨김', () => {
+  it('guest (account=null) → 동화책·독후 게임·파닉스, 부모 메뉴·개발자 축 숨김', () => {
     setup(null);
     renderShell();
     // 일반 노출 3축 — 파닉스는 유닛 전부 공개되며 2026-07-23 부활했다.
     expect(sidebar().getByText('동화책')).toBeInTheDocument();
-    expect(sidebar().getByText('어휘 게임')).toBeInTheDocument();
+    expect(sidebar().getByText('독후 게임')).toBeInTheDocument();
     expect(sidebar().getByText('파닉스')).toBeInTheDocument();
     expect(screen.queryByText('연속재생')).toBeNull(); // 사이드바에서 제거 — 메인화면 「묶어 보기」로 이전
     expect(screen.queryByText('부모 메뉴')).toBeNull(); // 로그인 시만
@@ -101,7 +101,7 @@ describe('AppShell sidebar axis visibility', () => {
 
   // 🔴 어휘·학습 게임 축은 **개발자에게도 안 보인다**(2026-08-09 사용자 — 사이드바에서 제거).
   //    라우트·페이지·게임 코드는 보존(직접 URL 도달 가능)이고 사이드바 버튼만 뺐다.
-  it('개발자 계정도 사이드바는 3축(동화책·어휘 게임·파닉스)만', () => {
+  it('개발자 계정도 사이드바는 3축(동화책·독후 게임·파닉스)만', () => {
     setup({ email: 'kil210@tangobook.co.kr' });
     renderShell();
     expect(sidebar().getByText('동화책')).toBeInTheDocument();
