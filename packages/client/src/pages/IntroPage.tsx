@@ -703,9 +703,11 @@ const CHAIN_STEPS: { t: string; n: string; ko: string; en: string }[] = [
   },
   {
     t: '동화책',
-    n: `${FACTS.books}권`,
-    ko: '한국어 — 미운 아기 오리 · 신데렐라 …',
-    en: '영어 — 230권은 영어로도 읽어요',
+    n: '500+권',
+    // 🔴 동화책 칸만 언어를 안 가른다(2026-08-19 사용자) — 같은 책을 두 언어로 읽는 것이라
+    //    「한국어 N권 / 영어 N권」처럼 갈라 세면 권수를 두 번 세는 꼴이 된다.
+    ko: '미운 아기 오리 · 신데렐라 · 해와 달이 된 오누이 · 백설공주 …',
+    en: '',
   },
 ];
 
@@ -918,9 +920,11 @@ function WordBookMesh() {
               <span className="mt-1.5 block text-[10px] leading-relaxed text-ink-600 break-keep sm:text-[13px]">
                 {step.ko}
               </span>
-              <span className="block text-[10px] leading-relaxed text-ink-600 break-keep sm:text-[13px]">
-                {step.en}
-              </span>
+              {step.en && (
+                <span className="block text-[10px] leading-relaxed text-ink-600 break-keep sm:text-[13px]">
+                  {step.en}
+                </span>
+              )}
             </div>
           </Fragment>
         ))}
