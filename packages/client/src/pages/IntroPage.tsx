@@ -1833,10 +1833,12 @@ export default function IntroPage() {
             애쓰지 말 것 — 두 언어의 진도가 실제로 다르게 생겼다.
             자산 = `scripts/capture-phonics-grids.mjs`(임시 페이지 `/_shot/phonics-grids`). */}
         <div className="mx-auto max-w-3xl px-4 pb-2 sm:px-6 lg:max-w-5xl xl:max-w-6xl">
-          <p className="text-[17px] font-extrabold text-ink-900 break-keep sm:text-xl">
+          {/* 🔴 이 두 줄은 **절 제목 급으로** 키운다(2026-08-19 사용자) — 그림 두 장이 화면을
+              가로로 다 쓰는데 머리글만 본문 크기라, 뭘 보라는 건지 모른 채 표만 지나쳤다. */}
+          <p className="text-center font-display text-[20px] font-extrabold text-ink-900 break-keep sm:text-[28px] lg:text-[32px]">
             부모 화면에는 <span className="text-coral-700">어디까지 익었는지</span>가 칸으로 보입니다
           </p>
-          <p className="mt-1 text-[14px] text-ink-600 break-keep sm:text-base">
+          <p className="mt-1.5 text-center text-[14px] leading-relaxed text-ink-600 break-keep sm:text-[18px] lg:text-[20px]">
             어느 글자가 익었고 어디서 멈추는지, 한글과 영어를 따로 봅니다.
           </p>
           <div className="mt-4 grid items-start gap-3 sm:grid-cols-2">
