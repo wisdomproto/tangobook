@@ -775,6 +775,18 @@ for (const f of files) {
     .filter(Boolean);
   if (chapWarn.length) console.log(`  ⚠ 장 번호가 끊긴다 — ${chapWarn.join(" / ")}`);
   else console.log(`  ✓ ${allVols.length}권 전부 장 번호가 1부터 빠짐없이 이어진다`);
+
+  // 🔴 SCENE 에 그려지는데 meta cast 에 없는 사람 — 그러면 @imageN 을 못 받아
+  //   그 인물만 «레퍼런스 없이» 그려진다. 반대 방향(meta 에만 있는 이름)은 이미 걸러 내고
+  //   있었는데 이쪽은 아무도 안 보고 있었다(4개 권에서 실제로 새고 있었다, 2026-08-21).
+  const castWarn = allVols.map((v) => {
+    const scenes = v.chapters.flatMap((c) => c.pages).map((pg) => pg.scene).join(" ");
+    const drawn = Object.keys(CAST).filter((k) => scenes.includes(CAST[k].token + "("));
+    const miss = drawn.filter((k) => !v.cast.includes(k));
+    return miss.length ? `${String(v.n).padStart(2, "0")}권 ${miss.join("·")}` : null;
+  }).filter(Boolean);
+  if (castWarn.length) console.log(`  ⚠ 그려지는데 meta cast 에 없다 — ${castWarn.join(" / ")}`);
+  else console.log(`  ✓ SCENE 에 그려지는 인물 전부 meta cast 에 있다`);
 }
 
 // index.json — 대본이 있는 권만 (전 권 빌드일 때만 다시 굽는다)

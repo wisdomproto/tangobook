@@ -12,7 +12,7 @@
 
 meta:
 - sub: 강물을 뒤덮다 · 등 뒤에서 온 배 · 맥성의 길 · 한 줌 흙
-- cast: guanyu, caocao, sunquan, luxun, zhugeliang, liubei, zhangfei, caopi
+- cast: guanyu, caocao, sunquan, luxun, zhugeliang, liubei, caopi, xiandi
 - places: 형주, 번성, 맥성, 낙양, 강릉
 
 ---
