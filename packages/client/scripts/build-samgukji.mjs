@@ -91,16 +91,16 @@ const CAST = {
  */
 const EN = {
   // ── 물려받은 문구(threekingdoms 에셋보드) ──
-  liubei: 'LIU BEI — a benevolent warlord with a kind resolute face, long thin mustache and unusually large earlobes, calm and dignified',
-  guanyu: 'GUAN YU — a towering dignified man with a very long flowing black beard to the chest, ruddy red face and narrow phoenix eyes, in a deep green robe, proud',
-  zhangfei: 'ZHANG FEI — a burly wild man with a short bristling black beard, fierce round glaring leopard eyes and a broad dark face',
+  liubei: 'LIU BEI — a benevolent warlord with a kind resolute face and unusually large earlobes, calm and dignified',
+  guanyu: 'GUAN YU — a towering dignified man with a very long flowing beard, a ruddy red face and narrow phoenix eyes, in deep green, proud',
+  zhangfei: 'ZHANG FEI — a burly wild man with a short bristling beard, fierce round glaring leopard eyes and a broad dark face',
   zhaoyun: 'ZHAO YUN — a handsome youthful general, clean-shaven, in gleaming silver-white armor, valiant bright eyes',
-  zhugeliang: 'ZHUGE LIANG — a serene young strategist holding a white feather fan, crane-feather robe and dark Taoist headband, wise',
+  zhugeliang: 'ZHUGE LIANG — a serene strategist holding a white feather fan, in a crane-feather white robe, wise',
   caocao: 'CAO CAO — a shrewd ambitious warlord with narrow piercing eyes and a short trimmed beard, commanding sardonic smile',
-  sunquan: 'SUN QUAN — a young vigorous lord with a square jaw, distinctive purple-tinged beard and green eyes, regal',
+  sunquan: 'SUN QUAN — a vigorous lord with a square jaw, a distinctive purple cast along that jaw and green eyes, regal',
   lvbu: 'LU BU — a peerless handsome warrior in a pheasant-tail plumed golden headdress, arrogant, magnificent armor',
   dongzhuo: 'DONG ZHUO — an obese cruel tyrant with heavy jowls and a thin greedy mustache, opulent and menacing',
-  zhouyu: 'ZHOU YU — an elegant brilliant young commander, refined and handsome with a calm confident expression, in a fine red-and-teal robe',
+  zhouyu: 'ZHOU YU — an elegant brilliant commander, refined and handsome with a calm confident expression, in red and teal',
   chengong: 'CHEN GONG — a principled scholar-strategist, dignified and conflicted, in a blue civil robe',
   gongsunzan: 'GONGSUN ZAN — a proud northern warlord, the white-horse commander, handsome and stern',
   yuanshu: 'YUAN SHU — an arrogant self-styled emperor, plump, in gaudy imperial robes, haughty',
@@ -113,7 +113,7 @@ const EN = {
 
   // ── 새로 쓴 문구(같은 어투) ──
   simayi: 'SIMA YI — a patient dark-eyed strategist with half-lidded eyes, a long thin beard and a long neck he turns without turning his body',
-  xiandi: 'EMPEROR XIAN — a slight young emperor whose robes are always a size too large, quiet, looking to others before he speaks',
+  xiandi: 'EMPEROR XIAN — a slight emperor, quiet, looking to others before he speaks',
   childemp: 'THE CHILD EMPEROR — a boy of ten swamped by a grown mans crown and robe, the hem dragging, frightened',
   liuxie: 'PRINCE OF CHENLIU — a boy of nine, thin and straight-backed, one hand gathering the oversized sleeve, calm',
   yuanshao: 'YUAN SHAO — a tall handsome aristocrat with a combed pointed beard and the most ornamented armor in the story, uncertain eyes',
@@ -127,7 +127,7 @@ const EN = {
   lvbosha: 'LU BOSHA — a kindly wrinkled old farmer carrying a big wine jar in both arms, patched coat',
   taoqian: 'TAO QIAN — a frail old governor with a sparse white beard, seated and stooped, offering a seal with both trembling hands',
   sunjian: 'SUN JIAN — a square hard-bearded commander with a bright red headscarf whose two ends stream behind him',
-  sunce: 'SUN CE — a laughing young conqueror with an open smile, light armor open at the throat, his fathers red headscarf from book seven',
+  sunce: 'SUN CE — a laughing young conqueror with an open smile, light armour open at the throat',
   dianwei: 'DIAN WEI — the widest man in the story, a blunt bearded bodyguard with bare forearms and a short halberd in each hand',
   simahui: 'SIMA HUI — a smiling old recluse scholar in an undyed robe, white beard to the chest, both hands tucked in his sleeves, no fan',
   xushu: 'XU SHU — a young beardless strategist in a plain narrow-sleeved robe, one hand always counting something',
@@ -141,9 +141,9 @@ const EN = {
   huangzhong: 'HUANG ZHONG — an old general with a white square-cut beard and a straight back, the only man carrying a bow, taller than he is',
   xiahouyuan: 'XIAHOU YUAN — a lean swift veteran general, sharp featured, weight on the front foot even standing still',
   caopi: 'CAO PI — his fathers powdered white face with down-sloping eye corners and a level mouth that never smiles, court robes, never armor',
-  luxun: 'LU XUN — the youngest face in armor in the story, smooth-jawed and clerkish with pale thin hands, armor slightly too large',
+  luxun: 'LU XUN — the youngest face in armour in the story, smooth-jawed and clerkish with pale thin hands',
   menghuo: 'MENG HUO — a broad southern chieftain wearing animal hide over one bare shoulder, heavy arm-rings and a red headband, no armor plate',
-  jiangwei: 'JIANG WEI — a young officer of twenty-seven, nearly beardless, carrying a spear and a book at the same time',
+  jiangwei: 'JIANG WEI — an officer who carries a spear and a book at the same time, quick-eyed and neat',
   masu: 'MA SU — a quick-talking young staff officer with a lifted chin, new armor that does not sit right, a book where a weapon should be',
   anliang: 'YAN LIANG — a champion with almost no neck, thick black beard high on the cheek, a broad blade, fur-collared northern armor',
   wenchou: 'WEN CHOU — a champion with a long visible neck and a wiry strand-parted beard, a long spear, northern armor without fur',
@@ -194,9 +194,18 @@ const COURT_RE =
   '(안방|방 안|[ 의]방[ ,.]|대청|궁궐|궁 안|서재|마루|누각|정자|잔치|집 안|집 뜰|저택|주막|침상' +
   '|(관아|관청|의 집)(?![ ]*(앞|밖|뒤))|의 거처)';
 
+/**
+ * 🔴 «늙은 대표» — 대표가 하나뿐이면 노년 시트가 젊은 얼굴에서 파생돼 나이가 안 간다.
+ *   유비 실측(2026-08-21): 24→59세 여섯 장이 같은 얼굴로 나왔고 61세 한 장만 늙었다.
+ *   여기 적힌 권부터는 그 시트를 «스스로 굽고», 그 앞 노년 단계가 거기서 파생한다.
+ *   🔴 다른 인물은 STAGE_EN 에 얼굴 소견을 넣은 뒤에 추가할 것 — 소견 없이 여기만 넣으면
+ *   붙일 그림도 없고 적힌 얼굴도 없어 모델이 새 얼굴을 지어낸다.
+ */
+const AGED_PRIMARY = { liubei: 20 };
+
 const ALT_STAGE = {
-  'liubei:3': ['field', 'The same man indoors and out of armour: a plain blue robe to the ankle over the vermilion sash, no leather, no shoulder straps, the same thin moustache'],
-  'liubei:13': ['court', 'The same man on campaign: dark leather armour worn under the wide-sleeved robe, the sleeves tied back at the wrist, the vermilion sash still at the waist'],
+  'liubei:3': ['field', 'The same man indoors and out of armour: a plain blue robe to the ankle over the vermilion sash - 0 leather anywhere, 0 shoulder guards, 0 belt plaque, both sleeves loose and full'],
+  'liubei:13': ['court', 'The same man on campaign: a dark leather breastplate worn OVER the robe and plainly visible across the chest, its scales drawn one by one, a shoulder guard on each shoulder, both sleeves tied back at the wrist with cord, the vermilion sash over the plate'],
   'caocao:6': ['court', 'The same man on campaign: a short dark war-coat over scaled armour and a plain helmet, the black court robe gone, the beard the same'],
 };
 
@@ -318,11 +327,11 @@ const STAGES = {
  * 🔴 늘리지 마라 — 한 줄이다. 나이 + 옷 + 그 단계에만 있는 표시 하나.
  */
 const STAGE_EN = {
-  'liubei:1': 'Aged 24, a knee-length coarse hemp tunic over trousers with shin wraps and straw sandals, a rope belt, bare topknot with a wooden pin, no beard at all',
-  'liubei:3': 'Aged 30, a blue outer coat over leather armour, one thin moustache line, a vermilion sash at the waist',
-  'liubei:13': 'Aged 47, a wide-sleeved scholar robe and no armour, the same thin moustache, the vermilion sash',
-  'liubei:19': 'Aged 59, the robe of a king, red panels and a jade belt, the moustache now with a short chin beard, both flecked pale',
-  'liubei:20': 'Aged 61, a dark crimson imperial robe, no joy in the face',
+  'liubei:1': 'Aged 24 and clean-shaven - no moustache, no chin beard, not one hair on the lip. The cheek full and smooth, 0 lines at eye or mouth, the jaw still soft. A bare topknot with a wooden pin and NO cap of any kind. A knee-length coarse hemp tunic over trousers, shin wraps, straw sandals, a rope belt',
+  'liubei:3': 'Aged 30. One thin moustache line on the lip and nothing on the chin, all black. 2 faint lines at the outer eye and none anywhere else, the cheek still full. A blue outer coat over leather armour, a vermilion sash at the waist, a stiff dark cap over the topknot',
+  'liubei:13': 'Aged 47. The moustache now long enough to pass the jaw and a short chin beard under it, both still black. 3 lines at the outer eye and 1 across the brow, the cheek beginning to flatten. A wide-sleeved scholar robe and NO armour, the vermilion sash, the same dark cap',
+  'liubei:19': 'Aged 59. Half the moustache and chin beard have turned white - white hairs through black, not yet all grey - and grey has reached the temples. Deep lines at eye and mouth, the cheek hollow under the bone, the upper lid heavy. The robe of a king: dark red panels, a jade belt plaque, a taller cap',
+  'liubei:20': 'Aged 61 and worn out. The moustache and chin beard fully white, the temple hair grey, the eyes heavy-lidded and turned down at the outer corner, the cheek fallen in under the bone, 2 deep folds running from nose to mouth. A dark crimson imperial robe. 0 joy anywhere in the face',
   'guanyu:1': 'A plain green robe, the beard reaching his chest',
   'guanyu:3': 'A green war-coat over armour, worn unchanged for seventeen books, the beard now below the chest',
   'guanyu:18': 'The same green war-coat, the beard now to the navel with pale hairs running through it',
@@ -1046,7 +1055,7 @@ function buildPlan(builtVols) {
   // 🔴 사람용과 물건용이 다르다 — 적토마에게 「mount 금지」를 시키면 말을 그리지 말라는 뜻이 된다.
   const AVOID_LINE =
     'Avoid: mount, chariot, combat stance, ground shadow; text, labels, captions, watermark, UI, frame; ' +
-    'busy background, white background, checkerboard background, solid black background; ' +
+    'any background pattern, checkerboard, gradient, texture, scenery or horizon behind the figure; ' +
     'different characters, faces or outfits between cells; photorealistic, anime-cel, Koei-style, ' +
     'Japanese sengoku armour, kimono, katana; shaved head, modern haircut, chonmage; ' +
     'big round childlike eyes on a grown man.';
@@ -1065,8 +1074,7 @@ function buildPlan(builtVols) {
    */
   const sheetPrompt = (en, stage, derived) =>
     [
-      'ONE image containing a horizontal row of exactly 3 cells on a fully transparent background, ' +
-        'cells evenly spaced with clear transparent gaps and NO overlap. The SAME full-body SD ' +
+      'ONE image containing a horizontal row of exactly 3 cells on a plain flat background of ONE single light warm grey (#EDEAE3), the very same colour edge to edge, cells evenly spaced with clear empty gaps and NO overlap. The SAME full-body SD ' +
         'character in all 3 cells - identical face, outfit, hair and identity in every cell. The 3 ' +
         'cells are subtle IDLE ANIMATION FRAMES of the character standing and talking: cell 1 = arms ' +
         'relaxed at rest, cell 2 = slight breathing shift with one hand gently raised mid-gesture, ' +
@@ -1081,8 +1089,10 @@ function buildPlan(builtVols) {
       STYLE_LINE,
       '',
       derived
-        ? '🔴 ONE IMAGE IS ATTACHED: the approved sheet for this same person. Keep that exact face - ' +
-          'do not invent it again from this text. Only age and clothing change.'
+        ? '🔴 ONE IMAGE IS ATTACHED: an approved sheet of this same person. Copy the BONE STRUCTURE from it - ' +
+          'eye spacing, the nose ridge, the jaw corner, the size and shape of the ears, the set of the brow. ' +
+          '🔴 Do NOT copy his age. The line above says how old he is now and what the years have done to ' +
+          'his face - draw that, even where it contradicts the attached picture.'
         : '🔴 Nothing is attached and nothing is needed. Everything is written above.',
       '',
       AVOID_LINE,
@@ -1091,12 +1101,12 @@ function buildPlan(builtVols) {
 
   const AVOID_PROP =
     'Avoid: any person, any rider, any hand holding it; text, labels, captions, watermark, UI, frame; ' +
-    'busy background, white background, checkerboard background, solid black background; ' +
+    'any background pattern, checkerboard, gradient, texture or scenery behind the object; ' +
     'photorealistic, anime-cel, Koei-style, Japanese sengoku armour, katana.';
 
   const propPrompt = (desc) =>
     [
-      'ONE image of a single object on a fully transparent background, drawn large and centred, ' +
+      'ONE image of a single object on a plain flat background of ONE single light warm grey (#EDEAE3), the very same colour edge to edge, drawn large and centred, ' +
         'three-quarter view, nothing else in frame.',
       '',
       desc + '.',
@@ -1133,19 +1143,21 @@ function buildPlan(builtVols) {
     //   어떻게 나눠 굽는지, 나온 그림을 어느 칸에 넣는지가 아무 데도 안 적힌 채로 남는다.
     //   대표(둘째 단계)를 먼저 굽고 승인한 뒤, 나머지는 «그 승인본을 첨부해» 얼굴을 물려받는다.
     const primaryIdx = stages.length > 2 ? 1 : -1;
+    // 🔴 늙은 대표가 있으면 그 단계도 «스스로 굽는다» — 젊은 얼굴을 물려받으면 나이가 안 간다.
+    const agedIdx = AGED_PRIMARY[key] ? stages.findIndex(([f]) => f === AGED_PRIMARY[key]) : -1;
     const slots = stages.length
       ? `
     <div class="stage-slots">${stages
       .map(([from, text], i) => {
         const to = stages[i + 1] ? stages[i + 1][0] - 1 : null;
         const band = to ? (to === from ? `${from}권` : `${from}~${to}권`) : `${from}권~`;
-        const derived = primaryIdx >= 0 && i !== primaryIdx;
+        const derived = primaryIdx >= 0 && i !== primaryIdx && i !== agedIdx;
         const role =
           primaryIdx < 0
             ? ''
             : derived
-              ? '<span class="role d">파생 — 대표를 첨부해서</span>'
-              : '<span class="role p">대표 — 먼저 굽고 승인</span>';
+              ? `<span class="role d">파생 — ${agedIdx >= 0 && Math.abs(i - agedIdx) < Math.abs(i - primaryIdx) ? '늙은 ' : ''}대표를 첨부해서</span>`
+              : `<span class="role p">${i === agedIdx ? '늙은 ' : ''}대표 — 먼저 굽고 승인</span>`;
         return `<div class="stage-slot" data-key="char-${token.toLowerCase()}-b${from}"><b>${band}</b>${role}
       <details><summary>이 단계 시트 프롬프트</summary><pre>${esc(sheetPrompt(en, STAGE_EN[`${key}:${from}`] || '', derived))}</pre></details>
       <button class="slot-copy-btn">📋 이 단계 시트 프롬프트 복사</button></div>` + altSlot(key, token, from);
