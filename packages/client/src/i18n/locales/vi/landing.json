@@ -1,0 +1,239 @@
+{
+  "seo": {
+    "title": "Phonics tiếng Hàn {{ko}} bài · Phonics tiếng Anh {{en}} bài + truyện tranh — Tangobook",
+    "description": "Phonics tiếng Hàn 32 bài, từ phụ âm và nguyên âm đến patchim và phụ âm căng, cùng phonics tiếng Anh 39 bài. Rồi những cuốn truyện đọc được ngay bằng chữ vừa học — truyện kinh điển, cổ tích, quan sát thiên nhiên, mỗi tháng lại thêm sách mới. Dùng thử miễn phí một tháng rồi hãy quyết định."
+  },
+  "nav": {
+    "learn": "Học",
+    "worksheet": "Phiếu bài tập",
+    "games": "Trò chơi sau khi đọc",
+    "login": "Đăng nhập",
+    "signup": "Đăng ký",
+    "myShelf": "Giá sách của tôi"
+  },
+  "hero": {
+    "logoAlt": "Tangobook",
+    "homeAria": "Trang chủ Tangobook",
+    "pill": "Tiếng Hàn · tiếng Anh cho trẻ 4-7 tuổi",
+    "h1": "Học <c>phonics tiếng Hàn và tiếng Anh</c>, <br/>rồi đọc thật nhiều <c>truyện tranh</c>",
+    "sub": "Học <big>1.500</big> từ vựng cần có trước khi vào lớp Một, qua đủ loại <c>trò chơi sau khi đọc</c>.",
+    "cycle": "Chỉ học chữ rồi thôi thì rất nhanh quên — ở đây sách để đọc bằng chữ vừa học nằm ngay trong cùng một ứng dụng, nên đọc xong <b>lại quay về thành tiến độ chữ.</b>",
+    "cta": "Bắt đầu một tháng miễn phí",
+    "ctaNote": "Không cần thông tin thanh toán · Không tự động gia hạn"
+  },
+  "chain": {
+    "phonics": {
+      "t": "Phonics tiếng Hàn · tiếng Anh",
+      "ko": "Tiếng Hàn 32 bài — ㄹ · patchim ㄴ · patchim ㅂ …",
+      "en": "Tiếng Anh 39 bài — Aa Bb Cc · short a · magic e …",
+      "alt": "Màn hình ghép âm tiết tiếng Hàn — ㄹ và ㅣ ghép lại thành 리"
+    },
+    "vocab": {
+      "t": "Từ vựng học được",
+      "ko": "Tiếng Hàn — 오리 · 언니 · 달 · 집 …",
+      "en": "Tiếng Anh — cat · fan · hat · map …",
+      "alt": "Màn hình luyện từ trong bài ㄹ của phonics tiếng Hàn — 오리 và 너구리"
+    },
+    "books": {
+      "t": "Truyện tranh",
+      "n": "500+ cuốn",
+      "ko": "Vịt con xấu xí · Cô bé Lọ Lem · Anh em Mặt Trời và Mặt Trăng · Bạch Tuyết …",
+      "alt": "Một trang của Vịt con xấu xí — đàn vịt con nở ra từ những quả trứng"
+    },
+    "sentence": "Vào một ngày nắng đẹp, những quả trứng của <m>오리</m> mẹ lần lượt nứt ra."
+  },
+  "phonicsBanner": {
+    "name": "Tangobook Phonics",
+    "tagline": "Tiếng Hàn {{ko}} bài · tiếng Anh {{en}} bài — học chữ bằng âm thanh."
+  },
+  "why": {
+    "eyebrow": "Vì sao là phonics",
+    "title": "Đọc được 「가구」 nhưng <c>không đọc được 「가」</c>",
+    "p1": "Trẻ học thuộc cả từ chỉ đọc được <b>những từ đã biết</b>. Gặp một từ mới là lại dừng.",
+    "photoAlt": "Đứa trẻ chỉ tay đọc thẻ 「가구」, rồi gãi đầu dừng lại trước thẻ 「가」",
+    "caption": "Cả từ thì đã thuộc, nhưng một chữ nằm trong đó lại thành ra hoàn toàn mới.",
+    "p2": "<c>Phonics là cách học âm mà mỗi chữ mang theo.</c> Tiếng Hàn là chữ mà âm và mặt chữ khớp gần như trọn vẹn (ㄱ là g, ㅏ là a, ghép lại thành 가) — nên biết âm rồi thì <b>chữ chưa từng học trẻ vẫn đọc được.</b>",
+    "cards": {
+      "sound": {
+        "t": "Bắt đầu từ âm thanh",
+        "d": "Chạm vào từng phụ âm, nguyên âm, patchim để nghe âm của nó rồi đọc theo. Không phải học thuộc hình dáng chữ.",
+        "alt": "Màn hình chạm lần lượt sáu thẻ nguyên âm để nghe âm"
+      },
+      "blend": {
+        "t": "Rồi đến quy tắc ghép",
+        "d": "Nhìn tận mắt khoảnh khắc hai âm dính vào làm một, rồi viết bằng tay. Đọc bắt đầu từ đây.",
+        "alt": "Màn hình ㄱ và ㅏ dính lại thành 「가」"
+      },
+      "unseen": {
+        "t": "Cả chữ lần đầu nhìn thấy",
+        "d": "Biết quy tắc rồi thì từ chưa từng học trẻ cũng tự đánh vần mà đọc.",
+        "alt": "Màn hình chọn ra 「교」 giữa những chữ trông giống nhau"
+      }
+    }
+  },
+  "englishWhy": {
+    "alphabet": {
+      "t": "Bắt đầu từ âm của chữ cái",
+      "d": "Từ A đến Z, mỗi chữ một âm. Chạm vào hình để nghe rồi đọc theo.",
+      "alt": "Màn hình chạm vào Aa và hình con cá sấu cầm quả táo để nghe âm"
+    },
+    "blend": {
+      "t": "Ghép các âm lại",
+      "d": "Nhìn a + n thành an, rồi viết bằng tay. Thêm c vào là thành can.",
+      "alt": "Màn hình a và n ghép lại thành an"
+    },
+    "read": {
+      "t": "Đọc ra được từ",
+      "d": "Nối những âm đã học để đọc thành từ, rồi ghép với hình.",
+      "alt": "Màn hình trò chơi nối từ với hình"
+    }
+  },
+  "koTrack": {
+    "track": "Lộ trình tiếng Hàn",
+    "title": "Phonics tiếng Hàn <c>{{n}} bài</c>",
+    "lead": "Từ phụ âm và nguyên âm đến patchim, phụ âm căng và nguyên âm phức — <b>năm chặng</b>, đi từng bước một. Mỗi bài khoảng 10-15 phút một ngày.",
+    "wordsTitle": "Nên rồi trẻ sẽ đọc được <c>những từ như thế này</c>",
+    "wordsSub": "Bốn từ gặp trong bài 「ㄱ」. Học xong chữ không phải là hết.",
+    "levels": {
+      "vowel": {
+        "label": "Nguyên âm",
+        "detail": "ㅏ ㅑ ㅓ ㅕ ㅗ ㅛ ㅜ ㅠ ㅡ ㅣ"
+      },
+      "consonant": {
+        "label": "Phụ âm",
+        "detail": "Từ ㄱ đến ㅎ, mỗi phụ âm mười âm tiết"
+      },
+      "coda": {
+        "label": "Patchim",
+        "detail": "Chỉ có bảy patchim thực sự phát ra âm"
+      },
+      "tense": {
+        "label": "Phụ âm căng",
+        "detail": "ㄲ ㄸ ㅃ ㅆ ㅉ — dùng cổ họng chứ không phải hơi"
+      },
+      "complex": {
+        "label": "Nguyên âm phức",
+        "detail": "ㅐ ㅔ ㅚ ㅟ ㅘ …"
+      }
+    },
+    "unitCount": "{{n}} bài"
+  },
+  "enTrack": {
+    "track": "Lộ trình tiếng Anh · Cùng một gói",
+    "title": "Phonics tiếng Anh <c>{{n}} bài</c>",
+    "lead": "Từ âm chữ cái đến magic e, blend và vowel team — nối tiếp nhau qua <b>năm quyển</b>. Dùng <b>cùng một gói</b> với phonics tiếng Hàn nên không phải trả thêm.",
+    "wordsTitle": "Nên rồi trẻ sẽ đọc được <c>những từ như thế này</c>",
+    "wordsSub": "Bốn từ gặp trong bài 「Short Vowel a」.",
+    "levels": {
+      "alphabet": {
+        "label": "Âm chữ cái",
+        "detail": "Từ A đến Z, mỗi chữ một âm"
+      },
+      "shortVowel": {
+        "label": "Từ nguyên âm ngắn",
+        "detail": "c + an → can, các âm ghép lại"
+      },
+      "magicE": {
+        "label": "Magic e",
+        "detail": "Quy tắc biến cap thành cape"
+      },
+      "digraph": {
+        "label": "Digraph · blend",
+        "detail": "bl · ch · sh — hai chữ một âm"
+      },
+      "vowelTeam": {
+        "label": "Vowel team · nguyên âm R",
+        "detail": "ee · oa · ar — thành âm dài"
+      }
+    }
+  },
+  "report": {
+    "track": "Báo cáo tiến độ",
+    "title": "Màn hình của bố mẹ hiện <c>đã học đến đâu</c> theo từng ô",
+    "lead": "Chữ nào đã thuộc, dừng lại ở đâu — tiếng Hàn và tiếng Anh xem riêng.",
+    "ko": {
+      "cap": "Tiếng Hàn — phụ âm × nguyên âm",
+      "alt": "Bảng phụ âm × nguyên âm trong báo cáo cho bố mẹ — hàng ㄱ·ㄴ·ㄷ đã thuộc (xanh lá), hàng ㄹ·ㅁ đang luyện (cam)"
+    },
+    "en": {
+      "cap": "Tiếng Anh — âm và quyển",
+      "alt": "Cây kỹ năng tiếng Anh trong báo cáo cho bố mẹ — Quyển 1 đã thuộc a~h, đang luyện i~m"
+    }
+  },
+  "booksBanner": {
+    "name": "Truyện tranh Tangobook"
+  },
+  "books": {
+    "title": "Truyện kinh điển thế giới, cổ tích Hàn Quốc và nhiều nữa — <c>hơn 500 cuốn truyện</c> cùng trò chơi sau khi đọc để xây năng lực đọc hiểu và <c>1.500 từ vựng cần trước lớp Một</c>",
+    "lead": "Chia làm bốn nhánh, nên trẻ thích gì cũng có sách để xem, và <b>mỗi tháng lại có truyện mới.</b>",
+    "wordsTitle": "Cuốn nào cũng có từ khóa riêng",
+    "countUnit": "{{n}} cuốn",
+    "coverAlt": "Bìa {{title}} — {{line}}",
+    "lineCoverAria": "Bìa sách {{name}}",
+    "lines": {
+      "classic": {
+        "name": "Kinh điển thế giới",
+        "d": "Những câu chuyện ai cũng biết — cùng một cuốn có thể xem ở nhiều nét vẽ khác nhau."
+      },
+      "folk": {
+        "name": "Cổ tích Hàn Quốc",
+        "d": "Chuyện xưa của người Hàn — cái gùi, đồng tiền, đôi hài thêu, gặp lại thành từ vựng."
+      },
+      "hori": {
+        "name": "Bộ Hori",
+        "d": "Truyện sáng tác có chú hổ con Hori — thói quen sinh hoạt · trường mẫu giáo · khám phá thế giới."
+      },
+      "nature": {
+        "name": "Quan sát thiên nhiên",
+        "d": "Khủng long, côn trùng, biển cả, vũ trụ, cơ thể người — sách phi hư cấu với ảnh chụp thật."
+      }
+    }
+  },
+  "faq": {
+    "banner": "Câu hỏi thường gặp",
+    "title": "Dùng thử miễn phí một tháng rồi hãy quyết định",
+    "priceLead": "Sau một tháng miễn phí, <c>{{month}} KRW mỗi tháng</c>",
+    "priceNote": "Gói một năm {{year}} KRW, tính ra {{perMonth}} KRW mỗi tháng · Trong thời gian dùng thử không cần nhập thông tin thanh toán",
+    "items": {
+      "price": {
+        "q": "Chi phí thế nào?",
+        "a": "Dùng thử miễn phí một tháng, chỉ trả tiền khi muốn dùng tiếp. {{month}} KRW mỗi tháng, gói một năm là {{year}} KRW."
+      },
+      "autoPay": {
+        "q": "Hết hạn dùng thử có tự động trừ tiền không?",
+        "a": "Không. Vì không đăng ký thẻ nên không có gì tự trừ được. Dùng tiếp hay không là bạn tự quyết vào lúc đó."
+      },
+      "noSignup": {
+        "q": "Không đăng ký thì có xem được không?",
+        "a": "Có. {{n}} cuốn truyện đọc được ngay. Đăng ký rồi thì mở thêm những cuốn còn lại, trò chơi sau khi đọc và nhật ký học tập."
+      },
+      "install": {
+        "q": "Có phải cài đặt gì không?",
+        "a": "Không. Mở thẳng trên trình duyệt — máy tính bảng, điện thoại hay TV phòng khách đều thành màn hình được."
+      },
+      "ads": {
+        "q": "Có quảng cáo không?",
+        "a": "Không. Màn hình của trẻ không hiện quảng cáo."
+      },
+      "contract": {
+        "q": "Có hợp đồng ràng buộc không?",
+        "a": "Không. Muốn dừng lúc nào cũng được."
+      },
+      "report": {
+        "q": "Có biết được con đã làm những gì không?",
+        "a": "Còn nguyên trên màn hình của bố mẹ. Hay dừng ở chữ nào, từ nào nên xem lại — tối mở ra một lần là thấy hôm nay con đã làm gì."
+      },
+      "twoKids": {
+        "q": "Nhà có hai bé thì sao?",
+        "a": "Được. Mỗi bé có nhật ký học tập riêng."
+      }
+    },
+    "parentAlt": "Người mẹ uống trà bên bàn ăn trong khi con xem máy tính bảng ở phòng khách",
+    "closeTitle": "Học chữ bằng phonics, học từ và câu bằng truyện tranh",
+    "closeLead": "Không phải cài đặt, mở trình duyệt là bắt đầu được ngay.",
+    "closeCta": "Bắt đầu một tháng miễn phí, không cần thông tin thanh toán →"
+  },
+  "sticky": {
+    "cta": "Một tháng miễn phí, không cần thẻ"
+  }
+}

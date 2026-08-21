@@ -21,8 +21,11 @@ import { useAuth } from '@/features/auth/context/AuthContext';
 export function LangEntry() {
   const { lang } = useParams<{ lang: string }>();
   const [params] = useSearchParams();
-  const rawTo = params.get('to') || '/library';
-  const to = rawTo.startsWith('/') && !rawTo.startsWith('//') ? rawTo : '/library';
+  // 🔴 **기본 도착지 = 루트**(2026-08-21) — 루트가 소개 페이지가 됐고 그 페이지가 5개 언어로
+  //    번역되면서, 해외 마케팅 링크(`/vi`)가 곧장 `/library` 로 가면 **그 언어로 된 설명을
+  //    한 줄도 못 보고** 책장부터 본다. `?to=` 로 지정한 링크(블로그 CTA 등)는 그대로 존중한다.
+  const rawTo = params.get('to') || '/';
+  const to = rawTo.startsWith('/') && !rawTo.startsWith('//') ? rawTo : '/';
   const { account, loading } = useAuth();
   const supported = !!lang && AVAILABLE_UI_LANGS.includes(lang);
   // 이미 언어를 정한 사용자 = 직접 고름(explicit) 또는 로그인. 링크는 이들을 덮어쓰지 않음.

@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/features/auth/context/AuthContext';
 
 /**
@@ -15,16 +16,19 @@ import { useAuth } from '@/features/auth/context/AuthContext';
  * 🔴 「학습하기」는 **무엇을 배우는지 라벨에 박지 않는다** — 다국어라 베트남 아이가 한글을 배우고
  *    한국 아이가 영어를 배운다. 앱에 들어가면 사이드바가 3축으로 갈라 주므로 여기서 미리 안 편다.
  */
-const LINKS: { to: string; label: string }[] = [
-  { to: '/library', label: '학습하기' },
-  { to: '/worksheet', label: '활동지' },
-  { to: '/games/vocab', label: '독후 게임' },
+// 🔴 라벨은 `landing` 네임스페이스로 나갔다(2026-08-21 다국어) — 소개 페이지가 5개 언어로
+//    번역됐는데 네비만 한국어면 베트남 방문자가 첫 화면에서 **읽을 수 없는 줄**을 먼저 만난다.
+const LINKS: { to: string; k: string }[] = [
+  { to: '/library', k: 'learn' },
+  { to: '/worksheet', k: 'worksheet' },
+  { to: '/games/vocab', k: 'games' },
   // 🔜 페이지가 서면 여기 두 줄 — 링크를 먼저 걸면 방문자가 404 를 본다.
   // { to: '/games/coloring', label: '색칠 도안' },
   // { to: '/games/hidden', label: '숨은그림찾기' },
 ];
 
 export function PublicNav() {
+  const { t } = useTranslation('landing');
   const { session } = useAuth();
   const { pathname } = useLocation();
 
@@ -49,7 +53,7 @@ export function PublicNav() {
               모바일은 폭이 없어 아래 줄로 내린다. */}
           <nav aria-label="탱고북 둘러보기" className="hidden gap-1 sm:flex">
             {LINKS.map((l) => (
-              <NavChip key={l.to} to={l.to} label={l.label} pathname={pathname} />
+              <NavChip key={l.to} to={l.to} label={t(`nav.${l.k}`)} pathname={pathname} />
             ))}
           </nav>
 
@@ -59,14 +63,14 @@ export function PublicNav() {
                 to="/login"
                 className="text-[13px] font-bold text-ink-500 underline-offset-2 hover:underline sm:text-sm"
               >
-                로그인
+                {t('nav.login')}
               </Link>
             )}
             <Link
               to={session ? '/library' : '/login?mode=signup'}
               className="inline-flex min-h-[36px] items-center rounded-full bg-coral-700 px-3.5 text-[12.5px] font-extrabold text-white transition hover:bg-coral-800 sm:min-h-[44px] sm:px-5 sm:text-sm"
             >
-              {session ? '내 서재' : '회원 가입'}
+              {session ? t('nav.myShelf') : t('nav.signup')}
             </Link>
           </div>
         </div>
@@ -78,7 +82,7 @@ export function PublicNav() {
           className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:hidden [&::-webkit-scrollbar]:hidden"
         >
           {LINKS.map((l) => (
-            <NavChip key={l.to} to={l.to} label={l.label} pathname={pathname} />
+            <NavChip key={l.to} to={l.to} label={t(`nav.${l.k}`)} pathname={pathname} />
           ))}
         </nav>
       </div>

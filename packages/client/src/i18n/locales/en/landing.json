@@ -1,0 +1,239 @@
+{
+  "seo": {
+    "title": "Korean phonics in {{ko}} units · English phonics in {{en}} units + storybooks — Tangobook",
+    "description": "Korean phonics in 32 units, from consonants and vowels to final consonants and tense consonants, plus English phonics in 39 units. Then storybooks your child can read with the letters they just learned — classics, folk tales, nature, and more, growing every month. Try everything free for a month."
+  },
+  "nav": {
+    "learn": "Learn",
+    "worksheet": "Worksheets",
+    "games": "Reading games",
+    "login": "Log in",
+    "signup": "Sign up",
+    "myShelf": "My shelf"
+  },
+  "hero": {
+    "logoAlt": "Tangobook",
+    "homeAria": "Tangobook home",
+    "pill": "Korean & English, ages 4-7",
+    "h1": "Learn <c>Korean and English phonics</c>, <br/>then read all kinds of <c>storybooks</c>",
+    "sub": "Build the <big>1,500</big> words a child needs before first grade, through all kinds of <c>reading games</c>.",
+    "cycle": "Letters learned on their own fade fast — here the books your child can read with them live in the same app, so every book read <b>feeds back into letter progress.</b>",
+    "cta": "Start your free month",
+    "ctaNote": "No payment details · No auto-renewal"
+  },
+  "chain": {
+    "phonics": {
+      "t": "Korean & English phonics",
+      "ko": "Korean, 32 units — ㄹ · final ㄴ · final ㅂ …",
+      "en": "English, 39 units — Aa Bb Cc · short a · magic e …",
+      "alt": "Korean phonics syllable-building screen — ㄹ and ㅣ join to make 리"
+    },
+    "vocab": {
+      "t": "Words to learn",
+      "ko": "Korean — 오리 · 언니 · 달 · 집 …",
+      "en": "English — cat · fan · hat · map …",
+      "alt": "Word practice in the Korean phonics ㄹ unit — 오리 and 너구리"
+    },
+    "books": {
+      "t": "Storybooks",
+      "n": "500+",
+      "ko": "The Ugly Duckling · Cinderella · The Sun and the Moon · Snow White …",
+      "alt": "A page from The Ugly Duckling — ducklings hatching from their eggs"
+    },
+    "sentence": "On a sunny day, mother <m>오리</m>'s eggs cracked open one by one."
+  },
+  "phonicsBanner": {
+    "name": "Tangobook Phonics",
+    "tagline": "Korean in {{ko}} units · English in {{en}} units — letters learned through sound."
+  },
+  "why": {
+    "eyebrow": "Why phonics",
+    "title": "They can read 「가구」 but <c>not 「가」</c>",
+    "p1": "A child who memorised whole words can only read <b>the words they already know</b>. Put a new one in front of them and they stop again.",
+    "photoAlt": "A child pointing at and reading the 「가구」 card, then pausing and scratching their head at the 「가」 card",
+    "caption": "The whole word was memorised, but a single letter inside it is brand new.",
+    "p2": "<c>Phonics teaches the sound each letter carries.</c> Korean maps sound to letter almost exactly (ㄱ is g, ㅏ is a, together they make 가) — so once a child knows the sounds, <b>they can read letters nobody taught them.</b>",
+    "cards": {
+      "sound": {
+        "t": "Sounds come first",
+        "d": "Tap each consonant, vowel and final consonant to hear the sound it makes, then say it back. No memorising letter shapes.",
+        "alt": "App screen where six vowel cards are tapped in order to hear their sounds"
+      },
+      "blend": {
+        "t": "Then the rule for joining them",
+        "d": "Watch two sounds snap into one, then write it by hand. This is where reading begins.",
+        "alt": "App screen where ㄱ and ㅏ join into 「가」"
+      },
+      "unseen": {
+        "t": "Even letters never seen before",
+        "d": "Once the rule is there, a child sounds out words nobody taught them.",
+        "alt": "App screen where 「교」 is picked out from among similar-looking letters"
+      }
+    }
+  },
+  "englishWhy": {
+    "alphabet": {
+      "t": "Start with letter sounds",
+      "d": "One sound per letter, A to Z. Tap the picture, hear it, say it back.",
+      "alt": "App screen where Aa and an alligator holding an apple are tapped to hear the sound"
+    },
+    "blend": {
+      "t": "Blend the sounds",
+      "d": "Watch a + n become an, then write it by hand. Add c and you have can.",
+      "alt": "App screen where a and n blend into an"
+    },
+    "read": {
+      "t": "Read the word",
+      "d": "String the learned sounds together to read a word, then match it to its picture.",
+      "alt": "Picture-matching app screen where words are linked to pictures"
+    }
+  },
+  "koTrack": {
+    "track": "Korean track",
+    "title": "Korean phonics, <c>{{n}} units</c>",
+    "lead": "From consonants and vowels through final consonants, tense consonants and complex vowels — <b>five stages</b>, one step at a time. A unit is 10-15 minutes a day.",
+    "wordsTitle": "So these are the <c>words they end up reading</c>",
+    "wordsSub": "The four words in the 「ㄱ」 unit. Letters are the start, not the end.",
+    "levels": {
+      "vowel": {
+        "label": "Vowels",
+        "detail": "ㅏ ㅑ ㅓ ㅕ ㅗ ㅛ ㅜ ㅠ ㅡ ㅣ"
+      },
+      "consonant": {
+        "label": "Consonants",
+        "detail": "ㄱ through ㅎ, ten syllables for each consonant"
+      },
+      "coda": {
+        "label": "Final consonants",
+        "detail": "Only seven of them actually make a sound"
+      },
+      "tense": {
+        "label": "Tense consonants",
+        "detail": "ㄲ ㄸ ㅃ ㅆ ㅉ — throat, not breath"
+      },
+      "complex": {
+        "label": "Complex vowels",
+        "detail": "ㅐ ㅔ ㅚ ㅟ ㅘ …"
+      }
+    },
+    "unitCount": "{{n}} units"
+  },
+  "enTrack": {
+    "track": "English track · Same subscription",
+    "title": "English phonics, <c>{{n}} units</c>",
+    "lead": "From letter sounds through magic e, blends and vowel teams — <b>five books</b> that follow on from each other. It comes with <b>the same subscription</b> as Korean phonics, with nothing extra to pay.",
+    "wordsTitle": "So these are the <c>words they end up reading</c>",
+    "wordsSub": "The four words in the 「Short Vowel a」 unit.",
+    "levels": {
+      "alphabet": {
+        "label": "Letter sounds",
+        "detail": "A to Z, one sound per letter"
+      },
+      "shortVowel": {
+        "label": "Short vowel words",
+        "detail": "c + an → can, sounds blending"
+      },
+      "magicE": {
+        "label": "Magic e",
+        "detail": "The rule that turns cap into cape"
+      },
+      "digraph": {
+        "label": "Digraphs & blends",
+        "detail": "bl · ch · sh — two letters, one sound"
+      },
+      "vowelTeam": {
+        "label": "Vowel teams & r-vowels",
+        "detail": "ee · oa · ar — the long sounds"
+      }
+    }
+  },
+  "report": {
+    "track": "Progress report",
+    "title": "The parent screen shows <c>how far they've got</c>, square by square",
+    "lead": "Which letters have stuck and where they keep stopping — Korean and English shown separately.",
+    "ko": {
+      "cap": "Korean — consonants × vowels",
+      "alt": "The consonant × vowel grid in the parent report — the ㄱ·ㄴ·ㄷ rows are learned (green), the ㄹ·ㅁ rows are in practice (orange)"
+    },
+    "en": {
+      "cap": "English — sounds and books",
+      "alt": "The English skill tree in the parent report — Book 1 has a-h learned and i-m in practice"
+    }
+  },
+  "booksBanner": {
+    "name": "Tangobook Storybooks"
+  },
+  "books": {
+    "title": "World classics, Korean folk tales and more — <c>500+ storybooks</c> and reading games that build literacy and the <c>1,500 words needed before first grade</c>",
+    "lead": "They come in four kinds, so there's something whatever your child is drawn to, and <b>new storybooks arrive every month.</b>",
+    "wordsTitle": "Every book has its own key words",
+    "countUnit": "{{n}} books",
+    "coverAlt": "{{title}} cover — {{line}}",
+    "lineCoverAria": "{{name}} covers",
+    "lines": {
+      "classic": {
+        "name": "World Classics",
+        "d": "The stories everyone knows — and you can read the same book in a different art style."
+      },
+      "folk": {
+        "name": "Korean Folk Tales",
+        "d": "Old Korean stories — a jige carrier, brass coins, embroidered shoes, met as words."
+      },
+      "hori": {
+        "name": "Hori Series",
+        "d": "Original stories starring Hori the tiger cub — habits, kindergarten, exploring the world."
+      },
+      "nature": {
+        "name": "Nature Watch",
+        "d": "Dinosaurs, insects, the sea, space, the human body — non-fiction with real photographs."
+      }
+    }
+  },
+  "faq": {
+    "banner": "FAQ",
+    "title": "Try it free for a month, then decide",
+    "priceLead": "After the free month, <c>{{month}} KRW a month</c>",
+    "priceNote": "A year costs {{year}} KRW, or {{perMonth}} KRW a month · No payment details during the trial",
+    "items": {
+      "price": {
+        "q": "How much does it cost?",
+        "a": "Try it free for a month; you only pay if you carry on. It's {{month}} KRW a month, or {{year}} KRW for a year."
+      },
+      "autoPay": {
+        "q": "Will I be charged automatically when the trial ends?",
+        "a": "No. There's no card on file, so nothing can be charged by itself. Whether to carry on is your call at that point."
+      },
+      "noSignup": {
+        "q": "Can I look around without signing up?",
+        "a": "Yes. {{n}} storybooks are open to read right away. Signing up opens the rest, plus the reading games and the learning record."
+      },
+      "install": {
+        "q": "Do I need to install anything?",
+        "a": "No. It opens straight in a browser — a tablet, a phone, or the TV in the living room all work as they are."
+      },
+      "ads": {
+        "q": "Are there ads?",
+        "a": "No. Your child never sees an ad."
+      },
+      "contract": {
+        "q": "Is there a contract?",
+        "a": "No. You can stop whenever you like."
+      },
+      "report": {
+        "q": "Can I see what my child has been doing?",
+        "a": "It's all there on the parent screen. Which letters they keep stopping at, which words are worth another look — open it once at night and you can see how the day went."
+      },
+      "twoKids": {
+        "q": "What if I have two children?",
+        "a": "That's fine. Each child keeps their own learning record."
+      }
+    },
+    "parentAlt": "A mother having tea at the kitchen table while her child watches a tablet in the living room",
+    "closeTitle": "Letters through phonics, words and sentences through storybooks",
+    "closeLead": "Nothing to install — it starts right in your browser.",
+    "closeCta": "Start your free month, no payment details →"
+  },
+  "sticky": {
+    "cta": "Free month, no payment details"
+  }
+}

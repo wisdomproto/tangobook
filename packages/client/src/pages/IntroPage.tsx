@@ -1,11 +1,12 @@
 import { Fragment, useEffect, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { PLANS } from '@tangobook/shared';
+// 🔴 랜딩 문구는 `landing` 네임스페이스 하나에 모은다 — 파일만 놓으면 i18n 이 자동 등록한다
+//    (`i18n/index.ts` 가 `locales/ko/*.json` 글롭으로 ns 를 파생). `Trans` 는 문장 안 강조용.
+import { useTranslation, Trans } from 'react-i18next';
 import { useSeo } from '@/lib/useSeo';
 import { SiteFooter } from '@/components/SiteFooter';
-import { PhonicsTryIt } from '@/features/phonics-learner/components/PhonicsTryIt';
 import { PublicNav } from '@/components/PublicNav';
-import { getAllKoreanUnits } from '@/features/phonics-learner/lib/korean-phonics-units';
 import { useStorybooks } from '@/features/storybook/hooks/useStorybooks';
 import { BookCover } from '@/design-system/primitives/BookCover';
 
@@ -65,62 +66,29 @@ const FACTS = {
    * 3종 이상 가진 책만 센다.
    */
   multiStyleBooks: 48,
+  /**
+   * 가입하지 않고 읽을 수 있는 동화책 수 — FAQ 답에 보간으로 들어간다.
+   * 🔴 세는 법 = 공개 동화책 중 `isAccessibleForFree !== false` 인 것(`PAYWALL_ENABLED`·
+   *    `LOCK_FOR_GUESTS` 가 둘 다 true 다). **접근 정책을 바꾸면 다시 센다** — 같은 사고가
+   *    08-18(「게스트 30일」)·08-19(「전권 무료」)에 두 번 났고, 이제 다섯 언어가 한꺼번에
+   *    거짓말을 하게 되므로 값은 여기 한 곳에만 둔다.
+   */
+  freeBooks: 129,
 };
 
-/**
- * 🔴 **공식 서비스 이름**(2026-08-10 사용자 확정) — 「탱고북 한글 파닉스」·「탱고북 영어 파닉스」·
- *    「탱고북 동화책」. 섹션 이름표를 이 셋으로 통일한다. 예전 「동화책 · 어휘와 문해력」처럼
- *    **설명을 이름 자리에 두지 않는다** — 어휘·문해력은 아래 제목과 본문이 이미 말한다.
- */
-/** 공개 카테고리 — 권수 desc. 라이브러리 실측(2026-08-01). */
-const CATEGORIES: [string, number][] = [
-  ['세계 명작', 48],
-  ['호리네 생활동화', 43],
-  ['전래 동화', 40],
-  ['육지 동물 친구들', 26],
-  ['공룡 친구들', 21],
-  ['호리 유치원동화', 20],
-  ['식물 친구들', 18],
-  ['호리 세상 탐험', 15],
-  ['바다 동물 친구들', 9],
-  ['곤충 친구들', 9],
-  ['하늘 동물 친구들', 8],
-  ['우주와 자연', 6],
-  ['우리 몸 이야기', 3],
-];
-
 /** 한글 파닉스 다섯 단계 — 커리큘럼과 같은 순서. */
-const STAGES: { label: string; count: string; detail: string; tone: string }[] = [
-  {
-    label: '모음',
-    count: '1단원',
-    detail: 'ㅏ ㅑ ㅓ ㅕ ㅗ ㅛ ㅜ ㅠ ㅡ ㅣ',
-    tone: 'bg-peach-100 text-ink-800',
-  },
-  {
-    label: '자음',
-    count: '14단원',
-    detail: 'ㄱ부터 ㅎ까지, 자음 하나에 음절 열 개씩',
-    tone: 'bg-coral-100 text-coral-700',
-  },
-  {
-    label: '받침',
-    count: '7단원',
-    detail: '소리 나는 받침은 일곱뿐입니다',
-    tone: 'bg-mint-100 text-mint-700',
-  },
-  {
-    label: '쌍자음',
-    count: '5단원',
-    detail: 'ㄲ ㄸ ㅃ ㅆ ㅉ — 바람이 아니라 목의 힘',
-    tone: 'bg-peach-100 text-ink-800',
-  },
-  {
-    label: '복잡한 모음',
-    count: '5단원',
-    detail: 'ㅐ ㅔ ㅚ ㅟ ㅘ …',
-    tone: 'bg-coral-100 text-coral-700',
-  },
+/**
+ * 🔴 **글자 자체(`ㅏ ㅑ ㅓ` · `ㄲ ㄸ ㅃ`)는 번역하지 않는다** — 그게 배우는 대상이다.
+ *    번역되는 건 그 옆의 **이름과 설명**(모음/자음/받침…)이라 `k` 로 `landing` 네임스페이스를
+ *    가리키고, 자모 예시만 여기 남는다(파닉스 다국어와 같은 규칙 → memory `phonics-i18n-2026-08-11`).
+ * 🔴 단원 수는 `{{n}}단원` 보간이다 — 언어마다 단위가 앞에 붙기도 한다("8 units" vs "8단원").
+ */
+const STAGES: { k: string; n: number; tone: string }[] = [
+  { k: 'vowel', n: 1, tone: 'bg-peach-100 text-ink-800' },
+  { k: 'consonant', n: 14, tone: 'bg-coral-100 text-coral-700' },
+  { k: 'coda', n: 7, tone: 'bg-mint-100 text-mint-700' },
+  { k: 'tense', n: 5, tone: 'bg-peach-100 text-ink-800' },
+  { k: 'complex', n: 5, tone: 'bg-coral-100 text-coral-700' },
 ];
 
 /** ⑦ 무료체험 마찰 제거 FAQ — 벤치마킹 2차 §4-5(투두 FAQ 아코디언). 답이 전부 「없음」이라 강점. */
@@ -137,118 +105,27 @@ const won = (n: number) => n.toLocaleString('ko-KR');
  *    `isAccessibleForFree !== false` 인 수. **접근 정책을 바꾸면 이 두 답을 다시 센다** —
  *    같은 사고가 08-18(게스트 30일)·08-19(「전권 무료」)에 이미 두 번 났다.
  */
-const FAQS: { q: string; a: string }[] = [
-  {
-    q: '요금이 어떻게 되나요?',
-    // 🔴 **금액은 `PLANS` 에서 파생한다** — 문장에 박으면 값이 바뀌는 날 랜딩이 거짓말을 한다.
-    //    접근 정책 숫자로 이미 두 번(08-18 「게스트 30일」 · 08-19 「전권 무료」) 난 사고와 같은 종류다.
-    // 🔴 **정가·반값(9,900 / 79,000)은 여기 안 쓴다**(2026-08-21 사용자: "이게 뭔 소리야").
-    //    한 답에 숫자가 다섯이면 부모는 **자기가 얼마를 내는지**를 못 고른다. 정가는 할인을
-    //    자랑하는 말이지 물음("얼마예요?")의 답이 아니다 — 취소선 배지는 실제 구매 화면
-    //    (`PlanCard` 가 `originalAmount` 로 자동 계산)에서, 고를 때 보여 주면 된다.
-    a: `한 달 무료로 써 보신 뒤, 계속 쓰실 때만 냅니다. 월 ${won(PLANS.month1.amount)}원, 1년권은 ${won(PLANS.year1.amount)}원이에요.`,
-  },
-  {
-    q: '체험이 끝나면 자동으로 결제되나요?',
-    a: '아니요. 카드를 등록하지 않아 저절로 결제될 일이 없어요. 계속 쓸지는 그때 직접 정합니다.',
-  },
-  {
-    q: '가입하지 않아도 볼 수 있나요?',
-    a: '네. 동화책 129권을 바로 읽어볼 수 있어요. 가입하면 나머지 책과 독후활동·학습 기록이 열립니다.',
-  },
-  {
-    q: '설치해야 하나요?',
-    a: '아니요. 브라우저에서 바로 열려요 — 태블릿도, 폰도, 거실 TV도 그대로 화면이 됩니다.',
-  },
-  { q: '광고가 뜨나요?', a: '아니요. 아이 화면에 광고가 뜨지 않습니다.' },
-  { q: '약정이 있나요?', a: '없습니다. 언제든 그만둘 수 있어요.' },
-  {
-    q: '아이가 무엇을 했는지 알 수 있나요?',
-    a: '부모 화면에 그대로 남습니다. 어떤 글자에서 자꾸 멈추는지, 어떤 낱말을 다시 보면 좋은지 — 밤에 한 번 열어보면 오늘 뭘 했는지 보입니다.',
-  },
-  { q: '아이가 둘이어도 되나요?', a: '됩니다. 아이마다 학습 기록이 따로 쌓여요.' },
-];
-
 /**
- * ② 파닉스 ↔ 동화책 **순환** — 넘버링 목록(구 `POINTS` 01~03)을 그림으로 바꿨다(2026-08-10 사용자).
- * 🔴 **순서는 바로 위 문단이 정한다**(2026-08-19 사용자: "가운데가 동화책인데?"). 문단은
- *    「파닉스에서 낱말을 맞히면 동화책 한 쪽이 열린다」고 말하는데 그림은 동화책을 가운데,
- *    게임을 마지막에 두어 **글과 그림이 서로 다른 순서**를 말하고 있었다.
- *    → 글자 → 낱말을 맞힌다 → 동화책이 열린다.
- * 🔴 세 번째는 **실제 리빌 화면**이다(고기 아닌 「아기」 — 호리 동화). 아이가 책을 보는 사진으로
- *    두면 「그냥 책도 있다」로 읽히고, 이 절의 주장인 **낱말이 책을 연다**가 그림에 없다.
- * 🔴 **둘째·셋째는 같은 낱말이어야 한다**(2026-08-19 사용자: "가운데는 고기인데 오른쪽은 아기인 게
- *    맞냐"). 게임에서 고기를 잇고 동화책은 아기를 여는 그림이면, 이 줄이 말하는 「그 낱말이 그 책을
- *    연다」가 화면에서 성립하지 않는다. 낱말을 바꿀 땐 **두 스크린샷을 같이 다시 찍는다** —
- *    `capture-cycle-play.mjs`(그림짝) · 리빌은 임시 촬영 페이지.
- * 🔴 세 항목이 사실 **한 바퀴**였다: 배운다 → 그 글자로 읽는다 → 독후활동으로 익힌다 → 그게 다시
- *    글자 진도로 돌아온다. 번호를 매기면 서로 무관한 자랑 셋으로 읽히고, 이 페이지의 유일한
- *    구조적 주장(배우는 곳과 읽는 곳이 하나)이 글 속에 묻힌다.
- * 🔴 마지막 「돌아옴」은 노드가 아니라 **닫는 화살표**다 — 노드 넷을 나란히 두면 순환이 아니라
- *    그냥 4단계 절차가 된다.
+ * 🔴 답에 박힌 숫자는 **코드에서 온다** — 금액은 `PLANS`, 무료 권수는 접근 정책. 번역문에
+ *    숫자를 적어 두면 값이 바뀌는 날 다섯 언어가 한꺼번에 거짓말을 한다. 보간으로만 넣는다.
  */
-/**
- * 🔴 **그림이 먼저, 글은 한 줄**(2026-08-10 사용자: "우리꺼 너무 글로 되어 있잖아" — 벤치마크
- *    투두한글이 이 자리를 4:3 일러스트 카드 넉 장으로 설명한다). 이모지 하나로는 「무엇을 하는
- *    화면인지」가 안 보인다 — 각 칸에 **그 장면 사진**을 얹는다.
- * 🔴 **구도 규칙 = 화면이 정면으로 읽히고, 손이 그 위에서 무언가를 하고 있을 것**(2026-08-10 사용자).
- *    처음엔 있는 사진(tracing·siblings)을 그대로 썼는데 하나는 태블릿이 비스듬해 화면이 안 읽혔고
- *    하나는 뒤통수 + 태블릿이 멀어 「보고 있는 사람」으로만 보였다 — 무엇을 하는 화면인지가 안 나온다.
- * 🔴 ③ 은 **사람 없이 화면만**(사용자 판단). 사람을 넣으면 또 「보고 있는 그림」이 되기 쉬운데,
- *    게임은 가로 전체화면이라 **스크린샷 자체가 카드 비율**이고 낱말·그림이 그대로 읽힌다.
- *    실물 스크린샷이라 연출과 달리 어긋날 여지도 없다.
- */
-const CYCLE: { photo: string; alt: string; t: string; d: string }[] = [
-  {
-    photo: 'cycle-learn',
-    alt: '아이가 태블릿 화면의 ㄱ 글자를 손가락으로 따라 쓰고 있다',
-    t: '글자를 배워요',
-    d: `한글 파닉스 ${FACTS.koreanUnits}단원 — 자음·모음부터 받침까지 소리로`,
-  },
-  {
-    photo: 'cycle-play',
-    alt: '「그림짝 맞추기」에서 아기 그림과 「아기」 낱말이 선으로 이어진 화면',
-    t: '그 글자로 낱말을 맞혀요',
-    d: '한 낱말을 그림 · 조립 · 따라 그리기 · 손글씨 네 가지로',
-  },
-  {
-    photo: 'cycle-reveal',
-    alt: '「아기」를 맞히자 그 낱말이 나오는 호리 동화책 한 쪽이 열린 화면 — 아기라는 낱말에 노란 색이 들어가 있다',
-    t: '동화책에서 다시 만나요',
-    d: '맞힌 낱말이 나오는 책 한 쪽이 그 자리에서 열리고, 읽어 줍니다',
-  },
-];
+const FAQ_KEYS = [
+  'price',
+  'autoPay',
+  'noSignup',
+  'install',
+  'ads',
+  'contract',
+  'report',
+  'twoKids',
+] as const;
 
-/** ②의 「없는 것」 아이콘 세트. 벤치마킹 §4-3(핑크퐁 구독특징 4아이콘 구조). */
-const NONES: { icon: string; t: string; d: string }[] = [
-  { icon: 'adOff', t: '광고 없음', d: '아이 화면에 광고가 안 떠요' },
-  { icon: 'unlock', t: '전체 개방', d: '잠긴 것 없이 다 열려요' },
-  { icon: 'screens', t: 'TV·폰·태블릿', d: '설치 없이 브라우저에서' },
-  { icon: 'noPaper', t: '약정·설치 없음', d: '패드도 약정도 없어요' },
-];
-
-/**
- * ⑤ 동화책이 기르는 것 — **어휘·문해력**(2026-08-05 사용자: "동화책에 어휘 문해력 이런걸 좀 강조").
- * 🔴 동화책을 "재미"가 아니라 **파닉스 다음의 학습 단계**로 세운다(벤치마킹 2차: 투두 "기초 문해력
- *    다지기"). 재미로만 두면 부모에겐 부록처럼 읽힌다 — 여기서 어휘가 늘고 읽는 힘이 자란다.
- */
-const BOOK_GROWS: { icon: string; t: string; d: string }[] = [
-  {
-    icon: 'books',
-    t: '어휘',
-    d: `책마다 새 낱말을 만나고, 독후활동으로 한 낱말을 네 가지 방식으로 익혀요. 지금까지 ${FACTS.vocabWords}개.`,
-  },
-  {
-    icon: 'openBook',
-    t: '문해력',
-    d: '낱말이 이야기 속에서 어떻게 쓰이는지 만나고 또 만나며, 읽고 이해하는 힘이 자라요.',
-  },
-  {
-    icon: 'headphones',
-    t: '읽는 습관',
-    d: `${FACTS.narrated}권은 나레이션이 처음부터 끝까지 있어, 글자를 아직 못 읽어도 매일 한 권.`,
-  },
-];
+/** FAQ 답에 들어가는 값 — 키마다 필요한 것만 넘긴다(없으면 i18next 가 무시한다). */
+const FAQ_VARS = {
+  month: won(PLANS.month1.amount),
+  year: won(PLANS.year1.amount),
+  n: FACTS.freeBooks,
+};
 
 /**
  * 「왜 파닉스인가」 3카드 — 소중한글 「원리의 이해 / 뛰어난 효과 / 논리력과 사고력」 구조를 가져오되
@@ -259,25 +136,10 @@ const BOOK_GROWS: { icon: string; t: string; d: string }[] = [
  *    16:9 로 찍어 얹는다 — **아래 라이브 상자 둘(배우기·써보기)과 겹치지 않는 화면**으로 골라서,
  *    이 구간이 32단원의 다른 얼굴을 보여주게 한다(모음 듣기 · 음절 합체 · 글자 사냥).
  */
-const PHONICS_WHY: { shot: string; alt: string; t: string; d: string }[] = [
-  {
-    shot: 'why-sound',
-    alt: '모음 카드 여섯 장을 순서대로 눌러 소리를 듣는 앱 화면',
-    t: '소리부터 배워요',
-    d: '자음·모음·받침이 저마다 내는 소리를 눌러 듣고 따라 합니다. 글자 모양을 외우지 않아요.',
-  },
-  {
-    shot: 'why-blend',
-    alt: 'ㄱ 과 ㅏ 가 하나로 붙어 「가」 가 되는 앱 화면',
-    t: '합치는 규칙을 익혀요',
-    d: '두 소리가 하나로 붙는 순간을 눈으로 보고, 손으로 씁니다. 여기가 읽기의 출발입니다.',
-  },
-  {
-    shot: 'why-new',
-    alt: '비슷한 글자 사이에서 「교」 를 골라내는 앱 화면',
-    t: '처음 보는 글자도',
-    d: '규칙을 알면 배운 적 없는 낱말도 스스로 소리 내어 읽습니다.',
-  },
+const PHONICS_WHY: { shot: string; k: string }[] = [
+  { shot: 'why-sound', k: 'sound' },
+  { shot: 'why-blend', k: 'blend' },
+  { shot: 'why-new', k: 'unseen' },
 ];
 /**
  * 「왜 파닉스인가」 영어판 — 한글 `PHONICS_WHY` 와 **같은 자리·같은 문법**.
@@ -290,103 +152,13 @@ const PHONICS_WHY: { shot: string; alt: string; t: string; d: string }[] = [
  * 🔴 **왼쪽 = Book 1(글자) · 가운데·오른쪽 = Book 2(낱말)**(2026-08-19 사용자). 처음엔 좌·우가
  *    Book 1 이고 가운데만 Book 2 라 책이 뒤섞여, 글자→낱말로 나아가는 순서가 안 보였다.
  */
-const ENGLISH_WHY: { shot: string; alt: string; t: string; d: string }[] = [
-  {
-    shot: 'en-why-sound',
-    alt: 'Aa 와 사과를 든 악어 그림을 눌러 소리를 듣는 앱 화면',
-    t: '알파벳 소리부터',
-    d: 'A 부터 Z 까지 글자마다 소리 하나. 그림과 함께 눌러 듣고 따라 합니다.',
-  },
-  {
-    shot: 'en-why-blend',
-    alt: 'a 와 n 이 an 으로 합쳐지는 앱 화면',
-    t: '소리를 합쳐요',
-    d: 'a + n 이 an 이 되는 순간을 눈으로 보고, 손으로 씁니다. c 를 붙이면 can 입니다.',
-  },
-  {
-    shot: 'en-why-new',
-    alt: '낱말과 그림을 이어 맞추는 그림짝 맞추기 앱 화면',
-    t: '낱말을 읽어내요',
-    // 🔴 낱말을 문장에 적지 않는다 — 이 게임은 판마다 낱말을 **랜덤으로 뽑아서**, 스크린샷을
-    //    다시 찍으면 캡션이 거짓이 된다(bat·cat·hat·fan 로 바뀌는 걸 실제로 봤다).
-    d: '배운 소리를 이어 붙여 낱말을 읽고, 그림과 짝지어 봅니다.',
-  },
+// 🔴 낱말을 문장에 적지 않는다 — 그림짝은 판마다 낱말을 **랜덤으로 뽑아서**, 스크린샷을
+//    다시 찍으면 캡션이 거짓이 된다(bat·cat·hat·fan 로 바뀌는 걸 실제로 봤다). 번역문도 마찬가지.
+const ENGLISH_WHY: { shot: string; k: string }[] = [
+  { shot: 'en-why-sound', k: 'alphabet' },
+  { shot: 'en-why-blend', k: 'blend' },
+  { shot: 'en-why-new', k: 'read' },
 ];
-/**
- * 단색 원형 픽토그램 — 🔴 **이모지를 아이콘으로 쓰지 않는다**(2026-08-11 사용자: "깔끔하지가 않아").
- *
- * 실측으로 벤치마크와 가장 크게 갈린 지점이 이것이었다: 소중한글·토도한글 두 페이지 모두
- * 본문 이모지가 **0개**인데 우리는 46개였다. 이모지는 저마다 색·양식·원근이 달라서 넉 장을
- * 나란히 놓으면 한 벌로 안 보이고 잡화점처럼 읽힌다(소중한글은 같은 자리를 코랄 원 + 흰 픽토그램
- * 한 벌로 처리한다).
- * 🔴 새 자산이 필요 없다 — 이 정도 도형은 SVG 몇 줄이라 그림 파일을 만들 이유가 없다.
- */
-const PICTS: Record<string, ReactNode> = {
-  adOff: (
-    <>
-      <path d="M4 9.5h3.5L13 5.5v13L7.5 14.5H4z" />
-      <line x1="3.5" y1="3.5" x2="20.5" y2="20.5" />
-    </>
-  ),
-  unlock: (
-    <>
-      <rect x="5" y="11" width="14" height="9.5" rx="2.5" />
-      <path d="M8.5 11V7.5a3.5 3.5 0 0 1 6.6-1.6" />
-    </>
-  ),
-  screens: (
-    <>
-      <rect x="2.5" y="5" width="13" height="9.5" rx="2" />
-      <line x1="7" y1="18" x2="11" y2="18" />
-      <rect x="17.5" y="9" width="4" height="10" rx="1.5" />
-    </>
-  ),
-  noPaper: (
-    <>
-      <path d="M6 3.5h7l5 5v12H6z" />
-      <line x1="3.5" y1="3.5" x2="20.5" y2="20.5" />
-    </>
-  ),
-  books: (
-    <>
-      <rect x="4" y="5" width="4" height="14.5" rx="1.2" />
-      <rect x="9.5" y="5" width="4" height="14.5" rx="1.2" />
-      <path d="M16 6.8l3.6 1-2.7 12.4-3.6-1z" />
-    </>
-  ),
-  openBook: (
-    <>
-      <path d="M12 7.5C10.2 6 7.8 5.4 4.5 5.4v12.4c3.3 0 5.7.6 7.5 2 1.8-1.4 4.2-2 7.5-2V5.4c-3.3 0-5.7.6-7.5 2.1z" />
-      <line x1="12" y1="7.5" x2="12" y2="19.8" />
-    </>
-  ),
-  headphones: (
-    <>
-      <path d="M4.5 14.5v-2.2a7.5 7.5 0 0 1 15 0v2.2" />
-      <rect x="2.5" y="13.5" width="4.5" height="7" rx="2.2" />
-      <rect x="17" y="13.5" width="4.5" height="7" rx="2.2" />
-    </>
-  ),
-};
-
-function Pict({ name }: { name: string }) {
-  return (
-    <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-coral-600 text-white">
-      <svg
-        viewBox="0 0 24 24"
-        className="h-6 w-6"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.8}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden
-      >
-        {PICTS[name]}
-      </svg>
-    </span>
-  );
-}
 
 /**
  * 히어로 서비스 카드 — 그림 한 장 + 번호 + 이름 + 한 줄.
@@ -429,6 +201,7 @@ function Arrow() {
 }
 
 function HeroBridge() {
+  const { t } = useTranslation('landing');
   return (
     /* 🔴 **지도와 브릿지를 한 상자로 합쳤다**(2026-08-21 사용자: "2단계 위 아래로 말고 하나로 못
        만드나… busy 해 보인다 / 한눈에 확 안 들어와"). 둘은 **같은 세 칸**(파닉스 → 어휘 → 동화책)
@@ -448,7 +221,7 @@ function HeroBridge() {
     <div className="mx-auto mt-5 sm:mt-7">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch sm:gap-2.5 xl:gap-4">
         {CHAIN_STEPS.map((step, i) => (
-          <Fragment key={step.t}>
+          <Fragment key={step.k}>
             {i > 0 && <Arrow />}
             <div
               className={`flex min-w-0 flex-col rounded-3xl bg-white p-3 shadow-[0_2px_12px_rgba(196,58,28,0.08)] sm:p-4 xl:p-5 ${
@@ -465,14 +238,16 @@ function HeroBridge() {
                   {i + 1}
                 </span>
                 <span>
-                  {step.t}
-                  {step.n && <span className="text-coral-700"> {step.n}</span>}
+                  {t(`chain.${step.k}.t`)}
+                  {step.hasCount && (
+                    <span className="text-coral-700"> {t(`chain.${step.k}.n`)}</span>
+                  )}
                 </span>
               </strong>
               <div className="relative overflow-hidden rounded-2xl border border-ink-100 bg-cream-50">
                 <img
                   src={step.img}
-                  alt={step.alt}
+                  alt={t(`chain.${step.k}.alt`)}
                   width={step.w}
                   height={step.h}
                   fetchPriority="high"
@@ -491,9 +266,16 @@ function HeroBridge() {
                     낱말에 색이 들어가는 그 표시다. */}
                 {i === 2 && (
                   <p className="bg-white px-2 py-1.5 text-left text-[12px] font-bold leading-snug text-ink-800 break-keep sm:px-3 sm:py-2 sm:text-[15px] xl:text-lg">
-                    햇살 좋은 날, 엄마{' '}
-                    <mark className="rounded bg-amber-200 px-1 text-ink-900">오리</mark>의 알들이
-                    톡톡 깨어났어요.
+                    {/* 🔴 문장은 번역하되 **낱말 「오리」에 노란 표시**는 유지된다 —
+                        `<m>` 이 그 자리를 잡아 준다(`Trans` components). 표시 자체가 「맞힌 낱말에
+                        색이 들어간다」는 증거라, 언어가 바뀌어도 사라지면 안 된다. */}
+                    <Trans
+                      t={t}
+                      i18nKey="chain.sentence"
+                      components={{
+                        m: <mark className="rounded bg-amber-200 px-1 text-ink-900" />,
+                      }}
+                    />
                   </p>
                 )}
               </div>
@@ -502,11 +284,11 @@ function HeroBridge() {
                   🔴 한글 줄과 영어 줄은 **같은 크기** — 크기를 달리하면 한쪽이 덤처럼 보인다
                   (같은 이용권으로 둘 다 준다는 게 이 두 줄의 요지다). */}
               <span className="mt-2 block text-center text-[12px] leading-relaxed text-ink-600 break-keep sm:text-[13px] xl:text-[15px]">
-                {step.ko}
+                {t(`chain.${step.k}.ko`)}
               </span>
-              {step.en && (
+              {step.hasEn && (
                 <span className="block text-center text-[12px] leading-relaxed text-ink-600 break-keep sm:text-[13px] xl:text-[15px]">
-                  {step.en}
+                  {t(`chain.${step.k}.en`)}
                 </span>
               )}
             </div>
@@ -519,24 +301,6 @@ function HeroBridge() {
 
 const SIGNUP = '/login?mode=signup';
 
-/**
- * 랜딩이 통째로 여는 단원 — ㄱ(한글1 두 번째).
- * 🔴 **스크린샷을 쓰지 않는다**(2026-08-01 사용자: "찍어서 가지고 오지말고 아예 구현을 하라니까").
- *    아홉 개가 전부 앱에서 도는 그 컴포넌트다. 배선은 `KoreanPhonicsActivity` 하나를 재사용한다.
- * 🔴 높이는 활동마다 다르다 — 격자가 큰 게임은 500px 이면 아래가 잘린다.
- */
-/**
- * 데모·낱말 카드에 쓸 단원.
- *
- * 🔴 **낱말 넷이 전부 동화책으로 이어지는 단원**이어야 한다(2026-08-18). ㄱ 단원(`kr-h1-u02`)은
- *    야구가 색인에 없어 넷 중 하나는 다 써도 동화책이 안 열렸다 — 랜딩 데모에서 그 하나가 걸리면
- *    헤드라인이 거짓이 된다. ㅁ 단원은 머리 12 · 모두 12 · 거미 12 · 모기 2 로 **못 뜨는 낱말이 0**
- *    이고 합도 가장 크다(전 15단원 실측).
- * 🔴 단원을 바꾸면 **이 구간의 본문 낱말 예시**도 같이 바꾼다 — 갈리면 「이 단원을 떼면 이만큼
- *    읽는다」가 다른 단원 얘기가 된다. (윗구간의 `GA_WORDS` 카드는 ㄱ 로 **따로 간다** — 이유는
- *    거기 주석에.)
- */
-const GA_UNIT = 'kr-h1-u06';
 /**
  * 🔴 **아홉 → 넷 → 둘 → 다시 아홉**(2026-08-11 사용자: "2개밖에 없는데 많이 넣어주고, 게임 포함,
  *    써보기도"). 길이를 줄이려고 둘까지 깎았는데, 그러면 이 페이지에서 가장 센 자산 —
@@ -557,6 +321,7 @@ const GA_UNIT = 'kr-h1-u06';
  *    「직접 해보세요」라고 해놓고 그 화면을 가리는 건 앞뒤가 안 맞는다.
  */
 function StickyCta() {
+  const { t } = useTranslation('landing');
   const [show, setShow] = useState(false);
   const [blocked, setBlocked] = useState(false);
   useEffect(() => {
@@ -594,30 +359,9 @@ function StickyCta() {
           to={SIGNUP}
           className="flex min-h-[44px] shrink-0 items-center rounded-full bg-coral-700 px-5 text-base font-bold text-white shadow-sm transition hover:bg-coral-800"
         >
-          결제 정보 없이 한 달 무료
+          {t('sticky.cta')}
         </Link>
       </div>
-    </div>
-  );
-}
-
-/**
- * 🔴 `note` = 숫자 밑 **근거 각주**(2026-08-05 벤치마킹). 경쟁사가 "78%(2026.5 기준)"처럼
- *    수치에 기준을 붙여 전문적으로 보이게 한다. 우리는 후기가 없어 이 각주가 후기 대체재다
- *    — "직접 세어 검증 가능"이라 신뢰 축이 다르다.
- */
-function Stat({ value, label, note }: { value: string; label: string; note?: string }) {
-  return (
-    <div className="flex flex-col items-center gap-1 rounded-3xl bg-white/70 px-3 py-4">
-      <span className="font-display text-3xl font-extrabold text-coral-700 sm:text-4xl">
-        {value}
-      </span>
-      <span className="text-center text-sm font-semibold text-ink-600 break-keep sm:text-sm">
-        {label}
-      </span>
-      {note && (
-        <span className="text-center text-[14px] leading-snug text-ink-400 break-keep">{note}</span>
-      )}
     </div>
   );
 }
@@ -707,288 +451,34 @@ const EN_WORDS: { w: string; img: string }[] = [
  *    동화책=표지 벽. 앱 스크린샷은 바로 위 순환 그림이 이미 쓰고 있어서 여기서 또 쓰면 겹친다.
  * 🔴 가운데는 **새 자산을 만들지 않는다** — 앱이 쓰는 낱말 카드 넉 장을 그대로 격자로 놓는다.
  */
+/**
+ * 히어로 세 칸. 🔴 **글·이름은 `landing` 네임스페이스로 나갔다**(2026-08-21 다국어) — 여기 남는 건
+ *    그림과 그 비율뿐이다. `k` 가 `chain.<k>.{t,n,ko,en,alt}` 를 가리킨다.
+ * 🔴 세 칸의 예시는 **같은 줄끼리 맞물린다**: ㄹ→오리→미운 아기 오리. 예시가 서로 무관하면
+ *    화살표가 거짓말이 된다 — 번역할 때도 이 셋을 같이 본다.
+ * ⚠️ 동화책은 **영어판이 따로 있는 게 아니라 같은 책을 영어로 읽는다** — 「영어 동화책 N권」처럼
+ *    따로 세지 말 것(그래서 `books` 칸만 `en` 이 비어 있다).
+ */
+/**
+ * 🔴 **없는 문구는 플래그로 알린다 — `defaultValue: ''` 로 때우지 말 것**(2026-08-21 실측).
+ *    i18next 는 `defaultValue` 가 빈 문자열이면 그걸 「없음」으로 보고 **키 이름을 그대로
+ *    돌려준다** — 영어 화면에 `chain.phonics.n` 이 글자로 찍혔다. 로케일 검증(`verify-locales`)은
+ *    빈 값을 오류로 잡으므로 빈 키를 둘 수도 없다. 그래서 **있는 칸만 그린다**고 데이터에 적는다.
+ * `hasCount` = 개수(500+권)를 다는 칸 · `hasEn` = 한/영 두 줄을 다는 칸(동화책은 같은 책을 두
+ * 언어로 읽는 것이라 갈라 세지 않는다).
+ */
 const CHAIN_STEPS: {
-  t: string;
-  n: string;
-  ko: string;
-  en: string;
+  k: string;
   img: string;
-  alt: string;
   w: number;
   h: number;
+  hasCount?: true;
+  hasEn?: true;
 }[] = [
-  // 🔴 **칸마다 한글·영어 두 줄**(2026-08-19 사용자: "왼쪽에 한글 파닉스·영어 파닉스, 가운데
-  //    한글/영어 어휘, 오른쪽 한글 동화책·영어 동화책. 이걸 표현해야 하는데"). 한 줄로 뭉쳐 두면
-  //    이 서비스가 **두 언어를 같은 이용권으로 다 준다**는 게 안 보인다 — 그게 요금 절의 근거다.
-  // 🔴 **세 칸의 예시는 같은 줄끼리 맞물린다**: ㄹ→오리→미운 아기 오리 / 받침 ㅂ→집→백설공주.
-  //    예시가 서로 무관하면 화살표가 거짓말이 된다.
-  // 🔴 **아는 동화책이 나오게 낱말을 고른다** — 색인(`word-scenes.json`)에서 유명 동화 제목으로
-  //    거꾸로 뽑았다. 처음엔 고기·머리·모두였는데 그게 여는 책이 자연관찰·호리라 「그래서 뭐」였다.
-  // ⚠️ 동화책은 **영어판이 따로 있는 게 아니라 같은 책을 영어로 읽는다** — 「영어 동화책 N권」처럼
-  //    따로 세지 말 것.
-  // 🔴 **`languages` 플래그로 세지 마라**(2026-08-19). 그 필드는 266권 전부 en 을 들고 있어서
-  //    「전권 영어」로 읽히는데, **실제 쪽 번역**(`pages[].translations.en.text`)을 세면 230권이고
-  //    36권은 영어가 0쪽이다(호리 세상 탐험 15 · 호리 유치원동화 20 · 육지 동물 1).
-  //    내가 그 플래그를 근거로 「같은 책을 영어로도」라고 썼다가 이 감사에서 잡혔다.
-  {
-    // 🔴 「파닉스 71단원」 → **「한글·영어 파닉스」**(2026-08-19 사용자). 숫자는 바로 밑 두 줄이
-    //    한글 32 · 영어 39 로 갈라 말하므로, 위에서 합계를 또 말하면 같은 걸 두 번 센다.
-    t: '한글·영어 파닉스',
-    n: '',
-    ko: '한글 32단원 — ㄹ · 받침 ㄴ · 받침 ㅂ …',
-    en: '영어 39단원 — Aa Bb Cc · short a · 매직 e …',
-    img: '/landing/hangul/bridge-letter.webp',
-    alt: '한글 파닉스 음절 만들기 화면 — ㄹ 과 ㅣ 가 합쳐져 리 가 된다',
-    w: 540,
-    h: 458,
-  },
-  {
-    // 🔴 「낱말」 → **「학습 어휘」**(2026-08-19 사용자) — 아래 칸이 낱말을 늘어놓고 있어서 제목까지
-    //    낱말이면 같은 말이 두 번이고, 부모가 찾는 말은 「어휘」다.
-    t: '학습 어휘',
-    n: '',
-    ko: '한글 — 오리 · 언니 · 달 · 집 …',
-    en: '영어 — cat · fan · hat · map …',
-    img: '/landing/hangul/bridge-word.webp',
-    alt: '한글 파닉스 ㄹ 단원 낱말 연습 화면 — 오리·너구리',
-    w: 540,
-    h: 366,
-  },
-  {
-    t: '동화책',
-    n: '500+권',
-    // 🔴 동화책 칸만 언어를 안 가른다(2026-08-19 사용자) — 같은 책을 두 언어로 읽는 것이라
-    //    「한국어 N권 / 영어 N권」처럼 갈라 세면 권수를 두 번 세는 꼴이 된다.
-    ko: '미운 아기 오리 · 신데렐라 · 해와 달이 된 오누이 · 백설공주 …',
-    en: '',
-    img: '/landing/hangul/bridge-page.webp',
-    alt: '미운 아기 오리 동화책 한 쪽 — 알에서 깨어난 아기 오리들',
-    w: 560,
-    h: 315,
-  },
+  { k: 'phonics', img: '/landing/hangul/bridge-letter.webp', w: 540, h: 458, hasEn: true },
+  { k: 'vocab', img: '/landing/hangul/bridge-word.webp', w: 540, h: 366, hasEn: true },
+  { k: 'books', img: '/landing/hangul/bridge-page.webp', w: 560, h: 315, hasCount: true },
 ];
-
-/** 🔴 위 예시와 **같은 낱말**의 카드다 — 그림과 글자가 다른 낱말이면 깔맞춤이 깨진다. */
-const CHAIN_WORD_CARDS = [
-  'kr-h1-u05-ori-32d6900a',
-  'kr-h2-u03-eonni-c492d752',
-  'kr-h2-u04-dal-5ed6a3b6',
-  'kr-h2-u07-jip-29dc98cc',
-];
-
-/**
- * 「책마다 낱말」을 **여러 책 × 여러 낱말**로 한눈에. 히어로의 ㄹ 예시 바로 밑에 온다.
- *
- * 🔴 **목표치(1,500)를 현재형으로 쓰지 않는다**(2026-08-19). 지금은 630 개다 —
- *    같은 날 `vocabWords 823`(실제 547)과 「가입 없이 전권」(실제 129/266)이 라이브 광고에서
- *    거짓으로 잡혔다. 대신 **둘 다 말한다**: 목표가 어디고 지금 어디까지 왔는지.
- *    그게 이 제품이 실제로 파는 것(계속 는다)과도 맞다 → memory `content-growth-target-2026-08-19`.
- * 🔴 표지와 낱말은 **같은 책에서 온 것**이다(API 실측) — 짝이 안 맞으면 「책마다」가 거짓이 된다.
- * 🔴 낱말 카드는 줄당 셋씩 **여섯 책** — 라인이 겹치지 않게 골랐다(명작·전래·공룡·생활·육지·곤충).
- */
-const VOCAB_SHELF: { book: string; cover: string; words: { w: string; u: string }[] }[] = [
-  {
-    book: '헨젤과 그레텔',
-    cover: '1781588918173-헨젤과그레텔-cover-misc-1781665685628.webp',
-    words: [
-      { w: '집', u: '1781588918173-헨젤과그레텔-keyobj-house-1783558635909-w800.webp' },
-      { w: '쿠키', u: '1781588918173-헨젤과그레텔-keyobj-cookie-1783558638451-w800.webp' },
-      { w: '나무', u: '1781588918173-헨젤과그레텔-keyobj-tree-1783558659179-w800.webp' },
-    ],
-  },
-  {
-    book: '두더지의 혼인',
-    cover: '1785303657748-두더지의혼인-cover-misc-1785373164014.webp',
-    words: [
-      { w: '활옷', u: 'comic-assets/jeonrae-dudeoji/word-hwarot.jpg' },
-      { w: '연', u: 'comic-assets/jeonrae-dudeoji/word-yeon.jpg' },
-      { w: '목기러기', u: 'comic-assets/jeonrae-dudeoji/word-mokgireogi.jpg' },
-    ],
-  },
-  {
-    book: '람포린쿠스',
-    cover: '1773912904434-람포린쿠스-cover-misc-1780273979322.webp',
-    words: [
-      { w: '꼬리', u: '1773912904434-람포린쿠스-keyobj-꼬리-1783573014402.webp' },
-      { w: '지느러미', u: '1773912904434-람포린쿠스-keyobj-지느러미-1783573015605.webp' },
-      { w: '하늘', u: '1773912904434-람포린쿠스-keyobj-하늘-1783573636229.webp' },
-    ],
-  },
-  {
-    book: '45. 고마워, 자연아!',
-    cover: '1783990336946-45고마워자연아-cover-misc-1784003011949.webp',
-    words: [
-      { w: '낙엽', u: 'phonics-word-cards/hori-4ac99ee59772-w800.webp' },
-      { w: '도토리', u: 'phonics-word-cards/hori-778a29c013c2-w800.webp' },
-      { w: '단풍잎', u: 'phonics-word-cards/hori-04fc68ee5fed-w800.webp' },
-    ],
-  },
-  {
-    book: '캥거루',
-    cover: '1777615082301-캥거루-cover-misc-1780033772059.webp',
-    words: [
-      { w: '캥거루', u: '1777615082301-캥거루-keyobj-캥거루-1783670912321.webp' },
-      { w: '주머니', u: '1777615082301-캥거루-keyobj-주머니-1783670914572.webp' },
-      { w: '얼굴', u: '1777615082301-캥거루-keyobj-얼굴-1783670920053.webp' },
-    ],
-  },
-  {
-    book: '장수풍뎅이',
-    cover: '1777607890313-장수풍뎅이-cover-misc-1780025606215.webp',
-    words: [
-      { w: '장수풍뎅이', u: '1777607890313-장수풍뎅이-keyobj-장수풍뎅이-1783840578967.webp' },
-      { w: '뿔', u: '1777607890313-장수풍뎅이-keyobj-뿔-1783840581531.webp' },
-      { w: '알', u: '1777607890313-장수풍뎅이-keyobj-알-1783840584862.webp' },
-    ],
-  },
-];
-
-function VocabShelf() {
-  return (
-    <div className="mt-6 text-left sm:mt-8">
-      {/* ⚠️ **1,500 은 목표고 지금은 630 개다**(`FACTS.vocabWords`, 2026-08-19 실측).
-          사용자 지시로 목표치를 현재형으로 쓰고, 그 아래 있던 「지금 630 · 목표 1,500」 줄은 뺐다
-          (2026-08-19, 두 번 확인). 내가 걸었던 이의는 「목표치는 달성 전까지 랜딩에 안 쓴다」였고
-          그 근거는 같은 날 `vocabWords 823`(실제 547)과 「가입 없이 전권」(실제 129/266)이 라이브
-          광고에서 거짓으로 잡힌 일이다 → memory `content-growth-target-2026-08-19`.
-          🔴 되돌릴 일이 생기면 **숫자만 고치지 말고 이 줄의 판단을 먼저 다시 볼 것.** */}
-      <p className="text-center text-[16px] font-extrabold text-ink-900 break-keep sm:text-[22px] xl:text-[26px]">
-        <span className="text-coral-700">초등학교 입학 전 필수 어휘 1,500개</span>를 다양한 동화책과
-        독후 게임으로 놀이하듯 익힙니다.
-      </p>
-      {/* 🔴 좁은 화면에선 **가로로 흘린다**(라이브러리 캐러셀과 같은 규칙) — 여섯 칸을 접으면
-          「여러 책」이 세로 목록이 되어 한눈에 안 들어온다. */}
-      <ul className="mt-4 flex gap-2.5 overflow-x-auto pb-1 [scrollbar-width:none] sm:gap-3">
-        {VOCAB_SHELF.map((b) => (
-          <li key={b.book} className="w-[46%] shrink-0 sm:w-auto sm:flex-1">
-            <img
-              src={`https://assets.tangobook.co.kr/thumbs/512/${b.cover}`}
-              alt={`${b.book} 표지`}
-              width={512}
-              height={288}
-              loading="lazy"
-              decoding="async"
-              className="aspect-video w-full rounded-xl border border-ink-100 object-cover"
-            />
-            <ul className="mt-1.5 grid grid-cols-3 gap-1 sm:gap-1.5">
-              {b.words.map((w) => (
-                <li
-                  key={w.w}
-                  className="overflow-hidden rounded-lg border border-peach-200 bg-white text-center"
-                >
-                  <img
-                    src={`https://assets.tangobook.co.kr/${w.u}`}
-                    alt=""
-                    width={800}
-                    height={800}
-                    loading="lazy"
-                    decoding="async"
-                    className="aspect-square w-full object-cover"
-                  />
-                  <span className="block truncate py-0.5 text-[9px] font-extrabold text-ink-900 sm:text-[11px]">
-                    {w.w}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function WordBookMesh() {
-  const pic = 'aspect-video w-full rounded-2xl object-cover';
-  return (
-    <div className="!mt-6 rounded-3xl bg-white/70 p-4 sm:p-5">
-      {/* 🔴 제목 줄(「글자에서 이야기까지, 한 줄로 이어져 있어요」)은 **뺐다**(2026-08-19 사용자) —
-          바로 위 h1 이 이미 같은 말을 하고, 세 칸과 화살표가 그 말을 그림으로 한 번 더 한다.
-          한 화면에서 같은 문장을 세 번 읽게 된다. */}
-      {/* 🔴 세로로 쌓지 않는다 — 375px 에서도 셋이 한 줄이라야 「이어진다」가 보인다.
-          대신 그림과 글씨를 작게 줄인다(화살표는 칸 사이 고정폭). */}
-      <div className="mt-4 grid grid-cols-[1fr_auto_1fr_auto_1fr] items-start gap-1.5 sm:gap-3">
-        {CHAIN_STEPS.map((step, i) => (
-          <Fragment key={step.t}>
-            {i > 0 && (
-              <span
-                aria-hidden
-                className="self-center text-xl font-extrabold text-coral-400 sm:text-4xl"
-              >
-                →
-              </span>
-            )}
-            <div className="min-w-0 text-center">
-              {/* 🔴 왼쪽 무더기 = 한글 블록, 오른쪽 = 알파벳 블록. **두 언어가 한 그림 안에** 있어야
-                  「하나로 둘 다 한다」가 온다(2026-08-19 사용자).
-                  ⚠️ 여기까지 세 번 갈아엎었다 — 호리+가나다(한글만 보임) → 코드로 그린 자모 타일
-                  (「격자로 늘어놓아라」고 쓴 내 프롬프트 탓에 생성본도 똑같이 나왔다) → 앱의 파닉스
-                  카드 아이콘 둘(호리가 ㄱ·A 를 든 것) → 이 블록 그림. 자모가 깨지기 쉬우니 갈 때는
-                  ㄱ ㄴ ㄷ · ㅏ ㅑ ㅓ 가 정확한지 눈으로 볼 것. */}
-              {i === 0 && (
-                <img
-                  src="/landing/hangul/letters.webp"
-                  alt="한글 자모 블록 ㄱ ㄴ ㄷ ㅏ ㅑ ㅓ 와 알파벳 블록 A B C a b c 가 좌우로 쌓여 있는 그림"
-                  width={1280}
-                  height={720}
-                  loading="lazy"
-                  decoding="async"
-                  className={pic}
-                />
-              )}
-              {i === 1 && (
-                /* 🔴 2×2 로 두되 **줄 수를 못 박는다**(`grid-rows-2` + 자식 `min-h-0`) — 안 그러면
-                   격자가 제 높이로 자라 옆 두 칸(16:9)과 어긋난다(가운데만 아래로 튀어나왔었다). */
-                <span
-                  className={`${pic} grid grid-cols-2 grid-rows-2 gap-1 bg-cream-100 p-1 sm:gap-1.5 sm:p-1.5`}
-                >
-                  {CHAIN_WORD_CARDS.map((c) => (
-                    <img
-                      key={c}
-                      src={`https://assets.tangobook.co.kr/phonics-word-cards/${c}-w800.webp`}
-                      alt=""
-                      width={800}
-                      height={800}
-                      loading="lazy"
-                      decoding="async"
-                      className="h-full min-h-0 w-full rounded-lg object-cover"
-                    />
-                  ))}
-                </span>
-              )}
-              {i === 2 && (
-                <img
-                  src="/landing/hangul/books.webp"
-                  alt="탱고북 동화책 표지 아홉 장"
-                  width={1200}
-                  height={675}
-                  loading="lazy"
-                  decoding="async"
-                  className={pic}
-                />
-              )}
-              {step.t && (
-                <strong className="mt-2 block text-[13px] font-extrabold text-ink-900 break-keep sm:text-lg">
-                  {step.t} <span className="text-coral-700 sm:text-xl">{step.n}</span>
-                </strong>
-              )}
-              {/* 🔴 한글 줄은 진하게, 영어 줄은 그 아래 같은 크기로 — 크기를 달리하면 한쪽이
-                  덤처럼 보인다(같은 이용권이라는 게 이 두 줄의 요지다). */}
-              <span className="mt-1.5 block text-[10px] leading-relaxed text-ink-600 break-keep sm:text-[13px]">
-                {step.ko}
-              </span>
-              {step.en && (
-                <span className="block text-[10px] leading-relaxed text-ink-600 break-keep sm:text-[13px]">
-                  {step.en}
-                </span>
-              )}
-            </div>
-          </Fragment>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 function UnitWords({
   words,
@@ -1030,43 +520,6 @@ function UnitWords({
   );
 }
 
-function CurriculumUnits() {
-  const units = getAllKoreanUnits();
-  const levels = [...new Map(units.map((u) => [u.levelKey, u.levelName])).entries()];
-  const clean = (t: string) => t.replace(/^unit\s*\d+\s*:\s*/i, '');
-  return (
-    <div className="!mt-6 space-y-3">
-      {levels.map(([key, name]) => (
-        <div key={key} className="rounded-3xl border border-ink-100 bg-white/70 p-4">
-          <p className="text-sm font-bold text-coral-700 break-keep">
-            {name}
-            <span className="ml-2 font-semibold text-ink-600">
-              {units.filter((u) => u.levelKey === key && !u.isReview).length}단원
-              {units.filter((u) => u.levelKey === key && u.isReview).length > 0 &&
-                ` + 복습 ${units.filter((u) => u.levelKey === key && u.isReview).length}`}
-            </span>
-          </p>
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            {units
-              .filter((u) => u.levelKey === key)
-              .map((u) => (
-                <span
-                  key={u.id}
-                  className={`rounded-full px-2.5 py-1 text-sm break-keep ${
-                    u.isReview ? 'bg-mint-100 font-bold text-mint-700' : 'bg-cream-100 text-ink-700'
-                  }`}
-                >
-                  {u.isReview ? '🏅 ' : ''}
-                  {clean(u.unitTitle)}
-                </span>
-              ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 /**
  * 동화책 **라인 4개** — 이 페이지의 차별점(2026-08-11 사용자: "동화책이 차별점").
  *
@@ -1080,148 +533,26 @@ function CurriculumUnits() {
  * 🔴 문구는 `/english` 랜딩에서 그대로 가져왔다(2026-08-10 작성분) — 한 페이지로 합치면서
  *    그 페이지는 이리로 리다이렉트한다. 새로 쓰지 않는다.
  */
-const EN_STAGES: { label: string; count: string; detail: string; tone: string }[] = [
-  {
-    label: '알파벳 소리',
-    count: '8단원',
-    detail: 'A 부터 Z 까지, 글자마다 소리 하나',
-    tone: 'bg-peach-100 text-ink-800',
-  },
-  {
-    label: '단모음 낱말',
-    count: '8단원',
-    detail: 'c + an → can, 소리가 합쳐집니다',
-    tone: 'bg-coral-100 text-coral-700',
-  },
-  {
-    label: '매직 e',
-    count: '7단원',
-    detail: 'cap 이 cape 가 되는 규칙',
-    tone: 'bg-mint-100 text-mint-700',
-  },
-  {
-    label: '이중자음·블렌드',
-    count: '8단원',
-    detail: 'bl · ch · sh — 두 글자가 한 소리로',
-    tone: 'bg-peach-100 text-ink-800',
-  },
-  {
-    label: '모음팀·R 모음',
-    count: '8단원',
-    detail: 'ee · oa · ar — 긴 소리로',
-    tone: 'bg-coral-100 text-coral-700',
-  },
+const EN_STAGES: { k: string; n: number; tone: string }[] = [
+  { k: 'alphabet', n: 8, tone: 'bg-peach-100 text-ink-800' },
+  { k: 'shortVowel', n: 8, tone: 'bg-coral-100 text-coral-700' },
+  { k: 'magicE', n: 7, tone: 'bg-mint-100 text-mint-700' },
+  { k: 'digraph', n: 8, tone: 'bg-peach-100 text-ink-800' },
+  { k: 'vowelTeam', n: 8, tone: 'bg-coral-100 text-coral-700' },
 ];
 
 /**
- * 영어 데모 = Book 2 첫 단원(`c + an → can`) **세 개만**. 한글은 단원을 통째로(아홉 개) 얹지만
- * 영어까지 아홉이면 같은 형식이 열여덟 번 이어져 리듬이 사라진다 — 여기선 「합쳐지는 순간」과
- * 손으로 하는 것만 보여주고 나머지는 앱으로 보낸다.
- * 🔴 **키는 그 단원 plan 에 실제로 있는 것이어야 한다** — 없으면 `PhonicsTryIt` 이
- *    `if (!activity) return null` 로 **에러 없이 상자를 지운다**. 영어 블록 게임은 2026-08-09 에
- *    전 권에서 빠졌다(가드 테스트 有) — en-b2-u01 의 play 는 낱말 그리기·쓰기·그림 짝 셋이다.
+ * 🔴 **`match` 의 한국어는 데이터 키다 — 번역하지 않는다.** R2 의 `category` 값이라
+ *    번역하면 아무 책도 안 걸린다(라이브러리 카테고리 함정과 같은 것 → CLAUDE.md).
+ *    화면에 뜨는 이름·설명만 `k` 로 `landing` 네임스페이스를 가리킨다.
  */
-const EN_UNIT = 'en-b2-u01';
-
-/**
- * 이 페이지에서 **유일한 라이브 데모**.
- *
- * 🔴 헤드라인이 「오늘 배운 글자로 오늘 동화책을 읽어요」라고 주장하고, 이 상자가 그 자리에서
- *    증명한다 — 낱말을 맞히면 `SceneReveal` 이 그 낱말이 나오는 동화책 쪽을 삽화·문장·나레이션과
- *    함께 띄운다. 헤드라인과 데모가 같은 말을 한다.
- * 🔴 **낱말 쓰기여야 한다**(2026-08-18 사용자, 세 번 고른 끝). 고른 기준은 둘이다 —
- *    **①낱말 하나로 끝나고 ②끝나면 동화책이 열린다**.
- *    - 그림 짝 찾기: 0/4 로 시작해 **네 쌍을 다 맞춰야** 끝났다. 히어로 바로 아래에서 그만한 일을
- *      시키면 대부분 스크롤로 지나간다.
- *    - 음절 만들기: 한 동작이지만 **리빌이 없다** — 리빌은 낱말 활동 4종(블록·낱말쓰기·낱말그리기·
- *      그림짝)에만 붙고 글자 활동엔 안 붙는다. 헤드라인이 「동화책을 읽어요」인데 데모는 딴 말을 했다.
- *    - 낱말 쓰기: 낱말 하나를 다 쓰면 그 낱말이 나오는 동화책 쪽이 열린다. 헤드라인과 같은 말을 한다.
- * ⚠️ 탭 한 번보다는 오래 걸린다(획을 다 채워야 99% 가 된다). 그 대가로 **연결을 그 자리에서
- *    증명**하는 걸 산 것이다 — 되돌릴 땐 이 둘 중 무엇을 포기하는지 먼저 정할 것.
- * 🔴 **한/영은 토글로 합친다.** 헤드라인에서 「한글도 하고 영어도 해요」라고 말하면 백화점이 되고,
- *    무명 브랜드가 그러면 무엇을 파는지가 안 남는다. 대신 여기서 실물로 보여준다 —
- *    세로가 안 늘고, 영어도 같은 자리에서 글자가 붙는 걸 보여준다(`cvc-an` = c + an → can).
- * 🔴 예전엔 이 상자가 **아홉 개 스택의 맨 아래**에 있었다(8.3화면). 가장 센 증거를 8화면 밑에
- *    묻어 두고 위에서는 글로 설명하고 있었다.
- */
-function TryBridge() {
-  const [lang, setLang] = useState<'ko' | 'en'>('ko');
-  return (
-    <section className="px-4 pt-10 pb-4 sm:px-6 sm:pt-12">
-      <div className="mx-auto max-w-3xl text-center lg:max-w-5xl">
-        {/* 🔴 「👆 진짜 앱 화면입니다 — 지금 눌러보세요」 알약은 **뺐다**(2026-08-19 사용자) —
-            상자 헤더가 이미 「● 실제 학습 화면」이라고 말하고, 그 위에 또 한 번 크게 말하면
-            같은 주장을 두 번 한다. */}
-        <div className="mt-4 flex justify-center gap-2">
-          {(
-            [
-              ['ko', '한글'],
-              ['en', 'English'],
-            ] as const
-          ).map(([v, label]) => (
-            <button
-              key={v}
-              type="button"
-              onClick={() => setLang(v)}
-              className={`min-h-[44px] rounded-full border-2 px-5 text-base font-extrabold transition ${
-                lang === v
-                  ? 'border-coral-500 bg-coral-500 text-white'
-                  : 'border-line bg-white text-ink-500 hover:border-coral-300'
-              }`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-
-        {/* 🔴 `key` 로 갈아끼운다 — 토글은 **다른 단원의 다른 활동**이라 안에서 상태를 이어받으면
-            앞 언어의 낱말이 남는다. */}
-        {/* 🔴 `language` 를 반드시 같이 넘긴다 — 안 넘기면 영어 단원 id 를 한글 plan 에서 찾다가
-            활동을 못 찾고 상자가 **조용히 사라진다**(`if (!activity) return null`). 에러도 안 난다.
-            토글을 붙이고 처음 실행했을 때 실제로 이렇게 빈 상자가 나왔다. */}
-        <PhonicsTryIt
-          key={lang}
-          unitId={lang === 'ko' ? GA_UNIT : EN_UNIT}
-          language={lang === 'ko' ? 'korean' : 'english'}
-          activityKey="game-word-writing"
-          height={620}
-          note="다 쓰면 그 낱말이 나오는 동화책 한 쪽이 열립니다 — 손으로 따라 써 보세요."
-          cta
-        />
-
-        {/* 🔴 여기에 리빌 **사진**을 두지 않는다(2026-08-18). 한 번 뒀다가 뺐다 —
-            바로 위 데모가 낱말을 다 쓰면 **그 화면이 진짜로 뜬다**. 사진을 덧붙이면 같은 말을
-            두 번 하고, 게다가 사진 속 게임(그림짝)이 이 데모(낱말 쓰기)와 달라 딴 화면처럼 보였다.
-            리뷰가 「사진이 11.3화면에 묻혔다」고 한 건 그때 데모가 리빌 없는 음절 만들기였기
-            때문이고, 데모를 바꾼 지금은 그 근거가 사라졌다. */}
-      </div>
-    </section>
-  );
-}
-
-const LINES: { name: string; n: number; d: string; match: (c: string) => boolean }[] = [
+const LINES: { k: string; n: number; match: (c: string) => boolean }[] = [
+  { k: 'classic', n: 48, match: (c) => c === '세계 명작' },
+  { k: 'folk', n: 40, match: (c) => c === '전래 동화' },
+  { k: 'hori', n: 78, match: (c) => c.startsWith('호리') || c === '생활동화' },
   {
-    name: '세계 명작',
-    n: 48,
-    d: '누구나 아는 이야기 — 같은 책을 그림체를 바꿔 가며 볼 수 있어요.',
-    match: (c) => c === '세계 명작',
-  },
-  {
-    name: '전래 동화',
-    n: 40,
-    d: '우리 옛이야기 — 지게·엽전·꽃신처럼 우리 것을 낱말로 만납니다.',
-    match: (c) => c === '전래 동화',
-  },
-  {
-    name: '호리 시리즈',
-    n: 78,
-    d: '아기호랑이 호리가 나오는 창작 동화 — 생활 습관 · 유치원 · 세상 탐험.',
-    match: (c) => c.startsWith('호리') || c === '생활동화',
-  },
-  {
-    name: '자연 관찰',
+    k: 'nature',
     n: 100,
-    d: '공룡·곤충·바다·우주·우리 몸 — 실제 사진으로 보는 논픽션.',
     match: (c) =>
       c.endsWith('친구들') || ['식물 친구들', '우주와 자연', '우리 몸 이야기'].includes(c),
   },
@@ -1261,10 +592,20 @@ const A = 'https://assets.tangobook.co.kr/';
  *    1,114낱말/196권은 이미 있고 R2 적용만 남았다. **적용 전에 광고를 크게 돌리면 그 29% 가
  *    비용이 된다** — 호리 표지를 눌러 들어간 부모가 독후활동을 못 만난다.
  */
-const BOOK_WORDS: { title: string; line: string; cover: string; words: [string, string][] }[] = [
+/**
+ * 🔴 **책 제목과 낱말은 번역하지 않는다** — 낱말(사과·거울·뿔)은 아이가 배우는 **한국어 콘텐츠**고,
+ *    표지에는 한국어 제목이 이미 그려져 있다. 번역되는 건 `alt` 안의 **라인 이름**뿐이라
+ *    `lineKey` 로 `books.lines.<k>.name` 을 가리킨다(그 이름은 라인 격자에서도 같은 키를 쓴다).
+ */
+const BOOK_WORDS: {
+  title: string;
+  lineKey: string;
+  cover: string;
+  words: [string, string][];
+}[] = [
   {
     title: '백설공주',
-    line: '세계 명작',
+    lineKey: 'classic',
     cover: `${A}1778555233699-백설공주-cover-misc-1779148945169.webp`,
     words: [
       ['사과', `${A}1778555233699-백설공주-keyobj-apple-1779939822554-w800.webp`],
@@ -1275,7 +616,7 @@ const BOOK_WORDS: { title: string; line: string; cover: string; words: [string, 
   },
   {
     title: '장수풍뎅이',
-    line: '자연 관찰',
+    lineKey: 'nature',
     cover: `${A}1777607890313-장수풍뎅이-cover-misc-1780025606215.webp`,
     words: [
       ['뿔', `${A}1777607890313-장수풍뎅이-keyobj-뿔-1783840581531.webp`],
@@ -1286,7 +627,7 @@ const BOOK_WORDS: { title: string; line: string; cover: string; words: [string, 
   },
   {
     title: '반쪽이',
-    line: '전래 동화',
+    lineKey: 'folk',
     cover: `${A}1785303658036-반쪽이-cover-misc-1785373418524.webp`,
     words: [
       ['쌀뒤주', `${A}comic-assets/jeonrae-banjjogi/word-dwiju.jpg`],
@@ -1306,6 +647,7 @@ const BOOK_WORDS: { title: string; line: string; cover: string; words: [string, 
  *    남는 폭은 채우되 한 장이 표지(34%)보다 작으면 주객은 안 뒤집힌다.
  */
 function BookWords() {
+  const { t } = useTranslation('landing');
   return (
     <div className="!mt-4 space-y-3">
       {BOOK_WORDS.map((b) => (
@@ -1318,7 +660,7 @@ function BookWords() {
               어긋났다. 책 이름은 표지 `alt` 이 지킨다. */}
           <img
             src={b.cover}
-            alt={`${b.title} 표지 — ${b.line}`}
+            alt={t('books.coverAlt', { title: b.title, line: t(`books.lines.${b.lineKey}.name`) })}
             loading="lazy"
             className="aspect-video w-[38%] shrink-0 self-center rounded-2xl border border-ink-100 object-cover shadow-sm sm:w-[34%]"
           />
@@ -1349,6 +691,7 @@ function BookWords() {
 }
 
 function LineSections() {
+  const { t } = useTranslation('landing');
   const { data } = useStorybooks();
   const books = data ?? [];
   return (
@@ -1367,12 +710,14 @@ function LineSections() {
           .slice(0, 6);
         if (picked.length < 6) return null;
         return (
-          <div key={l.name}>
+          <div key={l.k}>
             <div className="flex items-baseline gap-2">
               <h3 className="font-display text-2xl font-extrabold text-ink-900 break-keep sm:text-3xl lg:text-[30px] xl:text-[34px]">
-                {l.name}
+                {t(`books.lines.${l.k}.name`)}
               </h3>
-              <span className="text-base font-bold text-coral-700">{l.n}권</span>
+              <span className="text-base font-bold text-coral-700">
+                {t('books.countUnit', { n: l.n })}
+              </span>
             </div>
             {/* 🔴 **모바일은 옆으로 미는 줄**(2026-08-11 사용자) — 375px 에서 3×2 격자로 깔면
                 표지가 105px 짜리 우표가 되고 세로만 먹는다. 라이브러리 캐러셀과 같은 규칙:
@@ -1381,7 +726,7 @@ function LineSections() {
                 31px 이 "옆에 더 있다"는 유일한 신호다. `sm:` 부터는 6장 격자 그대로. */}
             <div
               role="region"
-              aria-label={`${l.name} 표지`}
+              aria-label={t('books.lineCoverAria', { name: t(`books.lines.${l.k}.name`) })}
               className="mt-3 -mx-4 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:grid sm:grid-cols-6 sm:gap-3 sm:overflow-visible sm:px-0"
             >
               {picked.map((b) => (
@@ -1396,7 +741,7 @@ function LineSections() {
               ))}
             </div>
             <p className="mt-2 text-base text-ink-600 break-keep lg:text-lg xl:text-[18px]">
-              {l.d}
+              {t(`books.lines.${l.k}.d`)}
             </p>
           </div>
         );
@@ -1497,67 +842,18 @@ function Section({
   );
 }
 
-/**
- * ② 파닉스 ↔ 동화책 순환 그림.
- * 🔴 화살표는 **한 글자를 회전**시켜 쓴다(`rotate-90 sm:rotate-0`) — 모바일은 세로로 쌓이니 ↓ 가
- *    맞는데, `max-sm:` 계열 변형은 이 프로젝트에서 아예 생성되지 않는다(`screens.short:{raw}` 가
- *    Tailwind 의 max-* 를 통째로 막는다). 그래서 모바일 base(회전) → `sm:` 에서 원위치.
- */
-function LearnReadCycle() {
-  return (
-    <div className="!mt-6 rounded-3xl border border-coral-200 bg-white/70 p-4 sm:p-5">
-      <div className="grid items-stretch gap-2 sm:grid-cols-[1fr_auto_1fr_auto_1fr] sm:gap-3">
-        {CYCLE.map((c, i) => (
-          <Fragment key={c.t}>
-            {i > 0 && (
-              <span
-                aria-hidden
-                className="self-center justify-self-center rotate-90 text-3xl font-extrabold text-coral-400 sm:rotate-0"
-              >
-                →
-              </span>
-            )}
-            <div className="overflow-hidden rounded-3xl bg-cream-100 text-center">
-              {/* 🔴 사진은 카드 **맨 위 전폭**, 비율 고정(4:3) — 셋의 원본 비율이 제각각이라
-                  `object-cover` 로 잘라 맞춰야 세 칸의 높이가 같다. */}
-              <img
-                src={`/landing/hangul/${c.photo}.webp`}
-                alt={c.alt}
-                loading="lazy"
-                decoding="async"
-                /* 🔴 모바일은 **16:9**(세로로 셋이 쌓여서 4:3 이면 이 구간만 2화면을 먹는다),
-                   `sm` 부터 4:3 — 가로로 셋이 서면 높이가 문제되지 않고 사진도 더 크게 보인다. */
-                className="aspect-video w-full object-cover sm:aspect-[4/3]"
-              />
-              <div className="p-3 sm:p-4">
-                <strong className="block font-display text-lg font-extrabold text-ink-900 break-keep sm:text-xl">
-                  {c.t}
-                </strong>
-                <span className="mt-1 block text-[14px] leading-snug text-ink-600 break-keep">
-                  {c.d}
-                </span>
-              </div>
-            </div>
-          </Fragment>
-        ))}
-      </div>
-      {/* 🔴 닫는 화살표(↩ 「읽은 게 다시 글자 진도로 돌아옵니다」) 상자는 **뺐다**(2026-08-19 사용자).
-          셋째 칸이 이미 「동화책에서 다시 만나요」라 같은 말을 바로 아래에서 한 번 더 했고,
-          점선 상자가 세 칸 밑에 붙어 그림이 네 덩이로 보였다. */}
-    </div>
-  );
-}
-
 export default function IntroPage() {
+  const { t } = useTranslation('landing');
   useSeo({
-    title: `한글 파닉스 ${FACTS.koreanUnits}단원 · 영어 파닉스 ${FACTS.englishUnits}단원 + 동화책 — 탱고북`,
-    description:
-      '자음·모음부터 받침·쌍자음까지 한글 파닉스 32단원, 영어 파닉스 39단원. 그리고 배운 글자로 바로 읽는 생활동화·세계명작·전래동화·자연관찰 동화책이 매달 늘어납니다. 4~7세 한글떼기. 한 달 무료로 써 보고 정하세요.',
+    title: t('seo.title', { ko: FACTS.koreanUnits, en: FACTS.englishUnits }),
+    description: t('seo.description'),
     // 🔴 canonical 은 **루트**다(2026-08-21) — 이 페이지가 곧 메인이고 `/intro` 는 301 로
     //    여기 흡수됐다. 사이트맵·서버 리다이렉트(`app.ts`)와 세 곳이 한 벌이다.
     path: '/',
     // 🔴 나이 키워드는 5·6세에 몰려 있다(실측 2026-08-01): 5세한글공부 1,140 · 6세한글공부 940 ·
     //    7세 290 · 4세 220 · 3세 60. 제품은 4~7세가 맞지만, 그 표현만 쓰면 2,080 을 못 받는다.
+    // 🔴 **keywords 는 번역하지 않는다** — 네이버 실측 검색량에서 나온 한국어 키워드라,
+    //    옮기면 근거가 사라진 남의 나라 낱말이 된다. 다른 언어 키워드는 그 시장을 재고 나서.
     keywords:
       '5세 한글공부, 6세 한글공부, 한글앱, 한글 파닉스, 한글떼기, 한글떼는시기, 자음모음, 받침, 파닉스앱, 영어 파닉스, 유아 영어, 7세 한글공부, 4세 한글공부',
   });
@@ -1578,10 +874,10 @@ export default function IntroPage() {
             브랜드와 대상이 한눈에 같이 읽힌다. 🔴 375px 은 로고(224px)+칩이 한 줄에 안 들어가
             `sm` 미만에서만 아래로 내린다(가운데 정렬 유지). */}
         <div className="relative mx-auto mb-5 flex w-fit flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4 xl:gap-6">
-          <Link to="/library" aria-label="탱고북 홈" className="block w-fit">
+          <Link to="/library" aria-label={t('hero.homeAria')} className="block w-fit">
             <img
               src="/logo/logo-kr-520.webp"
-              alt="탱고북"
+              alt={t('hero.logoAlt')}
               width={1774}
               height={887}
               /* 🔴 첫 화면 그림 셋(로고·파닉스·표지)만 `fetchPriority="high"` — 프리렌더가 이 표시가
@@ -1591,7 +887,7 @@ export default function IntroPage() {
             />
           </Link>
           <p className="inline-flex whitespace-nowrap rounded-full bg-peach-100 px-5 py-2 font-display text-lg font-extrabold text-coral-700 sm:px-6 sm:py-2.5 sm:text-2xl md:text-3xl xl:px-8 xl:py-3.5 xl:text-[38px]">
-            4~7세 한글·영어
+            {t('hero.pill')}
           </p>
         </div>
         {/* 🔴 **표지 슬라이더를 없앴다**(2026-08-11 사용자). 로고 바로 아래에서 표지 열넷이 계속
@@ -1613,9 +909,16 @@ export default function IntroPage() {
                  그래서 헤드라인은 **범위**를 맡는다 — 「한글·영어」와 「다양한」이 그 몫이고,
                  그 둘은 예전 문장에 아예 없던 정보다. */}
           <h1 className="mt-3 font-display text-[28px] font-extrabold leading-[1.25] text-ink-900 break-keep sm:text-[30px] md:text-[36px] xl:text-[44px]">
-            <span className="text-coral-700">한글·영어 파닉스</span>를 배우고{' '}
-            <br className="md:hidden" />
-            다양한 <span className="text-coral-700">동화책</span>을 읽어요
+            {/* 🔴 문장 안 강조는 `<Trans>` 로 — 조각으로 쪼개면 언어마다 어순이 달라 못 맞춘다.
+                `<br/>` 는 모바일 줄바꿈 자리라 번역문이 그 자리를 정한다. */}
+            <Trans
+              t={t}
+              i18nKey="hero.h1"
+              components={{
+                c: <span className="text-coral-700" />,
+                br: <br className="md:hidden" />,
+              }}
+            />
           </h1>
           {/* 🔴 **부제가 돌아왔다**(2026-08-21 사용자) — 2026-08-18 에 「부제를 두지 않는다」로
               지웠던 자리인데, 그때 뺀 이유는 「H1 을 풀어 쓴 문장은 정보가 안 는다」였다.
@@ -1625,12 +928,16 @@ export default function IntroPage() {
           {/* 🔴 강조는 **색만으로 주지 않는다**(2026-08-21 사용자 시안) — 코랄로 칠하기만 하면
               본문과 굵기·크기가 같아 흘려 읽힌다. 숫자는 한 단 키우고 굵기까지 올린다. */}
           <p className="mx-auto mt-3 max-w-[30rem] font-display text-[15px] font-bold leading-[1.5] text-ink-700 break-keep sm:mt-4 sm:max-w-none sm:text-[18px] md:text-[20px] xl:text-[24px]">
-            다양한 <span className="font-extrabold text-coral-700">독후 게임</span>으로 초등 입학 전
-            필수 어휘{' '}
-            <span className="text-[17px] font-extrabold text-coral-700 sm:text-[21px] md:text-[23px] xl:text-[28px]">
-              1,500개
-            </span>
-            를 익힙니다.
+            <Trans
+              t={t}
+              i18nKey="hero.sub"
+              components={{
+                c: <span className="font-extrabold text-coral-700" />,
+                big: (
+                  <span className="text-[17px] font-extrabold text-coral-700 sm:text-[21px] md:text-[23px] xl:text-[28px]" />
+                ),
+              }}
+            />
           </p>
 
           {/* 🔴 **한 상자로 합쳤다**(2026-08-21 사용자: "2단계 위 아래로 말고 하나로 못 만드나").
@@ -1652,9 +959,7 @@ export default function IntroPage() {
           {/* 🔴 글자를 키웠다(2026-08-21 사용자) — 14px 은 위 부제(15/24px)보다 작아서
               히어로의 결론인데 각주처럼 읽혔다. 부제와 같은 단으로 올리고 굵기도 준다. */}
           <p className="mx-auto mt-3 max-w-[34rem] text-[16px] font-semibold leading-relaxed text-ink-800 break-keep sm:mt-4 sm:max-w-[52rem] sm:text-[19px] md:text-[21px] xl:text-[25px]">
-            글자만 배우고 끝나면 금세 흐려집니다 — 배운 글자로 읽을 책이{' '}
-            <strong>같은 앱 안에</strong> 있어서, 읽은 것이{' '}
-            <strong>다시 글자 진도로 돌아옵니다.</strong>
+            <Trans t={t} i18nKey="hero.cycle" components={{ b: <strong /> }} />
           </p>
 
           {/* 🔴 **어휘 선반(`VocabShelf`)을 히어로에서 뺐다**(2026-08-21 사용자) — 지도·브릿지·선반
@@ -1675,9 +980,9 @@ export default function IntroPage() {
                 누르기 전에 갖는 가장 큰 걱정이 카드 등록이고, 그 답을 아래 FAQ 까지 내려가야
                 볼 수 있으면 버튼을 안 누른 사람은 영영 못 본다. */}
             <span className="flex flex-col leading-tight">
-              <span>한 달 무료로 시작하기</span>
+              <span>{t('hero.cta')}</span>
               <span className="text-[13px] font-bold opacity-90 sm:text-[15px]">
-                결제 정보 없이 · 자동 결제 없음
+                {t('hero.ctaNote')}
               </span>
             </span>
           </Link>
@@ -1698,8 +1003,8 @@ export default function IntroPage() {
           **카탈로그**를 말하고 있었다. 둘은 이어지고 셋은 목록이다. */}
       <ServiceBanner
         n={1}
-        name="탱고북 파닉스"
-        tagline={`한글 ${FACTS.koreanUnits}단원 · 영어 ${FACTS.englishUnits}단원 — 소리로 글자를 뗍니다.`}
+        name={t('phonicsBanner.name')}
+        tagline={t('phonicsBanner.tagline', { ko: FACTS.koreanUnits, en: FACTS.englishUnits })}
       />
 
       {/* ── ③-0 파닉스가 뭔가요 — **서비스 1 자리에선 파닉스만 말한다**(2026-08-11 사용자)
@@ -1714,16 +1019,19 @@ export default function IntroPage() {
           🔴 카드에 이모지·아이콘 대신 **글자 자체(ㄱ → 가 → 고기)** 를 크게 세운다. 셋을 나란히
              보면 자모→음절→낱말이 그림 없이도 읽히고, 검은 글씨만 이어지던 이 구간에 색이 생긴다. */}
       <Section
-        eyebrow="왜 파닉스인가"
+        eyebrow={t('why.eyebrow')}
         title={
           <>
-            「가구」는 읽는데 <span className="text-coral-700">「가」는 못 읽어요</span>
+            <Trans
+              t={t}
+              i18nKey="why.title"
+              components={{ c: <span className="text-coral-700" /> }}
+            />
           </>
         }
       >
         <p>
-          통글자로 외운 아이는 <strong>아는 낱말만</strong> 읽습니다. 처음 보는 낱말 앞에서는 다시
-          멈춰요.
+          <Trans t={t} i18nKey="why.p1" components={{ b: <strong /> }} />
         </p>
         {/* 🔴 이 한 장만 **실사**다(2026-08-19 사용자: "실제 아이 모습으로 해야지"). 나머지 그림은
             펠트 인형과 앱 화면 — 그건 **우리 안 얘기**고, 이 문장은 **부모가 자기 아이를 떠올리는
@@ -1736,7 +1044,7 @@ export default function IntroPage() {
         <figure className="!mt-5">
           <img
             src="/landing/hangul/problem.webp"
-            alt="아이가 「가구」 카드는 손가락으로 짚어 읽고, 「가」 카드 앞에서는 머리를 긁적이며 멈춘 모습"
+            alt={t('why.photoAlt')}
             width={1280}
             height={720}
             loading="lazy"
@@ -1744,30 +1052,32 @@ export default function IntroPage() {
             className="aspect-video w-full rounded-3xl object-cover"
           />
           <figcaption className="mt-2 text-center text-[13px] font-bold text-ink-600 break-keep sm:text-[15px]">
-            낱말은 통째로 외웠지만, 그 안의 글자 하나는 처음 보는 것이 됩니다.
+            {t('why.caption')}
           </figcaption>
         </figure>
         <p>
-          <strong className="text-coral-700">파닉스는 글자가 가진 소리를 배우는 방법</strong>
-          입니다. 한글은 소리와 글자가 그대로 맞물리는 문자라(ㄱ은 그, ㅏ는 아, 둘을 합치면 가) —
-          소리를 알면 <strong>배운 적 없는 글자도 읽습니다.</strong>
+          <Trans
+            t={t}
+            i18nKey="why.p2"
+            components={{ c: <strong className="text-coral-700" />, b: <strong /> }}
+          />
         </p>
         <div className="!mt-6 grid gap-3 sm:grid-cols-3">
           {PHONICS_WHY.map((w) => (
-            <div key={w.t} className="overflow-hidden rounded-3xl bg-white/70 text-center">
+            <div key={w.k} className="overflow-hidden rounded-3xl bg-white/70 text-center">
               <img
                 src={`/landing/hangul/${w.shot}.webp`}
-                alt={w.alt}
+                alt={t(`why.cards.${w.k}.alt`)}
                 loading="lazy"
                 decoding="async"
                 className="aspect-video w-full object-cover"
               />
               <div className="p-4 sm:p-5">
                 <strong className="block font-display text-xl font-extrabold text-ink-900 break-keep lg:text-2xl xl:text-3xl">
-                  {w.t}
+                  {t(`why.cards.${w.k}.t`)}
                 </strong>
                 <span className="mt-1.5 block text-base leading-snug text-ink-600 break-keep lg:text-lg xl:text-[18px]">
-                  {w.d}
+                  {t(`why.cards.${w.k}.d`)}
                 </span>
               </div>
             </div>
@@ -1778,30 +1088,38 @@ export default function IntroPage() {
             words={GA_WORDS}
             lead={
               <>
-                그래서 <span className="text-coral-700">이런 낱말</span>을 읽게 돼요
+                <Trans
+                  t={t}
+                  i18nKey="koTrack.wordsTitle"
+                  components={{ c: <span className="text-coral-700" /> }}
+                />
               </>
             }
-            sub="「ㄱ」 단원에서 만나는 낱말 넷입니다. 글자만 떼고 끝나지 않아요."
+            sub={t('koTrack.wordsSub')}
           />
         </div>
       </Section>
       <Section
-        track={{ n: 1, label: '한글 트랙' }}
+        track={{ n: 1, label: t('koTrack.track') }}
         title={
           <>
-            한글 파닉스 <span className="text-coral-700">{FACTS.koreanUnits}단원</span>
+            <Trans
+              t={t}
+              i18nKey="koTrack.title"
+              values={{ n: FACTS.koreanUnits }}
+              components={{ c: <span className="text-coral-700" /> }}
+            />
           </>
         }
       >
         {/* 뷰 1 — 단계(여정). 자음·모음 → 받침 → 쌍자음 → 복잡한 모음, 번호로 밟는 길. */}
         <p>
-          자음·모음에서 시작해 받침·쌍자음·복잡한 모음까지, <strong>다섯 단계</strong>로 차근차근
-          밟아요. 한 단원은 하루 10~15분 분량이에요.
+          <Trans t={t} i18nKey="koTrack.lead" components={{ b: <strong /> }} />
         </p>
         <ol className="!mt-5 space-y-2">
           {STAGES.map((s, i) => (
             <li
-              key={s.label}
+              key={s.k}
               className="flex items-center gap-3 rounded-3xl border border-ink-100 bg-white/70 px-4 py-3 lg:px-5 lg:py-4"
             >
               <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-coral-700 text-sm font-extrabold text-white lg:h-9 lg:w-9 lg:text-base">
@@ -1810,12 +1128,14 @@ export default function IntroPage() {
               <span
                 className={`shrink-0 rounded-full px-3 py-1 text-sm font-bold lg:text-base ${s.tone}`}
               >
-                {s.count}
+                {t('koTrack.unitCount', { n: s.n })}
               </span>
               <span className="min-w-0">
-                <strong className="text-ink-900 xl:text-xl">{s.label}</strong>
+                <strong className="text-ink-900 xl:text-xl">
+                  {t(`koTrack.levels.${s.k}.label`)}
+                </strong>
                 <span className="ml-2 text-base text-ink-600 break-keep lg:text-lg xl:text-[18px]">
-                  {s.detail}
+                  {t(`koTrack.levels.${s.k}.detail`)}
                 </span>
               </span>
             </li>
@@ -1845,33 +1165,37 @@ export default function IntroPage() {
       <div className="px-4 pb-12 sm:px-6 sm:pb-14">
         <div className="mt-2">
           <Section
-            track={{ n: 2, label: '영어 트랙 · 같은 이용권' }}
+            track={{ n: 2, label: t('enTrack.track') }}
             title={
               <>
-                영어 파닉스 <span className="text-coral-700">{FACTS.englishUnits}단원</span>
+                <Trans
+                  t={t}
+                  i18nKey="enTrack.title"
+                  values={{ n: FACTS.englishUnits }}
+                  components={{ c: <span className="text-coral-700" /> }}
+                />
               </>
             }
           >
             <p>
-              알파벳 소리에서 시작해 매직 e·블렌드·모음팀까지, <strong>다섯 권</strong>으로
-              이어져요. 한글 파닉스와 <strong>같은 이용권</strong>이라 따로 결제하지 않습니다.
+              <Trans t={t} i18nKey="enTrack.lead" components={{ b: <strong /> }} />
             </p>
             <div className="!mt-6 grid gap-3 sm:grid-cols-3">
               {ENGLISH_WHY.map((w) => (
-                <div key={w.t} className="overflow-hidden rounded-3xl bg-white/70 text-center">
+                <div key={w.k} className="overflow-hidden rounded-3xl bg-white/70 text-center">
                   <img
                     src={`/landing/hangul/${w.shot}.webp`}
-                    alt={w.alt}
+                    alt={t(`englishWhy.${w.k}.alt`)}
                     loading="lazy"
                     decoding="async"
                     className="aspect-video w-full object-cover"
                   />
                   <div className="p-4 sm:p-5">
                     <strong className="block font-display text-xl font-extrabold text-ink-900 break-keep lg:text-2xl xl:text-3xl">
-                      {w.t}
+                      {t(`englishWhy.${w.k}.t`)}
                     </strong>
                     <span className="mt-1.5 block text-base leading-snug text-ink-600 break-keep lg:text-lg xl:text-[18px]">
-                      {w.d}
+                      {t(`englishWhy.${w.k}.d`)}
                     </span>
                   </div>
                 </div>
@@ -1882,16 +1206,20 @@ export default function IntroPage() {
                 words={EN_WORDS}
                 lead={
                   <>
-                    그래서 <span className="text-coral-700">이런 낱말</span>을 읽게 돼요
+                    <Trans
+                      t={t}
+                      i18nKey="enTrack.wordsTitle"
+                      components={{ c: <span className="text-coral-700" /> }}
+                    />
                   </>
                 }
-                sub="「Short Vowel a」 단원에서 만나는 낱말 넷입니다."
+                sub={t('enTrack.wordsSub')}
               />
             </div>
             <ol className="!mt-8 space-y-2">
               {EN_STAGES.map((s, i) => (
                 <li
-                  key={s.label}
+                  key={s.k}
                   className="flex items-center gap-3 rounded-3xl border border-ink-100 bg-white/70 px-4 py-3 lg:px-5 lg:py-4"
                 >
                   <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-coral-700 text-sm font-extrabold text-white lg:h-9 lg:w-9 lg:text-base">
@@ -1900,12 +1228,14 @@ export default function IntroPage() {
                   <span
                     className={`shrink-0 rounded-full px-3 py-1 text-sm font-bold lg:text-base ${s.tone}`}
                   >
-                    {s.count}
+                    {t('koTrack.unitCount', { n: s.n })}
                   </span>
                   <span className="min-w-0">
-                    <strong className="text-ink-900 xl:text-xl">{s.label}</strong>
+                    <strong className="text-ink-900 xl:text-xl">
+                      {t(`enTrack.levels.${s.k}.label`)}
+                    </strong>
                     <span className="ml-2 text-base text-ink-600 break-keep lg:text-lg xl:text-[18px]">
-                      {s.detail}
+                      {t(`enTrack.levels.${s.k}.detail`)}
                     </span>
                   </span>
                 </li>
@@ -1931,16 +1261,19 @@ export default function IntroPage() {
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-coral-700 font-display text-sm text-white sm:h-8 sm:w-8 sm:text-base">
                 3
               </span>
-              학습현황 리포트
+              {t('report.track')}
             </p>
             {/* 🔴 이 두 줄은 **절 제목 급으로** 키운다(2026-08-19 사용자) — 그림 두 장이 화면을
               가로로 다 쓰는데 머리글만 본문 크기라, 뭘 보라는 건지 모른 채 표만 지나쳤다. */}
             <p className="font-display text-[20px] font-extrabold text-ink-900 break-keep sm:text-[28px] lg:text-[32px]">
-              부모 화면에는 <span className="text-coral-700">어디까지 익었는지</span>가 칸으로
-              보입니다
+              <Trans
+                t={t}
+                i18nKey="report.title"
+                components={{ c: <span className="text-coral-700" /> }}
+              />
             </p>
             <p className="mt-1.5 text-[14px] leading-relaxed text-ink-600 break-keep sm:text-[18px] lg:text-[20px]">
-              어느 글자가 익었고 어디서 멈추는지, 한글과 영어를 따로 봅니다.
+              {t('report.lead')}
             </p>
             <div className="mt-4 grid items-start gap-3 sm:grid-cols-2">
               {[
@@ -1948,8 +1281,7 @@ export default function IntroPage() {
                   src: 'report-grid',
                   w: 1680,
                   h: 1995,
-                  cap: '한글 — 자음 × 모음',
-                  alt: '부모 리포트의 자음×모음 표 — ㄱ·ㄴ·ㄷ 줄은 익힘(초록), ㄹ·ㅁ 줄은 연습 중(주황)',
+                  k: 'ko',
                 },
                 {
                   src: 'report-grid-en',
@@ -1958,14 +1290,13 @@ export default function IntroPage() {
                   //    실제가 363px 라 로드될 때 아래 글이 133px 튀었다(CLS). 그림을 다시 찍으면
                   //    이 숫자도 같이 고칠 것.
                   h: 2130,
-                  cap: '영어 — 음소와 권',
-                  alt: '부모 리포트의 영어 스킬트리 — Book 1 은 a~h 익힘, i~m 연습 중',
+                  k: 'en',
                 },
               ].map((g) => (
                 <figure key={g.src} className="rounded-3xl bg-white/70 p-3 sm:p-4">
                   <img
                     src={`/landing/hangul/${g.src}.webp`}
-                    alt={g.alt}
+                    alt={t(`report.${g.k}.alt`)}
                     width={g.w}
                     height={g.h}
                     loading="lazy"
@@ -1973,7 +1304,7 @@ export default function IntroPage() {
                     className="w-full rounded-2xl border border-ink-100"
                   />
                   <figcaption className="mt-2 text-center text-[13px] font-bold text-ink-600 break-keep sm:text-[15px]">
-                    {g.cap}
+                    {t(`report.${g.k}.cap`)}
                   </figcaption>
                 </figure>
               ))}
@@ -1988,7 +1319,7 @@ export default function IntroPage() {
           그래서 제목·본문을 라인 다양성 + 책마다 독후활동 게임 + 매달 증가로 바꿨다. */}
       {/* 🔴 tagline 없음(2026-08-10 사용자) — 「읽을수록 어휘와 문해력이 자랍니다」가 **바로 아래
           섹션 제목과 같은 말**이라 배너 밑에 같은 문장이 두 줄로 이어져 있었다. */}
-      <ServiceBanner n={2} name="탱고북 동화책" />
+      <ServiceBanner n={2} name={t('booksBanner.name')} />
       {/* 🔴 **여기가 차별점이라 제일 크게 쓴다**(2026-08-11 사용자: "우리 한글은 쟤들 둘이랑
           비슷하고, 동화책이 차별점"). 예전엔 어휘·문해력 설명 문단 넷이 먼저 나오고 표지가
           중간에 끼어 있었다 — 파는 것이 **책이 이만큼 있다**인데 글부터 읽히고 있었다.
@@ -1998,20 +1329,21 @@ export default function IntroPage() {
           <>
             {/* 🔴 **500권+ · 1,500개는 목표치다**(2026-08-19 사용자 결정). 실측은 책 266
                 (`FACTS.books`) · 낱말 630(`FACTS.vocabWords`) — 숫자를 손볼 땐 그 둘과 헷갈리지 말 것. */}
-            세계명작, 전래 동화 등 다양한 <span className="text-coral-700">동화책 500권+</span>과
-            독후 게임으로 문해력과 초등 입학 전{' '}
-            <span className="text-coral-700">필수 어휘 1,500개</span>를 익힙니다
+            <Trans
+              t={t}
+              i18nKey="books.title"
+              components={{ c: <span className="text-coral-700" /> }}
+            />
           </>
         }
       >
         <p>
-          네 갈래로 나뉘어 있어요. 아이 취향이 어디에 있든 볼 책이 있고,{' '}
-          <strong>매달 새 동화책이 늘어납니다.</strong>
+          <Trans t={t} i18nKey="books.lead" components={{ b: <strong /> }} />
         </p>
         <LineSections />
         {/* 읽기만 하고 끝나지 않는다 — 어휘·문해력·독후활동. 여기부터가 「그래서 뭐가 자라나」. */}
         <h3 className="!mt-10 font-display text-[23px] font-extrabold text-ink-900 break-keep sm:text-[28px]">
-          책마다 핵심 낱말이 있어요
+          {t('books.wordsTitle')}
         </h3>
         <BookWords />
         {/* 🔴 아래 세 문단과 읽어주기 데모 상자는 **뺐다**(2026-08-19 사용자).
@@ -2033,62 +1365,62 @@ export default function IntroPage() {
              절 하나(1,546px)가 한 줄이 됐다.
           🔴 「요금」 절은 문단 다섯이 전부 **「없습니다」로 끝나는 답**이었다(카드·자동결제·
              광고·약정 없음). 물음을 붙이니 그대로 FAQ 항목이 됐다 — `FAQS` 참조. */}
-      <ServiceBanner name="FAQ" />
-      <Section title="한 달 무료로 써 보고 정하세요">
+      <ServiceBanner name={t('faq.banner')} />
+      <Section title={t('faq.title')}>
         {/* 🔴 **금액은 접힌 채로 두지 않는다**(2026-08-21 사용자: "요금 정보는 확실히 줘. 월 얼마인지").
             FAQ 첫 항목이 요금이지만 아코디언은 기본이 닫혀 있어서, 누르지 않은 사람은 값을 못 본다.
             여기 한 줄이 **숫자**를, FAQ 항목이 **정가·반값·연간**을 맡는다.
             🔴 값은 `PLANS` 에서 파생 — 문장에 박으면 프로모가 끝나는 날 랜딩이 거짓말을 한다. */}
         <p className="!mt-5 flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1 rounded-3xl border border-coral-200 bg-white/70 px-5 py-4 text-center sm:!mt-6">
           <span className="font-display text-[18px] font-extrabold text-ink-900 break-keep sm:text-[22px]">
-            한 달 무료 체험 뒤{' '}
-            <span className="text-coral-700">월 {won(PLANS.month1.amount)}원</span>
+            <Trans
+              t={t}
+              i18nKey="faq.priceLead"
+              values={{ month: won(PLANS.month1.amount) }}
+              components={{ c: <span className="text-coral-700" /> }}
+            />
           </span>
           <span className="text-[14px] text-ink-600 break-keep sm:text-[16px]">
-            1년권 {won(PLANS.year1.amount)}원 = 월 {won(Math.round(PLANS.year1.amount / 12))}원 ·
-            체험 중에는 결제 정보를 넣지 않습니다
+            {t('faq.priceNote', {
+              year: won(PLANS.year1.amount),
+              perMonth: won(Math.round(PLANS.year1.amount / 12)),
+            })}
           </span>
         </p>
 
         {/* 🔴 무료체험 마찰 제거 FAQ(벤치마킹 2차 §4-5) — 투두는 CTA 옆 FAQ 아코디언으로 전환
             장벽을 없앤다. 우리는 답이 전부 「없음/아니요」라 오히려 안심으로 판다. */}
         <div className="!mt-6 space-y-2">
-          {FAQS.map((f) => (
+          {FAQ_KEYS.map((k) => (
             <details
-              key={f.q}
+              key={k}
               className="group rounded-3xl border border-ink-100 bg-white/70 px-4 py-3"
             >
               <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-base font-bold text-ink-800 break-keep">
-                {f.q}
+                {t(`faq.items.${k}.q`)}
                 <span className="shrink-0 text-xl font-bold text-coral-500 transition group-open:rotate-45">
                   ＋
                 </span>
               </summary>
-              <p className="mt-2 text-base text-ink-600 break-keep">{f.a}</p>
+              <p className="mt-2 text-base text-ink-600 break-keep">
+                {t(`faq.items.${k}.a`, FAQ_VARS)}
+              </p>
             </details>
           ))}
         </div>
         {/* 🔴 아이가 작게, 부모가 크게 — 이 섹션은 결제를 결정하는 부모에게 하는 말이라
             시선의 주인이 부모여야 한다. */}
-        <Photo
-          src="parent"
-          alt="아이가 거실에서 태블릿을 보는 동안 식탁에서 차를 마시는 엄마"
-          w={1000}
-          h={755}
-          className="!mt-6"
-        />
+        <Photo src="parent" alt={t('faq.parentAlt')} w={1000} h={755} className="!mt-6" />
         <div className="!mt-7 flex flex-col items-center gap-3 rounded-3xl border border-coral-200 bg-gradient-to-br from-coral-100 to-peach-200 p-6 text-center sm:p-8">
           <p className="font-display text-xl font-extrabold text-ink-900 break-keep sm:text-3xl">
-            파닉스로 글자를 떼고, 동화책으로 낱말과 문장을 익혀요
+            {t('faq.closeTitle')}
           </p>
-          <p className="text-base text-ink-600 break-keep">
-            설치 없이 브라우저에서 바로 시작합니다.
-          </p>
+          <p className="text-base text-ink-600 break-keep">{t('faq.closeLead')}</p>
           <Link
             to={SIGNUP}
             className="mt-1 inline-flex min-h-[52px] w-full max-w-[22rem] items-center justify-center rounded-full bg-coral-700 px-6 text-base font-bold text-white shadow-md transition hover:bg-coral-800 sm:w-auto sm:max-w-none sm:px-8 sm:text-lg"
           >
-            결제 정보 없이 한 달 무료로 시작하기 →
+            {t('faq.closeCta')}
           </Link>
         </div>
       </Section>
