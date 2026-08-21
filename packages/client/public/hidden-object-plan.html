@@ -238,6 +238,12 @@
         line-height: 1.2;
         color: var(--ink-soft);
       }
+      .reflab {
+        font-size: 11px;
+        font-weight: 800;
+        color: var(--ink-soft);
+        letter-spacing: -0.01em;
+      }
       .refnote {
         font-size: 11px;
         color: #9a9aa4;
@@ -627,14 +633,25 @@
           cols.className = 'cols';
 
           // ① 참조 — 쪽 삽화 1장(그림체) + 낱말 카드 전부(사물 생김새)
+          // 🔴 **둘이 무슨 역할인지 라벨로 말한다**(2026-08-21 사용자). 큰 그림 하나에 작은 그림
+          //    여섯이 붙어 있으니, 큰 그림이 「만들 씬」인 줄 알고 "침대·연못·공이 어디 있냐"고
+          //    물었다. 큰 것은 **그림체만** 빌려주는 남의 쪽 그림이고, 숨길 사물은 아래 카드다.
           var refs = document.createElement('div');
           refs.className = 'refs';
+          var lab1 = document.createElement('div');
+          lab1.className = 'reflab';
+          lab1.textContent = '① 그림체 참조 — 이 책의 쪽 그림 (씬 아님)';
+          refs.appendChild(lab1);
           var pg = document.createElement('img');
           pg.className = 'page';
           pg.src = it.pageImage;
           pg.loading = 'lazy';
           pg.alt = it.bookTitle + ' 쪽 삽화 (' + it.genreLabel + ')';
           refs.appendChild(pg);
+          var lab2 = document.createElement('div');
+          lab2.className = 'reflab';
+          lab2.textContent = '② 숨길 사물 ' + it.words.length + '개 — 이걸 씬 안에 넣는다';
+          refs.appendChild(lab2);
           var cards = document.createElement('div');
           cards.className = 'cards';
           it.words.forEach(function (w) {
@@ -660,7 +677,7 @@
           refs.appendChild(cards);
           var note = document.createElement('p');
           note.className = 'refnote';
-          note.textContent = '위 쪽 삽화를 먼저, 그다음 낱말 카드들을 순서대로 붙이세요.';
+          note.textContent = 'GPT 에 ① 을 먼저, 그다음 ② 를 순서대로 붙이세요.';
           refs.appendChild(note);
           cols.appendChild(refs);
 

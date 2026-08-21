@@ -282,6 +282,22 @@ const RESOURCES: ResourceItem[] = [
     label: '핵심단어 에디터',
     desc: '책별 한글 keyObjects 추가/삭제',
   },
+  // 🔴 낱말로 만드는 그림 작업판 둘 — 목록·프롬프트만 여기서 만들고 **그림은 외부(GPT)에서**
+  //    만들어 붙인다. 붙인 것은 `/api/comic-assets/<판 이름>` 으로 R2 에 남는다.
+  //    ⚠️ 색칠 작업판은 CLAUDE.md 에 「자료실에 있다」고 적혀 있었는데 **실제로는 없었다**
+  //       (2026-08-21에 넣음) — 문서에 적었다고 메뉴에 들어가는 게 아니다.
+  {
+    href: '/coloring-plan.html',
+    icon: '🎨',
+    label: '색칠 도안 작업판',
+    desc: '낱말 2,067개 · 원본 삽화 + 프롬프트',
+  },
+  {
+    href: '/hidden-object-plan.html',
+    icon: '🔍',
+    label: '숨은그림찾기 씬 작업판',
+    desc: '명작 48권 × 그림체 3종 = 144장',
+  },
   {
     href: '/letter-stroke-editor',
     icon: '🔠',
