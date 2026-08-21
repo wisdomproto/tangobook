@@ -3,15 +3,18 @@ import type { ReactNode } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useStorybooks } from '@/features/storybook';
-import {
-  CategorySection,
-  BookCard,
-  useReadingStatus,
-  useLibraryConfig,
-  makeCategoryComparator,
-} from '@/features/library';
+// 🔴 **배럴(`@/features/...`)로 가져오지 않는다**(2026-08-21 실측). 한 심볼만 꺼내 써도
+//    배럴이 재수출하는 **모든 모듈의 그래프**가 딸려온다. 이 페이지는 라우터가 정적으로 부르는
+//    도착지라, 그 그래프가 곧 첫 화면 번들이 된다 — `@/features/library` 는 죽은 `LibraryBanner`
+//    를 통해 framer-motion 을, `@/features/continuous` 는 배럴이 재수출하는 **연속재생 페이지
+//    셋**을 통해 뷰어·게임(322KB)을 끌어왔다. 실측: 첫 화면 443KB 중 366KB 가 이 두 줄이었다.
+import { CategorySection } from '@/features/library/components/CategorySection';
+import { BookCard } from '@/features/library/components/BookCard';
+import { useReadingStatus } from '@/features/library/hooks/useReadingStatus';
+import { useLibraryConfig } from '@/features/library/hooks/useLibraryConfig';
+import { makeCategoryComparator } from '@/features/library/lib/category-order';
 import { useCategoryLabel } from '@/features/library/lib/category-i18n';
-import { PlaylistLibrarySection } from '@/features/continuous';
+import { PlaylistLibrarySection } from '@/features/continuous/components/PlaylistLibrarySection';
 import { FirstReadCard } from '@/features/library/components/FirstReadCard';
 import { StateScreen, SkeletonBookCard, Chip } from '@/design-system';
 import { SiteFooter } from '@/components/SiteFooter';

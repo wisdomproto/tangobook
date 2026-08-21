@@ -54,8 +54,14 @@ vi.mock('@/features/storybook', () => ({
 }));
 
 // useLibraryConfig(useQuery) 가 QueryClient 를 요구하므로 목킹. makeCategoryComparator 는 실제 동작 유지.
-vi.mock('@/features/library', () => ({
+// 🔴 **mock 경로는 컴포넌트가 실제로 쓰는 경로여야 한다**(2026-08-21). 예전엔 배럴
+//    `@/features/library` 하나를 mock 했는데, 컴포넌트가 첫 화면 번들을 줄이려고 실제 모듈에서
+//    직접 가져오도록 바뀌자 mock 이 안 걸려 진짜 훅이 돌았다(`No QueryClient set`).
+//    배럴을 끊을 땐 그 배럴을 mock 하던 테스트도 같이 본다.
+vi.mock('@/features/library/hooks/useLibraryConfig', () => ({
   useLibraryConfig: () => ({ data: undefined }),
+}));
+vi.mock('@/features/library/lib/category-order', () => ({
   makeCategoryComparator:
     () =>
     (a: string, b: string, fa = 0, fb = 0) =>

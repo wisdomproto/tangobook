@@ -9,33 +9,25 @@ const __dirname = dirname(__filename);
 
 export default defineConfig({
   plugins: [react()],
-  build: {
-    rollupOptions: {
-      output: {
-        /**
-         * 🔴 **엔트리에 든 것 = 첫 화면이 쓰는 것, 이 아니다**(2026-08-21 실측).
-         *
-         * 라우터는 첫 화면에 필요한 것만 정적 import 하고 나머지를 전부 `lazy` 로 두는데도 엔트리가
-         * **1,200KB**(회선 374KB)였다. 소스맵으로 뜯어 보니 `features/games` 66개 모듈과
-         * framer-motion 62개 모듈이 들어 있었다 — 소개 페이지가 절대 안 쓰는 것들이다.
-         *
-         * 원인은 정적 import 가 아니다(그래프를 따라가면 닿지 않는다). rollup 은 **여러 lazy 청크가
-         * 공유하는 모듈을 공통 조상으로 끌어올리는데** 그 조상이 엔트리다. 게임 코드는 게임 페이지·
-         * 책 상세·파닉스가 다 같이 써서 셋의 공통 조상인 엔트리로 올라갔다. 빌드가 매번 찍던
-         * `manualChunks` 경고가 정확히 이 얘기였다.
-         *
-         * 🔴 **게임은 통째로 한 청크**여야 한다 — 레지스트리가 `*.register.ts` 의 **side-effect** 로
-         *    채워지므로 쪼개면 등록 전에 조회가 일어날 수 있다.
-         * 🔴 supabase 는 여기서 안 가른다 — `AuthProvider` 가 첫 렌더에 필요해 어차피 온다.
-         *    가르려면 auth 만 남기고 realtime/storage 를 떼야 하는데 `createClient` 가 한 덩어리다.
-         */
-        manualChunks(id) {
-          if (id.includes('/src/features/games/')) return 'games';
-          if (id.includes('framer-motion') || id.includes('motion-dom')) return 'motion';
-        },
-      },
-    },
-  },
+  /**
+   * 🔴 **`manualChunks` 를 쓰지 않는다 — 한 번 넣었다 되돌렸다**(2026-08-21).
+   *
+   * 엔트리가 1,200KB(회선 372KB)라 `features/games` 와 framer-motion 을 각자 청크로 뺐다.
+   * 엔트리는 39KB 로 줄었는데 **첫 화면 전송량은 412 → 427KB 로 늘었다** — 갈라낸 청크가
+   * `modulepreload` 로 따라붙었기 때문이다.
+   *
+   * 🔴 원인: `manualChunks(id)` 로 모듈을 특정 청크에 밀어 넣으면, **그 모듈이 쓰는 공용
+   *    의존까지 같은 청크로 끌려간다.** 실제로 React JSX 런타임이 games 청크에 들어갔고
+   *    (`import{j as e}from"./games-*.js"`), 그래서 엔트리가 games 청크를 **정적으로 의존**하게
+   *    됐다. 빼려던 322KB 가 preload 로 되돌아온 것이다.
+   *
+   * 🔴 제대로 하려면 **벤더를 먼저 명시**해야 한다(react/react-dom/router/supabase 를 각자
+   *    청크로 고정한 **뒤에** 기능 청크를 가른다). 순서를 안 정하면 먼저 걸린 청크가 공용 코드를
+   *    가져가고 나머지가 그 청크에 매달린다. 다음에 손댈 땐 이 순서부터 잡을 것.
+   *
+   * 🔴 **엔트리 크기만 보고 판단하지 말 것** — 판정은 `dist/index.html` 이 부르는
+   *    script + modulepreload + stylesheet 를 **전부 gzip 해 더한 값**이다.
+   */
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),

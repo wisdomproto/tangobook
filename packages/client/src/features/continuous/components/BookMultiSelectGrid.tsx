@@ -1,7 +1,9 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useStorybooks } from '@/features/storybook';
-import { useLibraryConfig, makeCategoryComparator } from '@/features/library';
+// 🔴 배럴 금지 — 이유는 `LibraryPage.tsx` 주석 참조(첫 화면 번들이 부푼다).
+import { useLibraryConfig } from '@/features/library/hooks/useLibraryConfig';
+import { makeCategoryComparator } from '@/features/library/lib/category-order';
 import { useCategoryLabel } from '@/features/library/lib/category-i18n';
 import { useStyleGenreMap, type StyleGenreSlug } from '@/lib/art-style-genre';
 import { SkeletonBookCard, BookCover } from '@/design-system';
