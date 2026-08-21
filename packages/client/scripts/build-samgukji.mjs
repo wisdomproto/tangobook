@@ -1055,10 +1055,18 @@ function buildPlan(builtVols) {
    * 🔴 시트는 «한 장에 인물 하나»다. 3뷰+얼굴+표정4+실루엣으로 9명을 시켰더니 칸마다 정성이
    *   흩어졌다 — 레퍼런스로 쓸 그림은 한 사람을 제대로 그린 한 장이다.
    */
+  // 🔴 등신을 스타일 문장 안 괄호에 넣으면 무시된다. 재는 법까지 적어 «맨 앞 독립 줄»로 둔다.
+  //   🔴 수염을 머리로 세지 말라고 못 박아야 한다 — 가슴까지 오는 수염이 있으면 모델이
+  //   그것을 머리 길이에 넣고 몸을 통째로 늘린다(관우 1권 시안이 그렇게 커져서 돌아왔다).
+  const PROPORTION_LINE =
+    'PROPORTION - MEASURE THIS FIRST, BEFORE STYLE: the head from crown to chin is EXACTLY 2/5 of the ' +
+    'figure total height. Everything below the chin - torso and legs together - is only 1.5 head-heights ' +
+    'tall. 🔴 BEARD AND HAIR DO NOT COUNT AS HEAD: measure to the chin. Legs from hip to sole are ' +
+    'SHORTER than the head is tall. Hands small and blunt, feet in heavy boots.';
+
   const STYLE_LINE =
-    'Art style: detailed painterly chibi (SD, ~2.5 heads) character, East Asian ink-wash + soft cel ' +
-    'shading, crisp readable silhouette, muted earth tones with gold/jade accents, clean even lighting, ' +
-    'NO baked ground shadow.';
+    'Art style: detailed painterly chibi, East Asian ink-wash + soft cel shading, crisp readable ' +
+    'silhouette, muted earth tones with gold/jade accents, clean even lighting, NO baked ground shadow.';
 
   // 🔴 사람용과 물건용이 다르다 — 적토마에게 「mount 금지」를 시키면 말을 그리지 말라는 뜻이 된다.
   const AVOID_LINE =
@@ -1094,13 +1102,17 @@ function buildPlan(builtVols) {
       '',
       PERIOD_LINE,
       '',
+      PROPORTION_LINE,
+      '',
       STYLE_LINE,
       '',
       derived
         ? '🔴 ONE IMAGE IS ATTACHED: an approved sheet of this same person. Copy the BONE STRUCTURE from it - ' +
           'eye spacing, the nose ridge, the jaw corner, the size and shape of the ears, the set of the brow. ' +
           '🔴 Do NOT copy his age. The line above says how old he is now and what the years have done to ' +
-          'his face - draw that, even where it contradicts the attached picture.'
+          'his face - draw that, even where it contradicts the attached picture.' +
+          ' 🔴 COPY THE PROPORTION EXACTLY: the same head-to-body ratio as the attached sheet, ' +
+          'the same short legs, the same overall height. Do NOT make him taller or slimmer than the sheet.'
         : '🔴 Nothing is attached and nothing is needed. Everything is written above.',
       '',
       AVOID_LINE,
@@ -1118,6 +1130,8 @@ function buildPlan(builtVols) {
         'three-quarter view, nothing else in frame.',
       '',
       desc + '.',
+      '',
+      'Scaled for a chibi world: this thing is carried by a figure whose head is 2/5 of its height.',
       '',
       STYLE_LINE,
       '',
