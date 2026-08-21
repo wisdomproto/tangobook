@@ -941,6 +941,22 @@ COSTUME: a governor's robe, richly made, worn loose.
 
 ---
 
+## Huatuo
+
+```
+HUATUO - the physician. He opens one man's arm and asks to open another man's head.
+SHOULDERS = 1.5 head-widths.
+FACE: bare and lined, white hair drawn back and tied at the nape, a short white beard.
+🔴 THE EYES DO NOT DROP. He is one of the very few in this book who does not lower his gaze in
+  front of Cao Cao, and that is drawn in the eyeline, not in the posture.
+🔴 HANDS: ALWAYS HOLDING SOMETHING AND NEVER A WEAPON - a small wooden medicine case.
+  🔴 DO NOT DRAW A BLADE IN HIS HAND ON ANY PAGE OF THIS BOOK, including the page where he treats
+  an arm. What he works with stays outside the frame.
+COSTUME: an undyed hemp robe and a cord belt, 0 marks of rank anywhere on him.
+🔴 SILHOUETTE: a plain narrow figure with a box at the end of one arm.
+🔴 ACCENT: none.
+```
+
 ## Pangde
 
 ```
