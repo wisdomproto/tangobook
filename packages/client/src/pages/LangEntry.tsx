@@ -21,11 +21,14 @@ import { useAuth } from '@/features/auth/context/AuthContext';
 export function LangEntry() {
   const { lang } = useParams<{ lang: string }>();
   const [params] = useSearchParams();
-  // 🔴 **기본 도착지 = 루트**(2026-08-21) — 루트가 소개 페이지가 됐고 그 페이지가 5개 언어로
-  //    번역되면서, 해외 마케팅 링크(`/vi`)가 곧장 `/library` 로 가면 **그 언어로 된 설명을
-  //    한 줄도 못 보고** 책장부터 본다. `?to=` 로 지정한 링크(블로그 CTA 등)는 그대로 존중한다.
-  const rawTo = params.get('to') || '/';
-  const to = rawTo.startsWith('/') && !rawTo.startsWith('//') ? rawTo : '/';
+  // 🔴 **기본 도착지 = `/library` — 이게 원래 값이고 그대로 둔다**(2026-08-21 사용자).
+  //    같은 날 루트를 소개 페이지로 올리면서 `/` 로 바꿨다가 되돌렸다. 바꿨던 이유는 「자기 언어로
+  //    왔는데 설명을 한 줄도 못 본다」였는데, **프리렌더는 한국어 한 벌뿐**이라 `/` 로 보내도
+  //    크롤러·첫 페인트는 한국어 HTML 을 받는다 — 언어 이득이 없다. 반면 `/vi` 는 애초에
+  //    해외 마케팅이 **책장으로 보내려고** 건 링크다.
+  //    (`?to=` 로 지정한 링크 — 다국어 블로그 CTA 등 — 은 그대로 존중한다.)
+  const rawTo = params.get('to') || '/library';
+  const to = rawTo.startsWith('/') && !rawTo.startsWith('//') ? rawTo : '/library';
   const { account, loading } = useAuth();
   const supported = !!lang && AVAILABLE_UI_LANGS.includes(lang);
   // 이미 언어를 정한 사용자 = 직접 고름(explicit) 또는 로그인. 링크는 이들을 덮어쓰지 않음.
