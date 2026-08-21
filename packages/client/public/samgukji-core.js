@@ -236,9 +236,14 @@
     //      16권 컷의 등장인물로 붙었다(원소·손견·전위도 같은 이유로 죽은 뒤에 다시 나왔다).
     //   실제로 그리는 인물은 SCENE 「인물」 줄에 Token(한글) 로 적는 것이 이 시리즈의 규칙이므로,
     //   토큰만 보면 둘 다 사라진다. 🔴 한글 별칭을 이 판정에 되돌리지 마라.
+    // 🔴 옷을 갈아입는 사람은 «같은 토큰으로 시트가 둘»이다(유비 전투복/평상복). 토큰만 보면
+    //   한 쪽에 둘 다 붙는다 — 장소를 보고 하나만 고른다. 판정 정규식은 빌더가 실어 준다.
+    var courtRe = new RegExp(ep.courtRe || '(?!)');
     function hasChar(scene, c) {
       if (!c.token) return false;
-      return scene.indexOf(c.token) !== -1;
+      if (scene.indexOf(c.token) === -1) return false;
+      if (!c.mode) return true;
+      return c.mode === 'court' ? isCourt(scene) : !isCourt(scene);
     }
     // 🔴 물건 판정은 한글 낱말로 잰다 — 인물과 달리 SCENE 에 영문 토큰이 없다.
     //   그래서 지명·동음이의는 빌더가 정규식으로 걸러 넘긴다(`백마` vs 고을 「백마성」).
@@ -252,6 +257,25 @@
     var pages = Array.prototype.map.call(pageCards, function (card) {
       return { card: card, page: card.getAttribute('data-page'), label: labelOf(card), scene: sceneOf(card) };
     });
+
+    // 🔴 실내/밖 판정은 쪽 «순서»가 있어야 한다 — 「같은 방」은 앞 쪽에서 물려받는 말이라
+    //   그 쪽만 떼어 보면 밖으로 샌다. 그래서 한 번 훑어 두고 hasChar 는 표만 본다.
+    var courtByScene = {};
+    (function () {
+      var prev = false;
+      pages.forEach(function (p) {
+        var m = /장소·시간 (.+)/.exec(p.scene);
+        var head = m ? m[1].split(",")[0].trim() : "";
+        var c = /^같은/.test(head) ? prev : courtRe.test(head + " ");
+        courtByScene[p.scene] = c;
+        prev = c;
+      });
+    })();
+    function isCourt(scene) {
+      if (scene in courtByScene) return courtByScene[scene];
+      var m = /장소·시간 (.+)/.exec(scene);
+      return courtRe.test((m ? m[1].split(",")[0] : "") + " ");
+    }
 
     function compose(subset) {
       var appearsAny = {};

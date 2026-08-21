@@ -175,6 +175,31 @@ const PROPS = [
   ['seal', '옥새', /옥새|나라의 도장/, 'THE IMPERIAL SEAL - a small square block of pale green jade with a coiled dragon carved on top, one corner repaired with gold'],
 ];
 
+/**
+ * 한 단계 안에서 «옷을 갈아입는» 사람. 🔴 세 단계뿐이고, 그 셋만인 이유가 있다.
+ *   59단계를 전부 재 보니 전장:실내가 갈리는 단계는 아홉인데, 그중 여섯은 갈아입는 게 아니라
+ *   «안 갈아입는 것이 그 인물»이었다 — 관우의 녹색 전포, 제갈량의 흰 도포와 부채, 장비·여포의 갑옷.
+ *   제갈량에게 전장이라고 갑옷을 입히면 오히려 틀린 그림이 된다.
+ *   실제로 갈아입는 사람은 유비(짚신→갑옷→도포→왕복)와 조조(승상이자 총사령관)뿐이다.
+ * 🔴 mode = «기본 단계가 어느 쪽인가». 그 반대가 여기 적힌 옷이다.
+ */
+// 🔴 「실내(조정·집)인가」 판정. 빌더가 정하고 회차 데이터에 실어 core 가 그대로 쓴다 —
+//   양쪽에 따로 적으면 갈라지고, 갈라지면 옷이 쪽마다 달라진다.
+// 🔴 전장 낱말을 세지 않고 «실내를 세고 나머지를 전부 밖»으로 본다. 전장 쪽을 세려 했더니
+//   「조조의 큰 배 안」·「강 건너 언덕」이 실내로 샜다 — 밖은 낱말이 끝없이 늘어나고 실내는 닫혀 있다.
+//   전쟁 이야기라 밖이 기본값인 것도 맞다.
+// 🔴 「집 앞」·「관청 앞」은 밖이다(앞/밖/뒤가 붙으면 뒤집는다). 이걸 안 넣으면 여백사의 집 앞에서
+//   조조가 도포를 입는다.
+const COURT_RE =
+  '(안방|방 안|[ 의]방[ ,.]|대청|궁궐|궁 안|서재|마루|누각|정자|잔치|집 안|집 뜰|저택|주막|침상' +
+  '|(관아|관청|의 집)(?![ ]*(앞|밖|뒤))|의 거처)';
+
+const ALT_STAGE = {
+  'liubei:3': ['field', 'The same man indoors and out of armour: a plain blue robe to the ankle over the vermilion sash, no leather, no shoulder straps, the same thin moustache'],
+  'liubei:13': ['court', 'The same man on campaign: dark leather armour worn under the wide-sleeved robe, the sleeves tied back at the wrist, the vermilion sash still at the waist'],
+  'caocao:6': ['court', 'The same man on campaign: a short dark war-coat over scaled armour and a plain helmet, the black court robe gone, the beard the same'],
+};
+
 const STAGES = {
   liubei: [
     [1, '스물넷. 🔴 무릎 위에서 끝나는 거친 삼베 웃옷 + 바지 + 정강이 감발 + 주홍 허리끈 — 긴 포가 아니다(긴 포는 선비로 읽힌다). 짚신. 🔴 머리에 아무것도 안 쓴다 — 상투를 나무 비녀로 지른 맨머리다(두건을 씌우면 이 권에서 그가 싸우는 황건적으로 읽힌다). 🔴 수염이 없으므로 눈매로 어른임을 낸다.'],
@@ -510,7 +535,27 @@ function render(vol, styleCss) {
     const band = (STAGES[k] || []).filter(([f]) => vol.n >= f).pop();
     const slot = `char-${CAST[k].token.toLowerCase()}${band ? `-b${band[0]}` : ''}`;
     const hint = band ? `  ‹기획서 「${CAST[k].name} · ${band[0]}권~」 칸의 시트를 첨부›` : '';
-    return { ...CAST[k], ref: slot, desc: st ? `${CAST[k].desc}  【${nn}권】 ${st}${hint}` : CAST[k].desc };
+    const alt = band ? ALT_STAGE[`${k}:${band[0]}`] : null;
+    // 🔴 옷을 갈아입는 단계는 «기본 쪽»에도 어느 쪽인지 적어 둔다 — 안 적으면 core 가 두 시트를
+    //   구분 못 해 한 쪽에 둘 다 붙는다.
+    return {
+      ...CAST[k], ref: slot, mode: alt ? alt[0] : null,
+      desc: st ? `${CAST[k].desc}  【${nn}권】 ${st}${hint}` : CAST[k].desc,
+    };
+  };
+
+  /** 갈아입는 단계의 «반대쪽 옷». 같은 얼굴, 같은 토큰, 다른 @imageN. */
+  const dressAlt = (k) => {
+    const band = (STAGES[k] || []).filter(([f]) => vol.n >= f).pop();
+    const alt = band && ALT_STAGE[`${k}:${band[0]}`];
+    if (!alt) return null;
+    const side = alt[0] === 'field' ? 'court' : 'field';
+    return {
+      ...CAST[k], mode: side,
+      name: `${CAST[k].name}(${side === 'field' ? '전투복' : '평상복'})`,
+      ref: `char-${CAST[k].token.toLowerCase()}-b${band[0]}-${side}`,
+      desc: `${CAST[k].desc}  【${nn}권】 ${alt[1]}  ‹기획서 「${CAST[k].name} · ${band[0]}권~」의 ${side === 'field' ? '전투복' : '평상복'} 칸›`,
+    };
   };
 
   // 🔴 @imageN 은 «권이 바뀌어도 같은 번호»여야 한다 — 호리 라인과 같은 규칙이다.
@@ -519,7 +564,11 @@ function render(vol, styleCss) {
   //   (안 나오는 권은 「미등장 — 첨부 불필요」로 표시된다), 그 권의 조역만 11번부터 붙인다.
   const leadOrder = ['liubei', 'guanyu', 'zhangfei', 'zhugeliang', 'zhaoyun', 'caocao', 'sunquan', 'lvbu', 'dongzhuo', 'simayi'];
   const extras = vol.cast.filter((k) => !leadOrder.includes(k) && CAST[k] && sceneText.includes(CAST[k].token));
-  const cast = [...leadOrder, ...extras].map(dress);
+  const base = [...leadOrder, ...extras];
+  const cast = base.map(dress);
+  // 🔴 갈아입는 사람은 «한 권에 두 시트»가 필요하다 — 그 권 안에서 전장 쪽과 실내 쪽이 섞이므로
+  //   권 단위로 하나를 고를 수 없다. 번호를 따로 주고, 쪽마다 core 가 장소를 보고 고른다.
+  base.forEach((k) => { const a = dressAlt(k); if (a && sceneText.includes(CAST[k].token)) cast.push(a); });
 
   // 🔴 물건도 사람과 같은 @imageN 을 받는다 — 「청룡언월도」라고만 쓰면 매번 다른 날붙이가 나온다.
   //   단 사람과 달리 «그 권에 나온 것만» 번호를 받는다. 물건 일곱을 24권 내내 고정 번호로 두면
@@ -594,8 +643,9 @@ window.SG_EPISODE = {
   //   비어 있으면 core 가 「빈 발주 방지」로 복사 버튼을 통째로 잠근다. 앵커를 써 놓고 이 줄에
   //   싣는 걸 잊어서 24권 쪽 프롬프트가 한 번도 안 눌렸다(2026-08-21). 앵커를 고치면 다시 구울 것.
   style: ${JSON.stringify(parseAnchor() || '')},
-  cast: ${JSON.stringify(cast.map((c) => ({ token: c.token, name: c.name, desc: c.desc, ref: c.ref, aliases: c.aliases })), null, 2).replace(/\n/g, '\n  ')},
-  props: ${JSON.stringify(props)}
+  cast: ${JSON.stringify(cast.map((c) => ({ token: c.token, name: c.name, desc: c.desc, ref: c.ref, mode: c.mode || null, aliases: c.aliases })), null, 2).replace(/\n/g, '\n  ')},
+  props: ${JSON.stringify(props)},
+  courtRe: ${JSON.stringify(COURT_RE)}
 };
 </script>
 <script src="/samgukji-core.js"></script>
@@ -704,6 +754,14 @@ for (const f of files) {
     const n = Object.values(STAGES).reduce((a, b) => a + b.length, 0);
     console.log(`  ✓ 나이·복장 ${Object.keys(STAGES).length}명 ${n}단계 전부 등장 권 안에서 쓰인다`);
   }
+
+  // 🔴 갈아입는 단계가 실제 단계를 가리키는지 — 오타 하나면 옷 시트가 조용히 사라진다.
+  const altWarn = Object.keys(ALT_STAGE).filter((k) => {
+    const [who, from] = k.split(":");
+    return !(STAGES[who] || []).some(([f]) => String(f) === from);
+  });
+  if (altWarn.length) console.log(`  ⚠ 전투복·평상복 — 없는 단계를 가리킨다: ${altWarn.join(", ")}`);
+  else console.log(`  ✓ 옷 갈아입는 ${Object.keys(ALT_STAGE).length}단계 전부 실제 단계를 가리킨다`);
 }
 
 // index.json — 대본이 있는 권만 (전 권 빌드일 때만 다시 굽는다)
@@ -875,6 +933,18 @@ function buildPlan(builtVols) {
     ].join('\n');
 
 
+  // 🔴 갈아입는 단계는 붙여넣기 칸이 «둘»이어야 한다. 칸이 하나면 두 번째 시트를 구워도 넣을 데가 없다.
+  //   반대쪽 옷은 항상 파생이다 — 대표를 첨부해 얼굴을 그대로 물려받고 옷만 바꾼다.
+  const altSlot = (key, token, from) => {
+    const alt = ALT_STAGE[`${key}:${from}`];
+    if (!alt) return '';
+    const side = alt[0] === 'field' ? 'court' : 'field';
+    const label = side === 'field' ? '전투복' : '평상복';
+    return `<div class="stage-slot" data-key="char-${token.toLowerCase()}-b${from}-${side}"><b>${from}권~ ${label}</b><span class="role d">파생 — 위 시트를 첨부해서 옷만</span>
+      <details><summary>이 옷 시트 프롬프트</summary><pre>${esc(sheetPrompt(EN[key] || '', alt[1], true))}</pre></details>
+      <button class="slot-copy-btn">📋 이 옷 시트 프롬프트 복사</button></div>`;
+  };
+
   const castCards = sheets.map(({ token, sheet }) => {
     const c = byToken[token];
     if (!c) throw new Error(`시트 "${token}" 에 해당하는 캐스트가 빌더에 없다`);
@@ -904,7 +974,7 @@ function buildPlan(builtVols) {
               : '<span class="role p">대표 — 먼저 굽고 승인</span>';
         return `<div class="stage-slot" data-key="char-${token.toLowerCase()}-b${from}"><b>${band}</b>${role}
       <details><summary>이 단계 시트 프롬프트</summary><pre>${esc(sheetPrompt(en, STAGE_EN[`${key}:${from}`] || '', derived))}</pre></details>
-      <button class="slot-copy-btn">📋 이 단계 시트 프롬프트 복사</button></div>`;
+      <button class="slot-copy-btn">📋 이 단계 시트 프롬프트 복사</button></div>` + altSlot(key, token, from);
       })
       .join('')}</div>`
       : '';
