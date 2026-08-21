@@ -78,7 +78,7 @@ import NotFoundPage from '../pages/NotFoundPage';
 import LoginCallback from '../pages/LoginCallback';
 import LoginPage from '../features/auth/components/LoginPage';
 import { RouteErrorScreen } from '@/components/RouteErrorScreen';
-import { AuthProvider } from '../features/auth/context/AuthContext';
+import { AuthProvider, useAuth } from '../features/auth/context/AuthContext';
 const ParentHomePage = lazy(() => import('../features/auth/pages/ParentHomePage'));
 const ParentReportsPage = lazy(() => import('../features/auth/pages/ParentReportsPage'));
 const ParentProfilesPage = lazy(() => import('../features/auth/pages/ParentProfilesPage'));
@@ -139,6 +139,22 @@ const MembersDashboardPage = lazy(() =>
 const PrivacyPage = lazy(() => import('../pages/legal/PrivacyPage'));
 const RefundPolicyPage = lazy(() => import('../pages/legal/RefundPolicyPage'));
 
+/**
+ * 루트(`/`) — 미로그인·크롤러는 소개 페이지, 로그인한 사람은 책장.
+ * 🔴 `loading` 중에 `/library` 로 보내지 않는다 — 세션 판정은 미로그인에서도 한 박자 걸려서,
+ *    보내 버리면 소개 페이지가 **첫 방문자에게 한 프레임 스치고 사라진다**(프리렌더로 구운
+ *    HTML 도 그 사이에 덮인다).
+ */
+function RootEntry() {
+  const { session, loading } = useAuth();
+  if (!loading && session) return <Navigate to="/library" replace />;
+  return (
+    <ErrorBoundary>
+      <IntroPage />
+    </ErrorBoundary>
+  );
+}
+
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -163,18 +179,18 @@ export const router = createBrowserRouter([
       </AuthProvider>
     ),
     children: [
-      { index: true, element: <Navigate to="/library" replace /> },
-      // 광고 랜딩(상세페이지) — AppShell 밖 풀화면. 네이버·메타 광고의 도착지.
-      // 🔴 게이트로 감싸지 않는다 — 광고를 눌러 온 사람에게 첫 화면이 가입 벽이면 그대로 나간다.
-      //    본문 안 「직접 해보기」가 계정 없이 도는 것도 같은 이유다.
-      {
-        path: 'intro',
-        element: (
-          <ErrorBoundary>
-            <IntroPage />
-          </ErrorBoundary>
-        ),
-      },
+      // 🔴 **루트가 광고 랜딩이다**(2026-08-21 사용자: "이거 메인 페이지로 연결하자").
+      //    예전엔 `/` 가 곧장 `/library` 로 튕겨서, 도메인만 치고 들어온 사람은 제품 설명을
+      //    한 줄도 못 보고 책장부터 봤다 — 광고 랜딩은 `/intro` 에만 있어서 광고를 누른
+      //    사람만 봤다. 이제 둘이 같은 화면이고 정식 주소는 `/` 다(`/intro` 는 아래에서 흡수).
+      // 🔴 **로그인한 사람은 책장으로** — 이미 쓰는 사람에게 「한 달 무료로 시작하기」를 다시
+      //    파는 건 뜻이 없다. 판정이 끝나기 전(`loading`)엔 랜딩을 그린다: 크롤러와 미로그인이
+      //    다수고, 프리렌더가 굽는 것도 이 화면이다.
+      { index: true, element: <RootEntry /> },
+      // 🔴 구 광고 랜딩 주소 — 광고·블로그·사이트맵에 이미 나가 있다. 서버가 301 로 보내지만
+      //    (`app.ts`), 앱 안에서의 이동은 여기서 받는다. 같은 내용을 두 주소로 두면 색인이
+      //    갈린다(GSC 「중복 페이지」로 이미 두 번 겪었다).
+      { path: 'intro', element: <Navigate to="/" replace /> },
       // 인쇄 학습지 — AppShell 밖 풀화면. 🔴 게이트로 감싸지 않는다: 가입 전 사람이 그대로
       // 쓰는 표면이고, 벽 하나가 경쟁사의 앱스토어와 종류만 다른 벽이 된다.
       // 🔴 `/worksheet/*.html`(정적 인쇄물)은 파일이 먼저 매치되므로 이 라우트가 안 가로챈다.

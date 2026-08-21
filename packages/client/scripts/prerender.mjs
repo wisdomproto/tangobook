@@ -37,13 +37,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const clientRoot = path.join(__dirname, '..');
 const distDir = path.join(clientRoot, 'dist');
 
-const STATIC_ROUTES = [
-  '/',
-  '/library',
-  '/library/phonics/korean',
-  '/vocabulary',
-  '/intro',
-];
+// 🔴 `/intro` 는 2026-08-21 에 **루트로 흡수**됐다(서버 301) — `/` 가 그 소개 페이지를
+//    그리므로 여기서 굽는 것도 `/` 하나다. 301 되는 주소를 구우면 puppeteer 가 리다이렉트를
+//    따라가 **같은 HTML 을 두 파일로** 굽고, 그중 하나는 영영 안 쓰인다.
+const STATIC_ROUTES = ['/', '/library', '/library/phonics/korean', '/vocabulary'];
 // 🔴 `/blog` 는 넣지 않는다 — 서버가 `blogListHandler` 로 이미 SSR 한다(app.ts). 구워 봐야
 //    그 핸들러가 먼저 잡아 영영 안 쓰이고, 매니페스트에 담기면 246KB 를 헛되이 물고 있는다.
 //    같은 이유로 `/library/:id`(about SSR)·`/guide/*` 도 대상이 아니다.
@@ -168,7 +165,9 @@ const MIN_TEXT = 250;
  */
 const MIN_BY_ROUTE = {
   '/library': 900, // 실측 1,231 (표지 105장)
-  '/intro': 3000, // 실측 4,881(광고 랜딩 — 예전 `/hangul`)
+  // 🔴 루트 = 소개 페이지(2026-08-21 흡수). 예전 `/intro` 의 기준을 그대로 옮겼다 —
+  //    이 값이 없으면 기본 `MIN_TEXT` 라, 히어로만 구워진 반쪽 HTML 도 통과한다.
+  '/': 3000, // 실측 4,881(광고 랜딩 — 예전 `/intro`·`/hangul`)
   '/vocabulary': 4000, // 실측 7,243
 };
 

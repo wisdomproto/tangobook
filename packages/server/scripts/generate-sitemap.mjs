@@ -104,7 +104,9 @@ async function main() {
   entries.push(urlEntry({ loc: `${SITE_URL}/library`, lastmod: today, changefreq: 'daily', priority: 0.9 }));
   entries.push(urlEntry({ loc: `${SITE_URL}/library/phonics/korean`, lastmod: today, changefreq: 'weekly', priority: 0.7 }));
   // 광고 랜딩 — 「한글앱」(440)·「파닉스앱」(100) 을 노린다. 광고 도착지지만 색인도 받는다.
-  entries.push(urlEntry({ loc: `${SITE_URL}/intro`, lastmod: today, changefreq: 'monthly', priority: 0.8 }));
+  // 🔴 `/intro` 는 2026-08-21 에 루트로 흡수됐다(서버 301) — 루트는 아래 정적 목록에 이미
+  //    들어 있으므로 여기서 따로 넣지 않는다. 리다이렉트되는 URL 을 사이트맵에 실으면
+  //    GSC 가 「리디렉션이 있는 페이지」로 뺀다.
   entries.push(urlEntry({ loc: `${SITE_URL}/vocabulary`, lastmod: today, changefreq: 'weekly', priority: 0.6 }));
   entries.push(urlEntry({ loc: `${SITE_URL}/blog`, lastmod: today, changefreq: 'daily', priority: 0.8 }));
   // 허브 — 언어별 (SSOT = shared seo-i18n HUB_STRINGS; dist 없으면 폴백 목록)

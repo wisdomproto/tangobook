@@ -168,14 +168,17 @@ export function createApp() {
     });
 
     /**
-     * 광고 랜딩 옛 주소 → `/intro` **301**(2026-08-12 이름 변경).
+     * 광고 랜딩 옛 주소 → 루트 `/` **301**.
      *
+     * 🔴 **도착지가 `/intro` 에서 `/` 로 바뀌었다**(2026-08-21 사용자: "이거 메인 페이지로
+     *    연결하자") — 소개 페이지가 곧 루트라, 같은 내용을 `/intro` 로도 두면 색인이 갈린다
+     *    (GSC 「중복 페이지」로 이미 두 번 겪었다). `/intro` 자신도 여기서 흡수한다.
      * 🔴 클라이언트 `<Navigate>` 로만 두면 **크롤러는 200 + 빈 셸**을 본다 — 색인이 두 주소로
-     *    갈리고, `/hangul` 은 이미 사이트맵·블로그·광고에 나가 있다. 서버에서 301 로 모은다.
+     *    갈리고, `/hangul`·`/intro` 는 이미 사이트맵·블로그·광고에 나가 있다. 서버에서 301 로 모은다.
      * 🔴 라우터에도 같은 이동이 남아 있다(앱 안에서 눌렀을 때) — **둘 다 필요**하다.
      */
-    for (const old of ['/hangul', '/english']) {
-      app.get(old, (_req, res) => res.redirect(301, '/intro'));
+    for (const old of ['/hangul', '/english', '/intro']) {
+      app.get(old, (_req, res) => res.redirect(301, '/'));
     }
 
     // SEO SSR-lite — about/블로그/허브 페이지에 meta/JSON-LD/본문 주입 (네이버 Yeti 등
