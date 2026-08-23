@@ -80,7 +80,7 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 - `/library-master` — 라이브러리 순서 + 카테고리 CRUD + 책 메타 편집. 셀 단위 isPublic(`Storybook.publicByStyleLang`) + 📊 표 보기(`BookMatrixModal`). 양방향 동기화 `features/library/lib/public-sync.ts`. **셀 비공개는 BookDetailPage 학습자 화면에도 반영**(2026-06-09, 그림체 칩·언어 토글 필터).
 - `/vocabulary-table-ko.html` 📊 — 단어 마스터 표. 동화책 keyObject source, 난이도 분류 + 비명사 필터. `vocab-overrides API`(`GET/PUT /api/vocab-overrides` → R2). 영어판 `vocabulary-master.html`.
 - `/key-object-editor.html` ✏️ — 페이지 텍스트 기반 keyObject 재분류 + 책별 편집. 분석 source `public/_analysis/text-based-classify.json`(gitignored).
-- `/coloring-plan.html` 🎨 — **색칠 도안 작업판**(2026-08-17). 낱말 2,067개 × [원본 삽화 · 프롬프트 복사 · 붙여넣기]. 도안은 외부(GPT)에서 만들어 붙인다 — 목록 생성 `node packages/server/scripts/build-coloring-plan.mjs`. 🔴 **정답본은 안 만든다**(색은 원본 삽화에서 읽는다) · 검사 = 자동으로 칠해 보기 `auto-color.mjs`. 상세 → [features/games/CLAUDE.md](packages/client/src/features/games/CLAUDE.md)
+- `/coloring-plan.html` 🎨 — **색칠 도안 작업판**(2026-08-17). 낱말 **2,387개** × [원본 삽화 · 프롬프트 복사 · 붙여넣기]. 🔴 **파닉스는 언어별로 갈라져 있다**(2026-08-21) — 한글 128 · 영어 388 · **중국어 128**(dev-only WIP). 예전엔 한 덩어리 644장이라 한글 작업 중에 영어·중국어가 섞여 나왔다. 언어 판정은 **단원 id 접두어**(`kr-`·`en-`·`zh-`)로 한다. 🔴 붙여넣기 키(`ph-####`)는 **가르기 전에** 매긴다 — 그룹 나눔이 바뀌어도 이미 붙인 그림이 딴 칸으로 안 간다(실측: 644개 전부 제자리). 도안은 외부(GPT)에서 만들어 붙인다 — 목록 생성 `node packages/server/scripts/build-coloring-plan.mjs`. 🔴 **정답본은 안 만든다**(색은 원본 삽화에서 읽는다) · 검사 = 자동으로 칠해 보기 `auto-color.mjs`. 상세 → [features/games/CLAUDE.md](packages/client/src/features/games/CLAUDE.md)
 - SEO/마케팅/전략 HTML → 아래 SEO·마케팅 섹션.
 
 ## 서버 gotcha

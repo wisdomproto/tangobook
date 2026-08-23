@@ -125,15 +125,46 @@ phonics.sort((a, b) => a.unit.localeCompare(b.unit) || a.word.localeCompare(b.wo
 phonics.forEach((e, i) => (e.key = `ph-${String(i + 1).padStart(4, '0')}`));
 
 
-const groups = [
-  {
-    id: 'phonics',
-    label: '파닉스',
-    sections: Object.entries(
-      phonics.reduce((acc, e) => ((acc[e.unitTitle] ??= []).push(e), acc), {})
-    ).map(([label, items]) => ({ label, items })),
-  },
+/**
+ * 파닉스는 **언어별로 가른다**(2026-08-21 사용자). 한 덩어리였을 땐 95단원 644장이 한 목록이라
+ * 한글 작업 중에 영어 단원이 섞여 나왔다.
+ *
+ * 🔴 **셋이다 — 한글·영어·중국어**. 사용자는 「한글, 영어」라고 했지만 데이터엔 중국어 24단원이
+ *    같이 있다(dev-only WIP). 둘로만 가르면 그 24단원이 **조용히 사라지므로** 셋으로 가른다.
+ * 🔴 언어는 **단원 id 접두어**로 안다(`kr-h1-u01` · `en-b1-u01` · `zh-l4-u02`) — 제목은 언어마다
+ *    형식이 달라 못 믿는다.
+ * 🔴 `key`(붙여넣기 키)는 **가르기 전에** 매긴다 — 그룹 나눔이 바뀌어도 이미 붙인 그림이
+ *    딴 칸으로 가지 않게. 위 `phonics.sort` + `ph-####` 가 그 일을 한다.
+ */
+const PHONICS_LANGS = [
+  { id: 'phonics-kr', prefix: 'kr', label: '한글 파닉스' },
+  { id: 'phonics-en', prefix: 'en', label: '영어 파닉스' },
+  { id: 'phonics-zh', prefix: 'zh', label: '중국어 파닉스' },
 ];
+
+const groups = [];
+for (const lang of PHONICS_LANGS) {
+  const list = phonics.filter((e) => e.unit.startsWith(lang.prefix + '-'));
+  if (!list.length) continue;
+  groups.push({
+    id: lang.id,
+    label: lang.label,
+    sections: Object.entries(
+      list.reduce((acc, e) => ((acc[e.unitTitle] ??= []).push(e), acc), {})
+    ).map(([label, items]) => ({ label, items })),
+  });
+}
+// 어느 접두어에도 안 걸린 단원이 있으면 버리지 않고 남긴다 — 새 언어가 붙으면 여기 뜬다.
+const orphan = phonics.filter((e) => !PHONICS_LANGS.some((l) => e.unit.startsWith(l.prefix + '-')));
+if (orphan.length) {
+  groups.push({
+    id: 'phonics-etc',
+    label: '파닉스 (분류 안 됨)',
+    sections: Object.entries(
+      orphan.reduce((acc, e) => ((acc[e.unitTitle] ??= []).push(e), acc), {})
+    ).map(([label, items]) => ({ label, items })),
+  });
+}
 
 let bi = 0;
 for (const [category, list] of [...books.entries()].sort((a, b) => b[1].length - a[1].length)) {

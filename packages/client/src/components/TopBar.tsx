@@ -296,7 +296,7 @@ const RESOURCES: ResourceItem[] = [
     href: '/coloring-plan.html',
     icon: '🎨',
     label: '색칠 도안 작업판',
-    desc: '낱말 2,067개 · 원본 삽화 + 프롬프트',
+    desc: '낱말 2,387개 · 파닉스 3언어 + 동화책 13갈래',
   },
   {
     href: '/hidden-object-plan.html',
