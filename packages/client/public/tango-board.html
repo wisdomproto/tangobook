@@ -108,6 +108,8 @@
   }
   .reveal-cap mark { background: #FFD400; color: #2b2b2b; border-radius: 8px;
     padding: 1px 8px; margin: 0 2px; }
+  .reveal-title { color: #fff; font-size: 20px; font-weight: 800; opacity: .92; }
+  .reveal-title::before { content: '📖 '; }
   .reveal-hint { color: rgba(255,255,255,.7); font-size: 14px; }
 
   @media (max-width: 640px) {
@@ -153,6 +155,7 @@
 </div>
 
 <div class="reveal" id="reveal" hidden>
+  <div class="reveal-title" id="revealTitle"></div>
   <img id="revealImg" alt="동화 장면" />
   <div class="reveal-cap" id="revealCap"></div>
   <div class="reveal-hint">화면을 누르면 다음 단어</div>
@@ -701,9 +704,40 @@ addEventListener('pointerup', function (e) {
     if (d.from != null) removeAt(d.from);   // 판 밖 = 제거
     return;
   }
-  if (d.from != null) move(d.from, x, y);
-  else add(d.id, d.rotDeg, x, y);
+  // 🔴 겹치면 핀이 충돌해 인식이 깨진다(붙이면 OK, 겹치면 X) — 가장 가까운 빈자리로 밀어낸다.
+  var pos = resolveFreePos(x, y, sh.w, sh.h, d.from);
+  if (!pos) { if (d.from != null) removeAt(d.from); return; }
+  if (d.from != null) move(d.from, pos.x, pos.y);
+  else add(d.id, d.rotDeg, pos.x, pos.y);
 });
+
+/** 두 사각형(칸 단위)이 겹치나. */
+function rectsOverlap(ax, ay, aw, ah, bx, by, bw, bh) {
+  return ax < bx + bw && bx < ax + aw && ay < by + bh && by < ay + ah;
+}
+/** (x,y) 에 놓되 다른 블록과 겹치면 가장 가까운 빈자리를 찾는다. exceptIdx 는 자기 자신. */
+function resolveFreePos(x, y, w, h, exceptIdx) {
+  function free(px, py) {
+    if (px < 0 || py < 0 || px + w > COLS || py + h > ROWS) return false;
+    for (var i = 0; i < placed.length; i++) {
+      if (i === exceptIdx) continue;
+      var p = placed[i], ps = BLOCKS[p.id].byRot[p.rotDeg];
+      if (rectsOverlap(px, py, w, h, p.x, p.y, ps.w, ps.h)) return false;
+    }
+    return true;
+  }
+  if (free(x, y)) return { x: x, y: y };
+  // 반경을 넓혀가며 가장 가까운 빈칸 탐색(가로 우선 — 자모는 좌우로 붙는다).
+  for (var r = 1; r <= 6; r++) {
+    for (var dx = -r; dx <= r; dx++) {
+      for (var dy = -r; dy <= r; dy++) {
+        if (Math.max(Math.abs(dx), Math.abs(dy)) !== r) continue;
+        if (free(x + dx, y + dy)) return { x: x + dx, y: y + dy };
+      }
+    }
+  }
+  return null;
+}
 
 function place(p) {
   p.el.style.left = (p.x * PEG) + 'px';
@@ -994,7 +1028,8 @@ function pickWord() {
 }
 
 // --- 리빌 오버레이 (앱 SceneReveal 타이밍 이식: 최소 2.5s, 나레이션 끝/탭 시 다음) ---
-var revealAudio = null, revealTimer = null;
+var revealAudio = null, revealTimer = null, revealBgm = null;
+var revealTitleEl = document.getElementById('revealTitle');
 function escapeHtml(s) {
   return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
@@ -1008,11 +1043,19 @@ function hideReveal() {
   revealEl.onclick = null;
   if (revealTimer) { clearTimeout(revealTimer); revealTimer = null; }
   if (revealAudio) { revealAudio.pause(); revealAudio.src = ''; revealAudio = null; }
+  if (revealBgm) { revealBgm.pause(); revealBgm.src = ''; revealBgm = null; }
 }
 function showReveal(scene) {
+  revealTitleEl.textContent = (target && target.title) ? target.title : '';
   revealImgEl.src = scene.illustrationUrl;
   revealCapEl.innerHTML = caption(scene.text, target ? target.word : '');
   revealEl.hidden = false;
+  // 장면 배경음악 — 5곡 중 랜덤 1곡, 낮은 볼륨 루프(앱 SceneReveal 과 동일). 닫으면 정지.
+  var bn = 1 + Math.floor(Math.random() * 5);
+  revealBgm = new Audio('/sounds/bgm/default-' + bn + '.mp3');
+  revealBgm.loop = true;
+  revealBgm.volume = 0.16;
+  revealBgm.play().catch(function () {});
   var mountedAt = Date.now(), advanced = false;
   function advance() { if (advanced) return; advanced = true; nextWord(); }
   function finishOrHold() {
