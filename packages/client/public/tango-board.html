@@ -72,6 +72,42 @@
   .hint { font-size: 12px; color: #999; line-height: 1.8; margin: 0; }
   #selftest { font: 12px/1.7 monospace; white-space: pre-wrap; color: #3a8; }
   #selftest.bad { color: #d33; }
+
+  /* 모드 선택 */
+  .modes { display: flex; gap: 8px; justify-content: center; margin: 0 0 14px; }
+  .mode {
+    font-family: inherit; font-size: 15px; padding: 9px 20px; border-radius: 999px;
+    border: 2px solid #e6d9d3; background: #fff; color: #888; cursor: pointer; font-weight: 700;
+  }
+  .mode.active { background: #ff6b4a; border-color: #ff6b4a; color: #fff; }
+
+  /* 학습 배너 */
+  .learnbar {
+    align-self: stretch; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    background: #fff; border: 2px dashed #ffd0c4; border-radius: 16px; padding: 12px 16px;
+  }
+  .lb-label { font-size: 14px; color: #888; }
+  .lb-word { font-size: 34px; font-weight: 800; color: #ff6b4a; letter-spacing: 3px; flex: 1; }
+  .lb-done { color: #7BE04A; font-size: 15px; font-weight: 700; }
+
+  /* 정답 리빌 */
+  .reveal {
+    position: fixed; inset: 0; z-index: 70; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 18px; padding: 20px;
+    background: rgba(35,33,33,.86); backdrop-filter: blur(3px); cursor: pointer;
+  }
+  .reveal img {
+    width: 100%; max-width: 760px; aspect-ratio: 16/9; object-fit: cover;
+    border-radius: 24px; box-shadow: 0 16px 44px rgba(0,0,0,.4); background: #222;
+  }
+  .reveal-cap {
+    max-width: 760px; color: #fff; font-size: clamp(20px, 3.4vw, 30px); font-weight: 700;
+    line-height: 1.5; text-align: center; word-break: keep-all;
+  }
+  .reveal-cap mark { background: #FFD400; color: #2b2b2b; border-radius: 8px;
+    padding: 1px 8px; margin: 0 2px; }
+  .reveal-hint { color: rgba(255,255,255,.7); font-size: 14px; }
+
   @media (max-width: 640px) {
     body { padding: 10px; }
     h1 { font-size: 17px; }
@@ -82,8 +118,17 @@
 </head>
 <body>
 <h1>탱고 보드 — 한글 블록 (프로토타입)</h1>
+<div class="modes">
+  <button class="mode active" data-mode="free">자유 모드</button>
+  <button class="mode" data-mode="learn">학습 모드</button>
+</div>
 <div class="wrap">
   <div class="stage">
+    <div class="learnbar" id="learnbar" hidden>
+      <span class="lb-label">이 단어를 만들어 보세요</span>
+      <span class="lb-word" id="lbWord">…</span>
+      <button class="ghost" id="nextWord">다른 단어</button>
+    </div>
     <div class="board-shell"><div id="boardWrap"><div id="board"></div></div></div>
 
     <div class="controls">
@@ -103,6 +148,12 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="reveal" id="reveal" hidden>
+  <img id="revealImg" alt="동화 장면" />
+  <div class="reveal-cap" id="revealCap"></div>
+  <div class="reveal-hint">화면을 누르면 다음 단어</div>
 </div>
 
 <script>
@@ -549,15 +600,15 @@ function playOne(ch, onDone) {
 }
 
 /** 여러 글자를 쉼을 두고 이어 읽는다. */
-function playChain(chars, i) {
+function playChain(chars, i, onEnd) {
   i = i || 0;
-  if (i >= chars.length) return;
+  if (i >= chars.length) { if (onEnd) onEnd(); return; }
   var gen = audioGen;
   playOne(chars[i], function () {
-    if (i + 1 >= chars.length) return;
+    if (i + 1 >= chars.length) { if (onEnd) onEnd(); return; }
     chainTimer = setTimeout(function () {
       if (gen !== audioGen) return;
-      playChain(chars, i + 1);
+      playChain(chars, i + 1, onEnd);
     }, GAP);
   });
 }
@@ -600,6 +651,7 @@ function render() {
     if (chain.length) { stopAll(); playChain(chain, 0); }
   }
   prevSyllables = syls;
+  if (typeof onBoardText === 'function') onBoardText(text);
 }
 
 /* ---- 드래그 ---- */
@@ -835,6 +887,193 @@ document.getElementById('speak').onclick = function () {
   // #selftest 요소는 화면에서 뺐다 — 실패만 콘솔로 남긴다(정확성 회귀 안전망 유지).
   if (log.length) console.error('[tango-board selftest] ' + log.join(' | '));
 })();
+
+/* =====================================================================
+ * 6. 학습 모드 — 동화책 핵심단어 랜덤 → 맞추면 삽화+나레이션 리빌
+ *    (앱의 어휘게임 resolve-scene / SceneReveal 을 순수 HTML 로 이식)
+ * ===================================================================== */
+// 프로덕션에서 서빙될 땐 상대경로, 로컬 파일로 열면 절대경로(테스트용).
+var API = /tangobook/.test(location.hostname) ? '' : 'https://www.tangobook.co.kr';
+
+var LEARN = false;
+var target = null;      // { word, page:{illustrationUrl,text,ttsUrl} }
+var solved = false;
+var solveGen = 0;
+var lbWordEl = document.getElementById('lbWord');
+var learnbarEl = document.getElementById('learnbar');
+var revealEl = document.getElementById('reveal');
+var revealImgEl = document.getElementById('revealImg');
+var revealCapEl = document.getElementById('revealCap');
+
+// --- 데이터 ---
+var booksPromise = null;
+function getBooks() {
+  if (!booksPromise) {
+    booksPromise = fetch(API + '/api/storybooks')
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        var arr = (d && d.data) || d || [];
+        // 공개 + 페이지 나레이션 완비 책만
+        return arr.filter(function (b) {
+          return b.isPublic && b.koCompletion && b.koCompletion.pagesTts;
+        });
+      })
+      .catch(function () { return []; });
+  }
+  return booksPromise;
+}
+var detailCache = {};
+function getDetail(id) {
+  if (!detailCache[id]) {
+    detailCache[id] = fetch(API + '/api/storybooks/' + id)
+      .then(function (r) { return r.json(); })
+      .then(function (d) { return (d && d.data) || d; })
+      .catch(function () { return null; });
+  }
+  return detailCache[id];
+}
+
+/** 단어가 실제로 본문에 나오는 페이지(삽화·나레이션 보유)를 찾는다 — 앱의 findValidatedPageNumber 이식. */
+function validatedPage(det, ko) {
+  var w = (ko.korean || '').trim();
+  var pages = det.pages || [];
+  var hit = null;
+  var claimed = (ko.pages || []);
+  for (var i = 0; i < claimed.length; i++) {
+    var p = pages[claimed[i] - 1];
+    if (p && p.text && p.text.indexOf(w) >= 0) { hit = p; break; }
+  }
+  if (!hit) {
+    for (var j = 0; j < pages.length; j++) {
+      if (pages[j].text && pages[j].text.indexOf(w) >= 0) { hit = pages[j]; break; }
+    }
+  }
+  if (!hit || !hit.illustrationUrl) return null;
+  return { illustrationUrl: hit.illustrationUrl, text: hit.text || '', ttsUrl: hit.ttsUrl || '' };
+}
+
+function isBuildableKo(word) {
+  var chars = [].concat.apply([], word.split('').map(function (c) { return c; }));
+  var syl = chars.filter(function (c) { return /[가-힣]/.test(c); });
+  // 순수 한글 + 1~3음절(아이가 만들 만한 길이)
+  return syl.length >= 1 && syl.length <= 3 && syl.length === chars.length;
+}
+function shuffle(a) {
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+
+/** 랜덤 책에서 만들 수 있는 핵심단어 하나 + 그 장면을 고른다. */
+function pickWord() {
+  return getBooks().then(function (books) {
+    if (!books.length) return null;
+    var order = shuffle(books.slice());
+    var idx = 0;
+    function tryNext() {
+      if (idx >= order.length || idx >= 15) return null;   // 최대 15권만 시도
+      var b = order[idx++];
+      return getDetail(b.id).then(function (det) {
+        if (!det) return tryNext();
+        var kos = shuffle((det.key_objects || []).filter(function (k) {
+          return k.korean && isBuildableKo(k.korean.trim());
+        }));
+        for (var i = 0; i < kos.length; i++) {
+          var page = validatedPage(det, kos[i]);
+          if (page) return { word: kos[i].korean.trim(), page: page, title: det.title };
+        }
+        return tryNext();
+      });
+    }
+    return tryNext();
+  });
+}
+
+// --- 리빌 오버레이 (앱 SceneReveal 타이밍 이식: 최소 2.5s, 나레이션 끝/탭 시 다음) ---
+var revealAudio = null, revealTimer = null;
+function escapeHtml(s) {
+  return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+function caption(text, word) {
+  var safe = escapeHtml(text);
+  if (word) safe = safe.split(escapeHtml(word)).join('<mark>' + escapeHtml(word) + '</mark>');
+  return safe;
+}
+function hideReveal() {
+  revealEl.hidden = true;
+  revealEl.onclick = null;
+  if (revealTimer) { clearTimeout(revealTimer); revealTimer = null; }
+  if (revealAudio) { revealAudio.pause(); revealAudio.src = ''; revealAudio = null; }
+}
+function showReveal(scene) {
+  revealImgEl.src = scene.illustrationUrl;
+  revealCapEl.innerHTML = caption(scene.text, target ? target.word : '');
+  revealEl.hidden = false;
+  var mountedAt = Date.now(), advanced = false;
+  function advance() { if (advanced) return; advanced = true; nextWord(); }
+  function finishOrHold() {
+    if (advanced) return;
+    var rem = 2500 - (Date.now() - mountedAt);
+    if (rem <= 0) advance(); else revealTimer = setTimeout(advance, rem);
+  }
+  revealEl.onclick = advance;
+  if (revealAudio) { revealAudio.pause(); revealAudio.src = ''; }
+  if (scene.ttsUrl) {
+    revealAudio = new Audio(scene.ttsUrl);
+    revealAudio.addEventListener('ended', finishOrHold);
+    revealAudio.addEventListener('error', finishOrHold);
+    revealAudio.play().catch(finishOrHold);
+  } else {
+    revealTimer = setTimeout(advance, 3000);
+  }
+}
+
+// --- 정답 판정 (render 훅) ---
+function onBoardText(text) {
+  if (!LEARN || !target || solved) return;
+  if (text === target.word) {
+    solved = true;
+    var gen = ++solveGen;
+    stopAll();
+    // 만든 단어를 한 번 읽어주고 → 그 단어가 나오는 장면 리빌.
+    playChain(target.word.split(''), 0, function () {
+      if (gen !== solveGen) return;
+      showReveal(target.page);
+    });
+  }
+}
+
+function nextWord() {
+  hideReveal();
+  solved = false;
+  clearBoard();
+  lbWordEl.textContent = '…';
+  return pickWord().then(function (t) {
+    target = t;
+    lbWordEl.textContent = t ? t.word : '(단어를 불러오지 못했어요)';
+  });
+}
+
+function setMode(m) {
+  LEARN = m === 'learn';
+  var btns = document.querySelectorAll('.mode');
+  for (var i = 0; i < btns.length; i++) btns[i].classList.toggle('active', btns[i].dataset.mode === m);
+  learnbarEl.hidden = !LEARN;
+  hideReveal();
+  stopAll();
+  clearBoard();
+  solved = false;
+  target = null;
+  if (LEARN) nextWord();
+}
+
+var modeBtns = document.querySelectorAll('.mode');
+for (var mi = 0; mi < modeBtns.length; mi++) {
+  modeBtns[mi].onclick = (function (b) { return function () { setMode(b.dataset.mode); }; })(modeBtns[mi]);
+}
+document.getElementById('nextWord').onclick = nextWord;
 
 layout();
 render();
