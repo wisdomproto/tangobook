@@ -147,7 +147,7 @@
         <div class="tray" id="trayCho"></div>
       </div>
       <div class="tray-group">
-        <h2>모음 블록 (5)</h2>
+        <h2>모음 블록 (3)</h2>
         <div class="tray" id="trayJung"></div>
       </div>
     </div>
@@ -666,8 +666,8 @@ ghost.style.display = 'none';
 document.body.appendChild(ghost);
 
 function startDrag(e, spec) {
-  drag = { id: spec.id, rotDeg: spec.rotDeg, from: spec.from, moved: false,
-           x0: e.clientX, y0: e.clientY };
+  drag = { id: spec.id, rotDeg: spec.rotDeg, from: spec.from, trayItem: spec.trayItem || null,
+           moved: false, x0: e.clientX, y0: e.clientY };
   ghost.className = 'blk ' + BLOCKS[spec.id].kind;
   paintBlock(ghost, spec.id, spec.rotDeg, PEG * curScale);
   ghost.style.position = 'fixed'; ghost.style.pointerEvents = 'none';
@@ -693,7 +693,11 @@ addEventListener('pointerup', function (e) {
   var d = drag; drag = null;
   ghost.style.display = 'none';
   if (d.from != null) placed[d.from].el.classList.remove('dragging');
-  if (!d.moved && d.from != null) { rotate(d.from); return; }
+  if (!d.moved) {
+    if (d.from != null) rotate(d.from);          // 판 위 블록 탭 = 회전
+    else if (d.trayItem) rotateTrayItem(d.trayItem); // 트레이 블록 탭 = 회전
+    return;
+  }
 
   var rect = boardEl.getBoundingClientRect();
   var epeg = rect.width / COLS;               // 축소된 화면 한 칸 크기
@@ -769,15 +773,37 @@ function clearBoard() { placed.forEach(function (p) { p.el.remove(); }); placed 
 
 /* ---- 트레이 ---- */
 var TRAY_PX = 11;
-BLOCKS.forEach(function (b) {
-  var el = makeBlockEl(b.id, b.rotKeys[0], TRAY_PX);
-  el.title = b.base;
+/** 트레이 블록 — 각자 현재 회전 상태를 가진다. 탭하면 회전, 끌면 그 방향으로 놓인다. */
+function addTrayBlock(containerId, id, rotDeg) {
+  var item = { id: id, rotDeg: rotDeg, el: null };
+  var el = makeBlockEl(id, rotDeg, TRAY_PX);
+  item.el = el;
   el.addEventListener('pointerdown', function (ev) {
     ev.preventDefault();
-    startDrag(ev, { id: b.id, rotDeg: b.rotKeys[0], from: null });
+    startDrag(ev, { id: item.id, rotDeg: item.rotDeg, from: null, trayItem: item });
   });
-  document.getElementById(b.kind === 'cho' ? 'trayCho' : 'trayJung').appendChild(el);
+  document.getElementById(containerId).appendChild(el);
+  return item;
+}
+function findBlock(base) {
+  for (var i = 0; i < BLOCKS.length; i++) if (BLOCKS[i].base === base) return BLOCKS[i];
+  return null;
+}
+// 자음 18 — 기본 방향
+BLOCKS.forEach(function (b) {
+  if (b.kind === 'cho') addTrayBlock('trayCho', b.id, b.rotKeys[0]);
 });
+// 모음 — ㅏ ㅑ ㅣ 만 (ㅏ=ㅓ블록 180°, ㅑ=ㅕ블록 180°, ㅣ=ㅣ블록). 탭 회전으로 ㅗㅜㅓ 등 다 나온다.
+[['ㅓ', 180], ['ㅕ', 180], ['ㅣ', 0]].forEach(function (pair) {
+  var b = findBlock(pair[0]);
+  if (b) addTrayBlock('trayJung', b.id, pair[1]);
+});
+/** 트레이 블록 탭 = 회전 (그 자리에서 다음 방향으로). */
+function rotateTrayItem(item) {
+  var keys = BLOCKS[item.id].rotKeys;
+  item.rotDeg = keys[(keys.indexOf(item.rotDeg) + 1) % keys.length];
+  paintBlock(item.el, item.id, item.rotDeg, TRAY_PX);
+}
 
 /* ---- 예시 (사진에서 잰 칸 좌표) ---- */
 function blockOf(ch) {
@@ -988,11 +1014,18 @@ function validatedPage(det, ko) {
   return { illustrationUrl: hit.illustrationUrl, text: hit.text || '', ttsUrl: hit.ttsUrl || '' };
 }
 
+// 트레이에 ㅐ·ㅒ 블록이 없어 만들 수 없는 모음 — 이 모음이 든 단어는 학습 대상에서 제외.
+var UNBUILDABLE_JUNG = { 'ㅐ': 1, 'ㅔ': 1, 'ㅒ': 1, 'ㅖ': 1, 'ㅙ': 1, 'ㅞ': 1 };
 function isBuildableKo(word) {
-  var chars = [].concat.apply([], word.split('').map(function (c) { return c; }));
+  var chars = word.split('');
   var syl = chars.filter(function (c) { return /[가-힣]/.test(c); });
-  // 순수 한글 + 1~3음절(아이가 만들 만한 길이)
-  return syl.length >= 1 && syl.length <= 3 && syl.length === chars.length;
+  if (syl.length < 1 || syl.length > 3 || syl.length !== chars.length) return false;
+  for (var i = 0; i < syl.length; i++) {
+    var code = syl[i].charCodeAt(0) - 0xac00;
+    var jung = JUNG[Math.floor((code % 588) / 28)];
+    if (UNBUILDABLE_JUNG[jung]) return false;
+  }
+  return true;
 }
 function shuffle(a) {
   for (var i = a.length - 1; i > 0; i--) {
