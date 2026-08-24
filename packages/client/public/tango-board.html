@@ -26,6 +26,7 @@
   .controls { display: flex; gap: 8px; }
   .trays { display: flex; flex-direction: column; gap: 6px; }
   .tray-group h2 { font-size: 13px; margin: 0 0 6px; color: #888; font-weight: normal; }
+  .tap-hint { color: #bbb; font-size: 11px; }
 
   .board-shell {
     background: #fff; border-radius: 32px; padding: 22px; max-width: 100%;
@@ -143,11 +144,11 @@
 
     <div class="trays">
       <div class="tray-group">
-        <h2>자음 블록 (18)</h2>
+        <h2>자음 블록 (13) <span class="tap-hint">· 누르면 회전 ㄱ→ㄴ, 같은 자음 두 개 = 쌍자음(ㄱㄱ=ㄲ)</span></h2>
         <div class="tray" id="trayCho"></div>
       </div>
       <div class="tray-group">
-        <h2>모음 블록 (3)</h2>
+        <h2>모음 블록 (3) <span class="tap-hint">· 누르면 회전 ㅏ→ㅗ→ㅜ→ㅓ, 모음+ㅣ = ㅐㅔㅒㅖ</span></h2>
         <div class="tray" id="trayJung"></div>
       </div>
     </div>
@@ -279,7 +280,7 @@ BLOCKS.forEach(function (b, i) {
 /* =====================================================================
  * 2. 센서 판 — 자유 배치라 "창"이 없다. 판 전체를 훑어 핀 패턴을 맞춘다.
  * ===================================================================== */
-var COLS = 24, ROWS = 15;                 // 센서 칸 (돌기는 그 +1)
+var COLS = 24, ROWS = 10;                 // 센서 칸 (돌기는 그 +1)
 
 function emptySensor() {
   var g = [];
@@ -359,6 +360,10 @@ var JUNG_SET = new Set(JUNG);
 // 복합모음 = 가로모음 블록 + 그 오른쪽 세로모음 블록
 var COMPOUND = { 'ㅗㅏ':'ㅘ', 'ㅗㅐ':'ㅙ', 'ㅗㅣ':'ㅚ',
                  'ㅜㅓ':'ㅝ', 'ㅜㅔ':'ㅞ', 'ㅜㅣ':'ㅟ', 'ㅡㅣ':'ㅢ' };
+// 모음 + 오른쪽 ㅣ = ㅐㅔㅒㅖ·ㅙㅞ (ㅐ/ㅔ 블록을 없앤 대신 조합으로 만든다)
+var PLUS_I = { 'ㅏ':'ㅐ', 'ㅓ':'ㅔ', 'ㅑ':'ㅒ', 'ㅕ':'ㅖ', 'ㅘ':'ㅙ', 'ㅝ':'ㅞ' };
+// 같은 자음 두 개 나란히 = 쌍자음 (쌍자음 블록을 없앤 대신)
+var DOUBLE = { 'ㄱ':'ㄲ', 'ㄷ':'ㄸ', 'ㅂ':'ㅃ', 'ㅅ':'ㅆ', 'ㅈ':'ㅉ' };
 // 겹받침 = 받침 자음 오른쪽에 자음 하나 더
 var DOUBLE_JONG = { 'ㄱㅅ':'ㄳ', 'ㄴㅈ':'ㄵ', 'ㄴㅎ':'ㄶ', 'ㄹㄱ':'ㄺ', 'ㄹㅁ':'ㄻ', 'ㄹㅂ':'ㄼ',
                     'ㄹㅅ':'ㄽ', 'ㄹㅌ':'ㄾ', 'ㄹㅍ':'ㄿ', 'ㄹㅎ':'ㅀ', 'ㅂㅅ':'ㅄ' };
@@ -370,7 +375,28 @@ function composeHangul(cho, jung, jong) {
   return String.fromCharCode(0xAC00 + (ci * 21 + ji) * 28 + ki);
 }
 
+/** 같은 자음이 가로로 딱 붙어 있으면 쌍자음으로 합친다 (ㄱㄱ→ㄲ). 인접·같은 행만. */
+function mergeDoubles(items) {
+  var out = items.slice();
+  for (var i = 0; i < out.length; i++) {
+    var a = out[i];
+    if (!a || isVowel(a.ch) || !DOUBLE[a.ch]) continue;
+    for (var j = 0; j < out.length; j++) {
+      var b = out[j];
+      if (i === j || !b || b.ch !== a.ch) continue;
+      if (Math.abs(b.x - (a.x + a.w)) <= 1 && Math.abs(b.y - a.y) <= 1) {
+        a.ch = DOUBLE[a.ch];
+        a.w = (b.x + b.w) - a.x;   // 두 블록을 아우르는 폭 (모음 위치 판정용)
+        out[j] = null;
+        break;
+      }
+    }
+  }
+  return out.filter(Boolean);
+}
+
 function parseFree(items) {
+  items = mergeDoubles(items);
   items.forEach(function (it) { it.cx = it.x + it.w / 2; it.cy = it.y + it.h / 2; });
   var cons = items.filter(function (i) { return !isVowel(i.ch); });
   var vows = items.filter(function (i) { return isVowel(i.ch); });
@@ -399,12 +425,16 @@ function parseFree(items) {
 
   cons.forEach(function (A) {
     if (used.has(A)) return;
-    // 오른쪽의 세로형 모음 (ㅏㅓㅣㅐ…) — 가로 조합
+    // 오른쪽의 세로형 모음 (ㅏㅓㅣㅐ…) — 가로 조합.
+    // 🔴 중심거리로 재면 ㄱ(3칸)+ㅏ(5칸) 처럼 높이가 다를 때 살짝 내려 놓으면 끊긴다.
+    //    "세로로 겹치나"로 판정 — 가 = 자음(top-left) + 모음(full height).
     var Vh = nearest(vows, function (v) {
       if (v.h <= v.w) return null;
-      var dx = v.cx - A.cx, dy = Math.abs(v.cy - A.cy);
-      if (dx <= 0 || dx > 7 || dy > 2.5) return null;
-      return dx + dy;
+      var dx = v.cx - A.cx;
+      if (dx <= 0 || dx > 7) return null;
+      var overlap = Math.min(A.y + A.h, v.y + v.h) - Math.max(A.y, v.y);
+      if (overlap < 1) return null;
+      return dx + Math.abs(v.cy - A.cy);
     });
     // 아래의 가로형 모음 (ㅗㅜㅛㅡ…) — 세로 조합
     var Vv = nearest(vows, function (v) {
@@ -421,6 +451,20 @@ function parseFree(items) {
     } else if (Vh) { jung = Vh.ch; parts = [Vh]; }
     else if (Vv) { jung = Vv.ch; parts = [Vv]; vertical = true; }
     if (!jung) return;
+
+    // 오른쪽 끝 모음 뒤에 ㅣ 하나 더 = ㅐㅔㅒㅖ·ㅙㅞ (ㅐ/ㅔ 블록을 없앤 대신 조합으로 만든다).
+    //   ㅏ+ㅣ=ㅐ, ㅓ+ㅣ=ㅔ, ㅑ+ㅣ=ㅒ, ㅕ+ㅣ=ㅖ, ㅘ+ㅣ=ㅙ, ㅝ+ㅣ=ㅞ
+    if (PLUS_I[jung]) {
+      var right = parts[parts.length - 1];
+      var Vi = nearest(vows, function (v) {
+        if (parts.indexOf(v) >= 0 || v.ch !== 'ㅣ') return null;
+        var dx = v.cx - right.cx, dy = Math.abs(v.cy - right.cy);
+        if (dx <= 0 || dx > 5 || dy > 2.5) return null;
+        return dx + dy;
+      });
+      if (Vi) { jung = PLUS_I[jung]; parts.push(Vi); }
+    }
+
     used.add(A); parts.forEach(function (v) { used.add(v); });
 
     // 받침 — 초성(과 모음) 아래의 자음
@@ -789,9 +833,10 @@ function findBlock(base) {
   for (var i = 0; i < BLOCKS.length; i++) if (BLOCKS[i].base === base) return BLOCKS[i];
   return null;
 }
-// 자음 18 — 기본 방향
+// 자음 13 — 기본 자음만(쌍자음 블록은 없앰: ㄱ 두 개 나란히 = ㄲ 로 인식).
+var DOUBLE_BASES = { 'ㄲ': 1, 'ㄸ': 1, 'ㅃ': 1, 'ㅆ': 1, 'ㅉ': 1 };
 BLOCKS.forEach(function (b) {
-  if (b.kind === 'cho') addTrayBlock('trayCho', b.id, b.rotKeys[0]);
+  if (b.kind === 'cho' && !DOUBLE_BASES[b.base]) addTrayBlock('trayCho', b.id, b.rotKeys[0]);
 });
 // 모음 — ㅏ ㅑ ㅣ 만 (ㅏ=ㅓ블록 180°, ㅑ=ㅕ블록 180°, ㅣ=ㅣ블록). 탭 회전으로 ㅗㅜㅓ 등 다 나온다.
 [['ㅓ', 180], ['ㅕ', 180], ['ㅣ', 0]].forEach(function (pair) {
