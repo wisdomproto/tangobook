@@ -6,7 +6,7 @@
 <title>탱고 보드 — 한글 블록 (프로토타입)</title>
 <style>
   :root {
-    --peg: 20px;              /* 돌기 간격 = 센서 칸 (획 두께는 이것의 STROKE 배) */
+    --peg: 32px;              /* 돌기 간격 = 센서 칸 (획 두께는 이것의 STROKE 배) */
     --yellow: #FFD400;
     --green: #7BE04A;
     --ink: #2b2b2b;
@@ -17,17 +17,18 @@
     font-family: 'Pretendard Variable', Pretendard, -apple-system, 'Malgun Gothic', sans-serif;
     background: #f3f1ee; color: var(--ink);
   }
-  h1 { font-size: 19px; margin: 0 0 4px; }
+  h1 { font-size: 20px; margin: 0 0 12px; text-align: center; }
   .sub { font-size: 13px; color: #777; margin: 0 0 14px; max-width: 940px; line-height: 1.7; }
-  .wrap { display: flex; gap: 18px; align-items: flex-start; flex-wrap: wrap; }
+  .wrap { display: flex; flex-direction: column; align-items: center; gap: 16px; }
 
   .board-shell {
-    background: #fff; border-radius: 28px; padding: 18px;
-    box-shadow: 0 8px 24px rgba(0,0,0,.08); border: 3px solid #e6e2dc;
+    background: #fff; border-radius: 32px; padding: 22px; max-width: 100%;
+    box-shadow: 0 12px 34px rgba(0,0,0,.10); border: 3px solid #e6e2dc;
   }
+  #boardWrap { position: relative; }
   #board {
-    position: relative; background: #fdfcfa;
-    border: 2px solid #f2dede; border-radius: 14px;
+    position: absolute; top: 0; left: 0; transform-origin: top left;
+    background: #fdfcfa; border: 2px solid #f2dede; border-radius: 14px;
     touch-action: none; user-select: none; overflow: hidden;
   }
   /* 돌기 — 판에서 튀어나온 가이드 점. 블록은 돌기 사이 칸에 앉는다. */
@@ -50,14 +51,14 @@
   .blk.cho .ink { stroke: var(--yellow); }
   .blk.jung .ink { stroke: var(--green); }
 
-  .panel { width: 320px; }
+  .panel { width: min(760px, 94vw); }
   .card { background: #fff; border-radius: 16px; padding: 12px 14px; margin-bottom: 12px;
           box-shadow: 0 4px 14px rgba(0,0,0,.06); }
   .card h2 { font-size: 13px; margin: 0 0 8px; color: #888; font-weight: normal; }
-  .tray { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
+  .tray { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; justify-content: center; }
   .tray .blk { position: relative; background: #faf8f5; border: 1px solid #eee;
                border-radius: 8px; padding: 4px; }
-  .out { font-size: 40px; letter-spacing: 4px; min-height: 54px; display: flex; align-items: center; }
+  .out { font-size: 52px; letter-spacing: 6px; min-height: 64px; display: flex; align-items: center; justify-content: center; }
   .out .ph { color: #ccc; font-size: 17px; letter-spacing: 0; }
   button {
     font-family: inherit; font-size: 13px; padding: 8px 12px; border-radius: 10px;
@@ -67,19 +68,18 @@
   .hint { font-size: 12px; color: #999; line-height: 1.8; margin: 0; }
   #selftest { font: 12px/1.7 monospace; white-space: pre-wrap; color: #3a8; }
   #selftest.bad { color: #d33; }
+  @media (max-width: 640px) {
+    body { padding: 10px; }
+    h1 { font-size: 17px; }
+    .out { font-size: 40px; letter-spacing: 3px; }
+    .board-shell { padding: 12px; border-radius: 22px; }
+  }
 </style>
 </head>
 <body>
 <h1>탱고 보드 — 한글 블록 (프로토타입)</h1>
-<p class="sub">
-  판에는 튀어나온 <b>가이드 돌기</b>가 격자로 박혀 있고, 블록은 그 <b>사이 칸</b>에 자유롭게 앉습니다.
-  블록 크기는 실물 실측 그대로 — 자음 3×3칸, ㅣ 1×5, ㅏ·ㅓ 2×5, ㅗ·ㅜ 5×2, 획 두께 0.87칸.
-  칸마다 센서가 있어 0/1/2 를 주고, 그 <b>값 조합만 읽어서</b> 블록 ID·회전·위치를 알아냅니다.
-  물리 블록은 23개(자음 18 + 모음 5)뿐 — 나머지 자모는 전부 회전으로 나옵니다.
-</p>
-
 <div class="wrap">
-  <div class="board-shell"><div id="board"></div></div>
+  <div class="board-shell"><div id="boardWrap"><div id="board"></div></div></div>
 
   <div class="panel">
     <div class="card">
@@ -106,23 +106,6 @@
       <div class="tray" id="trayJung"></div>
     </div>
 
-    <div class="card">
-      <h2>조작</h2>
-      <p class="hint">
-        · 트레이 블록을 판으로 <b>끌어다</b> 놓기 (칸 단위로 아무 데나)<br />
-        · 판 위 블록을 <b>탭</b> 하면 회전 (ㄱ→ㄴ, ㅓ→ㅗ→ㅏ→ㅜ)<br />
-        · 판 밖으로 끌어내면 제거<br />
-        · 자음 <b>오른쪽</b>에 세로모음 = 가, <b>아래</b>에 가로모음 = 구, 그 아래 자음 = 받침<br />
-        · <b>아래 + 오른쪽 둘 다</b> 놓으면 복합모음 — ㅗ+ㅏ=ㅘ, ㅗ+ㅣ=ㅚ, ㅡ+ㅣ=ㅢ<br />
-        · 받침 <b>옆에 자음 하나 더</b> = 겹받침 — ㄹ+ㄱ=ㄺ(닭), ㅂ+ㅅ=ㅄ(값)<br />
-        · 자음+모음이 <b>글자가 되면 그 글자를</b> 읽어줍니다 (ㄱ 옆 ㅓ → 「거」)
-      </p>
-    </div>
-
-    <div class="card">
-      <h2>자체 점검</h2>
-      <div id="selftest">…</div>
-    </div>
   </div>
 </div>
 
@@ -433,9 +416,31 @@ function parseFree(items) {
  * ===================================================================== */
 var PEG = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--peg'));
 var boardEl = document.getElementById('board');
+var boardWrap = document.getElementById('boardWrap');
 var outEl = document.getElementById('out');
-boardEl.style.width = (COLS * PEG) + 'px';
-boardEl.style.height = (ROWS * PEG) + 'px';
+var BOARD_W = COLS * PEG, BOARD_H = ROWS * PEG;
+boardEl.style.width = BOARD_W + 'px';
+boardEl.style.height = BOARD_H + 'px';
+
+// 화면 폭에 맞춰 판 전체를 축소(내부 좌표는 그대로 — 히트테스트가 rect 로 축소율 역산).
+// 🔴 여유값을 추정하지 않고 shell 의 실제 content 폭에서 역산 — 안 그러면 모바일에서 가로 넘침.
+var curScale = 1;
+var shellEl = document.querySelector('.board-shell');
+function layout() {
+  var body = getComputedStyle(document.body);
+  var pageW = document.documentElement.clientWidth
+            - parseFloat(body.paddingLeft) - parseFloat(body.paddingRight);
+  var cs = getComputedStyle(shellEl);
+  var shellInner = pageW
+    - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight)
+    - parseFloat(cs.borderLeftWidth) - parseFloat(cs.borderRightWidth);
+  var avail = Math.min(shellInner, BOARD_W);
+  curScale = Math.max(0.2, Math.min(1, avail / BOARD_W));
+  boardEl.style.transform = 'scale(' + curScale + ')';
+  boardWrap.style.width = (BOARD_W * curScale) + 'px';
+  boardWrap.style.height = (BOARD_H * curScale) + 'px';
+}
+window.addEventListener('resize', layout);
 
 for (var r0 = 0; r0 <= ROWS; r0++) {
   for (var c0 = 0; c0 <= COLS; c0++) {
@@ -611,7 +616,7 @@ function startDrag(e, spec) {
   drag = { id: spec.id, rotDeg: spec.rotDeg, from: spec.from, moved: false,
            x0: e.clientX, y0: e.clientY };
   ghost.className = 'blk ' + BLOCKS[spec.id].kind;
-  paintBlock(ghost, spec.id, spec.rotDeg, PEG);
+  paintBlock(ghost, spec.id, spec.rotDeg, PEG * curScale);
   ghost.style.position = 'fixed'; ghost.style.pointerEvents = 'none';
   ghost.style.zIndex = 99; ghost.style.opacity = .85;
   moveGhost(e);
@@ -619,8 +624,8 @@ function startDrag(e, spec) {
 }
 function moveGhost(e) {
   var sh = BLOCKS[drag.id].byRot[drag.rotDeg];
-  ghost.style.left = (e.clientX - sh.w * PEG / 2) + 'px';
-  ghost.style.top = (e.clientY - sh.h * PEG / 2) + 'px';
+  ghost.style.left = (e.clientX - sh.w * PEG * curScale / 2) + 'px';
+  ghost.style.top = (e.clientY - sh.h * PEG * curScale / 2) + 'px';
   ghost.style.display = 'block';
 }
 
@@ -638,9 +643,10 @@ addEventListener('pointerup', function (e) {
   if (!d.moved && d.from != null) { rotate(d.from); return; }
 
   var rect = boardEl.getBoundingClientRect();
+  var epeg = rect.width / COLS;               // 축소된 화면 한 칸 크기
   var sh = BLOCKS[d.id].byRot[d.rotDeg];
-  var x = Math.round((e.clientX - rect.left) / PEG - sh.w / 2);
-  var y = Math.round((e.clientY - rect.top) / PEG - sh.h / 2);
+  var x = Math.round((e.clientX - rect.left) / epeg - sh.w / 2);
+  var y = Math.round((e.clientY - rect.top) / epeg - sh.h / 2);
   if (x < 0 || y < 0 || x + sh.w > COLS || y + sh.h > ROWS) {
     if (d.from != null) removeAt(d.from);   // 판 밖 = 제거
     return;
@@ -849,9 +855,12 @@ document.getElementById('mute').onclick = function () {
     + 'OK — 예시 6개(김민수·사자·효자동·과자·의사·닭) 센서값만으로 읽힘\n'
     + 'OK — 복합모음 7종(ㅘㅙㅚㅝㅞㅟㅢ) 블록 두 개로 합쳐짐\n'
     + 'OK — 받침 홑 16종 x 모음 3종 48가지 + 겹받침 11종, "갈비" 오인 없음';
+  if (el) { el.className = log.length ? 'bad' : ''; el.textContent = msg; }
+  else if (log.length) { console.error('[tango-board selftest] ' + msg); }
 })();
 
-loadDemo('d1');
+layout();
+render();
 </script>
 </body>
 </html>
