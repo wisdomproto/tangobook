@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>탱고 보드 — 한글 블록 (프로토타입)</title>
+<style>
+  :root {
+    --peg: 20px;              /* 돌기 간격 = 센서 칸 (획 두께는 이것의 STROKE 배) */
+    --yellow: #FFD400;
+    --green: #7BE04A;
+    --ink: #2b2b2b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 16px;
+    font-family: 'Pretendard Variable', Pretendard, -apple-system, 'Malgun Gothic', sans-serif;
+    background: #f3f1ee; color: var(--ink);
+  }
+  h1 { font-size: 19px; margin: 0 0 4px; }
+  .sub { font-size: 13px; color: #777; margin: 0 0 14px; max-width: 940px; line-height: 1.7; }
+  .wrap { display: flex; gap: 18px; align-items: flex-start; flex-wrap: wrap; }
+
+  .board-shell {
+    background: #fff; border-radius: 28px; padding: 18px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.08); border: 3px solid #e6e2dc;
+  }
+  #board {
+    position: relative; background: #fdfcfa;
+    border: 2px solid #f2dede; border-radius: 14px;
+    touch-action: none; user-select: none; overflow: hidden;
+  }
+  /* 돌기 — 판에서 튀어나온 가이드 점. 블록은 돌기 사이 칸에 앉는다. */
+  .dot {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    transform: translate(-50%, -50%); pointer-events: none; z-index: 1;
+    background: radial-gradient(circle at 32% 28%, #fff 0%, #e8e2db 55%, #ccc4bb 100%);
+    box-shadow: 0 1px 1.5px rgba(0,0,0,.15);
+  }
+  .cell { position: absolute; display: none; pointer-events: none; z-index: 4;
+          font: 9px/1 monospace; color: #e2dbd4; transform: translate(-50%, -50%); }
+  body.show-sensor .cell { display: block; }
+  body.show-sensor .cell.on1 { color: #ff7a00; font-weight: bold; }
+  body.show-sensor .cell.on2 { color: #1a6bff; font-weight: bold; }
+
+  .blk { position: absolute; cursor: grab; touch-action: none; z-index: 3; }
+  .blk.dragging { opacity: .3; }
+  .blk svg { display: block; overflow: visible; }
+  .blk .ink { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .blk.cho .ink { stroke: var(--yellow); }
+  .blk.jung .ink { stroke: var(--green); }
+
+  .panel { width: 320px; }
+  .card { background: #fff; border-radius: 16px; padding: 12px 14px; margin-bottom: 12px;
+          box-shadow: 0 4px 14px rgba(0,0,0,.06); }
+  .card h2 { font-size: 13px; margin: 0 0 8px; color: #888; font-weight: normal; }
+  .tray { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
+  .tray .blk { position: relative; background: #faf8f5; border: 1px solid #eee;
+               border-radius: 8px; padding: 4px; }
+  .out { font-size: 40px; letter-spacing: 4px; min-height: 54px; display: flex; align-items: center; }
+  .out .ph { color: #ccc; font-size: 17px; letter-spacing: 0; }
+  button {
+    font-family: inherit; font-size: 13px; padding: 8px 12px; border-radius: 10px;
+    border: none; background: #ff6b4a; color: #fff; cursor: pointer; margin: 0 5px 5px 0;
+  }
+  button.ghost { background: #eee; color: #555; }
+  .hint { font-size: 12px; color: #999; line-height: 1.8; margin: 0; }
+  #selftest { font: 12px/1.7 monospace; white-space: pre-wrap; color: #3a8; }
+  #selftest.bad { color: #d33; }
+</style>
+</head>
+<body>
+<h1>탱고 보드 — 한글 블록 (프로토타입)</h1>
+<p class="sub">
+  판에는 튀어나온 <b>가이드 돌기</b>가 격자로 박혀 있고, 블록은 그 <b>사이 칸</b>에 자유롭게 앉습니다.
+  블록 크기는 실물 실측 그대로 — 자음 3×3칸, ㅣ 1×5, ㅏ·ㅓ 2×5, ㅗ·ㅜ 5×2, 획 두께 0.87칸.
+  칸마다 센서가 있어 0/1/2 를 주고, 그 <b>값 조합만 읽어서</b> 블록 ID·회전·위치를 알아냅니다.
+  물리 블록은 23개(자음 18 + 모음 5)뿐 — 나머지 자모는 전부 회전으로 나옵니다.
+</p>
+
+<div class="wrap">
+  <div class="board-shell"><div id="board"></div></div>
+
+  <div class="panel">
+    <div class="card">
+      <h2>읽은 글자</h2>
+      <div class="out" id="out"><span class="ph">블록을 올려보세요</span></div>
+      <div style="margin-top:10px">
+        <button id="speak">🔊 읽어주기</button>
+        <button class="ghost" id="clear">지우기</button>
+        <button class="ghost" id="mute">🔊 소리 켜짐</button>
+        <button class="ghost" id="toggleSensor">센서값</button>
+        <button class="ghost" id="d1">김민수</button>
+        <button class="ghost" id="d2">사자</button>
+        <button class="ghost" id="d3">효자동</button>
+        <button class="ghost" id="d4">과자</button>
+        <button class="ghost" id="d5">의사</button>
+        <button class="ghost" id="d6">닭</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>자음 블록 (18)</h2>
+      <div class="tray" id="trayCho"></div>
+      <h2 style="margin-top:12px">모음 블록 (5)</h2>
+      <div class="tray" id="trayJung"></div>
+    </div>
+
+    <div class="card">
+      <h2>조작</h2>
+      <p class="hint">
+        · 트레이 블록을 판으로 <b>끌어다</b> 놓기 (칸 단위로 아무 데나)<br />
+        · 판 위 블록을 <b>탭</b> 하면 회전 (ㄱ→ㄴ, ㅓ→ㅗ→ㅏ→ㅜ)<br />
+        · 판 밖으로 끌어내면 제거<br />
+        · 자음 <b>오른쪽</b>에 세로모음 = 가, <b>아래</b>에 가로모음 = 구, 그 아래 자음 = 받침<br />
+        · <b>아래 + 오른쪽 둘 다</b> 놓으면 복합모음 — ㅗ+ㅏ=ㅘ, ㅗ+ㅣ=ㅚ, ㅡ+ㅣ=ㅢ<br />
+        · 받침 <b>옆에 자음 하나 더</b> = 겹받침 — ㄹ+ㄱ=ㄺ(닭), ㅂ+ㅅ=ㅄ(값)<br />
+        · 자음+모음이 <b>글자가 되면 그 글자를</b> 읽어줍니다 (ㄱ 옆 ㅓ → 「거」)
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>자체 점검</h2>
+      <div id="selftest">…</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+ * 1. 블록 모양 — 실물 실측 (사진에서 잰 값, 격자 18.3px 기준)
+ *
+ *    자음 3x3칸 · 쌍자음 6x3 · ㅣ 1x5 · ㅏㅓ 2x5 · ㅗㅜ 5x2
+ *    좌표는 칸 단위, 획의 "중심선". 획은 STROKE 두께의 둥근 선으로 그린다.
+ * ===================================================================== */
+function S(base, kind, w, h, paths, circles, rots) {
+  return { base: base, kind: kind, w: w, h: h,
+           paths: paths || [], circles: circles || [], rots: rots };
+}
+// 자음 한 벌(3x3)을 x 만큼 옮겨 복제 — 쌍자음용
+function twin(paths, dx) {
+  return paths.concat(paths.map(function (p) {
+    return p.map(function (q) { return [q[0] + dx, q[1]]; });
+  }));
+}
+function twinC(circles, dx) {
+  return circles.concat(circles.map(function (c) { return [c[0] + dx, c[1], c[2]]; }));
+}
+
+var P_G = [[[0.5,0.5],[2.5,0.5],[2.5,2.5]]];                                   // ㄱ
+var P_D = [[[2.5,0.5],[0.5,0.5],[0.5,2.5],[2.5,2.5]]];                         // ㄷ
+var P_B = [[[0.5,0.5],[0.5,2.5],[2.5,2.5],[2.5,0.5]],[[0.5,1.6],[2.5,1.6]]];   // ㅂ
+var P_S = [[[0.5,2.5],[1.5,0.5],[2.5,2.5]]];                                   // ㅅ
+var P_J = [[[0.5,0.5],[2.5,0.5]],[[0.5,2.5],[1.5,1.0],[2.5,2.5]]];             // ㅈ
+
+var BLOCKS = [
+  S('ㄱ','cho',3,3,P_G,null,{0:'ㄱ',180:'ㄴ'}),
+  S('ㄷ','cho',3,3,P_D,null,{0:'ㄷ'}),
+  S('ㄹ','cho',3,3,[[[0.5,0.5],[2.5,0.5],[2.5,1.5],[0.5,1.5],[0.5,2.5],[2.5,2.5]]],null,{0:'ㄹ'}),
+  S('ㅁ','cho',3,3,[[[0.5,0.5],[2.5,0.5],[2.5,2.5],[0.5,2.5],[0.5,0.5]]],null,{0:'ㅁ'}),
+  S('ㅂ','cho',3,3,P_B,null,{0:'ㅂ'}),
+  S('ㅅ','cho',3,3,P_S,null,{0:'ㅅ'}),
+  S('ㅇ','cho',3,3,null,[[1.5,1.5,1.0]],{0:'ㅇ'}),
+  S('ㅈ','cho',3,3,P_J,null,{0:'ㅈ'}),
+  S('ㅊ','cho',3,3,[[[1.5,0.5],[1.5,0.62]],[[0.5,1.15],[2.5,1.15]],
+                    [[0.5,2.5],[1.5,1.5],[2.5,2.5]]],null,{0:'ㅊ'}),
+  S('ㅋ','cho',3,3,[[[0.5,0.5],[2.5,0.5],[2.5,2.5]],[[0.5,1.5],[2.5,1.5]]],null,{0:'ㅋ'}),
+  S('ㅌ','cho',3,3,[[[2.5,0.5],[0.5,0.5],[0.5,2.5],[2.5,2.5]],[[0.5,1.5],[2.5,1.5]]],null,{0:'ㅌ'}),
+  S('ㅍ','cho',3,3,[[[0.5,0.5],[2.5,0.5]],[[0.5,2.5],[2.5,2.5]],
+                    [[1.1,0.5],[1.1,2.5]],[[1.9,0.5],[1.9,2.5]]],null,{0:'ㅍ'}),
+  S('ㅎ','cho',3,3,[[[1.5,0.5],[1.5,0.62]],[[0.5,1.15],[2.5,1.15]]],
+                   [[1.5,2.15,0.35]],{0:'ㅎ'}),
+  S('ㄲ','cho',6,3,twin(P_G,3),null,{0:'ㄲ'}),
+  S('ㄸ','cho',6,3,twin(P_D,3),null,{0:'ㄸ'}),
+  S('ㅃ','cho',6,3,twin(P_B,3),null,{0:'ㅃ'}),
+  S('ㅆ','cho',6,3,twin(P_S,3),null,{0:'ㅆ'}),
+  S('ㅉ','cho',6,3,twin(P_J,3),null,{0:'ㅉ'}),
+  // 모음 — 세로바가 오른쪽, 짧은 획이 왼쪽. 돌리면 ㅗ / ㅏ / ㅜ.
+  S('ㅓ','jung',2,5,[[[1.5,0.5],[1.5,4.5]],[[0.5,2.5],[1.5,2.5]]],null,
+    {0:'ㅓ',90:'ㅗ',180:'ㅏ',270:'ㅜ'}),
+  S('ㅕ','jung',2,5,[[[1.5,0.5],[1.5,4.5]],[[0.5,1.7],[1.5,1.7]],[[0.5,3.3],[1.5,3.3]]],null,
+    {0:'ㅕ',90:'ㅛ',180:'ㅑ',270:'ㅠ'}),
+  S('ㅣ','jung',1,5,[[[0.5,0.5],[0.5,4.5]]],null,{0:'ㅣ',90:'ㅡ'}),
+  // 짧은 획이 왼쪽 바에 붙어 비대칭 -> 180도 돌리면 오른쪽 바에 붙어 ㅔ 가 된다.
+  // 🔴 폭 4 (바 사이 2칸). 폭 3 이면 짧은 획이 두 바 사이의 유일한 빈 열만 채워
+  //    180도 돌려도 칸 집합이 똑같아져 ㅔ 와 구별이 사라진다 (자체 점검이 잡음).
+  S('ㅐ','jung',4,5,[[[0.5,0.5],[0.5,4.5]],[[3.5,0.5],[3.5,4.5]],[[0.5,2.5],[1.5,2.5]]],null,
+    {0:'ㅐ',180:'ㅔ'}),
+  S('ㅒ','jung',4,5,[[[0.5,0.5],[0.5,4.5]],[[3.5,0.5],[3.5,4.5]],
+                     [[0.5,1.7],[1.5,1.7]],[[0.5,3.3],[1.5,3.3]]],null,{0:'ㅒ',180:'ㅖ'}),
+];
+
+/* ---- 회전 (시계 90도): (x,y) -> (H - y, x), 폭/높이가 서로 바뀐다 ---- */
+function rotShape(sh, k) {
+  var w = sh.w, h = sh.h, paths = sh.paths, circles = sh.circles;
+  for (var i = 0; i < (k & 3); i++) {
+    var H = h;
+    paths = paths.map(function (p) { return p.map(function (q) { return [H - q[1], q[0]]; }); });
+    circles = circles.map(function (c) { return [H - c[1], c[0], c[2]]; });
+    var t = w; w = h; h = t;
+  }
+  return { w: w, h: h, paths: paths, circles: circles };
+}
+
+/* ---- 획을 칸으로 래스터화 -> 그 중 5칸에 핀 ---- */
+function rasterize(sh) {
+  var set = {};
+  function put(x, y) {
+    var c = Math.floor(x), r = Math.floor(y);
+    if (r >= 0 && r < sh.h && c >= 0 && c < sh.w) set[r + ',' + c] = 1;
+  }
+  sh.paths.forEach(function (p) {
+    for (var i = 0; i + 1 < p.length; i++) {
+      var a = p[i], b = p[i + 1];
+      var n = Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 0.15);
+      for (var t = 0; t <= n; t++) put(a[0] + (b[0]-a[0]) * t/n, a[1] + (b[1]-a[1]) * t/n);
+    }
+  });
+  sh.circles.forEach(function (c) {
+    for (var t = 0; t < 200; t++) {
+      var th = t / 200 * Math.PI * 2;
+      put(c[0] + Math.cos(th) * c[2], c[1] + Math.sin(th) * c[2]);
+    }
+  });
+  return Object.keys(set).map(function (k) { return k.split(',').map(Number); })
+    .sort(function (a, z) { return (a[0] - z[0]) || (a[1] - z[1]); });
+}
+
+BLOCKS.forEach(function (b, i) {
+  b.id = i;
+  b.paths = b.paths || []; b.circles = b.circles || [];
+  b.rotKeys = Object.keys(b.rots).map(Number).sort(function (a, z) { return a - z; });
+  b.byRot = {};
+  b.rotKeys.forEach(function (rd) {
+    var sh = rotShape(b, rd / 90);
+    var cells = rasterize(sh);
+    var pins = [];
+    for (var j = 0; j < 5; j++) pins.push(cells[Math.floor(j * (cells.length - 1) / 4)]);
+    sh.pins = pins;
+    b.byRot[rd] = sh;
+  });
+});
+
+/* =====================================================================
+ * 2. 센서 판 — 자유 배치라 "창"이 없다. 판 전체를 훑어 핀 패턴을 맞춘다.
+ * ===================================================================== */
+var COLS = 24, ROWS = 15;                 // 센서 칸 (돌기는 그 +1)
+
+function emptySensor() {
+  var g = [];
+  for (var r = 0; r < ROWS; r++) { g.push(new Array(COLS).fill(0)); }
+  return g;
+}
+function stamp(sensor, x, y, id, rotDeg) {
+  BLOCKS[id].byRot[rotDeg].pins.forEach(function (p, i) {
+    var r = y + p[0], c = x + p[1];
+    if (r >= 0 && r < ROWS && c >= 0 && c < COLS) sensor[r][c] = ((id >> i) & 1) + 1;
+  });
+}
+
+/** 핀 배치를 "첫 핀 기준 상대좌표 + 값" 으로 정규화 = 하드웨어에 구워둘 사전 키. */
+function patternKey(pins, id) {
+  var a = pins[0];
+  return pins.map(function (p, i) {
+    return (p[0] - a[0]) + ',' + (p[1] - a[1]) + '=' + (((id >> i) & 1) + 1);
+  }).join('|');
+}
+var PATTERNS = [];
+BLOCKS.forEach(function (b) {
+  b.rotKeys.forEach(function (rd) {
+    PATTERNS.push({ key: patternKey(b.byRot[rd].pins, b.id), id: b.id, rotDeg: rd,
+                    anchor: b.byRot[rd].pins[0] });
+  });
+});
+var PATTERN_BY_KEY = {};
+PATTERNS.forEach(function (p) { PATTERN_BY_KEY[p.key] = p; });
+
+/**
+ * 인식 — 센서 배열만 보고 어떤 블록이 어디에 어느 방향으로 있는지 복원한다.
+ * 위->아래, 왼->오 로 훑다가 눌린 칸을 만나면 그 칸을 "첫 핀" 으로 보고 사전과 대조.
+ */
+function recognize(sensor) {
+  var left = {};
+  for (var r = 0; r < ROWS; r++)
+    for (var c = 0; c < COLS; c++) if (sensor[r][c]) left[r + ',' + c] = sensor[r][c];
+
+  var found = [];
+  for (var r2 = 0; r2 < ROWS; r2++) {
+    for (var c2 = 0; c2 < COLS; c2++) {
+      var k0 = r2 + ',' + c2;
+      if (!left[k0]) continue;
+      var hit = null;
+      for (var i = 0; i < PATTERNS.length; i++) {
+        var pat = PATTERNS[i], b = BLOCKS[pat.id], pins = b.byRot[pat.rotDeg].pins, ok = true;
+        for (var j = 0; j < pins.length; j++) {
+          var rr = r2 + pins[j][0] - pins[0][0], cc = c2 + pins[j][1] - pins[0][1];
+          if (left[rr + ',' + cc] !== ((pat.id >> j) & 1) + 1) { ok = false; break; }
+        }
+        if (ok) { hit = { pat: pat, pins: pins }; break; }
+      }
+      if (!hit) continue;
+      hit.pins.forEach(function (p) {
+        delete left[(r2 + p[0] - hit.pins[0][0]) + ',' + (c2 + p[1] - hit.pins[0][1])];
+      });
+      var sh = BLOCKS[hit.pat.id].byRot[hit.pat.rotDeg];
+      found.push({
+        ch: BLOCKS[hit.pat.id].rots[hit.pat.rotDeg],
+        x: c2 - hit.pins[0][1], y: r2 - hit.pins[0][0], w: sh.w, h: sh.h
+      });
+    }
+  }
+  return found;
+}
+
+/* =====================================================================
+ * 3. 한글 조합 — 슬롯이 없으므로 블록 중심 좌표(칸)로 판단한다.
+ *    자음 오른쪽에 세로형 모음 = 가로 조합(가) / 아래에 가로형 모음 = 세로 조합(구)
+ *    받침은 그 아래 자음.
+ * ===================================================================== */
+var CHO = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+var JUNG = ['ㅏ','ㅐ','ㅑ','ㅒ','ㅓ','ㅔ','ㅕ','ㅖ','ㅗ','ㅘ','ㅙ','ㅚ','ㅛ','ㅜ','ㅝ','ㅞ','ㅟ','ㅠ','ㅡ','ㅢ','ㅣ'];
+var JONG = ['','ㄱ','ㄲ','ㄳ','ㄴ','ㄵ','ㄶ','ㄷ','ㄹ','ㄺ','ㄻ','ㄼ','ㄽ','ㄾ','ㄿ','ㅀ','ㅁ','ㅂ','ㅄ','ㅅ','ㅆ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+var JUNG_SET = new Set(JUNG);
+// 복합모음 = 가로모음 블록 + 그 오른쪽 세로모음 블록
+var COMPOUND = { 'ㅗㅏ':'ㅘ', 'ㅗㅐ':'ㅙ', 'ㅗㅣ':'ㅚ',
+                 'ㅜㅓ':'ㅝ', 'ㅜㅔ':'ㅞ', 'ㅜㅣ':'ㅟ', 'ㅡㅣ':'ㅢ' };
+// 겹받침 = 받침 자음 오른쪽에 자음 하나 더
+var DOUBLE_JONG = { 'ㄱㅅ':'ㄳ', 'ㄴㅈ':'ㄵ', 'ㄴㅎ':'ㄶ', 'ㄹㄱ':'ㄺ', 'ㄹㅁ':'ㄻ', 'ㄹㅂ':'ㄼ',
+                    'ㄹㅅ':'ㄽ', 'ㄹㅌ':'ㄾ', 'ㄹㅍ':'ㄿ', 'ㄹㅎ':'ㅀ', 'ㅂㅅ':'ㅄ' };
+function isVowel(ch) { return JUNG_SET.has(ch); }
+
+function composeHangul(cho, jung, jong) {
+  var ci = CHO.indexOf(cho), ji = JUNG.indexOf(jung), ki = jong ? JONG.indexOf(jong) : 0;
+  if (ci < 0 || ji < 0 || ki < 0) return null;
+  return String.fromCharCode(0xAC00 + (ci * 21 + ji) * 28 + ki);
+}
+
+function parseFree(items) {
+  items.forEach(function (it) { it.cx = it.x + it.w / 2; it.cy = it.y + it.h / 2; });
+  var cons = items.filter(function (i) { return !isVowel(i.ch); });
+  var vows = items.filter(function (i) { return isVowel(i.ch); });
+  cons.sort(function (a, b) { return (a.cx - b.cx) || (a.cy - b.cy); });
+  var used = new Set(), out = [];
+
+  function nearest(list, ok) {
+    var best = null, bd = 1e9;
+    list.forEach(function (v) {
+      if (used.has(v)) return;
+      var d = ok(v);
+      if (d != null && d < bd) { bd = d; best = v; }
+    });
+    return best;
+  }
+  /** 이 자음이 자기 모음을 데리고 있는가 = 받침이 아니라 다음 음절의 초성이다. */
+  function hasOwnVowel(c) {
+    return vows.some(function (v) {
+      if (used.has(v)) return false;
+      if (v.h > v.w) {   // 세로형 모음이 오른쪽에
+        return v.cx - c.cx > 0 && v.cx - c.cx <= 7 && Math.abs(v.cy - c.cy) <= 2.5;
+      }
+      return v.cy - c.cy > 0 && v.cy - c.cy <= 7 && Math.abs(v.cx - c.cx) <= 3.5;
+    });
+  }
+
+  cons.forEach(function (A) {
+    if (used.has(A)) return;
+    // 오른쪽의 세로형 모음 (ㅏㅓㅣㅐ…) — 가로 조합
+    var Vh = nearest(vows, function (v) {
+      if (v.h <= v.w) return null;
+      var dx = v.cx - A.cx, dy = Math.abs(v.cy - A.cy);
+      if (dx <= 0 || dx > 7 || dy > 2.5) return null;
+      return dx + dy;
+    });
+    // 아래의 가로형 모음 (ㅗㅜㅛㅡ…) — 세로 조합
+    var Vv = nearest(vows, function (v) {
+      if (v.w <= v.h) return null;
+      var dy = v.cy - A.cy, dx = Math.abs(v.cx - A.cx);
+      if (dy <= 0 || dy > 7 || dx > 3.5) return null;
+      return dy + dx;
+    });
+
+    // 둘 다 있고 합쳐지는 짝이면 복합모음 — ㅗ+ㅏ=ㅘ, ㅡ+ㅣ=ㅢ …
+    var jung = null, parts = [], vertical = false;
+    if (Vv && Vh && Vh.cx > Vv.cx && COMPOUND[Vv.ch + Vh.ch]) {
+      jung = COMPOUND[Vv.ch + Vh.ch]; parts = [Vv, Vh]; vertical = true;
+    } else if (Vh) { jung = Vh.ch; parts = [Vh]; }
+    else if (Vv) { jung = Vv.ch; parts = [Vv]; vertical = true; }
+    if (!jung) return;
+    used.add(A); parts.forEach(function (v) { used.add(v); });
+
+    // 받침 — 초성(과 모음) 아래의 자음
+    var floorY = vertical ? Vv.cy : A.cy;
+    var xs = [A.cx].concat(parts.map(function (v) { return v.cx; }));
+    var loL = Math.min.apply(null, xs) - 2.5, hiL = Math.max.apply(null, xs) + 2.5;
+    var J = nearest(cons, function (c) {
+      if (c === A) return null;
+      var dy = c.cy - floorY;
+      if (dy < 1.5 || dy > 7) return null;
+      if (c.cx < loL || c.cx > hiL) return null;
+      return dy + Math.abs(c.cx - A.cx);
+    });
+    var jongCh = null, J2 = null;
+    if (J) {
+      used.add(J);
+      jongCh = J.ch;
+      // 겹받침 — 받침 오른쪽에 붙은 자음. 🔴 그 자음이 자기 모음을 데리고 있으면
+      //           겹받침이 아니라 다음 음절의 초성이다 ('갈비' 를 '갋이' 로 읽지 않게).
+      J2 = nearest(cons, function (c) {
+        if (c === A || c === J) return null;
+        var dx = c.cx - J.cx, dy = Math.abs(c.cy - J.cy);
+        if (dx <= 0 || dx > 6 || dy > 2) return null;
+        if (!DOUBLE_JONG[J.ch + c.ch]) return null;
+        if (hasOwnVowel(c)) return null;
+        return dx + dy;
+      });
+      if (J2) { used.add(J2); jongCh = DOUBLE_JONG[J.ch + J2.ch]; }
+    }
+
+    var s = composeHangul(A.ch, jung, jongCh);
+    if (s) out.push({ s: s, cx: A.cx, cy: A.cy });
+    else {
+      used.delete(A); parts.forEach(function (v) { used.delete(v); });
+      if (J) used.delete(J); if (J2) used.delete(J2);
+    }
+  });
+
+  out.sort(function (a, b) { return (a.cx - b.cx) || (a.cy - b.cy); });
+  return out.map(function (x) { return x.s; });
+}
+
+/* =====================================================================
+ * 4. 화면
+ * ===================================================================== */
+var PEG = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--peg'));
+var boardEl = document.getElementById('board');
+var outEl = document.getElementById('out');
+boardEl.style.width = (COLS * PEG) + 'px';
+boardEl.style.height = (ROWS * PEG) + 'px';
+
+for (var r0 = 0; r0 <= ROWS; r0++) {
+  for (var c0 = 0; c0 <= COLS; c0++) {
+    var dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.style.left = (c0 * PEG) + 'px';
+    dot.style.top = (r0 * PEG) + 'px';
+    boardEl.appendChild(dot);
+  }
+}
+var cellEls = [];
+for (var r1 = 0; r1 < ROWS; r1++) {
+  cellEls[r1] = [];
+  for (var c1 = 0; c1 < COLS; c1++) {
+    var ce = document.createElement('div');
+    ce.className = 'cell';
+    ce.style.left = ((c1 + 0.5) * PEG) + 'px';
+    ce.style.top = ((r1 + 0.5) * PEG) + 'px';
+    ce.textContent = '0';
+    boardEl.appendChild(ce);
+    cellEls[r1][c1] = ce;
+  }
+}
+
+var placed = [];   // 사람이 올려놓은 것. 인식기는 이걸 안 보고 센서만 본다.
+
+/** 블록 = 두께 1칸짜리 둥근 획 (SVG). 획 없는 곳으로 돌기가 그대로 보인다. */
+function makeBlockEl(id, rotDeg, px) {
+  var el = document.createElement('div');
+  el.className = 'blk ' + BLOCKS[id].kind;
+  paintBlock(el, id, rotDeg, px);
+  return el;
+}
+// 획 두께 / 칸 — 실측 16px / 18.3px. 칸을 꽉 채우면(1.0) 실물보다 굵어 보인다.
+var STROKE = 0.87;
+function paintBlock(el, id, rotDeg, px) {
+  var sh = BLOCKS[id].byRot[rotDeg], sw = px * STROKE;
+  var svg = '<svg width="' + (sh.w * px) + '" height="' + (sh.h * px) + '">';
+  sh.paths.forEach(function (p) {
+    svg += '<polyline class="ink" stroke-width="' + sw + '" points="' +
+      p.map(function (q) { return (q[0] * px) + ',' + (q[1] * px); }).join(' ') + '"/>';
+  });
+  sh.circles.forEach(function (c) {
+    svg += '<circle class="ink" stroke-width="' + sw + '" cx="' + (c[0] * px) +
+      '" cy="' + (c[1] * px) + '" r="' + (c[2] * px) + '"/>';
+  });
+  el.innerHTML = svg + '</svg>';
+  el.style.width = (sh.w * px) + 'px';
+  el.style.height = (sh.h * px) + 'px';
+}
+
+/* =====================================================================
+ * 4.5 소리 — 앱의 한글 블록 게임(KoreanBlockPlayer)과 같은 정책
+ *   · 파닉스 라이브러리 음절 mp3 우선, 없으면 Web Speech ko-KR 폴백
+ *   · 🔴 setTimeout 으로 소리 길이를 추정하지 않는다 — 항상 ended 콜백으로 이어붙인다
+ *   · 🔴 소리 사이 쉼 420ms — 콜백만 걸면 1~3ms 로 붙어 겹쳐 들린다
+ *   · 세대(audioGen) — 새 소리가 시작되면 진행 중이던 체인의 콜백은 다음 걸 트리거하지 않는다
+ * ===================================================================== */
+var PHONICS_BASE =
+  'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-library/mod_korean/';
+var GAP = 420;
+var muted = false;
+var silent = false;          // 예시 불러오기처럼 여러 블록이 한꺼번에 놓일 때
+var audioGen = 0;
+var lastAudio = null, chainTimer = null;
+
+function soundUrl(ch) { return PHONICS_BASE + encodeURIComponent(ch) + '.mp3'; }
+
+function stopAll() {
+  audioGen++;
+  if (chainTimer) { clearTimeout(chainTimer); chainTimer = null; }
+  if (lastAudio) { lastAudio.pause(); lastAudio.src = ''; lastAudio = null; }
+  try { speechSynthesis.cancel(); } catch (e) { /* 미지원 */ }
+}
+
+function speakFallback(text, onDone) {
+  if (typeof speechSynthesis === 'undefined') { if (onDone) onDone(); return; }
+  var gen = audioGen, fired = false;
+  function go() {
+    if (fired) return;
+    fired = true;
+    if (gen !== audioGen) return;
+    if (onDone) onDone();
+  }
+  try {
+    speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'ko-KR'; u.rate = 0.9;
+    u.onend = go; u.onerror = go;
+    speechSynthesis.speak(u);
+    setTimeout(go, 1600);      // onend 가 안 오는 브라우저 대비 (앱도 같은 안전장치)
+  } catch (e) { go(); }
+}
+
+/** 한 글자(자모 또는 음절) 재생. 음원이 없으면(404) 음성합성으로 넘어간다. */
+function playOne(ch, onDone) {
+  var gen = audioGen, done = false;
+  var a = new Audio(soundUrl(ch));
+  lastAudio = a;
+  function finish(ok) {
+    if (done) return;
+    done = true;
+    if (gen !== audioGen) return;
+    if (ok) { if (onDone) onDone(); }
+    else speakFallback(ch, onDone);
+  }
+  a.addEventListener('ended', function () { finish(true); });
+  a.addEventListener('error', function () { finish(false); });   // 없는 음절 = 404
+  a.play().catch(function () { finish(false); });
+}
+
+/** 여러 글자를 쉼을 두고 이어 읽는다. */
+function playChain(chars, i) {
+  i = i || 0;
+  if (i >= chars.length) return;
+  var gen = audioGen;
+  playOne(chars[i], function () {
+    if (i + 1 >= chars.length) return;
+    chainTimer = setTimeout(function () {
+      if (gen !== audioGen) return;
+      playChain(chars, i + 1);
+    }, GAP);
+  });
+}
+
+// 자모 음원 미리 받아두기 — 첫 탭에서 소리가 늦지 않게
+setTimeout(function () {
+  var seen = {};
+  BLOCKS.forEach(function (b) {
+    b.rotKeys.forEach(function (rd) { seen[b.rots[rd]] = 1; });
+  });
+  Object.keys(seen).forEach(function (ch) {
+    fetch(soundUrl(ch), { mode: 'no-cors', cache: 'force-cache' }).catch(function () {});
+  });
+}, 600);
+
+var prevSyllables = [];
+
+function render() {
+  var sensor = emptySensor();
+  placed.forEach(function (p) { stamp(sensor, p.x, p.y, p.id, p.rotDeg); });
+  for (var r = 0; r < ROWS; r++) {
+    for (var c = 0; c < COLS; c++) {
+      var v = sensor[r][c], el = cellEls[r][c];
+      el.className = 'cell' + (v ? ' on' + v : '');
+      el.textContent = v;
+    }
+  }
+  var syls = parseFree(recognize(sensor));
+  var text = syls.join('');
+  outEl.dataset.text = text;
+  outEl.innerHTML = text ? text : '<span class="ph">블록을 올려보세요</span>';
+
+  // 🔴 앱(KoreanBlockPlayer)과 동일 — 낱자모는 읽지 않고, 새로 생기거나 바뀐 음절만 읽는다.
+  //    ('ㄱ' 있는 데 'ㅓ' 놓으면 'ㅓ 거' 가 아니라 '거' 만.)
+  if (!muted && !silent) {
+    var chain = [];
+    for (var i2 = 0; i2 < syls.length; i2++) {
+      if (syls[i2] !== prevSyllables[i2]) chain.push(syls[i2]);
+    }
+    if (chain.length) { stopAll(); playChain(chain, 0); }
+  }
+  prevSyllables = syls;
+}
+
+/* ---- 드래그 ---- */
+var drag = null;
+var ghost = document.createElement('div');
+ghost.style.display = 'none';
+document.body.appendChild(ghost);
+
+function startDrag(e, spec) {
+  drag = { id: spec.id, rotDeg: spec.rotDeg, from: spec.from, moved: false,
+           x0: e.clientX, y0: e.clientY };
+  ghost.className = 'blk ' + BLOCKS[spec.id].kind;
+  paintBlock(ghost, spec.id, spec.rotDeg, PEG);
+  ghost.style.position = 'fixed'; ghost.style.pointerEvents = 'none';
+  ghost.style.zIndex = 99; ghost.style.opacity = .85;
+  moveGhost(e);
+  if (spec.from != null) placed[spec.from].el.classList.add('dragging');
+}
+function moveGhost(e) {
+  var sh = BLOCKS[drag.id].byRot[drag.rotDeg];
+  ghost.style.left = (e.clientX - sh.w * PEG / 2) + 'px';
+  ghost.style.top = (e.clientY - sh.h * PEG / 2) + 'px';
+  ghost.style.display = 'block';
+}
+
+addEventListener('pointermove', function (e) {
+  if (!drag) return;
+  if (Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0) > 6) drag.moved = true;
+  moveGhost(e);
+});
+
+addEventListener('pointerup', function (e) {
+  if (!drag) return;
+  var d = drag; drag = null;
+  ghost.style.display = 'none';
+  if (d.from != null) placed[d.from].el.classList.remove('dragging');
+  if (!d.moved && d.from != null) { rotate(d.from); return; }
+
+  var rect = boardEl.getBoundingClientRect();
+  var sh = BLOCKS[d.id].byRot[d.rotDeg];
+  var x = Math.round((e.clientX - rect.left) / PEG - sh.w / 2);
+  var y = Math.round((e.clientY - rect.top) / PEG - sh.h / 2);
+  if (x < 0 || y < 0 || x + sh.w > COLS || y + sh.h > ROWS) {
+    if (d.from != null) removeAt(d.from);   // 판 밖 = 제거
+    return;
+  }
+  if (d.from != null) move(d.from, x, y);
+  else add(d.id, d.rotDeg, x, y);
+});
+
+function place(p) {
+  p.el.style.left = (p.x * PEG) + 'px';
+  p.el.style.top = (p.y * PEG) + 'px';
+}
+function add(id, rotDeg, x, y) {
+  var el = makeBlockEl(id, rotDeg, PEG);
+  boardEl.appendChild(el);
+  var p = { id: id, rotDeg: rotDeg, x: x, y: y, el: el };
+  placed.push(p); place(p);
+  el.addEventListener('pointerdown', function (ev) {
+    ev.preventDefault();
+    startDrag(ev, { id: p.id, rotDeg: p.rotDeg, from: placed.indexOf(p) });
+  });
+  render();
+}
+function move(i, x, y) { var p = placed[i]; p.x = x; p.y = y; place(p); render(); }
+function rotate(i) {
+  var p = placed[i], keys = BLOCKS[p.id].rotKeys;
+  p.rotDeg = keys[(keys.indexOf(p.rotDeg) + 1) % keys.length];
+  paintBlock(p.el, p.id, p.rotDeg, PEG);
+  var sh = BLOCKS[p.id].byRot[p.rotDeg];
+  p.x = Math.min(p.x, COLS - sh.w); p.y = Math.min(p.y, ROWS - sh.h);
+  place(p);
+  render();
+}
+function removeAt(i) { placed[i].el.remove(); placed.splice(i, 1); render(); }
+function clearBoard() { placed.forEach(function (p) { p.el.remove(); }); placed = []; render(); }
+
+/* ---- 트레이 ---- */
+var TRAY_PX = 11;
+BLOCKS.forEach(function (b) {
+  var el = makeBlockEl(b.id, b.rotKeys[0], TRAY_PX);
+  el.title = b.base;
+  el.addEventListener('pointerdown', function (ev) {
+    ev.preventDefault();
+    startDrag(ev, { id: b.id, rotDeg: b.rotKeys[0], from: null });
+  });
+  document.getElementById(b.kind === 'cho' ? 'trayCho' : 'trayJung').appendChild(el);
+});
+
+/* ---- 예시 (사진에서 잰 칸 좌표) ---- */
+function blockOf(ch) {
+  for (var i = 0; i < BLOCKS.length; i++) {
+    var keys = BLOCKS[i].rotKeys;
+    for (var j = 0; j < keys.length; j++) if (BLOCKS[i].rots[keys[j]] === ch) return { id: i, rotDeg: keys[j] };
+  }
+  return null;
+}
+var DEMOS = {
+  d1: { word: '김민수', set: [['ㄱ',3,4],['ㅣ',7,3],['ㅁ',5,9],
+                              ['ㅁ',10,4],['ㅣ',14,3],['ㄴ',12,9],
+                              ['ㅅ',18,4],['ㅜ',17,8]] },
+  d2: { word: '사자',   set: [['ㅅ',5,6],['ㅏ',9,5],['ㅈ',13,6],['ㅏ',17,5]] },
+  d3: { word: '효자동', set: [['ㅎ',5,5],['ㅛ',4,9],
+                              ['ㅈ',10,6],['ㅏ',14,5],
+                              ['ㄷ',18,4],['ㅗ',17,8],['ㅇ',18,10]] },
+  // 복합모음 — ㅘ(ㅗ+ㅏ) · ㅢ(ㅡ+ㅣ)
+  d4: { word: '과자',   set: [['ㄱ',3,3],['ㅗ',3,7],['ㅏ',9,3],
+                              ['ㅈ',13,3],['ㅏ',17,3]] },
+  d5: { word: '의사',   set: [['ㅇ',3,3],['ㅡ',3,7],['ㅣ',9,3],
+                              ['ㅅ',13,3],['ㅏ',17,3]] },
+  // 겹받침 — ㄺ(ㄹ+ㄱ)
+  d6: { word: '닭',     set: [['ㄷ',3,3],['ㅏ',7,3],['ㄹ',3,9],['ㄱ',7,9]] }
+};
+function loadDemo(k) {
+  silent = true;
+  stopAll();
+  clearBoard();
+  DEMOS[k].set.forEach(function (x) {
+    var b = blockOf(x[0]);
+    if (b) add(b.id, b.rotDeg, x[1], x[2]);
+  });
+  silent = false;
+}
+['d1','d2','d3','d4','d5','d6'].forEach(function (k) {
+  document.getElementById(k).onclick = function () { loadDemo(k); };
+});
+document.getElementById('clear').onclick = clearBoard;
+document.getElementById('toggleSensor').onclick = function () {
+  document.body.classList.toggle('show-sensor');
+};
+document.getElementById('speak').onclick = function () {
+  var t = outEl.dataset.text;
+  if (!t) return;
+  stopAll();
+  playChain(t.split(''), 0);
+};
+document.getElementById('mute').onclick = function () {
+  muted = !muted;
+  if (muted) stopAll();
+  this.textContent = muted ? '🔇 소리 꺼짐' : '🔊 소리 켜짐';
+};
+
+/* =====================================================================
+ * 5. 자체 점검
+ * ===================================================================== */
+(function selfTest() {
+  var log = [];
+  function fail(m) { log.push('X ' + m); }
+
+  // (a) 실측 크기와 맞는가
+  var want = { 'ㄱ':[3,3], 'ㅁ':[3,3], 'ㅅ':[3,3], 'ㅎ':[3,3], 'ㄲ':[6,3],
+               'ㅣ':[1,5], 'ㅓ':[2,5], 'ㅐ':[4,5] };
+  BLOCKS.forEach(function (b) {
+    if (want[b.base] && (b.w !== want[b.base][0] || b.h !== want[b.base][1]))
+      fail(b.base + ' 크기 ' + b.w + 'x' + b.h);
+  });
+  var vw = BLOCKS.filter(function (b) { return b.base === 'ㅓ'; })[0].byRot[90];
+  if (vw.w !== 5 || vw.h !== 2) fail('ㅗ 크기 ' + vw.w + 'x' + vw.h + ' (5x2 여야)');
+
+  // (b) 핀 패턴이 전부 서로 다른가
+  var n = 0;
+  BLOCKS.forEach(function (b) { n += b.rotKeys.length; });
+  if (Object.keys(PATTERN_BY_KEY).length !== n)
+    fail('패턴 충돌 — ' + n + '가지 중 ' + Object.keys(PATTERN_BY_KEY).length + '가지만 구별됨');
+
+  // (c) 한 개 올려서 블록·회전·위치가 그대로 복원되는가
+  BLOCKS.forEach(function (b) {
+    b.rotKeys.forEach(function (rd) {
+      var s = emptySensor();
+      stamp(s, 2, 2, b.id, rd);
+      var got = recognize(s);
+      if (got.length !== 1 || got[0].ch !== b.rots[rd] || got[0].x !== 2 || got[0].y !== 2)
+        fail('복원 실패 ' + b.base + '@' + rd + ' -> ' + JSON.stringify(got));
+    });
+  });
+
+  // (d) 빈 판은 아무것도 아님
+  if (recognize(emptySensor()).length) fail('빈 판에서 블록이 나옴');
+
+  // (e) 사진 3장을 그대로 올려 센서만 읽고 읽히는가
+  Object.keys(DEMOS).forEach(function (k) {
+    var s = emptySensor();
+    DEMOS[k].set.forEach(function (x) {
+      var b = blockOf(x[0]);
+      if (!b) return fail('블록 없음 ' + x[0]);
+      stamp(s, x[1], x[2], b.id, b.rotDeg);
+    });
+    var got = parseFree(recognize(s)).join('');
+    if (got !== DEMOS[k].word) fail("'" + DEMOS[k].word + "' -> '" + got + "'");
+  });
+
+  // (f) 복합모음 7종 — 블록 두 개가 실제로 합쳐지는가
+  Object.keys(COMPOUND).forEach(function (pair) {
+    var v1 = pair[0], v2 = pair[1];
+    var b1 = blockOf(v1), b2 = blockOf(v2), bg = blockOf('ㄱ');
+    var s3 = emptySensor();
+    stamp(s3, 0, 0, bg.id, bg.rotDeg);                                  // 초성 ㄱ (3x3)
+    stamp(s3, 0, 4, b1.id, b1.rotDeg);                                  // 가로모음 아래
+    stamp(s3, 6, 0, b2.id, b2.rotDeg);                                  // 세로모음 오른쪽
+    var want = composeHangul('ㄱ', COMPOUND[pair], null);
+    var got = parseFree(recognize(s3)).join('');
+    if (got !== want) fail('복합모음 ' + v1 + '+' + v2 + ' -> ' + want + ' 인데 ' + got);
+  });
+
+  // (g) 받침 — 홑받침 16종 x (가로모음·세로모음·복합모음)
+  function lay(pairs) {
+    var sn = emptySensor();
+    pairs.forEach(function (q) {
+      var bb = blockOf(q[0]);
+      if (!bb) return fail('블록 없음 ' + q[0]);
+      stamp(sn, q[1], q[2], bb.id, bb.rotDeg);
+    });
+    return parseFree(recognize(sn)).join('');
+  }
+  var SINGLE_JONG = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄹ','ㅁ','ㅂ','ㅅ','ㅆ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+  SINGLE_JONG.forEach(function (J) {
+    [[composeHangul('ㄱ','ㅏ',J), [['ㄱ',0,0],['ㅏ',4,0],[J,0,5]]],
+     [composeHangul('ㄱ','ㅜ',J), [['ㄱ',0,0],['ㅜ',0,4],[J,0,7]]],
+     [composeHangul('ㄱ','ㅘ',J), [['ㄱ',0,0],['ㅗ',0,4],['ㅏ',6,0],[J,0,7]]]
+    ].forEach(function (c) {
+      var got = lay(c[1]);
+      if (got !== c[0]) fail('받침 ' + c[0] + ' -> ' + got);
+    });
+  });
+
+  // (h) 겹받침 11종 — 받침 자리에 자음 두 개
+  Object.keys(DOUBLE_JONG).forEach(function (pair) {
+    var want = composeHangul('ㄱ', 'ㅏ', DOUBLE_JONG[pair]);
+    var got = lay([['ㄱ',0,0],['ㅏ',4,0],[pair[0],0,5],[pair[1],4,5]]);
+    if (got !== want) fail('겹받침 ' + want + ' -> ' + got);
+  });
+
+  // (i) 받침 옆 자음이 자기 모음을 데리고 있으면 겹받침이 아니라 다음 초성
+  var galbi = lay([['ㄱ',0,0],['ㅏ',4,0],['ㄹ',0,5],['ㅂ',4,5],['ㅣ',8,5]]);
+  if (galbi !== '갈비') fail("'갈비' -> '" + galbi + "'");
+
+  // (j) ㅐ 가 180도 대칭이면 ㅔ 와 구별이 안 된다
+  var ae = BLOCKS.filter(function (b) { return b.base === 'ㅐ'; })[0];
+  var k0 = JSON.stringify(rasterize(ae.byRot[0])), k180 = JSON.stringify(rasterize(ae.byRot[180]));
+  if (k0 === k180) fail('ㅐ 가 180도 대칭이라 ㅔ 와 구별 안 됨');
+
+  var el = document.getElementById('selftest');
+  el.className = log.length ? 'bad' : '';
+  el.textContent = log.length ? log.join('\n')
+    : 'OK — 블록 ' + BLOCKS.length + '개 / 회전까지 ' + n + '가지, 핀 패턴 전부 서로 다름\n'
+    + 'OK — 자유 배치에서 블록·회전·위치까지 복원\n'
+    + 'OK — 예시 6개(김민수·사자·효자동·과자·의사·닭) 센서값만으로 읽힘\n'
+    + 'OK — 복합모음 7종(ㅘㅙㅚㅝㅞㅟㅢ) 블록 두 개로 합쳐짐\n'
+    + 'OK — 받침 홑 16종 x 모음 3종 48가지 + 겹받침 11종, "갈비" 오인 없음';
+})();
+
+loadDemo('d1');
+</script>
+</body>
+</html>
