@@ -157,9 +157,23 @@
     -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!--
+      🔴 **`-dynamic-subset` 이다 — 통짜 파일을 쓰면 폰트 하나가 페이지의 절반이 된다**(2026-08-27).
+         통짜 `PretendardVariable.woff2` 는 **2,057,688 bytes**(직접 `content-length` 확인)로,
+         첫 화면 전송량 3,895KB 의 **53%** 였다. 다음으로 큰 게 우리 JS 264KB 다.
+         PSI 모바일 실측 FCP **17.1s** · LCP **20.7s**(데스크톱은 2.6s·3.4s) — 3,895KB 를
+         느린 4G 1.6Mbps 로 나누면 19.5초라 숫자가 그대로 맞아떨어진다.
+      🔴 subset 은 `unicode-range` 로 92 조각이고 **브라우저가 그 페이지에 쓰인 글자의
+         조각만** 받는다. 홈 기준 실측 **24조각 / 598KB → 1,412KB 절감**(전체의 36%).
+         "몇 조각이면 된다"가 아니다 — 한국어라 음절 블록을 많이 쓴다. 세어 보고 쓴 숫자다.
+      ⚠️ 대가는 `font-display: swap`(subset 에 이미 박혀 있다) — 폴백으로 먼저 그렸다가
+         바뀌는 깜빡임이 생긴다. 2026-08-04 에 블로킹을 고른 건 그걸 피하려던 것이고,
+         **속도를 우선하기로 사용자가 정해서** 뒤집었다. 되돌리려면 이 URL 에서 `-dynamic-subset`
+         만 떼면 된다(그러면 2MB 가 돌아온다).
+    -->
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css"
     />
     <link
       rel="stylesheet"

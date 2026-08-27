@@ -60,9 +60,19 @@ function url(name: UiSoundName): string {
 function ensurePool(name: UiSoundName): HTMLAudioElement[] {
   let pool = pools.get(name);
   if (!pool) {
-    pool = Array.from({ length: POOL_SIZE }, () => {
+    /**
+     * 🔴 **풀 전체를 프리로드하지 않는다 — 같은 파일을 POOL_SIZE 번 받는다**(2026-08-27).
+     *    `/sounds/ui/*.mp3` 는 `Cache-Control: public, max-age=0` 이라(실측) 사본마다
+     *    네트워크를 새로 탄다. PSI 모바일에서 13종 x 4 = **오디오 요청 52건 596KB** 가
+     *    실제로 잡혔다 — 고유 용량은 149KB 뿐이고 나머지 447KB 는 같은 걸 또 받은 것이다.
+     *    첫 장만 데워 두면 파일이 캐시에 오르고, 나머지는 실제로 겹쳐 재생될 때 거기서 온다.
+     *    풀 자체는 그대로라 겹쳐 재생은 안 깨진다(프리로드 여부만 다르다).
+     * ⚠️ 서버가 `max-age=0` 를 주는 한 사본들은 재검증 요청(304)을 한 번씩 한다.
+     *    본체를 안 받으므로 용량은 안 들지만, 정적 자산 캐시 수명은 따로 손볼 값이 있다.
+     */
+    pool = Array.from({ length: POOL_SIZE }, (_, i) => {
       const a = new Audio(url(name));
-      a.preload = 'auto';
+      a.preload = i === 0 ? 'auto' : 'none';
       return a;
     });
     pools.set(name, pool);
