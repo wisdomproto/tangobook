@@ -1,0 +1,2675 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>탱고 보드 3D — 한글 블록</title>
+<style>
+  :root{
+    --ink:#14201c; --ink-2:#4a5f58; --ink-3:#839790;
+    --paper:#eef2f0; --panel:#f7faf9; --rule:#d3dcd8;
+    --coral:#e2622f; --coral-soft:#fbe6da; --mint:#2f9e77;
+    --stage-a:#26332e; --stage-b:#111a17;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:"Pretendard Variable",Pretendard,system-ui,-apple-system,sans-serif;
+    font-size:15px; -webkit-font-smoothing:antialiased; user-select:none;
+    -webkit-tap-highlight-color:transparent;
+  }
+  #app{display:flex; flex-direction:column; height:100%}
+
+  /* ---- stage ---- */
+  #stage{position:relative; flex:1; min-height:0; background:var(--stage-b)}
+  #gl{display:block; width:100%; height:100%; touch-action:none}
+  #loading{
+    position:absolute; inset:0; display:grid; place-content:center; gap:10px;
+    justify-items:center; color:#cfe0d9; font-size:14px; background:var(--stage-b);
+    transition:opacity .35s;
+  }
+  #loading.gone{opacity:0; pointer-events:none}
+  .spin{
+    width:26px;height:26px;border:2px solid #33544a;border-top-color:var(--mint);
+    border-radius:50%; animation:sp .8s linear infinite;
+  }
+  @keyframes sp{to{transform:rotate(360deg)}}
+  @media (prefers-reduced-motion:reduce){ .spin{animation-duration:2.4s} }
+
+  #word{
+    position:absolute; top:12px; left:50%; transform:translateX(-50%);
+    display:flex; align-items:center; gap:14px;
+    background:rgba(20,32,28,.72); backdrop-filter:blur(6px);
+    border:1px solid rgba(255,255,255,.12); border-radius:999px;
+    padding:8px 8px 8px 18px; color:#f2f7f5; white-space:nowrap;
+  }
+  #word .lbl{font-size:12px; letter-spacing:.08em; color:#9fbdb2}
+  #word .w{font-size:20px; font-weight:700; letter-spacing:.06em}
+  #word button{
+    border:0; border-radius:999px; padding:7px 13px; font-size:13px; cursor:pointer;
+    background:rgba(255,255,255,.14); color:#eaf3f0; font-family:inherit;
+  }
+  #word button:hover{background:rgba(255,255,255,.24)}
+
+  #read{
+    position:absolute; left:50%; bottom:12px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:10px;
+  }
+  #read .out{
+    min-width:120px; text-align:center; font-size:26px; font-weight:700; letter-spacing:.08em;
+    background:rgba(20,32,28,.72); backdrop-filter:blur(6px); color:#f2f7f5;
+    border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:8px 20px;
+  }
+  #read .out.empty{font-size:14px; font-weight:400; color:#9fbdb2; letter-spacing:0}
+  #read .out.hit{background:var(--mint); border-color:transparent; color:#fff}
+  .rbtn{
+    border:0; border-radius:12px; width:46px; height:46px; font-size:20px; cursor:pointer;
+    background:rgba(20,32,28,.72); backdrop-filter:blur(6px); color:#eaf3f0;
+    border:1px solid rgba(255,255,255,.12);
+  }
+  .rbtn:hover{background:rgba(40,60,52,.85)}
+  #camToggle{
+    position:absolute; left:12px; bottom:12px; border:1px solid rgba(255,255,255,.14);
+    background:rgba(20,32,28,.72); backdrop-filter:blur(6px); color:#eaf3f0;
+    border-radius:11px; padding:9px 14px; font-size:13px; cursor:pointer; font-family:inherit;
+  }
+  #camToggle.on{background:var(--coral); border-color:transparent; color:#fff}
+  #panelToggle{
+    position:absolute; left:132px; bottom:12px; display:flex; align-items:center; gap:6px;
+    border:1px solid rgba(255,255,255,.14); background:rgba(20,32,28,.72);
+    backdrop-filter:blur(6px); color:#eaf3f0; border-radius:11px;
+    padding:9px 12px; font-size:13px; cursor:pointer; user-select:none;
+  }
+  #panelToggle input{margin:0; cursor:pointer}
+  #camPanel{
+    position:absolute; left:12px; bottom:58px; width:236px; display:flex; flex-direction:column;
+    gap:9px; padding:13px; border-radius:13px; background:rgba(20,32,28,.82);
+    backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.12); color:#dfeae6;
+  }
+  #camPanel[hidden]{display:none}
+  .cam-row{display:grid; grid-template-columns:46px 1fr 54px; align-items:center; gap:8px}
+  .cam-row label{font-size:11.5px; color:#9fbdb2}
+  .cam-val{
+    font-size:11.5px; text-align:right; color:var(--coral);
+    font-variant-numeric:tabular-nums; font-family:"IBM Plex Mono",monospace;
+  }
+  .cam-note{font-size:11px; line-height:1.55; color:#9fbdb2; padding-top:2px}
+  .cam-note b{color:#ffd7c2; font-weight:600}
+  .cam-check{
+    display:flex; align-items:center; gap:7px; font-size:11.5px; color:#9fbdb2;
+    cursor:pointer; user-select:none;
+  }
+  .cam-check input{accent-color:var(--coral); margin:0}
+  #camSweep{
+    border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.08);
+    color:#eaf3f0; border-radius:9px; padding:8px 0; font-size:12px; cursor:pointer;
+    font-family:inherit; width:100%;
+  }
+  #camSweep:hover{background:var(--coral); border-color:transparent}
+  #camSweep:disabled{opacity:.6; cursor:default}
+  #sweepBox{
+    position:fixed; inset:0; z-index:50; display:grid; place-content:center; gap:12px;
+    background:rgba(8,14,12,.93); padding:20px;
+  }
+  #sweepBox[hidden]{display:none}
+  #sweepBox canvas{max-width:92vw; border-radius:10px}
+  #sweepBox .close{
+    justify-self:center; border:0; border-radius:999px; padding:10px 24px; cursor:pointer;
+    background:var(--coral); color:#fff; font-family:inherit; font-size:14px;
+  }
+  .cam-reco{
+    border-top:1px solid rgba(255,255,255,.12); padding-top:9px; margin-top:2px;
+    font-size:12px; line-height:1.7; color:#cfe0d9;
+  }
+  .cam-reco .big{font-size:17px; font-weight:700; letter-spacing:.06em}
+  .cam-reco .ok{color:#7ee0b8}
+  .cam-reco .no{color:#ff9e86}
+  .cam-reco .dim{color:#7e968d; font-size:11px; font-family:"IBM Plex Mono",monospace}
+  .cam-note.warn b{color:#ffb4a2}
+  #hint{
+    position:absolute; right:12px; bottom:12px; color:#7e968d; font-size:11.5px;
+    text-align:right; line-height:1.6; pointer-events:none;
+  }
+  #score{
+    position:absolute; left:12px; top:12px; color:#cfe0d9; font-size:12px;
+    background:rgba(20,32,28,.6); border-radius:10px; padding:6px 11px;
+    font-variant-numeric:tabular-nums;
+  }
+
+  /* ---- tray ---- */
+  #tray{
+    background:var(--panel); border-top:1px solid var(--rule);
+    padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+    display:flex; flex-direction:column; gap:8px; flex:none;
+  }
+  .row{display:flex; align-items:center; gap:8px}
+  .row h2{
+    margin:0; font-size:11px; letter-spacing:.12em; color:var(--ink-3);
+    width:42px; flex:none; font-weight:600;
+  }
+  .chips{display:flex; gap:6px; overflow-x:auto; padding-bottom:2px; scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{
+    flex:none; min-width:44px; height:44px; border-radius:11px; cursor:pointer;
+    border:1px solid var(--rule); background:#fff; color:var(--ink);
+    font-size:21px; font-weight:600; font-family:inherit; line-height:1;
+    display:grid; place-content:center;
+  }
+  .chip:hover{border-color:var(--coral); color:var(--coral)}
+  .chip:active{transform:translateY(1px)}
+  .chip.wide{min-width:64px}
+  .chip:focus-visible,.rbtn:focus-visible,#word button:focus-visible{
+    outline:2px solid var(--coral); outline-offset:2px;
+  }
+
+  /* ---- scene reveal ---- */
+  #reveal{
+    position:fixed; inset:0; z-index:40; display:grid; place-content:center; gap:14px;
+    background:rgba(10,18,15,.9); padding:24px; text-align:center;
+  }
+  #reveal[hidden]{display:none}
+  #reveal img{max-width:min(88vw,620px); max-height:52vh; border-radius:14px; display:block}
+  #reveal .t{color:#fff; font-size:30px; font-weight:700; letter-spacing:.08em}
+  #reveal .c{color:#d3e3dd; font-size:15px; max-width:560px; line-height:1.7; margin:0 auto}
+  #reveal .go{
+    border:0; border-radius:999px; padding:12px 26px; font-size:15px; cursor:pointer;
+    background:var(--coral); color:#fff; font-family:inherit; justify-self:center;
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="stage">
+    <canvas id="gl"></canvas>
+    <div id="score">맞힌 낱말 <b id="scoreN">0</b></div>
+    <div id="word">
+      <span class="lbl">만들 낱말</span>
+      <span class="w" id="wordText">…</span>
+      <button id="nextWord">다른 낱말</button>
+    </div>
+    <div id="read">
+      <button class="rbtn" id="speak" title="읽어주기" aria-label="읽어주기">🔊</button>
+      <div class="out empty" id="out">블록을 옮겨 보세요</div>
+      <button class="rbtn" id="clear" title="지우기" aria-label="모두 지우기">🧹</button>
+    </div>
+    <button id="camToggle" title="폰 카메라로 본 화면">📷 카메라</button>
+    <label id="panelToggle" title="구형 본체의 오른쪽 조작판 — 새 제품엔 없다">
+      <input type="checkbox" id="panelChk"> 조작판</label>
+    <div id="camPanel" hidden>
+      <div class="cam-row"><label for="camTilt">경사각</label>
+        <input type="range" id="camTilt" min="10" max="90" value="45" step="1">
+        <span class="cam-val" id="camTiltV">45°</span></div>
+      <div class="cam-row"><label for="camHeight">패드 세로</label>
+        <input type="range" id="camHeight" min="150" max="350" value="250" step="10">
+        <span class="cam-val" id="camHeightV">250mm</span></div>
+      <div class="cam-row"><label for="camStand">앞뒤 위치</label>
+        <input type="range" id="camStand" min="-40" max="320" value="266" step="4">
+        <span class="cam-val" id="camStandV">266mm</span></div>
+      <div class="cam-row"><label for="camOver">잠망경 앞으로</label>
+        <input type="range" id="camOver" min="0" max="160" value="20" step="5">
+        <span class="cam-val" id="camOverV">20mm</span></div>
+      <div class="cam-row"><label for="camPad">화면 기울기</label>
+        <input type="range" id="camPad" min="60" max="90" value="80" step="1">
+        <span class="cam-val" id="camPadV">80°</span></div>
+      <div class="cam-row"><label for="camAz">방위각</label>
+        <input type="range" id="camAz" min="-45" max="45" value="0" step="1">
+        <span class="cam-val" id="camAzV">0°</span></div>
+      <div class="cam-note" id="camNote"></div>
+      <label class="cam-check"><input type="checkbox" id="camDetect" checked>
+        화면에서 판 찾기</label>
+      <label class="cam-check"><input type="checkbox" id="camRefine" checked>
+        격자로 정밀화</label>
+      <label class="cam-check"><input type="checkbox" id="camRig" checked>
+        시야 사다리꼴 보이기</label>
+      <div class="cam-reco" id="camReco"></div>
+      <button id="camSweep">전 조건 스윕</button>
+    </div>
+    <div id="hint">흩어진 블록을 끌어다 낱말을 만드세요<br>블록을 탭하면 돌아갑니다 · 빈 곳을 끌면 화면이 돌아갑니다</div>
+    <div id="loading"><div class="spin"></div><div id="loadMsg">보드를 불러오는 중…</div></div>
+  </div>
+
+  <div id="tray">
+    <div class="row"><h2>자음</h2><div class="chips" id="trayCho"></div></div>
+    <div class="row"><h2>모음</h2><div class="chips" id="trayJung"></div></div>
+  </div>
+</div>
+
+<div id="sweepBox" hidden>
+  <canvas id="sweepCanvas"></canvas>
+  <button class="close" id="sweepClose">닫기</button>
+</div>
+
+<div id="reveal" hidden>
+  <div class="t" id="revealTitle"></div>
+  <img id="revealImg" alt="동화 장면">
+  <div class="c" id="revealCap"></div>
+  <button class="go" id="revealGo">다음 낱말</button>
+</div>
+
+<script>
+"use strict";
+/* =====================================================================
+ * 탱고 보드 3D — 실물 STEP 형상 위에서 한글 블록을 조립하는 게임.
+ *
+ * 2D 시뮬레이터(tango-board.html)에서 검증된 것을 그대로 가져온 부분:
+ *   자모 조합 규칙 · 자유배치 파서(parseFree) · 7종성 중화 · 음원 경로 ·
+ *   동화책에서 낱말과 장면을 고르는 흐름.
+ * 새로 쓴 부분: WebGL2 렌더러, 격자 스냅 배치, 픽킹.
+ *
+ * 좌표계: 보드 상면이 z=0 인 평면, 격자 15mm(실물 피치), +x 오른쪽 +y 아래.
+ * ===================================================================== */
+
+var MESH_URL = 'tango-board-3d.mesh.json';
+var PITCH = 15;                       // 실물 격자 — 로드 시 메시 메타로 덮어쓴다
+var API = location.origin;
+var PHONICS_BASE =
+  'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-library/mod_korean/';
+
+/* ---------------------------------------------------------------- 한글 */
+var CHO = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+var JUNG = ['ㅏ','ㅐ','ㅑ','ㅒ','ㅓ','ㅔ','ㅕ','ㅖ','ㅗ','ㅘ','ㅙ','ㅚ','ㅛ','ㅜ','ㅝ','ㅞ','ㅟ','ㅠ','ㅡ','ㅢ','ㅣ'];
+var JONG = ['','ㄱ','ㄲ','ㄳ','ㄴ','ㄵ','ㄶ','ㄷ','ㄹ','ㄺ','ㄻ','ㄼ','ㄽ','ㄾ','ㄿ','ㅀ','ㅁ','ㅂ','ㅄ','ㅅ','ㅆ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+var JUNG_SET = new Set(JUNG);
+
+var COMPOUND = { 'ㅗㅏ':'ㅘ','ㅗㅐ':'ㅙ','ㅗㅣ':'ㅚ','ㅜㅓ':'ㅝ','ㅜㅔ':'ㅞ','ㅜㅣ':'ㅟ','ㅡㅣ':'ㅢ' };
+var PLUS_I   = { 'ㅏ':'ㅐ','ㅓ':'ㅔ','ㅑ':'ㅒ','ㅕ':'ㅖ','ㅘ':'ㅙ','ㅝ':'ㅞ' };
+var DOUBLE   = { 'ㄱ':'ㄲ','ㄷ':'ㄸ','ㅂ':'ㅃ','ㅅ':'ㅆ','ㅈ':'ㅉ' };
+var DOUBLE_JONG = { 'ㄱㅅ':'ㄳ','ㄴㅈ':'ㄵ','ㄴㅎ':'ㄶ','ㄹㄱ':'ㄺ','ㄹㅁ':'ㄻ','ㄹㅂ':'ㄼ',
+                    'ㄹㅅ':'ㄽ','ㄹㅌ':'ㄾ','ㄹㅍ':'ㄿ','ㄹㅎ':'ㅀ','ㅂㅅ':'ㅄ' };
+
+function isVowel(ch){ return JUNG_SET.has(ch); }
+function composeHangul(cho, jung, jong){
+  var ci = CHO.indexOf(cho), ji = JUNG.indexOf(jung), ki = jong ? JONG.indexOf(jong) : 0;
+  if (ci < 0 || ji < 0 || ki < 0) return null;
+  return String.fromCharCode(0xAC00 + (ci * 21 + ji) * 28 + ki);
+}
+function mergeDoubles(items){
+  var out = items.slice();
+  for (var i = 0; i < out.length; i++){
+    var a = out[i];
+    if (!a || isVowel(a.ch) || !DOUBLE[a.ch]) continue;
+    for (var j = 0; j < out.length; j++){
+      var b = out[j];
+      if (i === j || !b || b.ch !== a.ch) continue;
+      if (Math.abs(b.x - (a.x + a.w)) <= 1 && Math.abs(b.y - a.y) <= 1){
+        a.ch = DOUBLE[a.ch];
+        a.w = (b.x + b.w) - a.x;
+        out[j] = null;
+        break;
+      }
+    }
+  }
+  return out.filter(Boolean);
+}
+/** 자유 배치 파서 — 2D 시뮬레이터에서 그대로 가져옴 (검증된 로직). */
+function parseFree(items){
+  items = mergeDoubles(items);
+  items.forEach(function(it){ it.cx = it.x + it.w/2; it.cy = it.y + it.h/2; });
+  var cons = items.filter(function(i){ return !isVowel(i.ch); });
+  var vows = items.filter(function(i){ return isVowel(i.ch); });
+  cons.sort(function(a,b){ return (a.cx-b.cx) || (a.cy-b.cy); });
+  var used = new Set(), out = [];
+
+  function nearest(list, ok){
+    var best = null, bd = 1e9;
+    list.forEach(function(v){
+      if (used.has(v)) return;
+      var d = ok(v);
+      if (d != null && d < bd){ bd = d; best = v; }
+    });
+    return best;
+  }
+  function hasOwnVowel(c){
+    return vows.some(function(v){
+      if (used.has(v)) return false;
+      if (v.h > v.w) return v.cx-c.cx > 0 && v.cx-c.cx <= 7 && Math.abs(v.cy-c.cy) <= 2.5;
+      return v.cy-c.cy > 0 && v.cy-c.cy <= 7 && Math.abs(v.cx-c.cx) <= 3.5;
+    });
+  }
+
+  cons.forEach(function(A){
+    if (used.has(A)) return;
+    var Vh = nearest(vows, function(v){
+      if (v.h <= v.w) return null;
+      var dx = v.cx - A.cx;
+      if (dx <= 0 || dx > 7) return null;
+      var overlap = Math.min(A.y+A.h, v.y+v.h) - Math.max(A.y, v.y);
+      if (overlap < -2) return null;
+      return dx + Math.abs(v.cy - A.cy);
+    });
+    var Vv = nearest(vows, function(v){
+      if (v.w <= v.h) return null;
+      var dy = v.cy - A.cy, dx = Math.abs(v.cx - A.cx);
+      if (dy <= 0 || dy > 7 || dx > 3.5) return null;
+      return dy + dx;
+    });
+
+    var jung = null, parts = [], vertical = false;
+    if (Vv && Vh && Vh.cx > Vv.cx && COMPOUND[Vv.ch + Vh.ch]){
+      jung = COMPOUND[Vv.ch + Vh.ch]; parts = [Vv, Vh]; vertical = true;
+    } else if (Vh){ jung = Vh.ch; parts = [Vh]; }
+    else if (Vv){ jung = Vv.ch; parts = [Vv]; vertical = true; }
+    if (!jung) return;
+
+    if (PLUS_I[jung]){
+      var right = parts[parts.length-1];
+      var Vi = nearest(vows, function(v){
+        if (parts.indexOf(v) >= 0 || v.ch !== 'ㅣ') return null;
+        var dx = v.cx - right.cx, dy = Math.abs(v.cy - right.cy);
+        if (dx <= 0 || dx > 5 || dy > 2.5) return null;
+        return dx + dy;
+      });
+      if (Vi){ jung = PLUS_I[jung]; parts.push(Vi); }
+    }
+
+    used.add(A); parts.forEach(function(v){ used.add(v); });
+
+    var floorY = vertical ? Vv.cy : A.cy;
+    var xs = [A.cx].concat(parts.map(function(v){ return v.cx; }));
+    var loL = Math.min.apply(null, xs) - 2.5, hiL = Math.max.apply(null, xs) + 2.5;
+    var J = nearest(cons, function(c){
+      if (c === A) return null;
+      var dy = c.cy - floorY;
+      if (dy < 1.5 || dy > 7) return null;
+      if (c.cx < loL || c.cx > hiL) return null;
+      return dy + Math.abs(c.cx - A.cx);
+    });
+    var jongCh = null, J2 = null;
+    if (J){
+      used.add(J);
+      jongCh = J.ch;
+      J2 = nearest(cons, function(c){
+        if (c === A || c === J) return null;
+        var dx = c.cx - J.cx, dy = Math.abs(c.cy - J.cy);
+        if (dx <= 0 || dx > 6 || dy > 2) return null;
+        if (!DOUBLE_JONG[J.ch + c.ch]) return null;
+        if (hasOwnVowel(c)) return null;
+        return dx + dy;
+      });
+      if (J2){ used.add(J2); jongCh = DOUBLE_JONG[J.ch + J2.ch]; }
+    }
+
+    var s = composeHangul(A.ch, jung, jongCh);
+    if (s) out.push({ s:s, cx:A.cx, cy:A.cy });
+    else {
+      used.delete(A); parts.forEach(function(v){ used.delete(v); });
+      if (J) used.delete(J);
+      if (J2) used.delete(J2);
+    }
+  });
+
+  out.sort(function(a,b){ return (a.cx-b.cx) || (a.cy-b.cy); });
+  return out.map(function(x){ return x.s; });
+}
+
+/* ------------------------------------------------------- 블록 카탈로그 */
+/* 블록은 자모 획 그대로 생긴 입체다 — 03 한글블록 폴더의 실물이 그 모양이고,
+   2D 시뮬레이터가 사진에서 실측해 둔 획 좌표를 그대로 세워 쓴다.
+   좌표는 칸 단위, 획의 중심선. 실물 규격: 자음 3x3칸 · 쌍자음 6x3 ·
+   ㅓㅕㅣ 2x5 · ㅐㅒ 3x5, 두께 8mm. */
+var STROKE = 0.47;                    // 획 두께 (칸) = 실측 6.9mm / 15mm 칸
+                                      // 🔴 눈대중 0.55 였을 때 ㅂ·ㄹ 안쪽 구멍이 메워졌다.
+                                      //    좌표가 아니라 두께가 범인이었다 (JT 거리변환 + IoU 스윕 일치).
+var BLOCK_H = 8;                      // 블록 두께 (mm) — 파일명 「한글블록_3피스_8mm」
+
+function twin(paths, dx){
+  return paths.concat(paths.map(function(pp){
+    return pp.map(function(q){ return [q[0]+dx, q[1]]; });
+  }));
+}
+var P_G = [[[0.5,0.5],[2.5,0.5],[2.5,2.5]]];
+var P_D = [[[2.5,0.5],[0.5,0.5],[0.5,2.5],[2.5,2.5]]];
+var P_B = [[[0.5,0.4],[0.5,2.5],[2.5,2.5],[2.5,0.4]],[[0.5,1.45],[2.5,1.45]]];
+var P_S = [[[1.5,0.7],[1.5,1.4]],
+           [[1.5,1.4],[1.0,1.67],[0.44,2.55]],
+           [[1.5,1.4],[2.0,1.70],[2.55,2.55]]];
+var P_J = [[[0.46,0.47],[2.54,0.47]],[[1.5,0.5],[1.5,1.68]],
+           [[1.5,1.68],[0.44,2.54]],[[1.5,1.68],[2.53,2.53]]];
+
+function B(base, w, h, paths, circles, rots){
+  return { base:base, w:w, h:h, paths:paths || [], circles:circles || [], rots:rots };
+}
+var CATALOG = [
+  B('ㄱ',3,3,P_G,null,{0:'ㄱ',180:'ㄴ'}),
+  B('ㄷ',3,3,P_D,null,{0:'ㄷ'}),
+  B('ㄹ',3,3,[[[0.5,0.5],[2.5,0.5],[2.5,1.5],[0.5,1.5],[0.5,2.5],[2.5,2.5]]],null,{0:'ㄹ'}),
+  B('ㅁ',3,3,[[[0.5,0.5],[2.5,0.5],[2.5,2.5],[0.5,2.5],[0.5,0.5]]],null,{0:'ㅁ'}),
+  B('ㅂ',3,3,P_B,null,{0:'ㅂ'}),
+  B('ㅅ',3,3,P_S,null,{0:'ㅅ'}),
+  B('ㅇ',3,3,null,[[1.5,1.5,1.0]],{0:'ㅇ'}),
+  B('ㅈ',3,3,P_J,null,{0:'ㅈ'}),
+  B('ㅊ',3,3,[[[1.5,0.39],[1.5,0.99]],[[0.31,1.0],[2.62,1.0]],
+              [[1.5,1.0],[1.5,1.6]],
+              [[1.5,1.6],[0.34,2.65]],[[1.5,1.6],[2.65,2.65]]],null,{0:'ㅊ'}),
+  B('ㅋ',3,3,[[[0.5,0.5],[2.5,0.5],[2.5,2.5]],[[0.5,1.5],[2.5,1.5]]],null,{0:'ㅋ'}),
+  B('ㅌ',3,3,[[[2.5,0.5],[0.5,0.5],[0.5,2.5],[2.5,2.5]],[[0.5,1.5],[2.5,1.5]]],null,{0:'ㅌ'}),
+  B('ㅍ',3,3,[[[0.4,0.5],[2.6,0.5]],[[0.4,2.5],[2.6,2.5]],
+              [[1.0,0.5],[1.0,2.5]],[[2.0,0.5],[2.0,2.5]]],null,{0:'ㅍ'}),
+  B('ㅎ',3,3,[[[1.48,0.34],[1.48,0.94]],[[0.35,0.99],[2.60,0.99]],
+             [[2.36,2.14],[2.24,2.37],[1.92,2.54],[1.48,2.60],[1.04,2.54],[0.72,2.37],[0.60,2.14],[0.72,1.91],[1.04,1.74],[1.48,1.68],[1.92,1.74],[2.24,1.91],[2.36,2.14]]],
+             null,{0:'ㅎ'}),
+  B('ㄲ',6,3,twin(P_G,3),null,{0:'ㄲ'}),
+  B('ㄸ',6,3,twin(P_D,3),null,{0:'ㄸ'}),
+  B('ㅃ',6,3,twin(P_B,3),null,{0:'ㅃ'}),
+  B('ㅆ',6,3,twin(P_S,3),null,{0:'ㅆ'}),
+  B('ㅉ',6,3,twin(P_J,3),null,{0:'ㅉ'}),
+  B('ㅓ',2,5,[[[1.5,0.5],[1.5,4.5]],[[0.5,2.5],[1.5,2.5]]],null,
+    {0:'ㅓ',90:'ㅗ',180:'ㅏ',270:'ㅜ'}),
+  B('ㅕ',2,5,[[[1.5,0.5],[1.5,4.5]],[[0.5,1.7],[1.5,1.7]],[[0.5,3.3],[1.5,3.3]]],null,
+    {0:'ㅕ',90:'ㅛ',180:'ㅑ',270:'ㅠ'}),
+  B('ㅣ',2,5,[[[1.5,0.5],[1.5,4.5]]],null,{0:'ㅣ',90:'ㅡ'}),
+  B('ㅐ',2,5,[[[0.45,0.4],[0.45,4.6]],[[1.55,0.4],[1.55,4.6]],[[0.45,2.5],[1.55,2.5]]],null,
+    {0:'ㅐ',180:'ㅔ'}),
+  B('ㅒ',2,5,[[[0.45,0.4],[0.45,4.6]],[[1.55,0.4],[1.55,4.6]],
+              [[0.45,1.75],[1.55,1.75]],[[0.45,3.3],[1.55,3.3]]],null,{0:'ㅒ',180:'ㅖ'})
+];
+CATALOG.forEach(function(b, i){
+  b.id = i;
+  b.rotKeys = Object.keys(b.rots).map(Number).sort(function(p,q){ return p-q; });
+});
+function catalogOf(base){
+  for (var i=0;i<CATALOG.length;i++) if (CATALOG[i].base === base) return CATALOG[i];
+  return null;
+}
+/** 회전 후 격자에서 차지하는 칸 — 90/270 도면 가로세로가 바뀐다. */
+function spanOf(spec){
+  var swap = (spec.rot % 180) !== 0;
+  return { w: swap ? spec.def.h : spec.def.w, h: swap ? spec.def.w : spec.def.h };
+}
+
+/* ------------------------------------------------------------ 행렬 4x4 */
+function mIdent(){ return new Float32Array([1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1]); }
+function mMul(a, b){
+  var o = new Float32Array(16);
+  for (var c = 0; c < 4; c++)
+    for (var r = 0; r < 4; r++){
+      var s = 0;
+      for (var k = 0; k < 4; k++) s += a[k*4+r] * b[c*4+k];
+      o[c*4+r] = s;
+    }
+  return o;
+}
+function mPerspective(fovy, aspect, near, far){
+  var f = 1 / Math.tan(fovy/2), o = new Float32Array(16);
+  o[0]=f/aspect; o[5]=f; o[10]=(far+near)/(near-far); o[11]=-1;
+  o[14]=2*far*near/(near-far);
+  return o;
+}
+function mLookAt(eye, at, up){
+  var zx=eye[0]-at[0], zy=eye[1]-at[1], zz=eye[2]-at[2];
+  var zl=Math.hypot(zx,zy,zz)||1; zx/=zl; zy/=zl; zz/=zl;
+  var xx=up[1]*zz-up[2]*zy, xy=up[2]*zx-up[0]*zz, xz=up[0]*zy-up[1]*zx;
+  var xl=Math.hypot(xx,xy,xz)||1; xx/=xl; xy/=xl; xz/=xl;
+  var yx=zy*xz-zz*xy, yy=zz*xx-zx*xz, yz=zx*xy-zy*xx;
+  return new Float32Array([
+    xx,yx,zx,0, xy,yy,zy,0, xz,yz,zz,0,
+    -(xx*eye[0]+xy*eye[1]+xz*eye[2]),
+    -(yx*eye[0]+yy*eye[1]+yz*eye[2]),
+    -(zx*eye[0]+zy*eye[1]+zz*eye[2]), 1
+  ]);
+}
+function mTRS(tx, ty, tz, rz, s){
+  var c = Math.cos(rz), n = Math.sin(rz);
+  return new Float32Array([
+    c*s, n*s, 0, 0,  -n*s, c*s, 0, 0,  0, 0, s, 0,  tx, ty, tz, 1
+  ]);
+}
+
+/* --------------------------------------------------------------- WebGL */
+var canvas = document.getElementById('gl');
+var gl = canvas.getContext('webgl2', { antialias:true, alpha:false });
+if (!gl){
+  document.getElementById('loadMsg').textContent =
+    '이 브라우저는 WebGL2 를 지원하지 않아 3D 보드를 열 수 없습니다.';
+  throw new Error('no webgl2');
+}
+
+function compile(type, src){
+  var s = gl.createShader(type);
+  gl.shaderSource(s, src); gl.compileShader(s);
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+  return s;
+}
+function program(vs, fs){
+  var p = gl.createProgram();
+  gl.attachShader(p, compile(gl.VERTEX_SHADER, vs));
+  gl.attachShader(p, compile(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(p);
+  if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p));
+  return p;
+}
+
+/* 솔리드 — 법선은 화면 미분으로 뽑는다(플랫 셰이딩). 정점에 법선을 싣지 않아
+   버퍼가 절반이고, 사출물처럼 각진 면이 오히려 또렷하다. */
+var progSolid = program(
+  '#version 300 es\n' +
+  'in vec3 aPos; uniform mat4 uMVP; uniform mat4 uModel; out vec3 vW;' +
+  'void main(){ vW = (uModel*vec4(aPos,1.0)).xyz; gl_Position = uMVP*vec4(aPos,1.0); }',
+  '#version 300 es\n precision highp float;' +
+  'in vec3 vW; uniform vec3 uColor; uniform float uTint; uniform float uClipX; out vec4 o;' +
+  'void main(){' +
+  '  if (uClipX > 0.0 && vW.x > uClipX) discard;' +
+  '  vec3 n = normalize(cross(dFdx(vW), dFdy(vW)));' +
+  '  vec3 L1 = normalize(vec3(-0.35, -0.55, 0.75));' +
+  '  vec3 L2 = normalize(vec3(0.6, 0.4, 0.35));' +
+  '  float d = 0.78*max(dot(n,L1),0.0) + 0.3*max(dot(n,L2),0.0);' +
+  '  vec3 c = mix(uColor, vec3(1.0,0.86,0.72), uTint);' +
+  '  o = vec4(c*(0.30+d), 1.0);' +
+  '}');
+
+/* 자모 획을 세워 블록 입체를 만든다. */
+function makeMesh(positions){
+  var vao = gl.createVertexArray();
+  gl.bindVertexArray(vao);
+  var buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+  gl.enableVertexAttribArray(0);
+  gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0);
+  gl.bindVertexArray(null);
+  return { vao:vao, count: positions.length / 3 };
+}
+
+/* 자모 획을 세워 블록 입체를 만든다. 획 좌표는 중심선이라, 양 끝을 두께의
+   절반만큼 늘려 두면 꺾이는 모서리가 저절로 메워진다(관절을 따로 두지 않는다). */
+function pushQuad(out, a, b, c, d){
+  out.push(a[0],a[1],a[2], b[0],b[1],b[2], c[0],c[1],c[2]);
+  out.push(a[0],a[1],a[2], c[0],c[1],c[2], d[0],d[1],d[2]);
+}
+function pushPrism(out, corners, h){
+  var lo = corners.map(function(c){ return [c[0], c[1], 0]; });
+  var hi = corners.map(function(c){ return [c[0], c[1], h]; });
+  pushQuad(out, hi[0], hi[1], hi[2], hi[3]);
+  pushQuad(out, lo[3], lo[2], lo[1], lo[0]);
+  for (var i = 0; i < 4; i++){
+    var j = (i+1) % 4;
+    pushQuad(out, lo[i], lo[j], hi[j], hi[i]);
+  }
+}
+function strokeSegment(out, a, b, w, h){
+  var dx = b[0]-a[0], dy = b[1]-a[1], L = Math.hypot(dx, dy);
+  if (L < 1e-6) return;
+  var ux = dx/L, uy = dy/L, e = w/2;
+  var ax = a[0]-ux*e, ay = a[1]-uy*e, bx = b[0]+ux*e, by = b[1]+uy*e;
+  var px = -uy*e, py = ux*e;
+  pushPrism(out, [[ax+px,ay+py],[bx+px,by+py],[bx-px,by-py],[ax-px,ay-py]], h);
+}
+function strokeRing(out, cx, cy, r, w, h, seg){
+  var ri = r - w/2, ro = r + w/2;
+  for (var i = 0; i < seg; i++){
+    var t0 = i/seg * Math.PI*2, t1 = (i+1)/seg * Math.PI*2;
+    var c0 = Math.cos(t0), s0 = Math.sin(t0), c1 = Math.cos(t1), s1 = Math.sin(t1);
+    pushPrism(out, [[cx+ri*c0, cy+ri*s0], [cx+ro*c0, cy+ro*s0],
+                    [cx+ro*c1, cy+ro*s1], [cx+ri*c1, cy+ri*s1]], h);
+  }
+}
+/** 카탈로그 한 벌 -> 블록 중심을 원점으로 한 삼각형 목록 (mm). */
+function buildBlockMesh(def){
+  var cells = [], hCells = BLOCK_H / PITCH;
+  def.paths.forEach(function(pathPts){
+    for (var i = 0; i + 1 < pathPts.length; i++)
+      strokeSegment(cells, pathPts[i], pathPts[i+1], STROKE, hCells);
+  });
+  def.circles.forEach(function(c){
+    strokeRing(cells, c[0], c[1], c[2], STROKE, hCells, 28);
+  });
+  var f = new Float32Array(cells.length);
+  var ox = def.w/2, oy = def.h/2;
+  for (var k = 0; k < cells.length; k += 3){
+    f[k]   = (cells[k]   - ox) * PITCH;
+    f[k+1] = (oy - cells[k+1]) * PITCH;
+    f[k+2] =  cells[k+2] * PITCH;
+  }
+  return f;
+}
+
+/* ----------------------------------------------------------- 씬 상태 */
+var meshes = {};                 // key -> {vao,count}
+var boardTop = 0;                // 보드 상면 z (모델 좌표)
+var boardOrigin = { x:0, y:0 };  // 격자 (0,0) 이 놓이는 모델 좌표
+var GRID_W = 0, GRID_H = 0;
+var placed = [];                 // {def, rot, gx, gy}
+var FOV = 0.72;
+var camTouched = false;
+var cam = { yaw:0, pitch:-0.92, dist:640, tx:0, ty:0, tz:0 };
+var dpr = 1, VW = 0, VH = 0;
+
+function resize(){
+  dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var r = canvas.getBoundingClientRect();
+  VW = Math.max(1, Math.round(r.width));
+  VH = Math.max(1, Math.round(r.height));
+  canvas.width = VW*dpr; canvas.height = VH*dpr;
+  gl.viewport(0, 0, canvas.width, canvas.height);
+}
+
+/** 놀이 영역 전체가 화면에 들어오는 거리 — 세로는 기울기만큼 짧아 보인다. */
+function fitCamera(){
+  var tanH = Math.tan(FOV/2), tanW = tanH * (VW/VH);
+  var needW = (GRID_W*PITCH/2) / tanW;
+  // 🔴 판만 재면 뒤에 선 태블릿 위끝이 잘린다 — 세로는 판 + 태블릿 높이로 잡는다.
+  var padTop = (typeof rigGeometry === 'function') ? rigGeometry().top[2] : 0;
+  var spanY = GRID_H*PITCH/2 * Math.abs(Math.sin(cam.pitch)) + padTop*Math.abs(Math.cos(cam.pitch));
+  var needH = spanY / tanH;
+  cam.dist = Math.max(needW, needH, 120) * 1.22;
+  cam.ty = boardOrigin.y - GRID_H*PITCH/2 + padTop*0.16;   // 태블릿 쪽으로 살짝 올려 담는다
+  cam.tz = padTop*0.34;      // 겨냥점을 올려 장면 전체를 화면 아래로 내린다
+}
+
+function viewProj(){
+  var cp = Math.cos(cam.pitch), sp = Math.sin(cam.pitch);
+  var cy = Math.cos(cam.yaw),  sy = Math.sin(cam.yaw);
+  var dir = [cp*sy, cp*cy, sp];
+  var at  = [cam.tx, cam.ty, cam.tz || 0];
+  var eye = [at[0] - dir[0]*cam.dist, at[1] - dir[1]*cam.dist, at[2] - dir[2]*cam.dist];
+  var proj = mPerspective(FOV, VW/VH, 20, 3000);
+  return { vp: mMul(proj, mLookAt(eye, at, [0,0,1])), eye: eye };
+}
+
+/** 격자 칸 -> 모델 좌표(칸의 좌상단).
+ *  격자 y 는 아래로 증가하고 모델 y 는 위로 증가하므로 부호가 반대다. */
+function cellXY(gx, gy){
+  return { x: boardOrigin.x + gx*PITCH, y: boardOrigin.y - gy*PITCH };
+}
+
+var COLOR = {
+  board:   [0.66, 0.70, 0.68],
+  frame:   [0.42, 0.47, 0.45],
+  cho:     [0.94, 0.62, 0.36],
+  jung:    [0.35, 0.72, 0.62]
+};
+
+/* =====================================================================
+ * 카메라 시뮬레이션 — 폰을 거치대에 올려 판을 내려다본 화면을 만들고,
+ * 판 네 모서리로 정사영으로 펴 본다. 인식기가 실제로 보게 될 두 장이다.
+ *
+ * 여기서 펴는 데 쓰는 네 점은 「정답」이다(모델 좌표를 투영해서 얻는다).
+ * 진짜 인식기는 그 네 점을 화면에서 찾아야 하지만, 뒷단(색 분리·자모 분류)을
+ * 먼저 검증하려고 앞단을 잠시 건너뛴 것이다. → spec §6
+ * ===================================================================== */
+/* =====================================================================
+ * 인식기 — 펴진 판에서 블록을 읽어 낱말까지 간다.
+ *
+ *   warp 결과를 격자 좌표계 그대로 텍스처에 굽는다 (한 칸 = CELL px)
+ *   → 색으로 블록만 떼어내고 (자음/모음 2색)
+ *   → 이어진 덩어리로 나눈 뒤
+ *   → 자모 템플릿과 IoU 로 맞히고
+ *   → parseFree 에 넘긴다.
+ *
+ * 템플릿은 3D 블록을 만드는 그 획 좌표(CATALOG)를 위에서 본 2D 로 그린 것이다.
+ * 블록 도면이 바뀌면 모델과 템플릿이 같이 바뀐다.
+ * ===================================================================== */
+var CELL = 16;                       // 펴진 판에서 격자 한 칸 = 16px
+var TOP_LIT = 0.70;                  // 이보다 어두우면 블록 옆면으로 본다
+var reco = { on:false, fbo:null, tex:null, W:0, H:0, buf:null,
+             templates:null, result:null, ms:0 };
+
+function initReco(){
+  reco.W = GRID_W * CELL;
+  reco.H = GRID_H * CELL;
+  reco.tex = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, reco.tex);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, reco.W, reco.H, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  reco.fbo = gl.createFramebuffer();
+  gl.bindFramebuffer(gl.FRAMEBUFFER, reco.fbo);
+  gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, reco.tex, 0);
+  var ok = gl.checkFramebufferStatus(gl.FRAMEBUFFER) === gl.FRAMEBUFFER_COMPLETE;
+  gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+  reco.buf = new Uint8Array(reco.W * reco.H * 4);
+  reco.templates = buildTemplates();
+  if (!ok) console.warn('[reco] framebuffer incomplete');
+  return ok;
+}
+
+/** 자모 템플릿 — (블록, 회전)마다 획을 위에서 본 이진 마스크.
+ *  획 bbox 기준으로 재 둔다: 화면에서 잡히는 덩어리도 획의 bbox 라서,
+ *  블록 전체 크기(ㅣ는 2x5인데 획은 1x5)로는 짝을 지을 수 없다. */
+function buildTemplates(){
+  var out = [];
+  CATALOG.forEach(function(def){
+    def.rotKeys.forEach(function(rot){
+      var swap = (rot % 180) !== 0;
+      var bw = swap ? def.h : def.w, bh = swap ? def.w : def.h;
+      var cv = document.createElement('canvas');
+      cv.width = bw * CELL; cv.height = bh * CELL;
+      var g = cv.getContext('2d', { willReadFrequently:true });
+      g.fillStyle = '#000';
+      g.fillRect(0, 0, cv.width, cv.height);
+      g.save();
+      // 블록 중심에서 회전 — 3D 에서 배치할 때와 같은 규칙
+      g.translate(cv.width/2, cv.height/2);
+      g.rotate(rot * Math.PI/180);
+      g.translate(-def.w*CELL/2, -def.h*CELL/2);
+      g.strokeStyle = '#fff';
+      g.lineWidth = STROKE * CELL;
+      g.lineCap = 'round';
+      g.lineJoin = 'round';
+      def.paths.forEach(function(pts){
+        g.beginPath();
+        pts.forEach(function(q, i){
+          if (i) g.lineTo(q[0]*CELL, q[1]*CELL);
+          else g.moveTo(q[0]*CELL, q[1]*CELL);
+        });
+        g.stroke();
+      });
+      def.circles.forEach(function(c){
+        g.beginPath();
+        g.arc(c[0]*CELL, c[1]*CELL, c[2]*CELL, 0, Math.PI*2);
+        g.stroke();
+      });
+      g.restore();
+
+      var px = g.getImageData(0, 0, cv.width, cv.height).data;
+      var x0 = cv.width, y0 = cv.height, x1 = -1, y1 = -1, n = 0;
+      var mask = new Uint8Array(cv.width * cv.height);
+      for (var y = 0; y < cv.height; y++){
+        for (var x = 0; x < cv.width; x++){
+          if (px[(y*cv.width + x)*4] < 128) continue;
+          mask[y*cv.width + x] = 1;
+          n++;
+          if (x < x0) x0 = x;
+          if (x > x1) x1 = x;
+          if (y < y0) y0 = y;
+          if (y > y1) y1 = y;
+        }
+      }
+      if (n === 0) return;
+      out.push({
+        ch: def.rots[rot], base: def.base, rot: rot,
+        blockW: bw, blockH: bh,
+        mask: mask, mw: cv.width,
+        bx: x0, by: y0, sw: x1-x0+1, sh: y1-y0+1, area: n,
+        vowel: isVowel(def.rots[rot])
+      });
+    });
+  });
+  return out;
+}
+
+/** 펴진 판을 격자 좌표계로 굽고 픽셀을 읽어온다. */
+function grabWarped(H){
+  gl.bindFramebuffer(gl.FRAMEBUFFER, reco.fbo);
+  gl.viewport(0, 0, reco.W, reco.H);
+  gl.clearColor(0, 0, 0, 1);
+  gl.clear(gl.COLOR_BUFFER_BIT);
+  blitTex([-1, -1, 2, 2], H);
+  gl.readPixels(0, 0, reco.W, reco.H, gl.RGBA, gl.UNSIGNED_BYTE, reco.buf);
+  gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+  gl.viewport(0, 0, canvas.width, canvas.height);
+}
+
+/** 픽셀 -> 0(판) / 1(자음색) / 2(모음색).
+ *  판이 무채색이라 채도 하나로 전경이 갈리고, 색상으로 두 종류를 나눈다. */
+function classifyPixels(buf, W, H){
+  var lab = new Uint8Array(W * H);
+  for (var i = 0, n = W*H; i < n; i++){
+    var r = buf[i*4] / 255, g = buf[i*4+1] / 255, b = buf[i*4+2] / 255;
+    var mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
+    if (mx < TOP_LIT || d < 0.10) continue;       // 판·그림자·블록 옆면
+    var h;
+    if (mx === r) h = ((g - b) / d + 6) % 6;
+    else if (mx === g) h = (b - r) / d + 2;
+    else h = (r - g) / d + 4;
+    h *= 60;
+    if (h >= 5 && h <= 60) lab[i] = 1;            // 주황 = 자음
+    else if (h >= 120 && h <= 190) lab[i] = 2;    // 민트 = 모음
+  }
+  return lab;
+}
+
+/** 같은 색끼리 이어진 덩어리로 나눈다 (4-이웃). */
+function components(lab, W, H, minArea){
+  var seen = new Uint8Array(W*H), out = [], stack = [];
+  for (var s = 0; s < W*H; s++){
+    if (!lab[s] || seen[s]) continue;
+    var color = lab[s], n = 0, x0 = W, y0 = H, x1 = -1, y1 = -1;
+    var px = [];
+    stack.length = 0;
+    stack.push(s);
+    seen[s] = 1;
+    while (stack.length){
+      var i = stack.pop(), x = i % W, y = (i / W) | 0;
+      n++;
+      px.push(i);
+      if (x < x0) x0 = x;
+      if (x > x1) x1 = x;
+      if (y < y0) y0 = y;
+      if (y > y1) y1 = y;
+      if (x > 0   && lab[i-1] === color && !seen[i-1]){ seen[i-1] = 1; stack.push(i-1); }
+      if (x < W-1 && lab[i+1] === color && !seen[i+1]){ seen[i+1] = 1; stack.push(i+1); }
+      if (y > 0   && lab[i-W] === color && !seen[i-W]){ seen[i-W] = 1; stack.push(i-W); }
+      if (y < H-1 && lab[i+W] === color && !seen[i+W]){ seen[i+W] = 1; stack.push(i+W); }
+    }
+    if (n >= minArea)
+      out.push({ color:color, area:n, x0:x0, y0:y0, x1:x1, y1:y1, px:px,
+                 w:x1-x0+1, h:y1-y0+1 });
+  }
+  return out;
+}
+
+/** 덩어리 하나를 자모 템플릿과 맞춘다 — 획 bbox 를 겹쳐 IoU 최대. */
+function matchTemplate(comp, W){
+  var best = null, cw = comp.w, ch = comp.h;
+  var blob = new Uint8Array(cw * ch);
+  for (var k = 0; k < comp.px.length; k++){
+    var i = comp.px[k];
+    blob[(((i/W)|0) - comp.y0) * cw + (i % W - comp.x0)] = 1;
+  }
+  for (var t = 0; t < reco.templates.length; t++){
+    var T = reco.templates[t];
+    if ((T.vowel ? 2 : 1) !== comp.color) continue;
+    // 획 bbox 가 한 칸 넘게 다르면 애초에 다른 자모다
+    var rw = cw / T.sw, rh = ch / T.sh;
+    if (rw < 0.72 || rw > 1.45 || rh < 0.72 || rh > 1.45) continue;
+    var inter = 0, uni = 0;
+    for (var y = 0; y < T.sh; y++){
+      var sy = ((y + 0.5) * ch / T.sh) | 0;
+      for (var x = 0; x < T.sw; x++){
+        var sx = ((x + 0.5) * cw / T.sw) | 0;
+        var a = blob[sy*cw + sx];
+        var b = T.mask[(y + T.by)*T.mw + (x + T.bx)];
+        if (a | b) uni++;
+        if (a & b) inter++;
+      }
+    }
+    var iou = uni ? inter/uni : 0;
+    if (!best || iou > best.iou) best = { T:T, iou:iou };
+  }
+  return best;
+}
+
+/** 한 프레임 인식: 펴진 판 -> {ch,x,y,w,h}[] -> 낱말. */
+/* 🔴 한 글자가 여러 덩어리로 잡힌다 — 실물 ㅎ 은 가로획과 아래 링이 1.2mm 떨어져
+      있어 꼭지·가로획·링 셋으로 갈라진다(JT 실측). 덩어리=글자로 두면 셋 다
+      작아서 버려지고 ㅎ 이 통째로 사라진다. 실패한 조각만 모아 다시 맞춘다. */
+function compGap(a, b){
+  return Math.max(Math.max(0, Math.max(a.x0 - b.x1, b.x0 - a.x1)),
+                  Math.max(0, Math.max(a.y0 - b.y1, b.y0 - a.y1)));
+}
+function mergeComps(list){
+  var m = { color:list[0].color, area:0, px:[], x0:1e9, y0:1e9, x1:-1, y1:-1 };
+  list.forEach(function(c){
+    m.area += c.area;
+    for (var k = 0; k < c.px.length; k++) m.px.push(c.px[k]);
+    if (c.x0 < m.x0) m.x0 = c.x0;
+    if (c.y0 < m.y0) m.y0 = c.y0;
+    if (c.x1 > m.x1) m.x1 = c.x1;
+    if (c.y1 > m.y1) m.y1 = c.y1;
+  });
+  m.w = m.x1 - m.x0 + 1; m.h = m.y1 - m.y0 + 1;
+  return m;
+}
+
+function recognize(){
+  var t0 = performance.now();
+  var lab = classifyPixels(reco.buf, reco.W, reco.H);
+  var comps = components(lab, reco.W, reco.H, (CELL*CELL) / 3);
+  var items = [], detail = [], orphans = [];
+  function accept(c, m){
+    var T = m.T;
+    // 덩어리 좌상단에서 템플릿 오프셋을 빼면 블록의 격자 위치가 나온다.
+    // 🔴 y 는 위아래가 뒤집혀 있다 — 텍스처는 아래가 0, 격자는 위가 0.
+    var cxPx = c.x0 + c.w/2, cyPx = c.y0 + c.h/2;
+    var gx = Math.round((cxPx - (T.bx + T.sw/2)) / CELL);
+    var gy = Math.round((cyPx - (T.by + T.sh/2)) / CELL);
+    items.push({ ch:T.ch, x:gx, y:gy, w:T.blockW, h:T.blockH });
+    detail.push({ ch:T.ch, iou:+m.iou.toFixed(2), x:gx, y:gy });
+  }
+  comps.forEach(function(c){
+    var m = matchTemplate(c, reco.W);
+    if (!m || m.iou < 0.35){ orphans.push(c); return; }
+    accept(c, m);
+  });
+  // 실패 조각 재시도 — 같은 색이고 한 칸 안쪽으로 붙은 것끼리만 묶는다.
+  var used = new Uint8Array(orphans.length);
+  for (var a = 0; a < orphans.length; a++){
+    if (used[a]) continue;
+    var grp = [orphans[a]]; used[a] = 1;
+    for (var grew = true; grew; ){
+      grew = false;
+      for (var b2 = 0; b2 < orphans.length; b2++){
+        if (used[b2] || orphans[b2].color !== grp[0].color) continue;
+        for (var g = 0; g < grp.length; g++){
+          if (compGap(grp[g], orphans[b2]) <= CELL * 0.8){
+            grp.push(orphans[b2]); used[b2] = 1; grew = true; break;
+          }
+        }
+      }
+    }
+    if (grp.length < 2){ detail.push({ ch:'?', iou:0 }); continue; }
+    var mc = mergeComps(grp);
+    var mm = matchTemplate(mc, reco.W);
+    if (mm && mm.iou >= 0.35) accept(mc, mm);
+    else detail.push({ ch:'?', iou: mm ? +mm.iou.toFixed(2) : 0, merged:grp.length });
+  }
+  var word = parseFree(items.map(function(it){
+    return { ch:it.ch, x:it.x, y:it.y, w:it.w, h:it.h };
+  })).join('');
+  reco.ms = performance.now() - t0;
+  return { word:word, items:items, detail:detail, comps:comps.length };
+}
+
+/* =====================================================================
+ * 격자 정밀화 — 펴진 판에서 격자 주기가 CELL 이 아니면 그만큼 호모그래피가 틀렸다.
+ *
+ * 원근은 warp 로 이미 제거됐으니 격자는 균일해야 한다. 균일하지 않은 만큼이
+ * 곧 오차이고, 그건 스케일 2 + 오프셋 2 — 네 파라미터로 잡힌다.
+ * 4점을 다시 추정할 필요가 없다.
+ * ===================================================================== */
+
+/** 판 표면만 골라 x·y 방향 명도 프로파일을 낸다 (블록은 채도가 있어 제외). */
+function gridProfiles(buf, W, H){
+  var px = new Float32Array(W), pxN = new Float32Array(W);
+  var py = new Float32Array(H), pyN = new Float32Array(H);
+  for (var y = 0; y < H; y++){
+    for (var x = 0; x < W; x++){
+      var i = (y*W + x) * 4;
+      var r = buf[i]/255, g = buf[i+1]/255, b = buf[i+2]/255;
+      var mx = Math.max(r,g,b), mn = Math.min(r,g,b);
+      if (mx < 0.3 || mx - mn > 0.08) continue;   // 배경·블록 제외, 판만
+      var v = r*0.3 + g*0.6 + b*0.1;
+      px[x] += v; pxN[x]++;
+      py[y] += v; pyN[y]++;
+    }
+  }
+  for (var k = 0; k < W; k++) px[k] = pxN[k] ? px[k]/pxN[k] : 0;
+  for (var k2 = 0; k2 < H; k2++) py[k2] = pyN[k2] ? py[k2]/pyN[k2] : 0;
+  return { x:px, xn:pxN, y:py, yn:pyN };
+}
+
+/** 한 프로파일에서 격자 주기와 위상 — CELL 근처만 훑는 단일 주파수 DFT. */
+function findPeriod(prof, valid, expect){
+  var best = null;
+  for (var P = expect*0.65; P <= expect*1.5; P += 0.25){
+    var re = 0, im = 0, n = 0, mean = 0;
+    for (var x = 0; x < prof.length; x++){
+      if (!valid[x]) continue;
+      mean += prof[x]; n++;
+    }
+    if (n < prof.length*0.3) return null;
+    mean /= n;
+    for (var x2 = 0; x2 < prof.length; x2++){
+      if (!valid[x2]) continue;
+      var t = 2*Math.PI*x2/P, d = prof[x2] - mean;
+      re += d*Math.cos(t); im += d*Math.sin(t);
+    }
+    var mag = Math.hypot(re, im) / n;
+    if (!best || mag > best.mag) best = { P:P, mag:mag, phase:Math.atan2(im, re) };
+  }
+  return best;
+}
+
+function mul3(a, b){
+  var o = new Float32Array(9);
+  for (var c = 0; c < 3; c++)
+    for (var r = 0; r < 3; r++){
+      var s = 0;
+      for (var k = 0; k < 3; k++) s += a[k*3+r] * b[c*3+k];
+      o[c*3+r] = s;
+    }
+  return o;
+}
+
+/** 격자를 CELL 주기·0 위상으로 되돌리는 호모그래피를 만든다.
+ *  핀이 밝은지 어두운지 모르므로 위상 후보 둘을 다 만들어 준다. */
+function refineHomography(H0){
+  grabWarped(H0);
+  var pr = gridProfiles(reco.buf, reco.W, reco.H);
+  var fx = findPeriod(pr.x, pr.xn, CELL);
+  var fy = findPeriod(pr.y, pr.yn, CELL);
+  if (!fx || !fy) return null;
+
+  var out = [];
+  [0, Math.PI].forEach(function(extra){
+    // 격자 극값이 오는 첫 위치 (픽셀)
+    var ox = ((-(fx.phase + extra) / (2*Math.PI)) * fx.P) % fx.P;
+    var oy = ((-(fy.phase + extra) / (2*Math.PI)) * fy.P) % fy.P;
+    if (ox < 0) ox += fx.P;
+    if (oy < 0) oy += fy.P;
+    // dst_old = A * dst_new — 격자가 CELL 간격으로 오도록 스케일·평행이동
+    var sx = fx.P / CELL, sy = fy.P / CELL;
+    var A = new Float32Array([sx, 0, 0, 0, sy, 0, ox/reco.W, oy/reco.H, 1]);
+    out.push({ H: mul3(H0, A), P:[+fx.P.toFixed(1), +fy.P.toFixed(1)],
+               mag:+((fx.mag + fy.mag)/2).toFixed(4) });
+  });
+  return out;
+}
+
+/** 보정 후보 중 인식이 가장 잘 되는 것을 고른다 — 인식이 1~7ms 라 두 번 돌려도 싸다. */
+function bestRefined(H0){
+  var cands = refineHomography(H0);
+  if (!cands) return null;
+  var best = null;
+  for (var i = 0; i < cands.length; i++){
+    grabWarped(cands[i].H);
+    var r = recognize();
+    var score = r.items.length + (r.word ? r.word.length * 2 : 0);
+    if (!best || score > best.score) best = { H:cands[i].H, score:score, info:cands[i], res:r };
+  }
+  return best;
+}
+
+/** 정답(placed)과 대조 — 시뮬레이터라서 채점이 공짜다. */
+function scoreAgainstTruth(res){
+  var truth = placed.map(function(p){
+    var sp = spanOf(p);
+    return { ch:p.def.rots[p.rot], x:p.gx, y:p.gy, w:sp.w, h:sp.h };
+  });
+  var truthWord = parseFree(truth.map(function(t){
+    return { ch:t.ch, x:t.x, y:t.y, w:t.w, h:t.h };
+  })).join('');
+  var hit = 0;
+  truth.forEach(function(t){
+    if (res.items.some(function(it){ return it.ch === t.ch && it.x === t.x && it.y === t.y; })) hit++;
+  });
+  // 가장 흔한 오프셋을 찾아 그만큼 밀어 놓고 다시 센다
+  var votes = {}, bestOff = null, bestN = 0;
+  truth.forEach(function(t){
+    res.items.forEach(function(it){
+      if (it.ch !== t.ch) return;
+      var k = (it.x - t.x) + ',' + (it.y - t.y);
+      votes[k] = (votes[k] || 0) + 1;
+      if (votes[k] > bestN){ bestN = votes[k]; bestOff = k; }
+    });
+  });
+  var rel = 0, off = bestOff ? bestOff.split(',').map(Number) : [0, 0];
+  truth.forEach(function(t){
+    if (res.items.some(function(it){
+      return it.ch === t.ch && it.x - off[0] === t.x && it.y - off[1] === t.y;
+    })) rel++;
+  });
+  return { truthWord:truthWord, blocks:truth.length, hit:hit, rel:rel, off:off,
+           wordOk: truthWord.length > 0 && truthWord === res.word };
+}
+
+/* =====================================================================
+ * 판 검출 — 화면에서 판을 찾아 네 모서리를 집는다.
+ *
+ * 폰 시점을 작게 받아(336x224면 충분) 밝기로 판을 떼어내고, 가장 큰 덩어리의
+ * 네 극점을 모서리로 본다. 그 네 점이 곧 판 상면 평면의 호모그래피를 만들고,
+ * 놀이 영역은 판 도면상 고정 비율이라 거기서 투영해 얻는다.
+ *
+ * 🔴 판 상면(z=13.6)과 블록 윗면(z=4.9+8=12.9)이 0.7mm 차이라 사실상 같은 평면이다.
+ *    그래서 상면 4점으로 만든 호모그래피를 블록 인식에 그대로 쓸 수 있다.
+ * ===================================================================== */
+var BOARD_LUMA = 0.40;               // 배경 0.10 / 프레임 0.42 / 판 0.70 — 판 전체를 한 덩어리로
+
+/** 네 변을 직선으로 맞춰 교점을 꼭짓점으로 삼는다.
+ *
+ *  🔴 행·열 극값으로 스캔하면 판이 회전한 순간 변을 잘못 잡는다(방위각 ±15° 부터 무너졌다).
+ *     덩어리의 2차 모멘트로 주축을 먼저 구하고, 그 축으로 돌린 좌표계에서 스캔하면
+ *     방위각이 흡수된다. 판은 493x292 라 주축이 안정적이다(정사각형이면 못 쓴다).
+ *
+ *  변의 가운데 60% 만 회귀에 넣어 모서리 라운드(R12)를 뺀다. */
+function fitQuad(comp, W, H){
+  var n = comp.px.length;
+  if (n < 200) return null;
+
+  // 무게중심과 주축
+  var cx = 0, cy = 0;
+  for (var k = 0; k < n; k++){
+    var i = comp.px[k];
+    cx += i % W; cy += (i / W) | 0;
+  }
+  cx /= n; cy /= n;
+  var m20 = 0, m02 = 0, m11 = 0;
+  for (var k2 = 0; k2 < n; k2++){
+    var i2 = comp.px[k2];
+    var dx = (i2 % W) - cx, dy = ((i2 / W) | 0) - cy;
+    m20 += dx*dx; m02 += dy*dy; m11 += dx*dy;
+  }
+  var th = 0.5 * Math.atan2(2*m11, m20 - m02);
+  var ct = Math.cos(th), st = Math.sin(th);
+
+  // 주축 좌표(u,v)로 옮겨 담는다
+  var us = new Float32Array(n), vs = new Float32Array(n);
+  var u0 = 1e9, u1 = -1e9, v0 = 1e9, v1 = -1e9;
+  for (var k3 = 0; k3 < n; k3++){
+    var i3 = comp.px[k3];
+    var ax = (i3 % W) - cx, ay = ((i3 / W) | 0) - cy;
+    var u = ax*ct + ay*st, v = -ax*st + ay*ct;
+    us[k3] = u; vs[k3] = v;
+    if (u < u0) u0 = u;
+    if (u > u1) u1 = u;
+    if (v < v0) v0 = v;
+    if (v > v1) v1 = v;
+  }
+  var uw = u1 - u0, vw = v1 - v0;
+  if (uw < 20 || vw < 20) return null;
+
+  // u 를 버킷으로 갈라 각 버킷의 v 극값 = 위/아래 변, 그 반대로 좌/우 변
+  var NB = 64;
+  var topV = new Float32Array(NB).fill(-1e9), botV = new Float32Array(NB).fill(1e9);
+  var lftU = new Float32Array(NB).fill(1e9), rgtU = new Float32Array(NB).fill(-1e9);
+  var topN = new Uint8Array(NB), botN = new Uint8Array(NB);
+  var lftN = new Uint8Array(NB), rgtN = new Uint8Array(NB);
+  for (var k4 = 0; k4 < n; k4++){
+    var bu = Math.min(NB-1, ((us[k4] - u0) / uw * NB) | 0);
+    var bv = Math.min(NB-1, ((vs[k4] - v0) / vw * NB) | 0);
+    if (vs[k4] > topV[bu]){ topV[bu] = vs[k4]; topN[bu] = 1; }
+    if (vs[k4] < botV[bu]){ botV[bu] = vs[k4]; botN[bu] = 1; }
+    if (us[k4] < lftU[bv]){ lftU[bv] = us[k4]; lftN[bv] = 1; }
+    if (us[k4] > rgtU[bv]){ rgtU[bv] = us[k4]; rgtN[bv] = 1; }
+  }
+  var lo = Math.floor(NB*0.2), hi = Math.ceil(NB*0.8);
+  function collect(vals, has, along, isTopBot){
+    var pts = [];
+    for (var b = lo; b < hi; b++){
+      if (!has[b]) continue;
+      var a = along + (b + 0.5) / NB * (isTopBot ? uw : vw);
+      pts.push(isTopBot ? [a, vals[b]] : [vals[b], a]);
+    }
+    return pts;
+  }
+  var top = collect(topV, topN, u0, true);
+  var bot = collect(botV, botN, u0, true);
+  var lft = collect(lftU, lftN, v0, false);
+  var rgt = collect(rgtU, rgtN, v0, false);
+  if (top.length < 8 || bot.length < 8 || lft.length < 8 || rgt.length < 8) return null;
+
+  // v = a*u + b (위/아래) · u = a*v + b (좌/우)
+  function fit(pts, swap){
+    var N = pts.length, sx = 0, sy = 0, sxx = 0, sxy = 0;
+    for (var i = 0; i < N; i++){
+      var p = swap ? pts[i][1] : pts[i][0];
+      var q = swap ? pts[i][0] : pts[i][1];
+      sx += p; sy += q; sxx += p*p; sxy += p*q;
+    }
+    var d = N*sxx - sx*sx;
+    if (Math.abs(d) < 1e-9) return null;
+    return { a: (N*sxy - sx*sy) / d, b: (sy*sxx - sx*sxy) / d };
+  }
+  var T = fit(top, false), B = fit(bot, false), L = fit(lft, true), R = fit(rgt, true);
+  if (!T || !B || !L || !R) return null;
+
+  function cross(hz, vt){
+    var den = 1 - hz.a * vt.a;
+    if (Math.abs(den) < 1e-9) return null;
+    var u = (vt.a * hz.b + vt.b) / den;
+    return [u, hz.a * u + hz.b];
+  }
+  var q = [cross(T, L), cross(T, R), cross(B, R), cross(B, L)];
+  if (q.some(function(p){ return !p; })) return null;
+
+  // 주축 좌표를 화면 좌표로 되돌린다
+  var scr = q.map(function(p){
+    return [cx + p[0]*ct - p[1]*st, cy + p[0]*st + p[1]*ct];
+  });
+  // 버퍼 y 는 아래가 0 이라 v 가 큰 쪽이 화면 위 — TL,TR,BR,BL 순으로 맞춘다
+  var cyAll = (scr[0][1] + scr[1][1] + scr[2][1] + scr[3][1]) / 4;
+  var upper = scr.filter(function(p){ return p[1] > cyAll; }).sort(function(a,b){ return a[0]-b[0]; });
+  var lower = scr.filter(function(p){ return p[1] <= cyAll; }).sort(function(a,b){ return a[0]-b[0]; });
+  if (upper.length !== 2 || lower.length !== 2) return null;
+  return [upper[0], upper[1], lower[1], lower[0]];
+}
+
+/** 폰 시점을 그대로 받아 판의 네 모서리 uv 를 찾는다. 못 찾으면 null. */
+function detectBoardCorners(){
+  grabWarped(IDENT3);                // 워프 없이 폰 화면 그대로
+  var b = reco.buf, W = reco.W, H = reco.H;
+  var mask = new Uint8Array(W * H), lit = 0;
+  for (var i = 0; i < W*H; i++){
+    var v = (b[i*4]*0.3 + b[i*4+1]*0.6 + b[i*4+2]*0.1) / 255;
+    if (v >= BOARD_LUMA){ mask[i] = 1; lit++; }
+  }
+  if (lit < W*H*0.04) return null;   // 판이 화면에 거의 없다
+
+  // 가장 큰 덩어리만 남긴다 (판 위 블록도 밝아서 같이 묶인다 — 오히려 구멍이 안 생긴다)
+  var comps = components(mask, W, H, 200);
+  if (!comps.length) return null;
+  var big = comps[0];
+  for (var c = 1; c < comps.length; c++) if (comps[c].area > big.area) big = comps[c];
+
+  var margin = 2;
+  if (big.x0 <= margin || big.y0 <= margin ||
+      big.x1 >= W - 1 - margin || big.y1 >= H - 1 - margin) return null;
+
+  var quad = fitQuad(big, W, H);
+  if (!quad) return null;
+  var TL = quad[0], TR = quad[1], BR = quad[2], BL = quad[3];
+
+  // 너무 납작하면(판이 거의 선으로 보임) 믿지 않는다
+  var wpx = Math.hypot(TR[0]-TL[0], TR[1]-TL[1]);
+  var hpx = Math.hypot(BL[0]-TL[0], BL[1]-TL[1]);
+  if (wpx < W*0.15 || hpx < H*0.10) return null;
+
+  return quad.map(function(p){ return [p[0]/W, p[1]/H]; });
+}
+
+/** 검출된 판 상면 4점 -> 놀이 영역 4점. 둘의 비율은 판 도면이 정한 상수다. */
+function playAreaFromBoard(boardUV){
+  var m = meshMeta;
+  if (!m || (m.silX1 == null && m.topX1 == null)) return null;
+  var X0 = m.silX0 != null ? m.silX0 : m.topX0, X1 = m.silX1 != null ? m.silX1 : m.topX1;
+  var Y0 = m.silY0 != null ? m.silY0 : m.topY0, Y1 = m.silY1 != null ? m.silY1 : m.topY1;
+  var tw = X1 - X0, th = Y1 - Y0;
+  var fx0 = (m.playX - X0) / tw;
+  var fx1 = (m.playX + m.cols*m.pitch - X0) / tw;
+  // 판의 모델 y 는 위가 크고, 검출 사각형의 y 는 아래로 증가한다 — 뒤집는다.
+  var fy0 = 1 - (m.playY + m.rows*m.pitch - Y0) / th;
+  var fy1 = 1 - (m.playY - Y0) / th;
+
+  var Htop = homography(boardUV);    // 단위정사각형 -> 검출된 판 uv
+  if (!Htop) return null;
+  function map(fx, fy){
+    var x = Htop[0]*fx + Htop[3]*fy + Htop[6];
+    var y = Htop[1]*fx + Htop[4]*fy + Htop[7];
+    var w = Htop[2]*fx + Htop[5]*fy + Htop[8];
+    return [x/w, y/w];
+  }
+  return [map(fx0, fy0), map(fx1, fy0), map(fx1, fy1), map(fx0, fy1)];
+}
+
+var meshMeta = null;
+var camSim = { on:false, tilt:62, padH:250, azimuth:0, padTilt:85, overhang:20,
+               standY:null,
+               fov:68, W:2160, H:1620 };
+var simFbo = null, simTex = null, simDepth = null, progTex = null, texQuad = null;
+
+function initCamSim(){
+  progTex = program(
+    '#version 300 es\n' +
+    'in vec2 aXY; uniform vec4 uRect; uniform mat3 uH; out vec2 vDst;' +
+    'void main(){ vDst = aXY; gl_Position = vec4(uRect.xy + aXY*uRect.zw, 0.0, 1.0); }',
+    '#version 300 es\n precision highp float;' +
+    'in vec2 vDst; uniform sampler2D uTex; uniform mat3 uH; out vec4 o;' +
+    'void main(){' +
+    '  vec3 p = uH * vec3(vDst, 1.0);' +
+    '  vec2 uv = p.xy / p.z;' +
+    '  if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0){ o = vec4(0.05,0.07,0.06,1.0); return; }' +
+    '  o = texture(uTex, uv);' +
+    '}');
+
+  texQuad = gl.createVertexArray();
+  gl.bindVertexArray(texQuad);
+  var b = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, b);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([0,0, 1,0, 0,1, 0,1, 1,0, 1,1]), gl.STATIC_DRAW);
+  gl.enableVertexAttribArray(0);
+  gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+  gl.bindVertexArray(null);
+
+  simTex = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, simTex);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, camSim.W, camSim.H, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+
+  simDepth = gl.createRenderbuffer();
+  gl.bindRenderbuffer(gl.RENDERBUFFER, simDepth);
+  gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, camSim.W, camSim.H);
+
+  simFbo = gl.createFramebuffer();
+  gl.bindFramebuffer(gl.FRAMEBUFFER, simFbo);
+  gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, simTex, 0);
+  gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, simDepth);
+  var ok = gl.checkFramebufferStatus(gl.FRAMEBUFFER) === gl.FRAMEBUFFER_COMPLETE;
+  gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+  if (!ok) console.warn('[camSim] framebuffer incomplete');
+  return ok;
+}
+
+/* =====================================================================
+ * 거치 리그 그리기 — 태블릿이 어디에 서고 카메라가 무엇을 보는지 눈으로.
+ *
+ * 판 위에 칠해지는 사각형이 「화면에 들어오는 영역」이다. 판이 그 안에 다 들어가야
+ * 판 검출이 되고, 안 들어가면 폴백으로 떨어진다.
+ * ===================================================================== */
+var TABLET = { w:178, h:250, t:6 };     // 11" iPad (세워 놓았을 때)
+var progFlat = null, dynBuf = null, dynVao = null;
+
+function initRig(){
+  progFlat = program(
+    '#version 300 es\n' +
+    'in vec3 aPos; uniform mat4 uMVP; void main(){ gl_Position = uMVP*vec4(aPos,1.0); }',
+    '#version 300 es\n precision highp float;' +
+    'uniform vec4 uColor; out vec4 o; void main(){ o = uColor; }');
+  dynVao = gl.createVertexArray();
+  gl.bindVertexArray(dynVao);
+  dynBuf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, dynBuf);
+  gl.bufferData(gl.ARRAY_BUFFER, 4096 * 4, gl.DYNAMIC_DRAW);
+  gl.enableVertexAttribArray(0);
+  gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0);
+  gl.bindVertexArray(null);
+}
+
+function drawDyn(verts, mode, vp, color, depth){
+  gl.useProgram(progFlat);
+  gl.bindVertexArray(dynVao);
+  gl.bindBuffer(gl.ARRAY_BUFFER, dynBuf);
+  gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(verts));
+  gl.uniformMatrix4fv(gl.getUniformLocation(progFlat, 'uMVP'), false, vp);
+  gl.uniform4fv(gl.getUniformLocation(progFlat, 'uColor'), color);
+  if (!depth) gl.disable(gl.DEPTH_TEST);
+  gl.drawArrays(mode, 0, verts.length / 3);
+  if (!depth) gl.enable(gl.DEPTH_TEST);
+  gl.bindVertexArray(null);
+}
+
+/** 폰 카메라의 화각이 판 평면(z)에 그리는 사각형 네 점. */
+function frustumOnPlane(pc, z){
+  var f = [pc.at[0]-pc.eye[0], pc.at[1]-pc.eye[1], pc.at[2]-pc.eye[2]];
+  var fl = Math.hypot(f[0], f[1], f[2]);
+  f = [f[0]/fl, f[1]/fl, f[2]/fl];
+  var up = [0, 0, 1];
+  var s = [f[1]*up[2]-f[2]*up[1], f[2]*up[0]-f[0]*up[2], f[0]*up[1]-f[1]*up[0]];
+  var sl = Math.hypot(s[0], s[1], s[2]);
+  s = [s[0]/sl, s[1]/sl, s[2]/sl];
+  var u = [s[1]*f[2]-s[2]*f[1], s[2]*f[0]-s[0]*f[2], s[0]*f[1]-s[1]*f[0]];
+  var tanH = Math.tan(camSim.fov*Math.PI/360), tanW = tanH * (camSim.W/camSim.H);
+  var out = [];
+  [[-1,-1], [1,-1], [1,1], [-1,1]].forEach(function(c){
+    var rd = [
+      f[0] + s[0]*c[0]*tanW + u[0]*c[1]*tanH,
+      f[1] + s[1]*c[0]*tanW + u[1]*c[1]*tanH,
+      f[2] + s[2]*c[0]*tanW + u[2]*c[1]*tanH
+    ];
+    if (Math.abs(rd[2]) < 1e-6){ out.push(null); return; }
+    var t = (z - pc.eye[2]) / rd[2];
+    out.push(t > 0 ? [pc.eye[0]+rd[0]*t, pc.eye[1]+rd[1]*t, z] : null);
+  });
+  return out.every(function(p){ return p; }) ? out : null;
+}
+
+
+/* =====================================================================
+ * 태블릿 화면 — 판 뒤에 선 기기가 무엇을 띄우고 있는지 그린다.
+ *
+ * 캔버스 2D 로 페이지를 그려 텍스처로 올린다. 낱말이 바뀔 때만 다시 그린다.
+ * ===================================================================== */
+var ROM_CHO = ['g','kk','n','d','tt','r','m','b','pp','s','ss','','j','jj','ch','k','t','p','h'];
+var ROM_JUNG = ['a','ae','ya','yae','eo','e','yeo','ye','o','wa','wae','oe','yo','u','wo','we',
+                'wi','yu','eu','ui','i'];
+var ROM_JONG = ['','k','k','k','n','n','n','t','l','l','l','l','l','l','l','l','m','p','p',
+                't','t','ng','t','t','k','t','p','t'];
+
+/** 한글 낱말 -> 로마자 (국어의 로마자 표기법 간략판). */
+function romanize(word){
+  var out = '';
+  for (var i = 0; i < word.length; i++){
+    var c = word.charCodeAt(i) - 0xAC00;
+    if (c < 0 || c > 11171){ out += word[i]; continue; }
+    out += ROM_CHO[(c/588)|0] + ROM_JUNG[((c%588)/28)|0] + ROM_JONG[c%28];
+  }
+  return out;
+}
+
+/** 낱말을 자모로 풀어 배열로 — 블록과 같은 낱낱을 화면에도 보여 준다. */
+function splitJamo(word){
+  var out = [];
+  for (var i = 0; i < word.length; i++){
+    var c = word.charCodeAt(i) - 0xAC00;
+    if (c < 0 || c > 11171){ out.push(word[i]); continue; }
+    out.push(CHO[(c/588)|0]);
+    out.push(JUNG[((c%588)/28)|0]);
+    var j = JONG[c%28];
+    if (j) out.push(j);
+  }
+  return out;
+}
+
+var padCv = null, padTex = null, padDrawn = null;
+var PAD_W = 720, PAD_H = 1000;
+
+function paintPadPage(word){
+  if (!padCv){
+    padCv = document.createElement('canvas');
+    padCv.width = PAD_W; padCv.height = PAD_H;
+  }
+  var g = padCv.getContext('2d');
+  g.fillStyle = '#fdf6e3';
+  g.fillRect(0, 0, PAD_W, PAD_H);
+  g.fillStyle = '#f2e6c8';
+  g.fillRect(0, 0, PAD_W, 122);
+  g.fillStyle = '#8a7a52';
+  g.font = '600 40px "Pretendard Variable", sans-serif';
+  g.textAlign = 'center';
+  g.fillText('한글 배우기', PAD_W/2, 78);
+
+  g.fillStyle = '#2b2b2b';
+  var big = (word && word.length <= 2) ? 250 : 180;
+  g.font = '700 ' + big + 'px "NanumSquareRound", "Pretendard Variable", sans-serif';
+  g.fillText(word || '—', PAD_W/2, 400);
+
+  g.fillStyle = '#6b6b6b';
+  g.font = '500 54px "Pretendard Variable", sans-serif';
+  g.fillText(romanize(word || ''), PAD_W/2, 478);
+
+  var js = splitJamo(word || '');
+  if (js.length){
+    var bw = Math.min(96, (PAD_W - 120) / js.length - 16);
+    var gap = 16, total = js.length*bw + (js.length-1)*gap;
+    var x = (PAD_W - total)/2, y = 560;
+    js.forEach(function(ch, i){
+      var vowel = JUNG.indexOf(ch) >= 0;
+      g.fillStyle = vowel ? '#7fc9b4' : '#ef9a68';
+      var rx = x + i*(bw+gap);
+      g.beginPath();
+      if (g.roundRect) g.roundRect(rx, y, bw, bw, bw*0.19);
+      else g.rect(rx, y, bw, bw);
+      g.fill();
+      g.fillStyle = '#ffffff';
+      g.font = '700 ' + Math.round(bw*0.66) + 'px "NanumSquareRound", sans-serif';
+      g.fillText(ch, rx + bw/2, y + bw*0.74);
+    });
+  }
+
+  g.strokeStyle = '#e0d3ae';
+  g.lineWidth = 3;
+  g.beginPath(); g.moveTo(80, 742); g.lineTo(PAD_W-80, 742); g.stroke();
+  g.fillStyle = '#9a8c66';
+  g.font = '500 36px "Pretendard Variable", sans-serif';
+  g.fillText('블록을 놓아 만들어 보세요', PAD_W/2, 812);
+  g.fillStyle = '#cbbc92';
+  g.font = '500 30px "Pretendard Variable", sans-serif';
+  g.fillText('탱고보드', PAD_W/2, 936);
+}
+
+function padTexture(){
+  var word = (typeof current !== 'undefined' && current) ? current.word : '';
+  if (!padTex){
+    padTex = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, padTex);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  }
+  if (padDrawn !== word){
+    paintPadPage(word);
+    gl.bindTexture(gl.TEXTURE_2D, padTex);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, padCv);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+    padDrawn = word;
+  }
+  return padTex;
+}
+
+var progPage = null, pageBuf = null, pageVao = null;
+function initPageQuad(){
+  progPage = program(
+    '#version 300 es\n' +
+    'layout(location=0) in vec3 aPos; layout(location=1) in vec2 aUV;' +
+    'uniform mat4 uMVP; out vec2 vUV;' +
+    'void main(){ vUV = aUV; gl_Position = uMVP*vec4(aPos,1.0); }',
+    '#version 300 es\n precision highp float;' +
+    'in vec2 vUV; uniform sampler2D uTex; out vec4 o;' +
+    'void main(){ o = texture(uTex, vUV); }');
+  pageVao = gl.createVertexArray();
+  gl.bindVertexArray(pageVao);
+  pageBuf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, pageBuf);
+  gl.bufferData(gl.ARRAY_BUFFER, 6*5*4, gl.DYNAMIC_DRAW);
+  gl.enableVertexAttribArray(0);
+  gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 20, 0);
+  gl.enableVertexAttribArray(1);
+  gl.vertexAttribPointer(1, 2, gl.FLOAT, false, 20, 12);
+  gl.bindVertexArray(null);
+}
+
+/** 네 모서리(좌아래·우아래·우위·좌위)에 페이지를 붙여 그린다. */
+function drawScreen(vp, P, tex){
+  if (!progPage) initPageQuad();
+  var uv = [[0,0],[1,0],[1,1],[0,1]];
+  var v = [];
+  [0,1,2,0,2,3].forEach(function(i){
+    v.push(P[i][0], P[i][1], P[i][2], uv[i][0], uv[i][1]);
+  });
+  gl.useProgram(progPage);
+  gl.bindVertexArray(pageVao);
+  gl.bindBuffer(gl.ARRAY_BUFFER, pageBuf);
+  gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(v));
+  gl.uniformMatrix4fv(gl.getUniformLocation(progPage, 'uMVP'), false, vp);
+  gl.activeTexture(gl.TEXTURE0);
+  gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.uniform1i(gl.getUniformLocation(progPage, 'uTex'), 0);
+  gl.drawArrays(gl.TRIANGLES, 0, 6);
+  gl.bindVertexArray(null);
+}
+
+function drawRig(vp){
+  if (!progFlat) initRig();
+  var pc = phoneCamera();
+  var z = boardTop + 0.4;
+
+  // 화각이 판에 그리는 영역 — 판이 이 안에 다 들어와야 검출된다.
+  // 🔴 카메라 화면을 껐을 땐 그리지 않는다(태블릿만 보려는 상태다).
+  var fr = camSim.on ? frustumOnPlane(pc, z) : null;
+  if (fr){
+    var covered = camSim.detected !== false;
+    var col = covered ? [0.18, 0.85, 0.55, 0.22] : [0.95, 0.42, 0.30, 0.22];
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    drawDyn([].concat(fr[0], fr[1], fr[2], fr[0], fr[2], fr[3]), gl.TRIANGLES, vp, col, false);
+    var edge = covered ? [0.30, 1.0, 0.70, 0.9] : [1.0, 0.55, 0.42, 0.9];
+    drawDyn([].concat(fr[0], fr[1], fr[1], fr[2], fr[2], fr[3], fr[3], fr[0]),
+            gl.LINES, vp, edge, false);
+    // 카메라에서 네 모서리로 뻗는 시야선
+    var rays = [];
+    fr.forEach(function(p){ rays = rays.concat(pc.eye, p); });
+    drawDyn(rays, gl.LINES, vp, [0.55, 0.85, 0.95, 0.35], false);
+    gl.disable(gl.BLEND);
+  }
+
+  // 태블릿 — 아래끝이 판 슬롯에 꽂혀 고정이고, 기울이면 위끝이 호를 그린다.
+  // 🔴 예전엔 카메라(위끝)를 고정하고 아래끝을 흔들었다 — 실물과 반대였다.
+  var g = rigGeometry();
+  var e = g.eye;                             // 잠망경 거울 자리 (아래 여러 곳에서 쓴다)
+  var yaw = camSim.azimuth * Math.PI/180;
+  var right = [Math.cos(yaw), -Math.sin(yaw), 0];
+  var up = [g.top[0]-g.slot[0], g.top[1]-g.slot[1], g.top[2]-g.slot[2]];
+  var upL = Math.hypot(up[0], up[1], up[2]) || 1;
+  up = [up[0]/upL, up[1]/upL, up[2]/upL];
+  var back = [up[1]*right[2] - up[2]*right[1],       // 화면 뒤쪽(두께 방향)
+              up[2]*right[0] - up[0]*right[2],
+              up[0]*right[1] - up[1]*right[0]];
+  function corner(a, b, c){                          // 좌우 · 아래끝에서 위로 · 두께
+    return [g.slot[0] + right[0]*a + up[0]*b + back[0]*c,
+            g.slot[1] + right[1]*a + up[1]*b + back[1]*c,
+            g.slot[2] + right[2]*a + up[2]*b + back[2]*c];
+  }
+  var hw = TABLET.w/2, hh = g.padH, th = TABLET.t;
+  var A = corner(-hw, 0, 0), B = corner(hw, 0, 0);
+  var C = corner(hw, hh, 0), D = corner(-hw, hh, 0);
+  var A2 = corner(-hw, 0, th), B2 = corner(hw, 0, th);
+  var C2 = corner(hw, hh, th), D2 = corner(-hw, hh, th);
+  var quads = [[A,B,C,D], [A2,B2,C2,D2], [A,B,B2,A2], [D,C,C2,D2],
+               [A,D,D2,A2], [B,C,C2,B2]];
+  var tri = [];
+  quads.forEach(function(q){
+    tri = tri.concat(q[0], q[1], q[2], q[0], q[2], q[3]);
+  });
+  drawDyn(tri, gl.TRIANGLES, vp, [0.13, 0.14, 0.16, 1], true);       // 검은 몸체
+
+  // 화면 — 베젤만큼 안쪽으로, 앞면보다 0.4mm 앞에 띄워 z-파이팅을 피한다.
+  // 🔴 c 축은 화면 뒤쪽이라 앞으로 내려면 음수다.
+  var mSide = 9, mTop = 12, mBot = 15;
+  var S = [corner(-hw+mSide, mBot,    -0.4), corner(hw-mSide, mBot,    -0.4),
+           corner( hw-mSide, hh-mTop, -0.4), corner(-hw+mSide, hh-mTop, -0.4)];
+  drawScreen(vp, S, padTexture());
+  drawDyn([].concat(S[0],S[1], S[1],S[2], S[2],S[3], S[3],S[0]),
+          gl.LINES, vp, [0.05, 0.05, 0.06, 1], true);                // 화면 테두리
+  drawDyn([].concat(A,B, B,C, C,D, D,A), gl.LINES, vp, [0.42, 0.46, 0.50, 1], true);
+
+  // 앞면 카메라 구멍 — 위쪽 베젤 한가운데
+  var camDot = [], cdR = 2.2, cdY = hh - mTop/2;
+  for (var ci = 0; ci < 14; ci++){
+    var a0 = ci/14*Math.PI*2, a1 = (ci+1)/14*Math.PI*2;
+    camDot = camDot.concat(corner(0, cdY, -0.5),
+                           corner(Math.cos(a0)*cdR, cdY + Math.sin(a0)*cdR, -0.5),
+                           corner(Math.cos(a1)*cdR, cdY + Math.sin(a1)*cdR, -0.5));
+  }
+  drawDyn(camDot, gl.TRIANGLES, vp, [0.30, 0.34, 0.38, 1], true);
+
+  camSim.standH = 0;      // 슬롯에 꽂히므로 책상까지 내려가는 기둥은 없다
+
+  // 잠망경 — 태블릿 위끝을 물고 앞으로 나온다. 그 오버행이 곧 판을 볼 수 있느냐를 가른다.
+  // 🔴 예전엔 카메라 점을 중심으로 공중에 띄웠고 기울기도 안 따라 떠 보였다.
+  //    태블릿 좌표계(corner)로 그려야 기울여도 붙어 있다.
+  var over = (camSim.overhang != null) ? camSim.overhang : 20;
+  var pw = 34, grip = 24, lipB = 7;
+  var cFront = -over, cBack = th + 6;
+  var bLo = hh - grip, bHi = hh + lipB;
+  function peri(a, b, c){ return corner(a, b, c); }   // 🔴 pc 는 위에서 phoneCamera() 가 쓴다
+  var P = [peri(-pw/2, bLo, cFront), peri(pw/2, bLo, cFront),
+           peri( pw/2, bHi, cFront), peri(-pw/2, bHi, cFront),
+           peri(-pw/2, bLo, cBack),  peri(pw/2, bLo, cBack),
+           peri( pw/2, bHi, cBack),  peri(-pw/2, bHi, cBack)];
+  var pq = [[0,1,2,3],[4,5,6,7],[0,1,5,4],[3,2,6,7],[0,3,7,4],[1,2,6,5]];
+  var ptri = [];
+  pq.forEach(function(q){
+    ptri = ptri.concat(P[q[0]], P[q[1]], P[q[2]], P[q[0]], P[q[2]], P[q[3]]);
+  });
+  drawDyn(ptri, gl.TRIANGLES, vp, [0.82, 0.80, 0.74, 1], true);
+  drawDyn([].concat(P[0],P[1], P[1],P[2], P[2],P[3], P[3],P[0]),
+          gl.LINES, vp, [0.55, 0.53, 0.48, 1], true);
+  // 거울 창 — 아래를 향해 뚫린 면
+  var mw = pw*0.62, M = [peri(-mw/2, bLo+2, cFront-0.4), peri(mw/2, bLo+2, cFront-0.4),
+                         peri( mw/2, bLo+12, cFront-0.4), peri(-mw/2, bLo+12, cFront-0.4)];
+  drawDyn([].concat(M[0],M[1],M[2], M[0],M[2],M[3]), gl.TRIANGLES, vp,
+          [0.15, 0.17, 0.19, 1], true);
+
+  // 카메라 자리 표시
+
+}
+
+/** 거치대 조건(경사각·높이·방위각) -> 판 중심을 보는 카메라. */
+/* 🔴 거치대는 판 뒤 가장자리에 붙는다 — 높이를 바꿔도 앞뒤로 움직이지 않는다.
+      예전에는 판 중심을 겨냥해 각도만큼 물러난 자리를 카메라로 삼아서,
+      높이를 250->600 올리면 카메라가 뒤로도 245mm 물러났다(수직이 아니었다).
+      이제 서는 자리는 고정이고, 높이와 하향각이 「무엇이 보이는가」를 정한다.
+      잠망경 거울은 태블릿 앞면보다 overhang 만큼 앞에 나온다 — 0 이면 태블릿
+      몸통이 판으로 가는 광선을 통째로 막는다. */
+/* 거치 구조 — 실물 순서 그대로 세운다.
+     ① 태블릿 아래끝이 판 뒤 슬롯에 꽂힌다 (여기가 고정점)
+     ② 기울기(padTilt)만큼 눕으면 위끝이 호를 그리며 움직인다
+     ③ 잠망경 거울은 위끝보다 overhang 만큼 앞에 나온다
+     ④ 카메라가 보는 것은 그 거울 자리에서 하향각(tilt)만큼 내려다본 화각
+
+   🔴 예전에는 카메라를 먼저 놓고 태블릿을 그 아래에 매달았다. 그래서
+      기울기를 바꾸면 위끝이 아니라 아래끝이 흔들렸고, 높이를 올리면
+      카메라가 뒤로도 물러났다 — 어느 쪽도 실물이 하는 동작이 아니다.
+   🔴 overhang 이 0 이면 태블릿 몸통이 판으로 가는 광선을 통째로 막는다. */
+function rigGeometry(){
+  var pt = Math.max(20, Math.min(100, camSim.padTilt || 80)) * Math.PI/180;
+  var cx = boardOrigin.x + GRID_W*PITCH/2;
+  var slotY = (camSim.standY != null) ? camSim.standY
+            : ((meshMeta && meshMeta.topY1 != null) ? meshMeta.topY1 - 12
+                                                    : boardOrigin.y + 30);
+  var padH = camSim.padH || 250;
+  var top = [cx, slotY + padH*Math.cos(pt), boardTop + padH*Math.sin(pt)];
+  var over = (camSim.overhang != null) ? camSim.overhang : 20;
+  return { cx:cx, slotY:slotY, padH:padH, padTilt:pt,
+           slot:[cx, slotY, boardTop], top:top,
+           eye:[cx, top[1] - over, top[2]] };
+}
+
+function phoneCamera(){
+  var tilt = Math.max(5, camSim.tilt) * Math.PI/180;
+  var yaw = camSim.azimuth * Math.PI/180;
+  var eye = rigGeometry().eye;
+  var drop = Math.max(1, eye[2] - boardTop);
+  var dist = drop / Math.sin(tilt);
+  var dir = [Math.sin(yaw)*Math.cos(tilt), -Math.cos(yaw)*Math.cos(tilt), -Math.sin(tilt)];
+  var at = [eye[0] + dir[0]*dist, eye[1] + dir[1]*dist, eye[2] + dir[2]*dist];
+  var proj = mPerspective(camSim.fov*Math.PI/180, camSim.W/camSim.H, 20, 4000);
+  return { vp: mMul(proj, mLookAt(eye, at, [0,0,1])), eye:eye, at:at, dist:dist };
+}
+
+/** 모델 좌표 한 점 -> 텍스처 uv (0..1). */
+function projectToUV(vp, x, y, z){
+  var cx = vp[0]*x + vp[4]*y + vp[8]*z + vp[12];
+  var cy = vp[1]*x + vp[5]*y + vp[9]*z + vp[13];
+  var cw = vp[3]*x + vp[7]*y + vp[11]*z + vp[15];
+  return [ (cx/cw)*0.5 + 0.5, (cy/cw)*0.5 + 0.5 ];
+}
+
+/** 네 점 대응 dst(단위정사각형) -> src(uv) 호모그래피. 8x8 선형계를 푼다. */
+function homography(src){
+  var dst = [[0,0],[1,0],[1,1],[0,1]];
+  var A = [], b = [];
+  for (var i = 0; i < 4; i++){
+    var X = dst[i][0], Y = dst[i][1], u = src[i][0], v = src[i][1];
+    A.push([X, Y, 1, 0, 0, 0, -u*X, -u*Y]); b.push(u);
+    A.push([0, 0, 0, X, Y, 1, -v*X, -v*Y]); b.push(v);
+  }
+  // 가우스 소거 (부분 피벗)
+  for (var c = 0; c < 8; c++){
+    var piv = c;
+    for (var r = c+1; r < 8; r++) if (Math.abs(A[r][c]) > Math.abs(A[piv][c])) piv = r;
+    if (Math.abs(A[piv][c]) < 1e-12) return null;
+    var t = A[c]; A[c] = A[piv]; A[piv] = t;
+    var tb = b[c]; b[c] = b[piv]; b[piv] = tb;
+    for (var r2 = 0; r2 < 8; r2++){
+      if (r2 === c) continue;
+      var f = A[r2][c] / A[c][c];
+      if (!f) continue;
+      for (var k = c; k < 8; k++) A[r2][k] -= f*A[c][k];
+      b[r2] -= f*b[c];
+    }
+  }
+  var h = b.map(function(v, i){ return v / A[i][i]; });
+  // column-major mat3
+  return new Float32Array([h[0], h[3], h[6], h[1], h[4], h[7], h[2], h[5], 1]);
+}
+
+function blitTex(rect, H){
+  gl.useProgram(progTex);
+  gl.disable(gl.DEPTH_TEST);
+  gl.activeTexture(gl.TEXTURE0);
+  gl.bindTexture(gl.TEXTURE_2D, simTex);
+  gl.uniform1i(gl.getUniformLocation(progTex, 'uTex'), 0);
+  gl.uniform4f(gl.getUniformLocation(progTex, 'uRect'), rect[0], rect[1], rect[2], rect[3]);
+  gl.uniformMatrix3fv(gl.getUniformLocation(progTex, 'uH'), false, H);
+  gl.bindVertexArray(texQuad);
+  gl.drawArrays(gl.TRIANGLES, 0, 6);
+  gl.bindVertexArray(null);
+}
+
+var IDENT3 = new Float32Array([1,0,0, 0,1,0, 0,0,1]);
+
+function drawCamSim(){
+  if (!simFbo && !initCamSim()) return;
+  var pc = phoneCamera();
+
+  // 폰이 보는 화면을 텍스처에 그린다
+  gl.bindFramebuffer(gl.FRAMEBUFFER, simFbo);
+  gl.viewport(0, 0, camSim.W, camSim.H);
+  gl.clearColor(0.10, 0.12, 0.11, 1);
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  drawScene(pc.vp);
+  gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+  gl.viewport(0, 0, canvas.width, canvas.height);
+
+  // 놀이 영역 네 모서리를 투영해 「판을 편」 호모그래피를 만든다
+  var x0 = boardOrigin.x, x1 = boardOrigin.x + GRID_W*PITCH;
+  var y0 = boardOrigin.y, y1 = boardOrigin.y - GRID_H*PITCH;
+  if (!reco.fbo) initReco();
+  var truthCorners = [[x0,y0],[x1,y0],[x1,y1],[x0,y1]].map(function(c){
+    return projectToUV(pc.vp, c[0], c[1], boardTop + BLOCK_H);
+  });
+  // 화면에서 판을 찾아 놀이 영역을 잡는다. 실패하면 정답 네 점으로 물러선다.
+  var boardUV = camSim.detect ? detectBoardCorners() : null;
+  var found = boardUV
+    ? playAreaFromBoard([boardUV[2], boardUV[3], boardUV[0], boardUV[1]])
+    : null;
+  camSim.detected = !!found;
+  camSim.cornerErr = found ? found.reduce(function(mx, c, i){
+    return Math.max(mx, Math.hypot(c[0]-truthCorners[i][0], c[1]-truthCorners[i][1]));
+  }, 0) : null;
+  var corners = found || truthCorners;
+  var H = homography(corners);
+  camSim.corners = corners;
+  camSim.visible = corners.every(function(c){
+    return c[0] > -0.15 && c[0] < 1.15 && c[1] > -0.15 && c[1] < 1.15;
+  });
+
+  // 우상단에 폰 시점, 그 아래에 펴진 판
+  // 펴진 판이 준비됐으면 그대로 인식까지 돌린다 — 각도를 바꿀 때마다 결과가 따라온다
+  if (H){
+    if (reco.fbo){
+      // 격자 주기로 호모그래피를 한 번 더 맞춘다 — 검출 4점만으로는 스케일이 어긋난다
+      var refined = camSim.refine ? bestRefined(H) : null;
+      camSim.refineInfo = refined ? refined.info : null;
+      if (refined){
+        H = refined.H;
+        reco.result = refined.res;
+      } else {
+        grabWarped(H);
+        reco.result = recognize();
+      }
+      reco.score = scoreAgainstTruth(reco.result);
+      if (typeof onRecoResult === 'function') onRecoResult();
+    }
+  }
+
+  var aspect = canvas.width / canvas.height;
+  var w = 0.56, h = w * (camSim.H/camSim.W) * aspect;
+  blitTex([1 - w - 0.03, 1 - h - 0.05, w, h], IDENT3);
+  var gh = w * (GRID_H/GRID_W) * aspect;
+  if (H) blitTex([1 - w - 0.03, 1 - h - gh - 0.09, w, gh], H);
+  gl.enable(gl.DEPTH_TEST);
+}
+
+/** 씬 한 번 그리기 — 어느 시점에서 그리느냐만 다르다(게임 시점 / 폰 카메라). */
+function drawScene(vp){
+  gl.enable(gl.DEPTH_TEST);
+  gl.disable(gl.BLEND);
+  gl.useProgram(progSolid);
+  var uMVP = gl.getUniformLocation(progSolid, 'uMVP');
+  var uModel = gl.getUniformLocation(progSolid, 'uModel');
+  var uColor = gl.getUniformLocation(progSolid, 'uColor');
+  var uTint = gl.getUniformLocation(progSolid, 'uTint');
+
+  var still = mTRS(0, 0, 0, 0, 1);
+  gl.uniformMatrix4fv(uMVP, false, mMul(vp, still));
+  gl.uniformMatrix4fv(uModel, false, still);
+  gl.uniform1f(uTint, 0);
+  var uClipX = gl.getUniformLocation(progSolid, 'uClipX');
+  gl.uniform1f(uClipX, showPanel ? 0 : PANEL_CUT_X);
+  [['board', COLOR.board], ['frame', COLOR.frame]].forEach(function(pair){
+    var mesh = meshes[pair[0]];
+    if (!mesh) return;
+    gl.uniform3fv(uColor, pair[1]);
+    gl.bindVertexArray(mesh.vao);
+    gl.drawArrays(gl.TRIANGLES, 0, mesh.count);
+  });
+
+  gl.uniform1f(uClipX, 0);
+  placed.forEach(function(p){
+    var mesh = meshes['blk_' + p.def.base];
+    if (!mesh) return;
+    var sp = spanOf(p);
+    var c = cellXY(p.gx, p.gy);
+    // 블록 메시는 자기 중심이 원점이라, 차지한 칸의 한가운데로 옮긴다.
+    var m = mTRS(c.x + sp.w*PITCH/2, c.y - sp.h*PITCH/2,
+                 boardTop, -p.rot*Math.PI/180, 1);
+    gl.uniformMatrix4fv(uMVP, false, mMul(vp, m));
+    gl.uniformMatrix4fv(uModel, false, m);
+    gl.uniform3fv(uColor, isVowel(p.def.rots[p.rot]) ? COLOR.jung : COLOR.cho);
+    gl.uniform1f(uTint, p === dragging ? 0.45 : 0);
+    gl.bindVertexArray(mesh.vao);
+    gl.drawArrays(gl.TRIANGLES, 0, mesh.count);
+  });
+  gl.bindVertexArray(null);
+}
+
+function draw(){
+  gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+  gl.viewport(0, 0, canvas.width, canvas.height);
+  gl.disable(gl.SCISSOR_TEST);
+  gl.clearColor(0.067, 0.102, 0.090, 1);
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  var mainVP = viewProj().vp;
+  drawScene(mainVP);
+  if (camSim.on) drawCamSim();          // 오른쪽 카메라 화면 — 토글
+  drawRig(mainVP);                      // 거치대와 태블릿은 늘 보인다
+}
+
+var needsDraw = false;
+function invalidate(){
+  if (needsDraw) return;
+  needsDraw = true;
+  requestAnimationFrame(function(){ needsDraw = false; draw(); });
+}
+
+/* ------------------------------------------------------------- 픽킹 */
+/** 화면 좌표 -> 보드 상면(z = boardTop + 3.1) 위의 모델 좌표. */
+function pickPlane(clientX, clientY){
+  var r = canvas.getBoundingClientRect();
+  var ndcX = ((clientX - r.left) / r.width) * 2 - 1;
+  var ndcY = 1 - ((clientY - r.top) / r.height) * 2;
+
+  var cp = Math.cos(cam.pitch), sp = Math.sin(cam.pitch);
+  var cy = Math.cos(cam.yaw),  sy = Math.sin(cam.yaw);
+  var dir = [cp*sy, cp*cy, sp];
+  var at  = [cam.tx, cam.ty, cam.tz || 0];
+  var eye = [at[0]-dir[0]*cam.dist, at[1]-dir[1]*cam.dist, at[2]-dir[2]*cam.dist];
+
+  // 카메라 기준축
+  var f = [at[0]-eye[0], at[1]-eye[1], at[2]-eye[2]];
+  var fl = Math.hypot(f[0],f[1],f[2]); f = [f[0]/fl, f[1]/fl, f[2]/fl];
+  var up = [0,0,1];
+  var s = [f[1]*up[2]-f[2]*up[1], f[2]*up[0]-f[0]*up[2], f[0]*up[1]-f[1]*up[0]];
+  var sl = Math.hypot(s[0],s[1],s[2]); s = [s[0]/sl, s[1]/sl, s[2]/sl];
+  var u = [s[1]*f[2]-s[2]*f[1], s[2]*f[0]-s[0]*f[2], s[0]*f[1]-s[1]*f[0]];
+
+  var tanH = Math.tan(FOV/2), tanW = tanH * (VW/VH);
+  var rd = [
+    f[0] + s[0]*ndcX*tanW + u[0]*ndcY*tanH,
+    f[1] + s[1]*ndcX*tanW + u[1]*ndcY*tanH,
+    f[2] + s[2]*ndcX*tanW + u[2]*ndcY*tanH
+  ];
+  var planeZ = boardTop;
+  if (Math.abs(rd[2]) < 1e-6) return null;
+  var t = (planeZ - eye[2]) / rd[2];
+  if (t <= 0) return null;
+  return { x: eye[0] + rd[0]*t, y: eye[1] + rd[1]*t };
+}
+/** 모델 좌표 -> 격자 칸 (반올림 없이 내림 = 칸 안이면 그 칸). */
+function toCell(pt){
+  return {
+    gx: Math.floor((pt.x - boardOrigin.x) / PITCH),
+    gy: Math.floor((boardOrigin.y - pt.y) / PITCH)
+  };
+}
+function blockAt(gx, gy){
+  for (var i = placed.length-1; i >= 0; i--){
+    var p = placed[i], sp = spanOf(p);
+    if (gx >= p.gx && gx < p.gx+sp.w && gy >= p.gy && gy < p.gy+sp.h) return p;
+  }
+  return null;
+}
+function overlaps(spec, gx, gy, except){
+  var sp = spanOf({ def:spec.def, rot:spec.rot });
+  if (gx < 0 || gy < 0 || gx+sp.w > GRID_W || gy+sp.h > GRID_H) return true;
+  for (var i = 0; i < placed.length; i++){
+    var p = placed[i];
+    if (p === except) continue;
+    var q = spanOf(p);
+    if (gx < p.gx+q.w && gx+sp.w > p.gx && gy < p.gy+q.h && gy+sp.h > p.gy) return true;
+  }
+  return false;
+}
+/** 원하는 칸이 막혔으면 가까운 빈 칸을 찾아준다. */
+function findSpot(spec, gx, gy, except){
+  if (!overlaps(spec, gx, gy, except)) return { gx:gx, gy:gy };
+  for (var r = 1; r <= 12; r++)
+    for (var dy = -r; dy <= r; dy++)
+      for (var dx = -r; dx <= r; dx++){
+        if (Math.max(Math.abs(dx), Math.abs(dy)) !== r) continue;
+        if (!overlaps(spec, gx+dx, gy+dy, except)) return { gx:gx+dx, gy:gy+dy };
+      }
+  return null;
+}
+
+/* --------------------------------------------------------- 상호작용 */
+var dragging = null, dragMoved = false, orbiting = false;
+var lastX = 0, lastY = 0, grabDX = 0, grabDY = 0;
+
+canvas.addEventListener('pointerdown', function(e){
+  canvas.setPointerCapture(e.pointerId);
+  lastX = e.clientX; lastY = e.clientY; dragMoved = false;
+  var pt = pickPlane(e.clientX, e.clientY);
+  var hit = pt ? blockAt(toCell(pt).gx, toCell(pt).gy) : null;
+  if (hit){
+    dragging = hit;
+    var c = toCell(pt);
+    grabDX = c.gx - hit.gx; grabDY = c.gy - hit.gy;
+    stopAll();
+  } else {
+    orbiting = true;
+  }
+  invalidate();
+});
+canvas.addEventListener('pointermove', function(e){
+  var dx = e.clientX - lastX, dy = e.clientY - lastY;
+  if (Math.abs(dx) + Math.abs(dy) > 3) dragMoved = true;
+  lastX = e.clientX; lastY = e.clientY;
+
+  if (dragging){
+    var pt = pickPlane(e.clientX, e.clientY);
+    if (!pt) return;
+    var c = toCell(pt);
+    var want = { gx: c.gx - grabDX, gy: c.gy - grabDY };
+    if (!overlaps(dragging, want.gx, want.gy, dragging)){
+      dragging.gx = want.gx; dragging.gy = want.gy;
+      invalidate();
+    }
+  } else if (orbiting){
+    cam.yaw += dx * 0.006;
+    cam.pitch = Math.max(-1.45, Math.min(-0.18, cam.pitch + dy * 0.005));
+    camTouched = true;
+    invalidate();
+  }
+});
+function endPointer(e){
+  try { canvas.releasePointerCapture(e.pointerId); } catch(err){}
+  if (dragging){
+    if (!dragMoved) rotate(dragging);
+    else readBoard();
+  }
+  dragging = null; orbiting = false;
+  invalidate();
+}
+canvas.addEventListener('pointerup', endPointer);
+canvas.addEventListener('pointercancel', endPointer);
+canvas.addEventListener('wheel', function(e){
+  e.preventDefault();
+  cam.dist = Math.max(180, Math.min(2400, cam.dist * (e.deltaY < 0 ? 0.9 : 1/0.9)));
+  camTouched = true;
+  invalidate();
+}, { passive:false });
+
+function rotate(p){
+  var keys = p.def.rotKeys;
+  var i = keys.indexOf(p.rot);
+  var next = keys[(i+1) % keys.length];
+  var before = { gx:p.gx, gy:p.gy, rot:p.rot };
+  p.rot = next;
+  if (overlaps(p, p.gx, p.gy, p)){
+    var spot = findSpot(p, p.gx, p.gy, p);
+    if (!spot){ p.rot = before.rot; return; }
+    p.gx = spot.gx; p.gy = spot.gy;
+  }
+  stopAll();
+  playOne(p.def.rots[p.rot]);
+  readBoard();
+}
+function addBlock(base){
+  var def = catalogOf(base);
+  if (!def) return;
+  var spec = { def:def, rot:def.rotKeys[0], gx:0, gy:0 };
+  // 화면 한가운데 근처에 놓는다
+  var mid = { gx: Math.floor(GRID_W/2) - 2, gy: Math.floor(GRID_H/2) - 1 };
+  var spot = findSpot(spec, mid.gx, mid.gy, null);
+  if (!spot) return;
+  spec.gx = spot.gx; spec.gy = spot.gy;
+  placed.push(spec);
+  stopAll();
+  playOne(spec.def.rots[spec.rot]);
+  readBoard();
+  invalidate();
+}
+/* 자모 -> 그 자모를 낼 수 있는 블록과 회전. 같은 자모를 두 블록이 낼 일은 없다. */
+var CHAR_TO_BLOCK = {};
+CATALOG.forEach(function(def){
+  def.rotKeys.forEach(function(k){
+    if (!CHAR_TO_BLOCK[def.rots[k]]) CHAR_TO_BLOCK[def.rots[k]] = { base:def.base, rot:k };
+  });
+});
+/** 낱말을 이루는 자모 — 초성·중성·(종성). */
+function jamoOf(word){
+  var out = [];
+  word.split('').forEach(function(c){
+    var code = c.charCodeAt(0) - 0xac00;
+    if (code < 0 || code > 11171) return;
+    out.push(CHO[Math.floor(code/588)], JUNG[Math.floor((code%588)/28)]);
+    var jong = JONG[code % 28];
+    if (jong) out.push(jong);
+  });
+  return out;
+}
+/** 이 낱말에 필요한 블록을 판 위에 흩어 놓는다 — 아이가 할 일은 「옮겨서 맞추기」다.
+ *  회전은 정답 상태로 준다(위치만 과제). 우연히 이미 답이면 다시 뿌린다. */
+function scatterFor(word){
+  var jamo = jamoOf(word);
+  if (!jamo.length) return false;
+  for (var attempt = 0; attempt < 6; attempt++){
+    placed = [];
+    var ok = true;
+    shuffle(jamo.slice()).forEach(function(ch){
+      var m = CHAR_TO_BLOCK[ch];
+      if (!m){ ok = false; return; }
+      var spec = { def: catalogOf(m.base), rot: m.rot, gx:0, gy:0 };
+      var sp = spanOf(spec), spot = null;
+      for (var t = 0; t < 80 && !spot; t++){
+        var gx = Math.floor(Math.random() * Math.max(1, GRID_W - sp.w + 1));
+        var gy = Math.floor(Math.random() * Math.max(1, GRID_H - sp.h + 1));
+        if (!overlaps(spec, gx, gy, null)) spot = { gx:gx, gy:gy };
+      }
+      if (!spot) spot = findSpot(spec, 0, 0, null);
+      if (!spot){ ok = false; return; }
+      spec.gx = spot.gx; spec.gy = spot.gy;
+      placed.push(spec);
+    });
+    if (ok && boardWord() !== word) return true;
+  }
+  return placed.length > 0;
+}
+
+function clearBoard(){
+  placed = [];
+  stopAll();
+  readBoard();
+  invalidate();
+}
+
+/* ------------------------------------------------------------- 소리 */
+var GAP = 420, muted = false, audioGen = 0, lastAudio = null, chainTimer = null;
+function soundUrl(ch){ return PHONICS_BASE + encodeURIComponent(ch) + '.mp3'; }
+var FINAL_REP = { 2:1,3:1,9:1,24:1, 5:4,6:4, 19:7,20:7,22:7,23:7,25:7,27:7,
+                  11:8,12:8,13:8,15:8, 10:16, 14:17,18:17,26:17 };
+function neutralizeFinal(ch){
+  if (ch.length !== 1) return ch;
+  var code = ch.charCodeAt(0);
+  if (code < 0xac00 || code > 0xd7a3) return ch;
+  var off = code - 0xac00, jong = off % 28, rep = FINAL_REP[jong];
+  return rep === undefined ? ch : String.fromCharCode(0xac00 + off - jong + rep);
+}
+function stopAll(){
+  audioGen++;
+  if (chainTimer){ clearTimeout(chainTimer); chainTimer = null; }
+  if (lastAudio){ try { lastAudio.pause(); } catch(e){} lastAudio = null; }
+}
+/** 음원이 없는 글자(404)는 음성합성으로 읽는다. */
+function speakFallback(text, onDone){
+  if (typeof speechSynthesis === 'undefined'){ if (onDone) onDone(); return; }
+  var gen = audioGen, fired = false;
+  function go(){
+    if (fired) return;
+    fired = true;
+    if (gen !== audioGen) return;
+    if (onDone) onDone();
+  }
+  try {
+    speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'ko-KR'; u.rate = 0.9;
+    u.onend = go; u.onerror = go;
+    speechSynthesis.speak(u);
+    setTimeout(go, 1600);          // onend 가 안 오는 브라우저 대비
+  } catch (e){ go(); }
+}
+
+/* 🔴 playOne 은 stopAll 을 부르지 않는다. stopAll 이 audioGen 을 올리므로,
+   체인이 캡처해 둔 세대가 첫 글자에서 곧바로 낡아져 스스로 끊긴다.
+   이전 소리를 끊는 건 호출부(탭·회전·읽어주기)의 일이다. */
+function playOne(ch, onDone){
+  if (muted || !ch){ if (onDone) onDone(); return; }
+  var gen = audioGen, done = false;
+  var a = new Audio(soundUrl(neutralizeFinal(ch)));
+  lastAudio = a;
+  function finish(ok){
+    if (done) return;
+    done = true;
+    if (gen !== audioGen) return;
+    if (ok){ if (onDone) onDone(); }
+    else speakFallback(ch, onDone);
+  }
+  a.addEventListener('ended', function(){ finish(true); });
+  a.addEventListener('error', function(){ finish(false); });
+  a.play().catch(function(){ finish(false); });
+}
+/** 음절을 차례로 읽는다 — 소리 사이에 쉼을 둔다(붙으면 한 덩어리로 들린다). */
+function playChain(chars, i, onEnd){
+  i = i || 0;
+  if (i >= chars.length){ if (onEnd) onEnd(); return; }
+  var gen = audioGen;
+  playOne(chars[i], function(){
+    if (i + 1 >= chars.length){ if (onEnd) onEnd(); return; }
+    chainTimer = setTimeout(function(){
+      if (gen !== audioGen) return;
+      playChain(chars, i + 1, onEnd);
+    }, GAP);
+  });
+}
+
+/* 자모 음원 미리 받아두기 — 첫 탭에서 소리가 늦지 않게. */
+setTimeout(function(){
+  var seen = {};
+  CATALOG.forEach(function(b){
+    b.rotKeys.forEach(function(rd){ seen[b.rots[rd]] = 1; });
+  });
+  Object.keys(seen).forEach(function(ch){
+    fetch(soundUrl(ch), { mode:'no-cors', cache:'force-cache' }).catch(function(){});
+  });
+}, 600);
+
+/* ------------------------------------------------------- 읽기·판정 */
+var outEl = document.getElementById('out');
+var scoreEl = document.getElementById('scoreN');
+var score = 0, current = null;
+
+function boardWord(){
+  var items = placed.map(function(p){
+    var sp = spanOf(p);
+    return { ch: p.def.rots[p.rot], x:p.gx, y:p.gy, w:sp.w, h:sp.h };
+  });
+  return parseFree(items).join('');
+}
+function readBoard(){
+  var w = boardWord();
+  outEl.textContent = w || '블록을 옮겨 보세요';
+  outEl.classList.toggle('empty', !w);
+  var hit = !!(current && w && w === current.word);
+  outEl.classList.toggle('hit', hit);
+  if (hit) win();
+  return w;
+}
+function speak(){
+  var w = boardWord();
+  if (!w) return;
+  stopAll();
+  playChain(w.split(''), 0, null);
+}
+
+/* ------------------------------------------- 낱말 + 동화 장면 (앱 API) */
+var booksPromise = null, detailCache = {};
+function getBooks(){
+  if (!booksPromise){
+    booksPromise = fetch(API + '/api/storybooks')
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var arr = (d && d.data) || d || [];
+        return arr.filter(function(b){
+          return b.isPublic && b.koCompletion && b.koCompletion.pagesTts;
+        });
+      })
+      .catch(function(){ return []; });
+  }
+  return booksPromise;
+}
+function getDetail(id){
+  if (!detailCache[id]){
+    detailCache[id] = fetch(API + '/api/storybooks/' + id)
+      .then(function(r){ return r.json(); })
+      .then(function(d){ return (d && d.data) || d; })
+      .catch(function(){ return null; });
+  }
+  return detailCache[id];
+}
+function validatedPage(det, ko){
+  var w = (ko.korean || '').trim();
+  var pages = det.pages || [], hit = null;
+  var claimed = ko.pages || [];
+  for (var i = 0; i < claimed.length; i++){
+    var p = pages[claimed[i]-1];
+    if (p && p.text && p.text.indexOf(w) >= 0){ hit = p; break; }
+  }
+  if (!hit)
+    for (var j = 0; j < pages.length; j++)
+      if (pages[j].text && pages[j].text.indexOf(w) >= 0){ hit = pages[j]; break; }
+  if (!hit || !hit.illustrationUrl) return null;
+  return { illustrationUrl: hit.illustrationUrl, text: hit.text || '' };
+}
+/** 트레이 블록만으로 만들 수 있는 낱말인가. */
+var UNBUILDABLE_JUNG = { 'ㅚ':1, 'ㅟ':1, 'ㅢ':1, 'ㅘ':1, 'ㅝ':1, 'ㅙ':1, 'ㅞ':1 };
+function isBuildableKo(word){
+  var chars = word.split('');
+  var syl = chars.filter(function(c){ return /[가-힣]/.test(c); });
+  if (syl.length < 1 || syl.length > 3 || syl.length !== chars.length) return false;
+  for (var i = 0; i < syl.length; i++){
+    var code = syl[i].charCodeAt(0) - 0xac00;
+    var jung = JUNG[Math.floor((code % 588) / 28)];
+    if (UNBUILDABLE_JUNG[jung]) return false;
+    // 겹받침(ㄳ ㄵ ㄺ …) 블록은 없다
+    var jong = JONG[code % 28];
+    if (jong && !CHAR_TO_BLOCK[jong]) return false;
+  }
+  return true;
+}
+function shuffle(a){
+  for (var i = a.length-1; i > 0; i--){
+    var j = Math.floor(Math.random() * (i+1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+var FALLBACK_WORDS = ['가지','고기','나무','다리','머리','바다','사자','오리','토끼','포도'];
+function pickWord(){
+  return getBooks().then(function(books){
+    if (!books.length) return null;
+    var order = shuffle(books.slice()), idx = 0;
+    function tryNext(){
+      if (idx >= order.length || idx >= 15) return null;
+      var b = order[idx++];
+      return getDetail(b.id).then(function(det){
+        if (!det) return tryNext();
+        var kos = shuffle((det.key_objects || []).filter(function(k){
+          return k.korean && isBuildableKo(k.korean.trim());
+        }));
+        for (var i = 0; i < kos.length; i++){
+          var page = validatedPage(det, kos[i]);
+          if (page) return { word: kos[i].korean.trim(), page: page, book: det.title || '' };
+        }
+        return tryNext();
+      });
+    }
+    return tryNext();
+  }).catch(function(){ return null; });
+}
+function setWord(w, scatter){
+  current = w;
+  document.getElementById('wordText').textContent = w ? w.word : '—';
+  if (w){
+    if (scatter !== false) scatterFor(w.word);   // 시작 화면은 빈 판으로 연다
+    readBoard();
+    invalidate();
+  }
+}
+function nextWord(scatter){
+  document.getElementById('wordText').textContent = '…';
+  pickWord().then(function(w){
+    if (!w){
+      var f = FALLBACK_WORDS[Math.floor(Math.random()*FALLBACK_WORDS.length)];
+      w = { word:f, page:null, book:'' };
+    }
+    setWord(w, scatter);
+  });
+}
+
+/* --------------------------------------------------------- 정답 연출 */
+var revealEl = document.getElementById('reveal');
+function win(){
+  var w = current;
+  if (!w) return;
+  score++;
+  scoreEl.textContent = score;
+  current = null;                    // 같은 낱말로 두 번 터지지 않게
+  stopAll();
+  playChain(w.word.split(''), 0, function(){
+    if (!w.page){ nextWord(); clearBoard(); return; }
+    document.getElementById('revealTitle').textContent = w.word;
+    document.getElementById('revealImg').src = w.page.illustrationUrl;
+    document.getElementById('revealCap').textContent = w.page.text;
+    revealEl.hidden = false;
+  });
+}
+document.getElementById('revealGo').addEventListener('click', function(){
+  revealEl.hidden = true;
+  clearBoard();
+  nextWord();
+});
+
+/* --------------------------------------------------------------- 트레이 */
+function buildTray(){
+  var cho = document.getElementById('trayCho');
+  var jung = document.getElementById('trayJung');
+  CATALOG.forEach(function(def){
+    var b = document.createElement('button');
+    b.className = 'chip' + (def.w > 3 ? ' wide' : '');
+    b.textContent = def.base;
+    b.title = def.base + ' 블록 올리기';
+    b.addEventListener('click', function(){ addBlock(def.base); });
+    (isVowel(def.base) ? jung : cho).appendChild(b);
+  });
+}
+
+/* ----------------------------------------------------------- 자체 점검 */
+function selfTest(){
+  var bad = [];
+  function eq(got, want, label){ if (got !== want) bad.push(label + ': ' + got + ' != ' + want); }
+  // 파서가 살아 있는가 — 가로조합 / 세로조합 / 받침
+  eq(parseFree([{ch:'ㄱ',x:0,y:0,w:3,h:3},{ch:'ㅏ',x:3,y:0,w:2,h:5}]).join(''), '가', '가');
+  eq(parseFree([{ch:'ㄱ',x:0,y:0,w:3,h:3},{ch:'ㅗ',x:0,y:3,w:5,h:2}]).join(''), '고', '고');
+  eq(parseFree([{ch:'ㄱ',x:0,y:0,w:3,h:3},{ch:'ㅏ',x:3,y:0,w:2,h:5},
+                {ch:'ㅇ',x:0,y:5,w:3,h:3}]).join(''), '강', '강');
+  // 회전 규격 — 90도면 가로세로가 바뀐다
+  var v = { def: catalogOf('ㅓ'), rot: 90 };
+  eq(spanOf(v).w + 'x' + spanOf(v).h, '5x2', 'ㅓ 90도 span');
+  eq(catalogOf('ㅓ').rots[90], 'ㅗ', 'ㅓ 90도 = ㅗ');
+  // 모든 블록이 실제로 획을 갖는가 (빈 메시면 화면에서 사라진다)
+  CATALOG.forEach(function(d){
+    if (!buildBlockMesh(d).length) bad.push('획이 없는 블록: ' + d.base);
+  });
+  if (bad.length) console.warn('[tango-board-3d] self-test\n' + bad.join('\n'));
+  else console.log('[tango-board-3d] self-test ok');
+  return bad;
+}
+
+/* ---------------------------------------------------------------- 시작 */
+/** 보드는 원래 모델 좌표를 유지하고, 블록은 자기 중심을 원점으로 옮긴다
+ *  (블록은 배치 변환이 위치를 정하므로 원래 좌표를 들고 있으면 두 번 밀린다). */
+/* 오른쪽 조작판 — 새 제품은 태블릿이 조작을 맡으므로 없앤다.
+   본체 오른쪽 끝이 x≈405, 조작판 왼쪽이 x≈420 이라 그 사이에서 가른다. */
+var PANEL_CUT_X = 412;
+var showPanel = false;
+
+function decodeMesh(part, keepOrigin){
+  var bin = atob(part.b64), n = bin.length, bytes = new Uint8Array(n);
+  for (var i = 0; i < n; i++) bytes[i] = bin.charCodeAt(i);
+  var q = new Int16Array(bytes.buffer);
+  var f = new Float32Array(q.length);
+  var c = keepOrigin ? part.centre : [0, 0, 0], s = part.scale;
+  for (var j = 0; j < q.length; j += 3){
+    f[j]   = q[j]  / s + c[0];
+    f[j+1] = q[j+1]/ s + c[1];
+    f[j+2] = q[j+2]/ s + c[2];
+  }
+  return f;
+}
+
+/* 메시는 보통 옆 파일에서 받지만, 한 파일로 묶어 두면 그걸 쓴다.
+   file:// 로 열면 fetch 가 막히므로 단일 파일 배포본이 그 경우를 덮는다. */
+var inlineMesh = document.getElementById('meshData');
+(inlineMesh
+  ? Promise.resolve(JSON.parse(inlineMesh.textContent))
+  : fetch(MESH_URL).then(function(r){
+      if (!r.ok) throw new Error('mesh ' + r.status);
+      return r.json();
+    }))
+  .then(function(data){
+    ['board', 'frame'].forEach(function(k){
+      if (data[k]) meshes[k] = makeMesh(decodeMesh(data[k], true));
+    });
+
+    // 격자는 판이 움푹 팬 놀이 영역에만 앉는다 (메시에서 재서 저장해 둔 값).
+    var meta = meshMeta = data.meta;
+    PITCH = meta.pitch;
+    boardTop = meta.playZ;
+    GRID_W = meta.cols;
+    GRID_H = meta.rows;
+    boardOrigin.x = meta.playX;
+    boardOrigin.y = meta.playY + GRID_H*PITCH;      // 격자 (0,0) = 놀이 영역 위쪽 모서리
+    cam.tx = meta.playX + GRID_W*PITCH/2;
+    cam.ty = meta.playY + GRID_H*PITCH/2;
+
+
+    /* 블록은 실물 8mm 파트 메시를 그대로 쓴다 — 모따기·라운딩이 살아 있다.
+       획을 압출한 것은 그 자모가 데이터에 없을 때의 폴백이자, 카메라 인식
+       템플릿의 근거로 남는다(인식은 윤곽만 보므로 둘이 같은 형상이면 된다). */
+    var realBlocks = 0;
+    CATALOG.forEach(function(def){
+      var key = 'blk_' + def.base;
+      if (data[key]){ meshes[key] = makeMesh(decodeMesh(data[key], false)); realBlocks++; }
+      else meshes[key] = makeMesh(buildBlockMesh(def));
+    });
+    console.log('[tango-board-3d] 실물 블록 ' + realBlocks + '/' + CATALOG.length);
+    buildTray();
+    resize();
+    fitCamera();
+    selfTest();
+    invalidate();
+    document.getElementById('loading').classList.add('gone');
+    nextWord(false);           // 빈 판으로 시작
+  })
+  .catch(function(e){
+    var msg = location.protocol === 'file:'
+      ? '파일을 직접 열면 보드 데이터를 읽을 수 없습니다. 서버로 열거나 단일 파일 배포본을 쓰세요.'
+      : '보드 데이터를 불러오지 못했습니다 — ' + e.message;
+    document.getElementById('loadMsg').textContent = msg;
+    console.error(e);
+  });
+
+new ResizeObserver(function(){
+  resize();
+  if (!camTouched && GRID_W) fitCamera();
+  invalidate();
+}).observe(document.getElementById('stage'));
+/** 인식 결과를 패널에 그린다 — 정답이 있으니 맞았는지까지 바로 보인다. */
+function onRecoResult(){
+  var el = document.getElementById('camReco');
+  if (!el || !reco.result) return;
+  var r = reco.result, sc = reco.score;
+  if (!sc.blocks){ el.innerHTML = '<span class="dim">판에 블록이 없습니다</span>'; return; }
+  var ok = sc.wordOk;
+  var det = camSim.detect
+    ? (camSim.detected
+        ? '<span class="ok">판 검출 ✓</span> <span class="dim">모서리 오차 ' +
+          (camSim.cornerErr * camSim.W).toFixed(0) + 'px</span><br>'
+        : '<span class="no">판이 화면에 다 안 들어옵니다</span> <span class="dim">정답 좌표로 대체</span><br>')
+    : '';
+  var rf = camSim.refineInfo
+    ? '<span class="dim">격자 주기 ' + camSim.refineInfo.P.join(' / ') +
+      ' (목표 ' + CELL + ')</span><br>'
+    : '';
+  el.innerHTML = det + rf +
+    '<span class="big ' + (ok ? 'ok' : 'no') + '">' + (r.word || '—') + '</span>' +
+    ' <span class="dim">정답 ' + sc.truthWord + '</span><br>' +
+    '<span class="' + (sc.rel === sc.blocks ? 'ok' : 'no') + '">블록 ' +
+    sc.rel + '/' + sc.blocks + '</span>' +
+    (sc.rel > sc.hit ? ' <span class="dim">(원점 ' + sc.off.join(',') + ' 밀림)</span>' : '') +
+    ' <span class="dim">덩어리 ' + r.comps + ' · ' + reco.ms.toFixed(0) + 'ms</span>';
+}
+
+/* =====================================================================
+ * 채점 하네스 — 거치 조건을 통째로 쓸어 「어디서 되는가」를 한 장으로 만든다.
+ *
+ * 손으로 몇 점씩 재면 표본이 편향된다(그래서 30° 퇴행을 우연히 발견했다).
+ * 정답이 있으니 채점이 공짜라, 조합을 전부 돌려 보는 편이 싸고 정직하다.
+ * ===================================================================== */
+var SWEEP = {
+  tilt:    [20, 25, 30, 35, 40, 45, 50, 55, 60, 70],
+  height:  [250, 300, 350, 400, 450, 500],
+  azimuth: [-30, -15, 0, 15, 30]
+};
+
+/** 스윕에 쓸 판 배치를 만든다 — 낱말이 성립해야 낱말 지표가 뜻을 갖는다. */
+function sweepSetup(){
+  clearBoard();
+  ['ㄱ', 'ㅓ', 'ㅈ', 'ㅣ'].forEach(function(ch){ addBlock(ch); });
+  var j = placed.filter(function(p){ return p.def.base === 'ㅓ'; })[0];
+  if (j){ rotate(j); rotate(j); }                 // ㅓ -> ㅗ -> ㅏ
+  function put(base, gx, gy){
+    var t = placed.filter(function(p){ return p.def.base === base; })[0];
+    if (t){ t.gx = gx; t.gy = gy; }
+  }
+  put('ㄱ', 2, 4); put('ㅓ', 5, 4); put('ㅈ', 8, 4); put('ㅣ', 11, 4);
+  stopAll();
+  return readBoard();
+}
+
+/** 조합 하나를 재고 결과를 돌려준다. */
+function sweepOne(tilt, height, az){
+  camSim.tilt = tilt; camSim.padH = height; camSim.azimuth = az;
+  draw();
+  var sc = reco.score || {};
+  return {
+    tilt: tilt, height: height, az: az,
+    detected: !!camSim.detected,
+    word: (reco.result && reco.result.word) || '',
+    ok: !!sc.wordOk,
+    rel: sc.rel || 0,
+    blocks: sc.blocks || 0
+  };
+}
+
+/** 전 조합 스윕. 브라우저가 굳지 않게 나눠 돌리고, 끝나면 결과 배열을 넘긴다. */
+function runSweep(onProgress, onDone){
+  var truth = sweepSetup();
+  var jobs = [];
+  SWEEP.azimuth.forEach(function(a){
+    SWEEP.tilt.forEach(function(t){
+      SWEEP.height.forEach(function(h){ jobs.push([t, h, a]); });
+    });
+  });
+  var results = [], i = 0;
+  var saved = { tilt:camSim.tilt, padH:camSim.padH, azimuth:camSim.azimuth };
+  (function chunk(){
+    var t0 = performance.now();
+    while (i < jobs.length && performance.now() - t0 < 60){
+      results.push(sweepOne(jobs[i][0], jobs[i][1], jobs[i][2]));
+      i++;
+    }
+    if (onProgress) onProgress(i, jobs.length);
+    if (i < jobs.length){ setTimeout(chunk, 0); return; }
+    camSim.tilt = saved.tilt; camSim.padH = saved.padH; camSim.azimuth = saved.azimuth;
+    draw();
+    if (onDone) onDone({ truth: truth, results: results });
+  })();
+}
+
+/** 히트맵 — 방위각마다 경사각 x 높이 격자를 하나씩. */
+function drawSweep(canvas, data){
+  var g = canvas.getContext('2d');
+  var T = SWEEP.tilt, Hh = SWEEP.height, A = SWEEP.azimuth;
+  var cell = 26, padL = 42, padT = 30, gapX = 22;
+  var gw = Hh.length*cell, gh = T.length*cell;
+  canvas.width = (padL + gw + gapX) * A.length + 20;
+  canvas.height = padT + gh + 46;
+  var css = getComputedStyle(document.documentElement);
+  g.fillStyle = '#151d1a';
+  g.fillRect(0, 0, canvas.width, canvas.height);
+  g.font = '10px "IBM Plex Mono", monospace';
+  g.textBaseline = 'middle';
+
+  A.forEach(function(a, ai){
+    var ox = 10 + ai*(padL + gw + gapX);
+    g.fillStyle = '#cfe0d9';
+    g.textAlign = 'left';
+    g.fillText('방위각 ' + a + '°', ox, 12);
+    T.forEach(function(t, ti){
+      g.fillStyle = '#7e968d';
+      g.textAlign = 'right';
+      g.fillText(t + '°', ox + padL - 6, padT + ti*cell + cell/2);
+      Hh.forEach(function(h, hi){
+        var r = data.results.filter(function(x){
+          return x.tilt === t && x.height === h && x.az === a;
+        })[0];
+        var x = ox + padL + hi*cell, y = padT + ti*cell;
+        var col = '#3a2b28';
+        if (r){
+          if (r.ok) col = r.rel === r.blocks ? '#2f9e77' : '#5fbf6a';
+          else if (r.rel >= r.blocks/2) col = '#b8892f';
+          else if (r.detected) col = '#8a3f34';
+          else col = '#3a2b28';
+        }
+        g.fillStyle = col;
+        g.fillRect(x + 1, y + 1, cell - 2, cell - 2);
+      });
+    });
+    g.fillStyle = '#7e968d';
+    g.textAlign = 'center';
+    Hh.forEach(function(h, hi){
+      g.save();
+      g.translate(ox + padL + hi*cell + cell/2, padT + gh + 14);
+      g.fillText(String(h), 0, 0);
+      g.restore();
+    });
+  });
+  g.fillStyle = '#7e968d';
+  g.textAlign = 'left';
+  var okN = data.results.filter(function(r){ return r.ok; }).length;
+  g.fillText('가로 = 높이(mm) · 세로 = 경사각 · 초록 = 낱말 정답  (' +
+             okN + '/' + data.results.length + ')', 10, canvas.height - 12);
+}
+
+/* ---- 카메라 시뮬레이션 조작 ---- */
+document.getElementById('panelChk').addEventListener('change', function(e){
+  showPanel = e.target.checked;
+  draw();
+});
+
+(function(){
+  var panel = document.getElementById('camPanel');
+  var btn = document.getElementById('camToggle');
+  var note = document.getElementById('camNote');
+
+  function refresh(){
+    document.getElementById('camTiltV').textContent = camSim.tilt + '°';
+    document.getElementById('camHeightV').textContent = camSim.padH + 'mm';
+    var standEl = document.getElementById('camStandV');
+    if (standEl) standEl.textContent = Math.round(rigGeometry().slotY) + 'mm';
+    var overEl = document.getElementById('camOverV');
+    if (overEl) overEl.textContent = camSim.overhang + 'mm';
+    document.getElementById('camAzV').textContent = camSim.azimuth + '°';
+    var padEl = document.getElementById('camPadV');
+    if (padEl) padEl.textContent = (camSim.padTilt || 80) + '°';
+    // 이 조건에서 격자 한 칸과 획이 몇 픽셀로 보이는지 — 인식 가능성의 첫 눈금
+    var s = Math.sin(camSim.tilt * Math.PI/180);
+    var camZ = rigGeometry().eye[2] - boardTop;
+    var pxPerMm = camSim.W / (2 * (camZ/s) * Math.tan(camSim.fov*Math.PI/360));
+    var cell = PITCH * pxPerMm * s, stroke = 13 * pxPerMm * s;
+    var thin = stroke < 12;
+    note.className = 'cam-note' + (thin || camSim.visible === false ? ' warn' : '');
+    var fill = camSim.corners
+      ? Math.round(100 * Math.abs(camSim.corners[1][0] - camSim.corners[0][0]))
+      : null;
+    var stand = camSim.standH != null
+      ? '<br>받침 높이 <b>' + Math.max(0, camSim.standH).toFixed(0) + 'mm</b>' +
+        ' <span style="opacity:.7">(태블릿 ' + TABLET.h + 'mm 기준)</span>'
+      : '';
+    note.innerHTML =
+      '격자 <b>' + cell.toFixed(0) + 'px</b> · 획 <b>' + stroke.toFixed(0) + 'px</b>' +
+      (fill != null ? ' · 판이 화면 폭의 <b>' + fill + '%</b>' : '') +
+      (camSim.visible === false ? '<br>판이 화면 밖으로 나갑니다'
+       : thin ? '<br>획이 얇아 자모가 뭉갤 수 있습니다' : '') + stand;
+    invalidate();
+  }
+  document.getElementById('camDetect').addEventListener('change', function(e){
+    camSim.detect = e.target.checked;
+    refresh();
+  });
+  camSim.detect = document.getElementById('camDetect').checked;
+  document.getElementById('camRefine').addEventListener('change', function(e){
+    camSim.refine = e.target.checked;
+    refresh();
+  });
+  camSim.refine = document.getElementById('camRefine').checked;
+  document.getElementById('camRig').addEventListener('change', function(e){
+    camSim.rig = e.target.checked;
+    refresh();
+  });
+  camSim.rig = document.getElementById('camRig').checked;
+  var sweepBtn = document.getElementById('camSweep');
+  sweepBtn.addEventListener('click', function(){
+    if (!camSim.on) return;
+    sweepBtn.disabled = true;
+    runSweep(function(done, total){
+      sweepBtn.textContent = '스윕 ' + done + '/' + total;
+    }, function(data){
+      sweepBtn.disabled = false;
+      sweepBtn.textContent = '전 조건 스윕';
+      drawSweep(document.getElementById('sweepCanvas'), data);
+      document.getElementById('sweepBox').hidden = false;
+      window.__sweep = data;
+    });
+  });
+  document.getElementById('sweepClose').addEventListener('click', function(){
+    document.getElementById('sweepBox').hidden = true;
+  });
+
+  btn.addEventListener('click', function(){
+    camSim.on = !camSim.on;
+    btn.classList.toggle('on', camSim.on);
+    panel.hidden = !camSim.on;
+    if (camSim.on) refresh(); else invalidate();
+  });
+  [['camTilt','tilt'], ['camHeight','padH'], ['camAz','azimuth'],
+   ['camPad','padTilt'], ['camStand','standY'], ['camOver','overhang']].forEach(function(pair){
+    document.getElementById(pair[0]).addEventListener('input', function(e){
+      camSim[pair[1]] = +e.target.value;
+      refresh();
+    });
+  });
+})();
+
+document.getElementById('speak').addEventListener('click', speak);
+document.getElementById('clear').addEventListener('click', clearBoard);
+document.getElementById('nextWord').addEventListener('click', function(){
+  clearBoard();
+  nextWord();
+});
+</script>
+</body>
+</html>

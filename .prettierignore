@@ -1,0 +1,4 @@
+# 기계 생성 산출물 — 손으로 읽지 않으므로 포맷팅 대상이 아니다.
+# 🔴 mesh.json 은 4.7MB 양자화 메시라 prettier 를 태우면 몇 배로 불어난다.
+packages/client/public/*.mesh.json
+packages/client/public/*.standalone.html
