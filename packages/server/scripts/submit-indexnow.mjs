@@ -98,7 +98,30 @@ async function collectPublicUrls() {
     `${SITE_URL}/`,
     `${SITE_URL}/library`,
     `${SITE_URL}/library/phonics/korean`,
+    `${SITE_URL}/library/phonics/english`,
   ];
+
+  // 파닉스 단원 SEO — sitemap 과 **같은 소스(커리큘럼 상수)** 에서 파생한다.
+  // 🔴 여기와 sitemap 이 각자 목록을 들면 갈라진다 — sitemap 에만 넣었다가 IndexNow 에서
+  //    파닉스가 통째로 빠질 뻔했다(이 파일은 자기 목록을 따로 만든다).
+  try {
+    const { KOREAN_PHONICS_CURRICULUM, ENGLISH_PHONICS_CURRICULUM } =
+      await import('../../shared/dist/constants/index.js');
+    for (const [track, curriculum] of [
+      ['korean', KOREAN_PHONICS_CURRICULUM],
+      ['english', ENGLISH_PHONICS_CURRICULUM],
+    ]) {
+      urls.push(`${SITE_URL}/library/phonics/${track}/about`);
+      for (const level of curriculum) {
+        for (const u of level.units) {
+          urls.push(`${SITE_URL}/library/phonics/${track}/${u.id}/about`);
+        }
+      }
+    }
+  } catch (e) {
+    // 조용히 넘기지 않는다 — 말이 없으면 파닉스가 또 색인 요청에서 사라진다.
+    console.warn('[indexnow] ⚠️ 파닉스 단원 스킵 — shared 미빌드?', e.message);
+  }
 
   let publicCount = 0;
   for (const key of bookKeys) {
