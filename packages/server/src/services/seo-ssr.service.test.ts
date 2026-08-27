@@ -8,6 +8,7 @@ import {
   renderHubSeo,
   hasAboutLang,
   missingLangVariant,
+  renderLandingSeo,
   HUBS,
 } from './seo-ssr.service.js';
 import type { Storybook } from '@tangobook/shared';
@@ -44,6 +45,7 @@ const INDEX_HTML = `<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href="https://www.tangobook.co.kr/" />
     <link rel="alternate" hreflang="ko" href="https://www.tangobook.co.kr/" />
     <link rel="alternate" hreflang="x-default" href="https://www.tangobook.co.kr/" />
@@ -444,5 +446,32 @@ describe('missingLangVariant — 언어 변형이 없을 때', () => {
 
   it('ko 요청 자체는 리다이렉트하지 않는다 — 그건 진짜 404', () => {
     expect(missingLangVariant('ko', '/blog/x', true)).toBeNull();
+  });
+});
+
+describe('renderLandingSeo — 언어 진입 스텁(/en·/vi·/zh·/th·/ko)', () => {
+  // 🔴 이 넷이 깨지면 본문 0자짜리 셸 네 개가 다시 색인 대상이 되고
+  //    GSC 「중복 페이지」가 재발한다. renderLandingSeo 는 리다이렉트 스텁용이다.
+  it('noindex 를 단다 — 색인할 본문이 없다', () => {
+    const seo = renderLandingSeo('en');
+    expect(seo?.robots).toBe('noindex, follow');
+    expect(seo?.bodyHtml).toBe('');
+  });
+
+  it('hreflang 클러스터를 걸지 않는다 — 리다이렉트 스텁은 언어판이 아니다', () => {
+    expect(renderLandingSeo('vi')?.alternatesHtml).toBe('');
+  });
+
+  it('주입된 HTML 의 robots 가 index 가 아니라 noindex 다', () => {
+    const html = injectAboutSeo(INDEX_HTML, renderLandingSeo('zh')!);
+    expect(html).toContain('<meta name="robots" content="noindex, follow" />');
+    expect(html).not.toContain('content="index, follow, max-image-preview:large"');
+    expect(html).not.toContain('rel="alternate" hreflang=');
+  });
+
+  it('OG 미리보기는 그대로 그 언어로 남는다 — 소셜 스크레이퍼는 robots 를 안 본다', () => {
+    const html = injectAboutSeo(INDEX_HTML, renderLandingSeo('th')!);
+    expect(html).toContain('property="og:title"');
+    expect(html).toContain('og-image.png');
   });
 });

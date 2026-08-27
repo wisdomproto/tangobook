@@ -18,6 +18,9 @@ Disallow: /korean-jamo-stroke-editor
 Disallow: /letter-fill-demo
 Disallow: /curriculum-master.html
 Disallow: /admin
+Disallow: /ops
+Disallow: /members
+Disallow: /marketing
 Disallow: /api/
 
 # AI 크롤러 명시 허용 (LLM 학습/탐색)

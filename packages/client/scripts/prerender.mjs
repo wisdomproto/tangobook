@@ -332,6 +332,22 @@ async function prerenderRoute(browser, baseUrl, route, { isBook = false } = {}) 
     '$1 fetchpriority="low"$2'
   );
 
+  /**
+   * 🔴 **홈 hreflang 이 비-홈 라우트로 새는 걸 막는다**(2026-08-27). 정적 `index.html` 은
+   *    `hreflang="ko"`·`x-default` 를 **둘 다 `/` 로** 걸어 둔다 — 홈에서만 맞는 말이다.
+   *    프리렌더는 그 head 를 그대로 물려받으므로 `/library` 가 「canonical 은 나, 그런데
+   *    ko 판과 x-default 는 홈」이라고 말하게 된다(실측). 자기모순이라 구글은 클러스터를 버린다.
+   * 🔴 서버 `selfCanonicalizeHtml` 이 catch-all 라우트에 이미 똑같은 일을 한다 —
+   *    프리렌더본은 그 핸들러를 안 타서 여기만 빠져 있었다. 규칙이 아니라 **경로가 둘**이었던 것.
+   *    (진짜 언어판이 있는 about·blog·guide 는 SSR 이 자기 클러스터를 따로 주입한다.)
+   */
+  if (route !== '/') {
+    html = html.replace(
+      /\s*<link[^>]*rel="alternate"[^>]*hreflang="[^"]*"[^>]*>/g,
+      ''
+    );
+  }
+
   const len = visibleTextLength(html);
   if (len < MIN_TEXT) throw new Error(`내용 부족 (${len}자 < ${MIN_TEXT}) — 에러/빈 화면 의심`);
   if (len < minText) console.warn(`  ⚠ ${route} 데이터 없이 껍데기만 (${len}자 < ${minText}) — API 도달 여부 확인`);

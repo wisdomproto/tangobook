@@ -74,6 +74,8 @@ export interface AboutSeo {
   bodyHtml: string;
   /** hreflang 상호 링크 (<link rel="alternate">) — 없으면 빈 문자열 */
   alternatesHtml: string;
+  /** robots meta 덮어쓰기 — 없으면 index.html 기본값(index, follow) 유지 */
+  robots?: string;
 }
 
 function escapeHtml(s: string): string {
@@ -622,15 +624,25 @@ const metaPatternMultiline = (attr: 'name' | 'property', key: string) =>
 /**
  * 언어별 진입/랜딩(/en·/vi·/zh·/th·/ko) OG·title — 소셜 공유 미리보기가 해당 언어로 뜨게.
  * SPA 는 그대로 부팅(LangEntry 가 리다이렉트)하고, 크롤러만 이 주입된 head 를 읽는다.
+ *
+ * 🔴 **색인 대상이 아니다 — `noindex` 를 박는다**(2026-08-27). 이 라우트들은 `bodyHtml: ''`
+ *    이고 `LangEntry` 가 곧바로 `/library` 로 보내는 **리다이렉트 스텁**이라 색인할 본문이
+ *    한 글자도 없다. 그런데 `index.html` 기본값이 `index, follow` 라 네 주소가 전부
+ *    self-canonical 로 "고유 페이지"라고 주장하고 있었다 — 내용이 모든 셸과 같으니
+ *    구글은 중복으로 떨군다(GSC 「중복 페이지, 사용자와 다른 표준을 선택함」).
+ *    about·blog·guide 는 [missingLangVariant] 로 301 해서 이미 막았는데, **언어 진입
+ *    라우트만 남아 있었다.** 301 은 여기서 못 쓴다 — `?to=` 목적지와 언어 설정이
+ *    클라이언트 상태에 달려 있어 서버가 대신 정할 수 없다. 그래서 noindex 다.
+ *
+ * 🔴 **hreflang 클러스터도 뺀다.** hreflang alternate 는 *같은 내용의 다른 언어판* 이어야
+ *    하는데 이건 리다이렉트 스텁이다. 게다가 `/` 는 ko·x-default 둘만 걸고 있어서
+ *    **편도 클러스터**였고(구글은 상호참조 아닌 클러스터를 통째로 버린다), x-default 가
+ *    슬래시 없는 `SITE_URL` 이라 `/` 의 canonical(슬래시 있음)과도 어긋났다.
+ *    OG 미리보기는 그대로다 — 소셜 스크레이퍼는 robots meta 를 안 본다.
  */
 export function renderLandingSeo(lang: string): AboutSeo | null {
   const s = LANDING_STRINGS[lang];
   if (!s) return null;
-  const langs = Object.keys(LANDING_STRINGS);
-  const alternatesHtml =
-    langs
-      .map((l) => `<link rel="alternate" hreflang="${l}" href="${SITE_URL}${langPrefix(l)}" />`)
-      .join('') + `<link rel="alternate" hreflang="x-default" href="${SITE_URL}" />`;
   return {
     title: escapeHtml(s.title),
     description: escapeHtml(s.description),
@@ -638,7 +650,8 @@ export function renderLandingSeo(lang: string): AboutSeo | null {
     ogImage: `${SITE_URL}/og-image.png`,
     jsonLdHtml: '',
     bodyHtml: '',
-    alternatesHtml,
+    alternatesHtml: '',
+    robots: 'noindex, follow',
   };
 }
 
@@ -662,6 +675,7 @@ export function injectAboutSeo(indexHtml: string, seo: AboutSeo): string {
     ['name', 'twitter:description', seo.description],
   ];
   if (seo.ogImage) metas.push(['property', 'og:image', seo.ogImage]);
+  if (seo.robots) metas.push(['name', 'robots', seo.robots]);
 
   for (const [attr, key, value] of metas) {
     const tag = `<meta ${attr}="${key}" content="${value}" />`;
