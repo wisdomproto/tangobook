@@ -14,6 +14,7 @@ export * from './utils/hangul.js';
 export { splitUnits, splitGraphemeClusters } from './utils/split-units.js';
 export * from './utils/english-letters.js';
 export * from './utils/entitlement.js';
+export * from './utils/phonics-units.js';
 export * from './utils/learning-aggregate.js';
 export {
   KOREAN_FINAL_TO_REPRESENTATIVE,

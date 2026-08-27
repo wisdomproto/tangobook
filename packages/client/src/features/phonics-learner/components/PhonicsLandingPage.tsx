@@ -162,6 +162,20 @@ export default function PhonicsLandingPage() {
           </Link>
         )}
       </div>
+
+      {/* 🔴 커리큘럼 SEO 페이지로 들어가는 **앱 안의 유일한 입구**다. 없으면 71개 단원 페이지가
+          사이트맵에만 있는 고아가 된다. 부모가 「무슨 순서로 배우나」를 확인할 곳이기도 하다. */}
+      <p className="mt-8 text-center text-sm text-ink-500">
+        {t('landing.curriculumLink')}
+        {': '}
+        <Link className="underline hover:text-coral-500" to="/library/phonics/korean/about">
+          {t('landing.koreanTitle')}
+        </Link>
+        {' · '}
+        <Link className="underline hover:text-coral-500" to="/library/phonics/english/about">
+          {t('landing.englishTitle')}
+        </Link>
+      </p>
     </div>
   );
 }

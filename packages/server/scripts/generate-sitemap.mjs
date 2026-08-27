@@ -103,6 +103,29 @@ async function main() {
   entries.push(urlEntry({ loc: `${SITE_URL}/`, lastmod: today, changefreq: 'weekly', priority: 1.0 }));
   entries.push(urlEntry({ loc: `${SITE_URL}/library`, lastmod: today, changefreq: 'daily', priority: 0.9 }));
   entries.push(urlEntry({ loc: `${SITE_URL}/library/phonics/korean`, lastmod: today, changefreq: 'weekly', priority: 0.7 }));
+  entries.push(urlEntry({ loc: `${SITE_URL}/library/phonics/english`, lastmod: today, changefreq: 'weekly', priority: 0.7 }));
+  // 파닉스 단원 SEO — 커리큘럼에서 파생(트랙 허브 2 + 단원 71).
+  // 🔴 여기 넣기 전엔 사이트맵 1,882개 중 **파닉스 URL 이 1개**였다. 홈 제목이
+  //    「한글 파닉스 32단원 · 영어 파닉스 39단원」인데 간판 제품이 검색에 없었다.
+  // 🔴 목록을 손으로 적지 않는다 — 커리큘럼이 바뀌면 사이트맵이 따라 바뀐다.
+  try {
+    const { KOREAN_PHONICS_CURRICULUM, ENGLISH_PHONICS_CURRICULUM } =
+      await import('../../shared/dist/constants/index.js');
+    for (const [track, curriculum] of [
+      ['korean', KOREAN_PHONICS_CURRICULUM],
+      ['english', ENGLISH_PHONICS_CURRICULUM],
+    ]) {
+      entries.push(urlEntry({ loc: `${SITE_URL}/library/phonics/${track}/about`, lastmod: today, changefreq: 'monthly', priority: 0.8 }));
+      for (const level of curriculum) {
+        for (const u of level.units) {
+          entries.push(urlEntry({ loc: `${SITE_URL}/library/phonics/${track}/${u.id}/about`, lastmod: today, changefreq: 'monthly', priority: 0.6 }));
+        }
+      }
+    }
+  } catch (e) {
+    // 🔴 조용히 넘기지 않는다 — 이 catch 가 말이 없으면 파닉스가 또 사이트맵에서 사라진다.
+    console.warn('[sitemap] ⚠️ 파닉스 단원 스킵 — shared 미빌드?', e.message);
+  }
   // 광고 랜딩 — 「한글앱」(440)·「파닉스앱」(100) 을 노린다. 광고 도착지지만 색인도 받는다.
   // 🔴 `/intro` 는 2026-08-21 에 루트로 흡수됐다(서버 301) — 루트는 아래 정적 목록에 이미
   //    들어 있으므로 여기서 따로 넣지 않는다. 리다이렉트되는 URL 을 사이트맵에 실으면

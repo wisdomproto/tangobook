@@ -333,6 +333,35 @@ export function createApp() {
     app.get('/guide/:hub', hubHandler(false));
     app.get('/:lang/guide/:hub', hubHandler(true));
 
+    /**
+     * 파닉스 단원 SEO — 학습 화면과 **다른 주소**다.
+     *
+     * 🔴 감사에서 나온 제일 큰 구멍: 홈 제목이 「한글 파닉스 32단원 · 영어 파닉스 39단원」인데
+     *    sitemap 1,882개 중 파닉스 URL 이 **1개**였고 그 페이지 본문은 133자 내비 껍데기였다.
+     *    동화책의 `/library/:id/about` 에 해당하는 서피스를 파닉스에도 판다(71단원 + 트랙 2).
+     * 🔴 **학습 라우트(`/library/phonics/:track`)는 손대지 않는다** — 프리렌더 대상이라
+     *    정적 파일로 나가고, 아이 화면이라 글이 원래 적은 게 맞다.
+     * ⚠️ 세그먼트 수가 달라(`/library/:id/about` 은 3, 이건 4~5) 기존 라우트와 안 부딪힌다.
+     */
+    app.get('/library/phonics/:track/about', (req, res, next) =>
+      sendSeo(res, next, async () => {
+        const { renderPhonicsTrackSeo, isPhonicsTrack } =
+          await import('./services/seo-phonics.service.js');
+        const track = String(req.params.track);
+        return isPhonicsTrack(track) ? renderPhonicsTrackSeo(track) : null;
+      })
+    );
+    app.get('/library/phonics/:track/:unitId/about', (req, res, next) =>
+      sendSeo(res, next, async () => {
+        const { renderPhonicsUnitSeo, isPhonicsTrack } =
+          await import('./services/seo-phonics.service.js');
+        const track = String(req.params.track);
+        return isPhonicsTrack(track)
+          ? renderPhonicsUnitSeo(track, String(req.params.unitId))
+          : null;
+      })
+    );
+
     // 언어별 진입 링크(/en·/vi·/zh·/th·/ko) — 소셜 공유 미리보기 OG 를 그 언어로 주입.
     // SPA(LangEntry)가 브라우저에서 그 언어 설정 후 라이브러리로 리다이렉트한다.
     for (const lc of ['en', 'vi', 'zh', 'th', 'ko']) {

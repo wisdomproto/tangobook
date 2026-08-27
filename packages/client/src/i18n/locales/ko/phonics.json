@@ -62,7 +62,8 @@
     "englishDesc": "알파벳 음가부터 단어까지",
     "englishAlt": "영어 파닉스 호리",
     "chineseTitle": "중국어 병음",
-    "chineseDesc": "성모 · 운모 · 성조를 소리로"
+    "chineseDesc": "성모 · 운모 · 성조를 소리로",
+    "curriculumLink": "단원 구성 보기"
   },
   "study": {
     "koreanLead": "한글",

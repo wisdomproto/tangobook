@@ -122,6 +122,7 @@ const PAY = () => import('../features/payment');
 const InviteLandingPage = lazy(() => PAY().then((m) => ({ default: m.InviteLandingPage })));
 const InviteFriendsPage = lazy(() => PAY().then((m) => ({ default: m.InviteFriendsPage })));
 const IntroPage = lazy(() => import('../pages/IntroPage'));
+const PhonicsCurriculumPage = lazy(() => import('../pages/PhonicsCurriculumPage'));
 /** 영어 파닉스 광고 랜딩 — 같은 이유로 lazy(뷰어·게임을 실제로 마운트한다). */
 import { GlobalUiSound } from '../components/GlobalUiSound';
 import { GuestEventAdopter } from '@/features/learning/components/GuestEventAdopter';
@@ -410,6 +411,32 @@ export const router = createBrowserRouter([
           </ErrorBoundary>
         ),
       },
+      /**
+       * 파닉스 커리큘럼 SEO — 서버 SSR(seo-phonics.service) 짝 페이지.
+       * 🔴 이 라우트가 없으면 서버가 본문을 넣어도 React 가 마운트하며 404 로 덮는다.
+       * 🔴 **트랙을 `:track` 파라미터로 두면 안 된다** — 위 학습 라우트
+       *    `library/phonics/korean/:unitId/:activityKey` 가 `about` 을 활동 id 로 집어삼킨다
+       *    (실측: 「알 수 없는 활동입니다」). React Router 는 등록 순서가 아니라 **점수**로
+       *    고르고 정적 세그먼트가 파라미터를 이긴다. 그래서 트랙도 정적으로 적는다.
+       */
+      ...(['korean', 'english'] as const).flatMap((track) => [
+        {
+          path: `library/phonics/${track}/about`,
+          element: (
+            <ErrorBoundary>
+              <PhonicsCurriculumPage />
+            </ErrorBoundary>
+          ),
+        },
+        {
+          path: `library/phonics/${track}/:unitId/about`,
+          element: (
+            <ErrorBoundary>
+              <PhonicsCurriculumPage />
+            </ErrorBoundary>
+          ),
+        },
+      ]),
       {
         // 카테고리 허브 SEO 랜딩 (classics/nature) — 서버 SSR(seo-ssr) 짝 페이지
         path: 'guide/:hub',

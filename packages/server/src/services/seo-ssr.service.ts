@@ -78,7 +78,7 @@ export interface AboutSeo {
   robots?: string;
 }
 
-function escapeHtml(s: string): string {
+export function escapeHtml(s: string): string {
   return s
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -86,7 +86,7 @@ function escapeHtml(s: string): string {
     .replace(/"/g, '&quot;');
 }
 
-function summarize(text: string, max = 158): string {
+export function summarize(text: string, max = 158): string {
   const clean = text.replace(/\s+/g, ' ').trim();
   if (clean.length <= max) return clean;
   return clean.slice(0, max - 1).replace(/[,;:\s]\S*$/, '') + '…';

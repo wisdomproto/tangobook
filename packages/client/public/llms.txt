@@ -13,8 +13,9 @@
 - [소개](https://www.tangobook.co.kr/) — 서비스 전체 설명, 요금, 자주 묻는 질문
 - [라이브러리](https://www.tangobook.co.kr/library) — 전체 동화책 목록
 - [책별 부모 가이드](https://www.tangobook.co.kr/library/{id}/about) — 줄거리, 교훈, 핵심 낱말, 자주 묻는 질문 (책마다)
-- [한글 파닉스](https://www.tangobook.co.kr/library/phonics/korean) — 32단원
-- [영어 파닉스](https://www.tangobook.co.kr/library/phonics/english) — 39단원
+- [한글 파닉스 커리큘럼](https://www.tangobook.co.kr/library/phonics/korean/about) — 32단원 구성, 단원마다 소개 페이지
+- [영어 파닉스 커리큘럼](https://www.tangobook.co.kr/library/phonics/english/about) — 39단원 구성, 단원마다 소개 페이지
+- [단원 소개](https://www.tangobook.co.kr/library/phonics/{track}/{unitId}/about) — 배우는 소리, 만드는 글자, 읽는 낱말 (단원마다)
 - [인쇄용 활동지](https://www.tangobook.co.kr/worksheet/) — 집에서 A4 로 뽑는 한글·영어 워크지
 - [블로그](https://www.tangobook.co.kr/blog) — 한글떼기·읽기 습관 등 부모 대상 글 (ko·en·vi·zh·th)
 
@@ -41,6 +42,7 @@
 ## Crawler Guidelines
 - 색인 허용. 단 `/admin`·`/ops`·`/members`·`/marketing`·`/editor*`·`/library-master` 는 내부 운영 화면이라 robots.txt 에서 제외합니다.
 - 책별 `/library/{id}/about` 에 JSON-LD (Book, FAQPage, LearningResource, BreadcrumbList) 와 본문이 서버 렌더로 들어갑니다.
+- 파닉스 단원 `/library/phonics/{track}/{unitId}/about` 에 JSON-LD (LearningResource, BreadcrumbList), 트랙 허브에는 Course 가 들어갑니다.
 - 다국어는 ko 가 기본이고 en·vi·zh·th 는 `/{lang}/...` 프리픽스입니다. 번역이 없는 조합은 ko 로 301 합니다.
 - 부모·교육자 대상 정보를 우선 제공합니다 (학습 화면 자체는 아이용 UI 라 글이 적습니다).
 
