@@ -59,6 +59,26 @@ export function createApp() {
   // "연결을 거부했습니다"로 차단한다. 클라 SharedArrayBuffer(ffmpeg.wasm) 사용처가 없어 불필요.
   // (vite.config.ts dev 서버에서도 동일 이유로 제거됨. 다시 추가하면 배포 결제창이 깨진다.)
 
+  /**
+   * 보안 헤더 — 감사에서 **하나도 없는 것**으로 나왔다(2026-08-27 실측: `/`·`/admin`·`/ops`·
+   * `/members`·`/marketing` 전부 `Server`·`x-powered-by` 말고는 없음).
+   *
+   * 🔴 **CSP 는 일부러 안 넣는다.** 이 사이트는 jsdelivr(폰트)·Google Fonts·gtag·
+   *    메타 픽셀·Supabase·R2·토스를 부른다 — 목록을 대충 적으면 결제창이나 폰트가 조용히 죽는다.
+   *    위 COOP/COEP 주석과 같은 종류의 사고다. CSP 는 Report-Only 로 한참 재 본 뒤에 켤 것.
+   * ⚠️ `X-Frame-Options: SAMEORIGIN` 은 **남이 우리를 iframe 에 넣는 것**만 막는다.
+   *    우리가 토스·유튜브를 넣는 건 영향 없다(그 반대였으면 결제창이 깨진다).
+   * ⚠️ HSTS 에 `includeSubDomains`·`preload` 는 안 붙였다 — 서브도메인 전수를 모르는 채
+   *    붙이면 되돌릴 수 없다(preload 목록은 제거가 몇 달 걸린다).
+   */
+  app.use((_req, res, next) => {
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000');
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    next();
+  });
+
   app.use(express.json({ limit: '10mb' }));
   app.use(express.urlencoded({ extended: true }));
 
@@ -418,7 +438,26 @@ export function createApp() {
       '/assets',
       express.static(path.join(clientDist, 'assets'), { immutable: true, maxAge: '1y' })
     );
-    app.use(express.static(clientDist));
+    /**
+     * 🔴 **`public/` 자산에 캐시 수명을 준다**(2026-08-27). 기본값이라 여태
+     *    `Cache-Control: public, max-age=0` 이 나갔고(실측 `/sounds/ui/tap.mp3`), 그래서
+     *    재방문마다 전부 재검증했다(PSI 「Use efficient cache lifetimes」 254KB).
+     *    효과음 풀이 같은 파일을 4번 받던 것도 이 헤더가 거들었다.
+     * 🔴 **`immutable` 도 1년도 아니다** — 이 파일들은 해시 이름이 아니라서(`/logo/...`,
+     *    `/icons/...`) 영구 캐시하면 고쳐도 안 바뀐다. 해시가 붙는 `/assets` 만 1년이다.
+     * 🔴 **자주 바뀌고 크롤러가 읽는 것은 빼야 한다** — `sitemap.xml` 을 7일 캐시하면
+     *    새 책을 올려도 구글이 옛 목록을 본다. `sw.js` 는 위에서 이미 no-cache 다.
+     */
+    app.use(
+      express.static(clientDist, {
+        maxAge: '7d',
+        setHeaders: (res, filePath) => {
+          if (/(index\.html|robots\.txt|sitemap\.xml|llms\.txt|manifest\.json)$/i.test(filePath)) {
+            res.setHeader('Cache-Control', 'no-cache');
+          }
+        },
+      })
+    );
     // catch-all — SPA index.html. 단, 정적 index.html 의 canonical 은 홈 고정이라
     // 비-홈 라우트가 전부 "홈 복사본"으로 색인에서 빠진다. 비-홈 경로는 canonical 을
     // 자기 자신으로 재작성해 서빙(selfCanonicalizeHtml). 실패 시 원본 index.html 폴백.
@@ -431,8 +470,22 @@ export function createApp() {
         res.status(404).type('text/plain').send('Not Found');
         return;
       }
+      /**
+       * 🔴 **파일처럼 생긴 경로는 SPA 라우트가 아니다 — 200 이 아니라 404 다**(2026-08-27).
+       *    여기까지 왔다는 건 `express.static` 이 그 파일을 못 찾았다는 뜻인데, 여태 SPA 셸을
+       *    200 으로 돌려줬다. 감사에서 `wp-sitemap.xml`·`sitemap_index.xml` 이 **200 + HTML**로
+       *    나온 게 그 증상이다(sitemap 파서는 "DOCTYPE is not allowed"로 실패). 존재하지 않는
+       *    주소가 전부 성공으로 보이면 구글이 죽은 URL 을 떨굴 신호가 없다.
+       * 🔴 **확장자 있는 경로만** 이렇게 한다 — SPA 라우트(`/library/123/about`)에는
+       *    확장자가 없다. 라우트 목록을 손으로 적으면 새 라우트를 낼 때마다 404 를 만든다.
+       */
       try {
-        const { selfCanonicalizeHtml } = await import('./services/seo-ssr.service.js');
+        const { selfCanonicalizeHtml, looksLikeMissingFile } =
+          await import('./services/seo-ssr.service.js');
+        if (looksLikeMissingFile(req.path)) {
+          res.status(404).type('text/plain').send('Not Found');
+          return;
+        }
         if (!cachedIndexHtml) {
           const { readFile } = await import('node:fs/promises');
           cachedIndexHtml = await readFile(path.join(clientDist, 'index.html'), 'utf-8');

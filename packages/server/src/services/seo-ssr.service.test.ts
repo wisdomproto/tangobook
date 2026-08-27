@@ -9,6 +9,7 @@ import {
   hasAboutLang,
   missingLangVariant,
   renderLandingSeo,
+  looksLikeMissingFile,
   HUBS,
 } from './seo-ssr.service.js';
 import type { Storybook } from '@tangobook/shared';
@@ -473,5 +474,35 @@ describe('renderLandingSeo — 언어 진입 스텁(/en·/vi·/zh·/th·/ko)', (
     const html = injectAboutSeo(INDEX_HTML, renderLandingSeo('th')!);
     expect(html).toContain('property="og:title"');
     expect(html).toContain('og-image.png');
+  });
+});
+
+describe('looksLikeMissingFile — catch-all 이 404 를 줄 경로', () => {
+  // 🔴 이게 느슨하면 없는 주소가 다시 200 SPA 셸로 나가고,
+  //    빡빡하면 **멀쩡한 SPA 라우트가 404 가 된다**. 후자가 훨씬 나쁘다.
+  it('없는 파일 요청은 404 대상이다', () => {
+    for (const p of ['/wp-sitemap.xml', '/sitemap_index.xml', '/x.php', '/a/b/c.json']) {
+      expect(looksLikeMissingFile(p)).toBe(true);
+    }
+  });
+
+  it('진짜 SPA 라우트는 절대 404 대상이 아니다', () => {
+    for (const p of [
+      '/',
+      '/library',
+      '/library/1772009873865/about',
+      '/en/blog/cinderella-fairy-tale-for-kids',
+      '/library/phonics/korean/kr-h1-u01',
+      '/worksheet',
+      '/subscribe',
+    ]) {
+      expect(looksLikeMissingFile(p)).toBe(false);
+    }
+  });
+
+  it('점이 있어도 확장자 모양이 아니면 통과시킨다', () => {
+    // 책 제목·슬러그에 점이 섞여도 SPA 라우트일 수 있다.
+    expect(looksLikeMissingFile('/blog/v1.2.3-release-notes')).toBe(false);
+    expect(looksLikeMissingFile('/library/9.5')).toBe(false);
   });
 });

@@ -708,6 +708,19 @@ export function injectAboutSeo(indexHtml: string, seo: AboutSeo): string {
  * 자기 자신으로 재작성하고 누출된 홈 hreflang 을 제거해 구글이 URL 자체를 색인하게 한다.
  * 홈(`/`)은 canonical→홈 이 정답이므로 그대로 둔다.
  */
+/**
+ * 파일처럼 생긴 경로인가 — catch-all 이 SPA 셸(200) 대신 404 를 줘야 하는지 판정.
+ *
+ * 🔴 여기까지 왔다는 건 `express.static` 이 그 파일을 못 찾았다는 뜻이다. 여태 SPA 셸을
+ *    200 으로 돌려줘서 `wp-sitemap.xml`·`sitemap_index.xml` 같은 없는 주소가 전부 "성공"으로
+ *    보였다(sitemap 파서는 "DOCTYPE is not allowed"로 실패). 죽은 URL 을 구글이 떨굴 신호가 없다.
+ * 🔴 **확장자로만 판정한다** — SPA 라우트(`/library/123/about`·`/en/blog/slug`)엔 점이 없다.
+ *    라우트 목록을 손으로 들면 새 라우트를 낼 때마다 404 를 만든다(실측: sitemap 1,882개 중 0건 해당).
+ */
+export function looksLikeMissingFile(pathname: string): boolean {
+  return /\.[a-z0-9]{2,5}$/i.test(pathname);
+}
+
 export function selfCanonicalizeHtml(indexHtml: string, pathname: string): string {
   if (pathname === '/' || pathname === '') return indexHtml;
   const canonical = `${SITE_URL}${escapeAttrPath(pathname)}`;
