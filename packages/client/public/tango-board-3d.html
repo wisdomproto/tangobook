@@ -427,8 +427,11 @@ var P_S = [[[1.5,0.7],[1.5,1.4]],
 var P_J = [[[0.46,0.47],[2.54,0.47]],[[1.5,0.5],[1.5,1.68]],
            [[1.5,1.68],[0.44,2.54]],[[1.5,1.68],[2.53,2.53]]];
 
-function B(base, w, h, paths, circles, rots){
-  return { base:base, w:w, h:h, paths:paths || [], circles:circles || [], rots:rots };
+function B(base, w, h, paths, circles, rots, stroke){
+  // 🔴 획 두께는 자모마다 다를 수 있다 — ㅣ 는 실측 10.6mm 로 나머지(6.9mm)보다 굵다.
+  //    공통값으로 두면 템플릿과 실물의 크기 비율이 어긋나 인식에서 탈락한다.
+  return { base:base, w:w, h:h, paths:paths || [], circles:circles || [],
+           rots:rots, stroke: stroke || STROKE };
 }
 var CATALOG = [
   B('ㄱ',3,3,P_G,null,{0:'ㄱ',180:'ㄴ'}),
@@ -458,7 +461,9 @@ var CATALOG = [
     {0:'ㅓ',90:'ㅗ',180:'ㅏ',270:'ㅜ'}),
   B('ㅕ',2,5,[[[1.5,0.5],[1.5,4.5]],[[0.5,1.7],[1.5,1.7]],[[0.5,3.3],[1.5,3.3]]],null,
     {0:'ㅕ',90:'ㅛ',180:'ㅑ',270:'ㅠ'}),
-  B('ㅣ',2,5,[[[1.5,0.5],[1.5,4.5]]],null,{0:'ㅣ',90:'ㅡ'}),
+  // 🔴 ㅣ 는 실물 획이 5~6px(warp 기준) = 0.31~0.375칸으로 다른 자모보다 얇다.
+  //    공통 0.47 로 두면 가로로 뉜 ㅡ 가 크기 비율 0.63 으로 탈락한다.
+  B('ㅣ',1,5,[[[0.5,0.5],[0.5,4.5]]],null,{0:'ㅣ',90:'ㅡ'}, 0.38),
   B('ㅐ',2,5,[[[0.45,0.4],[0.45,4.6]],[[1.55,0.4],[1.55,4.6]],[[0.45,2.5],[1.55,2.5]]],null,
     {0:'ㅐ',180:'ㅔ'}),
   B('ㅒ',2,5,[[[0.45,0.4],[0.45,4.6]],[[1.55,0.4],[1.55,4.6]],
@@ -609,10 +614,10 @@ function buildBlockMesh(def){
   var cells = [], hCells = BLOCK_H / PITCH;
   def.paths.forEach(function(pathPts){
     for (var i = 0; i + 1 < pathPts.length; i++)
-      strokeSegment(cells, pathPts[i], pathPts[i+1], STROKE, hCells);
+      strokeSegment(cells, pathPts[i], pathPts[i+1], def.stroke, hCells);
   });
   def.circles.forEach(function(c){
-    strokeRing(cells, c[0], c[1], c[2], STROKE, hCells, 28);
+    strokeRing(cells, c[0], c[1], c[2], def.stroke, hCells, 28);
   });
   var f = new Float32Array(cells.length);
   var ox = def.w/2, oy = def.h/2;
@@ -746,7 +751,7 @@ function buildTemplates(){
       g.rotate(rot * Math.PI/180);
       g.translate(-def.w*CELL/2, -def.h*CELL/2);
       g.strokeStyle = '#fff';
-      g.lineWidth = STROKE * CELL;
+      g.lineWidth = def.stroke * CELL;
       g.lineCap = 'round';
       g.lineJoin = 'round';
       def.paths.forEach(function(pts){
