@@ -9,6 +9,45 @@
 /* Marketing feature — scope-isolated OKLCH tokens (never touches global :root) */
 @import './features/marketing/theme/marketing-tokens.css';
 
+/*
+ * 🔴 **헤딩 폰트를 직접 선언한다 — jsdelivr 완성 CSS 를 `<link>` 로 받지 않는다**(2026-08-27).
+ *    그 CSS 는 ①렌더를 758ms 막고 ②`font-display` 가 없어서(=auto) 헤딩이 폰트 올 때까지
+ *    **투명하게 비어 있었고** ③웨이트 4종(L·R·B·EB)을 선언하고 ④src 첫 줄이 `format()` 없는
+ *    **1.4MB `.eot`** 이다. 여기선 실제로 쓰는 700·800·900 만 선언한다(L·R 은 `.font-display`
+ *    와 함께 쓰인 데가 한 곳도 없다).
+ *
+ * 🔴 **700(B)과 800~900(EB)을 굳이 따로 두는 이유 = 파닉스 채점이다.**
+ *    `LetterFillCanvas`·`WordFillCanvas`·`LetterTracingCanvas` 가 `ctx.font = 'bold ...'`
+ *    (=700)로 글자를 그려 **그 모양 그대로 coverage 를 재고 99% 로 통과**시킨다. 한 장(EB)으로
+ *    합치면 bold 요청이 EB 로 떨어져 **마스크가 굵어지고 기준이 조용히 움직인다.** 바이트를
+ *    아끼자고 학습 채점을 건드리지 않는다. 브라우저는 그 페이지가 실제로 쓰는 웨이트만 받으므로,
+ *    따로 두면 랜딩은 EB 만 받고 B 는 파닉스·블로그에서만 받는다.
+ *
+ * 🔴 `font-display: swap` 이 이 변경의 핵심이다 — 원본엔 이 줄이 아예 없었다.
+ *    (깜빡임은 속도를 택하며 감수하기로 한 것 — Pretendard subset 과 같은 판단이다.)
+ * ⚠️ `@import` 는 CSS 규칙상 맨 위여야 해서 이 선언들은 그 아래에 둔다.
+ */
+@font-face {
+  font-family: 'NanumSquareRound';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local('NanumSquareRoundB'),
+    url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound/NanumSquareRoundB.woff2')
+      format('woff2');
+}
+@font-face {
+  font-family: 'NanumSquareRound';
+  font-style: normal;
+  font-weight: 800 900;
+  font-display: swap;
+  src:
+    local('NanumSquareRoundEB'),
+    url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound/NanumSquareRoundEB.woff2')
+      format('woff2');
+}
+
 :root {
   /* Base */
   --color-cream-50: #fff9f3;

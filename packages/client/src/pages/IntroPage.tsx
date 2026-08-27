@@ -927,7 +927,11 @@ export default function IntroPage() {
               그림 890px 로 하던 말을 한 줄이 대신한다. */}
           {/* 🔴 강조는 **색만으로 주지 않는다**(2026-08-21 사용자 시안) — 코랄로 칠하기만 하면
               본문과 굵기·크기가 같아 흘려 읽힌다. 숫자는 한 단 키우고 굵기까지 올린다. */}
-          <p className="mx-auto mt-3 max-w-[30rem] font-display text-[15px] font-bold leading-[1.5] text-ink-700 break-keep sm:mt-4 sm:max-w-none sm:text-[18px] md:text-[20px] xl:text-[24px]">
+          {/* 🔴 `font-extrabold` 이다 — 이 랜딩에서 700 을 쓰는 건 이 한 줄뿐이었고,
+              그 하나 때문에 NanumSquareRound **B(240KB)** 를 통째로 더 받고 있었다.
+              800 은 이미 이 화면 헤딩이 쓰는 웨이트라 파일이 안 늘고, 위 주석의
+              「굵기까지 올린다」와도 같은 방향이다. */}
+          <p className="mx-auto mt-3 max-w-[30rem] font-display text-[15px] font-extrabold leading-[1.5] text-ink-700 break-keep sm:mt-4 sm:max-w-none sm:text-[18px] md:text-[20px] xl:text-[24px]">
             <Trans
               t={t}
               i18nKey="hero.sub"
