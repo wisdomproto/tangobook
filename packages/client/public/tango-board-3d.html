@@ -101,6 +101,25 @@
     cursor:pointer; user-select:none;
   }
   .cam-check input{accent-color:var(--coral); margin:0}
+  .cam-shot{display:flex; gap:6px}
+  .cam-shot button, #camOff{
+    flex:1; border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.08);
+    color:#eaf3f0; border-radius:9px; padding:7px 0; font-size:11.5px; cursor:pointer;
+    font-family:inherit;
+  }
+  .cam-shot button:hover{background:var(--coral); border-color:transparent}
+  #camOff, #camExpect, .cam-tune{display:none}
+  body.photo-on #camOff, body.photo-on #camExpect, body.photo-on .cam-tune{display:block}
+  body.photo-on .cam-tune{display:flex; flex-direction:column; gap:5px}
+  #camExpect{
+    border:1px solid rgba(255,255,255,.16); background:rgba(0,0,0,.25); color:#eaf3f0;
+    border-radius:9px; padding:7px 9px; font-size:12px; font-family:inherit; width:100%;
+    box-sizing:border-box;
+  }
+  #camMask{
+    width:100%; image-rendering:pixelated; border-radius:6px;
+    border:1px solid rgba(255,255,255,.12); background:#111;
+  }
   #camSweep{
     border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.08);
     color:#eaf3f0; border-radius:9px; padding:8px 0; font-size:12px; cursor:pointer;
@@ -237,6 +256,30 @@
         시야 사다리꼴 보이기</label>
       <label class="cam-check" title="판을 못 찾아도 정답 좌표로 펴서 읽는다 — 실물엔 없는 능력이다">
         <input type="checkbox" id="camTruth"> 정답 좌표로 대체 (디버그)</label>
+      <div class="cam-shot">
+        <button id="camFile" title="찍어 둔 사진 한 장을 넣는다">🖼 사진</button>
+        <button id="camCam" title="웹캠을 열어 실시간으로 읽는다">🎥 웹캠</button>
+        <button id="camOff" title="3D 시뮬로 돌아간다">■ 끄기</button>
+      </div>
+      <input type="file" id="camFileIn" accept="image/*" hidden>
+      <input type="text" id="camExpect" placeholder="정답 낱말 (채점용)" autocomplete="off">
+      <div class="cam-tune" id="camTune">
+        <div class="cam-row"><label for="tHue">색상 회전</label>
+          <input type="range" id="tHue" min="-60" max="60" value="0" step="1">
+          <span class="cam-val" id="tHueV">0°</span></div>
+        <div class="cam-row"><label for="tSat">채도 하한</label>
+          <input type="range" id="tSat" min="2" max="40" value="10" step="1">
+          <span class="cam-val" id="tSatV">0.10</span></div>
+        <div class="cam-row"><label for="tLit">밝기 하한</label>
+          <input type="range" id="tLit" min="20" max="95" value="70" step="1">
+          <span class="cam-val" id="tLitV">0.70</span></div>
+        <div class="cam-row"><label for="tBoard">판 밝기</label>
+          <input type="range" id="tBoard" min="10" max="90" value="40" step="1">
+          <span class="cam-val" id="tBoardV">0.40</span></div>
+        <canvas id="camMask"></canvas>
+        <div class="cam-note">전경이 통째로 비면 <b>색상 회전</b>, 두 색이 뭉치면 <b>채도 하한</b>,
+          블록 옆면까지 먹으면 <b>밝기 하한</b>을 올린다.</div>
+      </div>
       <div class="cam-reco" id="camReco"></div>
       <button id="camSweep">전 조건 스윕</button>
     </div>
@@ -722,6 +765,20 @@ var COLOR = {
  * ===================================================================== */
 var CELL = 16;                       // 펴진 판에서 격자 한 칸 = 16px
 var TOP_LIT = 0.70;                  // 이보다 어두우면 블록 옆면으로 본다
+
+/* 실사 보정값 — 지금까지의 숫자는 전부 시뮬이 제 렌더를 읽은 것이라
+   렌더에 맞춰 굳어 있다. 실제 카메라는 조명·화이트밸런스로 색상각이 통째로
+   밀리므로(주황이 60°를 넘어가면 자음이 통째로 사라진다), 사진을 넣을 땐
+   여기를 돌려 가며 맞춘다. 기본값 = 렌더에서 확정한 값. */
+var TUNE = {
+  hueRot: 0,        // 색상 회전(°) — 화이트밸런스 밀림 보정
+  sat: 0.10,        // 이보다 채도가 낮으면 판/그림자
+  lit: TOP_LIT,     // 이보다 어두우면 블록 옆면
+  choLo: 5,   choHi: 60,      // 주황 = 자음
+  jungLo: 120, jungHi: 190,   // 민트 = 모음
+  boardLuma: 0.40,            // 판 외곽 검출 밝기 하한
+  gridLo: 0.45, gridHi: 0.668 // 격자 바닥 밝기 밴드
+};
 var reco = { on:false, fbo:null, tex:null, W:0, H:0, buf:null,
              templates:null, result:null, ms:0 };
 
@@ -830,14 +887,14 @@ function classifyPixels(buf, W, H){
   for (var i = 0, n = W*H; i < n; i++){
     var r = buf[i*4] / 255, g = buf[i*4+1] / 255, b = buf[i*4+2] / 255;
     var mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
-    if (mx < TOP_LIT || d < 0.10) continue;       // 판·그림자·블록 옆면
+    if (mx < TUNE.lit || d < TUNE.sat) continue;  // 판·그림자·블록 옆면
     var h;
     if (mx === r) h = ((g - b) / d + 6) % 6;
     else if (mx === g) h = (b - r) / d + 2;
     else h = (r - g) / d + 4;
-    h *= 60;
-    if (h >= 5 && h <= 60) lab[i] = 1;            // 주황 = 자음
-    else if (h >= 120 && h <= 190) lab[i] = 2;    // 민트 = 모음
+    h = (h * 60 + TUNE.hueRot + 360) % 360;
+    if (h >= TUNE.choLo && h <= TUNE.choHi) lab[i] = 1;         // 주황 = 자음
+    else if (h >= TUNE.jungLo && h <= TUNE.jungHi) lab[i] = 2;  // 민트 = 모음
   }
   return lab;
 }
@@ -928,6 +985,7 @@ function mergeComps(list){
 function recognize(){
   var t0 = performance.now();
   var lab = classifyPixels(reco.buf, reco.W, reco.H);
+  reco.lab = lab;                     // 마스크 미리보기용
   var comps = components(lab, reco.W, reco.H, (CELL*CELL) / 3);
   var items = [], detail = [], orphans = [];
   function accept(c, m){
@@ -1248,7 +1306,7 @@ function detectGridCorners(){
     var mx = Math.max(r, g, bl), mn = Math.min(r, g, bl);
     if (mx - mn > 0.12) continue;                 // 블록은 채도가 있다
     var v = r*0.3 + g*0.6 + bl*0.1;
-    if (v > GRID_LUMA_LO && v < GRID_LUMA_HI){ mask[i] = 1; n++; }
+    if (v > TUNE.gridLo && v < TUNE.gridHi){ mask[i] = 1; n++; }
   }
   if (n < W*H*0.015) return null;
 
@@ -1271,7 +1329,7 @@ function detectBoardCorners(){
   var mask = new Uint8Array(W * H), lit = 0;
   for (var i = 0; i < W*H; i++){
     var v = (b[i*4]*0.3 + b[i*4+1]*0.6 + b[i*4+2]*0.1) / 255;
-    if (v >= BOARD_LUMA){ mask[i] = 1; lit++; }
+    if (v >= TUNE.boardLuma){ mask[i] = 1; lit++; }
   }
   if (lit < W*H*0.04) return null;   // 판이 화면에 거의 없다
 
@@ -1919,10 +1977,115 @@ function blitTex(rect, H){
 
 var IDENT3 = new Float32Array([1,0,0, 0,1,0, 0,0,1]);
 
+/* =====================================================================
+ * 실사 입력 — 사진/웹캠 프레임을 폰 시점 텍스처 자리에 그대로 얹는다.
+ *
+ * 인식기는 simTex 한 장에서만 픽셀을 받으므로(검출·warp·분류 전부),
+ * 그 텍스처를 3D 렌더 대신 실제 그림으로 채우면 뒷단은 손댈 게 없다.
+ * 시뮬레이터가 자기 렌더를 읽는 한 어떤 숫자도 결론이 아니다 — spec §7 4단계.
+ * ===================================================================== */
+var photo = { on:false, src:null, video:null, stream:null, expect:'', cv:null, ctx:null, timer:null };
+
+/** 소스를 폰 시점 텍스처 규격으로 맞춰 굽는다.
+ *  🔴 늘리지 않고 비율을 지킨 채 넣는다(레터박스). 늘리면 화면에서 잰
+ *     격자 주기가 실제와 달라져 정밀화가 엉뚱한 배율로 수렴한다.
+ *     남는 자리는 검은색이라 판·격자 검출의 밝기 조건에 걸리지 않는다. */
+function uploadPhotoFrame(){
+  var src = photo.src;
+  if (!src) return false;
+  var sw = src.videoWidth || src.naturalWidth || src.width;
+  var sh = src.videoHeight || src.naturalHeight || src.height;
+  if (!sw || !sh) return false;
+  if (!photo.cv){
+    photo.cv = document.createElement('canvas');
+    photo.ctx = photo.cv.getContext('2d');
+  }
+  if (photo.cv.width !== camSim.W){ photo.cv.width = camSim.W; photo.cv.height = camSim.H; }
+  var k = Math.min(camSim.W / sw, camSim.H / sh);
+  var dw = sw * k, dh = sh * k;
+  photo.ctx.fillStyle = '#000';
+  photo.ctx.fillRect(0, 0, camSim.W, camSim.H);
+  photo.ctx.drawImage(src, (camSim.W - dw)/2, (camSim.H - dh)/2, dw, dh);
+
+  gl.bindTexture(gl.TEXTURE_2D, simTex);
+  // 캔버스는 위가 0, GL 텍스처는 아래가 0 — 뒤집어 올려야 렌더와 위아래가 같다
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, gl.RGBA, gl.UNSIGNED_BYTE, photo.cv);
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+  return true;
+}
+
+/** 분류 결과를 그대로 그려 준다 — 못 읽은 이유는 마스크를 봐야 안다.
+ *  (전경이 통째로 비면 색상각이 밀린 것, 뭉치면 채도 하한이 낮은 것) */
+function paintMask(){
+  var cv = document.getElementById('camMask');
+  if (!cv || !reco.lab) return;
+  var W = reco.W, H = reco.H;
+  if (cv.width !== W){ cv.width = W; cv.height = H; }
+  var ctx = cv.getContext('2d');
+  var im = ctx.createImageData(W, H);
+  for (var y = 0; y < H; y++){
+    for (var x = 0; x < W; x++){
+      var v = reco.lab[y*W + x];
+      var o = ((H-1-y)*W + x) * 4;      // 버퍼는 아래가 0
+      im.data[o]   = v === 1 ? 255 : 20;
+      im.data[o+1] = v === 2 ? 220 : 24;
+      im.data[o+2] = v === 2 ? 190 : 22;
+      im.data[o+3] = 255;
+    }
+  }
+  ctx.putImageData(im, 0, 0);
+}
+
+function setPhotoSource(src){
+  photo.src = src;
+  photo.on = true;
+  camSim.on = true;
+  camSim.useTruth = false;            // 실사에는 정답 좌표가 없다
+  var t = document.getElementById('camTruth');
+  if (t) t.checked = false;
+  document.getElementById('camPanel').hidden = false;
+  document.body.classList.add('photo-on');
+  invalidate();
+}
+
+function startWebcam(){
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    alert('이 브라우저에서는 웹캠을 열 수 없습니다.');
+    return;
+  }
+  navigator.mediaDevices.getUserMedia({
+    video: { width:{ ideal:1920 }, height:{ ideal:1080 } }, audio:false
+  }).then(function(stream){
+    var v = document.createElement('video');
+    v.autoplay = true; v.playsInline = true; v.muted = true;
+    v.srcObject = stream;
+    return v.play().then(function(){
+      photo.video = v; photo.stream = stream;
+      setPhotoSource(v);
+      // 매 프레임 2160×1620 을 올릴 이유는 없다 — 손으로 블록을 옮기는 속도면 충분하다
+      photo.timer = setInterval(invalidate, 100);
+    });
+  }).catch(function(err){
+    alert('웹캠을 열지 못했습니다: ' + err.message);
+  });
+}
+
+function stopPhoto(){
+  if (photo.timer){ clearInterval(photo.timer); photo.timer = null; }
+  if (photo.stream){ photo.stream.getTracks().forEach(function(t){ t.stop(); }); photo.stream = null; }
+  photo.video = null; photo.src = null; photo.on = false;
+  document.body.classList.remove('photo-on');
+  invalidate();
+}
+
 function drawCamSim(){
   if (!simFbo && !initCamSim()) return;
   var pc = phoneCamera();
 
+  if (photo.on){
+    if (!uploadPhotoFrame()) return;   // 아직 첫 프레임이 안 왔다
+  } else {
   // 폰이 보는 화면을 텍스처에 그린다
   gl.bindFramebuffer(gl.FRAMEBUFFER, simFbo);
   gl.viewport(0, 0, camSim.W, camSim.H);
@@ -1932,14 +2095,16 @@ function drawCamSim(){
   if (camSim.seeSelf !== false) drawTablet(pc.vp);   // 자기 화면이 시야에 걸리는지
   gl.bindFramebuffer(gl.FRAMEBUFFER, null);
   gl.viewport(0, 0, canvas.width, canvas.height);
+  }
 
   // 놀이 영역 네 모서리를 투영해 「판을 편」 호모그래피를 만든다
   var x0 = boardOrigin.x, x1 = boardOrigin.x + GRID_W*PITCH;
   var y0 = boardOrigin.y, y1 = boardOrigin.y - GRID_H*PITCH;
   if (!reco.fbo) initReco();
-  var truthCorners = [[x0,y0],[x1,y0],[x1,y1],[x0,y1]].map(function(c){
-    return projectToUV(pc.vp, c[0], c[1], boardTop + BLOCK_H);
-  });
+  var truthCorners = photo.on ? null
+    : [[x0,y0],[x1,y0],[x1,y1],[x0,y1]].map(function(c){
+        return projectToUV(pc.vp, c[0], c[1], boardTop + BLOCK_H);
+      });
   // 화면에서 판을 찾아 놀이 영역을 잡는다. 실패하면 정답 네 점으로 물러선다.
   var found = camSim.detect ? detectGridCorners() : null;
   camSim.foundBy = found ? 'grid' : null;
@@ -1951,7 +2116,7 @@ function drawCamSim(){
     if (found) camSim.foundBy = 'board';
   }
   camSim.detected = !!found;
-  camSim.cornerErr = found ? found.reduce(function(mx, c, i){
+  camSim.cornerErr = (found && truthCorners) ? found.reduce(function(mx, c, i){
     return Math.max(mx, Math.hypot(c[0]-truthCorners[i][0], c[1]-truthCorners[i][1]));
   }, 0) : null;
   /* 🔴 판을 못 찾으면 아무것도 읽지 않는다.
@@ -1960,7 +2125,7 @@ function drawCamSim(){
         134% 나가도 글자가 읽혔다 — 실물이 절대 못 하는 일이다.
         그 폴백이 있는 동안은 「인식 성공」이 실물 성능을 뜻하지 않았다.
         정답 좌표는 채점(cornerErr)에만 쓰고, 디버그로 보고 싶을 때만 켠다. */
-  var corners = found || (camSim.useTruth ? truthCorners : null);
+  var corners = found || ((camSim.useTruth && truthCorners) ? truthCorners : null);
   var H = corners ? homography(corners) : null;
   camSim.corners = corners;
   camSim.usedTruth = !found && !!corners;
@@ -2640,6 +2805,24 @@ function onRecoResult(){
   var el = document.getElementById('camReco');
   if (!el || !reco.result) return;
   var r = reco.result, sc = reco.score;
+  if (photo.on){
+    var pdet = camSim.detected
+      ? '<span class="ok">판 검출 ✓</span> <span class="dim">' +
+        (camSim.foundBy === 'grid' ? '격자' : '외곽') + '</span><br>'
+      : '<span class="no">판을 찾지 못했습니다</span><br>';
+    var exp = (photo.expect || '').trim();
+    el.innerHTML = pdet +
+      '<span class="big ' + (exp ? (r.word === exp ? 'ok' : 'no') : 'dim') + '">' +
+      (r.word || '—') + '</span>' +
+      (exp ? ' <span class="dim">정답 ' + exp + '</span>' : '') + '<br>' +
+      '<span class="dim">덩어리 ' + r.comps + ' · ' + reco.ms.toFixed(0) + 'ms</span>' +
+      (r.detail && r.detail.length
+        ? '<br><span class="dim">' +
+          r.detail.map(function(d){ return d.ch + ' ' + d.iou; }).join(' · ') + '</span>'
+        : '');
+    paintMask();
+    return;
+  }
   if (!sc.blocks){ el.innerHTML = '<span class="dim">판에 블록이 없습니다</span>'; return; }
   var ok = sc.wordOk;
   var det = camSim.detect
@@ -2847,6 +3030,38 @@ document.getElementById('panelChk').addEventListener('change', function(e){
        : thin ? '<br>획이 얇아 자모가 뭉갤 수 있습니다' : '') + stand;
     invalidate();
   }
+  document.getElementById('camFile').addEventListener('click', function(){
+    document.getElementById('camFileIn').click();
+  });
+  document.getElementById('camFileIn').addEventListener('change', function(e){
+    var f = e.target.files && e.target.files[0];
+    if (!f) return;
+    var img = new Image();
+    img.onload = function(){ stopPhoto(); setPhotoSource(img); };
+    img.src = URL.createObjectURL(f);
+    e.target.value = '';
+  });
+  document.getElementById('camCam').addEventListener('click', function(){
+    stopPhoto();
+    startWebcam();
+  });
+  document.getElementById('camOff').addEventListener('click', stopPhoto);
+  document.getElementById('camExpect').addEventListener('input', function(e){
+    photo.expect = e.target.value;
+    onRecoResult();
+  });
+  [['tHue','hueRot',1,function(v){ return v + '°'; }],
+   ['tSat','sat',0.01,null], ['tLit','lit',0.01,null], ['tBoard','boardLuma',0.01,null]
+  ].forEach(function(row){
+    var el = document.getElementById(row[0]);
+    el.addEventListener('input', function(e){
+      var v = +e.target.value * row[2];
+      TUNE[row[1]] = v;
+      document.getElementById(row[0] + 'V').textContent =
+        row[3] ? row[3](v) : v.toFixed(2);
+      invalidate();
+    });
+  });
   document.getElementById('camDetect').addEventListener('change', function(e){
     camSim.detect = e.target.checked;
     refresh();
