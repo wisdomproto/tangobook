@@ -123,6 +123,18 @@ const CHANGJAK: ResourceItem[] = [
   },
 ];
 
+/**
+ * 🧩 탱고 하드웨어 — 실물 보드·블록을 다루는 도구. 콘텐츠 자료실과 성격이 달라 메뉴를 나눈다.
+ */
+const HARDWARE: ResourceItem[] = [
+  {
+    href: '/tango-board-3d.html',
+    icon: '🧩',
+    label: '탱고 보드 3D',
+    desc: 'NX 실물 형상 + 스마트패드 카메라 인식 시뮬레이터',
+  },
+];
+
 const RESOURCES: ResourceItem[] = [
   {
     href: '/saenghwal-plan.html',
@@ -466,6 +478,11 @@ export function TopBar() {
           items={RESOURCES}
           label="📁 자료실"
           tone="text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/30"
+        />
+        <ResourceMenu
+          items={HARDWARE}
+          label="🧩 탱고HW"
+          tone="text-sky-600 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-900/30"
         />
         <button
           onClick={() => setVocabOpen(true)}
