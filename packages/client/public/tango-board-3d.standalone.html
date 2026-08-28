@@ -197,15 +197,28 @@
     <label id="panelToggle" title="구형 본체의 오른쪽 조작판 — 새 제품엔 없다">
       <input type="checkbox" id="panelChk"> 조작판</label>
     <div id="camPanel" hidden>
-      <div class="cam-row"><label for="camTilt">경사각</label>
-        <input type="range" id="camTilt" min="10" max="90" value="45" step="1">
-        <span class="cam-val" id="camTiltV">45°</span></div>
+      <div class="cam-row"><label for="camTilt">거울 각도</label>
+        <input type="range" id="camTilt" min="24" max="65" value="32" step="1">
+        <span class="cam-val" id="camTiltV">32°</span></div>
+      <div class="cam-row"><label>내려다보는 각</label>
+        <span class="cam-val cam-derived" id="camAimV">—</span></div>
       <div class="cam-row"><label for="camHeight">패드 세로</label>
-        <input type="range" id="camHeight" min="150" max="350" value="250" step="10">
-        <span class="cam-val" id="camHeightV">250mm</span></div>
+        <input type="range" id="camHeight" min="150" max="500" value="320" step="10">
+        <span class="cam-val" id="camHeightV">320mm</span></div>
       <div class="cam-row"><label for="camStand">앞뒤 위치</label>
-        <input type="range" id="camStand" min="-40" max="320" value="266" step="4">
-        <span class="cam-val" id="camStandV">266mm</span></div>
+        <input type="range" id="camStand" min="-40" max="700" value="294" step="1">
+        <span class="cam-val" id="camStandV">294mm</span></div>
+      <div class="cam-row"><label for="camMirW">거울 폭</label>
+        <input type="range" id="camMirW" min="14" max="44" value="25" step="1">
+        <span class="cam-val" id="camMirWV">25mm</span></div>
+      <div class="cam-row"><label for="camMirH">거울 높이</label>
+        <input type="range" id="camMirH" min="10" max="36" value="20" step="1">
+        <span class="cam-val" id="camMirHV">20mm</span></div>
+      <div class="cam-row"><label for="camMirD">카메라~거울</label>
+        <input type="range" id="camMirD" min="6" max="30" value="15" step="1">
+        <span class="cam-val" id="camMirDV">15mm</span></div>
+      <div class="cam-row"><label>실제 화각</label>
+        <span class="cam-val cam-derived" id="camFovV">—</span></div>
       <div class="cam-row"><label for="camOver">잠망경 앞으로</label>
         <input type="range" id="camOver" min="0" max="160" value="20" step="5">
         <span class="cam-val" id="camOverV">20mm</span></div>
@@ -222,6 +235,8 @@
         격자로 정밀화</label>
       <label class="cam-check"><input type="checkbox" id="camRig" checked>
         시야 사다리꼴 보이기</label>
+      <label class="cam-check" title="판을 못 찾아도 정답 좌표로 펴서 읽는다 — 실물엔 없는 능력이다">
+        <input type="checkbox" id="camTruth"> 정답 좌표로 대체 (디버그)</label>
       <div class="cam-reco" id="camReco"></div>
       <button id="camSweep">전 조건 스윕</button>
     </div>
@@ -1215,6 +1230,42 @@ function fitQuad(comp, W, H){
 }
 
 /** 폰 시점을 그대로 받아 판의 네 모서리 uv 를 찾는다. 못 찾으면 null. */
+/* 놀이 영역을 화면에서 직접 찾는다.
+   🔴 예전엔 판 바깥 테두리를 찾고 거기서 격자를 유도했다. 그러면 베젤까지
+      화면에 다 들어와야 해서 거치대를 400mm 나 물려야 했고, 그보다 가까우면
+      판 좌우가 잘려 검출이 통째로 거부됐다(margin 조건). 인식에 쓰는 건
+      격자뿐이므로 베젤은 잘려도 상관없다.
+
+   격자 바닥은 움푹 파여 판 윗면보다 어둡다 — 실측 0.611 vs 베젤 0.700,
+   책상/배경은 0.11. 그 사이 밴드를 무채색 조건과 함께 잡는다. */
+var GRID_LUMA_LO = 0.45, GRID_LUMA_HI = 0.668;
+
+function detectGridCorners(){
+  grabWarped(IDENT3);
+  var b = reco.buf, W = reco.W, H = reco.H;
+  var mask = new Uint8Array(W * H), n = 0;
+  for (var i = 0; i < W*H; i++){
+    var r = b[i*4]/255, g = b[i*4+1]/255, bl = b[i*4+2]/255;
+    var mx = Math.max(r, g, bl), mn = Math.min(r, g, bl);
+    if (mx - mn > 0.12) continue;                 // 블록은 채도가 있다
+    var v = r*0.3 + g*0.6 + bl*0.1;
+    if (v > GRID_LUMA_LO && v < GRID_LUMA_HI){ mask[i] = 1; n++; }
+  }
+  if (n < W*H*0.015) return null;
+
+  var comps = components(mask, W, H, 300);
+  if (!comps.length) return null;
+  var big = comps[0];
+  for (var c = 1; c < comps.length; c++) if (comps[c].area > big.area) big = comps[c];
+
+  var quad = fitQuad(big, W, H);
+  if (!quad) return null;
+  var wpx = Math.hypot(quad[1][0]-quad[0][0], quad[1][1]-quad[0][1]);
+  var hpx = Math.hypot(quad[3][0]-quad[0][0], quad[3][1]-quad[0][1]);
+  if (wpx < W*0.12 || hpx < H*0.08) return null;  // 너무 납작하면 못 믿는다
+  return quad.map(function(q){ return [q[0]/W, q[1]/H]; });
+}
+
 function detectBoardCorners(){
   grabWarped(IDENT3);                // 워프 없이 폰 화면 그대로
   var b = reco.buf, W = reco.W, H = reco.H;
@@ -1231,9 +1282,15 @@ function detectBoardCorners(){
   var big = comps[0];
   for (var c = 1; c < comps.length; c++) if (comps[c].area > big.area) big = comps[c];
 
+  /* 🔴 판이 화면 가장자리에 닿아도 포기하지 않는다.
+        fitQuad 는 네 변을 각각 직선으로 회귀해 교점을 잡으므로, 한두 변이
+        잘려도 나머지로 사각형을 세울 수 있다. 예전엔 한 변만 닿아도 거부해서,
+        블록이 훤히 보이는데도 「읽지 못합니다」가 떴다.
+        네 변이 다 잘리면(판이 화면을 가득 덮으면) 그때는 믿지 않는다. */
   var margin = 2;
-  if (big.x0 <= margin || big.y0 <= margin ||
-      big.x1 >= W - 1 - margin || big.y1 >= H - 1 - margin) return null;
+  var cut = (big.x0 <= margin) + (big.y0 <= margin) +
+            (big.x1 >= W - 1 - margin) + (big.y1 >= H - 1 - margin);
+  if (cut >= 3) return null;
 
   var quad = fitQuad(big, W, H);
   if (!quad) return null;
@@ -1248,11 +1305,26 @@ function detectBoardCorners(){
 }
 
 /** 검출된 판 상면 4점 -> 놀이 영역 4점. 둘의 비율은 판 도면이 정한 상수다. */
+/* 판의 실제 바깥 치수 — 조작판을 끄면 오른쪽 끝이 거기서 잘린다.
+   🔴 meshMeta 는 조작판까지 포함한 값(silX1=499)이라, 그대로 쓰면 화면에
+      없는 모서리를 기준으로 놀이 영역을 유도해 좌표가 통째로 밀린다. */
+function boardExtent(){
+  var m = meshMeta;
+  if (!m) return null;
+  var X0 = m.silX0 != null ? m.silX0 : m.topX0;
+  var X1 = m.silX1 != null ? m.silX1 : m.topX1;
+  var Y0 = m.silY0 != null ? m.silY0 : m.topY0;
+  var Y1 = m.silY1 != null ? m.silY1 : m.topY1;
+  if (!showPanel) X1 = Math.min(X1, PANEL_CUT_X);
+  return { X0:X0, X1:X1, Y0:Y0, Y1:Y1 };
+}
+
 function playAreaFromBoard(boardUV){
   var m = meshMeta;
   if (!m || (m.silX1 == null && m.topX1 == null)) return null;
-  var X0 = m.silX0 != null ? m.silX0 : m.topX0, X1 = m.silX1 != null ? m.silX1 : m.topX1;
-  var Y0 = m.silY0 != null ? m.silY0 : m.topY0, Y1 = m.silY1 != null ? m.silY1 : m.topY1;
+  var ext = boardExtent();
+  var X0 = ext.X0, X1 = ext.X1;
+  var Y0 = ext.Y0, Y1 = ext.Y1;
   var tw = X1 - X0, th = Y1 - Y0;
   var fx0 = (m.playX - X0) / tw;
   var fx1 = (m.playX + m.cols*m.pitch - X0) / tw;
@@ -1272,7 +1344,8 @@ function playAreaFromBoard(boardUV){
 }
 
 var meshMeta = null;
-var camSim = { on:false, tilt:62, padH:250, azimuth:0, padTilt:85, overhang:20,
+var camSim = { on:false, useTruth:false, tilt:62, padH:320, azimuth:0, padTilt:85, overhang:20,
+               mirror:32, mirrorW:25, mirrorH:20, mirrorDist:15,
                standY:null,
                fov:68, W:2160, H:1620 };
 var simFbo = null, simTex = null, simDepth = null, progTex = null, texQuad = null;
@@ -1370,7 +1443,8 @@ function frustumOnPlane(pc, z){
   var sl = Math.hypot(s[0], s[1], s[2]);
   s = [s[0]/sl, s[1]/sl, s[2]/sl];
   var u = [s[1]*f[2]-s[2]*f[1], s[2]*f[0]-s[0]*f[2], s[0]*f[1]-s[1]*f[0]];
-  var tanH = Math.tan(camSim.fov*Math.PI/360), tanW = tanH * (camSim.W/camSim.H);
+  var mf = mirrorFov();   // 🔴 f 는 위에서 시선 벡터가 쓰고 있다
+  var tanH = Math.tan(mf.v*Math.PI/360), tanW = Math.tan(mf.h*Math.PI/360);
   var out = [];
   [[-1,-1], [1,-1], [1,1], [-1,1]].forEach(function(c){
     var rd = [
@@ -1542,14 +1616,19 @@ function drawScreen(vp, P, tex){
   gl.bindVertexArray(null);
 }
 
-function drawRig(vp){
+/* 태블릿·잠망경만 그린다 — 카메라가 보는 화면에도 이게 들어가야 한다.
+   🔴 예전엔 이 기구물을 카메라 렌더에서 빼고 있었다. 그래서 「시야에 태블릿
+      화면이 걸리는가」라는 물음이 시뮬에서 아예 드러나지 않았다. */
+function drawRig(vp){ drawRigOverlay(vp); drawTablet(vp); }
+
+function drawRigOverlay(vp){
   if (!progFlat) initRig();
   var pc = phoneCamera();
   var z = boardTop + 0.4;
 
   // 화각이 판에 그리는 영역 — 판이 이 안에 다 들어와야 검출된다.
   // 🔴 카메라 화면을 껐을 땐 그리지 않는다(태블릿만 보려는 상태다).
-  var fr = camSim.on ? frustumOnPlane(pc, z) : null;
+  var fr = (camSim.on && camSim.rig) ? frustumOnPlane(pc, z) : null;
   if (fr){
     var covered = camSim.detected !== false;
     var col = covered ? [0.18, 0.85, 0.55, 0.22] : [0.95, 0.42, 0.30, 0.22];
@@ -1566,6 +1645,10 @@ function drawRig(vp){
     gl.disable(gl.BLEND);
   }
 
+}
+
+function drawTablet(vp){
+  if (!progFlat) initRig();
   // 태블릿 — 아래끝이 판 슬롯에 꽂혀 고정이고, 기울이면 위끝이 호를 그린다.
   // 🔴 예전엔 카메라(위끝)를 고정하고 아래끝을 흔들었다 — 실물과 반대였다.
   var g = rigGeometry();
@@ -1618,31 +1701,52 @@ function drawRig(vp){
 
   camSim.standH = 0;      // 슬롯에 꽂히므로 책상까지 내려가는 기둥은 없다
 
-  // 잠망경 — 태블릿 위끝을 물고 앞으로 나온다. 그 오버행이 곧 판을 볼 수 있느냐를 가른다.
-  // 🔴 예전엔 카메라 점을 중심으로 공중에 띄웠고 기울기도 안 따라 떠 보였다.
-  //    태블릿 좌표계(corner)로 그려야 기울여도 붙어 있다.
+  // 잠망경 — 실물(Osmo) 구조 그대로: 말굽 클립이 태블릿 위끝을 물고,
+  // 앞면 창으로 들어온 빛을 안쪽 45도 거울이 카메라 쪽으로 꺾는다.
+  //
+  //        ┌──────┐  윗판
+  //   창 → │ ╲    │  ╲ = 거울 (45도)
+  //        │  ╲   │
+  //        └─┐ ┌──┘  ← 여기 틈에 태블릿 위끝이 들어간다
+  //          │ │
+  //
+  // 🔴 앞으로 나온 거리(over)가 0 이면 태블릿 몸통이 판으로 가는 광선을 막는다.
   var over = (camSim.overhang != null) ? camSim.overhang : 20;
-  var pw = 34, grip = 24, lipB = 7;
-  var cFront = -over, cBack = th + 6;
-  var bLo = hh - grip, bHi = hh + lipB;
-  function peri(a, b, c){ return corner(a, b, c); }   // 🔴 pc 는 위에서 phoneCamera() 가 쓴다
-  var P = [peri(-pw/2, bLo, cFront), peri(pw/2, bLo, cFront),
-           peri( pw/2, bHi, cFront), peri(-pw/2, bHi, cFront),
-           peri(-pw/2, bLo, cBack),  peri(pw/2, bLo, cBack),
-           peri( pw/2, bHi, cBack),  peri(-pw/2, bHi, cBack)];
-  var pq = [[0,1,2,3],[4,5,6,7],[0,1,5,4],[3,2,6,7],[0,3,7,4],[1,2,6,5]];
-  var ptri = [];
-  pq.forEach(function(q){
-    ptri = ptri.concat(P[q[0]], P[q[1]], P[q[2]], P[q[0]], P[q[2]], P[q[3]]);
-  });
-  drawDyn(ptri, gl.TRIANGLES, vp, [0.82, 0.80, 0.74, 1], true);
-  drawDyn([].concat(P[0],P[1], P[1],P[2], P[2],P[3], P[3],P[0]),
-          gl.LINES, vp, [0.55, 0.53, 0.48, 1], true);
-  // 거울 창 — 아래를 향해 뚫린 면
-  var mw = pw*0.62, M = [peri(-mw/2, bLo+2, cFront-0.4), peri(mw/2, bLo+2, cFront-0.4),
-                         peri( mw/2, bLo+12, cFront-0.4), peri(-mw/2, bLo+12, cFront-0.4)];
-  drawDyn([].concat(M[0],M[1],M[2], M[0],M[2],M[3]), gl.TRIANGLES, vp,
-          [0.15, 0.17, 0.19, 1], true);
+  var pw = 40, grip = 22, wall = 3.2, rise = 20;
+  var bLo = hh - grip, bHi = hh + rise;          // 무는 깊이 ~ 위로 솟은 높이
+  var cF = -over, cB = th + wall;                // 앞끝 ~ 뒷벽 바깥
+  function peri(a, b, c){ return corner(a, b, c); }
+  function boxTri(a0, a1, b0, b1, c0, c1){
+    var P = [peri(a0,b0,c0), peri(a1,b0,c0), peri(a1,b1,c0), peri(a0,b1,c0),
+             peri(a0,b0,c1), peri(a1,b0,c1), peri(a1,b1,c1), peri(a0,b1,c1)];
+    var q = [[0,1,2,3],[4,5,6,7],[0,1,5,4],[3,2,6,7],[0,3,7,4],[1,2,6,5]];
+    var t = [];
+    q.forEach(function(f){ t = t.concat(P[f[0]],P[f[1]],P[f[2]], P[f[0]],P[f[2]],P[f[3]]); });
+    return t;
+  }
+  var winB0 = hh + 1, winB1 = bHi - wall;        // 앞면 창 (빛이 들어오는 구멍)
+  var shell = []
+    .concat(boxTri(-pw/2, pw/2, bLo, bHi, th, cB))                    // 뒷벽
+    .concat(boxTri(-pw/2, pw/2, bHi-wall, bHi, cF, cB))               // 윗판
+    .concat(boxTri(-pw/2, pw/2, bLo, winB0, cF, cF+wall))             // 앞벽 (창 아래)
+    .concat(boxTri(-pw/2, -pw/2+wall, bLo, bHi, cF, cB))              // 좌 측판
+    .concat(boxTri( pw/2-wall, pw/2, bLo, bHi, cF, cB))               // 우 측판
+    .concat(boxTri(-pw/2, pw/2, bLo, bLo+wall, cF, 0));               // 앞쪽 아래 턱
+  drawDyn(shell, gl.TRIANGLES, vp, [0.86, 0.18, 0.14, 1], true);      // 실물은 빨강
+  drawDyn([].concat(peri(-pw/2,bHi,cF), peri(pw/2,bHi,cF),
+                    peri( pw/2,bHi,cF), peri(pw/2,bHi,cB),
+                    peri( pw/2,bHi,cB), peri(-pw/2,bHi,cB),
+                    peri(-pw/2,bHi,cB), peri(-pw/2,bHi,cF)),
+          gl.LINES, vp, [0.55, 0.10, 0.08, 1], true);
+
+  // 거울 — 창(앞아래)에서 카메라(뒤위)로 45도. 판을 내려다본 상이 여기서 꺾인다.
+  var mw = pw/2 - wall - 1;
+  var MIR = [peri(-mw, winB0, cF+wall), peri(mw, winB0, cF+wall),
+             peri( mw, bHi-wall, th),   peri(-mw, bHi-wall, th)];
+  drawDyn([].concat(MIR[0],MIR[1],MIR[2], MIR[0],MIR[2],MIR[3]),
+          gl.TRIANGLES, vp, [0.80, 0.84, 0.86, 1], true);
+  drawDyn([].concat(MIR[0],MIR[1], MIR[1],MIR[2], MIR[2],MIR[3], MIR[3],MIR[0]),
+          gl.LINES, vp, [0.40, 0.43, 0.45, 1], true);
 
   // 카메라 자리 표시
 
@@ -1667,28 +1771,101 @@ function drawRig(vp){
    🔴 overhang 이 0 이면 태블릿 몸통이 판으로 가는 광선을 통째로 막는다. */
 function rigGeometry(){
   var pt = Math.max(20, Math.min(100, camSim.padTilt || 80)) * Math.PI/180;
-  var cx = boardOrigin.x + GRID_W*PITCH/2;
+  // 🔴 거치대는 「판 폭」 한가운데 서야 한다 — 격자 중앙이 아니다.
+  //    격자는 판 안에서 치우쳐 있어(격자 중앙 185 vs 판 본체 중앙 206),
+  //    격자 기준으로 세우면 판 한쪽이 먼저 화각을 벗어난다.
+  /* 거치대 좌우 — 「인식 영역(격자)」 한가운데. 아이가 격자 앞에 앉으므로
+     기기도 그 정면에 서야 한다.
+
+     🔴 이 판은 격자가 판 안에서 24mm 왼쪽으로 치우쳐 있다 — 조작판이 있던
+        오른쪽 자리가 그대로 여백으로 남아서다(왼 21.7mm / 오른 69.2mm).
+        그래서 격자 정면에 서면 판이 비대칭으로 잡혀, 판 외곽을 찾는 지금
+        방식으로는 399mm 가 아니라 440mm 까지 물러나야 한다(실측).
+        새 판에서 격자를 판 중앙에 두면 이 손해가 사라진다. */
+  var cx = (camSim.standX != null) ? camSim.standX
+         : boardOrigin.x + GRID_W*PITCH/2;
+  /* 🔴 태블릿은 판에 꽂는 게 아니라 판 뒤에 떨어져 선다.
+        판 뒤 가장자리에 붙이면 카메라가 판에 너무 가까워, 판 폭 412mm 를 담는 데
+        가로 77.8° 가 필요한데 거울이 주는 건 68.5° 뿐이라 검출이 아예 안 된다.
+        약 110mm 물러나면 같은 판을 같은 거울로 담는다(실측). */
   var slotY = (camSim.standY != null) ? camSim.standY
-            : ((meshMeta && meshMeta.topY1 != null) ? meshMeta.topY1 - 12
-                                                    : boardOrigin.y + 30);
+            : ((meshMeta && meshMeta.topY1 != null) ? meshMeta.topY1 + 16
+                                                    : boardOrigin.y + 200);
   var padH = camSim.padH || 250;
   var top = [cx, slotY + padH*Math.cos(pt), boardTop + padH*Math.sin(pt)];
   var over = (camSim.overhang != null) ? camSim.overhang : 20;
-  return { cx:cx, slotY:slotY, padH:padH, padTilt:pt,
+
+  /* 시선은 거울이 정한다.
+     폰 뒷면 카메라는 태블릿 면에 수직으로 뒤를 본다(= back). 잠망경 거울이
+     태블릿 면과 μ 를 이루면 반사 법칙 d' = d - 2(d·n)n 이 이렇게 풀린다:
+
+         d' = -back·cos(2μ) - up·sin(2μ)
+
+     μ=45° 면 d' = -up, 즉 태블릿을 따라 곧장 아래 — 판을 내려다본다.
+     μ 가 45° 보다 크면 시선이 판 앞쪽으로 눕고, 작으면 발밑으로 선다.
+     🔴 하향각을 손으로 넣던 값(camSim.tilt)은 이제 여기서 파생된다. */
+  var yaw = (camSim.azimuth || 0) * Math.PI/180;
+  var up = [top[0]-cx, top[1]-slotY, top[2]-boardTop];
+  var uL = Math.hypot(up[0], up[1], up[2]) || 1;
+  up = [up[0]/uL, up[1]/uL, up[2]/uL];
+  var right = [Math.cos(yaw), -Math.sin(yaw), 0];
+  var back = [up[1]*right[2] - up[2]*right[1],
+              up[2]*right[0] - up[0]*right[2],
+              up[0]*right[1] - up[1]*right[0]];
+  var mu = Math.max(20, Math.min(70, camSim.mirror || 45)) * Math.PI/180;
+  var c2 = Math.cos(2*mu), s2 = Math.sin(2*mu);
+  var dir = [-back[0]*c2 - up[0]*s2,
+             -back[1]*c2 - up[1]*s2,
+             -back[2]*c2 - up[2]*s2];
+  var dL = Math.hypot(dir[0], dir[1], dir[2]) || 1;
+  dir = [dir[0]/dL, dir[1]/dL, dir[2]/dL];
+  var horiz = Math.hypot(dir[0], dir[1]);
+  var tiltDeg = Math.atan2(-dir[2], horiz) * 180/Math.PI;   // 아래로 몇 도인가
+
+  return { cx:cx, slotY:slotY, padH:padH, padTilt:pt, mirror:mu,
            slot:[cx, slotY, boardTop], top:top,
-           eye:[cx, top[1] - over, top[2]] };
+           eye:[cx, top[1] - over, top[2]],
+           up:up, back:back, dir:dir, tiltDeg:tiltDeg };
+}
+
+/* 잠망경으로 보면 화각을 폰 렌즈가 아니라 「거울」이 정한다.
+   렌즈가 68도를 볼 수 있어도 거울에 비친 만큼만 들어오고, 나머지는 하우징이
+   막는다. 거울은 시선에 대해 기울어 있으므로 시선 방향으로 투영된 크기가
+   조리개가 된다 — 세로는 cos(μ) 만큼 줄고 가로는 그대로다.
+
+   🔴 이걸 빼고 폰 화각을 그대로 쓰면 시야가 실물보다 넓어져, 태블릿 화면까지
+      시야에 걸리고 판 검출이 깨진다(실측: 태블릿 76~82도에서 검출 0). */
+function mirrorFov(){
+  var mw = camSim.mirrorW || 25, mh = camSim.mirrorH || 20;
+  var dm = camSim.mirrorDist || 15;
+  var mu = Math.max(20, Math.min(70, camSim.mirror || 45)) * Math.PI/180;
+  var vProj = mh * Math.cos(mu);                       // 시선 방향 투영 높이
+  var fovV = 2 * Math.atan((vProj/2) / dm) * 180/Math.PI;
+  var fovH = 2 * Math.atan((mw/2) / dm) * 180/Math.PI;
+  // 🔴 센서 비율은 그대로 두고 화각만 줄인다. 가로·세로를 각각 다른 각으로
+  //    자르는 건 비대칭 절두체라 aspect 로 흉내내면 상이 늘어난다.
+  var v = Math.min(camSim.fov, fovV);
+  var aspect = camSim.W / camSim.H;
+  var h = 2 * Math.atan(Math.tan(v*Math.PI/360) * aspect) * 180/Math.PI;
+  var lensH = 2 * Math.atan(Math.tan(camSim.fov*Math.PI/360) * aspect) * 180/Math.PI;
+  return { v:v, h:h, aspect:aspect,
+           limitedBy: (fovV < camSim.fov ? 'mirror' : 'lens'),
+           // 거울 폭이 가로를 더 좁히는지는 따로 알려 준다(절두체엔 안 넣는다)
+           widthTight: fovH < h, fovH:fovH, lensH:lensH };
 }
 
 function phoneCamera(){
-  var tilt = Math.max(5, camSim.tilt) * Math.PI/180;
-  var yaw = camSim.azimuth * Math.PI/180;
-  var eye = rigGeometry().eye;
-  var drop = Math.max(1, eye[2] - boardTop);
-  var dist = drop / Math.sin(tilt);
-  var dir = [Math.sin(yaw)*Math.cos(tilt), -Math.cos(yaw)*Math.cos(tilt), -Math.sin(tilt)];
+  var g = rigGeometry();
+  var eye = g.eye, dir = g.dir;
+  camSim.tilt = +g.tiltDeg.toFixed(1);        // 거울에서 나온 값 — 표시용
+  // 판 평면까지 뻗어 겨냥점을 잡는다(위를 보면 앞쪽 임의 거리)
+  var drop = eye[2] - boardTop;
+  var dist = (dir[2] < -1e-3) ? drop / -dir[2] : 900;
+  dist = Math.max(60, Math.min(dist, 4000));
   var at = [eye[0] + dir[0]*dist, eye[1] + dir[1]*dist, eye[2] + dir[2]*dist];
-  var proj = mPerspective(camSim.fov*Math.PI/180, camSim.W/camSim.H, 20, 4000);
-  return { vp: mMul(proj, mLookAt(eye, at, [0,0,1])), eye:eye, at:at, dist:dist };
+  var f = mirrorFov();
+  var proj = mPerspective(f.v*Math.PI/180, f.aspect, 20, 4000);
+  return { vp: mMul(proj, mLookAt(eye, at, [0,0,1])), eye:eye, at:at, dist:dist, fov:f };
 }
 
 /** 모델 좌표 한 점 -> 텍스처 uv (0..1). */
@@ -1753,6 +1930,7 @@ function drawCamSim(){
   gl.clearColor(0.10, 0.12, 0.11, 1);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   drawScene(pc.vp);
+  if (camSim.seeSelf !== false) drawTablet(pc.vp);   // 자기 화면이 시야에 걸리는지
   gl.bindFramebuffer(gl.FRAMEBUFFER, null);
   gl.viewport(0, 0, canvas.width, canvas.height);
 
@@ -1764,23 +1942,41 @@ function drawCamSim(){
     return projectToUV(pc.vp, c[0], c[1], boardTop + BLOCK_H);
   });
   // 화면에서 판을 찾아 놀이 영역을 잡는다. 실패하면 정답 네 점으로 물러선다.
-  var boardUV = camSim.detect ? detectBoardCorners() : null;
-  var found = boardUV
-    ? playAreaFromBoard([boardUV[2], boardUV[3], boardUV[0], boardUV[1]])
-    : null;
+  var found = camSim.detect ? detectGridCorners() : null;
+  camSim.foundBy = found ? 'grid' : null;
+  if (!found && camSim.detect){                    // 격자를 놓치면 판 외곽으로
+    var boardUV = detectBoardCorners();
+    found = boardUV
+      ? playAreaFromBoard([boardUV[2], boardUV[3], boardUV[0], boardUV[1]])
+      : null;
+    if (found) camSim.foundBy = 'board';
+  }
   camSim.detected = !!found;
   camSim.cornerErr = found ? found.reduce(function(mx, c, i){
     return Math.max(mx, Math.hypot(c[0]-truthCorners[i][0], c[1]-truthCorners[i][1]));
   }, 0) : null;
-  var corners = found || truthCorners;
-  var H = homography(corners);
+  /* 🔴 판을 못 찾으면 아무것도 읽지 않는다.
+        예전에는 정답 네 점(truthCorners)으로 물러섰다. 폰은 판이 어디 있는지
+        모르는데 시뮬레이터만 답을 알고 펴 주는 셈이라, 판이 화면 밖으로
+        134% 나가도 글자가 읽혔다 — 실물이 절대 못 하는 일이다.
+        그 폴백이 있는 동안은 「인식 성공」이 실물 성능을 뜻하지 않았다.
+        정답 좌표는 채점(cornerErr)에만 쓰고, 디버그로 보고 싶을 때만 켠다. */
+  var corners = found || (camSim.useTruth ? truthCorners : null);
+  var H = corners ? homography(corners) : null;
   camSim.corners = corners;
-  camSim.visible = corners.every(function(c){
+  camSim.usedTruth = !found && !!corners;
+  camSim.visible = corners ? corners.every(function(c){
     return c[0] > -0.15 && c[0] < 1.15 && c[1] > -0.15 && c[1] < 1.15;
-  });
+  }) : false;
 
   // 우상단에 폰 시점, 그 아래에 펴진 판
   // 펴진 판이 준비됐으면 그대로 인식까지 돌린다 — 각도를 바꿀 때마다 결과가 따라온다
+  if (!H){
+    reco.result = { word:'', items:[], detail:[], comps:0 };
+    reco.score = scoreAgainstTruth(reco.result);
+    if (typeof onRecoResult === 'function') onRecoResult();
+    if (camSim.on && typeof outEl !== 'undefined' && outEl) readBoard();
+  }
   if (H){
     if (reco.fbo){
       // 격자 주기로 호모그래피를 한 번 더 맞춘다 — 검출 4점만으로는 스케일이 어긋난다
@@ -1795,6 +1991,7 @@ function drawCamSim(){
       }
       reco.score = scoreAgainstTruth(reco.result);
       if (typeof onRecoResult === 'function') onRecoResult();
+      if (camSim.on && typeof outEl !== 'undefined' && outEl) readBoard();
     }
   }
 
@@ -2173,9 +2370,15 @@ function boardWord(){
   });
   return parseFree(items).join('');
 }
+/* 🔴 화면에 띄우는 낱말은 「카메라가 읽은 것」이다.
+      판 위 블록 좌표를 직접 읽으면(boardWord) 거치가 틀어져 카메라가 아무것도
+      못 보는 상황에서도 정답이 뜬다 — 실물이라면 아이가 낱말을 만들어도
+      아무 반응이 없어야 맞다. 카메라 시뮬을 끈 상태에서만 판을 직접 읽는다. */
 function readBoard(){
-  var w = boardWord();
-  outEl.textContent = w || '블록을 옮겨 보세요';
+  var truth = boardWord();
+  var w = camSim.on ? ((reco.result && reco.result.word) || '') : truth;
+  var blind = camSim.on && !camSim.detected;
+  outEl.textContent = w || (blind ? '판이 안 보여요' : '블록을 옮겨 보세요');
   outEl.classList.toggle('empty', !w);
   var hit = !!(current && w && w === current.word);
   outEl.classList.toggle('hit', hit);
@@ -2417,6 +2620,7 @@ var inlineMesh = document.getElementById('meshData');
     selfTest();
     invalidate();
     document.getElementById('loading').classList.add('gone');
+    if (refreshCamPanel) refreshCamPanel();
     nextWord(false);           // 빈 판으로 시작
   })
   .catch(function(e){
@@ -2443,7 +2647,9 @@ function onRecoResult(){
     ? (camSim.detected
         ? '<span class="ok">판 검출 ✓</span> <span class="dim">모서리 오차 ' +
           (camSim.cornerErr * camSim.W).toFixed(0) + 'px</span><br>'
-        : '<span class="no">판이 화면에 다 안 들어옵니다</span> <span class="dim">정답 좌표로 대체</span><br>')
+        : (camSim.usedTruth
+            ? '<span class="no">판을 못 찾음</span> <span class="dim">정답 좌표로 대체(디버그)</span><br>'
+            : '<span class="no">판을 찾지 못해 읽지 못합니다</span><br>'))
     : '';
   var rf = camSim.refineInfo
     ? '<span class="dim">격자 주기 ' + camSim.refineInfo.P.join(' / ') +
@@ -2581,6 +2787,8 @@ function drawSweep(canvas, data){
 }
 
 /* ---- 카메라 시뮬레이션 조작 ---- */
+var refreshCamPanel = null;   // 카메라 패널 표시 갱신 (메시 로드 후 호출)
+
 document.getElementById('panelChk').addEventListener('change', function(e){
   showPanel = e.target.checked;
   draw();
@@ -2592,7 +2800,25 @@ document.getElementById('panelChk').addEventListener('change', function(e){
   var note = document.getElementById('camNote');
 
   function refresh(){
-    document.getElementById('camTiltV').textContent = camSim.tilt + '°';
+    document.getElementById('camTiltV').textContent = (camSim.mirror || 45) + '°';
+    var aimEl = document.getElementById('camAimV');
+    if (aimEl){
+      var gg = rigGeometry();
+      aimEl.textContent = gg.tiltDeg.toFixed(1) + '°'
+        + (gg.tiltDeg < 5 ? '  (판을 못 본다)' : '');
+    }
+    ['camMirW','mirrorW','mm'], ['camMirH','mirrorH','mm'], ['camMirD','mirrorDist','mm'];
+    [['camMirWV', camSim.mirrorW], ['camMirHV', camSim.mirrorH],
+     ['camMirDV', camSim.mirrorDist]].forEach(function(pair){
+      var el = document.getElementById(pair[0]);
+      if (el) el.textContent = pair[1] + 'mm';
+    });
+    var fovEl = document.getElementById('camFovV');
+    if (fovEl){
+      var mf2 = mirrorFov();
+      fovEl.textContent = mf2.v.toFixed(0) + '° x ' + mf2.h.toFixed(0) + '°'
+        + (mf2.limitedBy === 'mirror' ? '  (거울이 제한)' : '  (렌즈 한계)');
+    }
     document.getElementById('camHeightV').textContent = camSim.padH + 'mm';
     var standEl = document.getElementById('camStandV');
     if (standEl) standEl.textContent = Math.round(rigGeometry().slotY) + 'mm';
@@ -2632,6 +2858,11 @@ document.getElementById('panelChk').addEventListener('change', function(e){
     refresh();
   });
   camSim.refine = document.getElementById('camRefine').checked;
+  var truthChk = document.getElementById('camTruth');
+  if (truthChk) truthChk.addEventListener('change', function(e){
+    camSim.useTruth = e.target.checked;
+    invalidate();
+  });
   document.getElementById('camRig').addEventListener('change', function(e){
     camSim.rig = e.target.checked;
     refresh();
@@ -2661,13 +2892,18 @@ document.getElementById('panelChk').addEventListener('change', function(e){
     panel.hidden = !camSim.on;
     if (camSim.on) refresh(); else invalidate();
   });
-  [['camTilt','tilt'], ['camHeight','padH'], ['camAz','azimuth'],
-   ['camPad','padTilt'], ['camStand','standY'], ['camOver','overhang']].forEach(function(pair){
+  [['camHeight','padH'], ['camAz','azimuth'],
+   ['camPad','padTilt'], ['camStand','standY'], ['camOver','overhang'],
+   ['camTilt','mirror'], ['camMirW','mirrorW'], ['camMirH','mirrorH'],
+   ['camMirD','mirrorDist']].forEach(function(pair){
     document.getElementById(pair[0]).addEventListener('input', function(e){
       camSim[pair[1]] = +e.target.value;
       refresh();
     });
   });
+  // 🔴 메시가 들어온 뒤에 불러야 한다 — 그 전엔 격자 좌표가 0 이라
+  //    「앞뒤 위치」가 30mm 같은 엉뚱한 값으로 굳는다.
+  refreshCamPanel = refresh;
 })();
 
 document.getElementById('speak').addEventListener('click', speak);
