@@ -3786,6 +3786,7 @@ function stopPhoto(){
   if (photo.timer){ clearInterval(photo.timer); photo.timer = null; }
   if (photo.stream){ photo.stream.getTracks().forEach(function(t){ t.stop(); }); photo.stream = null; }
   photo.video = null; photo.src = null; photo.on = false;
+  camSim.lastH = null;
   photo.lockFn = null; photo.lockInfo = null;
   document.body.classList.remove('photo-on');
   invalidate();
@@ -3982,9 +3983,14 @@ function drawCamSim(){
         사용자가 보는 것과 180° 돌아가 있다 — 사람이 읽는 창이니 사람 쪽에
         맞춘다. 인식은 별도로 grabWarped(H) 를 쓰므로 영향이 없다. */
   /* 180° 로 돌렸더니 글자가 좌우로 뒤집혀 보였다 — 필요한 건 회전이 아니라
-     **위아래 뒤집기** 하나였다. (u,v) -> (u, 1-v). */
-  if (H) blitTex([1 - w - 0.03, 1 - h - gh - 0.09, w, gh],
-                 mat3mul(H, [1, 0, 0, 0, -1, 0, 0, 1, 1]));
+     **위아래 뒤집기** 하나였다. (u,v) -> (u, 1-v).
+     🔴 한 프레임 놓쳤다고 창을 지우지 않는다. 판은 그대로 있는데 아래 화면만
+        사라졌다 나타나면 보는 사람에게는 정보가 아니라 방해다 — 마지막으로
+        잘 잡은 그림을 계속 보여준다. */
+  if (H) camSim.lastH = H;
+  var showH = H || camSim.lastH;
+  if (showH) blitTex([1 - w - 0.03, 1 - h - gh - 0.09, w, gh],
+                     mat3mul(showH, [1, 0, 0, 0, -1, 0, 0, 1, 1]));
   gl.enable(gl.DEPTH_TEST);
 }
 
