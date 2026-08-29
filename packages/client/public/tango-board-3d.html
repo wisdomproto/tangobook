@@ -852,7 +852,7 @@ var CELL = 16;                       // 펴진 판에서 격자 한 칸 = 16px
 /* 🔴 인식부 딱 맞게만 펴면 가장자리에 놓인 블록이 경계에 잘려 크기 조건에서
       떨어진다(실측: 「탁릉」의 ㅇ 이 3x3 인데 3.3x1.5칸으로 들어왔다).
       바깥으로 한 칸씩 더 펴 두고, 칸 좌표를 그만큼 되돌린다. */
-var MARGIN = 1;
+var MARGIN = 2;   // 한 칸으로는 아래쪽 블록이 계속 잘렸다
 var TOP_LIT = 0.70;                  // 이보다 어두우면 블록 옆면으로 본다
 
 /* 실사 보정값 — 지금까지의 숫자는 전부 시뮬이 제 렌더를 읽은 것이라
@@ -3825,7 +3825,11 @@ function medianQuad(list){
       — 웹캠 자동노출이 밝기를 흔들면 경계가 따라 움직이고, 그게 그대로
       warp 로 들어가 화면이 떤다. 그만큼은 아예 안 움직인다. */
 var DEAD = 0.005;      // 이 안쪽이면 제자리 (화면 폭의 0.5%)
-var CALM = 25;         // 이만큼 조용하면 못 박는다
+/* 🔴 「흔들림이 아주 작은 상태가 25프레임 연속」이라는 조건은 현실과 안 맞았다.
+      실제 흔들림이 그 문턱보다 커서 자동 고정이 영영 안 걸렸고, 판이 가만히
+      있는데도 인식부가 계속 떨었다. 판은 움직이지 않는다 — 몇 프레임 모아
+      중앙값이 나오면 그냥 못 박는다. 움직였다면 그때 다시 찾으면 된다. */
+var CALM = 12;         // 이만큼 모이면 (흔들림과 무관하게) 못 박는다
 
 function quadDist(a, b){
   var d = 0;
@@ -3858,11 +3862,13 @@ function steadyQuad(found){
   if (hold.hist.length > HIST) hold.hist.shift();
   var med = medianQuad(hold.hist);
   var moved = quadDist(med, hold.q);
-  if (moved < DEAD){                   // 중앙값도 제자리 — 판이 안 움직였다
-    if (hold.auto && ++hold.calm >= CALM) hold.lock = true;
+  hold.calm++;
+  if (hold.auto && hold.hist.length >= HIST && hold.calm >= CALM){
+    hold.q = med;                      // 모인 것의 중앙값으로 확정하고 멈춘다
+    hold.lock = true;
     return hold.q;
   }
-  hold.calm = 0;
+  if (moved < DEAD) return hold.q;     // 중앙값도 제자리
   hold.q = med;
   return hold.q;
 }
