@@ -3954,7 +3954,12 @@ var hold = { q:null, miss:0, off:0, jitter:null, lock:false, calm:0, auto:true, 
       「조금이면 무시, 크면 따라가기」로는 그 사이 값이 계속 새어 들어온다.
       최근 몇 판의 **중앙값**을 쓰면 튀는 프레임 하나에 끌려가지 않는다 —
       평균과 달리 이상치가 결과를 못 옮긴다. */
-var HIST = 7;
+/* 🔴 검출은 프레임마다 흔들린다 — 눈에 안 보이는 잡음(σ=2/255)에도 모서리가
+      15px 움직인다(실측). 변을 「가장 바깥 점」으로 정하기 때문인데, 그 근본은
+      아직 못 고쳤다. 그래서 **한 프레임의 답을 쓰지 않는다**.
+      판과 카메라는 고정된 거치대 위에 있으니 매 프레임 새로 정할 이유가 없다.
+      스물네 프레임을 모아 중앙값으로 확정한다 — 흔들리는 값도 중앙값은 제자리다. */
+var HIST = 24;
 
 function medianQuad(list){
   var out = [];
@@ -4011,7 +4016,12 @@ function steadyQuad(found){
   var med = medianQuad(hold.hist);
   var moved = quadDist(med, hold.q);
   hold.calm++;
-  if (hold.auto && hold.hist.length >= HIST && hold.calm >= CALM){
+  /* 🔴 「흔들림이 멎기를 기다렸다가」 잠그지 않는다. 계속 흔들리면 영영 안
+        잠기거나, 우연히 잠잠한 순간의 나쁜 값을 잠근다 — 사용자가 「자동 고정」이
+        떠 있는데도 인식부가 옮겨 다니는 걸 본 게 그것이다.
+        창이 다 차면 그 중앙값으로 확정한다. 판이 움직이면 위쪽 d > 0.06 가지가
+        받아 다시 잡는다. */
+  if (hold.auto && hold.hist.length >= HIST){
     hold.q = med;                      // 모인 것의 중앙값으로 확정하고 멈춘다
     hold.lock = true;
     return hold.q;
