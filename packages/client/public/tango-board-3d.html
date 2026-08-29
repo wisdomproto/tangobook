@@ -1191,9 +1191,17 @@ function matchTemplate(comp, W){
   for (var t = 0; t < reco.templates.length; t++){
     var T = reco.templates[t];
     if ((T.vowel ? 2 : 1) !== comp.color) continue;
-    // 획 bbox 가 한 칸 넘게 다르면 애초에 다른 자모다
+    /* 획 bbox 가 크게 다르면 애초에 다른 자모다.
+       🔴 커지는 쪽은 **비율이 아니라 더하기**로 본다. 사진은 가장자리가 번져
+          블록이 사방으로 한 겹 두꺼워지는데(실측 ~0.3칸: ㄹ 2.71→3.00),
+          그 한 겹이 얇은 글자에서는 비율로 거대해진다 — ㅡ 는 0.75칸이라
+          1.31칸으로 잡히면 1.75배가 되어 **정답이 후보에서 탈락**하고,
+          두꺼운 ㅛ(1.81칸)가 0.72배로 간신히 통과해 「르」가 「료」로 읽혔다.
+          작아지는 쪽은 번짐으로 설명이 안 되니 비율 그대로 조인다. */
+    var grow = CELL * 0.8;
     var rw = cw / T.sw, rh = ch / T.sh;
-    if (rw < 0.72 || rw > 1.45 || rh < 0.72 || rh > 1.45) continue;
+    if (rw < 0.72 || rh < 0.72) continue;
+    if (cw > T.sw * 1.45 + grow || ch > T.sh * 1.45 + grow) continue;
     var inter = 0, uni = 0;
     for (var y = 0; y < T.sh; y++){
       var sy = ((y + 0.5) * ch / T.sh) | 0;
