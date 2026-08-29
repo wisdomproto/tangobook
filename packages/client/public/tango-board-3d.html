@@ -1112,6 +1112,8 @@ function classifyPixels(buf, W, H){
   for (i = 0; i < fg.length; i++){
     lab[fg[i]] = (A[fg[i]] - mA >= split) ? 1 : 2;   // 1=자음(붉은쪽) 2=모음
   }
+
+
   reco.colorInfo = { boardA:+mA.toFixed(3), boardB:+mB.toFixed(3),
                      thr:+thr.toFixed(3), split:+split.toFixed(3), fg:fg.length };
   return lab;
@@ -1187,7 +1189,12 @@ function compGap(a, b){
                   Math.max(0, Math.max(a.y0 - b.y1, b.y0 - a.y1)));
 }
 function mergeComps(list){
-  var m = { color:list[0].color, area:0, px:[], x0:1e9, y0:1e9, x1:-1, y1:-1 };
+  // 🔴 색은 다수결 — 가장자리가 반대 색으로 넘어간 조각이 전체 색을 못 바꾸게
+  var votes = {};
+  list.forEach(function(c){ votes[c.color] = (votes[c.color] || 0) + c.area; });
+  var win = list[0].color, best = -1;
+  Object.keys(votes).forEach(function(k){ if (votes[k] > best){ best = votes[k]; win = +k; } });
+  var m = { color:win, area:0, px:[], x0:1e9, y0:1e9, x1:-1, y1:-1 };
   list.forEach(function(c){
     m.area += c.area;
     for (var k = 0; k < c.px.length; k++) m.px.push(c.px[k]);
@@ -1221,7 +1228,12 @@ function recognize(){
     if (!m || m.iou < 0.35){ orphans.push(c); return; }
     accept(c, m);
   });
-  // 실패 조각 재시도 — 같은 색이고 한 칸 안쪽으로 붙은 것끼리만 묶는다.
+  /* 실패 조각 재시도 — 한 칸 안쪽으로 붙은 것끼리 묶는다.
+     🔴 예전엔 **같은 색**이어야만 묶었다. 그런데 색은 화소마다 따로 정하므로
+        파스텔 블록의 가장자리 몇 줄이 반대 색으로 넘어가고, 그러면 한 블록이
+        색이 다른 두 조각이 되어 영영 안 합쳐진다(실측: 실물 「도」에서 ㅗ 가
+        민트 조각 + 빨강 조각으로 갈려 둘 다 `?` 로 떨어졌다).
+        붙어 있으면 색이 달라도 묶고, 색은 합친 뒤 다수결로 정한다. */
   var used = new Uint8Array(orphans.length);
   for (var a = 0; a < orphans.length; a++){
     if (used[a]) continue;
@@ -1229,7 +1241,7 @@ function recognize(){
     for (var grew = true; grew; ){
       grew = false;
       for (var b2 = 0; b2 < orphans.length; b2++){
-        if (used[b2] || orphans[b2].color !== grp[0].color) continue;
+        if (used[b2]) continue;
         for (var g = 0; g < grp.length; g++){
           if (compGap(grp[g], orphans[b2]) <= CELL * 0.8){
             grp.push(orphans[b2]); used[b2] = 1; grew = true; break;
@@ -3537,7 +3549,7 @@ window.addEventListener('beforeunload', function(){
 });
 
 function stopPhoto(){
-  hold.q = null; hold.miss = 0; hold.off = 0; hold.lock = false; hold.calm = 0;
+  hold.q = null; hold.miss = 0; hold.off = 0; hold.lock = false; hold.calm = 0; hold.hist = [];
   if (photo.timer){ clearInterval(photo.timer); photo.timer = null; }
   if (photo.stream){ photo.stream.getTracks().forEach(function(t){ t.stop(); }); photo.stream = null; }
   photo.video = null; photo.src = null; photo.on = false;
@@ -3553,7 +3565,26 @@ function stopPhoto(){
  *    블록뿐이므로, 판 좌표는 프레임 사이에 이어 붙이는 게 맞다.
  *    ⚠️ 정답 좌표를 쓰는 것과는 다르다 — 여기 들어가는 값은 전부 화면에서 찾은 것이다.
  * ===================================================================== */
-var hold = { q:null, miss:0, off:0, jitter:null, lock:false, calm:0, auto:true };
+var hold = { q:null, miss:0, off:0, jitter:null, lock:false, calm:0, auto:true, hist:[] };
+
+/* 🔴 판은 움직이지 않는데 검출은 프레임마다 몇십 px 씩 튄다(실측 56px).
+      「조금이면 무시, 크면 따라가기」로는 그 사이 값이 계속 새어 들어온다.
+      최근 몇 판의 **중앙값**을 쓰면 튀는 프레임 하나에 끌려가지 않는다 —
+      평균과 달리 이상치가 결과를 못 옮긴다. */
+var HIST = 7;
+
+function medianQuad(list){
+  var out = [];
+  for (var c = 0; c < 4; c++){
+    var xs = [], ys = [];
+    for (var i = 0; i < list.length; i++){ xs.push(list[i][c][0]); ys.push(list[i][c][1]); }
+    xs.sort(function(a,b){ return a-b; });
+    ys.sort(function(a,b){ return a-b; });
+    var m = (xs.length/2)|0;
+    out.push([xs[m], ys[m]]);
+  }
+  return out;
+}
 
 /* 🔴 판은 움직이지 않는다. 몇 px 짜리 변화는 판이 옮겨진 게 아니라 잡음이다
       — 웹캠 자동노출이 밝기를 흔들면 경계가 따라 움직이고, 그게 그대로
@@ -3577,26 +3608,27 @@ function steadyQuad(found){
     return null;
   }
   hold.miss = 0;
-  if (!hold.q){ hold.q = found; hold.off = 0; hold.calm = 0; return hold.q; }
+  if (!hold.q){ hold.q = found; hold.hist = [found]; hold.off = 0; hold.calm = 0; return hold.q; }
 
   var d = quadDist(found, hold.q);
   hold.jitter = d;
   if (d > 0.06){                       // 통째로 다른 데를 잡았다 — 바로 따라가지 않는다
     if (++hold.off < 12) return hold.q;
-    hold.q = found; hold.off = 0; hold.calm = 0;
+    hold.q = found; hold.hist = [found]; hold.off = 0; hold.calm = 0;
     return hold.q;
   }
   hold.off = 0;
 
-  if (d < DEAD){                       // 잡음 — 제자리에 둔다
+  hold.hist.push(found);
+  if (hold.hist.length > HIST) hold.hist.shift();
+  var med = medianQuad(hold.hist);
+  var moved = quadDist(med, hold.q);
+  if (moved < DEAD){                   // 중앙값도 제자리 — 판이 안 움직였다
     if (hold.auto && ++hold.calm >= CALM) hold.lock = true;
     return hold.q;
   }
   hold.calm = 0;
-  var k = 0.08;                        // 진짜로 움직였을 때만, 그것도 천천히
-  hold.q = hold.q.map(function(c, i){
-    return [c[0] + (found[i][0]-c[0])*k, c[1] + (found[i][1]-c[1])*k];
-  });
+  hold.q = med;
   return hold.q;
 }
 
@@ -4634,7 +4666,7 @@ document.getElementById('panelChk').addEventListener('change', function(e){
     invalidate();
   });
   document.getElementById('holdReset').addEventListener('click', function(){
-    hold.q = null; hold.miss = 0; hold.off = 0; hold.lock = false; hold.calm = 0;
+    hold.q = null; hold.miss = 0; hold.off = 0; hold.lock = false; hold.calm = 0; hold.hist = [];
     document.getElementById('holdLock').textContent = '📌 판 고정';
     invalidate();
   });
