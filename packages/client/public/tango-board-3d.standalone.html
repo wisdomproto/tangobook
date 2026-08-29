@@ -1115,6 +1115,37 @@ function classifyPixels(buf, W, H){
   }
 
 
+  /* 🔴 다른 색 블록이 맞닿은 자리에서 경계 몇 줄이 반대 색으로 넘어가면
+        얇은 다리가 생기고, 그 다리가 ㄷ 의 입을 막아 ㅁ 이 된다
+        (실측: 실물 「도」에서 ㅗ 의 기둥이 ㄷ 입 안에 들어가 ㅁ:0.76).
+        **열기**(깎았다 되돌리기)로 다리만 끊는다 — 닫기와 반대라 떨어져 있는
+        블록을 붙이지 않는다(닫기를 썼다가 받침 ㄹ 이 ㅌ 에 붙어 「털」이 깨졌다).
+        반경은 진짜 획(가장 얇은 ㅣ 도 0.71칸)보다 훨씬 작게 잡는다. */
+  var rOpen = Math.max(1, Math.round(CELL * 0.08));
+  [1, 2].forEach(function(col){
+    var m = new Uint8Array(N), x, y, k, i2;
+    for (i2 = 0; i2 < N; i2++) if (lab[i2] === col) m[i2] = 1;
+    var t = new Uint8Array(N), er = new Uint8Array(N);
+    for (y = 0; y < H; y++) for (x = 0; x < W; x++){
+      var ok = 1;
+      for (k = -rOpen; k <= rOpen; k++){ var xx = x+k; if (xx>=0 && xx<W && !m[y*W+xx]){ ok=0; break; } }
+      t[y*W+x] = ok;
+    }
+    for (y = 0; y < H; y++) for (x = 0; x < W; x++){
+      var ok2 = 1;
+      for (k = -rOpen; k <= rOpen; k++){ var yy = y+k; if (yy>=0 && yy<H && !t[yy*W+x]){ ok2=0; break; } }
+      er[y*W+x] = ok2;
+    }
+    var t2 = new Uint8Array(N), di = new Uint8Array(N);
+    for (y = 0; y < H; y++) for (x = 0; x < W; x++){
+      for (k = -rOpen; k <= rOpen; k++){ var x2 = x+k; if (x2>=0 && x2<W && er[y*W+x2]){ t2[y*W+x]=1; break; } }
+    }
+    for (y = 0; y < H; y++) for (x = 0; x < W; x++){
+      for (k = -rOpen; k <= rOpen; k++){ var y2 = y+k; if (y2>=0 && y2<H && t2[y2*W+x]){ di[y*W+x]=1; break; } }
+    }
+    for (i2 = 0; i2 < N; i2++) if (lab[i2] === col && !di[i2]) lab[i2] = 0;
+  });
+
   reco.colorInfo = { boardA:+mA.toFixed(3), boardB:+mB.toFixed(3),
                      thr:+thr.toFixed(3), split:+split.toFixed(3), fg:fg.length };
   return lab;
@@ -1242,7 +1273,14 @@ function recognize(){
     for (var grew = true; grew; ){
       grew = false;
       for (var b2 = 0; b2 < orphans.length; b2++){
+        /* 🔴 색이 다른 것끼리는 **부스러기일 때만** 묶는다.
+              가장자리 몇 줄이 반대 색으로 넘어간 조각은 작다. 그런데 조건 없이
+              풀어 주면 옆 블록이 통째로 딸려온다 — 실물 「도」에서 ㅗ 의 기둥이
+              ㄷ 의 입 안에 들어가 있어서, 그걸 붙이자 ㄷ 이 상자가 되어 ㅁ 으로
+              읽혔다(0.76). 한 칸도 안 되는 조각만 색을 넘어 붙일 수 있다. */
         if (used[b2]) continue;
+        if (orphans[b2].color !== grp[0].color &&
+            orphans[b2].area > CELL*CELL*0.6 && grp[0].area > CELL*CELL*0.6) continue;
         for (var g = 0; g < grp.length; g++){
           if (compGap(grp[g], orphans[b2]) <= CELL * 0.8){
             grp.push(orphans[b2]); used[b2] = 1; grew = true; break;
@@ -2235,6 +2273,15 @@ function fitAffine(src, dst){
     for (var c4 = k2+1; c4 < N; c4++) s -= M[k2*N+c4]*sol[c4];
     sol[k2] = s / M[k2*N+k2];
   }
+  /* 🔴 뒤집힌 해(거울)를 거른다. 핀 격자는 상하좌우 대칭이라 거울로 맞춰도
+        점이 똑같이 맞아떨어져서, 최소제곱이 태연히 거울 해를 고른다.
+        그러면 ㄷ 이 ⊐ 로 바뀌어 조용히 다른 글자가 된다 — 좌우 대칭인 ㅗ·ㅜ·ㅁ 은
+        멀쩡해 보이므로 「모음은 맞는데 자음만 틀리다」는 이상한 증상이 된다.
+        (실물 「도」: 되맞춤 없이는 ㄷ:0.86, 되맞춤을 거치면 ㅁ:0.76.)
+        선형부의 행렬식이 음수면 뒤집힌 것이니 쓰지 않는다. */
+  var det = sol[0]*sol[4] - sol[1]*sol[3];
+  if (!(det > 0)) return null;
+
   // 3x3 로 (열 우선 — 이 파일의 homography 와 같은 배치)
   return [sol[0], sol[3], 0,
           sol[1], sol[4], 0,
@@ -2412,6 +2459,18 @@ function findPlayQuadPolarity(bright){
   }
   var quad = [X(top,lft), X(top,rgt), X(bot,rgt), X(bot,lft)];
   if (quad.some(function(q){ return !q; })) return null;
+
+  /* 🔴 감김 방향을 고정한다. 주축(고유벡터)은 **부호가 임의**라 프레임마다
+        시계/반시계가 뒤집히고, 그러면 호모그래피가 회전이 아니라 **거울**이 된다.
+        거울은 좌우 대칭인 글자(ㅜ·ㅗ·ㅁ)를 그대로 두고 ㄷ↔⊐ 만 바꾸므로,
+        「모음은 맞는데 자음만 틀리다」는 이상한 증상으로 나타난다(실물 「도」).
+        부호가 있는 넓이로 방향을 재서 항상 같은 쪽으로 맞춘다. */
+  var sArea = 0;
+  for (var q2 = 0; q2 < 4; q2++){
+    var a2 = quad[q2], b2 = quad[(q2+1) % 4];
+    sArea += a2[0]*b2[1] - b2[0]*a2[1];
+  }
+  if (sArea < 0) quad = [quad[0], quad[3], quad[2], quad[1]];   // 뒤집힌 감김을 되돌린다
   // 바깥 핀 줄에서 반 칸 더 나가야 인식부 경계다
   var mxq = quad.reduce(function(a,q){ return [a[0]+q[0]/4, a[1]+q[1]/4]; }, [0,0]);
   var k2 = 1 + 1/GRID_W;
@@ -3390,10 +3449,13 @@ function uploadPhotoFrame(){
   photo.ctx.drawImage(src, (camSim.W - dw)/2, (camSim.H - dh)/2, dw, dh);
 
   gl.bindTexture(gl.TEXTURE_2D, simTex);
-  // 캔버스는 위가 0, GL 텍스처는 아래가 0 — 뒤집어 올려야 렌더와 위아래가 같다
-  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, gl.RGBA, gl.UNSIGNED_BYTE, photo.cv);
+  /* 🔴 뒤집어 올리면 안 된다. 3D 렌더는 GL 방향 그대로 이 텍스처를 채우는데,
+        사진만 뒤집어 올리면 두 경로의 위아래가 한 칸 어긋난다. 그러면 좌우 대칭인
+        글자(ㄷ·ㅁ·ㅜ의 좌우)는 멀쩡하고 **상하 비대칭인 ㅗ↔ㅜ 만 바뀐다** —
+        「다·더는 되는데 도·두만 안 된다」는 증상이 정확히 이것이었다.
+        ㄷ 이 상하 대칭이라 자음에서는 끝까지 안 드러났다. */
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, gl.RGBA, gl.UNSIGNED_BYTE, photo.cv);
   return true;
 }
 
@@ -3704,7 +3766,28 @@ function drawCamSim(){
   if (H){
     if (reco.fbo){
       // 격자 주기로 호모그래피를 한 번 더 맞춘다 — 검출 4점만으로는 스케일이 어긋난다
-      if (camSim.refine && camSim.foundBy === 'play') H = snapToGrid(H);
+      /* 🔴 판이 180° 돌아가 놓여도 검출은 성공하고 조용히 다른 글자를 읽는다
+            (실측: 실물 「도」에서 ㅜ:0.85 · ㄷ:0.87 — 확신에 차서 틀렸다).
+            다·더가 멀쩡했던 건 ㅏ↔ㅓ 가 좌우로 나란해 뒤집혀도 자리가 맞아서다.
+            방향을 정할 절대 기준이 없으니 **한글 조합 규칙**을 기준으로 쓴다 —
+            양쪽으로 읽어 낱말이 되는 쪽을 택한다. 정답을 보는 게 아니라
+            「말이 되는가」만 본다.
+            🔴 회전은 행렬 합성 말고 **코너 순서 교체**로 한다. 합성으로 돌렸더니
+               모음은 뒤집히는데 자음은 안 뒤집히는 모순이 나왔다 — 진짜 회전이
+               아니었다는 뜻이다. 되맞춤도 방향마다 따로 돌린다. */
+      function readOriented(cs){
+        var hh = homography(cs);
+        if (!hh) return null;
+        if (camSim.refine && camSim.foundBy === 'play') hh = snapToGrid(hh);
+        grabWarped(hh);
+        var r = recognize();
+        return { H:hh, corners:cs, res:r, score:(r.word ? r.word.length*3 : 0) + r.items.length };
+      }
+      var upA = readOriented(corners);
+      var upB = readOriented([corners[2], corners[3], corners[0], corners[1]]);
+      var pick = (upB && (!upA || upB.score > upA.score)) ? upB : upA;
+      camSim.flipped = !!(pick && pick === upB);
+      if (pick){ H = pick.H; camSim.corners = pick.corners; }
       var refined = (camSim.refine && !hold.lock && camSim.foundBy !== 'play') ? bestRefined(H) : null;
       camSim.refineInfo = refined ? refined.info : null;
       if (refined){
