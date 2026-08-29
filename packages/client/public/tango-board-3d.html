@@ -849,6 +849,10 @@ var COLOR = {
  * 블록 도면이 바뀌면 모델과 템플릿이 같이 바뀐다.
  * ===================================================================== */
 var CELL = 16;                       // 펴진 판에서 격자 한 칸 = 16px
+/* 🔴 인식부 딱 맞게만 펴면 가장자리에 놓인 블록이 경계에 잘려 크기 조건에서
+      떨어진다(실측: 「탁릉」의 ㅇ 이 3x3 인데 3.3x1.5칸으로 들어왔다).
+      바깥으로 한 칸씩 더 펴 두고, 칸 좌표를 그만큼 되돌린다. */
+var MARGIN = 1;
 var TOP_LIT = 0.70;                  // 이보다 어두우면 블록 옆면으로 본다
 
 /* 실사 보정값 — 지금까지의 숫자는 전부 시뮬이 제 렌더를 읽은 것이라
@@ -906,8 +910,8 @@ var reco = { on:false, fbo:null, tex:null, W:0, H:0, buf:null,
              templates:null, result:null, ms:0 };
 
 function initReco(){
-  reco.W = GRID_W * CELL;
-  reco.H = GRID_H * CELL;
+  reco.W = (GRID_W + 2*MARGIN) * CELL;
+  reco.H = (GRID_H + 2*MARGIN) * CELL;
   reco.tex = gl.createTexture();
   gl.bindTexture(gl.TEXTURE_2D, reco.tex);
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, reco.W, reco.H, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
@@ -1281,12 +1285,28 @@ function splitAt(comp, W, vertical, cut){
   return (a.area && b.area) ? [a, b] : null;
 }
 
-/** 덩어리 하나가 블록 둘이면, 가장 얇은 줄에서 갈라 각각 맞춰 본다. */
+/** 덩어리 하나가 블록 둘이면, 가장 얇은 줄에서 갈라 각각 맞춰 본다.
+ *  🔴 「몇 칸 넘으면」을 손으로 정하지 않는다. 한 블록이 가질 수 있는 최대 크기는
+ *     템플릿이 이미 알고 있다(자음은 쌍자음 6x3 까지, 모음은 3x5 까지).
+ *     3.4칸으로 박아 뒀더니 자음만 맞고 **모음끼리 붙은 덩어리**(탁의 ㅏ + 릉의 ㅡ,
+ *     실측 3.4x6.3칸)는 못 갈랐고, 반대로 정상적인 5칸 모음을 자를 뻔했다. */
+function maxTemplate(color){
+  var w = 0, h = 0;
+  reco.templates.forEach(function(T){
+    if ((T.vowel ? 2 : 1) !== color) return;
+    if (T.sw > w) w = T.sw;
+    if (T.sh > h) h = T.sh;
+  });
+  return { w:w, h:h };
+}
+
 function trySplit(comp, W){
-  var maxCell = 3.4;                      // 자음 한 블록은 3칸 남짓
-  var tall = comp.h > CELL * maxCell, wide = comp.w > CELL * maxCell;
+  var lim = maxTemplate(comp.color);
+  if (!lim.w || !lim.h) return null;
+  var slack = CELL * 0.9;                 // 흰 몸통이 번져 붙는 만큼은 봐 준다
+  var tall = comp.h > lim.h + slack, wide = comp.w > lim.w + slack;
   if (!tall && !wide) return null;
-  var vertical = tall && (!wide || comp.h >= comp.w);
+  var vertical = tall && (!wide || (comp.h - lim.h) >= (comp.w - lim.w));
   var len = vertical ? comp.h : comp.w, base = vertical ? comp.y0 : comp.x0;
   var prof = new Int32Array(len);
   comp.px.forEach(function(i){
@@ -1317,8 +1337,8 @@ function recognize(){
     // 덩어리 좌상단에서 템플릿 오프셋을 빼면 블록의 격자 위치가 나온다.
     // 🔴 y 는 위아래가 뒤집혀 있다 — 텍스처는 아래가 0, 격자는 위가 0.
     var cxPx = c.x0 + c.w/2, cyPx = c.y0 + c.h/2;
-    var gx = Math.round((cxPx - (T.bx + T.sw/2)) / CELL);
-    var gy = Math.round((cyPx - (T.by + T.sh/2)) / CELL);
+    var gx = Math.round((cxPx - (T.bx + T.sw/2)) / CELL) - MARGIN;
+    var gy = Math.round((cyPx - (T.by + T.sh/2)) / CELL) - MARGIN;
     items.push({ ch:T.ch, x:gx, y:gy, w:T.blockW, h:T.blockH });
     detail.push({ ch:T.ch, iou:+m.iou.toFixed(2), x:gx, y:gy });
   }
@@ -2548,10 +2568,55 @@ function findPlayQuadPolarity(bright){
     sArea += a2[0]*b2[1] - b2[0]*a2[1];
   }
   if (sArea < 0) quad = [quad[0], quad[3], quad[2], quad[1]];   // 뒤집힌 감김을 되돌린다
-  // 바깥 핀 줄에서 반 칸 더 나가야 인식부 경계다
-  var mxq = quad.reduce(function(a,q){ return [a[0]+q[0]/4, a[1]+q[1]/4]; }, [0,0]);
-  var k2 = 1 + 1/GRID_W;
-  quad = quad.map(function(q){ return [mxq[0] + (q[0]-mxq[0])*k2, mxq[1] + (q[1]-mxq[1])*k2]; });
+  /* 🔴 검출된 구멍의 바깥 끝을 그대로 쓰면, 가장자리 구멍이 블록에 가리거나
+        어둡게 찍힌 만큼 인식부가 통째로 줄어든다(실측: 「탁릉」의 ㅇ 이 경계에
+        잘려 3x3 이 3.3x1.5칸으로 들어와 크기 조건에서 탈락했다).
+        인식부는 **정확히 GRID_W x GRID_H 칸**이라는 걸 우리가 안다. 관측된 끝이
+        아니라 잰 간격으로 그만큼을 채우도록 늘린다 — 몇 줄이 안 보여도 자리는
+        그대로다. */
+  (function fitToGrid(){
+    var cx0 = 0, cy0 = 0;
+    lat.forEach(function(p){ cx0 += p[0]; cy0 += p[1]; });
+    cx0 /= lat.length; cy0 /= lat.length;
+    var uU = [(quad[1][0]-quad[0][0] + quad[2][0]-quad[3][0]) / 2,
+              (quad[1][1]-quad[0][1] + quad[2][1]-quad[3][1]) / 2];
+    var uV = [(quad[3][0]-quad[0][0] + quad[2][0]-quad[1][0]) / 2,
+              (quad[3][1]-quad[0][1] + quad[2][1]-quad[1][1]) / 2];
+    var lu = Math.hypot(uU[0], uU[1]), lv = Math.hypot(uV[0], uV[1]);
+    if (!lu || !lv || !pitch) return;
+    // 지금 사각형이 몇 칸을 덮고 있나 (구멍 간격 기준)
+    var haveU = lu / pitch, haveV = lv / pitch;
+    var wantU = GRID_W - 1, wantV = GRID_H - 1;   // 바깥 구멍끼리의 간격
+    if (haveU < wantU*0.6 || haveU > wantU*1.4) return;   // 간격 추정이 어긋난 판은 건드리지 않는다
+    if (haveV < wantV*0.6 || haveV > wantV*1.4) return;
+    var kU = wantU / haveU, kV = wantV / haveV;
+    var c2 = [(quad[0][0]+quad[1][0]+quad[2][0]+quad[3][0]) / 4,
+              (quad[0][1]+quad[1][1]+quad[2][1]+quad[3][1]) / 4];
+    quad = quad.map(function(q){
+      var du = ((q[0]-c2[0])*uU[0] + (q[1]-c2[1])*uU[1]) / (lu*lu);
+      var dv = ((q[0]-c2[0])*uV[0] + (q[1]-c2[1])*uV[1]) / (lv*lv);
+      du *= kU; dv *= kV;
+      return [c2[0] + du*uU[0] + dv*uV[0], c2[1] + du*uU[1] + dv*uV[1]];
+    });
+  })();
+
+  /* 바깥 핀 줄에서 **반 칸** 더 나가야 인식부 경계다.
+     🔴 중심에서 한 배율로 키우면 안 된다 — 같은 배율이 가로에서는 반 칸이지만
+        세로에서는 14/21 = 0.33칸밖에 안 붙어, 가장자리에 놓인 블록이 잘린다
+        (실측: 「탁릉」의 ㅇ 이 인식부 밖으로 떨어졌다).
+        사각형 자신의 두 방향으로 각각 반 칸씩 민다. */
+  var eU = [(quad[1][0]-quad[0][0] + quad[2][0]-quad[3][0]) / 2,
+            (quad[1][1]-quad[0][1] + quad[2][1]-quad[3][1]) / 2];
+  var eV = [(quad[3][0]-quad[0][0] + quad[2][0]-quad[1][0]) / 2,
+            (quad[3][1]-quad[0][1] + quad[2][1]-quad[1][1]) / 2];
+  var padU = 0.5 + MARGIN, padV = 0.5 + MARGIN;       // 반 칸 + 여유
+  var hu = [eU[0] * padU / GRID_W, eU[1] * padU / GRID_W];
+  var hv = [eV[0] * padV / GRID_H, eV[1] * padV / GRID_H];
+  var sgn = [[-1,-1], [1,-1], [1,1], [-1,1]];          // TL TR BR BL
+  quad = quad.map(function(q, i){
+    return [q[0] + sgn[i][0]*hu[0] + sgn[i][1]*hv[0],
+            q[1] + sgn[i][0]*hu[1] + sgn[i][1]*hv[1]];
+  });
 
   var uv = quad.map(function(q){ return [q[0]/W, q[1]/H]; });
   return { quad: [uv[2], uv[3], uv[0], uv[1]],   // 호모그래피가 기대하는 순서로 두 칸 회전
@@ -2564,7 +2629,7 @@ var snapBuf = { fbo:null, tex:null, W:0, H:0, buf:null };
 var SNAP_CELL = 48;
 
 function grabSnap(H){
-  var W = GRID_W*SNAP_CELL, Hh = GRID_H*SNAP_CELL;
+  var W = (GRID_W + 2*MARGIN)*SNAP_CELL, Hh = (GRID_H + 2*MARGIN)*SNAP_CELL;
   if (snapBuf.W !== W){
     if (snapBuf.tex) gl.deleteTexture(snapBuf.tex);
     if (snapBuf.fbo) gl.deleteFramebuffer(snapBuf.fbo);
@@ -3912,7 +3977,7 @@ function drawCamSim(){
   var aspect = canvas.width / canvas.height;
   var w = 0.56, h = w * (camSim.H/camSim.W) * aspect;
   blitTex([1 - w - 0.03, 1 - h - 0.05, w, h], IDENT3);
-  var gh = w * (GRID_H/GRID_W) * aspect;
+  var gh = w * ((GRID_H + 2*MARGIN)/(GRID_W + 2*MARGIN)) * aspect;
   /* 🔴 표시만 사용자 시점으로 돌린다. 카메라는 판 뒤에서 보므로 펴진 화면이
         사용자가 보는 것과 180° 돌아가 있다 — 사람이 읽는 창이니 사람 쪽에
         맞춘다. 인식은 별도로 grabWarped(H) 를 쓰므로 영향이 없다. */
