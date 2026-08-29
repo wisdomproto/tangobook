@@ -3032,6 +3032,12 @@ function detectBoardCorners(){
     if (qa < 1) continue;
     var fill = cand.area / qa;                // 1 에 가까울수록 사각형에 잘 맞는다
     if (fill > 1.15) continue;                // 사각형 밖으로 흘러넘친다
+    /* 🔴 「채움률이 가장 높은 것」이 아니라 **「사각형인 것 중 가장 큰 것」**이 판이다.
+          후보는 넓이 내림차순이므로 조건을 만족하는 첫 후보가 곧 가장 큰 것이다.
+          채움률 최대로 골랐더니 카메라 **레터박스 띠**(1410x62, 완벽한 직사각형이라
+          채움률 1.0)가 판(380,245화소, 모서리가 둥글고 점무늬로 구멍이 나 채움률이
+          낮다)을 이겨서, 인식부가 화면 맨 위 납작한 띠 안에 잡혔다(실측 fr8). */
+    if (fill >= TUNE.rect){ big = cand; bestQuad = q; bestFill = fill; break; }
     if (fill > bestFill){ big = cand; bestQuad = q; bestFill = fill; }
   }
   /* 🔴 문턱은 「판이라 부를 수 있는 최저선」이지 목표치가 아니다.
