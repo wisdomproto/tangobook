@@ -827,8 +827,12 @@ function cellXY(gx, gy){
       색으로 가르는 인식기를 이 팔레트로 시험하면 실물에서 되는 것이 시뮬에서
       안 되고, 그 반대도 된다 — 시뮬이 실물을 흉내 내지 못하면 시험대로 못 쓴다. */
 var COLOR = {
-  board:   [0.86, 0.87, 0.86],   // 흰 판
-  frame:   [0.60, 0.62, 0.61],
+  /* 🔴 실물 판은 흰색이지만, 카메라 화이트밸런스 때문에 사진에서는 늘 **살짝
+        푸른 기(200° 부근)** 로 찍힌다(실측 fr5~9: 192~214°, 채도 0.19).
+        시뮬레이터 판을 완전 무채색으로 두면 색상이 무의미해져 색으로 가르는
+        인식기가 여기서만 무너진다 — 시뮬이 실물을 흉내 내야 시험대가 된다. */
+  board:   [0.80, 0.85, 0.88],   // 흰 판 (카메라에서 보이는 대로 살짝 푸른 기)
+  frame:   [0.56, 0.60, 0.62],
   cho:     [0.95, 0.78, 0.30],   // 노랑 44°
   jung:    [0.55, 0.80, 0.35]    // 초록 93°
 };
@@ -888,7 +892,8 @@ var TOP_LIT = 0.70;                  // 이보다 어두우면 블록 옆면으�
       🔴 판(216°)은 두 색 밴드 밖이라 색상만으로 걸러진다 — 상한을 200 위로
          올리면 판 전체가 모음으로 들어온다. */
 var TUNE = {
-  chromaK: 6.0,               // 판 색의 흩어짐(사분위폭)의 몇 배부터 블록으로 볼지
+  hueK: 5.0,                  // 판 색상 흔들림의 몇 배 이상 달라야 블록
+  satK: 0.5,                  // 판 채도의 이 비율보다 색이 없으면 판이나 그림자
   blockLum: 0.60,             // 판 밝기의 이 비율보다 어두우면 바닥·그림자
   hueSplitMin: 30,            // 전경 색상 폭이 이보다 좁으면 한 색만 올라온 것
   hueRot: 0,        // 색상 회전(°) — 화이트밸런스 밀림 보정
@@ -1110,35 +1115,29 @@ function classifyPixels(buf, W, H){
         「판에서 45° 이상」이 늘 맞을 이유가 없다.
         판의 색상이 얼마나 흩어져 있는지(중앙절대편차)를 재서 그 배수를 문턱으로
         쓰면, 판이 어디로 옮겨가든 같이 따라간다. 채도·밝기도 판 값의 비율로 둔다. */
-  /* 🔴 색상만으로는 부족하다 — **무채색 판에는 색상이 없다**. 각도의 흩어짐이
-        곧 잡음이라, 그 배수를 문턱으로 쓰면 문턱이 하늘로 가고 전경이 0 이 된다
-        (실측: 렌더 판을 흰색으로 바꾸자 fg=0). 색상과 채도를 함께 **채도 평면의
-        한 점**(cx, cy)으로 놓고 판 색에서의 거리를 재면 두 경우가 한 식으로 풀린다.
-        문턱은 판 자신의 흩어짐(중앙절대편차)에서 뽑으므로 조명·카메라가 바뀌면
-        같이 움직인다. */
-  var bcx = 0, bcy = 0;
+  /* 🔴 문턱을 **판 자신에게서** 뽑는다. 각도든 채도든 절대값으로 두면 조명이나
+        카메라가 바뀔 때 또 무너진다 — 판이 195° 로 찍힐지 210° 로 찍힐지 모르는데
+        「판에서 45° 이상」이 늘 맞을 이유가 없다.
+        판의 색상이 얼마나 흩어져 있는지를 재서 그 배수를 문턱으로 쓰면, 판이
+        어디로 옮겨가든 같이 따라간다. 채도·밝기도 판 값의 비율로 둔다. */
+  var hd = [], sv = [];
   for (y = mg; y < H-mg; y += 2) for (x = mg; x < W-mg; x += 2){
-    var k2 = y*W + x, a2 = Hu[k2] < 0 ? 0 : Hu[k2]*Math.PI/180;
-    bcx += Sa[k2]*Math.cos(a2); bcy += Sa[k2]*Math.sin(a2);
+    var k2 = y*W + x;
+    if (Hu[k2] < 0 || Sa[k2] < 0.05) continue;
+    hd.push(dHue(Hu[k2])); sv.push(Sa[k2]);
   }
-  var bn = 0;
-  for (y = mg; y < H-mg; y += 2) for (x = mg; x < W-mg; x += 2) bn++;
-  bcx /= bn; bcy /= bn;
-  var cd = [];
-  for (y = mg; y < H-mg; y += 2) for (x = mg; x < W-mg; x += 2){
-    var k3 = y*W + x, a3 = Hu[k3] < 0 ? 0 : Hu[k3]*Math.PI/180;
-    cd.push(Math.hypot(Sa[k3]*Math.cos(a3) - bcx, Sa[k3]*Math.sin(a3) - bcy));
-  }
-  cd.sort(function(a, b){ return a - b; });
-  var cMed = cd[(cd.length*0.5)|0];
-  var cSpread = cd[(cd.length*0.75)|0] - cd[(cd.length*0.25)|0] + 1e-4;
-  var chromaGate = cMed + cSpread * TUNE.chromaK;
+  if (hd.length < 50){ reco.colorInfo = { why: '판 색을 못 잼' }; return new Uint8Array(N); }
+  hd.sort(function(a, b){ return a - b; });
+  sv.sort(function(a, b){ return a - b; });
+  var hueSpread = hd[(hd.length*0.5)|0] + 1e-6;
+  var boardS = sv[(sv.length*0.5)|0];
+  var hueGate = Math.max(hueSpread * TUNE.hueK, 35);   // 35° 아래로는 판과 안 갈린다
+  var satGate = boardS * TUNE.satK;
 
   var lab = new Uint8Array(N), fg = [];
   for (i = 0; i < N; i++){
-    var ai = Hu[i] < 0 ? 0 : Hu[i]*Math.PI/180;
-    var dc = Math.hypot(Sa[i]*Math.cos(ai) - bcx, Sa[i]*Math.sin(ai) - bcy);
-    if (dc < chromaGate) continue;
+    if (Hu[i] < 0 || Sa[i] < satGate) continue;
+    if (dHue(Hu[i]) < hueGate) continue;
     if (Lu[i] < boardL * TUNE.blockLum) continue;
     lab[i] = 1; fg.push(i);
   }
@@ -1175,7 +1174,7 @@ function classifyPixels(buf, W, H){
                           : (dHue(Hu[fg[i]]) >= dHue(split) ? 1 : 2);
   }
   reco.colorInfo = { boardH:+boardH.toFixed(0), boardL:+boardL.toFixed(2),
-                     채도문턱:+chromaGate.toFixed(3),
+                     퍼짐:+hueSpread.toFixed(1), 색상문턱:+hueGate.toFixed(0),
                      split:+split.toFixed(0), 폭:+(hi-lo).toFixed(0),
                      한무리:oneGroup, fg:fg.length };
   return lab;
@@ -4600,13 +4599,36 @@ function readBoard(){
   var hit = !!(current && w && w === current.word);
   outEl.classList.toggle('hit', hit);
   if (hit) win();
+  autoSpeak(w);
   return w;
 }
+/* 🔴 카메라 모드에서는 **화면에 뜬 낱말**(인식 결과)을 읽는다. 예전에는 늘
+      boardWord() — 시뮬레이터에 놓인 블록 — 를 읽어서, 카메라로 「뵤턱릉」을
+      읽어 놓고 소리는 엉뚱한 걸 냈다. */
+function shownWord(){
+  return camSim.on ? ((reco.result && reco.result.word) || '') : boardWord();
+}
 function speak(){
-  var w = boardWord();
+  var w = shownWord();
   if (!w) return;
   stopAll();
   playChain(w.split(''), 0, null);
+}
+
+/* 낱말이 바뀌어 **자리를 잡으면** 저절로 읽어 준다. 인식은 프레임마다 조금씩
+   흔들리므로 같은 낱말이 연달아 나올 때까지 기다린다 — 안 그러면 블록을 옮기는
+   동안 중간 낱말을 계속 지껄인다. */
+var autoSay = true, SAY_STEADY = 4;
+var sayHold = '', sayCount = 0, saidLast = '';
+function autoSpeak(w){
+  if (!camSim.on || !autoSay){ saidLast = ''; return; }
+  if (w === sayHold) sayCount++; else { sayHold = w; sayCount = 1; }
+  if (!w){ saidLast = ''; return; }
+  if (sayCount === SAY_STEADY && w !== saidLast){
+    saidLast = w;
+    stopAll();
+    playChain(w.split(''), 0, null);
+  }
 }
 
 /* ------------------------------------------- 낱말 + 동화 장면 (앱 API) */
