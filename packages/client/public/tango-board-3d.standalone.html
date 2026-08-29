@@ -1330,6 +1330,17 @@ function trySplit(comp, W){
 function recognize(){
   var t0 = performance.now();
   var lab = classifyPixels(reco.buf, reco.W, reco.H);
+  /* 🔴 인식부 바깥 **한 칸**은 지운다 — 거기엔 판의 테두리가 산다.
+        테두리는 색이 있어서 블록과 같이 앞면으로 분류되고, 맨 가장자리에 놓인
+        블록과 붙으면 한 덩어리가 돼 크기 조건에서 통째로 탈락한다 — 「탁릉」의
+        ㅇ 이 그렇게 사라졌다(사용자 지적). 여유 한 칸은 남겨 기하적 오차를 흡수하고,
+        바깥 한 칸만 도려낸다. 블록은 원래 인식부 안에만 놓인다. */
+  if (MARGIN > 1){
+    var trim = CELL*(MARGIN-1), rw = reco.W, rh = reco.H;
+    for (var ty = 0; ty < rh; ty++)
+      for (var tx = 0; tx < rw; tx++)
+        if (tx < trim || tx >= rw-trim || ty < trim || ty >= rh-trim) lab[ty*rw+tx] = 0;
+  }
   reco.lab = lab;                     // 마스크 미리보기용
   var comps = components(lab, reco.W, reco.H, (CELL*CELL) / 3);
   var items = [], detail = [], orphans = [];
@@ -2746,27 +2757,43 @@ function snapToGrid(H){
           어중간한 자리로 끌려가고, 어긋남이 칸의 20% 아래로 안 내려간다.
           점들이 실제로 어느 위상에 몰려 있는지 세어서, **가장 많은 한 벌**만
           쓴다. 그 벌의 위상(0 또는 0.5)이 곧 맞출 목표가 된다. */
-    var bins = {}, bestKey = null, bestN = 0;
-    for (i = 0; i < hp.length; i++){
-      var fx = hp[i][0]/cell, fy = hp[i][1]/cell;
-      var qx = Math.round((fx - Math.floor(fx)) * 2) % 2;   // 0 또는 0.5
-      var qy = Math.round((fy - Math.floor(fy)) * 2) % 2;
-      var key = qx + ',' + qy;
-      bins[key] = (bins[key] || 0) + 1;
-      if (bins[key] > bestN){ bestN = bins[key]; bestKey = key; }
+    /* 🔴 주기를 먼저 재서 맞춘다. 예전에는 「가장 가까운 칸 배수」로 붙였는데,
+          그러면 **전체 배율이 틀린 것은 영영 못 고친다** — 끝쪽 점은 이웃 칸으로 붙어
+          걸러지고, 남은 가운데는 이미 맞으니 고칠 게 없다고 나온다.
+          실측: 세로 14칸이어야 할 구멍이 15.3칸에 걸쳐 있었고(9% 늘어남), 그래서
+          맨 아랫줄에 놓인 「릉」의 ㅇ 이 인식부 밖으로 2칸 밀려 「탁르」로 읽혔다.
+          주기를 찾아(±14%) 그걸로 번호를 매긴 뒤 번호를 **이상 격자**에 놓으면
+          배율까지 같이 펴진다. 범위를 ±14% 로 묶어 둔 것은 구멍·돌기 두 벌이
+          섞여 주기가 반으로 잎힐 수 있기 때문이다. */
+    function period(vals){
+      var bp = cell, bo = 0, bn = -1;
+      for (var k = -14; k <= 14; k++){
+        var pp = cell * (1 + k*0.01);
+        for (var ph = 0; ph < 2; ph++){
+          var off = ph*0.5, n = 0;
+          for (var t = 0; t < vals.length; t++){
+            var f = vals[t]/pp - off;
+            if (Math.abs(f - Math.round(f)) < 0.2) n++;
+          }
+          if (n > bn){ bn = n; bp = pp; bo = off; }
+        }
+      }
+      return { p: bp, o: bo };
     }
-    var phase = bestKey ? bestKey.split(',').map(Number) : [0, 0];
-    var ox = phase[0] * 0.5, oy = phase[1] * 0.5;
+    var pdx = period(hp.map(function(q){ return q[0]; }));
+    var pdy = period(hp.map(function(q){ return q[1]; }));
+    reco.snapScale = [pdx.p/cell, pdy.p/cell];
 
     var src = [], dst = [], err = 0, cnt = 0;
     for (i = 0; i < hp.length; i++){
-      var sx = (Math.round(hp[i][0]/cell - ox) + ox) * cell;
-      var sy = (Math.round(hp[i][1]/cell - oy) + oy) * cell;
-      var dx = hp[i][0]-sx, dy = hp[i][1]-sy;
-      if (Math.max(Math.abs(dx), Math.abs(dy)) > cell*0.25) continue;   // 다른 벌은 뺀다
-      src.push([sx/(W), sy/(Hh)]);          // 목표(그 벌의 격자) — 단위 사각형 좌표
+      var fx = hp[i][0]/pdx.p - pdx.o, fy = hp[i][1]/pdy.p - pdy.o;
+      var ix = Math.round(fx), iy = Math.round(fy);
+      if (Math.max(Math.abs(fx-ix), Math.abs(fy-iy)) > 0.25) continue;   // 다른 벌은 뻐다
+      var sx = (ix + pdx.o) * cell, sy = (iy + pdy.o) * cell;            // 이상 격자
+      src.push([sx/(W), sy/(Hh)]);          // 목표(이상 격자) — 단위 사각형 좌표
       dst.push([hp[i][0]/(W), hp[i][1]/(Hh)]); // 실제로 거기 있던 자리
-      err += dx*dx + dy*dy; cnt++;
+      err += (fx-ix)*(fx-ix)*pdx.p*pdx.p + (fy-iy)*(fy-iy)*pdy.p*pdy.p;
+      cnt++;
     }
     if (cnt < 40) break;
     rms = Math.sqrt(err/cnt) * (CELL/cell);   // 인식용 칸 기준으로 환산해 비교 가능하게
@@ -2778,6 +2805,7 @@ function snapToGrid(H){
   reco.snapRms = rms;
   return best;
 }
+
 
 function detectGridCorners(){
   /* 밝기 밴드(0.45~0.668)는 렌더에서 잰 값이라 실사에선 판이 아니라 나무 바닥이
