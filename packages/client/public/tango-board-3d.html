@@ -4061,7 +4061,23 @@ function drawCamSim(){
         전부 고정 숫자를 깔고 있어 실사에서 무너졌다. 지금 것은 실물 사진에
         16가지 조건(해상도 ¼·판 40% 크기·밝기 ×0.5·대비 ×0.4·노이즈·흐림)을
         걸어 12/16 통과를 확인한 뒤 옮긴 것이다. */
-  var found = camSim.detect ? findPlayQuad() : null;
+  /* 🔴 판을 잠근 뒤에는 매 프레임 다시 찾지 않는다. 찾아 봐야 steadyQuad 가
+        잠긴 값을 돌려주므로 결과는 버려지고, 검출만 한 프레임에 ~100ms 를 쓴다.
+        화면의 「구멍 N개」도 그때마다 달라져 사용자에게는 흔들리는 것으로 보인다.
+        판이 치워지거나 옮겨진 것은 알아야 하니 스무 프레임에 한 번만 확인한다. */
+  camSim.tick = (camSim.tick || 0) + 1;
+  var checking = hold.lock && camSim.tick % 20 === 0;      // 잠긴 채로 가끔 확인
+  var needDetect = camSim.detect && (!hold.lock || checking);
+  var found = needDetect ? findPlayQuad() : null;
+  if (checking){
+    /* 판이 치워지거나 옮겨졌으면 풀고 다시 잡는다. 한 번 어긋난 걸로는 안 푼다 —
+       손이 지나가거나 노출이 튀어도 한 번은 어긋나기 때문이다. */
+    if (found && hold.q && quadDist(found, hold.q) > 0.06){
+      if (++hold.drift >= 3){ hold.lock = false; hold.q = found; hold.hist = [found]; hold.drift = 0; }
+    } else hold.drift = 0;
+  }
+  if (camSim.detect && !needDetect) found = hold.q || null;
+  if (checking && hold.lock) found = hold.q;               // 확인만 하고 값은 잠긴 것을 쓴다
   camSim.foundBy = found ? 'play' : null;
   if (!found && camSim.detect){                    // 격자를 놓치면 판 외곽으로
     var boardUV = detectBoardCorners();
