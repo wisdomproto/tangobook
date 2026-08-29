@@ -2020,12 +2020,15 @@ function blurF32(src, W, H, sigma){
   return a;
 }
 
-/** 주변보다 어두운 정도 (0..1). 절대 밝기가 아니라 국소 대비다. */
-function darkRel(L, W, H, sigma){
+/* 주변과 얼마나 다른가 (0..1). 절대 밝기가 아니라 국소 대비다.
+   🔴 극성을 고르게 둔다 — 구 판은 **구멍**이라 주변보다 어둡고, 새 판은 **돌기**라
+      윗면이 밝고 한쪽에 그림자가 진다. 어느 쪽인지 코드가 정하지 않고 화면이 정한다
+      (아래에서 두 극성을 다 돌려 격자가 더 잘 서는 쪽을 쓴다). */
+function darkRel(L, W, H, sigma, bright){
   var bl = blurF32(L, W, H, sigma);
   var out = new Float32Array(W*H);
   for (var i = 0; i < W*H; i++){
-    var v = bl[i] - L[i];
+    var v = bright ? (L[i] - bl[i]) : (bl[i] - L[i]);
     out[i] = v > 0 ? v : 0;
   }
   return out;
@@ -2209,29 +2212,48 @@ function mat3mul(A, B){          // 열 우선 3x3
   return o;
 }
 
-/** 인식부 네 모서리(uv). 못 찾으면 null. */
+/** 인식부 네 모서리(uv). 못 찾으면 null.
+ *  구멍(어두움)·돌기(밝음) 두 극성을 다 돌려 격자가 더 잘 서는 쪽을 쓴다. */
 function findPlayQuad(){
   grabDetect();
+  var a = findPlayQuadPolarity(false);   // 구멍
+  var b2 = findPlayQuadPolarity(true);   // 돌기
+  var na = a ? a.pins : -1, nb = b2 ? b2.pins : -1;
+  var pick = na >= nb ? a : b2;
+  if (!pick){
+    reco.playInfo = { why: (a ? '' : '구멍 실패 ') + (b2 ? '' : '돌기 실패') };
+    return null;
+  }
+  reco.playInfo = { pins: pick.pins, pitch: pick.pitch, thr: pick.thr,
+                    kind: pick.bright ? '돌기' : '구멍',
+                    other: (pick.bright ? na : nb) };
+  return pick.quad;
+}
+
+function findPlayQuadPolarity(bright){
   var b = detBuf.buf, W = detBuf.W, H = detBuf.H, N = W*H, i;
   var L = new Float32Array(N);
   for (i = 0; i < N; i++) L[i] = (b[i*4]*0.3 + b[i*4+1]*0.6 + b[i*4+2]*0.1) / 255;
 
   // 1차 — 간격을 모르니 크기를 넓게 열고 간격만 얻는다
-  var rel0 = darkRel(L, W, H, Math.max(2, W/150));
+  var rel0 = darkRel(L, W, H, Math.max(2, W/150), bright);
   var t0 = relThreshold(rel0, N);
   var p0 = dotBlobs(rel0, W, H, t0, 3, N*1e-3);
   var m0 = medianNN(p0, W, H);
-  if (!m0){ reco.playInfo = { why:'점을 못 찾음' }; return null; }
+  if (!m0) return null;
 
-  // 2차 — 잰 간격으로 흐림 반경과 크기를 다시 정한다
+  /* 2차 — 잰 간격으로 흐림 반경과 크기를 다시 정한다.
+     🔴 반경은 간격이 아니라 **자국 크기**에 맞춘다. 간격의 1.2배로 흐리면
+        자국이 그 안에 묻혀 대비가 죽는다(실측: 렌더 돌기에서 후보가 262→6개).
+        간격의 0.3배면 자국은 남고 판 표면만 평탄해진다. */
   var pitch = m0.med;
-  var rel = darkRel(L, W, H, Math.max(2, pitch*1.2));
+  var rel = darkRel(L, W, H, Math.max(2, pitch*0.3), bright);
   var thr = relThreshold(rel, N);
   var area = pitch*pitch;
   var pts = dotBlobs(rel, W, H, thr, area*0.02, area*0.55);
-  if (pts.length < 50){ reco.playInfo = { why:'점 후보 ' + pts.length }; return null; }
+  if (pts.length < 50) return null;
   var mm = medianNN(pts, W, H);
-  if (!mm){ reco.playInfo = { why:'간격 실패' }; return null; }
+  if (!mm) return null;
   pitch = mm.med;
 
   // 규칙적으로 늘어선 점만 — 바닥 결은 간격이 제멋대로라 여기서 죽는다
@@ -2246,7 +2268,7 @@ function findPlayQuad(){
     }
     if (c2 >= 3) lat.push(pts[i]);
   }
-  if (lat.length < 50){ reco.playInfo = { why:'격자 점 ' + lat.length }; return null; }
+  if (lat.length < 50) return null;
 
   // 빽빽한 한 덩어리만
   var gw = Math.ceil(W/pitch)+2, gh = Math.ceil(H/pitch)+2;
@@ -2257,13 +2279,13 @@ function findPlayQuad(){
   var dm = new Uint8Array(gw*gh);
   for (i = 0; i < dens.length; i++) if (dens[i] > mx*0.25) dm[i] = 1;
   var dcomps = components(dm, gw, gh, 1);
-  if (!dcomps.length){ reco.playInfo = { why:'밀도 덩어리 없음' }; return null; }
+  if (!dcomps.length) return null;
   var dbig = dcomps[0];
   for (i = 1; i < dcomps.length; i++) if (dcomps[i].area > dbig.area) dbig = dcomps[i];
   var inSet = new Uint8Array(gw*gh);
   dbig.px.forEach(function(k){ inSet[k] = 1; });
   lat = lat.filter(function(p){ return inSet[((p[1]/pitch)|0)*gw + ((p[0]/pitch)|0)]; });
-  if (lat.length < 40){ reco.playInfo = { why:'덩어리 안 ' + lat.length }; return null; }
+  if (lat.length < 40) return null;
 
   // 주축 (2x2 공분산 고유벡터)
   var cx = 0, cy = 0;
@@ -2295,7 +2317,7 @@ function findPlayQuad(){
   }
   var top = edge(P, Q, false), bot = edge(P, Q, true);
   var lft = edge(Q, P, false), rgt = edge(Q, P, true);
-  if (!top || !bot || !lft || !rgt){ reco.playInfo = { why:'변 회귀 실패' }; return null; }
+  if (!top || !bot || !lft || !rgt) return null;
 
   function X(hz, vv){
     var den = 1 - hz[0]*vv[0];
@@ -2304,15 +2326,15 @@ function findPlayQuad(){
     return [cx + ex[0]*pp + ey[0]*qq, cy + ex[1]*pp + ey[1]*qq];
   }
   var quad = [X(top,lft), X(top,rgt), X(bot,rgt), X(bot,lft)];
-  if (quad.some(function(q){ return !q; })){ reco.playInfo = { why:'교점 실패' }; return null; }
+  if (quad.some(function(q){ return !q; })) return null;
   // 바깥 핀 줄에서 반 칸 더 나가야 인식부 경계다
   var mxq = quad.reduce(function(a,q){ return [a[0]+q[0]/4, a[1]+q[1]/4]; }, [0,0]);
   var k2 = 1 + 1/GRID_W;
   quad = quad.map(function(q){ return [mxq[0] + (q[0]-mxq[0])*k2, mxq[1] + (q[1]-mxq[1])*k2]; });
 
-  reco.playInfo = { pins: lat.length, pitch: pitch, thr: thr };
   var uv = quad.map(function(q){ return [q[0]/W, q[1]/H]; });
-  return [uv[2], uv[3], uv[0], uv[1]];   // 호모그래피가 기대하는 순서로 두 칸 회전
+  return { quad: [uv[2], uv[3], uv[0], uv[1]],   // 호모그래피가 기대하는 순서로 두 칸 회전
+           pins: lat.length, pitch: pitch, thr: thr, bright: bright };
 }
 
 /* 되맞춤용 큰 버퍼 — 인식용(칸 16px)에서는 구멍이 3px 이라 위치를 정밀하게 못 잰다.
@@ -2357,7 +2379,7 @@ function snapToGrid(H){
     var W = snapBuf.W, Hh = snapBuf.H, N = W*Hh, i;
     var L = new Float32Array(N);
     for (i = 0; i < N; i++) L[i] = (snapBuf.buf[i*4]*0.3 + snapBuf.buf[i*4+1]*0.6 + snapBuf.buf[i*4+2]*0.1)/255;
-    var rel = darkRel(L, W, Hh, cell*0.7);
+    var rel = darkRel(L, W, Hh, cell*0.7, (reco.playInfo && reco.playInfo.kind === '돌기'));
     var thr = relThreshold(rel, N);
     var hp = dotBlobs(rel, W, Hh, thr, cell*cell*0.01, cell*cell*0.45);
     if (hp.length < 60) break;
@@ -4239,7 +4261,7 @@ new ResizeObserver(function(){
 function foundByLabel(){
   if (camSim.foundBy === 'play'){
     var pi = reco.playInfo || {};
-    return '핀 격자 <span class="dim">핀 ' + (pi.pins || 0) +
+    return (pi.kind || '핀') + ' <span class="dim">' + (pi.pins || 0) +
            '개 · 간격 ' + (pi.pitch || 0).toFixed(1) + 'px' +
            (reco.snapRms != null ? ' · 어긋남 ' + reco.snapRms.toFixed(2) + 'px' : '') +
            '</span>';
