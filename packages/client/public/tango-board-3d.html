@@ -330,6 +330,7 @@
           <b style="color:#ff6b3d">주황</b> 거기서 유도한 인식부</div>
         <div class="cam-shot">
           <button id="camSave" title="지금 웹캠 프레임을 파일로 저장한다 — 같은 그림으로 검출을 돌려 보려면 이게 필요하다">💾 프레임 저장</button>
+          <button id="camLock" title="자동 노출·화이트밸런스를 지금 값으로 굳힌다. 화면이 잘 보일 때 누를 것">🔒 노출 고정</button>
         </div>
         <div class="cam-shot">
           <button id="holdLock" title="지금 잡은 판 자리를 붙잡아 둔다 — 판은 안 움직이니까">📌 판 고정</button>
@@ -1189,7 +1190,7 @@ function components(lab, W, H, minArea){
 
 /** 덩어리 하나를 자모 템플릿과 맞춘다 — 획 bbox 를 겹쳐 IoU 최대. */
 function matchTemplate(comp, W){
-  var best = null, cw = comp.w, ch = comp.h;
+  var best = null, cw = comp.w, ch = comp.h, tried = 0;
   var blob = new Uint8Array(cw * ch);
   for (var k = 0; k < comp.px.length; k++){
     var i = comp.px[k];
@@ -1220,9 +1221,11 @@ function matchTemplate(comp, W){
         if (a & b) inter++;
       }
     }
+    tried++;
     var iou = uni ? inter/uni : 0;
     if (!best || iou > best.iou) best = { T:T, iou:iou };
   }
+  reco.lastTried = tried;
   return best;
 }
 
@@ -1253,6 +1256,56 @@ function mergeComps(list){
   return m;
 }
 
+/* 🔴 초성과 받침은 둘 다 자음이라 **색이 같다**. 받침을 초성 바로 밑에 붙여
+      놓으면 사진에서는 흰 몸통이 번지며 두 블록이 한 덩어리가 되고, 3x3 두 개가
+      3x6 이 되어 맞는 템플릿이 없다 — 그러면 짝을 잃은 모음까지 함께 버려진다
+      (실측: 「타리」에서 ㅌ 이 `?` 로 떨어져 낱말이 「리」만 남았다).
+      렌더에서는 블록 사이에 틈이 있어 끝까지 안 드러났다.
+      한 블록이라기엔 너무 큰 덩어리는 **가장 얇은 허리에서 잘라** 각각 맞춘다. */
+function splitAt(comp, W, vertical, cut){
+  var a = { color:comp.color, px:[], x0:1e9, y0:1e9, x1:-1, y1:-1 };
+  var b = { color:comp.color, px:[], x0:1e9, y0:1e9, x1:-1, y1:-1 };
+  comp.px.forEach(function(i){
+    var x = i % W, y = (i / W) | 0;
+    var t = (vertical ? y : x) < cut ? a : b;
+    t.px.push(i);
+    if (x < t.x0) t.x0 = x;
+    if (y < t.y0) t.y0 = y;
+    if (x > t.x1) t.x1 = x;
+    if (y > t.y1) t.y1 = y;
+  });
+  [a, b].forEach(function(t){
+    t.area = t.px.length;
+    t.w = t.x1 - t.x0 + 1; t.h = t.y1 - t.y0 + 1;
+  });
+  return (a.area && b.area) ? [a, b] : null;
+}
+
+/** 덩어리 하나가 블록 둘이면, 가장 얇은 줄에서 갈라 각각 맞춰 본다. */
+function trySplit(comp, W){
+  var maxCell = 3.4;                      // 자음 한 블록은 3칸 남짓
+  var tall = comp.h > CELL * maxCell, wide = comp.w > CELL * maxCell;
+  if (!tall && !wide) return null;
+  var vertical = tall && (!wide || comp.h >= comp.w);
+  var len = vertical ? comp.h : comp.w, base = vertical ? comp.y0 : comp.x0;
+  var prof = new Int32Array(len);
+  comp.px.forEach(function(i){
+    var v = vertical ? ((i / W) | 0) : (i % W);
+    prof[v - base]++;
+  });
+  var lo = Math.round(len * 0.3), hi = Math.round(len * 0.7);
+  var cut = -1, min = 1e9;
+  for (var k = lo; k <= hi; k++){
+    if (prof[k] < min){ min = prof[k]; cut = k; }
+  }
+  if (cut < 0) return null;
+  var parts = splitAt(comp, W, vertical, base + cut);
+  if (!parts) return null;
+  var m0 = matchTemplate(parts[0], W), m1 = matchTemplate(parts[1], W);
+  if (!m0 || !m1 || m0.iou < 0.35 || m1.iou < 0.35) return null;
+  return [{ c:parts[0], m:m0 }, { c:parts[1], m:m1 }];
+}
+
 function recognize(){
   var t0 = performance.now();
   var lab = classifyPixels(reco.buf, reco.W, reco.H);
@@ -1271,7 +1324,17 @@ function recognize(){
   }
   comps.forEach(function(c){
     var m = matchTemplate(c, reco.W);
-    if (!m || m.iou < 0.35){ orphans.push(c); return; }
+    if (!m || m.iou < 0.35){
+      var pair = trySplit(c, reco.W);
+      if (pair){ pair.forEach(function(q){ accept(q.c, q.m); }); return; }
+      /* 🔴 「?」 만 찍으면 왜 떨어졌는지 모른다. 크기 조건에서 아예 비교조차
+            못 했는지(후보 0), 아니면 붙여는 봤는데 안 닮았는지를 남긴다. */
+      c.why = (reco.lastTried ? '최고 ' + (m ? m.T.ch + ' ' + m.iou.toFixed(2) : '-')
+                              : '크기 탈락') +
+              ' ' + (c.w/CELL).toFixed(1) + 'x' + (c.h/CELL).toFixed(1) + '칸';
+      orphans.push(c);
+      return;
+    }
     accept(c, m);
   });
   /* 실패 조각 재시도 — 한 칸 안쪽으로 붙은 것끼리 묶는다.
@@ -1302,7 +1365,7 @@ function recognize(){
         }
       }
     }
-    if (grp.length < 2){ detail.push({ ch:'?', iou:0 }); continue; }
+    if (grp.length < 2){ detail.push({ ch:'?', iou:0, why:grp[0].why }); continue; }
     var mc = mergeComps(grp);
     var mm = matchTemplate(mc, reco.W);
     if (mm && mm.iou >= 0.35) accept(mc, mm);
@@ -3618,9 +3681,11 @@ function startWebcam(){
             경계를 넘나들면 조합 판단이 뒤집힌다.
             처음 1.5초는 자동으로 맞추게 두고(어두운 채로 굳으면 더 나쁘다) 그 다음
             고정한다. 지원 안 하는 카메라도 많으므로 실패는 조용히 넘긴다. */
-      setTimeout(function(){
+      /* 🔴 자동으로 걸지 않는다. 1.5초 시점의 노출이 나쁘면 그대로 굳어서
+            오히려 나빠지고, 카메라마다 지원도 제각각이다. 사용자가 켤 때만. */
+      photo.lockFn = function(){
         var t = stream.getVideoTracks()[0];
-        if (!t || !t.getCapabilities) return;
+        if (!t || !t.getCapabilities) { photo.lockInfo = '고정 미지원'; invalidate(); return; }
         var caps = {};
         try { caps = t.getCapabilities() || {}; } catch (e) { return; }
         var want = {}, names = [];
@@ -3631,11 +3696,11 @@ function startWebcam(){
         lock('exposureMode', 'manual');
         lock('whiteBalanceMode', 'manual');
         lock('focusMode', 'manual');
-        if (!names.length){ photo.lockInfo = '고정 미지원'; return; }
+        if (!names.length){ photo.lockInfo = '고정 미지원'; invalidate(); return; }
         t.applyConstraints({ advanced: [want] })
-          .then(function(){ photo.lockInfo = '고정 ' + names.join('·'); })
-          .catch(function(){ photo.lockInfo = '고정 실패'; });
-      }, 1500);
+          .then(function(){ photo.lockInfo = '고정 ' + names.join('·'); invalidate(); })
+          .catch(function(){ photo.lockInfo = '고정 실패'; invalidate(); });
+      };
       // 매 프레임 2160×1620 을 올릴 이유는 없다 — 손으로 블록을 옮기는 속도면 충분하다
       photo.timer = setInterval(invalidate, 150);
     });
@@ -3656,6 +3721,7 @@ function stopPhoto(){
   if (photo.timer){ clearInterval(photo.timer); photo.timer = null; }
   if (photo.stream){ photo.stream.getTracks().forEach(function(t){ t.stop(); }); photo.stream = null; }
   photo.video = null; photo.src = null; photo.on = false;
+  photo.lockFn = null; photo.lockInfo = null;
   document.body.classList.remove('photo-on');
   invalidate();
 }
@@ -4553,7 +4619,9 @@ function onRecoResult(){
       '<span class="dim">덩어리 ' + r.comps + ' · ' + reco.ms.toFixed(0) + 'ms</span>' +
       (r.detail && r.detail.length
         ? '<br><span class="dim">' +
-          r.detail.map(function(d){ return d.ch + ' ' + d.iou; }).join(' · ') + '</span>'
+          r.detail.map(function(d){
+            return d.ch + ' ' + d.iou + (d.why ? ' <i>(' + d.why + ')</i>' : '');
+          }).join(' · ') + '</span>'
         : '');
     paintMask();
     paintDetMask();
@@ -4787,6 +4855,10 @@ document.getElementById('panelChk').addEventListener('change', function(e){
   /* 🔴 실사 튜닝은 「같은 그림을 몇 번이고 다시 돌려보기」가 되어야 한다.
         웹캠은 매 프레임 달라서, 고치고 다시 봐도 무엇 때문에 달라졌는지 모른다.
         프레임을 파일로 떨어뜨려 두면 그 한 장으로 조건을 쓸어 볼 수 있다. */
+  document.getElementById('camLock').addEventListener('click', function(){
+    if (photo.lockFn) photo.lockFn();
+    else { photo.lockInfo = '웹캠이 아님'; invalidate(); }
+  });
   document.getElementById('camSave').addEventListener('click', function(){
     if (!photo.cv) return;
     photo.cv.toBlob(function(blob){
