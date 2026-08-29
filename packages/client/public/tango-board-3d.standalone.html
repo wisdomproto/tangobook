@@ -2646,8 +2646,21 @@ function findPlayQuadPolarity(bright){
             q[1] + sgn[i][0]*hu[1] + sgn[i][1]*hv[1]];
   });
 
-  var uv = quad.map(function(q){ return [q[0]/W, q[1]/H]; });
-  return { quad: [uv[2], uv[3], uv[0], uv[1]],   // 호모그래피가 기대하는 순서로 두 칸 회전
+  /* 🔴 시작 모서리를 화면 기준으로 못 박는다. 이걸 안 하면 같은 판인데도
+        프레임마다 목록이 두 칸씩 돌아가고(실측: 한 프레임 [BR,BL,TL,TR],
+        다른 프레임 [TL,TR,BR,BL]), 그게 곧 위아래 반전으로 나타난다.
+        버퍼는 아래가 0 이므로 「화면 왼쪽 위」 = u 가 작고 v 가 큰 모서리다. */
+  var uv0 = quad.map(function(q){ return [q[0]/W, q[1]/H]; });
+  var start = 0, bestKey = 1e9;
+  for (var si = 0; si < 4; si++){
+    var key = uv0[si][0] + (1 - uv0[si][1]);
+    if (key < bestKey){ bestKey = key; start = si; }
+  }
+  var uv = [uv0[start], uv0[(start+1)%4], uv0[(start+2)%4], uv0[(start+3)%4]];
+  /* 시작 모서리를 화면 기준으로 못 박은 뒤, 호모그래피가 기대하는 순서까지는
+     한 칸 더 돌려야 한다. 네 회전을 실물 프레임에 다 걸어 재서 정한 상수다
+     (회전3 만 「탄리」로 읽혔다 — 0:킅 1:러 2:크트 3:탄리). */
+  return { quad: [uv[3], uv[0], uv[1], uv[2]],
            pins: lat.length, pitch: pitch, thr: thr, bright: bright };
 }
 
@@ -3829,6 +3842,7 @@ window.addEventListener('beforeunload', function(){
 function stopPhoto(){
   wordHist = [];
   hold.q = null; hold.miss = 0; hold.off = 0; hold.lock = false; hold.calm = 0; hold.hist = [];
+  hold.orient = null; hold.orientMiss = 0;
   if (photo.timer){ clearInterval(photo.timer); photo.timer = null; }
   if (photo.stream){ photo.stream.getTracks().forEach(function(t){ t.stop(); }); photo.stream = null; }
   photo.video = null; photo.src = null; photo.on = false;
@@ -3846,7 +3860,8 @@ function stopPhoto(){
  *    블록뿐이므로, 판 좌표는 프레임 사이에 이어 붙이는 게 맞다.
  *    ⚠️ 정답 좌표를 쓰는 것과는 다르다 — 여기 들어가는 값은 전부 화면에서 찾은 것이다.
  * ===================================================================== */
-var hold = { q:null, miss:0, off:0, jitter:null, lock:false, calm:0, auto:true, hist:[] };
+var hold = { q:null, miss:0, off:0, jitter:null, lock:false, calm:0, auto:true, hist:[],
+             orient:null, orientMiss:0 };
 
 /* 🔴 판은 움직이지 않는데 검출은 프레임마다 몇십 px 씩 튄다(실측 56px).
       「조금이면 무시, 크면 따라가기」로는 그 사이 값이 계속 새어 들어온다.
@@ -4007,11 +4022,14 @@ function drawCamSim(){
         var r = recognize();
         return { H:hh, corners:cs, res:r, score:(r.word ? r.word.length*3 : 0) + r.items.length };
       }
-      var upA = readOriented(corners);
-      var upB = readOriented([corners[2], corners[3], corners[0], corners[1]]);
-      var pick = (upB && (!upA || upB.score > upA.score)) ? upB : upA;
-      camSim.flipped = !!(pick && pick === upB);
-      if (pick){ H = pick.H; camSim.corners = pick.corners; }
+      /* 🔴 방향은 고르지 않는다. 카메라는 판 뒤, 사용자는 앞 — 고정이다.
+            「두 방향 중 낱말이 되는 쪽」을 남겨 뒀더니 점수가 비슷한 프레임에서
+            승자가 바뀌어 위아래가 번갈아 읽혔다. 고를 일이 아니라 정할 일이다.
+            대신 사각형의 시작 모서리를 화면 기준으로 못 박아(위 findPlayQuad)
+            같은 판이면 늘 같은 방향이 나오게 했다. */
+      grabWarped(H);
+      reco.result = recognize();
+      camSim.flipped = false;
       var refined = (camSim.refine && !hold.lock && camSim.foundBy !== 'play') ? bestRefined(H) : null;
       camSim.refineInfo = refined ? refined.info : null;
       if (refined){
@@ -5012,6 +5030,7 @@ document.getElementById('panelChk').addEventListener('change', function(e){
   });
   document.getElementById('holdReset').addEventListener('click', function(){
     hold.q = null; hold.miss = 0; hold.off = 0; hold.lock = false; hold.calm = 0; hold.hist = [];
+    hold.orient = null; hold.orientMiss = 0;
     document.getElementById('holdLock').textContent = '📌 판 고정';
     invalidate();
   });
