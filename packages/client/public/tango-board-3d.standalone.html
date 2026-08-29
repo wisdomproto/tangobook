@@ -2875,7 +2875,73 @@ function snapToGrid(H){
     if (rms < 1.0) break;
   }
   reco.snapRms = rms;
-  return best;
+  return alignToLattice(best);
+}
+
+/* 🔴 인식부 위치를 **줄마다 점을 세서** 맞춘다.
+   변을 극점으로 정한 사각형은 늘 한 칸쯤 밀려 있고, 그 한 칸 때문에 크롭을 좁히면
+   가장자리 블록이 잘리고 넓히면 테두리가 글자로 읽힌다 — 자르는 자리를 고쳐서는
+   못 푸는 문제다.
+   점밭이 어디서 시작하고 끝나는지는 **줄에 점이 몇 개 있느냐**로 알 수 있다.
+   블록이 몇 개를 가려도 줄 전체가 비지는 않으므로, 극값과 달리 점 하나에 안 흔들린다.
+   관측한 범위를 기대 범위(여백 MARGIN ~ MARGIN+칸수)에 맞추면 위치와 배율이 같이 잡힌다. */
+function alignToLattice(H){
+  var cell = SNAP_CELL;
+  for (var pass = 0; pass < 2; pass++){
+    grabSnap(H);
+    var W = snapBuf.W, Hh = snapBuf.H, N = W*Hh, i;
+    var L = new Float32Array(N);
+    for (i = 0; i < N; i++)
+      L[i] = (snapBuf.buf[i*4]*0.3 + snapBuf.buf[i*4+1]*0.6 + snapBuf.buf[i*4+2]*0.1)/255;
+    var rel = darkRel(L, W, Hh, cell*0.7, (reco.playInfo && reco.playInfo.kind === '돌기'));
+    var hp = dotBlobs(rel, W, Hh, relThreshold(rel, N), cell*cell*0.01, cell*cell*0.45);
+    if (hp.length < 60){ reco.latFit = null; return H; }
+
+    var nc = Math.round(W/cell), nr = Math.round(Hh/cell);
+    var cCnt = new Int32Array(nc + 1), rCnt = new Int32Array(nr + 1);
+    for (i = 0; i < hp.length; i++){
+      var ci = Math.round(hp[i][0]/cell), ri = Math.round(hp[i][1]/cell);
+      if (ci >= 0 && ci <= nc) cCnt[ci]++;
+      if (ri >= 0 && ri <= nr) rCnt[ri]++;
+    }
+    /* 「점이 있는 줄」의 중앙값을 기준으로, 그 35% 를 넘는 줄만 판 안으로 본다.
+       그 다음 **가장 긴 연속 구간**만 남긴다 — 멀리 떨어진 곳의 우연한 줄을 뗀다. */
+    function span(cnt){
+      var vs = [];
+      for (var k = 0; k < cnt.length; k++) if (cnt[k] > 0) vs.push(cnt[k]);
+      if (vs.length < 4) return null;
+      vs.sort(function(a, b){ return a - b; });
+      var thr = Math.max(2, vs[(vs.length*0.5)|0] * 0.35);
+      var best = null, cur = null;
+      for (k = 0; k < cnt.length; k++){
+        if (cnt[k] >= thr){
+          if (cur && k === cur[1] + 1) cur[1] = k;
+          else cur = [k, k];
+          if (!best || (cur[1]-cur[0]) > (best[1]-best[0])) best = [cur[0], cur[1]];
+        } else cur = null;
+      }
+      return best;
+    }
+    var cs = span(cCnt), rs = span(rCnt);
+    if (!cs || !rs){ reco.latFit = null; return H; }
+
+    var obsW = cs[1] - cs[0], obsH = rs[1] - rs[0];
+    if (obsW < GRID_W*0.5 || obsH < GRID_H*0.5){ reco.latFit = null; return H; }
+    /* 기대 범위 — 점밭은 인식부의 네 귀퉁이까지 있다 */
+    var expX0 = MARGIN, expX1 = MARGIN + GRID_W;
+    var expY0 = MARGIN, expY1 = MARGIN + GRID_H;
+    reco.latFit = { 열:cs.join('~'), 행:rs.join('~'), 기대:expX0+'~'+expX1+' / '+expY0+'~'+expY1 };
+    var sx = obsW / (expX1 - expX0), sy = obsH / (expY1 - expY0);
+    if (!(sx > 0.6 && sx < 1.6 && sy > 0.6 && sy < 1.6)) return H;
+    /* 기대 자리 u 를 관측 자리로 보내는 변환 — 그래야 다음 워프에서 점이 제자리에 온다 */
+    var A = [ sx, 0, 0,
+              0, sy, 0,
+              (cs[0] - expX0*sx)*cell/W, (rs[0] - expY0*sy)*cell/Hh, 1 ];
+    if (Math.abs(sx-1) < 0.004 && Math.abs(sy-1) < 0.004 &&
+        Math.abs(A[6]) < 0.002 && Math.abs(A[7]) < 0.002) break;
+    H = mat3mul(H, A);
+  }
+  return H;
 }
 
 
