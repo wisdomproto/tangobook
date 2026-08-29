@@ -3848,9 +3848,13 @@ function startWebcam(){
   /* 🔴 1920×1080 을 요구하면 USB 대역폭이 모자란 카메라·허브에서 프레임이
         깨진 채로 온다(빨강·초록 가로 띠). 720p 면 판을 읽는 데 충분하고,
         검출은 어차피 672px 로 줄여서 본다. 필요하면 아래 숫자만 올리면 된다. */
-  navigator.mediaDevices.getUserMedia({
-    video: { width:{ ideal:1280 }, height:{ ideal:720 }, frameRate:{ ideal:15 } }, audio:false
-  }).then(function(stream){
+  /* 🔴 실패하면 **조건 없이 한 번 더** 열어 본다. 「Could not start video source」
+        는 대개 다른 탭·앱이 카메라를 잡고 있을 때 나오는데, 그때 카메라는 이미 열린
+        모드 그대로만 내준다 — 720p 를 콕 집으면 거절당하고 맨 요청은 통한다. */
+  var ideal = { video: { width:{ ideal:1280 }, height:{ ideal:720 }, frameRate:{ ideal:15 } }, audio:false };
+  navigator.mediaDevices.getUserMedia(ideal)
+    .catch(function(){ return navigator.mediaDevices.getUserMedia({ video:true, audio:false }); })
+    .then(function(stream){
     var v = document.createElement('video');
     v.autoplay = true; v.playsInline = true; v.muted = true;
     v.srcObject = stream;
@@ -3887,15 +3891,24 @@ function startWebcam(){
       photo.timer = setInterval(invalidate, 150);
     });
   }).catch(function(err){
-    alert('웹캠을 열지 못했습니다: ' + err.message);
+    var why = (err && err.name === 'NotReadableError')
+      ? '카메라를 다른 곳이 쓰고 있습니다.\n이 페이지를 열어 둔 다른 탭을 닫거나, 영상통화·카메라 앱을 끝낸 뒤 다시 눌러 주세요.'
+      : (err && err.name === 'NotAllowedError')
+      ? '카메라 권한이 막혀 있습니다. 주소창 왼쪽 자물쇠 → 카메라 허용.'
+      : (err && err.message) || String(err);
+    alert('웹캠을 열지 못했습니다.\n\n' + why);
   });
 }
 
 /* 🔴 페이지를 떠날 때 카메라를 놓아 준다. 안 놓으면 새로고침한 다음 스트림이
       겹쳐 열려 프레임이 깨지는 카메라가 있다. */
-window.addEventListener('beforeunload', function(){
+/* 🔴 beforeunload 만으로는 모자란다 — bfcache 로 들어가거나 탭이 버려질 때는
+      안 불려서 스트림이 살아남고, 다음번에 「Could not start video source」가 난다. */
+function releaseCamera(){
   if (photo.stream) photo.stream.getTracks().forEach(function(t){ t.stop(); });
-});
+}
+window.addEventListener('beforeunload', releaseCamera);
+window.addEventListener('pagehide', releaseCamera);
 
 function stopPhoto(){
   wordHist = [];
