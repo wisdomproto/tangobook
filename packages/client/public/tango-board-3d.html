@@ -934,6 +934,7 @@ var TUNE = {
   choLo: 20,  choHi: 80,      // 노랑~주황 = 자음 (실측 45°)
   jungLo: 110, jungHi: 195,   // 연두~민트 = 모음 (실측 156°, 판 216° 는 제외)
   boardLuma: 0.40,            // 판 외곽 검출 밝기 하한
+  recoEveryMs: 250,           // 분석 간격 — 미리보기는 이것과 무관하게 매 프레임 그린다
   detW: 1440,   // 🔴 핀을 보려면 이 정도는 필요하다 — 672px 에선 핀이 2~3px 이라 모양 조건을 통과 못 한다                  // 🔴 판을 찾는 해상도 — 인식용 336px 버퍼를 빌려 쓰던 게 떨림의 주범
   gridLo: 0.45, gridHi: 0.668, // 격자 바닥 밝기 밴드 (무늬 모드를 끄면 이걸 쓴다)
   useLines: true,             // 🔴 인식부 틀 = 긴 직선 네 개 (기본)
@@ -1074,7 +1075,11 @@ function initDetect(W, H){
 
 /** 폰 화면을 검출용 해상도로 그대로 받아온다 (워프 없음). */
 function grabDetect(){
-  var W = TUNE.detW, H = Math.round(W * camSim.H / camSim.W);
+  /* 🔴 **긴 변**을 기준으로 잡는다. 가로만 고정하면 세로 화면에서 높이가 폭발해
+        (1440x2560 = 3.7M화소) 한 프레임이 몇 배로 느려진다. */
+  var W, H;
+  if (camSim.W >= camSim.H){ W = TUNE.detW; H = Math.round(W * camSim.H / camSim.W); }
+  else { H = TUNE.detW; W = Math.round(H * camSim.W / camSim.H); }
   initDetect(W, H);
   gl.bindFramebuffer(gl.FRAMEBUFFER, detBuf.fbo);
   gl.viewport(0, 0, W, H);
@@ -2562,8 +2567,27 @@ function findPlayQuad(){
         실물 프레임 셋은 0.61~0.63 이고, 같은 프레임의 오검출 후보는 0.11 이었다.
         「과반」은 맞춘 숫자가 아니라 뜻으로 정해지는 바다. */
   function usable(r){ return r && r.share > 0.5 ? r : null; }
-  var a = usable(findPlayQuadPolarity(false));   // 구멍
-  var b2 = usable(findPlayQuadPolarity(true));   // 돌기
+  /* 🔴 두 극성을 매 프레임 다 돌리지 않는다. 한 번 훑는 데 150만 화소이고
+        폰에서는 그게 몇 배로 온다 — 판을 잡기 전 스물네 프레임을 모으는 동안
+        사용자는 그 두 배를 기다린다.
+        어느 쪽이 맞는지는 판마다 정해져 있다(구멍 있는 판은 구멍, 새 판은 돌기).
+        그러니 **한 번만 둘 다 보고 이긴 쪽을 기억**했다가 그 뒤로는 그것만 쓴다.
+        놓치기 시작하면 기억을 지우고 다시 둘 다 본다. */
+  var a = null, b2 = null;
+  if (camSim.polarity == null){
+    a = usable(findPlayQuadPolarity(false));   // 구멍
+    b2 = usable(findPlayQuadPolarity(true));   // 돌기
+    var na0 = a ? a.pins : -1, nb0 = b2 ? b2.pins : -1;
+    if (a || b2) camSim.polarity = na0 >= nb0 ? 'dark' : 'bright';
+  } else if (camSim.polarity === 'dark'){
+    a = usable(findPlayQuadPolarity(false));
+    if (!a && ++camSim.polMiss > 3){ camSim.polarity = null; camSim.polMiss = 0; }
+    else if (a) camSim.polMiss = 0;
+  } else {
+    b2 = usable(findPlayQuadPolarity(true));
+    if (!b2 && ++camSim.polMiss > 3){ camSim.polarity = null; camSim.polMiss = 0; }
+    else if (b2) camSim.polMiss = 0;
+  }
   var na = a ? a.pins : -1, nb = b2 ? b2.pins : -1;
   var pick = na >= nb ? a : b2;
   if (!pick){
@@ -3750,6 +3774,8 @@ function uploadPhotoFrame(){
   var sw = src.videoWidth || src.naturalWidth || src.width;
   var sh = src.videoHeight || src.naturalHeight || src.height;
   if (!sw || !sh) return false;
+  if (fitCamBuffer(src)) return false;   // 버퍼를 다시 잡았다 — 다음 프레임부터
+  if (!simFbo && !initCamSim()) return false;
   if (!photo.cv){
     photo.cv = document.createElement('canvas');
     photo.ctx = photo.cv.getContext('2d');
@@ -3881,6 +3907,28 @@ function samplePick(){
                  '</b> · 색상 <b>' + hue + '</b> <span class="dim">(최대 ' + mx.toFixed(2) + ')</span>';
 }
 
+/* 🔴 들어온 그림의 가로세로에 **버퍼를 맞춘다**. 폰 카메라는 세로라 4:3 가로
+      버퍼에 넣으면 좌우가 통째로 검은 띠가 되고, 판이 쓸 수 있는 화소가 절반으로
+      준다 — 판이 화면을 못 채우는 상황에서 그 절반은 치명적이다.
+      긴 변을 2160 으로 두고 짧은 변만 비율대로 잡는다. 검출 버퍼도 이 비율을
+      따라가므로(grabDetect 가 camSim 비율에서 크기를 낸다) 별도 손질이 없다. */
+function fitCamBuffer(src){
+  var sw = (src && (src.videoWidth || src.naturalWidth || src.width)) || 0;
+  var sh = (src && (src.videoHeight || src.naturalHeight || src.height)) || 0;
+  if (!sw || !sh) return false;
+  var long = 2160;
+  var W = sw >= sh ? long : Math.round(long * sw / sh);
+  var H = sw >= sh ? Math.round(long * sh / sw) : long;
+  W = Math.max(64, W - (W % 4)); H = Math.max(64, H - (H % 4));
+  if (camSim.W === W && camSim.H === H) return false;
+  camSim.W = W; camSim.H = H;
+  if (simTex){ gl.deleteTexture(simTex); simTex = null; }
+  if (simDepth){ gl.deleteRenderbuffer(simDepth); simDepth = null; }
+  if (simFbo){ gl.deleteFramebuffer(simFbo); simFbo = null; }
+  photo.cv = null;                    // 중간 캔버스도 새 크기로 다시 만든다
+  return true;
+}
+
 function setPhotoSource(src){
   wordHist = [];
   photo.src = src;
@@ -3964,7 +4012,7 @@ function startWebcam(){
           .catch(function(){ photo.lockInfo = '고정 실패'; invalidate(); });
       };
       // 매 프레임 2160×1620 을 올릴 이유는 없다 — 손으로 블록을 옮기는 속도면 충분하다
-      photo.timer = setInterval(invalidate, 150);
+      photo.timer = setInterval(invalidate, 33);   // 미리보기는 30fps — 분석은 recoEveryMs 로 따로
     });
   }).catch(function(err){
     /* 🔴 NotReadableError 를 「다른 곳이 쓰는 중」으로 단정하면 안 된다. 카메라가
@@ -4051,6 +4099,14 @@ function stopPhoto(){
   if (photo.stream){ photo.stream.getTracks().forEach(function(t){ t.stop(); }); photo.stream = null; }
   if (photo.video && photo.video.parentNode) photo.video.parentNode.removeChild(photo.video);
   photo.video = null; photo.src = null; photo.on = false;
+  camSim.polarity = null; camSim.polMiss = 0;
+  if (camSim.W !== 2160 || camSim.H !== 1620){
+    camSim.W = 2160; camSim.H = 1620;
+    if (simTex){ gl.deleteTexture(simTex); simTex = null; }
+    if (simDepth){ gl.deleteRenderbuffer(simDepth); simDepth = null; }
+    if (simFbo){ gl.deleteFramebuffer(simFbo); simFbo = null; }
+    photo.cv = null;
+  }
   camSim.lastH = null;
   photo.lockFn = null; photo.lockInfo = null;
   document.body.classList.remove('photo-on');
@@ -4169,6 +4225,17 @@ function drawCamSim(){
   gl.viewport(0, 0, canvas.width, canvas.height);
   }
 
+  /* 🔴 **미리보기와 분석을 같은 박자로 돌리지 않는다.** 예전에는 한 덩어리라
+        미리보기가 인식이 끝나야 다음 프레임을 그렸다 — 폰에서 인식이 0.5초면
+        미리보기도 2fps 가 되어 「느리다」로 보인다. 화면에 그리는 일은 싸고
+        (텍스처 올리고 사각형 두 장), 판을 찾고 글자를 맞추는 일은 비싸다.
+        분석은 정해진 간격으로만 하고, 그 사이에는 **마지막 결과를 계속 보여준다**.
+        판과 카메라는 고정이라 그동안 화면이 틀려질 일도 없다. */
+  var nowMs = (typeof performance !== 'undefined' ? performance.now() : Date.now());
+  var doReco = !camSim.lastRecoAt || (nowMs - camSim.lastRecoAt) >= TUNE.recoEveryMs;
+  if (!doReco){ blitCamViews(null); return; }
+  camSim.lastRecoAt = nowMs;
+
   // 놀이 영역 네 모서리를 투영해 「판을 편」 호모그래피를 만든다
   var x0 = boardOrigin.x, x1 = boardOrigin.x + GRID_W*PITCH;
   var y0 = boardOrigin.y, y1 = boardOrigin.y - GRID_H*PITCH;
@@ -4282,6 +4349,13 @@ function drawCamSim(){
     }
   }
 
+  if (H) camSim.lastH = H;
+  blitCamViews(H);
+  gl.enable(gl.DEPTH_TEST);
+}
+
+/** 카메라 화면과 펴진 판만 그린다 — 분석 없이도 부를 수 있다. */
+function blitCamViews(H){
   var aspect = canvas.width / canvas.height;
   var w = camOnly ? 0.94 : 0.56, h = w * (camSim.H/camSim.W) * aspect;
   var x0 = camOnly ? (1 - w)/2 : 1 - w - 0.03;
@@ -4296,7 +4370,6 @@ function drawCamSim(){
      🔴 한 프레임 놓쳤다고 창을 지우지 않는다. 판은 그대로 있는데 아래 화면만
         사라졌다 나타나면 보는 사람에게는 정보가 아니라 방해다 — 마지막으로
         잘 잡은 그림을 계속 보여준다. */
-  if (H) camSim.lastH = H;
   var showH = H || camSim.lastH;
   if (showH) blitTex([x0, y0 - gh - 0.03, w, gh],
                      mat3mul(showH, [1, 0, 0, 0, -1, 0, 0, 1, 1]));
