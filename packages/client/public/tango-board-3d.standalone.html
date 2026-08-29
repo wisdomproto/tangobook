@@ -3613,6 +3613,30 @@ function startWebcam(){
     return v.play().then(function(){
       photo.video = v; photo.stream = stream;
       setPhotoSource(v);
+      /* 🔴 판은 가만히 있어도 카메라는 가만히 있지 않는다. 자동 노출·화이트밸런스가
+            계속 재조정되면 프레임마다 밝기와 색이 달라지고, 문턱을 화면 분포에서
+            뽑는 이상 블록 가장자리가 한두 픽셀씩 들락거린다. 그 몇 픽셀이 칸
+            경계를 넘나들면 조합 판단이 뒤집힌다.
+            처음 1.5초는 자동으로 맞추게 두고(어두운 채로 굳으면 더 나쁘다) 그 다음
+            고정한다. 지원 안 하는 카메라도 많으므로 실패는 조용히 넘긴다. */
+      setTimeout(function(){
+        var t = stream.getVideoTracks()[0];
+        if (!t || !t.getCapabilities) return;
+        var caps = {};
+        try { caps = t.getCapabilities() || {}; } catch (e) { return; }
+        var want = {}, names = [];
+        function lock(key, mode){
+          var list = caps[key];
+          if (list && list.indexOf && list.indexOf(mode) >= 0){ want[key] = mode; names.push(key.replace('Mode','')); }
+        }
+        lock('exposureMode', 'manual');
+        lock('whiteBalanceMode', 'manual');
+        lock('focusMode', 'manual');
+        if (!names.length){ photo.lockInfo = '고정 미지원'; return; }
+        t.applyConstraints({ advanced: [want] })
+          .then(function(){ photo.lockInfo = '고정 ' + names.join('·'); })
+          .catch(function(){ photo.lockInfo = '고정 실패'; });
+      }, 1500);
       // 매 프레임 2160×1620 을 올릴 이유는 없다 — 손으로 블록을 옮기는 속도면 충분하다
       photo.timer = setInterval(invalidate, 150);
     });
@@ -4485,7 +4509,8 @@ new ResizeObserver(function(){
 function foundByLabel(){
   if (camSim.foundBy === 'play'){
     var pi = reco.playInfo || {};
-    return (pi.kind || '핀') + ' <span class="dim">' + (pi.pins || 0) +
+    return (pi.kind || '핀') + ' <span class="dim">' +
+           (photo.lockInfo ? photo.lockInfo + ' · ' : '') + (pi.pins || 0) +
            '개 · 간격 ' + (pi.pitch || 0).toFixed(1) + 'px' +
            (reco.snapRms != null ? ' · 어긋남 ' + reco.snapRms.toFixed(2) + 'px' : '') +
            '</span>';
