@@ -2441,11 +2441,32 @@ function mat3mul(A, B){          // 열 우선 3x3
 }
 
 /** 1차 점들이 빽빽한 곳 = 인식부 후보. 문턱을 다시 재려고 쓴다. */
+/* 🔴 점 밀도는 세기 전에 이웃까지 번진다. 칸 하나에 점이 보통 한 개라,
+      번지지 않으면 「가장 많은 칸」이 우연히 2~3개 몰린 칸이 되고, 그 25% 문턱이
+      「두 개 이상」을 뜻해 격자의 절반을 버린다. 실측: 인식부가 진짜 넣이의 52% 로
+      잡혀 판 가운데만 확대된 채 모핑됐다. (파이썬 원본에는 GaussianBlur 가 있었고
+      옮길 때 그 한 줄을 빼먹었다.) */
+function smooth3(a, w, h){
+  var t = new Float32Array(w*h), o = new Float32Array(w*h), x, y;
+  for (y = 0; y < h; y++) for (x = 0; x < w; x++){
+    var s2 = 0;
+    for (var d = -1; d <= 1; d++){ var xx = x+d; if (xx >= 0 && xx < w) s2 += a[y*w+xx]; }
+    t[y*w+x] = s2;
+  }
+  for (y = 0; y < h; y++) for (x = 0; x < w; x++){
+    var s3 = 0;
+    for (var e = -1; e <= 1; e++){ var yy = y+e; if (yy >= 0 && yy < h) s3 += t[yy*w+x]; }
+    o[y*w+x] = s3;
+  }
+  return o;
+}
+
 function roughRegion(pts, W, H, pitch){
   if (pts.length < 30) return null;
   var gw = Math.ceil(W/pitch)+2, gh = Math.ceil(H/pitch)+2, i;
   var dens = new Float32Array(gw*gh);
   pts.forEach(function(p){ dens[((p[1]/pitch)|0)*gw + ((p[0]/pitch)|0)] += 1; });
+  dens = smooth3(dens, gw, gh);
   var mx = 0;
   for (i = 0; i < dens.length; i++) if (dens[i] > mx) mx = dens[i];
   if (mx < 2) return null;
@@ -2475,15 +2496,22 @@ function roughRegion(pts, W, H, pitch){
  *  구멍(어두움)·돌기(밝음) 두 극성을 다 돌려 격자가 더 잘 서는 쪽을 쓴다. */
 function findPlayQuad(){
   grabDetect();
-  var a = findPlayQuadPolarity(false);   // 구멍
-  var b2 = findPlayQuadPolarity(true);   // 돌기
+  /* 🔴 가장 빽빽한 덩어리가 격자의 **과반을 담지 못하면** 판을 찾은 게 아니다.
+        규칙적으로 늘어선 점이 밖에 더 많은데 그 조각을 판이라 부르는 상황이다.
+        실측: 렌더에서 돌기 하나가 하이라이트 고리로 쌍갈려 가짜 격자(간격 10.8px,
+        참 41.5px)가 서고 그 조각이 인식부로 잡혔다 — 지분율 0.38.
+        실물 프레임 셋은 0.61~0.63 이고, 같은 프레임의 오검출 후보는 0.11 이었다.
+        「과반」은 맞춘 숫자가 아니라 뜻으로 정해지는 바다. */
+  function usable(r){ return r && r.share > 0.5 ? r : null; }
+  var a = usable(findPlayQuadPolarity(false));   // 구멍
+  var b2 = usable(findPlayQuadPolarity(true));   // 돌기
   var na = a ? a.pins : -1, nb = b2 ? b2.pins : -1;
   var pick = na >= nb ? a : b2;
   if (!pick){
     reco.playInfo = { why: (a ? '' : '구멍 실패 ') + (b2 ? '' : '돌기 실패') };
     return null;
   }
-  reco.playInfo = { pins: pick.pins, pitch: pick.pitch, thr: pick.thr,
+  reco.playInfo = { pins: pick.pins, share: pick.share, pitch: pick.pitch, thr: pick.thr,
                     kind: pick.bright ? '돌기' : '구멍',
                     other: (pick.bright ? na : nb) };
   return pick.quad;
@@ -2548,6 +2576,7 @@ function findPlayQuadPolarity(bright){
   var gw = Math.ceil(W/pitch)+2, gh = Math.ceil(H/pitch)+2;
   var dens = new Float32Array(gw*gh);
   lat.forEach(function(p){ dens[((p[1]/pitch)|0)*gw + ((p[0]/pitch)|0)] += 1; });
+  dens = smooth3(dens, gw, gh);
   var mx = 0;
   for (i = 0; i < dens.length; i++) if (dens[i] > mx) mx = dens[i];
   var dm = new Uint8Array(gw*gh);
@@ -2558,6 +2587,7 @@ function findPlayQuadPolarity(bright){
   for (i = 1; i < dcomps.length; i++) if (dcomps[i].area > dbig.area) dbig = dcomps[i];
   var inSet = new Uint8Array(gw*gh);
   dbig.px.forEach(function(k){ inSet[k] = 1; });
+  var latAll = lat.length;
   lat = lat.filter(function(p){ return inSet[((p[1]/pitch)|0)*gw + ((p[0]/pitch)|0)]; });
   if (lat.length < 40) return null;
 
@@ -2660,7 +2690,8 @@ function findPlayQuadPolarity(bright){
      한 칸 더 돌려야 한다. 네 회전을 실물 프레임에 다 걸어 재서 정한 상수다
      (회전3 만 「탄리」로 읽혔다 — 0:킅 1:러 2:크트 3:탄리). */
   return { quad: [uv[3], uv[0], uv[1], uv[2]],
-           pins: lat.length, pitch: pitch, thr: thr, bright: bright };
+           pins: lat.length, latAll: latAll, share: lat.length/latAll,
+           pitch: pitch, thr: thr, bright: bright };
 }
 
 /* 되맞춤용 큰 버퍼 — 인식용(칸 16px)에서는 구멍이 3px 이라 위치를 정밀하게 못 잰다.
@@ -4026,6 +4057,10 @@ function drawCamSim(){
             승자가 바뀌어 위아래가 번갈아 읽혔다. 고를 일이 아니라 정할 일이다.
             대신 사각형의 시작 모서리를 화면 기준으로 못 박아(위 findPlayQuad)
             같은 판이면 늘 같은 방향이 나오게 했다. */
+      /* 🔴 격자로 한 번 더 되맞춘다. 방향 탐색을 걸어내면서 이 호출이 같이
+            사라졌고(방향마다 따로 돌리는 함수 안에 있었다), 그 뒤로 모핑이 검출 네 점
+            그대로였다 — 변 회귀는 기울기만 맞고 배율이 몇 % 틀린다. */
+      if (camSim.refine) H = snapToGrid(H);
       grabWarped(H);
       reco.result = recognize();
       camSim.flipped = false;
@@ -4722,7 +4757,8 @@ function foundByLabel(){
     var pi = reco.playInfo || {};
     return (pi.kind || '핀') + ' <span class="dim">' +
            (photo.lockInfo ? photo.lockInfo + ' · ' : '') + (pi.pins || 0) +
-           '개 · 간격 ' + (pi.pitch || 0).toFixed(1) + 'px' +
+           '개(지분 ' + (pi.share != null ? pi.share.toFixed(2) : '?') + ') · 간격 ' +
+           (pi.pitch || 0).toFixed(1) + 'px' +
            (reco.snapRms != null ? ' · 어긋남 ' + reco.snapRms.toFixed(2) + 'px' : '') +
            '</span>';
   }
