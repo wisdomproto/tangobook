@@ -3577,6 +3577,7 @@ function samplePick(){
 }
 
 function setPhotoSource(src){
+  wordHist = [];
   photo.src = src;
   photo.on = true;
   camSim.on = true;
@@ -3620,6 +3621,7 @@ window.addEventListener('beforeunload', function(){
 });
 
 function stopPhoto(){
+  wordHist = [];
   hold.q = null; hold.miss = 0; hold.off = 0; hold.lock = false; hold.calm = 0; hold.hist = [];
   if (photo.timer){ clearInterval(photo.timer); photo.timer = null; }
   if (photo.stream){ photo.stream.getTracks().forEach(function(t){ t.stop(); }); photo.stream = null; }
@@ -4190,9 +4192,28 @@ function boardWord(){
       판 위 블록 좌표를 직접 읽으면(boardWord) 거치가 틀어져 카메라가 아무것도
       못 보는 상황에서도 정답이 뜬다 — 실물이라면 아이가 낱말을 만들어도
       아무 반응이 없어야 맞다. 카메라 시뮬을 끈 상태에서만 판을 직접 읽는다. */
+/* 🔴 판은 안 움직이는데 읽은 값은 프레임마다 흔들린다 — 얇은 블록일수록
+      경계에 걸려 ㅣ↔ㅐ 처럼 넘나든다(실측: 같은 프레임은 4번 다 「탄리」로
+      결정적이었고, 흔들림은 프레임 사이에서만 생겼다. ㅣ 만 0.66, 나머지는 0.88~0.91).
+      그래서 사각형에 중앙값을 쓴 것과 같은 이유로, 읽은 낱말도 최근 몇 판의
+      다수결로 낸다. 새 답이 확실해질 때까지 화면이 요동치지 않는다. */
+var WORD_HIST = 7;
+var wordHist = [];
+
+function voteWord(w){
+  wordHist.push(w);
+  if (wordHist.length > WORD_HIST) wordHist.shift();
+  var count = {}, best = w, bestN = 0;
+  wordHist.forEach(function(x){
+    count[x] = (count[x] || 0) + 1;
+    if (count[x] > bestN){ bestN = count[x]; best = x; }
+  });
+  return best;
+}
+
 function readBoard(){
   var truth = boardWord();
-  var w = camSim.on ? ((reco.result && reco.result.word) || '') : truth;
+  var w = camSim.on ? voteWord((reco.result && reco.result.word) || '') : truth;
   var blind = camSim.on && !camSim.detected;
   outEl.textContent = w || (blind ? '판이 안 보여요' : '블록을 옮겨 보세요');
   outEl.classList.toggle('empty', !w);
