@@ -116,7 +116,9 @@
     border-radius:9px; padding:7px 9px; font-size:12px; font-family:inherit; width:100%;
     box-sizing:border-box;
   }
-  #camMask{
+  .cam-cap{font-size:10.5px; color:#7f9a92; letter-spacing:.02em}
+  #camPick{width:100%; border-radius:6px; cursor:crosshair; display:block}
+  #camMask, #camDet{
     width:100%; image-rendering:pixelated; border-radius:6px;
     border:1px solid rgba(255,255,255,.12); background:#111;
   }
@@ -268,17 +270,82 @@
           <input type="range" id="tHue" min="-60" max="60" value="0" step="1">
           <span class="cam-val" id="tHueV">0°</span></div>
         <div class="cam-row"><label for="tSat">채도 하한</label>
-          <input type="range" id="tSat" min="2" max="40" value="10" step="1">
-          <span class="cam-val" id="tSatV">0.10</span></div>
+          <input type="range" id="tSat" min="2" max="40" value="5" step="1">
+          <span class="cam-val" id="tSatV">0.05</span></div>
         <div class="cam-row"><label for="tLit">밝기 하한</label>
-          <input type="range" id="tLit" min="20" max="95" value="70" step="1">
-          <span class="cam-val" id="tLitV">0.70</span></div>
+          <input type="range" id="tLit" min="20" max="95" value="62" step="1">
+          <span class="cam-val" id="tLitV">0.62</span></div>
         <div class="cam-row"><label for="tBoard">판 밝기</label>
           <input type="range" id="tBoard" min="10" max="90" value="40" step="1">
           <span class="cam-val" id="tBoardV">0.40</span></div>
+        <div class="cam-row"><label for="tGridLo">격자 밝기 ↓</label>
+          <input type="range" id="tGridLo" min="5" max="95" value="45" step="1">
+          <span class="cam-val" id="tGridLoV">0.45</span></div>
+        <div class="cam-row"><label for="tGridHi">격자 밝기 ↑</label>
+          <input type="range" id="tGridHi" min="10" max="100" value="67" step="1">
+          <span class="cam-val" id="tGridHiV">0.67</span></div>
+        <div class="cam-row"><label for="tBoardSat">판 채도 상한</label>
+          <input type="range" id="tBoardSat" min="2" max="50" value="34" step="1">
+          <span class="cam-val" id="tBoardSatV">0.34</span></div>
+        <div class="cam-row"><label for="tRect">사각형 채움률</label>
+          <input type="range" id="tRect" min="40" max="98" value="55" step="1">
+          <span class="cam-val" id="tRectV">0.55</span></div>
+        <div class="cam-row"><label for="tDetW">검출 해상도</label>
+          <input type="range" id="tDetW" min="336" max="2160" value="1440" step="48">
+          <span class="cam-val" id="tDetWV">1440px</span></div>
+        <div class="cam-row"><label for="tTex">무늬 대비</label>
+          <input type="range" id="tTex" min="2" max="40" value="10" step="1">
+          <span class="cam-val" id="tTexV">0.10</span></div>
+        <label class="cam-check" title="조용해지면 판 자리를 못 박는다 — 판은 안 움직이니까">
+          <input type="checkbox" id="holdAuto" checked> 안정되면 자동 고정</label>
+        <div class="cam-row"><label for="tPin">핀 대비</label>
+          <input type="range" id="tPin" min="2" max="25" value="6" step="1">
+          <span class="cam-val" id="tPinV">0.06</span></div>
+        <div class="cam-row"><label for="tPinS">인식부 여백</label>
+          <input type="range" id="tPinS" min="80" max="110" value="90" step="1">
+          <span class="cam-val" id="tPinSV">0.90</span></div>
+        <div class="cam-row"><label for="tLine">선 세기</label>
+          <input type="range" id="tLine" min="2" max="30" value="10" step="1">
+          <span class="cam-val" id="tLineV">0.10</span></div>
+        <div class="cam-row"><label for="tCellTol">칸수 허용 오차</label>
+          <input type="range" id="tCellTol" min="10" max="90" value="25" step="5">
+          <span class="cam-val" id="tCellTolV">0.25</span></div>
+        <div class="cam-row"><label for="tPinFill">틀 안 핀 비율</label>
+          <input type="range" id="tPinFill" min="0" max="30" value="4" step="1">
+          <span class="cam-val" id="tPinFillV">0.04</span></div>
+        <label class="cam-check"><input type="checkbox" id="tUseLines" checked>
+          인식부 틀(직선 4개)로 찾기</label>
+        <label class="cam-check"><input type="checkbox" id="tUsePins">
+          핀 격자로 찾기 (예비)</label>
+        <label class="cam-check"><input type="checkbox" id="tUseShape" checked>
+          형태(윤곽)로 판 찾기</label>
+        <label class="cam-check"><input type="checkbox" id="tUseTex">
+          점무늬로 격자 찾기 (실험)</label>
+        <label class="cam-check"><input type="checkbox" id="tAuto" checked>
+          밝기 경계 자동 (Otsu)</label>
+        <div class="cam-cap">카메라 화면 — 눌러서 색 재기</div>
+        <canvas id="camPick"></canvas>
+        <div class="cam-note" id="camPickV">판을 한 번 눌러 보세요</div>
+        <div class="cam-note"><b style="color:#39d98a">초록 점선</b> 찾은 판 외곽 ·
+          <b style="color:#ff6b3d">주황</b> 거기서 유도한 인식부</div>
+        <div class="cam-shot">
+          <button id="camSave" title="지금 웹캠 프레임을 파일로 저장한다 — 같은 그림으로 검출을 돌려 보려면 이게 필요하다">💾 프레임 저장</button>
+        </div>
+        <div class="cam-shot">
+          <button id="holdLock" title="지금 잡은 판 자리를 붙잡아 둔다 — 판은 안 움직이니까">📌 판 고정</button>
+          <button id="holdReset" title="다시 찾게 한다">↺ 다시 찾기</button>
+        </div>
+        <div class="cam-shot">
+          <button id="pickGrid" title="찍은 자리를 격자로 본다">격자 밴드를 여기에</button>
+          <button id="pickJamo" title="찍은 자리를 블록 색으로 본다">블록 색을 여기에</button>
+        </div>
+        <div class="cam-cap">격자로 잡은 것</div>
+        <canvas id="camDet"></canvas>
+        <div class="cam-cap">자모로 분류한 것</div>
         <canvas id="camMask"></canvas>
-        <div class="cam-note">전경이 통째로 비면 <b>색상 회전</b>, 두 색이 뭉치면 <b>채도 하한</b>,
-          블록 옆면까지 먹으면 <b>밝기 하한</b>을 올린다.</div>
+        <div class="cam-note">펴진 판이 흔들리면 판이 아닌 것을 잡은 것이다 — <b>격자 밝기</b> 밴드를
+          실물 판에 맞춘다. 자모가 통째로 비면 <b>색상 회전</b>, 두 색이 뭉치면
+          <b>채도 하한</b>, 블록 옆면까지 먹으면 <b>밝기 하한</b>.</div>
       </div>
       <div class="cam-reco" id="camReco"></div>
       <button id="camSweep">전 조건 스윕</button>
@@ -771,14 +838,51 @@ var TOP_LIT = 0.70;                  // 이보다 어두우면 블록 옆면으�
    렌더에 맞춰 굳어 있다. 실제 카메라는 조명·화이트밸런스로 색상각이 통째로
    밀리므로(주황이 60°를 넘어가면 자음이 통째로 사라진다), 사진을 넣을 땐
    여기를 돌려 가며 맞춘다. 기본값 = 렌더에서 확정한 값. */
+/* 🔴 실물 한 장을 재고 나서 고친 값들 (2026-08-29).
+      재기 전 값은 렌더에서 나온 것이고, 실물은 이렇게 달랐다:
+
+        연두 ㅏ(모음)  색상 156°  채도 0.10  밝기 0.74
+        노랑 ㄷ(자음)  색상  45°  채도 0.13  밝기 0.80
+        판 흰면        색상 216°  채도 0.20  밝기 0.80
+        나무 바닥      색상  10°  채도 0.09  밝기 0.29
+
+      🔴 「판은 무채색」이 틀렸다 — 조명 탓에 흰 판이 푸르게 떠서 화면에서
+         **채도가 가장 높은 것이 판**이다. 블록은 파스텔이라 오히려 옅다.
+      🔴 채도 문턱 0.10 은 연두 블록(0.102)과 겹쳐 있었다. 조명이 조금만
+         흔들려도 붙었다 떨어졌다 해서, 그게 화면 깜빡임으로 보였다.
+      🔴 전경/배경은 채도가 아니라 **밝기**로 갈린다(블록 0.78~0.83 vs 바닥 0.34).
+      🔴 판(216°)은 두 색 밴드 밖이라 색상만으로 걸러진다 — 상한을 200 위로
+         올리면 판 전체가 모음으로 들어온다. */
 var TUNE = {
   hueRot: 0,        // 색상 회전(°) — 화이트밸런스 밀림 보정
-  sat: 0.10,        // 이보다 채도가 낮으면 판/그림자
-  lit: TOP_LIT,     // 이보다 어두우면 블록 옆면
-  choLo: 5,   choHi: 60,      // 주황 = 자음
-  jungLo: 120, jungHi: 190,   // 민트 = 모음
+  blockK: 9.0,     // 판 색 퍼짐(MAD)의 몇 배부터 블록으로 볼지
+  sat: 0.05,        // 실측 연두 0.10 · 노랑 0.13 — 그 아래로 내려 여유를 둔다
+  lit: 0.62,        // 실측 블록 최대채널 0.78~0.83 · 바닥 0.34 · 트레이 0.47
+  choLo: 20,  choHi: 80,      // 노랑~주황 = 자음 (실측 45°)
+  jungLo: 110, jungHi: 195,   // 연두~민트 = 모음 (실측 156°, 판 216° 는 제외)
   boardLuma: 0.40,            // 판 외곽 검출 밝기 하한
-  gridLo: 0.45, gridHi: 0.668 // 격자 바닥 밝기 밴드
+  detW: 1440,   // 🔴 핀을 보려면 이 정도는 필요하다 — 672px 에선 핀이 2~3px 이라 모양 조건을 통과 못 한다                  // 🔴 판을 찾는 해상도 — 인식용 336px 버퍼를 빌려 쓰던 게 떨림의 주범
+  gridLo: 0.45, gridHi: 0.668, // 격자 바닥 밝기 밴드 (무늬 모드를 끄면 이걸 쓴다)
+  useLines: true,             // 🔴 인식부 틀 = 긴 직선 네 개 (기본)
+  line: 0.10,                 // 직선으로 칠 기울기 세기
+  pinFill: 0.04,              // 사각형 안이 이만큼은 핀이어야 인식부로 본다
+  cellTol: 0.25,              // 칸수가 21×15 에서 이 이상 벗어나면 인식부가 아니다
+  usePins: false,             // 핀 구름에 사각형 맞추기 (예비)
+  pin: 0.06,                  // 주변보다 이만큼 어두우면 구멍
+  pinShrink: 0.90,            // 점을 부풀린 만큼 도로 당긴다
+  useShape: true,             // 색이 아니라 윤곽으로 판을 찾는다
+  rect: 0.55,                 // 사각형 채움률 — 이보다 낮으면 판이 아니다
+  edge: 0.10,                 // 윤곽 문턱 (자동을 끄면 이 값)
+  autoBoard: true,            // 경계를 화면에서 뽑는다 (Otsu)
+  boardSat: 0.34,             // 🔴 실측 판 채도 0.20 — 0.18 이면 판을 통째로 버린다
+  /* 🔴 점무늬 검출은 아직 기본이 아니다 — 렌더에서 재 보니 점무늬와 테두리 선이
+        이어져 판 전체를 한 덩어리로 잡았고(정답 x 51~285 ↔ 마스크 0~308) 모서리
+        오차 1.0 으로 낱말이 통째로 안 읽혔다. 「덩어리를 못 찾는 것」보다
+        「엉뚱한 덩어리를 찾는 것」이 나쁘다. 실험용으로만 남긴다. */
+  useTexture: false,
+  tex: 0.10,                  // 국소 대비 문턱 — 핀이 만드는 잔 대비
+  texLit: 0.30,               // 그늘진 배경의 잡티를 뺀다
+  texFill: 3                  // 점 사이를 메우는 반경
 };
 var reco = { on:false, fbo:null, tex:null, W:0, H:0, buf:null,
              templates:null, result:null, ms:0 };
@@ -869,6 +973,46 @@ function buildTemplates(){
   return out;
 }
 
+/* 🔴 판을 찾는 일과 판을 읽는 일은 필요한 해상도가 다르다.
+      「펴진 판」 버퍼는 격자 한 칸 = 16px 로 잡은 336×224 인데, 판 검출까지
+      그걸 빌려 쓰면 1920×1080 화면을 1/28 넓이로 줄여 놓고 테두리를 찾는 셈이다
+      (판 가로 130px · 핀 간격 6px · 테두리는 두어 픽셀짜리 선). 그 위에서 네 변을
+      회귀하면 프레임마다 흔들리는 게 당연하다. 검출은 따로, 크게 본다. */
+var detBuf = { fbo:null, tex:null, W:0, H:0, buf:null };
+
+function initDetect(W, H){
+  if (detBuf.W === W && detBuf.H === H) return;
+  if (detBuf.tex) gl.deleteTexture(detBuf.tex);
+  if (detBuf.fbo) gl.deleteFramebuffer(detBuf.fbo);
+  detBuf.W = W; detBuf.H = H;
+  detBuf.tex = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, detBuf.tex);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, W, H, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  detBuf.fbo = gl.createFramebuffer();
+  gl.bindFramebuffer(gl.FRAMEBUFFER, detBuf.fbo);
+  gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, detBuf.tex, 0);
+  gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+  detBuf.buf = new Uint8Array(W * H * 4);
+}
+
+/** 폰 화면을 검출용 해상도로 그대로 받아온다 (워프 없음). */
+function grabDetect(){
+  var W = TUNE.detW, H = Math.round(W * camSim.H / camSim.W);
+  initDetect(W, H);
+  gl.bindFramebuffer(gl.FRAMEBUFFER, detBuf.fbo);
+  gl.viewport(0, 0, W, H);
+  gl.clearColor(0, 0, 0, 1);
+  gl.clear(gl.COLOR_BUFFER_BIT);
+  blitTex([-1, -1, 2, 2], IDENT3);
+  gl.readPixels(0, 0, W, H, gl.RGBA, gl.UNSIGNED_BYTE, detBuf.buf);
+  gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+  gl.viewport(0, 0, canvas.width, canvas.height);
+}
+
 /** 펴진 판을 격자 좌표계로 굽고 픽셀을 읽어온다. */
 function grabWarped(H){
   gl.bindFramebuffer(gl.FRAMEBUFFER, reco.fbo);
@@ -884,19 +1028,67 @@ function grabWarped(H){
 /** 픽셀 -> 0(판) / 1(자음색) / 2(모음색).
  *  판이 무채색이라 채도 하나로 전경이 갈리고, 색상으로 두 종류를 나눈다. */
 function classifyPixels(buf, W, H){
-  var lab = new Uint8Array(W * H);
-  for (var i = 0, n = W*H; i < n; i++){
-    var r = buf[i*4] / 255, g = buf[i*4+1] / 255, b = buf[i*4+2] / 255;
-    var mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
-    if (mx < TUNE.lit || d < TUNE.sat) continue;  // 판·그림자·블록 옆면
-    var h;
-    if (mx === r) h = ((g - b) / d + 6) % 6;
-    else if (mx === g) h = (b - r) / d + 2;
-    else h = (r - g) / d + 4;
-    h = (h * 60 + TUNE.hueRot + 360) % 360;
-    if (h >= TUNE.choLo && h <= TUNE.choHi) lab[i] = 1;         // 주황 = 자음
-    else if (h >= TUNE.jungLo && h <= TUNE.jungHi) lab[i] = 2;  // 민트 = 모음
+  var N = W*H, i;
+  /* 🔴 고정 색상 밴드를 버렸다. 실물을 재 보니 흰 판이 조명 때문에 채도 0.20 으로
+        뜨고 파스텔 블록이 0.10 이라, **화면에서 제일 색이 진한 게 판**이었다.
+        카메라·조명이 바뀌면 그 순서는 또 뒤집힌다.
+        기준은 「판 자신의 색」이다 — 화면에서 뽑으므로 조명이 움직이면 같이 움직인다. */
+  var A = new Float32Array(N), B = new Float32Array(N), Y = new Float32Array(N);
+  for (i = 0; i < N; i++){
+    var r = buf[i*4]/255, g = buf[i*4+1]/255, b = buf[i*4+2]/255;
+    A[i] = r - g;                 // 적-녹
+    B[i] = 0.5*(r + g) - b;       // 황-청
+    Y[i] = r*0.3 + g*0.6 + b*0.1;
   }
+  function median(arr){
+    var s2 = Array.prototype.slice.call(arr).sort(function(x, y){ return x - y; });
+    return s2[(s2.length/2)|0];
+  }
+  var mA = median(A), mB = median(B);           // 판이 화면의 대부분이라 중앙값 = 판 색
+  var dist = new Float32Array(N);
+  for (i = 0; i < N; i++) dist[i] = Math.hypot(A[i]-mA, B[i]-mB);
+  var mD = median(dist);
+  var dev = new Float32Array(N);
+  for (i = 0; i < N; i++) dev[i] = Math.abs(dist[i] - mD);
+  var mad = median(dev) + 1e-6;
+  /* 🔴 「상위 N%」로 자르면 블록이 없을 때 판 잡음을 블록이라 부른다(실측 헛것 17개).
+        판 색의 퍼짐(MAD)에서 문턱을 잡으면 블록이 하나도 없어도 아무것도 안 나온다. */
+  var thr = mD + TUNE.blockK * mad;
+
+  var lab = new Uint8Array(N), fg = [];
+  for (i = 0; i < N; i++){
+    if (dist[i] <= thr) continue;
+    if (Y[i] < TUNE.lit * 0.55) continue;       // 그림자·블록 옆면
+    lab[i] = 1;
+    fg.push(i);
+  }
+  if (fg.length < 20) return lab;
+
+  /* 두 색을 나눈다 — 어느 색이 자음인지 미리 정하지 않고, 전경을 두 무리로 갈라
+     적-녹 축에서 더 붉은 쪽을 자음(주황 계열)으로 본다. 실측 노랑 ㄷ 은 +, 연두 ㅏ 는 −. */
+  var lo = 1e9, hi = -1e9;
+  for (i = 0; i < fg.length; i++){
+    var v = A[fg[i]] - mA;
+    if (v < lo) lo = v;
+    if (v > hi) hi = v;
+  }
+  var split = (lo + hi) / 2;
+  for (var k = 0; k < 8; k++){                  // 1차원 k-means 몇 바퀴
+    var s1 = 0, n1 = 0, s2 = 0, n2 = 0;
+    for (i = 0; i < fg.length; i++){
+      var vv = A[fg[i]] - mA;
+      if (vv >= split){ s1 += vv; n1++; } else { s2 += vv; n2++; }
+    }
+    if (!n1 || !n2) break;
+    var ns = (s1/n1 + s2/n2) / 2;
+    if (Math.abs(ns - split) < 1e-5) break;
+    split = ns;
+  }
+  for (i = 0; i < fg.length; i++){
+    lab[fg[i]] = (A[fg[i]] - mA >= split) ? 1 : 2;   // 1=자음(붉은쪽) 2=모음
+  }
+  reco.colorInfo = { boardA:+mA.toFixed(3), boardB:+mB.toFixed(3),
+                     thr:+thr.toFixed(3), split:+split.toFixed(3), fg:fg.length };
   return lab;
 }
 
@@ -1130,6 +1322,11 @@ function bestRefined(H0){
     var score = r.items.length + (r.word ? r.word.length * 2 : 0);
     if (!best || score > best.score) best = { H:cands[i].H, score:score, info:cands[i], res:r };
   }
+  /* 🔴 후보를 「인식 점수」로 고르는데 아무것도 안 읽히면 전부 0점이다.
+        그때 「가장 높은 것」은 사실상 아무거나이고, 프레임마다 다른 배율·위상이
+        뽑혀 화면이 통째로 튄다(실사에서 「겁나 왔다갔다」의 정체가 이것이었다).
+        근거가 없으면 고르지 않는다 — 원래 사각형을 그대로 쓴다. */
+  if (!best || best.score <= 0) return null;
   return best;
 }
 
@@ -1298,23 +1495,925 @@ function fitQuad(comp, W, H){
    책상/배경은 0.11. 그 사이 밴드를 무채색 조건과 함께 잡는다. */
 var GRID_LUMA_LO = 0.45, GRID_LUMA_HI = 0.668;
 
-function detectGridCorners(){
-  grabWarped(IDENT3);
-  var b = reco.buf, W = reco.W, H = reco.H;
-  var mask = new Uint8Array(W * H), n = 0;
-  for (var i = 0; i < W*H; i++){
-    var r = b[i*4]/255, g = b[i*4+1]/255, bl = b[i*4+2]/255;
-    var mx = Math.max(r, g, bl), mn = Math.min(r, g, bl);
-    if (mx - mn > 0.12) continue;                 // 블록은 채도가 있다
-    var v = r*0.3 + g*0.6 + bl*0.1;
-    if (v > TUNE.gridLo && v < TUNE.gridHi){ mask[i] = 1; n++; }
-  }
-  if (n < W*H*0.015) return null;
+/* 🔴 방 안에서 판만 가진 특징은 밝기가 아니라 「핀이 만드는 점무늬」다.
+      밝기로 찾으면 흰 판도 나무 바닥도 벽도 전부 「밝은 무채색 덩어리」라
+      가를 근거가 없다(실측: 바닥을 판으로 잡아 펴진 화면이 프레임마다 튀었다).
+      점무늬는 잔 대비가 촘촘히 서는 곳이라, 국소 대비를 재고 부풀리면
+      점 사이가 메워져 놀이 영역만 한 덩어리로 남는다. */
+function textureMask(b, W, H){
+  var L = new Float32Array(W*H);
+  for (var i = 0; i < W*H; i++) L[i] = (b[i*4]*0.3 + b[i*4+1]*0.6 + b[i*4+2]*0.1) / 255;
 
-  var comps = components(mask, W, H, 300);
+  // 3×3 국소 대비 — 핀 하나가 몇 px 이라 이 크기면 점이 잡힌다
+  var m = new Uint8Array(W*H), n = 0;
+  for (var y = 1; y < H-1; y++){
+    for (var x = 1; x < W-1; x++){
+      var lo = 1, hi = 0;
+      for (var dy = -1; dy <= 1; dy++){
+        for (var dx = -1; dx <= 1; dx++){
+          var v = L[(y+dy)*W + x+dx];
+          if (v < lo) lo = v;
+          if (v > hi) hi = v;
+        }
+      }
+      if (hi - lo > TUNE.tex && hi > TUNE.texLit){ m[y*W + x] = 1; n++; }
+    }
+  }
+  if (n < W*H*0.004) return null;
+
+  // 점 사이를 메운다 — 부풀렸다 줄이면(닫기) 점무늬가 면이 된다
+  function dilate(src, r){
+    var tmp = new Uint8Array(W*H), out = new Uint8Array(W*H), x, y, k;
+    for (y = 0; y < H; y++) for (x = 0; x < W; x++){
+      for (k = -r; k <= r; k++){ var xx = x+k; if (xx>=0 && xx<W && src[y*W+xx]){ tmp[y*W+x]=1; break; } }
+    }
+    for (y = 0; y < H; y++) for (x = 0; x < W; x++){
+      for (k = -r; k <= r; k++){ var yy = y+k; if (yy>=0 && yy<H && tmp[yy*W+x]){ out[y*W+x]=1; break; } }
+    }
+    return out;
+  }
+  function erode(src, r){
+    var tmp = new Uint8Array(W*H), out = new Uint8Array(W*H), x, y, k, ok;
+    for (y = 0; y < H; y++) for (x = 0; x < W; x++){
+      ok = 1;
+      for (k = -r; k <= r; k++){ var xx = x+k; if (xx>=0 && xx<W && !src[y*W+xx]){ ok=0; break; } }
+      tmp[y*W+x] = ok;
+    }
+    for (y = 0; y < H; y++) for (x = 0; x < W; x++){
+      ok = 1;
+      for (k = -r; k <= r; k++){ var yy = y+k; if (yy>=0 && yy<H && !tmp[yy*W+x]){ ok=0; break; } }
+      out[y*W+x] = ok;
+    }
+    return out;
+  }
+  var r = Math.max(1, Math.round(TUNE.texFill * W / 336));
+  return erode(dilate(m, r), r);
+}
+
+/* =====================================================================
+ * 핀 격자로 인식부를 바로 찾는다.
+ *
+ * 🔴 판 외곽을 찾아 비율로 인식부를 유도하면 단계가 둘이고, 앞 단계가 틀리면
+ *    뒤는 자동으로 틀린다(실측: 판·트레이·바닥이 한 덩어리로 붙어 외곽이
+ *    기울어졌고, 인식부도 같이 돌아갔다). 인식부에는 핀 구멍이 격자로 박혀
+ *    있고 방 안에 그런 물건은 그것뿐이다. 점을 찾아 거기 사각형을 맞추면
+ *    인식부가 바로 나온다 — 외곽도 비율 계산도 필요 없다.
+ *
+ * 🔴 밝기가 아니라 **주변보다 어두운가**로 찾는다. 조명이 바뀌면 절대값은
+ *    통째로 움직이지만 「구멍이 그 언저리보다 어둡다」는 그대로다.
+ * ===================================================================== */
+function pinMask(b, W, H){
+  var N = W*H, i, x, y;
+  var L = new Float32Array(N);
+  for (i = 0; i < N; i++) L[i] = (b[i*4]*0.3 + b[i*4+1]*0.6 + b[i*4+2]*0.1) / 255;
+
+  // 주변 평균 — 핀 간격보다 넉넉한 창으로 (이동 평균, 가로·세로 분리)
+  var r = Math.max(2, Math.round(W / 90));
+  var tmp = new Float32Array(N), mean = new Float32Array(N), sum, cnt, k;
+  for (y = 0; y < H; y++){
+    sum = 0; cnt = 0;
+    for (x = 0; x <= r && x < W; x++){ sum += L[y*W+x]; cnt++; }
+    for (x = 0; x < W; x++){
+      tmp[y*W+x] = sum / cnt;
+      if (x - r >= 0){ sum -= L[y*W + x-r]; cnt--; }
+      if (x + r + 1 < W){ sum += L[y*W + x+r+1]; cnt++; }
+    }
+  }
+  for (x = 0; x < W; x++){
+    sum = 0; cnt = 0;
+    for (y = 0; y <= r && y < H; y++){ sum += tmp[y*W+x]; cnt++; }
+    for (y = 0; y < H; y++){
+      mean[y*W+x] = sum / cnt;
+      if (y - r >= 0){ sum -= tmp[(y-r)*W + x]; cnt--; }
+      if (y + r + 1 < H){ sum += tmp[(y+r+1)*W + x]; cnt++; }
+    }
+  }
+
+  var dark = new Uint8Array(N);
+  for (i = 0; i < N; i++) if (mean[i] - L[i] > TUNE.pin) dark[i] = 1;
+
+  // 점 하나 크기의 덩어리만 남긴다 — 그림자·글자·블록 테두리는 모양이 다르다
+  var lo = Math.max(1, Math.round(N * 2e-6)), hi = Math.round(N * 3e-4);
+  var blobs = components(dark, W, H, lo), keep = [];
+  for (i = 0; i < blobs.length; i++){
+    var c = blobs[i];
+    if (c.area > hi) continue;
+    var ar = c.w / c.h;
+    if (ar < 0.4 || ar > 2.5) continue;          // 점은 대충 동그랗다
+    if (c.area < c.w * c.h * 0.35) continue;     // 속이 빈 테두리가 아니라 채워진 점
+    keep.push(c);
+  }
+  if (keep.length < 40) return null;             // 격자라기엔 점이 너무 적다
+
+  /* 🔴 「주변보다 어둡다」만으로는 나무 바닥 결도 전부 걸린다(실측: 실물에서
+        핀을 1894개 찾았고, 실제 인식부는 300~400개다). 핀이 결과 다른 점은
+        어두운 게 아니라 **일정한 간격으로 늘어서 있다**는 것이다.
+        이웃까지의 거리가 저희끼리 비슷한 점만 남긴다 — 결은 간격이 제멋대로라
+        여기서 떨어져 나간다. */
+  var pts = keep.map(function(c){
+    return [(c.x0 + c.x1) / 2, (c.y0 + c.y1) / 2];
+  });
+  var cell = Math.max(4, Math.round(Math.sqrt((W*H) / pts.length)));
+  var bw = Math.ceil(W / cell), bh = Math.ceil(H / cell), buckets = {};
+  pts.forEach(function(pt, idx){
+    var k = ((pt[1] / cell) | 0) * bw + ((pt[0] / cell) | 0);
+    (buckets[k] || (buckets[k] = [])).push(idx);
+  });
+  function near(idx, radius){
+    var pt = pts[idx], bx = (pt[0]/cell)|0, by = (pt[1]/cell)|0;
+    var span = Math.ceil(radius / cell), out = [];
+    for (var yy = by-span; yy <= by+span; yy++){
+      if (yy < 0 || yy >= bh) continue;
+      for (var xx = bx-span; xx <= bx+span; xx++){
+        if (xx < 0 || xx >= bw) continue;
+        var arr = buckets[yy*bw + xx];
+        if (arr) out = out.concat(arr);
+      }
+    }
+    return out;
+  }
+  var nn = pts.map(function(pt, idx){
+    var cands = near(idx, cell*2), best = Infinity;
+    for (var q = 0; q < cands.length; q++){
+      if (cands[q] === idx) continue;
+      var o = pts[cands[q]];
+      var d2 = (o[0]-pt[0])*(o[0]-pt[0]) + (o[1]-pt[1])*(o[1]-pt[1]);
+      if (d2 < best) best = d2;
+    }
+    return Math.sqrt(best);
+  });
+  var sorted = nn.slice().filter(isFinite).sort(function(a,b){ return a-b; });
+  if (!sorted.length) return null;
+  var med = sorted[(sorted.length/2)|0];
+  var lo2 = med * 0.55, hi2 = med * 1.7;
+  var lattice = [];
+  for (i = 0; i < pts.length; i++){
+    if (!(nn[i] >= lo2 && nn[i] <= hi2)) continue;
+    // 이웃이 여럿 있어야 「줄지어 있다」고 할 수 있다
+    var cands = near(i, med*1.8), n2 = 0;
+    for (var q2 = 0; q2 < cands.length; q2++){
+      if (cands[q2] === i) continue;
+      var o2 = pts[cands[q2]];
+      var dx2 = o2[0]-pts[i][0], dy2 = o2[1]-pts[i][1];
+      if (dx2*dx2 + dy2*dy2 <= (med*1.8)*(med*1.8)) n2++;
+    }
+    if (n2 >= 3) lattice.push(pts[i]);
+  }
+  if (lattice.length < 60) return null;
+
+  /* 점들을 이어 면으로 만든다 — 간격보다 조금 크게 부풀리면 격자만 한 덩어리가 된다. */
+  var g = Math.max(2, Math.round(med * 0.7));
+  var m = new Uint8Array(N);
+  for (i = 0; i < lattice.length; i++){
+    var cx = Math.round(lattice[i][0]);
+    var cy = Math.round(lattice[i][1]);
+    for (var dy = -g; dy <= g; dy++){
+      var yy = cy + dy; if (yy < 0 || yy >= H) continue;
+      for (var dx = -g; dx <= g; dx++){
+        var xx = cx + dx; if (xx < 0 || xx >= W) continue;
+        m[yy*W + xx] = 1;
+      }
+    }
+  }
+  reco.pinCount = lattice.length;
+  reco.pinRaw = keep.length;
+  reco.pinPitch = med;
+  return m;
+}
+
+function detectPins(){
+  grabDetect();
+  var b = detBuf.buf, W = detBuf.W, H = detBuf.H;
+  var m = pinMask(b, W, H);
+  reco.detMask = m; reco.detBig = null; reco.fill = null;
+  if (!m) return null;
+  var comps = components(m, W, H, Math.round(W*H*0.004));
   if (!comps.length) return null;
   var big = comps[0];
   for (var c = 1; c < comps.length; c++) if (comps[c].area > big.area) big = comps[c];
+  reco.detBig = big;
+  var quad = fitQuad(big, W, H);
+  if (!quad) return null;
+  var wpx = Math.hypot(quad[1][0]-quad[0][0], quad[1][1]-quad[0][1]);
+  var hpx = Math.hypot(quad[3][0]-quad[0][0], quad[3][1]-quad[0][1]);
+  if (wpx < W*0.10 || hpx < H*0.06) return null;
+  /* 점을 부풀려 만든 면이라 가장자리 핀 바깥으로 g 만큼 넘쳐 있다. 가운데로 당긴다. */
+  var cx = (quad[0][0]+quad[1][0]+quad[2][0]+quad[3][0]) / 4;
+  var cy = (quad[0][1]+quad[1][1]+quad[2][1]+quad[3][1]) / 4;
+  var k = TUNE.pinShrink;
+  var uv = quad.map(function(q){
+    return [(cx + (q[0]-cx)*k) / W, (cy + (q[1]-cy)*k) / H];
+  });
+  /* 🔴 fitQuad 가 주는 순서와 호모그래피가 기대하는 순서는 두 칸 어긋나 있다.
+        판-외곽 경로에는 이미 같은 회전이 들어가 있었는데(playAreaFromBoard 호출부)
+        여기 빠뜨려서, 네 모서리를 정확히 찾아 놓고도 오차가 1778px 로 나왔다. */
+  return [uv[2], uv[3], uv[0], uv[1]];
+}
+
+/* =====================================================================
+ * 인식부 틀 찾기 — 긴 직선 네 개.
+ *
+ * 🔴 인식부는 핀 밭을 두르고 있는 사각형 틀이다. 점을 수백 개 세어 구름에
+ *    사각형을 맞출 일이 아니다(실측: 나무 바닥 결까지 핀으로 세어 1894개가
+ *    나왔고, 맞춘 사각형은 기울어졌다). 찾을 것은 **긴 직선 네 개**다.
+ *
+ * 기울기 방향까지 투표에 쓴다 — 각 점이 자기 방향의 칸에만 표를 넣으므로
+ * 누적이 번지지 않고, 바닥 결처럼 방향이 제멋대로인 것은 표가 흩어져 죽는다.
+ * ===================================================================== */
+/** 화면에서 잰 핀 간격 — 이웃까지 거리의 중앙값. 칸수를 세려면 이게 있어야 한다. */
+function pinPitch(dark, W, H){
+  var pts = [], step = 1;
+  var comps = components(dark, W, H, 2);
+  for (var i = 0; i < comps.length; i++){
+    var c = comps[i];
+    if (c.area > W*H*3e-4) continue;
+    var ar = c.w / c.h;
+    if (ar < 0.4 || ar > 2.5) continue;
+    pts.push([(c.x0+c.x1)/2, (c.y0+c.y1)/2]);
+  }
+  if (pts.length < 40) return 0;
+  var cell = Math.max(4, Math.round(Math.sqrt((W*H) / pts.length)));
+  var bw = Math.ceil(W/cell), bh = Math.ceil(H/cell), buckets = {};
+  pts.forEach(function(pt, idx){
+    var k = ((pt[1]/cell)|0) * bw + ((pt[0]/cell)|0);
+    (buckets[k] || (buckets[k] = [])).push(idx);
+  });
+  var nn = [];
+  for (var j = 0; j < pts.length; j += step){
+    var pt = pts[j], bx = (pt[0]/cell)|0, by = (pt[1]/cell)|0, best = Infinity;
+    for (var yy = by-1; yy <= by+1; yy++){
+      if (yy < 0 || yy >= bh) continue;
+      for (var xx = bx-1; xx <= bx+1; xx++){
+        if (xx < 0 || xx >= bw) continue;
+        var arr = buckets[yy*bw + xx];
+        if (!arr) continue;
+        for (var q2 = 0; q2 < arr.length; q2++){
+          if (arr[q2] === j) continue;
+          var o = pts[arr[q2]];
+          var d2 = (o[0]-pt[0])*(o[0]-pt[0]) + (o[1]-pt[1])*(o[1]-pt[1]);
+          if (d2 < best) best = d2;
+        }
+      }
+    }
+    if (isFinite(best)) nn.push(Math.sqrt(best));
+  }
+  if (nn.length < 30) return 0;
+  nn.sort(function(a, b){ return a - b; });
+  return nn[(nn.length/2)|0];
+}
+
+/** 주변보다 어두운 자리 = 핀 구멍 후보. 세지 않고, 사각형 채점에만 쓴다. */
+function darkSpots(L, W, H){
+  var N = W*H, r = Math.max(2, Math.round(W / 90)), x, y, sum, cnt;
+  var tmp = new Float32Array(N), mean = new Float32Array(N);
+  for (y = 0; y < H; y++){
+    sum = 0; cnt = 0;
+    for (x = 0; x <= r && x < W; x++){ sum += L[y*W+x]; cnt++; }
+    for (x = 0; x < W; x++){
+      tmp[y*W+x] = sum / cnt;
+      if (x - r >= 0){ sum -= L[y*W + x-r]; cnt--; }
+      if (x + r + 1 < W){ sum += L[y*W + x+r+1]; cnt++; }
+    }
+  }
+  var out = new Uint8Array(N);
+  for (x = 0; x < W; x++){
+    sum = 0; cnt = 0;
+    for (y = 0; y <= r && y < H; y++){ sum += tmp[y*W+x]; cnt++; }
+    for (y = 0; y < H; y++){
+      mean[y*W+x] = sum / cnt;
+      if (y - r >= 0){ sum -= tmp[(y-r)*W + x]; cnt--; }
+      if (y + r + 1 < H){ sum += tmp[(y+r+1)*W + x]; cnt++; }
+    }
+  }
+  for (var i = 0; i < N; i++) if (mean[i] - L[i] > TUNE.pin) out[i] = 1;
+  return out;
+}
+
+function detectFrameQuad(){
+  grabDetect();
+  var b = detBuf.buf, W = detBuf.W, H = detBuf.H, N = W*H, i, x, y, t;
+  var L = new Float32Array(N);
+  for (i = 0; i < N; i++) L[i] = (b[i*4]*0.3 + b[i*4+1]*0.6 + b[i*4+2]*0.1) / 255;
+
+  var TH = 180, D = Math.ceil(Math.hypot(W, H)), RH = D * 2;
+  var acc = new Float32Array(TH * RH);
+  var cosT = new Float32Array(TH), sinT = new Float32Array(TH);
+  for (i = 0; i < TH; i++){
+    var a = i * Math.PI / TH;
+    cosT[i] = Math.cos(a); sinT[i] = Math.sin(a);
+  }
+
+  var strong = 0;
+  for (y = 1; y < H-1; y++){
+    for (x = 1; x < W-1; x++){
+      var o = y*W + x;
+      var gx = -L[o-W-1] - 2*L[o-1] - L[o+W-1] + L[o-W+1] + 2*L[o+1] + L[o+W+1];
+      var gy = -L[o-W-1] - 2*L[o-W] - L[o-W+1] + L[o+W-1] + 2*L[o+W] + L[o+W+1];
+      var mag = Math.hypot(gx, gy) / 4;
+      if (mag < TUNE.line) continue;
+      strong++;
+      var tt = Math.round(Math.atan2(gy, gx) * TH / Math.PI);
+      tt = ((tt % TH) + TH) % TH;
+      var rho = Math.round(x*cosT[tt] + y*sinT[tt]) + D;
+      if (rho < 0 || rho >= RH) continue;
+      acc[tt*RH + rho] += mag;
+    }
+  }
+  if (strong < N*0.002) return null;
+
+  // 봉우리 추리기 — 가까운 것끼리는 한 선으로 본다
+  var peaks = [];
+  var rGap = Math.max(6, Math.round(W*0.02)), tGap = 6;
+  for (t = 0; t < TH; t++){
+    for (var r = 1; r < RH-1; r++){
+      var v = acc[t*RH + r];
+      if (v <= 0) continue;
+      var top = true;
+      for (var dt = -tGap; dt <= tGap && top; dt++){
+        var t2 = ((t+dt) % TH + TH) % TH;
+        for (var dr = -rGap; dr <= rGap; dr++){
+          var r2 = r + dr;
+          if (r2 < 0 || r2 >= RH) continue;
+          if (acc[t2*RH + r2] > v){ top = false; break; }
+        }
+      }
+      if (top) peaks.push({ t:t, r:r - D, v:v });
+    }
+  }
+  if (peaks.length < 4) return null;
+  peaks.sort(function(p1, p2){ return p2.v - p1.v; });
+  peaks = peaks.slice(0, 40);
+
+  /* 사각형이라 방향이 두 무리로 갈린다. 가장 센 선을 한 무리의 기준으로 삼고,
+     거기서 60도 넘게 떨어진 것을 마주 무리로 본다. */
+  function angDiff(a1, b1){
+    var d = Math.abs(a1 - b1) % TH;
+    return Math.min(d, TH - d);
+  }
+  var base = peaks[0].t, fa = [], fb = [];
+  peaks.forEach(function(pk){
+    var d = angDiff(pk.t, base);
+    if (d < 30) fa.push(pk);
+    else if (d > 60) fb.push(pk);
+  });
+  if (fa.length < 2 || fb.length < 2) return null;
+
+  /* 한 무리에서 마주 보는 두 변을 고른다.
+     🔴 간격이 넓을수록 점수를 주면 언제나 「제일 바깥 두 선」(판·화면 가장자리)이
+        뽑힌다. 간격은 최소 조건으로만 쓰고, 뚜렷한 순으로 여러 쌍을 남겨
+        어느 쪽이 인식부인지는 아래에서 「안에 핀이 있는가」로 가린다. */
+  function pickPairs(f, keepN){
+    var out = [];
+    for (var i2 = 0; i2 < f.length; i2++){
+      for (var j2 = i2+1; j2 < f.length; j2++){
+        var sep = Math.abs(f[i2].r - f[j2].r);
+        if (sep < W*0.10) continue;
+        out.push({ a:f[i2], b:f[j2], sc:f[i2].v + f[j2].v, sep:sep });
+      }
+    }
+    out.sort(function(u, v2){ return v2.sc - u.sc; });
+    return out.slice(0, keepN);
+  }
+  var pairsA = pickPairs(fa, 4), pairsB = pickPairs(fb, 4);
+  if (!pairsA.length || !pairsB.length) return null;
+
+  function cross(l1, l2){
+    var c1 = cosT[l1.t], s1 = sinT[l1.t], c2 = cosT[l2.t], s2 = sinT[l2.t];
+    var det = c1*s2 - s1*c2;
+    if (Math.abs(det) < 1e-6) return null;
+    return [(l1.r*s2 - l2.r*s1) / det, (l2.r*c1 - l1.r*c2) / det];
+  }
+
+  /* 🔴 어느 사각형이 인식부인지 가릴 근거는 하나다 — **안에 핀이 들어 있는가**.
+        판 바깥 모서리도 똑같이 뚜렷한 직선이라 선의 세기만으로는 못 가른다
+        (실측: 변 간격 591px 이 뽑혀 인식부 위아래로 여분이 붙었다).
+        핀으로 기하를 만들지는 않는다 — 후보를 고르는 데만 쓴다. */
+  var dark = darkSpots(L, W, H);
+  var pitch = pinPitch(dark, W, H);
+
+  /* 🔴 인식부는 21×15 칸이다. 화면에서 잰 핀 간격으로 나누면 후보 사각형이
+        몇 칸짜리인지 나오고, 21·15 에서 크게 벗어나면 인식부가 아니다
+        (판 바깥 모서리를 잡으면 훨씬 큰 칸수가 나온다). */
+  function cellFit(q){
+    if (!pitch) return 0;
+    function mid(a, b, c, d){    // 마주 보는 두 변의 평균 길이 — 원근을 조금 눌러 준다
+      return (Math.hypot(b[0]-a[0], b[1]-a[1]) + Math.hypot(c[0]-d[0], c[1]-d[1])) / 2;
+    }
+    var wCells = mid(q[0], q[1], q[2], q[3]) / pitch;
+    var hCells = mid(q[1], q[2], q[3], q[0]) / pitch;
+    var ew = Math.abs(wCells / GRID_W - 1), eh = Math.abs(hCells / GRID_H - 1);
+    return { w:wCells, h:hCells, err:Math.max(ew, eh) };
+  }
+
+  function pinScore(q){
+    var hit = 0, tot = 0;
+    for (var v1 = 1; v1 < 24; v1++){
+      for (var u1 = 1; u1 < 32; u1++){
+        var u = u1/32, v = v1/24;
+        var xa = q[0][0] + (q[1][0]-q[0][0])*u, ya = q[0][1] + (q[1][1]-q[0][1])*u;
+        var xb = q[3][0] + (q[2][0]-q[3][0])*u, yb = q[3][1] + (q[2][1]-q[3][1])*u;
+        var px2 = Math.round(xa + (xb-xa)*v), py2 = Math.round(ya + (yb-ya)*v);
+        if (px2 < 0 || px2 >= W || py2 < 0 || py2 >= H) return -1;
+        tot++;
+        if (dark[py2*W + px2]) hit++;
+      }
+    }
+    return tot ? hit/tot : -1;
+  }
+
+  var pa = null, pb = null, pts = null, bestScore = -1;
+  pairsA.forEach(function(ca){
+    pairsB.forEach(function(cb){
+      var q = [cross(ca.a, cb.a), cross(ca.a, cb.b), cross(ca.b, cb.b), cross(ca.b, cb.a)];
+      if (q.some(function(z){ return !z; })) return;
+      for (var k2 = 0; k2 < 4; k2++){
+        if (q[k2][0] < -W*0.3 || q[k2][0] > W*1.3 ||
+            q[k2][1] < -H*0.3 || q[k2][1] > H*1.3) return;
+      }
+      var fit = cellFit(q);
+      if (fit && fit.err > TUNE.cellTol) return;   // 칸수가 안 맞으면 인식부가 아니다
+      var sc2 = pinScore(q);
+      if (sc2 > bestScore){
+        bestScore = sc2; pa = ca; pb = cb; pts = q;
+        reco.cellFit = fit || null;
+      }
+    });
+  });
+  if (!pts || bestScore < TUNE.pinFill) return null;
+
+  // fitQuad 와 같은 순서로 맞춘다 (버퍼 y 는 아래가 0)
+  var my = (pts[0][1] + pts[1][1] + pts[2][1] + pts[3][1]) / 4;
+  var up = pts.filter(function(q){ return q[1] > my; }).sort(function(q1,q2){ return q1[0]-q2[0]; });
+  var dn = pts.filter(function(q){ return q[1] <= my; }).sort(function(q1,q2){ return q1[0]-q2[0]; });
+  if (up.length !== 2 || dn.length !== 2) return null;
+  var quad = [up[0], up[1], dn[1], dn[0]];
+
+  reco.lineInfo = { peaks:peaks.length, strong:strong,
+                    sep:[Math.round(pa.sep), Math.round(pb.sep)],
+                    pinFill:+bestScore.toFixed(2) };
+
+  // 마스크 미리보기는 「어디를 변으로 봤는가」로 채운다
+  var m = new Uint8Array(N);
+  [pa.a, pa.b, pb.a, pb.b].forEach(function(l){
+    var c3 = cosT[l.t], s3 = sinT[l.t];
+    if (Math.abs(s3) > Math.abs(c3)){
+      for (var xx = 0; xx < W; xx++){
+        var yy = Math.round((l.r - xx*c3) / s3);
+        if (yy >= 0 && yy < H) m[yy*W + xx] = 1;
+      }
+    } else {
+      for (var yy2 = 0; yy2 < H; yy2++){
+        var xx2 = Math.round((l.r - yy2*s3) / c3);
+        if (xx2 >= 0 && xx2 < W) m[yy2*W + xx2] = 1;
+      }
+    }
+  });
+  reco.detMask = m; reco.detBig = null; reco.fill = null;
+
+  var uv = quad.map(function(q){ return [q[0]/W, q[1]/H]; });
+  return [uv[2], uv[3], uv[0], uv[1]];   // 호모그래피가 기대하는 순서로 두 칸 회전
+}
+
+/* =====================================================================
+ * 인식부 찾기 — 실사 한 장으로 검증한 경로 하나. (2026-08-29)
+ *
+ * 🔴 절대 숫자를 두지 않는다. 오늘 만든 검출 네 가지(밝기 밴드·윤곽·점무늬·직선)가
+ *    전부 실사에서 무너진 이유가 그거였다. 조명·카메라가 바뀌면 고정값은 뜻을 잃는다.
+ *      · 「얼마나 어두우면 구멍인가」 → 그 화면의 대비 분포에서 (Otsu)
+ *      · 「점이 얼마만 하면 핀인가」 → 화면 넓이가 아니라 **잰 핀 간격**에서
+ *        (넓이 기준이면 판이 멀어질수록 진짜 핀이 걸러진다)
+ *      · 「얼마나 색이 다르면 블록인가」 → 판 자신의 색 퍼짐(MAD)에서
+ *        (상위 N% 로 자르면 블록이 없을 때 판 잡음을 블록이라 부른다 — 실측 17개)
+ *
+ * 파이썬으로 실물 사진에 16가지 조건(해상도 ¼·판 40% 크기·밝기 ×0.5·대비 ×0.4·
+ * 노이즈·흐림 …)을 걸어 12/16 통과를 확인한 뒤 그대로 옮긴 것이다.
+ * ===================================================================== */
+
+/** 상자 흐림 3번 = 가우시안 근사. 분리형이라 크기가 커져도 안 눌린다. */
+function blurF32(src, W, H, sigma){
+  var r = Math.max(1, Math.round(sigma * 1.2));
+  var a = Float32Array.from(src), b = new Float32Array(W*H);
+  function boxH(inp, out){
+    for (var y = 0; y < H; y++){
+      var sum = 0, cnt = 0, x;
+      for (x = 0; x <= r && x < W; x++){ sum += inp[y*W+x]; cnt++; }
+      for (x = 0; x < W; x++){
+        out[y*W+x] = sum / cnt;
+        if (x - r >= 0){ sum -= inp[y*W + x-r]; cnt--; }
+        if (x + r + 1 < W){ sum += inp[y*W + x+r+1]; cnt++; }
+      }
+    }
+  }
+  function boxV(inp, out){
+    for (var x = 0; x < W; x++){
+      var sum = 0, cnt = 0, y;
+      for (y = 0; y <= r && y < H; y++){ sum += inp[y*W+x]; cnt++; }
+      for (y = 0; y < H; y++){
+        out[y*W+x] = sum / cnt;
+        if (y - r >= 0){ sum -= inp[(y-r)*W + x]; cnt--; }
+        if (y + r + 1 < H){ sum += inp[(y+r+1)*W + x]; cnt++; }
+      }
+    }
+  }
+  for (var pass = 0; pass < 3; pass++){
+    boxH(a, b); boxV(b, a);
+  }
+  return a;
+}
+
+/** 주변보다 어두운 정도 (0..1). 절대 밝기가 아니라 국소 대비다. */
+function darkRel(L, W, H, sigma){
+  var bl = blurF32(L, W, H, sigma);
+  var out = new Float32Array(W*H);
+  for (var i = 0; i < W*H; i++){
+    var v = bl[i] - L[i];
+    out[i] = v > 0 ? v : 0;
+  }
+  return out;
+}
+
+/* 🔴 Otsu 를 화면 전체에 걸면 문턱이 너무 높게 잡힌다.
+      화면 대부분이 평탄해서 「대비 없음」이 분포를 지배하기 때문이다
+      (실측: Otsu 0.124~0.170 vs 실제로 통하는 0.025~0.07).
+      대비 분포의 위쪽 꼬리를 쓰는 게 맞다 — 핀은 그 꼬리에 있다.
+      절대값이 아니라 그 화면의 분포에서 뽑으므로 노출이 바뀌면 같이 움직인다. */
+function relThreshold(vals, n){
+  var mx = 0, i;
+  for (i = 0; i < n; i++) if (vals[i] > mx) mx = vals[i];
+  if (mx <= 0) return 1;
+  var hist = new Int32Array(512);
+  for (i = 0; i < n; i++) hist[Math.min(511, (vals[i]/mx*511)|0)]++;
+  var target = n * 0.90, acc = 0, bin = 0;
+  for (i = 0; i < 512; i++){
+    acc += hist[i];
+    if (acc >= target){ bin = i; break; }
+  }
+  var t = (bin + 0.5) / 512 * mx;
+  // 너무 낮으면 잡음이, 너무 높으면 핀이 통째로 빠진다 — 실측 구간 안으로
+  return Math.min(Math.max(t, mx*0.02), mx*0.35);
+}
+
+/** Otsu — 두 무리로 갈리는 지점. (밝기 경계용, 점 검출엔 위 함수를 쓴다) */
+function otsuF(vals, n){
+  var hist = new Int32Array(256), i, mx = 0;
+  for (i = 0; i < n; i++) if (vals[i] > mx) mx = vals[i];
+  if (mx <= 0) return 1;
+  for (i = 0; i < n; i++) hist[Math.min(255, (vals[i] / mx * 255) | 0)]++;
+  var total = n, sum = 0;
+  for (i = 0; i < 256; i++) sum += i * hist[i];
+  var sumB = 0, wB = 0, best = -1, thr = 128;
+  for (i = 0; i < 256; i++){
+    wB += hist[i];
+    if (!wB) continue;
+    var wF = total - wB;
+    if (!wF) break;
+    sumB += i * hist[i];
+    var mB = sumB / wB, mF = (sum - sumB) / wF;
+    var bet = wB * wF * (mB - mF) * (mB - mF);
+    if (bet > best){ best = bet; thr = i; }
+  }
+  return Math.max((thr + 0.5) / 255 * mx, 0.012);
+}
+
+/** 점 후보 — 크기·둥글기·채움으로 거른다. 크기 한계는 호출부가 정한다. */
+function dotBlobs(rel, W, H, thr, loArea, hiArea){
+  var m = new Uint8Array(W*H);
+  for (var i = 0; i < W*H; i++) if (rel[i] > thr) m[i] = 1;
+  var comps = components(m, W, H, Math.max(2, loArea));
+  var out = [];
+  for (var c = 0; c < comps.length; c++){
+    var k = comps[c];
+    if (k.area > hiArea) continue;
+    var ar = k.w / k.h;
+    if (ar < 0.45 || ar > 2.2) continue;
+    if (k.area < k.w * k.h * 0.45) continue;
+    out.push([(k.x0 + k.x1) / 2, (k.y0 + k.y1) / 2]);
+  }
+  return out;
+}
+
+/** 이웃까지 거리의 중앙값 = 핀 간격. 바구니로 나눠 빠르게. */
+function medianNN(pts, W, H){
+  if (pts.length < 30) return 0;
+  var cell = Math.max(4, Math.sqrt((W*H) / pts.length));
+  var bw = Math.ceil(W/cell), bh = Math.ceil(H/cell), buckets = {};
+  pts.forEach(function(p, i){
+    var k = ((p[1]/cell)|0) * bw + ((p[0]/cell)|0);
+    (buckets[k] || (buckets[k] = [])).push(i);
+  });
+  function near(i, span){
+    var p = pts[i], bx = (p[0]/cell)|0, by = (p[1]/cell)|0, out = [];
+    for (var y = by-span; y <= by+span; y++){
+      if (y < 0 || y >= bh) continue;
+      for (var x = bx-span; x <= bx+span; x++){
+        if (x < 0 || x >= bw) continue;
+        var arr = buckets[y*bw + x];
+        if (arr) out = out.concat(arr);
+      }
+    }
+    return out;
+  }
+  var nn = new Float64Array(pts.length);
+  for (var i = 0; i < pts.length; i++){
+    var cands = near(i, 1), best = Infinity;
+    for (var j = 0; j < cands.length; j++){
+      if (cands[j] === i) continue;
+      var o = pts[cands[j]];
+      var dx = o[0]-pts[i][0], dy = o[1]-pts[i][1];
+      var d2 = dx*dx + dy*dy;
+      if (d2 < best) best = d2;
+    }
+    nn[i] = Math.sqrt(best);
+  }
+  var s = Array.prototype.slice.call(nn).filter(isFinite).sort(function(a,b){ return a-b; });
+  return s.length ? { med: s[(s.length/2)|0], nn: nn, near: near } : 0;
+}
+
+/** y = a*x + b 최소제곱 (이상치 한 번 걷어내고 다시). */
+function fitLine(xs, ys){
+  function fit(idx){
+    var n = idx.length, sx = 0, sy = 0, sxx = 0, sxy = 0;
+    for (var i = 0; i < n; i++){
+      var x = xs[idx[i]], y = ys[idx[i]];
+      sx += x; sy += y; sxx += x*x; sxy += x*y;
+    }
+    var d = n*sxx - sx*sx;
+    if (Math.abs(d) < 1e-9) return null;
+    return [(n*sxy - sx*sy)/d, (sy*sxx - sx*sxy)/d];
+  }
+  var all = [];
+  for (var i = 0; i < xs.length; i++) all.push(i);
+  var A = fit(all);
+  if (!A) return null;
+  var res = all.map(function(i){ return ys[i] - (A[0]*xs[i] + A[1]); });
+  var mean = res.reduce(function(a,b){ return a+b; }, 0) / res.length;
+  var sd = Math.sqrt(res.reduce(function(a,b){ return a + (b-mean)*(b-mean); }, 0) / res.length);
+  var keep = all.filter(function(i, k){ return Math.abs(res[k]) < 2*sd + 1e-9; });
+  return keep.length >= 5 ? (fit(keep) || A) : A;
+}
+
+/** 대응점으로 어파인 보정 (6변수 최소제곱).
+ *  🔴 사영까지 갈 필요가 없다 — 첫 사각형이 이미 기울기를 맞췄고, 남는 건
+ *     배율·평행이동 몇 %다(실측: 세로 주기가 40 이어야 하는데 42.75 였다). */
+function fitAffine(src, dst){
+  var n = src.length;
+  if (n < 6) return null;
+  var S = new Float64Array(36), T = new Float64Array(6);
+  for (var i = 0; i < n; i++){
+    var x = src[i][0], y = src[i][1];
+    var row = [x, y, 1];
+    for (var r = 0; r < 3; r++){
+      for (var c = 0; c < 3; c++){
+        S[r*6 + c] += row[r]*row[c];
+        S[(r+3)*6 + (c+3)] += row[r]*row[c];
+      }
+      T[r]   += row[r]*dst[i][0];
+      T[r+3] += row[r]*dst[i][1];
+    }
+  }
+  // 가우스 소거
+  var M = S, b = T, N = 6;
+  for (var k = 0; k < N; k++){
+    var piv = k;
+    for (var r2 = k+1; r2 < N; r2++) if (Math.abs(M[r2*N+k]) > Math.abs(M[piv*N+k])) piv = r2;
+    if (Math.abs(M[piv*N+k]) < 1e-9) return null;
+    if (piv !== k){
+      for (var c2 = 0; c2 < N; c2++){ var t = M[k*N+c2]; M[k*N+c2] = M[piv*N+c2]; M[piv*N+c2] = t; }
+      var tb = b[k]; b[k] = b[piv]; b[piv] = tb;
+    }
+    for (var r3 = k+1; r3 < N; r3++){
+      var f = M[r3*N+k] / M[k*N+k];
+      if (!f) continue;
+      for (var c3 = k; c3 < N; c3++) M[r3*N+c3] -= f*M[k*N+c3];
+      b[r3] -= f*b[k];
+    }
+  }
+  var sol = new Float64Array(N);
+  for (var k2 = N-1; k2 >= 0; k2--){
+    var s = b[k2];
+    for (var c4 = k2+1; c4 < N; c4++) s -= M[k2*N+c4]*sol[c4];
+    sol[k2] = s / M[k2*N+k2];
+  }
+  // 3x3 로 (열 우선 — 이 파일의 homography 와 같은 배치)
+  return [sol[0], sol[3], 0,
+          sol[1], sol[4], 0,
+          sol[2], sol[5], 1];
+}
+
+function mat3mul(A, B){          // 열 우선 3x3
+  var o = new Array(9);
+  for (var c = 0; c < 3; c++){
+    for (var r = 0; r < 3; r++){
+      o[c*3+r] = A[0*3+r]*B[c*3+0] + A[1*3+r]*B[c*3+1] + A[2*3+r]*B[c*3+2];
+    }
+  }
+  return o;
+}
+
+/** 인식부 네 모서리(uv). 못 찾으면 null. */
+function findPlayQuad(){
+  grabDetect();
+  var b = detBuf.buf, W = detBuf.W, H = detBuf.H, N = W*H, i;
+  var L = new Float32Array(N);
+  for (i = 0; i < N; i++) L[i] = (b[i*4]*0.3 + b[i*4+1]*0.6 + b[i*4+2]*0.1) / 255;
+
+  // 1차 — 간격을 모르니 크기를 넓게 열고 간격만 얻는다
+  var rel0 = darkRel(L, W, H, Math.max(2, W/150));
+  var t0 = relThreshold(rel0, N);
+  var p0 = dotBlobs(rel0, W, H, t0, 3, N*1e-3);
+  var m0 = medianNN(p0, W, H);
+  if (!m0){ reco.playInfo = { why:'점을 못 찾음' }; return null; }
+
+  // 2차 — 잰 간격으로 흐림 반경과 크기를 다시 정한다
+  var pitch = m0.med;
+  var rel = darkRel(L, W, H, Math.max(2, pitch*1.2));
+  var thr = relThreshold(rel, N);
+  var area = pitch*pitch;
+  var pts = dotBlobs(rel, W, H, thr, area*0.02, area*0.55);
+  if (pts.length < 50){ reco.playInfo = { why:'점 후보 ' + pts.length }; return null; }
+  var mm = medianNN(pts, W, H);
+  if (!mm){ reco.playInfo = { why:'간격 실패' }; return null; }
+  pitch = mm.med;
+
+  // 규칙적으로 늘어선 점만 — 바닥 결은 간격이 제멋대로라 여기서 죽는다
+  var lat = [];
+  for (i = 0; i < pts.length; i++){
+    if (!(mm.nn[i] > pitch*0.6 && mm.nn[i] < pitch*1.5)) continue;
+    var cands = mm.near(i, 1), c2 = 0;
+    for (var j = 0; j < cands.length; j++){
+      if (cands[j] === i) continue;
+      var o = pts[cands[j]], dx = o[0]-pts[i][0], dy = o[1]-pts[i][1];
+      if (dx*dx + dy*dy <= (pitch*1.6)*(pitch*1.6)) c2++;
+    }
+    if (c2 >= 3) lat.push(pts[i]);
+  }
+  if (lat.length < 50){ reco.playInfo = { why:'격자 점 ' + lat.length }; return null; }
+
+  // 빽빽한 한 덩어리만
+  var gw = Math.ceil(W/pitch)+2, gh = Math.ceil(H/pitch)+2;
+  var dens = new Float32Array(gw*gh);
+  lat.forEach(function(p){ dens[((p[1]/pitch)|0)*gw + ((p[0]/pitch)|0)] += 1; });
+  var mx = 0;
+  for (i = 0; i < dens.length; i++) if (dens[i] > mx) mx = dens[i];
+  var dm = new Uint8Array(gw*gh);
+  for (i = 0; i < dens.length; i++) if (dens[i] > mx*0.25) dm[i] = 1;
+  var dcomps = components(dm, gw, gh, 1);
+  if (!dcomps.length){ reco.playInfo = { why:'밀도 덩어리 없음' }; return null; }
+  var dbig = dcomps[0];
+  for (i = 1; i < dcomps.length; i++) if (dcomps[i].area > dbig.area) dbig = dcomps[i];
+  var inSet = new Uint8Array(gw*gh);
+  dbig.px.forEach(function(k){ inSet[k] = 1; });
+  lat = lat.filter(function(p){ return inSet[((p[1]/pitch)|0)*gw + ((p[0]/pitch)|0)]; });
+  if (lat.length < 40){ reco.playInfo = { why:'덩어리 안 ' + lat.length }; return null; }
+
+  // 주축 (2x2 공분산 고유벡터)
+  var cx = 0, cy = 0;
+  lat.forEach(function(p){ cx += p[0]; cy += p[1]; });
+  cx /= lat.length; cy /= lat.length;
+  var sxx = 0, syy = 0, sxy = 0;
+  lat.forEach(function(p){
+    var dx = p[0]-cx, dy = p[1]-cy;
+    sxx += dx*dx; syy += dy*dy; sxy += dx*dy;
+  });
+  var th = 0.5 * Math.atan2(2*sxy, sxx - syy);
+  var ex = [Math.cos(th), Math.sin(th)], ey = [-Math.sin(th), Math.cos(th)];
+  var P = lat.map(function(p){ return (p[0]-cx)*ex[0] + (p[1]-cy)*ex[1]; });
+  var Q = lat.map(function(p){ return (p[0]-cx)*ey[0] + (p[1]-cy)*ey[1]; });
+
+  function edge(al, ac, takeMax){
+    var lo = Math.min.apply(null, al), hi = Math.max.apply(null, al);
+    var xs = [], ys = [];
+    for (var k = 0; k < 24; k++){
+      var a0 = lo + (hi-lo)*k/24, a1 = lo + (hi-lo)*(k+1)/24, pick = -1;
+      for (var n2 = 0; n2 < al.length; n2++){
+        if (al[n2] < a0 || al[n2] >= a1) continue;
+        if (pick < 0) pick = n2;
+        else if (takeMax ? ac[n2] > ac[pick] : ac[n2] < ac[pick]) pick = n2;
+      }
+      if (pick >= 0){ xs.push(al[pick]); ys.push(ac[pick]); }
+    }
+    return xs.length >= 6 ? fitLine(xs, ys) : null;
+  }
+  var top = edge(P, Q, false), bot = edge(P, Q, true);
+  var lft = edge(Q, P, false), rgt = edge(Q, P, true);
+  if (!top || !bot || !lft || !rgt){ reco.playInfo = { why:'변 회귀 실패' }; return null; }
+
+  function X(hz, vv){
+    var den = 1 - hz[0]*vv[0];
+    if (Math.abs(den) < 1e-9) return null;
+    var pp = (vv[0]*hz[1] + vv[1]) / den, qq = hz[0]*pp + hz[1];
+    return [cx + ex[0]*pp + ey[0]*qq, cy + ex[1]*pp + ey[1]*qq];
+  }
+  var quad = [X(top,lft), X(top,rgt), X(bot,rgt), X(bot,lft)];
+  if (quad.some(function(q){ return !q; })){ reco.playInfo = { why:'교점 실패' }; return null; }
+  // 바깥 핀 줄에서 반 칸 더 나가야 인식부 경계다
+  var mxq = quad.reduce(function(a,q){ return [a[0]+q[0]/4, a[1]+q[1]/4]; }, [0,0]);
+  var k2 = 1 + 1/GRID_W;
+  quad = quad.map(function(q){ return [mxq[0] + (q[0]-mxq[0])*k2, mxq[1] + (q[1]-mxq[1])*k2]; });
+
+  reco.playInfo = { pins: lat.length, pitch: pitch, thr: thr };
+  var uv = quad.map(function(q){ return [q[0]/W, q[1]/H]; });
+  return [uv[2], uv[3], uv[0], uv[1]];   // 호모그래피가 기대하는 순서로 두 칸 회전
+}
+
+/* 되맞춤용 큰 버퍼 — 인식용(칸 16px)에서는 구멍이 3px 이라 위치를 정밀하게 못 잰다.
+   🔴 실측: 칸 16px 에서 어긋남 RMS 4.7px(칸의 29%), 칸 48px 에서는 1px 아래. */
+var snapBuf = { fbo:null, tex:null, W:0, H:0, buf:null };
+var SNAP_CELL = 48;
+
+function grabSnap(H){
+  var W = GRID_W*SNAP_CELL, Hh = GRID_H*SNAP_CELL;
+  if (snapBuf.W !== W){
+    if (snapBuf.tex) gl.deleteTexture(snapBuf.tex);
+    if (snapBuf.fbo) gl.deleteFramebuffer(snapBuf.fbo);
+    snapBuf.W = W; snapBuf.H = Hh;
+    snapBuf.tex = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, snapBuf.tex);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, W, Hh, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    snapBuf.fbo = gl.createFramebuffer();
+    gl.bindFramebuffer(gl.FRAMEBUFFER, snapBuf.fbo);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, snapBuf.tex, 0);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    snapBuf.buf = new Uint8Array(W*Hh*4);
+  }
+  gl.bindFramebuffer(gl.FRAMEBUFFER, snapBuf.fbo);
+  gl.viewport(0, 0, W, Hh);
+  gl.clearColor(0, 0, 0, 1);
+  gl.clear(gl.COLOR_BUFFER_BIT);
+  blitTex([-1, -1, 2, 2], H);
+  gl.readPixels(0, 0, W, Hh, gl.RGBA, gl.UNSIGNED_BYTE, snapBuf.buf);
+  gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+  gl.viewport(0, 0, canvas.width, canvas.height);
+}
+
+/** 구멍이 정수 격자에 앉도록 되맞춘다. H 를 받아 고친 H 를 돌려준다. */
+function snapToGrid(H){
+  var best = H, rms = null, cell = SNAP_CELL;
+  for (var it = 0; it < 4; it++){
+    grabSnap(best);
+    var W = snapBuf.W, Hh = snapBuf.H, N = W*Hh, i;
+    var L = new Float32Array(N);
+    for (i = 0; i < N; i++) L[i] = (snapBuf.buf[i*4]*0.3 + snapBuf.buf[i*4+1]*0.6 + snapBuf.buf[i*4+2]*0.1)/255;
+    var rel = darkRel(L, W, Hh, cell*0.7);
+    var thr = relThreshold(rel, N);
+    var hp = dotBlobs(rel, W, Hh, thr, cell*cell*0.01, cell*cell*0.45);
+    if (hp.length < 60) break;
+    var src = [], dst = [], err = 0, cnt = 0;
+    for (i = 0; i < hp.length; i++){
+      var sx = Math.round(hp[i][0]/cell)*cell, sy = Math.round(hp[i][1]/cell)*cell;
+      var dx = hp[i][0]-sx, dy = hp[i][1]-sy;
+      if (Math.max(Math.abs(dx), Math.abs(dy)) > cell*0.35) continue;
+      src.push([sx/(W), sy/(Hh)]);          // 목표(정수 격자) — 단위 사각형 좌표
+      dst.push([hp[i][0]/(W), hp[i][1]/(Hh)]); // 실제로 거기 있던 자리
+      err += dx*dx + dy*dy; cnt++;
+    }
+    if (cnt < 40) break;
+    rms = Math.sqrt(err/cnt) * (CELL/cell);   // 인식용 칸 기준으로 환산해 비교 가능하게
+    var A = fitAffine(src, dst);
+    if (!A) break;
+    best = mat3mul(best, A);
+    if (rms < 1.0) break;
+  }
+  reco.snapRms = rms;
+  return best;
+}
+
+function detectGridCorners(){
+  /* 밝기 밴드(0.45~0.668)는 렌더에서 잰 값이라 실사에선 판이 아니라 나무 바닥이
+     걸린다. 실사에서는 판 세그먼테이션(밝고 무채색 + Otsu)에 맡긴다. */
+  if (photo.on && !TUNE.useTexture) return null;
+  grabDetect();
+  var b = detBuf.buf, W = detBuf.W, H = detBuf.H;
+  var mask, n = 0, i;
+  if (TUNE.useTexture){
+    mask = textureMask(b, W, H);
+    reco.detMask = mask;
+    reco.detBig = null;
+    if (!mask) return null;
+    for (i = 0; i < W*H; i++) if (mask[i]) n++;
+  } else {
+    mask = new Uint8Array(W * H);
+    for (i = 0; i < W*H; i++){
+      var r = b[i*4]/255, g = b[i*4+1]/255, bl = b[i*4+2]/255;
+      var mx = Math.max(r, g, bl), mn = Math.min(r, g, bl);
+      if (mx - mn > 0.12) continue;               // 블록은 채도가 있다
+      var v = r*0.3 + g*0.6 + bl*0.1;
+      if (v > TUNE.gridLo && v < TUNE.gridHi){ mask[i] = 1; n++; }
+    }
+    reco.detMask = mask;              // 무엇을 격자로 봤는지 — 오검출은 이걸 봐야 안다
+    reco.detBig = null;
+  }
+  if (n < W*H*0.008) return null;
+
+  var comps = components(mask, W, H, Math.round(W*H*0.004));
+  if (!comps.length) return null;
+  var big = comps[0];
+  for (var c = 1; c < comps.length; c++) if (comps[c].area > big.area) big = comps[c];
+  reco.detBig = big;
 
   var quad = fitQuad(big, W, H);
   if (!quad) return null;
@@ -1324,21 +2423,194 @@ function detectGridCorners(){
   return quad.map(function(q){ return [q[0]/W, q[1]/H]; });
 }
 
-function detectBoardCorners(){
-  grabWarped(IDENT3);                // 워프 없이 폰 화면 그대로
-  var b = reco.buf, W = reco.W, H = reco.H;
-  var mask = new Uint8Array(W * H), lit = 0;
-  for (var i = 0; i < W*H; i++){
-    var v = (b[i*4]*0.3 + b[i*4+1]*0.6 + b[i*4+2]*0.1) / 255;
-    if (v >= TUNE.boardLuma){ mask[i] = 1; lit++; }
+/** 밝기 경계를 화면에서 직접 뽑는다 (Otsu — 두 무리로 갈랐을 때 분산이 가장 작은 지점).
+ *  🔴 고정 문턱은 렌더에서 잰 값이라 조명이 바뀌면 통째로 틀린다.
+ *     경계가 화면을 따라 움직여야 노출·역광이 달라져도 같은 것을 가른다. */
+function otsu(vals, n){
+  var hist = new Int32Array(64), i;
+  for (i = 0; i < n; i++) hist[Math.min(63, (vals[i] * 64) | 0)]++;
+  var total = n, sum = 0;
+  for (i = 0; i < 64; i++) sum += i * hist[i];
+  var sumB = 0, wB = 0, best = 0, thr = 32;
+  for (i = 0; i < 64; i++){
+    wB += hist[i];
+    if (!wB) continue;
+    var wF = total - wB;
+    if (!wF) break;
+    sumB += i * hist[i];
+    var mB = sumB / wB, mF = (sum - sumB) / wF;
+    var between = wB * wF * (mB - mF) * (mB - mF);
+    if (between > best){ best = between; thr = i; }
   }
-  if (lit < W*H*0.04) return null;   // 판이 화면에 거의 없다
+  return (thr + 0.5) / 64;
+}
+
+/* 형태로 찾기 — 색이 아니라 「윤곽으로 둘러싸인 큰 면」을 고른다.
+   🔴 색·밝기 규칙은 전부 조명에 딸려 움직인다. 판이 흰지 회색인지, 바닥이
+      밝은지 어두운지와 무관하게 남는 것은 **판의 외곽선**이다.
+      기울기(Sobel)로 윤곽을 세우고, 화면 테두리에서 배경을 흘려 넣어
+      윤곽에 막히는 곳을 면으로 본다. 핀이 만든 잔 윤곽은 면을 잘게 쪼개므로
+      닫기 연산으로 다시 붙인다. */
+function shapeMask(b, W, H){
+  var N = W*H, i, x, y;
+  /* 🔴 반경을 픽셀로 박아 두면 해상도를 올릴수록 상대적으로 작아져 핀 사이를
+        못 메운다(실측: 336px 오차 49px → 960px 에서 301px 로 되레 나빠졌다).
+        기준 336px 에서 정한 값을 화면 폭에 비례해 키운다. */
+  var K = Math.max(1, W / 336);
+  var rSeal = Math.max(1, Math.round(K));
+  var rFill = Math.max(1, Math.round(TUNE.texFill * K));
+  var L = new Float32Array(N);
+  for (i = 0; i < N; i++) L[i] = (b[i*4]*0.3 + b[i*4+1]*0.6 + b[i*4+2]*0.1) / 255;
+
+  var g = new Float32Array(N), d = Math.max(1, Math.round(K));
+  for (y = d; y < H-d; y++){
+    for (x = d; x < W-d; x++){
+      var o = y*W + x, u = d*W;
+      var gx = -L[o-u-d] - 2*L[o-d] - L[o+u-d] + L[o-u+d] + 2*L[o+d] + L[o+u+d];
+      var gy = -L[o-u-d] - 2*L[o-u] - L[o-u+d] + L[o+u-d] + 2*L[o+u] + L[o+u+d];
+      g[o] = Math.sqrt(gx*gx + gy*gy) / 4;
+    }
+  }
+  var thr = TUNE.autoBoard ? Math.max(0.04, otsu(g, N)) : TUNE.edge;
+  reco.edgeThr = thr;
+
+  // 윤곽 — 끊긴 곳으로 배경이 새지 않게 한 칸 부풀려 잇는다
+  var edge = new Uint8Array(N);
+  for (i = 0; i < N; i++) if (g[i] > thr) edge[i] = 1;
+  var seal = new Uint8Array(N);
+  for (y = 0; y < H; y++) for (x = 0; x < W; x++){
+    if (!edge[y*W+x]) continue;
+    for (var dy = -rSeal; dy <= rSeal; dy++) for (var dx = -rSeal; dx <= rSeal; dx++){
+      var yy = y+dy, xx = x+dx;
+      if (yy>=0 && yy<H && xx>=0 && xx<W) seal[yy*W+xx] = 1;
+    }
+  }
+
+  // 화면 테두리에서 흘려 넣어 윤곽에 막히는 곳까지가 배경이다
+  var bg = new Uint8Array(N), st = [];
+  function push(i){ if (!bg[i] && !seal[i]){ bg[i] = 1; st.push(i); } }
+  for (x = 0; x < W; x++){ push(x); push((H-1)*W + x); }
+  for (y = 0; y < H; y++){ push(y*W); push(y*W + W-1); }
+  while (st.length){
+    var c = st.pop(), cx = c % W, cy = (c / W) | 0;
+    if (cx > 0)   push(c-1);
+    if (cx < W-1) push(c+1);
+    if (cy > 0)   push(c-W);
+    if (cy < H-1) push(c+W);
+  }
+
+  // 배경이 아닌 곳 = 윤곽으로 둘러싸인 면. 핀이 쪼갠 칸들을 닫기로 다시 붙인다
+  var m = new Uint8Array(N);
+  for (i = 0; i < N; i++) if (!bg[i]) m[i] = 1;
+  var r = rFill;
+  function pass(src, r, wantAll){
+    var t = new Uint8Array(N), o2 = new Uint8Array(N), k, ok, v;
+    for (y = 0; y < H; y++) for (x = 0; x < W; x++){
+      v = wantAll ? 1 : 0;
+      for (k = -r; k <= r; k++){
+        var xx = x+k; if (xx < 0 || xx >= W) continue;
+        if (wantAll){ if (!src[y*W+xx]){ v = 0; break; } }
+        else if (src[y*W+xx]){ v = 1; break; }
+      }
+      t[y*W+x] = v;
+    }
+    for (y = 0; y < H; y++) for (x = 0; x < W; x++){
+      v = wantAll ? 1 : 0;
+      for (k = -r; k <= r; k++){
+        var yy = y+k; if (yy < 0 || yy >= H) continue;
+        if (wantAll){ if (!t[yy*W+x]){ v = 0; break; } }
+        else if (t[yy*W+x]){ v = 1; break; }
+      }
+      o2[y*W+x] = v;
+    }
+    return o2;
+  }
+  return pass(pass(m, r, false), r, true);
+}
+
+function detectBoardCorners(){
+  grabDetect();                      // 워프 없이 폰 화면 그대로, 검출용 해상도로
+  var b = detBuf.buf, W = detBuf.W, H = detBuf.H;
+  var N = W*H, i;
+  /* 판은 밝고 채도가 거의 없다. 나무 바닥은 밝아도 색이 있고, 벽은 색이 없어도
+     대개 판보다 어둡다 — 두 조건을 같이 걸어야 갈린다. */
+  var L = new Float32Array(N), S = new Float32Array(N);
+  for (i = 0; i < N; i++){
+    var r = b[i*4]/255, g = b[i*4+1]/255, bl = b[i*4+2]/255;
+    var mx = Math.max(r, g, bl), mn = Math.min(r, g, bl);
+    L[i] = r*0.3 + g*0.6 + bl*0.1;
+    S[i] = mx - mn;
+  }
+  var mask, lit = 0;
+  if (TUNE.useShape){
+    mask = shapeMask(b, W, H);
+    for (i = 0; i < N; i++) if (mask[i]) lit++;
+  } else {
+    var thr = TUNE.autoBoard ? Math.max(otsu(L, N), TUNE.boardLuma * 0.5) : TUNE.boardLuma;
+    reco.boardThr = thr;
+    mask = new Uint8Array(N);
+    for (i = 0; i < N; i++){
+      if (L[i] >= thr && S[i] <= TUNE.boardSat){ mask[i] = 1; lit++; }
+    }
+  }
+  reco.detMask = mask; reco.detBig = null;
+  if (lit < N*0.02) return null;     // 판이 화면에 거의 없다
 
   // 가장 큰 덩어리만 남긴다 (판 위 블록도 밝아서 같이 묶인다 — 오히려 구멍이 안 생긴다)
-  var comps = components(mask, W, H, 200);
+  var comps = components(mask, W, H, Math.round(W*H*0.003));
   if (!comps.length) return null;
-  var big = comps[0];
-  for (var c = 1; c < comps.length; c++) if (comps[c].area > big.area) big = comps[c];
+
+  /* 🔴 「가장 큰 덩어리 = 판」은 판이 다른 것과 붙는 순간 깨진다(실측: 판·블록
+        트레이·바닥 그늘이 한 덩어리로 붙어, 판을 한참 넘는 사각형이 나왔다).
+        판은 직사각형이다 — 그걸 크기 대신 조건으로 건다. 후보마다 네 변을
+        맞춰 보고, 덩어리가 그 사각형을 얼마나 채우는지(채움률)로 고른다.
+        붙어 버린 덩어리는 사각형에서 삐져나오므로 채움률이 떨어진다. */
+  function quadArea(q){
+    var a = 0;
+    for (var i = 0; i < 4; i++){
+      var j = (i+1) % 4;
+      a += q[i][0]*q[j][1] - q[j][0]*q[i][1];
+    }
+    return Math.abs(a) / 2;
+  }
+  function convex(q){
+    var sign = 0;
+    for (var i = 0; i < 4; i++){
+      var a = q[i], b = q[(i+1)%4], c = q[(i+2)%4];
+      var cr = (b[0]-a[0])*(c[1]-b[1]) - (b[1]-a[1])*(c[0]-b[0]);
+      if (!cr) continue;
+      if (!sign) sign = cr > 0 ? 1 : -1;
+      else if ((cr > 0 ? 1 : -1) !== sign) return false;
+    }
+    return true;
+  }
+  comps.sort(function(a, b){ return b.area - a.area; });
+  var big = null, bestQuad = null, bestFill = 0;
+  /* 사각형 고르기는 윤곽 모드에만 건다. 색 모드는 원래 「가장 큰 덩어리」로
+     렌더에서 잘 돌던 경로라, 여기 손대서 같이 깨뜨릴 이유가 없다. */
+  if (!TUNE.useShape){
+    big = comps[0];
+    bestQuad = fitQuad(big, W, H);
+    reco.fill = null;
+    if (!bestQuad) return null;
+  }
+  for (var c = 0; big ? 0 : c < Math.min(comps.length, 8); c++){
+    var cand = comps[c];
+    if (cand.area < W*H*0.01) break;          // 판이라기엔 너무 작다
+    var q = fitQuad(cand, W, H);
+    if (!q || !convex(q)) continue;
+    var qa = quadArea(q);
+    if (qa < 1) continue;
+    var fill = cand.area / qa;                // 1 에 가까울수록 사각형에 잘 맞는다
+    if (fill > 1.15) continue;                // 사각형 밖으로 흘러넘친다
+    if (fill > bestFill){ big = cand; bestQuad = q; bestFill = fill; }
+  }
+  /* 🔴 문턱은 「판이라 부를 수 있는 최저선」이지 목표치가 아니다.
+        0.72 로 잡았다가 렌더의 판(0.70 — 모서리가 둥글고 원근으로 눌린다)이
+        통째로 걸러졌다. 고르는 기준은 채움률 최대, 문턱은 마지막 방어선이다. */
+  if (!big || (TUNE.useShape && bestFill < TUNE.rect)) return null;
+  reco.detBig = big;
+  if (TUNE.useShape) reco.fill = bestFill;
 
   /* 🔴 판이 화면 가장자리에 닿아도 포기하지 않는다.
         fitQuad 는 네 변을 각각 직선으로 회귀해 교점을 잡으므로, 한두 변이
@@ -1350,8 +2622,7 @@ function detectBoardCorners(){
             (big.x1 >= W - 1 - margin) + (big.y1 >= H - 1 - margin);
   if (cut >= 3) return null;
 
-  var quad = fitQuad(big, W, H);
-  if (!quad) return null;
+  var quad = bestQuad;
   var TL = quad[0], TR = quad[1], BR = quad[2], BL = quad[3];
 
   // 너무 납작하면(판이 거의 선으로 보임) 믿지 않는다
@@ -1373,7 +2644,11 @@ function boardExtent(){
   var X1 = m.silX1 != null ? m.silX1 : m.topX1;
   var Y0 = m.silY0 != null ? m.silY0 : m.topY0;
   var Y1 = m.silY1 != null ? m.silY1 : m.topY1;
-  if (!showPanel) X1 = Math.min(X1, PANEL_CUT_X);
+  /* 🔴 `조작판` 토글은 3D 렌더가 새 제품을 그려 보는 스위치일 뿐이다.
+        실사에서는 카메라 앞에 놓인 실물이 기준이고, 그 판에는 조작판이 달려 있다.
+        여기서 토글을 따라가면 검출한 판(조작판 포함)에 조작판 없는 비율을 씌워
+        놀이 영역이 통째로 밀린다 — 펴진 화면에 조작판이 딸려 들어오던 이유다. */
+  if (!showPanel && !photo.on) X1 = Math.min(X1, PANEL_CUT_X);
   return { X0:X0, X1:X1, Y0:Y0, Y1:Y1 };
 }
 
@@ -2038,6 +3313,93 @@ function paintMask(){
   ctx.putImageData(im, 0, 0);
 }
 
+/** 격자 검출이 화면의 어디를 잡았는지 — 고른 덩어리는 밝게, 나머지 후보는 어둡게.
+ *  🔴 「흔들린다」는 대개 여기서 판이 아닌 것(바닥·벽)을 잡고 있다는 뜻이다. */
+function paintDetMask(){
+  var cv = document.getElementById('camDet');
+  if (!cv || !reco.detMask) return;
+  var W = detBuf.W, H = detBuf.H;
+  if (!W || !reco.detMask) return;
+  if (cv.width !== W){ cv.width = W; cv.height = H; }
+  var pick = null;
+  if (reco.detBig && reco.detBig.px){
+    pick = new Uint8Array(W*H);
+    for (var k = 0; k < reco.detBig.px.length; k++) pick[reco.detBig.px[k]] = 1;
+  }
+  var ctx = cv.getContext('2d');
+  var im = ctx.createImageData(W, H);
+  for (var y = 0; y < H; y++){
+    for (var x = 0; x < W; x++){
+      var i = y*W + x, o = ((H-1-y)*W + x) * 4;
+      var on = reco.detMask[i];
+      var chosen = pick && pick[i];
+      im.data[o]   = chosen ? 90  : (on ? 60 : 18);
+      im.data[o+1] = chosen ? 230 : (on ? 90 : 20);
+      im.data[o+2] = chosen ? 255 : (on ? 110 : 19);
+      im.data[o+3] = 255;
+    }
+  }
+  ctx.putImageData(im, 0, 0);
+}
+
+/* 🔴 임계값은 렌더에 맞춰 굳어 있다. 실물에서 얼마인지는 재야 안다 —
+      바닥이 0.55, 흰 판이 0.85 라면 밴드를 「올린다」가 아니라 「0.85 근처로 옮긴다」가
+      답이고, 그건 슬라이더를 밀어 보는 것으로는 몇 분씩 걸린다. */
+var pick = { x:0, y:0, has:false };
+
+function paintPick(){
+  var cv = document.getElementById('camPick');
+  if (!cv || !photo.cv) return;
+  var w = 200, h = Math.round(w * camSim.H / camSim.W);
+  if (cv.width !== w){ cv.width = w; cv.height = h; }
+  var ctx = cv.getContext('2d');
+  ctx.drawImage(photo.cv, 0, 0, w, h);
+
+  /* 🔴 검출 결과를 화면 위에 겹쳐 둔다. 「인식부가 안 맞다」가 외곽을 잘못
+        잡은 것인지, 외곽은 맞는데 비율 계산이 틀린 것인지 이걸 봐야 갈린다. */
+  function poly(q, color, dash){
+    if (!q) return;
+    ctx.strokeStyle = color; ctx.lineWidth = 1.5;
+    ctx.setLineDash(dash || []);
+    ctx.beginPath();
+    q.forEach(function(c, i){
+      var X = c[0]*w, Y = (1 - c[1])*h;    // 버퍼 v 는 아래가 0
+      if (i) ctx.lineTo(X, Y); else ctx.moveTo(X, Y);
+    });
+    ctx.closePath(); ctx.stroke();
+    ctx.setLineDash([]);
+  }
+  poly(reco.boardQuad, '#39d98a', [4, 3]);   // 초록 점선 = 찾은 판 외곽
+  poly(camSim.corners, '#ff6b3d');           // 주황 실선 = 여기서 유도한 인식부
+
+  if (pick.has){
+    ctx.strokeStyle = '#ff3b30'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(pick.x * w, pick.y * h, 4, 0, 6.2832); ctx.stroke();
+  }
+}
+
+/** 찍은 자리의 밝기·채도·색상을 검출기가 쓰는 그 식 그대로 잰다. */
+function samplePick(){
+  var el = document.getElementById('camPickV');
+  if (!el || !photo.cv || !pick.has) return;
+  var sx = Math.round(pick.x * photo.cv.width), sy = Math.round(pick.y * photo.cv.height);
+  var R = 6, ctx = photo.ctx;
+  var d = ctx.getImageData(Math.max(0, sx-R), Math.max(0, sy-R), R*2, R*2).data;
+  var r = 0, g = 0, b = 0, n = d.length / 4;
+  for (var i = 0; i < n; i++){ r += d[i*4]; g += d[i*4+1]; b += d[i*4+2]; }
+  r /= n*255; g /= n*255; b /= n*255;
+  var mx = Math.max(r,g,b), mn = Math.min(r,g,b), dd = mx - mn;
+  var v = r*0.3 + g*0.6 + b*0.1;
+  var hue = '—';
+  if (dd > 0.02){
+    var hh = mx === r ? ((g-b)/dd + 6) % 6 : mx === g ? (b-r)/dd + 2 : (r-g)/dd + 4;
+    hue = ((hh*60 + TUNE.hueRot + 360) % 360).toFixed(0) + '°';
+  }
+  pick.v = v; pick.sat = dd; pick.mx = mx;
+  el.innerHTML = '밝기 <b>' + v.toFixed(2) + '</b> · 채도 <b>' + dd.toFixed(2) +
+                 '</b> · 색상 <b>' + hue + '</b> <span class="dim">(최대 ' + mx.toFixed(2) + ')</span>';
+}
+
 function setPhotoSource(src){
   photo.src = src;
   photo.on = true;
@@ -2055,8 +3417,11 @@ function startWebcam(){
     alert('이 브라우저에서는 웹캠을 열 수 없습니다.');
     return;
   }
+  /* 🔴 1920×1080 을 요구하면 USB 대역폭이 모자란 카메라·허브에서 프레임이
+        깨진 채로 온다(빨강·초록 가로 띠). 720p 면 판을 읽는 데 충분하고,
+        검출은 어차피 672px 로 줄여서 본다. 필요하면 아래 숫자만 올리면 된다. */
   navigator.mediaDevices.getUserMedia({
-    video: { width:{ ideal:1920 }, height:{ ideal:1080 } }, audio:false
+    video: { width:{ ideal:1280 }, height:{ ideal:720 }, frameRate:{ ideal:15 } }, audio:false
   }).then(function(stream){
     var v = document.createElement('video');
     v.autoplay = true; v.playsInline = true; v.muted = true;
@@ -2065,19 +3430,81 @@ function startWebcam(){
       photo.video = v; photo.stream = stream;
       setPhotoSource(v);
       // 매 프레임 2160×1620 을 올릴 이유는 없다 — 손으로 블록을 옮기는 속도면 충분하다
-      photo.timer = setInterval(invalidate, 100);
+      photo.timer = setInterval(invalidate, 150);
     });
   }).catch(function(err){
     alert('웹캠을 열지 못했습니다: ' + err.message);
   });
 }
 
+/* 🔴 페이지를 떠날 때 카메라를 놓아 준다. 안 놓으면 새로고침한 다음 스트림이
+      겹쳐 열려 프레임이 깨지는 카메라가 있다. */
+window.addEventListener('beforeunload', function(){
+  if (photo.stream) photo.stream.getTracks().forEach(function(t){ t.stop(); });
+});
+
 function stopPhoto(){
+  hold.q = null; hold.miss = 0; hold.off = 0; hold.lock = false; hold.calm = 0;
   if (photo.timer){ clearInterval(photo.timer); photo.timer = null; }
   if (photo.stream){ photo.stream.getTracks().forEach(function(t){ t.stop(); }); photo.stream = null; }
   photo.video = null; photo.src = null; photo.on = false;
   document.body.classList.remove('photo-on');
   invalidate();
+}
+
+/* =====================================================================
+ * 판 붙잡기 — 판과 거치대는 움직이지 않는다.
+ *
+ * 🔴 매 프레임 사각형을 처음부터 세우면, 검출이 맞아도 회귀 결과가 몇 px 씩
+ *    흔들리고 그게 warp 를 통과하면 화면이 요동친다. 실물에서 움직이는 것은
+ *    블록뿐이므로, 판 좌표는 프레임 사이에 이어 붙이는 게 맞다.
+ *    ⚠️ 정답 좌표를 쓰는 것과는 다르다 — 여기 들어가는 값은 전부 화면에서 찾은 것이다.
+ * ===================================================================== */
+var hold = { q:null, miss:0, off:0, jitter:null, lock:false, calm:0, auto:true };
+
+/* 🔴 판은 움직이지 않는다. 몇 px 짜리 변화는 판이 옮겨진 게 아니라 잡음이다
+      — 웹캠 자동노출이 밝기를 흔들면 경계가 따라 움직이고, 그게 그대로
+      warp 로 들어가 화면이 떤다. 그만큼은 아예 안 움직인다. */
+var DEAD = 0.005;      // 이 안쪽이면 제자리 (화면 폭의 0.5%)
+var CALM = 25;         // 이만큼 조용하면 못 박는다
+
+function quadDist(a, b){
+  var d = 0;
+  for (var i = 0; i < 4; i++) d = Math.max(d, Math.hypot(a[i][0]-b[i][0], a[i][1]-b[i][1]));
+  return d;
+}
+
+/** 새로 찾은 사각형을 이어 붙인다. 가까우면 섞고, 멀면 몇 프레임 지켜본 뒤 갈아탄다. */
+function steadyQuad(found){
+  if (hold.lock) return hold.q || found;
+  if (!found){
+    // 한두 프레임 놓친 것뿐이면 판이 사라진 게 아니다 (손이 지나갔거나 노출이 튀었거나)
+    if (hold.q && ++hold.miss <= 20) return hold.q;
+    if (hold.miss > 20) hold.q = null;
+    return null;
+  }
+  hold.miss = 0;
+  if (!hold.q){ hold.q = found; hold.off = 0; hold.calm = 0; return hold.q; }
+
+  var d = quadDist(found, hold.q);
+  hold.jitter = d;
+  if (d > 0.06){                       // 통째로 다른 데를 잡았다 — 바로 따라가지 않는다
+    if (++hold.off < 12) return hold.q;
+    hold.q = found; hold.off = 0; hold.calm = 0;
+    return hold.q;
+  }
+  hold.off = 0;
+
+  if (d < DEAD){                       // 잡음 — 제자리에 둔다
+    if (hold.auto && ++hold.calm >= CALM) hold.lock = true;
+    return hold.q;
+  }
+  hold.calm = 0;
+  var k = 0.08;                        // 진짜로 움직였을 때만, 그것도 천천히
+  hold.q = hold.q.map(function(c, i){
+    return [c[0] + (found[i][0]-c[0])*k, c[1] + (found[i][1]-c[1])*k];
+  });
+  return hold.q;
 }
 
 function drawCamSim(){
@@ -2107,15 +3534,21 @@ function drawCamSim(){
         return projectToUV(pc.vp, c[0], c[1], boardTop + BLOCK_H);
       });
   // 화면에서 판을 찾아 놀이 영역을 잡는다. 실패하면 정답 네 점으로 물러선다.
-  var found = camSim.detect ? detectGridCorners() : null;
-  camSim.foundBy = found ? 'grid' : null;
+  /* 🔴 검출 경로는 하나다. 오늘 만든 네 가지(밝기 밴드·윤곽·점무늬·직선)는
+        전부 고정 숫자를 깔고 있어 실사에서 무너졌다. 지금 것은 실물 사진에
+        16가지 조건(해상도 ¼·판 40% 크기·밝기 ×0.5·대비 ×0.4·노이즈·흐림)을
+        걸어 12/16 통과를 확인한 뒤 옮긴 것이다. */
+  var found = camSim.detect ? findPlayQuad() : null;
+  camSim.foundBy = found ? 'play' : null;
   if (!found && camSim.detect){                    // 격자를 놓치면 판 외곽으로
     var boardUV = detectBoardCorners();
+    reco.boardQuad = boardUV;          // 겹쳐 그려서 눈으로 확인한다
     found = boardUV
       ? playAreaFromBoard([boardUV[2], boardUV[3], boardUV[0], boardUV[1]])
       : null;
     if (found) camSim.foundBy = 'board';
   }
+  found = steadyQuad(found);
   camSim.detected = !!found;
   camSim.cornerErr = (found && truthCorners) ? found.reduce(function(mx, c, i){
     return Math.max(mx, Math.hypot(c[0]-truthCorners[i][0], c[1]-truthCorners[i][1]));
@@ -2145,7 +3578,8 @@ function drawCamSim(){
   if (H){
     if (reco.fbo){
       // 격자 주기로 호모그래피를 한 번 더 맞춘다 — 검출 4점만으로는 스케일이 어긋난다
-      var refined = camSim.refine ? bestRefined(H) : null;
+      if (camSim.refine && camSim.foundBy === 'play') H = snapToGrid(H);
+      var refined = (camSim.refine && !hold.lock && camSim.foundBy !== 'play') ? bestRefined(H) : null;
       camSim.refineInfo = refined ? refined.info : null;
       if (refined){
         H = refined.H;
@@ -2802,6 +4236,32 @@ new ResizeObserver(function(){
   invalidate();
 }).observe(document.getElementById('stage'));
 /** 인식 결과를 패널에 그린다 — 정답이 있으니 맞았는지까지 바로 보인다. */
+/** 무엇으로 판을 찾았는지 한 줄로. (삼항으로 길게 잇다가 괄호를 두 번 틀렸다) */
+function foundByLabel(){
+  if (camSim.foundBy === 'play'){
+    var pi = reco.playInfo || {};
+    return '핀 격자 <span class="dim">핀 ' + (pi.pins || 0) +
+           '개 · 간격 ' + (pi.pitch || 0).toFixed(1) + 'px' +
+           (reco.snapRms != null ? ' · 어긋남 ' + reco.snapRms.toFixed(2) + 'px' : '') +
+           '</span>';
+  }
+  if (camSim.foundBy === 'lines'){
+    var li = reco.lineInfo || {};
+    return '틀 <span class="dim">선 후보 ' + (li.peaks || 0) +
+           ' · 변 간격 ' + (li.sep || []).join('/') + 'px' +
+           ' · 안쪽 핀 ' + (li.pinFill != null ? li.pinFill : '?') +
+           (reco.cellFit ? ' · ' + reco.cellFit.w.toFixed(1) + '×' + reco.cellFit.h.toFixed(1) +
+             '칸' : '') + '</span>';
+  }
+  if (camSim.foundBy === 'pins'){
+    return '핀 ' + (reco.pinCount || 0) + '개' +
+           (reco.pinRaw ? ' <span class="dim">(후보 ' + reco.pinRaw +
+             ' · 간격 ' + (reco.pinPitch || 0).toFixed(1) + 'px)</span>' : '');
+  }
+  if (camSim.foundBy === 'grid') return TUNE.useTexture ? '점무늬' : '격자 밝기';
+  return TUNE.useShape ? '윤곽' : '밝기 ' + (reco.boardThr || 0).toFixed(2);
+}
+
 function onRecoResult(){
   var el = document.getElementById('camReco');
   if (!el || !reco.result) return;
@@ -2809,7 +4269,12 @@ function onRecoResult(){
   if (photo.on){
     var pdet = camSim.detected
       ? '<span class="ok">판 검출 ✓</span> <span class="dim">' +
-        (camSim.foundBy === 'grid' ? '격자' : '외곽') + '</span><br>'
+        foundByLabel() +
+        (reco.fill ? ' · 채움 ' + reco.fill.toFixed(2) : '') +
+        (hold.lock ? (hold.auto ? ' · <b>자동 고정</b>' : ' · <b>고정</b>')
+          : hold.jitter != null
+            ? ' · 흔들림 ' + (hold.jitter * camSim.W).toFixed(0) + 'px' : '') +
+        '</span><br>'
       : '<span class="no">판을 찾지 못했습니다</span><br>';
     var exp = (photo.expect || '').trim();
     el.innerHTML = pdet +
@@ -2822,6 +4287,9 @@ function onRecoResult(){
           r.detail.map(function(d){ return d.ch + ' ' + d.iou; }).join(' · ') + '</span>'
         : '');
     paintMask();
+    paintDetMask();
+    paintPick();
+    samplePick();
     return;
   }
   if (!sc.blocks){ el.innerHTML = '<span class="dim">판에 블록이 없습니다</span>'; return; }
@@ -3047,12 +4515,95 @@ document.getElementById('panelChk').addEventListener('change', function(e){
     startWebcam();
   });
   document.getElementById('camOff').addEventListener('click', stopPhoto);
+  /* 🔴 실사 튜닝은 「같은 그림을 몇 번이고 다시 돌려보기」가 되어야 한다.
+        웹캠은 매 프레임 달라서, 고치고 다시 봐도 무엇 때문에 달라졌는지 모른다.
+        프레임을 파일로 떨어뜨려 두면 그 한 장으로 조건을 쓸어 볼 수 있다. */
+  document.getElementById('camSave').addEventListener('click', function(){
+    if (!photo.cv) return;
+    photo.cv.toBlob(function(blob){
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'tango-frame.png';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(function(){ URL.revokeObjectURL(a.href); }, 4000);
+    }, 'image/png');
+  });
+  document.getElementById('holdAuto').addEventListener('change', function(e){
+    hold.auto = e.target.checked;
+    if (!hold.auto){ hold.lock = false; hold.calm = 0; }
+    invalidate();
+  });
+  document.getElementById('holdLock').addEventListener('click', function(e){
+    hold.lock = !hold.lock;
+    e.target.textContent = hold.lock ? '📌 고정 해제' : '📌 판 고정';
+    invalidate();
+  });
+  document.getElementById('holdReset').addEventListener('click', function(){
+    hold.q = null; hold.miss = 0; hold.off = 0; hold.lock = false; hold.calm = 0;
+    document.getElementById('holdLock').textContent = '📌 판 고정';
+    invalidate();
+  });
+  document.getElementById('tUseLines').addEventListener('change', function(e){
+    TUNE.useLines = e.target.checked; hold.q = null; hold.lock = false; invalidate();
+  });
+  document.getElementById('tUsePins').addEventListener('change', function(e){
+    TUNE.usePins = e.target.checked; hold.q = null; hold.lock = false; invalidate();
+  });
+  document.getElementById('tUseShape').addEventListener('change', function(e){
+    TUNE.useShape = e.target.checked; invalidate();
+  });
+  document.getElementById('tUseTex').addEventListener('change', function(e){
+    TUNE.useTexture = e.target.checked; invalidate();
+  });
+  document.getElementById('tAuto').addEventListener('change', function(e){
+    TUNE.autoBoard = e.target.checked; invalidate();
+  });
+  document.getElementById('camPick').addEventListener('click', function(e){
+    var r = e.target.getBoundingClientRect();
+    pick.x = (e.clientX - r.left) / r.width;
+    pick.y = (e.clientY - r.top) / r.height;
+    pick.has = true;
+    paintPick(); samplePick();
+  });
+  function setTune(id, key, val){
+    TUNE[key] = val;
+    var el = document.getElementById(id);
+    el.value = Math.round(val * (key === 'hueRot' ? 1 : 100));
+    document.getElementById(id + 'V').textContent =
+      key === 'hueRot' ? val + '°' : val.toFixed(2);
+  }
+  document.getElementById('pickGrid').addEventListener('click', function(){
+    if (!pick.has || pick.v == null) return;
+    setTune('tGridLo', 'gridLo', Math.max(0.02, +(pick.v - 0.10).toFixed(2)));
+    setTune('tGridHi', 'gridHi', Math.min(1, +(pick.v + 0.10).toFixed(2)));
+    setTune('tBoard', 'boardLuma', Math.max(0.02, +(pick.v - 0.15).toFixed(2)));
+    invalidate();
+  });
+  document.getElementById('pickJamo').addEventListener('click', function(){
+    if (!pick.has || pick.sat == null) return;
+    // 찍은 색이 전경으로 잡히도록 문턱을 그 아래로 내린다
+    setTune('tSat', 'sat', Math.max(0.02, +(pick.sat * 0.6).toFixed(2)));
+    setTune('tLit', 'lit', Math.max(0.05, +(pick.mx - 0.12).toFixed(2)));
+    invalidate();
+  });
   document.getElementById('camExpect').addEventListener('input', function(e){
     photo.expect = e.target.value;
     onRecoResult();
   });
+  document.getElementById('tDetW').addEventListener('input', function(e){
+    TUNE.detW = +e.target.value;
+    document.getElementById('tDetWV').textContent = TUNE.detW + 'px';
+    hold.q = null;                   // 해상도가 바뀌면 붙잡아 둔 자리도 다시 찾는다
+    invalidate();
+  });
   [['tHue','hueRot',1,function(v){ return v + '°'; }],
-   ['tSat','sat',0.01,null], ['tLit','lit',0.01,null], ['tBoard','boardLuma',0.01,null]
+   ['tSat','sat',0.01,null], ['tLit','lit',0.01,null], ['tBoard','boardLuma',0.01,null],
+   ['tGridLo','gridLo',0.01,null], ['tGridHi','gridHi',0.01,null],
+   ['tBoardSat','boardSat',0.01,null], ['tTex','tex',0.01,null],
+   ['tRect','rect',0.01,null], ['tPin','pin',0.01,null], ['tPinS','pinShrink',0.01,null],
+   ['tLine','line',0.01,null], ['tPinFill','pinFill',0.01,null], ['tCellTol','cellTol',0.01,null]
   ].forEach(function(row){
     var el = document.getElementById(row[0]);
     el.addEventListener('input', function(e){
