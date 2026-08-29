@@ -3914,7 +3914,11 @@ function drawCamSim(){
   var w = 0.56, h = w * (camSim.H/camSim.W) * aspect;
   blitTex([1 - w - 0.03, 1 - h - 0.05, w, h], IDENT3);
   var gh = w * (GRID_H/GRID_W) * aspect;
-  if (H) blitTex([1 - w - 0.03, 1 - h - gh - 0.09, w, gh], H);
+  /* 🔴 표시만 사용자 시점으로 돌린다. 카메라는 판 뒤에서 보므로 펴진 화면이
+        사용자가 보는 것과 180° 돌아가 있다 — 사람이 읽는 창이니 사람 쪽에
+        맞춘다. 인식은 별도로 grabWarped(H) 를 쓰므로 영향이 없다. */
+  if (H) blitTex([1 - w - 0.03, 1 - h - gh - 0.09, w, gh],
+                 mat3mul(H, [-1, 0, 0, 0, -1, 0, 1, 1, 1]));
   gl.enable(gl.DEPTH_TEST);
 }
 
