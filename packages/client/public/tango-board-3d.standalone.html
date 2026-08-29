@@ -1063,8 +1063,12 @@ function classifyPixels(buf, W, H){
     B[i] = 0.5*(r + g) - b;       // 황-청
     Y[i] = r*0.3 + g*0.6 + b*0.1;
   }
+  /* 🔴 네 화소에 하나만 본다. 19만 개를 통째로 정렬하느라 한 프레임에
+        중앙값 세 번 = 150ms 를 썼다. 고르는 값은 그대로다(같은 분포의 표본). */
   function median(arr){
-    var s2 = Array.prototype.slice.call(arr).sort(function(x, y){ return x - y; });
+    var s2 = [], step = arr.length > 20000 ? 4 : 1;
+    for (var q = 0; q < arr.length; q += step) s2.push(arr[q]);
+    s2.sort(function(x, y){ return x - y; });
     return s2[(s2.length/2)|0];
   }
   var mA = median(A), mB = median(B);           // 판이 화면의 대부분이라 중앙값 = 판 색
