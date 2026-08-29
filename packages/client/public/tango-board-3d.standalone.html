@@ -113,6 +113,10 @@
   body.cam-only #camPanel, body.cam-only #word, body.cam-only #score,
   body.cam-only #panelToggle{display:none !important}
   body.cam-only #read{left:50%; transform:translateX(-50%); bottom:14px}
+  #camOnlyBar{display:none}
+  body.cam-only #camOnlyBar{display:flex; gap:8px; position:absolute; right:10px; top:10px; z-index:9}
+  #camOnlyBar button{font:600 13px/1 inherit; padding:9px 12px; border-radius:10px;
+    border:1px solid rgba(255,255,255,.25); background:rgba(20,32,28,.72); color:#eaf3ef}
   body.photo-on #camOff, body.photo-on #camExpect, body.photo-on .cam-tune{display:block}
   body.photo-on .cam-tune{display:flex; flex-direction:column; gap:5px}
   #camExpect{
@@ -219,6 +223,12 @@
       <button class="rbtn" id="clear" title="지우기" aria-label="모두 지우기">🧹</button>
     </div>
     <button id="camToggle" title="폰 카메라로 본 화면">📷 카메라</button>
+    <!-- 🔴 카메라만 보기에서는 패널이 숨으므로, 프레임 저장과 설정 복귀만 남긴다.
+             폰에서 무엇이 잘못됐는지 알려면 그 화면의 프레임이 있어야 한다. -->
+    <div id="camOnlyBar">
+      <button id="camOnlySave" title="지금 화면을 파일로 저장">💾 프레임</button>
+      <button id="camOnlyPanel" title="설정 보기">⚙️</button>
+    </div>
     <label id="panelToggle" title="구형 본체의 오른쪽 조작판 — 새 제품엔 없다">
       <input type="checkbox" id="panelChk"> 조작판</label>
     <div id="camPanel" hidden>
@@ -5384,6 +5394,33 @@ document.getElementById('panelChk').addEventListener('change', function(e){
   // 🔴 메시가 들어온 뒤에 불러야 한다 — 그 전엔 격자 좌표가 0 이라
   //    「앞뒤 위치」가 30mm 같은 엉뚱한 값으로 굳는다.
   refreshCamPanel = refresh;
+})();
+
+document.getElementById('camOnlySave').addEventListener('click', function(){
+  var b = document.getElementById('camSave'); if (b) b.click();
+});
+document.getElementById('camOnlyPanel').addEventListener('click', function(){ setCamOnly(false); });
+
+/* 🔴 모바일 브라우저는 **사용자가 건드리기 전에는 소리를 안 낸다**. 웹캠을 켜는
+      탭만으로는 나중에 만든 Audio 객체까지 풀리지 않는 경우가 있어, 첫 터치에
+      빈 소리를 한 번 재생해 잠금을 푼다. */
+(function(){
+  var unlocked = false;
+  function unlock(){
+    if (unlocked) return;
+    unlocked = true;
+    try {
+      var a = new Audio();
+      a.src = 'data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCA';
+      a.volume = 0; var pr = a.play(); if (pr && pr.catch) pr.catch(function(){});
+    } catch (e){}
+    if (typeof speechSynthesis !== 'undefined'){
+      try { speechSynthesis.speak(new SpeechSynthesisUtterance('')); } catch (e){}
+    }
+  }
+  ['pointerdown', 'touchstart', 'click'].forEach(function(ev){
+    document.addEventListener(ev, unlock, { once:false, passive:true });
+  });
 })();
 
 document.getElementById('speak').addEventListener('click', speak);
