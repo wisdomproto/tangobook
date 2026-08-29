@@ -109,6 +109,10 @@
   }
   .cam-shot button:hover{background:var(--coral); border-color:transparent}
   #camOff, #camExpect, .cam-tune{display:none}
+  /* 🔴 폰에서 웹캠을 켜면 카메라만 남긴다 — 설정 패널과 3D 화면이 가린다. */
+  body.cam-only #camPanel, body.cam-only #word, body.cam-only #score,
+  body.cam-only #panelToggle{display:none !important}
+  body.cam-only #read{left:50%; transform:translateX(-50%); bottom:14px}
   body.photo-on #camOff, body.photo-on #camExpect, body.photo-on .cam-tune{display:block}
   body.photo-on .cam-tune{display:flex; flex-direction:column; gap:5px}
   #camExpect{
@@ -3876,16 +3880,38 @@ function startWebcam(){
   /* 🔴 실패하면 **조건 없이 한 번 더** 열어 본다. 「Could not start video source」
         는 대개 다른 탭·앱이 카메라를 잡고 있을 때 나오는데, 그때 카메라는 이미 열린
         모드 그대로만 내준다 — 720p 를 콕 집으면 거절당하고 맨 요청은 통한다. */
-  var ideal = { video: { width:{ ideal:1280 }, height:{ ideal:720 }, frameRate:{ ideal:15 } }, audio:false };
+  /* 🔴 앞쪽 카메라를 쓴다. 거치대에 얹으면 화면과 같은 쪽 렌즈가 판을 본다 —
+        폰은 기본이 뒷면이라 그냥 열면 엉뚱한 데를 찍는다. */
+  var ideal = { video: { facingMode: { ideal: 'user' },
+                         width:{ ideal:1280 }, height:{ ideal:720 }, frameRate:{ ideal:15 } }, audio:false };
   navigator.mediaDevices.getUserMedia(ideal)
+    .catch(function(){ return navigator.mediaDevices.getUserMedia({ video:{ facingMode:{ ideal:'user' } }, audio:false }); })
     .catch(function(){ return navigator.mediaDevices.getUserMedia({ video:true, audio:false }); })
     .then(function(stream){
     var v = document.createElement('video');
     v.autoplay = true; v.playsInline = true; v.muted = true;
+    v.setAttribute('playsinline', '');      // iOS 는 속성이 있어야 인라인 재생
+    v.setAttribute('muted', '');
+    /* 🔴 화면에 붙지 않은 <video> 는 프레임을 안 내주는 모바일 브라우저가 있다.
+          보이지 않게 두되 **레이아웃에는 존재**해야 한다 — display:none 이면 같은
+          이유로 멈춘다. 1px 로 깔아 둔다. */
+    v.style.cssText = 'position:fixed;left:0;bottom:0;width:1px;height:1px;opacity:0.01;pointer-events:none;z-index:-1';
+    document.body.appendChild(v);
     v.srcObject = stream;
     return v.play().then(function(){
+      /* 크기가 잡히기 전에는 프레임을 못 올린다 — 모바일에서 play() 가 먼저
+         끝나는 경우가 있어 한 번 기다려 준다. */
+      if (!v.videoWidth) return new Promise(function(res){
+        var n = 0;
+        (function wait(){ if (v.videoWidth || ++n > 40) return res(); setTimeout(wait, 50); })();
+      });
+    }).then(function(){
       photo.video = v; photo.stream = stream;
       setPhotoSource(v);
+      /* 🔴 폰에서는 설정 패널과 3D 화면이 카메라를 통째로 가린다. 웹캠을 켜면
+            **카메라만** 남긴다 — 이 화면에서 볼 것은 판과 읽은 낱말뿐이다. */
+      setCamOnly(true);
+      keepAwake(true);
       /* 🔴 판은 가만히 있어도 카메라는 가만히 있지 않는다. 자동 노출·화이트밸런스가
             계속 재조정되면 프레임마다 밝기와 색이 달라지고, 문턱을 화면 분포에서
             뽑는 이상 블록 가장자리가 한두 픽셀씩 들락거린다. 그 몇 픽셀이 칸
@@ -3946,16 +3972,47 @@ function releaseCamera(){
 window.addEventListener('beforeunload', releaseCamera);
 window.addEventListener('pagehide', releaseCamera);
 
+/* 🔴 판을 들여다보는 동안 화면이 꺼지면 카메라도 같이 멈춘다. 웹캠을 켠
+      동안만 깨워 둔다 — 끄면 바로 풀어 배터리를 돌려준다.
+      탭이 뒤로 갔다 오면 잠금이 풀려 있으므로 다시 건다(스펙대로다). */
+var wakeLock = null;
+function keepAwake(on){
+  if (!('wakeLock' in navigator)) return;
+  if (on){
+    if (wakeLock) return;
+    navigator.wakeLock.request('screen').then(function(l){
+      wakeLock = l;
+      l.addEventListener('release', function(){ wakeLock = null; });
+    }).catch(function(){});
+  } else if (wakeLock){
+    try { wakeLock.release(); } catch (e){}
+    wakeLock = null;
+  }
+}
+document.addEventListener('visibilitychange', function(){
+  if (!document.hidden && photo.stream) keepAwake(true);
+});
+
+var camOnly = false;
+function setCamOnly(on){
+  camOnly = !!on;
+  document.body.classList.toggle('cam-only', camOnly);
+  invalidate();
+}
+
 function stopPhoto(){
   wordHist = [];
   hold.q = null; hold.miss = 0; hold.off = 0; hold.lock = false; hold.calm = 0; hold.hist = [];
   hold.orient = null; hold.orientMiss = 0;
   if (photo.timer){ clearInterval(photo.timer); photo.timer = null; }
   if (photo.stream){ photo.stream.getTracks().forEach(function(t){ t.stop(); }); photo.stream = null; }
+  if (photo.video && photo.video.parentNode) photo.video.parentNode.removeChild(photo.video);
   photo.video = null; photo.src = null; photo.on = false;
   camSim.lastH = null;
   photo.lockFn = null; photo.lockInfo = null;
   document.body.classList.remove('photo-on');
+  setCamOnly(false);
+  keepAwake(false);
   invalidate();
 }
 
@@ -4183,8 +4240,10 @@ function drawCamSim(){
   }
 
   var aspect = canvas.width / canvas.height;
-  var w = 0.56, h = w * (camSim.H/camSim.W) * aspect;
-  blitTex([1 - w - 0.03, 1 - h - 0.05, w, h], IDENT3);
+  var w = camOnly ? 0.94 : 0.56, h = w * (camSim.H/camSim.W) * aspect;
+  var x0 = camOnly ? (1 - w)/2 : 1 - w - 0.03;
+  var y0 = camOnly ? 0.98 - h : 1 - h - 0.05;
+  blitTex([x0, y0, w, h], IDENT3);
   var gh = w * ((GRID_H + 2*MARGIN)/(GRID_W + 2*MARGIN)) * aspect;
   /* 🔴 표시만 사용자 시점으로 돌린다. 카메라는 판 뒤에서 보므로 펴진 화면이
         사용자가 보는 것과 180° 돌아가 있다 — 사람이 읽는 창이니 사람 쪽에
@@ -4196,7 +4255,7 @@ function drawCamSim(){
         잘 잡은 그림을 계속 보여준다. */
   if (H) camSim.lastH = H;
   var showH = H || camSim.lastH;
-  if (showH) blitTex([1 - w - 0.03, 1 - h - gh - 0.09, w, gh],
+  if (showH) blitTex([x0, y0 - gh - 0.03, w, gh],
                      mat3mul(showH, [1, 0, 0, 0, -1, 0, 0, 1, 1]));
   gl.enable(gl.DEPTH_TEST);
 }
@@ -4250,6 +4309,11 @@ function draw(){
   gl.disable(gl.SCISSOR_TEST);
   gl.clearColor(0.067, 0.102, 0.090, 1);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  if (camOnly && !camSim.on) setCamOnly(false);   // 카메라를 끄면 원래 화면으로
+  if (camOnly && camSim.on){
+    drawCamSim();                       // 카메라만 — 3D 씬도 거치대도 안 그린다
+    return;
+  }
   var mainVP = viewProj().vp;
   drawScene(mainVP);
   if (camSim.on) drawCamSim();          // 오른쪽 카메라 화면 — 토글
