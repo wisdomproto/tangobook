@@ -2574,31 +2574,13 @@ function findPlayQuadPolarity(bright){
         인식부는 **정확히 GRID_W x GRID_H 칸**이라는 걸 우리가 안다. 관측된 끝이
         아니라 잰 간격으로 그만큼을 채우도록 늘린다 — 몇 줄이 안 보여도 자리는
         그대로다. */
-  (function fitToGrid(){
-    var cx0 = 0, cy0 = 0;
-    lat.forEach(function(p){ cx0 += p[0]; cy0 += p[1]; });
-    cx0 /= lat.length; cy0 /= lat.length;
-    var uU = [(quad[1][0]-quad[0][0] + quad[2][0]-quad[3][0]) / 2,
-              (quad[1][1]-quad[0][1] + quad[2][1]-quad[3][1]) / 2];
-    var uV = [(quad[3][0]-quad[0][0] + quad[2][0]-quad[1][0]) / 2,
-              (quad[3][1]-quad[0][1] + quad[2][1]-quad[1][1]) / 2];
-    var lu = Math.hypot(uU[0], uU[1]), lv = Math.hypot(uV[0], uV[1]);
-    if (!lu || !lv || !pitch) return;
-    // 지금 사각형이 몇 칸을 덮고 있나 (구멍 간격 기준)
-    var haveU = lu / pitch, haveV = lv / pitch;
-    var wantU = GRID_W - 1, wantV = GRID_H - 1;   // 바깥 구멍끼리의 간격
-    if (haveU < wantU*0.6 || haveU > wantU*1.4) return;   // 간격 추정이 어긋난 판은 건드리지 않는다
-    if (haveV < wantV*0.6 || haveV > wantV*1.4) return;
-    var kU = wantU / haveU, kV = wantV / haveV;
-    var c2 = [(quad[0][0]+quad[1][0]+quad[2][0]+quad[3][0]) / 4,
-              (quad[0][1]+quad[1][1]+quad[2][1]+quad[3][1]) / 4];
-    quad = quad.map(function(q){
-      var du = ((q[0]-c2[0])*uU[0] + (q[1]-c2[1])*uU[1]) / (lu*lu);
-      var dv = ((q[0]-c2[0])*uV[0] + (q[1]-c2[1])*uV[1]) / (lv*lv);
-      du *= kU; dv *= kV;
-      return [c2[0] + du*uU[0] + dv*uV[0], c2[1] + du*uU[1] + dv*uV[1]];
-    });
-  })();
+  /* 🔴 「잰 간격으로 21x14칸을 채우도록 늘린다」를 넣었다가 뺐다.
+        이 판은 구멍과 돌기가 **엇갈려** 박혀 있어 이웃까지의 거리가 칸의
+        0.707배(대각선)다. 그걸 칸 간격으로 알고 나누면 사각형이 28칸을 덮고
+        있다고 나와, 20칸에 맞춘다며 오히려 29% 줄였다 — 인식부가 확대돼
+        보이고 아래쪽이 잘린 게 그것이었다.
+        간격을 칸 간격으로 제대로 재기 전까지는 이 보정을 하지 않는다.
+        모자란 만큼은 아래 여유(MARGIN)로 덮는다. */
 
   /* 바깥 핀 줄에서 **반 칸** 더 나가야 인식부 경계다.
      🔴 중심에서 한 배율로 키우면 안 된다 — 같은 배율이 가로에서는 반 칸이지만
