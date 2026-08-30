@@ -118,11 +118,13 @@
   #camOnlyBar button{font:600 13px/1 inherit; padding:9px 12px; border-radius:10px;
     border:1px solid rgba(255,255,255,.25); background:rgba(20,32,28,.72); color:#eaf3ef}
   #camOnlySendBar{display:none}
-  body.cam-only #camOnlySendBar{display:block; position:absolute; left:8px; bottom:64px; z-index:9}
+  /* 🔴 보내기는 **왼쪽 위**. 아래에 두면 누르는 손가락이 판 위로 들어와
+     인식부 안에 14칸짜리 살색 띠가 생긴다(실측 ph4: 그것 때문에 「토」를 못 읽었다). */
+  body.cam-only #camOnlySendBar{display:block; position:absolute; left:8px; top:8px; z-index:9}
   #camOnlySendBar button{font:600 13px/1 inherit; padding:10px 14px; border-radius:10px;
     border:1px solid rgba(255,255,255,.25); background:rgba(20,32,28,.72); color:#eaf3ef}
   #camOnlyDbg{display:none}
-  body.cam-only #camOnlyDbg{display:block; position:absolute; left:8px; top:8px; z-index:9;
+  body.cam-only #camOnlyDbg{display:block; position:absolute; left:8px; top:58px; z-index:9;
     font:500 11px/1.5 ui-monospace,monospace; color:#cfe6dd; background:rgba(20,32,28,.72);
     padding:6px 8px; border-radius:8px; white-space:pre; max-width:62vw}
   body.photo-on #camOff, body.photo-on #camExpect, body.photo-on .cam-tune{display:block}
@@ -929,14 +931,15 @@ var TUNE = {
   colorDiff: false,     // 빈 판과의 차이를 색으로 잴지(true) 밝기 포함으로 잴지(false)
   difBlur: 0.10,        // 차이 지도를 흐리는 반지름(칸). 획 사이(약 0.6칸)보다 작아야 한다
   openR: 0,             // 점 지우기 열기 반지름(칸). 0 이면 끔 — 켜면 ㅇ 의 고리가 먼저 끊긴다
+  closeR: 1,            // 끊어진 획을 잇는 닫기 반지름(px)
   stripPlate: true,     // 블록 받침판 걷어내기 — 이게 있어야 ㅌ 과 ㄷ 이 갈린다
   plateMinSide: 2.2,    // 짧은 변이 이보다 얇은 덩어리(=모음 막대)는 안 깎는다(칸)
   /* 테두리가 판보다 이만큼은 붉어야 한다 — Otsu 가 판 잡음을 가를 때의 바닥. */
   roseMin: 0.012,
-  ringRot: 0,
+  ringRot: 0,           // 테두리 사각형의 시작 모서리 회전(0~3) — 실물로 재서 정한다
   /* 🔴 테두리 안쪽 벽은 참 인식부보다 **한 칸 바깥**이다(테두리 띠 두께 +
      벽을 부풀린 만큼). 실측 폰 _ph1: 0 이면 「로」(ㄹ 0.78) · -1 이면 「토」(ㅌ 0.81). */
-  ringPad: -1,          // 테두리로 잡은 사각형을 칸 단위로 넓힘(+)/좁힘(-)           // 테두리 사각형의 시작 모서리 회전(0~3) — 실물로 재서 정한다
+  ringPad: -1,          // 테두리로 잡은 사각형을 칸 단위로 넓힘(+)/좁힘(-)
   diffK: 1.2,           // 빈 칸과의 차이가 판 중앙값의 몇 배부터 블록인가
   diffCap: 4,           // Otsu 문턱의 상한(빈 판 중앙값의 배수)
   blockLum: 0.60,             // 판 밝기의 이 비율보다 어두우면 바닥·그림자
@@ -1279,6 +1282,29 @@ function classifyPixels(buf, W, H){
         여기서 또 깎으면 획만 얇아진다(실측: 모음 막대가 0.3~0.9칸으로 줄어 탈락).
         🔴 다만 폰처럼 받침판이 색을 띠고 찍히는 카메라가 나오면 다시 켤 자리라
            코드는 남겨 둔다. */
+  /* 🔴 **블록일 수 없는 덩어리는 색을 가르기 전에 버린다.** 손가락이 화면에
+        들어오면 살색이 판과 달라 전경이 되고, 14칸짜리 세로 띠가 그대로 남는다
+        (실측 ph4: 2.8x14.0 · 1.8x13.3칸 — 「토」가 통째로 안 읽혔다).
+        그냥 두면 덩어리로만 걸리는 게 아니라 **A 문턱까지 끌고 간다**(A간격 0.196).
+        가장 긴 블록이 5칸이니 8칸을 넘으면 블록이 아니다. */
+  var tooBig = 8*CELL;
+  var pre = components(lab, W, H, Math.round(CELL*CELL/2));
+  for (var pi2 = 0; pi2 < pre.length; pi2++){
+    var lw = pre[pi2].w, lh = pre[pi2].h;
+    var lng = Math.max(lw, lh), shrt = Math.max(1, Math.min(lw, lh));
+    /* 길고 **가느다란** 것만 버린다 — 붙어 있는 블록 두 개는 5.6x6.0칸처럼 뭉툭해서
+       길이만 보면 같이 버려진다(실측: 그러다 읽히던 ph3 이 통째로 빈 낱말이 됐다). */
+    if (lng < tooBig || lng/shrt < 3) continue;
+    for (i = 0; i < pre[pi2].px.length; i++) lab[pre[pi2].px[i]] = 0;
+  }
+  var fgKeep = [];
+  for (i = 0; i < fg.length; i++) if (lab[fg[i]]) fgKeep.push(fg[i]);
+  fg = fgKeep;
+  if (fg.length < 20){
+    reco.colorInfo = { 차이문턱:+difGate.toFixed(1), fg:0, why:'블록다운 덩어리 없음' };
+    return lab;
+  }
+
   var blocks0 = TUNE.stripPlate ? components(lab, W, H, Math.round(CELL*CELL/2)) : [];
   var keep = new Uint8Array(N), inked = 0;
   if (!TUNE.stripPlate) for (i = 0; i < fg.length; i++) keep[fg[i]] = 1;
@@ -1319,7 +1345,7 @@ function classifyPixels(buf, W, H){
   /* 🔴 획을 남기면 획이 **가늘어진다** — ㅇ 의 고리가 반으로 끊겨 3.2x1.6칸
         조각이 되어 크기에서 탈락했고, ㄹ 의 이음획이 끊겨 ㅌ 으로 읽혔다.
         한 겹 부풀렸다 도로 줄여(닫기) 끊어진 데를 잇는다. 굵기는 그대로 돌아온다. */
-  var r1 = 1;   /* 🔴 1화소만 — 더 닫으면 획 사이가 메워진다 */
+  var r1 = TUNE.closeR;   /* 🔴 너무 키우면 획 사이가 메워진다 */
   var closed = dilateMask(keep, W, H, r1);
   var inv = new Uint8Array(N);
   for (i = 0; i < N; i++) inv[i] = closed[i] ? 0 : 1;
@@ -2802,6 +2828,117 @@ function openMask(m, W, H, r){
 }
 
 function openMaskEnd(){}
+/* 인식부가 화면에 다 안 들어올 때(좌우가 잘릴 때)의 인식부.
+   🔴 위·아래 테두리 두 선만으로는 **가로 배율이 안 나온다** — 두 평행선은
+      기울기와 칸 비를 못 가른다(실측: 정사각 칸이라 가정했더니 fr2 에서 1.29 를
+      기대했는데 실제 1.58 이었고, 멀쩡히 읽히던 프레임까지 깨졌다).
+      가로는 **판 표면의 칸 격자 주기**에서 얻는다 — 자기상관에 봉우리가 하나
+      뚜렷하게 선다(실측 _ph4: 49~50px). 자국을 하나하나 찾을 필요가 없어서
+      돌기가 흐려도 주기는 남는다.
+   세로는 두 선 사이 간격에서 얻고(그 사이가 인식부 세로 + 위아래 한 칸씩),
+   가로 원점은 보이는 구간 한가운데에 둔다 — 낱말은 자모의 상대 위치로 읽는다. */
+function quadFromTopBottom(fillPx, buf, W, H){
+  var top = new Int32Array(W).fill(-1), bot = new Int32Array(W).fill(1 << 29), i, x;
+  for (i = 0; i < fillPx.length; i++){
+    var fx = fillPx[i] % W, fy = (fillPx[i] / W) | 0;
+    if (fy > top[fx]) top[fx] = fy;
+    if (fy < bot[fx]) bot[fx] = fy;
+  }
+  var edge = Math.max(6, Math.round(W*0.02)), tp = [], bp = [];
+  for (x = edge; x < W-edge; x++){
+    if (top[x] < 0) continue;
+    if (top[x] >= H-2 || bot[x] <= 1) continue;      // 위아래로도 잘렸으면 못 쓴다
+    tp.push([x, top[x]]); bp.push([x, bot[x]]);
+  }
+  if (tp.length < W*0.25) return null;
+  function line(pts){
+    function fit(ps){
+      var n = ps.length, sx = 0, sy = 0, sxx = 0, sxy = 0, k;
+      for (k = 0; k < n; k++){ sx += ps[k][0]; sy += ps[k][1]; sxx += ps[k][0]*ps[k][0]; sxy += ps[k][0]*ps[k][1]; }
+      var d = n*sxx - sx*sx;
+      return Math.abs(d) < 1e-9 ? null : { a: (n*sxy - sx*sy)/d, b: (sy*sxx - sx*sxy)/d };
+    }
+    var f = fit(pts);
+    if (!f) return null;
+    /* 손가락이나 블록이 경계에 얹히면 선이 끌린다 — 한 번 걸러낸다. */
+    var sd = 0, k2;
+    for (k2 = 0; k2 < pts.length; k2++){ var r = pts[k2][1] - (f.a*pts[k2][0] + f.b); sd += r*r; }
+    sd = Math.sqrt(sd/pts.length) || 1;
+    var keep = pts.filter(function(pt){ return Math.abs(pt[1] - (f.a*pt[0] + f.b)) < 2*sd; });
+    return keep.length < pts.length*0.5 ? f : (fit(keep) || f);
+  }
+  var T = line(tp), B = line(bp);
+  if (!T || !B) return null;
+  var xs = tp.map(function(pt){ return pt[0]; });
+  var xLo = xs[0], xHi = xs[xs.length-1], cx = (xLo + xHi) / 2;
+  var yT = T.a*cx + T.b, yB = B.a*cx + B.b;
+  var ux = 1, uy = (T.a + B.a) / 2, ul = Math.hypot(ux, uy);
+  ux /= ul; uy /= ul;
+  var nx = -uy, ny = ux;
+  var gap = Math.abs((yB - yT) * ny);
+  if (gap < H*0.03) return null;
+  var cellY = gap / (GRID_H + 2);
+
+  /* 🔴 가로 주기는 **위와 아래를 따로 잰다.** 카메라가 판 위에 비스듬히 있으니
+        가까운 쪽 돌기 간격이 먼 쪽보다 넓다 — 주기 하나로 잡으면 그게 곧 원근을
+        무시하는 것이고, 사각형이 평행사변형이 되어 한쪽 끝 글자가 틀어진다.
+        위 띠·아래 띠에서 각각 재면 사다리꼴이 나오고, 그게 제대로 된 와핑이다. */
+  var lo = Math.min(yT, yB), hi = Math.max(yT, yB), band = hi - lo;
+  function periodIn(fa, fb){
+    var y0 = Math.round(lo + band*fa), y1 = Math.round(lo + band*fb);
+    if (y1 - y0 < 4) return 0;
+    var prof = new Float64Array(W), rows = 0, y, x2;
+    for (y = Math.max(0, y0); y < Math.min(H, y1); y++){
+      rows++;
+      for (x2 = 0; x2 < W; x2++){ var k4 = (y*W + x2)*4; prof[x2] += buf[k4]*0.3 + buf[k4+1]*0.6 + buf[k4+2]*0.1; }
+    }
+    if (!rows) return 0;
+    for (x2 = 0; x2 < W; x2++) prof[x2] /= rows;
+    var R = Math.max(8, Math.round(cellY*1.5)), hp = new Float64Array(W);
+    for (x2 = 0; x2 < W; x2++){
+      var sSum = 0, sN = 0;
+      for (var d = -R; d <= R; d++){ var xx = x2+d; if (xx >= 0 && xx < W){ sSum += prof[xx]; sN++; } }
+      hp[x2] = prof[x2] - sSum/sN;
+    }
+    var lagLo = Math.max(5, Math.round(cellY*0.5)), lagHi = Math.round(cellY*3.5);
+    var bl = 0, bv = 0;
+    for (var lag = lagLo; lag <= lagHi; lag++){
+      var sum = 0, n2 = 0;
+      for (x2 = Math.max(0, xLo); x2 < Math.min(W, xHi) - lag; x2++){ sum += hp[x2]*hp[x2+lag]; n2++; }
+      if (!n2) continue;
+      var v = sum/n2;
+      if (v > bv){ bv = v; bl = lag; }
+    }
+    return bv > 0 ? bl : 0;
+  }
+  /* 테두리 쪽 25% 씩 — 가운데는 블록이 앉아 있어 주기가 흐려진다. */
+  var pA = periodIn(0.05, 0.30), pB2 = periodIn(0.70, 0.95);
+  if (!pA || !pB2){
+    var pm2 = periodIn(0.2, 0.8);
+    if (!pm2) return null;
+    pA = pA || pm2; pB2 = pB2 || pm2;
+  }
+  /* 한쪽이 다른 쪽의 두 배로 잡히면(주기의 배수를 집은 것) 작은 쪽에 맞춘다. */
+  if (pA > pB2*1.6) pA = Math.round(pA/2);
+  if (pB2 > pA*1.6) pB2 = Math.round(pB2/2);
+  var pTop = (yT <= yB) ? pA : pB2, pBot = (yT <= yB) ? pB2 : pA;
+  reco.ringPeriod = { 위주기:pTop, 아래주기:pBot, 세로칸:+cellY.toFixed(1) };
+
+  /* 위 선 위에서 pTop 로, 아래 선 위에서 pBot 로 GRID_W 칸을 잡는다 = 사다리꼴. */
+  var uTl = Math.hypot(1, T.a), uTx = 1/uTl, uTy = T.a/uTl;
+  var uBl = Math.hypot(1, B.a), uBx = 1/uBl, uBy = B.a/uBl;
+  var halfT = GRID_W/2 * pTop, halfB = GRID_W/2 * pBot;
+  /* 🔴 두 선은 인식부보다 위아래로 한 칸씩 바깥이다(테두리 띠 + 벽 두께) —
+        그만큼 안으로 당겨야 사각형이 인식부 자체가 된다. */
+  var vSign = (yB > yT) ? 1 : -1;
+  var pT0 = [cx, yT + vSign*cellY], pB0 = [cx, yB - vSign*cellY];
+  var cT = [pT0[0] - halfT*uTx, pT0[1] - halfT*uTy];
+  var cT2 = [pT0[0] + halfT*uTx, pT0[1] + halfT*uTy];
+  var cB = [pB0[0] - halfB*uBx, pB0[1] - halfB*uBy];
+  var cB2 = [pB0[0] + halfB*uBx, pB0[1] + halfB*uBy];
+  return [cT, cT2, cB2, cB];
+}
+
 function findPlayQuadRing(){
   var b = detBuf.buf, W = detBuf.W, H = detBuf.H, N = W*H, i;
   var Lm = new Float32Array(N), Am = new Float32Array(N);
@@ -2890,6 +3027,23 @@ function findPlayQuadRing(){
   }
   /* 새어 나갔는지 본다 — 인식부는 판보다 작고, 화면을 통째로 채우면 벽이 뚫린 것이다. */
   if (fillPx.length < plate.area*0.15 || fillPx.length > N*0.55) return null;
+
+  /* 🔴 판이 화면에 다 안 들어오면 **위·아래 테두리만으로** 세운다.
+        폰을 가까이 대면 좌우가 잘려 옆 테두리가 아예 없다(실측: 잡힌 사각형이
+        u -0.21~1.20 으로 화면 밖까지 뻗었고 가로 배율이 통째로 틀렸다).
+        그래도 칸은 정사각이라 **세로만 알면 가로가 따라온다** — 위·아래 선 사이가
+        인식부 세로(GRID_H)에 위아래 한 칸씩을 더한 만큼이므로 거기서 칸 크기를 얻고,
+        보이는 구간 한가운데에 GRID_W 칸짜리 창을 놓는다. 낱말은 자모의 **상대 위치**로
+        읽으므로 가로 원점이 어디든 상관없다. */
+  var fx0 = W, fx1 = -1;
+  for (i = 0; i < fillPx.length; i++){ var fxx = fillPx[i] % W; if (fxx < fx0) fx0 = fxx; if (fxx > fx1) fx1 = fxx; }
+  /* 🔴 좌우가 잘린 경우를 따로 갈라 봤다가 되돌렸다(`quadFromTopBottom`, 남겨 둠).
+        두 평행선만으로는 가로 배율이 기하적으로 안 나오고, 격자 주기로 메우려니
+        세로 주기가 칸에 안 떨어졌다(실측 1.40칸 — 가로는 정확히 1.00칸인데).
+        갈래를 넣자 멀쩡히 읽히던 프레임까지 깨졌다(ph1 「토」→「로」).
+        지금은 채운 사각형 하나로 간다 — 판이 화면에 다 들어오면 그게 맞는 답이다. */
+  var cutOff = fx0 <= 2 || fx1 >= W-3;
+  reco.ringCut = cutOff;
   var q = fitQuad({ px: fillPx }, W, H);
   if (!q) return null;
   /* 채우기는 벽 두께만큼 안쪽에서 멈춘다 — 그만큼 밖으로 되민다. */
