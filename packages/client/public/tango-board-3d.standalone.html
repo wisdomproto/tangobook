@@ -3117,31 +3117,68 @@ function loadOpenCV(){
   if (window.cv && window.cv.Mat){ cvReady = true; return Promise.resolve(true); }
   if (loadOpenCV._p) return loadOpenCV._p;
   var ov = document.getElementById('cvLoad');
-  if (ov) ov.classList.add('on');
-  loadOpenCV._p = new Promise(function(res){
-    var sc = document.createElement('script');
-    sc.async = true;
-    sc.src = 'https://docs.opencv.org/4.x/opencv.js';
-    sc.onload = function(){
-      /* opencv.js 는 실행 직후가 아니라 wasm 이 준비된 뒤에 쓸 수 있다. */
-      var tick = setInterval(function(){
-        if (window.cv && window.cv.Mat){
+
+  /* 🔴 opencv.js 는 11MB 인데 docs.opencv.org 는 `max-age=86400` 만 준다 —
+        하루 지나면 다시 받고, 폰 캐시에서 밀려나도 다시 받는다. 한 번 받은 건
+        Cache Storage 에 넣어 두고 그 뒤로는 거기서만 꺼낸다(오프라인에서도 뜬다).
+        같은 페이지 안 중복 호출은 loadOpenCV._p 가 막는다. */
+  /* 🔴 docs.opencv.org 는 CORS 를 안 열어 줘서 fetch 가 막히고(스크립트 태그만 된다)
+        받은 걸 캐시에 담을 수가 없다. 게다가 max-age 가 하루뿐이다.
+        jsDelivr 는 `access-control-allow-origin: *` + `max-age=31536000, immutable` —
+        브라우저 캐시만으로도 1년간 다시 안 받고, 캐시가 밀려도 아래 Cache Storage 가 받친다. */
+  var CACHE = 'tango-cv-v1',
+      URL_CV = 'https://cdn.jsdelivr.net/npm/@techstark/opencv-js@4.11.0-release.1/dist/opencv.js';
+
+  function run(text){
+    return new Promise(function(res){
+      var sc = document.createElement('script');
+      sc.text = text;
+      sc.onerror = function(){ res(false); };
+      document.head.appendChild(sc);
+      /* wasm 이 준비된 뒤에야 쓸 수 있다 — 실행 직후가 아니다.
+         🔴 빌드마다 끌내는 방식이 다르다 — techstark 배포본은 `window.cv` 자리에
+            **Promise** 를 놓고(키가 0개인 object 로 보인다) 그게 진짜 cv 로 풀린다. */
+      var n = 0, tick = setInterval(function(){
+        if (window.cv && typeof window.cv.then === 'function'){
           clearInterval(tick);
-          cvReady = true;
-          if (ov) ov.classList.remove('on');
-          res(true);
+          window.cv.then(function(m){ window.cv = m; cvReady = !!(m && m.Mat); res(cvReady); },
+                         function(){ res(false); });
+          return;
         }
+        if (window.cv && window.cv.Mat){ clearInterval(tick); cvReady = true; res(true); }
+        else if (++n > 600){ clearInterval(tick); res(false); }
       }, 60);
-      if (window.cv && typeof window.cv.onRuntimeInitialized !== 'undefined')
-        window.cv.onRuntimeInitialized = function(){};
-    };
-    sc.onerror = function(){
+    });
+  }
+
+  loadOpenCV._p = (async function(){
+    var text = null, cached = false;
+    try {
+      if (window.caches){
+        var c = await caches.open(CACHE);
+        var hit = await c.match(URL_CV);
+        if (hit){ text = await hit.text(); cached = true; }
+      }
+    } catch (e){ /* 사파리 프라이빗 등 — 그냥 받는다 */ }
+
+    if (!cached && ov) ov.classList.add('on');   // 받을 때만 덮개를 띄운다
+    try {
+      if (!text){
+        var r = await fetch(URL_CV, { cache:'force-cache' });
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        text = await r.text();
+        try { if (window.caches) (await caches.open(CACHE)).put(URL_CV, new Response(text)); } catch (e){}
+      }
+      var ok = await run(text);
+      if (!ok) cvFailed = true;
+      if (ov) ov.classList.remove('on');
+      return ok;
+    } catch (e){
       cvFailed = true;
       if (ov) ov.classList.remove('on');
-      res(false);
-    };
-    document.head.appendChild(sc);
-  });
+      return false;
+    }
+  })();
   return loadOpenCV._p;
 }
 
