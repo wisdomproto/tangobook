@@ -983,7 +983,10 @@ var TUNE = {
      흔들어도 결과가 안 변하는 걸 보면 사각형이 내가 아는 자리로 안 들어가고 있다.
      원인을 찾기 전까지는 끈다 — 켜면 지금 읽히는 ph1·ph3 까지 잃는다. */
   useLattice: false,
+  latMirror: true,      // 좌우 뒤집기(반사경)
   latFlip: false,       // 격자 경로에서 세로 뒤집기를 한 번 더 걸지
+  latShiftI: 0,         // 격자 창을 가로로 칸 단위 이동
+  latShiftJ: 0,         // 격자 창을 세로로 칸 단위 이동
   latPhase: 0,          // 칸 위상 — 점이 칸 가운데면 0.5, 모서리면 0
   latPad: 0,            // 격자 창을 칸 단위로 넓힘(+)/좁힘(-)
   latRot: 0,            // 격자 사각형의 시작 모서리 회전(0~3) — 실물로 재서 정했다(0 이면 90도 돌아 ㅌ이 ㅍ으로 읽힌다)
@@ -3422,6 +3425,8 @@ function cvLatticeQuad(){
     var hv = [];
     for (var hi = 0; hi < 9; hi++) hv.push(Hij.doubleAt(Math.floor(hi/3), hi%3));
     reco.latH = { H: hv, swap: swap, mi: mi, mj: mj };
+    reco.latSpan = { i: [iMin, iMax], j: [jMin, jMax],
+                     폭: iMax-iMin+1, 높이: jMax-jMin+1 };
     reco.latInfo = { 점:best.r.ij.length, 기울기:+best.tilt.toFixed(1),
                      칸가로:+Math.hypot(o1[0]-o0[0], o1[1]-o0[1]).toFixed(1),
                      칸세로:+Math.hypot(o2[0]-o0[0], o2[1]-o0[1]).toFixed(1) };
@@ -3460,8 +3465,8 @@ function cvLatticeWarp(){
           자리에 떨어져야 먹는다 — 격자 한가운데에 창을 맞추면 mi/mj 가 반 정수라
           점이 칸 경계에 걸터앉아 중앙값이 점을 못 지운다. 정수로 맞추고, 점이 칸
           가운데인지 모서리인지는 손잡이로 고른다. */
-    var ox = Math.round(L.mi - GRID_W/2 - MARGIN) + (TUNE.latPhase || 0);
-    var oy = Math.round(L.mj - GRID_H/2 - MARGIN) + (TUNE.latPhase || 0);
+    var ox = Math.round(L.mi - GRID_W/2 - MARGIN) + (TUNE.latPhase || 0) + (TUNE.latShiftI || 0);
+    var oy = Math.round(L.mj - GRID_H/2 - MARGIN) + (TUNE.latPhase || 0) + (TUNE.latShiftJ || 0);
     var A = [1/CELL, 0, ox,
              0, 1/CELL, oy,
              0, 0, 1];
@@ -3472,7 +3477,10 @@ function cvLatticeWarp(){
       /* 🔴 카메라 앞에 **반사경**이 있다 — 거울(좌우 뒤집기) + 카메라가 판 뒤에
             있는 것(180도) = 합치면 **세로 뒤집기 하나**다. 고정이라 고를 일이 아니다.
             여기를 180도 회전으로 걸어 뒀었는데 그건 다른 변환이다. */
-      var R = [1, 0, 0,
+      /* 🔴 **좌우도 뒤집는다.** 반사경이 좌우를 뒤집고 카메라가 판 뒤에 있어
+            위아래가 뒤집힌다 — 둘 다 걸어야 한다. 세로만 걸었더니 ㅌ 의 세로획이
+            오른쪽에 붙어 ㄹ 로 읽혔다(사용자가 그림에서 짚었다). */
+      var R = [TUNE.latMirror ? -1 : 1, 0, TUNE.latMirror ? DW : 0,
                0, -1, DH,
                0, 0, 1];
       A = mul3(A, R);
