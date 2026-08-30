@@ -141,8 +141,7 @@
         카메라를 골라도 예전 프리뷰 화면과 똑같아 뭐가 바뀜는지 알 수가 없었다.
         위쪽은 보내기 버튼·진단 줄이 차지하므로 **아래 가운데**로 내린다. */
   body.cam-only #camPanel, body.cam-only #panelToggle{display:none !important}
-  body.cam-only #word{top:auto; bottom:64px; font-size:15px}
-  body.cam-only #score{top:auto; bottom:64px; right:10px; left:auto; font-size:13px}
+  body.cam-only #score{top:10px; right:auto; left:50%; transform:translateX(-50%); font-size:13px}
   body.cam-only #read{left:50%; transform:translateX(-50%); bottom:14px}
   /* OpenCV.js 를 받는 동안 덮는 화면. 10.5MB 라 첫 진입에만 몇 초 걸린다. */
   #cvLoad{position:fixed; inset:0; z-index:99; display:none; place-items:center;
@@ -181,10 +180,23 @@
   /* 🔴 카메라 모드에서는 날것 프리뷰를 안 보여 준다 — 보이는 건
      펌 판(인식 화면)과 거기서 잡은 사각형이다. 프리뷰는 예뻐도
      무엇을 읽고 있는지를 안 보여 준다. */
-  #recoView{position:absolute; inset:0; width:100%; height:100%; display:none;
-    background:#0d1512; object-fit:contain}
+  /* 🔴 인식 화면은 **오른쪽 아래 작게** — 아이가 볼 건 만들 낱말이고,
+     이건 제대로 읽히는지 확인하는 창이다. 좌우가 좀아 보이는 건 정상이다 —
+     카메라가 판의 가로 45% 만 보는데 판 전체(21칸)를 펎서 담기 때문이다. */
+  #recoView{position:absolute; right:10px; bottom:10px; width:30vw; max-width:190px;
+    display:none; background:#0d1512; border:1px solid rgba(255,255,255,.18);
+    border-radius:10px; z-index:3}
   body.cam-only #recoView{display:block}
   body.cam-only #gl{visibility:hidden}
+  /* 낱말 카드가 메인이다 — 가운데 크게. */
+  body.cam-only #word{top:50%; left:50%; bottom:auto;
+    transform:translate(-50%,-50%); flex-direction:column; gap:10px;
+    padding:22px 30px; border-radius:24px; z-index:5}
+  body.cam-only #word .lbl{font-size:13px; opacity:.75}
+  body.cam-only #word .w{font-size:56px; font-weight:800; letter-spacing:.06em}
+  body.cam-only #score{z-index:5}
+  body.cam-only #read{z-index:5}
+    body.cam-only #gl{visibility:hidden}
   #camOnlyBar{display:none}
   body.cam-only #camOnlyBar{display:flex; gap:8px; position:absolute; right:10px; top:10px; z-index:9}
   #camOnlyBar button{font:600 13px/1 inherit; padding:9px 12px; border-radius:10px;
@@ -6090,9 +6102,11 @@ function drawRecoView(){
   if (!drawRecoView._im || drawRecoView._im.width !== W)
     drawRecoView._im = g.createImageData(W, H);
   var im = drawRecoView._im, src = reco.buf;
+  /* 🔴 뒤집지 않는다. 폰이 원래 보여 주던 펌 판 창과 같은 방향이어야 하는데,
+        GL 규약대로 (H-1-y) 로 뒤집었더니 나무 바닥이 위로 가 거꾸로 나왔다. */
   for (var y = 0; y < H; y++){
-    var so = (H-1-y)*W*4, dof = y*W*4;
-    for (var x = 0; x < W*4; x++) im.data[dof + x] = src[so + x];
+    var so = y*W*4;
+    for (var x = 0; x < W*4; x++) im.data[so + x] = src[so + x];
   }
   g.putImageData(im, 0, 0);
   var boxes = reco.boxes || [];
@@ -6101,12 +6115,12 @@ function drawRecoView(){
   g.textBaseline = 'top';
   for (var i = 0; i < boxes.length; i++){
     var b = boxes[i];
-    var ty = H - (b.y + b.h);                 // GL -> 화면 좌표
+    var ty = b.y;                             // 위에서 안 뒤집었으니 그대로
     g.strokeStyle = b.ch ? '#2f9e77' : '#e0574a';
     g.strokeRect(b.x, ty, b.w, b.h);
     if (b.ch){
       g.fillStyle = '#2f9e77';
-      g.fillText(b.ch, b.x + 2, ty - CELL);
+      g.fillText(b.ch, b.x + 2, Math.max(0, ty - CELL));
     }
   }
 }
