@@ -982,6 +982,7 @@ var TUNE = {
      확인) 마지막 배율이 몇 % 어긋나 ㅌ 이 ㄹ 로 읽힌다. 여유 손잡이를 -1~1 로
      흔들어도 결과가 안 변하는 걸 보면 사각형이 내가 아는 자리로 안 들어가고 있다.
      원인을 찾기 전까지는 끈다 — 켜면 지금 읽히는 ph1·ph3 까지 잃는다. */
+  latRefindAfter: 12,   // 이만큼 연속으로 못 읽으면 격자를 다시 찾는다
   colorFirst: true,     // 빈 칸 차이 대신 색으로 바로 간다
   hueYellow: [20, 38],  // OpenCV H (0..179)
   hueGreen:  [38, 85],
@@ -1501,22 +1502,39 @@ function classifyPixelsColor(buf, W, H){
     var src = M(cv.matFromArray(H, W, cv.CV_8UC4, buf));
     var rgb = M(new cv.Mat()); cv.cvtColor(src, rgb, cv.COLOR_RGBA2RGB);
     var hsv = M(new cv.Mat()); cv.cvtColor(rgb, hsv, cv.COLOR_RGB2HSV);
-    var k = M(cv.getStructuringElement(cv.MORPH_ELLIPSE, new cv.Size(5, 5)));
+    /* 🔴 cv.inRange 는 경계를 **영상만 한 Mat** 으로 받는다. 그걸 매 프레임
+          네 장씩 새로 만들면 그 할당만으로 수십 ms 를 쓴다 — 크기와 색 대역은
+          안 바뀌니 한 번 만들어 두고 계속 쓴다. */
+    var C = classifyPixelsColor._c;
+    if (!C || C.W !== W || C.H !== H){
+      if (C) ['ylo','yhi','glo','ghi','k'].forEach(function(n){ try { C[n].delete(); } catch(e){} });
+      C = classifyPixelsColor._c = {
+        W:W, H:H,
+        ylo:new cv.Mat(H, W, hsv.type(), [TUNE.hueYellow[0], 90, 120, 0]),
+        yhi:new cv.Mat(H, W, hsv.type(), [TUNE.hueYellow[1], 255, 255, 255]),
+        glo:new cv.Mat(H, W, hsv.type(), [TUNE.hueGreen[0], 60, 90, 0]),
+        ghi:new cv.Mat(H, W, hsv.type(), [TUNE.hueGreen[1], 255, 255, 255]),
+        k:cv.getStructuringElement(cv.MORPH_ELLIPSE, new cv.Size(5, 5))
+      };
+    }
     function band(lo, hi){
       var m = M(new cv.Mat());
-      cv.inRange(hsv, M(new cv.Mat(hsv.rows, hsv.cols, hsv.type(), lo)),
-                      M(new cv.Mat(hsv.rows, hsv.cols, hsv.type(), hi)), m);
-      cv.morphologyEx(m, m, cv.MORPH_OPEN, k);
-      cv.morphologyEx(m, m, cv.MORPH_CLOSE, k);
+      cv.inRange(hsv, lo, hi, m);
+      cv.morphologyEx(m, m, cv.MORPH_OPEN, C.k);
+      cv.morphologyEx(m, m, cv.MORPH_CLOSE, C.k);
       return m;
     }
-    var ye = band([TUNE.hueYellow[0], 90, 120, 0], [TUNE.hueYellow[1], 255, 255, 255]);
-    var gr = band([TUNE.hueGreen[0],  60,  90, 0], [TUNE.hueGreen[1],  255, 255, 255]);
-    var lab = new Uint8Array(W*H), ny = 0, ng = 0;
-    for (var i = 0; i < W*H; i++){
-      if (ye.data[i]){ lab[i] = 1; ny++; }
-      else if (gr.data[i]){ lab[i] = 2; ng++; }
-    }
+    var ye = band(C.ylo, C.yhi);
+    var gr = band(C.glo, C.ghi);
+    /* 🔴 마스크를 화소마다 읽어 라벨을 만들면 **그 루프 하나가 32.8ms** 다(실측,
+          496x384). cv 연산은 전부 합쳌 다 해도 14ms 인데, wasm 힙을 한 칸씩
+          건드리는 게 그보다 비쌀다. 라벨링까지 cv 안에서 끝내고 **한 번만 통째로** 벅긴다.
+          두 대역은 색상이 겹치지 않으므로 더해도 3 이 나오지 않는다. */
+    cv.threshold(ye, ye, 127, 1, cv.THRESH_BINARY);
+    cv.threshold(gr, gr, 127, 2, cv.THRESH_BINARY);
+    var sum = M(new cv.Mat()); cv.add(ye, gr, sum);
+    var lab = new Uint8Array(sum.data);            // 통째 복사
+    var ny = cv.countNonZero(ye), ng = cv.countNonZero(gr);
     reco.colorTrust = true;
     reco.colorInfo = { 경로:'색분할', 노랑:ny, 초록:ng, fg:ny+ng };
     mats.forEach(function(m){ try { m.delete(); } catch(e){} });
@@ -5678,13 +5696,26 @@ function drawCamSim(){
         여유 손잡이를 흔들어도 결과가 안 변했다). 파이썬에서 검증한 경로가 이것이다. */
   if (TUNE.useLattice && cvReady && camSim.detect && reco.fbo){
     grabDetect();
-    var lq = cvLatticeQuad();
+    /* 🔴 격자 찾기가 한 프레임 302ms 로 전체의 70% 였다(실측).
+          그런데 거치대가 고정이라 판은 안 움직인다 — 한 번 찾은 호모그래피를
+          그대로 쓰고, 판이 치워지거나 옮겨진 것만 스무 프레임에 한 번 확인한다.
+          (옆의 옛 경로가 hold.lock 으로 이미 같은 일을 하고 있다.) */
+    /* 🔴 한 번 찾고 다시 안 찾는다. 주기적으로 다시 찾게 했더니 그 프레임만
+          40ms → 323ms 로 튀어 눈에 떨림으로 보였다. 거치대도 판도 고정이라
+          호모그래피도 칸 크기도 변할 이유가 없다.
+          다만 판이 치워지거나 옥겨지면 알아야 하니, **연속으로 못 읽을 때만**
+          다시 찾는다 — 시계가 아니라 증상이 방아쇠가 된다. */
+    var stale = reco.latMiss >= TUNE.latRefindAfter;
+    var lq = (reco.latH && reco.latQuad && !stale) ? reco.latQuad : cvLatticeQuad();
+    if (lq){ reco.latQuad = lq; if (stale) reco.latMiss = 0; }
     if (lq && cvLatticeWarp()){
       camSim.corners = lq;
       camSim.detected = true;
       camSim.usedTruth = false;
       reco.playInfo = { kind:'격자(cv)', lat:reco.latInfo };
       reco.result = recognize();
+      /* 못 읽은 프레임을 센다 — 이게 격자를 다시 찾을 유일한 신호다. */
+      reco.latMiss = (reco.result && reco.result.word) ? 0 : (reco.latMiss || 0) + 1;
       reco.score = scoreAgainstTruth(reco.result);
       if (typeof onRecoResult === 'function') onRecoResult();
       if (camSim.on && typeof outEl !== 'undefined' && outEl) readBoard();
