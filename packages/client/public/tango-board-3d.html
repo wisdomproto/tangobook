@@ -516,7 +516,6 @@ function parseFree(items){
       var d = ok(v);
       if (d != null && d < bd){ bd = d; best = v; }
     });
-    nearest.d = bd;                 // 얼마나 가까웠는지도 알아야 둘 중 고른다
     return best;
   }
   function hasOwnVowel(c){
@@ -529,7 +528,6 @@ function parseFree(items){
 
   cons.forEach(function(A){
     if (used.has(A)) return;
-    var dH, dV;
     var Vh = nearest(vows, function(v){
       if (v.h <= v.w) return null;
       var dx = v.cx - A.cx;
@@ -545,29 +543,17 @@ function parseFree(items){
       if (A.cy - v.cy > 1.2) return null;
       return dx + Math.abs(v.cy - A.cy);
     });
-    dH = nearest.d;
     var Vv = nearest(vows, function(v){
       if (v.w <= v.h) return null;
       var dy = v.cy - A.cy, dx = Math.abs(v.cx - A.cx);
       if (dy <= 0 || dy > 7 || dx > 3.5) return null;
       return dy + dx;
     });
-    dV = nearest.d;
 
     var jung = null, parts = [], vertical = false;
     if (Vv && Vh && Vh.cx > Vv.cx && COMPOUND[Vv.ch + Vh.ch]){
       jung = COMPOUND[Vv.ch + Vh.ch]; parts = [Vv, Vh]; vertical = true;
-    }
-    /* 🔴 둘 다 있고 합성모음이 아니면 **가까운 쪽**을 고른다.
-          예전엔 세로모음(Vh)을 조건 없이 먼저 썼는데, 그러면 바로 아래에
-          제 모음을 두고도 **다음 글자의 모음을 빼앗는다** — 「압튜리」에서
-          ㅅㅡ가 0칸 아래에 있는데 7칸 오른쪽 ㅣ 를 가져가 「압티」가 되고,
-          ㅣ 를 잃은 ㄹ 은 모음이 없어 통째로 버려졌다. */
-    else if (Vh && Vv){ 
-      if (dV < dH){ jung = Vv.ch; parts = [Vv]; vertical = true; }
-      else { jung = Vh.ch; parts = [Vh]; }
-    }
-    else if (Vh){ jung = Vh.ch; parts = [Vh]; }
+    } else if (Vh){ jung = Vh.ch; parts = [Vh]; }
     else if (Vv){ jung = Vv.ch; parts = [Vv]; vertical = true; }
     if (!jung) return;
 
@@ -999,12 +985,7 @@ var TUNE = {
   colorFirst: true,     // 빈 칸 차이 대신 색으로 바로 간다
   hueYellow: [20, 38],  // OpenCV H (0..179)
   hueGreen:  [38, 85],
-  /* 🔴 격자 길은 끔다. 색으로 자모 영역이 이미 나오므로 격자가 하던 일은
-        칸 크기 재기 하나뿐이었고, 그것 때문에 한 프레임 302ms 를 썼다.
-        결정적으로 **실물 판에서는 점을 하나도 못 찾는다**(폰 프레임 진단 「점 0」) —
-        새 판은 구멍 없이 돌기만 있어서 어둡게 보이는 점이 없다. 이미 폴백으로 돌고
-        있었고, 그 경로가 잘 읽는다. 코드는 남겨 둔다 — 구멍 있는 판에선 동작한다. */
-  useLattice: false,
+  useLattice: true,
   latMirror: false,      // 좌우 뒤집기(반사경)
   latFlip: true,       // 격자 경로에서 세로 뒤집기를 한 번 더 걸지
   latShiftI: 0,         // 격자 창을 가로로 칸 단위 이동
