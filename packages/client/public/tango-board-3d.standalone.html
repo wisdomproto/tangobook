@@ -1015,7 +1015,7 @@ var TUNE = {
      원인을 찾기 전까지는 끈다 — 켜면 지금 읽히는 ph1·ph3 까지 잃는다. */
   latRefindAfter: 12,   // 이만큼 연속으로 못 읽으면 격자를 다시 찾는다
   tieGap: 0.06,         // 1·2위가 이보다 가까우면 어긋난 자리로 다시 겨룬다
-  tieMargin: 0.05,      // 상관이 이만큼 앞서야 뒤집는다 (간발의 차로는 안 뒤집는다)
+  tieMargin: 0.15,      // 상관이 **비율로** 이만큼 앞서야 뒤집는다 (간발의 차로는 안 뒤집는다)
   colorFirst: true,     // 빈 칸 차이 대신 색으로 바로 간다
   hueYellow: [20, 38],  // OpenCV H (0..179)
   hueGreen:  [38, 85],
@@ -1626,12 +1626,72 @@ function corrWith(comp, W, T){
   return v;
 }
 /** A 가 이기면 A, B 가 이기면 B, 갈리지 않으면 null. */
+/** 넓이 겹침으로는 원래 못 가르는 짝들 — 짝마다 **재는 자를 따로 둔다**.
+ *
+ *  🔴 「말할 거리가 없으면 가만히」는 곧 동전던지기다. IoU 가 0.005 차로 프레임마다
+ *     바뀌니 같은 판을 두고 「제펠」과 「제펱」이 번갈아 나왔고, 다수결(7프레임)도
+ *     같이 뒤집혔다. 아래 짝은 **반드시 결정한다**.
+ *  🔴 그리고 자는 짝마다 다르다 — 하나로 통일하려다 두 번 틀렸다:
+ *     · ㄹ/ㅌ 은 가로 막대 셋이 같고 잇는 기둥만 다르다(넓이의 5.9%). 상관이 잘 가른다 —
+ *       실측 ㅌ 0.346 / ㄹ 0.169, 항상 두 배.
+ *     · ㅁ/ㅇ 은 **상관도 못 가른다**(0.561 / 0.579 로 오히려 틀린 쪽이 이겼다).
+ *       둘 다 가운데가 뚫린 고리라 그렇다. 대신 **모서리**가 다르다 — ㅁ 은 차 있고
+ *       ㅇ 은 비어 있다: 실측 0.55 / 0.06 으로 9배.
+ *  🔴 재 보지 않은 짝은 넣지 않는다 — 넣으면 이번엔 그쪽이 동전던지기가 된다. */
+
+/** bbox 네 모서리의 채움 비율 (ㅁ ~0.55 · ㅇ ~0.06). */
+function cornerFill(comp, W){
+  var cw = comp.w, ch = comp.h;
+  var b = new Uint8Array(cw * ch);
+  for (var k = 0; k < comp.px.length; k++){
+    var i = comp.px[k];
+    b[(((i/W)|0) - comp.y0)*cw + (i % W - comp.x0)] = 1;
+  }
+  var r = Math.max(2, Math.round(Math.min(cw, ch) * 0.18)), tot = 0, on = 0;
+  [[0,0],[cw-r,0],[0,ch-r],[cw-r,ch-r]].forEach(function(p){
+    for (var y = p[1]; y < p[1]+r; y++)
+      for (var x = p[0]; x < p[0]+r; x++){ tot++; if (b[y*cw + x]) on++; }
+  });
+  return tot ? on/tot : 0;
+}
+
+/* 짝 -> 이긴 쪽 글자를 돌려주는 함수. 재 본 짝만 있다. */
+var PAIR_RULES = [
+  { pair:['ㄹ','ㅌ'], pick:function(comp, W, T){
+      var a = corrWith(comp, W, T['ㄹ']), b = corrWith(comp, W, T['ㅌ']);
+      if (a == null || b == null) return null;
+      return a > b ? 'ㄹ' : 'ㅌ';
+    } },
+  { pair:['ㅁ','ㅇ'], pick:function(comp, W){
+      return cornerFill(comp, W) >= 0.28 ? 'ㅁ' : 'ㅇ';   // 실측 0.55 / 0.06 사이
+    } }
+];
+
+function pairRuleFor(a, b){
+  for (var i = 0; i < PAIR_RULES.length; i++){
+    var p = PAIR_RULES[i].pair;
+    if ((p[0] === a && p[1] === b) || (p[0] === b && p[1] === a)) return PAIR_RULES[i];
+  }
+  return null;
+}
+
+/** A 가 이기면 A, B 가 이기면 B, 갈리지 않으면 null. */
 function tieBreakCv(comp, W, TA, TB){
+  var rule = pairRuleFor(TA.ch, TB.ch);
+  if (rule){
+    var byCh = {}; byCh[TA.ch] = TA; byCh[TB.ch] = TB;
+    var win = rule.pick(comp, W, byCh);
+    return win ? byCh[win] : null;
+  }
   var a = corrWith(comp, W, TA), b = corrWith(comp, W, TB);
   if (a == null || b == null) return null;
-  if (Math.abs(a - b) < TUNE.tieMargin) return null;   // 말할 거리가 없으면 가만히 있는다
-  return a > b ? TA : TB;
+  /* 🔴 나머지는 **상대차**로 본다. 절대차로 두면 ㅌ/ㄹ 0.073 과 ㅁ/ㅇ 0.018 이
+        너무 가까워 문턱 하나로 못 가른다. 상대차면 0.34 대 0.016 으로 20배 벌어진다. */
+  var rel = (a - b) / (Math.abs(a) + Math.abs(b) + 1e-6);
+  if (Math.abs(rel) < TUNE.tieMargin) return null;
+  return rel > 0 ? TA : TB;
 }
+
 
 /** 덩어리 하나를 자모 템플릿과 맞춘다 — 획 bbox 를 겹쳐 IoU 최대. */
 function matchTemplate(comp, W){
