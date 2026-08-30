@@ -599,6 +599,22 @@ function parseFree(items){
       return v.cy-c.cy > 0 && v.cy-c.cy <= 7 && Math.abs(v.cx-c.cx) <= 3.5;
     });
   }
+  /* 🔴 c 가 **다음 글자의 받침**이면 겹받침으로 데려가면 안 된다.
+        hasOwnVowel 은 「c 가 초성으로서 제 모음을 갖는가」를 묻는데, 받침은
+        오른쪽에 모음이 없고 위에 글자가 있어서 그 질문으로는 안 걸린다.
+        실측(「텹랏」): 두 글자가 6칸 이하로 붙으면 랏의 ㅅ 이 텹의 ㅂ 에 끌려가
+        ㅄ 이 되어 「텺라」가 나왔다 — 인식은 6개 다 맞았는데 조합만 틀렸고,
+        폰에서 ㅂ/ㅄ 은 눈으로 구별이 잘 안 돼 「텹라」로 보였다.
+        그래서 「위에 제 초성이 있는가」를 따로 묻는다. */
+  function isOthersJong(c, A, J){
+    return cons.some(function(B){
+      if (B === c || B === A || B === J || used.has(B)) return false;
+      var dy = c.cy - B.cy;
+      if (dy < 1.5 || dy > 7) return false;
+      if (Math.abs(c.cx - B.cx) > 3.5) return false;
+      return hasOwnVowel(B);
+    });
+  }
 
   cons.forEach(function(A){
     if (used.has(A)) return;
@@ -677,6 +693,7 @@ function parseFree(items){
         if (dx <= 0 || dx > 6 || dy > 2) return null;
         if (!DOUBLE_JONG[J.ch + c.ch]) return null;
         if (hasOwnVowel(c)) return null;
+        if (isOthersJong(c, A, J)) return null;
         return dx + dy;
       });
       if (J2){ used.add(J2); jongCh = DOUBLE_JONG[J.ch + J2.ch]; }
@@ -6999,6 +7016,17 @@ function selfTest(){
   eq(parseFree([{ch:'ㄱ',x:0,y:0,w:3,h:3},{ch:'ㅗ',x:0,y:3,w:5,h:2}]).join(''), '고', '고');
   eq(parseFree([{ch:'ㄱ',x:0,y:0,w:3,h:3},{ch:'ㅏ',x:3,y:0,w:2,h:5},
                 {ch:'ㅇ',x:0,y:5,w:3,h:3}]).join(''), '강', '강');
+  /* 🔴 두 글자가 붙어 있어도 뒷 글자 받침을 앞 글자가 겹받침으로 데려가면 안 된다.
+        실측: 「텹랏」을 6칸 간격으로 놓으면 랏의 ㅅ 이 텹의 ㅂ 에 끌려가 ㅄ 이 되어
+        「텺라」가 나왔다(인식은 6개 다 맞았고 조합만 틀렸다). */
+  eq(parseFree([{ch:'ㅌ',x:0,y:0,w:3,h:3},{ch:'ㅕ',x:3,y:0,w:2,h:5},{ch:'ㅂ',x:0,y:5,w:3,h:3},
+                {ch:'ㄹ',x:6,y:0,w:3,h:3},{ch:'ㅏ',x:9,y:0,w:2,h:5},{ch:'ㅅ',x:6,y:5,w:3,h:3}])
+       .join(''), '텹랏', '텹랏(붙여 놓기)');
+  // 진짜 겹받침은 그대로여야 한다
+  eq(parseFree([{ch:'ㄱ',x:0,y:0,w:3,h:3},{ch:'ㅏ',x:3,y:0,w:2,h:5},
+                {ch:'ㅂ',x:0,y:5,w:3,h:3},{ch:'ㅅ',x:3,y:5,w:3,h:3}]).join(''), '값', '값');
+  eq(parseFree([{ch:'ㅅ',x:0,y:0,w:3,h:3},{ch:'ㅏ',x:3,y:0,w:2,h:5},
+                {ch:'ㄹ',x:0,y:5,w:3,h:3},{ch:'ㅁ',x:3,y:5,w:3,h:3}]).join(''), '삶', '삶');
   // 회전 규격 — 90도면 가로세로가 바뀐다
   var v = { def: catalogOf('ㅓ'), rot: 90 };
   eq(spanOf(v).w + 'x' + spanOf(v).h, '5x2', 'ㅓ 90도 span');
