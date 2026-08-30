@@ -3610,6 +3610,7 @@ function cvLatticeWarp(){
       var s0 = (DH-1-y)*DW*4, d0 = y*DW*4;
       for (var x = 0; x < DW*4; x++) reco.buf[d0 + x] = src[s0 + x];
     }
+    reco.bufSeq = (reco.bufSeq || 0) + 1;   // 아래 창이 이걸 보고 다시 올릴지 정한다
     done();
     return true;
   } catch (e){
@@ -5156,11 +5157,11 @@ function homography(src){
   return new Float32Array([h[0], h[3], h[6], h[1], h[4], h[7], h[2], h[5], 1]);
 }
 
-function blitTex(rect, H){
+function blitTex(rect, H, tex){
   gl.useProgram(progTex);
   gl.disable(gl.DEPTH_TEST);
   gl.activeTexture(gl.TEXTURE0);
-  gl.bindTexture(gl.TEXTURE_2D, simTex);
+  gl.bindTexture(gl.TEXTURE_2D, tex || simTex);
   gl.uniform1i(gl.getUniformLocation(progTex, 'uTex'), 0);
   gl.uniform4f(gl.getUniformLocation(progTex, 'uRect'), rect[0], rect[1], rect[2], rect[3]);
   gl.uniformMatrix3fv(gl.getUniformLocation(progTex, 'uH'), false, H);
@@ -5866,9 +5867,31 @@ function blitCamViews(H){
      🔴 한 프레임 놓쳤다고 창을 지우지 않는다. 판은 그대로 있는데 아래 화면만
         사라졌다 나타나면 보는 사람에게는 정보가 아니라 방해다 — 마지막으로
         잘 잡은 그림을 계속 보여준다. */
-  var showH = H || camSim.lastH;
-  if (showH) blitTex([x0, y0 - gh - 0.03, w, gh],
-                     mat3mul(showH, [1, 0, 0, 0, -1, 0, 0, 1, 1]));
+  /* 🔴 아래 창은 **인식 버퍼 그 자체**를 보여 준다. 예전엔 사각형으로
+        다시 유도한 호모그래피에 뒤집기를 곱해 그렸는데, 격자 길은 그것과
+        **다른 행렬**로 펴므로 둘이 어긋나 회전이 틀리게 보였다.
+        인식기가 실제로 보는 화소를 그대로 올리면 둘이 어긋날 수가 없고,
+        뭐를 보고 틀렸는지도 한눈에 보인다. */
+  if (reco.buf && reco.W){
+    if (!blitCamViews._tex){
+      blitCamViews._tex = gl.createTexture();
+      gl.bindTexture(gl.TEXTURE_2D, blitCamViews._tex);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    }
+    /* 🔴 버퍼가 바뀜 때만 올린다. 미리보기 프레임마다 올렸더니
+          한 프레임이 33 → 63ms 로 늘었다 — 분석이 안 돌았으면 그림도 그대로다. */
+    if (reco.bufSeq !== blitCamViews._seq){
+      blitCamViews._seq = reco.bufSeq;
+      gl.bindTexture(gl.TEXTURE_2D, blitCamViews._tex);
+      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, reco.W, reco.H, 0,
+                    gl.RGBA, gl.UNSIGNED_BYTE, reco.buf);
+    }
+    /* reco.buf 는 아래가 0 (GL) 이고 화면은 위가 0 이라 한 번 뒤집는다. */
+    blitTex([x0, y0 - gh - 0.03, w, gh], [1, 0, 0, 0, -1, 0, 0, 1, 1], blitCamViews._tex);
+  }
   gl.enable(gl.DEPTH_TEST);
 }
 
