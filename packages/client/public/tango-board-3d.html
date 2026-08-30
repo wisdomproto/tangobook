@@ -1086,6 +1086,8 @@ var TUNE = {
      흔들어도 결과가 안 변하는 걸 보면 사각형이 내가 아는 자리로 안 들어가고 있다.
      원인을 찾기 전까지는 끈다 — 켜면 지금 읽히는 ph1·ph3 까지 잃는다. */
   latRefindAfter: 12,   // 이만큼 연속으로 못 읽으면 격자를 다시 찾는다
+  skewMax: 3,           // 펌 글자가 이보다 기울면 호모그래피가 틀린 것 — 못 읽은 것으로 센다
+                        // (실측 25%분위: 맞는 프레임 0.0~1.2° / 샐뚟한 프레임 5.5°·24.5°)
   grooveCut: 4,         // 국소 평균보다 이만큼 어두우면 획 사이 홈으로 보고 파낸다
   tieGap: 0.06,         // 1·2위가 이보다 가까우면 어긋난 자리로 다시 겨룬다
   tieMargin: 0.15,      // 상관이 **비율로** 이만큼 앞서야 뒤집는다 (간발의 차로는 안 뒤집는다)
@@ -1570,6 +1572,52 @@ function classifyPixels(buf, W, H){
 }
 
 /** 같은 색끼리 이어진 덩어리로 나눈다 (4-이웃). */
+/** 펌 그림에서 **글자가 샐뚟하게 보이는가** — 호모그래피 품질을 재는 자.
+ *
+ *  🔴 블록 획은 원래 가로·세로다. 제대로 포았으면 덩어리의 최소외접사각형이 0° 로 누워야
+ *     하고, 샐뚟이 보이면 그만큼 기울어진다. 사용자가 눈으로 쓰던 기준과 같은 것이다 —
+ *     「펌 다음 글자가 똑바로 보이면 잘 찾은 것」.
+ *  🔴 **중앙값을 쓰면 안 된다** — 판 밖 마룻바닥 블록 같은 쓰레기가 섞여 올라간다
+ *     (실측 `_d1` 은 11개 중 태반이 쓰레기라 중앙 11° 인데 낱말은 맞게 읽는다).
+ *     **25%분위**로 보면 갈린다 — 실측: 맞는 프레임 0.0·0.0·1.2° / 샐뚟한 프레임 5.5°·24.5°.
+ *  @returns 25%분위 |각도|(도), 재기 어려우면 null
+ */
+function compSkew(comps, W){
+  if (!cvReady || !comps || comps.length < 3) return null;
+  var angs = [];
+  for (var ci = 0; ci < comps.length; ci++){
+    var c = comps[ci], cw = c.w, chh = c.h;
+    if (cw < 4 || chh < 4) continue;
+    var b = new Uint8Array(cw * chh);
+    for (var k = 0; k < c.px.length; k++){
+      var i = c.px[k];
+      b[(((i / W) | 0) - c.y0) * cw + (i % W - c.x0)] = 255;
+    }
+    var m = null, cs = null, hi = null;
+    try {
+      m = cv.matFromArray(chh, cw, cv.CV_8UC1, b);
+      cs = new cv.MatVector(); hi = new cv.Mat();
+      cv.findContours(m, cs, hi, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+      var best = null, bestA = 0;
+      for (var q = 0; q < cs.size(); q++){
+        var ct = cs.get(q), ar = cv.contourArea(ct);
+        if (ar > bestA){ bestA = ar; best = cv.minAreaRect(ct); }
+      }
+      if (best){
+        var a = best.angle % 90;
+        if (a > 45) a -= 90; else if (a < -45) a += 90;
+        angs.push(Math.abs(a));
+      }
+    } catch (e){ /* 못 재면 그 덩어리는 빼다 */ }
+    if (m) try { m.delete(); } catch(e){}
+    if (cs) try { cs.delete(); } catch(e){}
+    if (hi) try { hi.delete(); } catch(e){}
+  }
+  if (angs.length < 3) return null;
+  angs.sort(function(x, y){ return x - y; });
+  return angs[Math.floor(angs.length * 0.25)];
+}
+
 function components(lab, W, H, minArea){
   var seen = new Uint8Array(W*H), out = [], stack = [];
   for (var s = 0; s < W*H; s++){
@@ -2078,6 +2126,9 @@ function recognize(){
     return { ch:it.ch, x:it.x, y:it.y, w:it.w, h:it.h };
   })).join('');
   reco.ms = performance.now() - t0;
+  /* 🔴 기움은 여기서 재지 않는다 — 폴백 경로가 한 프레임에 recognize 를 여러 번 부른다
+        (방향별 readOriented). 덩어리 참조만 남기고 **쓰는 자리에서 한 번**만 재다. */
+  reco.comps = comps;
   return { word:word, items:items, detail:detail, comps:comps.length };
 }
 
@@ -6020,8 +6071,16 @@ function drawCamSim(){
       camSim.usedTruth = false;
       reco.playInfo = { kind:'격자(cv)', lat:reco.latInfo };
       reco.result = recognize();
-      /* 못 읽은 프레임을 센다 — 이게 격자를 다시 찾을 유일한 신호다. */
-      reco.latMiss = (reco.result && reco.result.word) ? 0 : (reco.latMiss || 0) + 1;
+      /* 못 읽은 프레임을 센다 — 이게 격자를 다시 찾을 신호다.
+         🔴 예전엔 「아무것도 못 읽을 때」만 셌다. 그러면 **틀렸지만 읽히는 판**은
+            카운터가 매 프레임 0 으로 돌아가 영영 다시 안 찾는다 — 축척이 어긋나면
+            마스크가 통짜가 되어 글자가 동전던지기가 되는데도 그렇다.
+            사용자 말대로 **처음에 샐뚟게 찾으면 계속 못 찾는다** — 그래서 기움도 실패로 센다. */
+      var sk = compSkew(reco.comps, reco.W);
+      reco.skew = sk;
+      var okFrame = !!(reco.result && reco.result.word) &&
+                    !(sk != null && sk > TUNE.skewMax);
+      reco.latMiss = okFrame ? 0 : (reco.latMiss || 0) + 1;
       reco.score = scoreAgainstTruth(reco.result);
       if (typeof onRecoResult === 'function') onRecoResult();
       if (camSim.on && typeof outEl !== 'undefined' && outEl) readBoard();
