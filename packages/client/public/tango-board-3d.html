@@ -1746,9 +1746,51 @@ function cornerFill(comp, W){
   return tot ? on/tot : 0;
 }
 
+/** ㄹ/ㅌ 전용 자 — **위칸 홈이 어느 쪽에 붙어 있나**.
+ *
+ *  🔴 도면을 보면 가로막대 셋은 둘이 같고, 다른 건 **위칸 기둥 위치 하나뿐**이다:
+ *    ㄹ = (0.5,0.5)→(2.5,0.5)→(2.5,1.5)… 위칸 기둥이 **오른쪽**(x=2.5)
+ *    ㅌ = (2.5,0.5)→(0.5,0.5)→(0.5,2.5)  위칸 기둥이 **왼쪽**(x=0.5)
+ *  🔴 상관은 전체를 한 숫자로 뭉개서 그 5.9% 를 묻는다 — 사용자가 올린 프레임에서
+ *    상관 여유가 **0.0013**(0.56%)이었다. 그건 판정이 아니라 동전던지기라,
+ *    다수결(7프레임)로도 못 막는다(세는 것 자체가 동전던지기다).
+ *  🔴 그 자리만 직접 재면 갈린다 — 실측 사진 8장:
+ *    ㅌ 6개 +0.84 ~ +1.00 / ㄹ 2개 −0.53, −0.84. **겹침 0, 간격 1.37.**
+ *  🔴 홈이 안 파여 마스크가 통짜면 할 말이 없다 → null 로 돌려 상관으로 넘긴다.
+ *  @returns 왼쪽 채움 − 오른쪽 채움 (양수=ㅌ · 음수=ㄹ), 판단 불가능이면 null
+ */
+function upperGapSide(comp, W){
+  var cw = comp.w, ch = comp.h;
+  var b = new Uint8Array(cw * ch);
+  for (var k = 0; k < comp.px.length; k++){
+    var i = comp.px[k];
+    b[(((i / W) | 0) - comp.y0) * cw + (i % W - comp.x0)] = 1;
+  }
+  /* 위 절반에서 **가운데가 가장 비어 있는 줄** = 위칸 홈. 막대 사이라 가운데가 뚜렸다. */
+  var y0 = Math.round(ch * 0.15), y1 = Math.round(ch * 0.50);
+  var mx0 = Math.round(cw * 0.30), mx1 = Math.round(cw * 0.70);
+  var row = -1, low = 2;
+  for (var y = y0; y < y1; y++){
+    var m = 0, t = 0;
+    for (var x = mx0; x < mx1; x++){ t++; if (b[y * cw + x]) m++; }
+    if (t && m / t < low){ low = m / t; row = y; }
+  }
+  if (row < 0 || low > 0.35) return null;      // 홈이 없다 — 모양 정보가 안 남았다
+  var L = 0, Lt = 0, R = 0, Rt = 0;
+  var lx = Math.round(cw * 0.20), rx = Math.round(cw * 0.80);
+  for (var xl = 0; xl < lx; xl++){ Lt++; if (b[row * cw + xl]) L++; }
+  for (var xr = rx; xr < cw; xr++){ Rt++; if (b[row * cw + xr]) R++; }
+  if (!Lt || !Rt) return null;
+  return L / Lt - R / Rt;
+}
+
 /* 짝 -> 이긴 쪽 글자를 돌려주는 함수. 재 본 짝만 있다. */
 var PAIR_RULES = [
   { pair:['ㄹ','ㅌ'], pick:function(comp, W, T){
+      /* 위칸 홈이 어느 쪽인가 — 실측 ㅌ +0.84~+1.00 / ㄹ −0.53~−0.84 (상관은 0.0013 차) */
+      var side = upperGapSide(comp, W);
+      if (side != null && Math.abs(side) >= 0.30) return side > 0 ? 'ㅌ' : 'ㄹ';
+      /* 홈이 안 파였으면 예전대로 상관으로 — 답은 안 나오지만 안 하는 것보다는 낫다 */
       var a = corrWith(comp, W, T['ㄹ']), b = corrWith(comp, W, T['ㅌ']);
       if (a == null || b == null) return null;
       return a > b ? 'ㄹ' : 'ㅌ';
