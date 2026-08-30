@@ -932,6 +932,7 @@ var TUNE = {
   difBlur: 0.10,        // 차이 지도를 흐리는 반지름(칸). 획 사이(약 0.6칸)보다 작아야 한다
   openR: 0,             // 점 지우기 열기 반지름(칸). 0 이면 끔 — 켜면 ㅇ 의 고리가 먼저 끊긴다
   closeR: 1,            // 끊어진 획을 잇는 닫기 반지름(px)
+  plateRatio: 2.0,      // 받침판으로 인정할 색차 배수 — 이보다 작으면 안 깎는다
   stripPlate: true,     // 블록 받침판 걷어내기 — 이게 있어야 ㅌ 과 ㄷ 이 갈린다
   plateMinSide: 2.2,    // 짧은 변이 이보다 얇은 덩어리(=모음 막대)는 안 깎는다(칸)
   /* 테두리가 판보다 이만큼은 붉어야 한다 — Otsu 가 판 잡음을 가를 때의 바닥. */
@@ -1319,8 +1320,20 @@ function classifyPixels(buf, W, H){
     }
     var bpx = blocks0[bi].px, bv = new Float32Array(bpx.length);
     for (i = 0; i < bpx.length; i++) bv[i] = Cr[bpx[i]];
-    var g2 = otsuRange(bv, bv.length).thr, hit = 0;
-    for (i = 0; i < bpx.length; i++) if (bv[i] >= g2) hit++;
+    var g2 = otsuRange(bv, bv.length).thr, hit = 0, sHi = 0, sLo = 0, nLo = 0;
+    for (i = 0; i < bpx.length; i++){
+      if (bv[i] >= g2){ hit++; sHi += bv[i]; } else { sLo += bv[i]; nLo++; }
+    }
+    /* 🔴 **받침판이 있을 때만 걷어낸다.** 받침판은 판처럼 무채색이라 글자와 색차가
+          몇 배로 벌어진다. 그런데 받침판이 없는 블록에서도 Otsu 는 노랑을 둘로 가르고,
+          그러면 획이 잘려 나간다 — ㅌ 의 세로 이음획이 그렇게 사라져 가로 막대 세 개로
+          흩어졌다(실측 ph4: 사진엔 획이 멀쩡히 있는데 마스크에서만 없었다).
+          두 무리 평균이 두 배 넘게 차이 날 때만 진짜 받침판으로 본다. */
+    var mHi = hit ? sHi/hit : 0, mLo = nLo ? sLo/nLo : 0;
+    if (!(mHi > mLo*TUNE.plateRatio)){
+      for (i = 0; i < bpx.length; i++) keep[bpx[i]] = 1;
+      continue;
+    }
     /* 받침판 없이 글자만 들어온 덩어리도 있다 — 그때는 Otsu 가 잡음을 가르므로
        고른 쪽이 너무 크면(대부분) 그냥 통째로 둔다. */
     var frac = hit / bpx.length;
@@ -6131,7 +6144,20 @@ document.getElementById('camOnlySend').addEventListener('click', function(){
   var btn = this;
   if (!photo.cv){ alert('아직 카메라 프레임이 없습니다.'); return; }
   var was = btn.textContent;
-  btn.textContent = '보내는 중…'; btn.disabled = true;
+  btn.disabled = true;
+  /* 🔴 누르자마자 찍으면 **누른 손가락이 판 위에 있다** — 살색 띠가 인식부 안으로
+        들어와 노랑/초록 문턱까지 끌고 가서 그 프레임은 통째로 못 읽는다(실측 ph4).
+        버튼은 곧바로 「보내는 중」이 되고, 손이 빠질 시간을 준 뒤에 찍는다. */
+  var delay = 2000, left = Math.round(delay/1000);
+  btn.textContent = '보내는 중… ' + left;
+  var tick = setInterval(function(){
+    left--;
+    if (left > 0) btn.textContent = '보내는 중… ' + left;
+  }, 1000);
+  setTimeout(function(){ clearInterval(tick); btn.textContent = '보내는 중…'; sendNow(btn, was); }, delay);
+});
+
+function sendNow(btn, was){
   var stamp = Date.now();
   var raw, shot;
   try { raw = photo.cv.toDataURL('image/jpeg', 0.85); }
@@ -6190,7 +6216,7 @@ document.getElementById('camOnlySend').addEventListener('click', function(){
       btn.disabled = false; btn.textContent = was;
       alert('보내지 못했습니다: ' + (e && e.message));
     });
-});
+}
 
 /* 🔴 모바일 브라우저는 **사용자가 건드리기 전에는 소리를 안 낸다**. 웹캠을 켜는
       탭만으로는 나중에 만든 Audio 객체까지 풀리지 않는 경우가 있어, 첫 터치에
