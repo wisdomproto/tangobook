@@ -178,6 +178,13 @@
     text-shadow:0 3px 14px rgba(0,0,0,.45)}
   #prCanvas{position:fixed; inset:0; z-index:116; pointer-events:none; display:none}
   #prCanvas.on{display:block}
+  /* 🔴 카메라 모드에서는 날것 프리뷰를 안 보여 준다 — 보이는 건
+     펌 판(인식 화면)과 거기서 잡은 사각형이다. 프리뷰는 예뻐도
+     무엇을 읽고 있는지를 안 보여 준다. */
+  #recoView{position:absolute; inset:0; width:100%; height:100%; display:none;
+    background:#0d1512; object-fit:contain}
+  body.cam-only #recoView{display:block}
+  body.cam-only #gl{visibility:hidden}
   #camOnlyBar{display:none}
   body.cam-only #camOnlyBar{display:flex; gap:8px; position:absolute; right:10px; top:10px; z-index:9}
   #camOnlyBar button{font:600 13px/1 inherit; padding:9px 12px; border-radius:10px;
@@ -318,6 +325,7 @@
         <button id="pickSim">🧊 시뮬레이터<b>화면 안 가짜 판으로 연습해요 (느려요)</b></button>
       </div>
     </div>
+    <canvas id="recoView"></canvas>
     <div id="camOnlyBar">
       <button id="camOnlySave" title="지금 화면을 파일로 저장">💾 프레임</button>
       <button id="camOnlyPanel" title="설정 보기">⚙️</button>
@@ -1901,6 +1909,11 @@ function recognize(){
   }
   reco.lab = lab;                     // 마스크 미리보기용
   var comps = components(lab, reco.W, reco.H, (CELL*CELL) / 3);
+  /* 🔴 화면에 사각형을 그리려면 덩어리 위치가 남아 있어야 한다 —
+        detail 은 칸 번호만 가지고 있고 화소 상자는 여기서만 안다. */
+  reco.boxes = comps.map(function(c){
+    return { x:c.x0, y:c.y0, w:c.w, h:c.h, color:c.color, ch:'' };
+  });
   var items = [], detail = [], orphans = [];
   function accept(c, m){
     var T = m.T;
@@ -1915,6 +1928,10 @@ function recognize(){
           「릉」이 「르」가 된다. 블록은 칸에 딱 맞게 놓이므로 모서리가 더 단단한 기준이다. */
     var gy = Math.round((c.y0 - T.by) / CELL) - MARGIN;
     items.push({ ch:T.ch, x:gx, y:gy, w:T.blockW, h:T.blockH });
+    for (var bi = 0; bi < (reco.boxes||[]).length; bi++){
+      var bx = reco.boxes[bi];
+      if (bx.x === c.x0 && bx.y === c.y0){ bx.ch = T.ch; break; }
+    }
     detail.push({ ch:T.ch, iou:+m.iou.toFixed(2), x:gx, y:gy,
       dbg:[+((cyPx-(T.by+T.sh/2))/CELL-MARGIN).toFixed(2), +(c.y0/CELL).toFixed(2), +(c.h/CELL).toFixed(2), +(T.by/CELL).toFixed(2), +(T.sh/CELL).toFixed(2), T.blockH] });
   }
@@ -6061,6 +6078,40 @@ function drawCamSim(){
 }
 
 /** 카메라 화면과 펴진 판만 그린다 — 분석 없이도 부를 수 있다. */
+
+/** 카메라 모드 화면 — 펌 판 + OpenCV 가 잡은 사각형만 그린다.
+ *  🔴 GL 로 선을 그리려면 셀이더가 하나 더 필요하다 — 2D 캠버스 하나면 끝난다.
+ *     reco.buf 는 아래가 0(GL) 이라 한 번 뒤집어 담는다. */
+function drawRecoView(){
+  var cv = document.getElementById('recoView');
+  if (!cv || !camOnly || !reco.buf || !reco.W) return;
+  var W = reco.W, H = reco.H;
+  if (cv.width !== W){ cv.width = W; cv.height = H; }
+  var g = cv.getContext('2d');
+  if (!drawRecoView._im || drawRecoView._im.width !== W)
+    drawRecoView._im = g.createImageData(W, H);
+  var im = drawRecoView._im, src = reco.buf;
+  for (var y = 0; y < H; y++){
+    var so = (H-1-y)*W*4, dof = y*W*4;
+    for (var x = 0; x < W*4; x++) im.data[dof + x] = src[so + x];
+  }
+  g.putImageData(im, 0, 0);
+  var boxes = reco.boxes || [];
+  g.lineWidth = Math.max(2, Math.round(CELL/8));
+  g.font = '700 ' + Math.round(CELL*0.9) + 'px system-ui, sans-serif';
+  g.textBaseline = 'top';
+  for (var i = 0; i < boxes.length; i++){
+    var b = boxes[i];
+    var ty = H - (b.y + b.h);                 // GL -> 화면 좌표
+    g.strokeStyle = b.ch ? '#2f9e77' : '#e0574a';
+    g.strokeRect(b.x, ty, b.w, b.h);
+    if (b.ch){
+      g.fillStyle = '#2f9e77';
+      g.fillText(b.ch, b.x + 2, ty - CELL);
+    }
+  }
+}
+
 function blitCamViews(H){
   var aspect = canvas.width / canvas.height;
   var w = camOnly ? 0.94 : 0.56, h = w * (camSim.H/camSim.W) * aspect;
@@ -6102,6 +6153,7 @@ function blitCamViews(H){
     blitTex([x0, y0 - gh - 0.03, w, gh], [1, 0, 0, 0, -1, 0, 0, 1, 1], blitCamViews._tex);
   }
   gl.enable(gl.DEPTH_TEST);
+  drawRecoView();
 }
 
 /** 씬 한 번 그리기 — 어느 시점에서 그리느냐만 다르다(게임 시점 / 폰 카메라). */
