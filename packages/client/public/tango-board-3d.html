@@ -6479,6 +6479,19 @@ function clearBoard(){
 /* ------------------------------------------------------------- 소리 */
 var GAP = 420, muted = false, audioGen = 0, lastAudio = null, chainTimer = null;
 function soundUrl(ch){ return PHONICS_BASE + encodeURIComponent(ch) + '.mp3'; }
+/* 🔴 읽을 음절을 미리 받아 둔다. 자모(CATALOG)만 데워 놓았더니 **음절**은
+   읽는 순간 처음 받았다 — 실측 0.63~0.70초가 통째로 늦는 데 쓰였다.
+   가장 이른 신호는 다수결 **전의 날 인식 결과**라 그걸로 받는다(다수결이
+   굳기까지 1초쯤 걸리니 그 안에 끝난다). 헛수고여도 캐시만 데워진다. */
+var warmedSnd = {};
+function warmSound(w){
+  for (var wi = 0; wi < (w || '').length; wi++){
+    var wc = neutralizeFinal(w[wi]);
+    if (warmedSnd[wc]) continue;
+    warmedSnd[wc] = 1;
+    fetch(soundUrl(wc), { mode:'no-cors', cache:'force-cache' }).catch(function(){});
+  }
+}
 var FINAL_REP = { 2:1,3:1,9:1,24:1, 5:4,6:4, 19:7,20:7,22:7,23:7,25:7,27:7,
                   11:8,12:8,13:8,15:8, 10:16, 14:17,18:17,26:17 };
 function neutralizeFinal(ch){
@@ -6594,7 +6607,9 @@ function voteWord(w){
 
 function readBoard(){
   var truth = boardWord();
-  var w = camSim.on ? voteWord((reco.result && reco.result.word) || '') : truth;
+  var raw = (reco.result && reco.result.word) || '';
+  if (camSim.on) warmSound(raw);
+  var w = camSim.on ? voteWord(raw) : truth;
   var blind = camSim.on && !camSim.detected;
   outEl.textContent = w || (blind ? '판이 안 보여요' : '블록을 옮겨 보세요');
   outEl.classList.toggle('empty', !w);
@@ -6621,7 +6636,12 @@ function speak(){
 /* 낱말이 바뀌어 **자리를 잡으면** 저절로 읽어 준다. 인식은 프레임마다 조금씩
    흔들리므로 같은 낱말이 연달아 나올 때까지 기다린다 — 안 그러면 블록을 옮기는
    동안 중간 낱말을 계속 지껄인다. */
-var autoSay = true, SAY_STEADY = 4;
+/* 🔴 SAY_STEADY 는 2 다(예전 4). 여기로 들어오는 낱말은 **이미 7프레임
+   다수결을 거친 것**이라(readBoard 의 voteWord), 여기서 또 네 번을 기다리면
+   같은 일을 두 번 하며 분석 주기(250ms) × 4 = 1초를 그대로 버렸다.
+   화면 글자는 다수결만 거쳐 뜨므로 그만큼 소리가 늦게 들렸다.
+   다수결이 3-3 근처에서 흔들 때를 대비해 한 프레임만 남긴다. */
+var autoSay = true, SAY_STEADY = 2;
 var sayHold = '', sayCount = 0, saidLast = '';
 function autoSpeak(w){
   if (!camSim.on || !autoSay){ saidLast = ''; return; }
@@ -6732,6 +6752,7 @@ function pickWord(){
 function setWord(w, scatter){
   current = w;
   document.getElementById('wordText').textContent = w ? w.word : '—';
+  if (w) warmSound(w.word);   // 카드의 두 글자는 미리 알고 있다 — 맞켤을 때 바로 읽도록
   if (w){
     if (scatter !== false) scatterFor(w.word);   // 시작 화면은 빈 판으로 연다
     readBoard();
