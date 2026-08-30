@@ -148,6 +148,32 @@
   #cvLoad .bar i{display:block; height:100%; width:30%; background:#2f9e77; border-radius:3px;
     animation:cvslide 1.1s ease-in-out infinite}
   @keyframes cvslide{0%{margin-left:-30%}100%{margin-left:100%}}
+  /* 열면 먼저 무엇으로 볼지 고른다 — 시뮬레이터는 3D 씬을 매 프레임 다시 그려서
+     느리고, 웹캠은 실물을 읽는다. 둘을 섞어 두면 무엇을 보고 있는지 헷갈린다. */
+  #pick{position:fixed; inset:0; z-index:120; display:grid; place-content:center; gap:18px;
+    background:#0d1512; color:#dff3ea; font:600 16px/1.6 system-ui,sans-serif; text-align:center}
+  #pick.gone{display:none}
+  #pick h1{margin:0 0 6px; font-size:22px; font-weight:700}
+  #pick p{margin:0 0 18px; font-weight:400; font-size:14px; color:#9fb5ad}
+  #pick button{display:block; width:min(320px,74vw); padding:18px 22px; margin:0 auto;
+    border:0; border-radius:16px; cursor:pointer; font:600 17px/1.3 inherit;
+    background:#1d2b26; color:#dff3ea; border:1px solid #2b3f38}
+  #pick button b{display:block; font-size:13px; font-weight:400; color:#9fb5ad; margin-top:5px}
+  #pick button.go{background:var(--coral,#ff6b57); color:#fff; border-color:transparent}
+  #pick button.go b{color:#ffe4de}
+  /* 앱 독후활동과 같은 칭찬 — 호리 응원 + 색종이 + 무지개 배경 + 문구.
+     (features/games/components/FeedbackOverlay.tsx 와 같은 문구·길이) */
+  #praise{position:fixed; inset:0; z-index:115; display:none; place-content:center;
+    pointer-events:none; text-align:center;
+    background:linear-gradient(135deg,rgba(255,94,58,.16),rgba(255,200,87,.16),
+      rgba(92,201,159,.16),rgba(167,139,250,.16))}
+  #praise.on{display:grid; animation:prIn .18s ease-out}
+  @keyframes prIn{from{opacity:0; transform:scale(.94)} to{opacity:1; transform:none}}
+  #praise img{width:min(190px,42vw); display:block; margin:0 auto 10px}
+  #praise .t{font:800 34px/1.2 system-ui,sans-serif; color:#fff;
+    text-shadow:0 3px 14px rgba(0,0,0,.45)}
+  #prCanvas{position:fixed; inset:0; z-index:116; pointer-events:none; display:none}
+  #prCanvas.on{display:block}
   #camOnlyBar{display:none}
   body.cam-only #camOnlyBar{display:flex; gap:8px; position:absolute; right:10px; top:10px; z-index:9}
   #camOnlyBar button{font:600 13px/1 inherit; padding:9px 12px; border-radius:10px;
@@ -275,6 +301,19 @@
       <div style="font-weight:400; font-size:13px; color:#9fb5ad; margin-top:6px">처음 한 번만 받습니다</div>
       <div class="bar"><i></i></div>
     </div></div>
+    <div id="praise"><div>
+      <img id="prHori" alt="">
+      <div class="t" id="prText"></div>
+    </div></div>
+    <canvas id="prCanvas"></canvas>
+    <div id="pick">
+      <div>
+        <h1>탱고 보드</h1>
+        <p>무엇으로 볼까요?</p>
+        <button id="pickCam" class="go">📷 카메라로 읽기<b>실물 판을 카메라로 비추어 낱말을 맞혀요</b></button>
+        <button id="pickSim">🧊 시뮬레이터<b>화면 안 가짜 판으로 연습해요 (느려요)</b></button>
+      </div>
+    </div>
     <div id="camOnlyBar">
       <button id="camOnlySave" title="지금 화면을 파일로 저장">💾 프레임</button>
       <button id="camOnlyPanel" title="설정 보기">⚙️</button>
@@ -291,13 +330,13 @@
       <input type="checkbox" id="panelChk"> 조작판</label>
     <div id="camPanel" hidden>
       <div class="cam-row"><label for="camTilt">거울 각도</label>
-        <input type="range" id="camTilt" min="24" max="65" value="32" step="1">
-        <span class="cam-val" id="camTiltV">32°</span></div>
+        <input type="range" id="camTilt" min="24" max="65" value="33" step="1">
+        <span class="cam-val" id="camTiltV">33°</span></div>
       <div class="cam-row"><label>내려다보는 각</label>
         <span class="cam-val cam-derived" id="camAimV">—</span></div>
       <div class="cam-row"><label for="camHeight">패드 세로</label>
-        <input type="range" id="camHeight" min="150" max="500" value="320" step="10">
-        <span class="cam-val" id="camHeightV">320mm</span></div>
+        <input type="range" id="camHeight" min="150" max="500" value="360" step="10">
+        <span class="cam-val" id="camHeightV">360mm</span></div>
       <div class="cam-row"><label for="camStand">앞뒤 위치</label>
         <input type="range" id="camStand" min="-40" max="700" value="294" step="1">
         <span class="cam-val" id="camStandV">294mm</span></div>
@@ -305,16 +344,16 @@
         <input type="range" id="camMirW" min="14" max="44" value="25" step="1">
         <span class="cam-val" id="camMirWV">25mm</span></div>
       <div class="cam-row"><label for="camMirH">거울 높이</label>
-        <input type="range" id="camMirH" min="10" max="36" value="20" step="1">
-        <span class="cam-val" id="camMirHV">20mm</span></div>
+        <input type="range" id="camMirH" min="10" max="36" value="14" step="1">
+        <span class="cam-val" id="camMirHV">14mm</span></div>
       <div class="cam-row"><label for="camMirD">카메라~거울</label>
-        <input type="range" id="camMirD" min="6" max="30" value="15" step="1">
-        <span class="cam-val" id="camMirDV">15mm</span></div>
+        <input type="range" id="camMirD" min="6" max="30" value="16" step="1">
+        <span class="cam-val" id="camMirDV">16mm</span></div>
       <div class="cam-row"><label>실제 화각</label>
         <span class="cam-val cam-derived" id="camFovV">—</span></div>
       <div class="cam-row"><label for="camOver">잠망경 앞으로</label>
-        <input type="range" id="camOver" min="0" max="160" value="20" step="5">
-        <span class="cam-val" id="camOverV">20mm</span></div>
+        <input type="range" id="camOver" min="0" max="160" value="0" step="5">
+        <span class="cam-val" id="camOverV">0mm</span></div>
       <div class="cam-row"><label for="camPad">화면 기울기</label>
         <input type="range" id="camPad" min="60" max="90" value="80" step="1">
         <span class="cam-val" id="camPadV">80°</span></div>
@@ -924,10 +963,13 @@ var COLOR = {
         푸른 기(200° 부근)** 로 찍힌다(실측 fr5~9: 192~214°, 채도 0.19).
         시뮬레이터 판을 완전 무채색으로 두면 색상이 무의미해져 색으로 가르는
         인식기가 여기서만 무너진다 — 시뮬이 실물을 흉내 내야 시험대가 된다. */
-  board:   [0.80, 0.85, 0.88],   // 흰 판 (카메라에서 보이는 대로 살짝 푸른 기)
+  /* 🔴 아래 세 값은 **실제 폰 프레임에서 재서** 넣은 것이다(재퐁 판 면은
+        점을 빼고 밝은 80% 분위수). 예전에는 푸른 기를 넣었는데, 실측해 보니
+        판 면은 #c8cbca 로 **거의 중성 회색**이었다. */
+  board:   [0.78, 0.80, 0.79],   // 실측 #c8cbca
   frame:   [0.56, 0.60, 0.62],
-  cho:     [0.95, 0.78, 0.30],   // 노랑 44°
-  jung:    [0.55, 0.80, 0.35]    // 초록 93°
+  cho:     [0.76, 0.69, 0.35],   // 노랑 44°
+  jung:    [0.53, 0.62, 0.33]    // 초록 93°
 };
 
 /* =====================================================================
@@ -4745,14 +4787,21 @@ function playAreaFromBoard(boardUV){
 }
 
 var meshMeta = null;
-var camSim = { on:false, useTruth:false, tilt:62, padH:320, azimuth:0, padTilt:85, overhang:20,
+var camSim = { on:false, useTruth:false, tilt:62, padH:360, azimuth:0, padTilt:85, overhang:0,
   /* 🔴 카메라마다 판이 뒤집혀 들어오는지 — 한 번 정하고 기억한다(폰 전면=뒤집힘). */
   flipY:null, polarity:null, polMiss:0,
   /* 🔴 검은 구멍으로 찾는 옛 길 — 제품 판에는 구멍이 없으므로 기본은 끈다. */
   allowDarkDots:false,
-               mirror:32, mirrorW:25, mirrorH:20, mirrorDist:15,
+               /* 🔴 기본값은 **실제 폰 배치에 맞춰 찾은 값**이다. 폰 프레임에서
+                     잡힌 인식부 사각형을 목표로 두고 거울·높이를 훑어 맞췄다 —
+                     오차 0.273 → 0.039 (uv, 변이 2 넘으므로 2% 미만).
+                     🔴 맞추려면 모서리 **감김 방향**까지 같이 봐야 한다 — 입구에서 좀우를
+                        되돌리므로 시뮬과 폰은 감김이 반대다. 회전 네 가지만 보면 영영 안 맞는다. */
+               mirror:33, mirrorW:25, mirrorH:14, mirrorDist:16,
                standY:null,
-               fov:68, W:2160, H:1620 };
+               /* 🔴 폰은 **세로**로 찍는다. 가로 2160x1620 으로 두면 시뮬과 폰의
+                     화면 비율이 아예 달라 무엇을 비교하든 맞지 않는다. */
+               fov:68, W:1212, H:2160 };
 var simFbo = null, simTex = null, simDepth = null, progTex = null, texQuad = null;
 
 function initCamSim(){
@@ -6479,9 +6528,16 @@ function autoSpeak(w){
   if (w === sayHold) sayCount++; else { sayHold = w; sayCount = 1; }
   if (!w){ saidLast = ''; return; }
   if (sayCount === SAY_STEADY && w !== saidLast){
+    /* 🔴 바뀐 음절만 읽는다. 전체를 다시 읽으면 블록 하나 올릴 때마다
+          앞 글자까지 다시 들려 시끄럽고, 방금 놓은 게 뭐였는지 묻힌다.
+          안 건드린 음절은 그대로 둔다. 정답을 맞추면 win() 이 전체를 읽는다. */
+    var prev = saidLast || '', fresh = [];
+    for (var si = 0; si < w.length; si++)
+      if (w[si] !== prev[si]) fresh.push(w[si]);
     saidLast = w;
+    if (!fresh.length) return;
     stopAll();
-    playChain(w.split(''), 0, null);
+    playChain(fresh, 0, null);
   }
 }
 
@@ -6557,8 +6613,11 @@ function pickWord(){
       var b = order[idx++];
       return getDetail(b.id).then(function(det){
         if (!det) return tryNext();
+        /* 🔴 두 글자만 낸다 — 세 글자는 판 한 줄에 다 안 들어오고
+              좌우가 잘려 보이지도 않는다(카메라가 판의 가로 45% 만 본다). */
         var kos = shuffle((det.key_objects || []).filter(function(k){
-          return k.korean && isBuildableKo(k.korean.trim());
+          var t = k.korean && k.korean.trim();
+          return t && t.length === 2 && isBuildableKo(t);
         }));
         for (var i = 0; i < kos.length; i++){
           var page = validatedPage(det, kos[i]);
@@ -6590,6 +6649,57 @@ function nextWord(scatter){
   });
 }
 
+
+/** 🔴 맞혔을 때 한 마디 — 화면과 소리 둘 다. 음원을 따로 두지 않고
+ *  브라우저 음성합성을 쓴다 — 없는 기기면 글자만 띄운다. */
+/* 앱 독후활동(FeedbackOverlay)과 같은 칭찬이다 — 문구도 같은 네 개에서 고른다.
+   앱은 효과음 → 0.5초 쉐 → 낱말 TTS → 칭찬 음원 순서로 간다. 여기서도 같은 순서를 따른다. */
+var PRAISES = ['잘했어!', '좋아!', '최고야!', '멋져!'];
+var HORI = ['/mascot/hori/celebrate/celebrate-frame-1.webp',
+            '/mascot/hori/celebrate/celebrate-frame-2.webp',
+            '/mascot/hori/celebrate/celebrate-frame-3.webp',
+            '/mascot/hori/celebrate/celebrate-frame-4.webp'];
+var prTimer = null, prAnim = null;
+function confettiBurst(){
+  var cv = document.getElementById('prCanvas');
+  if (!cv) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  cv.width = innerWidth; cv.height = innerHeight; cv.classList.add('on');
+  var g = cv.getContext('2d'), cols = ['#FF5E3A','#FFC857','#5CC99F','#A78BFA'], ps = [];
+  for (var i = 0; i < 40; i++)
+    ps.push({ x:innerWidth/2, y:innerHeight/2,
+              vx:(Math.random()-0.5)*9, vy:-Math.random()*9-3,
+              r:4+Math.random()*4, c:cols[i%4], a:1, rot:Math.random()*6 });
+  var t0 = performance.now();
+  cancelAnimationFrame(prAnim);
+  (function step(now){
+    var dt = Math.min(40, now - t0); t0 = now;
+    g.clearRect(0,0,cv.width,cv.height);
+    var alive = 0;
+    ps.forEach(function(p){
+      p.vy += 0.35; p.x += p.vx; p.y += p.vy; p.rot += 0.2; p.a -= 0.012;
+      if (p.a <= 0) return;
+      alive++;
+      g.save(); g.globalAlpha = Math.max(0, p.a); g.translate(p.x, p.y); g.rotate(p.rot);
+      g.fillStyle = p.c; g.fillRect(-p.r, -p.r*0.6, p.r*2, p.r*1.2); g.restore();
+    });
+    if (alive) prAnim = requestAnimationFrame(step);
+    else { g.clearRect(0,0,cv.width,cv.height); cv.classList.remove('on'); }
+  })(t0);
+}
+function praise(){
+  var el = document.getElementById('praise');
+  if (!el) return;
+  document.getElementById('prText').textContent = PRAISES[Math.floor(Math.random()*PRAISES.length)];
+  document.getElementById('prHori').src = HORI[Math.floor(Math.random()*HORI.length)];
+  el.classList.add('on');
+  confettiBurst();
+  clearTimeout(prTimer);
+  prTimer = setTimeout(function(){ el.classList.remove('on'); }, 1600);
+  try { new Audio('/sounds/ui/success.mp3').play(); } catch (e){}
+}
+
+
 /* --------------------------------------------------------- 정답 연출 */
 var revealEl = document.getElementById('reveal');
 function win(){
@@ -6599,6 +6709,10 @@ function win(){
   scoreEl.textContent = score;
   current = null;                    // 같은 낱말로 두 번 터지지 않게
   stopAll();
+  praise();
+  saidLast = '';                     // 다음 낱말은 처음부터 읽는다
+  /* 앱과 같은 순서: 효과음 → 0.5초 쉐 → 낱말 전체 읽기 */
+  setTimeout(function(){
   playChain(w.word.split(''), 0, function(){
     if (!w.page){ nextWord(); clearBoard(); return; }
     document.getElementById('revealTitle').textContent = w.word;
@@ -6606,6 +6720,7 @@ function win(){
     document.getElementById('revealCap').textContent = w.page.text;
     revealEl.hidden = false;
   });
+  }, 500);
 }
 document.getElementById('revealGo').addEventListener('click', function(){
   revealEl.hidden = true;
@@ -6627,6 +6742,29 @@ function buildTray(){
   });
 }
 
+
+/* 🔴 열면 먼저 고르게 한다. 시뮬레이터는 3D 씨을 매 프레임 다시 그려서
+      한 프레임에 0.5초가 걸리고(실측), 웹캠은 실물을 읽는다. 둘을 섞어 두면
+      무엇을 보고 있는지 헷갈리고, 그게 오늘 오진단의 반을 만들었다. */
+(function(){
+  var pick = document.getElementById('pick');
+  if (!pick) return;
+  function close(){ pick.classList.add('gone'); }
+  var camBtn = document.getElementById('pickCam');
+  var simBtn = document.getElementById('pickSim');
+  if (camBtn) camBtn.addEventListener('click', function(){
+    close();
+    setCamOnly(true);
+    startWebcam();
+    nextWord(false);            // 웹캐 모드는 맞힐 낱말을 띄운다(판은 건드리지 않는다)
+  });
+  if (simBtn) simBtn.addEventListener('click', function(){
+    close();
+    camSim.on = false;
+    setCamOnly(false);
+    invalidate();
+  });
+})();
 /* ----------------------------------------------------------- 자체 점검 */
 function selfTest(){
   var bad = [];
