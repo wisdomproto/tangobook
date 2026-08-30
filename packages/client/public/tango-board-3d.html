@@ -141,6 +141,9 @@
         카메라를 골라도 예전 프리뷰 화면과 똑같아 뭐가 바뀜는지 알 수가 없었다.
         위쪽은 보내기 버튼·진단 줄이 차지하므로 **아래 가운데**로 내린다. */
   body.cam-only #camPanel, body.cam-only #panelToggle{display:none !important}
+  /* 🔴 카메라 모드엔 자모 팔레트가 필요 없다 — 블록은 손으로 판에 놓는다.
+     #tray 가 flex:none 이라 숨기면 그 높이가 그대로 #stage(flex:1) 로 간다. */
+  body.cam-only #tray{display:none}
   body.cam-only #score{top:10px; right:auto; left:50%; transform:translateX(-50%); font-size:13px}
   body.cam-only #read{left:50%; transform:translateX(-50%); bottom:14px}
   /* OpenCV.js 를 받는 동안 덮는 화면. 10.5MB 라 첫 진입에만 몇 초 걸린다. */
