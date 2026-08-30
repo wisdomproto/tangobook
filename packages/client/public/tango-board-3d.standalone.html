@@ -3128,49 +3128,44 @@ function reduceBasis(a, b){
   return [A, B];
 }
 
-/** 격자 기저 후보 — 방향별로 모은 중앙값 벡터. */
+/** 격자 기저. 🔴 **방향은 고정이다** — 카메라는 판 뒤 거치대에 고정이고
+    판의 줄은 화면에서 가로다. 그러니 방향을 찾지 말고, 점마다
+    「가로에 가장 가까운 이웃」과 「세로에 가장 가까운 이웃」을 골라 중앙값을 쓴다.
+    방향 히스토그램으로 후보를 뒤지던 판은 참 방향이 후보에 아예 없는 경우가 있었다
+    (실측 ph1: 기울기 0 이어야 하는데 13.6도짜리가 최선이었다). */
 function latticeBases(pts, pitch, nn){
-  var offs = [], i, j;
+  var hx = [], hy = [], vx = [], vy = [], i, j;
   for (i = 0; i < pts.length; i++){
-    var cands = nn.near(i, 1);
+    var cands = nn.near(i, 2);
+    var bh = null, bv = null;
     for (j = 0; j < cands.length; j++){
       if (cands[j] === i) continue;
       var dx = pts[cands[j]][0] - pts[i][0], dy = pts[cands[j]][1] - pts[i][1];
       var r = Math.hypot(dx, dy);
-      if (r > pitch*0.55 && r < pitch*2.2) offs.push([dx, dy, (Math.atan2(dy, dx)*180/Math.PI + 180) % 180]);
+      if (r < pitch*0.55 || r > pitch*2.2) continue;
+      var ang = Math.abs(Math.atan2(Math.abs(dy), Math.abs(dx))*180/Math.PI);
+      if (ang < 45){
+        /* 가로 이웃 — 오른쪽으로 향하게 접는다 */
+        var hxv = dx < 0 ? -dx : dx, hyv = dx < 0 ? -dy : dy;
+        if (!bh || ang < bh.a) bh = { x:hxv, y:hyv, a:ang };
+      } else {
+        /* 🔴 세로 이웃은 **dy 부호로** 접는다. dx 로 접으면 dx 가 0 근처라
+              부호가 잡음에 따라 뒤집혀 ±dy 가 섞이고 중앙값이 무너진다
+              (실측 ph1: 세로 칸이 21.5 여야 하는데 45.7 = 두 칸으로 나왔다). */
+        var vxv = dy < 0 ? -dx : dx, vyv = dy < 0 ? -dy : dy;
+        var dv = Math.abs(90 - ang);
+        if (!bv || dv < bv.a) bv = { x:vxv, y:vyv, a:dv };
+      }
     }
+    if (bh){ hx.push(bh.x); hy.push(bh.y); }
+    if (bv){ vx.push(bv.x); vy.push(bv.y); }
   }
-  if (offs.length < 20) return null;
-  var cands2 = [];
-  for (var a0 = 0; a0 < 180; a0 += 5){
-    var sel = [];
-    for (i = 0; i < offs.length; i++){
-      var d = Math.abs(offs[i][2] - a0);
-      if (Math.min(d, 180-d) < 10) sel.push(offs[i]);
-    }
-    if (sel.length < Math.max(12, offs.length*0.04)) continue;
-    var ux = Math.cos(a0*Math.PI/180), uy = Math.sin(a0*Math.PI/180);
-    var xs = [], ys = [];
-    for (i = 0; i < sel.length; i++){
-      var f = (sel[i][0]*ux + sel[i][1]*uy) < 0 ? -1 : 1;
-      xs.push(sel[i][0]*f); ys.push(sel[i][1]*f);
-    }
-    xs.sort(function(p, q){ return p-q; }); ys.sort(function(p, q){ return p-q; });
-    var v = [xs[xs.length>>1], ys[ys.length>>1]];
-    cands2.push({ len: Math.hypot(v[0], v[1]), ang: a0, v: v });
-  }
-  if (cands2.length < 2) return null;
-  cands2.sort(function(p, q){ return p.len - q.len; });
-  var pairs = [];
-  for (i = 0; i < cands2.length && pairs.length < 6; i++)
-    for (j = i+1; j < cands2.length && pairs.length < 6; j++){
-      var da = Math.abs(cands2[i].ang - cands2[j].ang);
-      if (Math.min(da, 180-da) > 35) pairs.push([cands2[i].v, cands2[j].v]);
-    }
-  return pairs.length ? pairs : null;
+  if (hx.length < 12 || vx.length < 12) return null;
+  function med(a2){ var c = a2.slice().sort(function(p, q){ return p-q; }); return c[c.length>>1]; }
+  var U = [med(hx), med(hy)], V = [med(vx), med(vy)];
+  return [[U, V]];
 }
 
-/* 🔴 `fitProjective` 가 돌려주는 3x3 은 **열 우선**이다(mat3mul 과 같은 규약). */
 function applyH(H, x, y){
   var w = H[2]*x + H[5]*y + H[8];
   if (!w) return null;
@@ -3375,26 +3370,14 @@ function cvLatticeQuad(){
       return { ij: oij, xy: oxy };
     }
 
-    var best = null;
-    for (var pi = 0; pi < pairs.length; pi++){
-      var red = reduceBasis(pairs[pi][0], pairs[pi][1]);
-      var alts = [red, reduceBasis([red[0][0]+red[1][0], red[0][1]+red[1][1]],
-                                   [red[0][0]-red[1][0], red[0][1]-red[1][1]])];
-      for (var ai = 0; ai < 2; ai++){
-        var Bv = alts[ai];
-        var r = indexLat(Bv);
-        if (!r || r.ij.length < 30) continue;
-        var tilt = 90;
-        for (var vi = 0; vi < 2; vi++){
-          var t2 = Math.abs(Math.atan2(Bv[vi][1], Bv[vi][0])*180/Math.PI) % 180;
-          tilt = Math.min(tilt, Math.min(t2, 180-t2));
-        }
-        if (!best || tilt < best.tilt - 1e-6 ||
-            (Math.abs(tilt-best.tilt) < 1e-6 && r.ij.length > best.r.ij.length))
-          best = { tilt: tilt, r: r, B: Bv };
-      }
-    }
-    if (!best){ reco.latWhy = 'cv 번호 부족'; done(); return null; }
+    /* 🔴 감축(reduceBasis)을 걸지 않는다 — 그건 **길이 순으로 정렬**해서
+          [가로, 세로] 로 고른 것을 [짧은 것, 긴 것] = [세로, 가로] 로 뒤바꾼다.
+          방향이 고정이면 감축할 이유가 없고, 뒤바뀌면 편 그림이 평행사변형이 된다(실측). */
+    var Bv = pairs[0];
+    var r0 = indexLat(Bv);
+    if (!r0 || r0.ij.length < 30){ reco.latWhy = 'cv 번호 ' + (r0 ? r0.ij.length : 0); done(); return null; }
+    var tilt0 = Math.abs(Math.atan2(Bv[0][1], Bv[0][0])*180/Math.PI);
+    var best = { tilt: Math.min(tilt0, 180-tilt0), r: r0, B: Bv };
 
     var Hij = cvHomography(best.r.ij, best.r.xy);     // 번호 -> 화면
     if (!Hij){ reco.latWhy = 'cv 호모그래피 실패'; done(); return null; }
@@ -3432,6 +3415,11 @@ function cvLatticeQuad(){
               c5[1] + sgn[k5][0]*pu[1] + sgn[k5][1]*pv[1]];
     });
 
+    /* \U0001f534 네 모서리로 되돌리지 말고 **호모그래피 자체**를 남긴다 —
+          모서리 -> uv -> 회전 -> 여유 로 되돌리는 배관에서 배율과 방향이 샜다. */
+    var hv = [];
+    for (var hi = 0; hi < 9; hi++) hv.push(Hij.doubleAt(Math.floor(hi/3), hi%3));
+    reco.latH = { H: hv, swap: swap, mi: mi, mj: mj };
     reco.latInfo = { 점:best.r.ij.length, 기울기:+best.tilt.toFixed(1),
                      칸가로:+Math.hypot(o1[0]-o0[0], o1[1]-o0[1]).toFixed(1),
                      칸세로:+Math.hypot(o2[0]-o0[0], o2[1]-o0[1]).toFixed(1) };
@@ -3451,6 +3439,64 @@ function cvLatticeQuad(){
     done();
     return null;
   }
+}
+
+
+/** 격자 호모그래피로 인식 버퍼를 직접 채운다. 채웠으면 true.
+ *  \U0001f534 이게 파이썬에서 검증한 것과 같은 경로다 — 사각형을 거치지 않는다. */
+function cvLatticeWarp(){
+  if (!cvReady || !reco.latH || !reco.buf) return false;
+  var L = reco.latH, W = detBuf.W, H = detBuf.H;
+  var DW = reco.W, DH = reco.H, mats = [];
+  function M(m){ mats.push(m); return m; }
+  function done(){ mats.forEach(function(m){ try { m.delete(); } catch(e){} }); }
+  try {
+    /* 목적지 화소 -> 격자 번호 : 한 칸이 CELL px, 여유 MARGIN 칸.
+       \U0001f534 목적지 y 는 위가 0(cv 규약)인데 reco.buf 는 아래가 0(GL) 이라
+          마지막에 뒤집어 담는다. 폰 전면 카메라 뒤집기도 여기서 같이 건다. */
+    var ox = L.mi - GRID_W/2 - MARGIN, oy = L.mj - GRID_H/2 - MARGIN;
+    var A = [1/CELL, 0, ox,
+             0, 1/CELL, oy,
+             0, 0, 1];
+    if (camSim.flipY){
+      /* 🔴 카메라 앞에 **반사경**이 있다 — 거울(좌우 뒤집기) + 카메라가 판 뒤에
+            있는 것(180도) = 합치면 **세로 뒤집기 하나**다. 고정이라 고를 일이 아니다.
+            여기를 180도 회전으로 걸어 뒀었는데 그건 다른 변환이다. */
+      var R = [1, 0, 0,
+               0, -1, DH,
+               0, 0, 1];
+      A = mul3(A, R);
+    }
+    if (L.swap) A = mul3([0,1,0, 1,0,0, 0,0,1], A);
+    var full = mul3(L.H, A);                     // 목적지 -> 화면
+    var rgba = M(cv.matFromArray(H, W, cv.CV_8UC4, detBuf.buf));
+    var Hm = M(cv.matFromArray(3, 3, cv.CV_64F, full));
+    var out = M(new cv.Mat());
+    cv.warpPerspective(rgba, out, Hm, new cv.Size(DW, DH),
+      cv.INTER_LINEAR + cv.WARP_INVERSE_MAP, cv.BORDER_CONSTANT, new cv.Scalar(0, 0, 0, 255));
+    var src = out.data;
+    for (var y = 0; y < DH; y++){
+      var s0 = (DH-1-y)*DW*4, d0 = y*DW*4;
+      for (var x = 0; x < DW*4; x++) reco.buf[d0 + x] = src[s0 + x];
+    }
+    done();
+    return true;
+  } catch (e){
+    reco.latWhy = 'cv 펴기 예외 ' + (e && (e.message || e));
+    done();
+    return false;
+  }
+}
+
+/** 행 우선 3x3 곱 (A·B). */
+function mul3(A, B){
+  var o = new Array(9);
+  for (var r = 0; r < 3; r++) for (var c = 0; c < 3; c++){
+    var v = 0;
+    for (var k = 0; k < 3; k++) v += A[r*3+k]*B[k*3+c];
+    o[r*3+c] = v;
+  }
+  return o;
 }
 
 /** 인식부 사각형(uv). 못 찾으면 null. */
@@ -5501,6 +5547,27 @@ function drawCamSim(){
         판이 치워지거나 옮겨진 것은 알아야 하니 스무 프레임에 한 번만 확인한다. */
   camSim.tick = (camSim.tick || 0) + 1;
   var checking = hold.lock && camSim.tick % 20 === 0;      // 잠긴 채로 가끔 확인
+  /* 🔴 격자 길은 **호모그래피로 바로 편다** — 사각형·여유·회전 배관을 안 거친다.
+        그 배관으로 되돌리는 동안 배율과 방향이 샜다(사각형은 맞는데 ㅌ 이 ㄹ 로 읽혔고,
+        여유 손잡이를 흔들어도 결과가 안 변했다). 파이썬에서 검증한 경로가 이것이다. */
+  if (TUNE.useLattice && cvReady && camSim.detect && reco.fbo){
+    grabDetect();
+    var lq = cvLatticeQuad();
+    if (lq && cvLatticeWarp()){
+      camSim.corners = lq;
+      camSim.detected = true;
+      camSim.usedTruth = false;
+      reco.playInfo = { kind:'격자(cv)', lat:reco.latInfo };
+      reco.result = recognize();
+      reco.score = scoreAgainstTruth(reco.result);
+      if (typeof onRecoResult === 'function') onRecoResult();
+      if (camSim.on && typeof outEl !== 'undefined' && outEl) readBoard();
+      camSim.lastH = homography(lq);
+      blitCamViews(camSim.lastH);
+      return;
+    }
+  }
+
   var needDetect = camSim.detect && (!hold.lock || checking);
   var found = needDetect ? findPlayQuad() : null;
   if (checking){
