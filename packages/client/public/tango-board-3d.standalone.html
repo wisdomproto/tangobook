@@ -3168,6 +3168,14 @@ function latticeBases(pts, pitch, nn){
   if (hx.length < 12 || vx.length < 12) return null;
   function med(a2){ var c = a2.slice().sort(function(p, q){ return p-q; }); return c[c.length>>1]; }
   var U = [med(hx), med(hy)], V = [med(vx), med(vy)];
+  /* 🔴 **칸은 가로가 세로보다 넓다** — 21칸 x 14칸에 같은 물리 크기이므로
+        화면에서도 가로 벡터가 더 길다. 판이 좀 돌아 있으면 세로 이웃이 45도 안으로
+        들어와 가로 슬롯을 차지한다(실측 ph3: 33.5 x 47.9 로 뒤바뀌었고, 그 프레임만
+        방향이 반대로 나왔다). 길이로 못 박으면 프레임마다 안 달라진다. */
+  if (Math.hypot(U[0], U[1]) < Math.hypot(V[0], V[1])){ var t = U; U = V; V = t; }
+  /* 접기도 다시 맞춘다 — 가로는 오른쪽, 세로는 아래로. */
+  if (U[0] < 0){ U = [-U[0], -U[1]]; }
+  if (V[1] < 0){ V = [-V[0], -V[1]]; }
   return [[U, V]];
 }
 
@@ -3388,7 +3396,11 @@ function cvLatticeQuad(){
     if (!Hij){ reco.latWhy = 'cv 호모그래피 실패'; done(); return null; }
     var probe = project(Hij, [[0,0], [1,0], [0,1]]);
     var o0 = probe[0], o1 = probe[1], o2 = probe[2];
-    var swap = Math.abs(o1[0]-o0[0]) < Math.abs(o2[0]-o0[0]);
+    /* 🔴 축을 **프레임마다 고르지 않는다.** 기저를 만들 때 이미 첫째는 오른쪽,
+          둘째는 아래로 향하게 접어 놓았다(latticeBases). 여기서 또 고르면 프레임마다
+          방향이 달라진다 — 실측으로 세 프레임이 각각 다른 보정을 필요로 했다
+          (둘은 위아래, 하나는 좌우). 거치대가 고정이면 방향도 고정이다. */
+    var swap = false;
     var iMin = 1e9, iMax = -1e9, jMin = 1e9, jMax = -1e9;
     best.r.ij.forEach(function(p){
       var a3 = swap ? p[1] : p[0], c3 = swap ? p[0] : p[1];
