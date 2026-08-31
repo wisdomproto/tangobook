@@ -5894,7 +5894,11 @@ function showCamDbg(){
       ' · 문턱 ' + (c.색상문턱 != null ? c.색상문턱 + '°' : '-') + '\n' +
     '전경 ' + (c.fg || 0) + ' · 경계 ' + (c.split != null ? c.split + '°' : '-') +
       ' · 덩어리 ' + ((reco.result && reco.result.comps) || 0) + '\n' +
-    '글자 ' + ((reco.result && reco.result.items) || []).map(function(i){ return i.ch; }).join('');
+    '글자 ' + ((reco.result && reco.result.items) || []).map(function(i){ return i.ch; }).join('') + '\n' +
+    /* 🔴 소리는 안 나도 화면은 멀쩡해서 원인을 눈으로 볼 데가 없었다(아이패드).
+          마지막으로 읽은 낱말과 막혔는지를 찍는다. */
+    '소리 ' + (muted ? '음소거' : (audioBlocked ? '브라우저가 막음' : (saidLast || '-'))) +
+      (theAudio ? ' · ' + (theAudio.error ? '파일오류' : (theAudio.paused ? '멈춤' : '재생중')) : ' · 없음');
 }
 
 var camOnly = false;
@@ -6600,6 +6604,20 @@ function clearBoard(){
 /* ------------------------------------------------------------- 소리 */
 var GAP = 420, muted = false, audioGen = 0, lastAudio = null, chainTimer = null;
 function soundUrl(ch){ return PHONICS_BASE + encodeURIComponent(ch) + '.mp3'; }
+/* 🔴 **요소 하나를 재사용한다.** iOS/사파리는 「재생할 그 요소」가 사용자 제스처
+      때 풀려 있어야 소리가 난다 — 다른 요소를 풀어 놔도 소용없다.
+      예전엔 해금용 Audio 를 따로 만들어 풀고 버린 뒤, playOne 이 매번
+      `new Audio()` 로 **안 풀린 새 요소**를 만들어 썼다. 그래서 아이패드에서
+      인식은 되는데 소리만 안 났다(안드로이드는 관대해서 드러나지 않았다). */
+var theAudio = null;
+function audioEl(){
+  if (!theAudio){
+    theAudio = new Audio();
+    theAudio.preload = 'auto';
+    theAudio.playsInline = true;      // iOS 전체화면 전환 방지
+  }
+  return theAudio;
+}
 /* 🔴 읽을 음절을 미리 받아 둔다. 자모(CATALOG)만 데워 놓았더니 **음절**은
    읽는 순간 처음 받았다 — 실측 0.63~0.70초가 통째로 늦는 데 쓰였다.
    가장 이른 신호는 다수결 **전의 날 인식 결과**라 그걸로 받는다(다수결이
@@ -6653,7 +6671,7 @@ function speakFallback(text, onDone){
 function playOne(ch, onDone){
   if (muted || !ch){ if (onDone) onDone(); return; }
   var gen = audioGen, done = false;
-  var a = new Audio(soundUrl(neutralizeFinal(ch)));
+  var a = audioEl();                  // 🔴 새로 만들지 않는다 — 위 주석 참조
   lastAudio = a;
   function finish(ok){
     if (done) return;
@@ -6662,10 +6680,20 @@ function playOne(ch, onDone){
     if (ok){ if (onDone) onDone(); }
     else speakFallback(ch, onDone);
   }
-  a.addEventListener('ended', function(){ finish(true); });
-  a.addEventListener('error', function(){ finish(false); });
-  a.play().catch(function(){ finish(false); });
+  /* 요소를 돌려 쓰므로 리스너는 **덮어쓴다**. addEventListener 로 쌓으면
+     앞 글자의 콜백이 다음 글자에서 또 불린다. */
+  a.onended = function(){ finish(true); };
+  a.onerror = function(){ finish(false); };
+  try { a.pause(); } catch (e){}
+  a.currentTime = 0;
+  a.src = soundUrl(neutralizeFinal(ch));
+  var pr = a.play();
+  if (pr && pr.catch) pr.catch(function(err){
+    audioBlocked = (err && err.name === 'NotAllowedError');
+    finish(false);
+  });
 }
+var audioBlocked = false;             // 화면에 찍어 원인을 눈으로 본다
 /** 음절을 차례로 읽는다 — 소리 사이에 쉼을 둔다(붙으면 한 덩어리로 들린다). */
 function playChain(chars, i, onEnd){
   i = i || 0;
@@ -7661,9 +7689,16 @@ function sendNow(btn, was){
     if (unlocked) return;
     unlocked = true;
     try {
-      var a = new Audio();
+      /* 🔴 **재생에 쓸 바로 그 요소**를 푼다. 딴 요소를 풀면 소용없다. */
+      var a = audioEl();
       a.src = 'data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCA';
-      a.volume = 0; var pr = a.play(); if (pr && pr.catch) pr.catch(function(){});
+      var v = a.volume; a.volume = 0;
+      var pr = a.play();
+      if (pr && pr.then) pr.then(function(){
+        try { a.pause(); a.currentTime = 0; } catch (e){}
+        a.volume = v; audioBlocked = false;
+      }).catch(function(){ a.volume = v; });
+      else { try { a.pause(); } catch (e){} a.volume = v; }
     } catch (e){}
     if (typeof speechSynthesis !== 'undefined'){
       try { speechSynthesis.speak(new SpeechSynthesisUtterance('')); } catch (e){}
