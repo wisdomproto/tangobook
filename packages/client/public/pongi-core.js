@@ -335,7 +335,7 @@
     });
 
     var idx = [];
-    try { var ri = await fetch('/' + KEY + '-index.json'); idx = await ri.json(); } catch (e) {}
+    try { var ri = await fetch('/' + KEY + '-index.json', { cache: 'no-store' }); idx = await ri.json(); } catch (e) {}
     var eps = idx.filter(function (e) { return e.file && e.file !== KEY + '-plan.html'; }).map(function (e) {
       var m = (e.label || '').match(/(\d+)/);
       return { file: e.file, docId: e.file.replace(/\.html$/, ''), num: m ? +m[1] : 0, title: e.title || e.label };
