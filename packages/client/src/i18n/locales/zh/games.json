@@ -46,6 +46,10 @@
     "wordsHint": "点击查看详情",
     "gamesHeading": "游戏学习",
     "gamesHint": "第一次从第1个开始",
+    "wordGamesHeading": "学单词",
+    "wordGamesHint": "声音和文字",
+    "storyGamesHeading": "故事游戏",
+    "storyGamesHint": "回想书里的内容",
     "done": "完成！",
     "otherGame": "试试别的游戏？",
     "back": "← 返回",
@@ -77,10 +81,6 @@
     "storyImage": {
       "label": "听故事找图画",
       "subtitle": "听故事，找出对应的画面！"
-    },
-    "characterMatching": {
-      "label": "角色配对",
-      "subtitle": "把角色的图画和名字配起来！"
     },
     "pageOrder": {
       "label": "故事排排看",

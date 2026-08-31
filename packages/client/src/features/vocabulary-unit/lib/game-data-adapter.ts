@@ -21,7 +21,6 @@ import type {
 } from '@tangobook/shared';
 import { decomposeWord, decomposeEnglishWord, splitUnits } from '@tangobook/shared';
 import { buildStoryImageData } from '@/features/games/lib/story-image-data';
-import { buildCharacterMatchingData } from '@/features/games/lib/character-matching-data';
 import { buildPageOrderData } from '@/features/games/lib/page-order-data';
 import { buildObjectSceneData } from '@/features/games/lib/object-scene-data';
 
@@ -233,6 +232,11 @@ export function unitToWordWritingData(unit: VocabularyUnit, lang: Lang): WordWri
 
 export interface VocabGameOption {
   id: GameTypeId;
+  /**
+   * 카드가 속한 묶음 — 낱말을 소리·글자로 익히는 게임(word) / 책 내용을 묻는 독후활동(story).
+   * 🔴 여덟 장을 한 줄에 늘어놓으면 무엇을 고르는 화면인지 안 읽힌다(사용자 2026-09-01).
+   */
+  group: 'word' | 'story';
   emoji: string;
   label: string;
   /** 게임 카드 일러스트 (`public/icons/game/*.png`). emoji 는 fallback. */
@@ -276,13 +280,13 @@ export function getAvailableGames(
   const dotsData = unitToConnectTheDotsData(unit);
   const storyData = buildStoryImageData(book, lang, style);
   // 독후활동은 한국어부터. 다른 언어는 카드를 내지 않는다(반쪽만 번역된 화면보다 없는 게 낫다).
-  const characterData = isKo ? buildCharacterMatchingData(book) : null;
   const pageOrderData = isKo ? buildPageOrderData(book, style) : null;
   const objectSceneData = isKo ? buildObjectSceneData(book, style) : null;
 
   const cards: VocabGameOption[] = [
     {
       id: isKo ? 'korean-line-matching' : 'english-line-matching',
+      group: 'word',
       emoji: '🎯',
       label: t('cards.lineMatching.label'),
       subtitle: t('cards.lineMatching.subtitle'),
@@ -294,6 +298,7 @@ export function getAvailableGames(
     },
     {
       id: isKo ? 'korean-block' : isEn ? 'english-block' : 'order-block',
+      group: 'word',
       emoji: '🧱',
       label: isKo
         ? t('cards.block.labelKo')
@@ -315,6 +320,7 @@ export function getAvailableGames(
     },
     {
       id: 'connect-the-dots',
+      group: 'word',
       emoji: '🪡',
       label: t('cards.connectDots.label'),
       subtitle: t('cards.connectDots.subtitle'),
@@ -326,6 +332,7 @@ export function getAvailableGames(
     },
     {
       id: isKo ? 'korean-word-writing' : isEn ? 'english-word-writing' : 'order-writing',
+      group: 'word',
       emoji: '✏️',
       label: t('cards.writing.label'),
       subtitle: t('cards.writing.subtitle'),
@@ -343,6 +350,7 @@ export function getAvailableGames(
   if (book) {
     cards.push({
       id: isKo ? 'korean-story-image' : 'english-story-image',
+      group: 'story',
       emoji: '📖',
       label: t('cards.storyImage.label'),
       subtitle: t('cards.storyImage.subtitle'),
@@ -353,23 +361,10 @@ export function getAvailableGames(
     });
   }
 
-  // 🔴 애매한 책은 건너뛴다 — 카드를 회색으로 남기지 않고 아예 안 낸다.
-  //    등장인물 레퍼런스 그림이 3장 못 되는 책이 전래 2/40 · 명작 10/48 있다.
-  if (characterData) {
-    cards.push({
-      id: 'korean-character-matching',
-      emoji: '🎭',
-      label: t('cards.characterMatching.label'),
-      subtitle: t('cards.characterMatching.subtitle'),
-      bgFrom: 'from-coral-400',
-      bgTo: 'to-coral-600',
-      available: true,
-    });
-  }
-
   if (objectSceneData) {
     cards.push({
       id: 'korean-object-scene',
+      group: 'story',
       emoji: '🔍',
       label: t('cards.objectScene.label'),
       subtitle: t('cards.objectScene.subtitle'),
@@ -382,6 +377,7 @@ export function getAvailableGames(
   if (pageOrderData) {
     cards.push({
       id: 'korean-page-order',
+      group: 'story',
       emoji: '🔢',
       label: t('cards.pageOrder.label'),
       subtitle: t('cards.pageOrder.subtitle'),
@@ -406,8 +402,6 @@ export function getGameData(
     case 'korean-story-image':
     case 'english-story-image':
       return buildStoryImageData(book, lang, style);
-    case 'korean-character-matching':
-      return buildCharacterMatchingData(book);
     case 'korean-page-order':
       return buildPageOrderData(book, style);
     case 'korean-object-scene':

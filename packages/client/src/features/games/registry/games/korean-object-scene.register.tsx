@@ -21,7 +21,7 @@ registerGame({
     needsIllustrations: true,
     needsPhonicsData: false,
   },
-  defaultConfig: { type: 'korean-object-scene', roundCount: 5, optionsPerRound: 3 },
+  defaultConfig: { type: 'korean-object-scene', roundCount: 5, optionsPerRound: 4 },
   ConfigPanel: StoryImageConfigPanel,
   PlayerComponent: KoreanObjectScenePlayerWrapper,
   language: 'ko',

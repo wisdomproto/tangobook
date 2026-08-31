@@ -3,7 +3,8 @@ import { pageIllustrationUrl, pageNumberOf } from './page-illustration';
 
 const ROUND_COUNT = 5;
 const MIN_ROUNDS = 3;
-const OPTIONS_PER_ROUND = 3;
+/** 2×2 로 넷. */
+const OPTIONS_PER_ROUND = 4;
 
 function shuffle<T>(arr: T[]): T[] {
   const out = [...arr];

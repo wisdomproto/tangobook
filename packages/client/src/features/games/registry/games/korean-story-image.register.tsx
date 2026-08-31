@@ -32,7 +32,7 @@ registerGame({
     needsIllustrations: true,
     needsPhonicsData: false,
   },
-  defaultConfig: { type: 'korean-story-image', roundCount: 5, optionsPerRound: 3 },
+  defaultConfig: { type: 'korean-story-image', roundCount: 5, optionsPerRound: 4 },
   ConfigPanel: StoryImageConfigPanel,
   PlayerComponent: KoreanStoryImagePlayerWrapper,
   language: 'ko',

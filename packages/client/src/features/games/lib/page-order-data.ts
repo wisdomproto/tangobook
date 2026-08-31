@@ -19,7 +19,9 @@ export function buildPageOrderData(
   (book.pages ?? []).forEach((page, i) => {
     const pageNumber = pageNumberOf(page, i);
     const illustrationUrl = pageIllustrationUrl(book, page, pageNumber, style);
-    if (illustrationUrl) usable.push({ pageNumber, illustrationUrl });
+    if (!illustrationUrl) return;
+    const ttsUrl = page.translations?.ko?.ttsUrl || page.ttsUrl;
+    usable.push({ pageNumber, illustrationUrl, ...(ttsUrl ? { ttsUrl } : {}) });
   });
   if (usable.length < ITEM_COUNT) return null;
 

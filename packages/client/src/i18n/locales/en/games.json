@@ -46,6 +46,10 @@
     "wordsHint": "Tap for details",
     "gamesHeading": "Learn with Games",
     "gamesHint": "New? Start with #1",
+    "wordGamesHeading": "Learn the Words",
+    "wordGamesHint": "Sounds and letters",
+    "storyGamesHeading": "Story Games",
+    "storyGamesHint": "Remember the book",
     "done": "Done!",
     "otherGame": "Try another game?",
     "back": "← Back",
@@ -77,10 +81,6 @@
     "storyImage": {
       "label": "Listen & Find the Scene",
       "subtitle": "Listen to the story and find that picture!"
-    },
-    "characterMatching": {
-      "label": "Match the Characters",
-      "subtitle": "Match each character's picture to their name!"
     },
     "pageOrder": {
       "label": "Put the Story in Order",

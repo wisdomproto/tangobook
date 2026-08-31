@@ -7,9 +7,10 @@ import type {
 import { pageIllustrationUrl, pageNumberOf } from './page-illustration';
 
 const ROUND_COUNT = 5;
-const OPTIONS_PER_ROUND = 3;
-/** 오답 2개를 뽑아야 하므로 최소 3쪽. 서버 generateStoryImage 와 같은 기준. */
-const MIN_PAGES = 3;
+/** 2×2 로 넷. 세로로 셋을 쌓으면 한 장이 납작해져 그림을 못 알아본다. */
+const OPTIONS_PER_ROUND = 4;
+/** 오답 3개를 뽑아야 하므로 최소 4쪽. */
+const MIN_PAGES = 4;
 
 interface PagePick {
   text: string;

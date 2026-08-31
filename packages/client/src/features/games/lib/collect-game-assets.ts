@@ -106,8 +106,6 @@ export interface TtsSpec {
 const TTS_PREFIX: Record<string, { prefix: string; language: 'korean' | 'english' }> = {
   'korean-block': { prefix: 'kblock', language: 'korean' },
   'english-block': { prefix: 'eblock', language: 'english' },
-  // 인물 이름은 한 덩어리로 읽는다 — prefix 는 LineMatchingPlayer 의 WHOLE_WORD_PREFIX 와 같아야 한다.
-  'korean-character-matching': { prefix: 'charmatch', language: 'korean' },
   'korean-object-scene': { prefix: 'objscene', language: 'korean' },
   'korean-word-writing': { prefix: 'wwrite-ko', language: 'korean' },
   'english-word-writing': { prefix: 'wwrite-en', language: 'english' },

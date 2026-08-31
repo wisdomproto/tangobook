@@ -39,7 +39,7 @@ describe('buildObjectSceneData', () => {
     expect(d?.rounds).toHaveLength(3);
     for (const r of d!.rounds) {
       expect(r.promptImageUrl).toMatch(/card-/);
-      expect(r.distractorImageUrls).toHaveLength(2);
+      expect(r.distractorImageUrls).toHaveLength(3);
     }
     const dwiju = d!.rounds.find((r) => r.text === '쌀뒤주')!;
     expect(dwiju.correctImageUrl).toBe('https://cdn/p1.webp');

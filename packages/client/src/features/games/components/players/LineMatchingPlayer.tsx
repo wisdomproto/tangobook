@@ -18,7 +18,6 @@ import { SceneReveal } from '../SceneReveal';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { useGameStyle } from '../GameStyleChip';
 import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
-import { resolveTtsUrl } from '@/features/tts';
 import { useStorybook } from '@/features/storybook';
 import {
   TutorialProvider,
@@ -42,17 +41,7 @@ interface LineMatchingPlayerProps extends GamePlayerProps {
    * 🔴 Book 2 의 패턴은 `_am` 처럼 뒤쪽이라 켜면 **틀린 곳을 가리킨다**.
    */
   emphasizeFirstLabel?: boolean;
-  /**
-   * 우측 카드가 **무엇인지**. 짝짓기 방식은 같고 제목과 읽는 법만 달라진다.
-   *  - `'word'`(기본) 낱말 — 한글은 **음절 단위**로 들려준다(파닉스 목적).
-   *  - `'character'` 등장인물 이름 — **한 덩어리로** 읽는다. 「방앗간 할머니」를 음절 경로로 읽으면
-   *    mp3 를 여섯 번 이어 트느라 뚝뚝 끊긴다.
-   */
-  variant?: 'word' | 'character';
 }
-
-/** whole-word 한글 음원 concat 캐시 prefix — 프리로드(buildTtsSpec)와 재생이 같은 키를 써야 한다. */
-const WHOLE_WORD_PREFIX = 'charmatch';
 
 interface MatchedPair {
   itemIdx: number;
@@ -65,9 +54,7 @@ function LineMatchingPlayerInner({
   onBack,
   lang,
   emphasizeFirstLabel = false,
-  variant = 'word',
 }: LineMatchingPlayerProps) {
-  const wholeWord = variant === 'character';
   const data = gameData as KoreanLineMatchingData | EnglishLineMatchingData;
   const items = data.items;
 
@@ -98,25 +85,13 @@ function LineMatchingPlayerInner({
       // 🔴 **재생과 같은 키를 데운다.** 한글은 음절(글자)별로 읽으므로 글자별, 영어는 낱말 전체를
       //    한 키로 읽으므로(`playWordTts`: `map.get(word)`) 낱말 전체다. 예전엔 영어도 글자별로 데워
       //    영어 그림짝(복습)에서 정작 재생하는 낱말 키가 안 데워졌다.
-      if (wholeWord && lang === 'ko') {
-        // 재생과 같은 키로 resolve → 프리로드 게이트(buildTtsSpec)와 캐시 entry 를 공유한다.
-        void resolveTtsUrl({
-          text: it.word,
-          language: 'korean',
-          storybookId,
-          identifierPrefix: WHOLE_WORD_PREFIX,
-        }).then((u) => {
-          if (u) void warmAudioUrl(u);
-        });
-        continue;
-      }
       const keys = lang === 'ko' ? [...it.word] : [it.word.toLowerCase()];
       for (const k of keys) {
         const url = map.get(k) ?? map.get(k.toLowerCase());
         if (url) void warmAudioUrl(url);
       }
     }
-  }, [items, phonicsLoading, phonicsMapRef, lang, wholeWord, storybookId]);
+  }, [items, phonicsLoading, phonicsMapRef, lang]);
 
   // 이미지는 원래 순서 유지, 단어만 셔플
   const imageOrder = useMemo(() => items.map((_, i) => i), [items]);
@@ -165,17 +140,6 @@ function LineMatchingPlayerInner({
     async (item: LineMatchingItem) => {
       const hasHangul = /[가-힣]/.test(item.word);
       const map = phonicsMapRef.current;
-      if (hasHangul && wholeWord) {
-        const url = await resolveTtsUrl({
-          text: item.word,
-          language: 'korean',
-          storybookId,
-          identifierPrefix: WHOLE_WORD_PREFIX,
-        });
-        if (!url) return;
-        await new Promise<void>((resolve) => playAudio(url, resolve));
-        return;
-      }
       if (hasHangul) {
         // 한글 음절 순차 재생
         const syllables = [...item.word].filter((c) => /[가-힣]/.test(c));
@@ -198,7 +162,7 @@ function LineMatchingPlayerInner({
         await new Promise<void>((resolve) => playAudio(url, resolve));
       }
     },
-    [playAudio, phonicsMapRef, wholeWord, storybookId]
+    [playAudio, phonicsMapRef]
   );
 
   // 양쪽 다 선택되면 매칭 체크
@@ -476,9 +440,7 @@ function LineMatchingPlayerInner({
     <GamePlayerLayout maxWidth="full" bgImageUrl="/images/games/line-matching-bg.webp">
       <div className="flex flex-col w-full h-full relative">
         <GameHeader
-          title={t(
-            variant === 'character' ? 'cards.characterMatching.label' : 'cards.lineMatching.label'
-          )}
+          title={t('cards.lineMatching.label')}
           current={matched.length}
           total={items.length}
           onBack={onBack}

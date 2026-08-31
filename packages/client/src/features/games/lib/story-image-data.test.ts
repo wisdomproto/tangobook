@@ -22,14 +22,14 @@ describe('buildStoryImageData', () => {
     expect(data?.type).toBe('korean-story-image');
     expect(data?.rounds).toHaveLength(4);
     for (const r of data!.rounds) {
-      expect(r.distractorImageUrls).toHaveLength(2);
+      expect(r.distractorImageUrls).toHaveLength(3);
       expect(r.distractorImageUrls).not.toContain(r.correctImageUrl);
       expect(r.ttsUrl).toBeTruthy();
     }
   });
 
-  it('쓸 수 있는 쪽이 3개 미만이면 null (오답 2개를 못 뽑는다)', () => {
-    expect(buildStoryImageData(book([page(1), page(2)]), 'ko')).toBeNull();
+  it('쓸 수 있는 쪽이 4개 미만이면 null (오답 3개를 못 뽑는다)', () => {
+    expect(buildStoryImageData(book([page(1), page(2), page(3)]), 'ko')).toBeNull();
     expect(buildStoryImageData(undefined, 'ko')).toBeNull();
   });
 
@@ -46,20 +46,21 @@ describe('buildStoryImageData', () => {
   it('비-ko: 그 언어 번역이 없으면 한국어 base 로 대신하지 않는다', () => {
     const withVi = (n: number) =>
       page(n, { translations: { vi: { text: `trang ${n}`, ttsUrl: `https://cdn/vi-${n}.mp3` } } });
-    expect(buildStoryImageData(book([page(1), page(2), page(3)]), 'vi')).toBeNull();
-    const data = buildStoryImageData(book([withVi(1), withVi(2), withVi(3)]), 'vi');
+    expect(buildStoryImageData(book([page(1), page(2), page(3), page(4)]), 'vi')).toBeNull();
+    const data = buildStoryImageData(book([withVi(1), withVi(2), withVi(3), withVi(4)]), 'vi');
     expect(data?.type).toBe('english-story-image');
     expect(data?.rounds[0].text).toMatch(/^trang /);
   });
 
   it('그림체가 있으면 그 그림체의 쪽 삽화를 쓴다', () => {
-    const styled = book([page(1), page(2), page(3)], {
+    const styled = book([page(1), page(2), page(3), page(4)], {
       styleAssets: {
         collage: {
           pageIllustrations: {
             1: { illustrationUrl: 'https://cdn/collage1.webp' },
             2: { illustrationUrl: 'https://cdn/collage2.webp' },
             3: { illustrationUrl: 'https://cdn/collage3.webp' },
+            4: { illustrationUrl: 'https://cdn/collage4.webp' },
           },
         },
       },

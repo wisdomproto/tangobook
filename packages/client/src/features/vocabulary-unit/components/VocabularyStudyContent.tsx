@@ -29,6 +29,22 @@ import { StoryImagePlayer } from '@/features/games/components/players/StoryImage
 import { PageOrderPlayer } from '@/features/games/components/players/PageOrderPlayer';
 import { WordDetailModal } from './WordDetailModal';
 
+/** 게임 카드 묶음 — 순서가 곧 화면 순서다. 낱말이 먼저, 책 내용이 다음. */
+const GAME_GROUPS = [
+  {
+    key: 'word' as const,
+    emoji: '🔤',
+    headingKey: 'study.wordGamesHeading',
+    hintKey: 'study.wordGamesHint',
+  },
+  {
+    key: 'story' as const,
+    emoji: '📖',
+    headingKey: 'study.storyGamesHeading',
+    hintKey: 'study.storyGamesHint',
+  },
+];
+
 const HANGUL_RE = /[가-힣]/;
 const ENGLISH_RE = /^[a-zA-Z]+$/;
 
@@ -72,6 +88,8 @@ export function VocabularyStudyContent({
   const { refetch: refetchBalance } = useStarBalance();
 
   const games = getAvailableGames(unit, lang, t, storybook, currentStyle);
+  // 화면 전체에서 coral 채움은 한 장뿐 — 첫 번째 **가능한** 카드.
+  const ctaId = games.find((g) => g.available)?.id;
 
   // 사용자 정책 (2026-05-10): 게임은 매번 랜덤 N개 단어라 "완료" 개념 X.
   // 게임 카드 done 표시 / 단원 완료 메시지 모두 제거. 게임 결과는 GameResultScreen 에서 호리/칭찬.
@@ -90,29 +108,38 @@ export function VocabularyStudyContent({
       {/* 🔴 게임이 먼저다(2026-08-04) — 이 화면의 목적은 게임이고 단어 카드는 참고다. 예전엔
           두 섹션 헤딩 규격이 똑같은 채로 단어가 위에 있어서, 375px 접힘선(하단 탭바 때문에 812 가
           아니라 755px) 위 57% 를 헤더·책 정보·단어가 먹고 게임 카드는 4장 중 2장만 보였다. */}
-      <section className="mb-6">
-        <div className="flex items-baseline gap-3 mb-2 px-1">
-          <h2 className="text-2xl lg:text-3xl font-black font-display text-ink-900 flex items-center gap-2">
-            <span>🎮</span>
-            <span>{t('study.gamesHeading')}</span>
-          </h2>
-          <span className="text-sm font-bold text-ink-700">{t('study.gamesHint')}</span>
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
-          {games.map((g, i) => (
-            <GameCard
-              key={g.id}
-              game={g}
-              index={i}
-              // 🔴 「첫 번째」가 아니라 「첫 번째 **가능한**」 카드가 CTA — 1번이 비활성(데이터 없음)인
-              //    단원에서 index===0 으로 잡으면 회색 카드가 CTA 자리를 차지해 화면에 CTA 가 0개가 된다.
-              primary={i === games.findIndex((x) => x.available)}
-              done={false}
-              onPlay={() => g.available && setActiveGame(g.id)}
-            />
-          ))}
-        </div>
-      </section>
+      {/* 🔴 두 묶음으로 나눈다(2026-09-01 사용자) — 한 줄에 여덟 장을 늘어놓으니 무엇을 고르는
+          화면인지 안 읽혔다. 낱말을 익히는 게임과 책 내용을 묻는 독후활동은 하는 일이 다르다.
+          coral CTA 는 화면 전체에 **하나만** — 넷이 전부 CTA 색이면 CTA 가 없는 것과 같다. */}
+      {GAME_GROUPS.map(({ key, emoji, headingKey, hintKey }) => {
+        const groupGames = games.filter((g) => g.group === key);
+        if (groupGames.length === 0) return null;
+        return (
+          <section key={key} className="mb-6">
+            <div className="flex items-baseline gap-3 mb-2 px-1">
+              <h2 className="text-2xl lg:text-3xl font-black font-display text-ink-900 flex items-center gap-2">
+                <span>{emoji}</span>
+                <span>{t(headingKey)}</span>
+              </h2>
+              <span className="text-sm font-bold text-ink-700">{t(hintKey)}</span>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
+              {groupGames.map((g, i) => (
+                <GameCard
+                  key={g.id}
+                  game={g}
+                  index={i}
+                  // 🔴 「첫 번째」가 아니라 「첫 번째 **가능한**」 카드가 CTA — 1번이 비활성(데이터 없음)인
+                  //    단원에서 index===0 으로 잡으면 회색 카드가 CTA 자리를 차지해 CTA 가 0개가 된다.
+                  primary={g.id === ctaId}
+                  done={false}
+                  onPlay={() => g.available && setActiveGame(g.id)}
+                />
+              ))}
+            </div>
+          </section>
+        );
+      })}
 
       {/* 단어 sub-section — 탭하면 단어 상세 모달. 게임 아래 참고 자리. */}
       <section>
@@ -564,17 +591,6 @@ export function GameOverlay({
             difficulty="medium"
             onComplete={() => onComplete()}
             onBack={onBack}
-          />
-        )}
-        {game === 'korean-character-matching' && (
-          <LineMatchingPlayer
-            storybookId={effectiveStorybookId}
-            gameData={data}
-            difficulty="medium"
-            onComplete={() => onComplete()}
-            onBack={onBack}
-            lang="ko"
-            variant="character"
           />
         )}
         {game === 'korean-object-scene' && (

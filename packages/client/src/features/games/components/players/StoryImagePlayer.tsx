@@ -174,7 +174,10 @@ function StoryImagePlayerInner({
 
   const getOptionClass = (url: string) => {
     const base =
-      'relative w-full aspect-video max-h-[clamp(4rem,22vh,12rem)] rounded-2xl overflow-hidden border-4 transition-all cursor-pointer bg-white shadow-card';
+      // 🔴 예전엔 `max-h` 가 붙어 있었다 — 폭은 그대로인 채 높이만 잘려 박스가 4:1 이 되고
+      //    `object-cover` 가 그림 위아래를 도려냈다. 비율은 `aspect-video` 하나가 정하게 두고
+      //    크기는 2열 그리드가 정한다.
+      'relative w-full aspect-video rounded-2xl overflow-hidden border-4 transition-all cursor-pointer bg-white shadow-card';
     const isThisCorrect =
       feedback === 'correct' && (selectedUrl === url || url === current.correctImageUrl);
     const isThisWrong = feedback === 'wrong' && selectedUrl === url;
@@ -216,8 +219,9 @@ function StoryImagePlayerInner({
           </button>
         </div>
 
-        {/* 세로 스택: 한 줄에 이미지 한 개씩, 16:9 비율 */}
-        <div className="flex-1 min-h-0 overflow-y-auto flex flex-col gap-4 w-full max-w-3xl mx-auto">
+        {/* 2×2 — 넷을 한눈에 비교한다. `auto-rows-min content-center` 가 없으면 그리드 행이
+            flex-1 높이만큼 늘어나 줄 사이가 벌어진다. */}
+        <div className="flex-1 min-h-0 overflow-y-auto grid grid-cols-2 auto-rows-min content-center gap-3 sm:gap-4 w-full max-w-3xl mx-auto">
           {shuffledOptions.map((url) => {
             const isCorrectOpt =
               feedback === 'correct' && (selectedUrl === url || url === current.correctImageUrl);

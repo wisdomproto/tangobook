@@ -46,6 +46,10 @@
     "wordsHint": "Chạm để xem chi tiết",
     "gamesHeading": "Học qua trò chơi",
     "gamesHint": "Mới chơi? Bắt đầu từ số 1",
+    "wordGamesHeading": "Học từ vựng",
+    "wordGamesHint": "Âm thanh và chữ cái",
+    "storyGamesHeading": "Trò chơi truyện",
+    "storyGamesHint": "Nhớ lại câu chuyện",
     "done": "Xong!",
     "otherGame": "Thử trò chơi khác nhé?",
     "back": "← Quay lại",
@@ -77,10 +81,6 @@
     "storyImage": {
       "label": "Nghe và tìm tranh",
       "subtitle": "Nghe câu chuyện rồi tìm bức tranh đó!"
-    },
-    "characterMatching": {
-      "label": "Ghép nhân vật",
-      "subtitle": "Ghép tranh nhân vật với tên của họ!"
     },
     "pageOrder": {
       "label": "Sắp xếp câu chuyện",

@@ -46,6 +46,10 @@
     "wordsHint": "แตะเพื่อดูรายละเอียด",
     "gamesHeading": "เรียนรู้ผ่านเกม",
     "gamesHint": "เพิ่งเริ่ม? เริ่มจากข้อ 1",
+    "wordGamesHeading": "เรียนคำศัพท์",
+    "wordGamesHint": "เสียงและตัวอักษร",
+    "storyGamesHeading": "เกมจากนิทาน",
+    "storyGamesHint": "นึกถึงเรื่องในหนังสือ",
     "done": "เสร็จแล้ว!",
     "otherGame": "ลองเกมอื่นไหม?",
     "back": "← กลับ",
@@ -77,10 +81,6 @@
     "storyImage": {
       "label": "ฟังแล้วหาภาพ",
       "subtitle": "ฟังนิทานแล้วหาภาพนั้นให้เจอ!"
-    },
-    "characterMatching": {
-      "label": "จับคู่ตัวละคร",
-      "subtitle": "จับคู่ภาพตัวละครกับชื่อ!"
     },
     "pageOrder": {
       "label": "เรียงลำดับเรื่อง",

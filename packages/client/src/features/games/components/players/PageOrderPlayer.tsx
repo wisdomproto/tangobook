@@ -14,9 +14,9 @@ import { ENTRY_GUIDE, voiceUrl } from '@/features/phonics-learner/hooks/useEntry
 /**
  * 쪽 순서 맞추기 — 삽화를 이야기 순서대로 누른다. 낱말이 아니라 **이야기**를 묻는 독후활동이다.
  *
- * 🔴 **나레이션을 틀지 않는다.** 순서의 근거는 그림이어야 한다 — 게임 안에서 이야기를 다시
- *    들려주면 답을 알려주는 것이고, 쪽당 ~13초라 네 장이면 한 판이 1분을 넘는다.
  * 🔴 판정은 **누를 때 바로**. 다 놓은 뒤 채점하면 네 살은 어디서 틀렸는지 알 수 없다.
+ * 🔴 맞힌 그림은 **그 쪽을 읽어 준다**(사용자 요청 2026-09-01). 다음 그림을 누르면 읽던 것을
+ *    끊고 새로 읽는다 — 안 끊으면 두 쪽이 겹쳐 들린다.
  */
 export function PageOrderPlayer({ storybookId, gameData, onComplete, onBack }: GamePlayerProps) {
   const { t } = useTranslation('games');
@@ -25,7 +25,7 @@ export function PageOrderPlayer({ storybookId, gameData, onComplete, onBack }: G
   const items = data.items;
   const tray = useMemo(() => shuffle(items.map((_, i) => i)), [items]);
 
-  const { playAudio, playFeedbackSound } = useGameAudio();
+  const { playAudio, playFeedbackSound, scheduleTimer, stopAll } = useGameAudio();
   useGameEntryGuide(voiceUrl(ENTRY_GUIDE.orderListen), playAudio);
 
   /** 이미 자리를 잡은 항목의 인덱스 — 길이가 곧 다음에 놓아야 할 순서다. */
@@ -53,22 +53,42 @@ export function PageOrderPlayer({ storybookId, gameData, onComplete, onBack }: G
       setPlaced(next);
       setMissedHere(false);
       setScore((s) => s + gained);
+      // 읽던 쪽이 있으면 끊는다 → 띵동 → 쉼 → 그 쪽 나레이션.
+      stopAll();
       playFeedbackSound(true);
-      if (next.length === items.length) {
+      const narration = items[idx].ttsUrl;
+      const isLast = next.length === items.length;
+      const finish = () => {
         setFinished(true);
         onComplete(score + gained, items.length);
-      }
+      };
+      // 🔴 마지막 장은 **다 읽고 나서** 끝낸다 — 바로 끝내면 결과 화면의 보상음이 그 쪽 나레이션
+      //    위에 겹쳐 난다(실측: reward 뒤 449ms 에 나레이션 시작).
+      if (narration) scheduleTimer(() => playAudio(narration, isLast ? finish : undefined), 450);
+      else if (isLast) finish();
     },
-    [finished, placed, missedHere, items.length, playFeedbackSound, onComplete, score]
+    [
+      finished,
+      placed,
+      missedHere,
+      items,
+      playFeedbackSound,
+      playAudio,
+      scheduleTimer,
+      stopAll,
+      onComplete,
+      score,
+    ]
   );
 
   const handleRestart = useCallback(() => {
+    stopAll();
     setPlaced([]);
     setWrongIdx(null);
     setMissedHere(false);
     setScore(0);
     setFinished(false);
-  }, []);
+  }, [stopAll]);
 
   if (finished) {
     return (

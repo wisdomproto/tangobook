@@ -13,13 +13,19 @@ const data: KoreanPageOrderData = {
   items: [1, 5, 9, 13].map((n) => ({ pageNumber: n, illustrationUrl: `https://cdn/p${n}.webp` })),
 };
 
-function setup() {
+function setup(withNarration = false) {
   const onComplete = vi.fn();
+  const gameData = withNarration
+    ? {
+        ...data,
+        items: data.items.map((i) => ({ ...i, ttsUrl: `https://cdn/p${i.pageNumber}.mp3` })),
+      }
+    : data;
   render(
     <MemoryRouter>
       <PageOrderPlayer
         storybookId="b1"
-        gameData={data}
+        gameData={gameData}
         difficulty="medium"
         onComplete={onComplete}
         onBack={vi.fn()}
@@ -59,5 +65,12 @@ describe('PageOrderPlayer', () => {
     expect(tray()[0]).toBeDisabled();
     [1, 2, 3].forEach((i) => fireEvent.click(tray()[i]));
     expect(onComplete).toHaveBeenCalledWith(4, 4);
+  });
+
+  it('나레이션이 있으면 마지막 장을 다 읽은 뒤에 끝낸다', () => {
+    // 🔴 바로 끝내면 결과 화면 보상음이 그 쪽 나레이션 위에 겹친다.
+    const { onComplete, tray } = setup(true);
+    [0, 1, 2, 3].forEach((i) => fireEvent.click(tray()[i]));
+    expect(onComplete).not.toHaveBeenCalled();
   });
 });

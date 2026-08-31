@@ -336,8 +336,7 @@ export type GameTypeId =
   | 'korean-story-image'
   | 'english-story-image'
   | 'hidden-object'
-  // 독후활동 — 낱말이 아니라 책 자체(등장인물·쪽)에서 나온다. 한국어부터.
-  | 'korean-character-matching'
+  // 독후활동 — 낱말이 아니라 책 자체(쪽)에서 나온다. 한국어부터.
   | 'korean-page-order'
   | 'korean-object-scene'
   // 순서 맞추기 블록 / 따라쓰기 — vi/zh/th 공용. ko/en 은 자체 게임 사용.
@@ -369,7 +368,6 @@ export interface GameInstance {
 export type GameConfig =
   | WordWritingConfig
   | ConnectTheDotsConfig
-  | KoreanCharacterMatchingConfig
   | KoreanPageOrderConfig
   | KoreanObjectSceneConfig
   | KoreanBlockConfig
@@ -394,7 +392,6 @@ export type GameData =
   | EnglishLineMatchingData
   | KoreanStoryImageData
   | EnglishStoryImageData
-  | KoreanCharacterMatchingData
   | KoreanPageOrderData
   | KoreanObjectSceneData
   | HiddenObjectData
@@ -614,6 +611,8 @@ export interface EnglishLineMatchingData {
 export interface PageOrderItem {
   pageNumber: number; // 정답 순서 = 쪽 번호 오름차순
   illustrationUrl: string;
+  /** 자리를 맞히면 들려줄 그 쪽 나레이션. 없으면 소리 없이 넘어간다. */
+  ttsUrl?: string;
 }
 
 export interface KoreanPageOrderConfig {
@@ -624,21 +623,6 @@ export interface KoreanPageOrderData {
   type: 'korean-page-order';
   /** 정답 순서(쪽 번호 오름차순)로 담는다 — 화면에 뿌릴 때 플레이어가 섞는다. */
   items: PageOrderItem[];
-}
-
-// --- 인물 짝 찾기 (등장인물 그림 ↔ 이름) ---
-
-/**
- * 짝짓기 항목은 그림짝(`LineMatchingItem`)과 모양이 같아 플레이어를 그대로 쓴다.
- * 다른 건 소스뿐 — 낱말 카드가 아니라 `characters[].referenceImage` 다.
- */
-export interface KoreanCharacterMatchingConfig {
-  type: 'korean-character-matching';
-  itemCount: number;
-}
-export interface KoreanCharacterMatchingData {
-  type: 'korean-character-matching';
-  items: LineMatchingItem[];
 }
 
 // --- 스토리 듣고 이미지 맞추기 ---
