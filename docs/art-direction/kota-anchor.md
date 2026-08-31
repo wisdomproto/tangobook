@@ -49,7 +49,7 @@ STAGE CLAUSES (one inn and its yard; the place sets the grind and the number of 
     finished so that field still reads through it: a cold morning is four passes and the far side of
     the valley goes under, an ordinary day is two, a rainy day is ONE and it lies low along the
     ground instead of rising, and indoors there is none.
-  UPPER POOL - hottest, highest up the slope. Stone here is burnt earth at the coarsest grind in the
+  UPPER POOL — 🔴 THIS PLACE TAKES ONE MORE PASS OF STEAM THAN ANY LOWER PLACE DRAWN ON THE SAME PAGE. - hottest, highest up the slope. Stone here is burnt earth at the coarsest grind in the
     book. Water is not transparent: one flat field of azure, and nothing under the surface is drawn.
   LOWER POOL AND CHANNEL - the same water further down and cooler, so the same azure is ground finer
     and paler and the steam is one pass or none. 🔴 THE CHANNEL RUNS DOWNHILL ACROSS THE PAGE AND

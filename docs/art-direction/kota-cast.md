@@ -82,7 +82,12 @@ BUILD: a different animal every book and never named - crane, boar, turtle, owl,
   over an arm - never tied at the neck and never tucked at the waist.
 MARKING: 🔴 NO EYE BAND - that belongs to the raccoon dogs of this inn. Instead ONE flat ink shape
   of the species' own, laid last on a finished coat: a crane's crown patch, a boar's snout stripe,
-  an owl's facial disc rim, an ox's muzzle. INK ONLY, never colour, and never more than one shape.
+  an owl's facial disc rim, an ox's muzzle, a turtle's brow-to-neck stripe. 🔴 IT IS ALWAYS ON THE
+  FACE - never on a shell, a wing, a tail or the robe, because ITS ANGLE AND ITS LENGTH ARE THE
+  WHOLE EXPRESSION OF THAT PAGE (straight = unmoved, its far end curling up = pleased). A guest
+  whose shape sits anywhere but the face has no face left to feel with, and the feeling then leaks
+  into the eyes - which never change size for anybody in this book.
+  INK ONLY, never colour, and never more than one shape.
   Eyes are the same fixed shell-white opening with an ink centre that everyone in this book has.
 REPEAT VISITS: five species come twice. 🔴 A RETURNING GUEST IS DRAWN EXACTLY AS BEFORE, down to the
   one carried thing, because the book calls them only "the one from last time" and the picture is
