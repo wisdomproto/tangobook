@@ -1925,9 +1925,18 @@ function gapSideOf(b, cw, ch){
 var PAIR_RULES = [
   { pair:['ㄹ','ㅌ'], pick:function(comp, W, T){
       /* 위칸 홈이 어느 쪽인가 — 실측 ㅌ +0.84~+1.00 / ㄹ −0.53~−0.84 (상관은 0.0013 차) */
-      var sm = sharpMask(comp, W);
-      var side = sm ? gapSideOf(sm, comp.w, comp.h) : null;
-      if (side == null) side = upperGapSide(comp, W);   // 날이 안 서면 원래 마스크로
+      /* 🔴 **원래 마스크를 먼저 본다.** 날 세운 걸 먼저 봤더니 ㄹ 이 도로 망가졌다 —
+            Otsu 가 블록 테두리를 살려 놔서 홈이 가장자리까지 안 열리고 가운데 갇히면
+            좌우가 상쇄돼 **0.000** 이 나온다. 그건 `null` 이 아니라서 되돌아가지도 못하고
+            그대로 상관(동전던지기)으로 떨어졌다. 실측(64×73 ㄹ): 원래 −0.923(맞음) →
+            날 세우면 0.000(못 가름). 날 세우기는 **원래가 기권할 때 살려내는 쪽**이지
+            원래보다 나은 쪽이 아니다. */
+      var side = upperGapSide(comp, W);
+      if (side == null || Math.abs(side) < 0.30){
+        var sm = sharpMask(comp, W);
+        var s2 = sm ? gapSideOf(sm, comp.w, comp.h) : null;
+        if (s2 != null && Math.abs(s2) >= 0.30) side = s2;
+      }
       if (side != null && Math.abs(side) >= 0.30) return side > 0 ? 'ㅌ' : 'ㄹ';
       /* 홈이 안 파였으면 예전대로 상관으로 — 답은 안 나오지만 안 하는 것보다는 낫다 */
       var a = corrWith(comp, W, T['ㄹ']), b = corrWith(comp, W, T['ㅌ']);
