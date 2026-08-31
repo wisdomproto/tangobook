@@ -8,7 +8,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { parseBooks } from './_series-parse.mjs';
+import { parseBooks, loadScenes } from './_series-parse.mjs';
+import { SERIES } from './_series-config.mjs';
 
 const DOCS = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..', 'docs', 'changjak-books');
 
@@ -37,6 +38,7 @@ function metaField(meta, label) {
 function checkSeries(key) {
   const books = parseBooks(path.join(DOCS, key));
   if (!books.size) return null;
+  const scenes = loadScenes(path.join(DOCS, key));
   const fail = [], warn = [];
 
   if (books.size !== 25) fail.push(`권수 ${books.size} (25 여야 한다)`);
@@ -53,6 +55,21 @@ function checkSeries(key) {
     // 🔴 p1 을 대사로 열지 않는다 — 산문 규칙으로만 뒀더니 93권 중 44권이 어겼다
     const p1 = bk.pages.find((p) => p.n === 1);
     if (p1 && /^["「]/.test(p1.ko)) fail.push(at('p1 이 대사로 열린다'));
+
+    // 🔴 첫 쪽 인물은 둘까지. 템플릿엔 「인물 둘」이 **처음부터 있었는데** 375권 중 41권이 넷 이상으로
+    //    열렸다(mio 평균 5.1명 · mei 2.7). 산문 규칙이 샌 자리라 세는 쪽으로 옮긴다.
+    //    셋째가 정말 필요하면 **이름을 주지 마라** — 「다른 아이들」 같은 덩어리로 둔다.
+    const cast = SERIES[key]?.cast ?? [];
+    const onPage = (scene) => cast.filter((c) => (c.aliases ?? [c.name])
+      .some((a) => String(scene).toLowerCase().includes(String(a).toLowerCase())));
+    const s1 = scenes[id]?.p1 ?? '';
+    const n1 = onPage(s1).length;
+    if (n1 > 2) fail.push(at(`p1 에 인물 ${n1}명 (둘까지)`));
+
+    // 🔴 마지막 쪽은 인물의 입에서 닫는다. 375권 중 257권(69%)이 대사도 물음도 없이 서술로 끝났고,
+    //    출판 그림책 12편은 전부 인물의 한 문장으로 닫았다. 덮는 순간 뭐가 정리됐는지 부모가 알아야 한다.
+    const last = bk.pages[bk.pages.length - 1];
+    if (last && !/["「].+["」]/.test(last.ko)) fail.push(at('마지막 쪽이 대사로 안 닫힌다'));
 
     // 🔴 종결 「~았다/었다」 0% — 105편 실측. **서술에만 걸린다.**
     //    대사 안은 세지 마라 — 아이가 "다 뽑았다!" 하는 건 정상이고, 전래동화 40권도
