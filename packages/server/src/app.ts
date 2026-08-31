@@ -378,10 +378,17 @@ export function createApp() {
     //    Browser Cache TTL(4시간)을 붙인다 — 고쳐서 배포해도 4시간 동안 옛 화면이 뜬다.
     //    실제로 붙여넣기 버그를 고친 뒤에도 캐시된 옛 core.js 가 돌아 「아직도 실패」로 보였다.
     //    내부 저작 화면이라 트래픽이 없고, no-cache 는 ETag 재검증이라 대역폭도 거의 안 쓴다.
+    const SERIES_AUTHORING = /^\/[a-z][\w-]*-(plan\.html|core\.js|index\.json|\d{2}\.html)$/;
     const AUTHORING =
       /^\/(changjak|saenghwal|jeonrae|yuchiwon|tamheom|hangeul-tree|abc-tree)[\w-]*\.(html|js|json)$/;
     app.use((req, res, next) => {
-      if (AUTHORING.test(req.path)) res.setHeader('Cache-Control', 'no-cache');
+      // 🔴 창작동화 **시리즈** 저작 파일은 이름을 나열하면 안 된다 — 위 AUTHORING 목록에
+      //    시리즈 16개가 통째로 빠져 있었고(kota·pongi·coco·…), 그 탓에 `kota-index.json` 이
+      //    7일 캐시로 나가 회차를 새로 써도 사이드바에 안 떴다(2026-08-31 실측 max-age=604800).
+      //    시리즈가 늘 때마다 목록을 고치는 대신 **생성기가 만드는 파일 모양**으로 잡는다 — 472개 일치.
+      if (AUTHORING.test(req.path) || SERIES_AUTHORING.test(req.path)) {
+        res.setHeader('Cache-Control', 'no-cache');
+      }
       next();
     });
     /**
