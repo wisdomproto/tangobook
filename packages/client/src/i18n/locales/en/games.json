@@ -74,14 +74,44 @@
       "label": "Trace & Write",
       "subtitle": "Trace the letters with your finger!"
     },
+    "storyImage": {
+      "label": "Listen & Find the Scene",
+      "subtitle": "Listen to the story and find that picture!"
+    },
+    "characterMatching": {
+      "label": "Match the Characters",
+      "subtitle": "Match each character's picture to their name!"
+    },
+    "pageOrder": {
+      "label": "Put the Story in Order",
+      "subtitle": "Tap the picture that came first!"
+    },
+    "objectScene": {
+      "label": "Where Was This?",
+      "subtitle": "Find the picture this thing appeared in!"
+    },
     "unavailable": {
       "line": "Need 3+ words with images",
       "blockKo": "Not enough Korean words",
       "blockEn": "Not enough short English words",
       "blockOrder": "Not enough words in this language",
       "dots": "Need words with outline dots",
-      "writing": "Not enough words with images"
+      "writing": "Not enough words with images",
+      "storyImage": "Need 3+ pages with narration"
     }
+  },
+  "storyImage": {
+    "prompt": "Listen and pick the matching picture!",
+    "replay": "Listen again",
+    "pickAria": "Pick a picture"
+  },
+  "pageOrder": {
+    "prompt": "Tap them in story order!",
+    "pickAria": "Pick a picture"
+  },
+  "objectScene": {
+    "prompt": "Pick the picture where you saw it!",
+    "pickAria": "Pick a picture"
   },
   "connectDots": {
     "done": "Done!",

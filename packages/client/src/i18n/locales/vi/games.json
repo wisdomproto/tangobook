@@ -74,14 +74,44 @@
       "label": "Tập viết",
       "subtitle": "Dùng ngón tay tô theo chữ nhé!"
     },
+    "storyImage": {
+      "label": "Nghe và tìm tranh",
+      "subtitle": "Nghe câu chuyện rồi tìm bức tranh đó!"
+    },
+    "characterMatching": {
+      "label": "Ghép nhân vật",
+      "subtitle": "Ghép tranh nhân vật với tên của họ!"
+    },
+    "pageOrder": {
+      "label": "Sắp xếp câu chuyện",
+      "subtitle": "Chạm vào bức tranh xuất hiện trước!"
+    },
+    "objectScene": {
+      "label": "Đồ vật này ở đâu?",
+      "subtitle": "Tìm bức tranh có đồ vật này!"
+    },
     "unavailable": {
       "line": "Cần 3 từ trở lên có hình",
       "blockKo": "Không đủ từ tiếng Hàn",
       "blockEn": "Không đủ từ tiếng Anh ngắn",
       "blockOrder": "Không đủ từ trong ngôn ngữ này",
       "dots": "Cần từ có điểm viền",
-      "writing": "Không đủ từ có hình"
+      "writing": "Không đủ từ có hình",
+      "storyImage": "Cần ít nhất 3 trang có lời đọc"
     }
+  },
+  "storyImage": {
+    "prompt": "Nghe rồi chọn bức tranh phù hợp nhé!",
+    "replay": "Nghe lại",
+    "pickAria": "Chọn tranh"
+  },
+  "pageOrder": {
+    "prompt": "Chạm theo thứ tự câu chuyện!",
+    "pickAria": "Chọn tranh"
+  },
+  "objectScene": {
+    "prompt": "Chọn bức tranh có đồ vật này nhé!",
+    "pickAria": "Chọn tranh"
   },
   "connectDots": {
     "done": "Xong!",

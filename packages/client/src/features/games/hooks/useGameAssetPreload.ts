@@ -5,6 +5,7 @@ import { warmImageUrl, warmAudioUrl } from './useGamePrefetch';
 import {
   extractItemImages,
   extractItemWords,
+  extractRoundAudio,
   collectSyllableUrls,
   collectSceneAssets,
   buildTtsSpec,
@@ -13,7 +14,16 @@ import {
 const PRELOAD_MAX_MS = 6000;
 
 interface Args {
-  data: { type: string; items?: Array<Record<string, unknown>> };
+  data: {
+    type: string;
+    items?: Array<Record<string, unknown>>;
+    rounds?: Array<{
+      text?: string;
+      ttsUrl?: string;
+      correctImageUrl?: string;
+      distractorImageUrls?: string[];
+    }>;
+  };
   game: GameTypeId;
   lang: Lang;
   book: Storybook | undefined;
@@ -37,6 +47,7 @@ export function useGameAssetPreload(args: Args): { ready: boolean; loaded: numbe
     [words, lang, book, style, game]
   );
   const ttsSpec = useMemo(() => buildTtsSpec(data, game), [data, game]);
+  const roundAudio = useMemo(() => extractRoundAudio(data), [data]);
 
   const [loaded, setLoaded] = useState(0);
   const [total, setTotal] = useState(0);
@@ -45,6 +56,7 @@ export function useGameAssetPreload(args: Args): { ready: boolean; loaded: numbe
   const coreKey = [
     ...images,
     ...syllables,
+    ...roundAudio,
     ttsSpec ? `${ttsSpec.identifierPrefix}:${ttsSpec.items.length}` : '',
     storybookId,
     phonicsReady,
@@ -84,7 +96,7 @@ export function useGameAssetPreload(args: Args): { ready: boolean; loaded: numbe
         : [];
       if (!alive) return;
 
-      const coreAudio = [...syllables, ...resolvedTts];
+      const coreAudio = [...syllables, ...resolvedTts, ...roundAudio];
       const coreTotal = images.length + coreAudio.length;
       setTotal(coreTotal);
       if (coreTotal === 0) {

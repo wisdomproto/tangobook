@@ -17,8 +17,13 @@ import type {
   OrderWritingData,
   VocabularyUnit,
   VocabularyUnitWord,
+  Storybook,
 } from '@tangobook/shared';
 import { decomposeWord, decomposeEnglishWord, splitUnits } from '@tangobook/shared';
+import { buildStoryImageData } from '@/features/games/lib/story-image-data';
+import { buildCharacterMatchingData } from '@/features/games/lib/character-matching-data';
+import { buildPageOrderData } from '@/features/games/lib/page-order-data';
+import { buildObjectSceneData } from '@/features/games/lib/object-scene-data';
 
 /** 순서 맞추기 블록 타일 최대 개수 (그리드/트레이 가독성). vi 어절·긴 zh/th 단어 수용 위해 10. */
 const MAX_ORDER_UNITS = 10;
@@ -243,8 +248,19 @@ export interface VocabGameOption {
 /** i18n `t` — games 네임스페이스 스코프. 라벨/부제/비활성사유 localize 용. */
 type TFn = (key: string) => string;
 
-/** 단원에서 즉시 플레이 가능한 게임 4종. 라벨은 `t`(games ns)로 localize. */
-export function getAvailableGames(unit: VocabularyUnit, lang: Lang, t: TFn): VocabGameOption[] {
+/**
+ * 단원에서 즉시 플레이 가능한 게임 카드. 라벨은 `t`(games ns)로 localize.
+ *
+ * 🔴 낱말 4종은 `unit` 에서, 「이야기 듣고 그림 찾기」는 `book`(쪽 본문·나레이션·삽화)에서 나온다.
+ *    book 이 없으면(커스텀 단원) 이야기 카드는 빠진다 — 회색 카드로 남기면 영영 못 켜는 칸이 된다.
+ */
+export function getAvailableGames(
+  unit: VocabularyUnit,
+  lang: Lang,
+  t: TFn,
+  book?: Storybook,
+  style?: string
+): VocabGameOption[] {
   const isKo = lang === 'ko';
   const isEn = lang === 'en';
   const isOrder = !isKo && !isEn; // vi/zh/th = 순서 맞추기 계열
@@ -258,8 +274,13 @@ export function getAvailableGames(unit: VocabularyUnit, lang: Lang, t: TFn): Voc
     ? unitToOrderWritingData(unit, lang)
     : unitToWordWritingData(unit, lang);
   const dotsData = unitToConnectTheDotsData(unit);
+  const storyData = buildStoryImageData(book, lang, style);
+  // 독후활동은 한국어부터. 다른 언어는 카드를 내지 않는다(반쪽만 번역된 화면보다 없는 게 낫다).
+  const characterData = isKo ? buildCharacterMatchingData(book) : null;
+  const pageOrderData = isKo ? buildPageOrderData(book, style) : null;
+  const objectSceneData = isKo ? buildObjectSceneData(book, style) : null;
 
-  return [
+  const cards: VocabGameOption[] = [
     {
       id: isKo ? 'korean-line-matching' : 'english-line-matching',
       emoji: '🎯',
@@ -316,11 +337,81 @@ export function getAvailableGames(unit: VocabularyUnit, lang: Lang, t: TFn): Voc
       unavailableReason: !writingData ? t('cards.unavailable.writing') : undefined,
     },
   ];
+
+  // 독후활동 — 이야기를 듣고 그 장면을 고른다. 낱말이 아니라 쪽에서 나오므로
+  // key_objects 가 없는 책에서도 뜬다. 책 없이는 만들 수 없어 카드 자체를 안 낸다.
+  if (book) {
+    cards.push({
+      id: isKo ? 'korean-story-image' : 'english-story-image',
+      emoji: '📖',
+      label: t('cards.storyImage.label'),
+      subtitle: t('cards.storyImage.subtitle'),
+      bgFrom: 'from-coral-400',
+      bgTo: 'to-coral-600',
+      available: !!storyData,
+      unavailableReason: !storyData ? t('cards.unavailable.storyImage') : undefined,
+    });
+  }
+
+  // 🔴 애매한 책은 건너뛴다 — 카드를 회색으로 남기지 않고 아예 안 낸다.
+  //    등장인물 레퍼런스 그림이 3장 못 되는 책이 전래 2/40 · 명작 10/48 있다.
+  if (characterData) {
+    cards.push({
+      id: 'korean-character-matching',
+      emoji: '🎭',
+      label: t('cards.characterMatching.label'),
+      subtitle: t('cards.characterMatching.subtitle'),
+      bgFrom: 'from-coral-400',
+      bgTo: 'to-coral-600',
+      available: true,
+    });
+  }
+
+  if (objectSceneData) {
+    cards.push({
+      id: 'korean-object-scene',
+      emoji: '🔍',
+      label: t('cards.objectScene.label'),
+      subtitle: t('cards.objectScene.subtitle'),
+      bgFrom: 'from-coral-400',
+      bgTo: 'to-coral-600',
+      available: true,
+    });
+  }
+
+  if (pageOrderData) {
+    cards.push({
+      id: 'korean-page-order',
+      emoji: '🔢',
+      label: t('cards.pageOrder.label'),
+      subtitle: t('cards.pageOrder.subtitle'),
+      bgFrom: 'from-coral-400',
+      bgTo: 'to-coral-600',
+      available: true,
+    });
+  }
+
+  return cards;
 }
 
 /** 게임 타입에 맞는 GameData 변환 */
-export function getGameData(unit: VocabularyUnit, lang: Lang, gameType: GameTypeId) {
+export function getGameData(
+  unit: VocabularyUnit,
+  lang: Lang,
+  gameType: GameTypeId,
+  book?: Storybook,
+  style?: string
+) {
   switch (gameType) {
+    case 'korean-story-image':
+    case 'english-story-image':
+      return buildStoryImageData(book, lang, style);
+    case 'korean-character-matching':
+      return buildCharacterMatchingData(book);
+    case 'korean-page-order':
+      return buildPageOrderData(book, style);
+    case 'korean-object-scene':
+      return buildObjectSceneData(book, style);
     case 'korean-line-matching':
     case 'english-line-matching':
       return unitToLineMatchingData(unit, lang);

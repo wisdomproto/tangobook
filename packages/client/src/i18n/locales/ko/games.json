@@ -74,14 +74,44 @@
       "label": "따라 쓰기",
       "subtitle": "손가락으로 글자를 따라써요!"
     },
+    "storyImage": {
+      "label": "이야기 듣고 그림 찾기",
+      "subtitle": "이야기를 듣고 그 장면을 찾아요!"
+    },
+    "characterMatching": {
+      "label": "인물 짝 찾기",
+      "subtitle": "누가 나왔는지 그림과 이름을 짝지어요!"
+    },
+    "pageOrder": {
+      "label": "쪽 순서 맞추기",
+      "subtitle": "이야기에서 먼저 나온 그림부터 눌러요!"
+    },
+    "objectScene": {
+      "label": "이 물건 어느 장면?",
+      "subtitle": "이 물건이 나온 그림을 찾아요!"
+    },
     "unavailable": {
       "line": "이미지 있는 단어가 3개 이상 필요해요",
       "blockKo": "한글 단어가 부족해요",
       "blockEn": "6글자 이하 영문 단어가 부족해요",
       "blockOrder": "이 언어의 단어가 부족해요",
       "dots": "윤곽선 점이 있는 단어가 필요해요",
-      "writing": "이미지 있는 단어가 부족해요"
+      "writing": "이미지 있는 단어가 부족해요",
+      "storyImage": "나레이션 있는 쪽이 3개 이상 필요해요"
     }
+  },
+  "storyImage": {
+    "prompt": "이야기를 듣고 어울리는 그림을 골라보세요!",
+    "replay": "다시 듣기",
+    "pickAria": "그림 선택"
+  },
+  "pageOrder": {
+    "prompt": "이야기 순서대로 눌러봐!",
+    "pickAria": "그림 고르기"
+  },
+  "objectScene": {
+    "prompt": "이 물건이 나온 그림을 골라봐!",
+    "pickAria": "그림 고르기"
   },
   "connectDots": {
     "done": "완성!",

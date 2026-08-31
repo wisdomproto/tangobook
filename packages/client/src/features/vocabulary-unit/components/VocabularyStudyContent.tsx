@@ -25,6 +25,8 @@ import { LangWordWritingPlayer } from '@/features/games/components/players/LangW
 import { KoreanWordWritingPlayer } from '@/features/games/components/players/KoreanWordWritingPlayer';
 import { EnglishWordWritingPlayer } from '@/features/games/components/players/EnglishWordWritingPlayer';
 import { ConnectTheDotsPlayer } from '@/features/games/components/players/ConnectTheDotsPlayer';
+import { StoryImagePlayer } from '@/features/games/components/players/StoryImagePlayer';
+import { PageOrderPlayer } from '@/features/games/components/players/PageOrderPlayer';
 import { WordDetailModal } from './WordDetailModal';
 
 const HANGUL_RE = /[가-힣]/;
@@ -69,7 +71,7 @@ export function VocabularyStudyContent({
   const [selectedWord, setSelectedWord] = useState<VocabularyUnitWord | null>(null);
   const { refetch: refetchBalance } = useStarBalance();
 
-  const games = getAvailableGames(unit, lang, t);
+  const games = getAvailableGames(unit, lang, t, storybook, currentStyle);
 
   // 사용자 정책 (2026-05-10): 게임은 매번 랜덤 N개 단어라 "완료" 개념 X.
   // 게임 카드 done 표시 / 단원 완료 메시지 모두 제거. 게임 결과는 GameResultScreen 에서 호리/칭찬.
@@ -394,7 +396,10 @@ export function GameOverlay({
   // 🔴 getGameData 는 내부에서 shuffleInPlace 로 매 호출마다 items 순서를 바꾼다(비결정적).
   //    memo 없이 매 렌더 호출하면 프리로드 게이트의 coreKey 가 매 렌더 바뀌어 effect 가 무한 재시작
   //    (게이트가 0% 에서 안 넘어감) → unit/lang/game 별로 한 번만 생성해 안정화.
-  const data = useMemo(() => getGameData(unit, lang, game), [unit, lang, game]);
+  const data = useMemo(
+    () => getGameData(unit, lang, game, storybook, currentStyle),
+    [unit, lang, game, storybook, currentStyle]
+  );
   // storybook source 단원이면 진짜 책 id (ConnectTheDotsPlayer 의 useStorybook lookup 등에 활용).
   // custom 단원은 게임 진입 disabled 라 도달 불가지만 안전망 placeholder.
   const effectiveStorybookId = unit.storybookId ?? `vocab-${unit.id}`;
@@ -411,6 +416,12 @@ export function GameOverlay({
     data: (data ?? { type: game, items: [] }) as {
       type: string;
       items?: Array<Record<string, unknown>>;
+      rounds?: Array<{
+        text?: string;
+        ttsUrl?: string;
+        correctImageUrl?: string;
+        distractorImageUrls?: string[];
+      }>;
     },
     game,
     lang,
@@ -544,6 +555,47 @@ export function GameOverlay({
             difficulty="medium"
             onComplete={() => onComplete()}
             onBack={onBack}
+          />
+        )}
+        {game === 'korean-page-order' && (
+          <PageOrderPlayer
+            storybookId={effectiveStorybookId}
+            gameData={data}
+            difficulty="medium"
+            onComplete={() => onComplete()}
+            onBack={onBack}
+          />
+        )}
+        {game === 'korean-character-matching' && (
+          <LineMatchingPlayer
+            storybookId={effectiveStorybookId}
+            gameData={data}
+            difficulty="medium"
+            onComplete={() => onComplete()}
+            onBack={onBack}
+            lang="ko"
+            variant="character"
+          />
+        )}
+        {game === 'korean-object-scene' && (
+          <StoryImagePlayer
+            storybookId={effectiveStorybookId}
+            gameData={data}
+            difficulty="medium"
+            onComplete={() => onComplete()}
+            onBack={onBack}
+            lang="ko"
+            variant="object"
+          />
+        )}
+        {(game === 'korean-story-image' || game === 'english-story-image') && (
+          <StoryImagePlayer
+            storybookId={effectiveStorybookId}
+            gameData={data}
+            difficulty="medium"
+            onComplete={() => onComplete()}
+            onBack={onBack}
+            lang={lang === 'ko' ? 'ko' : 'en'}
           />
         )}
       </VocabSourceProvider>

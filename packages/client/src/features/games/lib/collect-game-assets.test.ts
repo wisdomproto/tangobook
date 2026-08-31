@@ -5,6 +5,7 @@ import {
   collectSyllableUrls,
   collectSceneAssets,
   buildTtsSpec,
+  extractRoundAudio,
 } from './collect-game-assets';
 
 const blockData = {
@@ -126,5 +127,39 @@ describe('buildTtsSpec', () => {
         'connect-the-dots'
       )
     ).toBeNull();
+  });
+});
+
+// 라운드형(이야기 듣고 그림 찾기) — items 가 없고 rounds 로 온다. 프리로드 게이트가 이걸 못 보면
+// 라운드 시작 400ms 뒤 재생이 그 자리에서 mp3 를 받는다(첫 소리 늦음).
+const storyData = {
+  type: 'korean-story-image',
+  rounds: [
+    {
+      text: 'a',
+      ttsUrl: 'https://r2/p1.mp3',
+      correctImageUrl: 'https://r2/p1.webp',
+      distractorImageUrls: ['https://r2/p2.webp'],
+    },
+    {
+      text: 'b',
+      ttsUrl: 'https://r2/p2.mp3',
+      correctImageUrl: 'https://r2/p2.webp',
+      distractorImageUrls: ['https://r2/p1.webp'],
+    },
+  ],
+} as any;
+
+describe('라운드형 게임 자산', () => {
+  it('정답·오답 이미지를 중복 없이 모은다', () => {
+    expect(extractItemImages(storyData).sort()).toEqual([
+      'https://r2/p1.webp',
+      'https://r2/p2.webp',
+    ]);
+  });
+
+  it('라운드 나레이션을 모은다 (concat resolve 불필요)', () => {
+    expect(extractRoundAudio(storyData)).toEqual(['https://r2/p1.mp3', 'https://r2/p2.mp3']);
+    expect(extractRoundAudio(blockData)).toEqual([]);
   });
 });

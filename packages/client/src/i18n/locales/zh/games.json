@@ -74,14 +74,44 @@
       "label": "跟着写",
       "subtitle": "用手指描写字母！"
     },
+    "storyImage": {
+      "label": "听故事找图画",
+      "subtitle": "听故事，找出对应的画面！"
+    },
+    "characterMatching": {
+      "label": "角色配对",
+      "subtitle": "把角色的图画和名字配起来！"
+    },
+    "pageOrder": {
+      "label": "故事排排看",
+      "subtitle": "先出现的图画先点！"
+    },
+    "objectScene": {
+      "label": "这个东西在哪一页？",
+      "subtitle": "找出出现这个东西的图画！"
+    },
     "unavailable": {
       "line": "需要3个以上带图片的单词",
       "blockKo": "韩文单词不足",
       "blockEn": "6个字母以内的英文单词不足",
       "blockOrder": "该语言的单词不足",
       "dots": "需要有轮廓点的单词",
-      "writing": "带图片的单词不足"
+      "writing": "带图片的单词不足",
+      "storyImage": "需要至少 3 页有朗读"
     }
+  },
+  "storyImage": {
+    "prompt": "听一听，选出对应的图画！",
+    "replay": "再听一次",
+    "pickAria": "选择图画"
+  },
+  "pageOrder": {
+    "prompt": "按故事顺序点一点！",
+    "pickAria": "选择图画"
+  },
+  "objectScene": {
+    "prompt": "选出有这个东西的图画！",
+    "pickAria": "选择图画"
   },
   "connectDots": {
     "done": "完成！",

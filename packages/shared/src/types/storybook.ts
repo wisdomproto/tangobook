@@ -336,6 +336,10 @@ export type GameTypeId =
   | 'korean-story-image'
   | 'english-story-image'
   | 'hidden-object'
+  // 독후활동 — 낱말이 아니라 책 자체(등장인물·쪽)에서 나온다. 한국어부터.
+  | 'korean-character-matching'
+  | 'korean-page-order'
+  | 'korean-object-scene'
   // 순서 맞추기 블록 / 따라쓰기 — vi/zh/th 공용. ko/en 은 자체 게임 사용.
   | 'order-block'
   | 'order-writing';
@@ -365,6 +369,9 @@ export interface GameInstance {
 export type GameConfig =
   | WordWritingConfig
   | ConnectTheDotsConfig
+  | KoreanCharacterMatchingConfig
+  | KoreanPageOrderConfig
+  | KoreanObjectSceneConfig
   | KoreanBlockConfig
   | EnglishBlockConfig
   | KoreanSpeakingConfig
@@ -387,6 +394,9 @@ export type GameData =
   | EnglishLineMatchingData
   | KoreanStoryImageData
   | EnglishStoryImageData
+  | KoreanCharacterMatchingData
+  | KoreanPageOrderData
+  | KoreanObjectSceneData
   | HiddenObjectData
   | OrderBlockData
   | OrderWritingData;
@@ -599,12 +609,57 @@ export interface EnglishLineMatchingData {
   items: LineMatchingItem[];
 }
 
+// --- 쪽 순서 맞추기 (삽화를 이야기 순서대로) ---
+
+export interface PageOrderItem {
+  pageNumber: number; // 정답 순서 = 쪽 번호 오름차순
+  illustrationUrl: string;
+}
+
+export interface KoreanPageOrderConfig {
+  type: 'korean-page-order';
+  itemCount: number; // 기본 4
+}
+export interface KoreanPageOrderData {
+  type: 'korean-page-order';
+  /** 정답 순서(쪽 번호 오름차순)로 담는다 — 화면에 뿌릴 때 플레이어가 섞는다. */
+  items: PageOrderItem[];
+}
+
+// --- 인물 짝 찾기 (등장인물 그림 ↔ 이름) ---
+
+/**
+ * 짝짓기 항목은 그림짝(`LineMatchingItem`)과 모양이 같아 플레이어를 그대로 쓴다.
+ * 다른 건 소스뿐 — 낱말 카드가 아니라 `characters[].referenceImage` 다.
+ */
+export interface KoreanCharacterMatchingConfig {
+  type: 'korean-character-matching';
+  itemCount: number;
+}
+export interface KoreanCharacterMatchingData {
+  type: 'korean-character-matching';
+  items: LineMatchingItem[];
+}
+
 // --- 스토리 듣고 이미지 맞추기 ---
 export interface StoryImageRound {
   text: string; // 화면 하단 자막 (참고용, 정답 힌트 아님)
-  ttsUrl: string; // 재생 나레이션
+  ttsUrl: string; // 재생 나레이션. 「이 물건 어느 장면?」은 비어 올 수 있다(낱말 음원을 그때 이어붙인다).
   correctImageUrl: string; // 정답 페이지 일러스트
   distractorImageUrls: string[]; // 2~3개 다른 페이지 일러스트
+  /** 문제로 보여줄 그림 (「이 물건 어느 장면?」의 낱말 카드). 없으면 소리만으로 낸다. */
+  promptImageUrl?: string;
+}
+
+// --- 이 물건 어느 장면? (낱말 카드 → 그 사물이 나온 쪽 고르기) ---
+export interface KoreanObjectSceneConfig {
+  type: 'korean-object-scene';
+  roundCount: number;
+  optionsPerRound: number;
+}
+export interface KoreanObjectSceneData {
+  type: 'korean-object-scene';
+  rounds: StoryImageRound[];
 }
 
 export interface KoreanStoryImageConfig {
