@@ -25,6 +25,18 @@ const HUB_DEMO_UNIT: Record<string, string> = {
   'hub-order': 'kr-h1-u01',
 };
 
+/**
+ * 파닉스 **쓰기 롱테일** 글 (자음쓰기·모음쓰기·받침쓰기·쌍자음쓰기) — 「쓰기」 검색자에게
+ * 그 자리에서 **직접 쓰는 활동**을 임베드한다. 허브처럼 storybookId 가 책이 아니므로 대표 단원 +
+ * 쓰기 activityKey 로 매핑한다. 🔴 activityKey 는 그 단원 plan 의 실제 활동 key(실측 2026-08).
+ */
+const WRITE_DEMO: Record<string, { unit: string; activityKey: string }> = {
+  'write-consonant': { unit: 'kr-h1-u02', activityKey: 'consonant-write' },
+  'write-vowel': { unit: 'kr-h1-u01', activityKey: 'write-1' },
+  'write-batchim': { unit: 'kr-h2-u01', activityKey: 'consonant-write' },
+  'write-ssangjaeum': { unit: 'kr-h3-u01', activityKey: 'consonant-write' },
+};
+
 const CAT_META: Record<string, { tKey: string; emoji: string; badge: string }> = {
   classic: { tKey: 'catClassic', emoji: '📖', badge: 'bg-coral-100 text-coral-600' },
   nature: { tKey: 'catNature', emoji: '🌿', badge: 'bg-mint-100 text-mint-600' },
@@ -63,12 +75,17 @@ export default function BlogPostPage() {
    * 🔴 한국어 글에만 — 활동 화면 글자가 전부 한국어라 영어 독자에겐 맞지 않는다.
    */
   const hubUnit = post?.storybookId ? HUB_DEMO_UNIT[post.storybookId] : undefined;
+  const writeDemo = post?.storybookId ? WRITE_DEMO[post.storybookId] : undefined;
   const phonicsUnit =
     lang === 'ko' && post?.storybookId?.startsWith('kr-h')
       ? post.storybookId
       : lang === 'ko' && hubUnit
         ? hubUnit
-        : null;
+        : lang === 'ko' && writeDemo
+          ? writeDemo.unit
+          : null;
+  // 쓰기 글은 그 단원의 **쓰기 활동**을 임베드(기본은 듣기라 activityKey 로 강제).
+  const phonicsActivityKey = writeDemo?.activityKey;
 
   // 위/아래 CTA 링크 — 파닉스는 **동화 뷰어가 아니라 학습 페이지**로 보낸다(사용자 2026-08-01).
   //   허브 → 커리큘럼 랜딩 / 파닉스 단원 → 그 단원 학습 페이지 / 그 외 → 동화책 상세.
@@ -184,7 +201,7 @@ export default function BlogPostPage() {
                           읽고 난 뒤라 「직접 해보세요」가 뒷북이다. 파닉스 32편이 같은 6섹션
                           구조를 쓰므로 자리는 고정(§2 「합쳐지는 순간」 다음 = 앞 3장 뒤). */}
                       <BlogCards cards={post.cards.slice(0, TRY_IT_AFTER)} />
-                      <PhonicsTryIt unitId={phonicsUnit} />
+                      <PhonicsTryIt unitId={phonicsUnit} activityKey={phonicsActivityKey} />
                       <BlogCards cards={post.cards.slice(TRY_IT_AFTER)} />
                     </>
                   ) : (
