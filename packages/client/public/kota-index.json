@@ -1,0 +1,21 @@
+[
+  {
+    "file": "kota-plan.html",
+    "label": "📘 기획서"
+  },
+  {
+    "file": "kota-01.html",
+    "label": "01 제일 뜨거운 데",
+    "title": "제일 뜨거운 데"
+  },
+  {
+    "file": "kota-02.html",
+    "label": "02 신 두 짝",
+    "title": "신 두 짝"
+  },
+  {
+    "file": "kota-03.html",
+    "label": "03 하나, 넷, 열둘",
+    "title": "하나, 넷, 열둘"
+  }
+]

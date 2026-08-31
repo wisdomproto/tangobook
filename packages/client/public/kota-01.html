@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>코타와 오늘의 손님 — 제일 뜨거운 데</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#E8A9A0; --slope:#3E3A34; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .award-ref { display:flex; align-items:baseline; gap:9px; flex-wrap:wrap; background:var(--peach); border-radius:10px; padding:8px 13px; margin:2px 0 10px; font-size:12.5px; }
+  .award-ref a { color:var(--accent); text-decoration:none; white-space:nowrap; }
+  .award-ref a:hover { text-decoration:underline; }
+  .award-ref span { font-weight:700; }
+  .award-ref em { color:var(--ink-soft); font-style:normal; word-break:keep-all; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">코타와 오늘의 손님 · 01</div>
+  <h1>제일 뜨거운 데</h1>
+  <div class="sub"><b>주인공</b> 코타 · <b>틀리는 쪽</b> 손님(기다란 아저씨) · <b>원함</b> 오늘은 내가 손님을 데리고 다니고 싶다 · <b>손님의 원함</b> 제일 뜨거운 탕에 들어가고 싶다 · <b>탈</b> 위 탕에 대뜸 발을 넣었다가 못 들어간다 · <b>착지</b> 도랑을 따라 걸어 올라가 어깨까지 담근다</div>
+  <div class="by">글 <b>오하람</b> · 그림 <b>유하람</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아침 김이 골짜기에 하얗게 올라와요. 코타가 툇마루에서 흰 수건을 착착 개어 쌓아요. 아빠가 마루를 쓱쓱 닦으며 말해요. "오늘은 손님이 하나 온단다."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 툇마루를 옆에서 — 왼쪽에 코타, 오른쪽에 아빠.<br/><b>장소·시간</b> [Veranda] 여관 툇마루, 김이 오르는 이른 아침.<br/><b>인물</b> Kota tanuki가 마루에 무릎을 꿇고 앉아 흰 수건을 두 손으로 반씩 접는다 — 턱을 당기고 제 손끝을 본다, 짧은 겹옷에 목에는 분홍 수건. Dad tanuki는 한 무릎을 세우고 젖은 걸레로 마루널을 옆으로 밀며 닦는다 — 어깨가 앞으로 기울었고 얼굴은 코타 쪽으로 돌아갔다, 감색 겹옷에 허리에 마른 수건.<br/><b>배경·소품</b> 코타 앞에 층층이 쌓인 흰 수건 더미, 마루 끝에 가지런한 나막신 한 켤레, 마루 아래로 김이 스며 오른다.<br/><b>톤</b> 눈높이 아래는 젖어 무겁고 위는 김으로 훤하게 비었다. 화면에서 유일하게 짙은 것이 코타 목의 수건이다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">코타가 분홍 수건을 목에 척 둘러요. "오늘은 내가 손님을 데리고 다닐래요!" 가슴이 콩콩 뛰어요. 아빠가 마른 수건 한 장을 코타 팔에 얹어 줘요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 살짝 로우앵글. 아래에서 올려다본 코타의 가슴 위.<br/><b>장소·시간</b> [Veranda] 같은 툇마루, 바로 뒤.<br/><b>인물</b> Kota tanuki가 두 손을 목 뒤로 올려 분홍 수건 끝을 당긴다 — 가슴을 펴고 턱을 들었다, 눈가의 검은 띠가 위로 살짝 올라가 눈이 커 보인다, 입이 벌어졌다. 화면 오른쪽 가장자리에 Dad tanuki의 손 하나만 들어와 마른 수건 한 장을 코타 팔뚝에 얹는다.<br/><b>배경·소품</b> 뒤쪽에 수건 더미 윗면, 그 밖은 김.<br/><b>톤</b> 얼굴 하나가 화면을 다 차지하고 뒤는 통째로 흐려 씩씩함이 자세로만 읽힌다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>어른이 끼어든다</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">대문으로 기다란 아저씨가 쑥 들어와요. 아저씨가 허리를 굽혀 코타 얼굴을 봐요. "제일 뜨거운 물이 어디 있니? 그거 하나 보러 멀리서 왔단다."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 와이드, 로우앵글. 대문 아래에서 올려다본다 — 화면 왼쪽 아래에 작은 코타, 오른쪽에 아주 큰 아저씨.<br/><b>장소·시간</b> [Gate] 여관 대문 안쪽, 같은 아침.<br/><b>인물</b> Guest crane이 문지방을 넘어 들어서며 허리를 깊이 굽혀 코타 얼굴 높이까지 내려온다 — 다리가 화면 위아래를 가로지를 만큼 길고, 한 손에 보퉁이를 들었다, 목이 앞으로 길게 뻗었다. Kota tanuki는 두 손을 배 앞에 모으고 고개를 한껏 젖혀 올려다본다 — 발끝이 살짝 들렸다.<br/><b>배경·소품</b> 문 위 나무 현판(글자 없음), 문턱에 고인 물 한 줄기, 문 너머로 흘러가는 김.<br/><b>톤</b> 키 차이가 화면 세로를 통째로 쓴다. 아래쪽은 답답하게 좁고 위쪽만 트여 있다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"먼저 아래 탕부터요!" 코타가 아저씨 소매를 잡고 아래쪽으로 잡아끌어요. 그런데 아저씨 눈은 위쪽만 봐요. 저 위에서 김이 펄펄 올라와요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 와이드, 하이앵글. 마당을 통째로 내려다본다 — 화면 아래에 아래 탕, 가운데를 비스듬히 가르는 도랑, 저 위 구석에 위 탕.<br/><b>장소·시간</b> [Yard] 여관 마당 전체, 같은 아침. 이 권에서만 세 자리가 한 화면에 들어온다.<br/><b>인물</b> Kota tanuki가 아래쪽에서 두 손으로 Guest crane의 소매를 잡고 제 쪽으로 당긴다 — 몸을 뒤로 젖히고 뒷발로 버틴다, 분홍 수건이 뒤로 날린다. Guest crane은 발은 코타 쪽에 붙박인 채 목만 길게 돌려 화면 위쪽을 본다 — 부리 끝이 위 탕을 곧게 가리킨다.<br/><b>배경·소품</b> 아래 탕 수면은 잔잔하고 김이 얇다, 도랑을 따라 놓인 디딤돌, 위 탕에서만 김이 굵게 뭉쳐 올라간다.<br/><b>톤</b> 당기는 방향과 보는 방향이 화면에서 정반대로 갈라진다. 김의 굵기가 아래에서 위로 갈수록 세진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>어긋남</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아저씨가 도랑을 따라 성큼성큼 올라가요. 코타가 뒤에서 종종종 쫓아가요. 위로 갈수록 김이 짙어져요. "거기가 제일 뜨거운 데예요!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 로우앵글. 오르막을 아래에서 올려다본다 — 앞쪽에 큰 뒷모습, 뒤쪽에 작은 코타.<br/><b>장소·시간</b> [Ditch] 도랑을 따라 위로 난 돌길, 같은 아침.<br/><b>인물</b> Guest crane이 긴 다리로 디딤돌 두 개를 한 번에 건너뛴다 — 뒷모습, 한 다리가 공중에 크게 벌어졌고 보퉁이가 뒤로 흔들린다. Kota tanuki는 저만치 뒤에서 두 팔을 위아래로 흔들며 짧은 보폭으로 뛴다 — 입을 크게 벌리고 얼굴을 위로 들었다, 분홍 수건이 목에서 튀어 오른다.<br/><b>배경·소품</b> 오른쪽에 좁은 도랑, 디딤돌 여섯 남짓. 김이 화면 아래쪽에서는 얇게 깔리고 위로 갈수록 뭉쳐 굵어진다.<br/><b>톤</b> 보폭 차이가 둘 사이 빈 자리로 그대로 보인다. 오르막이 화면을 대각선으로 자르고 위쪽 끝은 김에 먹혀 흐려진다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아저씨가 위 탕에 발을 쑥 넣어요. "앗, 뜨거!" 발이 번쩍 올라오고 물방울이 후두둑 떨어져요. 코타가 두 손으로 입을 막아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 클로즈업, 아주 낮은 아이레벨. 물 높이에서 본 발과 수면.<br/><b>장소·시간</b> [UpperBath] 위 탕가 돌 턱, 같은 아침.<br/><b>인물</b> Guest crane의 한 발이 수면에서 번쩍 튀어 올라 화면 위로 반쯤 나간다 — 발가락이 활짝 벌어졌다. 그 위쪽 가장자리에 아저씨 얼굴 아랫부분만 걸리는데 부리가 크게 벌어졌다. Kota tanuki는 오른쪽 뒤 돌 위에 서서 두 손을 입에 갖다 대고 몸을 뒤로 뺀다.<br/><b>배경·소품</b> 사방으로 튄 물방울 여남은, 발이 빠진 자리에 퍼지는 둥근 물결, 굵게 솟는 김.<br/><b>톤</b> 튀어 오른 발 하나가 화면에서 가장 마감돼 있고 나머지는 김에 묻힌다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>틀린다</b> <span class="tag">틀림</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아저씨가 툇마루 끝에 털썩 앉아요. 두 손으로 발등을 슬슬 문질러요. 발등이 발갛게 달아올랐어요. "여기까지 왔는데 못 들어가겠구나."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 아이레벨. 툇마루를 정면에서 — 화면 가운데에 앉은 아저씨, 왼쪽 끝에 선 코타.<br/><b>장소·시간</b> [UpperBath] 위 탕 옆 툇마루, 조금 뒤.<br/><b>인물</b> Guest crane이 마루 끝에 앉아 한 다리를 무릎 위에 얹고 두 손으로 발등을 문지른다 — 등이 둥글게 말렸고 목이 아래로 축 꺾였다, 부리 끝이 발을 향했다. Kota tanuki는 두 손을 뒤로 모으고 한쪽 발끝으로 마루널을 톡톡 건드리며 아저씨를 본다.<br/><b>배경·소품</b> 마루에 번진 젖은 발자국 두 개, 벗어 둔 신 한 켤레, 뒤쪽 위 탕에서 김이 계속 오른다.<br/><b>톤</b> 아까 위로 뻗던 선이 전부 아래로 꺾였다. 김만 여전히 위로 간다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>아이의 방식</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">코타가 아래쪽 도랑에 첨벙 들어가요. 물이 발목을 따끈하게 감싸요. 발바닥으로 바닥 돌을 짚으며 한 걸음씩 올라가요. "하나, 두울, 세엣!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 도랑을 옆에서 — 코타가 화면 왼쪽에서 오른쪽 위로 걸어 들어간다.<br/><b>장소·시간</b> [Ditch] 아래쪽 도랑 안, 조금 뒤.<br/><b>인물</b> Kota tanuki가 옷자락을 무릎 위로 걷어쥐고 물속을 걷는 중 — 한 발은 바닥 돌을 딛고 다른 발은 막 물에서 나와 앞으로 간다, 두 팔을 옆으로 벌려 균형을 잡았다, 입을 동그랗게 벌리고 눈가의 검은 띠가 위로 휘었다, 분홍 수건이 목에서 흔들린다.<br/><b>배경·소품</b> 발 둘레로 퍼지는 잔물결, 도랑 바닥의 둥근 돌들이 물 밑에 비친다, 물가에 벗어 둔 나막신 두 짝.<br/><b>톤</b> 물살이 걷는 쪽으로 갈라져 나아가는 방향이 물결만으로 읽힌다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>먹힌다</b> <span class="tag">방식</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아저씨가 신을 벗어 두고 코타 뒤를 따라와요. 아저씨가 제 발을 가만히 내려다봐요. 발등을 덮은 물이 조금씩 따끈해져요. "어, 여기는 아까보다 따뜻하구나!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄, 하이앵글. 비스듬히 내려다본 도랑 — 앞쪽에 코타, 그 뒤로 아저씨.<br/><b>장소·시간</b> [Ditch] 도랑 중간쯤, 조금 뒤.<br/><b>인물</b> Kota tanuki가 앞서 물속을 걸으며 고개만 뒤로 돌린다. Guest crane이 옷자락을 걷어쥐고 그 뒤를 따라 물속을 걷는다 — 긴 다리가 발목까지 잠겼고 무릎이 조심스럽게 굽었다, 목을 아래로 늘여 제 발을 들여다본다, 눈이 크게 열렸다.<br/><b>배경·소품</b> 물가에 나란히 벗어 둔 신 한 켤레와 나막신 두 짝, 도랑 위로 낮게 깔려 흐르는 김, 위쪽으로 갈수록 김이 굵어진다.<br/><b>톤</b> 두 몸이 같은 물줄기 안에 들어와 아까 벌어져 있던 빈 자리가 없다.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아저씨가 위 탕에 어깨까지 쑥 들어가요. 코타는 탕가 돌에 앉아 발만 담가요. 김이 둘 사이로 뭉게뭉게 올라와요. "여기까지 왔는데 하나도 안 뜨겁네!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 미디엄 와이드, 아이레벨. 탕을 옆에서 — 오른쪽 물속에 아저씨, 왼쪽 돌 턱에 코타.<br/><b>장소·시간</b> [UpperBath] 위 탕, 해가 든 아침 끝.<br/><b>인물</b> Guest crane이 어깨까지 물에 잠긴 채 목만 길게 내밀고 두 눈을 가늘게 감는다 — 부리가 벌어졌고 어깨가 물 밑에서 축 늘어졌다. Kota tanuki는 탕가 돌에 걸터앉아 두 발만 물에 담그고 발을 앞뒤로 첨벙거린다 — 두 손으로 돌 턱을 짚고 몸을 뒤로 기울였다, 분홍 수건이 무릎 위에 얹혔다.<br/><b>배경·소품</b> 아저씨 어깨 둘레의 잔물결, 돌 턱에 놓인 개킨 흰 수건 한 장, 굵게 오르는 김.<br/><b>톤</b> 잠긴 몸과 걸터앉은 몸의 높이가 확실히 갈려 아이가 어디까지 들어갔는지 한눈에 보인다.</pre></details>
+</div>
+
+</div>
+<script src="/kota-core.js"></script>
+</body>
+</html>

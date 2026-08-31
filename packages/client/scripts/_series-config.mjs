@@ -77,6 +77,24 @@ export const SERIES = {
       { key: 'granny', name: '곰 할머니', face: '🐻', aliases: ['곰 할머니', 'Bear granny'] },
     ],
   },
+  kota: {
+    no: '16', title: '코타와 오늘의 손님', icon: '🦝',
+    awardRef: 'wang-thump',
+    sub: '아기 너구리 코타 · 일본 온천 골짜기의 작은 여관 · <b>페파형</b>(매권 낯선 손님 하나가 마을을 몰라서 틀린다) · 그림체 = 니혼가 암채 하나(전권)',
+    form: 'peppa', pen: { author: '오하람', illustrator: '유하람' },
+    palette: {
+      paper: '#EFE8DC', ink1: '#7C8B7A', ink2: '#A8846A',
+      overlap: '#3E3A34', accent: '#E8A9A0',
+    },
+    accentWhere: '코타 목수건 (여관 수건은 전부 흰 무지)',
+    cast: [
+      { key: 'kota', name: '코타', face: '🦝', aliases: ['코타', 'Kota tanuki', 'Kota'] },
+      { key: 'dad', name: '아빠', face: '🦝', aliases: ['아빠', 'Dad tanuki'] },
+      // 🔴 손님은 매권 다른 종이 온다 — SCENE 토큰이 `Guest crane` 처럼 붙으므로
+      //    별칭은 **짧은 `Guest`** 라야 부분문자열로 잡힌다.
+      { key: 'guest', name: '손님', face: '❓', aliases: ['손님', 'Guest'] },
+    ],
+  },
   dodo: {
     no: '04', title: '도도네 물방앗간', icon: '🦆',
     awardRef: 'meschenmoser-gordon',
