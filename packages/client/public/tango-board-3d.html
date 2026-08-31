@@ -214,6 +214,24 @@
     border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.10); color:#f2f7f5}
   body.cam-only #score{z-index:5}
     body.cam-only #gl{visibility:hidden}
+  #camReady{display:none}
+  body.cam-only.board-searching #camReady{
+    display:flex; position:absolute; inset:0; z-index:8; flex-direction:column;
+    align-items:center; justify-content:center; gap:14px; text-align:center;
+    background:rgba(8,16,13,.72); backdrop-filter:blur(2px); padding:24px}
+  #camReady .ring{width:54px; height:54px; border-radius:50%;
+    border:4px solid rgba(255,255,255,.18); border-top-color:#7fd6b0;
+    animation:camSpin 900ms linear infinite}
+  @keyframes camSpin{to{transform:rotate(360deg)}}
+  /* 🔴 `font:800 22px/1.4 inherit` 로 썼더니 **규칙이 통째로 무시됐다**(계산값 15px/400).
+        `font` 단축 속성의 글꼴 자리에는 `inherit` 를 못 쓴다 — 값 하나가 틀리면 선언
+        전체가 버려지고 에러도 안 난다. 풀어서 쓴다. */
+  #camReady .msg{font-size:22px; font-weight:800; line-height:1.4; color:#eaf3ef; word-break:keep-all}
+  #camReady .sub{font-size:14px; font-weight:500; line-height:1.6; color:#9fb5ad;
+    max-width:16em; word-break:keep-all}
+  /* 잡기 전에는 낱말도 읽은 것도 감춘다 — 아직 시작 전이다 */
+  body.cam-only.board-searching #word,
+  body.cam-only.board-searching #read{display:none}
   #camOnlyBar{display:none}
   body.cam-only #camOnlyBar{display:flex; gap:8px; position:absolute; right:10px; top:10px; z-index:9}
   #camOnlyBar button{font:600 13px/1 inherit; padding:9px 12px; border-radius:10px;
@@ -355,6 +373,14 @@
       </div>
     </div>
     <canvas id="recoView"></canvas>
+    <!-- 🔴 판을 제대로 잡기 전에는 게임을 시작하지 않는다. 예전엔 카메라를 켜자마자
+             낱말이 뜨고 읽기 시작해서, 판이 삐뚤게 잡힌 줄 모르고 계속 틀린 글자를
+             읽었다(새로고침해야 풀렸다). 잡을 때까지 기다렸다가 띵동으로 알린다. -->
+    <div id="camReady">
+      <div class="ring"></div>
+      <div class="msg">판을 똑바로 놓아주세요</div>
+      <div class="sub">판 전체가 화면에 들어오게 비춰 주세요</div>
+    </div>
     <div id="camOnlyBar">
       <button id="camOnlySave" title="지금 화면을 파일로 저장">💾 프레임</button>
       <button id="camOnlyPanel" title="설정 보기">⚙️</button>
@@ -5982,9 +6008,44 @@ function showCamDbg(){
 }
 
 var camOnly = false;
+
+/* 🔴 판을 잡기 전에는 시작하지 않는다.
+      예전엔 카메라를 켜자마자 낱말을 띄우고 읽었다. 그래서 판이 삐뚤거나 반쪽만
+      잡혀도 게임이 굴러갔고, 아이는 왜 엉뚱한 글자를 읽는지 알 길이 없었다
+      (사용자: 「새로고침하고 하니까 잘됨」). 이제 잡을 때까지 안내를 띄우고,
+      잡히면 띵동으로 알린다.
+   🔴 READY_RUN 이 1 이면 한 프레임 요행에 시작한다. 연속으로 잡혀야 한다. */
+var boardReady = false, readyRun = 0;
+var READY_RUN = 3;
+
+function setBoardSearching(on){
+  document.body.classList.toggle('board-searching', !!on);
+}
+
+/** 격자를 제대로 잡은 프레임마다 부른다. 연속 READY_RUN 번이면 시작. */
+function markBoardFrame(good){
+  if (!camOnly) return;
+  if (!good){ readyRun = 0; return; }
+  if (boardReady) return;
+  if (++readyRun < READY_RUN) return;
+  boardReady = true;
+  setBoardSearching(false);
+  playFx('/sounds/ui/success.mp3');     // 띵동 — 이제 시작이다
+  nextWord(false);
+}
+
+/** 판을 놓쳤다 — 다시 안내로 돌아간다. */
+function loseBoard(){
+  if (!camOnly || !boardReady) return;
+  boardReady = false; readyRun = 0;
+  setBoardSearching(true);
+}
+
 function setCamOnly(on){
   camOnly = !!on;
   document.body.classList.toggle('cam-only', camOnly);
+  if (camOnly){ boardReady = false; readyRun = 0; setBoardSearching(true); }
+  else setBoardSearching(false);
   invalidate();
 }
 
@@ -6185,9 +6246,14 @@ function drawCamSim(){
       var okFrame = !!(reco.result && reco.result.word) &&
                     !(sk != null && sk > TUNE.skewMax);
       reco.latMiss = okFrame ? 0 : (reco.latMiss || 0) + 1;
+      /* 🔴 시작 판정은 **낱말이 아니라 격자**로 한다 — 시작할 때 판이 비어 있을 수도
+            있는데, 낱말을 조건으로 걸면 블록을 놓기 전엔 영영 시작을 못 한다.
+            그리고 연속으로 못 읽으면(격자를 다시 찾아야 할 만큼) 안내로 돌아간다. */
+      markBoardFrame(true);
+      if (reco.latMiss >= TUNE.latRefindAfter) loseBoard();
       reco.score = scoreAgainstTruth(reco.result);
       if (typeof onRecoResult === 'function') onRecoResult();
-      if (camSim.on && typeof outEl !== 'undefined' && outEl) readBoard();
+      if (camSim.on && boardReady && typeof outEl !== 'undefined' && outEl) readBoard();
       camSim.lastH = homography(lq);
       blitCamViews(camSim.lastH);
       return;
@@ -7143,7 +7209,8 @@ function buildTray(){
     close();
     setCamOnly(true);
     startWebcam();
-    nextWord(false);            // 웹캐 모드는 맞힐 낱말을 띄운다(판은 건드리지 않는다)
+    /* 낱말은 판을 잡은 뒤에 띄운다 (markBoardFrame). 미리 띄우면 판이 삐뚤어도
+       게임이 시작된 것처럼 보인다. */
   });
   if (simBtn) simBtn.addEventListener('click', function(){
     close();
