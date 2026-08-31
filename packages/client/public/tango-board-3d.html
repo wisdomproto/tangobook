@@ -519,8 +519,9 @@
 </div>
 
 <div id="reveal" hidden>
-  <div class="t" id="revealTitle"></div>
+  <!-- 🔴 삽화가 위, 낱말이 아래다. 아이는 그림을 먼저 보고 글자를 나중에 읽는다. -->
   <img id="revealImg" alt="동화 장면">
+  <div class="t" id="revealTitle"></div>
   <div class="c" id="revealCap"></div>
   <button class="go" id="revealGo">다음 낱말</button>
 </div>
@@ -6616,7 +6617,23 @@ function soundUrl(ch){ return PHONICS_BASE + encodeURIComponent(ch) + '.mp3'; }
       예전엔 해금용 Audio 를 따로 만들어 풀고 버린 뒤, playOne 이 매번
       `new Audio()` 로 **안 풀린 새 요소**를 만들어 썼다. 그래서 아이패드에서
       인식은 되는데 소리만 안 났다(안드로이드는 관대해서 드러나지 않았다). */
-var theAudio = null;
+var theAudio = null, fxAudio = null;
+/* 🔴 효과음·나레이션은 **낱말과 다른 요소**로 낸다 — 같은 요소를 쓰면 낱말을
+      읽는 중에 src 를 갈아 끼워 서로를 끊는다. 둘 다 첫 터치에 함께 푼다. */
+function fxEl(){
+  if (!fxAudio){ fxAudio = new Audio(); fxAudio.preload = 'auto'; fxAudio.playsInline = true; }
+  return fxAudio;
+}
+function playFx(url, onDone){
+  var a = fxEl(), done = false;
+  function fin(){ if (done) return; done = true; if (onDone) onDone(); }
+  a.onended = fin; a.onerror = fin;
+  try { a.pause(); } catch (e){}
+  a.currentTime = 0; a.src = url;
+  var pr = a.play();
+  if (pr && pr.catch) pr.catch(fin);
+  setTimeout(fin, 6000);            // 끝 신호가 안 와도 멎지 않게 하는 안전망
+}
 function audioEl(){
   if (!theAudio){
     theAudio = new Audio();
@@ -6854,7 +6871,9 @@ function validatedPage(det, ko){
     for (var j = 0; j < pages.length; j++)
       if (pages[j].text && pages[j].text.indexOf(w) >= 0){ hit = pages[j]; break; }
   if (!hit || !hit.illustrationUrl) return null;
-  return { illustrationUrl: hit.illustrationUrl, text: hit.text || '' };
+  /* 🔴 ttsUrl 을 버리고 있었다 — 그래서 동화 장면이 떠도 나레이션이 안 났다. */
+  return { illustrationUrl: hit.illustrationUrl, text: hit.text || '',
+           ttsUrl: hit.ttsUrl || '' };
 }
 /** 트레이 블록만으로 만들 수 있는 낱말인가. */
 var UNBUILDABLE_JUNG = { 'ㅚ':1, 'ㅟ':1, 'ㅢ':1, 'ㅘ':1, 'ㅝ':1, 'ㅙ':1, 'ㅞ':1 };
@@ -6964,16 +6983,17 @@ function confettiBurst(){
     else { g.clearRect(0,0,cv.width,cv.height); cv.classList.remove('on'); }
   })(t0);
 }
-function praise(){
+function praise(onDone){
   var el = document.getElementById('praise');
-  if (!el) return;
+  if (!el){ if (onDone) onDone(); return; }
   document.getElementById('prText').textContent = PRAISES[Math.floor(Math.random()*PRAISES.length)];
   document.getElementById('prHori').src = HORI[Math.floor(Math.random()*HORI.length)];
   el.classList.add('on');
   confettiBurst();
   clearTimeout(prTimer);
   prTimer = setTimeout(function(){ el.classList.remove('on'); }, 1600);
-  try { new Audio('/sounds/ui/success.mp3').play(); } catch (e){}
+  /* 🔴 new Audio() 로 내면 아이패드에서 막힌다(제스처 때 푼 요소가 아니다). */
+  playFx('/sounds/ui/success.mp3', onDone);
 }
 
 
@@ -6986,18 +7006,23 @@ function win(){
   scoreEl.textContent = score;
   current = null;                    // 같은 낱말로 두 번 터지지 않게
   stopAll();
-  praise();
   saidLast = '';                     // 다음 낱말은 처음부터 읽는다
-  /* 앱과 같은 순서: 효과음 → 0.5초 쉐 → 낱말 전체 읽기 */
-  setTimeout(function(){
+
+  /* 🔴 **낱말을 다 듣고 나서** 칭찬한다. 예전엔 칭찬을 먼저 띄우고 낱말을
+        `setTimeout(500)` 으로 이어서 둘이 겹쳐 났다 — 칭찬 길이는 500ms 가
+        아니다. 소리는 시계가 아니라 **콜백**으로 잇는다. */
   playChain(w.word.split(''), 0, function(){
-    if (!w.page){ nextWord(); clearBoard(); return; }
-    document.getElementById('revealTitle').textContent = w.word;
-    document.getElementById('revealImg').src = w.page.illustrationUrl;
-    document.getElementById('revealCap').textContent = w.page.text;
-    revealEl.hidden = false;
+    praise(function(){
+      if (!w.page){ nextWord(); clearBoard(); return; }
+      document.getElementById('revealImg').src = w.page.illustrationUrl;
+      document.getElementById('revealTitle').textContent = w.word;
+      document.getElementById('revealCap').textContent = w.page.text;
+      revealEl.hidden = false;
+      /* 🔴 그 쪽 나레이션을 읽어 준다. 예전엔 validatedPage 가 ttsUrl 을
+            버려서 장면만 뜨고 소리가 없었다. */
+      if (w.page.ttsUrl) playFx(w.page.ttsUrl);
+    });
   });
-  }, 500);
 }
 document.getElementById('revealGo').addEventListener('click', function(){
   revealEl.hidden = true;
@@ -7697,8 +7722,15 @@ function sendNow(btn, was){
     unlocked = true;
     try {
       /* 🔴 **재생에 쓸 바로 그 요소**를 푼다. 딴 요소를 풀면 소용없다. */
+      var SILENT = 'data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCA';
+      try {                          // 효과음 요소도 같이 푼다
+        var f = fxEl(); f.src = SILENT; var fv = f.volume; f.volume = 0;
+        var fp = f.play();
+        if (fp && fp.then) fp.then(function(){ try{ f.pause(); }catch(e){} f.volume = fv; })
+                             .catch(function(){ f.volume = fv; });
+      } catch (e){}
       var a = audioEl();
-      a.src = 'data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCA';
+      a.src = SILENT;
       var v = a.volume; a.volume = 0;
       var pr = a.play();
       if (pr && pr.then) pr.then(function(){
