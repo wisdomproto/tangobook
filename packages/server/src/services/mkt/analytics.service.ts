@@ -366,6 +366,22 @@ function dateRangeFor(period: Period): { startDate: string; endDate: string } {
   }
 }
 
+/**
+ * 저작도구(/editor2) 페이지는 내부 작업 트래픽이라 마케팅 사이트 분석에서 제외한다.
+ * `pagePath` 는 event-scoped 라 이 필터를 붙이면 editor2 이벤트/페이지뷰가 집계에서 빠지고,
+ * editor2 **만** 방문한 세션도 제외된다(다른 페이지도 본 세션은 유지 — 세션-스코프 지표는 매칭
+ * 이벤트가 하나라도 있으면 세션을 센다). BEGINS_WITH 라 `/editor2`·`/editor2/:bid` 등 하위 경로도
+ * 모두 걸리고, v1 백업 `/editor` 는 `/editor2` 로 시작하지 않아 영향 없다.
+ */
+export const EXCLUDE_EDITOR2_FILTER: Record<string, unknown> = {
+  notExpression: {
+    filter: {
+      fieldName: 'pagePath',
+      stringFilter: { matchType: 'BEGINS_WITH', value: '/editor2' },
+    },
+  },
+};
+
 /** overview = 2 runReport calls (summary + daily) → GA4OverviewData. */
 export async function getOverview(cfg: ResolvedGa4, period: Period): Promise<GA4OverviewData> {
   const dateRanges = [dateRangeFor(period)];
@@ -379,12 +395,14 @@ export async function getOverview(cfg: ResolvedGa4, period: Period): Promise<GA4
         { name: 'bounceRate' },
         { name: 'averageSessionDuration' },
       ],
+      dimensionFilter: EXCLUDE_EDITOR2_FILTER,
     }),
     runReport(cfg, {
       dateRanges,
       metrics: [{ name: 'screenPageViews' }],
       dimensions: [{ name: 'date' }],
       orderBys: [{ dimension: { dimensionName: 'date' } }],
+      dimensionFilter: EXCLUDE_EDITOR2_FILTER,
     }),
     // 체류시간에서 `/library` 를 빼려면 **쪽별** 참여 시간이 필요하다 —
     // `averageSessionDuration` 은 세션 단위라 페이지로 못 가른다.
@@ -394,6 +412,7 @@ export async function getOverview(cfg: ResolvedGa4, period: Period): Promise<GA4
       dimensions: [{ name: 'pagePath' }],
       orderBys: [{ metric: { metricName: 'userEngagementDuration' }, desc: true }],
       limit: 500,
+      dimensionFilter: EXCLUDE_EDITOR2_FILTER,
     }),
   ]);
   const base = mapOverviewSummary(summary);
@@ -418,6 +437,7 @@ export async function getTraffic(cfg: ResolvedGa4, period: Period): Promise<GA4T
     dimensions: [{ name: 'sessionDefaultChannelGroup' }],
     orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
     limit: 10,
+    dimensionFilter: EXCLUDE_EDITOR2_FILTER,
   });
   return mapTraffic(report);
 }
@@ -429,6 +449,7 @@ export async function getTopPages(cfg: ResolvedGa4, period: Period): Promise<GA4
     dimensions: [{ name: 'pagePath' }, { name: 'pageTitle' }],
     orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
     limit: 15,
+    dimensionFilter: EXCLUDE_EDITOR2_FILTER,
   });
   return mapTopPages(report);
 }
@@ -440,6 +461,7 @@ export async function getCountry(cfg: ResolvedGa4, period: Period): Promise<GA4C
     dimensions: [{ name: 'country' }],
     orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
     limit: 10,
+    dimensionFilter: EXCLUDE_EDITOR2_FILTER,
   });
   return mapCountry(report);
 }
@@ -451,6 +473,7 @@ export async function getContent(cfg: ResolvedGa4, period: Period): Promise<GA4C
     dimensions: [{ name: 'pagePath' }],
     orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
     limit: 15,
+    dimensionFilter: EXCLUDE_EDITOR2_FILTER,
   });
   return mapContent(report);
 }
@@ -473,6 +496,7 @@ export async function getTopBooks(cfg: ResolvedGa4, period: Period): Promise<GA4
     dimensions: [{ name: 'pagePath' }, { name: 'pageTitle' }],
     orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
     limit: 300,
+    dimensionFilter: EXCLUDE_EDITOR2_FILTER,
   });
   return mapTopBooks(report);
 }
@@ -510,6 +534,7 @@ export async function getSource(cfg: ResolvedGa4, period: Period): Promise<GA4Tr
     dimensions: [{ name: 'sessionSourceMedium' }],
     orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
     limit: 12,
+    dimensionFilter: EXCLUDE_EDITOR2_FILTER,
   });
   return mapTraffic(report);
 }
@@ -527,6 +552,7 @@ export async function getLanguage(cfg: ResolvedGa4, period: Period): Promise<GA4
       dimensions: [{ name: 'customUser:app_language' }],
       orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
       limit: 12,
+      dimensionFilter: EXCLUDE_EDITOR2_FILTER,
     });
     return mapTraffic(report);
   } catch {
@@ -548,6 +574,7 @@ export async function getNewReturning(
     dimensions: [{ name: 'newVsReturning' }],
     orderBys: [{ metric: { metricName: 'activeUsers' }, desc: true }],
     limit: 5,
+    dimensionFilter: EXCLUDE_EDITOR2_FILTER,
   });
   return mapTraffic(report);
 }
@@ -573,6 +600,7 @@ export async function getDaily(cfg: ResolvedGa4, period: Period): Promise<GA4Dai
     dimensions: [{ name: 'date' }],
     orderBys: [{ dimension: { dimensionName: 'date' } }],
     limit: 62,
+    dimensionFilter: EXCLUDE_EDITOR2_FILTER,
   });
   return (report.rows ?? []).map((r) => ({
     date: r.dimensionValues?.[0]?.value ?? '',
@@ -592,6 +620,7 @@ export async function getDevice(cfg: ResolvedGa4, period: Period): Promise<GA4Tr
     dimensions: [{ name: 'deviceCategory' }],
     orderBys: [{ metric: { metricName: 'activeUsers' }, desc: true }],
     limit: 5,
+    dimensionFilter: EXCLUDE_EDITOR2_FILTER,
   });
   return mapTraffic(report);
 }
@@ -604,6 +633,7 @@ export async function getHourly(cfg: ResolvedGa4, period: Period): Promise<GA4Ho
     dimensions: [{ name: 'hour' }],
     orderBys: [{ dimension: { dimensionName: 'hour' } }],
     limit: 24,
+    dimensionFilter: EXCLUDE_EDITOR2_FILTER,
   });
   return (report.rows ?? []).map((r) => ({
     hour: int(r.dimensionValues?.[0]?.value),
@@ -619,6 +649,7 @@ export async function getMembership(cfg: ResolvedGa4, period: Period): Promise<G
       dimensions: [{ name: 'customUser:membership' }],
       orderBys: [{ metric: { metricName: 'activeUsers' }, desc: true }],
       limit: 5,
+      dimensionFilter: EXCLUDE_EDITOR2_FILTER,
     });
     return mapTraffic(report);
   } catch {

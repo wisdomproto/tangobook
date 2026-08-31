@@ -1841,13 +1841,68 @@ function cornerFill(comp, W){
  *  🔴 홈이 안 파여 마스크가 통짜면 할 말이 없다 → null 로 돌려 상관으로 넘긴다.
  *  @returns 왼쪽 채움 − 오른쪽 채움 (양수=ㅌ · 음수=ㄹ), 판단 불가능이면 null
  */
-function upperGapSide(comp, W){
+/* 🔴 ㄹ/ㅌ 은 형판이 93.2% 같고 **다른 데가 위칸 홈 한 군데뿐**이다. 그 홈이 메워지면
+      상관이 0.8655 대 0.8655 로 **완전히 같아진다** — 0.87 이라 잘 맞은 것처럼 보이는데
+      실은 동전던지기다. 원인은 획이 두꺼워 블록 위에서 붙어 보이는 것이라, 이 짝일 때만
+      편 그림을 다시 가져와 **밝기로 날을 세워** 홈을 되살린다.
+      실측(63×68 ㅌ): 파이프라인 마스크 홈바닥 0.520(문턱 0.35 못 넘어 버려짐)
+                     → 날 세운 뒤 0.000, 좌우 +0.846 → ㅌ. */
+var SHARP_K = 2;   // 언샤프 세기. 실측 k=2 에서 홈바닥 0.000
+function sharpMask(comp, W){
   var cw = comp.w, ch = comp.h;
-  var b = new Uint8Array(cw * ch);
+  if (!cvReady || !reco.buf || cw * ch < 64) return null;
+  var mats = [];
+  function M(m){ mats.push(m); return m; }
+  try {
+    /* 덩어리 상자만 떼어 온다 */
+    var sub = new Uint8Array(cw * ch * 4);
+    for (var y = 0; y < ch; y++){
+      var srow = ((comp.y0 + y) * W + comp.x0) * 4;
+      sub.set(reco.buf.subarray(srow, srow + cw * 4), y * cw * 4);
+    }
+    var src = M(cv.matFromArray(ch, cw, cv.CV_8UC4, sub));
+    var rgb = M(new cv.Mat()); cv.cvtColor(src, rgb, cv.COLOR_RGBA2RGB);
+    var hsv = M(new cv.Mat()); cv.cvtColor(rgb, hsv, cv.COLOR_RGB2HSV);
+    /* 🔴 HSV 의 S 가 곧 채도비 (큰값-작은값)/큰값 이다. 밝기(V)로 하면 조명을
+          그대로 타는데, S 는 세 채널에 같은 밝기가 곱해져도 안 변한다.
+          실측(같은 덩어리): 밝기 ±0.846 · 채도(절대) 0.000(못 가름) · **S ±1.000**. */
+    var chs = M(new cv.MatVector()); cv.split(hsv, chs);
+    var sat = M(chs.get(1));
+
+    /* 언샤프 마스크 — 흐린 것을 빼서 획 경계를 세운다 */
+    var soft = M(new cv.Mat());
+    var rad = Math.max(3, (Math.round(Math.min(cw, ch) * 0.10) | 1));
+    cv.GaussianBlur(sat, soft, new cv.Size(rad, rad), 0);
+    var sharp = M(new cv.Mat());
+    cv.addWeighted(sat, 1 + SHARP_K, soft, -SHARP_K, 0, sharp);
+
+    /* 문턱은 그 덩어리 자신의 분포에서 (Otsu) — 칸마다 조명이 달라도 따라간다 */
+    var bin = M(new cv.Mat());
+    cv.threshold(sharp, bin, 0, 1, cv.THRESH_BINARY + cv.THRESH_OTSU);
+    var out = new Uint8Array(bin.data);
+    mats.forEach(function(m){ try { m.delete(); } catch(e){} });
+    return out;
+  } catch (e){
+    mats.forEach(function(m){ try { m.delete(); } catch(e2){} });
+    if (window.console) console.warn('sharpMask', e);
+    return null;
+  }
+}
+
+function maskOf(comp, W){
+  var cw = comp.w, b = new Uint8Array(cw * comp.h);
   for (var k = 0; k < comp.px.length; k++){
     var i = comp.px[k];
     b[(((i / W) | 0) - comp.y0) * cw + (i % W - comp.x0)] = 1;
   }
+  return b;
+}
+
+function upperGapSide(comp, W){
+  return gapSideOf(maskOf(comp, W), comp.w, comp.h);
+}
+
+function gapSideOf(b, cw, ch){
   /* 위 절반에서 **가운데가 가장 비어 있는 줄** = 위칸 홈. 막대 사이라 가운데가 뚜렸다. */
   var y0 = Math.round(ch * 0.15), y1 = Math.round(ch * 0.50);
   var mx0 = Math.round(cw * 0.30), mx1 = Math.round(cw * 0.70);
@@ -1870,7 +1925,18 @@ function upperGapSide(comp, W){
 var PAIR_RULES = [
   { pair:['ㄹ','ㅌ'], pick:function(comp, W, T){
       /* 위칸 홈이 어느 쪽인가 — 실측 ㅌ +0.84~+1.00 / ㄹ −0.53~−0.84 (상관은 0.0013 차) */
+      /* 🔴 **원래 마스크를 먼저 본다.** 날 세운 걸 먼저 봤더니 ㄹ 이 도로 망가졌다 —
+            Otsu 가 블록 테두리를 살려 놔서 홈이 가장자리까지 안 열리고 가운데 갇히면
+            좌우가 상쇄돼 **0.000** 이 나온다. 그건 `null` 이 아니라서 되돌아가지도 못하고
+            그대로 상관(동전던지기)으로 떨어졌다. 실측(64×73 ㄹ): 원래 −0.923(맞음) →
+            날 세우면 0.000(못 가름). 날 세우기는 **원래가 기권할 때 살려내는 쪽**이지
+            원래보다 나은 쪽이 아니다. */
       var side = upperGapSide(comp, W);
+      if (side == null || Math.abs(side) < 0.30){
+        var sm = sharpMask(comp, W);
+        var s2 = sm ? gapSideOf(sm, comp.w, comp.h) : null;
+        if (s2 != null && Math.abs(s2) >= 0.30) side = s2;
+      }
       if (side != null && Math.abs(side) >= 0.30) return side > 0 ? 'ㅌ' : 'ㄹ';
       /* 홈이 안 파였으면 예전대로 상관으로 — 답은 안 나오지만 안 하는 것보다는 낫다 */
       var a = corrWith(comp, W, T['ㄹ']), b = corrWith(comp, W, T['ㅌ']);

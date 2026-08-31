@@ -25,6 +25,7 @@ import {
   resolveGa4Config,
   isIdleBrowsePath,
   sumEngagementExcludingIdle,
+  EXCLUDE_EDITOR2_FILTER,
 } from '../analytics.service.js';
 import type { GA4Report } from '../external/ga4.js';
 
@@ -56,6 +57,20 @@ const fakeAdmin = (data: unknown) => {
   const from = vi.fn().mockReturnValue({ select });
   return { from, _select: select, _eq: eq };
 };
+
+describe('EXCLUDE_EDITOR2_FILTER (GA4 dimensionFilter contract)', () => {
+  // Guards against typos that would 400 at runtime (misspelled key / wrong matchType).
+  it('is a NotExpression on pagePath BEGINS_WITH /editor2', () => {
+    expect(EXCLUDE_EDITOR2_FILTER).toEqual({
+      notExpression: {
+        filter: {
+          fieldName: 'pagePath',
+          stringFilter: { matchType: 'BEGINS_WITH', value: '/editor2' },
+        },
+      },
+    });
+  });
+});
 
 describe('GA4 row → viewmodel mappers', () => {
   it('mapOverviewSummary reads rows[0] metrics with parse + fallback', () => {
