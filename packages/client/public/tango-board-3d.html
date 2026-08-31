@@ -615,8 +615,42 @@ function mergeDoubles(items){
   return out.filter(Boolean);
 }
 /** 자유 배치 파서 — 2D 시뮬레이터에서 그대로 가져옴 (검증된 로직). */
+/* 🔴 **음절은 세로로 딱 갈린다.** 사용자 규칙 = 모음이 옆 음절 영역을 침범하지
+      않게 놓는다. 그러면 조합은 「이 음절 안에서만」 하면 되고, 오늘까지 나온
+      조합 버그가 전부 한 부류였던 게 원리적으로 사라진다 —
+        텹랏 → 텺라   (뒷 글자 받침을 앞 글자가 겹받침으로 데려감)
+        압튜리 → 압티 (제 모음을 두고 다음 글자 모음을 빼앗음)
+        탄리 → 나리   (받침이 모음을 먼저 채 감)
+        럼톱비 → 럼툅 (비의 ㅣ 를 톱이 가져감)
+      전부 「옆 음절 것을 건드렸다」이고, 나눠 놓으면 손이 닿지 않는다.
+   🔴 상한이 7인 이유: 한 음절의 최대 폭이 7칸이다. 자음 3 + 합성모음(ㅗ+ㅏ) 4 = 7,
+      겹받침(값·삶)도 6. 5로 잡으면 합성모음이 갈리고, 9면 텹랏이 안 갈린다.
+      **끝 좌표**로 재야 한다 — 시작 좌표로 재면 과(ㅏ가 5칸째 시작)가 갈린다. */
+var SYL_COLS = 7;
+
+function splitSyllables(items){
+  var by = items.slice().sort(function(a, b){ return (a.x - b.x) || (a.y - b.y); });
+  var groups = [], cur = null;
+  by.forEach(function(it){
+    if (cur && (it.x + it.w) - cur.x0 <= SYL_COLS){ cur.list.push(it); return; }
+    cur = { x0: it.x, list: [it] };
+    groups.push(cur);
+  });
+  return groups.map(function(g){ return g.list; });
+}
+
 function parseFree(items){
-  items = mergeDoubles(items);
+  var out = [], bad = 0;
+  splitSyllables(mergeDoubles(items)).forEach(function(g){
+    var r = parseGroup(g);
+    if (!r.length) bad++;          // 블록은 있는데 음절이 안 됐다
+    out = out.concat(r);
+  });
+  parseFree.bad = bad;
+  return out;
+}
+
+function parseGroup(items){
   items.forEach(function(it){ it.cx = it.x + it.w/2; it.cy = it.y + it.h/2; });
   var cons = items.filter(function(i){ return !isVowel(i.ch); });
   var vows = items.filter(function(i){ return isVowel(i.ch); });
@@ -6940,6 +6974,7 @@ function readBoard(){
         autoSpeak 은 늘 「새 낱말」로 보고 끼어든다. */
   if (hit){ win(); if (camOnly) showCamDbg(); return w; }
   if (winning){ if (camOnly) showCamDbg(); return w; }   // 연출 중 — 끼어들지 않는다
+  noteBadShape(parseFree.bad || 0, w);
   autoSpeak(w);
   if (camOnly) showCamDbg();
   return w;
@@ -6965,6 +7000,24 @@ function speak(){
    같은 일을 두 번 하며 분석 주기(250ms) × 4 = 1초를 그대로 버렸다.
    화면 글자는 다수결만 거쳐 뜨므로 그만큼 소리가 늦게 들렸다.
    다수결이 3-3 근처에서 흔들 때를 대비해 한 프레임만 남긴다. */
+/* 🔴 음절이 안 되는 블록이 있으면 **뾱** 소리로 알린다. 자음만 놓았거나 옆 음절을
+      침범하게 놓으면 그 묶음이 글자를 못 만드는데, 예전엔 화면에서 그냥 사라져서
+      아이는 뭘 잘못했는지 알 수가 없었다.
+   🔴 한 프레임만 보고 울리면 블록을 옮기는 **동안 내내** 운다. 자리를 잡을 때까지
+      기다리고(BAD_STEADY), 같은 상태에서는 한 번만 운다. 모양이 바뀌면 다시 운다. */
+var BAD_STEADY = 3;
+var badKey = '', badHold = 0, badSaid = '';
+function noteBadShape(n, w){
+  if (!camSim.on || !autoSay) return;
+  var key = n + '|' + (w || '');
+  if (key === badKey) badHold++; else { badKey = key; badHold = 1; }
+  if (!n){ badSaid = ''; return; }
+  if (badHold === BAD_STEADY && badSaid !== key){
+    badSaid = key;
+    playFx('/sounds/ui/back.mp3');
+  }
+}
+
 var autoSay = true, SAY_STEADY = 2;
 var sayHold = '', sayCount = 0, saidLast = '';
 function autoSpeak(w){
@@ -7241,6 +7294,16 @@ function selfTest(){
   eq(parseFree([{ch:'ㅌ',x:0,y:0,w:3,h:3},{ch:'ㅕ',x:3,y:0,w:2,h:5},{ch:'ㅂ',x:0,y:5,w:3,h:3},
                 {ch:'ㄹ',x:6,y:0,w:3,h:3},{ch:'ㅏ',x:9,y:0,w:2,h:5},{ch:'ㅅ',x:6,y:5,w:3,h:3}])
        .join(''), '텹랏', '텹랏(붙여 놓기)');
+  /* 🔴 세 글자가 빈 칸 없이 딱 붙어 있어도 갈려야 한다.
+        실측(럼톱비): 인식은 8글자를 다 맞혔는데 비의 ㅣ 를 톱이 가져가 「럼툅」이 됐다.
+        자리는 럼 3..8 · 톱 8..13 · 비 13..17 로 사이에 빈 열이 하나도 없다. */
+  eq(parseFree([{ch:'ㄹ',x:3,y:3,w:3,h:3},{ch:'ㅓ',x:6,y:1,w:2,h:5},{ch:'ㅁ',x:5,y:7,w:3,h:3},
+                {ch:'ㅌ',x:9,y:2,w:3,h:3},{ch:'ㅗ',x:8,y:5,w:5,h:2},{ch:'ㅂ',x:9,y:7,w:3,h:3},
+                {ch:'ㅂ',x:13,y:1,w:3,h:3},{ch:'ㅣ',x:16,y:0,w:1,h:5}])
+       .join(''), '럼톱비', '럼톱비(빈 칸 없이 붙여 놓기)');
+  // 합성모음은 한 음절 안에 남아야 한다 (ㅗ+ㅏ = ㅘ, 폭 7칸)
+  eq(parseFree([{ch:'ㄱ',x:0,y:0,w:3,h:3},{ch:'ㅗ',x:0,y:3,w:5,h:2},
+                {ch:'ㅏ',x:5,y:0,w:2,h:5}]).join(''), '과', '과(합성모음)');
   // 진짜 겹받침은 그대로여야 한다
   eq(parseFree([{ch:'ㄱ',x:0,y:0,w:3,h:3},{ch:'ㅏ',x:3,y:0,w:2,h:5},
                 {ch:'ㅂ',x:0,y:5,w:3,h:3},{ch:'ㅅ',x:3,y:5,w:3,h:3}]).join(''), '값', '값');
