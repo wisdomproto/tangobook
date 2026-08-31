@@ -157,11 +157,15 @@
      느리고, 웹캠은 실물을 읽는다. 둘을 섞어 두면 무엇을 보고 있는지 헷갈린다. */
   #pick{position:fixed; inset:0; z-index:120; display:grid; place-content:center; gap:18px;
     background:#0d1512; color:#dff3ea; font:600 16px/1.6 system-ui,sans-serif; text-align:center}
+  /* 🔴 `font: <굵기> <크기>/<줄> inherit` 로 쓰지 말 것. `font` 단축 속성의 글꼴
+        자리에 `inherit` 은 못 쓰고, 값 하나가 틀리면 **선언 전체가 조용히 버려진다**.
+        이 파일의 버튼 네 개가 그래서 13.33px/400 시스템 글꼴로 그려지고 있었다
+        (버튼은 글꼴을 상속받지 않으므로 글꼴까지 같이 틀어진다). 풀어서 쓴다. */
   #pick.gone{display:none}
   #pick h1{margin:0 0 6px; font-size:22px; font-weight:700}
   #pick p{margin:0 0 18px; font-weight:400; font-size:14px; color:#9fb5ad}
   #pick button{display:block; width:min(320px,74vw); padding:18px 22px; margin:0 auto;
-    border:0; border-radius:16px; cursor:pointer; font:600 17px/1.3 inherit;
+    border:0; border-radius:16px; cursor:pointer; font-family:inherit; font-size:17px; font-weight:600; line-height:1.3;
     background:#1d2b26; color:#dff3ea; border:1px solid #2b3f38}
   #pick button b{display:block; font-size:13px; font-weight:400; color:#9fb5ad; margin-top:5px}
   #pick button.go{background:var(--coral,#ff6b57); color:#fff; border-color:transparent}
@@ -210,7 +214,8 @@
     font-size:30px; padding:7px 22px; background:rgba(20,32,28,.62)}
   body.cam-only #read .out.empty{font-size:13px; padding:6px 16px}
   body.cam-only #word #nextWord{display:inline-block; margin-top:2px;
-    font:600 13px/1 inherit; padding:9px 14px; border-radius:999px; cursor:pointer;
+    font-family:inherit; font-size:13px; font-weight:600; line-height:1;
+    padding:9px 14px; border-radius:999px; cursor:pointer;
     border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.10); color:#f2f7f5}
   body.cam-only #score{z-index:5}
     body.cam-only #gl{visibility:hidden}
@@ -234,13 +239,15 @@
   body.cam-only.board-searching #read{display:none}
   #camOnlyBar{display:none}
   body.cam-only #camOnlyBar{display:flex; gap:8px; position:absolute; right:10px; top:10px; z-index:9}
-  #camOnlyBar button{font:600 13px/1 inherit; padding:9px 12px; border-radius:10px;
+  #camOnlyBar button{font-family:inherit; font-size:13px; font-weight:600; line-height:1;
+    padding:9px 12px; border-radius:10px;
     border:1px solid rgba(255,255,255,.25); background:rgba(20,32,28,.72); color:#eaf3ef}
   #camOnlySendBar{display:none}
   /* 🔴 보내기는 **왼쪽 위**. 아래에 두면 누르는 손가락이 판 위로 들어와
      인식부 안에 14칸짜리 살색 띠가 생긴다(실측 ph4: 그것 때문에 「토」를 못 읽었다). */
   body.cam-only #camOnlySendBar{display:block; position:absolute; left:8px; top:8px; z-index:9}
-  #camOnlySendBar button{font:600 13px/1 inherit; padding:10px 14px; border-radius:10px;
+  #camOnlySendBar button{font-family:inherit; font-size:13px; font-weight:600; line-height:1;
+    padding:10px 14px; border-radius:10px;
     border:1px solid rgba(255,255,255,.25); background:rgba(20,32,28,.72); color:#eaf3ef}
   #camOnlyDbg{display:none}
   body.cam-only #camOnlyDbg{display:block; position:absolute; left:8px; top:58px; z-index:9;
