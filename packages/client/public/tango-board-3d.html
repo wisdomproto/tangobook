@@ -145,7 +145,6 @@
      #tray 가 flex:none 이라 숨기면 그 높이가 그대로 #stage(flex:1) 로 간다. */
   body.cam-only #tray{display:none}
   body.cam-only #score{top:10px; right:auto; left:50%; transform:translateX(-50%); font-size:13px}
-  body.cam-only #read{left:50%; transform:translateX(-50%); bottom:14px}
   /* OpenCV.js 를 받는 동안 덮는 화면. 10.5MB 라 첫 진입에만 몇 초 걸린다. */
   #cvLoad{position:fixed; inset:0; z-index:99; display:none; place-items:center;
     background:#0d1512; color:#dff3ea; font:600 15px/1.7 system-ui,sans-serif; text-align:center}
@@ -197,15 +196,23 @@
     padding:22px 30px; border-radius:24px; z-index:5}
   body.cam-only #word .lbl{font-size:13px; opacity:.75}
   body.cam-only #word .w{font-size:56px; font-weight:800; letter-spacing:.06em}
-  /* 🔴 카메라 모드에선 읽기바(돋보기 · 읽은 낱말 · 지우기)를 숨긴다 —
-        화면 아래 가운데에 있어 오른쪽 아래 인식부를 가리고,
-        지우기는 실물 블록을 손으로 치우므로 할 일이 없다. */
-  body.cam-only #read{display:none}
+  /* 🔴 카메라 모드에선 **읽은 낱말만** 남기고 버튼(🔊·🧹)은 숨긴다 —
+        실물 블록이라 지울 게 없고 읽기는 저절로 된다.
+        자리는 화면 아래가 아니라 **낱말카드 바로 밑**이다. 아래 가운데에 두면
+        오른쪽 아래 인식화면을 가려서 예전엔 통째로 숨겼었는데, 그러니
+        「내가 올린 블록을 뭐라고 읽었는지」를 볼 데가 없어졌다. */
+  body.cam-only #read{
+    /* 🔴 +78 이면 카드 아래끝(50%+99)과 겹친다 — 실측으로 잡았다. 카드는
+          「다른 낱말」 버튼까지 안고 있어 197px 이다. */
+    top:calc(50% + 116px); bottom:auto; left:50%; transform:translateX(-50%); z-index:5}
+  body.cam-only #read .rbtn{display:none}
+  body.cam-only #read .out{
+    font-size:30px; padding:7px 22px; background:rgba(20,32,28,.62)}
+  body.cam-only #read .out.empty{font-size:13px; padding:6px 16px}
   body.cam-only #word #nextWord{display:inline-block; margin-top:2px;
     font:600 13px/1 inherit; padding:9px 14px; border-radius:999px; cursor:pointer;
     border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.10); color:#f2f7f5}
   body.cam-only #score{z-index:5}
-  body.cam-only #read{z-index:5}
     body.cam-only #gl{visibility:hidden}
   #camOnlyBar{display:none}
   body.cam-only #camOnlyBar{display:flex; gap:8px; position:absolute; right:10px; top:10px; z-index:9}
