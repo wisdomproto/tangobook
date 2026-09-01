@@ -102,12 +102,12 @@ export function VocabularyStudyPage() {
   const displayName = getDisplayUnitName(unit, effectiveLang, storybook);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-cream-50 to-peach-100">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-cream-50 to-peach-100">
       {/* 🔴 `pt-*` 가 없으면 PageHeader 의 `mt-2` 가 **body 밖으로 새어**(마진 병합) 페이지 전체를
           8px 밀어내고, 그 8px 에는 이 컨테이너의 cream 그라데이션이 안 칠해져 위쪽에 띠가 생긴다.
           (실측: `#root` 에 padding 을 0.02px 만 줘도 body top 이 8 → 0 이 됐다.)
           패딩이 병합을 막고, 그대로 위쪽 숨 쉴 자리가 된다. */}
-      <div className="px-6 pt-2 sm:pt-4 max-w-[1600px] mx-auto">
+      <div className="px-6 pt-2 sm:pt-4 w-full max-w-[1600px] mx-auto shrink-0">
         <PageHeader
           onBack={() => navigate(bookId ? `/library/${bookId}` : '/library')}
           onHome={() => navigate('/library')}
@@ -127,16 +127,21 @@ export function VocabularyStudyPage() {
         </PageHeader>
       </div>
 
-      <main className="px-4 sm:px-8 pt-4 pb-6 max-w-[1600px] mx-auto">
-        {/* 시안에는 표지 hero 없음 — 바로 단어 미리보기 + 게임 카드.
+      {/* 🔴 남는 세로는 위아래로 나눈다 — 콘텐츠가 짧으면 아래만 확 비어 미완성으로 보인다.
+          `justify-center` 가 아니라 자식의 `my-auto` 인 이유: 내용이 화면보다 길어지면
+          자동 마진은 0 으로 접혀 위가 잘리지 않는다(가운데 정렬은 위를 잘라 못 보게 만든다). */}
+      <main className="px-4 sm:px-8 pt-4 pb-6 w-full max-w-[1600px] mx-auto flex-1 flex flex-col">
+        <div className="my-auto w-full">
+          {/* 시안에는 표지 hero 없음 — 바로 단어 미리보기 + 게임 카드.
             그림체 선택(여러 그림체 보유 책만)은 "단어 둘러보기" 헤딩 줄 오른쪽에 배치.
             선택 시 게임/미리보기 이미지가 그 그림체로 재derive. 실명 비노출 → 장르 라벨. */}
-        <VocabularyStudyContent
-          unit={unit}
-          storybook={storybook ?? undefined}
-          currentStyle={activeStyle}
-          lang={effectiveLang}
-        />
+          <VocabularyStudyContent
+            unit={unit}
+            storybook={storybook ?? undefined}
+            currentStyle={activeStyle}
+            lang={effectiveLang}
+          />
+        </div>
       </main>
     </div>
   );
