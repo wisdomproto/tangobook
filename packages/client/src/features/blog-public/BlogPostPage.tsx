@@ -40,6 +40,9 @@ const PHONICS_DEMO: Record<string, { unit: string; activityKey?: string }> = {
   'read-vowel': { unit: 'kr-h1-u01' },
   'read-batchim': { unit: 'kr-h2-u01' },
   'read-ganada': { unit: 'kr-h1-u02' },
+  'read-diphthong': { unit: 'kr-h4-u01' },
+  'write-dictation': { unit: 'kr-h1-u02', activityKey: 'game-word-writing' },
+  'write-line-tracing': { unit: 'kr-h1-u01', activityKey: 'game-dots' },
 };
 
 const CAT_META: Record<string, { tKey: string; emoji: string; badge: string }> = {

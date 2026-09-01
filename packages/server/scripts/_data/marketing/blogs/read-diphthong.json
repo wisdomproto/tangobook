@@ -1,0 +1,52 @@
+{
+  "storybookId": "read-diphthong",
+  "seo_title": "이중모음 배우기 — ㅑㅕㅛㅠ, 두 소리가 이어지는 모음",
+  "primary_keyword": "이중모음",
+  "secondary_keywords": [
+    "이중모음 종류",
+    "이중모음 소리",
+    "복잡한 모음",
+    "이중모음 단모음",
+    "ㅑㅕㅛㅠ"
+  ],
+  "url_slug": "hangul-diphthong-vowels",
+  "meta_description": "이중모음은 두 소리가 미끄러지듯 이어지는 모음입니다. ㅑㅕㅛㅠ와 ㅘㅝ의 원리를 단모음과 짝지어 익히고, 브라우저에서 소리를 직접 들어보세요.",
+  "sections": [
+    {
+      "text_html": "<h2>이중모음은 「두 소리」가 이어진 모음이에요</h2><p>모음에는 두 종류가 있습니다. 소리가 하나인 <strong>단모음</strong>(ㅏ ㅓ ㅗ ㅜ ㅡ ㅣ)과, 두 소리가 이어지는 <strong>이중모음</strong>입니다.</p><p>이중모음은 「이」나 「오/우」 소리가 앞에 살짝 붙어 <strong>미끄러지듯</strong> 발음됩니다. 예를 들어 <strong>ㅑ</strong>는 「이+아」가 빠르게 이어져 「야」가 됩니다. 입 모양이 한 자리에 멈추지 않고 <strong>움직인다</strong>는 것이 단모음과 다른 점입니다.</p>",
+      "image_prompt": "diphthong mouth movement",
+      "alt": "이중모음 두 소리",
+      "caption": "두 소리가 미끄러져요"
+    },
+    {
+      "text_html": "<h2>단모음과 짝지으면 쉬워요</h2><p>이중모음을 따로 외우려 하면 어렵습니다. 하지만 <strong>단모음과 짝지으면</strong> 훨씬 쉽습니다. 획 하나만 더하면 이중모음이 되고, 소리도 「이」를 살짝 얹으면 됩니다.</p><ul><li><strong>ㅏ → ㅑ</strong> (아 → 야)</li><li><strong>ㅓ → ㅕ</strong> (어 → 여)</li><li><strong>ㅗ → ㅛ</strong> (오 → 요)</li><li><strong>ㅜ → ㅠ</strong> (우 → 유)</li></ul><p>이렇게 <strong>「단모음에 이를 얹으면 이중모음」</strong>이라는 규칙 하나만 잡으면, 네 쌍을 한 번에 익힐 수 있습니다.</p>",
+      "image_prompt": "simple vowel to diphthong pairs",
+      "alt": "단모음과 이중모음 짝",
+      "caption": "획 하나, 소리 하나 더"
+    },
+    {
+      "text_html": "<h2>ㅘ ㅝ ㅢ 같은 모음도 있어요</h2><p>「이」가 붙는 이중모음 말고, <strong>「오/우」가 앞에 붙는</strong> 이중모음도 있습니다. 이건 두 모음이 합쳐진 모양이라 글자도 두 모음을 나란히 씁니다.</p><ul><li><strong>ㅘ</strong> = ㅗ + ㅏ (오+아 → 와)</li><li><strong>ㅝ</strong> = ㅜ + ㅓ (우+어 → 워)</li><li><strong>ㅢ</strong> = ㅡ + ㅣ (으+이 → 의)</li></ul><p>이런 모음은 글자를 보면 <strong>어떤 두 모음이 합쳐졌는지</strong> 바로 보입니다. 「와」는 ㅗ와 ㅏ가 나란히 있으니, 소리도 「오아」를 빨리 이으면 됩니다. 글자 모양이 곧 발음의 힌트인 셈입니다.</p>",
+      "image_prompt": "compound vowels wa wo ui",
+      "alt": "합쳐진 모음",
+      "caption": "글자가 발음의 힌트"
+    },
+    {
+      "text_html": "<h2>이제 직접 들어볼까요</h2><p>이중모음은 <strong>소리를 들어야</strong> 압니다. 글로 「야」라고 적어도, 입이 어떻게 움직이는지는 들어봐야 알 수 있습니다. 아래에서 이중모음을 <strong>하나씩 눌러 소리를 들어</strong> 보세요.</p><p>ㅑ를 누르면 「야」, ㅘ를 누르면 「와」 — 두 소리가 이어지는 느낌을 귀로 확인할 수 있습니다. 단모음(ㅏ)과 번갈아 들어보면 차이가 더 또렷합니다.</p>",
+      "image_prompt": "interactive diphthong listening",
+      "alt": "이중모음 소리 활동",
+      "caption": "직접 들어보세요"
+    },
+    {
+      "text_html": "<h2>이중모음이 든 낱말</h2><p>이중모음은 <strong>낱말 속에서</strong> 만나면 훨씬 자연스럽습니다. 아이가 아는 낱말에 이중모음이 들어 있으면, 소리와 뜻이 함께 붙어 오래 남습니다.</p><ul><li><strong>ㅑ</strong> — 야구, 야채</li><li><strong>ㅕ</strong> — 여우, 겨울</li><li><strong>ㅛ</strong> — 요리, 교실</li><li><strong>ㅘ</strong> — 사과, 과자</li></ul><p>「사과」의 「과」가 ㅗ와 ㅏ로 되어 있다는 걸 아이가 알아채면, 이중모음이 어렵지 않게 느껴집니다. 아는 낱말에서 이중모음을 찾아보는 놀이를 해보세요.</p>",
+      "image_prompt": "words with diphthongs",
+      "alt": "이중모음 낱말",
+      "caption": "낱말에서 찾아보기"
+    },
+    {
+      "text_html": "<h2>이중모음, 이것만 기억해요</h2><p>정리하면 이렇습니다.</p><ul><li><strong>두 소리가 이어져요</strong> — 미끄러지듯 발음</li><li><strong>단모음과 짝</strong> — ㅏ↔ㅑ, 획 하나 더</li><li><strong>ㅘㅝ는 두 모음 합체</strong> — 글자가 발음의 힌트</li><li><strong>낱말에서</strong> — 사과·여우·요리</li></ul><p>탱고북 한글 파닉스에서는 이중모음 소리를 눌러 들어보고, 낱말 속에서 만나며 익힐 수 있습니다. 단모음을 마친 아이라면 이중모음으로 자연스럽게 넘어가 보세요.</p>",
+      "image_prompt": "cozy diphthong learning scene",
+      "alt": "집에서 이중모음",
+      "caption": "단모음 다음 이중모음"
+    }
+  ]
+}

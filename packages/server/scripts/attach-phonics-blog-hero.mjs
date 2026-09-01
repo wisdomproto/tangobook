@@ -61,6 +61,9 @@ const HERO_SOURCE = {
   'read-vowel': 'kr-h1-u01',
   'read-batchim': 'kr-h2-u01',
   'read-ganada': 'kr-h1-u02',
+  'read-diphthong': 'kr-h4-u01',
+  'write-dictation': 'kr-h1-u02',
+  'write-line-tracing': 'kr-h1-u01',
   'hub-hangul-home': 'kr-h1-u01',
 };
 
