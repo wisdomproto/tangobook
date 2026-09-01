@@ -1,0 +1,123 @@
+{
+  "_단위": "1mm",
+  "_주": "탑뷰 사진을 1px=1mm 로 펴서 뽑은 마스크. b64 = 1비트/화소, 행 우선, LSB 먼저.",
+  "자음": {
+    "ㄱ": {
+      "w": 35,
+      "h": 44,
+      "b64": "AAD8//P////f//////7////3////v//////9////j////3/8////4////x//////8P///wccAPg/AACA/wEAAPwPAACAfwAAAPwDAADgHwAAAP8AAAD4BwAAwD8AAAD+AQAA8A8AAIB/AAAA/AMAAOAfAAAA/wAAAPgHAADAPwAAAP4BAADwDwAAgH8AAAD8AwAA4D8AAAD/AQAA+A8AAMB/AAAA/gMAAPAfAACA/wAAAPwHAADgPwAAAP8BAADwDw=="
+    },
+    "ㄴ_대": {
+      "w": 44,
+      "h": 27,
+      "b64": "gAcAAADA/wAAAAD+DwAAAPD/AAAAAP8PAAAA8P8AAAAA/w8AAADw/wAAAAD/DwAAAPD/AAAAAP8PAAAA8P8AAAAA/w8AAADw/wAAAAD/HwAAAPD/AQAAAP8fPP7/9//////////////////////////////////////////////////////////3/////z///////wE="
+    },
+    "ㄴ_소": {
+      "w": 36,
+      "h": 42,
+      "b64": "fgAAAPAHAAAA/wcAAPD/AAAA/w8AAPD/AAAA/w8AAPD/AAAA/w8AAPD/AAAA/w8AAPD/AAAA/w8AAPD/AAAA/w8AAPD/AAAA/w8AAPD/AAAA/w8AAPD/AAAA/w8AAPD/AAAA/w8AAPD/AAAA/w8AAOD/AAAA/w8AAPD/AAAA/w8AAPD/AAAA/w8AAPD/AAAA/w8AAOD/AAAA/////////////////////////////////////v///+//////"
+    },
+    "ㄷ": {
+      "w": 34,
+      "h": 45,
+      "b64": "4P8DAPD////n////3/////////////////f////////////////9////9////9//ADw+/wEAAPwHAADwDwAAwD8AAAD/AAAA/AMAAPAPAADAPwAAAP8AAAD8AwAA8A8AAMA/AAAA/wAAAPwDAADwDwAAwD8AAAD/AAAA/AMAAPAPAADAfwAAAP8BAAD8D8Dj8////9////9///////3//////////////3///////////+////8f////f+D/AwAA"
+    },
+    "ㄹ": {
+      "w": 34,
+      "h": 45,
+      "b64": "/P////v////v////////////////////////////////////////////7/9/8D8AAID/AAAA/AMAAPAPAADAPwAAAP8AAAD8+38A+O////+////////////////////////////////////////3////338A+H//AAAA/AMAAPAPAADAPwAAAP8AAAD8BwAA8D/4/9/////////////////////////////////////////////f////f/////8A"
+    },
+    "ㅁ": {
+      "w": 35,
+      "h": 44,
+      "b64": "+P///+D///+P//////z////n////P//////5////7///////////////////AID//wMA+P8fAMD//wAA/v8HAPD/PwCA//8BAPz/DwDg/38AAP//AwD4/x8AwP//AAD+/wcA8P8/AID//wEA/P8PAOD/fwAA//8DAPj/HwDA//8AAP7/BwDw/z8AgP//AQD8/x8A8P////////////////9///////n////P////f/7////z////H////3/w////AQ=="
+    },
+    "ㅂ": {
+      "w": 36,
+      "h": 40,
+      "b64": "/gcA/ud/AOB//gcA/ud/AOB//gcA/ud/AOB//gcA/ud/AOB//gMA/Oc/AMB//gMA/Oc/AMB//gEA+OcfAIB//gMA/Oc/AMB//////////////////////////////////////////////////gMA/Oc/AMB//gEA+OcfAIB//gMA/Oc/AMB//gMA/Oc/AMB//gcA/ud/AOB//gcA/ud/AOB//gcA/ud/AOB//gcA/ud/AOB/"
+    },
+    "ㅅ": {
+      "w": 40,
+      "h": 40,
+      "b64": "AAD/AAAAAP8AAAAA/wAAAAD/AAAAAP8AAAAA/wAAAAD/AAAAAP8AAAAA/wAAAAD/AAAAAP8AAAAA/wAAAAD/AAAAAP8AAAAA/wAAAAD/AAAAAP8AAAAA/wAAAAD/AAAAgP8BAADA/wMAAOD/BwAA8P8PAAD4/x8AAPz/PwAA/v9/AAD/5/8AgP/D/wHA/4H/A+D/AP8H8H8A/g/4PwD8H/8fAPj//w8A8P//BwDg//8DAMD//wEAgP//AAAA//8AAAD//wAAAP8="
+    },
+    "ㅇ": {
+      "w": 32,
+      "h": 40,
+      "b64": "AP5/AMD//wPg//8H8P//D/j//x/8//8//v//f/7//3/+B+B//wPA//8BgP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AYD//wPA//4H4H/+//9//v//f/z//z/4//8f8P//D+D//wfA//8DAP5/AA=="
+    },
+    "ㅈ": {
+      "w": 40,
+      "h": 40,
+      "b64": "/////////////////////////////////////////////////////wAA/wAAAAD/AAAAAP8AAAAA/wAAAAD/AAAAAP8AAAAA/wAAAAD/AAAAAP8AAAAA/wAAAAD/AAAAgP8BAADA/wMAAOD/BwAA8P8PAAD4/x8AAPz/PwAA/v9/AAD/5/8AgP/D/wHA/4H/A+D/AP8H8H8A/g/4PwD8H/8fAPj//w8A8P//BwDg//8DAMD//wEAgP//AAAA//8AAAD//wAAAP8="
+    },
+    "ㅊ": {
+      "w": 40,
+      "h": 40,
+      "b64": "AAD/AAAAAP8AAAAA/wAAAAD/AAAAAP8AAAAA/wAAAAD/AAAAAP8AAP////////////////////////////////////////////////////8AAP8AAAAA/wAAAAD/AAAAAP8AAAAA/wAAAAD/AAAAgP8BAADA/wMAAOD/BwAA+P8fAAD8/z8AAP7/fwCA////AcD/5/8D4P/D/wf4/4H/H/9/AP7//z8A/P//HwD4//8HAOD//wMAwP//AQCA//8AAAD//wAAAP8="
+    },
+    "ㅋ": {
+      "w": 33,
+      "h": 42,
+      "b64": "/v////7//////////////////////////////////////v///wEAAPwDAAD4BwAA8A8AAOAfAADAPwAAgH8AAAD/AAAA/v///////////////////////////////////////////wEAAPwDAAD4BwAA8A8AAOAfAADAPwAAgH8AAAD/AAAA/gEAAPwDAAD4BwAA8A8AAOAfAADAPwAAgH8AAAD/AAAA/gEAAPwB"
+    },
+    "ㅌ": {
+      "w": 36,
+      "h": 42,
+      "b64": "/P////P///////////////////////////////////////////////8/AAAA/wMAAPA/AAAA/wMAAPA/AAAA/wMAAPA/AAAA/zcAAPD///////////////////////////////////////////////9/AwAA/wMAAPA/AAAA/wMAAPA/AAAA/wMAAPA/AAAA/wMAAPD//////////////////////////////////////////////8////8/"
+    },
+    "ㅍ": {
+      "w": 40,
+      "h": 42,
+      "b64": "/////////////////////////////////////////////////////4D/gf8BAP8A/wAA/wD/AAD/AP8AAP8A/wAA/wD/AAD/AP8AAP8A/wAA/wD/AAD/AP8AAP8A/wAA/wD/AAD/AP8AAP8A/wAA/wD/AAD/AP8AAP8A/wAA/wD/AAD/AP8AAP8A/wAA/wD/AAD/AP8AAP8A/wAA/wD/AAD/AP8AgP+B/wH/////////////////////////////////////////////////////"
+    },
+    "ㅎ": {
+      "w": 40,
+      "h": 40,
+      "b64": "AAD/AAAAAP8AAAAA/wAAAAD/AAAAAP8AAAAA/wAAAAD/AAAAAP8AAP////////////////////////////////////////////////////8AAH4AAADA/wMAAOD/BwAA8P8PAAD4/x8AAPzDPwAA/oF/AAD+gX8AAP4AfwAA/wD/AAD/AP8AAP8A/wAA/wD/AAD/gf8AAP+B/wAA/sN/AAD+/38AAP7/fwAA/P8/AAD4/x8AAPD/DwAA4P8HAADA/wMAAAB+AAA="
+    }
+  },
+  "모음": {
+    "ㅏ_대": {
+      "w": 24,
+      "h": 43,
+      "b64": "/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/x0A//9///////////////////////////////9//x0A/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA"
+    },
+    "ㅏ_소": {
+      "w": 18,
+      "h": 41,
+      "b64": "/AD8B/AfwP8A/wP8D/A/wP8A/wP8D/A/wP8A/wP8D/A/wP8F/x/8/////////////////////x/8X/A/wP8A/wP8D/A/wP8A/wP8D/A/wP8A/wP8D/AfwH8A/AAA"
+    },
+    "ㅑ": {
+      "w": 17,
+      "h": 41,
+      "b64": "8AD+AfwD+AfwD+AfwD+AfwD///7//f////////////////8A/gH8A/gH8A/gH8A/gH8A/wD+/////////////////3////4B/AP4B/AP4B/AP4B/APAAAA=="
+    },
+    "ㅜ_대": {
+      "w": 35,
+      "h": 26,
+      "b64": "//////////////////////////////////////////////8A/v8DAPD/HwAA82cAAAAfAAAA/AEAAOAPAAAAfwAAAPgDAADAHwAAAP4AAADwBwAAgD8AAAD8AQAA4A8AAAB/AAAA+AMAAMAfAAAA/gAA"
+    },
+    "ㅜ_소": {
+      "w": 40,
+      "h": 19,
+      "b64": "AAAYAAD//////////////////////////////////////////////////////v///38AvP89AACA/wEAAAD/AAAAAP8AAAAA/wAAAAD/AAAAAP8AAAAAfgAAAAAYAAA="
+    },
+    "ㅠ": {
+      "w": 40,
+      "h": 26,
+      "b64": "////////////////////////////////////////////////////////////sP///w0A/wD/AAD/AP8AAP8A/wAAfwD+AAB/AP4AAH8A/gAAfwD+AAB/AP4AAH8A/gAAfwD+AAB/AP4AAH8A/gAAfwD+AAB/AP4AAH8A/gAAfgB+AA=="
+    },
+    "ㅡ": {
+      "w": 41,
+      "h": 8,
+      "b64": "/v/////+//////////////////////////////////////9//////38="
+    },
+    "ㅣ": {
+      "w": 11,
+      "h": 40,
+      "b64": "/Pm///znv////////////ec///nPf/7zn//85z//+c9//vOf//znv////////////ec///2fPw=="
+    }
+  }
+}
