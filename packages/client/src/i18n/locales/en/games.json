@@ -50,6 +50,8 @@
     "wordGamesHint": "Sounds and letters",
     "storyGamesHeading": "Story Games",
     "storyGamesHint": "Remember the book",
+    "otherPlay": "Other play",
+    "groupCount": "{{count}} games",
     "done": "Done!",
     "otherGame": "Try another game?",
     "back": "← Back",

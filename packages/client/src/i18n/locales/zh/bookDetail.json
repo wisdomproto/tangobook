@@ -20,8 +20,8 @@
     "chooseStyleLangTitle": "选择画风和语言",
     "chooseLangTitle": "选择阅读语言",
     "chooseSub": "按孩子的喜好开始吧",
-    "learnTitle": "阅读并学习单词",
-    "learnSub": "用书中的单词培养词汇量",
+    "learnTitle": "读完一起玩",
+    "learnSub": "用游戏学单词和故事",
     "guideTitle": "阅读家长指南",
     "guideSub": "图书特点 · 寓意 · 讲读小贴士"
   },
@@ -41,8 +41,8 @@
     "selfReadSub": "自己翻页慢慢读",
     "lockedGuestSub": "注册后即可免费阅读",
     "lockedPremiumSub": "高级内容 — 订阅后阅读",
-    "vocab": "学习单词",
-    "vocabSub": "韩语·英语单词 + 游戏",
+    "vocab": "玩中学",
+    "vocabSub": "单词游戏 · 故事游戏",
     "preparing": "正在准备中"
   },
   "guide": {

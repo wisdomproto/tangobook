@@ -50,6 +50,8 @@
     "wordGamesHint": "เสียงและตัวอักษร",
     "storyGamesHeading": "เกมจากนิทาน",
     "storyGamesHint": "นึกถึงเรื่องในหนังสือ",
+    "otherPlay": "เล่นอย่างอื่น",
+    "groupCount": "{{count}} เกม",
     "done": "เสร็จแล้ว!",
     "otherGame": "ลองเกมอื่นไหม?",
     "back": "← กลับ",

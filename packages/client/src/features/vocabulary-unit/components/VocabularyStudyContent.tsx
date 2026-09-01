@@ -84,12 +84,16 @@ export function VocabularyStudyContent({
 }: VocabularyStudyContentProps) {
   const { t } = useTranslation('games');
   const [activeGame, setActiveGame] = useState<GameTypeId | null>(null);
+  /**
+   * 어느 묶음을 펼쳤나. `null` = 묶음 고르는 화면.
+   * 🔴 게임 일곱 장을 한 화면에 늘어놓으니 무엇을 고르는 화면인지 안 읽혔다(사용자 2026-09-01).
+   *    먼저 「무엇을 하고 놀까」를 고르고, 그 안에서 게임을 고른다.
+   */
+  const [openGroup, setOpenGroup] = useState<'word' | 'story' | null>(null);
   const [selectedWord, setSelectedWord] = useState<VocabularyUnitWord | null>(null);
   const { refetch: refetchBalance } = useStarBalance();
 
   const games = getAvailableGames(unit, lang, t, storybook, currentStyle);
-  // 화면 전체에서 coral 채움은 한 장뿐 — 첫 번째 **가능한** 카드.
-  const ctaId = games.find((g) => g.available)?.id;
 
   // 사용자 정책 (2026-05-10): 게임은 매번 랜덤 N개 단어라 "완료" 개념 X.
   // 게임 카드 done 표시 / 단원 완료 메시지 모두 제거. 게임 결과는 GameResultScreen 에서 호리/칭찬.
@@ -105,53 +109,76 @@ export function VocabularyStudyContent({
 
   return (
     <>
-      {/* 🔴 게임이 먼저다(2026-08-04) — 이 화면의 목적은 게임이고 단어 카드는 참고다. 예전엔
-          두 섹션 헤딩 규격이 똑같은 채로 단어가 위에 있어서, 375px 접힘선(하단 탭바 때문에 812 가
-          아니라 755px) 위 57% 를 헤더·책 정보·단어가 먹고 게임 카드는 4장 중 2장만 보였다. */}
-      {/* 🔴 두 묶음으로 나눈다(2026-09-01 사용자) — 한 줄에 여덟 장을 늘어놓으니 무엇을 고르는
-          화면인지 안 읽혔다. 낱말을 익히는 게임과 책 내용을 묻는 독후활동은 하는 일이 다르다.
-          coral CTA 는 화면 전체에 **하나만** — 넷이 전부 CTA 색이면 CTA 가 없는 것과 같다. */}
-      {GAME_GROUPS.map(({ key, emoji, headingKey, hintKey }) => {
-        const groupGames = games.filter((g) => g.group === key);
-        if (groupGames.length === 0) return null;
-        return (
-          <section key={key} className="mb-6">
-            <div className="flex items-baseline gap-3 mb-2 px-1">
-              <h2 className="text-2xl lg:text-3xl font-black font-display text-ink-900 flex items-center gap-2">
-                <span>{emoji}</span>
-                <span>{t(headingKey)}</span>
-              </h2>
-              <span className="text-sm font-bold text-ink-700">{t(hintKey)}</span>
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
-              {groupGames.map((g, i) => (
+      {/* 묶음 고르기 — 두 장뿐이라 무엇을 고르는 화면인지 한눈에 읽힌다. */}
+      {openGroup === null && (
+        <section className="mb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
+            {GAME_GROUPS.map(({ key, emoji, headingKey, hintKey }, i) => {
+              const count = games.filter((g) => g.group === key && g.available).length;
+              if (count === 0) return null;
+              return (
+                <GroupCard
+                  key={key}
+                  emoji={emoji}
+                  label={t(headingKey)}
+                  sub={t(hintKey)}
+                  count={count}
+                  primary={i === 0}
+                  onOpen={() => setOpenGroup(key)}
+                />
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* 묶음 안 — 그 묶음의 게임만. 상단 pill 로 묶음 고르기로 되돌아간다. */}
+      {openGroup !== null && (
+        <section className="mb-6">
+          <div className="flex items-center gap-3 mb-3 px-1 flex-wrap">
+            <button
+              onClick={() => setOpenGroup(null)}
+              className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-pop transition break-keep"
+            >
+              ← {t('study.otherPlay')}
+            </button>
+            <h2 className="text-2xl lg:text-3xl font-black font-display text-ink-900 flex items-center gap-2">
+              <span>{GAME_GROUPS.find((g) => g.key === openGroup)?.emoji}</span>
+              <span>{t(GAME_GROUPS.find((g) => g.key === openGroup)!.headingKey)}</span>
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
+            {games
+              .filter((g) => g.group === openGroup)
+              .map((g, i, arr) => (
                 <GameCard
                   key={g.id}
                   game={g}
                   index={i}
                   // 🔴 「첫 번째」가 아니라 「첫 번째 **가능한**」 카드가 CTA — 1번이 비활성(데이터 없음)인
                   //    단원에서 index===0 으로 잡으면 회색 카드가 CTA 자리를 차지해 CTA 가 0개가 된다.
-                  primary={g.id === ctaId}
+                  primary={i === arr.findIndex((x) => x.available)}
                   done={false}
                   onPlay={() => g.available && setActiveGame(g.id)}
                 />
               ))}
-            </div>
-          </section>
-        );
-      })}
+          </div>
+        </section>
+      )}
 
-      {/* 단어 sub-section — 탭하면 단어 상세 모달. 게임 아래 참고 자리. */}
-      <section>
-        <div className="flex items-baseline gap-3 mb-2 px-1">
-          <h2 className="text-2xl lg:text-3xl font-black font-display text-ink-900 flex items-center gap-2">
-            <span>📚</span>
-            <span>{t('study.wordsHeading')}</span>
-          </h2>
-          <span className="text-sm font-bold text-ink-700">{t('study.wordsHint')}</span>
-        </div>
-        <WordPreviewBanner words={unit.words} lang={lang} onWordClick={setSelectedWord} />
-      </section>
+      {/* 단어 sub-section — 탭하면 단어 상세 모달. 낱말 놀이의 참고 자리라 그 묶음에서만 보인다. */}
+      {openGroup !== 'story' && (
+        <section>
+          <div className="flex items-baseline gap-3 mb-2 px-1">
+            <h2 className="text-2xl lg:text-3xl font-black font-display text-ink-900 flex items-center gap-2">
+              <span>📚</span>
+              <span>{t('study.wordsHeading')}</span>
+            </h2>
+            <span className="text-sm font-bold text-ink-700">{t('study.wordsHint')}</span>
+          </div>
+          <WordPreviewBanner words={unit.words} lang={lang} onWordClick={setSelectedWord} />
+        </section>
+      )}
 
       {/* 게임 모달 — full screen, VocabSourceProvider wrap */}
       <AnimatePresence>
@@ -255,6 +282,68 @@ function WordPreviewBanner({ words, lang, onWordClick }: WordPreviewBannerProps)
         ))}
       </div>
     </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   GroupCard — 「무엇을 하고 놀까」 한 묶음. 게임 카드와 같은 푸시 버튼 톤.
+   ───────────────────────────────────────────────────────────────────── */
+
+function GroupCard({
+  emoji,
+  label,
+  sub,
+  count,
+  primary,
+  onOpen,
+}: {
+  emoji: string;
+  label: string;
+  sub: string;
+  /** 지금 할 수 있는 게임 수 — 책마다 다르므로 숫자로 알려 준다. */
+  count: number;
+  primary: boolean;
+  onOpen: () => void;
+}) {
+  const { t } = useTranslation('games');
+  return (
+    <button
+      onClick={onOpen}
+      className={`relative rounded-3xl p-4 lg:p-5 min-h-[132px] flex items-center gap-4 hover:-translate-y-0.5 active:translate-y-1 transition-all duration-100 ease-out text-left ${
+        primary
+          ? 'bg-gradient-to-b from-coral-400 to-coral-500 text-white shadow-[0_6px_0_#B73A1F,0_8px_20px_rgba(255,94,58,0.35)]'
+          : 'bg-white text-ink-900 shadow-[0_5px_0_#EDE1D4,0_6px_14px_rgba(63,47,36,0.10)]'
+      }`}
+    >
+      <div className="w-20 h-20 lg:w-24 lg:h-24 flex-shrink-0 flex items-center justify-center">
+        <span className="text-6xl">{emoji}</span>
+      </div>
+      <div className="flex-1 flex flex-col items-start gap-1 min-w-0">
+        <span
+          className="text-2xl lg:text-3xl font-black font-display break-keep"
+          style={primary ? { textShadow: '0 2px 0 rgba(167, 50, 25, 0.4)' } : undefined}
+        >
+          {label}
+        </span>
+        <span className={`text-sm font-bold break-keep ${primary ? 'text-white' : 'text-ink-600'}`}>
+          {sub}
+        </span>
+        <span
+          className={`mt-1 text-xs font-black px-2 py-0.5 rounded-full ${
+            primary ? 'bg-white/90 text-coral-600' : 'bg-coral-100 text-coral-600'
+          }`}
+        >
+          {t('study.groupCount', { count })}
+        </span>
+      </div>
+      <div
+        className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
+          primary ? 'bg-white/95 shadow-soft' : 'bg-coral-100'
+        }`}
+      >
+        <span className="text-2xl text-coral-600 font-black">→</span>
+      </div>
+    </button>
   );
 }
 

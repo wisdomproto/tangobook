@@ -50,6 +50,8 @@
     "wordGamesHint": "낱말을 소리와 글자로",
     "storyGamesHeading": "동화 내용 놀이",
     "storyGamesHint": "책 이야기를 떠올려요",
+    "otherPlay": "다른 놀이",
+    "groupCount": "{{count}}가지",
     "done": "완료!",
     "otherGame": "다른 게임 해볼까?",
     "back": "← 돌아가기",

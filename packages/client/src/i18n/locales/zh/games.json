@@ -50,6 +50,8 @@
     "wordGamesHint": "声音和文字",
     "storyGamesHeading": "故事游戏",
     "storyGamesHint": "回想书里的内容",
+    "otherPlay": "其他玩法",
+    "groupCount": "{{count}} 个游戏",
     "done": "完成！",
     "otherGame": "试试别的游戏？",
     "back": "← 返回",
