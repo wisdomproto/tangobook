@@ -106,6 +106,29 @@ p{margin:1.05em 0}
   text-transform:uppercase; color:var(--coral-ink); margin-bottom:20px;
 }
 .hero-fig{margin-top:44px; max-width:1040px}
+.hero-fig{margin-top:44px; max-width:1040px}
+.skills{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:1px;
+  background:var(--line); border:1px solid var(--line); border-radius:14px;
+  overflow:hidden; margin-top:34px; max-width:1040px}
+.skill{background:var(--coral-wash); padding:16px 18px}
+.skill .sk{font-family:Hahmlet,serif; font-size:1.16rem; font-weight:700;
+  color:var(--coral-ink); letter-spacing:-.02em}
+.skill .sv{font-size:.86rem; color:var(--muted); margin-top:5px; line-height:1.6}
+.claim{margin-top:34px; max-width:1040px; padding:30px clamp(22px,3vw,38px);
+  border-radius:16px; background:var(--surface); border:1px solid var(--line)}
+.claim.hot{background:var(--coral-wash); border-color:color-mix(in srgb,var(--coral) 26%,var(--line))}
+.claim-k{font-family:"IBM Plex Mono","IBM Plex Sans KR",monospace; font-size:.78rem;
+  letter-spacing:.1em; color:var(--muted); margin-bottom:8px}
+.claim-h{font-family:Hahmlet,serif; font-size:clamp(1.4rem,2.6vw,1.9rem); font-weight:700;
+  letter-spacing:-.026em; line-height:1.35; margin-bottom:14px}
+.claim.hot .claim-h{color:var(--coral-ink)}
+.claim p{margin:.7em 0; max-width:42em; color:var(--muted)}
+.claim p b{color:var(--ink)}
+.claim-punch{font-family:Hahmlet,serif; font-size:1.16rem; font-weight:700;
+  color:var(--ink)!important; margin-top:18px!important}
+.chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px}
+.chips span{font-size:.9rem; padding:6px 14px; border-radius:999px;
+  background:var(--mint-wash); color:var(--mint-ink); font-weight:600}
 .hero .sub{font-size:1.2rem; line-height:1.72; color:var(--muted); max-width:33em; margin-top:22px}
 
 /* 숫자 4개 */
@@ -234,7 +257,14 @@ footer{border-top:1px solid var(--line); padding:34px 0 60px; color:var(--faint)
   <h1>공부는 학습으로, 재미는 동화책으로.<br>그리고 그 둘이 이어져 있습니다.</h1>
   <p class="sub">아이에게 동화책은 공부가 아니라 놀이입니다. 탱고북은 <b>ㅏ부터 가르치고</b>,
   배운 낱말이 <b>그 낱말이 나오는 동화책</b>으로 이어집니다.
-  아이 취향에 맞는 책이 <b>다섯 개 언어로</b> 계속 늘어납니다.</p>
+  <b>듣기 · 말하기 · 읽기 · 쓰기</b>를 전부 다루고, 아이 취향에 맞는 책이 <b>다섯 개 언어로</b> 계속 늘어납니다.</p>
+
+  <div class="skills">
+    <div class="skill"><div class="sk">듣기</div><div class="sv">나레이션 · 낱말 음원 &mdash; 다섯 개 언어</div></div>
+    <div class="skill"><div class="sk">말하기</div><div class="sv">음성 인식으로 낱말 따라 읽기</div></div>
+    <div class="skill"><div class="sk">읽기</div><div class="sv">파닉스 95단원 · 동화책 266권</div></div>
+    <div class="skill"><div class="sk">쓰기</div><div class="sv">획을 채점하는 글자 · 낱말 쓰기</div></div>
+  </div>
 
   <div class="stats">
     <div class="stat"><div class="v">266</div><div class="k"><b>동화책</b> 공개 · 5개 언어</div></div>
@@ -245,70 +275,52 @@ footer{border-top:1px solid var(--line); padding:34px 0 60px; color:var(--faint)
 
   <figure class="hero-fig">
     <div class="fig-frame">
-      <svg viewBox="0 0 900 528" role="img" aria-label="파닉스와 동화책이 어휘로 이어지고, 거기서 그림체와 무대와 언어의 갈래가 퍼져 아이마다 다른 책이 된다. 그만한 양은 손으로 만들 수 없고 저작도구가 자동으로 만든다">
+      <svg viewBox="0 0 900 452" role="img" aria-label="파닉스와 동화책이 어휘로 이어지고, 그 동화책이 그림체와 무대·등장인물로 갈라져 아이마다 다른 책이 된다">
 
-        <!-- ① 학습 ⟷ 어휘 ⟷ 놀이 -->
-        <rect x="40" y="46" width="226" height="104" rx="14" class="f-src"/>
-        <text x="153" y="74" class="f-s" text-anchor="middle" fill="var(--coral-ink)" font-weight="700">학습</text>
-        <text x="153" y="110" class="f-n" text-anchor="middle">파닉스</text>
-        <text x="153" y="134" class="f-s" text-anchor="middle">95단원</text>
+        <rect x="40" y="44" width="226" height="104" rx="14" class="f-src"/>
+        <text x="153" y="72" class="f-s" text-anchor="middle" fill="var(--coral-ink)" font-weight="700">학습</text>
+        <text x="153" y="108" class="f-n" text-anchor="middle">파닉스</text>
+        <text x="153" y="132" class="f-s" text-anchor="middle">95단원</text>
 
-        <rect x="634" y="46" width="226" height="104" rx="14" class="f-alt"/>
-        <text x="747" y="74" class="f-s" text-anchor="middle" fill="var(--mint-ink)" font-weight="700">놀이</text>
-        <text x="747" y="110" class="f-n" text-anchor="middle">동화책</text>
-        <text x="747" y="134" class="f-s" text-anchor="middle">266권</text>
+        <rect x="634" y="44" width="226" height="104" rx="14" class="f-alt"/>
+        <text x="747" y="72" class="f-s" text-anchor="middle" fill="var(--mint-ink)" font-weight="700">놀이</text>
+        <text x="747" y="108" class="f-n" text-anchor="middle">동화책</text>
+        <text x="747" y="132" class="f-s" text-anchor="middle">266권</text>
 
-        <rect x="352" y="62" width="196" height="72" rx="36"
+        <rect x="352" y="60" width="196" height="72" rx="36"
               fill="var(--coral)" stroke="none"/>
-        <text x="450" y="109" text-anchor="middle" fill="var(--on-coral)"
+        <text x="450" y="106" text-anchor="middle" fill="var(--on-coral)"
               font-family="Hahmlet, serif" font-size="28" font-weight="700">어 휘</text>
-        <text x="450" y="158" class="f-s" text-anchor="middle">낱말 1,114개가 둘을 묶는다</text>
 
         <g stroke="var(--hair)" stroke-width="2.5" fill="none">
-          <path d="M274,98 L342,98" marker-start="url(#hs)" marker-end="url(#he)"/>
-          <path d="M558,98 L626,98" marker-start="url(#hs)" marker-end="url(#he)"/>
+          <path d="M274,96 L342,96" marker-start="url(#hs)" marker-end="url(#he)"/>
+          <path d="M558,96 L626,96" marker-start="url(#hs)" marker-end="url(#he)"/>
         </g>
+        <text x="450" y="158" class="f-s" text-anchor="middle">낱말 1,114개가 학습과 놀이를 묶는다</text>
 
-        <!-- ② 갈래 -->
-        <path d="M450,170 C450,210 152,202 152,234" class="f-line" stroke-width="2" fill="none" marker-end="url(#he)"/>
-        <path d="M450,170 C450,210 450,202 450,234" class="f-line" stroke-width="2" fill="none" marker-end="url(#he)"/>
-        <path d="M450,170 C450,210 748,202 748,234" class="f-line" stroke-width="2" fill="none" marker-end="url(#he)"/>
-        <rect x="26" y="240" width="252" height="56" rx="11" class="f-alt"/>
-        <text x="152" y="264" class="f-b" text-anchor="middle">그림체 <tspan fill="var(--coral-ink)">3종</tspan></text>
-        <text x="152" y="283" class="f-s" text-anchor="middle">종이 공예 · 입체 · 수채</text>
-        <rect x="104" y="314" width="26" height="34" rx="5" class="f-box"/>
-        <rect x="139" y="314" width="26" height="34" rx="5" class="f-box"/>
-        <rect x="174" y="314" width="26" height="34" rx="5" class="f-box"/>
-        <rect x="324" y="240" width="252" height="56" rx="11" class="f-gold"/>
-        <text x="450" y="264" class="f-b" text-anchor="middle">무대 · 등장인물 <tspan fill="var(--coral-ink)">40시리즈</tspan></text>
-        <text x="450" y="283" class="f-s" text-anchor="middle">창작동화 — 제작 중</text>
-        <rect x="367" y="314" width="26" height="34" rx="5" class="f-box"/>
-        <rect x="402" y="314" width="26" height="34" rx="5" class="f-box"/>
-        <rect x="437" y="314" width="26" height="34" rx="5" class="f-box"/>
-        <rect x="472" y="314" width="26" height="34" rx="5" class="f-box"/>
-        <rect x="507" y="314" width="26" height="34" rx="5" class="f-box"/>
-        <rect x="622" y="240" width="252" height="56" rx="11" class="f-alt"/>
-        <text x="748" y="264" class="f-b" text-anchor="middle">언어 <tspan fill="var(--coral-ink)">5개</tspan></text>
-        <text x="748" y="283" class="f-s" text-anchor="middle">본문 · 나레이션 완비</text>
-        <rect x="665" y="314" width="26" height="34" rx="5" class="f-box"/>
-        <rect x="700" y="314" width="26" height="34" rx="5" class="f-box"/>
-        <rect x="735" y="314" width="26" height="34" rx="5" class="f-box"/>
-        <rect x="770" y="314" width="26" height="34" rx="5" class="f-box"/>
-        <rect x="805" y="314" width="26" height="34" rx="5" class="f-box"/>
+        <!-- 🔴 갈래는 동화책에서 나온다 -->
+        <path d="M747,154 L747,236" class="f-line" stroke-width="2" fill="none"/>
+        <path d="M250,236 L747,236" class="f-line" stroke-width="2" fill="none"/>
+        <path d="M250,236 L250,278" class="f-line" stroke-width="2" fill="none" marker-end="url(#he)"/>
+        <path d="M650,236 L650,278" class="f-line" stroke-width="2" fill="none" marker-end="url(#he)"/>
+        <text x="498.5" y="224" class="f-s" text-anchor="middle">그 동화책이 아이마다 다르게 갈라진다</text>
 
-        <text x="450" y="376" class="f-b" text-anchor="middle">세 갈래가 곱해진다 &mdash; 아이마다 다른 책이 나온다</text>
-        <text x="450" y="396" class="f-s" text-anchor="middle">266권 &times; 5개 언어만 해도 이미 1,330가지. 여기에 그림체와 무대가 또 곱해진다.</text>
+        <rect x="100" y="286" width="300" height="58" rx="11" class="f-alt"/>
+        <text x="250" y="311" class="f-b" text-anchor="middle">그림체 <tspan fill="var(--coral-ink)">3종</tspan></text>
+        <text x="250" y="331" class="f-s" text-anchor="middle">종이 공예 · 입체 · 수채</text>
+        <rect x="198" y="362" width="28" height="36" rx="6" class="f-box"/>
+        <rect x="236" y="362" width="28" height="36" rx="6" class="f-box"/>
+        <rect x="274" y="362" width="28" height="36" rx="6" class="f-box"/>
+        <rect x="500" y="286" width="300" height="58" rx="11" class="f-gold"/>
+        <text x="650" y="311" class="f-b" text-anchor="middle">무대 · 등장인물 <tspan fill="var(--coral-ink)">40시리즈</tspan></text>
+        <text x="650" y="331" class="f-s" text-anchor="middle">창작동화 — 제작 중</text>
+        <rect x="560" y="362" width="28" height="36" rx="6" class="f-box"/>
+        <rect x="598" y="362" width="28" height="36" rx="6" class="f-box"/>
+        <rect x="636" y="362" width="28" height="36" rx="6" class="f-box"/>
+        <rect x="674" y="362" width="28" height="36" rx="6" class="f-box"/>
+        <rect x="712" y="362" width="28" height="36" rx="6" class="f-box"/>
 
-        <!-- ④ 왜 지금 가능한가 -->
-        <rect x="40" y="420" width="392" height="74" rx="12" class="f-box" stroke-dasharray="6 5"/>
-        <text x="236" y="450" class="f-b" text-anchor="middle" fill="var(--muted)">손으로 만들면</text>
-        <text x="236" y="473" class="f-s" text-anchor="middle">한 권에 몇 달 &mdash; 이 양에는 닿지 못한다</text>
-
-        <rect x="468" y="420" width="392" height="74" rx="12" class="f-alt"/>
-        <text x="664" y="450" class="f-b" text-anchor="middle" fill="var(--mint-ink)">저작도구로 만들면</text>
-        <text x="664" y="473" class="f-s" text-anchor="middle">글 · 삽화 · 나레이션 · 활동 · 번역이 자동으로</text>
-
-        <text x="450" y="520" class="f-b" text-anchor="middle">그래서 지금 가능해졌다</text>
+        <text x="450" y="428" class="f-b" text-anchor="middle">둘이 곱해진다 &mdash; 아이 취향에 맞는 책이 계속 나온다</text>
 
         <defs>
           <marker id="he" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
@@ -318,9 +330,32 @@ footer{border-top:1px solid var(--line); padding:34px 0 60px; color:var(--faint)
         </defs>
       </svg>
     </div>
-    <figcaption>어휘가 <b>학습과 놀이를 묶는 축</b>이고, 거기서 갈래가 퍼져 아이마다 다른 책이 됩니다.
-    그만한 양은 손으로 닿지 못하던 자리입니다.</figcaption>
+    <figcaption>어휘가 <b>학습과 놀이를 묶는 축</b>입니다. 그리고 그렇게 이어진 동화책이
+    <b>아이 취향대로 갈라집니다</b> &mdash; 어느 쪽을 골라도 학습은 같은 자리에 쌓입니다.</figcaption>
   </figure>
+
+  <div class="claim">
+    <div class="claim-k">그리고 그 전부가</div>
+    <div class="claim-h">다섯 개 언어로 동시에</div>
+    <p>번역판을 따로 만든 것이 아닙니다. <b>한 권 안에</b> 다섯 언어의 본문과 나레이션이 들어 있어서,
+    아이가 언어를 바꾸면 같은 그림·같은 이야기를 다른 말로 듣습니다.
+    베트남 아이가 한국어를 배울 때도, 한국 아이가 영어를 배울 때도 <b>같은 구조를 그대로</b> 씁니다.</p>
+    <div class="chips">
+      <span>한국어</span><span>영어</span><span>중국어</span><span>베트남어</span><span>태국어</span>
+    </div>
+  </div>
+
+  <div class="claim hot">
+    <div class="claim-k">그런데 이만한 양은</div>
+    <div class="claim-h">손으로는 닿지 못하던 자리입니다</div>
+    <p>아이 취향에 맞추려면 <b>같은 이야기가 여러 벌</b> 있어야 하고, 그게 다섯 언어로 또 있어야 합니다.
+    한 권에 몇 달이 드는 방식으로는 시작조차 못 하는 규모입니다.
+    실제로 기존 그림책 서비스에 <b>새 책이 잘 늘지 않는 이유</b>가 여기 있습니다.</p>
+    <p>우리는 그 공정을 <b>저작도구 하나로</b> 돌립니다 &mdash;
+    글 · 삽화 · 나레이션 · 애니메이션 · 독후활동 · 다국어화까지 자동으로 나오고,
+    사람은 <b>검수만</b> 합니다.</p>
+    <p class="claim-punch">그래서 지금 가능해졌습니다.</p>
+  </div>
 </header>
 
 <!-- ══════════ 01 무엇인가 ══════════ -->
