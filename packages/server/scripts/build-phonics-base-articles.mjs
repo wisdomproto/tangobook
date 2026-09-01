@@ -34,10 +34,14 @@ const toPlain = (html) =>
     .replace(/\n{3,}/g, '\n\n')
     .trim();
 
-// `kr-h*` = 단원 글 · `hub-*` = 여러 단원을 묶는 허브 글(자음모음·받침·쌍자음·전체 순서).
+// `kr-h*` = 단원 글 · `hub-*` = 여러 단원을 묶는 허브 글 · `write-*` = 쓰기 롱테일(자음/모음/받침/쌍자음 쓰기).
 const files = fs
   .readdirSync(BLOG_DIR)
-  .filter((f) => (f.startsWith('kr-h') || f.startsWith('hub-')) && f.endsWith('.json'))
+  .filter(
+    (f) =>
+      (f.startsWith('kr-h') || f.startsWith('hub-') || f.startsWith('write-')) &&
+      f.endsWith('.json')
+  )
   .filter((f) => !ONLY.length || ONLY.includes(f.replace('.json', '')));
 
 let made = 0;
@@ -52,9 +56,15 @@ for (const file of files) {
     title: blog.seo_title,
     body_html,
     body_plain_text: toPlain(body_html),
-    sources: blog.storybookId.startsWith('hub-')
-      ? [{ type: 'curriculum', ref: 'packages/client/src/features/phonics-learner/lib/korean-phonics-units.ts' }]
-      : [{ type: 'curriculum', ref: `packages/client/public/hangeul-tree-${blog.storybookId}.html` }],
+    sources:
+      blog.storybookId.startsWith('hub-') || blog.storybookId.startsWith('write-')
+        ? [
+            {
+              type: 'curriculum',
+              ref: 'packages/client/src/features/phonics-learner/lib/korean-phonics-units.ts',
+            },
+          ]
+        : [{ type: 'curriculum', ref: `packages/client/public/hangeul-tree-${blog.storybookId}.html` }],
     generatedAt: blog.generatedAt ?? null,
   };
   fs.writeFileSync(
