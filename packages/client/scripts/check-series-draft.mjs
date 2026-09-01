@@ -64,7 +64,10 @@ function checkSeries(key) {
       .some((a) => String(scene).toLowerCase().includes(String(a).toLowerCase())));
     const s1 = scenes[id]?.p1 ?? '';
     const n1 = onPage(s1).length;
-    if (n1 > 2) fail.push(at(`p1 에 인물 ${n1}명 (둘까지)`));
+    // 🔴 진짜 규칙은 「그림은 본문에 없는 사람을 못 더한다」다(2026-09-01) — 승인 본문이 p1 에
+    //    손님을 세운 권(21·23·24 등)은 셋이 맞다. 본문 p1 에 손님 호칭이 있으면 셋까지 허용.
+    const proseHasGuest = /손님|아저씨|아주머니|할머니|할아버지|아이/.test(bk.pages[0]?.ko ?? '');
+    if (n1 > (proseHasGuest ? 3 : 2)) fail.push(at(`p1 에 인물 ${n1}명 (본문보다 많다)`));
 
     // 🔴 마지막 쪽은 인물의 입에서 닫는다. 375권 중 257권(69%)이 대사도 물음도 없이 서술로 끝났고,
     //    출판 그림책 12편은 전부 인물의 한 문장으로 닫았다. 덮는 순간 뭐가 정리됐는지 부모가 알아야 한다.

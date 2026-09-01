@@ -44,7 +44,8 @@ PALETTE (mineral, and there are only these): GROUND #C9BEA8, a warm clay tone th
   not on a flower, not on a lantern, not on a guest. AT MOST FOUR OF THE MINERAL COLOURS ON ONE
   PAGE, plus ink and shell white. The inn's own towels are shell white and plain, all of them.
 
-STAGE CLAUSES (one inn and its yard; the place sets the grind and the number of steam passes):
+STAGE CLAUSES
+POT STEAM (2026-09-01) - the indoor no-steam rule is about WEATHER steam. Steam rising from a pot or a split bun IS the event of its book (07, 22) and is drawn — count its strands per page as the script says. (one inn and its yard; the place sets the grind and the number of steam passes):
   🔴 STEAM IS COUNTED IN PASSES OF SHELL WHITE at the finest grind, laid over a field already
     finished so that field still reads through it: a cold morning is four passes and the far side of
     the valley goes under, an ordinary day is two, a rainy day is ONE and it lies low along the
