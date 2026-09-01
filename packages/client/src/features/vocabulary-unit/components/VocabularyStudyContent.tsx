@@ -166,7 +166,6 @@ export function VocabularyStudyContent({
         (() => {
           const group = GAME_GROUPS.find((g) => g.key === openGroup)!;
           const groupGames = games.filter((g) => g.group === openGroup);
-          const ctaId = groupGames.find((g) => g.available)?.id;
           return (
             <section className="w-full max-w-4xl mx-auto">
               <div className="flex items-center gap-3 mb-4 flex-wrap">
@@ -192,9 +191,6 @@ export function VocabularyStudyContent({
                     key={g.id}
                     game={g}
                     index={i}
-                    // 🔴 「첫 번째」가 아니라 「첫 번째 **가능한**」 카드 — 1번이 비활성(데이터 없음)인
-                    //    책에서 index===0 으로 잡으면 회색 카드가 CTA 자리를 차지한다.
-                    primary={g.id === ctaId}
                     tone={group.tone}
                     onPlay={() => g.available && setActiveGame(g.id)}
                   />
@@ -402,35 +398,21 @@ function GroupCard({
 function GameCard({
   game,
   index,
-  primary,
   tone,
   onPlay,
 }: {
   game: VocabGameOption;
   index: number;
-  /**
-   * 🔴 이 카드 하나만 coral 채움(2026-08-04) — 4장이 전부 CTA 색이면 CTA 가 없는 것과 같다.
-   * coral 은 디자인 시스템에서 메인 CTA 전용인데 이 화면은 그걸 4번 썼고, 그래서 "처음이면
-   * 1번부터" 라는 **글자로** 서열을 때우고 있었다. 이제 색이 그 말을 대신하고, 번호는 순서를
-   * 거드는 역할만 한다. 어느 카드가 primary 인지는 호출부가 정한다(비활성 카드 회피).
-   */
-  primary: boolean;
   /** 이 카드가 속한 묶음 색 — 채움 카드와 배지가 그 색을 쓴다. */
   tone: Tone;
   onPlay: () => void;
 }) {
-  const c = TONE[tone];
-  // 좌상단 번호 배지 — 채움 카드 위에선 흰 배지, 흰 카드 위에선 묶음색 배지(둘 다 배경과 대비).
+  const accent = tone === 'mint' ? 'bg-mint-100 text-mint-600' : 'bg-coral-100 text-coral-600';
+  // 좌상단 번호 배지 — 순서는 **번호가** 말한다.
   const numberBadge = (
     <span
       aria-hidden
-      className={`absolute top-3 left-3 w-8 h-8 rounded-full text-sm font-black flex items-center justify-center shadow-soft z-10 ${
-        primary
-          ? `bg-white ring-2 ${tone === 'mint' ? 'text-mint-600 ring-mint-200/50' : 'text-coral-600 ring-coral-200/50'}`
-          : tone === 'mint'
-            ? 'bg-mint-100 text-mint-600'
-            : 'bg-coral-100 text-coral-600'
-      }`}
+      className={`absolute top-3 left-3 w-8 h-8 rounded-full text-sm font-black flex items-center justify-center shadow-soft z-10 ${accent}`}
     >
       {index + 1}
     </span>
@@ -451,12 +433,10 @@ function GameCard({
     </div>
   );
 
-  // 우끝 → 화살표 동그라미 (채움 카드=흰 원 / 흰 카드=묶음색 연한 원)
+  // 우끝 → 화살표 동그라미 (묶음색 연한 원)
   const arrowCircle = (
     <div
-      className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
-        primary ? 'bg-white/95 shadow-soft' : tone === 'mint' ? 'bg-mint-100' : 'bg-coral-100'
-      }`}
+      className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${accent}`}
     >
       <span
         className={`text-2xl font-black ${tone === 'mint' ? 'text-mint-600' : 'text-coral-600'}`}
@@ -485,32 +465,23 @@ function GameCard({
     );
   }
 
-  // 활성 — Duolingo 식 푸시 버튼 (가로 layout): 좌 큰 일러스트 / 가운데 제목+부제 / 우 → 화살표.
-  // 크기·터치 타깃은 4~7세 기준으로 검증된 값이라 그대로 두고, **색만** 서열을 만든다.
+  /**
+   * Duolingo 식 푸시 버튼 (가로 layout): 좌 큰 일러스트 / 가운데 제목+부제 / 우 → 화살표.
+   * 🔴 **카드 하나만 채우던 규칙을 없앴다**(2026-09-01 사용자, 두 번 지적). 그건 게임 넷을
+   *    한 화면에 늘어놓던 시절 「여기부터」를 고르라는 장치였는데, 지금은 묶음 카드가 색을 들고
+   *    카드마다 번호가 있다. 한 장만 색이 차 있으면 나머지가 꺼진 것처럼 보인다.
+   */
   return (
     <button
       onClick={onPlay}
-      className={`relative rounded-3xl p-3 lg:p-4 min-h-[120px] flex items-center gap-3 lg:gap-4 hover:-translate-y-0.5 active:translate-y-1 transition-all duration-100 ease-out text-left ${
-        primary
-          ? `${c.fill} ${c.shadow}`
-          : 'bg-white text-ink-900 shadow-[0_5px_0_#EDE1D4,0_6px_14px_rgba(63,47,36,0.10)] hover:shadow-[0_7px_0_#EDE1D4,0_10px_18px_rgba(63,47,36,0.14)] active:shadow-[0_2px_0_#EDE1D4,0_3px_6px_rgba(63,47,36,0.10)]'
-      }`}
+      className="relative rounded-3xl p-3 lg:p-4 min-h-[120px] flex items-center gap-3 lg:gap-4 hover:-translate-y-0.5 active:translate-y-1 transition-all duration-100 ease-out text-left bg-white text-ink-900 shadow-[0_5px_0_#EDE1D4,0_6px_14px_rgba(63,47,36,0.10)] hover:shadow-[0_7px_0_#EDE1D4,0_10px_18px_rgba(63,47,36,0.14)] active:shadow-[0_2px_0_#EDE1D4,0_3px_6px_rgba(63,47,36,0.10)]"
     >
       {numberBadge}
       {leftIllustration()}
       <div className="flex-1 flex flex-col items-start gap-1 min-w-0">
-        <span
-          className="text-xl lg:text-2xl font-black font-display"
-          style={primary ? { textShadow: c.textShadow } : undefined}
-        >
-          {game.label}
-        </span>
+        <span className="text-xl lg:text-2xl font-black font-display">{game.label}</span>
         {game.subtitle && (
-          <span
-            className={`text-xs lg:text-sm font-bold ${primary ? 'text-white' : 'text-ink-600'}`}
-          >
-            {game.subtitle}
-          </span>
+          <span className="text-xs lg:text-sm font-bold text-ink-600">{game.subtitle}</span>
         )}
       </div>
       {arrowCircle}
