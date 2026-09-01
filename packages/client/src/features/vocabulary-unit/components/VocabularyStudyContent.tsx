@@ -29,19 +29,48 @@ import { StoryImagePlayer } from '@/features/games/components/players/StoryImage
 import { PageOrderPlayer } from '@/features/games/components/players/PageOrderPlayer';
 import { WordDetailModal } from './WordDetailModal';
 
-/** 게임 카드 묶음 — 순서가 곧 화면 순서다. 낱말이 먼저, 책 내용이 다음. */
+/**
+ * 게임 카드 묶음 — 순서가 곧 화면 순서다. 낱말이 먼저, 책 내용이 다음.
+ * 🔴 묶음마다 **자기 색**을 준다(디자인 시스템: 학습=coral/peach · 게임=mint). 예전엔 첫 카드만
+ *    coral 이고 나머지가 흰색이었는데, 그건 게임 넷 중 「여기부터」를 고르라는 규칙이었다.
+ *    **대등한 선택지 둘**에 그 규칙을 쓰면 둘째가 곁다리로 보인다(사용자 2026-09-01).
+ *    묶음 안에 들어가서도 같은 색이 배경으로 깔려 「다른 방」이라는 게 읽힌다.
+ */
+const TONE = {
+  coral: {
+    panel: 'bg-peach-100/60 border-peach-200',
+    fill: 'bg-gradient-to-b from-coral-400 to-coral-500 text-white',
+    shadow: 'shadow-[0_6px_0_#B73A1F,0_8px_20px_rgba(255,94,58,0.35)]',
+    textShadow: '0 2px 0 rgba(167, 50, 25, 0.4)',
+    chip: 'bg-white/90 text-coral-600',
+    arrow: 'bg-white/95 text-coral-600',
+  },
+  mint: {
+    panel: 'bg-mint-100/60 border-mint-200',
+    fill: 'bg-gradient-to-b from-mint-400 to-mint-500 text-white',
+    shadow: 'shadow-[0_6px_0_#1F6749,0_8px_20px_rgba(58,168,126,0.35)]',
+    textShadow: '0 2px 0 rgba(31, 103, 73, 0.4)',
+    chip: 'bg-white/90 text-mint-600',
+    arrow: 'bg-white/95 text-mint-600',
+  },
+} as const;
+
+type Tone = keyof typeof TONE;
+
 const GAME_GROUPS = [
   {
     key: 'word' as const,
     emoji: '🔤',
     headingKey: 'study.wordGamesHeading',
     hintKey: 'study.wordGamesHint',
+    tone: 'coral' as const,
   },
   {
     key: 'story' as const,
     emoji: '📖',
     headingKey: 'study.storyGamesHeading',
     hintKey: 'study.storyGamesHint',
+    tone: 'mint' as const,
   },
 ];
 
@@ -109,76 +138,81 @@ export function VocabularyStudyContent({
 
   return (
     <>
-      {/* 묶음 고르기 — 두 장뿐이라 무엇을 고르는 화면인지 한눈에 읽힌다. */}
+      {/* 묶음 고르기 — 두 장뿐이라 무엇을 고르는 화면인지 한눈에 읽힌다.
+          🔴 아래가 비므로 카드를 화면 높이에 맞춰 키운다(작은 카드 둘 + 여백 60% 는 미완성으로 보인다). */}
       {openGroup === null && (
-        <section className="mb-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
-            {GAME_GROUPS.map(({ key, emoji, headingKey, hintKey }, i) => {
-              const count = games.filter((g) => g.group === key && g.available).length;
-              if (count === 0) return null;
-              return (
-                <GroupCard
-                  key={key}
-                  emoji={emoji}
-                  label={t(headingKey)}
-                  sub={t(hintKey)}
-                  count={count}
-                  primary={i === 0}
-                  onOpen={() => setOpenGroup(key)}
-                />
-              );
-            })}
-          </div>
+        <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+          {GAME_GROUPS.map(({ key, emoji, headingKey, hintKey, tone }) => {
+            const count = games.filter((g) => g.group === key && g.available).length;
+            if (count === 0) return null;
+            return (
+              <GroupCard
+                key={key}
+                emoji={emoji}
+                label={t(headingKey)}
+                sub={t(hintKey)}
+                count={count}
+                tone={tone}
+                onOpen={() => setOpenGroup(key)}
+              />
+            );
+          })}
         </section>
       )}
 
-      {/* 묶음 안 — 그 묶음의 게임만. 상단 pill 로 묶음 고르기로 되돌아간다. */}
-      {openGroup !== null && (
-        <section className="mb-6">
-          <div className="flex items-center gap-3 mb-3 px-1 flex-wrap">
-            <button
-              onClick={() => setOpenGroup(null)}
-              className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-pop transition break-keep"
-            >
-              ← {t('study.otherPlay')}
-            </button>
-            <h2 className="text-2xl lg:text-3xl font-black font-display text-ink-900 flex items-center gap-2">
-              <span>{GAME_GROUPS.find((g) => g.key === openGroup)?.emoji}</span>
-              <span>{t(GAME_GROUPS.find((g) => g.key === openGroup)!.headingKey)}</span>
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
-            {games
-              .filter((g) => g.group === openGroup)
-              .map((g, i, arr) => (
-                <GameCard
-                  key={g.id}
-                  game={g}
-                  index={i}
-                  // 🔴 「첫 번째」가 아니라 「첫 번째 **가능한**」 카드가 CTA — 1번이 비활성(데이터 없음)인
-                  //    단원에서 index===0 으로 잡으면 회색 카드가 CTA 자리를 차지해 CTA 가 0개가 된다.
-                  primary={i === arr.findIndex((x) => x.available)}
-                  done={false}
-                  onPlay={() => g.available && setActiveGame(g.id)}
-                />
-              ))}
-          </div>
-        </section>
-      )}
+      {/* 묶음 안 — 그 묶음 색이 배경으로 깔려 「다른 방」이라는 게 읽힌다. */}
+      {openGroup !== null &&
+        (() => {
+          const group = GAME_GROUPS.find((g) => g.key === openGroup)!;
+          const tone = TONE[group.tone];
+          const groupGames = games.filter((g) => g.group === openGroup);
+          const ctaId = groupGames.find((g) => g.available)?.id;
+          return (
+            <section className={`rounded-3xl border-4 p-4 sm:p-5 lg:p-6 ${tone.panel}`}>
+              <div className="flex items-center gap-3 mb-4 flex-wrap">
+                <button
+                  onClick={() => setOpenGroup(null)}
+                  className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-pop transition break-keep"
+                >
+                  ← {t('study.otherPlay')}
+                </button>
+                <h2 className="text-2xl lg:text-3xl font-black font-display text-ink-900 flex items-center gap-2 break-keep">
+                  <span>{group.emoji}</span>
+                  <span>{t(group.headingKey)}</span>
+                </h2>
+              </div>
 
-      {/* 단어 sub-section — 탭하면 단어 상세 모달. 낱말 놀이의 참고 자리라 그 묶음에서만 보인다. */}
-      {openGroup !== 'story' && (
-        <section>
-          <div className="flex items-baseline gap-3 mb-2 px-1">
-            <h2 className="text-2xl lg:text-3xl font-black font-display text-ink-900 flex items-center gap-2">
-              <span>📚</span>
-              <span>{t('study.wordsHeading')}</span>
-            </h2>
-            <span className="text-sm font-bold text-ink-700">{t('study.wordsHint')}</span>
-          </div>
-          <WordPreviewBanner words={unit.words} lang={lang} onWordClick={setSelectedWord} />
-        </section>
-      )}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
+                {groupGames.map((g, i) => (
+                  <GameCard
+                    key={g.id}
+                    game={g}
+                    index={i}
+                    // 🔴 「첫 번째」가 아니라 「첫 번째 **가능한**」 카드 — 1번이 비활성(데이터 없음)인
+                    //    책에서 index===0 으로 잡으면 회색 카드가 CTA 자리를 차지한다.
+                    primary={g.id === ctaId}
+                    tone={group.tone}
+                    onPlay={() => g.available && setActiveGame(g.id)}
+                  />
+                ))}
+              </div>
+
+              {/* 낱말 미리보기는 **낱말 묶음의 참고 자리**다 — 고르는 화면과 이야기 묶음엔 안 나온다. */}
+              {openGroup === 'word' && (
+                <div className="mt-6">
+                  <div className="flex items-baseline gap-3 mb-2 px-1">
+                    <h3 className="text-xl lg:text-2xl font-black font-display text-ink-900 flex items-center gap-2">
+                      <span>📚</span>
+                      <span>{t('study.wordsHeading')}</span>
+                    </h3>
+                    <span className="text-sm font-bold text-ink-700">{t('study.wordsHint')}</span>
+                  </div>
+                  <WordPreviewBanner words={unit.words} lang={lang} onWordClick={setSelectedWord} />
+                </div>
+              )}
+            </section>
+          );
+        })()}
 
       {/* 게임 모달 — full screen, VocabSourceProvider wrap */}
       <AnimatePresence>
@@ -294,55 +328,43 @@ function GroupCard({
   label,
   sub,
   count,
-  primary,
+  tone,
   onOpen,
 }: {
   emoji: string;
   label: string;
   sub: string;
-  /** 지금 할 수 있는 게임 수 — 책마다 다르므로 숫자로 알려 준다. */
+  /** 지금 할 수 있는 게임 수 — 책마다 다르므로 눌러 보기 전에 알려 준다. */
   count: number;
-  primary: boolean;
+  tone: Tone;
   onOpen: () => void;
 }) {
   const { t } = useTranslation('games');
+  const c = TONE[tone];
   return (
     <button
       onClick={onOpen}
-      className={`relative rounded-3xl p-4 lg:p-5 min-h-[132px] flex items-center gap-4 hover:-translate-y-0.5 active:translate-y-1 transition-all duration-100 ease-out text-left ${
-        primary
-          ? 'bg-gradient-to-b from-coral-400 to-coral-500 text-white shadow-[0_6px_0_#B73A1F,0_8px_20px_rgba(255,94,58,0.35)]'
-          : 'bg-white text-ink-900 shadow-[0_5px_0_#EDE1D4,0_6px_14px_rgba(63,47,36,0.10)]'
-      }`}
+      className={`relative rounded-3xl p-5 lg:p-6 min-h-[clamp(11rem,34vh,18rem)] flex flex-col items-center justify-center text-center gap-2 hover:-translate-y-0.5 active:translate-y-1 transition-all duration-100 ease-out ${c.fill} ${c.shadow}`}
     >
-      <div className="w-20 h-20 lg:w-24 lg:h-24 flex-shrink-0 flex items-center justify-center">
-        <span className="text-6xl">{emoji}</span>
-      </div>
-      <div className="flex-1 flex flex-col items-start gap-1 min-w-0">
-        <span
-          className="text-2xl lg:text-3xl font-black font-display break-keep"
-          style={primary ? { textShadow: '0 2px 0 rgba(167, 50, 25, 0.4)' } : undefined}
-        >
-          {label}
-        </span>
-        <span className={`text-sm font-bold break-keep ${primary ? 'text-white' : 'text-ink-600'}`}>
-          {sub}
-        </span>
-        <span
-          className={`mt-1 text-xs font-black px-2 py-0.5 rounded-full ${
-            primary ? 'bg-white/90 text-coral-600' : 'bg-coral-100 text-coral-600'
-          }`}
-        >
-          {t('study.groupCount', { count })}
-        </span>
-      </div>
-      <div
-        className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
-          primary ? 'bg-white/95 shadow-soft' : 'bg-coral-100'
-        }`}
+      <span className="text-[clamp(3rem,10vh,5.5rem)] leading-none" aria-hidden>
+        {emoji}
+      </span>
+      <span
+        className="text-3xl lg:text-4xl font-black font-display break-keep"
+        style={{ textShadow: c.textShadow }}
       >
-        <span className="text-2xl text-coral-600 font-black">→</span>
-      </div>
+        {label}
+      </span>
+      <span className="text-base lg:text-lg font-bold break-keep opacity-95">{sub}</span>
+      <span className={`mt-1 text-sm font-black px-3 py-1 rounded-full ${c.chip}`}>
+        {t('study.groupCount', { count })}
+      </span>
+      <span
+        className={`absolute bottom-4 right-4 w-11 h-11 rounded-full flex items-center justify-center shadow-soft ${c.arrow}`}
+        aria-hidden
+      >
+        <span className="text-2xl font-black">→</span>
+      </span>
     </button>
   );
 }
@@ -355,7 +377,7 @@ function GameCard({
   game,
   index,
   primary,
-  done,
+  tone,
   onPlay,
 }: {
   game: VocabGameOption;
@@ -367,16 +389,21 @@ function GameCard({
    * 거드는 역할만 한다. 어느 카드가 primary 인지는 호출부가 정한다(비활성 카드 회피).
    */
   primary: boolean;
-  done: boolean;
+  /** 이 카드가 속한 묶음 색 — 채움 카드와 배지가 그 색을 쓴다. */
+  tone: Tone;
   onPlay: () => void;
 }) {
-  const { t } = useTranslation('games');
-  // 좌상단 번호 배지 — 채움 카드 위에선 흰 배지, 흰 카드 위에선 coral 배지(둘 다 배경과 대비).
+  const c = TONE[tone];
+  // 좌상단 번호 배지 — 채움 카드 위에선 흰 배지, 흰 카드 위에선 묶음색 배지(둘 다 배경과 대비).
   const numberBadge = (
     <span
       aria-hidden
       className={`absolute top-3 left-3 w-8 h-8 rounded-full text-sm font-black flex items-center justify-center shadow-soft z-10 ${
-        primary ? 'bg-white text-coral-600 ring-2 ring-coral-200/50' : 'bg-coral-100 text-coral-600'
+        primary
+          ? `bg-white ring-2 ${tone === 'mint' ? 'text-mint-600 ring-mint-200/50' : 'text-coral-600 ring-coral-200/50'}`
+          : tone === 'mint'
+            ? 'bg-mint-100 text-mint-600'
+            : 'bg-coral-100 text-coral-600'
       }`}
     >
       {index + 1}
@@ -398,36 +425,20 @@ function GameCard({
     </div>
   );
 
-  // 우끝 → 화살표 동그라미 (채움 카드=흰 원 / 흰 카드=coral 연한 원)
+  // 우끝 → 화살표 동그라미 (채움 카드=흰 원 / 흰 카드=묶음색 연한 원)
   const arrowCircle = (
     <div
       className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
-        primary ? 'bg-white/95 shadow-soft' : 'bg-coral-100'
+        primary ? 'bg-white/95 shadow-soft' : tone === 'mint' ? 'bg-mint-100' : 'bg-coral-100'
       }`}
     >
-      <span className="text-2xl text-coral-600 font-black">→</span>
+      <span
+        className={`text-2xl font-black ${tone === 'mint' ? 'text-mint-600' : 'text-coral-600'}`}
+      >
+        →
+      </span>
     </div>
   );
-
-  if (done) {
-    // 완료 — success 톤 살짝 입체 + line-through 라벨
-    return (
-      <button
-        disabled
-        className="relative rounded-3xl p-5 min-h-[120px] flex items-center gap-5 bg-cream-50 border-4 border-success shadow-[0_4px_0_#3FA379,0_4px_12px_rgba(92,201,159,0.2)] cursor-default"
-      >
-        {numberBadge}
-        <span className="absolute top-3 right-3 text-3xl">✅</span>
-        {leftIllustration('opacity-70')}
-        <div className="flex-1 flex flex-col items-start gap-1 pr-2">
-          <span className="text-2xl lg:text-3xl font-black text-ink-700 line-through decoration-success decoration-4">
-            {game.label}
-          </span>
-          <span className="text-base font-black text-success">{t('study.done')}</span>
-        </div>
-      </button>
-    );
-  }
 
   if (!game.available) {
     // 비활성 — 평면 회색 (시각 시그널 일부러 약하게 두는 게 의도)
@@ -455,7 +466,7 @@ function GameCard({
       onClick={onPlay}
       className={`relative rounded-3xl p-3 lg:p-4 min-h-[120px] flex items-center gap-3 lg:gap-4 hover:-translate-y-0.5 active:translate-y-1 transition-all duration-100 ease-out text-left ${
         primary
-          ? 'bg-gradient-to-b from-coral-400 to-coral-500 text-white shadow-[0_6px_0_#B73A1F,0_8px_20px_rgba(255,94,58,0.35)] hover:shadow-[0_9px_0_#B73A1F,0_12px_24px_rgba(255,94,58,0.45)] active:shadow-[0_2px_0_#B73A1F,0_3px_6px_rgba(255,94,58,0.3)]'
+          ? `${c.fill} ${c.shadow}`
           : 'bg-white text-ink-900 shadow-[0_5px_0_#EDE1D4,0_6px_14px_rgba(63,47,36,0.10)] hover:shadow-[0_7px_0_#EDE1D4,0_10px_18px_rgba(63,47,36,0.14)] active:shadow-[0_2px_0_#EDE1D4,0_3px_6px_rgba(63,47,36,0.10)]'
       }`}
     >
@@ -464,7 +475,7 @@ function GameCard({
       <div className="flex-1 flex flex-col items-start gap-1 min-w-0">
         <span
           className="text-xl lg:text-2xl font-black font-display"
-          style={primary ? { textShadow: '0 2px 0 rgba(167, 50, 25, 0.4)' } : undefined}
+          style={primary ? { textShadow: c.textShadow } : undefined}
         >
           {game.label}
         </span>
