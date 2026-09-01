@@ -101,6 +101,30 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-consonant-sounds</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-vowel-sounds</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-double-final-consonant-reading</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-ganada-order</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.tangobook.co.kr/blog/hangul-consonant-writing-order</loc>
     <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
