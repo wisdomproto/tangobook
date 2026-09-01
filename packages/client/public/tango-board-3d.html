@@ -651,6 +651,25 @@ var SYL_COLS = 7;
 function splitSyllables(items){
   var by = items.slice().sort(function(a, b){ return (a.x - b.x) || (a.y - b.y); });
   var groups = [], cur = null;
+  /* 🔴 레고는 **폭이 아니라 틈**으로 나눈다. 고정 폭(7칸)으로 자르면 받침 있는
+        음절이 잘린다 — 실측 「간교」: ㄱ x0.5 · ㅏ x4.5 · ㄴ x2.8(폭 5) 이라 음절이
+        7.3칸이고, 7칸에서 끊겨 ㄴ 이 떨어져 나가 「교」만 남았다(자모는 다 읽었는데).
+        한 음절 안의 자모는 서로 겹쳐 놓이고 음절 사이에는 틈이 생기므로,
+        **앞 무리의 오른쪽 끝을 넘어서면** 새 음절이다(같은 판에서 틈 0.6칸). */
+  if (isLego()){
+    var right = -1e9;
+    by.forEach(function(it){
+      if (cur && it.x <= right + TUNE.legoSylGap){
+        cur.list.push(it);
+      } else {
+        cur = { x0: it.x, list: [it] };
+        groups.push(cur);
+        right = -1e9;
+      }
+      if (it.x + it.w > right) right = it.x + it.w;
+    });
+    return groups.map(function(g){ return g.list; });
+  }
   by.forEach(function(it){
     if (cur && (it.x + it.w) - cur.x0 <= SYL_COLS){ cur.list.push(it); return; }
     cur = { x0: it.x, list: [it] };
@@ -1260,11 +1279,15 @@ var TUNE = {
         올라온 JPEG 그대로에서는 그 반대.
      🔴 즉 **올라온 프레임으로 한 테스트는 실시간을 대신하지 못한다.** 그걸로
         재려면 먼저 좌우를 뒤집어 놓고 재야 한다. */
+  periodPeak: 0.60,              // 최고점의 이 비율을 넘는 **가장 작은** 국소최고 = 기본 주기
+  legoSylGap: 0.25,             // 앞 음절 오른쪽 끝에서 이만큼까지는 같은 음절(칸)
   legoFlip: 9,                   // 0=세로 1=좌우 -1=둘다 9=안함
   legoVMin: 60,                  // 이 밝기 아래는 채도를 못 믿는다
   legoMinArea: 0.0008,           // 화면 넓이의 이 비율보다 작으면 부스러기
   legoMinIou: 0.50,              // 형판과 이만큼은 닮아야 자모로 본다
-  legoCellTol: 0.30,             // 칸 크기가 중앙값에서 이만큼 벗어나면 자모가 아니다
+  legoSizeLo: 0.50,              // 자모의 긴 변이 중앙값의 이 배 미만이면 가짜
+  legoSizeHi: 1.80,              // 이 배를 넘어도 가짜 (가구 모서리 등)
+  legoFarAway: 3.0,              // 글자 무리에서 이만큼(긴 변 배수) 떨어지면 딴 판의 블록
   recoEveryMs: 250,           // 분석 간격 — 미리보기는 이것과 무관하게 매 프레임 그린다
   detW: 1440,   // 🔴 핀을 보려면 이 정도는 필요하다 — 672px 에선 핀이 2~3px 이라 모양 조건을 통과 못 한다                  // 🔴 판을 찾는 해상도 — 인식용 336px 버퍼를 빌려 쓰던 게 떨림의 주범
   gridLo: 0.45, gridHi: 0.668, // 격자 바닥 밝기 밴드 (무늬 모드를 끄면 이걸 쓴다)
@@ -2304,6 +2327,7 @@ function recognizeLegoDirect(){
     var hsv = M(new cv.Mat()); cv.cvtColor(rgb, hsv, cv.COLOR_RGB2HSV);
     var ch3 = M(new cv.MatVector()); cv.split(hsv, ch3);
     var sat = M(ch3.get(1)), val = M(ch3.get(2));
+    var vd = val.data;                       // 옆벽 떼기에 쓴다
     var bin = M(new cv.Mat());
     cv.threshold(sat, bin, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU);
     /* 어두운 데서는 채도가 못 믿을 값이 된다 — 밝기 바닥 하나. */
@@ -2321,21 +2345,82 @@ function recognizeLegoDirect(){
       var bx = st.intAt(i, 0), by = st.intAt(i, 1);
       var bw = st.intAt(i, 2), bh = st.intAt(i, 3), ba = st.intAt(i, 4);
       if (ba < minA) continue;
-      var blob = new Uint8Array(bw*bh);
+      var blob = new Uint8Array(bw*bh), vs = [];
       for (var y = 0; y < bh; y++)
         for (var x = 0; x < bw; x++)
-          if (ld[(by+y)*W + bx+x] === i) blob[y*bw + x] = 1;
+          if (ld[(by+y)*W + bx+x] === i){ blob[y*bw + x] = 1; vs.push(vd[(by+y)*W + bx+x]); }
       var m = matchLegoShape(blob, bw, bh);
+      /* 🔴 블록은 8mm 높이라 비스듬히 보면 **옆벽이 같이 잡힌다.** 그 벽이 글자의
+            트인 곳으로 밀고 들어와 ㄷ 이 「홈이 살짝 파인 네모」가 되고 ㅁ 에게 진다
+            (실측: ㄷ 0.63 vs ㅁ 0.68 — 사용자가 「저게 ㅁ 이랑 헷갈리냐」고 짚었다).
+            벽은 그늘져서 윗면보다 어둡다 — **그 덩어리 자신의 중앙값**으로 자르면
+            트인 곳이 열린다(같은 조각 ㄷ 0.83).
+       🔴 그런데 늘 자르면 안 된다 — 벽이 방해 안 하는 글자는 점수가 내려간다
+            (ㄱ 0.74→0.62 · ㅏ 0.71→0.57 · ㅛ 0.85→0.68). **둘 다 재서 이긴 쪽**을 쓴다.
+       🔴 문턱은 화면 전체가 아니라 덩어리마다 따로다 — 전체 분위수로 잘랐더니
+            이 조각은 그대로 ㅁ 이었다(블록마다 밝기가 다르다). */
+      if (vs.length > 20){
+        vs.sort(function(p, q){ return p - q; });
+        var vCut = vs[vs.length >> 1];
+        var top = new Uint8Array(bw*bh), nTop = 0;
+        for (y = 0; y < bh; y++)
+          for (x = 0; x < bw; x++)
+            if (blob[y*bw + x] && vd[(by+y)*W + bx+x] > vCut){ top[y*bw + x] = 1; nTop++; }
+        if (nTop > 40){
+          /* 🔴 벽을 뗐으면 **상자를 다시 잡는다.** 원래 상자에 형판을 늘려 맞추면
+                잉크는 줄었는데 틀은 그대로라 모양이 안 맞는다 — 파이썬에서는 다시
+                잡아서 ㄷ 0.82 가 나왔는데 앱에서는 그대로 둬서 ㅁ 0.67 이었다. */
+          var tx0 = bw, ty0 = bh, tx1 = -1, ty1 = -1;
+          for (y = 0; y < bh; y++)
+            for (x = 0; x < bw; x++)
+              if (top[y*bw + x]){
+                if (x < tx0) tx0 = x; if (x > tx1) tx1 = x;
+                if (y < ty0) ty0 = y; if (y > ty1) ty1 = y;
+              }
+          var cw2 = tx1 - tx0 + 1, ch2 = ty1 - ty0 + 1;
+          if (cw2 > 4 && ch2 > 4){
+            var cut2 = new Uint8Array(cw2*ch2);
+            for (y = 0; y < ch2; y++)
+              for (x = 0; x < cw2; x++) cut2[y*cw2 + x] = top[(ty0+y)*bw + tx0+x];
+            var m2 = matchLegoShape(cut2, cw2, ch2);
+            if (m2 && (!m || m2.iou > m.iou)) m = m2;
+          }
+        }
+      }
       if (!m || m.iou < TUNE.legoMinIou) continue;
+      /* 🔴 칸 크기는 형판의 **획 상자**로 나눈다 — 블록 전체 크기로 나누면 안 된다.
+            잡히는 덩어리는 획이지 블록이 아니다. ㄱ 은 5x3 블록인데 획 상자는
+            5x5 라, 블록 크기로 재면 세로가 40px/칸 · 가로가 24px/칸 으로 갈린다.
+            그 엉터리 값들이 무리를 이뤄서 **진짜 ㄷ 이 이상점으로 버려졌다**
+            (실측: ㄷ 0.67 로 맞혔는데 버린것에 들어가 「가굗」이 「가교」가 됐다). */
+      var tw = m.T.sw / CELL, th = m.T.sh / CELL;
       cand.push({ x:bx, y:by, w:bw, h:bh, iou:m.iou, T:m.T,
-                  cell:(bw/m.T.blockW + bh/m.T.blockH) / 2 });
+                  cell:(bw/Math.max(tw, 0.5) + bh/Math.max(th, 0.5)) / 2 });
     }
     mats.forEach(function(m2){ try { m2.delete(); } catch(e){} });
     if (!cand.length){ reco.legoInfo = { 후보:0 }; reco.ms = performance.now()-t0; return null; }
 
-    var cells = cand.map(function(c){ return c.cell; }).sort(function(p, q){ return p - q; });
-    var med = cells[cells.length >> 1];
-    var keep = cand.filter(function(c){ return Math.abs(c.cell - med)/med <= TUNE.legoCellTol; });
+    /* 🔴 **칸 크기로 거르지 않는다.** 원근 때문에 같은 판 안에서도 칸이 37~48px 로
+          벌어지고(가까운 쪽이 크다), 멀리 놓인 진짜 글자가 이상점이 되어 버려졌다 —
+          「가굗」의 받침 ㄷ 이 그렇게 사라져 「가교」로 읽혔다.
+          가짜를 가르는 건 칸 크기가 아니라 **덩치**다: 자모는 저희끼리 비슷하고
+          가구 모서리는 몇 배 길다(실측 긴 변 561px vs 자모 120px).
+          그리고 **자리** — 옆 판에 붙은 블록은 글자 무리에서 한참 떨어져 있다. */
+    var L = cand.map(function(c){ return Math.max(c.w, c.h); }).sort(function(p, q){ return p - q; });
+    var medL = L[L.length >> 1] || 1;
+    var keep = cand.filter(function(c){
+      var lg = Math.max(c.w, c.h);
+      return lg >= medL*TUNE.legoSizeLo && lg <= medL*TUNE.legoSizeHi;
+    });
+    if (keep.length > 1){
+      var cys = keep.map(function(c){ return c.y + c.h/2; }).sort(function(p, q){ return p - q; });
+      var mcy = cys[cys.length >> 1];
+      keep = keep.filter(function(c){ return Math.abs(c.y + c.h/2 - mcy) <= medL*TUNE.legoFarAway; });
+    }
+    /* 칸 크기는 이제 거르는 데 안 쓰고 **격자 좌표를 내는 데만** 쓴다. */
+    var med = keep.length
+      ? keep.reduce(function(s, c){ return s + c.cell; }, 0) / keep.length
+      : medL / 3;
     reco.boxes = cand.map(function(c){
       var ok = keep.indexOf(c) >= 0;
       return { x:c.x, y:H - c.y - c.h, w:c.w, h:c.h, ch: ok ? c.T.ch : '', color:0 };
@@ -3903,15 +3988,26 @@ function quadFromTopBottom(fillPx, buf, W, H){
     var lagLo, lagHi;
     if (isLego()){ lagLo = Math.max(5, Math.round(cellY*0.70)); lagHi = Math.round(cellY*1.45); }
     else { lagLo = Math.max(5, Math.round(cellY*0.5)); lagHi = Math.round(cellY*3.5); }
-    var bl = 0, bv = 0;
+    var corr = [], bl = 0, bv = 0;
     for (var lag = lagLo; lag <= lagHi; lag++){
       var sum = 0, n2 = 0;
       for (x2 = Math.max(0, xLo); x2 < Math.min(W, xHi) - lag; x2++){ sum += hp[x2]*hp[x2+lag]; n2++; }
-      if (!n2) continue;
+      if (!n2){ corr.push(0); continue; }
       var v = sum/n2;
+      corr.push(v);
       if (v > bv){ bv = v; bl = lag; }
     }
-    return bv > 0 ? bl : 0;
+    if (bv <= 0) return 0;
+    /* 🔴 상관은 **배음에서 더 높이 솟는다** — 최고점을 그대로 쓰면 주기의 두세 배를
+          집는다(실측: 국소최고 38 · 76 · 115 인데 최고는 76, 아래 띠는 참값 28 인데
+          56 이 최고). 배수 관계는 서로를 지지하므로, **가장 작은 국소 최고**가
+          기본 주기다. 반으로 한 번 나누는 옛 방어로는 세 배음을 못 잡는다. */
+    for (var q = 1; q < corr.length-1; q++){
+      if (!(corr[q] > corr[q-1] && corr[q] >= corr[q+1])) continue;
+      if (corr[q] < bv * TUNE.periodPeak) continue;
+      return lagLo + q;
+    }
+    return bl;
   }
   /* 테두리 쪽 25% 씩 — 가운데는 블록이 앉아 있어 주기가 흐려진다. */
   var pA = periodIn(0.05, 0.30), pB2 = periodIn(0.70, 0.95);
