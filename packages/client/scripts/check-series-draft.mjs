@@ -113,6 +113,8 @@ function checkSeries(key) {
   for (const [id, bk] of books) {
     for (const p of bk.pages) {
       for (const s of p.ko.split(/(?<=[.!?])\s+/)) {
+        // 🔴 시그니처(꼬리가 붕—)는 호리 규칙 ⑦처럼 **매 권 일부러 반복**한다 — 🔁 렌즈 제외(2026-09-01)
+        if (s.includes('꼬리가 붕')) continue;
         const t = s.trim();
         // 🔴 걸러야 할 것 둘 — 안 거르면 소음에 신호가 묻힌다(실측: 나간 시리즈에서 검출 33건 중 21건이 소음).
         //   ① 짧은 감탄·의성어 ② **대사 표지**(「엄마가 말했어요」) — 그림책에서 반복이 정상이다.
