@@ -1320,7 +1320,15 @@ var TUNE = {
   legoScore: 'iou',              // 'iou' = 넓이 겹침(주) · 'corr' = 상관
   legoTieGap: 0.06,              // 1·2위 겹침 차이가 이보다 작으면 상관으로 다시 겨룬다
   legoTieMargin: 0.05,           // 상관이 **비율로** 이만큼 앞서야 뒤집는다
-  legoChroma: 'lab',             // 'lab' = Lab 의 b*(파랑–노랑) · 'sat' = HSV 채도
+  /* 🔴 지금은 **노란 블록 전용**이다. 다른 색 블록을 쓰려면 여기서부터 손봐야 한다.
+     ⚠ 색 무관으로 만들려고 `dist`(판 색에서의 |a*|+|b*| 거리)를 붙여 재 봤는데
+        **더 나빴다** — 노랑 9장 기준 b* 9/9 vs dist 최고 7/9(MAD 배수 2·3·4·6·9 전부).
+        이유: 절대값으로 접으면 **부호를 잃는다**. 이 판은 약간 파랗고(b*<128) 블록은
+        누레서(b*>128) 그 **부호 차이가 곧 여유**인데, 거리로 바꾸면 그게 사라진다.
+        🔴 다른 색을 넣을 땐 **그 색 실사부터 받아서** 축을 다시 고를 것 —
+           파란 블록이면 b* 가 판보다 **낮아** 지금 코드로는 통째로 배경이 된다. */
+  legoChroma: 'lab',             // 'lab' = Lab b*(**노랑 전용**) · 'dist' = 판 색 거리(실험, 더 나쁨) · 'sat' = HSV 채도
+  legoPlateMad: 3,               // 'dist' 일 때만 — 판 자신의 산포(MAD) 배수
   legoCloseRect: 1,              // 1 = 닫기 커널을 사각으로(분리 가능 → 훨씬 싸다)
   legoWallCut: 1,                // 1 = 덩어리마다 V 를 갈라 **옆벽**을 뗀다(0=끔)
   legoShadowFill: 0.40,          // 돌기 그림자를 메우는 닫기 커널(칸 배수) — 0 이면 안 메운다
@@ -2493,15 +2501,57 @@ function recognizeLegoDirect(){
           그래도 **누런 기는 남는다**: 판은 파르스름하고(B≥R) 날아간 노랑은 R>B 다.
           b* 는 정확히 그 축을 재므로 쨍한 노랑과 날아간 노랑을 **함께** 잡는다.
           (a* 나 색상 H 는 못 쓴다 — 흰빛에 가까워지면 각이 불안정하다.) */
-    var chroma = sat;
+    var chroma = sat, preThresholded = false;
     var labM = null, ch4 = null;
-    if (TUNE.legoChroma === 'lab'){
+    if (TUNE.legoChroma !== 'sat'){
       labM = M(new cv.Mat()); cv.cvtColor(rgb, labM, cv.COLOR_RGB2Lab);
       ch4 = M(new cv.MatVector()); cv.split(labM, ch4);
-      chroma = M(ch4.get(2));                // b* — 128 이 무채색
+      if (TUNE.legoChroma === 'lab'){
+        chroma = M(ch4.get(2));              // b* — 128 이 무채색. **노랑 전용**
+      } else {
+        /* 🔴 b* 하나만 보면 **노랑에서만** 듣는다 — 파란 블록은 b* 가 판보다 **낮아서**
+              Otsu 가 통째로 배경으로 보낸다. 색을 안 가리려면 회색축이 아니라
+              **판 자신의 색에서 얼마나 먼가**를 재야 한다.
+           🔴 기준을 「무채색(128,128)」으로 두면 안 된다 — 이 판은 **약간 파랗다**.
+              그러면 판 자신이 이미 색을 좀 가진 셈이라 파란 블록과의 거리가 줄어든다.
+              판 색은 화면의 다수결로 얻는다(중앙값) — 판이 늘 화면의 대부분이다. */
+        var aM = M(ch4.get(1)), bM = M(ch4.get(2));
+        var ad = aM.data, bd2 = bM.data, NP = ad.length;
+        var ha = new Int32Array(256), hb = new Int32Array(256), q;
+        for (q = 0; q < NP; q++){ ha[ad[q]]++; hb[bd2[q]]++; }
+        function med(h){ var half = NP >> 1, acc = 0;
+          for (var v = 0; v < 256; v++){ acc += h[v]; if (acc >= half) return v; } return 128; }
+        var a0 = med(ha), b0 = med(hb);
+        var dist = M(new cv.Mat(rgb.rows, rgb.cols, cv.CV_8UC1));
+        var dd = dist.data;
+        for (q = 0; q < NP; q++){
+          var da = ad[q] - a0, db = bd2[q] - b0;
+          if (da < 0) da = -da; if (db < 0) db = -db;
+          var v2 = da + db; dd[q] = v2 > 255 ? 255 : v2;
+        }
+        /* 🔴 여기서 Otsu 를 쓰면 안 된다 — Otsu 는 **두 무리**로 가르는데 화면엔
+              판·글자·마루·책상이 있고, 빛에 날아간 글자는 **판 쪽에 붙어 있다**.
+              실측(가굥): 판 무리 중앙값 4·MAD 3 · 날아간 노랑 ~16 · 쨍한 노랑 ~70 인데
+              Otsu 가 33 을 잡아 날아간 글자를 통째로 배경으로 보냈다(9/9 → 7/9).
+              대신 **판 자신의 산포 배수**로 자른다 — 절대값이 아니라 무차원 배수다. */
+        var hdist = new Int32Array(512), q2;
+        for (q2 = 0; q2 < NP; q2++) hdist[dd[q2] > 511 ? 511 : dd[q2]]++;
+        function pct(h, frac){ var need = NP*frac, acc2 = 0;
+          for (var v = 0; v < 512; v++){ acc2 += h[v]; if (acc2 >= need) return v; } return 511; }
+        var dmed = pct(hdist, 0.5);
+        var habs = new Int32Array(512);
+        for (q2 = 0; q2 < NP; q2++){ var e = dd[q2] - dmed; habs[Math.min(511, e < 0 ? -e : e)]++; }
+        var mad = Math.max(1, pct(habs, 0.5));
+        var cut = dmed + TUNE.legoPlateMad*mad;
+        for (q2 = 0; q2 < NP; q2++) dd[q2] = dd[q2] >= cut ? 255 : 0;
+        reco.legoPlateAb = [a0, b0, dmed, mad, cut];
+        chroma = dist;
+        preThresholded = true;
+      }
     }
     var bin = M(new cv.Mat());
-    cv.threshold(chroma, bin, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU);
+    if (preThresholded) chroma.copyTo(bin);
+    else cv.threshold(chroma, bin, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU);
     /* 어두운 데서는 채도가 못 믿을 값이 된다 — 밝기 바닥 하나. */
     var lit = M(new cv.Mat());
     cv.threshold(val, lit, TUNE.legoVMin, 255, cv.THRESH_BINARY);
