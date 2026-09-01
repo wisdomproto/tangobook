@@ -668,7 +668,35 @@ function splitSyllables(items){
       }
       if (it.x + it.w > right) right = it.x + it.w;
     });
-    return groups.map(function(g){ return g.list; });
+    /* 🔴 **음절 경계를 정하는 건 틈이 아니라 「조합이 되느냐」다.** 가로 간격은
+          음절 안이든 밖이든 똑같이 벌어질 수 있어서 어떤 문턱을 골라도 못 가른다.
+          위의 틈 나누기는 **초안**일 뿐이고, 여기서 **음절이 못 된 무리를 이웃에
+          붙여 다시 세운다** — 붙여서 음절이 되면 그게 답이다.
+       ⚠ 틈 문턱을 손보거나 잰 폭으로 끝을 내는 길은 둘 다 막다른 길이다
+          (잰 폭은 열기 때문에 제 칸보다 작아 오히려 더 갈라진다 — 실측 3/6 → 1/6). */
+    var gl = groups.map(function(g){ return g.list; });
+    for (var pass = 0; pass < gl.length; pass++){
+      var moved = false;
+      for (var i = 0; i < gl.length; i++){
+        if (parseGroup(gl[i].slice()).length) continue;      // 이미 음절이 된다
+        var L = i > 0 ? gl[i-1] : null, R = i < gl.length-1 ? gl[i+1] : null;
+        if (!L && !R) continue;
+        /* 가까운 쪽부터 — 붙여서 음절이 되면 그쪽으로 */
+        var dl = L ? gl[i][0].x - (L[L.length-1].x + L[L.length-1].w) : 1e9;
+        var dr = R ? R[0].x - (gl[i][gl[i].length-1].x + gl[i][gl[i].length-1].w) : 1e9;
+        var order = (dl <= dr) ? [L, R] : [R, L];
+        for (var k = 0; k < 2; k++){
+          var nb = order[k]; if (!nb) continue;
+          if (!parseGroup(nb.concat(gl[i]).slice()).length) continue;
+          Array.prototype.push.apply(nb, gl[i]);
+          nb.sort(function(a, b){ return (a.x - b.x) || (a.y - b.y); });
+          gl.splice(i, 1); moved = true; break;
+        }
+        if (moved) break;
+      }
+      if (!moved) break;
+    }
+    return gl;
   }
   by.forEach(function(it){
     if (cur && (it.x + it.w) - cur.x0 <= SYL_COLS){ cur.list.push(it); return; }
@@ -1285,6 +1313,25 @@ var TUNE = {
   legoVMin: 60,                  // 이 밝기 아래는 채도를 못 믿는다
   legoMinArea: 0.0008,           // 화면 넓이의 이 비율보다 작으면 부스러기
   legoMinIou: 0.50,              // 형판과 이만큼은 닮아야 자모로 본다
+  legoMatchGrid: 40,             // 형판 맞추기 표본 격자 — 크기와 무관하게 이만큼만 잰다
+  /* 🔴 **겹침이 주 지표**다. 상관을 주로 써 봤더니 6장 중 3장 → 2장으로 나빠졌다
+     (가굗·가굥이 조각을 잃었다). 지금 판 주석의 결론이 이 판에서도 그대로다:
+     겹침은 전체 모양에, 상관은 어긋난 획에 강하다 — 그래서 상관은 **동점일 때만**. */
+  legoScore: 'iou',              // 'iou' = 넓이 겹침(주) · 'corr' = 상관
+  legoTieGap: 0.06,              // 1·2위 겹침 차이가 이보다 작으면 상관으로 다시 겨룬다
+  legoTieMargin: 0.05,           // 상관이 **비율로** 이만큼 앞서야 뒤집는다
+  legoCloseRect: 1,              // 1 = 닫기 커널을 사각으로(분리 가능 → 훨씬 싸다)
+  legoWallCut: 1,                // 1 = 덩어리마다 V 를 갈라 **옆벽**을 뗀다(0=끔)
+  legoShadowFill: 0.40,          // 돌기 그림자를 메우는 닫기 커널(칸 배수) — 0 이면 안 메운다
+                                 // 🔴 0.20 은 모자란다(6장 중 4장) · 0.40 에서 6/6
+  legoMaxBlob: 20,               // 이 칸수를 넘는 덩어리는 글자가 아니다(가구·다른 판)
+  legoNeck: 0.75,                // 프로파일 평균의 이 아래로 내려가야 「목」이다
+  legoSplitDepth: 2,             // 자르기 깊이 — 2면 조각 4개까지
+  legoMaxCuts: 2,                // 한 축에서 볼 골짜기 수 — 늘리면 조합이 폭발한다
+  legoMinLong: 4.2,              // 조각의 긴 변 하한(칸). 형판은 전부 5칸이고 마스크가 줄어드는 만큼 여유
+  legoSplitOk: 0.62,             // 이만큼 닮았으면 뭉친 게 아니다 — 안 자른다
+  legoSplitGain: 0.03,           // 자른 쪽이 이만큼은 나아야 받아들인다
+  legoWarpMax: 1600,             // 펴진 그림의 긴 변 상한
   legoSizeLo: 0.50,              // 자모의 긴 변이 중앙값의 이 배 미만이면 가짜
   legoSizeHi: 1.80,              // 이 배를 넘어도 가짜 (가구 모서리 등)
   legoFarAway: 3.0,              // 글자 무리에서 이만큼(긴 변 배수) 떨어지면 딴 판의 블록
@@ -1953,9 +2000,15 @@ function classifyPixelsLego(buf, W, H){
     /* 🔴 빈 판일 때가 위험하다 — Otsu 는 **무엇이든 둘로 가르므로** 판 잡음을
           블록이라 부른다. 바닥을 두고, 전경이 판을 뒤덮으면 못 읽은 것으로 친다. */
     if (t < TUNE.legoMinSat) cv.threshold(sat, bin, TUNE.legoMinSat, 1, cv.THRESH_BINARY);
+    /* 🔴 **닫기를 열기보다 먼저.** 블록 윗면에 광택 줄이 얹히면 그 자리 채도가
+          판 수준(17~32)까지 무너져 획이 세로로 갈린다 — 실측 「가규」의 둘째 ㄱ 이
+          세로획을 잃고 막대가 되어, 한 칸짜리 ㅡ 형판에 자리를 뺏겼다.
+          칸의 0.2배 커널로 먼저 메우면 획이 이어진다. */
+    var ckr = Math.max(3, (Math.round((reco.legoCell || CELL)*0.2) | 1));
+    var kc = M(cv.getStructuringElement(cv.MORPH_ELLIPSE, new cv.Size(ckr, ckr)));
+    cv.morphologyEx(bin, bin, cv.MORPH_CLOSE, kc);
     var k = M(cv.getStructuringElement(cv.MORPH_ELLIPSE, new cv.Size(5, 5)));
     cv.morphologyEx(bin, bin, cv.MORPH_OPEN, k);
-    cv.morphologyEx(bin, bin, cv.MORPH_CLOSE, k);
     var lab = new Uint8Array(bin.data);
     var fg = 0;
     for (var i = 0; i < lab.length; i++) if (lab[i]) fg++;
@@ -2300,6 +2353,104 @@ function matchTemplate(comp, W){
   return best;
 }
 
+/** 레고형 판을 **편다** — 위·아래 두 곳의 돌기 간격만으로.
+ *
+ *  🔴 판을 찾지 않는다. 돌기를 세지도 않는다. 필요한 건 「간격이 y 를 따라 얼마나
+ *     줄어드는가」 하나뿐이고, 그건 띠 두 개의 자기상관으로 나온다.
+ *     실측(거치대 프레임): 위 38px · 아래 28px → 펴고 나면 어디서나 24px.
+ *  🔴 상관은 **배음에서 더 높이 솟는다** — 최고점을 쓰면 주기의 두세 배를 집는다
+ *     (실측 국소최고 38·76·115 인데 최고는 76). 가장 작은 국소최고를 쓰고,
+ *     그래도 두 값의 비가 1.4 를 넘으면 배수로 보고 반씩 나눈다.
+ *  🔴 편 뒤에야 **칸 경계**가 생긴다 — 붙어 있는 자모를 자를 자리가 그것이다.
+ *     펴기 전에는 스냅할 격자가 없어서 아무 데나 잘랐고 전부 엉뚱했다.
+ */
+function legoBandPitch(gray, W, H, y0, y1){
+  var prof = new Float64Array(W), rows = 0, x, y;
+  for (y = Math.max(0, y0); y < Math.min(H, y1); y++){
+    rows++;
+    for (x = 0; x < W; x++) prof[x] += gray[y*W + x];
+  }
+  if (rows < 4) return 0;
+  for (x = 0; x < W; x++) prof[x] /= rows;
+  var R = Math.max(8, Math.round(W*0.05)), hp = new Float64Array(W);
+  for (x = 0; x < W; x++){
+    var s = 0, n = 0;
+    for (var d = -R; d <= R; d++){ var xx = x+d; if (xx >= 0 && xx < W){ s += prof[xx]; n++; } }
+    hp[x] = prof[x] - s/n;
+  }
+  var lo = 8, hi = Math.min(Math.round(W*0.15), W-R*2-40), corr = [];
+  for (var lag = lo; lag <= hi; lag++){
+    var sum = 0, m = 0;
+    for (x = R; x < W-R-lag; x++){ sum += hp[x]*hp[x+lag]; m++; }
+    corr.push(m ? sum/m : 0);
+  }
+  if (!corr.length) return 0;
+  var mx = 0;
+  for (var i = 0; i < corr.length; i++) if (corr[i] > mx) mx = corr[i];
+  if (mx <= 0) return 0;
+  for (i = 1; i < corr.length-1; i++)
+    if (corr[i] > corr[i-1] && corr[i] >= corr[i+1] && corr[i] >= mx*TUNE.periodPeak)
+      return lo + i;
+  var bi = 0;
+  for (i = 0; i < corr.length; i++) if (corr[i] === mx) bi = i;
+  return lo + bi;
+}
+
+/** 펴진 RGBA Mat 을 돌려준다(없으면 null). 부르는 쪽이 delete 한다. */
+function legoRectify(){
+  var W = detBuf.W, H = detBuf.H, mats = [];
+  function M(m){ mats.push(m); return m; }
+  function done(){ mats.forEach(function(m){ try { m.delete(); } catch(e){} }); }
+  try {
+    var raw = M(cv.matFromArray(H, W, cv.CV_8UC4, detBuf.buf));
+    var gray = M(new cv.Mat()); cv.cvtColor(raw, gray, cv.COLOR_RGBA2GRAY);
+    var gd = gray.data;
+    var yA = Math.round(H*0.32), yB = Math.round(H*0.64);
+    var pA = legoBandPitch(gd, W, H, Math.round(H*0.28), Math.round(H*0.36));
+    var pB = legoBandPitch(gd, W, H, Math.round(H*0.60), Math.round(H*0.68));
+    if (!pA || !pB){ reco.legoWarp = { why:'간격 못 잼' }; done(); return null; }
+    for (var t = 0; t < 3; t++){
+      if (pB > pA*1.4) pB = Math.round(pB/2);
+      else if (pA > pB*1.4) pA = Math.round(pA/2);
+      else break;
+    }
+    if (pA < 6 || pB < 6){ reco.legoWarp = { why:'간격 이상 ' + pA + '/' + pB }; done(); return null; }
+    var N = W / pA;
+    var rows = Math.abs(pA - pB) > 1e-6
+      ? (yB - yA) * Math.log(pA/pB) / (pA - pB)
+      : (yB - yA) / pA;
+    if (!(rows > 1)){ reco.legoWarp = { why:'줄수 이상' }; done(); return null; }
+    var cx = W/2, DW = N*CELL, DH = rows*CELL;
+    var src = M(cv.matFromArray(4, 1, cv.CV_32FC2, [
+      cx - N*pA/2, yA,  cx + N*pA/2, yA,  cx + N*pB/2, yB,  cx - N*pB/2, yB]));
+    var dst = M(cv.matFromArray(4, 1, cv.CV_32FC2, [0, 0, DW, 0, DW, DH, 0, DH]));
+    var Hm = M(cv.getPerspectiveTransform(src, dst));
+    /* 화면 네 귀퉁이가 다 들어가게 바깥 상자를 잡고, 너무 커지면 줄인다. */
+    var cor = M(cv.matFromArray(4, 1, cv.CV_32FC2, [0,0, W,0, W,H, 0,H]));
+    var out4 = M(new cv.Mat());
+    cv.perspectiveTransform(cor, out4, Hm);
+    var f = out4.data32F;
+    var x0 = Math.min(f[0], f[2], f[4], f[6]), x1 = Math.max(f[0], f[2], f[4], f[6]);
+    var y0 = Math.min(f[1], f[3], f[5], f[7]), y1 = Math.max(f[1], f[3], f[5], f[7]);
+    var k = Math.min(1, TUNE.legoWarpMax / Math.max(x1-x0, y1-y0));
+    var A = M(cv.matFromArray(3, 3, cv.CV_64F, [k, 0, -x0*k, 0, k, -y0*k, 0, 0, 1]));
+    var full = M(new cv.Mat()); cv.gemm(A, Hm, 1, new cv.Mat(), 0, full);
+    var ow = Math.round((x1-x0)*k), oh = Math.round((y1-y0)*k);
+    if (ow < 40 || oh < 40){ reco.legoWarp = { why:'결과 너무 작음' }; done(); return null; }
+    var rect = new cv.Mat();
+    cv.warpPerspective(raw, rect, full, new cv.Size(ow, oh),
+                       cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar(0,0,0,255));
+    reco.legoWarp = { 위:pA, 아래:pB, 칸:+(CELL*k).toFixed(1), 크기:[ow, oh] };
+    done();
+    return { mat: rect, cell: CELL*k };
+  } catch (e){
+    done();
+    reco.legoWarp = { why:(e && (e.message||e)) };
+    if (window.console) console.warn('legoRectify', e);
+    return null;
+  }
+}
+
 /** 레고형 판 — **모핑 없이** 바로 읽는다.
  *
  *  🔴 판을 안 찾고, 격자도 안 세우고, 화면을 펴지도 않는다. 필요한 건 자모의
@@ -2314,15 +2465,21 @@ function matchTemplate(comp, W){
 function recognizeLegoDirect(){
   if (!cvReady || !detBuf.buf) return null;
   var t0 = performance.now();
-  var W = detBuf.W, H = detBuf.H, N = W*H, mats = [];
+  var mats = [];
   function M(m){ mats.push(m); return m; }
   try {
-    var raw = M(cv.matFromArray(H, W, cv.CV_8UC4, detBuf.buf));
+    /* 🔴 **먼저 편다.** 펴야 칸이 어디서나 같아지고, 그래야 붙은 자모를 칸 경계에서
+          자를 수 있다. 못 펴면 편 적 없는 그림으로 그냥 읽는다(예전 동작). */
+    var rc = legoRectify();
+    var raw = rc ? M(rc.mat) : M(cv.matFromArray(detBuf.H, detBuf.W, cv.CV_8UC4, detBuf.buf));
+    var W = raw.cols, H = raw.rows, N = W*H;
+    reco.legoCell = rc ? rc.cell : 0;
     /* 🔴 detBuf 는 readPixels 라 **아래가 0** 이다. 그대로 두면 덩어리가 세로로
           거울이 되어 자모가 통째로 틀린다(실측: ㅏ 가 ㅓ 로, ㄱ 이 ㄷ 으로).
           여기서 한 번 바로 세우고, 그 뒤로는 사진과 같은 좌표로 다룬다. */
     var src = M(new cv.Mat());
     if (TUNE.legoFlip === 9) raw.copyTo(src); else cv.flip(raw, src, TUNE.legoFlip);
+    /* 편 그림도 원본과 같은 방향이므로 뒤집기는 그대로 적용된다(지금은 9=안 함). */
     var rgb = M(new cv.Mat()); cv.cvtColor(src, rgb, cv.COLOR_RGBA2RGB);
     var hsv = M(new cv.Mat()); cv.cvtColor(rgb, hsv, cv.COLOR_RGB2HSV);
     var ch3 = M(new cv.MatVector()); cv.split(hsv, ch3);
@@ -2334,9 +2491,22 @@ function recognizeLegoDirect(){
     var lit = M(new cv.Mat());
     cv.threshold(val, lit, TUNE.legoVMin, 255, cv.THRESH_BINARY);
     cv.bitwise_and(bin, lit, bin);
-    var k = M(cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(5, 5)));
+    /* 🔴 **닫기를 열기보다 먼저.** 블록 윗면에 광택 줄이 얹히면 그 자리 채도가
+          판 수준(17~32)까지 무너져 획이 세로로 갈린다 — 실측 「가규」의 둘째 ㄱ 이
+          세로획을 잃고 막대가 되어 한 칸짜리 ㅡ 형판에 자리를 뺏겼다.
+          칸의 0.2배 커널로 먼저 메우면 획이 이어진다. 순서를 뒤집으면 열기가
+          이미 끊어 놓은 뒤라 메울 게 남지 않는다. */
+    var cellNow0 = reco.legoCell || CELL;
+    /* 🔴 **옆벽을 먼저 뗀다** — 채도만 보면 블록 옆면까지 전경이라 ㄷ 의 입이 메워진다. */
+    if (TUNE.legoWallCut) legoCutWalls(bin, val, cellNow0);
+    /* 🔴 커널 모양이 곧 속도다 — 타원은 O(N·k²) 라 이 크기에서 160ms 를 쓴다.
+          사각은 분리 가능해서 OpenCV 가 두 번의 1차원 훑기로 끝낸다. */
+    var ckr = Math.max(3, (Math.round(cellNow0*TUNE.legoShadowFill) | 1));
+    var kc = M(cv.getStructuringElement(TUNE.legoCloseRect ? cv.MORPH_RECT : cv.MORPH_ELLIPSE,
+                                        new cv.Size(ckr, ckr)));
+    if (TUNE.legoShadowFill > 0) cv.morphologyEx(bin, bin, cv.MORPH_CLOSE, kc);
+    var k = M(cv.getStructuringElement(cv.MORPH_ELLIPSE, new cv.Size(5, 5)));
     cv.morphologyEx(bin, bin, cv.MORPH_OPEN, k);
-    cv.morphologyEx(bin, bin, cv.MORPH_CLOSE, k);
     var lab = M(new cv.Mat()), st = M(new cv.Mat()), cen = M(new cv.Mat());
     var n = cv.connectedComponentsWithStats(bin, lab, st, cen, 8, cv.CV_32S);
     var ld = lab.data32S, minA = N * TUNE.legoMinArea;
@@ -2345,57 +2515,42 @@ function recognizeLegoDirect(){
       var bx = st.intAt(i, 0), by = st.intAt(i, 1);
       var bw = st.intAt(i, 2), bh = st.intAt(i, 3), ba = st.intAt(i, 4);
       if (ba < minA) continue;
+      /* 🔴 자르기에 넣기 전에 **말도 안 되게 큰 덩어리는 뺀다.** 가구 모서리가
+            38칸짜리로 들어와 조각조각 잘리면서 가짜 후보를 여럿 만들어 냈고,
+            그게 칸 크기 무리를 흔들어 멀쩡한 글자를 밀어냈다 — 실측 「간교」가
+            그렇게 ㄱㅏㄱㅛㄴ(정확)에서 ㄱㅏㅜㅗㅛ 로 뒤집혔다.
+            한 음절은 길어야 10칸이고 두 음절이 붙어도 그 두 배다. */
+      var cellPre = reco.legoCell || CELL;
+      if (Math.max(bw, bh) > cellPre * TUNE.legoMaxBlob) continue;
       var blob = new Uint8Array(bw*bh), vs = [];
       for (var y = 0; y < bh; y++)
         for (var x = 0; x < bw; x++)
           if (ld[(by+y)*W + bx+x] === i){ blob[y*bw + x] = 1; vs.push(vd[(by+y)*W + bx+x]); }
-      var m = matchLegoShape(blob, bw, bh);
-      /* 🔴 블록은 8mm 높이라 비스듬히 보면 **옆벽이 같이 잡힌다.** 그 벽이 글자의
-            트인 곳으로 밀고 들어와 ㄷ 이 「홈이 살짝 파인 네모」가 되고 ㅁ 에게 진다
-            (실측: ㄷ 0.63 vs ㅁ 0.68 — 사용자가 「저게 ㅁ 이랑 헷갈리냐」고 짚었다).
-            벽은 그늘져서 윗면보다 어둡다 — **그 덩어리 자신의 중앙값**으로 자르면
-            트인 곳이 열린다(같은 조각 ㄷ 0.83).
-       🔴 그런데 늘 자르면 안 된다 — 벽이 방해 안 하는 글자는 점수가 내려간다
-            (ㄱ 0.74→0.62 · ㅏ 0.71→0.57 · ㅛ 0.85→0.68). **둘 다 재서 이긴 쪽**을 쓴다.
-       🔴 문턱은 화면 전체가 아니라 덩어리마다 따로다 — 전체 분위수로 잘랐더니
-            이 조각은 그대로 ㅁ 이었다(블록마다 밝기가 다르다). */
-      if (vs.length > 20){
-        vs.sort(function(p, q){ return p - q; });
-        var vCut = vs[vs.length >> 1];
-        var top = new Uint8Array(bw*bh), nTop = 0;
-        for (y = 0; y < bh; y++)
-          for (x = 0; x < bw; x++)
-            if (blob[y*bw + x] && vd[(by+y)*W + bx+x] > vCut){ top[y*bw + x] = 1; nTop++; }
-        if (nTop > 40){
-          /* 🔴 벽을 뗐으면 **상자를 다시 잡는다.** 원래 상자에 형판을 늘려 맞추면
-                잉크는 줄었는데 틀은 그대로라 모양이 안 맞는다 — 파이썬에서는 다시
-                잡아서 ㄷ 0.82 가 나왔는데 앱에서는 그대로 둬서 ㅁ 0.67 이었다. */
-          var tx0 = bw, ty0 = bh, tx1 = -1, ty1 = -1;
-          for (y = 0; y < bh; y++)
-            for (x = 0; x < bw; x++)
-              if (top[y*bw + x]){
-                if (x < tx0) tx0 = x; if (x > tx1) tx1 = x;
-                if (y < ty0) ty0 = y; if (y > ty1) ty1 = y;
-              }
-          var cw2 = tx1 - tx0 + 1, ch2 = ty1 - ty0 + 1;
-          if (cw2 > 4 && ch2 > 4){
-            var cut2 = new Uint8Array(cw2*ch2);
-            for (y = 0; y < ch2; y++)
-              for (x = 0; x < cw2; x++) cut2[y*cw2 + x] = top[(ty0+y)*bw + tx0+x];
-            var m2 = matchLegoShape(cut2, cw2, ch2);
-            if (m2 && (!m || m2.iou > m.iou)) m = m2;
-          }
+      var cellNow = reco.legoCell || CELL;
+      var parts = splitLego(blob, bw, bh, cellNow, 0);
+      parts.forEach(function(p){
+        if (!p.m || p.m.iou < TUNE.legoMinIou) return;
+        var ch = p.m.T.ch, iou = p.m.iou;
+        /* 🔴 예전엔 여기서 「ㅁ/ㅇ 인데 한 변이 열려 있으면 ㄷ」이라는 손 규칙을 걸었다.
+              **지웠다.** 그건 형판이 못 가르는 게 아니라 **마스크가 틀린** 것을 덧댄
+              것이었다 — 옆벽이 ㄷ 의 입을 메워 덩어리가 통째로 사각형이 됐고, 그래서
+              ㄷ 이 6위 밖으로 밀렸다(ㅇ 0.641 · ㅁ 0.625 · ㄷ 0.570). `legoCutWalls` 로
+              옆벽을 떼고 나니 켜나 끄나 결과가 **여섯 장 모두 같다**.
+           🔴 교훈: 짝마다 손 규칙을 붙이기 전에 **덩어리 그림부터 볼 것.**
+              마스크가 틀렸으면 어떤 자로 재도 틀린 답이 나온다. */
+        var qx0 = p.w, qy0 = p.h, qx1 = -1, qy1 = -1, yy, xx;
+        for (yy = 0; yy < p.h; yy++) for (xx = 0; xx < p.w; xx++) if (p.blob[yy*p.w+xx]){
+          if (xx < qx0) qx0 = xx; if (xx > qx1) qx1 = xx;
+          if (yy < qy0) qy0 = yy; if (yy > qy1) qy1 = yy;
         }
-      }
-      if (!m || m.iou < TUNE.legoMinIou) continue;
-      /* 🔴 칸 크기는 형판의 **획 상자**로 나눈다 — 블록 전체 크기로 나누면 안 된다.
-            잡히는 덩어리는 획이지 블록이 아니다. ㄱ 은 5x3 블록인데 획 상자는
-            5x5 라, 블록 크기로 재면 세로가 40px/칸 · 가로가 24px/칸 으로 갈린다.
-            그 엉터리 값들이 무리를 이뤄서 **진짜 ㄷ 이 이상점으로 버려졌다**
-            (실측: ㄷ 0.67 로 맞혔는데 버린것에 들어가 「가굗」이 「가교」가 됐다). */
-      var tw = m.T.sw / CELL, th = m.T.sh / CELL;
-      cand.push({ x:bx, y:by, w:bw, h:bh, iou:m.iou, T:m.T,
-                  cell:(bw/Math.max(tw, 0.5) + bh/Math.max(th, 0.5)) / 2 });
+        if (qx1 < qx0) return;
+        var T = p.m.T;
+        cand.push({ x:bx + p.dx + qx0, y:by + p.dy + qy0,
+                    w:qx1-qx0+1, h:qy1-qy0+1, iou:iou,
+                    T:(ch === T.ch) ? T : legoTemplateFor(ch) || T,
+                    cell:((qx1-qx0+1)/Math.max(T.sw/CELL, 0.5) +
+                          (qy1-qy0+1)/Math.max(T.sh/CELL, 0.5)) / 2 });
+      });
     }
     mats.forEach(function(m2){ try { m2.delete(); } catch(e){} });
     if (!cand.length){ reco.legoInfo = { 후보:0 }; reco.ms = performance.now()-t0; return null; }
@@ -2421,7 +2576,8 @@ function recognizeLegoDirect(){
     var med = keep.length
       ? keep.reduce(function(s, c){ return s + c.cell; }, 0) / keep.length
       : medL / 3;
-    reco.boxes = cand.map(function(c){
+    /* 편 그림 좌표라 원본 화면에 못 겹친다 — 편 경우엔 상자를 안 그린다. */
+    reco.boxes = rc ? [] : cand.map(function(c){
       var ok = keep.indexOf(c) >= 0;
       return { x:c.x, y:H - c.y - c.h, w:c.w, h:c.h, ch: ok ? c.T.ch : '', color:0 };
     });
@@ -2430,8 +2586,8 @@ function recognizeLegoDirect(){
                w:c.T.blockW, h:c.T.blockH };
     });
     var word = parseFree(items).join('');
-    reco.legoInfo = { 칸:+med.toFixed(1), 후보:cand.length, 자모:keep.length,
-                      버린것:cand.length - keep.length };
+    reco.legoInfo = { 폄:rc ? 1 : 0, 칸:+med.toFixed(1), 후보:cand.length,
+                      자모:keep.length, 버린것:cand.length - keep.length };
     reco.ms = performance.now() - t0;
     return { word:word, items:items, comps:cand.length,
              detail: cand.map(function(c){
@@ -2446,29 +2602,282 @@ function recognizeLegoDirect(){
   }
 }
 
+/** 뭉친 덩어리를 **칸 경계에서** 잘라 각각 맞춘다.
+ *
+ *  🔴 자모를 서로 붙여 놓으면 연결 덩어리가 하나로 뭉친다 — 「각교」는 자모 5개인데
+ *     덩어리가 4개였고, 뭉친 조각이 아무 형판과도 안 닮아 통째로 버려졌다.
+ *  🔴 자를 자리는 **칸 경계뿐**이다. 펴기 전에 4px 간격으로 훑어 봤더니 전부
+ *     엉뚱한 데를 잘랐다 — 스냅할 격자가 없으면 자를 근거도 없다. 이게 이 판에서
+ *     모핑이 필요한 진짜 이유다(ㄷ 이 ㅁ 으로 읽히던 건 원근이 아니라 옆벽이었다).
+ *  🔴 자른 게 **양쪽 다** 통짜보다 나아야 받아들인다 — 한쪽만 좋아지는 자리는
+ *     글자를 반 토막 낸 것이다.
+ */
+function splitLegoBlob(blob, bw, bh, cell, depth){
+  var whole = matchLegoShape(blob, bw, bh);
+  var wIou = whole ? whole.iou : 0;
+  if (wIou >= TUNE.legoSplitOk || depth >= 2 || cell < 6)
+    return [{ blob:blob, w:bw, h:bh, dx:0, dy:0, m:whole }];
+  function sub(x0, y0, w2, h2){
+    var a = new Uint8Array(w2*h2);
+    for (var y = 0; y < h2; y++)
+      for (var x = 0; x < w2; x++) a[y*w2 + x] = blob[(y0+y)*bw + x0+x];
+    return a;
+  }
+  var best = null, minPx = cell*cell*0.8;
+  for (var axis = 0; axis < 2; axis++){
+    var L = axis ? bh : bw;
+    for (var c = cell; c < L - cell*0.8; c += cell){
+      var cut = Math.round(c);
+      var aW = axis ? bw : cut, aH = axis ? cut : bh;
+      var dW = axis ? bw : bw-cut, dH = axis ? bh-cut : bh;
+      var A = sub(0, 0, aW, aH), D = axis ? sub(0, cut, dW, dH) : sub(cut, 0, dW, dH);
+      var na = 0, nd = 0, i;
+      for (i = 0; i < A.length; i++) if (A[i]) na++;
+      for (i = 0; i < D.length; i++) if (D[i]) nd++;
+      if (na < minPx || nd < minPx) continue;
+      var ma = matchLegoShape(A, aW, aH), md = matchLegoShape(D, dW, dH);
+      if (!ma || !md) continue;
+      var sc = Math.min(ma.iou, md.iou);
+      if (!best || sc > best.sc)
+        best = { sc:sc, axis:axis, cut:cut, A:A, aW:aW, aH:aH, D:D, dW:dW, dH:dH };
+    }
+  }
+  if (!best || best.sc <= wIou + TUNE.legoSplitGain)
+    return [{ blob:blob, w:bw, h:bh, dx:0, dy:0, m:whole }];
+  var left = splitLegoBlob(best.A, best.aW, best.aH, cell, depth+1);
+  var right = splitLegoBlob(best.D, best.dW, best.dH, cell, depth+1);
+  var ox = best.axis ? 0 : best.cut, oy = best.axis ? best.cut : 0;
+  right.forEach(function(p){ p.dx += ox; p.dy += oy; });
+  return left.concat(right);
+}
+
+/** 노란 덩어리에서 **옆벽을 뗀다** — 블록이 8mm 높이라 위에서 봐도 옆면이 같이 찍힌다.
+ *
+ *  🔴 옆면도 노란색이라 채도로는 절대 안 걸린다. 갈라 주는 건 **명도**다 —
+ *     실측 「가굗」의 받침 ㄷ: 윗면 V 144~203 · 옆벽 V 71~136. 그 옆벽이 입을
+ *     아래에서 먹어, 입이 3칸이어야 하는데 1칸으로 잡혔고 ㄷ 이 12위로 밀렸다.
+ *  🔴 문턱을 상수로 박으면 안 된다(조명이 프레임마다 다르다). 전역 Otsu 도 못 쓴다 —
+ *     그 프레임의 노란 화소 17만 중 13만이 가구 띠라 히스토그램을 가구가 지배한다.
+ *     **덩어리마다** 따로 가른다.
+ *  ⚠ Otsu 의 무차원 분리도 η 로 「가를 만한 덩어리인가」를 가리려 했으나 쓸 수 없다 —
+ *     실측 글자 0.74~0.77 · 가구 0.77 로 구분이 안 된다. 그래서 대신 **밝은 쪽이
+ *     얼마나 남는지**로 가린다: 너무 조금 남으면 두 무리가 아니라 그늘진 덩어리
+ *     하나를 억지로 쪼갠 것이다.
+ */
+function legoCutWalls(bin, val, cell){
+  var lab = new cv.Mat(), st = new cv.Mat(), cen = new cv.Mat();
+  var n = cv.connectedComponentsWithStats(bin, lab, st, cen, 8, cv.CV_32S);
+  if (n >= 2){
+    var ld = lab.data32S, vd = val.data, bd = bin.data, N = ld.length;
+    /* 라벨별 히스토그램 — 한 번 훑어 다 모은다(성분마다 다시 훑으면 O(성분×화소)). */
+    var hist = new Int32Array(n * 256);
+    for (var p = 0; p < N; p++){ var L = ld[p]; if (L) hist[L*256 + vd[p]]++; }
+    var thr = new Int32Array(n); thr.fill(-1);
+    for (var L2 = 1; L2 < n; L2++){
+      var base = L2*256, tot = 0, sum = 0, t;
+      for (t = 0; t < 256; t++){ tot += hist[base+t]; sum += t*hist[base+t]; }
+      if (tot < cell*cell) continue;                  // 한 칸도 안 되는 건 볼 것 없다
+      var sB = 0, wB = 0, best = -1, cut = 0, keep = 0;
+      for (t = 0; t < 256; t++){
+        wB += hist[base+t]; if (!wB) continue;
+        var wF = tot - wB; if (!wF) break;
+        sB += t*hist[base+t];
+        var mB = sB/wB, mF = (sum - sB)/wF, v = (wB/tot)*(wF/tot)*(mB-mF)*(mB-mF);
+        if (v > best){ best = v; cut = t; keep = wF/tot; }
+      }
+      if (keep >= 0.25) thr[L2] = cut;
+    }
+    for (var p2 = 0; p2 < N; p2++){
+      var L3 = ld[p2]; if (!L3) continue;
+      if (thr[L3] >= 0 && vd[p2] < thr[L3]) bd[p2] = 0;
+    }
+  }
+  lab.delete(); st.delete(); cen.delete();
+}
+
+/** 조각의 긴 변(칸). 🔴 **형판의 긴 변은 전부 정확히 5칸**이다(전수 확인) —
+ *  그보다 짧은 조각이 나오는 칼질은 조각을 만든 게 아니라 글자를 부순 것이다. */
+function legoLongCells(blob, w, h, cell){
+  var x0 = w, y0 = h, x1 = -1, y1 = -1;
+  for (var y = 0; y < h; y++) for (var x = 0; x < w; x++) if (blob[y*w+x]){
+    if (x < x0) x0 = x; if (x > x1) x1 = x;
+    if (y < y0) y0 = y; if (y > y1) y1 = y;
+  }
+  if (x1 < x0) return 0;
+  return Math.max(x1-x0+1, y1-y0+1) / cell;
+}
+
+function legoSub(blob, w, h, x0, y0, w2, h2){
+  var a = new Uint8Array(w2*h2);
+  for (var y = 0; y < h2; y++)
+    for (var x = 0; x < w2; x++) a[y*w2+x] = blob[(y0+y)*w + x0+x];
+  return a;
+}
+
+/** 뭉친 덩어리를 자른다 — 지금 판의 trySplit 과 같은 생각(가장 얇은 목).
+ *
+ *  🔴 자를 축은 **끝까지 잘라 본 뒤**의 최악 조각으로 고른다. 한 번 자른 결과만 보면
+ *     근시안이다 — 세 조각이 붙으면 첫 칼질 직후엔 어느 쪽도 온전한 글자가 아니라서
+ *     정작 옳은 칼질이 더 나빠 보인다(실측 「각」).
+ *  🔴 자리도 한 곳만 보지 않는다. 골짜기 몇 곳 + **끝에서 5칸** 되는 자리를 다 재 본다
+ *     (조각의 긴 변이 언제나 5칸이므로 그게 유력한 칼자리다).
+ */
+function splitLego(blob, w, h, cell, depth){
+  var res = splitLegoScored(blob, w, h, cell, depth || 0);
+  return res.parts;
+}
+
+function splitLegoScored(blob, w, h, cell, depth){
+  var own = matchLegoShape(blob, w, h);
+  var ownIou = own ? own.iou : 0;
+  var slack = cell*0.9, maxSide = 5*cell;
+  var tall = h > maxSide + slack, wide = w > maxSide + slack;
+  var self = { parts:[{ blob:blob, w:w, h:h, dx:0, dy:0, m:own }], score:ownIou };
+  if ((!tall && !wide) || depth >= TUNE.legoSplitDepth) return self;
+  var best = null, ax, i;
+  for (ax = 0; ax < 2; ax++){
+    var vert = (ax === 0);
+    if (vert && !tall) continue;
+    if (!vert && !wide) continue;
+    var L = vert ? h : w;
+    var prof = new Float64Array(L);
+    for (var y = 0; y < h; y++) for (var x = 0; x < w; x++)
+      if (blob[y*w+x]) prof[vert ? y : x]++;
+    var lo = (L*0.25)|0, hi = (L*0.75)|0;
+    if (hi <= lo) continue;
+    /* 🔴 **진짜 목만 후보로 삼는다.** 평평한 데까지 다 재면 가지가 폭발한다 —
+          한 프레임 1.7초가 그것이었다(깊이 3 x 축 2 x 골짜기 5). */
+    var mean = 0;
+    for (i = 0; i < L; i++) mean += prof[i];
+    mean /= L || 1;
+    var vals = [];
+    for (i = lo+1; i < hi; i++)
+      if (prof[i] <= prof[i-1] && prof[i] <= prof[i+1] && prof[i] < mean*TUNE.legoNeck)
+        vals.push([prof[i], i]);
+    vals.sort(function(p, q){ return p[0] - q[0]; });
+    var cuts = vals.slice(0, TUNE.legoMaxCuts).map(function(v){ return v[1]; });
+    var gk = lo, gv = 1e18;
+    for (i = lo; i <= hi; i++) if (prof[i] < gv){ gv = prof[i]; gk = i; }
+    if (cuts.indexOf(gk) < 0) cuts.push(gk);
+    [Math.round(maxSide), L - Math.round(maxSide)].forEach(function(e){
+      if (e > lo && e < hi && cuts.indexOf(e) < 0) cuts.push(e);
+    });
+    for (var ci = 0; ci < cuts.length; ci++){
+      var k = cuts[ci];
+      var aw = vert ? w : k, ah = vert ? k : h;
+      var bw2 = vert ? w : w-k, bh2 = vert ? h-k : h;
+      if (aw < 2 || ah < 2 || bw2 < 2 || bh2 < 2) continue;
+      var A = legoSub(blob, w, h, 0, 0, aw, ah);
+      var B = vert ? legoSub(blob, w, h, 0, k, bw2, bh2) : legoSub(blob, w, h, k, 0, bw2, bh2);
+      if (Math.min(legoLongCells(A, aw, ah, cell), legoLongCells(B, bw2, bh2, cell)) < TUNE.legoMinLong)
+        continue;
+      var ra = splitLegoScored(A, aw, ah, cell, depth+1);
+      var rb = splitLegoScored(B, bw2, bh2, cell, depth+1);
+      var sc = Math.min(ra.score, rb.score);
+      if (!best || sc > best.score){
+        var ox = vert ? 0 : k, oy = vert ? k : 0;
+        var parts = ra.parts.concat(rb.parts.map(function(p){
+          return { blob:p.blob, w:p.w, h:p.h, dx:p.dx+ox, dy:p.dy+oy, m:p.m };
+        }));
+        best = { parts:parts, score:sc };
+      }
+    }
+  }
+  if (!best || best.score <= Math.max(ownIou, TUNE.legoMinIou)) return self;
+  return best;
+}
+
 /** 덩어리 하나를 레고 형판 전부와 견줘 가장 닮은 것. 형판을 덩어리 상자에 맞춰 늘린다. */
-function matchLegoShape(blob, bw, bh){
+function legoTemplateFor(ch){
+  var tpls = legoTemplates || (legoData ? buildLegoTemplates() : null);
+  if (!tpls) return null;
+  for (var i = 0; i < tpls.length; i++) if (tpls[i].ch === ch) return tpls[i];
+  return null;
+}
+
+function matchLegoShape(blob, bw, bh, onlyCh){
   var tpls = legoTemplates || (legoData ? buildLegoTemplates() : null);
   if (!tpls || !tpls.length) return null;
-  var best = null;
+  var G = TUNE.legoMatchGrid, W32 = (G*G + 31) >> 5;
+  /* 🔴 형판은 **한 번만** GxG 비트셋으로 구워 둔다. 자르기 재귀가 한 프레임에
+        수백 번 맞춰 보는데, 그때마다 덩어리 크기대로 훑으면 7.2초가 나온다.
+        같은 격자에 맞춰 놓으면 비교가 낱말 몇 개 AND/OR 로 끝난다. */
+  if (!tpls._bits || tpls._bitsG !== G){
+    tpls.forEach(function(T){
+      var b2 = new Uint32Array(W32), n = 0;
+      for (var y = 0; y < G; y++){
+        var sy = T.by + (((y + 0.5) * T.sh / G) | 0);
+        for (var x = 0; x < G; x++){
+          var sx = T.bx + (((x + 0.5) * T.sw / G) | 0);
+          if (T.mask[sy*T.mw + sx]){ var k = y*G + x; b2[k >> 5] |= (1 << (k & 31)); n++; }
+        }
+      }
+      T.bits = b2; T.bitsN = n;
+    });
+    tpls._bits = true; tpls._bitsG = G;
+  }
+  var bb = new Uint32Array(W32), bn = 0;
+  for (var y2 = 0; y2 < G; y2++){
+    var by2 = ((y2 + 0.5) * bh / G) | 0;
+    for (var x2 = 0; x2 < G; x2++){
+      var bx2 = ((x2 + 0.5) * bw / G) | 0;
+      if (blob[by2*bw + bx2]){ var k2 = y2*G + x2; bb[k2 >> 5] |= (1 << (k2 & 31)); bn++; }
+    }
+  }
+  if (!bn) return null;
+  function pop(v){
+    v = v - ((v >> 1) & 0x55555555);
+    v = (v & 0x33333333) + ((v >> 2) & 0x33333333);
+    return (((v + (v >> 4)) & 0x0F0F0F0F) * 0x01010101) >> 24;
+  }
+  var best = null, second = null, probe = (window.__PROBE ? [] : null);
+  var scored = matchLegoShape._buf || (matchLegoShape._buf = []), ns = 0;
   for (var t = 0; t < tpls.length; t++){
     var T = tpls[t];
+    if (onlyCh && T.ch !== onlyCh) continue;
     /* 가로세로 비가 크게 다르면 볼 것도 없다 — 원근으로 눌려도 이만큼은 안 변한다. */
     var ar = (bw/bh) / (T.sw/T.sh);
     if (ar < 0.55 || ar > 1.8) continue;
-    var inter = 0, uni = 0;
-    for (var y = 0; y < bh; y++){
-      var sy = T.by + (((y + 0.5) * T.sh / bh) | 0);
-      for (var x = 0; x < bw; x++){
-        var sx = T.bx + (((x + 0.5) * T.sw / bw) | 0);
-        var a = blob[y*bw + x], b = T.mask[sy*T.mw + sx];
-        if (a | b) uni++;
-        if (a & b) inter++;
-      }
-    }
-    var iou = uni ? inter/uni : 0;
-    if (!best || iou > best.iou) best = { iou:iou, T:T };
+    var inter = 0;
+    for (var w = 0; w < W32; w++) inter += pop(bb[w] & T.bits[w]);
+    var iou = inter / (bn + T.bitsN - inter);
+    var nAll = G*G;
+    var cov = inter - (bn*T.bitsN)/nAll;
+    var va = bn - (bn*bn)/nAll, vb = T.bitsN - (T.bitsN*T.bitsN)/nAll;
+    var den = Math.sqrt(va*vb);
+    var corr = den > 1e-9 ? cov/den : 0;
+    var pick = (TUNE.legoScore === 'iou') ? iou : corr;
+    if (probe) probe.push({ ch:T.ch, key:T.key, iou:iou, corr:corr, ar:ar });
+    scored[ns++] = { pick:pick, iou:iou, corr:corr, T:T };
+    if (!best || pick > best.pick) best = scored[ns-1];
   }
+  /* 진단용 — window.__PROBE 가 배열일 때만 순위표를 남긴다(평소엔 null 이라 공짜). */
+  if (probe){ probe.sort(function(a,b){ return b.iou - a.iou; });
+    window.__PROBE.push({ w:bw, h:bh, only:onlyCh || null, top:probe.slice(0, 6) }); }
+  if (!best) return null;
+  /* 🔴 맞수는 **다른 글자 중 최고**여야 한다. 그냥 2위를 보면 안 된다 — ㅁ·ㅇ 은
+        회전이 넷이라 상위 넷이 전부 같은 글자로 채워지고, 그러면 맞수가 없다고
+        판단해 동점 뒤집기가 통째로 건너뛰어진다. */
+  for (var t2 = 0; t2 < ns; t2++){
+    var e = scored[t2];
+    if (e.T.ch === best.T.ch) continue;
+    if (!second || e.pick > second.pick) second = e;
+  }
+  /* 🔴 **겹침이 주 지표, 상관은 동점일 때만.** 둘은 잘하는 데가 다르다 — 겹침은
+        전체 모양에, 상관은 어긋난 획에 강하다. 상관을 주 지표로 삼으면 안 된다
+        (지금 판에서는 ㅎ 이 ㅌ 을 이겼고, 이 판에서도 6장 중 3장 → 2장으로 나빠졌다).
+        대신 겹침이 사실상 동전던지기인 짝은 상관이 깨끗하게 가른다 —
+        실측 「간교」의 받침: 겹침 ㅗ 0.665 / ㄴ 0.654 인데 상관은 0.50 / 0.59.
+     🔴 상관은 이미 센 숫자로 공짜다 — 이진 두 장이면 교집합과 각자 넓이만으로
+        TM_CCOEFF_NORMED 와 **같은 값**이 닫힌 식으로 나온다.
+     🔴 이 블록이 한 번 통째로 사라진 적이 있다(주 지표를 바꿔 보다가). 그때 손으로
+        붙인 짝 규칙들이 그 자리를 대신 메우고 있었다 — 지우기 전에 A/B 로 잴 것. */
+  if (second && best.pick - second.pick < TUNE.legoTieGap){
+    var rel = (best.corr - second.corr) / (Math.abs(best.corr) + Math.abs(second.corr) + 1e-6);
+    if (rel < -TUNE.legoTieMargin) best = second;
+  }
+  best.iou = best.pick;
+  best.tie = second ? second.T.ch : null;
   return best;
 }
 
