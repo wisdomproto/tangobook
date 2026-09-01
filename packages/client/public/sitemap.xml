@@ -101,6 +101,24 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-dictation-practice</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-diphthong-vowels</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-line-tracing</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.tangobook.co.kr/blog/how-to-teach-hangul-at-home</loc>
     <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
