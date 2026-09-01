@@ -103,7 +103,11 @@ export function VocabularyStudyPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-cream-50 to-peach-100">
-      <div className="px-6 max-w-[1600px] mx-auto">
+      {/* 🔴 `pt-*` 가 없으면 PageHeader 의 `mt-2` 가 **body 밖으로 새어**(마진 병합) 페이지 전체를
+          8px 밀어내고, 그 8px 에는 이 컨테이너의 cream 그라데이션이 안 칠해져 위쪽에 띠가 생긴다.
+          (실측: `#root` 에 padding 을 0.02px 만 줘도 body top 이 8 → 0 이 됐다.)
+          패딩이 병합을 막고, 그대로 위쪽 숨 쉴 자리가 된다. */}
+      <div className="px-6 pt-2 sm:pt-4 max-w-[1600px] mx-auto">
         <PageHeader
           onBack={() => navigate(bookId ? `/library/${bookId}` : '/library')}
           onHome={() => navigate('/library')}
