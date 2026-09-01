@@ -42,17 +42,6 @@ const PHONICS_DEMO: Record<string, { unit: string; activityKey?: string }> = {
   'read-ganada': { unit: 'kr-h1-u02' },
 };
 
-/**
- * 자연 도감 롱테일 글 — storybookId 가 고유 슬러그(nature-*)라 그대로 `/library/…` 로 보내면
- * 죽은 링크가 된다. 실제 자연관찰 책 id 로 매핑해 CTA·hero 가 그 책을 가리키게 한다.
- * 🔴 실제 책 id 를 storybookId 로 쓰면 그 책의 기존 마케팅 콘텐츠와 충돌하므로 슬러그를 쓴다.
- */
-const LINKED_BOOK: Record<string, string> = {
-  'nature-spider': '1773320745960',
-  'nature-dinosaur': '1773714531390',
-  'nature-space': '1773411238323',
-};
-
 const CAT_META: Record<string, { tKey: string; emoji: string; badge: string }> = {
   classic: { tKey: 'catClassic', emoji: '📖', badge: 'bg-coral-100 text-coral-600' },
   nature: { tKey: 'catNature', emoji: '🌿', badge: 'bg-mint-100 text-mint-600' },
@@ -107,18 +96,14 @@ export default function BlogPostPage() {
   //   허브 → 커리큘럼 랜딩 / 파닉스 단원 → 그 단원 학습 페이지 / 그 외 → 동화책 상세.
   // ⚠️ 비-ko 는 `/{lang}?to=…`(LangEntry) 그대로 둔다. 로그인 사용자는 자기 UI 언어를 유지하는 게
   //    규칙이라 한국어로 열리는데, 그건 2026-07-13 에 정한 의도된 동작이다(사용자 확인 2026-07-29).
-  // 자연 도감 슬러그는 실제 책 id 로 치환(그 외 책 블로그는 storybookId 가 이미 실제 id).
-  const linkedBookId = post?.storybookId
-    ? (LINKED_BOOK[post.storybookId] ?? post.storybookId)
-    : null;
   const bookHref = hubUnit
     ? '/library/phonics/korean' // 허브는 책이 아니라 커리큘럼으로
     : phonicsUnit
       ? `/library/phonics/korean/${phonicsUnit}` // 파닉스 단원 → 그 단원 학습 화면
-      : linkedBookId
+      : post?.storybookId
         ? lang === 'ko'
-          ? `/library/${linkedBookId}`
-          : `/${lang}?to=${encodeURIComponent(`/library/${linkedBookId}`)}`
+          ? `/library/${post.storybookId}`
+          : `/${lang}?to=${encodeURIComponent(`/library/${post.storybookId}`)}`
         : null;
 
   return (
