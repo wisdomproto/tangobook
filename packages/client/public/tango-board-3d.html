@@ -1249,8 +1249,16 @@ var TUNE = {
   /* 레고형 판 — 채도가 이만큼(0..255)은 있어야 블록으로 본다.
      Otsu 가 그보다 낮게 잡으면(=빈 판) 이 값을 쓴다. 실측 판 5~40 · 노랑 245~255. */
   legoMinSat: 90,
-  legoLit: 0.35,                 // 이 밝기(최대 대비) 아래는 그늘·바닥이라 결을 안 본다
-  legoTexQ: [0.25, 0.35, 0.45, 0.55],   // 결 문턱 후보(밝은 화소의 분위수)
+  /* 🔴 **좌우만 뒤집는다**(1). 거울이 좌우를 뒤집고, readPixels 가 세로를 한 번 더
+     뒤집는데, 그 둘이 합쳐지면 결과적으로 좌우 한 번이 답이다 —
+     네 가지를 다 돌려 재서 정했다(실측: 안함 `ㅡㅓㄷㅠ` · 세로 `ㅛㄴㅓㄴ` ·
+     둘다 `ㅛㅏ` · **좌우 `ㄱㄱㅏㅠ` = 「가규」**).
+     🔴 머리로 「거울+뒤쪽 카메라 = 180도」라고 단정했다가 두 번 틀렸다. 돌려 볼 것. */
+  legoFlip: 1,                   // 0=세로 1=좌우 -1=둘다 9=안함
+  legoVMin: 60,                  // 이 밝기 아래는 채도를 못 믿는다
+  legoMinArea: 0.0008,           // 화면 넓이의 이 비율보다 작으면 부스러기
+  legoMinIou: 0.50,              // 형판과 이만큼은 닮아야 자모로 본다
+  legoCellTol: 0.30,             // 칸 크기가 중앙값에서 이만큼 벗어나면 자모가 아니다
   recoEveryMs: 250,           // 분석 간격 — 미리보기는 이것과 무관하게 매 프레임 그린다
   detW: 1440,   // 🔴 핀을 보려면 이 정도는 필요하다 — 672px 에선 핀이 2~3px 이라 모양 조건을 통과 못 한다                  // 🔴 판을 찾는 해상도 — 인식용 336px 버퍼를 빌려 쓰던 게 떨림의 주범
   gridLo: 0.45, gridHi: 0.668, // 격자 바닥 밝기 밴드 (무늬 모드를 끄면 이걸 쓴다)
@@ -2259,6 +2267,116 @@ function matchTemplate(comp, W){
   if (best && second && best.scored - second.scored < TUNE.tieGap && best.T.ch !== second.T.ch){
     var win = tieBreakCv(comp, W, best.T, second.T);
     if (win && win === second.T) best = second;
+  }
+  return best;
+}
+
+/** 레고형 판 — **모핑 없이** 바로 읽는다.
+ *
+ *  🔴 판을 안 찾고, 격자도 안 세우고, 화면을 펴지도 않는다. 필요한 건 자모의
+ *     **모양**과 **상대 위치** 둘뿐이기 때문이다. 판을 찾으려던 길에서 하루를
+ *     썼는데(실루엣·네 변·24x24 창), 그 중 어느 것도 답에 필요하지 않았다.
+ *  🔴 가짜(가구 모서리·옆 판에 붙은 블록)는 **칸 크기의 다수결**로 걸러진다 —
+ *     진짜 자모는 저희끼리 같은 칸 크기를 말하고 가짜는 엉뚱한 크기를 말한다.
+ *     실측(거치대 프레임): 자모 넷이 29.8~33.2px/칸으로 모이고, 가구 모서리는
+ *     93.1px(+193%) · 옆 판의 블록은 21.9px(-31%) 이라 그대로 떨어졌다.
+ *  🔴 detBuf 를 **먼저 바로 세운다** — readPixels 라 아래가 0 이다.
+ */
+function recognizeLegoDirect(){
+  if (!cvReady || !detBuf.buf) return null;
+  var t0 = performance.now();
+  var W = detBuf.W, H = detBuf.H, N = W*H, mats = [];
+  function M(m){ mats.push(m); return m; }
+  try {
+    var raw = M(cv.matFromArray(H, W, cv.CV_8UC4, detBuf.buf));
+    /* 🔴 detBuf 는 readPixels 라 **아래가 0** 이다. 그대로 두면 덩어리가 세로로
+          거울이 되어 자모가 통째로 틀린다(실측: ㅏ 가 ㅓ 로, ㄱ 이 ㄷ 으로).
+          여기서 한 번 바로 세우고, 그 뒤로는 사진과 같은 좌표로 다룬다. */
+    var src = M(new cv.Mat());
+    if (TUNE.legoFlip === 9) raw.copyTo(src); else cv.flip(raw, src, TUNE.legoFlip);
+    var rgb = M(new cv.Mat()); cv.cvtColor(src, rgb, cv.COLOR_RGBA2RGB);
+    var hsv = M(new cv.Mat()); cv.cvtColor(rgb, hsv, cv.COLOR_RGB2HSV);
+    var ch3 = M(new cv.MatVector()); cv.split(hsv, ch3);
+    var sat = M(ch3.get(1)), val = M(ch3.get(2));
+    var bin = M(new cv.Mat());
+    cv.threshold(sat, bin, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU);
+    /* 어두운 데서는 채도가 못 믿을 값이 된다 — 밝기 바닥 하나. */
+    var lit = M(new cv.Mat());
+    cv.threshold(val, lit, TUNE.legoVMin, 255, cv.THRESH_BINARY);
+    cv.bitwise_and(bin, lit, bin);
+    var k = M(cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(5, 5)));
+    cv.morphologyEx(bin, bin, cv.MORPH_OPEN, k);
+    cv.morphologyEx(bin, bin, cv.MORPH_CLOSE, k);
+    var lab = M(new cv.Mat()), st = M(new cv.Mat()), cen = M(new cv.Mat());
+    var n = cv.connectedComponentsWithStats(bin, lab, st, cen, 8, cv.CV_32S);
+    var ld = lab.data32S, minA = N * TUNE.legoMinArea;
+    var cand = [];
+    for (var i = 1; i < n; i++){
+      var bx = st.intAt(i, 0), by = st.intAt(i, 1);
+      var bw = st.intAt(i, 2), bh = st.intAt(i, 3), ba = st.intAt(i, 4);
+      if (ba < minA) continue;
+      var blob = new Uint8Array(bw*bh);
+      for (var y = 0; y < bh; y++)
+        for (var x = 0; x < bw; x++)
+          if (ld[(by+y)*W + bx+x] === i) blob[y*bw + x] = 1;
+      var m = matchLegoShape(blob, bw, bh);
+      if (!m || m.iou < TUNE.legoMinIou) continue;
+      cand.push({ x:bx, y:by, w:bw, h:bh, iou:m.iou, T:m.T,
+                  cell:(bw/m.T.blockW + bh/m.T.blockH) / 2 });
+    }
+    mats.forEach(function(m2){ try { m2.delete(); } catch(e){} });
+    if (!cand.length){ reco.legoInfo = { 후보:0 }; reco.ms = performance.now()-t0; return null; }
+
+    var cells = cand.map(function(c){ return c.cell; }).sort(function(p, q){ return p - q; });
+    var med = cells[cells.length >> 1];
+    var keep = cand.filter(function(c){ return Math.abs(c.cell - med)/med <= TUNE.legoCellTol; });
+    reco.boxes = cand.map(function(c){
+      var ok = keep.indexOf(c) >= 0;
+      return { x:c.x, y:H - c.y - c.h, w:c.w, h:c.h, ch: ok ? c.T.ch : '', color:0 };
+    });
+    var items = keep.map(function(c){
+      return { ch:c.T.ch, x:c.x/med, y:c.y/med,
+               w:c.T.blockW, h:c.T.blockH };
+    });
+    var word = parseFree(items).join('');
+    reco.legoInfo = { 칸:+med.toFixed(1), 후보:cand.length, 자모:keep.length,
+                      버린것:cand.length - keep.length };
+    reco.ms = performance.now() - t0;
+    return { word:word, items:items, comps:cand.length,
+             detail: cand.map(function(c){
+               return { ch: keep.indexOf(c) >= 0 ? c.T.ch : '?', iou:+c.iou.toFixed(2),
+                        칸:+c.cell.toFixed(1) };
+             }) };
+  } catch (e){
+    mats.forEach(function(m2){ try { m2.delete(); } catch(e2){} });
+    reco.legoInfo = { 예외:(e && (e.message||e)) };
+    if (window.console) console.warn('recognizeLegoDirect', e);
+    return null;
+  }
+}
+
+/** 덩어리 하나를 레고 형판 전부와 견줘 가장 닮은 것. 형판을 덩어리 상자에 맞춰 늘린다. */
+function matchLegoShape(blob, bw, bh){
+  var tpls = legoTemplates || (legoData ? buildLegoTemplates() : null);
+  if (!tpls || !tpls.length) return null;
+  var best = null;
+  for (var t = 0; t < tpls.length; t++){
+    var T = tpls[t];
+    /* 가로세로 비가 크게 다르면 볼 것도 없다 — 원근으로 눌려도 이만큼은 안 변한다. */
+    var ar = (bw/bh) / (T.sw/T.sh);
+    if (ar < 0.55 || ar > 1.8) continue;
+    var inter = 0, uni = 0;
+    for (var y = 0; y < bh; y++){
+      var sy = T.by + (((y + 0.5) * T.sh / bh) | 0);
+      for (var x = 0; x < bw; x++){
+        var sx = T.bx + (((x + 0.5) * T.sw / bw) | 0);
+        var a = blob[y*bw + x], b = T.mask[sy*T.mw + sx];
+        if (a | b) uni++;
+        if (a & b) inter++;
+      }
+    }
+    var iou = uni ? inter/uni : 0;
+    if (!best || iou > best.iou) best = { iou:iou, T:T };
   }
   return best;
 }
@@ -3625,23 +3743,6 @@ function findPlayQuad(){
         그림자가 지면 무너졌다 — 다섯 프레임 중 둘만 읽혔다. 격자는 그 둘과 무관하고
         원근까지 같이 풀린다(파이썬/OpenCV 로 다섯 장 전부 확인하고 옮겼다).
         테두리 길은 남겨 두고, 격자가 실패할 때만 쓴다. */
-  /* 🔴 레고 판은 **판 자체를 물체로** 잡는다 — 돌기 격자로 창을 자르지 않는다.
-        위·아래 변은 거치대에서 언제나 화면 안에 들어오지만 좌·우는 잘릴 수 있다.
-        그래서 위·아래 선만 긋고, 가로 배율은 **위쪽 띠와 아래쪽 띠에서 돌기 주기를
-        따로 재서** 사다리꼴로 만든다(quadFromTopBottom). 가로 위치가 조금 어긋나도
-        낱말은 상대 위치로 읽으므로 상관없다. */
-  if (isLego()){
-    var px = legoPlateMask(detBuf.buf, detBuf.W, detBuf.H);
-    var lq2 = px ? legoPlateQuad(px, detBuf.W, detBuf.H) : null;
-    var how = '네 변';
-    if (!lq2 && px){ lq2 = quadFromTopBottom(px, detBuf.buf, detBuf.W, detBuf.H); how = '위아래+주기'; }
-    if (lq2){
-      reco.playInfo = { kind:'판(물체)', 방법:how, plate:reco.legoPlate,
-                        quad:reco.legoQuadInfo, 주기:reco.ringPeriod };
-      return lq2.map(function(p){ return [p[0]/detBuf.W, p[1]/detBuf.H]; });
-    }
-    reco.latWhy = px ? '레고 사각형 실패' : '레고 판 못 찾음';
-  }
   var lat = (TUNE.useLattice && cvReady) ? cvLatticeQuad() : null;
   if (lat){ reco.playInfo = { kind:'격자(cv)', lat:reco.latInfo }; return lat; }
   if (!lat && TUNE.useLattice) lat = findPlayQuadLattice();
@@ -3724,174 +3825,6 @@ function openMaskEnd(){}
       돌기가 흐려도 주기는 남는다.
    세로는 두 선 사이 간격에서 얻고(그 사이가 인식부 세로 + 위아래 한 칸씩),
    가로 원점은 보이는 구간 한가운데에 둔다 — 낱말은 자모의 상대 위치로 읽는다. */
-/** 레고 판의 실루엣 — 돌기를 세지 않고 **판을 물체로** 잡는다.
- *
- *  🔴 돌기 격자로 찾던 길을 버렸다. 판을 24x24 창으로 잘라내려면 돌기 500개를
- *     하나하나 맞춰야 하는데, ①블록이 판의 절반을 덮으면 창이 엉뚱한 데로 밀리고
- *     ②돌기 하나가 하이라이트 때문에 두 조각으로 갈라져 간격이 절반으로 잡힌다.
- *     판은 그냥 **큰 사각형 물체**다 — 그걸 통째로 분할하는 게 훨씬 단단하다.
- *  🔴 가르는 근거는 밝기가 아니라 **결**이다. 판은 돌기 때문에 오돌토돌하고
- *     상판·마루는 매끈하다. 밝기로 가르면 회색 판이 흰 상판·나무 마루·검은 의자
- *     중 무엇과도 겹친다(실측: Otsu 가 마루까지 한 덩어리로 삼켰다).
- *     블록도 결이 있지만 판 **안**에 있으니 같은 덩어리가 되어 오히려 좋다.
- *  ⚠ 어두운 데(의자·그늘)는 잡음이 결처럼 보이므로 밝기 바닥을 하나 둔다.
- */
-function legoPlateMask(buf, W, H){
-  if (!cvReady) return null;
-  var mats = [];
-  function M(m){ mats.push(m); return m; }
-  try {
-    var src = M(cv.matFromArray(H, W, cv.CV_8UC4, buf));
-    var gray = M(new cv.Mat()); cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
-    var f = M(new cv.Mat()); gray.convertTo(f, cv.CV_32F);
-    /* 🔴 필터 크기는 **해상도에 따라 같이 커져야 한다.** 이 값들은 720px 짜리
-          그림에서 재서 정했는데(파이썬), 앱은 1080x1440 으로 본다. 그대로 쓰면
-          상대적으로 작아져 결 마스크가 잘게 남고, 열기/닫기가 그걸 못 지워
-          판 덩어리에 꼬리가 붙는다 — 실측: 판은 화면의 0.466 인데 덩어리 상자가
-          화면 끝(1079/1439)까지 뻗어 네 변 판정이 통째로 막혔다. */
-    var sc = Math.min(W, H) / 720;
-    var blurSig = 4 * sc;
-    var texR = (Math.round(21*sc) | 1);
-    var morphR = Math.max(3, Math.round(15*sc));
-    var bridgeR = Math.max(5, Math.round(Math.min(W, H)*0.03) | 1);   // 이음매 끊는 반지름
-    var soft = M(new cv.Mat()); cv.GaussianBlur(f, soft, new cv.Size(0, 0), blurSig, blurSig);
-    var hi = M(new cv.Mat()); cv.absdiff(f, soft, hi);
-    var tex = M(new cv.Mat()); cv.boxFilter(hi, tex, -1, new cv.Size(texR, texR));
-    var gd = gray.data, td = tex.data32F, N = W*H;
-    var gMax = 0, i;
-    for (i = 0; i < N; i++) if (gd[i] > gMax) gMax = gd[i];
-    var litCut = gMax * TUNE.legoLit;
-    /* 결 문턱은 **밝은 곳의 분위수**로 잡는다 — 절대값으로 두면 조명 따라 뒤집힌다. */
-    var vals = [];
-    for (i = 0; i < N; i += 7) if (gd[i] > litCut) vals.push(td[i]);
-    if (vals.length < 100) { mats.forEach(function(m){ m.delete(); }); return null; }
-    vals.sort(function(a, b){ return a - b; });
-    var best = null;
-    for (var qi = 0; qi < TUNE.legoTexQ.length; qi++){
-      var t = Math.max(vals[Math.floor(vals.length * TUNE.legoTexQ[qi])], 1.0);
-      var bin = M(new cv.Mat(H, W, cv.CV_8UC1));
-      var bd = bin.data;
-      for (i = 0; i < N; i++) bd[i] = (td[i] > t && gd[i] > litCut) ? 255 : 0;
-      var k = M(cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(morphR, morphR)));
-      cv.morphologyEx(bin, bin, cv.MORPH_CLOSE, k);
-      cv.morphologyEx(bin, bin, cv.MORPH_OPEN, k);
-      /* 🔴 **가는 이음매를 끊는다.** 판 밖에 놓인 블록·상판 모서리·마룻바닥 띠가
-            그림자를 통해 판과 이어져 한 덩어리가 된다 — 실측: 판은 화면의 0.55
-            인데 덩어리 상자가 화면 끝까지 뻗어 네 변 판정이 통째로 막혔다.
-            크게 깎았다가 다시 부풀리면 굵은 판만 살아남고 실 같은 이음매는 끊긴다. */
-      var kb = M(cv.getStructuringElement(cv.MORPH_ELLIPSE, new cv.Size(bridgeR, bridgeR)));
-      cv.erode(bin, bin, kb);
-      var lab = M(new cv.Mat()), st = M(new cv.Mat()), cen = M(new cv.Mat());
-      var n = cv.connectedComponentsWithStats(bin, lab, st, cen, 8, cv.CV_32S);
-      var bi = 0, ba = 0;
-      for (i = 1; i < n; i++){ var a = st.intAt(i, 4); if (a > ba){ ba = a; bi = i; } }
-      if (!bi || ba < N*0.05) continue;
-      if (!best || ba > best.area){
-        var one = M(new cv.Mat(H, W, cv.CV_8UC1));
-        var od = one.data, ld = lab.data32S;
-        for (i = 0; i < N; i++) od[i] = (ld[i] === bi) ? 255 : 0;
-        cv.dilate(one, one, kb);                    // 깎은 만큼 되돌린다
-        var px = [], cnt2 = 0;
-        for (i = 0; i < N; i++) if (od[i]){ px.push(i); cnt2++; }
-        best = { area: cnt2, px: px, q: TUNE.legoTexQ[qi] };
-      }
-    }
-    mats.forEach(function(m){ try { m.delete(); } catch(e){} });
-    if (best) reco.legoPlate = { 넓이비:+(best.area/N).toFixed(3), 분위:best.q };
-    return best ? best.px : null;
-  } catch (e){
-    mats.forEach(function(m){ try { m.delete(); } catch(e2){} });
-    if (window.console) console.warn('legoPlateMask', e);
-    return null;
-  }
-}
-
-/** 판 실루엣에 **직선 네 개**를 맞춰 사각형을 낸다.
- *
- *  🔴 껍질에 approxPolyDP 를 거는 길은 버렸다 — 실루엣에 삐죽 붙은 조각 하나가
- *     모서리를 통째로 끌고 간다(파이썬 실측: 세 장 중 둘이 그렇게 샜다).
- *     변마다 경계 점을 모아 선을 맞추면 그 조각은 이상점이라 다듬기에서 떨어진다.
- *  🔴 좌·우 변이 **화면에 잘리면** 쓸 수 없다(거치대에서 흔히 그렇다) — 그때는
- *     null 을 주고 부르는 쪽이 위·아래 + 돌기 주기 길로 간다.
- */
-function legoPlateQuad(fillPx, W, H){
-  var edge = Math.max(4, Math.round(Math.min(W, H)*0.01));
-  var top = new Int32Array(W).fill(-1), bot = new Int32Array(W).fill(1<<29);
-  var lef = new Int32Array(H).fill(1<<29), rig = new Int32Array(H).fill(-1);
-  var i, x, y, xLo = W, xHi = -1, yLo = H, yHi = -1;
-  for (i = 0; i < fillPx.length; i++){
-    x = fillPx[i] % W; y = (fillPx[i] / W) | 0;
-    if (y > top[x]) top[x] = y;
-    if (y < bot[x]) bot[x] = y;
-    if (x < lef[y]) lef[y] = x;
-    if (x > rig[y]) rig[y] = x;
-    if (x < xLo) xLo = x; if (x > xHi) xHi = x;
-    if (y < yLo) yLo = y; if (y > yHi) yHi = y;
-  }
-  /* 네 변이 다 화면 안에 있어야 이 길을 쓴다. */
-  if (xLo <= edge || xHi >= W-1-edge || yLo <= edge || yHi >= H-1-edge) return null;
-
-  /* 가장자리 10% 는 버린다 — 모서리 둥근 데라 선을 휘게 한다. */
-  function collect(arr, n, along, valid){
-    var cut = Math.round(n*0.10), out = [];
-    for (var k = cut; k < n-cut; k++) if (valid(arr[k])) out.push(along ? [k, arr[k]] : [arr[k], k]);
-    return out;
-  }
-  var TP = collect(top, W, true, function(v){ return v >= 0; });
-  var BP = collect(bot, W, true, function(v){ return v < (1<<29); });
-  var LP = collect(lef, H, false, function(v){ return v < (1<<29); });
-  var RP = collect(rig, H, false, function(v){ return v >= 0; });
-  if (TP.length < W*0.3 || BP.length < W*0.3 || LP.length < H*0.3 || RP.length < H*0.3) return null;
-
-  /* v = a*u + b. 잔차 큰 25% 를 두 번 떼고 다시 맞춘다. */
-  function fitAxis(pts, swap){
-    var cur = pts;
-    var f = null;
-    for (var pass = 0; pass < 3; pass++){
-      var n = cur.length, su = 0, sv = 0, suu = 0, suv = 0, k;
-      for (k = 0; k < n; k++){
-        var u = swap ? cur[k][1] : cur[k][0], v = swap ? cur[k][0] : cur[k][1];
-        su += u; sv += v; suu += u*u; suv += u*v;
-      }
-      var d = n*suu - su*su;
-      if (Math.abs(d) < 1e-9) return f;
-      f = { a: (n*suv - su*sv)/d, b: (sv*suu - su*suv)/d };
-      if (n < 12 || pass === 2) break;
-      var r = cur.map(function(p){
-        var u2 = swap ? p[1] : p[0], v2 = swap ? p[0] : p[1];
-        return Math.abs(v2 - (f.a*u2 + f.b));
-      }).slice().sort(function(p, q){ return p - q; });
-      var lim = r[Math.floor(r.length*0.75)];
-      var keep = cur.filter(function(p){
-        var u3 = swap ? p[1] : p[0], v3 = swap ? p[0] : p[1];
-        return Math.abs(v3 - (f.a*u3 + f.b)) <= lim;
-      });
-      if (keep.length < 8) break;
-      cur = keep;
-    }
-    return f;
-  }
-  var T = fitAxis(TP, false), B = fitAxis(BP, false);   // y = a*x + b
-  var L = fitAxis(LP, true),  R = fitAxis(RP, true);    // x = a*y + b
-  if (!T || !B || !L || !R) return null;
-  function X(hz, vt){
-    var den = 1 - hz.a*vt.a;
-    if (Math.abs(den) < 1e-9) return null;
-    var yy = (hz.a*vt.b + hz.b)/den;
-    return [vt.a*yy + vt.b, yy];
-  }
-  var c1 = X(B, L), c2 = X(B, R), c3 = X(T, R), c4 = X(T, L);
-  if (!c1 || !c2 || !c3 || !c4) return null;
-  var quad = [c1, c2, c3, c4];
-  var sd = [];
-  for (i = 0; i < 4; i++) sd.push(Math.hypot(quad[i][0]-quad[(i+1)%4][0], quad[i][1]-quad[(i+1)%4][1]));
-  var ratio = Math.min.apply(null, sd) / Math.max.apply(null, sd);
-  reco.legoQuadInfo = { 변비:+ratio.toFixed(2), 변:sd.map(function(v){ return Math.round(v); }) };
-  /* 정사각 판이 원근으로 눌려도 짧은 변이 긴 변의 0.7 아래로는 안 간다. */
-  if (ratio < 0.70) return null;
-  return quad;
-}
-
 function quadFromTopBottom(fillPx, buf, W, H){
   var top = new Int32Array(W).fill(-1), bot = new Int32Array(W).fill(1 << 29), i, x;
   for (i = 0; i < fillPx.length; i++){
@@ -4401,36 +4334,6 @@ function cvLatticeQuad(){
       if (c3 > jMax) jMax = c3;
     });
     var mi = (iMin+iMax)/2, mj = (jMin+jMax)/2;
-    /* 🔴 레고 판은 **극값으로 창을 못 잡는다.** 극값 방식은 「보이는 점 = 판」을
-          전제하는데, 이 판은 블록이 크고 많아 한쪽을 통째로 덮는다 —
-          실측(자음 12개가 놓인 판): 점의 폭은 23칸으로 맞게 나왔는데 그 23칸이
-          판의 오른쪽 여덟 칸을 빼고 **왼쪽 상판까지** 걸쳐 있었다. 그래서 창이
-          여덟 칸 왼쪽으로 밀렸고 윗줄 네 글자가 인식부 밖으로 잘려 나갔다.
-          → 극값 대신 **점이 가장 많이 담기는 24x24 창**을 고른다. 덮인 곳은
-            점이 적으니 창이 저절로 판 쪽으로 끌려간다.
-          (지금 판에도 같은 이치가 통할 것 같지만 거기서는 안 재 봤다. 잘 돌고 있는
-           길을 근거 없이 건드리지 않는다.) */
-    if (isLego()){
-      var cnt = {}, kMax = 0;
-      best.r.ij.forEach(function(p){
-        var a6 = swap ? p[1] : p[0], c6 = swap ? p[0] : p[1];
-        var key = a6 + ',' + c6;
-        cnt[key] = (cnt[key] || 0) + 1;
-      });
-      var bi = iMin, bj = jMin, bScore = -1;
-      for (var a7 = iMin - 2; a7 <= iMax + 2 - (GRID_W-1); a7++){
-        for (var c7 = jMin - 2; c7 <= jMax + 2 - (GRID_H-1); c7++){
-          var s7 = 0;
-          for (var u7 = 0; u7 < GRID_W; u7++)
-            for (var v7 = 0; v7 < GRID_H; v7++)
-              if (cnt[(a7+u7) + ',' + (c7+v7)]) s7++;
-          if (s7 > bScore){ bScore = s7; bi = a7; bj = c7; }
-        }
-      }
-      mi = bi + (GRID_W-1)/2;
-      mj = bj + (GRID_H-1)/2;
-      reco.latWin = { i:bi, j:bj, 담긴점:bScore };
-    }
     /* 🔴 여유(MARGIN)까지 격자 좌표로 잡아 한 번에 펴면 **바깥으로 외삽**하다 터진다.
           원근 항은 보이는 조각으로만 정해져 있어서, 31x24칸을 잡으면 아래변이 위변의
           두 배가 되는 사다리꼴이 나온다(실측 ph5: 위 1067px / 아래 2165px).
@@ -6675,6 +6578,19 @@ function drawCamSim(){
   /* 🔴 격자 길은 **호모그래피로 바로 편다** — 사각형·여유·회전 배관을 안 거친다.
         그 배관으로 되돌리는 동안 배율과 방향이 샜다(사각형은 맞는데 ㅌ 이 ㄹ 로 읽혔고,
         여유 손잡이를 흔들어도 결과가 안 변했다). 파이썬에서 검증한 경로가 이것이다. */
+  /* 🔴 레고 판은 **모핑을 건너뛴다** — 판도 격자도 안 찾는다(recognizeLegoDirect). */
+  if (isLego() && cvReady && camSim.detect && reco.fbo){
+    grabDetect();
+    reco.result = recognizeLegoDirect();
+    var got = !!(reco.result && reco.result.word);
+    camSim.detected = got;
+    reco.playInfo = { kind:'모핑없음', lego:reco.legoInfo };
+    markBoardFrame(!!(reco.result && reco.result.comps));
+    if (typeof onRecoResult === 'function') onRecoResult();
+    if (camSim.on && boardReady && typeof outEl !== 'undefined' && outEl) readBoard();
+    if (camOnly) showCamDbg();
+    return;
+  }
   if (TUNE.useLattice && cvReady && camSim.detect && reco.fbo){
     grabDetect();
     /* 🔴 격자 찾기가 한 프레임 302ms 로 전체의 70% 였다(실측).
