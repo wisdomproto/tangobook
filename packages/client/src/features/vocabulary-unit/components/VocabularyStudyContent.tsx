@@ -38,7 +38,6 @@ import { WordDetailModal } from './WordDetailModal';
  */
 const TONE = {
   coral: {
-    panel: 'bg-peach-100/60 border-peach-200',
     fill: 'bg-gradient-to-b from-coral-400 to-coral-500 text-white',
     shadow: 'shadow-[0_6px_0_#B73A1F,0_8px_20px_rgba(255,94,58,0.35)]',
     textShadow: '0 2px 0 rgba(167, 50, 25, 0.4)',
@@ -46,7 +45,6 @@ const TONE = {
     arrow: 'bg-white/95 text-coral-600',
   },
   mint: {
-    panel: 'bg-mint-100/60 border-mint-200',
     fill: 'bg-gradient-to-b from-mint-400 to-mint-500 text-white',
     shadow: 'shadow-[0_6px_0_#1F6749,0_8px_20px_rgba(58,168,126,0.35)]',
     textShadow: '0 2px 0 rgba(31, 103, 73, 0.4)',
@@ -161,15 +159,16 @@ export function VocabularyStudyContent({
         </section>
       )}
 
-      {/* 묶음 안 — 그 묶음 색이 배경으로 깔려 「다른 방」이라는 게 읽힌다. */}
+      {/* 묶음 안 — 색은 제목과 카드가 들고, 배경 판은 두지 않는다.
+          🔴 큰 색판을 깔았더니 1600px 로 늘어나 카드 오른쪽이 통째로 비었고, 옅은 색 위의
+             흰 카드가 흐릿해 보였다(사용자 2026-09-01). 폭은 고르는 화면과 같은 max-w-4xl. */}
       {openGroup !== null &&
         (() => {
           const group = GAME_GROUPS.find((g) => g.key === openGroup)!;
-          const tone = TONE[group.tone];
           const groupGames = games.filter((g) => g.group === openGroup);
           const ctaId = groupGames.find((g) => g.available)?.id;
           return (
-            <section className={`rounded-3xl border-4 p-4 sm:p-5 lg:p-6 ${tone.panel}`}>
+            <section className="w-full max-w-4xl mx-auto">
               <div className="flex items-center gap-3 mb-4 flex-wrap">
                 <button
                   onClick={() => setOpenGroup(null)}
@@ -177,13 +176,17 @@ export function VocabularyStudyContent({
                 >
                   ← {t('study.otherPlay')}
                 </button>
-                <h2 className="text-2xl lg:text-3xl font-black font-display text-ink-900 flex items-center gap-2 break-keep">
+                <h2
+                  className={`text-2xl lg:text-3xl font-black font-display flex items-center gap-2 break-keep ${
+                    group.tone === 'mint' ? 'text-mint-700' : 'text-coral-600'
+                  }`}
+                >
                   <span>{group.emoji}</span>
                   <span>{t(group.headingKey)}</span>
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 auto-rows-fr gap-3 lg:gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 auto-rows-fr gap-3 lg:gap-4">
                 {groupGames.map((g, i) => (
                   <GameCard
                     key={g.id}
