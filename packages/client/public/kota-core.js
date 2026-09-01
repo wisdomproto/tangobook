@@ -31,18 +31,9 @@
       "Dad tanuki"
     ],
     "spec": "BUILD: the adult, head 1/6 of his height. 🔴 HIS WIDEST POINT IS THE WAIST, NOT THE SHOULDERS - the\n  folded towel at his hip pushes the outline out sideways there, so filled solid in ink he is a\n  wide-hipped trapezoid where the child is shoulder-heavy.\nCLOTH: a lined robe in deep AZURE #3B5A72, plain, closing at MID-CALF so 🔴 NO SHIN OF HIS IS EVER\n  SEEN, in any pose, on any page. Its sleeves hang PAST HIS HANDS when his arms are down, so with\n  the arms lowered he has no hands in the outline at all - that is his second read. A WHITE folded\n  towel tucked at the waist, shell white and plain like every towel in this inn. No pink on him.\nFEET: flat straw sandals, sole on the ground, no lift and no gap.\nMARKING: the ink band across both eyes is the THICKEST and BROADEST of the raccoon dogs and runs\n  wider than his face, its two ends reaching past the outer edge of each cheek. Dark forehands run\n  up past the wrist. Tail rings: five."
-  },
-  {
-    "key": "guest",
-    "name": "손님",
-    "aliases": [
-      "손님",
-      "Guest"
-    ],
-    "spec": "BUILD: a different animal every book and never named - crane, boar, turtle, owl, hippo, frog, heron,\n  swan, ox, raccoon dog. Bipedal, upright, wearing cloth, with hands, the same grade as everyone.\n  Size is whatever the species is; size is never what identifies a guest.\n🔴 CLOTH - THIS IS THE RULE THAT MAKES A GUEST A GUEST: A GUEST WEARS NO CLOTH AT THE NECK AND NONE\n  AT THE WAIST. The two who live at this inn wear cloth that is not clothing (the child's towel at\n  the neck, the father's folded towel at the waist); a guest's neck and waist are bare of it. The\n  robe itself is one plain muted field in GREEN #6E8A6A, OCHRE #B98F52 or BURNT EARTH #8A4E3C - 🔴\n  never azure, which belongs to the father, and never pink, which belongs to the child.\n🔴 CARRIED - ONE TRAVELLING THING ON THE OUTLINE, and exactly one: a bundle on the back, a wide flat\n  hat, a walking stick, or a basket. It sticks out past the body so it is there in the silhouette.\n  When the guest has set it down, the guest is then the only figure on the page with NOTHING at the\n  neck, NOTHING at the waist and NOTHING in the hands. A house towel lent to a guest is HELD or laid\n  over an arm - never tied at the neck and never tucked at the waist.\nMARKING: 🔴 NO EYE BAND - that belongs to the raccoon dogs of this inn. Instead ONE flat ink shape\n  of the species' own, laid last on a finished coat: a crane's crown patch, a boar's snout stripe,\n  an owl's facial disc rim, an ox's muzzle, a turtle's brow-to-neck stripe. 🔴 IT IS ALWAYS ON THE\n  FACE - never on a shell, a wing, a tail or the robe, because ITS ANGLE AND ITS LENGTH ARE THE\n  WHOLE EXPRESSION OF THAT PAGE (straight = unmoved, its far end curling up = pleased). A guest\n  whose shape sits anywhere but the face has no face left to feel with, and the feeling then leaks\n  into the eyes - which never change size for anybody in this book.\n  INK ONLY, never colour, and never more than one shape.\n  Eyes are the same fixed shell-white opening with an ink centre that everyone in this book has.\nREPEAT VISITS: five species come twice. 🔴 A RETURNING GUEST IS DRAWN EXACTLY AS BEFORE, down to the\n  one carried thing, because the book calls them only \"the one from last time\" and the picture is\n  the only place that says so.\n\n---\n\n### 이 문서를 고칠 때\n\n- 여기 쓰는 것은 **숫자(키·비례)·의상·악센트 자리·실루엣** 넷뿐이다. 그림체 규칙은 앵커가 SSOT.\n- 🔴 **손님 종은 열 가지가 돌고 다섯이 두 번 온다**(설계 §1). 권별 종·재방문 짝은 설계서가 SSOT라\n  여기 옮겨 적지 않는다 — 두 곳에 손으로 적으면 갈라진다.\n- 🔴 **`## Guest` 절은 종을 안 정한다.** 권마다 다른 종에 얹히는 **일반 규격**이고, 회차 시트를 구울\n  때 그 권의 종 한 줄(`Guest crane`)만 앞에 붙인다."
   }
 ];
-  var FACE = {"kota":"🦝","dad":"🦝","guest":"❓"};
+  var FACE = {"kota":"🦝","dad":"🦝"};
 
   (function injectCss() {
     if (document.getElementById('sr-core-style')) return;

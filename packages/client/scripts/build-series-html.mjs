@@ -218,6 +218,14 @@ function buildSeries(key) {
   <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">${sc[`p${p.n}`] || '(SCENE 미작성)'}</pre></details>
 </div>`).join('\n\n');
 
+    // 🔴 손님은 회차별 단역이다 — 그 권 SCENE 의 `Guest xxx` 토큰을 등록부에 대고 @image9~ 시트를 만든다.
+    //    (호리 라인의 window.SH_GUESTS 와 같은 장치. 안 뿌리면 25권 손님이 한 시트로 뭉개진다.)
+    const gTok = [...new Set(Object.values(sc).join(' ').match(/Guest [a-z]+/g) || [])];
+    const gList = gTok.map((t) => (cfg.guests || {})[t]).filter(Boolean);
+    const guestTag = gList.length
+      ? `<script>window.SH_GUESTS=${JSON.stringify(gList)}</script>
+`
+      : '';
     fs.writeFileSync(path.join(OUT, `${key}-${id}.html`), `${HEAD(`${cfg.title} — ${bk.title}`, css)}
 <header class="hero">
   <div class="kicker">${cfg.title} · ${id}</div>
@@ -231,7 +239,7 @@ function buildSeries(key) {
 ${cards}
 
 </div>
-<script src="/${key}-core.js"></script>
+${guestTag}<script src="/${key}-core.js"></script>
 </body>
 </html>
 `);

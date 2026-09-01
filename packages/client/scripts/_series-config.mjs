@@ -30,6 +30,101 @@ const LABELS = {
   },
 };
 
+/** 🔴 코타 손님 등록부 — 종마다 하나(얼굴 먹 도형은 `docs/changjak-books/kota/_design.md` 등록부와 같은 정본).
+ *  회차 HTML 이 `window.SH_GUESTS` 로 받아 @image9~ 시트를 만든다. 같은 종이 다시 오면 같은 시트를 쓴다.
+ *  🔴 손님을 고정 캐스트에 두면 25권이 「❓ 손님」 하나로 뭉개진다 — 그래서 단역이다. */
+export const KOTA_GUESTS = {
+  "Guest crane": {
+    "key": "crane",
+    "name": "두루미 손님",
+    "aliases": [
+      "Guest crane",
+      "두루미"
+    ],
+    "desc": "키가 아주 큰 두루미. 흰 몸에 검은 목깃, 얼굴 먹 도형은 부리 위 가로 한 줄. 겹옷 밑단이 정강이를 덮어 새 다리가 드러나지 않는다."
+  },
+  "Guest boar": {
+    "key": "boar",
+    "name": "멧돼지 손님",
+    "aliases": [
+      "Guest boar",
+      "멧돼지"
+    ],
+    "desc": "코가 길고 어깨가 두툼한 멧돼지. 짙은 흙빛 털, 얼굴 먹 도형은 콧등 위 가로 한 줄. 등에 보퉁이를 즐겨 멘다."
+  },
+  "Guest turtle": {
+    "key": "turtle",
+    "name": "거북 손님",
+    "aliases": [
+      "Guest turtle",
+      "거북"
+    ],
+    "desc": "등이 굽은 늙은 거북. 무늬 없는 넓적한 등딱지, 얼굴 먹 도형은 이마 한가운데에서 목으로 내려오는 세로 납작 줄 하나. 등딱지에는 도형을 얹지 않는다. 늘 지팡이를 짚는다."
+  },
+  "Guest owl": {
+    "key": "owl",
+    "name": "부엉이 손님",
+    "aliases": [
+      "Guest owl",
+      "부엉이"
+    ],
+    "desc": "눈이 큰 부엉이. 회갈색 깃, 얼굴 먹 도형은 두 눈 아래 가로 한 줄. 밤에 다니고 아침에 자는 밤손님이다."
+  },
+  "Guest hippo": {
+    "key": "hippo",
+    "name": "하마 손님",
+    "aliases": [
+      "Guest hippo",
+      "하마"
+    ],
+    "desc": "몸집이 크고 둥근 하마. 잿빛 살결, 얼굴 먹 도형은 주둥이 등의 가로로 넓적한 띠(아이면 그 띠가 짧다). 앉을 자리와 이불이 남보다 넓게 필요하다."
+  },
+  "Guest swan": {
+    "key": "swan",
+    "name": "백조 손님",
+    "aliases": [
+      "Guest swan",
+      "백조"
+    ],
+    "desc": "목이 길고 걸음이 사뿐한 백조. 흰 깃, 얼굴 먹 도형은 부리 뿌리에서 이마로 오르는 세로 줄 하나. 맨발로 마루를 걷기를 좋아한다."
+  },
+  "Guest frog": {
+    "key": "frog",
+    "name": "개구리 손님",
+    "aliases": [
+      "Guest frog",
+      "개구리"
+    ],
+    "desc": "초록빛 개구리. 불룩한 두 눈, 얼굴 먹 도형은 두 눈 사이 짧은 가로 줄 하나. 아이 손님이라 겹옷이 무릎 위로 짧고 정강이가 드러난다."
+  },
+  "Guest ox": {
+    "key": "ox",
+    "name": "황소 손님",
+    "aliases": [
+      "Guest ox",
+      "황소"
+    ],
+    "desc": "어깨가 산처럼 넓은 황소. 두 뿔, 얼굴 먹 도형은 두 뿔 사이 이마 한가운데 가로 납작 줄 하나. 등에 늘 큰 짐을 진다."
+  },
+  "Guest heron": {
+    "key": "heron",
+    "name": "왜가리 손님",
+    "aliases": [
+      "Guest heron",
+      "왜가리"
+    ],
+    "desc": "다리가 가늘고 긴 왜가리. 잿빛 깃, 얼굴 먹 도형은 눈 위에서 뒤통수로 흘러내리는 가는 줄(댕기 깃). 그 줄의 끝 각도가 표정을 진다."
+  },
+  "Guest tanuki": {
+    "key": "gtanuki",
+    "name": "너구리 손님",
+    "aliases": [
+      "Guest tanuki"
+    ],
+    "desc": "코타와 같은 너구리지만 손님이라 눈가의 검은 띠가 없다. 얼굴 먹 도형은 콧잔등에 세로로 선 짧은 줄 하나뿐이고 분홍 수건도 두르지 않는다. 이 둘이 코타와 가르는 표지다."
+  }
+};
+
 export const SERIES = {
   pongi: {
     no: '01', title: '퐁이네 운하 마을', icon: '🦦',
@@ -78,6 +173,7 @@ export const SERIES = {
     ],
   },
   kota: {
+    guests: KOTA_GUESTS,
     no: '16', title: '코타와 오늘의 손님', icon: '🦝',
     awardRef: 'wang-thump',
     sub: '아기 너구리 코타 · 일본 온천 골짜기의 작은 여관 · <b>페파형</b>(매권 낯선 손님 하나가 마을을 몰라서 틀린다) · 그림체 = 니혼가 암채 하나(전권)',
@@ -90,9 +186,8 @@ export const SERIES = {
     cast: [
       { key: 'kota', name: '코타', face: '🦝', aliases: ['코타', 'Kota tanuki', 'Kota'] },
       { key: 'dad', name: '아빠', face: '🦝', aliases: ['아빠', 'Dad tanuki'] },
-      // 🔴 손님은 매권 다른 종이 온다 — SCENE 토큰이 `Guest crane` 처럼 붙으므로
-      //    별칭은 **짧은 `Guest`** 라야 부분문자열로 잡힌다.
-      { key: 'guest', name: '손님', face: '❓', aliases: ['손님', 'Guest'] },
+      // 🔴 손님은 **고정 캐스트가 아니라 회차별 단역**이다(2026-09-01) — 25권의 종이 다 다르다.
+      //    등록부 = KOTA_GUESTS, 회차 HTML 이 window.SH_GUESTS 로 받아 @image9~ 시트를 만든다.
     ],
   },
   dodo: {
