@@ -141,17 +141,18 @@ export function VocabularyStudyContent({
       {/* 묶음 고르기 — 두 장뿐이라 무엇을 고르는 화면인지 한눈에 읽힌다.
           🔴 아래가 비므로 카드를 화면 높이에 맞춰 키운다(작은 카드 둘 + 여백 60% 는 미완성으로 보인다). */}
       {openGroup === null && (
-        <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+        <section className="grid grid-cols-1 sm:grid-cols-2 auto-rows-fr gap-4 lg:gap-6 w-full max-w-4xl mx-auto">
           {GAME_GROUPS.map(({ key, emoji, headingKey, hintKey, tone }) => {
-            const count = games.filter((g) => g.group === key && g.available).length;
-            if (count === 0) return null;
+            const groupGames = games.filter((g) => g.group === key);
+            const playable = groupGames.filter((g) => g.available);
+            if (playable.length === 0) return null;
             return (
               <GroupCard
                 key={key}
                 emoji={emoji}
                 label={t(headingKey)}
                 sub={t(hintKey)}
-                count={count}
+                preview={playable}
                 tone={tone}
                 onOpen={() => setOpenGroup(key)}
               />
@@ -182,7 +183,7 @@ export function VocabularyStudyContent({
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 auto-rows-fr gap-3 lg:gap-4">
                 {groupGames.map((g, i) => (
                   <GameCard
                     key={g.id}
@@ -327,38 +328,60 @@ function GroupCard({
   emoji,
   label,
   sub,
-  count,
+  preview,
   tone,
   onOpen,
 }: {
   emoji: string;
   label: string;
   sub: string;
-  /** 지금 할 수 있는 게임 수 — 책마다 다르므로 눌러 보기 전에 알려 준다. */
-  count: number;
+  /**
+   * 이 묶음에서 **지금 할 수 있는** 게임들 — 카드 안에 작게 늘어놓는다.
+   * 🔴 「N가지」라는 숫자만 있던 화면은 두 버튼짜리 메뉴라 한 페이지를 쓸 값어치가 없었다.
+   *    무엇이 들었는지 보여야 고를 수 있고, 그림이 카드를 채운다.
+   */
+  preview: VocabGameOption[];
   tone: Tone;
   onOpen: () => void;
 }) {
-  const { t } = useTranslation('games');
   const c = TONE[tone];
   return (
     <button
       onClick={onOpen}
-      className={`relative rounded-3xl p-5 lg:p-6 min-h-[clamp(11rem,34vh,18rem)] flex flex-col items-center justify-center text-center gap-2 hover:-translate-y-0.5 active:translate-y-1 transition-all duration-100 ease-out ${c.fill} ${c.shadow}`}
+      className={`relative rounded-3xl p-5 lg:p-6 pb-16 min-h-[clamp(13rem,36vh,22rem)] flex flex-col items-center justify-center text-center gap-2 hover:-translate-y-0.5 active:translate-y-1 transition-all duration-100 ease-out ${c.fill} ${c.shadow}`}
     >
-      <span className="text-[clamp(3rem,10vh,5.5rem)] leading-none" aria-hidden>
+      <span className="text-[clamp(2.5rem,8vh,4rem)] leading-none" aria-hidden>
         {emoji}
       </span>
       <span
-        className="text-3xl lg:text-4xl font-black font-display break-keep"
+        className="text-2xl lg:text-3xl font-black font-display break-keep"
         style={{ textShadow: c.textShadow }}
       >
         {label}
       </span>
-      <span className="text-base lg:text-lg font-bold break-keep opacity-95">{sub}</span>
-      <span className={`mt-1 text-sm font-black px-3 py-1 rounded-full ${c.chip}`}>
-        {t('study.groupCount', { count })}
-      </span>
+      <span className="text-sm lg:text-base font-bold break-keep opacity-95">{sub}</span>
+
+      {/* 안에 든 게임 — 그림 + 이름. 아이는 그림으로, 부모는 이름으로 읽는다. */}
+      <ul className="mt-3 flex flex-wrap items-start justify-center gap-1.5 lg:gap-3">
+        {preview.map((g) => (
+          <li
+            key={g.id}
+            className={`w-16 lg:w-20 flex flex-col items-center gap-1 rounded-2xl px-1 py-2 ${c.chip}`}
+          >
+            {g.iconSrc ? (
+              <img src={g.iconSrc} alt="" aria-hidden className="w-9 h-9 object-contain" />
+            ) : (
+              <span className="text-3xl leading-none" aria-hidden>
+                {g.emoji}
+              </span>
+            )}
+            <span className="text-[0.65rem] lg:text-xs font-black leading-tight break-keep">
+              {g.label}
+            </span>
+          </li>
+        ))}
+      </ul>
+
       <span
         className={`absolute bottom-4 right-4 w-11 h-11 rounded-full flex items-center justify-center shadow-soft ${c.arrow}`}
         aria-hidden
