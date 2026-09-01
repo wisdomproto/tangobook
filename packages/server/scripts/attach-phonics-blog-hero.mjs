@@ -62,6 +62,9 @@ const HERO_SOURCE = {
   'read-batchim': 'kr-h2-u01',
   'read-ganada': 'kr-h1-u02',
   'hub-hangul-home': 'kr-h1-u01',
+  'nature-spider': '1773320745960',
+  'nature-dinosaur': '1773714531390',
+  'nature-space': '1773411238323',
 };
 
 const s3 = new S3Client({

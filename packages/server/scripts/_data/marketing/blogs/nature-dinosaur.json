@@ -1,0 +1,47 @@
+{
+  "storybookId": "nature-dinosaur",
+  "category": "nature",
+  "seo_title": "공룡 종류 총정리 — 초식·육식 공룡 이름과 특징",
+  "primary_keyword": "공룡종류",
+  "secondary_keywords": ["공룡 이름", "초식공룡", "육식공룡", "티라노사우루스", "공룡 종류"],
+  "url_slug": "dinosaur-types-for-kids",
+  "meta_description": "공룡은 무엇을 먹느냐로 나눕니다. 육식공룡 티라노사우루스부터 초식공룡 브라키오사우루스까지, 대표 공룡의 이름과 특징을 아이 눈높이로 정리했습니다.",
+  "sections": [
+    {
+      "text_html": "<h2>공룡은 「무엇을 먹느냐」로 나눠요</h2><p>공룡 이름은 어렵고 종류도 많아 보이지만, 처음에는 <strong>딱 두 가지</strong>로 나누면 쉽습니다. <strong>고기를 먹는 육식공룡</strong>과 <strong>풀을 먹는 초식공룡</strong>입니다.</p><p>이 둘은 생김새부터 다릅니다. 육식공룡은 <strong>날카로운 이빨과 발톱</strong>, 초식공룡은 <strong>납작한 이빨과 긴 목</strong>을 가졌습니다. 「이 공룡은 이빨이 뾰족하니까 고기를 먹겠네」처럼, 아이가 생김새를 보고 먹이를 <strong>추리</strong>하게 해 주면 공룡이 훨씬 재미있어집니다.</p>",
+      "image_prompt": "carnivore vs herbivore dinosaur teeth",
+      "alt": "육식과 초식 공룡",
+      "caption": "먹이로 나누기"
+    },
+    {
+      "text_html": "<h2>육식공룡 — 티라노사우루스</h2><p>가장 유명한 육식공룡은 <strong><a href=\"/library/1773714531390\">티라노사우루스</a></strong>입니다. 이름은 「폭군 도마뱀」이라는 뜻으로, 공룡의 왕이라 불립니다. 사람 키만 한 머리에 바나나만큼 큰 이빨을 가졌습니다.</p><p>재미있는 것은 그렇게 큰 몸에 <strong>앞다리는 아주 짧았다</strong>는 점입니다. 대신 뒷다리가 튼튼해 빠르게 달릴 수 있었습니다. 하늘을 날던 <strong><a href=\"/library/1773899014599\">프테라노돈</a></strong>은 사실 공룡이 아니라 <strong>날아다니는 파충류</strong>였다는 것도 아이에게 알려주면 놀라워합니다.</p>",
+      "image_prompt": "tyrannosaurus rex with small arms",
+      "alt": "티라노사우루스",
+      "caption": "공룡의 왕, 티라노"
+    },
+    {
+      "text_html": "<h2>초식공룡 — 브라키오사우루스와 트리케라톱스</h2><p>초식공룡 중 <strong><a href=\"/library/1773728203238\">브라키오사우루스</a></strong>는 목이 아주 길어서, 높은 나무의 잎을 뜯어 먹었습니다. 키가 <strong>4층 건물</strong>만큼 컸습니다. 목이 길면 위험할 때 멀리까지 볼 수도 있었습니다.</p><p><strong><a href=\"/library/1773739549787\">트리케라톱스</a></strong>는 얼굴에 <strong>뿔이 세 개</strong> 있고, 목에는 넓은 방패 같은 프릴이 있었습니다. 이 뿔과 방패로 육식공룡의 공격을 막았습니다. 초식공룡이라고 약한 게 아니라, <strong>자기만의 방어 무기</strong>를 가졌던 것입니다.</p>",
+      "image_prompt": "brachiosaurus long neck, triceratops horns",
+      "alt": "브라키오사우루스와 트리케라톱스",
+      "caption": "긴 목과 세 뿔"
+    },
+    {
+      "text_html": "<h2>공룡은 왜 사라졌을까요</h2><p>이렇게 크고 강했던 공룡은 <strong>아주 오래전에 모두 사라졌습니다.</strong> 가장 널리 알려진 이야기는, 하늘에서 커다란 <strong>운석이 떨어져</strong> 지구가 오랫동안 어두워지고 추워졌다는 것입니다.</p><p>풀이 자라지 못하자 초식공룡이 먹이를 잃었고, 초식공룡이 사라지자 육식공룡도 살 수 없었습니다. <strong>먹이 사슬</strong>이 무너진 것입니다. 그런데 놀랍게도, 작은 공룡의 일부가 살아남아 <strong>오늘날의 새</strong>가 되었다고 해요. 마당의 참새도 먼 옛날 공룡의 친척인 셈입니다.</p>",
+      "image_prompt": "meteor and dinosaurs, birds as descendants",
+      "alt": "공룡의 멸종",
+      "caption": "새가 된 공룡"
+    },
+    {
+      "text_html": "<h2>공룡 이야기를 동화책으로 만나요</h2><p>공룡을 더 알고 싶다면, 탱고북 자연관찰 <strong>공룡 친구들</strong> 시리즈를 함께 보세요. <a href=\"/library/1773714531390\">티라노사우루스</a>·<a href=\"/library/1773728203238\">브라키오사우루스</a>·<a href=\"/library/1773739549787\">트리케라톱스</a>·<a href=\"/library/1773899014599\">프테라노돈</a>이 각각의 이야기로 살아 움직입니다.</p><p>책을 읽고 나면 공룡 이름으로 <strong>낱말 놀이</strong>도 바로 해볼 수 있습니다. 긴 공룡 이름을 그림과 짝지으며 익히면, 어려워 보이던 이름이 놀이처럼 손에 붙습니다.</p>",
+      "image_prompt": "dinosaur storybook series invitation",
+      "alt": "공룡 동화책",
+      "caption": "동화책으로 만나기"
+    },
+    {
+      "text_html": "<h2>공룡, 이것만 기억해요</h2><p>정리하면 이렇습니다.</p><ul><li><strong>먹이로 나눠요</strong> — 육식(뾰족한 이빨)·초식(긴 목·납작한 이빨)</li><li><strong>티라노</strong> — 공룡의 왕, 앞다리는 짧아요</li><li><strong>브라키오·트리케라</strong> — 긴 목, 세 뿔</li><li><strong>새가 된 공룡</strong> — 일부는 살아남아 새가 됐어요</li></ul><p>공룡 그림책을 볼 때 「이 공룡은 뭘 먹었을까?」를 이빨과 목으로 추리해 보세요. 관찰과 추리가 공룡을 더 오래 기억하게 합니다. 곤충·바다 등 다른 자연관찰 이야기도 탱고북에서 만나보세요.</p>",
+      "image_prompt": "child reasoning about dinosaur diet",
+      "alt": "공룡 추리하기",
+      "caption": "이빨로 추리하기"
+    }
+  ]
+}

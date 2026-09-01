@@ -1,0 +1,47 @@
+{
+  "storybookId": "nature-spider",
+  "category": "nature",
+  "seo_title": "거미는 곤충일까? 아이와 함께 보는 거미 이야기",
+  "primary_keyword": "거미",
+  "secondary_keywords": ["거미 곤충", "거미 다리 개수", "거미줄", "거미 관찰", "유아 거미"],
+  "url_slug": "spider-facts-for-kids",
+  "meta_description": "거미는 사실 곤충이 아닙니다. 다리 8개, 몸 두 부분 — 거미가 곤충과 어떻게 다른지, 거미줄은 왜 끈적한지 아이 눈높이로 풀어드립니다.",
+  "sections": [
+    {
+      "text_html": "<h2>거미는 곤충이 아니에요</h2><p>아이가 거미를 보고 「벌레다!」 하면, 사실 절반만 맞습니다. 거미는 <strong>곤충이 아닙니다.</strong> 곤충과 비슷해 보이지만, 자세히 보면 결정적으로 다른 점이 있습니다.</p><p>가장 쉬운 구별법은 <strong>다리 개수</strong>입니다. 곤충은 다리가 <strong>6개</strong>, 거미는 <strong>8개</strong>입니다. 다리를 세어보는 것만으로도 아이는 「아, 거미는 곤충이 아니구나」를 스스로 알아챕니다. 거미는 전갈·진드기와 같은 <strong>거미류</strong>에 속합니다.</p>",
+      "image_prompt": "friendly spider counting eight legs",
+      "alt": "거미 다리 8개",
+      "caption": "다리 8개 = 곤충 아님"
+    },
+    {
+      "text_html": "<h2>몸이 두 부분으로 나뉘어요</h2><p>또 하나 다른 점은 <strong>몸의 생김새</strong>입니다. 곤충의 몸은 머리·가슴·배 <strong>세 부분</strong>이지만, 거미의 몸은 <strong>두 부분</strong>(머리가슴 + 배)입니다. 그래서 거미는 허리가 잘록해 보입니다.</p><p>거미는 <strong>더듬이가 없고</strong>, 대신 눈이 보통 <strong>여덟 개</strong>나 됩니다. 눈이 많아도 잘 못 보는 거미가 많아서, 거미는 눈보다 <strong>다리의 털로 진동을 느껴</strong> 먹이를 알아챕니다. 거미줄이 살짝만 흔들려도 「먹이가 걸렸구나!」 하고 아는 것입니다.</p>",
+      "image_prompt": "spider body two parts labeled",
+      "alt": "거미 몸 구조",
+      "caption": "몸이 두 부분"
+    },
+    {
+      "text_html": "<h2>거미줄은 왜 끈적할까요</h2><p>거미가 가장 신기한 이유는 <strong>거미줄</strong>입니다. 거미는 배 끝에서 아주 가는 실을 뽑아냅니다. 이 실은 <strong>같은 굵기의 강철보다 튼튼</strong>하면서도 아주 가볍습니다.</p><p>재미있는 것은 거미줄이 <strong>전부 끈적이지는 않는다</strong>는 점입니다. 먹이를 잡는 <strong>가로줄</strong>에만 끈끈이 방울이 붙어 있고, 거미가 걸어 다니는 <strong>세로줄</strong>은 끈적이지 않습니다. 그래서 거미는 자기 줄에 붙지 않고 자유롭게 다닐 수 있습니다. 거미는 이렇게 똑똑한 덫을 스스로 만듭니다.</p>",
+      "image_prompt": "spider web sticky and non-sticky threads",
+      "alt": "거미줄 구조",
+      "caption": "가로줄만 끈적끈적"
+    },
+    {
+      "text_html": "<h2>거미는 우리를 도와줘요</h2><p>거미를 무서워하는 아이가 많지만, 거미는 <strong>고마운 친구</strong>입니다. 집 안팎의 모기·파리 같은 <strong>해충을 잡아먹기</strong> 때문입니다. 거미 한 마리가 일 년에 잡는 벌레의 수는 어마어마합니다.</p><p>대부분의 거미는 사람에게 해롭지 않습니다. 거미를 만나면 무서워하며 없애기보다, <strong>「어떤 거미줄을 쳤나」 관찰</strong>해 보는 것이 훨씬 재미있습니다. 거미마다 줄을 치는 모양이 다르답니다.</p>",
+      "image_prompt": "spider catching a mosquito, helpful",
+      "alt": "거미는 해충을 잡는다",
+      "caption": "고마운 거미"
+    },
+    {
+      "text_html": "<h2>거미 이야기를 동화책으로 만나요</h2><p>거미를 더 알고 싶다면, 탱고북 자연관찰 동화 <strong><a href=\"/library/1773320745960\">「거미」</a></strong>를 함께 보세요. 거미가 어떻게 줄을 치고 먹이를 잡는지, 그림과 이야기로 따라갈 수 있습니다.</p><p>책을 읽고 나면 거미와 관련된 <strong>낱말 놀이</strong>도 바로 해볼 수 있습니다. 「거미·거미줄·다리」 같은 낱말을 그림과 짝지으며 익히면, 방금 읽은 이야기가 어휘로 남습니다.</p>",
+      "image_prompt": "spider storybook cover invitation",
+      "alt": "거미 동화책",
+      "caption": "동화책으로 만나기"
+    },
+    {
+      "text_html": "<h2>거미, 이것만 기억해요</h2><p>정리하면 이렇습니다.</p><ul><li><strong>곤충이 아니에요</strong> — 다리 8개, 거미류</li><li><strong>몸이 두 부분</strong> — 곤충은 세 부분</li><li><strong>거미줄은 반만 끈적</strong> — 가로줄에만 끈끈이</li><li><strong>해충을 잡는 친구</strong> — 무서워 말고 관찰하기</li></ul><p>아이와 밖에서 거미줄을 만나면 다리를 세어보고, 줄 모양을 살펴보세요. 작은 관찰이 큰 호기심으로 자랍니다. 곤충·바다·공룡 등 다른 자연관찰 이야기도 탱고북에서 만나보세요.</p>",
+      "image_prompt": "child observing a spider web outdoors",
+      "alt": "거미 관찰하기",
+      "caption": "다리를 세어보세요"
+    }
+  ]
+}

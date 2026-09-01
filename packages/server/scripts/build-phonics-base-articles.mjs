@@ -34,7 +34,7 @@ const toPlain = (html) =>
     .replace(/\n{3,}/g, '\n\n')
     .trim();
 
-// `kr-h*` = 단원 글 · `hub-*` = 허브 글 · `write-*` = 쓰기 롱테일 · `read-*` = 소리·읽기 롱테일.
+// `kr-h*`=단원 · `hub-*`=허브 · `write-*`=쓰기 롱테일 · `read-*`=소리·읽기 롱테일 · `nature-*`=자연 도감 롱테일.
 const files = fs
   .readdirSync(BLOG_DIR)
   .filter(
@@ -42,7 +42,8 @@ const files = fs
       (f.startsWith('kr-h') ||
         f.startsWith('hub-') ||
         f.startsWith('write-') ||
-        f.startsWith('read-')) &&
+        f.startsWith('read-') ||
+        f.startsWith('nature-')) &&
       f.endsWith('.json')
   )
   .filter((f) => !ONLY.length || ONLY.includes(f.replace('.json', '')));
@@ -53,16 +54,18 @@ for (const file of files) {
   // 🔴 섹션 HTML 을 그대로 잇는다 — 블로그 본문이 곧 기본글 본문이다. 섹션은 `<h2>` 로 시작하므로
   //    이어 붙이면 소제목이 살아 있는 한 편의 글이 된다(derive-cardnews 가 그 h2 를 읽는다).
   const body_html = blog.sections.map((s) => s.text_html).join('\n\n');
+  const isPhonics = /^(kr-h|hub-|write-|read-)/.test(blog.storybookId);
   const out = {
     storybookId: blog.storybookId,
-    category: 'phonics',
+    category: blog.category || 'phonics',
     title: blog.seo_title,
     body_html,
     body_plain_text: toPlain(body_html),
-    sources:
-      blog.storybookId.startsWith('hub-') ||
-      blog.storybookId.startsWith('write-') ||
-      blog.storybookId.startsWith('read-')
+    sources: !isPhonics
+      ? [] // 자연 도감 등 비-파닉스 = 본문이 곧 출처, 커리큘럼 ref 없음
+      : blog.storybookId.startsWith('hub-') ||
+          blog.storybookId.startsWith('write-') ||
+          blog.storybookId.startsWith('read-')
         ? [
             {
               type: 'curriculum',
