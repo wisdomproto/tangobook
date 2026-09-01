@@ -223,6 +223,12 @@ const RESOURCES: ResourceItem[] = [
   },
   { href: '/pitch.html', icon: '💼', label: 'Series A Pitch', desc: '투자자용 16+1장 슬라이드' },
   {
+    href: '/business-overview.html',
+    icon: '📖',
+    label: '사업 개요 (대외용)',
+    desc: '문제 · 만든 것 · 연결 · 제작 · 수익 구조 — 6절',
+  },
+  {
     href: '/strategy.html',
     icon: '📋',
     label: '사업 전략서 (요약)',
