@@ -1249,12 +1249,18 @@ var TUNE = {
   /* 레고형 판 — 채도가 이만큼(0..255)은 있어야 블록으로 본다.
      Otsu 가 그보다 낮게 잡으면(=빈 판) 이 값을 쓴다. 실측 판 5~40 · 노랑 245~255. */
   legoMinSat: 90,
-  /* 🔴 **좌우만 뒤집는다**(1). 거울이 좌우를 뒤집고, readPixels 가 세로를 한 번 더
-     뒤집는데, 그 둘이 합쳐지면 결과적으로 좌우 한 번이 답이다 —
-     네 가지를 다 돌려 재서 정했다(실측: 안함 `ㅡㅓㄷㅠ` · 세로 `ㅛㄴㅓㄴ` ·
-     둘다 `ㅛㅏ` · **좌우 `ㄱㄱㅏㅠ` = 「가규」**).
-     🔴 머리로 「거울+뒤쪽 카메라 = 180도」라고 단정했다가 두 번 틀렸다. 돌려 볼 것. */
-  legoFlip: 1,                   // 0=세로 1=좌우 -1=둘다 9=안함
+  /* 🔴 **여기서는 뒤집지 않는다**(9). 좌우는 `uploadPhotoFrame` 이 입구에서
+     이미 되돌려 놓았고(`scale(-1,1)`), 세로는 readPixels 가 뒤집는데 그 둘이
+     상쇄된다.
+     🔴 **📤 보내기로 올라온 JPEG 으로 맞추면 안 된다** — 그 그림은 이미 한 번
+        뒤집힌 `photo.cv` 라서, 앱에 도로 먹이면 입구에서 **두 번째** 뒤집힌다.
+        그 이중 뒤집힌 그림에 맞춰 「좌우 한 번(1)」이라고 정했고, 그래서 폰에서는
+        정확히 반대가 되어 「ㅡㅏㅠ」처럼 읽혔다.
+        실측: 실시간과 같은 입력(미리 좌우 뒤집은 사본)에서 9=「가규」 · 1=「ㅓㄷㅠ」,
+        올라온 JPEG 그대로에서는 그 반대.
+     🔴 즉 **올라온 프레임으로 한 테스트는 실시간을 대신하지 못한다.** 그걸로
+        재려면 먼저 좌우를 뒤집어 놓고 재야 한다. */
+  legoFlip: 9,                   // 0=세로 1=좌우 -1=둘다 9=안함
   legoVMin: 60,                  // 이 밝기 아래는 채도를 못 믿는다
   legoMinArea: 0.0008,           // 화면 넓이의 이 비율보다 작으면 부스러기
   legoMinIou: 0.50,              // 형판과 이만큼은 닮아야 자모로 본다
@@ -6349,6 +6355,7 @@ document.addEventListener('visibilitychange', function(){
 
 /* 화면에 띄우는 진단 — 폰에서 색이 어떻게 잡히는지가 핵심이다. */
 function showCamDbg(){
+  var NL = String.fromCharCode(10);
   var el = document.getElementById('camOnlyDbg');
   if (!el) return;
   var c = reco.colorInfo || {}, p = reco.playInfo || {};
@@ -6362,6 +6369,11 @@ function showCamDbg(){
       ' · 문턱 ' + (c.색상문턱 != null ? c.색상문턱 + '°' : '-') + '\n' +
     '전경 ' + (c.fg || 0) + ' · 경계 ' + (c.split != null ? c.split + '°' : '-') +
       ' · 덩어리 ' + ((reco.result && reco.result.comps) || 0) + '\n' +
+    (isLego()
+      ? '레고 ' + JSON.stringify(reco.legoInfo || {}) + NL +
+        '조각 ' + ((reco.result && reco.result.detail) || [])
+          .map(function(d){ return d.ch + d.iou; }).join(' ') + NL
+      : '') +
     '글자 ' + ((reco.result && reco.result.items) || []).map(function(i){ return i.ch; }).join('') + '\n' +
     /* 🔴 소리는 안 나도 화면은 멀쩡해서 원인을 눈으로 볼 데가 없었다(아이패드).
           마지막으로 읽은 낱말과 막혔는지를 찍는다. */
