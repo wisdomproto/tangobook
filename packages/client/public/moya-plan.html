@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>모야네 물웅덩이 — 기획서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#D6417A; --slope:#6B62A6; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .award-ref { display:flex; align-items:baseline; gap:9px; flex-wrap:wrap; background:var(--peach); border-radius:10px; padding:8px 13px; margin:2px 0 10px; font-size:12.5px; }
+  .award-ref a { color:var(--accent); text-decoration:none; white-space:nowrap; }
+  .award-ref a:hover { text-decoration:underline; }
+  .award-ref span { font-weight:700; }
+  .award-ref em { color:var(--ink-soft); font-style:normal; word-break:keep-all; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">창작동화 시리즈 17 · 25권 250쪽</div>
+  <h1>모야네 물웅덩이</h1>
+  <div class="sub">얼룩말 아이 모야와 동무 셋 · 아프리카 초원의 물웅덩이 · <b>대발이형</b>(고정 캐스트 다섯, 한 편에 최대 셋) · 그림체 = 투명 수채, 섞지 않고 나란히</div>
+  <div class="by">글 <b>오하람</b> · 그림 <b>유하람</b></div>
+</header>
+
+<div class="note">🔴 <b>이 기획서가 SSOT 가 아닙니다.</b> 본문은 <code>docs/changjak-books/moya/*.md</code>, 앵커는 <code>docs/art-direction/moya-anchor.md</code> 가 원본이고 이 페이지는 거기서 생성됩니다(<code>build-series-html.mjs</code>). 회차는 왼쪽 <b>☰ 회차</b>에서.</div>
+
+<h2 class="sec">1. 축</h2>
+<table><thead><tr><th></th><th>종</th><th>결점(배역)</th><th>잘하는 것</th></tr></thead><tbody><tr><td><b>모야</b></td><td>얼룩말 아이 (주인공)</td><td><b>성급</b> — 보기 전에 달린다</td><td>달리기·길 찾기</td></tr><tr><td><b>키키</b></td><td>미어캣 아이</td><td><b>겁 많음·걱정</b> — 위험부터 본다</td><td>망보기·먼저 알아채기</td></tr><tr><td><b>툼바</b></td><td>혹멧돼지 아이</td><td><b>덜렁·먹보</b> — 파헤치기부터 한다</td><td>파기·힘쓰기</td></tr><tr><td><b>니아</b></td><td>기린 아이</td><td><b>부끄럼</b> — 눈에 띄는 게 싫다</td><td>높은 데 보기·멀리 보기</td></tr><tr><td><b>엄마</b></td><td>어른 얼룩말</td><td>(조력자)</td><td>놀이로 길을 내 준다</td></tr></tbody></table>
+<details><summary>설계 전문 (_design.md)</summary><pre class="block"># 시리즈 17 「모야네 물웅덩이」 — 설계
+
+&gt; 🔴 **집필법은 규칙서가 아니라 모방이다** — `docs/changjak-books/CLAUDE.md` §새 시리즈 조리법.
+&gt; 호리 세 편을 통째로 읽고 흉내 내고, 규칙은 호리의 일곱, 나머지 판단은 하나 — **소리 내어 읽는 엄마가 한 번도 멈추지 않는가.**
+&gt; 그림체 = `docs/art-direction/moya-anchor.md` (`moya-daylight`).
+
+## §1. 무대
+
+**아프리카 초원의 물웅덩이와 그 둘레.** 물웅덩이는 초원의 여관 같은 자리다 — 누구든 온다.
+자리 = 물웅덩이 · 아카시아 그늘 · 붉은 흙길 · 갈대밭 · 바위 언덕 · 마른 풀 벌판 · 아주 큰 하늘.
+🔴 계절은 **건기와 우기** 둘. 앵커에서 계절은 조항이 아니라 **터치 개수**다(건기 = 풀에 파랑 0 / 우기 = 노랑 2에 파랑 1).
+
+## §2. 캐스트 다섯 — 🔴 한 편에 최대 셋
+
+| | 종 | 결점(배역) | 잘하는 것 |
+|---|---|---|---|
+| **모야** | 얼룩말 아이 (주인공) | **성급** — 보기 전에 달린다 | 달리기·길 찾기 |
+| **키키** | 미어캣 아이 | **겁 많음·걱정** — 위험부터 본다 | 망보기·먼저 알아채기 |
+| **툼바** | 혹멧돼지 아이 | **덜렁·먹보** — 파헤치기부터 한다 | 파기·힘쓰기 |
+| **니아** | 기린 아이 | **부끄럼** — 눈에 띄는 게 싫다 | 높은 데 보기·멀리 보기 |
+| **엄마** | 어른 얼룩말 | (조력자) | 놀이로 길을 내 준다 |
+
+🔴 **키키만 이족보행**이고 앞발로 물건을 쥔다(앵커 §CHARACTER). 나머지는 입·발굽·주둥이로 나른다.
+🔴 **처음 나오는 인물은 그 쪽에서 한 조각으로 소개한다** — 「망보기 담당 키키가 바위에 올라섰어요」처럼 문장 안에 녹인다.
+
+## §3. 25권
+
+각 권 = 문제 · 그 권에 나오는 인물(최대 3) · **교훈을 담는 그림 하나** · 후렴.
+🔴 그림은 **의인화가 아니라 성질**이어야 한다 — 끝 장면까지 살아남아야 하기 때문이다.
+
+| # | 제목(=후렴) | 틀리는 쪽 | 나오는 인물 | 그림 하나 | 계절 |
+|---|---|---|---|---|---|
+| 01 | 하나 보고, 둘 가고! | 모야 | 모야·키키·엄마 | 먼저 본 뒤에 달리면 길이 열린다 | 건기 |
+| 02 | 높이 봐, 니아! | 니아 | 니아·모야·엄마 | 키가 큰 것은 숨는 게 아니라 멀리 보는 일 | 건기 |
+| 03 | 파기 전에, 톡톡! | 툼바 | 툼바·키키·엄마 | 두드려 보면 속이 대답한다 | 건기 |
+| 04 | 천천히도 도착해! | 모야 | 모야·니아·엄마 | 느린 걸음도 같은 물가에 닿는다 | 건기 |
+| 05 | 그늘 나눠 앉기! | 툼바 | 툼바·니아·모야 | 그늘은 옮겨 가니 자리도 옮겨 앉는다 | 건기 |
+| 06 | 무서우면, 손 잡고! | 키키 | 키키·모야·엄마 | 무서운 것은 둘이면 반이 된다 | 건기 |
+| 07 | 조금씩, 또 조금씩! | 모야 | 모야·툼바·엄마 | 한 번에 못 넘는 둔덕도 여러 번이면 넘는다 | 건기 |
+| 08 | 내 소리, 네 소리! | 니아 | 니아·키키·툼바 | 저마다 다른 소리가 모이면 노래가 된다 | 우기 |
+| 09 | 첫 비, 첫 발자국! | 툼바 | 툼바·모야·엄마 | 젖은 흙은 지나간 것을 다 적어 둔다 | 우기 |
+| 10 | 기다리면, 가라앉아! | 키키 | 키키·툼바·엄마 | 흙탕물도 가만두면 맑아진다 | 우기 |
+| 11 | 같이 밀면, 쑥! | 모야 | 모야·툼바·니아 | 무거움은 나누면 반이 된다 | 우기 |
+| 12 | 비 그치면, 무지개 자리! | 니아 | 니아·모야·키키 | 비 온 뒤에만 생기는 것이 있다 | 우기 |
+| 13 | 발자국 따라, 콩콩! | 키키 | 키키·니아·엄마 | 잃은 것은 왔던 길이 기억한다 | 우기 |
+| 14 | 흙 묻어도 괜찮아! | 툼바 | 툼바·모야·엄마 | 씻으면 되는 것과 안 되는 것 | 우기 |
+| 15 | 내 자리, 네 자리! | 모야 | 모야·키키·툼바 | 물가는 차례로 마시면 다 마실 수 있다 | 건기 |
+| 16 | 작아도 보여! | 키키 | 키키·니아·엄마 | 작은 것이 제일 먼저 본다 | 건기 |
+| 17 | 미안해, 한마디! | 툼바 | 툼바·니아·모야 | 부러뜨린 것보다 안 한 말이 더 오래 남는다 | 건기 |
+| 18 | 나도 할 수 있어! | 니아 | 니아·툼바·엄마 | 못 하던 일은 어느 날 갑자기 되는 게 아니다 | 건기 |
+| 19 | 바람 불면, 등지고! | 모야 | 모야·니아·엄마 | 모래바람은 맞서지 말고 등을 준다 | 건기 |
+| 20 | 반씩 나눠, 두 입! | 툼바 | 툼바·키키·모야 | 나누면 반이 되는 게 아니라 두 배가 된다 | 건기 |
+| 21 | 물어보면, 알려 줘! | 키키 | 키키·모야·엄마 | 모르는 건 부끄러운 게 아니라 물어볼 일 | 우기 |
+| 22 | 기다려 줄게! | 모야 | 모야·니아·툼바 | 빠른 발이 기다려 주면 넷이 같이 간다 | 우기 |
+| 23 | 별은 다 같이! | 니아 | 니아·키키·모야 | 아무리 커도 하늘은 혼자 못 가진다 | 우기 |
+| 24 | 아프면, 곁에! | 툼바 | 툼바·모야·엄마 | 곁에 있어 주는 것이 제일 따뜻한 약 | 우기 |
+| 25 | 여기가 우리 물웅덩이! | (넷 다) | 모야·키키·툼바·니아 ⚠️ **이 권만 넷** | 배운 것들이 하나씩 이어져 하루가 된다 | 우기 |
+
+🔴 결점 배분 — 모야 7 · 키키 6 · 툼바 6 · 니아 5 · (25는 넷 다).
+🔴 계절 — 건기 13 · 우기 12 로 갈아 들어 같은 자리가 두 얼굴을 갖는다.
+⚠️ **25권만 넷이 나온다**(피날레). 나머지 24권은 최대 셋.
+</pre></details>
+
+<h2 class="sec">2. 캐스트</h2>
+<p class="lead">시트를 만들어 카드에 붙여넣으면 회차 페이지의 「🎬 이 화 등장」 스트립이 그 그림을 읽어 옵니다.
+카드마다 <b>[📋 시트 프롬프트]</b> = 그 한 명만 그리는 프롬프트(앵커 + 규격 + 전신 정면·3/4·뒷모습).</p>
+<div class="grid">
+  <div class="cast-card">
+    <div class="chead"><h4>🦓 모야</h4><button class="copy-btn" data-sheet="moya">📋 시트 프롬프트</button></div>
+    <p><code>Moya zebra</code></p>
+    <div data-paste="moya"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🦫 키키</h4><button class="copy-btn" data-sheet="kiki">📋 시트 프롬프트</button></div>
+    <p><code>Kiki meerkat</code></p>
+    <div data-paste="kiki"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐗 툼바</h4><button class="copy-btn" data-sheet="tumba">📋 시트 프롬프트</button></div>
+    <p><code>Tumba warthog</code></p>
+    <div data-paste="tumba"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🦒 니아</h4><button class="copy-btn" data-sheet="nia">📋 시트 프롬프트</button></div>
+    <p><code>Nia giraffe</code></p>
+    <div data-paste="nia"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🦓 엄마</h4><button class="copy-btn" data-sheet="mother">📋 시트 프롬프트</button></div>
+    <p><code>Mother zebra</code></p>
+    <div data-paste="mother"></div>
+  </div>
+</div>
+
+<h2 class="sec">3. 25권</h2>
+<p class="lead">🔴 <b>작가에게 빈칸을 주지 않는 것</b>이 이 체제의 전부입니다.</p>
+<table><thead><tr><th>#</th><th>제목(=후렴)</th><th>틀리는 쪽</th><th>나오는 인물</th><th>그림 하나</th><th>계절</th></tr></thead><tbody><tr><td>01</td><td>하나 보고, 둘 가고!</td><td>모야</td><td>모야·키키·엄마</td><td>먼저 본 뒤에 달리면 길이 열린다</td><td>건기</td></tr><tr><td>02</td><td>높이 봐, 니아!</td><td>니아</td><td>니아·모야·엄마</td><td>키가 큰 것은 숨는 게 아니라 멀리 보는 일</td><td>건기</td></tr><tr><td>03</td><td>파기 전에, 톡톡!</td><td>툼바</td><td>툼바·키키·엄마</td><td>두드려 보면 속이 대답한다</td><td>건기</td></tr><tr><td>04</td><td>천천히도 도착해!</td><td>모야</td><td>모야·니아·엄마</td><td>느린 걸음도 같은 물가에 닿는다</td><td>건기</td></tr><tr><td>05</td><td>그늘 나눠 앉기!</td><td>툼바</td><td>툼바·니아·모야</td><td>그늘은 옮겨 가니 자리도 옮겨 앉는다</td><td>건기</td></tr><tr><td>06</td><td>무서우면, 손 잡고!</td><td>키키</td><td>키키·모야·엄마</td><td>무서운 것은 둘이면 반이 된다</td><td>건기</td></tr><tr><td>07</td><td>조금씩, 또 조금씩!</td><td>모야</td><td>모야·툼바·엄마</td><td>한 번에 못 넘는 둔덕도 여러 번이면 넘는다</td><td>건기</td></tr><tr><td>08</td><td>내 소리, 네 소리!</td><td>니아</td><td>니아·키키·툼바</td><td>저마다 다른 소리가 모이면 노래가 된다</td><td>우기</td></tr><tr><td>09</td><td>첫 비, 첫 발자국!</td><td>툼바</td><td>툼바·모야·엄마</td><td>젖은 흙은 지나간 것을 다 적어 둔다</td><td>우기</td></tr><tr><td>10</td><td>기다리면, 가라앉아!</td><td>키키</td><td>키키·툼바·엄마</td><td>흙탕물도 가만두면 맑아진다</td><td>우기</td></tr><tr><td>11</td><td>같이 밀면, 쑥!</td><td>모야</td><td>모야·툼바·니아</td><td>무거움은 나누면 반이 된다</td><td>우기</td></tr><tr><td>12</td><td>비 그치면, 무지개 자리!</td><td>니아</td><td>니아·모야·키키</td><td>비 온 뒤에만 생기는 것이 있다</td><td>우기</td></tr><tr><td>13</td><td>발자국 따라, 콩콩!</td><td>키키</td><td>키키·니아·엄마</td><td>잃은 것은 왔던 길이 기억한다</td><td>우기</td></tr><tr><td>14</td><td>흙 묻어도 괜찮아!</td><td>툼바</td><td>툼바·모야·엄마</td><td>씻으면 되는 것과 안 되는 것</td><td>우기</td></tr><tr><td>15</td><td>내 자리, 네 자리!</td><td>모야</td><td>모야·키키·툼바</td><td>물가는 차례로 마시면 다 마실 수 있다</td><td>건기</td></tr><tr><td>16</td><td>작아도 보여!</td><td>키키</td><td>키키·니아·엄마</td><td>작은 것이 제일 먼저 본다</td><td>건기</td></tr><tr><td>17</td><td>미안해, 한마디!</td><td>툼바</td><td>툼바·니아·모야</td><td>부러뜨린 것보다 안 한 말이 더 오래 남는다</td><td>건기</td></tr><tr><td>18</td><td>나도 할 수 있어!</td><td>니아</td><td>니아·툼바·엄마</td><td>못 하던 일은 어느 날 갑자기 되는 게 아니다</td><td>건기</td></tr><tr><td>19</td><td>바람 불면, 등지고!</td><td>모야</td><td>모야·니아·엄마</td><td>모래바람은 맞서지 말고 등을 준다</td><td>건기</td></tr><tr><td>20</td><td>반씩 나눠, 두 입!</td><td>툼바</td><td>툼바·키키·모야</td><td>나누면 반이 되는 게 아니라 두 배가 된다</td><td>건기</td></tr><tr><td>21</td><td>물어보면, 알려 줘!</td><td>키키</td><td>키키·모야·엄마</td><td>모르는 건 부끄러운 게 아니라 물어볼 일</td><td>우기</td></tr><tr><td>22</td><td>기다려 줄게!</td><td>모야</td><td>모야·니아·툼바</td><td>빠른 발이 기다려 주면 넷이 같이 간다</td><td>우기</td></tr><tr><td>23</td><td>별은 다 같이!</td><td>니아</td><td>니아·키키·모야</td><td>아무리 커도 하늘은 혼자 못 가진다</td><td>우기</td></tr><tr><td>24</td><td>아프면, 곁에!</td><td>툼바</td><td>툼바·모야·엄마</td><td>곁에 있어 주는 것이 제일 따뜻한 약</td><td>우기</td></tr><tr><td>25</td><td>여기가 우리 물웅덩이!</td><td>(넷 다)</td><td>모야·키키·툼바·니아 ⚠️ <b>이 권만 넷</b></td><td>배운 것들이 하나씩 이어져 하루가 된다</td><td>우기</td></tr></tbody></table>
+
+<h2 class="sec">4. 앵커 — 한 시리즈 = 한 그림체</h2>
+<p class="lead">시리즈 전권이 한 그림체입니다. 무대·계절 차이는 앵커 안 <b>무대 조항</b>이 처리합니다 — 매체·색은 그대로 두고 「두 색을 어디에 쓰고 무엇을 종이로 남기나」만 바뀝니다.
+🔴 악센트 <b>모야 목의 꼬아 만든 풀 끈 (25권 통틀어 자홍은 그것뿐 — 꽃·노을·새에도 안 쓴다)</b> 에만 닿습니다.</p>
+<div class="swatches">
+  <span class="sw"><i style="background:#FBF3E4"></i>종이 <code>#FBF3E4</code></span><span class="sw"><i style="background:#DFA24A"></i>색1 <code>#DFA24A</code></span><span class="sw"><i style="background:#7FB2D9"></i>색2 <code>#7FB2D9</code></span><span class="sw"><i style="background:#6B62A6"></i>겹침 <code>#6B62A6</code></span><span class="sw"><i style="background:#D6417A"></i>악센트 <code>#D6417A</code></span>
+</div>
+<div class="anchor-card">
+  <div class="ahead"><b>moya-daylight</b><button class="copy-btn" data-copy="anchor">📋 앵커 프롬프트 복사</button></div>
+  <div class="award-ref">
+    <a href="https://www.bolognachildrensbookfair.com/media/libro/images/ragazziaward/2014/L_OMBRE%20DE%20CHACUN_menzione_Fiction_BRAW2014.jpg" target="_blank" rel="noopener"><b>🖼 앵커 원본 보기</b></a>
+    <span>Mélanie Rutten · L'ombre de chacun (BolognaRagazzi Fiction 특별언급 2014)</span>
+    <em>동물 인물이 옷을 입고 앉아 있음. 얼굴은 점 눈 + 코 하나, 감정은 어깨선으로</em>
+  </div>
+  <details><summary>프롬프트 보기</summary><pre id="anchor">STYLE ANCHOR - moya-daylight   (Moya's waterhole / broken colour in watercolour, dry at the front and soaking at the back)
+
+Style: transparent watercolour on warm rag paper, for a picture book read aloud to four- to six-year-olds.
+  🔴 THE PAPER IS THE LIGHT: anything bright is bright BECAUSE IT WAS LEFT UNPAINTED, there is no white
+  paint, and nothing is made lighter by adding. Bare paper shows BETWEEN the touches on every page,
+  inside the figures as much as around them. 🔴 NO COLOUR IS EVER MIXED TO MAKE ANOTHER ONE: two colours
+  are laid beside each other and the third happens in the eye at reading distance - a green is a lemon
+  touch beside a blue one, AND THERE IS NO GREEN IN THIS PALETTE. Every touch is one press of a loaded
+  brush, put down once and lifted, never gone over again, and it keeps the shape the brush made.
+
+RENDERING (finish hierarchy): everything in this book is graded by HOW WET THE PAPER WAS WHEN THE COLOUR
+  WENT DOWN, and that one measurement gives all three finishes. (1) THE CHILD, AND WHATEVER THE CHILD HAS
+  A MUZZLE OR A PAW ON - painted on DRY paper as separate touches that hold their own edges and never run
+  into one another: 9 to 14 countable touches on a body. Then, and ONLY AFTER EVERYTHING IS DRY, a thin violet line is drawn. 🔴 THE PAINT
+  AND THE LINE NEVER DESCRIBE THE SAME PART: the masses are paint and carry no line (body, mane, stripes,
+  muzzle, rump), the thin things are line and carry no paint (legs below the knee, hooves, ears' inner
+  shape, tail hairs, whiskers, the meerkat's fingers), and where the two meet they disagree - the line
+  runs inside the colour along the back, outside it along the belly, and stops before it closes.
+  (2) THE GROUND UNDERFOOT AND WHATEVER GROWS OUT OF IT - painted on DAMP paper: 4 to 6 touches per
+  thing, edges feathering together, NO LINE ANYWHERE. (3) THE FAR SIDE, THE SKY, THE HEAT AND ANY MOVING WATER - painted on
+  SOAKING paper: one bloom, 0 countable touches, no line and no drawn shape at all.
+  🔴 HOW TO FIND A CHILD ON A FINISHED PAGE: paint and line meet on nothing else, and no other edge in
+  the picture contradicts itself. FINISHED THINGS PER PAGE = 2 - the child, and the single thing that
+  page turns on; every other object stops at step (2) or step (3). DENSITY RATION: none fixed for the series -
+  each volume names its own quiet spread in that volume's cut.
+
+PALETTE (and there are only these): PAPER #FBF3E4 warm rag, the only light in the book · LEMON #F2CE55 ·
+  SUN OCHRE #DFA24A · RED EARTH #C4693F for the road, the mounds and the mud · SKY #7FB2D9 · DEEP BLUE
+  #3B6E9E for water with depth and for rain · VIOLET #6B62A6 for every shadow and every drawn line.
+  🔴 NO BLACK AND NO GREY EXIST HERE: a shadow is a VIOLET touch laid BESIDE or UNDER a thing, never that
+  thing's own colour made darker, and a zebra's dark stripe is violet too. AT MOST FIVE OF THESE ON ONE
+  PAGE, plus the paper. 🔴 MAGENTA #D6417A IS THE ONE ACCENT IN TWENTY-FIVE BOOKS - the plaited cord at
+  Moya's neck and nowhere else ever: not a flower, not a sunset, not a bird, not on another child.
+
+STAGE CLAUSES (one waterhole and its rim, the same one in all twenty-five books):
+  🔴 SEASON IS COUNTED IN BLUE TOUCHES AMONG THE YELLOW ONES: dry = 0 blue touches in any grass, so a
+    field reads yellow-brown; wet = one blue touch to every two lemon ones, so THE SAME FIELD READS GREEN
+    WITH NO GREEN USED. Nothing else about a place changes season except what its own clause says.
+  THE WATERHOLE - dry: the water has pulled back and left rings of cracked mud, and THE NUMBER OF RINGS
+    IS HOW DRY IT IS (three at the driest); what is left is one flat deep-blue touch with nothing drawn
+    under the surface. wet: it reaches past every ring and goes to step (3) - soaking, no edge, the sky's
+    colours lying in it.
+  THE ACACIA AND ITS SHADE - a flat top of separate dabs. dry: 20 to 30 dabs with paper in the gaps.
+    wet: the dabs close until fewer than five gaps are left. Its shade is the largest violet on any page,
+    laid as separate touches beside the foot of the trunk, never as a darkening of the ground.
+  THE RED ROAD - dry: dust, the one thing at step (3) that comes near the figures - above knee height the
+    road's edge is a soaking bloom with nothing drawn in it. wet: mud, the same red earth with violet in
+    the ruts, and 🔴 THE WATER LYING IN THE RUTS IS BARE PAPER.
+  THE REED BED - vertical touches only, all leaning one way per page. dry: 12 to 20, paper showing
+    between every reed, ochre at the tips. wet: twice as many and the paper closes up.
+  THE ROCK HILL - two or three damp touches, never more than four, tops LEFT AS BARE PAPER: 🔴 THE ONLY
+    PLACE WHERE PAPER IS THE LIGHT ON A THING RATHER THAN THE LIGHT IN THE AIR. dry: violet on one side
+    only. wet: a blue touch beside each ochre one, so the hill reads cool.
+  THE GRASS PLAIN - where the season is counted. Touches lean one way per page, paper runs between them,
+    and nothing else is drawn out there: no path, no fence, no single named plant.
+  THE BIG SKY - always step (3), one bloom, 0 countable touches, at least a third of the page height.
+    dry: lemon meeting sky blue high up. wet: deep blue dropped in at the top edge and let fall.
+
+CHARACTER DESIGN LANGUAGE: 🔴 THE NECK CARRIES THE FEELING - NOT THE EYES - and it is read against that
+  animal's own shoulder. Head below the shoulder line = downcast. Level = ordinary. Pushed forward past
+  the front feet = wanting. Folded back so the head sits behind the shoulder = startled. Lifted until the
+  whole underside of the throat shows = pleased. The ears follow the neck and are never given a job of
+  their own. THE EYE IS FIXED FOREVER - one dark violet almond as wide as that animal's own nostril, the
+  same on every page of twenty-five books, open or shut. NO eyebrows, NO eyelashes, NO white in the eye,
+  NO drawn mouth line.
+  GRADE: everyone walks on four legs, wears no clothing and keeps animal proportions and an animal face.
+  🔴 KIKI IS THE ONE EXCEPTION AND IT IS HER WHOLE SILHOUETTE: the meerkat alone stands upright and alone
+  has forepaws that hold things; the others carry with mouth, hoof or snout.
+  A COAT IS TOUCHES, NOT HAIR - no strands, no combed edge, no drawn creases. A zebra child's body is
+  9 to 14 touches, most of them the stripes; 🔴 A STRIPE STOPS WHERE ITS TOUCH STOPS and is never
+  carried on as a pattern across a soft edge.
+  ONE WORN THING EACH, and it tells the children apart at any size: Moya the magenta cord · Nia a coil of
+  pale reed at the base of her neck · Tumba a crest of bristle LEFT AS UNPAINTED PAPER, the only
+  unpainted thing on any figure · Kiki wears nothing and is known by standing. 🔴 AN ADULT IS NOT A
+  BIGGER CHILD: the mother wears nothing, and her stripes run the whole way down to the hoof, while a
+  child's stop above the knee and the leg below is bare paper and line. Heights never tell two figures
+  apart - the giraffe child is the tallest thing in the cast and is still a child.
+
+CANVAS: 16:9 double-page spread. 🔴 NOT ONE WRITTEN MARK ANYWHERE - no letters, numerals or signs.
+  🔴 THE PLACE DOES NOT MOVE BETWEEN BOOKS: the water lies in the lower half with its far rim across the
+  middle, the acacia stands at the left third, the rock hill on the right, the red road comes in at the
+  bottom left corner and runs to the water, the reeds stand behind the water right of the acacia. The
+  camera may stand anywhere, but this plan is never mirrored.
+
+NOT: no airbrush, no soft gradient, no glow, no 3D render, no digital texture filter / 🔴 NOTHING IS EVER
+  DRAWN UPSIDE DOWN IN THE WATER - a reflection is horizontal touches of the same colours, no shape
+  repeated inverted / 🔴 NO PREDATOR IS EVER ON THE SAME BANK AS A CHILD: a lion or hyena appears only at
+  step (3) as a far bloom with no face, no eyes and no teeth, and there is no chase, no carcass, no bone
+  and no blood in twenty-five books / a child never goes into the water past the knee, and the deep water
+  is where the adult stands.</pre></details>
+  <div data-paste="anchor"></div>
+</div>
+
+<h2 class="sec">5. 캐스트 시트</h2>
+<p class="lead">한 장에 전원을 그립니다. 🔴 <b>시트가 최종 그림을 지배</b>하므로 시트를 먼저 확정하고 쪽 삽화로 갑니다.</p>
+<div class="anchor-card">
+  <div class="ahead"><b>전원 시트</b><button class="copy-btn" data-copy="sheet">📋 시트 프롬프트 복사</button></div>
+  <details open><summary>프롬프트 보기</summary><pre id="sheet">CHARACTER SHEET - moya waterhole   (five figures, one sheet)
+
+STYLE ANCHOR - moya-daylight   (Moya's waterhole / broken colour in watercolour, dry at the front and soaking at the back)
+
+Style: transparent watercolour on warm rag paper, for a picture book read aloud to four- to six-year-olds.
+  🔴 THE PAPER IS THE LIGHT: anything bright is bright BECAUSE IT WAS LEFT UNPAINTED, there is no white
+  paint, and nothing is made lighter by adding. Bare paper shows BETWEEN the touches on every page,
+  inside the figures as much as around them. 🔴 NO COLOUR IS EVER MIXED TO MAKE ANOTHER ONE: two colours
+  are laid beside each other and the third happens in the eye at reading distance - a green is a lemon
+  touch beside a blue one, AND THERE IS NO GREEN IN THIS PALETTE. Every touch is one press of a loaded
+  brush, put down once and lifted, never gone over again, and it keeps the shape the brush made.
+
+RENDERING (finish hierarchy): everything in this book is graded by HOW WET THE PAPER WAS WHEN THE COLOUR
+  WENT DOWN, and that one measurement gives all three finishes. (1) THE CHILD, AND WHATEVER THE CHILD HAS
+  A MUZZLE OR A PAW ON - painted on DRY paper as separate touches that hold their own edges and never run
+  into one another: 9 to 14 countable touches on a body. Then, and ONLY AFTER EVERYTHING IS DRY, a thin violet line is drawn. 🔴 THE PAINT
+  AND THE LINE NEVER DESCRIBE THE SAME PART: the masses are paint and carry no line (body, mane, stripes,
+  muzzle, rump), the thin things are line and carry no paint (legs below the knee, hooves, ears' inner
+  shape, tail hairs, whiskers, the meerkat's fingers), and where the two meet they disagree - the line
+  runs inside the colour along the back, outside it along the belly, and stops before it closes.
+  (2) THE GROUND UNDERFOOT AND WHATEVER GROWS OUT OF IT - painted on DAMP paper: 4 to 6 touches per
+  thing, edges feathering together, NO LINE ANYWHERE. (3) THE FAR SIDE, THE SKY, THE HEAT AND ANY MOVING WATER - painted on
+  SOAKING paper: one bloom, 0 countable touches, no line and no drawn shape at all.
+  🔴 HOW TO FIND A CHILD ON A FINISHED PAGE: paint and line meet on nothing else, and no other edge in
+  the picture contradicts itself. FINISHED THINGS PER PAGE = 2 - the child, and the single thing that
+  page turns on; every other object stops at step (2) or step (3). DENSITY RATION: none fixed for the series -
+  each volume names its own quiet spread in that volume's cut.
+
+PALETTE (and there are only these): PAPER #FBF3E4 warm rag, the only light in the book · LEMON #F2CE55 ·
+  SUN OCHRE #DFA24A · RED EARTH #C4693F for the road, the mounds and the mud · SKY #7FB2D9 · DEEP BLUE
+  #3B6E9E for water with depth and for rain · VIOLET #6B62A6 for every shadow and every drawn line.
+  🔴 NO BLACK AND NO GREY EXIST HERE: a shadow is a VIOLET touch laid BESIDE or UNDER a thing, never that
+  thing's own colour made darker, and a zebra's dark stripe is violet too. AT MOST FIVE OF THESE ON ONE
+  PAGE, plus the paper. 🔴 MAGENTA #D6417A IS THE ONE ACCENT IN TWENTY-FIVE BOOKS - the plaited cord at
+  Moya's neck and nowhere else ever: not a flower, not a sunset, not a bird, not on another child.
+
+STAGE CLAUSES (one waterhole and its rim, the same one in all twenty-five books):
+  🔴 SEASON IS COUNTED IN BLUE TOUCHES AMONG THE YELLOW ONES: dry = 0 blue touches in any grass, so a
+    field reads yellow-brown; wet = one blue touch to every two lemon ones, so THE SAME FIELD READS GREEN
+    WITH NO GREEN USED. Nothing else about a place changes season except what its own clause says.
+  THE WATERHOLE - dry: the water has pulled back and left rings of cracked mud, and THE NUMBER OF RINGS
+    IS HOW DRY IT IS (three at the driest); what is left is one flat deep-blue touch with nothing drawn
+    under the surface. wet: it reaches past every ring and goes to step (3) - soaking, no edge, the sky's
+    colours lying in it.
+  THE ACACIA AND ITS SHADE - a flat top of separate dabs. dry: 20 to 30 dabs with paper in the gaps.
+    wet: the dabs close until fewer than five gaps are left. Its shade is the largest violet on any page,
+    laid as separate touches beside the foot of the trunk, never as a darkening of the ground.
+  THE RED ROAD - dry: dust, the one thing at step (3) that comes near the figures - above knee height the
+    road's edge is a soaking bloom with nothing drawn in it. wet: mud, the same red earth with violet in
+    the ruts, and 🔴 THE WATER LYING IN THE RUTS IS BARE PAPER.
+  THE REED BED - vertical touches only, all leaning one way per page. dry: 12 to 20, paper showing
+    between every reed, ochre at the tips. wet: twice as many and the paper closes up.
+  THE ROCK HILL - two or three damp touches, never more than four, tops LEFT AS BARE PAPER: 🔴 THE ONLY
+    PLACE WHERE PAPER IS THE LIGHT ON A THING RATHER THAN THE LIGHT IN THE AIR. dry: violet on one side
+    only. wet: a blue touch beside each ochre one, so the hill reads cool.
+  THE GRASS PLAIN - where the season is counted. Touches lean one way per page, paper runs between them,
+    and nothing else is drawn out there: no path, no fence, no single named plant.
+  THE BIG SKY - always step (3), one bloom, 0 countable touches, at least a third of the page height.
+    dry: lemon meeting sky blue high up. wet: deep blue dropped in at the top edge and let fall.
+
+CHARACTER DESIGN LANGUAGE: 🔴 THE NECK CARRIES THE FEELING - NOT THE EYES - and it is read against that
+  animal's own shoulder. Head below the shoulder line = downcast. Level = ordinary. Pushed forward past
+  the front feet = wanting. Folded back so the head sits behind the shoulder = startled. Lifted until the
+  whole underside of the throat shows = pleased. The ears follow the neck and are never given a job of
+  their own. THE EYE IS FIXED FOREVER - one dark violet almond as wide as that animal's own nostril, the
+  same on every page of twenty-five books, open or shut. NO eyebrows, NO eyelashes, NO white in the eye,
+  NO drawn mouth line.
+  GRADE: everyone walks on four legs, wears no clothing and keeps animal proportions and an animal face.
+  🔴 KIKI IS THE ONE EXCEPTION AND IT IS HER WHOLE SILHOUETTE: the meerkat alone stands upright and alone
+  has forepaws that hold things; the others carry with mouth, hoof or snout.
+  A COAT IS TOUCHES, NOT HAIR - no strands, no combed edge, no drawn creases. A zebra child's body is
+  9 to 14 touches, most of them the stripes; 🔴 A STRIPE STOPS WHERE ITS TOUCH STOPS and is never
+  carried on as a pattern across a soft edge.
+  ONE WORN THING EACH, and it tells the children apart at any size: Moya the magenta cord · Nia a coil of
+  pale reed at the base of her neck · Tumba a crest of bristle LEFT AS UNPAINTED PAPER, the only
+  unpainted thing on any figure · Kiki wears nothing and is known by standing. 🔴 AN ADULT IS NOT A
+  BIGGER CHILD: the mother wears nothing, and her stripes run the whole way down to the hoof, while a
+  child's stop above the knee and the leg below is bare paper and line. Heights never tell two figures
+  apart - the giraffe child is the tallest thing in the cast and is still a child.
+
+CANVAS: 16:9 double-page spread. 🔴 NOT ONE WRITTEN MARK ANYWHERE - no letters, numerals or signs.
+  🔴 THE PLACE DOES NOT MOVE BETWEEN BOOKS: the water lies in the lower half with its far rim across the
+  middle, the acacia stands at the left third, the rock hill on the right, the red road comes in at the
+  bottom left corner and runs to the water, the reeds stand behind the water right of the acacia. The
+  camera may stand anywhere, but this plan is never mirrored.
+
+NOT: no airbrush, no soft gradient, no glow, no 3D render, no digital texture filter / 🔴 NOTHING IS EVER
+  DRAWN UPSIDE DOWN IN THE WATER - a reflection is horizontal touches of the same colours, no shape
+  repeated inverted / 🔴 NO PREDATOR IS EVER ON THE SAME BANK AS A CHILD: a lion or hyena appears only at
+  step (3) as a far bloom with no face, no eyes and no teeth, and there is no chase, no carcass, no bone
+  and no blood in twenty-five books / a child never goes into the water past the knee, and the deep water
+  is where the adult stands.
+
+SHEET LAYOUT: one sheet of bare warm rag paper - 🔴 THE GROUND IS NOT PAINTED AND THERE IS NO SCENERY.
+  Five figures stand in a row on a single ground line at their true relative heights: the mother zebra,
+  Moya at her belly, Nia the giraffe child above them all and cropped by the top edge, Tumba low and
+  long, and Kiki standing upright at the end. Each is drawn THREE times - standing in profile,
+  three-quarter walking, and the head and neck alone, large enough that the line from ear to shoulder is
+  clear. Legs are drawn in every one of them, so the line-only parts are fixed before any prop exists.
+🔴 TEST ON THE FIVE LARGE HEADS: paint the eye out entirely and the feeling must still be readable from
+  the set of the neck against the shoulder alone. If it is not, the eye was doing the work and the sheet
+  is wrong.
+🔴 ONE EXTRA ROW AT THE FOOT OF THE SHEET: the same five again, side by side, filled solid in flat violet
+  with 0 interior marks and no magenta at all. THREE THINGS ARE READ OFF THAT ROW AND THE SHEET IS WRONG
+  IF ANY ONE FAILS: the five are told apart by build and stance, NOT by size (cover the ground line and
+  they must still be five different animals); Kiki is upright with her forepaws clear of her body;
+  and the mother is told from Moya by her stripes reaching the hoof, not by being taller.
+🔴 A SECOND SMALL ROW: Moya's head and neck five times at thumbnail size - downcast, ordinary, wanting,
+  startled, pleased - WITH THE EYE PAINTED OUT. The five must still be told apart from the neck alone.
+  Nothing else on the sheet: no props beyond the four worn things, no scenery, no shadow, and no
+  lettering, numerals, labels or name tags anywhere.</pre></details>
+  <div data-paste="cast-sheet"></div>
+</div>
+
+</div>
+<script src="/moya-core.js"></script>
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.getAttribute('data-copy'));
+      if (el) window.SERIES.copyText(el.textContent, b);
+    });
+  });
+  document.querySelectorAll('[data-sheet]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      window.SERIES.copyText(window.SERIES.sheetPrompt(b.getAttribute('data-sheet')), b);
+    });
+  });
+  window.SERIES.mountPasteSlots('moya-plan');
+</script>
+</body>
+</html>

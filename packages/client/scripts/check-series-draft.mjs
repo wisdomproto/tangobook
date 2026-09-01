@@ -78,11 +78,26 @@ function checkSeries(key) {
     //    호리 배변편 쪽별 서술문 2 2 2 3 2 2 2 2 3 3 (한 번도 3 초과 없음) vs 코타 03 의 4 3 2 3 3 4 4 4 5 3.
     //    🔴 **대사는 안 센다** — 둘 다 쪽당 1.6 으로 똑같았다. 갈린 것은 서술뿐이다.
     //    서술문 하나가 대개 동작 하나이고, 둘셋은 한 장에 담기지만(자세+둘레+소품) 넷부터 순차가 된다.
+    // 🔴 **따옴표 상태를 문장 밖에서 좇는다**(2026-09-01) — 한 대사가 「하나 A! 둘 B! 셋 C!」처럼
+    //    ! 로 쪼개지면 **가운데 조각은 앞뒤 어느 따옴표도 안 달아** 서술로 잡혔다. 그 탓에 이 렌즈가
+    //    번호 규칙(p9)을 쓴 권마다 헛경고를 냈고(모야 20권 중 13권), 그걸 믿고 멀쩡한 글을 고칠 뻔했다.
+    //    속마음의 작은따옴표도 같이 센다. 🔴 「~거든요」는 앞 장면에 붙는 **설명**이라 순간이 아니다.
+    const QUOTE = /["“”「」'‘’]/;
     for (const p of bk.pages) {
-      const narr = p.ko
-        .split(/(?<=[.!?])\s+/)
-        .map((x) => x.trim())
-        .filter((x) => x.length > 1 && !/^["「]/.test(x)).length;
+      let inQuote = false;
+      let narr = 0;
+      for (const line of p.ko.split('\n')) {
+        for (const raw of line.split(/(?<=[.!?])\s+/)) {
+          const s = raw.trim();
+          if (s.length <= 1) continue;
+          const wasIn = inQuote;
+          for (const ch of s) if (QUOTE.test(ch)) inQuote = !inQuote;
+          if (wasIn || /^["“「'‘]/.test(s)) continue;
+          if (/거든요[.!?]?$/.test(s)) continue;
+          narr++;
+        }
+        inQuote = false;
+      }
       if (narr > 3) warn.push(at(`p${p.n} 서술문 ${narr}개 (호리는 2~3) — 한 장에 안 담긴다`));
     }
 
@@ -116,8 +131,9 @@ function checkSeries(key) {
   for (const [id, bk] of books) {
     for (const p of bk.pages) {
       for (const s of p.ko.split(/(?<=[.!?])\s+/)) {
-        // 🔴 시그니처(꼬리가 붕—)는 호리 규칙 ⑦처럼 **매 권 일부러 반복**한다 — 🔁 렌즈 제외(2026-09-01)
-        if (s.includes('꼬리가 붕')) continue;
+        // 🔴 시그니처는 호리 규칙 ⑦처럼 **매 권 일부러 반복**한다 — 🔁 렌즈 제외(2026-09-01).
+        //    코타 = 꼬리가 붕— · 모야 = 모야 목이 쭉. 새 시리즈를 열면 그 시그니처를 여기 더한다.
+        if (['꼬리가 붕', '목이 쭉'].some((sig) => s.includes(sig))) continue;
         const t = s.trim();
         // 🔴 걸러야 할 것 둘 — 안 거르면 소음에 신호가 묻힌다(실측: 나간 시리즈에서 검출 33건 중 21건이 소음).
         //   ① 짧은 감탄·의성어 ② **대사 표지**(「엄마가 말했어요」) — 그림책에서 반복이 정상이다.

@@ -172,6 +172,27 @@ export const SERIES = {
       { key: 'granny', name: '곰 할머니', face: '🐻', aliases: ['곰 할머니', 'Bear granny'] },
     ],
   },
+  /** 🔴 17 — 앙상블형(호리·대발이 결). 손님 등록부가 없다: 고정 캐스트 다섯이 돌고 **한 편에 최대 셋**이다.
+   *  캐스트가 여럿이고 권마다 일부만 나오므로, 그 권에 처음 나오는 인물은 **등장 쪽에서 한 조각으로** 밝힌다
+   *  (아이가 어느 권을 첫 권으로 집을지 모른다 → docs/changjak-books/CLAUDE.md §처음 나오는 인물). */
+  moya: {
+    no: '17',
+    title: '모야네 물웅덩이',
+    icon: '🦓',
+    awardRef: 'rutten-ombre',
+    sub: '얼룩말 아이 모야와 동무 셋 · 아프리카 초원의 물웅덩이 · <b>대발이형</b>(고정 캐스트 다섯, 한 편에 최대 셋) · 그림체 = 투명 수채, 섞지 않고 나란히',
+    form: 'debari',
+    pen: { author: '오하람', illustrator: '유하람' },
+    palette: { paper: '#FBF3E4', ink1: '#DFA24A', ink2: '#7FB2D9', overlap: '#6B62A6', accent: '#D6417A' },
+    accentWhere: '모야 목의 꼬아 만든 풀 끈 (25권 통틀어 자홍은 그것뿐 — 꽃·노을·새에도 안 쓴다)',
+    cast: [
+      { key: 'moya',   name: '모야', face: '🦓', aliases: ['모야', 'Moya zebra', 'Moya'] },
+      { key: 'kiki',   name: '키키', face: '🦫', aliases: ['키키', 'Kiki meerkat', 'Kiki'] },
+      { key: 'tumba',  name: '툼바', face: '🐗', aliases: ['툼바', 'Tumba warthog', 'Tumba'] },
+      { key: 'nia',    name: '니아', face: '🦒', aliases: ['니아', 'Nia giraffe', 'Nia'] },
+      { key: 'mother', name: '엄마', face: '🦓', aliases: ['엄마', 'Mother zebra'] },
+    ],
+  },
   kota: {
     guests: KOTA_GUESTS,
     no: '16', title: '코타와 오늘의 손님', icon: '🦝',
