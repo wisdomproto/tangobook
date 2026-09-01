@@ -94,8 +94,12 @@ section:first-of-type{border-top:0}
 }
 h2{font-size:clamp(1.7rem,3.2vw,2.35rem); font-weight:700; letter-spacing:-.028em}
 h3{font-size:1.16rem; font-weight:700; letter-spacing:-.018em; margin:38px 0 12px}
-.lede{font-size:1.16rem; line-height:1.75; color:var(--muted); margin:16px 0 0; max-width:40em}
-p{margin:1.05em 0}
+.lede{font-size:1.16rem; line-height:1.78; color:var(--muted); margin:18px 0 0; max-width:42em;
+  padding-left:1.15em; position:relative}
+.lede::before{content:""; position:absolute; left:0; top:.68em;
+  width:8px; height:8px; border-radius:3px; background:var(--coral)}
+p{margin:1.25em 0; text-align:justify; text-justify:inter-word}
+.lede, .claim-punch, figcaption, .cap{text-align:left}
 .note{font-size:1rem; color:var(--muted)}
 
 /* 히어로 */
@@ -107,8 +111,12 @@ p{margin:1.05em 0}
 }
 .hero-top{display:flex; align-items:flex-start; justify-content:space-between;
   gap:clamp(20px,4vw,56px); flex-wrap:wrap}
-.hero-copy{flex:1 1 420px; min-width:0}
-.hero-logo{flex:0 0 auto; width:clamp(150px,19vw,250px); height:auto; margin-top:2px}
+.hero-top{position:relative}
+.hero-copy{flex:1 1 100%; min-width:0}
+.hero-logo{width:clamp(150px,19vw,250px); height:auto; margin-top:22px}
+@media (min-width:1080px){
+  .hero-logo{position:absolute; right:0; top:104px; margin-top:0}
+}
 .hero-fig{margin-top:44px; max-width:1040px}
 .hero-fig{margin-top:44px; max-width:1040px}
 .skills{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:1px;
@@ -117,7 +125,8 @@ p{margin:1.05em 0}
 .skill{background:var(--coral-wash); padding:16px 18px}
 .skill .sk{font-family:Hahmlet,serif; font-size:1.16rem; font-weight:700;
   color:var(--coral-ink); letter-spacing:-.02em}
-.skill .sv{font-size:.94rem; color:var(--muted); margin-top:5px; line-height:1.6}
+.skill .sv{font-size:.94rem; color:var(--muted); margin-top:6px; line-height:1.62}
+.skill .sv span{display:block}
 .claim{margin-top:34px; max-width:1040px; padding:30px clamp(22px,3vw,38px);
   border-radius:16px; background:var(--surface); border:1px solid var(--line)}
 .claim.hot{background:var(--coral-wash); border-color:color-mix(in srgb,var(--coral) 26%,var(--line))}
@@ -134,11 +143,11 @@ p{margin:1.05em 0}
 .chips span{font-size:.9rem; padding:6px 14px; border-radius:999px;
   background:var(--mint-wash); color:var(--mint-ink); font-weight:600}
 .nb{white-space:nowrap}
-.hero .sub span{display:block; margin-top:.55em; padding-left:1.15em; position:relative}
+.hero .sub span{display:block; margin-top:.85em; padding-left:1.15em; position:relative}
 .hero .sub span::before{content:""; position:absolute; left:0; top:.62em;
   width:8px; height:8px; border-radius:3px; background:var(--coral)}
 .hero .sub span:first-child{margin-top:0}
-.hero .sub{text-wrap:pretty; font-size:1.3rem; line-height:1.72; color:var(--muted); max-width:33em; margin-top:22px}
+.hero .sub{font-size:1.3rem; line-height:1.7; color:var(--muted); max-width:none; margin-top:24px}
 
 /* 숫자 4개 */
 .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(148px,1fr)); gap:1px;
@@ -276,10 +285,10 @@ footer{border-top:1px solid var(--line); padding:34px 0 60px; color:var(--faint)
   </div>
 
   <div class="skills">
-    <div class="skill"><div class="sk">듣기</div><div class="sv">나레이션 · 낱말 음원 &mdash; 다섯 개 언어</div></div>
-    <div class="skill"><div class="sk">말하기</div><div class="sv">음성 인식으로 낱말 따라 읽기</div></div>
-    <div class="skill"><div class="sk">읽기</div><div class="sv">파닉스 95단원 · 동화책 266권</div></div>
-    <div class="skill"><div class="sk">쓰기</div><div class="sv">획을 채점하는 글자 · 낱말 쓰기</div></div>
+    <div class="skill"><div class="sk">듣기</div><div class="sv"><span>동화책 읽어주기</span><span>낱말 읽어주기</span></div></div>
+    <div class="skill"><div class="sk">말하기</div><div class="sv"><span>음성 인식으로 낱말 따라 읽기</span></div></div>
+    <div class="skill"><div class="sk">읽기</div><div class="sv"><span>동화책 266권</span><span>1,000권 +</span></div></div>
+    <div class="skill"><div class="sk">쓰기</div><div class="sv"><span>낱말 쓰기</span></div></div>
   </div>
 
   <div class="stats">
