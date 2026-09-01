@@ -6591,13 +6591,28 @@ function drawCamSim(){
         그 배관으로 되돌리는 동안 배율과 방향이 샜다(사각형은 맞는데 ㅌ 이 ㄹ 로 읽혔고,
         여유 손잡이를 흔들어도 결과가 안 변했다). 파이썬에서 검증한 경로가 이것이다. */
   /* 🔴 레고 판은 **모핑을 건너뛴다** — 판도 격자도 안 찾는다(recognizeLegoDirect). */
-  if (isLego() && cvReady && camSim.detect && reco.fbo){
+  /* 🔴 OpenCV(11MB)를 받는 동안 옛 경로로 흘려보내지 않는다. 그 경로는 이 판에
+        없는 테두리·격자를 찾느라 한 프레임에 수백 ms 를 쓰고, 그동안 안내 화면이
+        그대로 떠 있어 「시작이 오래 걸린다」로 보인다. 받는 중이면 그냥 쉰다. */
+  /* 🔴 레고면 **여기서 끝난다.** 조건 하나라도 어긋나 아래로 새면 옛 경로가 돌고,
+        그 경로는 이 판에 없는 격자를 못 찾아 `loseBoard()` 를 불러 안내 화면으로
+        되돌린다 — 「한 번 읽고는 계속 판을 똑바로 놓으라고 한다」가 이것이었다.
+        카메라 해상도가 바뀌면 버퍼를 다시 잡느라 한두 프레임이 비는데, 그 틈에
+        정확히 이 일이 벌어진다. */
+  if (isLego()){
+    if (!cvReady){ loadOpenCV(); if (camOnly) showCamDbg(); return; }
+    if (!reco.fbo) initReco();
+    if (!(camSim.detect && reco.fbo)){ if (camOnly) showCamDbg(); return; }
     grabDetect();
     reco.result = recognizeLegoDirect();
     var got = !!(reco.result && reco.result.word);
     camSim.detected = got;
     reco.playInfo = { kind:'모핑없음', lego:reco.legoInfo };
-    markBoardFrame(!!(reco.result && reco.result.comps));
+    /* 🔴 레고는 **기다릴 게 없다.** 「판을 똑바로 놓아주세요」는 판을 찾아 펴야 하던
+          시절의 안내다 — 이 경로는 판을 안 찾으므로 맞출 것도 없다.
+          덩어리가 잡힐 때까지 기다리게 해 뒀더니 **빈 판에서는 영영 시작이 안 됐다**
+          (블록을 올려야 시작되는데, 시작을 해야 올리라고 말해 준다). */
+    markBoardFrame(true);
     if (typeof onRecoResult === 'function') onRecoResult();
     if (camSim.on && boardReady && typeof outEl !== 'undefined' && outEl) readBoard();
     if (camOnly) showCamDbg();
