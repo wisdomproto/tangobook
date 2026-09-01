@@ -8847,6 +8847,11 @@ function sendNow(btn, was){
         폈는지**가 안 보인다 — 펴진 판과 진단 숫자가 한 장에 있어야 어디가 어긋났는지
         바로 짚힌다. GL 캔버스는 그리자마자 읽어야 하므로 draw() 직후에 픽셀을 뜬다. */
   try {
+    /* 🔴 **보내는 그 프레임으로 인식을 다시 돌린다.** 분석은 recoEveryMs 로 띄엄띄엄
+          하고 그 사이엔 지난 결과를 계속 그리므로, 그냥 찍으면 **사진과 화면 숫자가
+          서로 다른 프레임**이 된다 — 실측: 화면엔 「ㅓ0.71 · 겅」이 떠 있는데 저장된
+          사진은 로컬에서 「홀깅」으로 멀쩡히 읽혔다. 그러면 증거가 아니라 헛것이다. */
+    camSim.lastRecoAt = 0;
     draw();
     var gw = canvas.width, gh2 = canvas.height;
     var px = new Uint8Array(gw*gh2*4);

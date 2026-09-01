@@ -488,7 +488,18 @@ export function createApp() {
       express.static(clientDist, {
         maxAge: '7d',
         setHeaders: (res, filePath) => {
-          if (/(index\.html|robots\.txt|sitemap\.xml|llms\.txt|manifest\.json)$/i.test(filePath)) {
+          /* 🔴 저작·진단용 HTML 도 no-cache 다(2026-09-01). 7일 캐시면 고쳐서 배포해도
+           *    폰이 **옛 빌드를 계속 본다** — 그걸 모르고 「아직도 안 고쳐졌다」와
+           *    「고쳤는데 왜 그대로냐」를 서로 다른 원인으로 쫓게 된다(실측: 레고 판
+           *    인식을 고친 뒤에도 폰만 옛 동작이었고, 주소에 `?v=N` 을 붙여야 바뀌었다).
+           *    해시 이름이 아니라서 캐시가 길면 못 갱신되는 건 아이콘·로고와 같은 사정인데,
+           *    이쪽은 **매일 고치는 파일**이라 수명을 아예 안 준다. */
+          if (
+            /(index\.html|robots\.txt|sitemap\.xml|llms\.txt|manifest\.json)$/i.test(filePath) ||
+            /[\\/](tango-board-3d|letter-fill-demo|vocabulary-table-ko|vocabulary-master|key-object-editor)\.html$/i.test(
+              filePath
+            )
+          ) {
             res.setHeader('Cache-Control', 'no-cache');
           }
         },
