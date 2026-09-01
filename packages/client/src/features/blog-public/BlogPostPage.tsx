@@ -6,12 +6,15 @@ import { useBlogPost } from './api';
 import { BlogCards } from './BlogCards';
 import { useBlogLang } from './useBlogLang';
 import { PhonicsTryIt } from '@/features/phonics-learner/components/PhonicsTryIt';
+import { VocabTryIt } from '@/features/vocabulary-unit/components/VocabTryIt';
 
 /**
  * 파닉스 글에서 「직접 해보기」가 들어갈 자리 — 앞 N개 섹션 뒤.
  * 32편이 같은 6섹션 구조(§2 가 「두 글자가 합쳐지는 순간」)를 쓰므로 고정값이다.
  */
 const TRY_IT_AFTER = 3;
+// 책 블로그(자연·명작·생활)는 「이 책에서 만나는 낱말」 카드(4번째) 바로 뒤에 낱말 게임을 얹는다.
+const VOCAB_TRY_AFTER = 4;
 
 /**
  * 파닉스 **허브** 글 — 단원 하나가 아니라 여러 단원을 묶는 안내다(받침 7편, 자음 15편…).
@@ -94,6 +97,14 @@ export default function BlogPostPage() {
           : null;
   // 쓰기 글만 그 단원의 **쓰기 활동**을 강제(기본은 듣기). 읽기·소리 글은 undefined = 기본 듣기.
   const phonicsActivityKey = phonicsDemo?.activityKey;
+
+  // 책 블로그(자연·명작·생활) = storybookId 가 **실제 책 id(숫자)**. 그 책 낱말 게임을 얹는다.
+  //   (파닉스 롱테일은 write-*/read-*/hub- 처럼 문자로 시작하므로 여기서 걸러진다.)
+  //   낱말 없는 책은 VocabTryIt 이 스스로 접는다. 한국어 글에만(활동 화면이 한국어).
+  const vocabBookId =
+    lang === 'ko' && !phonicsUnit && post?.storybookId && /^\d/.test(post.storybookId)
+      ? post.storybookId
+      : null;
 
   // 위/아래 CTA 링크 — 파닉스는 **동화 뷰어가 아니라 학습 페이지**로 보낸다(사용자 2026-08-01).
   //   허브 → 커리큘럼 랜딩 / 파닉스 단원 → 그 단원 학습 페이지 / 그 외 → 동화책 상세.
@@ -215,6 +226,13 @@ export default function BlogPostPage() {
                       <BlogCards cards={post.cards.slice(0, TRY_IT_AFTER)} />
                       <PhonicsTryIt unitId={phonicsUnit} activityKey={phonicsActivityKey} />
                       <BlogCards cards={post.cards.slice(TRY_IT_AFTER)} />
+                    </>
+                  ) : vocabBookId ? (
+                    <>
+                      {/* 책 블로그 — 「이 책에서 만나는 낱말」 카드 바로 뒤에 그 책 낱말 게임을 얹는다. */}
+                      <BlogCards cards={post.cards.slice(0, VOCAB_TRY_AFTER)} />
+                      <VocabTryIt storybookId={vocabBookId} />
+                      <BlogCards cards={post.cards.slice(VOCAB_TRY_AFTER)} />
                     </>
                   ) : (
                     <BlogCards cards={post.cards} />
