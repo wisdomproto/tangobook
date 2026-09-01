@@ -129,7 +129,8 @@ p{margin:1.05em 0}
 .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px}
 .chips span{font-size:.9rem; padding:6px 14px; border-radius:999px;
   background:var(--mint-wash); color:var(--mint-ink); font-weight:600}
-.hero .sub{font-size:1.2rem; line-height:1.72; color:var(--muted); max-width:33em; margin-top:22px}
+.nb{white-space:nowrap}
+.hero .sub{text-wrap:pretty; font-size:1.2rem; line-height:1.72; color:var(--muted); max-width:33em; margin-top:22px}
 
 /* 숫자 4개 */
 .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(148px,1fr)); gap:1px;
@@ -254,11 +255,11 @@ footer{border-top:1px solid var(--line); padding:34px 0 60px; color:var(--faint)
 <!-- ══════════ 히어로 ══════════ -->
 <header class="hero">
   <div class="kicker">유아 언어 학습 플랫폼 · 한국어 · 영어 · 중국어</div>
-  <h1>탱고북에서는 언어를 놀면서 배웁니다.</h1>
+  <h1>탱고북에서는<br>언어를 놀면서 배웁니다.</h1>
   <p class="sub">소리와 글자부터 가르치고,
   <b>배운 낱말이 나오는 동화책</b>으로 이어집니다.
   그 동화책은 <b>그림체도 이야기도 다양해서</b> 아이가 마음에 드는 것을 골라 읽습니다.
-  <b>다양한 독후활동</b>을 통해 말하기, 듣기, 읽기, 쓰기를 연습합니다.</p>
+  <b class="nb">다양한 독후활동</b>을 통해 말하기, 듣기, 읽기, 쓰기를 연습합니다.</p>
 
   <div class="skills">
     <div class="skill"><div class="sk">듣기</div><div class="sv">나레이션 · 낱말 음원 &mdash; 다섯 개 언어</div></div>
