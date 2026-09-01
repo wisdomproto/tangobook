@@ -51,6 +51,14 @@ const units = IDS.length
       .filter((f) => /^kr-h\d/.test(f) && f.endsWith('.json'))
       .map((f) => f.replace(/\.json$/, ''));
 
+// write-* 롱테일 블로그는 자체 스토리북이 없어(storybookId=write-*) 관련 유닛의 1쪽 삽화를 빌린다.
+const HERO_SOURCE = {
+  'write-consonant': 'kr-h1-u02',
+  'write-vowel': 'kr-h1-u01',
+  'write-batchim': 'kr-h2-u01',
+  'write-ssangjaeum': 'kr-h3-u01',
+};
+
 const s3 = new S3Client({
   region: 'auto',
   endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
@@ -127,8 +135,9 @@ for (const unit of units) {
     continue;
   }
 
-  // 스토리북 1쪽 삽화 URL
-  const sr = await fetch(`${API}/api/storybooks/${unit}`);
+  // 스토리북 1쪽 삽화 URL (write-* 는 관련 유닛에서 빌린다)
+  const srcUnit = HERO_SOURCE[unit] || unit;
+  const sr = await fetch(`${API}/api/storybooks/${srcUnit}`);
   if (!sr.ok) {
     console.warn(`[${unit}] ! 스토리북 로드 실패 ${sr.status}`);
     miss++;
