@@ -1,0 +1,46 @@
+{
+  "storybookId": "read-batchim",
+  "seo_title": "받침 읽기 — 소리 나는 대로 vs 쓰는 대로, 겹받침까지",
+  "primary_keyword": "겹받침",
+  "secondary_keywords": ["받침 읽기", "받침있는 글자", "겹받침 소리", "받침 소리", "한글 받침"],
+  "url_slug": "hangul-double-final-consonant-reading",
+  "meta_description": "받침은 글자와 소리가 다릅니다. ㄷ·ㅅ·ㅈ 받침이 모두 「ㄷ」 소리로 나는 이유와 겹받침 읽는 법을, 브라우저에서 직접 들으며 익혀 보세요.",
+  "sections": [
+    {
+      "text_html": "<h2>받침은 「쓰는 것」과 「읽는 것」이 다릅니다</h2><p>자음과 모음까지 배운 아이가 마지막에 부딪히는 벽이 <strong>받침</strong>입니다. 「가」는 쉽게 읽던 아이가 「간·갇·갓」 앞에서 멈춥니다. 받침은 글자로 쓴 모양과 실제 나는 소리가 <strong>다를 때가 많기</strong> 때문입니다.</p><p>예를 들어 <strong>낫·낮·낮·낟</strong>은 받침이 다 다른데 소리는 모두 「낟」입니다. 이런 규칙을 글로 설명하면 아이는 더 헷갈립니다. 받침은 <strong>소리로 먼저 익히고</strong>, 규칙은 나중에 자연스럽게 정리하는 것이 순서입니다.</p>",
+      "image_prompt": "needle-felt hangul syllable with final consonant",
+      "alt": "받침 있는 글자",
+      "caption": "쓰는 대로와 읽는 대로가 다르다"
+    },
+    {
+      "text_html": "<h2>받침 소리는 7가지로 모입니다</h2><p>받침에 쓰이는 자음은 여러 개지만, 실제로 나는 <strong>받침 소리는 7가지</strong>뿐입니다. 이것을 알면 받침이 훨씬 단순해집니다.</p><ul><li><strong>ㄱ 소리</strong>: ㄱ ㅋ ㄲ (책·부엌·밖)</li><li><strong>ㄴ 소리</strong>: ㄴ (산)</li><li><strong>ㄷ 소리</strong>: ㄷ ㅅ ㅈ ㅊ ㅌ ㅎ (곧·옷·낮·꽃·밭)</li><li><strong>ㄹ 소리</strong>: ㄹ (물)</li><li><strong>ㅁ 소리</strong>: ㅁ (봄)</li><li><strong>ㅂ 소리</strong>: ㅂ ㅍ (밥·앞)</li><li><strong>ㅇ 소리</strong>: ㅇ (강)</li></ul><p>「받침에 뭐가 오든 결국 이 7가지 중 하나로 들린다」는 것을 아이가 <strong>귀로</strong> 알아채면, 새 받침 글자를 만나도 당황하지 않습니다.</p>",
+      "image_prompt": "seven final consonant sounds grouped",
+      "alt": "받침 7종성",
+      "caption": "받침 소리는 7가지로"
+    },
+    {
+      "text_html": "<h2>겹받침은 「둘 중 하나」만 소리 납니다</h2><p>ㄳ ㄵ ㄼ ㄺ 처럼 자음이 두 개 붙은 <strong>겹받침</strong>은 더 어려워 보이지만, 규칙은 의외로 단순합니다. <strong>두 자음 중 하나만 소리</strong>가 납니다.</p><p>「닭」은 ㄺ이지만 「닥」으로, 「값」은 ㅄ이지만 「갑」으로 들립니다. 어느 쪽이 소리 나는지는 글로 외우기보다 <strong>낱말째로 여러 번 들어</strong> 익히는 편이 훨씬 자연스럽습니다. 겹받침이 든 낱말은 자주 쓰는 것부터(닭·값·앉다·읽다) 소리로 만나게 해 주세요.</p>",
+      "image_prompt": "double final consonant, one sound",
+      "alt": "겹받침 소리",
+      "caption": "둘 중 하나만 소리 난다"
+    },
+    {
+      "text_html": "<h2>이제 직접 들어볼까요</h2><p>받침은 <strong>귀로 익히는 것</strong>이 가장 빠릅니다. 아래에서 받침이 든 음절과 낱말을 <strong>눌러 소리를 들어</strong> 볼 수 있습니다. 「간」을 누르면 받침 ㄴ 소리가, 「곧·옷·낮」을 누르면 모두 같은 「ㄷ」 소리가 들립니다.</p><p>같은 소리로 들리는 글자들을 나란히 들어보면, 아이가 <strong>「아, 받침이 달라도 소리가 같네」</strong>를 스스로 알아챕니다. 규칙을 외우게 하지 말고, 이 순간을 귀로 경험하게 해 주세요.</p>",
+      "image_prompt": "interactive batchim listening activity",
+      "alt": "받침 소리 활동",
+      "caption": "직접 눌러 들어보세요"
+    },
+    {
+      "text_html": "<h2>받침은 낱말과 함께 익힙니다</h2><p>받침은 글자 하나만 떼어 연습하기보다 <strong>낱말 속에서</strong> 만날 때 오래 남습니다. 「산·물·밥·강」처럼 아이가 아는 사물의 이름에 받침이 들어 있으면, 소리와 뜻이 함께 붙어 기억이 단단해집니다.</p><p>동화책을 읽으며 받침 든 낱말을 만나는 것이 가장 자연스러운 방법입니다. 탱고북에서는 파닉스로 받침 소리를 익히고, 같은 낱말을 동화책에서 다시 만나며 <strong>「배운 받침이 이야기 속에 나오는」</strong> 경험으로 이어집니다.</p>",
+      "image_prompt": "batchim words appearing in a storybook",
+      "alt": "낱말 속 받침",
+      "caption": "낱말과 함께 익히기"
+    },
+    {
+      "text_html": "<h2>집에서 받침 익히는 법</h2><p>정리하면 이렇습니다.</p><ul><li><strong>소리 먼저, 규칙 나중</strong> — 7가지 받침 소리를 귀로</li><li><strong>같은 소리 나란히</strong> — 곧·옷·낮을 함께 들어보기</li><li><strong>겹받침은 낱말째</strong> — 닭·값을 통으로</li><li><strong>낱말 속에서</strong> — 아는 사물 이름으로</li></ul><p>탱고북 한글 파닉스에서는 받침이 든 음절과 낱말을 눌러 들으며, 소리 나는 대로 읽는 힘을 기를 수 있습니다. 받침 소리부터 귀로 시작해 보세요.</p>",
+      "image_prompt": "cozy home batchim learning scene",
+      "alt": "집에서 받침 익히기",
+      "caption": "소리부터 귀로"
+    }
+  ]
+}

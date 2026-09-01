@@ -57,6 +57,10 @@ const HERO_SOURCE = {
   'write-vowel': 'kr-h1-u01',
   'write-batchim': 'kr-h2-u01',
   'write-ssangjaeum': 'kr-h3-u01',
+  'read-consonant': 'kr-h1-u02',
+  'read-vowel': 'kr-h1-u01',
+  'read-batchim': 'kr-h2-u01',
+  'read-ganada': 'kr-h1-u02',
 };
 
 const s3 = new S3Client({
