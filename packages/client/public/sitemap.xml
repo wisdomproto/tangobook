@@ -6,537 +6,123 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.tangobook.co.kr/</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/phonics/korean</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/phonics/english</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h1-u01/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h1-u02/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h1-u03/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h1-u04/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h1-u05/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h1-u06/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h1-u07/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h1-u08/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h1-u09/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h1-u10/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h1-u11/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h1-u12/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h1-u13/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h1-u14/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h1-u15/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h2-u01/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h2-u02/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h2-u03/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h2-u04/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h2-u05/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h2-u06/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h2-u07/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h3-u01/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h3-u02/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h3-u03/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h3-u04/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h3-u05/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h4-u01/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h4-u02/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h4-u03/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h4-u04/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/korean/kr-h4-u05/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b1-u01/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b1-u02/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b1-u03/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b1-u04/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b1-u05/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b1-u06/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b1-u07/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b1-u08/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b2-u01/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b2-u02/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b2-u03/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b2-u04/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b2-u05/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b2-u06/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b2-u07/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b2-u08/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b3-u01/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b3-u02/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b3-u03/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b3-u04/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b3-u05/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b3-u06/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b3-u07/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b4-u01/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b4-u02/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b4-u03/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b4-u04/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b4-u05/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b4-u06/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b4-u07/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b4-u08/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b5-u01/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b5-u02/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b5-u03/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b5-u04/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b5-u05/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b5-u06/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b5-u07/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.tangobook.co.kr/library/phonics/english/en-b5-u08/about</loc>
-    <lastmod>2026-08-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://www.tangobook.co.kr/vocabulary</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/blog</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/guide/classics</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/guide/nature</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/en/guide/classics</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/en/guide/nature</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vi/guide/classics</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vi/guide/nature</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/zh/guide/classics</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/zh/guide/nature</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/th/guide/classics</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/th/guide/nature</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-consonant-writing-order</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-vowel-writing-order</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-batchim-writing</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.tangobook.co.kr/blog/hangul-ssangjaeum-writing</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/blog/hangul-vowel-wo-we-ui-teaching</loc>
@@ -7168,31 +6754,31 @@
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1772181399388/about</loc>
-    <lastmod>2026-08-12</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image><image:loc>https://assets.tangobook.co.kr/1772181399388-인어공주-cover-misc-1778645683886.webp</image:loc></image:image>
+    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1772181399388-인어공주-cover-misc-1787923795196.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/vi/library/1772181399388/about</loc>
-    <lastmod>2026-08-12</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://assets.tangobook.co.kr/1772181399388-인어공주-cover-misc-1778645683886.webp</image:loc></image:image>
+    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1772181399388-인어공주-cover-misc-1787923795196.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/zh/library/1772181399388/about</loc>
-    <lastmod>2026-08-12</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://assets.tangobook.co.kr/1772181399388-인어공주-cover-misc-1778645683886.webp</image:loc></image:image>
+    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1772181399388-인어공주-cover-misc-1787923795196.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/th/library/1772181399388/about</loc>
-    <lastmod>2026-08-12</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://assets.tangobook.co.kr/1772181399388-인어공주-cover-misc-1778645683886.webp</image:loc></image:image>
+    <image:image><image:loc>https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1772181399388-인어공주-cover-misc-1787923795196.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.tangobook.co.kr/library/1772182206245/about</loc>
