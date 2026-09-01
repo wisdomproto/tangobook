@@ -23,6 +23,7 @@ const HUB_DEMO_UNIT: Record<string, string> = {
   'hub-batchim': 'kr-h2-u01',
   'hub-ssangjaeum': 'kr-h3-u01',
   'hub-order': 'kr-h1-u01',
+  'hub-hangul-home': 'kr-h1-u01',
 };
 
 /**

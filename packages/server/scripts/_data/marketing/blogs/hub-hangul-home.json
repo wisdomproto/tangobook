@@ -1,0 +1,52 @@
+{
+  "storybookId": "hub-hangul-home",
+  "seo_title": "한글 떼기, 집에서 시작하기 — 순서·시기·방법 총정리",
+  "primary_keyword": "한글공부",
+  "secondary_keywords": [
+    "한글떼기",
+    "한글 공부 순서",
+    "집에서 한글",
+    "한글 가르치는 법",
+    "유아 한글"
+  ],
+  "url_slug": "how-to-teach-hangul-at-home",
+  "meta_description": "한글은 자음·모음 소리 → 글자 조합 → 받침 순서로 익힙니다. 집에서 한글 떼는 순서와 시기, 소리로 익히는 방법을 한 번에 정리했습니다.",
+  "sections": [
+    {
+      "text_html": "<h2>한글 떼기, 어디서부터 시작할까요</h2><p>「우리 아이 한글 언제, 어떻게 시작하지?」 — 많은 부모님이 막막해하는 지점입니다. 학습지를 사야 할지, 통글자로 외우게 할지, 자음부터 할지 고민이 많습니다.</p><p>결론부터 말하면, 한글은 <strong>소리로 배우는 것</strong>이 가장 빠르고 오래갑니다. 통글자 암기는 아는 글자만 읽게 하지만, 소리를 익힌 아이는 <strong>배우지 않은 글자도 스스로 읽어냅니다.</strong> 이 글에서는 집에서 한글 떼는 순서와 방법을 처음부터 정리합니다.</p>",
+      "image_prompt": "cozy home hangul learning overview",
+      "alt": "집에서 한글 떼기",
+      "caption": "소리로 배우는 한글"
+    },
+    {
+      "text_html": "<h2>순서: 소리 → 글자 → 받침</h2><p>한글 학습에는 자연스러운 순서가 있습니다.</p><ol><li><strong>자음·모음 소리</strong> — ㄱ은 「그」, ㅏ는 「아」. 이름(기역)이 아니라 소리부터</li><li><strong>글자 조합</strong> — 소리를 이어붙여 「가·나·다」 만들기</li><li><strong>받침</strong> — 「간·물·밥」. 글자와 소리가 달라 마지막에</li></ol><p>이 순서를 건너뛰면 아이가 헤맵니다. 받침부터 들이대거나, 소리 없이 통글자만 외우면 읽기가 늦어집니다. <strong>소리 → 글자 → 받침</strong>, 이 흐름만 지켜도 절반은 성공입니다.</p>",
+      "image_prompt": "three-step hangul learning path",
+      "alt": "한글 학습 순서",
+      "caption": "소리 → 글자 → 받침"
+    },
+    {
+      "text_html": "<h2>시기: 아이가 글자에 관심을 보일 때</h2><p>「몇 살에 시작하나요?」 정답은 <strong>나이가 아니라 관심</strong>입니다. 대개 <strong>4~6세</strong>에 간판·책 표지의 글자를 「이거 뭐야?」 하고 묻기 시작하는데, 그때가 시작 신호입니다.</p><p>중요한 건 <strong>놀이처럼</strong> 하는 것입니다. 하루 5~10분, 소리를 눌러 듣고 따라 하는 정도면 충분합니다. 억지로 앉혀 오래 시키면 글자 자체를 싫어하게 됩니다. 짧고 즐겁게, 매일 조금씩이 정답입니다.</p>",
+      "image_prompt": "child curious about letters",
+      "alt": "한글 시작 시기",
+      "caption": "나이보다 관심"
+    },
+    {
+      "text_html": "<h2>이제 직접 해볼까요</h2><p>한글은 설명보다 <strong>직접 소리를 듣고 눌러보는</strong> 것이 빠릅니다. 아래에서 자음과 모음을 눌러 소리를 들어보고, 두 글자가 합쳐져 음절이 되는 순간까지 체험할 수 있습니다.</p><p>아이와 함께 하나씩 눌러보세요. 「이 글자는 이런 소리구나」를 귀로 확인하는 것, 그것이 한글 떼기의 진짜 시작입니다.</p>",
+      "image_prompt": "interactive hangul activity",
+      "alt": "한글 활동",
+      "caption": "직접 눌러보세요"
+    },
+    {
+      "text_html": "<h2>주제별로 하나씩 — 자음·모음·받침·가나다</h2><p>단계별로 더 자세히 익히고 싶다면, 주제별 글을 참고하세요. 각 글에는 <strong>브라우저에서 바로 해보는 활동</strong>이 들어 있습니다.</p><ul><li><strong>소리로 읽기</strong>: <a href=\"/blog/hangul-consonant-sounds\">자음 소리 배우기</a> · <a href=\"/blog/hangul-vowel-sounds\">모음 배우기</a> · <a href=\"/blog/hangul-double-final-consonant-reading\">받침 읽기</a> · <a href=\"/blog/hangul-ganada-order\">가나다 배우기</a></li><li><strong>손으로 쓰기</strong>: <a href=\"/blog/hangul-consonant-writing-order\">자음쓰기 순서</a> · <a href=\"/blog/hangul-vowel-writing-order\">모음쓰기 순서</a> · <a href=\"/blog/hangul-batchim-writing\">받침쓰기</a> · <a href=\"/blog/hangul-ssangjaeum-writing\">쌍자음쓰기</a></li></ul><p>읽기와 쓰기를 함께 하면 소리와 손이 서로를 도와 훨씬 단단하게 자리 잡습니다.</p>",
+      "image_prompt": "map of hangul subtopics",
+      "alt": "한글 주제별 안내",
+      "caption": "읽기와 쓰기 함께"
+    },
+    {
+      "text_html": "<h2>집에서 한글 떼기, 정리</h2><p>마지막으로 핵심만 정리합니다.</p><ul><li><strong>소리부터</strong> — 이름(기역)이 아니라 소리(그)로</li><li><strong>순서대로</strong> — 소리 → 글자 조합 → 받침</li><li><strong>짧고 즐겁게</strong> — 하루 5~10분, 놀이처럼</li><li><strong>읽기와 쓰기 함께</strong> — 귀와 손이 서로를 돕게</li></ul><p>탱고북 한글 파닉스는 32단원 전부 무료로 열려 있고, 각 단원에서 소리를 눌러 듣고 직접 써보며 익힐 수 있습니다. 배운 글자는 동화책에서 다시 만나 「읽는 재미」로 이어집니다. 집에서 오늘부터 시작해 보세요.</p>",
+      "image_prompt": "cozy home hangul learning conclusion",
+      "alt": "집에서 한글 떼기 정리",
+      "caption": "오늘부터 시작"
+    }
+  ]
+}
