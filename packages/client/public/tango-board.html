@@ -25,6 +25,10 @@
   .stage { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
   .controls { display: flex; gap: 8px; }
   .trays { display: flex; flex-direction: column; gap: 6px; }
+  /* PC(넓은 화면) — 자음·모음 트레이를 한 줄에 나란히 */
+  @media (min-width: 641px) {
+    .trays { flex-direction: row; gap: 28px; align-items: flex-start; }
+  }
   .tray-group h2 { font-size: 13px; margin: 0 0 6px; color: #888; font-weight: normal; }
   .tap-hint { color: #bbb; font-size: 11px; }
 
@@ -572,7 +576,7 @@ function makeBlockEl(id, rotDeg, px) {
   return el;
 }
 // 획 두께 / 칸 — 실측 16px / 18.3px. 칸을 꽉 채우면(1.0) 실물보다 굵어 보인다.
-var STROKE = 0.87;
+var STROKE = 0.58;
 function paintBlock(el, id, rotDeg, px) {
   var sh = BLOCKS[id].byRot[rotDeg], sw = px * STROKE;
   var svg = '<svg width="' + (sh.w * px) + '" height="' + (sh.h * px) + '">';
