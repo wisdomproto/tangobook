@@ -1320,6 +1320,7 @@ var TUNE = {
   legoScore: 'iou',              // 'iou' = 넓이 겹침(주) · 'corr' = 상관
   legoTieGap: 0.06,              // 1·2위 겹침 차이가 이보다 작으면 상관으로 다시 겨룬다
   legoTieMargin: 0.05,           // 상관이 **비율로** 이만큼 앞서야 뒤집는다
+  legoChroma: 'lab',             // 'lab' = Lab 의 b*(파랑–노랑) · 'sat' = HSV 채도
   legoCloseRect: 1,              // 1 = 닫기 커널을 사각으로(분리 가능 → 훨씬 싸다)
   legoWallCut: 1,                // 1 = 덩어리마다 V 를 갈라 **옆벽**을 뗀다(0=끔)
   legoShadowFill: 0.40,          // 돌기 그림자를 메우는 닫기 커널(칸 배수) — 0 이면 안 메운다
@@ -2485,8 +2486,22 @@ function recognizeLegoDirect(){
     var ch3 = M(new cv.MatVector()); cv.split(hsv, ch3);
     var sat = M(ch3.get(1)), val = M(ch3.get(2));
     var vd = val.data;                       // 옆벽 떼기에 쓴다
+    /* 🔴 전경을 가르는 자는 **채도가 아니라 Lab 의 b\*(파랑–노랑 축)**다.
+          조명이 강하게 닿은 조각은 **과다 노출로 색이 날아가** 채도가 판 수준까지
+          떨어진다 — 실측: 날아간 ㄱ 의 채도가 회색 판과 같아서 Otsu 가 통째로 버렸고,
+          그 ㄱ 이 실오라기만 남아 ㅠ 로 읽혔다.
+          그래도 **누런 기는 남는다**: 판은 파르스름하고(B≥R) 날아간 노랑은 R>B 다.
+          b* 는 정확히 그 축을 재므로 쨍한 노랑과 날아간 노랑을 **함께** 잡는다.
+          (a* 나 색상 H 는 못 쓴다 — 흰빛에 가까워지면 각이 불안정하다.) */
+    var chroma = sat;
+    var labM = null, ch4 = null;
+    if (TUNE.legoChroma === 'lab'){
+      labM = M(new cv.Mat()); cv.cvtColor(rgb, labM, cv.COLOR_RGB2Lab);
+      ch4 = M(new cv.MatVector()); cv.split(labM, ch4);
+      chroma = M(ch4.get(2));                // b* — 128 이 무채색
+    }
     var bin = M(new cv.Mat());
-    cv.threshold(sat, bin, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU);
+    cv.threshold(chroma, bin, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU);
     /* 어두운 데서는 채도가 못 믿을 값이 된다 — 밝기 바닥 하나. */
     var lit = M(new cv.Mat());
     cv.threshold(val, lit, TUNE.legoVMin, 255, cv.THRESH_BINARY);
