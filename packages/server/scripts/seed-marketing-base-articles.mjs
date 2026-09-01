@@ -13,7 +13,9 @@ const ART_DIR = path.join(__dir, '_data', 'marketing', 'base-articles');
 const PROJECT_NAME = '탱고북 동화책';
 
 function parseArgs(argv) {
-  const args = { owner: 'kil210@tangobook.co.kr', ids: null, all: false, dryRun: false };
+  // 🔴 seed-marketing-blogs 와 같은 계정이어야 한다 — 다르면 기본글이 격리 계정에 실려
+  //    블로그 시드가 "content 없음" 으로 실패한다(2026-08-21 재발).
+  const args = { owner: 'kil210@gmail.com', ids: null, all: false, dryRun: false };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--all') args.all = true;
