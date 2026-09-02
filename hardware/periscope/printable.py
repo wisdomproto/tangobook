@@ -239,6 +239,15 @@ def tongue():
     leaf = (cq.Workplane("YZ").workplane(offset=-TONGUE_W / 2)
             .polyline(curve(0.0) + list(reversed(curve(TONGUE_T))))
             .close().extrude(TONGUE_W))
+
+    # 🔴 **끝을 만다.** 실물 오스모 혀는 자유단이 둥글게 말려 있고, 우리 건 0.8mm
+    #    **날 그대로** 폰 등을 눌렀다 — 자국이 난다. 사진과 나란히 놓고서야 보였다.
+    #    앞으로 나온 정도(GRIP_FREE)는 그대로 두려고, 원기둥 중심을 반지름만큼 뒤에 둔다.
+    lip_r = TONGUE_T + 0.5
+    leaf = leaf.union(cq.Workplane("YZ").workplane(offset=-TONGUE_W / 2)
+                      .center(GRIP_FREE + lip_r, TONGUE_BOT)
+                      .circle(lip_r).extrude(TONGUE_W))
+
     for sx in (-1, 1):
         leaf = leaf.union(cq.Workplane("YZ").workplane(offset=sx * TONGUE_W / 2)
                           .center(y_chord, z_top).circle(PIN_D / 2)
